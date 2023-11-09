@@ -4,61 +4,146 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EE2E9C4167B
-	for <intel-gfx@archiver.kernel.org>; Thu,  9 Nov 2023 19:59:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 76100C4332F
+	for <intel-gfx@archiver.kernel.org>; Thu,  9 Nov 2023 20:02:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AC26A10E8FF;
-	Thu,  9 Nov 2023 19:59:55 +0000 (UTC)
-Received: from mail-ed1-x52b.google.com (mail-ed1-x52b.google.com
- [IPv6:2a00:1450:4864:20::52b])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5AD1910E340;
- Mon,  6 Nov 2023 14:57:45 +0000 (UTC)
-Received: by mail-ed1-x52b.google.com with SMTP id
- 4fb4d7f45d1cf-544455a4b56so3516749a12.1; 
- Mon, 06 Nov 2023 06:57:45 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1699282664; x=1699887464; darn=lists.freedesktop.org;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=ehVrC+1P8e5AEmYrp4ZCeRLJM0fpVHdaJr9KAfopYRg=;
- b=B/LzDqY8OTT47fSVrExD54MR1as60CM1oDLdOL+bSnTrUKSeFfgiJl3ZpzKpG/iSsH
- zkMIQypRCtfYglLZmGUKZAPO0uxBWYhIMDFJZjygF13XADwbuJ60gUsHcrGccT9FJs+2
- i7fyOsO5VBNc3/6h4Zc1pSdqDmwpv4mxW1AzGY/TObNtw4Bs6nZ2BqwjAURfnG6JKM5d
- Jdzj5r23u+mwdVv2pDQGYTfpYRn9n0a9OffKAxUSl3jD/J8tmhWsqf3k10RfBHqVX3D+
- tTxAnAw76R31hncl8qA6V46yd2bG2TCcaacVAh/v6PwIisSfogI+FKTCQbWL3m1ne12P
- Uo5w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1699282664; x=1699887464;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=ehVrC+1P8e5AEmYrp4ZCeRLJM0fpVHdaJr9KAfopYRg=;
- b=iv1ZMIaT5ID3soskROheNmF5vUcCet273+iQFBUhB3Q5M5vh0A0pQdDTMCfig6fL9J
- BWZ5CksPObpO7kOzEd1pPirV3z84M8Oulk8cfjxToyiCh2nHoXByjg1A4GVtyf4afYSa
- +QiFgSs8aN4cooM4yIR8OcPWwi0/zrjMGiCMLrI29W26SzzvGMWkFAvfBB6bjRuefgSz
- uiCcoAmiOAXxzWYpmtEn9aWcJ9RBgjLh5Ca+OX7fPPIeMqRWQIj1430SOmVLpt60KpLX
- 3ZFTIuhPVyGvkPSPoH7FAXUH1JIGJkXuclUVmuX3p5agx7FHmCQ+mAPW55GujPlhhfjc
- ab8g==
-X-Gm-Message-State: AOJu0YzeRfiQTFhEuzI8uVbIiDQqj2e2gicJ+DJZgGQ+QyQWbpIjULV6
- 002dSkLZuE1+z3QRouqsobpDOVH2MgG8MysjOSc=
-X-Google-Smtp-Source: AGHT+IFyTv/H4PrYKF0fWcdKoQ6kH+86VkYrm/Xp8DktmWlwAYZry8O4lIUBodarPv3n9W8TJWHIIA+ILxbIR7lSfAk=
-X-Received: by 2002:a05:6402:299:b0:53f:731a:e513 with SMTP id
- l25-20020a056402029900b0053f731ae513mr22341941edv.25.1699282663498; Mon, 06
- Nov 2023 06:57:43 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B921810E8FD;
+	Thu,  9 Nov 2023 20:02:20 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [134.134.136.65])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C49AE10E8FD;
+ Thu,  9 Nov 2023 20:02:18 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1699560138; x=1731096138;
+ h=message-id:date:subject:to:cc:references:from:
+ in-reply-to:content-transfer-encoding:mime-version;
+ bh=hTRoSgSfArQnKvNgBo+DkHhLRo3/CwYYBoEVgHTNiew=;
+ b=Zz2sgpZZYNbFIujHUAU81mImaO+h6aA6j+NHPMeyM8lE7LtQY353cUDd
+ rZNGwpcSsotlia2ryBgXSVeBnG7bwJNO3RBiuN4yH9B1B19sjIWmKCgXh
+ e0a6hHhb1uQpM9P7r9uXLXHaI3LAl+Ezv6LtDx16lxevDejMfQrBtag0Y
+ qwEtmA/ZT7TQd6mYaIAWf+pcVREYOULpDw5yGbTSNR5J2rbUCnNiKmxcd
+ 7WDbFObHKa4wCmVGOVs+/PawUAZjjOfFjrNGMz2IOGWWvfuKUt4KTmtrE
+ wMduOTxU3edXbLIcgK8YZGJKFMrnjG7p5tZtJ0m4NXmU9p9UL8OzfSowL w==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10889"; a="393974125"
+X-IronPort-AV: E=Sophos;i="6.03,290,1694761200"; d="scan'208";a="393974125"
+Received: from fmsmga002.fm.intel.com ([10.253.24.26])
+ by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 09 Nov 2023 12:02:18 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6600,9927,10889"; a="880713288"
+X-IronPort-AV: E=Sophos;i="6.03,290,1694761200"; d="scan'208";a="880713288"
+Received: from fmsmsx601.amr.corp.intel.com ([10.18.126.81])
+ by fmsmga002.fm.intel.com with ESMTP/TLS/AES256-GCM-SHA384;
+ 09 Nov 2023 12:02:13 -0800
+Received: from fmsmsx611.amr.corp.intel.com (10.18.126.91) by
+ fmsmsx601.amr.corp.intel.com (10.18.126.81) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2507.34; Thu, 9 Nov 2023 12:01:42 -0800
+Received: from fmsedg601.ED.cps.intel.com (10.1.192.135) by
+ fmsmsx611.amr.corp.intel.com (10.18.126.91) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2507.34 via Frontend Transport; Thu, 9 Nov 2023 12:01:42 -0800
+Received: from NAM12-BN8-obe.outbound.protection.outlook.com (104.47.55.169)
+ by edgegateway.intel.com (192.55.55.70) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.1.2507.34; Thu, 9 Nov 2023 12:01:31 -0800
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=di55xt8l8e4zkJ3lkC1r6bpsTPT5O7Rv/q7Ea6DhVCGCou6H8XLZw856bDet54/Yqc0Pwgdc8F6Y+e40RpdlNRs4+XL6j1tdJGe0E1K8u+94Qf0s4D8YjybsToww16MRJE/HdxOtl0zQvRy8c7x7+t0jkWj2FLhXRteO+bFiQhWVTaPxm4P9tsO4FlMGDpjIf+4AiuqKe/T7lD6ZqfGv5GSI9lQeTlIzfJQNMGyqW8fLnZ7VSJvmd2/KIhJctn0Pe/6RKrIqaAOX96QOAwEUWituNm9Vk0V649gW8VR4aVlhy7IP1Av+hG3ejdrhn+weIPEWB+6Hk/TdaSMDSckCMw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=e7+pPSOSToidOKxR7gC9NOm1RR7msvR5XcuvSXtdUuo=;
+ b=ir9RTgTusvgLrp6B/r/KGtZAh7FgX3hUrKWrPx1hD62FbXNqW7szFG6A3j6S9EMnqkSJAV84OW2RwS010xrzbS5SejemWvDT3fZ4iVnWxPIP38y2jQ3VuPdDSls7eW92lZk/0SfpWblnXRJS5Cv4XpEyKWbn2gCtEE2QX8YzvyfpCt4YIj2oTxypQTM3ntoh6K9KlaCNiRTFxJu3kVWuM6H/FupVqTIXniYCDQ7gQCFIUmdAnarxEfAPkfziKyLlZ70n3kGt/hncuANlt/voXnoWVFS61ZKZNhFk9j0pD4jK9rhGA/7Nxbm+qw/hvAbPUvgDO4ClZgV1Wkm9dXR4bw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+Received: from BY5PR11MB4274.namprd11.prod.outlook.com (2603:10b6:a03:1c1::23)
+ by SN7PR11MB6701.namprd11.prod.outlook.com (2603:10b6:806:26b::11)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6977.19; Thu, 9 Nov
+ 2023 20:01:29 +0000
+Received: from BY5PR11MB4274.namprd11.prod.outlook.com
+ ([fe80::16a8:c3ae:ef16:3d13]) by BY5PR11MB4274.namprd11.prod.outlook.com
+ ([fe80::16a8:c3ae:ef16:3d13%6]) with mapi id 15.20.6977.018; Thu, 9 Nov 2023
+ 20:01:29 +0000
+Message-ID: <72f09667-24d5-403a-ba9a-3465c681fec3@intel.com>
+Date: Thu, 9 Nov 2023 12:01:26 -0800
+User-Agent: Mozilla Thunderbird
+Content-Language: en-US
+To: =?UTF-8?B?VmlsbGUgU3lyasOkbMOk?= <ville.syrjala@linux.intel.com>
+References: <20231109192148.475156-1-vinay.belgaumkar@intel.com>
+ <ZU0zYaFkpZJoUcZE@intel.com>
+From: "Belgaumkar, Vinay" <vinay.belgaumkar@intel.com>
+In-Reply-To: <ZU0zYaFkpZJoUcZE@intel.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: CY5PR15CA0160.namprd15.prod.outlook.com
+ (2603:10b6:930:67::28) To BY5PR11MB4274.namprd11.prod.outlook.com
+ (2603:10b6:a03:1c1::23)
 MIME-Version: 1.0
-References: <CAGWvnynOWoKT1EWkL8ELfRVxSUjm-hBQnnjb-w2Gq-tmOFm0Hg@mail.gmail.com>
- <1807db8f-2ba6-0838-1d4c-39ff4cb7a34d@linux.intel.com>
- <uqzfduftpqlq35pdndovsqtmksjpxr5ei2utz45lwjhnsgchxh@grbzyctiig7w>
- <bd34dffe-86ba-bf1a-b12f-33611da0a7ca@linux.intel.com>
- <5lfrhdpkwhpgzipgngojs3tyqfqbesifzu5nf4l5q3nhfdhcf2@25nmiq7tfrew>
-In-Reply-To: <5lfrhdpkwhpgzipgngojs3tyqfqbesifzu5nf4l5q3nhfdhcf2@25nmiq7tfrew>
-From: David Edelsohn <dje.gcc@gmail.com>
-Date: Mon, 6 Nov 2023 09:57:32 -0500
-Message-ID: <CAGWvnykNuRg=ryONaSg5-dbP-gngGeOb3Nq1Vfq56M824E3Xdg@mail.gmail.com>
-To: Maxime Ripard <mripard@kernel.org>
-Content-Type: multipart/alternative; boundary="00000000000087e66206097d1308"
-X-Mailman-Approved-At: Thu, 09 Nov 2023 19:59:52 +0000
-Subject: Re: [Intel-gfx] [PULL] drm-misc-next
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BY5PR11MB4274:EE_|SN7PR11MB6701:EE_
+X-MS-Office365-Filtering-Correlation-Id: 50870430-7c48-4832-6602-08dbe15ea98b
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: b/+8mZDwta9u9wZy84hINQma7Rq8G7ClqafIb9RzPDO64H43fWf/1eKQKVRQw2cuCMusvV1VXc7/w5cy4qhGAos86GNmtR/kJYPuHCubMZGzvJSAgfiOfqsVoAOcdMC59DmqoKZBTXuc8cQkQnmQWgapkNz+df+4ilzjHJBZg2vwmPQGDS3Uh2h8jai5uZ8daL0fuwX/1kr4wirHLNLeteJZQe6x8tEFfFxkSlz8tm9mRURz7s3/d+y62Gcw71lhPeFEgfuLFe350Hy8/zVYHMUw93ZdRy5tzSc6x1vFVKqEygYv5GBoDs96xUOcyN81PCP3+znC4lSfnQUxRUSM/BLfLDa2JOqt7g9BKIpw3WXeHfMBWeXQDa7EKkb4iiUPzzEmR1vKyAgihK6YBxB/jReHHaMmF8RAYhGoHbyl009kkEN/W2njWiqIJ2GXUE6tCLutdm5Wxe/LAl2RMoWP0Ji4eE/wAe+P8GMTIIZ4S+CN8I7eMC5ENBAMqETwo07uhkDWINJNbklUlSpJvM3lqOdUv0aJL/hBCr1UgJZ08Q8T3bnNuVxGiL2Mu2mSDXdspkfQch2QnOaxmZAQRnPuesnGvsTmenvi7K2HJTSyfUXvgrWf5XF+BeJlZZ4qZ5KY2+VMJfTo+y3qY94ZCeGNjw==
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BY5PR11MB4274.namprd11.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230031)(366004)(39860400002)(376002)(396003)(346002)(136003)(230922051799003)(1800799009)(186009)(64100799003)(451199024)(2616005)(6512007)(53546011)(6506007)(4326008)(8676002)(8936002)(478600001)(6666004)(31686004)(83380400001)(66574015)(26005)(6486002)(316002)(66556008)(66946007)(6916009)(66476007)(86362001)(36756003)(5660300002)(31696002)(38100700002)(2906002)(41300700001)(82960400001)(43740500002)(45980500001);
+ DIR:OUT; SFP:1102; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?SDNpQWxQdDV2cFlZbGZYcFpoYWpNNFIxZDJjMCtXVHZ2WG5iRWtWNk5lY3FN?=
+ =?utf-8?B?UmN3cUJBQTZrbHJES1lCSEt2NXdIZUlzY2NFY3FRUEtsSTZGSXhIelZrL3Q4?=
+ =?utf-8?B?ZUxaQXE4QlpQQ1J6VmQ0TmRrWm1NN1Y4YTNDTEp6VDZRTFE5bndLME14Rkho?=
+ =?utf-8?B?OVFRUVRiWENXTjhlSHF5Mjg2L1hLd0YwZXhLQ3d2QllRSkx3bzExaU56WjB2?=
+ =?utf-8?B?OVM2bzQyR3M1enMvQlFyNGFCRVNmZXlpWWxsRmo1WUNtTUhoUDBob05CY2M2?=
+ =?utf-8?B?Tm1MYncxYm1Cbk8welBoNlRVSkw1RkRZSi8rT213RGhKSkZpWnVRdG0wMWpQ?=
+ =?utf-8?B?V0pINVQrQUtLWk5jOVpJRXBRbFJzd1p1NXNpdlRUTUFOemx4M3dhV0JZK3pE?=
+ =?utf-8?B?S1VJWkVvdmtwei93b0d4ejdLTlNyYWNVdmZyUzhFMi85RmcvaFYzWXRDQnFr?=
+ =?utf-8?B?dE1GdlhHaEsxY09hVklEUitXaHlURENidS93UDB5ZHBCUkVuZHFZNkgzY3hh?=
+ =?utf-8?B?Y0FqV1ErL01YdGJ5RUNCQ1k1bFROam9uYlhGelJnQVFrZUpBaFN1Rmo0Y2RH?=
+ =?utf-8?B?WkdINm5xdXNISmNldUp5UDFXeE9wb0lITWlOOE1kckxROFFwNUlIKzFqVWNo?=
+ =?utf-8?B?cGQ4ZExlQUxnSFhuS2lWdUVoTFQzVHdrejV1b3h2OW0wRjJlandUREVtd3lh?=
+ =?utf-8?B?dE1qNWRIMGJCOEgwSFZxWkQ5RU14YkUyRWIxZWRWb04xREx6S0swNzZNbm5C?=
+ =?utf-8?B?VGlieWkxZnJJVTFuemJhMEN0akdsMXZMcXI2bWl0NDh3NXFOdWlTQVhhU0tO?=
+ =?utf-8?B?T3lJWkV4YWtqSnczeWJrV01ORSszSXZ1eGZLQUtRL1NQMVJTSXJ4cUZtalBC?=
+ =?utf-8?B?MDd3TVphK3lTaWFVeDNQY0R4aG9ZM0RLYmVTVHF1YlRYeEtoZjN0K00wWm1a?=
+ =?utf-8?B?OEtJUEhLTTNsRjB4clNOaWNYNDMwK1JrZmNkRk5XUmxtZDhRT2p5cjJwS3lM?=
+ =?utf-8?B?RnEzTzBVZTVlMjdLdGlIdmlYc3NVbTRwQ2xBLzBHWjZVZGNBVzdvRzBlS0hT?=
+ =?utf-8?B?Y0txc2VmSW1YSTJxdUJlSm9WR2VqWXdzcXIwZm1yRTdSZkFSUlRReTEyZDNh?=
+ =?utf-8?B?dVpDUTRjZTFpL2RjQ2VFeWRhdFJmU3ZqakpSMFJrc01hdlNka20zODU1dVdl?=
+ =?utf-8?B?Wm9TaEt5cDZ0Rm5jbDhlTTg0alNoS0I0VUY1a2c2WDNxVGlrK2NWaEwxTjJJ?=
+ =?utf-8?B?Q1FDTDdaQWlkVEtwd1VNRDhhRUh3WmhBS3VxSWU5Tng0VXhDUFJSUTFuWDJI?=
+ =?utf-8?B?a25oSnBSOVIrNmhaeXovZkNZdDlIUWVpYXczQU5KSkUxU2orL0pQQ053bXlz?=
+ =?utf-8?B?QXFINjZENkxDRGVXOVBUTDUxWWxuOVRxV2lUeS9wMVR4UUN0eDdKbG9PSnl2?=
+ =?utf-8?B?Y0JES3BHZFZycER6WmcvQ2oyc0NXTDR1Qms1ZUVqWGFUVytRYzdmbkNIcjB1?=
+ =?utf-8?B?OE9QTHYzVDBIZEtCM0dEMTJ2cThteHZCbmJSWnJBNjlWV1lXQlJmVjd2cXFw?=
+ =?utf-8?B?Y3A3SU93KzJJWjhuTEpZSGE0OUg5ejlURk15WE5tRWcrUSt5dThsalhwZ1lJ?=
+ =?utf-8?B?QVYvZlZCK0hXZ3FJSDEvc1pQaitXNVRITmh1M1dmbkk2WnpyWGEwTFBybG5N?=
+ =?utf-8?B?RkkvN0tndkU5V1BZcE5sc1lvdDNlMDFhb28rblNiaG9ZUnBUMkRmdkE4cGg2?=
+ =?utf-8?B?OERNUnZtenNGa3ZCVHExMTF6WmRQTVNRdyt0b2J2QlRhUm44TkFtb3IvVVUx?=
+ =?utf-8?B?cXZPRGxqclYxancvemoydUNIL2pIajhnVDB5dEQxdDQyR05xUzI2c2xWVlZy?=
+ =?utf-8?B?UTdweDlLM3ljNVFnM0dXeERzYm5iNU1XQ2xiQUUrOVdGU1RGYk1hcTNLTHJo?=
+ =?utf-8?B?Tm4rWkJhbjNQQnBRV3B2REZ0WUNRUXhJQlRNZHVpZy9TTHRiNktOQisrKzVv?=
+ =?utf-8?B?U1M3endSQW51TUtLVE4vZmRCQ2E0djcxQTE2MjE5OEMwK041eXpMUi9ZVG9n?=
+ =?utf-8?B?bnNocEsxdkF6WngzSGp1R1BPYXd2Qi9NaU1tTTVOTUN2amE3TU52NjhRT2s3?=
+ =?utf-8?B?UkpqeklQdkxZUkh2bjJ3SnU5Qzc1STdGeTBZTjdSVExIRTJadUxFYnRFMDBL?=
+ =?utf-8?B?aFE9PQ==?=
+X-MS-Exchange-CrossTenant-Network-Message-Id: 50870430-7c48-4832-6602-08dbe15ea98b
+X-MS-Exchange-CrossTenant-AuthSource: BY5PR11MB4274.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Nov 2023 20:01:29.1810 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: IOIn7INUrNlCGQE9OEBpSsxrkN8X0k2b9UfXb4D/rFHeoySu4S+R/acgukAdnm+nbDBAt/6vmvM61Nyx2ZvbUL9YFzoGdamll8zQ1RCTr70=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR11MB6701
+X-OriginatorOrg: intel.com
+Subject: Re: [Intel-gfx] [PATCH] drm/i915: Read a shadowed mmio register for
+ ggtt flush
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,205 +156,47 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: =?UTF-8?Q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
- dim-tools@lists.freedesktop.org, Daniel Vetter <daniel.vetter@ffwll.ch>,
- intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- Thomas Zimmermann <tzimmermann@suse.de>, Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Dave Airlie <airlied@gmail.com>
+Cc: intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
---00000000000087e66206097d1308
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-On Mon, Nov 6, 2023 at 5:55=E2=80=AFAM Maxime Ripard <mripard@kernel.org> w=
-rote:
+On 11/9/2023 11:30 AM, Ville Syrjälä wrote:
+> On Thu, Nov 09, 2023 at 11:21:48AM -0800, Vinay Belgaumkar wrote:
+>> We read RENDER_HEAD as a part of the flush. If GT is in
+>> deeper sleep states, this could lead to read errors since we are
+>> not using a forcewake. Safer to read a shadowed register instead.
+> IIRC shadowing is only thing for writes, not reads.
 
-> On Mon, Nov 06, 2023 at 11:37:34AM +0100, Thomas Hellstr=C3=B6m wrote:
-> > On 11/6/23 11:20, Maxime Ripard wrote:
-> > > On Mon, Nov 06, 2023 at 11:01:51AM +0100, Thomas Hellstr=C3=B6m wrote=
-:
-> > > > Hi, David.
-> > > >
-> > > > On 11/3/23 17:37, David Edelsohn wrote:
-> > > > > Dual-license drm_gpuvm to GPL-2.0 OR MIT.
-> > > > > diff --git a/drivers/gpu/drm/drm_gpuvm.c
-> b/drivers/gpu/drm/drm_gpuvm.c
-> > > > > index 02ce6baacdad..08c088319652 100644 ---
-> > > > > a/drivers/gpu/drm/drm_gpuvm.c <
-> https://cgit.freedesktop.org/drm/drm-misc/tree/drivers/gpu/drm/drm_gpuvm.=
-c?id=3D6f2eeef4a0aa9791bbba9d353641a6e067bb86c1
-> >
-> > > > > +++ b/drivers/gpu/drm/drm_gpuvm.c <
-> https://cgit.freedesktop.org/drm/drm-misc/tree/drivers/gpu/drm/drm_gpuvm.=
-c?id=3Df7749a549b4f4db0c02e6b3d3800ea400dd76c12
-> >
-> > > > > @@ -1,4 +1,4 @@
-> > > > > -// SPDX-License-Identifier: GPL-2.0-only
-> > > > > +// SPDX-License-Identifier: GPL-2.0 OR MIT
-> > > > > /*
-> > > > > * Copyright (c) 2022 Red Hat.
-> > > > > *
-> > > > > The above SPDX License Identifier change is incorrect and no long=
-er
-> > > > > valid. The change misunderstood the syntax of SPDX license
-> identifiers
-> > > > > and boolean operations. GPL-2.0-only is the name of the license
-> and means
-> > > > > GPL 2.0 only, as opposed to GPL 2.0 or later. The "only" does not
-> > > > > refer to restrictions on other licenses in the identifier and
-> should not
-> > > > > have been
-> > > > > removed. The hyphens designated that the name was a single unit.
-> > > > > The SPDX License Identifier boolean operators, such as OR, are a
-> > > > > separate layer
-> > > > > of syntax.
-> > > > > The SPDX License Identifier should be
-> > > > > GPL-2.0-only OR MIT
-> > > > > Thanks, David
-> > > > The author has acked the change / relicensing, which is also
-> described in
-> > > > the commit title so could you please elaborate why you think it is
-> not
-> > > > valid?
-> > > I think their point isn't so much about the license itself but rather
-> > > the SPDX syntax to express it.
-> > >
-> > > Maxime
-> >
-> > Hm. There are a pretty large number of these in drm with the same synta=
-x:
-> >
-> > SPDX-License-Identifier: GPL-2.0 OR MIT
-> >
-> > So I read it as whe shouldn't have change "Licence A" to "Licence B OR
-> > C" but instead should have changed it to "Licence A OR C", hence the
-> > *change* (rather than the syntax) would no longer be valid.
-> >
-> > Perhaps I have had too little coffee this morning.
-> >
-> > I'd appreciate if David could clarify.
+Sure, but reading from a shadowed register does return the cached value 
+(even though we don't care about the vakue here). When GT is in deeper 
+sleep states, it is better to read a shadowed (cached) value instead of 
+trying to attempt an mmio register read without a force wake anyways.
+
+Thanks,
+
+Vinay.
+
 >
-> Either way, one of the issue is that GPL-2.0 was deprecated in favour of
-> GPL-2.0-only
->
-> https://spdx.org/licenses/GPL-2.0.html
->
-> So you effectively changed the preferred syntax to the deprecated one in
-> the process of adding the new license.
->
-> I think that's what David was saying, but there might be something else :=
-)
->
-
-Yes, that is what I was trying to express.
-
-And thanks for posting the patch to correct the name of the identifier.
-I'm not requesting that all uses of the deprecated identifier be changed in
-the Linux kernel, but it would be good to not regress.
-
-Thanks, David
-
---00000000000087e66206097d1308
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><div dir=3D"ltr">On Mon, Nov 6, 2023 at 5:55=E2=80=AFAM Ma=
-xime Ripard &lt;<a href=3D"mailto:mripard@kernel.org">mripard@kernel.org</a=
->&gt; wrote:<br></div><div class=3D"gmail_quote"><blockquote class=3D"gmail=
-_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204=
-,204);padding-left:1ex">On Mon, Nov 06, 2023 at 11:37:34AM +0100, Thomas He=
-llstr=C3=B6m wrote:<br>
-&gt; On 11/6/23 11:20, Maxime Ripard wrote:<br>
-&gt; &gt; On Mon, Nov 06, 2023 at 11:01:51AM +0100, Thomas Hellstr=C3=B6m w=
-rote:<br>
-&gt; &gt; &gt; Hi, David.<br>
-&gt; &gt; &gt; <br>
-&gt; &gt; &gt; On 11/3/23 17:37, David Edelsohn wrote:<br>
-&gt; &gt; &gt; &gt; Dual-license drm_gpuvm to GPL-2.0 OR MIT.<br>
-&gt; &gt; &gt; &gt; diff --git a/drivers/gpu/drm/drm_gpuvm.c b/drivers/gpu/=
-drm/drm_gpuvm.c<br>
-&gt; &gt; &gt; &gt; index 02ce6baacdad..08c088319652 100644 ---<br>
-&gt; &gt; &gt; &gt; a/drivers/gpu/drm/drm_gpuvm.c &lt;<a href=3D"https://cg=
-it.freedesktop.org/drm/drm-misc/tree/drivers/gpu/drm/drm_gpuvm.c?id=3D6f2ee=
-ef4a0aa9791bbba9d353641a6e067bb86c1" rel=3D"noreferrer" target=3D"_blank">h=
-ttps://cgit.freedesktop.org/drm/drm-misc/tree/drivers/gpu/drm/drm_gpuvm.c?i=
-d=3D6f2eeef4a0aa9791bbba9d353641a6e067bb86c1</a>&gt;<br>
-&gt; &gt; &gt; &gt; +++ b/drivers/gpu/drm/drm_gpuvm.c &lt;<a href=3D"https:=
-//cgit.freedesktop.org/drm/drm-misc/tree/drivers/gpu/drm/drm_gpuvm.c?id=3Df=
-7749a549b4f4db0c02e6b3d3800ea400dd76c12" rel=3D"noreferrer" target=3D"_blan=
-k">https://cgit.freedesktop.org/drm/drm-misc/tree/drivers/gpu/drm/drm_gpuvm=
-.c?id=3Df7749a549b4f4db0c02e6b3d3800ea400dd76c12</a>&gt;<br>
-&gt; &gt; &gt; &gt; @@ -1,4 +1,4 @@<br>
-&gt; &gt; &gt; &gt; -// SPDX-License-Identifier: GPL-2.0-only<br>
-&gt; &gt; &gt; &gt; +// SPDX-License-Identifier: GPL-2.0 OR MIT<br>
-&gt; &gt; &gt; &gt; /*<br>
-&gt; &gt; &gt; &gt; * Copyright (c) 2022 Red Hat.<br>
-&gt; &gt; &gt; &gt; *<br>
-&gt; &gt; &gt; &gt; The above SPDX License Identifier change is incorrect a=
-nd no longer<br>
-&gt; &gt; &gt; &gt; valid. The change misunderstood the syntax of SPDX lice=
-nse identifiers<br>
-&gt; &gt; &gt; &gt; and boolean operations. GPL-2.0-only is the name of the=
- license and means<br>
-&gt; &gt; &gt; &gt; GPL 2.0 only, as opposed to GPL 2.0 or later. The &quot=
-;only&quot; does not<br>
-&gt; &gt; &gt; &gt; refer to restrictions on other licenses in the identifi=
-er and should not<br>
-&gt; &gt; &gt; &gt; have been<br>
-&gt; &gt; &gt; &gt; removed. The hyphens designated that the name was a sin=
-gle unit.<br>
-&gt; &gt; &gt; &gt; The SPDX License Identifier boolean operators, such as =
-OR, are a<br>
-&gt; &gt; &gt; &gt; separate layer<br>
-&gt; &gt; &gt; &gt; of syntax.<br>
-&gt; &gt; &gt; &gt; The SPDX License Identifier should be<br>
-&gt; &gt; &gt; &gt; GPL-2.0-only OR MIT<br>
-&gt; &gt; &gt; &gt; Thanks, David<br>
-&gt; &gt; &gt; The author has acked the change / relicensing, which is also=
- described in<br>
-&gt; &gt; &gt; the commit title so could you please elaborate why you think=
- it is not<br>
-&gt; &gt; &gt; valid?<br>
-&gt; &gt; I think their point isn&#39;t so much about the license itself bu=
-t rather<br>
-&gt; &gt; the SPDX syntax to express it.<br>
-&gt; &gt; <br>
-&gt; &gt; Maxime<br>
-&gt; <br>
-&gt; Hm. There are a pretty large number of these in drm with the same synt=
-ax:<br>
-&gt; <br>
-&gt; SPDX-License-Identifier: GPL-2.0 OR MIT<br>
-&gt; <br>
-&gt; So I read it as whe shouldn&#39;t have change &quot;Licence A&quot; to=
- &quot;Licence B OR<br>
-&gt; C&quot; but instead should have changed it to &quot;Licence A OR C&quo=
-t;, hence the<br>
-&gt; *change* (rather than the syntax) would no longer be valid.<br>
-&gt; <br>
-&gt; Perhaps I have had too little coffee this morning.<br>
-&gt; <br>
-&gt; I&#39;d appreciate if David could clarify.<br>
-<br>
-Either way, one of the issue is that GPL-2.0 was deprecated in favour of<br=
->
-GPL-2.0-only<br>
-<br>
-<a href=3D"https://spdx.org/licenses/GPL-2.0.html" rel=3D"noreferrer" targe=
-t=3D"_blank">https://spdx.org/licenses/GPL-2.0.html</a><br>
-<br>
-So you effectively changed the preferred syntax to the deprecated one in<br=
->
-the process of adding the new license.<br>
-<br>
-I think that&#39;s what David was saying, but there might be something else=
- :)<br></blockquote><div><br></div><div>Yes, that is what I was trying to e=
-xpress.</div><div><br></div><div>And thanks for posting the patch to correc=
-t the name of the identifier.=C2=A0 I&#39;m not requesting that all uses of=
- the deprecated identifier be changed in the Linux kernel, but it would be =
-good to not regress.</div><div><br></div><div>Thanks, David</div><div>=C2=
-=A0</div></div></div>
-
---00000000000087e66206097d1308--
+>> Cc: John Harrison <john.c.harrison@intel.com>
+>> Cc: Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>
+>> Signed-off-by: Vinay Belgaumkar <vinay.belgaumkar@intel.com>
+>> ---
+>>   drivers/gpu/drm/i915/gt/intel_gt.c | 2 +-
+>>   1 file changed, 1 insertion(+), 1 deletion(-)
+>>
+>> diff --git a/drivers/gpu/drm/i915/gt/intel_gt.c b/drivers/gpu/drm/i915/gt/intel_gt.c
+>> index ed32bf5b1546..ea814ea5f700 100644
+>> --- a/drivers/gpu/drm/i915/gt/intel_gt.c
+>> +++ b/drivers/gpu/drm/i915/gt/intel_gt.c
+>> @@ -451,7 +451,7 @@ void intel_gt_flush_ggtt_writes(struct intel_gt *gt)
+>>   
+>>   		spin_lock_irqsave(&uncore->lock, flags);
+>>   		intel_uncore_posting_read_fw(uncore,
+>> -					     RING_HEAD(RENDER_RING_BASE));
+>> +					     RING_TAIL(RENDER_RING_BASE));
+>>   		spin_unlock_irqrestore(&uncore->lock, flags);
+>>   	}
+>>   }
+>> -- 
+>> 2.38.1
