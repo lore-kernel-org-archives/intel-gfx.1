@@ -4,90 +4,84 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B1178C4167D
-	for <intel-gfx@archiver.kernel.org>; Mon, 13 Nov 2023 13:45:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F3402C4332F
+	for <intel-gfx@archiver.kernel.org>; Mon, 13 Nov 2023 13:45:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7946110E37A;
-	Mon, 13 Nov 2023 13:45:45 +0000 (UTC)
-X-Greylist: delayed 600 seconds by postgrey-1.36 at gabe;
- Thu, 09 Nov 2023 20:56:56 UTC
-Received: from snail.cherry.relay.mailchannels.net
- (snail.cherry.relay.mailchannels.net [23.83.223.170])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4145B10E919
- for <intel-gfx@lists.freedesktop.org>; Thu,  9 Nov 2023 20:56:55 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 19BC610E37B;
+	Mon, 13 Nov 2023 13:45:50 +0000 (UTC)
+X-Greylist: delayed 573 seconds by postgrey-1.36 at gabe;
+ Thu, 09 Nov 2023 22:47:05 UTC
+Received: from dog.elm.relay.mailchannels.net (dog.elm.relay.mailchannels.net
+ [23.83.212.48])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7829510E34C
+ for <intel-gfx@lists.freedesktop.org>; Thu,  9 Nov 2023 22:47:05 +0000 (UTC)
 X-Sender-Id: dreamhost|x-authsender|kjlx@templeofstupid.com
 Received: from relay.mailchannels.net (localhost [127.0.0.1])
- by relay.mailchannels.net (Postfix) with ESMTP id 568FF828C0
- for <intel-gfx@lists.freedesktop.org>; Thu,  9 Nov 2023 20:40:44 +0000 (UTC)
-Received: from pdx1-sub0-mail-a263.dreamhost.com (unknown [127.0.0.6])
+ by relay.mailchannels.net (Postfix) with ESMTP id 4735850116D
+ for <intel-gfx@lists.freedesktop.org>; Thu,  9 Nov 2023 22:37:32 +0000 (UTC)
+Received: from pdx1-sub0-mail-a219.dreamhost.com (unknown [127.0.0.6])
  (Authenticated sender: dreamhost)
- by relay.mailchannels.net (Postfix) with ESMTPA id 0E73C82674
- for <intel-gfx@lists.freedesktop.org>; Thu,  9 Nov 2023 20:40:44 +0000 (UTC)
-ARC-Seal: i=1; s=arc-2022; d=mailchannels.net; t=1699562444; a=rsa-sha256;
+ by relay.mailchannels.net (Postfix) with ESMTPA id F027E500EB3
+ for <intel-gfx@lists.freedesktop.org>; Thu,  9 Nov 2023 22:37:31 +0000 (UTC)
+ARC-Seal: i=1; s=arc-2022; d=mailchannels.net; t=1699569452; a=rsa-sha256;
  cv=none;
- b=vyfDaV+SzKy7Rj+9sibk2RVgrAMuQUUHE8ZWKfaPsXptCYmr+M0V2/3HFZjAn/sft4+vs8
- X3nSADDnyhAjq9dqn7fsPij4viq2ba2CSm0RUb/nX6xbfXsEQLoiFincYRewMVzKRyxn2F
- 81EfCbNtiq5U8fdmbJsCpTgl3QxB3xNYr7tqXNqs1ow4C0ikizJ6EEo79swtUDP7Fv2pJP
- ml25C7UsCFVwFYSZK88IGDjbsVqhB29zQuxLXO9qvjt8XFJ1nTTuuHCUbiMVuABiOLKYI1
- Ox0A4ZHIlEugVjAiApJjBB2rGdX4Ankl7Pd6QNgMpRRiusOChu8DNln/uNCp9A==
+ b=JYWcF96rUuzwqoyn4UySdzp0nmmyarPx+XS7W3Jlf6aYxe30OZm2qJ09pPx6RDf71eBWyo
+ E+Jq7QSl45U3KH4AipJT4alxYwF5/WPuSEDB1HtBR0xJH0P9wg20G4gQAeMi2v31DybmSd
+ uz8J+MRg4bqYDdTUBdL31yHOJ6S6mb24p4kYGAvrpkzVT04DiG3PbUjVmJdwrFICogptUf
+ QzJtUHFiTVy+Ojif/5HxGYVYsj5rWR9cFu/nHDqz4Dlk7FT5vXyysxn0i6ad59Wzp5M+2e
+ xkcrH4W6lpcu3cBVrdyVIA+zwUq6Oi4QE+kHA/TPYQCJEbilZ8IY8+RFjU4PMA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed;
- d=mailchannels.net; s=arc-2022; t=1699562444;
+ d=mailchannels.net; s=arc-2022; t=1699569452;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references:dkim-signature;
- bh=voIgu6gsgx3nLBxvRLuOmTyzuOvyCZnVGVTcOrZDN8g=;
- b=ZlyDNCAxKLu6fvsXOeGsm5YifKsVAwNZUsoUISdpLI/H4Te1dBtMI/e1M2z35bIiCRHxFe
- ShS+5D+gUeByUn9C/a/QSCigIHcl3/LdTq8JQwFCGKKht5ggiG4n2bwztdKjAv3xWO9xB9
- XYweN9OlRrY0H9EFF/ABkZ2Nvjo9ot2XAUgCJeHhdPEDewTjnPRmeYzMBBEM4qFvsIOEEW
- 4/BGChYHT6wsu9/QV+hw4rpOUUScPwJQYqYe/vnLTD9xhn6E6V2FcN3E/C6Btrkkf8wQKp
- KuvS8UI8gKoVm5wVq0d49834N3/8Q/5wrtAKxJI2+cwaZZ3RXvqBmAM8hun/Og==
-ARC-Authentication-Results: i=1; rspamd-6f98f74948-h8z6f;
+ dkim-signature; bh=8YwB9PBpFMCaeiI6zpE8rWC2hSXeSpyA9B0exPLdmbY=;
+ b=Ok41G6Fuv7ouQgtTNrwYuXSxVK6FGrjLZKCB/BL2rq6dJAZOMfn9GN3WQzp6/S7oB3jvh0
+ JvYttw8ww4mIkvbh8QRCXP1HFx27IpNhH/QQ69LCpFtPS0kaKjyXPjTarJ8CKqgInkWhem
+ Teq04kfz0MfPlkbOoPBCMUsFP45O3FtaqFsEOHn3EA9ELRnDFw90RP5W3P550kmc2wc2g2
+ /+BEjm+GI10l0ikzyZ5FI8XgJlPBFPT0gKP+X3RZA5Cu5Prh5oJYofnOsoPrna9H6oxcDn
+ XbmfCf296iqs7/5PTfR+X+y13WvFeLWnKhfVUXKEezdCo14JKvm19fDZ9/6CbA==
+ARC-Authentication-Results: i=1; rspamd-6f98f74948-hmzgl;
  auth=pass smtp.auth=dreamhost smtp.mailfrom=kjlx@templeofstupid.com
 X-Sender-Id: dreamhost|x-authsender|kjlx@templeofstupid.com
 X-MC-Relay: Neutral
 X-MailChannels-SenderId: dreamhost|x-authsender|kjlx@templeofstupid.com
 X-MailChannels-Auth-Id: dreamhost
-X-Abiding-Abaft: 1998d95b2f030411_1699562444193_3738984979
-X-MC-Loop-Signature: 1699562444193:3114892516
-X-MC-Ingress-Time: 1699562444193
-Received: from pdx1-sub0-mail-a263.dreamhost.com (pop.dreamhost.com
+X-Tank-Bored: 0d9395fa413f2a8b_1699569452115_2886411203
+X-MC-Loop-Signature: 1699569452115:3998363328
+X-MC-Ingress-Time: 1699569452115
+Received: from pdx1-sub0-mail-a219.dreamhost.com (pop.dreamhost.com
  [64.90.62.162]) (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384)
- by 100.104.0.148 (trex/6.9.2); Thu, 09 Nov 2023 20:40:44 +0000
+ by 100.115.112.92 (trex/6.9.2); Thu, 09 Nov 2023 22:37:32 +0000
 Received: from kmjvbox.templeofstupid.com (c-73-231-176-24.hsd1.ca.comcast.net
  [73.231.176.24])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
  (Authenticated sender: kjlx@templeofstupid.com)
- by pdx1-sub0-mail-a263.dreamhost.com (Postfix) with ESMTPSA id 4SRDP75nfRzDY
- for <intel-gfx@lists.freedesktop.org>; Thu,  9 Nov 2023 12:40:43 -0800 (PST)
+ by pdx1-sub0-mail-a219.dreamhost.com (Postfix) with ESMTPSA id 4SRGzv2mN2zjB
+ for <intel-gfx@lists.freedesktop.org>; Thu,  9 Nov 2023 14:37:31 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=templeofstupid.com;
- s=dreamhost; t=1699562443;
- bh=voIgu6gsgx3nLBxvRLuOmTyzuOvyCZnVGVTcOrZDN8g=;
+ s=dreamhost; t=1699569451;
+ bh=8YwB9PBpFMCaeiI6zpE8rWC2hSXeSpyA9B0exPLdmbY=;
  h=Date:From:To:Cc:Subject:Content-Type;
- b=Mk2j1sHSlSV2mwwHNUVxVBo0pQpjkoMlsfteuST6Ux345OHzJJQf/xE9zFYFo3iA8
- 2gi1YiCJNVXH32QQDk0WIS3dETXzeFBGp2lLe+njISHQpir3bYRm9gYgjEihPHGK61
- 90P8DFdK4BIkohWI31niSAZtoxjD5bdU91UQE2j2BFrtI87jlNuleQpBkahs46iiES
- BxNkcPU0jBHsbxu/bXZT0D9qz92oVdPC70w/5hSXQbrj8EdKO80Q1E71yo4q+t1ygS
- y+VNhPTPCOvegCNtxbZNoLpZvxiNhJcv8w2MCuIyhc3cVJm20ne4z+dx8jDWdHm4Fo
- DaNt06+XqEJnw==
+ b=iXdBe3QqD7hYZNkR3gTX16NMfS0osjVYrWrrlW8DpMru9YBAnHLloxIKsO8SV603N
+ MOIz6lOQprbztIl3bFRxvSl9ypsW7G7Gkr8dA2R94UNg+zcTr+bLNDcdJoYITKVL/w
+ tq9BS9p/FqpsbsjtTbs/7b8aSRyNK1W977KkkOuaTUSaB1Qe2hvqbMjUv63N+yqhgT
+ sgZwk0cVlbCuwyMF2NS9FTBmi/UeYF4/SLgdCgvd1L58tdp0DrTGGny+No6gJ0uaFD
+ 0xELaaZPVi72foXlwG+c4GacYIbH93Maub+Lg5+xXyy1Sbd1qOnHRwA25f79d18+bW
+ Sn91mwHOfiGYQ==
 Received: from johansen (uid 1000) (envelope-from kjlx@templeofstupid.com)
  id e0044 by kmjvbox.templeofstupid.com (DragonFly Mail Agent v0.12);
- Thu, 09 Nov 2023 12:40:22 -0800
-Date: Thu, 9 Nov 2023 12:40:22 -0800
+ Thu, 09 Nov 2023 14:36:57 -0800
+Date: Thu, 9 Nov 2023 14:36:57 -0800
 From: Krister Johansen <kjlx@templeofstupid.com>
-To: "Borah, Chaitanya Kumar" <chaitanya.kumar.borah@intel.com>
-Message-ID: <20231109204022.GA2073@templeofstupid.com>
-References: <SJ1PR11MB6129E1EA583B3DA3B45E37A4B9CAA@SJ1PR11MB6129.namprd11.prod.outlook.com>
- <SJ1PR11MB6129B9D6396E5BECB46A25A6B9DBA@SJ1PR11MB6129.namprd11.prod.outlook.com>
- <SJ1PR11MB6129CB39EED831784C331BAFB9DEA@SJ1PR11MB6129.namprd11.prod.outlook.com>
- <SJ1PR11MB6129508509896AD7D0E03114B9AFA@SJ1PR11MB6129.namprd11.prod.outlook.com>
+To: Miklos Szeredi <miklos@szeredi.hu>, linux-fsdevel@vger.kernel.org
+Message-ID: <cover.1699564053.git.kjlx@templeofstupid.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <SJ1PR11MB6129508509896AD7D0E03114B9AFA@SJ1PR11MB6129.namprd11.prod.outlook.com>
 X-Mailman-Approved-At: Mon, 13 Nov 2023 13:45:43 +0000
-Subject: Re: [Intel-gfx] Regression on linux-next (next-20231107)
+Subject: [Intel-gfx] [PATCH 0/2] Fuse submount_lookup needs to be initialized
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -100,74 +94,49 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Miklos Szeredi <mszeredi@redhat.com>,
- "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>,
- "kjlx@templeofstupid.com" <kjlx@templeofstupid.com>, "Kurmi,
- Suresh Kumar" <suresh.kumar.kurmi@intel.com>
+Cc: Miklos Szeredi <mszeredi@redhat.com>, linux-kselftest@vger.kernel.org,
+ German Maglione <gmaglione@redhat.com>,
+ Bernd Schubert <bernd.schubert@fastmail.fm>,
+ Naresh Kamboju <naresh.kamboju@linaro.org>, linux-kernel@vger.kernel.org,
+ lkft-triage@lists.linaro.org, Max Reitz <mreitz@redhat.com>,
+ Greg Kurz <groug@kaod.org>, "Kurmi,
+ Suresh Kumar" <suresh.kumar.kurmi@intel.com>, intel-gfx@lists.freedesktop.org,
+ Dan Carpenter <dan.carpenter@linaro.org>, regressions@lists.linux.dev
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Hi Chaitanya,
+Hi Miklos,
+I got a couple of bug reports[1][2] this morning from teams that are
+tracking regresssions in linux-next.  My patch 513dfacefd71 ("fuse:
+share lookup state between submount and its parent") is causing panics
+in the fuse unmount path.  The reports came from users with SLUB_DEBUG
+enabled, and the additional debug sanitization catches the fact that the
+submount_lookup field isn't getting initialized which could lead to a
+subsequently bogus attempt to access the submount_lookup structure and
+adjust its refcount.
 
-On Thu, Nov 09, 2023 at 05:00:09PM +0000, Borah, Chaitanya Kumar wrote:
-> Hello Krister,
->  
-> Hope you are doing well. I am Chaitanya from the linux graphics team in Intel.
->  
-> This mail is regarding a regression we are seeing in our CI runs[1] for some machines (dg2 and adl-p) on linux-next  repository.
-> 
-> Since the version next-20231107 [2], we are seeing the following error
-> ```````````````````````````````````````````````````````````````````````````````
-> <4>[   32.015910] stack segment: 0000 [#1] PREEMPT SMP NOPTI
-> <4>[   32.021048] CPU: 15 PID: 766 Comm: fusermount Not tainted 6.6.0-next-20231107-next-20231107-g5cd631a52568+ #1
-> <4>[   32.031135] Hardware name: Intel Corporation Raptor Lake Client Platform/RPL-S ADP-S DDR5 UDIMM CRB, BIOS RPLSFWI1.R00.4221.A00.2305271351 05/27/2023
-> <4>[   32.044657] RIP: 0010:fuse_evict_inode+0x61/0x150 [fuse]
-> `````````````````````````````````````````````````````````````````````````````````
-> 
-> Details log can be found in [3].
-> 
-> After bisecting the tree, the following patch [4] seems to be the first "bad" commit
-> 
->  `````````````````````````````````````````````````````````````````````````````````````````````````````````
-> 513dfacefd712bcbfab64e1a9c9c3e0d51c2dca5 is the first bad commit
-> commit 513dfacefd712bcbfab64e1a9c9c3e0d51c2dca5
-> Author: Krister Johansen kjlx@templeofstupid.com
-> Date:   Fri Nov 3 10:39:47 2023 -0700
-> 
->     fuse: share lookup state between submount and its parent
-> 
->     Fuse submounts do not perform a lookup for the nodeid that they inherit
->     from their parent.  Instead, the code decrements the nlookup on the
->     submount's fuse_inode when it is instantiated, and no forget is
->     performed when a submount root is evicted.
-> 
->     Trouble arises when the submount's parent is evicted despite the
->     submount itself being in use.  In this author's case, the submount was
->     in a container and deatched from the initial mount namespace via a
->     MNT_DEATCH operation.  When memory pressure triggered the shrinker, the
->     inode from the parent was evicted, which triggered enough forgets to
->     render the submount's nodeid invalid.
-> 
->     Since submounts should still function, even if their parent goes away,
->     solve this problem by sharing refcounted state between the parent and
->     its submount.  When all of the references on this shared state reach
->     zero, it's safe to forget the final lookup of the fuse nodeid.
-> 
->  `````````````````````````````````````````````````````````````````````````````````````````````````````````
->  
-> We also verified that if we revert the patch the issue is not seen.
-> 
-> Could you please check why the patch causes this regression and provide a fix if necessary?
+I've added SLUB_DEBUG to my testing kconfig, and have reproduced the
+problem using the memfd self-test that was triggering the problem for
+both reporters.  With the fix that follows this e-mail, I see no more
+erroneous accesses of poisoned slub memory.
 
-Apologies for the inconvenience.  I've reproduced the problem, tested a
-fix, and am in the process of preparing patches to send to Miklos.  I'll
-cc the people on this e-mail in that thread.
+I'm a bit unsure of the desired approach for fixing these kinds of
+problems.  I'm also away from the office on Nov 10th and Nov 13th, but
+expect to be back on the console on the Nov 14th.  Given the gap, I've
+prepared a pair of patches, but we only need one.
 
-> [3] http://gfx-ci.igk.intel.com/tree/linux-next/next-20231109/bat-dg2-14/boot0.txt
+The first is simply a followup fix that addresses the problem in a
+subsequent one-line commit.
 
-This link didn't resolve in DNS when I tried to access it.  I needed to
-use intel-gfx-ci.01.org as the hostname instead.
+If you'd rather revert the entire bad patch and go again, the second
+patch in the series is a v5 of the original with the submount_lookup
+initialization added.
 
-Thanks,
+Either should do, but I wasn't sure which approach was preferable.
+
+Thanks, and my apologies for the inconvenience.
 
 -K
+
+[1] https://lore.kernel.org/linux-fsdevel/CA+G9fYue-dV7t-NrOhWwGshvyboXjb2B6HpCDVDe3bgG7fbnsg@mail.gmail.com/T/#u
+[2] https://lore.kernel.org/intel-gfx/SJ1PR11MB6129508509896AD7D0E03114B9AFA@SJ1PR11MB6129.namprd11.prod.outlook.com/T/#u
