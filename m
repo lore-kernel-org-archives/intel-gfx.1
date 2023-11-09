@@ -4,25 +4,24 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 325A9C4167B
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EBCCFC4167D
 	for <intel-gfx@archiver.kernel.org>; Thu,  9 Nov 2023 15:34:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5182310E8CF;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8795310E8D1;
 	Thu,  9 Nov 2023 15:34:58 +0000 (UTC)
+X-Greylist: delayed 103464 seconds by postgrey-1.36 at gabe;
+ Thu, 09 Nov 2023 15:34:54 UTC
 Received: from mblankhorst.nl (lankhorst.se [141.105.120.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F38E510E8CE
- for <intel-gfx@lists.freedesktop.org>; Thu,  9 Nov 2023 15:34:55 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9E3B410E8CE
+ for <intel-gfx@lists.freedesktop.org>; Thu,  9 Nov 2023 15:34:54 +0000 (UTC)
 From: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Thu,  9 Nov 2023 16:34:50 +0100
-Message-Id: <20231109153450.142185-3-maarten.lankhorst@linux.intel.com>
+Date: Thu,  9 Nov 2023 16:34:48 +0100
+Message-Id: <20231109153450.142185-1-maarten.lankhorst@linux.intel.com>
 X-Mailer: git-send-email 2.39.2
-In-Reply-To: <20231109153450.142185-1-maarten.lankhorst@linux.intel.com>
-References: <20231109153450.142185-1-maarten.lankhorst@linux.intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 3/3] drm/i915: Use a different vblank worker for
- atomic unpin
+Subject: [Intel-gfx] [PATCH 1/3] drm: Add drm_vblank_work_flush_all().
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -38,110 +37,67 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-For the atomic codepath we unpin_work in old_plane_state to unpin the
-old fb. As this happened after swapping state, this is allowed.
-
-Use the unpin_work only as a barrier, and keep doing the actual
-unpinning in the atomic path.
+In some cases we want to flush all vblank work, right before vblank_off
+for example. Add a simple function to make this possible.
 
 Signed-off-by: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
 ---
- .../gpu/drm/i915/display/intel_atomic_plane.c | 18 ++++++++++++
- .../gpu/drm/i915/display/intel_atomic_plane.h |  2 ++
- drivers/gpu/drm/i915/display/intel_crtc.c     | 28 +++++++++++++++++++
- 3 files changed, 48 insertions(+)
+ drivers/gpu/drm/drm_vblank_work.c | 22 ++++++++++++++++++++++
+ include/drm/drm_vblank_work.h     |  2 ++
+ 2 files changed, 24 insertions(+)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_atomic_plane.c b/drivers/gpu/drm/i915/display/intel_atomic_plane.c
-index 06c2455bdd788..6ddb4f4ec79ac 100644
---- a/drivers/gpu/drm/i915/display/intel_atomic_plane.c
-+++ b/drivers/gpu/drm/i915/display/intel_atomic_plane.c
-@@ -1164,6 +1164,9 @@ intel_cleanup_plane_fb(struct drm_plane *plane,
- 	intel_display_rps_mark_interactive(dev_priv, state, false);
- 
- 	/* Should only be called after a successful intel_prepare_plane_fb()! */
-+	if (old_plane_state->unpin_work.vblank)
-+		drm_vblank_work_flush(&old_plane_state->unpin_work);
-+
- 	intel_plane_unpin_fb(old_plane_state);
+diff --git a/drivers/gpu/drm/drm_vblank_work.c b/drivers/gpu/drm/drm_vblank_work.c
+index bd481fdd6b870..27c8646a79c8e 100644
+--- a/drivers/gpu/drm/drm_vblank_work.c
++++ b/drivers/gpu/drm/drm_vblank_work.c
+@@ -229,6 +229,28 @@ void drm_vblank_work_flush(struct drm_vblank_work *work)
  }
+ EXPORT_SYMBOL(drm_vblank_work_flush);
  
-@@ -1176,3 +1179,18 @@ void intel_plane_helper_add(struct intel_plane *plane)
- {
- 	drm_plane_helper_add(&plane->base, &intel_plane_helper_funcs);
- }
-+
-+/* Completion is enough */
-+static void intel_plane_cursor_vblank_work(struct kthread_work *base)
-+{ }
-+
-+void intel_plane_init_cursor_vblank_work(struct intel_plane_state *old_plane_state,
-+					 struct intel_plane_state *new_plane_state)
++/**
++ * drm_vblank_work_flush_all - flush all currently pending vblank work on crtc.
++ * @crtc: crtc for which vblank work to flush
++ *
++ * Wait until all currently queued vblank work on @crtc
++ * has finished executing once.
++ */
++void drm_vblank_work_flush_all(struct drm_crtc *crtc)
 +{
-+	if (!old_plane_state->ggtt_vma ||
-+	    old_plane_state->ggtt_vma == new_plane_state->ggtt_vma)
-+		return;
++	struct drm_device *dev = crtc->dev;
++	struct drm_vblank_crtc *vblank = &dev->vblank[drm_crtc_index(crtc)];
 +
-+	drm_vblank_work_init(&old_plane_state->unpin_work, old_plane_state->uapi.crtc,
-+			     intel_plane_cursor_vblank_work);
++	spin_lock_irq(&dev->event_lock);
++	wait_event_lock_irq(vblank->work_wait_queue,
++			    waitqueue_active(&vblank->work_wait_queue),
++			    dev->event_lock);
++	spin_unlock_irq(&dev->event_lock);
++
++	kthread_flush_worker(vblank->worker);
 +}
-diff --git a/drivers/gpu/drm/i915/display/intel_atomic_plane.h b/drivers/gpu/drm/i915/display/intel_atomic_plane.h
-index 191dad0efc8e6..5a897cf6fa021 100644
---- a/drivers/gpu/drm/i915/display/intel_atomic_plane.h
-+++ b/drivers/gpu/drm/i915/display/intel_atomic_plane.h
-@@ -66,5 +66,7 @@ int intel_plane_check_src_coordinates(struct intel_plane_state *plane_state);
- void intel_plane_set_invisible(struct intel_crtc_state *crtc_state,
- 			       struct intel_plane_state *plane_state);
- void intel_plane_helper_add(struct intel_plane *plane);
-+void intel_plane_init_cursor_vblank_work(struct intel_plane_state *old_plane_state,
-+					 struct intel_plane_state *new_plane_state);
++EXPORT_SYMBOL(drm_vblank_work_flush_all);
++
+ /**
+  * drm_vblank_work_init - initialize a vblank work item
+  * @work: vblank work item
+diff --git a/include/drm/drm_vblank_work.h b/include/drm/drm_vblank_work.h
+index eb41d0810c4ff..e04d436b72973 100644
+--- a/include/drm/drm_vblank_work.h
++++ b/include/drm/drm_vblank_work.h
+@@ -17,6 +17,7 @@ struct drm_crtc;
+  * drm_vblank_work_init()
+  * drm_vblank_work_cancel_sync()
+  * drm_vblank_work_flush()
++ * drm_vblank_work_flush_all()
+  */
+ struct drm_vblank_work {
+ 	/**
+@@ -67,5 +68,6 @@ void drm_vblank_work_init(struct drm_vblank_work *work, struct drm_crtc *crtc,
+ 			  void (*func)(struct kthread_work *work));
+ bool drm_vblank_work_cancel_sync(struct drm_vblank_work *work);
+ void drm_vblank_work_flush(struct drm_vblank_work *work);
++void drm_vblank_work_flush_all(struct drm_crtc *crtc);
  
- #endif /* __INTEL_ATOMIC_PLANE_H__ */
-diff --git a/drivers/gpu/drm/i915/display/intel_crtc.c b/drivers/gpu/drm/i915/display/intel_crtc.c
-index 1fd068e6e26ca..755c40fd0ac13 100644
---- a/drivers/gpu/drm/i915/display/intel_crtc.c
-+++ b/drivers/gpu/drm/i915/display/intel_crtc.c
-@@ -559,6 +559,19 @@ void intel_pipe_update_start(struct intel_atomic_state *state,
- 	if (intel_crtc_needs_vblank_work(new_crtc_state))
- 		intel_crtc_vblank_work_init(new_crtc_state);
- 
-+	if (state->base.legacy_cursor_update) {
-+		struct intel_plane *plane;
-+		struct intel_plane_state *old_plane_state, *new_plane_state;
-+		int i;
-+
-+		for_each_oldnew_intel_plane_in_state(state, plane, old_plane_state,
-+						     new_plane_state, i) {
-+			if (old_plane_state->uapi.crtc == &crtc->base)
-+				intel_plane_init_cursor_vblank_work(old_plane_state,
-+								    new_plane_state);
-+		}
-+	}
-+
- 	intel_crtc_vblank_evade_scanlines(state, crtc, &min, &max, &vblank_start);
- 	if (min <= 0 || max <= 0)
- 		goto irq_disable;
-@@ -721,6 +734,21 @@ void intel_pipe_update_end(struct intel_atomic_state *state,
- 		new_crtc_state->uapi.event = NULL;
- 	}
- 
-+	if (state->base.legacy_cursor_update) {
-+		struct intel_plane *plane;
-+		struct intel_plane_state *old_plane_state;
-+		int i;
-+
-+		for_each_old_intel_plane_in_state(state, plane, old_plane_state, i) {
-+			if (old_plane_state->uapi.crtc == &crtc->base &&
-+			    old_plane_state->unpin_work.vblank) {
-+				drm_vblank_work_schedule(&old_plane_state->unpin_work,
-+							 drm_crtc_accurate_vblank_count(&crtc->base) + 1,
-+							 false);
-+			}
-+		}
-+	}
-+
- 	/*
- 	 * Send VRR Push to terminate Vblank. If we are already in vblank
- 	 * this has to be done _after_ sampling the frame counter, as
+ #endif /* !_DRM_VBLANK_WORK_H_ */
 -- 
 2.39.2
 
