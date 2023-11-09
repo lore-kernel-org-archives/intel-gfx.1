@@ -4,51 +4,26 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D728EC4332F
-	for <intel-gfx@archiver.kernel.org>; Thu,  9 Nov 2023 15:33:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6382BC4332F
+	for <intel-gfx@archiver.kernel.org>; Thu,  9 Nov 2023 15:34:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8416F10E8CD;
-	Thu,  9 Nov 2023 15:33:51 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.7])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 00CC210E8CA;
- Thu,  9 Nov 2023 15:33:40 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1699544021; x=1731080021;
- h=from:to:cc:subject:in-reply-to:references:date:
- message-id:mime-version;
- bh=tbZO18Gel9lZlrdpPSwwRYT3gC3jFkA9CmWrS6PEOS4=;
- b=F7/ttde6eYpSwJD3AqSKYATfsZdWl3gkqwFv6m+eqmBaL5VSHKp2h7Ek
- vYqJXzDr0mrpLjK0lnzn1cWmT0W7+PkBy9T7INpyKCp8ODuBHCvuwYLBF
- kNiBguvXiYJeS5HyGmfrjcU8vpsRXzKP3HJhKL+PZGTavWeTK9ytuZRlR
- 0dKkuzvC1BpwWJIfq4dknhIgme8vl96JPSRz28rPrHvj5Y13aGyf2mJPT
- BdejmDFCFkjCpTYoSwD00M44h+BCpXzADA1B8L0VvS61WtIxASVKqsajB
- 7rOP4gwZM7CM5LJir0uccfC/YeIkbn62qOLy4Q5Uy40+Zp0fXhUtFdoyh w==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10889"; a="11554021"
-X-IronPort-AV: E=Sophos;i="6.03,289,1694761200"; d="scan'208";a="11554021"
-Received: from fmsmga004.fm.intel.com ([10.253.24.48])
- by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 09 Nov 2023 07:33:32 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10889"; a="833855753"
-X-IronPort-AV: E=Sophos;i="6.03,289,1694761200"; d="scan'208";a="833855753"
-Received: from unknown (HELO localhost) ([10.237.66.162])
- by fmsmga004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 09 Nov 2023 07:33:29 -0800
-From: Jani Nikula <jani.nikula@intel.com>
-To: dri-devel@lists.freedesktop.org, Maxime Ripard <mripard@kernel.org>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Thomas Zimmermann
- <tzimmermann@suse.de>
-In-Reply-To: <877cn04hvq.fsf@intel.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
-References: <cover.1698747331.git.jani.nikula@intel.com>
- <877cn04hvq.fsf@intel.com>
-Date: Thu, 09 Nov 2023 17:33:26 +0200
-Message-ID: <87ttpvvt4p.fsf@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 47AE510E8CE;
+	Thu,  9 Nov 2023 15:34:58 +0000 (UTC)
+Received: from mblankhorst.nl (lankhorst.se [141.105.120.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7306110E8CF
+ for <intel-gfx@lists.freedesktop.org>; Thu,  9 Nov 2023 15:34:55 +0000 (UTC)
+From: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+To: intel-gfx@lists.freedesktop.org
+Date: Thu,  9 Nov 2023 16:34:49 +0100
+Message-Id: <20231109153450.142185-2-maarten.lankhorst@linux.intel.com>
+X-Mailer: git-send-email 2.39.2
+In-Reply-To: <20231109153450.142185-1-maarten.lankhorst@linux.intel.com>
+References: <20231109153450.142185-1-maarten.lankhorst@linux.intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain
-Subject: Re: [Intel-gfx] [PATCH v2 0/6] drm/edid: split out drm_eld.[ch],
- add some SAD helpers
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+Subject: [Intel-gfx] [PATCH 2/3] drm/i915: Use vblank worker to unpin old
+ legacy cursor fb safely
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,65 +36,138 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Thu, 02 Nov 2023, Jani Nikula <jani.nikula@intel.com> wrote:
-> On Tue, 31 Oct 2023, Jani Nikula <jani.nikula@intel.com> wrote:
->> v2 of https://patchwork.freedesktop.org/series/123384/
->>
->> Jani Nikula (6):
->>   drm/edid: split out drm_eld.h from drm_edid.h
->>   drm/eld: replace uint8_t with u8
->>   drm/edid: include drm_eld.h only where required
->>   drm/edid: use a temp variable for sads to drop one level of
->>     dereferences
->>   drm/edid: add helpers to get/set struct cea_sad from/to 3-byte sad
->>   drm/eld: add helpers to modify the SADs of an ELD
->
-> Maxime, Maarten, Thomas -
->
-> I'm moving a bunch of code around here, and would like to get your acks
-> before merging. I'm planning on merging this via drm-misc-next, it's
-> just that it only has Intel reviews, and don't want to feel like I'm
-> sneaking this in.
+From: Ville Syrjälä <ville.syrjala@linux.intel.com>
 
-Merged with Maxime's IRC ack, which I forgot to add to the commit
-messages. *facepalm*. Sorry about that.
+The cursor hardware only does sync updates, and thus the hardware
+will be scanning out from the old fb until the next start of vblank.
+So in order to make the legacy cursor fastpath actually safe we
+should not unpin the old fb until we're sure the hardware has
+ceased accessing it. The simplest approach is to just use a vblank
+work here to do the delayed unpin.
 
-Thanks Mitul for reviews!
+Not 100% sure it's a good idea to put this onto the same high
+priority vblank worker as eg. our timing critical gamma updates.
+But let's keep it simple for now, and it we later discover that
+this is causing problems we can think about adding a lower
+priority worker for such things.
 
-BR,
-Jani.
+This patch is slightly reworked by Maarten
 
->
-> Thanks,
-> Jani.
->
->>
->>  Documentation/gpu/drm-kms-helpers.rst         |   6 +
->>  drivers/gpu/drm/Makefile                      |   1 +
->>  .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |   1 +
->>  drivers/gpu/drm/drm_edid.c                    |  43 +++--
->>  drivers/gpu/drm/drm_eld.c                     |  55 ++++++
->>  drivers/gpu/drm/drm_internal.h                |   6 +
->>  drivers/gpu/drm/i915/display/intel_audio.c    |   1 +
->>  .../drm/i915/display/intel_crtc_state_dump.c  |   1 +
->>  drivers/gpu/drm/i915/display/intel_sdvo.c     |   1 +
->>  drivers/gpu/drm/nouveau/dispnv50/disp.c       |   1 +
->>  drivers/gpu/drm/radeon/radeon_audio.c         |   1 +
->>  drivers/gpu/drm/tegra/hdmi.c                  |   1 +
->>  drivers/gpu/drm/tegra/sor.c                   |   1 +
->>  include/drm/drm_edid.h                        | 148 ----------------
->>  include/drm/drm_eld.h                         | 164 ++++++++++++++++++
->>  sound/core/pcm_drm_eld.c                      |   1 +
->>  sound/soc/codecs/hdac_hdmi.c                  |   1 +
->>  sound/soc/codecs/hdmi-codec.c                 |   1 +
->>  sound/x86/intel_hdmi_audio.c                  |   1 +
->>  19 files changed, 275 insertions(+), 160 deletions(-)
->>  create mode 100644 drivers/gpu/drm/drm_eld.c
->>  create mode 100644 include/drm/drm_eld.h
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+Signed-off-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
+Signed-off-by: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+---
+ drivers/gpu/drm/i915/display/intel_cursor.c   | 37 ++++++++++++++++---
+ drivers/gpu/drm/i915/display/intel_display.c  |  3 ++
+ .../drm/i915/display/intel_display_types.h    |  3 ++
+ 3 files changed, 38 insertions(+), 5 deletions(-)
 
+diff --git a/drivers/gpu/drm/i915/display/intel_cursor.c b/drivers/gpu/drm/i915/display/intel_cursor.c
+index b342fad180ca5..1728ecd5cc782 100644
+--- a/drivers/gpu/drm/i915/display/intel_cursor.c
++++ b/drivers/gpu/drm/i915/display/intel_cursor.c
+@@ -603,6 +603,17 @@ static bool intel_cursor_format_mod_supported(struct drm_plane *_plane,
+ 	return format == DRM_FORMAT_ARGB8888;
+ }
+ 
++static void intel_cursor_unpin_work(struct kthread_work *base)
++{
++	struct drm_vblank_work *work = to_drm_vblank_work(base);
++	struct intel_plane_state *plane_state =
++		container_of(work, typeof(*plane_state), unpin_work);
++	struct intel_plane *plane = to_intel_plane(plane_state->uapi.plane);
++
++	intel_plane_unpin_fb(plane_state);
++	intel_plane_destroy_state(&plane->base, &plane_state->uapi);
++}
++
+ static int
+ intel_legacy_cursor_update(struct drm_plane *_plane,
+ 			   struct drm_crtc *_crtc,
+@@ -688,9 +699,14 @@ intel_legacy_cursor_update(struct drm_plane *_plane,
+ 	if (ret)
+ 		goto out_free;
+ 
+-	ret = intel_plane_pin_fb(new_plane_state);
+-	if (ret)
+-		goto out_free;
++	if (new_plane_state->uapi.fb != old_plane_state->uapi.fb) {
++		ret = intel_plane_pin_fb(new_plane_state);
++		if (ret)
++			goto out_free;
++	} else {
++		/* magic trick */
++		swap(new_plane_state->ggtt_vma, old_plane_state->ggtt_vma);
++	}
+ 
+ 	intel_frontbuffer_flush(to_intel_frontbuffer(new_plane_state->hw.fb),
+ 				ORIGIN_CURSOR_UPDATE);
+@@ -730,14 +746,25 @@ intel_legacy_cursor_update(struct drm_plane *_plane,
+ 
+ 	local_irq_enable();
+ 
+-	intel_plane_unpin_fb(old_plane_state);
++	if (old_plane_state->uapi.fb != new_plane_state->uapi.fb) {
++		drm_vblank_work_init(&old_plane_state->unpin_work, &crtc->base,
++				     intel_cursor_unpin_work);
++
++		drm_vblank_work_schedule(&old_plane_state->unpin_work,
++					 drm_crtc_accurate_vblank_count(&crtc->base) + 1,
++					 false);
++
++		old_plane_state = NULL;
++	} else {
++		intel_plane_unpin_fb(old_plane_state);
++	}
+ 
+ out_free:
+ 	if (new_crtc_state)
+ 		intel_crtc_destroy_state(&crtc->base, &new_crtc_state->uapi);
+ 	if (ret)
+ 		intel_plane_destroy_state(&plane->base, &new_plane_state->uapi);
+-	else
++	else if (old_plane_state)
+ 		intel_plane_destroy_state(&plane->base, &old_plane_state->uapi);
+ 	return ret;
+ 
+diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
+index 3effafcbb411a..9b43810f9a934 100644
+--- a/drivers/gpu/drm/i915/display/intel_display.c
++++ b/drivers/gpu/drm/i915/display/intel_display.c
+@@ -64,6 +64,7 @@
+ #include "intel_crt.h"
+ #include "intel_crtc.h"
+ #include "intel_crtc_state_dump.h"
++#include "intel_cursor.h"
+ #include "intel_ddi.h"
+ #include "intel_de.h"
+ #include "intel_display_driver.h"
+@@ -6883,6 +6884,8 @@ static void intel_commit_modeset_disables(struct intel_atomic_state *state)
+ 
+ 		intel_pre_plane_update(state, crtc);
+ 		intel_crtc_disable_planes(state, crtc);
++
++		drm_vblank_work_flush_all(&crtc->base);
+ 	}
+ 
+ 	/* Only disable port sync and MST slaves */
+diff --git a/drivers/gpu/drm/i915/display/intel_display_types.h b/drivers/gpu/drm/i915/display/intel_display_types.h
+index 926bf9c1a3ede..6d27cfb4f08e7 100644
+--- a/drivers/gpu/drm/i915/display/intel_display_types.h
++++ b/drivers/gpu/drm/i915/display/intel_display_types.h
+@@ -709,6 +709,9 @@ struct intel_plane_state {
+ 
+ 	struct intel_fb_view view;
+ 
++	/* for legacy cursor fb unpin */
++	struct drm_vblank_work unpin_work;
++
+ 	/* Plane pxp decryption state */
+ 	bool decrypt;
+ 
 -- 
-Jani Nikula, Intel
+2.39.2
+
