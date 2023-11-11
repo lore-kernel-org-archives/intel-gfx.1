@@ -4,55 +4,29 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A8FF2C4167D
-	for <intel-gfx@archiver.kernel.org>; Mon, 13 Nov 2023 13:45:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7E227C4332F
+	for <intel-gfx@archiver.kernel.org>; Mon, 13 Nov 2023 13:45:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EA88710E378;
-	Mon, 13 Nov 2023 13:45:44 +0000 (UTC)
-Received: from mail-ej1-x633.google.com (mail-ej1-x633.google.com
- [IPv6:2a00:1450:4864:20::633])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F2D3010E960
- for <intel-gfx@lists.freedesktop.org>; Fri, 10 Nov 2023 09:44:50 +0000 (UTC)
-Received: by mail-ej1-x633.google.com with SMTP id
- a640c23a62f3a-9e28724ac88so302848866b.2
- for <intel-gfx@lists.freedesktop.org>; Fri, 10 Nov 2023 01:44:50 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=szeredi.hu; s=google; t=1699609489; x=1700214289; darn=lists.freedesktop.org;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=uNNVKkYwl/rOA9GX9/SH18oSRKfcJIfb4LTGsk7JdWQ=;
- b=pHd38LzlI2Z+QhohfyE8tlQ5l+009oUpSHYbWjvRCh3UZO1VH3pawOTMkCI/GYQylW
- iW65Vd1R1GPtp9X4g9LbnJXn5I4vNINxBdkP1j6hOFLcbdEg7Cd/HScYFDgxogAwguqv
- k7pFzUa9spbrWkTDfIrbnxCd9PPnogVubJv30=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1699609489; x=1700214289;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=uNNVKkYwl/rOA9GX9/SH18oSRKfcJIfb4LTGsk7JdWQ=;
- b=mFSF88JPAXRzcT830fS9aE+orDn/njynvB+jVlD2t0dMd6CVXeJeAXhVJmzU93cIZs
- iyTZLHS3vDLo5GYo5eaBVqsowmf3t5vOX7XiyM/t9DhdWO3TPHu2E5XOjbUfry7udkG5
- a9kY21k2iVrQfVladkclVCaI/w/HzWVD7cCZwKp0uAhvo2lt/DmIa/MXzob5O5AC7jI1
- dGodYkymYJMa4uiSM2HW7cXZClBdLqRZGZneLFQXiCCzkBYFEJ1QS6jN4PYC82X011kq
- 7n1FeVruYfC3s13g8GKvfJVkfqXCx4tLVOsgvT+v+iacTkQcNwL+VBIMcMXm/ig5uvRT
- ztaQ==
-X-Gm-Message-State: AOJu0Yy6jtn4nDdFUbvp10eL1uX+I+DPOxGr63RGf0B+aaUPf/5UIhxs
- W5LMG6U+hzFkxRYF2eeq+7F8CWwjvLPNlp9+QQAB3A==
-X-Google-Smtp-Source: AGHT+IHEDrhaS3SWGbZqZuG8sNPuZIIpHaBGL3VI6Da90hnwL9tRuf2Y3uqzB5/P6YHOqBSOAeAfq99hTGSbttzq3wg=
-X-Received: by 2002:a17:906:8910:b0:9e4:121c:c292 with SMTP id
- fr16-20020a170906891000b009e4121cc292mr3096666ejc.77.1699609488646; Fri, 10
- Nov 2023 01:44:48 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3EACE10E379;
+	Mon, 13 Nov 2023 13:45:45 +0000 (UTC)
+Received: from smtp.gentoo.org (smtp.gentoo.org
+ [IPv6:2001:470:ea4a:1:5054:ff:fec7:86e4])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E391110E099;
+ Sat, 11 Nov 2023 07:55:15 +0000 (UTC)
+References: <20231107215538.1891359-1-sam@gentoo.org>
+ <87jzqsy3sp.fsf@intel.com>
+User-agent: mu4e 1.10.8; emacs 30.0.50
+From: Sam James <sam@gentoo.org>
+To: Jani Nikula <jani.nikula@linux.intel.com>
+Date: Sat, 11 Nov 2023 07:54:26 +0000
+Organization: Gentoo
+In-reply-to: <87jzqsy3sp.fsf@intel.com>
+Message-ID: <87zfzk7mhv.fsf@gentoo.org>
 MIME-Version: 1.0
-References: <cover.1699564053.git.kjlx@templeofstupid.com>
-In-Reply-To: <cover.1699564053.git.kjlx@templeofstupid.com>
-From: Miklos Szeredi <miklos@szeredi.hu>
-Date: Fri, 10 Nov 2023 10:44:37 +0100
-Message-ID: <CAJfpegtOKLDy-j=oi8BsT+xjFnO+Mk7=8VxSDuyi-bxhRSGMKQ@mail.gmail.com>
-To: Krister Johansen <kjlx@templeofstupid.com>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 X-Mailman-Approved-At: Mon, 13 Nov 2023 13:45:43 +0000
-Subject: Re: [Intel-gfx] [PATCH 0/2] Fuse submount_lookup needs to be
- initialized
+Subject: Re: [Intel-gfx] [PATCH] drm: i915: Adapt to -Walloc-size
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,28 +39,82 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Miklos Szeredi <mszeredi@redhat.com>, linux-kselftest@vger.kernel.org,
- German Maglione <gmaglione@redhat.com>,
- Bernd Schubert <bernd.schubert@fastmail.fm>,
- Naresh Kamboju <naresh.kamboju@linaro.org>, linux-kernel@vger.kernel.org,
- lkft-triage@lists.linaro.org, Max Reitz <mreitz@redhat.com>,
- Greg Kurz <groug@kaod.org>, "Kurmi,
- Suresh Kumar" <suresh.kumar.kurmi@intel.com>, linux-fsdevel@vger.kernel.org,
- intel-gfx@lists.freedesktop.org, Dan Carpenter <dan.carpenter@linaro.org>,
- regressions@lists.linux.dev
+Cc: intel-gfx@lists.freedesktop.org, Sam James <sam@gentoo.org>,
+ dri-devel@lists.freedesktop.org, Daniel Vetter <daniel@ffwll.ch>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, David Airlie <airlied@gmail.com>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Thu, 9 Nov 2023 at 23:37, Krister Johansen <kjlx@templeofstupid.com> wrote:
 
-> Either should do, but I wasn't sure which approach was preferable.
+Jani Nikula <jani.nikula@linux.intel.com> writes:
 
-An incremental is better in this situation.   Applied and pushed.
+> On Tue, 07 Nov 2023, Sam James <sam@gentoo.org> wrote:
+>> GCC 14 introduces a new -Walloc-size included in -Wextra which errors out
+>> like:
+>> ```
+>> drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c: In function =E2=80=98eb_=
+copy_relocations=E2=80=99:
+>> drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c:1681:24: error: allocatio=
+n of insufficient size =E2=80=981=E2=80=99 for type =E2=80=98struct drm_i91=
+5_gem_relocation_entry=E2=80=99 with size =E2=80=9832=E2=80=99 [-Werror=3Da=
+lloc-size]
+>>  1681 |                 relocs =3D kvmalloc_array(size, 1, GFP_KERNEL);
+>>       |                        ^
+>>
+>> ```
+>>
+>> So, just swap the number of members and size arguments to match the prot=
+otype, as
+>> we're initialising 1 element of size `size`. GCC then sees we're not
+>> doing anything wrong.
+>>
+>> Signed-off-by: Sam James <sam@gentoo.org>
+>
+> The short answer,
+>
+> Reviewed-by: Jani Nikula <jani.nikula@intel.com>
+>
+> but please read on.
+>
+>> ---
+>>  drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c | 2 +-
+>>  1 file changed, 1 insertion(+), 1 deletion(-)
+>>
+>> diff --git a/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c b/drivers/gp=
+u/drm/i915/gem/i915_gem_execbuffer.c
+>> index 683fd8d3151c..45b9d9e34b8b 100644
+>> --- a/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c
+>> +++ b/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c
+>> @@ -1678,7 +1678,7 @@ static int eb_copy_relocations(const struct i915_e=
+xecbuffer *eb)
+>>  		urelocs =3D u64_to_user_ptr(eb->exec[i].relocs_ptr);
+>>  		size =3D nreloc * sizeof(*relocs);
+>>=20=20
+>> -		relocs =3D kvmalloc_array(size, 1, GFP_KERNEL);
+>> +		relocs =3D kvmalloc_array(1, size, GFP_KERNEL);
+>
+> Based on the patch context, we should really be calling:
+>
+> 	kvmalloc_array(nreloc, sizeof(*relocs), GFP_KERNEL);
+>
+> and we'd get mul overflow checks too.
+>
+> However, the code below also needs size, unless it's refactored to
+> operate on multiples of sizeof(*relocs) and it all gets a bit annoying.
+>
+> Maybe there's a better way, but for the short term the patch at hand is
+> no worse than what we currently have, and it'll silence the warning, so
+> let's go with this.
 
-> Thanks, and my apologies for the inconvenience.
+Thanks. I have been trying to port to kvmalloc_array where I can if it's
+obvious/trivial, but I admit I didn't want to take it on when it'd
+require any surrounding refactoring unless someone insisted.
 
-Really no need to apologize, this happens and the best possible
-outcome is that it get fixed before being released.
+>
+>
+>>  		if (!relocs) {
+>>  			err =3D -ENOMEM;
+>>  			goto err;
 
-Thanks,
-Miklos
+best,
+sam
