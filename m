@@ -4,64 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0D169C04E83
-	for <intel-gfx@archiver.kernel.org>; Mon, 13 Nov 2023 13:45:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1D99CC4332F
+	for <intel-gfx@archiver.kernel.org>; Mon, 13 Nov 2023 13:45:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4A60210E37E;
-	Mon, 13 Nov 2023 13:45:51 +0000 (UTC)
-Received: from mail-wm1-x330.google.com (mail-wm1-x330.google.com
- [IPv6:2a00:1450:4864:20::330])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5706D10E066;
- Mon, 13 Nov 2023 11:24:02 +0000 (UTC)
-Received: by mail-wm1-x330.google.com with SMTP id
- 5b1f17b1804b1-40859c466efso33253355e9.3; 
- Mon, 13 Nov 2023 03:24:02 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1699874641; x=1700479441; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=4/UMvWLGwbB65y4MgNgbTrhLeriroJNqxOaU5RBpd/A=;
- b=ReU3n2VR/eDzsvpcwoBaylOONtUUzQYaE1EHdRkNHzJo9tP/cWtnAASy8MwRnIpEkf
- dY67iclsy4hBTB/1FUpDooa3msWSO76IlsvVE9DocHrNewI/zhSX30K1YlppKDDifA9h
- FRcACapFxSU3OKq12GT8hmruAPTP/whFyX6gcBHg3cVXhYKYhRCmtxEBCcg1oNwqurm3
- az+1xI5Kqp4k7rVA7GBMZ2W4TUknCk0xrIO9bvw51kiCNrnV12NAWfWUDPut1JXLx2Z4
- T5tFrmwYl9/DN1x3TIVZeWmYtYkURAbP+qFQMUbn9ORjU3NSpv198p9DDVR8otrn2cJX
- Bq6g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1699874641; x=1700479441;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=4/UMvWLGwbB65y4MgNgbTrhLeriroJNqxOaU5RBpd/A=;
- b=Ojau1HxDsVoGxW096zZRrIlsu21XgxM0cUhu+n1VmBtl6e/lO/9aseRezb1LQvTFw+
- JtQLRlj7yfutxEDFlunDPbCkQhaKAWthii0VPSZEl6+H02JHZRr/EoBecoqDiz6Z3sct
- yjez6oX+P3gHW9ExIJmFxC5wR++g/r1iGWZM6q3MLVms+/rcSIvEMJkC/iPgDwSBKSaj
- GM2PU49kHia8ILw+Upaqs+iYoRiYncu0LRQDtf52AjgixE6fRP433XMpQ/XH6nxCFhLz
- qYZpr6zeC5cHpua62xAqa3Gi4X7yBbKGCJZpM3H8dU80+MIiZFVRbwX3IcEWngYY7PLl
- fG3w==
-X-Gm-Message-State: AOJu0YxeojRDtZewBAAsF0R0slKXhc5y6ApsPuFBAScwzlwCh0vNJ7X0
- JybSUCWBrDHNNZuBF6jbVjc=
-X-Google-Smtp-Source: AGHT+IHeSfxulnBJhsxmWDCBwohx10bO7bTu1BHjhSiyjqQiFY1QaU+JjC7xoDkTmTAquVkbrdJhaA==
-X-Received: by 2002:a05:600c:4fd2:b0:404:7670:90b8 with SMTP id
- o18-20020a05600c4fd200b00404767090b8mr5004204wmq.27.1699874640270; 
- Mon, 13 Nov 2023 03:24:00 -0800 (PST)
-Received: from zotac.lan.
- (dynamic-2a01-0c22-6e16-fe00-2223-08ff-fe18-0310.c22.pool.telefonica.de.
- [2a01:c22:6e16:fe00:2223:8ff:fe18:310])
- by smtp.gmail.com with ESMTPSA id
- l19-20020a05600c4f1300b0040772138bb7sm13565787wmq.2.2023.11.13.03.23.59
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 13 Nov 2023 03:23:59 -0800 (PST)
-From: Heiner Kallweit <hkallweit1@gmail.com>
-To: Wolfram Sang <wsa@kernel.org>,
-	intel-gfx@lists.freedesktop.org
-Date: Mon, 13 Nov 2023 12:23:24 +0100
-Message-ID: <20231113112344.719-1-hkallweit1@gmail.com>
-X-Mailer: git-send-email 2.42.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id B5EB610E373;
+	Mon, 13 Nov 2023 13:45:53 +0000 (UTC)
+Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 47AC910E0FB;
+ Mon, 13 Nov 2023 03:36:41 +0000 (UTC)
+X-UUID: d2f97b69a6fe4cc58d719ffe4d8ba132-20231113
+X-CID-O-RULE: Release_Ham
+X-CID-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.1.32, REQID:3696d87d-a252-4f52-a8fd-2f3009e7089d, IP:15,
+ URL:0,TC:0,Content:0,EDM:0,RT:0,SF:-5,FILE:0,BULK:0,RULE:Release_Ham,ACTIO
+ N:release,TS:10
+X-CID-INFO: VERSION:1.1.32, REQID:3696d87d-a252-4f52-a8fd-2f3009e7089d, IP:15,
+ UR
+ L:0,TC:0,Content:0,EDM:0,RT:0,SF:-5,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
+ release,TS:10
+X-CID-META: VersionHash:5f78ec9, CLOUDID:7fb15095-10ce-4e4b-85c2-c9b5229ff92b,
+ B
+ ulkID:231113113630XH0FCV1I,BulkQuantity:0,Recheck:0,SF:24|17|19|44|66|38|1
+ 02,TC:nil,Content:0,EDM:-3,IP:-2,URL:11|1,File:nil,Bulk:nil,QS:nil,BEC:nil
+ ,COL:0,OSI:0,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0
+X-CID-BVR: 0,NGT
+X-CID-BAS: 0,NGT,0,_
+X-CID-FACTOR: TF_CID_SPAM_SNR, TF_CID_SPAM_FAS, TF_CID_SPAM_FSD,
+ TF_CID_SPAM_FSI, TF_CID_SPAM_ULN
+X-UUID: d2f97b69a6fe4cc58d719ffe4d8ba132-20231113
+X-User: heminhong@kylinos.cn
+Received: from localhost.localdomain [(116.128.244.169)] by mailgw
+ (envelope-from <heminhong@kylinos.cn>) (Generic MTA)
+ with ESMTP id 1227971306; Mon, 13 Nov 2023 11:36:29 +0800
+From: heminhong <heminhong@kylinos.cn>
+To: jani.nikula@linux.intel.com, joonas.lahtinen@linux.intel.com,
+ rodrigo.vivi@intel.com, tvrtko.ursulin@linux.intel.com, airlied@gmail.com,
+ daniel@ffwll.ch, ville.syrjala@linux.intel.com, animesh.manna@intel.com,
+ uma.shankar@intel.com, ankit.k.nautiyal@intel.com
+Date: Mon, 13 Nov 2023 11:36:13 +0800
+Message-Id: <20231113033613.30339-1-heminhong@kylinos.cn>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Mon, 13 Nov 2023 13:45:43 +0000
-Subject: [Intel-gfx] [PATCH 00/20] remove I2C_CLASS_DDC support
+Subject: [Intel-gfx] [PATCH] drm/i915: eliminate warnings
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,63 +60,35 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-fbdev@vger.kernel.org, dri-devel@lists.freedesktop.org,
- Yongqin Liu <yongqin.liu@linaro.org>,
- Jernej Skrabec <jernej.skrabec@gmail.com>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- Sumit Semwal <sumit.semwal@linaro.org>, amd-gfx@lists.freedesktop.org,
- linux-rockchip@lists.infradead.org,
- Xinwei Kong <kong.kongxinwei@hisilicon.com>, linux-sunxi@lists.linux.dev,
- Jonas Karlman <jonas@kwiboo.se>, linux-arm-msm@vger.kernel.org,
- linux-mediatek@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
- Jocelyn Falempe <jfalempe@redhat.com>, linux-kernel@vger.kernel.org,
- linux-i2c@vger.kernel.org, Thomas Zimmermann <tzimmermann@suse.de>,
- John Stultz <jstultz@google.com>, Heiner Kallweit <hkallweit1@gmail.com>,
- freedreno@lists.freedesktop.org,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>
+Cc: intel-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, heminhong <heminhong@kylinos.cn>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-After removal of the legacy EEPROM driver and I2C_CLASS_DDC support in
-olpc_dcon there's no i2c client driver left supporting I2C_CLASS_DDC.
-Class-based device auto-detection is a legacy mechanism and shouldn't
-be used in new code. So we can remove this class completely now.
+Current, the dewake_scanline variable is defined as unsigned int,
+an unsigned int variable that is always greater than or equal to 0.
+when _intel_dsb_commit function is called by intel_dsb_commit function,
+the dewake_scanline variable may have an int value.
+So the dewake_scanline variable is necessary to defined as an int.
 
-Preferably this series should be applied via the i2c tree.
-
-Signed-off-by: Heiner Kallweit <hkallweit1@gmail.com>
-
+Signed-off-by: heminhong <heminhong@kylinos.cn>
 ---
+ drivers/gpu/drm/i915/display/intel_dsb.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
- drivers/gpu/drm/amd/amdgpu/amdgpu_i2c.c           |    1 -
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |    1 -
- drivers/gpu/drm/ast/ast_i2c.c                     |    1 -
- drivers/gpu/drm/bridge/synopsys/dw-hdmi.c         |    1 -
- drivers/gpu/drm/display/drm_dp_helper.c           |    1 -
- drivers/gpu/drm/display/drm_dp_mst_topology.c     |    1 -
- drivers/gpu/drm/gma500/cdv_intel_dp.c             |    1 -
- drivers/gpu/drm/gma500/intel_gmbus.c              |    1 -
- drivers/gpu/drm/gma500/oaktrail_hdmi_i2c.c        |    1 -
- drivers/gpu/drm/gma500/psb_intel_sdvo.c           |    1 -
- drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_i2c.c   |    1 -
- drivers/gpu/drm/i915/display/intel_gmbus.c        |    1 -
- drivers/gpu/drm/i915/display/intel_sdvo.c         |    1 -
- drivers/gpu/drm/loongson/lsdc_i2c.c               |    1 -
- drivers/gpu/drm/mediatek/mtk_hdmi_ddc.c           |    1 -
- drivers/gpu/drm/mgag200/mgag200_i2c.c             |    1 -
- drivers/gpu/drm/msm/hdmi/hdmi_i2c.c               |    1 -
- drivers/gpu/drm/radeon/radeon_i2c.c               |    1 -
- drivers/gpu/drm/rockchip/inno_hdmi.c              |    1 -
- drivers/gpu/drm/rockchip/rk3066_hdmi.c            |    1 -
- drivers/gpu/drm/sun4i/sun4i_hdmi_i2c.c            |    1 -
- drivers/video/fbdev/core/fb_ddc.c                 |    1 -
- drivers/video/fbdev/cyber2000fb.c                 |    1 -
- drivers/video/fbdev/i740fb.c                      |    1 -
- drivers/video/fbdev/intelfb/intelfb_i2c.c         |   15 +++++----------
- drivers/video/fbdev/matrox/i2c-matroxfb.c         |   12 ++++--------
- drivers/video/fbdev/s3fb.c                        |    1 -
- drivers/video/fbdev/tdfxfb.c                      |    1 -
- drivers/video/fbdev/tridentfb.c                   |    1 -
- drivers/video/fbdev/via/via_i2c.c                 |    1 -
- include/linux/i2c.h                               |    1 -
- 31 files changed, 9 insertions(+), 47 deletions(-)
+diff --git a/drivers/gpu/drm/i915/display/intel_dsb.c b/drivers/gpu/drm/i915/display/intel_dsb.c
+index 78b6fe24dcd8..7fd6280c54a7 100644
+--- a/drivers/gpu/drm/i915/display/intel_dsb.c
++++ b/drivers/gpu/drm/i915/display/intel_dsb.c
+@@ -340,7 +340,7 @@ static int intel_dsb_dewake_scanline(const struct intel_crtc_state *crtc_state)
+ }
+ 
+ static void _intel_dsb_commit(struct intel_dsb *dsb, u32 ctrl,
+-			      unsigned int dewake_scanline)
++			      int dewake_scanline)
+ {
+ 	struct intel_crtc *crtc = dsb->crtc;
+ 	struct drm_i915_private *dev_priv = to_i915(crtc->base.dev);
+-- 
+2.25.1
+
