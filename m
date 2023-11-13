@@ -4,50 +4,51 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A02F4C4332F
-	for <intel-gfx@archiver.kernel.org>; Mon, 13 Nov 2023 17:38:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D0091C4332F
+	for <intel-gfx@archiver.kernel.org>; Mon, 13 Nov 2023 17:50:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D05A310E3DC;
-	Mon, 13 Nov 2023 17:38:06 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [192.55.52.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B014210E3DC;
- Mon, 13 Nov 2023 17:38:03 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 66CA310E3E5;
+	Mon, 13 Nov 2023 17:50:45 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [134.134.136.100])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6034F10E3E5;
+ Mon, 13 Nov 2023 17:50:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1699897083; x=1731433083;
+ t=1699897843; x=1731433843;
  h=from:to:cc:subject:in-reply-to:references:date:
- message-id:mime-version:content-transfer-encoding;
- bh=tQwJKn5GMbmfpgON4rV066EJD/Pxhm3hDl+bMUfR99A=;
- b=ZSbt/tRJIGljSPyDYuzHe/B0EeVvAb0VKlB40Hc7zJVB2xPfEhG00sd7
- 6AW9FfW6QS8R3zAdsXsWQ92zN20yb9iwqjZTI1ZOizlqvvumhWnGtVjmR
- c3Ng/CgKxFG9qDTsIwmqDlXmmPKkeACgRcJ8/SlDW4v/pI6EFUWJVWuyN
- 5AmhbT7mSzIh8XxpWUC4WjOsQF9ndQlr+Nosl9Uzps4Z6Q4ZEdz7jS5eL
- SMluRTkY1S5h6EXIqP+ewuzWU8H3P8QsRnfTyRkGp4uPyoZdTsUiE6V8v
- kVK9X1er2na3rpBQH1Cx/OVj+gVafNZsQvYo9BRMukxt4PhxJz+1o5mxd A==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10893"; a="476695456"
-X-IronPort-AV: E=Sophos;i="6.03,299,1694761200"; d="scan'208";a="476695456"
-Received: from orsmga005.jf.intel.com ([10.7.209.41])
- by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 13 Nov 2023 09:38:02 -0800
+ message-id:mime-version;
+ bh=x3fSoSQz6UCNu3JdEMAXXt9H/432BZE0hvyfGRoi6Hc=;
+ b=TJk7qqHkioV73o8EbWt4cTfBNc3zwObAQx3WysnvwCBo7sM7VJDn1Kt8
+ OGkdFOycbnRouRWs3HAIghP6J6XD5Nq6ibwKxtz/5dDw3oxrNQnSIwyj5
+ 60gCrMutE/RMAjSUIlyZXJzOVLooB64fZewcJmbX8JG0k6KYZoLnrxClo
+ vkBdrLicg9+H4t4YZIRRJpra2uYblih0pxWJ5cPQGJpYny1ZOw066M0ID
+ qDU0SYU1XIgSi5lPSaTNUENj0bXpzFwRZO893WODQQbYtfv7iW12xVBue
+ +OspGZ24YVBijXvwpwB00ogfPAUGjKjoV/dXt/SlyySYv2S8n76E4m5O/ g==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10893"; a="456972053"
+X-IronPort-AV: E=Sophos;i="6.03,299,1694761200"; d="scan'208";a="456972053"
+Received: from fmsmga006.fm.intel.com ([10.253.24.20])
+ by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 13 Nov 2023 09:50:42 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10893"; a="937795819"
-X-IronPort-AV: E=Sophos;i="6.03,299,1694761200"; d="scan'208";a="937795819"
+X-IronPort-AV: E=McAfee;i="6600,9927,10893"; a="1011613445"
+X-IronPort-AV: E=Sophos;i="6.03,299,1694761200"; d="scan'208";a="1011613445"
 Received: from cgheban-mobl.ger.corp.intel.com (HELO localhost)
  ([10.252.55.92])
- by orsmga005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 13 Nov 2023 09:38:00 -0800
+ by fmsmga006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 13 Nov 2023 09:50:39 -0800
 From: Jani Nikula <jani.nikula@linux.intel.com>
-To: Ville Syrjala <ville.syrjala@linux.intel.com>,
- intel-gfx@lists.freedesktop.org
-In-Reply-To: <20231013131402.24072-1-ville.syrjala@linux.intel.com>
+To: Heiner Kallweit <hkallweit1@gmail.com>, Wolfram Sang <wsa@kernel.org>
+In-Reply-To: <6f924890-a5a0-48b4-973d-3c0f88b0d294@gmail.com>
 Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
-References: <20231013131402.24072-1-ville.syrjala@linux.intel.com>
-Date: Mon, 13 Nov 2023 19:37:57 +0200
-Message-ID: <87cywdtuyy.fsf@intel.com>
+References: <20231113112344.719-1-hkallweit1@gmail.com>
+ <20231113112344.719-16-hkallweit1@gmail.com> <87sf59vodx.fsf@intel.com>
+ <6f924890-a5a0-48b4-973d-3c0f88b0d294@gmail.com>
+Date: Mon, 13 Nov 2023 19:50:36 +0200
+Message-ID: <878r71tudv.fsf@intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [Intel-gfx] [PATCH 0/4] drm/i915: Fix LUT rounding
+Content-Type: text/plain
+Subject: Re: [Intel-gfx] [PATCH 15/20] drivers/gpu/drm/i915/display: remove
+ I2C_CLASS_DDC support
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,28 +61,96 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: dri-devel@lists.freedesktop.org
+Cc: intel-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linux-i2c@vger.kernel.org,
+ Daniel Vetter <daniel@ffwll.ch>, Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ David Airlie <airlied@gmail.com>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Fri, 13 Oct 2023, Ville Syrjala <ville.syrjala@linux.intel.com> wrote:
-> From: Ville Syrj=C3=A4l=C3=A4 <ville.syrjala@linux.intel.com>
+On Mon, 13 Nov 2023, Heiner Kallweit <hkallweit1@gmail.com> wrote:
+> On 13.11.2023 13:17, Jani Nikula wrote:
+>> On Mon, 13 Nov 2023, Heiner Kallweit <hkallweit1@gmail.com> wrote:
+>>> After removal of the legacy EEPROM driver and I2C_CLASS_DDC support in
+>>> olpc_dcon there's no i2c client driver left supporting I2C_CLASS_DDC.
+>>> Class-based device auto-detection is a legacy mechanism and shouldn't
+>>> be used in new code. So we can remove this class completely now.
+>> 
+>> So this is copy-pasted to all commits and the cover letter, but please
+>> do explain why there are no functional changes here (or are there?),
+>> without me having to go through the i2c stack and try to find the
+>> commits alluded to in "After removal of the legacy ...".
+>> 
+> Legacy eeprom driver was marked deprecated 4 yrs ago with:
+> 3079b54aa9a0 ("eeprom: Warn that the driver is deprecated")
+> Now it has been removed with:
+> 0113a99b8a75 ("eeprom: Remove deprecated legacy eeprom driver")
 >
-> The current LUT rounding is generating weird results. Adjust
-> it to follow the OpenGL int<->float conversion rules.
+> Declaration of I2C_CLASS_DDC support is a no-op now, so there's
+> no functional change in this patch.
+>
+> If loaded manually, the legacy eeprom driver exposed the DDC EEPROM
+> to userspace. If this functionality is needed, then now the DDC
+> EEPROM has to be explicitly instantiated using at24.
+>
+> See also:
+> https://docs.kernel.org/i2c/instantiating-devices.html
 
-Reviewed-by: Jani Nikula <jani.nikula@intel.com>
+I'll take your word for it. Though none of the documentation I can find
+say that setting the class is legacy or deprecated or should be
+avoided. *shrug*.
+
+Acked-by: Jani Nikula <jani.nikula@intel.com>
+
 
 >
-> Ville Syrj=C3=A4l=C3=A4 (4):
->   drm: Fix color LUT rounding
->   drm/i915: Adjust LUT rounding rules
->   drm/i915: s/clamp()/min()/ in i965_lut_11p6_max_pack()
->   drm/i915: Fix glk+ degamma LUT conversions
 >
->  drivers/gpu/drm/i915/display/intel_color.c | 70 +++++++++++-----------
->  include/drm/drm_color_mgmt.h               | 18 +++---
->  2 files changed, 42 insertions(+), 46 deletions(-)
+>> What does this mean?
+>> 
+>> 
+>> BR,
+>> Jani.
+>> 
+> Heiner
+>
+>> 
+>>>
+>>> Preferably this series should be applied via the i2c tree.
+>>>
+>>> Signed-off-by: Heiner Kallweit <hkallweit1@gmail.com>
+>>>
+>>> ---
+>>>  drivers/gpu/drm/i915/display/intel_gmbus.c |    1 -
+>>>  drivers/gpu/drm/i915/display/intel_sdvo.c  |    1 -
+>>>  2 files changed, 2 deletions(-)
+>>>
+>>> diff --git a/drivers/gpu/drm/i915/display/intel_gmbus.c b/drivers/gpu/drm/i915/display/intel_gmbus.c
+>>> index 40d7b6f3f..e9e4dcf34 100644
+>>> --- a/drivers/gpu/drm/i915/display/intel_gmbus.c
+>>> +++ b/drivers/gpu/drm/i915/display/intel_gmbus.c
+>>> @@ -899,7 +899,6 @@ int intel_gmbus_setup(struct drm_i915_private *i915)
+>>>  		}
+>>>  
+>>>  		bus->adapter.owner = THIS_MODULE;
+>>> -		bus->adapter.class = I2C_CLASS_DDC;
+>>>  		snprintf(bus->adapter.name,
+>>>  			 sizeof(bus->adapter.name),
+>>>  			 "i915 gmbus %s", gmbus_pin->name);
+>>> diff --git a/drivers/gpu/drm/i915/display/intel_sdvo.c b/drivers/gpu/drm/i915/display/intel_sdvo.c
+>>> index a636f42ce..5e64d1baf 100644
+>>> --- a/drivers/gpu/drm/i915/display/intel_sdvo.c
+>>> +++ b/drivers/gpu/drm/i915/display/intel_sdvo.c
+>>> @@ -3311,7 +3311,6 @@ intel_sdvo_init_ddc_proxy(struct intel_sdvo_ddc *ddc,
+>>>  	ddc->ddc_bus = ddc_bus;
+>>>  
+>>>  	ddc->ddc.owner = THIS_MODULE;
+>>> -	ddc->ddc.class = I2C_CLASS_DDC;
+>>>  	snprintf(ddc->ddc.name, I2C_NAME_SIZE, "SDVO %c DDC%d",
+>>>  		 port_name(sdvo->base.port), ddc_bus);
+>>>  	ddc->ddc.dev.parent = &pdev->dev;
+>>>
+>> 
+>
 
---=20
+-- 
 Jani Nikula, Intel
