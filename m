@@ -4,47 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 29B4DC4332F
-	for <intel-gfx@archiver.kernel.org>; Mon, 13 Nov 2023 20:11:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8704CC4332F
+	for <intel-gfx@archiver.kernel.org>; Mon, 13 Nov 2023 20:11:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6D89110E410;
-	Mon, 13 Nov 2023 20:11:16 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 784C310E416;
+	Mon, 13 Nov 2023 20:11:18 +0000 (UTC)
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.8])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 24D8110E27F
- for <intel-gfx@lists.freedesktop.org>; Mon, 13 Nov 2023 20:11:13 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9941C10E410;
+ Mon, 13 Nov 2023 20:11:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1699906273; x=1731442273;
- h=from:to:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=yYvLHxVzbf96nFlGo6x2u4ah7wKWhAElL43TC0+Wp/0=;
- b=g8sTncbWlUTIH4d7bTtS5D3Dpjze6K7Uv09MM6KZyMKvWfQyafHm0Ewk
- IDt6n8mJrKLSh/MNlYoXiH9UTBU8i3wIpRd4j4FN4v1FIwTZEK6nOU4uC
- hy/VjkcvyMnxLd/InVWfbL8PYn93z5DAO49AaWpBNZ6A3etb8CgMiBjpp
- /FJnEcRL6i8UvqPQfG+ntutlb5tJvbOycWvE7yGMDaWHZVq3tRmypbyau
- KX9hk23mPIuaKlYY0yWpdG6LcnDZpd8Voh7Qx5vNCobvAdMNpRkHMwPDS
- RLIKHFQpnHwY9qQBDNftjEkpCVYxmRo9n1o88eaJPdG+AJp+U7qmu0Wif Q==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10893"; a="3553661"
+ t=1699906275; x=1731442275;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=3JRsCBbkvD1Y84ofNkeetVXUr8bjqrGeMKeJ8ALre8Y=;
+ b=R7CwpoH4djwJYtoOsr0UQUDvg4mKkdE6kmYAcMbqyFIRJSAEsQNTBTCa
+ DlZoDVG1ugxUTjuUS5S9Uu/V6M0tlMv+/17myIvLTh13gEHRVG21Oz9Ih
+ mezqx1SkdnDS7L3ij+h7udY0+NfcSp4unOhwfNB4tUVSYKgwpPSzjvcPT
+ WhMKitlKFDEUMiwVAnZywfuSBTjZsmUWUf4CYAg4aFMMxawS7kLvVV48K
+ jOFXyhnY2JhUjD8YkBzq5nw2XszTyd6x/89HLLtyYmWrqYzfWaJgU3EA5
+ GL14leofCMRuporFBZJtjf3Vwtkz/HW05yKu4ZAeY/jdix9DWVilIccAe Q==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10893"; a="3553666"
 X-IronPort-AV: E=Sophos;i="6.03,299,1694761200"; 
-   d="scan'208";a="3553661"
+   d="scan'208";a="3553666"
 Received: from orsmga005.jf.intel.com ([10.7.209.41])
  by fmvoesa102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 13 Nov 2023 12:11:11 -0800
+ 13 Nov 2023 12:11:15 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10893"; a="937829885"
-X-IronPort-AV: E=Sophos;i="6.03,299,1694761200"; d="scan'208";a="937829885"
+X-IronPort-AV: E=McAfee;i="6600,9927,10893"; a="937829890"
+X-IronPort-AV: E=Sophos;i="6.03,299,1694761200"; d="scan'208";a="937829890"
 Received: from ideak-desk.fi.intel.com ([10.237.72.78])
  by orsmga005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 13 Nov 2023 12:11:10 -0800
+ 13 Nov 2023 12:11:13 -0800
 From: Imre Deak <imre.deak@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Mon, 13 Nov 2023 22:11:07 +0200
-Message-Id: <20231113201110.510724-1-imre.deak@intel.com>
+Date: Mon, 13 Nov 2023 22:11:10 +0200
+Message-Id: <20231113201110.510724-4-imre.deak@intel.com>
 X-Mailer: git-send-email 2.39.2
+In-Reply-To: <20231113201110.510724-1-imre.deak@intel.com>
+References: <20231113201110.510724-1-imre.deak@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 1/4] drm/i915/dp: Account for channel coding
- efficiency on UHBR links
+Subject: [Intel-gfx] [PATCH 4/4] drm/dp_mst: Fix PBN divider calculation for
+ UHBR rates
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,38 +59,84 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: dri-devel@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Apply the correct BW allocation overhead and channel coding efficiency
-on UHBR link rates, similarly to DP1.4 link rates.
+The current way of calculating the pbn_div value, the link BW per each
+MTP slot, worked only for DP 1.4 link rates. Fix things up for UHBR
+rates calculating with the correct channel coding efficiency based on
+the link rate.
 
+On UHBR the resulting pbn_div value is not an integer (vs. DP 1.4 where
+the value is always an integer), so ideally a scaled value containing
+the fractional part should be returned, so that the PBN -> MTP slot
+count (aka TU size) conversion can be done with less error. For now
+return a rounded-down value - which can result in +1 excess MTP slot
+getting allocated on UHBR links.
+
+Cc: Lyude Paul <lyude@redhat.com>
+Cc: dri-devel@lists.freedesktop.org
 Signed-off-by: Imre Deak <imre.deak@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_display.c | 10 ----------
- 1 file changed, 10 deletions(-)
+ drivers/gpu/drm/display/drm_dp_mst_topology.c | 15 +++++++++++++--
+ include/drm/display/drm_dp_helper.h           | 13 +++++++++++++
+ 2 files changed, 26 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
-index 3effafcbb411a..24aebdb715e7d 100644
---- a/drivers/gpu/drm/i915/display/intel_display.c
-+++ b/drivers/gpu/drm/i915/display/intel_display.c
-@@ -2398,16 +2398,6 @@ add_bw_alloc_overhead(int link_clock, int bw_overhead,
- 	int ch_coding_efficiency =
- 		drm_dp_bw_channel_coding_efficiency(is_uhbr);
+diff --git a/drivers/gpu/drm/display/drm_dp_mst_topology.c b/drivers/gpu/drm/display/drm_dp_mst_topology.c
+index 4d72c9a32026e..940a9fc0d0244 100644
+--- a/drivers/gpu/drm/display/drm_dp_mst_topology.c
++++ b/drivers/gpu/drm/display/drm_dp_mst_topology.c
+@@ -3582,12 +3582,23 @@ static int drm_dp_send_up_ack_reply(struct drm_dp_mst_topology_mgr *mgr,
+ int drm_dp_get_vc_payload_bw(const struct drm_dp_mst_topology_mgr *mgr,
+ 			     int link_rate, int link_lane_count)
+ {
++	int ret;
++
+ 	if (link_rate == 0 || link_lane_count == 0)
+ 		drm_dbg_kms(mgr->dev, "invalid link rate/lane count: (%d / %d)\n",
+ 			    link_rate, link_lane_count);
  
--	/*
--	 * TODO: adjust for actual UHBR channel coding efficiency and BW
--	 * overhead.
--	 */
--	if (is_uhbr) {
--		*data_m = pixel_data_rate;
--		*data_n = link_data_rate * 8 / 10;
--		return;
--	}
--
- 	*data_m = DIV_ROUND_UP_ULL(mul_u32_u32(pixel_data_rate, bw_overhead),
- 				   1000000);
- 	*data_n = DIV_ROUND_DOWN_ULL(mul_u32_u32(link_data_rate, ch_coding_efficiency),
+-	/* See DP v2.0 2.6.4.2, VCPayload_Bandwidth_for_OneTimeSlotPer_MTP_Allocation */
+-	return link_rate * link_lane_count / 54000;
++	/* See DP v2.0 2.6.4.2, 2.7.6.3 VCPayload_Bandwidth_for_OneTimeSlotPer_MTP_Allocation */
++	/*
++	 * TODO: Return the value with a higher precision, allowing a better
++	 * slots per MTP allocation granularity. With the current returned
++	 * value +1 slot/MTP can get allocated on UHBR links.
++	 */
++	ret = mul_u32_u32(link_rate * link_lane_count,
++			  drm_dp_bw_channel_coding_efficiency(drm_dp_is_uhbr_rate(link_rate))) /
++	      (1000000ULL * 8 * 5400);
++
++	return ret;
+ }
+ EXPORT_SYMBOL(drm_dp_get_vc_payload_bw);
+ 
+diff --git a/include/drm/display/drm_dp_helper.h b/include/drm/display/drm_dp_helper.h
+index caee29d28463c..18ff6af0b5a31 100644
+--- a/include/drm/display/drm_dp_helper.h
++++ b/include/drm/display/drm_dp_helper.h
+@@ -251,6 +251,19 @@ drm_edp_backlight_supported(const u8 edp_dpcd[EDP_DISPLAY_CTL_CAP_SIZE])
+ 	return !!(edp_dpcd[1] & DP_EDP_TCON_BACKLIGHT_ADJUSTMENT_CAP);
+ }
+ 
++/**
++ * drm_dp_is_uhbr_rate - Determine if a link rate is UHBR
++ * @link_rate: link rate in 10kbits/s units
++ *
++ * Determine if the provided link rate is an UHBR rate.
++ *
++ * Returns: %True if @link_rate is an UHBR rate.
++ */
++static inline bool drm_dp_is_uhbr_rate(int link_rate)
++{
++	return link_rate >= 1000000;
++}
++
+ /*
+  * DisplayPort AUX channel
+  */
 -- 
 2.39.2
 
