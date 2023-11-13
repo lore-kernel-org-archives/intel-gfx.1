@@ -4,40 +4,60 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E7AD3C4167D
-	for <intel-gfx@archiver.kernel.org>; Mon, 13 Nov 2023 20:55:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C132FC4332F
+	for <intel-gfx@archiver.kernel.org>; Mon, 13 Nov 2023 21:00:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9FA5A10E429;
-	Mon, 13 Nov 2023 20:55:10 +0000 (UTC)
-Received: from gandalf.ozlabs.org (gandalf.ozlabs.org [150.107.74.76])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7087910E3A8;
- Mon, 13 Nov 2023 20:55:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=canb.auug.org.au;
- s=201702; t=1699908902;
- bh=DUv/lJ8qA5cOJasdLl/4KI3Byg7tjhwKBtZ2bXBLmFg=;
- h=Date:From:To:Cc:Subject:From;
- b=sGxdMDUj2J0vpRNJVDPnvsSgiTBkmBqRh4+/XlynAWcJ19+yoybrg5yDfUuqbDes8
- eK06i4hM5r1YHiENbLd1jqNRMFZO56v3x2m4E6oSrwRXlyTMMwIBZOhwCCH3I5KGsg
- ZjM0euA2XgM7oPbYhIfHqhm7xJX1IL13lvLRTQRhnvvsyS3W2d/J0fz2DUo9PRbyV+
- EmlfcFi+/m6sg7pDX4X0wZ4x2F80eLlCrrwKJCGvNuP8mKtZjNC7l7dmJmV5w8tcSM
- fvLLuy0sMjfImv5wKYNYIBECaj6iT90eyVNZzgliBtz0Pl4jZFwwiUjIJy/jCrtUo/
- xU9SrllY3XfHQ==
-Received: from authenticated.ozlabs.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by mail.ozlabs.org (Postfix) with ESMTPSA id 4SThWp45pYz4wdF;
- Tue, 14 Nov 2023 07:55:02 +1100 (AEDT)
-Date: Tue, 14 Nov 2023 07:55:01 +1100
-From: Stephen Rothwell <sfr@canb.auug.org.au>
-To: Daniel Vetter <daniel.vetter@ffwll.ch>, Intel Graphics
- <intel-gfx@lists.freedesktop.org>, DRI <dri-devel@lists.freedesktop.org>
-Message-ID: <20231114075501.61321c29@canb.auug.org.au>
+	by gabe.freedesktop.org (Postfix) with ESMTP id CE7C310E429;
+	Mon, 13 Nov 2023 21:00:02 +0000 (UTC)
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F2BEC10E17D;
+ Mon, 13 Nov 2023 17:49:58 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by ams.source.kernel.org (Postfix) with ESMTP id 1DF57B80EF4;
+ Mon, 13 Nov 2023 17:49:57 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4991AC433C7;
+ Mon, 13 Nov 2023 17:49:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1699897796;
+ bh=OlVdpAafS+/TnL2gNZWocfkiT+WXch7O/Gj4jH3CWTI=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=LIjkaZQjXatW09ZeXbTIPo+q5RrNWjCsOk0HG3uQ9jZx/Jj/JwWg8masZL8QKT0ZZ
+ WQhSyQhVc2mhkpHTByG3kY/lTylyhO+Jz5Xe32ZS4JAfPZ3uZEtnt2UfkpAMfVaYra
+ Z3MLkka6LfZyMsAw09xuTPN7X38dJDuZgUxM5ddajimSmVXShqJDnkUemjsy82m6XW
+ kfYKsF2y/34lhawChlHd8v7/XDDz13zS5JPzIQ0wGWvUiEcJxhx8/E8P39xxN3f2nj
+ yON8dcggobGU7B0jvYDgW8cWNd2lF2xwMBQwNELv/PcH6ryjBoTuxjmxRgM7bnhZrW
+ B1cIyTJrNKMmw==
+Date: Mon, 13 Nov 2023 12:49:53 -0500
+From: Wolfram Sang <wsa@kernel.org>
+To: Heiner Kallweit <hkallweit1@gmail.com>
+Message-ID: <ZVJhwSS16+/Zzt0f@shikoro>
+Mail-Followup-To: Wolfram Sang <wsa@kernel.org>,
+ Heiner Kallweit <hkallweit1@gmail.com>,
+ intel-gfx@lists.freedesktop.org, linux-i2c@vger.kernel.org,
+ Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Jonas Karlman <jonas@kwiboo.se>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ linux-fbdev@vger.kernel.org, amd-gfx@lists.freedesktop.org,
+ linux-rockchip@lists.infradead.org,
+ linux-arm-kernel@lists.infradead.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ Jocelyn Falempe <jfalempe@redhat.com>, linux-sunxi@lists.linux.dev,
+ linux-mediatek@lists.infradead.org, Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
+ Xinwei Kong <kong.kongxinwei@hisilicon.com>,
+ Sumit Semwal <sumit.semwal@linaro.org>,
+ Yongqin Liu <yongqin.liu@linaro.org>,
+ John Stultz <jstultz@google.com>
+References: <20231113112344.719-1-hkallweit1@gmail.com>
 MIME-Version: 1.0
-Content-Type: multipart/signed; boundary="Sig_/Emdt8+VYSRwA677krXtY.UV";
- protocol="application/pgp-signature"; micalg=pgp-sha256
-Subject: [Intel-gfx] linux-next: Signed-off-by missing for commit in the
- drm-misc tree
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="Zxnb7iIcQAl5ewYC"
+Content-Disposition: inline
+In-Reply-To: <20231113112344.719-1-hkallweit1@gmail.com>
+X-Mailman-Approved-At: Mon, 13 Nov 2023 21:00:01 +0000
+Subject: Re: [Intel-gfx] [PATCH 00/20] remove I2C_CLASS_DDC support
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -50,42 +70,54 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Linux Next Mailing List <linux-next@vger.kernel.org>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- Luben Tuikov <ltuikov89@gmail.com>
+Cc: linux-fbdev@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ Yongqin Liu <yongqin.liu@linaro.org>,
+ Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ Sumit Semwal <sumit.semwal@linaro.org>, amd-gfx@lists.freedesktop.org,
+ linux-rockchip@lists.infradead.org,
+ Xinwei Kong <kong.kongxinwei@hisilicon.com>, linux-sunxi@lists.linux.dev,
+ Jonas Karlman <jonas@kwiboo.se>, linux-arm-msm@vger.kernel.org,
+ intel-gfx@lists.freedesktop.org, linux-mediatek@lists.infradead.org,
+ linux-arm-kernel@lists.infradead.org, Jocelyn Falempe <jfalempe@redhat.com>,
+ linux-kernel@vger.kernel.org, linux-i2c@vger.kernel.org,
+ Thomas Zimmermann <tzimmermann@suse.de>, John Stultz <jstultz@google.com>,
+ freedreno@lists.freedesktop.org,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
---Sig_/Emdt8+VYSRwA677krXtY.UV
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: quoted-printable
 
-Hi all,
+--Zxnb7iIcQAl5ewYC
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-Commit
 
-  0da611a87021 ("dma-buf: add dma_fence_timestamp helper")
+> Preferably this series should be applied via the i2c tree.
 
-is missing a Signed-off-by from its committer.
+Are we in a hurry here, i.e. does it block further development of the
+i801 smbus driver? My gut feeling says the patches should rather go via
+drm and fbdev trees, but I may be convinced otherwise.
 
---=20
-Cheers,
-Stephen Rothwell
 
---Sig_/Emdt8+VYSRwA677krXtY.UV
-Content-Type: application/pgp-signature
-Content-Description: OpenPGP digital signature
+--Zxnb7iIcQAl5ewYC
+Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQEzBAEBCAAdFiEENIC96giZ81tWdLgKAVBC80lX0GwFAmVSjSUACgkQAVBC80lX
-0Gwz5Af/YNPogz3RRCNjYLK5dR2VMBX/IRevqIKwxef//cPJ0hDVSYqMmcjQdd7j
-sUyw3BvrUkrXC+jPMxAwtsmSC1NoeX0dDC4YrIG2io0RtiYvD6CmX56fkPNcReIf
-fSZSHz1FL1qA1gKezWe2xcKP00HILXxUsQQKT0cLaP5j7OvnmRM9oDPccWrgcqyY
-9eHNhQ+ylFk8HbNNsvP0ZsgJDO2pS5VDfi3otVnQNhmJRcDipz3apqhyehMLMgDk
-4xAsuMVvg99nPQQFtHW7lP3xuY7tHrqYWoOcGdk+Zs2T0afABQ+T05YbZG366sE5
-gPhUQ44dm0x/SEBWJjSX9/ZDY1nU4A==
-=E4tp
+iQIzBAABCgAdFiEEOZGx6rniZ1Gk92RdFA3kzBSgKbYFAmVSYcEACgkQFA3kzBSg
+KbZH2w//eUnZg+R48cg2NHPwlDqb/Y0KJdo6xOk9tXkaIu+sNP9+GauuCw1EMTe3
+AIDZoh7pkBamF2ZsoBRIOQOkzRpNj4bN+2L9mbd8SrPSpxaRa8jU3E1prJ7+/NS0
+FJUPmwO6XA9JCOmTtkNvivsp16QjSQfVE+UjbBT0qH0+lKo6RQ9PDbwtIdkmzVOZ
+vGvEqYzOpUB9UkUekEYESgJ/SCbm2lm397qC+d79JXapjDjD8AZliufTjd/jiOCG
+MTVbm6mw9CPGThQsyNd9bjUbaNnqyoz3D0SjxKUG3NPlEYy9uigCj853+J56xO27
+JjENHBt0RFz/oPHWpKko6kfMaDCS7m/aNnETGRuZ4fHBb6rviz/3EGLWYc0HoRds
+6kw7kmMfmh4T0ZMERMDnRsgRiLHzueUujA9Uhh972jiX62CCaWuSjQm/s6lXpAzC
+TT+UETbrdSSX6IJN5eP4E9Rg6ouyKxWGT1N+B4/NPMEjPUfzMFQQgna0ph8aHNcd
+JEI9d/HAUvjvf8tQwo2+1UajwmmX1Yf/C905CT+IGqOLF21LsX7B0zoXELDRsPMD
+ISj6RpuOXI0jhWV6YPlFTA8pFvqvG+lFfpP6kW1VEkYnXMwSbp+K8aN9bcYITWeH
+4OB/vXxnxxEtQ8CgH6yC+jwJWW6jd7KllJQjmD5qi+F4xxOCzwY=
+=fxbp
 -----END PGP SIGNATURE-----
 
---Sig_/Emdt8+VYSRwA677krXtY.UV--
+--Zxnb7iIcQAl5ewYC--
