@@ -4,49 +4,80 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0BC9EC4332F
-	for <intel-gfx@archiver.kernel.org>; Tue, 14 Nov 2023 00:59:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 395D1C4332F
+	for <intel-gfx@archiver.kernel.org>; Tue, 14 Nov 2023 01:08:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2C04510E441;
-	Tue, 14 Nov 2023 00:59:46 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [192.55.52.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 947AD10E43D;
- Tue, 14 Nov 2023 00:59:43 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1699923583; x=1731459583;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=Zhs7+rZwn/e9+7E9fIyFMAl6CcNTd3H1MzZvegtp0ys=;
- b=K5TjL34oy5XsuYH/X74CVXSEd+YuSsQHqxUL+0ySh4VnPnHiNsw79iYk
- /+iOKooE8GRsrxhQ3qpMr3WaOrJAPvK/bmGgi74CEbrjRMHzf6oW2F6v1
- eoNMYgBfxkce8e+HVudjHklUOudt5CIosBhMYriDZbS4wZvizkNotZcPR
- teHws4Pc/3v1s+Ukhy+l63yqMFeMiMC7fAtXRpx3V79mvBq8JZK9+Fj0W
- LU8gGkoeg5y1seqDleudkKkNv3oxDafLH2p+eP9kwp/StRSUvpFbUXKkg
- lNrpFpc4XD0MOW7FP0eZwZ97Cz5neCd83g0bNm3Xc47YUkzbnDKJzAt/m Q==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10893"; a="476758179"
-X-IronPort-AV: E=Sophos;i="6.03,299,1694761200"; d="scan'208";a="476758179"
-Received: from orsmga003.jf.intel.com ([10.7.209.27])
- by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 13 Nov 2023 16:59:43 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10893"; a="714392478"
-X-IronPort-AV: E=Sophos;i="6.03,299,1694761200"; d="scan'208";a="714392478"
-Received: from relo-linux-5.jf.intel.com ([10.165.21.152])
- by orsmga003.jf.intel.com with ESMTP; 13 Nov 2023 16:59:42 -0800
-From: John.C.Harrison@Intel.com
-To: Intel-GFX@Lists.FreeDesktop.Org
-Date: Mon, 13 Nov 2023 17:00:15 -0800
-Message-ID: <20231114010016.234570-2-John.C.Harrison@Intel.com>
-X-Mailer: git-send-email 2.41.0
-In-Reply-To: <20231114010016.234570-1-John.C.Harrison@Intel.com>
-References: <20231114010016.234570-1-John.C.Harrison@Intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3CE0110E433;
+	Tue, 14 Nov 2023 01:08:27 +0000 (UTC)
+Received: from mail-qk1-x72c.google.com (mail-qk1-x72c.google.com
+ [IPv6:2607:f8b0:4864:20::72c])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CE73C10E0A4;
+ Tue, 14 Nov 2023 01:08:24 +0000 (UTC)
+Received: by mail-qk1-x72c.google.com with SMTP id
+ af79cd13be357-77891c236fcso329597585a.3; 
+ Mon, 13 Nov 2023 17:08:24 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1699924104; x=1700528904; darn=lists.freedesktop.org;
+ h=in-reply-to:autocrypt:from:references:cc:to:content-language
+ :subject:user-agent:mime-version:date:message-id:from:to:cc:subject
+ :date:message-id:reply-to;
+ bh=JKcvvlyi44mL6KlohMsUtHtgv16cdE0L7BYR9br9JrA=;
+ b=beLZI2Q5uFzjEy3g/E0FkEfsNwy6mEKHVgM4zNCCyJSM3/qybfuny8ueU8A28S8B/F
+ co+57Q9YESvkAVkGqDQblq9UkK2iIgdAlExmka1yQMhe0rh8pxW7bAtDMjodNwTwAGJP
+ XFewwyiMr7fxb0sMKeKJ6BCAUM0vjdVHsuPa0Rb+1DZ+GbFCLN48rfDH4yp/9sQ1/vfw
+ CLE+38enhQK0Xp//CutBbgyKf4RrBSqBFgM5m7LaXHz3jBuwoUPdgQI6a75E7mRKrMCD
+ 1PnUPwcS4szzG4EA/ShzaANctUCdOmqo3lNGSGmwb2eKiv0j9ysoiTWxtiud3OBtRcQx
+ IrKQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1699924104; x=1700528904;
+ h=in-reply-to:autocrypt:from:references:cc:to:content-language
+ :subject:user-agent:mime-version:date:message-id:x-gm-message-state
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=JKcvvlyi44mL6KlohMsUtHtgv16cdE0L7BYR9br9JrA=;
+ b=E+Et6EK0CKgLCx6aRs1r8rDRtYQjS3IFgHrcyqGfEO/DXTS89PN9qxEVoQaJAy0GBq
+ Vf6kyHGxW5txuDr0lz6+4AUEYAPrGvGPMmOmi+5iU5rc043dS89I46RVuBdFNpi1ZrUR
+ SUgMVSqaDql6bNexiaiTOieIIiwa8Wc8RdH1FHHYh3hKqwxXdHu3lS76i+uzPj4DINUp
+ WUGIhy8nSCzRm9gHYrKwIRZCzYCcOLim/IRAf94QHjOjkgpM3zPjynIJjrTo+7f9aCZS
+ BC7/fiY0DkEoWUO0G6bNb+RFmieB0xBlp6gNGbLiH3vflpTq3tPkvoZ3ydaUq3VZMt2M
+ PDZg==
+X-Gm-Message-State: AOJu0Yz+KiS4HL3U/44GoxjmDjagQQ0WF3hYeFM3f17SiBmqZQCqaIxj
+ KhX1xEgZdpqGzrHh/RWXMZE=
+X-Google-Smtp-Source: AGHT+IFiQWl24h9GC1sLTorOF/ZdWCUlUOYvQPa91zZrJC9cw0bp+El0mMCJWAMiyBDFPfqhTaNV+g==
+X-Received: by 2002:a05:620a:19a1:b0:779:d1ea:c5da with SMTP id
+ bm33-20020a05620a19a100b00779d1eac5damr972334qkb.37.1699924103773; 
+ Mon, 13 Nov 2023 17:08:23 -0800 (PST)
+Received: from [192.168.2.14] ([76.65.20.140])
+ by smtp.gmail.com with ESMTPSA id
+ qf6-20020a05620a660600b0077407e3d68asm2268274qkn.111.2023.11.13.17.08.23
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 13 Nov 2023 17:08:23 -0800 (PST)
+Message-ID: <19740d41-dd5a-47e4-b3e8-539b45bbd3e5@gmail.com>
+Date: Mon, 13 Nov 2023 20:08:14 -0500
 MIME-Version: 1.0
-Organization: Intel Corporation (UK) Ltd. - Co. Reg. #1134945 - Pipers Way,
- Swindon SN3 1RJ
-Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v2 1/2] drm/i915/guc: Fix for potential false
- positives in GuC hang selftest
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:115.0) Gecko/20100101
+ Thunderbird/115.4.2
+Content-Language: en-CA, en-US
+To: Stephen Rothwell <sfr@canb.auug.org.au>,
+ Daniel Vetter <daniel.vetter@ffwll.ch>,
+ Intel Graphics <intel-gfx@lists.freedesktop.org>,
+ DRI <dri-devel@lists.freedesktop.org>
+References: <20231114075501.61321c29@canb.auug.org.au>
+From: Luben Tuikov <ltuikov89@gmail.com>
+Autocrypt: addr=ltuikov89@gmail.com; keydata=
+ xjMEZTohOhYJKwYBBAHaRw8BAQdAWSq76k+GsENjDTMVCy9Vr4fAO9Rb57/bPT1APnbnnRHN
+ Ikx1YmVuIFR1aWtvdiA8bHR1aWtvdjg5QGdtYWlsLmNvbT7CmQQTFgoAQRYhBJkj7+VmFO9b
+ eaAl10wVR5QxozSvBQJlOiE6AhsDBQkJZgGABQsJCAcCAiICBhUKCQgLAgQWAgMBAh4HAheA
+ AAoJEEwVR5QxozSvSm4BAOwCpX53DTQhE20FBGlTMqKCOQyJqlMcIQ9SO1qPWX1iAQCv3vfy
+ JwktF7REl1yt7IU2Sye1qmQMfJxdt9JMbMNNBs44BGU6IToSCisGAQQBl1UBBQEBB0BT9wSP
+ cCE8uGe7FWo8C+nTSyWPXKTx9F0gpEnlqReRBwMBCAfCfgQYFgoAJhYhBJkj7+VmFO9beaAl
+ 10wVR5QxozSvBQJlOiE6AhsMBQkJZgGAAAoJEEwVR5QxozSvSsYA/2LIFjbxQ2ikbU5S0pKo
+ aMDzO9eGz69uNhNWJcvIKJK6AQC9228Mqc1JeZMIyjYWr2HKYHi8S2q2/zHrSZwAWYYwDA==
+In-Reply-To: <20231114075501.61321c29@canb.auug.org.au>
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="------------vEfybuPWDPn3tC0gL2qgH3Ql"
+Subject: Re: [Intel-gfx] linux-next: Signed-off-by missing for commit in the
+ drm-misc tree
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,45 +90,94 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: DRI-Devel@Lists.FreeDesktop.Org
+Cc: Linux Next Mailing List <linux-next@vger.kernel.org>,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: John Harrison <John.C.Harrison@Intel.com>
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--------------vEfybuPWDPn3tC0gL2qgH3Ql
+Content-Type: multipart/mixed; boundary="------------B4ohSNNGqjiBnNCLqzuihuRH";
+ protected-headers="v1"
+From: Luben Tuikov <ltuikov89@gmail.com>
+To: Stephen Rothwell <sfr@canb.auug.org.au>,
+ Daniel Vetter <daniel.vetter@ffwll.ch>,
+ Intel Graphics <intel-gfx@lists.freedesktop.org>,
+ DRI <dri-devel@lists.freedesktop.org>
+Cc: Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ Linux Next Mailing List <linux-next@vger.kernel.org>
+Message-ID: <19740d41-dd5a-47e4-b3e8-539b45bbd3e5@gmail.com>
+Subject: Re: linux-next: Signed-off-by missing for commit in the drm-misc tree
+References: <20231114075501.61321c29@canb.auug.org.au>
+In-Reply-To: <20231114075501.61321c29@canb.auug.org.au>
 
-Noticed that the hangcheck selftest is submitting a non-preemptoble
-spinner. That means that even if the GuC does not die, the heartbeat
-will still kick in and trigger a reset. Which is rather defeating the
-purpose of the test - to verify that the heartbeat will kick in if the
-GuC itself has died. The test is deliberately killing the GuC, so it
-should never hit the case of a non-dead GuC. But it is not impossible
-that the kill might fail at some future point due to other driver
-re-work.
+--------------B4ohSNNGqjiBnNCLqzuihuRH
+Content-Type: multipart/mixed; boundary="------------qvDQOYufPGufy4Mj2qrN1Ci0"
 
-So, make the spinner pre-emptible. That way the heartbeat can get
-through if the GuC is alive and context switching. Thus a reset only
-happens if the GuC dies. Thus, if the kill should stop working the
-test will now fail rather than claim to pass.
+--------------qvDQOYufPGufy4Mj2qrN1Ci0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
 
-Signed-off-by: John Harrison <John.C.Harrison@Intel.com>
-Reviewed-by: Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>
----
- drivers/gpu/drm/i915/gt/uc/selftest_guc_hangcheck.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+On 2023-11-13 15:55, Stephen Rothwell wrote:
+> Hi all,
+>=20
+> Commit
+>=20
+>   0da611a87021 ("dma-buf: add dma_fence_timestamp helper")
+>=20
+> is missing a Signed-off-by from its committer.
+>=20
 
-diff --git a/drivers/gpu/drm/i915/gt/uc/selftest_guc_hangcheck.c b/drivers/gpu/drm/i915/gt/uc/selftest_guc_hangcheck.c
-index 34b5d952e2bcb..26fdc392fce6c 100644
---- a/drivers/gpu/drm/i915/gt/uc/selftest_guc_hangcheck.c
-+++ b/drivers/gpu/drm/i915/gt/uc/selftest_guc_hangcheck.c
-@@ -74,7 +74,7 @@ static int intel_hang_guc(void *arg)
- 		goto err;
- 	}
- 
--	rq = igt_spinner_create_request(&spin, ce, MI_NOOP);
-+	rq = igt_spinner_create_request(&spin, ce, MI_ARB_CHECK);
- 	intel_context_put(ce);
- 	if (IS_ERR(rq)) {
- 		ret = PTR_ERR(rq);
--- 
-2.41.0
+In order to merge the scheduler changes necessary for the Xe driver, thos=
+e changes
+were based on drm-tip, which included this change from drm-misc-fixes, bu=
+t which
+wasn't present in drm-misc-next.
 
+I didn't want to create a merge conflict between drm-misc-next and drm-mi=
+sc-fixes,
+when pulling that change from drm-misc-next to drm-misc-fixes, so that I =
+can apply
+the Xe scheduler changes on top of drm-misc-next.
+--=20
+Regards,
+Luben
+
+--------------qvDQOYufPGufy4Mj2qrN1Ci0
+Content-Type: application/pgp-keys; name="OpenPGP_0x4C15479431A334AF.asc"
+Content-Disposition: attachment; filename="OpenPGP_0x4C15479431A334AF.asc"
+Content-Description: OpenPGP public key
+Content-Transfer-Encoding: quoted-printable
+
+-----BEGIN PGP PUBLIC KEY BLOCK-----
+
+xjMEZTohOhYJKwYBBAHaRw8BAQdAWSq76k+GsENjDTMVCy9Vr4fAO9Rb57/bPT1A
+PnbnnRHNIkx1YmVuIFR1aWtvdiA8bHR1aWtvdjg5QGdtYWlsLmNvbT7CmQQTFgoA
+QRYhBJkj7+VmFO9beaAl10wVR5QxozSvBQJlOiE6AhsDBQkJZgGABQsJCAcCAiIC
+BhUKCQgLAgQWAgMBAh4HAheAAAoJEEwVR5QxozSvSm4BAOwCpX53DTQhE20FBGlT
+MqKCOQyJqlMcIQ9SO1qPWX1iAQCv3vfyJwktF7REl1yt7IU2Sye1qmQMfJxdt9JM
+bMNNBs44BGU6IToSCisGAQQBl1UBBQEBB0BT9wSPcCE8uGe7FWo8C+nTSyWPXKTx
+9F0gpEnlqReRBwMBCAfCfgQYFgoAJhYhBJkj7+VmFO9beaAl10wVR5QxozSvBQJl
+OiE6AhsMBQkJZgGAAAoJEEwVR5QxozSvSsYA/2LIFjbxQ2ikbU5S0pKoaMDzO9eG
+z69uNhNWJcvIKJK6AQC9228Mqc1JeZMIyjYWr2HKYHi8S2q2/zHrSZwAWYYwDA=3D=3D
+=3DqCaZ
+-----END PGP PUBLIC KEY BLOCK-----
+
+--------------qvDQOYufPGufy4Mj2qrN1Ci0--
+
+--------------B4ohSNNGqjiBnNCLqzuihuRH--
+
+--------------vEfybuPWDPn3tC0gL2qgH3Ql
+Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="OpenPGP_signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+wnsEABYIACMWIQSZI+/lZhTvW3mgJddMFUeUMaM0rwUCZVLIfgUDAAAAAAAKCRBMFUeUMaM0r7zT
+AQCiNDNdfwwEl1fqI+vA0gRQhPhPspazrejdUdFVOa2rkwD9Ey1+rknoP3/l6BG/sMCB6KcSvzYM
+VqgKbrH9xS0SCQk=
+=MWyy
+-----END PGP SIGNATURE-----
+
+--------------vEfybuPWDPn3tC0gL2qgH3Ql--
