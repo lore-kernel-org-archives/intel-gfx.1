@@ -4,48 +4,56 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0EA54C4167D
-	for <intel-gfx@archiver.kernel.org>; Tue, 14 Nov 2023 15:52:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EFC70C4332F
+	for <intel-gfx@archiver.kernel.org>; Tue, 14 Nov 2023 15:53:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0ADF110E459;
-	Tue, 14 Nov 2023 15:52:36 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6B17D10E454;
- Tue, 14 Nov 2023 15:52:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9237810E454;
+	Tue, 14 Nov 2023 15:53:33 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [134.134.136.100])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B12E010E454;
+ Tue, 14 Nov 2023 15:53:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1699977152; x=1731513152;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=dHBlOfPSX9Gf0QokHyutDZQCxFBjrGYPUyvvM+omAVA=;
- b=QDDXoJGXMfr5ox7xxDe+AyjncGcSRQ9xrat8/gri72c3RKjXh0AUzeNW
- yxhXH8GFH2M3mEis9u3LfXr5Qhk4tvliXrXSJlf3v50QTBvm2foVLTMR5
- RJDpNLJtFXh7COn+lJ62ik15257HilPVjXzy9hhSj1jjbrL0U66zzuK1T
- 2sbcOl6Z/0uvlC7z9dS2Rk8pgH0PTTmGPtHSL7M37ADmkdLqhzgJYwlyp
- J6WBuvOyAopC3tPq2gdUm2iO/Gv7rZLebGaFWa9qHbhg0ki/V/f1q+M3l
- fgqUqgIFWSIVJt4dKrvGz72AoBpHWgd0QKPhKDF7hHt/YMUHzoYPc1ZrG Q==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10894"; a="3786289"
-X-IronPort-AV: E=Sophos;i="6.03,302,1694761200"; 
-   d="scan'208";a="3786289"
-Received: from orviesa002.jf.intel.com ([10.64.159.142])
- by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 14 Nov 2023 07:52:31 -0800
+ t=1699977212; x=1731513212;
+ h=message-id:date:mime-version:subject:to:cc:references:
+ from:in-reply-to:content-transfer-encoding;
+ bh=oJ3L70+WCz5hA1RyBMC0XAHjP86uMYTYzqH9F010sFQ=;
+ b=K1dtDSPg4C+h4R6W8SoHErApAwGPyVRTUjrHQFArD0W+tg3wEsvUW2yr
+ kSf+ZQ/3Cm1y51qaC2xmp4mYjZvTg7/N1/FH5VpMIMXbqAz3Q+eHICUY8
+ cAGnO1Spb3wI2bRQ/jKfmhqAJKXcJyOpVpON0+dLgvhs8xisbGOligxoo
+ eGE8IeUIEKoLypnZatxokxJWsSE0rG4tGEqtVpMIquhWr4Js7/qvY6DK9
+ emFAnIcIy3kRRNDXwuTPsSmt0Rn7HnP4wc5m0jF14e2t9xAgdscc59RHX
+ j1r0v8sH4ZWm7opvgyTdP5FeX927c3LH3IIDfqO0M9C1HHlkLZ0BiC8zS w==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10894"; a="457174747"
+X-IronPort-AV: E=Sophos;i="6.03,302,1694761200"; d="scan'208";a="457174747"
+Received: from fmsmga001.fm.intel.com ([10.253.24.23])
+ by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 14 Nov 2023 07:53:31 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.03,302,1694761200"; 
-   d="scan'208";a="5831029"
-Received: from aalteres-desk.fm.intel.com ([10.80.57.53])
- by orviesa002.jf.intel.com with ESMTP; 14 Nov 2023 07:52:31 -0800
-From: Alan Previn <alan.previn.teres.alexis@intel.com>
-To: intel-gfx@lists.freedesktop.org
-Date: Tue, 14 Nov 2023 07:52:28 -0800
-Message-Id: <20231114155229.756100-2-alan.previn.teres.alexis@intel.com>
-X-Mailer: git-send-email 2.39.0
-In-Reply-To: <20231114155229.756100-1-alan.previn.teres.alexis@intel.com>
-References: <20231114155229.756100-1-alan.previn.teres.alexis@intel.com>
+X-IronPort-AV: E=McAfee;i="6600,9927,10894"; a="908417609"
+X-IronPort-AV: E=Sophos;i="6.03,302,1694761200"; d="scan'208";a="908417609"
+Received: from hoffbaue-mobl1.ger.corp.intel.com (HELO [10.249.43.206])
+ ([10.249.43.206])
+ by fmsmga001-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 14 Nov 2023 07:52:54 -0800
+Message-ID: <265607f1-debc-410e-add3-198af804f37c@linux.intel.com>
+Date: Tue, 14 Nov 2023 16:52:52 +0100
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Content-Language: en-US
+To: Takashi Iwai <tiwai@suse.de>
+References: <20231002193847.7134-1-maarten.lankhorst@linux.intel.com>
+ <20231002193847.7134-11-maarten.lankhorst@linux.intel.com>
+ <ZVNUxZzCGcxQzqJX@intel.com> <87bkbwsebl.fsf@intel.com>
+ <ZVN4rQjLxROOjTE-@intel.com>
+ <f72ce7ff-19a4-4a12-9ede-615a964e7228@linux.intel.com>
+ <87ttpopc5i.wl-tiwai@suse.de>
+From: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+In-Reply-To: <87ttpopc5i.wl-tiwai@suse.de>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v6 1/2] drm/i915/guc: Flush context destruction
- worker at suspend
+Subject: Re: [Intel-gfx] [Intel-xe] [PATCH 11/14] ALSA: hda/intel: Move
+ snd_hdac_i915_init to before probe_work.
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,70 +66,82 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alan Previn <alan.previn.teres.alexis@intel.com>,
- Tvrtko Ursulin <tvrtko.ursulin@intel.com>, dri-devel@lists.freedesktop.org,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, Mousumi Jana <mousumi.jana@intel.com>
+Cc: alsa-devel@alsa-project.org, intel-gfx@lists.freedesktop.org,
+ intel-xe@lists.freedesktop.org, "Kurmi,
+ Suresh Kumar" <suresh.kumar.kurmi@intel.com>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-When suspending, flush the context-guc-id
-deregistration worker at the final stages of
-intel_gt_suspend_late when we finally call gt_sanitize
-that eventually leads down to __uc_sanitize so that
-the deregistration worker doesn't fire off later as
-we reset the GuC microcontroller.
+Hey,
 
-Signed-off-by: Alan Previn <alan.previn.teres.alexis@intel.com>
-Reviewed-by: Rodrigo Vivi <rodrigo.vivi@intel.com>
-Tested-by: Mousumi Jana <mousumi.jana@intel.com>
----
- drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c | 5 +++++
- drivers/gpu/drm/i915/gt/uc/intel_guc_submission.h | 2 ++
- drivers/gpu/drm/i915/gt/uc/intel_uc.c             | 2 ++
- 3 files changed, 9 insertions(+)
+Den 2023-11-14 kl. 16:50, skrev Takashi Iwai:
+> On Tue, 14 Nov 2023 15:39:16 +0100,
+> Maarten Lankhorst wrote:
+>>
+>> Hey,
+>>
+>> Den 2023-11-14 kl. 14:39, skrev Ville Syrjälä:
+>>
+>>      On Tue, Nov 14, 2023 at 02:35:10PM +0200, Jani Nikula wrote:
+>>      
+>>          On Tue, 14 Nov 2023, Ville Syrjälä <ville.syrjala@linux.intel.com> wrote:
+>>          
+>>              On Mon, Oct 02, 2023 at 09:38:44PM +0200, maarten.lankhorst@linux.intel.com wrote:
+>>              
+>>                  From: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+>>                  
+>>                  Now that we can use -EPROBE_DEFER, it's no longer required to spin off
+>>                  the snd_hdac_i915_init into a workqueue.
+>>                  
+>>                  Use the -EPROBE_DEFER mechanism instead, which must be returned in the
+>>                  probe function.
+>>                  
+>>              This completely broke i915 audio!
+>>              
+>>              I also can't see any trace of this stuff ever being posted to
+>>              intel-gfx so it never went through the CI.
+>>              
+>>              Please fix or revert ASAP.
+>>              
+>>          Cc: Jani, Suresh
+>>          
+>>          Ville, please file a bug at gitlab so we can track this, thanks.
+>>          
+>>      https://gitlab.freedesktop.org/drm/intel/-/issues/9671
+>>      
+>> Looks like a simple patch should be enough, can you test below?
+> Seems that we reached to the same conclusion :)
+>
+> I took a quick look at other code paths, and sound/pci/hda/hda_intel.c
+> is the only place that needs the correction.  Other (ASoC) drivers are
+> either simply always returning the error or dealing only with -ENODEV
+> case for skipping the HDMI codec.
 
-diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
-index d37698bd6b91..9d1915482898 100644
---- a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
-+++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
-@@ -1611,6 +1611,11 @@ static void guc_flush_submissions(struct intel_guc *guc)
- 	spin_unlock_irqrestore(&sched_engine->lock, flags);
- }
- 
-+void intel_guc_submission_flush_work(struct intel_guc *guc)
-+{
-+	flush_work(&guc->submission_state.destroyed_worker);
-+}
-+
- static void guc_flush_destroyed_contexts(struct intel_guc *guc);
- 
- void intel_guc_submission_reset_prepare(struct intel_guc *guc)
-diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.h b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.h
-index c57b29cdb1a6..b6df75622d3b 100644
---- a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.h
-+++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.h
-@@ -38,6 +38,8 @@ int intel_guc_wait_for_pending_msg(struct intel_guc *guc,
- 				   bool interruptible,
- 				   long timeout);
- 
-+void intel_guc_submission_flush_work(struct intel_guc *guc);
-+
- static inline bool intel_guc_submission_is_supported(struct intel_guc *guc)
- {
- 	return guc->submission_supported;
-diff --git a/drivers/gpu/drm/i915/gt/uc/intel_uc.c b/drivers/gpu/drm/i915/gt/uc/intel_uc.c
-index 27f6561dd731..cb74835b1a13 100644
---- a/drivers/gpu/drm/i915/gt/uc/intel_uc.c
-+++ b/drivers/gpu/drm/i915/gt/uc/intel_uc.c
-@@ -695,6 +695,8 @@ void intel_uc_suspend(struct intel_uc *uc)
- 		return;
- 	}
- 
-+	intel_guc_submission_flush_work(guc);
-+
- 	with_intel_runtime_pm(&uc_to_gt(uc)->i915->runtime_pm, wakeref) {
- 		err = intel_guc_suspend(guc);
- 		if (err)
--- 
-2.39.0
+Yeah, the original comment in the code confused me and led me to not 
+handle -EPROBE_DEFER in the first place there.
 
+Cheers,
+
+Maarten
+
+> thanks,
+>
+> Takashi
+>
+>> ----
+>>
+>> diff --git a/sound/pci/hda/hda_intel.c b/sound/pci/hda/hda_intel.c
+>> index 058f6e6491f9a..946aaa487f200 100644
+>> --- a/sound/pci/hda/hda_intel.c
+>> +++ b/sound/pci/hda/hda_intel.c
+>> @@ -2145,7 +2145,8 @@ static int azx_probe(struct pci_dev *pci,
+>>                                                                     * for other chips, still continue probing as other
+>>                                                                     * codecs can be on the same link.
+>>                                                                     */
+>> -                                                                 if (HDA_CONTROLLER_IN_GPU(pci)) {
+>> +                                                                 if (HDA_CONTROLLER_IN_GPU(pci) ||
+>> +                                                                     err == -EPROBE_DEFER) {
+>>                                                                                          goto out_free;
+>>                                                                    } else {
+>>                                                                                          /* don't bother any longer */
+>>
