@@ -4,30 +4,30 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6D7C2C072A2
-	for <intel-gfx@archiver.kernel.org>; Thu, 16 Nov 2023 00:54:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 09F68C2BB3F
+	for <intel-gfx@archiver.kernel.org>; Thu, 16 Nov 2023 00:54:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C79DD10E2C7;
-	Thu, 16 Nov 2023 00:54:08 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 391D410E242;
+	Thu, 16 Nov 2023 00:54:11 +0000 (UTC)
 Received: from emeril.freedesktop.org (emeril.freedesktop.org
- [IPv6:2610:10:20:722:a800:ff:feee:56cf])
- by gabe.freedesktop.org (Postfix) with ESMTP id 02C8210E242;
- Thu, 16 Nov 2023 00:54:05 +0000 (UTC)
+ [131.252.210.167])
+ by gabe.freedesktop.org (Postfix) with ESMTP id A737810E242;
+ Thu, 16 Nov 2023 00:54:08 +0000 (UTC)
 Received: from emeril.freedesktop.org (localhost [127.0.0.1])
- by emeril.freedesktop.org (Postfix) with ESMTP id E46C2AADF5;
- Thu, 16 Nov 2023 00:54:05 +0000 (UTC)
+ by emeril.freedesktop.org (Postfix) with ESMTP id 91853AADF5;
+ Thu, 16 Nov 2023 00:54:08 +0000 (UTC)
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
 From: Patchwork <patchwork@emeril.freedesktop.org>
 To: "Mitul Golani" <mitulkumar.ajitkumar.golani@intel.com>
-Date: Thu, 16 Nov 2023 00:54:05 -0000
-Message-ID: <170009604590.3091.14083224299882088461@emeril.freedesktop.org>
+Date: Thu, 16 Nov 2023 00:54:08 -0000
+Message-ID: <170009604859.3093.2317247638248531180@emeril.freedesktop.org>
 X-Patchwork-Hint: ignore
 References: <20231115154943.3801663-1-mitulkumar.ajitkumar.golani@intel.com>
 In-Reply-To: <20231115154943.3801663-1-mitulkumar.ajitkumar.golani@intel.com>
-Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkNIRUNLUEFUQ0g6IHdhcm5pbmcg?=
- =?utf-8?q?for_Implement_CMRR_Support_=28rev3=29?=
+Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLlNQQVJTRTogd2FybmluZyBmb3Ig?=
+ =?utf-8?q?Implement_CMRR_Support_=28rev3=29?=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -53,39 +53,8 @@ State : warning
 
 == Summary ==
 
-Error: dim checkpatch failed
-932e33a4e513 drm/i915: Define and compute Transcoder CMRR registers
--:39: CHECK:MACRO_ARG_REUSE: Macro argument reuse 'name' - possible side-effects?
-#39: FILE: drivers/gpu/drm/i915/display/intel_display.c:5077:
-+#define PIPE_CONF_CHECK_LLI(name) do { \
-+	if (current_config->name != pipe_config->name) { \
-+		pipe_config_mismatch(fastset, crtc, __stringify(name), \
-+				     "(expected %lli, found %lli)", \
-+				     current_config->name, \
-+				     pipe_config->name); \
-+		ret = false; \
-+	} \
-+} while (0)
-
--:39: CHECK:MACRO_ARG_PRECEDENCE: Macro argument 'name' may be better as '(name)' to avoid precedence issues
-#39: FILE: drivers/gpu/drm/i915/display/intel_display.c:5077:
-+#define PIPE_CONF_CHECK_LLI(name) do { \
-+	if (current_config->name != pipe_config->name) { \
-+		pipe_config_mismatch(fastset, crtc, __stringify(name), \
-+				     "(expected %lli, found %lli)", \
-+				     current_config->name, \
-+				     pipe_config->name); \
-+		ret = false; \
-+	} \
-+} while (0)
-
-total: 0 errors, 0 warnings, 2 checks, 119 lines checked
-0d936c6d91d1 drm/i915: Add Enable/Disable for CMRR based on VRR state
--:21: WARNING:COMMIT_LOG_LONG_LINE: Prefer a maximum 75 chars per line (possible unwrapped commit description?)
-#21: 
-- Check pipe active state in cmrr disabling. (Similar to enable case).[Jani]
-
-total: 0 errors, 1 warnings, 0 checks, 130 lines checked
-23b739d5768b drm/i915: Compute CMRR and calculate vtotal
+Error: dim sparse failed
+Sparse version: v0.6.2
+Fast mode used, each commit won't be checked separately.
 
 
