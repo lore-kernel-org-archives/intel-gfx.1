@@ -4,48 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1BB08C197A0
-	for <intel-gfx@archiver.kernel.org>; Thu, 16 Nov 2023 13:19:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0A51BC5ACB3
+	for <intel-gfx@archiver.kernel.org>; Thu, 16 Nov 2023 13:19:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 987DF10E5E4;
-	Thu, 16 Nov 2023 13:18:56 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7746110E5E7;
+	Thu, 16 Nov 2023 13:18:58 +0000 (UTC)
 Received: from mgamail.intel.com (mgamail.intel.com [192.55.52.88])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4AF2610E5DF
- for <intel-gfx@lists.freedesktop.org>; Thu, 16 Nov 2023 13:18:51 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E8A7C10E5E6
+ for <intel-gfx@lists.freedesktop.org>; Thu, 16 Nov 2023 13:18:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1700140731; x=1731676731;
+ t=1700140736; x=1731676736;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=dNjcgLmoC6ndEvhGOaf9giYyqRnO0QOn/R5NTPh5Vm0=;
- b=Q2Y1UqX6yl9Z5Z5anJ/MNnIVaeRcAbi1rc/MujgpmyEFSSzorb2Q8zwC
- y5uyS7r3t4pEeQiEXCOtPsanf0BObHCJq9LtLwcyz6rO1M+GL9DGz3G9A
- czuAZEIWqa8UPahVtjYtrgHapWvJHLh3Ox41nu3+Rk4YAS1KKEJE3PlQB
- xmKZSc1nHMNvhAD6tDFA3HRvyUO+QO0VUZlUOMl6dEjXo24Xz4eoeZLz3
- aDXafTzfLsOc/ZELbCIvJyTPrek/jGR02qKAJvg9vRaku7Eq/59+OzO+M
- vAYjlLghs0QKsWXxGaniafJEg92sb9krhtWKryYU82qykjjtHleEvxeMI Q==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10895"; a="422177160"
-X-IronPort-AV: E=Sophos;i="6.04,308,1695711600"; d="scan'208";a="422177160"
+ bh=Zcpd0Pofl6bYKgkjg5ll2Em7uUMT6yg6yiZlrtFP9EE=;
+ b=BIbImlqiKehOA/gQHhh+2W/gCTwL/JpTlRIRepjex6RsriFU+n9tgik5
+ b1kE1pCUB5MfewH6Ex6u6/JfaFzWdZq6lXpTlziqz36So4v+WUi9yvxf7
+ h4TP3A2MDtAahCGQmjy+MbvxAWj/FdSix0UfIOOW8QTOURrEs+x3cVifj
+ LoIMKsGQFAJwMO/NSAJjP1tfDLudyKIFTWmpNUAxawnZO5/ATtgsQu4hk
+ 6+MbmeboPDFBJ7l/yxtbLCvdJFHQFb9xNubk0MdZXkb0eqMBa379YJSGu
+ EVU2JrVjvpMojeMvY4UURYYF/+T+/37vbVsKdmWYVoyAqOtZzGvOEmbH8 Q==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10895"; a="422177183"
+X-IronPort-AV: E=Sophos;i="6.04,308,1695711600"; d="scan'208";a="422177183"
 Received: from orsmga005.jf.intel.com ([10.7.209.41])
  by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 16 Nov 2023 05:18:51 -0800
+ 16 Nov 2023 05:18:56 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10895"; a="938834352"
-X-IronPort-AV: E=Sophos;i="6.04,308,1695711600"; d="scan'208";a="938834352"
+X-IronPort-AV: E=McAfee;i="6600,9927,10895"; a="938834367"
+X-IronPort-AV: E=Sophos;i="6.04,308,1695711600"; d="scan'208";a="938834367"
 Received: from ideak-desk.fi.intel.com ([10.237.72.78])
  by orsmga005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 16 Nov 2023 05:18:49 -0800
+ 16 Nov 2023 05:18:55 -0800
 From: Imre Deak <imre.deak@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Thu, 16 Nov 2023 15:18:35 +0200
-Message-Id: <20231116131841.1588781-6-imre.deak@intel.com>
+Date: Thu, 16 Nov 2023 15:18:40 +0200
+Message-Id: <20231116131841.1588781-11-imre.deak@intel.com>
 X-Mailer: git-send-email 2.39.2
 In-Reply-To: <20231116131841.1588781-1-imre.deak@intel.com>
 References: <20231116131841.1588781-1-imre.deak@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v2 05/11] drm/i915/dp: Account for channel
- coding efficiency on UHBR links
+Subject: [Intel-gfx] [PATCH v2 10/11] drm/i915/dp: Simplify
+ intel_dp_max_data_rate()
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,36 +61,63 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Apply the correct BW allocation overhead and channel coding efficiency
-on UHBR link rates, similarly to DP1.4 link rates.
+Simplify intel_dp_max_data_rate() using
+drm_dp_bw_channel_coding_efficiency() to calculate the max data rate for
+both DP1.4 and UHBR link rates. This trades a redundant multiply/divide
+for readability.
 
-Reviewed-by: Arun R Murthy <arun.r.murthy@intel.com>
+Cc: Jani Nikula <jani.nikula@linux.intel.com>
 Signed-off-by: Imre Deak <imre.deak@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_display.c | 10 ----------
- 1 file changed, 10 deletions(-)
+ drivers/gpu/drm/i915/display/intel_dp.c | 26 ++++++++++++-------------
+ 1 file changed, 12 insertions(+), 14 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
-index 1e045e4fbe582..9755e0a5042c4 100644
---- a/drivers/gpu/drm/i915/display/intel_display.c
-+++ b/drivers/gpu/drm/i915/display/intel_display.c
-@@ -2398,16 +2398,6 @@ add_bw_alloc_overhead(int link_clock, int bw_overhead,
- 	int ch_coding_efficiency =
- 		drm_dp_bw_channel_coding_efficiency(is_uhbr);
- 
--	/*
--	 * TODO: adjust for actual UHBR channel coding efficiency and BW
--	 * overhead.
--	 */
--	if (is_uhbr) {
--		*data_m = pixel_data_rate;
--		*data_n = link_data_rate * 8 / 10;
--		return;
--	}
+diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
+index 209c27167e057..a93e8f6429d85 100644
+--- a/drivers/gpu/drm/i915/display/intel_dp.c
++++ b/drivers/gpu/drm/i915/display/intel_dp.c
+@@ -405,29 +405,27 @@ int intel_dp_effective_data_rate(int pixel_clock, int bpp_x16,
+ int
+ intel_dp_max_data_rate(int max_link_rate, int max_lanes)
+ {
+-	if (max_link_rate >= 1000000) {
+-		/*
+-		 * UHBR rates always use 128b/132b channel encoding, and have
+-		 * 97.71% data bandwidth efficiency. Consider max_link_rate the
+-		 * link bit rate in units of 10000 bps.
+-		 */
+-		int max_link_rate_kbps = max_link_rate * 10;
 -
- 	*data_m = DIV_ROUND_UP_ULL(mul_u32_u32(pixel_data_rate, bw_overhead),
- 				   1000000);
- 	*data_n = DIV_ROUND_DOWN_ULL(mul_u32_u32(link_data_rate, ch_coding_efficiency),
+-		max_link_rate_kbps = DIV_ROUND_DOWN_ULL(mul_u32_u32(max_link_rate_kbps, 9671), 10000);
+-		max_link_rate = max_link_rate_kbps / 8;
+-	}
++	int ch_coding_efficiency =
++		drm_dp_bw_channel_coding_efficiency(drm_dp_is_uhbr_rate(max_link_rate));
++	int max_link_rate_kbps = max_link_rate * 10;
+ 
++	/*
++	 * UHBR rates always use 128b/132b channel encoding, and have
++	 * 97.71% data bandwidth efficiency. Consider max_link_rate the
++	 * link bit rate in units of 10000 bps.
++	 */
+ 	/*
+ 	 * Lower than UHBR rates always use 8b/10b channel encoding, and have
+ 	 * 80% data bandwidth efficiency for SST non-FEC. However, this turns
+-	 * out to be a nop by coincidence, and can be skipped:
++	 * out to be a nop by coincidence:
+ 	 *
+ 	 *	int max_link_rate_kbps = max_link_rate * 10;
+ 	 *	max_link_rate_kbps = DIV_ROUND_DOWN_ULL(max_link_rate_kbps * 8, 10);
+ 	 *	max_link_rate = max_link_rate_kbps / 8;
+ 	 */
+-
+-	return max_link_rate * max_lanes;
++	return DIV_ROUND_DOWN_ULL(mul_u32_u32(max_link_rate_kbps * max_lanes,
++					      ch_coding_efficiency),
++				  1000000 * 8);
+ }
+ 
+ bool intel_dp_can_bigjoiner(struct intel_dp *intel_dp)
 -- 
 2.39.2
 
