@@ -4,48 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 10B6BC5AE4B
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DB22CC5ACB3
 	for <intel-gfx@archiver.kernel.org>; Thu, 16 Nov 2023 13:19:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E051210E5EB;
-	Thu, 16 Nov 2023 13:18:59 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 56BBD10E5ED;
+	Thu, 16 Nov 2023 13:19:01 +0000 (UTC)
 Received: from mgamail.intel.com (mgamail.intel.com [192.55.52.88])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 31F5110E5E4
- for <intel-gfx@lists.freedesktop.org>; Thu, 16 Nov 2023 13:18:53 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3DDF610E5E6
+ for <intel-gfx@lists.freedesktop.org>; Thu, 16 Nov 2023 13:18:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1700140733; x=1731676733;
- h=from:to:subject:date:message-id:in-reply-to:references:
- mime-version:content-transfer-encoding;
- bh=fYZ8WicssfxLXgWlmCflTh6lJkl6vAQulfHp93iVrBY=;
- b=gwPolT2cXZiSB0oCtp80DsGu6meTJE5mdtfmAZlGtdXE0fzJRufxBL7N
- Y/sU1XOMGbmwmokVz0ceAf4uWCgGGMqQodbK65sZM63GpBQpyfrXNv97t
- NUU+U5s7ev4JAIgG9bgF3E1TIC4HVcylxcBKjgZovL+tmXaeHkwEjXewA
- nkJWArupyRR5C71yEhX8/c06fCTEwfq70OmjO1lwyUICGzZyskuVbz+cC
- AY3YH+VTOxPJvceNvNAzJd7G/5HA+Cx4Wfgmp9Cm2bl/zkW4wCynxm8rL
- /VZ65HCfUWyVEBY9bERWyymoe40VUn6QFj7aoa9AM5VJsYJyrU6Og8wKJ w==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10895"; a="422177170"
-X-IronPort-AV: E=Sophos;i="6.04,308,1695711600"; d="scan'208";a="422177170"
+ t=1700140738; x=1731676738;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=IRc4p+jRwfxZroxJSn/irAL2vcaomMYpak79qT8Hwck=;
+ b=hOLtGqTjP6s5n7Jq7nfxXO8H+yNkGovtQJJypiuXzp6Hib+53lcr0InN
+ rnEy8SO28za237X+Ap61sLFzLvyU4E0qjE7JmD1Japk0D3jj57hiEyS+q
+ l6xifVDjxZ8kCcAP9bL4z0MjBeLos22fcpXXr6wJFhjSzBAz08KNyu76D
+ w8pCXYeCkiRWFpaq/6sV/psHFcS6zyuhAzKgZGOhcYYK/dAMTOTlw6ZMI
+ ZAWXcv1VuHB/03LB85dyzlfLOXNo1U3X2rpJBU2O+2z74gwkf5L/rTAX3
+ mzIaJx5rGnUJZkI+1dNQos8LcH/YRDfkNsxyMX+WukIZEu7vMD9fqdMjL A==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10895"; a="422177188"
+X-IronPort-AV: E=Sophos;i="6.04,308,1695711600"; d="scan'208";a="422177188"
 Received: from orsmga005.jf.intel.com ([10.7.209.41])
  by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 16 Nov 2023 05:18:52 -0800
+ 16 Nov 2023 05:18:57 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10895"; a="938834358"
-X-IronPort-AV: E=Sophos;i="6.04,308,1695711600"; d="scan'208";a="938834358"
+X-IronPort-AV: E=McAfee;i="6600,9927,10895"; a="938834370"
+X-IronPort-AV: E=Sophos;i="6.04,308,1695711600"; d="scan'208";a="938834370"
 Received: from ideak-desk.fi.intel.com ([10.237.72.78])
  by orsmga005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 16 Nov 2023 05:18:52 -0800
+ 16 Nov 2023 05:18:56 -0800
 From: Imre Deak <imre.deak@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Thu, 16 Nov 2023 15:18:37 +0200
-Message-Id: <20231116131841.1588781-8-imre.deak@intel.com>
+Date: Thu, 16 Nov 2023 15:18:41 +0200
+Message-Id: <20231116131841.1588781-12-imre.deak@intel.com>
 X-Mailer: git-send-email 2.39.2
 In-Reply-To: <20231116131841.1588781-1-imre.deak@intel.com>
 References: <20231116131841.1588781-1-imre.deak@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v2 07/11] drm/i915/dp_mst: Calculate the BW
- overhead in intel_dp_mst_find_vcpi_slots_for_bpp()
+Subject: [Intel-gfx] [PATCH v2 11/11] drm/i915/dp: Reuse intel_dp_{max,
+ effective}_data_rate in intel_link_compute_m_n()
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,78 +61,62 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-The next patch will calculate the PBN value directly from the pixel data
-rate and the BW allocation overhead, not requiring the data, link M/N
-and TU values for this. To prepare for that move the calculation of BW
-overheads from intel_dp_mst_compute_m_n() to
-intel_dp_mst_find_vcpi_slots_for_bpp().
+Reuse intel_dp_max_data_rate() and intel_dp_effective_data_rate() in
+intel_link_compute_m_n(), instead of open-coding the equivalent. Note
+the kbit/sec -> kByte/sec unit change in the M/N values, but this not
+reducing the precision, as the link rate value is based anyway on a less
+precise 10 kbit/sec value.
 
-While at it store link_bpp in a .4 fixed point format.
-
+Suggested-by: Jani Nikula <jani.nikula@linux.intel.com>
 Signed-off-by: Imre Deak <imre.deak@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_dp_mst.c | 27 ++++++++++++++-------
- 1 file changed, 18 insertions(+), 9 deletions(-)
+ drivers/gpu/drm/i915/display/intel_display.c | 25 +++-----------------
+ 1 file changed, 3 insertions(+), 22 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_dp_mst.c b/drivers/gpu/drm/i915/display/intel_dp_mst.c
-index e5d6b811c22ef..a5ddd1781969d 100644
---- a/drivers/gpu/drm/i915/display/intel_dp_mst.c
-+++ b/drivers/gpu/drm/i915/display/intel_dp_mst.c
-@@ -108,15 +108,12 @@ static int intel_dp_mst_bw_overhead(const struct intel_crtc_state *crtc_state,
+diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
+index 744c321792fcf..199ecd8879461 100644
+--- a/drivers/gpu/drm/i915/display/intel_display.c
++++ b/drivers/gpu/drm/i915/display/intel_display.c
+@@ -2389,36 +2389,17 @@ static void compute_m_n(u32 *ret_m, u32 *ret_n,
+ 	intel_reduce_m_n_ratio(ret_m, ret_n);
+ }
  
- static void intel_dp_mst_compute_m_n(const struct intel_crtc_state *crtc_state,
- 				     const struct intel_connector *connector,
--				     bool ssc, bool dsc,
-+				     int overhead,
- 				     int bpp_x16,
- 				     struct intel_link_m_n *m_n)
+-static void
+-add_bw_alloc_overhead(int link_clock, int bw_overhead,
+-		      int pixel_data_rate, int link_data_rate,
+-		      u32 *data_m, u32 *data_n)
+-{
+-	bool is_uhbr = drm_dp_is_uhbr_rate(link_clock);
+-	int ch_coding_efficiency =
+-		drm_dp_bw_channel_coding_efficiency(is_uhbr);
+-
+-	*data_m = DIV_ROUND_UP_ULL(mul_u32_u32(pixel_data_rate, bw_overhead),
+-				   1000000);
+-	*data_n = DIV_ROUND_DOWN_ULL(mul_u32_u32(link_data_rate, ch_coding_efficiency),
+-				     1000000);
+-}
+-
+ void
+ intel_link_compute_m_n(u16 bits_per_pixel_x16, int nlanes,
+ 		       int pixel_clock, int link_clock,
+ 		       int bw_overhead,
+ 		       struct intel_link_m_n *m_n)
  {
- 	const struct drm_display_mode *adjusted_mode =
- 		&crtc_state->hw.adjusted_mode;
--	int overhead = intel_dp_mst_bw_overhead(crtc_state,
--						connector,
--						ssc, dsc, bpp_x16);
+-	u32 data_clock = DIV_ROUND_UP(bits_per_pixel_x16 * pixel_clock, 16);
+ 	u32 link_symbol_clock = intel_dp_link_symbol_clock(link_clock);
+-	u32 data_m;
+-	u32 data_n;
++	u32 data_m = intel_dp_effective_data_rate(pixel_clock, bits_per_pixel_x16,
++						  bw_overhead);
++	u32 data_n = intel_dp_max_data_rate(link_clock, nlanes);
  
- 	intel_link_compute_m_n(bpp_x16, crtc_state->lane_count,
- 			       adjusted_mode->crtc_clock,
-@@ -171,7 +168,9 @@ static int intel_dp_mst_find_vcpi_slots_for_bpp(struct intel_encoder *encoder,
- 
- 	for (bpp = max_bpp; bpp >= min_bpp; bpp -= step) {
- 		struct intel_link_m_n remote_m_n;
--		int link_bpp;
-+		int local_bw_overhead;
-+		int remote_bw_overhead;
-+		int link_bpp_x16;
- 
- 		drm_dbg_kms(&i915->drm, "Trying bpp %d\n", bpp);
- 
-@@ -179,12 +178,22 @@ static int intel_dp_mst_find_vcpi_slots_for_bpp(struct intel_encoder *encoder,
- 		if (ret)
- 			continue;
- 
--		link_bpp = dsc ? bpp :
--			intel_dp_output_bpp(crtc_state->output_format, bpp);
-+		link_bpp_x16 = to_bpp_x16(dsc ? bpp :
-+					  intel_dp_output_bpp(crtc_state->output_format, bpp));
- 
--		intel_dp_mst_compute_m_n(crtc_state, connector, false, dsc, to_bpp_x16(link_bpp),
-+		local_bw_overhead = intel_dp_mst_bw_overhead(crtc_state, connector,
-+							     false, dsc, link_bpp_x16);
-+		remote_bw_overhead = intel_dp_mst_bw_overhead(crtc_state, connector,
-+							      true, dsc, link_bpp_x16);
-+
-+		intel_dp_mst_compute_m_n(crtc_state, connector,
-+					 local_bw_overhead,
-+					 link_bpp_x16,
- 					 &crtc_state->dp_m_n);
--		intel_dp_mst_compute_m_n(crtc_state, connector, true, dsc, to_bpp_x16(link_bpp),
-+
-+		intel_dp_mst_compute_m_n(crtc_state, connector,
-+					 remote_bw_overhead,
-+					 link_bpp_x16,
- 					 &remote_m_n);
- 
- 		/*
+-	add_bw_alloc_overhead(link_clock, bw_overhead,
+-			      data_clock,
+-			      link_clock * 10 * nlanes,
+-			      &data_m, &data_n);
+ 	/*
+ 	 * Windows/BIOS uses fixed M/N values always. Follow suit.
+ 	 *
 -- 
 2.39.2
 
