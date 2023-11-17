@@ -4,51 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1E9FCC197A0
-	for <intel-gfx@archiver.kernel.org>; Fri, 17 Nov 2023 13:38:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B0CD1C072A2
+	for <intel-gfx@archiver.kernel.org>; Fri, 17 Nov 2023 13:58:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7568E10E75A;
-	Fri, 17 Nov 2023 13:38:02 +0000 (UTC)
-Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 29D6610E17C;
- Tue, 14 Nov 2023 02:44:06 +0000 (UTC)
-X-UUID: 26bfdf990ac844479c482bc4dafd3440-20231114
-X-CID-O-RULE: Release_Ham
-X-CID-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.1.32, REQID:057b3a47-a8d6-4999-a647-aa790bf2bff1, IP:15,
- URL:0,TC:0,Content:-5,EDM:0,RT:0,SF:-9,FILE:0,BULK:0,RULE:Release_Ham,ACTI
- ON:release,TS:1
-X-CID-INFO: VERSION:1.1.32, REQID:057b3a47-a8d6-4999-a647-aa790bf2bff1, IP:15,
- UR
- L:0,TC:0,Content:-5,EDM:0,RT:0,SF:-9,FILE:0,BULK:0,RULE:Release_Ham,ACTION
- :release,TS:1
-X-CID-META: VersionHash:5f78ec9, CLOUDID:6e5e5b95-10ce-4e4b-85c2-c9b5229ff92b,
- B
- ulkID:231114103432VTG881I7,BulkQuantity:1,Recheck:0,SF:24|17|19|45|66|102,
- TC:nil,Content:0,EDM:-3,IP:-2,URL:11|1,File:nil,Bulk:40,QS:nil,BEC:nil,COL
- :0,OSI:0,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0
-X-CID-BVR: 0,NGT
-X-CID-BAS: 0,NGT,0,_
-X-CID-FACTOR: TF_CID_SPAM_ULN, TF_CID_SPAM_SNR, TF_CID_SPAM_FAS,
- TF_CID_SPAM_FSD, TF_CID_SPAM_FSI
-X-UUID: 26bfdf990ac844479c482bc4dafd3440-20231114
-X-User: heminhong@kylinos.cn
-Received: from localhost.localdomain [(116.128.244.169)] by mailgw
- (envelope-from <heminhong@kylinos.cn>) (Generic MTA)
- with ESMTP id 1319809308; Tue, 14 Nov 2023 10:43:57 +0800
-From: heminhong <heminhong@kylinos.cn>
-To: heminhong@kylinos.cn
-Date: Tue, 14 Nov 2023 10:43:41 +0800
-Message-Id: <20231114024341.14524-1-heminhong@kylinos.cn>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20231113033613.30339-1-heminhong@kylinos.cn>
-References: <20231113033613.30339-1-heminhong@kylinos.cn>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4488710E094;
+	Fri, 17 Nov 2023 13:58:10 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.55.52.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 03DD710E00E;
+ Fri, 17 Nov 2023 13:58:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1700229488; x=1731765488;
+ h=date:from:to:cc:subject:message-id:reply-to:references:
+ mime-version:content-transfer-encoding:in-reply-to;
+ bh=UOJO5xsP8HF0ptx/SzA5k6vjlgatzH25aQLhhMj+Am0=;
+ b=D5vt5DZJGL9l5/XhEPc6zN1N21oq0i6qglL5IDr9cgq8WuJriU/JAYm9
+ p1F7LpmsY3Fb9BJYveU8vpAASgHpQfoxqXUByOtVBqoGDpO/IQv4ecm8m
+ aW3Q2ukf5CKU5+GW+2CqMn7CO6P8Xn5azL3IP2PRBPU+iWSIBUZ9cf2l4
+ dhs0zWmSbgqapvANOnXtfAaOi+LTri5W9NBMgo5YrM4VpWmcnp02YjvVg
+ ui5uTZ01B40CyPGWJqbIhAi8m6aJRkcjmKv4pe8GnoyCgjAmxcDhTqjfL
+ 1TeFOYPD5PHEG470mv/fCzDl9YTU51JnYVSbfHnXNlDDQmmJrWj7nTitp w==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10897"; a="477517053"
+X-IronPort-AV: E=Sophos;i="6.04,206,1695711600"; d="scan'208";a="477517053"
+Received: from orviesa001.jf.intel.com ([10.64.159.141])
+ by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 17 Nov 2023 05:58:06 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.04,206,1695711600"; d="scan'208";a="13492030"
+Received: from ideak-desk.fi.intel.com ([10.237.72.78])
+ by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 17 Nov 2023 05:58:05 -0800
+Date: Fri, 17 Nov 2023 15:58:05 +0200
+From: Imre Deak <imre.deak@intel.com>
+To: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
+Message-ID: <ZVdxMqEt5eu0ChRG@ideak-desk.fi.intel.com>
+References: <20231116131841.1588781-1-imre.deak@intel.com>
+ <20231116131841.1588781-3-imre.deak@intel.com>
+ <ZVdH6rwVHAWMTLuf@intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Fri, 17 Nov 2023 13:38:00 +0000
-Subject: [Intel-gfx] [PATCH v2] drm/i915: correct the input parameter on
- _intel_dsb_commit()
+In-Reply-To: <ZVdH6rwVHAWMTLuf@intel.com>
+Subject: Re: [Intel-gfx] [PATCH v2 02/11] drm/dp_mst: Fix PBN divider
+ calculation for UHBR rates
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,42 +60,116 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- daniel@ffwll.ch, rodrigo.vivi@intel.com, airlied@gmail.com,
- intel-gfx@lists.freedesktop.org
+Reply-To: imre.deak@intel.com
+Cc: intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Current, the dewake_scanline variable is defined as unsigned int,
-an unsigned int variable that is always greater than or equal to 0.
-when _intel_dsb_commit function is called by intel_dsb_commit function,
-the dewake_scanline variable may have an int value.
-So the dewake_scanline variable is necessary to defined as an int.
+On Fri, Nov 17, 2023 at 01:00:58PM +0200, Ville Syrj‰l‰ wrote:
+> On Thu, Nov 16, 2023 at 03:18:32PM +0200, Imre Deak wrote:
+> > The current way of calculating the pbn_div value, the link BW per each
+> > MTP slot, worked only for DP 1.4 link rates. Fix things up for UHBR
+> > rates calculating with the correct channel coding efficiency based on
+> > the link rate.
+> > 
+> > v2:
+> > - Return the fractional pbn_div value from drm_dp_get_vc_payload_bw().
+> > 
+> > Cc: Lyude Paul <lyude@redhat.com>
+> > Cc: dri-devel@lists.freedesktop.org
+> > Signed-off-by: Imre Deak <imre.deak@intel.com>
+> > ---
+> >  drivers/gpu/drm/display/drm_dp_mst_topology.c | 13 ++++++++++---
+> >  include/drm/display/drm_dp_helper.h           | 13 +++++++++++++
+> >  2 files changed, 23 insertions(+), 3 deletions(-)
+> > 
+> > diff --git a/drivers/gpu/drm/display/drm_dp_mst_topology.c b/drivers/gpu/drm/display/drm_dp_mst_topology.c
+> > index 000d05e80352a..3fbd5585d5e6c 100644
+> > --- a/drivers/gpu/drm/display/drm_dp_mst_topology.c
+> > +++ b/drivers/gpu/drm/display/drm_dp_mst_topology.c
+> > @@ -3585,14 +3585,18 @@ static int drm_dp_send_up_ack_reply(struct drm_dp_mst_topology_mgr *mgr,
+> >  fixed20_12 drm_dp_get_vc_payload_bw(const struct drm_dp_mst_topology_mgr *mgr,
+> >  				    int link_rate, int link_lane_count)
+> >  {
+> > +	int ch_coding_efficiency =
+> > +		drm_dp_bw_channel_coding_efficiency(drm_dp_is_uhbr_rate(link_rate));
+> >  	fixed20_12 ret;
+> >  
+> >  	if (link_rate == 0 || link_lane_count == 0)
+> >  		drm_dbg_kms(mgr->dev, "invalid link rate/lane count: (%d / %d)\n",
+> >  			    link_rate, link_lane_count);
+> >  
+> > -	/* See DP v2.0 2.6.4.2, VCPayload_Bandwidth_for_OneTimeSlotPer_MTP_Allocation */
+> > -	ret.full = dfixed_const(link_rate * link_lane_count / 54000);
+> > +	/* See DP v2.0 2.6.4.2, 2.7.6.3 VCPayload_Bandwidth_for_OneTimeSlotPer_MTP_Allocation */
+> > +	ret.full = DIV_ROUND_DOWN_ULL(mul_u32_u32(link_rate * link_lane_count,
+> > +						  ch_coding_efficiency),
+> > +				      (1000000ULL * 8 * 5400) >> 12);
+> 
+> Seems to produce the correct numbers.
+> 
+> >  
+> >  	return ret;
+> >  }
+> > @@ -4315,6 +4319,7 @@ int drm_dp_atomic_find_time_slots(struct drm_atomic_state *state,
+> >  	struct drm_dp_mst_atomic_payload *payload = NULL;
+> >  	struct drm_connector_state *conn_state;
+> >  	int prev_slots = 0, prev_bw = 0, req_slots;
+> > +	fixed20_12 req_slots_fp;
+> >  
+> >  	topology_state = drm_atomic_get_mst_topology_state(state, mgr);
+> >  	if (IS_ERR(topology_state))
+> > @@ -4342,7 +4347,9 @@ int drm_dp_atomic_find_time_slots(struct drm_atomic_state *state,
+> >  		}
+> >  	}
+> >  
+> > -	req_slots = DIV_ROUND_UP(pbn, dfixed_trunc(topology_state->pbn_div));
+> > +	req_slots_fp.full = dfixed_div((fixed20_12)dfixed_init(pbn), topology_state->pbn_div);
+> 
+> dfixed_div() looks super dodgy. It seems to have some kind of hand
+> rolled round to closest behaviour, which would imply that this can
+> return a rounded down result.
 
-Fixes: f83b94d23770 ("drm/i915/dsb: Use DEwake to combat PkgC latency")
-Reported-by: kernel test robot <lkp@intel.com>
-Closes: https://lore.kernel.org/oe-kbuild-all/202310052201.AnVbpgPr-lkp@intel.com/
-Cc: Ville Syrj√§l√§ <ville.syrjala@linux.intel.com>
-Cc: Uma Shankar <uma.shankar@intel.com>
+Yes, dfixed_ceil(dfixed_div(..)) doesn't actually round up the result,
+thanks for spotting that. It should be instead:
 
-Signed-off-by: heminhong <heminhong@kylinos.cn>
----
- drivers/gpu/drm/i915/display/intel_dsb.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+	req_slots = DIV_ROUND_UP(dfixed_const(pbn), topology_state->pbn_div.full);
 
-diff --git a/drivers/gpu/drm/i915/display/intel_dsb.c b/drivers/gpu/drm/i915/display/intel_dsb.c
-index 78b6fe24dcd8..7fd6280c54a7 100644
---- a/drivers/gpu/drm/i915/display/intel_dsb.c
-+++ b/drivers/gpu/drm/i915/display/intel_dsb.c
-@@ -340,7 +340,7 @@ static int intel_dsb_dewake_scanline(const struct intel_crtc_state *crtc_state)
- }
- 
- static void _intel_dsb_commit(struct intel_dsb *dsb, u32 ctrl,
--			      unsigned int dewake_scanline)
-+			      int dewake_scanline)
- {
- 	struct intel_crtc *crtc = dsb->crtc;
- 	struct drm_i915_private *dev_priv = to_i915(crtc->base.dev);
--- 
-2.25.1
+Fixing the division similarly in patch 8.
 
+> 
+> > +	req_slots_fp.full = dfixed_ceil(req_slots_fp);
+> > +	req_slots = dfixed_trunc(req_slots_fp);
+> >  
+> >  	drm_dbg_atomic(mgr->dev, "[CONNECTOR:%d:%s] [MST PORT:%p] TU %d -> %d\n",
+> >  		       port->connector->base.id, port->connector->name,
+> > diff --git a/include/drm/display/drm_dp_helper.h b/include/drm/display/drm_dp_helper.h
+> > index c5f1079acb3b1..863b2e7add29e 100644
+> > --- a/include/drm/display/drm_dp_helper.h
+> > +++ b/include/drm/display/drm_dp_helper.h
+> > @@ -252,6 +252,19 @@ drm_edp_backlight_supported(const u8 edp_dpcd[EDP_DISPLAY_CTL_CAP_SIZE])
+> >  	return !!(edp_dpcd[1] & DP_EDP_TCON_BACKLIGHT_ADJUSTMENT_CAP);
+> >  }
+> >  
+> > +/**
+> > + * drm_dp_is_uhbr_rate - Determine if a link rate is UHBR
+> > + * @link_rate: link rate in 10kbits/s units
+> > + *
+> > + * Determine if the provided link rate is an UHBR rate.
+> > + *
+> > + * Returns: %True if @link_rate is an UHBR rate.
+> > + */
+> > +static inline bool drm_dp_is_uhbr_rate(int link_rate)
+> > +{
+> > +	return link_rate >= 1000000;
+> > +}
+> > +
+> >  /*
+> >   * DisplayPort AUX channel
+> >   */
+> > -- 
+> > 2.39.2
+> 
+> -- 
+> Ville Syrj‰l‰
+> Intel
