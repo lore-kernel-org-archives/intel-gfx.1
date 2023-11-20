@@ -4,51 +4,51 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DAB21C197A0
-	for <intel-gfx@archiver.kernel.org>; Mon, 20 Nov 2023 10:07:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E1B5AC197A0
+	for <intel-gfx@archiver.kernel.org>; Mon, 20 Nov 2023 10:09:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9140610E38A;
-	Mon, 20 Nov 2023 10:07:17 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.9])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 25EF810E38A;
- Mon, 20 Nov 2023 10:07:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2CD6910E395;
+	Mon, 20 Nov 2023 10:09:13 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [134.134.136.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EB4ED10E393
+ for <intel-gfx@lists.freedesktop.org>; Mon, 20 Nov 2023 10:09:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1700474835; x=1732010835;
- h=from:to:cc:subject:in-reply-to:references:date:
- message-id:mime-version;
- bh=jJIlMZpuwkKpDkHcK/QWHDOVBSdGTpjF0AQ7LQOFB3o=;
- b=S0Z3SZjy72VCeFY1HIhJa2cr4nN3rzpQmmn6UrA7epLHh2cZZ8ROs1jc
- u0EjBpLxEqPQswh15mVdClJwkuHCLzKg1AJIQ35ejOvfC9S+sZ7N3Ud5P
- w63nggsleBtoMQKiAfghsEIxtg2AZcR0JLxqcvRFOX+fLoeuZntK94XR9
- ackHzgZWSIepmso8cbK2tCIwWKl7qulUCThG/DIHPb6eTy2vjaA2GgVsD
- rWicei6My6w+F8egTVUyl0H1EvCnk8igO96BrCjFXHh+9tR+neAPE0WDV
- xO5HXmoBwhGPwJqZJ/bFd5M3xwOm22J42ocgMDRTwJIBv9E2AAv2eBd0o w==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10899"; a="10265500"
-X-IronPort-AV: E=Sophos;i="6.04,213,1695711600"; d="scan'208";a="10265500"
-Received: from fmsmga004.fm.intel.com ([10.253.24.48])
- by orvoesa101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 20 Nov 2023 02:04:04 -0800
+ t=1700474951; x=1732010951;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=yEnn7EFFdTIhox3OpyKoVwuH+YfyY+k4rUAmR2ZZa18=;
+ b=C1UX9TIPCrrgeaqqbYHsQHWQL5viRTpJQrhK47oJq66TCfTfPfGWV4gC
+ 8NCbGs4KK83qrUo7iMKrp2Dcv3jzruvnwmpzJjEbxa/FYu4FTXFl9hjR6
+ cTsmh7cqY128zSWIOrCyJvD2KT4DxGAwXa0P9of7/8pWTUzax2x+x6VJi
+ 3UdCan0FhC7BcdW5Ioz392Ec4gj/omblNcAoRNi5rcJWJgbUwUNwKqT6Y
+ RSY5D8PwfKNHvq0ERLqdTcVp7KZ/E/HOR6cpWtXkJz1vPFDawFy+mYJd5
+ ZgW/QfoiBNnkJzeu5rN547X8XACe9cXxQU6sxNnjn75Bi19M682So7CTv w==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10899"; a="455916661"
+X-IronPort-AV: E=Sophos;i="6.04,213,1695711600"; d="scan'208";a="455916661"
+Received: from orsmga008.jf.intel.com ([10.7.209.65])
+ by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 20 Nov 2023 02:08:52 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10899"; a="836699534"
-X-IronPort-AV: E=Sophos;i="6.04,213,1695711600"; d="scan'208";a="836699534"
-Received: from avmoskal-mobl1.ger.corp.intel.com (HELO localhost)
- ([10.252.40.194])
- by fmsmga004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 20 Nov 2023 02:04:01 -0800
-From: Jani Nikula <jani.nikula@linux.intel.com>
-To: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
- Intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
-In-Reply-To: <20231113085457.199053-2-tvrtko.ursulin@linux.intel.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
-References: <20231113085457.199053-1-tvrtko.ursulin@linux.intel.com>
- <20231113085457.199053-2-tvrtko.ursulin@linux.intel.com>
-Date: Mon, 20 Nov 2023 12:03:58 +0200
-Message-ID: <87cyw4pwq9.fsf@intel.com>
+X-IronPort-AV: E=McAfee;i="6600,9927,10899"; a="795429558"
+X-IronPort-AV: E=Sophos;i="6.04,213,1695711600"; d="scan'208";a="795429558"
+Received: from dbailonh-mobl2.ger.corp.intel.com (HELO
+ jhogande-mobl1.intel.com) ([10.252.57.59])
+ by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 20 Nov 2023 02:08:50 -0800
+From: =?UTF-8?q?Jouni=20H=C3=B6gander?= <jouni.hogander@intel.com>
+To: intel-gfx@lists.freedesktop.org
+Date: Mon, 20 Nov 2023 12:08:31 +0200
+Message-Id: <20231120100833.3221946-2-jouni.hogander@intel.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20231120100833.3221946-1-jouni.hogander@intel.com>
+References: <20231120100833.3221946-1-jouni.hogander@intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain
-Subject: Re: [Intel-gfx] [PATCH 2/2] drm/i915: Add __rcu annotation to
- cursor when iterating client objects
+Content-Type: text/plain; charset=UTF-8
+Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
+Content-Transfer-Encoding: 8bit
+Subject: [Intel-gfx] [PATCH v4 1/3] drm/i915/display: use intel_bo_to_drm_bo
+ in intel_fb.c
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,45 +61,74 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Mon, 13 Nov 2023, Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com> wrote:
-> From: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
->
-> __rcu annotation is needed to avoid the sparse warnings such as:
->
->   .../i915_drm_client.c:92:9: sparse: sparse: incompatible types in comparison expression (different address spaces):
->   .../i915_drm_client.c:92:9: sparse:    struct list_head [noderef] __rcu *
->   .../i915_drm_client.c:92:9: sparse:    struct list_head *
->
-> Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
-> Fixes: 968853033d8a ("drm/i915: Implement fdinfo memory stats printing")
-> Reported-by: kernel test robot <lkp@intel.com>
-> Closes: https://lore.kernel.org/oe-kbuild-all/202311110610.h0m6ydI5-lkp@intel.com/
-> Cc: Andi Shyti <andi.shyti@linux.intel.com>
-> Cc: Aravind Iddamsetty <aravind.iddamsetty@intel.com>
+We are preparing for Xe driver. I915 and Xe object implementation are
+differing. Do not use  i915_gem_object->base directly. Instead use
+intel_bo_to_drm_bo.
 
-Reviewed-by: Jani Nikula <jani.nikula@intel.com>
+Also use drm_gem_object_put instead of i915_gem_object_put. This should be
+ok as i915_gem_object_put is really just doing 	__drm_gem_object_put.
 
-> ---
->  drivers/gpu/drm/i915/i915_drm_client.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
->
-> diff --git a/drivers/gpu/drm/i915/i915_drm_client.c b/drivers/gpu/drm/i915/i915_drm_client.c
-> index be9acfd9410e..fa6852713bee 100644
-> --- a/drivers/gpu/drm/i915/i915_drm_client.c
-> +++ b/drivers/gpu/drm/i915/i915_drm_client.c
-> @@ -78,7 +78,7 @@ static void show_meminfo(struct drm_printer *p, struct drm_file *file)
->  	struct drm_i915_private *i915 = fpriv->i915;
->  	struct drm_i915_gem_object *obj;
->  	struct intel_memory_region *mr;
-> -	struct list_head *pos;
-> +	struct list_head __rcu *pos;
->  	unsigned int id;
->  
->  	/* Public objects. */
+Signed-off-by: Jouni Högander <jouni.hogander@intel.com>
+---
+ drivers/gpu/drm/i915/display/intel_fb.c | 12 ++++++------
+ 1 file changed, 6 insertions(+), 6 deletions(-)
 
+diff --git a/drivers/gpu/drm/i915/display/intel_fb.c b/drivers/gpu/drm/i915/display/intel_fb.c
+index c1777ea35761..7c2df6c1f377 100644
+--- a/drivers/gpu/drm/i915/display/intel_fb.c
++++ b/drivers/gpu/drm/i915/display/intel_fb.c
+@@ -1657,10 +1657,10 @@ int intel_fill_fb_info(struct drm_i915_private *i915, struct intel_framebuffer *
+ 		max_size = max(max_size, offset + size);
+ 	}
+ 
+-	if (mul_u32_u32(max_size, tile_size) > obj->base.size) {
++	if (mul_u32_u32(max_size, tile_size) > intel_bo_to_drm_bo(obj)->size) {
+ 		drm_dbg_kms(&i915->drm,
+ 			    "fb too big for bo (need %llu bytes, have %zu bytes)\n",
+-			    mul_u32_u32(max_size, tile_size), obj->base.size);
++			    mul_u32_u32(max_size, tile_size), intel_bo_to_drm_bo(obj)->size);
+ 		return -EINVAL;
+ 	}
+ 
+@@ -1889,7 +1889,7 @@ static int intel_user_framebuffer_create_handle(struct drm_framebuffer *fb,
+ 						unsigned int *handle)
+ {
+ 	struct drm_i915_gem_object *obj = intel_fb_obj(fb);
+-	struct drm_i915_private *i915 = to_i915(obj->base.dev);
++	struct drm_i915_private *i915 = to_i915(intel_bo_to_drm_bo(obj)->dev);
+ 
+ 	if (i915_gem_object_is_userptr(obj)) {
+ 		drm_dbg(&i915->drm,
+@@ -1897,7 +1897,7 @@ static int intel_user_framebuffer_create_handle(struct drm_framebuffer *fb,
+ 		return -EINVAL;
+ 	}
+ 
+-	return drm_gem_handle_create(file, &obj->base, handle);
++	return drm_gem_handle_create(file, intel_bo_to_drm_bo(obj), handle);
+ }
+ 
+ struct frontbuffer_fence_cb {
+@@ -1975,7 +1975,7 @@ int intel_framebuffer_init(struct intel_framebuffer *intel_fb,
+ 			   struct drm_i915_gem_object *obj,
+ 			   struct drm_mode_fb_cmd2 *mode_cmd)
+ {
+-	struct drm_i915_private *dev_priv = to_i915(obj->base.dev);
++	struct drm_i915_private *dev_priv = to_i915(intel_bo_to_drm_bo(obj)->dev);
+ 	struct drm_framebuffer *fb = &intel_fb->base;
+ 	u32 max_stride;
+ 	unsigned int tiling, stride;
+@@ -2153,7 +2153,7 @@ intel_user_framebuffer_create(struct drm_device *dev,
+ 	}
+ 
+ 	fb = intel_framebuffer_create(obj, &mode_cmd);
+-	i915_gem_object_put(obj);
++	drm_gem_object_put(intel_bo_to_drm_bo(obj));
+ 
+ 	return fb;
+ }
 -- 
-Jani Nikula, Intel
+2.34.1
+
