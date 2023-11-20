@@ -4,96 +4,66 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id ABA9CC07CB1
-	for <intel-gfx@archiver.kernel.org>; Mon, 27 Nov 2023 14:35:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0AE0DC4167B
+	for <intel-gfx@archiver.kernel.org>; Mon, 27 Nov 2023 14:35:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9018210E2D9;
+	by gabe.freedesktop.org (Postfix) with ESMTP id A315C10E2DA;
 	Mon, 27 Nov 2023 14:35:31 +0000 (UTC)
-X-Greylist: delayed 1261 seconds by postgrey-1.36 at gabe;
- Fri, 24 Nov 2023 02:24:37 UTC
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
- [148.163.156.1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 97CE710E798;
- Fri, 24 Nov 2023 02:24:37 +0000 (UTC)
-Received: from pps.filterd (m0353726.ppops.net [127.0.0.1])
- by mx0a-001b2d01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 3AO1GXZC015724; Fri, 24 Nov 2023 02:02:44 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com;
- h=message-id : subject :
- from : to : cc : date : in-reply-to : references : content-type :
- content-transfer-encoding : mime-version; s=pp1;
- bh=0Ng7PzLWRUN5PalkUI/r7oq/iQlhZgewM1sHhRV/b/k=;
- b=ECGZCL00vygNh+PUV5gvGed1LpVpCU7AdG7pzF9Z8KI3aSTOrYALRwYA9iMrun3VFWzS
- Cxhnp4ju5bJ41wqtCaH/lg7Wfikym+5857Jz4RkwtHSi2nA99Up9BuAFwb/8fYIx/KNA
- HftBjFo5Bpbiw0XS5MNMcB7sGBhg7fd+foZx49RJNRTc4+s120bDWEU0j1NiZ7i8qNbK
- l8STevmDmrn8thyn0PpsZPYsu9Z85uQ689/XPgwp6z254ghbikGvf3qX4FWrYG6G9S4j
- QIlqy6X/Mf8hfmbRCiEsMfwjSZ9Jo7HVzzZUjUNvYLb3keI5NbExPrh0Zl9NoxjqUNZw BA== 
-Received: from pps.reinject (localhost [127.0.0.1])
- by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 3ujc7dprav-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 24 Nov 2023 02:02:44 +0000
-Received: from m0353726.ppops.net (m0353726.ppops.net [127.0.0.1])
- by pps.reinject (8.17.1.5/8.17.1.5) with ESMTP id 3AO20D7U032226;
- Fri, 24 Nov 2023 02:02:43 GMT
-Received: from ppma11.dal12v.mail.ibm.com
- (db.9e.1632.ip4.static.sl-reverse.com [50.22.158.219])
- by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 3ujc7dpra6-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 24 Nov 2023 02:02:42 +0000
-Received: from pps.filterd (ppma11.dal12v.mail.ibm.com [127.0.0.1])
- by ppma11.dal12v.mail.ibm.com (8.17.1.19/8.17.1.19) with ESMTP id
- 3ANMmpBc009619; Fri, 24 Nov 2023 02:02:41 GMT
-Received: from smtprelay02.fra02v.mail.ibm.com ([9.218.2.226])
- by ppma11.dal12v.mail.ibm.com (PPS) with ESMTPS id 3ufaa2j9wp-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 24 Nov 2023 02:02:41 +0000
-Received: from smtpav01.fra02v.mail.ibm.com (smtpav01.fra02v.mail.ibm.com
- [10.20.54.100])
- by smtprelay02.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- 3AO22dMq23986834
- (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Fri, 24 Nov 2023 02:02:39 GMT
-Received: from smtpav01.fra02v.mail.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 4D9A62004B;
- Fri, 24 Nov 2023 02:02:39 +0000 (GMT)
-Received: from smtpav01.fra02v.mail.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 69F0720040;
- Fri, 24 Nov 2023 02:02:38 +0000 (GMT)
-Received: from ozlabs.au.ibm.com (unknown [9.192.253.14])
- by smtpav01.fra02v.mail.ibm.com (Postfix) with ESMTP;
- Fri, 24 Nov 2023 02:02:38 +0000 (GMT)
-Received: from jarvis.ozlabs.ibm.com (haven.au.ibm.com [9.192.254.114])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by ozlabs.au.ibm.com (Postfix) with ESMTPSA id C622F60234;
- Fri, 24 Nov 2023 13:02:35 +1100 (AEDT)
-Message-ID: <ef939be36737bba5d91aa6d5c8af19683aebd92c.camel@linux.ibm.com>
-From: Andrew Donnellan <ajd@linux.ibm.com>
-To: Christian Brauner <brauner@kernel.org>, linux-fsdevel@vger.kernel.org
-Date: Fri, 24 Nov 2023 13:02:25 +1100
-In-Reply-To: <20231122-vfs-eventfd-signal-v2-2-bd549b14ce0c@kernel.org>
-References: <20231122-vfs-eventfd-signal-v2-0-bd549b14ce0c@kernel.org>
- <20231122-vfs-eventfd-signal-v2-2-bd549b14ce0c@kernel.org>
-Autocrypt: addr=ajd@linux.ibm.com; prefer-encrypt=mutual;
- keydata=mDMEZPaWfhYJKwYBBAHaRw8BAQdAAuMUoxVRwqphnsFua1W+WBz6I2cIn0+Ox4YypJSdBJ+0MEFuZHJldyBEb25uZWxsYW4gKElCTSBzdHVmZikgPGFqZEBsaW51eC5pYm0uY29tPoiTBBMWCgA7FiEE01kE3s9shZVYLX1Aj1Qx8QRYRqAFAmT2ln4CGwMFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4AACgkQj1Qx8QRYRqAdswD8DhIh4trRQYiPe+7LaM7q+0+Thz+CwUJCW3UFOf0SEO0BAPNdsi7aVV+4Oah6nYzqzH5Zbs4Tz5RY+Vsf+DD/EzUKuDgEZPaWfhIKKwYBBAGXVQEFAQEHQLN9moJRqN8Zop/kcyIjga+2qzLoVaNAL6+4diGnlr1xAwEIB4h4BBgWCgAgFiEE01kE3s9shZVYLX1Aj1Qx8QRYRqAFAmT2ln4CGwwACgkQj1Qx8QRYRqCYkwD/W+gIP9kITfU4wnLtueFUThxA0T/LF49M7k31Qb8rPCwBALeEYAlX648lzjSA07pJB68Jt39FuUno444dSVmhYtoH
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.50.1 (3.50.1-1.fc39) 
+Received: from mail-wr1-x42e.google.com (mail-wr1-x42e.google.com
+ [IPv6:2a00:1450:4864:20::42e])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 957E410E140
+ for <intel-gfx@lists.freedesktop.org>; Mon, 20 Nov 2023 07:41:47 +0000 (UTC)
+Received: by mail-wr1-x42e.google.com with SMTP id
+ ffacd0b85a97d-332c46d5988so555612f8f.1
+ for <intel-gfx@lists.freedesktop.org>; Sun, 19 Nov 2023 23:41:47 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1700466106; x=1701070906; darn=lists.freedesktop.org;
+ h=in-reply-to:content-transfer-encoding:content-disposition
+ :mime-version:references:message-id:subject:cc:to:from:date:from:to
+ :cc:subject:date:message-id:reply-to;
+ bh=UcnRCn9RBtyZwzYZjL7Mal3df0TOYaoALw3ajoI8ruo=;
+ b=LFXow9VCsmp2GoWni2XeKg/V5nwkTeYkPZk1qJYuqMnSKDsDlVfG/5KzTo7bU/PvJh
+ pSLvHgSjVqWff6sSnq6pUZLtX0rFZUDfUI1EeCxN7gt5OpBW/umNQogwM8zyv+8gSn9S
+ nU3IHcPK0ONPLavYO1Q6uxebxjZctE5M2eN5TGH92bwu6hNjr2v7jLsoxdz93TASc36I
+ fQ10l2s1wLSojvnbidRn6tb4x8byJ40dP9yMv6OF922ZbO89T1gU1MnckXIDF79u69ds
+ EkIzKcY8rMWWRrXQhbRqgZxj+7GnXYQpVDPbB2ZOOli45ybKh8uzylZPSSVdn0q26Z71
+ /xIQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1700466106; x=1701070906;
+ h=in-reply-to:content-transfer-encoding:content-disposition
+ :mime-version:references:message-id:subject:cc:to:from:date
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=UcnRCn9RBtyZwzYZjL7Mal3df0TOYaoALw3ajoI8ruo=;
+ b=Pn85fBLwTcmJPk/4TPWKvMl2bDFv+kK79IIXatMCg17/+qYu0KcQhd9ppv05UoIx+Z
+ Gf9xcjWcfYCVo+W0c5TQ0mRD2Yr/fFhuopn6IQp6bFAJwzKoaU2Yhf9e/fGqa61HkzWF
+ vSFgnZVGPHmGNcxIovbHCYlJ4WFQ/Z6Vm36Ea0ocWVFnFHk/6tfSkKvh4aS1OHxfyXPQ
+ ROuJEU3u+xKSw7kht1XR5HIDcyVBUtgjadmlo5qzaE9PjaQfXxfpgKNlzy/O8ErKSN6z
+ F93U8l2p5/Wf7c8h4LegQhdklb9TRiwEPko2spB6mrJh8KUVoY+iSrj+Aq0sL7xWKwXO
+ eAzg==
+X-Gm-Message-State: AOJu0Yx74B4OBbJjFPOG40YsdHJyRvKvDpTGuqisWg/G3IImSp/OrTKw
+ mcwmjd+FQtxgSYTi1HWie2Y=
+X-Google-Smtp-Source: AGHT+IGLxhKtp3IKpPAJiweTS4UYRDByB4GjdiKC0IaFf2a6rUb8Hh+cAbWkEb3mZscgg4QSavm/EA==
+X-Received: by 2002:a5d:48c9:0:b0:331:6ad3:853 with SMTP id
+ p9-20020a5d48c9000000b003316ad30853mr3683767wrs.41.1700466105720; 
+ Sun, 19 Nov 2023 23:41:45 -0800 (PST)
+Received: from f (cst-prg-3-109.cust.vodafone.cz. [46.135.3.109])
+ by smtp.gmail.com with ESMTPSA id
+ i13-20020a5d55cd000000b003313426f136sm10142299wrw.39.2023.11.19.23.41.43
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sun, 19 Nov 2023 23:41:45 -0800 (PST)
+Date: Mon, 20 Nov 2023 08:41:06 +0100
+From: Mateusz Guzik <mjguzik@gmail.com>
+To: kernel test robot <oliver.sang@intel.com>
+Message-ID: <ZVsNklEgxi5GkIZ/@f>
+References: <202311201406.2022ca3f-oliver.sang@intel.com>
 MIME-Version: 1.0
-X-TM-AS-GCONF: 00
-X-Proofpoint-GUID: U6m_R-9wiDPD8mUOexzL3mzW4R9GPdf_
-X-Proofpoint-ORIG-GUID: L2W8us_JQG2_QSzrNAp-fbcpoLTnnQAq
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.272,Aquarius:18.0.987,Hydra:6.0.619,FMLib:17.11.176.26
- definitions=2023-11-23_15,2023-11-22_01,2023-05-22_02
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 spamscore=0
- malwarescore=0 mlxscore=0 suspectscore=0 bulkscore=0 priorityscore=1501
- adultscore=0 lowpriorityscore=0 mlxlogscore=714 clxscore=1011
- impostorscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-2311060000 definitions=main-2311240014
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <202311201406.2022ca3f-oliver.sang@intel.com>
 X-Mailman-Approved-At: Mon, 27 Nov 2023 14:35:29 +0000
-Subject: Re: [Intel-gfx] [PATCH v2 2/4] eventfd: simplify eventfd_signal()
+Subject: Re: [Intel-gfx] [linus:master] [file] 0ede61d858:
+ will-it-scale.per_thread_ops -2.9% regression
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -106,58 +76,68 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-aio@kvack.org, linux-usb@vger.kernel.org, Jan Kara <jack@suse.cz>,
- Matthew Rosato <mjrosato@linux.ibm.com>, Paul Durrant <paul@xen.org>,
- Tom Rix <trix@redhat.com>, Jason Wang <jasowang@redhat.com>,
- dri-devel@lists.freedesktop.org, Michal Hocko <mhocko@kernel.org>,
- linux-mm@kvack.org, Kirti Wankhede <kwankhede@nvidia.com>,
- Paolo Bonzini <pbonzini@redhat.com>, Jens Axboe <axboe@kernel.dk>,
- Vineeth Vijayan <vneethv@linux.ibm.com>,
- Diana Craciun <diana.craciun@oss.nxp.com>,
- Alexander Gordeev <agordeev@linux.ibm.com>, David Airlie <airlied@gmail.com>,
- Christoph Hellwig <hch@lst.de>, Xuan Zhuo <xuanzhuo@linux.alibaba.com>,
- Shakeel Butt <shakeelb@google.com>, Vasily Gorbik <gor@linux.ibm.com>,
- Leon Romanovsky <leon@kernel.org>, Harald Freudenberger <freude@linux.ibm.com>,
- Fei Li <fei1.li@intel.com>, x86@kernel.org,
- Roman Gushchin <roman.gushchin@linux.dev>, Halil Pasic <pasic@linux.ibm.com>,
- Jason Gunthorpe <jgg@ziepe.ca>, Ingo Molnar <mingo@redhat.com>,
- intel-gfx@lists.freedesktop.org,
- Christian Borntraeger <borntraeger@linux.ibm.com>, linux-fpga@vger.kernel.org,
- Wu Hao <hao.wu@intel.com>, Jason Herne <jjherne@linux.ibm.com>,
- Eric Farman <farman@linux.ibm.com>, Dave Hansen <dave.hansen@linux.intel.com>,
- Arnd Bergmann <arnd@arndb.de>, linux-s390@vger.kernel.org,
- Heiko Carstens <hca@linux.ibm.com>, Johannes Weiner <hannes@cmpxchg.org>,
- linuxppc-dev@lists.ozlabs.org, Eric Auger <eric.auger@redhat.com>,
- Moritz Fischer <mdf@kernel.org>, kvm@vger.kernel.org,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, cgroups@vger.kernel.org,
- Thomas Gleixner <tglx@linutronix.de>,
- virtualization@lists.linux-foundation.org, intel-gvt-dev@lists.freedesktop.org,
- io-uring@vger.kernel.org, netdev@vger.kernel.org,
- Tony Krowiak <akrowiak@linux.ibm.com>, Pavel Begunkov <asml.silence@gmail.com>,
- Sean Christopherson <seanjc@google.com>, Oded Gabbay <ogabbay@kernel.org>,
- Muchun Song <muchun.song@linux.dev>,
- Peter Oberparleiter <oberpar@linux.ibm.com>, linux-kernel@vger.kernel.org,
- linux-rdma@vger.kernel.org, Benjamin LaHaise <bcrl@kvack.org>,
- "Michael S. Tsirkin" <mst@redhat.com>, Sven Schnelle <svens@linux.ibm.com>,
- Daniel Vetter <daniel@ffwll.ch>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Frederic Barrat <fbarrat@linux.ibm.com>, Borislav Petkov <bp@alien8.de>,
- Vitaly Kuznetsov <vkuznets@redhat.com>, David Woodhouse <dwmw2@infradead.org>,
- Xu Yilun <yilun.xu@intel.com>
+Cc: Christian Brauner <brauner@kernel.org>, Jann Horn <jannh@google.com>,
+ linuxppc-dev@lists.ozlabs.org, intel-gfx@lists.freedesktop.org,
+ linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org, fengwei.yin@intel.com,
+ gfs2@lists.linux.dev, linux-fsdevel@vger.kernel.org, feng.tang@intel.com,
+ ying.huang@intel.com, oe-lkp@lists.linux.dev, bpf@vger.kernel.org,
+ Linus Torvalds <torvalds@linux-foundation.org>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Wed, 2023-11-22 at 13:48 +0100, Christian Brauner wrote:
-> Ever since the evenfd type was introduced back in 2007 in commit
-> e1ad7468c77d ("signal/timer/event: eventfd core") the
-> eventfd_signal()
-> function only ever passed 1 as a value for @n. There's no point in
-> keeping that additional argument.
->=20
-> Signed-off-by: Christian Brauner <brauner@kernel.org>
+On Mon, Nov 20, 2023 at 03:11:31PM +0800, kernel test robot wrote:
+> 
+> 
+> Hello,
+> 
+> kernel test robot noticed a -2.9% regression of will-it-scale.per_thread_ops on:
+> 
+> 
+> commit: 0ede61d8589cc2d93aa78230d74ac58b5b8d0244 ("file: convert to SLAB_TYPESAFE_BY_RCU")
+> https://git.kernel.org/cgit/linux/kernel/git/torvalds/linux.git master
+> 
+> 93faf426e3cc000c 0ede61d8589cc2d93aa78230d74 
+> ---------------- --------------------------- 
+>          %stddev     %change         %stddev
+>              \          |                \  
+[snip]
+>      30.90 ±  4%     -20.6       10.35 ±  2%  perf-profile.self.cycles-pp.__fget_light
+>       0.00           +26.5       26.48        perf-profile.self.cycles-pp.__get_file_rcu
+[snip]
 
-Acked-by: Andrew Donnellan <ajd@linux.ibm.com> # ocxl
+So __fget_light now got a func call.
 
---=20
-Andrew Donnellan    OzLabs, ADL Canberra
-ajd@linux.ibm.com   IBM Australia Limited
+I don't know if this is worth patching (and benchmarking after), but I
+if sorting this out is of interest, triviality below is probably the
+easiest way out:
+
+diff --git a/fs/file.c b/fs/file.c
+index 5fb0b146e79e..d8d3e18800c4 100644
+--- a/fs/file.c
++++ b/fs/file.c
+@@ -856,14 +856,14 @@ void do_close_on_exec(struct files_struct *files)
+ 	spin_unlock(&files->file_lock);
+ }
+ 
+-static struct file *__get_file_rcu(struct file __rcu **f)
++static __always_inline struct file *__get_file_rcu(struct file __rcu **f)
+ {
+ 	struct file __rcu *file;
+ 	struct file __rcu *file_reloaded;
+ 	struct file __rcu *file_reloaded_cmp;
+ 
+ 	file = rcu_dereference_raw(*f);
+-	if (!file)
++	if (unlikely(!file))
+ 		return NULL;
+ 
+ 	if (unlikely(!atomic_long_inc_not_zero(&file->f_count)))
+@@ -891,7 +891,7 @@ static struct file *__get_file_rcu(struct file __rcu **f)
+ 	 * If the pointers don't match the file has been reallocated by
+ 	 * SLAB_TYPESAFE_BY_RCU.
+ 	 */
+-	if (file == file_reloaded_cmp)
++	if (likely(file == file_reloaded_cmp))
+ 		return file_reloaded;
+ 
+ 	fput(file);
