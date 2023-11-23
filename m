@@ -4,48 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1A95FC61DF7
-	for <intel-gfx@archiver.kernel.org>; Thu, 23 Nov 2023 14:08:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C2725C636CC
+	for <intel-gfx@archiver.kernel.org>; Thu, 23 Nov 2023 15:16:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8378110E769;
-	Thu, 23 Nov 2023 14:08:11 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.8])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E1F7110E75B
- for <intel-gfx@lists.freedesktop.org>; Thu, 23 Nov 2023 14:08:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1700748482; x=1732284482;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=T+DSzQksJBlDOwAV/5xjYaEvFiNl1i3K+1L0XkIffVc=;
- b=gCO0+wfajmTNoN9VfyA6Y7VByT9veReTwT9fTuxiTlvejd7KZ79WxdKA
- L4xb0rXCIMbHA5HReVE50kj6moBRimQ9aWFZmxWE2VfjsFjbg/lqNvAhQ
- NO+H+Y0e8Gd7yUEafgeLfCLzldJxUPjAobv+kMo7V6IWKgzitqoBI/a6m
- EyV33RC5hDATDvBzlLRqcwClXaiJMw53EpDTdlPu8pEZ8AbT2haqVPANc
- jZr20VQcQhFyr8GkCWKRteiKnH8GXE/jFsGFv190WCkv+44uVBoNIvz9/
- ciHFWZ3sFwiM1nbAEq7tDcK+h9zqJpWw+fw66VRNJv+dZLRzHZmZo24Tl A==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10902"; a="5418526"
-X-IronPort-AV: E=Sophos;i="6.04,221,1695711600"; 
-   d="scan'208";a="5418526"
-Received: from orsmga002.jf.intel.com ([10.7.209.21])
- by fmvoesa102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 Nov 2023 06:07:57 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10902"; a="767213051"
-X-IronPort-AV: E=Sophos;i="6.04,221,1695711600"; d="scan'208";a="767213051"
-Received: from mgolanimitul-x299-ud4-pro.iind.intel.com ([10.190.239.114])
- by orsmga002.jf.intel.com with ESMTP; 23 Nov 2023 06:07:55 -0800
-From: Mitul Golani <mitulkumar.ajitkumar.golani@intel.com>
-To: intel-gfx@lists.freedesktop.org
-Date: Thu, 23 Nov 2023 19:32:43 +0530
-Message-Id: <20231123140244.4183869-3-mitulkumar.ajitkumar.golani@intel.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20231123140244.4183869-1-mitulkumar.ajitkumar.golani@intel.com>
-References: <20231123140244.4183869-1-mitulkumar.ajitkumar.golani@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4DC3010E08B;
+	Thu, 23 Nov 2023 15:16:11 +0000 (UTC)
+Received: from ams.source.kernel.org (ams.source.kernel.org
+ [IPv6:2604:1380:4601:e00::1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1FA3610E08B;
+ Thu, 23 Nov 2023 15:16:09 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by ams.source.kernel.org (Postfix) with ESMTP id 9D58EB82D97;
+ Thu, 23 Nov 2023 15:16:07 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5F0C6C433C9;
+ Thu, 23 Nov 2023 15:15:59 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1700752567;
+ bh=lzVZxJXSuVlg5TJP4dPDommHt63YQoouP8CMSO2x+6s=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=aHqy9roYY5/JVAeimPivoDsCudYKtwdFnGpoLH3m76OeL8P0BDyL5Sc/3miQr2PmL
+ hRZDRRGAm1Uye0c+yqVpFAK/beZ5hDj70CfWngjrStrTzTvXtSc8NSYhr3ldpsQfaY
+ r0YfI3xAzbQ5IZOXus3baO9WeGtvVe+D4X7QQ1qjU3B6uwub042jUFn6y80DWhT82k
+ MTX1bTMLehElqjnjKV5oO01PHxy/Uz+zYAXPf8w7C1cEIoT3gWUSjO5jdkHK4u5/SP
+ VhJvtTHQuu7E5vz/fTds/fpgnXUPXA1bUvRWNF23KUPZaqQcD2SqRGBwVcGpofXsbE
+ B/Co9nS6vBIOA==
+Date: Thu, 23 Nov 2023 15:15:56 +0000
+From: Lee Jones <lee@kernel.org>
+To: Sean Young <sean@mess.org>
+Message-ID: <20231123151556.GC1354538@google.com>
+References: <cover.1700323916.git.sean@mess.org>
+ <2b973840d800ffb71c2683c37bc996e0cf90a140.1700323916.git.sean@mess.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 2/3] drm/i915/display/: Add Read/Write support
- for Adaptive Sync SDP
+In-Reply-To: <2b973840d800ffb71c2683c37bc996e0cf90a140.1700323916.git.sean@mess.org>
+Subject: Re: [Intel-gfx] [PATCH v5 1/4] pwm: rename pwm_apply_state() to
+ pwm_apply_cansleep()
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,214 +53,77 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: linux-fbdev@vger.kernel.org, linux-doc@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ Pavel Machek <pavel@ucw.cz>, David Airlie <airlied@gmail.com>,
+ linux-leds@vger.kernel.org, Daniel Thompson <daniel.thompson@linaro.org>,
+ Ivaylo Dimitrov <ivo.g.dimitrov.75@gmail.com>,
+ Jonathan Corbet <corbet@lwn.net>, Helge Deller <deller@gmx.de>,
+ Javier Martinez Canillas <javierm@redhat.com>,
+ Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <u.kleine-koenig@pengutronix.de>,
+ Ilpo =?iso-8859-1?Q?J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+ Guenter Roeck <linux@roeck-us.net>, linux-media@vger.kernel.org,
+ platform-driver-x86@vger.kernel.org, linux-pwm@vger.kernel.org,
+ Jean Delvare <jdelvare@suse.com>, Daniel Vetter <daniel@ffwll.ch>,
+ Jani Nikula <jani.nikula@intel.com>, intel-gfx@lists.freedesktop.org,
+ linux-input@vger.kernel.org, Mark Gross <markgross@kernel.org>,
+ Hans de Goede <hdegoede@redhat.com>, Mark Brown <broonie@kernel.org>,
+ Maxime Ripard <mripard@kernel.org>, Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
+ linux-arm-kernel@lists.infradead.org, linux-hwmon@vger.kernel.org,
+ Support Opensource <support.opensource@diasemi.com>,
+ Jingoo Han <jingoohan1@gmail.com>, Dmitry Torokhov <dmitry.torokhov@gmail.com>,
+ Liam Girdwood <lgirdwood@gmail.com>, Thomas Zimmermann <tzimmermann@suse.de>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Add the necessary structures and functions to handle reading and
-unpacking Adaptive Sync Secondary Data Packets. Also add support
-to write and pack AS SDP.
+On Sat, 18 Nov 2023, Sean Young wrote:
 
-Signed-off-by: Mitul Golani <mitulkumar.ajitkumar.golani@intel.com>
----
- .../drm/i915/display/intel_display_types.h    |   1 +
- drivers/gpu/drm/i915/display/intel_dp.c       | 118 +++++++++++++++++-
- 2 files changed, 114 insertions(+), 5 deletions(-)
+> In order to introduce a pwm api which can be used from atomic context,
+> we will need two functions for applying pwm changes:
+> 
+> 	int pwm_apply_cansleep(struct pwm *, struct pwm_state *);
+> 	int pwm_apply_atomic(struct pwm *, struct pwm_state *);
+> 
+> This commit just deals with renaming pwm_apply_state(), a following
+> commit will introduce the pwm_apply_atomic() function.
+> 
+> Acked-by: Hans de Goede <hdegoede@redhat.com>
+> Acked-by: Jani Nikula <jani.nikula@intel.com>
+> Signed-off-by: Sean Young <sean@mess.org>
+> ---
+>  Documentation/driver-api/pwm.rst              |  8 +++---
+>  .../gpu/drm/i915/display/intel_backlight.c    |  6 ++--
+>  drivers/gpu/drm/solomon/ssd130x.c             |  2 +-
+>  drivers/hwmon/pwm-fan.c                       |  8 +++---
+>  drivers/input/misc/da7280.c                   |  4 +--
+>  drivers/input/misc/pwm-beeper.c               |  4 +--
+>  drivers/input/misc/pwm-vibra.c                |  8 +++---
 
-diff --git a/drivers/gpu/drm/i915/display/intel_display_types.h b/drivers/gpu/drm/i915/display/intel_display_types.h
-index 9a44350ba05d..7d87923f63af 100644
---- a/drivers/gpu/drm/i915/display/intel_display_types.h
-+++ b/drivers/gpu/drm/i915/display/intel_display_types.h
-@@ -1325,6 +1325,7 @@ struct intel_crtc_state {
- 		union hdmi_infoframe hdmi;
- 		union hdmi_infoframe drm;
- 		struct drm_dp_vsc_sdp vsc;
-+		struct drm_dp_as_sdp  async;
- 	} infoframes;
- 
- 	u8 eld[MAX_ELD_BYTES];
-diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
-index 1422c2370269..39624746d612 100644
---- a/drivers/gpu/drm/i915/display/intel_dp.c
-+++ b/drivers/gpu/drm/i915/display/intel_dp.c
-@@ -94,6 +94,8 @@
- #define INTEL_DP_RESOLUTION_STANDARD	(2 << INTEL_DP_RESOLUTION_SHIFT_MASK)
- #define INTEL_DP_RESOLUTION_FAILSAFE	(3 << INTEL_DP_RESOLUTION_SHIFT_MASK)
- 
-+#define AS_SDP_ENABLE					REG_BIT(2)
-+#define AS_SDP_OP_MODE					REG_GENMASK(1, 0)
- 
- /* Constants for DP DSC configurations */
- static const u8 valid_dsc_bpp[] = {6, 8, 10, 12, 15};
-@@ -4113,6 +4115,42 @@ intel_dp_needs_vsc_sdp(const struct intel_crtc_state *crtc_state,
- 	return false;
- }
- 
-+static ssize_t intel_dp_as_sdp_pack(const struct drm_dp_as_sdp *async,
-+				    struct dp_sdp *sdp, size_t size)
-+{
-+	size_t length = sizeof(struct dp_sdp);
-+
-+	if (size < length)
-+		return -ENOSPC;
-+
-+	memset(sdp, 0, size);
-+
-+	/* Prepare AS (Adaptive Sync) VSC Header */
-+	sdp->sdp_header.HB0 = 0;
-+	sdp->sdp_header.HB1 = async->sdp_type;
-+	sdp->sdp_header.HB2 = 0x02;
-+	sdp->sdp_header.HB3 = async->length;
-+
-+	/* Fill AS (Adaptive Sync) SDP Payload */
-+	if ((sdp->db[0] & 0x03) == 0) {
-+		sdp->db[3] = 0;
-+		sdp->db[4] &= 0xFC;
-+	}
-+
-+	sdp->db[1] = async->vmin & 0xFF;
-+	sdp->db[2] = (async->vmin >> 8) & 0xF;
-+	sdp->db[17] = (async->vmin >> 8) & 0xFF;
-+	sdp->db[18] = async->vmax & 0xFF;
-+	sdp->db[19] = (async->vmax >> 8) & 0xFF;
-+	sdp->db[20] = async->target_rr & 0xFF;
-+	sdp->db[21] = (async->target_rr >> 8) & 0xFF;
-+	sdp->db[22] = async->duration_incr_ms;
-+	sdp->db[23] = async->duration_decr_ms;
-+	sdp->db[24] = async->operation_mode;
-+
-+	return length;
-+}
-+
- static ssize_t intel_dp_vsc_sdp_pack(const struct drm_dp_vsc_sdp *vsc,
- 				     struct dp_sdp *sdp, size_t size)
- {
-@@ -4280,6 +4318,10 @@ static void intel_write_dp_sdp(struct intel_encoder *encoder,
- 							       &crtc_state->infoframes.drm.drm,
- 							       &sdp, sizeof(sdp));
- 		break;
-+	case DP_SDP_ADAPTIVE_SYNC:
-+		len = intel_dp_as_sdp_pack(&crtc_state->infoframes.async, &sdp,
-+					   sizeof(sdp));
-+		break;
- 	default:
- 		MISSING_CASE(type);
- 		return;
-@@ -4342,6 +4384,44 @@ void intel_dp_set_infoframes(struct intel_encoder *encoder,
- 	intel_write_dp_sdp(encoder, crtc_state, HDMI_PACKET_TYPE_GAMUT_METADATA);
- }
- 
-+/*
-+ * This function is to unpack AS SDP Packet
-+ */
-+static
-+int intel_dp_as_sdp_unpack(struct drm_dp_as_sdp *async,
-+			   const void *buffer, size_t size)
-+{
-+	const struct dp_sdp *sdp = buffer;
-+
-+	if (size < sizeof(struct dp_sdp))
-+		return -EINVAL;
-+
-+	memset(async, 0, sizeof(*async));
-+
-+	if (sdp->sdp_header.HB0 != 0)
-+		return -EINVAL;
-+
-+	if (sdp->sdp_header.HB1 != DP_SDP_ADAPTIVE_SYNC)
-+		return -EINVAL;
-+
-+	if (sdp->sdp_header.HB2 != 0x02)
-+		return -EINVAL;
-+
-+	if ((sdp->sdp_header.HB3 & 0x3F) != 9)
-+		return -EINVAL;
-+
-+	if (sdp->db[0] != (AS_SDP_ENABLE | AS_SDP_OP_MODE))
-+		return -EINVAL;
-+
-+	async->vmin = ((u64)sdp->db[2] << 32) | (u64)sdp->db[1];
-+	async->vmax = 0;
-+	async->target_rr = 0;
-+	async->duration_incr_ms = 0;
-+	async->duration_decr_ms = 0;
-+
-+	return 0;
-+}
-+
- static int intel_dp_vsc_sdp_unpack(struct drm_dp_vsc_sdp *vsc,
- 				   const void *buffer, size_t size)
- {
-@@ -4412,12 +4492,35 @@ static int intel_dp_vsc_sdp_unpack(struct drm_dp_vsc_sdp *vsc,
- 	return 0;
- }
- 
-+/*
-+ * This function to read registers to fetch packets
-+ */
-+static int
-+intel_read_dp_as_metadata_infoframe_sdp(struct intel_encoder *encoder,
-+					struct intel_crtc_state *crtc_state,
-+					struct drm_dp_as_sdp *async)
-+{
-+	struct intel_digital_port *dig_port = enc_to_dig_port(encoder);
-+	struct drm_i915_private *dev_priv = to_i915(encoder->base.dev);
-+	unsigned int type = DP_SDP_ADAPTIVE_SYNC;
-+	struct dp_sdp sdp = {};
-+	int ret;
-+
-+	dig_port->read_infoframe(encoder, crtc_state, type, &sdp,
-+				 sizeof(sdp));
-+
-+	ret = intel_dp_as_sdp_unpack(async, &sdp, sizeof(sdp));
-+	if (ret)
-+		drm_dbg_kms(&dev_priv->drm, "Failed to unpack DP AS SDP\n");
-+
-+	return ret;
-+}
-+
- static int
- intel_dp_hdr_metadata_infoframe_sdp_unpack(struct hdmi_drm_infoframe *drm_infoframe,
- 					   const void *buffer, size_t size)
- {
- 	int ret;
--
- 	const struct dp_sdp *sdp = buffer;
- 
- 	if (size < sizeof(struct dp_sdp))
-@@ -4484,9 +4587,10 @@ static void intel_read_dp_vsc_sdp(struct intel_encoder *encoder,
- 		drm_dbg_kms(&dev_priv->drm, "Failed to unpack DP VSC SDP\n");
- }
- 
--static void intel_read_dp_hdr_metadata_infoframe_sdp(struct intel_encoder *encoder,
--						     struct intel_crtc_state *crtc_state,
--						     struct hdmi_drm_infoframe *drm_infoframe)
-+static void
-+intel_read_dp_hdr_metadata_infoframe_sdp(struct intel_encoder *encoder,
-+					 struct intel_crtc_state *crtc_state,
-+					 struct hdmi_drm_infoframe *drm_infoframe)
- {
- 	struct intel_digital_port *dig_port = enc_to_dig_port(encoder);
- 	struct drm_i915_private *dev_priv = to_i915(encoder->base.dev);
-@@ -4495,7 +4599,7 @@ static void intel_read_dp_hdr_metadata_infoframe_sdp(struct intel_encoder *encod
- 	int ret;
- 
- 	if ((crtc_state->infoframes.enable &
--	    intel_hdmi_infoframe_enable(type)) == 0)
-+	     intel_hdmi_infoframe_enable(type)) == 0)
- 		return;
- 
- 	dig_port->read_infoframe(encoder, crtc_state, type, &sdp,
-@@ -4522,6 +4626,10 @@ void intel_read_dp_sdp(struct intel_encoder *encoder,
- 		intel_read_dp_hdr_metadata_infoframe_sdp(encoder, crtc_state,
- 							 &crtc_state->infoframes.drm.drm);
- 		break;
-+	case DP_SDP_ADAPTIVE_SYNC:
-+		intel_read_dp_as_metadata_infoframe_sdp(encoder, crtc_state,
-+							&crtc_state->infoframes.async);
-+	break;
- 	default:
- 		MISSING_CASE(type);
- 		break;
+>  drivers/leds/leds-pwm.c                       |  2 +-
+>  drivers/leds/rgb/leds-pwm-multicolor.c        |  4 +--
+
+Acked-by: Lee Jones <lee@kernel.org>
+
+>  drivers/media/rc/pwm-ir-tx.c                  |  4 +--
+>  drivers/platform/x86/lenovo-yogabook.c        |  2 +-
+>  drivers/pwm/core.c                            | 18 ++++++------
+>  drivers/pwm/pwm-twl-led.c                     |  2 +-
+>  drivers/pwm/pwm-vt8500.c                      |  2 +-
+>  drivers/pwm/sysfs.c                           | 10 +++----
+>  drivers/regulator/pwm-regulator.c             |  4 +--
+
+>  drivers/video/backlight/lm3630a_bl.c          |  2 +-
+>  drivers/video/backlight/lp855x_bl.c           |  2 +-
+>  drivers/video/backlight/pwm_bl.c              | 12 ++++----
+
+Acked-by: Lee Jones <lee@kernel.org>
+
+>  drivers/video/fbdev/ssd1307fb.c               |  2 +-
+>  include/linux/pwm.h                           | 28 +++++++++----------
+>  21 files changed, 67 insertions(+), 67 deletions(-)
+
+[...]
+
 -- 
-2.25.1
-
+Lee Jones [李琼斯]
