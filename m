@@ -4,49 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C9787C61D85
-	for <intel-gfx@archiver.kernel.org>; Thu, 23 Nov 2023 04:33:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 33753C61D85
+	for <intel-gfx@archiver.kernel.org>; Thu, 23 Nov 2023 05:14:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3A2B510E6CB;
-	Thu, 23 Nov 2023 04:33:34 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.8])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9895810E0B1
- for <intel-gfx@lists.freedesktop.org>; Thu, 23 Nov 2023 04:33:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8308E10E6CA;
+	Thu, 23 Nov 2023 05:14:44 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [134.134.136.100])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7EB3910E6CA
+ for <intel-gfx@lists.freedesktop.org>; Thu, 23 Nov 2023 05:14:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1700714009; x=1732250009;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=xU95y4296/1bxSBkQpndVePWJNeNAIpEgT9y35+O5z8=;
- b=aEsX5BPPBJPXFObd9+OUZTwvenLU9MQwxR3i2aGbhZhLd8RNwmMBh62S
- lgM4Qz6ue5TBi3wBpeze45PssjxpACFQk5BSkSd5R7//i6OAYR8cStFGI
- RcHhoWJ/ojIyprCZjRmE27wGlz59mTrJtEeV90LaoUPzApKw04E7FRJCJ
- 31Qt/UztMxqh9kwelqczOFiCegpKBZGLpNiff07g6kRptqjtSd47evbb6
- DrdPcZh6lJ+MEb+bTXVuChog7jvoPMGAqEQXTSE0nq8CCwfSNbP6q7Y/D
- Dg9qQCAY7x55A+Qth83icIe4+Mu/gIk3UQEwIagBOUkXGKgU1U/2Dv8ld g==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10902"; a="5336589"
-X-IronPort-AV: E=Sophos;i="6.04,220,1695711600"; 
-   d="scan'208";a="5336589"
-Received: from orsmga008.jf.intel.com ([10.7.209.65])
- by fmvoesa102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 22 Nov 2023 20:33:29 -0800
+ t=1700716481; x=1732252481;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=ImjLB3R92JR3je4Yis+Yl6Swa+CS7RjREglRAP1AnBE=;
+ b=nQ/jLVtVM/EEqA1Cjd3jDUh6noJJtCOMo0Gh5poPn435N2zMroHdZFe+
+ LPBsUx/pwqgk9gSFSZ282wj+VFUFkjPGJ119jlDKFVSp3ArM/w1jHINET
+ z1m2L00l0Zq7XaE0pzEbl+u/3JDtp6HHUzbkVJ5s1kA4ZYavBLQIEJROJ
+ J01/URGrV0XS8xbH5uVQ60p0KVjrpJGd+opMrfXn1xrVhXIQR2wEE1MjR
+ TAE1F9SqwAATblDr+Pv64/eUyd12QbIub5SOrOMOueDFOiVzKOQYZdDtr
+ /vIqDV6ukwjAWyvqlAtimnPctAIgBsLfehakft4x9JGSFg3pfQgESAyKz g==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10902"; a="458696749"
+X-IronPort-AV: E=Sophos;i="6.04,220,1695711600"; d="scan'208";a="458696749"
+Received: from fmsmga005.fm.intel.com ([10.253.24.32])
+ by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 22 Nov 2023 21:14:40 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10902"; a="796223331"
-X-IronPort-AV: E=Sophos;i="6.04,220,1695711600"; d="scan'208";a="796223331"
-Received: from srr4-3-linux-103-aknautiy.iind.intel.com ([10.223.34.160])
- by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 22 Nov 2023 20:33:27 -0800
-From: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
+X-IronPort-AV: E=McAfee;i="6600,9927,10902"; a="1098684753"
+X-IronPort-AV: E=Sophos;i="6.04,220,1695711600"; d="scan'208";a="1098684753"
+Received: from shekharc-desk.iind.intel.com ([10.190.239.54])
+ by fmsmga005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 22 Nov 2023 21:14:39 -0800
+From: Shekhar Chauhan <shekhar.chauhan@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Thu, 23 Nov 2023 09:57:32 +0530
-Message-Id: <20231123042733.1027046-4-ankit.k.nautiyal@intel.com>
-X-Mailer: git-send-email 2.40.1
-In-Reply-To: <20231123042733.1027046-1-ankit.k.nautiyal@intel.com>
-References: <20231123042733.1027046-1-ankit.k.nautiyal@intel.com>
+Date: Thu, 23 Nov 2023 10:44:29 +0530
+Message-Id: <20231123051430.3348945-1-shekhar.chauhan@intel.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 3/4] drm/i915/dp_mst: Use helpers to get dsc
- min/max input bpc
+Subject: [Intel-gfx] [PATCH v2 0/1] drm/i915/mtl: Fix Wa_22016670082
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,78 +55,25 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: jani.nikula@intel.com
+Cc: matthew.d.roper@intel.com
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Use helpers for source min/max input bpc with DSC.
+Wa_22016670082 is applicable on GT and Media.
+For GT, an MCR register is required instead of MMIO.
 
-Signed-off-by: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
-Reviewed-by: Suraj Kandpal <suraj.kandpal@intel.com>
----
- drivers/gpu/drm/i915/display/intel_dp.c     |  2 --
- drivers/gpu/drm/i915/display/intel_dp.h     |  2 ++
- drivers/gpu/drm/i915/display/intel_dp_mst.c | 11 ++++-------
- 3 files changed, 6 insertions(+), 9 deletions(-)
+v1: Introduce the fix
+v2: Minor cosmetic change for naming convention
+    of the register and adding a Todo for later
+    changes in the code.
 
-diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
-index 37320cc4346f..0f5040c114b3 100644
---- a/drivers/gpu/drm/i915/display/intel_dp.c
-+++ b/drivers/gpu/drm/i915/display/intel_dp.c
-@@ -1622,7 +1622,6 @@ intel_dp_compute_link_config_wide(struct intel_dp *intel_dp,
- 	return -EINVAL;
- }
- 
--static
- u8 intel_dp_dsc_max_src_input_bpc(struct drm_i915_private *i915)
- {
- 	if (!HAS_DSC(i915))
-@@ -2022,7 +2021,6 @@ static int dsc_compute_compressed_bpp(struct intel_dp *intel_dp,
- 					   dsc_max_bpp, dsc_min_bpp, pipe_bpp, timeslots);
- }
- 
--static
- u8 intel_dp_dsc_min_src_input_bpc(struct drm_i915_private *i915)
- {
- 	/* Min DSC Input BPC for ICL+ is 8 */
-diff --git a/drivers/gpu/drm/i915/display/intel_dp.h b/drivers/gpu/drm/i915/display/intel_dp.h
-index 05db46b111f2..931c5eb71cd0 100644
---- a/drivers/gpu/drm/i915/display/intel_dp.h
-+++ b/drivers/gpu/drm/i915/display/intel_dp.h
-@@ -184,5 +184,7 @@ intel_dp_compute_config_link_bpp_limits(struct intel_dp *intel_dp,
- 					struct link_config_limits *limits);
- 
- void intel_dp_get_dsc_sink_cap(u8 dpcd_rev, struct intel_connector *connector);
-+u8 intel_dp_dsc_max_src_input_bpc(struct drm_i915_private *i915);
-+u8 intel_dp_dsc_min_src_input_bpc(struct drm_i915_private *i915);
- 
- #endif /* __INTEL_DP_H__ */
-diff --git a/drivers/gpu/drm/i915/display/intel_dp_mst.c b/drivers/gpu/drm/i915/display/intel_dp_mst.c
-index d3d53e1b4489..337db31777df 100644
---- a/drivers/gpu/drm/i915/display/intel_dp_mst.c
-+++ b/drivers/gpu/drm/i915/display/intel_dp_mst.c
-@@ -293,17 +293,14 @@ static int intel_dp_dsc_mst_compute_link_config(struct intel_encoder *encoder,
- 	int i, num_bpc;
- 	u8 dsc_bpc[3] = {};
- 	int min_bpp, max_bpp, sink_min_bpp, sink_max_bpp;
--	u8 dsc_max_bpc;
-+	u8 dsc_max_bpc, dsc_min_bpc;
- 	int min_compressed_bpp, max_compressed_bpp;
- 
--	/* Max DSC Input BPC for ICL is 10 and for TGL+ is 12 */
--	if (DISPLAY_VER(i915) >= 12)
--		dsc_max_bpc = min_t(u8, 12, conn_state->max_requested_bpc);
--	else
--		dsc_max_bpc = min_t(u8, 10, conn_state->max_requested_bpc);
-+	dsc_max_bpc = intel_dp_dsc_max_src_input_bpc(i915);
-+	dsc_min_bpc = intel_dp_dsc_min_src_input_bpc(i915);
- 
- 	max_bpp = min_t(u8, dsc_max_bpc * 3, limits->pipe.max_bpp);
--	min_bpp = limits->pipe.min_bpp;
-+	min_bpp = max_t(u8, dsc_min_bpc * 3, limits->pipe.min_bpp);
- 
- 	num_bpc = drm_dp_dsc_sink_supported_input_bpcs(connector->dp.dsc_dpcd,
- 						       dsc_bpc);
+Shekhar Chauhan (1):
+  drm/i915/mtl: Fix Wa_22016670082
+
+ drivers/gpu/drm/i915/gt/intel_gt_regs.h     | 6 ++++++
+ drivers/gpu/drm/i915/gt/intel_workarounds.c | 2 +-
+ 2 files changed, 7 insertions(+), 1 deletion(-)
+
 -- 
-2.40.1
+2.34.1
 
