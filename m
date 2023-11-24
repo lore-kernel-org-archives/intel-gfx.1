@@ -4,30 +4,30 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 915A4C61D97
-	for <intel-gfx@archiver.kernel.org>; Fri, 24 Nov 2023 14:01:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 813A2C61DF4
+	for <intel-gfx@archiver.kernel.org>; Fri, 24 Nov 2023 14:01:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B54B010E7F9;
-	Fri, 24 Nov 2023 14:01:13 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EC59310E7FB;
+	Fri, 24 Nov 2023 14:01:17 +0000 (UTC)
 Received: from emeril.freedesktop.org (emeril.freedesktop.org
  [IPv6:2610:10:20:722:a800:ff:feee:56cf])
- by gabe.freedesktop.org (Postfix) with ESMTP id 0DFA810E7EF;
- Fri, 24 Nov 2023 14:01:12 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTP id 7AB5210E7FA;
+ Fri, 24 Nov 2023 14:01:14 +0000 (UTC)
 Received: from emeril.freedesktop.org (localhost [127.0.0.1])
- by emeril.freedesktop.org (Postfix) with ESMTP id 06919AADD7;
- Fri, 24 Nov 2023 14:01:12 +0000 (UTC)
+ by emeril.freedesktop.org (Postfix) with ESMTP id 78044ACC24;
+ Fri, 24 Nov 2023 14:01:14 +0000 (UTC)
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
 From: Patchwork <patchwork@emeril.freedesktop.org>
 To: "Andrzej Hajda" <andrzej.hajda@intel.com>
-Date: Fri, 24 Nov 2023 14:01:12 -0000
-Message-ID: <170083447200.13022.15240878270123516010@emeril.freedesktop.org>
+Date: Fri, 24 Nov 2023 14:01:14 -0000
+Message-ID: <170083447448.13025.9733025623611926547@emeril.freedesktop.org>
 X-Patchwork-Hint: ignore
 References: <20231124-cur_size_reduction-v1-1-30495dba475f@intel.com>
 In-Reply-To: <20231124-cur_size_reduction-v1-1-30495dba475f@intel.com>
-Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkNIRUNLUEFUQ0g6IHdhcm5pbmcg?=
- =?utf-8?q?for_drm/i915/display=3A_do_not_use_cursor_size_reduction_on_MTL?=
+Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLlNQQVJTRTogd2FybmluZyBmb3Ig?=
+ =?utf-8?q?drm/i915/display=3A_do_not_use_cursor_size_reduction_on_MTL?=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -53,12 +53,8 @@ State : warning
 
 == Summary ==
 
-Error: dim checkpatch failed
-7c3e726f8b53 drm/i915/display: do not use cursor size reduction on MTL
--:19: CHECK:MACRO_ARG_REUSE: Macro argument reuse 'i915' - possible side-effects?
-#19: FILE: drivers/gpu/drm/i915/display/intel_display_device.h:39:
-+#define HAS_CUR_FBC(i915)		(!HAS_GMCH(i915) && IS_DISPLAY_VER(i915, 7, 13))
-
-total: 0 errors, 0 warnings, 1 checks, 8 lines checked
+Error: dim sparse failed
+Sparse version: v0.6.2
+Fast mode used, each commit won't be checked separately.
 
 
