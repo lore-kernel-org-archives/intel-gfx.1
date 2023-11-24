@@ -4,50 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A5BCAC61DF4
-	for <intel-gfx@archiver.kernel.org>; Fri, 24 Nov 2023 12:44:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E4CA9C61DF4
+	for <intel-gfx@archiver.kernel.org>; Fri, 24 Nov 2023 12:44:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2AB1410E1E9;
-	Fri, 24 Nov 2023 12:44:32 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [192.55.52.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3B0D610E7E8;
- Fri, 24 Nov 2023 12:44:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0D48C10E7CE;
+	Fri, 24 Nov 2023 12:44:40 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [134.134.136.65])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4E98E10E1F2;
+ Fri, 24 Nov 2023 12:44:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1700829863; x=1732365863;
+ t=1700829876; x=1732365876;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=ZH0I2mDfZJAA6EI7gWpQwKj7GUTe9+ey6o2oV3S7QZ0=;
- b=enMq6dKGzSSz76OHyxxxsWPFw/MW39u/w7xRMnhTdz89qs9wer/KJ5qo
- JJqZ3UKeD8H1aWImBVEUo754F9Q+yNB1y4eeJoUytxnKlEWDqaciInulv
- m9CzN5NKxMmQgv/9W97nA4tXjOzlfoYWZ7ujUCELiH/s0zk8p02trc+Nm
- uwC8g59iRlfcwJJCDFrblomSFXjaqfMFl7kfaLVZksdGmXemMtdXJtEqJ
- ODOKhDjtDYeCXKOoYvGCcEoZuEmnNaXVXvkGuuKlMB7AXlbKap2nJN8J/
- TU2ZCFo2giBNV+qWtZrIfPBHKUFdhxngjNLrvq0qgSxDcC/xtsFlc2AV9 A==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10902"; a="478626952"
-X-IronPort-AV: E=Sophos;i="6.04,224,1695711600"; d="scan'208";a="478626952"
-Received: from fmsmga008.fm.intel.com ([10.253.24.58])
- by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 24 Nov 2023 04:44:22 -0800
+ bh=v+jxSZJTFxEyHHnwP2evczv7VRFYUv1gkoBE9+3drEg=;
+ b=L/TJpzZwKCnXmdWib+Vxu5vSGvUgya6yQvQa3AJrdEr6K/tHPso5A/lI
+ pjxj60wkg/rmAwhXvWnRgeE4+p2v1xPOTXEReDnPr4hGgbgnX1924cuet
+ O/J5pO3rANbLzQME+KWI/e4bOLF+WI/AxV103hBXiQAFv0vYaEOaw9D26
+ D5Tcpz2aExiBYgwIopFC0/JCgvkn/+EO8NCij3IMcbrtEI4HHeQBbiOTo
+ EbP/YFZpxehEqVEn9V/GCjHwhT2INwz0gqi5VrKzZZNp0gehsL1XugvSs
+ EzPIk/L6fbKEzwsmofeiZ9phAMBkgHSh/qTz607nLzRC8miDdoCDz5Cak Q==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10902"; a="396322618"
+X-IronPort-AV: E=Sophos;i="6.04,224,1695711600"; d="scan'208";a="396322618"
+Received: from orsmga004.jf.intel.com ([10.7.209.38])
+ by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 24 Nov 2023 04:44:36 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10902"; a="833687963"
-X-IronPort-AV: E=Sophos;i="6.04,224,1695711600"; d="scan'208";a="833687963"
+X-IronPort-AV: E=McAfee;i="6600,9927,10902"; a="891057756"
+X-IronPort-AV: E=Sophos;i="6.04,224,1695711600"; d="scan'208";a="891057756"
 Received: from dashah-mobl2.ger.corp.intel.com (HELO localhost)
  ([10.252.41.230])
- by fmsmga008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 24 Nov 2023 04:44:21 -0800
+ by orsmga004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 24 Nov 2023 04:44:34 -0800
 From: Jani Nikula <jani.nikula@intel.com>
 To: dri-devel@lists.freedesktop.org
-Date: Fri, 24 Nov 2023 14:43:57 +0200
-Message-Id: <fba6fded60a9616fa57907f313fabb993f2867f7.1700829750.git.jani.nikula@intel.com>
+Date: Fri, 24 Nov 2023 14:44:00 +0200
+Message-Id: <95f1e3981fa3c5304f3c74e82330f12983d35735.1700829750.git.jani.nikula@intel.com>
 X-Mailer: git-send-email 2.39.2
 In-Reply-To: <cover.1700829750.git.jani.nikula@intel.com>
 References: <cover.1700829750.git.jani.nikula@intel.com>
 MIME-Version: 1.0
 Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 3/8] drm/print: add drm_dbg_printer() for drm
- device specific printer
+Subject: [Intel-gfx] [PATCH 6/8] drm/dp: switch drm_dp_vsc_sdp_log() to
+ struct drm_printer
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,100 +64,127 @@ Cc: jani.nikula@intel.com, intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-We've lacked a device specific debug printer. Add one. Take category
-into account too.
-
-__builtin_return_address(0) is inaccurate here, so don't use it. If
-necessary, we can later pass __func__ to drm_dbg_printer() by wrapping
-it inside a macro.
+Use the existing drm printer infrastructure instead of local macros.
 
 Signed-off-by: Jani Nikula <jani.nikula@intel.com>
 ---
- drivers/gpu/drm/drm_print.c | 21 +++++++++++++++++++++
- include/drm/drm_print.h     | 24 ++++++++++++++++++++++++
- 2 files changed, 45 insertions(+)
+ drivers/gpu/drm/display/drm_dp_helper.c       | 17 +++++-------
+ .../drm/i915/display/intel_crtc_state_dump.c  |  5 ++--
+ drivers/gpu/drm/i915/display/intel_display.c  | 27 +++++++++----------
+ include/drm/display/drm_dp_helper.h           |  3 +--
+ 4 files changed, 23 insertions(+), 29 deletions(-)
 
-diff --git a/drivers/gpu/drm/drm_print.c b/drivers/gpu/drm/drm_print.c
-index 91dbcdeaad3f..673b29c732ea 100644
---- a/drivers/gpu/drm/drm_print.c
-+++ b/drivers/gpu/drm/drm_print.c
-@@ -189,6 +189,27 @@ void __drm_printfn_debug(struct drm_printer *p, struct va_format *vaf)
+diff --git a/drivers/gpu/drm/display/drm_dp_helper.c b/drivers/gpu/drm/display/drm_dp_helper.c
+index d72b6f9a352c..1cf51a748022 100644
+--- a/drivers/gpu/drm/display/drm_dp_helper.c
++++ b/drivers/gpu/drm/display/drm_dp_helper.c
+@@ -2898,22 +2898,19 @@ static const char *dp_content_type_get_name(enum dp_content_type content_type)
+ 	}
  }
- EXPORT_SYMBOL(__drm_printfn_debug);
  
-+void __drm_printfn_dbg(struct drm_printer *p, struct va_format *vaf)
-+{
-+	const struct drm_device *drm = p->arg;
-+	const struct device *dev = drm ? drm->dev : NULL;
-+	enum drm_debug_category category = p->category;
-+	const char *prefix = p->prefix ?: "";
-+	const char *prefix_pad = p->prefix ? " " : "";
-+
-+	if (!__drm_debug_enabled(category))
-+		return;
-+
-+	/* Note: __builtin_return_address(0) is useless here. */
-+	if (dev)
-+		dev_printk(KERN_DEBUG, dev, "[" DRM_NAME "]%s%s %pV",
-+			   prefix_pad, prefix, vaf);
-+	else
-+		printk(KERN_DEBUG "[" DRM_NAME "]%s%s %pV",
-+		       prefix_pad, prefix, vaf);
-+}
-+EXPORT_SYMBOL(__drm_printfn_dbg);
-+
- void __drm_printfn_err(struct drm_printer *p, struct va_format *vaf)
+-void drm_dp_vsc_sdp_log(const char *level, struct device *dev,
+-			const struct drm_dp_vsc_sdp *vsc)
++void drm_dp_vsc_sdp_log(struct drm_printer *p, const struct drm_dp_vsc_sdp *vsc)
  {
- 	struct drm_device *drm = p->arg;
-diff --git a/include/drm/drm_print.h b/include/drm/drm_print.h
-index 2d57939429a9..c6a7a7fecccc 100644
---- a/include/drm/drm_print.h
-+++ b/include/drm/drm_print.h
-@@ -176,6 +176,7 @@ struct drm_printer {
- 	void (*puts)(struct drm_printer *p, const char *str);
- 	void *arg;
- 	const char *prefix;
-+	enum drm_debug_category category;
+-#define DP_SDP_LOG(fmt, ...) dev_printk(level, dev, fmt, ##__VA_ARGS__)
+-	DP_SDP_LOG("DP SDP: %s, revision %u, length %u\n", "VSC",
++	drm_printf(p, "DP SDP: VSC, revision %u, length %u\n",
+ 		   vsc->revision, vsc->length);
+-	DP_SDP_LOG("    pixelformat: %s\n",
++	drm_printf(p, "    pixelformat: %s\n",
+ 		   dp_pixelformat_get_name(vsc->pixelformat));
+-	DP_SDP_LOG("    colorimetry: %s\n",
++	drm_printf(p, "    colorimetry: %s\n",
+ 		   dp_colorimetry_get_name(vsc->pixelformat, vsc->colorimetry));
+-	DP_SDP_LOG("    bpc: %u\n", vsc->bpc);
+-	DP_SDP_LOG("    dynamic range: %s\n",
++	drm_printf(p, "    bpc: %u\n", vsc->bpc);
++	drm_printf(p, "    dynamic range: %s\n",
+ 		   dp_dynamic_range_get_name(vsc->dynamic_range));
+-	DP_SDP_LOG("    content type: %s\n",
++	drm_printf(p, "    content type: %s\n",
+ 		   dp_content_type_get_name(vsc->content_type));
+-#undef DP_SDP_LOG
+ }
+ EXPORT_SYMBOL(drm_dp_vsc_sdp_log);
+ 
+diff --git a/drivers/gpu/drm/i915/display/intel_crtc_state_dump.c b/drivers/gpu/drm/i915/display/intel_crtc_state_dump.c
+index fbe89b6f038a..a6c55a357b13 100644
+--- a/drivers/gpu/drm/i915/display/intel_crtc_state_dump.c
++++ b/drivers/gpu/drm/i915/display/intel_crtc_state_dump.c
+@@ -55,10 +55,9 @@ static void
+ intel_dump_dp_vsc_sdp(struct drm_i915_private *i915,
+ 		      const struct drm_dp_vsc_sdp *vsc)
+ {
+-	if (!drm_debug_enabled(DRM_UT_KMS))
+-		return;
++	struct drm_printer p = drm_dbg_printer(&i915->drm, DRM_UT_KMS, NULL);
+ 
+-	drm_dp_vsc_sdp_log(KERN_DEBUG, i915->drm.dev, vsc);
++	drm_dp_vsc_sdp_log(&p, vsc);
+ }
+ 
+ static void
+diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
+index 5cf162628b95..5f05017570da 100644
+--- a/drivers/gpu/drm/i915/display/intel_display.c
++++ b/drivers/gpu/drm/i915/display/intel_display.c
+@@ -4799,28 +4799,27 @@ pipe_config_infoframe_mismatch(struct drm_i915_private *dev_priv,
+ }
+ 
+ static void
+-pipe_config_dp_vsc_sdp_mismatch(struct drm_i915_private *dev_priv,
++pipe_config_dp_vsc_sdp_mismatch(struct drm_i915_private *i915,
+ 				bool fastset, const char *name,
+ 				const struct drm_dp_vsc_sdp *a,
+ 				const struct drm_dp_vsc_sdp *b)
+ {
++	struct drm_printer p;
++
+ 	if (fastset) {
+-		if (!drm_debug_enabled(DRM_UT_KMS))
+-			return;
++		p = drm_dbg_printer(&i915->drm, DRM_UT_KMS, NULL);
+ 
+-		drm_dbg_kms(&dev_priv->drm,
+-			    "fastset requirement not met in %s dp sdp\n", name);
+-		drm_dbg_kms(&dev_priv->drm, "expected:\n");
+-		drm_dp_vsc_sdp_log(KERN_DEBUG, dev_priv->drm.dev, a);
+-		drm_dbg_kms(&dev_priv->drm, "found:\n");
+-		drm_dp_vsc_sdp_log(KERN_DEBUG, dev_priv->drm.dev, b);
++		drm_printf(&p, "fastset requirement not met in %s dp sdp\n", name);
+ 	} else {
+-		drm_err(&dev_priv->drm, "mismatch in %s dp sdp\n", name);
+-		drm_err(&dev_priv->drm, "expected:\n");
+-		drm_dp_vsc_sdp_log(KERN_ERR, dev_priv->drm.dev, a);
+-		drm_err(&dev_priv->drm, "found:\n");
+-		drm_dp_vsc_sdp_log(KERN_ERR, dev_priv->drm.dev, b);
++		p = drm_err_printer(&i915->drm, NULL);
++
++		drm_printf(&p, "mismatch in %s dp sdp\n", name);
+ 	}
++
++	drm_printf(&p, "expected:\n");
++	drm_dp_vsc_sdp_log(&p, a);
++	drm_printf(&p, "found:\n");
++	drm_dp_vsc_sdp_log(&p, b);
+ }
+ 
+ /* Returns the length up to and including the last differing byte */
+diff --git a/include/drm/display/drm_dp_helper.h b/include/drm/display/drm_dp_helper.h
+index 863b2e7add29..d02014a87f12 100644
+--- a/include/drm/display/drm_dp_helper.h
++++ b/include/drm/display/drm_dp_helper.h
+@@ -98,8 +98,7 @@ struct drm_dp_vsc_sdp {
+ 	enum dp_content_type content_type;
  };
  
- void __drm_printfn_coredump(struct drm_printer *p, struct va_format *vaf);
-@@ -184,6 +185,7 @@ void __drm_printfn_seq_file(struct drm_printer *p, struct va_format *vaf);
- void __drm_puts_seq_file(struct drm_printer *p, const char *str);
- void __drm_printfn_info(struct drm_printer *p, struct va_format *vaf);
- void __drm_printfn_debug(struct drm_printer *p, struct va_format *vaf);
-+void __drm_printfn_dbg(struct drm_printer *p, struct va_format *vaf);
- void __drm_printfn_err(struct drm_printer *p, struct va_format *vaf);
+-void drm_dp_vsc_sdp_log(const char *level, struct device *dev,
+-			const struct drm_dp_vsc_sdp *vsc);
++void drm_dp_vsc_sdp_log(struct drm_printer *p, const struct drm_dp_vsc_sdp *vsc);
  
- __printf(2, 3)
-@@ -331,6 +333,28 @@ static inline struct drm_printer drm_debug_printer(const char *prefix)
- 	return p;
- }
+ int drm_dp_psr_setup_time(const u8 psr_cap[EDP_PSR_RECEIVER_CAP_SIZE]);
  
-+/**
-+ * drm_dbg_printer - construct a &drm_printer for drm device specific output
-+ * @drm: the &struct drm_device pointer, or NULL
-+ * @category: the debug category to use
-+ * @prefix: debug output prefix, or NULL for no prefix
-+ *
-+ * RETURNS:
-+ * The &drm_printer object
-+ */
-+static inline struct drm_printer drm_dbg_printer(struct drm_device *drm,
-+						 enum drm_debug_category category,
-+						 const char *prefix)
-+{
-+	struct drm_printer p = {
-+		.printfn = __drm_printfn_dbg,
-+		.arg = drm,
-+		.prefix = prefix,
-+		.category = category,
-+	};
-+	return p;
-+}
-+
- /**
-  * drm_err_printer - construct a &drm_printer that outputs to drm_err()
-  * @drm: the &struct drm_device pointer
 -- 
 2.39.2
 
