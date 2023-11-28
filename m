@@ -4,28 +4,26 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1F3F8C07CA9
-	for <intel-gfx@archiver.kernel.org>; Tue, 28 Nov 2023 13:53:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EF8A1C4167B
+	for <intel-gfx@archiver.kernel.org>; Tue, 28 Nov 2023 13:53:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2ADF210E537;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 67BD910E538;
 	Tue, 28 Nov 2023 13:53:29 +0000 (UTC)
-X-Greylist: delayed 991 seconds by postgrey-1.36 at gabe;
- Tue, 28 Nov 2023 13:07:15 UTC
-Received: from szxga01-in.huawei.com (szxga01-in.huawei.com [45.249.212.187])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F1AEF10E066;
- Tue, 28 Nov 2023 13:07:15 +0000 (UTC)
-Received: from kwepemm000018.china.huawei.com (unknown [172.30.72.55])
- by szxga01-in.huawei.com (SkyGuard) with ESMTP id 4Sfj3S74D2zvRDD;
- Tue, 28 Nov 2023 20:50:12 +0800 (CST)
+Received: from szxga03-in.huawei.com (szxga03-in.huawei.com [45.249.212.189])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E9E4110E066;
+ Tue, 28 Nov 2023 13:09:20 +0000 (UTC)
+Received: from kwepemm000018.china.huawei.com (unknown [172.30.72.57])
+ by szxga03-in.huawei.com (SkyGuard) with ESMTP id 4Sfhyb0vfNzMnS3;
+ Tue, 28 Nov 2023 20:45:59 +0800 (CST)
 Received: from DESKTOP-RAUQ1L5.china.huawei.com (10.174.179.172) by
  kwepemm000018.china.huawei.com (7.193.23.4) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.35; Tue, 28 Nov 2023 20:50:41 +0800
+ 15.1.2507.35; Tue, 28 Nov 2023 20:50:47 +0800
 From: Weixi Zhu <weixi.zhu@huawei.com>
 To: <linux-mm@kvack.org>, <linux-kernel@vger.kernel.org>,
  <akpm@linux-foundation.org>
-Date: Tue, 28 Nov 2023 20:50:21 +0800
-Message-ID: <20231128125025.4449-3-weixi.zhu@huawei.com>
+Date: Tue, 28 Nov 2023 20:50:24 +0800
+Message-ID: <20231128125025.4449-6-weixi.zhu@huawei.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20231128125025.4449-1-weixi.zhu@huawei.com>
 References: <20231128125025.4449-1-weixi.zhu@huawei.com>
@@ -37,8 +35,8 @@ X-ClientProxiedBy: dggems705-chm.china.huawei.com (10.3.19.182) To
  kwepemm000018.china.huawei.com (7.193.23.4)
 X-CFilter-Loop: Reflected
 X-Mailman-Approved-At: Tue, 28 Nov 2023 13:53:26 +0000
-Subject: [Intel-gfx] [RFC PATCH 2/6] mm/gmem: add arch-independent
- abstraction to track address mapping status
+Subject: [Intel-gfx] [RFC PATCH 5/6] mm/gmem: resolve VMA conflicts for
+ attached peer devices
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,405 +60,397 @@ Cc: dri-devel@lists.freedesktop.org, leonro@nvidia.com, apopple@nvidia.com,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-This patch adds an abstraction layer, struct vm_object, that maintains
-per-process virtual-to-physical mapping status stored in struct gm_mapping.
-For example, a virtual page may be mapped to a CPU physical page or to a
-device physical page. Struct vm_object effectively maintains an
-arch-independent page table, which is defined as a "logical page table".
-While arch-dependent page table used by a real MMU is named a "physical
-page table". The logical page table is useful if Linux core MM is extended
-to handle a unified virtual address space with external accelerators using
-customized MMUs.
+This patch resolves potential VMA conflicts when
+mmap(MAP_PRIVATE | MAP_PEER_SHARED) is invoked. Note that the semantic of
+mmap(MAP_PRIVATE | MAP_PEER_SHARED) is to provide a coherent view of memory
+through the allocated virtual addresses between the CPU and all attached
+devices. However, an attached device may create its own computing context
+that does not necessarily share the same address space layout with the CPU
+process. Therefore, the mmap() syscall must return virtual addresses that
+are guaranteed to be valid across all attached peer devices.
 
-In this patch, struct vm_object utilizes a radix
-tree (xarray) to track where a virtual page is mapped to. This adds extra
-memory consumption from xarray, but provides a nice abstraction to isolate
-mapping status from the machine-dependent layer (PTEs). Besides supporting
-accelerators with external MMUs, struct vm_object is planned to further
-union with i_pages in struct address_mapping for file-backed memory.
-
-The idea of struct vm_object is originated from FreeBSD VM design, which
-provides a unified abstraction for anonymous memory, file-backed memory,
-page cache and etc[1].
-
-Currently, Linux utilizes a set of hierarchical page walk functions to
-abstract page table manipulations of different CPU architecture. The
-problem happens when a device wants to reuse Linux MM code to manage its
-page table -- the device page table may not be accessible to the CPU.
-Existing solution like Linux HMM utilizes the MMU notifier mechanisms to
-invoke device-specific MMU functions, but relies on encoding the mapping
-status on the CPU page table entries. This entangles machine-independent
-code with machine-dependent code, and also brings unnecessary restrictions.
-The PTE size and format vary arch by arch, which harms the extensibility.
-
-[1] https://docs.freebsd.org/en/articles/vm-design/
+In current implementation, if a candidate VMA is detected to be
+conflicting, it will be temporarily blacklisted. The mmap_region()
+function will retry other VMA candidates for a predefined number of
+iterations.
 
 Signed-off-by: Weixi Zhu <weixi.zhu@huawei.com>
 ---
- include/linux/gmem.h     | 120 +++++++++++++++++++++++++
- include/linux/mm_types.h |   4 +
- mm/Makefile              |   2 +-
- mm/vm_object.c           | 184 +++++++++++++++++++++++++++++++++++++++
- 4 files changed, 309 insertions(+), 1 deletion(-)
- create mode 100644 mm/vm_object.c
+ fs/proc/task_mmu.c                     |  3 ++
+ include/linux/gmem.h                   | 26 +++++++++++++++-
+ include/linux/mm.h                     |  8 +++++
+ include/uapi/asm-generic/mman-common.h |  1 +
+ kernel/fork.c                          |  4 +++
+ mm/gmem.c                              | 38 ++++++++++++++++++++++++
+ mm/mempolicy.c                         |  4 +++
+ mm/mmap.c                              | 38 ++++++++++++++++++++++--
+ mm/vm_object.c                         | 41 ++++++++++++++++++++++++++
+ 9 files changed, 159 insertions(+), 4 deletions(-)
 
+diff --git a/fs/proc/task_mmu.c b/fs/proc/task_mmu.c
+index ef2eb12906da..5af03d8f0319 100644
+--- a/fs/proc/task_mmu.c
++++ b/fs/proc/task_mmu.c
+@@ -701,6 +701,9 @@ static void show_smap_vma_flags(struct seq_file *m, struct vm_area_struct *vma)
+ #endif /* CONFIG_HAVE_ARCH_USERFAULTFD_MINOR */
+ #ifdef CONFIG_X86_USER_SHADOW_STACK
+ 		[ilog2(VM_SHADOW_STACK)] = "ss",
++#endif
++#ifdef CONFIG_GMEM
++		[ilog2(VM_PEER_SHARED)]	= "ps",
+ #endif
+ 	};
+ 	size_t i;
 diff --git a/include/linux/gmem.h b/include/linux/gmem.h
-index fff877873557..529ff6755a99 100644
+index 97186f29638d..82d88df5ce44 100644
 --- a/include/linux/gmem.h
 +++ b/include/linux/gmem.h
-@@ -9,11 +9,131 @@
- #ifndef _GMEM_H
- #define _GMEM_H
+@@ -24,7 +24,10 @@ static inline bool gmem_is_enabled(void)
  
-+#include <linux/mm_types.h>
+ static inline bool vma_is_peer_shared(struct vm_area_struct *vma)
+ {
+-	return false;
++	if (!gmem_is_enabled())
++		return false;
 +
- #ifdef CONFIG_GMEM
++	return !!(vma->vm_flags & VM_PEER_SHARED);
+ }
+ 
+ struct gm_dev {
+@@ -130,6 +133,8 @@ void unmap_gm_mappings_range(struct vm_area_struct *vma, unsigned long start,
+ 			     unsigned long end);
+ void munmap_in_peer_devices(struct mm_struct *mm, unsigned long start,
+ 			    unsigned long end);
++void gm_reserve_vma(struct vm_area_struct *value, struct list_head *head);
++void gm_release_vma(struct mm_struct *mm, struct list_head *head);
+ 
+ /* core gmem */
+ enum gm_ret {
+@@ -283,6 +288,10 @@ int gm_as_create(unsigned long begin, unsigned long end, struct gm_as **new_as);
+ int gm_as_destroy(struct gm_as *as);
+ int gm_as_attach(struct gm_as *as, struct gm_dev *dev, enum gm_mmu_mode mode,
+ 		 bool activate, struct gm_context **out_ctx);
 +
-+#define GM_PAGE_CPU	0x10 /* Determines whether page is a pointer or a pfn number. */
-+#define GM_PAGE_DEVICE	0x20
-+#define GM_PAGE_NOMAP	0x40
-+#define GM_PAGE_WILLNEED	0x80
-+
-+#define GM_PAGE_TYPE_MASK	(GM_PAGE_CPU | GM_PAGE_DEVICE | GM_PAGE_NOMAP)
-+
-+struct gm_mapping {
-+	unsigned int flag;
-+
-+	union {
-+		struct page *page;	/* CPU node */
-+		struct gm_dev *dev;	/* hetero-node. TODO: support multiple devices */
-+		unsigned long pfn;
-+	};
-+
-+	struct mutex lock;
-+};
-+
-+static inline void gm_mapping_flags_set(struct gm_mapping *gm_mapping, int flags)
-+{
-+	if (flags & GM_PAGE_TYPE_MASK)
-+		gm_mapping->flag &= ~GM_PAGE_TYPE_MASK;
-+
-+	gm_mapping->flag |= flags;
-+}
-+
-+static inline void gm_mapping_flags_clear(struct gm_mapping *gm_mapping, int flags)
-+{
-+	gm_mapping->flag &= ~flags;
-+}
-+
-+static inline bool gm_mapping_cpu(struct gm_mapping *gm_mapping)
-+{
-+	return !!(gm_mapping->flag & GM_PAGE_CPU);
-+}
-+
-+static inline bool gm_mapping_device(struct gm_mapping *gm_mapping)
-+{
-+	return !!(gm_mapping->flag & GM_PAGE_DEVICE);
-+}
-+
-+static inline bool gm_mapping_nomap(struct gm_mapping *gm_mapping)
-+{
-+	return !!(gm_mapping->flag & GM_PAGE_NOMAP);
-+}
-+
-+static inline bool gm_mapping_willneed(struct gm_mapping *gm_mapping)
-+{
-+	return !!(gm_mapping->flag & GM_PAGE_WILLNEED);
-+}
-+
- /* h-NUMA topology */
- void __init hnuma_init(void);
-+
-+/* vm object */
-+/*
-+ * Each per-process vm_object tracks the mapping status of virtual pages from
-+ * all VMAs mmap()-ed with MAP_PRIVATE | MAP_PEER_SHARED.
-+ */
-+struct vm_object {
-+	spinlock_t lock;
-+
-+	/*
-+	 * The logical_page_table is a container that holds the mapping
-+	 * information between a VA and a struct page.
-+	 */
-+	struct xarray *logical_page_table;
-+	atomic_t nr_pages;
-+};
-+
-+int __init vm_object_init(void);
-+struct vm_object *vm_object_create(struct mm_struct *mm);
-+void vm_object_drop_locked(struct mm_struct *mm);
-+
-+struct gm_mapping *alloc_gm_mapping(void);
-+void free_gm_mappings(struct vm_area_struct *vma);
-+struct gm_mapping *vm_object_lookup(struct vm_object *obj, unsigned long va);
-+void vm_object_mapping_create(struct vm_object *obj, unsigned long start);
-+void unmap_gm_mappings_range(struct vm_area_struct *vma, unsigned long start,
-+			     unsigned long end);
-+void munmap_in_peer_devices(struct mm_struct *mm, unsigned long start,
-+			    unsigned long end);
++int gm_alloc_va_in_peer_devices(struct mm_struct *mm,
++				struct vm_area_struct *vma, unsigned long addr,
++				unsigned long len, vm_flags_t vm_flags);
  #else
- static inline void hnuma_init(void) {}
-+static inline void __init vm_object_init(void)
+ static inline bool gmem_is_enabled(void) { return false; }
+ static inline bool vma_is_peer_shared(struct vm_area_struct *vma)
+@@ -339,6 +348,21 @@ int gm_as_attach(struct gm_as *as, struct gm_dev *dev, enum gm_mmu_mode mode,
+ {
+ 	return 0;
+ }
++static inline void gm_reserve_vma(struct vm_area_struct *value,
++				  struct list_head *head)
 +{
 +}
-+static inline struct vm_object *vm_object_create(struct vm_area_struct *vma)
-+{
-+	return NULL;
-+}
-+static inline void vm_object_drop_locked(struct vm_area_struct *vma)
++static inline void gm_release_vma(struct mm_struct *mm, struct list_head *head)
 +{
 +}
-+static inline struct gm_mapping *alloc_gm_mapping(void)
++static inline int gm_alloc_va_in_peer_devices(struct mm_struct *mm,
++					      struct vm_area_struct *vma,
++					      unsigned long addr,
++					      unsigned long len,
++					      vm_flags_t vm_flags)
 +{
-+	return NULL;
-+}
-+static inline void free_gm_mappings(struct vm_area_struct *vma)
-+{
-+}
-+static inline struct gm_mapping *vm_object_lookup(struct vm_object *obj,
-+						  unsigned long va)
-+{
-+	return NULL;
-+}
-+static inline void vm_object_mapping_create(struct vm_object *obj,
-+					    unsigned long start)
-+{
-+}
-+static inline void unmap_gm_mappings_range(struct vm_area_struct *vma,
-+					   unsigned long start,
-+					   unsigned long end)
-+{
-+}
-+static inline void munmap_in_peer_devices(struct mm_struct *mm,
-+					  unsigned long start,
-+					  unsigned long end)
-+{
++	return 0;
 +}
  #endif
  
  #endif /* _GMEM_H */
-diff --git a/include/linux/mm_types.h b/include/linux/mm_types.h
-index 957ce38768b2..4e50dc019d75 100644
---- a/include/linux/mm_types.h
-+++ b/include/linux/mm_types.h
-@@ -31,6 +31,7 @@
+diff --git a/include/linux/mm.h b/include/linux/mm.h
+index 418d26608ece..8837624e4c66 100644
+--- a/include/linux/mm.h
++++ b/include/linux/mm.h
+@@ -320,14 +320,22 @@ extern unsigned int kobjsize(const void *objp);
+ #define VM_HIGH_ARCH_BIT_3	35	/* bit only usable on 64-bit architectures */
+ #define VM_HIGH_ARCH_BIT_4	36	/* bit only usable on 64-bit architectures */
+ #define VM_HIGH_ARCH_BIT_5	37	/* bit only usable on 64-bit architectures */
++#define VM_HIGH_ARCH_BIT_6	38	/* bit only usable on 64-bit architectures */
+ #define VM_HIGH_ARCH_0	BIT(VM_HIGH_ARCH_BIT_0)
+ #define VM_HIGH_ARCH_1	BIT(VM_HIGH_ARCH_BIT_1)
+ #define VM_HIGH_ARCH_2	BIT(VM_HIGH_ARCH_BIT_2)
+ #define VM_HIGH_ARCH_3	BIT(VM_HIGH_ARCH_BIT_3)
+ #define VM_HIGH_ARCH_4	BIT(VM_HIGH_ARCH_BIT_4)
+ #define VM_HIGH_ARCH_5	BIT(VM_HIGH_ARCH_BIT_5)
++#define VM_HIGH_ARCH_6	BIT(VM_HIGH_ARCH_BIT_6)
+ #endif /* CONFIG_ARCH_USES_HIGH_VMA_FLAGS */
  
- struct address_space;
- struct mem_cgroup;
-+struct vm_object;
++#ifdef CONFIG_GMEM
++#define VM_PEER_SHARED	VM_HIGH_ARCH_6
++#else
++#define VM_PEER_SHARED	VM_NONE
++#endif
++
+ #ifdef CONFIG_ARCH_HAS_PKEYS
+ # define VM_PKEY_SHIFT	VM_HIGH_ARCH_BIT_0
+ # define VM_PKEY_BIT0	VM_HIGH_ARCH_0	/* A protection key is a 4-bit value */
+diff --git a/include/uapi/asm-generic/mman-common.h b/include/uapi/asm-generic/mman-common.h
+index 49b22a497c5d..eebdbb2375f8 100644
+--- a/include/uapi/asm-generic/mman-common.h
++++ b/include/uapi/asm-generic/mman-common.h
+@@ -32,6 +32,7 @@
+ 
+ #define MAP_UNINITIALIZED 0x4000000	/* For anonymous mmap, memory could be
+ 					 * uninitialized */
++#define MAP_PEER_SHARED		0x8000000	/* Coherent memory available for both CPU and attached devices. */
  
  /*
-  * Each physical page in the system has a struct page associated with
-@@ -974,6 +975,9 @@ struct mm_struct {
- #endif
- 		} lru_gen;
- #endif /* CONFIG_LRU_GEN */
-+#ifdef CONFIG_GMEM
-+		struct vm_object *vm_obj;
-+#endif
- 	} __randomize_layout;
- 
- 	/*
-diff --git a/mm/Makefile b/mm/Makefile
-index f48ea2eb4a44..d2dfab012c96 100644
---- a/mm/Makefile
-+++ b/mm/Makefile
-@@ -138,4 +138,4 @@ obj-$(CONFIG_IO_MAPPING) += io-mapping.o
- obj-$(CONFIG_HAVE_BOOTMEM_INFO_NODE) += bootmem_info.o
- obj-$(CONFIG_GENERIC_IOREMAP) += ioremap.o
- obj-$(CONFIG_SHRINKER_DEBUG) += shrinker_debug.o
--obj-$(CONFIG_GMEM) += gmem.o
-+obj-$(CONFIG_GMEM) += gmem.o vm_object.o
-diff --git a/mm/vm_object.c b/mm/vm_object.c
-new file mode 100644
-index 000000000000..4e76737e0ca1
---- /dev/null
-+++ b/mm/vm_object.c
-@@ -0,0 +1,184 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/*
-+ * arch/alpha/boot/bootp.c
-+ *
-+ * Copyright (C) 1997 Jay Estabrook
-+ *
-+ * This file is used for creating a bootp file for the Linux/AXP kernel
-+ *
-+ * based significantly on the arch/alpha/boot/main.c of Linus Torvalds
-+ */
-+#include <linux/mm.h>
+  * Flags for mlock
+diff --git a/kernel/fork.c b/kernel/fork.c
+index 10917c3e1f03..eab96cdb25a6 100644
+--- a/kernel/fork.c
++++ b/kernel/fork.c
+@@ -99,6 +99,7 @@
+ #include <linux/stackprotector.h>
+ #include <linux/user_events.h>
+ #include <linux/iommu.h>
 +#include <linux/gmem.h>
-+
-+/*
-+ * Sine VM_OBJECT maintains the logical page table under each VMA, and each VMA
-+ * points to a VM_OBJECT. Ultimately VM_OBJECTs must be maintained as long as VMA
-+ * gets changed: merge, split, adjust
-+ */
-+static struct kmem_cache *vm_object_cachep;
-+static struct kmem_cache *gm_mapping_cachep;
-+
-+static inline void release_gm_mapping(struct gm_mapping *mapping)
-+{
-+	kmem_cache_free(gm_mapping_cachep, mapping);
-+}
-+
-+static inline struct gm_mapping *lookup_gm_mapping(struct vm_object *obj,
-+						   unsigned long pindex)
-+{
-+	return xa_load(obj->logical_page_table, pindex);
-+}
-+
-+int __init vm_object_init(void)
-+{
-+	vm_object_cachep = KMEM_CACHE(vm_object, 0);
-+	if (!vm_object_cachep)
-+		goto out;
-+
-+	gm_mapping_cachep = KMEM_CACHE(gm_mapping, 0);
-+	if (!gm_mapping_cachep)
-+		goto free_vm_object;
-+
-+	return 0;
-+free_vm_object:
-+	kmem_cache_destroy(vm_object_cachep);
-+out:
-+	return -ENOMEM;
-+}
-+
-+/*
-+ * Create a VM_OBJECT and attach it to a mm_struct
-+ * This should be called when a task_struct is created.
-+ */
-+struct vm_object *vm_object_create(struct mm_struct *mm)
-+{
-+	struct vm_object *obj = kmem_cache_alloc(vm_object_cachep, GFP_KERNEL);
-+
-+	if (!obj)
-+		return NULL;
-+
-+	spin_lock_init(&obj->lock);
-+
-+	/*
-+	 * The logical page table maps va >> PAGE_SHIFT
-+	 * to pointers of struct gm_mapping.
-+	 */
-+	obj->logical_page_table = kmalloc(sizeof(struct xarray), GFP_KERNEL);
-+	if (!obj->logical_page_table) {
-+		kmem_cache_free(vm_object_cachep, obj);
-+		return NULL;
-+	}
-+
-+	xa_init(obj->logical_page_table);
-+	atomic_set(&obj->nr_pages, 0);
-+
-+	return obj;
-+}
-+
-+/* This should be called when a mm no longer refers to a VM_OBJECT */
-+void vm_object_drop_locked(struct mm_struct *mm)
-+{
-+	struct vm_object *obj = mm->vm_obj;
-+
-+	if (!obj)
-+		return;
-+
-+	/*
-+	 * We must enter this with VMA write-locked, which is unfortunately a
-+	 * giant lock.
-+	 */
-+	mmap_assert_write_locked(mm);
+ 
+ #include <asm/pgalloc.h>
+ #include <linux/uaccess.h>
+@@ -1692,6 +1693,9 @@ static struct mm_struct *dup_mm(struct task_struct *tsk,
+ 	if (err)
+ 		goto free_pt;
+ 
++#ifdef CONFIG_GMEM
 +	mm->vm_obj = NULL;
-+
-+	xa_destroy(obj->logical_page_table);
-+	kfree(obj->logical_page_table);
-+	kmem_cache_free(vm_object_cachep, obj);
-+}
-+
-+/*
-+ * Given a VA, the page_index is computed by
-+ * page_index = address >> PAGE_SHIFT
-+ */
-+struct gm_mapping *vm_object_lookup(struct vm_object *obj, unsigned long va)
++#endif
+ 	mm->hiwater_rss = get_mm_rss(mm);
+ 	mm->hiwater_vm = mm->total_vm;
+ 
+diff --git a/mm/gmem.c b/mm/gmem.c
+index 4eb522026a0d..5f4f26030163 100644
+--- a/mm/gmem.c
++++ b/mm/gmem.c
+@@ -617,6 +617,44 @@ static int gm_unmap_page_range(struct vm_area_struct *vma, unsigned long start,
+ 	return 0;
+ }
+ 
++int gm_alloc_va_in_peer_devices(struct mm_struct *mm,
++				struct vm_area_struct *vma, unsigned long addr,
++				unsigned long len, vm_flags_t vm_flags)
 +{
-+	return lookup_gm_mapping(obj, va >> PAGE_SHIFT);
-+}
-+EXPORT_SYMBOL_GPL(vm_object_lookup);
++	struct gm_context *ctx, *tmp;
++	int ret;
 +
-+void vm_object_mapping_create(struct vm_object *obj, unsigned long start)
-+{
++	pr_debug("gmem: start mmap, as %p\n", mm->gm_as);
++	if (!mm->gm_as)
++		return -ENODEV;
 +
-+	unsigned long index = start >> PAGE_SHIFT;
-+	struct gm_mapping *gm_mapping;
++	if (!mm->vm_obj)
++		mm->vm_obj = vm_object_create(mm);
++	if (!mm->vm_obj)
++		return -ENOMEM;
++	/*
++	 * TODO: solve the race condition if a device is concurrently attached
++	 * to mm->gm_as.
++	 */
++	list_for_each_entry_safe(ctx, tmp, &mm->gm_as->gm_ctx_list, gm_as_link) {
++		if (!gm_dev_is_peer(ctx->dev))
++			continue;
 +
-+	if (!obj)
-+		return;
++		if (!ctx->dev->mmu->peer_va_alloc_fixed) {
++			pr_debug("gmem: mmu ops has no alloc_vma\n");
++			continue;
++		}
 +
-+	gm_mapping = alloc_gm_mapping();
-+	if (!gm_mapping)
-+		return;
-+
-+	__xa_store(obj->logical_page_table, index, gm_mapping, GFP_KERNEL);
-+}
-+
-+/* gm_mapping will not be release dynamically */
-+struct gm_mapping *alloc_gm_mapping(void)
-+{
-+	struct gm_mapping *gm_mapping = kmem_cache_zalloc(gm_mapping_cachep, GFP_KERNEL);
-+
-+	if (!gm_mapping)
-+		return NULL;
-+
-+	gm_mapping_flags_set(gm_mapping, GM_PAGE_NOMAP);
-+	mutex_init(&gm_mapping->lock);
-+
-+	return gm_mapping;
-+}
-+
-+/* This should be called when a PEER_SHAERD vma is freed */
-+void free_gm_mappings(struct vm_area_struct *vma)
-+{
-+	struct gm_mapping *gm_mapping;
-+	struct vm_object *obj;
-+
-+	obj = vma->vm_mm->vm_obj;
-+	if (!obj)
-+		return;
-+
-+	XA_STATE(xas, obj->logical_page_table, vma->vm_start >> PAGE_SHIFT);
-+
-+	xa_lock(obj->logical_page_table);
-+		xas_for_each(&xas, gm_mapping, vma->vm_end >> PAGE_SHIFT) {
-+		release_gm_mapping(gm_mapping);
-+		xas_store(&xas, NULL);
-+	}
-+	xa_unlock(obj->logical_page_table);
-+}
-+
-+void unmap_gm_mappings_range(struct vm_area_struct *vma, unsigned long start,
-+			    unsigned long end)
-+{
-+	struct xarray *logical_page_table;
-+	struct gm_mapping *gm_mapping;
-+	struct page *page = NULL;
-+
-+	if (!vma->vm_mm->vm_obj)
-+		return;
-+
-+	logical_page_table = vma->vm_mm->vm_obj->logical_page_table;
-+	if (!logical_page_table)
-+		return;
-+
-+	XA_STATE(xas, logical_page_table, start >> PAGE_SHIFT);
-+
-+	xa_lock(logical_page_table);
-+	xas_for_each(&xas, gm_mapping, end >> PAGE_SHIFT) {
-+		page = gm_mapping->page;
-+		if (page && (page_ref_count(page) != 0)) {
-+			put_page(page);
-+			gm_mapping->page = NULL;
++		ret = ctx->dev->mmu->peer_va_alloc_fixed(mm, addr, len, vm_flags);
++		if (ret != GM_RET_SUCCESS) {
++			pr_debug("gmem: alloc_vma ret %d\n", ret);
++			return ret;
 +		}
 +	}
-+	xa_unlock(logical_page_table);
++
++	return GM_RET_SUCCESS;
++}
++
+ static int hmadvise_do_eagerfree(unsigned long addr, size_t size)
+ {
+ 	unsigned long start, end, i_start, i_end;
+diff --git a/mm/mempolicy.c b/mm/mempolicy.c
+index 10a590ee1c89..9fc298480498 100644
+--- a/mm/mempolicy.c
++++ b/mm/mempolicy.c
+@@ -1719,7 +1719,11 @@ SYSCALL_DEFINE5(get_mempolicy, int __user *, policy,
+ 
+ bool vma_migratable(struct vm_area_struct *vma)
+ {
++#ifdef CONFIG_GMEM
++	if (vma->vm_flags & (VM_IO | VM_PFNMAP | VM_PEER_SHARED))
++#else
+ 	if (vma->vm_flags & (VM_IO | VM_PFNMAP))
++#endif
+ 		return false;
+ 
+ 	/*
+diff --git a/mm/mmap.c b/mm/mmap.c
+index 1971bfffcc03..55d43763ea49 100644
+--- a/mm/mmap.c
++++ b/mm/mmap.c
+@@ -47,6 +47,7 @@
+ #include <linux/oom.h>
+ #include <linux/sched/mm.h>
+ #include <linux/ksm.h>
++#include <linux/gmem.h>
+ 
+ #include <linux/uaccess.h>
+ #include <asm/cacheflush.h>
+@@ -1376,6 +1377,9 @@ unsigned long do_mmap(struct file *file, unsigned long addr,
+ 			vm_flags |= VM_NORESERVE;
+ 	}
+ 
++	if (gmem_is_enabled() && (flags & MAP_PEER_SHARED))
++		vm_flags |= VM_PEER_SHARED;
++
+ 	addr = mmap_region(file, addr, len, vm_flags, pgoff, uf);
+ 	if (!IS_ERR_VALUE(addr) &&
+ 	    ((vm_flags & VM_LOCKED) ||
+@@ -1832,6 +1836,7 @@ get_unmapped_area(struct file *file, unsigned long addr, unsigned long len,
+ 	}
+ 
+ 	addr = get_area(file, addr, len, pgoff, flags);
++
+ 	if (IS_ERR_VALUE(addr))
+ 		return addr;
+ 
+@@ -2756,7 +2761,10 @@ unsigned long mmap_region(struct file *file, unsigned long addr,
+ 	pgoff_t vm_pgoff;
+ 	int error;
+ 	VMA_ITERATOR(vmi, mm, addr);
++	unsigned int retry_times = 0;
++	LIST_HEAD(reserve_list);
+ 
++retry:
+ 	/* Check against address space limit. */
+ 	if (!may_expand_vm(mm, vm_flags, len >> PAGE_SHIFT)) {
+ 		unsigned long nr_pages;
+@@ -2768,21 +2776,27 @@ unsigned long mmap_region(struct file *file, unsigned long addr,
+ 		nr_pages = count_vma_pages_range(mm, addr, end);
+ 
+ 		if (!may_expand_vm(mm, vm_flags,
+-					(len >> PAGE_SHIFT) - nr_pages))
++					(len >> PAGE_SHIFT) - nr_pages)) {
++			gm_release_vma(mm, &reserve_list);
+ 			return -ENOMEM;
++		}
+ 	}
+ 
+ 	/* Unmap any existing mapping in the area */
+-	if (do_vmi_munmap(&vmi, mm, addr, len, uf, false))
++	if (do_vmi_munmap(&vmi, mm, addr, len, uf, false)) {
++		gm_release_vma(mm, &reserve_list);
+ 		return -ENOMEM;
++	}
+ 
+ 	/*
+ 	 * Private writable mapping: check memory availability
+ 	 */
+ 	if (accountable_mapping(file, vm_flags)) {
+ 		charged = len >> PAGE_SHIFT;
+-		if (security_vm_enough_memory_mm(mm, charged))
++		if (security_vm_enough_memory_mm(mm, charged)) {
++			gm_release_vma(mm, &reserve_list);
+ 			return -ENOMEM;
++		}
+ 		vm_flags |= VM_ACCOUNT;
+ 	}
+ 
+@@ -2945,6 +2959,21 @@ unsigned long mmap_region(struct file *file, unsigned long addr,
+ 	file = vma->vm_file;
+ 	ksm_add_vma(vma);
+ expanded:
++	if (vma_is_peer_shared(vma)) {
++		int ret = gm_alloc_va_in_peer_devices(mm, vma, addr, len, vm_flags);
++
++		if (ret == GM_RET_NOMEM && retry_times < GMEM_MMAP_RETRY_TIMES) {
++			retry_times++;
++			addr = get_unmapped_area(file, addr, len, pgoff, 0);
++			gm_reserve_vma(vma, &reserve_list);
++			goto retry;
++		} else if (ret != GM_RET_SUCCESS) {
++			pr_debug("gmem: alloc_vma ret %d\n", ret);
++			error = -ENOMEM;
++			goto free_vma;
++		}
++		gm_release_vma(mm, &reserve_list);
++	}
+ 	perf_event_mmap(vma);
+ 
+ 	vm_stat_account(mm, vm_flags, len >> PAGE_SHIFT);
+@@ -2995,6 +3024,7 @@ unsigned long mmap_region(struct file *file, unsigned long addr,
+ unacct_error:
+ 	if (charged)
+ 		vm_unacct_memory(charged);
++	gm_release_vma(mm, &reserve_list);
+ 	validate_mm(mm);
+ 	return error;
+ }
+@@ -3336,6 +3366,8 @@ void exit_mmap(struct mm_struct *mm)
+ 
+ 	BUG_ON(count != mm->map_count);
+ 
++	vm_object_drop_locked(mm);
++
+ 	trace_exit_mmap(mm);
+ 	__mt_destroy(&mm->mm_mt);
+ 	mmap_write_unlock(mm);
+diff --git a/mm/vm_object.c b/mm/vm_object.c
+index 4e76737e0ca1..5432930d1226 100644
+--- a/mm/vm_object.c
++++ b/mm/vm_object.c
+@@ -163,6 +163,9 @@ void unmap_gm_mappings_range(struct vm_area_struct *vma, unsigned long start,
+ 	struct gm_mapping *gm_mapping;
+ 	struct page *page = NULL;
+ 
++	if (!vma_is_peer_shared(vma))
++		return;
++
+ 	if (!vma->vm_mm->vm_obj)
+ 		return;
+ 
+@@ -182,3 +185,41 @@ void unmap_gm_mappings_range(struct vm_area_struct *vma, unsigned long start,
+ 	}
+ 	xa_unlock(logical_page_table);
+ }
++
++struct gm_vma_list {
++	struct vm_area_struct *vma;
++	struct list_head list;
++};
++
++void gm_reserve_vma(struct vm_area_struct *value, struct list_head *head)
++{
++	struct gm_vma_list *node;
++
++	if (!gmem_is_enabled())
++		return;
++
++	node = kmalloc(sizeof(struct gm_vma_list), GFP_KERNEL);
++	if (!node)
++		return;
++
++	node->vma = value;
++	list_add_tail(&node->list, head);
++}
++
++void gm_release_vma(struct mm_struct *mm, struct list_head *head)
++{
++	struct gm_vma_list *node, *next;
++
++	if (!gmem_is_enabled())
++		return;
++
++	list_for_each_entry_safe(node, next, head, list) {
++		struct vm_area_struct *vma = node->vma;
++
++		if (vma != NULL)
++			vm_area_free(vma);
++
++		list_del(&node->list);
++		kfree(node);
++	}
 +}
 -- 
 2.25.1
