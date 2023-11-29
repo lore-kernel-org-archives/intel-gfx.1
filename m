@@ -4,83 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AAD70C4167B
-	for <intel-gfx@archiver.kernel.org>; Wed, 29 Nov 2023 17:24:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A07A2C10DAA
+	for <intel-gfx@archiver.kernel.org>; Wed, 29 Nov 2023 17:27:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 328CC10E218;
-	Wed, 29 Nov 2023 17:24:14 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [192.55.52.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1FF7010E218
- for <intel-gfx@lists.freedesktop.org>; Wed, 29 Nov 2023 17:24:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 15E7110E63F;
+	Wed, 29 Nov 2023 17:27:08 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.55.52.115])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CEF0E10E63F;
+ Wed, 29 Nov 2023 17:27:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1701278652; x=1732814652;
- h=resent-to:resent-from:resent-date:resent-message-id:from:
- to:cc:subject:date:message-id:content-transfer-encoding:
- mime-version; bh=Ryc//f0Tr8NZrn+ndoBq8HJgd/JE509ZE3xh0cOmymI=;
- b=G7e1qU8EW7nh55TGkaS9fQdOH+0gCSX4nIetL/VypbpQuDmkGA+D8D9y
- BtJOZGf88ZF0PMtjGzpB3t2Aw0bKau1rzYGjCrCVfc8EBwlHvwmArF+fs
- CccN3E2vCKjszT83NikInDcALRGJpWqkmHIMRv19KG1T+GNzgp/fPRUsV
- xuwChg2U2+eF05XM8QywRuALLHn5cAABvY392Rk85HMgSPlRM5EwFT5B3
- P9Xxg81+8rq3SmxVl+ZngUEkEICDKn/AaWgk7SFJoxEohH/0h15gvgPky
- SloC/JvLMrziN7MLiInywLc1gyKvBJ6ZRhOwd2wa2YyHFdmKwaEQfsU55 g==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10909"; a="479399136"
-X-IronPort-AV: E=Sophos;i="6.04,235,1695711600"; d="scan'208";a="479399136"
-Received: from fmsmga005.fm.intel.com ([10.253.24.32])
- by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 29 Nov 2023 09:23:56 -0800
-X-ExtLoopCount2: 2 from 10.252.60.61
-X-IronPort-AV: E=McAfee;i="6600,9927,10909"; a="1100595722"
-X-IronPort-AV: E=Sophos;i="6.04,235,1695711600"; d="scan'208";a="1100595722"
+ t=1701278825; x=1732814825;
+ h=from:to:cc:subject:in-reply-to:references:date:
+ message-id:mime-version:content-transfer-encoding;
+ bh=k2mWoObv1gssBSVnmPKejJUs1lly2wTPzdjAYt7xRog=;
+ b=dZ10D57QLrO2D5WvU0IAcMyoSW+NktEROQ3v7noBF20Wb0NUL4cXxBp5
+ DXuuieYuFWnv2hruOP2qEv/9PzvYjOFKf+igV0+gP28R9fj3LNZt4wxvU
+ sNmDt6ADoH6VKk+b21TfPyezO0mlVA+ozdClJQo0I4+MW4nU1AZCTrb36
+ 1SlSuT/kaKVAHyv1aPd7uEA//XjT0HOY4Yp1bOEZxgncePig6F666Wr4o
+ 1KY4su+9c/+IjPyahkyFPOuGa1lI/YeBKtBJDfvlS4gSdvk9XoHJFP1Sd
+ 77h2u996OBdRMPsH1xlW0uN+C0jXq+K0WEjX5CNTec/y+Lw13ErxP49wB w==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10909"; a="392942183"
+X-IronPort-AV: E=Sophos;i="6.04,235,1695711600"; d="scan'208";a="392942183"
+Received: from orviesa002.jf.intel.com ([10.64.159.142])
+ by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 29 Nov 2023 09:27:05 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.04,235,1695711600"; d="scan'208";a="10413712"
 Received: from dstavrak-mobl.ger.corp.intel.com (HELO localhost)
  ([10.252.60.61])
- by fmsmga005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 29 Nov 2023 09:23:55 -0800
-Resent-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7,
- 02160 Espoo
-Resent-To: intel-gfx@lists.freedesktop.org
-Resent-From: Jani Nikula <jani.nikula@intel.com>
-Resent-Date: Wed, 29 Nov 2023 19:23:52 +0200
-Resent-Message-ID: <87jzq05v87.fsf@intel.com>
-Received: from fmsmsx611.amr.corp.intel.com (10.18.126.91) by
- fmsmsx610.amr.corp.intel.com (10.18.126.90) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.34 via Mailbox Transport; Wed, 29 Nov 2023 06:07:16 -0800
-Received: from fmsmsx603.amr.corp.intel.com (10.18.126.83) by
- fmsmsx611.amr.corp.intel.com (10.18.126.91) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.34; Wed, 29 Nov 2023 06:07:16 -0800
-Received: from fmsmga001.fm.intel.com (10.253.24.23) by
- fmsmsx603.amr.corp.intel.com (10.18.84.213) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.34 via Frontend Transport; Wed, 29 Nov 2023 06:07:16 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10909"; a="912865020"
-X-IronPort-AV: E=Sophos;i="6.04,235,1695711600"; d="scan'208";a="912865020"
-Received: from black.fi.intel.com ([10.237.72.28])
- by fmsmga001.fm.intel.com with ESMTP; 29 Nov 2023 06:07:12 -0800
-Received: by black.fi.intel.com (Postfix, from userid 1003)
- id 607DF4D4; Wed, 29 Nov 2023 16:01:37 +0200 (EET)
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: Jani Nikula <jani.nikula@intel.com>, Ankit Nautiyal
- <ankit.k.nautiyal@intel.com>, <intel-gfx@lists.freedesktop.org>,
- <dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>
-Date: Wed, 29 Nov 2023 16:01:28 +0200
-Message-ID: <20231129140129.699767-1-andriy.shevchenko@linux.intel.com>
-X-Mailer: git-send-email 2.43.0.rc1.1.gbec44491f096
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
-X-MS-Exchange-Organization-Network-Message-Id: a676a6d5-f47f-435d-6267-08dbf0e47e44
-X-MS-Exchange-Organization-AuthSource: fmsmsx603.amr.corp.intel.com
-X-MS-Exchange-Organization-AuthAs: Internal
-X-MS-Exchange-Organization-AuthMechanism: 10
-X-MS-Exchange-Organization-AVStamp-Enterprise: 1.0
-X-MS-Exchange-Transport-EndToEndLatency: 00:00:00.3925478
-X-MS-Exchange-Processed-By-BccFoldering: 15.01.2507.034
+ by orviesa002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 29 Nov 2023 09:27:00 -0800
+From: Jani Nikula <jani.nikula@linux.intel.com>
+To: heminhong <heminhong@kylinos.cn>, heminhong@kylinos.cn
+In-Reply-To: <20231114024341.14524-1-heminhong@kylinos.cn>
+Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
+References: <20231113033613.30339-1-heminhong@kylinos.cn>
+ <20231114024341.14524-1-heminhong@kylinos.cn>
+Date: Wed, 29 Nov 2023 19:26:57 +0200
+Message-ID: <87fs0o5v32.fsf@intel.com>
 MIME-Version: 1.0
-X-TUID: v9Tbdt7GxWp8
-Subject: [Intel-gfx] [PATCH v1 1/1] drm/i915/display: Don't use "proxy"
- headers
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [Intel-gfx] [PATCH v2] drm/i915: correct the input parameter on
+ _intel_dsb_commit()
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -93,33 +60,53 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Daniel Vetter <daniel@ffwll.ch>, Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
- David Airlie <airlied@gmail.com>
+Cc: linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ daniel@ffwll.ch, rodrigo.vivi@intel.com, airlied@gmail.com,
+ intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
-Message-ID: <20231129140128.eHjwAQWmXH1C7Ce927jALhXWN9jtPzqwgrOI-OD_TBQ@z>
 
-The driver uses math.h and not util_macros.h.
+On Tue, 14 Nov 2023, heminhong <heminhong@kylinos.cn> wrote:
+> Current, the dewake_scanline variable is defined as unsigned int,
+> an unsigned int variable that is always greater than or equal to 0.
+> when _intel_dsb_commit function is called by intel_dsb_commit function,
+> the dewake_scanline variable may have an int value.
+> So the dewake_scanline variable is necessary to defined as an int.
+>
+> Fixes: f83b94d23770 ("drm/i915/dsb: Use DEwake to combat PkgC latency")
+> Reported-by: kernel test robot <lkp@intel.com>
+> Closes: https://lore.kernel.org/oe-kbuild-all/202310052201.AnVbpgPr-lkp@i=
+ntel.com/
+> Cc: Ville Syrj=C3=A4l=C3=A4 <ville.syrjala@linux.intel.com>
+> Cc: Uma Shankar <uma.shankar@intel.com>
+>
+> Signed-off-by: heminhong <heminhong@kylinos.cn>
 
-Signed-off-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
----
- drivers/gpu/drm/i915/display/intel_snps_phy.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Pushed to drm-intel-next, thanks for the patch.
 
-diff --git a/drivers/gpu/drm/i915/display/intel_snps_phy.c b/drivers/gpu/drm/i915/display/intel_snps_phy.c
-index ce5a73a4cc89..bc61e736f9b3 100644
---- a/drivers/gpu/drm/i915/display/intel_snps_phy.c
-+++ b/drivers/gpu/drm/i915/display/intel_snps_phy.c
-@@ -3,7 +3,7 @@
-  * Copyright © 2019 Intel Corporation
-  */
- 
--#include <linux/util_macros.h>
-+#include <linux/math.h>
- 
- #include "i915_reg.h"
- #include "intel_ddi.h"
--- 
-2.43.0.rc1.1.gbec44491f096
+BR,
+Jani.
 
+
+> ---
+>  drivers/gpu/drm/i915/display/intel_dsb.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+>
+> diff --git a/drivers/gpu/drm/i915/display/intel_dsb.c b/drivers/gpu/drm/i=
+915/display/intel_dsb.c
+> index 78b6fe24dcd8..7fd6280c54a7 100644
+> --- a/drivers/gpu/drm/i915/display/intel_dsb.c
+> +++ b/drivers/gpu/drm/i915/display/intel_dsb.c
+> @@ -340,7 +340,7 @@ static int intel_dsb_dewake_scanline(const struct int=
+el_crtc_state *crtc_state)
+>  }
+>=20=20
+>  static void _intel_dsb_commit(struct intel_dsb *dsb, u32 ctrl,
+> -			      unsigned int dewake_scanline)
+> +			      int dewake_scanline)
+>  {
+>  	struct intel_crtc *crtc =3D dsb->crtc;
+>  	struct drm_i915_private *dev_priv =3D to_i915(crtc->base.dev);
+
+--=20
+Jani Nikula, Intel
