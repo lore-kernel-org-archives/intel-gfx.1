@@ -4,48 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EAA8CC4167B
-	for <intel-gfx@archiver.kernel.org>; Wed, 29 Nov 2023 18:31:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6BB40C4167B
+	for <intel-gfx@archiver.kernel.org>; Wed, 29 Nov 2023 19:13:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6DEE010E206;
-	Wed, 29 Nov 2023 18:31:41 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [192.55.52.88])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F35A110E206
- for <intel-gfx@lists.freedesktop.org>; Wed, 29 Nov 2023 18:31:38 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0B0B610E206;
+	Wed, 29 Nov 2023 19:13:47 +0000 (UTC)
+X-Greylist: delayed 361 seconds by postgrey-1.36 at gabe;
+ Wed, 29 Nov 2023 19:13:45 UTC
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1CF4A10E206;
+ Wed, 29 Nov 2023 19:13:45 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1701282698; x=1732818698;
- h=from:to:subject:in-reply-to:references:date:message-id:
- mime-version; bh=PSRQKOQswLcE4Krb5h38IyRS6ZQsH7Z13iT1KvDSsKI=;
- b=KRPtMZivhJC9ugYCkhkIf2PvPf2zvZoGTCsIlHKaXaWjv2nP7l/dhUU6
- vKw7iFMJUHyRUyTTzWSUXk6fM/mnfnCbbV1fLQzFO/H37K5aRjBvGggkZ
- YxtkLn75/Zk963q7Q8iqGbXEu1GQIVO9elKye5kBkTuwWhjr2G+6XHeGC
- VNWoBoAI/46FOnT/LWXqrzlEcM8pNK8255oXuFtSaz2FKSUraKkCVQ+JR
- A7toLfblm7GV/tP1hJqaPYDv02NAvmMlKIeviwIi3WiUoZSbBJPUuO6yW
- GN91OeFjFlJGDbwO3XelGjPZuYJaKRWITkZDzSPjm09ZFHElFDhtxYB8F Q==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10909"; a="424359014"
-X-IronPort-AV: E=Sophos;i="6.04,237,1695711600"; d="scan'208";a="424359014"
-Received: from orsmga006.jf.intel.com ([10.7.209.51])
- by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 29 Nov 2023 10:31:38 -0800
+ t=1701285225; x=1732821225;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=cznXYdFn2yXJndLaqizirOEy5XYkZ5q0aH65FuxxDCM=;
+ b=cY1ELDIsRnhlVu9FlJN0o2yqzCdLtAIY4f2y/2OmM+mRIdyzPw5pygQY
+ Y0Kvtk00fiwSeuaPodVCHnlHGY2Gzt0MJzj09q/1Lzv4pdBXzyjBWkTI/
+ ewMG9IQdp3CECSGhWNqi7KtgpqMN23N1qdnghA2c3wGD7xKBdIJywbbT5
+ MIn+dqdOSWQ9/02b7QO1Vf5BY6Wq1sRj9r5daNV3wCYlnXhKx1ZBqsFBz
+ artHoMjX/0pQFHPRF6HESu3KAfi4cYgOnXlHkowHWDrGvxFnbHhCwswI2
+ npQAhBsHqo4q1jvR2R7bxLva226XuUvCLQJRga6XH0YtCDRF+hkzDQk9T w==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10909"; a="81810"
+X-IronPort-AV: E=Sophos;i="6.04,237,1695711600"; 
+   d="scan'208";a="81810"
+Received: from fmsmga008.fm.intel.com ([10.253.24.58])
+ by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 29 Nov 2023 11:13:44 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10909"; a="745349699"
-X-IronPort-AV: E=Sophos;i="6.04,237,1695711600"; d="scan'208";a="745349699"
-Received: from dstavrak-mobl.ger.corp.intel.com (HELO localhost)
- ([10.252.60.61])
- by orsmga006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 29 Nov 2023 10:31:36 -0800
-From: Jani Nikula <jani.nikula@linux.intel.com>
-To: Kevin Quillen <kevinquillen@gmail.com>, intel-gfx@lists.freedesktop.org
-In-Reply-To: <CAAqKzADznzur3Xag0oDFm4ifdWZSuqCQj85O+uYx=hB5fAq1Og@mail.gmail.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
-References: <CAAqKzADznzur3Xag0oDFm4ifdWZSuqCQj85O+uYx=hB5fAq1Og@mail.gmail.com>
-Date: Wed, 29 Nov 2023 20:31:33 +0200
-Message-ID: <87a5qw5s3e.fsf@intel.com>
+X-IronPort-AV: E=McAfee;i="6600,9927,10909"; a="835121339"
+X-IronPort-AV: E=Sophos;i="6.04,237,1695711600"; d="scan'208";a="835121339"
+Received: from aalteres-desk.fm.intel.com ([10.80.57.53])
+ by fmsmga008.fm.intel.com with ESMTP; 29 Nov 2023 11:13:44 -0800
+From: Alan Previn <alan.previn.teres.alexis@intel.com>
+To: intel-gfx@lists.freedesktop.org
+Date: Wed, 29 Nov 2023 11:13:43 -0800
+Message-Id: <20231129191343.157097-1-alan.previn.teres.alexis@intel.com>
+X-Mailer: git-send-email 2.39.0
 MIME-Version: 1.0
-Content-Type: text/plain
-Subject: Re: [Intel-gfx] Intel Arc 770m GPU won't load on Fedora 38 kernel
- versions > 6.4.12
+Content-Transfer-Encoding: 8bit
+Subject: [Intel-gfx] [PATCH v4 1/1] drm/i915/pxp: Add missing tag for
+ Wa_14019159160
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,23 +58,48 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: Matt Roper <matthew.d.roper@intel.com>, dri-devel@lists.freedesktop.org,
+ Alan Previn <alan.previn.teres.alexis@intel.com>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Wed, 29 Nov 2023, Kevin Quillen <kevinquillen@gmail.com> wrote:
-> Posting here for visibility. I have tried up to the latest 6.6.2 kernel
-> with the same result.
->
-> https://bugzilla.redhat.com/show_bug.cgi?id=2248917
+Add missing tag for "Wa_14019159160 - Case 2" (for existing
+PXP code that ensures run alone mode bit is set to allow
+PxP-decryption.
 
-Please file i915 issues to the freedesktop.org gitlab according to [1].
+ v4: - Include IP_VER 12.71. (Matt Roper)
+ v3: - Check targeted platforms using IP_VAL. (John Harrison)
+ v2: - Fix WA id number (John Harrison).
+     - Improve comments and code to be specific
+       for the targeted platforms (John Harrison)
 
-Thanks,
-Jani.
+Signed-off-by: Alan Previn <alan.previn.teres.alexis@intel.com>
+---
+ drivers/gpu/drm/i915/gt/intel_lrc.c | 8 +++++---
+ 1 file changed, 5 insertions(+), 3 deletions(-)
 
+diff --git a/drivers/gpu/drm/i915/gt/intel_lrc.c b/drivers/gpu/drm/i915/gt/intel_lrc.c
+index 7c367ba8d9dc..d92e39bbb13d 100644
+--- a/drivers/gpu/drm/i915/gt/intel_lrc.c
++++ b/drivers/gpu/drm/i915/gt/intel_lrc.c
+@@ -863,10 +863,12 @@ static bool ctx_needs_runalone(const struct intel_context *ce)
+ 	bool ctx_is_protected = false;
+ 
+ 	/*
+-	 * On MTL and newer platforms, protected contexts require setting
+-	 * the LRC run-alone bit or else the encryption will not happen.
++	 * Wa_14019159160 - Case 2.
++	 * On some platforms, protected contexts require setting
++	 * the LRC run-alone bit or else the encryption/decryption will not happen.
++	 * NOTE: Case 2 only applies to PXP use-case of said workaround.
+ 	 */
+-	if (GRAPHICS_VER_FULL(ce->engine->i915) >= IP_VER(12, 70) &&
++	if (IS_GFX_GT_IP_RANGE(ce->engine->gt, IP_VER(12, 70), IP_VER(12, 71)) &&
+ 	    (ce->engine->class == COMPUTE_CLASS || ce->engine->class == RENDER_CLASS)) {
+ 		rcu_read_lock();
+ 		gem_ctx = rcu_dereference(ce->gem_context);
 
-[1] https://drm.pages.freedesktop.org/intel-docs/how-to-file-i915-bugs.html
-
-
+base-commit: 436cb0ff9f20fadc99ec3b70c4d2ac6cb2e4410a
 -- 
-Jani Nikula, Intel
+2.39.0
+
