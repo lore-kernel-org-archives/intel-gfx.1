@@ -4,47 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E67FFC10DAA
-	for <intel-gfx@archiver.kernel.org>; Wed, 29 Nov 2023 17:33:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0F3B6C4167B
+	for <intel-gfx@archiver.kernel.org>; Wed, 29 Nov 2023 17:35:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7A37210E645;
-	Wed, 29 Nov 2023 17:33:45 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [192.55.52.115])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D1A9F10E645
- for <intel-gfx@lists.freedesktop.org>; Wed, 29 Nov 2023 17:33:42 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A16E810E644;
+	Wed, 29 Nov 2023 17:35:13 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.55.52.88])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8530910E644
+ for <intel-gfx@lists.freedesktop.org>; Wed, 29 Nov 2023 17:35:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1701279222; x=1732815222;
+ t=1701279311; x=1732815311;
  h=from:to:cc:subject:date:message-id:mime-version:
  content-transfer-encoding;
- bh=ituqQ+bAdcn1lCWogAMQpj/wKlFY1PcAeg5RxNAwlUc=;
- b=MRiaxkSc9pJeUFQBNBru7mqb2exeWRUxfy/qhK4uz7yQNOZDzyl/fh4G
- k7PtYUM8odgZDS196xjWQkm/Tjn1Hua1Ycy4Y8JPHNJM7hQ6y3FKTXRYJ
- LAFPS0mxFVzUuh8O8U2Uh95wZEwGByrvQqe2DcLrh79kEX5eJQGnYez9R
- 5jmf44yco3lM+E/tx1KJdxTIV6cGjRn76AggRdFHbnUmjFZ8Xam3Ux0+z
- TXqUF1uCPsr87xpgcGk6wGoOJd1AT4IHBY8wH22DZR7+6NvyWpZJPaoYu
- nE9S4WPkUsjfMyUPRy59nqnxGLX7z6UdhaNmeskDBEuAXfpJFAlBFzB2S g==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10909"; a="392943248"
-X-IronPort-AV: E=Sophos;i="6.04,235,1695711600"; d="scan'208";a="392943248"
-Received: from orviesa002.jf.intel.com ([10.64.159.142])
- by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 29 Nov 2023 09:33:22 -0800
+ bh=U5vYM9SgMN4xqjSiv45gVt+zzsJbG1gA3bBa3gS0WNI=;
+ b=NJjrSwUX1agLQVGbc17Hzbibfcz7d45iuJ43uRdJMtWN6gOqORvBxTyj
+ RaQcj9UB9GUQHKfNyECpoZ4CPibt6M0ToKfniwXu4zovnUPFm3rN0D2SQ
+ bkoQeNTxFFtS2QIbouMxVirJZCfJZXm3A2hIujYq0vl+Pd3/8M1ywCu0R
+ cPS/ZtPTeGS7er3Ztl42L0/l0mTJ+cl5G0xQqOjamhnyHR0YDyFVrz+u+
+ rYuMBaB8I/Rcd2fcz3ZAq164StDdo1HAVuBaguE3POZWmXFsMsyJpZTBJ
+ qcRrJKw5XgSG3NDNbGNiyYETd1ZAYUqMlM8gd5WRPy5d7eDOqd6Do5lDO g==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10909"; a="424350604"
+X-IronPort-AV: E=Sophos;i="6.04,235,1695711600"; d="scan'208";a="424350604"
+Received: from fmsmga004.fm.intel.com ([10.253.24.48])
+ by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 29 Nov 2023 09:35:11 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.04,235,1695711600"; d="scan'208";a="10416351"
+X-IronPort-AV: E=McAfee;i="6600,9927,10909"; a="839505778"
+X-IronPort-AV: E=Sophos;i="6.04,235,1695711600"; d="scan'208";a="839505778"
 Received: from dstavrak-mobl.ger.corp.intel.com (HELO localhost)
  ([10.252.60.61])
- by orviesa002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 29 Nov 2023 09:33:21 -0800
+ by fmsmga004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 29 Nov 2023 09:35:09 -0800
 From: Jani Nikula <jani.nikula@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Wed, 29 Nov 2023 19:33:16 +0200
-Message-Id: <20231129173317.1192269-1-jani.nikula@intel.com>
+Date: Wed, 29 Nov 2023 19:35:06 +0200
+Message-Id: <20231129173506.1194437-1-jani.nikula@intel.com>
 X-Mailer: git-send-email 2.39.2
 MIME-Version: 1.0
 Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v2 1/2] drm/i915: use PIPE_CONF_CHECK_BOOL() for
- bool members
+Subject: [Intel-gfx] [RESEND] drm/i915/syncmap: squelch a sparse warning
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,41 +61,28 @@ Cc: jani.nikula@intel.com
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Don't treat bools as integers.
+The code is fine, really, but tweak it to get rid of the sparse warning:
 
-v2: Rebase
+drivers/gpu/drm/i915/selftests/i915_syncmap.c:80:54: warning: dubious: x | !y
 
 Signed-off-by: Jani Nikula <jani.nikula@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_display.c | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
+ drivers/gpu/drm/i915/selftests/i915_syncmap.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
-index 9dc22fc8b3d3..d62cdae7ab6b 100644
---- a/drivers/gpu/drm/i915/display/intel_display.c
-+++ b/drivers/gpu/drm/i915/display/intel_display.c
-@@ -5091,8 +5091,8 @@ intel_pipe_config_compare(const struct intel_crtc_state *current_config,
- #define PIPE_CONF_QUIRK(quirk) \
- 	((current_config->quirks | pipe_config->quirks) & (quirk))
- 
--	PIPE_CONF_CHECK_I(hw.enable);
--	PIPE_CONF_CHECK_I(hw.active);
-+	PIPE_CONF_CHECK_BOOL(hw.enable);
-+	PIPE_CONF_CHECK_BOOL(hw.active);
- 
- 	PIPE_CONF_CHECK_I(cpu_transcoder);
- 	PIPE_CONF_CHECK_I(mst_master_transcoder);
-@@ -5301,8 +5301,8 @@ intel_pipe_config_compare(const struct intel_crtc_state *current_config,
- 	PIPE_CONF_CHECK_I(dsc.config.second_line_bpg_offset);
- 	PIPE_CONF_CHECK_I(dsc.config.nsl_bpg_offset);
- 
--	PIPE_CONF_CHECK_I(dsc.compression_enable);
--	PIPE_CONF_CHECK_I(dsc.dsc_split);
-+	PIPE_CONF_CHECK_BOOL(dsc.compression_enable);
-+	PIPE_CONF_CHECK_BOOL(dsc.dsc_split);
- 	PIPE_CONF_CHECK_I(dsc.compressed_bpp_x16);
- 
- 	PIPE_CONF_CHECK_BOOL(splitter.enable);
+diff --git a/drivers/gpu/drm/i915/selftests/i915_syncmap.c b/drivers/gpu/drm/i915/selftests/i915_syncmap.c
+index 47f4ae18a1ef..88fa845e9f4a 100644
+--- a/drivers/gpu/drm/i915/selftests/i915_syncmap.c
++++ b/drivers/gpu/drm/i915/selftests/i915_syncmap.c
+@@ -77,7 +77,7 @@ __sync_print(struct i915_syncmap *p,
+ 		for_each_set_bit(i, (unsigned long *)&p->bitmap, KSYNCMAP) {
+ 			buf = __sync_print(__sync_child(p)[i], buf, sz,
+ 					   depth + 1,
+-					   last << 1 | !!(p->bitmap >> (i + 1)),
++					   last << 1 | ((p->bitmap >> (i + 1)) ? 1 : 0),
+ 					   i);
+ 		}
+ 	}
 -- 
 2.39.2
 
