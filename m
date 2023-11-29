@@ -4,50 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A07A2C10DAA
-	for <intel-gfx@archiver.kernel.org>; Wed, 29 Nov 2023 17:27:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 53B7DC4167B
+	for <intel-gfx@archiver.kernel.org>; Wed, 29 Nov 2023 17:33:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 15E7110E63F;
-	Wed, 29 Nov 2023 17:27:08 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [192.55.52.115])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CEF0E10E63F;
- Wed, 29 Nov 2023 17:27:05 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B396A10E644;
+	Wed, 29 Nov 2023 17:33:27 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.55.52.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 99ECA10E644
+ for <intel-gfx@lists.freedesktop.org>; Wed, 29 Nov 2023 17:33:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1701278825; x=1732814825;
- h=from:to:cc:subject:in-reply-to:references:date:
- message-id:mime-version:content-transfer-encoding;
- bh=k2mWoObv1gssBSVnmPKejJUs1lly2wTPzdjAYt7xRog=;
- b=dZ10D57QLrO2D5WvU0IAcMyoSW+NktEROQ3v7noBF20Wb0NUL4cXxBp5
- DXuuieYuFWnv2hruOP2qEv/9PzvYjOFKf+igV0+gP28R9fj3LNZt4wxvU
- sNmDt6ADoH6VKk+b21TfPyezO0mlVA+ozdClJQo0I4+MW4nU1AZCTrb36
- 1SlSuT/kaKVAHyv1aPd7uEA//XjT0HOY4Yp1bOEZxgncePig6F666Wr4o
- 1KY4su+9c/+IjPyahkyFPOuGa1lI/YeBKtBJDfvlS4gSdvk9XoHJFP1Sd
- 77h2u996OBdRMPsH1xlW0uN+C0jXq+K0WEjX5CNTec/y+Lw13ErxP49wB w==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10909"; a="392942183"
-X-IronPort-AV: E=Sophos;i="6.04,235,1695711600"; d="scan'208";a="392942183"
-Received: from orviesa002.jf.intel.com ([10.64.159.142])
- by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 29 Nov 2023 09:27:05 -0800
+ t=1701279206; x=1732815206;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=E1e6Jv7CRhGUPPS7ftIR4dhYsec2f1hTVoG1w6LMaY4=;
+ b=UbSBrMMXpMRIq05WRtw749dZOzAhzaiWIDwrGy5U0nh0DeKQoY/ConGo
+ QkNJAqtuYpYah1bLPxVKUKy/Hzbid44/SNC4Eer5JTfHbgLZix6hdV2wu
+ 8c0w/8Y+pnRGJE2pkWDi1MfdJlYXqzkgBRUUvvRx7Zs46oqF5YjdtMSpx
+ qz9qO/rSABc/SKkUCIxdxoTsCY3Uht6rg9kkwuym7KttcQLJSRQxRh/+o
+ rByiNPJtA6PQ2Q6J4yMATnfDfV1OPqKcZ8UmY8frqQxfrc6dDX69ygVYg
+ QFSUxplzi/Zs3OSLw4u0nKSHk1PxpktLN9Sck4ikfQYJEl9Xd4tQZ4Qew g==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10909"; a="479401427"
+X-IronPort-AV: E=Sophos;i="6.04,235,1695711600"; d="scan'208";a="479401427"
+Received: from fmsmga005.fm.intel.com ([10.253.24.32])
+ by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 29 Nov 2023 09:33:26 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.04,235,1695711600"; d="scan'208";a="10413712"
+X-IronPort-AV: E=McAfee;i="6600,9927,10909"; a="1100598938"
+X-IronPort-AV: E=Sophos;i="6.04,235,1695711600"; d="scan'208";a="1100598938"
 Received: from dstavrak-mobl.ger.corp.intel.com (HELO localhost)
  ([10.252.60.61])
- by orviesa002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 29 Nov 2023 09:27:00 -0800
-From: Jani Nikula <jani.nikula@linux.intel.com>
-To: heminhong <heminhong@kylinos.cn>, heminhong@kylinos.cn
-In-Reply-To: <20231114024341.14524-1-heminhong@kylinos.cn>
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
-References: <20231113033613.30339-1-heminhong@kylinos.cn>
- <20231114024341.14524-1-heminhong@kylinos.cn>
-Date: Wed, 29 Nov 2023 19:26:57 +0200
-Message-ID: <87fs0o5v32.fsf@intel.com>
+ by fmsmga005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 29 Nov 2023 09:33:24 -0800
+From: Jani Nikula <jani.nikula@intel.com>
+To: intel-gfx@lists.freedesktop.org
+Date: Wed, 29 Nov 2023 19:33:17 +0200
+Message-Id: <20231129173317.1192269-2-jani.nikula@intel.com>
+X-Mailer: git-send-email 2.39.2
+In-Reply-To: <20231129173317.1192269-1-jani.nikula@intel.com>
+References: <20231129173317.1192269-1-jani.nikula@intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [Intel-gfx] [PATCH v2] drm/i915: correct the input parameter on
- _intel_dsb_commit()
+Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
+Content-Transfer-Encoding: 8bit
+Subject: [Intel-gfx] [PATCH v2 2/2] drm/i915: add bool type checks in
+ PIPE_CONF_CHECK_*
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,53 +60,57 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- daniel@ffwll.ch, rodrigo.vivi@intel.com, airlied@gmail.com,
- intel-gfx@lists.freedesktop.org
+Cc: jani.nikula@intel.com
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Tue, 14 Nov 2023, heminhong <heminhong@kylinos.cn> wrote:
-> Current, the dewake_scanline variable is defined as unsigned int,
-> an unsigned int variable that is always greater than or equal to 0.
-> when _intel_dsb_commit function is called by intel_dsb_commit function,
-> the dewake_scanline variable may have an int value.
-> So the dewake_scanline variable is necessary to defined as an int.
->
-> Fixes: f83b94d23770 ("drm/i915/dsb: Use DEwake to combat PkgC latency")
-> Reported-by: kernel test robot <lkp@intel.com>
-> Closes: https://lore.kernel.org/oe-kbuild-all/202310052201.AnVbpgPr-lkp@i=
-ntel.com/
-> Cc: Ville Syrj=C3=A4l=C3=A4 <ville.syrjala@linux.intel.com>
-> Cc: Uma Shankar <uma.shankar@intel.com>
->
-> Signed-off-by: heminhong <heminhong@kylinos.cn>
+Avoid bool/int mismatches in state checker macros.
 
-Pushed to drm-intel-next, thanks for the patch.
+Signed-off-by: Jani Nikula <jani.nikula@intel.com>
+---
+ drivers/gpu/drm/i915/display/intel_display.c | 8 ++++++++
+ 1 file changed, 8 insertions(+)
 
-BR,
-Jani.
+diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
+index d62cdae7ab6b..7d48bcdd5797 100644
+--- a/drivers/gpu/drm/i915/display/intel_display.c
++++ b/drivers/gpu/drm/i915/display/intel_display.c
+@@ -4923,6 +4923,8 @@ intel_pipe_config_compare(const struct intel_crtc_state *current_config,
+ 
+ #define PIPE_CONF_CHECK_X(name) do { \
+ 	if (current_config->name != pipe_config->name) { \
++		BUILD_BUG_ON_MSG(__same_type(current_config->name, bool), \
++				 __stringify(name) " is bool");	\
+ 		pipe_config_mismatch(fastset, crtc, __stringify(name), \
+ 				     "(expected 0x%08x, found 0x%08x)", \
+ 				     current_config->name, \
+@@ -4933,6 +4935,8 @@ intel_pipe_config_compare(const struct intel_crtc_state *current_config,
+ 
+ #define PIPE_CONF_CHECK_X_WITH_MASK(name, mask) do { \
+ 	if ((current_config->name & (mask)) != (pipe_config->name & (mask))) { \
++		BUILD_BUG_ON_MSG(__same_type(current_config->name, bool), \
++				 __stringify(name) " is bool");	\
+ 		pipe_config_mismatch(fastset, crtc, __stringify(name), \
+ 				     "(expected 0x%08x, found 0x%08x)", \
+ 				     current_config->name & (mask), \
+@@ -4943,6 +4947,8 @@ intel_pipe_config_compare(const struct intel_crtc_state *current_config,
+ 
+ #define PIPE_CONF_CHECK_I(name) do { \
+ 	if (current_config->name != pipe_config->name) { \
++		BUILD_BUG_ON_MSG(__same_type(current_config->name, bool), \
++				 __stringify(name) " is bool");	\
+ 		pipe_config_mismatch(fastset, crtc, __stringify(name), \
+ 				     "(expected %i, found %i)", \
+ 				     current_config->name, \
+@@ -4953,6 +4959,8 @@ intel_pipe_config_compare(const struct intel_crtc_state *current_config,
+ 
+ #define PIPE_CONF_CHECK_BOOL(name) do { \
+ 	if (current_config->name != pipe_config->name) { \
++		BUILD_BUG_ON_MSG(!__same_type(current_config->name, bool), \
++				 __stringify(name) " is not bool");	\
+ 		pipe_config_mismatch(fastset, crtc,  __stringify(name), \
+ 				     "(expected %s, found %s)", \
+ 				     str_yes_no(current_config->name), \
+-- 
+2.39.2
 
-
-> ---
->  drivers/gpu/drm/i915/display/intel_dsb.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
->
-> diff --git a/drivers/gpu/drm/i915/display/intel_dsb.c b/drivers/gpu/drm/i=
-915/display/intel_dsb.c
-> index 78b6fe24dcd8..7fd6280c54a7 100644
-> --- a/drivers/gpu/drm/i915/display/intel_dsb.c
-> +++ b/drivers/gpu/drm/i915/display/intel_dsb.c
-> @@ -340,7 +340,7 @@ static int intel_dsb_dewake_scanline(const struct int=
-el_crtc_state *crtc_state)
->  }
->=20=20
->  static void _intel_dsb_commit(struct intel_dsb *dsb, u32 ctrl,
-> -			      unsigned int dewake_scanline)
-> +			      int dewake_scanline)
->  {
->  	struct intel_crtc *crtc =3D dsb->crtc;
->  	struct drm_i915_private *dev_priv =3D to_i915(crtc->base.dev);
-
---=20
-Jani Nikula, Intel
