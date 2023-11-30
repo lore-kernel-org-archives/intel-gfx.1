@@ -4,45 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 553DFC10DC2
-	for <intel-gfx@archiver.kernel.org>; Thu, 30 Nov 2023 00:20:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C3ADEC4167B
+	for <intel-gfx@archiver.kernel.org>; Thu, 30 Nov 2023 00:20:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 706CD10E69C;
+	by gabe.freedesktop.org (Postfix) with ESMTP id EFCD610E6A0;
 	Thu, 30 Nov 2023 00:20:27 +0000 (UTC)
 Received: from mgamail.intel.com (mgamail.intel.com [192.55.52.151])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8084010E69B;
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 48E2C10E69E;
  Thu, 30 Nov 2023 00:20:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
  t=1701303625; x=1732839625;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=boBeUfVI6vHUqsc+PUzRFA1/WjZoBgeWQi3YhxBQiNU=;
- b=cESvlrja1U27lXBfq199YAEHk7CQjvM7PqAx8uoXNgYVmF4Wr5AJEVXv
- x9P24yHNRgj/WJF/ZnG5POUhrpeegiUFMrAGnkxhfinrNaW98aZS8XFX4
- K7yTL7m730Rq+owCf22fUJtFKayxQtkX9zubVmFx9rdsc/fXM4Hkyu9Zi
- UrSxSa3FzZplGl+clgkVlPhd8moH8v9BPpg4ukvHSObVicfU8QqBMjKw0
- 1blLLfpQcvi9DPKtSvw07lNQUVGbe9H1+soCaCBy5XP8XpihnhLK9jWO9
- UayexQUBxdehCI1f8HkW3RLp0+nn25w3xVlGnYC77ZejztgnfvlotrC7E A==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10909"; a="373429289"
-X-IronPort-AV: E=Sophos;i="6.04,237,1695711600"; d="scan'208";a="373429289"
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=V0qfuaOHccul1W4euNNreKr/J4/h0fbnkot/ShEYMNg=;
+ b=WRVCVWWm3XvtfqmJ5vA+oQrfuPDcbp0n2v1TzPvixI2RjZl5Gk+DF4U8
+ Gsttwp+Wi2AuMbAsgF5YfCFIf7o26lRYJ84/TmoTNRuCjA9dGR2Q2n29W
+ QaIA93ZchzEMtU0XxaeIdPfXDBLQIBTiWsGk/4/I+6+YD+O+LIZ8Br905
+ QLtEbROMYQ+GQJAckYrztVAbVS4I5ycnhSNiVS/wK88VQXBfphnCACSTd
+ rOTgEBQOJYP2M0X1AX24gt+teFQT9FLSBnk9vxk7l0R1wX+QC4fni2BXP
+ uWZIS8i5dFaxFcled/ZS2i3NleWMlCQH7YerqQCW89c53WQTdlERE5zz1 Q==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10909"; a="373429291"
+X-IronPort-AV: E=Sophos;i="6.04,237,1695711600"; d="scan'208";a="373429291"
 Received: from orsmga008.jf.intel.com ([10.7.209.65])
  by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 29 Nov 2023 16:20:15 -0800
+ 29 Nov 2023 16:20:17 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10909"; a="798099354"
-X-IronPort-AV: E=Sophos;i="6.04,237,1695711600"; d="scan'208";a="798099354"
+X-IronPort-AV: E=McAfee;i="6600,9927,10909"; a="798099361"
+X-IronPort-AV: E=Sophos;i="6.04,237,1695711600"; d="scan'208";a="798099361"
 Received: from aalteres-desk.fm.intel.com ([10.80.57.53])
- by orsmga008.jf.intel.com with ESMTP; 29 Nov 2023 16:20:15 -0800
+ by orsmga008.jf.intel.com with ESMTP; 29 Nov 2023 16:20:16 -0800
 From: Alan Previn <alan.previn.teres.alexis@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Wed, 29 Nov 2023 16:20:11 -0800
-Message-Id: <20231130002013.282804-1-alan.previn.teres.alexis@intel.com>
+Date: Wed, 29 Nov 2023 16:20:13 -0800
+Message-Id: <20231130002013.282804-3-alan.previn.teres.alexis@intel.com>
 X-Mailer: git-send-email 2.39.0
+In-Reply-To: <20231130002013.282804-1-alan.previn.teres.alexis@intel.com>
+References: <20231130002013.282804-1-alan.previn.teres.alexis@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v7 0/2] Resolve suspend-resume racing with GuC
- destroy-context-worker
+Subject: [Intel-gfx] [PATCH v7 2/2] drm/i915/guc: Close deregister-context
+ race against CT-loss
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,89 +59,230 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
 Cc: Alan Previn <alan.previn.teres.alexis@intel.com>,
  Tvrtko Ursulin <tvrtko.ursulin@intel.com>, dri-devel@lists.freedesktop.org,
- Rodrigo Vivi <rodrigo.vivi@intel.com>
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, Mousumi Jana <mousumi.jana@intel.com>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-This series is the result of debugging issues root caused to
-races between the GuC's destroyed_worker_func being triggered
-vs repeating suspend-resume cycles with concurrent delayed
-fence signals for engine-freeing.
+If we are at the end of suspend or very early in resume
+its possible an async fence signal (via rcu_call) is triggered
+to free_engines which could lead us to the execution of
+the context destruction worker (after a prior worker flush).
 
-The reproduction steps require that an app is launched right
-before the start of the suspend cycle where it creates a
-new gem context and submits a tiny workload that would
-complete in the middle of the suspend cycle. However this
-app uses dma-buffer sharing or dma-fence with non-GPU
-objects or signals that eventually triggers a FENCE_FREE
-via__i915_sw_fence_notify that connects to engines_notify ->
-free_engines_rcu -> intel_context_put ->
-kref_put(&ce->ref..) that queues the worker after the GuCs
-CTB has been disabled (i.e. after i915-gem's suspend-late).
+Thus, when suspending, insert rcu_barriers at the start
+of i915_gem_suspend (part of driver's suspend prepare) and
+again in i915_gem_suspend_late so that all such cases have
+completed and context destruction list isn't missing anything.
 
-This sequence is a corner-case and required repeating this
-app->suspend->resume cycle ~1500 times across 4 identical
-systems to see it once. That said, based on above callstack,
-it is clear that merely flushing the context destruction worker,
-which is obviously missing and needed, isn't sufficient.
+In destroyed_worker_func, close the race against CT-loss
+by checking that CT is enabled before calling into
+deregister_destroyed_contexts.
 
-Because of that, this series adds additional patches besides
-the obvious (Patch #1) flushing of the worker during the
-suspend flows. It also includes (Patch #2) closing a race
-between sending the context-deregistration H2G vs the CTB
-getting disabled in the midst of it (by detecing the failure
-and unrolling the guc-lrc-unpin flow) and adding an additional
-rcu_barrier in the gem-suspend flow to purge outstanding
-rcu defered tasks that may include context destruction.
+Based on testing, guc_lrc_desc_unpin may still race and fail
+as we traverse the GuC's context-destroy list because the
+CT could be disabled right before calling GuC's CT send function.
 
-This patch was tested and confirmed to be reliably working
-after running ~1500 suspend resume cycles on 4 concurrent
-machines.
+We've witnessed this race condition once every ~6000-8000
+suspend-resume cycles while ensuring workloads that render
+something onscreen is continuously started just before
+we suspend (and the workload is small enough to complete
+and trigger the queued engine/context free-up either very
+late in suspend or very early in resume).
 
-Changes from prior revs:
-   v6: - Dont hold the spinlock while calling deregister_context
-         which can take a longer time. (Rodrigo)
-       - Fix / improve of comments. (Rodrigo)
-       - Release the ce->guc_state.lock before calling
-         deregister_context and retake it if we fail. (John/Daniele).
-   v5: - Remove Patch #3 which doesnt solve this exact bug
-         but can be a separate patch(Tvrtko).
-   v4: - In Patch #2, change the position of the calls into
-         rcu_barrier based on latest testing data. (Alan/Anshuman).
-       - In Patch #3, fix the timeout value selection for the
-         final gt-pm idle-wait that was incorrectly using a 'ns'
-         #define as a milisec timeout.
-   v3: - In Patch #3, when deregister_context fails, instead
-         of calling intel_gt_pm_put(that might sleep), call
-         __intel_wakeref_put (without ASYNC flag) (Rodrigo/Anshuman).
-       - In wait_for_suspend add an rcu_barrier before we
-         proceed to wait for idle. (Anshuman)
-   v2: - Patch #2 Restructure code in guc_lrc_desc_unpin so
-         it's more readible to differentiate (1)direct guc-id
-         cleanup ..vs (2) sending the H2G ctx-destroy action ..
-         vs (3) the unrolling steps if the H2G fails.
-       - Patch #2 Add a check to close the race sooner by checking
-         for intel_guc_is_ready from destroyed_worker_func.
-       - Patch #2 When guc_submission_send_busy_loop gets a
-         failure from intel_guc_send_busy_loop, we need to undo
-         i.e. decrement the outstanding_submission_g2h.
-       - Patch #3 In wait_for_suspend, fix checking of return from
-         intel_gt_pm_wait_timeout_for_idle to now use -ETIMEDOUT
-         and add documentation for intel_wakeref_wait_for_idle.
-         (Rodrigo).
+In such a case, we need to unroll the entire process because
+guc-lrc-unpin takes a gt wakeref which only gets released in
+the G2H IRQ reply that never comes through in this corner
+case. Without the unroll, the taken wakeref is leaked and will
+cascade into a kernel hang later at the tail end of suspend in
+this function:
 
-Alan Previn (2):
-  drm/i915/guc: Flush context destruction worker at suspend
-  drm/i915/guc: Close deregister-context race against CT-loss
+   intel_wakeref_wait_for_idle(&gt->wakeref)
+   (called by) - intel_gt_pm_wait_for_idle
+   (called by) - wait_for_suspend
 
+Thus, do an unroll in guc_lrc_desc_unpin and deregister_destroyed_-
+contexts if guc_lrc_desc_unpin fails due to CT send falure.
+When unrolling, keep the context in the GuC's destroy-list so
+it can get picked up on the next destroy worker invocation
+(if suspend aborted) or get fully purged as part of a GuC
+sanitization (end of suspend) or a reset flow.
+
+Signed-off-by: Alan Previn <alan.previn.teres.alexis@intel.com>
+Signed-off-by: Anshuman Gupta <anshuman.gupta@intel.com>
+Tested-by: Mousumi Jana <mousumi.jana@intel.com>
+---
  drivers/gpu/drm/i915/gem/i915_gem_pm.c        | 10 +++
- .../gpu/drm/i915/gt/uc/intel_guc_submission.c | 78 +++++++++++++++++--
- .../gpu/drm/i915/gt/uc/intel_guc_submission.h |  2 +
- drivers/gpu/drm/i915/gt/uc/intel_uc.c         |  2 +
- 4 files changed, 87 insertions(+), 5 deletions(-)
+ .../gpu/drm/i915/gt/uc/intel_guc_submission.c | 73 +++++++++++++++++--
+ 2 files changed, 78 insertions(+), 5 deletions(-)
 
-
-base-commit: 436cb0ff9f20fadc99ec3b70c4d2ac6cb2e4410a
+diff --git a/drivers/gpu/drm/i915/gem/i915_gem_pm.c b/drivers/gpu/drm/i915/gem/i915_gem_pm.c
+index 0d812f4d787d..3b27218aabe2 100644
+--- a/drivers/gpu/drm/i915/gem/i915_gem_pm.c
++++ b/drivers/gpu/drm/i915/gem/i915_gem_pm.c
+@@ -28,6 +28,13 @@ void i915_gem_suspend(struct drm_i915_private *i915)
+ 	GEM_TRACE("%s\n", dev_name(i915->drm.dev));
+ 
+ 	intel_wakeref_auto(&i915->runtime_pm.userfault_wakeref, 0);
++	/*
++	 * On rare occasions, we've observed the fence completion triggers
++	 * free_engines asynchronously via rcu_call. Ensure those are done.
++	 * This path is only called on suspend, so it's an acceptable cost.
++	 */
++	rcu_barrier();
++
+ 	flush_workqueue(i915->wq);
+ 
+ 	/*
+@@ -160,6 +167,9 @@ void i915_gem_suspend_late(struct drm_i915_private *i915)
+ 	 * machine in an unusable condition.
+ 	 */
+ 
++	/* Like i915_gem_suspend, flush tasks staged from fence triggers */
++	rcu_barrier();
++
+ 	for_each_gt(gt, i915, i)
+ 		intel_gt_suspend_late(gt);
+ 
+diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
+index 6e3fb2fcce4f..a7228bebec39 100644
+--- a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
++++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
+@@ -236,6 +236,13 @@ set_context_destroyed(struct intel_context *ce)
+ 	ce->guc_state.sched_state |= SCHED_STATE_DESTROYED;
+ }
+ 
++static inline void
++clr_context_destroyed(struct intel_context *ce)
++{
++	lockdep_assert_held(&ce->guc_state.lock);
++	ce->guc_state.sched_state &= ~SCHED_STATE_DESTROYED;
++}
++
+ static inline bool context_pending_disable(struct intel_context *ce)
+ {
+ 	return ce->guc_state.sched_state & SCHED_STATE_PENDING_DISABLE;
+@@ -613,6 +620,8 @@ static int guc_submission_send_busy_loop(struct intel_guc *guc,
+ 					 u32 g2h_len_dw,
+ 					 bool loop)
+ {
++	int ret;
++
+ 	/*
+ 	 * We always loop when a send requires a reply (i.e. g2h_len_dw > 0),
+ 	 * so we don't handle the case where we don't get a reply because we
+@@ -623,7 +632,11 @@ static int guc_submission_send_busy_loop(struct intel_guc *guc,
+ 	if (g2h_len_dw)
+ 		atomic_inc(&guc->outstanding_submission_g2h);
+ 
+-	return intel_guc_send_busy_loop(guc, action, len, g2h_len_dw, loop);
++	ret = intel_guc_send_busy_loop(guc, action, len, g2h_len_dw, loop);
++	if (ret)
++		atomic_dec(&guc->outstanding_submission_g2h);
++
++	return ret;
+ }
+ 
+ int intel_guc_wait_for_pending_msg(struct intel_guc *guc,
+@@ -3288,12 +3301,13 @@ static void guc_context_close(struct intel_context *ce)
+ 	spin_unlock_irqrestore(&ce->guc_state.lock, flags);
+ }
+ 
+-static inline void guc_lrc_desc_unpin(struct intel_context *ce)
++static inline int guc_lrc_desc_unpin(struct intel_context *ce)
+ {
+ 	struct intel_guc *guc = ce_to_guc(ce);
+ 	struct intel_gt *gt = guc_to_gt(guc);
+ 	unsigned long flags;
+ 	bool disabled;
++	int ret;
+ 
+ 	GEM_BUG_ON(!intel_gt_pm_is_awake(gt));
+ 	GEM_BUG_ON(!ctx_id_mapped(guc, ce->guc_id.id));
+@@ -3304,18 +3318,41 @@ static inline void guc_lrc_desc_unpin(struct intel_context *ce)
+ 	spin_lock_irqsave(&ce->guc_state.lock, flags);
+ 	disabled = submission_disabled(guc);
+ 	if (likely(!disabled)) {
++		/*
++		 * Take a gt-pm ref and change context state to be destroyed.
++		 * NOTE: a G2H IRQ that comes after will put this gt-pm ref back
++		 */
+ 		__intel_gt_pm_get(gt);
+ 		set_context_destroyed(ce);
+ 		clr_context_registered(ce);
+ 	}
+ 	spin_unlock_irqrestore(&ce->guc_state.lock, flags);
++
+ 	if (unlikely(disabled)) {
+ 		release_guc_id(guc, ce);
+ 		__guc_context_destroy(ce);
+-		return;
++		return 0;
+ 	}
+ 
+-	deregister_context(ce, ce->guc_id.id);
++	/*
++	 * GuC is active, lets destroy this context, but at this point we can still be racing
++	 * with suspend, so we undo everything if the H2G fails in deregister_context so
++	 * that GuC reset will find this context during clean up.
++	 */
++	ret = deregister_context(ce, ce->guc_id.id);
++	if (ret) {
++		spin_lock(&ce->guc_state.lock);
++		set_context_registered(ce);
++		clr_context_destroyed(ce);
++		spin_unlock(&ce->guc_state.lock);
++		/*
++		 * As gt-pm is awake at function entry, intel_wakeref_put_async merely decrements
++		 * the wakeref immediately but per function spec usage call this after unlock.
++		 */
++		intel_wakeref_put_async(&gt->wakeref);
++	}
++
++	return ret;
+ }
+ 
+ static void __guc_context_destroy(struct intel_context *ce)
+@@ -3383,7 +3420,22 @@ static void deregister_destroyed_contexts(struct intel_guc *guc)
+ 		if (!ce)
+ 			break;
+ 
+-		guc_lrc_desc_unpin(ce);
++		if (guc_lrc_desc_unpin(ce)) {
++			/*
++			 * This means GuC's CT link severed mid-way which could happen
++			 * in suspend-resume corner cases. In this case, put the
++			 * context back into the destroyed_contexts list which will
++			 * get picked up on the next context deregistration event or
++			 * purged in a GuC sanitization event (reset/unload/wedged/...).
++			 */
++			spin_lock_irqsave(&guc->submission_state.lock, flags);
++			list_add_tail(&ce->destroyed_link,
++				      &guc->submission_state.destroyed_contexts);
++			spin_unlock_irqrestore(&guc->submission_state.lock, flags);
++			/* Bail now since the list might never be emptied if h2gs fail */
++			break;
++		}
++
+ 	}
+ }
+ 
+@@ -3394,6 +3446,17 @@ static void destroyed_worker_func(struct work_struct *w)
+ 	struct intel_gt *gt = guc_to_gt(guc);
+ 	intel_wakeref_t wakeref;
+ 
++	/*
++	 * In rare cases we can get here via async context-free fence-signals that
++	 * come very late in suspend flow or very early in resume flows. In these
++	 * cases, GuC won't be ready but just skipping it here is fine as these
++	 * pending-destroy-contexts get destroyed totally at GuC reset time at the
++	 * end of suspend.. OR.. this worker can be picked up later on the next
++	 * context destruction trigger after resume-completes
++	 */
++	if (!intel_guc_is_ready(guc))
++		return;
++
+ 	with_intel_gt_pm(gt, wakeref)
+ 		deregister_destroyed_contexts(guc);
+ }
 -- 
 2.39.0
 
