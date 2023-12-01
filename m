@@ -4,48 +4,54 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 00994C4167B
-	for <intel-gfx@archiver.kernel.org>; Fri,  1 Dec 2023 15:57:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D47FAC10DC1
+	for <intel-gfx@archiver.kernel.org>; Fri,  1 Dec 2023 16:11:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 384C189D8E;
-	Fri,  1 Dec 2023 15:57:43 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [134.134.136.65])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 454FD10E0C6;
- Fri,  1 Dec 2023 15:57:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1701446259; x=1732982259;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=s5skdTv7Xeg2ackpodlWcVbqhKqy3/vsHCfL29KIB28=;
- b=hlihhprZ4TODyFeUtIFrwDx/PezxQ2OivCwn8J3o+vMBd4Nr51lZkxD9
- ShEhS521iPudY3iXt00RilK7hdIIGkh5vLsYwnvVWp6mFH+u/fplkpsoX
- 55SORqddZ10D2b72E4vBdtQw0OwtTMY46XLH5R77ELavPutPomN0T4fhE
- TECNhICDQwDmK6Vw3qrMjTsBh6LvNvE/nPp0ueL3JCYCI0AXdAGxmqN4f
- lG0WmOSPcCowy6kacH2M6qaEjkbSvugp5i6neYUZRMMKQm+BoJRDxY4tk
- 0G76AbalS0u3sqDyYrntJOcQVwjG41E4YUhkmCoyp5TRqIhCuTLiy1wUx A==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10911"; a="397403238"
-X-IronPort-AV: E=Sophos;i="6.04,241,1695711600"; d="scan'208";a="397403238"
-Received: from orviesa002.jf.intel.com ([10.64.159.142])
- by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 01 Dec 2023 07:57:39 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.04,241,1695711600"; d="scan'208";a="11193704"
-Received: from nirmoyda-desk.igk.intel.com ([10.102.138.190])
- by orviesa002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 01 Dec 2023 07:57:37 -0800
-From: Nirmoy Das <nirmoy.das@intel.com>
-To: intel-gfx@lists.freedesktop.org
-Date: Fri,  1 Dec 2023 16:44:43 +0100
-Message-ID: <20231201154443.16660-1-nirmoy.das@intel.com>
-X-Mailer: git-send-email 2.42.0
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2CC6110E0C6;
+	Fri,  1 Dec 2023 16:11:44 +0000 (UTC)
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 66E0710E0C6
+ for <intel-gfx@lists.freedesktop.org>; Fri,  1 Dec 2023 16:11:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1701447101;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding;
+ bh=ElA6Fj5DJkJvfXTjhyinKJ7iR3dZv3cvuKNwFak2q8c=;
+ b=fZWBfIB07WajG9IK1Z+7mP5MXbuvN/ZAwUxX7l7UmjmDih19LjQPL9a9t/vB2/m80EbIaq
+ uWkiwCgfAhvryh0Eu0AVPX1LSYlNE6AXTPyaw+E5Osu4bYx9999kUnqG+ZVTUNhgt/3AWC
+ MDN5iSA09qr3fzM9qd3A7Og5+qYi7Ec=
+Received: from mimecast-mx02.redhat.com (mx-ext.redhat.com [66.187.233.73])
+ by relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-29-fadl10qWMv--3DyaCaz95A-1; Fri,
+ 01 Dec 2023 11:11:38 -0500
+X-MC-Unique: fadl10qWMv--3DyaCaz95A-1
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.3])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ (No client certificate requested)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 25FF63C025CC;
+ Fri,  1 Dec 2023 16:11:37 +0000 (UTC)
+Received: from localhost.localdomain (unknown [10.39.192.44])
+ by smtp.corp.redhat.com (Postfix) with ESMTP id EA6581121307;
+ Fri,  1 Dec 2023 16:11:35 +0000 (UTC)
+From: Hans de Goede <hdegoede@redhat.com>
+To: Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
+ =?UTF-8?q?Ville=20Syrj=C3=A4l=C3=A4?= <ville.syrjala@linux.intel.com>
+Date: Fri,  1 Dec 2023 17:11:30 +0100
+Message-ID: <20231201161130.23976-1-hdegoede@redhat.com>
 MIME-Version: 1.0
-Organization: Intel Deutschland GmbH, Registered Address: Am Campeon 10,
- 85579 Neubiberg, Germany,
- Commercial Register: Amtsgericht Muenchen HRB 186928 
+X-Scanned-By: MIMEDefang 3.4.1 on 10.11.54.3
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH] drm/i915/gt: Reduce log severity on reset
- prepare.
+Content-Type: text/plain; charset="US-ASCII"; x-default=true
+Subject: [Intel-gfx] [PATCH] drm/i915/dsi: Use devm_gpiod_get() for all GPIOs
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,48 +64,100 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Andrzej Hajda <andrzej.hajda@intel.com>,
- Tvrtko Ursulin <tvrtko.ursulin@intel.com>, dri-devel@lists.freedesktop.org,
- Nirmoy Das <nirmoy.das@intel.com>
+Cc: Andy Shevchenko <andy@kernel.org>, Hans de Goede <hdegoede@redhat.com>,
+ intel-gfx <intel-gfx@lists.freedesktop.org>, dri-devel@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-gen8_engine_reset_prepare() can fail when HW fails to set
-RESET_CTL_READY_TO_RESET bit. In some cases this is not fatal
-error as driver will retry.
+soc_gpio_set_value() already uses devm_gpiod_get(), lets be consistent
+and use devm_gpiod_get() for all GPIOs.
 
-Let the caller of gen8_engine_reset_prepare() decide if a
-failure in gen8_engine_reset_prepare is an error or not.
+This allows removing the intel_dsi_vbt_gpio_cleanup() function,
+which only function was to put the GPIO-descriptors.
 
-Cc: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
-Cc: John Harrison <John.C.Harrison@Intel.com>
-Cc: Andi Shyti <andi.shyti@linux.intel.com>
-Cc: Andrzej Hajda <andrzej.hajda@intel.com>
-Closes: https://gitlab.freedesktop.org/drm/intel/-/issues/5591
-Signed-off-by: Nirmoy Das <nirmoy.das@intel.com>
+Signed-off-by: Hans de Goede <hdegoede@redhat.com>
 ---
- drivers/gpu/drm/i915/gt/intel_reset.c | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
+Note this applies on top of Andy's recent GPIO rework series which
+has just landed in drm-intel-next
+---
+ drivers/gpu/drm/i915/display/intel_dsi_vbt.c | 17 ++---------------
+ drivers/gpu/drm/i915/display/intel_dsi_vbt.h |  1 -
+ drivers/gpu/drm/i915/display/vlv_dsi.c       | 10 +---------
+ 3 files changed, 3 insertions(+), 25 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gt/intel_reset.c b/drivers/gpu/drm/i915/gt/intel_reset.c
-index d5ed904f355d..e6fbc6202c80 100644
---- a/drivers/gpu/drm/i915/gt/intel_reset.c
-+++ b/drivers/gpu/drm/i915/gt/intel_reset.c
-@@ -593,10 +593,10 @@ static int gen8_engine_reset_prepare(struct intel_engine_cs *engine)
- 	ret = __intel_wait_for_register_fw(uncore, reg, mask, ack,
- 					   700, 0, NULL);
- 	if (ret)
--		gt_err(engine->gt,
--		       "%s reset request timed out: {request: %08x, RESET_CTL: %08x}\n",
--		       engine->name, request,
--		       intel_uncore_read_fw(uncore, reg));
-+		GT_TRACE(engine->gt,
-+			 "%s reset request timed out: {request: %08x, RESET_CTL: %08x}\n",
-+			 engine->name, request,
-+			 intel_uncore_read_fw(uncore, reg));
+diff --git a/drivers/gpu/drm/i915/display/intel_dsi_vbt.c b/drivers/gpu/drm/i915/display/intel_dsi_vbt.c
+index 275d0218394c..a5d7fc8418c9 100644
+--- a/drivers/gpu/drm/i915/display/intel_dsi_vbt.c
++++ b/drivers/gpu/drm/i915/display/intel_dsi_vbt.c
+@@ -922,7 +922,7 @@ void intel_dsi_vbt_gpio_init(struct intel_dsi *intel_dsi, bool panel_is_on)
+ 		gpiod_add_lookup_table(gpiod_lookup_table);
  
- 	return ret;
+ 	if (want_panel_gpio) {
+-		intel_dsi->gpio_panel = gpiod_get(dev->dev, "panel", flags);
++		intel_dsi->gpio_panel = devm_gpiod_get(dev->dev, "panel", flags);
+ 		if (IS_ERR(intel_dsi->gpio_panel)) {
+ 			drm_err(&dev_priv->drm,
+ 				"Failed to own gpio for panel control\n");
+@@ -932,7 +932,7 @@ void intel_dsi_vbt_gpio_init(struct intel_dsi *intel_dsi, bool panel_is_on)
+ 
+ 	if (want_backlight_gpio) {
+ 		intel_dsi->gpio_backlight =
+-			gpiod_get(dev->dev, "backlight", flags);
++			devm_gpiod_get(dev->dev, "backlight", flags);
+ 		if (IS_ERR(intel_dsi->gpio_backlight)) {
+ 			drm_err(&dev_priv->drm,
+ 				"Failed to own gpio for backlight control\n");
+@@ -943,16 +943,3 @@ void intel_dsi_vbt_gpio_init(struct intel_dsi *intel_dsi, bool panel_is_on)
+ 	if (gpiod_lookup_table)
+ 		gpiod_remove_lookup_table(gpiod_lookup_table);
  }
+-
+-void intel_dsi_vbt_gpio_cleanup(struct intel_dsi *intel_dsi)
+-{
+-	if (intel_dsi->gpio_panel) {
+-		gpiod_put(intel_dsi->gpio_panel);
+-		intel_dsi->gpio_panel = NULL;
+-	}
+-
+-	if (intel_dsi->gpio_backlight) {
+-		gpiod_put(intel_dsi->gpio_backlight);
+-		intel_dsi->gpio_backlight = NULL;
+-	}
+-}
+diff --git a/drivers/gpu/drm/i915/display/intel_dsi_vbt.h b/drivers/gpu/drm/i915/display/intel_dsi_vbt.h
+index 468d873fab1a..3462fcc760e6 100644
+--- a/drivers/gpu/drm/i915/display/intel_dsi_vbt.h
++++ b/drivers/gpu/drm/i915/display/intel_dsi_vbt.h
+@@ -13,7 +13,6 @@ struct intel_dsi;
+ 
+ bool intel_dsi_vbt_init(struct intel_dsi *intel_dsi, u16 panel_id);
+ void intel_dsi_vbt_gpio_init(struct intel_dsi *intel_dsi, bool panel_is_on);
+-void intel_dsi_vbt_gpio_cleanup(struct intel_dsi *intel_dsi);
+ void intel_dsi_vbt_exec_sequence(struct intel_dsi *intel_dsi,
+ 				 enum mipi_seq seq_id);
+ void intel_dsi_log_params(struct intel_dsi *intel_dsi);
+diff --git a/drivers/gpu/drm/i915/display/vlv_dsi.c b/drivers/gpu/drm/i915/display/vlv_dsi.c
+index 5bda97c96810..9b33b8a74d64 100644
+--- a/drivers/gpu/drm/i915/display/vlv_dsi.c
++++ b/drivers/gpu/drm/i915/display/vlv_dsi.c
+@@ -1532,16 +1532,8 @@ static void intel_dsi_unprepare(struct intel_encoder *encoder)
+ 	}
+ }
+ 
+-static void intel_dsi_encoder_destroy(struct drm_encoder *encoder)
+-{
+-	struct intel_dsi *intel_dsi = enc_to_intel_dsi(to_intel_encoder(encoder));
+-
+-	intel_dsi_vbt_gpio_cleanup(intel_dsi);
+-	intel_encoder_destroy(encoder);
+-}
+-
+ static const struct drm_encoder_funcs intel_dsi_funcs = {
+-	.destroy = intel_dsi_encoder_destroy,
++	.destroy = intel_encoder_destroy,
+ };
+ 
+ static enum drm_mode_status vlv_dsi_mode_valid(struct drm_connector *connector,
 -- 
-2.42.0
+2.41.0
 
