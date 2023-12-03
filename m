@@ -4,51 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AED4AC07E97
-	for <intel-gfx@archiver.kernel.org>; Sun,  3 Dec 2023 11:49:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 90055C4167B
+	for <intel-gfx@archiver.kernel.org>; Sun,  3 Dec 2023 11:49:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 23A1210E2AB;
-	Sun,  3 Dec 2023 11:49:37 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5D0BC10E2AE;
+	Sun,  3 Dec 2023 11:49:43 +0000 (UTC)
 Received: from mgamail.intel.com (mgamail.intel.com [134.134.136.65])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9BE3510E2AC
- for <intel-gfx@lists.freedesktop.org>; Sun,  3 Dec 2023 11:49:12 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6A8BA10E2AB
+ for <intel-gfx@lists.freedesktop.org>; Sun,  3 Dec 2023 11:49:08 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1701604152; x=1733140152;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=d1iX2ocmbyZ6txd5N5Fu2RZmcYVAlsdEB11wB8GaLEc=;
- b=DFO+VH31bvdXx4V5mrg0eYQww/e6GCyr4r4MG8LmOe89FM+L3g7V1jtf
- XdJhDhLZ1pb/FP6dyvdXWrdYP7FbHMXhaslSqFX51iKKnmAEhhKbRxsP/
- 4QXpXJpqz3qk+82s4Ihqj0bnA/2V19onUpxOdDct+0XWKJhrzTQ/52DgD
- PEBvcNvkUFzPgiFjROapGnLMl3H0lgnP5c4/rHNTDOJIUmMwhn0TNHM/A
- cNz0ZyGZmpg/uaRp/cGTBz4+1kEfslIPNsGRREnIYZmv4Lq04s18pAHE+
- yL00sBInTgZ3FSLjjt+gAPRGWLqULQXTjhyF+0HjgUhY0FgDxsBZIsL0U Q==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10912"; a="397526373"
-X-IronPort-AV: E=Sophos;i="6.04,247,1695711600"; d="scan'208";a="397526373"
+ t=1701604151; x=1733140151;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=hSkZLxzW6eY/sati4b26Gxyr2T6/7qy1wTe2jhwtkgI=;
+ b=W6qX5jW7Z6a3sx2WPXZZD0HhdyOVqlNSjbTHeXRsCSK2zFwnjXoGATHP
+ V8ZhXfsaRYTUKRgLZVv2CsJTcQBzZd5ppoyDvpwN9y4q/KZkuSxdFAxjz
+ UlCMboOi9KBoVZ3kDWNP/lLmu9Bilcs9UgpqrBOHzSrBpOmu/J7Co/DnH
+ tJrQSU2LG2u59Dv70MJAM+OP3sZPFRaZULinbE6hDj0//3kWb6FB/gDJa
+ X5b9KDaOuZniDaxmOAdkIYRzxgfhwGh21IILFg3rghfVAExer+8Mbuvqj
+ 3die8G0FylmuDIaxyLSTZRHzZ0SY3LPbiY3pViOJ6RdWCUQ38wJUTsCro A==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10912"; a="397526367"
+X-IronPort-AV: E=Sophos;i="6.04,247,1695711600"; d="scan'208";a="397526367"
 Received: from orsmga003.jf.intel.com ([10.7.209.27])
  by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 03 Dec 2023 03:49:12 -0800
+ 03 Dec 2023 03:49:07 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10912"; a="720038373"
-X-IronPort-AV: E=Sophos;i="6.04,247,1695711600"; d="scan'208";a="720038373"
+X-IronPort-AV: E=McAfee;i="6600,9927,10912"; a="720038358"
+X-IronPort-AV: E=Sophos;i="6.04,247,1695711600"; d="scan'208";a="720038358"
 Received: from jamullin-mobl.ger.corp.intel.com (HELO
  jhogande-mobl1.intel.com) ([10.249.32.171])
  by orsmga003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 03 Dec 2023 03:49:10 -0800
+ 03 Dec 2023 03:49:06 -0800
 From: =?UTF-8?q?Jouni=20H=C3=B6gander?= <jouni.hogander@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Sun,  3 Dec 2023 13:48:38 +0200
-Message-Id: <20231203114840.841311-3-jouni.hogander@intel.com>
+Date: Sun,  3 Dec 2023 13:48:36 +0200
+Message-Id: <20231203114840.841311-1-jouni.hogander@intel.com>
 X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20231203114840.841311-1-jouni.hogander@intel.com>
-References: <20231203114840.841311-1-jouni.hogander@intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v9 2/4] drm/i915/display: Convert
- intel_fb_modifier_to_tiling as non-static
+Subject: [Intel-gfx] [PATCH v9 0/4] Prepare intel_fb for Xe
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,86 +61,49 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-We are about to split i915 specific code from intel_fb.c. Convert
-intel_fb_modifier_to_tiling as non-static to allow calling it from split
-code.
+Intel fb creation is differing between Xe and i915 due to different
+implementations of backing object. This patch set is splitting i915
+specific code into it's own source file. Similar source files will be
+introduced for Xe as well.
 
-Signed-off-by: Jouni Högander <jouni.hogander@intel.com>
-Reviewed-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
----
- drivers/gpu/drm/i915/display/intel_fb.c | 40 ++++++++++++-------------
- drivers/gpu/drm/i915/display/intel_fb.h |  2 ++
- 2 files changed, 22 insertions(+), 20 deletions(-)
+Also use intel_bo_to_drm_bo instead of directly referring
+i915_gem_object->base. One i915_gem_object_put is changed to
+drm_gem_object_put.
 
-diff --git a/drivers/gpu/drm/i915/display/intel_fb.c b/drivers/gpu/drm/i915/display/intel_fb.c
-index 4af5b7181fdf..6c89cb2f2002 100644
---- a/drivers/gpu/drm/i915/display/intel_fb.c
-+++ b/drivers/gpu/drm/i915/display/intel_fb.c
-@@ -301,6 +301,26 @@ lookup_format_info(const struct drm_format_info formats[],
- 	return NULL;
- }
- 
-+unsigned int intel_fb_modifier_to_tiling(u64 fb_modifier)
-+{
-+	u8 tiling_caps = lookup_modifier(fb_modifier)->plane_caps &
-+			 INTEL_PLANE_CAP_TILING_MASK;
-+
-+	switch (tiling_caps) {
-+	case INTEL_PLANE_CAP_TILING_Y:
-+		return I915_TILING_Y;
-+	case INTEL_PLANE_CAP_TILING_X:
-+		return I915_TILING_X;
-+	case INTEL_PLANE_CAP_TILING_4:
-+	case INTEL_PLANE_CAP_TILING_Yf:
-+	case INTEL_PLANE_CAP_TILING_NONE:
-+		return I915_TILING_NONE;
-+	default:
-+		MISSING_CASE(tiling_caps);
-+		return I915_TILING_NONE;
-+	}
-+}
-+
- /**
-  * intel_fb_get_format_info: Get a modifier specific format information
-  * @cmd: FB add command structure
-@@ -737,26 +757,6 @@ intel_fb_align_height(const struct drm_framebuffer *fb,
- 	return ALIGN(height, tile_height);
- }
- 
--static unsigned int intel_fb_modifier_to_tiling(u64 fb_modifier)
--{
--	u8 tiling_caps = lookup_modifier(fb_modifier)->plane_caps &
--			 INTEL_PLANE_CAP_TILING_MASK;
--
--	switch (tiling_caps) {
--	case INTEL_PLANE_CAP_TILING_Y:
--		return I915_TILING_Y;
--	case INTEL_PLANE_CAP_TILING_X:
--		return I915_TILING_X;
--	case INTEL_PLANE_CAP_TILING_4:
--	case INTEL_PLANE_CAP_TILING_Yf:
--	case INTEL_PLANE_CAP_TILING_NONE:
--		return I915_TILING_NONE;
--	default:
--		MISSING_CASE(tiling_caps);
--		return I915_TILING_NONE;
--	}
--}
--
- bool intel_fb_modifier_uses_dpt(struct drm_i915_private *i915, u64 modifier)
- {
- 	return HAS_DPT(i915) && modifier != DRM_FORMAT_MOD_LINEAR;
-diff --git a/drivers/gpu/drm/i915/display/intel_fb.h b/drivers/gpu/drm/i915/display/intel_fb.h
-index e85167d6bc34..23db6628f53e 100644
---- a/drivers/gpu/drm/i915/display/intel_fb.h
-+++ b/drivers/gpu/drm/i915/display/intel_fb.h
-@@ -95,4 +95,6 @@ intel_user_framebuffer_create(struct drm_device *dev,
- bool intel_fb_modifier_uses_dpt(struct drm_i915_private *i915, u64 modifier);
- bool intel_fb_uses_dpt(const struct drm_framebuffer *fb);
- 
-+unsigned int intel_fb_modifier_to_tiling(u64 fb_modifier);
-+
- #endif /* __INTEL_FB_H__ */
+v9:
+  - Use ERR_CAST
+v8:
+  - return original error code from intel_fb_bo_lookup_valid_bo on failure
+v7:
+  - drop #include <drm/drm_plane.h>
+  - s/user_mode_cmd/mode_cmd/
+  - Use passed i915 pointer instead of to_i915(obj->base.dev)
+v6: Add missing intel_fb_bo.[ch]
+v5:
+  - Keep drm_any_plane_has_format check in intel_fb.c
+  - Use mode_cmd instead of user_mode_cmd for intel_fb_bo_lookup_valid_bo
+  - Use lookup_modifier_or_null in intel_fb_modifier_to_tiling and
+    handle null value
+v4: Move drm_any_plane_has_format check into intel_fb_bo.c
+v3: Fix failure handling in intel_framebuffer_init
+v2: Couple of fixes to error value handling
+
+Jouni Högander (4):
+  drm/i915/display: use intel_bo_to_drm_bo in intel_fb.c
+  drm/i915/display: Convert intel_fb_modifier_to_tiling as non-static
+  drm/i915/display: Handle invalid fb_modifier in
+    intel_fb_modifier_to_tiling
+  drm/i915/display: Split i915 specific code away from intel_fb.c
+
+ drivers/gpu/drm/i915/Makefile              |   1 +
+ drivers/gpu/drm/i915/display/intel_fb.c    | 132 +++++++--------------
+ drivers/gpu/drm/i915/display/intel_fb.h    |   2 +
+ drivers/gpu/drm/i915/display/intel_fb_bo.c |  92 ++++++++++++++
+ drivers/gpu/drm/i915/display/intel_fb_bo.h |  24 ++++
+ 5 files changed, 162 insertions(+), 89 deletions(-)
+ create mode 100644 drivers/gpu/drm/i915/display/intel_fb_bo.c
+ create mode 100644 drivers/gpu/drm/i915/display/intel_fb_bo.h
+
 -- 
 2.34.1
 
