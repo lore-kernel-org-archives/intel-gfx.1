@@ -4,37 +4,37 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7616FC46CA7
-	for <intel-gfx@archiver.kernel.org>; Sun,  3 Dec 2023 13:18:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C944BC4167B
+	for <intel-gfx@archiver.kernel.org>; Sun,  3 Dec 2023 13:18:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AB7DB10E2B1;
-	Sun,  3 Dec 2023 13:18:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6F9E010E2DD;
+	Sun,  3 Dec 2023 13:18:37 +0000 (UTC)
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 08FC710E2AC;
- Sun,  3 Dec 2023 13:18:05 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2970410E2C7;
+ Sun,  3 Dec 2023 13:18:20 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1701609485; x=1733145485;
+ t=1701609501; x=1733145501;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=09wp7qEie3hPA9tmFNTCYBM6WHJ7/7jxnVGZAD5l5W4=;
- b=lrm/hR5hpRqpudchOcSjnmPOSqPJ9eDK84FNkZwpWkb9TiIL1Yxvlgys
- J5q6HcYOovnWgAD90CGrS2Ihi9VGVTaAqFpv+KCpeYKh2v7xPRDbg5lbR
- MNulsPjgTgxwA0U7PpL3OgCXIiuChfcdxvgu0lyRk0m0LpdN8P8oZtHXq
- 98Igxy1jvu+n8CXWhRZSzHbufpqZjKOxalKxyn1+NeER/Tob8sKhFdS4J
- sDABQMSBjOVhH7pZyrIoQ5ixuRFSvWsSFX042+p/dCGiltcgRoBYvFff1
- uHockDwE27s0g1+J6swPCgvhYPDaeVnc4uLAoHtqHI7XUiqkiCX4kWBbE A==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10912"; a="498239"
+ bh=B+nJe1q6TxRa2V23foliRrj6Cka4wr6NofSF5rxQ4eQ=;
+ b=FFz0Ikiy+KFB23gCmF0/Mzt5MHfYyqst7tqnChQk74r4UsEbxFMiIjo0
+ 3d50oHbWxS9bLbl09vxd9U4pMLtMggU7W0ce4/JmUlkEy0pQ0ziAGRwIt
+ mBmxCOaxF9giA6cupaaYpjbH2E60fl+PjZBfc/mW8hUbmhKx3m5GAxwt0
+ lT3ZBuwR5/EUbYb+cO2lgqHC4uKAycL7U3sFJZx8bSh5q+VjZdtoMMZXd
+ 79zH9AxNIRVNft6jRwwRVag8L3OT7qHErfcNhylfnbj8SI9pO234vKSLb
+ +xPhvTMPkYYlewsQoc44zlz0fxQBEkZ/QBreh6nKHzcLzCU+B2/jIW149 Q==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10912"; a="498266"
 X-IronPort-AV: E=Sophos;i="6.04,247,1695711600"; 
-   d="scan'208";a="498239"
+   d="scan'208";a="498266"
 Received: from orsmga002.jf.intel.com ([10.7.209.21])
  by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 03 Dec 2023 05:18:04 -0800
+ 03 Dec 2023 05:18:20 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10912"; a="770262426"
-X-IronPort-AV: E=Sophos;i="6.04,247,1695711600"; d="scan'208";a="770262426"
+X-IronPort-AV: E=McAfee;i="6600,9927,10912"; a="770262492"
+X-IronPort-AV: E=Sophos;i="6.04,247,1695711600"; d="scan'208";a="770262492"
 Received: from liuzhao-optiplex-7080.sh.intel.com ([10.239.160.36])
- by orsmga002.jf.intel.com with ESMTP; 03 Dec 2023 05:18:00 -0800
+ by orsmga002.jf.intel.com with ESMTP; 03 Dec 2023 05:18:16 -0800
 From: Zhao Liu <zhao1.liu@linux.intel.com>
 To: Jani Nikula <jani.nikula@linux.intel.com>,
  Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
@@ -45,15 +45,15 @@ To: Jani Nikula <jani.nikula@linux.intel.com>,
  "Fabio M . De Francesco" <fmdefrancesco@gmail.com>,
  intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
  linux-kernel@vger.kernel.org
-Date: Sun,  3 Dec 2023 21:29:43 +0800
-Message-Id: <20231203132947.2328805-6-zhao1.liu@linux.intel.com>
+Date: Sun,  3 Dec 2023 21:29:47 +0800
+Message-Id: <20231203132947.2328805-10-zhao1.liu@linux.intel.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20231203132947.2328805-1-zhao1.liu@linux.intel.com>
 References: <20231203132947.2328805-1-zhao1.liu@linux.intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v3 5/9] drm/i915: Use kmap_local_page() in
- gem/selftests/i915_gem_coherency.c
+Subject: [Intel-gfx] [PATCH v3 9/9] drm/i915: Use kmap_local_page() in
+ gem/i915_gem_execbuffer.c
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,38 +74,35 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 From: Zhao Liu <zhao1.liu@intel.com>
 
 The use of kmap_atomic() is being deprecated in favor of
-kmap_local_page()[1], and this patch converts the call from
+kmap_local_page()[1], and this patch converts the calls from
 kmap_atomic() to kmap_local_page().
 
 The main difference between atomic and local mappings is that local
 mappings doesn't disable page faults or preemption (the preemption is
-disabled for !PREEMPT_RT case, otherwise it only disables migration)..
+disabled for !PREEMPT_RT case, otherwise it only disables migration).
 
 With kmap_local_page(), we can avoid the often unwanted side effect of
-unnecessary page faults or preemption disables.
+unnecessary page faults and preemption disables.
 
-In drm/i915/gem/selftests/i915_gem_coherency.c, functions cpu_set()
-and cpu_get() mainly uses mapping to flush cache and assign the value.
-There're 2 reasons why cpu_set() and cpu_get() don't need to disable
-pagefaults and preemption for mapping:
+In i915_gem_execbuffer.c, eb->reloc_cache.vaddr is mapped by
+kmap_atomic() in eb_relocate_entry(), and is unmapped by
+kunmap_atomic() in reloc_cache_reset().
 
-1. The flush operation is safe. cpu_set() and cpu_get() call
-drm_clflush_virt_range() to use CLFLUSHOPT or WBINVD to flush. Since
-CLFLUSHOPT is global on x86 and WBINVD is called on each cpu in
-drm_clflush_virt_range(), the flush operation is global.
+And this mapping/unmapping occurs in two places: one is in
+eb_relocate_vma(), and another is in eb_relocate_vma_slow().
 
-2. Any context switch caused by preemption or page faults (page fault
-may cause sleep) doesn't affect the validity of local mapping.
+The function eb_relocate_vma() or eb_relocate_vma_slow() doesn't
+need to disable pagefaults and preemption during the above mapping/
+unmapping.
 
-Therefore, cpu_set() and cpu_get() are functions where the use of
-kmap_local_page() in place of kmap_atomic() is correctly suited.
+So it can simply use kmap_local_page() / kunmap_local() that can
+instead do the mapping / unmapping regardless of the context.
 
 Convert the calls of kmap_atomic() / kunmap_atomic() to
 kmap_local_page() / kunmap_local().
 
 [1]: https://lore.kernel.org/all/20220813220034.806698-1-ira.weiny@intel.com
 
-Suggested-by: Dave Hansen <dave.hansen@intel.com>
 Suggested-by: Ira Weiny <ira.weiny@intel.com>
 Suggested-by: Fabio M. De Francesco <fmdefrancesco@gmail.com>
 Signed-off-by: Zhao Liu <zhao1.liu@intel.com>
@@ -113,72 +110,62 @@ Reviewed-by: Ira Weiny <ira.weiny@intel.com>
 Reviewed-by: Fabio M. De Francesco <fmdefrancesco@gmail.com>
 ---
 Suggested by credits:
-  Dave: Referred to his explanation about cache flush.
-  Ira: Referred to his task document, review comments and explanation
-       about cache flush.
+  Ira: Referred to his task document, review comments.
   Fabio: Referred to his boiler plate commit message and his description
          about why kmap_local_page() should be preferred.
 ---
- .../gpu/drm/i915/gem/selftests/i915_gem_coherency.c  | 12 ++++--------
- 1 file changed, 4 insertions(+), 8 deletions(-)
+ drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c | 10 +++++-----
+ 1 file changed, 5 insertions(+), 5 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gem/selftests/i915_gem_coherency.c b/drivers/gpu/drm/i915/gem/selftests/i915_gem_coherency.c
-index 3bef1beec7cb..beeb3e12eccc 100644
---- a/drivers/gpu/drm/i915/gem/selftests/i915_gem_coherency.c
-+++ b/drivers/gpu/drm/i915/gem/selftests/i915_gem_coherency.c
-@@ -24,7 +24,6 @@ static int cpu_set(struct context *ctx, unsigned long offset, u32 v)
- {
- 	unsigned int needs_clflush;
+diff --git a/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c b/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c
+index 683fd8d3151c..18b0f3117074 100644
+--- a/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c
++++ b/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c
+@@ -1156,7 +1156,7 @@ static void reloc_cache_unmap(struct reloc_cache *cache)
+ 
+ 	vaddr = unmask_page(cache->vaddr);
+ 	if (cache->vaddr & KMAP)
+-		kunmap_atomic(vaddr);
++		kunmap_local(vaddr);
+ 	else
+ 		io_mapping_unmap_atomic((void __iomem *)vaddr);
+ }
+@@ -1172,7 +1172,7 @@ static void reloc_cache_remap(struct reloc_cache *cache,
+ 	if (cache->vaddr & KMAP) {
+ 		struct page *page = i915_gem_object_get_page(obj, cache->page);
+ 
+-		vaddr = kmap_atomic(page);
++		vaddr = kmap_local_page(page);
+ 		cache->vaddr = unmask_flags(cache->vaddr) |
+ 			(unsigned long)vaddr;
+ 	} else {
+@@ -1202,7 +1202,7 @@ static void reloc_cache_reset(struct reloc_cache *cache, struct i915_execbuffer
+ 		if (cache->vaddr & CLFLUSH_AFTER)
+ 			mb();
+ 
+-		kunmap_atomic(vaddr);
++		kunmap_local(vaddr);
+ 		i915_gem_object_finish_access(obj);
+ 	} else {
+ 		struct i915_ggtt *ggtt = cache_to_ggtt(cache);
+@@ -1234,7 +1234,7 @@ static void *reloc_kmap(struct drm_i915_gem_object *obj,
  	struct page *page;
--	void *map;
- 	u32 *cpu;
- 	int err;
  
-@@ -34,8 +33,7 @@ static int cpu_set(struct context *ctx, unsigned long offset, u32 v)
- 		goto out;
+ 	if (cache->vaddr) {
+-		kunmap_atomic(unmask_page(cache->vaddr));
++		kunmap_local(unmask_page(cache->vaddr));
+ 	} else {
+ 		unsigned int flushes;
+ 		int err;
+@@ -1256,7 +1256,7 @@ static void *reloc_kmap(struct drm_i915_gem_object *obj,
+ 	if (!obj->mm.dirty)
+ 		set_page_dirty(page);
  
- 	page = i915_gem_object_get_page(ctx->obj, offset >> PAGE_SHIFT);
--	map = kmap_atomic(page);
--	cpu = map + offset_in_page(offset);
-+	cpu = kmap_local_page(page) + offset_in_page(offset);
+-	vaddr = kmap_atomic(page);
++	vaddr = kmap_local_page(page);
+ 	cache->vaddr = unmask_flags(cache->vaddr) | (unsigned long)vaddr;
+ 	cache->page = pageno;
  
- 	if (needs_clflush & CLFLUSH_BEFORE)
- 		drm_clflush_virt_range(cpu, sizeof(*cpu));
-@@ -45,7 +43,7 @@ static int cpu_set(struct context *ctx, unsigned long offset, u32 v)
- 	if (needs_clflush & CLFLUSH_AFTER)
- 		drm_clflush_virt_range(cpu, sizeof(*cpu));
- 
--	kunmap_atomic(map);
-+	kunmap_local(cpu);
- 	i915_gem_object_finish_access(ctx->obj);
- 
- out:
-@@ -57,7 +55,6 @@ static int cpu_get(struct context *ctx, unsigned long offset, u32 *v)
- {
- 	unsigned int needs_clflush;
- 	struct page *page;
--	void *map;
- 	u32 *cpu;
- 	int err;
- 
-@@ -67,15 +64,14 @@ static int cpu_get(struct context *ctx, unsigned long offset, u32 *v)
- 		goto out;
- 
- 	page = i915_gem_object_get_page(ctx->obj, offset >> PAGE_SHIFT);
--	map = kmap_atomic(page);
--	cpu = map + offset_in_page(offset);
-+	cpu = kmap_local_page(page) + offset_in_page(offset);
- 
- 	if (needs_clflush & CLFLUSH_BEFORE)
- 		drm_clflush_virt_range(cpu, sizeof(*cpu));
- 
- 	*v = *cpu;
- 
--	kunmap_atomic(map);
-+	kunmap_local(cpu);
- 	i915_gem_object_finish_access(ctx->obj);
- 
- out:
 -- 
 2.34.1
 
