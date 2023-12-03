@@ -4,51 +4,30 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4ED4FC4167B
-	for <intel-gfx@archiver.kernel.org>; Sun,  3 Dec 2023 11:50:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 38B66C4167B
+	for <intel-gfx@archiver.kernel.org>; Sun,  3 Dec 2023 12:21:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AADF510E2AC;
-	Sun,  3 Dec 2023 11:50:00 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [134.134.136.65])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 14B0010E2B0
- for <intel-gfx@lists.freedesktop.org>; Sun,  3 Dec 2023 11:49:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1701604165; x=1733140165;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=SRSfmBtE2tHkd5/fPSctAFgITeMovtOJ108tMJORJ7c=;
- b=V0NHou/JBwfEfRk2ezG8nOyAyPWCVxPLQAfUF74iufypHMgbhS5AC5qW
- mwI3Zc8FAf01bAoq51oW6Ndhg8AHLtQSdGX8/tTKQHNc986GQTOFV8STj
- ZY0w7ggj6te6+vi1FPU9v/wqbfqTp9OSPrb7KChtz8/B1b457KTwkxfbl
- dHKI8yjGLnHAbs2AAGy+F9OuTDLgOppxHY9YByev+tUdfPj6bGWIMESxw
- Tox8vp4b575JfMKkGriCOkNyH2C5nbsXcwP4UfuFSDxayxherMegpxHcC
- BHM+PrlZA5a1NJOMZOHN7s/ClTNW7sJw+Aqyf1eHvgnUdkncGTjlxZn+0 Q==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10912"; a="397526375"
-X-IronPort-AV: E=Sophos;i="6.04,247,1695711600"; d="scan'208";a="397526375"
-Received: from orsmga003.jf.intel.com ([10.7.209.27])
- by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 03 Dec 2023 03:49:14 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10912"; a="720038379"
-X-IronPort-AV: E=Sophos;i="6.04,247,1695711600"; d="scan'208";a="720038379"
-Received: from jamullin-mobl.ger.corp.intel.com (HELO
- jhogande-mobl1.intel.com) ([10.249.32.171])
- by orsmga003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 03 Dec 2023 03:49:12 -0800
-From: =?UTF-8?q?Jouni=20H=C3=B6gander?= <jouni.hogander@intel.com>
-To: intel-gfx@lists.freedesktop.org
-Date: Sun,  3 Dec 2023 13:48:39 +0200
-Message-Id: <20231203114840.841311-4-jouni.hogander@intel.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20231203114840.841311-1-jouni.hogander@intel.com>
-References: <20231203114840.841311-1-jouni.hogander@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 095EB10E2C6;
+	Sun,  3 Dec 2023 12:21:15 +0000 (UTC)
+Received: from emeril.freedesktop.org (emeril.freedesktop.org
+ [IPv6:2610:10:20:722:a800:ff:feee:56cf])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 9DABA10E2C6;
+ Sun,  3 Dec 2023 12:21:07 +0000 (UTC)
+Received: from emeril.freedesktop.org (localhost [127.0.0.1])
+ by emeril.freedesktop.org (Postfix) with ESMTP id 7E158AADD1;
+ Sun,  3 Dec 2023 12:21:07 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
-Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v9 3/4] drm/i915/display: Handle invalid
- fb_modifier in intel_fb_modifier_to_tiling
+Content-Transfer-Encoding: 7bit
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: =?utf-8?q?Jouni_H=C3=B6gander?= <jouni.hogander@intel.com>
+Date: Sun, 03 Dec 2023 12:21:07 -0000
+Message-ID: <170160606747.25281.2412370174601097419@emeril.freedesktop.org>
+X-Patchwork-Hint: ignore
+References: <20231203114840.841311-1-jouni.hogander@intel.com>
+In-Reply-To: <20231203114840.841311-1-jouni.hogander@intel.com>
+Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkNIRUNLUEFUQ0g6IHdhcm5pbmcg?=
+ =?utf-8?q?for_Prepare_intel=5Ffb_for_Xe_=28rev10=29?=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,40 +40,40 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: intel-gfx@lists.freedesktop.org
+Cc: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Lookup_modifier is returning INTEL_PLANE_CAP_TILING_4 on invalid
-fb_modifier value. Use lookup_modifier_or_null in
-intel_fb_modifier_to_tiling and return I915_TILING_NONE in case
-lookup_modifier_or_null returns null.
+== Series Details ==
 
-Signed-off-by: Jouni Högander <jouni.hogander@intel.com>
-Reviewed-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
----
- drivers/gpu/drm/i915/display/intel_fb.c | 9 ++++++++-
- 1 file changed, 8 insertions(+), 1 deletion(-)
+Series: Prepare intel_fb for Xe (rev10)
+URL   : https://patchwork.freedesktop.org/series/126507/
+State : warning
 
-diff --git a/drivers/gpu/drm/i915/display/intel_fb.c b/drivers/gpu/drm/i915/display/intel_fb.c
-index 6c89cb2f2002..868e39291e9f 100644
---- a/drivers/gpu/drm/i915/display/intel_fb.c
-+++ b/drivers/gpu/drm/i915/display/intel_fb.c
-@@ -303,7 +303,14 @@ lookup_format_info(const struct drm_format_info formats[],
- 
- unsigned int intel_fb_modifier_to_tiling(u64 fb_modifier)
- {
--	u8 tiling_caps = lookup_modifier(fb_modifier)->plane_caps &
-+	const struct intel_modifier_desc *md;
-+	u8 tiling_caps;
-+
-+	md = lookup_modifier_or_null(fb_modifier);
-+	if (!md)
-+		return I915_TILING_NONE;
-+
-+	tiling_caps = lookup_modifier_or_null(fb_modifier)->plane_caps &
- 			 INTEL_PLANE_CAP_TILING_MASK;
- 
- 	switch (tiling_caps) {
--- 
-2.34.1
+== Summary ==
+
+Error: dim checkpatch failed
+9bcd0d54b877 drm/i915/display: use intel_bo_to_drm_bo in intel_fb.c
+6f1114511f45 drm/i915/display: Convert intel_fb_modifier_to_tiling as non-static
+fa768775a1c0 drm/i915/display: Handle invalid fb_modifier in intel_fb_modifier_to_tiling
+38d5f12fa06c drm/i915/display: Split i915 specific code away from intel_fb.c
+Traceback (most recent call last):
+  File "scripts/spdxcheck.py", line 6, in <module>
+    from ply import lex, yacc
+ModuleNotFoundError: No module named 'ply'
+-:173: WARNING:FILE_PATH_CHANGES: added, moved or deleted file(s), does MAINTAINERS need updating?
+#173: 
+new file mode 100644
+
+-:178: WARNING:SPDX_LICENSE_TAG: Improper SPDX comment style for 'drivers/gpu/drm/i915/display/intel_fb_bo.c', please use '//' instead
+#178: FILE: drivers/gpu/drm/i915/display/intel_fb_bo.c:1:
++/* SPDX-License-Identifier: MIT */
+
+-:178: WARNING:SPDX_LICENSE_TAG: Missing or malformed SPDX-License-Identifier tag in line 1
+#178: FILE: drivers/gpu/drm/i915/display/intel_fb_bo.c:1:
++/* SPDX-License-Identifier: MIT */
+
+total: 0 errors, 3 warnings, 0 checks, 239 lines checked
+
 
