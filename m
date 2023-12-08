@@ -4,42 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F3F28C10DC1
-	for <intel-gfx@archiver.kernel.org>; Fri,  8 Dec 2023 06:24:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 97322C4167B
+	for <intel-gfx@archiver.kernel.org>; Fri,  8 Dec 2023 06:24:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A686410E9CA;
-	Fri,  8 Dec 2023 06:24:25 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2749E10E9CD;
+	Fri,  8 Dec 2023 06:24:29 +0000 (UTC)
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.13])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 08F8110E037
- for <intel-gfx@lists.freedesktop.org>; Fri,  8 Dec 2023 06:24:24 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 839B410E255
+ for <intel-gfx@lists.freedesktop.org>; Fri,  8 Dec 2023 06:24:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1702016665; x=1733552665;
+ t=1702016664; x=1733552664;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=rS99kJ2lNVArCAsgn12Vlrh7x7jbM8EP3cYIHePf/eU=;
- b=k9SQNw9whm10SYHjFROiGCrZahJ3Javl5Q1YOaAT92ImN+My5e+ZADtv
- SrEgnbt5Zn0d9LaKeNAm5tzn8pJomOdci6JKPjUxGVwvjKZRhCo1pnm94
- f29GJ2CjYWPRMqEiDasjciqFCjL6PY/t+OcPZzNEsms0tlziiju7J7SuE
- saFwPQe320b+kD1fUkBd4Nq5UrECR/vSlnlKvOHERmKWM43UkC/R7acLz
- 4pEOyvm8SuZHQ0wafjKcVk96+YnTu39jtx6uns9DXndcpV8MPVRrNw+ig
- IHpL59F+RLU8ltkHBWLZPNmkXJu7G/9DliA16gF7SFoWQ0TVfLvzSD0HD Q==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10917"; a="1432098"
+ bh=aVAAA/Ef/W7EuyRQ9MD1cqBaANDXuzMvqqmV2z/Kmfo=;
+ b=AcYM93PL8BzLASIZzdxNB5rnJUOmcJjGofUn3MbQYDpSoUYJrgP2CaZ1
+ Pz6tw3XKmmyP9VeSVm1xRyw4PoLhdIOHeJeTsm5gTpDYkX7sEgg/toe6d
+ T7wUS19b9Be1QzrfunV9xxmtB+DeKwKTTV+vumuRoImKG/oisNVwNAQxq
+ AOFawCGb2Nr3Wd2BQW8kr4CoOCiK3lf4Sc0Jkhsa+hnZVo/iIFGk2yGAP
+ EfV+4jvoOsu/wmvr8Fyuj7MxwcjMfJP7aiY9vdX3g5q+EN9/Ef+ixbi9x
+ x69E/a0z+mN1vPpCxQ1tiSnlgR6R3+cIq/EmycZYxkgvhFCx/+FgsEXAC Q==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10917"; a="1432093"
 X-IronPort-AV: E=Sophos;i="6.04,260,1695711600"; 
-   d="scan'208";a="1432098"
+   d="scan'208";a="1432093"
 Received: from fmsmga008.fm.intel.com ([10.253.24.58])
  by orvoesa105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 07 Dec 2023 22:24:24 -0800
+ 07 Dec 2023 22:24:21 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10917"; a="838023825"
-X-IronPort-AV: E=Sophos;i="6.04,260,1695711600"; d="scan'208";a="838023825"
+X-IronPort-AV: E=McAfee;i="6600,9927,10917"; a="838023814"
+X-IronPort-AV: E=Sophos;i="6.04,260,1695711600"; d="scan'208";a="838023814"
 Received: from mgolanimitul-x299-ud4-pro.iind.intel.com ([10.190.239.114])
- by fmsmga008.fm.intel.com with ESMTP; 07 Dec 2023 22:24:22 -0800
+ by fmsmga008.fm.intel.com with ESMTP; 07 Dec 2023 22:24:19 -0800
 From: Mitul Golani <mitulkumar.ajitkumar.golani@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Subject: [PATCH 3/3] drm/i915/display: Compute and Enable AS SDP
-Date: Fri,  8 Dec 2023 11:49:33 +0530
-Message-Id: <20231208061933.964588-4-mitulkumar.ajitkumar.golani@intel.com>
+Subject: [PATCH 1/3] drm: Add Adaptive Sync SDP logging
+Date: Fri,  8 Dec 2023 11:49:31 +0530
+Message-Id: <20231208061933.964588-2-mitulkumar.ajitkumar.golani@intel.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20231208061933.964588-1-mitulkumar.ajitkumar.golani@intel.com>
 References: <20231208061933.964588-1-mitulkumar.ajitkumar.golani@intel.com>
@@ -60,109 +60,148 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Add necessary functions definitions to enable
-and compute AS SDP data. The new `intel_dp_compute_as_sdp`
-function computes AS SDP values based on the display
-configuration, ensuring proper handling of Variable Refresh
-Rate (VRR).
+Add structure representing Adaptive Sync Secondary Data
+Packet (AS SDP). Also, add Adaptive Sync SDP logging in
+drm_dp_helper.c to facilitate debugging.
 
 --v2:
-- Add DP_SDP_ADAPTIVE_SYNC to infoframe_type_to_idx().[Ankit]
-- separate patch for intel_read/write_dp_sdp [Ankit].
-- _HSW_VIDEO_DIP_ASYNC_DATA_A should be from ADL onward [Ankit]
-- To fix indentation [Ankit]
+- Update logging. [Jani, Ankit]
+- use as_sdp instead of async [Ankit]
+- Correct define placeholders to where it is being actually used. [Jani]
+- Update members in as_sdp structure and make it uniform. [Jani]
 
 Signed-off-by: Mitul Golani <mitulkumar.ajitkumar.golani@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_ddi.c |  3 +++
- drivers/gpu/drm/i915/display/intel_dp.c  | 25 +++++++++++++++++++++++-
- drivers/gpu/drm/i915/i915_reg.h          |  2 +-
- 3 files changed, 28 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/display/drm_dp_helper.c       | 12 ++++++++
+ .../drm/i915/display/intel_crtc_state_dump.c  | 12 ++++++++
+ .../drm/i915/display/intel_display_types.h    |  1 +
+ include/drm/display/drm_dp.h                  |  2 ++
+ include/drm/display/drm_dp_helper.h           | 30 +++++++++++++++++++
+ 5 files changed, 57 insertions(+)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_ddi.c b/drivers/gpu/drm/i915/display/intel_ddi.c
-index 38f28c480b38..628725611dbe 100644
---- a/drivers/gpu/drm/i915/display/intel_ddi.c
-+++ b/drivers/gpu/drm/i915/display/intel_ddi.c
-@@ -3918,6 +3918,9 @@ static void intel_ddi_get_config(struct intel_encoder *encoder,
- 	intel_read_dp_sdp(encoder, pipe_config, HDMI_PACKET_TYPE_GAMUT_METADATA);
- 	intel_read_dp_sdp(encoder, pipe_config, DP_SDP_VSC);
+diff --git a/drivers/gpu/drm/display/drm_dp_helper.c b/drivers/gpu/drm/display/drm_dp_helper.c
+index d72b6f9a352c..8edd328b6bb8 100644
+--- a/drivers/gpu/drm/display/drm_dp_helper.c
++++ b/drivers/gpu/drm/display/drm_dp_helper.c
+@@ -2917,6 +2917,18 @@ void drm_dp_vsc_sdp_log(const char *level, struct device *dev,
+ }
+ EXPORT_SYMBOL(drm_dp_vsc_sdp_log);
  
-+	if (DISPLAY_VER(dev_priv) >= 13)
-+		intel_read_dp_sdp(encoder, pipe_config, DP_SDP_ADAPTIVE_SYNC);
++void drm_dp_as_sdp_log(struct drm_printer *p, const struct drm_dp_as_sdp *as_sdp)
++{
++	drm_printf(p, "DP SDP: AS_SDP, revision %u, length %u\n",
++		   as_sdp->revision, as_sdp->length);
++	drm_printf(p, "	vtotal: %d\n", as_sdp->vtotal);
++	drm_printf(p, "    target_rr: %d\n", as_sdp->target_rr);
++	drm_printf(p, "    duration_incr_ms: %d\n", as_sdp->duration_incr_ms);
++	drm_printf(p, "    duration_decr_ms: %d\n", as_sdp->duration_decr_ms);
++	drm_printf(p, "    operation_mode: %d\n", as_sdp->operation_mode);
++}
++EXPORT_SYMBOL(drm_dp_as_sdp_log);
 +
- 	intel_psr_get_config(encoder, pipe_config);
- 
- 	intel_audio_codec_get_config(encoder, pipe_config);
-diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
-index cd23d33cb901..a4d813ebefa8 100644
---- a/drivers/gpu/drm/i915/display/intel_dp.c
-+++ b/drivers/gpu/drm/i915/display/intel_dp.c
-@@ -2630,6 +2630,25 @@ static void intel_dp_compute_vsc_sdp(struct intel_dp *intel_dp,
- 					 &crtc_state->infoframes.vsc);
+ /**
+  * drm_dp_get_pcon_max_frl_bw() - maximum frl supported by PCON
+  * @dpcd: DisplayPort configuration data
+diff --git a/drivers/gpu/drm/i915/display/intel_crtc_state_dump.c b/drivers/gpu/drm/i915/display/intel_crtc_state_dump.c
+index 49fd100ec98a..2b40dee19bfb 100644
+--- a/drivers/gpu/drm/i915/display/intel_crtc_state_dump.c
++++ b/drivers/gpu/drm/i915/display/intel_crtc_state_dump.c
+@@ -61,6 +61,15 @@ intel_dump_dp_vsc_sdp(struct drm_i915_private *i915,
+ 	drm_dp_vsc_sdp_log(KERN_DEBUG, i915->drm.dev, vsc);
  }
  
-+static void intel_dp_compute_as_sdp(struct intel_dp *intel_dp,
-+				    struct intel_crtc_state *crtc_state,
-+				    const struct drm_connector_state *conn_state)
++static void
++intel_dump_dp_as_sdp(struct drm_i915_private *i915,
++		     const struct drm_dp_as_sdp *as_sdp)
 +{
-+	struct drm_dp_as_sdp *as_sdp = &crtc_state->infoframes.as_sdp;
-+	struct intel_connector *connector = intel_dp->attached_connector;
-+	const struct drm_display_mode *adjusted_mode =
-+		&crtc_state->hw.adjusted_mode;
-+	int vrefresh = drm_mode_vrefresh(adjusted_mode);
++	struct drm_printer p = drm_debug_printer("AS_SDP");
 +
-+	if (!intel_vrr_is_in_range(connector, vrefresh))
-+		return;
-+
-+	crtc_state->infoframes.enable |= intel_hdmi_infoframe_enable(DP_SDP_ADAPTIVE_SYNC);
-+	as_sdp->sdp_type = DP_SDP_ADAPTIVE_SYNC;
-+	as_sdp->length = 0x9;
-+	as_sdp->vtotal = adjusted_mode->vtotal;
++	drm_dp_as_sdp_log(&p, as_sdp);
 +}
 +
- void intel_dp_compute_psr_vsc_sdp(struct intel_dp *intel_dp,
- 				  const struct intel_crtc_state *crtc_state,
- 				  const struct drm_connector_state *conn_state,
-@@ -2956,6 +2975,7 @@ intel_dp_compute_config(struct intel_encoder *encoder,
- 		g4x_dp_set_clock(encoder, pipe_config);
+ static void
+ intel_dump_buffer(struct drm_i915_private *i915,
+ 		  const char *prefix, const u8 *buf, size_t len)
+@@ -300,6 +309,9 @@ void intel_crtc_state_dump(const struct intel_crtc_state *pipe_config,
+ 	if (pipe_config->infoframes.enable &
+ 	    intel_hdmi_infoframe_enable(HDMI_PACKET_TYPE_GAMUT_METADATA))
+ 		intel_dump_infoframe(i915, &pipe_config->infoframes.drm);
++	if (pipe_config->infoframes.enable &
++	    intel_hdmi_infoframe_enable(DP_SDP_ADAPTIVE_SYNC))
++		intel_dump_dp_as_sdp(i915, &pipe_config->infoframes.as_sdp);
+ 	if (pipe_config->infoframes.enable &
+ 	    intel_hdmi_infoframe_enable(DP_SDP_VSC))
+ 		intel_dump_dp_vsc_sdp(i915, &pipe_config->infoframes.vsc);
+diff --git a/drivers/gpu/drm/i915/display/intel_display_types.h b/drivers/gpu/drm/i915/display/intel_display_types.h
+index b3e942f2eeb0..0c430baefbeb 100644
+--- a/drivers/gpu/drm/i915/display/intel_display_types.h
++++ b/drivers/gpu/drm/i915/display/intel_display_types.h
+@@ -1331,6 +1331,7 @@ struct intel_crtc_state {
+ 		union hdmi_infoframe hdmi;
+ 		union hdmi_infoframe drm;
+ 		struct drm_dp_vsc_sdp vsc;
++		struct drm_dp_as_sdp as_sdp;
+ 	} infoframes;
  
- 	intel_vrr_compute_config(pipe_config, conn_state);
-+	intel_dp_compute_as_sdp(intel_dp, pipe_config, conn_state);
- 	intel_psr_compute_config(intel_dp, pipe_config, conn_state);
- 	intel_dp_drrs_compute_config(connector, pipe_config, link_bpp_x16);
- 	intel_dp_compute_vsc_sdp(intel_dp, pipe_config, conn_state);
-@@ -4119,7 +4139,7 @@ static ssize_t intel_dp_as_sdp_pack(const struct drm_dp_as_sdp *as_sdp,
- 
- 	memset(sdp, 0, size);
- 
--	/* Prepare AS (Adaptive Sync) VSC Header */
-+	/* Prepare Adaptive Sync SDP Header */
- 	sdp->sdp_header.HB0 = 0;
- 	sdp->sdp_header.HB1 = as_sdp->sdp_type;
- 	sdp->sdp_header.HB2 = 0x02;
-@@ -4367,6 +4387,9 @@ void intel_dp_set_infoframes(struct intel_encoder *encoder,
- 	if (!crtc_state->has_psr)
- 		intel_write_dp_sdp(encoder, crtc_state, DP_SDP_VSC);
- 
-+	if (DISPLAY_VER(dev_priv) >= 13)
-+		intel_write_dp_sdp(encoder, crtc_state, DP_SDP_ADAPTIVE_SYNC);
+ 	u8 eld[MAX_ELD_BYTES];
+diff --git a/include/drm/display/drm_dp.h b/include/drm/display/drm_dp.h
+index 3731828825bd..051f75e09920 100644
+--- a/include/drm/display/drm_dp.h
++++ b/include/drm/display/drm_dp.h
+@@ -1577,10 +1577,12 @@ enum drm_dp_phy {
+ #define DP_SDP_AUDIO_COPYMANAGEMENT	0x05 /* DP 1.2 */
+ #define DP_SDP_ISRC			0x06 /* DP 1.2 */
+ #define DP_SDP_VSC			0x07 /* DP 1.2 */
++#define DP_SDP_ADAPTIVE_SYNC    0x22 /* DP 1.4 */
+ #define DP_SDP_CAMERA_GENERIC(i)	(0x08 + (i)) /* 0-7, DP 1.3 */
+ #define DP_SDP_PPS			0x10 /* DP 1.4 */
+ #define DP_SDP_VSC_EXT_VESA		0x20 /* DP 1.4 */
+ #define DP_SDP_VSC_EXT_CEA		0x21 /* DP 1.4 */
 +
- 	intel_write_dp_sdp(encoder, crtc_state, HDMI_PACKET_TYPE_GAMUT_METADATA);
- }
+ /* 0x80+ CEA-861 infoframe types */
  
-diff --git a/drivers/gpu/drm/i915/i915_reg.h b/drivers/gpu/drm/i915/i915_reg.h
-index faacb5ac0afe..b13cddc0f09d 100644
---- a/drivers/gpu/drm/i915/i915_reg.h
-+++ b/drivers/gpu/drm/i915/i915_reg.h
-@@ -2312,7 +2312,7 @@
-  * (Haswell and newer) to see which VIDEO_DIP_DATA byte corresponds to each byte
-  * of the infoframe structure specified by CEA-861. */
- #define   VIDEO_DIP_DATA_SIZE	32
--#define   VIDEO_DIP_ASYNC_DATA_SIZE	32
-+#define   VIDEO_DIP_ASYNC_DATA_SIZE	36
- #define   VIDEO_DIP_GMP_DATA_SIZE	36
- #define   VIDEO_DIP_VSC_DATA_SIZE	36
- #define   VIDEO_DIP_PPS_DATA_SIZE	132
+ #define DP_SDP_AUDIO_INFOFRAME_HB2	0x1b
+diff --git a/include/drm/display/drm_dp_helper.h b/include/drm/display/drm_dp_helper.h
+index 863b2e7add29..ab75b421fdf8 100644
+--- a/include/drm/display/drm_dp_helper.h
++++ b/include/drm/display/drm_dp_helper.h
+@@ -98,6 +98,36 @@ struct drm_dp_vsc_sdp {
+ 	enum dp_content_type content_type;
+ };
+ 
++/**
++ * struct drm_dp_as_sdp - drm DP Adaptive Sync SDP
++ *
++ * This structure represents a DP AS SDP of drm
++ * It is based on DP 2.1 spec [Table 2-126:  Adaptive-Sync SDP Header Bytes] and
++ * [Table 2-127: Adaptive-Sync SDP Payload for DB0 through DB8]
++ *
++ * @sdp_type: secondary-data packet type
++ * @length: number of valid data bytes
++ * @vmin: minimum vtotal
++ * @vmax: maximum vtotal
++ * @duration_incr_ms: Successive frame duration increase
++ * @duration_decr_ms: Successive frame duration decrease
++ * @operation_mode: Adaptive Sync Operation Mode
++ */
++
++struct drm_dp_as_sdp {
++	unsigned char sdp_type;
++	unsigned char revision;
++	unsigned char length;
++	int vtotal;
++	int target_rr;
++	int duration_incr_ms;
++	int duration_decr_ms;
++	int operation_mode;
++};
++
++void drm_dp_as_sdp_log(struct drm_printer *p,
++		       const struct drm_dp_as_sdp *as_sdp);
++
+ void drm_dp_vsc_sdp_log(const char *level, struct device *dev,
+ 			const struct drm_dp_vsc_sdp *vsc);
+ 
 -- 
 2.25.1
 
