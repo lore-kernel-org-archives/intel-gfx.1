@@ -4,27 +4,27 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D103AC4332F
-	for <intel-gfx@archiver.kernel.org>; Wed, 13 Dec 2023 21:24:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 60223C4332F
+	for <intel-gfx@archiver.kernel.org>; Wed, 13 Dec 2023 21:24:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5583210E852;
-	Wed, 13 Dec 2023 21:24:45 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 00EBB10E879;
+	Wed, 13 Dec 2023 21:24:49 +0000 (UTC)
 Received: from emeril.freedesktop.org (emeril.freedesktop.org
- [IPv6:2610:10:20:722:a800:ff:feee:56cf])
- by gabe.freedesktop.org (Postfix) with ESMTP id 122C810E852;
- Wed, 13 Dec 2023 21:24:44 +0000 (UTC)
+ [131.252.210.167])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 7FCC610E877;
+ Wed, 13 Dec 2023 21:24:46 +0000 (UTC)
 Received: from emeril.freedesktop.org (localhost [127.0.0.1])
- by emeril.freedesktop.org (Postfix) with ESMTP id 08FDAA3ECB;
- Wed, 13 Dec 2023 21:24:44 +0000 (UTC)
+ by emeril.freedesktop.org (Postfix) with ESMTP id 78B06A3ECB;
+ Wed, 13 Dec 2023 21:24:46 +0000 (UTC)
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: =?utf-8?q?=E2=9C=97_Fi=2ECI=2ECHECKPATCH=3A_warning_for_series_starting_with?=
- =?utf-8?q?_=5B1/4=5D_drm/ttm=3A_return_ENOSPC_from_ttm=5Fbo=5Fmem=5Fspace?=
+Content-Transfer-Encoding: 7bit
+Subject: =?utf-8?q?=E2=9C=97_Fi=2ECI=2ESPARSE=3A_warning_for_series_starting_with_=5B?=
+ =?utf-8?q?1/4=5D_drm/ttm=3A_return_ENOSPC_from_ttm=5Fbo=5Fmem=5Fspace?=
 From: Patchwork <patchwork@emeril.freedesktop.org>
 To: =?utf-8?q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>
-Date: Wed, 13 Dec 2023 21:24:44 -0000
-Message-ID: <170250268403.10264.314227275123717809@emeril.freedesktop.org>
+Date: Wed, 13 Dec 2023 21:24:46 -0000
+Message-ID: <170250268649.10263.2646541157805855477@emeril.freedesktop.org>
 X-Patchwork-Hint: ignore
 References: <20231213144222.1871-1-christian.koenig@amd.com>
 In-Reply-To: <20231213144222.1871-1-christian.koenig@amd.com>
@@ -53,38 +53,8 @@ State : warning
 
 == Summary ==
 
-Error: dim checkpatch failed
-2d6d981a7c8c drm/ttm: return ENOSPC from ttm_bo_mem_space
--:35: WARNING:FROM_SIGN_OFF_MISMATCH: From:/Signed-off-by: email address mismatch: 'From: "Christian König" <ckoenig.leichtzumerken@gmail.com>' != 'Signed-off-by: Christian König <christian.koenig@amd.com>'
-
-total: 0 errors, 1 warnings, 0 checks, 17 lines checked
-7dd77c5e8555 drm/ttm: replace busy placement with flags v3
--:297: WARNING:UNSPECIFIED_INT: Prefer 'unsigned int *' to bare use of 'unsigned *'
-#297: FILE: drivers/gpu/drm/nouveau/nouveau_bo.c:442:
-+	unsigned *n = &nvbo->placement.num_placement;
-
--:629: CHECK:LINE_SPACING: Please don't use multiple blank lines
-#629: FILE: drivers/gpu/drm/vmwgfx/vmwgfx_bo.c:182:
- 
-+
-
-total: 0 errors, 1 warnings, 1 checks, 698 lines checked
-1fa5a17d755b drm/ttm: improve idle/busy handling
--:9: WARNING:COMMIT_LOG_LONG_LINE: Prefer a maximum 75 chars per line (possible unwrapped commit description?)
-#9: 
-Previously we would never try to move a BO into the preferred placements when
-
--:297: CHECK:PARENTHESIS_ALIGNMENT: Alignment should match open parenthesis
-#297: FILE: drivers/gpu/drm/ttm/ttm_resource.c:320:
-+		if (place->flags & TTM_PL_FLAG_CONTIGUOUS &&
-+		     !(res->placement & TTM_PL_FLAG_CONTIGUOUS))
-
--:339: WARNING:FROM_SIGN_OFF_MISMATCH: From:/Signed-off-by: email address mismatch: 'From: "Christian König" <ckoenig.leichtzumerken@gmail.com>' != 'Signed-off-by: Christian König <christian.koenig@amd.com>'
-
-total: 0 errors, 2 warnings, 1 checks, 279 lines checked
-f90570623edf drm/amdgpu: use GTT only as fallback for VRAM|GTT
--:32: WARNING:FROM_SIGN_OFF_MISMATCH: From:/Signed-off-by: email address mismatch: 'From: "Christian König" <ckoenig.leichtzumerken@gmail.com>' != 'Signed-off-by: Christian König <christian.koenig@amd.com>'
-
-total: 0 errors, 1 warnings, 0 checks, 12 lines checked
+Error: dim sparse failed
+Sparse version: v0.6.2
+Fast mode used, each commit won't be checked separately.
 
 
