@@ -4,67 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2B365C4332F
-	for <intel-gfx@archiver.kernel.org>; Thu, 14 Dec 2023 09:39:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1E8EDC4332F
+	for <intel-gfx@archiver.kernel.org>; Thu, 14 Dec 2023 09:59:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5643C10E912;
-	Thu, 14 Dec 2023 09:39:57 +0000 (UTC)
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.133.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6F1BD10E912
- for <intel-gfx@lists.freedesktop.org>; Thu, 14 Dec 2023 09:39:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1702546793;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type;
- bh=VpEUC5VFMTNhmJYZc7O2VpdrkGA6X2LYoBeOSHNK0D0=;
- b=AYckrA62FWsMeD9/Tfmm5KGB9R0waJNYwlhQ2aCZHb6ea11QVcR5r+pKBcokE66YejGXBd
- amEMIyF9SoFq6Qg10fG75RbkW/FlMgj4i3cTAvjcR2zl/KywmAfZTcHWR14kWLbSX3u9Ra
- ULj/qTKNUQV4sMSIiOlfHlgdKWsQoCo=
-Received: from mail-wr1-f69.google.com (mail-wr1-f69.google.com
- [209.85.221.69]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-318-i-rjvRNzNIeCfo97TTYmGA-1; Thu, 14 Dec 2023 04:39:50 -0500
-X-MC-Unique: i-rjvRNzNIeCfo97TTYmGA-1
-Received: by mail-wr1-f69.google.com with SMTP id
- ffacd0b85a97d-33608b14b3cso5630946f8f.0
- for <intel-gfx@lists.freedesktop.org>; Thu, 14 Dec 2023 01:39:50 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1702546488; x=1703151288;
- h=content-disposition:mime-version:message-id:subject:cc:to:from:date
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=VpEUC5VFMTNhmJYZc7O2VpdrkGA6X2LYoBeOSHNK0D0=;
- b=cpscAS6WgHoUCN4E3QNFRcLJ0sZCVNUYVa9W9DA/Le1+/y3EnPfzGTyDXWah/6zqYq
- Rb902sW4Tau4oavqWPvC2ljS2htAghrikE/nHnLFtnsNjV+mKEoP5oAKICpZtR1NI2yT
- a2+M21ZYC8fbtDvDoEfj97b6M9OL4la8LN9dTLS9KpOQSzV1v/8mfzseE5DWWrCsVE4b
- l0znGaW+9WAaAQb+Aw05be1JBu6Hp7p4QsM7oPQVATtNcXVJI7Q9rn8W6sRXGSknJJrN
- LvPtPdg3sPC2adAIu4xa2P8QwaF20OuQKB2vRMtrMjKZdxhigdTNX5V/EcHo5bU5kxmo
- ar7g==
-X-Gm-Message-State: AOJu0Yy2tZp6OPCPGuASL/X6vkWzpxl0cKqsgYwQuczP3TPsevjfPz11
- /myo3pxfF4rZGFJs6OcqHywBoeQGBtiDumnqdl5w9vK5oAtGi319VdF3gRELeNw0AFR1X+10zj8
- 9L41SMzF5f3Az70m0CazK5Yw3DUavQb8in8jOPwo=
-X-Received: by 2002:a05:600c:1c1f:b0:3fe:4cbc:c345 with SMTP id
- j31-20020a05600c1c1f00b003fe4cbcc345mr4719133wms.41.1702546487936; 
- Thu, 14 Dec 2023 01:34:47 -0800 (PST)
-X-Google-Smtp-Source: AGHT+IFHXaLUuZNn19Q4GT7ZxgO8qbUr4c2AqVyGBRzGYZwP8/6URF61WmPmNG90CVfKZzjsTqZS4A==
-X-Received: by 2002:a05:600c:1c1f:b0:3fe:4cbc:c345 with SMTP id
- j31-20020a05600c1c1f00b003fe4cbcc345mr4719123wms.41.1702546487482; 
- Thu, 14 Dec 2023 01:34:47 -0800 (PST)
-Received: from localhost ([2a01:e0a:b25:f902::ff])
- by smtp.gmail.com with ESMTPSA id
- t4-20020adff044000000b0033340937da6sm15405396wro.95.2023.12.14.01.34.47
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 14 Dec 2023 01:34:47 -0800 (PST)
-Date: Thu, 14 Dec 2023 10:34:46 +0100
-From: Maxime Ripard <mripard@redhat.com>
-To: Dave Airlie <airlied@gmail.com>, 
-	Daniel Vetter <daniel.vetter@ffwll.ch>
-Subject: [PULL] drm-misc-next
-Message-ID: <aqpn5miejmkks7pbcfex7b6u63uwsruywxsnr3x5ljs45qatin@nbkkej2elk46>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7FCC610E0AA;
+	Thu, 14 Dec 2023 09:59:14 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [134.134.136.24])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C31CD10E24A
+ for <intel-gfx@lists.freedesktop.org>; Thu, 14 Dec 2023 09:59:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1702547951; x=1734083951;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=ymFm2piVAGY0O/0L25EtNOLq0xgue/X+XPv9im2GnKA=;
+ b=Ir5Y01yvG5Alh61mRfzMxjJLz9GeD4Nc3q6JDriY6NOPGm5ddQ/oNz8L
+ Cl8sSp1j8wEebPsD9CpwN6W8CrbrRANq5X0HTnbSW66k21kmWXpFVCQz6
+ rAdKEas+DEKai7dQhmGcm6VVLIHzvplMMnVctArrYeV/xTRMopeI2LxAR
+ FqkfPoNVykOIUIKEl2//xmruIgEkOJoHFr3Df56eGSowGQcegq2zVn6J8
+ 02s5HIFXSnI1S4KnANHxkRf8FUXxLRRYZS/mV77VkydyfwynLGAA5nRpI
+ /w5TRzJ633Ym3WmzcT6I+sdWlsXGUAXMc8SZSkSJvrXLo2VVdzbwcFMQF g==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10923"; a="397881101"
+X-IronPort-AV: E=Sophos;i="6.04,275,1695711600"; d="scan'208";a="397881101"
+Received: from orviesa001.jf.intel.com ([10.64.159.141])
+ by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 14 Dec 2023 01:59:11 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.04,275,1695711600"; d="scan'208";a="22337572"
+Received: from sinjan-super-server.iind.intel.com ([10.145.169.153])
+ by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 14 Dec 2023 01:59:09 -0800
+From: Karthik Poosa <karthik.poosa@intel.com>
+To: intel-gfx@lists.freedesktop.org
+Subject: [PATCH] drm/xe: Add wait for completion after gt force reset
+Date: Thu, 14 Dec 2023 15:36:41 +0530
+Message-Id: <20231214100641.2479582-1-karthik.poosa@intel.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="kztngmx2kliigdtc"
-Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,267 +54,88 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: dim-tools@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, intel-gfx@lists.freedesktop.org
+Cc: Karthik Poosa <karthik.poosa@intel.com>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
+Wait for gt reset to complete before returning from force_reset
+sysfs call. Without this igt test freq_reset_multiple fails
+sporadically in case xe_guc_pc is not started.
 
---kztngmx2kliigdtc
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Testcase: igt@xe_guc_pc@freq_reset_multiple
+Signed-off-by: Karthik Poosa <karthik.poosa@intel.com>
+---
+ drivers/gpu/drm/xe/xe_gt.c         |  3 +++
+ drivers/gpu/drm/xe/xe_gt_debugfs.c | 10 ++++++++++
+ drivers/gpu/drm/xe/xe_gt_types.h   |  3 +++
+ 3 files changed, 16 insertions(+)
 
-Hi,
-
-Here's this week (and probably last for 6.8) drm-misc-next PR.
-
-Thanks!
-Maxime
-
-drm-misc-next-2023-12-14:
-drm-misc-next for $kernel-version:
-
-UAPI Changes:
-
-Cross-subsystem Changes:
- - A few fixes for usb/typec
-
-Core Changes:
- - ci: Updates to the defconfig, igt version, etc.
- - writeback: Move the atomic_check helper from the encoder to connector
-
-Driver Changes:
- - rockchip: Add support for rk3588
- - xe: Update the TODO list
- - panel:
-   - nv3052c: Register documentation, init sequence improvements and
-     support for the Fascontek FS035VG158
-   - st7701: Add support for the Anbernic RG-ARC
-   - new driver: Synaptics R63353 panel controller, Ilitek ILI9805 panel
-     controller
-   - new panel: AUO G156HAN04.0
-The following changes since commit 90d50b8d85834e73536fdccd5aa913b30494fef0:
-
-  drm/mipi-dsi: Fix detach call without attach (2023-12-07 09:22:47 +0200)
-
-are available in the Git repository at:
-
-  git://anongit.freedesktop.org/drm/drm-misc tags/drm-misc-next-2023-12-14
-
-for you to fetch changes up to b1a2aa9bcbb88a7dc1c4df98dbf4f4df9ca79c9f:
-
-  drm: ci: Update xfails (2023-12-13 15:18:30 -0300)
-
-----------------------------------------------------------------
-drm-misc-next for $kernel-version:
-
-UAPI Changes:
-
-Cross-subsystem Changes:
- - A few fixes for usb/typec
-
-Core Changes:
- - ci: Updates to the defconfig, igt version, etc.
- - writeback: Move the atomic_check helper from the encoder to connector
-
-Driver Changes:
- - rockchip: Add support for rk3588
- - xe: Update the TODO list
- - panel:
-   - nv3052c: Register documentation, init sequence improvements and
-     support for the Fascontek FS035VG158
-   - st7701: Add support for the Anbernic RG-ARC
-   - new driver: Synaptics R63353 panel controller, Ilitek ILI9805 panel
-     controller
-   - new panel: AUO G156HAN04.0
-
-----------------------------------------------------------------
-Alex Bee (1):
-      drm/imagination: vm: Fix heap lookup condition
-
-Andy Yan (13):
-      drm/rockchip: move output interface related definition to rockchip_dr=
-m_drv.h
-      Revert "drm/rockchip: vop2: Use regcache_sync() to fix suspend/resume"
-      drm/rockchip: vop2: set half_block_en bit in all mode
-      drm/rockchip: vop2: clear afbc en and transform bit for cluster windo=
-w at linear mode
-      drm/rockchip: vop2: Add write mask for VP config done
-      drm/rockchip: vop2: Set YUV/RGB overlay mode
-      drm/rockchip: vop2: set bg dly and prescan dly at vop2_post_config
-      drm/rockchip: vop2: rename grf to sys_grf
-      dt-bindings: display: vop2: Add rk3588 support
-      dt-bindings: rockchip,vop2: Add more endpoint definition
-      drm/rockchip: vop2: Add support for rk3588
-      drm/rockchip: vop2: rename VOP_FEATURE_OUTPUT_10BIT to VOP2_VP_FEATUR=
-E_OUTPUT_10BIT
-      MAINTAINERS: Add myself as a reviewer for rockchip drm
-
-Chris Morgan (3):
-      drm/panel: st7701: Fix AVCL calculation
-      dt-bindings: display: st7701: Add Anbernic RG-ARC panel
-      drm/panel: st7701: Add Anbernic RG-ARC Panel Support
-
-Dan Carpenter (1):
-      drm/imagination: Move dereference after NULL check in pvr_mmu_backing=
-_page_init()
-
-Dario Binacchi (2):
-      drm/panel: synaptics-r63353: adjust the includes
-      drm/panel: ilitek-ili9805: adjust the includes
-
-Dmitry Baryshkov (2):
-      drm/atomic-helper: rename drm_atomic_helper_check_wb_encoder_state
-      drm/vkms: move wb's atomic_check from encoder to connector
-
-Elmar Albert (2):
-      dt-bindings: display: simple: Add AUO G156HAN04.0 LVDS display
-      drm/panel: simple: Add AUO G156HAN04.0 LVDS display support
-
-John Watts (7):
-      drm/panel: nv3052c: Document known register names
-      drm/panel: nv3052c: Add SPI device IDs
-      drm/panel: nv3052c: Allow specifying registers per panel
-      drm/panel: nv3052c: Add Fascontek FS035VG158 LCD display
-      dt-bindings: display: panel: Clean up leadtek,ltk035c5444t properties
-      dt-bindings: vendor-prefixes: Add fascontek
-      dt-bindings: display: panel: add Fascontek FS035VG158 panel
-
-Marek Szyprowski (1):
-      drm/debugfs: fix potential NULL pointer dereference
-
-Matthew Brost (1):
-      drm/doc/rfc: Mark long running workload as complete.
-
-Maxime Ripard (1):
-      drm/vc4: hdmi: Create destroy state implementation
-
-Michael Trimarchi (4):
-      drm/panel: Add Synaptics R63353 panel driver
-      dt-bindings: display: panel: Add Ilitek ili9805 panel controller
-      drm/panel: Add Ilitek ILI9805 panel driver
-      drm/panel: ilitek-ili9805: add support for Tianma TM041XDHG01 panel
-
-Nathan Chancellor (3):
-      usb: typec: nb7vpq904m: Only select DRM_AUX_BRIDGE with OF
-      usb: typec: qcom-pmic-typec: Only select DRM_AUX_HPD_BRIDGE with OF
-      drm/bridge: Return NULL instead of plain 0 in drm_dp_hpd_bridge_regis=
-ter() stub
-
-Pin-yen Lin (1):
-      drm/edp-panel: Move the KDC panel to a separate group
-
-Randy Dunlap (3):
-      drm/fourcc: fix spelling/typos
-      drm/drm_modeset_helper_vtables.h: fix typos/spellos
-      drm/uapi: drm_mode.h: fix spellos and grammar
-
-Rob Herring (1):
-      drm/bridge: aux-hpd: Replace of_device.h with explicit include
-
-Rodrigo Vivi (4):
-      drm/doc/rfc: Mark drm_scheduler as completed
-      drm/doc/rfc: Move Xe 'ASYNC VM_BIND' to the 'completed' section
-      drm/doc/rfc: Move userptr integration and vm_bind to the 'completed' =
-section
-      drm/doc/rfc: Xe is using drm_exec, so mark as completed
-
-Uwe Kleine-K=F6nig (1):
-      drm/bridge: ti-sn65dsi86: Associate PWM device to auxiliary device
-
-Vignesh Raman (10):
-      drm: ci: igt_runner: Remove todo
-      drm: ci: Force db410c to host mode
-      drm: ci: arm64.config: Enable DA9211 regulator
-      drm: ci: Enable new jobs
-      drm: ci: Use scripts/config to enable/disable configs
-      drm: ci: mt8173: Do not set IGT_FORCE_DRIVER to panfrost
-      drm: ci: virtio: Make artifacts available
-      drm: ci: uprev IGT
-      drm/doc: ci: Add IGT version details for flaky tests
-      drm: ci: Update xfails
-
-Yang Li (1):
-      drm/imagination: Remove unneeded semicolon
-
- .../display/panel/fascontek,fs035vg158.yaml        |  56 +++
- .../bindings/display/panel/ilitek,ili9805.yaml     |  62 +++
- .../display/panel/leadtek,ltk035c5444t.yaml        |   8 +-
- .../panel/panel-simple-lvds-dual-ports.yaml        |   2 +
- .../bindings/display/panel/sitronix,st7701.yaml    |   1 +
- .../bindings/display/rockchip/rockchip-vop2.yaml   | 100 +++-
- .../devicetree/bindings/vendor-prefixes.yaml       |   2 +
- Documentation/gpu/automated_testing.rst            |   7 +-
- Documentation/gpu/rfc/xe.rst                       | 127 +++--
- MAINTAINERS                                        |  13 +
- drivers/gpu/drm/bridge/aux-hpd-bridge.c            |   2 +-
- drivers/gpu/drm/bridge/ti-sn65dsi86.c              |  16 +-
- drivers/gpu/drm/ci/arm64.config                    |   1 +
- drivers/gpu/drm/ci/build.sh                        |  16 +-
- drivers/gpu/drm/ci/gitlab-ci.yml                   |   2 +-
- drivers/gpu/drm/ci/igt_runner.sh                   |  10 +-
- drivers/gpu/drm/ci/test.yml                        |  13 +-
- .../gpu/drm/ci/xfails/mediatek-mt8173-fails.txt    |  13 +-
- drivers/gpu/drm/ci/xfails/msm-apq8016-fails.txt    |   5 +
- .../gpu/drm/ci/xfails/virtio_gpu-none-fails.txt    |  46 ++
- drivers/gpu/drm/drm_atomic_helper.c                |  16 +-
- drivers/gpu/drm/drm_debugfs.c                      |   2 +-
- drivers/gpu/drm/imagination/pvr_fw_trace.c         |   2 +-
- drivers/gpu/drm/imagination/pvr_mmu.c              |   4 +-
- drivers/gpu/drm/imagination/pvr_vm.c               |   2 +-
- drivers/gpu/drm/panel/Kconfig                      |  18 +
- drivers/gpu/drm/panel/Makefile                     |   2 +
- drivers/gpu/drm/panel/panel-edp.c                  |   3 +-
- drivers/gpu/drm/panel/panel-ilitek-ili9805.c       | 405 ++++++++++++++++
- drivers/gpu/drm/panel/panel-newvision-nv3052c.c    | 515 +++++++++++++++--=
-----
- drivers/gpu/drm/panel/panel-simple.c               |  34 ++
- drivers/gpu/drm/panel/panel-sitronix-st7701.c      | 138 +++++-
- drivers/gpu/drm/panel/panel-synaptics-r63353.c     | 362 +++++++++++++++
- drivers/gpu/drm/rockchip/analogix_dp-rockchip.c    |   1 -
- drivers/gpu/drm/rockchip/cdn-dp-core.c             |   1 -
- drivers/gpu/drm/rockchip/dw-mipi-dsi-rockchip.c    |   1 -
- drivers/gpu/drm/rockchip/dw_hdmi-rockchip.c        |   1 -
- drivers/gpu/drm/rockchip/inno_hdmi.c               |   1 -
- drivers/gpu/drm/rockchip/rk3066_hdmi.c             |   1 -
- drivers/gpu/drm/rockchip/rockchip_drm_drv.h        |  18 +
- drivers/gpu/drm/rockchip/rockchip_drm_vop.h        |  12 -
- drivers/gpu/drm/rockchip/rockchip_drm_vop2.c       | 502 +++++++++++++++++=
-+--
- drivers/gpu/drm/rockchip/rockchip_drm_vop2.h       | 100 +++-
- drivers/gpu/drm/rockchip/rockchip_lvds.c           |   1 -
- drivers/gpu/drm/rockchip/rockchip_rgb.c            |   1 -
- drivers/gpu/drm/rockchip/rockchip_vop2_reg.c       | 223 ++++++++-
- drivers/gpu/drm/vc4/vc4_hdmi.c                     |  12 +-
- drivers/gpu/drm/vkms/vkms_writeback.c              |  25 +-
- drivers/usb/typec/mux/Kconfig                      |   2 +-
- drivers/usb/typec/tcpm/Kconfig                     |   2 +-
- include/drm/bridge/aux-bridge.h                    |   2 +-
- include/drm/drm_atomic_helper.h                    |   5 +-
- include/drm/drm_modeset_helper_vtables.h           |   6 +-
- include/dt-bindings/soc/rockchip,vop2.h            |   4 +
- include/uapi/drm/drm_fourcc.h                      |  10 +-
- include/uapi/drm/drm_mode.h                        |  18 +-
- 56 files changed, 2568 insertions(+), 386 deletions(-)
- create mode 100644 Documentation/devicetree/bindings/display/panel/fascont=
-ek,fs035vg158.yaml
- create mode 100644 Documentation/devicetree/bindings/display/panel/ilitek,=
-ili9805.yaml
- create mode 100644 drivers/gpu/drm/panel/panel-ilitek-ili9805.c
- create mode 100644 drivers/gpu/drm/panel/panel-synaptics-r63353.c
-
---kztngmx2kliigdtc
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQRcEzekXsqa64kGDp7j7w1vZxhRxQUCZXrMNgAKCRDj7w1vZxhR
-xRVIAP0Xj0PnzpOL4Jr9IZiB+UjTqUeSloWEvsV4npS49u/SLAD7Bw/O9aIAG8WS
-xXqnJdV9THEiAtH2f99ONfzXFnCFKQ4=
-=IEu1
------END PGP SIGNATURE-----
-
---kztngmx2kliigdtc--
+diff --git a/drivers/gpu/drm/xe/xe_gt.c b/drivers/gpu/drm/xe/xe_gt.c
+index dfd9cf01a5d5..eb7552b6dfa5 100644
+--- a/drivers/gpu/drm/xe/xe_gt.c
++++ b/drivers/gpu/drm/xe/xe_gt.c
+@@ -65,6 +65,7 @@ struct xe_gt *xe_gt_alloc(struct xe_tile *tile)
+ 
+ 	gt->tile = tile;
+ 	gt->ordered_wq = alloc_ordered_workqueue("gt-ordered-wq", 0);
++	init_completion(&gt->reset_done);
+ 
+ 	return gt;
+ }
+@@ -647,6 +648,8 @@ static int gt_reset(struct xe_gt *gt)
+ 	xe_device_mem_access_put(gt_to_xe(gt));
+ 	XE_WARN_ON(err);
+ 
++	complete(&gt->reset_done);
++
+ 	xe_gt_info(gt, "reset done\n");
+ 
+ 	return 0;
+diff --git a/drivers/gpu/drm/xe/xe_gt_debugfs.c b/drivers/gpu/drm/xe/xe_gt_debugfs.c
+index c4b67cf09f8f..49b30937a28b 100644
+--- a/drivers/gpu/drm/xe/xe_gt_debugfs.c
++++ b/drivers/gpu/drm/xe/xe_gt_debugfs.c
+@@ -23,6 +23,8 @@
+ #include "xe_uc_debugfs.h"
+ #include "xe_wa.h"
+ 
++#define XE_GT_RESET_TIMEOUT_MS	(msecs_to_jiffies(5*1000))
++
+ static struct xe_gt *node_to_gt(struct drm_info_node *node)
+ {
+ 	return node->info_ent->data;
+@@ -58,9 +60,17 @@ static int hw_engines(struct seq_file *m, void *data)
+ static int force_reset(struct seq_file *m, void *data)
+ {
+ 	struct xe_gt *gt = node_to_gt(m->private);
++	struct xe_device *xe = gt_to_xe(gt);
++	unsigned long timeout;
+ 
+ 	xe_gt_reset_async(gt);
+ 
++	timeout = wait_for_completion_timeout(&gt->reset_done, XE_GT_RESET_TIMEOUT_MS);
++	if (timeout == 0) {
++		drm_err(&xe->drm, "gt reset timed out");
++		return -ETIMEDOUT;
++	}
++
+ 	return 0;
+ }
+ 
+diff --git a/drivers/gpu/drm/xe/xe_gt_types.h b/drivers/gpu/drm/xe/xe_gt_types.h
+index f74684660475..6f2fb9e3cfea 100644
+--- a/drivers/gpu/drm/xe/xe_gt_types.h
++++ b/drivers/gpu/drm/xe/xe_gt_types.h
+@@ -358,6 +358,9 @@ struct xe_gt {
+ 		/** @oob: bitmap with active OOB workaroudns */
+ 		unsigned long *oob;
+ 	} wa_active;
++
++	/** @reset_done : Completion of GT reset */
++	struct completion reset_done;
+ };
+ 
+ #endif
+-- 
+2.25.1
 
