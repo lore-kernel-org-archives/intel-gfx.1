@@ -4,42 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DAEA4C4332F
-	for <intel-gfx@archiver.kernel.org>; Thu, 14 Dec 2023 11:49:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 550CEC4332F
+	for <intel-gfx@archiver.kernel.org>; Thu, 14 Dec 2023 11:49:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8FC3E10E804;
-	Thu, 14 Dec 2023 11:49:03 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 93AC610E926;
+	Thu, 14 Dec 2023 11:49:08 +0000 (UTC)
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.7])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EF9A210E904
- for <intel-gfx@lists.freedesktop.org>; Thu, 14 Dec 2023 11:48:57 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7E09210E2C0
+ for <intel-gfx@lists.freedesktop.org>; Thu, 14 Dec 2023 11:48:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1702554538; x=1734090538;
+ t=1702554536; x=1734090536;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=uD8evFUE5S+0aVDEgFKnoCPAuK/N9x7c7kkIqvz2FAo=;
- b=N1bH2CEYvuy3ppCe3AdVZPZHtepiVOdzTy+DSfr51YHQzQhWLlXtUH2M
- sLlV35PNPxQ3cVgNgVBvHkEjCjqtPruIpvBhGssNYw/u+1pfTwzG5rKrJ
- rXVawVsamsrpG0yp9io52ax9E1gctagdvMPBA5ZsD3fSTQYUShS5f+aof
- 0zgTM7tzA7DH7LHYu/eU4BmzBaBXSh+mx+84JJxfE0DRw88beIuUVB3eE
- jHo7v+1m1ZGSUZWxSUt5r81QfWSLYo/IWLWw1Rn1MNuQBIB72T7QDu35b
- 5l2SYZv1jaDUl0kckx6avqKX7DhAc545oq1K8FvomDDZDC1ZsexgN6gG2 A==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10923"; a="16658689"
-X-IronPort-AV: E=Sophos;i="6.04,275,1695711600"; d="scan'208";a="16658689"
+ bh=87wCPbdb6Ad+KFx389JbRzwl6RSysu2t7mb753jX0Ns=;
+ b=YkFvLhICJAUzl6spHeN9/Wb2jrQM7k4So9NzctYeLdi/zcSuZACGg4KV
+ OlzZpL/6mqAfdHdxafXrzB/v/X4L3oZakOnm69pCi3GpQusMMvXH+POKq
+ /kkwA/51BAns+dwwszLoMKWtvUx7Z9Q8qMvJqOsHkryMTQiIrdPbVH+sf
+ u9mfkI5BGhjPSK/PRG1yBnvlBarDUM50Nnw+Ae8d/PpSN5F7gudim/9gX
+ RFWWq/LE1g++rY9Qg274+nyJjccCWCvj5uq8kO4y0YWj1PHESZhLSrqaI
+ tazHFp2BK8P5CgBqqTqrhde/UEZ57CpneEliw9yFWupmXmBXl6Fy+YO9k Q==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10923"; a="16658684"
+X-IronPort-AV: E=Sophos;i="6.04,275,1695711600"; d="scan'208";a="16658684"
 Received: from fmsmga004.fm.intel.com ([10.253.24.48])
  by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 14 Dec 2023 03:48:58 -0800
+ 14 Dec 2023 03:48:56 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10923"; a="844678875"
-X-IronPort-AV: E=Sophos;i="6.04,275,1695711600"; d="scan'208";a="844678875"
+X-IronPort-AV: E=McAfee;i="6600,9927,10923"; a="844678859"
+X-IronPort-AV: E=Sophos;i="6.04,275,1695711600"; d="scan'208";a="844678859"
 Received: from unknown (HELO jhogande-mobl1.fi.intel.com) ([10.237.66.43])
  by fmsmga004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 14 Dec 2023 03:48:56 -0800
+ 14 Dec 2023 03:48:54 -0800
 From: =?UTF-8?q?Jouni=20H=C3=B6gander?= <jouni.hogander@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Subject: [PATCH 4/7] drm/i915/display: Fix vsc_sdp computation
-Date: Thu, 14 Dec 2023 13:48:35 +0200
-Message-Id: <20231214114838.1113648-5-jouni.hogander@intel.com>
+Subject: [PATCH 2/7] drm/i915/display: Move colorimetry_support from intel_psr
+ to intel_dp
+Date: Thu, 14 Dec 2023 13:48:33 +0200
+Message-Id: <20231214114838.1113648-3-jouni.hogander@intel.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20231214114838.1113648-1-jouni.hogander@intel.com>
 References: <20231214114838.1113648-1-jouni.hogander@intel.com>
@@ -62,74 +63,96 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Currently colorimetry data is not added for psr1 or non-psr case.
-Fix this by adding it as needed.
+Colorimetry support is not really a PSR specific thing. Move it to intel_dp
+struct and use it also when preparing vsc sdp for non-PSR case.
 
 Signed-off-by: Jouni Högander <jouni.hogander@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_dp.c | 48 ++++++++++---------------
- 1 file changed, 19 insertions(+), 29 deletions(-)
+ drivers/gpu/drm/i915/display/intel_display_types.h |  3 ++-
+ drivers/gpu/drm/i915/display/intel_dp.c            | 10 +++++++---
+ drivers/gpu/drm/i915/display/intel_psr.c           |  5 +----
+ 3 files changed, 10 insertions(+), 8 deletions(-)
 
+diff --git a/drivers/gpu/drm/i915/display/intel_display_types.h b/drivers/gpu/drm/i915/display/intel_display_types.h
+index a9c9b6edcc25..1d1cc93625e1 100644
+--- a/drivers/gpu/drm/i915/display/intel_display_types.h
++++ b/drivers/gpu/drm/i915/display/intel_display_types.h
+@@ -1703,7 +1703,6 @@ struct intel_psr {
+ 	unsigned int busy_frontbuffer_bits;
+ 	bool sink_psr2_support;
+ 	bool link_standby;
+-	bool colorimetry_support;
+ 	bool psr2_enabled;
+ 	bool psr2_sel_fetch_enabled;
+ 	bool psr2_sel_fetch_cff_enabled;
+@@ -1834,6 +1833,8 @@ struct intel_dp {
+ 
+ 	/* When we last wrote the OUI for eDP */
+ 	unsigned long last_oui_write;
++
++	bool colorimetry_support;
+ };
+ 
+ enum lspcon_vendor {
 diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
-index 3550cebb44f2..635790ec2fb7 100644
+index 3b2482bf683f..08c48a58aa4d 100644
 --- a/drivers/gpu/drm/i915/display/intel_dp.c
 +++ b/drivers/gpu/drm/i915/display/intel_dp.c
-@@ -2628,36 +2628,26 @@ static void intel_dp_compute_vsc_sdp(struct intel_dp *intel_dp,
+@@ -2622,7 +2622,8 @@ static void intel_dp_compute_vsc_sdp(struct intel_dp *intel_dp,
+ 	if (crtc_state->has_psr)
+ 		return;
+ 
+-	if (!intel_dp_needs_vsc_sdp(crtc_state, conn_state))
++	if (!intel_dp->colorimetry_support ||
++	    !intel_dp_needs_vsc_sdp(crtc_state, conn_state))
+ 		return;
+ 
  	crtc_state->infoframes.enable |= intel_hdmi_infoframe_enable(DP_SDP_VSC);
+@@ -2639,7 +2640,7 @@ void intel_dp_compute_psr_vsc_sdp(struct intel_dp *intel_dp,
  	vsc->sdp_type = DP_SDP_VSC;
  
--	if (crtc_state->has_psr2) {
--		if (intel_dp->colorimetry_support &&
--		    intel_dp_needs_vsc_sdp(crtc_state, conn_state)) {
--			/* [PSR2, +Colorimetry] */
--			intel_dp_compute_vsc_colorimetry(crtc_state, conn_state,
--							 vsc);
--		} else {
--			/*
--			 * [PSR2, -Colorimetry]
--			 * Prepare VSC Header for SU as per eDP 1.4 spec, Table 6-11
--			 * 3D stereo + PSR/PSR2 + Y-coordinate.
--			 */
--			vsc->revision = 0x4;
--			vsc->length = 0xe;
--		}
-+	/* Needs colorimetry */
-+	if (intel_dp_needs_vsc_sdp(crtc_state, conn_state)) {
-+		intel_dp_compute_vsc_colorimetry(crtc_state, conn_state,
-+						 vsc);
-+	} else if (crtc_state->has_psr2) {
-+		/*
-+		 * [PSR2, -Colorimetry]
-+		 * Prepare VSC Header for SU as per eDP 1.4 spec, Table 6-11
-+		 * 3D stereo + PSR/PSR2 + Y-coordinate.
-+		 */
-+		vsc->revision = 0x4;
-+		vsc->length = 0xe;
+ 	if (crtc_state->has_psr2) {
+-		if (intel_dp->psr.colorimetry_support &&
++		if (intel_dp->colorimetry_support &&
+ 		    intel_dp_needs_vsc_sdp(crtc_state, conn_state)) {
+ 			/* [PSR2, +Colorimetry] */
+ 			intel_dp_compute_vsc_colorimetry(crtc_state, conn_state,
+@@ -2654,7 +2655,7 @@ void intel_dp_compute_psr_vsc_sdp(struct intel_dp *intel_dp,
+ 			vsc->length = 0xe;
+ 		}
  	} else if (crtc_state->has_panel_replay) {
--		if (intel_dp->colorimetry_support &&
--		    intel_dp_needs_vsc_sdp(crtc_state, conn_state)) {
--			/* [Panel Replay with colorimetry info] */
--			intel_dp_compute_vsc_colorimetry(crtc_state, conn_state,
--							 vsc);
--		} else {
--			/*
--			 * [Panel Replay without colorimetry info]
--			 * Prepare VSC Header for SU as per DP 2.0 spec, Table 2-223
--			 * VSC SDP supporting 3D stereo + Panel Replay.
--			 */
--			vsc->revision = 0x6;
--			vsc->length = 0x10;
--		}
-+		/*
-+		 * [Panel Replay without colorimetry info]
-+		 * Prepare VSC Header for SU as per DP 2.0 spec, Table 2-223
-+		 * VSC SDP supporting 3D stereo + Panel Replay.
-+		 */
-+		vsc->revision = 0x6;
-+		vsc->length = 0x10;
- 	} else {
- 		/*
- 		 * [PSR1]
+-		if (intel_dp->psr.colorimetry_support &&
++		if (intel_dp->colorimetry_support &&
+ 		    intel_dp_needs_vsc_sdp(crtc_state, conn_state)) {
+ 			/* [Panel Replay with colorimetry info] */
+ 			intel_dp_compute_vsc_colorimetry(crtc_state, conn_state,
+@@ -6527,6 +6528,9 @@ intel_dp_init_connector(struct intel_digital_port *dig_port,
+ 				    "HDCP init failed, skipping.\n");
+ 	}
+ 
++	intel_dp->colorimetry_support =
++		intel_dp_get_colorimetry_status(intel_dp);
++
+ 	intel_dp->frl.is_trained = false;
+ 	intel_dp->frl.trained_rate_gbps = 0;
+ 
+diff --git a/drivers/gpu/drm/i915/display/intel_psr.c b/drivers/gpu/drm/i915/display/intel_psr.c
+index 9d5dc3fb6f20..d9fffc802335 100644
+--- a/drivers/gpu/drm/i915/display/intel_psr.c
++++ b/drivers/gpu/drm/i915/display/intel_psr.c
+@@ -560,11 +560,8 @@ void intel_psr_init_dpcd(struct intel_dp *intel_dp)
+ 	if (intel_dp->psr_dpcd[0])
+ 		_psr_init_dpcd(intel_dp);
+ 
+-	if (intel_dp->psr.sink_psr2_support) {
+-		intel_dp->psr.colorimetry_support =
+-			intel_dp_get_colorimetry_status(intel_dp);
++	if (intel_dp->psr.sink_psr2_support)
+ 		intel_dp_get_su_granularity(intel_dp);
+-	}
+ }
+ 
+ static void hsw_psr_setup_aux(struct intel_dp *intel_dp)
 -- 
 2.34.1
 
