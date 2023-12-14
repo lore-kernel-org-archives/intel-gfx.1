@@ -4,43 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DE229C4167B
-	for <intel-gfx@archiver.kernel.org>; Thu, 14 Dec 2023 11:49:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 322DFC4332F
+	for <intel-gfx@archiver.kernel.org>; Thu, 14 Dec 2023 11:49:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2BE6610E936;
-	Thu, 14 Dec 2023 11:49:15 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 832CD10E93C;
+	Thu, 14 Dec 2023 11:49:16 +0000 (UTC)
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.7])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0115710E804
- for <intel-gfx@lists.freedesktop.org>; Thu, 14 Dec 2023 11:49:01 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4A59310E2C0
+ for <intel-gfx@lists.freedesktop.org>; Thu, 14 Dec 2023 11:49:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1702554542; x=1734090542;
+ t=1702554540; x=1734090540;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=osJ+fcw0ekh6Don5zFWiStJ3ywzAlZWzFHvOv0gE+yo=;
- b=l7I8IEldyEzP7/2Pgauy81AQbosD47I8HCuFyaAbjCVcJKpVDUbeNgp1
- X4zPKKIJyEHnsR+HEFTDx+J0hssTerCA4XZ2h+WUxlpL72oAdOxSE0/cf
- grL4boBcf9ZRNVH8IC87IE+LKsOvGQWXW4rteBBLx1ojbRHrH+TceRUOF
- w5vKVEWDOMdchJc3TiAct6MA4pk/i5qzyhnSho0+hlZLwHblmJJfSGEqc
- TBTa20Y/ihFL2v8ifx402qFwtVGrcJd1bvdO2eIxtupOhCg9Z49tPfeys
- wNCvjs2cCcbHwTdQAjI2JWAUCpiSSRcYQgvmEZVJdhQr2UNip0LY8MP6u Q==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10923"; a="16658699"
-X-IronPort-AV: E=Sophos;i="6.04,275,1695711600"; d="scan'208";a="16658699"
+ bh=2BFbTWUmgqFvE3mEkNN+Fm5rXo231UYVUp1QWSkQh7k=;
+ b=GUJZ+TlpextxA9bo3V1HA9LTDduV8thZnKfD8YjgShBMnLVLrNczul5W
+ Ad1JKoMAmrgITA5ijRBNw6sk8IIdj3JMTBiDL2c2FZPxOVcZmUM4QxiAD
+ 0O3H6DZ4Ae9bE7z6sDhoRsECieeFOJULfnRfDlcIjAjIBo6SJE9g+6aDW
+ aWmk0NINz4ss9f2x+q/qAIw9C+gqNv7rE9Qmem0BGABqdaJI9W8chc8sl
+ 0PdRwqZ2nO1cHLRDOHnJP2tyyWh1KEFELWYavyRF1c4gz/5y6ebgaid1M
+ X6U2PV0ydUJXak1YLoU7bEck2eqgGDQcrhh5dFrxlhAvxvgPIremiS+bp g==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10923"; a="16658696"
+X-IronPort-AV: E=Sophos;i="6.04,275,1695711600"; d="scan'208";a="16658696"
 Received: from fmsmga004.fm.intel.com ([10.253.24.48])
  by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 14 Dec 2023 03:49:02 -0800
+ 14 Dec 2023 03:49:00 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10923"; a="844678897"
-X-IronPort-AV: E=Sophos;i="6.04,275,1695711600"; d="scan'208";a="844678897"
+X-IronPort-AV: E=McAfee;i="6600,9927,10923"; a="844678887"
+X-IronPort-AV: E=Sophos;i="6.04,275,1695711600"; d="scan'208";a="844678887"
 Received: from unknown (HELO jhogande-mobl1.fi.intel.com) ([10.237.66.43])
  by fmsmga004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 14 Dec 2023 03:49:00 -0800
+ 14 Dec 2023 03:48:59 -0800
 From: =?UTF-8?q?Jouni=20H=C3=B6gander?= <jouni.hogander@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Subject: [PATCH 7/7] drm/i915/display: Take care of VSC select field in video
- dip ctl register
-Date: Thu, 14 Dec 2023 13:48:38 +0200
-Message-Id: <20231214114838.1113648-8-jouni.hogander@intel.com>
+Subject: [PATCH 6/7] drm/i915/display: Read PSR configuration before VSC SDP
+Date: Thu, 14 Dec 2023 13:48:37 +0200
+Message-Id: <20231214114838.1113648-7-jouni.hogander@intel.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20231214114838.1113648-1-jouni.hogander@intel.com>
 References: <20231214114838.1113648-1-jouni.hogander@intel.com>
@@ -63,34 +62,35 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-We need to configure VSC Select field in video dip ctl if we want to have
-e.g. colorimetry date in our VSC SDP.
+VSC SDP sending is taken care by PSR HW and it's not enabled in
+VIDEO_DIP_CTL when PSR is enabled. Readback of VSC SDP is depending on
+VSC_SDP being set in intel_crtc_state->infoframes.enabled. In case of PSR
+setting this flag is taken care by PSR code -> read back PSR configuration
+before reading VSC SDP otherwise we get pipeconfig mismatch error.
 
 Signed-off-by: Jouni Högander <jouni.hogander@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_hdmi.c | 8 +++++---
- 1 file changed, 5 insertions(+), 3 deletions(-)
+ drivers/gpu/drm/i915/display/intel_ddi.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_hdmi.c b/drivers/gpu/drm/i915/display/intel_hdmi.c
-index 39e4f5f7c817..eedef8121ff7 100644
---- a/drivers/gpu/drm/i915/display/intel_hdmi.c
-+++ b/drivers/gpu/drm/i915/display/intel_hdmi.c
-@@ -523,10 +523,12 @@ void hsw_write_infoframe(struct intel_encoder *encoder,
- 			       0);
+diff --git a/drivers/gpu/drm/i915/display/intel_ddi.c b/drivers/gpu/drm/i915/display/intel_ddi.c
+index 12a29363e5df..2746655bcb26 100644
+--- a/drivers/gpu/drm/i915/display/intel_ddi.c
++++ b/drivers/gpu/drm/i915/display/intel_ddi.c
+@@ -3941,11 +3941,11 @@ static void intel_ddi_get_config(struct intel_encoder *encoder,
+ 	if (DISPLAY_VER(dev_priv) >= 8)
+ 		bdw_get_trans_port_sync_config(pipe_config);
  
- 	/* Wa_14013475917 */
--	if (IS_DISPLAY_VER(dev_priv, 13, 14) && crtc_state->has_psr && type == DP_SDP_VSC)
--		return;
-+	if (!(IS_DISPLAY_VER(dev_priv, 13, 14) && crtc_state->has_psr && type == DP_SDP_VSC))
-+		val |= hsw_infoframe_enable(type);
++	intel_psr_get_config(encoder, pipe_config);
 +
-+	if (type == DP_SDP_VSC)
-+		val |= VSC_DIP_HW_DATA_SW_HEA;
+ 	intel_read_dp_sdp(encoder, pipe_config, HDMI_PACKET_TYPE_GAMUT_METADATA);
+ 	intel_read_dp_sdp(encoder, pipe_config, DP_SDP_VSC);
  
--	val |= hsw_infoframe_enable(type);
- 	intel_de_write(dev_priv, ctl_reg, val);
- 	intel_de_posting_read(dev_priv, ctl_reg);
+-	intel_psr_get_config(encoder, pipe_config);
+-
+ 	intel_audio_codec_get_config(encoder, pipe_config);
  }
+ 
 -- 
 2.34.1
 
