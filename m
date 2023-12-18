@@ -4,52 +4,55 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D6956C46CA2
-	for <intel-gfx@archiver.kernel.org>; Mon, 18 Dec 2023 18:28:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 46003C46CD3
+	for <intel-gfx@archiver.kernel.org>; Mon, 18 Dec 2023 18:28:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2BCFB10E25A;
+	by gabe.freedesktop.org (Postfix) with ESMTP id CD0D310E25D;
 	Mon, 18 Dec 2023 18:28:26 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [192.55.52.88])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 476E410E1FB
- for <intel-gfx@lists.freedesktop.org>; Mon, 18 Dec 2023 18:27:10 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.55.52.115])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 982FD10E1EC
+ for <intel-gfx@lists.freedesktop.org>; Mon, 18 Dec 2023 18:26:51 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1702924030; x=1734460030;
- h=from:to:cc:subject:in-reply-to:references:date:
- message-id:mime-version;
- bh=TLZWpFLozaqp6zlTAMS3KB10++bFwn6RItdncOud8Ho=;
- b=f62kCAHIruLVX18cNf6uU7JpNZNDEpVapsv5SaTuHbJ7i4A9uaW94klg
- OaElX8nWxtOCVt/Posx817Kuh0tlCRNGFH6jdKmVJii0lcXBK9fJuQh2s
- LWtjBYACI/9SSWKtgAlYd1a19JuTooELEYckG8Acoc9AgvGEFtQGxveLK
- 5pUrLGhIdg2zDX6Od23scgQW9riYbFQwKkzbAidyUuB0eNdFYCXBF8dm5
- /Km13My1T1mopnQCOk2MHOO5dD974I1wYU0wv3kEregQXTDUIjcCyd9EY
- KB1MSXAegozBqXu3XsQSb5LU+QmjGce8O3MD9xL9oxeEShmN0jQVujet+ g==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10928"; a="426661532"
-X-IronPort-AV: E=Sophos;i="6.04,286,1695711600"; d="scan'208";a="426661532"
-Received: from fmsmga004.fm.intel.com ([10.253.24.48])
- by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 18 Dec 2023 08:18:19 -0800
+ t=1702924011; x=1734460011;
+ h=message-id:date:mime-version:subject:to:references:from:
+ in-reply-to:content-transfer-encoding;
+ bh=xvLxsxUh9R6Soex+/dKRH5//q8kD5Bn4C0tNupc6mGw=;
+ b=VMsm+nQOAWpD3QP9QlDOfe9eCEz2tsNw7UMvt3zpSS+QZAwcP57AmB5e
+ PtdpcU8UDaibF+WsHrtEN1vmY7BKeK1X3dJ4dcfLeXEKV07ob6HTYVnY5
+ 7N6SHEg+a9709Pz7YJPWHBU+tm3ZWr7koHZAutLCGQOB9wGFBkeybUx8w
+ /+0e/DNuMEGoElnAcRR9k8+7OZWyrGP/8EiAotlu0bW/fzYIY3xkTks+3
+ 5cTQ+fm7CtKDPqANuSVKG7iWcjDEZ3nfgY2BPgf32uJr59uUJ0tum+UrH
+ mnz027M7V/xTuW+TAsSnbmqJXMUy3yYEc/6N1mDZH1ta7P5iG1QwOfYIk Q==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10927"; a="395232568"
+X-IronPort-AV: E=Sophos;i="6.04,285,1695711600"; d="scan'208";a="395232568"
+Received: from orsmga007.jf.intel.com ([10.7.209.58])
+ by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 18 Dec 2023 04:36:33 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10928"; a="845994901"
-X-IronPort-AV: E=Sophos;i="6.04,286,1695711600"; d="scan'208";a="845994901"
-Received: from ycohe13-mobl.ger.corp.intel.com (HELO localhost)
- ([10.252.33.77])
- by fmsmga004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 18 Dec 2023 08:18:17 -0800
-From: Jani Nikula <jani.nikula@linux.intel.com>
-To: Kai Vehmanen <kai.vehmanen@linux.intel.com>
-Subject: Re: [PATCH 3/6] Revert "ALSA: hda/hdmi: add connect-all quirk for
- ASUSTeK Prime B560M-A"
-In-Reply-To: <alpine.DEB.2.22.394.2312181540440.14041@eliteleevi.tm.intel.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
-References: <20231212180253.2883124-1-kai.vehmanen@linux.intel.com>
- <20231212180253.2883124-4-kai.vehmanen@linux.intel.com>
- <87le9rvfwf.fsf@intel.com>
- <alpine.DEB.2.22.394.2312181540440.14041@eliteleevi.tm.intel.com>
-Date: Mon, 18 Dec 2023 18:18:14 +0200
-Message-ID: <87frzzv60p.fsf@intel.com>
+X-IronPort-AV: E=McAfee;i="6600,9927,10927"; a="768826410"
+X-IronPort-AV: E=Sophos;i="6.04,285,1695711600"; d="scan'208";a="768826410"
+Received: from ahajda-mobl.ger.corp.intel.com (HELO [10.213.7.154])
+ ([10.213.7.154])
+ by orsmga007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 18 Dec 2023 04:36:32 -0800
+Message-ID: <5cee9930-0aa2-4e1b-b6e3-6710e4455e77@intel.com>
+Date: Mon, 18 Dec 2023 13:36:16 +0100
 MIME-Version: 1.0
-Content-Type: text/plain
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 07/15] drm/i915: Fix PTE decode during initial plane
+ readout
+Content-Language: en-US
+To: Ville Syrjala <ville.syrjala@linux.intel.com>,
+ intel-gfx@lists.freedesktop.org
+References: <20231215105929.29568-1-ville.syrjala@linux.intel.com>
+ <20231215105929.29568-8-ville.syrjala@linux.intel.com>
+From: Andrzej Hajda <andrzej.hajda@intel.com>
+Organization: Intel Technology Poland sp. z o.o. - ul. Slowackiego 173, 80-298
+ Gdansk - KRS 101882 - NIP 957-07-52-316
+In-Reply-To: <20231215105929.29568-8-ville.syrjala@linux.intel.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,39 +65,57 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Mon, 18 Dec 2023, Kai Vehmanen <kai.vehmanen@linux.intel.com> wrote:
-> Hi,
->
-> On Mon, 18 Dec 2023, Jani Nikula wrote:
->
->> On Tue, 12 Dec 2023, Kai Vehmanen <kai.vehmanen@linux.intel.com> wrote:
->> > --- a/sound/pci/hda/patch_hdmi.c
->> > +++ b/sound/pci/hda/patch_hdmi.c
->> > @@ -1993,7 +1993,6 @@ static const struct snd_pci_quirk force_connect_list[] = {
->> >  	SND_PCI_QUIRK(0x103c, 0x871a, "HP", 1),
->> >  	SND_PCI_QUIRK(0x103c, 0x8711, "HP", 1),
->> >  	SND_PCI_QUIRK(0x103c, 0x8715, "HP", 1),
->> > -	SND_PCI_QUIRK(0x1043, 0x8694, "ASUS", 1),  /* SKL/KBL + PRIME B560M-A */
->> 
->> So there's no replacement for this commit. Is that correct?
->> 
->> I've rebased topic/core-for-CI on top of v6.7-rc6, and everything else
->> got resolved with the upstream commits but this. I left this one in for
->> now, should I drop it?
->
-> yes, this can be dropped. This was reported in the bug report as one 
-> affected id, but it's not valid and I dropped in the series I sent 
-> upstream. The i915 CI had no failures with this dropped, so seems we are 
-> good to go.
+On 15.12.2023 11:59, Ville Syrjala wrote:
+> From: Ville Syrjälä <ville.syrjala@linux.intel.com>
+> 
+> When multiple pipes are enabled by the BIOS we try to read out each
+> in turn. But we do the readout for the second only after the inherited
+> vma for the first has been rebound into its original place (and thus
+> the PTEs have been rewritten). Unlike the BIOS we set some high caching
+> bits in the PTE on MTL which confuses the readout for the second plane.
+> Filter out the non-address bits from the PTE value appropriately to
+> fix this.
+> 
+> I suppose it might also be possible that the BIOS would already set
+> some caching bits as well, in which case we'd run into this same
+> issue already for the first plane.
+> 
+> TODO:
+> - should abstract the PTE decoding to avoid details leaking all over
+> - should probably do the readout for all the planes before
+>    we touch anything (including the PTEs) so that we truly read
+>    out the BIOS state
+> 
+> Cc: Paz Zcharya <pazz@chromium.org>
+> Signed-off-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
 
-Thanks, done.
+Helper can be useful (but I guess not many users atm).
+The change looks correct anyway.
 
-BR,
-Jani.
+Reviewed-by: Andrzej Hajda <andrzej.hajda@intel.com>
 
--- 
-Jani Nikula, Intel
+Regards
+Andrzej
+
+
+> ---
+>   drivers/gpu/drm/i915/display/intel_plane_initial.c | 2 +-
+>   1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/drivers/gpu/drm/i915/display/intel_plane_initial.c b/drivers/gpu/drm/i915/display/intel_plane_initial.c
+> index a55c09cbd0e4..ffc92b18fcf5 100644
+> --- a/drivers/gpu/drm/i915/display/intel_plane_initial.c
+> +++ b/drivers/gpu/drm/i915/display/intel_plane_initial.c
+> @@ -72,7 +72,7 @@ initial_plane_vma(struct drm_i915_private *i915,
+>   			return NULL;
+>   		}
+>   
+> -		phys_base = pte & I915_GTT_PAGE_MASK;
+> +		phys_base = pte & GEN12_GGTT_PTE_ADDR_MASK;
+>   		mem = i915->mm.regions[INTEL_REGION_LMEM_0];
+>   
+>   		/*
+
