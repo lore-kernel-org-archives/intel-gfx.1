@@ -4,51 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8175FC35274
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D6956C46CA2
 	for <intel-gfx@archiver.kernel.org>; Mon, 18 Dec 2023 18:28:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 05D4A10E212;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2BCFB10E25A;
 	Mon, 18 Dec 2023 18:28:26 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [192.55.52.115])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B40B410E1D8;
- Mon, 18 Dec 2023 18:26:51 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.55.52.88])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 476E410E1FB
+ for <intel-gfx@lists.freedesktop.org>; Mon, 18 Dec 2023 18:27:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1702924011; x=1734460011;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:content-transfer-encoding:in-reply-to;
- bh=TzdFWiBNAuwVCR3VsBKJShUDeiTYi+ArmIN4iuzwbj4=;
- b=F67g2NXVphs6HXUI1yVO/PQYR/T4Zo97yvQHmeLFrcaU7WSacbbE6cyN
- 1Y9D5N53/iDVz1OzMtkdzGyxI6TVEjMJKYe/tPon8lj9/PxlTvEFjROji
- JpVGcg7EtgL+sQ5J/cVOJ+bNV9TJMBXuuzreDZJg49uexmcrrRORKajQx
- s8eDQm1I55qargTVYwgZtqngMt8JweMKQlYKyLghjUGeaW3TMC37khNth
- Bo8dS3vUtNvw9pyzVOaN1bbPi9dOXLWQwIMroGYDDpUxjxKXt5Qw8oDmv
- APhe3j87Kw/bsZSHXN1VkbeaCR/8K1uvuNIiCkevOvlOm85Tgf1A96Csg g==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10927"; a="395234540"
-X-IronPort-AV: E=Sophos;i="6.04,285,1695711600"; d="scan'208";a="395234540"
-Received: from orsmga007.jf.intel.com ([10.7.209.58])
- by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 18 Dec 2023 04:56:07 -0800
+ t=1702924030; x=1734460030;
+ h=from:to:cc:subject:in-reply-to:references:date:
+ message-id:mime-version;
+ bh=TLZWpFLozaqp6zlTAMS3KB10++bFwn6RItdncOud8Ho=;
+ b=f62kCAHIruLVX18cNf6uU7JpNZNDEpVapsv5SaTuHbJ7i4A9uaW94klg
+ OaElX8nWxtOCVt/Posx817Kuh0tlCRNGFH6jdKmVJii0lcXBK9fJuQh2s
+ LWtjBYACI/9SSWKtgAlYd1a19JuTooELEYckG8Acoc9AgvGEFtQGxveLK
+ 5pUrLGhIdg2zDX6Od23scgQW9riYbFQwKkzbAidyUuB0eNdFYCXBF8dm5
+ /Km13My1T1mopnQCOk2MHOO5dD974I1wYU0wv3kEregQXTDUIjcCyd9EY
+ KB1MSXAegozBqXu3XsQSb5LU+QmjGce8O3MD9xL9oxeEShmN0jQVujet+ g==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10928"; a="426661532"
+X-IronPort-AV: E=Sophos;i="6.04,286,1695711600"; d="scan'208";a="426661532"
+Received: from fmsmga004.fm.intel.com ([10.253.24.48])
+ by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 18 Dec 2023 08:18:19 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10927"; a="768832440"
-X-IronPort-AV: E=Sophos;i="6.04,285,1695711600"; d="scan'208";a="768832440"
-Received: from stinkpipe.fi.intel.com (HELO stinkbox) ([10.237.72.74])
- by orsmga007.jf.intel.com with SMTP; 18 Dec 2023 04:56:04 -0800
-Received: by stinkbox (sSMTP sendmail emulation);
- Mon, 18 Dec 2023 14:56:04 +0200
-Date: Mon, 18 Dec 2023 14:56:04 +0200
-From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
-To: Javier Martinez Canillas <javierm@redhat.com>
-Subject: Re: [PATCH] drm/mm: Allow CONFIG_DRM_MM_DEBUG with DRM=m
-Message-ID: <ZYBBZNAab1fyKPoJ@intel.com>
-References: <20231215111129.9559-1-ville.syrjala@linux.intel.com>
- <87o7ern1gn.fsf@minerva.mail-host-address-is-not-set>
+X-IronPort-AV: E=McAfee;i="6600,9927,10928"; a="845994901"
+X-IronPort-AV: E=Sophos;i="6.04,286,1695711600"; d="scan'208";a="845994901"
+Received: from ycohe13-mobl.ger.corp.intel.com (HELO localhost)
+ ([10.252.33.77])
+ by fmsmga004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 18 Dec 2023 08:18:17 -0800
+From: Jani Nikula <jani.nikula@linux.intel.com>
+To: Kai Vehmanen <kai.vehmanen@linux.intel.com>
+Subject: Re: [PATCH 3/6] Revert "ALSA: hda/hdmi: add connect-all quirk for
+ ASUSTeK Prime B560M-A"
+In-Reply-To: <alpine.DEB.2.22.394.2312181540440.14041@eliteleevi.tm.intel.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
+References: <20231212180253.2883124-1-kai.vehmanen@linux.intel.com>
+ <20231212180253.2883124-4-kai.vehmanen@linux.intel.com>
+ <87le9rvfwf.fsf@intel.com>
+ <alpine.DEB.2.22.394.2312181540440.14041@eliteleevi.tm.intel.com>
+Date: Mon, 18 Dec 2023 18:18:14 +0200
+Message-ID: <87frzzv60p.fsf@intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <87o7ern1gn.fsf@minerva.mail-host-address-is-not-set>
-X-Patchwork-Hint: comment
+Content-Type: text/plain
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,48 +62,39 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
+Cc: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Fri, Dec 15, 2023 at 12:34:48PM +0100, Javier Martinez Canillas wrote:
-> Ville Syrjala <ville.syrjala@linux.intel.com> writes:
-> 
-> Hello Ville,
-> 
-> > From: Ville Syrjälä <ville.syrjala@linux.intel.com>
-> >
-> > The original rationale for
-> > commit cd456f8d06d2 ("drm: Restrict stackdepot usage to builtin drm.ko")
-> > was that depot_save_stack() (which is what we used back then)
-> > wasn't exported. stack_depot_save() (which is what we use now) is
-> > exported however, so relax the dependency allow CONFIG_DRM_MM_DEBUG
-> > with DRM=m.
-> >
-> > Signed-off-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
-> > ---
-> >  drivers/gpu/drm/Kconfig | 2 +-
-> >  1 file changed, 1 insertion(+), 1 deletion(-)
-> >
-> > diff --git a/drivers/gpu/drm/Kconfig b/drivers/gpu/drm/Kconfig
-> > index 31cfe2c2a2af..4b8b8f8a0e72 100644
-> > --- a/drivers/gpu/drm/Kconfig
-> > +++ b/drivers/gpu/drm/Kconfig
-> > @@ -42,7 +42,7 @@ config DRM_MIPI_DSI
-> >  config DRM_DEBUG_MM
-> >  	bool "Insert extra checks and debug info into the DRM range managers"
-> >  	default n
-> > -	depends on DRM=y
-> > +	depends on DRM
-> >  	depends on STACKTRACE_SUPPORT
-> >  	select STACKDEPOT
-> >  	help
-> > -- 
-> 
-> Acked-by: Javier Martinez Canillas <javierm@redhat.com>
+On Mon, 18 Dec 2023, Kai Vehmanen <kai.vehmanen@linux.intel.com> wrote:
+> Hi,
+>
+> On Mon, 18 Dec 2023, Jani Nikula wrote:
+>
+>> On Tue, 12 Dec 2023, Kai Vehmanen <kai.vehmanen@linux.intel.com> wrote:
+>> > --- a/sound/pci/hda/patch_hdmi.c
+>> > +++ b/sound/pci/hda/patch_hdmi.c
+>> > @@ -1993,7 +1993,6 @@ static const struct snd_pci_quirk force_connect_list[] = {
+>> >  	SND_PCI_QUIRK(0x103c, 0x871a, "HP", 1),
+>> >  	SND_PCI_QUIRK(0x103c, 0x8711, "HP", 1),
+>> >  	SND_PCI_QUIRK(0x103c, 0x8715, "HP", 1),
+>> > -	SND_PCI_QUIRK(0x1043, 0x8694, "ASUS", 1),  /* SKL/KBL + PRIME B560M-A */
+>> 
+>> So there's no replacement for this commit. Is that correct?
+>> 
+>> I've rebased topic/core-for-CI on top of v6.7-rc6, and everything else
+>> got resolved with the upstream commits but this. I left this one in for
+>> now, should I drop it?
+>
+> yes, this can be dropped. This was reported in the bug report as one 
+> affected id, but it's not valid and I dropped in the series I sent 
+> upstream. The i915 CI had no failures with this dropped, so seems we are 
+> good to go.
 
-Thanks. Pushed to drm-misc-next.
+Thanks, done.
+
+BR,
+Jani.
 
 -- 
-Ville Syrjälä
-Intel
+Jani Nikula, Intel
