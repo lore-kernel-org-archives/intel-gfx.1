@@ -4,43 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7021CC35274
-	for <intel-gfx@archiver.kernel.org>; Mon, 18 Dec 2023 18:28:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A46A5C35274
+	for <intel-gfx@archiver.kernel.org>; Mon, 18 Dec 2023 18:30:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DF6BC10E1FB;
-	Mon, 18 Dec 2023 18:28:35 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [192.55.52.88])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 213A210E212
- for <intel-gfx@lists.freedesktop.org>; Mon, 18 Dec 2023 18:27:10 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DF47E10E28C;
+	Mon, 18 Dec 2023 18:30:24 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.55.52.93])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 30DD510E259
+ for <intel-gfx@lists.freedesktop.org>; Mon, 18 Dec 2023 18:30:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1702924030; x=1734460030;
+ t=1702924224; x=1734460224;
  h=from:to:cc:subject:date:message-id:mime-version:
  content-transfer-encoding;
- bh=d8ViJ5vEMfpjWW0SPGJFI74BmzJd0M1dtHC3r6XVU0k=;
- b=PFwaykp2PusaJ+VPG0+Els9I0MJSyxwomy0/5pKaMq0yYF5jR0nWYgw+
- dsrheO9DDLqkFBBAUl9o4/7SbWs+D/E4SNar/AtQjCrkLio0yDAmBvejC
- pRw0sWh7MI/oV++yJWDeagErULzSXSyt5f0deOKnXtc4VXeSQN9hxiF/t
- lVVORAq2ECemZp5ZRQp9B2c3qCrQGd5LOlLzw4xRSJwhb4nOVRUdxvmU0
- uOxI7t49GAi2+vJetGscMaHY8+Nn5xIZrrupl/vpLGCMmQuHVp9cfniTN
- xEGzdXEsyVCAuW4XnKDvGotvYav1ztKKuf6jnzYt8qgdq3h6OVTjzfXyX Q==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10927"; a="426624794"
-X-IronPort-AV: E=Sophos;i="6.04,285,1695711600"; d="scan'208";a="426624794"
-Received: from orviesa001.jf.intel.com ([10.64.159.141])
- by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 18 Dec 2023 03:08:26 -0800
+ bh=2izMpW5m+roUc8UEku96tfP3OTHPWHcX/ihBwV2U1qE=;
+ b=fEs9XUjC14k/n+6lkteKYxPoWdSH4zfvw0OLHEiOXthor4vcU+JtlvqF
+ xNnJonWoiTFd8hJLVTG3i15LvZCu1f3nry9XwtCGI5uZk9/aCiDGSx2AX
+ zM0dCPrf0KYk2wlyLsv29UlPcvcYIT46n3uYLk5Nj3EXCs0YJ9gxv00UY
+ rjk7yldYtGC08bG1T2ouUnxNcCEBqUqnGgODphdDhkIzDaldg+4DmKp20
+ Ed7xF5YuWjD7IFehgpnVtamvQUeHjIuuyGYbrDbTsqtWy0ZpjCLO0QxjO
+ l47gQ7P+T9X5G80QuTVU4q8WA6TIUSBi0e3qwQHs12in6X/In+Sig83Xn g==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10928"; a="392714103"
+X-IronPort-AV: E=Sophos;i="6.04,286,1695711600"; d="scan'208";a="392714103"
+Received: from fmsmga007.fm.intel.com ([10.253.24.52])
+ by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 18 Dec 2023 09:50:18 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.04,285,1695711600"; d="scan'208";a="23734909"
-Received: from haridhar-ms-7d25.iind.intel.com ([10.190.238.53])
- by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 18 Dec 2023 03:08:25 -0800
-From: Haridhar Kalvala <haridhar.kalvala@intel.com>
+X-IronPort-AV: E=McAfee;i="6600,9927,10928"; a="779176562"
+X-IronPort-AV: E=Sophos;i="6.04,286,1695711600"; d="scan'208";a="779176562"
+Received: from etrunovx-mobl.ger.corp.intel.com (HELO
+ jhogande-mobl1.intel.com) ([10.249.35.24])
+ by fmsmga007-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 18 Dec 2023 09:50:16 -0800
+From: =?UTF-8?q?Jouni=20H=C3=B6gander?= <jouni.hogander@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Subject: [PATCH] drm/i915/xelpg: Add fake PCH for xelpg
-Date: Mon, 18 Dec 2023 16:33:13 +0530
-Message-Id: <20231218110313.1233745-1-haridhar.kalvala@intel.com>
-X-Mailer: git-send-email 2.25.1
+Subject: [PATCH 0/7] Early Transport for Panel Replay and PSR
+Date: Mon, 18 Dec 2023 19:49:57 +0200
+Message-Id: <20231218175004.52875-1-jouni.hogander@intel.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
 Content-Transfer-Encoding: 8bit
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -54,196 +58,38 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: matthew.d.roper@intel.com
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Correct the implementation trying to detect MTL PCH with
-the MTL fake PCH id.
+This patch set is implementing driver support for selective update
+region early transport for Panel Replay and PSR on Intel hardware.
 
-On MTL, both the North Display (NDE) and South Display (SDE) functionality
-reside on the same die (the SoC die in this case), unlike many past
-platforms where the SDE was on a separate PCH die. The code is (badly)
-structured today in a way that assumes the SDE is always on the PCH for
-modern platforms, so on platforms where we don't actually need to identify
-the PCH to figure out how the SDE behaves (i.e., all DG1/2 GPUs as well as
-MTL and LNL),we've been assigning a "fake PCH" as a quickhack that allows
-us to avoid restructuring a bunch of the code.we've been assigning a
-"fake PCH" as a quick hack that allows us to avoid restructuring a bunch
-of the code.
+On Intel hardware selective update area has to cover cursor fully if
+selective update region early transport is enabled. This is taken care
+in these patches by aligning selective update area after calulation to
+cover the cursor fully if needed.
 
-Signed-off-by: Haridhar Kalvala <haridhar.kalvala@intel.com>
----
- drivers/gpu/drm/i915/display/intel_backlight.c   |  2 +-
- drivers/gpu/drm/i915/display/intel_cdclk.c       |  2 +-
- drivers/gpu/drm/i915/display/intel_display_irq.c |  2 +-
- drivers/gpu/drm/i915/display/intel_gmbus.c       |  6 ++----
- drivers/gpu/drm/i915/display/intel_hotplug_irq.c |  7 +++----
- drivers/gpu/drm/i915/display/intel_pps.c         |  2 +-
- drivers/gpu/drm/i915/soc/intel_pch.c             | 12 +++++++-----
- drivers/gpu/drm/i915/soc/intel_pch.h             |  4 ++--
- 8 files changed, 18 insertions(+), 19 deletions(-)
+Last patch in the set is disabling the feature by default as
+validating the feature is currently incomplete. 
 
-diff --git a/drivers/gpu/drm/i915/display/intel_backlight.c b/drivers/gpu/drm/i915/display/intel_backlight.c
-index 612d4cd9dacb..696ae59874a9 100644
---- a/drivers/gpu/drm/i915/display/intel_backlight.c
-+++ b/drivers/gpu/drm/i915/display/intel_backlight.c
-@@ -1465,7 +1465,7 @@ static bool cnp_backlight_controller_is_valid(struct drm_i915_private *i915, int
- 
- 	if (controller == 1 &&
- 	    INTEL_PCH_TYPE(i915) >= PCH_ICP &&
--	    INTEL_PCH_TYPE(i915) < PCH_MTP)
-+	    INTEL_PCH_TYPE(i915) <= PCH_ADP)
- 		return intel_de_read(i915, SOUTH_CHICKEN1) & ICP_SECOND_PPS_IO_SELECT;
- 
- 	return true;
-diff --git a/drivers/gpu/drm/i915/display/intel_cdclk.c b/drivers/gpu/drm/i915/display/intel_cdclk.c
-index c985ebb6831a..2e6e55d3e885 100644
---- a/drivers/gpu/drm/i915/display/intel_cdclk.c
-+++ b/drivers/gpu/drm/i915/display/intel_cdclk.c
-@@ -3469,7 +3469,7 @@ u32 intel_read_rawclk(struct drm_i915_private *dev_priv)
- 
- 	if (INTEL_PCH_TYPE(dev_priv) >= PCH_DG1)
- 		freq = dg1_rawclk(dev_priv);
--	else if (INTEL_PCH_TYPE(dev_priv) >= PCH_MTP)
-+	else if (INTEL_PCH_TYPE(dev_priv) >= PCH_MTL)
- 		/*
- 		 * MTL always uses a 38.4 MHz rawclk.  The bspec tells us
- 		 * "RAWCLK_FREQ defaults to the values for 38.4 and does
-diff --git a/drivers/gpu/drm/i915/display/intel_display_irq.c b/drivers/gpu/drm/i915/display/intel_display_irq.c
-index a7d8f3fc98de..e318e24d1efd 100644
---- a/drivers/gpu/drm/i915/display/intel_display_irq.c
-+++ b/drivers/gpu/drm/i915/display/intel_display_irq.c
-@@ -986,7 +986,7 @@ static void gen8_read_and_ack_pch_irqs(struct drm_i915_private *i915, u32 *pch_i
- 	 * their flags both in the PICA and SDE IIR.
- 	 */
- 	if (*pch_iir & SDE_PICAINTERRUPT) {
--		drm_WARN_ON(&i915->drm, INTEL_PCH_TYPE(i915) < PCH_MTP);
-+		drm_WARN_ON(&i915->drm, INTEL_PCH_TYPE(i915) <= PCH_ADP);
- 
- 		pica_ier = intel_de_rmw(i915, PICAINTERRUPT_IER, ~0, 0);
- 		*pica_iir = intel_de_read(i915, PICAINTERRUPT_IIR);
-diff --git a/drivers/gpu/drm/i915/display/intel_gmbus.c b/drivers/gpu/drm/i915/display/intel_gmbus.c
-index 40d7b6f3f489..2d9c740ba17e 100644
---- a/drivers/gpu/drm/i915/display/intel_gmbus.c
-+++ b/drivers/gpu/drm/i915/display/intel_gmbus.c
-@@ -155,7 +155,8 @@ static const struct gmbus_pin *get_gmbus_pin(struct drm_i915_private *i915,
- 	const struct gmbus_pin *pins;
- 	size_t size;
- 
--	if (INTEL_PCH_TYPE(i915) >= PCH_LNL) {
-+	if ((INTEL_PCH_TYPE(i915) >= PCH_LNL) ||
-+	    (INTEL_PCH_TYPE(i915) >= PCH_MTL)) {
- 		pins = gmbus_pins_mtp;
- 		size = ARRAY_SIZE(gmbus_pins_mtp);
- 	} else if (INTEL_PCH_TYPE(i915) >= PCH_DG2) {
-@@ -164,9 +165,6 @@ static const struct gmbus_pin *get_gmbus_pin(struct drm_i915_private *i915,
- 	} else if (INTEL_PCH_TYPE(i915) >= PCH_DG1) {
- 		pins = gmbus_pins_dg1;
- 		size = ARRAY_SIZE(gmbus_pins_dg1);
--	} else if (INTEL_PCH_TYPE(i915) >= PCH_MTP) {
--		pins = gmbus_pins_mtp;
--		size = ARRAY_SIZE(gmbus_pins_mtp);
- 	} else if (INTEL_PCH_TYPE(i915) >= PCH_ICP) {
- 		pins = gmbus_pins_icp;
- 		size = ARRAY_SIZE(gmbus_pins_icp);
-diff --git a/drivers/gpu/drm/i915/display/intel_hotplug_irq.c b/drivers/gpu/drm/i915/display/intel_hotplug_irq.c
-index 04f62f27ad74..63f697383bf3 100644
---- a/drivers/gpu/drm/i915/display/intel_hotplug_irq.c
-+++ b/drivers/gpu/drm/i915/display/intel_hotplug_irq.c
-@@ -163,12 +163,11 @@ static void intel_hpd_init_pins(struct drm_i915_private *dev_priv)
- 	    (!HAS_PCH_SPLIT(dev_priv) || HAS_PCH_NOP(dev_priv)))
- 		return;
- 
--	if (INTEL_PCH_TYPE(dev_priv) >= PCH_LNL)
-+	if ((INTEL_PCH_TYPE(dev_priv) >= PCH_LNL) ||
-+	    (INTEL_PCH_TYPE(dev_priv) >= PCH_MTL))
- 		hpd->pch_hpd = hpd_mtp;
- 	else if (INTEL_PCH_TYPE(dev_priv) >= PCH_DG1)
- 		hpd->pch_hpd = hpd_sde_dg1;
--	else if (INTEL_PCH_TYPE(dev_priv) >= PCH_MTP)
--		hpd->pch_hpd = hpd_mtp;
- 	else if (INTEL_PCH_TYPE(dev_priv) >= PCH_ICP)
- 		hpd->pch_hpd = hpd_icp;
- 	else if (HAS_PCH_CNP(dev_priv) || HAS_PCH_SPT(dev_priv))
-@@ -1139,7 +1138,7 @@ static void xelpdp_hpd_irq_setup(struct drm_i915_private *i915)
- 
- 	if (INTEL_PCH_TYPE(i915) >= PCH_LNL)
- 		xe2lpd_sde_hpd_irq_setup(i915);
--	else if (INTEL_PCH_TYPE(i915) >= PCH_MTP)
-+	else if (INTEL_PCH_TYPE(i915) >= PCH_MTL)
- 		mtp_hpd_irq_setup(i915);
- }
- 
-diff --git a/drivers/gpu/drm/i915/display/intel_pps.c b/drivers/gpu/drm/i915/display/intel_pps.c
-index a8fa3a20990e..2d65a538f83e 100644
---- a/drivers/gpu/drm/i915/display/intel_pps.c
-+++ b/drivers/gpu/drm/i915/display/intel_pps.c
-@@ -366,7 +366,7 @@ static bool intel_pps_is_valid(struct intel_dp *intel_dp)
- 
- 	if (intel_dp->pps.pps_idx == 1 &&
- 	    INTEL_PCH_TYPE(i915) >= PCH_ICP &&
--	    INTEL_PCH_TYPE(i915) < PCH_MTP)
-+	    INTEL_PCH_TYPE(i915) <= PCH_ADP)
- 		return intel_de_read(i915, SOUTH_CHICKEN1) & ICP_SECOND_PPS_IO_SELECT;
- 
- 	return true;
-diff --git a/drivers/gpu/drm/i915/soc/intel_pch.c b/drivers/gpu/drm/i915/soc/intel_pch.c
-index 240beafb38ed..f693c1ffbeee 100644
---- a/drivers/gpu/drm/i915/soc/intel_pch.c
-+++ b/drivers/gpu/drm/i915/soc/intel_pch.c
-@@ -140,11 +140,6 @@ intel_pch_type(const struct drm_i915_private *dev_priv, unsigned short id)
- 		drm_WARN_ON(&dev_priv->drm, !IS_ALDERLAKE_S(dev_priv) &&
- 			    !IS_ALDERLAKE_P(dev_priv));
- 		return PCH_ADP;
--	case INTEL_PCH_MTP_DEVICE_ID_TYPE:
--	case INTEL_PCH_MTP2_DEVICE_ID_TYPE:
--		drm_dbg_kms(&dev_priv->drm, "Found Meteor Lake PCH\n");
--		drm_WARN_ON(&dev_priv->drm, !IS_METEORLAKE(dev_priv));
--		return PCH_MTP;
- 	default:
- 		return PCH_NONE;
- 	}
-@@ -225,6 +220,13 @@ void intel_detect_pch(struct drm_i915_private *dev_priv)
- 	if (DISPLAY_VER(dev_priv) >= 20) {
- 		dev_priv->pch_type = PCH_LNL;
- 		return;
-+	} else if (IS_METEORLAKE(dev_priv)) {
-+		/*
-+		 * Both north display and south display are on the SoC die.
-+		 * The real PCH is uninvolved in display.
-+		 */
-+		dev_priv->pch_type = PCH_MTL;
-+		return;
- 	} else if (IS_DG2(dev_priv)) {
- 		dev_priv->pch_type = PCH_DG2;
- 		return;
-diff --git a/drivers/gpu/drm/i915/soc/intel_pch.h b/drivers/gpu/drm/i915/soc/intel_pch.h
-index 1b03ea60a7a8..b044bb0a77ae 100644
---- a/drivers/gpu/drm/i915/soc/intel_pch.h
-+++ b/drivers/gpu/drm/i915/soc/intel_pch.h
-@@ -25,11 +25,11 @@ enum intel_pch {
- 	PCH_ICP,	/* Ice Lake/Jasper Lake PCH */
- 	PCH_TGP,	/* Tiger Lake/Mule Creek Canyon PCH */
- 	PCH_ADP,	/* Alder Lake PCH */
--	PCH_MTP,	/* Meteor Lake PCH */
- 
- 	/* Fake PCHs, functionality handled on the same PCI dev */
- 	PCH_DG1 = 1024,
- 	PCH_DG2,
-+	PCH_MTL,
- 	PCH_LNL,
- };
- 
-@@ -68,7 +68,7 @@ enum intel_pch {
- #define INTEL_PCH_TYPE(dev_priv)		((dev_priv)->pch_type)
- #define INTEL_PCH_ID(dev_priv)			((dev_priv)->pch_id)
- #define HAS_PCH_LNL(dev_priv)			(INTEL_PCH_TYPE(dev_priv) == PCH_LNL)
--#define HAS_PCH_MTP(dev_priv)			(INTEL_PCH_TYPE(dev_priv) == PCH_MTP)
-+#define HAS_PCH_MTP(dev_priv)			(INTEL_PCH_TYPE(dev_priv) == PCH_MTL)
- #define HAS_PCH_DG2(dev_priv)			(INTEL_PCH_TYPE(dev_priv) == PCH_DG2)
- #define HAS_PCH_ADP(dev_priv)			(INTEL_PCH_TYPE(dev_priv) == PCH_ADP)
- #define HAS_PCH_DG1(dev_priv)			(INTEL_PCH_TYPE(dev_priv) == PCH_DG1)
+Jouni Högander (7):
+  drm: Add eDP 1.5 early transport definition
+  drm/i915/psr: Extend SU area to cover cursor fully if needed
+  drm/i915/psr: Carry su area in crtc_state
+  drm/i915/psr: Calculate and configure CUR_POS_ERLY_TPT
+  drm/i915/psr: Configure PIPE_SRCSZ_ERLY_TPT for psr2 early transport
+  drm/i915/psr: Enable psr2 early transport as possible
+  drm/i915/psr: Disable early transport by default
+
+ drivers/gpu/drm/i915/display/intel_cursor.c   |  32 +++--
+ drivers/gpu/drm/i915/display/intel_display.c  |  10 ++
+ .../drm/i915/display/intel_display_types.h    |  18 +--
+ drivers/gpu/drm/i915/display/intel_psr.c      | 113 ++++++++++++++----
+ drivers/gpu/drm/i915/display/intel_psr_regs.h |   6 +
+ drivers/gpu/drm/i915/i915_reg.h               |   2 +
+ include/drm/display/drm_dp.h                  |   1 +
+ 7 files changed, 144 insertions(+), 38 deletions(-)
+
 -- 
-2.25.1
+2.34.1
 
