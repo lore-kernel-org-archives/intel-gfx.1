@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E1682C46CA2
-	for <intel-gfx@archiver.kernel.org>; Mon, 18 Dec 2023 18:30:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1DE62C46CD3
+	for <intel-gfx@archiver.kernel.org>; Mon, 18 Dec 2023 18:30:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 439E710E36C;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 90A1610E2CC;
 	Mon, 18 Dec 2023 18:30:25 +0000 (UTC)
 Received: from mgamail.intel.com (mgamail.intel.com [192.55.52.93])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5011710E37D;
- Mon, 18 Dec 2023 18:30:24 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 770C310E259
+ for <intel-gfx@lists.freedesktop.org>; Mon, 18 Dec 2023 18:30:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
  t=1702924224; x=1734460224;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=tn96S0eZ3dcb7iDVE5QpZLLWb2DTkhiEreY4SwFirIc=;
- b=k6l3Wz4F0IzULgopH9WEoXcG3w7q5NuZrcsJXciy2P5jy12dt6yWJ6fL
- OxqoOG+2sExJJbohAK4EOAJAHYsczQ9gU6xN0VnEcFTE2FaC4nIrnGzeb
- UOhRQOlhTDyFJ2yYJCGJ9AMWqkju223AFv4mqBWrhC4Q2LF4uFxSl9MiC
- FdXB2/FR30n/bb12yj0uMrg4EDAIwjHNb87K1HChZb0g9CYB9yyFqUfTI
- 6dYIPEKkTzgyoqDcFBAYTIWXR7fGOGkVQ61LlmzjIDp/SUsAwnKtV6A3f
- 8zYUl6TvnLMeVAEgMqdqDjnpIpUFMs2Kkz+D/AsoaZpvzL4f0XNl3WM9V g==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10928"; a="392714111"
-X-IronPort-AV: E=Sophos;i="6.04,286,1695711600"; d="scan'208";a="392714111"
+ bh=6FH/tqGd6BorXNvO+HiubTxs+UK2EOnh1OcS/oj5GJ8=;
+ b=bpCXtjcVEScCspGIuHhgHVM5nEL0nMB8ZHcL1GEOwSstmOdURKOP/AcX
+ mdygIBS0wQS5FAUBjQ8jDsGEKPHPWQQSiqWzxFKFfReF83Dmozo8CgDB0
+ zex7rUXHQQomDYDKKz4Yqd0VM8fhH3o67gUB6iRMregRTpel5Ek3cZbJ5
+ r4I4HF9mgbK1hblc/AaxIaxL54mW/4TA3OxvZ7Hk+JLPiVMHcaIi3x1Zz
+ CNVU4NiPj+ptCTOtvWKWGdxqAhD1uI8zqcTISyjM11qovqVwUOOhDjILr
+ RKWhsEbhziaIGfqU1RMM0+NrPwjQ6gAYWMwRpWDSBVsVs2ISJj1JUj2YJ g==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10928"; a="392714131"
+X-IronPort-AV: E=Sophos;i="6.04,286,1695711600"; d="scan'208";a="392714131"
 Received: from fmsmga007.fm.intel.com ([10.253.24.52])
  by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 18 Dec 2023 09:50:20 -0800
+ 18 Dec 2023 09:50:25 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10928"; a="779176569"
-X-IronPort-AV: E=Sophos;i="6.04,286,1695711600"; d="scan'208";a="779176569"
+X-IronPort-AV: E=McAfee;i="6600,9927,10928"; a="779176589"
+X-IronPort-AV: E=Sophos;i="6.04,286,1695711600"; d="scan'208";a="779176589"
 Received: from etrunovx-mobl.ger.corp.intel.com (HELO
  jhogande-mobl1.intel.com) ([10.249.35.24])
  by fmsmga007-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 18 Dec 2023 09:50:18 -0800
+ 18 Dec 2023 09:50:24 -0800
 From: =?UTF-8?q?Jouni=20H=C3=B6gander?= <jouni.hogander@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Subject: [PATCH 1/7] drm: Add eDP 1.5 early transport definition
-Date: Mon, 18 Dec 2023 19:49:58 +0200
-Message-Id: <20231218175004.52875-2-jouni.hogander@intel.com>
+Subject: [PATCH 4/7] drm/i915/psr: Calculate and configure CUR_POS_ERLY_TPT
+Date: Mon, 18 Dec 2023 19:50:01 +0200
+Message-Id: <20231218175004.52875-5-jouni.hogander@intel.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20231218175004.52875-1-jouni.hogander@intel.com>
 References: <20231218175004.52875-1-jouni.hogander@intel.com>
@@ -60,31 +60,119 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: dri-devel@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Add DP_PSR_ENABLE_SU_REGION_ET to enable panel early transport.
+New register CUR_POS_ERLY_TPT related to early transport is
+supposed to be configured when early transport is in use.
 
-Cc: dri-devel@lists.freedesktop.org
+This register is used to configure cursor vertical postion
+from beginning of selective update area.
+
+Bspec: 68927
 
 Signed-off-by: Jouni Högander <jouni.hogander@intel.com>
 ---
- include/drm/display/drm_dp.h | 1 +
- 1 file changed, 1 insertion(+)
+ drivers/gpu/drm/i915/display/intel_cursor.c | 32 ++++++++++++++++-----
+ drivers/gpu/drm/i915/i915_reg.h             |  2 ++
+ 2 files changed, 27 insertions(+), 7 deletions(-)
 
-diff --git a/include/drm/display/drm_dp.h b/include/drm/display/drm_dp.h
-index 3731828825bd..281afff6ee4e 100644
---- a/include/drm/display/drm_dp.h
-+++ b/include/drm/display/drm_dp.h
-@@ -718,6 +718,7 @@
- # define DP_PSR_SU_REGION_SCANLINE_CAPTURE	BIT(4) /* eDP 1.4a */
- # define DP_PSR_IRQ_HPD_WITH_CRC_ERRORS		BIT(5) /* eDP 1.4a */
- # define DP_PSR_ENABLE_PSR2			BIT(6) /* eDP 1.4a */
-+# define DP_PSR_ENABLE_SU_REGION_ET             BIT(7) /* eDP 1.5 */
+diff --git a/drivers/gpu/drm/i915/display/intel_cursor.c b/drivers/gpu/drm/i915/display/intel_cursor.c
+index 926e2de00eb5..ecff90e233f0 100644
+--- a/drivers/gpu/drm/i915/display/intel_cursor.c
++++ b/drivers/gpu/drm/i915/display/intel_cursor.c
+@@ -47,12 +47,23 @@ static u32 intel_cursor_base(const struct intel_plane_state *plane_state)
+ 	return base + plane_state->view.color_plane[0].offset;
+ }
  
- #define DP_ADAPTER_CTRL			    0x1a0
- # define DP_ADAPTER_CTRL_FORCE_LOAD_SENSE   (1 << 0)
+-static u32 intel_cursor_position(const struct intel_plane_state *plane_state)
++static u32 intel_cursor_position(const struct intel_crtc_state *crtc_state,
++				 const struct intel_plane_state *plane_state,
++				 bool early_tpt)
+ {
+ 	int x = plane_state->uapi.dst.x1;
+ 	int y = plane_state->uapi.dst.y1;
+ 	u32 pos = 0;
+ 
++	/*
++	 * Formula from Bspec:
++	 * MAX(-1 * <Cursor vertical size from CUR_CTL base on cursor mode
++	 * select setting> + 1, CUR_POS Y Position - Update region Y position
++	 */
++	if (early_tpt)
++		y = max(-1 * drm_rect_height(&plane_state->uapi.dst) + 1,
++			y - crtc_state->psr2_su_area.y1);
++
+ 	if (x < 0) {
+ 		pos |= CURSOR_POS_X_SIGN;
+ 		x = -x;
+@@ -274,7 +285,7 @@ static void i845_cursor_update_arm(struct intel_plane *plane,
+ 		size = CURSOR_HEIGHT(height) | CURSOR_WIDTH(width);
+ 
+ 		base = intel_cursor_base(plane_state);
+-		pos = intel_cursor_position(plane_state);
++		pos = intel_cursor_position(crtc_state, plane_state, false);
+ 	}
+ 
+ 	/* On these chipsets we can only modify the base/size/stride
+@@ -503,17 +514,24 @@ static void i9xx_cursor_update_sel_fetch_arm(struct intel_plane *plane,
+ 					     const struct intel_crtc_state *crtc_state,
+ 					     const struct intel_plane_state *plane_state)
+ {
+-	struct drm_i915_private *i915 = to_i915(plane->base.dev);
++	struct drm_i915_private *dev_priv = to_i915(plane->base.dev);
+ 	enum pipe pipe = plane->pipe;
+ 
+ 	if (!crtc_state->enable_psr2_sel_fetch)
+ 		return;
+ 
+-	if (drm_rect_height(&plane_state->psr2_sel_fetch_area) > 0)
+-		intel_de_write_fw(i915, PLANE_SEL_FETCH_CTL(pipe, plane->id),
++	if (drm_rect_height(&plane_state->psr2_sel_fetch_area) > 0) {
++		if (crtc_state->enable_psr2_su_region_et) {
++			u32 val = intel_cursor_position(crtc_state, plane_state,
++				true);
++			intel_de_write_fw(dev_priv, CURPOS_ERLY_TPT(pipe), val);
++		}
++
++		intel_de_write_fw(dev_priv, PLANE_SEL_FETCH_CTL(pipe, plane->id),
+ 				  plane_state->ctl);
+-	else
++	} else {
+ 		i9xx_cursor_disable_sel_fetch_arm(plane, crtc_state);
++	}
+ }
+ 
+ /* TODO: split into noarm+arm pair */
+@@ -536,7 +554,7 @@ static void i9xx_cursor_update_arm(struct intel_plane *plane,
+ 			fbc_ctl = CUR_FBC_EN | CUR_FBC_HEIGHT(height - 1);
+ 
+ 		base = intel_cursor_base(plane_state);
+-		pos = intel_cursor_position(plane_state);
++		pos = intel_cursor_position(crtc_state, plane_state, false);
+ 	}
+ 
+ 	/*
+diff --git a/drivers/gpu/drm/i915/i915_reg.h b/drivers/gpu/drm/i915/i915_reg.h
+index 27dc903f0553..d6f7e68ba308 100644
+--- a/drivers/gpu/drm/i915/i915_reg.h
++++ b/drivers/gpu/drm/i915/i915_reg.h
+@@ -3059,6 +3059,7 @@
+ #define   MCURSOR_MODE_64_ARGB_AX	(0x20 | MCURSOR_MODE_64_32B_AX)
+ #define _CURABASE		0x70084
+ #define _CURAPOS		0x70088
++#define _CURAPOS_ERLY_TPT	0x7008c
+ #define   CURSOR_POS_Y_SIGN		REG_BIT(31)
+ #define   CURSOR_POS_Y_MASK		REG_GENMASK(30, 16)
+ #define   CURSOR_POS_Y(y)		REG_FIELD_PREP(CURSOR_POS_Y_MASK, (y))
+@@ -3087,6 +3088,7 @@
+ #define CURCNTR(pipe) _MMIO_CURSOR2(pipe, _CURACNTR)
+ #define CURBASE(pipe) _MMIO_CURSOR2(pipe, _CURABASE)
+ #define CURPOS(pipe) _MMIO_CURSOR2(pipe, _CURAPOS)
++#define CURPOS_ERLY_TPT(pipe) _MMIO_CURSOR2(pipe, _CURAPOS_ERLY_TPT)
+ #define CURSIZE(pipe) _MMIO_CURSOR2(pipe, _CURASIZE)
+ #define CUR_FBC_CTL(pipe) _MMIO_CURSOR2(pipe, _CUR_FBC_CTL_A)
+ #define CUR_CHICKEN(pipe) _MMIO_CURSOR2(pipe, _CUR_CHICKEN_A)
 -- 
 2.34.1
 
