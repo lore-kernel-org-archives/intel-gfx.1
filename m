@@ -4,42 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D35E9C46CCD
-	for <intel-gfx@archiver.kernel.org>; Wed, 20 Dec 2023 22:15:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CB437C3DA6E
+	for <intel-gfx@archiver.kernel.org>; Wed, 20 Dec 2023 22:15:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 44A5810E649;
+	by gabe.freedesktop.org (Postfix) with ESMTP id EA55C10E65A;
 	Wed, 20 Dec 2023 22:15:20 +0000 (UTC)
 Received: from mgamail.intel.com (mgamail.intel.com [134.134.136.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 318E510E642
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4F3C610E641
  for <intel-gfx@lists.freedesktop.org>; Wed, 20 Dec 2023 22:15:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
  t=1703110514; x=1734646514;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=nklv+S1L/li3nI4EQKuSwAGl2psx0sK6srP3E6aVN8c=;
- b=WboPHfWwYOQfErhqA8rJQb3UFfv1ZfbJNc/01E2FrJwoznV0pQElzzxP
- QhJhn9Db+oNQCV0FMDRhumsx/5YuscKMkm0XasfQHS9KwcHtDKoVudqfI
- bxJ488sZyPdLOVfkOSImH/xirVDa827EYolmAGJuMceuXrXcgX9KVilOv
- k5I2QRpiBgxekME+2pl897zHqCV/yo5aqzE/mG++yqXwSlElkRoJHBkpV
- +UVvntq0XpJAhmzZVJc4qGPz8qnJEmhi25EhZYjd+fnSNQ7oNbrRVbKXy
- XLZ/t13UYbQzBQwedgu/s41v6fdZks1qbU2Vk2klgusDBekStWkj2yAek A==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10930"; a="460220633"
-X-IronPort-AV: E=Sophos;i="6.04,292,1695711600"; d="scan'208";a="460220633"
+ bh=juiCeDb5F2Jw9pBJlfII033bxwSl5pGUNCcxgEbi78Q=;
+ b=Li1eTpFYcjJJKfnLxWruDeLfHrpndgSDCdKY9Hf2Yg5Dp7g5Hge+yOLi
+ 9Oqo1JF/iTlWGFS+WMQEVm3e09rC6V7sUBPFDetu+SpDyH8xnaupqnPBa
+ UF1IzyzjkVPnxiLJDsITCeruPQ1Cm2KtVgboc5//VP600E4UvrNZxjyQN
+ JxjZKlKo9M5HmYAWCUOpb8tPWE/pljVfSkVQtsrd2XVl8WjYg2gzpLnki
+ vttss/Y76H46w12ytmwBOpZXblnXqZNFlXPK4rIRY5Vg7sHFTtQ3WVPWb
+ TGbNW1qQVv6nYCNYxf8eiNsGkB/oj5zo23eleD6QvxNVThT36ycXzdr+I g==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10930"; a="460220635"
+X-IronPort-AV: E=Sophos;i="6.04,292,1695711600"; d="scan'208";a="460220635"
 Received: from fmsmga001.fm.intel.com ([10.253.24.23])
  by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 20 Dec 2023 14:15:13 -0800
+ 20 Dec 2023 14:15:14 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10930"; a="920106967"
-X-IronPort-AV: E=Sophos;i="6.04,292,1695711600"; d="scan'208";a="920106967"
+X-IronPort-AV: E=McAfee;i="6600,9927,10930"; a="920106975"
+X-IronPort-AV: E=Sophos;i="6.04,292,1695711600"; d="scan'208";a="920106975"
 Received: from invictus.jf.intel.com ([10.165.21.201])
  by fmsmga001-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  20 Dec 2023 14:15:13 -0800
 From: Radhakrishna Sripada <radhakrishna.sripada@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Subject: [PATCH v2 1/4] drm/i915: Move intel_bios_driver_remove later
-Date: Wed, 20 Dec 2023 14:13:38 -0800
-Message-Id: <20231220221341.3248508-2-radhakrishna.sripada@intel.com>
+Subject: [PATCH v2 3/4] drm/i915: Introduce intel_encoder_phy_data_lookup
+Date: Wed, 20 Dec 2023 14:13:40 -0800
+Message-Id: <20231220221341.3248508-4-radhakrishna.sripada@intel.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20231220221341.3248508-1-radhakrishna.sripada@intel.com>
 References: <20231220221341.3248508-1-radhakrishna.sripada@intel.com>
@@ -60,37 +60,62 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Vbt structures will be used during mode config cleanup. Move
-the vbt structures cleanup to later time to accommodate cleaner
-mode config removal.
+This patch introduces phy version of intel_encoder_port_data_lookup.
+Port based variant is dependent on vbt child data extraction and
+conversion to port data to be used further. Port data is not immediately
+available and is difficult to be determined from phy info.
 
 Signed-off-by: Radhakrishna Sripada <radhakrishna.sripada@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_display_driver.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/i915/display/intel_bios.c | 13 +++++++++++++
+ drivers/gpu/drm/i915/display/intel_bios.h |  3 +++
+ 2 files changed, 16 insertions(+)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_display_driver.c b/drivers/gpu/drm/i915/display/intel_display_driver.c
-index 9df9097a0255..002bf7caa7eb 100644
---- a/drivers/gpu/drm/i915/display/intel_display_driver.c
-+++ b/drivers/gpu/drm/i915/display/intel_display_driver.c
-@@ -466,6 +466,8 @@ void intel_display_driver_remove_noirq(struct drm_i915_private *i915)
- 	destroy_workqueue(i915->display.wq.modeset);
+diff --git a/drivers/gpu/drm/i915/display/intel_bios.c b/drivers/gpu/drm/i915/display/intel_bios.c
+index febc607267f0..0b21364b2bdf 100644
+--- a/drivers/gpu/drm/i915/display/intel_bios.c
++++ b/drivers/gpu/drm/i915/display/intel_bios.c
+@@ -3648,6 +3648,19 @@ intel_bios_encoder_port_data_lookup(struct drm_i915_private *i915, enum port por
+ 	return NULL;
+ }
  
- 	intel_fbc_cleanup(i915);
++const struct intel_bios_encoder_data *
++intel_bios_encoder_phy_data_lookup(struct drm_i915_private *i915, enum phy phy)
++{
++	struct intel_bios_encoder_data *devdata;
 +
-+	intel_bios_driver_remove(i915);
- }
++	list_for_each_entry(devdata, &i915->display.vbt.display_devices, node) {
++		if (intel_port_to_phy(i915, intel_bios_encoder_port(devdata)) == phy)
++			return devdata;
++	}
++
++	return NULL;
++}
++
+ void intel_bios_for_each_encoder(struct drm_i915_private *i915,
+ 				 void (*func)(struct drm_i915_private *i915,
+ 					      const struct intel_bios_encoder_data *devdata))
+diff --git a/drivers/gpu/drm/i915/display/intel_bios.h b/drivers/gpu/drm/i915/display/intel_bios.h
+index a296aad7f545..2861ebb13909 100644
+--- a/drivers/gpu/drm/i915/display/intel_bios.h
++++ b/drivers/gpu/drm/i915/display/intel_bios.h
+@@ -39,6 +39,7 @@ struct intel_crtc_state;
+ struct intel_encoder;
+ struct intel_panel;
+ enum aux_ch;
++enum phy;
+ enum port;
  
- /* part #3: call after gem init */
-@@ -476,8 +478,6 @@ void intel_display_driver_remove_nogem(struct drm_i915_private *i915)
- 	intel_power_domains_driver_remove(i915);
+ enum intel_backlight_type {
+@@ -254,6 +255,8 @@ bool intel_bios_get_dsc_params(struct intel_encoder *encoder,
+ bool intel_bios_port_supports_typec_usb(struct drm_i915_private *i915, enum port port);
+ bool intel_bios_port_supports_tbt(struct drm_i915_private *i915, enum port port);
  
- 	intel_vga_unregister(i915);
--
--	intel_bios_driver_remove(i915);
- }
++const struct intel_bios_encoder_data *
++intel_bios_encoder_phy_data_lookup(struct drm_i915_private *i915, enum phy phy);
+ const struct intel_bios_encoder_data *
+ intel_bios_encoder_port_data_lookup(struct drm_i915_private *i915, enum port port);
  
- void intel_display_driver_unregister(struct drm_i915_private *i915)
 -- 
 2.34.1
 
