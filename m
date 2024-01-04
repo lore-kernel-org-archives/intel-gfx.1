@@ -4,49 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E5097C47074
-	for <intel-gfx@archiver.kernel.org>; Thu,  4 Jan 2024 17:45:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 686A1C47074
+	for <intel-gfx@archiver.kernel.org>; Thu,  4 Jan 2024 18:03:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2014110E522;
-	Thu,  4 Jan 2024 17:45:27 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7D62D10E51C
- for <intel-gfx@lists.freedesktop.org>; Thu,  4 Jan 2024 17:45:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7DABC10E4C6;
+	Thu,  4 Jan 2024 18:03:51 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.13])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A63A410E4D4;
+ Thu,  4 Jan 2024 18:03:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1704390325; x=1735926325;
+ t=1704391431; x=1735927431;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=AFKqCxwfqh6jAJgqSnpr068sWuoUiQfZPICMw4+FNmg=;
- b=BuvZgToidmiMdAj3WGDJQ43pvwP83OHCqYkD94f19qd1HjHJmEPoPHrC
- XPVj+qgVLeKVoJG0nU3laCTPXDlRvbkkhqiEdodxslTPjv1/MD9s1WPg0
- KyEX2+wSs7mSGHS97CCKPurVnyDQPhb4mMVCizrN2Z4iwk8y7yotlnFWq
- 3E3IU7bqmSwWCpQkzDS7ogB6i0F9Fe3TMxN4ENiFpPxvLrgHVLDbZqAJn
- ajqU+/qgMSVHCGFSqJ+d32lI5ggF2AF5OQzWifFZdta4RqXZI0JGcBISA
- ka3XzuqYIbRAbW6iMizENhfUTB9RUwfGdVnJedGpww5XOmmBpHRllGyFg Q==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10943"; a="4093851"
+ bh=h/goT+/1zzIfOp50U/K/MQnqJLLOFKr8zV3uBKn+Euo=;
+ b=IWMwOjkamGf/UhBF8nfx5XnFKQ41THhtFk9NMI4mEVJNxpYLKM8d5+Hd
+ DdnXET4cBDzeJBG6fHFMvaxqWWo00IQIeQnjohT4i7xXKtFZgicWe8O/I
+ 4vatF08LbZiriJZGUqttBYQ6uFBZ/i/F43L/HzWER5Lo5urVVQWvg7uJ2
+ diX7YdbOmr/4W11xnFx+DLIX+3+3rNJwOIXLLVg5jWyM8rY3L/I2tw0rR
+ pQMYr9pQyDVrgiTam/UvLPm7u8bH1W0Vz23ZrEU0EIaeMbrTEjw/k5/bu
+ M71y7m4cngJTzirLFSMR1gB313Sxiw3rHgqbB76wmDPl8PMBEWVsuEDtt Q==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10943"; a="4430219"
 X-IronPort-AV: E=Sophos;i="6.04,331,1695711600"; 
-   d="scan'208";a="4093851"
-Received: from fmsmga001.fm.intel.com ([10.253.24.23])
- by orvoesa103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 04 Jan 2024 09:44:00 -0800
+   d="scan'208";a="4430219"
+Received: from fmsmga004.fm.intel.com ([10.253.24.48])
+ by orvoesa105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 04 Jan 2024 10:03:50 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10943"; a="923988800"
-X-IronPort-AV: E=Sophos;i="6.04,331,1695711600"; d="scan'208";a="923988800"
-Received: from pdelarag-mobl.ger.corp.intel.com (HELO localhost)
- ([10.252.36.32])
- by fmsmga001-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 04 Jan 2024 09:43:58 -0800
-From: Jani Nikula <jani.nikula@intel.com>
-To: intel-gfx@lists.freedesktop.org
-Subject: [PATCH 2/5] drm/i915/dmc: use DISPLAY_VER instead of GRAPHICS_VER
-Date: Thu,  4 Jan 2024 19:43:47 +0200
-Message-Id: <20240104174350.823605-2-jani.nikula@intel.com>
-X-Mailer: git-send-email 2.39.2
-In-Reply-To: <20240104174350.823605-1-jani.nikula@intel.com>
-References: <20240104174350.823605-1-jani.nikula@intel.com>
+X-IronPort-AV: E=McAfee;i="6600,9927,10943"; a="850894353"
+X-IronPort-AV: E=Sophos;i="6.04,331,1695711600"; d="scan'208";a="850894353"
+Received: from relo-linux-5.jf.intel.com ([10.165.21.152])
+ by fmsmga004.fm.intel.com with ESMTP; 04 Jan 2024 10:03:49 -0800
+From: John.C.Harrison@Intel.com
+To: Intel-GFX@Lists.FreeDesktop.Org
+Subject: [PATCH v3 1/3] drm/i915: Enable Wa_16019325821
+Date: Thu,  4 Jan 2024 10:05:39 -0800
+Message-ID: <20240104180541.2966374-2-John.C.Harrison@Intel.com>
+X-Mailer: git-send-email 2.41.0
+In-Reply-To: <20240104180541.2966374-1-John.C.Harrison@Intel.com>
+References: <20240104180541.2966374-1-John.C.Harrison@Intel.com>
 MIME-Version: 1.0
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
+Organization: Intel Corporation (UK) Ltd. - Co. Reg. #1134945 - Pipers Way,
+ Swindon SN3 1RJ
 Content-Transfer-Encoding: 8bit
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -60,30 +59,155 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: jani.nikula@intel.com
+Cc: DRI-Devel@Lists.FreeDesktop.Org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Display	code should not	care about graphics version.
+From: John Harrison <John.C.Harrison@Intel.com>
 
-Signed-off-by: Jani Nikula <jani.nikula@intel.com>
+Some platforms require holding RCS context switches until CCS is idle
+(the reverse w/a of Wa_14014475959). Some platforms require both
+versions.
+
+Signed-off-by: John Harrison <John.C.Harrison@Intel.com>
+Reviewed-by: Vinay Belgaumkar <vinay.belgaumkar@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_dmc.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/gpu/drm/i915/gt/gen8_engine_cs.c      | 19 +++++++++++--------
+ drivers/gpu/drm/i915/gt/intel_engine_types.h  |  7 ++++---
+ drivers/gpu/drm/i915/gt/uc/intel_guc.c        |  4 ++++
+ drivers/gpu/drm/i915/gt/uc/intel_guc_fwif.h   |  3 ++-
+ .../gpu/drm/i915/gt/uc/intel_guc_submission.c |  7 ++++++-
+ 5 files changed, 27 insertions(+), 13 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_dmc.c b/drivers/gpu/drm/i915/display/intel_dmc.c
-index b70502586ab9..835781624482 100644
---- a/drivers/gpu/drm/i915/display/intel_dmc.c
-+++ b/drivers/gpu/drm/i915/display/intel_dmc.c
-@@ -1158,7 +1158,7 @@ static int intel_dmc_debugfs_status_show(struct seq_file *m, void *unused)
- 		   str_yes_no(intel_dmc_has_payload(i915)));
- 	seq_printf(m, "path: %s\n", dmc ? dmc->fw_path : "N/A");
- 	seq_printf(m, "Pipe A fw needed: %s\n",
--		   str_yes_no(GRAPHICS_VER(i915) >= 12));
-+		   str_yes_no(DISPLAY_VER(i915) >= 12));
- 	seq_printf(m, "Pipe A fw loaded: %s\n",
- 		   str_yes_no(has_dmc_id_fw(i915, DMC_FW_PIPEA)));
- 	seq_printf(m, "Pipe B fw needed: %s\n",
+diff --git a/drivers/gpu/drm/i915/gt/gen8_engine_cs.c b/drivers/gpu/drm/i915/gt/gen8_engine_cs.c
+index 86a04afff64b3..9cccd60a5c41d 100644
+--- a/drivers/gpu/drm/i915/gt/gen8_engine_cs.c
++++ b/drivers/gpu/drm/i915/gt/gen8_engine_cs.c
+@@ -743,21 +743,23 @@ static u32 *gen12_emit_preempt_busywait(struct i915_request *rq, u32 *cs)
+ }
+ 
+ /* Wa_14014475959:dg2 */
+-#define CCS_SEMAPHORE_PPHWSP_OFFSET	0x540
+-static u32 ccs_semaphore_offset(struct i915_request *rq)
++/* Wa_16019325821 */
++#define HOLD_SWITCHOUT_SEMAPHORE_PPHWSP_OFFSET	0x540
++static u32 hold_switchout_semaphore_offset(struct i915_request *rq)
+ {
+ 	return i915_ggtt_offset(rq->context->state) +
+-		(LRC_PPHWSP_PN * PAGE_SIZE) + CCS_SEMAPHORE_PPHWSP_OFFSET;
++		(LRC_PPHWSP_PN * PAGE_SIZE) + HOLD_SWITCHOUT_SEMAPHORE_PPHWSP_OFFSET;
+ }
+ 
+ /* Wa_14014475959:dg2 */
+-static u32 *ccs_emit_wa_busywait(struct i915_request *rq, u32 *cs)
++/* Wa_16019325821 */
++static u32 *hold_switchout_emit_wa_busywait(struct i915_request *rq, u32 *cs)
+ {
+ 	int i;
+ 
+ 	*cs++ = MI_ATOMIC_INLINE | MI_ATOMIC_GLOBAL_GTT | MI_ATOMIC_CS_STALL |
+ 		MI_ATOMIC_MOVE;
+-	*cs++ = ccs_semaphore_offset(rq);
++	*cs++ = hold_switchout_semaphore_offset(rq);
+ 	*cs++ = 0;
+ 	*cs++ = 1;
+ 
+@@ -773,7 +775,7 @@ static u32 *ccs_emit_wa_busywait(struct i915_request *rq, u32 *cs)
+ 		MI_SEMAPHORE_POLL |
+ 		MI_SEMAPHORE_SAD_EQ_SDD;
+ 	*cs++ = 0;
+-	*cs++ = ccs_semaphore_offset(rq);
++	*cs++ = hold_switchout_semaphore_offset(rq);
+ 	*cs++ = 0;
+ 
+ 	return cs;
+@@ -790,8 +792,9 @@ gen12_emit_fini_breadcrumb_tail(struct i915_request *rq, u32 *cs)
+ 		cs = gen12_emit_preempt_busywait(rq, cs);
+ 
+ 	/* Wa_14014475959:dg2 */
+-	if (intel_engine_uses_wa_hold_ccs_switchout(rq->engine))
+-		cs = ccs_emit_wa_busywait(rq, cs);
++	/* Wa_16019325821 */
++	if (intel_engine_uses_wa_hold_switchout(rq->engine))
++		cs = hold_switchout_emit_wa_busywait(rq, cs);
+ 
+ 	rq->tail = intel_ring_offset(rq, cs);
+ 	assert_ring_tail_valid(rq->ring, rq->tail);
+diff --git a/drivers/gpu/drm/i915/gt/intel_engine_types.h b/drivers/gpu/drm/i915/gt/intel_engine_types.h
+index 960e6be2042fe..b519812ba120d 100644
+--- a/drivers/gpu/drm/i915/gt/intel_engine_types.h
++++ b/drivers/gpu/drm/i915/gt/intel_engine_types.h
+@@ -586,7 +586,7 @@ struct intel_engine_cs {
+ #define I915_ENGINE_HAS_RCS_REG_STATE  BIT(9)
+ #define I915_ENGINE_HAS_EU_PRIORITY    BIT(10)
+ #define I915_ENGINE_FIRST_RENDER_COMPUTE BIT(11)
+-#define I915_ENGINE_USES_WA_HOLD_CCS_SWITCHOUT BIT(12)
++#define I915_ENGINE_USES_WA_HOLD_SWITCHOUT BIT(12)
+ 	unsigned int flags;
+ 
+ 	/*
+@@ -696,10 +696,11 @@ intel_engine_has_relative_mmio(const struct intel_engine_cs * const engine)
+ }
+ 
+ /* Wa_14014475959:dg2 */
++/* Wa_16019325821 */
+ static inline bool
+-intel_engine_uses_wa_hold_ccs_switchout(struct intel_engine_cs *engine)
++intel_engine_uses_wa_hold_switchout(struct intel_engine_cs *engine)
+ {
+-	return engine->flags & I915_ENGINE_USES_WA_HOLD_CCS_SWITCHOUT;
++	return engine->flags & I915_ENGINE_USES_WA_HOLD_SWITCHOUT;
+ }
+ 
+ #endif /* __INTEL_ENGINE_TYPES_H__ */
+diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc.c b/drivers/gpu/drm/i915/gt/uc/intel_guc.c
+index 2b450c43bbd7f..d5c856be31491 100644
+--- a/drivers/gpu/drm/i915/gt/uc/intel_guc.c
++++ b/drivers/gpu/drm/i915/gt/uc/intel_guc.c
+@@ -294,6 +294,10 @@ static u32 guc_ctl_wa_flags(struct intel_guc *guc)
+ 	    IS_DG2(gt->i915))
+ 		flags |= GUC_WA_HOLD_CCS_SWITCHOUT;
+ 
++	/* Wa_16019325821 */
++	if (IS_GFX_GT_IP_RANGE(gt, IP_VER(12, 70), IP_VER(12, 71)))
++		flags |= GUC_WA_RCS_CCS_SWITCHOUT;
++
+ 	/*
+ 	 * Wa_14012197797
+ 	 * Wa_22011391025
+diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_fwif.h b/drivers/gpu/drm/i915/gt/uc/intel_guc_fwif.h
+index 8ae1846431da7..48863188a130e 100644
+--- a/drivers/gpu/drm/i915/gt/uc/intel_guc_fwif.h
++++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_fwif.h
+@@ -96,8 +96,9 @@
+ #define   GUC_WA_GAM_CREDITS		BIT(10)
+ #define   GUC_WA_DUAL_QUEUE		BIT(11)
+ #define   GUC_WA_RCS_RESET_BEFORE_RC6	BIT(13)
+-#define   GUC_WA_CONTEXT_ISOLATION	BIT(15)
+ #define   GUC_WA_PRE_PARSER		BIT(14)
++#define   GUC_WA_CONTEXT_ISOLATION	BIT(15)
++#define   GUC_WA_RCS_CCS_SWITCHOUT	BIT(16)
+ #define   GUC_WA_HOLD_CCS_SWITCHOUT	BIT(17)
+ #define   GUC_WA_POLLCS			BIT(18)
+ #define   GUC_WA_RCS_REGS_IN_CCS_REGS_LIST	BIT(21)
+diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
+index a259f1118c5ab..b09b97c9cd120 100644
+--- a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
++++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
+@@ -4382,7 +4382,12 @@ static void guc_default_vfuncs(struct intel_engine_cs *engine)
+ 	if (engine->class == COMPUTE_CLASS)
+ 		if (IS_GFX_GT_IP_STEP(engine->gt, IP_VER(12, 70), STEP_A0, STEP_B0) ||
+ 		    IS_DG2(engine->i915))
+-			engine->flags |= I915_ENGINE_USES_WA_HOLD_CCS_SWITCHOUT;
++			engine->flags |= I915_ENGINE_USES_WA_HOLD_SWITCHOUT;
++
++	/* Wa_16019325821 */
++	if ((engine->class == COMPUTE_CLASS || engine->class == RENDER_CLASS) &&
++	    IS_GFX_GT_IP_RANGE(engine->gt, IP_VER(12, 70), IP_VER(12, 71)))
++		engine->flags |= I915_ENGINE_USES_WA_HOLD_SWITCHOUT;
+ 
+ 	/*
+ 	 * TODO: GuC supports timeslicing and semaphores as well, but they're
 -- 
-2.39.2
+2.41.0
 
