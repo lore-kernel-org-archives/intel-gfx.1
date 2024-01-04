@@ -4,47 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D24DAC47073
-	for <intel-gfx@archiver.kernel.org>; Thu,  4 Jan 2024 17:44:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B8A56C47073
+	for <intel-gfx@archiver.kernel.org>; Thu,  4 Jan 2024 17:45:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 225CA10E4E0;
-	Thu,  4 Jan 2024 17:44:15 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.9])
- by gabe.freedesktop.org (Postfix) with ESMTPS id ABE6E10E4E0
- for <intel-gfx@lists.freedesktop.org>; Thu,  4 Jan 2024 17:44:13 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3EB1710E51C;
+	Thu,  4 Jan 2024 17:45:25 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.11])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 12FA010E51C
+ for <intel-gfx@lists.freedesktop.org>; Thu,  4 Jan 2024 17:45:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1704390253; x=1735926253;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=m/Y0SUHia4rHRme9+bPUN8c3OMOIz4yruhpu4JBYKnQ=;
- b=btxSAuZE5CqD9El2rnKRfTfOMk9f5lrqNiA/Pwl+cn/oSeZO/PZYylwu
- 7fJszTjCpLCg4E0F0cCEhalViW1pwDRtc+7sferOfDvCmjEfLn21RcfBP
- BJOOkU1jkXJzRCjH3zLZtuHK9JKu8k1hmEm80tHI2F0nrcUjVDq1RXq32
- Utu6RVEa0E3NxQeslNcR6RMV6XYYGWcvvNmnZGAcGVuj74CPSlXJ7xFuy
- eaHMNE6yhfWE9oZB/vmom9LqwC+8SP9hn6WuXtKkOf09xeLyVoF9zQCjJ
- h8qmxrcSi8CU9rPGmKrUFmw9llwzRXCZoqLaILFBP+3Fahoocsl8qOmBk A==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10943"; a="4131132"
+ t=1704390324; x=1735926324;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=40K8eRA2y9Wn5HpyiOrQeVc04UESbxxtWX856srVkBc=;
+ b=gWxSBQPYrMl25w95I1W1RAY1qrbAs+7Nc8rdOBzAXNQaBFC7J8DvLJti
+ n2WnA9aQClddJXEXRPYkVRai+ZBE73w1/Ln9GiMAfQnG52/FKJMHmvyN7
+ KF/S7spD4No6qYVX1A3bIDisrcReBXWgcVOfCuootO7AMgPD5/oMxWILh
+ bi5+ucv2IhaDrGxntuIgctJLjCFOwXiNj118pXOk44rXpbcyg6TNtAzhJ
+ wdBfa//3phuPaRWewNPGqpQZEc+rSmyLtZU5Z4SWEOXvRZmPY/kX8loMZ
+ arKGj1IvCKK0pbHME7Dyu9+G8CEKljjdXrCY701qXZ8OYL3kCx+DrHew3 w==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10943"; a="4093837"
 X-IronPort-AV: E=Sophos;i="6.04,331,1695711600"; 
-   d="scan'208";a="4131132"
-Received: from fmsmga003.fm.intel.com ([10.253.24.29])
- by fmvoesa103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 04 Jan 2024 09:44:13 -0800
+   d="scan'208";a="4093837"
+Received: from fmsmga001.fm.intel.com ([10.253.24.23])
+ by orvoesa103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 04 Jan 2024 09:43:56 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10943"; a="870998285"
-X-IronPort-AV: E=Sophos;i="6.04,331,1695711600"; d="scan'208";a="870998285"
+X-IronPort-AV: E=McAfee;i="6600,9927,10943"; a="923988765"
+X-IronPort-AV: E=Sophos;i="6.04,331,1695711600"; d="scan'208";a="923988765"
 Received: from pdelarag-mobl.ger.corp.intel.com (HELO localhost)
  ([10.252.36.32])
- by fmsmga003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 04 Jan 2024 09:44:11 -0800
+ by fmsmga001-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 04 Jan 2024 09:43:54 -0800
 From: Jani Nikula <jani.nikula@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Subject: [PATCH 5/5] drm/i915/tv: use DISPLAY_VER instead of GRAPHICS_VER
-Date: Thu,  4 Jan 2024 19:43:50 +0200
-Message-Id: <20240104174350.823605-5-jani.nikula@intel.com>
+Subject: [PATCH 1/5] drm/i915/irq: use DISPLAY_VER instead of GRAPHICS_VER
+Date: Thu,  4 Jan 2024 19:43:46 +0200
+Message-Id: <20240104174350.823605-1-jani.nikula@intel.com>
 X-Mailer: git-send-email 2.39.2
-In-Reply-To: <20240104174350.823605-1-jani.nikula@intel.com>
-References: <20240104174350.823605-1-jani.nikula@intel.com>
 MIME-Version: 1.0
 Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
 Content-Transfer-Encoding: 8bit
@@ -64,27 +62,26 @@ Cc: jani.nikula@intel.com
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Display code should not care about graphics version. It's only comments
-here, but update anyway.
+Display code should not care about graphics version.
 
 Signed-off-by: Jani Nikula <jani.nikula@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_tv.c | 2 +-
+ drivers/gpu/drm/i915/display/intel_display_irq.c | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_tv.c b/drivers/gpu/drm/i915/display/intel_tv.c
-index d4386cb3569e..9a217805d2f6 100644
---- a/drivers/gpu/drm/i915/display/intel_tv.c
-+++ b/drivers/gpu/drm/i915/display/intel_tv.c
-@@ -1327,7 +1327,7 @@ intel_tv_compute_config(struct intel_encoder *encoder,
- 	 * the active portion. Hence following this formula seems
- 	 * more trouble that it's worth.
- 	 *
--	 * if (GRAPHICS_VER(dev_priv) == 4) {
-+	 * if (DISPLAY_VER(dev_priv) == 4) {
- 	 *	num = cdclk * (tv_mode->oversample >> !tv_mode->progressive);
- 	 *	den = tv_mode->clock;
- 	 * } else {
+diff --git a/drivers/gpu/drm/i915/display/intel_display_irq.c b/drivers/gpu/drm/i915/display/intel_display_irq.c
+index 6964f4b95865..99843883cef7 100644
+--- a/drivers/gpu/drm/i915/display/intel_display_irq.c
++++ b/drivers/gpu/drm/i915/display/intel_display_irq.c
+@@ -1587,7 +1587,7 @@ void ilk_de_irq_postinstall(struct drm_i915_private *i915)
+ 	struct intel_uncore *uncore = &i915->uncore;
+ 	u32 display_mask, extra_mask;
+ 
+-	if (GRAPHICS_VER(i915) >= 7) {
++	if (DISPLAY_VER(i915) >= 7) {
+ 		display_mask = (DE_MASTER_IRQ_CONTROL | DE_GSE_IVB |
+ 				DE_PCH_EVENT_IVB | DE_AUX_CHANNEL_A_IVB);
+ 		extra_mask = (DE_PIPEC_VBLANK_IVB | DE_PIPEB_VBLANK_IVB |
 -- 
 2.39.2
 
