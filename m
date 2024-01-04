@@ -4,48 +4,26 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6B0A7C4707B
-	for <intel-gfx@archiver.kernel.org>; Thu,  4 Jan 2024 03:22:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F2746C47073
+	for <intel-gfx@archiver.kernel.org>; Thu,  4 Jan 2024 04:41:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8EF0710E379;
-	Thu,  4 Jan 2024 03:22:36 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [192.55.52.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0DE3410E373
- for <intel-gfx@lists.freedesktop.org>; Thu,  4 Jan 2024 03:22:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1704338555; x=1735874555;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=+UTXE9JEF/VmXpToL0iM83ifKJsdnMU2g8w2no4AZgE=;
- b=FKj4OpQ6FyCIcYdXPz4erjUNa5opKCTWcT+EUC2TwXfzuFDdskJp/WxV
- UlZdg8E7sBvO/86bUatvQQY3cQwuY0U8R2V06emwHe0R6Plo6q3khFNQn
- 04rZYX+miy2JDjB+1Dm3VaxCjcJQVqPB8FzOtf/pkl2jFxmvdDkWKq+KF
- 9o3I/X3Kyw1n2JAQzEzoRBxzQv97MpReDSPqOY7wJOx+/AgxPku69JtWb
- EgyUs4JYpb+On/66PlvzCb/oKLfOgmbccmDn2DwsHaGN/DQ9z8qrc2fLf
- VzEvDtRnadbMU5tnTDbgLd0nYO0T7znYr1BcKOHD1Siby7WEMOFiNU2zt Q==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10942"; a="483295289"
-X-IronPort-AV: E=Sophos;i="6.04,329,1695711600"; d="scan'208";a="483295289"
-Received: from fmsmga004.fm.intel.com ([10.253.24.48])
- by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 03 Jan 2024 19:22:30 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10942"; a="850623670"
-X-IronPort-AV: E=Sophos;i="6.04,329,1695711600"; d="scan'208";a="850623670"
-Received: from rpasham-mobl1.amr.corp.intel.com (HELO gjsousa-mobl2.intel.com)
- ([10.125.176.66])
- by fmsmga004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 03 Jan 2024 19:22:29 -0800
-From: Gustavo Sousa <gustavo.sousa@intel.com>
-To: intel-gfx@lists.freedesktop.org
-Subject: [PATCH 1/4] drm/i915/xe2lpd: Update bxt_sanitize_cdclk()
-Date: Thu,  4 Jan 2024 00:21:47 -0300
-Message-ID: <20240104032150.118954-2-gustavo.sousa@intel.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20240104032150.118954-1-gustavo.sousa@intel.com>
-References: <20240104032150.118954-1-gustavo.sousa@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5123E10E378;
+	Thu,  4 Jan 2024 04:41:40 +0000 (UTC)
+Received: from 5338d5abeb45 (emeril.freedesktop.org [131.252.210.167])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4DDB810E355;
+ Thu,  4 Jan 2024 04:41:39 +0000 (UTC)
+Content-Type: multipart/alternative;
+ boundary="===============1151604978332009349=="
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Subject: =?utf-8?q?=E2=9C=97_Fi=2ECI=2EBAT=3A_failure_for_Update_bxt=5Fsanitize=5Fcdc?=
+ =?utf-8?q?lk=28=29_for_Xe2=5FLPD?=
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Gustavo Sousa" <gustavo.sousa@intel.com>
+Date: Thu, 04 Jan 2024 04:41:39 -0000
+Message-ID: <170434329931.1840.1711184588365174245@5338d5abeb45>
+X-Patchwork-Hint: ignore
+References: <20240104032150.118954-1-gustavo.sousa@intel.com>
+In-Reply-To: <20240104032150.118954-1-gustavo.sousa@intel.com>
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,49 +36,185 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: intel-gfx@lists.freedesktop.org
+Cc: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-With Xe2_LPD, there were changes to the way CDCLK_CTL must be
-programmed. Those were reflected on _bxt_set_cdclk() with commit
-3d3696c0fed1 ("drm/i915/lnl: Start using CDCLK through PLL"), but
-bxt_sanitize_cdclk() was left out.
+--===============1151604978332009349==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
 
-This was causing some issues when loading the driver with a pre-existing
-active display configuration: the driver would mistakenly take the
-current value of CDCLK_CTL as wrong and the sanitization would be
-triggered.
+== Series Details ==
 
-In a scenario where the display was already configured with a high
-CDCLKC and had plane(s) enabled, FIFO underrun errors were reported,
-because the current sanitization code selects the minimum possible
-CDCLK.
+Series: Update bxt_sanitize_cdclk() for Xe2_LPD
+URL   : https://patchwork.freedesktop.org/series/128175/
+State : failure
 
-Fix that by updating bxt_sanitize_cdclk() to match the changes made in
-_bxt_set_cdclk(). Ideally, we would have a common function to derive the
-value for CDCLK_CTL, but that can be done in a future change.
+== Summary ==
 
-Signed-off-by: Gustavo Sousa <gustavo.sousa@intel.com>
----
- drivers/gpu/drm/i915/display/intel_cdclk.c | 5 ++++-
- 1 file changed, 4 insertions(+), 1 deletion(-)
+CI Bug Log - changes from CI_DRM_14076 -> Patchwork_128175v1
+====================================================
 
-diff --git a/drivers/gpu/drm/i915/display/intel_cdclk.c b/drivers/gpu/drm/i915/display/intel_cdclk.c
-index c5fecde7afa8..0012e3171f3f 100644
---- a/drivers/gpu/drm/i915/display/intel_cdclk.c
-+++ b/drivers/gpu/drm/i915/display/intel_cdclk.c
-@@ -2071,7 +2071,10 @@ static void bxt_sanitize_cdclk(struct drm_i915_private *dev_priv)
- 	if (vco != dev_priv->display.cdclk.hw.vco)
- 		goto sanitize;
- 
--	expected = skl_cdclk_decimal(cdclk);
-+	if (DISPLAY_VER(dev_priv) >= 20)
-+		expected = MDCLK_SOURCE_SEL_CDCLK_PLL;
-+	else
-+		expected = skl_cdclk_decimal(cdclk);
- 
- 	/* Figure out what CD2X divider we should be using for this cdclk */
- 	if (HAS_CDCLK_SQUASH(dev_priv))
--- 
-2.43.0
+Summary
+-------
 
+  **FAILURE**
+
+  Serious unknown changes coming with Patchwork_128175v1 absolutely need to be
+  verified manually.
+  
+  If you think the reported changes have nothing to do with the changes
+  introduced in Patchwork_128175v1, please notify your bug team (I915-ci-infra@lists.freedesktop.org) to allow them
+  to document this new failure mode, which will reduce false positives in CI.
+
+  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_128175v1/index.html
+
+Participating hosts (38 -> 17)
+------------------------------
+
+  ERROR: It appears as if the changes made in Patchwork_128175v1 prevented too many machines from booting.
+
+  Additional (1): bat-kbl-2 
+  Missing    (22): fi-rkl-11600 fi-snb-2520m bat-rpls-3 bat-adls-6 fi-pnv-d510 fi-blb-e6850 fi-skl-6600u fi-bsw-n3050 fi-ilk-650 fi-ivb-3770 fi-elk-e7500 bat-rplp-1 bat-jsl-3 fi-kbl-7567u bat-dg1-7 fi-skl-guc bat-jsl-1 bat-mtlp-6 fi-tgl-1115g4 fi-cfl-guc fi-cfl-8109u bat-dg2-14 
+
+Known issues
+------------
+
+  Here are the changes found in Patchwork_128175v1 that come from known issues:
+
+### IGT changes ###
+
+#### Issues hit ####
+
+  * igt@fbdev@info:
+    - bat-kbl-2:          NOTRUN -> [SKIP][1] ([fdo#109271] / [i915#1849])
+   [1]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_128175v1/bat-kbl-2/igt@fbdev@info.html
+
+  * igt@gem_lmem_swapping@parallel-random-engines:
+    - bat-kbl-2:          NOTRUN -> [SKIP][2] ([fdo#109271]) +36 other tests skip
+   [2]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_128175v1/bat-kbl-2/igt@gem_lmem_swapping@parallel-random-engines.html
+
+  * igt@i915_selftest@live@workarounds:
+    - bat-dg2-11:         [PASS][3] -> [DMESG-FAIL][4] ([i915#9500])
+   [3]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_14076/bat-dg2-11/igt@i915_selftest@live@workarounds.html
+   [4]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_128175v1/bat-dg2-11/igt@i915_selftest@live@workarounds.html
+
+  
+  {name}: This element is suppressed. This means it is ignored when computing
+          the status of the difference (SUCCESS, WARNING, or FAILURE).
+
+  [fdo#109271]: https://bugs.freedesktop.org/show_bug.cgi?id=109271
+  [i915#1849]: https://gitlab.freedesktop.org/drm/intel/issues/1849
+  [i915#9500]: https://gitlab.freedesktop.org/drm/intel/issues/9500
+
+
+Build changes
+-------------
+
+  * Linux: CI_DRM_14076 -> Patchwork_128175v1
+
+  CI-20190529: 20190529
+  CI_DRM_14076: 6fb23c8c47c3c76c9ea4e62d3e4244eb42a6d081 @ git://anongit.freedesktop.org/gfx-ci/linux
+  IGT_7655: ddf7cf40a00caa7d02f3729e1e50f78f102463d9 @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git
+  Patchwork_128175v1: 6fb23c8c47c3c76c9ea4e62d3e4244eb42a6d081 @ git://anongit.freedesktop.org/gfx-ci/linux
+
+
+### Linux commits
+
+828d7c8a65d8 drm/i915/cdclk: Re-use bxt_cdclk_ctl() when sanitizing
+bc69f75f43c2 drm/i915/cdclk: Reorder bxt_sanitize_cdclk()
+ad0655315b55 drm/i915/cdclk: Extract bxt_cdclk_ctl()
+cb932418fd32 drm/i915/xe2lpd: Update bxt_sanitize_cdclk()
+
+== Logs ==
+
+For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_128175v1/index.html
+
+--===============1151604978332009349==
+Content-Type: text/html; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <title>Project List - Patchwork</title>
+  <style id="css-table-select" type="text/css">
+   td { padding: 2pt; }
+  </style>
+</head>
+<body>
+
+
+<b>Patch Details</b>
+<table>
+<tr><td><b>Series:</b></td><td>Update bxt_sanitize_cdclk() for Xe2_LPD</td></tr>
+<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/128175/">https://patchwork.freedesktop.org/series/128175/</a></td></tr>
+<tr><td><b>State:</b></td><td>failure</td></tr>
+
+    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_128175v1/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_128175v1/index.html</a></td></tr>
+
+</table>
+
+
+    <h1>CI Bug Log - changes from CI_DRM_14076 -&gt; Patchwork_128175v1</h1>
+<h2>Summary</h2>
+<p><strong>FAILURE</strong></p>
+<p>Serious unknown changes coming with Patchwork_128175v1 absolutely need to be<br />
+  verified manually.</p>
+<p>If you think the reported changes have nothing to do with the changes<br />
+  introduced in Patchwork_128175v1, please notify your bug team (I915-ci-infra@lists.freedesktop.org) to allow them<br />
+  to document this new failure mode, which will reduce false positives in CI.</p>
+<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_128175v1/index.html</p>
+<h2>Participating hosts (38 -&gt; 17)</h2>
+<p>ERROR: It appears as if the changes made in Patchwork_128175v1 prevented too many machines from booting.</p>
+<p>Additional (1): bat-kbl-2 <br />
+  Missing    (22): fi-rkl-11600 fi-snb-2520m bat-rpls-3 bat-adls-6 fi-pnv-d510 fi-blb-e6850 fi-skl-6600u fi-bsw-n3050 fi-ilk-650 fi-ivb-3770 fi-elk-e7500 bat-rplp-1 bat-jsl-3 fi-kbl-7567u bat-dg1-7 fi-skl-guc bat-jsl-1 bat-mtlp-6 fi-tgl-1115g4 fi-cfl-guc fi-cfl-8109u bat-dg2-14 </p>
+<h2>Known issues</h2>
+<p>Here are the changes found in Patchwork_128175v1 that come from known issues:</p>
+<h3>IGT changes</h3>
+<h4>Issues hit</h4>
+<ul>
+<li>
+<p>igt@fbdev@info:</p>
+<ul>
+<li>bat-kbl-2:          NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_128175v1/bat-kbl-2/igt@fbdev@info.html">SKIP</a> (<a href="https://bugs.freedesktop.org/show_bug.cgi?id=109271">fdo#109271</a> / <a href="https://gitlab.freedesktop.org/drm/intel/issues/1849">i915#1849</a>)</li>
+</ul>
+</li>
+<li>
+<p>igt@gem_lmem_swapping@parallel-random-engines:</p>
+<ul>
+<li>bat-kbl-2:          NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_128175v1/bat-kbl-2/igt@gem_lmem_swapping@parallel-random-engines.html">SKIP</a> (<a href="https://bugs.freedesktop.org/show_bug.cgi?id=109271">fdo#109271</a>) +36 other tests skip</li>
+</ul>
+</li>
+<li>
+<p>igt@i915_selftest@live@workarounds:</p>
+<ul>
+<li>bat-dg2-11:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_14076/bat-dg2-11/igt@i915_selftest@live@workarounds.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_128175v1/bat-dg2-11/igt@i915_selftest@live@workarounds.html">DMESG-FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/9500">i915#9500</a>)</li>
+</ul>
+</li>
+</ul>
+<p>{name}: This element is suppressed. This means it is ignored when computing<br />
+          the status of the difference (SUCCESS, WARNING, or FAILURE).</p>
+<h2>Build changes</h2>
+<ul>
+<li>Linux: CI_DRM_14076 -&gt; Patchwork_128175v1</li>
+</ul>
+<p>CI-20190529: 20190529<br />
+  CI_DRM_14076: 6fb23c8c47c3c76c9ea4e62d3e4244eb42a6d081 @ git://anongit.freedesktop.org/gfx-ci/linux<br />
+  IGT_7655: ddf7cf40a00caa7d02f3729e1e50f78f102463d9 @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git<br />
+  Patchwork_128175v1: 6fb23c8c47c3c76c9ea4e62d3e4244eb42a6d081 @ git://anongit.freedesktop.org/gfx-ci/linux</p>
+<h3>Linux commits</h3>
+<p>828d7c8a65d8 drm/i915/cdclk: Re-use bxt_cdclk_ctl() when sanitizing<br />
+bc69f75f43c2 drm/i915/cdclk: Reorder bxt_sanitize_cdclk()<br />
+ad0655315b55 drm/i915/cdclk: Extract bxt_cdclk_ctl()<br />
+cb932418fd32 drm/i915/xe2lpd: Update bxt_sanitize_cdclk()</p>
+
+</body>
+</html>
+
+--===============1151604978332009349==--
