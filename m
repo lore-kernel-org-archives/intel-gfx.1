@@ -4,42 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 603EBC47077
-	for <intel-gfx@archiver.kernel.org>; Mon,  8 Jan 2024 23:07:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3B333C4725D
+	for <intel-gfx@archiver.kernel.org>; Mon,  8 Jan 2024 23:07:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 01E2010E340;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 07B9B10E342;
 	Mon,  8 Jan 2024 23:07:05 +0000 (UTC)
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.8])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D862510E326
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5736210E326
  for <intel-gfx@lists.freedesktop.org>; Mon,  8 Jan 2024 23:07:01 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
  t=1704755222; x=1736291222;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=jzFaJoFHu6zCAoGNHR4b3oPnLgUteZLeDkcR7OfqEHM=;
- b=bB1/xr8EoCvbQOsT2qDbR3B3OFm1+DcpH8U+pLy4c90zLBfdDsV32xVu
- VJTAENSyoJJGtHvzZmeGrmcMKh+bWMLf2av4upLE5dC8HPOfFdAJkmmXp
- XcDAmLNd0WHz4Bdc2sjXATcKwcRgBO//iGcQTjIWkTEWZ4erlXepZFll3
- rVpEj0rnyrNzPBcHxTGdESTVQncsxKEcgqFt1gU/5/IyqN88w3zdDPCdM
- ngpHDomll2uN6PnJC6kaGdGJ83Mkg2CP09usJe+XiQmYyoK9qBin8vXh8
- PYRZ5vaH9a3YHfLeoOxRfcH5gK1gZxNzlCYkOQygiagHfGxlk0f0X8U/c w==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10947"; a="11514128"
-X-IronPort-AV: E=Sophos;i="6.04,181,1695711600"; d="scan'208";a="11514128"
+ bh=WNEuB+srrZ1uco+Gd4vFdYbLesrC+INYl2oJP05gcX8=;
+ b=fLqdpBaMO2Qze9LNJS0O+RSG8nAZyQ7pbCyz5aiU2dIlAig/asBzH/k0
+ C+Z1czaUSZaQi7yMv0sTwWtClY1QhhZXzT8rKG0kgi3ox36s1BDO491UJ
+ W/2GkUp+x/2hJDWFBTE6xT/feaS8Qj5o5SoIE+sxvvZx66qX6pE5DVytX
+ deB/Wk5QkWtrpDmCYkH22oKkrH7t8Y+yostyRrwYOiHX4j8zn1LMV+QoM
+ NAQNUp5MUYez1TjLVh75JhgI2Ymk9n7pJSZCdyQIr2dLRle8b1/lDNT3t
+ j3lZoumSaBJAT5libAuy8iNVAPBdtyBNgIR1RlzYS9I2Ekv9aY4tbkte5 g==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10947"; a="11514119"
+X-IronPort-AV: E=Sophos;i="6.04,181,1695711600"; d="scan'208";a="11514119"
 Received: from orsmga007.jf.intel.com ([10.7.209.58])
  by fmvoesa102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 08 Jan 2024 15:07:02 -0800
+ 08 Jan 2024 15:07:01 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10947"; a="774647103"
-X-IronPort-AV: E=Sophos;i="6.04,181,1695711600"; d="scan'208";a="774647103"
+X-IronPort-AV: E=McAfee;i="6600,9927,10947"; a="774647083"
+X-IronPort-AV: E=Sophos;i="6.04,181,1695711600"; d="scan'208";a="774647083"
 Received: from invictus.jf.intel.com ([10.165.21.201])
  by orsmga007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 08 Jan 2024 15:07:00 -0800
+ 08 Jan 2024 15:06:59 -0800
 From: Radhakrishna Sripada <radhakrishna.sripada@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Subject: [RFC 10/15] drm/i915: Move vbt firmware load into intel_bios_init
-Date: Mon,  8 Jan 2024 15:05:12 -0800
-Message-Id: <20240108230517.1497504-11-radhakrishna.sripada@intel.com>
+Subject: [RFC 03/15] drm/i915: Cache opregion asls pointer
+Date: Mon,  8 Jan 2024 15:05:05 -0800
+Message-Id: <20240108230517.1497504-4-radhakrishna.sripada@intel.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20240108230517.1497504-1-radhakrishna.sripada@intel.com>
 References: <20240108230517.1497504-1-radhakrishna.sripada@intel.com>
@@ -60,157 +60,57 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Grouping various vbt load options, move vbt load from firmware option
-from opregion vbt load function to bios init.
+Asls offset is used to calculate the relative offset of vbt in ASLE
+mailbox. Cache the address read from PCI config space to use later during
+vbt extraction.
 
 Signed-off-by: Radhakrishna Sripada <radhakrishna.sripada@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_bios.c     | 47 ++++++++++++++++++-
- drivers/gpu/drm/i915/display/intel_opregion.c | 45 ------------------
- 2 files changed, 46 insertions(+), 46 deletions(-)
+ drivers/gpu/drm/i915/display/intel_opregion.c | 4 +++-
+ drivers/gpu/drm/i915/display/intel_opregion.h | 1 +
+ 2 files changed, 4 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_bios.c b/drivers/gpu/drm/i915/display/intel_bios.c
-index 5d2a56df029d..711ae963ed7a 100644
---- a/drivers/gpu/drm/i915/display/intel_bios.c
-+++ b/drivers/gpu/drm/i915/display/intel_bios.c
-@@ -25,6 +25,8 @@
-  *
-  */
- 
-+#include <linux/firmware.h>
-+
- #include <drm/display/drm_dp_helper.h>
- #include <drm/display/drm_dsc_helper.h>
- #include <drm/drm_edid.h>
-@@ -2947,6 +2949,47 @@ bool intel_bios_is_valid_vbt(const void *buf, size_t size)
- 	return vbt;
- }
- 
-+static int intel_load_vbt_firmware(struct drm_i915_private *dev_priv)
-+{
-+	struct intel_vbt *vbt = &dev_priv->display.vbt;
-+	const struct firmware *fw = NULL;
-+	const char *name = dev_priv->display.params.vbt_firmware;
-+	int ret;
-+
-+	if (!name || !*name)
-+		return -ENOENT;
-+
-+	ret = request_firmware(&fw, name, dev_priv->drm.dev);
-+	if (ret) {
-+		drm_err(&dev_priv->drm,
-+			"Requesting VBT firmware \"%s\" failed (%d)\n",
-+			name, ret);
-+		return ret;
-+	}
-+
-+	if (intel_bios_is_valid_vbt(fw->data, fw->size)) {
-+		vbt->vbt_firmware = kmemdup(fw->data, fw->size, GFP_KERNEL);
-+		if (vbt->vbt_firmware) {
-+			drm_dbg_kms(&dev_priv->drm,
-+				    "Found valid VBT firmware \"%s\"\n", name);
-+			vbt->vbt = vbt->vbt_firmware;
-+			vbt->vbt_size = fw->size;
-+			vbt->type = I915_VBT_FIRMWARE;
-+			ret = 0;
-+		} else {
-+			ret = -ENOMEM;
-+		}
-+	} else {
-+		drm_dbg_kms(&dev_priv->drm, "Invalid VBT firmware \"%s\"\n",
-+			    name);
-+		ret = -EINVAL;
-+	}
-+
-+	release_firmware(fw);
-+
-+	return ret;
-+}
-+
- static u32 intel_spi_read(struct intel_uncore *uncore, u32 offset)
- {
- 	intel_uncore_write(uncore, PRIMARY_SPI_ADDRESS, offset);
-@@ -3106,7 +3149,9 @@ void intel_bios_init(struct drm_i915_private *i915)
- 
- 	init_vbt_defaults(i915);
- 
--	if (opregion->asls)
-+	intel_load_vbt_firmware(i915);
-+
-+	if (!vbt->vbt && opregion->asls)
- 		intel_load_opregion_vbt(i915, opregion, vbt);
- 	/*
- 	 * If the OpRegion does not have VBT, look in SPI flash through MMIO or
 diff --git a/drivers/gpu/drm/i915/display/intel_opregion.c b/drivers/gpu/drm/i915/display/intel_opregion.c
-index 5ff6466548a3..32875f0e89bd 100644
+index fa25007fac3a..bd654d773ca7 100644
 --- a/drivers/gpu/drm/i915/display/intel_opregion.c
 +++ b/drivers/gpu/drm/i915/display/intel_opregion.c
-@@ -27,7 +27,6 @@
+@@ -903,6 +903,7 @@ int intel_opregion_setup(struct drm_i915_private *dev_priv)
+ 		return -ENOTSUPP;
+ 	}
  
- #include <linux/acpi.h>
- #include <linux/dmi.h>
--#include <linux/firmware.h>
- #include <acpi/video.h>
++	opregion->asls = asls;
+ 	INIT_WORK(&opregion->asle_work, asle_work);
  
- #include <drm/drm_edid.h>
-@@ -837,47 +836,6 @@ static const struct dmi_system_id intel_no_opregion_vbt[] = {
- 	{ }
+ 	base = memremap(asls, OPREGION_SIZE, MEMREMAP_WB);
+@@ -987,7 +988,7 @@ int intel_opregion_setup(struct drm_i915_private *dev_priv)
+ 		    opregion->header->over.minor >= 1) {
+ 			drm_WARN_ON(&dev_priv->drm, rvda < OPREGION_SIZE);
+ 
+-			rvda += asls;
++			rvda += opregion->asls;
+ 		}
+ 
+ 		opregion->rvda = memremap(rvda, opregion->asle->rvds,
+@@ -1262,6 +1263,7 @@ void intel_opregion_cleanup(struct drm_i915_private *i915)
+ 	opregion->swsci = NULL;
+ 	opregion->asle = NULL;
+ 	opregion->asle_ext = NULL;
++	opregion->asls = 0;
+ 	vbt->vbt = NULL;
+ 	opregion->lid_state = NULL;
+ }
+diff --git a/drivers/gpu/drm/i915/display/intel_opregion.h b/drivers/gpu/drm/i915/display/intel_opregion.h
+index 7e1c8f1c2da5..03838fa39d0d 100644
+--- a/drivers/gpu/drm/i915/display/intel_opregion.h
++++ b/drivers/gpu/drm/i915/display/intel_opregion.h
+@@ -48,6 +48,7 @@ struct intel_opregion {
+ 	struct opregion_asle_ext *asle_ext;
+ 	void *rvda;
+ 	u32 *lid_state;
++	u32 asls;
+ 	struct work_struct asle_work;
+ 	struct notifier_block acpi_notifier;
  };
- 
--static int intel_load_vbt_firmware(struct drm_i915_private *dev_priv)
--{
--	struct intel_vbt *vbt = &dev_priv->display.vbt;
--	const struct firmware *fw = NULL;
--	const char *name = dev_priv->display.params.vbt_firmware;
--	int ret;
--
--	if (!name || !*name)
--		return -ENOENT;
--
--	ret = request_firmware(&fw, name, dev_priv->drm.dev);
--	if (ret) {
--		drm_err(&dev_priv->drm,
--			"Requesting VBT firmware \"%s\" failed (%d)\n",
--			name, ret);
--		return ret;
--	}
--
--	if (intel_bios_is_valid_vbt(fw->data, fw->size)) {
--		vbt->vbt_firmware = kmemdup(fw->data, fw->size, GFP_KERNEL);
--		if (vbt->vbt_firmware) {
--			drm_dbg_kms(&dev_priv->drm,
--				    "Found valid VBT firmware \"%s\"\n", name);
--			vbt->vbt = vbt->vbt_firmware;
--			vbt->vbt_size = fw->size;
--			vbt->type = I915_VBT_FIRMWARE;
--			ret = 0;
--		} else {
--			ret = -ENOMEM;
--		}
--	} else {
--		drm_dbg_kms(&dev_priv->drm, "Invalid VBT firmware \"%s\"\n",
--			    name);
--		ret = -EINVAL;
--	}
--
--	release_firmware(fw);
--
--	return ret;
--}
--
- void intel_load_opregion_vbt(struct drm_i915_private *i915,
- 			     struct intel_opregion *opregion,
- 			     struct intel_vbt *vbt)
-@@ -886,9 +844,6 @@ void intel_load_opregion_vbt(struct drm_i915_private *i915,
- 	u32 vbt_size;
- 	void *base = opregion->header;
- 
--	if (intel_load_vbt_firmware(i915) == 0)
--		return;
--
- 	if (dmi_check_system(intel_no_opregion_vbt))
- 		return;
- 
 -- 
 2.34.1
 
