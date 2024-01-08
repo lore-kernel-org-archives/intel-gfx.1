@@ -4,42 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E33E4C47DA6
-	for <intel-gfx@archiver.kernel.org>; Mon,  8 Jan 2024 23:07:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A43A3C4707B
+	for <intel-gfx@archiver.kernel.org>; Mon,  8 Jan 2024 23:07:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E147910E33F;
-	Mon,  8 Jan 2024 23:07:04 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 03FCC10E341;
+	Mon,  8 Jan 2024 23:07:05 +0000 (UTC)
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.8])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 78F8310E2CB
- for <intel-gfx@lists.freedesktop.org>; Mon,  8 Jan 2024 23:07:01 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3580D10E335
+ for <intel-gfx@lists.freedesktop.org>; Mon,  8 Jan 2024 23:07:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
  t=1704755222; x=1736291222;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=dbw/vOTz0AX/mZx2R2B9kmzOg6YtTCpVFUE/iQRSjaA=;
- b=k4D2IMVgDlCO0gtj+MqGrQ8rMDtpKlGhSCtZ9GoVW+1FH2gnUDcdvMxp
- fh5dWIhiUikdpX7jzU3Ao9hn0Swi0acnI9E2ru7AwgB2+eGycHDxdYdgu
- QpTqtmPXJuewvnip/VGesNjgcbJeuyl2zVpL3UKCibFRZEXwwoYEYZyTy
- lL100IkdREwCttZVEOIM9LFdB16iWqnfTSkSLt3CciPmBR40YZ+Zjt0gU
- rJDLmbED+2Ccj9TxknHvPt56mJ1zTuf9MlVbWEMsvsIUUu7b6dbN69Hrx
- Qg8W3forea1gpp8y9gMOUF8Vvv4zK0uXqNnDXFFScOnVa7R/27B/RYqo/ A==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10947"; a="11514121"
-X-IronPort-AV: E=Sophos;i="6.04,181,1695711600"; d="scan'208";a="11514121"
+ bh=c7+s0godtRrNIZmPeIb1tUPNPqQElZ2p5Wwipux6CnM=;
+ b=RFdM6ukCJxA38FclwKvm00UwhuCym2sekovQeIG6HM+kCM9Bc5w/5rSS
+ cPqbfW3JBxUnTKLneDtYGWA7c6l8Y6DQR8XQbXls+JOInjULgG2XkbW6T
+ ENW22gclKDBMsgLbfV0cbKZiKs+CWFEWGMkawdvy03mozaIJPykqM947D
+ rbLI3l+nUkyjhL94j8/H1cjbYTmZAVl0I5ywlHDUXuVG8kukMPAnbjGpq
+ W47o6lDnjN/qBfvEg3I6jJro8/WjeXqMgJ18xD3q0VZ3WLcuwjjEli4Xa
+ dzgMvKaMqnFSHTm+MbksF+bKcrfTFXYlV128eifzIfrB1vTYehS7C2npU g==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10947"; a="11514132"
+X-IronPort-AV: E=Sophos;i="6.04,181,1695711600"; d="scan'208";a="11514132"
 Received: from orsmga007.jf.intel.com ([10.7.209.58])
  by fmvoesa102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 08 Jan 2024 15:07:01 -0800
+ 08 Jan 2024 15:07:02 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10947"; a="774647085"
-X-IronPort-AV: E=Sophos;i="6.04,181,1695711600"; d="scan'208";a="774647085"
+X-IronPort-AV: E=McAfee;i="6600,9927,10947"; a="774647115"
+X-IronPort-AV: E=Sophos;i="6.04,181,1695711600"; d="scan'208";a="774647115"
 Received: from invictus.jf.intel.com ([10.165.21.201])
  by orsmga007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 08 Jan 2024 15:06:59 -0800
+ 08 Jan 2024 15:07:00 -0800
 From: Radhakrishna Sripada <radhakrishna.sripada@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Subject: [RFC 04/15] drm/i915: Extract opregion vbt capture to its own function
-Date: Mon,  8 Jan 2024 15:05:06 -0800
-Message-Id: <20240108230517.1497504-5-radhakrishna.sripada@intel.com>
+Subject: [RFC 14/15] drm/i915: Kill reduntant vbt_firmware from intel_vbt
+Date: Mon,  8 Jan 2024 15:05:16 -0800
+Message-Id: <20240108230517.1497504-15-radhakrishna.sripada@intel.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20240108230517.1497504-1-radhakrishna.sripada@intel.com>
 References: <20240108230517.1497504-1-radhakrishna.sripada@intel.com>
@@ -60,182 +60,61 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-As part of opregion setup, vbt is extracted from the opregion. Move
-the vbt parts of opregion setup into its own function.
+vbt_firmware was used to cache the vbt read from firmware. With
+introduction of intel_vbt, vbt field is used to cache the firmware read
+from different sources making vbt_firmware field redundant. Kill this
+field to simplify intel_vbt structure.
 
 Signed-off-by: Radhakrishna Sripada <radhakrishna.sripada@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_opregion.c | 143 ++++++++++--------
- 1 file changed, 76 insertions(+), 67 deletions(-)
+ drivers/gpu/drm/i915/display/intel_bios.c         | 9 +++------
+ drivers/gpu/drm/i915/display/intel_display_core.h | 1 -
+ 2 files changed, 3 insertions(+), 7 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_opregion.c b/drivers/gpu/drm/i915/display/intel_opregion.c
-index bd654d773ca7..cf7312cfd94a 100644
---- a/drivers/gpu/drm/i915/display/intel_opregion.c
-+++ b/drivers/gpu/drm/i915/display/intel_opregion.c
-@@ -877,6 +877,81 @@ static int intel_load_vbt_firmware(struct drm_i915_private *dev_priv)
- 	return ret;
- }
- 
-+static int intel_load_opregion_vbt(struct drm_i915_private *i915,
-+				   struct intel_opregion *opregion,
-+				   struct intel_vbt *vbt)
-+{
-+	const void *vbt_data;
-+	u32 vbt_size;
-+	void *base = opregion->header;
-+
-+	if (intel_load_vbt_firmware(i915) == 0)
-+		goto out;
-+
-+	if (dmi_check_system(intel_no_opregion_vbt))
-+		goto out;
-+
-+	if (opregion->header->over.major >= 2 && opregion->asle &&
-+	    opregion->asle->rvda && opregion->asle->rvds) {
-+		resource_size_t rvda = opregion->asle->rvda;
-+
-+		/*
-+		 * opregion 2.0: rvda is the physical VBT address.
-+		 *
-+		 * opregion 2.1+: rvda is unsigned, relative offset from
-+		 * opregion base, and should never point within opregion.
-+		 */
-+		if (opregion->header->over.major > 2 ||
-+		    opregion->header->over.minor >= 1) {
-+			drm_WARN_ON(&i915->drm, rvda < OPREGION_SIZE);
-+
-+			rvda += opregion->asls;
-+		}
-+
-+		opregion->rvda = memremap(rvda, opregion->asle->rvds,
-+					  MEMREMAP_WB);
-+
-+		vbt_data = opregion->rvda;
-+		vbt_size = opregion->asle->rvds;
-+		if (intel_bios_is_valid_vbt(vbt_data, vbt_size)) {
-+			drm_dbg_kms(&i915->drm,
-+				    "Found valid VBT in ACPI OpRegion (RVDA)\n");
-+			vbt->vbt = vbt_data;
-+			vbt->vbt_size = vbt_size;
-+			goto out;
-+		} else {
-+			drm_dbg_kms(&i915->drm,
-+				    "Invalid VBT in ACPI OpRegion (RVDA)\n");
-+			memunmap(opregion->rvda);
-+			opregion->rvda = NULL;
-+		}
-+	}
-+
-+	vbt_data = base + OPREGION_VBT_OFFSET;
-+	/*
-+	 * The VBT specification says that if the ASLE ext mailbox is not used
-+	 * its area is reserved, but on some CHT boards the VBT extends into the
-+	 * ASLE ext area. Allow this even though it is against the spec, so we
-+	 * do not end up rejecting the VBT on those boards (and end up not
-+	 * finding the LCD panel because of this).
-+	 */
-+	vbt_size = (opregion->header->mboxes & MBOX_ASLE_EXT) ?
-+		OPREGION_ASLE_EXT_OFFSET : OPREGION_SIZE;
-+	vbt_size -= OPREGION_VBT_OFFSET;
-+	if (intel_bios_is_valid_vbt(vbt_data, vbt_size)) {
-+		drm_dbg_kms(&i915->drm,
-+			    "Found valid VBT in ACPI OpRegion (Mailbox #4)\n");
-+		vbt->vbt = vbt_data;
-+		vbt->vbt_size = vbt_size;
-+	} else {
-+		drm_dbg_kms(&i915->drm,
-+			    "Invalid VBT in ACPI OpRegion (Mailbox #4)\n");
-+	}
-+
-+out:
-+	return 0;
-+}
-+
- int intel_opregion_setup(struct drm_i915_private *dev_priv)
- {
- 	struct intel_opregion *opregion = &dev_priv->display.opregion;
-@@ -886,8 +961,6 @@ int intel_opregion_setup(struct drm_i915_private *dev_priv)
- 	char buf[sizeof(OPREGION_SIGNATURE)];
- 	int err = 0;
- 	void *base;
--	const void *vbt_data;
--	u32 vbt_size;
- 
- 	BUILD_BUG_ON(sizeof(struct opregion_header) != 0x100);
- 	BUILD_BUG_ON(sizeof(struct opregion_acpi) != 0x100);
-@@ -968,71 +1041,7 @@ int intel_opregion_setup(struct drm_i915_private *dev_priv)
- 		drm_dbg(&dev_priv->drm, "Mailbox #2 for backlight present\n");
+diff --git a/drivers/gpu/drm/i915/display/intel_bios.c b/drivers/gpu/drm/i915/display/intel_bios.c
+index 1b5cc3416d77..135a2d5d50b8 100644
+--- a/drivers/gpu/drm/i915/display/intel_bios.c
++++ b/drivers/gpu/drm/i915/display/intel_bios.c
+@@ -2968,11 +2968,10 @@ static int intel_load_vbt_firmware(struct drm_i915_private *dev_priv,
  	}
  
--	if (intel_load_vbt_firmware(dev_priv) == 0)
--		goto out;
--
--	if (dmi_check_system(intel_no_opregion_vbt))
--		goto out;
--
--	if (opregion->header->over.major >= 2 && opregion->asle &&
--	    opregion->asle->rvda && opregion->asle->rvds) {
--		resource_size_t rvda = opregion->asle->rvda;
--
--		/*
--		 * opregion 2.0: rvda is the physical VBT address.
--		 *
--		 * opregion 2.1+: rvda is unsigned, relative offset from
--		 * opregion base, and should never point within opregion.
--		 */
--		if (opregion->header->over.major > 2 ||
--		    opregion->header->over.minor >= 1) {
--			drm_WARN_ON(&dev_priv->drm, rvda < OPREGION_SIZE);
--
--			rvda += opregion->asls;
--		}
--
--		opregion->rvda = memremap(rvda, opregion->asle->rvds,
--					  MEMREMAP_WB);
--
--		vbt_data = opregion->rvda;
--		vbt_size = opregion->asle->rvds;
--		if (intel_bios_is_valid_vbt(vbt_data, vbt_size)) {
--			drm_dbg_kms(&dev_priv->drm,
--				    "Found valid VBT in ACPI OpRegion (RVDA)\n");
--			vbt->vbt = vbt_data;
--			vbt->vbt_size = vbt_size;
--			goto out;
--		} else {
--			drm_dbg_kms(&dev_priv->drm,
--				    "Invalid VBT in ACPI OpRegion (RVDA)\n");
--			memunmap(opregion->rvda);
--			opregion->rvda = NULL;
--		}
--	}
--
--	vbt_data = base + OPREGION_VBT_OFFSET;
--	/*
--	 * The VBT specification says that if the ASLE ext mailbox is not used
--	 * its area is reserved, but on some CHT boards the VBT extends into the
--	 * ASLE ext area. Allow this even though it is against the spec, so we
--	 * do not end up rejecting the VBT on those boards (and end up not
--	 * finding the LCD panel because of this).
--	 */
--	vbt_size = (mboxes & MBOX_ASLE_EXT) ?
--		OPREGION_ASLE_EXT_OFFSET : OPREGION_SIZE;
--	vbt_size -= OPREGION_VBT_OFFSET;
--	if (intel_bios_is_valid_vbt(vbt_data, vbt_size)) {
--		drm_dbg_kms(&dev_priv->drm,
--			    "Found valid VBT in ACPI OpRegion (Mailbox #4)\n");
--		vbt->vbt = vbt_data;
--		vbt->vbt_size = vbt_size;
--	} else {
--		drm_dbg_kms(&dev_priv->drm,
--			    "Invalid VBT in ACPI OpRegion (Mailbox #4)\n");
--	}
--
--out:
--	return 0;
-+	return intel_load_opregion_vbt(dev_priv, opregion, vbt);
+ 	if (intel_bios_is_valid_vbt(fw->data, fw->size)) {
+-		vbt->vbt_firmware = kmemdup(fw->data, fw->size, GFP_KERNEL);
+-		if (vbt->vbt_firmware) {
++		vbt->vbt = kmemdup(fw->data, fw->size, GFP_KERNEL);
++		if (vbt->vbt) {
+ 			drm_dbg_kms(&dev_priv->drm,
+ 				    "Found valid VBT firmware \"%s\"\n", name);
+-			vbt->vbt = vbt->vbt_firmware;
+ 			vbt->vbt_size = fw->size;
+ 			vbt->type = I915_VBT_FIRMWARE;
+ 			ret = 0;
+@@ -3273,12 +3272,10 @@ void intel_bios_driver_remove(struct drm_i915_private *i915)
+ 	switch (vbt->type) {
+ 	case I915_VBT_SPI:
+ 	case I915_VBT_OPROM:
++	case I915_VBT_FIRMWARE:
+ 		kfree(vbt->vbt);
+ 		vbt->type = I915_VBT_NONE;
+ 		break;
+-	case I915_VBT_FIRMWARE:
+-		kfree(vbt->vbt_firmware);
+-		fallthrough;
+ 	case I915_VBT_OPREGION:
+ 		vbt->vbt = NULL;
+ 		vbt->type = I915_VBT_NONE;
+diff --git a/drivers/gpu/drm/i915/display/intel_display_core.h b/drivers/gpu/drm/i915/display/intel_display_core.h
+index 4807edc88f81..cdc6e30ba6a6 100644
+--- a/drivers/gpu/drm/i915/display/intel_display_core.h
++++ b/drivers/gpu/drm/i915/display/intel_display_core.h
+@@ -233,7 +233,6 @@ struct intel_vbt_data {
+ };
  
- err_out:
- 	memunmap(base);
+ struct intel_vbt {
+-	void *vbt_firmware;
+ 	const void *vbt;
+ 	u32 vbt_size;
+ 	enum {
 -- 
 2.34.1
 
