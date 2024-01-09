@@ -4,45 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AB918C46CD2
-	for <intel-gfx@archiver.kernel.org>; Tue,  9 Jan 2024 10:05:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 099FCC46CD2
+	for <intel-gfx@archiver.kernel.org>; Tue,  9 Jan 2024 10:05:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CB2A110E075;
-	Tue,  9 Jan 2024 10:05:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CB75410E36A;
+	Tue,  9 Jan 2024 10:05:32 +0000 (UTC)
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1867810E075
- for <intel-gfx@lists.freedesktop.org>; Tue,  9 Jan 2024 10:05:29 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C60C910E36A
+ for <intel-gfx@lists.freedesktop.org>; Tue,  9 Jan 2024 10:05:31 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1704794729; x=1736330729;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=PT2TwyACrW12B6qYyDpn5XymEpSLjBBVUB9RTc7TWak=;
- b=F4CPpNiiKAcue1I1O3ygmgIz4q3HpkINClypbjF3kNpQHcwfzkb7u/uP
- BbH1aNZQDAV6tQNgwWr2uSMAJQ+L1csm4EhB/MOENJBI7fHsZCR4h7aW5
- dFOZB0wJ2i3cZ7QM2cyXCmIZBl9H+0qYMDFgbLRNdCmKAhFMV3SADSunK
- z7rT1kMTjzK1J0W4oey9lotKqSiDrQ6aiYWKJVg4aTLWjG5t+JyK5iKcQ
- NqCqNYSlOmL2PLSsUPNLg5dZjtza3yQP7YKfnuIfFy3I1uISO2Jrufuip
- CnSWOlr5y5oNuN6rLDc6WiYBjVcBXmALXTU+KYMP9IJWk7a0TSjJm2nEp Q==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10947"; a="5517888"
+ t=1704794732; x=1736330732;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=3eLvaupTJHcgElYUCE9F9oGP/9yWGh9ktKKKkusHQ1U=;
+ b=XS1eeL1utC3s1QgV/DvR+4mbCrOmdy1jCAsdo1YfQHrDbkSyqJrlMrfS
+ /V1O7Ofrx7BlfVrwve5ZRoMwwKSzRJjDkR2YWxkEcyPvgee574sEMXl/F
+ Ve1DKXbP/LUJLk1dUIlzopDSIZrmDaJ2Y4diWiaqmv8XvZmQyLr5EvMJI
+ f0NlKjepKSDvO6/e9qvo1wxVKCJ8RI1JXiZAcIx6IddxB7/OhJ2SlC9W5
+ XcPfNVK9T4ldxzDhUsVhop8F9wTGzohXHICfM9AihQ+0qhCTAzSmz6bm3
+ e4pPysrOgGH21WBuZQ7pg30L6Uz9H10uZbLNCRhX0DIb/xh1ZqSEXY30z g==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10947"; a="5517898"
 X-IronPort-AV: E=Sophos;i="6.04,182,1695711600"; 
-   d="scan'208";a="5517888"
+   d="scan'208";a="5517898"
 Received: from fmsmga001.fm.intel.com ([10.253.24.23])
  by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 09 Jan 2024 02:05:29 -0800
+ 09 Jan 2024 02:05:32 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10947"; a="925194203"
-X-IronPort-AV: E=Sophos;i="6.04,182,1695711600"; d="scan'208";a="925194203"
+X-IronPort-AV: E=McAfee;i="6600,9927,10947"; a="925194211"
+X-IronPort-AV: E=Sophos;i="6.04,182,1695711600"; d="scan'208";a="925194211"
 Received: from ahuge-mobl.ger.corp.intel.com (HELO jhogande-mobl1.intel.com)
  ([10.252.36.112])
  by fmsmga001-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 09 Jan 2024 02:05:27 -0800
+ 09 Jan 2024 02:05:30 -0800
 From: =?UTF-8?q?Jouni=20H=C3=B6gander?= <jouni.hogander@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Subject: [PATCH 0/2] Allow PSR mode changes without full modeset
-Date: Tue,  9 Jan 2024 12:05:15 +0200
-Message-Id: <20240109100517.1947414-1-jouni.hogander@intel.com>
+Subject: [PATCH 2/2] drm/i915/psr: CAN_PSR and CAN_PANEL_REPLAY can be now
+ local defines
+Date: Tue,  9 Jan 2024 12:05:17 +0200
+Message-Id: <20240109100517.1947414-3-jouni.hogander@intel.com>
 X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20240109100517.1947414-1-jouni.hogander@intel.com>
+References: <20240109100517.1947414-1-jouni.hogander@intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
@@ -62,19 +65,49 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Currently PSR mode changes are triggering full modeset. This patch set
-allows changes to PSR mode using fast modeset.
+CAN_PSR and CAN_PANEL_REPLAY are not used outside intel_psr.c anymore. Make
+them as intel_psr.c local defines.
 
-Jouni Högander (2):
-  drm/i915/display: No need for full modeset due to psr
-  drm/i915/psr: CAN_PSR and CAN_PANEL_REPLAY can be now local defines
+Signed-off-by: Jouni Högander <jouni.hogander@intel.com>
+---
+ drivers/gpu/drm/i915/display/intel_psr.c | 6 ++++++
+ drivers/gpu/drm/i915/display/intel_psr.h | 6 ------
+ 2 files changed, 6 insertions(+), 6 deletions(-)
 
- drivers/gpu/drm/i915/display/intel_display.c | 7 -------
- drivers/gpu/drm/i915/display/intel_dp.c      | 7 -------
- drivers/gpu/drm/i915/display/intel_psr.c     | 6 ++++++
- drivers/gpu/drm/i915/display/intel_psr.h     | 6 ------
- 4 files changed, 6 insertions(+), 20 deletions(-)
-
+diff --git a/drivers/gpu/drm/i915/display/intel_psr.c b/drivers/gpu/drm/i915/display/intel_psr.c
+index 54120b45958b..34c0a5a14455 100644
+--- a/drivers/gpu/drm/i915/display/intel_psr.c
++++ b/drivers/gpu/drm/i915/display/intel_psr.c
+@@ -173,6 +173,12 @@
+  * irrelevant for normal operation.
+  */
+ 
++#define CAN_PSR(intel_dp) ((intel_dp)->psr.sink_support && \
++			   (intel_dp)->psr.source_support)
++
++#define CAN_PANEL_REPLAY(intel_dp) ((intel_dp)->psr.sink_panel_replay_support && \
++				    (intel_dp)->psr.source_panel_replay_support)
++
+ bool intel_encoder_can_psr(struct intel_encoder *encoder)
+ {
+ 	if (intel_encoder_is_dp(encoder) || encoder->type == INTEL_OUTPUT_DP_MST)
+diff --git a/drivers/gpu/drm/i915/display/intel_psr.h b/drivers/gpu/drm/i915/display/intel_psr.h
+index 143e0595c097..cde781df84d5 100644
+--- a/drivers/gpu/drm/i915/display/intel_psr.h
++++ b/drivers/gpu/drm/i915/display/intel_psr.h
+@@ -21,12 +21,6 @@ struct intel_encoder;
+ struct intel_plane;
+ struct intel_plane_state;
+ 
+-#define CAN_PSR(intel_dp) ((intel_dp)->psr.sink_support && \
+-			   (intel_dp)->psr.source_support)
+-
+-#define CAN_PANEL_REPLAY(intel_dp) ((intel_dp)->psr.sink_panel_replay_support && \
+-				    (intel_dp)->psr.source_panel_replay_support)
+-
+ bool intel_encoder_can_psr(struct intel_encoder *encoder);
+ void intel_psr_init_dpcd(struct intel_dp *intel_dp);
+ void intel_psr_pre_plane_update(struct intel_atomic_state *state,
 -- 
 2.34.1
 
