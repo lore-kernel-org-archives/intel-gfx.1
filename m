@@ -4,68 +4,54 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id ED234C47258
-	for <intel-gfx@archiver.kernel.org>; Tue,  9 Jan 2024 07:47:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 79BD9C47073
+	for <intel-gfx@archiver.kernel.org>; Tue,  9 Jan 2024 08:15:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BAA9810E3A2;
-	Tue,  9 Jan 2024 07:47:42 +0000 (UTC)
-Received: from mail-ej1-x631.google.com (mail-ej1-x631.google.com
- [IPv6:2a00:1450:4864:20::631])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B75F910E37A;
- Tue,  9 Jan 2024 07:47:35 +0000 (UTC)
-Received: by mail-ej1-x631.google.com with SMTP id
- a640c23a62f3a-a271a28aeb4so263281466b.2; 
- Mon, 08 Jan 2024 23:47:35 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1704786454; x=1705391254; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:to:from:from:to:cc:subject:date:message-id
- :reply-to; bh=Nz6wgSvtDxdn5W5MMKrsDHjNFgiWM0XnkScPndx0kOc=;
- b=DzESsYvvUmlkuuhW0EWneOPWxCeb+eGPTFU5XP515KH2kVaqZkJ4aOvwEiVJPbLxay
- 08/MFAR/gAX/doPGRuxHGk9oq5ewAGjEZiG9lr+xC3dY0ZKCSWejoDt8c7Qq5zcL+VNV
- mdgSbju3CQdjdSek9gGssAHHJtfxwyZ8+0ysgTON/T2UIctG2Bn610DX0TiX7/lUQaWM
- Siro20aA4p3Qw7Eg9RPr/VWaZPYOUkQ5FNHbWDqPcae75TVFlsmqJqdfyYjZETrf6eVK
- AV5CFCLXG/zPh8q1reFy42XisiaaIDCjvFqXUPcLK77Xo/k9K7P3Hal/Ns40yNmjdauR
- T+GA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1704786454; x=1705391254;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:to:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=Nz6wgSvtDxdn5W5MMKrsDHjNFgiWM0XnkScPndx0kOc=;
- b=g44L8NdlmTqdkv1AdOHNdyAn2yXvI+CfCllTNKwnm+qrF/bwuCpjg889Tmz/vF040e
- enyjGvnmjguYmJb446pGo2ANPSbcQY1IrPMvEW82gS3dN4OldC1UGncD+ySE/DsXRIPe
- HhLgaFKNHTV2z6H8GASHbGbWPmYIom98bq8DVP8h4Z1Rk1N+hMUS0cn8jokaSJyYKi3r
- kuqfIoFjQ+AYhbCOCg/KYOEjGuXr/x72SMFjhPSx2KEhJxIelUrxHhUm5igTVkMlZXqv
- hePxcM0jv2iAYMf1Ybc9F18KQ0McM9AMgBmVbEESWN0iUXbN2uyXjqG6QpIjQMwSPrMo
- vClw==
-X-Gm-Message-State: AOJu0Yztn9e0eIJvsk/ttMJZuDpQNgHavXG79nVOIC63YTZ0Nj1v8Mlb
- f5GBBKSYkBeX2UNEhElGk9s=
-X-Google-Smtp-Source: AGHT+IHKDHFq/OI4MBfBM6tHFW6r2qucBNaQxmte28BUxlQrD+ZX8Aw41NblBywArN0elqz2yvX43g==
-X-Received: by 2002:a17:906:f249:b0:a27:a02c:3499 with SMTP id
- gy9-20020a170906f24900b00a27a02c3499mr340106ejb.60.1704786453894; 
- Mon, 08 Jan 2024 23:47:33 -0800 (PST)
-Received: from able.fritz.box ([2a00:e180:15f1:d900:3a74:b44a:2376:22bd])
- by smtp.gmail.com with ESMTPSA id
- bm3-20020a170906c04300b00a2a4efe7d3dsm731563ejb.79.2024.01.08.23.47.33
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 08 Jan 2024 23:47:33 -0800 (PST)
-From: "=?UTF-8?q?Christian=20K=C3=B6nig?=" <ckoenig.leichtzumerken@gmail.com>
-X-Google-Original-From: =?UTF-8?q?Christian=20K=C3=B6nig?=
- <christian.koenig@amd.com>
-To: zack.rusin@broadcom.com, thomas.hellstrom@linux.intel.com,
- lyude@redhat.com, kherbst@redhat.com, jani.nikula@linux.intel.com,
- nouveau@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org
-Subject: [PATCH 2/5] drm/ttm: return ENOSPC from ttm_bo_mem_space
-Date: Tue,  9 Jan 2024 08:47:26 +0100
-Message-Id: <20240109074729.3646-3-christian.koenig@amd.com>
-X-Mailer: git-send-email 2.34.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id E954110E6D0;
+	Tue,  9 Jan 2024 08:15:07 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.11])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EDA7910E3BC;
+ Tue,  9 Jan 2024 08:15:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1704788106; x=1736324106;
+ h=message-id:subject:from:to:date:in-reply-to:references:
+ content-transfer-encoding:mime-version;
+ bh=qaN1uP+7/9EnkHDbj9xO2EMILUP1ZO3LHGDHEvykv8E=;
+ b=lqhMsg2EQR0yhvsjgOrtq9K4EyUTY4/XZCFNQuL76QjewlWFU0yJ7L5A
+ 8wTn5R8cYYTxvo5lou9qRtH8a89XVJgZtHR3OLLvXmgagVtq2EsQaM+D6
+ sIipeH20b1jGjQkrphil93qQJU9FPqhJdUek5k4sw8BdC/KasLgNGXyh7
+ WJHoSFdR3SJiuXRaaiSUiP//f04Gpi1zZKlP+FM6rAWTPzkbFkIooRwFl
+ /IYRhhR6fUgnwYzK0vwwGv1sZ/VOu4jvSeAMJdQT68EZpeZ6JPmrPTVtV
+ v4gAz3i6YVD88b7Z65Xjcrh4SiBm28efALBtRRsfu/wBB30YvxaLvioaB A==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10947"; a="4869681"
+X-IronPort-AV: E=Sophos;i="6.04,182,1695711600"; 
+   d="scan'208";a="4869681"
+Received: from orsmga006.jf.intel.com ([10.7.209.51])
+ by orvoesa103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 09 Jan 2024 00:15:05 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6600,9927,10947"; a="757905182"
+X-IronPort-AV: E=Sophos;i="6.04,182,1695711600"; d="scan'208";a="757905182"
+Received: from djustese-mobl.ger.corp.intel.com (HELO [10.249.254.147])
+ ([10.249.254.147])
+ by orsmga006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 09 Jan 2024 00:14:21 -0800
+Message-ID: <70484d976d3af4286652a6b26ed8783a9362f403.camel@linux.intel.com>
+Subject: Re: Rework TTMs busy handling
+From: Thomas =?ISO-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>
+To: Christian =?ISO-8859-1?Q?K=F6nig?= <ckoenig.leichtzumerken@gmail.com>, 
+ zack.rusin@broadcom.com, lyude@redhat.com, kherbst@redhat.com, 
+ jani.nikula@linux.intel.com, nouveau@lists.freedesktop.org, 
+ intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
+Date: Tue, 09 Jan 2024 09:14:18 +0100
 In-Reply-To: <20240109074729.3646-1-christian.koenig@amd.com>
 References: <20240109074729.3646-1-christian.koenig@amd.com>
+Organization: Intel Sweden AB, Registration Number: 556189-6027
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.50.2 (3.50.2-1.fc39) 
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -81,36 +67,43 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Only convert it to ENOMEM in ttm_bo_validate.
+Hi, Christian
 
-Signed-off-by: Christian König <christian.koenig@amd.com>
----
- drivers/gpu/drm/ttm/ttm_bo.c | 5 ++++-
- 1 file changed, 4 insertions(+), 1 deletion(-)
+On Tue, 2024-01-09 at 08:47 +0100, Christian K=C3=B6nig wrote:
+> Hi guys,
+>=20
+> I'm trying to make this functionality a bit more useful for years now
+> since we multiple reports that behavior of drivers can be suboptimal
+> when multiple placements be given.
+>=20
+> So basically instead of hacking around the TTM behavior in the driver
+> once more I've gone ahead and changed the idle/busy placement list
+> into idle/busy placement flags. This not only saves a bunch of code,
+> but also allows setting some placements as fallback which are used if
+> allocating from the preferred ones didn't worked.
+>=20
+> Zack pointed out that some removed VMWGFX code was brought back
+> because
+> of rebasing, fixed in this version.
+>=20
+> Intel CI seems to be happy with those patches, so any more comments?
 
-diff --git a/drivers/gpu/drm/ttm/ttm_bo.c b/drivers/gpu/drm/ttm/ttm_bo.c
-index edf10618fe2b..8c1eaa74fa21 100644
---- a/drivers/gpu/drm/ttm/ttm_bo.c
-+++ b/drivers/gpu/drm/ttm/ttm_bo.c
-@@ -830,7 +830,7 @@ int ttm_bo_mem_space(struct ttm_buffer_object *bo,
- 			goto error;
- 	}
- 
--	ret = -ENOMEM;
-+	ret = -ENOSPC;
- 	if (!type_found) {
- 		pr_err(TTM_PFX "No compatible memory type found\n");
- 		ret = -EINVAL;
-@@ -916,6 +916,9 @@ int ttm_bo_validate(struct ttm_buffer_object *bo,
- 		return -EINVAL;
- 
- 	ret = ttm_bo_move_buffer(bo, placement, ctx);
-+	/* For backward compatibility with userspace */
-+	if (ret == -ENOSPC)
-+		return -ENOMEM;
- 	if (ret)
- 		return ret;
- 
--- 
-2.34.1
+Looks like Xe changes are missing? (xe is now in drm-tip).
+
+I also have some doubts about the naming "idle" vs "busy", since an
+elaborate eviction mechanism would probably at some point want to check
+for gpu idle vs gpu busy, and this might create some confusion moving
+forward for people confusing busy as in memory overcommit with busy as
+in gpu activity.
+
+I can't immediately think of something better, though.
+
+/Thomas
+
+
+>=20
+> Regards,
+> Christian.
+>=20
+>=20
 
