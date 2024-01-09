@@ -4,74 +4,56 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D6DE0C47258
-	for <intel-gfx@archiver.kernel.org>; Tue, 16 Jan 2024 12:28:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 95B29C4706C
+	for <intel-gfx@archiver.kernel.org>; Tue, 16 Jan 2024 12:28:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BDEA010E555;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5FE0A10E551;
 	Tue, 16 Jan 2024 12:28:13 +0000 (UTC)
-Received: from mail-wm1-x32a.google.com (mail-wm1-x32a.google.com
- [IPv6:2a00:1450:4864:20::32a])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 65CC810E4C0
- for <intel-gfx@lists.freedesktop.org>; Tue,  9 Jan 2024 18:11:23 +0000 (UTC)
-Received: by mail-wm1-x32a.google.com with SMTP id
- 5b1f17b1804b1-40d6b4e2945so38967225e9.0
- for <intel-gfx@lists.freedesktop.org>; Tue, 09 Jan 2024 10:11:23 -0800 (PST)
+Received: from mail-yw1-x1136.google.com (mail-yw1-x1136.google.com
+ [IPv6:2607:f8b0:4864:20::1136])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6505110E503
+ for <intel-gfx@lists.freedesktop.org>; Tue,  9 Jan 2024 23:12:48 +0000 (UTC)
+Received: by mail-yw1-x1136.google.com with SMTP id
+ 00721157ae682-5e7c1012a42so31709717b3.3
+ for <intel-gfx@lists.freedesktop.org>; Tue, 09 Jan 2024 15:12:48 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=yngvason.is; s=google; t=1704823882; x=1705428682; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=j5TmlSqr2R0DSFOwP1jgxjjJC7p4LGOYCLeSujiTr2s=;
- b=NKCsu7OQaYqUVnTtK0YHAPYDu4Zx1rUDr03LvnGrqVfiWy0XI0IXRt3ilgiesLbrqs
- atlDRzuImJT0yj/l6kTfscl/DavmYRudG3qBy9aQoCGvuEzFPnSiC1JWuLXr6DB0LD1s
- t9DQEoYbTVA5tOGG2SO/8TP0uvL346AI9h2y0=
+ d=yngvason.is; s=google; t=1704841967; x=1705446767; darn=lists.freedesktop.org;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc:subject:date:message-id:reply-to;
+ bh=LpxrwuyIpyyju2QtYPMpz+Gmdstpik2FIYHnxal2H/c=;
+ b=hjgUEXSY4tqDRLY/23k3Alm0DeMgraYocpKqpvhUlr0/JrtFP64MjZBr09RoLb/8Ug
+ +iVNy1h2Mc/LJvPD3VoleLcmRVkLz6xVwEirOrTTuswlMUOWdJAZrql3gbl9MeoJQPct
+ pFlw/CoYMU8O4NeXFZ2+w/PIUyhsf0yw6OWmc=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1704823882; x=1705428682;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=j5TmlSqr2R0DSFOwP1jgxjjJC7p4LGOYCLeSujiTr2s=;
- b=Sz8LSV1STR92cV55/SWpqv+nDFZdJGRIkHOhKAywNrGHZdw7OhpeUrjU3hgcxBmUvB
- PioyiofmjMzR49B9icfLA73WuHEvoZcxt+5HKuHprbeGFqUczlKjQ8ooq1RfWoeHst9U
- kOBEgTPGa/YffHvsLxv1+nMAhpTl8CvTEBQrOtPwaeG5YDtW6lghfecBwBm0ZUh2yHdJ
- E2RjgwKHBQPr+RYBo5+WfsYx3HtVMdvzQiMksYkyIb1daXs8FHsNi1SNZnRvvUfD6ePe
- fMA+nJ+Vaa38B19L4EK86x5IBkl+2eZiO+DCneepTI80ITQvGn2XWBi8MbFj4FFEYHf0
- 39PQ==
-X-Gm-Message-State: AOJu0YypdV4RKrqqlb9rO6Y3HxgLY/5uupm3MRF5DD8AYs8po7IVB2NB
- 3UeHHOP1Mayvdp1ceNA6N4/lhbeWqNa2TQ==
-X-Google-Smtp-Source: AGHT+IE8mUwmBNyBZAX/TyOCIvUTmkvOp0uvsitYL/5KGkF2V5MZ5MAl58F6Q1VC6O24Tg7pMyScTA==
-X-Received: by 2002:a05:600c:468b:b0:40d:8909:b3a3 with SMTP id
- p11-20020a05600c468b00b0040d8909b3a3mr2205592wmo.20.1704823881662; 
- Tue, 09 Jan 2024 10:11:21 -0800 (PST)
-Received: from andri-workstation.turninn.appdynamic.com
- ([2a01:8280:aa07:ad:7285:c2ff:fef0:4baf])
- by smtp.gmail.com with ESMTPSA id
- n25-20020a05600c3b9900b0040e527602c8sm2104579wms.9.2024.01.09.10.11.19
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 09 Jan 2024 10:11:21 -0800 (PST)
-From: Andri Yngvason <andri@yngvason.is>
-To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
- Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- "Pan, Xinhui" <Xinhui.Pan@amd.com>, David Airlie <airlied@gmail.com>,
- Daniel Vetter <daniel@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
-Subject: [PATCH 1/7] drm/amd/display: Remove unnecessary
- SIGNAL_TYPE_HDMI_TYPE_A check
-Date: Tue,  9 Jan 2024 18:10:58 +0000
-Message-ID: <20240109181104.1670304-2-andri@yngvason.is>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20240109181104.1670304-1-andri@yngvason.is>
-References: <20240109181104.1670304-1-andri@yngvason.is>
+ d=1e100.net; s=20230601; t=1704841967; x=1705446767;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=LpxrwuyIpyyju2QtYPMpz+Gmdstpik2FIYHnxal2H/c=;
+ b=ZGXvPwPlwzYvvIXs46cXuLWiq09ftpNs2jQqBs/P19b1hbvghQYIyllClxROAyep7t
+ CH+2rRsBMXjChxP8qMfSNFgzCZr7qQ2B3/0S8rUo6EzUsnp8kv2Q7R02sUuGItrSPgnI
+ P//ICXrGQIswZJB1SgOVZfKO1di5DP7KmTT/8tymraOgq+kIpv8S+MPlum9wv6S64UmG
+ EN0qpMUTLIa+YuMF16dNCvdMffUBcEkf6qkyZB6c40T+of8QusEUNPh2U1fDZKUcRFdf
+ x0vD1XeUxRkKJckzyWrhbb9/HvoW/0v2bAeNahqqVdgcFh2YaoSFZHuTnnsufNU8tNqt
+ RvcA==
+X-Gm-Message-State: AOJu0Yyx1nnYE55z+O6aEqaoVWfo+OuKIAWX0sLeA0QnmbJVS8GG+tJO
+ 0FNgeldb5Bfm2uYA3G1e9oNOtpszkDgz4m60Qx+6F1nfjVDUlA==
+X-Google-Smtp-Source: AGHT+IHjeS8ARWzwyLnzhdFEDGtQ5KzAPUEz3NT2gzsbBI58UWCNH/bG2gx8bvPH2kUetuxWELwNb6f0Mpy8gWKYLog=
+X-Received: by 2002:a0d:e848:0:b0:5fa:1942:ee01 with SMTP id
+ r69-20020a0de848000000b005fa1942ee01mr220445ywe.61.1704841967457; Tue, 09 Jan
+ 2024 15:12:47 -0800 (PST)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20240109181104.1670304-1-andri@yngvason.is>
+ <20240109181104.1670304-3-andri@yngvason.is>
+ <CAPj87rNan8B5urDFkmD_Vti4to6p3NmvXYsTFQTNg-Ue2ieDug@mail.gmail.com>
+In-Reply-To: <CAPj87rNan8B5urDFkmD_Vti4to6p3NmvXYsTFQTNg-Ue2ieDug@mail.gmail.com>
+From: Andri Yngvason <andri@yngvason.is>
+Date: Tue, 9 Jan 2024 23:12:11 +0000
+Message-ID: <CAFNQBQwiqqSRqzXAnC035UWCGF3=GGFR5SpDd=biPTOEA+cWbQ@mail.gmail.com>
+Subject: Re: [PATCH 2/7] drm/uAPI: Add "active color format" drm property as
+ feedback for userspace
+To: Daniel Stone <daniel@fooishbar.org>
+Content-Type: multipart/alternative; boundary="000000000000de6e41060e8b73ac"
 X-Mailman-Approved-At: Tue, 16 Jan 2024 12:28:11 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -85,48 +67,104 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: amd-gfx@lists.freedesktop.org, Simon Ser <contact@emersion.fr>,
- intel-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- Andri Yngvason <andri@yngvason.is>, dri-devel@lists.freedesktop.org
+Cc: Thomas Zimmermann <tzimmermann@suse.de>, intel-gfx@lists.freedesktop.org,
+ Leo Li <sunpeng.li@amd.com>, David Airlie <airlied@gmail.com>,
+ dri-devel@lists.freedesktop.org, "Pan, Xinhui" <Xinhui.Pan@amd.com>,
+ Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>, linux-kernel@vger.kernel.org,
+ Maxime Ripard <mripard@kernel.org>, Daniel Vetter <daniel@ffwll.ch>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Alex Deucher <alexander.deucher@amd.com>, Simon Ser <contact@emersion.fr>,
+ amd-gfx@lists.freedesktop.org, Harry Wentland <harry.wentland@amd.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Werner Sembach <wse@tuxedocomputers.com>
+--000000000000de6e41060e8b73ac
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Remove unnecessary SIGNAL_TYPE_HDMI_TYPE_A check that was performed in the
-drm_mode_is_420_only() case, but not in the drm_mode_is_420_also() &&
-force_yuv420_output case.
+Hi Daniel,
 
-Without further knowledge if YCbCr 4:2:0 is supported outside of HDMI,
-there is no reason to use RGB when the display
-reports drm_mode_is_420_only() even on a non HDMI connection.
+=C3=BEri., 9. jan. 2024 kl. 22:32 skrifa=C3=B0i Daniel Stone <daniel@fooish=
+bar.org>:
 
-This patch also moves both checks in the same if-case. This  eliminates an
-extra else-if-case.
+> On Tue, 9 Jan 2024 at 18:12, Andri Yngvason <andri@yngvason.is> wrote:
+> > + * active color format:
+> > + *     This read-only property tells userspace the color format
+> actually used
+> > + *     by the hardware display engine "on the cable" on a connector.
+> The chosen
+> > + *     value depends on hardware capabilities, both display engine and
+> > + *     connected monitor. Drivers shall use
+> > + *     drm_connector_attach_active_color_format_property() to install
+> this
+> > + *     property. Possible values are "not applicable", "rgb",
+> "ycbcr444",
+> > + *     "ycbcr422", and "ycbcr420".
+>
+> How does userspace determine what's happened without polling? Will it
+> only change after an `ALLOW_MODESET` commit, and be guaranteed to be
+> updated after the commit has completed and the event being sent?
+> Should it send a HOTPLUG event? Other?
+>
 
-Signed-off-by: Werner Sembach <wse@tuxedocomputers.com>
-Signed-off-by: Andri Yngvason <andri@yngvason.is>
-Tested-by: Andri Yngvason <andri@yngvason.is>
----
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 5 +----
- 1 file changed, 1 insertion(+), 4 deletions(-)
+Userspace does not determine what's happened without polling. The purpose
+of this property is not for programmatic verification that the preferred
+property was applied. It is my understanding that it's mostly intended for
+debugging purposes. It should only change as a consequence of modesetting,
+although I didn't actually look into what happens if you set the "preferred
+color format" outside of a modeset.
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index c8c00c2a5224a..10e041a3b2545 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -5524,10 +5524,7 @@ static void fill_stream_properties_from_drm_display_mode(
- 	timing_out->v_border_bottom = 0;
- 	/* TODO: un-hardcode */
- 	if (drm_mode_is_420_only(info, mode_in)
--			&& stream->signal == SIGNAL_TYPE_HDMI_TYPE_A)
--		timing_out->pixel_encoding = PIXEL_ENCODING_YCBCR420;
--	else if (drm_mode_is_420_also(info, mode_in)
--			&& aconnector->force_yuv420_output)
-+			|| (drm_mode_is_420_also(info, mode_in) && aconnector->force_yuv420_output))
- 		timing_out->pixel_encoding = PIXEL_ENCODING_YCBCR420;
- 	else if ((connector->display_info.color_formats & DRM_COLOR_FORMAT_YCBCR444)
- 			&& stream->signal == SIGNAL_TYPE_HDMI_TYPE_A)
--- 
-2.43.0
+The way I've implemented things in sway, calling the
+"preferred_signal_format" command triggers a modeset with the "preferred
+color format" set and calling "get_outputs", immediately queries the
+"actual color format" and displays it.
 
+Regards,
+Andri
+
+--000000000000de6e41060e8b73ac
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr"><div dir=3D"ltr">Hi Daniel,<br></div><br><div class=3D"gma=
+il_quote"><div dir=3D"ltr" class=3D"gmail_attr">=C3=BEri., 9. jan. 2024 kl.=
+ 22:32 skrifa=C3=B0i Daniel Stone &lt;<a href=3D"mailto:daniel@fooishbar.or=
+g">daniel@fooishbar.org</a>&gt;:<br></div><blockquote class=3D"gmail_quote"=
+ style=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);p=
+adding-left:1ex">
+On Tue, 9 Jan 2024 at 18:12, Andri Yngvason &lt;<a href=3D"mailto:andri@yng=
+vason.is" target=3D"_blank">andri@yngvason.is</a>&gt; wrote:<br>
+&gt; + * active color format:<br>
+&gt; + *=C2=A0 =C2=A0 =C2=A0This read-only property tells userspace the col=
+or format actually used<br>
+&gt; + *=C2=A0 =C2=A0 =C2=A0by the hardware display engine &quot;on the cab=
+le&quot; on a connector. The chosen<br>
+&gt; + *=C2=A0 =C2=A0 =C2=A0value depends on hardware capabilities, both di=
+splay engine and<br>
+&gt; + *=C2=A0 =C2=A0 =C2=A0connected monitor. Drivers shall use<br>
+&gt; + *=C2=A0 =C2=A0 =C2=A0drm_connector_attach_active_color_format_proper=
+ty() to install this<br>
+&gt; + *=C2=A0 =C2=A0 =C2=A0property. Possible values are &quot;not applica=
+ble&quot;, &quot;rgb&quot;, &quot;ycbcr444&quot;,<br>
+&gt; + *=C2=A0 =C2=A0 =C2=A0&quot;ycbcr422&quot;, and &quot;ycbcr420&quot;.=
+<br>
+<br>
+How does userspace determine what&#39;s happened without polling? Will it<b=
+r>
+only change after an `ALLOW_MODESET` commit, and be guaranteed to be<br>
+updated after the commit has completed and the event being sent?<br>
+Should it send a HOTPLUG event? Other?<br></blockquote><div><br></div><div>=
+Userspace does not determine what&#39;s happened without polling. The purpo=
+se of this property is not for programmatic verification that the preferred=
+ property was applied. It is my understanding that it&#39;s mostly intended=
+ for debugging purposes. It should only change as a consequence of modesett=
+ing, although I didn&#39;t actually look into what happens if you set the &=
+quot;preferred color format&quot; outside of a modeset.</div><div><br></div=
+><div>The way I&#39;ve implemented things in sway, calling the &quot;prefer=
+red_signal_format&quot; command triggers a modeset with the &quot;preferred=
+ color format&quot; set and calling &quot;get_outputs&quot;, immediately qu=
+eries the &quot;actual color format&quot; and displays it.</div><div><br></=
+div><div>Regards,</div><div>Andri<br></div></div></div>
+
+--000000000000de6e41060e8b73ac--
