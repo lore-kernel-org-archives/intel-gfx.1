@@ -4,72 +4,74 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5863CC47077
-	for <intel-gfx@archiver.kernel.org>; Tue, 16 Jan 2024 12:28:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CC3CAC4706C
+	for <intel-gfx@archiver.kernel.org>; Tue, 16 Jan 2024 12:28:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E0B2F10E55B;
-	Tue, 16 Jan 2024 12:28:13 +0000 (UTC)
-Received: from mail-yw1-x1131.google.com (mail-yw1-x1131.google.com
- [IPv6:2607:f8b0:4864:20::1131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BD33010E5D1
- for <intel-gfx@lists.freedesktop.org>; Wed, 10 Jan 2024 12:53:22 +0000 (UTC)
-Received: by mail-yw1-x1131.google.com with SMTP id
- 00721157ae682-5ed10316e22so36719577b3.3
- for <intel-gfx@lists.freedesktop.org>; Wed, 10 Jan 2024 04:53:22 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1D34810E562;
+	Tue, 16 Jan 2024 12:28:14 +0000 (UTC)
+Received: from mail-wm1-x32d.google.com (mail-wm1-x32d.google.com
+ [IPv6:2a00:1450:4864:20::32d])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E179210E4B8
+ for <intel-gfx@lists.freedesktop.org>; Tue,  9 Jan 2024 18:11:34 +0000 (UTC)
+Received: by mail-wm1-x32d.google.com with SMTP id
+ 5b1f17b1804b1-40e5521db08so136915e9.2
+ for <intel-gfx@lists.freedesktop.org>; Tue, 09 Jan 2024 10:11:34 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=yngvason.is; s=google; t=1704891202; x=1705496002; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
+ d=yngvason.is; s=google; t=1704823893; x=1705428693; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=tumM7ZgHm0hfd7iZgxyi6dhv3yMhPnlkKGS30wXR09c=;
- b=e56qb+FEVSFhxED5RQ+Xv80A6DXq76Wo0078EXmxbTRmEHL+ws1m2x/b+70rfuRUl1
- tzqAfwml2h1r5Eu/Q9ou1qZJLDs3F+l/EITAxaNy7rFVPgeMZLVXuH5JPngSMre6Sw74
- tmHsrFKO/hdPMvQgu+pBcTtTa/rQvu8cOZNwY=
+ bh=Ab6S82YVhL2fQWMl7n/iDflNvLFt/phlZFbHK/9RmUw=;
+ b=K28g2QfdMDcMTjFibWYy4vS14Ld8cEvw/fXbFL/qO84S6D4C6gK4be2aKc9yx6yb13
+ vCNqvDTdjPGdhYEvo1BNg+PI2Rd1CBiawxCScDjsAsH5YpgYnPVs0BboQrtItbzsQ/E0
+ 8lHHorWvzHM1Ymq1UuUvxpbp0vlaCSy+HbI8E=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1704891202; x=1705496002;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ d=1e100.net; s=20230601; t=1704823893; x=1705428693;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=tumM7ZgHm0hfd7iZgxyi6dhv3yMhPnlkKGS30wXR09c=;
- b=n5EtE0v3Xgrp59eyaWAonhFFkxSy8z9DV3EYTv9n7uv2WZNF2/7pPs66gIOEPEUAtl
- 6ydc7MqL6jtQwsvGrYXGYCbg1bXTnre3M0lAl38sFv9YiEsH5EfE5zzJ9keDb5wkcP5y
- 9zFzw3TQCh9BjsEZJ3li2TR3kc/m+bIrn53rbWNcNZNz5zt2kWeydnOT59bMRjZb3aUr
- 0YYyEp+9i7P9//aDnwAHFgahrKfwbeWmHNpKU3cSmtkPcMaSkxJPg5soG06x9F/ixcez
- gfKvBazOoKSL3UDrX89Q8Bhxx3BXR/p3mc3WcpYN4kNdXQiBzBSbsjAmLOpI02yRBhcf
- DKJQ==
-X-Gm-Message-State: AOJu0YwJQMulaUZLHwtGjhtxW0yCWtc8Fp/BolFk+3khcBEB5lhBJefO
- 28dfaOTjpLS/L+Lci6yQ+Gp7wripSrSqjp+4LhAlb4Hixd0h6w==
-X-Google-Smtp-Source: AGHT+IEdEju6g56OensZJBuTZt9it0HPqzyt0o4DWwDRHwkW6tKsf3VmrtAhshl6Dqs1AQIYgIHNU9Hnp9bHW2jrsSo=
-X-Received: by 2002:a5b:d51:0:b0:dbd:ab70:4e8f with SMTP id
- f17-20020a5b0d51000000b00dbdab704e8fmr625799ybr.4.1704891201874; Wed, 10 Jan
- 2024 04:53:21 -0800 (PST)
-MIME-Version: 1.0
-References: <20240109181104.1670304-1-andri@yngvason.is>
- <20240109181104.1670304-4-andri@yngvason.is>
- <ZZ57Nl3CnRMPcfbj@phenom.ffwll.local>
-In-Reply-To: <ZZ57Nl3CnRMPcfbj@phenom.ffwll.local>
+ bh=Ab6S82YVhL2fQWMl7n/iDflNvLFt/phlZFbHK/9RmUw=;
+ b=R0XK1vRGCfifHlaDU7Lq2oRmidKxr/JAECVtSn3dTRNVs/wpiNPBsdjt+N644SJLJG
+ AUEV4tMYImr08XsIkU2BpBXjSOD8bOgJQtPYKosZLw141BoZL+rSTVWRUviDM3rnNYEe
+ 1TuQY5oThNKkn/vME6uM+klqf0AAZt28bq3kWBXRUb5SVQr2UGv61Kmtg87skemRtOiv
+ TjSOzfE1oUPeIoJDBLefulbnSD46Kuex1HmwPp31f5MCY+/3prKCryXGeOSW5d76V1ov
+ JcuRbRLqDF4UJ2tc+XJMqlSzM2gkYu7hhSatJUqPqJ+cg4EHnV/+wZ5oki4a8togdzA6
+ GXTA==
+X-Gm-Message-State: AOJu0YxCvND+PN10oK6F9rcMOUY9x2ETKcLJEqxdvAGWRAyZLVtDXnlW
+ pWUQnYB+Sfp0OQtg7Hsa/5KMSLa6ebIkGA==
+X-Google-Smtp-Source: AGHT+IECX0laRRtfF4jvavSEkKwLcA9a4P5MCiLvTCxN6JaHCGAk1yoL0mgxvPQHa7eWzawwSwZVFQ==
+X-Received: by 2002:a05:600c:1c20:b0:40e:53f8:5242 with SMTP id
+ j32-20020a05600c1c2000b0040e53f85242mr186194wms.72.1704823893245; 
+ Tue, 09 Jan 2024 10:11:33 -0800 (PST)
+Received: from andri-workstation.turninn.appdynamic.com
+ ([2a01:8280:aa07:ad:7285:c2ff:fef0:4baf])
+ by smtp.gmail.com with ESMTPSA id
+ n25-20020a05600c3b9900b0040e527602c8sm2104579wms.9.2024.01.09.10.11.30
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 09 Jan 2024 10:11:32 -0800 (PST)
 From: Andri Yngvason <andri@yngvason.is>
-Date: Wed, 10 Jan 2024 12:52:46 +0000
-Message-ID: <CAFNQBQzo17cK4M-S=Mje8Lxub9Y74xFGj7iEq57vKJr47oiz5Q@mail.gmail.com>
-Subject: Re: [PATCH 3/7] drm/amd/display: Add handling for new "active color
- format" property
-To: Andri Yngvason <andri@yngvason.is>, Harry Wentland <harry.wentland@amd.com>,
- Leo Li <sunpeng.li@amd.com>, Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>, 
+To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
+ Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
  Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- "Pan, Xinhui" <Xinhui.Pan@amd.com>, David Airlie <airlied@gmail.com>, 
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ "Pan, Xinhui" <Xinhui.Pan@amd.com>, David Airlie <airlied@gmail.com>,
+ Daniel Vetter <daniel@ffwll.ch>,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, 
+ Maxime Ripard <mripard@kernel.org>,
  Thomas Zimmermann <tzimmermann@suse.de>,
- Jani Nikula <jani.nikula@linux.intel.com>, 
+ Jani Nikula <jani.nikula@linux.intel.com>,
  Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, 
- Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- intel-gfx@lists.freedesktop.org, Simon Ser <contact@emersion.fr>, 
- Werner Sembach <wse@tuxedocomputers.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
+Subject: [PATCH 3/7] drm/amd/display: Add handling for new "active color
+ format" property
+Date: Tue,  9 Jan 2024 18:11:00 +0000
+Message-ID: <20240109181104.1670304-4-andri@yngvason.is>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20240109181104.1670304-1-andri@yngvason.is>
+References: <20240109181104.1670304-1-andri@yngvason.is>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Tue, 16 Jan 2024 12:28:11 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -83,53 +85,108 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Daniel Vetter <daniel@ffwll.ch>
+Cc: amd-gfx@lists.freedesktop.org, Simon Ser <contact@emersion.fr>,
+ intel-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ Andri Yngvason <andri@yngvason.is>, dri-devel@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-mi=C3=B0., 10. jan. 2024 kl. 11:10 skrifa=C3=B0i Daniel Vetter <daniel@ffwl=
-l.ch>:
->
-> On Tue, Jan 09, 2024 at 06:11:00PM +0000, Andri Yngvason wrote:
-> > +     /* Extract information from crtc to communicate it to userspace a=
-s connector properties */
-> > +     for_each_new_connector_in_state(state, connector, new_con_state, =
-i) {
-> > +             struct drm_crtc *crtc =3D new_con_state->crtc;
-> > +             struct dc_stream_state *stream;
-> > +
-> > +             if (crtc) {
-> > +                     new_crtc_state =3D drm_atomic_get_new_crtc_state(=
-state, crtc);
-> > +                     dm_new_crtc_state =3D to_dm_crtc_state(new_crtc_s=
-tate);
-> > +                     stream =3D dm_new_crtc_state->stream;
-> > +
-> > +                     if (stream) {
-> > +                             drm_connector_set_active_color_format_pro=
-perty(connector,
-> > +                                     convert_dc_pixel_encoding_into_dr=
-m_color_format(
-> > +                                             dm_new_crtc_state->stream=
-->timing.pixel_encoding));
-> > +                     }
-> > +             } else {
-> > +                     drm_connector_set_active_color_format_property(co=
-nnector, 0);
->
-> Just realized an even bigger reason why your current design doesn't work:
-> You don't have locking here.
->
-> And you cannot grab the required lock, which is
-> drm_dev->mode_config.mutex, because that would result in deadlocks. So
-> this really needs to use the atomic state based design I've described.
->
+From: Werner Sembach <wse@tuxedocomputers.com>
 
-Maybe we should just drop "actual color format" and instead fail the
-modeset if the "preferred color format" property cannot be satisfied?
-It seems like the simplest thing to do here, though it is perhaps less
-convenient for userspace. In that case, the "preferred color format"
-property should just be called "color format".
+This commit implements the "active color format" drm property for the AMD
+GPU driver.
 
-Thanks,
-Andri
+Signed-off-by: Werner Sembach <wse@tuxedocomputers.com>
+Signed-off-by: Andri Yngvason <andri@yngvason.is>
+Tested-by: Andri Yngvason <andri@yngvason.is>
+---
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 42 ++++++++++++++++++-
+ .../display/amdgpu_dm/amdgpu_dm_mst_types.c   |  4 ++
+ 2 files changed, 45 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+index 10e041a3b2545..b44d06c3b1706 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+@@ -6882,6 +6882,24 @@ int convert_dc_color_depth_into_bpc(enum dc_color_depth display_color_depth)
+ 	return 0;
+ }
+ 
++static int convert_dc_pixel_encoding_into_drm_color_format(
++	enum dc_pixel_encoding display_pixel_encoding)
++{
++	switch (display_pixel_encoding) {
++	case PIXEL_ENCODING_RGB:
++		return DRM_COLOR_FORMAT_RGB444;
++	case PIXEL_ENCODING_YCBCR422:
++		return DRM_COLOR_FORMAT_YCBCR422;
++	case PIXEL_ENCODING_YCBCR444:
++		return DRM_COLOR_FORMAT_YCBCR444;
++	case PIXEL_ENCODING_YCBCR420:
++		return DRM_COLOR_FORMAT_YCBCR420;
++	default:
++		break;
++	}
++	return 0;
++}
++
+ static int dm_encoder_helper_atomic_check(struct drm_encoder *encoder,
+ 					  struct drm_crtc_state *crtc_state,
+ 					  struct drm_connector_state *conn_state)
+@@ -7436,8 +7454,10 @@ void amdgpu_dm_connector_init_helper(struct amdgpu_display_manager *dm,
+ 				adev->mode_info.underscan_vborder_property,
+ 				0);
+ 
+-	if (!aconnector->mst_root)
++	if (!aconnector->mst_root) {
+ 		drm_connector_attach_max_bpc_property(&aconnector->base, 8, 16);
++		drm_connector_attach_active_color_format_property(&aconnector->base);
++	}
+ 
+ 	aconnector->base.state->max_bpc = 16;
+ 	aconnector->base.state->max_requested_bpc = aconnector->base.state->max_bpc;
+@@ -8969,6 +8989,26 @@ static void amdgpu_dm_atomic_commit_tail(struct drm_atomic_state *state)
+ 		kfree(dummy_updates);
+ 	}
+ 
++	/* Extract information from crtc to communicate it to userspace as connector properties */
++	for_each_new_connector_in_state(state, connector, new_con_state, i) {
++		struct drm_crtc *crtc = new_con_state->crtc;
++		struct dc_stream_state *stream;
++
++		if (crtc) {
++			new_crtc_state = drm_atomic_get_new_crtc_state(state, crtc);
++			dm_new_crtc_state = to_dm_crtc_state(new_crtc_state);
++			stream = dm_new_crtc_state->stream;
++
++			if (stream) {
++				drm_connector_set_active_color_format_property(connector,
++					convert_dc_pixel_encoding_into_drm_color_format(
++						dm_new_crtc_state->stream->timing.pixel_encoding));
++			}
++		} else {
++			drm_connector_set_active_color_format_property(connector, 0);
++		}
++	}
++
+ 	/**
+ 	 * Enable interrupts for CRTCs that are newly enabled or went through
+ 	 * a modeset. It was intentionally deferred until after the front end
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
+index 11da0eebee6c4..a4d1b3ea8f81c 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
+@@ -600,6 +600,10 @@ dm_dp_add_mst_connector(struct drm_dp_mst_topology_mgr *mgr,
+ 	if (connector->max_bpc_property)
+ 		drm_connector_attach_max_bpc_property(connector, 8, 16);
+ 
++	connector->active_color_format_property = master->base.active_color_format_property;
++	if (connector->active_color_format_property)
++		drm_connector_attach_active_color_format_property(&aconnector->base);
++
+ 	connector->vrr_capable_property = master->base.vrr_capable_property;
+ 	if (connector->vrr_capable_property)
+ 		drm_connector_attach_vrr_capable_property(connector);
+-- 
+2.43.0
+
