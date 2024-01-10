@@ -4,50 +4,59 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 10027C4707B
-	for <intel-gfx@archiver.kernel.org>; Wed, 10 Jan 2024 12:55:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D5A21C4707B
+	for <intel-gfx@archiver.kernel.org>; Wed, 10 Jan 2024 13:09:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7799010E5D1;
-	Wed, 10 Jan 2024 12:55:38 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [192.55.52.88])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6016A10E5D5
- for <intel-gfx@lists.freedesktop.org>; Wed, 10 Jan 2024 12:55:36 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1704891336; x=1736427336;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:content-transfer-encoding:in-reply-to;
- bh=H/0dSJfTzZdKepRPEkDVf8w20D+vGgGFpGBa5DfGah8=;
- b=fLph9Xq69X710tFPF4fPCa/vHfiROaItjbxITKr2x68RcPVpxPWHi2EQ
- 7i+0rgkJWFzCV4LsanhIHq6vGgHSCv87qHAHohCa8bVIFnodqa91iZ0Gg
- Lonq6JYzwL7DMaDUYXMlYLvxdzzR5W0QVZ0Dmo6i85yxqVjuR/hEzslIm
- EjoZeuA6KTgPxLCqUTZWxxY8hqPBZ6hpQ1u1StXnRAxeHsRfW01sDANIM
- JlWWG0l/6lwXGOJjZLtfx6ObZjsMSc6Na6Sy0voYEKsu7kYApuCsZ66pc
- YkXaVzK4iPrm+kj+BjvPjmuKU+XQ4F45WYb0O5Wcerljmsa4/v2z/jWiA A==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10948"; a="429690863"
-X-IronPort-AV: E=Sophos;i="6.04,184,1695711600"; d="scan'208";a="429690863"
-Received: from fmsmga003.fm.intel.com ([10.253.24.29])
- by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 Jan 2024 04:55:34 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10948"; a="872637723"
-X-IronPort-AV: E=Sophos;i="6.04,184,1695711600"; d="scan'208";a="872637723"
-Received: from unknown (HELO intel.com) ([10.237.72.65])
- by fmsmga003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 Jan 2024 04:55:33 -0800
-Date: Wed, 10 Jan 2024 14:55:29 +0200
-From: "Lisovskiy, Stanislav" <stanislav.lisovskiy@intel.com>
-To: Jouni =?iso-8859-1?Q?H=F6gander?= <jouni.hogander@intel.com>
-Subject: Re: [PATCH 2/2] drm/i915/psr: CAN_PSR and CAN_PANEL_REPLAY can be
- now local defines
-Message-ID: <ZZ6TweaFcd7emgMZ@intel.com>
-References: <20240109100517.1947414-1-jouni.hogander@intel.com>
- <20240109100517.1947414-3-jouni.hogander@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id AD0D110E5DD;
+	Wed, 10 Jan 2024 13:09:45 +0000 (UTC)
+Received: from mail-oi1-x22c.google.com (mail-oi1-x22c.google.com
+ [IPv6:2607:f8b0:4864:20::22c])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AE23510E772
+ for <intel-gfx@lists.freedesktop.org>; Wed, 10 Jan 2024 13:09:44 +0000 (UTC)
+Received: by mail-oi1-x22c.google.com with SMTP id
+ 5614622812f47-3bbe78dbd1aso491460b6e.1
+ for <intel-gfx@lists.freedesktop.org>; Wed, 10 Jan 2024 05:09:44 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=ffwll.ch; s=google; t=1704892184; x=1705496984; darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=axpQS9mt6EONwc4UHXjuYA8cIAmRvc0FbgaFcTL7424=;
+ b=kwzOlIOCpsRcd4IEew9OhjOtgnSqpdnBNY6887fPGkAdvHO7Vu1QxlgXu9bjPuLn6e
+ sxWkaSn/67VxUIS9uC3wdQCuHxjve6BD4VhRE7pU4FB7ZC6ilSlYNfU7hcb8x1m2EQy1
+ ny16QK9q23EDekkXXFs77yx8nYG3F7Wr9jG+g=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1704892184; x=1705496984;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=axpQS9mt6EONwc4UHXjuYA8cIAmRvc0FbgaFcTL7424=;
+ b=CF2soKyZJflTSh3r/wqHMNUzN/tOml3+XtLHzxszLOEN2QRcr+tCW5NmAfY3tfs2ek
+ LtNfjEQNiw4OS/HamJjkHKaBxeeo6wUfe57/CS82n7SUtkpyw0SGZlod1dZJ1qof/sEr
+ SqPpMq2fJBTjNmCNbWw5gv0SOQ/wjie+j0XmjJnThg9l3COUtjUiR5hOaNNNrnTRCNg9
+ catekoifnOC4xrygYiEhwH7Q9J8P0yLA3B2Mg6m77jhtCEzxXEE9Sh6oh3cVRPz4XGub
+ oALHwz4qWO8pBBR+HTe35qmN159WRAIvFF4YSeYbM9D419ZOyFBuLx6KAt3Ranv9PHtX
+ RqEA==
+X-Gm-Message-State: AOJu0Yx+75D0o0LolMq/NROlxntN0p6oFdgNW6MeceIG4Scc/kEwUd31
+ seWVIANFbNXdPltqwIYdzxWGfEC2OpIcviIKnDhetOf5UzOTwA==
+X-Google-Smtp-Source: AGHT+IH5PhKcQx1VfacgvsFkwrC19+V2RZMkdswfiLwrvrDfWNWWbhwatQpHwBl6QNABwcTT8HQd0hYsSvkAKtaiOtQ=
+X-Received: by 2002:a05:6870:4304:b0:206:7561:280a with SMTP id
+ w4-20020a056870430400b002067561280amr1694852oah.4.1704892183803; Wed, 10 Jan
+ 2024 05:09:43 -0800 (PST)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20240109100517.1947414-3-jouni.hogander@intel.com>
+References: <20240109181104.1670304-1-andri@yngvason.is>
+ <20240109181104.1670304-4-andri@yngvason.is>
+ <ZZ57Nl3CnRMPcfbj@phenom.ffwll.local>
+ <CAFNQBQzo17cK4M-S=Mje8Lxub9Y74xFGj7iEq57vKJr47oiz5Q@mail.gmail.com>
+In-Reply-To: <CAFNQBQzo17cK4M-S=Mje8Lxub9Y74xFGj7iEq57vKJr47oiz5Q@mail.gmail.com>
+From: Daniel Vetter <daniel@ffwll.ch>
+Date: Wed, 10 Jan 2024 14:09:32 +0100
+Message-ID: <CAKMK7uGhMCwbztGdEmG4gFgpyhw6j-JFow-AaprFxcX710=qXA@mail.gmail.com>
+Subject: Re: [PATCH 3/7] drm/amd/display: Add handling for new "active color
+ format" property
+To: Andri Yngvason <andri@yngvason.is>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,57 +69,71 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: intel-gfx@lists.freedesktop.org
+Cc: Simon Ser <contact@emersion.fr>, intel-gfx@lists.freedesktop.org,
+ Leo Li <sunpeng.li@amd.com>, David Airlie <airlied@gmail.com>,
+ dri-devel@lists.freedesktop.org, "Pan, Xinhui" <Xinhui.Pan@amd.com>,
+ Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>, linux-kernel@vger.kernel.org,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org,
+ Harry Wentland <harry.wentland@amd.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Tue, Jan 09, 2024 at 12:05:17PM +0200, Jouni Högander wrote:
-> CAN_PSR and CAN_PANEL_REPLAY are not used outside intel_psr.c anymore. Make
-> them as intel_psr.c local defines.
-> 
-> Signed-off-by: Jouni Högander <jouni.hogander@intel.com>
+On Wed, 10 Jan 2024 at 13:53, Andri Yngvason <andri@yngvason.is> wrote:
+>
+> mi=C3=B0., 10. jan. 2024 kl. 11:10 skrifa=C3=B0i Daniel Vetter <daniel@ff=
+wll.ch>:
+> >
+> > On Tue, Jan 09, 2024 at 06:11:00PM +0000, Andri Yngvason wrote:
+> > > +     /* Extract information from crtc to communicate it to userspace=
+ as connector properties */
+> > > +     for_each_new_connector_in_state(state, connector, new_con_state=
+, i) {
+> > > +             struct drm_crtc *crtc =3D new_con_state->crtc;
+> > > +             struct dc_stream_state *stream;
+> > > +
+> > > +             if (crtc) {
+> > > +                     new_crtc_state =3D drm_atomic_get_new_crtc_stat=
+e(state, crtc);
+> > > +                     dm_new_crtc_state =3D to_dm_crtc_state(new_crtc=
+_state);
+> > > +                     stream =3D dm_new_crtc_state->stream;
+> > > +
+> > > +                     if (stream) {
+> > > +                             drm_connector_set_active_color_format_p=
+roperty(connector,
+> > > +                                     convert_dc_pixel_encoding_into_=
+drm_color_format(
+> > > +                                             dm_new_crtc_state->stre=
+am->timing.pixel_encoding));
+> > > +                     }
+> > > +             } else {
+> > > +                     drm_connector_set_active_color_format_property(=
+connector, 0);
+> >
+> > Just realized an even bigger reason why your current design doesn't wor=
+k:
+> > You don't have locking here.
+> >
+> > And you cannot grab the required lock, which is
+> > drm_dev->mode_config.mutex, because that would result in deadlocks. So
+> > this really needs to use the atomic state based design I've described.
+> >
+>
+> Maybe we should just drop "actual color format" and instead fail the
+> modeset if the "preferred color format" property cannot be satisfied?
+> It seems like the simplest thing to do here, though it is perhaps less
+> convenient for userspace. In that case, the "preferred color format"
+> property should just be called "color format".
 
-Reviewed-by: Stanislav Lisovskiy <stanislav.lisovskiy@intel.com>
-
-> ---
->  drivers/gpu/drm/i915/display/intel_psr.c | 6 ++++++
->  drivers/gpu/drm/i915/display/intel_psr.h | 6 ------
->  2 files changed, 6 insertions(+), 6 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/i915/display/intel_psr.c b/drivers/gpu/drm/i915/display/intel_psr.c
-> index 54120b45958b..34c0a5a14455 100644
-> --- a/drivers/gpu/drm/i915/display/intel_psr.c
-> +++ b/drivers/gpu/drm/i915/display/intel_psr.c
-> @@ -173,6 +173,12 @@
->   * irrelevant for normal operation.
->   */
->  
-> +#define CAN_PSR(intel_dp) ((intel_dp)->psr.sink_support && \
-> +			   (intel_dp)->psr.source_support)
-> +
-> +#define CAN_PANEL_REPLAY(intel_dp) ((intel_dp)->psr.sink_panel_replay_support && \
-> +				    (intel_dp)->psr.source_panel_replay_support)
-> +
->  bool intel_encoder_can_psr(struct intel_encoder *encoder)
->  {
->  	if (intel_encoder_is_dp(encoder) || encoder->type == INTEL_OUTPUT_DP_MST)
-> diff --git a/drivers/gpu/drm/i915/display/intel_psr.h b/drivers/gpu/drm/i915/display/intel_psr.h
-> index 143e0595c097..cde781df84d5 100644
-> --- a/drivers/gpu/drm/i915/display/intel_psr.h
-> +++ b/drivers/gpu/drm/i915/display/intel_psr.h
-> @@ -21,12 +21,6 @@ struct intel_encoder;
->  struct intel_plane;
->  struct intel_plane_state;
->  
-> -#define CAN_PSR(intel_dp) ((intel_dp)->psr.sink_support && \
-> -			   (intel_dp)->psr.source_support)
-> -
-> -#define CAN_PANEL_REPLAY(intel_dp) ((intel_dp)->psr.sink_panel_replay_support && \
-> -				    (intel_dp)->psr.source_panel_replay_support)
-> -
->  bool intel_encoder_can_psr(struct intel_encoder *encoder);
->  void intel_psr_init_dpcd(struct intel_dp *intel_dp);
->  void intel_psr_pre_plane_update(struct intel_atomic_state *state,
-> -- 
-> 2.34.1
-> 
+Yeah that's more in line with how other atomic properties work. This
+way userspace can figure out what works with a TEST_ONLY commit too.
+And for this to work you probably want to have an "automatic" setting
+too.
+-Sima
+--=20
+Daniel Vetter
+Software Engineer, Intel Corporation
+http://blog.ffwll.ch
