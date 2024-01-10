@@ -4,59 +4,70 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 192ADC47DA2
-	for <intel-gfx@archiver.kernel.org>; Tue, 16 Jan 2024 12:28:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5863CC47077
+	for <intel-gfx@archiver.kernel.org>; Tue, 16 Jan 2024 12:28:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 09B4E10E55F;
-	Tue, 16 Jan 2024 12:28:14 +0000 (UTC)
-Received: from mail-yw1-x112e.google.com (mail-yw1-x112e.google.com
- [IPv6:2607:f8b0:4864:20::112e])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B54D810E94F
- for <intel-gfx@lists.freedesktop.org>; Thu, 11 Jan 2024 17:18:23 +0000 (UTC)
-Received: by mail-yw1-x112e.google.com with SMTP id
- 00721157ae682-5e82f502a4cso46624927b3.0
- for <intel-gfx@lists.freedesktop.org>; Thu, 11 Jan 2024 09:18:23 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E0B2F10E55B;
+	Tue, 16 Jan 2024 12:28:13 +0000 (UTC)
+Received: from mail-yw1-x1131.google.com (mail-yw1-x1131.google.com
+ [IPv6:2607:f8b0:4864:20::1131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BD33010E5D1
+ for <intel-gfx@lists.freedesktop.org>; Wed, 10 Jan 2024 12:53:22 +0000 (UTC)
+Received: by mail-yw1-x1131.google.com with SMTP id
+ 00721157ae682-5ed10316e22so36719577b3.3
+ for <intel-gfx@lists.freedesktop.org>; Wed, 10 Jan 2024 04:53:22 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=yngvason.is; s=google; t=1704993502; x=1705598302; darn=lists.freedesktop.org;
+ d=yngvason.is; s=google; t=1704891202; x=1705496002; darn=lists.freedesktop.org;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=reRg+juZFTzYLAuymnc77j283thAAyu9GtKD+8yi8oo=;
- b=LJwx82+PpQe12y2AkOAOnvM51TnhrkQql+XQIcSnVyR565gyuKNi3ATJMrcsBres59
- w+auoa90jx47KoVRXU6GBO6XiaL630fYIfdkiBic99G4xdSW5ArbYE0+o7lhJlbBQWLB
- Spztc1T0BPj43CLXAJMthJAZOPYLzqqzG1x+I=
+ bh=tumM7ZgHm0hfd7iZgxyi6dhv3yMhPnlkKGS30wXR09c=;
+ b=e56qb+FEVSFhxED5RQ+Xv80A6DXq76Wo0078EXmxbTRmEHL+ws1m2x/b+70rfuRUl1
+ tzqAfwml2h1r5Eu/Q9ou1qZJLDs3F+l/EITAxaNy7rFVPgeMZLVXuH5JPngSMre6Sw74
+ tmHsrFKO/hdPMvQgu+pBcTtTa/rQvu8cOZNwY=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1704993502; x=1705598302;
+ d=1e100.net; s=20230601; t=1704891202; x=1705496002;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=reRg+juZFTzYLAuymnc77j283thAAyu9GtKD+8yi8oo=;
- b=joNPn5BC1hWWSbfnxLJbE1WCyqgFUJJuOIEe7RlMWdsj13UvYMIJi/HTFdfjUl5Y1x
- 7QnRypyx4FjwmC8FWzkoAScqJkHQG8awxRC+zCK+NrNYZirUdk0wJeV22Fsr53i+YQQg
- n6VLHXFgoM3+59UBWWJhyDvBcXZbSyv3TwYSMKaF3ZbFqgM3f3Sq33fXfe8tiwGp9VFl
- 5YOkcfvdvElLae2CTXnpSYgLLc1sVeIl6Y5ZQL3NSDHBRmjkr6ta2+dDgXgBzFLLD6cJ
- 70UH52wKzEGoBDyhwmm6kLJAMoeal7iG4LFbfjSeqESVwXroFNp2V+xVDReCAcu5wYD1
- KbtA==
-X-Gm-Message-State: AOJu0YxKqkebOheCUJm+b1MznrXhuCx4DNDxipY+2zCXiXt9XYiFC0VB
- 0m5LCwQ8QSR2qVpWCs441mBAeUA1xVt0x2ZjS5LZrY1ZG1xiEQ==
-X-Google-Smtp-Source: AGHT+IE39wedx9qoJqNO6MjAU4E5XVco4roigw4JCooGGaUKrzldoRbPFpkW15iiHXNNuutcoyizp+NdmoWt5CbB2Gc=
-X-Received: by 2002:a81:84d1:0:b0:5e9:94dc:b77f with SMTP id
- u200-20020a8184d1000000b005e994dcb77fmr123269ywf.9.1704993502233; Thu, 11 Jan
- 2024 09:18:22 -0800 (PST)
+ bh=tumM7ZgHm0hfd7iZgxyi6dhv3yMhPnlkKGS30wXR09c=;
+ b=n5EtE0v3Xgrp59eyaWAonhFFkxSy8z9DV3EYTv9n7uv2WZNF2/7pPs66gIOEPEUAtl
+ 6ydc7MqL6jtQwsvGrYXGYCbg1bXTnre3M0lAl38sFv9YiEsH5EfE5zzJ9keDb5wkcP5y
+ 9zFzw3TQCh9BjsEZJ3li2TR3kc/m+bIrn53rbWNcNZNz5zt2kWeydnOT59bMRjZb3aUr
+ 0YYyEp+9i7P9//aDnwAHFgahrKfwbeWmHNpKU3cSmtkPcMaSkxJPg5soG06x9F/ixcez
+ gfKvBazOoKSL3UDrX89Q8Bhxx3BXR/p3mc3WcpYN4kNdXQiBzBSbsjAmLOpI02yRBhcf
+ DKJQ==
+X-Gm-Message-State: AOJu0YwJQMulaUZLHwtGjhtxW0yCWtc8Fp/BolFk+3khcBEB5lhBJefO
+ 28dfaOTjpLS/L+Lci6yQ+Gp7wripSrSqjp+4LhAlb4Hixd0h6w==
+X-Google-Smtp-Source: AGHT+IEdEju6g56OensZJBuTZt9it0HPqzyt0o4DWwDRHwkW6tKsf3VmrtAhshl6Dqs1AQIYgIHNU9Hnp9bHW2jrsSo=
+X-Received: by 2002:a5b:d51:0:b0:dbd:ab70:4e8f with SMTP id
+ f17-20020a5b0d51000000b00dbdab704e8fmr625799ybr.4.1704891201874; Wed, 10 Jan
+ 2024 04:53:21 -0800 (PST)
 MIME-Version: 1.0
 References: <20240109181104.1670304-1-andri@yngvason.is>
- <20240109181104.1670304-3-andri@yngvason.is>
- <CAPj87rNan8B5urDFkmD_Vti4to6p3NmvXYsTFQTNg-Ue2ieDug@mail.gmail.com>
- <CAFNQBQwiqqSRqzXAnC035UWCGF3=GGFR5SpDd=biPTOEA+cWbQ@mail.gmail.com>
- <ZZ509L_kmVC4IUBW@phenom.ffwll.local>
- <CAPj87rOiS8F=oDW3iE=bgFyfeJnYhy8kPF2v-uYOq3xgYtVPAg@mail.gmail.com>
-In-Reply-To: <CAPj87rOiS8F=oDW3iE=bgFyfeJnYhy8kPF2v-uYOq3xgYtVPAg@mail.gmail.com>
+ <20240109181104.1670304-4-andri@yngvason.is>
+ <ZZ57Nl3CnRMPcfbj@phenom.ffwll.local>
+In-Reply-To: <ZZ57Nl3CnRMPcfbj@phenom.ffwll.local>
 From: Andri Yngvason <andri@yngvason.is>
-Date: Thu, 11 Jan 2024 17:17:46 +0000
-Message-ID: <CAFNQBQwjeJaX6B4oewpgASMUd5_nxZYMxUfdOG294CTVGBTd1w@mail.gmail.com>
-Subject: Re: [PATCH 2/7] drm/uAPI: Add "active color format" drm property as
- feedback for userspace
-To: Daniel Stone <daniel@fooishbar.org>
+Date: Wed, 10 Jan 2024 12:52:46 +0000
+Message-ID: <CAFNQBQzo17cK4M-S=Mje8Lxub9Y74xFGj7iEq57vKJr47oiz5Q@mail.gmail.com>
+Subject: Re: [PATCH 3/7] drm/amd/display: Add handling for new "active color
+ format" property
+To: Andri Yngvason <andri@yngvason.is>, Harry Wentland <harry.wentland@amd.com>,
+ Leo Li <sunpeng.li@amd.com>, Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>, 
+ Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ "Pan, Xinhui" <Xinhui.Pan@amd.com>, David Airlie <airlied@gmail.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, 
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ Jani Nikula <jani.nikula@linux.intel.com>, 
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, 
+ Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ intel-gfx@lists.freedesktop.org, Simon Ser <contact@emersion.fr>, 
+ Werner Sembach <wse@tuxedocomputers.com>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-Mailman-Approved-At: Tue, 16 Jan 2024 12:28:11 +0000
@@ -72,105 +83,53 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Simon Ser <contact@emersion.fr>, intel-gfx@lists.freedesktop.org,
- Leo Li <sunpeng.li@amd.com>, David Airlie <airlied@gmail.com>,
- dri-devel@lists.freedesktop.org, "Pan, Xinhui" <Xinhui.Pan@amd.com>,
- Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>, linux-kernel@vger.kernel.org,
- Maxime Ripard <mripard@kernel.org>, Daniel Vetter <daniel@ffwll.ch>,
- Thomas Zimmermann <tzimmermann@suse.de>, Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org,
- Harry Wentland <harry.wentland@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+Cc: Daniel Vetter <daniel@ffwll.ch>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-mi=C3=B0., 10. jan. 2024 kl. 13:26 skrifa=C3=B0i Daniel Stone <daniel@foois=
-hbar.org>:
-> >
-> > This thing here works entirely differently, and I think we need somewha=
-t
-> > new semantics for this:
-> >
-> > - I agree it should be read-only for userspace, so immutable sounds rig=
-ht.
-> >
-> > - But I also agree with Daniel Stone that this should be tied more
-> >   directly to the modeset state.
-> >
-> > So I think the better approach would be to put the output type into
-> > drm_connector_state, require that drivers compute it in their
-> > ->atomic_check code (which in the future would allow us to report it ou=
-t
-> > for TEST_ONLY commits too), and so guarantee that the value is updated
-> > right after the kms ioctl returns (and not somewhen later for non-block=
-ing
-> > commits).
+mi=C3=B0., 10. jan. 2024 kl. 11:10 skrifa=C3=B0i Daniel Vetter <daniel@ffwl=
+l.ch>:
 >
-> That's exactly the point. Whether userspace gets an explicit
-> notification or it has to 'know' when to read isn't much of an issue -
-> just as long as it's well defined. I think the suggestion of 'do it in
-> atomic_check and then it's guaranteed to be readable when the commit
-> completes' is a good one.
+> On Tue, Jan 09, 2024 at 06:11:00PM +0000, Andri Yngvason wrote:
+> > +     /* Extract information from crtc to communicate it to userspace a=
+s connector properties */
+> > +     for_each_new_connector_in_state(state, connector, new_con_state, =
+i) {
+> > +             struct drm_crtc *crtc =3D new_con_state->crtc;
+> > +             struct dc_stream_state *stream;
+> > +
+> > +             if (crtc) {
+> > +                     new_crtc_state =3D drm_atomic_get_new_crtc_state(=
+state, crtc);
+> > +                     dm_new_crtc_state =3D to_dm_crtc_state(new_crtc_s=
+tate);
+> > +                     stream =3D dm_new_crtc_state->stream;
+> > +
+> > +                     if (stream) {
+> > +                             drm_connector_set_active_color_format_pro=
+perty(connector,
+> > +                                     convert_dc_pixel_encoding_into_dr=
+m_color_format(
+> > +                                             dm_new_crtc_state->stream=
+->timing.pixel_encoding));
+> > +                     }
+> > +             } else {
+> > +                     drm_connector_set_active_color_format_property(co=
+nnector, 0);
 >
-> I do still have some reservations - for instance, why do we have the
-> fallback to auto when userspace has explicitly requested a certain
-> type? - but they may have been covered previously.
+> Just realized an even bigger reason why your current design doesn't work:
+> You don't have locking here.
+>
+> And you cannot grab the required lock, which is
+> drm_dev->mode_config.mutex, because that would result in deadlocks. So
+> this really needs to use the atomic state based design I've described.
 >
 
-We discussed this further on IRC and this is summary of that discussion:
+Maybe we should just drop "actual color format" and instead fail the
+modeset if the "preferred color format" property cannot be satisfied?
+It seems like the simplest thing to do here, though it is perhaps less
+convenient for userspace. In that case, the "preferred color format"
+property should just be called "color format".
 
-Sima proposed a new type of property that can be used to git feedback to
-userspace after atomic ioctl. The user supplies a list of output properties
-that they want to query and the kernel fills it in before returning from th=
-e
-ioctl. This would help to get some information about why things failed
-during TEST_ONLY.
-
-Emersion raised the point that you might not know how much memory is needed
-beforehand for the returned properties, to which sima replied: blob
-property. There was some discussion about how that makes it possible to lea=
-k
-kernel memory, especially if userspace does not know about a new property
-blob. Emersion pointed out that userspace should only request properties
-that it understands and pq agreed.
-
-Emersion asked how the user should inform the kernel that it's done with th=
-e
-blob, to which sima replied: DRM_IOCTL_MODE_DESTROYPROPBLOB. Sima also
-mentioned using some sort of weak reference garbage collection scheme for
-properties and there was some further discussion, but I'm not sure there wa=
-s
-any conclusion.
-
-I asked if it made sense to add color format capabilities to the mode info
-struct, but the conclusion was that it wouldn't really be useful because we
-need TEST_ONLY anyway to see if the color format setting is compatible with
-other settings.
-
-I asked again if we should drop the "active color format" property as it
-seems to be more trouble than it's worth for now. pq mentioned that there
-are 2 separate use cases (in his words):
-- People playing with setting UI would like to know what "auto" would resul=
-t
-  in, but that's just nice to have
-- The other use case is the flicker-free boot into known configuration He
-  went on to point out that the main problem with "auto" is that any modese=
-t
-  could make the driver decide differently. This means that we cannot fully
-  rely on the previously set property.
-
-However, leaving out "active color property" did not put us in a worse
-situation than before, so the conclusion was that we should leave it out fo=
-r
-now. For GUI selectors, the current TEST_ONLY should be good enough, and al=
-l
-the fancy stuff discussed previously isn't needed for now.
-
-To summarise the summary: this means that we will drop the "active
-color format" property and rename the "preferred color format"
-property to "force color format" or just "color format" and failing to
-satisfy that constraint will fail the modeset rather than falling back
-to the "auto" behaviour.
-
-Cheers,
+Thanks,
 Andri
