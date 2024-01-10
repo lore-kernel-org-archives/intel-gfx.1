@@ -4,44 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 17F4DC4707C
-	for <intel-gfx@archiver.kernel.org>; Wed, 10 Jan 2024 13:13:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A20F6C4707C
+	for <intel-gfx@archiver.kernel.org>; Wed, 10 Jan 2024 13:13:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8C19A10E79D;
-	Wed, 10 Jan 2024 13:13:45 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 18D2010E792;
+	Wed, 10 Jan 2024 13:13:48 +0000 (UTC)
 Received: from mgamail.intel.com (mgamail.intel.com [134.134.136.100])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A55FC10E791
- for <intel-gfx@lists.freedesktop.org>; Wed, 10 Jan 2024 13:13:42 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 987AB10E79E
+ for <intel-gfx@lists.freedesktop.org>; Wed, 10 Jan 2024 13:13:45 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1704892422; x=1736428422;
+ t=1704892425; x=1736428425;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=NFE2B40Zk9zMvrb6pylYNzcIUduefTz8o6enIitfxZQ=;
- b=EMksgu29iOsIFUVUeg48zOha5B2Xu0JlqUA7GqSRsdBlXQwCBpUymYw0
- esy+KWeK2DZee54Am8kB1VGBsZrpY/mVFRWKXtVzQ950cF1+Af30PDsdy
- NnOtRkikd/Ig0uMAhO9xieQnnIdPSZCtfG6bBNN3b3kilRQL0kZSVFxpJ
- X9JIJettrBbFZLDkbZ25BoODSEuHwfT+aRJUqrNKk52t6/3ZJ6QKhecof
- T1fFAdVOLVJgqwV48I9jL5ioDQhhYto15LTuJCuEdomO4Ht0SwDmmes9A
- BxoC2qEkGRQ5a/2BxyEMERPGfyfz4g9oncMDP/RZDPeOIYQ6L+xtW/UCP Q==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10948"; a="464914041"
-X-IronPort-AV: E=Sophos;i="6.04,184,1695711600"; d="scan'208";a="464914041"
+ bh=bi00YTP/YDnin5cwFEWEK52xuDg4Q8dVyRBr2Z8awG8=;
+ b=i5hzed5UjymICOAztQgvH0YvRtSAVDLE+XL8BstkmWPSIysG/iKMEr7M
+ zDfq4s3u5AQrMfmz9EW0bLq+94D26R6y7uwpujABqAhX7cV8V6jdIZJiV
+ 67483PQszx9Hp9Q1zeNBmtsqTmmMhNOcfiepEuQUOIizfcXiNNskil133
+ FyHvImYdjKvS0utcpujU9/5X0YMqPJFU9hxh6jzjsjGJ++zYELFU7hHfE
+ 00UOrkoPRMHODBs6xvl2Gc3Xu71XTui3WO/FYGdprlVQ8jAuemz/kIsTf
+ Z/FF1W2Jor583L6KT+FtWkFF0wF6+pgMX84whHG19BfAnVA16897ghk7Z Q==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10948"; a="464914047"
+X-IronPort-AV: E=Sophos;i="6.04,184,1695711600"; d="scan'208";a="464914047"
 Received: from orsmga001.jf.intel.com ([10.7.209.18])
  by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 Jan 2024 05:13:42 -0800
+ 10 Jan 2024 05:13:45 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10948"; a="816347116"
-X-IronPort-AV: E=Sophos;i="6.04,184,1695711600"; d="scan'208";a="816347116"
+X-IronPort-AV: E=McAfee;i="6600,9927,10948"; a="816347137"
+X-IronPort-AV: E=Sophos;i="6.04,184,1695711600"; d="scan'208";a="816347137"
 Received: from vsovraso-mobl.ccr.corp.intel.com (HELO
  jhogande-mobl1.intel.com) ([10.251.211.202])
  by orsmga001-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 Jan 2024 05:13:41 -0800
+ 10 Jan 2024 05:13:44 -0800
 From: =?UTF-8?q?Jouni=20H=C3=B6gander?= <jouni.hogander@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Subject: [PATCH v2 09/13] drm/i915/psr: Detect panel replay selective update
- support
-Date: Wed, 10 Jan 2024 15:13:00 +0200
-Message-Id: <20240110131304.2470006-10-jouni.hogander@intel.com>
+Subject: [PATCH v2 11/13] drm/panelreplay: dpcd register definition for
+ panelreplay SU
+Date: Wed, 10 Jan 2024 15:13:02 +0200
+Message-Id: <20240110131304.2470006-12-jouni.hogander@intel.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20240110131304.2470006-1-jouni.hogander@intel.com>
 References: <20240110131304.2470006-1-jouni.hogander@intel.com>
@@ -64,36 +64,32 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Detect panel replay selective update support and store it into
-intel_psr->sink_panel_replay_su_support.
+Add definitions for panel replay selective update
+
+v2: Remove unnecessary Cc from commit message
 
 Signed-off-by: Jouni Högander <jouni.hogander@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_psr.c | 10 ++++++++--
- 1 file changed, 8 insertions(+), 2 deletions(-)
+ include/drm/display/drm_dp.h | 6 ++++++
+ 1 file changed, 6 insertions(+)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_psr.c b/drivers/gpu/drm/i915/display/intel_psr.c
-index be8b1b7a8025..03e41f10873f 100644
---- a/drivers/gpu/drm/i915/display/intel_psr.c
-+++ b/drivers/gpu/drm/i915/display/intel_psr.c
-@@ -519,9 +519,15 @@ static void _panel_replay_init_dpcd(struct intel_dp *intel_dp)
- 		return;
- 	}
+diff --git a/include/drm/display/drm_dp.h b/include/drm/display/drm_dp.h
+index 281afff6ee4e..4ebf79948c7f 100644
+--- a/include/drm/display/drm_dp.h
++++ b/include/drm/display/drm_dp.h
+@@ -548,6 +548,12 @@
+ # define DP_PANEL_REPLAY_SUPPORT            (1 << 0)
+ # define DP_PANEL_REPLAY_SU_SUPPORT         (1 << 1)
  
--	drm_dbg_kms(&i915->drm,
--		    "Panel replay is supported by panel\n");
- 	intel_dp->psr.sink_panel_replay_support = true;
++#define DP_PANEL_PANEL_REPLAY_CAPABILITY		0xb1
++# define DP_PANEL_PANEL_REPLAY_SU_GRANULARITY_REQUIRED	(1 << 5)
 +
-+	if (pr_dpcd & DP_PANEL_REPLAY_SU_SUPPORT)
-+		intel_dp->psr.sink_panel_replay_su_support = true;
++#define DP_PANEL_PANEL_REPLAY_X_GRANULARITY		0xb2
++#define DP_PANEL_PANEL_REPLAY_Y_GRANULARITY		0xb4
 +
-+	drm_dbg_kms(&i915->drm,
-+		    "Panel replay %sis supported by panel\n",
-+		    intel_dp->psr.sink_panel_replay_su_support ?
-+		    "selective_update " : "");
- }
- 
- static void _psr_init_dpcd(struct intel_dp *intel_dp)
+ /* Link Configuration */
+ #define	DP_LINK_BW_SET		            0x100
+ # define DP_LINK_RATE_TABLE		    0x00    /* eDP 1.4 */
 -- 
 2.34.1
 
