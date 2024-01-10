@@ -4,28 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0AEE1C4707B
-	for <intel-gfx@archiver.kernel.org>; Wed, 10 Jan 2024 16:27:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 91EF1C47073
+	for <intel-gfx@archiver.kernel.org>; Wed, 10 Jan 2024 17:39:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5D69E10E615;
-	Wed, 10 Jan 2024 16:27:50 +0000 (UTC)
-Received: from verein.lst.de (verein.lst.de [213.95.11.211])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1934310E60B
- for <intel-gfx@lists.freedesktop.org>; Wed, 10 Jan 2024 16:27:48 +0000 (UTC)
-Received: by verein.lst.de (Postfix, from userid 2407)
- id 9659068CFE; Wed, 10 Jan 2024 17:18:29 +0100 (CET)
-Date: Wed, 10 Jan 2024 17:18:29 +0100
-From: Christoph Hellwig <hch@lst.de>
-To: Matthew Wilcox <willy@infradead.org>
-Subject: Re: disable large folios for shmem file used by xfs xfile
-Message-ID: <20240110161829.GA1105@lst.de>
-References: <20240110092109.1950011-1-hch@lst.de>
- <ZZ6Pfk8tLXbvs4dE@casper.infradead.org>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 232F210E613;
+	Wed, 10 Jan 2024 17:39:23 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [134.134.136.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F3E5F10E613;
+ Wed, 10 Jan 2024 17:39:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1704908361; x=1736444361;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=0fbUq2+fi5m6xU5bU2ash2TByVlWdMOaHQnT3FV0Bec=;
+ b=HUVEltAw8ZsvQJp8BOwOyucRPKyyhc+XnvC3IagPHAJroezQIjKbBtuC
+ E1PjQuNaoDdvtmfCkGOBbpb9OhlHQOUU0p2D/CpKKhAmeW/uFPxgTpOFM
+ Cg1cqm8aldJMEQWgvB4AiC+n+HUTEKmVUQOQtaKhmMQnA3zwZAT7DbHb4
+ jn+LMR73fdpr+HNzt+J7KlzD/+jAHscca5yzBGBN4dNA0eiAnv3QwZ9NB
+ GgT5B3eLOUkgraiD+fY4ngnlxqBvULTu3AQOe46+lnAfh/XcR5cwPeTd0
+ 1AmB0CkNy/EgrJptBDGS9E17g2UJW8KVUynqmK0gncqlf0HvFY841vTqt Q==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10949"; a="462878521"
+X-IronPort-AV: E=Sophos;i="6.04,184,1695711600"; d="scan'208";a="462878521"
+Received: from fmsmga006.fm.intel.com ([10.253.24.20])
+ by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 10 Jan 2024 09:39:20 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6600,9927,10949"; a="1029221779"
+X-IronPort-AV: E=Sophos;i="6.04,184,1695711600"; d="scan'208";a="1029221779"
+Received: from fpallare-mobl3.ger.corp.intel.com (HELO localhost)
+ ([10.252.36.240])
+ by fmsmga006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 10 Jan 2024 09:39:19 -0800
+From: Jani Nikula <jani.nikula@intel.com>
+To: dri-devel@lists.freedesktop.org
+Subject: [PATCH 0/6] drm: enable W=1 warnings by default across the subsystem
+Date: Wed, 10 Jan 2024 19:39:10 +0200
+Message-Id: <cover.1704908087.git.jani.nikula@intel.com>
+X-Mailer: git-send-email 2.39.2
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <ZZ6Pfk8tLXbvs4dE@casper.infradead.org>
-User-Agent: Mutt/1.5.17 (2007-11-01)
+Content-Type: text/plain; charset=UTF-8
+Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
+Content-Transfer-Encoding: 8bit
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -38,37 +58,40 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Darrick J . Wong" <djwong@kernel.org>, dri-devel@lists.freedesktop.org,
- David Howells <dhowells@redhat.com>, linux-mm@kvack.org,
- Huang Rui <ray.huang@amd.com>, David Airlie <airlied@gmail.com>,
- Christoph Hellwig <hch@lst.de>, x86@kernel.org,
- Hugh Dickins <hughd@google.com>, Dave Hansen <dave.hansen@linux.intel.com>,
- Thomas Zimmermann <tzimmermann@suse.de>, intel-gfx@lists.freedesktop.org,
- Maxime Ripard <mripard@kernel.org>, Rodrigo Vivi <rodrigo.vivi@intel.com>,
- linux-sgx@vger.kernel.org, Jarkko Sakkinen <jarkko@kernel.org>,
- keyrings@vger.kernel.org, Daniel Vetter <daniel@ffwll.ch>,
- linux-fsdevel@vger.kernel.org, Andrew Morton <akpm@linux-foundation.org>,
- Christian Koenig <christian.koenig@amd.com>,
- Chandan Babu R <chandan.babu@oracle.com>
+Cc: jani.nikula@intel.com, intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Jan 10, 2024 at 12:37:18PM +0000, Matthew Wilcox wrote:
-> On Wed, Jan 10, 2024 at 10:21:07AM +0100, Christoph Hellwig wrote:
-> > Hi all,
-> > 
-> > Darrick reported that the fairly new XFS xfile code blows up when force
-> > enabling large folio for shmem.  This series fixes this quickly by disabling
-> > large folios for this particular shmem file for now until it can be fixed
-> > properly, which will be a lot more invasive.
-> > 
-> > I've added most of you to the CC list as I suspect most other users of
-> > shmem_file_setup and friends will have similar issues.
-> 
-> The graphics users _want_ to use large folios.  I'm pretty sure they've
-> been tested with this.  It's just XFS that didn't know about this
-> feature of shmem.
+This is v2 of [1] to enable most W=1 warnings across the drm
+subsystem. Some fixes first, and a CONFIG_DRM_WERROR on top.
 
-At least sgx has all kinds of PAGE_SIZE assumptions.  I haven't audited
-(and am probably not qualified to) audit that code, so I wanted to send
-a headsup to everyone.
+I build tested this for x86 (both gcc and clang), arm and arm64.
+
+BR,
+Jani.
+
+
+[1] https://lore.kernel.org/r/20231129181219.1237887-1-jani.nikula@intel.com
+
+
+
+
+Jani Nikula (6):
+  drm/nouveau/acr/ga102: remove unused but set variable
+  drm/nouveau/svm: remove unused but set variables
+  drm/amdgpu: prefer snprintf over sprintf
+  drm/imx: prefer snprintf over sprintf
+  drm: enable (most) W=1 warnings by default across the subsystem
+  drm: Add CONFIG_DRM_WERROR
+
+ drivers/gpu/drm/Kconfig                       | 18 +++++++++++
+ drivers/gpu/drm/Makefile                      | 30 +++++++++++++++++++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c       |  3 +-
+ drivers/gpu/drm/imx/ipuv3/imx-ldb.c           |  2 +-
+ drivers/gpu/drm/nouveau/nouveau_svm.c         | 10 ++-----
+ .../gpu/drm/nouveau/nvkm/subdev/acr/lsfw.c    |  3 +-
+ 6 files changed, 55 insertions(+), 11 deletions(-)
+
+-- 
+2.39.2
+
