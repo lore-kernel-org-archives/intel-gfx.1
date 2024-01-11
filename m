@@ -4,70 +4,62 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9571FC47077
-	for <intel-gfx@archiver.kernel.org>; Tue, 16 Jan 2024 12:28:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 23D6BC47077
+	for <intel-gfx@archiver.kernel.org>; Tue, 16 Jan 2024 12:28:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0856D10E568;
-	Tue, 16 Jan 2024 12:28:15 +0000 (UTC)
-Received: from mail-wr1-x431.google.com (mail-wr1-x431.google.com
- [IPv6:2a00:1450:4864:20::431])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 82E4C10E2BA
- for <intel-gfx@lists.freedesktop.org>; Mon, 15 Jan 2024 16:06:38 +0000 (UTC)
-Received: by mail-wr1-x431.google.com with SMTP id
- ffacd0b85a97d-336c9acec03so7434546f8f.2
- for <intel-gfx@lists.freedesktop.org>; Mon, 15 Jan 2024 08:06:38 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B51DC10E56F;
+	Tue, 16 Jan 2024 12:28:47 +0000 (UTC)
+Received: from mail-yb1-xb32.google.com (mail-yb1-xb32.google.com
+ [IPv6:2607:f8b0:4864:20::b32])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0E40610E0B5;
+ Thu, 11 Jan 2024 21:30:43 +0000 (UTC)
+Received: by mail-yb1-xb32.google.com with SMTP id
+ 3f1490d57ef6-dbeff3fefc7so4815823276.2; 
+ Thu, 11 Jan 2024 13:30:43 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=yngvason.is; s=google; t=1705334797; x=1705939597; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=2nfzXYtohis0OwCD+AmIl/qoZqPN5SyFIj+AeVDGrUY=;
- b=Vib1ZBP/CfjnsPKUneq3MhVGzPIEI7vK/Ip1teCt5rtjTfkszJoqZ2Dx6ykC+ReZB+
- yCPqJeUbID0JHxCM2GTzdUapMBh2q6MSiZyV+4B+u2ESmElJPIBZZljH/pMfN5/WYvlC
- QDAO2EnCGOlF6b2CBE6lmfWQQKHnCzeQN5NEg=
+ d=gmail.com; s=20230601; t=1705008642; x=1705613442; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=8LgYFTnwAu8/MG526Kevc0lB/NXqtyQR3bdvsNZmg0k=;
+ b=LbjVsy62gT6ZIQkvAQO33OZvlk3i4nCkkL3H725HM7csHuV6i3cRmNThHELWgV9FG+
+ bQ1VKhrDRsVOmkFemdkoHz2RpovqLDV5jBlmMuAOTJsNPbS5B5imNvyUAoFj26AAkk4Z
+ Hb5KHOhvqhPhTHRqjfRPIyYSssFxbrEvpeNdrEtVqTZf8In5VWnhFLo8MsUCzoYMd5jw
+ 7Y+tah32usBl5us1fkRKTb6X/5SzuRwD0KJFnL/l+K/MqJD/pOt3sXwoSjf2E/E5EOxD
+ qn0xe5GY47Afj0DcRR8U2FktKLDSyjNEvhGKx8CdaCNnkLNaqqIqd8BQQDGDT1MpBOas
+ qtMA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1705334797; x=1705939597;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=2nfzXYtohis0OwCD+AmIl/qoZqPN5SyFIj+AeVDGrUY=;
- b=luhv/mvc59z9quDSS2+Xhxn1OAqigbTy11gEJ/jNdX7ywHSbIWIy28xIzwTsCsJd1h
- BrqKEPlF5R9VBNCjfbnjAdWhKRPZtG7bYl5Appcwz7gNCxuWVcwSFKN735lJqNuTCc2D
- SdhOCnNbUGhQWsz9Mwr+/pFP0Q4/y+z71L7cvPoJoXrC0TgwUbmdYhBu0oUY38G01u/X
- rJrUI5cLaU/jCkWfmCwz6lM2U9t5Q/HB2IN8RFfW3BPLtyvzMKpMdwFi4ZHZIivd5cqO
- qwMkVDKS4+WpTFMGb/dM7hvsYUxfrAFWO6Mf+0vnlkL8NR0ERbRfB7FVJfWcvg0RyCUD
- KJxA==
-X-Gm-Message-State: AOJu0YzA3207ug8TQFf5Av03WM1gN7375KIXchstfEhX/q8k+ysJMUzU
- rz2lljm+7RqoyM7dEAE3ueOkj21sNGg+cg==
-X-Google-Smtp-Source: AGHT+IEUUc5iRjuXbMJ2dngkv+RJCZlkEQjqC7ossePXJRfMhg+lS/5kV7bU5iCCs/lMM5nEnzQUkw==
-X-Received: by 2002:a7b:cbc7:0:b0:40e:6707:b758 with SMTP id
- n7-20020a7bcbc7000000b0040e6707b758mr2317948wmi.178.1705334796754; 
- Mon, 15 Jan 2024 08:06:36 -0800 (PST)
-Received: from andri-workstation.turninn.appdynamic.com
- ([2a01:8280:aa07:ad:7285:c2ff:fef0:4baf])
- by smtp.gmail.com with ESMTPSA id
- l22-20020a05600c4f1600b0040d6b91efd9sm20174140wmq.44.2024.01.15.08.06.34
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 15 Jan 2024 08:06:36 -0800 (PST)
-From: Andri Yngvason <andri@yngvason.is>
-To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
- Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- "Pan, Xinhui" <Xinhui.Pan@amd.com>, David Airlie <airlied@gmail.com>,
- Daniel Vetter <daniel@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
-Subject: [PATCH v2 0/4] New DRM properties for output color format
-Date: Mon, 15 Jan 2024 16:05:50 +0000
-Message-ID: <20240115160554.720247-1-andri@yngvason.is>
-X-Mailer: git-send-email 2.43.0
+ d=1e100.net; s=20230601; t=1705008642; x=1705613442;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=8LgYFTnwAu8/MG526Kevc0lB/NXqtyQR3bdvsNZmg0k=;
+ b=iEplFe1ckPpRwPwiqbvbWBqNXzz2snaJa/x7cgljCz2HyOf6p5d1j2wJpJ0FPxx8Gh
+ LSkIJgDO1GBm+rY8iGheAXwPW/wgfBIZm71I4GwILuG6VxExYxeElb92x3q3n+6tA7Lv
+ 1USAkmGgtsoM1BnDT7RxHTCgThRPTXrpGvRwRIjNgxCg39tGHHIJVlJKlr5ATQLLPMzW
+ VZNtbIj24CO7rmxeJrk/etH/rZwyPGz3Z9K3M09ZRvpk1064U2VjiF4HJAEyR3zayfBl
+ lEmWeVxpJD88w3Q4cb3eaEr4UlZNufoS/COa4SPr/+yKg0U+1O16y2nyeFiScvTmzkwI
+ uD1A==
+X-Gm-Message-State: AOJu0YzhoCZ9auWJikPIeFbKHDqqbIVfIN4whpx13yXhOpUf1Uitk7RG
+ myIT+B4jVYv8ZCeM68I3Gz3+fvR+xZH/eH3BO/c=
+X-Google-Smtp-Source: AGHT+IHwmH+A2IQ0AogjWxAMvzBiF3cSFHiqvOmPkUcvH7iqX/OVfLICPOYHsW9aFA0OozZ2CFnaG7nwOMzm3wCWY1Y=
+X-Received: by 2002:a05:6902:1364:b0:dbf:11e:d09d with SMTP id
+ bt4-20020a056902136400b00dbf011ed09dmr294814ybb.84.1705008642089; Thu, 11 Jan
+ 2024 13:30:42 -0800 (PST)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20240110092109.1950011-1-hch@lst.de>
+ <ZZ6Pfk8tLXbvs4dE@casper.infradead.org>
+ <170490002493.164187.5401160425746227111@jlahtine-mobl.ger.corp.intel.com>
+ <170490050245.164862.16261803493864298341@jlahtine-mobl.ger.corp.intel.com>
+ <ZZ64/F/yeSymOCcI@casper.infradead.org>
+In-Reply-To: <ZZ64/F/yeSymOCcI@casper.infradead.org>
+From: Daniel Gomez <dagmcr@gmail.com>
+Date: Thu, 11 Jan 2024 22:30:31 +0100
+Message-ID: <CAPsT6hkQixVvvE94Rjop-7jOXi3FOMfv8BOFhxYLWUs906x2CQ@mail.gmail.com>
+Subject: Re: disable large folios for shmem file used by xfs xfile
+To: Matthew Wilcox <willy@infradead.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-Mailman-Approved-At: Tue, 16 Jan 2024 12:28:11 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -81,46 +73,69 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: amd-gfx@lists.freedesktop.org, Simon Ser <contact@emersion.fr>,
- intel-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- Andri Yngvason <andri@yngvason.is>, dri-devel@lists.freedesktop.org
+Cc: "Darrick J . Wong" <djwong@kernel.org>,
+ Dave Hansen <dave.hansen@linux.intel.com>, dri-devel@lists.freedesktop.org,
+ David Howells <dhowells@redhat.com>, linux-mm@kvack.org,
+ Huang Rui <ray.huang@amd.com>, David Airlie <airlied@gmail.com>,
+ Christoph Hellwig <hch@lst.de>, x86@kernel.org,
+ Hugh Dickins <hughd@google.com>, Thomas Zimmermann <tzimmermann@suse.de>,
+ intel-gfx@lists.freedesktop.org, Maxime Ripard <mripard@kernel.org>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, linux-sgx@vger.kernel.org,
+ Jarkko Sakkinen <jarkko@kernel.org>, keyrings@vger.kernel.org,
+ Daniel Vetter <daniel@ffwll.ch>, linux-fsdevel@vger.kernel.org,
+ Andrew Morton <akpm@linux-foundation.org>,
+ Christian Koenig <christian.koenig@amd.com>,
+ Chandan Babu R <chandan.babu@oracle.com>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-After some discussion, we decided to drop the "active color format"
-property and rename the "preferred color format" property to "force
-color format". 
+On Wed, Jan 10, 2024 at 4:35=E2=80=AFPM Matthew Wilcox <willy@infradead.org=
+> wrote:
+>
+> On Wed, Jan 10, 2024 at 05:28:22PM +0200, Joonas Lahtinen wrote:
+> > Quoting Joonas Lahtinen (2024-01-10 17:20:24)
+> > > However we specifically pass "huge=3Dwithin_size" to vfs_kern_mount w=
+hen
+> > > creating a private mount of tmpfs for the purpose of i915 created
+> > > allocations.
+> > >
+> > > Older hardware also had some address hashing bugs where 2M aligned
+> > > memory caused a lot of collisions in TLB so we don't enable it always=
+.
+> > >
+> > > You can see drivers/gpu/drm/i915/gem/i915_gemfs.c function
+> > > i915_gemfs_init for details and references.
+> > >
+> > > So in short, functionality wise we should be fine either default
+> > > for using 2M pages or not. If they become the default, we'd probably
+> > > want an option that would still be able to prevent them for performan=
+ce
+> > > regression reasons on older hardware.
+> >
+> > To maybe write out my concern better:
+> >
+> > Is there plan to enable huge pages by default in shmem?
+>
+> Not in the next kernel release, but eventually the plan is to allow
+> arbitrary order folios to be used in shmem.  So you could ask it to creat=
+e
+> a 256kB folio for you, if that's the right size to manage memory in.
+>
+> How shmem and its various users go about choosing the right size is not
+> quite clear to me yet.  Perhaps somebody else will do it before I get
+> to it; I have a lot of different sub-projects to work on at the moment,
+> and shmem isn't blocking any of them.  And I have a sneaking suspicion
+> that more work is needed in the swap code to deal with arbitrary order
+> folios, so that's another reason for me to delay looking at this ;-)
 
-The user can probe available color formats in combination with other
-properties using TEST_ONLY commits.
+I have sent large folios support for shmem for the write and fallocate
+path some releases ago. The main problem I was facing was a current
+upstream problem with huge pages when seeking holes/data (fstests
+generic/285 and generic/436). The strategy suggested was to use large
+folios in an opportunistic way based on the file size. This hit the
+same problem we currently have with huge pages and I considered that a
+regression. We have made some progress to fix seeking in huge pages
+upstream but is not yet finished. I can send the patches tomorrow for
+further discussion.
 
-v1: https://lore.kernel.org/dri-devel/20240109181104.1670304-1-andri@yngvason.is/
-
-v2
- - Dropped "active color format"
- - Replaced "preferred color format" with "force color format"
-
-
-Werner Sembach (4):
-  drm/amd/display: Remove unnecessary SIGNAL_TYPE_HDMI_TYPE_A check
-  drm/uAPI: Add "force color format" drm property as setting for
-    userspace
-  drm/amd/display: Add handling for new "force color format" property
-  drm/i915/display: Add handling for new "force color format" property
-
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 67 ++++++++++++++++---
- .../display/amdgpu_dm/amdgpu_dm_mst_types.c   |  4 ++
- drivers/gpu/drm/drm_atomic_helper.c           |  4 ++
- drivers/gpu/drm/drm_atomic_uapi.c             |  4 ++
- drivers/gpu/drm/drm_connector.c               | 48 +++++++++++++
- drivers/gpu/drm/i915/display/intel_dp.c       | 35 ++++++++--
- drivers/gpu/drm/i915/display/intel_dp_mst.c   |  5 ++
- drivers/gpu/drm/i915/display/intel_hdmi.c     | 29 ++++++--
- include/drm/drm_connector.h                   | 16 +++++
- 9 files changed, 190 insertions(+), 22 deletions(-)
-
-
-base-commit: 052d534373b7ed33712a63d5e17b2b6cdbce84fd
--- 
-2.43.0
-
+>
