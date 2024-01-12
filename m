@@ -4,23 +4,23 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C88B3C4706C
-	for <intel-gfx@archiver.kernel.org>; Fri, 12 Jan 2024 16:19:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EC275C4725D
+	for <intel-gfx@archiver.kernel.org>; Fri, 12 Jan 2024 16:19:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 425D410E0D3;
-	Fri, 12 Jan 2024 16:19:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2FB9C10E0D4;
+	Fri, 12 Jan 2024 16:19:14 +0000 (UTC)
 Received: from 5338d5abeb45 (emeril.freedesktop.org [131.252.210.167])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E245510E0D3;
- Fri, 12 Jan 2024 16:19:10 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6C1C510E0D4;
+ Fri, 12 Jan 2024 16:19:13 +0000 (UTC)
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
-Subject: =?utf-8?q?=E2=9C=97_Fi=2ECI=2ECHECKPATCH=3A_warning_for_drm/i915=3A_Drop_-Ws?=
- =?utf-8?q?tringop-overflow?=
+Subject: =?utf-8?q?=E2=9C=97_Fi=2ECI=2ESPARSE=3A_warning_for_drm/i915=3A_Drop_-Wstrin?=
+ =?utf-8?q?gop-overflow?=
 From: Patchwork <patchwork@emeril.freedesktop.org>
 To: "Lucas De Marchi" <lucas.demarchi@intel.com>
-Date: Fri, 12 Jan 2024 16:19:10 -0000
-Message-ID: <170507635092.332901.11379936971700054880@5338d5abeb45>
+Date: Fri, 12 Jan 2024 16:19:13 -0000
+Message-ID: <170507635344.332901.6637786463139626746@5338d5abeb45>
 X-Patchwork-Hint: ignore
 References: <20240112154912.1775199-1-lucas.demarchi@intel.com>
 In-Reply-To: <20240112154912.1775199-1-lucas.demarchi@intel.com>
@@ -49,16 +49,8 @@ State : warning
 
 == Summary ==
 
-Error: dim checkpatch failed
-9427e0589ae0 drm/i915: Drop -Wstringop-overflow
--:14: WARNING:COMMIT_LOG_LONG_LINE: Prefer a maximum 75 chars per line (possible unwrapped commit description?)
-#14: 
-References: https://lore.kernel.org/all/45ad1d0f-a10f-483e-848a-76a30252edbe@paulmck-laptop/
-
--:14: WARNING:COMMIT_LOG_USE_LINK: Unknown link reference 'References:', use 'Link:' or 'Closes:' instead
-#14: 
-References: https://lore.kernel.org/all/45ad1d0f-a10f-483e-848a-76a30252edbe@paulmck-laptop/
-
-total: 0 errors, 2 warnings, 0 checks, 7 lines checked
+Error: dim sparse failed
+Sparse version: v0.6.2
+Fast mode used, each commit won't be checked separately.
 
 
