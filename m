@@ -4,68 +4,154 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0915AC47DA6
-	for <intel-gfx@archiver.kernel.org>; Fri, 12 Jan 2024 12:52:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 36033C4706C
+	for <intel-gfx@archiver.kernel.org>; Fri, 12 Jan 2024 13:26:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4E77C10EBB7;
-	Fri, 12 Jan 2024 12:52:18 +0000 (UTC)
-Received: from mail-ed1-x52e.google.com (mail-ed1-x52e.google.com
- [IPv6:2a00:1450:4864:20::52e])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A705310EB03;
- Fri, 12 Jan 2024 12:52:07 +0000 (UTC)
-Received: by mail-ed1-x52e.google.com with SMTP id
- 4fb4d7f45d1cf-555e07761acso7739161a12.0; 
- Fri, 12 Jan 2024 04:52:07 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1705063926; x=1705668726; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:to:from:from:to:cc:subject:date:message-id
- :reply-to; bh=sVs3OsRWXDqGVoVB/hOepDcpwHhSyMkd8r91w00XsJw=;
- b=GYOO8UUjWlW7H/lwEGNB7Qu+qVhJ5pXxtCd0gC3bhJHw9lSPAAX6VJ/aaJvqm0jyB7
- IlSxeTT/6ocG8s0dxnwox5BxHrSdWazbsLYDImnaHL7OX2BzfRfT+mDZGPY2TY+/gAwG
- WussQ2uWpUupJi90H6L92xnbAOI/eVn7dOX7Jkwmb5DPG7y9uI+3tRAMPIwrHESV6gkN
- znJZofOmi5UHN6OL6KbK11m22oazeg+nzrgO2m37tCrYvaApB94SUHERixZGvTysc7DW
- jSQ+uCp5iTQGPYjtrfwBFn8RFEJk9X/Y9umwDnVbmMA+djAcYqjjliDd6F7G/qtX0uJn
- EJqQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1705063926; x=1705668726;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:to:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=sVs3OsRWXDqGVoVB/hOepDcpwHhSyMkd8r91w00XsJw=;
- b=KlZSjVgL00DYHdj8qx8/Jhf816/JMW2wM6Ay86s6b8A0P5OSus8j4yQ28bQh2hLkEz
- I07mr3rGrUPOOQwx0JpINuI1fVBK9QN8bd8NMNhINpmX5WbFq5hx34Y8Zi5BH3al1qsz
- 1DFyGJJrF76L/TCdMAcmu9Ye3ccsS3Z1GbYWOB7h47ndVPm4X3xF+HT2lPYcFsdz6Xdl
- Ztw5YhlDBsyfH33GeKH0AeaQklYJRwsYoGTn4lJzQjAv11+kUIbCNzdcavLIUQt64mHX
- QtCBZdcIJJwYutBRCXOZzTA4CPtUvLbCQ3VgMORIzGDSKngaBCNSOUisxQ1i3lfSPTY/
- BmmQ==
-X-Gm-Message-State: AOJu0YzLgGjzTytuZO2ZpcCATk8OFKGPVgVa52yRX7Vr+csFbAEGuA4H
- V8ZrbDJCOfS1fcajMNNOVBIK+pc0+VOZCdum
-X-Google-Smtp-Source: AGHT+IE8kRsDHYPV47Z52NZmAxStHntLiMDMLMXRoZXiZpI28dxHB0mvPifx0Mw3mW5ZJcfVkbspLg==
-X-Received: by 2002:aa7:d5d9:0:b0:550:4412:e8f with SMTP id
- d25-20020aa7d5d9000000b0055044120e8fmr429925eds.17.1705063926089; 
- Fri, 12 Jan 2024 04:52:06 -0800 (PST)
-Received: from able.fritz.box ([2a00:e180:152a:5d00:a6e1:95b5:7596:5333])
- by smtp.gmail.com with ESMTPSA id
- y10-20020aa7ccca000000b005572a1159b9sm1752427edt.22.2024.01.12.04.52.05
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 12 Jan 2024 04:52:05 -0800 (PST)
-From: "=?UTF-8?q?Christian=20K=C3=B6nig?=" <ckoenig.leichtzumerken@gmail.com>
-X-Google-Original-From: =?UTF-8?q?Christian=20K=C3=B6nig?=
- <christian.koenig@amd.com>
-To: dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
- thomas.hellstrom@linux.intel.com, nouveau@lists.freedesktop.org,
- jani.nikula@linux.intel.com, kherbst@redhat.com, lyude@redhat.com,
- zackr@vmware.com, michel.daenzer@mailbox.org
-Subject: [PATCH 4/5] drm/ttm: improve idle/busy handling v3
-Date: Fri, 12 Jan 2024 13:51:57 +0100
-Message-Id: <20240112125158.2748-5-christian.koenig@amd.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20240112125158.2748-1-christian.koenig@amd.com>
-References: <20240112125158.2748-1-christian.koenig@amd.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id A97FB10E0FC;
+	Fri, 12 Jan 2024 13:26:26 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 505EA10E0FC;
+ Fri, 12 Jan 2024 13:26:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1705065985; x=1736601985;
+ h=from:to:cc:subject:date:message-id:references:
+ in-reply-to:content-id:mime-version: content-transfer-encoding;
+ bh=mmXw4vorplKrtMbyblOIM3drdGmgRmgKpMaI/62POEQ=;
+ b=iCGlG8CWNZdMSUxfciwbwu3WQ0O9fynikWisiB0SfuUVw9+pilusL7qg
+ oVDKq3u4tsa8Pw3X6R2xv5z/qMgU15rYMoNqoaEpWNhUNfrF5I2ZNstUI
+ GC5vkAzFH6fLKhE50Dah4Dpa+j19WyfHVOiExcxGeyVwTMm1vennXTZBo
+ me4E8250E5kdhEgGjmepx6Wb7Ug2GDszvQ9CJvxrdw7uWl4zoS0giqAvF
+ lWayUzx8tMJs7cC3/Uj1Y/2xNacxzAImlWqSCkIz6ppNbbawoVMbBiR7O
+ avAzKLsdXCjbgyLV5SxOuoFKe55WFr8NzrSyEbxeHnuPVXutO3gmgMipe Q==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10950"; a="6532805"
+X-IronPort-AV: E=Sophos;i="6.04,189,1695711600"; 
+   d="scan'208";a="6532805"
+Received: from orsmga001.jf.intel.com ([10.7.209.18])
+ by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 12 Jan 2024 05:26:24 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6600,9927,10950"; a="817073562"
+X-IronPort-AV: E=Sophos;i="6.04,189,1695711600"; d="scan'208";a="817073562"
+Received: from orsmsx602.amr.corp.intel.com ([10.22.229.15])
+ by orsmga001.jf.intel.com with ESMTP/TLS/AES256-GCM-SHA384;
+ 12 Jan 2024 05:26:23 -0800
+Received: from orsmsx612.amr.corp.intel.com (10.22.229.25) by
+ ORSMSX602.amr.corp.intel.com (10.22.229.15) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2507.35; Fri, 12 Jan 2024 05:26:23 -0800
+Received: from orsmsx610.amr.corp.intel.com (10.22.229.23) by
+ ORSMSX612.amr.corp.intel.com (10.22.229.25) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2507.35; Fri, 12 Jan 2024 05:26:23 -0800
+Received: from ORSEDG601.ED.cps.intel.com (10.7.248.6) by
+ orsmsx610.amr.corp.intel.com (10.22.229.23) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2507.35 via Frontend Transport; Fri, 12 Jan 2024 05:26:23 -0800
+Received: from NAM11-BN8-obe.outbound.protection.outlook.com (104.47.58.169)
+ by edgegateway.intel.com (134.134.137.102) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.1.2507.35; Fri, 12 Jan 2024 05:26:23 -0800
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=XjIXZ58o6L/gYA38OSSMs4WooO5R71ownzMrP+fJ/YZC+58ScUtnUpmVG+MkG8dodhQcD/OoVMdYXZa0crHmtOm5E86WC+YRHYLEH1yrcovigIa5BtbMUkBGBvDOM5GJk20XZr1vq7HPJiHypwx8/AnvqTnO2EhJQ3vfpbZEn3zL32BLwIAudHtlyyPC93WZiX4dXuMbIWANbNjLM4oplnV9Wekp/skM1mAuu4om60t6oMu9/96aeWm2HD7gUu6wNtmouSc0ClDVIeEL6DvECdXw3btawflALaKlgL90H6xt7SXpY8BtX+S3ncvggJtgDAG/GguDX1+VzXTQvHd/mw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=DaIhXr2pYocaDu/k6vSOoQPk8HIRbF+doIrDJgFZU4A=;
+ b=RGrkr7t2wb+t/nj5qs4uZnzsJ9TOosa1GR76a0quWsuHwCjECaHlECwiYlWCGuwuSgRvvsWJcaU+s0Cxcl3f2eqVXWcMg65eSU0waZs0dKNAU6FVDo8PMFDOLtQTEdzU5aTGZOXZVlM3xyOqCHUXghPhSMBsdw8XAO9a91nR+NxFNel6vQAgGhjDa+QETVexDeHljXNT6b0kh4zeerjwD9Z4QYGPve7H1Gh9s9ssG2+lvAMnG/5MqEizYZU6jdEz/d0Ho6k8F7nPvM7hdXMCV6RaHvPetiTsg2yxpf8bLVfRhukhG0AVqeuzHnJPG/GgHkTBCFfjgeoHmpL8sBfg+A==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Received: from SA1PR11MB5777.namprd11.prod.outlook.com (2603:10b6:806:23d::16)
+ by BL1PR11MB5320.namprd11.prod.outlook.com (2603:10b6:208:316::13)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7181.21; Fri, 12 Jan
+ 2024 13:26:20 +0000
+Received: from SA1PR11MB5777.namprd11.prod.outlook.com
+ ([fe80::ce7d:700b:f444:f3c0]) by SA1PR11MB5777.namprd11.prod.outlook.com
+ ([fe80::ce7d:700b:f444:f3c0%4]) with mapi id 15.20.7181.020; Fri, 12 Jan 2024
+ 13:26:20 +0000
+From: "Sarha, Jyri" <jyri.sarha@intel.com>
+To: "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
+ "Nikula, Jani" <jani.nikula@intel.com>, "intel-gfx@lists.freedesktop.org"
+ <intel-gfx@lists.freedesktop.org>
+Subject: Re: [3/3] ASoC: hdmi-codec: drop drm/drm_edid.h include
+Thread-Topic: [3/3] ASoC: hdmi-codec: drop drm/drm_edid.h include
+Thread-Index: AQHaRVruOe1Y4FJgbk2MU8ma7E0OPQ==
+Date: Fri, 12 Jan 2024 13:26:20 +0000
+Message-ID: <4eeb74d942acf24e468036e0732e5e32c6907f6f.camel@intel.com>
+References: <20240104201632.1100753-3-jani.nikula@intel.com>
+In-Reply-To: <20240104201632.1100753-3-jani.nikula@intel.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: SA1PR11MB5777:EE_|BL1PR11MB5320:EE_
+x-ms-office365-filtering-correlation-id: d804aed8-327f-4494-e1b7-08dc137210a2
+x-ld-processed: 46c98d88-e344-4ed4-8496-4ed7712e255d,ExtAddr
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: db+BUYAKByjuJazI5kmIeABT/ItWzaBbMZ9e9XiGxT02HBOk4y9bp/c3oRdP76/M3gN4ghka3H7M/G3fcemUeQZZfuUQ4MkUw7rc+7VsGp3cwO/Xq12aViSL1QgWy99AkaHzCrHhFFA0Xro4MPpRq3u2LI09vFCBmdj64YmZSCOIG3iG4BQ5rqxaIJbaEhHIN3PXmDfJFWndGtX007is+qM4ChOZSTtN4dYQ9wox7hc9CuaKN508nqCiywDoSvAp/XniQpujOh8I+07tWeEo0hrQH7XH5GXIzpg45MRo080KVaGj3zDILC6q98YkpEIXmSgLoxYTc5jrOgKvKHHA9hwumYVjco6Vz3CxwUQRFjSJ3hwe/ZGNm6CZRt0VpThWoZ12GMQA2MfN7r/cnKdlwg3sJ7TlYGKG7Xm///+aPEwkUY4I5pSQlS3LssTNVDTBc7u5tDu8rKUTPkgbRqZjgCDt3rgBaEk6RywxKdy95Wu/XVgkGzBGhMwc72Ce9jUdD2BjvH/Oug0K4I4SDU3HFD0I+PyLS1pfRhs/3PsyQuXcJmxXnkUjKhxW1kmQU3xw3Qd2iY3g3eQnavDn+2yMSjlF9a2i4vPlZBbT8zIUnRKTvEpWg2FQ9GQnMLYohmUi
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:SA1PR11MB5777.namprd11.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230031)(346002)(376002)(366004)(39860400002)(396003)(136003)(230922051799003)(64100799003)(186009)(451199024)(1800799012)(36756003)(38070700009)(2616005)(26005)(4326008)(6512007)(8936002)(8676002)(7416002)(2906002)(5660300002)(478600001)(316002)(91956017)(54906003)(6486002)(6506007)(83380400001)(66446008)(76116006)(66946007)(64756008)(66476007)(66556008)(110136005)(71200400001)(41300700001)(86362001)(38100700002)(122000001)(82960400001);
+ DIR:OUT; SFP:1102; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?utf-8?B?QzJEVzl4UzBFTHB0Zll6THJaTDdGM3BOOGZJVWNrelJYM3laVXZJUjJLbHlY?=
+ =?utf-8?B?N1l3Qmp3VkJldUw5amFXdWs3MG5BWEpVb3cza21YNUdpNEhVY3c3b3ptQTVD?=
+ =?utf-8?B?SEl6Nk00WmZTWHFQNTlnQ1Z3ZWYwWnJNVVkwRVoxck5qUVR5dmJKd3VZZG1l?=
+ =?utf-8?B?T1hhTkVzSXpXdWs2dlFQcWkvRkpFdll0TldHQno4ZTJPNXJteXNyMWFFSGNU?=
+ =?utf-8?B?dVRuank0cmdDTlg3U3hEOER2N29qS2k0bTlRbXp0elBhblJ3UVIybnpFSGZk?=
+ =?utf-8?B?anEvZldtY2dTQjBRYlpJa2RiNXMvN1A3YnFSV0tJdG90U3UrWnhVNTZTTWhz?=
+ =?utf-8?B?Ukt3L1VGY1VINmhEM3hwa0NJaFh6b0dqaWZjbktyM1RpUElkVnNwbzdNNC8r?=
+ =?utf-8?B?THFxRlRpOHltcTE2ZGxweWRDdzRMVHdMUEdiaW9rQzN2NHRpaUQrZDlza3Er?=
+ =?utf-8?B?VHIvclEwZDRnamlIbFd6S0xVUklHZHVrQmcwMTUvOE8zZDZUOXpCUFFvZmJD?=
+ =?utf-8?B?ajNuNWlma2hDV1M2R2lCWEphcENEZHlza0ZWeWhLVTc5SElXWm5XSlZlWU43?=
+ =?utf-8?B?bkFGN1FNQk1XWCtOQzQ2M1dLMjlTYUdXTVBscHlVWFFnSG9jSml4NW85am9a?=
+ =?utf-8?B?MENXS1RZeGVoc0xtbm8za3IwOVlTZU9xUHdrb1V2NU8yL0F4VDRyQmE2bW41?=
+ =?utf-8?B?Q0FpZVhvSGw3ak5oYVNyZ1RSWndtd01VSk9JQjdmMWlSWGx5cWJ6Tm5DTDVE?=
+ =?utf-8?B?cm54dmwzV0QrbXl3ckR2WmE2SzJVSVl5K2U0S0doZVVuOEw3bHRDZWpucmsw?=
+ =?utf-8?B?UlpHT1k2b0FWR3d1bVFtS3JmV0VST0N1Z2d0eDErRjc4TEJuQTh6L2UwZGhp?=
+ =?utf-8?B?VG81SnpmZGFyL2RlTEJzc2Nhay8wbGQ2WXlGa044V3IwQzgxbXpvZDQzelZq?=
+ =?utf-8?B?U29TUDNMQ3lQT3B6QTl6NjM1K0Y4akZTRHZIS016cnhaalJadlhsdk82SWR2?=
+ =?utf-8?B?ODVoNG9sditHMVFXSUdFQVZmek1wNFVEUWpyd3JpZTRPdXJBcUp3QU1MZDIr?=
+ =?utf-8?B?aElDR2wxaXIxVFh3WHVUaERzOEZPSXVyUFByZGNLbkZueDVPT2g0UEpYc0Fo?=
+ =?utf-8?B?SHhyaEwvTUFUVkVWeHdnZjFUL2dFRGJ0Mzh3LzgzOWxoWTBjSDNPc1JXRFBk?=
+ =?utf-8?B?T2ZvK0xweFg2NTJGTnVjQ0xtU3VacG9DMzZSbVZQUDltMnhmQXFjV2VPaVVF?=
+ =?utf-8?B?YUJkZ0drSUFzYWhpTGZQZFhJMHByVVFkaTRDa1p1eGJJMDF3MTFhSm8zeU5z?=
+ =?utf-8?B?cTZVdlhTaUltak13eXlCOHZYbHpzT2tFeEZRaHF3aCtVQVZXS2pPOEdBRFp0?=
+ =?utf-8?B?TFB6cU84MWY2STFkMnBUeTNtV3A2MllZK3J3bFVBWmFzVFdqV1Z0UUViQzZQ?=
+ =?utf-8?B?YmxyaWZncE40UGJOTUk0WHozOG1CTzdxTmZ2VDluS1EzdlFURWVNeUFCa29j?=
+ =?utf-8?B?VUJwV1ArS1pSMzRvK3dSOERZalNvVFpIcHR6UFJZMVVyV0F6U1BOejViN3h0?=
+ =?utf-8?B?OHQ2aWNETkpDT2s2SUgvN2YrZ0YxQ21vQVdzaldGODNjemEzV20ySWJLeUhp?=
+ =?utf-8?B?dENmNlZmUUxUVFNRRUR3bjJYMk9FNkdxY3RiTHliWUFPSVpVSlpjSHcvZko1?=
+ =?utf-8?B?aFowaU1nc0VZa2JZZ1RSM3ZVaVZ2RFUweWlGNEs2Y3F6TlliZDhVNjlDRDA4?=
+ =?utf-8?B?TlIyQUpBeEFPT3AxdE5CZU1kOWNjZzF3S0drUjJVTUJ5NjFPODRLU2xoSVBq?=
+ =?utf-8?B?cllSb1E4MkhFNTEyZ3ArbDJ5cTQwV2xpaW5uYnI4RlF1L3dseG1QTGFPZWgy?=
+ =?utf-8?B?a1Q0VGh1dXZOb0R6RHNoRG1jVlZMaXpDSVBRaElPZUFwTkZVUEFJUm91QUVx?=
+ =?utf-8?B?cWsrbmRmVE53aVFTNEZZeEJzOVpvS2J4bHFVb3dzWTEzYjcxeUhyUHA5VlJr?=
+ =?utf-8?B?cHZIS0k4UkRQUUZDbWJrckswbTZKbnNDckg2TWlTOXg4ODVMOU1MME1GSEhq?=
+ =?utf-8?B?RHZpMWt6NWtHOElNWnNCV0hTT2g4SjVYZFdVUTgrT0J5QjIrSnV0TlNEcnNq?=
+ =?utf-8?B?bFRiYnVsMTY5cXVqQkNvek11ZGN5eTJ1eFYwc0VpOXRtL0doVkw3dWszbWxQ?=
+ =?utf-8?B?QUE9PQ==?=
+Content-Type: text/plain; charset="utf-8"
+Content-ID: <5AF7FF3A25A92C428F1FE18C7B661F6A@namprd11.prod.outlook.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: SA1PR11MB5777.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: d804aed8-327f-4494-e1b7-08dc137210a2
+X-MS-Exchange-CrossTenant-originalarrivaltime: 12 Jan 2024 13:26:20.5969 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: Cjjcd/z4B5DJNuDuf22R6EHqqOnoHXWoz2VPe16YJ1Epda4cJ/mUoY5/jnwqVhgYB/FDMR1ZvEUrVlq9CwurBw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL1PR11MB5320
+X-OriginatorOrg: intel.com
+Content-Transfer-Encoding: base64
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -78,381 +164,121 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: "mripard@kernel.org" <mripard@kernel.org>,
+ "neil.armstrong@linaro.org" <neil.armstrong@linaro.org>,
+ "jernej.skrabec@gmail.com" <jernej.skrabec@gmail.com>,
+ "rfoss@kernel.org" <rfoss@kernel.org>, "jonas@kwiboo.se" <jonas@kwiboo.se>,
+ "linux-arm-msm@vger.kernel.org" <linux-arm-msm@vger.kernel.org>,
+ "tiwai@suse.com" <tiwai@suse.com>,
+ "linux-sound@vger.kernel.org" <linux-sound@vger.kernel.org>,
+ "quic_abhinavk@quicinc.com" <quic_abhinavk@quicinc.com>,
+ "Laurent.pinchart@ideasonboard.com" <Laurent.pinchart@ideasonboard.com>,
+ "Hajda, Andrzej" <andrzej.hajda@intel.com>,
+ "dmitry.baryshkov@linaro.org" <dmitry.baryshkov@linaro.org>,
+ "marijn.suijten@somainline.org" <marijn.suijten@somainline.org>,
+ "perex@perex.cz" <perex@perex.cz>,
+ "freedreno@lists.freedesktop.org" <freedreno@lists.freedesktop.org>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Previously we would never try to move a BO into the preferred placements
-when it ever landed in a busy placement since those were considered
-compatible.
-
-Rework the whole handling and finally unify the idle and busy handling.
-ttm_bo_validate() is now responsible to try idle placement first and then
-use the busy placement if that didn't worked.
-
-Drawback is that we now always try the idle placement first for each
-validation which might cause some additional CPU overhead on overcommit.
-
-v2: fix kerneldoc warning and coding style
-v3: take care of XE as well
-
-Signed-off-by: Christian König <christian.koenig@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_object.c |   2 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c    |   2 +-
- drivers/gpu/drm/ttm/ttm_bo.c               | 131 ++++++++-------------
- drivers/gpu/drm/ttm/ttm_resource.c         |  16 ++-
- drivers/gpu/drm/xe/xe_bo.c                 |   4 +-
- include/drm/ttm/ttm_bo.h                   |   3 +-
- include/drm/ttm/ttm_resource.h             |   3 +-
- 7 files changed, 68 insertions(+), 93 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
-index b671b0665492..06fb3fc47eaa 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
-@@ -404,7 +404,7 @@ int amdgpu_bo_create_kernel_at(struct amdgpu_device *adev,
- 		(*bo_ptr)->placements[i].lpfn = (offset + size) >> PAGE_SHIFT;
- 	}
- 	r = ttm_bo_mem_space(&(*bo_ptr)->tbo, &(*bo_ptr)->placement,
--			     &(*bo_ptr)->tbo.resource, &ctx);
-+			     &(*bo_ptr)->tbo.resource, &ctx, false);
- 	if (r)
- 		goto error;
- 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-index 8722beba494e..f23cdc7c5b08 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-@@ -966,7 +966,7 @@ int amdgpu_ttm_alloc_gart(struct ttm_buffer_object *bo)
- 	placements.mem_type = TTM_PL_TT;
- 	placements.flags = bo->resource->placement;
- 
--	r = ttm_bo_mem_space(bo, &placement, &tmp, &ctx);
-+	r = ttm_bo_mem_space(bo, &placement, &tmp, &ctx, true);
- 	if (unlikely(r))
- 		return r;
- 
-diff --git a/drivers/gpu/drm/ttm/ttm_bo.c b/drivers/gpu/drm/ttm/ttm_bo.c
-index a5e11a92e0b9..3783be24d832 100644
---- a/drivers/gpu/drm/ttm/ttm_bo.c
-+++ b/drivers/gpu/drm/ttm/ttm_bo.c
-@@ -414,7 +414,7 @@ static int ttm_bo_bounce_temp_buffer(struct ttm_buffer_object *bo,
- 	hop_placement.placement = hop;
- 
- 	/* find space in the bounce domain */
--	ret = ttm_bo_mem_space(bo, &hop_placement, &hop_mem, ctx);
-+	ret = ttm_bo_mem_space(bo, &hop_placement, &hop_mem, ctx, true);
- 	if (ret)
- 		return ret;
- 	/* move to the bounce domain */
-@@ -454,7 +454,7 @@ static int ttm_bo_evict(struct ttm_buffer_object *bo,
- 		return ttm_bo_pipeline_gutting(bo);
- 	}
- 
--	ret = ttm_bo_mem_space(bo, &placement, &evict_mem, ctx);
-+	ret = ttm_bo_mem_space(bo, &placement, &evict_mem, ctx, true);
- 	if (ret) {
- 		if (ret != -ERESTARTSYS) {
- 			pr_err("Failed to find memory space for buffer 0x%p eviction\n",
-@@ -724,37 +724,6 @@ static int ttm_bo_add_move_fence(struct ttm_buffer_object *bo,
- 	return ret;
- }
- 
--/*
-- * Repeatedly evict memory from the LRU for @mem_type until we create enough
-- * space, or we've evicted everything and there isn't enough space.
-- */
--static int ttm_bo_mem_force_space(struct ttm_buffer_object *bo,
--				  const struct ttm_place *place,
--				  struct ttm_resource **mem,
--				  struct ttm_operation_ctx *ctx)
--{
--	struct ttm_device *bdev = bo->bdev;
--	struct ttm_resource_manager *man;
--	struct ww_acquire_ctx *ticket;
--	int ret;
--
--	man = ttm_manager_type(bdev, place->mem_type);
--	ticket = dma_resv_locking_ctx(bo->base.resv);
--	do {
--		ret = ttm_resource_alloc(bo, place, mem);
--		if (likely(!ret))
--			break;
--		if (unlikely(ret != -ENOSPC))
--			return ret;
--		ret = ttm_mem_evict_first(bdev, man, place, ctx,
--					  ticket);
--		if (unlikely(ret != 0))
--			return ret;
--	} while (1);
--
--	return ttm_bo_add_move_fence(bo, man, *mem, ctx->no_wait_gpu);
--}
--
- /**
-  * ttm_bo_mem_space
-  *
-@@ -763,6 +732,7 @@ static int ttm_bo_mem_force_space(struct ttm_buffer_object *bo,
-  * @placement: Proposed new placement for the buffer object.
-  * @mem: A struct ttm_resource.
-  * @ctx: if and how to sleep, lock buffers and alloc memory
-+ * @force_space: If we should evict buffers to force space
-  *
-  * Allocate memory space for the buffer object pointed to by @bo, using
-  * the placement flags in @placement, potentially evicting other idle buffer objects.
-@@ -776,12 +746,14 @@ static int ttm_bo_mem_force_space(struct ttm_buffer_object *bo,
- int ttm_bo_mem_space(struct ttm_buffer_object *bo,
- 			struct ttm_placement *placement,
- 			struct ttm_resource **mem,
--			struct ttm_operation_ctx *ctx)
-+			struct ttm_operation_ctx *ctx,
-+			bool force_space)
- {
- 	struct ttm_device *bdev = bo->bdev;
--	bool type_found = false;
-+	struct ww_acquire_ctx *ticket;
- 	int i, ret;
- 
-+	ticket = dma_resv_locking_ctx(bo->base.resv);
- 	ret = dma_resv_reserve_fences(bo->base.resv, 1);
- 	if (unlikely(ret))
- 		return ret;
-@@ -790,19 +762,30 @@ int ttm_bo_mem_space(struct ttm_buffer_object *bo,
- 		const struct ttm_place *place = &placement->placement[i];
- 		struct ttm_resource_manager *man;
- 
--		if (place->flags & TTM_PL_FLAG_FALLBACK)
--			continue;
--
- 		man = ttm_manager_type(bdev, place->mem_type);
- 		if (!man || !ttm_resource_manager_used(man))
- 			continue;
- 
--		type_found = true;
--		ret = ttm_resource_alloc(bo, place, mem);
--		if (ret == -ENOSPC)
-+		if (place->flags & (force_space ? TTM_PL_FLAG_DESIRED :
-+				    TTM_PL_FLAG_FALLBACK))
-+			continue;
-+
-+		do {
-+			ret = ttm_resource_alloc(bo, place, mem);
-+			if (unlikely(ret != -ENOSPC))
-+				return ret;
-+			if (likely(!ret) || !force_space)
-+				break;
-+
-+			ret = ttm_mem_evict_first(bdev, man, place, ctx,
-+						  ticket);
-+			if (unlikely(ret == -EBUSY))
-+				break;
-+			if (unlikely(ret))
-+				return ret;
-+		} while (1);
-+		if (ret)
- 			continue;
--		if (unlikely(ret))
--			goto error;
- 
- 		ret = ttm_bo_add_move_fence(bo, man, *mem, ctx->no_wait_gpu);
- 		if (unlikely(ret)) {
-@@ -810,45 +793,19 @@ int ttm_bo_mem_space(struct ttm_buffer_object *bo,
- 			if (ret == -EBUSY)
- 				continue;
- 
--			goto error;
-+			return ret;
- 		}
- 		return 0;
- 	}
- 
--	for (i = 0; i < placement->num_placement; ++i) {
--		const struct ttm_place *place = &placement->placement[i];
--		struct ttm_resource_manager *man;
--
--		if (place->flags & TTM_PL_FLAG_DESIRED)
--			continue;
--
--		man = ttm_manager_type(bdev, place->mem_type);
--		if (!man || !ttm_resource_manager_used(man))
--			continue;
--
--		type_found = true;
--		ret = ttm_bo_mem_force_space(bo, place, mem, ctx);
--		if (likely(!ret))
--			return 0;
--
--		if (ret && ret != -EBUSY)
--			goto error;
--	}
--
--	ret = -ENOSPC;
--	if (!type_found) {
--		pr_err(TTM_PFX "No compatible memory type found\n");
--		ret = -EINVAL;
--	}
--
--error:
--	return ret;
-+	return -ENOSPC;
- }
- EXPORT_SYMBOL(ttm_bo_mem_space);
- 
- static int ttm_bo_move_buffer(struct ttm_buffer_object *bo,
- 			      struct ttm_placement *placement,
--			      struct ttm_operation_ctx *ctx)
-+			      struct ttm_operation_ctx *ctx,
-+			      bool force_space)
- {
- 	struct ttm_resource *mem;
- 	struct ttm_place hop;
-@@ -865,7 +822,7 @@ static int ttm_bo_move_buffer(struct ttm_buffer_object *bo,
- 	 * stop and the driver will be called to make
- 	 * the second hop.
- 	 */
--	ret = ttm_bo_mem_space(bo, placement, &mem, ctx);
-+	ret = ttm_bo_mem_space(bo, placement, &mem, ctx, force_space);
- 	if (ret)
- 		return ret;
- bounce:
-@@ -902,6 +859,7 @@ int ttm_bo_validate(struct ttm_buffer_object *bo,
- 		    struct ttm_placement *placement,
- 		    struct ttm_operation_ctx *ctx)
- {
-+	bool force_space;
- 	int ret;
- 
- 	dma_resv_assert_held(bo->base.resv);
-@@ -912,20 +870,27 @@ int ttm_bo_validate(struct ttm_buffer_object *bo,
- 	if (!placement->num_placement)
- 		return ttm_bo_pipeline_gutting(bo);
- 
--	/* Check whether we need to move buffer. */
--	if (bo->resource && ttm_resource_compatible(bo->resource, placement))
--		return 0;
-+	force_space = false;
-+	do {
-+		/* Check whether we need to move buffer. */
-+		if (bo->resource &&
-+		    ttm_resource_compatible(bo->resource, placement,
-+					    force_space))
-+			return 0;
-+
-+		/* Moving of pinned BOs is forbidden */
-+		if (bo->pin_count)
-+			return -EINVAL;
- 
--	/* Moving of pinned BOs is forbidden */
--	if (bo->pin_count)
--		return -EINVAL;
-+		ret = ttm_bo_move_buffer(bo, placement, ctx, force_space);
-+		if (ret && ret != -ENOSPC)
-+			return ret;
- 
--	ret = ttm_bo_move_buffer(bo, placement, ctx);
-+		force_space = !force_space;
-+	} while (force_space);
- 	/* For backward compatibility with userspace */
- 	if (ret == -ENOSPC)
- 		return -ENOMEM;
--	if (ret)
--		return ret;
- 
- 	/*
- 	 * We might need to add a TTM.
-diff --git a/drivers/gpu/drm/ttm/ttm_resource.c b/drivers/gpu/drm/ttm/ttm_resource.c
-index fb14f7716cf8..65155f2013ca 100644
---- a/drivers/gpu/drm/ttm/ttm_resource.c
-+++ b/drivers/gpu/drm/ttm/ttm_resource.c
-@@ -295,11 +295,13 @@ bool ttm_resource_intersects(struct ttm_device *bdev,
-  *
-  * @res: the resource to check
-  * @placement: the placement to check against
-+ * @evicting: true if the caller is doing evictions
-  *
-  * Returns true if the placement is compatible.
-  */
- bool ttm_resource_compatible(struct ttm_resource *res,
--			     struct ttm_placement *placement)
-+			     struct ttm_placement *placement,
-+			     bool evicting)
- {
- 	struct ttm_buffer_object *bo = res->bo;
- 	struct ttm_device *bdev = bo->bdev;
-@@ -315,14 +317,20 @@ bool ttm_resource_compatible(struct ttm_resource *res,
- 		if (res->mem_type != place->mem_type)
- 			continue;
- 
-+		if (place->flags & (evicting ? TTM_PL_FLAG_DESIRED :
-+				    TTM_PL_FLAG_FALLBACK))
-+			continue;
-+
-+		if (place->flags & TTM_PL_FLAG_CONTIGUOUS &&
-+		    !(res->placement & TTM_PL_FLAG_CONTIGUOUS))
-+			continue;
-+
- 		man = ttm_manager_type(bdev, res->mem_type);
- 		if (man->func->compatible &&
- 		    !man->func->compatible(man, res, place, bo->base.size))
- 			continue;
- 
--		if ((!(place->flags & TTM_PL_FLAG_CONTIGUOUS) ||
--		     (res->placement & TTM_PL_FLAG_CONTIGUOUS)))
--			return true;
-+		return true;
- 	}
- 	return false;
- }
-diff --git a/drivers/gpu/drm/xe/xe_bo.c b/drivers/gpu/drm/xe/xe_bo.c
-index 1e5edc7f0b85..d4b8bd774ada 100644
---- a/drivers/gpu/drm/xe/xe_bo.c
-+++ b/drivers/gpu/drm/xe/xe_bo.c
-@@ -828,7 +828,7 @@ int xe_bo_evict_pinned(struct xe_bo *bo)
- 	if (WARN_ON(!xe_bo_is_vram(bo)))
- 		return -EINVAL;
- 
--	ret = ttm_bo_mem_space(&bo->ttm, &placement, &new_mem, &ctx);
-+	ret = ttm_bo_mem_space(&bo->ttm, &placement, &new_mem, &ctx, false);
- 	if (ret)
- 		return ret;
- 
-@@ -893,7 +893,7 @@ int xe_bo_restore_pinned(struct xe_bo *bo)
- 	if (WARN_ON(xe_bo_is_vram(bo) || !bo->ttm.ttm))
- 		return -EINVAL;
- 
--	ret = ttm_bo_mem_space(&bo->ttm, &bo->placement, &new_mem, &ctx);
-+	ret = ttm_bo_mem_space(&bo->ttm, &bo->placement, &new_mem, &ctx, false);
- 	if (ret)
- 		return ret;
- 
-diff --git a/include/drm/ttm/ttm_bo.h b/include/drm/ttm/ttm_bo.h
-index 0223a41a64b2..64d738f152d1 100644
---- a/include/drm/ttm/ttm_bo.h
-+++ b/include/drm/ttm/ttm_bo.h
-@@ -397,7 +397,8 @@ vm_fault_t ttm_bo_vm_dummy_page(struct vm_fault *vmf, pgprot_t prot);
- int ttm_bo_mem_space(struct ttm_buffer_object *bo,
- 		     struct ttm_placement *placement,
- 		     struct ttm_resource **mem,
--		     struct ttm_operation_ctx *ctx);
-+		     struct ttm_operation_ctx *ctx,
-+		     bool force_space);
- 
- void ttm_bo_unmap_virtual(struct ttm_buffer_object *bo);
- /*
-diff --git a/include/drm/ttm/ttm_resource.h b/include/drm/ttm/ttm_resource.h
-index 1afa13f0c22b..7561023db43d 100644
---- a/include/drm/ttm/ttm_resource.h
-+++ b/include/drm/ttm/ttm_resource.h
-@@ -366,7 +366,8 @@ bool ttm_resource_intersects(struct ttm_device *bdev,
- 			     const struct ttm_place *place,
- 			     size_t size);
- bool ttm_resource_compatible(struct ttm_resource *res,
--			     struct ttm_placement *placement);
-+			     struct ttm_placement *placement,
-+			     bool evicting);
- void ttm_resource_set_bo(struct ttm_resource *res,
- 			 struct ttm_buffer_object *bo);
- 
--- 
-2.34.1
+T24gVGh1LCAyMDI0LTAxLTA0IGF0IDIyOjE2ICswMjAwLCBKYW5pIE5pa3VsYSB3cm90ZToNCj4g
+aGRtaS1jb2RlYy5oIGRvZXMgbm90IGFwcGVhciB0byBkaXJlY3RseSBuZWVkIGRybS9kcm1fZWRp
+ZC5oIGZvcg0KPiBhbnl0aGluZy4gUmVtb3ZlIGl0Lg0KPiANCj4gVGhlcmUgYXJlIHNvbWUgZmls
+ZXMgdGhhdCBnZXQgZHJtL2RybV9lZGlkLmggYnkgcHJveHk7IGluY2x1ZGUgaXQNCj4gd2hlcmUN
+Cj4gbmVlZGVkLg0KPiANCj4gdjItdjQ6IEZpeCBidWlsZCAoa2VybmVsIHRlc3Qgcm9ib3QgPGxr
+cEBpbnRlbC5jb20+KQ0KPiANCj4gQ2M6IFJvYiBDbGFyayA8cm9iZGNsYXJrQGdtYWlsLmNvbT4N
+Cj4gQ2M6IEFiaGluYXYgS3VtYXIgPHF1aWNfYWJoaW5hdmtAcXVpY2luYy5jb20+DQo+IENjOiBE
+bWl0cnkgQmFyeXNoa292IDxkbWl0cnkuYmFyeXNoa292QGxpbmFyby5vcmc+DQo+IENjOiBTZWFu
+IFBhdWwgPHNlYW5AcG9vcmx5LnJ1bj4NCj4gQ2M6IE1hcmlqbiBTdWlqdGVuIDxtYXJpam4uc3Vp
+anRlbkBzb21haW5saW5lLm9yZz4NCj4gQ2M6IGxpbnV4LWFybS1tc21Admdlci5rZXJuZWwub3Jn
+DQo+IENjOiBmcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnDQo+IENjOiBBbmRyemVqIEhh
+amRhIDxhbmRyemVqLmhhamRhQGludGVsLmNvbT4NCj4gQ2M6IE5laWwgQXJtc3Ryb25nIDxuZWls
+LmFybXN0cm9uZ0BsaW5hcm8ub3JnPg0KPiBDYzogUm9iZXJ0IEZvc3MgPHJmb3NzQGtlcm5lbC5v
+cmc+DQo+IENjOiBMYXVyZW50IFBpbmNoYXJ0IDxMYXVyZW50LnBpbmNoYXJ0QGlkZWFzb25ib2Fy
+ZC5jb20+DQo+IENjOiBKb25hcyBLYXJsbWFuIDxqb25hc0Brd2lib28uc2U+DQo+IENjOiBKZXJu
+ZWogU2tyYWJlYyA8amVybmVqLnNrcmFiZWNAZ21haWwuY29tPg0KPiBDYzogSmFyb3NsYXYgS3lz
+ZWxhIDxwZXJleEBwZXJleC5jej4NCj4gQ2M6IFRha2FzaGkgSXdhaSA8dGl3YWlAc3VzZS5jb20+
+DQo+IENjOiBsaW51eC1zb3VuZEB2Z2VyLmtlcm5lbC5vcmcNCj4gQWNrZWQtYnk6IE1heGltZSBS
+aXBhcmQgPG1yaXBhcmRAa2VybmVsLm9yZz4NCj4gU2lnbmVkLW9mZi1ieTogSmFuaSBOaWt1bGEg
+PGphbmkubmlrdWxhQGludGVsLmNvbT4NCj4gUmV2aWV3ZWQtYnk6IEFuZGkgU2h5dGkgPGFuZGku
+c2h5dGlAbGludXguaW50ZWwuY29tPg0KPiBBY2tlZC1ieTogQWxleCBEZXVjaGVyIDxhbGV4YW5k
+ZXIuZGV1Y2hlckBhbWQuY29tPg0KDQpSZXZpZXdlZC1ieTogPGp5cmkuc2FyaGFAbGludXguaW50
+ZWwuY29tPg0KDQpUaGFua3MsDQpUaGUgaW5jbHVkaW5nIG9mIGRybV9lZGlkLmggaW4gaGRtaS1j
+b2RlYy5oIGlzIGEgcmVsaWMgZnJvbSBteSBwcmUNCnVwc3RyZWFtaW5nIHZlcnNpb24gb2YgaGRt
+aS1jb2RlYy4gSSBkb24ndCB0aGluayBpdCB3YXMgZXZlciBuZWVkZWQNCmluIGFueSB1cHN0ZWFt
+IHZlcnNpb24uDQoNCkJlc3QgcmVnYXJkcywNCkp5cmkNCg0KPiAtLS0NCj4gwqBkcml2ZXJzL2dw
+dS9kcm0vYnJpZGdlL2xvbnRpdW0tbHQ5NjExLmPCoMKgwqAgfCAxICsNCj4gwqBkcml2ZXJzL2dw
+dS9kcm0vYnJpZGdlL2xvbnRpdW0tbHQ5NjExdXhjLmMgfCAxICsNCj4gwqBkcml2ZXJzL2dwdS9k
+cm0vYnJpZGdlL3N5bm9wc3lzL2R3LWhkbWkuY8KgIHwgMSArDQo+IMKgZHJpdmVycy9ncHUvZHJt
+L21zbS9kcC9kcF9kaXNwbGF5LmPCoMKgwqDCoMKgwqDCoCB8IDEgKw0KPiDCoGRyaXZlcnMvZ3B1
+L2RybS90ZWdyYS9oZG1pLmPCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIHwgMSArDQo+IMKg
+ZHJpdmVycy9ncHUvZHJtL3ZjNC92YzRfaGRtaS5jwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIHwg
+MSArDQo+IMKgaW5jbHVkZS9zb3VuZC9oZG1pLWNvZGVjLmjCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoCB8IDEgLQ0KPiDCoDcgZmlsZXMgY2hhbmdlZCwgNiBpbnNlcnRpb25zKCspLCAx
+IGRlbGV0aW9uKC0pDQo+IA0KPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2JyaWRnZS9s
+b250aXVtLWx0OTYxMS5jDQo+IGIvZHJpdmVycy9ncHUvZHJtL2JyaWRnZS9sb250aXVtLWx0OTYx
+MS5jDQo+IGluZGV4IDk2NjM2MDFjZTA5OC4uYjkyMDVkMTRkOTQzIDEwMDY0NA0KPiAtLS0gYS9k
+cml2ZXJzL2dwdS9kcm0vYnJpZGdlL2xvbnRpdW0tbHQ5NjExLmMNCj4gKysrIGIvZHJpdmVycy9n
+cHUvZHJtL2JyaWRnZS9sb250aXVtLWx0OTYxMS5jDQo+IEBAIC0xOCw2ICsxOCw3IEBADQo+IMKg
+DQo+IMKgI2luY2x1ZGUgPGRybS9kcm1fYXRvbWljX2hlbHBlci5oPg0KPiDCoCNpbmNsdWRlIDxk
+cm0vZHJtX2JyaWRnZS5oPg0KPiArI2luY2x1ZGUgPGRybS9kcm1fZWRpZC5oPg0KPiDCoCNpbmNs
+dWRlIDxkcm0vZHJtX21pcGlfZHNpLmg+DQo+IMKgI2luY2x1ZGUgPGRybS9kcm1fb2YuaD4NCj4g
+wqAjaW5jbHVkZSA8ZHJtL2RybV9wcmludC5oPg0KPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUv
+ZHJtL2JyaWRnZS9sb250aXVtLWx0OTYxMXV4Yy5jDQo+IGIvZHJpdmVycy9ncHUvZHJtL2JyaWRn
+ZS9sb250aXVtLWx0OTYxMXV4Yy5jDQo+IGluZGV4IGU5NzFiNzVlOTBhZC4uZjNmMTMwYzFlZjBh
+IDEwMDY0NA0KPiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYnJpZGdlL2xvbnRpdW0tbHQ5NjExdXhj
+LmMNCj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2JyaWRnZS9sb250aXVtLWx0OTYxMXV4Yy5jDQo+
+IEBAIC0yMSw2ICsyMSw3IEBADQo+IMKgDQo+IMKgI2luY2x1ZGUgPGRybS9kcm1fYXRvbWljX2hl
+bHBlci5oPg0KPiDCoCNpbmNsdWRlIDxkcm0vZHJtX2JyaWRnZS5oPg0KPiArI2luY2x1ZGUgPGRy
+bS9kcm1fZWRpZC5oPg0KPiDCoCNpbmNsdWRlIDxkcm0vZHJtX21pcGlfZHNpLmg+DQo+IMKgI2lu
+Y2x1ZGUgPGRybS9kcm1fcHJpbnQuaD4NCj4gwqAjaW5jbHVkZSA8ZHJtL2RybV9wcm9iZV9oZWxw
+ZXIuaD4NCj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9icmlkZ2Uvc3lub3BzeXMvZHct
+aGRtaS5jDQo+IGIvZHJpdmVycy9ncHUvZHJtL2JyaWRnZS9zeW5vcHN5cy9kdy1oZG1pLmMNCj4g
+aW5kZXggNTJkOTFhMGRmODVlLi5mYTYzYTIxYmRkMWMgMTAwNjQ0DQo+IC0tLSBhL2RyaXZlcnMv
+Z3B1L2RybS9icmlkZ2Uvc3lub3BzeXMvZHctaGRtaS5jDQo+ICsrKyBiL2RyaXZlcnMvZ3B1L2Ry
+bS9icmlkZ2Uvc3lub3BzeXMvZHctaGRtaS5jDQo+IEBAIC0zMSw2ICszMSw3IEBADQo+IMKgI2lu
+Y2x1ZGUgPGRybS9kcm1fYXRvbWljLmg+DQo+IMKgI2luY2x1ZGUgPGRybS9kcm1fYXRvbWljX2hl
+bHBlci5oPg0KPiDCoCNpbmNsdWRlIDxkcm0vZHJtX2JyaWRnZS5oPg0KPiArI2luY2x1ZGUgPGRy
+bS9kcm1fZWRpZC5oPg0KPiDCoCNpbmNsdWRlIDxkcm0vZHJtX29mLmg+DQo+IMKgI2luY2x1ZGUg
+PGRybS9kcm1fcHJpbnQuaD4NCj4gwqAjaW5jbHVkZSA8ZHJtL2RybV9wcm9iZV9oZWxwZXIuaD4N
+Cj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9tc20vZHAvZHBfZGlzcGxheS5jDQo+IGIv
+ZHJpdmVycy9ncHUvZHJtL21zbS9kcC9kcF9kaXNwbGF5LmMNCj4gaW5kZXggZDM3ZDU5OWFlYzI3
+Li5jOGUxYmJlYmRmZmUgMTAwNjQ0DQo+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9tc20vZHAvZHBf
+ZGlzcGxheS5jDQo+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9tc20vZHAvZHBfZGlzcGxheS5jDQo+
+IEBAIC0xMSw2ICsxMSw3IEBADQo+IMKgI2luY2x1ZGUgPGxpbnV4L29mX2lycS5oPg0KPiDCoCNp
+bmNsdWRlIDxsaW51eC9kZWxheS5oPg0KPiDCoCNpbmNsdWRlIDxkcm0vZGlzcGxheS9kcm1fZHBf
+YXV4X2J1cy5oPg0KPiArI2luY2x1ZGUgPGRybS9kcm1fZWRpZC5oPg0KPiDCoA0KPiDCoCNpbmNs
+dWRlICJtc21fZHJ2LmgiDQo+IMKgI2luY2x1ZGUgIm1zbV9rbXMuaCINCj4gZGlmZiAtLWdpdCBh
+L2RyaXZlcnMvZ3B1L2RybS90ZWdyYS9oZG1pLmMNCj4gYi9kcml2ZXJzL2dwdS9kcm0vdGVncmEv
+aGRtaS5jDQo+IGluZGV4IDQxN2ZiODg0MjQwYS4uMDk5ODdlMzcyZTNlIDEwMDY0NA0KPiAtLS0g
+YS9kcml2ZXJzL2dwdS9kcm0vdGVncmEvaGRtaS5jDQo+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS90
+ZWdyYS9oZG1pLmMNCj4gQEAgLTI0LDYgKzI0LDcgQEANCj4gwqAjaW5jbHVkZSA8ZHJtL2RybV9h
+dG9taWNfaGVscGVyLmg+DQo+IMKgI2luY2x1ZGUgPGRybS9kcm1fY3J0Yy5oPg0KPiDCoCNpbmNs
+dWRlIDxkcm0vZHJtX2RlYnVnZnMuaD4NCj4gKyNpbmNsdWRlIDxkcm0vZHJtX2VkaWQuaD4NCj4g
+wqAjaW5jbHVkZSA8ZHJtL2RybV9lbGQuaD4NCj4gwqAjaW5jbHVkZSA8ZHJtL2RybV9maWxlLmg+
+DQo+IMKgI2luY2x1ZGUgPGRybS9kcm1fZm91cmNjLmg+DQo+IGRpZmYgLS1naXQgYS9kcml2ZXJz
+L2dwdS9kcm0vdmM0L3ZjNF9oZG1pLmMNCj4gYi9kcml2ZXJzL2dwdS9kcm0vdmM0L3ZjNF9oZG1p
+LmMNCj4gaW5kZXggZjA1ZTJjOTVhNjBkLi4zNGY4MDdlZDFjMzEgMTAwNjQ0DQo+IC0tLSBhL2Ry
+aXZlcnMvZ3B1L2RybS92YzQvdmM0X2hkbWkuYw0KPiArKysgYi9kcml2ZXJzL2dwdS9kcm0vdmM0
+L3ZjNF9oZG1pLmMNCj4gQEAgLTM1LDYgKzM1LDcgQEANCj4gwqAjaW5jbHVkZSA8ZHJtL2Rpc3Bs
+YXkvZHJtX3NjZGNfaGVscGVyLmg+DQo+IMKgI2luY2x1ZGUgPGRybS9kcm1fYXRvbWljX2hlbHBl
+ci5oPg0KPiDCoCNpbmNsdWRlIDxkcm0vZHJtX2Rydi5oPg0KPiArI2luY2x1ZGUgPGRybS9kcm1f
+ZWRpZC5oPg0KPiDCoCNpbmNsdWRlIDxkcm0vZHJtX3Byb2JlX2hlbHBlci5oPg0KPiDCoCNpbmNs
+dWRlIDxkcm0vZHJtX3NpbXBsZV9rbXNfaGVscGVyLmg+DQo+IMKgI2luY2x1ZGUgPGxpbnV4L2Ns
+ay5oPg0KPiBkaWZmIC0tZ2l0IGEvaW5jbHVkZS9zb3VuZC9oZG1pLWNvZGVjLmggYi9pbmNsdWRl
+L3NvdW5kL2hkbWktY29kZWMuaA0KPiBpbmRleCA5YjE2MmFjMWUwOGUuLjVlMWE5ZWFmZDEwZiAx
+MDA2NDQNCj4gLS0tIGEvaW5jbHVkZS9zb3VuZC9oZG1pLWNvZGVjLmgNCj4gKysrIGIvaW5jbHVk
+ZS9zb3VuZC9oZG1pLWNvZGVjLmgNCj4gQEAgLTEyLDcgKzEyLDYgQEANCj4gwqANCj4gwqAjaW5j
+bHVkZSA8bGludXgvb2ZfZ3JhcGguaD4NCj4gwqAjaW5jbHVkZSA8bGludXgvaGRtaS5oPg0KPiAt
+I2luY2x1ZGUgPGRybS9kcm1fZWRpZC5oPg0KPiDCoCNpbmNsdWRlIDxzb3VuZC9hc291bmRlZi5o
+Pg0KPiDCoCNpbmNsdWRlIDxzb3VuZC9zb2MuaD4NCj4gwqAjaW5jbHVkZSA8dWFwaS9zb3VuZC9h
+c291bmQuaD4NCg0KLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
+LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tCkludGVsIEZpbmxhbmQgT3kKUmVnaXN0ZXJlZCBBZGRy
+ZXNzOiBQTCAyODEsIDAwMTgxIEhlbHNpbmtpIApCdXNpbmVzcyBJZGVudGl0eSBDb2RlOiAwMzU3
+NjA2IC0gNCAKRG9taWNpbGVkIGluIEhlbHNpbmtpIAoKVGhpcyBlLW1haWwgYW5kIGFueSBhdHRh
+Y2htZW50cyBtYXkgY29udGFpbiBjb25maWRlbnRpYWwgbWF0ZXJpYWwgZm9yCnRoZSBzb2xlIHVz
+ZSBvZiB0aGUgaW50ZW5kZWQgcmVjaXBpZW50KHMpLiBBbnkgcmV2aWV3IG9yIGRpc3RyaWJ1dGlv
+bgpieSBvdGhlcnMgaXMgc3RyaWN0bHkgcHJvaGliaXRlZC4gSWYgeW91IGFyZSBub3QgdGhlIGlu
+dGVuZGVkCnJlY2lwaWVudCwgcGxlYXNlIGNvbnRhY3QgdGhlIHNlbmRlciBhbmQgZGVsZXRlIGFs
+bCBjb3BpZXMuCg==
 
