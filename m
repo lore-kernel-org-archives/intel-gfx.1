@@ -4,51 +4,51 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CC3CAC4706C
-	for <intel-gfx@archiver.kernel.org>; Tue, 16 Jan 2024 12:28:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 79F29C47077
+	for <intel-gfx@archiver.kernel.org>; Tue, 16 Jan 2024 12:28:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1D34810E562;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1666210E560;
 	Tue, 16 Jan 2024 12:28:14 +0000 (UTC)
-Received: from mail-wm1-x32d.google.com (mail-wm1-x32d.google.com
- [IPv6:2a00:1450:4864:20::32d])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E179210E4B8
- for <intel-gfx@lists.freedesktop.org>; Tue,  9 Jan 2024 18:11:34 +0000 (UTC)
-Received: by mail-wm1-x32d.google.com with SMTP id
- 5b1f17b1804b1-40e5521db08so136915e9.2
- for <intel-gfx@lists.freedesktop.org>; Tue, 09 Jan 2024 10:11:34 -0800 (PST)
+Received: from mail-wm1-x334.google.com (mail-wm1-x334.google.com
+ [IPv6:2a00:1450:4864:20::334])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9A71D10E315
+ for <intel-gfx@lists.freedesktop.org>; Mon, 15 Jan 2024 16:06:45 +0000 (UTC)
+Received: by mail-wm1-x334.google.com with SMTP id
+ 5b1f17b1804b1-40e80046275so3505925e9.2
+ for <intel-gfx@lists.freedesktop.org>; Mon, 15 Jan 2024 08:06:45 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=yngvason.is; s=google; t=1704823893; x=1705428693; darn=lists.freedesktop.org;
+ d=yngvason.is; s=google; t=1705334804; x=1705939604; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=Ab6S82YVhL2fQWMl7n/iDflNvLFt/phlZFbHK/9RmUw=;
- b=K28g2QfdMDcMTjFibWYy4vS14Ld8cEvw/fXbFL/qO84S6D4C6gK4be2aKc9yx6yb13
- vCNqvDTdjPGdhYEvo1BNg+PI2Rd1CBiawxCScDjsAsH5YpgYnPVs0BboQrtItbzsQ/E0
- 8lHHorWvzHM1Ymq1UuUvxpbp0vlaCSy+HbI8E=
+ bh=y7h5TOlHeh29R5MO3vqvyCpfRR+2j5wkj4KSWlgVsY0=;
+ b=BKUAFholSqDddIm1DT1RorH7fGoZlz9KEi2AdDNgVJcIyU8uTafvVJ3LOgQ2/+MfqA
+ +gy7H7bne9CCY5U2PYmv0aQhBffSY5Mw+7ASgfBzH9EQP8e1qeNgCN69bVCjO6/YFPZ+
+ r5uVA4JVxamoSvOPdhBpjxBrcuPNXLiMWQm0s=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1704823893; x=1705428693;
+ d=1e100.net; s=20230601; t=1705334804; x=1705939604;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=Ab6S82YVhL2fQWMl7n/iDflNvLFt/phlZFbHK/9RmUw=;
- b=R0XK1vRGCfifHlaDU7Lq2oRmidKxr/JAECVtSn3dTRNVs/wpiNPBsdjt+N644SJLJG
- AUEV4tMYImr08XsIkU2BpBXjSOD8bOgJQtPYKosZLw141BoZL+rSTVWRUviDM3rnNYEe
- 1TuQY5oThNKkn/vME6uM+klqf0AAZt28bq3kWBXRUb5SVQr2UGv61Kmtg87skemRtOiv
- TjSOzfE1oUPeIoJDBLefulbnSD46Kuex1HmwPp31f5MCY+/3prKCryXGeOSW5d76V1ov
- JcuRbRLqDF4UJ2tc+XJMqlSzM2gkYu7hhSatJUqPqJ+cg4EHnV/+wZ5oki4a8togdzA6
- GXTA==
-X-Gm-Message-State: AOJu0YxCvND+PN10oK6F9rcMOUY9x2ETKcLJEqxdvAGWRAyZLVtDXnlW
- pWUQnYB+Sfp0OQtg7Hsa/5KMSLa6ebIkGA==
-X-Google-Smtp-Source: AGHT+IECX0laRRtfF4jvavSEkKwLcA9a4P5MCiLvTCxN6JaHCGAk1yoL0mgxvPQHa7eWzawwSwZVFQ==
-X-Received: by 2002:a05:600c:1c20:b0:40e:53f8:5242 with SMTP id
- j32-20020a05600c1c2000b0040e53f85242mr186194wms.72.1704823893245; 
- Tue, 09 Jan 2024 10:11:33 -0800 (PST)
+ bh=y7h5TOlHeh29R5MO3vqvyCpfRR+2j5wkj4KSWlgVsY0=;
+ b=FKSmufXZK/8/Kr2IxBxXNPJhv3hlGSYByI5cZGY5rzPwtCFEHhbj72IFzmBXVT2Tvq
+ +CQSC95RSWS/OK7gosDeRLrKy95cdBFJfJzc+bBgze9hzxBpYCjT17+7eloJ80o/DEcx
+ TWgWJx6SdkF2gqdJVB1KZOIb3aWjBag9V6D6R8AN2n3k8R+qDZvScXsWbHzWSJwgcc82
+ Tdv0GEo5INZVTHt+s1y7agHmxfHHKzXTIyUv0TQxa2Hb+3FQtm3xO+gBt0vsRctU9Q+0
+ Vl9CKyBBX//7+cmJm3Yg1u1G5ydtyxISn0wefPh4ak5MUjVxkV/QxLUQsZnbykTiO6uu
+ 7yUA==
+X-Gm-Message-State: AOJu0YzlRWn7okU9p6IsscpcFXVif6v/j3Oi4kX5BZFqIMDTu6ldcUIn
+ bPdXdCTEPp9YtG1GKYC+XPdE0aMRCxNJwA==
+X-Google-Smtp-Source: AGHT+IHMlicTU5ZpLWspXuG4eSFL0osighJE+s/ckHvaTE3eH7QH7NJLEqO4581S2L63mZc6rAr+vw==
+X-Received: by 2002:a05:600c:524c:b0:40e:397e:16e7 with SMTP id
+ fc12-20020a05600c524c00b0040e397e16e7mr3140605wmb.3.1705334804112; 
+ Mon, 15 Jan 2024 08:06:44 -0800 (PST)
 Received: from andri-workstation.turninn.appdynamic.com
  ([2a01:8280:aa07:ad:7285:c2ff:fef0:4baf])
  by smtp.gmail.com with ESMTPSA id
- n25-20020a05600c3b9900b0040e527602c8sm2104579wms.9.2024.01.09.10.11.30
+ l22-20020a05600c4f1600b0040d6b91efd9sm20174140wmq.44.2024.01.15.08.06.42
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 09 Jan 2024 10:11:32 -0800 (PST)
+ Mon, 15 Jan 2024 08:06:43 -0800 (PST)
 From: Andri Yngvason <andri@yngvason.is>
 To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
  Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
@@ -63,13 +63,13 @@ To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
  Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
  Rodrigo Vivi <rodrigo.vivi@intel.com>,
  Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
-Subject: [PATCH 3/7] drm/amd/display: Add handling for new "active color
+Subject: [PATCH v2 3/4] drm/amd/display: Add handling for new "force color
  format" property
-Date: Tue,  9 Jan 2024 18:11:00 +0000
-Message-ID: <20240109181104.1670304-4-andri@yngvason.is>
+Date: Mon, 15 Jan 2024 16:05:53 +0000
+Message-ID: <20240115160554.720247-4-andri@yngvason.is>
 X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20240109181104.1670304-1-andri@yngvason.is>
-References: <20240109181104.1670304-1-andri@yngvason.is>
+In-Reply-To: <20240115160554.720247-1-andri@yngvason.is>
+References: <20240115160554.720247-1-andri@yngvason.is>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Tue, 16 Jan 2024 12:28:11 +0000
@@ -93,96 +93,134 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 From: Werner Sembach <wse@tuxedocomputers.com>
 
-This commit implements the "active color format" drm property for the AMD
-GPU driver.
+This commit implements the "force color format" drm property for the
+AMD GPU driver.
 
 Signed-off-by: Werner Sembach <wse@tuxedocomputers.com>
+Co-Developed-by: Andri Yngvason <andri@yngvason.is>
 Signed-off-by: Andri Yngvason <andri@yngvason.is>
 Tested-by: Andri Yngvason <andri@yngvason.is>
 ---
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 42 ++++++++++++++++++-
+
+Changes in v2:
+ - Renamed to "force color format" from "preferred color format"
+ - Modeset will fail if color format cannot be satisfied
+
+---
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 63 ++++++++++++++++---
  .../display/amdgpu_dm/amdgpu_dm_mst_types.c   |  4 ++
- 2 files changed, 45 insertions(+), 1 deletion(-)
+ 2 files changed, 60 insertions(+), 7 deletions(-)
 
 diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index 10e041a3b2545..b44d06c3b1706 100644
+index cc4d1f7f97b98..26c4260c78d7b 100644
 --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
 +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -6882,6 +6882,24 @@ int convert_dc_color_depth_into_bpc(enum dc_color_depth display_color_depth)
- 	return 0;
+@@ -5573,15 +5573,32 @@ static void fill_stream_properties_from_drm_display_mode(
+ 	timing_out->h_border_right = 0;
+ 	timing_out->v_border_top = 0;
+ 	timing_out->v_border_bottom = 0;
+-	/* TODO: un-hardcode */
+-	if (drm_mode_is_420_only(info, mode_in)
+-			|| (drm_mode_is_420_also(info, mode_in) && aconnector->force_yuv420_output))
++
++	if (connector_state
++			&& (connector_state->force_color_format == DRM_COLOR_FORMAT_YCBCR420
++			|| aconnector->force_yuv420_output) && drm_mode_is_420(info, mode_in))
+ 		timing_out->pixel_encoding = PIXEL_ENCODING_YCBCR420;
+-	else if ((connector->display_info.color_formats & DRM_COLOR_FORMAT_YCBCR444)
+-			&& stream->signal == SIGNAL_TYPE_HDMI_TYPE_A)
++	else if (connector_state
++			&& connector_state->force_color_format == DRM_COLOR_FORMAT_YCBCR444
++			&& connector->display_info.color_formats & DRM_COLOR_FORMAT_YCBCR444)
+ 		timing_out->pixel_encoding = PIXEL_ENCODING_YCBCR444;
+-	else
++	else if (connector_state
++			&& connector_state->force_color_format == DRM_COLOR_FORMAT_RGB444
++			&& !drm_mode_is_420_only(info, mode_in))
+ 		timing_out->pixel_encoding = PIXEL_ENCODING_RGB;
++	else
++		/*
++		 * connector_state->force_color_format not possible
++		 * || connector_state->force_color_format == 0 (auto)
++		 * || connector_state->force_color_format == DRM_COLOR_FORMAT_YCBCR422
++		 */
++		if (drm_mode_is_420_only(info, mode_in))
++			timing_out->pixel_encoding = PIXEL_ENCODING_YCBCR420;
++		else if ((connector->display_info.color_formats & DRM_COLOR_FORMAT_YCBCR444)
++				&& stream->signal == SIGNAL_TYPE_HDMI_TYPE_A)
++			timing_out->pixel_encoding = PIXEL_ENCODING_YCBCR444;
++		else
++			timing_out->pixel_encoding = PIXEL_ENCODING_RGB;
+ 
+ 	timing_out->timing_3d_format = TIMING_3D_FORMAT_NONE;
+ 	timing_out->display_color_depth = convert_color_depth_from_display_info(
+@@ -6685,6 +6702,33 @@ static enum dc_status dm_validate_stream_and_context(struct dc *dc,
+ 	return dc_result;
  }
  
-+static int convert_dc_pixel_encoding_into_drm_color_format(
-+	enum dc_pixel_encoding display_pixel_encoding)
++static enum dc_status
++dm_validate_stream_color_format(const struct drm_connector_state *drm_state,
++				const struct dc_stream_state *stream)
 +{
-+	switch (display_pixel_encoding) {
-+	case PIXEL_ENCODING_RGB:
-+		return DRM_COLOR_FORMAT_RGB444;
-+	case PIXEL_ENCODING_YCBCR422:
-+		return DRM_COLOR_FORMAT_YCBCR422;
-+	case PIXEL_ENCODING_YCBCR444:
-+		return DRM_COLOR_FORMAT_YCBCR444;
-+	case PIXEL_ENCODING_YCBCR420:
-+		return DRM_COLOR_FORMAT_YCBCR420;
-+	default:
++	if (!drm_state->force_color_format)
++		return DC_OK;
++
++	enum dc_pixel_encoding encoding = PIXEL_ENCODING_UNDEFINED;
++	switch (drm_state->force_color_format) {
++	case DRM_COLOR_FORMAT_RGB444:
++		encoding = PIXEL_ENCODING_RGB;
++		break;
++	case DRM_COLOR_FORMAT_YCBCR444:
++		encoding = PIXEL_ENCODING_YCBCR444;
++		break;
++	case DRM_COLOR_FORMAT_YCBCR422:
++		encoding = PIXEL_ENCODING_YCBCR422;
++		break;
++	case DRM_COLOR_FORMAT_YCBCR420:
++		encoding = PIXEL_ENCODING_YCBCR420;
 +		break;
 +	}
-+	return 0;
++
++	return encoding == stream->timing.pixel_encoding ?
++	       DC_OK : DC_UNSUPPORTED_VALUE;
 +}
 +
- static int dm_encoder_helper_atomic_check(struct drm_encoder *encoder,
- 					  struct drm_crtc_state *crtc_state,
- 					  struct drm_connector_state *conn_state)
-@@ -7436,8 +7454,10 @@ void amdgpu_dm_connector_init_helper(struct amdgpu_display_manager *dm,
+ struct dc_stream_state *
+ create_validate_stream_for_sink(struct amdgpu_dm_connector *aconnector,
+ 				const struct drm_display_mode *drm_mode,
+@@ -6717,6 +6761,9 @@ create_validate_stream_for_sink(struct amdgpu_dm_connector *aconnector,
+ 		if (dc_result == DC_OK)
+ 			dc_result = dm_validate_stream_and_context(adev->dm.dc, stream);
+ 
++		if (dc_result == DC_OK)
++			dc_result = dm_validate_stream_color_format(drm_state, stream);
++
+ 		if (dc_result != DC_OK) {
+ 			DRM_DEBUG_KMS("Mode %dx%d (clk %d) failed DC validation with error %d (%s)\n",
+ 				      drm_mode->hdisplay,
+@@ -7512,8 +7559,10 @@ void amdgpu_dm_connector_init_helper(struct amdgpu_display_manager *dm,
  				adev->mode_info.underscan_vborder_property,
  				0);
  
 -	if (!aconnector->mst_root)
 +	if (!aconnector->mst_root) {
  		drm_connector_attach_max_bpc_property(&aconnector->base, 8, 16);
-+		drm_connector_attach_active_color_format_property(&aconnector->base);
++		drm_connector_attach_force_color_format_property(&aconnector->base);
 +	}
  
  	aconnector->base.state->max_bpc = 16;
  	aconnector->base.state->max_requested_bpc = aconnector->base.state->max_bpc;
-@@ -8969,6 +8989,26 @@ static void amdgpu_dm_atomic_commit_tail(struct drm_atomic_state *state)
- 		kfree(dummy_updates);
- 	}
- 
-+	/* Extract information from crtc to communicate it to userspace as connector properties */
-+	for_each_new_connector_in_state(state, connector, new_con_state, i) {
-+		struct drm_crtc *crtc = new_con_state->crtc;
-+		struct dc_stream_state *stream;
-+
-+		if (crtc) {
-+			new_crtc_state = drm_atomic_get_new_crtc_state(state, crtc);
-+			dm_new_crtc_state = to_dm_crtc_state(new_crtc_state);
-+			stream = dm_new_crtc_state->stream;
-+
-+			if (stream) {
-+				drm_connector_set_active_color_format_property(connector,
-+					convert_dc_pixel_encoding_into_drm_color_format(
-+						dm_new_crtc_state->stream->timing.pixel_encoding));
-+			}
-+		} else {
-+			drm_connector_set_active_color_format_property(connector, 0);
-+		}
-+	}
-+
- 	/**
- 	 * Enable interrupts for CRTCs that are newly enabled or went through
- 	 * a modeset. It was intentionally deferred until after the front end
 diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
-index 11da0eebee6c4..a4d1b3ea8f81c 100644
+index 941e96f100f4e..437d50f53eb97 100644
 --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
 +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
-@@ -600,6 +600,10 @@ dm_dp_add_mst_connector(struct drm_dp_mst_topology_mgr *mgr,
+@@ -601,6 +601,10 @@ dm_dp_add_mst_connector(struct drm_dp_mst_topology_mgr *mgr,
  	if (connector->max_bpc_property)
  		drm_connector_attach_max_bpc_property(connector, 8, 16);
  
-+	connector->active_color_format_property = master->base.active_color_format_property;
-+	if (connector->active_color_format_property)
-+		drm_connector_attach_active_color_format_property(&aconnector->base);
++	connector->force_color_format_property = master->base.force_color_format_property;
++	if (connector->force_color_format_property)
++		drm_connector_attach_force_color_format_property(&aconnector->base);
 +
  	connector->vrr_capable_property = master->base.vrr_capable_property;
  	if (connector->vrr_capable_property)
