@@ -4,63 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 23D6BC47077
-	for <intel-gfx@archiver.kernel.org>; Tue, 16 Jan 2024 12:28:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BDA39C4706C
+	for <intel-gfx@archiver.kernel.org>; Tue, 16 Jan 2024 13:07:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B51DC10E56F;
-	Tue, 16 Jan 2024 12:28:47 +0000 (UTC)
-Received: from mail-yb1-xb32.google.com (mail-yb1-xb32.google.com
- [IPv6:2607:f8b0:4864:20::b32])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0E40610E0B5;
- Thu, 11 Jan 2024 21:30:43 +0000 (UTC)
-Received: by mail-yb1-xb32.google.com with SMTP id
- 3f1490d57ef6-dbeff3fefc7so4815823276.2; 
- Thu, 11 Jan 2024 13:30:43 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1705008642; x=1705613442; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=8LgYFTnwAu8/MG526Kevc0lB/NXqtyQR3bdvsNZmg0k=;
- b=LbjVsy62gT6ZIQkvAQO33OZvlk3i4nCkkL3H725HM7csHuV6i3cRmNThHELWgV9FG+
- bQ1VKhrDRsVOmkFemdkoHz2RpovqLDV5jBlmMuAOTJsNPbS5B5imNvyUAoFj26AAkk4Z
- Hb5KHOhvqhPhTHRqjfRPIyYSssFxbrEvpeNdrEtVqTZf8In5VWnhFLo8MsUCzoYMd5jw
- 7Y+tah32usBl5us1fkRKTb6X/5SzuRwD0KJFnL/l+K/MqJD/pOt3sXwoSjf2E/E5EOxD
- qn0xe5GY47Afj0DcRR8U2FktKLDSyjNEvhGKx8CdaCNnkLNaqqIqd8BQQDGDT1MpBOas
- qtMA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1705008642; x=1705613442;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=8LgYFTnwAu8/MG526Kevc0lB/NXqtyQR3bdvsNZmg0k=;
- b=iEplFe1ckPpRwPwiqbvbWBqNXzz2snaJa/x7cgljCz2HyOf6p5d1j2wJpJ0FPxx8Gh
- LSkIJgDO1GBm+rY8iGheAXwPW/wgfBIZm71I4GwILuG6VxExYxeElb92x3q3n+6tA7Lv
- 1USAkmGgtsoM1BnDT7RxHTCgThRPTXrpGvRwRIjNgxCg39tGHHIJVlJKlr5ATQLLPMzW
- VZNtbIj24CO7rmxeJrk/etH/rZwyPGz3Z9K3M09ZRvpk1064U2VjiF4HJAEyR3zayfBl
- lEmWeVxpJD88w3Q4cb3eaEr4UlZNufoS/COa4SPr/+yKg0U+1O16y2nyeFiScvTmzkwI
- uD1A==
-X-Gm-Message-State: AOJu0YzhoCZ9auWJikPIeFbKHDqqbIVfIN4whpx13yXhOpUf1Uitk7RG
- myIT+B4jVYv8ZCeM68I3Gz3+fvR+xZH/eH3BO/c=
-X-Google-Smtp-Source: AGHT+IHwmH+A2IQ0AogjWxAMvzBiF3cSFHiqvOmPkUcvH7iqX/OVfLICPOYHsW9aFA0OozZ2CFnaG7nwOMzm3wCWY1Y=
-X-Received: by 2002:a05:6902:1364:b0:dbf:11e:d09d with SMTP id
- bt4-20020a056902136400b00dbf011ed09dmr294814ybb.84.1705008642089; Thu, 11 Jan
- 2024 13:30:42 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 48D2C10E4F2;
+	Tue, 16 Jan 2024 13:07:45 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.13])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7AFDE10E4F2;
+ Tue, 16 Jan 2024 13:07:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1705410465; x=1736946465;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=WrWCScCkq6/IIBGeJNWgH5pNBm3gK5BqAktItdbOh8Q=;
+ b=jvYEhGmIxMg1QTTIOLofRq3p1gNfUHL1tdj1XoKK0bJH3c/GScQFOwjC
+ RaMrBjrcG9mlOQsD+avUFT32KzZIKtSP1MaZBrIAyrj7reM1aXfaN5XQI
+ zuamq9DGySsRawpEZYh1bUhsHf0gxQLrKYh77m95kM70CbdxHXUX3Af54
+ BnnA42yBW01cov711rpdSYHLHCHrpvsmnXsSf4Z5BT/A6r05QBSAyJ5iX
+ 23ly7IZaQ6XRQW+cny9XoML6+8KCAvM+91JXIWxm/slsEKqUETYfAIqK3
+ qLt3u98xPg9QsuwyzAA9Y6G+5onYD1il/RwA33eJWE7Q/7E08vxgG3Bhw g==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10954"; a="6949032"
+X-IronPort-AV: E=Sophos;i="6.05,199,1701158400"; 
+   d="scan'208";a="6949032"
+Received: from orsmga007.jf.intel.com ([10.7.209.58])
+ by orvoesa105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 16 Jan 2024 05:07:43 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6600,9927,10954"; a="777046372"
+X-IronPort-AV: E=Sophos;i="6.05,199,1701158400"; d="scan'208";a="777046372"
+Received: from jfunnell-mobl.ger.corp.intel.com (HELO localhost)
+ ([10.252.39.52])
+ by orsmga007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 16 Jan 2024 05:07:39 -0800
+From: Jani Nikula <jani.nikula@intel.com>
+To: dri-devel@lists.freedesktop.org
+Subject: [PATCH 00/10] drm: drm debug and error logging improvements
+Date: Tue, 16 Jan 2024 15:07:25 +0200
+Message-Id: <cover.1705410327.git.jani.nikula@intel.com>
+X-Mailer: git-send-email 2.39.2
 MIME-Version: 1.0
-References: <20240110092109.1950011-1-hch@lst.de>
- <ZZ6Pfk8tLXbvs4dE@casper.infradead.org>
- <170490002493.164187.5401160425746227111@jlahtine-mobl.ger.corp.intel.com>
- <170490050245.164862.16261803493864298341@jlahtine-mobl.ger.corp.intel.com>
- <ZZ64/F/yeSymOCcI@casper.infradead.org>
-In-Reply-To: <ZZ64/F/yeSymOCcI@casper.infradead.org>
-From: Daniel Gomez <dagmcr@gmail.com>
-Date: Thu, 11 Jan 2024 22:30:31 +0100
-Message-ID: <CAPsT6hkQixVvvE94Rjop-7jOXi3FOMfv8BOFhxYLWUs906x2CQ@mail.gmail.com>
-Subject: Re: disable large folios for shmem file used by xfs xfile
-To: Matthew Wilcox <willy@infradead.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-X-Mailman-Approved-At: Tue, 16 Jan 2024 12:28:11 +0000
+Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
+Content-Transfer-Encoding: 8bit
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,69 +58,59 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Darrick J . Wong" <djwong@kernel.org>,
- Dave Hansen <dave.hansen@linux.intel.com>, dri-devel@lists.freedesktop.org,
- David Howells <dhowells@redhat.com>, linux-mm@kvack.org,
- Huang Rui <ray.huang@amd.com>, David Airlie <airlied@gmail.com>,
- Christoph Hellwig <hch@lst.de>, x86@kernel.org,
- Hugh Dickins <hughd@google.com>, Thomas Zimmermann <tzimmermann@suse.de>,
- intel-gfx@lists.freedesktop.org, Maxime Ripard <mripard@kernel.org>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, linux-sgx@vger.kernel.org,
- Jarkko Sakkinen <jarkko@kernel.org>, keyrings@vger.kernel.org,
- Daniel Vetter <daniel@ffwll.ch>, linux-fsdevel@vger.kernel.org,
- Andrew Morton <akpm@linux-foundation.org>,
- Christian Koenig <christian.koenig@amd.com>,
- Chandan Babu R <chandan.babu@oracle.com>
+Cc: jani.nikula@intel.com, intel-gfx@lists.freedesktop.org,
+ intel-xe@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Jan 10, 2024 at 4:35=E2=80=AFPM Matthew Wilcox <willy@infradead.org=
-> wrote:
->
-> On Wed, Jan 10, 2024 at 05:28:22PM +0200, Joonas Lahtinen wrote:
-> > Quoting Joonas Lahtinen (2024-01-10 17:20:24)
-> > > However we specifically pass "huge=3Dwithin_size" to vfs_kern_mount w=
-hen
-> > > creating a private mount of tmpfs for the purpose of i915 created
-> > > allocations.
-> > >
-> > > Older hardware also had some address hashing bugs where 2M aligned
-> > > memory caused a lot of collisions in TLB so we don't enable it always=
-.
-> > >
-> > > You can see drivers/gpu/drm/i915/gem/i915_gemfs.c function
-> > > i915_gemfs_init for details and references.
-> > >
-> > > So in short, functionality wise we should be fine either default
-> > > for using 2M pages or not. If they become the default, we'd probably
-> > > want an option that would still be able to prevent them for performan=
-ce
-> > > regression reasons on older hardware.
-> >
-> > To maybe write out my concern better:
-> >
-> > Is there plan to enable huge pages by default in shmem?
->
-> Not in the next kernel release, but eventually the plan is to allow
-> arbitrary order folios to be used in shmem.  So you could ask it to creat=
-e
-> a 256kB folio for you, if that's the right size to manage memory in.
->
-> How shmem and its various users go about choosing the right size is not
-> quite clear to me yet.  Perhaps somebody else will do it before I get
-> to it; I have a lot of different sub-projects to work on at the moment,
-> and shmem isn't blocking any of them.  And I have a sneaking suspicion
-> that more work is needed in the swap code to deal with arbitrary order
-> folios, so that's another reason for me to delay looking at this ;-)
+This is resend and more patches on top of [1]. I don't think I've
+changed anything since then.
 
-I have sent large folios support for shmem for the write and fallocate
-path some releases ago. The main problem I was facing was a current
-upstream problem with huge pages when seeking holes/data (fstests
-generic/285 and generic/436). The strategy suggested was to use large
-folios in an opportunistic way based on the file size. This hit the
-same problem we currently have with huge pages and I considered that a
-regression. We have made some progress to fix seeking in huge pages
-upstream but is not yet finished. I can send the patches tomorrow for
-further discussion.
+BR,
+Jani.
 
->
+[1] https://patchwork.freedesktop.org/series/126873/
+
+
+Jani Nikula (10):
+  drm/print: make drm_err_printer() device specific by using drm_err()
+  drm/print: move enum drm_debug_category etc. earlier in drm_print.h
+  drm/print: add drm_dbg_printer() for drm device specific printer
+  drm/dp_mst: switch from drm_debug_printer() to device specific
+    drm_dbg_printer()
+  drm/mode: switch from drm_debug_printer() to device specific
+    drm_dbg_printer()
+  drm/dp: switch drm_dp_vsc_sdp_log() to struct drm_printer
+  drm/i915: switch from drm_debug_printer() to device specific
+    drm_dbg_printer()
+  drm/i915: use drm_printf() with the drm_err_printer intead of pr_err()
+  drm/xe: switch from drm_debug_printer() to device specific
+    drm_dbg_printer()
+  drm: remove drm_debug_printer in favor of drm_dbg_printer
+
+ drivers/gpu/drm/display/drm_dp_helper.c       |  17 +-
+ drivers/gpu/drm/display/drm_dp_mst_topology.c |  23 +-
+ drivers/gpu/drm/drm_mode_config.c             |   2 +-
+ drivers/gpu/drm/drm_modeset_lock.c            |   2 +-
+ drivers/gpu/drm/drm_print.c                   |  29 ++-
+ .../drm/i915/display/intel_crtc_state_dump.c  |   5 +-
+ drivers/gpu/drm/i915/display/intel_display.c  |  27 ++-
+ .../drm/i915/display/intel_display_driver.c   |   3 +-
+ .../gpu/drm/i915/gt/intel_engine_heartbeat.c  |   3 +-
+ drivers/gpu/drm/i915/gt/intel_reset.c         |   3 +-
+ drivers/gpu/drm/i915/gt/intel_workarounds.c   |   3 +-
+ drivers/gpu/drm/i915/gt/selftest_context.c    |   3 +-
+ .../drm/i915/gt/selftest_engine_heartbeat.c   |  10 +-
+ drivers/gpu/drm/i915/i915_driver.c            |   3 +-
+ drivers/gpu/drm/i915/selftests/i915_active.c  |   8 +-
+ drivers/gpu/drm/ttm/ttm_bo.c                  |   2 +-
+ drivers/gpu/drm/xe/xe_gt.c                    |   2 +-
+ drivers/gpu/drm/xe/xe_gt_topology.c           |   4 +-
+ drivers/gpu/drm/xe/xe_reg_sr.c                |   2 +-
+ include/drm/display/drm_dp_helper.h           |   3 +-
+ include/drm/drm_print.h                       | 220 +++++++++---------
+ 21 files changed, 206 insertions(+), 168 deletions(-)
+
+-- 
+2.39.2
+
