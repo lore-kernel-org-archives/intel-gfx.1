@@ -4,41 +4,41 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 82080C47DA7
-	for <intel-gfx@archiver.kernel.org>; Tue, 16 Jan 2024 17:14:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 71CABC47077
+	for <intel-gfx@archiver.kernel.org>; Tue, 16 Jan 2024 17:14:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 87FE210E593;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8B45C10E596;
 	Tue, 16 Jan 2024 17:14:07 +0000 (UTC)
 Received: from mgamail.intel.com (mgamail.intel.com [192.55.52.115])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EC9D210E593;
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DA5C210E554;
  Tue, 16 Jan 2024 17:14:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1705425246; x=1736961246;
+ t=1705425245; x=1736961245;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=nRErE7hR7BlojnkflFeNg5EI92A4SbXDvdKiDrZsRW0=;
- b=GV2eGbqmpkXbG3XK11uxAC6C1Nspyo2DRYZ0N0gLeLqHijcZiBuC82ly
- 3600rNvkAl+H3ckSk1UqUhvgWVFKcoyo1u7IIoJkkRONj9N3rsIxhNU1N
- iiOY0xFb3gJ926f03A18MHcqBluy/bpa4m3C+TkRV2uOVj9Lo0//DtMbD
- T5yicX2qujzCOzjqspD4jB7WOOx6wXKpTb+dI1SR+NyGvb+ZbDmlSoT8u
- SLrvoDiAL4f0O4PU00X68QOpbJqvsbtq06A3kRTnQe3Mqc+ZjC5R0DDOP
- IRxcIEKYTNrOwtM3bdeA0a3CvcgdlbkrKEdwA6XcgzBloD8tg5XWnA9Ih g==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10955"; a="399593357"
-X-IronPort-AV: E=Sophos;i="6.05,199,1701158400"; d="scan'208";a="399593357"
+ bh=9THZhwCd0/0UPvq1xNxdGSUMO7q3xhjt6Kz5FlZVRrQ=;
+ b=Z781g9SnvI39rGbqPG+BesYF4RgDOvuhwroBP9zu/bEBbw5KfwuyyYaL
+ +LgpYwir9dqSHvdpNWngUr4k6HfmrH7Y8MC27Bu/dAZQ5NpEwG5zDEnKJ
+ Jsds+22qvJN4APYTLa0dbIBUIRJpydQdxAS+xqMcjxNTOHQbcKUMd/mwa
+ lphkOivi5lF8MxZJEzr2vzol97qLv0aHYLFY8F8MhxQUylwxGjWEYjhAX
+ BQL/DwiM1BQ1Y7mn0bQ2g27quXPO/LFRDn1kzgVcOEmpv8RwtEdCNxhRU
+ NctDV0LDSWLHNWcgxAx+4LAEzHWYrHKjHA3hTuiORoGEnPPQrUB//j98e Q==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10955"; a="399593350"
+X-IronPort-AV: E=Sophos;i="6.05,199,1701158400"; d="scan'208";a="399593350"
 Received: from orviesa002.jf.intel.com ([10.64.159.142])
  by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 16 Jan 2024 09:12:46 -0800
+ 16 Jan 2024 09:12:45 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.05,199,1701158400"; d="scan'208";a="25869626"
+X-IronPort-AV: E=Sophos;i="6.05,199,1701158400"; d="scan'208";a="25869612"
 Received: from guc-pnp-dev-box-1.fm.intel.com ([10.1.27.7])
- by orviesa002.jf.intel.com with ESMTP; 16 Jan 2024 09:12:46 -0800
+ by orviesa002.jf.intel.com with ESMTP; 16 Jan 2024 09:12:45 -0800
 From: Zhanjun Dong <zhanjun.dong@intel.com>
 To: intel-gfx@lists.freedesktop.org,
 	dri-devel@lists.freedesktop.org
-Subject: [PATCH] drm/xe/guc: Check sizing of guc_capture output
-Date: Tue, 16 Jan 2024 09:12:34 -0800
-Message-Id: <20240116171237.118463-7-zhanjun.dong@intel.com>
+Subject: [PATCH] drm/xe/guc: Expose dss per group for GuC error capture
+Date: Tue, 16 Jan 2024 09:12:30 -0800
+Message-Id: <20240116171237.118463-3-zhanjun.dong@intel.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20240116171237.118463-1-zhanjun.dong@intel.com>
 References: <20240116171237.118463-1-zhanjun.dong@intel.com>
@@ -59,109 +59,118 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Add capture output size check function to provide a reasonable
-minimum size for error capture region before allocating the shared
-buffer.
+Expose helper for dss per group of mcr, GuC error capture feature
+need this info to prepare buffer required.
 
 Signed-off-by: Zhanjun Dong <zhanjun.dong@intel.com>
 ---
- drivers/gpu/drm/xe/xe_guc_capture.c | 76 +++++++++++++++++++++++++++++
- 1 file changed, 76 insertions(+)
+ drivers/gpu/drm/xe/xe_gt_mcr.c          |  4 ++--
+ drivers/gpu/drm/xe/xe_gt_mcr.h          |  1 +
+ drivers/gpu/drm/xe/xe_gt_topology.c     |  3 ---
+ drivers/gpu/drm/xe/xe_guc_capture.c     | 27 +++++++++++++++++++++++++
+ drivers/gpu/drm/xe/xe_hw_engine_types.h |  3 +++
+ 5 files changed, 33 insertions(+), 5 deletions(-)
 
-diff --git a/drivers/gpu/drm/xe/xe_guc_capture.c b/drivers/gpu/drm/xe/xe_guc_capture.c
-index dde3a269d114..f4153dc4ab86 100644
---- a/drivers/gpu/drm/xe/xe_guc_capture.c
-+++ b/drivers/gpu/drm/xe/xe_guc_capture.c
-@@ -559,6 +559,81 @@ xe_guc_capture_getnullheader(struct xe_guc *guc, void **outptr, size_t *size)
- 	return 0;
+diff --git a/drivers/gpu/drm/xe/xe_gt_mcr.c b/drivers/gpu/drm/xe/xe_gt_mcr.c
+index 2029577957a4..80adf6887dd8 100644
+--- a/drivers/gpu/drm/xe/xe_gt_mcr.c
++++ b/drivers/gpu/drm/xe/xe_gt_mcr.c
+@@ -291,7 +291,7 @@ static void init_steering_mslice(struct xe_gt *gt)
+ 	gt->steering[LNCF].instance_target = 0;		/* unused */
  }
  
-+static int
-+guc_capture_output_min_size_est(struct xe_guc *guc)
+-static int num_dss_per_grp(struct xe_gt *gt)
++int xe_gt_mcr_get_dss_per_group(struct xe_gt *gt)
+ {
+ 	struct xe_device *xe = gt_to_xe(gt);
+ 
+@@ -313,7 +313,7 @@ static void init_steering_dss(struct xe_gt *gt)
+ {
+ 	unsigned int dss = min(xe_dss_mask_group_ffs(gt->fuse_topo.g_dss_mask, 0, 0),
+ 			       xe_dss_mask_group_ffs(gt->fuse_topo.c_dss_mask, 0, 0));
+-	unsigned int dss_per_grp = num_dss_per_grp(gt);
++	int dss_per_grp = xe_gt_mcr_get_dss_per_group(gt);
+ 
+ 	gt->steering[DSS].group_target = dss / dss_per_grp;
+ 	gt->steering[DSS].instance_target = dss % dss_per_grp;
+diff --git a/drivers/gpu/drm/xe/xe_gt_mcr.h b/drivers/gpu/drm/xe/xe_gt_mcr.h
+index 27ca1bc880a0..8f2603e2b520 100644
+--- a/drivers/gpu/drm/xe/xe_gt_mcr.h
++++ b/drivers/gpu/drm/xe/xe_gt_mcr.h
+@@ -14,6 +14,7 @@ struct xe_gt;
+ void xe_gt_mcr_init(struct xe_gt *gt);
+ 
+ void xe_gt_mcr_set_implicit_defaults(struct xe_gt *gt);
++int xe_gt_mcr_get_dss_per_group(struct xe_gt *gt);
+ 
+ u32 xe_gt_mcr_unicast_read(struct xe_gt *gt, struct xe_reg_mcr mcr_reg,
+ 			   int group, int instance);
+diff --git a/drivers/gpu/drm/xe/xe_gt_topology.c b/drivers/gpu/drm/xe/xe_gt_topology.c
+index 33c69795c16a..784ebf15e301 100644
+--- a/drivers/gpu/drm/xe/xe_gt_topology.c
++++ b/drivers/gpu/drm/xe/xe_gt_topology.c
+@@ -11,9 +11,6 @@
+ #include "xe_gt.h"
+ #include "xe_mmio.h"
+ 
+-#define XE_MAX_DSS_FUSE_BITS (32 * XE_MAX_DSS_FUSE_REGS)
+-#define XE_MAX_EU_FUSE_BITS (32 * XE_MAX_EU_FUSE_REGS)
+-
+ static void
+ load_dss_mask(struct xe_gt *gt, xe_dss_mask_t mask, int numregs, ...)
+ {
+diff --git a/drivers/gpu/drm/xe/xe_guc_capture.c b/drivers/gpu/drm/xe/xe_guc_capture.c
+index 8bf756fa34e2..5e8b063f723f 100644
+--- a/drivers/gpu/drm/xe/xe_guc_capture.c
++++ b/drivers/gpu/drm/xe/xe_guc_capture.c
+@@ -93,6 +93,33 @@
+ 	{ SFC_DONE(2),		    0,      0, "SFC_DONE[2]" }, \
+ 	{ SFC_DONE(3),		    0,      0, "SFC_DONE[3]" }
+ 
++static inline void xe_gt_mcr_get_ss_steering(struct xe_gt *gt, unsigned int dss,
++					     unsigned int *group, unsigned int *instance)
 +{
-+	struct xe_gt *gt = guc_to_gt(guc);
-+	struct xe_hw_engine *hwe;
-+	enum xe_hw_engine_id id;
-+
-+	int worst_min_size = 0;
-+	size_t tmp = 0;
-+
-+	if (!guc->capture)
-+		return -ENODEV;
-+
-+	/*
-+	 * If every single engine-instance suffered a failure in quick succession but
-+	 * were all unrelated, then a burst of multiple error-capture events would dump
-+	 * registers for every one engine instance, one at a time. In this case, GuC
-+	 * would even dump the global-registers repeatedly.
-+	 *
-+	 * For each engine instance, there would be 1 x guc_state_capture_group_t output
-+	 * followed by 3 x guc_state_capture_t lists. The latter is how the register
-+	 * dumps are split across different register types (where the '3' are global vs class
-+	 * vs instance).
-+	 */
-+	for_each_hw_engine(hwe, gt, id) {
-+		worst_min_size += sizeof(struct guc_state_capture_group_header_t) +
-+					 (3 * sizeof(struct guc_state_capture_header_t));
-+
-+		if (!guc_capture_getlistsize(guc, 0, GUC_CAPTURE_LIST_TYPE_GLOBAL, 0, &tmp, true))
-+			worst_min_size += tmp;
-+
-+		if (!guc_capture_getlistsize(guc, 0, GUC_CAPTURE_LIST_TYPE_ENGINE_CLASS,
-+					     hwe->class, &tmp, true)) {
-+			worst_min_size += tmp;
-+		}
-+		if (!guc_capture_getlistsize(guc, 0, GUC_CAPTURE_LIST_TYPE_ENGINE_INSTANCE,
-+					     hwe->class, &tmp, true)) {
-+			worst_min_size += tmp;
-+		}
-+	}
-+
-+	return worst_min_size;
++	int dss_per_grp = xe_gt_mcr_get_dss_per_group(gt);
++	*group = dss / dss_per_grp;
++	*instance = dss % dss_per_grp;
 +}
++
++static inline bool xe_sseu_has_subslice(struct xe_gt *gt, int slice, int subslice)
++{
++	int dss_per_grp = xe_gt_mcr_get_dss_per_group(gt);
++	int index = slice * dss_per_grp + subslice;
++	return index >= XE_MAX_DSS_FUSE_BITS ? false : test_bit(index, gt->fuse_topo.g_dss_mask);
++}
++
++#define _HAS_SS(ss_, gt_, group_, instance_) xe_sseu_has_subslice(gt_, group_, instance_)
 +
 +/*
-+ * Add on a 3x multiplier to allow for multiple back-to-back captures occurring
-+ * before the i915 can read the data out and process it
++ * Loop over each subslice/DSS and determine the group and instance IDs that
++ * should be used to steer MCR accesses toward this DSS.
 + */
-+#define GUC_CAPTURE_OVERBUFFER_MULTIPLIER 3
-+
-+static void check_guc_capture_size(struct xe_guc *guc)
-+{
-+	int min_size = guc_capture_output_min_size_est(guc);
-+	int spare_size = min_size * GUC_CAPTURE_OVERBUFFER_MULTIPLIER;
-+	u32 buffer_size = xe_guc_log_section_size_capture(&guc->log);
-+
-+	/*
-+	 * NOTE: min_size is much smaller than the capture region allocation (DG2: <80K vs 1MB)
-+	 * Additionally, its based on space needed to fit all engines getting reset at once
-+	 * within the same G2H handler task slot. This is very unlikely. However, if GuC really
-+	 * does run out of space for whatever reason, we will see an separate warning message
-+	 * when processing the G2H event capture-notification, search for:
-+	 * xe_guc_STATE_CAPTURE_EVENT_STATUS_NOSPACE.
-+	 */
-+	if (min_size < 0)
-+		xe_gt_warn(guc_to_gt(guc), "Failed to calculate error state capture buffer minimum size: %d!\n",
-+			   min_size);
-+	else if (min_size > buffer_size)
-+		xe_gt_warn(guc_to_gt(guc), "Error state capture buffer maybe small: %d < %d\n",
-+			   buffer_size, min_size);
-+	else if (spare_size > buffer_size)
-+		xe_gt_dbg(guc_to_gt(guc), "Error state capture buffer lacks spare size: %d < %d (min = %d)\n",
-+			  buffer_size, spare_size, min_size);
-+}
++#define for_each_ss_steering(ss_, gt_, group_, instance_) \
++	for (ss_ = 0, xe_gt_mcr_get_ss_steering(gt_, 0, &group_, &instance_); \
++	     ss_ < XE_MAX_DSS_FUSE_BITS; \
++	     ss_++, xe_gt_mcr_get_ss_steering(gt_, ss_, &group_, &instance_)) \
++		for_each_if(_HAS_SS(ss_, gt_, group_, instance_))
 +
  int xe_guc_capture_init(struct xe_guc *guc)
  {
- 	guc->capture = kzalloc(sizeof(*guc->capture), GFP_KERNEL);
-@@ -570,6 +645,7 @@ int xe_guc_capture_init(struct xe_guc *guc)
- 	INIT_LIST_HEAD(&guc->capture->outlist);
- 	INIT_LIST_HEAD(&guc->capture->cachelist);
- 
-+	check_guc_capture_size(guc);
  	return 0;
- }
+diff --git a/drivers/gpu/drm/xe/xe_hw_engine_types.h b/drivers/gpu/drm/xe/xe_hw_engine_types.h
+index dfeaaac08b7f..c258228b244f 100644
+--- a/drivers/gpu/drm/xe/xe_hw_engine_types.h
++++ b/drivers/gpu/drm/xe/xe_hw_engine_types.h
+@@ -65,6 +65,9 @@ struct xe_bo;
+ struct xe_execlist_port;
+ struct xe_gt;
  
++#define XE_MAX_DSS_FUSE_BITS (32 * XE_MAX_DSS_FUSE_REGS)
++#define XE_MAX_EU_FUSE_BITS (32 * XE_MAX_EU_FUSE_REGS)
++
+ /**
+  * struct xe_hw_engine_class_intf - per hw engine class struct interface
+  *
 -- 
 2.34.1
 
