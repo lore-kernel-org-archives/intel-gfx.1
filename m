@@ -4,26 +4,51 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AADD0C47077
-	for <intel-gfx@archiver.kernel.org>; Tue, 16 Jan 2024 13:08:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 838ABC47258
+	for <intel-gfx@archiver.kernel.org>; Tue, 16 Jan 2024 13:08:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E1D8010E2FA;
-	Tue, 16 Jan 2024 13:08:18 +0000 (UTC)
-Received: from 5338d5abeb45 (emeril.freedesktop.org [131.252.210.167])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4C07710E542;
- Tue, 16 Jan 2024 13:08:15 +0000 (UTC)
-Content-Type: text/plain; charset="utf-8"
+	by gabe.freedesktop.org (Postfix) with ESMTP id D8B3210E55E;
+	Tue, 16 Jan 2024 13:08:20 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.13])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3A08510E55E;
+ Tue, 16 Jan 2024 13:08:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1705410501; x=1736946501;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=H7NkDBGXQDWjcPyDigGVHeuccBWYT+ZSkzRBCwJOLuQ=;
+ b=Rx4Z2Hw/8huRM3cBRMcJ8OJslzKU6jkCn3ZIyHlFWyrsXLlulvPTWd5N
+ ouL8td53uRZ+zQPhe0CzHOqMQYJFQca6knbqVGDnqBYL7XpPfjp7pX6Rd
+ rzAdYCDAA1D5DoBV45E7n0XHV9TlPZ3KTId8upk7sZKSueyd/B5G+EmdD
+ UXHIudpSsXt0JQnZrzLBLZ42avoaLwuB/Mxp8NoNaYZnuQ7soycZnMUnA
+ mvQ2MKecLiO0qsM11Lk9WXl8LEBsxaAlq2f+RfyC75DTQwMfZV8XrNggc
+ Vy0Qd9ojroogtFzp07njY/AiPz6mXZy2OjEqq0Xr+zQ2mT4RUft+Vgw3D w==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10954"; a="6949559"
+X-IronPort-AV: E=Sophos;i="6.05,199,1701158400"; 
+   d="scan'208";a="6949559"
+Received: from orsmga007.jf.intel.com ([10.7.209.58])
+ by orvoesa105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 16 Jan 2024 05:08:20 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6600,9927,10954"; a="777047220"
+X-IronPort-AV: E=Sophos;i="6.05,199,1701158400"; d="scan'208";a="777047220"
+Received: from jfunnell-mobl.ger.corp.intel.com (HELO localhost)
+ ([10.252.39.52])
+ by orsmga007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 16 Jan 2024 05:08:03 -0800
+From: Jani Nikula <jani.nikula@intel.com>
+To: dri-devel@lists.freedesktop.org
+Subject: [PATCH 05/10] drm/mode: switch from drm_debug_printer() to device
+ specific drm_dbg_printer()
+Date: Tue, 16 Jan 2024 15:07:30 +0200
+Message-Id: <56f6f3e8e045206706d7a292968b6b2f4fc19c27.1705410327.git.jani.nikula@intel.com>
+X-Mailer: git-send-email 2.39.2
+In-Reply-To: <cover.1705410327.git.jani.nikula@intel.com>
+References: <cover.1705410327.git.jani.nikula@intel.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Subject: =?utf-8?q?=E2=9C=97_Fi=2ECI=2ECHECKPATCH=3A_warning_for_New_DRM_properties_f?=
- =?utf-8?q?or_output_color_format?=
-From: Patchwork <patchwork@emeril.freedesktop.org>
-To: "Andri Yngvason" <andri@yngvason.is>
-Date: Tue, 16 Jan 2024 13:08:15 -0000
-Message-ID: <170541049531.502239.11092937844618362140@5338d5abeb45>
-X-Patchwork-Hint: ignore
-References: <20240115160554.720247-1-andri@yngvason.is>
-In-Reply-To: <20240115160554.720247-1-andri@yngvason.is>
+Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
+Content-Transfer-Encoding: 8bit
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -36,79 +61,31 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: intel-gfx@lists.freedesktop.org
-Cc: intel-gfx@lists.freedesktop.org
+Cc: jani.nikula@intel.com, intel-gfx@lists.freedesktop.org,
+ intel-xe@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-== Series Details ==
+Prefer the device specific debug printer.
 
-Series: New DRM properties for output color format
-URL   : https://patchwork.freedesktop.org/series/128826/
-State : warning
+Signed-off-by: Jani Nikula <jani.nikula@intel.com>
+---
+ drivers/gpu/drm/drm_mode_config.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-== Summary ==
-
-Error: dim checkpatch failed
-73e5d5241200 drm/amd/display: Remove unnecessary SIGNAL_TYPE_HDMI_TYPE_A check
--:35: CHECK:LOGICAL_CONTINUATIONS: Logical continuations should be on the previous line
-#35: FILE: drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c:5578:
- 	if (drm_mode_is_420_only(info, mode_in)
-+			|| (drm_mode_is_420_also(info, mode_in) && aconnector->force_yuv420_output))
-
-total: 0 errors, 0 warnings, 1 checks, 12 lines checked
-bfe7e92f2b36 drm/uAPI: Add "force color format" drm property as setting for userspace
-0ee65f6d9c49 drm/amd/display: Add handling for new "force color format" property
--:11: WARNING:BAD_SIGN_OFF: 'Co-developed-by:' is the preferred signature form
-#11: 
-Co-Developed-by: Andri Yngvason <andri@yngvason.is>
-
--:28: CHECK:LOGICAL_CONTINUATIONS: Logical continuations should be on the previous line
-#28: FILE: drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c:5578:
-+	if (connector_state
-+			&& (connector_state->force_color_format == DRM_COLOR_FORMAT_YCBCR420
-
--:29: CHECK:LOGICAL_CONTINUATIONS: Logical continuations should be on the previous line
-#29: FILE: drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c:5579:
-+			&& (connector_state->force_color_format == DRM_COLOR_FORMAT_YCBCR420
-+			|| aconnector->force_yuv420_output) && drm_mode_is_420(info, mode_in))
-
--:34: CHECK:LOGICAL_CONTINUATIONS: Logical continuations should be on the previous line
-#34: FILE: drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c:5582:
-+	else if (connector_state
-+			&& connector_state->force_color_format == DRM_COLOR_FORMAT_YCBCR444
-
--:35: CHECK:LOGICAL_CONTINUATIONS: Logical continuations should be on the previous line
-#35: FILE: drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c:5583:
-+			&& connector_state->force_color_format == DRM_COLOR_FORMAT_YCBCR444
-+			&& connector->display_info.color_formats & DRM_COLOR_FORMAT_YCBCR444)
-
--:39: CHECK:LOGICAL_CONTINUATIONS: Logical continuations should be on the previous line
-#39: FILE: drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c:5586:
-+	else if (connector_state
-+			&& connector_state->force_color_format == DRM_COLOR_FORMAT_RGB444
-
--:40: CHECK:LOGICAL_CONTINUATIONS: Logical continuations should be on the previous line
-#40: FILE: drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c:5587:
-+			&& connector_state->force_color_format == DRM_COLOR_FORMAT_RGB444
-+			&& !drm_mode_is_420_only(info, mode_in))
-
--:51: CHECK:LOGICAL_CONTINUATIONS: Logical continuations should be on the previous line
-#51: FILE: drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c:5598:
-+		else if ((connector->display_info.color_formats & DRM_COLOR_FORMAT_YCBCR444)
-+				&& stream->signal == SIGNAL_TYPE_HDMI_TYPE_A)
-
--:70: WARNING:LINE_SPACING: Missing a blank line after declarations
-#70: FILE: drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c:6713:
-+	enum dc_pixel_encoding encoding = PIXEL_ENCODING_UNDEFINED;
-+	switch (drm_state->force_color_format) {
-
-total: 0 errors, 2 warnings, 7 checks, 101 lines checked
-e847a2e61678 drm/i915/display: Add handling for new "force color format" property
--:11: WARNING:BAD_SIGN_OFF: 'Co-developed-by:' is the preferred signature form
-#11: 
-Co-Developed-by: Andri Yngvason <andri@yngvason.is>
-
-total: 0 errors, 1 warnings, 0 checks, 136 lines checked
-
+diff --git a/drivers/gpu/drm/drm_mode_config.c b/drivers/gpu/drm/drm_mode_config.c
+index 8525ef851540..48fd2d67f352 100644
+--- a/drivers/gpu/drm/drm_mode_config.c
++++ b/drivers/gpu/drm/drm_mode_config.c
+@@ -544,7 +544,7 @@ void drm_mode_config_cleanup(struct drm_device *dev)
+ 	 */
+ 	WARN_ON(!list_empty(&dev->mode_config.fb_list));
+ 	list_for_each_entry_safe(fb, fbt, &dev->mode_config.fb_list, head) {
+-		struct drm_printer p = drm_debug_printer("[leaked fb]");
++		struct drm_printer p = drm_dbg_printer(dev, DRM_UT_KMS, "[leaked fb]");
+ 
+ 		drm_printf(&p, "framebuffer[%u]:\n", fb->base.id);
+ 		drm_framebuffer_print_info(&p, 1, fb);
+-- 
+2.39.2
 
