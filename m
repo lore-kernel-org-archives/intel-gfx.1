@@ -4,52 +4,26 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8C4F4C47258
-	for <intel-gfx@archiver.kernel.org>; Wed, 17 Jan 2024 16:46:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C7921C47258
+	for <intel-gfx@archiver.kernel.org>; Wed, 17 Jan 2024 16:57:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DB27610E73D;
-	Wed, 17 Jan 2024 16:46:45 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.9])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D570E10E72A
- for <intel-gfx@lists.freedesktop.org>; Wed, 17 Jan 2024 16:46:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1705510005; x=1737046005;
- h=message-id:date:mime-version:subject:to:cc:references:
- from:in-reply-to:content-transfer-encoding;
- bh=ua5eiuHOfZyCez0KZ6CbMWW6WTFk4vELllOds2HT6qs=;
- b=DxA87+q+fX9UA46l9Np4RFOgQdpW7cupZB9yMxWuHu5jGfxH52BdG6Ae
- hVAIXKYwVg9BwgdRvxpMgHtiXM6aitECXYkBJqphaBg3nbj7414YoPmqi
- wJxa7k04uzOLbRMyVOjb0Pw2LMq5HujFi2pQtJEKAGRPYJUdE3IFvCyRG
- qXwfRkndO0ZNO4jwon48I7z6TkHWTbxzkR7BnKAaxAA9mDrkaI30tpNT+
- +q+4gEVugLwkzuJpDH1Y//fl+XNQoC97vY3gu1fS5VYFjt1PCrhAELsnW
- QBJhqEmfFIAezWC0+Xue25/GtZK5A015+k/EHv18mdumA9iyWKYO0jYa6 g==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10956"; a="18806023"
-X-IronPort-AV: E=Sophos;i="6.05,200,1701158400"; d="scan'208";a="18806023"
-Received: from fmviesa001.fm.intel.com ([10.60.135.141])
- by orvoesa101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 17 Jan 2024 08:46:44 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.05,200,1701158400"; d="scan'208";a="26531705"
-Received: from swatish2-mobl2.gar.corp.intel.com (HELO [10.213.79.120])
- ([10.213.79.120])
- by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 17 Jan 2024 08:46:42 -0800
-Message-ID: <94796951-a166-43fa-b476-a8522c8a272d@intel.com>
-Date: Wed, 17 Jan 2024 22:16:39 +0530
+	by gabe.freedesktop.org (Postfix) with ESMTP id EA14C10E710;
+	Wed, 17 Jan 2024 16:57:29 +0000 (UTC)
+Received: from 5338d5abeb45 (emeril.freedesktop.org [131.252.210.167])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B375C10E710;
+ Wed, 17 Jan 2024 16:57:28 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [Intel-gfx] [PATCH] drm/i915: Add bigjoiner force enable option
- to debugfs
-Content-Language: en-US
-To: =?UTF-8?B?VmlsbGUgU3lyasOkbMOk?= <ville.syrjala@linux.intel.com>,
- Stanislav Lisovskiy <stanislav.lisovskiy@intel.com>
-References: <20231018132400.1446-1-stanislav.lisovskiy@intel.com>
- <ZTkRRRf2lTksA_a2@intel.com>
-From: "Sharma, Swati2" <swati2.sharma@intel.com>
-In-Reply-To: <ZTkRRRf2lTksA_a2@intel.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
+Subject: =?utf-8?q?=E2=9C=97_Fi=2ECI=2ESPARSE=3A_warning_for_QGV/SAGV_related_fixes_?=
+ =?utf-8?q?=28rev4=29?=
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Stanislav Lisovskiy" <stanislav.lisovskiy@intel.com>
+Date: Wed, 17 Jan 2024 16:57:28 -0000
+Message-ID: <170551064873.537692.5186634946759711922@5338d5abeb45>
+X-Patchwork-Hint: ignore
+References: <20240117155718.3439-1-stanislav.lisovskiy@intel.com>
+In-Reply-To: <20240117155718.3439-1-stanislav.lisovskiy@intel.com>
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,183 +36,107 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: jani.nikula@intel.com, intel-gfx@lists.freedesktop.org
+Reply-To: intel-gfx@lists.freedesktop.org
+Cc: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Hi Ville,
+== Series Details ==
 
-On 25-Oct-23 6:29 PM, Ville Syrjälä wrote:
-> On Wed, Oct 18, 2023 at 04:24:00PM +0300, Stanislav Lisovskiy wrote:
->> For validation purposes, it might be useful to be able to
->> force Bigjoiner mode, even if current dotclock/resolution
->> do not require that.
->> Lets add such to option to debugfs.
->>
->> v2: - Apparently intel_dp_need_bigjoiner can't be used, when
->>        debugfs entry is created so lets just check manually
->>        the DISPLAY_VER.
->>
->> v3: - Switch to intel_connector from drm_connector(Jani Nikula)
->>      - Remove redundant modeset lock(Jani Nikula)
->>      - Use kstrtobool_from_user for boolean value(Jani Nikula)
->>
->> v4: - Apply the changes to proper function(Jani Nikula)
->>
->> Signed-off-by: Stanislav Lisovskiy <stanislav.lisovskiy@intel.com>
->> ---
->>   .../drm/i915/display/intel_display_debugfs.c  | 66 +++++++++++++++++++
->>   .../drm/i915/display/intel_display_types.h    |  2 +
->>   drivers/gpu/drm/i915/display/intel_dp.c       |  6 +-
->>   3 files changed, 73 insertions(+), 1 deletion(-)
->>
->> diff --git a/drivers/gpu/drm/i915/display/intel_display_debugfs.c b/drivers/gpu/drm/i915/display/intel_display_debugfs.c
->> index fbe75d47a165..9b810c6f96ea 100644
->> --- a/drivers/gpu/drm/i915/display/intel_display_debugfs.c
->> +++ b/drivers/gpu/drm/i915/display/intel_display_debugfs.c
->> @@ -1398,6 +1398,30 @@ out:	drm_modeset_unlock(&dev->mode_config.connection_mutex);
->>   	return ret;
->>   }
->>   
->> +static int i915_bigjoiner_enable_show(struct seq_file *m, void *data)
->> +{
->> +	struct intel_connector *connector = to_intel_connector(m->private);
->> +	struct drm_crtc *crtc;
->> +	struct intel_encoder *encoder = intel_attached_encoder(connector);
->> +	struct intel_dp *intel_dp = enc_to_intel_dp(encoder);
->> +	int ret = 0;
->> +
->> +	if (!encoder)
->> +		return -ENODEV;
->> +
->> +	crtc = connector->base.state->crtc;
->> +	if (connector->base.status != connector_status_connected || !crtc) {
->> +		ret = -ENODEV;
-> 
-> Why do we need this extra complication?
-> 
->> +		goto out;
->> +	}
->> +
->> +	seq_printf(m, "Bigjoiner enable: %d\n", intel_dp->force_bigjoiner_enable);
->> +
->> +out:
->> +
->> +	return ret;
->> +}
->> +
->>   static ssize_t i915_dsc_output_format_write(struct file *file,
->>   					    const char __user *ubuf,
->>   					    size_t len, loff_t *offp)
->> @@ -1419,12 +1443,39 @@ static ssize_t i915_dsc_output_format_write(struct file *file,
->>   	return len;
->>   }
->>   
->> +static ssize_t i915_bigjoiner_enable_fops_write(struct file *file,
->> +						const char __user *ubuf,
->> +						size_t len, loff_t *offp)
->> +{
->> +	struct seq_file *m = file->private_data;
->> +	struct intel_connector *connector = m->private;
->> +	struct intel_encoder *encoder = intel_attached_encoder(connector);
->> +	struct intel_dp *intel_dp = enc_to_intel_dp(encoder);
->> +	bool bigjoiner_en = 0;
->> +	int ret;
->> +
->> +	ret = kstrtobool_from_user(ubuf, len, &bigjoiner_en);
->> +	if (ret < 0)
->> +		return ret;
->> +
->> +	intel_dp->force_bigjoiner_enable = bigjoiner_en;
->> +	*offp += len;
->> +
->> +	return len;
->> +}
->> +
->>   static int i915_dsc_output_format_open(struct inode *inode,
->>   				       struct file *file)
->>   {
->>   	return single_open(file, i915_dsc_output_format_show, inode->i_private);
->>   }
->>   
->> +static int i915_bigjoiner_enable_open(struct inode *inode,
->> +				      struct file *file)
->> +{
->> +	return single_open(file, i915_bigjoiner_enable_show, inode->i_private);
->> +}
->> +
->>   static const struct file_operations i915_dsc_output_format_fops = {
->>   	.owner = THIS_MODULE,
->>   	.open = i915_dsc_output_format_open,
->> @@ -1434,6 +1485,15 @@ static const struct file_operations i915_dsc_output_format_fops = {
->>   	.write = i915_dsc_output_format_write
->>   };
->>   
->> +static const struct file_operations i915_bigjoiner_enable_fops = {
->> +	.owner = THIS_MODULE,
->> +	.open = i915_bigjoiner_enable_open,
->> +	.read = seq_read,
->> +	.llseek = seq_lseek,
->> +	.release = single_release,
->> +	.write = i915_bigjoiner_enable_fops_write
->> +};
->> +
->>   /*
->>    * Returns the Current CRTC's bpc.
->>    * Example usage: cat /sys/kernel/debug/dri/0/crtc-0/i915_current_bpc
->> @@ -1513,6 +1573,12 @@ void intel_connector_debugfs_add(struct intel_connector *intel_connector)
->>   				    connector, &i915_dsc_output_format_fops);
->>   	}
->>   
->> +	if (DISPLAY_VER(dev_priv) >= 11 &&
->> +	    intel_connector->base.connector_type == DRM_MODE_CONNECTOR_DisplayPort) {
-> 
-> eDP missing
-> 
->> +		debugfs_create_file("i915_bigjoiner_force_enable", 0644, root,
->> +				    &intel_connector->base, &i915_bigjoiner_enable_fops);
->> +	}
->> +
->>   	if (connector->connector_type == DRM_MODE_CONNECTOR_DSI ||
->>   	    connector->connector_type == DRM_MODE_CONNECTOR_eDP ||
->>   	    connector->connector_type == DRM_MODE_CONNECTOR_DisplayPort ||
->> diff --git a/drivers/gpu/drm/i915/display/intel_display_types.h b/drivers/gpu/drm/i915/display/intel_display_types.h
->> index 8d8b2f8d37a9..e0de6eeaf59e 100644
->> --- a/drivers/gpu/drm/i915/display/intel_display_types.h
->> +++ b/drivers/gpu/drm/i915/display/intel_display_types.h
->> @@ -1753,6 +1753,8 @@ struct intel_dp {
->>   	bool is_mst;
->>   	int active_mst_links;
->>   
->> +	bool force_bigjoiner_enable;
->> +
->>   	/* connector directly attached - won't be use for modeset in mst world */
->>   	struct intel_connector *attached_connector;
->>   
->> diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
->> index 4f6835a7578e..6a9148232a9c 100644
->> --- a/drivers/gpu/drm/i915/display/intel_dp.c
->> +++ b/drivers/gpu/drm/i915/display/intel_dp.c
->> @@ -1153,7 +1153,11 @@ bool intel_dp_need_bigjoiner(struct intel_dp *intel_dp,
->>   	if (!intel_dp_can_bigjoiner(intel_dp))
->>   		return false;
->>   
->> -	return clock > i915->max_dotclk_freq || hdisplay > 5120;
->> +	if (intel_dp->force_bigjoiner_enable)
->> +		drm_dbg_kms(&i915->drm, "Forcing bigjoiner mode\n");
-> 
-> That's going to cause excessive dmesg spam.
+Series: QGV/SAGV related fixes (rev4)
+URL   : https://patchwork.freedesktop.org/series/126962/
+State : warning
 
-Then how from dmesg we will get to know, big joiner was forced? 
-Shouldn't we have atleast one debug print to know this?
+== Summary ==
 
-> 
->> +
->> +	return clock > i915->max_dotclk_freq || hdisplay > 5120 ||
->> +	       intel_dp->force_bigjoiner_enable;
->>   }
->>   
->>   static enum drm_mode_status
->> -- 
->> 2.37.3
-> 
+Error: dim sparse failed
+Sparse version: v0.6.2
+Fast mode used, each commit won't be checked separately.
++./arch/x86/include/asm/bitops.h:116:1: warning: unreplaced symbol 'return'
++./arch/x86/include/asm/bitops.h:147:1: warning: unreplaced symbol 'return'
++./arch/x86/include/asm/bitops.h:149:9: warning: unreplaced symbol 'oldbit'
++./arch/x86/include/asm/bitops.h:153:26: warning: unreplaced symbol 'oldbit'
++./arch/x86/include/asm/bitops.h:155:16: warning: unreplaced symbol 'oldbit'
++./arch/x86/include/asm/bitops.h:155:9: warning: unreplaced symbol 'return'
++./arch/x86/include/asm/bitops.h:173:1: warning: unreplaced symbol 'return'
++./arch/x86/include/asm/bitops.h:175:9: warning: unreplaced symbol 'oldbit'
++./arch/x86/include/asm/bitops.h:179:35: warning: unreplaced symbol 'oldbit'
++./arch/x86/include/asm/bitops.h:181:16: warning: unreplaced symbol 'oldbit'
++./arch/x86/include/asm/bitops.h:181:9: warning: unreplaced symbol 'return'
++./arch/x86/include/asm/bitops.h:185:1: warning: unreplaced symbol 'return'
++./arch/x86/include/asm/bitops.h:187:9: warning: unreplaced symbol 'oldbit'
++./arch/x86/include/asm/bitops.h:191:35: warning: unreplaced symbol 'oldbit'
++./arch/x86/include/asm/bitops.h:194:16: warning: unreplaced symbol 'oldbit'
++./arch/x86/include/asm/bitops.h:194:9: warning: unreplaced symbol 'return'
++./arch/x86/include/asm/bitops.h:236:1: warning: unreplaced symbol 'return'
++./arch/x86/include/asm/bitops.h:238:9: warning: unreplaced symbol 'return'
++./arch/x86/include/asm/bitops.h:66:1: warning: unreplaced symbol 'return'
++./arch/x86/include/asm/bitops.h:92:1: warning: unreplaced symbol 'return'
++./drivers/gpu/drm/i915/intel_uncore.h:346:1: warning: trying to copy expression type 31
++./include/asm-generic/bitops/generic-non-atomic.h:100:17: warning: unreplaced symbol 'old'
++./include/asm-generic/bitops/generic-non-atomic.h:100:23: warning: unreplaced symbol 'mask'
++./include/asm-generic/bitops/generic-non-atomic.h:100:9: warning: unreplaced symbol 'return'
++./include/asm-generic/bitops/generic-non-atomic.h:105:1: warning: unreplaced symbol 'return'
++./include/asm-generic/bitops/generic-non-atomic.h:107:9: warning: unreplaced symbol 'mask'
++./include/asm-generic/bitops/generic-non-atomic.h:108:9: warning: unreplaced symbol 'p'
++./include/asm-generic/bitops/generic-non-atomic.h:109:9: warning: unreplaced symbol 'old'
++./include/asm-generic/bitops/generic-non-atomic.h:111:10: warning: unreplaced symbol 'p'
++./include/asm-generic/bitops/generic-non-atomic.h:111:14: warning: unreplaced symbol 'old'
++./include/asm-generic/bitops/generic-non-atomic.h:111:20: warning: unreplaced symbol 'mask'
++./include/asm-generic/bitops/generic-non-atomic.h:112:17: warning: unreplaced symbol 'old'
++./include/asm-generic/bitops/generic-non-atomic.h:112:23: warning: unreplaced symbol 'mask'
++./include/asm-generic/bitops/generic-non-atomic.h:112:9: warning: unreplaced symbol 'return'
++./include/asm-generic/bitops/generic-non-atomic.h:121:1: warning: unreplaced symbol 'return'
++./include/asm-generic/bitops/generic-non-atomic.h:128:9: warning: unreplaced symbol 'return'
++./include/asm-generic/bitops/generic-non-atomic.h:166:1: warning: unreplaced symbol 'return'
++./include/asm-generic/bitops/generic-non-atomic.h:168:9: warning: unreplaced symbol 'p'
++./include/asm-generic/bitops/generic-non-atomic.h:169:9: warning: unreplaced symbol 'mask'
++./include/asm-generic/bitops/generic-non-atomic.h:170:9: warning: unreplaced symbol 'val'
++./include/asm-generic/bitops/generic-non-atomic.h:172:19: warning: unreplaced symbol 'val'
++./include/asm-generic/bitops/generic-non-atomic.h:172:25: warning: unreplaced symbol 'mask'
++./include/asm-generic/bitops/generic-non-atomic.h:172:9: warning: unreplaced symbol 'return'
++./include/asm-generic/bitops/generic-non-atomic.h:28:1: warning: unreplaced symbol 'return'
++./include/asm-generic/bitops/generic-non-atomic.h:30:9: warning: unreplaced symbol 'mask'
++./include/asm-generic/bitops/generic-non-atomic.h:31:9: warning: unreplaced symbol 'p'
++./include/asm-generic/bitops/generic-non-atomic.h:33:10: warning: unreplaced symbol 'p'
++./include/asm-generic/bitops/generic-non-atomic.h:33:16: warning: unreplaced symbol 'mask'
++./include/asm-generic/bitops/generic-non-atomic.h:37:1: warning: unreplaced symbol 'return'
++./include/asm-generic/bitops/generic-non-atomic.h:39:9: warning: unreplaced symbol 'mask'
++./include/asm-generic/bitops/generic-non-atomic.h:40:9: warning: unreplaced symbol 'p'
++./include/asm-generic/bitops/generic-non-atomic.h:42:10: warning: unreplaced symbol 'p'
++./include/asm-generic/bitops/generic-non-atomic.h:42:16: warning: unreplaced symbol 'mask'
++./include/asm-generic/bitops/generic-non-atomic.h:55:1: warning: unreplaced symbol 'return'
++./include/asm-generic/bitops/generic-non-atomic.h:57:9: warning: unreplaced symbol 'mask'
++./include/asm-generic/bitops/generic-non-atomic.h:58:9: warning: unreplaced symbol 'p'
++./include/asm-generic/bitops/generic-non-atomic.h:60:10: warning: unreplaced symbol 'p'
++./include/asm-generic/bitops/generic-non-atomic.h:60:15: warning: unreplaced symbol 'mask'
++./include/asm-generic/bitops/generic-non-atomic.h:73:1: warning: unreplaced symbol 'return'
++./include/asm-generic/bitops/generic-non-atomic.h:75:9: warning: unreplaced symbol 'mask'
++./include/asm-generic/bitops/generic-non-atomic.h:76:9: warning: unreplaced symbol 'p'
++./include/asm-generic/bitops/generic-non-atomic.h:77:9: warning: unreplaced symbol 'old'
++./include/asm-generic/bitops/generic-non-atomic.h:79:10: warning: unreplaced symbol 'p'
++./include/asm-generic/bitops/generic-non-atomic.h:79:14: warning: unreplaced symbol 'old'
++./include/asm-generic/bitops/generic-non-atomic.h:79:20: warning: unreplaced symbol 'mask'
++./include/asm-generic/bitops/generic-non-atomic.h:80:17: warning: unreplaced symbol 'old'
++./include/asm-generic/bitops/generic-non-atomic.h:80:23: warning: unreplaced symbol 'mask'
++./include/asm-generic/bitops/generic-non-atomic.h:80:9: warning: unreplaced symbol 'return'
++./include/asm-generic/bitops/generic-non-atomic.h:93:1: warning: unreplaced symbol 'return'
++./include/asm-generic/bitops/generic-non-atomic.h:95:9: warning: unreplaced symbol 'mask'
++./include/asm-generic/bitops/generic-non-atomic.h:96:9: warning: unreplaced symbol 'p'
++./include/asm-generic/bitops/generic-non-atomic.h:97:9: warning: unreplaced symbol 'old'
++./include/asm-generic/bitops/generic-non-atomic.h:99:10: warning: unreplaced symbol 'p'
++./include/asm-generic/bitops/generic-non-atomic.h:99:14: warning: unreplaced symbol 'old'
++./include/asm-generic/bitops/generic-non-atomic.h:99:21: warning: unreplaced symbol 'mask'
++./include/asm-generic/bitops/instrumented-non-atomic.h:100:9: warning: unreplaced symbol 'return'
++./include/asm-generic/bitops/instrumented-non-atomic.h:112:1: warning: unreplaced symbol 'return'
++./include/asm-generic/bitops/instrumented-non-atomic.h:115:9: warning: unreplaced symbol 'return'
++./include/asm-generic/bitops/instrumented-non-atomic.h:127:1: warning: unreplaced symbol 'return'
++./include/asm-generic/bitops/instrumented-non-atomic.h:130:9: warning: unreplaced symbol 'return'
++./include/asm-generic/bitops/instrumented-non-atomic.h:139:1: warning: unreplaced symbol 'return'
++./include/asm-generic/bitops/instrumented-non-atomic.h:142:9: warning: unreplaced symbol 'return'
++./include/asm-generic/bitops/instrumented-non-atomic.h:26:1: warning: unreplaced symbol 'return'
++./include/asm-generic/bitops/instrumented-non-atomic.h:42:1: warning: unreplaced symbol 'return'
++./include/asm-generic/bitops/instrumented-non-atomic.h:58:1: warning: unreplaced symbol 'return'
++./include/asm-generic/bitops/instrumented-non-atomic.h:97:1: warning: unreplaced symbol 'return'
+
+
