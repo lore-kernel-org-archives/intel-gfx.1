@@ -4,59 +4,59 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4878DC4707B
-	for <intel-gfx@archiver.kernel.org>; Thu, 18 Jan 2024 15:29:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 230B2C47DD8
+	for <intel-gfx@archiver.kernel.org>; Thu, 18 Jan 2024 15:29:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C101210E86F;
+	by gabe.freedesktop.org (Postfix) with ESMTP id C0D1D10E865;
 	Thu, 18 Jan 2024 15:29:07 +0000 (UTC)
-Received: from mail-lf1-f46.google.com (mail-lf1-f46.google.com
- [209.85.167.46])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DA17E10E0A8;
- Thu, 18 Jan 2024 15:29:03 +0000 (UTC)
-Received: by mail-lf1-f46.google.com with SMTP id
- 2adb3069b0e04-50ed808db11so10214295e87.2; 
- Thu, 18 Jan 2024 07:29:03 -0800 (PST)
+Received: from mail-lf1-f45.google.com (mail-lf1-f45.google.com
+ [209.85.167.45])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1494B10E840;
+ Thu, 18 Jan 2024 15:29:05 +0000 (UTC)
+Received: by mail-lf1-f45.google.com with SMTP id
+ 2adb3069b0e04-50e6ee8e911so15040268e87.1; 
+ Thu, 18 Jan 2024 07:29:04 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1705591682; x=1706196482; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1705591683; x=1706196483; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=kbg/2s6dARrDFqeQP36XPl3vbixhpkjdsLGIY3RBk+E=;
- b=R7d2puDYn+hNaVLdPaghE73E598zi/0cCPD4NoLC9qaj9ZPp1fedCX+q7gouhypiFr
- W73TReElmwIOdoeDXFfaWWq20kx1JWro8VGvQ0KzMeq0YTEJQPqJs9DmpmVRRI3f3HDs
- 5thejNwIhBN5XPevcsLYpR+fXs2rMwZ0tmjqwjGN9v5PRzmbJnfUG9+vKSc21GYXVJD1
- zMBoB1KCUa+jP3Tpsgl0ViVuYIeppuCzxBiyP+Ka+ZZ9efCP/kv7bEgb9TYqyEuciBfQ
- sUSv59MVb+HVpCUwhHzONfbOwfLaKmjCXDiavh6g55dnRrgRNdRe1pbghlrFw58syzyS
- zBWg==
+ bh=rdxYJzDq4Da8pCPlFjpEuhHhusGcJ00bBpyFmY4XX24=;
+ b=KplT7UNutsivACG8BDtr1nJqq+rS95bixYW+hyfQzDU+gdkXdoyj0rYDVLfoLz2s7q
+ u5cA12BuD8N/Qrlc5AxtepZ/rBjYIOhYISQzmUYApelBCP0Dp3YCYEhZHzyprAR+GIiy
+ D6jfmGOlBF8z2HtY0wMYh7+8MkXp820PXeMZI+1BN3AHqHErsrsdZMTulvAkPKAy4PoM
+ bM25cVi6MpoEZ45fmsb5sQAjSZmTG0yBUBKcQYAlib7G/0Ozx4lN/cYlIO9jtbfysi4x
+ pFWCOdfL3QEPlht8ycq/l4t5JThzXWGynu8t5u+E6Od4mJVZ06nJyV5y6jZ06+2878jg
+ oWwg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1705591682; x=1706196482;
+ d=1e100.net; s=20230601; t=1705591683; x=1706196483;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=kbg/2s6dARrDFqeQP36XPl3vbixhpkjdsLGIY3RBk+E=;
- b=nks8q5Cn4LLrLdWmHR26Cm2o1bg2NvSDvr8wriF/q+ujK+SUptHpSoS1mhUj6QBViP
- Mn3MFI9l+vvjA7RQ+1UW4Q4yzU2FAo029pLSnMnSx8PoAhTv9DDwicRyG33khd3qBvy+
- 4HRVQPtI6wJlPHAwjEJqsUjzjOhtz5ohXlE+nYbXxaHy+7iCpsAdd8UtW1WcryNS6CI8
- QK98tvKRTHdsWU3onX4F78tUiIQQ92K+AgZ7FOfL07c1xXP0G/WwbrScNq2A72EUKQ2l
- pawBnyF+cIvTUDomHtEXHkV5VCnSRfRBBSrOdU/91VaHuTdwUkAldZH2PKS0wKWKGisA
- C2XQ==
-X-Gm-Message-State: AOJu0YxcbL6A2990L+Di8k2RdeUge+wlxYPZqiZ0Nva7FtQ19rTr14Iq
- /rh8ARof8/nqnCUasxoMTxO0+xDIQ4tjAkwfvHZf9uX+t/N5m3ipU9I4zKh0uuIVow==
-X-Google-Smtp-Source: AGHT+IHXqVmztgiK36b18k/0MwemHZyc1nWb5V6xAfovJkgXYeAjZsJ3tnHa7Vi0cGeH+XwL+O42og==
-X-Received: by 2002:a19:5f45:0:b0:50e:b1b1:430c with SMTP id
- a5-20020a195f45000000b0050eb1b1430cmr614436lfj.116.1705591681419; 
- Thu, 18 Jan 2024 07:28:01 -0800 (PST)
+ bh=rdxYJzDq4Da8pCPlFjpEuhHhusGcJ00bBpyFmY4XX24=;
+ b=FZX/uxhSjB94TmcfYhYAmAj9wL5nbrZ9+OXAaGVCWAz34jTy8tgH+/GUGr3zfGBruA
+ jXRgqOC6TzN4/cpSBhv+xaLM4taWoh+GcZNPkrQaWbsuAcns4ErF6BWq7tn2n2ownW/n
+ 2Fz4yfjlePK0aRoADOj1J79fje1TCvI8zumesuFKRttnV2Ohypwm6mRbh/Odu6j7gVZI
+ eCDoZa2/OkyvyRU08toXbqlCwQLn+0xwOnSpMlKev/OrfsCGAwf081S8h01asp0OndPW
+ kIH0NTj4y0fgDgunbYrFqS5CsFo278WQEVlUkmfcAQwoGEM1yB5C+YdRSHFQ5PP/f2dr
+ uq6g==
+X-Gm-Message-State: AOJu0YzUUUByBC3MOZ4XeUge7xXzB/LuoGawXvezNyOYsQbQ2bP/lKAn
+ ttuWhKKIudgbRTImPf3qZrcy5zNUwBL7qRue53Ot7+oGaNvQYbxTxgWUt2TuyEHtbQ==
+X-Google-Smtp-Source: AGHT+IG0IME4Vr9aJmRnfF4l2ACmhaMWB/vqxJylc6Adfb+4htP3DHli+h5K31iZET8f6C5wDX9tQA==
+X-Received: by 2002:a19:f705:0:b0:50e:e1d4:44fe with SMTP id
+ z5-20020a19f705000000b0050ee1d444femr555695lfe.1.1705591682895; 
+ Thu, 18 Jan 2024 07:28:02 -0800 (PST)
 Received: from jheikkil-mobl1.. ([2001:998:22:0:96ab:4869:ae6:2c8a])
  by smtp.gmail.com with ESMTPSA id
- z1-20020ac25de1000000b0050eea9541casm672737lfq.44.2024.01.18.07.28.00
+ z1-20020ac25de1000000b0050eea9541casm672737lfq.44.2024.01.18.07.28.02
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 18 Jan 2024 07:28:01 -0800 (PST)
+ Thu, 18 Jan 2024 07:28:02 -0800 (PST)
 From: Juha-Pekka Heikkila <juhapekka.heikkila@gmail.com>
 To: intel-xe@lists.freedesktop.org,
 	intel-gfx@lists.freedesktop.org
-Subject: [PATCH 1/4] drm/xe: add bind time pat index to xe_bo structure
-Date: Thu, 18 Jan 2024 17:27:42 +0200
-Message-Id: <20240118152745.162960-2-juhapekka.heikkila@gmail.com>
+Subject: [PATCH 3/4] drm/xe/xe2: Limit ccs framebuffers to tile4 only
+Date: Thu, 18 Jan 2024 17:27:44 +0200
+Message-Id: <20240118152745.162960-4-juhapekka.heikkila@gmail.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20240118152745.162960-1-juhapekka.heikkila@gmail.com>
 References: <20240118152745.162960-1-juhapekka.heikkila@gmail.com>
@@ -77,30 +77,55 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Add BO bind time pat index member to xe_bo structure
+Display engine support ccs only with tile4, prevent other modifiers
+from using compressed memory.
 
 Signed-off-by: Juha-Pekka Heikkila <juhapekka.heikkila@gmail.com>
 ---
- drivers/gpu/drm/xe/xe_bo_types.h | 6 ++++++
- 1 file changed, 6 insertions(+)
+ drivers/gpu/drm/xe/display/xe_fb_pin.c | 17 +++++++++++++++++
+ 1 file changed, 17 insertions(+)
 
-diff --git a/drivers/gpu/drm/xe/xe_bo_types.h b/drivers/gpu/drm/xe/xe_bo_types.h
-index 14ef13b7b421..1825bf013dd0 100644
---- a/drivers/gpu/drm/xe/xe_bo_types.h
-+++ b/drivers/gpu/drm/xe/xe_bo_types.h
-@@ -91,6 +91,12 @@ struct xe_bo {
+diff --git a/drivers/gpu/drm/xe/display/xe_fb_pin.c b/drivers/gpu/drm/xe/display/xe_fb_pin.c
+index 722c84a56607..579badb8c69e 100644
+--- a/drivers/gpu/drm/xe/display/xe_fb_pin.c
++++ b/drivers/gpu/drm/xe/display/xe_fb_pin.c
+@@ -13,6 +13,16 @@
  
- 	/** @vram_userfault_link: Link into @mem_access.vram_userfault.list */
- 		struct list_head vram_userfault_link;
-+
-+	/**
-+	 * @pat_index: The pat index requested when bind this BO
-+	 */
-+	u16 pat_index;
-+
- };
+ #include <drm/ttm/ttm_bo.h>
  
- #define intel_bo_to_drm_bo(bo) (&(bo)->ttm.base)
++static bool is_compressed(const struct drm_framebuffer *fb)
++{
++	struct xe_bo *bo = intel_fb_obj(fb);
++	struct xe_device *xe = to_xe_device(to_intel_framebuffer(fb)->base.dev);
++	struct xe_ggtt *ggtt = xe_device_get_root_tile(xe)->mem.ggtt;
++	u16 pat_index_compressed = tile_to_xe(ggtt->tile)->pat.idx[XE_CACHE_WT];
++
++	return (bo->pat_index == pat_index_compressed);
++}
++
+ static void
+ write_dpt_rotated(struct xe_bo *bo, struct iosys_map *map, u32 *dpt_ofs, u32 bo_ofs,
+ 		  u32 width, u32 height, u32 src_stride, u32 dst_stride)
+@@ -349,12 +359,19 @@ void intel_unpin_fb_vma(struct i915_vma *vma, unsigned long flags)
+ int intel_plane_pin_fb(struct intel_plane_state *plane_state)
+ {
+ 	struct drm_framebuffer *fb = plane_state->hw.fb;
++	struct xe_device *xe = to_xe_device(to_intel_framebuffer(fb)->base.dev);
+ 	struct xe_bo *bo = intel_fb_obj(fb);
+ 	struct i915_vma *vma;
+ 
+ 	/* We reject creating !SCANOUT fb's, so this is weird.. */
+ 	drm_WARN_ON(bo->ttm.base.dev, !(bo->flags & XE_BO_SCANOUT_BIT));
+ 
++	if (GRAPHICS_VER(xe) >= 20 && fb->modifier != I915_FORMAT_MOD_4_TILED &&
++	    is_compressed(fb)) {
++		drm_warn(&xe->drm, "Cannot create ccs framebuffer with other than tile4 mofifier\n");
++		return -EINVAL;
++	}
++
+ 	vma = __xe_pin_fb_vma(to_intel_framebuffer(fb), &plane_state->view.gtt);
+ 	if (IS_ERR(vma))
+ 		return PTR_ERR(vma);
 -- 
 2.25.1
 
