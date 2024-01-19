@@ -4,44 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9DD12C4725D
-	for <intel-gfx@archiver.kernel.org>; Fri, 19 Jan 2024 10:11:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1B24EC4725D
+	for <intel-gfx@archiver.kernel.org>; Fri, 19 Jan 2024 10:11:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F31F410E9C1;
-	Fri, 19 Jan 2024 10:11:09 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4415410E9DE;
+	Fri, 19 Jan 2024 10:11:13 +0000 (UTC)
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C1E8010E9B0
- for <intel-gfx@lists.freedesktop.org>; Fri, 19 Jan 2024 10:11:07 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 780F110E9D9
+ for <intel-gfx@lists.freedesktop.org>; Fri, 19 Jan 2024 10:11:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1705659067; x=1737195067;
+ t=1705659071; x=1737195071;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=OnVaPaF3ScuD0UMPV1NksUjlX1bRZKTJpfl4KIJ9ohw=;
- b=DyIpnRYJzJ+AbN4I5+AiLIY5PB3CJjjGR1ypvCFWdb2cSOT5cXg5yhZg
- s1Whg3sIWBk7aUm6ubLJH27BGiuYStUjqK6D2t5wvrsQpMRLhsB16/6t5
- 8cnTGaQ9maCshYpSC4z+tT1drxuAGb2bdc8RodbtRJuksEu1cQ8ZIkjLk
- TP3RBEZhNIDAT4SZe5I2ULDt4iDVxPBZs+csTrpfp6JGuU5liGzPH8VNy
- k7jl8uHeEnDVXs7N++dVfTWe3878F35xCysnI5oFOq5uKLU8IAGiPrYPk
- 6tbtukgV0npOhFHmauSGLvaT3x4FXlCBQACF5jy+Pdr4UejI7N34QMZpp g==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10956"; a="14070788"
-X-IronPort-AV: E=Sophos;i="6.05,204,1701158400"; d="scan'208";a="14070788"
+ bh=bi00YTP/YDnin5cwFEWEK52xuDg4Q8dVyRBr2Z8awG8=;
+ b=LFOV/AKwMDvyZoz6ikCRMZOFj2Z+hYfXv6shv+yczKqR4TK7vXQA6EcO
+ o2DOw/4AvZIDxIpkTtTWJEvQxo1W/WZM8daksoRu5bP7X7HNGCEzmSjbc
+ lb26kuGBV+NK7YWPHfNUJ0Xqt5UBmXStgXcuB8QpRT4yUsqo95+aYEiIZ
+ OMbbgIvj+yF8S1ctUMaFykx7U9fnFXwhWsr+bgvT9GI0OICbdYN44phbQ
+ EY/7126Pgrl9IDDSK34ZQIJfGpdL4YPnOBCB7/WUXhksY/17MRTrOCXfR
+ EMx8pwYhMmcu40dndgVINMHKlQTT0QAqP93eawmagsk6OlSDDsorcS1Ul A==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10956"; a="14070820"
+X-IronPort-AV: E=Sophos;i="6.05,204,1701158400"; d="scan'208";a="14070820"
 Received: from orviesa005.jf.intel.com ([10.64.159.145])
  by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 19 Jan 2024 02:11:07 -0800
+ 19 Jan 2024 02:11:11 -0800
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.05,204,1701158400"; 
-   d="scan'208";a="563261"
+   d="scan'208";a="563313"
 Received: from randiapp-mobl.ger.corp.intel.com (HELO
  jhogande-mobl1.intel.com) ([10.249.39.12])
  by orviesa005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 19 Jan 2024 02:11:06 -0800
+ 19 Jan 2024 02:11:10 -0800
 From: =?UTF-8?q?Jouni=20H=C3=B6gander?= <jouni.hogander@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Subject: [PATCH v3 11/21] drm/i915/psr: Modify VSC SDP calculation to support
- panel replay + su
-Date: Fri, 19 Jan 2024 12:10:14 +0200
-Message-Id: <20240119101024.1060812-12-jouni.hogander@intel.com>
+Subject: [PATCH v3 13/21] drm/panelreplay: dpcd register definition for
+ panelreplay SU
+Date: Fri, 19 Jan 2024 12:10:16 +0200
+Message-Id: <20240119101024.1060812-14-jouni.hogander@intel.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20240119101024.1060812-1-jouni.hogander@intel.com>
 References: <20240119101024.1060812-1-jouni.hogander@intel.com>
@@ -64,48 +64,32 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Current VSC SDP calculation doesn't support panel replay + su. Change it to
-support this combination as well.
+Add definitions for panel replay selective update
+
+v2: Remove unnecessary Cc from commit message
 
 Signed-off-by: Jouni Högander <jouni.hogander@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_dp.c | 16 ++++++++--------
- 1 file changed, 8 insertions(+), 8 deletions(-)
+ include/drm/display/drm_dp.h | 6 ++++++
+ 1 file changed, 6 insertions(+)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
-index 4e01182662ff..ae368d9999b4 100644
---- a/drivers/gpu/drm/i915/display/intel_dp.c
-+++ b/drivers/gpu/drm/i915/display/intel_dp.c
-@@ -2633,14 +2633,6 @@ static void intel_dp_compute_vsc_sdp(struct intel_dp *intel_dp,
- 	if (intel_dp_needs_vsc_sdp(crtc_state, conn_state)) {
- 		intel_dp_compute_vsc_colorimetry(crtc_state, conn_state,
- 						 vsc);
--	} else if (crtc_state->has_psr && crtc_state->has_sel_update) {
--		/*
--		 * [PSR2 without colorimetry]
--		 * Prepare VSC Header for SU as per eDP 1.4 spec, Table 6-11
--		 * 3D stereo + PSR/PSR2 + Y-coordinate.
--		 */
--		vsc->revision = 0x4;
--		vsc->length = 0xe;
- 	} else if (crtc_state->has_panel_replay) {
- 		/*
- 		 * [Panel Replay without colorimetry info]
-@@ -2649,6 +2641,14 @@ static void intel_dp_compute_vsc_sdp(struct intel_dp *intel_dp,
- 		 */
- 		vsc->revision = 0x6;
- 		vsc->length = 0x10;
-+	} else if (crtc_state->has_sel_update) {
-+		/*
-+		 * [PSR2 without colorimetry]
-+		 * Prepare VSC Header for SU as per eDP 1.4 spec, Table 6-11
-+		 * 3D stereo + PSR/PSR2 + Y-coordinate.
-+		 */
-+		vsc->revision = 0x4;
-+		vsc->length = 0xe;
- 	} else {
- 		/*
- 		 * [PSR1]
+diff --git a/include/drm/display/drm_dp.h b/include/drm/display/drm_dp.h
+index 281afff6ee4e..4ebf79948c7f 100644
+--- a/include/drm/display/drm_dp.h
++++ b/include/drm/display/drm_dp.h
+@@ -548,6 +548,12 @@
+ # define DP_PANEL_REPLAY_SUPPORT            (1 << 0)
+ # define DP_PANEL_REPLAY_SU_SUPPORT         (1 << 1)
+ 
++#define DP_PANEL_PANEL_REPLAY_CAPABILITY		0xb1
++# define DP_PANEL_PANEL_REPLAY_SU_GRANULARITY_REQUIRED	(1 << 5)
++
++#define DP_PANEL_PANEL_REPLAY_X_GRANULARITY		0xb2
++#define DP_PANEL_PANEL_REPLAY_Y_GRANULARITY		0xb4
++
+ /* Link Configuration */
+ #define	DP_LINK_BW_SET		            0x100
+ # define DP_LINK_RATE_TABLE		    0x00    /* eDP 1.4 */
 -- 
 2.34.1
 
