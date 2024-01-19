@@ -4,44 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 34D7CC47DAF
-	for <intel-gfx@archiver.kernel.org>; Fri, 19 Jan 2024 10:11:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9340DC4725D
+	for <intel-gfx@archiver.kernel.org>; Fri, 19 Jan 2024 10:11:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A887B10E9E4;
-	Fri, 19 Jan 2024 10:11:18 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C035510E9E6;
+	Fri, 19 Jan 2024 10:11:20 +0000 (UTC)
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 32AA710E9DD
- for <intel-gfx@lists.freedesktop.org>; Fri, 19 Jan 2024 10:11:13 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A0A3C10E9E0
+ for <intel-gfx@lists.freedesktop.org>; Fri, 19 Jan 2024 10:11:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1705659073; x=1737195073;
+ t=1705659076; x=1737195076;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=RNNEcNHHA/ay8POWuY9lnCduag0o2YhZxvORsS8V75M=;
- b=Ih8FQxEIfEk8FNwsdmNMqF6Rm3nKZr28fPMwc6CvWhT+ajzBN5PuqqRq
- JxgZtRQTSJC16qpDmXoDpyzIAHN5YLy/YmaGNvvgfqWcUuXDuyeuVYd/C
- v5TDUcHt/kwwewj+gzqnfrJKVdB1iBUTMdrHrU1ZHhPPYAWlsuu4Yb31p
- sF7ZSoyclo5JFsr5wMNcMXb6ffTFiS/PDgYGfQZ3Gaxgovo3gadkSMyiw
- hBgW2jGAdKK2OsrZ8//gcfp/CbYrWKK9u3Fb+WxI4s/BT6lC7hOdmtZxY
- A3YfFvIyDslzf8ZudU7h82xn63J5IByy2Sqmhbj7V8iRzkNg9Dj/O4twe Q==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10956"; a="14070837"
-X-IronPort-AV: E=Sophos;i="6.05,204,1701158400"; d="scan'208";a="14070837"
+ bh=nQczSd/oEziMK8oupnZyMlkKDwVnKEGqRPuPGq+uqkQ=;
+ b=mtE+jthAjpmN5c+18SMmoPbwDl51Be83RB8WF5qcEhYlo2lR+P6q1rlD
+ XdxJARMrJADsUKiDQt0kVBwHGeO6zWdUpC5Wn8+4dyZkNhzYWeuiwNvIq
+ JNLuH1tjmW2eWnPzG8iIJluALTycHsX9QObcgA1Vsd+XVqD5vF7pMhQee
+ XSVQW3po55MiU6IQIIC5a6iYbLokh0WOyc3wJ/E9z1O/cFuHecT/7mPoV
+ MbQTkeGTLyuP385iGQLXtnUm7FhQArkKRKlOWZSQ8zxdDdsZjloP3+Zw1
+ YcJ//iscIdp6CKLt0Bvk2R72j6r/ElN1xJpsUW/ZJr4n2xVeuvE9G9Zmp w==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10956"; a="14070864"
+X-IronPort-AV: E=Sophos;i="6.05,204,1701158400"; d="scan'208";a="14070864"
 Received: from orviesa005.jf.intel.com ([10.64.159.145])
  by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 19 Jan 2024 02:11:13 -0800
+ 19 Jan 2024 02:11:16 -0800
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.05,204,1701158400"; 
-   d="scan'208";a="563318"
+   d="scan'208";a="563368"
 Received: from randiapp-mobl.ger.corp.intel.com (HELO
  jhogande-mobl1.intel.com) ([10.249.39.12])
  by orviesa005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 19 Jan 2024 02:11:11 -0800
+ 19 Jan 2024 02:11:15 -0800
 From: =?UTF-8?q?Jouni=20H=C3=B6gander?= <jouni.hogander@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Subject: [PATCH v3 14/21] drm/i915/psr: Detect panel replay selective update
- support
-Date: Fri, 19 Jan 2024 12:10:17 +0200
-Message-Id: <20240119101024.1060812-15-jouni.hogander@intel.com>
+Subject: [PATCH v3 16/21] drm/i915/psr: Ensure early transport is not enabled
+ for panel replay
+Date: Fri, 19 Jan 2024 12:10:19 +0200
+Message-Id: <20240119101024.1060812-17-jouni.hogander@intel.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20240119101024.1060812-1-jouni.hogander@intel.com>
 References: <20240119101024.1060812-1-jouni.hogander@intel.com>
@@ -64,52 +64,96 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Add new boolean to store panel replay selective update support of sink into
-intel_psr struct.  Detect panel replay selective update support and store
-it into this new boolean.
-
-v2: Merge adding new boolean into this patch
+Early transport is not supported by DP2.0. Ensure early transport is kept
+disabled for panel replay selective update.
 
 Signed-off-by: Jouni Högander <jouni.hogander@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_display_types.h |  1 +
- drivers/gpu/drm/i915/display/intel_psr.c           | 10 ++++++++--
- 2 files changed, 9 insertions(+), 2 deletions(-)
+ .../gpu/drm/i915/display/intel_display_types.h    |  1 +
+ drivers/gpu/drm/i915/display/intel_psr.c          | 15 +++++++++++----
+ 2 files changed, 12 insertions(+), 4 deletions(-)
 
 diff --git a/drivers/gpu/drm/i915/display/intel_display_types.h b/drivers/gpu/drm/i915/display/intel_display_types.h
-index 6cef3dabcf45..1c870ff8b27e 100644
+index 1c870ff8b27e..82767751c674 100644
 --- a/drivers/gpu/drm/i915/display/intel_display_types.h
 +++ b/drivers/gpu/drm/i915/display/intel_display_types.h
-@@ -1720,6 +1720,7 @@ struct intel_psr {
- 	u16 su_y_granularity;
- 	bool source_panel_replay_support;
- 	bool sink_panel_replay_support;
-+	bool sink_panel_replay_su_support;
- 	bool panel_replay_enabled;
- 	u32 dc3co_exitline;
- 	u32 dc3co_exit_delay;
+@@ -1706,6 +1706,7 @@ struct intel_psr {
+ 	bool sink_psr2_support;
+ 	bool link_standby;
+ 	bool sel_update_enabled;
++	bool sel_update_et_enabled;
+ 	bool psr2_sel_fetch_enabled;
+ 	bool psr2_sel_fetch_cff_enabled;
+ 	bool req_psr2_sdp_prior_scanline;
 diff --git a/drivers/gpu/drm/i915/display/intel_psr.c b/drivers/gpu/drm/i915/display/intel_psr.c
-index 34bc0a4c1ba2..8bf6d0754c18 100644
+index b8367fb8b3d4..617ffd1854dc 100644
 --- a/drivers/gpu/drm/i915/display/intel_psr.c
 +++ b/drivers/gpu/drm/i915/display/intel_psr.c
-@@ -520,9 +520,15 @@ static void _panel_replay_init_dpcd(struct intel_dp *intel_dp)
- 		return;
- 	}
- 
--	drm_dbg_kms(&i915->drm,
--		    "Panel replay is supported by panel\n");
- 	intel_dp->psr.sink_panel_replay_support = true;
-+
-+	if (pr_dpcd & DP_PANEL_REPLAY_SU_SUPPORT)
-+		intel_dp->psr.sink_panel_replay_su_support = true;
-+
-+	drm_dbg_kms(&i915->drm,
-+		    "Panel replay %sis supported by panel\n",
-+		    intel_dp->psr.sink_panel_replay_su_support ?
-+		    "selective_update " : "");
+@@ -677,15 +677,20 @@ static void hsw_psr_setup_aux(struct intel_dp *intel_dp)
+ 		       aux_ctl);
  }
  
- static void _psr_init_dpcd(struct intel_dp *intel_dp)
+-static bool psr2_su_region_et_valid(struct intel_dp *intel_dp)
++static bool psr2_su_region_et_valid(struct intel_dp *intel_dp,
++				    const struct intel_crtc_state *crtc_state)
+ {
+ 	struct drm_i915_private *i915 = dp_to_i915(intel_dp);
+ 
++	if (crtc_state->has_panel_replay)
++		goto unsupported;
++
+ 	if (DISPLAY_VER(i915) >= 20 &&
+ 	    intel_dp->psr_dpcd[0] == DP_PSR2_WITH_Y_COORD_ET_SUPPORTED &&
+ 	    !(intel_dp->psr.debug & I915_PSR_DEBUG_SU_REGION_ET_DISABLE))
+ 		return true;
+ 
++unsupported:
+ 	return false;
+ }
+ 
+@@ -714,7 +719,7 @@ void intel_psr_enable_sink(struct intel_dp *intel_dp,
+ 					   DP_ALPM_LOCK_ERROR_IRQ_HPD_ENABLE);
+ 
+ 		dpcd_val |= DP_PSR_ENABLE_PSR2 | DP_PSR_IRQ_HPD_WITH_CRC_ERRORS;
+-		if (psr2_su_region_et_valid(intel_dp))
++		if (crtc_state->enable_psr2_su_region_et)
+ 			dpcd_val |= DP_PSR_ENABLE_SU_REGION_ET;
+ 	} else {
+ 		if (intel_dp->psr.link_standby)
+@@ -973,7 +978,7 @@ static void hsw_activate_psr2(struct intel_dp *intel_dp)
+ 		intel_de_write(dev_priv, PSR2_MAN_TRK_CTL(cpu_transcoder), 0);
+ 	}
+ 
+-	if (psr2_su_region_et_valid(intel_dp))
++	if (intel_dp->psr.sel_update_et_enabled)
+ 		val |= LNL_EDP_PSR2_SU_REGION_ET_ENABLE;
+ 
+ 	/*
+@@ -1138,7 +1143,7 @@ static bool intel_psr2_sel_fetch_config_valid(struct intel_dp *intel_dp,
+ 		return false;
+ 	}
+ 
+-	if (psr2_su_region_et_valid(intel_dp))
++	if (psr2_su_region_et_valid(intel_dp, crtc_state))
+ 		crtc_state->enable_psr2_su_region_et = true;
+ 
+ 	return crtc_state->enable_psr2_sel_fetch = true;
+@@ -1746,6 +1751,7 @@ static void intel_psr_enable_locked(struct intel_dp *intel_dp,
+ 	drm_WARN_ON(&dev_priv->drm, intel_dp->psr.enabled);
+ 
+ 	intel_dp->psr.sel_update_enabled = crtc_state->has_sel_update;
++	intel_dp->psr.sel_update_et_enabled = crtc_state->enable_psr2_su_region_et;
+ 	intel_dp->psr.panel_replay_enabled = crtc_state->has_panel_replay;
+ 	intel_dp->psr.busy_frontbuffer_bits = 0;
+ 	intel_dp->psr.pipe = to_intel_crtc(crtc_state->uapi.crtc)->pipe;
+@@ -1896,6 +1902,7 @@ static void intel_psr_disable_locked(struct intel_dp *intel_dp)
+ 	intel_dp->psr.enabled = false;
+ 	intel_dp->psr.panel_replay_enabled = false;
+ 	intel_dp->psr.sel_update_enabled = false;
++	intel_dp->psr.sel_update_et_enabled = false;
+ 	intel_dp->psr.psr2_sel_fetch_enabled = false;
+ 	intel_dp->psr.psr2_sel_fetch_cff_enabled = false;
+ }
 -- 
 2.34.1
 
