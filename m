@@ -4,23 +4,23 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1536FC46CD2
-	for <intel-gfx@archiver.kernel.org>; Mon, 22 Jan 2024 21:05:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 89546C47DDC
+	for <intel-gfx@archiver.kernel.org>; Mon, 22 Jan 2024 21:05:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 84DEA10EF7C;
-	Mon, 22 Jan 2024 21:05:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 03F2010EF8B;
+	Mon, 22 Jan 2024 21:05:48 +0000 (UTC)
 Received: from 5338d5abeb45 (emeril.freedesktop.org [131.252.210.167])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 65F3010EF7C;
- Mon, 22 Jan 2024 21:05:43 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 39C3010EF8B;
+ Mon, 22 Jan 2024 21:05:46 +0000 (UTC)
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
-Subject: =?utf-8?q?=E2=9C=97_Fi=2ECI=2ECHECKPATCH=3A_warning_for_drm/i915=3A_Fix_VMA_?=
- =?utf-8?q?UAF_on_destroy_against_deactivate_race?=
+Subject: =?utf-8?q?=E2=9C=97_Fi=2ECI=2ESPARSE=3A_warning_for_drm/i915=3A_Fix_VMA_UAF_?=
+ =?utf-8?q?on_destroy_against_deactivate_race?=
 From: Patchwork <patchwork@emeril.freedesktop.org>
 To: "Janusz Krzysztofik" <janusz.krzysztofik@linux.intel.com>
-Date: Mon, 22 Jan 2024 21:05:43 -0000
-Message-ID: <170595754341.665201.16237290732718135426@5338d5abeb45>
+Date: Mon, 22 Jan 2024 21:05:46 -0000
+Message-ID: <170595754623.665201.16391638573476780613@5338d5abeb45>
 X-Patchwork-Hint: ignore
 References: <20240122141007.401490-5-janusz.krzysztofik@linux.intel.com>
 In-Reply-To: <20240122141007.401490-5-janusz.krzysztofik@linux.intel.com>
@@ -49,14 +49,8 @@ State : warning
 
 == Summary ==
 
-Error: dim checkpatch failed
-55cc6a52bd6b drm/i915/vma: Fix UAF on destroy against retire race
-90d6c8b0ef9a Manually revert "drm/i915: Fix a VMA UAF for multi-gt platform"
--:7: ERROR:GIT_COMMIT_ID: Please use git commit description style 'commit <12+ chars of sha1> ("<title line>")' - ie: 'commit f56fe3e91787 ("drm/i915: Fix a VMA UAF for multi-gt platform")'
-#7: 
-This reverts changes introduced by commit f56fe3e91787, obsoleted by
-
-total: 1 errors, 0 warnings, 0 checks, 45 lines checked
-940d2453dbc1 Revert "drm/i915: Wait for active retire before i915_active_fini()"
+Error: dim sparse failed
+Sparse version: v0.6.2
+Fast mode used, each commit won't be checked separately.
 
 
