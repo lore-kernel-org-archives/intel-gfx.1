@@ -4,42 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7C73EC47258
-	for <intel-gfx@archiver.kernel.org>; Tue, 23 Jan 2024 10:28:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4D66AC47DDB
+	for <intel-gfx@archiver.kernel.org>; Tue, 23 Jan 2024 10:28:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CD9C010E774;
-	Tue, 23 Jan 2024 10:28:40 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9EF7E10E76E;
+	Tue, 23 Jan 2024 10:28:43 +0000 (UTC)
 Received: from mgamail.intel.com (mgamail.intel.com [192.55.52.115])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A450310E766;
- Tue, 23 Jan 2024 10:28:38 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C0C9910E76E;
+ Tue, 23 Jan 2024 10:28:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1706005718; x=1737541718;
+ t=1706005721; x=1737541721;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=oMNVZr1oLQvtaKFI0D5yAGpyJxKRX9F/sWObsoGIBLg=;
- b=Y5p51JeeOQRPiqaOItrD0tE/URwIqG76tncIjZBpPEnUlHysf2rL4d+/
- ieUUBcz1D9XGGSzETpjCUod/l62ZcsUA9tWEAv7zZRgMm5domCdIjHkva
- Zsycxbq7lOGtMEmH/IWymoaIvxzmsnDgEx+rPdj3kechPGg3gsps49FUB
- UJ+K3rjvuOLwcSFJRaBC/gm0ou3JLIIlHUnL45yngSOfekhQQuPk7Rd73
- FvQAiePbFYfHlwP1YfD4kbFxZVN10fBfyRUBHVvPJcobCpiDsMCCNKSg7
- hIjtCEGeuqj8WtEzpexDUVM+bVludb4AvG+qQnYFX7TLiF3UZKm6YE/g/ g==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10961"; a="401134091"
-X-IronPort-AV: E=Sophos;i="6.05,214,1701158400"; d="scan'208";a="401134091"
+ bh=SiGBezTlCUPjMEVgldPF8t4rrQVF88naNV3YWnQjwhs=;
+ b=WVVzo/3fnXUQ2VA4yZfCKKZLiyGJBZ5dW4rsQUCYyLce44IWI0e0qzsQ
+ RFFLjWExcUYCONkM59hVG2I4zZm8WV7h65aG6G6joHiJYxZdj/OYDg9zS
+ 5Syf+4z/JGkH+o7eOf25mkFlt2fRNkh4ytGj7ZiO9fvi1KQoG1lu5Tz+t
+ k02xPimfKYtKRKP1LOEH+whc6A76SXHYXuLZnO/KqfsZefB0U+gDumA/j
+ aBvVEaOXHUzLOLuAw17GPD445Fm2R3dyH4A87joaX83j1yg/EhZerO+ow
+ 0N+rirgdQ8Py3O5uIREG+du+jdW5IIoChxwYIkxlPphC4FfTFRES/lLZd Q==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10961"; a="401134123"
+X-IronPort-AV: E=Sophos;i="6.05,214,1701158400"; d="scan'208";a="401134123"
 Received: from fmsmga004.fm.intel.com ([10.253.24.48])
  by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 Jan 2024 02:28:38 -0800
+ 23 Jan 2024 02:28:41 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10961"; a="856283360"
-X-IronPort-AV: E=Sophos;i="6.05,214,1701158400"; d="scan'208";a="856283360"
+X-IronPort-AV: E=McAfee;i="6600,9927,10961"; a="856283367"
+X-IronPort-AV: E=Sophos;i="6.05,214,1701158400"; d="scan'208";a="856283367"
 Received: from ideak-desk.fi.intel.com ([10.237.72.78])
  by fmsmga004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 Jan 2024 02:28:37 -0800
+ 23 Jan 2024 02:28:40 -0800
 From: Imre Deak <imre.deak@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Subject: [PATCH 01/19] drm/dp: Add drm_dp_max_dprx_data_rate()
-Date: Tue, 23 Jan 2024 12:28:32 +0200
-Message-Id: <20240123102850.390126-2-imre.deak@intel.com>
+Subject: [PATCH 03/19] drm/i915/dp: Add support to notify MST connectors to
+ retry modesets
+Date: Tue, 23 Jan 2024 12:28:34 +0200
+Message-Id: <20240123102850.390126-4-imre.deak@intel.com>
 X-Mailer: git-send-email 2.39.2
 In-Reply-To: <20240123102850.390126-1-imre.deak@intel.com>
 References: <20240123102850.390126-1-imre.deak@intel.com>
@@ -61,95 +62,179 @@ Cc: dri-devel@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Copy intel_dp_max_data_rate() to DRM core. It will be needed by a
-follow-up DP tunnel patch, checking the maximum rate the DPRX (sink)
-supports. Accordingly use the drm_dp_max_dprx_data_rate() name for
-clarity. This patchset will also switch calling the new DRM function
-in i915 instead of intel_dp_max_data_rate().
+On shared (Thunderbolt) links with DP tunnels, the modeset may need to
+be retried on all connectors on the link due to a link BW limitation
+arising only after the atomic check phase. To support this add a helper
+function queuing a work to retry the modeset on a given port's connector
+and at the same time any MST connector with streams through the same
+port. A follow-up change enabling the DP tunnel Bandwidth Allocation
+Mode will take this into use.
 
 Signed-off-by: Imre Deak <imre.deak@intel.com>
 ---
- drivers/gpu/drm/display/drm_dp_helper.c | 58 +++++++++++++++++++++++++
- include/drm/display/drm_dp_helper.h     |  2 +
- 2 files changed, 60 insertions(+)
+ drivers/gpu/drm/i915/display/intel_display.c  |  5 +-
+ drivers/gpu/drm/i915/display/intel_dp.c       | 55 ++++++++++++++++++-
+ drivers/gpu/drm/i915/display/intel_dp.h       |  8 +++
+ .../drm/i915/display/intel_dp_link_training.c |  3 +-
+ drivers/gpu/drm/i915/display/intel_dp_mst.c   |  2 +
+ 5 files changed, 67 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/gpu/drm/display/drm_dp_helper.c b/drivers/gpu/drm/display/drm_dp_helper.c
-index b1ca3a1100dab..24911243d4d3a 100644
---- a/drivers/gpu/drm/display/drm_dp_helper.c
-+++ b/drivers/gpu/drm/display/drm_dp_helper.c
-@@ -4058,3 +4058,61 @@ int drm_dp_bw_channel_coding_efficiency(bool is_uhbr)
- 		return 800000;
+diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
+index a92e959c8ac7b..0caebbb3e2dbb 100644
+--- a/drivers/gpu/drm/i915/display/intel_display.c
++++ b/drivers/gpu/drm/i915/display/intel_display.c
+@@ -8060,8 +8060,9 @@ void intel_hpd_poll_fini(struct drm_i915_private *i915)
+ 	/* Kill all the work that may have been queued by hpd. */
+ 	drm_connector_list_iter_begin(&i915->drm, &conn_iter);
+ 	for_each_intel_connector_iter(connector, &conn_iter) {
+-		if (connector->modeset_retry_work.func)
+-			cancel_work_sync(&connector->modeset_retry_work);
++		if (connector->modeset_retry_work.func &&
++		    cancel_work_sync(&connector->modeset_retry_work))
++			drm_connector_put(&connector->base);
+ 		if (connector->hdcp.shim) {
+ 			cancel_delayed_work_sync(&connector->hdcp.check_work);
+ 			cancel_work_sync(&connector->hdcp.prop_work);
+diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
+index ab415f41924d7..4e36c2c39888e 100644
+--- a/drivers/gpu/drm/i915/display/intel_dp.c
++++ b/drivers/gpu/drm/i915/display/intel_dp.c
+@@ -2837,6 +2837,50 @@ intel_dp_audio_compute_config(struct intel_encoder *encoder,
+ 					intel_dp_is_uhbr(pipe_config);
  }
- EXPORT_SYMBOL(drm_dp_bw_channel_coding_efficiency);
-+
-+/*
-+ * Given a link rate and lanes, get the data bandwidth.
-+ *
-+ * Data bandwidth is the actual payload rate, which depends on the data
-+ * bandwidth efficiency and the link rate.
-+ *
-+ * For 8b/10b channel encoding, SST and non-FEC, the data bandwidth efficiency
-+ * is 80%. For example, for a 1.62 Gbps link, 1.62*10^9 bps * 0.80 * (1/8) =
-+ * 162000 kBps. With 8-bit symbols, we have 162000 kHz symbol clock. Just by
-+ * coincidence, the port clock in kHz matches the data bandwidth in kBps, and
-+ * they equal the link bit rate in Gbps multiplied by 100000. (Note that this no
-+ * longer holds for data bandwidth as soon as FEC or MST is taken into account!)
-+ *
-+ * For 128b/132b channel encoding, the data bandwidth efficiency is 96.71%. For
-+ * example, for a 10 Gbps link, 10*10^9 bps * 0.9671 * (1/8) = 1208875
-+ * kBps. With 32-bit symbols, we have 312500 kHz symbol clock. The value 1000000
-+ * does not match the symbol clock, the port clock (not even if you think in
-+ * terms of a byte clock), nor the data bandwidth. It only matches the link bit
-+ * rate in units of 10000 bps.
-+ *
-+ * Note that protocol layers above the DPRX link level considered here can
-+ * further limit the maximum data rate. Such layers are the MST topology (with
-+ * limits on the link between the source and first branch device as well as on
-+ * the whole MST path until the DPRX link) and (Thunderbolt) DP tunnels -
-+ * which in turn can encapsulate an MST link with its own limit - with each
-+ * SST or MST encapsulated tunnel sharing the BW of a tunnel group.
-+ *
-+ * TODO: Add support for querying the max data rate with the above limits as
-+ * well.
-+ *
-+ * Returns the maximum data rate in kBps units.
-+ */
-+int drm_dp_max_dprx_data_rate(int max_link_rate, int max_lanes)
-+{
-+	int ch_coding_efficiency =
-+		drm_dp_bw_channel_coding_efficiency(drm_dp_is_uhbr_rate(max_link_rate));
-+	int max_link_rate_kbps = max_link_rate * 10;
-+
-+	/*
-+	 * UHBR rates always use 128b/132b channel encoding, and have
-+	 * 97.71% data bandwidth efficiency. Consider max_link_rate the
-+	 * link bit rate in units of 10000 bps.
-+	 */
-+	/*
-+	 * Lower than UHBR rates always use 8b/10b channel encoding, and have
-+	 * 80% data bandwidth efficiency for SST non-FEC. However, this turns
-+	 * out to be a nop by coincidence:
-+	 *
-+	 *	int max_link_rate_kbps = max_link_rate * 10;
-+	 *	max_link_rate_kbps = DIV_ROUND_DOWN_ULL(max_link_rate_kbps * 8, 10);
-+	 *	max_link_rate = max_link_rate_kbps / 8;
-+	 */
-+	return DIV_ROUND_DOWN_ULL(mul_u32_u32(max_link_rate_kbps * max_lanes,
-+					      ch_coding_efficiency),
-+				  1000000 * 8);
-+}
-+EXPORT_SYMBOL(drm_dp_max_dprx_data_rate);
-diff --git a/include/drm/display/drm_dp_helper.h b/include/drm/display/drm_dp_helper.h
-index 863b2e7add29e..454ae7517419a 100644
---- a/include/drm/display/drm_dp_helper.h
-+++ b/include/drm/display/drm_dp_helper.h
-@@ -813,4 +813,6 @@ int drm_dp_bw_overhead(int lane_count, int hactive,
- 		       int bpp_x16, unsigned long flags);
- int drm_dp_bw_channel_coding_efficiency(bool is_uhbr);
  
-+int drm_dp_max_dprx_data_rate(int max_link_rate, int max_lanes);
++void intel_dp_queue_modeset_retry_work(struct intel_connector *connector)
++{
++	struct drm_i915_private *i915 = to_i915(connector->base.dev);
 +
- #endif /* _DRM_DP_HELPER_H_ */
++	drm_connector_get(&connector->base);
++	if (!queue_work(i915->unordered_wq, &connector->modeset_retry_work))
++		drm_connector_put(&connector->base);
++}
++
++void
++intel_dp_queue_modeset_retry_for_link(struct intel_atomic_state *state,
++				      struct intel_encoder *encoder,
++				      const struct intel_crtc_state *crtc_state,
++				      const struct drm_connector_state *conn_state)
++{
++	struct drm_i915_private *i915 = to_i915(crtc_state->uapi.crtc->dev);
++	struct intel_connector *connector;
++	struct intel_digital_connector_state *iter_conn_state;
++	struct intel_dp *intel_dp;
++	int i;
++
++	if (conn_state) {
++		connector = to_intel_connector(conn_state->connector);
++		intel_dp_queue_modeset_retry_work(connector);
++
++		return;
++	}
++
++	if (drm_WARN_ON(&i915->drm,
++			!intel_crtc_has_type(crtc_state, INTEL_OUTPUT_DP_MST)))
++		return;
++
++	intel_dp = enc_to_intel_dp(encoder);
++
++	for_each_new_intel_connector_in_state(state, connector, iter_conn_state, i) {
++		(void)iter_conn_state;
++
++		if (connector->mst_port != intel_dp)
++			continue;
++
++		intel_dp_queue_modeset_retry_work(connector);
++	}
++}
++
+ int
+ intel_dp_compute_config(struct intel_encoder *encoder,
+ 			struct intel_crtc_state *pipe_config,
+@@ -6436,6 +6480,14 @@ static void intel_dp_modeset_retry_work_fn(struct work_struct *work)
+ 	mutex_unlock(&connector->dev->mode_config.mutex);
+ 	/* Send Hotplug uevent so userspace can reprobe */
+ 	drm_kms_helper_connector_hotplug_event(connector);
++
++	drm_connector_put(connector);
++}
++
++void intel_dp_init_modeset_retry_work(struct intel_connector *connector)
++{
++	INIT_WORK(&connector->modeset_retry_work,
++		  intel_dp_modeset_retry_work_fn);
+ }
+ 
+ bool
+@@ -6452,8 +6504,7 @@ intel_dp_init_connector(struct intel_digital_port *dig_port,
+ 	int type;
+ 
+ 	/* Initialize the work for modeset in case of link train failure */
+-	INIT_WORK(&intel_connector->modeset_retry_work,
+-		  intel_dp_modeset_retry_work_fn);
++	intel_dp_init_modeset_retry_work(intel_connector);
+ 
+ 	if (drm_WARN(dev, dig_port->max_lanes < 1,
+ 		     "Not enough lanes (%d) for DP on [ENCODER:%d:%s]\n",
+diff --git a/drivers/gpu/drm/i915/display/intel_dp.h b/drivers/gpu/drm/i915/display/intel_dp.h
+index 530cc97bc42f4..105c2086310db 100644
+--- a/drivers/gpu/drm/i915/display/intel_dp.h
++++ b/drivers/gpu/drm/i915/display/intel_dp.h
+@@ -23,6 +23,8 @@ struct intel_digital_port;
+ struct intel_dp;
+ struct intel_encoder;
+ 
++struct work_struct;
++
+ struct link_config_limits {
+ 	int min_rate, max_rate;
+ 	int min_lane_count, max_lane_count;
+@@ -43,6 +45,12 @@ void intel_dp_adjust_compliance_config(struct intel_dp *intel_dp,
+ bool intel_dp_limited_color_range(const struct intel_crtc_state *crtc_state,
+ 				  const struct drm_connector_state *conn_state);
+ int intel_dp_min_bpp(enum intel_output_format output_format);
++void intel_dp_init_modeset_retry_work(struct intel_connector *connector);
++void intel_dp_queue_modeset_retry_work(struct intel_connector *connector);
++void intel_dp_queue_modeset_retry_for_link(struct intel_atomic_state *state,
++					   struct intel_encoder *encoder,
++					   const struct intel_crtc_state *crtc_state,
++					   const struct drm_connector_state *conn_state);
+ bool intel_dp_init_connector(struct intel_digital_port *dig_port,
+ 			     struct intel_connector *intel_connector);
+ void intel_dp_set_link_params(struct intel_dp *intel_dp,
+diff --git a/drivers/gpu/drm/i915/display/intel_dp_link_training.c b/drivers/gpu/drm/i915/display/intel_dp_link_training.c
+index 1abfafbbfa757..7b140cbf8dd31 100644
+--- a/drivers/gpu/drm/i915/display/intel_dp_link_training.c
++++ b/drivers/gpu/drm/i915/display/intel_dp_link_training.c
+@@ -1075,7 +1075,6 @@ static void intel_dp_schedule_fallback_link_training(struct intel_dp *intel_dp,
+ 						     const struct intel_crtc_state *crtc_state)
+ {
+ 	struct intel_connector *intel_connector = intel_dp->attached_connector;
+-	struct drm_i915_private *i915 = dp_to_i915(intel_dp);
+ 
+ 	if (!intel_digital_port_connected(&dp_to_dig_port(intel_dp)->base)) {
+ 		lt_dbg(intel_dp, DP_PHY_DPRX, "Link Training failed on disconnected sink.\n");
+@@ -1093,7 +1092,7 @@ static void intel_dp_schedule_fallback_link_training(struct intel_dp *intel_dp,
+ 	}
+ 
+ 	/* Schedule a Hotplug Uevent to userspace to start modeset */
+-	queue_work(i915->unordered_wq, &intel_connector->modeset_retry_work);
++	intel_dp_queue_modeset_retry_work(intel_connector);
+ }
+ 
+ /* Perform the link training on all LTTPRs and the DPRX on a link. */
+diff --git a/drivers/gpu/drm/i915/display/intel_dp_mst.c b/drivers/gpu/drm/i915/display/intel_dp_mst.c
+index 5fa25a5a36b55..b15e43ebf138b 100644
+--- a/drivers/gpu/drm/i915/display/intel_dp_mst.c
++++ b/drivers/gpu/drm/i915/display/intel_dp_mst.c
+@@ -1542,6 +1542,8 @@ static struct drm_connector *intel_dp_add_mst_connector(struct drm_dp_mst_topolo
+ 	intel_connector->port = port;
+ 	drm_dp_mst_get_port_malloc(port);
+ 
++	intel_dp_init_modeset_retry_work(intel_connector);
++
+ 	intel_connector->dp.dsc_decompression_aux = drm_dp_mst_dsc_aux_for_port(port);
+ 	intel_dp_mst_read_decompression_port_dsc_caps(intel_dp, intel_connector);
+ 	intel_connector->dp.dsc_hblank_expansion_quirk =
 -- 
 2.39.2
 
