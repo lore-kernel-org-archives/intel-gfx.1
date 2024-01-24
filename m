@@ -4,26 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1CB64C47E49
-	for <intel-gfx@archiver.kernel.org>; Wed, 24 Jan 2024 04:54:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EE36CC47E49
+	for <intel-gfx@archiver.kernel.org>; Wed, 24 Jan 2024 05:02:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 361C410F611;
-	Wed, 24 Jan 2024 04:54:51 +0000 (UTC)
-Received: from 5338d5abeb45 (emeril.freedesktop.org [131.252.210.167])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BBBCC10F60E;
- Wed, 24 Jan 2024 04:54:49 +0000 (UTC)
-Content-Type: multipart/alternative;
- boundary="===============5021803736875680348=="
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5E69710F61E;
+	Wed, 24 Jan 2024 05:02:31 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.55.52.115])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B212A10F61E;
+ Wed, 24 Jan 2024 05:02:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1706072550; x=1737608550;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=ThgMTkix4es6j5rky2OKrHCglG8hdtZ/YRFkq6PjGxQ=;
+ b=K2hOH1ehA6oHW6gPDBMHPNQRBnH4CFETqjnA+v7muKb0YL4C5bGgAB/c
+ Z+eq9N77u3fyzcPhUFjPAFxVYEnTNSzUJt8A9OLisIUjkBSii16/gJnlX
+ oGMTMoiXNhfKEtAAD3HhJx2km/ZCfBxpgvE/3RLwkBtlIcf9M+y/kK1Uj
+ 9tWbl3RoMTxrEn8qkgwNoa2stCcB2ceu2+oLdKLsocRM4iut3aMfQcOXQ
+ Kaf3YnHT5imPhe77x8LpqLBJc/Ktir+/d6gWTiICOAImAvYUlToWjHT47
+ G+MSLKGe8gjQciL54Vae7dP6cMPVpUTQV6THvZv1lw98/mwpvx/iHFQrO A==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10962"; a="401399358"
+X-IronPort-AV: E=Sophos;i="6.05,216,1701158400"; d="scan'208";a="401399358"
+Received: from orsmga004.jf.intel.com ([10.7.209.38])
+ by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 23 Jan 2024 21:02:24 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6600,9927,10962"; a="909551509"
+X-IronPort-AV: E=Sophos;i="6.05,216,1701158400"; d="scan'208";a="909551509"
+Received: from lucas-s2600cw.jf.intel.com ([10.165.21.196])
+ by orsmga004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 23 Jan 2024 21:02:23 -0800
+From: Lucas De Marchi <lucas.demarchi@intel.com>
+To: Yury Norov <yury.norov@gmail.com>
+Subject: [PATCH 2/3] bits: Introduce fixed-type BIT
+Date: Tue, 23 Jan 2024 21:02:04 -0800
+Message-ID: <20240124050205.3646390-3-lucas.demarchi@intel.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20240124050205.3646390-1-lucas.demarchi@intel.com>
+References: <20240124050205.3646390-1-lucas.demarchi@intel.com>
 MIME-Version: 1.0
-Subject: =?utf-8?q?=E2=9C=97_Fi=2ECI=2EBAT=3A_failure_for_drm/i915/fbc=3A_Allow_FBC_w?=
- =?utf-8?q?ith_CCS_modifiers_on_SKL+_=28rev2=29?=
-From: Patchwork <patchwork@emeril.freedesktop.org>
-To: =?utf-8?b?VmlsbGUgU3lyasOkbMOk?= <ville.syrjala@linux.intel.com>
-Date: Wed, 24 Jan 2024 04:54:49 -0000
-Message-ID: <170607208976.695948.16228484433263161995@5338d5abeb45>
-X-Patchwork-Hint: ignore
-References: <20240123090244.30025-1-ville.syrjala@linux.intel.com>
-In-Reply-To: <20240123090244.30025-1-ville.syrjala@linux.intel.com>
+Content-Transfer-Encoding: 8bit
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -36,169 +57,52 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: intel-gfx@lists.freedesktop.org
-Cc: intel-gfx@lists.freedesktop.org
+Cc: intel-gfx@lists.freedesktop.org, Lucas De Marchi <lucas.demarchi@intel.com>,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+ intel-xe@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
---===============5021803736875680348==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
+Implement fixed-type BIT() to help drivers add stricter checks, like was
+done for GENMASK.
 
-== Series Details ==
+Signed-off-by: Lucas De Marchi <lucas.demarchi@intel.com>
+---
+ include/linux/bits.h | 9 +++++++++
+ 1 file changed, 9 insertions(+)
 
-Series: drm/i915/fbc: Allow FBC with CCS modifiers on SKL+ (rev2)
-URL   : https://patchwork.freedesktop.org/series/129075/
-State : failure
+diff --git a/include/linux/bits.h b/include/linux/bits.h
+index cb94128171b2..5754a1251078 100644
+--- a/include/linux/bits.h
++++ b/include/linux/bits.h
+@@ -24,12 +24,16 @@
+ #define GENMASK_INPUT_CHECK(h, l) \
+ 	(BUILD_BUG_ON_ZERO(__builtin_choose_expr( \
+ 		__is_constexpr((l) > (h)), (l) > (h), 0)))
++#define BIT_INPUT_CHECK(type, b) \
++	((BUILD_BUG_ON_ZERO(__builtin_choose_expr( \
++		__is_constexpr(b), (b) >= BITS_PER_TYPE(type), 0))))
+ #else
+ /*
+  * BUILD_BUG_ON_ZERO is not available in h files included from asm files,
+  * disable the input check if that is the case.
+  */
+ #define GENMASK_INPUT_CHECK(h, l) 0
++#define BIT_INPUT_CHECK(type, b) 0
+ #endif
+ 
+ #define __GENMASK(t, h, l) \
+@@ -44,4 +48,9 @@
+ #define GENMASK_U32(h, l)	__GENMASK(u32, h, l)
+ #define GENMASK_U64(h, l)	__GENMASK(u64, h, l)
+ 
++#define BIT_U8(b)		((u8)(BIT_INPUT_CHECK(u8, b) + BIT(b)))
++#define BIT_U16(b)		((u16)(BIT_INPUT_CHECK(u16, b) + BIT(b)))
++#define BIT_U32(b)		((u32)(BIT_INPUT_CHECK(u32, b) + BIT(b)))
++#define BIT_U64(b)		((u64)(BIT_INPUT_CHECK(u64, b) + BIT(b)))
++
+ #endif	/* __LINUX_BITS_H */
+-- 
+2.43.0
 
-== Summary ==
-
-CI Bug Log - changes from CI_DRM_14167 -> Patchwork_129075v2
-====================================================
-
-Summary
--------
-
-  **FAILURE**
-
-  Serious unknown changes coming with Patchwork_129075v2 absolutely need to be
-  verified manually.
-  
-  If you think the reported changes have nothing to do with the changes
-  introduced in Patchwork_129075v2, please notify your bug team (I915-ci-infra@lists.freedesktop.org) to allow them
-  to document this new failure mode, which will reduce false positives in CI.
-
-  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_129075v2/index.html
-
-Participating hosts (39 -> 38)
-------------------------------
-
-  Missing    (1): fi-snb-2520m 
-
-Possible new issues
--------------------
-
-  Here are the unknown changes that may have been introduced in Patchwork_129075v2:
-
-### IGT changes ###
-
-#### Possible regressions ####
-
-  * igt@kms_pipe_crc_basic@nonblocking-crc-frame-sequence@pipe-d-dp-1:
-    - bat-dg2-8:          [PASS][1] -> [FAIL][2]
-   [1]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_14167/bat-dg2-8/igt@kms_pipe_crc_basic@nonblocking-crc-frame-sequence@pipe-d-dp-1.html
-   [2]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_129075v2/bat-dg2-8/igt@kms_pipe_crc_basic@nonblocking-crc-frame-sequence@pipe-d-dp-1.html
-
-  
-#### Suppressed ####
-
-  The following results come from untrusted machines, tests, or statuses.
-  They do not affect the overall result.
-
-  * igt@i915_selftest@live@gt_engines:
-    - {bat-adls-6}:       [PASS][3] -> [TIMEOUT][4]
-   [3]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_14167/bat-adls-6/igt@i915_selftest@live@gt_engines.html
-   [4]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_129075v2/bat-adls-6/igt@i915_selftest@live@gt_engines.html
-
-  
-  {name}: This element is suppressed. This means it is ignored when computing
-          the status of the difference (SUCCESS, WARNING, or FAILURE).
-
-
-
-Build changes
--------------
-
-  * Linux: CI_DRM_14167 -> Patchwork_129075v2
-
-  CI-20190529: 20190529
-  CI_DRM_14167: 233dc02b51d147857bb2f70547fd5e79bf598b4b @ git://anongit.freedesktop.org/gfx-ci/linux
-  IGT_7690: aa45298ff675abbe6bf8f04ae186e2388c35f03a @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git
-  Patchwork_129075v2: 233dc02b51d147857bb2f70547fd5e79bf598b4b @ git://anongit.freedesktop.org/gfx-ci/linux
-
-
-### Linux commits
-
-c13aa76aa3ba drm/i915/fbc: Allow FBC with CCS modifiers on SKL+
-
-== Logs ==
-
-For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_129075v2/index.html
-
---===============5021803736875680348==
-Content-Type: text/html; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-
-
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
- <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-  <title>Project List - Patchwork</title>
-  <style id="css-table-select" type="text/css">
-   td { padding: 2pt; }
-  </style>
-</head>
-<body>
-
-
-<b>Patch Details</b>
-<table>
-<tr><td><b>Series:</b></td><td>drm/i915/fbc: Allow FBC with CCS modifiers on SKL+ (rev2)</td></tr>
-<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/129075/">https://patchwork.freedesktop.org/series/129075/</a></td></tr>
-<tr><td><b>State:</b></td><td>failure</td></tr>
-
-    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_129075v2/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_129075v2/index.html</a></td></tr>
-
-</table>
-
-
-    <h1>CI Bug Log - changes from CI_DRM_14167 -&gt; Patchwork_129075v2</h1>
-<h2>Summary</h2>
-<p><strong>FAILURE</strong></p>
-<p>Serious unknown changes coming with Patchwork_129075v2 absolutely need to be<br />
-  verified manually.</p>
-<p>If you think the reported changes have nothing to do with the changes<br />
-  introduced in Patchwork_129075v2, please notify your bug team (I915-ci-infra@lists.freedesktop.org) to allow them<br />
-  to document this new failure mode, which will reduce false positives in CI.</p>
-<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_129075v2/index.html</p>
-<h2>Participating hosts (39 -&gt; 38)</h2>
-<p>Missing    (1): fi-snb-2520m </p>
-<h2>Possible new issues</h2>
-<p>Here are the unknown changes that may have been introduced in Patchwork_129075v2:</p>
-<h3>IGT changes</h3>
-<h4>Possible regressions</h4>
-<ul>
-<li>igt@kms_pipe_crc_basic@nonblocking-crc-frame-sequence@pipe-d-dp-1:<ul>
-<li>bat-dg2-8:          <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_14167/bat-dg2-8/igt@kms_pipe_crc_basic@nonblocking-crc-frame-sequence@pipe-d-dp-1.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_129075v2/bat-dg2-8/igt@kms_pipe_crc_basic@nonblocking-crc-frame-sequence@pipe-d-dp-1.html">FAIL</a></li>
-</ul>
-</li>
-</ul>
-<h4>Suppressed</h4>
-<p>The following results come from untrusted machines, tests, or statuses.<br />
-  They do not affect the overall result.</p>
-<ul>
-<li>igt@i915_selftest@live@gt_engines:<ul>
-<li>{bat-adls-6}:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_14167/bat-adls-6/igt@i915_selftest@live@gt_engines.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_129075v2/bat-adls-6/igt@i915_selftest@live@gt_engines.html">TIMEOUT</a></li>
-</ul>
-</li>
-</ul>
-<p>{name}: This element is suppressed. This means it is ignored when computing<br />
-          the status of the difference (SUCCESS, WARNING, or FAILURE).</p>
-<h2>Build changes</h2>
-<ul>
-<li>Linux: CI_DRM_14167 -&gt; Patchwork_129075v2</li>
-</ul>
-<p>CI-20190529: 20190529<br />
-  CI_DRM_14167: 233dc02b51d147857bb2f70547fd5e79bf598b4b @ git://anongit.freedesktop.org/gfx-ci/linux<br />
-  IGT_7690: aa45298ff675abbe6bf8f04ae186e2388c35f03a @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git<br />
-  Patchwork_129075v2: 233dc02b51d147857bb2f70547fd5e79bf598b4b @ git://anongit.freedesktop.org/gfx-ci/linux</p>
-<h3>Linux commits</h3>
-<p>c13aa76aa3ba drm/i915/fbc: Allow FBC with CCS modifiers on SKL+</p>
-
-</body>
-</html>
-
---===============5021803736875680348==--
