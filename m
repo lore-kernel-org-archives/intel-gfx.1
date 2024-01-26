@@ -4,46 +4,26 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D58F9C47422
-	for <intel-gfx@archiver.kernel.org>; Fri, 26 Jan 2024 22:46:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5738FC47422
+	for <intel-gfx@archiver.kernel.org>; Fri, 26 Jan 2024 23:27:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A90C510FF8B;
-	Fri, 26 Jan 2024 22:46:46 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5D16E10E240;
- Fri, 26 Jan 2024 22:46:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1706309204; x=1737845204;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=OEpu9q0/fAi2wmSQur0rJtgTJ8D7dFIK5QtDEjeCkc4=;
- b=ZnGyPRQWQMQrCbypPSX2pnmiI3CFA18yMRh351Sv/jaKbkL+U106ocP+
- T+RJx3tRVjExORR/+GeWbU3r1UBFn1OowXsWvOcJpLf+43S5TSthPXvF/
- W78qtOSLannU1Rc8+P4/5MmmdBjdG+CzH8K7yvIhLwtvjdkgyLbeECFvS
- LRYAikfmeKGgVLCQSkYW7knAMqeZI2+IOUfY/NC6taAtYOADZiA9By/lf
- bRx/D+ntOU0qE4w9l0d+522xZ59M2XNxuypbXl2I6pwn5IUsf8yYvLxbM
- 7nUVIv9wCDraA8n2b4qiODByEzP4IFafrWpSaCP9jKidg8k0nwkReUc3z w==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10964"; a="9982792"
-X-IronPort-AV: E=Sophos;i="6.05,220,1701158400"; 
-   d="scan'208";a="9982792"
-Received: from orviesa005.jf.intel.com ([10.64.159.145])
- by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 26 Jan 2024 14:46:43 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.05,220,1701158400"; 
-   d="scan'208";a="2714168"
-Received: from lucas-s2600cw.jf.intel.com ([10.165.21.196])
- by orviesa005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 26 Jan 2024 14:46:43 -0800
-From: Lucas De Marchi <lucas.demarchi@intel.com>
-To: intel-gfx@lists.freedesktop.org
-Subject: [PATCH 0/2] drm/i915/display: Move some LNL registers
-Date: Fri, 26 Jan 2024 14:46:35 -0800
-Message-ID: <20240126224638.4132016-1-lucas.demarchi@intel.com>
-X-Mailer: git-send-email 2.43.0
+	by gabe.freedesktop.org (Postfix) with ESMTP id ECE4410FFED;
+	Fri, 26 Jan 2024 23:27:40 +0000 (UTC)
+Received: from 5338d5abeb45 (emeril.freedesktop.org [131.252.210.167])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C361710FFED;
+ Fri, 26 Jan 2024 23:27:39 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
+Subject: =?utf-8?q?=E2=9C=97_Fi=2ECI=2ECHECKPATCH=3A_warning_for_drm/i915/display=3A_?=
+ =?utf-8?q?Move_some_LNL_registers?=
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Lucas De Marchi" <lucas.demarchi@intel.com>
+Date: Fri, 26 Jan 2024 23:27:39 -0000
+Message-ID: <170631165979.764780.803881984858460306@5338d5abeb45>
+X-Patchwork-Hint: ignore
+References: <20240126224638.4132016-1-lucas.demarchi@intel.com>
+In-Reply-To: <20240126224638.4132016-1-lucas.demarchi@intel.com>
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,29 +36,108 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Lucas De Marchi <lucas.demarchi@intel.com>, intel-xe@lists.freedesktop.org
+Reply-To: intel-gfx@lists.freedesktop.org
+Cc: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-2 patches removed from the earlier batch of updates in LNL due to
-using saved_port_bits which is not entirely correct.
+== Series Details ==
 
-This time, instead of the 2 preparatory refactor patches, just make sure
-to set the the bits in later writes to DDI_BUF_CTL(). Notes that it's
-not needed to set clear the bit in intel_dp->DP when disabling since the
-enable part starts from scratch in intel_ddi_init_dp_buf_reg().
+Series: drm/i915/display: Move some LNL registers
+URL   : https://patchwork.freedesktop.org/series/129226/
+State : warning
 
-Lucas De Marchi (2):
-  drm/i915/xe2lpd: Move D2D enable/disable
-  drm/i915/xe2lpd: Move registers to PICA
+== Summary ==
 
- drivers/gpu/drm/i915/display/intel_cx0_phy.c  | 87 ++++++++++---------
- .../gpu/drm/i915/display/intel_cx0_phy_regs.h | 63 ++++++++++++--
- drivers/gpu/drm/i915/display/intel_ddi.c      | 60 +++++++++----
- drivers/gpu/drm/i915/display/intel_tc.c       | 16 ++--
- drivers/gpu/drm/i915/i915_reg.h               |  2 +
- 5 files changed, 155 insertions(+), 73 deletions(-)
+Error: dim checkpatch failed
+b7a2f39f8e10 drm/i915/xe2lpd: Move D2D enable/disable
+-:87: WARNING:SUSPECT_CODE_INDENT: suspect code indent for conditional statements (16, 23)
+#87: FILE: drivers/gpu/drm/i915/display/intel_ddi.c:3345:
++		if (DISPLAY_VER(dev_priv) >= 20)
++		       buf_ctl |= XE2LPD_DDI_BUF_D2D_LINK_ENABLE;
 
--- 
-2.43.0
+total: 0 errors, 1 warnings, 0 checks, 80 lines checked
+5b1009e12a6b drm/i915/xe2lpd: Move registers to PICA
+-:384: CHECK:MACRO_ARG_REUSE: Macro argument reuse 'port' - possible side-effects?
+#384: FILE: drivers/gpu/drm/i915/display/intel_cx0_phy_regs.h:27:
++#define __xe2lpd_port_idx(port)						\
++	(port >= PORT_TC1 ? port : PORT_TC4 + 1 + port - PORT_A)
+
+-:384: CHECK:MACRO_ARG_PRECEDENCE: Macro argument 'port' may be better as '(port)' to avoid precedence issues
+#384: FILE: drivers/gpu/drm/i915/display/intel_cx0_phy_regs.h:27:
++#define __xe2lpd_port_idx(port)						\
++	(port >= PORT_TC1 ? port : PORT_TC4 + 1 + port - PORT_A)
+
+-:397: CHECK:MACRO_ARG_REUSE: Macro argument reuse 'port' - possible side-effects?
+#397: FILE: drivers/gpu/drm/i915/display/intel_cx0_phy_regs.h:39:
++#define XELPDP_PORT_M2P_MSGBUS_CTL(i915__, port, lane)				\
++	(DISPLAY_VER(i915__) >= 20 ?						\
++	 _XELPDP_PORT_M2P_MSGBUS_CTL(__xe2lpd_port_idx(port), lane) :		\
++	 _XELPDP_PORT_M2P_MSGBUS_CTL(port, lane))
+
+-:397: CHECK:MACRO_ARG_REUSE: Macro argument reuse 'lane' - possible side-effects?
+#397: FILE: drivers/gpu/drm/i915/display/intel_cx0_phy_regs.h:39:
++#define XELPDP_PORT_M2P_MSGBUS_CTL(i915__, port, lane)				\
++	(DISPLAY_VER(i915__) >= 20 ?						\
++	 _XELPDP_PORT_M2P_MSGBUS_CTL(__xe2lpd_port_idx(port), lane) :		\
++	 _XELPDP_PORT_M2P_MSGBUS_CTL(port, lane))
+
+-:415: CHECK:MACRO_ARG_REUSE: Macro argument reuse 'port' - possible side-effects?
+#415: FILE: drivers/gpu/drm/i915/display/intel_cx0_phy_regs.h:59:
++#define XELPDP_PORT_P2M_MSGBUS_STATUS(i915__, port, lane)			\
++	(DISPLAY_VER(i915__) >= 20 ?						\
++	 _XELPDP_PORT_P2M_MSGBUS_STATUS(__xe2lpd_port_idx(port), lane) :	\
++	 _XELPDP_PORT_P2M_MSGBUS_STATUS(port, lane))
+
+-:415: CHECK:MACRO_ARG_REUSE: Macro argument reuse 'lane' - possible side-effects?
+#415: FILE: drivers/gpu/drm/i915/display/intel_cx0_phy_regs.h:59:
++#define XELPDP_PORT_P2M_MSGBUS_STATUS(i915__, port, lane)			\
++	(DISPLAY_VER(i915__) >= 20 ?						\
++	 _XELPDP_PORT_P2M_MSGBUS_STATUS(__xe2lpd_port_idx(port), lane) :	\
++	 _XELPDP_PORT_P2M_MSGBUS_STATUS(port, lane))
+
+-:432: CHECK:MACRO_ARG_REUSE: Macro argument reuse 'port' - possible side-effects?
+#432: FILE: drivers/gpu/drm/i915/display/intel_cx0_phy_regs.h:90:
++#define XELPDP_PORT_BUF_CTL1(i915__, port)					\
++	(DISPLAY_VER(i915__) >= 20 ?						\
++	 _XELPDP_PORT_BUF_CTL1(__xe2lpd_port_idx(port)) :			\
++	 _XELPDP_PORT_BUF_CTL1(port))
+
+-:450: CHECK:MACRO_ARG_REUSE: Macro argument reuse 'port' - possible side-effects?
+#450: FILE: drivers/gpu/drm/i915/display/intel_cx0_phy_regs.h:115:
++#define XELPDP_PORT_BUF_CTL2(i915__, port)					\
++	(DISPLAY_VER(i915__) >= 20 ?						\
++	 _XELPDP_PORT_BUF_CTL2(__xe2lpd_port_idx(port)) :			\
++	 _XELPDP_PORT_BUF_CTL2(port))
+
+-:467: CHECK:MACRO_ARG_REUSE: Macro argument reuse 'port' - possible side-effects?
+#467: FILE: drivers/gpu/drm/i915/display/intel_cx0_phy_regs.h:138:
++#define XELPDP_PORT_BUF_CTL3(i915__, port)					\
++	(DISPLAY_VER(i915__) >= 20 ?						\
++	 _XELPDP_PORT_BUF_CTL3(__xe2lpd_port_idx(port)) :			\
++	 _XELPDP_PORT_BUF_CTL3(port))
+
+-:484: CHECK:MACRO_ARG_REUSE: Macro argument reuse 'port' - possible side-effects?
+#484: FILE: drivers/gpu/drm/i915/display/intel_cx0_phy_regs.h:161:
++#define XELPDP_PORT_MSGBUS_TIMER(i915__, port, lane)				\
++	(DISPLAY_VER(i915__) >= 20 ?						\
++	 _XELPDP_PORT_MSGBUS_TIMER(__xe2lpd_port_idx(port), lane) :		\
++	 _XELPDP_PORT_MSGBUS_TIMER(port, lane))
+
+-:484: CHECK:MACRO_ARG_REUSE: Macro argument reuse 'lane' - possible side-effects?
+#484: FILE: drivers/gpu/drm/i915/display/intel_cx0_phy_regs.h:161:
++#define XELPDP_PORT_MSGBUS_TIMER(i915__, port, lane)				\
++	(DISPLAY_VER(i915__) >= 20 ?						\
++	 _XELPDP_PORT_MSGBUS_TIMER(__xe2lpd_port_idx(port), lane) :		\
++	 _XELPDP_PORT_MSGBUS_TIMER(port, lane))
+
+-:501: CHECK:MACRO_ARG_REUSE: Macro argument reuse 'port' - possible side-effects?
+#501: FILE: drivers/gpu/drm/i915/display/intel_cx0_phy_regs.h:178:
++#define XELPDP_PORT_CLOCK_CTL(i915__, port)					\
++	(DISPLAY_VER(i915__) >= 20 ?						\
++	 _XELPDP_PORT_CLOCK_CTL(__xe2lpd_port_idx(port)) :			\
++	 _XELPDP_PORT_CLOCK_CTL(port))
+
+total: 0 errors, 0 warnings, 12 checks, 574 lines checked
+
 
