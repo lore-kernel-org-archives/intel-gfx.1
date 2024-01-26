@@ -4,60 +4,59 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 775B2C47DDB
-	for <intel-gfx@archiver.kernel.org>; Fri, 26 Jan 2024 21:09:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4229BC47422
+	for <intel-gfx@archiver.kernel.org>; Fri, 26 Jan 2024 21:09:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6956A10FEAE;
+	by gabe.freedesktop.org (Postfix) with ESMTP id DE7DC10FEB1;
 	Fri, 26 Jan 2024 21:09:33 +0000 (UTC)
 Received: from mail-lf1-f41.google.com (mail-lf1-f41.google.com
  [209.85.167.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0272210FEAA;
- Fri, 26 Jan 2024 21:09:30 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 286DF10FEAD;
+ Fri, 26 Jan 2024 21:09:33 +0000 (UTC)
 Received: by mail-lf1-f41.google.com with SMTP id
- 2adb3069b0e04-5102b43035eso385771e87.1; 
- Fri, 26 Jan 2024 13:09:30 -0800 (PST)
+ 2adb3069b0e04-51021b25396so935161e87.3; 
+ Fri, 26 Jan 2024 13:09:33 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1706303309; x=1706908109; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1706303311; x=1706908111; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=w3Ih5o/h7ufYfjrVAuvSf+WnrZ1VWnhrW87zuJwgU6A=;
- b=DUK2Lu5fchwx4hcI9a+XSxMjzKciRj2/f0m5BEDBCMl6g1wsrCs0L9YvHmqxOHIthr
- 5CtR4amxuYMSJ7mnP+1ToLe5FsfKtLD4WxCTn0YMwLwjn+QGc4KN85YYBP8RRQ4Ph39Y
- Ng49pRexIfTt9K/KrazpKFOiT4iDFZMuRjxZTp4bk3rBsuXyKHAT5C9l1ljRY43nKZH5
- 6Ma1aWP6JdmMjG2aeIrhA5LNZDjf4PAOb+FJyygfOyyLc60jYWTWgRrEgsSpgkM211PH
- GyH328I2CUy50xX4Qz9+pAHTqnRRMk0HbpPlEOBDg3oi/GGQLUxGXW5ZMtF51mQl11IO
- tqJA==
+ bh=NhARzpUN4NMOG19a9sc1Be2bMGCGo4IYQc5mki6n3pE=;
+ b=ImrHQ2AloOsn2e+XQCsGUkX1d9l38JadAUU7BTM1MjXk9++rbwImwRlH2yQuRaEgUg
+ 2LJTXpYorY8lQE4zY1mptcCrTFhnq8VT4g7klTZaCk3u8rx9+wUPU3CAID5bZ5VfTGAg
+ HljPiKP7dSVK8L2zS38c2YyQNHFqqyqR5nw8hepPasF1zDmhV+X3rX+HdWlJCeSKSJJd
+ 6lECmeMY/RAnfzanUKfb9d4Wmk7YxiAn2oHEo9KIodxB8tZD6WQLx7zrab4nvU8qLKrP
+ qbR8BktswFGtYT7bvORiTr7i16JV01GXMN3ztM5QJlLkf7ZZ1LJzGRnzxTjCsdxB73EJ
+ 63OA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1706303309; x=1706908109;
+ d=1e100.net; s=20230601; t=1706303311; x=1706908111;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=w3Ih5o/h7ufYfjrVAuvSf+WnrZ1VWnhrW87zuJwgU6A=;
- b=DRIhXWTGkjIzzHmOIhDDQCARHjGbMA8gwfZhCwOG3NSH9848JbI0rpFW4eUuRT/8MZ
- OppgqTS2LztzXcC/C+sle/yTCdVMjll3dleE8wEFRLqebJOvLpKVBb0tQFY+PWZ8PQGC
- bUFvHrpAVAmfwOzhvew/KDh+qv02/oumc339MsRYwZB0MvnDQFjlLFMIiAP6BpQNEEBr
- dtJiIU2GdQg/BG8A44xkr0V2322AxZQ6a41DpWMYc4i+Xg1Gy5eYxLLsl6O7R3WUX9a6
- /f8l7tjoi0bpUy0OzsBBulRXwlKbD7TKsM4XCHWEDjKLU5wviJ2XOUZeuQgqdWm3MrQm
- VSUA==
-X-Gm-Message-State: AOJu0Yyf0MdCKoNKg2CzYJtRGKK76oXviRPavW0ePkJg+LvPEIg3VZhT
- k2KiU7pRuV3S7b12nMv0EbJHvgQV9f1Lh1a1N16Ptz3Rdyw8pPKbnnFWgbzuvVA=
-X-Google-Smtp-Source: AGHT+IFw/WfW1gKWpDcr0TVJm/EpAYyv0DgSBxv+iX5BdTIauRZBE0ymxEwPfw4aHJM8cjrgifvkDg==
-X-Received: by 2002:a05:6512:2209:b0:50e:4098:3798 with SMTP id
- h9-20020a056512220900b0050e40983798mr169512lfu.60.1706303308552; 
- Fri, 26 Jan 2024 13:08:28 -0800 (PST)
+ bh=NhARzpUN4NMOG19a9sc1Be2bMGCGo4IYQc5mki6n3pE=;
+ b=H4wMB4pXvqvs/q0NuPSzcgzkcoku4rIWIJO9jwPfL4S96U+d7bnalta5qh+5e1q/6o
+ ygJHcq13/JbEqGgJKWjGN42NZPZZ1Yii7jih+IATTCDWL8MaTkNrh7OcsNNVjIUNDNYU
+ +sLCKdzxidrf048rXQxK1VG0EzGBeQu8J3UZJhsHfzDjn/k6uY5CjnvzO3hPxPXOhWZ8
+ t3f/hbEBMFKNb1eoXqW46Nl8m38FYExhDttPEUuCTLRQtwya2kRYoer2SzcfGZiaqR3G
+ sWxpYbnPzrBugVSmtS/N32cBHDLO7bFKLyXlQ32jFE/fUD05oe4NPv/8xtEomQiwUVKl
+ y+Fg==
+X-Gm-Message-State: AOJu0YzlT7GVMHUeqp5yQoZEzNkTzyhD7a2VDMsBEPZeOSD/YKOa3XNa
+ tYrChrDAtrsEnkBm3XnIduuHkk5rxQIE9VVnQLxIEI/mVx6bzujWfr9sETF1i7M=
+X-Google-Smtp-Source: AGHT+IFlznCfD3T6v0nxdiXxWbV8c9RJUA6JiqFpdxXA8D3hERWpfPXe3Ilu56n0Ofg+E5hzYnzcrg==
+X-Received: by 2002:a05:6512:3083:b0:510:1bbd:c295 with SMTP id
+ z3-20020a056512308300b005101bbdc295mr183718lfd.37.1706303310890; 
+ Fri, 26 Jan 2024 13:08:30 -0800 (PST)
 Received: from jheikkil-mobl1.. (91-156-196-125.elisa-laajakaista.fi.
  [91.156.196.125]) by smtp.gmail.com with ESMTPSA id
- t3-20020a192d43000000b00510218debaasm290479lft.35.2024.01.26.13.08.27
+ t3-20020a192d43000000b00510218debaasm290479lft.35.2024.01.26.13.08.30
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 26 Jan 2024 13:08:28 -0800 (PST)
+ Fri, 26 Jan 2024 13:08:30 -0800 (PST)
 From: Juha-Pekka Heikkila <juhapekka.heikkila@gmail.com>
 To: intel-xe@lists.freedesktop.org,
 	intel-gfx@lists.freedesktop.org
-Subject: [PATCH 1/5] drm/xe/pat: annotate pat index table with compression
- information
-Date: Fri, 26 Jan 2024 23:08:03 +0200
-Message-Id: <20240126210807.320671-2-juhapekka.heikkila@gmail.com>
+Subject: [PATCH 4/5] drm/xe/xe2: Limit ccs framebuffers to tile4 only
+Date: Fri, 26 Jan 2024 23:08:06 +0200
+Message-Id: <20240126210807.320671-5-juhapekka.heikkila@gmail.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20240126210807.320671-1-juhapekka.heikkila@gmail.com>
 References: <20240126210807.320671-1-juhapekka.heikkila@gmail.com>
@@ -78,66 +77,60 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-add compressed member into xe_pat_table_entry which will contain
-boolean information if given pat_index is compressed or no.
+Display engine support ccs only with tile4, prevent other modifiers
+from using compressed memory. Store pin time pat index to xe_bo.
 
 Signed-off-by: Juha-Pekka Heikkila <juhapekka.heikkila@gmail.com>
 ---
- drivers/gpu/drm/xe/xe_pat.c | 9 ++++++++-
- drivers/gpu/drm/xe/xe_pat.h | 8 ++++++++
- 2 files changed, 16 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/xe/display/xe_fb_pin.c | 19 +++++++++++++++++++
+ 1 file changed, 19 insertions(+)
 
-diff --git a/drivers/gpu/drm/xe/xe_pat.c b/drivers/gpu/drm/xe/xe_pat.c
-index 1ff6bc79e7d4..c3cc6e90b068 100644
---- a/drivers/gpu/drm/xe/xe_pat.c
-+++ b/drivers/gpu/drm/xe/xe_pat.c
-@@ -104,7 +104,8 @@ static const struct xe_pat_table_entry xelpg_pat_table[] = {
- 			REG_FIELD_PREP(XE2_L3_POLICY, l3_policy) | \
- 			REG_FIELD_PREP(XE2_L4_POLICY, l4_policy) | \
- 			REG_FIELD_PREP(XE2_COH_MODE, __coh_mode), \
--		.coh_mode = __coh_mode ? XE_COH_AT_LEAST_1WAY : XE_COH_NONE \
-+		.coh_mode = __coh_mode ? XE_COH_AT_LEAST_1WAY : XE_COH_NONE, \
-+		.compressed = comp_en \
- 	}
+diff --git a/drivers/gpu/drm/xe/display/xe_fb_pin.c b/drivers/gpu/drm/xe/display/xe_fb_pin.c
+index 722c84a56607..b2930a226f54 100644
+--- a/drivers/gpu/drm/xe/display/xe_fb_pin.c
++++ b/drivers/gpu/drm/xe/display/xe_fb_pin.c
+@@ -10,9 +10,18 @@
+ #include "intel_fb_pin.h"
+ #include "xe_ggtt.h"
+ #include "xe_gt.h"
++#include "xe_pat.h"
  
- static const struct xe_pat_table_entry xe2_pat_table[] = {
-@@ -148,6 +149,12 @@ u16 xe_pat_index_get_coh_mode(struct xe_device *xe, u16 pat_index)
- 	return xe->pat.table[pat_index].coh_mode;
- }
+ #include <drm/ttm/ttm_bo.h>
  
-+bool xe_pat_index_has_compression(struct xe_device *xe, u16 pat_index)
++static bool is_compressed(const struct drm_framebuffer *fb)
 +{
-+	WARN_ON(pat_index >= xe->pat.n_entries);
-+	return xe->pat.table[pat_index].compressed;
++	struct xe_bo *bo = intel_fb_obj(fb);
++	struct xe_device *xe = to_xe_device(to_intel_framebuffer(fb)->base.dev);
++
++	return xe_pat_index_has_compression(xe, bo->pat_index);
 +}
 +
- static void program_pat(struct xe_gt *gt, const struct xe_pat_table_entry table[],
- 			int n_entries)
+ static void
+ write_dpt_rotated(struct xe_bo *bo, struct iosys_map *map, u32 *dpt_ofs, u32 bo_ofs,
+ 		  u32 width, u32 height, u32 src_stride, u32 dst_stride)
+@@ -349,12 +358,22 @@ void intel_unpin_fb_vma(struct i915_vma *vma, unsigned long flags)
+ int intel_plane_pin_fb(struct intel_plane_state *plane_state)
  {
-diff --git a/drivers/gpu/drm/xe/xe_pat.h b/drivers/gpu/drm/xe/xe_pat.h
-index fa0dfbe525cd..c8aacd30b184 100644
---- a/drivers/gpu/drm/xe/xe_pat.h
-+++ b/drivers/gpu/drm/xe/xe_pat.h
-@@ -29,6 +29,7 @@ struct xe_pat_table_entry {
- #define XE_COH_NONE          1
- #define XE_COH_AT_LEAST_1WAY 2
- 	u16 coh_mode;
-+	bool compressed;
- };
+ 	struct drm_framebuffer *fb = plane_state->hw.fb;
++	struct xe_device *xe = to_xe_device(to_intel_framebuffer(fb)->base.dev);
+ 	struct xe_bo *bo = intel_fb_obj(fb);
+ 	struct i915_vma *vma;
  
- /**
-@@ -58,4 +59,11 @@ void xe_pat_dump(struct xe_gt *gt, struct drm_printer *p);
-  */
- u16 xe_pat_index_get_coh_mode(struct xe_device *xe, u16 pat_index);
+ 	/* We reject creating !SCANOUT fb's, so this is weird.. */
+ 	drm_WARN_ON(bo->ttm.base.dev, !(bo->flags & XE_BO_SCANOUT_BIT));
  
-+/**
-+ * xe_pat_index_has_compression - Is pat_index using ccs compression
-+ * @xe: xe device
-+ * @pat_index: The pat_index to query
-+ */
-+bool xe_pat_index_has_compression(struct xe_device *xe, u16 pat_index);
++	if (GRAPHICS_VER(xe) >= 20) {
++		if (fb->modifier != I915_FORMAT_MOD_4_TILED &&
++		    is_compressed(fb)) {
++			drm_warn(&xe->drm, "Cannot create ccs framebuffer with other than tile4 mofifier\n");
++			return -EINVAL;
++		}
++		bo->pat_index_scanout = bo->pat_index;
++	}
 +
- #endif
+ 	vma = __xe_pin_fb_vma(to_intel_framebuffer(fb), &plane_state->view.gtt);
+ 	if (IS_ERR(vma))
+ 		return PTR_ERR(vma);
 -- 
 2.25.1
 
