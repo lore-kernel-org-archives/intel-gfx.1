@@ -4,59 +4,62 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 143DCC47422
-	for <intel-gfx@archiver.kernel.org>; Fri, 26 Jan 2024 21:09:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DAD90C47422
+	for <intel-gfx@archiver.kernel.org>; Fri, 26 Jan 2024 21:09:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9BB8C10FEAA;
-	Fri, 26 Jan 2024 21:09:31 +0000 (UTC)
-Received: from mail-lf1-f50.google.com (mail-lf1-f50.google.com
- [209.85.167.50])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4D26F10FEAA;
- Fri, 26 Jan 2024 21:09:30 +0000 (UTC)
-Received: by mail-lf1-f50.google.com with SMTP id
- 2adb3069b0e04-5102b00c2cdso404412e87.3; 
- Fri, 26 Jan 2024 13:09:30 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 67AAD10FEAD;
+	Fri, 26 Jan 2024 21:09:33 +0000 (UTC)
+Received: from mail-lj1-f176.google.com (mail-lj1-f176.google.com
+ [209.85.208.176])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8815610FEAD;
+ Fri, 26 Jan 2024 21:09:32 +0000 (UTC)
+Received: by mail-lj1-f176.google.com with SMTP id
+ 38308e7fff4ca-2cf4a22e10dso9083771fa.3; 
+ Fri, 26 Jan 2024 13:09:32 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1706303308; x=1706908108; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=ddM7dM5sERIiSASDCmMAMm6Wqis5zem3ge5Q7aEhjYU=;
- b=Mu1/ZMjMP8QLdRRqGAMNSltGqa4qSSaPjNl/O1uf52j47rEBNB/p+tUjcorTvn0xx0
- dI02TH9S5xgAOMaKQx11e3sodJS3HBvYy2xlI0ySZnrt+eXX/g2Hc06/ekgalyDvq9OB
- 2zV8fy6/Tzcs8Z7/CqfWEJFu5hjEd37omfIk1ljK7xSRsb5xU9yHLgXQwYbqT4OAzdbA
- Afzl5vkXCE4/KzZqhK0enPE6pBlAdBkJz3p6ZAp+F4cPXXEaS/ydGaLquhA7MElAeWv8
- 4YlkSsrV2Kh+f6wIkcLMsEH+P/2WjotfkiMX2hmuiiRceKBv1Ynx+r27buZ2UEKX6XdA
- sI7Q==
+ d=gmail.com; s=20230601; t=1706303310; x=1706908110; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=gAdragFp14ZDf5qrqrIoqQxrVW0ywkpYG2do2M6fgug=;
+ b=CMO2xgGbd3PCtuQaqapiUXxufBFxMsbOWVNfd0aZwpOZyoAOU3XD3+7qxW++4Ab4qB
+ a9LtS8vfdTWi2EW6MDD62ieKe6wJmt0laWgKgNx7DSYVpti+DZKRR3oIOtJkhp/ScN0q
+ i24M7fR67aPOXE/ngaklY3ci0XtN8c0IUKOuzle4EZOCnlCMnCedVy4XRlfm2lY8rfPC
+ dCx7v0q2Bl1a7BGdZDHJlGjb9j0eUcriwItpGjOxElynnkHLBC1COObCdSbcI5xqc949
+ Yy6HDZvbiBn20wAk+icCNH2EjewmQM4l9ZSImoCJOpcT+ogbN+WO2lXUyw8q3u9XUzfG
+ 7PdQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1706303308; x=1706908108;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=ddM7dM5sERIiSASDCmMAMm6Wqis5zem3ge5Q7aEhjYU=;
- b=ee3MnET+cVybgpOZjyemSr8nKc3dXKJkhsJinlEpQrlfeR0wNF205P64jZmaj0mRLq
- sSyrGjWekkUpMbR1lVf+Xx/WK8vnVDNjCv1T/TUNk/lc/kIoF2xO0fU0cyPfXJZa6zCP
- CNdh2y/zxB79CI/gGHrNhU9oIoS6myceTmjcG/7AkVJdNzepJlDGeU98MgKHMwvhDmGh
- HX92AQgSeak8PrJ6sarqISh+8xRuuvghoaYPEBPvjV9i1KCrzrgzLal6zjVXkVhjmArq
- 43yLYyXBTigot6qrEHJ8NOawYF0UYkoISFhEmwsXAveOL+BQA2f70y3kDroeAa8mzAAh
- U9RQ==
-X-Gm-Message-State: AOJu0Ywv5706nvjdRAl79xCkbNFsDfyrP9LyvOxZIPGm+zwr3uWfuVXI
- ek0tJmd4FJjM4DVl+gsX6KZn+KVV2GoCRGm6ISUliW4xONr/8d8HXH++toZbDmU=
-X-Google-Smtp-Source: AGHT+IG/fxmJAWlnJfE0wlTWdMxotcH/zr6N28G3mdE1aq/xkbj73keLo3OqhVV1Fuzanb/vsFPivA==
-X-Received: by 2002:a05:6512:541:b0:510:358:74e1 with SMTP id
- h1-20020a056512054100b00510035874e1mr117429lfl.53.1706303307801; 
- Fri, 26 Jan 2024 13:08:27 -0800 (PST)
+ d=1e100.net; s=20230601; t=1706303310; x=1706908110;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=gAdragFp14ZDf5qrqrIoqQxrVW0ywkpYG2do2M6fgug=;
+ b=eCn3S06RPi3KZEHqZJNbh1Ihn9gYqPZsAGYESqj7AvftqMLFIt0XKJK3kPzgaoxZsS
+ 4CFanM/yUyqKUvMO3Vwt+zQeO7Qz+rybBHvLzjFC/L5tLaEcJnOsomBfpDz7Y5RNVsE1
+ TbfbSvveH+irlhewzxP5sPUJMhKQSSxHkUZ2qLg9qfXD5NWRpSw6jzjBTRuLv+pk4P+/
+ MhOJQ+TFDFO/enHLKoxmeojac+6eSbjVvOjElKAbqEeD6jcuAFxXWGChQkWmubAGj+Mc
+ 1PCZ4RqjXOU4+ymESv7KLSLr78YkPhAJU6LAe4wEn0fOoQYm6+jhalHqYHwLOfRc+dde
+ ipJQ==
+X-Gm-Message-State: AOJu0YxmLlmczTnkgDPZXt+CU0L9neravgWmHSrnaaq/htN2x8mEC4xT
+ Edo56lQgH8+ypx4n+1At510zj5IA+g2Qu2E7K+M8RMb9R+wntWNPALoRr4GlxfI=
+X-Google-Smtp-Source: AGHT+IEIVQev5Ic4tn4HLBA7P1QMy5cGC+L/+Z9OGvPBAi9B21Y8Yg/BWpwvSuuMh8StoK5YHORjOA==
+X-Received: by 2002:a2e:8503:0:b0:2cf:2efd:84e4 with SMTP id
+ j3-20020a2e8503000000b002cf2efd84e4mr152859lji.184.1706303310186; 
+ Fri, 26 Jan 2024 13:08:30 -0800 (PST)
 Received: from jheikkil-mobl1.. (91-156-196-125.elisa-laajakaista.fi.
  [91.156.196.125]) by smtp.gmail.com with ESMTPSA id
- t3-20020a192d43000000b00510218debaasm290479lft.35.2024.01.26.13.08.27
+ t3-20020a192d43000000b00510218debaasm290479lft.35.2024.01.26.13.08.29
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 26 Jan 2024 13:08:27 -0800 (PST)
+ Fri, 26 Jan 2024 13:08:29 -0800 (PST)
 From: Juha-Pekka Heikkila <juhapekka.heikkila@gmail.com>
 To: intel-xe@lists.freedesktop.org,
 	intel-gfx@lists.freedesktop.org
-Subject: [PATCH 0/5] Enable ccs compressed framebuffers on Xe2
-Date: Fri, 26 Jan 2024 23:08:02 +0200
-Message-Id: <20240126210807.320671-1-juhapekka.heikkila@gmail.com>
+Subject: [PATCH 3/5] drm/xe: store bind time pat index to xe_bo
+Date: Fri, 26 Jan 2024 23:08:05 +0200
+Message-Id: <20240126210807.320671-4-juhapekka.heikkila@gmail.com>
 X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20240126210807.320671-1-juhapekka.heikkila@gmail.com>
+References: <20240126210807.320671-1-juhapekka.heikkila@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-BeenThere: intel-gfx@lists.freedesktop.org
@@ -74,32 +77,67 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-This patch set touches Xe and i915 drivers. On i915 is checked if
-running on Xe2 hardware and enable framebuffer ccs decompression
-unconditionally for tile4 framebuffers. On Xe driver with Xe2
-hardware check if ccs compression is in use and behave accordingly;
-attempt to use ccs with linear and x-tiled framebuffers will result
-in -EINVAL as display does support decompression only on tile4.
+Store pat index from xe_vma to xe_bo and check if bo was pinned
+as framebuffer and verify pat index is not changing for pinned
+framebuffers.
 
-v2: Add compressed flag into pat index table and use that. Try to
-avoid situation where framebuffer can be bound with different
-pat index after it was pinned.
+Signed-off-by: Juha-Pekka Heikkila <juhapekka.heikkila@gmail.com>
+---
+ drivers/gpu/drm/xe/xe_pt.c | 23 +++++++++++++++++++----
+ 1 file changed, 19 insertions(+), 4 deletions(-)
 
-Juha-Pekka Heikkila (5):
-  drm/xe/pat: annotate pat index table with compression information
-  drm/xe: add bind time pat index to xe_bo structure
-  drm/xe: store bind time pat index to xe_bo
-  drm/xe/xe2: Limit ccs framebuffers to tile4 only
-  drm/i915/display: On Xe2 always enable decompression with tile4
-
- .../drm/i915/display/skl_universal_plane.c    |  5 ++++
- drivers/gpu/drm/xe/display/xe_fb_pin.c        | 19 +++++++++++++++
- drivers/gpu/drm/xe/xe_bo_types.h              | 11 +++++++++
- drivers/gpu/drm/xe/xe_pat.c                   |  9 +++++++-
- drivers/gpu/drm/xe/xe_pat.h                   |  8 +++++++
- drivers/gpu/drm/xe/xe_pt.c                    | 23 +++++++++++++++----
- 6 files changed, 70 insertions(+), 5 deletions(-)
-
+diff --git a/drivers/gpu/drm/xe/xe_pt.c b/drivers/gpu/drm/xe/xe_pt.c
+index de1030a47588..0a5d7c7543b1 100644
+--- a/drivers/gpu/drm/xe/xe_pt.c
++++ b/drivers/gpu/drm/xe/xe_pt.c
+@@ -1208,10 +1208,11 @@ __xe_pt_bind_vma(struct xe_tile *tile, struct xe_vma *vma, struct xe_exec_queue
+ 	struct dma_fence *fence;
+ 	struct invalidation_fence *ifence = NULL;
+ 	struct xe_range_fence *rfence;
++	struct xe_bo *bo = xe_vma_bo(vma);
+ 	int err;
+ 
+ 	bind_pt_update.locked = false;
+-	xe_bo_assert_held(xe_vma_bo(vma));
++	xe_bo_assert_held(bo);
+ 	xe_vm_assert_held(vm);
+ 
+ 	vm_dbg(&xe_vma_vm(vma)->xe->drm,
+@@ -1252,8 +1253,22 @@ __xe_pt_bind_vma(struct xe_tile *tile, struct xe_vma *vma, struct xe_exec_queue
+ 		return ERR_PTR(-ENOMEM);
+ 	}
+ 
++	/*
++	 * BO which has XE_BO_SCANOUT_BIT set and was pinned as framebuffer
++	 * before with different PAT index cannot be bound with different PAT
++	 * index. This is to prevent switching CCS on/off from framebuffers
++	 * on the fly.
++	 */
++	if (bo) {
++		if (bo->flags & XE_BO_SCANOUT_BIT && bo->pat_index_scanout &&
++		    bo->pat_index_scanout != vma->pat_index)
++			return ERR_PTR(-EINVAL);
++
++		bo->pat_index = vma->pat_index;
++	}
++
+ 	fence = xe_migrate_update_pgtables(tile->migrate,
+-					   vm, xe_vma_bo(vma), q,
++					   vm, bo, q,
+ 					   entries, num_entries,
+ 					   syncs, num_syncs,
+ 					   &bind_pt_update.base);
+@@ -1287,8 +1302,8 @@ __xe_pt_bind_vma(struct xe_tile *tile, struct xe_vma *vma, struct xe_exec_queue
+ 				   DMA_RESV_USAGE_KERNEL :
+ 				   DMA_RESV_USAGE_BOOKKEEP);
+ 
+-		if (!xe_vma_has_no_bo(vma) && !xe_vma_bo(vma)->vm)
+-			dma_resv_add_fence(xe_vma_bo(vma)->ttm.base.resv, fence,
++		if (!xe_vma_has_no_bo(vma) && !bo->vm)
++			dma_resv_add_fence(bo->ttm.base.resv, fence,
+ 					   DMA_RESV_USAGE_BOOKKEEP);
+ 		xe_pt_commit_bind(vma, entries, num_entries, rebind,
+ 				  bind_pt_update.locked ? &deferred : NULL);
 -- 
 2.25.1
 
