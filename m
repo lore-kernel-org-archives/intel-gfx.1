@@ -4,43 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 856C1C46CD2
-	for <intel-gfx@archiver.kernel.org>; Sat, 27 Jan 2024 07:18:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8FBADC46CD2
+	for <intel-gfx@archiver.kernel.org>; Sat, 27 Jan 2024 07:18:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 11DAF10FCB9;
-	Sat, 27 Jan 2024 07:18:55 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0BCF810FC08;
+	Sat, 27 Jan 2024 07:18:58 +0000 (UTC)
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.15])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A87DA10E5B1
- for <intel-gfx@lists.freedesktop.org>; Sat, 27 Jan 2024 07:18:49 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 95FFC10EE43
+ for <intel-gfx@lists.freedesktop.org>; Sat, 27 Jan 2024 07:18:53 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1706339929; x=1737875929;
+ t=1706339933; x=1737875933;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=OsN1GZ2G0pSurdU2bf6htuBOhWqI1SF/BWtdYwRYFnE=;
- b=C36Dzl+A6mJk9TbjA305lGQsGfPwFpBTNePrtSbDL2hAH06ee376cOA/
- k7bGR4F1qxueJMlSVgOoZCnae72JfMvD3cTxEl72XbCvXUHl2KiNAcQ61
- PbInbRoN1RYzDTfA42rLk5aV7uWa45erTtJBoA6Gybco6HRRZ6vyXHaez
- xkJNRqIUGR5FsMNY3B8cLCK+W6cPiAHyey23yMKkolQa3zUUCuCQNvZnb
- kcxhOZOxM/h64CMVql44+wLvGNQceI98ylC6Xu16186nxpkIw8N3jXZLM
- 8r7KSkY2mTnJ4vl8JGlVdggF1JS56A3GG5Ms5JYtWEcb5xT+VE/EF7xp1 g==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10964"; a="2528296"
+ bh=iLt26s8iF4n/pe1J29RJoUPbjL39fLjlzV1xS6wUb/o=;
+ b=BdywwhGn7ndcy389dPdaUXLXxcoC98vOpCNiA3elJiHz3OwevOy5IgEy
+ TzkpBXmjyO0ZqiYb79TQhEZikQu6Ho6B1wcvapy+9ckpDXBPNxBiXNKSk
+ gRb5RV91BmLJnw/ex292zu9bdTUWeBHJyabSiDOuabXUXZ5xAOABhWm0b
+ gLlPdka/ZqjEJf04h8Z12Nkuef4vZ1F6aTBn1vJVVtHc6kg52/N4WN5OM
+ AAQx5oUi5TOPMO59s+4/GqReKHMwQyynT5v7xR/8wXUtX0nCHVk51OKka
+ HG/wBkOKMfiBx4T98IXCUREhoA01Z+gc+VSIAG1D6IyvS/pKqW5nd7xcW w==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10964"; a="2528314"
 X-IronPort-AV: E=Sophos;i="6.05,220,1701158400"; 
-   d="scan'208";a="2528296"
+   d="scan'208";a="2528314"
 Received: from orviesa004.jf.intel.com ([10.64.159.144])
  by orvoesa107.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 26 Jan 2024 23:18:49 -0800
+ 26 Jan 2024 23:18:53 -0800
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.05,220,1701158400"; 
-   d="scan'208";a="2970493"
+   d="scan'208";a="2970513"
 Received: from kandpal-x299-ud4-pro.iind.intel.com ([10.190.239.32])
- by orviesa004.jf.intel.com with ESMTP; 26 Jan 2024 23:18:48 -0800
+ by orviesa004.jf.intel.com with ESMTP; 26 Jan 2024 23:18:52 -0800
 From: Suraj Kandpal <suraj.kandpal@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Subject: [PATCH 4/6] drm/i915/hdcp: Extract hdcp structure from correct
- connector
-Date: Sat, 27 Jan 2024 12:46:38 +0530
-Message-Id: <20240127071640.850392-5-suraj.kandpal@intel.com>
+Subject: [PATCH 6/6] drm/i915/hdcp: Read Rxcaps for robustibility
+Date: Sat, 27 Jan 2024 12:46:40 +0530
+Message-Id: <20240127071640.850392-7-suraj.kandpal@intel.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20240127071640.850392-1-suraj.kandpal@intel.com>
 References: <20240127071640.850392-1-suraj.kandpal@intel.com>
@@ -61,40 +60,56 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Currently intel_hdcp is not being extracted from primary connector
-this patch fixes that.
+We see some monitors and docks report incorrect hdcp version
+and capability in first few reads so we read rx_caps three times
+before we conclude the monitor's or docks HDCP capability
 
 Signed-off-by: Suraj Kandpal <suraj.kandpal@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_dp_hdcp.c | 7 +++++--
- 1 file changed, 5 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/i915/display/intel_dp_hdcp.c | 22 ++++++++++++--------
+ 1 file changed, 13 insertions(+), 9 deletions(-)
 
 diff --git a/drivers/gpu/drm/i915/display/intel_dp_hdcp.c b/drivers/gpu/drm/i915/display/intel_dp_hdcp.c
-index 21c503566fdd..5b724bd89329 100644
+index 5b724bd89329..f1b96bb3b727 100644
 --- a/drivers/gpu/drm/i915/display/intel_dp_hdcp.c
 +++ b/drivers/gpu/drm/i915/display/intel_dp_hdcp.c
-@@ -389,7 +389,9 @@ intel_dp_hdcp2_wait_for_msg(struct intel_connector *connector,
- 			    const struct hdcp2_dp_msg_data *hdcp2_msg_data)
- {
- 	struct drm_i915_private *i915 = to_i915(connector->base.dev);
--	struct intel_hdcp *hdcp = &connector->hdcp;
-+	struct intel_digital_port *dig_port = intel_attached_dig_port(connector);
-+	struct intel_dp *dp = &dig_port->dp;
-+	struct intel_hdcp *hdcp = &dp->attached_connector->hdcp;
- 	u8 msg_id = hdcp2_msg_data->msg_id;
- 	int ret, timeout;
- 	bool msg_ready = false;
-@@ -505,8 +507,9 @@ int intel_dp_hdcp2_read_msg(struct intel_connector *connector,
- {
+@@ -640,7 +640,7 @@ int intel_dp_hdcp2_capable(struct intel_connector *connector,
  	struct intel_digital_port *dig_port = intel_attached_dig_port(connector);
- 	struct drm_i915_private *i915 = to_i915(dig_port->base.base.dev);
--	struct intel_hdcp *hdcp = &connector->hdcp;
- 	struct drm_dp_aux *aux = &dig_port->dp.aux;
-+	struct intel_dp *dp = &dig_port->dp;
-+	struct intel_hdcp *hdcp = &dp->attached_connector->hdcp;
- 	unsigned int offset;
- 	u8 *byte = buf;
- 	ssize_t ret, bytes_to_recv, len;
+ 	struct drm_dp_aux *aux;
+ 	u8 rx_caps[3];
+-	int ret;
++	int ret, i;
+ 
+ 	if (remote_req)
+ 		aux = &connector->port->aux;
+@@ -648,15 +648,19 @@ int intel_dp_hdcp2_capable(struct intel_connector *connector,
+ 		aux = &dig_port->dp.aux;
+ 
+ 	*capable = false;
+-	ret = drm_dp_dpcd_read(aux,
+-			       DP_HDCP_2_2_REG_RX_CAPS_OFFSET,
+-			       rx_caps, HDCP_2_2_RXCAPS_LEN);
+-	if (ret != HDCP_2_2_RXCAPS_LEN)
+-		return ret >= 0 ? -EIO : ret;
++	for (i = 0; i < 3; i++) {
++		ret = drm_dp_dpcd_read(aux,
++				       DP_HDCP_2_2_REG_RX_CAPS_OFFSET,
++				       rx_caps, HDCP_2_2_RXCAPS_LEN);
++		if (ret != HDCP_2_2_RXCAPS_LEN)
++			return ret >= 0 ? -EIO : ret;
+ 
+-	if (rx_caps[0] == HDCP_2_2_RX_CAPS_VERSION_VAL &&
+-	    HDCP_2_2_DP_HDCP_CAPABLE(rx_caps[2]))
+-		*capable = true;
++		if (rx_caps[0] == HDCP_2_2_RX_CAPS_VERSION_VAL &&
++		    HDCP_2_2_DP_HDCP_CAPABLE(rx_caps[2])) {
++			*capable = true;
++			break;
++		}
++	}
+ 
+ 	return 0;
+ }
 -- 
 2.25.1
 
