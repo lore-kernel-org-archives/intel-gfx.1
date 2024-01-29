@@ -4,50 +4,77 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E147EC48295
-	for <intel-gfx@archiver.kernel.org>; Mon,  5 Feb 2024 13:26:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 59159C4828D
+	for <intel-gfx@archiver.kernel.org>; Mon,  5 Feb 2024 13:34:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 40E2410F68A;
-	Mon,  5 Feb 2024 13:26:25 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D490E10F9AC;
+	Mon,  5 Feb 2024 13:34:57 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="Wc9KwPat";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="XVg6oY93";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.16])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1D70310F68A
- for <intel-gfx@lists.freedesktop.org>; Mon,  5 Feb 2024 13:26:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1707139584; x=1738675584;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=vVllu8fsQYelJzElT6EpZaorjcBsbkCzILsbXHpHpkU=;
- b=Wc9KwPatFwteOK8YnE2LT12CzUWtOpeN1yD+X+C6I+Gg+CWNAQiIpKan
- nyntq2F/PfylN7qfTWaqJluV0WhSMTtITGc19EvYonfi+nYjkFzV031kV
- qFf1Qoowq+Gr/Ag/c2BxTjEzELy/1rgWqdndgMEfqdnjSXX0D0mwdev5u
- l9rTe1fsZY6nU8tyvnXZFkJSxXzDyaY6xn+0CRI7MyMzN75oa1cBkt7jz
- DI6xKKzt8hExmrlQTYz7ffvUrezYN6kIDdKfwOa+Z14pVmmHJxvZWIrjw
- MwhrdjBtyQKC0kGOd6eXHKsEutP0zzpo/1+wI8ujgM+1CYG+IIwjpLzTr w==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10974"; a="687918"
-X-IronPort-AV: E=Sophos;i="6.05,245,1701158400"; 
-   d="scan'208";a="687918"
-Received: from fmviesa008.fm.intel.com ([10.60.135.148])
- by orvoesa108.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 05 Feb 2024 05:26:24 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.05,245,1701158400"; 
-   d="scan'208";a="921181"
-Received: from unknown (HELO ideak-desk.fi.intel.com) ([10.237.66.155])
- by fmviesa008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 05 Feb 2024 05:26:22 -0800
-From: Imre Deak <imre.deak@intel.com>
-To: intel-gfx@lists.freedesktop.org
-Cc: Drew Davenport <ddavenport@chromium.org>
-Subject: [PATCH] drm/i915/dp: Fix connector DSC HW state readout
-Date: Mon,  5 Feb 2024 15:26:31 +0200
-Message-Id: <20240205132631.1588577-1-imre.deak@intel.com>
-X-Mailer: git-send-email 2.39.2
+Received: from mail-yb1-f176.google.com (mail-yb1-f176.google.com
+ [209.85.219.176])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id ADC9810F15C;
+ Mon, 29 Jan 2024 15:12:20 +0000 (UTC)
+Received: by mail-yb1-f176.google.com with SMTP id
+ 3f1490d57ef6-dc64926af85so2204533276.0; 
+ Mon, 29 Jan 2024 07:12:20 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1706541080; x=1707145880; darn=lists.freedesktop.org;
+ h=in-reply-to:content-transfer-encoding:content-disposition
+ :mime-version:references:message-id:subject:cc:to:from:date:from:to
+ :cc:subject:date:message-id:reply-to;
+ bh=UyBI2+8L21ywPJPux+Uv+p4ig16OrBVzk8ATobFMmGw=;
+ b=XVg6oY93kT6+GSivGj7ybYP3z24Xusqd4gBebw7UYa+hRWXrkEXrMuh3ZNl6AJaQH5
+ h1NhlKs3El2qaYUJsDtXAWkKUViGvYeVUy3g2ZAjq6Wd8toBD98Jwwow7Ewlt7yMTJKX
+ 3MvegCZ68+XcBaG4cUV7s59+2Flg0QNRCxr64s/UyVPBp4O/x5CpH+s9FRyQu7EGU9LJ
+ wcuEpsWx/aiySoSNegvHz1T9xJFZ1eu9k2b44tv2vqxeSUjWMFdlLfPEkQ9HZrp70T57
+ 1lkBI2is37g1N83D8dKokVmNiTLaOiT9OsjzyLbO2qBbEgdX+pfvh0BcR7duHkw0vtdJ
+ aVRw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1706541080; x=1707145880;
+ h=in-reply-to:content-transfer-encoding:content-disposition
+ :mime-version:references:message-id:subject:cc:to:from:date
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=UyBI2+8L21ywPJPux+Uv+p4ig16OrBVzk8ATobFMmGw=;
+ b=gc4T41gUc8m+s+1vFYWyRMj1J3enUir0ruwOolcD6PJsEGHwp5ZI5kw6ix2r2LQCLk
+ dqItm+j6pJBH9KJ4y36L4+042AnlBQzkbWP5PGrVm7jIVbK9xWM/k8Z4p29jp0s4g4jZ
+ M1gI10YLokEhaVaxrJXvQbgbkgOVI2PRxCmcg1srFpTLQKSexu35EJOFuR8A9NiFp/cX
+ 0A+9B9MgVTHRSffZtS6tUzv7g4Y9yP7usnk6U4RUeRZtZ/2DwnSn9HZR/NU0DGy8DTLA
+ OY03Ers0CAsBIVlmd/1Lqohmu5P4NDT7vqArLmnPjR6zaejim6N9meJfbZ0ZaMAttFZw
+ ntFw==
+X-Gm-Message-State: AOJu0YzdmI52JgsF9TwJxWLEJEq90TLTpbqGekFyWGxpSpQmnS0s1wDf
+ nUjF5My8bHtrG5a6s1AvHmJfXaMy6x6Bm54Hl8FcOWiTXaaGJ+Ak
+X-Google-Smtp-Source: AGHT+IH6s9vU8wXBWDMvXY5IJ1/1w2lOaFFb2+TzOnPFlDReNgorwWtIdEbPiAsxJhHbD0OsJTnBwg==
+X-Received: by 2002:a5b:87:0:b0:dc2:2b1a:7246 with SMTP id
+ b7-20020a5b0087000000b00dc22b1a7246mr2822490ybp.123.1706541078294; 
+ Mon, 29 Jan 2024 07:11:18 -0800 (PST)
+Received: from localhost ([2601:344:8301:57f0:6dcf:e3a4:263a:17d6])
+ by smtp.gmail.com with ESMTPSA id
+ u100-20020a25ab6d000000b00dc22fa579c5sm2320375ybi.45.2024.01.29.07.11.17
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 29 Jan 2024 07:11:17 -0800 (PST)
+Date: Mon, 29 Jan 2024 07:11:17 -0800
+From: Yury Norov <yury.norov@gmail.com>
+To: Lucas De Marchi <lucas.demarchi@intel.com>
+Cc: intel-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org,
+ Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+ intel-xe@lists.freedesktop.org
+Subject: Re: Re: Re: [PATCH 1/3] bits: introduce fixed-type genmasks
+Message-ID: <ZbfAFZ4J5Gncb/xc@yury-ThinkPad>
+References: <20240124050205.3646390-1-lucas.demarchi@intel.com>
+ <20240124050205.3646390-2-lucas.demarchi@intel.com>
+ <87v87jkvrx.fsf@intel.com>
+ <gvkvihpcc45275idrfukjqbvgem767evrux5sx5lnh5hofqemk@ppbkcauitvwb>
+ <ZbEsfl0tGLY+xJl0@yury-ThinkPad>
+ <yro4nl7ryt6ckxpkctkaao6sd7j4533w2u66ae4kecpu6riszl@lj5sspyvapwq>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <yro4nl7ryt6ckxpkctkaao6sd7j4533w2u66ae4kecpu6riszl@lj5sspyvapwq>
+X-Mailman-Approved-At: Mon, 05 Feb 2024 13:34:56 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,134 +90,59 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-The DSC HW state of DP connectors is read out during driver loading and
-system resume in intel_modeset_update_connector_atomic_state(). This
-function is called for all connectors though and so the state of DSI
-connectors will also get updated incorrectly, triggering a WARN there
-wrt. the DSC decompression AUX device.
+On Mon, Jan 29, 2024 at 08:49:35AM -0600, Lucas De Marchi wrote:
+> On Wed, Jan 24, 2024 at 07:27:58AM -0800, Yury Norov wrote:
+> > On Wed, Jan 24, 2024 at 08:03:53AM -0600, Lucas De Marchi wrote:
+> > > On Wed, Jan 24, 2024 at 09:58:26AM +0200, Jani Nikula wrote:
+> > > > On Tue, 23 Jan 2024, Lucas De Marchi <lucas.demarchi@intel.com> wrote:
+> > > > > From: Yury Norov <yury.norov@gmail.com>
+> > > > >
+> > > > > Generalize __GENMASK() to support different types, and implement
+> > > > > fixed-types versions of GENMASK() based on it. The fixed-type version
+> > > > > allows more strict checks to the min/max values accepted, which is
+> > > > > useful for defining registers like implemented by i915 and xe drivers
+> > > > > with their REG_GENMASK*() macros.
+> > > >
+> > > > Mmh, the commit message says the fixed-type version allows more strict
+> > > > checks, but none are actually added. GENMASK_INPUT_CHECK() remains the
+> > > > same.
+> > > >
+> > > > Compared to the i915 and xe versions, this is more lax now. You could
+> > > > specify GENMASK_U32(63,32) without complaints.
+> > > 
+> > > Doing this on top of the this series:
+> > > 
+> > > -#define   XELPDP_PORT_M2P_COMMAND_TYPE_MASK            REG_GENMASK(30, 27)
+> > > +#define   XELPDP_PORT_M2P_COMMAND_TYPE_MASK            REG_GENMASK(62, 32)
+> > > 
+> > > and I do get a build failure:
+> > > 
+> > > ../drivers/gpu/drm/i915/display/intel_cx0_phy.c: In function ‘__intel_cx0_read_once’:
+> > > ../include/linux/bits.h:41:31: error: left shift count >= width of type [-Werror=shift-count-overflow]
+> > >    41 |          (((t)~0ULL - ((t)(1) << (l)) + 1) & \
+> > >       |                               ^~
+> > 
+> > I would better include this in commit message to avoid people's
+> > confusion. If it comes to v2, can you please do it and mention that
+> > this trick relies on shift-count-overflow compiler check?
+> 
+> either that or an explicit check as it was suggested. What's your
+> preference?
 
-Fix the above by moving the DSC state readout to a new DP connector
-specific sync_state() hook. This is anyway the logical place to update
-the connector object's state vs. the connector's atomic state.
+Let's put a comment in the code. An argument that shift-count-overflow
+may be disabled sounds more like a speculation unless we have a solid
+example of a build system where the error is disabled for a good sane
+reason, but possible GENMASK() overflow is still considered dangerous.
 
-Fixes: b2608c6b3212 ("drm/i915/dp_mst: Enable MST DSC decompression for all streams")
-Reported-by: Drew Davenport <ddavenport@chromium.org>
-Closes: https://lore.kernel.org/all/Zb0q8IDVXS0HxJyj@chromium.org
-Signed-off-by: Imre Deak <imre.deak@intel.com>
----
- drivers/gpu/drm/i915/display/intel_display_types.h |  7 +++++++
- drivers/gpu/drm/i915/display/intel_dp.c            | 13 +++++++++++++
- drivers/gpu/drm/i915/display/intel_dp.h            |  2 ++
- drivers/gpu/drm/i915/display/intel_dp_mst.c        |  1 +
- drivers/gpu/drm/i915/display/intel_modeset_setup.c | 13 ++++++-------
- 5 files changed, 29 insertions(+), 7 deletions(-)
+GENMASK() is all about bit shifts, so shift-related error is something
+I'd expect when using GENMASK().
 
-diff --git a/drivers/gpu/drm/i915/display/intel_display_types.h b/drivers/gpu/drm/i915/display/intel_display_types.h
-index ae2e8cff9d691..6e1ddd05bd504 100644
---- a/drivers/gpu/drm/i915/display/intel_display_types.h
-+++ b/drivers/gpu/drm/i915/display/intel_display_types.h
-@@ -609,6 +609,13 @@ struct intel_connector {
- 	 * and active (i.e. dpms ON state). */
- 	bool (*get_hw_state)(struct intel_connector *);
- 
-+	/*
-+	 * Optional hook called during init/resume to sync any state
-+	 * stored in the connector (eg. DSC state) wrt. the HW state.
-+	 */
-+	void (*sync_state)(struct intel_connector *connector,
-+			   const struct intel_crtc_state *crtc_state);
-+
- 	/* Panel info for eDP and LVDS */
- 	struct intel_panel panel;
- 
-diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
-index ab415f41924d7..f8b1aab7745fd 100644
---- a/drivers/gpu/drm/i915/display/intel_dp.c
-+++ b/drivers/gpu/drm/i915/display/intel_dp.c
-@@ -5868,6 +5868,19 @@ intel_dp_connector_unregister(struct drm_connector *connector)
- 	intel_connector_unregister(connector);
- }
- 
-+void intel_dp_connector_sync_state(struct intel_connector *connector,
-+				   const struct intel_crtc_state *crtc_state)
-+{
-+	struct drm_i915_private *i915 = to_i915(connector->base.dev);
-+
-+	if (crtc_state && crtc_state->dsc.compression_enable) {
-+		drm_WARN_ON(&i915->drm, !connector->dp.dsc_decompression_aux);
-+		connector->dp.dsc_decompression_enabled = true;
-+	} else {
-+		connector->dp.dsc_decompression_enabled = false;
-+	}
-+}
-+
- void intel_dp_encoder_flush_work(struct drm_encoder *encoder)
- {
- 	struct intel_digital_port *dig_port = enc_to_dig_port(to_intel_encoder(encoder));
-diff --git a/drivers/gpu/drm/i915/display/intel_dp.h b/drivers/gpu/drm/i915/display/intel_dp.h
-index 530cc97bc42f4..f911dfab5fba9 100644
---- a/drivers/gpu/drm/i915/display/intel_dp.h
-+++ b/drivers/gpu/drm/i915/display/intel_dp.h
-@@ -45,6 +45,8 @@ bool intel_dp_limited_color_range(const struct intel_crtc_state *crtc_state,
- int intel_dp_min_bpp(enum intel_output_format output_format);
- bool intel_dp_init_connector(struct intel_digital_port *dig_port,
- 			     struct intel_connector *intel_connector);
-+void intel_dp_connector_sync_state(struct intel_connector *connector,
-+				   const struct intel_crtc_state *crtc_state);
- void intel_dp_set_link_params(struct intel_dp *intel_dp,
- 			      int link_rate, int lane_count);
- int intel_dp_get_link_train_fallback_values(struct intel_dp *intel_dp,
-diff --git a/drivers/gpu/drm/i915/display/intel_dp_mst.c b/drivers/gpu/drm/i915/display/intel_dp_mst.c
-index 5fa25a5a36b55..130c6aab86b22 100644
---- a/drivers/gpu/drm/i915/display/intel_dp_mst.c
-+++ b/drivers/gpu/drm/i915/display/intel_dp_mst.c
-@@ -1538,6 +1538,7 @@ static struct drm_connector *intel_dp_add_mst_connector(struct drm_dp_mst_topolo
- 		return NULL;
- 
- 	intel_connector->get_hw_state = intel_dp_mst_get_hw_state;
-+	intel_connector->sync_state = intel_dp_connector_sync_state;
- 	intel_connector->mst_port = intel_dp;
- 	intel_connector->port = port;
- 	drm_dp_mst_get_port_malloc(port);
-diff --git a/drivers/gpu/drm/i915/display/intel_modeset_setup.c b/drivers/gpu/drm/i915/display/intel_modeset_setup.c
-index 94eece7f63be3..caeca3a8442c5 100644
---- a/drivers/gpu/drm/i915/display/intel_modeset_setup.c
-+++ b/drivers/gpu/drm/i915/display/intel_modeset_setup.c
-@@ -318,12 +318,6 @@ static void intel_modeset_update_connector_atomic_state(struct drm_i915_private
- 			const struct intel_crtc_state *crtc_state =
- 				to_intel_crtc_state(crtc->base.state);
- 
--			if (crtc_state->dsc.compression_enable) {
--				drm_WARN_ON(&i915->drm, !connector->dp.dsc_decompression_aux);
--				connector->dp.dsc_decompression_enabled = true;
--			} else {
--				connector->dp.dsc_decompression_enabled = false;
--			}
- 			conn_state->max_bpc = (crtc_state->pipe_bpp ?: 24) / 3;
- 		}
- 	}
-@@ -775,8 +769,9 @@ static void intel_modeset_readout_hw_state(struct drm_i915_private *i915)
- 
- 	drm_connector_list_iter_begin(&i915->drm, &conn_iter);
- 	for_each_intel_connector_iter(connector, &conn_iter) {
-+		struct intel_crtc_state *crtc_state = NULL;
-+
- 		if (connector->get_hw_state(connector)) {
--			struct intel_crtc_state *crtc_state;
- 			struct intel_crtc *crtc;
- 
- 			connector->base.dpms = DRM_MODE_DPMS_ON;
-@@ -802,6 +797,10 @@ static void intel_modeset_readout_hw_state(struct drm_i915_private *i915)
- 			connector->base.dpms = DRM_MODE_DPMS_OFF;
- 			connector->base.encoder = NULL;
- 		}
-+
-+		if (connector->sync_state)
-+			connector->sync_state(connector, crtc_state);
-+
- 		drm_dbg_kms(&i915->drm,
- 			    "[CONNECTOR:%d:%s] hw state readout: %s\n",
- 			    connector->base.base.id, connector->base.name,
--- 
-2.39.2
+Also, the macro is widely used in the kernel:
 
+        yury:linux$ git grep GENMASK | wc -l
+        26879
+
+Explicit check would add pressure on the compiler for nothing. 
+
+Thanks,
+Yury
