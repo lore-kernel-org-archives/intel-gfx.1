@@ -4,67 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4E7F0C47DB3
-	for <intel-gfx@archiver.kernel.org>; Mon, 29 Jan 2024 13:53:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8EDADC47422
+	for <intel-gfx@archiver.kernel.org>; Mon, 29 Jan 2024 13:53:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 64F9A1126CF;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5BE731120C3;
 	Mon, 29 Jan 2024 13:53:43 +0000 (UTC)
-Received: from mail-yw1-f180.google.com (mail-yw1-f180.google.com
- [209.85.128.180])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7B39410EA4D;
- Wed, 24 Jan 2024 15:29:00 +0000 (UTC)
-Received: by mail-yw1-f180.google.com with SMTP id
- 00721157ae682-6029b5946f5so5731667b3.1; 
- Wed, 24 Jan 2024 07:29:00 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1706110080; x=1706714880; darn=lists.freedesktop.org;
- h=in-reply-to:content-transfer-encoding:content-disposition
- :mime-version:references:message-id:subject:cc:to:from:date:from:to
- :cc:subject:date:message-id:reply-to;
- bh=gxAN85gUI3DtBv5GX7Pwg8/v675qo3nL0TCB7s3sYeo=;
- b=lQzPUZGbsfE0oU/ch0+XUvCONhSO3z1kvotEeUu96P1FLo6FQBr9LYMbMKEVswSxs5
- 8BvBF43/KcM6NAewM42jdcg3QzyMDZe4ugRZv0SaOHbWpolN1kWfpxfF/NJfl/kPFqb+
- tTP7n3YCfN7//Ld4VXwql9MmcqqsYQm9CjYxZDTroKhq4HhzzC3LgXPCwpXvFIaaWv67
- 9k0WUs659a5cVX5bP5ibeFkg3DeNOHpM3C9QCoDn7Losvplkdm92HWr1OGqqtK82gtl5
- w4cGhA23ggyd4jp14siut2oi9jxfntUrW9e8uR9bcznW2f2996DzwWccwdVrFda2R6gN
- p3Cg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1706110080; x=1706714880;
- h=in-reply-to:content-transfer-encoding:content-disposition
- :mime-version:references:message-id:subject:cc:to:from:date
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=gxAN85gUI3DtBv5GX7Pwg8/v675qo3nL0TCB7s3sYeo=;
- b=vAZ/Zk3v6OrTgTMF1ddnTfmSXScBgYLl8+fGuuvxjvVgDdxMV2lP4c6zyGwdawg4a1
- P0kqigNTTorhBcUOPbtDk4dKlJCYPeUQkZeWgs2uHtvRogXjXJz5p0zjkgxuGOn+Vr34
- t/oSV/dKMk0hygxVTFu8AJKE/z3x8FCcXBMQ5Rv1N0shHqQgY+Sn6Z+1DEWtfTquvIca
- eiiVVe3Y8TRhi6oa2Yqbj9JKrOCD23K7c8ZuRbFQ//NbTsv4tVvR/3/6FNwHJ58kk9xS
- CF4P8eF5hqT30Ma/a+ff0+2ZTAbg59yUI6tZs42Ii6a9oDhWS1oBzoFMCrTwmz6VJveS
- kTTg==
-X-Gm-Message-State: AOJu0YzqIorZcZDVvn/y+dXkbHwYCk9V2uH8mFNb6EW4I6ycd9XIx7vy
- I93ERpBuccjP8yDVjcEhtEzEOglcLkcIAzUY8rJ9SScgWGcfXWgm
-X-Google-Smtp-Source: AGHT+IF+Nrdu9tGDR3beDItGL0E/OCg5dlfhAXrIkzQiMnlkPIfHnj8IoCqnWGxeMxmoNRKEWLNNSQ==
-X-Received: by 2002:a81:a251:0:b0:5ed:b2a2:1279 with SMTP id
- z17-20020a81a251000000b005edb2a21279mr609856ywg.16.1706110079553; 
- Wed, 24 Jan 2024 07:27:59 -0800 (PST)
-Received: from localhost ([2601:344:8301:57f0:abdb:7236:6977:9ab5])
- by smtp.gmail.com with ESMTPSA id
- l124-20020a0de282000000b005ff9dac3ff0sm652ywe.56.2024.01.24.07.27.58
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 24 Jan 2024 07:27:59 -0800 (PST)
-Date: Wed, 24 Jan 2024 07:27:58 -0800
-From: Yury Norov <yury.norov@gmail.com>
-To: Lucas De Marchi <lucas.demarchi@intel.com>
-Subject: Re: Re: [PATCH 1/3] bits: introduce fixed-type genmasks
-Message-ID: <ZbEsfl0tGLY+xJl0@yury-ThinkPad>
-References: <20240124050205.3646390-1-lucas.demarchi@intel.com>
- <20240124050205.3646390-2-lucas.demarchi@intel.com>
- <87v87jkvrx.fsf@intel.com>
- <gvkvihpcc45275idrfukjqbvgem767evrux5sx5lnh5hofqemk@ppbkcauitvwb>
+X-Greylist: delayed 1930 seconds by postgrey-1.36 at gabe;
+ Mon, 29 Jan 2024 05:43:18 UTC
+Received: from xmbgsz5.mail.qq.com (xmbgsz5.mail.qq.com [113.108.92.28])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B0112112494;
+ Mon, 29 Jan 2024 05:43:18 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
+ t=1706506989; bh=mpL8+nFkezATyzBL5kRrpBwyKRjrAHUwlFGptvLOxxI=;
+ h=From:To:Cc:Subject:Date;
+ b=G56vzYM4rQzMAlVHt2dWIO6PsK7L0x1onPyfVokFCc911a63Ti0Zdada59rd11i44
+ mS/Pi8CR7hjrjkKtpv/zDHtuUUrLBd6jC4x0Wjhw/TOsE+0IulvFp1HOXX1LUer0jY
+ qkj9lDo2x/B2j0DQO57yR+qzCrMu9vuVrxYVxSRo=
+Received: from localhost.localdomain ([1.87.190.45])
+ by newxmesmtplogicsvrszb9-1.qq.com (NewEsmtp) with SMTP
+ id 8950DA59; Mon, 29 Jan 2024 12:34:21 +0800
+X-QQ-mid: xmsmtpt1706502861trjcgmzsz
+Message-ID: <tencent_1A51A82501181FD23618C68685EBC405990A@qq.com>
+X-QQ-XMAILINFO: NNgSqAauJRa7zkt6EEdo2mOdEpfT2Fko1dAJfkovmiEl1ZUhWXaUs8BiQbFrCw
+ QK+KphZqcLbyYKKM3Cpbi/I1IyWh1bhJF11Cxpt8mUTqBnfGByXXZFi6QZ5aVBZtk/sIWNsrnIlC
+ CoD15X5VlEtGF1pWg4ouFYMFYpcJAeuojrLEecJkBY69Z1M61MTe6+v06ncKyHLUXdYO5hETj77v
+ VpWcSLV+OS4IsKUxrCm1LihpbA+NvQog1+wNBCR21oHtyQIdeZWG/7znnkjdYyx1P/PyQ5e/SwnY
+ 6D6h4R5PJRsFt3cdMos+zfuvKWdZ70Gy7XTghE4IWdFfpsyp4WyDqJDnO5VD0K2XLZyFhi/qeciw
+ hq7XbzLcfK4ow3fsFJbCu8Qu+lMEpjqKttXNI+KdoH/R2zBbURMDp8CcFLeusxLi8aULxFe7l/Zk
+ RazFdbcoYockldHTp4qQ9q+HEcldzTfqFW5ltHRTRhO9akvXKaV9XVCCEz4qQWQVLIeQ/pE2Pu4X
+ A0+K0sJnhk1OPr7PZ0XOarGAdmPKR2hVYioF3kvKm00PywTI9yCfNq41Gqms1fnCM8HLMH+p3lsV
+ 5z9p4jvrf5ts7hz6vq/k0VvQqecFfZlsJT0p/QCwlsdkWHNoxDiJwcEQ1Dm+pReRud01n2m+6tgf
+ KWs+UocPH1qkPnVFEaBhpSfLmJ++FG22byQLpraj+YCDp6a2GSSwBoaVHgN7MT7KZjA/SoYr2Z6u
+ i1ntwlOhU9+8HA+W1UR8i8CJOVCJ15g4vtyKJbwn2XhGHBA7lwin46/38KppvQKA/F6zMkWkBLrU
+ +uCQm3VkoHgHDk1ZkC8sKjqcvlD1Lh4h3RFt/H0c7Qpg/zHTDJ5evPSqmRySMFeyE7AlcbxAtZCR
+ dWvi9bXgsM9BaZrggIEBUl9nvHq5IqaecIkQHWmZG8dVrQxHuzN/45EC5iv+4DLMhnnPDZ5DRxi/
+ lDl+sQh5/IQVx/W28M8CCdvs6kfJ5Tk29lgX5gOtV9/Hbj3hkok238OX2KzbF5
+X-QQ-XMRINFO: MSVp+SPm3vtS1Vd6Y4Mggwc=
+From: linke li <lilinke99@qq.com>
+To: airlied@gmail.com,
+	daniel@ffwll.ch
+Subject: [PATCH] drm/i915: use READ_ONCE() to read vma->iomap in concurrent
+ environment
+Date: Mon, 29 Jan 2024 12:34:10 +0800
+X-OQ-MSGID: <20240129043410.60361-1-lilinke99@qq.com>
+X-Mailer: git-send-email 2.39.3 (Apple Git-145)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <gvkvihpcc45275idrfukjqbvgem767evrux5sx5lnh5hofqemk@ppbkcauitvwb>
 X-Mailman-Approved-At: Mon, 29 Jan 2024 13:53:33 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -78,46 +63,47 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: intel-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org,
- Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
- intel-xe@lists.freedesktop.org
+Cc: intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linke li <lilinke99@qq.com>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Jan 24, 2024 at 08:03:53AM -0600, Lucas De Marchi wrote:
-> On Wed, Jan 24, 2024 at 09:58:26AM +0200, Jani Nikula wrote:
-> > On Tue, 23 Jan 2024, Lucas De Marchi <lucas.demarchi@intel.com> wrote:
-> > > From: Yury Norov <yury.norov@gmail.com>
-> > > 
-> > > Generalize __GENMASK() to support different types, and implement
-> > > fixed-types versions of GENMASK() based on it. The fixed-type version
-> > > allows more strict checks to the min/max values accepted, which is
-> > > useful for defining registers like implemented by i915 and xe drivers
-> > > with their REG_GENMASK*() macros.
-> > 
-> > Mmh, the commit message says the fixed-type version allows more strict
-> > checks, but none are actually added. GENMASK_INPUT_CHECK() remains the
-> > same.
-> > 
-> > Compared to the i915 and xe versions, this is more lax now. You could
-> > specify GENMASK_U32(63,32) without complaints.
-> 
-> Doing this on top of the this series:
-> 
-> -#define   XELPDP_PORT_M2P_COMMAND_TYPE_MASK            REG_GENMASK(30, 27)
-> +#define   XELPDP_PORT_M2P_COMMAND_TYPE_MASK            REG_GENMASK(62, 32)
-> 
-> and I do get a build failure:
-> 
-> ../drivers/gpu/drm/i915/display/intel_cx0_phy.c: In function ‘__intel_cx0_read_once’:
-> ../include/linux/bits.h:41:31: error: left shift count >= width of type [-Werror=shift-count-overflow]
->    41 |          (((t)~0ULL - ((t)(1) << (l)) + 1) & \
->       |                               ^~
+In function i915_vma_pin_iomap(), vma->iomap is read using READ_ONCE()
+in line 562
 
-I would better include this in commit message to avoid people's
-confusion. If it comes to v2, can you please do it and mention that
-this trick relies on shift-count-overflow compiler check?
+562    ptr = READ_ONCE(vma->iomap);
+
+while read directly in line 597
+
+592    if (unlikely(cmpxchg(&vma->iomap, NULL, ptr))) {
+593        if (page_unmask_bits(ptr))
+594            __i915_gem_object_release_map(vma->obj);
+595        else
+596            io_mapping_unmap(ptr);
+597        ptr = vma->iomap;
+
+There is patch similar to this. https://github.com/torvalds/linux/commit/c1c0ce31b2420d5c173228a2132a492ede03d81f
+This patch find two read of same variable while one is protected, another
+is not. And READ_ONCE() is added to protect.
+
+Signed-off-by: linke li <lilinke99@qq.com>
+---
+ drivers/gpu/drm/i915/i915_vma.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/i915/i915_vma.c b/drivers/gpu/drm/i915/i915_vma.c
+index d09aad34ba37..9fcc11db0505 100644
+--- a/drivers/gpu/drm/i915/i915_vma.c
++++ b/drivers/gpu/drm/i915/i915_vma.c
+@@ -594,7 +594,7 @@ void __iomem *i915_vma_pin_iomap(struct i915_vma *vma)
+ 				__i915_gem_object_release_map(vma->obj);
+ 			else
+ 				io_mapping_unmap(ptr);
+-			ptr = vma->iomap;
++			ptr = READ_ONCE(vma->iomap);
+ 		}
+ 	}
  
-Thanks,
-Yury
+-- 
+2.39.3 (Apple Git-145)
+
