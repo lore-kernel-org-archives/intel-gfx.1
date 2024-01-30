@@ -4,49 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7FD70C47DDF
-	for <intel-gfx@archiver.kernel.org>; Tue, 30 Jan 2024 11:11:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B9F06C46CD2
+	for <intel-gfx@archiver.kernel.org>; Tue, 30 Jan 2024 11:28:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F043F112F91;
-	Tue, 30 Jan 2024 11:11:57 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [192.55.52.115])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6D299112F8F
- for <intel-gfx@lists.freedesktop.org>; Tue, 30 Jan 2024 11:11:53 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2D703112FB2;
+	Tue, 30 Jan 2024 11:28:21 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.7])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2253B10F89F;
+ Tue, 30 Jan 2024 11:28:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1706613113; x=1738149113;
+ t=1706614099; x=1738150099;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=sUKMut41ZSzY1SgcwXqgH0hS9+jLgGn5K2PnKgxbYVw=;
- b=nAHzzGF46lNTYvKiv/e2x1s+uegjUNULFalNvJh0SMhZY8Bpo85Cficl
- XHkUXozgZc76SQweBJiCHrVO4bIbxkBjrAw9VdYaiFSxmryjjXIADq6w9
- Wt0iQSEsQz9NQP9AUbvN0d2+CSHF/l6R+s4zcSOjkA1G/D98PVQjZDur5
- W7xRl7dPcTYRBx+Odk55NnrFNMlEK8OQ4o7tEyVELG55bzIgazyQwNsNX
- ILEmMm7AkvocYKnA5srUdzw1iIlD4cL8f96Ivw194WTTaPoxghp0zxpJG
- R41AJyDwk0ynUuobeRY6upayO+WGBBb1h3x6dOXrP94eWgQHKJzrFkXsp g==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10968"; a="402877179"
-X-IronPort-AV: E=Sophos;i="6.05,707,1701158400"; d="scan'208";a="402877179"
-Received: from fmsmga004.fm.intel.com ([10.253.24.48])
- by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 30 Jan 2024 03:11:53 -0800
+ bh=p26BQJECcTWiyJgSsIztcnzh4ip7rv+gHoIKmYjiu4Q=;
+ b=j3wiNwS+YjSxoyhNK6PccpKjXE/cZtHLeAMIYKbRtAUYNC1EJ92hvgjz
+ ygC1iXHe3ivasLlU/ds0TU5XbC2/k/T6xa57sWyMKdbk7/ycBqD7GM/tV
+ 06YpwVTBH+YRJNGdB3EfvrlxxMPhM5+ec2Wd4m2/MOZ9XTgJm8ZBmG/JY
+ 5KKQSAQKnWTZrXAoh5OGSYjwv+0vGoqlxSvPxfYr0lIS/hl/vn7NbrgOe
+ 2GvaCLIRV+O4btudQTizEv6rtqfgGpI/wMxKw1swzZAckM5yX5nCvLRXs
+ MUyaBZd6Ksx5eSDYiTLQlrWvabT6C7M/ncgNdGbPepuI17fZDBs7CzfSV Q==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10968"; a="24727176"
+X-IronPort-AV: E=Sophos;i="6.05,707,1701158400"; d="scan'208";a="24727176"
+Received: from fmsmga003.fm.intel.com ([10.253.24.29])
+ by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 30 Jan 2024 03:28:19 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10968"; a="858461233"
-X-IronPort-AV: E=Sophos;i="6.05,707,1701158400"; d="scan'208";a="858461233"
-Received: from swilyman-mobl1.ger.corp.intel.com (HELO
- jhogande-mobl1.intel.com) ([10.249.41.112])
- by fmsmga004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 30 Jan 2024 03:11:51 -0800
-From: =?UTF-8?q?Jouni=20H=C3=B6gander?= <jouni.hogander@intel.com>
-To: intel-gfx@lists.freedesktop.org
-Subject: [PATCH v3 3/4] drm/i915/alpm: Calculate ALPM Entry check
-Date: Tue, 30 Jan 2024 13:11:29 +0200
-Message-Id: <20240130111130.3298779-4-jouni.hogander@intel.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20240130111130.3298779-1-jouni.hogander@intel.com>
-References: <20240130111130.3298779-1-jouni.hogander@intel.com>
+X-IronPort-AV: E=McAfee;i="6600,9927,10968"; a="878410349"
+X-IronPort-AV: E=Sophos;i="6.05,707,1701158400"; d="scan'208";a="878410349"
+Received: from turnipsi.fi.intel.com (HELO kekkonen.fi.intel.com)
+ ([10.237.72.44])
+ by fmsmga003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 30 Jan 2024 03:28:12 -0800
+Received: from svinhufvud.ger.corp.intel.com (localhost [IPv6:::1])
+ by kekkonen.fi.intel.com (Postfix) with ESMTP id 1740011FBD1;
+ Tue, 30 Jan 2024 13:28:08 +0200 (EET)
+From: Sakari Ailus <sakari.ailus@linux.intel.com>
+To: linux-pm@vger.kernel.org
+Subject: [PATCH v5 1/2] PM: runtime: Simplify pm_runtime_get_if_active() usage
+Date: Tue, 30 Jan 2024 13:28:05 +0200
+Message-Id: <20240130112805.158790-2-sakari.ailus@linux.intel.com>
+X-Mailer: git-send-email 2.39.2
+In-Reply-To: <20240130112805.158790-1-sakari.ailus@linux.intel.com>
+References: <20240130112805.158790-1-sakari.ailus@linux.intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
 Content-Transfer-Encoding: 8bit
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -60,92 +61,304 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: "Rafael J. Wysocki" <rafael@kernel.org>, linux-pci@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, Jaroslav Kysela <perex@perex.cz>,
+ Stanislaw Gruszka <stanislaw.gruszka@linux.intel.com>,
+ laurent.pinchart@ideasonboard.com, David Airlie <airlied@gmail.com>,
+ Paul Elder <paul.elder@ideasonboard.com>, Bjorn Helgaas <helgaas@kernel.org>,
+ linux-media@vger.kernel.org,
+ =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+ intel-gfx@lists.freedesktop.org, Lucas De Marchi <lucas.demarchi@intel.com>,
+ Mark Brown <broonie@kernel.org>,
+ Jacek Lawrynowicz <jacek.lawrynowicz@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+ intel-xe@lists.freedesktop.org, Alex Elder <elder@kernel.org>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, linux-sound@vger.kernel.org,
+ Takashi Iwai <tiwai@suse.com>, Daniel Vetter <daniel@ffwll.ch>,
+ netdev@vger.kernel.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-ALPM Entry Check represents the number of lines needed to put the main link
-to sleep and keep it in the sleep state before it can be taken out of the
-SLEEP state (eDP requires the main link to be in the SLEEP state for a
-minimum of 5us).
+There are two ways to opportunistically increment a device's runtime PM
+usage count, calling either pm_runtime_get_if_active() or
+pm_runtime_get_if_in_use(). The former has an argument to tell whether to
+ignore the usage count or not, and the latter simply calls the former with
+ign_usage_count set to false. The other users that want to ignore the
+usage_count will have to explicitly set that argument to true which is a
+bit cumbersome.
 
-Bspec: 71477
+To make this function more practical to use, remove the ign_usage_count
+argument from the function. The main implementation is in a static
+function called pm_runtime_get_conditional() and implementations of
+pm_runtime_get_if_active() and pm_runtime_get_if_in_use() are moved to
+runtime.c.
 
-v2: move display version check into _lnl_compute_alpm_param
-
-Signed-off-by: Jouni Högander <jouni.hogander@intel.com>
+Signed-off-by: Sakari Ailus <sakari.ailus@linux.intel.com>
+Reviewed-by: Alex Elder <elder@linaro.org>
+Reviewed-by: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+Acked-by: Takashi Iwai <tiwai@suse.de> # sound/
+Reviewed-by: Jacek Lawrynowicz <jacek.lawrynowicz@linux.intel.com> # drivers/accel/ivpu/
+Acked-by: Rodrigo Vivi <rodrigo.vivi@intel.com> # drivers/gpu/drm/i915/
+Reviewed-by: Rodrigo Vivi <rodrigo.vivi@intel.com>
+Acked-by: Bjorn Helgaas <bhelgaas@google.com> # drivers/pci/
 ---
- .../drm/i915/display/intel_display_types.h    |  3 ++
- drivers/gpu/drm/i915/display/intel_psr.c      | 29 +++++++++++++++++++
- 2 files changed, 32 insertions(+)
+ Documentation/power/runtime_pm.rst      |  5 ++--
+ drivers/accel/ivpu/ivpu_pm.c            |  2 +-
+ drivers/base/power/runtime.c            | 35 +++++++++++++++++++++++--
+ drivers/gpu/drm/i915/intel_runtime_pm.c |  5 +++-
+ drivers/gpu/drm/xe/xe_pm.c              |  2 +-
+ drivers/media/i2c/ccs/ccs-core.c        |  2 +-
+ drivers/media/i2c/ov64a40.c             |  2 +-
+ drivers/media/i2c/thp7312.c             |  2 +-
+ drivers/net/ipa/ipa_smp2p.c             |  2 +-
+ drivers/pci/pci.c                       |  2 +-
+ include/linux/pm_runtime.h              | 18 +++----------
+ sound/hda/hdac_device.c                 |  2 +-
+ 12 files changed, 50 insertions(+), 29 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_display_types.h b/drivers/gpu/drm/i915/display/intel_display_types.h
-index ff6cd30b2b76..9fa42a4503fe 100644
---- a/drivers/gpu/drm/i915/display/intel_display_types.h
-+++ b/drivers/gpu/drm/i915/display/intel_display_types.h
-@@ -1714,6 +1714,9 @@ struct intel_psr {
- 	struct {
- 		u8 io_wake_lines;
- 		u8 fast_wake_lines;
-+
-+		/* LNL and beyond */
-+		u8 check_entry_lines;
- 	} alpm_parameters;
+diff --git a/Documentation/power/runtime_pm.rst b/Documentation/power/runtime_pm.rst
+index 65b86e487afe..da99379071a4 100644
+--- a/Documentation/power/runtime_pm.rst
++++ b/Documentation/power/runtime_pm.rst
+@@ -396,10 +396,9 @@ drivers/base/power/runtime.c and include/linux/pm_runtime.h:
+       nonzero, increment the counter and return 1; otherwise return 0 without
+       changing the counter
  
- 	ktime_t last_entry_attempt;
-diff --git a/drivers/gpu/drm/i915/display/intel_psr.c b/drivers/gpu/drm/i915/display/intel_psr.c
-index 4bca1107997f..7aedda0ca2d2 100644
---- a/drivers/gpu/drm/i915/display/intel_psr.c
-+++ b/drivers/gpu/drm/i915/display/intel_psr.c
-@@ -1126,6 +1126,30 @@ static bool _compute_psr2_sdp_prior_scanline_indication(struct intel_dp *intel_d
- 	return true;
+-  `int pm_runtime_get_if_active(struct device *dev, bool ign_usage_count);`
++  `int pm_runtime_get_if_active(struct device *dev);`
+     - return -EINVAL if 'power.disable_depth' is nonzero; otherwise, if the
+-      runtime PM status is RPM_ACTIVE, and either ign_usage_count is true
+-      or the device's usage_count is non-zero, increment the counter and
++      runtime PM status is RPM_ACTIVE, increment the counter and
+       return 1; otherwise return 0 without changing the counter
+ 
+   `void pm_runtime_put_noidle(struct device *dev);`
+diff --git a/drivers/accel/ivpu/ivpu_pm.c b/drivers/accel/ivpu/ivpu_pm.c
+index 0af8864cb3b5..c6d93c7a1c58 100644
+--- a/drivers/accel/ivpu/ivpu_pm.c
++++ b/drivers/accel/ivpu/ivpu_pm.c
+@@ -292,7 +292,7 @@ int ivpu_rpm_get_if_active(struct ivpu_device *vdev)
+ {
+ 	int ret;
+ 
+-	ret = pm_runtime_get_if_active(vdev->drm.dev, false);
++	ret = pm_runtime_get_if_in_use(vdev->drm.dev);
+ 	drm_WARN_ON(&vdev->drm, ret < 0);
+ 
+ 	return ret;
+diff --git a/drivers/base/power/runtime.c b/drivers/base/power/runtime.c
+index 05793c9fbb84..5275a6b2e980 100644
+--- a/drivers/base/power/runtime.c
++++ b/drivers/base/power/runtime.c
+@@ -1176,7 +1176,7 @@ int __pm_runtime_resume(struct device *dev, int rpmflags)
+ EXPORT_SYMBOL_GPL(__pm_runtime_resume);
+ 
+ /**
+- * pm_runtime_get_if_active - Conditionally bump up device usage counter.
++ * pm_runtime_get_conditional - Conditionally bump up device usage counter.
+  * @dev: Device to handle.
+  * @ign_usage_count: Whether or not to look at the current usage counter value.
+  *
+@@ -1197,7 +1197,7 @@ EXPORT_SYMBOL_GPL(__pm_runtime_resume);
+  * The caller is responsible for decrementing the runtime PM usage counter of
+  * @dev after this function has returned a positive value for it.
+  */
+-int pm_runtime_get_if_active(struct device *dev, bool ign_usage_count)
++static int pm_runtime_get_conditional(struct device *dev, bool ign_usage_count)
+ {
+ 	unsigned long flags;
+ 	int retval;
+@@ -1218,8 +1218,39 @@ int pm_runtime_get_if_active(struct device *dev, bool ign_usage_count)
+ 
+ 	return retval;
+ }
++
++/**
++ * pm_runtime_get_if_active - Bump up runtime PM usage counter if the device is
++ *			      in active state
++ * @dev: Target device.
++ *
++ * Increment the runtime PM usage counter of @dev if its runtime PM status is
++ * %RPM_ACTIVE, in which case it returns 1. If the device is in a different
++ * state, 0 is returned. -EINVAL is returned if runtime PM is disabled for the
++ * device, in which case also the usage_count will remain unmodified.
++ */
++int pm_runtime_get_if_active(struct device *dev)
++{
++	return pm_runtime_get_conditional(dev, true);
++}
+ EXPORT_SYMBOL_GPL(pm_runtime_get_if_active);
+ 
++/**
++ * pm_runtime_get_if_in_use - Conditionally bump up runtime PM usage counter.
++ * @dev: Target device.
++ *
++ * Increment the runtime PM usage counter of @dev if its runtime PM status is
++ * %RPM_ACTIVE and its runtime PM usage counter is greater than 0, in which case
++ * it returns 1. If the device is in a different state or its usage_count is 0,
++ * 0 is returned. -EINVAL is returned if runtime PM is disabled for the device,
++ * in which case also the usage_count will remain unmodified.
++ */
++int pm_runtime_get_if_in_use(struct device *dev)
++{
++	return pm_runtime_get_conditional(dev, false);
++}
++EXPORT_SYMBOL_GPL(pm_runtime_get_if_in_use);
++
+ /**
+  * __pm_runtime_set_status - Set runtime PM status of a device.
+  * @dev: Device to handle.
+diff --git a/drivers/gpu/drm/i915/intel_runtime_pm.c b/drivers/gpu/drm/i915/intel_runtime_pm.c
+index 860b51b56a92..d4e844128826 100644
+--- a/drivers/gpu/drm/i915/intel_runtime_pm.c
++++ b/drivers/gpu/drm/i915/intel_runtime_pm.c
+@@ -246,7 +246,10 @@ static intel_wakeref_t __intel_runtime_pm_get_if_active(struct intel_runtime_pm
+ 		 * function, since the power state is undefined. This applies
+ 		 * atm to the late/early system suspend/resume handlers.
+ 		 */
+-		if (pm_runtime_get_if_active(rpm->kdev, ignore_usecount) <= 0)
++		if ((ignore_usecount &&
++		     pm_runtime_get_if_active(rpm->kdev) <= 0) ||
++		    (!ignore_usecount &&
++		     pm_runtime_get_if_in_use(rpm->kdev) <= 0))
+ 			return 0;
+ 	}
+ 
+diff --git a/drivers/gpu/drm/xe/xe_pm.c b/drivers/gpu/drm/xe/xe_pm.c
+index b429c2876a76..dd110058bf74 100644
+--- a/drivers/gpu/drm/xe/xe_pm.c
++++ b/drivers/gpu/drm/xe/xe_pm.c
+@@ -330,7 +330,7 @@ int xe_pm_runtime_put(struct xe_device *xe)
+ 
+ int xe_pm_runtime_get_if_active(struct xe_device *xe)
+ {
+-	return pm_runtime_get_if_active(xe->drm.dev, true);
++	return pm_runtime_get_if_active(xe->drm.dev);
  }
  
-+static bool _lnl_compute_alpm_params(struct intel_dp *intel_dp,
-+				     struct intel_crtc_state *crtc_state)
-+{
-+	struct drm_i915_private *i915 = dp_to_i915(intel_dp);
-+	int check_entry_lines;
-+
-+	if (DISPLAY_VER(i915) < 20)
-+		return true;
-+
-+	/* ALPM Entry Check = 2 + CEILING( 5us /tline ) */
-+	check_entry_lines = 2 +
-+		intel_usecs_to_scanlines(&crtc_state->hw.adjusted_mode, 5);
-+
-+	if (check_entry_lines > 15)
-+		return false;
-+
-+	if (i915->display.params.psr_safest_params)
-+		check_entry_lines = 15;
-+
-+	intel_dp->psr.alpm_parameters.check_entry_lines = check_entry_lines;
-+
-+	return true;
-+}
-+
- static bool _compute_alpm_params(struct intel_dp *intel_dp,
- 				 struct intel_crtc_state *crtc_state)
+ void xe_pm_assert_unbounded_bridge(struct xe_device *xe)
+diff --git a/drivers/media/i2c/ccs/ccs-core.c b/drivers/media/i2c/ccs/ccs-core.c
+index e21287d50c15..e1ae0f9fad43 100644
+--- a/drivers/media/i2c/ccs/ccs-core.c
++++ b/drivers/media/i2c/ccs/ccs-core.c
+@@ -674,7 +674,7 @@ static int ccs_set_ctrl(struct v4l2_ctrl *ctrl)
+ 		break;
+ 	}
+ 
+-	pm_status = pm_runtime_get_if_active(&client->dev, true);
++	pm_status = pm_runtime_get_if_active(&client->dev);
+ 	if (!pm_status)
+ 		return 0;
+ 
+diff --git a/drivers/media/i2c/ov64a40.c b/drivers/media/i2c/ov64a40.c
+index 4fba4c2cb064..541bf74581d2 100644
+--- a/drivers/media/i2c/ov64a40.c
++++ b/drivers/media/i2c/ov64a40.c
+@@ -3287,7 +3287,7 @@ static int ov64a40_set_ctrl(struct v4l2_ctrl *ctrl)
+ 					 exp_max, 1, exp_val);
+ 	}
+ 
+-	pm_status = pm_runtime_get_if_active(ov64a40->dev, true);
++	pm_status = pm_runtime_get_if_active(ov64a40->dev);
+ 	if (!pm_status)
+ 		return 0;
+ 
+diff --git a/drivers/media/i2c/thp7312.c b/drivers/media/i2c/thp7312.c
+index 2806887514dc..19bd923a7315 100644
+--- a/drivers/media/i2c/thp7312.c
++++ b/drivers/media/i2c/thp7312.c
+@@ -1052,7 +1052,7 @@ static int thp7312_s_ctrl(struct v4l2_ctrl *ctrl)
+ 	if (ctrl->flags & V4L2_CTRL_FLAG_INACTIVE)
+ 		return -EINVAL;
+ 
+-	if (!pm_runtime_get_if_active(thp7312->dev, true))
++	if (!pm_runtime_get_if_active(thp7312->dev))
+ 		return 0;
+ 
+ 	switch (ctrl->id) {
+diff --git a/drivers/net/ipa/ipa_smp2p.c b/drivers/net/ipa/ipa_smp2p.c
+index 5620dc271fac..cbf3d4761ce3 100644
+--- a/drivers/net/ipa/ipa_smp2p.c
++++ b/drivers/net/ipa/ipa_smp2p.c
+@@ -92,7 +92,7 @@ static void ipa_smp2p_notify(struct ipa_smp2p *smp2p)
+ 		return;
+ 
+ 	dev = &smp2p->ipa->pdev->dev;
+-	smp2p->power_on = pm_runtime_get_if_active(dev, true) > 0;
++	smp2p->power_on = pm_runtime_get_if_active(dev) > 0;
+ 
+ 	/* Signal whether the IPA power is enabled */
+ 	mask = BIT(smp2p->enabled_bit);
+diff --git a/drivers/pci/pci.c b/drivers/pci/pci.c
+index d8f11a078924..f8293ae71389 100644
+--- a/drivers/pci/pci.c
++++ b/drivers/pci/pci.c
+@@ -2510,7 +2510,7 @@ static void pci_pme_list_scan(struct work_struct *work)
+ 			 * If the device is in a low power state it
+ 			 * should not be polled either.
+ 			 */
+-			pm_status = pm_runtime_get_if_active(dev, true);
++			pm_status = pm_runtime_get_if_active(dev);
+ 			if (!pm_status)
+ 				continue;
+ 
+diff --git a/include/linux/pm_runtime.h b/include/linux/pm_runtime.h
+index 7c9b35448563..436baa167498 100644
+--- a/include/linux/pm_runtime.h
++++ b/include/linux/pm_runtime.h
+@@ -72,7 +72,8 @@ extern int pm_runtime_force_resume(struct device *dev);
+ extern int __pm_runtime_idle(struct device *dev, int rpmflags);
+ extern int __pm_runtime_suspend(struct device *dev, int rpmflags);
+ extern int __pm_runtime_resume(struct device *dev, int rpmflags);
+-extern int pm_runtime_get_if_active(struct device *dev, bool ign_usage_count);
++extern int pm_runtime_get_if_active(struct device *dev);
++extern int pm_runtime_get_if_in_use(struct device *dev);
+ extern int pm_schedule_suspend(struct device *dev, unsigned int delay);
+ extern int __pm_runtime_set_status(struct device *dev, unsigned int status);
+ extern int pm_runtime_barrier(struct device *dev);
+@@ -94,18 +95,6 @@ extern void pm_runtime_release_supplier(struct device_link *link);
+ 
+ extern int devm_pm_runtime_enable(struct device *dev);
+ 
+-/**
+- * pm_runtime_get_if_in_use - Conditionally bump up runtime PM usage counter.
+- * @dev: Target device.
+- *
+- * Increment the runtime PM usage counter of @dev if its runtime PM status is
+- * %RPM_ACTIVE and its runtime PM usage counter is greater than 0.
+- */
+-static inline int pm_runtime_get_if_in_use(struct device *dev)
+-{
+-	return pm_runtime_get_if_active(dev, false);
+-}
+-
+ /**
+  * pm_suspend_ignore_children - Set runtime PM behavior regarding children.
+  * @dev: Target device.
+@@ -275,8 +264,7 @@ static inline int pm_runtime_get_if_in_use(struct device *dev)
  {
-@@ -1140,6 +1164,8 @@ static bool _compute_alpm_params(struct intel_dp *intel_dp,
- 		 * it is not enough -> use 45 us.
- 		 */
- 		fast_wake_time = 45;
-+
-+		/* TODO: Check how we can use ALPM_CTL fast wake extended field */
- 		max_wake_lines = 12;
- 	} else {
- 		io_wake_time = 50;
-@@ -1156,6 +1182,9 @@ static bool _compute_alpm_params(struct intel_dp *intel_dp,
- 	    fast_wake_lines > max_wake_lines)
- 		return false;
- 
-+	if (!_lnl_compute_alpm_params(intel_dp, crtc_state))
-+		return false;
-+
- 	if (i915->display.params.psr_safest_params)
- 		io_wake_lines = fast_wake_lines = max_wake_lines;
- 
+ 	return -EINVAL;
+ }
+-static inline int pm_runtime_get_if_active(struct device *dev,
+-					   bool ign_usage_count)
++static inline int pm_runtime_get_if_active(struct device *dev)
+ {
+ 	return -EINVAL;
+ }
+diff --git a/sound/hda/hdac_device.c b/sound/hda/hdac_device.c
+index 7f7b67fe1b65..068c16e52dff 100644
+--- a/sound/hda/hdac_device.c
++++ b/sound/hda/hdac_device.c
+@@ -612,7 +612,7 @@ EXPORT_SYMBOL_GPL(snd_hdac_power_up_pm);
+ int snd_hdac_keep_power_up(struct hdac_device *codec)
+ {
+ 	if (!atomic_inc_not_zero(&codec->in_pm)) {
+-		int ret = pm_runtime_get_if_active(&codec->dev, true);
++		int ret = pm_runtime_get_if_active(&codec->dev);
+ 		if (!ret)
+ 			return -1;
+ 		if (ret < 0)
 -- 
-2.34.1
+2.39.2
 
