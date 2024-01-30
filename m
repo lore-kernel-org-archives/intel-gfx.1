@@ -4,32 +4,32 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5D9DBC48286
-	for <intel-gfx@archiver.kernel.org>; Tue, 30 Jan 2024 10:35:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 618E0C46CD2
+	for <intel-gfx@archiver.kernel.org>; Tue, 30 Jan 2024 10:41:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B53F5112F42;
-	Tue, 30 Jan 2024 10:35:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 00EA210F883;
+	Tue, 30 Jan 2024 10:41:20 +0000 (UTC)
 Received: from coelho.fi (paleale.coelho.fi [176.9.41.70])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CEF7E112F40;
- Tue, 30 Jan 2024 10:35:49 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 69FE310F883;
+ Tue, 30 Jan 2024 10:41:18 +0000 (UTC)
 Received: from 91-155-255-116.elisa-laajakaista.fi ([91.155.255.116]
  helo=RAVPPB-CIM.amr.corp.intel.com)
  by coelho.fi with esmtpsa (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
  (Exim 4.97-RC1) (envelope-from <luca@coelho.fi>)
- id 1rUlT1-00000001Y2C-0cGR; Tue, 30 Jan 2024 12:35:47 +0200
-Message-ID: <6f9d5e5481fadb2eb452b0e3c0d3b598d9dc499b.camel@coelho.fi>
+ id 1rUl5d-00000001Xys-1gIB; Tue, 30 Jan 2024 12:11:38 +0200
+Message-ID: <af97f8a21816578b32c3be96ea5f50eea6fc8a1b.camel@coelho.fi>
 From: Luca Coelho <luca@coelho.fi>
 To: Jani Nikula <jani.nikula@intel.com>, dri-devel@lists.freedesktop.org
-Date: Tue, 30 Jan 2024 12:35:46 +0200
-In-Reply-To: <18b5b91e62d071675a651f6f91c58f05ad74134a.1705410327.git.jani.nikula@intel.com>
+Date: Tue, 30 Jan 2024 12:11:36 +0200
+In-Reply-To: <9d105014e3c90af13a874745d768212347f68283.1705410327.git.jani.nikula@intel.com>
 References: <cover.1705410327.git.jani.nikula@intel.com>
- <18b5b91e62d071675a651f6f91c58f05ad74134a.1705410327.git.jani.nikula@intel.com>
+ <9d105014e3c90af13a874745d768212347f68283.1705410327.git.jani.nikula@intel.com>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 User-Agent: Evolution 3.46.4-2 
 MIME-Version: 1.0
-Subject: Re: [PATCH 10/10] drm: remove drm_debug_printer in favor of
- drm_dbg_printer
+Subject: Re: [PATCH 02/10] drm/print: move enum drm_debug_category etc.
+ earlier in drm_print.h
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -47,113 +47,239 @@ Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 On Tue, 2024-01-16 at 15:07 +0200, Jani Nikula wrote:
-> Convert the remaining drm_debug_printer users over to drm_dbg_printer,
-> as it can handle the cases without struct drm_device pointer, and also
-> provides drm debug category and prefix support. Remove drm_debug_printer
-> altogether.
+> Avoid forward declarations in subsequent changes, but separate this
+> movement to an independent change.
 >=20
 > Signed-off-by: Jani Nikula <jani.nikula@intel.com>
 > ---
->  drivers/gpu/drm/drm_modeset_lock.c |  2 +-
->  drivers/gpu/drm/drm_print.c        |  7 -------
->  drivers/gpu/drm/ttm/ttm_bo.c       |  2 +-
->  include/drm/drm_print.h            | 17 -----------------
->  4 files changed, 2 insertions(+), 26 deletions(-)
+>  include/drm/drm_print.h | 190 ++++++++++++++++++++--------------------
+>  1 file changed, 95 insertions(+), 95 deletions(-)
 >=20
-> diff --git a/drivers/gpu/drm/drm_modeset_lock.c b/drivers/gpu/drm/drm_mod=
-eset_lock.c
-> index 918065982db4..7694b85e75e3 100644
-> --- a/drivers/gpu/drm/drm_modeset_lock.c
-> +++ b/drivers/gpu/drm/drm_modeset_lock.c
-> @@ -91,7 +91,7 @@ static noinline depot_stack_handle_t __drm_stack_depot_=
-save(void)
-> =20
->  static void __drm_stack_depot_print(depot_stack_handle_t stack_depot)
->  {
-> -	struct drm_printer p =3D drm_debug_printer("drm_modeset_lock");
-> +	struct drm_printer p =3D drm_dbg_printer(NULL, DRM_UT_KMS, "drm_modeset=
-_lock");
->  	unsigned long *entries;
->  	unsigned int nr_entries;
->  	char *buf;
-> diff --git a/drivers/gpu/drm/drm_print.c b/drivers/gpu/drm/drm_print.c
-> index 673b29c732ea..699b7dbffd7b 100644
-> --- a/drivers/gpu/drm/drm_print.c
-> +++ b/drivers/gpu/drm/drm_print.c
-> @@ -182,13 +182,6 @@ void __drm_printfn_info(struct drm_printer *p, struc=
-t va_format *vaf)
->  }
->  EXPORT_SYMBOL(__drm_printfn_info);
-> =20
-> -void __drm_printfn_debug(struct drm_printer *p, struct va_format *vaf)
-> -{
-> -	/* pr_debug callsite decorations are unhelpful here */
-> -	printk(KERN_DEBUG "%s %pV", p->prefix, vaf);
-> -}
-> -EXPORT_SYMBOL(__drm_printfn_debug);
-> -
->  void __drm_printfn_dbg(struct drm_printer *p, struct va_format *vaf)
->  {
->  	const struct drm_device *drm =3D p->arg;
-> diff --git a/drivers/gpu/drm/ttm/ttm_bo.c b/drivers/gpu/drm/ttm/ttm_bo.c
-> index edf10618fe2b..30e1fe864826 100644
-> --- a/drivers/gpu/drm/ttm/ttm_bo.c
-> +++ b/drivers/gpu/drm/ttm/ttm_bo.c
-> @@ -49,7 +49,7 @@
->  static void ttm_bo_mem_space_debug(struct ttm_buffer_object *bo,
->  					struct ttm_placement *placement)
->  {
-> -	struct drm_printer p =3D drm_debug_printer(TTM_PFX);
-> +	struct drm_printer p =3D drm_dbg_printer(NULL, DRM_UT_CORE, TTM_PFX);
->  	struct ttm_resource_manager *man;
->  	int i, mem_type;
-> =20
 > diff --git a/include/drm/drm_print.h b/include/drm/drm_print.h
-> index 27e23c06dad4..9cc473e5d353 100644
+> index 1040213d02a4..b8b4cb9bb878 100644
 > --- a/include/drm/drm_print.h
 > +++ b/include/drm/drm_print.h
-> @@ -184,7 +184,6 @@ void __drm_puts_coredump(struct drm_printer *p, const=
- char *str);
->  void __drm_printfn_seq_file(struct drm_printer *p, struct va_format *vaf=
-);
->  void __drm_puts_seq_file(struct drm_printer *p, const char *str);
->  void __drm_printfn_info(struct drm_printer *p, struct va_format *vaf);
-> -void __drm_printfn_debug(struct drm_printer *p, struct va_format *vaf);
->  void __drm_printfn_dbg(struct drm_printer *p, struct va_format *vaf);
->  void __drm_printfn_err(struct drm_printer *p, struct va_format *vaf);
+> @@ -69,6 +69,101 @@ extern unsigned long __drm_debug;
+>   *     }
+>   */
 > =20
-> @@ -317,22 +316,6 @@ static inline struct drm_printer drm_info_printer(st=
-ruct device *dev)
+> +/**
+> + * enum drm_debug_category - The DRM debug categories
+> + *
+> + * Each of the DRM debug logging macros use a specific category, and the=
+ logging
+> + * is filtered by the drm.debug module parameter. This enum specifies th=
+e values
+> + * for the interface.
+> + *
+> + * Each DRM_DEBUG_<CATEGORY> macro logs to DRM_UT_<CATEGORY> category, e=
+xcept
+> + * DRM_DEBUG() logs to DRM_UT_CORE.
+> + *
+> + * Enabling verbose debug messages is done through the drm.debug paramet=
+er, each
+> + * category being enabled by a bit:
+> + *
+> + *  - drm.debug=3D0x1 will enable CORE messages
+> + *  - drm.debug=3D0x2 will enable DRIVER messages
+> + *  - drm.debug=3D0x3 will enable CORE and DRIVER messages
+> + *  - ...
+> + *  - drm.debug=3D0x1ff will enable all messages
+> + *
+> + * An interesting feature is that it's possible to enable verbose loggin=
+g at
+> + * run-time by echoing the debug value in its sysfs node::
+> + *
+> + *   # echo 0xf > /sys/module/drm/parameters/debug
+> + *
+> + */
+> +enum drm_debug_category {
+> +	/* These names must match those in DYNAMIC_DEBUG_CLASSBITS */
+> +	/**
+> +	 * @DRM_UT_CORE: Used in the generic drm code: drm_ioctl.c, drm_mm.c,
+> +	 * drm_memory.c, ...
+> +	 */
+> +	DRM_UT_CORE,
+> +	/**
+> +	 * @DRM_UT_DRIVER: Used in the vendor specific part of the driver: i915=
+,
+> +	 * radeon, ... macro.
+> +	 */
+> +	DRM_UT_DRIVER,
+> +	/**
+> +	 * @DRM_UT_KMS: Used in the modesetting code.
+> +	 */
+> +	DRM_UT_KMS,
+> +	/**
+> +	 * @DRM_UT_PRIME: Used in the prime code.
+> +	 */
+> +	DRM_UT_PRIME,
+> +	/**
+> +	 * @DRM_UT_ATOMIC: Used in the atomic code.
+> +	 */
+> +	DRM_UT_ATOMIC,
+> +	/**
+> +	 * @DRM_UT_VBL: Used for verbose debug message in the vblank code.
+> +	 */
+> +	DRM_UT_VBL,
+> +	/**
+> +	 * @DRM_UT_STATE: Used for verbose atomic state debugging.
+> +	 */
+> +	DRM_UT_STATE,
+> +	/**
+> +	 * @DRM_UT_LEASE: Used in the lease code.
+> +	 */
+> +	DRM_UT_LEASE,
+> +	/**
+> +	 * @DRM_UT_DP: Used in the DP code.
+> +	 */
+> +	DRM_UT_DP,
+> +	/**
+> +	 * @DRM_UT_DRMRES: Used in the drm managed resources code.
+> +	 */
+> +	DRM_UT_DRMRES
+> +};
+> +
+> +static inline bool drm_debug_enabled_raw(enum drm_debug_category categor=
+y)
+> +{
+> +	return unlikely(__drm_debug & BIT(category));
+> +}
+> +
+> +#define drm_debug_enabled_instrumented(category)			\
+> +	({								\
+> +		pr_debug("todo: is this frequent enough to optimize ?\n"); \
+> +		drm_debug_enabled_raw(category);			\
+> +	})
+> +
+> +#if defined(CONFIG_DRM_USE_DYNAMIC_DEBUG)
+> +/*
+> + * the drm.debug API uses dyndbg, so each drm_*dbg macro/callsite gets
+> + * a descriptor, and only enabled callsites are reachable.  They use
+> + * the private macro to avoid re-testing the enable-bit.
+> + */
+> +#define __drm_debug_enabled(category)	true
+> +#define drm_debug_enabled(category)	drm_debug_enabled_instrumented(categ=
+ory)
+> +#else
+> +#define __drm_debug_enabled(category)	drm_debug_enabled_raw(category)
+> +#define drm_debug_enabled(category)	drm_debug_enabled_raw(category)
+> +#endif
+> +
+>  /**
+>   * struct drm_printer - drm output "stream"
+>   *
+> @@ -255,101 +350,6 @@ static inline struct drm_printer drm_err_printer(st=
+ruct drm_device *drm,
 >  	return p;
 >  }
 > =20
 > -/**
-> - * drm_debug_printer - construct a &drm_printer that outputs to pr_debug=
-()
-> - * @prefix: debug output prefix
+> - * enum drm_debug_category - The DRM debug categories
 > - *
-> - * RETURNS:
-> - * The &drm_printer object
+> - * Each of the DRM debug logging macros use a specific category, and the=
+ logging
+> - * is filtered by the drm.debug module parameter. This enum specifies th=
+e values
+> - * for the interface.
+> - *
+> - * Each DRM_DEBUG_<CATEGORY> macro logs to DRM_UT_<CATEGORY> category, e=
+xcept
+> - * DRM_DEBUG() logs to DRM_UT_CORE.
+> - *
+> - * Enabling verbose debug messages is done through the drm.debug paramet=
+er, each
+> - * category being enabled by a bit:
+> - *
+> - *  - drm.debug=3D0x1 will enable CORE messages
+> - *  - drm.debug=3D0x2 will enable DRIVER messages
+> - *  - drm.debug=3D0x3 will enable CORE and DRIVER messages
+> - *  - ...
+> - *  - drm.debug=3D0x1ff will enable all messages
+> - *
+> - * An interesting feature is that it's possible to enable verbose loggin=
+g at
+> - * run-time by echoing the debug value in its sysfs node::
+> - *
+> - *   # echo 0xf > /sys/module/drm/parameters/debug
+> - *
 > - */
-> -static inline struct drm_printer drm_debug_printer(const char *prefix)
+> -enum drm_debug_category {
+> -	/* These names must match those in DYNAMIC_DEBUG_CLASSBITS */
+> -	/**
+> -	 * @DRM_UT_CORE: Used in the generic drm code: drm_ioctl.c, drm_mm.c,
+> -	 * drm_memory.c, ...
+> -	 */
+> -	DRM_UT_CORE,
+> -	/**
+> -	 * @DRM_UT_DRIVER: Used in the vendor specific part of the driver: i915=
+,
+> -	 * radeon, ... macro.
+> -	 */
+> -	DRM_UT_DRIVER,
+> -	/**
+> -	 * @DRM_UT_KMS: Used in the modesetting code.
+> -	 */
+> -	DRM_UT_KMS,
+> -	/**
+> -	 * @DRM_UT_PRIME: Used in the prime code.
+> -	 */
+> -	DRM_UT_PRIME,
+> -	/**
+> -	 * @DRM_UT_ATOMIC: Used in the atomic code.
+> -	 */
+> -	DRM_UT_ATOMIC,
+> -	/**
+> -	 * @DRM_UT_VBL: Used for verbose debug message in the vblank code.
+> -	 */
+> -	DRM_UT_VBL,
+> -	/**
+> -	 * @DRM_UT_STATE: Used for verbose atomic state debugging.
+> -	 */
+> -	DRM_UT_STATE,
+> -	/**
+> -	 * @DRM_UT_LEASE: Used in the lease code.
+> -	 */
+> -	DRM_UT_LEASE,
+> -	/**
+> -	 * @DRM_UT_DP: Used in the DP code.
+> -	 */
+> -	DRM_UT_DP,
+> -	/**
+> -	 * @DRM_UT_DRMRES: Used in the drm managed resources code.
+> -	 */
+> -	DRM_UT_DRMRES
+> -};
+> -
+> -static inline bool drm_debug_enabled_raw(enum drm_debug_category categor=
+y)
 > -{
-> -	struct drm_printer p =3D {
-> -		.printfn =3D __drm_printfn_debug,
-> -		.prefix =3D prefix
-> -	};
-> -	return p;
+> -	return unlikely(__drm_debug & BIT(category));
 > -}
 > -
->  /**
->   * drm_dbg_printer - construct a &drm_printer for drm device specific ou=
-tput
->   * @drm: the &struct drm_device pointer, or NULL
-
-Why did you choose to make the last changes together with the patch
-that removed the old version entirely? Was it because you didn't to
-have any commit where the old version is defined but not used?
-
-In any case, this is fine with me, so:
+> -#define drm_debug_enabled_instrumented(category)			\
+> -	({								\
+> -		pr_debug("todo: is this frequent enough to optimize ?\n"); \
+> -		drm_debug_enabled_raw(category);			\
+> -	})
+> -
+> -#if defined(CONFIG_DRM_USE_DYNAMIC_DEBUG)
+> -/*
+> - * the drm.debug API uses dyndbg, so each drm_*dbg macro/callsite gets
+> - * a descriptor, and only enabled callsites are reachable.  They use
+> - * the private macro to avoid re-testing the enable-bit.
+> - */
+> -#define __drm_debug_enabled(category)	true
+> -#define drm_debug_enabled(category)	drm_debug_enabled_instrumented(categ=
+ory)
+> -#else
+> -#define __drm_debug_enabled(category)	drm_debug_enabled_raw(category)
+> -#define drm_debug_enabled(category)	drm_debug_enabled_raw(category)
+> -#endif
+> -
+>  /*
+>   * struct device based logging
+>   *
 
 Reviewed-by: Luca Coelho <luciano.coelho@intel.com>
 
