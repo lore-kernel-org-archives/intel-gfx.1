@@ -4,55 +4,69 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 789ADC46CD2
-	for <intel-gfx@archiver.kernel.org>; Tue, 30 Jan 2024 17:33:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 34F9DC46CD2
+	for <intel-gfx@archiver.kernel.org>; Tue, 30 Jan 2024 19:17:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5E32F1133E1;
-	Tue, 30 Jan 2024 17:33:27 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [192.55.52.115])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E0A6011332F;
- Tue, 30 Jan 2024 17:33:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1706636005; x=1738172005;
- h=message-id:date:mime-version:subject:to:references:from:
- in-reply-to:content-transfer-encoding;
- bh=XD9IqWzm5oFGyRCEVAHPcbBHSjTstyBuV0UUysWpTqk=;
- b=DMsktYndaiKlk1ljPj8JIVU7QOp2BazKY7V7EG78lsQxQLA6wDUvqhYd
- DjPETM6Gjg2sYJO3XvQ51ocOG4cJbFlcJwpPCZ9e9kQ43Rtf0k+XRJXcI
- JD4CI0DAlHnTOyqeRTIHP2Qk6dqR4PfCl8GJtJtiMEYm81WcaohKLfkME
- o2njl6coO/ZA7wufzQa7CgRVD0srXY1DuwPyq48yTLHpgtyBohQf7Tvhl
- 4/JS+87lAm+LN2g2fTy6CqnD3nYqEF2i8B6+sN1rNGIghndDGREQPy1UN
- QYdgOXnof7Ie0b5gkEIVpoi/WFcJRJWEWAfqQuo2GBVo3sRSIlGaQ9G6f g==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10969"; a="402953048"
-X-IronPort-AV: E=Sophos;i="6.05,230,1701158400"; d="scan'208";a="402953048"
-Received: from fmsmga005.fm.intel.com ([10.253.24.32])
- by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 30 Jan 2024 08:26:14 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10969"; a="1119316557"
-X-IronPort-AV: E=Sophos;i="6.05,230,1701158400"; d="scan'208";a="1119316557"
-Received: from nkumi-mobl3.ger.corp.intel.com (HELO [10.213.210.105])
- ([10.213.210.105])
- by fmsmga005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 30 Jan 2024 08:26:12 -0800
-Message-ID: <8ea359bb-b794-4585-9d91-fdb866e1d01e@linux.intel.com>
-Date: Tue, 30 Jan 2024 16:26:12 +0000
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9FAC010E2E1;
+	Tue, 30 Jan 2024 19:17:31 +0000 (UTC)
+Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com
+ [209.85.128.42])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C438810E2E1;
+ Tue, 30 Jan 2024 19:17:29 +0000 (UTC)
+Received: by mail-wm1-f42.google.com with SMTP id
+ 5b1f17b1804b1-40eebe7767cso34922125e9.1; 
+ Tue, 30 Jan 2024 11:17:29 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1706642188; x=1707246988; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:in-reply-to:from:references:to
+ :content-language:subject:reply-to:user-agent:mime-version:date
+ :message-id:from:to:cc:subject:date:message-id:reply-to;
+ bh=ExRDT7/oR0J/rvv0ANX+Lo9wQs3XVo3wEzukFRbiWzA=;
+ b=WBPtplJzrab1/mQT3jzSmEQhyxPX62Db6vciQEq+vTincAh9fYTb1k+vhtlyFvo1Kq
+ 2/BF8WUYC1tHS0XCZdxxvqAZE+SHFRbsvC2Tnb8derCab8TThE7IRmNbMhYIqdaCMCiD
+ KJgGzPzyLADsGtGkVmU4JurXdyQ6+wsbGMmePP25ebCD8h9tZQn34b677r5fWU+FRySf
+ /qrQyss/OlwR9p8cLNMmpgdhLGIAolqQVRgSF4Urbs4XufEGhhIiojEvwODM/wPpYIyL
+ CIqGalKBWay6KfYAgzbJvipTfs+u7D8tuyiUc0nrjK3/YNVo+QWdI/QSGTCAnhm7t5ak
+ uE+g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1706642188; x=1707246988;
+ h=content-transfer-encoding:in-reply-to:from:references:to
+ :content-language:subject:reply-to:user-agent:mime-version:date
+ :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=ExRDT7/oR0J/rvv0ANX+Lo9wQs3XVo3wEzukFRbiWzA=;
+ b=jdZ+V94IBlQV3S4iyOTWENoQVJUb3AVMR4pQK8C6iKNpiX4ucqWRNscz6OmtuEe/+n
+ fpAUgabCWTeC8AHcHsIvPp8WraNcoJ9eoTMDqQPn9ANS5AM4gK3YcrqXrX3h8j66RnK5
+ c8AizsZarAFWcWUsFIwRN+UQAPVhqxCM6sRfTOQ39NuVgBMStNZQ8UOaZchQt5HQGw3g
+ Rdv5QOl3Gr6CZg8W+ri4ZQ8zZyx0jGXbdtAUqKvMZjc1xm9Jk1c1uYFhlAdNBfzoOnzo
+ +N9no3jMzVBasZTkNK80lCb23jaxKfe1UwPRiLJ0HU+oThyJK5IPGTlSHLIZr2N/6Q0g
+ Slsw==
+X-Gm-Message-State: AOJu0Yyo0qOlk21rhfntAAjcPJK/KtHReipAq+cxUgB/1ifoXpVw0ohw
+ bUNxQav31iJCaNuGCdpftIXtb8jxreOW+xBQCiOxG3DNHFjulIwO
+X-Google-Smtp-Source: AGHT+IGPkzTLaZe+PbljW4CIQKoagC0ZtgGak/vFUKSmBtdepqHaSvELylSr4tZ9f/4h/IEdQrG/Sg==
+X-Received: by 2002:a05:600c:310b:b0:40e:fa04:92fc with SMTP id
+ g11-20020a05600c310b00b0040efa0492fcmr4464945wmo.32.1706642187786; 
+ Tue, 30 Jan 2024 11:16:27 -0800 (PST)
+Received: from [0.0.0.0] ([134.134.137.89])
+ by smtp.googlemail.com with ESMTPSA id
+ b6-20020a05600003c600b0033aed4e3b55sm6343326wrg.102.2024.01.30.11.16.25
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 30 Jan 2024 11:16:27 -0800 (PST)
+Message-ID: <1c8cce00-8f43-4a19-97a7-760f0525a197@gmail.com>
+Date: Tue, 30 Jan 2024 21:16:10 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 5/6] drm/i915: Update shared stats to use the new gem
- helper
+Subject: Re: [PATCH 3/5] drm/xe: store bind time pat index to xe_bo
 Content-Language: en-US
-To: Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
- intel-xe@lists.freedesktop.org, daniel@ffwll.ch
-References: <20240130161235.3237122-1-alexander.deucher@amd.com>
- <20240130161235.3237122-6-alexander.deucher@amd.com>
-From: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
-Organization: Intel Corporation UK Plc
-In-Reply-To: <20240130161235.3237122-6-alexander.deucher@amd.com>
+To: Matthew Auld <matthew.auld@intel.com>, intel-xe@lists.freedesktop.org,
+ intel-gfx@lists.freedesktop.org
+References: <20240126210807.320671-1-juhapekka.heikkila@gmail.com>
+ <20240126210807.320671-4-juhapekka.heikkila@gmail.com>
+ <87f6ed0b-0fe2-4cbb-ae77-bdcfdd687ccc@intel.com>
+From: Juha-Pekka Heikkila <juhapekka.heikkila@gmail.com>
+In-Reply-To: <87f6ed0b-0fe2-4cbb-ae77-bdcfdd687ccc@intel.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,39 +79,94 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: juhapekka.heikkila@gmail.com
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-
-
-On 30/01/2024 16:12, Alex Deucher wrote:
-> Switch to using the new gem shared memory stats helper
-> rather than hand rolling it.
+On 29.1.2024 13.33, Matthew Auld wrote:
+> On 26/01/2024 21:08, Juha-Pekka Heikkila wrote:
+>> Store pat index from xe_vma to xe_bo and check if bo was pinned
+>> as framebuffer and verify pat index is not changing for pinned
+>> framebuffers.
+>>
+>> Signed-off-by: Juha-Pekka Heikkila <juhapekka.heikkila@gmail.com>
+>> ---
+>>   drivers/gpu/drm/xe/xe_pt.c | 23 +++++++++++++++++++----
+>>   1 file changed, 19 insertions(+), 4 deletions(-)
+>>
+>> diff --git a/drivers/gpu/drm/xe/xe_pt.c b/drivers/gpu/drm/xe/xe_pt.c
+>> index de1030a47588..0a5d7c7543b1 100644
+>> --- a/drivers/gpu/drm/xe/xe_pt.c
+>> +++ b/drivers/gpu/drm/xe/xe_pt.c
+>> @@ -1208,10 +1208,11 @@ __xe_pt_bind_vma(struct xe_tile *tile, struct 
+>> xe_vma *vma, struct xe_exec_queue
+>>       struct dma_fence *fence;
+>>       struct invalidation_fence *ifence = NULL;
+>>       struct xe_range_fence *rfence;
+>> +    struct xe_bo *bo = xe_vma_bo(vma);
+>>       int err;
+>>       bind_pt_update.locked = false;
+>> -    xe_bo_assert_held(xe_vma_bo(vma));
+>> +    xe_bo_assert_held(bo);
+>>       xe_vm_assert_held(vm);
+>>       vm_dbg(&xe_vma_vm(vma)->xe->drm,
+>> @@ -1252,8 +1253,22 @@ __xe_pt_bind_vma(struct xe_tile *tile, struct 
+>> xe_vma *vma, struct xe_exec_queue
+>>           return ERR_PTR(-ENOMEM);
+>>       }
+>> +    /*
+>> +     * BO which has XE_BO_SCANOUT_BIT set and was pinned as framebuffer
+>> +     * before with different PAT index cannot be bound with different 
+>> PAT
+>> +     * index. This is to prevent switching CCS on/off from framebuffers
+>> +     * on the fly.
+>> +     */
+>> +    if (bo) {
+>> +        if (bo->flags & XE_BO_SCANOUT_BIT && bo->pat_index_scanout &&
 > 
-> Link: https://lore.kernel.org/all/20231207180225.439482-1-alexander.deucher@amd.com/
-> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-> ---
->   drivers/gpu/drm/i915/i915_drm_client.c | 2 +-
->   1 file changed, 1 insertion(+), 1 deletion(-)
+> Note that pat_index = 0 is usually a valid index...
 > 
-> diff --git a/drivers/gpu/drm/i915/i915_drm_client.c b/drivers/gpu/drm/i915/i915_drm_client.c
-> index fa6852713bee..f58682505491 100644
-> --- a/drivers/gpu/drm/i915/i915_drm_client.c
-> +++ b/drivers/gpu/drm/i915/i915_drm_client.c
-> @@ -53,7 +53,7 @@ obj_meminfo(struct drm_i915_gem_object *obj,
->   					obj->mm.region->id : INTEL_REGION_SMEM;
->   	const u64 sz = obj->base.size;
->   
-> -	if (obj->base.handle_count > 1)
-> +	if (drm_gem_object_is_shared_for_memory_stats(&obj->base))
->   		stats[id].shared += sz;
->   	else
->   		stats[id].private += sz;
+>> +            bo->pat_index_scanout != vma->pat_index)
+>> +            return ERR_PTR(-EINVAL);
+>> +
+>> +        bo->pat_index = vma->pat_index;
+>> +    }
+> 
+> ...what about something like:
+> 
+> if (bo.has_sealed_pat_index && bo.sealed_pat_index != vma->pat_index)
+>      return ERR_PTR();
+> else if (SCANOUT) {
+>      bo.has_sealed_pat_index = true;
+>      bo.sealed_pat_index = vma->pat_index;
+> }
+> 
+> Also, this and the previous patch should probably be squashed together? 
+> Other question is if we should only apply this on xe2?
 
-Reviewed-by: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
+Hi Matthew, thanks for the comments. I went ahead with making 
+has_sealed_pat_index and it did make things much more clean. It's good 
+idea, thanks. I'll soon send new version. Here I didn't go limit this to 
+xe2 as the limit is coming from framebuffer code, if there come other 
+use for this pat index sealing it doesn't need to be about xe2 on this part.
 
-Good that you remembered this story, I completely forgot!
+> 
+>> +
+>>       fence = xe_migrate_update_pgtables(tile->migrate,
+>> -                       vm, xe_vma_bo(vma), q,
+>> +                       vm, bo, q,
+>>                          entries, num_entries,
+>>                          syncs, num_syncs,
+>>                          &bind_pt_update.base);
+>> @@ -1287,8 +1302,8 @@ __xe_pt_bind_vma(struct xe_tile *tile, struct 
+>> xe_vma *vma, struct xe_exec_queue
+>>                      DMA_RESV_USAGE_KERNEL :
+>>                      DMA_RESV_USAGE_BOOKKEEP);
+>> -        if (!xe_vma_has_no_bo(vma) && !xe_vma_bo(vma)->vm)
+>> -            dma_resv_add_fence(xe_vma_bo(vma)->ttm.base.resv, fence,
+>> +        if (!xe_vma_has_no_bo(vma) && !bo->vm)
+>> +            dma_resv_add_fence(bo->ttm.base.resv, fence,
+>>                          DMA_RESV_USAGE_BOOKKEEP);
+>>           xe_pt_commit_bind(vma, entries, num_entries, rebind,
+>>                     bind_pt_update.locked ? &deferred : NULL);
 
-Regards,
-
-Tvrtko
