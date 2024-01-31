@@ -4,42 +4,41 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A53C0C47DB3
-	for <intel-gfx@archiver.kernel.org>; Wed, 31 Jan 2024 19:41:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6BC74C47258
+	for <intel-gfx@archiver.kernel.org>; Wed, 31 Jan 2024 19:41:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1EFF910FC9F;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 28BEF10FCA3;
 	Wed, 31 Jan 2024 19:41:42 +0000 (UTC)
 Received: from mgamail.intel.com (mgamail.intel.com [192.55.52.120])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 191BF10FC8D
- for <intel-gfx@lists.freedesktop.org>; Wed, 31 Jan 2024 19:41:34 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1DED210FC8D
+ for <intel-gfx@lists.freedesktop.org>; Wed, 31 Jan 2024 19:41:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1706730094; x=1738266094;
+ t=1706730096; x=1738266096;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=0AKfqE2VWaJWGy38fdGY9PGsPXYUdR0smFlZMaD5dsU=;
- b=H3eob+YNWA6HLOtFDj0WIAk/VY45XqnV9+igh7CAJ/EaSwKtj+jAVriW
- 00ktGy6/t6+80vmt4QDxOzmlTC9KlOxYI84Ch+EkWSCSKue9VIIwgywfi
- cdli7LFdWDz+K5o68kuIVI+2S3PNDIoM0DZL++stK2vPPBfjcVxh6YPKy
- Wc0aRnoLHA5wdutlSC7meAcuQfAza/W2KCdaUVD7lKLnoD4yj5FCtAn1Y
- Tz2UhzKdzhPFDQhv23QsUqFZSOmLTqKW6SB5VlU8OJ1nYhRJyo2pCMt1G
- OW/MQhozVkTvuCZOz45FqGwUDQ87/HlTDGv1z2lmWkOdwfDsm/wWsyHTp Q==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10969"; a="402549771"
-X-IronPort-AV: E=Sophos;i="6.05,233,1701158400"; d="scan'208";a="402549771"
+ bh=x160up0xtZYStNtxbne2Bc2915iJs6p2BhIYy3aPbeA=;
+ b=jfntDxwtA3hI8w6Th/zUAcinMffNb+UfgOXVb6CVFHfKMEIpJhFEWkwa
+ +8ocD1s9iNILX0VRD6a58ecL9BmLml/BLVflHSSl6AxJhsmL75Zdn2jls
+ 5KGXnfYyq1wDx0wT5YTy/GF4UVlsa1LNPnUQqh4ov7qkIoNRj0YAgKmGu
+ 5iR8ef72T5m6SLqC9mvIr8x3LnDEFQBtuHnOT7Ps1D2FCvFuciLAp/bmu
+ qEnSPwWk64q24DC9c505nVxGdDXIgxLRcqVP80Zo+lRRf0FI4tGkwJn9o
+ uHWZnf1XKxCzT0Knw027P5S9FzZ1D5KPAA/gbP6R0KAfT7UoqzjsktcDd w==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10969"; a="402549776"
+X-IronPort-AV: E=Sophos;i="6.05,233,1701158400"; d="scan'208";a="402549776"
 Received: from orsmga002.jf.intel.com ([10.7.209.21])
  by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 31 Jan 2024 11:41:32 -0800
+ 31 Jan 2024 11:41:35 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10969"; a="788694637"
-X-IronPort-AV: E=Sophos;i="6.05,233,1701158400"; d="scan'208";a="788694637"
+X-IronPort-AV: E=McAfee;i="6600,9927,10969"; a="788694643"
+X-IronPort-AV: E=Sophos;i="6.05,233,1701158400"; d="scan'208";a="788694643"
 Received: from kandpal-x299-ud4-pro.iind.intel.com ([10.190.239.32])
- by orsmga002.jf.intel.com with ESMTP; 31 Jan 2024 11:41:31 -0800
+ by orsmga002.jf.intel.com with ESMTP; 31 Jan 2024 11:41:34 -0800
 From: Suraj Kandpal <suraj.kandpal@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Subject: [PATCH 02/10] drm/i915/hdcp: Move source hdcp2 checks into its own
- function
-Date: Thu,  1 Feb 2024 01:09:21 +0530
-Message-Id: <20240131193929.938748-3-suraj.kandpal@intel.com>
+Subject: [PATCH 04/10] drm/i915/hdcp: Pass drm_dp_aux to read_bcaps function
+Date: Thu,  1 Feb 2024 01:09:23 +0530
+Message-Id: <20240131193929.938748-5-suraj.kandpal@intel.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20240131193929.938748-1-suraj.kandpal@intel.com>
 References: <20240131193929.938748-1-suraj.kandpal@intel.com>
@@ -60,55 +59,62 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Move checks on the source side for HDCP2.2 into its own function
-so that they can be used in the HDCP remote capability check
-function.
+Pass drm_dp_aux to intel_dp_hdcp_read_bcaps function
+so as to aid in reading the bcaps for the remote monitor
+later on.
 
 Signed-off-by: Suraj Kandpal <suraj.kandpal@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_hdcp.c | 20 +++++++++++++++++---
- 1 file changed, 17 insertions(+), 3 deletions(-)
+ drivers/gpu/drm/i915/display/intel_dp_hdcp.c | 12 +++++-------
+ 1 file changed, 5 insertions(+), 7 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_hdcp.c b/drivers/gpu/drm/i915/display/intel_hdcp.c
-index c3e692e7f790..4593ac10e2fa 100644
---- a/drivers/gpu/drm/i915/display/intel_hdcp.c
-+++ b/drivers/gpu/drm/i915/display/intel_hdcp.c
-@@ -160,12 +160,14 @@ bool intel_hdcp_capable(struct intel_connector *connector)
- 	return capable;
+diff --git a/drivers/gpu/drm/i915/display/intel_dp_hdcp.c b/drivers/gpu/drm/i915/display/intel_dp_hdcp.c
+index 9aeee6b49b3d..261de01aa5d8 100644
+--- a/drivers/gpu/drm/i915/display/intel_dp_hdcp.c
++++ b/drivers/gpu/drm/i915/display/intel_dp_hdcp.c
+@@ -122,13 +122,13 @@ static int intel_dp_hdcp_read_bstatus(struct intel_digital_port *dig_port,
  }
  
--/* Is HDCP2.2 capable on Platform and Sink */
--bool intel_hdcp2_capable(struct intel_connector *connector)
-+/*
-+ * Check if the source has all the building blocks ready to make
-+ * HDCP 2.2 work
-+ */
-+static bool intel_hdcp2_prerequisite(struct intel_connector *connector)
+ static
+-int intel_dp_hdcp_read_bcaps(struct intel_digital_port *dig_port,
++int intel_dp_hdcp_read_bcaps(struct drm_dp_aux *aux,
+ 			     u8 *bcaps)
  {
- 	struct drm_i915_private *i915 = to_i915(connector->base.dev);
- 	struct intel_hdcp *hdcp = &connector->hdcp;
--	bool capable = false;
+-	struct drm_i915_private *i915 = to_i915(dig_port->base.base.dev);
++	struct drm_i915_private *i915 = to_i915(aux->crtc->dev);
+ 	ssize_t ret;
  
- 	/* I915 support for HDCP2.2 */
- 	if (!hdcp->hdcp2_supported)
-@@ -185,6 +187,18 @@ bool intel_hdcp2_capable(struct intel_connector *connector)
- 	}
- 	mutex_unlock(&i915->display.hdcp.hdcp_mutex);
+-	ret = drm_dp_dpcd_read(&dig_port->dp.aux, DP_AUX_HDCP_BCAPS,
++	ret = drm_dp_dpcd_read(aux, DP_AUX_HDCP_BCAPS,
+ 			       bcaps, 1);
+ 	if (ret != 1) {
+ 		drm_dbg_kms(&i915->drm,
+@@ -146,7 +146,7 @@ int intel_dp_hdcp_repeater_present(struct intel_digital_port *dig_port,
+ 	ssize_t ret;
+ 	u8 bcaps;
  
-+	return true;
-+}
-+
-+/* Is HDCP2.2 capable on Platform and Sink */
-+bool intel_hdcp2_capable(struct intel_connector *connector)
-+{
-+	struct intel_hdcp *hdcp = &connector->hdcp;
-+	bool capable = false;
-+
-+	if (!intel_hdcp2_prerequisite(connector))
-+		return false;
-+
- 	/* Sink's capability for HDCP2.2 */
- 	hdcp->shim->hdcp_2_2_capable(connector, &capable);
+-	ret = intel_dp_hdcp_read_bcaps(dig_port, &bcaps);
++	ret = intel_dp_hdcp_read_bcaps(&dig_port->dp.aux, &bcaps);
+ 	if (ret)
+ 		return ret;
+ 
+@@ -271,7 +271,7 @@ int intel_dp_hdcp_capable(struct intel_digital_port *dig_port,
+ 	ssize_t ret;
+ 	u8 bcaps;
+ 
+-	ret = intel_dp_hdcp_read_bcaps(dig_port, &bcaps);
++	ret = intel_dp_hdcp_read_bcaps(&dig_port->dp.aux, &bcaps);
+ 	if (ret)
+ 		return ret;
+ 
+@@ -639,8 +639,6 @@ static
+ int _intel_dp_hdcp2_capable(struct drm_dp_aux *aux,
+ 			    bool *capable)
+ {
+-	struct intel_digital_port *dig_port = intel_attached_dig_port(connector);
+-	struct drm_dp_aux *aux = &dig_port->dp.aux;
+ 	u8 rx_caps[3];
+ 	int ret;
  
 -- 
 2.25.1
