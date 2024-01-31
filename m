@@ -4,41 +4,41 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6BC74C47258
-	for <intel-gfx@archiver.kernel.org>; Wed, 31 Jan 2024 19:41:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 99B8FC4828D
+	for <intel-gfx@archiver.kernel.org>; Wed, 31 Jan 2024 19:41:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 28BEF10FCA3;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6037D10FC9E;
 	Wed, 31 Jan 2024 19:41:42 +0000 (UTC)
 Received: from mgamail.intel.com (mgamail.intel.com [192.55.52.120])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1DED210FC8D
- for <intel-gfx@lists.freedesktop.org>; Wed, 31 Jan 2024 19:41:36 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9F6EF10FC9A
+ for <intel-gfx@lists.freedesktop.org>; Wed, 31 Jan 2024 19:41:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1706730096; x=1738266096;
+ t=1706730099; x=1738266099;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=x160up0xtZYStNtxbne2Bc2915iJs6p2BhIYy3aPbeA=;
- b=jfntDxwtA3hI8w6Th/zUAcinMffNb+UfgOXVb6CVFHfKMEIpJhFEWkwa
- +8ocD1s9iNILX0VRD6a58ecL9BmLml/BLVflHSSl6AxJhsmL75Zdn2jls
- 5KGXnfYyq1wDx0wT5YTy/GF4UVlsa1LNPnUQqh4ov7qkIoNRj0YAgKmGu
- 5iR8ef72T5m6SLqC9mvIr8x3LnDEFQBtuHnOT7Ps1D2FCvFuciLAp/bmu
- qEnSPwWk64q24DC9c505nVxGdDXIgxLRcqVP80Zo+lRRf0FI4tGkwJn9o
- uHWZnf1XKxCzT0Knw027P5S9FzZ1D5KPAA/gbP6R0KAfT7UoqzjsktcDd w==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10969"; a="402549776"
-X-IronPort-AV: E=Sophos;i="6.05,233,1701158400"; d="scan'208";a="402549776"
+ bh=jmpjHiRNCgiE8190Lo/IuAMLOfomnS6UeBDdhiaGpRs=;
+ b=dusFfmBNx32XK3dp+k/SZ7+Ms5LRpUkChzQ7TIDY3j639BqwXA9343ro
+ WeiQBXon3ckFL3wbv21hsit1S8LC340exHE3OzwhUm7tXjkwMIxOYwINT
+ fDfr5c6MLvJ4/mwoKqKUG/P0j9AfpXbyrC8Oqqr2pney2mPpO8eGh9ljq
+ f0BcHkPVFWDMk5pW0FejIYMQOv0cqpJZG96XfxZLCHtfrvU/Uy4YEW/pA
+ cOP84zFymWq3a5x1UKnwVMrnT29bD+nOg7HxuBc9V24ehW0rcHDeZKV1o
+ XNTCQWkjmJ8K71QxSXJtAeh0vUUCrigrMyyiPtxoX/qBsq3Bk2mrkp3Ds A==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10969"; a="402549780"
+X-IronPort-AV: E=Sophos;i="6.05,233,1701158400"; d="scan'208";a="402549780"
 Received: from orsmga002.jf.intel.com ([10.7.209.21])
  by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 31 Jan 2024 11:41:35 -0800
+ 31 Jan 2024 11:41:39 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10969"; a="788694643"
-X-IronPort-AV: E=Sophos;i="6.05,233,1701158400"; d="scan'208";a="788694643"
+X-IronPort-AV: E=McAfee;i="6600,9927,10969"; a="788694649"
+X-IronPort-AV: E=Sophos;i="6.05,233,1701158400"; d="scan'208";a="788694649"
 Received: from kandpal-x299-ud4-pro.iind.intel.com ([10.190.239.32])
- by orsmga002.jf.intel.com with ESMTP; 31 Jan 2024 11:41:34 -0800
+ by orsmga002.jf.intel.com with ESMTP; 31 Jan 2024 11:41:37 -0800
 From: Suraj Kandpal <suraj.kandpal@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Subject: [PATCH 04/10] drm/i915/hdcp: Pass drm_dp_aux to read_bcaps function
-Date: Thu,  1 Feb 2024 01:09:23 +0530
-Message-Id: <20240131193929.938748-5-suraj.kandpal@intel.com>
+Subject: [PATCH 06/10] drm/i915/hdcp: HDCP Capability for the downstream device
+Date: Thu,  1 Feb 2024 01:09:25 +0530
+Message-Id: <20240131193929.938748-7-suraj.kandpal@intel.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20240131193929.938748-1-suraj.kandpal@intel.com>
 References: <20240131193929.938748-1-suraj.kandpal@intel.com>
@@ -59,63 +59,82 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Pass drm_dp_aux to intel_dp_hdcp_read_bcaps function
-so as to aid in reading the bcaps for the remote monitor
-later on.
+Currently we are only checking capability of remote device and not
+immediate downstream device but during capability check we need are
+concerned with only the HDCP capability of downstream device.
+During i915_display_info reporting we need HDCP Capability for both
+the monitors and downstream branch device if any this patch adds that.
+
+--v2
+-Use MST Hub HDCP version [Ankit]
+
+--v3
+-Redefined how we seprate remote and direct read to make sure HDMI
+shim functions are not touched [Ankit]
 
 Signed-off-by: Suraj Kandpal <suraj.kandpal@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_dp_hdcp.c | 12 +++++-------
- 1 file changed, 5 insertions(+), 7 deletions(-)
+ .../drm/i915/display/intel_display_debugfs.c  | 26 +++++++++++++++----
+ 1 file changed, 21 insertions(+), 5 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_dp_hdcp.c b/drivers/gpu/drm/i915/display/intel_dp_hdcp.c
-index 9aeee6b49b3d..261de01aa5d8 100644
---- a/drivers/gpu/drm/i915/display/intel_dp_hdcp.c
-+++ b/drivers/gpu/drm/i915/display/intel_dp_hdcp.c
-@@ -122,13 +122,13 @@ static int intel_dp_hdcp_read_bstatus(struct intel_digital_port *dig_port,
+diff --git a/drivers/gpu/drm/i915/display/intel_display_debugfs.c b/drivers/gpu/drm/i915/display/intel_display_debugfs.c
+index 6f2d13c8ccf7..41458f1cae38 100644
+--- a/drivers/gpu/drm/i915/display/intel_display_debugfs.c
++++ b/drivers/gpu/drm/i915/display/intel_display_debugfs.c
+@@ -188,7 +188,8 @@ static void intel_panel_info(struct seq_file *m,
  }
  
- static
--int intel_dp_hdcp_read_bcaps(struct intel_digital_port *dig_port,
-+int intel_dp_hdcp_read_bcaps(struct drm_dp_aux *aux,
- 			     u8 *bcaps)
+ static void intel_hdcp_info(struct seq_file *m,
+-			    struct intel_connector *intel_connector)
++			    struct intel_connector *intel_connector,
++			    bool remote_req)
  {
--	struct drm_i915_private *i915 = to_i915(dig_port->base.base.dev);
-+	struct drm_i915_private *i915 = to_i915(aux->crtc->dev);
- 	ssize_t ret;
+ 	bool hdcp_cap, hdcp2_cap;
  
--	ret = drm_dp_dpcd_read(&dig_port->dp.aux, DP_AUX_HDCP_BCAPS,
-+	ret = drm_dp_dpcd_read(aux, DP_AUX_HDCP_BCAPS,
- 			       bcaps, 1);
- 	if (ret != 1) {
- 		drm_dbg_kms(&i915->drm,
-@@ -146,7 +146,7 @@ int intel_dp_hdcp_repeater_present(struct intel_digital_port *dig_port,
- 	ssize_t ret;
- 	u8 bcaps;
+@@ -197,8 +198,13 @@ static void intel_hdcp_info(struct seq_file *m,
+ 		goto out;
+ 	}
  
--	ret = intel_dp_hdcp_read_bcaps(dig_port, &bcaps);
-+	ret = intel_dp_hdcp_read_bcaps(&dig_port->dp.aux, &bcaps);
- 	if (ret)
- 		return ret;
+-	hdcp_cap = intel_hdcp_capable(intel_connector);
+-	hdcp2_cap = intel_hdcp2_capable(intel_connector);
++	if (remote_req) {
++		intel_hdcp_remote_cap(intel_connector, &hdcp_cap,
++				      &hdcp2_cap);
++	} else {
++		hdcp_cap = intel_hdcp_capable(intel_connector);
++		hdcp2_cap = intel_hdcp2_capable(intel_connector);
++	}
  
-@@ -271,7 +271,7 @@ int intel_dp_hdcp_capable(struct intel_digital_port *dig_port,
- 	ssize_t ret;
- 	u8 bcaps;
+ 	if (hdcp_cap)
+ 		seq_puts(m, "HDCP1.4 ");
+@@ -285,7 +291,12 @@ static void intel_connector_info(struct seq_file *m,
+ 	}
  
--	ret = intel_dp_hdcp_read_bcaps(dig_port, &bcaps);
-+	ret = intel_dp_hdcp_read_bcaps(&dig_port->dp.aux, &bcaps);
- 	if (ret)
- 		return ret;
+ 	seq_puts(m, "\tHDCP version: ");
+-	intel_hdcp_info(m, intel_connector);
++	intel_hdcp_info(m, intel_connector, true);
++
++	if (intel_encoder_is_mst(encoder)) {
++		seq_puts(m, "\tMST Hub HDCP version: ");
++		intel_hdcp_info(m, intel_connector, false);
++	}
  
-@@ -639,8 +639,6 @@ static
- int _intel_dp_hdcp2_capable(struct drm_dp_aux *aux,
- 			    bool *capable)
- {
--	struct intel_digital_port *dig_port = intel_attached_dig_port(connector);
--	struct drm_dp_aux *aux = &dig_port->dp.aux;
- 	u8 rx_caps[3];
- 	int ret;
+ 	seq_printf(m, "\tmax bpc: %u\n", connector->display_info.bpc);
  
+@@ -1131,7 +1142,12 @@ static int i915_hdcp_sink_capability_show(struct seq_file *m, void *data)
+ 
+ 	seq_printf(m, "%s:%d HDCP version: ", connector->base.name,
+ 		   connector->base.base.id);
+-	intel_hdcp_info(m, connector);
++	intel_hdcp_info(m, connector, true);
++
++	if (intel_encoder_is_mst(connector->encoder)) {
++		seq_puts(m, "\tMST Hub HDCP version: ");
++		intel_hdcp_info(m, connector, false);
++	}
+ 
+ out:
+ 	drm_modeset_unlock(&i915->drm.mode_config.connection_mutex);
 -- 
 2.25.1
 
