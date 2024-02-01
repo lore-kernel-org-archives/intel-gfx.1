@@ -4,27 +4,28 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C7E10C4828D
-	for <intel-gfx@archiver.kernel.org>; Thu,  1 Feb 2024 18:42:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 86009C4828D
+	for <intel-gfx@archiver.kernel.org>; Thu,  1 Feb 2024 19:06:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5015510EDD4;
-	Thu,  1 Feb 2024 18:42:33 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E20AD10EAD6;
+	Thu,  1 Feb 2024 19:06:55 +0000 (UTC)
 Received: from 5338d5abeb45 (emeril.freedesktop.org [131.252.210.167])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EB01510EDD4;
- Thu,  1 Feb 2024 18:42:31 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B132E10EAD6;
+ Thu,  1 Feb 2024 19:06:54 +0000 (UTC)
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
 Subject: =?utf-8?q?=E2=9C=97_Fi=2ECI=2ESPARSE=3A_warning_for_series_starting_with_=5B?=
- =?utf-8?q?1/3=5D_drm/i915/bios=3A_bump_expected_child_device_size?=
+ =?utf-8?q?PATCHv2=2C1/2=5D_drm/display/dp=3A_Check_for_MSTM=5FCAP_before_MS?=
+ =?utf-8?q?TM=5FCTRL_write?=
 From: Patchwork <patchwork@emeril.freedesktop.org>
-To: "Jani Nikula" <jani.nikula@intel.com>
+To: "Arun R Murthy" <arun.r.murthy@intel.com>
 Cc: intel-gfx@lists.freedesktop.org
-Date: Thu, 01 Feb 2024 18:42:31 -0000
-Message-ID: <170681295196.895526.7351208317751047258@5338d5abeb45>
+Date: Thu, 01 Feb 2024 19:06:54 -0000
+Message-ID: <170681441472.895526.673892578657004731@5338d5abeb45>
 X-Patchwork-Hint: ignore
-References: <20240131184841.872487-1-jani.nikula@intel.com>
-In-Reply-To: <20240131184841.872487-1-jani.nikula@intel.com>
+References: <20240131102344.1671929-1-arun.r.murthy@intel.com>
+In-Reply-To: <20240131102344.1671929-1-arun.r.murthy@intel.com>
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -43,8 +44,8 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 == Series Details ==
 
-Series: series starting with [1/3] drm/i915/bios: bump expected child device size
-URL   : https://patchwork.freedesktop.org/series/129378/
+Series: series starting with [PATCHv2,1/2] drm/display/dp: Check for MSTM_CAP before MSTM_CTRL write
+URL   : https://patchwork.freedesktop.org/series/129361/
 State : warning
 
 == Summary ==
