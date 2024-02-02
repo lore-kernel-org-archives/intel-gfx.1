@@ -4,46 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7ADFEC48294
-	for <intel-gfx@archiver.kernel.org>; Fri,  2 Feb 2024 06:48:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9EE71C47258
+	for <intel-gfx@archiver.kernel.org>; Fri,  2 Feb 2024 06:48:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 908DA10EBDD;
-	Fri,  2 Feb 2024 06:48:15 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EC18410EB4E;
+	Fri,  2 Feb 2024 06:48:27 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="Zkln/wro";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="Wl0nGhP3";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.14])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3167610EBBF
- for <intel-gfx@lists.freedesktop.org>; Fri,  2 Feb 2024 06:48:13 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F070E10EB4E
+ for <intel-gfx@lists.freedesktop.org>; Fri,  2 Feb 2024 06:48:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1706856493; x=1738392493;
+ t=1706856506; x=1738392506;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=IZK01uEEKk7DoB5PLAsBxt0HEK6gF66qhn4WCDSl348=;
- b=Zkln/wroUgITy7Qq6b761hq6ihi/TzeYkcJgHQKeje1R96bCOkyITaAm
- YychzOReOgvOdrJcsXX7LBFNEVFEiykzoevWT/kvEh3evSLN0flBWHKQp
- geiC21RIgw1QzCWTGQrYiStprkV6gZUA7CIKDg1IBI4L6ru0Avgt4LpqO
- 5GuL7MGwoQD86iZ2Dx+2RpC1oVsPIlg1+PIJuYPnwxqV6odPF9yyz75xP
- FGSGZwJKKhPrCRpGontdUO+VjaKbsUoukjRLgcgAEHKsXgJfLy+SpY+ca
- Z1W99GOAPCaxgjpFTjFuBeLrjUmNJr8vPM5xCmOjjaz76yZ3E/kF4Wua+ A==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10971"; a="263564"
+ bh=Rx3bMuEACEy3sA9NKikJ0Afo7sMV33WNfduGW0hUUn4=;
+ b=Wl0nGhP3baeYZBnFN78alxFi6/6hjXRwvUjWnt94K/VtbyQDzgkb/D9R
+ yc7QXkJx8ENX0/SzkfJerPLk+OZ7mBGIOa/x4P+h671myXBDkl+SSwYOb
+ bSTNsF53JvBn+XURrvbP16qIMZd45+ymTYVuG3dD1qT1N3mVcjP+Audcq
+ AMx3rFu6FK2xOVE8gyCy7Pf94R5UzAxwzkkB0E/bVG1aOGtTr53+tkEV7
+ uZZ96UfBlkyoeXVuorPccWtLrKaNDVMCjubqLxMrCsDaY7BxPA3oB2RRq
+ zL380SwC+gKIXE2F/YE0PhRVxzzHkWCaHJyfqJGVIsuGMnlZOX95A4+zJ Q==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10971"; a="263566"
 X-IronPort-AV: E=Sophos;i="6.05,237,1701158400"; 
-   d="scan'208";a="263564"
+   d="scan'208";a="263566"
 Received: from fmviesa001.fm.intel.com ([10.60.135.141])
  by fmvoesa108.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 01 Feb 2024 22:41:10 -0800
+ 01 Feb 2024 22:41:13 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.05,237,1701158400"; d="scan'208";a="31084881"
+X-IronPort-AV: E=Sophos;i="6.05,237,1701158400"; d="scan'208";a="31084901"
 Received: from kandpal-x299-ud4-pro.iind.intel.com ([10.190.239.32])
- by fmviesa001.fm.intel.com with ESMTP; 01 Feb 2024 22:41:08 -0800
+ by fmviesa001.fm.intel.com with ESMTP; 01 Feb 2024 22:41:12 -0800
 From: Suraj Kandpal <suraj.kandpal@intel.com>
 To: intel-gfx@lists.freedesktop.org
 Cc: uma.shankar@intel.com, ankit.k.nautiyal@intel.com,
  Suraj Kandpal <suraj.kandpal@intel.com>
-Subject: [PATCH 09/11] drm/i915/hdcp: Save acquire_ctx in intel_hdcp
-Date: Fri,  2 Feb 2024 12:08:50 +0530
-Message-Id: <20240202063852.1076862-10-suraj.kandpal@intel.com>
+Subject: [PATCH 11/11] drm/i915/hdcp: Read Rxcaps for robustibility
+Date: Fri,  2 Feb 2024 12:08:52 +0530
+Message-Id: <20240202063852.1076862-12-suraj.kandpal@intel.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20240202063852.1076862-1-suraj.kandpal@intel.com>
 References: <20240202063852.1076862-1-suraj.kandpal@intel.com>
@@ -64,92 +64,62 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Save acquire_ctx in intel_hdcp so that it can be used later
-for locking to get vcpi id without need to propate intel_atomic_state.
-Furthermore it can be called from work_struct where deriving
-intel_atomic_state is not possible.
+We see some monitors and docks report incorrect hdcp version
+and capability in first few reads so we read rx_caps three times
+before we conclude the monitor's or docks HDCP capability
+
+--v2
+-Add comment to justify the 3 time read loop for hdcp capability[Ankit]
 
 Signed-off-by: Suraj Kandpal <suraj.kandpal@intel.com>
+Reviewed-by: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
 ---
- .../gpu/drm/i915/display/intel_display_types.h    |  1 +
- drivers/gpu/drm/i915/display/intel_hdcp.c         | 15 ++++++++-------
- 2 files changed, 9 insertions(+), 7 deletions(-)
+ drivers/gpu/drm/i915/display/intel_dp_hdcp.c | 29 ++++++++++++++------
+ 1 file changed, 20 insertions(+), 9 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_display_types.h b/drivers/gpu/drm/i915/display/intel_display_types.h
-index 7e7a370a3b30..d7b2af07b499 100644
---- a/drivers/gpu/drm/i915/display/intel_display_types.h
-+++ b/drivers/gpu/drm/i915/display/intel_display_types.h
-@@ -545,6 +545,7 @@ struct intel_hdcp {
- 	u64 value;
- 	struct delayed_work check_work;
- 	struct work_struct prop_work;
-+	struct drm_modeset_acquire_ctx *acquire_ctx;
- 
- 	/* HDCP1.4 Encryption status */
- 	bool hdcp_encrypted;
-diff --git a/drivers/gpu/drm/i915/display/intel_hdcp.c b/drivers/gpu/drm/i915/display/intel_hdcp.c
-index 2b739249b60c..f6eccbd9e7ae 100644
---- a/drivers/gpu/drm/i915/display/intel_hdcp.c
-+++ b/drivers/gpu/drm/i915/display/intel_hdcp.c
-@@ -30,12 +30,13 @@
- #define KEY_LOAD_TRIES	5
- #define HDCP2_LC_RETRY_CNT			3
- 
--static int intel_conn_to_vcpi(struct drm_atomic_state *state,
--			      struct intel_connector *connector)
-+static int intel_conn_to_vcpi(struct intel_connector *connector)
+diff --git a/drivers/gpu/drm/i915/display/intel_dp_hdcp.c b/drivers/gpu/drm/i915/display/intel_dp_hdcp.c
+index 2cd987645776..b586477c987b 100644
+--- a/drivers/gpu/drm/i915/display/intel_dp_hdcp.c
++++ b/drivers/gpu/drm/i915/display/intel_dp_hdcp.c
+@@ -638,18 +638,29 @@ int _intel_dp_hdcp2_capable(struct drm_dp_aux *aux,
+ 			    bool *capable)
  {
- 	struct drm_dp_mst_topology_mgr *mgr;
- 	struct drm_dp_mst_atomic_payload *payload;
- 	struct drm_dp_mst_topology_state *mst_state;
-+	struct intel_hdcp *hdcp = &connector->hdcp;
-+	struct drm_modeset_acquire_ctx *acquire_ctx = hdcp->acquire_ctx;
- 	int vcpi = 0;
+ 	u8 rx_caps[3];
+-	int ret;
++	int ret, i;
  
- 	/* For HDMI this is forced to be 0x0. For DP SST also this is 0x0. */
-@@ -43,7 +44,7 @@ static int intel_conn_to_vcpi(struct drm_atomic_state *state,
- 		return 0;
- 	mgr = connector->port->mgr;
+ 	*capable = false;
+-	ret = drm_dp_dpcd_read(aux,
+-			       DP_HDCP_2_2_REG_RX_CAPS_OFFSET,
+-			       rx_caps, HDCP_2_2_RXCAPS_LEN);
+-	if (ret != HDCP_2_2_RXCAPS_LEN)
+-		return ret >= 0 ? -EIO : ret;
  
--	drm_modeset_lock(&mgr->base.lock, state->acquire_ctx);
-+	drm_modeset_lock(&mgr->base.lock, acquire_ctx);
- 	mst_state = to_drm_dp_mst_topology_state(mgr->base.state);
- 	payload = drm_atomic_get_mst_payload_state(mst_state, connector->port);
- 	if (drm_WARN_ON(mgr->dev, !payload))
-@@ -2315,8 +2316,7 @@ int intel_hdcp_init(struct intel_connector *connector,
+-	if (rx_caps[0] == HDCP_2_2_RX_CAPS_VERSION_VAL &&
+-	    HDCP_2_2_DP_HDCP_CAPABLE(rx_caps[2]))
+-		*capable = true;
++	/*
++	 * Some HDCP monitors act really shady by not giving the correct hdcp
++	 * capability on the first rx_caps read and usually take an extra read
++	 * to give the capability. We read rx_caps three times before we
++	 * declare a monitor not capable of HDCP 2.2.
++	 */
++	for (i = 0; i < 3; i++) {
++		ret = drm_dp_dpcd_read(aux,
++				       DP_HDCP_2_2_REG_RX_CAPS_OFFSET,
++				       rx_caps, HDCP_2_2_RXCAPS_LEN);
++		if (ret != HDCP_2_2_RXCAPS_LEN)
++			return ret >= 0 ? -EIO : ret;
++
++		if (rx_caps[0] == HDCP_2_2_RX_CAPS_VERSION_VAL &&
++		    HDCP_2_2_DP_HDCP_CAPABLE(rx_caps[2])) {
++			*capable = true;
++			break;
++		}
++	}
+ 
+ 	return 0;
  }
- 
- static int
--intel_hdcp_set_streams(struct intel_digital_port *dig_port,
--		       struct intel_atomic_state *state)
-+intel_hdcp_set_streams(struct intel_digital_port *dig_port)
- {
- 	struct drm_connector_list_iter conn_iter;
- 	struct intel_digital_port *conn_dig_port;
-@@ -2345,7 +2345,7 @@ intel_hdcp_set_streams(struct intel_digital_port *dig_port,
- 			continue;
- 
- 		data->streams[data->k].stream_id =
--			intel_conn_to_vcpi(&state->base, connector);
-+			intel_conn_to_vcpi(connector);
- 		data->k++;
- 
- 		/* if there is only one active stream */
-@@ -2400,12 +2400,13 @@ static int _intel_hdcp_enable(struct intel_atomic_state *state,
- 		dig_port->hdcp_port_data.hdcp_transcoder =
- 			intel_get_hdcp_transcoder(hdcp->cpu_transcoder);
- 
-+	hdcp->acquire_ctx = state->base.acquire_ctx;
- 	/*
- 	 * Considering that HDCP2.2 is more secure than HDCP1.4, If the setup
- 	 * is capable of HDCP2.2, it is preferred to use HDCP2.2.
- 	 */
- 	if (intel_hdcp2_capable(connector)) {
--		ret = intel_hdcp_set_streams(dig_port, state);
-+		ret = intel_hdcp_set_streams(dig_port);
- 		if (!ret) {
- 			ret = _intel_hdcp2_enable(connector);
- 			if (!ret)
 -- 
 2.25.1
 
