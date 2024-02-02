@@ -4,76 +4,72 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 59159C4828D
-	for <intel-gfx@archiver.kernel.org>; Mon,  5 Feb 2024 13:34:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 08F24C48295
+	for <intel-gfx@archiver.kernel.org>; Mon,  5 Feb 2024 13:34:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D490E10F9AC;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0CDDE10F9A9;
 	Mon,  5 Feb 2024 13:34:57 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="XVg6oY93";
+	dkim=pass (2048-bit key; unprotected) header.d=google.com header.i=@google.com header.b="zeWvoRx2";
 	dkim-atps=neutral
-Received: from mail-yb1-f176.google.com (mail-yb1-f176.google.com
- [209.85.219.176])
- by gabe.freedesktop.org (Postfix) with ESMTPS id ADC9810F15C;
- Mon, 29 Jan 2024 15:12:20 +0000 (UTC)
-Received: by mail-yb1-f176.google.com with SMTP id
- 3f1490d57ef6-dc64926af85so2204533276.0; 
- Mon, 29 Jan 2024 07:12:20 -0800 (PST)
+Received: from mail-qt1-f182.google.com (mail-qt1-f182.google.com
+ [209.85.160.182])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9617310E4F0
+ for <intel-gfx@lists.freedesktop.org>; Fri,  2 Feb 2024 20:16:18 +0000 (UTC)
+Received: by mail-qt1-f182.google.com with SMTP id
+ d75a77b69052e-42a88ad0813so51861cf.0
+ for <intel-gfx@lists.freedesktop.org>; Fri, 02 Feb 2024 12:16:18 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1706541080; x=1707145880; darn=lists.freedesktop.org;
- h=in-reply-to:content-transfer-encoding:content-disposition
- :mime-version:references:message-id:subject:cc:to:from:date:from:to
- :cc:subject:date:message-id:reply-to;
- bh=UyBI2+8L21ywPJPux+Uv+p4ig16OrBVzk8ATobFMmGw=;
- b=XVg6oY93kT6+GSivGj7ybYP3z24Xusqd4gBebw7UYa+hRWXrkEXrMuh3ZNl6AJaQH5
- h1NhlKs3El2qaYUJsDtXAWkKUViGvYeVUy3g2ZAjq6Wd8toBD98Jwwow7Ewlt7yMTJKX
- 3MvegCZ68+XcBaG4cUV7s59+2Flg0QNRCxr64s/UyVPBp4O/x5CpH+s9FRyQu7EGU9LJ
- wcuEpsWx/aiySoSNegvHz1T9xJFZ1eu9k2b44tv2vqxeSUjWMFdlLfPEkQ9HZrp70T57
- 1lkBI2is37g1N83D8dKokVmNiTLaOiT9OsjzyLbO2qBbEgdX+pfvh0BcR7duHkw0vtdJ
- aVRw==
+ d=google.com; s=20230601; t=1706904977; x=1707509777;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=y/YAw3L55aC5kXJ1OC6qpduxr2eZyNH6Gl/E97WVz/o=;
+ b=zeWvoRx2Lgyb1hEmV8DL8duVL2tOdCmZJGpB2MTKC02gj7spkTTKUMS9KRvv95myE8
+ rivi6fl1Cd1MlRleu2JLSmqrXSWYgl0GHdVSCeKphigAmNM0Xo0sqP8Vt9gvELn/KFON
+ MwTN1Pa0SA3ouMR/Kt2pV06VK8x/9iO2xpfcVG1D9l//KvZx2R4MCxBb7k1husxENyzA
+ QJEJxSa13qLaLqla6eFyhvUjONUuRUiIPeczqCFkktRD9Om1Lb09s5+QWTHyq00gUTPc
+ 43IdSCHnvPqcOSyiDxK/AzBrUvDC7hukhaQIyqXROqiNUo7q/wHRjU+agogxfUjtuLQ+
+ EPFA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1706541080; x=1707145880;
- h=in-reply-to:content-transfer-encoding:content-disposition
- :mime-version:references:message-id:subject:cc:to:from:date
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=UyBI2+8L21ywPJPux+Uv+p4ig16OrBVzk8ATobFMmGw=;
- b=gc4T41gUc8m+s+1vFYWyRMj1J3enUir0ruwOolcD6PJsEGHwp5ZI5kw6ix2r2LQCLk
- dqItm+j6pJBH9KJ4y36L4+042AnlBQzkbWP5PGrVm7jIVbK9xWM/k8Z4p29jp0s4g4jZ
- M1gI10YLokEhaVaxrJXvQbgbkgOVI2PRxCmcg1srFpTLQKSexu35EJOFuR8A9NiFp/cX
- 0A+9B9MgVTHRSffZtS6tUzv7g4Y9yP7usnk6U4RUeRZtZ/2DwnSn9HZR/NU0DGy8DTLA
- OY03Ers0CAsBIVlmd/1Lqohmu5P4NDT7vqArLmnPjR6zaejim6N9meJfbZ0ZaMAttFZw
- ntFw==
-X-Gm-Message-State: AOJu0YzdmI52JgsF9TwJxWLEJEq90TLTpbqGekFyWGxpSpQmnS0s1wDf
- nUjF5My8bHtrG5a6s1AvHmJfXaMy6x6Bm54Hl8FcOWiTXaaGJ+Ak
-X-Google-Smtp-Source: AGHT+IH6s9vU8wXBWDMvXY5IJ1/1w2lOaFFb2+TzOnPFlDReNgorwWtIdEbPiAsxJhHbD0OsJTnBwg==
-X-Received: by 2002:a5b:87:0:b0:dc2:2b1a:7246 with SMTP id
- b7-20020a5b0087000000b00dc22b1a7246mr2822490ybp.123.1706541078294; 
- Mon, 29 Jan 2024 07:11:18 -0800 (PST)
-Received: from localhost ([2601:344:8301:57f0:6dcf:e3a4:263a:17d6])
- by smtp.gmail.com with ESMTPSA id
- u100-20020a25ab6d000000b00dc22fa579c5sm2320375ybi.45.2024.01.29.07.11.17
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 29 Jan 2024 07:11:17 -0800 (PST)
-Date: Mon, 29 Jan 2024 07:11:17 -0800
-From: Yury Norov <yury.norov@gmail.com>
-To: Lucas De Marchi <lucas.demarchi@intel.com>
-Cc: intel-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org,
- Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
- intel-xe@lists.freedesktop.org
-Subject: Re: Re: Re: [PATCH 1/3] bits: introduce fixed-type genmasks
-Message-ID: <ZbfAFZ4J5Gncb/xc@yury-ThinkPad>
-References: <20240124050205.3646390-1-lucas.demarchi@intel.com>
- <20240124050205.3646390-2-lucas.demarchi@intel.com>
- <87v87jkvrx.fsf@intel.com>
- <gvkvihpcc45275idrfukjqbvgem767evrux5sx5lnh5hofqemk@ppbkcauitvwb>
- <ZbEsfl0tGLY+xJl0@yury-ThinkPad>
- <yro4nl7ryt6ckxpkctkaao6sd7j4533w2u66ae4kecpu6riszl@lj5sspyvapwq>
+ d=1e100.net; s=20230601; t=1706904977; x=1707509777;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=y/YAw3L55aC5kXJ1OC6qpduxr2eZyNH6Gl/E97WVz/o=;
+ b=nOsDpx2jPwScdsjep8Z6fRALFfArd7vy3HQXLHE9G0rr3uoeIcdKWvjsjOZGXT80OI
+ sdl055751tlcLoSTR9icexYTPlO6GRVhGmSFqLLTXWR837YHysQMhzVny+iT27f75H+I
+ T393BjLcgHOPBKpXmsYo0Ol2EMh8u2garMA3EUbJggQZFm9v2gmS1Ce+fkGzBmiH8J0+
+ IDUGXWShh/VpOXqrIcjDAINRgGEm5RHNaUbtxt4hsQbfgafrPK0mZYnvyCVxy0BLAsMp
+ mUVTUP2UcxxY1/IIW0/77bXKWTwVQEJfQsDJB3M8yQV2ykhn8V9q8ep8atbyvssnUHLm
+ tmww==
+X-Gm-Message-State: AOJu0YyU8woONohJ6VYkdFdujlm5qy4Rt0oWoxdwINuYQDmwG8DDbUoP
+ 49T0pjcUGkvYAZdrzmYbNx6xeyMw6/IRA8sG4nHTTj/m6F69DmD3eH7Sl1HZZWAQKYQlTKRIXF/
+ wZRA748EAlB+wXJ1dAgLYjnQxfy8+pVq4Z60m
+X-Google-Smtp-Source: AGHT+IGbunbL7fYRGBQ5S8wwMT6ranidv7JKOXh/UXkQZypSu0gtmvvH3y43WGPtcqy6V2DArx+zVQoYmBsKEqIQkhU=
+X-Received: by 2002:ac8:6658:0:b0:42a:84cf:1005 with SMTP id
+ j24-20020ac86658000000b0042a84cf1005mr6736qtp.20.1706904977310; Fri, 02 Feb
+ 2024 12:16:17 -0800 (PST)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <yro4nl7ryt6ckxpkctkaao6sd7j4533w2u66ae4kecpu6riszl@lj5sspyvapwq>
+References: <20240201060437.861155-2-davidgow@google.com>
+In-Reply-To: <20240201060437.861155-2-davidgow@google.com>
+From: Rae Moar <rmoar@google.com>
+Date: Fri, 2 Feb 2024 15:16:04 -0500
+Message-ID: <CA+GJov6Swgvc+wrCvW3Ujqh_UW1BSRDrp9ccHUX2CVRjWpe1dQ@mail.gmail.com>
+Subject: Re: [PATCH] kunit: device: Unregister the kunit_bus on shutdown
+To: David Gow <davidgow@google.com>
+Cc: Shuah Khan <skhan@linuxfoundation.org>,
+ Matti Vaittinen <mazziesaccount@gmail.com>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Brendan Higgins <brendan.higgins@linux.dev>, 
+ Maxime Ripard <mripard@kernel.org>, linux-kselftest@vger.kernel.org, 
+ kunit-dev@googlegroups.com, linux-kernel@vger.kernel.org, 
+ Chaitanya Kumar <chaitanya.kumar.borah@intel.com>,
+ Jani <jani.saarinen@intel.com>, 
+ Richard Fitzgerald <rf@opensource.cirrus.com>, intel-gfx@lists.freedesktop.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-Mailman-Approved-At: Mon, 05 Feb 2024 13:34:56 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -90,59 +86,96 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Mon, Jan 29, 2024 at 08:49:35AM -0600, Lucas De Marchi wrote:
-> On Wed, Jan 24, 2024 at 07:27:58AM -0800, Yury Norov wrote:
-> > On Wed, Jan 24, 2024 at 08:03:53AM -0600, Lucas De Marchi wrote:
-> > > On Wed, Jan 24, 2024 at 09:58:26AM +0200, Jani Nikula wrote:
-> > > > On Tue, 23 Jan 2024, Lucas De Marchi <lucas.demarchi@intel.com> wrote:
-> > > > > From: Yury Norov <yury.norov@gmail.com>
-> > > > >
-> > > > > Generalize __GENMASK() to support different types, and implement
-> > > > > fixed-types versions of GENMASK() based on it. The fixed-type version
-> > > > > allows more strict checks to the min/max values accepted, which is
-> > > > > useful for defining registers like implemented by i915 and xe drivers
-> > > > > with their REG_GENMASK*() macros.
-> > > >
-> > > > Mmh, the commit message says the fixed-type version allows more strict
-> > > > checks, but none are actually added. GENMASK_INPUT_CHECK() remains the
-> > > > same.
-> > > >
-> > > > Compared to the i915 and xe versions, this is more lax now. You could
-> > > > specify GENMASK_U32(63,32) without complaints.
-> > > 
-> > > Doing this on top of the this series:
-> > > 
-> > > -#define   XELPDP_PORT_M2P_COMMAND_TYPE_MASK            REG_GENMASK(30, 27)
-> > > +#define   XELPDP_PORT_M2P_COMMAND_TYPE_MASK            REG_GENMASK(62, 32)
-> > > 
-> > > and I do get a build failure:
-> > > 
-> > > ../drivers/gpu/drm/i915/display/intel_cx0_phy.c: In function ‘__intel_cx0_read_once’:
-> > > ../include/linux/bits.h:41:31: error: left shift count >= width of type [-Werror=shift-count-overflow]
-> > >    41 |          (((t)~0ULL - ((t)(1) << (l)) + 1) & \
-> > >       |                               ^~
-> > 
-> > I would better include this in commit message to avoid people's
-> > confusion. If it comes to v2, can you please do it and mention that
-> > this trick relies on shift-count-overflow compiler check?
-> 
-> either that or an explicit check as it was suggested. What's your
-> preference?
+On Thu, Feb 1, 2024 at 1:06=E2=80=AFAM David Gow <davidgow@google.com> wrot=
+e:
+>
+> If KUnit is built as a module, and it's unloaded, the kunit_bus is not
+> unregistered. This causes an error if it's then re-loaded later, as we
+> try to re-register the bus.
+>
+> Unregister the bus and root_device on shutdown, if it looks valid.
+>
+> In addition, be more specific about the value of kunit_bus_device. It
+> is:
+> - a valid struct device* if the kunit_bus initialised correctly.
+> - an ERR_PTR if it failed to initialise.
+> - NULL before initialisation and after shutdown.
+>
+> Fixes: d03c720e03bd ("kunit: Add APIs for managing devices")
+> Signed-off-by: David Gow <davidgow@google.com>
 
-Let's put a comment in the code. An argument that shift-count-overflow
-may be disabled sounds more like a speculation unless we have a solid
-example of a build system where the error is disabled for a good sane
-reason, but possible GENMASK() overflow is still considered dangerous.
+Hello,
 
-GENMASK() is all about bit shifts, so shift-related error is something
-I'd expect when using GENMASK().
+I have tested this with modules and it looks good to me!
 
-Also, the macro is widely used in the kernel:
+Thanks!
+-Rae
 
-        yury:linux$ git grep GENMASK | wc -l
-        26879
+Reviewed-by: Rae Moar <rmoar@google.com>
 
-Explicit check would add pressure on the compiler for nothing. 
-
-Thanks,
-Yury
+> ---
+>
+> This will hopefully resolve some of the issues linked to from:
+> https://lore.kernel.org/intel-gfx/DM4PR11MB614179CB9C387842D8E8BB40B97C2@=
+DM4PR11MB6141.namprd11.prod.outlook.com/
+>
+> ---
+>  lib/kunit/device-impl.h |  2 ++
+>  lib/kunit/device.c      | 14 ++++++++++++++
+>  lib/kunit/test.c        |  3 +++
+>  3 files changed, 19 insertions(+)
+>
+> diff --git a/lib/kunit/device-impl.h b/lib/kunit/device-impl.h
+> index 54bd55836405..5fcd48ff0f36 100644
+> --- a/lib/kunit/device-impl.h
+> +++ b/lib/kunit/device-impl.h
+> @@ -13,5 +13,7 @@
+>
+>  // For internal use only -- registers the kunit_bus.
+>  int kunit_bus_init(void);
+> +// For internal use only -- unregisters the kunit_bus.
+> +void kunit_bus_shutdown(void);
+>
+>  #endif //_KUNIT_DEVICE_IMPL_H
+> diff --git a/lib/kunit/device.c b/lib/kunit/device.c
+> index 074c6dd2e36a..644a38a1f5b1 100644
+> --- a/lib/kunit/device.c
+> +++ b/lib/kunit/device.c
+> @@ -54,6 +54,20 @@ int kunit_bus_init(void)
+>         return error;
+>  }
+>
+> +/* Unregister the 'kunit_bus' in case the KUnit module is unloaded. */
+> +void kunit_bus_shutdown(void)
+> +{
+> +       /* Make sure the bus exists before we unregister it. */
+> +       if (IS_ERR_OR_NULL(kunit_bus_device))
+> +               return;
+> +
+> +       bus_unregister(&kunit_bus_type);
+> +
+> +       root_device_unregister(kunit_bus_device);
+> +
+> +       kunit_bus_device =3D NULL;
+> +}
+> +
+>  /* Release a 'fake' KUnit device. */
+>  static void kunit_device_release(struct device *d)
+>  {
+> diff --git a/lib/kunit/test.c b/lib/kunit/test.c
+> index 31a5a992e646..1d1475578515 100644
+> --- a/lib/kunit/test.c
+> +++ b/lib/kunit/test.c
+> @@ -928,6 +928,9 @@ static void __exit kunit_exit(void)
+>  #ifdef CONFIG_MODULES
+>         unregister_module_notifier(&kunit_mod_nb);
+>  #endif
+> +
+> +       kunit_bus_shutdown();
+> +
+>         kunit_debugfs_cleanup();
+>  }
+>  module_exit(kunit_exit);
+> --
+> 2.43.0.429.g432eaa2c6b-goog
+>
