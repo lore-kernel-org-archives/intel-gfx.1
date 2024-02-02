@@ -4,27 +4,55 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2F524C4828E
-	for <intel-gfx@archiver.kernel.org>; Fri,  2 Feb 2024 09:57:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 72543C48291
+	for <intel-gfx@archiver.kernel.org>; Fri,  2 Feb 2024 10:02:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9239810EAB7;
-	Fri,  2 Feb 2024 09:57:08 +0000 (UTC)
-Received: from 5338d5abeb45 (emeril.freedesktop.org [131.252.210.167])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4686C10EAB7;
- Fri,  2 Feb 2024 09:57:07 +0000 (UTC)
-Content-Type: multipart/alternative;
- boundary="===============4342917772767894138=="
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0150210ECDA;
+	Fri,  2 Feb 2024 10:02:35 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="HeHWavlo";
+	dkim-atps=neutral
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.15])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0B27410ECDA
+ for <intel-gfx@lists.freedesktop.org>; Fri,  2 Feb 2024 10:02:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1706868154; x=1738404154;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=qwC+GDmm/RnwsiYwgsMl3JRcLjzO+Xt4E/6NnNaxAK8=;
+ b=HeHWavlopIcCuqTQvysrpl+hmHU26H4kSu9WzGp1HnaDvIfZPMgCRD7H
+ 818HwxHvWk9Af3zNk8LAvH3Gz8zdArT+h9MpLMuJu4iyvEi6Q2Juz97Up
+ By3gKA7X1TQibhtXEUo1BCZNfKZ3ex0rjZhgcZq5aR7IHVy0WEK+5tnAT
+ GShDdCI89ZA6mxAUcd+VeuD0kySn5XCtumJh9Og8JsS8jFF4TVl1gQfg2
+ OW3rBFfpvWLDKBo7NIRq2cgXiMR57MjjzgLXe04z2ZVHnbr9fhEd8WnCk
+ iMMHJj6JI3AWK/YG5xtAGSUeep1KHV/ltKmBpGUcL6ZKbMftyF14Piy/Y Q==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10971"; a="4025574"
+X-IronPort-AV: E=Sophos;i="6.05,237,1701158400"; 
+   d="scan'208";a="4025574"
+Received: from fmsmga001.fm.intel.com ([10.253.24.23])
+ by orvoesa107.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 02 Feb 2024 02:02:34 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6600,9927,10971"; a="932432953"
+X-IronPort-AV: E=Sophos;i="6.05,237,1701158400"; d="scan'208";a="932432953"
+Received: from unknown (HELO slisovsk-Lenovo-ideapad-720S-13IKB.fi.intel.com)
+ ([10.237.72.65])
+ by fmsmga001.fm.intel.com with ESMTP; 02 Feb 2024 02:02:31 -0800
+From: Stanislav Lisovskiy <stanislav.lisovskiy@intel.com>
+To: intel-gfx@lists.freedesktop.org
+Cc: jani.saarinen@intel.com, Stanislav.Lisovskiy@intel.com,
+ ville.syrjala@linux.intel.com
+Subject: [PATCH 3/3] Start separating pipe vs transcoder set logic for
+ bigjoiner during modeset
+Date: Fri,  2 Feb 2024 12:02:30 +0200
+Message-Id: <20240202100230.4430-1-stanislav.lisovskiy@intel.com>
+X-Mailer: git-send-email 2.37.3
+In-Reply-To: <20240108120725.20057-4-stanislav.lisovskiy@intel.com>
+References: <20240108120725.20057-4-stanislav.lisovskiy@intel.com>
 MIME-Version: 1.0
-Subject: =?utf-8?q?=E2=9C=93_Fi=2ECI=2EBAT=3A_success_for_drm=3A_Check_polling_initia?=
- =?utf-8?q?lized_before?=
-From: Patchwork <patchwork@emeril.freedesktop.org>
-To: "Shradha Gupta" <shradhagupta@linux.microsoft.com>
-Cc: intel-gfx@lists.freedesktop.org
-Date: Fri, 02 Feb 2024 09:57:07 -0000
-Message-ID: <170686782728.936066.13297116112488039788@5338d5abeb45>
-X-Patchwork-Hint: ignore
-References: <1706856176-9483-1-git-send-email-shradhagupta@linux.microsoft.com>
-In-Reply-To: <1706856176-9483-1-git-send-email-shradhagupta@linux.microsoft.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -37,317 +65,253 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
---===============4342917772767894138==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
+Handle only bigjoiner masters in skl_commit_modeset_enables/disables,
+slave crtcs should be handled by master hooks. Same for encoders.
+That way we can also remove a bunch of checks like intel_crtc_is_bigjoiner_slave.
 
-== Series Details ==
+v2: Get rid of master vs slave checks and separation in crtc enable/disable hooks.
+    Use unified iteration cycle for all of those, while enabling/disabling
+    transcoder only for those pipes where its needed(Ville Syrjälä)
 
-Series: drm: Check polling initialized before
-URL   : https://patchwork.freedesktop.org/series/129454/
-State : success
+Signed-off-by: Stanislav Lisovskiy <stanislav.lisovskiy@intel.com>
+---
+ drivers/gpu/drm/i915/display/intel_ddi.c     |   3 +-
+ drivers/gpu/drm/i915/display/intel_display.c | 116 +++++++++++++------
+ drivers/gpu/drm/i915/display/intel_display.h |   6 +
+ 3 files changed, 86 insertions(+), 39 deletions(-)
 
-== Summary ==
+diff --git a/drivers/gpu/drm/i915/display/intel_ddi.c b/drivers/gpu/drm/i915/display/intel_ddi.c
+index 922194b957be2..6c690aefec9d1 100644
+--- a/drivers/gpu/drm/i915/display/intel_ddi.c
++++ b/drivers/gpu/drm/i915/display/intel_ddi.c
+@@ -3340,8 +3340,7 @@ static void intel_enable_ddi(struct intel_atomic_state *state,
+ {
+ 	drm_WARN_ON(state->base.dev, crtc_state->has_pch_encoder);
+ 
+-	if (!intel_crtc_is_bigjoiner_slave(crtc_state))
+-		intel_ddi_enable_transcoder_func(encoder, crtc_state);
++	intel_ddi_enable_transcoder_func(encoder, crtc_state);
+ 
+ 	/* Enable/Disable DP2.0 SDP split config before transcoder */
+ 	intel_audio_sdp_split_update(crtc_state);
+diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
+index 616a890b2658f..8fef59d1d119f 100644
+--- a/drivers/gpu/drm/i915/display/intel_display.c
++++ b/drivers/gpu/drm/i915/display/intel_display.c
+@@ -1631,18 +1631,12 @@ static void hsw_configure_cpu_transcoder(const struct intel_crtc_state *crtc_sta
+ 	hsw_set_transconf(crtc_state);
+ }
+ 
+-static void hsw_crtc_enable(struct intel_atomic_state *state,
+-			    struct intel_crtc *crtc)
++static void hsw_crtc_enable_pre_transcoder(struct intel_atomic_state *state,
++					   struct intel_crtc *crtc)
+ {
+ 	const struct intel_crtc_state *new_crtc_state =
+ 		intel_atomic_get_new_crtc_state(state, crtc);
+ 	struct drm_i915_private *dev_priv = to_i915(crtc->base.dev);
+-	enum pipe pipe = crtc->pipe, hsw_workaround_pipe;
+-	enum transcoder cpu_transcoder = new_crtc_state->cpu_transcoder;
+-	bool psl_clkgate_wa;
+-
+-	if (drm_WARN_ON(&dev_priv->drm, crtc->active))
+-		return;
+ 
+ 	intel_dmc_enable_pipe(dev_priv, crtc->pipe);
+ 
+@@ -1665,10 +1659,16 @@ static void hsw_crtc_enable(struct intel_atomic_state *state,
+ 	intel_set_pipe_src_size(new_crtc_state);
+ 	if (DISPLAY_VER(dev_priv) >= 9 || IS_BROADWELL(dev_priv))
+ 		bdw_set_pipe_misc(new_crtc_state);
++}
+ 
+-	if (!intel_crtc_is_bigjoiner_slave(new_crtc_state) &&
+-	    !transcoder_is_dsi(cpu_transcoder))
+-		hsw_configure_cpu_transcoder(new_crtc_state);
++static void hsw_crtc_enable_post_transcoder(struct intel_atomic_state *state,
++					    struct intel_crtc *crtc)
++{
++	const struct intel_crtc_state *new_crtc_state =
++		intel_atomic_get_new_crtc_state(state, crtc);
++	struct drm_i915_private *dev_priv = to_i915(crtc->base.dev);
++	enum pipe pipe = crtc->pipe, hsw_workaround_pipe;
++	bool psl_clkgate_wa;
+ 
+ 	crtc->active = true;
+ 
+@@ -1701,8 +1701,7 @@ static void hsw_crtc_enable(struct intel_atomic_state *state,
+ 
+ 	intel_initial_watermarks(state, crtc);
+ 
+-	if (intel_crtc_is_bigjoiner_slave(new_crtc_state))
+-		intel_crtc_vblank_on(new_crtc_state);
++	intel_crtc_vblank_on(new_crtc_state);
+ 
+ 	intel_encoders_enable(state, crtc);
+ 
+@@ -1724,6 +1723,40 @@ static void hsw_crtc_enable(struct intel_atomic_state *state,
+ 	}
+ }
+ 
++static void hsw_crtc_enable(struct intel_atomic_state *state,
++			    struct intel_crtc *crtc)
++{
++	const struct intel_crtc_state *new_crtc_state =
++		intel_atomic_get_new_crtc_state(state, crtc);
++	struct drm_i915_private *dev_priv = to_i915(crtc->base.dev);
++	enum transcoder cpu_transcoder = new_crtc_state->cpu_transcoder;
++	struct intel_crtc *_crtc;
++	int slave_pipe_mask = intel_crtc_bigjoiner_slave_pipes(new_crtc_state);
++	int pipe_mask = slave_pipe_mask | crtc->pipe;
++
++	if (drm_WARN_ON(&dev_priv->drm, crtc->active))
++		return;
++
++	/*
++	 * Use reverse iterator to go through slave pipes first.
++	 * TODO: We might need smarter iterator here
++	 */
++	for_each_intel_crtc_in_pipe_mask_reverse(&dev_priv->drm, _crtc,
++						 pipe_mask) {
++		const struct intel_crtc_state *_new_crtc_state =
++			intel_atomic_get_new_crtc_state(state, _crtc);
++		bool needs_transcoder = ((slave_pipe_mask & _crtc->pipe) == 0) &&
++					!transcoder_is_dsi(cpu_transcoder);
++
++		hsw_crtc_enable_pre_transcoder(state, _crtc);
++
++		if (needs_transcoder)
++			hsw_configure_cpu_transcoder(_new_crtc_state);
++
++		hsw_crtc_enable_post_transcoder(state, _crtc);
++	}
++}
++
+ void ilk_pfit_disable(const struct intel_crtc_state *old_crtc_state)
+ {
+ 	struct intel_crtc *crtc = to_intel_crtc(old_crtc_state->uapi.crtc);
+@@ -1784,28 +1817,27 @@ static void hsw_crtc_disable(struct intel_atomic_state *state,
+ 	const struct intel_crtc_state *old_crtc_state =
+ 		intel_atomic_get_old_crtc_state(state, crtc);
+ 	struct drm_i915_private *i915 = to_i915(crtc->base.dev);
++	int slave_pipe_mask = intel_crtc_bigjoiner_slave_pipes(old_crtc_state);
++	int pipe_mask = slave_pipe_mask | crtc->pipe;
++	struct intel_crtc *_crtc;
++
++	for_each_intel_crtc_in_pipe_mask(&i915->drm, _crtc,
++					 pipe_mask) {
++		const struct intel_crtc_state *_old_crtc_state =
++			intel_atomic_get_old_crtc_state(state, _crtc);
++		bool needs_encoder_disable = (_crtc->pipe & slave_pipe_mask) == 0;
++
++		if (needs_encoder_disable) {
++			intel_encoders_disable(state, _crtc);
++			intel_encoders_post_disable(state, _crtc);
++		}
+ 
+-	/*
+-	 * FIXME collapse everything to one hook.
+-	 * Need care with mst->ddi interactions.
+-	 */
+-	if (!intel_crtc_is_bigjoiner_slave(old_crtc_state)) {
+-		intel_encoders_disable(state, crtc);
+-		intel_encoders_post_disable(state, crtc);
+-	}
+-
+-	intel_disable_shared_dpll(old_crtc_state);
+-
+-	if (!intel_crtc_is_bigjoiner_slave(old_crtc_state)) {
+-		struct intel_crtc *slave_crtc;
+-
+-		intel_encoders_post_pll_disable(state, crtc);
++		intel_disable_shared_dpll(_old_crtc_state);
+ 
+-		intel_dmc_disable_pipe(i915, crtc->pipe);
++		if (needs_encoder_disable)
++			intel_encoders_post_pll_disable(state, _crtc);
+ 
+-		for_each_intel_crtc_in_pipe_mask(&i915->drm, slave_crtc,
+-						 intel_crtc_bigjoiner_slave_pipes(old_crtc_state))
+-			intel_dmc_disable_pipe(i915, slave_crtc->pipe);
++		intel_dmc_disable_pipe(i915, _crtc->pipe);
+ 	}
+ }
+ 
+@@ -6797,8 +6829,10 @@ static void intel_commit_modeset_disables(struct intel_atomic_state *state)
+ 		 * Slave vblanks are masked till Master Vblanks.
+ 		 */
+ 		if (!is_trans_port_sync_slave(old_crtc_state) &&
+-		    !intel_dp_mst_is_slave_trans(old_crtc_state) &&
+-		    !intel_crtc_is_bigjoiner_slave(old_crtc_state))
++		    !intel_dp_mst_is_slave_trans(old_crtc_state))
++			continue;
++
++		if (intel_crtc_is_bigjoiner_slave(old_crtc_state))
+ 			continue;
+ 
+ 		intel_old_crtc_state_disables(state, old_crtc_state,
+@@ -6816,6 +6850,9 @@ static void intel_commit_modeset_disables(struct intel_atomic_state *state)
+ 		if (!old_crtc_state->hw.active)
+ 			continue;
+ 
++		if (intel_crtc_is_bigjoiner_slave(old_crtc_state))
++			continue;
++
+ 		intel_old_crtc_state_disables(state, old_crtc_state,
+ 					      new_crtc_state, crtc);
+ 	}
+@@ -6928,8 +6965,10 @@ static void skl_commit_modeset_enables(struct intel_atomic_state *state)
+ 			continue;
+ 
+ 		if (intel_dp_mst_is_slave_trans(new_crtc_state) ||
+-		    is_trans_port_sync_master(new_crtc_state) ||
+-		    intel_crtc_is_bigjoiner_master(new_crtc_state))
++		    is_trans_port_sync_master(new_crtc_state))
++			continue;
++
++		if (intel_crtc_is_bigjoiner_slave(new_crtc_state))
+ 			continue;
+ 
+ 		modeset_pipes &= ~BIT(pipe);
+@@ -6939,7 +6978,7 @@ static void skl_commit_modeset_enables(struct intel_atomic_state *state)
+ 
+ 	/*
+ 	 * Then we enable all remaining pipes that depend on other
+-	 * pipes: MST slaves and port sync masters, big joiner master
++	 * pipes: MST slaves and port sync masters
+ 	 */
+ 	for_each_new_intel_crtc_in_state(state, crtc, new_crtc_state, i) {
+ 		enum pipe pipe = crtc->pipe;
+@@ -6947,6 +6986,9 @@ static void skl_commit_modeset_enables(struct intel_atomic_state *state)
+ 		if ((modeset_pipes & BIT(pipe)) == 0)
+ 			continue;
+ 
++		if (intel_crtc_is_bigjoiner_slave(new_crtc_state))
++			continue;
++
+ 		modeset_pipes &= ~BIT(pipe);
+ 
+ 		intel_enable_crtc(state, crtc);
+diff --git a/drivers/gpu/drm/i915/display/intel_display.h b/drivers/gpu/drm/i915/display/intel_display.h
+index f4a0773f0fca8..e1e8d956c305e 100644
+--- a/drivers/gpu/drm/i915/display/intel_display.h
++++ b/drivers/gpu/drm/i915/display/intel_display.h
+@@ -280,6 +280,12 @@ enum phy_fia {
+ 			    base.head)					\
+ 		for_each_if((pipe_mask) & BIT(intel_crtc->pipe))
+ 
++#define for_each_intel_crtc_in_pipe_mask_reverse(dev, intel_crtc, pipe_mask)	\
++	list_for_each_entry_reverse(intel_crtc,					\
++				    &(dev)->mode_config.crtc_list,		\
++				    base.head)					\
++		for_each_if((pipe_mask) & BIT(intel_crtc->pipe))
++
+ #define for_each_intel_encoder(dev, intel_encoder)		\
+ 	list_for_each_entry(intel_encoder,			\
+ 			    &(dev)->mode_config.encoder_list,	\
+-- 
+2.37.3
 
-CI Bug Log - changes from CI_DRM_14211 -> Patchwork_129454v1
-====================================================
-
-Summary
--------
-
-  **SUCCESS**
-
-  No regressions found.
-
-  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_129454v1/index.html
-
-Participating hosts (38 -> 37)
-------------------------------
-
-  Additional (1): bat-mtlp-8 
-  Missing    (2): fi-snb-2520m fi-pnv-d510 
-
-Known issues
-------------
-
-  Here are the changes found in Patchwork_129454v1 that come from known issues:
-
-### IGT changes ###
-
-#### Issues hit ####
-
-  * igt@debugfs_test@basic-hwmon:
-    - bat-mtlp-8:         NOTRUN -> [SKIP][1] ([i915#9318])
-   [1]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_129454v1/bat-mtlp-8/igt@debugfs_test@basic-hwmon.html
-
-  * igt@gem_lmem_swapping@verify-random:
-    - bat-mtlp-8:         NOTRUN -> [SKIP][2] ([i915#4613]) +3 other tests skip
-   [2]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_129454v1/bat-mtlp-8/igt@gem_lmem_swapping@verify-random.html
-
-  * igt@gem_mmap@basic:
-    - bat-mtlp-8:         NOTRUN -> [SKIP][3] ([i915#4083])
-   [3]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_129454v1/bat-mtlp-8/igt@gem_mmap@basic.html
-
-  * igt@gem_mmap_gtt@basic:
-    - bat-mtlp-8:         NOTRUN -> [SKIP][4] ([i915#4077]) +2 other tests skip
-   [4]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_129454v1/bat-mtlp-8/igt@gem_mmap_gtt@basic.html
-
-  * igt@gem_render_tiled_blits@basic:
-    - bat-mtlp-8:         NOTRUN -> [SKIP][5] ([i915#4079]) +1 other test skip
-   [5]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_129454v1/bat-mtlp-8/igt@gem_render_tiled_blits@basic.html
-
-  * igt@i915_pm_rps@basic-api:
-    - bat-mtlp-8:         NOTRUN -> [SKIP][6] ([i915#6621])
-   [6]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_129454v1/bat-mtlp-8/igt@i915_pm_rps@basic-api.html
-
-  * igt@kms_addfb_basic@addfb25-y-tiled-small-legacy:
-    - bat-mtlp-8:         NOTRUN -> [SKIP][7] ([i915#5190])
-   [7]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_129454v1/bat-mtlp-8/igt@kms_addfb_basic@addfb25-y-tiled-small-legacy.html
-
-  * igt@kms_addfb_basic@basic-y-tiled-legacy:
-    - bat-mtlp-8:         NOTRUN -> [SKIP][8] ([i915#4212]) +8 other tests skip
-   [8]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_129454v1/bat-mtlp-8/igt@kms_addfb_basic@basic-y-tiled-legacy.html
-
-  * igt@kms_cursor_legacy@basic-busy-flip-before-cursor-legacy:
-    - bat-mtlp-8:         NOTRUN -> [SKIP][9] ([i915#4213]) +1 other test skip
-   [9]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_129454v1/bat-mtlp-8/igt@kms_cursor_legacy@basic-busy-flip-before-cursor-legacy.html
-
-  * igt@kms_dsc@dsc-basic:
-    - bat-mtlp-8:         NOTRUN -> [SKIP][10] ([i915#3555] / [i915#3840] / [i915#9159])
-   [10]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_129454v1/bat-mtlp-8/igt@kms_dsc@dsc-basic.html
-
-  * igt@kms_force_connector_basic@force-load-detect:
-    - bat-mtlp-8:         NOTRUN -> [SKIP][11] ([fdo#109285])
-   [11]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_129454v1/bat-mtlp-8/igt@kms_force_connector_basic@force-load-detect.html
-
-  * igt@kms_force_connector_basic@prune-stale-modes:
-    - bat-mtlp-8:         NOTRUN -> [SKIP][12] ([i915#5274])
-   [12]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_129454v1/bat-mtlp-8/igt@kms_force_connector_basic@prune-stale-modes.html
-
-  * igt@kms_setmode@basic-clone-single-crtc:
-    - bat-mtlp-8:         NOTRUN -> [SKIP][13] ([i915#3555] / [i915#8809])
-   [13]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_129454v1/bat-mtlp-8/igt@kms_setmode@basic-clone-single-crtc.html
-
-  * igt@prime_vgem@basic-fence-mmap:
-    - bat-mtlp-8:         NOTRUN -> [SKIP][14] ([i915#3708] / [i915#4077]) +1 other test skip
-   [14]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_129454v1/bat-mtlp-8/igt@prime_vgem@basic-fence-mmap.html
-
-  * igt@prime_vgem@basic-fence-read:
-    - bat-mtlp-8:         NOTRUN -> [SKIP][15] ([i915#3708]) +2 other tests skip
-   [15]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_129454v1/bat-mtlp-8/igt@prime_vgem@basic-fence-read.html
-
-  
-#### Possible fixes ####
-
-  * igt@i915_selftest@live@hangcheck:
-    - bat-adlp-6:         [ABORT][16] ([i915#10021]) -> [PASS][17]
-   [16]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_14211/bat-adlp-6/igt@i915_selftest@live@hangcheck.html
-   [17]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_129454v1/bat-adlp-6/igt@i915_selftest@live@hangcheck.html
-
-  
-  {name}: This element is suppressed. This means it is ignored when computing
-          the status of the difference (SUCCESS, WARNING, or FAILURE).
-
-  [fdo#109285]: https://bugs.freedesktop.org/show_bug.cgi?id=109285
-  [i915#10021]: https://gitlab.freedesktop.org/drm/intel/issues/10021
-  [i915#3555]: https://gitlab.freedesktop.org/drm/intel/issues/3555
-  [i915#3708]: https://gitlab.freedesktop.org/drm/intel/issues/3708
-  [i915#3840]: https://gitlab.freedesktop.org/drm/intel/issues/3840
-  [i915#4077]: https://gitlab.freedesktop.org/drm/intel/issues/4077
-  [i915#4079]: https://gitlab.freedesktop.org/drm/intel/issues/4079
-  [i915#4083]: https://gitlab.freedesktop.org/drm/intel/issues/4083
-  [i915#4212]: https://gitlab.freedesktop.org/drm/intel/issues/4212
-  [i915#4213]: https://gitlab.freedesktop.org/drm/intel/issues/4213
-  [i915#4613]: https://gitlab.freedesktop.org/drm/intel/issues/4613
-  [i915#5190]: https://gitlab.freedesktop.org/drm/intel/issues/5190
-  [i915#5274]: https://gitlab.freedesktop.org/drm/intel/issues/5274
-  [i915#6621]: https://gitlab.freedesktop.org/drm/intel/issues/6621
-  [i915#8809]: https://gitlab.freedesktop.org/drm/intel/issues/8809
-  [i915#9159]: https://gitlab.freedesktop.org/drm/intel/issues/9159
-  [i915#9318]: https://gitlab.freedesktop.org/drm/intel/issues/9318
-  [i915#9688]: https://gitlab.freedesktop.org/drm/intel/issues/9688
-
-
-Build changes
--------------
-
-  * Linux: CI_DRM_14211 -> Patchwork_129454v1
-
-  CI-20190529: 20190529
-  CI_DRM_14211: a7ad037447de4ca22722972270493b23be436187 @ git://anongit.freedesktop.org/gfx-ci/linux
-  IGT_7701: 7701
-  Patchwork_129454v1: a7ad037447de4ca22722972270493b23be436187 @ git://anongit.freedesktop.org/gfx-ci/linux
-
-
-### Linux commits
-
-5c8da84394ba drm: Check polling initialized before enabling in drm_helper_probe_single_connector_modes
-0e9025124872 drm: Check output polling initialized before disabling
-
-== Logs ==
-
-For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_129454v1/index.html
-
---===============4342917772767894138==
-Content-Type: text/html; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-
-
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
- <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-  <title>Project List - Patchwork</title>
-  <style id="css-table-select" type="text/css">
-   td { padding: 2pt; }
-  </style>
-</head>
-<body>
-
-
-<b>Patch Details</b>
-<table>
-<tr><td><b>Series:</b></td><td>drm: Check polling initialized before</td></tr>
-<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/129454/">https://patchwork.freedesktop.org/series/129454/</a></td></tr>
-<tr><td><b>State:</b></td><td>success</td></tr>
-
-    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_129454v1/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_129454v1/index.html</a></td></tr>
-
-</table>
-
-
-    <h1>CI Bug Log - changes from CI_DRM_14211 -&gt; Patchwork_129454v1</h1>
-<h2>Summary</h2>
-<p><strong>SUCCESS</strong></p>
-<p>No regressions found.</p>
-<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_129454v1/index.html</p>
-<h2>Participating hosts (38 -&gt; 37)</h2>
-<p>Additional (1): bat-mtlp-8 <br />
-  Missing    (2): fi-snb-2520m fi-pnv-d510 </p>
-<h2>Known issues</h2>
-<p>Here are the changes found in Patchwork_129454v1 that come from known issues:</p>
-<h3>IGT changes</h3>
-<h4>Issues hit</h4>
-<ul>
-<li>
-<p>igt@debugfs_test@basic-hwmon:</p>
-<ul>
-<li>bat-mtlp-8:         NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_129454v1/bat-mtlp-8/igt@debugfs_test@basic-hwmon.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/9318">i915#9318</a>)</li>
-</ul>
-</li>
-<li>
-<p>igt@gem_lmem_swapping@verify-random:</p>
-<ul>
-<li>bat-mtlp-8:         NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_129454v1/bat-mtlp-8/igt@gem_lmem_swapping@verify-random.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/4613">i915#4613</a>) +3 other tests skip</li>
-</ul>
-</li>
-<li>
-<p>igt@gem_mmap@basic:</p>
-<ul>
-<li>bat-mtlp-8:         NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_129454v1/bat-mtlp-8/igt@gem_mmap@basic.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/4083">i915#4083</a>)</li>
-</ul>
-</li>
-<li>
-<p>igt@gem_mmap_gtt@basic:</p>
-<ul>
-<li>bat-mtlp-8:         NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_129454v1/bat-mtlp-8/igt@gem_mmap_gtt@basic.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/4077">i915#4077</a>) +2 other tests skip</li>
-</ul>
-</li>
-<li>
-<p>igt@gem_render_tiled_blits@basic:</p>
-<ul>
-<li>bat-mtlp-8:         NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_129454v1/bat-mtlp-8/igt@gem_render_tiled_blits@basic.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/4079">i915#4079</a>) +1 other test skip</li>
-</ul>
-</li>
-<li>
-<p>igt@i915_pm_rps@basic-api:</p>
-<ul>
-<li>bat-mtlp-8:         NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_129454v1/bat-mtlp-8/igt@i915_pm_rps@basic-api.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/6621">i915#6621</a>)</li>
-</ul>
-</li>
-<li>
-<p>igt@kms_addfb_basic@addfb25-y-tiled-small-legacy:</p>
-<ul>
-<li>bat-mtlp-8:         NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_129454v1/bat-mtlp-8/igt@kms_addfb_basic@addfb25-y-tiled-small-legacy.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/5190">i915#5190</a>)</li>
-</ul>
-</li>
-<li>
-<p>igt@kms_addfb_basic@basic-y-tiled-legacy:</p>
-<ul>
-<li>bat-mtlp-8:         NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_129454v1/bat-mtlp-8/igt@kms_addfb_basic@basic-y-tiled-legacy.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/4212">i915#4212</a>) +8 other tests skip</li>
-</ul>
-</li>
-<li>
-<p>igt@kms_cursor_legacy@basic-busy-flip-before-cursor-legacy:</p>
-<ul>
-<li>bat-mtlp-8:         NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_129454v1/bat-mtlp-8/igt@kms_cursor_legacy@basic-busy-flip-before-cursor-legacy.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/4213">i915#4213</a>) +1 other test skip</li>
-</ul>
-</li>
-<li>
-<p>igt@kms_dsc@dsc-basic:</p>
-<ul>
-<li>bat-mtlp-8:         NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_129454v1/bat-mtlp-8/igt@kms_dsc@dsc-basic.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/3555">i915#3555</a> / <a href="https://gitlab.freedesktop.org/drm/intel/issues/3840">i915#3840</a> / <a href="https://gitlab.freedesktop.org/drm/intel/issues/9159">i915#9159</a>)</li>
-</ul>
-</li>
-<li>
-<p>igt@kms_force_connector_basic@force-load-detect:</p>
-<ul>
-<li>bat-mtlp-8:         NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_129454v1/bat-mtlp-8/igt@kms_force_connector_basic@force-load-detect.html">SKIP</a> (<a href="https://bugs.freedesktop.org/show_bug.cgi?id=109285">fdo#109285</a>)</li>
-</ul>
-</li>
-<li>
-<p>igt@kms_force_connector_basic@prune-stale-modes:</p>
-<ul>
-<li>bat-mtlp-8:         NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_129454v1/bat-mtlp-8/igt@kms_force_connector_basic@prune-stale-modes.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/5274">i915#5274</a>)</li>
-</ul>
-</li>
-<li>
-<p>igt@kms_setmode@basic-clone-single-crtc:</p>
-<ul>
-<li>bat-mtlp-8:         NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_129454v1/bat-mtlp-8/igt@kms_setmode@basic-clone-single-crtc.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/3555">i915#3555</a> / <a href="https://gitlab.freedesktop.org/drm/intel/issues/8809">i915#8809</a>)</li>
-</ul>
-</li>
-<li>
-<p>igt@prime_vgem@basic-fence-mmap:</p>
-<ul>
-<li>bat-mtlp-8:         NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_129454v1/bat-mtlp-8/igt@prime_vgem@basic-fence-mmap.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/3708">i915#3708</a> / <a href="https://gitlab.freedesktop.org/drm/intel/issues/4077">i915#4077</a>) +1 other test skip</li>
-</ul>
-</li>
-<li>
-<p>igt@prime_vgem@basic-fence-read:</p>
-<ul>
-<li>bat-mtlp-8:         NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_129454v1/bat-mtlp-8/igt@prime_vgem@basic-fence-read.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/3708">i915#3708</a>) +2 other tests skip</li>
-</ul>
-</li>
-</ul>
-<h4>Possible fixes</h4>
-<ul>
-<li>igt@i915_selftest@live@hangcheck:<ul>
-<li>bat-adlp-6:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_14211/bat-adlp-6/igt@i915_selftest@live@hangcheck.html">ABORT</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/10021">i915#10021</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_129454v1/bat-adlp-6/igt@i915_selftest@live@hangcheck.html">PASS</a></li>
-</ul>
-</li>
-</ul>
-<p>{name}: This element is suppressed. This means it is ignored when computing<br />
-          the status of the difference (SUCCESS, WARNING, or FAILURE).</p>
-<h2>Build changes</h2>
-<ul>
-<li>Linux: CI_DRM_14211 -&gt; Patchwork_129454v1</li>
-</ul>
-<p>CI-20190529: 20190529<br />
-  CI_DRM_14211: a7ad037447de4ca22722972270493b23be436187 @ git://anongit.freedesktop.org/gfx-ci/linux<br />
-  IGT_7701: 7701<br />
-  Patchwork_129454v1: a7ad037447de4ca22722972270493b23be436187 @ git://anongit.freedesktop.org/gfx-ci/linux</p>
-<h3>Linux commits</h3>
-<p>5c8da84394ba drm: Check polling initialized before enabling in drm_helper_probe_single_connector_modes<br />
-0e9025124872 drm: Check output polling initialized before disabling</p>
-
-</body>
-</html>
-
---===============4342917772767894138==--
