@@ -4,27 +4,27 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5E910C4828F
-	for <intel-gfx@archiver.kernel.org>; Fri,  2 Feb 2024 23:41:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F0343C48295
+	for <intel-gfx@archiver.kernel.org>; Sat,  3 Feb 2024 00:03:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CEEF510E8F6;
-	Fri,  2 Feb 2024 23:41:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4F8A010F18F;
+	Sat,  3 Feb 2024 00:03:25 +0000 (UTC)
 Received: from 5338d5abeb45 (emeril.freedesktop.org [131.252.210.167])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A057510E8F6;
- Fri,  2 Feb 2024 23:41:47 +0000 (UTC)
-Content-Type: multipart/alternative;
- boundary="===============2032367127166452203=="
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BC76710F18F;
+ Sat,  3 Feb 2024 00:03:23 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
-Subject: =?utf-8?q?=E2=9C=93_Fi=2ECI=2EBAT=3A_success_for_Enable_ccs_compressed_frame?=
- =?utf-8?q?buffers_on_Xe2_=28rev2=29?=
+Content-Transfer-Encoding: 7bit
+Subject: =?utf-8?q?=E2=9C=97_Fi=2ECI=2ECHECKPATCH=3A_warning_for_drm/i915=3A_=28stole?=
+ =?utf-8?q?n=29_memory_region_related_fixes_=28rev11=29?=
 From: Patchwork <patchwork@emeril.freedesktop.org>
-To: "Juha-Pekka Heikkila" <juhapekka.heikkila@gmail.com>
+To: "Ville Syrjala" <ville.syrjala@linux.intel.com>
 Cc: intel-gfx@lists.freedesktop.org
-Date: Fri, 02 Feb 2024 23:41:47 -0000
-Message-ID: <170691730765.953177.10142191538315712931@5338d5abeb45>
+Date: Sat, 03 Feb 2024 00:03:23 -0000
+Message-ID: <170691860377.953177.13012751776231704915@5338d5abeb45>
 X-Patchwork-Hint: ignore
-References: <20240202150602.430036-1-juhapekka.heikkila@gmail.com>
-In-Reply-To: <20240202150602.430036-1-juhapekka.heikkila@gmail.com>
+References: <20240202224340.30647-1-ville.syrjala@linux.intel.com>
+In-Reply-To: <20240202224340.30647-1-ville.syrjala@linux.intel.com>
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -41,122 +41,45 @@ Reply-To: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
---===============2032367127166452203==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-
 == Series Details ==
 
-Series: Enable ccs compressed framebuffers on Xe2 (rev2)
-URL   : https://patchwork.freedesktop.org/series/129471/
-State : success
+Series: drm/i915: (stolen) memory region related fixes (rev11)
+URL   : https://patchwork.freedesktop.org/series/127721/
+State : warning
 
 == Summary ==
 
-CI Bug Log - changes from CI_DRM_14213 -> Patchwork_129471v2
-====================================================
+Error: dim checkpatch failed
+25a51b5a5590 drm/i915: Use struct resource for memory region IO as well
+-:388: WARNING:LONG_LINE: line length of 105 exceeds 100 columns
+#388: FILE: drivers/gpu/drm/i915/intel_region_ttm.c:227:
++			if (WARN_ON(overflows_type(resource_size(&mem->io) >> PAGE_SHIFT, place.lpfn))) {
 
-Summary
--------
+total: 0 errors, 1 warnings, 0 checks, 281 lines checked
+938924e1c043 drm/i915: Print memory region info during probe
+7448ca56e775 drm/i915: Remove ad-hoc lmem/stolen debugs
+2a184f8726f8 drm/i915: Bypass LMEMBAR/GTTMMADR for MTL stolen memory access
+e8fe0ac96967 drm/i915: Disable the "binder"
+64ab387b0397 drm/i915: Rename the DSM/GSM registers
+8ba29e15659a drm/i915: Fix PTE decode during initial plane readout
+df94a06dfc38 drm/i915: Fix region start during initial plane readout
+4926bf6a09b0 drm/i915: Fix MTL initial plane readout
+2ab4265de4be drm/i915: s/phys_base/dma_addr/
+0eaa9f3431d0 drm/i915: Split the smem and lmem plane readout apart
+33d0f2ef3181 drm/i915: Simplify intel_initial_plane_config() calling convention
+dc64283accc2 drm/i915/fbdev: Fix smem_start for LMEMBAR stolen objects
+8519938cbede drm/i915: Tweak BIOS fb reuse check
+e4fe951c20bd drm/i915: Try to relocate the BIOS fb to the start of ggtt
+-:105: CHECK:LINE_SPACING: Please use a blank line after function/struct/union/enum declarations
+#105: FILE: drivers/gpu/drm/i915/display/i9xx_plane.h:51:
+ }
++static inline bool i9xx_fixup_initial_plane_config(struct intel_crtc *crtc,
 
-  **SUCCESS**
+-:106: WARNING:LONG_LINE: line length of 105 exceeds 100 columns
+#106: FILE: drivers/gpu/drm/i915/display/i9xx_plane.h:52:
++						   const struct intel_initial_plane_config *plane_config)
 
-  No regressions found.
-
-  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_129471v2/index.html
-
-Participating hosts (39 -> 36)
-------------------------------
-
-  Missing    (3): bat-mtlp-8 fi-snb-2520m fi-pnv-d510 
-
-Known issues
-------------
-
-  Here are the changes found in Patchwork_129471v2 that come from known issues:
-
-### IGT changes ###
-
-  {name}: This element is suppressed. This means it is ignored when computing
-          the status of the difference (SUCCESS, WARNING, or FAILURE).
-
-  [i915#10026]: https://gitlab.freedesktop.org/drm/intel/issues/10026
-  [i915#10194]: https://gitlab.freedesktop.org/drm/intel/issues/10194
-
-
-Build changes
--------------
-
-  * Linux: CI_DRM_14213 -> Patchwork_129471v2
-
-  CI-20190529: 20190529
-  CI_DRM_14213: 40994da55437acf620a48af39b0d8545e1595c42 @ git://anongit.freedesktop.org/gfx-ci/linux
-  IGT_7702: bf075a74ece1956fc0e554291591b9da3eab54cf @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git
-  Patchwork_129471v2: 40994da55437acf620a48af39b0d8545e1595c42 @ git://anongit.freedesktop.org/gfx-ci/linux
+total: 0 errors, 1 warnings, 1 checks, 245 lines checked
+d44ad92e0985 drm/i915: Annotate more of the BIOS fb takeover failure paths
 
 
-### Linux commits
-
-047616094a72 drm/i915/display: On Xe2 always enable decompression with tile4
-
-== Logs ==
-
-For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_129471v2/index.html
-
---===============2032367127166452203==
-Content-Type: text/html; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-
-
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
- <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-  <title>Project List - Patchwork</title>
-  <style id="css-table-select" type="text/css">
-   td { padding: 2pt; }
-  </style>
-</head>
-<body>
-
-
-<b>Patch Details</b>
-<table>
-<tr><td><b>Series:</b></td><td>Enable ccs compressed framebuffers on Xe2 (rev2)</td></tr>
-<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/129471/">https://patchwork.freedesktop.org/series/129471/</a></td></tr>
-<tr><td><b>State:</b></td><td>success</td></tr>
-
-    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_129471v2/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_129471v2/index.html</a></td></tr>
-
-</table>
-
-
-    <h1>CI Bug Log - changes from CI_DRM_14213 -&gt; Patchwork_129471v2</h1>
-<h2>Summary</h2>
-<p><strong>SUCCESS</strong></p>
-<p>No regressions found.</p>
-<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_129471v2/index.html</p>
-<h2>Participating hosts (39 -&gt; 36)</h2>
-<p>Missing    (3): bat-mtlp-8 fi-snb-2520m fi-pnv-d510 </p>
-<h2>Known issues</h2>
-<p>Here are the changes found in Patchwork_129471v2 that come from known issues:</p>
-<h3>IGT changes</h3>
-<p>{name}: This element is suppressed. This means it is ignored when computing<br />
-          the status of the difference (SUCCESS, WARNING, or FAILURE).</p>
-<h2>Build changes</h2>
-<ul>
-<li>Linux: CI_DRM_14213 -&gt; Patchwork_129471v2</li>
-</ul>
-<p>CI-20190529: 20190529<br />
-  CI_DRM_14213: 40994da55437acf620a48af39b0d8545e1595c42 @ git://anongit.freedesktop.org/gfx-ci/linux<br />
-  IGT_7702: bf075a74ece1956fc0e554291591b9da3eab54cf @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git<br />
-  Patchwork_129471v2: 40994da55437acf620a48af39b0d8545e1595c42 @ git://anongit.freedesktop.org/gfx-ci/linux</p>
-<h3>Linux commits</h3>
-<p>047616094a72 drm/i915/display: On Xe2 always enable decompression with tile4</p>
-
-</body>
-</html>
-
---===============2032367127166452203==--
