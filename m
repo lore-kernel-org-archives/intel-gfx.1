@@ -4,59 +4,27 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AE4B9C48295
-	for <intel-gfx@archiver.kernel.org>; Sat,  3 Feb 2024 00:05:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CC6E9C48295
+	for <intel-gfx@archiver.kernel.org>; Sat,  3 Feb 2024 00:19:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 149ED10F1AA;
-	Sat,  3 Feb 2024 00:05:49 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="h/3E8a4+";
-	dkim-atps=neutral
-X-Greylist: delayed 426 seconds by postgrey-1.36 at gabe;
- Sat, 03 Feb 2024 00:05:47 UTC
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.19])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A6BF710F1AA
- for <intel-gfx@lists.freedesktop.org>; Sat,  3 Feb 2024 00:05:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1706918748; x=1738454748;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:in-reply-to;
- bh=MVRIQWNEhJ6IvF2kCPeZP4p5KUrthvTq7J4fcJBUdHI=;
- b=h/3E8a4+tvv3E84gh234uD+BI1BcqJCrqicg5u4IUX99URUSxkmFEGny
- 8wvi0YFBTqyxnFzBNCTje+VeCcb9ylCt1bsC/2uZnf0UiyYAbD9ayKpea
- xz9491DECBribxS3lYchujjsSuKDP01T2tNVYvR2pehD2vnI2CzL1tbdG
- AKajtOXLRxf5jSfIy11QCaBnbaXKPOY+3rs98o9ZqLXK5hoRXA1xzRllv
- t/HvDpL7MB4JiyzKI9hEa/wzYzjERZvKh6s53kSdUvshXoyd+sKKnMeaS
- e2bjWNOHtcpszDPAhJGGzRaeWysXZVoI/s+dulCoNctEfpUKkbFcjlu0H Q==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10971"; a="172883"
-X-IronPort-AV: E=Sophos;i="6.05,238,1701158400"; 
-   d="scan'208";a="172883"
-Received: from fmsmga001.fm.intel.com ([10.253.24.23])
- by fmvoesa113.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 02 Feb 2024 15:58:40 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10971"; a="932625978"
-X-IronPort-AV: E=Sophos;i="6.05,238,1701158400"; d="scan'208";a="932625978"
-Received: from lkp-server02.sh.intel.com (HELO 59f4f4cd5935) ([10.239.97.151])
- by fmsmga001.fm.intel.com with ESMTP; 02 Feb 2024 15:58:38 -0800
-Received: from kbuild by 59f4f4cd5935 with local (Exim 4.96)
- (envelope-from <lkp@intel.com>) id 1rW3QZ-0004Q0-2Z;
- Fri, 02 Feb 2024 23:58:35 +0000
-Date: Sat, 3 Feb 2024 07:58:35 +0800
-From: kernel test robot <lkp@intel.com>
-To: Ville Syrjala <ville.syrjala@linux.intel.com>,
- intel-gfx@lists.freedesktop.org
-Cc: llvm@lists.linux.dev, oe-kbuild-all@lists.linux.dev,
- Andrzej Hajda <andrzej.hajda@intel.com>
-Subject: Re: [PATCH v3 12/16] drm/i915: Simplify intel_initial_plane_config()
- calling convention
-Message-ID: <202402030704.nGzOFDCt-lkp@intel.com>
-References: <20240116075636.6121-13-ville.syrjala@linux.intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 670B110F1E0;
+	Sat,  3 Feb 2024 00:19:17 +0000 (UTC)
+Received: from 5338d5abeb45 (emeril.freedesktop.org [131.252.210.167])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6E79A10F1E0;
+ Sat,  3 Feb 2024 00:19:16 +0000 (UTC)
+Content-Type: multipart/alternative;
+ boundary="===============2144736263650871942=="
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20240116075636.6121-13-ville.syrjala@linux.intel.com>
+Subject: =?utf-8?q?=E2=9C=93_Fi=2ECI=2EBAT=3A_success_for_drm/i915=3A_=28stolen=29_me?=
+ =?utf-8?q?mory_region_related_fixes_=28rev11=29?=
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Ville Syrjala" <ville.syrjala@linux.intel.com>
+Cc: intel-gfx@lists.freedesktop.org
+Date: Sat, 03 Feb 2024 00:19:16 -0000
+Message-ID: <170691955645.953177.14007616621200845092@5338d5abeb45>
+X-Patchwork-Hint: ignore
+References: <20240202224340.30647-1-ville.syrjala@linux.intel.com>
+In-Reply-To: <20240202224340.30647-1-ville.syrjala@linux.intel.com>
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,55 +37,256 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Hi Ville,
+--===============2144736263650871942==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
 
-kernel test robot noticed the following build errors:
+== Series Details ==
 
-[auto build test ERROR on drm-intel/for-linux-next]
-[also build test ERROR on drm-intel/for-linux-next-fixes drm-tip/drm-tip linus/master v6.8-rc2 next-20240202]
-[If your patch is applied to the wrong git tree, kindly drop us a note.
-And when submitting patch, we suggest to use '--base' as documented in
-https://git-scm.com/docs/git-format-patch#_base_tree_information]
+Series: drm/i915: (stolen) memory region related fixes (rev11)
+URL   : https://patchwork.freedesktop.org/series/127721/
+State : success
 
-url:    https://github.com/intel-lab-lkp/linux/commits/Ville-Syrjala/drm-i915-Use-struct-resource-for-memory-region-IO-as-well/20240125-222947
-base:   git://anongit.freedesktop.org/drm-intel for-linux-next
-patch link:    https://lore.kernel.org/r/20240116075636.6121-13-ville.syrjala%40linux.intel.com
-patch subject: [PATCH v3 12/16] drm/i915: Simplify intel_initial_plane_config() calling convention
-config: x86_64-randconfig-076-20240202 (https://download.01.org/0day-ci/archive/20240203/202402030704.nGzOFDCt-lkp@intel.com/config)
-compiler: clang version 17.0.6 (https://github.com/llvm/llvm-project 6009708b4367171ccdbf4b5905cb6a803753fe18)
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20240203/202402030704.nGzOFDCt-lkp@intel.com/reproduce)
+== Summary ==
 
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202402030704.nGzOFDCt-lkp@intel.com/
+CI Bug Log - changes from CI_DRM_14213 -> Patchwork_127721v11
+====================================================
 
-All errors (new ones prefixed by >>):
+Summary
+-------
 
->> drivers/gpu/drm/xe/display/xe_plane_initial.c:270:6: error: no previous prototype for function 'intel_crtc_initial_plane_config' [-Werror,-Wmissing-prototypes]
-     270 | void intel_crtc_initial_plane_config(struct intel_crtc *crtc)
-         |      ^
-   drivers/gpu/drm/xe/display/xe_plane_initial.c:270:1: note: declare 'static' if the function is not intended to be used outside of this translation unit
-     270 | void intel_crtc_initial_plane_config(struct intel_crtc *crtc)
-         | ^
-         | static 
-   1 error generated.
+  **SUCCESS**
 
-Kconfig warnings: (for reference only)
-   WARNING: unmet direct dependencies detected for DRM_I915_DEBUG_GEM
-   Depends on [n]: HAS_IOMEM [=y] && DRM_I915 [=m] && EXPERT [=y] && DRM_I915_WERROR [=n]
-   Selected by [m]:
-   - DRM_I915_DEBUG [=y] && HAS_IOMEM [=y] && DRM_I915 [=m] && EXPERT [=y] && !COMPILE_TEST [=n]
+  No regressions found.
+
+  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_127721v11/index.html
+
+Participating hosts (39 -> 37)
+------------------------------
+
+  Missing    (2): bat-mtlp-8 fi-snb-2520m 
+
+Possible new issues
+-------------------
+
+  Here are the unknown changes that may have been introduced in Patchwork_127721v11:
+
+### IGT changes ###
+
+#### Suppressed ####
+
+  The following results come from untrusted machines, tests, or statuses.
+  They do not affect the overall result.
+
+  * igt@kms_cursor_legacy@basic-flip-before-cursor-varying-size:
+    - {bat-arls-1}:       [SKIP][1] ([i915#10190]) -> [SKIP][2] +23 other tests skip
+   [1]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_14213/bat-arls-1/igt@kms_cursor_legacy@basic-flip-before-cursor-varying-size.html
+   [2]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_127721v11/bat-arls-1/igt@kms_cursor_legacy@basic-flip-before-cursor-varying-size.html
+
+  
+Known issues
+------------
+
+  Here are the changes found in Patchwork_127721v11 that come from known issues:
+
+### IGT changes ###
+
+#### Possible fixes ####
+
+  * igt@core_hotunplug@unbind-rebind:
+    - {bat-arls-1}:       [SKIP][3] ([i915#10076]) -> [PASS][4]
+   [3]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_14213/bat-arls-1/igt@core_hotunplug@unbind-rebind.html
+   [4]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_127721v11/bat-arls-1/igt@core_hotunplug@unbind-rebind.html
+
+  * igt@i915_module_load@load:
+    - {bat-arls-1}:       [DMESG-FAIL][5] ([i915#10189]) -> [PASS][6] +1 other test pass
+   [5]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_14213/bat-arls-1/igt@i915_module_load@load.html
+   [6]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_127721v11/bat-arls-1/igt@i915_module_load@load.html
+
+  * igt@kms_pm_rpm@basic-pci-d3-state:
+    - {bat-arls-1}:       [SKIP][7] ([i915#9980]) -> [PASS][8] +1 other test pass
+   [7]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_14213/bat-arls-1/igt@kms_pm_rpm@basic-pci-d3-state.html
+   [8]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_127721v11/bat-arls-1/igt@kms_pm_rpm@basic-pci-d3-state.html
+
+  * igt@vgem_basic@dmabuf-export:
+    - {bat-arls-1}:       [SKIP][9] ([i915#10190]) -> [PASS][10] +69 other tests pass
+   [9]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_14213/bat-arls-1/igt@vgem_basic@dmabuf-export.html
+   [10]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_127721v11/bat-arls-1/igt@vgem_basic@dmabuf-export.html
+
+  
+  {name}: This element is suppressed. This means it is ignored when computing
+          the status of the difference (SUCCESS, WARNING, or FAILURE).
+
+  [i915#10076]: https://gitlab.freedesktop.org/drm/intel/issues/10076
+  [i915#10189]: https://gitlab.freedesktop.org/drm/intel/issues/10189
+  [i915#10190]: https://gitlab.freedesktop.org/drm/intel/issues/10190
+  [i915#10194]: https://gitlab.freedesktop.org/drm/intel/issues/10194
+  [i915#10196]: https://gitlab.freedesktop.org/drm/intel/issues/10196
+  [i915#10197]: https://gitlab.freedesktop.org/drm/intel/issues/10197
+  [i915#10200]: https://gitlab.freedesktop.org/drm/intel/issues/10200
+  [i915#10206]: https://gitlab.freedesktop.org/drm/intel/issues/10206
+  [i915#10207]: https://gitlab.freedesktop.org/drm/intel/issues/10207
+  [i915#10208]: https://gitlab.freedesktop.org/drm/intel/issues/10208
+  [i915#10209]: https://gitlab.freedesktop.org/drm/intel/issues/10209
+  [i915#10211]: https://gitlab.freedesktop.org/drm/intel/issues/10211
+  [i915#10212]: https://gitlab.freedesktop.org/drm/intel/issues/10212
+  [i915#10213]: https://gitlab.freedesktop.org/drm/intel/issues/10213
+  [i915#10214]: https://gitlab.freedesktop.org/drm/intel/issues/10214
+  [i915#10215]: https://gitlab.freedesktop.org/drm/intel/issues/10215
+  [i915#10216]: https://gitlab.freedesktop.org/drm/intel/issues/10216
+  [i915#4083]: https://gitlab.freedesktop.org/drm/intel/issues/4083
+  [i915#9318]: https://gitlab.freedesktop.org/drm/intel/issues/9318
+  [i915#9643]: https://gitlab.freedesktop.org/drm/intel/issues/9643
+  [i915#9732]: https://gitlab.freedesktop.org/drm/intel/issues/9732
+  [i915#9980]: https://gitlab.freedesktop.org/drm/intel/issues/9980
 
 
-vim +/intel_crtc_initial_plane_config +270 drivers/gpu/drm/xe/display/xe_plane_initial.c
+Build changes
+-------------
 
-44e694958b9539 Maarten Lankhorst 2023-08-17  269  
-44e694958b9539 Maarten Lankhorst 2023-08-17 @270  void intel_crtc_initial_plane_config(struct intel_crtc *crtc)
+  * Linux: CI_DRM_14213 -> Patchwork_127721v11
 
--- 
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+  CI-20190529: 20190529
+  CI_DRM_14213: 40994da55437acf620a48af39b0d8545e1595c42 @ git://anongit.freedesktop.org/gfx-ci/linux
+  IGT_7702: bf075a74ece1956fc0e554291591b9da3eab54cf @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git
+  Patchwork_127721v11: 40994da55437acf620a48af39b0d8545e1595c42 @ git://anongit.freedesktop.org/gfx-ci/linux
+
+
+### Linux commits
+
+c95bb44ee953 drm/i915: Annotate more of the BIOS fb takeover failure paths
+614c96bff908 drm/i915: Try to relocate the BIOS fb to the start of ggtt
+39f87572a2f7 drm/i915: Tweak BIOS fb reuse check
+17c78c16583d drm/i915/fbdev: Fix smem_start for LMEMBAR stolen objects
+a35e1f5910a6 drm/i915: Simplify intel_initial_plane_config() calling convention
+c4544c3be79f drm/i915: Split the smem and lmem plane readout apart
+1bf02e478833 drm/i915: s/phys_base/dma_addr/
+5b1020fc4b56 drm/i915: Fix MTL initial plane readout
+982e05ed0cb3 drm/i915: Fix region start during initial plane readout
+fe8c77690095 drm/i915: Fix PTE decode during initial plane readout
+8c55acda7c63 drm/i915: Rename the DSM/GSM registers
+36991aeedb77 drm/i915: Disable the "binder"
+f03fd6fc42b7 drm/i915: Bypass LMEMBAR/GTTMMADR for MTL stolen memory access
+c6a1f8172b74 drm/i915: Remove ad-hoc lmem/stolen debugs
+512967377509 drm/i915: Print memory region info during probe
+b365a82e29eb drm/i915: Use struct resource for memory region IO as well
+
+== Logs ==
+
+For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_127721v11/index.html
+
+--===============2144736263650871942==
+Content-Type: text/html; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <title>Project List - Patchwork</title>
+  <style id="css-table-select" type="text/css">
+   td { padding: 2pt; }
+  </style>
+</head>
+<body>
+
+
+<b>Patch Details</b>
+<table>
+<tr><td><b>Series:</b></td><td>drm/i915: (stolen) memory region related fixes (rev11)</td></tr>
+<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/127721/">https://patchwork.freedesktop.org/series/127721/</a></td></tr>
+<tr><td><b>State:</b></td><td>success</td></tr>
+
+    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_127721v11/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_127721v11/index.html</a></td></tr>
+
+</table>
+
+
+    <h1>CI Bug Log - changes from CI_DRM_14213 -&gt; Patchwork_127721v11</h1>
+<h2>Summary</h2>
+<p><strong>SUCCESS</strong></p>
+<p>No regressions found.</p>
+<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_127721v11/index.html</p>
+<h2>Participating hosts (39 -&gt; 37)</h2>
+<p>Missing    (2): bat-mtlp-8 fi-snb-2520m </p>
+<h2>Possible new issues</h2>
+<p>Here are the unknown changes that may have been introduced in Patchwork_127721v11:</p>
+<h3>IGT changes</h3>
+<h4>Suppressed</h4>
+<p>The following results come from untrusted machines, tests, or statuses.<br />
+  They do not affect the overall result.</p>
+<ul>
+<li>igt@kms_cursor_legacy@basic-flip-before-cursor-varying-size:<ul>
+<li>{bat-arls-1}:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_14213/bat-arls-1/igt@kms_cursor_legacy@basic-flip-before-cursor-varying-size.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/10190">i915#10190</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_127721v11/bat-arls-1/igt@kms_cursor_legacy@basic-flip-before-cursor-varying-size.html">SKIP</a> +23 other tests skip</li>
+</ul>
+</li>
+</ul>
+<h2>Known issues</h2>
+<p>Here are the changes found in Patchwork_127721v11 that come from known issues:</p>
+<h3>IGT changes</h3>
+<h4>Possible fixes</h4>
+<ul>
+<li>
+<p>igt@core_hotunplug@unbind-rebind:</p>
+<ul>
+<li>{bat-arls-1}:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_14213/bat-arls-1/igt@core_hotunplug@unbind-rebind.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/10076">i915#10076</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_127721v11/bat-arls-1/igt@core_hotunplug@unbind-rebind.html">PASS</a></li>
+</ul>
+</li>
+<li>
+<p>igt@i915_module_load@load:</p>
+<ul>
+<li>{bat-arls-1}:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_14213/bat-arls-1/igt@i915_module_load@load.html">DMESG-FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/10189">i915#10189</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_127721v11/bat-arls-1/igt@i915_module_load@load.html">PASS</a> +1 other test pass</li>
+</ul>
+</li>
+<li>
+<p>igt@kms_pm_rpm@basic-pci-d3-state:</p>
+<ul>
+<li>{bat-arls-1}:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_14213/bat-arls-1/igt@kms_pm_rpm@basic-pci-d3-state.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/9980">i915#9980</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_127721v11/bat-arls-1/igt@kms_pm_rpm@basic-pci-d3-state.html">PASS</a> +1 other test pass</li>
+</ul>
+</li>
+<li>
+<p>igt@vgem_basic@dmabuf-export:</p>
+<ul>
+<li>{bat-arls-1}:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_14213/bat-arls-1/igt@vgem_basic@dmabuf-export.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/10190">i915#10190</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_127721v11/bat-arls-1/igt@vgem_basic@dmabuf-export.html">PASS</a> +69 other tests pass</li>
+</ul>
+</li>
+</ul>
+<p>{name}: This element is suppressed. This means it is ignored when computing<br />
+          the status of the difference (SUCCESS, WARNING, or FAILURE).</p>
+<h2>Build changes</h2>
+<ul>
+<li>Linux: CI_DRM_14213 -&gt; Patchwork_127721v11</li>
+</ul>
+<p>CI-20190529: 20190529<br />
+  CI_DRM_14213: 40994da55437acf620a48af39b0d8545e1595c42 @ git://anongit.freedesktop.org/gfx-ci/linux<br />
+  IGT_7702: bf075a74ece1956fc0e554291591b9da3eab54cf @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git<br />
+  Patchwork_127721v11: 40994da55437acf620a48af39b0d8545e1595c42 @ git://anongit.freedesktop.org/gfx-ci/linux</p>
+<h3>Linux commits</h3>
+<p>c95bb44ee953 drm/i915: Annotate more of the BIOS fb takeover failure paths<br />
+614c96bff908 drm/i915: Try to relocate the BIOS fb to the start of ggtt<br />
+39f87572a2f7 drm/i915: Tweak BIOS fb reuse check<br />
+17c78c16583d drm/i915/fbdev: Fix smem_start for LMEMBAR stolen objects<br />
+a35e1f5910a6 drm/i915: Simplify intel_initial_plane_config() calling convention<br />
+c4544c3be79f drm/i915: Split the smem and lmem plane readout apart<br />
+1bf02e478833 drm/i915: s/phys_base/dma_addr/<br />
+5b1020fc4b56 drm/i915: Fix MTL initial plane readout<br />
+982e05ed0cb3 drm/i915: Fix region start during initial plane readout<br />
+fe8c77690095 drm/i915: Fix PTE decode during initial plane readout<br />
+8c55acda7c63 drm/i915: Rename the DSM/GSM registers<br />
+36991aeedb77 drm/i915: Disable the "binder"<br />
+f03fd6fc42b7 drm/i915: Bypass LMEMBAR/GTTMMADR for MTL stolen memory access<br />
+c6a1f8172b74 drm/i915: Remove ad-hoc lmem/stolen debugs<br />
+512967377509 drm/i915: Print memory region info during probe<br />
+b365a82e29eb drm/i915: Use struct resource for memory region IO as well</p>
+
+</body>
+</html>
+
+--===============2144736263650871942==--
