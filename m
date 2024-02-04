@@ -4,50 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7602BC48295
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 71476C48286
 	for <intel-gfx@archiver.kernel.org>; Sun,  4 Feb 2024 07:48:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 790DD1120F2;
-	Sun,  4 Feb 2024 07:48:49 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 205411120F4;
+	Sun,  4 Feb 2024 07:48:51 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="kuEzwwXM";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="DaSMetRY";
 	dkim-atps=neutral
+X-Greylist: delayed 426 seconds by postgrey-1.36 at gabe;
+ Sun, 04 Feb 2024 07:48:45 UTC
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.20])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 55E761120F1
- for <intel-gfx@lists.freedesktop.org>; Sun,  4 Feb 2024 07:48:46 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1A5AF1120F5
+ for <intel-gfx@lists.freedesktop.org>; Sun,  4 Feb 2024 07:48:45 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1707032927; x=1738568927;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=l6QzlcssIDhR7EgvE62NsNE59R16jlfPcjBP0HfBrzU=;
- b=kuEzwwXMS4Ju/xXLbEFYizzOm3j0qCNOYsID9qdcpC9oM0i37/IUbdM7
- UdPTffnePVgYIYBVTs50U6MOrwFk7SfCG6JyRZlqWLXgYKXlhdOXydDrC
- Lqmc9kyahu+XbIxpEanxm/AftYpjwpr0Ve+hIptC46162JxJX2zUgDAh7
- oQQdjYmU0PC8HFBP2jUHchLcVzZ+FKKPTXDV33QZ7GA+aIGIS1Q86SLiG
- 4kZe6rx6kt3p5ZnQm+aiFeymfPyOI2BoNAyh5pQuTekGNFQGLEqAfpONx
- ljtZsrBu4Mwg1wHKLfaKyAmRxrYloyx+rnYpRHgB4A055+SGXnQhV2LNK w==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10973"; a="279234"
+ t=1707032926; x=1738568926;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=Hv3WOwOaiHpzbTHRm3TPvj0ct9kNL742XQHQtRGQfIs=;
+ b=DaSMetRYoV540CklxsC31988Hacuv7gHqTDoBpjpkYMdruLxOqrCzlyU
+ zY/HLeYWNL2pSDJW68vzuQb0UIaMiKf3erg2lL1it3TrQf8dBPgzYJh15
+ bd/QUgd/R1WfwuAZU7q3pV4wsppeLAkOnAxdAxriRL3i0IfpWYijsiwtb
+ l14LA3n0XGP0SznRC7fEBZPkc2CLGiz4qL6PIzUK/fKhgvVt1J5pzODwY
+ Ej8haDJ8FKg1hQn74/eEM6xxmZLaIdoLBJMY16eNAHNahue0dKmhuE00Z
+ PQQruPwMNSgfy2P0FgPdKdzErNrE75lpAszBB5fk1hAfYkAIvYpFODK+C w==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10973"; a="279223"
 X-IronPort-AV: E=Sophos;i="6.05,242,1701158400"; 
-   d="scan'208";a="279234"
+   d="scan'208";a="279223"
 Received: from fmviesa004.fm.intel.com ([10.60.135.144])
  by orvoesa112.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 03 Feb 2024 23:41:42 -0800
+ 03 Feb 2024 23:41:38 -0800
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.05,242,1701158400"; 
-   d="scan'208";a="5067667"
+   d="scan'208";a="5067652"
 Received: from kandpal-x299-ud4-pro.iind.intel.com ([10.190.239.32])
- by fmviesa004.fm.intel.com with ESMTP; 03 Feb 2024 23:41:41 -0800
+ by fmviesa004.fm.intel.com with ESMTP; 03 Feb 2024 23:41:36 -0800
 From: Suraj Kandpal <suraj.kandpal@intel.com>
 To: intel-gfx@lists.freedesktop.org
 Cc: uma.shankar@intel.com, ankit.k.nautiyal@intel.com,
  Suraj Kandpal <suraj.kandpal@intel.com>
-Subject: [PATCH 03/11] drm/i915/hdcp: Refactor intel_dp_hdcp2_capable
-Date: Sun,  4 Feb 2024 13:09:28 +0530
-Message-Id: <20240204073936.1135848-4-suraj.kandpal@intel.com>
+Subject: [PATCH 00/11] HDCP Type1 MST fixes
+Date: Sun,  4 Feb 2024 13:09:25 +0530
+Message-Id: <20240204073936.1135848-1-suraj.kandpal@intel.com>
 X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20240204073936.1135848-1-suraj.kandpal@intel.com>
-References: <20240204073936.1135848-1-suraj.kandpal@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-BeenThere: intel-gfx@lists.freedesktop.org
@@ -65,47 +65,41 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Break intel_dp_hdcp2_capable so that the common the code can be
-reused for the remote capability check.
+We were seeing a blank screen whenever Type1 content was played.
+This was due to extra timing which was taken as we had moved to
+remote read and writes previously for MST scenario, which in turn
+was done as we were not able to do direct read and writes to the
+immediate downstream device.
+The correct flow should be that we talk only to the immediate
+downstream device and the rest needs to be taken care by that device.
+With this patch series we move back to direct reads and writes,
+fix the fastset setting because of which direct reads and writes to
+HDCP related DPCD register stopped working, derive hdcp structure
+correctly and increase robustability if rxcaps HDCP capability
+reporting.
 
 Signed-off-by: Suraj Kandpal <suraj.kandpal@intel.com>
-Reviewed-by: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
----
- drivers/gpu/drm/i915/display/intel_dp_hdcp.c | 14 ++++++++++++--
- 1 file changed, 12 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_dp_hdcp.c b/drivers/gpu/drm/i915/display/intel_dp_hdcp.c
-index defc90936317..9aeee6b49b3d 100644
---- a/drivers/gpu/drm/i915/display/intel_dp_hdcp.c
-+++ b/drivers/gpu/drm/i915/display/intel_dp_hdcp.c
-@@ -636,8 +636,8 @@ int intel_dp_hdcp2_check_link(struct intel_digital_port *dig_port,
- }
- 
- static
--int intel_dp_hdcp2_capable(struct intel_connector *connector,
--			   bool *capable)
-+int _intel_dp_hdcp2_capable(struct drm_dp_aux *aux,
-+			    bool *capable)
- {
- 	struct intel_digital_port *dig_port = intel_attached_dig_port(connector);
- 	struct drm_dp_aux *aux = &dig_port->dp.aux;
-@@ -658,6 +658,16 @@ int intel_dp_hdcp2_capable(struct intel_connector *connector,
- 	return 0;
- }
- 
-+static
-+int intel_dp_hdcp2_capable(struct intel_connector *connector,
-+			   bool *capable)
-+{
-+	struct intel_digital_port *dig_port = intel_attached_dig_port(connector);
-+	struct drm_dp_aux *aux = &dig_port->dp.aux;
-+
-+	return _intel_dp_hdcp2_capable(aux, capable);
-+}
-+
- static const struct intel_hdcp_shim intel_dp_hdcp_shim = {
- 	.write_an_aksv = intel_dp_hdcp_write_an_aksv,
- 	.read_bksv = intel_dp_hdcp_read_bksv,
+Suraj Kandpal (11):
+  drm/i915/hdcp: Move to direct reads for HDCP
+  drm/i915/hdcp: Move source hdcp2 checks into its own function
+  drm/i915/hdcp: Refactor intel_dp_hdcp2_capable
+  drm/i915/hdcp: Pass drm_dp_aux to read_bcaps function
+  drm/i915/hdcp: Add new remote capability check shim function
+  drm/i915/hdcp: HDCP Capability for the downstream device
+  drm/i915/hdcp: Remove additional timing for reading mst hdcp message
+  drm/i915/hdcp: Extract hdcp structure from correct connector
+  drm/i915/hdcp: Save acquire_ctx in intel_hdcp
+  drm/i915/hdcp: Allocate stream id after HDCP AKE stage
+  drm/i915/hdcp: Read Rxcaps for robustibility
+
+ .../drm/i915/display/intel_display_debugfs.c  |  24 ++-
+ .../drm/i915/display/intel_display_types.h    |   5 +
+ drivers/gpu/drm/i915/display/intel_dp_hdcp.c  | 119 ++++++++-----
+ drivers/gpu/drm/i915/display/intel_hdcp.c     | 160 ++++++++++--------
+ drivers/gpu/drm/i915/display/intel_hdcp.h     |   3 +
+ 5 files changed, 192 insertions(+), 119 deletions(-)
+
 -- 
 2.25.1
 
