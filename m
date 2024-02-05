@@ -4,57 +4,51 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5A88EC48286
-	for <intel-gfx@archiver.kernel.org>; Mon,  5 Feb 2024 03:20:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 151F1C48297
+	for <intel-gfx@archiver.kernel.org>; Mon,  5 Feb 2024 04:38:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BA4DF112301;
-	Mon,  5 Feb 2024 03:20:20 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0B82E11234C;
+	Mon,  5 Feb 2024 04:38:40 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="c+z8W1OY";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="C7UQRLv/";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.14])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EDCD310F1BD;
- Mon,  5 Feb 2024 03:20:18 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.9])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F0A0011234D
+ for <intel-gfx@lists.freedesktop.org>; Mon,  5 Feb 2024 04:38:38 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1707103220; x=1738639220;
- h=date:from:to:cc:subject:message-id:reply-to:references:
- mime-version:in-reply-to;
- bh=LnHwxn7ybecushgZynobgUCDKozvidjcdFTYFGxuKQI=;
- b=c+z8W1OYQAEKgKreGtwqZDZ3U6tXNXCYQPo4mEhFrZ9WFD53L3GSgdoZ
- UTFmKY/YOkcAam/vYQQe/OwdiL2xkh5zoHXRpcT4pGfYjC1tJ2y0ZvwYS
- xCZHn0vVUHrJEGbzs14PIUbeePkkE92nmwDCNkPnZVTjdwYqzirog/sUF
- ASk8eM/pdFW2wyDW9wYqpwG86/OEFSoG9MazrLApKxFd+8MOFEuG4clNP
- XkAv3UmbJVAYOQrYswd/tWfgQAZ4v4mLSrsfeGtuJMn+F6RpQmzWwwwQe
- Bd6wYheUZbj05a5hC3H6MNwWOk96aSYyO87N6tj7+jtz3A4QCj2QEq6Ml Q==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10974"; a="4260454"
-X-IronPort-AV: E=Sophos;i="6.05,242,1701158400"; d="asc'?scan'208";a="4260454"
-Received: from fmsmga001.fm.intel.com ([10.253.24.23])
- by orvoesa106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 04 Feb 2024 19:20:19 -0800
+ t=1707107919; x=1738643919;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=k9jvggqtCxOo7pUN89m7fwpeG4Xv0fcK0GrzPJ6k88g=;
+ b=C7UQRLv/gYT6KGXhcJDqedeh2z+90/43crtk+ZlDNBImbnEQQ7z4H3rw
+ NpITFoVfDrs5OuuWMrfYmlM9LG88r74P+FQyzX31VT15Q9tQGnoA8p+B2
+ r1cLyBOctcsWpg7Tg0duIUAW0cHvEzam4SAynSvjM4kSvcWud7++Jn0iq
+ Yd7LQCV50vJNnZD0bvXrkVeO/LAwe7GGovEW7Xb9oNmVRoq/dtgOiR/sJ
+ OM2r1kY89anT92JEDHeIa8LqbwcvEBJvqfwfLY96QU9VP11uH/ffEb+yA
+ qoLPyGc1RB+jhrM1IVR8y5jMgGzBjWqC5/kgSRKcWrbGNIVOG4ciNbD64 g==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10974"; a="11186075"
+X-IronPort-AV: E=Sophos;i="6.05,242,1701158400"; d="scan'208";a="11186075"
+Received: from orviesa006.jf.intel.com ([10.64.159.146])
+ by fmvoesa103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 04 Feb 2024 20:38:36 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10974"; a="933032975"
 X-IronPort-AV: E=Sophos;i="6.05,242,1701158400"; 
- d="asc'?scan'208";a="933032975"
-Received: from debian-skl.sh.intel.com (HELO debian-skl) ([10.239.160.45])
- by fmsmga001.fm.intel.com with ESMTP; 04 Feb 2024 19:20:16 -0800
-Date: Mon, 5 Feb 2024 11:21:18 +0800
-From: Zhenyu Wang <zhenyuw@linux.intel.com>
-To: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
-Cc: "Vivi, Rodrigo" <rodrigo.vivi@intel.com>,
- Jani Nikula <jani.nikula@intel.com>, Zhenyu Wang <zhenyuw@linux.intel.com>,
- intel-gfx <intel-gfx@lists.freedesktop.org>,
- intel-gvt-dev <intel-gvt-dev@lists.freedesktop.org>,
- zhi.wang.linux@gmail.com
-Subject: Re: [PULL] gvt-fixes
-Message-ID: <ZcBULqJAL2CWJoHh@debian-scheme>
-References: <ZboVK03/Eb/jt7wf@debian-scheme>
- <170679864541.42939.1205060851730493621@jlahtine-mobl.ger.corp.intel.com>
+   d="scan'208";a="909971"
+Received: from dut-2a59.iind.intel.com ([10.190.239.113])
+ by orviesa006.jf.intel.com with ESMTP; 04 Feb 2024 20:38:35 -0800
+From: Chaitanya Kumar Borah <chaitanya.kumar.borah@intel.com>
+To: intel-gfx@lists.freedesktop.org
+Cc: uma.shankar@intel.com, chaitanya.kumar.borah@intel.com,
+ maarten.lankhorst@linux.intel.com, ville.syrjala@linux.intel.com
+Subject: [PATCH 1/6] drm: Add drm_vblank_work_flush_all().
+Date: Mon,  5 Feb 2024 10:01:42 +0530
+Message-Id: <20240205043147.3632165-2-chaitanya.kumar.borah@intel.com>
+X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20240205043147.3632165-1-chaitanya.kumar.borah@intel.com>
+References: <20240205043147.3632165-1-chaitanya.kumar.borah@intel.com>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha1;
- protocol="application/pgp-signature"; boundary="i4t0hrQN2UnHyzVl"
-Content-Disposition: inline
-In-Reply-To: <170679864541.42939.1205060851730493621@jlahtine-mobl.ger.corp.intel.com>
+Content-Transfer-Encoding: 8bit
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,75 +61,72 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: Zhenyu Wang <zhenyuw@linux.intel.com>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
+From: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
 
---i4t0hrQN2UnHyzVl
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+In some cases we want to flush all vblank work, right before vblank_off
+for example. Add a simple function to make this possible.
 
-On 2024.02.01 16:44:05 +0200, Joonas Lahtinen wrote:
-> Hi Zhenyu,
->=20
-> I'm getting the following:
->=20
-> dim: ff833b32ccc4 ("drm/i915: Replace dead 01.org link"): mandatory revie=
-w missing.
-> dim: ERROR: issues in commits detected, aborting
->=20
-> Can you fix the commit?
->=20
+Signed-off-by: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+---
+ drivers/gpu/drm/drm_vblank_work.c | 22 ++++++++++++++++++++++
+ include/drm/drm_vblank_work.h     |  2 ++
+ 2 files changed, 24 insertions(+)
 
-Sorry, I missed to add review tag which had actually been done..
-Here's the new generated one.
+diff --git a/drivers/gpu/drm/drm_vblank_work.c b/drivers/gpu/drm/drm_vblank_work.c
+index 43cd5c0f4f6f..ff86f2b2e052 100644
+--- a/drivers/gpu/drm/drm_vblank_work.c
++++ b/drivers/gpu/drm/drm_vblank_work.c
+@@ -232,6 +232,28 @@ void drm_vblank_work_flush(struct drm_vblank_work *work)
+ }
+ EXPORT_SYMBOL(drm_vblank_work_flush);
+ 
++/**
++ * drm_vblank_work_flush_all - flush all currently pending vblank work on crtc.
++ * @crtc: crtc for which vblank work to flush
++ *
++ * Wait until all currently queued vblank work on @crtc
++ * has finished executing once.
++ */
++void drm_vblank_work_flush_all(struct drm_crtc *crtc)
++{
++	struct drm_device *dev = crtc->dev;
++	struct drm_vblank_crtc *vblank = &dev->vblank[drm_crtc_index(crtc)];
++
++	spin_lock_irq(&dev->event_lock);
++	wait_event_lock_irq(vblank->work_wait_queue,
++			    waitqueue_active(&vblank->work_wait_queue),
++			    dev->event_lock);
++	spin_unlock_irq(&dev->event_lock);
++
++	kthread_flush_worker(vblank->worker);
++}
++EXPORT_SYMBOL(drm_vblank_work_flush_all);
++
+ /**
+  * drm_vblank_work_init - initialize a vblank work item
+  * @work: vblank work item
+diff --git a/include/drm/drm_vblank_work.h b/include/drm/drm_vblank_work.h
+index eb41d0810c4f..e04d436b7297 100644
+--- a/include/drm/drm_vblank_work.h
++++ b/include/drm/drm_vblank_work.h
+@@ -17,6 +17,7 @@ struct drm_crtc;
+  * drm_vblank_work_init()
+  * drm_vblank_work_cancel_sync()
+  * drm_vblank_work_flush()
++ * drm_vblank_work_flush_all()
+  */
+ struct drm_vblank_work {
+ 	/**
+@@ -67,5 +68,6 @@ void drm_vblank_work_init(struct drm_vblank_work *work, struct drm_crtc *crtc,
+ 			  void (*func)(struct kthread_work *work));
+ bool drm_vblank_work_cancel_sync(struct drm_vblank_work *work);
+ void drm_vblank_work_flush(struct drm_vblank_work *work);
++void drm_vblank_work_flush_all(struct drm_crtc *crtc);
+ 
+ #endif /* !_DRM_VBLANK_WORK_H_ */
+-- 
+2.25.1
 
-The following changes since commit f9f031dd21a7ce13a13862fa5281d32e1029c70f:
-
-  drm/i915/psr: Only allow PSR in LPSP mode on HSW non-ULT (2024-01-25 10:4=
-4:13 +0200)
-
-are available in the Git repository at:
-
-  https://github.com/intel/gvt-linux tags/gvt-fixes-2024-02-05
-
-for you to fetch changes up to 44e4192f88978e32e4ac08b27141f3767366f79b:
-
-  MAINTAINERS: Update Zhi Wang's email address (2024-02-05 11:16:26 +0800)
-
-----------------------------------------------------------------
-gvt-fixes-2024-02-05
-
-- Fix broken gvt doc link (Zhenyu)
-- Fix one uninitialized variable bug in warning (Dan)
-- Update Zhi's new email address in MAINTAINERS file. (Zhi)
-
-----------------------------------------------------------------
-Dan Carpenter (1):
-      drm/i915/gvt: Fix uninitialized variable in handle_mmio()
-
-Zhenyu Wang (1):
-      drm/i915: Replace dead 01.org link
-
-Zhi Wang (1):
-      MAINTAINERS: Update Zhi Wang's email address
-
- MAINTAINERS                         | 4 ++--
- drivers/gpu/drm/i915/Kconfig        | 2 +-
- drivers/gpu/drm/i915/gvt/handlers.c | 3 +--
- drivers/gpu/drm/i915/intel_gvt.c    | 2 +-
- 4 files changed, 5 insertions(+), 6 deletions(-)
-
---i4t0hrQN2UnHyzVl
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iF0EARECAB0WIQTXuabgHDW6LPt9CICxBBozTXgYJwUCZcBULgAKCRCxBBozTXgY
-J+cWAJsHOXF4dBIG0eYPEkO1Gi/byWoNbgCfYJEXJKqriOAlWoqTRZL5mzEojQI=
-=M00v
------END PGP SIGNATURE-----
-
---i4t0hrQN2UnHyzVl--
