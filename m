@@ -4,64 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9DC44C48297
-	for <intel-gfx@archiver.kernel.org>; Fri,  9 Feb 2024 10:25:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 52582C4828F
+	for <intel-gfx@archiver.kernel.org>; Fri,  9 Feb 2024 10:25:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D8FDE10F30B;
-	Fri,  9 Feb 2024 10:25:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5B15410F30C;
+	Fri,  9 Feb 2024 10:25:45 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=gmx.com header.i=erick.archer@gmx.com header.b="rTP+FBzJ";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="EsryKiel";
 	dkim-atps=neutral
-Received: from mout.gmx.net (mout.gmx.net [212.227.15.15])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 09FB110E28B;
- Thu,  8 Feb 2024 18:19:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=gmx.com;
- s=s31663417; t=1707416351; x=1708021151; i=erick.archer@gmx.com;
- bh=ysgMn0ZRWUYT/Hge0FlA9uwr6TJWomFtNilVmXv2T/w=;
- h=X-UI-Sender-Class:From:To:Cc:Subject:Date;
- b=rTP+FBzJf6c9vHHT+97TkSG/Uvm8g90FqR4Mntv4D4A8H3TAYyI200beD81+vMSD
- P15SPBwMoO6vN2Vum+oCuRrsL+yqG1yrDgU3qxZK3QhFLycMjU4q4P7vrLNXKJWIR
- AcdNj1t1+EUHpxlmKnurOg56N5JOfXAaX9ilmI5boKITFbzs66EMftYvAoPA+1G17
- 55sSMvJtp10q+Yxmsmgbsg8UV6bEueUx0wKXCYOv2R5IntpRJ81O15bsJJ0okP2vA
- 7yYAKrjOalqbFHHFzgGH/eBG85bSKRO0WCgsUsqS89qOnCZz1F+JZdqPbFBhWLUJF
- ABOfgyHz/HgpUQG7Lg==
-X-UI-Sender-Class: 724b4f7f-cbec-4199-ad4e-598c01a50d3a
-Received: from localhost.localdomain ([79.157.194.183]) by mail.gmx.net
- (mrgmx004 [212.227.17.184]) with ESMTPSA (Nemesis) id
- 1M7b6l-1rdLQw2iQn-0081qr; Thu, 08 Feb 2024 19:13:35 +0100
-From: Erick Archer <erick.archer@gmx.com>
-To: Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
- David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
- "Gustavo A. R. Silva" <gustavoars@kernel.org>
-Cc: Erick Archer <erick.archer@gmx.com>, intel-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- linux-hardening@vger.kernel.org
-Subject: [PATCH] drm/i915: Add flex arrays to struct i915_syncmap
-Date: Thu,  8 Feb 2024 19:13:18 +0100
-Message-Id: <20240208181318.4259-1-erick.archer@gmx.com>
-X-Mailer: git-send-email 2.25.1
+Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 31611112AA9;
+ Tue,  6 Feb 2024 11:29:10 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sin.source.kernel.org (Postfix) with ESMTP id AC961CE1305;
+ Tue,  6 Feb 2024 11:29:03 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A18D0C433C7;
+ Tue,  6 Feb 2024 11:29:00 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1707218942;
+ bh=xItSGKOsHY3nXC2qGy9xvtt+bnUbZopMnd876K04tjk=;
+ h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+ b=EsryKielTwcYBcVxuAxMAD0zvVmbPIbLkTrIBNpyeEXJDILMUGxe5VwThjhAPGnyO
+ rLKJuiVoAMk877bcSrF8uDICB52XvtgnldywkMDYIUPLZfloZfAi3SBNlqPkVA5eMU
+ rtW7cjWZGmSUlCxcZT3OUAe1pwiQ1NEcz1OoSMpGOOP/MQVUe9ovK2gd20aO9bMxUc
+ 7F6rVhcCMrxY0Lj0hbNT1tJTo6qegUW6e2CN95Dy8UeQd1tfvVavKRMi3A2Rafq7dY
+ lxatORJk8dJTp3fusXqMAzr6uJHu5gTp95RSwtKKAotz7xRo64bafcCmGPZI/JkC+R
+ 4KjRAVWhH6ezw==
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-X-Provags-ID: V03:K1:pfHdlpNnJigTy8aCxrOPtJDMrJKf0ixBybkrQ5Vv5mXAzAOCOce
- kE/56VgSJ24fEWyckAkZBiWw31er/4+LJmrLfiKbxBq0xz8Hfrzpel9d0ON3gwuUpxPyHbE
- rdS3TQvdJZV2shpo3dlarUHJyNmnOMWYszl8ojPossp4pbrgBMG/j9ZA3TOBvkYMcVXSjOq
- g75Q7z0uPqbDs2hAyGnmQ==
-UI-OutboundReport: notjunk:1;M01:P0:7eioEc7nG0c=;qtwKIX5gPG/Y57aHU7UDVkHMFaE
- JToO/0XCCcuVFGqULSXsSgP6ptQExfCebO6YXHofeQKSA5VTH3Rx0BPdQ/Jo+sylF13EPbI0T
- Izh6uiCVr2BeFMb8Mo7ptlutk0GaiuTXhSwPkjMW2B8o5Dc085jjAUMWeB3aQUr8ibqBQO5jZ
- XHRnAklzfh+g+TOE6RVXLDpqaGMBFNWvkkb7n93+fL/ZGG1GCFSIqWDR7O3FU4gyx0u9cxI2v
- VKBafIfiDpkzamqgGhBrNA5dBUtqs7+b0MxELAUjjVtkPS9T5LCAA+EaztiioPdaxtDVW/70/
- +D+579XV0ikBVQipN8Orbe3Cl3wLYyiQ44pDnIzYNc8WAX1mQzvah3tUv89lbMW0BZmpxVX5a
- 5TG0A6y3sM/WpIuReX/L1EW3P3Xp3E85EIJE9PAbMmEjB+92stmRLuQfsY04ODHTdpoU4crn1
- Njr+fvCDsoFFu/11gu4og/beC9d/kOrZTyQi7Gjc/mc0XK6TMa8ScEMyvstVIwrFooLiO33Ng
- bFuGdjFbKoO9cfwt04+XDJ6hWuQF7COASscQ/jtY7AY6eqdsT57r2wXSKUMQArGSm7r4giTRQ
- Qsnkb5KDaNeKDM5G1EvS0JJ7jcJW+ivpF1VFxshFi1DEDMpa0Q0SWvpRAKMivN9K6RtEh13gs
- OpoWE3Lu8gIkvo6AdmTPA42MhlEFREt2H/sGt2VLV9+oSMV0kbsrinJQBjPEYscChsW1yIIxo
- WpkG5/liHV1D7yWyYkWlaKkCv+MkkPM5r7UUu+1Hz7yYdzIbozc/YNZo+V7OPP102kyAZhBle
- Ez3i3irdlHSE0lnZqSUdAgW7tybDatbHXq7POenIjwzBc=
+Date: Tue, 06 Feb 2024 12:28:58 +0100
+From: Michael Walle <mwalle@kernel.org>
+To: Stephen Rothwell <sfr@canb.auug.org.au>
+Cc: Daniel Vetter <daniel.vetter@ffwll.ch>, Intel Graphics
+ <intel-gfx@lists.freedesktop.org>, DRI <dri-devel@lists.freedesktop.org>,
+ Dario Binacchi <dario.binacchi@amarulasolutions.com>, Inki Dae
+ <inki.dae@samsung.com>, Linux Kernel Mailing List
+ <linux-kernel@vger.kernel.org>, Linux Next Mailing List
+ <linux-next@vger.kernel.org>, Michael Trimarchi
+ <michael@amarulasolutions.com>, Robert Foss <rfoss@kernel.org>
+Subject: Re: linux-next: manual merge of the drm-misc tree with Linus' tree
+In-Reply-To: <20240206120643.1d30764c@canb.auug.org.au>
+References: <20240206115956.4570e9b1@canb.auug.org.au>
+ <20240206120643.1d30764c@canb.auug.org.au>
+Message-ID: <fe0b21360178348543e662e9d620af9c@kernel.org>
+X-Sender: mwalle@kernel.org
+Content-Type: text/plain; charset=US-ASCII;
+ format=flowed
+Content-Transfer-Encoding: 7bit
 X-Mailman-Approved-At: Fri, 09 Feb 2024 10:25:43 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -78,91 +66,52 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-The "struct i915_syncmap" uses a dynamically sized set of trailing
-elements. It can use an "u32" array or a "struct i915_syncmap *"
-array.
+Hi Stephen and all,
 
-So, use the preferred way in the kernel declaring flexible arrays [1].
-Because there are two possibilities for the trailing arrays, it is
-necessary to declare a union and use the DECLARE_FLEX_ARRAY macro.
+>> Today's linux-next merge of the drm-misc tree got a conflict in:
+>> 
+>>   drivers/gpu/drm/bridge/samsung-dsim.c
+>> 
+>> between commit:
+>> 
+>>   ff3d5d04db07 ("drm: bridge: samsung-dsim: Don't use 
+>> FORCE_STOP_STATE")
+>> 
+>> from Linus' tree and commit:
+>> 
+>>   b2fe2292624a ("drm: bridge: samsung-dsim: enter display mode in the 
+>> enable() callback")
+>> 
+>> from the drm-misc tree.
+>> 
+>> I fixed it up (see below, please check) and can carry the fix as
+>> necessary. This is now fixed as far as linux-next is concerned, but 
+>> any
+>> non trivial conflicts should be mentioned to your upstream maintainer
+>> when your tree is submitted for merging.  You may also want to 
+>> consider
+>> cooperating with the maintainer of the conflicting tree to minimise 
+>> any
+>> particularly complex conflicts.
+> 
+> I changed my mind and just used the latter version of this file.
 
-The comment can be removed as the union is now clear enough.
+Bug wise, this is the wrong solution. Because it will reintroduce the
+faulty FORCE_STOP_STATE. Also keep in mind, my fixes commit is/was 
+already
+backported to the stable series.
 
-Also, avoid the open-coded arithmetic in the memory allocator functions
-[2] using the "struct_size" macro.
+See also the discussion at [1]. Unfortunately, there was no conculusion 
+yet.
+I think [2] is the proper resolution, at least for the commit 
+b2fe2292624a
+("drm: bridge: samsung-dsim: enter display mode in the enable() 
+callback")
+I'm not sure in what state the drm-misc tree is.
 
-Moreover, refactor the "__sync_seqno" and "__sync_child" functions due
-to now it is possible to use the union members added to the structure.
-This way, it is also possible to avoid the open-coded arithmetic in
-pointers.
+-michael
 
-Link: https://www.kernel.org/doc/html/next/process/deprecated.html#zero-le=
-ngth-and-one-element-arrays [1]
-Link: https://www.kernel.org/doc/html/next/process/deprecated.html#open-co=
-ded-arithmetic-in-allocator-arguments [2]
-Signed-off-by: Erick Archer <erick.archer@gmx.com>
-=2D--
- drivers/gpu/drm/i915/i915_syncmap.c | 19 ++++++++-----------
- 1 file changed, 8 insertions(+), 11 deletions(-)
-
-diff --git a/drivers/gpu/drm/i915/i915_syncmap.c b/drivers/gpu/drm/i915/i9=
-15_syncmap.c
-index 60404dbb2e9f..df6437c37373 100644
-=2D-- a/drivers/gpu/drm/i915/i915_syncmap.c
-+++ b/drivers/gpu/drm/i915/i915_syncmap.c
-@@ -75,13 +75,10 @@ struct i915_syncmap {
- 	unsigned int height;
- 	unsigned int bitmap;
- 	struct i915_syncmap *parent;
--	/*
--	 * Following this header is an array of either seqno or child pointers:
--	 * union {
--	 *	u32 seqno[KSYNCMAP];
--	 *	struct i915_syncmap *child[KSYNCMAP];
--	 * };
--	 */
-+	union {
-+		DECLARE_FLEX_ARRAY(u32, seqno);
-+		DECLARE_FLEX_ARRAY(struct i915_syncmap *, child);
-+	};
- };
-
- /**
-@@ -99,13 +96,13 @@ void i915_syncmap_init(struct i915_syncmap **root)
- static inline u32 *__sync_seqno(struct i915_syncmap *p)
- {
- 	GEM_BUG_ON(p->height);
--	return (u32 *)(p + 1);
-+	return p->seqno;
- }
-
- static inline struct i915_syncmap **__sync_child(struct i915_syncmap *p)
- {
- 	GEM_BUG_ON(!p->height);
--	return (struct i915_syncmap **)(p + 1);
-+	return p->child;
- }
-
- static inline unsigned int
-@@ -200,7 +197,7 @@ __sync_alloc_leaf(struct i915_syncmap *parent, u64 id)
- {
- 	struct i915_syncmap *p;
-
--	p =3D kmalloc(sizeof(*p) + KSYNCMAP * sizeof(u32), GFP_KERNEL);
-+	p =3D kmalloc(struct_size(p, seqno, KSYNCMAP), GFP_KERNEL);
- 	if (unlikely(!p))
- 		return NULL;
-
-@@ -282,7 +279,7 @@ static noinline int __sync_set(struct i915_syncmap **r=
-oot, u64 id, u32 seqno)
- 			unsigned int above;
-
- 			/* Insert a join above the current layer */
--			next =3D kzalloc(sizeof(*next) + KSYNCMAP * sizeof(next),
-+			next =3D kzalloc(struct_size(next, child, KSYNCMAP),
- 				       GFP_KERNEL);
- 			if (unlikely(!next))
- 				return -ENOMEM;
-=2D-
-2.25.1
-
+[1] 
+https://lore.kernel.org/dri-devel/CAPM=9tytMB9frxNeD08hu1qsusY=wEE3bJOFmUgA1rSpabwDpg@mail.gmail.com/
+[2] 
+https://lore.kernel.org/dri-devel/31e1a38a1d012a32d6f7bc8372b6360e@kernel.org/
