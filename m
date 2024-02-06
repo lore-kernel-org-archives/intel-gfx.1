@@ -4,52 +4,70 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 69D47C4829C
-	for <intel-gfx@archiver.kernel.org>; Fri,  9 Feb 2024 10:25:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A89D8C4829F
+	for <intel-gfx@archiver.kernel.org>; Fri,  9 Feb 2024 10:25:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D5C3B10EC3D;
-	Fri,  9 Feb 2024 10:25:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9D8E810F30D;
+	Fri,  9 Feb 2024 10:25:45 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="QwvHYGwo";
+	dkim=pass (1024-bit key; unprotected) header.d=amarulasolutions.com header.i=@amarulasolutions.com header.b="DzsqcT4/";
 	dkim-atps=neutral
-X-Greylist: delayed 1477 seconds by postgrey-1.36 at gabe;
- Wed, 07 Feb 2024 11:02:49 UTC
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 35333113214;
- Wed,  7 Feb 2024 11:02:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=Content-Transfer-Encoding:Content-Type:To:Subject:From:
- MIME-Version:Date:Message-ID:Sender:Reply-To:Cc:Content-ID:
- Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
- :Resent-Message-ID:In-Reply-To:References:List-Id:List-Help:List-Unsubscribe:
- List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=sIHMKKv+rJ2BTWFPAnxdivnmWvcd5mEBUBD4G3KON+8=; b=QwvHYGwoHEPWIBh/7c18iiBjQK
- F9y5XfWn3Pm9gLJraKO5cSr1im1qqFo2eA8WChoFU3F39L6OrHiqH76zyXKgRgP9M2y5ybsylo98S
- /VraZP1Ludy7goUgMOWrf6kBwPq5ZZMJDDpK9xvAVLvfMq8Gkx4rIIIyQJY46Xu69nEqGVWanAcfV
- I/EyjNqODHmhk6y+pEZX/YijgtOjbPpZhUnVSGt1k4zc4/Tu4vu9b6yQLG0PtSVKHO4ecS0/721ug
- rk8pDV6WQN3quFSerxW1NgdkZ1oN5Q5KwO0W5d3bFeQiu18bKhl+6VXrG4jhUXSlTZ2s5SNXtsbwt
- B/XeinwA==;
-Received: from c-71-59-88-35.hsd1.nj.comcast.net ([71.59.88.35]
- helo=[192.168.1.177]) by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
- id 1rXfJg-00Ei61-Ru; Wed, 07 Feb 2024 11:38:09 +0100
-Message-ID: <71977053-32f0-45e9-ba0c-8eb177735c9d@igalia.com>
-Date: Wed, 7 Feb 2024 05:38:26 -0500
+Received: from mail-yb1-f175.google.com (mail-yb1-f175.google.com
+ [209.85.219.175])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A8FB3112AC1
+ for <intel-gfx@lists.freedesktop.org>; Tue,  6 Feb 2024 11:35:11 +0000 (UTC)
+Received: by mail-yb1-f175.google.com with SMTP id
+ 3f1490d57ef6-d9b9adaf291so4530245276.1
+ for <intel-gfx@lists.freedesktop.org>; Tue, 06 Feb 2024 03:35:11 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=amarulasolutions.com; s=google; t=1707219310; x=1707824110;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=ipIFPiuOZlL03JscPcnqfUuXdCqKvtPZ/moGeh3312s=;
+ b=DzsqcT4/hPYPeAxywb2kE0gW0ox8lXL9rEqE4t3gdXLu/QrSHFdO/3Ckt/+S5ToIlZ
+ KMn0Q5V2XIUP84lpzvh+Mv75cQs0Uip+u2TTvzSRwN1OWYlQLzS7VS0iweINMkGmO9I2
+ M8Gu14PjklUEmLnc1tiUY/y6PAxi4DI8C6qI4=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1707219310; x=1707824110;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=ipIFPiuOZlL03JscPcnqfUuXdCqKvtPZ/moGeh3312s=;
+ b=alKsiZzMCztNxGbLrWjoE7fYI8I9I/grT/GsJEu6Ss2IdYGV8XIY7DVdg9NKjiUFaD
+ 9VD6x6+xrpOxaKMR2rSr1PHsY/ediCxnlLcJxkx0AZDcDUsSPtQCDGiobA79Y2liiLZB
+ MzbJJzsEmCotlEc7XwVzgPsqAoxDfkCoxpHfJXhw3X+gZgmsnLBdvzAH+Vdit8XX4qK9
+ iauX9fMDQzMT1atzyumMtEjHLZVFn62DmCdwvZtq1+JWvnVoKxqy2y6hbo6g5Uz0it+g
+ g5k07mJ4BlSiBf7rfNCvzEnJpL0DFoOuKKxQppvu8JSvjeffSyDm5buMv9yq23nDJchb
+ 8Zyw==
+X-Gm-Message-State: AOJu0YzcCkVE/yQdSPrlLQ20zMj2HKiZsE4r0uHRNKQI5ztOISwaFpnX
+ 026URGav76k4jG2R6mFK5FY693Z900ploFSUliQnuw0qhj9MwBbp5RmKVmX0zXa6W+qcMRXVvNC
+ 2wdUEni7DBBsJ8OywRRB3woVshPj6opAnUIBnXQ==
+X-Google-Smtp-Source: AGHT+IFs9N+MMWXICUW8m7zjdBDfxfxKrJHf8SDeiP+oYRkgDorOT5XmQOl5gAjCH+qk4NmEovj7aTrJBhpDMGxfG60=
+X-Received: by 2002:a25:824f:0:b0:dbd:b081:9663 with SMTP id
+ d15-20020a25824f000000b00dbdb0819663mr1120369ybn.41.1707219310352; Tue, 06
+ Feb 2024 03:35:10 -0800 (PST)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Content-Language: en-US
-From: Christopher Michael <cmichael@igalia.com>
-Subject: 2024 X.Org Foundation Membership deadline for voting in the election
-To: events@lists.x.org, xorg-devel@lists.x.org,
- wayland-devel@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- mesa-dev@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
- etnaviv@lists.freedesktop.org, freedreno@lists.freedesktop.org,
- nouveau@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
- libre-soc-dev@lists.libre-soc.org, elections@x.org, members@x.org,
- xorg@lists.freedesktop.org
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+References: <20240206115956.4570e9b1@canb.auug.org.au>
+ <20240206120643.1d30764c@canb.auug.org.au>
+ <fe0b21360178348543e662e9d620af9c@kernel.org>
+In-Reply-To: <fe0b21360178348543e662e9d620af9c@kernel.org>
+From: Dario Binacchi <dario.binacchi@amarulasolutions.com>
+Date: Tue, 6 Feb 2024 12:34:59 +0100
+Message-ID: <CABGWkvpuukHq_qcdjAyczaSxVyG_dUda0SATuS9VoSzmQgdjPA@mail.gmail.com>
+Subject: Re: linux-next: manual merge of the drm-misc tree with Linus' tree
+To: Michael Walle <mwalle@kernel.org>
+Cc: Stephen Rothwell <sfr@canb.auug.org.au>,
+ Daniel Vetter <daniel.vetter@ffwll.ch>, 
+ Intel Graphics <intel-gfx@lists.freedesktop.org>,
+ DRI <dri-devel@lists.freedesktop.org>, Inki Dae <inki.dae@samsung.com>, 
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>, 
+ Linux Next Mailing List <linux-next@vger.kernel.org>, 
+ Michael Trimarchi <michael@amarulasolutions.com>,
+ Robert Foss <rfoss@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-Mailman-Approved-At: Fri, 09 Feb 2024 10:25:43 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -66,21 +84,87 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-The 2024 X.Org Foundation elections are rapidly approaching. We will be 
-forwarding the election schedule and nominating process to the 
-membership shortly.
+Hi Michael,
+
+On Tue, Feb 6, 2024 at 12:29=E2=80=AFPM Michael Walle <mwalle@kernel.org> w=
+rote:
+>
+> Hi Stephen and all,
+>
+> >> Today's linux-next merge of the drm-misc tree got a conflict in:
+> >>
+> >>   drivers/gpu/drm/bridge/samsung-dsim.c
+> >>
+> >> between commit:
+> >>
+> >>   ff3d5d04db07 ("drm: bridge: samsung-dsim: Don't use
+> >> FORCE_STOP_STATE")
+> >>
+> >> from Linus' tree and commit:
+> >>
+> >>   b2fe2292624a ("drm: bridge: samsung-dsim: enter display mode in the
+> >> enable() callback")
+> >>
+> >> from the drm-misc tree.
+> >>
+> >> I fixed it up (see below, please check) and can carry the fix as
+> >> necessary. This is now fixed as far as linux-next is concerned, but
+> >> any
+> >> non trivial conflicts should be mentioned to your upstream maintainer
+> >> when your tree is submitted for merging.  You may also want to
+> >> consider
+> >> cooperating with the maintainer of the conflicting tree to minimise
+> >> any
+> >> particularly complex conflicts.
+> >
+> > I changed my mind and just used the latter version of this file.
+>
+> Bug wise, this is the wrong solution. Because it will reintroduce the
+> faulty FORCE_STOP_STATE. Also keep in mind, my fixes commit is/was
+> already
+> backported to the stable series.
+>
+> See also the discussion at [1]. Unfortunately, there was no conculusion
+> yet.
+> I think [2] is the proper resolution, at least for the commit
+> b2fe2292624a
+> ("drm: bridge: samsung-dsim: enter display mode in the enable()
+> callback")
+> I'm not sure in what state the drm-misc tree is.
+>
+> -michael
+>
+> [1]
+> https://lore.kernel.org/dri-devel/CAPM=3D9tytMB9frxNeD08hu1qsusY=3DwEE3bJ=
+OFmUgA1rSpabwDpg@mail.gmail.com/
+> [2]
+> https://lore.kernel.org/dri-devel/31e1a38a1d012a32d6f7bc8372b6360e@kernel=
+.org/
 
 
-Please note that only current members can vote in the upcoming election, 
-and that the deadline for new memberships or renewals to vote in the 
-upcoming election is 26 February 2024 at 23:59 UTC.
+Unfortunately, in this recent period, I have been very busy and have
+not been able to run tests on this matter.
+As soon as I am able to do so, I will.
+
+Thanks and regards,
+Dario
+
+--=20
+
+Dario Binacchi
+
+Senior Embedded Linux Developer
+
+dario.binacchi@amarulasolutions.com
+
+__________________________________
 
 
-If you are interested in joining the X.Org Foundation or in renewing 
-your membership, please visit the membership system site at: 
-https://members.x.org/
+Amarula Solutions SRL
 
+Via Le Canevare 30, 31100 Treviso, Veneto, IT
 
+T. +39 042 243 5310
+info@amarulasolutions.com
 
-Christopher Michael, on behalf of the X.Org elections committee
-
+www.amarulasolutions.com
