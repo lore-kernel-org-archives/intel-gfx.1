@@ -4,52 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 52582C4828F
-	for <intel-gfx@archiver.kernel.org>; Fri,  9 Feb 2024 10:25:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2307CC48297
+	for <intel-gfx@archiver.kernel.org>; Fri,  9 Feb 2024 10:25:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5B15410F30C;
+	by gabe.freedesktop.org (Postfix) with ESMTP id BC5EC10F30F;
 	Fri,  9 Feb 2024 10:25:45 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="EsryKiel";
-	dkim-atps=neutral
-Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 31611112AA9;
- Tue,  6 Feb 2024 11:29:10 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sin.source.kernel.org (Postfix) with ESMTP id AC961CE1305;
- Tue,  6 Feb 2024 11:29:03 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A18D0C433C7;
- Tue,  6 Feb 2024 11:29:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1707218942;
- bh=xItSGKOsHY3nXC2qGy9xvtt+bnUbZopMnd876K04tjk=;
- h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
- b=EsryKielTwcYBcVxuAxMAD0zvVmbPIbLkTrIBNpyeEXJDILMUGxe5VwThjhAPGnyO
- rLKJuiVoAMk877bcSrF8uDICB52XvtgnldywkMDYIUPLZfloZfAi3SBNlqPkVA5eMU
- rtW7cjWZGmSUlCxcZT3OUAe1pwiQ1NEcz1OoSMpGOOP/MQVUe9ovK2gd20aO9bMxUc
- 7F6rVhcCMrxY0Lj0hbNT1tJTo6qegUW6e2CN95Dy8UeQd1tfvVavKRMi3A2Rafq7dY
- lxatORJk8dJTp3fusXqMAzr6uJHu5gTp95RSwtKKAotz7xRo64bafcCmGPZI/JkC+R
- 4KjRAVWhH6ezw==
+X-Greylist: delayed 327 seconds by postgrey-1.36 at gabe;
+ Tue, 06 Feb 2024 16:51:19 UTC
+Received: from exchange.fintech.ru (exchange.fintech.ru [195.54.195.159])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 875A1112CE1
+ for <intel-gfx@lists.freedesktop.org>; Tue,  6 Feb 2024 16:51:19 +0000 (UTC)
+Received: from Ex16-01.fintech.ru (10.0.10.18) by exchange.fintech.ru
+ (195.54.195.169) with Microsoft SMTP Server (TLS) id 14.3.498.0; Tue, 6 Feb
+ 2024 19:45:48 +0300
+Received: from localhost (10.0.253.138) by Ex16-01.fintech.ru (10.0.10.18)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2242.4; Tue, 6 Feb 2024
+ 19:45:48 +0300
+From: Nikita Zhandarovich <n.zhandarovich@fintech.ru>
+To: Jani Nikula <jani.nikula@linux.intel.com>
+CC: Nikita Zhandarovich <n.zhandarovich@fintech.ru>, Joonas Lahtinen
+ <joonas.lahtinen@linux.intel.com>, Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>, David Airlie
+ <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+ <intel-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
+ <linux-kernel@vger.kernel.org>, <lvc-project@linuxtesting.org>
+Subject: [PATCH] drm/i915/gt: Prevent possible NULL dereference in
+ __caps_show()
+Date: Tue, 6 Feb 2024 08:45:43 -0800
+Message-ID: <20240206164543.46834-1-n.zhandarovich@fintech.ru>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-Date: Tue, 06 Feb 2024 12:28:58 +0100
-From: Michael Walle <mwalle@kernel.org>
-To: Stephen Rothwell <sfr@canb.auug.org.au>
-Cc: Daniel Vetter <daniel.vetter@ffwll.ch>, Intel Graphics
- <intel-gfx@lists.freedesktop.org>, DRI <dri-devel@lists.freedesktop.org>,
- Dario Binacchi <dario.binacchi@amarulasolutions.com>, Inki Dae
- <inki.dae@samsung.com>, Linux Kernel Mailing List
- <linux-kernel@vger.kernel.org>, Linux Next Mailing List
- <linux-next@vger.kernel.org>, Michael Trimarchi
- <michael@amarulasolutions.com>, Robert Foss <rfoss@kernel.org>
-Subject: Re: linux-next: manual merge of the drm-misc tree with Linus' tree
-In-Reply-To: <20240206120643.1d30764c@canb.auug.org.au>
-References: <20240206115956.4570e9b1@canb.auug.org.au>
- <20240206120643.1d30764c@canb.auug.org.au>
-Message-ID: <fe0b21360178348543e662e9d620af9c@kernel.org>
-X-Sender: mwalle@kernel.org
-Content-Type: text/plain; charset=US-ASCII;
- format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.0.253.138]
+X-ClientProxiedBy: Ex16-02.fintech.ru (10.0.10.19) To Ex16-01.fintech.ru
+ (10.0.10.18)
 X-Mailman-Approved-At: Fri, 09 Feb 2024 10:25:43 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -66,52 +56,40 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Hi Stephen and all,
+After falling through the switch statement to default case 'repr' is
+initialized with NULL, which will lead to incorrect dereference of
+'!repr[n]' in the following loop.
 
->> Today's linux-next merge of the drm-misc tree got a conflict in:
->> 
->>   drivers/gpu/drm/bridge/samsung-dsim.c
->> 
->> between commit:
->> 
->>   ff3d5d04db07 ("drm: bridge: samsung-dsim: Don't use 
->> FORCE_STOP_STATE")
->> 
->> from Linus' tree and commit:
->> 
->>   b2fe2292624a ("drm: bridge: samsung-dsim: enter display mode in the 
->> enable() callback")
->> 
->> from the drm-misc tree.
->> 
->> I fixed it up (see below, please check) and can carry the fix as
->> necessary. This is now fixed as far as linux-next is concerned, but 
->> any
->> non trivial conflicts should be mentioned to your upstream maintainer
->> when your tree is submitted for merging.  You may also want to 
->> consider
->> cooperating with the maintainer of the conflicting tree to minimise 
->> any
->> particularly complex conflicts.
-> 
-> I changed my mind and just used the latter version of this file.
+Fix it with the help of an additional check for NULL.
 
-Bug wise, this is the wrong solution. Because it will reintroduce the
-faulty FORCE_STOP_STATE. Also keep in mind, my fixes commit is/was 
-already
-backported to the stable series.
+Found by Linux Verification Center (linuxtesting.org) with static
+analysis tool SVACE.
 
-See also the discussion at [1]. Unfortunately, there was no conculusion 
-yet.
-I think [2] is the proper resolution, at least for the commit 
-b2fe2292624a
-("drm: bridge: samsung-dsim: enter display mode in the enable() 
-callback")
-I'm not sure in what state the drm-misc tree is.
+Fixes: 4ec76dbeb62b ("drm/i915/gt: Expose engine properties via sysfs")
+Signed-off-by: Nikita Zhandarovich <n.zhandarovich@fintech.ru>
+---
+P.S. The NULL-deref problem might be dealt with this way but I am
+not certain that the rest of the __caps_show() behaviour remains
+correct if we end up in default case. For instance, as far as I
+can tell, buf might turn out to be w/o '\0'. I could use some
+direction if this has to be addressed as well.
 
--michael
+ drivers/gpu/drm/i915/gt/sysfs_engines.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-[1] 
-https://lore.kernel.org/dri-devel/CAPM=9tytMB9frxNeD08hu1qsusY=wEE3bJOFmUgA1rSpabwDpg@mail.gmail.com/
-[2] 
-https://lore.kernel.org/dri-devel/31e1a38a1d012a32d6f7bc8372b6360e@kernel.org/
+diff --git a/drivers/gpu/drm/i915/gt/sysfs_engines.c b/drivers/gpu/drm/i915/gt/sysfs_engines.c
+index 021f51d9b456..6b130b732867 100644
+--- a/drivers/gpu/drm/i915/gt/sysfs_engines.c
++++ b/drivers/gpu/drm/i915/gt/sysfs_engines.c
+@@ -105,7 +105,7 @@ __caps_show(struct intel_engine_cs *engine,
+ 
+ 	len = 0;
+ 	for_each_set_bit(n, &caps, show_unknown ? BITS_PER_LONG : count) {
+-		if (n >= count || !repr[n]) {
++		if (n >= count || !repr || !repr[n]) {
+ 			if (GEM_WARN_ON(show_unknown))
+ 				len += sysfs_emit_at(buf, len, "[%x] ", n);
+ 		} else {
+-- 
+2.25.1
+
