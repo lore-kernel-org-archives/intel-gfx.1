@@ -4,56 +4,84 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 421E6C48260
-	for <intel-gfx@archiver.kernel.org>; Thu,  8 Feb 2024 11:25:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 90B16C4828F
+	for <intel-gfx@archiver.kernel.org>; Thu,  8 Feb 2024 12:02:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8611810E2EA;
-	Thu,  8 Feb 2024 11:25:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D299810E53A;
+	Thu,  8 Feb 2024 12:02:48 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="QgitEEuV";
+	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="h05aaDrR";
 	dkim-atps=neutral
-X-Greylist: delayed 426 seconds by postgrey-1.36 at gabe;
- Thu, 08 Feb 2024 11:25:28 UTC
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.19])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F040110E2EA
- for <intel-gfx@lists.freedesktop.org>; Thu,  8 Feb 2024 11:25:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1707391529; x=1738927529;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=S4BjbjfSUEk2yEmx+2h59LPoWzgExpJMeer9dSMwQow=;
- b=QgitEEuVRBcy9mpbIWczCkQkOuKXdczcrF3XeSJLsIfRbmHQ+1dZt+gJ
- ORJcFVnouxWi/EcOKS4Iyp3D1RZy00LXXUwsFCs5VNEs3Dz8crzfkFCol
- 0PMY+wlataDQRuUEofBeMNAlbFqvga/161esJyo9uZOBZ2qf2c0xVi1G6
- zt53ATCn83GJtPG2aVn0jUgq6m56I6B/z5fysOTVmvKZZ6abOW6oQNH4s
- RWatUsQfv8wBThvpu5tHh3Mfjqjr5Sp2qB9a43NVFUxKn53BAlwJMkac7
- k7R3Fll6rpRZ/lWF/r3ygcr7eMsw926U+ONtlpRYd1z4YenMGZZl6ql+G A==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10977"; a="1096149"
-X-IronPort-AV: E=Sophos;i="6.05,253,1701158400"; 
-   d="scan'208";a="1096149"
-Received: from orsmga001.jf.intel.com ([10.7.209.18])
- by fmvoesa113.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 08 Feb 2024 03:18:22 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10977"; a="824804064"
-X-IronPort-AV: E=Sophos;i="6.05,253,1701158400"; d="scan'208";a="824804064"
-Received: from unknown (HELO ideak-desk.fi.intel.com) ([10.237.66.155])
- by orsmga001-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 08 Feb 2024 03:18:20 -0800
-From: Imre Deak <imre.deak@intel.com>
-To: intel-gfx@lists.freedesktop.org
-Cc: =?UTF-8?q?Jouni=20H=C3=B6gander?= <jouni.hogander@intel.com>
-Subject: [PATCH v2 1/2] drm/i915: Prevent HW access during init from SDVO TV
- get_modes hook
-Date: Thu,  8 Feb 2024 13:18:38 +0200
-Message-Id: <20240208111838.1950411-1-imre.deak@intel.com>
-X-Mailer: git-send-email 2.39.2
-In-Reply-To: <20240206153910.1758057-2-imre.deak@intel.com>
-References: <20240206153910.1758057-2-imre.deak@intel.com>
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A90D010E4C2
+ for <intel-gfx@lists.freedesktop.org>; Thu,  8 Feb 2024 12:02:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1707393766;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type;
+ bh=qt0xTWZTGxMel02Jx+enJDas7HHcyXht473odqIDNEE=;
+ b=h05aaDrRcpJPTWZ+n3ndLYzPq0da7xEpdDDFbHlhsKQpFHg/wHJ+gCrKDqMMpPONFE+LL/
+ QqZxkUb5UTse+dhOxt0/mI5VOWNXE3lfeIRhjHFD2CjxLqJVTseuIk21p+sjLF8EfvfxtX
+ bkmSwYV0WDFoGd94qXiGFDcMjwL4jHk=
+Received: from mail-wm1-f72.google.com (mail-wm1-f72.google.com
+ [209.85.128.72]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-663-qeCO3TLwNimn-FbyiBZjHA-1; Thu, 08 Feb 2024 07:02:43 -0500
+X-MC-Unique: qeCO3TLwNimn-FbyiBZjHA-1
+Received: by mail-wm1-f72.google.com with SMTP id
+ 5b1f17b1804b1-4103c3c4f7fso2530195e9.0
+ for <intel-gfx@lists.freedesktop.org>; Thu, 08 Feb 2024 04:02:43 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1707393762; x=1707998562;
+ h=content-disposition:mime-version:message-id:subject:cc:to:from:date
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=qt0xTWZTGxMel02Jx+enJDas7HHcyXht473odqIDNEE=;
+ b=kiG+462pQ8c/CnC/4K6ZwARSPj37oht2uVVLXagfRNaN2BciiMp/nedT97AUf9fgIi
+ 6/sSu569ymF52iPg9WeFqzcO2aV19eiOFoQbwFgrEm76AAOj6DOTeTh9VB78hMyNo5D+
+ YDBBPmN1VihxZFFwZi8AqxR8gwNs0ID4iqsLqDlrlWzLP/0QWggDja6L+F7kzbjtnJ8I
+ 9LDdqTzoGD04iCMM49Np66u4GEy/zqY78nQuegmyzWIKkh+jkG0tjhu3SdmnrGBBTEDY
+ 3p5pb4FBPYn85cyO2LblHGx3Pj84Q4H256G+hM6Wd00GHhh3Tlx1nhBAA8kEMOodAfhH
+ 9y5A==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCXxT4Rzxe4h8q8xQewtu0c+5dTC+T0dnW/RS3N7cct1cxKyC8Unh5Lm+yK3yM51R0IhLUhUWVOhN9Z0LsoYPmcWpjXovQ6hnh/AoWYYAigS
+X-Gm-Message-State: AOJu0YzjoMz0y0FKIG604z1lL0niGqCEl5TpM9xjIvdA35YylAHyeoiQ
+ pcJFhvochinYt91lEq80ZfD1LRXFMnpjcc1G3jvb9HL8z9vC4iACtJ+qf6vH9k0U04L2OZh6ABV
+ tjcpBV2h+Em6a6BbLHg0AIoYuWR9azd9BDwQl0sTp25KpPG/0Zs3G7RaDadv+lmKOLQ==
+X-Received: by 2002:a05:600c:5612:b0:40f:d3b3:b6d2 with SMTP id
+ jr18-20020a05600c561200b0040fd3b3b6d2mr6683771wmb.14.1707393762176; 
+ Thu, 08 Feb 2024 04:02:42 -0800 (PST)
+X-Google-Smtp-Source: AGHT+IG+IG92maavjEnM2WGQ4VZKc2moJ7Le5ftZz1XagH4i+r126dROY8wfezRF+LdNQceq4I0G0g==
+X-Received: by 2002:a05:600c:5612:b0:40f:d3b3:b6d2 with SMTP id
+ jr18-20020a05600c561200b0040fd3b3b6d2mr6683755wmb.14.1707393761809; 
+ Thu, 08 Feb 2024 04:02:41 -0800 (PST)
+X-Forwarded-Encrypted: i=1;
+ AJvYcCWjdQ5CRsXvR2Gwis5Tx3VMjDeZ3YcldUtz5jj/XrfnAK7cgG0IGHOrc/tFCtqLz4lZ+EL8pTOCs5qb3YYfTO/DLtqsBrMeWe5Vet7DxrQNQVvRqjNDyk9K9CNGPXie4gvrQUuHipgY/zkHXBt+yvtnj4BKSRGhI7Xcva4cDKR/Jx1mPRbH0mmLO4v6evVS7esoiAsGK7Gk9T662UlDyrterJL7H7L+E7P8GZRZDXp/+HPYeLKObl0OOUmPQCofaNkDIT1d9qq0jh0inRYNMIeB4mhY//SnQ9Q7LZZvUNerpudaezJT+YYLYERFwC7b2h2RriahZh455FZnGIEVTR9qCDvB52vpPByptaUcbSeVoEUQTnRtqr4Y6GT1In38tgQ0gHFX1/8YwEEa3/2cY6nhw3xsq7IqTWL6LqpnfPMx3Zv/kg8tC0/IfIhTNQpStGnNi2lFZHjbAe28mnY161+ZKPJUH9cCyFLcKcD48OCgshnPpTRX2zGAg01EhqsoYA+XmsHp7trTY+sWbij3+Gmnz9SoG2MvGYAQJKwsBZM=
+Received: from localhost ([2a01:e0a:b25:f902::ff])
+ by smtp.gmail.com with ESMTPSA id
+ je3-20020a05600c1f8300b004101bdae3a0sm1427711wmb.38.2024.02.08.04.02.41
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 08 Feb 2024 04:02:41 -0800 (PST)
+Date: Thu, 8 Feb 2024 13:02:40 +0100
+From: Maxime Ripard <mripard@redhat.com>
+To: Dave Airlie <airlied@gmail.com>, 
+	Daniel Vetter <daniel.vetter@ffwll.ch>
+Cc: Jani Nikula <jani.nikula@linux.intel.com>, 
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>, 
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, 
+ Thomas =?utf-8?Q?Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+ Oded Gabbay <ogabbay@kernel.org>, 
+ Lucas De Marchi <lucas.demarchi@intel.com>, dri-devel@lists.freedesktop.org,
+ intel-gfx@lists.freedesktop.org, dim-tools@lists.freedesktop.org
+Subject: [PULL] drm-misc-fixes
+Message-ID: <4wsi2i6kgkqdu7nzp4g7hxasbswnrmc5cakgf5zzvnix53u7lr@4rmp7hwblow3>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="hlshk4u374335pug"
+Content-Disposition: inline
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,43 +97,88 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Prevent accessing the HW from the SDVO/TV get_modes connector hook.
-Returning 0 from the hook will make the caller -
-drm_helper_probe_single_connector_modes() - return a default/EDID
-override mode list to users. This matches the case where
-intel_sdvo_get_tv_modes() fails to retrieve the current mode list due to
-a HW access failure.
 
-v2: Clarify the commit message wrt. which modes get_modes() returns. (Jouni)
+--hlshk4u374335pug
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-Signed-off-by: Imre Deak <imre.deak@intel.com>
-Reviewed-by: Jouni Högander <jouni.hogander@intel.com>
----
- drivers/gpu/drm/i915/display/intel_sdvo.c | 4 ++++
- 1 file changed, 4 insertions(+)
+Hi,
 
-diff --git a/drivers/gpu/drm/i915/display/intel_sdvo.c b/drivers/gpu/drm/i915/display/intel_sdvo.c
-index 2571ef5a1b211..ccea0efbd136f 100644
---- a/drivers/gpu/drm/i915/display/intel_sdvo.c
-+++ b/drivers/gpu/drm/i915/display/intel_sdvo.c
-@@ -2287,6 +2287,7 @@ static const struct drm_display_mode sdvo_tv_modes[] = {
- static int intel_sdvo_get_tv_modes(struct drm_connector *connector)
- {
- 	struct intel_sdvo *intel_sdvo = intel_attached_sdvo(to_intel_connector(connector));
-+	struct drm_i915_private *i915 = to_i915(intel_sdvo->base.base.dev);
- 	struct intel_sdvo_connector *intel_sdvo_connector =
- 		to_intel_sdvo_connector(connector);
- 	const struct drm_connector_state *conn_state = connector->state;
-@@ -2298,6 +2299,9 @@ static int intel_sdvo_get_tv_modes(struct drm_connector *connector)
- 	DRM_DEBUG_KMS("[CONNECTOR:%d:%s]\n",
- 		      connector->base.id, connector->name);
- 
-+	if (!intel_display_driver_check_access(i915))
-+		return 0;
-+
- 	/*
- 	 * Read the list of supported input resolutions for the selected TV
- 	 * format.
--- 
-2.39.2
+Here's this week drm-misc-fixes PR
+
+Maxime
+
+drm-misc-fixes-2024-02-08:
+A null pointer dereference fix for v3d, a TTM pool initialization fix,
+several fixes for nouveau around register size, DMA buffer leaks and API
+consistency, a multiple fixes for ivpu around MMU setup, initialization
+and firmware interactions.
+The following changes since commit 1c1914d6e8c6edbf5b45047419ff51abdb1dce96:
+
+  dma-buf: heaps: Don't track CMA dma-buf pages under RssFile (2024-01-31 19:54:58 +0530)
+
+are available in the Git repository at:
+
+  git://anongit.freedesktop.org/drm/drm-misc tags/drm-misc-fixes-2024-02-08
+
+for you to fetch changes up to 5f8408aca66772d3aa9b4831577b2ac5ec41bcd9:
+
+  accel/ivpu: Add job status for jobs aborted by the driver (2024-02-06 13:37:34 +0100)
+
+----------------------------------------------------------------
+A null pointer dereference fix for v3d, a TTM pool initialization fix,
+several fixes for nouveau around register size, DMA buffer leaks and API
+consistency, a multiple fixes for ivpu around MMU setup, initialization
+and firmware interactions.
+
+----------------------------------------------------------------
+Dave Airlie (1):
+      nouveau/gsp: use correct size for registry rpc.
+
+Grzegorz Trzebiatowski (1):
+      accel/ivpu: Add job status for jobs aborted by the driver
+
+Jacek Lawrynowicz (1):
+      accel/ivpu: Disable d3hot_delay on all NPU generations
+
+Krystian Pradzynski (2):
+      accel/ivpu/40xx: Enable D0i3 message
+      accel/ivpu/40xx: Stop passing SKU boot parameters to FW
+
+Maxime Ripard (1):
+      Merge drm-misc-next-fixes-2024-01-19 into drm-misc-fixes
+
+Timur Tabi (2):
+      drm/nouveau: fix several DMA buffer leaks
+      drm/nouveau: nvkm_gsp_radix3_sg() should use nvkm_gsp_mem_ctor()
+
+Wachowski, Karol (2):
+      accel/ivpu: Force snooping for MMU writes
+      accel/ivpu: Correct MMU queue size checking functions
+
+ drivers/accel/ivpu/ivpu_drv.c                     |  5 +-
+ drivers/accel/ivpu/ivpu_fw.c                      |  1 -
+ drivers/accel/ivpu/ivpu_hw_37xx.c                 |  2 +-
+ drivers/accel/ivpu/ivpu_hw_40xx.c                 |  7 +-
+ drivers/accel/ivpu/ivpu_job.c                     |  4 +-
+ drivers/accel/ivpu/ivpu_mmu.c                     | 36 +++++++----
+ drivers/gpu/drm/nouveau/include/nvkm/subdev/gsp.h |  2 +-
+ drivers/gpu/drm/nouveau/nvkm/subdev/gsp/r535.c    | 79 ++++++++++++++---------
+ drivers/gpu/drm/ttm/ttm_device.c                  |  9 ++-
+ drivers/gpu/drm/v3d/v3d_submit.c                  | 35 ++++++++--
+ include/uapi/drm/ivpu_accel.h                     |  1 +
+ 11 files changed, 113 insertions(+), 68 deletions(-)
+
+--hlshk4u374335pug
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQRcEzekXsqa64kGDp7j7w1vZxhRxQUCZcTC4AAKCRDj7w1vZxhR
+xd6uAQCxKfe7H2ZTGOrDjFMKjgVp63c4z5qdcc6ZLNlE/VUYdAD/UEpiZwNo4AoH
+c7JM3wHx51RXLI1Ily9gR9upYBnEwgs=
+=hwHj
+-----END PGP SIGNATURE-----
+
+--hlshk4u374335pug--
 
