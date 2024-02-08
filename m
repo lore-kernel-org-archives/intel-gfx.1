@@ -4,24 +4,24 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CF39EC48260
-	for <intel-gfx@archiver.kernel.org>; Thu,  8 Feb 2024 08:53:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C2ED3C4829A
+	for <intel-gfx@archiver.kernel.org>; Thu,  8 Feb 2024 08:53:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 53F7A10E46D;
-	Thu,  8 Feb 2024 08:53:06 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 213E910E4E1;
+	Thu,  8 Feb 2024 08:53:08 +0000 (UTC)
 Received: from 5338d5abeb45 (emeril.freedesktop.org [131.252.210.167])
- by gabe.freedesktop.org (Postfix) with ESMTPS id ADCD810E46D;
- Thu,  8 Feb 2024 08:53:04 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4C7A410E4E1;
+ Thu,  8 Feb 2024 08:53:07 +0000 (UTC)
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
-Subject: =?utf-8?q?=E2=9C=97_Fi=2ECI=2ECHECKPATCH=3A_warning_for_drm/i915=3A_Add_GuC_?=
- =?utf-8?q?submission_interface_version_query_=28rev2=29?=
+Subject: =?utf-8?q?=E2=9C=97_Fi=2ECI=2ESPARSE=3A_warning_for_drm/i915=3A_Add_GuC_subm?=
+ =?utf-8?q?ission_interface_version_query_=28rev2=29?=
 From: Patchwork <patchwork@emeril.freedesktop.org>
 To: "Tvrtko Ursulin" <tvrtko.ursulin@linux.intel.com>
 Cc: intel-gfx@lists.freedesktop.org
-Date: Thu, 08 Feb 2024 08:53:04 -0000
-Message-ID: <170738238471.1106275.11892718630924524082@5338d5abeb45>
+Date: Thu, 08 Feb 2024 08:53:07 -0000
+Message-ID: <170738238731.1106256.9578369038151724854@5338d5abeb45>
 X-Patchwork-Hint: ignore
 References: <20240207115612.1322778-1-tvrtko.ursulin@linux.intel.com>
 In-Reply-To: <20240207115612.1322778-1-tvrtko.ursulin@linux.intel.com>
@@ -49,17 +49,8 @@ State : warning
 
 == Summary ==
 
-Error: dim checkpatch failed
-ce49f663d199 drm/i915: Add GuC submission interface version query
--:90: WARNING:LONG_LINE_COMMENT: line length of 103 exceeds 100 columns
-#90: FILE: include/uapi/drm/i915_drm.h:3016:
-+	 *  - %DRM_I915_QUERY_GUC_SUBMISSION_VERSION (see struct drm_i915_query_guc_submission_version)
-
--:107: WARNING:BLOCK_COMMENT_STYLE: Block comments should align the * on each line
-#107: FILE: include/uapi/drm/i915_drm.h:3572:
-+/**
-+* struct drm_i915_query_guc_submission_version - query GuC submission interface version
-
-total: 0 errors, 2 warnings, 0 checks, 75 lines checked
+Error: dim sparse failed
+Sparse version: v0.6.2
+Fast mode used, each commit won't be checked separately.
 
 
