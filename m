@@ -4,45 +4,73 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9F1D7C48297
-	for <intel-gfx@archiver.kernel.org>; Mon, 12 Feb 2024 13:00:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 20DB8C4829B
+	for <intel-gfx@archiver.kernel.org>; Mon, 12 Feb 2024 13:01:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8A2A010E57D;
-	Mon, 12 Feb 2024 13:00:30 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8E7C710E725;
+	Mon, 12 Feb 2024 13:01:25 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=pm.me header.i=@pm.me header.b="FYNkyjhm";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Vu974V3H";
 	dkim-atps=neutral
-X-Greylist: delayed 401 seconds by postgrey-1.36 at gabe;
- Mon, 12 Feb 2024 13:00:24 UTC
-Received: from mail-4321.protonmail.ch (mail-4321.protonmail.ch [185.70.43.21])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2AD4110E57D
- for <intel-gfx@lists.freedesktop.org>; Mon, 12 Feb 2024 13:00:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pm.me;
- s=protonmail3; t=1707742421; x=1708001621;
- bh=ZyectClKL9NCleC10msgSUE2ZAZgF/0r6DabfDur1aQ=;
- h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
- Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
- Message-ID:BIMI-Selector;
- b=FYNkyjhm5GaPbqCxkamxwBVJYMu2WndvWDtN4MXVIIU7JsM4cMatpCRG/ja2KUrqX
- 9arm8q9+NUGRy5fePNMSsq+dhfJBSndtah0arxmrhQ8EL9xLFWubYndkCbBAH9x1dZ
- LKucQTNe9OhFzKTLfRkQN16XBZWEPd0ijwycjqZQRKsJLxr45WqV9jJOfJ8F7QFRyv
- Qb1TNOaxUzrNUHEveFCZubSfoeCEQKhv+MjbPbHy/8z2d6ELR1oAYAx/PVWWb4AAVL
- SsLWWg28mxkZ0QRyJPo6wilcTuhwooI2jQQXaoULs8pjZN75h93nycgDE+RlgCtVM+
- 5UBrlQ3mQeZ5g==
-Date: Mon, 12 Feb 2024 12:53:34 +0000
-To: John Harrison <john.c.harrison@intel.com>
-From: natur.produkt@pm.me
-Cc: "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>
-Subject: Re: GuC issue
-Message-ID: <MwtgFVtDjHlF_pYa82sniJgHjR8U-ZCcn9YKaRTrEev6rk7ZzwYaaJg18PIpAJ-qXQJx3twqElL2-592NruK16IBO6_BUcl0UxpJKg72ld0=@pm.me>
-In-Reply-To: <dRxB0peDhbOHBqsX5rpWZN-qZtPdwWItk-L1ZAZm8RH8LQYpNBGa9qghm3dOCuM4fqbzOsNAFEafiu2zSrQNbnH6oCrlBb1fiAm5AhJQr64=@pm.me>
-References: <mpy7oR29BN-ZuXsGo_DrVjgvt7tZXStYEkdhwHKRFqzjB6DkbATG6i8qLYaNq2fAsXIUiYXJ6HBXTurfBaLHuwcxeggLjtKQHdxwVWdsO04=@pm.me>
- <af232621-ed88-466e-9162-7698b5583503@intel.com>
- <dRxB0peDhbOHBqsX5rpWZN-qZtPdwWItk-L1ZAZm8RH8LQYpNBGa9qghm3dOCuM4fqbzOsNAFEafiu2zSrQNbnH6oCrlBb1fiAm5AhJQr64=@pm.me>
-Feedback-ID: 51504226:user:proton
+Received: from mail-yw1-f170.google.com (mail-yw1-f170.google.com
+ [209.85.128.170])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2730A10F786;
+ Fri,  9 Feb 2024 16:48:34 +0000 (UTC)
+Received: by mail-yw1-f170.google.com with SMTP id
+ 00721157ae682-604b23fc6a7so12891447b3.0; 
+ Fri, 09 Feb 2024 08:48:34 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1707497313; x=1708102113; darn=lists.freedesktop.org;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=BDoPqGVOIDy3+wcfjHtZEb4REQzExwRWYroEz4tWuME=;
+ b=Vu974V3HCtdEeH/aoFcxboQFnOncTBg/2Olr42WNTYAYBUU+AeLgIa4BlXDS3nYE29
+ 0m3kw0dicYTgK3gBlvPGnKFhI3dOgZ80eofzyq8myv5IfH1aW4Uh9K0BzYhPMsYWW76X
+ 2DQL8DnW83zNv8Jvcr5i8UO/SndYWjUJl/qraY5g7EYilitdHO9aMSglOc+h14qUY6XX
+ SJJEmBgY7E5oMIwyXNnC7m2llGhhFmlZjmZEXDTIpq8RYWownOekrg5ddcKyNuhVAPfE
+ AX1Cdrz/yGJClmgjdEbEiaUHKPgLhlByoA979/cbr7XNbJjxA25owXScf2PBODbx8HMt
+ 39jg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1707497313; x=1708102113;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=BDoPqGVOIDy3+wcfjHtZEb4REQzExwRWYroEz4tWuME=;
+ b=Q+Gg4FtlmlBBjLQO85L6LzkotavCvbODlUmP+tSjHg1oUSKnfwIyPe5CKIyVXkjr4z
+ R48lSbG7+NSWUxiiAGAcCCn75DWdMsoSt4iM7ZbFdQdIHrWQyyWQPP4OmCF2jDbfGiDD
+ I2rf2XGylf8PvDEJBP03MtgPaKVN9uExb1hlAz1Z3JF9fYdXWOcOYavLziRBOid1KiP2
+ 603e4Tx6wlJc27WBzMB8st0UND1dgobABiEAO1du/lpy3U4hOnNydG+QcIlTJcmjiJIq
+ JtMtNt4t34YLn/sHdoMGXlZudTo0q4e26/5WXsGvZZCvFg3zL5R+jhIRdvhBXZYxAL0l
+ xiIA==
+X-Gm-Message-State: AOJu0Yz7umDjltqDVmbeuDcB4qlCCsL7oTrImD3AbSycxy7+9F60SMPf
+ 3v47BYfvtT7saQpFdctF4cmQ2Dz6a/PJ9RRchlAzPp3QGfnY7obE
+X-Google-Smtp-Source: AGHT+IGHAnv5j3jjPmcR0JvcThZ6kL5WrGr+U2/FCDlRiQcke87L3mDwYTKNqb9aPzjJNAz1t/g7uw==
+X-Received: by 2002:a25:8686:0:b0:dc6:e622:f52 with SMTP id
+ z6-20020a258686000000b00dc6e6220f52mr1943504ybk.31.1707497313092; 
+ Fri, 09 Feb 2024 08:48:33 -0800 (PST)
+X-Forwarded-Encrypted: i=1;
+ AJvYcCW1a/+E+9DbNMri1t+AZUcIPf+wUz5mu1p6q31+fZg7aHGQ+BTynXWQVqxWa3/iQqp4U4MVW5MrWnWSm0WmQ19DldbgQ2tEZz0/3YNdMdDlGtqViDcAmRH0VWc4bxs6hnQkMMNvvq0rm+gf7lWdpRehASNNnUAzTj6o6TglEqnf1ukaIx5e0mn0UwNjf9xuEOzBnRYhMW86aYSk8C0HYiIx2RyurvnbhgYV3SDQcBKaIghNqJcXnKTZGkIMNNe2eUf/lA73dsI65yIvzp2tnUCZ
+Received: from localhost ([2601:344:8301:57f0:be3a:6fd4:1110:3284])
+ by smtp.gmail.com with ESMTPSA id
+ l12-20020a5b0b8c000000b00dc74ac54f5fsm217643ybq.63.2024.02.09.08.48.32
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 09 Feb 2024 08:48:32 -0800 (PST)
+Date: Fri, 9 Feb 2024 08:48:31 -0800
+From: Yury Norov <yury.norov@gmail.com>
+To: Lucas De Marchi <lucas.demarchi@intel.com>
+Cc: linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ intel-xe@lists.freedesktop.org, intel-gfx@lists.freedesktop.org
+Subject: Re: [PATCH 2/3] bits: Introduce fixed-type BIT
+Message-ID: <ZcZXXzEBxvyH470g@yury-ThinkPad>
+References: <20240124050205.3646390-1-lucas.demarchi@intel.com>
+ <20240124050205.3646390-3-lucas.demarchi@intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20240124050205.3646390-3-lucas.demarchi@intel.com>
+X-Mailman-Approved-At: Mon, 12 Feb 2024 13:01:24 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,94 +86,48 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Hi John,
+On Tue, Jan 23, 2024 at 09:02:04PM -0800, Lucas De Marchi wrote:
+> Implement fixed-type BIT() to help drivers add stricter checks, like was
+> done for GENMASK.
+> 
+> Signed-off-by: Lucas De Marchi <lucas.demarchi@intel.com>
 
-Could you please confirm that if ADS struct is filled incorrectly, then GuC=
- fails to load and change GUC_STATUS?
+Reviewed-by: Yury Norov <yury.norov@gmail.com>
 
-I checked LOG buffer and memory is empty. I believe, that I have not set AD=
-S correctly and GuC gets some kind of fatal failure.
-
-Thanks,
-Maksym
-
-pi=C4=85tek, 9 lutego 2024 8:42 AM, natur.produkt@pm.me <natur.produkt@pm.m=
-e> napisa=C5=82(a):
-
->=20
->=20
-> Hello,
->=20
-> Please see my comments below.
->=20
-> pi=C4=85tek, 9 lutego 2024 2:45 AM, John Harrison john.c.harrison@intel.c=
-om napisa=C5=82(a):
->=20
-> > Hello,
-> >=20
-> > What platform is this on? And which GuC firmware version are you using?
->=20
->=20
-> It's TGL. I'm using tgl_guc_70.1.1.bin firmware blob.
->=20
-> > One thing you made need to do is force maximum GT frequency during GuC
-> > load. That is something the i915 driver does. If the system decides the
-> > GPU is idle and drops the frequency to minimum then it can take multipl=
-e
-> > seconds for the GuC initialisation to complete.
->=20
->=20
-> Thanks for the hint. I'm not doing that at all in my code. How am I suppo=
-sed to do this? Is there a specific register for that?
->=20
-> > Did the status change at all during that second of waiting? Or was it
-> > still reading LAPIC_DONE?
->=20
->=20
-> It's always LAPIC_DONE.
->=20
-> > For ADS documentation, I'm afraid that the best we currently have
-> > publicly available is the i915 driver code. If you are not intending to
-> > use GuC submission then most of the ADS can be ignored.
->=20
->=20
-> Ok, that great. Which part of ADS is must-have then?
->=20
-> > If you can share the GuC log, that might provide some clues as to what
-> > is happening. For just logging the boot process, you shouldn't need to
-> > allocate a large log. The default size of i915 for release builds is
-> > 64KB. That should be plenty.
->=20
->=20
-> I'll collect GuC log as soon as possible. Is it something that can be und=
-erstood without a knowledge of GuC internals? Or is it simply hex dumps?
->=20
-> > John.
-> >=20
-> > On 2/6/2024 23:59, natur.produkt@pm.me wrote:
-> >=20
-> > > Hi,
-> > >=20
-> > > I'm currently implementing GuC/HuC firmware support in one Safety Cri=
-tical OS.
-> > > I'm following i915 code and I implemented all paths (I don't want GuC=
- submission or SLPC features). I need GuC to authenticate HuC firmware blob=
-.
-> > >=20
-> > > I mirrored GuC implementation in my code.
-> > >=20
-> > > After GuC DMA transfer succeeds, I'm reading GUC_STATUS register.
-> > > HW returns INTEL_BOOTROM_STATUS_JUMP_PASSED as bootrom status and INT=
-EL_GUC_LOAD_STATUS_LAPIC_DONE as GuC load status.
-> > >=20
-> > > Unfortunately, after one second of waiting, the status didn't get cha=
-nged to INTEL_GUC_LOAD_STATUS_READY at all.
-> > >=20
-> > > What is a potential issue here?
-> > > Could you please help me?
-> > >=20
-> > > In addition to this, could you please point out some documentation ab=
-out GuC's ADS struct?
-> > >=20
-> > > Thanks,
-> > > Maksym
+> ---
+>  include/linux/bits.h | 9 +++++++++
+>  1 file changed, 9 insertions(+)
+> 
+> diff --git a/include/linux/bits.h b/include/linux/bits.h
+> index cb94128171b2..5754a1251078 100644
+> --- a/include/linux/bits.h
+> +++ b/include/linux/bits.h
+> @@ -24,12 +24,16 @@
+>  #define GENMASK_INPUT_CHECK(h, l) \
+>  	(BUILD_BUG_ON_ZERO(__builtin_choose_expr( \
+>  		__is_constexpr((l) > (h)), (l) > (h), 0)))
+> +#define BIT_INPUT_CHECK(type, b) \
+> +	((BUILD_BUG_ON_ZERO(__builtin_choose_expr( \
+> +		__is_constexpr(b), (b) >= BITS_PER_TYPE(type), 0))))
+>  #else
+>  /*
+>   * BUILD_BUG_ON_ZERO is not available in h files included from asm files,
+>   * disable the input check if that is the case.
+>   */
+>  #define GENMASK_INPUT_CHECK(h, l) 0
+> +#define BIT_INPUT_CHECK(type, b) 0
+>  #endif
+>  
+>  #define __GENMASK(t, h, l) \
+> @@ -44,4 +48,9 @@
+>  #define GENMASK_U32(h, l)	__GENMASK(u32, h, l)
+>  #define GENMASK_U64(h, l)	__GENMASK(u64, h, l)
+>  
+> +#define BIT_U8(b)		((u8)(BIT_INPUT_CHECK(u8, b) + BIT(b)))
+> +#define BIT_U16(b)		((u16)(BIT_INPUT_CHECK(u16, b) + BIT(b)))
+> +#define BIT_U32(b)		((u32)(BIT_INPUT_CHECK(u32, b) + BIT(b)))
+> +#define BIT_U64(b)		((u64)(BIT_INPUT_CHECK(u64, b) + BIT(b)))
+> +
+>  #endif	/* __LINUX_BITS_H */
+> -- 
+> 2.43.0
