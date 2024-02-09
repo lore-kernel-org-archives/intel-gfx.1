@@ -4,51 +4,27 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C7AD0C4828F
-	for <intel-gfx@archiver.kernel.org>; Fri,  9 Feb 2024 12:02:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0C659C4828F
+	for <intel-gfx@archiver.kernel.org>; Fri,  9 Feb 2024 12:06:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 030C210EB72;
-	Fri,  9 Feb 2024 12:02:24 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="WuFVmFkl";
-	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.55.52.88])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5918210EB72
- for <intel-gfx@lists.freedesktop.org>; Fri,  9 Feb 2024 12:02:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1707480142; x=1739016142;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=6Ao0oge70YmRPRLs2Ne4ocIXVkk6yW6mtlX81Oa6ROE=;
- b=WuFVmFklcWhqU3XpNV4PDHK1rKkfPh2utxBPMe0MhdECQ+R7NHORH0ky
- 9NV0885nvqO0q7jQcORY3YPxGwqpXkzEXMcZwGu7M9vbmhFpalbJh2dDT
- RXpTMLHikEX9rDwa0zuwVuesDQCFgPZUkw/3SGv2cvFyrU7O1/y0Qc8fe
- 4HEuQPeCw9yJIbxbCKCCenPUckhfStL/m3GMyqnUrrpIVDk42wlUDorM9
- B4K4w/gTCvT6DTXj1NQDH8VQ+yQmw4Hfmtwe/6l40/PooIkq+8zAAUywj
- ZF3u1nfhHF42z9GIV9JkrpRtkvdqS0ZjeUBoqulxf1hJGEtr/vPsayTXp g==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10978"; a="436553539"
-X-IronPort-AV: E=Sophos;i="6.05,256,1701158400"; d="scan'208";a="436553539"
-Received: from orviesa006.jf.intel.com ([10.64.159.146])
- by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 09 Feb 2024 04:02:21 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.05,256,1701158400"; 
-   d="scan'208";a="2265412"
-Received: from sinjan-super-server.iind.intel.com ([10.145.169.153])
- by orviesa006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 09 Feb 2024 04:02:19 -0800
-From: Sk Anirban <sk.anirban@intel.com>
-To: intel-gfx@lists.freedesktop.org
-Cc: anshuman.gupta@intel.com, karthik.poosa@intel.com,
- Anirban Sk <sk.anirban@intel.com>
-Subject: [PATCH v2] drm/i915/selftests: Increasing the sleep time for
- live_rc6_manual
-Date: Fri,  9 Feb 2024 17:41:27 +0530
-Message-Id: <20240209121127.1019920-1-sk.anirban@intel.com>
-X-Mailer: git-send-email 2.25.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2EDFD10EE4C;
+	Fri,  9 Feb 2024 12:06:40 +0000 (UTC)
+Received: from 5338d5abeb45 (emeril.freedesktop.org [131.252.210.167])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BDAB410EC4A;
+ Fri,  9 Feb 2024 12:06:38 +0000 (UTC)
+Content-Type: multipart/alternative;
+ boundary="===============5012587406668023807=="
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Subject: =?utf-8?q?=E2=9C=93_Fi=2ECI=2EBAT=3A_success_for_XE_HDCP_Enablement_=28rev4?=
+ =?utf-8?q?=29?=
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Suraj Kandpal" <suraj.kandpal@intel.com>
+Cc: intel-gfx@lists.freedesktop.org
+Date: Fri, 09 Feb 2024 12:06:38 -0000
+Message-ID: <170748039877.1129210.7519967736930428013@5338d5abeb45>
+X-Patchwork-Hint: ignore
+References: <20240209101412.1326176-1-suraj.kandpal@intel.com>
+In-Reply-To: <20240209101412.1326176-1-suraj.kandpal@intel.com>
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,44 +37,214 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Anirban Sk <sk.anirban@intel.com>
+--===============5012587406668023807==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
 
-Sometimes gt_pm live_rc6_manual selftest fails due to no power being
-measured for the rc6 disabled period. Therefore increasing the rc6 disable
-period from 250ms to 1000ms to rule out such sporadic failure.
+== Series Details ==
 
-Signed-off-by: Anirban Sk <sk.anirban@intel.com>
-Reviewed-by: Anshuman Gupta <anshuman.gupta@intel.com>
+Series: XE HDCP Enablement (rev4)
+URL   : https://patchwork.freedesktop.org/series/129456/
+State : success
 
-Change log:
-v2: add Reviewed-by: Anshuman Gupta
-    More descriptive and improved commit message.
----
- drivers/gpu/drm/i915/gt/selftest_rc6.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+== Summary ==
 
-diff --git a/drivers/gpu/drm/i915/gt/selftest_rc6.c b/drivers/gpu/drm/i915/gt/selftest_rc6.c
-index a7189c2d660c..1aa1446c8fb0 100644
---- a/drivers/gpu/drm/i915/gt/selftest_rc6.c
-+++ b/drivers/gpu/drm/i915/gt/selftest_rc6.c
-@@ -62,12 +62,12 @@ int live_rc6_manual(void *arg)
- 
- 	dt = ktime_get();
- 	rc0_power = librapl_energy_uJ();
--	msleep(250);
-+	msleep(1000);
- 	rc0_power = librapl_energy_uJ() - rc0_power;
- 	dt = ktime_sub(ktime_get(), dt);
- 	res[1] = rc6_residency(rc6);
- 	if ((res[1] - res[0]) >> 10) {
--		pr_err("RC6 residency increased by %lldus while disabled for 250ms!\n",
-+		pr_err("RC6 residency increased by %lldus while disabled for 1000ms!\n",
- 		       (res[1] - res[0]) >> 10);
- 		err = -EINVAL;
- 		goto out_unlock;
--- 
-2.25.1
+CI Bug Log - changes from CI_DRM_14248 -> Patchwork_129456v4
+====================================================
 
+Summary
+-------
+
+  **SUCCESS**
+
+  No regressions found.
+
+  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_129456v4/index.html
+
+Participating hosts (36 -> 36)
+------------------------------
+
+  Additional (1): fi-glk-j4005 
+  Missing    (1): fi-snb-2520m 
+
+Known issues
+------------
+
+  Here are the changes found in Patchwork_129456v4 that come from known issues:
+
+### IGT changes ###
+
+#### Issues hit ####
+
+  * igt@gem_huc_copy@huc-copy:
+    - fi-glk-j4005:       NOTRUN -> [SKIP][1] ([fdo#109271] / [i915#2190])
+   [1]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_129456v4/fi-glk-j4005/igt@gem_huc_copy@huc-copy.html
+
+  * igt@gem_lmem_swapping@basic:
+    - fi-glk-j4005:       NOTRUN -> [SKIP][2] ([fdo#109271] / [i915#4613]) +3 other tests skip
+   [2]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_129456v4/fi-glk-j4005/igt@gem_lmem_swapping@basic.html
+
+  * igt@kms_cursor_legacy@basic-busy-flip-before-cursor-atomic:
+    - fi-glk-j4005:       NOTRUN -> [SKIP][3] ([fdo#109271]) +6 other tests skip
+   [3]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_129456v4/fi-glk-j4005/igt@kms_cursor_legacy@basic-busy-flip-before-cursor-atomic.html
+
+  
+#### Possible fixes ####
+
+  * igt@gem_exec_fence@basic-busy@ccs0:
+    - {bat-arls-1}:       [DMESG-WARN][4] ([i915#10194]) -> [PASS][5]
+   [4]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_14248/bat-arls-1/igt@gem_exec_fence@basic-busy@ccs0.html
+   [5]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_129456v4/bat-arls-1/igt@gem_exec_fence@basic-busy@ccs0.html
+
+  * igt@i915_selftest@live@gt_pm:
+    - bat-adln-1:         [DMESG-FAIL][6] ([i915#10010]) -> [PASS][7]
+   [6]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_14248/bat-adln-1/igt@i915_selftest@live@gt_pm.html
+   [7]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_129456v4/bat-adln-1/igt@i915_selftest@live@gt_pm.html
+
+  * igt@i915_selftest@live@hangcheck:
+    - bat-mtlp-8:         [DMESG-WARN][8] -> [PASS][9]
+   [8]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_14248/bat-mtlp-8/igt@i915_selftest@live@hangcheck.html
+   [9]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_129456v4/bat-mtlp-8/igt@i915_selftest@live@hangcheck.html
+
+  
+  {name}: This element is suppressed. This means it is ignored when computing
+          the status of the difference (SUCCESS, WARNING, or FAILURE).
+
+  [fdo#109271]: https://bugs.freedesktop.org/show_bug.cgi?id=109271
+  [i915#10010]: https://gitlab.freedesktop.org/drm/intel/issues/10010
+  [i915#10194]: https://gitlab.freedesktop.org/drm/intel/issues/10194
+  [i915#2190]: https://gitlab.freedesktop.org/drm/intel/issues/2190
+  [i915#4613]: https://gitlab.freedesktop.org/drm/intel/issues/4613
+
+
+Build changes
+-------------
+
+  * Linux: CI_DRM_14248 -> Patchwork_129456v4
+
+  CI-20190529: 20190529
+  CI_DRM_14248: c7d234dd2d329f223f56699636248a609dbe2267 @ git://anongit.freedesktop.org/gfx-ci/linux
+  IGT_7708: c2ecf4ba307d3342682745de6f608d307a06782c @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git
+  Patchwork_129456v4: c7d234dd2d329f223f56699636248a609dbe2267 @ git://anongit.freedesktop.org/gfx-ci/linux
+
+
+### Linux commits
+
+c02e0771fa2f drm/xe/hdcp: Add intel_hdcp_gsc_message to Makefile
+d7d3ef697d6b drm/xe/hdcp: Enable HDCP for XE
+bee167eca708 drm/xe: Use gsc_proxy_init_done to check proxy status
+fb34e562f57c drm/xe/hdcp: Use xe_device struct
+6d46d98765c7 drm/i915/hdcp: Move intel_hdcp_gsc_message def away from header file
+
+== Logs ==
+
+For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_129456v4/index.html
+
+--===============5012587406668023807==
+Content-Type: text/html; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <title>Project List - Patchwork</title>
+  <style id="css-table-select" type="text/css">
+   td { padding: 2pt; }
+  </style>
+</head>
+<body>
+
+
+<b>Patch Details</b>
+<table>
+<tr><td><b>Series:</b></td><td>XE HDCP Enablement (rev4)</td></tr>
+<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/129456/">https://patchwork.freedesktop.org/series/129456/</a></td></tr>
+<tr><td><b>State:</b></td><td>success</td></tr>
+
+    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_129456v4/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_129456v4/index.html</a></td></tr>
+
+</table>
+
+
+    <h1>CI Bug Log - changes from CI_DRM_14248 -&gt; Patchwork_129456v4</h1>
+<h2>Summary</h2>
+<p><strong>SUCCESS</strong></p>
+<p>No regressions found.</p>
+<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_129456v4/index.html</p>
+<h2>Participating hosts (36 -&gt; 36)</h2>
+<p>Additional (1): fi-glk-j4005 <br />
+  Missing    (1): fi-snb-2520m </p>
+<h2>Known issues</h2>
+<p>Here are the changes found in Patchwork_129456v4 that come from known issues:</p>
+<h3>IGT changes</h3>
+<h4>Issues hit</h4>
+<ul>
+<li>
+<p>igt@gem_huc_copy@huc-copy:</p>
+<ul>
+<li>fi-glk-j4005:       NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_129456v4/fi-glk-j4005/igt@gem_huc_copy@huc-copy.html">SKIP</a> (<a href="https://bugs.freedesktop.org/show_bug.cgi?id=109271">fdo#109271</a> / <a href="https://gitlab.freedesktop.org/drm/intel/issues/2190">i915#2190</a>)</li>
+</ul>
+</li>
+<li>
+<p>igt@gem_lmem_swapping@basic:</p>
+<ul>
+<li>fi-glk-j4005:       NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_129456v4/fi-glk-j4005/igt@gem_lmem_swapping@basic.html">SKIP</a> (<a href="https://bugs.freedesktop.org/show_bug.cgi?id=109271">fdo#109271</a> / <a href="https://gitlab.freedesktop.org/drm/intel/issues/4613">i915#4613</a>) +3 other tests skip</li>
+</ul>
+</li>
+<li>
+<p>igt@kms_cursor_legacy@basic-busy-flip-before-cursor-atomic:</p>
+<ul>
+<li>fi-glk-j4005:       NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_129456v4/fi-glk-j4005/igt@kms_cursor_legacy@basic-busy-flip-before-cursor-atomic.html">SKIP</a> (<a href="https://bugs.freedesktop.org/show_bug.cgi?id=109271">fdo#109271</a>) +6 other tests skip</li>
+</ul>
+</li>
+</ul>
+<h4>Possible fixes</h4>
+<ul>
+<li>
+<p>igt@gem_exec_fence@basic-busy@ccs0:</p>
+<ul>
+<li>{bat-arls-1}:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_14248/bat-arls-1/igt@gem_exec_fence@basic-busy@ccs0.html">DMESG-WARN</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/10194">i915#10194</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_129456v4/bat-arls-1/igt@gem_exec_fence@basic-busy@ccs0.html">PASS</a></li>
+</ul>
+</li>
+<li>
+<p>igt@i915_selftest@live@gt_pm:</p>
+<ul>
+<li>bat-adln-1:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_14248/bat-adln-1/igt@i915_selftest@live@gt_pm.html">DMESG-FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/10010">i915#10010</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_129456v4/bat-adln-1/igt@i915_selftest@live@gt_pm.html">PASS</a></li>
+</ul>
+</li>
+<li>
+<p>igt@i915_selftest@live@hangcheck:</p>
+<ul>
+<li>bat-mtlp-8:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_14248/bat-mtlp-8/igt@i915_selftest@live@hangcheck.html">DMESG-WARN</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_129456v4/bat-mtlp-8/igt@i915_selftest@live@hangcheck.html">PASS</a></li>
+</ul>
+</li>
+</ul>
+<p>{name}: This element is suppressed. This means it is ignored when computing<br />
+          the status of the difference (SUCCESS, WARNING, or FAILURE).</p>
+<h2>Build changes</h2>
+<ul>
+<li>Linux: CI_DRM_14248 -&gt; Patchwork_129456v4</li>
+</ul>
+<p>CI-20190529: 20190529<br />
+  CI_DRM_14248: c7d234dd2d329f223f56699636248a609dbe2267 @ git://anongit.freedesktop.org/gfx-ci/linux<br />
+  IGT_7708: c2ecf4ba307d3342682745de6f608d307a06782c @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git<br />
+  Patchwork_129456v4: c7d234dd2d329f223f56699636248a609dbe2267 @ git://anongit.freedesktop.org/gfx-ci/linux</p>
+<h3>Linux commits</h3>
+<p>c02e0771fa2f drm/xe/hdcp: Add intel_hdcp_gsc_message to Makefile<br />
+d7d3ef697d6b drm/xe/hdcp: Enable HDCP for XE<br />
+bee167eca708 drm/xe: Use gsc_proxy_init_done to check proxy status<br />
+fb34e562f57c drm/xe/hdcp: Use xe_device struct<br />
+6d46d98765c7 drm/i915/hdcp: Move intel_hdcp_gsc_message def away from header file</p>
+
+</body>
+</html>
+
+--===============5012587406668023807==--
