@@ -4,49 +4,51 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 896F9C4828F
-	for <intel-gfx@archiver.kernel.org>; Fri,  9 Feb 2024 15:57:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 576E9C48297
+	for <intel-gfx@archiver.kernel.org>; Fri,  9 Feb 2024 16:03:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 262A010F692;
-	Fri,  9 Feb 2024 15:57:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BD1FB10F6A7;
+	Fri,  9 Feb 2024 16:03:00 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="n3hY82Lt";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="jHJu8In0";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.15])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2A65C10F692
- for <intel-gfx@lists.freedesktop.org>; Fri,  9 Feb 2024 15:57:13 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.12])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A5E6B10F6A9
+ for <intel-gfx@lists.freedesktop.org>; Fri,  9 Feb 2024 16:02:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1707494233; x=1739030233;
+ t=1707494580; x=1739030580;
  h=from:to:cc:subject:date:message-id:mime-version:
  content-transfer-encoding;
- bh=pHS5GfGUHhMEcPaAtjYiHh9WxY6+k01BTmuwJvIq+jI=;
- b=n3hY82LtrXc+FV3ncWmZC7ZTpbFh3nPjC+9fbSJZmsjSV4NCALOKeQ4i
- WXapQ8nG34CyqesUM3Wi3yxw/rEMkjX2e+Ryazx2SKYk8fRTQiMwzJBP+
- t9cZNTpDtHkqLEUSbYa+7ydCUH1QXYS2kxdqSoJK93j7qHVpcnHUvDKVw
- R5xVGPe9k08iwwK6Z2sT2JUCv0qHFGNy1Dn0RtLcdH8j6c3C4/Daf1ipg
- mLHsv8s6DCj5wuOGPeZ4OyBIaE3BDPmuzcdKTHlpITwAqVJRg1q20dAk/
- IkLgqC3XJEScByXQrCnPdYEv6Sk3jc6gdV8Dn2BADWvcmWvkT+fITPElE A==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10979"; a="5300599"
+ bh=73emieVFNpLpBnMfCl9FzXFYEQADAup7ZRryVxsYANw=;
+ b=jHJu8In0mRojf35WniDUa8A+m9nNkDWfl88T1+rBXnuiNA6xjDoMzDln
+ gDtJ1yX+xlR0vnw+5iEPA4Rc8HcnB3jFn2keT1MQ2E+mCWoAcJkXdHp65
+ 94A14Dtn5VAryIqTFGPZ0TlmDz0NGm+VzvjD9ZSBOMv8ZZbpjD9xOIeeR
+ uPPUCbDme+L4K2MOCeQYKdF36s91gq0swuOOFBoJPzXEhbdIPUf//OCPy
+ K+1OpaPo75LwHf41GA/tviD7HvmHe/R6aoB0fnzgn8LZWxBTn5BhSkdek
+ pgY/fwo9TZ+QAAeitCFENNirFJtZ3vhZIqki74BQLyAnh3rcSKWzKzlmj w==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10979"; a="5246816"
 X-IronPort-AV: E=Sophos;i="6.05,257,1701158400"; 
-   d="scan'208";a="5300599"
-Received: from orviesa006.jf.intel.com ([10.64.159.146])
- by orvoesa107.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 09 Feb 2024 07:57:13 -0800
+   d="scan'208";a="5246816"
+Received: from orviesa010.jf.intel.com ([10.64.159.150])
+ by fmvoesa106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 09 Feb 2024 08:02:59 -0800
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.05,257,1701158400"; 
-   d="scan'208";a="2304948"
-Received: from srr4-3-linux-101-amanna.iind.intel.com ([10.223.74.76])
- by orviesa006.jf.intel.com with ESMTP; 09 Feb 2024 07:57:12 -0800
-From: Animesh Manna <animesh.manna@intel.com>
+   d="scan'208";a="2006496"
+Received: from unknown (HELO ideak-desk.fi.intel.com) ([10.237.66.155])
+ by orviesa010-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 09 Feb 2024 08:02:58 -0800
+From: Imre Deak <imre.deak@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Cc: ville.syrjala@linux.intel.com, jouni.hogander@intel.com,
- arun.r.murthy@intel.com, Animesh Manna <animesh.manna@intel.com>
-Subject: [PATCH v2] drm/i915/panelreplay: Panel replay workaround with VRR
-Date: Fri,  9 Feb 2024 21:13:00 +0530
-Message-Id: <20240209154300.2747529-1-animesh.manna@intel.com>
-X-Mailer: git-send-email 2.29.0
+Cc: =?UTF-8?q?Jouni=20H=C3=B6gander?= <jouni.hogander@intel.com>
+Subject: [PATCH v3 1/2] drm/i915: Prevent HW access during init from SDVO TV
+ get_modes hook
+Date: Fri,  9 Feb 2024 18:03:15 +0200
+Message-Id: <20240209160316.2160747-1-imre.deak@intel.com>
+X-Mailer: git-send-email 2.39.2
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -63,44 +65,36 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Panel Replay VSC SDP not getting sent when VRR is enabled
-and W1 and W2 are 0. So Program Set Context Latency in
-TRANS_SET_CONTEXT_LATENCY register to at least a value of 1.
+Prevent accessing the HW from the SDVO/TV get_modes connector hook.
+Returning 0 from the hook will make the caller -
+drm_helper_probe_single_connector_modes() - return a default/EDID
+override mode list to users. This matches the case where
+intel_sdvo_get_tv_modes() fails to retrieve the current mode list due to
+a HW access failure.
 
-HSD: 14015406119
+v2: Clarify the commit message wrt. which modes get_modes() returns. (Jouni)
 
-v1: Initial version.
-v2: Update timings stored in adjusted_mode struct. [Ville]
-
-Signed-off-by: Animesh Manna <animesh.manna@intel.com>
+Signed-off-by: Imre Deak <imre.deak@intel.com>
+Reviewed-by: Jouni Högander <jouni.hogander@intel.com>
+Link: https://patchwork.freedesktop.org/patch/msgid/20240208111838.1950411-1-imre.deak@intel.com
 ---
- drivers/gpu/drm/i915/display/intel_vblank.c | 13 +++++++++++++
- 1 file changed, 13 insertions(+)
+ drivers/gpu/drm/i915/display/intel_sdvo.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_vblank.c b/drivers/gpu/drm/i915/display/intel_vblank.c
-index baf7354cb6e2..2e11629e4e9f 100644
---- a/drivers/gpu/drm/i915/display/intel_vblank.c
-+++ b/drivers/gpu/drm/i915/display/intel_vblank.c
-@@ -552,6 +552,19 @@ void intel_crtc_update_active_timings(const struct intel_crtc_state *crtc_state,
- 		adjusted_mode.crtc_vtotal = crtc_state->vrr.vmax;
- 		adjusted_mode.crtc_vblank_end = crtc_state->vrr.vmax;
- 		adjusted_mode.crtc_vblank_start = intel_vrr_vmin_vblank_start(crtc_state);
+diff --git a/drivers/gpu/drm/i915/display/intel_sdvo.c b/drivers/gpu/drm/i915/display/intel_sdvo.c
+index 412c15d32f07e..c67605059aa3e 100644
+--- a/drivers/gpu/drm/i915/display/intel_sdvo.c
++++ b/drivers/gpu/drm/i915/display/intel_sdvo.c
+@@ -2312,6 +2312,9 @@ static int intel_sdvo_get_tv_modes(struct drm_connector *connector)
+ 	drm_dbg_kms(&i915->drm, "[CONNECTOR:%d:%s]\n",
+ 		    connector->base.id, connector->name);
+ 
++	if (!intel_display_driver_check_access(i915))
++		return 0;
 +
-+		/*
-+		 * WA: HSD-14015406119
-+		 * Program Set Context Latency in TRANS_SET_CONTEXT_LATENCY register
-+		 * to at least a value of 1 when Panel Replay is enabled with VRR.
-+		 * Value for TRANS_SET_CONTEXT_LATENCY is calculated by substracting
-+		 * crtc_vdisplay from crtc_vblank_start, so incrementing crtc_vblank_start
-+		 * by 1 if both are equal.
-+		 */
-+		if (DISPLAY_VER(i915) >= 13 && crtc_state->has_panel_replay &&
-+		    adjusted_mode.crtc_vblank_start == adjusted_mode.crtc_vdisplay)
-+			adjusted_mode.crtc_vblank_start += 1;
-+
- 		vmax_vblank_start = intel_vrr_vmax_vblank_start(crtc_state);
- 	} else {
- 		mode_flags &= ~I915_MODE_FLAG_VRR;
+ 	/*
+ 	 * Read the list of supported input resolutions for the selected TV
+ 	 * format.
 -- 
-2.29.0
+2.39.2
 
