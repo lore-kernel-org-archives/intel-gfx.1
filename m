@@ -4,54 +4,56 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 95048C48297
-	for <intel-gfx@archiver.kernel.org>; Fri,  9 Feb 2024 16:03:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 57F1CC4828F
+	for <intel-gfx@archiver.kernel.org>; Fri,  9 Feb 2024 16:03:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E503710F6AC;
-	Fri,  9 Feb 2024 16:03:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B1DE910F6B8;
+	Fri,  9 Feb 2024 16:03:18 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="mYdfSGht";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="j4tG+LV7";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.12])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DA69810F6AC
- for <intel-gfx@lists.freedesktop.org>; Fri,  9 Feb 2024 16:03:00 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.15])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 50D4F10F6B0
+ for <intel-gfx@lists.freedesktop.org>; Fri,  9 Feb 2024 16:03:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1707494581; x=1739030581;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=OawYlz/f7E+Zc/KQeN+755bM5Mkw/7wkmBzxM/vuUKw=;
- b=mYdfSGhtLTGjkMR59+bTFyLRCkarkKxtg4TKE3rGTkIiATu3iZwM9JOp
- OgNp+Hkn5P5rTN5o3lLp+t2/ySKZDTWWpsJdCBhx+qBkkMs1gvg7tjHow
- dnKz919vk6wR7IupvmteCl0HtyUlVWjql3AH2dWOtgmdrhzapefzwStvb
- 5vg05DJzgFd8O2m3kpQ2901u02i8QMvkhnw9pISIWY77trcLnjlQF7CId
- ZyzRUDKv25/OSU4Tr9VWRqAbfjSgsBs6lcut12eKPJwm0gAEB1jX/g04j
- RPEg/LHug0VLrU9804leTkyAA3/I4yosovBWwB9LINnWApCoQoOSyCdB1 A==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10979"; a="5246821"
+ t=1707494597; x=1739030597;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:content-transfer-encoding:in-reply-to;
+ bh=dAXzWlZRz1lVjVxQkY1ZOLrnOSeeuNfEnk+KIykd1SE=;
+ b=j4tG+LV7Hw26+dBAZyutm3upsjg0C8WIF+2bLOHSgI3R9nvd21wnA4Az
+ GispcttzpTq3c6r1LDoVQ7CVb+8TMbn+4dbjC18FNjVewJzg9H2TztgUW
+ SnrmXFfuNpivi2kY9nZ2KgokqU9JdFDhJbdPB4cnIRen1V/EDO/ddCxf/
+ mPBuEDiDr1pIrlDQ/DKmgzr1tLWyfJpmVujYGm4688QIp6QVxn0KpiLZF
+ rWaUe41NE/UqqEZ0ekbuRJGL+jNKYM9Z6F9uQfl3CXukrqvF/VitWVEoy
+ dZDE/EPFIXHG2dJl6a4KYe6Gh25YcAmQ0KvBjdsT98Yri2RwfUzfGXS6T Q==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10979"; a="5302251"
 X-IronPort-AV: E=Sophos;i="6.05,257,1701158400"; 
-   d="scan'208";a="5246821"
-Received: from orviesa010.jf.intel.com ([10.64.159.150])
- by fmvoesa106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 09 Feb 2024 08:03:01 -0800
+   d="scan'208";a="5302251"
+Received: from orsmga001.jf.intel.com ([10.7.209.18])
+ by orvoesa107.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 09 Feb 2024 08:03:17 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.05,257,1701158400"; 
-   d="scan'208";a="2006506"
-Received: from unknown (HELO ideak-desk.fi.intel.com) ([10.237.66.155])
- by orviesa010-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 09 Feb 2024 08:03:00 -0800
-From: Imre Deak <imre.deak@intel.com>
-To: intel-gfx@lists.freedesktop.org
-Cc: =?UTF-8?q?Jouni=20H=C3=B6gander?= <jouni.hogander@intel.com>
-Subject: [PATCH v3 2/2] drm/i915: Prevent HW access during init from connector
- get_modes hooks
-Date: Fri,  9 Feb 2024 18:03:16 +0200
-Message-Id: <20240209160316.2160747-2-imre.deak@intel.com>
-X-Mailer: git-send-email 2.39.2
-In-Reply-To: <20240209160316.2160747-1-imre.deak@intel.com>
-References: <20240209160316.2160747-1-imre.deak@intel.com>
+X-IronPort-AV: E=McAfee;i="6600,9927,10979"; a="825174151"
+X-IronPort-AV: E=Sophos;i="6.05,257,1701158400"; d="scan'208";a="825174151"
+Received: from stinkpipe.fi.intel.com (HELO stinkbox) ([10.237.72.74])
+ by orsmga001.jf.intel.com with SMTP; 09 Feb 2024 08:03:14 -0800
+Received: by stinkbox (sSMTP sendmail emulation);
+ Fri, 09 Feb 2024 18:03:13 +0200
+Date: Fri, 9 Feb 2024 18:03:13 +0200
+From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
+To: Animesh Manna <animesh.manna@intel.com>
+Cc: intel-gfx@lists.freedesktop.org, jouni.hogander@intel.com,
+ arun.r.murthy@intel.com
+Subject: Re: [PATCH v2] drm/i915/panelreplay: Panel replay workaround with VRR
+Message-ID: <ZcZMwWzHayyJqxEx@intel.com>
+References: <20240209154300.2747529-1-animesh.manna@intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <20240209154300.2747529-1-animesh.manna@intel.com>
+X-Patchwork-Hint: comment
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,122 +69,51 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Prevent accessing the HW from the get_modes hooks of connectors deriving
-the mode list from the display's EDID. drm_edid_connector_add_modes()
-will return the mode list based on the EDID which was cached during a
-previous detection/get_modes call.
+On Fri, Feb 09, 2024 at 09:13:00PM +0530, Animesh Manna wrote:
+> Panel Replay VSC SDP not getting sent when VRR is enabled
+> and W1 and W2 are 0. So Program Set Context Latency in
+> TRANS_SET_CONTEXT_LATENCY register to at least a value of 1.
+> 
+> HSD: 14015406119
+> 
+> v1: Initial version.
+> v2: Update timings stored in adjusted_mode struct. [Ville]
+> 
+> Signed-off-by: Animesh Manna <animesh.manna@intel.com>
+> ---
+>  drivers/gpu/drm/i915/display/intel_vblank.c | 13 +++++++++++++
+>  1 file changed, 13 insertions(+)
+> 
+> diff --git a/drivers/gpu/drm/i915/display/intel_vblank.c b/drivers/gpu/drm/i915/display/intel_vblank.c
+> index baf7354cb6e2..2e11629e4e9f 100644
+> --- a/drivers/gpu/drm/i915/display/intel_vblank.c
+> +++ b/drivers/gpu/drm/i915/display/intel_vblank.c
+> @@ -552,6 +552,19 @@ void intel_crtc_update_active_timings(const struct intel_crtc_state *crtc_state,
+>  		adjusted_mode.crtc_vtotal = crtc_state->vrr.vmax;
+>  		adjusted_mode.crtc_vblank_end = crtc_state->vrr.vmax;
+>  		adjusted_mode.crtc_vblank_start = intel_vrr_vmin_vblank_start(crtc_state);
+> +
+> +		/*
+> +		 * WA: HSD-14015406119
+> +		 * Program Set Context Latency in TRANS_SET_CONTEXT_LATENCY register
+> +		 * to at least a value of 1 when Panel Replay is enabled with VRR.
+> +		 * Value for TRANS_SET_CONTEXT_LATENCY is calculated by substracting
+> +		 * crtc_vdisplay from crtc_vblank_start, so incrementing crtc_vblank_start
+> +		 * by 1 if both are equal.
+> +		 */
+> +		if (DISPLAY_VER(i915) >= 13 && crtc_state->has_panel_replay &&
+> +		    adjusted_mode.crtc_vblank_start == adjusted_mode.crtc_vdisplay)
+> +			adjusted_mode.crtc_vblank_start += 1;
 
-This also fixes the NULL deref problem (10085) which was
-introduced/revealed by
+Wrong place. It needs to done during compute_config/etc.
 
-commit bab87ef4db9a ("drm/i915: Disable hotplug detection handlers during driver init/shutdown")
+> +
+>  		vmax_vblank_start = intel_vrr_vmax_vblank_start(crtc_state);
+>  	} else {
+>  		mode_flags &= ~I915_MODE_FLAG_VRR;
+> -- 
+> 2.29.0
 
-After the above change MST connectors will not change state during
-driver init/shutdown; thus some of these connectors with no I2C/DDC
-adapter registered for them (since the given MST port has no sink
-connected) may stay then in the 'unknown' connector status. The
-get_modes() hook should not try to use the I2C/DDC adapter in this state
-(which would lead to the above NULL deref) which this patch ensures.
-
-v2:
-- Remove the redundant check from intel_crt_ddc_get_modes().
-- Rebase on latest drm-tip.
-- Add Fixes: line / related commit notes.
-
-Closes: https://gitlab.freedesktop.org/drm/intel/-/issues/10085
-Fixes: bab87ef4db9a ("drm/i915: Disable hotplug detection handlers during driver init/shutdown")
-Signed-off-by: Imre Deak <imre.deak@intel.com>
-Reviewed-by: Jouni HÃ¶gander <jouni.hogander@intel.com>
-Link: https://patchwork.freedesktop.org/patch/msgid/20240206153910.1758057-3-imre.deak@intel.com
----
- drivers/gpu/drm/i915/display/intel_crt.c    | 3 +++
- drivers/gpu/drm/i915/display/intel_dp_mst.c | 4 ++++
- drivers/gpu/drm/i915/display/intel_dvo.c    | 5 +++++
- drivers/gpu/drm/i915/display/intel_sdvo.c   | 4 ++++
- 4 files changed, 16 insertions(+)
-
-diff --git a/drivers/gpu/drm/i915/display/intel_crt.c b/drivers/gpu/drm/i915/display/intel_crt.c
-index b9733a73e21d4..93479db0f89f6 100644
---- a/drivers/gpu/drm/i915/display/intel_crt.c
-+++ b/drivers/gpu/drm/i915/display/intel_crt.c
-@@ -933,6 +933,9 @@ static int intel_crt_get_modes(struct drm_connector *connector)
- 	struct i2c_adapter *ddc;
- 	int ret;
- 
-+	if (!intel_display_driver_check_access(dev_priv))
-+		return drm_edid_connector_add_modes(connector);
-+
- 	wakeref = intel_display_power_get(dev_priv,
- 					  intel_encoder->power_domain);
- 
-diff --git a/drivers/gpu/drm/i915/display/intel_dp_mst.c b/drivers/gpu/drm/i915/display/intel_dp_mst.c
-index 5fa25a5a36b55..5307ddd4edcf5 100644
---- a/drivers/gpu/drm/i915/display/intel_dp_mst.c
-+++ b/drivers/gpu/drm/i915/display/intel_dp_mst.c
-@@ -1197,6 +1197,7 @@ static bool intel_dp_mst_initial_fastset_check(struct intel_encoder *encoder,
- static int intel_dp_mst_get_ddc_modes(struct drm_connector *connector)
- {
- 	struct intel_connector *intel_connector = to_intel_connector(connector);
-+	struct drm_i915_private *i915 = to_i915(intel_connector->base.dev);
- 	struct intel_dp *intel_dp = intel_connector->mst_port;
- 	const struct drm_edid *drm_edid;
- 	int ret;
-@@ -1204,6 +1205,9 @@ static int intel_dp_mst_get_ddc_modes(struct drm_connector *connector)
- 	if (drm_connector_is_unregistered(connector))
- 		return intel_connector_update_modes(connector, NULL);
- 
-+	if (!intel_display_driver_check_access(i915))
-+		return drm_edid_connector_add_modes(connector);
-+
- 	drm_edid = drm_dp_mst_edid_read(connector, &intel_dp->mst_mgr, intel_connector->port);
- 
- 	ret = intel_connector_update_modes(connector, drm_edid);
-diff --git a/drivers/gpu/drm/i915/display/intel_dvo.c b/drivers/gpu/drm/i915/display/intel_dvo.c
-index 8ca9ae4798a89..c076da75b066e 100644
---- a/drivers/gpu/drm/i915/display/intel_dvo.c
-+++ b/drivers/gpu/drm/i915/display/intel_dvo.c
-@@ -30,6 +30,7 @@
- 
- #include <drm/drm_atomic_helper.h>
- #include <drm/drm_crtc.h>
-+#include <drm/drm_edid.h>
- 
- #include "i915_drv.h"
- #include "i915_reg.h"
-@@ -338,8 +339,12 @@ intel_dvo_detect(struct drm_connector *_connector, bool force)
- static int intel_dvo_get_modes(struct drm_connector *_connector)
- {
- 	struct intel_connector *connector = to_intel_connector(_connector);
-+	struct drm_i915_private *i915 = to_i915(connector->base.dev);
- 	int num_modes;
- 
-+	if (!intel_display_driver_check_access(i915))
-+		return drm_edid_connector_add_modes(&connector->base);
-+
- 	/*
- 	 * We should probably have an i2c driver get_modes function for those
- 	 * devices which will have a fixed set of modes determined by the chip
-diff --git a/drivers/gpu/drm/i915/display/intel_sdvo.c b/drivers/gpu/drm/i915/display/intel_sdvo.c
-index c67605059aa3e..825638702ac1b 100644
---- a/drivers/gpu/drm/i915/display/intel_sdvo.c
-+++ b/drivers/gpu/drm/i915/display/intel_sdvo.c
-@@ -2202,12 +2202,16 @@ intel_sdvo_detect(struct drm_connector *connector, bool force)
- 
- static int intel_sdvo_get_ddc_modes(struct drm_connector *connector)
- {
-+	struct drm_i915_private *i915 = to_i915(connector->dev);
- 	int num_modes = 0;
- 	const struct drm_edid *drm_edid;
- 
- 	drm_dbg_kms(connector->dev, "[CONNECTOR:%d:%s]\n",
- 		    connector->base.id, connector->name);
- 
-+	if (!intel_display_driver_check_access(i915))
-+		return drm_edid_connector_add_modes(connector);
-+
- 	/* set the bus switch and get the modes */
- 	drm_edid = intel_sdvo_get_edid(connector);
- 
 -- 
-2.39.2
-
+Ville Syrjälä
+Intel
