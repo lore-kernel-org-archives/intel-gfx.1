@@ -4,61 +4,61 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 89E26C4829B
-	for <intel-gfx@archiver.kernel.org>; Mon, 12 Feb 2024 10:13:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 262F2C4829D
+	for <intel-gfx@archiver.kernel.org>; Mon, 12 Feb 2024 12:01:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9739810E0F6;
-	Mon, 12 Feb 2024 10:13:49 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0424110E5D2;
+	Mon, 12 Feb 2024 12:01:53 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="fo9DNKFn";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="bJjVrxZr";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.17])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A130010E0F6;
- Mon, 12 Feb 2024 10:13:46 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 03D2F10E4A7;
+ Mon, 12 Feb 2024 12:01:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1707732826; x=1739268826;
- h=from:to:cc:subject:in-reply-to:references:date:
- message-id:mime-version;
- bh=b5yCS+oa4RLidNsPnjoIz0El0jlSvCjtFpTobsF8c/k=;
- b=fo9DNKFnhdrevyyYcYHqoj7WGzop9KU2liawJ5LI2AIU2d9GW9XRFGk6
- o8E9y8aa1K001wuIgkAgPiUZDcydgq0yvqO30VxoZDaoKsCuLEP0g2WCq
- W+nD4NPDDt6ij14Zz8EgnaMGuaKm22NDc9BJFdK+2S+xZ794zs/9tlVE3
- b07b/pfqc9d6mWqB3/iab1dwkUUCrfzs+mb1P+UKhikzzaodd2SABLoJ3
- O67e9MDS2HXf4Stoc64RFckdrqoisvXFO73CkIru2dT8Snhk4El9rZjHt
- eoYrF6Uii8G/PpQbx1D4RYN+JT83tH1doExaDmsVrBi1bJaD5OECYEqby Q==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10981"; a="1581053"
-X-IronPort-AV: E=Sophos;i="6.05,262,1701158400"; 
-   d="scan'208";a="1581053"
-Received: from orviesa004.jf.intel.com ([10.64.159.144])
- by fmvoesa111.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 12 Feb 2024 02:13:44 -0800
+ t=1707739310; x=1739275310;
+ h=message-id:date:mime-version:subject:to:cc:references:
+ from:in-reply-to:content-transfer-encoding;
+ bh=Zbm7OvR5CTMJxI3KIhd7PWN3VnpiSouivKvRc06eL7M=;
+ b=bJjVrxZrcKuayAKBR646Bg8JiIDtlBpd4fZtrdlCXvSWOd1prGMjZrQk
+ Ja8XOWBaxXnJD7BWP6Q8aJTPnUgPD2OF3LiqpxOutMS4czGF0wi91LKdG
+ Wfb550+q7to5uoQbTIgYZZK2D05frWkBqIHr7AfCU/eqpUahbZt+FcA0t
+ rXiQaxB46i/obSGSRhscBGejyRpxKu3s/wkVT/QdMnYtsz4GTCU/Ux/pR
+ Vlw1RjQPgdYlGWK8Tt+UbVwEUV6BRAzK/oiYBrOirxO3u85yJ0AhdzQEH
+ QlqTRr54f58L740DmfkqImCzIKwgJ7wbXoiZ/V8+sUAdtr8papmymTHgZ g==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10981"; a="19124902"
+X-IronPort-AV: E=Sophos;i="6.06,263,1705392000"; d="scan'208";a="19124902"
+Received: from orviesa003.jf.intel.com ([10.64.159.143])
+ by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 12 Feb 2024 04:01:49 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.05,262,1701158400"; 
-   d="scan'208";a="7296805"
-Received: from belyakov-mobl.ccr.corp.intel.com (HELO localhost)
- ([10.252.63.91])
- by orviesa004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 12 Feb 2024 02:13:39 -0800
-From: Jani Nikula <jani.nikula@linux.intel.com>
-To: Abhinav Kumar <quic_abhinavk@quicinc.com>,
- dri-devel@lists.freedesktop.org, Maarten Lankhorst
- <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Daniel Vetter <daniel@ffwll.ch>
-Cc: Paloma Arellano <quic_parellan@quicinc.com>, robdclark@gmail.com,
- freedreno@lists.freedesktop.org, dmitry.baryshkov@linaro.org,
- intel-gfx@lists.freedesktop.org, ville.syrjala@linux.intel.com,
- quic_jesszhan@quicinc.com, Abhinav Kumar <quic_abhinavk@quicinc.com>,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3] drm/dp: add an API to indicate if sink supports VSC SDP
-In-Reply-To: <20240210202704.977303-1-quic_abhinavk@quicinc.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
-References: <20240210202704.977303-1-quic_abhinavk@quicinc.com>
-Date: Mon, 12 Feb 2024 12:13:34 +0200
-Message-ID: <87il2u9ei9.fsf@intel.com>
+X-IronPort-AV: E=Sophos;i="6.06,263,1705392000"; 
+   d="scan'208";a="7228547"
+Received: from hadjchai-mobl.ger.corp.intel.com (HELO [10.213.230.110])
+ ([10.213.230.110])
+ by ORVIESA003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 12 Feb 2024 04:01:46 -0800
+Message-ID: <c470ce0e-f52c-4240-9d5f-c1dfd9b46675@linux.intel.com>
+Date: Mon, 12 Feb 2024 12:01:43 +0000
 MIME-Version: 1.0
-Content-Type: text/plain
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] drm/i915: Add flex arrays to struct i915_syncmap
+Content-Language: en-US
+To: Erick Archer <erick.archer@gmx.com>,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, David Airlie <airlied@gmail.com>,
+ Daniel Vetter <daniel@ffwll.ch>, "Gustavo A. R. Silva"
+ <gustavoars@kernel.org>
+Cc: intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, linux-hardening@vger.kernel.org
+References: <20240208181318.4259-1-erick.archer@gmx.com>
+From: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
+Organization: Intel Corporation UK Plc
+In-Reply-To: <20240208181318.4259-1-erick.archer@gmx.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,84 +74,96 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Sat, 10 Feb 2024, Abhinav Kumar <quic_abhinavk@quicinc.com> wrote:
-> From: Paloma Arellano <quic_parellan@quicinc.com>
->
-> YUV420 format is supported only in the VSC SDP packet and not through
-> MSA. Hence add an API which indicates the sink support which can be used
-> by the rest of the DP programming.
->
-> changes in v3:
-> 	- fix the commit title prefix to drm/dp
-> 	- get rid of redundant !!
-> 	- break out this change from series [1] to get acks from drm core
-> 	  maintainers
->
-> Changes in v2:
-> 	- Move VSC SDP support check API from dp_panel.c to
-> 	  drm_dp_helper.c
->
-> [1]: https://patchwork.freedesktop.org/series/129180/
->
-> Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-> Signed-off-by: Paloma Arellano <quic_parellan@quicinc.com>
-> Signed-off-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
+
+On 08/02/2024 18:13, Erick Archer wrote:
+> The "struct i915_syncmap" uses a dynamically sized set of trailing
+> elements. It can use an "u32" array or a "struct i915_syncmap *"
+> array.
+> 
+> So, use the preferred way in the kernel declaring flexible arrays [1].
+> Because there are two possibilities for the trailing arrays, it is
+> necessary to declare a union and use the DECLARE_FLEX_ARRAY macro.
+> 
+> The comment can be removed as the union is now clear enough.
+> 
+> Also, avoid the open-coded arithmetic in the memory allocator functions
+> [2] using the "struct_size" macro.
+> 
+> Moreover, refactor the "__sync_seqno" and "__sync_child" functions due
+> to now it is possible to use the union members added to the structure.
+> This way, it is also possible to avoid the open-coded arithmetic in
+> pointers.
+> 
+> Link: https://www.kernel.org/doc/html/next/process/deprecated.html#zero-length-and-one-element-arrays [1]
+> Link: https://www.kernel.org/doc/html/next/process/deprecated.html#open-coded-arithmetic-in-allocator-arguments [2]
+> Signed-off-by: Erick Archer <erick.archer@gmx.com>
+
+Looks good to me too so I've pushed it to drm-intel-gt-next, thanks!
+
+Regards,
+
+Tvrtko
+
 > ---
->  drivers/gpu/drm/display/drm_dp_helper.c | 21 +++++++++++++++++++++
->  include/drm/display/drm_dp_helper.h     |  1 +
->  2 files changed, 22 insertions(+)
->
-> diff --git a/drivers/gpu/drm/display/drm_dp_helper.c b/drivers/gpu/drm/display/drm_dp_helper.c
-> index b1ca3a1100da..7a851f92b249 100644
-> --- a/drivers/gpu/drm/display/drm_dp_helper.c
-> +++ b/drivers/gpu/drm/display/drm_dp_helper.c
-> @@ -2916,6 +2916,27 @@ void drm_dp_vsc_sdp_log(const char *level, struct device *dev,
->  }
->  EXPORT_SYMBOL(drm_dp_vsc_sdp_log);
->  
-> +/**
-> + * drm_dp_vsc_sdp_supported() - check if vsc sdp is supported
-> + * @aux: DisplayPort AUX channel
-> + * @dpcd: DisplayPort configuration data
-> + *
-> + * Returns true if vsc sdp is supported, else returns false
-> + */
-> +bool drm_dp_vsc_sdp_supported(struct drm_dp_aux *aux, const u8 dpcd[DP_RECEIVER_CAP_SIZE])
-> +{
-> +	u8 rx_feature;
-> +
-> +	if (drm_dp_dpcd_readb(aux, DP_DPRX_FEATURE_ENUMERATION_LIST, &rx_feature) != 1) {
-> +		drm_dbg_dp(aux->drm_dev, "failed to read DP_DPRX_FEATURE_ENUMERATION_LIST\n");
-> +		return false;
-> +	}
-> +
-> +	return (dpcd[DP_DPCD_REV] >= DP_DPCD_REV_13) &&
-> +		(rx_feature & DP_VSC_SDP_EXT_FOR_COLORIMETRY_SUPPORTED);
-
-I guess you could bail out early without further dpcd access with the
-dpcd rev check?
-
-BR,
-Jani.
-
-
-> +}
-> +EXPORT_SYMBOL(drm_dp_vsc_sdp_supported);
-> +
->  /**
->   * drm_dp_get_pcon_max_frl_bw() - maximum frl supported by PCON
->   * @dpcd: DisplayPort configuration data
-> diff --git a/include/drm/display/drm_dp_helper.h b/include/drm/display/drm_dp_helper.h
-> index 863b2e7add29..948381b2b0b1 100644
-> --- a/include/drm/display/drm_dp_helper.h
-> +++ b/include/drm/display/drm_dp_helper.h
-> @@ -100,6 +100,7 @@ struct drm_dp_vsc_sdp {
->  
->  void drm_dp_vsc_sdp_log(const char *level, struct device *dev,
->  			const struct drm_dp_vsc_sdp *vsc);
-> +bool drm_dp_vsc_sdp_supported(struct drm_dp_aux *aux, const u8 dpcd[DP_RECEIVER_CAP_SIZE]);
->  
->  int drm_dp_psr_setup_time(const u8 psr_cap[EDP_PSR_RECEIVER_CAP_SIZE]);
-
--- 
-Jani Nikula, Intel
+>   drivers/gpu/drm/i915/i915_syncmap.c | 19 ++++++++-----------
+>   1 file changed, 8 insertions(+), 11 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/i915/i915_syncmap.c b/drivers/gpu/drm/i915/i915_syncmap.c
+> index 60404dbb2e9f..df6437c37373 100644
+> --- a/drivers/gpu/drm/i915/i915_syncmap.c
+> +++ b/drivers/gpu/drm/i915/i915_syncmap.c
+> @@ -75,13 +75,10 @@ struct i915_syncmap {
+>   	unsigned int height;
+>   	unsigned int bitmap;
+>   	struct i915_syncmap *parent;
+> -	/*
+> -	 * Following this header is an array of either seqno or child pointers:
+> -	 * union {
+> -	 *	u32 seqno[KSYNCMAP];
+> -	 *	struct i915_syncmap *child[KSYNCMAP];
+> -	 * };
+> -	 */
+> +	union {
+> +		DECLARE_FLEX_ARRAY(u32, seqno);
+> +		DECLARE_FLEX_ARRAY(struct i915_syncmap *, child);
+> +	};
+>   };
+> 
+>   /**
+> @@ -99,13 +96,13 @@ void i915_syncmap_init(struct i915_syncmap **root)
+>   static inline u32 *__sync_seqno(struct i915_syncmap *p)
+>   {
+>   	GEM_BUG_ON(p->height);
+> -	return (u32 *)(p + 1);
+> +	return p->seqno;
+>   }
+> 
+>   static inline struct i915_syncmap **__sync_child(struct i915_syncmap *p)
+>   {
+>   	GEM_BUG_ON(!p->height);
+> -	return (struct i915_syncmap **)(p + 1);
+> +	return p->child;
+>   }
+> 
+>   static inline unsigned int
+> @@ -200,7 +197,7 @@ __sync_alloc_leaf(struct i915_syncmap *parent, u64 id)
+>   {
+>   	struct i915_syncmap *p;
+> 
+> -	p = kmalloc(sizeof(*p) + KSYNCMAP * sizeof(u32), GFP_KERNEL);
+> +	p = kmalloc(struct_size(p, seqno, KSYNCMAP), GFP_KERNEL);
+>   	if (unlikely(!p))
+>   		return NULL;
+> 
+> @@ -282,7 +279,7 @@ static noinline int __sync_set(struct i915_syncmap **root, u64 id, u32 seqno)
+>   			unsigned int above;
+> 
+>   			/* Insert a join above the current layer */
+> -			next = kzalloc(sizeof(*next) + KSYNCMAP * sizeof(next),
+> +			next = kzalloc(struct_size(next, child, KSYNCMAP),
+>   				       GFP_KERNEL);
+>   			if (unlikely(!next))
+>   				return -ENOMEM;
+> --
+> 2.25.1
+> 
