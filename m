@@ -4,27 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A0359C4829A
-	for <intel-gfx@archiver.kernel.org>; Tue, 13 Feb 2024 08:28:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 38021C48260
+	for <intel-gfx@archiver.kernel.org>; Tue, 13 Feb 2024 09:21:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1997310E358;
-	Tue, 13 Feb 2024 08:28:11 +0000 (UTC)
-Received: from 5338d5abeb45 (emeril.freedesktop.org [131.252.210.167])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A46BB10E358;
- Tue, 13 Feb 2024 08:28:09 +0000 (UTC)
-Content-Type: multipart/alternative;
- boundary="===============1708028710748612662=="
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9BF1D10E03F;
+	Tue, 13 Feb 2024 09:21:38 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="dM4Z/Bf3";
+	dkim-atps=neutral
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0B98D10E03F
+ for <intel-gfx@lists.freedesktop.org>; Tue, 13 Feb 2024 09:21:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1707816096; x=1739352096;
+ h=from:to:cc:subject:in-reply-to:references:date:
+ message-id:mime-version:content-transfer-encoding;
+ bh=4y9cCw1Rhvu4POEc2EgQGLt23T/23hbcN3dwvLfY7ro=;
+ b=dM4Z/Bf3TknoARcc+9HaNLMiXu7rnMBaNj7rn2pozweqaVVIfqv/Pt4N
+ 6oQxyK6k8UcANWpJX3H6mn61ovMYGX+qeqkWfKWjSVLAFBTJnRA3FH5BR
+ baLmlLWK4S5XUcgbxQuY/Ai1K0nQCDPlEKwB/qXPqZROIxnuJfBBp0cKp
+ w8bZKi7KyIv7kLZ3DSc5c0uwQZSJTdDk0tQVmNoyoNElvLIWqLV4BYUxD
+ mVx2mWgsxzRZbLNcoBTGcPzvFDDe6dkuxfk0STtzPTksuqNseTChNMHF3
+ Laj1T12LJIfDY518JXQIzebXIgVcQv4IUECLGs0JjFNeMC4QZPDZ2zUdd g==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10982"; a="19228166"
+X-IronPort-AV: E=Sophos;i="6.06,156,1705392000"; d="scan'208";a="19228166"
+Received: from orviesa008.jf.intel.com ([10.64.159.148])
+ by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 13 Feb 2024 01:21:33 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.06,156,1705392000"; 
+   d="scan'208";a="3209372"
+Received: from snasibli-mobl2.ccr.corp.intel.com (HELO localhost)
+ ([10.252.44.50])
+ by orviesa008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 13 Feb 2024 01:21:31 -0800
+From: Jani Nikula <jani.nikula@linux.intel.com>
+To: Uma Shankar <uma.shankar@intel.com>, intel-gfx@lists.freedesktop.org
+Cc: stanislav.lisovskiy@intel.com, ville.syrjala@linux.intel.com
+Subject: Re: [PATCH] drm/i915: Add bigjoiner force enable option to debugfs
+In-Reply-To: <20240212125011.66174-1-uma.shankar@intel.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
+References: <20240212125011.66174-1-uma.shankar@intel.com>
+Date: Tue, 13 Feb 2024 11:21:28 +0200
+Message-ID: <87mss490tj.fsf@intel.com>
 MIME-Version: 1.0
-Subject: =?utf-8?q?=E2=9C=97_Fi=2ECI=2EBAT=3A_failure_for_Plane_Color_Pipeline_suppor?=
- =?utf-8?q?t_for_Intel_platforms?=
-From: Patchwork <patchwork@emeril.freedesktop.org>
-To: "Uma Shankar" <uma.shankar@intel.com>
-Cc: intel-gfx@lists.freedesktop.org
-Date: Tue, 13 Feb 2024 08:28:09 -0000
-Message-ID: <170781288967.1201024.15435989141649089834@5338d5abeb45>
-X-Patchwork-Hint: ignore
-References: <20240213064835.139464-1-uma.shankar@intel.com>
-In-Reply-To: <20240213064835.139464-1-uma.shankar@intel.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -37,328 +63,177 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
---===============1708028710748612662==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
+On Mon, 12 Feb 2024, Uma Shankar <uma.shankar@intel.com> wrote:
+> From: Stanislav Lisovskiy <stanislav.lisovskiy@intel.com>
+>
+> For validation purposes, it might be useful to be able to
+> force Bigjoiner mode, even if current dotclock/resolution
+> do not require that.
+> Lets add such to option to debugfs.
+>
+> v2: - Apparently intel_dp_need_bigjoiner can't be used, when
+>       debugfs entry is created so lets just check manually
+>       the DISPLAY_VER.
+>
+> v3: - Switch to intel_connector from drm_connector(Jani Nikula)
+>     - Remove redundant modeset lock(Jani Nikula)
+>     - Use kstrtobool_from_user for boolean value(Jani Nikula)
+>
+> v4: - Apply the changes to proper function(Jani Nikula)
+>
+> v5: - Removed unnecessary check from i915_bigjoiner_enable_show
+>       (Ville Syrj=C3=A4l=C3=A4)
+>     - Added eDP connector check to intel_connector_debugfs_add
+>       (Ville Syrj=C3=A4l=C3=A4)
+>     - Removed debug message in order to prevent dmesg flooding
+>       (Ville Syrj=C3=A4l=C3=A4)
+>
+> v6: - Assume now always that m->private is intel_connector
+>     - Fixed other similar conflicts
+>
+> v7: - Move bigjoiner force option to intel_connector(Ville Syrj=C3=A4l=C3=
+=A4)
+>     - Use DEFINE_SHOW_STORE_ATTRIBUTE instead of defining fops
+>       manually.(Ville Syrj=C3=A4l=C3=A4)
+>
+> v8: - Pass intel_connector to debugfs_create_file, instead of drm_connect=
+or.
+>       (Jani Nikula)
+>
+> Signed-off-by: Stanislav Lisovskiy <stanislav.lisovskiy@intel.com>
 
-== Series Details ==
-
-Series: Plane Color Pipeline support for Intel platforms
-URL   : https://patchwork.freedesktop.org/series/129811/
-State : failure
-
-== Summary ==
-
-CI Bug Log - changes from CI_DRM_14259 -> Patchwork_129811v1
-====================================================
-
-Summary
--------
-
-  **FAILURE**
-
-  Serious unknown changes coming with Patchwork_129811v1 absolutely need to be
-  verified manually.
-  
-  If you think the reported changes have nothing to do with the changes
-  introduced in Patchwork_129811v1, please notify your bug team (I915-ci-infra@lists.freedesktop.org) to allow them
-  to document this new failure mode, which will reduce false positives in CI.
-
-  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_129811v1/index.html
-
-Participating hosts (37 -> 37)
-------------------------------
-
-  Additional (2): bat-kbl-2 fi-bsw-n3050 
-  Missing    (2): bat-atsm-1 fi-snb-2520m 
-
-Possible new issues
--------------------
-
-  Here are the unknown changes that may have been introduced in Patchwork_129811v1:
-
-### IGT changes ###
-
-#### Possible regressions ####
-
-  * igt@debugfs_test@read_all_entries:
-    - bat-adln-1:         [PASS][1] -> [ABORT][2]
-   [1]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_14259/bat-adln-1/igt@debugfs_test@read_all_entries.html
-   [2]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_129811v1/bat-adln-1/igt@debugfs_test@read_all_entries.html
-    - bat-mtlp-8:         [PASS][3] -> [ABORT][4]
-   [3]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_14259/bat-mtlp-8/igt@debugfs_test@read_all_entries.html
-   [4]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_129811v1/bat-mtlp-8/igt@debugfs_test@read_all_entries.html
-    - bat-dg2-8:          [PASS][5] -> [ABORT][6]
-   [5]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_14259/bat-dg2-8/igt@debugfs_test@read_all_entries.html
-   [6]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_129811v1/bat-dg2-8/igt@debugfs_test@read_all_entries.html
-    - bat-adlm-1:         [PASS][7] -> [ABORT][8]
-   [7]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_14259/bat-adlm-1/igt@debugfs_test@read_all_entries.html
-   [8]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_129811v1/bat-adlm-1/igt@debugfs_test@read_all_entries.html
-    - fi-tgl-1115g4:      [PASS][9] -> [ABORT][10]
-   [9]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_14259/fi-tgl-1115g4/igt@debugfs_test@read_all_entries.html
-   [10]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_129811v1/fi-tgl-1115g4/igt@debugfs_test@read_all_entries.html
-    - bat-mtlp-6:         [PASS][11] -> [ABORT][12]
-   [11]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_14259/bat-mtlp-6/igt@debugfs_test@read_all_entries.html
-   [12]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_129811v1/bat-mtlp-6/igt@debugfs_test@read_all_entries.html
-    - bat-dg1-7:          [PASS][13] -> [ABORT][14]
-   [13]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_14259/bat-dg1-7/igt@debugfs_test@read_all_entries.html
-   [14]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_129811v1/bat-dg1-7/igt@debugfs_test@read_all_entries.html
-    - bat-adlp-9:         [PASS][15] -> [ABORT][16]
-   [15]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_14259/bat-adlp-9/igt@debugfs_test@read_all_entries.html
-   [16]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_129811v1/bat-adlp-9/igt@debugfs_test@read_all_entries.html
-    - bat-adlp-6:         [PASS][17] -> [ABORT][18]
-   [17]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_14259/bat-adlp-6/igt@debugfs_test@read_all_entries.html
-   [18]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_129811v1/bat-adlp-6/igt@debugfs_test@read_all_entries.html
-    - bat-rplp-1:         [PASS][19] -> [ABORT][20]
-   [19]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_14259/bat-rplp-1/igt@debugfs_test@read_all_entries.html
-   [20]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_129811v1/bat-rplp-1/igt@debugfs_test@read_all_entries.html
-    - fi-rkl-11600:       [PASS][21] -> [ABORT][22]
-   [21]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_14259/fi-rkl-11600/igt@debugfs_test@read_all_entries.html
-   [22]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_129811v1/fi-rkl-11600/igt@debugfs_test@read_all_entries.html
-    - bat-dg2-9:          [PASS][23] -> [ABORT][24]
-   [23]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_14259/bat-dg2-9/igt@debugfs_test@read_all_entries.html
-   [24]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_129811v1/bat-dg2-9/igt@debugfs_test@read_all_entries.html
-    - bat-dg2-11:         [PASS][25] -> [ABORT][26]
-   [25]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_14259/bat-dg2-11/igt@debugfs_test@read_all_entries.html
-   [26]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_129811v1/bat-dg2-11/igt@debugfs_test@read_all_entries.html
-
-  
-#### Suppressed ####
-
-  The following results come from untrusted machines, tests, or statuses.
-  They do not affect the overall result.
-
-  * igt@debugfs_test@read_all_entries:
-    - {bat-arls-2}:       [PASS][27] -> [ABORT][28]
-   [27]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_14259/bat-arls-2/igt@debugfs_test@read_all_entries.html
-   [28]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_129811v1/bat-arls-2/igt@debugfs_test@read_all_entries.html
-    - {bat-arls-1}:       [PASS][29] -> [ABORT][30]
-   [29]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_14259/bat-arls-1/igt@debugfs_test@read_all_entries.html
-   [30]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_129811v1/bat-arls-1/igt@debugfs_test@read_all_entries.html
-    - {bat-dg2-14}:       [PASS][31] -> [ABORT][32]
-   [31]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_14259/bat-dg2-14/igt@debugfs_test@read_all_entries.html
-   [32]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_129811v1/bat-dg2-14/igt@debugfs_test@read_all_entries.html
-
-  
-Known issues
-------------
-
-  Here are the changes found in Patchwork_129811v1 that come from known issues:
-
-### IGT changes ###
-
-#### Issues hit ####
-
-  * igt@fbdev@info:
-    - bat-kbl-2:          NOTRUN -> [SKIP][33] ([fdo#109271] / [i915#1849])
-   [33]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_129811v1/bat-kbl-2/igt@fbdev@info.html
-
-  * igt@gem_lmem_swapping@parallel-random-engines:
-    - bat-kbl-2:          NOTRUN -> [SKIP][34] ([fdo#109271]) +35 other tests skip
-   [34]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_129811v1/bat-kbl-2/igt@gem_lmem_swapping@parallel-random-engines.html
-
-  * igt@gem_lmem_swapping@random-engines:
-    - fi-bsw-n3050:       NOTRUN -> [SKIP][35] ([fdo#109271]) +15 other tests skip
-   [35]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_129811v1/fi-bsw-n3050/igt@gem_lmem_swapping@random-engines.html
-
-  
-  {name}: This element is suppressed. This means it is ignored when computing
-          the status of the difference (SUCCESS, WARNING, or FAILURE).
-
-  [fdo#109271]: https://bugs.freedesktop.org/show_bug.cgi?id=109271
-  [i915#1849]: https://gitlab.freedesktop.org/drm/intel/issues/1849
+Acked-by: Jani Nikula <jani.nikula@intel.com>
 
 
-Build changes
--------------
+> ---
+>  .../drm/i915/display/intel_display_debugfs.c  | 47 +++++++++++++++++++
+>  .../drm/i915/display/intel_display_types.h    |  2 +
+>  drivers/gpu/drm/i915/display/intel_dp.c       |  4 +-
+>  3 files changed, 52 insertions(+), 1 deletion(-)
+>
+> diff --git a/drivers/gpu/drm/i915/display/intel_display_debugfs.c b/drive=
+rs/gpu/drm/i915/display/intel_display_debugfs.c
+> index 6f2d13c8ccf7..a962b48bcf13 100644
+> --- a/drivers/gpu/drm/i915/display/intel_display_debugfs.c
+> +++ b/drivers/gpu/drm/i915/display/intel_display_debugfs.c
+> @@ -1391,6 +1391,20 @@ out:	drm_modeset_unlock(&i915->drm.mode_config.con=
+nection_mutex);
+>  	return ret;
+>  }
+>=20=20
+> +static int i915_bigjoiner_enable_show(struct seq_file *m, void *data)
+> +{
+> +	struct intel_connector *connector =3D m->private;
+> +	struct drm_crtc *crtc;
+> +
+> +	crtc =3D connector->base.state->crtc;
+> +	if (connector->base.status !=3D connector_status_connected || !crtc)
+> +		return -ENODEV;
+> +
+> +	seq_printf(m, "Bigjoiner enable: %d\n", connector->force_bigjoiner_enab=
+le);
+> +
+> +	return 0;
+> +}
+> +
+>  static ssize_t i915_dsc_output_format_write(struct file *file,
+>  					    const char __user *ubuf,
+>  					    size_t len, loff_t *offp)
+> @@ -1412,6 +1426,30 @@ static ssize_t i915_dsc_output_format_write(struct=
+ file *file,
+>  	return len;
+>  }
+>=20=20
+> +static ssize_t i915_bigjoiner_enable_write(struct file *file,
+> +					   const char __user *ubuf,
+> +					   size_t len, loff_t *offp)
+> +{
+> +	struct seq_file *m =3D file->private_data;
+> +	struct intel_connector *connector =3D m->private;
+> +	struct drm_crtc *crtc;
+> +	bool bigjoiner_en =3D 0;
+> +	int ret;
+> +
+> +	crtc =3D connector->base.state->crtc;
+> +	if (connector->base.status !=3D connector_status_connected || !crtc)
+> +		return -ENODEV;
+> +
+> +	ret =3D kstrtobool_from_user(ubuf, len, &bigjoiner_en);
+> +	if (ret < 0)
+> +		return ret;
+> +
+> +	connector->force_bigjoiner_enable =3D bigjoiner_en;
+> +	*offp +=3D len;
+> +
+> +	return len;
+> +}
+> +
+>  static int i915_dsc_output_format_open(struct inode *inode,
+>  				       struct file *file)
+>  {
+> @@ -1505,6 +1543,8 @@ static const struct file_operations i915_dsc_fracti=
+onal_bpp_fops =3D {
+>  	.write =3D i915_dsc_fractional_bpp_write
+>  };
+>=20=20
+> +DEFINE_SHOW_STORE_ATTRIBUTE(i915_bigjoiner_enable);
+> +
+>  /*
+>   * Returns the Current CRTC's bpc.
+>   * Example usage: cat /sys/kernel/debug/dri/0/crtc-0/i915_current_bpc
+> @@ -1586,6 +1626,13 @@ void intel_connector_debugfs_add(struct intel_conn=
+ector *connector)
+>  				    connector, &i915_dsc_fractional_bpp_fops);
+>  	}
+>=20=20
+> +	if (DISPLAY_VER(i915) >=3D 11 &&
+> +	    (connector_type =3D=3D DRM_MODE_CONNECTOR_DisplayPort ||
+> +	     connector_type =3D=3D DRM_MODE_CONNECTOR_eDP)) {
+> +		debugfs_create_file("i915_bigjoiner_force_enable", 0644, root,
+> +				    connector, &i915_bigjoiner_enable_fops);
+> +	}
+> +
+>  	if (connector_type =3D=3D DRM_MODE_CONNECTOR_DSI ||
+>  	    connector_type =3D=3D DRM_MODE_CONNECTOR_eDP ||
+>  	    connector_type =3D=3D DRM_MODE_CONNECTOR_DisplayPort ||
+> diff --git a/drivers/gpu/drm/i915/display/intel_display_types.h b/drivers=
+/gpu/drm/i915/display/intel_display_types.h
+> index 01eb6e4e6049..0d4012097db1 100644
+> --- a/drivers/gpu/drm/i915/display/intel_display_types.h
+> +++ b/drivers/gpu/drm/i915/display/intel_display_types.h
+> @@ -626,6 +626,8 @@ struct intel_connector {
+>=20=20
+>  	struct intel_dp *mst_port;
+>=20=20
+> +	bool force_bigjoiner_enable;
+> +
+>  	struct {
+>  		struct drm_dp_aux *dsc_decompression_aux;
+>  		u8 dsc_dpcd[DP_DSC_RECEIVER_CAP_SIZE];
+> diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i9=
+15/display/intel_dp.c
+> index 5045c34a16be..217196196e50 100644
+> --- a/drivers/gpu/drm/i915/display/intel_dp.c
+> +++ b/drivers/gpu/drm/i915/display/intel_dp.c
+> @@ -1205,11 +1205,13 @@ bool intel_dp_need_bigjoiner(struct intel_dp *int=
+el_dp,
+>  			     int hdisplay, int clock)
+>  {
+>  	struct drm_i915_private *i915 =3D dp_to_i915(intel_dp);
+> +	struct intel_connector *connector =3D intel_dp->attached_connector;
+>=20=20
+>  	if (!intel_dp_can_bigjoiner(intel_dp))
+>  		return false;
+>=20=20
+> -	return clock > i915->max_dotclk_freq || hdisplay > 5120;
+> +	return clock > i915->max_dotclk_freq || hdisplay > 5120 ||
+> +	       connector->force_bigjoiner_enable;
+>  }
+>=20=20
+>  static enum drm_mode_status
 
-  * Linux: CI_DRM_14259 -> Patchwork_129811v1
-
-  CI-20190529: 20190529
-  CI_DRM_14259: e370df7a4fb4125cb8eee1b00ff1592808ed9786 @ git://anongit.freedesktop.org/gfx-ci/linux
-  IGT_7710: d87a5d85a60fba1283821d5212c3aece64cb36ba @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git
-  Patchwork_129811v1: e370df7a4fb4125cb8eee1b00ff1592808ed9786 @ git://anongit.freedesktop.org/gfx-ci/linux
-
-
-### Linux commits
-
-09bd0b77bbd7 drm/i915/color: Enable Plane Color Pipelines
-017a6635e63a FIXME: force disable legacy plane color properties for TGL and beyond
-0d31f207960c drm/i915/xelpd: Program Plane Post CSC Registers
-d334578ae216 drm/i915/color: Program Pre-CSC registers
-4baac93472a4 drm/i915: Add register definitions for Plane Post CSC
-0278b84fcddd drm/i915/color: Add framework to program PRE/POST CSC LUT
-4adf845ffb39 drm/i915: Add register definitions for Plane Degamma
-e4e0ee51eb73 drm/i915/color: Add plane CTM callback for TGL and beyond
-5b1e0ec4963a drm/i915/color: Add callbacks to set plane CTM
-8bdc395f0722 drm/i915/color: Add framework to set colorop
-84c0e602ec40 drm/i915/color: Add and attach COLORPIPELINE plane property
-dc4540d37dec drm/i915: Define segmented Lut and add capabilities to colorop
-8e30794ef70e drm/i915/color: Create a transfer function color pipeline
-38931bf215bf drm/i915/color: Add helper to create intel colorop
-56c614667088 drm/i915/color: Add helper to allocate intel colorop
-ceccf2cc437e drm/i915: Add intel_color_op
-915e9ad737a5 drm/i915: Add identifiers for intel color blocks
-865ac81cf446 drm: Define helper for adding capability property for 1D LUT
-15156b036a92 drm: Define helper to create color ops capability property
-8735e9731b82 drm: Add Color ops capability property
-3b9b4ac47724 drm: Add Color lut range attributes
-02fa32164448 drm: Add 1D LUT color op
-d1cc9fb15eb7 drm: Add Enhanced LUT precision structure
-34744a006463 drm: Add support for 3x3 CTM
-9dd4d733ccb9 drm: Fix error logging in set Color Pipeline
-eafdf30a77ef drm: handle NULL next colorop in drm_colorop_set_next_property
-dff6c0feb8bf drm: Add missing function declarations
-3e7c4452d7f8 drm: color pipeline base work
-
-== Logs ==
-
-For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_129811v1/index.html
-
---===============1708028710748612662==
-Content-Type: text/html; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-
-
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
- <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-  <title>Project List - Patchwork</title>
-  <style id="css-table-select" type="text/css">
-   td { padding: 2pt; }
-  </style>
-</head>
-<body>
-
-
-<b>Patch Details</b>
-<table>
-<tr><td><b>Series:</b></td><td>Plane Color Pipeline support for Intel platforms</td></tr>
-<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/129811/">https://patchwork.freedesktop.org/series/129811/</a></td></tr>
-<tr><td><b>State:</b></td><td>failure</td></tr>
-
-    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_129811v1/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_129811v1/index.html</a></td></tr>
-
-</table>
-
-
-    <h1>CI Bug Log - changes from CI_DRM_14259 -&gt; Patchwork_129811v1</h1>
-<h2>Summary</h2>
-<p><strong>FAILURE</strong></p>
-<p>Serious unknown changes coming with Patchwork_129811v1 absolutely need to be<br />
-  verified manually.</p>
-<p>If you think the reported changes have nothing to do with the changes<br />
-  introduced in Patchwork_129811v1, please notify your bug team (I915-ci-infra@lists.freedesktop.org) to allow them<br />
-  to document this new failure mode, which will reduce false positives in CI.</p>
-<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_129811v1/index.html</p>
-<h2>Participating hosts (37 -&gt; 37)</h2>
-<p>Additional (2): bat-kbl-2 fi-bsw-n3050 <br />
-  Missing    (2): bat-atsm-1 fi-snb-2520m </p>
-<h2>Possible new issues</h2>
-<p>Here are the unknown changes that may have been introduced in Patchwork_129811v1:</p>
-<h3>IGT changes</h3>
-<h4>Possible regressions</h4>
-<ul>
-<li>igt@debugfs_test@read_all_entries:<ul>
-<li>bat-adln-1:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_14259/bat-adln-1/igt@debugfs_test@read_all_entries.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_129811v1/bat-adln-1/igt@debugfs_test@read_all_entries.html">ABORT</a></li>
-<li>bat-mtlp-8:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_14259/bat-mtlp-8/igt@debugfs_test@read_all_entries.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_129811v1/bat-mtlp-8/igt@debugfs_test@read_all_entries.html">ABORT</a></li>
-<li>bat-dg2-8:          <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_14259/bat-dg2-8/igt@debugfs_test@read_all_entries.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_129811v1/bat-dg2-8/igt@debugfs_test@read_all_entries.html">ABORT</a></li>
-<li>bat-adlm-1:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_14259/bat-adlm-1/igt@debugfs_test@read_all_entries.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_129811v1/bat-adlm-1/igt@debugfs_test@read_all_entries.html">ABORT</a></li>
-<li>fi-tgl-1115g4:      <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_14259/fi-tgl-1115g4/igt@debugfs_test@read_all_entries.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_129811v1/fi-tgl-1115g4/igt@debugfs_test@read_all_entries.html">ABORT</a></li>
-<li>bat-mtlp-6:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_14259/bat-mtlp-6/igt@debugfs_test@read_all_entries.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_129811v1/bat-mtlp-6/igt@debugfs_test@read_all_entries.html">ABORT</a></li>
-<li>bat-dg1-7:          <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_14259/bat-dg1-7/igt@debugfs_test@read_all_entries.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_129811v1/bat-dg1-7/igt@debugfs_test@read_all_entries.html">ABORT</a></li>
-<li>bat-adlp-9:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_14259/bat-adlp-9/igt@debugfs_test@read_all_entries.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_129811v1/bat-adlp-9/igt@debugfs_test@read_all_entries.html">ABORT</a></li>
-<li>bat-adlp-6:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_14259/bat-adlp-6/igt@debugfs_test@read_all_entries.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_129811v1/bat-adlp-6/igt@debugfs_test@read_all_entries.html">ABORT</a></li>
-<li>bat-rplp-1:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_14259/bat-rplp-1/igt@debugfs_test@read_all_entries.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_129811v1/bat-rplp-1/igt@debugfs_test@read_all_entries.html">ABORT</a></li>
-<li>fi-rkl-11600:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_14259/fi-rkl-11600/igt@debugfs_test@read_all_entries.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_129811v1/fi-rkl-11600/igt@debugfs_test@read_all_entries.html">ABORT</a></li>
-<li>bat-dg2-9:          <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_14259/bat-dg2-9/igt@debugfs_test@read_all_entries.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_129811v1/bat-dg2-9/igt@debugfs_test@read_all_entries.html">ABORT</a></li>
-<li>bat-dg2-11:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_14259/bat-dg2-11/igt@debugfs_test@read_all_entries.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_129811v1/bat-dg2-11/igt@debugfs_test@read_all_entries.html">ABORT</a></li>
-</ul>
-</li>
-</ul>
-<h4>Suppressed</h4>
-<p>The following results come from untrusted machines, tests, or statuses.<br />
-  They do not affect the overall result.</p>
-<ul>
-<li>igt@debugfs_test@read_all_entries:<ul>
-<li>{bat-arls-2}:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_14259/bat-arls-2/igt@debugfs_test@read_all_entries.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_129811v1/bat-arls-2/igt@debugfs_test@read_all_entries.html">ABORT</a></li>
-<li>{bat-arls-1}:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_14259/bat-arls-1/igt@debugfs_test@read_all_entries.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_129811v1/bat-arls-1/igt@debugfs_test@read_all_entries.html">ABORT</a></li>
-<li>{bat-dg2-14}:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_14259/bat-dg2-14/igt@debugfs_test@read_all_entries.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_129811v1/bat-dg2-14/igt@debugfs_test@read_all_entries.html">ABORT</a></li>
-</ul>
-</li>
-</ul>
-<h2>Known issues</h2>
-<p>Here are the changes found in Patchwork_129811v1 that come from known issues:</p>
-<h3>IGT changes</h3>
-<h4>Issues hit</h4>
-<ul>
-<li>
-<p>igt@fbdev@info:</p>
-<ul>
-<li>bat-kbl-2:          NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_129811v1/bat-kbl-2/igt@fbdev@info.html">SKIP</a> (<a href="https://bugs.freedesktop.org/show_bug.cgi?id=109271">fdo#109271</a> / <a href="https://gitlab.freedesktop.org/drm/intel/issues/1849">i915#1849</a>)</li>
-</ul>
-</li>
-<li>
-<p>igt@gem_lmem_swapping@parallel-random-engines:</p>
-<ul>
-<li>bat-kbl-2:          NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_129811v1/bat-kbl-2/igt@gem_lmem_swapping@parallel-random-engines.html">SKIP</a> (<a href="https://bugs.freedesktop.org/show_bug.cgi?id=109271">fdo#109271</a>) +35 other tests skip</li>
-</ul>
-</li>
-<li>
-<p>igt@gem_lmem_swapping@random-engines:</p>
-<ul>
-<li>fi-bsw-n3050:       NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_129811v1/fi-bsw-n3050/igt@gem_lmem_swapping@random-engines.html">SKIP</a> (<a href="https://bugs.freedesktop.org/show_bug.cgi?id=109271">fdo#109271</a>) +15 other tests skip</li>
-</ul>
-</li>
-</ul>
-<p>{name}: This element is suppressed. This means it is ignored when computing<br />
-          the status of the difference (SUCCESS, WARNING, or FAILURE).</p>
-<h2>Build changes</h2>
-<ul>
-<li>Linux: CI_DRM_14259 -&gt; Patchwork_129811v1</li>
-</ul>
-<p>CI-20190529: 20190529<br />
-  CI_DRM_14259: e370df7a4fb4125cb8eee1b00ff1592808ed9786 @ git://anongit.freedesktop.org/gfx-ci/linux<br />
-  IGT_7710: d87a5d85a60fba1283821d5212c3aece64cb36ba @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git<br />
-  Patchwork_129811v1: e370df7a4fb4125cb8eee1b00ff1592808ed9786 @ git://anongit.freedesktop.org/gfx-ci/linux</p>
-<h3>Linux commits</h3>
-<p>09bd0b77bbd7 drm/i915/color: Enable Plane Color Pipelines<br />
-017a6635e63a FIXME: force disable legacy plane color properties for TGL and beyond<br />
-0d31f207960c drm/i915/xelpd: Program Plane Post CSC Registers<br />
-d334578ae216 drm/i915/color: Program Pre-CSC registers<br />
-4baac93472a4 drm/i915: Add register definitions for Plane Post CSC<br />
-0278b84fcddd drm/i915/color: Add framework to program PRE/POST CSC LUT<br />
-4adf845ffb39 drm/i915: Add register definitions for Plane Degamma<br />
-e4e0ee51eb73 drm/i915/color: Add plane CTM callback for TGL and beyond<br />
-5b1e0ec4963a drm/i915/color: Add callbacks to set plane CTM<br />
-8bdc395f0722 drm/i915/color: Add framework to set colorop<br />
-84c0e602ec40 drm/i915/color: Add and attach COLORPIPELINE plane property<br />
-dc4540d37dec drm/i915: Define segmented Lut and add capabilities to colorop<br />
-8e30794ef70e drm/i915/color: Create a transfer function color pipeline<br />
-38931bf215bf drm/i915/color: Add helper to create intel colorop<br />
-56c614667088 drm/i915/color: Add helper to allocate intel colorop<br />
-ceccf2cc437e drm/i915: Add intel_color_op<br />
-915e9ad737a5 drm/i915: Add identifiers for intel color blocks<br />
-865ac81cf446 drm: Define helper for adding capability property for 1D LUT<br />
-15156b036a92 drm: Define helper to create color ops capability property<br />
-8735e9731b82 drm: Add Color ops capability property<br />
-3b9b4ac47724 drm: Add Color lut range attributes<br />
-02fa32164448 drm: Add 1D LUT color op<br />
-d1cc9fb15eb7 drm: Add Enhanced LUT precision structure<br />
-34744a006463 drm: Add support for 3x3 CTM<br />
-9dd4d733ccb9 drm: Fix error logging in set Color Pipeline<br />
-eafdf30a77ef drm: handle NULL next colorop in drm_colorop_set_next_property<br />
-dff6c0feb8bf drm: Add missing function declarations<br />
-3e7c4452d7f8 drm: color pipeline base work</p>
-
-</body>
-</html>
-
---===============1708028710748612662==--
+--=20
+Jani Nikula, Intel
