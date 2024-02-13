@@ -4,58 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 12CA7C48BC3
-	for <intel-gfx@archiver.kernel.org>; Tue, 13 Feb 2024 06:43:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B26B1C48260
+	for <intel-gfx@archiver.kernel.org>; Tue, 13 Feb 2024 06:46:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4876010EB14;
-	Tue, 13 Feb 2024 06:43:50 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3547E10EB1C;
+	Tue, 13 Feb 2024 06:46:57 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="Jp7vllI8";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="XX1SltTq";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.55.52.88])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D54B310EB0F;
- Tue, 13 Feb 2024 06:43:48 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.13])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 14FF110EB4F
+ for <intel-gfx@lists.freedesktop.org>; Tue, 13 Feb 2024 06:46:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1707806628; x=1739342628;
+ t=1707806816; x=1739342816;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=bDkeXF73zakQH63leGMY5eCTZzrzCq3q6yvVSB08JrI=;
- b=Jp7vllI8fMB2PICwAeAOWhSx7pzHS4Yfv1U8+UolIa4iolvPOeWbO5aZ
- sfgmQAT1DlJPLrx471hjdByHijvGw23LA0p6tWgg9o0wzcXBKK4t2l9Bp
- Bn/F2GPpv3xkB4+ymM6vzNSzNHZPxVSjCBKeaPjNpDHb9asD9mmsh13s6
- PlCk940b1rw79pFOv3cxdHi4K5N8693nczvqy2wjjoqYrFqrLxlZIu5mD
- 2A4XUY8U9yPQ4Mk35UJYHZXC/TLni1OfY9HE9q//cwg+d7qgr4q5dQQNz
- UJN7s6OvTA5R9r73nGrpuuGgFZHNp4YRLwaXDzYsx0JzjQ0ZnVlGqcJzG w==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10982"; a="436948334"
-X-IronPort-AV: E=Sophos;i="6.06,156,1705392000"; d="scan'208";a="436948334"
-Received: from orviesa003.jf.intel.com ([10.64.159.143])
- by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 12 Feb 2024 22:43:48 -0800
+ bh=9TfeKjXzbEinX/NnfcqYXVOCftJTDJ59YM+DwMQfmp8=;
+ b=XX1SltTq4tVodrNEgY2Rifibu4wmlRdow2pKUdswNUC1ciLlp4aWSLi1
+ glZlhOx2DaWsJZ6KpszIU5VFTzY4k/7ybmKM6Na9D0JcIor3d6rRAGNLI
+ Fk9FWWREZJrmH2HP+agQy3I2R2lux89Prt9MAvrQwPSzt4btdCyqNrKde
+ SBH578abj+6+4RwIBqS3xjxlVrSgmYcgGENrzovB0ZIXqSLPm7R221N3r
+ 0EaXoCKd2s/r/UZHikryayTSLMoyZyV7200CNzR4tonvu719T1ZmDao/q
+ ffFsQf2AKlzlUxgFtU1eKZBrPxUb+XRA9vxim+SI4Rj1c8y4bWMXXDAWB w==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10982"; a="12893271"
+X-IronPort-AV: E=Sophos;i="6.06,156,1705392000"; d="scan'208";a="12893271"
+Received: from orsmga001.jf.intel.com ([10.7.209.18])
+ by orvoesa105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 12 Feb 2024 22:46:55 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.06,156,1705392000"; 
-   d="scan'208";a="7450741"
-Received: from cfl-desktop.iind.intel.com ([10.190.239.20])
- by orviesa003.jf.intel.com with ESMTP; 12 Feb 2024 22:43:41 -0800
-From: Uma Shankar <uma.shankar@intel.com>
-To: intel-gfx@lists.freedesktop.org,
-	dri-devel@lists.freedesktop.org
-Cc: ville.syrjala@linux.intel.com, pekka.paalanen@collabora.com,
- contact@emersion.fr, harry.wentland@amd.com, mwen@igalia.com,
- jadahl@redhat.com, sebastian.wick@redhat.com, shashank.sharma@amd.com,
- agoins@nvidia.com, joshua@froggi.es, mdaenzer@redhat.com, aleixpol@kde.org,
- xaver.hugl@gmail.com, victoria@system76.com, daniel@ffwll.ch,
- quic_naseer@quicinc.com, quic_cbraga@quicinc.com,
- quic_abhinavk@quicinc.com, arthurgrillo@riseup.net, marcan@marcan.st,
- Liviu.Dudau@arm.com, sashamcintosh@google.com, sean@poorly.run,
- Chaitanya Kumar Borah <chaitanya.kumar.borah@intel.com>,
- Uma Shankar <uma.shankar@intel.com>
-Subject: [PATCH 28/28] drm/i915/color: Enable Plane Color Pipelines
-Date: Tue, 13 Feb 2024 12:18:35 +0530
-Message-ID: <20240213064835.139464-29-uma.shankar@intel.com>
-X-Mailer: git-send-email 2.42.0
-In-Reply-To: <20240213064835.139464-1-uma.shankar@intel.com>
-References: <20240213064835.139464-1-uma.shankar@intel.com>
+X-IronPort-AV: E=McAfee;i="6600,9927,10982"; a="826031413"
+X-IronPort-AV: E=Sophos;i="6.06,156,1705392000"; d="scan'208";a="826031413"
+Received: from dut7231atsm.jf.intel.com ([10.98.51.28])
+ by orsmga001-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 12 Feb 2024 22:46:54 -0800
+From: Umesh Nerlige Ramappa <umesh.nerlige.ramappa@intel.com>
+To: intel-gfx@lists.freedesktop.org
+Cc: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
+Subject: [PATCH 1/2] i915/pmu: Add pmu_teardown helper
+Date: Mon, 12 Feb 2024 22:46:49 -0800
+Message-Id: <20240213064650.45051-2-umesh.nerlige.ramappa@intel.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20240213064650.45051-1-umesh.nerlige.ramappa@intel.com>
+References: <20240213064650.45051-1-umesh.nerlige.ramappa@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-BeenThere: intel-gfx@lists.freedesktop.org
@@ -73,46 +64,158 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Chaitanya Kumar Borah <chaitanya.kumar.borah@intel.com>
+Move pmu teardown to a helper and place it above the destroy hook so
+that teardown can also happen inside destroy when events are closed
+after i915 pmu is unregistered.
 
-Expose color pipeline and add capability to program it.
-
-Signed-off-by: Chaitanya Kumar Borah <chaitanya.kumar.borah@intel.com>
-Signed-off-by: Uma Shankar <uma.shankar@intel.com>
+Signed-off-by: Umesh Nerlige Ramappa <umesh.nerlige.ramappa@intel.com>
 ---
- drivers/gpu/drm/i915/display/skl_universal_plane.c | 5 +++++
- 1 file changed, 5 insertions(+)
+ drivers/gpu/drm/i915/i915_pmu.c | 106 +++++++++++++++++---------------
+ 1 file changed, 56 insertions(+), 50 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/display/skl_universal_plane.c b/drivers/gpu/drm/i915/display/skl_universal_plane.c
-index 7096ea8a3454..64e70cc34ddb 100644
---- a/drivers/gpu/drm/i915/display/skl_universal_plane.c
-+++ b/drivers/gpu/drm/i915/display/skl_universal_plane.c
-@@ -11,6 +11,7 @@
- #include "i915_drv.h"
- #include "i915_reg.h"
- #include "intel_atomic_plane.h"
-+#include "intel_color.h"
- #include "intel_de.h"
- #include "intel_display_irq.h"
- #include "intel_display_types.h"
-@@ -1279,6 +1280,8 @@ icl_plane_update_noarm(struct intel_plane *plane,
- 	plane_color_ctl = plane_state->color_ctl |
- 		glk_plane_color_ctl_crtc(crtc_state);
+diff --git a/drivers/gpu/drm/i915/i915_pmu.c b/drivers/gpu/drm/i915/i915_pmu.c
+index 21eb0c5b320d..4d2a289f848a 100644
+--- a/drivers/gpu/drm/i915/i915_pmu.c
++++ b/drivers/gpu/drm/i915/i915_pmu.c
+@@ -514,6 +514,61 @@ static enum hrtimer_restart i915_sample(struct hrtimer *hrtimer)
+ 	return HRTIMER_RESTART;
+ }
  
-+	intel_program_pipeline(&plane_state->uapi, &plane_color_ctl);
++static enum cpuhp_state cpuhp_slot = CPUHP_INVALID;
 +
- 	/* The scaler will handle the output position */
- 	if (plane_state->scaler_id >= 0) {
- 		crtc_x = 0;
-@@ -2432,6 +2435,8 @@ skl_universal_plane_create(struct drm_i915_private *dev_priv,
- 						  BIT(DRM_COLOR_YCBCR_FULL_RANGE),
- 						  DRM_COLOR_YCBCR_BT709,
- 						  DRM_COLOR_YCBCR_LIMITED_RANGE);
-+	else
-+		intel_plane_color_init(&plane->base);
++static int i915_pmu_register_cpuhp_state(struct i915_pmu *pmu)
++{
++	if (cpuhp_slot == CPUHP_INVALID)
++		return -EINVAL;
++
++	return cpuhp_state_add_instance(cpuhp_slot, &pmu->cpuhp.node);
++}
++
++static void i915_pmu_unregister_cpuhp_state(struct i915_pmu *pmu)
++{
++	cpuhp_state_remove_instance(cpuhp_slot, &pmu->cpuhp.node);
++}
++
++static void free_event_attributes(struct i915_pmu *pmu)
++{
++	struct attribute **attr_iter = pmu->events_attr_group.attrs;
++
++	for (; *attr_iter; attr_iter++)
++		kfree((*attr_iter)->name);
++
++	kfree(pmu->events_attr_group.attrs);
++	kfree(pmu->i915_attr);
++	kfree(pmu->pmu_attr);
++
++	pmu->events_attr_group.attrs = NULL;
++	pmu->i915_attr = NULL;
++	pmu->pmu_attr = NULL;
++}
++
++static bool is_igp(struct drm_i915_private *i915)
++{
++	struct pci_dev *pdev = to_pci_dev(i915->drm.dev);
++
++	/* IGP is 0000:00:02.0 */
++	return pci_domain_nr(pdev->bus) == 0 &&
++	       pdev->bus->number == 0 &&
++	       PCI_SLOT(pdev->devfn) == 2 &&
++	       PCI_FUNC(pdev->devfn) == 0;
++}
++
++static void pmu_teardown(struct i915_pmu *pmu)
++{
++	struct drm_i915_private *i915 = pmu_to_i915(pmu);
++
++	i915_pmu_unregister_cpuhp_state(pmu);
++	perf_pmu_unregister(&pmu->base);
++	pmu->base.event_init = NULL;
++	kfree(pmu->base.attr_groups);
++	if (!is_igp(i915))
++		kfree(pmu->name);
++	free_event_attributes(pmu);
++}
++
+ static void i915_pmu_event_destroy(struct perf_event *event)
+ {
+ 	struct i915_pmu *pmu = event_to_pmu(event);
+@@ -1133,22 +1188,6 @@ err:;
+ 	return NULL;
+ }
  
- 	drm_plane_create_alpha_property(&plane->base);
- 	drm_plane_create_blend_mode_property(&plane->base,
+-static void free_event_attributes(struct i915_pmu *pmu)
+-{
+-	struct attribute **attr_iter = pmu->events_attr_group.attrs;
+-
+-	for (; *attr_iter; attr_iter++)
+-		kfree((*attr_iter)->name);
+-
+-	kfree(pmu->events_attr_group.attrs);
+-	kfree(pmu->i915_attr);
+-	kfree(pmu->pmu_attr);
+-
+-	pmu->events_attr_group.attrs = NULL;
+-	pmu->i915_attr = NULL;
+-	pmu->pmu_attr = NULL;
+-}
+-
+ static int i915_pmu_cpu_online(unsigned int cpu, struct hlist_node *node)
+ {
+ 	struct i915_pmu *pmu = hlist_entry_safe(node, typeof(*pmu), cpuhp.node);
+@@ -1194,8 +1233,6 @@ static int i915_pmu_cpu_offline(unsigned int cpu, struct hlist_node *node)
+ 	return 0;
+ }
+ 
+-static enum cpuhp_state cpuhp_slot = CPUHP_INVALID;
+-
+ int i915_pmu_init(void)
+ {
+ 	int ret;
+@@ -1219,30 +1256,6 @@ void i915_pmu_exit(void)
+ 		cpuhp_remove_multi_state(cpuhp_slot);
+ }
+ 
+-static int i915_pmu_register_cpuhp_state(struct i915_pmu *pmu)
+-{
+-	if (cpuhp_slot == CPUHP_INVALID)
+-		return -EINVAL;
+-
+-	return cpuhp_state_add_instance(cpuhp_slot, &pmu->cpuhp.node);
+-}
+-
+-static void i915_pmu_unregister_cpuhp_state(struct i915_pmu *pmu)
+-{
+-	cpuhp_state_remove_instance(cpuhp_slot, &pmu->cpuhp.node);
+-}
+-
+-static bool is_igp(struct drm_i915_private *i915)
+-{
+-	struct pci_dev *pdev = to_pci_dev(i915->drm.dev);
+-
+-	/* IGP is 0000:00:02.0 */
+-	return pci_domain_nr(pdev->bus) == 0 &&
+-	       pdev->bus->number == 0 &&
+-	       PCI_SLOT(pdev->devfn) == 2 &&
+-	       PCI_FUNC(pdev->devfn) == 0;
+-}
+-
+ void i915_pmu_register(struct drm_i915_private *i915)
+ {
+ 	struct i915_pmu *pmu = &i915->pmu;
+@@ -1341,12 +1354,5 @@ void i915_pmu_unregister(struct drm_i915_private *i915)
+ 
+ 	hrtimer_cancel(&pmu->timer);
+ 
+-	i915_pmu_unregister_cpuhp_state(pmu);
+-
+-	perf_pmu_unregister(&pmu->base);
+-	pmu->base.event_init = NULL;
+-	kfree(pmu->base.attr_groups);
+-	if (!is_igp(i915))
+-		kfree(pmu->name);
+-	free_event_attributes(pmu);
++	pmu_teardown(pmu);
+ }
 -- 
-2.42.0
+2.34.1
 
