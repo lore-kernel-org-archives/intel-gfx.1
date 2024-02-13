@@ -4,24 +4,24 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DB0EDC4829A
-	for <intel-gfx@archiver.kernel.org>; Tue, 13 Feb 2024 14:28:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BF523C4829A
+	for <intel-gfx@archiver.kernel.org>; Tue, 13 Feb 2024 14:28:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3E96010E6DB;
-	Tue, 13 Feb 2024 14:28:47 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 02CD610E27D;
+	Tue, 13 Feb 2024 14:28:51 +0000 (UTC)
 Received: from 5338d5abeb45 (emeril.freedesktop.org [131.252.210.167])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D02FC10E6DB;
- Tue, 13 Feb 2024 14:28:46 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8600110E6CE;
+ Tue, 13 Feb 2024 14:28:49 +0000 (UTC)
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
-Subject: =?utf-8?q?=E2=9C=97_Fi=2ECI=2ECHECKPATCH=3A_warning_for_drm/i915=3A_Support_?=
- =?utf-8?q?replaying_GPU_hangs_with_captured_context_image?=
+Subject: =?utf-8?q?=E2=9C=97_Fi=2ECI=2ESPARSE=3A_warning_for_drm/i915=3A_Support_repl?=
+ =?utf-8?q?aying_GPU_hangs_with_captured_context_image?=
 From: Patchwork <patchwork@emeril.freedesktop.org>
 To: "Tvrtko Ursulin" <tvrtko.ursulin@linux.intel.com>
 Cc: intel-gfx@lists.freedesktop.org
-Date: Tue, 13 Feb 2024 14:28:46 -0000
-Message-ID: <170783452685.1201024.14401691198430062849@5338d5abeb45>
+Date: Tue, 13 Feb 2024 14:28:49 -0000
+Message-ID: <170783452955.1201024.10500966056776507817@5338d5abeb45>
 X-Patchwork-Hint: ignore
 References: <20240213131434.1609720-1-tvrtko.ursulin@linux.intel.com>
 In-Reply-To: <20240213131434.1609720-1-tvrtko.ursulin@linux.intel.com>
@@ -49,17 +49,8 @@ State : warning
 
 == Summary ==
 
-Error: dim checkpatch failed
-53cbd1a9087f drm/i915: Support replaying GPU hangs with captured context image
--:354: CHECK:PARENTHESIS_ALIGNMENT: Alignment should match open parenthesis
-#354: FILE: drivers/gpu/drm/i915/i915_params.c:139:
-+i915_param_named(enable_debug_only_api, bool, 0400,
-+	"Enable support for unstable debug only userspace API. (default:false)");
-
--:370: WARNING:LONG_LINE: line length of 110 exceeds 100 columns
-#370: FILE: drivers/gpu/drm/i915/i915_params.h:68:
-+	param(bool, enable_debug_only_api, false, IS_ENABLED(CONFIG_DRM_I915_REPLAY_GPU_HANGS_API) ? 0400 : 0)
-
-total: 0 errors, 1 warnings, 1 checks, 320 lines checked
+Error: dim sparse failed
+Sparse version: v0.6.2
+Fast mode used, each commit won't be checked separately.
 
 
