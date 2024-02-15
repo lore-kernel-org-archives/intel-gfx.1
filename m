@@ -4,47 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 617D1C48BEB
-	for <intel-gfx@archiver.kernel.org>; Thu, 15 Feb 2024 10:50:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 12C16C48BEF
+	for <intel-gfx@archiver.kernel.org>; Thu, 15 Feb 2024 10:50:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CAA5810E57F;
-	Thu, 15 Feb 2024 10:50:16 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 55E2A10E5C6;
+	Thu, 15 Feb 2024 10:50:18 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="fzextqTT";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="T/uRabqq";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.14])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8F25010E5C6
- for <intel-gfx@lists.freedesktop.org>; Thu, 15 Feb 2024 10:50:12 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EA02410E4A2
+ for <intel-gfx@lists.freedesktop.org>; Thu, 15 Feb 2024 10:50:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1707994213; x=1739530213;
+ t=1707994210; x=1739530210;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=R4PPcQL9EpjkXxEkgdzSizxrFr9Xw8kBDv/ORTw2PBE=;
- b=fzextqTTyksPAyG07HeMAoRHA6gpwzThrz6ZfS4JDiJUKJdA7EdLki6/
- 4hW8uRrd/460A1949BA6R0EVCoa5e/r7P2kL9k5EVcECmb6+Kr9XVq6jg
- eA/Ge8yMKWOqpkscP0FTMbDznP9VLawNtnHIipBhiz1Gd7qzZn/OftAdS
- K+mq7YbM0qMHM5PO48+tRBxJ9V/Lrfaoa7j1OpYzLKmaRv+zqF9MYX4u1
- AUjRTtGSK85bARpbzjSyUaSP/iBlw1BLwlRGrTXdkWhEJVXxRojaaBlJX
- S7Bcxw3ORWFX3QpTn5XD3vD5NKDXocU6cP73iysnt5iofRPIXurb94nob g==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10984"; a="2219025"
+ bh=7BIndOrIqXaHJhExlfB10v03xcC+GtfztMgk5xn/Z14=;
+ b=T/uRabqq9R2ih/dX9nckc3ehBem3wtcHdCPK2ZK/KCVIyw00gA1uAs9x
+ DBpj+EdzgehGG3sjnJQDBQKDhF9WIQUNUIvkpRuYxYogE+yuq7LdVFcO7
+ NlzkfqoAUdcJX8335/dES6YJs/e/kDG1/NBoDgydbZdHu+OOtUCELcf1A
+ HFbjgsHyiZwt/epX0UYYH5ingWLa3V0BS7nBnRMivzdJJ74Kmy2bN+bfl
+ RIo0jh1+G1mViVHMY8utTwRhAhsywfty6Ds1UikMZyK/FQKQd1ACOuM/s
+ tIoqoi5rsl6r62Wyu6O6mRdAw56VI6QKbFxcmAdXbIOMlZ9vTt7C+5tEJ g==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10984"; a="2219017"
 X-IronPort-AV: E=Sophos;i="6.06,161,1705392000"; 
-   d="scan'208";a="2219025"
+   d="scan'208";a="2219017"
 Received: from fmviesa002.fm.intel.com ([10.60.135.142])
  by fmvoesa108.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 15 Feb 2024 02:50:12 -0800
+ 15 Feb 2024 02:50:10 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.06,161,1705392000"; d="scan'208";a="26653252"
+X-IronPort-AV: E=Sophos;i="6.06,161,1705392000"; d="scan'208";a="26653241"
 Received: from marquiz-desk-2.fi.intel.com (HELO jhogande-mobl1.fi.intel.com)
  ([10.237.72.63])
  by fmviesa002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 15 Feb 2024 02:50:11 -0800
+ 15 Feb 2024 02:50:08 -0800
 From: =?UTF-8?q?Jouni=20H=C3=B6gander?= <jouni.hogander@intel.com>
 To: intel-gfx@lists.freedesktop.org
 Cc: =?UTF-8?q?Jouni=20H=C3=B6gander?= <jouni.hogander@intel.com>
-Subject: [PATCH 6/6] drm/i915/psr: Enable ALPM for eDP Panel replay
-Date: Thu, 15 Feb 2024 12:49:34 +0200
-Message-Id: <20240215104934.2395239-7-jouni.hogander@intel.com>
+Subject: [PATCH 4/6] drm/i915/psr: Silence period and lfps half cycle
+Date: Thu, 15 Feb 2024 12:49:32 +0200
+Message-Id: <20240215104934.2395239-5-jouni.hogander@intel.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20240215104934.2395239-1-jouni.hogander@intel.com>
 References: <20240215104934.2395239-1-jouni.hogander@intel.com>
@@ -67,80 +67,139 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Enable ALPM AUX-Less for Panel Replay eDP. Also write all calculated
-AUX-Less configuration values accordingly.
+Add get function for silence period and lfps half cycle. Values are taken
+from the tables in bspec.
 
-Bspec: 71477
+Bspec: 71632
 
 Signed-off-by: Jouni Högander <jouni.hogander@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_psr.c | 42 +++++++++++++++++++++---
- 1 file changed, 38 insertions(+), 4 deletions(-)
+ .../drm/i915/display/intel_display_types.h    |  2 +
+ drivers/gpu/drm/i915/display/intel_psr.c      | 77 ++++++++++++++++++-
+ 2 files changed, 77 insertions(+), 2 deletions(-)
 
+diff --git a/drivers/gpu/drm/i915/display/intel_display_types.h b/drivers/gpu/drm/i915/display/intel_display_types.h
+index df82551a3f42..1bb72e606367 100644
+--- a/drivers/gpu/drm/i915/display/intel_display_types.h
++++ b/drivers/gpu/drm/i915/display/intel_display_types.h
+@@ -1723,6 +1723,8 @@ struct intel_psr {
+ 		u8 check_entry_lines;
+ 		u8 aux_less_wake_lines;
+ 		u8 switch_to_active_lines;
++		u8 silence_period_sym_clocks;
++		u8 lfps_half_cycle_num_of_syms;
+ 	} alpm_parameters;
+ 
+ 	ktime_t last_entry_attempt;
 diff --git a/drivers/gpu/drm/i915/display/intel_psr.c b/drivers/gpu/drm/i915/display/intel_psr.c
-index 8385d8172b27..a7faea61952e 100644
+index 4cefb9ada5db..8385d8172b27 100644
 --- a/drivers/gpu/drm/i915/display/intel_psr.c
 +++ b/drivers/gpu/drm/i915/display/intel_psr.c
-@@ -1705,14 +1705,39 @@ static void lnl_alpm_configure(struct intel_dp *intel_dp)
- 	struct drm_i915_private *dev_priv = dp_to_i915(intel_dp);
- 	enum transcoder cpu_transcoder = intel_dp->psr.transcoder;
- 	struct intel_psr *psr = &intel_dp->psr;
-+	u32 alpm_ctl;
- 
- 	if (DISPLAY_VER(dev_priv) < 20)
- 		return;
- 
--	intel_de_write(dev_priv, ALPM_CTL(cpu_transcoder),
--		       ALPM_CTL_EXTENDED_FAST_WAKE_ENABLE |
--		       ALPM_CTL_ALPM_ENTRY_CHECK(psr->alpm_parameters.check_entry_lines) |
--		       ALPM_CTL_EXTENDED_FAST_WAKE_TIME(psr->alpm_parameters.fast_wake_lines));
-+	alpm_ctl = ALPM_CTL_EXTENDED_FAST_WAKE_ENABLE |
-+		ALPM_CTL_ALPM_ENTRY_CHECK(psr->alpm_parameters.check_entry_lines) |
-+		ALPM_CTL_EXTENDED_FAST_WAKE_TIME(psr->alpm_parameters.fast_wake_lines);
-+
-+	if (intel_dp->psr.panel_replay_enabled && intel_dp_is_edp(intel_dp)) {
-+		alpm_ctl |= ALPM_CTL_ALPM_ENABLE | ALPM_CTL_ALPM_AUX_LESS_ENABLE;
-+
-+		intel_de_write(dev_priv, ALPM_CTL2(cpu_transcoder),
-+			       ALPM_CTL2_SWITCH_TO_ACTIVE_LATENCY(
-+				       psr->alpm_parameters.switch_to_active_lines));
-+
-+		intel_de_write(dev_priv, PORT_ALPM_CTL(cpu_transcoder),
-+			       PORT_ALPM_CTL_ALPM_AUX_LESS_ENABLE |
-+			       PORT_ALPM_CTL_MAX_PHY_SWING_SETUP(15) |
-+			       PORT_ALPM_CTL_SILENCE_PERIOD(
-+				       psr->alpm_parameters.silence_period_sym_clocks));
-+
-+		intel_de_write(dev_priv, PORT_ALPM_LFPS_CTL(cpu_transcoder),
-+			       PORT_ALPM_LFPS_CTL_LFPS_CYCLE_COUNT(10) |
-+			       PORT_ALPM_LFPS_CTL_LFPS_HALF_CYCLE_DURATION(
-+				       psr->alpm_parameters.lfps_half_cycle_num_of_syms) |
-+			       PORT_ALPM_LFPS_CTL_FIRST_LFPS_HALF_CYCLE_DURATION(
-+				       psr->alpm_parameters.lfps_half_cycle_num_of_syms) |
-+			       PORT_ALPM_LFPS_CTL_LAST_LFPS_HALF_CYCLE_DURATION(
-+				       psr->alpm_parameters.lfps_half_cycle_num_of_syms));
-+	}
-+
-+	intel_de_write(dev_priv, ALPM_CTL(cpu_transcoder), alpm_ctl);
+@@ -1126,6 +1126,72 @@ static bool _compute_psr2_sdp_prior_scanline_indication(struct intel_dp *intel_d
+ 	return true;
  }
  
- static void intel_psr_enable_source(struct intel_dp *intel_dp,
-@@ -1983,6 +2008,15 @@ static void intel_psr_disable_locked(struct intel_dp *intel_dp)
- 
- 	intel_snps_phy_update_psr_power_state(dev_priv, phy, false);
- 
-+	if (intel_dp->psr.panel_replay_enabled && intel_dp_is_edp(intel_dp)) {
-+		intel_de_rmw(dev_priv, ALPM_CTL(cpu_transcoder),
-+			     ALPM_CTL_ALPM_ENABLE |
-+			     ALPM_CTL_ALPM_AUX_LESS_ENABLE, 0);
-+
-+		intel_de_rmw(dev_priv, PORT_ALPM_CTL(cpu_transcoder),
-+			     PORT_ALPM_CTL_ALPM_AUX_LESS_ENABLE, 0);
++/*
++ * See Bspec: 71632 for the table
++ *
++ * Silence_period = tSilence,Min + ((tSilence,Max - tSilence,Min) / 2)
++ *
++ * Half cycle duration:
++ *
++ * Link rates 1.62 - 4.32 and tLFPS = 70 ns
++ * FLOOR( (Link Rate * tLFPS_Cycle) / (2 * 10) )
++ *
++ * Link rates 5.4 - 8.1
++ * FLOOR( LFPS Period in Symbol clocks /
++ * (2 * PORT_ALPM_LFPS_CTL[ LFPS Cycle Count ]) )
++ */
++static bool _lnl_get_silence_period_and_lfps_half_cycle(int link_rate,
++							int *silence_period,
++							int *lfps_half_cycle)
++{
++	switch (link_rate) {
++	case 162000:
++		*silence_period = 20;
++		*lfps_half_cycle = 5;
++		break;
++	case 216000:
++		*silence_period = 27;
++		*lfps_half_cycle = 7;
++		break;
++	case 243000:
++		*silence_period = 31;
++		*lfps_half_cycle = 8;
++		break;
++	case 270000:
++		*silence_period = 34;
++		*lfps_half_cycle = 9;
++		break;
++	case 324000:
++		*silence_period = 41;
++		*lfps_half_cycle = 11;
++		break;
++	case 432000:
++		*silence_period = 56;
++		*lfps_half_cycle = 15;
++		break;
++	case 540000:
++		*silence_period = 69;
++		*lfps_half_cycle = 12;
++		break;
++	case 648000:
++		*silence_period = 84;
++		*lfps_half_cycle = 15;
++		break;
++	case 675000:
++		*silence_period = 87;
++		*lfps_half_cycle = 15;
++		break;
++	case 810000:
++		*silence_period = 104;
++		*lfps_half_cycle = 19;
++		break;
++	default:
++		*silence_period = *lfps_half_cycle = -1;
++		return false;
 +	}
++	return true;
++}
 +
- 	/* Disable PSR on Sink */
- 	drm_dp_dpcd_writeb(&intel_dp->aux, DP_PSR_EN_CFG, 0);
+ /*
+  * AUX-Less Wake Time = CEILING( ((PHY P2 to P0) + tLFPS_Period, Max+
+  * tSilence, Max+ tPHY Establishment + tCDS) / tline)
+@@ -1170,7 +1236,8 @@ static int _lnl_compute_aux_less_alpm_params(struct intel_dp *intel_dp,
+ 					     struct intel_crtc_state *crtc_state)
+ {
+ 	struct drm_i915_private *i915 = dp_to_i915(intel_dp);
+-	int aux_less_wake_time, aux_less_wake_lines, switch_to_active_lines;
++	int aux_less_wake_time, aux_less_wake_lines, switch_to_active_lines,
++		silence_period, lfps_half_cycle;
  
+ 	aux_less_wake_time =
+ 		_lnl_compute_aux_less_wake_time(crtc_state->port_clock / 1000);
+@@ -1182,7 +1249,11 @@ static int _lnl_compute_aux_less_alpm_params(struct intel_dp *intel_dp,
+ 			&crtc_state->hw.adjusted_mode,
+ 			_lnl_compute_switch_to_active_time(crtc_state->port_clock / 1000));
+ 
+-	if (aux_less_wake_lines > 32 || switch_to_active_lines > 32)
++	if (aux_less_wake_lines > 32 || switch_to_active_lines > 32 ||
++	    silence_period > 256 || silence_period < 0 ||
++	    !_lnl_get_silence_period_and_lfps_half_cycle(intel_dp->link_rate,
++							 &silence_period,
++							 &lfps_half_cycle))
+ 		return false;
+ 
+ 	if (i915->display.params.psr_safest_params) {
+@@ -1192,6 +1263,8 @@ static int _lnl_compute_aux_less_alpm_params(struct intel_dp *intel_dp,
+ 
+ 	intel_dp->psr.alpm_parameters.aux_less_wake_lines = aux_less_wake_lines;
+ 	intel_dp->psr.alpm_parameters.switch_to_active_lines = switch_to_active_lines;
++	intel_dp->psr.alpm_parameters.silence_period_sym_clocks = silence_period;
++	intel_dp->psr.alpm_parameters.lfps_half_cycle_num_of_syms = lfps_half_cycle;
+ 
+ 	return true;
+ }
 -- 
 2.34.1
 
