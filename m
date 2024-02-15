@@ -4,53 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 12C16C48BEF
-	for <intel-gfx@archiver.kernel.org>; Thu, 15 Feb 2024 10:50:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B9E75C4829E
+	for <intel-gfx@archiver.kernel.org>; Thu, 15 Feb 2024 11:01:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 55E2A10E5C6;
-	Thu, 15 Feb 2024 10:50:18 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2159910E14F;
+	Thu, 15 Feb 2024 11:01:22 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="T/uRabqq";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="Mo8ExhQZ";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.14])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EA02410E4A2
- for <intel-gfx@lists.freedesktop.org>; Thu, 15 Feb 2024 10:50:09 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 80FE410E14F
+ for <intel-gfx@lists.freedesktop.org>; Thu, 15 Feb 2024 11:01:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1707994210; x=1739530210;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=7BIndOrIqXaHJhExlfB10v03xcC+GtfztMgk5xn/Z14=;
- b=T/uRabqq9R2ih/dX9nckc3ehBem3wtcHdCPK2ZK/KCVIyw00gA1uAs9x
- DBpj+EdzgehGG3sjnJQDBQKDhF9WIQUNUIvkpRuYxYogE+yuq7LdVFcO7
- NlzkfqoAUdcJX8335/dES6YJs/e/kDG1/NBoDgydbZdHu+OOtUCELcf1A
- HFbjgsHyiZwt/epX0UYYH5ingWLa3V0BS7nBnRMivzdJJ74Kmy2bN+bfl
- RIo0jh1+G1mViVHMY8utTwRhAhsywfty6Ds1UikMZyK/FQKQd1ACOuM/s
- tIoqoi5rsl6r62Wyu6O6mRdAw56VI6QKbFxcmAdXbIOMlZ9vTt7C+5tEJ g==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10984"; a="2219017"
-X-IronPort-AV: E=Sophos;i="6.06,161,1705392000"; 
-   d="scan'208";a="2219017"
-Received: from fmviesa002.fm.intel.com ([10.60.135.142])
- by fmvoesa108.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 15 Feb 2024 02:50:10 -0800
+ t=1707994882; x=1739530882;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=GVWsYHXM+OKcPzF6CBtq+y4jkZg0qkmys1j9zGlyl6s=;
+ b=Mo8ExhQZCoiAlyLT6GHxJmOS8sN7flwTq63UUsCDrbOXfpgdi44Kg+51
+ LEok/HG/DitIZbV62T+tT9k1Wiu4ttphaG1J4lBqOL8noed7dvxGoXutN
+ t7JaNDcVXa9CT4Ox9b8bb0fY/82jqi4x7U6HVT2in6crWCxaQSvzonDkr
+ 1BknDKJfoNNt1JwlL6VzLQaiay5W5t7qCr/K7xXYgLcQ1AYpHJ4oM1WHO
+ vrrOZMPSqSJkWWb5bDZDOYH4rImnfNQmAItvUSln399PeaSVqaLJENLxP
+ M9XFZxouMBAbhFPNmWHRLTwKhVdbXEblJVqRLbGEpTrthZMdylltjKL7D A==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10984"; a="19494270"
+X-IronPort-AV: E=Sophos;i="6.06,161,1705392000"; d="scan'208";a="19494270"
+Received: from orviesa007.jf.intel.com ([10.64.159.147])
+ by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 15 Feb 2024 03:01:22 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.06,161,1705392000"; d="scan'208";a="26653241"
-Received: from marquiz-desk-2.fi.intel.com (HELO jhogande-mobl1.fi.intel.com)
- ([10.237.72.63])
- by fmviesa002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 15 Feb 2024 02:50:08 -0800
-From: =?UTF-8?q?Jouni=20H=C3=B6gander?= <jouni.hogander@intel.com>
+X-IronPort-AV: E=Sophos;i="6.06,161,1705392000"; 
+   d="scan'208";a="3820853"
+Received: from kandpal-x299-ud4-pro.iind.intel.com ([10.190.239.32])
+ by orviesa007.jf.intel.com with ESMTP; 15 Feb 2024 03:01:20 -0800
+From: Suraj Kandpal <suraj.kandpal@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Cc: =?UTF-8?q?Jouni=20H=C3=B6gander?= <jouni.hogander@intel.com>
-Subject: [PATCH 4/6] drm/i915/psr: Silence period and lfps half cycle
-Date: Thu, 15 Feb 2024 12:49:32 +0200
-Message-Id: <20240215104934.2395239-5-jouni.hogander@intel.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20240215104934.2395239-1-jouni.hogander@intel.com>
-References: <20240215104934.2395239-1-jouni.hogander@intel.com>
+Cc: jani.nikula@intel.com, uma.shankar@intel.com, ankit.k.nautiyal@intel.com,
+ Suraj Kandpal <suraj.kandpal@intel.com>
+Subject: [PATCH 00/13] HDCP MST Type1 fixes
+Date: Thu, 15 Feb 2024 16:29:06 +0530
+Message-Id: <20240215105919.1439549-1-suraj.kandpal@intel.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
 Content-Transfer-Encoding: 8bit
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -67,139 +62,44 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Add get function for silence period and lfps half cycle. Values are taken
-from the tables in bspec.
+We were seeing a blank screen whenever Type1 content was played.
+This was due to extra timing which was taken as we had moved to
+remote read and writes previously for MST scenario, which in turn
+was done as we were not able to do direct read and writes to the
+immediate downstream device.
+The correct flow should be that we talk only to the immediate
+downstream device and the rest needs to be taken care by that device.
+With this patch series we move back to direct reads and writes,
+fix the fastset setting because of which direct reads and writes to
+HDCP related DPCD register stopped working, derive hdcp structure
+correctly and increase robustability if rxcaps HDCP capability
+reporting.
 
-Bspec: 71632
+Signed-off-by: Suraj Kandpal <suraj.kandpal@intel.com>
 
-Signed-off-by: Jouni Högander <jouni.hogander@intel.com>
----
- .../drm/i915/display/intel_display_types.h    |  2 +
- drivers/gpu/drm/i915/display/intel_psr.c      | 77 ++++++++++++++++++-
- 2 files changed, 77 insertions(+), 2 deletions(-)
+Suraj Kandpal (13):
+  drm/i915/hdcp: Move to direct reads for HDCP
+  drm/i915/hdcp: Move source hdcp2 checks into its own function
+  drm/i915/hdcp: Refactor intel_dp_hdcp2_capable
+  drm/i915/hdcp: Pass drm_dp_aux to read_bcaps function
+  drm/i915/hdcp: Rename hdcp capable functions
+  drm/i915/hdcp: Add new remote capability check shim function
+  drm/i915/hdcp: HDCP Capability for the downstream device
+  drm/i915/hdcp: Remove additional timing for reading mst hdcp message
+  drm/i915/hdcp: Extract hdcp structure from correct connector
+  drm/i915/hdcp: Don't enable HDCP2.2 directly from check_link
+  drm/i915/hdcp: Don't enable HDCP1.4 directly from check_link
+  drm/i915/hdcp: Allocate stream id after HDCP AKE stage
+  drm/i915/hdcp: Read Rxcaps for robustibility
 
-diff --git a/drivers/gpu/drm/i915/display/intel_display_types.h b/drivers/gpu/drm/i915/display/intel_display_types.h
-index df82551a3f42..1bb72e606367 100644
---- a/drivers/gpu/drm/i915/display/intel_display_types.h
-+++ b/drivers/gpu/drm/i915/display/intel_display_types.h
-@@ -1723,6 +1723,8 @@ struct intel_psr {
- 		u8 check_entry_lines;
- 		u8 aux_less_wake_lines;
- 		u8 switch_to_active_lines;
-+		u8 silence_period_sym_clocks;
-+		u8 lfps_half_cycle_num_of_syms;
- 	} alpm_parameters;
- 
- 	ktime_t last_entry_attempt;
-diff --git a/drivers/gpu/drm/i915/display/intel_psr.c b/drivers/gpu/drm/i915/display/intel_psr.c
-index 4cefb9ada5db..8385d8172b27 100644
---- a/drivers/gpu/drm/i915/display/intel_psr.c
-+++ b/drivers/gpu/drm/i915/display/intel_psr.c
-@@ -1126,6 +1126,72 @@ static bool _compute_psr2_sdp_prior_scanline_indication(struct intel_dp *intel_d
- 	return true;
- }
- 
-+/*
-+ * See Bspec: 71632 for the table
-+ *
-+ * Silence_period = tSilence,Min + ((tSilence,Max - tSilence,Min) / 2)
-+ *
-+ * Half cycle duration:
-+ *
-+ * Link rates 1.62 - 4.32 and tLFPS = 70 ns
-+ * FLOOR( (Link Rate * tLFPS_Cycle) / (2 * 10) )
-+ *
-+ * Link rates 5.4 - 8.1
-+ * FLOOR( LFPS Period in Symbol clocks /
-+ * (2 * PORT_ALPM_LFPS_CTL[ LFPS Cycle Count ]) )
-+ */
-+static bool _lnl_get_silence_period_and_lfps_half_cycle(int link_rate,
-+							int *silence_period,
-+							int *lfps_half_cycle)
-+{
-+	switch (link_rate) {
-+	case 162000:
-+		*silence_period = 20;
-+		*lfps_half_cycle = 5;
-+		break;
-+	case 216000:
-+		*silence_period = 27;
-+		*lfps_half_cycle = 7;
-+		break;
-+	case 243000:
-+		*silence_period = 31;
-+		*lfps_half_cycle = 8;
-+		break;
-+	case 270000:
-+		*silence_period = 34;
-+		*lfps_half_cycle = 9;
-+		break;
-+	case 324000:
-+		*silence_period = 41;
-+		*lfps_half_cycle = 11;
-+		break;
-+	case 432000:
-+		*silence_period = 56;
-+		*lfps_half_cycle = 15;
-+		break;
-+	case 540000:
-+		*silence_period = 69;
-+		*lfps_half_cycle = 12;
-+		break;
-+	case 648000:
-+		*silence_period = 84;
-+		*lfps_half_cycle = 15;
-+		break;
-+	case 675000:
-+		*silence_period = 87;
-+		*lfps_half_cycle = 15;
-+		break;
-+	case 810000:
-+		*silence_period = 104;
-+		*lfps_half_cycle = 19;
-+		break;
-+	default:
-+		*silence_period = *lfps_half_cycle = -1;
-+		return false;
-+	}
-+	return true;
-+}
-+
- /*
-  * AUX-Less Wake Time = CEILING( ((PHY P2 to P0) + tLFPS_Period, Max+
-  * tSilence, Max+ tPHY Establishment + tCDS) / tline)
-@@ -1170,7 +1236,8 @@ static int _lnl_compute_aux_less_alpm_params(struct intel_dp *intel_dp,
- 					     struct intel_crtc_state *crtc_state)
- {
- 	struct drm_i915_private *i915 = dp_to_i915(intel_dp);
--	int aux_less_wake_time, aux_less_wake_lines, switch_to_active_lines;
-+	int aux_less_wake_time, aux_less_wake_lines, switch_to_active_lines,
-+		silence_period, lfps_half_cycle;
- 
- 	aux_less_wake_time =
- 		_lnl_compute_aux_less_wake_time(crtc_state->port_clock / 1000);
-@@ -1182,7 +1249,11 @@ static int _lnl_compute_aux_less_alpm_params(struct intel_dp *intel_dp,
- 			&crtc_state->hw.adjusted_mode,
- 			_lnl_compute_switch_to_active_time(crtc_state->port_clock / 1000));
- 
--	if (aux_less_wake_lines > 32 || switch_to_active_lines > 32)
-+	if (aux_less_wake_lines > 32 || switch_to_active_lines > 32 ||
-+	    silence_period > 256 || silence_period < 0 ||
-+	    !_lnl_get_silence_period_and_lfps_half_cycle(intel_dp->link_rate,
-+							 &silence_period,
-+							 &lfps_half_cycle))
- 		return false;
- 
- 	if (i915->display.params.psr_safest_params) {
-@@ -1192,6 +1263,8 @@ static int _lnl_compute_aux_less_alpm_params(struct intel_dp *intel_dp,
- 
- 	intel_dp->psr.alpm_parameters.aux_less_wake_lines = aux_less_wake_lines;
- 	intel_dp->psr.alpm_parameters.switch_to_active_lines = switch_to_active_lines;
-+	intel_dp->psr.alpm_parameters.silence_period_sym_clocks = silence_period;
-+	intel_dp->psr.alpm_parameters.lfps_half_cycle_num_of_syms = lfps_half_cycle;
- 
- 	return true;
- }
+ .../drm/i915/display/intel_display_debugfs.c  |  21 +-
+ .../drm/i915/display/intel_display_types.h    |  12 +-
+ drivers/gpu/drm/i915/display/intel_dp_hdcp.c  | 137 +++++++----
+ drivers/gpu/drm/i915/display/intel_hdcp.c     | 227 +++++++++---------
+ drivers/gpu/drm/i915/display/intel_hdcp.h     |   7 +-
+ drivers/gpu/drm/i915/display/intel_hdmi.c     |   6 +-
+ 6 files changed, 229 insertions(+), 181 deletions(-)
+
 -- 
-2.34.1
+2.25.1
 
