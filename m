@@ -4,28 +4,27 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0078CC48BF8
-	for <intel-gfx@archiver.kernel.org>; Mon, 19 Feb 2024 16:04:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D8D20C48BF8
+	for <intel-gfx@archiver.kernel.org>; Mon, 19 Feb 2024 16:12:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4BCA510E1E9;
-	Mon, 19 Feb 2024 16:04:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 04A6C10E2BE;
+	Mon, 19 Feb 2024 16:12:35 +0000 (UTC)
 Received: from 8e613ede5ea5 (emeril.freedesktop.org [131.252.210.167])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EE09E10E11C;
- Mon, 19 Feb 2024 16:04:00 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 01A7A10E2BE;
+ Mon, 19 Feb 2024 16:12:34 +0000 (UTC)
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
-Subject: =?utf-8?q?=E2=9C=97_Fi=2ECI=2ESPARSE=3A_warning_for_drm/i915/cdclk=3A_Rename?=
- =?utf-8?q?_intel=5Fcdclk=5Fneeds=5Fmodeset_to_intel=5Fcdclk=5Fclock=5Fchang?=
- =?utf-8?q?ed_=28rev2=29?=
+Subject: =?utf-8?q?=E2=9C=97_Fi=2ECI=2EBUILD=3A_failure_for_drm/i915/display=3A_Allow?=
+ =?utf-8?q?_tighter_hblank_span?=
 From: Patchwork <patchwork@emeril.freedesktop.org>
-To: "Gustavo Sousa" <gustavo.sousa@intel.com>
+To: "Bas S" <schalbroeck@gmail.com>
 Cc: intel-gfx@lists.freedesktop.org
-Date: Mon, 19 Feb 2024 16:04:00 -0000
-Message-ID: <170835864097.89216.16049790029958768351@8e613ede5ea5>
+Date: Mon, 19 Feb 2024 16:12:34 -0000
+Message-ID: <170835915400.89494.15737872911734703238@8e613ede5ea5>
 X-Patchwork-Hint: ignore
-References: <20240214202719.298407-2-gustavo.sousa@intel.com>
-In-Reply-To: <20240214202719.298407-2-gustavo.sousa@intel.com>
+References: <CAAuj=_fEjHCsGYzdA20LvP_292oaTHEC4PE4uNFdWHE4UkBMJw@mail.gmail.com>
+In-Reply-To: <CAAuj=_fEjHCsGYzdA20LvP_292oaTHEC4PE4uNFdWHE4UkBMJw@mail.gmail.com>
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -44,14 +43,21 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 == Series Details ==
 
-Series: drm/i915/cdclk: Rename intel_cdclk_needs_modeset to intel_cdclk_clock_changed (rev2)
-URL   : https://patchwork.freedesktop.org/series/129908/
-State : warning
+Series: drm/i915/display: Allow tighter hblank span
+URL   : https://patchwork.freedesktop.org/series/130071/
+State : failure
 
 == Summary ==
 
-Error: dim sparse failed
-Sparse version: v0.6.2
-Fast mode used, each commit won't be checked separately.
+Error: patch https://patchwork.freedesktop.org/api/1.0/series/130071/revisions/1/mbox/ not applied
+Applying: drm/i915/display: Allow tighter hblank span
+error: git diff header lacks filename information when removing 1 leading pathname component (line 11)
+error: could not build fake ancestor
+hint: Use 'git am --show-current-patch=diff' to see the failed patch
+Patch failed at 0001 drm/i915/display: Allow tighter hblank span
+When you have resolved this problem, run "git am --continue".
+If you prefer to skip this patch, run "git am --skip" instead.
+To restore the original branch and stop patching, run "git am --abort".
+Build failed, no error log produced
 
 
