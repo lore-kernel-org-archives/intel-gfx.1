@@ -4,57 +4,63 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B8A75C48BC3
-	for <intel-gfx@archiver.kernel.org>; Mon, 19 Feb 2024 12:45:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5580EC48BF8
+	for <intel-gfx@archiver.kernel.org>; Mon, 19 Feb 2024 12:52:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5633A10E408;
-	Mon, 19 Feb 2024 12:45:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D761110E3B6;
+	Mon, 19 Feb 2024 12:52:28 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="q7I5AxEf";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="Dx8i0g1o";
 	dkim-atps=neutral
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 14E7810E406;
- Mon, 19 Feb 2024 12:45:22 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id 2CAA460D17;
- Mon, 19 Feb 2024 12:45:21 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D01E4C433C7;
- Mon, 19 Feb 2024 12:45:20 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1708346720;
- bh=e7mMUZWo5YhuNllD0gWdAThtgZfQ0LlGszn85q+IdWA=;
- h=References:In-Reply-To:From:Date:Subject:To:List-Id:Cc:From;
- b=q7I5AxEfybMWMtzLcv0UyKmUK/eiKX2W50PG7bd+c+3K2AhREBxkbkIwOfPTkZ+0h
- dn+MOTT2Hv8SvLZ654j7GrQH4sKxWbgTrQTTT2L8/0VXIAcqTH1UAJpD+KbvokyvUV
- Kd59dh964EQdDOJAqOMAcbtQ9NYpeiYUrVVfze7u7fS9qI1iDZEvzkhEyCFSfjaZJq
- i7BR1+dw+R/QcHQzYBnJfwSI7o+pJf2w2/LkmtEivmAxMnSFw9HYWEkjslPa0KEsVZ
- dmNwU3LNe9zObwB0QrPiV5/fmSrLAbs5FA+3/DvR43w5O9CpfMiedS9Czc0qESi6zU
- /5K1KnXLz3Uag==
-Received: by mail-yw1-f176.google.com with SMTP id
- 00721157ae682-607e54b6cf5so24163547b3.0; 
- Mon, 19 Feb 2024 04:45:20 -0800 (PST)
-X-Forwarded-Encrypted: i=1;
- AJvYcCVE2kZwyR7Mj/VGZa6chrpLRDcZSfQ4PAEcaZA7u6DaJfOn/4gDjY/DEQ3t3CVqxfFTBDaUhqrj73f4hJf7IWbESPvo6D+BH3YtzR/Jk2Nxk7oYszVXX+iLTvzYq3HlUJ3sn0o6aHgSjMfYgdBL0pg=
-X-Gm-Message-State: AOJu0Yz/W6pCHEJJYdJ+BhCNPJ1Dy05hDzvVt2TkSS8Sx8GUhdN1IWx8
- wvfrgk3iRnwssn4cwTSh6fxO4fCA0VXDs4W4gLx38Jr9Rv3LfXJEMGXF/8Rje67ogKeWvy+XiV1
- zYmXPAtm7Ylf4B4XcyDxuth9jFN8=
-X-Google-Smtp-Source: AGHT+IHAEON4SmS+VCfUEs2H9U/jtJ7Y0XtxYH/deQXiTkty4ZCsoxuXH4akdX+WS2DHCO8grV04bfm+LWTnUSEd6Ko=
-X-Received: by 2002:a81:920f:0:b0:604:de1c:5406 with SMTP id
- j15-20020a81920f000000b00604de1c5406mr7828698ywg.8.1708346720010; Mon, 19 Feb
- 2024 04:45:20 -0800 (PST)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.17])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EF9C710E3B2;
+ Mon, 19 Feb 2024 12:52:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1708347147; x=1739883147;
+ h=message-id:date:mime-version:subject:from:to:cc:
+ references:in-reply-to:content-transfer-encoding;
+ bh=FIPs4cSCU7UDVxAsSC27DXIevk1DU8cnIgqbECTLFhc=;
+ b=Dx8i0g1og0iY4tqcFNnnOlYjam4cKmEYyfKJ2MRUHXMrXbdxmRgZK9gj
+ d9Ya6EVSL/Nl5nHjhKTmQ9isAhL0uTC5Cpm86uEMAXvWSRyoDASxXhEkw
+ N3FZ5uf5geNDLkBOAt5CGamvRXbpUjYNks4rl2m7mTAOJwWPZxZ4Cc8f+
+ rHETRArZROnWI61TfKBKYeOMr3OrQIFerk69CLbK/t0dKKr9fUD1XoPIe
+ 7mEG4rojCQb/ix0RSuGZzYxUoRcVov9wNBw1PHIdeiPCp9gr8EFfkIsln
+ 5abDXiXVekb/8qasozh4Ja2gtA2jUafgHP6gpjtdM4zeiQPj82ZH6esjj g==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10988"; a="2547455"
+X-IronPort-AV: E=Sophos;i="6.06,170,1705392000"; 
+   d="scan'208";a="2547455"
+Received: from fmsmga001.fm.intel.com ([10.253.24.23])
+ by orvoesa109.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 19 Feb 2024 04:52:26 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6600,9927,10988"; a="936288318"
+X-IronPort-AV: E=Sophos;i="6.06,170,1705392000"; d="scan'208";a="936288318"
+Received: from coldacre-mobl1.ger.corp.intel.com (HELO [10.213.215.68])
+ ([10.213.215.68])
+ by fmsmga001-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 19 Feb 2024 04:51:46 -0800
+Message-ID: <c63a2d0e-fc57-4252-ad3d-2aa7615e062d@linux.intel.com>
+Date: Mon, 19 Feb 2024 12:51:44 +0000
 MIME-Version: 1.0
-References: <20240216211432.519411-1-John.C.Harrison@Intel.com>
-In-Reply-To: <20240216211432.519411-1-John.C.Harrison@Intel.com>
-From: Josh Boyer <jwboyer@kernel.org>
-Date: Mon, 19 Feb 2024 07:45:09 -0500
-X-Gmail-Original-Message-ID: <CA+5PVA4HNHBpR_5LBi8KbE3artRf6WZUMFXTR_myiDhm58YXkA@mail.gmail.com>
-Message-ID: <CA+5PVA4HNHBpR_5LBi8KbE3artRf6WZUMFXTR_myiDhm58YXkA@mail.gmail.com>
-Subject: Re: PR for new GuC v70.20.0 binaries
-To: John.C.Harrison@intel.com
-Cc: linux-firmware@kernel.org, kyle@kernel.org, ben@decadent.org.uk, 
- intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 2/2] drm/i915/gt: Set default CCS mode '1'
+Content-Language: en-US
+From: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
+To: Andi Shyti <andi.shyti@linux.intel.com>,
+ intel-gfx <intel-gfx@lists.freedesktop.org>,
+ dri-devel <dri-devel@lists.freedesktop.org>
+Cc: Chris Wilson <chris.p.wilson@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Matt Roper <matthew.d.roper@intel.com>, stable@vger.kernel.org,
+ Andi Shyti <andi.shyti@kernel.org>
+References: <20240215135924.51705-1-andi.shyti@linux.intel.com>
+ <20240215135924.51705-3-andi.shyti@linux.intel.com>
+ <d61391f6-ff1d-4241-bd9e-2a3bee53c860@linux.intel.com>
+Organization: Intel Corporation UK Plc
+In-Reply-To: <d61391f6-ff1d-4241-bd9e-2a3bee53c860@linux.intel.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,41 +76,153 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Fri, Feb 16, 2024 at 4:16=E2=80=AFPM <John.C.Harrison@intel.com> wrote:
->
-> The following changes since commit fbef4d381e3d0143427e1a8c924be8e738c0fc=
-2d:
->
->   Merge branch 'main' into 'main' (2024-02-08 12:24:01 +0000)
->
-> are available in the Git repository at:
->
->   git://anongit.freedesktop.org/drm/drm-firmware guc_70.20.0
 
-Merged and pushed out.
+On 19/02/2024 11:16, Tvrtko Ursulin wrote:
+> 
+> On 15/02/2024 13:59, Andi Shyti wrote:
+>> Since CCS automatic load balancing is disabled, we will impose a
+>> fixed balancing policy that involves setting all the CCS engines
+>> to work together on the same load.
+>>
+>> Simultaneously, the user will see only 1 CCS rather than the
+>> actual number. As of now, this change affects only DG2.
+>>
+>> Fixes: d2eae8e98d59 ("drm/i915/dg2: Drop force_probe requirement")
+>> Signed-off-by: Andi Shyti <andi.shyti@linux.intel.com>
+>> Cc: Chris Wilson <chris.p.wilson@linux.intel.com>
+>> Cc: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
+>> Cc: Matt Roper <matthew.d.roper@intel.com>
+>> Cc: <stable@vger.kernel.org> # v6.2+
+>> ---
+>>   drivers/gpu/drm/i915/gt/intel_gt.c      | 11 +++++++++++
+>>   drivers/gpu/drm/i915/gt/intel_gt_regs.h |  2 ++
+>>   drivers/gpu/drm/i915/i915_drv.h         | 17 +++++++++++++++++
+>>   drivers/gpu/drm/i915/i915_query.c       |  5 +++--
+>>   4 files changed, 33 insertions(+), 2 deletions(-)
+>>
+>> diff --git a/drivers/gpu/drm/i915/gt/intel_gt.c 
+>> b/drivers/gpu/drm/i915/gt/intel_gt.c
+>> index a425db5ed3a2..e19df4ef47f6 100644
+>> --- a/drivers/gpu/drm/i915/gt/intel_gt.c
+>> +++ b/drivers/gpu/drm/i915/gt/intel_gt.c
+>> @@ -168,6 +168,14 @@ static void init_unused_rings(struct intel_gt *gt)
+>>       }
+>>   }
+>> +static void intel_gt_apply_ccs_mode(struct intel_gt *gt)
+>> +{
+>> +    if (!IS_DG2(gt->i915))
+>> +        return;
+>> +
+>> +    intel_uncore_write(gt->uncore, XEHP_CCS_MODE, 0);
+>> +}
+>> +
+>>   int intel_gt_init_hw(struct intel_gt *gt)
+>>   {
+>>       struct drm_i915_private *i915 = gt->i915;
+>> @@ -195,6 +203,9 @@ int intel_gt_init_hw(struct intel_gt *gt)
+>>       intel_gt_init_swizzling(gt);
+>> +    /* Configure CCS mode */
+>> +    intel_gt_apply_ccs_mode(gt);
+>> +
+>>       /*
+>>        * At least 830 can leave some of the unused rings
+>>        * "active" (ie. head != tail) after resume which
+>> diff --git a/drivers/gpu/drm/i915/gt/intel_gt_regs.h 
+>> b/drivers/gpu/drm/i915/gt/intel_gt_regs.h
+>> index cf709f6c05ae..c148113770ea 100644
+>> --- a/drivers/gpu/drm/i915/gt/intel_gt_regs.h
+>> +++ b/drivers/gpu/drm/i915/gt/intel_gt_regs.h
+>> @@ -1605,6 +1605,8 @@
+>>   #define   GEN12_VOLTAGE_MASK            REG_GENMASK(10, 0)
+>>   #define   GEN12_CAGF_MASK            REG_GENMASK(19, 11)
+>> +#define XEHP_CCS_MODE                          _MMIO(0x14804)
+>> +
+>>   #define GEN11_GT_INTR_DW(x)            _MMIO(0x190018 + ((x) * 4))
+>>   #define   GEN11_CSME                (31)
+>>   #define   GEN12_HECI_2                (30)
+>> diff --git a/drivers/gpu/drm/i915/i915_drv.h 
+>> b/drivers/gpu/drm/i915/i915_drv.h
+>> index e81b3b2858ac..0853ffd3cb8d 100644
+>> --- a/drivers/gpu/drm/i915/i915_drv.h
+>> +++ b/drivers/gpu/drm/i915/i915_drv.h
+>> @@ -396,6 +396,23 @@ static inline struct intel_gt *to_gt(const struct 
+>> drm_i915_private *i915)
+>>            (engine__); \
+>>            (engine__) = 
+>> rb_to_uabi_engine(rb_next(&(engine__)->uabi_node)))
+>> +/*
+>> + * Exclude unavailable engines.
+>> + *
+>> + * Only the first CCS engine is utilized due to the disabling of CCS 
+>> auto load
+>> + * balancing. As a result, all CCS engines operate collectively, 
+>> functioning
+>> + * essentially as a single CCS engine, hence the count of active CCS 
+>> engines is
+>> + * considered '1'.
+>> + * Currently, this applies to platforms with more than one CCS engine,
+>> + * specifically DG2.
+>> + */
+>> +#define for_each_available_uabi_engine(engine__, i915__) \
+>> +    for_each_uabi_engine(engine__, i915__) \
+>> +        if ((IS_DG2(i915__)) && \
+>> +            ((engine__)->uabi_class == I915_ENGINE_CLASS_COMPUTE) && \
+>> +            ((engine__)->uabi_instance)) { } \
+>> +        else
+>> +
+> 
+> If you don't want userspace to see some engines, just don't add them to 
+> the uabi list in intel_engines_driver_register or thereabouts?
+> 
+> Similar as we do for gsc which uses I915_NO_UABI_CLASS, although for ccs 
+> you can choose a different approach, whatever is more elegant.
+> 
+> That is also needed for i915->engine_uabi_class_count to be right, so 
+> userspace stats which rely on it are correct.
 
-https://gitlab.com/kernel-firmware/linux-firmware/-/merge_requests/156
+I later realized it is more than that - everything that uses 
+intel_engine_lookup_user to look up class instance passed in from 
+userspace relies on the engine not being on the user list otherwise 
+userspace could bypass the fact engine query does not list it. Like PMU, 
+Perf/POA, context engine map and SSEU context query.
 
-josh
+Regards,
 
->
-> for you to fetch changes up to 28c2472d37d089edb56c75e3af83511babaa756c:
->
->   xe: First GuC release for LNL and Xe (2024-02-14 16:28:32 -0800)
->
-> ----------------------------------------------------------------
-> John Harrison (2):
->       i915: Add GuC v70.20.0 for ADL-P, DG1, DG2, MTL and TGL
->       xe: First GuC release for LNL and Xe
->
->  LICENSE.xe           |  39 +++++++++++++++++++++++++++++++++++++++
->  WHENCE               |  20 ++++++++++++++------
->  i915/adlp_guc_70.bin | Bin 342848 -> 347584 bytes
->  i915/dg1_guc_70.bin  | Bin 272512 -> 321472 bytes
->  i915/dg2_guc_70.bin  | Bin 443200 -> 410368 bytes
->  i915/mtl_guc_70.bin  | Bin 365376 -> 332544 bytes
->  i915/tgl_guc_70.bin  | Bin 330304 -> 335168 bytes
->  xe/lnl_guc_70.bin    | Bin 0 -> 336640 bytes
->  8 files changed, 53 insertions(+), 6 deletions(-)
->  create mode 100644 LICENSE.xe
->  create mode 100644 xe/lnl_guc_70.bin
+Tvrtko
+
+> 
+> Regards,
+> 
+> Tvrtko
+> 
+>>   #define INTEL_INFO(i915)    ((i915)->__info)
+>>   #define RUNTIME_INFO(i915)    (&(i915)->__runtime)
+>>   #define DRIVER_CAPS(i915)    (&(i915)->caps)
+>> diff --git a/drivers/gpu/drm/i915/i915_query.c 
+>> b/drivers/gpu/drm/i915/i915_query.c
+>> index fa3e937ed3f5..2d41bda626a6 100644
+>> --- a/drivers/gpu/drm/i915/i915_query.c
+>> +++ b/drivers/gpu/drm/i915/i915_query.c
+>> @@ -124,6 +124,7 @@ static int query_geometry_subslices(struct 
+>> drm_i915_private *i915,
+>>       return fill_topology_info(sseu, query_item, 
+>> sseu->geometry_subslice_mask);
+>>   }
+>> +
+>>   static int
+>>   query_engine_info(struct drm_i915_private *i915,
+>>             struct drm_i915_query_item *query_item)
+>> @@ -140,7 +141,7 @@ query_engine_info(struct drm_i915_private *i915,
+>>       if (query_item->flags)
+>>           return -EINVAL;
+>> -    for_each_uabi_engine(engine, i915)
+>> +    for_each_available_uabi_engine(engine, i915)
+>>           num_uabi_engines++;
+>>       len = struct_size(query_ptr, engines, num_uabi_engines);
+>> @@ -155,7 +156,7 @@ query_engine_info(struct drm_i915_private *i915,
+>>       info_ptr = &query_ptr->engines[0];
+>> -    for_each_uabi_engine(engine, i915) {
+>> +    for_each_available_uabi_engine(engine, i915) {
+>>           info.engine.engine_class = engine->uabi_class;
+>>           info.engine.engine_instance = engine->uabi_instance;
+>>           info.flags = I915_ENGINE_INFO_HAS_LOGICAL_INSTANCE;
