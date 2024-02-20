@@ -4,49 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 66B2AC5475B
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B99DFC48BC4
 	for <intel-gfx@archiver.kernel.org>; Tue, 20 Feb 2024 21:19:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5048B10E592;
-	Tue, 20 Feb 2024 21:18:50 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 416BE10E591;
+	Tue, 20 Feb 2024 21:18:51 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="YfUExsVp";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="hnum7Z2O";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.16])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 37E7310E572;
- Tue, 20 Feb 2024 21:18:42 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 68E1F10E59F;
+ Tue, 20 Feb 2024 21:18:48 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1708463922; x=1739999922;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=LqkYl0zfmBuoP6ue5jQFNdiqxgJEByGKgYo9MN5RmcY=;
- b=YfUExsVp5uboaU8VvlSs5irW0cVQdfSLBpOm/7gi8wyGhzbMeWY1hs2r
- QxoAstxNvMx0YRdxt2d8yYViVW97FEAh9vBwr05s4+wLCLF4GWKeAHbOJ
- LJ39C5s6mUwo0lAGF5XI/VdIF+HM9sxodlqdDbmau/uFSUlROBB04QYuC
- Mg2HRFbF4Nlce2LoKX/0unTyF9HibN5PQtgf52ZP1qj+nJP77JfCgrbD1
- IHWAs4AQns3q5pCCjWR6ow1CNuzbRDq1b8DWrHD6ljcR63Mc7KHkdM/lT
- Wr+OxrFcQmq67Aov3P5JuMuLGYpznj+49GObOjUziackDXbAJAk8YCxC6 g==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10990"; a="2738669"
+ t=1708463929; x=1739999929;
+ h=from:to:subject:date:message-id:in-reply-to:references:
+ mime-version:content-transfer-encoding;
+ bh=BTe7GQhOeDHcOo48vdyZlV595EUjWwTAyYUtJV+/aUs=;
+ b=hnum7Z2OqVIFiRWfFmlcwHOGlx/MdjmaMJHB8MkFFbSIVUSK0ADSJNZh
+ 2jf3hDVhH/T6H0oMc6b/vllw9AdK28Df511/OssZ7uKsrJkbKeSGLFZYC
+ 92YBMHGrZCNsbDFBoRkjkVDCSONlbVAKPIHDWkTqgETT0jtuDhEZwM74x
+ GQck7OuSOAYyIvpeAYsK4wFqcwX9xsPewCCShXe5Y3AtpGQpGef2W0j7n
+ Qge4thLDUDV3i+JgWM9ArX0cMmzuICLS8YMmgIqB55sKyW8jaJS+2jWVX
+ ulmhq7t+Vbd1hgUWyf3QHVs1fDtuS97R5YqOLpTMKhQYJzoU+nGrcJ3YE A==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10990"; a="2738679"
 X-IronPort-AV: E=Sophos;i="6.06,174,1705392000"; 
-   d="scan'208";a="2738669"
+   d="scan'208";a="2738679"
 Received: from fmviesa008.fm.intel.com ([10.60.135.148])
  by orvoesa108.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 20 Feb 2024 13:18:42 -0800
+ 20 Feb 2024 13:18:48 -0800
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.06,174,1705392000"; 
-   d="scan'208";a="5061623"
+   d="scan'208";a="5061647"
 Received: from ideak-desk.fi.intel.com ([10.237.72.78])
  by fmviesa008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 20 Feb 2024 13:18:40 -0800
+ 20 Feb 2024 13:18:47 -0800
 From: Imre Deak <imre.deak@intel.com>
 To: intel-gfx@lists.freedesktop.org,
 	dri-devel@lists.freedesktop.org
-Cc: Uma Shankar <uma.shankar@intel.com>
-Subject: [PATCH v2 14/21] drm/i915/dp: Account for tunnel BW limit in
- intel_dp_max_link_data_rate()
-Date: Tue, 20 Feb 2024 23:18:34 +0200
-Message-Id: <20240220211841.448846-15-imre.deak@intel.com>
+Subject: [PATCH v2 19/21] drm/i915/dp: Suspend/resume DP tunnels
+Date: Tue, 20 Feb 2024 23:18:39 +0200
+Message-Id: <20240220211841.448846-20-imre.deak@intel.com>
 X-Mailer: git-send-email 2.39.2
 In-Reply-To: <20240220211841.448846-1-imre.deak@intel.com>
 References: <20240220211841.448846-1-imre.deak@intel.com>
@@ -67,93 +65,66 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Take any link BW limitation into account in
-intel_dp_max_link_data_rate(). Such a limitation can be due to multiple
-displays on (Thunderbolt) links with DP tunnels sharing the link BW.
+Suspend and resume DP tunnels during system suspend/resume, disabling
+the BW allocation mode during suspend, re-enabling it after resume. This
+reflects the link's BW management component (Thunderbolt CM) disabling
+BWA during suspend. Before any BW requests the driver must read the
+sink's DPRX capabilities (since the BW manager requires this
+information, so snoops for it on AUX), so ensure this read takes place.
 
 Signed-off-by: Imre Deak <imre.deak@intel.com>
-Reviewed-by: Uma Shankar <uma.shankar@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_dp.c | 32 +++++++++++++++++++++----
- 1 file changed, 28 insertions(+), 4 deletions(-)
+ drivers/gpu/drm/i915/display/intel_dp.c | 16 +++++++++++-----
+ 1 file changed, 11 insertions(+), 5 deletions(-)
 
 diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
-index d0452d3e534a7..f4f748d95ad17 100644
+index a3dfcbb710027..35ef17439038a 100644
 --- a/drivers/gpu/drm/i915/display/intel_dp.c
 +++ b/drivers/gpu/drm/i915/display/intel_dp.c
-@@ -63,6 +63,7 @@
- #include "intel_dp_hdcp.h"
- #include "intel_dp_link_training.h"
- #include "intel_dp_mst.h"
-+#include "intel_dp_tunnel.h"
- #include "intel_dpio_phy.h"
- #include "intel_dpll.h"
- #include "intel_fifo_underrun.h"
-@@ -152,6 +153,22 @@ int intel_dp_link_symbol_clock(int rate)
- 	return DIV_ROUND_CLOSEST(rate * 10, intel_dp_link_symbol_size(rate));
- }
+@@ -36,6 +36,7 @@
+ #include <asm/byteorder.h>
  
-+static int max_dprx_rate(struct intel_dp *intel_dp)
-+{
-+	if (intel_dp_tunnel_bw_alloc_is_enabled(intel_dp))
-+		return drm_dp_tunnel_max_dprx_rate(intel_dp->tunnel);
-+
-+	return drm_dp_bw_code_to_link_rate(intel_dp->dpcd[DP_MAX_LINK_RATE]);
-+}
-+
-+static int max_dprx_lane_count(struct intel_dp *intel_dp)
-+{
-+	if (intel_dp_tunnel_bw_alloc_is_enabled(intel_dp))
-+		return drm_dp_tunnel_max_dprx_lane_count(intel_dp->tunnel);
-+
-+	return drm_dp_max_lane_count(intel_dp->dpcd);
-+}
-+
- static void intel_dp_set_default_sink_rates(struct intel_dp *intel_dp)
+ #include <drm/display/drm_dp_helper.h>
++#include <drm/display/drm_dp_tunnel.h>
+ #include <drm/display/drm_dsc_helper.h>
+ #include <drm/display/drm_hdmi_helper.h>
+ #include <drm/drm_atomic_helper.h>
+@@ -3313,18 +3314,21 @@ void intel_dp_sync_state(struct intel_encoder *encoder,
+ 			 const struct intel_crtc_state *crtc_state)
  {
- 	intel_dp->sink_rates[0] = 162000;
-@@ -180,7 +197,7 @@ static void intel_dp_set_dpcd_sink_rates(struct intel_dp *intel_dp)
+ 	struct intel_dp *intel_dp = enc_to_intel_dp(encoder);
+-
+-	if (!crtc_state)
+-		return;
++	bool dpcd_updated = false;
+ 
  	/*
- 	 * Sink rates for 8b/10b.
+ 	 * Don't clobber DPCD if it's been already read out during output
+ 	 * setup (eDP) or detect.
  	 */
--	max_rate = drm_dp_bw_code_to_link_rate(intel_dp->dpcd[DP_MAX_LINK_RATE]);
-+	max_rate = max_dprx_rate(intel_dp);
- 	max_lttpr_rate = drm_dp_lttpr_max_link_rate(intel_dp->lttpr_common_caps);
- 	if (max_lttpr_rate)
- 		max_rate = min(max_rate, max_lttpr_rate);
-@@ -259,7 +276,7 @@ static void intel_dp_set_max_sink_lane_count(struct intel_dp *intel_dp)
- 	struct intel_digital_port *intel_dig_port = dp_to_dig_port(intel_dp);
- 	struct intel_encoder *encoder = &intel_dig_port->base;
+-	if (intel_dp->dpcd[DP_DPCD_REV] == 0)
++	if (crtc_state && intel_dp->dpcd[DP_DPCD_REV] == 0) {
+ 		intel_dp_get_dpcd(intel_dp);
++		dpcd_updated = true;
++	}
  
--	intel_dp->max_sink_lane_count = drm_dp_max_lane_count(intel_dp->dpcd);
-+	intel_dp->max_sink_lane_count = max_dprx_lane_count(intel_dp);
- 
- 	switch (intel_dp->max_sink_lane_count) {
- 	case 1:
-@@ -389,14 +406,21 @@ int intel_dp_effective_data_rate(int pixel_clock, int bpp_x16,
-  * @max_dprx_rate: Maximum data rate of the DPRX
-  * @max_dprx_lanes: Maximum lane count of the DPRX
-  *
-- * Calculate the maximum data rate for the provided link parameters.
-+ * Calculate the maximum data rate for the provided link parameters taking into
-+ * account any BW limitations by a DP tunnel attached to @intel_dp.
-  *
-  * Returns the maximum data rate in kBps units.
-  */
- int intel_dp_max_link_data_rate(struct intel_dp *intel_dp,
- 				int max_dprx_rate, int max_dprx_lanes)
- {
--	return drm_dp_max_dprx_data_rate(max_dprx_rate, max_dprx_lanes);
-+	int max_rate = drm_dp_max_dprx_data_rate(max_dprx_rate, max_dprx_lanes);
+-	intel_dp_reset_max_link_params(intel_dp);
++	intel_dp_tunnel_resume(intel_dp, crtc_state, dpcd_updated);
 +
-+	if (intel_dp_tunnel_bw_alloc_is_enabled(intel_dp))
-+		max_rate = min(max_rate,
-+			       drm_dp_tunnel_available_bw(intel_dp->tunnel));
-+
-+	return max_rate;
++	if (crtc_state)
++		intel_dp_reset_max_link_params(intel_dp);
  }
  
- bool intel_dp_can_bigjoiner(struct intel_dp *intel_dp)
+ bool intel_dp_initial_fastset_check(struct intel_encoder *encoder,
+@@ -5947,6 +5951,8 @@ void intel_dp_encoder_suspend(struct intel_encoder *intel_encoder)
+ 	struct intel_dp *intel_dp = enc_to_intel_dp(intel_encoder);
+ 
+ 	intel_pps_vdd_off_sync(intel_dp);
++
++	intel_dp_tunnel_suspend(intel_dp);
+ }
+ 
+ void intel_dp_encoder_shutdown(struct intel_encoder *intel_encoder)
 -- 
 2.39.2
 
