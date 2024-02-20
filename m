@@ -4,48 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2DF03C54787
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E786AC48BC4
 	for <intel-gfx@archiver.kernel.org>; Tue, 20 Feb 2024 12:11:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6099B10E3A0;
+	by gabe.freedesktop.org (Postfix) with ESMTP id D436D10E3A4;
 	Tue, 20 Feb 2024 12:11:27 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="R32Q4b+9";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="jqK+jrwE";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.9])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E604F10E391
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8304610E391
  for <intel-gfx@lists.freedesktop.org>; Tue, 20 Feb 2024 12:11:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
  t=1708431086; x=1739967086;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=hTNpEPKEePVSou+p2AgcosAh6gEACgE2tlYEXjaEH6E=;
- b=R32Q4b+9kNDWmxIdoMPahQjV/12fY24wX0bn0JrFoRLEwnJfh1+19Tuh
- QeTthwz6ti7dc66GsCOhuG+5AWLmPS7Mlu04/lbVJePiLSMO5TFvckHX8
- /gc3H05cdHj3F5z8q6Gj51jNB0chYzFMLduBkejHR11nVVHLfewjts+/T
- weszHs+yS3FqruSFjC/jbcW52uTQlRw97C6+4WuFURPIHUMQNU+p0VT8v
- ZXFfdoqshbg9WLQA6xFLHL5fIxVNI6iB9FGJeJKJWXniIljCx/I/+vDze
- gajpj0TM1gGjCFMrMMdKKIT2ECyEnPu3O4sZw/8AsDrj/VTVBuXjxcdyM A==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10989"; a="24987097"
-X-IronPort-AV: E=Sophos;i="6.06,172,1705392000"; d="scan'208";a="24987097"
+ bh=5ag9VMrEnM196EeldX7xO8GwRU6tBLER9Gy+bsyZR3g=;
+ b=jqK+jrwEMZ1XJbr7hq3mFUQ00hrVLUB90JSc2WCUBF5AHftbl70BfJsB
+ OZ7p/1UMvIBIvbPmVBJz9olU2Zu0eIsuI+EyJwZyK6f3f3PQBfG9nkZ4e
+ P0IEJYO7B4Ft/Vddv8F6IglpNJeFR0vxw0vX14T5FN1cLR3nXnVDWrsX7
+ +pezNm0CRe17/x4rZBXLdZLre3NCIzGgVA1F4TgVnnUKaSwX45MGqh0Sl
+ ocqAab88j9j+vQ1NIPuDQu6+EsuQXHlmcD7xco12h1TYyPbSOHK15bHKx
+ +NwyZqO1bm2RfG8iPpWhEaTGxIBR6vEQfcCJhs5wls2Rpd0mLbmDyt1dE Q==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10989"; a="24987094"
+X-IronPort-AV: E=Sophos;i="6.06,172,1705392000"; d="scan'208";a="24987094"
 Received: from fmviesa004.fm.intel.com ([10.60.135.144])
  by orvoesa101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 20 Feb 2024 04:11:09 -0800
+ 20 Feb 2024 04:11:06 -0800
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.06,172,1705392000"; 
-   d="scan'208";a="9378175"
+   d="scan'208";a="9378164"
 Received: from sbeleaga-mobl1.ger.corp.intel.com (HELO
  jhogande-mobl1.intel.com) ([10.249.43.237])
  by fmviesa004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 20 Feb 2024 04:11:07 -0800
+ 20 Feb 2024 04:11:04 -0800
 From: =?UTF-8?q?Jouni=20H=C3=B6gander?= <jouni.hogander@intel.com>
 To: intel-gfx@lists.freedesktop.org
 Cc: =?UTF-8?q?Jouni=20H=C3=B6gander?= <jouni.hogander@intel.com>
-Subject: [PATCH v2 6/6] drm/i915/psr: Do not write ALPM configuration for PSR1
- or DP2.0 Panel Replay
-Date: Tue, 20 Feb 2024 14:10:45 +0200
-Message-Id: <20240220121045.2156004-7-jouni.hogander@intel.com>
+Subject: [PATCH v2 4/6] drm/i915/psr: Add missing ALPM AUX-Less register
+ definitions
+Date: Tue, 20 Feb 2024 14:10:43 +0200
+Message-Id: <20240220121045.2156004-5-jouni.hogander@intel.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20240220121045.2156004-1-jouni.hogander@intel.com>
 References: <20240220121045.2156004-1-jouni.hogander@intel.com>
@@ -68,27 +68,40 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-No need to write ALPM configuration for DP2.0 Panel Replay or PSR1.
+Couple of ALPM AUX-Less related fields are missing from ALPM register
+definitions. Add these and remove some duplicate definitions.
+
+Bspec: 70294
+
+V2: add Bspec reference
 
 Signed-off-by: Jouni Högander <jouni.hogander@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_psr.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/i915/display/intel_psr_regs.h | 12 ++++++++----
+ 1 file changed, 8 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_psr.c b/drivers/gpu/drm/i915/display/intel_psr.c
-index bf410c4890f4..ed5f62f89027 100644
---- a/drivers/gpu/drm/i915/display/intel_psr.c
-+++ b/drivers/gpu/drm/i915/display/intel_psr.c
-@@ -1698,7 +1698,8 @@ static void lnl_alpm_configure(struct intel_dp *intel_dp)
- 	struct intel_psr *psr = &intel_dp->psr;
- 	u32 alpm_ctl;
+diff --git a/drivers/gpu/drm/i915/display/intel_psr_regs.h b/drivers/gpu/drm/i915/display/intel_psr_regs.h
+index 8427a736f639..b004672d1deb 100644
+--- a/drivers/gpu/drm/i915/display/intel_psr_regs.h
++++ b/drivers/gpu/drm/i915/display/intel_psr_regs.h
+@@ -348,9 +348,13 @@
+ #define PORT_ALPM_LFPS_CTL(tran)				_MMIO_TRANS2(tran, _PORT_ALPM_LFPS_CTL_A)
+ #define  PORT_ALPM_LFPS_CTL_LFPS_START_POLARITY			REG_BIT(31)
+ #define  PORT_ALPM_LFPS_CTL_LFPS_CYCLE_COUNT_MASK		REG_GENMASK(27, 24)
+-#define  ALPM_CTL_EXTENDED_FAST_WAKE_MIN_LINES		5
+-#define  ALPM_CTL_EXTENDED_FAST_WAKE_TIME(lines)	REG_FIELD_PREP(ALPM_CTL_EXTENDED_FAST_WAKE_TIME_MASK, (lines) - ALPM_CTL_EXTENDED_FAST_WAKE_MIN_LINES)
+-#define  ALPM_CTL_AUX_LESS_WAKE_TIME_MASK		REG_GENMASK(5, 0)
+-#define  ALPM_CTL_AUX_LESS_WAKE_TIME(val)		REG_FIELD_PREP(ALPM_CTL_AUX_LESS_WAKE_TIME_MASK, val)
++#define  PORT_ALPM_LFPS_CTL_LFPS_CYCLE_COUNT_MIN		7
++#define  PORT_ALPM_LFPS_CTL_LFPS_CYCLE_COUNT(val)		REG_FIELD_PREP(PORT_ALPM_LFPS_CTL_LFPS_CYCLE_COUNT_MASK, (val) - PORT_ALPM_LFPS_CTL_LFPS_CYCLE_COUNT_MIN)
++#define  PORT_ALPM_LFPS_CTL_LFPS_HALF_CYCLE_DURATION_MASK	REG_GENMASK(20, 16)
++#define  PORT_ALPM_LFPS_CTL_LFPS_HALF_CYCLE_DURATION(val)	REG_FIELD_PREP(PORT_ALPM_LFPS_CTL_LFPS_HALF_CYCLE_DURATION_MASK, val)
++#define  PORT_ALPM_LFPS_CTL_FIRST_LFPS_HALF_CYCLE_DURATION_MASK	REG_GENMASK(12, 8)
++#define  PORT_ALPM_LFPS_CTL_FIRST_LFPS_HALF_CYCLE_DURATION(val)	REG_FIELD_PREP(PORT_ALPM_LFPS_CTL_LFPS_HALF_CYCLE_DURATION_MASK, val)
++#define  PORT_ALPM_LFPS_CTL_LAST_LFPS_HALF_CYCLE_DURATION_MASK	REG_GENMASK(4, 0)
++#define  PORT_ALPM_LFPS_CTL_LAST_LFPS_HALF_CYCLE_DURATION(val)	REG_FIELD_PREP(PORT_ALPM_LFPS_CTL_LFPS_HALF_CYCLE_DURATION_MASK, val)
  
--	if (DISPLAY_VER(dev_priv) < 20)
-+	if (DISPLAY_VER(dev_priv) < 20 || (!intel_dp->psr.psr2_enabled &&
-+					   !intel_dp_is_edp(intel_dp)))
- 		return;
- 
- 	if (intel_dp->psr.panel_replay_enabled && intel_dp_is_edp(intel_dp)) {
+ #endif /* __INTEL_PSR_REGS_H__ */
 -- 
 2.34.1
 
