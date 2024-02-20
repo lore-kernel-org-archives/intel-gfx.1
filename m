@@ -4,27 +4,56 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 23979C48BC3
-	for <intel-gfx@archiver.kernel.org>; Tue, 20 Feb 2024 14:12:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4F403C48BC3
+	for <intel-gfx@archiver.kernel.org>; Tue, 20 Feb 2024 14:21:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5B67F10E436;
-	Tue, 20 Feb 2024 14:12:56 +0000 (UTC)
-Received: from 8e613ede5ea5 (emeril.freedesktop.org [131.252.210.167])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DCED710E436;
- Tue, 20 Feb 2024 14:12:54 +0000 (UTC)
-Content-Type: text/plain; charset="utf-8"
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7D44E10E45F;
+	Tue, 20 Feb 2024 14:21:05 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="fGciVtlV";
+	dkim-atps=neutral
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.21])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7012B10E45A;
+ Tue, 20 Feb 2024 14:21:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1708438864; x=1739974864;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=s28gQVWPZGE3H1osjrzS3iQPjQBdB6vAoufDHgxlyXs=;
+ b=fGciVtlVx+m8Xvqwe318uhPw6FW1Yxqu+E0ILs4yEiiiShXXdyUKZVCV
+ +tbPwmR1t5s+6/Qgg63k1gExa+LS7lYvvkGQ5uk6Lmt3GVlUDeXqXbhhz
+ R+7YV3rePdEA5bTF8VZvolGouISrJ38rJbOF4YpMGFM+9o9/JcIQC2TGM
+ AujacErnau5shqMxvaSYc05Xam+TDI1+LJHJHF/d8nMX31QJJhgdVWxKJ
+ NC9KOXfn9OCDPDnClFR44sDHaS+1NfBjm/oAP+dAqERPezfrxd8f8qZDS
+ tGZZ9jl9y0FKH4mmjFFkVSvpv2TU9uoXURsFVJ7ibFY0uYM0ta+6W+MgV g==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10989"; a="2447022"
+X-IronPort-AV: E=Sophos;i="6.06,172,1705392000"; 
+   d="scan'208";a="2447022"
+Received: from orviesa001.jf.intel.com ([10.64.159.141])
+ by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 20 Feb 2024 06:21:03 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.06,172,1705392000"; d="scan'208";a="42283459"
+Received: from alichtma-mobl.ger.corp.intel.com (HELO intel.com)
+ ([10.246.34.74])
+ by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 20 Feb 2024 06:21:00 -0800
+From: Andi Shyti <andi.shyti@linux.intel.com>
+To: intel-gfx <intel-gfx@lists.freedesktop.org>,
+ dri-devel <dri-devel@lists.freedesktop.org>
+Cc: Chris Wilson <chris.p.wilson@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Matt Roper <matthew.d.roper@intel.com>,
+ John Harrison <John.C.Harrison@Intel.com>,
+ Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>, stable@vger.kernel.org,
+ Andi Shyti <andi.shyti@linux.intel.com>, Andi Shyti <andi.shyti@kernel.org>
+Subject: [PATCH 0/2] Disable automatic load CCS load balancing
+Date: Tue, 20 Feb 2024 15:20:32 +0100
+Message-ID: <20240220142034.257370-1-andi.shyti@linux.intel.com>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: =?utf-8?q?=E2=9C=97_Fi=2ECI=2ECHECKPATCH=3A_warning_for_drm/i915/tv=3A_Fix_T?=
- =?utf-8?q?V_mode?=
-From: Patchwork <patchwork@emeril.freedesktop.org>
-To: "Maxime Ripard" <mripard@kernel.org>
-Cc: intel-gfx@lists.freedesktop.org
-Date: Tue, 20 Feb 2024 14:12:54 -0000
-Message-ID: <170843837490.125001.7586778604567392189@8e613ede5ea5>
-X-Patchwork-Hint: ignore
-References: <20240220131251.453060-1-mripard@kernel.org>
-In-Reply-To: <20240220131251.453060-1-mripard@kernel.org>
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -37,29 +66,34 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-== Series Details ==
+Hi,
 
-Series: drm/i915/tv: Fix TV mode
-URL   : https://patchwork.freedesktop.org/series/130123/
-State : warning
+this series does basically two things:
 
-== Summary ==
+1. Disables automatic load balancing as adviced by the hardware
+   workaround.
 
-Error: dim checkpatch failed
-93cae8b61e41 drm/i915/tv: Fix TV mode
--:25: WARNING:BAD_REPORTED_BY_LINK: Reported-by: should be immediately followed by Closes: with a URL to the report
-#25: 
-Reported-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
-Signed-off-by: Maxime Ripard <mripard@kernel.org>
+2. Forces the sharing of the load submitted to CCS among all the
+   CCS available (as of now only DG2 has more than one CCS). This
+   way the user, when sending a query, will see only one CCS
+   available.
 
--:73: WARNING:LONG_LINE: line length of 109 exceeds 100 columns
-#73: FILE: drivers/gpu/drm/i915/display/intel_sdvo.c:3111:
-+	intel_sdvo_connector->base.base.state->tv.legacy_mode = intel_sdvo_connector->tv_format_supported[0];
+Andi
 
-total: 0 errors, 2 warnings, 0 checks, 80 lines checked
+Andi Shyti (2):
+  drm/i915/gt: Disable HW load balancing for CCS
+  drm/i915/gt: Set default CCS mode '1'
 
+ drivers/gpu/drm/i915/gt/intel_gt.c          | 11 +++++++++++
+ drivers/gpu/drm/i915/gt/intel_gt_regs.h     |  3 +++
+ drivers/gpu/drm/i915/gt/intel_workarounds.c |  6 ++++++
+ drivers/gpu/drm/i915/i915_drv.h             | 17 +++++++++++++++++
+ drivers/gpu/drm/i915/i915_query.c           |  5 +++--
+ 5 files changed, 40 insertions(+), 2 deletions(-)
+
+-- 
+2.43.0
 
