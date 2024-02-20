@@ -4,47 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BA029C48BC3
-	for <intel-gfx@archiver.kernel.org>; Tue, 20 Feb 2024 22:17:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9BA10C48BC3
+	for <intel-gfx@archiver.kernel.org>; Tue, 20 Feb 2024 22:33:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D049A10E049;
-	Tue, 20 Feb 2024 22:17:06 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D102C10E19B;
+	Tue, 20 Feb 2024 22:33:14 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=canb.auug.org.au header.i=@canb.auug.org.au header.b="VXpgYBhe";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="KxDojBPw";
 	dkim-atps=neutral
-Received: from gandalf.ozlabs.org (gandalf.ozlabs.org [150.107.74.76])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7091B10E049;
- Tue, 20 Feb 2024 22:17:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=canb.auug.org.au;
- s=201702; t=1708467418;
- bh=MSV4s90BpjRSKLoKbRaEbAIXDqzjjF4XClQSmwPKAR8=;
- h=Date:From:To:Cc:Subject:From;
- b=VXpgYBhex2o2FnruV5bneTXRDInXqsX0RLCJuVpDR9YO67fmd7AKV90HiL/og5cKU
- FCo4HACr4asFYWJVplLipquo1iAClskjE3fRx/NxUB5M4nnJxvOKSn8XnXQRXqZMFh
- vDVWzsyUK3MP2a0uLNWiwWS63N6g8tb/7cjud11rm5XvxyLYoL6CjxEp6UHxsy+O/c
- izSGW3+GjjkY+3f0h/E7dZTZKv5NsU3FRSKpDP/c2HcgRaOLeOIc8vg6OwOZ7ib7X7
- 9JJRvJAtzXrRB1pD7ikpLd0pdLFRXNqcziqFpkWp5FK/d1KNlBnsHOvEM98tKrh6tI
- K3oCDWEcEYbag==
-Received: from authenticated.ozlabs.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by mail.ozlabs.org (Postfix) with ESMTPSA id 4TfYfd74Bsz4wcC;
- Wed, 21 Feb 2024 09:16:57 +1100 (AEDT)
-Date: Wed, 21 Feb 2024 09:16:55 +1100
-From: Stephen Rothwell <sfr@canb.auug.org.au>
-To: Daniel Vetter <daniel.vetter@ffwll.ch>, Linus Torvalds
- <torvalds@linux-foundation.org>
-Cc: Intel Graphics <intel-gfx@lists.freedesktop.org>, DRI
- <dri-devel@lists.freedesktop.org>, Christian =?UTF-8?B?S8O2bmln?=
- <christian.koenig@amd.com>, Linux Kernel Mailing List
- <linux-kernel@vger.kernel.org>, Linux Next Mailing List
- <linux-next@vger.kernel.org>, Matthew Auld <matthew.auld@intel.com>
-Subject: linux-next: manual merge of the drm-misc-fixes tree with Linus' tree
-Message-ID: <20240221091655.2937adbd@canb.auug.org.au>
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4DD2910E19B
+ for <intel-gfx@lists.freedesktop.org>; Tue, 20 Feb 2024 22:33:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1708468393; x=1740004393;
+ h=from:to:subject:date:message-id:in-reply-to:references:
+ mime-version:content-transfer-encoding;
+ bh=Z2Rzg7eNd4dl3CMg4Slqb9Ygm6MxBpQJ8aSM1ZwIjIk=;
+ b=KxDojBPw5WNEulZnqEaZsZMqFk03YqKk49YT5+WGRHKcIi/cpWeGMxCk
+ uBuvOzKMAqoCK1TE+189926j8zvjofANpWePxeucj8apc+Xpb0DNv0caF
+ p6o1EQ4vHTQOdtc9+/8+l7vOddwqQhibsI9k9GoQQvEYGWOnvAtG+09xU
+ DJjCis7jZtI+RYFa12vM1I3hUaJaigrpuiSHtmEP+qVUtoEoieUKPmPuO
+ aMcuhWaZooRMYCZ0AGfH/oVpvVxjEZ53jULXp19JmUap9soTgF9z/HGiL
+ NJuQokf3mt/oVs4zly/xYhbVfucagCSCs4e9sL9DSwnxb4A95mf8TDuqq g==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10990"; a="14006867"
+X-IronPort-AV: E=Sophos;i="6.06,174,1705392000"; d="scan'208";a="14006867"
+Received: from orviesa009.jf.intel.com ([10.64.159.149])
+ by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 20 Feb 2024 14:32:59 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.06,174,1705392000"; 
+   d="scan'208";a="4869887"
+Received: from invictus.jf.intel.com ([10.165.21.201])
+ by orviesa009-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 20 Feb 2024 14:32:57 -0800
+From: Radhakrishna Sripada <radhakrishna.sripada@intel.com>
+To: intel-gfx@lists.freedesktop.org
+Subject: [PATCH v2 3/4] drm/i915: Move vbt read from firmware to intel_bios.c
+Date: Tue, 20 Feb 2024 14:31:28 -0800
+Message-Id: <20240220223129.3822480-4-radhakrishna.sripada@intel.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20240220223129.3822480-1-radhakrishna.sripada@intel.com>
+References: <20240220223129.3822480-1-radhakrishna.sripada@intel.com>
 MIME-Version: 1.0
-Content-Type: multipart/signed; boundary="Sig_/F8R60ml85Z6nr7dU8JqHvdy";
- protocol="application/pgp-signature"; micalg=pgp-sha256
+Content-Transfer-Encoding: 8bit
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,51 +63,175 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
---Sig_/F8R60ml85Z6nr7dU8JqHvdy
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: quoted-printable
+VBT read from firmware is currently nested within opregion vbt read.
+Extract it and place it together with other vbt read mechanisms and
+dis-associate vbt-firmware from opregion structure.
 
-Hi all,
+Cc: Jani Nikula <jani.nikula@intel.com>
+Signed-off-by: Radhakrishna Sripada <radhakrishna.sripada@intel.com>
+---
+ drivers/gpu/drm/i915/display/intel_bios.c     | 48 ++++++++++++++++++-
+ drivers/gpu/drm/i915/display/intel_opregion.c | 46 ------------------
+ 2 files changed, 47 insertions(+), 47 deletions(-)
 
-Today's linux-next merge of the drm-misc-fixes tree got a conflict in:
+diff --git a/drivers/gpu/drm/i915/display/intel_bios.c b/drivers/gpu/drm/i915/display/intel_bios.c
+index 2624a4528b21..4cd338ed362d 100644
+--- a/drivers/gpu/drm/i915/display/intel_bios.c
++++ b/drivers/gpu/drm/i915/display/intel_bios.c
+@@ -25,6 +25,8 @@
+  *
+  */
+ 
++#include <linux/firmware.h>
++
+ #include <drm/display/drm_dp_helper.h>
+ #include <drm/display/drm_dsc_helper.h>
+ #include <drm/drm_edid.h>
+@@ -2950,6 +2952,47 @@ bool intel_bios_is_valid_vbt(struct drm_i915_private *i915,
+ 	return vbt;
+ }
+ 
++static struct vbt_header *firmware_get_vbt(struct drm_i915_private *i915,
++					   size_t *size)
++{
++	struct vbt_header *vbt = NULL;
++	const struct firmware *fw = NULL;
++	const char *name = i915->display.params.vbt_firmware;
++	int ret;
++
++	if (!name || !*name)
++		return vbt;
++
++	ret = request_firmware(&fw, name, i915->drm.dev);
++	if (ret) {
++		drm_err(&i915->drm,
++			"Requesting VBT firmware \"%s\" failed (%d)\n",
++			name, ret);
++		return vbt;
++	}
++
++	if (intel_bios_is_valid_vbt(i915, fw->data, fw->size)) {
++		vbt = kmemdup(fw->data, fw->size, GFP_KERNEL);
++		if (vbt) {
++			drm_dbg_kms(&i915->drm,
++				    "Found valid VBT firmware \"%s\"\n", name);
++			*size = fw->size;
++		} else {
++			drm_err(&i915->drm,
++				"Requesting VBT firmware \"%s\" failed (%d)\n",
++				name, ENOMEM);
++			vbt = NULL;
++		}
++	} else {
++		drm_dbg_kms(&i915->drm, "Invalid VBT firmware \"%s\"\n",
++			    name);
++	}
++
++	release_firmware(fw);
++
++	return vbt;
++}
++
+ static u32 intel_spi_read(struct intel_uncore *uncore, u32 offset)
+ {
+ 	intel_uncore_write(uncore, PRIMARY_SPI_ADDRESS, offset);
+@@ -3100,7 +3143,10 @@ void intel_bios_init(struct drm_i915_private *i915)
+ 
+ 	init_vbt_defaults(i915);
+ 
+-	vbt = intel_opregion_get_vbt(i915, NULL);
++	vbt = firmware_get_vbt(i915, &size);
++
++	if (!vbt)
++		vbt = intel_opregion_get_vbt(i915, NULL);
+ 
+ 	/*
+ 	 * If the OpRegion does not have VBT, look in SPI flash through MMIO or
+diff --git a/drivers/gpu/drm/i915/display/intel_opregion.c b/drivers/gpu/drm/i915/display/intel_opregion.c
+index fcbb083318a7..5d07a002edaa 100644
+--- a/drivers/gpu/drm/i915/display/intel_opregion.c
++++ b/drivers/gpu/drm/i915/display/intel_opregion.c
+@@ -27,7 +27,6 @@
+ 
+ #include <linux/acpi.h>
+ #include <linux/dmi.h>
+-#include <linux/firmware.h>
+ #include <acpi/video.h>
+ 
+ #include <drm/drm_edid.h>
+@@ -263,7 +262,6 @@ struct intel_opregion {
+ 	struct opregion_asle *asle;
+ 	struct opregion_asle_ext *asle_ext;
+ 	void *rvda;
+-	void *vbt_firmware;
+ 	const void *vbt;
+ 	u32 vbt_size;
+ 	struct work_struct asle_work;
+@@ -869,46 +867,6 @@ static const struct dmi_system_id intel_no_opregion_vbt[] = {
+ 	{ }
+ };
+ 
+-static int intel_load_vbt_firmware(struct drm_i915_private *dev_priv)
+-{
+-	struct intel_opregion *opregion = dev_priv->display.opregion;
+-	const struct firmware *fw = NULL;
+-	const char *name = dev_priv->display.params.vbt_firmware;
+-	int ret;
+-
+-	if (!name || !*name)
+-		return -ENOENT;
+-
+-	ret = request_firmware(&fw, name, dev_priv->drm.dev);
+-	if (ret) {
+-		drm_err(&dev_priv->drm,
+-			"Requesting VBT firmware \"%s\" failed (%d)\n",
+-			name, ret);
+-		return ret;
+-	}
+-
+-	if (intel_bios_is_valid_vbt(dev_priv, fw->data, fw->size)) {
+-		opregion->vbt_firmware = kmemdup(fw->data, fw->size, GFP_KERNEL);
+-		if (opregion->vbt_firmware) {
+-			drm_dbg_kms(&dev_priv->drm,
+-				    "Found valid VBT firmware \"%s\"\n", name);
+-			opregion->vbt = opregion->vbt_firmware;
+-			opregion->vbt_size = fw->size;
+-			ret = 0;
+-		} else {
+-			ret = -ENOMEM;
+-		}
+-	} else {
+-		drm_dbg_kms(&dev_priv->drm, "Invalid VBT firmware \"%s\"\n",
+-			    name);
+-		ret = -EINVAL;
+-	}
+-
+-	release_firmware(fw);
+-
+-	return ret;
+-}
+-
+ int intel_opregion_setup(struct drm_i915_private *dev_priv)
+ {
+ 	struct intel_opregion *opregion;
+@@ -1006,9 +964,6 @@ int intel_opregion_setup(struct drm_i915_private *dev_priv)
+ 		drm_dbg(&dev_priv->drm, "Mailbox #2 for backlight present\n");
+ 	}
+ 
+-	if (intel_load_vbt_firmware(dev_priv) == 0)
+-		goto out;
+-
+ 	if (dmi_check_system(intel_no_opregion_vbt))
+ 		goto out;
+ 
+@@ -1312,7 +1267,6 @@ void intel_opregion_cleanup(struct drm_i915_private *i915)
+ 	memunmap(opregion->header);
+ 	if (opregion->rvda)
+ 		memunmap(opregion->rvda);
+-	kfree(opregion->vbt_firmware);
+ 	kfree(opregion);
+ 	i915->display.opregion = NULL;
+ }
+-- 
+2.34.1
 
-  drivers/gpu/drm/tests/drm_buddy_test.c
-
-between commit:
-
-  fca7526b7d89 ("drm/tests/drm_buddy: fix build failure on 32-bit targets")
-
-from Linus' tree and commit:
-
-  335126937753 ("drm/tests/drm_buddy: fix 32b build")
-
-from the drm-misc-fixes tree.
-
-I fixed it up (I just used the version from Linus' tree) and can carry the
-fix as necessary. This is now fixed as far as linux-next is concerned,
-but any non trivial conflicts should be mentioned to your upstream
-maintainer when your tree is submitted for merging.  You may also want
-to consider cooperating with the maintainer of the conflicting tree to
-minimise any particularly complex conflicts.
-
---=20
-Cheers,
-Stephen Rothwell
-
---Sig_/F8R60ml85Z6nr7dU8JqHvdy
-Content-Type: application/pgp-signature
-Content-Description: OpenPGP digital signature
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAEBCAAdFiEENIC96giZ81tWdLgKAVBC80lX0GwFAmXVJNcACgkQAVBC80lX
-0Gysqwf/ef0qLJRLq8wnSElTxLDdQIYFArrCQI+ln5O8MTFlwqGAjuoxb1t8o0Zr
-E9WcMGK5hNHzyhTt5cshF0sjU3MlV9FkPosxitExE6qOT8IwlIsBykFP/7KgjX+Q
-GPp/vqWBGLbm2R4w0LvwTGWfKZFZ3Ht84bsND4w1CMr69TW3ors5sMBDcT7MIYQZ
-7V8rr4dScDRI3m7Dyv4za7dRBBnd4DxWzIZ5Mt3YEMVYiKVh34JJMW5fqQfF+UAf
-BzX1IY90r9EPyiHB6kD66KYAILOPQ3o0j4V10d0LE0UuViowWfNJqPtgqJeTRCiy
-ik3IwvL2ymLi9/rwVfUu6thvlobtEA==
-=VuOE
------END PGP SIGNATURE-----
-
---Sig_/F8R60ml85Z6nr7dU8JqHvdy--
