@@ -4,24 +4,24 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6CF88C5475B
-	for <intel-gfx@archiver.kernel.org>; Tue, 20 Feb 2024 14:47:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1A184C54787
+	for <intel-gfx@archiver.kernel.org>; Tue, 20 Feb 2024 14:48:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D255510E491;
-	Tue, 20 Feb 2024 14:47:56 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6EBB610E493;
+	Tue, 20 Feb 2024 14:47:59 +0000 (UTC)
 Received: from 8e613ede5ea5 (emeril.freedesktop.org [131.252.210.167])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A650110E493;
- Tue, 20 Feb 2024 14:47:55 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 687A310E493;
+ Tue, 20 Feb 2024 14:47:58 +0000 (UTC)
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
-Subject: =?utf-8?q?=E2=9C=97_Fi=2ECI=2ECHECKPATCH=3A_warning_for_Disable_automatic_lo?=
- =?utf-8?q?ad_CCS_load_balancing_=28rev2=29?=
+Subject: =?utf-8?q?=E2=9C=97_Fi=2ECI=2ESPARSE=3A_warning_for_Disable_automatic_load_C?=
+ =?utf-8?q?CS_load_balancing_=28rev2=29?=
 From: Patchwork <patchwork@emeril.freedesktop.org>
 To: "Andi Shyti" <andi.shyti@linux.intel.com>
 Cc: intel-gfx@lists.freedesktop.org
-Date: Tue, 20 Feb 2024 14:47:55 -0000
-Message-ID: <170844047568.125781.18063403062460615058@8e613ede5ea5>
+Date: Tue, 20 Feb 2024 14:47:58 -0000
+Message-ID: <170844047842.125781.595048982054269946@8e613ede5ea5>
 X-Patchwork-Hint: ignore
 References: <20240220142034.257370-1-andi.shyti@linux.intel.com>
 In-Reply-To: <20240220142034.257370-1-andi.shyti@linux.intel.com>
@@ -49,47 +49,8 @@ State : warning
 
 == Summary ==
 
-Error: dim checkpatch failed
-2065c72a8acd drm/i915/gt: Disable HW load balancing for CCS
-5e600e4db29b drm/i915/gt: Set default CCS mode '1'
--:80: ERROR:COMPLEX_MACRO: Macros with complex values should be enclosed in parentheses
-#80: FILE: drivers/gpu/drm/i915/i915_drv.h:409:
-+#define for_each_available_uabi_engine(engine__, i915__) \
-+	for_each_uabi_engine(engine__, i915__) \
-+		if ((IS_DG2(i915__)) && \
-+		    ((engine__)->uabi_class == I915_ENGINE_CLASS_COMPUTE) && \
-+		    ((engine__)->uabi_instance)) { } \
-+		else
-
--:80: CHECK:MACRO_ARG_REUSE: Macro argument reuse 'engine__' - possible side-effects?
-#80: FILE: drivers/gpu/drm/i915/i915_drv.h:409:
-+#define for_each_available_uabi_engine(engine__, i915__) \
-+	for_each_uabi_engine(engine__, i915__) \
-+		if ((IS_DG2(i915__)) && \
-+		    ((engine__)->uabi_class == I915_ENGINE_CLASS_COMPUTE) && \
-+		    ((engine__)->uabi_instance)) { } \
-+		else
-
--:80: CHECK:MACRO_ARG_REUSE: Macro argument reuse 'i915__' - possible side-effects?
-#80: FILE: drivers/gpu/drm/i915/i915_drv.h:409:
-+#define for_each_available_uabi_engine(engine__, i915__) \
-+	for_each_uabi_engine(engine__, i915__) \
-+		if ((IS_DG2(i915__)) && \
-+		    ((engine__)->uabi_class == I915_ENGINE_CLASS_COMPUTE) && \
-+		    ((engine__)->uabi_instance)) { } \
-+		else
-
--:82: ERROR:TRAILING_STATEMENTS: trailing statements should be on next line
-#82: FILE: drivers/gpu/drm/i915/i915_drv.h:411:
-+		if ((IS_DG2(i915__)) && \
-[...]
-+		    ((engine__)->uabi_instance)) { } \
-
--:98: CHECK:LINE_SPACING: Please don't use multiple blank lines
-#98: FILE: drivers/gpu/drm/i915/i915_query.c:127:
- 
-+
-
-total: 2 errors, 0 warnings, 3 checks, 77 lines checked
+Error: dim sparse failed
+Sparse version: v0.6.2
+Fast mode used, each commit won't be checked separately.
 
 
