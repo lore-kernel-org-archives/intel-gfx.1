@@ -4,45 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C02FCC48BC4
-	for <intel-gfx@archiver.kernel.org>; Tue, 20 Feb 2024 22:33:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6180DC54764
+	for <intel-gfx@archiver.kernel.org>; Tue, 20 Feb 2024 22:33:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 81AA710E387;
+	by gabe.freedesktop.org (Postfix) with ESMTP id D110E10E593;
 	Tue, 20 Feb 2024 22:33:16 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="eJe6nNvZ";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="lliDO3HA";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9699210E387
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4A3D210E387
  for <intel-gfx@lists.freedesktop.org>; Tue, 20 Feb 2024 22:33:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
  t=1708468395; x=1740004395;
  h=from:to:subject:date:message-id:in-reply-to:references:
  mime-version:content-transfer-encoding;
- bh=/FLoFJoTm4FGWdBiONijIx5khEiZjtaOTufl/9ipSHc=;
- b=eJe6nNvZrMxzzLO5guklT3YEnWn/hErt0SQWJSgmBR8X+SeVapP6c6LW
- EP7Aokdii2oRKksEXQDOX2ZoIseWXVfHhWr+d+BozZKGcQN0vrttWPjil
- tfrj9W7eQBFrLLFnUU3YMSmackiUhnPTa8nhSKAINcpvSwMyThAOsEb8L
- uSa3xllxTetJgCmltxUiMMcs/xqFhaGBf95MmeMsjRgkJehFhWHtEwSjW
- iTrKyHInxBmaB1IENoBdc5xuaA7sLIKD7v2U3O+lH9/UWp08BF3m/UtDQ
- 4707UQfKO2D+nYf3up3OOIH/3XiygiOryWGjURClAU8hP3g6SjSDZWm7u A==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10990"; a="14006866"
-X-IronPort-AV: E=Sophos;i="6.06,174,1705392000"; d="scan'208";a="14006866"
+ bh=wxIGuKJCVVRc7klIrzomcasDjqrtoDGFPXYyqCtVIf8=;
+ b=lliDO3HA3Z61aL7Za5sz//u5OZzA31sFaWcJo1sN/UMtAbFLDrbud0DN
+ 1WKaMkH5ut9uVx3hRGDbJJVQMPlH2LRW/0MXHuK9TvyK/JdSiK46+v2/T
+ LSCzVUZYOMJouILXPlZfiI9ET8lJbFhuyIWVYlnO2zo5Frmh7Fyf8IaxV
+ DhF7ZwsfUZKOaw3DqvldU0sXobJU17OiVxCHVi2oxIbqTsIJKEzmxKpUT
+ 4VAostpgzxdvi7q3KoM9cuqChJ9362FDjl0wwpWSPNxU04mLdx6sHnvE9
+ Oj/tBKH0vINoZPiMw5dRtaIL9M8EWA0ILK0B6hJ72CMSskSZS85KfQ5cd w==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10990"; a="14006868"
+X-IronPort-AV: E=Sophos;i="6.06,174,1705392000"; d="scan'208";a="14006868"
 Received: from orviesa009.jf.intel.com ([10.64.159.149])
  by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 20 Feb 2024 14:32:59 -0800
+ 20 Feb 2024 14:33:00 -0800
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.06,174,1705392000"; 
-   d="scan'208";a="4869886"
+   d="scan'208";a="4869888"
 Received: from invictus.jf.intel.com ([10.165.21.201])
  by orviesa009-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 20 Feb 2024 14:32:57 -0800
+ 20 Feb 2024 14:32:58 -0800
 From: Radhakrishna Sripada <radhakrishna.sripada@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Subject: [PATCH v2 2/4] drm/i915: Pass size to spi_oprom_get_vbt
-Date: Tue, 20 Feb 2024 14:31:27 -0800
-Message-Id: <20240220223129.3822480-3-radhakrishna.sripada@intel.com>
+Subject: [PATCH v2 4/4] drm/i915: Show bios vbt when read from
+ firmware/spi/oprom
+Date: Tue, 20 Feb 2024 14:31:29 -0800
+Message-Id: <20240220223129.3822480-5-radhakrishna.sripada@intel.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20240220223129.3822480-1-radhakrishna.sripada@intel.com>
 References: <20240220223129.3822480-1-radhakrishna.sripada@intel.com>
@@ -63,48 +64,57 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-spi_oprom_get_vbt will later be used to show the contents of vbt for
-which the size of vbt is needed.
+Make debugfs vbt only shows valid vbt when read from ACPI opregion.
+Make it work when read from firmware/spi/pci oprom cases.
 
 Cc: Jani Nikula <jani.nikula@intel.com>
 Signed-off-by: Radhakrishna Sripada <radhakrishna.sripada@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_bios.c | 8 ++++++--
- 1 file changed, 6 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/i915/display/intel_bios.c | 30 +++++++++++++++++------
+ 1 file changed, 23 insertions(+), 7 deletions(-)
 
 diff --git a/drivers/gpu/drm/i915/display/intel_bios.c b/drivers/gpu/drm/i915/display/intel_bios.c
-index ceb6e4145c62..2624a4528b21 100644
+index 4cd338ed362d..b9b4ebc0ecd6 100644
 --- a/drivers/gpu/drm/i915/display/intel_bios.c
 +++ b/drivers/gpu/drm/i915/display/intel_bios.c
-@@ -2957,7 +2957,8 @@ static u32 intel_spi_read(struct intel_uncore *uncore, u32 offset)
- 	return intel_uncore_read(uncore, PRIMARY_SPI_TRIGGER);
- }
+@@ -3723,14 +3723,30 @@ static int intel_bios_vbt_show(struct seq_file *m, void *unused)
+ 	struct drm_i915_private *i915 = m->private;
+ 	const void *vbt;
+ 	size_t vbt_size;
++	bool need_cleanup = false;
  
--static struct vbt_header *spi_oprom_get_vbt(struct drm_i915_private *i915)
-+static struct vbt_header *spi_oprom_get_vbt(struct drm_i915_private *i915,
-+					    size_t *size)
- {
- 	u32 count, data, found, store = 0;
- 	u32 static_region, oprom_offset;
-@@ -3000,6 +3001,9 @@ static struct vbt_header *spi_oprom_get_vbt(struct drm_i915_private *i915)
- 
- 	drm_dbg_kms(&i915->drm, "Found valid VBT in SPI flash\n");
- 
-+	if (size)
-+		*size = vbt_size;
+-	/*
+-	 * FIXME: VBT might originate from other places than opregion, and then
+-	 * this would be incorrect.
+-	 */
+-	vbt = intel_opregion_get_vbt(i915, &vbt_size);
+-	if (vbt)
+-		seq_write(m, vbt, vbt_size);
++	vbt = firmware_get_vbt(i915, &vbt_size);
 +
- 	return (struct vbt_header *)vbt;
++	if (!vbt)
++		vbt = intel_opregion_get_vbt(i915, &vbt_size);
++
++	if (!vbt && IS_DGFX(i915)) {
++		vbt = spi_oprom_get_vbt(i915, &vbt_size);
++		need_cleanup = true;
++	}
++
++	if (!vbt) {
++		vbt = oprom_get_vbt(i915, &vbt_size);
++		need_cleanup = true;
++	}
++
++	if (!vbt)
++		return 0;
++
++	seq_write(m, vbt, vbt_size);
++
++	if (need_cleanup)
++		kfree(vbt);
  
- err_free_vbt:
-@@ -3103,7 +3107,7 @@ void intel_bios_init(struct drm_i915_private *i915)
- 	 * PCI mapping
- 	 */
- 	if (!vbt && IS_DGFX(i915)) {
--		oprom_vbt = spi_oprom_get_vbt(i915);
-+		oprom_vbt = spi_oprom_get_vbt(i915, NULL);
- 		vbt = oprom_vbt;
- 	}
- 
+ 	return 0;
+ }
 -- 
 2.34.1
 
