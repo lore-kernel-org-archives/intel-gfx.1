@@ -4,59 +4,58 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 18263C5478A
-	for <intel-gfx@archiver.kernel.org>; Wed, 21 Feb 2024 18:55:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4274FC5478B
+	for <intel-gfx@archiver.kernel.org>; Wed, 21 Feb 2024 18:56:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 85D4C10E7B9;
+	by gabe.freedesktop.org (Postfix) with ESMTP id E395410E7BF;
 	Wed, 21 Feb 2024 18:55:54 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=metux.net header.i=info@metux.net header.b="CiQ3nkpM";
+	dkim=pass (2048-bit key; unprotected) header.d=metux.net header.i=info@metux.net header.b="2874YRqe";
 	dkim-atps=neutral
 Received: from mout.kundenserver.de (mout.kundenserver.de [212.227.126.130])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C257E10E7B9
- for <intel-gfx@lists.freedesktop.org>; Wed, 21 Feb 2024 18:55:52 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2F8E510E7C2
+ for <intel-gfx@lists.freedesktop.org>; Wed, 21 Feb 2024 18:55:53 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=metux.net;
  s=s1-ionos; t=1708541751; x=1709146551; i=info@metux.net;
- bh=fypRpMIgmXxzHYcoNa1HZB2FNEZOdBG4NWmNlBbszmo=;
+ bh=WSgMjBHAAfRKt4q6Wz1oGIiefnUjP3iac9aIzA6m8VY=;
  h=X-UI-Sender-Class:From:To:Subject:Date:In-Reply-To:References;
- b=CiQ3nkpMRYdqtkrzwBA3Q2T0FJMkuhbikDAbhDV1lEcui2tPPUtZlavfeA1ykt+s
- 7r92a+0w/ad1FsxAkqoBQWRgLQCc8PTDlCZU0gmuId0vZKo96VkAuybsIJtCnX0oB
- vg4M+VbaBGOKKd+aflD9e2KbrS8DPfhXaAo14jsWyqtQOxo4HoPG88l/ANC4rVqiN
- 1rs54e6bPPe64MnODWopAUTTm369W4dphzZks1l3ylKDD6mprA6ICqlvfgLW3bLVm
- QfoZhpDQVOkY0CxkwiqTLT23uSpSk2b7Wm+aPag9QSk03FAvlFdvjbTri3eKCAzz6
- q6veu84lKLUxrhqPIw==
+ b=2874YRqe4QmKEPY6bKN+s/yjMJ6J+jkx2auW6kRQHBd0F4fELOfXmw9u2P60+AEC
+ VnoooqrZ59qcHQJ2ahTJHL2/CPQcr+lecu7qGcPzxqLtKOmQuRHL7IXbWrV0mDJ+6
+ Kq807AikVbgiK5WCNMOWXXIoTLkEauQFAr6XkLvcX7oGeFRzBbSAhrLxf+BUNqAjQ
+ p82q3+wsoFTmhSiP6+HatIz36m6jDf9izq+OZFsPknDRrbmhhqXD1GP12FR7mLK9o
+ BqpzIM6KK8WE0K5phfOi5OrIiWrJ18uM4rRzkdFYq+OU/6Gga4E3wnFuy+YrQtFoS
+ LHgGTI/l1f9UFRedeQ==
 X-UI-Sender-Class: 55c96926-9e95-11ee-ae09-1f7a4046a0f6
 Received: from orion.localdomain ([77.4.30.125]) by mrelayeu.kundenserver.de
  (mreue012 [212.227.15.167]) with ESMTPSA (Nemesis) id
- 1MNfgZ-1rIkKy0qIl-00P6sQ for <intel-gfx@lists.freedesktop.org>; Wed, 21 Feb
+ 1MLRgp-1rKv8G29wZ-00IVAE for <intel-gfx@lists.freedesktop.org>; Wed, 21 Feb
  2024 19:55:51 +0100
 From: "Enrico Weigelt, metux IT consult" <info@metux.net>
 To: intel-gfx@lists.freedesktop.org
-Subject: [PATCH v2 4/6] intel_device: fix warning on possible buffer overlflow
- on sprintf() calls
-Date: Wed, 21 Feb 2024 19:55:48 +0100
-Message-Id: <20240221185550.11943-4-info@metux.net>
+Subject: [PATCH v2 6/6] uxa: stop calling deprecated xf86_reload_cursors()
+Date: Wed, 21 Feb 2024 19:55:50 +0100
+Message-Id: <20240221185550.11943-6-info@metux.net>
 X-Mailer: git-send-email 2.39.2
 In-Reply-To: <20240221185550.11943-1-info@metux.net>
 References: <20240221185550.11943-1-info@metux.net>
 MIME-Version: 1.0
 Content-Transfer-Encoding: quoted-printable
-X-Provags-ID: V03:K1:i3ycdim7VuShRkhsXD5y/QtHYjCETUTW4hMNbTxpMx2lJtE4OXY
- tTMQoz41XezIBdpuyNtiWIMxKYtstxxG2bJbcu/GzfYc4HHZPXlAhePQXJW0VWLxGokUU6v
- tctaG5PniQDvnsFqT7vbEFW1aSfDghZGVLPUjfd54vQt0/EaHsTiGtxIMm7++OUfmJCLlIA
- GtDLyJDjOQh6C6HgcQAIg==
-UI-OutboundReport: notjunk:1;M01:P0:H/z0eqTl0XA=;Sz7k0FjdRPk8RJnoNPEC5/ByWpX
- NyrdWxk84/3n9fDr5CkbIsKKORdZE9weVGq8IpJ6YMa2hXFFg8CJ00rHXn3+AfkGoPZUg0o7B
- HdlT6S5Ef6T5/irvDp8b7c7R0e9NRMKQ5P+agfLqL38u11uYEnI6wL/bjuIQwr6kRBHJ1dVN6
- epfO1waNIniUcn3q9Q5MSIWRqT8oDVc3hXc8kQwsiH0X+L2UIRcH1ri3a3c0Q42J0C4rqf4im
- mnibvdh+RhzUi639KmOsO13ZKXHjc0YLkO2U0vPpakqhmh9W/xBzJsGA9/SyC1dZld3lIsw7G
- L1Z4v3cQG2vRIfK8RPKnR1UJ6eS0yIspDEvw7zR5BujPTm1FlfH4P5YeLj/sSUP9dx2KOun4A
- gNNKon3zT+TSUqxYQLSMTVGDbvpVyEf2ihO0oScZzZXBPQ7vlWrNAqA9P6CnGGYSrqM9KmEt5
- TgSq9S7pJVHiv5Z90nUjTaca3vtWS4ZhhZk5IKg2maY0+V0Bks5Cq5knfFAmcJQh/T7KgqMQ2
- oySxBFic86dif76ERDRp4jOC+riq0B7zluSq81ES+zrpFsjr8pVNq8QKE8YdY5qiPdQ2hcCCc
- yqYaLbJx7nsPyVyrNwdgm0f783HIP+a/cJ/us+LSF9xW/JYlxFhNxKgZJhfiZo6hV7fj9AFM2
- PYGsuA+AxfRuxOo6eLZOz5Ru89u7jM1cdLTEMcYblrxTlyy2/Yz+sDutCUzI+IFs9HOdjxO53
- fZ3xcbcQFIGxwVFh649/OZc4oeoTRBL1znnzOWtCCZzvAvTKFthZZM=
+X-Provags-ID: V03:K1:jKpfeRS3qbUvUZy3wCwFY3B5l7zLiX6ZbciZ2RJ+3GdSxZpOUSe
+ wd9NYGibTSZByIxH9l/tHQFWumh/sg7kVcFG/xZ62mVQ5s3lkz6gxd/FiFppiGGocaR1veA
+ SiZd2hsZfpgi3KYF3TDF6LqtgMQr5vykrQsvRrsxsND01C0hYmftx0jh6a5EI00IWsr9jXr
+ Lv99/XffLXMrefb75Nrow==
+UI-OutboundReport: notjunk:1;M01:P0:wm12eH2mfH8=;4o221Co7nucGt2lodQ56aPuBZ6E
+ SYvxTn5yCtANNYaJ//L+TXQnr6JvqfKs1+RHDsRCVDwUXXV0JuNEX8/mI5GyIxuCKsBfCy2t6
+ ClnG7BtqO++mb+vauxI5QrW5aP0ELa6he2fW28u29bOomJDQ1DPK9kypB5CkWuaEuM1DBLV33
+ yM4DKFgsGOKMaOPh4Niskq/ock41lgGdasCHKuZCljuhDVImwk0NuXjAIfW/Ecq2CjTdMdWr+
+ NPfzVhyIKjOnF97miHKnI1RlKfwVstiCccZ8GO0BlEb38lvcoFELCWnQJdrYJtBZdvwjw3qNu
+ mflL60R/lOaDX5T9KYy2XmKNek+Krs2t9zKq+ZL+NEA2k/U7MkRn1uKQPYqWr3TzgIJ0a5h8y
+ nijFLDWSbyxOoOgp4nVDsGTIc+TJxoqzpklkLbvPtWvbdyJNLV2s8cZlvalGmeJNP2BiIWR6N
+ fw+rL9666WKNqSCSzL9R+SLwtNLUmF5ZtZoCdnVmuB12IiEfV8TGtouVSDWWPq31fB4CsbMgo
+ JBvIxx3xFBB/YFSXkWS1bcn6TQbTdrHDerqrwosGER5pVmAjn+9xAfuVhYysUu9cU8Zw5mkyK
+ JPVE5PHrcXXju6kWfCvbigpah52D1z/s9w6jm6OtqOSzz/EiaFv1kOCni1R4pXYPa02fVxYPj
+ uX+d41iR0j4ZGXI8KSHbTreotTTWd0xluOxoDcK2CsmisxbhG/QQGHQJld22ARpUkU098rG2J
+ AqI/VwpNL3auJzornh4jtVd+uHOG6Tz6aOnfDW5l72K1TcJTJP+VLs=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -72,25 +71,28 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
+the function has become a no-op, it's former duties are done automatically=
+.
+
 Signed-off-by: Enrico Weigelt, metux IT consult <info@metux.net>
 =2D--
- src/intel_device.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ src/uxa/intel_display.c | 3 ---
+ 1 file changed, 3 deletions(-)
 
-diff --git a/src/intel_device.c b/src/intel_device.c
-index f28d3be1..06108ec3 100644
-=2D-- a/src/intel_device.c
-+++ b/src/intel_device.c
-@@ -335,7 +335,7 @@ static int __intel_open_device__major_minor(int _major=
-, int _minor)
- static int __intel_open_device__pci(const struct pci_device *pci)
- {
- 	struct stat st;
--	char path[256];
-+	char path[PATH_MAX];
- 	DIR *dir;
- 	struct dirent *de;
- 	int base;
+diff --git a/src/uxa/intel_display.c b/src/uxa/intel_display.c
+index ba4b8d87..ef5962eb 100644
+=2D-- a/src/uxa/intel_display.c
++++ b/src/uxa/intel_display.c
+@@ -393,9 +393,6 @@ intel_crtc_apply(xf86CrtcPtr crtc)
+ 		}
+ 	}
+
+-	if (scrn->pScreen)
+-		xf86_reload_cursors(scrn->pScreen);
+-
+ done:
+ 	free(output_ids);
+ 	return ret;
 =2D-
 2.39.2
 
