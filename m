@@ -4,23 +4,23 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BCB95C48BEB
-	for <intel-gfx@archiver.kernel.org>; Wed, 21 Feb 2024 21:00:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BF572C5478A
+	for <intel-gfx@archiver.kernel.org>; Wed, 21 Feb 2024 21:00:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3F10810E1FC;
-	Wed, 21 Feb 2024 21:00:10 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 474B010E356;
+	Wed, 21 Feb 2024 21:00:14 +0000 (UTC)
 Received: from 8e613ede5ea5 (emeril.freedesktop.org [131.252.210.167])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D5D6210E1FC;
- Wed, 21 Feb 2024 21:00:08 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 884B410E356;
+ Wed, 21 Feb 2024 21:00:11 +0000 (UTC)
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
-Subject: =?utf-8?q?=E2=9C=97_Fi=2ECI=2ECHECKPATCH=3A_warning_for_GPU_hang_replay?=
+Subject: =?utf-8?q?=E2=9C=97_Fi=2ECI=2ESPARSE=3A_warning_for_GPU_hang_replay?=
 From: Patchwork <patchwork@emeril.freedesktop.org>
 To: "Tvrtko Ursulin" <tvrtko.ursulin@linux.intel.com>
 Cc: intel-gfx@lists.freedesktop.org
-Date: Wed, 21 Feb 2024 21:00:08 -0000
-Message-ID: <170854920887.196549.4460050466004982137@8e613ede5ea5>
+Date: Wed, 21 Feb 2024 21:00:11 -0000
+Message-ID: <170854921156.196549.9733245140554716415@8e613ede5ea5>
 X-Patchwork-Hint: ignore
 References: <20240221142245.2331484-1-tvrtko.ursulin@linux.intel.com>
 In-Reply-To: <20240221142245.2331484-1-tvrtko.ursulin@linux.intel.com>
@@ -48,13 +48,8 @@ State : warning
 
 == Summary ==
 
-Error: dim checkpatch failed
-dd9bcf4e2133 drm/i915: Shadow default engine context image in the context
-b29511c8b0ab drm/i915: Support replaying GPU hangs with captured context image
--:343: WARNING:LONG_LINE: line length of 110 exceeds 100 columns
-#343: FILE: drivers/gpu/drm/i915/i915_params.h:68:
-+	param(bool, enable_debug_only_api, false, IS_ENABLED(CONFIG_DRM_I915_REPLAY_GPU_HANGS_API) ? 0400 : 0)
-
-total: 0 errors, 1 warnings, 0 checks, 291 lines checked
+Error: dim sparse failed
+Sparse version: v0.6.2
+Fast mode used, each commit won't be checked separately.
 
 
