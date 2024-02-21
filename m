@@ -4,58 +4,58 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 17C99C54788
-	for <intel-gfx@archiver.kernel.org>; Thu, 22 Feb 2024 14:01:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C83CEC54788
+	for <intel-gfx@archiver.kernel.org>; Thu, 22 Feb 2024 14:01:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B3E5610E942;
-	Thu, 22 Feb 2024 14:01:07 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 13C6D10E944;
+	Thu, 22 Feb 2024 14:01:08 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=metux.net header.i=info@metux.net header.b="k2/6keyJ";
+	dkim=pass (2048-bit key; unprotected) header.d=metux.net header.i=info@metux.net header.b="feAH+izF";
 	dkim-atps=neutral
-Received: from mout.kundenserver.de (mout.kundenserver.de [212.227.126.135])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B809210E26B
+Received: from mout.kundenserver.de (mout.kundenserver.de [212.227.126.134])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7115B10E77C
  for <intel-gfx@lists.freedesktop.org>; Wed, 21 Feb 2024 15:12:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=metux.net;
- s=s1-ionos; t=1708528328; x=1709133128; i=info@metux.net;
- bh=bWZL2bcZ4CZRBAoTUwUgIB5eFmzSmLTU14A5BglO0eg=;
+ s=s1-ionos; t=1708528327; x=1709133127; i=info@metux.net;
+ bh=D1eKWT/rCGANmIQdQ1pxaDZSfTCfeBkvzxi3o2g/U68=;
  h=X-UI-Sender-Class:From:To:Subject:Date:In-Reply-To:References;
- b=k2/6keyJc4MwRTYpZ/dCQMl8yWiPP/0kLE8MP9QmFyT4OR38RAKfwBaUe0waWPN5
- iple2tqg82WbtBaK7+8bxJXeWcplfR0d1HlsumEHMx/19u0LG/9UoOLyG42+f8iON
- htXUfy4WETcxMpxCMgdDnNIIY31Ey+PsgPdcbd3HEUTzW1aMJU6xjQNSAu5T7zPNh
- 43GtdX7hJgU/Mgbe0p1Q3wCZodiWIwux+SYGMDWP8tGQcj09Qf66yoPv2ZkGbHl0H
- fyBLKp/W4U6dGMb8S5vVCH3W811iB/cVJMp8iL9OYbrzrOBlvJ10jU4XCeSH/fz5+
- gC9Eqk1FDUxudlVUbw==
+ b=feAH+izFnVluUaGVo1tNsYOloOz65yQyrK7cVX11Vu8F+0fGowX+8b6eK2z9F3mL
+ WmiUth//K31W43EBAXgvubTkPuDu8+lfuC7u4ct4qcYyJ1WVnEySgjp/glCrYMcgT
+ KgxXr9oA4+V9+JJ6P5MoAgpN5SGv8blusjUYClIIt+OzI54zUUUOSP+aT4h4kMlyb
+ 0I0bBbZ7kbziAL/9mw6AGHBziCLt3M6oKgCVZd6U8hyJ6OIDScbKkW/ZJqE3U3X3g
+ QPywRpMIhi0ZeNPya3LYy+APICikG/ShlAs8p/uxd1H/ZaTwD/JntX/FU3wRKNdEy
+ iPu94t4TYM30ZpvTYg==
 X-UI-Sender-Class: 55c96926-9e95-11ee-ae09-1f7a4046a0f6
 Received: from orion.localdomain ([77.4.30.125]) by mrelayeu.kundenserver.de
  (mreue009 [212.227.15.167]) with ESMTPSA (Nemesis) id
- 1MmU9R-1rCr6X3JIH-00iSJc for <intel-gfx@lists.freedesktop.org>; Wed, 21 Feb
+ 1MxmBi-1qiMkA29qo-00zH1L for <intel-gfx@lists.freedesktop.org>; Wed, 21 Feb
  2024 16:07:04 +0100
 From: "Enrico Weigelt, metux IT consult" <info@metux.net>
 To: intel-gfx@lists.freedesktop.org
-Subject: [PATCH 3/3] backlight: use system() instead of System()
-Date: Wed, 21 Feb 2024 16:06:56 +0100
-Message-Id: <20240221150656.30539-4-info@metux.net>
+Subject: [PATCH 1/3] sna: stop using obsolete type aliases
+Date: Wed, 21 Feb 2024 16:06:54 +0100
+Message-Id: <20240221150656.30539-2-info@metux.net>
 X-Mailer: git-send-email 2.39.2
 In-Reply-To: <20240221150656.30539-1-info@metux.net>
 References: <20240221150656.30539-1-info@metux.net>
 MIME-Version: 1.0
 Content-Transfer-Encoding: quoted-printable
-X-Provags-ID: V03:K1:X5Vm51ZoCVYFS1++BHs70K3zS2ybLxJ2kjqSsRRjOjf4oX7Tz8N
- pWlDVBHls42Kuyz8PUHIk3NillbFd885YuzjUYP8st84hGDl8wH9cHs1Wx7eGqCy97p6Y+x
- Ret3D9QXYv8lhysysW6qBnvwHNaLcgRXSp9X0wKHBYIxyKZdUvFWTMUb1VbanwZE7GFIr50
- ESFgIoTkn4AnM80cIwf5Q==
-UI-OutboundReport: notjunk:1;M01:P0:vneYlQWCwXs=;4i/llP7RyTen9aKdOUg3neSqr0b
- +VYZ/LKn757XelxujotvAzZ0iZblEY+hresuyDnMXQrWFB/FRNwgS4K66Or73fiiWmOKxEhxO
- p6wBgYJIBEetYG3FpHLoNuNaEwwfauz56F5lc992LK+vUVviObWk4j4l9aipGRWhOoqj4+Opd
- kWYQv6A0CQdRNZmL3Fyn6fqc+FIeM1qTHdwAkvrXYTz/O8g+gGr5SJ9nAiNFrOh9Vx7L9+cCB
- X2VolonuDsPn6hfIM9uQ5hP6Gm/xsF88l/mRq3yEKY5XW4oF0MuX28LPcTk+XtZ8r5C7/aWyF
- Rc7ygqGyCoyLD3wNxfr0scy73jSlaG/mhCFCOzqUhlp9CUI61hZ+iiBI6XOEvAmHePyM+3vxs
- vkQCEXikC20/uk/CZtnJJ1DyMWMAeRS5HM+2zFNlqEIm8p5As5KKYDurOmHAzWx967CBOyli9
- plIFbPVasqU1v0AzmelvED6VA2l2NQ8MY3CukXtEpuCjM3irGdctDfqhhXbZkcJR4J1CKHnJs
- bxyYs+gE/XV8f0D5IbibOYtCh/CDfd9jHxp4vihrrvR4UGd6LOKiOMJKxbmS9WdzWj9SCeUAc
- soA1H0Y+VvUxUWMcE3URVT9zrURW++rc9C6Hz62GIIalnMsCQJzCxQtcOdG50mB7HnrBejnvP
- j5ezQ775VFPAdOvLc5wkwzte+wACfPtufeQZrVPV6L2cUvxPRzkKZZCk7yn+1dt43cTA7DAve
- 1u96mnFw2rQj3SvURYsYsdnzThaoddg/LXzEZV3x5gqc9r8FxjktWE=
+X-Provags-ID: V03:K1:8AAZEVZDAGigzPhbDymAwOlDouKDCX4jc7KJPYZFMmORB7k2raf
+ gfC0jDNm2vQHgTYl0Pp3bg+Xb4Ay0IMoIh1Y56Zi9Yu4z2C7tyR3EiRffCNxf74j2B4+wnT
+ ZfbLqki2CYRqTFHa7t2zyxXMdUvARqduhBoTYKCZiCv6+4cyTSgMUwdShiRRarX4dos/X+L
+ LWACOXtBqXxWQvhpA8aUg==
+UI-OutboundReport: notjunk:1;M01:P0:bivo7U5IC7A=;R1vZOe4g61yaaujCB5LYnFOaRqZ
+ XTKHZJMVAX2hdsk6PQeoHL0fcY6fEkPVESeEU2VrGYoYg7PGk2J0nR+QYgpVe0+UNPEGswX/+
+ g+XCCZTJ31a7GuJKBgBftpMWmCix01QlOVuU1qv7+rwsPo+D9gZD/19i50u+Uu8nwTOpFOZcF
+ 6IUuBtEFfw1T0sPNQ2cFii+08lyw2n6miI89uBeiOOxkco1+n9aNz7cUERrbPHryWFH6xSQ5H
+ 1dbgBvxgFPdPfOx6zYGdKBtD9seA5WXx+sSqEXtbTM79BKOOJklgVGL2DbcCSfOpcJGvbyvRO
+ r9niRkZo9XyhtZnKA4ZUtiu6rHh6MUPr+HGSAmnsZiBjlNsD+qdilGwq144Ze7ZdR15VbEclA
+ hEgP/ALBDKMwQplyJOxKWscM3UpMMDvtsvTpNo4AiTnp/DlYSvCiHtpgrR6Q/9NYWwsizI3hY
+ q+AtNLSYNiBLIPVSdIZyv/GnzxIw32PKNZkQDdscf01m9GAGxn8fnVNLR5F2F1Nwwfwhgapp6
+ Fi8WZ/zAez9rjJbusKKWnVj+PnRXBjli9gvV+H7+12TNKlLjPLQzY1VnCryXlnxz3SnodShoT
+ xzkKx6YwG5YEWl6/y+Gprmj+j5bf7HQ8VH1Vj5BNixuAuMOdSkO9TGVhV1DhO8ERI8FfqsMNP
+ EUM55/fKuIUAwQ+pa5Wahau6ssalc0oG3WbKu5RzslYWA4Mg3/108G5geEBukERMd/vc+hss2
+ NnYRRFGmHJ8Vf2vFAzw4zjBecVVMI4sbT7jw246ynqQKaZ4Muy2HMw=
 X-Mailman-Approved-At: Thu, 22 Feb 2024 14:01:06 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -72,40 +72,62 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-The Xserver's System() function is a special wrapper for calling a program
-(xkbcomp) as an unprivileged user, when the Xserver is running as suid-roo=
-t.
-(which today only needed on a few platforms, eg. Solaris). Therefore it's
-not suited for being called by arbitrary drivers.
-
-In this specific context it doesn't even much sense, since it's just used
-for checking whether pkexec command is present at all (and just should be
-used), while the actual exec'ing of the helper is done directly by fork()
-and exec() syscalls.
-
-Thus we can safely use standard system() call instead - clearing the road
-for dropping System() from Xserver's public/driver API.
+The Xserver has been moved to using pixman for all matrix operations, back=
+ in
+2008, but left some #define's so drivers still compile. Since 1.5 decades =
+have
+passed now, it's time to fix remaining drivers still using the old name, s=
+o
+we can drop these #define's from the Xserver includes.
 
 Signed-off-by: Enrico Weigelt, metux IT consult <info@metux.net>
 =2D--
- src/backlight.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ src/sna/sna_display.c | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
 
-diff --git a/src/backlight.c b/src/backlight.c
-index fcbb279f..f416f2a4 100644
-=2D-- a/src/backlight.c
-+++ b/src/backlight.c
-@@ -366,7 +366,7 @@ static int __backlight_helper_init(struct backlight *b=
-, char *iface)
- 		return 0;
+diff --git a/src/sna/sna_display.c b/src/sna/sna_display.c
+index 15df51f6..3ff3d2fe 100644
+=2D-- a/src/sna/sna_display.c
++++ b/src/sna/sna_display.c
+@@ -208,7 +208,7 @@ struct sna_crtc {
+ 	bool hwcursor;
+ 	bool flip_pending;
 
- 	if ((st.st_mode & (S_IFREG | S_ISUID | S_IXUSR)) !=3D (S_IFREG | S_ISUID=
- | S_IXUSR)) {
--		if (System("pkexec --version"))
-+		if (system("pkexec --version"))
- 			return 0;
+-	struct pict_f_transform cursor_to_fb, fb_to_cursor;
++	struct pixman_f_transform cursor_to_fb, fb_to_cursor;
 
- 		use_pkexec =3D 1;
+ 	RegionRec crtc_damage;
+ 	uint16_t shadow_bo_width, shadow_bo_height;
+@@ -2376,7 +2376,7 @@ static bool use_shadow(struct sna *sna, xf86CrtcPtr =
+crtc)
+ {
+ 	RRTransformPtr transform;
+ 	PictTransform crtc_to_fb;
+-	struct pict_f_transform f_crtc_to_fb, f_fb_to_crtc;
++	struct pixman_f_transform f_crtc_to_fb, f_fb_to_crtc;
+ 	unsigned pitch_limit;
+ 	BoxRec b;
+
+@@ -2846,7 +2846,7 @@ affine_is_pixel_exact(const struct pixman_f_transfor=
+m *t)
+ static void sna_crtc_randr(xf86CrtcPtr crtc)
+ {
+ 	struct sna_crtc *sna_crtc =3D to_sna_crtc(crtc);
+-	struct pict_f_transform f_crtc_to_fb, f_fb_to_crtc;
++	struct pixman_f_transform f_crtc_to_fb, f_fb_to_crtc;
+ 	PictTransform crtc_to_fb;
+ 	PictFilterPtr filter;
+ 	xFixed *params;
+@@ -6666,7 +6666,7 @@ sna_set_cursor_position(ScrnInfoPtr scrn, int x, int=
+ y)
+ 		if (crtc->transform_in_use) {
+ 			int xhot =3D sna->cursor.ref->bits->xhot;
+ 			int yhot =3D sna->cursor.ref->bits->yhot;
+-			struct pict_f_vector v, hot;
++			struct pixman_f_vector v, hot;
+
+ 			v.v[0] =3D x + xhot + .5;
+ 			v.v[1] =3D y + yhot + .5;
 =2D-
 2.39.2
 
