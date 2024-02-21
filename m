@@ -4,59 +4,58 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 28C06C48BEB
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7E79FC5478A
 	for <intel-gfx@archiver.kernel.org>; Wed, 21 Feb 2024 18:56:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6E54210E7C2;
+	by gabe.freedesktop.org (Postfix) with ESMTP id C5CE010E7C3;
 	Wed, 21 Feb 2024 18:56:02 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=metux.net header.i=info@metux.net header.b="Yrvh2oGh";
+	dkim=pass (2048-bit key; unprotected) header.d=metux.net header.i=info@metux.net header.b="X40FP711";
 	dkim-atps=neutral
 Received: from mout.kundenserver.de (mout.kundenserver.de [212.227.126.130])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0EFF310E7BF
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 87D8A10E7B5
  for <intel-gfx@lists.freedesktop.org>; Wed, 21 Feb 2024 18:55:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=metux.net;
  s=s1-ionos; t=1708541751; x=1709146551; i=info@metux.net;
- bh=WTjtrTRv84sVkHM3fx8hzhWWTjuWPVZtlrC8BeCEy0A=;
+ bh=wgnxml5mGhyNoEMaEXcmhelQmgJzpY/BgYrx+3ELbII=;
  h=X-UI-Sender-Class:From:To:Subject:Date:In-Reply-To:References;
- b=Yrvh2oGhXq5Xa0vx4S31YpuDmyAafa75w1UZZMV/F6ijNSPdFWzH+Gvp83svfcSH
- V9otX93P5OwMcCVk8RDpwCa9oqkv5F1sVS2BLv2M9ifJCxZYVM9OpCeO3wZhbJNer
- 7YSZVg8Xp9wqZAQILi6CAowPGacfc/zF+c2232AyT1SQrrzFC4DCvksnUs+IjAssF
- p9US4aKSHX3QpAHGcZxNCIOWGkujkkyYYOqve0aP4cQhxa6ILlwxc2cUOD1SyNZKW
- OoiBOf87nu1doNzYqmnaHJ2qOtebX+b5KgwgL2Hr+wpVgg+kjIYVZZ1CD94XaaBhX
- j7X0+rcxchpqtl+mIw==
+ b=X40FP711uNYkaTzQpE7Jc8wO4LJPCpmRcVAQ05T5Gv1QKcr93ySEb+cqDNL7dCm7
+ pONefcqh9AHYL28Y6X8Cp6qLzBuwqxTfP8GVe7GvXbV4uu/68Fbej+YGcu3kmyDz+
+ wZ92Tc2Y2+crOwThlop1+9rY+oljDSo0BOM/IOx2h6T+yc7b0ulp+uKHtPYPkF79h
+ An63bHyPuq7e0VLDyGDdVkPb06tdEtq6pqVbf6POsN/rJdwD/XXuUPgKzkBH8ZtHJ
+ bzhOZ93IvIgYP7ItNaKSjiVatKzVcK77WRmnfS1/zlKQtfd1RFoRQ+S6zv0D8LX5K
+ zDyq4VozWfLJcaRoCQ==
 X-UI-Sender-Class: 55c96926-9e95-11ee-ae09-1f7a4046a0f6
 Received: from orion.localdomain ([77.4.30.125]) by mrelayeu.kundenserver.de
  (mreue012 [212.227.15.167]) with ESMTPSA (Nemesis) id
- 1MjBNV-1qyaqw1ZP3-00f8vA for <intel-gfx@lists.freedesktop.org>; Wed, 21 Feb
+ 1MQ8OG-1rGof03thY-00M5w5 for <intel-gfx@lists.freedesktop.org>; Wed, 21 Feb
  2024 19:55:51 +0100
 From: "Enrico Weigelt, metux IT consult" <info@metux.net>
 To: intel-gfx@lists.freedesktop.org
-Subject: [PATCH v2 5/6] stop using obsolete xf86BlockSIGIO() and
- xf86UnblockSIGIO()
-Date: Wed, 21 Feb 2024 19:55:49 +0100
-Message-Id: <20240221185550.11943-5-info@metux.net>
+Subject: [PATCH v2 2/6] sna: use GCPtr instead of GC *
+Date: Wed, 21 Feb 2024 19:55:46 +0100
+Message-Id: <20240221185550.11943-2-info@metux.net>
 X-Mailer: git-send-email 2.39.2
 In-Reply-To: <20240221185550.11943-1-info@metux.net>
 References: <20240221185550.11943-1-info@metux.net>
 MIME-Version: 1.0
 Content-Transfer-Encoding: quoted-printable
-X-Provags-ID: V03:K1:T0m5L//eYE4rv2LyUguhDpK6g83ZKfvvBWsVaB9kqSw4C9diOwQ
- vHoZsPrWqbCyLd2WOlPVXI1LpVznHA0g/0v3kqW4nm0krYn67y9WBWPDRmxUqnYYuEZlRUJ
- AjX+BA2gfY78ro2WzNdmOybTazQmBlgQJF4GByMEOJ8aylSnqvcLJonk06KU8QA88Y1877z
- wEWOt5BBvhv2rFuJYpffw==
-UI-OutboundReport: notjunk:1;M01:P0:9+xr3CuLfKw=;EQq4jCo9akjmlu0WI+pnqDCdt8S
- 4ws5MuFMU+Stx11/glEFR+yOKT5r6xBoBXmSvR5lMT/D/Sn0LiwCR4EntX7DAPCy9M5c8SoWS
- 1BNRmnQhRu8diakI1s6KbMNf+hZp4J/pAtA1CrPpEthzEVgISa18xVooQk0eDkASkmW2zRAuj
- BRPeSc6slEvf1j9MCI0b2xZIm4mKJFQiTl36LjtA+VRWz16Zmd0LboL8+DsrF01h+Z5AFZCjs
- 9D5viO9mVK2cb1AzJ8rK20MMhS4A/JUXhlzrQkoFXuYrEparmuvRd4LNIqjymZ73S2w1atQ4U
- j2MKgiXkozo3NEa9Ll0SvDKocEIv4ugKxae3EaDlxC/reKdy4t1aCiYXL9gMhUQd4VKynGJN4
- Bgpa818sA395cC7tmqsAhz6t33pQsXE58lIZf37mqz2PlkRMChkV8FMkYYolRZX4mZ49RLypo
- 0dRGD62pUdPBSH4hdvHShIWhZruuT1bwEnPlnGRbm2GZodxxo0nZ8HNtu0XSPmmRp4nb1l+NB
- xcN3e0oUJXMrRUBHtBL+MtMnFVgA8rSf+QW7SKwYKXZE12yGC4jtwYG4H8hqhjmfP5A9V/ZSJ
- eU0yLCWzhvu7k6I5tUszc2nCTWxdAMERUprHWYdQ51iJlvnLgG/wW/BD1rUiyxpReIOT3nsQs
- nRz/CF4ESmFigjoysdqb5tJHh4gcGd5RACc+qHOmd6ywBl7mMmEx93JC6wxZXi1ZUkkBIqsb7
- hG1/7p00AwQscJLWecc831TJSZYSM0H+EwPGLfPyKFiTIhgYJr8nh4=
+X-Provags-ID: V03:K1:8rYLYnLnBmNgInqplB5+Sh1xO9RGTl1CbChQKxqZ8rBNQiY9uxL
+ NQf1itTonyEIEnNkHBWJqa1wneUjBPL9IHv428RA77or/OdZiBLuFZEkB6V5H98tSfAwlTd
+ a4ObiPB/wrYPOBJiulGZqRskp0+ff7ZBbiuhMM09XenJo7vaHn7UDbjdBaFg3f/nPculo0M
+ 0kj24eY1xLW+FYWkFa1sA==
+UI-OutboundReport: notjunk:1;M01:P0:Syy1vf6d4ps=;Ua6y/YDoM+xFqMALFRr3mWbOefI
+ XNa8wnkcctKYUDIBm74fWZVcUqXEkAdg1nzn1m1HkTQN15RgkCIbniKGuZ/3sFW7EEsDYGh+c
+ wE3pQlQ7kDMYSHWQCZsDPsdust5w+7p0zCLRvwXJ1tnmTEjvtvRaErPxDNMt1iBA1s4alhaT6
+ MKf8jrT5yIpjX796CHdeJuxdV0eKXzQnPYzq1JIqJWPOt1ijFqUM83cy8qaqFUstBzpkw69KC
+ 7UJ7K3DqewoNxT79Dsf45XevXwYDFYo+YGAXnI07y1eUtxCMCMrWfSs2b7NQxZy1Y3/nDW/VC
+ IUW2yY7Y6DDmAhiusa78ac+XDgcep6j3oH6l+JjNJImZObSZokcUb71X+10YWfxmTiwOopR+B
+ lzkuMONQ5YZgWnBd7yOTosk9bnLemardn/fUli8IQ1tDvFqC1VBeNV9PJDCQTtYKVMSkAvMxo
+ F31QMphvV2A8+sJJX5tlrOm5j0e/wNIdMlmkg7qmangBeq3rrqTI3OwqUQQW88QOteW+pa4Mt
+ xBdxPpO5yZNdij5hpKhmllesGqFc2Gc+uXaGJ/pBUM1Or00Sb8e0sxOfRupFOYu42qllGs2pC
+ yBRM+0ssOacgfl8QxkAumDPOpAg78OP9u9x4/IPV90hsqfFMgOLvXWsd63VXJ4QdgB2ud8PMX
+ sddHQr0jroIkbzaMfftIIfYYmS1ZakUagf7S9GpWSYeSsGzu+PEg2YpJGfGmcJUisO+5u5Ivb
+ 1eMxrmnEZI3cX73D/5VYecM9+Vels92ERBCxJQ8/p5FjqwAs+jUae8=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -72,53 +71,47 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-These are just wrappers for calling input_lock()/input_unlock() and marked
-deprecated for quite a while now.
+Xserver includes have explicit pointer types for quite all kind of structs
+(at least those used by drivers), which are used all over the Xserver.
+Thus it's much cleaner to use those everywhere.
+
+This commit also clears the road to fix a horrible nightmare of hacks just
+needed to circumvent naming clashes between Xserver and Xlib (affecting al=
+l
+DDXes that are painting on another Xserver): we can simply rename Xserver'=
+s
+own "GC" type to "GCRec" (the usual naming convention here) and so no trou=
+ble
+with Xlib's "GC" type anymore. Once this has landed, we're free to do that
+without breaking this driver.
 
 Signed-off-by: Enrico Weigelt, metux IT consult <info@metux.net>
 =2D--
- src/sna/sna_display.c  | 5 +++--
- src/uxa/intel_driver.c | 4 ++--
- 2 files changed, 5 insertions(+), 4 deletions(-)
+ src/sna/sna_accel.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/src/sna/sna_display.c b/src/sna/sna_display.c
-index 3ff3d2fe..460fb1ca 100644
-=2D-- a/src/sna/sna_display.c
-+++ b/src/sna/sna_display.c
-@@ -1156,11 +1156,12 @@ static inline void sigio_unblock(int was_blocked)
- #include <xf86_OSproc.h>
- static inline int sigio_block(void)
+diff --git a/src/sna/sna_accel.c b/src/sna/sna_accel.c
+index 89b82afa..90a61ab3 100644
+=2D-- a/src/sna/sna_accel.c
++++ b/src/sna/sna_accel.c
+@@ -14300,7 +14300,7 @@ static void
+ sna_poly_fill_rect_stippled_n_box__imm(struct sna *sna,
+ 				       struct kgem_bo *bo,
+ 				       uint32_t br00, uint32_t br13,
+-				       const GC *gc,
++				       const GCPtr gc,
+ 				       const BoxRec *box,
+ 				       const DDXPointRec *origin)
  {
--	return xf86BlockSIGIO();
-+	input_lock();
-+	return 0;
- }
- static inline void sigio_unblock(int was_blocked)
+@@ -14412,7 +14412,7 @@ sna_poly_fill_rect_stippled_n_box(struct sna *sna,
+ 				  struct kgem_bo *bo,
+ 				  struct kgem_bo **tile,
+ 				  uint32_t br00, uint32_t br13,
+-				  const GC *gc,
++				  const GCPtr gc,
+ 				  const BoxRec *box,
+ 				  const DDXPointRec *origin)
  {
--	xf86UnblockSIGIO(was_blocked);
-+	input_unlock();
- }
- #endif
-
-diff --git a/src/uxa/intel_driver.c b/src/uxa/intel_driver.c
-index 9c3fe85f..79105b89 100644
-=2D-- a/src/uxa/intel_driver.c
-+++ b/src/uxa/intel_driver.c
-@@ -641,10 +641,10 @@ redisplay_dirty(ScreenPtr screen, PixmapDirtyUpdateP=
-tr dirty)
-         intel_flush(intel);
- 	if (!intel->has_prime_vmap_flush) {
- 		drm_intel_bo *bo =3D intel_uxa_get_pixmap_bo(PixmapDirtyPrimary(dirty))=
-;
--		was_blocked =3D xf86BlockSIGIO();
-+		input_lock();
- 		drm_intel_bo_map(bo, FALSE);
- 		drm_intel_bo_unmap(bo);
--		xf86UnblockSIGIO(was_blocked);
-+		input_unlock();
- 	}
-
- 	DamageRegionProcessPending(&PixmapDirtyDst(dirty)->drawable);
 =2D-
 2.39.2
 
