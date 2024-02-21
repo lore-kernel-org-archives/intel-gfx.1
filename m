@@ -4,114 +4,58 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CB833C54798
-	for <intel-gfx@archiver.kernel.org>; Thu, 22 Feb 2024 14:01:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 17C99C54788
+	for <intel-gfx@archiver.kernel.org>; Thu, 22 Feb 2024 14:01:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id ABE0910E7AF;
+	by gabe.freedesktop.org (Postfix) with ESMTP id B3E5610E942;
 	Thu, 22 Feb 2024 14:01:07 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=bp.renesas.com header.i=@bp.renesas.com header.b="qiBenFK9";
+	dkim=pass (2048-bit key; unprotected) header.d=metux.net header.i=info@metux.net header.b="k2/6keyJ";
 	dkim-atps=neutral
-Received: from JPN01-OS0-obe.outbound.protection.outlook.com
- (mail-os0jpn01on2087.outbound.protection.outlook.com [40.107.113.87])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D7C5C10E8A2;
- Thu, 22 Feb 2024 08:14:22 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=MPGosPlCj5t/JmsaSN8n1jRWfvTyrjQ2qEYfJzaiOOjlZVWXz8GGzCBsPhP9jSFrsZvpfYNUqeWmZZPG+i1kLHmXLfmcF8uXjqLkJ68lg5cbfSi/2yAnX6B8XmOQMKtIrleO500JxnezorTKPUyjDLwtWdmDqCC2mad8lO5ZyDLRfOkRqKFIfMRTDiK9iEDvvNpNw+YCZRawQnFb7t05YRTZhVJC0JKgX/fHM9RWTJH0ipaD6WXPQDEVaTaDcEZHDO8f8LOms0TcF/g5Vg7HVa4PsoXlDnHAkm229BOJJ7R7nq+LWtKT3wCut2YjBOA4z3YI76lGoIoslOMc8qsw8Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=BAuO+1BbdGlPpv1WKzQmP6RQwZHHjRoVYCz6Kn1t+OE=;
- b=gQ2cp7R360n8c6S8l5z+O6qkNgfZpGmdZJYw2Wy17pPc2ecOq94WbQR5/tVl2dDcxuonEOxoBziRqtXjkfmp2XpSgbXv6XIWgj5td+kzMIqiiWzgebcJRnfbHVEKGzvYFf/zDAFleG8Dnn8OIuPQDzfn5Bc5HMm45CscZMKBWDiijNpbCpmyxBW3M7tLShKH6Zb1++YFDwRs9JBHKEn4MptJZkPq+hvOCCeV+JZLNHbgqL2a3A1GABlrcRCxf2bqgBT0RqTmC5zzxuWLRs/W68wK2OMsifKzdV3k7qArNF2hDUriscBCfVEKkvOPzSVo6D0Lg5jAgX8y6zJkH/WZdQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=bp.renesas.com; dmarc=pass action=none
- header.from=bp.renesas.com; dkim=pass header.d=bp.renesas.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bp.renesas.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=BAuO+1BbdGlPpv1WKzQmP6RQwZHHjRoVYCz6Kn1t+OE=;
- b=qiBenFK9/NbP2pK1pHvnVJCBu97Qk4hapu4049MNBOt2+G/AbqQpmqnb48o/1+HMDfVFoecycNlEmRNnfXt9alYFRIvUMel9Gj1/Qnernevsvdzr3gBDy4Z2b1CzvD5+SbpXmK4d+xwh4NDkagxiI9BCh3hqwuowsq8FbGpyFFs=
-Received: from TYCPR01MB11269.jpnprd01.prod.outlook.com
- (2603:1096:400:3c0::10) by TY3PR01MB10386.jpnprd01.prod.outlook.com
- (2603:1096:400:252::8) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7316.21; Thu, 22 Feb
- 2024 08:14:14 +0000
-Received: from TYCPR01MB11269.jpnprd01.prod.outlook.com
- ([fe80::6719:535a:7217:9f0]) by TYCPR01MB11269.jpnprd01.prod.outlook.com
- ([fe80::6719:535a:7217:9f0%3]) with mapi id 15.20.7292.036; Thu, 22 Feb 2024
- 08:14:14 +0000
-From: Biju Das <biju.das.jz@bp.renesas.com>
-To: Stephen Rothwell <sfr@canb.auug.org.au>, Daniel Vetter
- <daniel.vetter@ffwll.ch>
-CC: Intel Graphics <intel-gfx@lists.freedesktop.org>, DRI
- <dri-devel@lists.freedesktop.org>, Maxime Ripard <mripard@kernel.org>, Linux
- Kernel Mailing List <linux-kernel@vger.kernel.org>, Linux Next Mailing List
- <linux-next@vger.kernel.org>, Geert Uytterhoeven <geert@linux-m68k.org>
-Subject: RE: linux-next: build failure after merge of the drm-misc tree
-Thread-Topic: linux-next: build failure after merge of the drm-misc tree
-Thread-Index: AQHaZTDuEl5j7jpCP0Wkfk+nxl48zbEV+sGw
-Date: Thu, 22 Feb 2024 08:14:14 +0000
-Message-ID: <TYCPR01MB11269B83A59650E230F4DD97F86562@TYCPR01MB11269.jpnprd01.prod.outlook.com>
-References: <20240222124610.383e1ce3@canb.auug.org.au>
-In-Reply-To: <20240222124610.383e1ce3@canb.auug.org.au>
-Accept-Language: en-GB, en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=bp.renesas.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: TYCPR01MB11269:EE_|TY3PR01MB10386:EE_
-x-ms-office365-filtering-correlation-id: bfc4e12d-5758-48f0-d304-08dc337e4206
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: VDColkxmJy8yaPLsSHW8EZ1mZKedPiSP8wg9EfVtyr+yAytiU9Xf2Odoe3lq9BC48lv4l3UCHkBU22wSxGKjyELSzWJrL36x9yH1sICHzQyTZMCICYGu9xIYjhA46jzRJL8tGDi8x54IS0O63jp7ZzHnb9xJ0xYvwx7HLkSak0LJMEfrUXlU+H3c7GQ3FNGTEKtnsV5zEs+EErOHPv8q9uSIoHVWDhMEBcOgTfknpB6QkPlXGi+qxRnOMLKasnPNTlnkwQcBjpuCOKKqdvvBns4SLwdUEPkuxDlDktaHt2l3LdqEbeaQc46wvqE/MXakEBY4Co79KDuRYiNbKFgdLnAvmtd8ngv2sjYrZQGQ+weSam32HcujllZStg81or2J37KFxEdVZdhkgAhKR+DsoyJONxRhqnBibsQwIl0TtxyhS2RVY2jK+kW+ho/yeWSwPoIjRD+oNUUrV5bgK91NcoD0qFMYjJ048wjE1WX5JenaCny3GvLNE/CFNmPeSO0PPYJU+jGskr+Q2qDSZ6/SmtsvmfWpTrhhvlG9sA+vI0J6lnw1XtaPjgHdbY79X4HtQfjMH2PQ6gfy6tJ5SQo2ZR303DhAVPEqpKLhoCzoHbr8k/9PCoKbkeWlDHXL70s2
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:TYCPR01MB11269.jpnprd01.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230031)(38070700009); DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?DxFM5ujWlazQkUJcTyUPXqSD2ZvffN/o5zBDlG1b8R9mG5e45ksL0o6CvIfv?=
- =?us-ascii?Q?+1gksO47LN9zrKvqVtzJ/Auhj1g3UTde7CPtrCIKcxMnSX0ZTOGMkrrhsT0q?=
- =?us-ascii?Q?j81K8/klCfW7M4DO5tSVdWLqk9MPDIfaiT1XTFwjGwSKLX5+gy5qq1hUYBAk?=
- =?us-ascii?Q?tn5AYNnBsAYnsnUht9TWki59h/CTaYUbzklaZnrHZHRyKXsuNGiUBXZ6bZVz?=
- =?us-ascii?Q?VnJPz94ydbusR9XFBiNLO9E9U8QNE9bKer4tYOYEuYzavdAlBw01bCaeu+Yi?=
- =?us-ascii?Q?EYYyJLtuOx+ycUpZn22Y5ntlCHwulioalGcQ7igRDnDOcKTHLkn7GJE5a20C?=
- =?us-ascii?Q?gb4Xms/Rq2iJH0vaPtHFPvcYycCH7CE2k242c2pleQoppIeKY7Zqe0sYlOK9?=
- =?us-ascii?Q?QRWmTCkxNI/0HYr6whxZFpSFF+lJ/lZpOa4AFdkJCmgjTzQpw/2QrXnTkihU?=
- =?us-ascii?Q?lIDg/BDGfYpNmcroDtpsNsEIfCmBN3i748nkK6bsTzdplBa6H/J9gjgn7g8n?=
- =?us-ascii?Q?8XWmERVwXjwPhi+BMU8cKFvAeHCiuraVg+lGlxfMltqq4E1ZYKPznSPFg/rh?=
- =?us-ascii?Q?fy0OTVMFA+XZV12R/6wkHioBEMdGjetZlYm6VND6yoY012HnWlIin8rY5/SL?=
- =?us-ascii?Q?PqDpnxDFULFt5lAppHBQS4Hf6PU6xLF+LWpcyF8wXAdNxX2FOGBPz9x3HE74?=
- =?us-ascii?Q?rNOKrCN3h2cFwCdjntG9WF3hdS9bMlZZbqgMj5XiWhCxBPvj90+VQo87U1zO?=
- =?us-ascii?Q?1sOKfM+ZrLZ3fB70UTlTi58VJvjf//AHWWTWd4+QyFEcqMe1i3aa7afqx4lk?=
- =?us-ascii?Q?QVp/RLuXWHNirJz36xCWbiZqpK3BpekkwzzefECW6Hwp0OGR7PFf7tPO8Lh7?=
- =?us-ascii?Q?hbVPcQPN7I2iZTXBohH79U2V56L1HfKcYfc8UxpVWqLrATxEkTc55XIvSTYD?=
- =?us-ascii?Q?y4bP6PZYKIn28vYzdzVyFnsp6AsI2jUHuOllqfKY92OckxWc0dlBaUb31LNX?=
- =?us-ascii?Q?lZFTdF4BqPbz8rTnWFYBvGLTLPBUuMTaWQRTjUPWfApB4J+RXM/znEMUklMS?=
- =?us-ascii?Q?kdLemhPLnxvnyDM3il7IZt7yOqe+lQ3YGnLjnmGd3O2l0k2Esn9RyAHjYz1D?=
- =?us-ascii?Q?ifTptDNNKIzyjuQ6EVYr4ezbF+RE7XzJ/D/VeyXHROHuBQZMHf3pCkV0mTWf?=
- =?us-ascii?Q?7r/CZCvijf2Hv5FIlCinPtHkPnU18Ku074Yny44ouImRKd7DSQdfZkhOBH+I?=
- =?us-ascii?Q?QoVi+okZya3LIqjNqjQTPTr1mVVaAMfiWSPEsu7vD0xnLw2pSl+vRzziMLFU?=
- =?us-ascii?Q?Nub0Bq/ipzCrkJkKaIEjXGDdwJpu/vpd+LoC3diRrfvHeSe8MEN+Py8ylF0d?=
- =?us-ascii?Q?HJ+HDZgK9xbesyPeO/NMGmtmk0+2XXtypQxIK3uDbly2dKsitlsnLex6Vgib?=
- =?us-ascii?Q?7OQW5QRJe3u6MBb6466B9gm4LdAZ5Ejgl3od91ckX2xr9Z3O+WrENHC6EXhJ?=
- =?us-ascii?Q?BnQU/UP8f9Qf1qqznOidCg9TRbU3OD2YkYuPtyNnghw0fExPDsOjtZC3HwXf?=
- =?us-ascii?Q?/s96TIk8yeKY1ENOFj10G6j1F7qXmHwCcrISwDnQuTvUyFhXZJnS4+9sW++9?=
- =?us-ascii?Q?6w=3D=3D?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+Received: from mout.kundenserver.de (mout.kundenserver.de [212.227.126.135])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B809210E26B
+ for <intel-gfx@lists.freedesktop.org>; Wed, 21 Feb 2024 15:12:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=metux.net;
+ s=s1-ionos; t=1708528328; x=1709133128; i=info@metux.net;
+ bh=bWZL2bcZ4CZRBAoTUwUgIB5eFmzSmLTU14A5BglO0eg=;
+ h=X-UI-Sender-Class:From:To:Subject:Date:In-Reply-To:References;
+ b=k2/6keyJc4MwRTYpZ/dCQMl8yWiPP/0kLE8MP9QmFyT4OR38RAKfwBaUe0waWPN5
+ iple2tqg82WbtBaK7+8bxJXeWcplfR0d1HlsumEHMx/19u0LG/9UoOLyG42+f8iON
+ htXUfy4WETcxMpxCMgdDnNIIY31Ey+PsgPdcbd3HEUTzW1aMJU6xjQNSAu5T7zPNh
+ 43GtdX7hJgU/Mgbe0p1Q3wCZodiWIwux+SYGMDWP8tGQcj09Qf66yoPv2ZkGbHl0H
+ fyBLKp/W4U6dGMb8S5vVCH3W811iB/cVJMp8iL9OYbrzrOBlvJ10jU4XCeSH/fz5+
+ gC9Eqk1FDUxudlVUbw==
+X-UI-Sender-Class: 55c96926-9e95-11ee-ae09-1f7a4046a0f6
+Received: from orion.localdomain ([77.4.30.125]) by mrelayeu.kundenserver.de
+ (mreue009 [212.227.15.167]) with ESMTPSA (Nemesis) id
+ 1MmU9R-1rCr6X3JIH-00iSJc for <intel-gfx@lists.freedesktop.org>; Wed, 21 Feb
+ 2024 16:07:04 +0100
+From: "Enrico Weigelt, metux IT consult" <info@metux.net>
+To: intel-gfx@lists.freedesktop.org
+Subject: [PATCH 3/3] backlight: use system() instead of System()
+Date: Wed, 21 Feb 2024 16:06:56 +0100
+Message-Id: <20240221150656.30539-4-info@metux.net>
+X-Mailer: git-send-email 2.39.2
+In-Reply-To: <20240221150656.30539-1-info@metux.net>
+References: <20240221150656.30539-1-info@metux.net>
 MIME-Version: 1.0
-X-OriginatorOrg: bp.renesas.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: TYCPR01MB11269.jpnprd01.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: bfc4e12d-5758-48f0-d304-08dc337e4206
-X-MS-Exchange-CrossTenant-originalarrivaltime: 22 Feb 2024 08:14:14.6168 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 53d82571-da19-47e4-9cb4-625a166a4a2a
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: yrzaeC2V9m5HTZoMlaIPA3Glkm70aYA019n8a8mrGBk5uzSC4PhWVJ/zjU2OyRha9Xn8+jFwoZt1RPk/wJEI5FYeDpammhogxJHRYKT0l6Y=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: TY3PR01MB10386
+Content-Transfer-Encoding: quoted-printable
+X-Provags-ID: V03:K1:X5Vm51ZoCVYFS1++BHs70K3zS2ybLxJ2kjqSsRRjOjf4oX7Tz8N
+ pWlDVBHls42Kuyz8PUHIk3NillbFd885YuzjUYP8st84hGDl8wH9cHs1Wx7eGqCy97p6Y+x
+ Ret3D9QXYv8lhysysW6qBnvwHNaLcgRXSp9X0wKHBYIxyKZdUvFWTMUb1VbanwZE7GFIr50
+ ESFgIoTkn4AnM80cIwf5Q==
+UI-OutboundReport: notjunk:1;M01:P0:vneYlQWCwXs=;4i/llP7RyTen9aKdOUg3neSqr0b
+ +VYZ/LKn757XelxujotvAzZ0iZblEY+hresuyDnMXQrWFB/FRNwgS4K66Or73fiiWmOKxEhxO
+ p6wBgYJIBEetYG3FpHLoNuNaEwwfauz56F5lc992LK+vUVviObWk4j4l9aipGRWhOoqj4+Opd
+ kWYQv6A0CQdRNZmL3Fyn6fqc+FIeM1qTHdwAkvrXYTz/O8g+gGr5SJ9nAiNFrOh9Vx7L9+cCB
+ X2VolonuDsPn6hfIM9uQ5hP6Gm/xsF88l/mRq3yEKY5XW4oF0MuX28LPcTk+XtZ8r5C7/aWyF
+ Rc7ygqGyCoyLD3wNxfr0scy73jSlaG/mhCFCOzqUhlp9CUI61hZ+iiBI6XOEvAmHePyM+3vxs
+ vkQCEXikC20/uk/CZtnJJ1DyMWMAeRS5HM+2zFNlqEIm8p5As5KKYDurOmHAzWx967CBOyli9
+ plIFbPVasqU1v0AzmelvED6VA2l2NQ8MY3CukXtEpuCjM3irGdctDfqhhXbZkcJR4J1CKHnJs
+ bxyYs+gE/XV8f0D5IbibOYtCh/CDfd9jHxp4vihrrvR4UGd6LOKiOMJKxbmS9WdzWj9SCeUAc
+ soA1H0Y+VvUxUWMcE3URVT9zrURW++rc9C6Hz62GIIalnMsCQJzCxQtcOdG50mB7HnrBejnvP
+ j5ezQ775VFPAdOvLc5wkwzte+wACfPtufeQZrVPV6L2cUvxPRzkKZZCk7yn+1dt43cTA7DAve
+ 1u96mnFw2rQj3SvURYsYsdnzThaoddg/LXzEZV3x5gqc9r8FxjktWE=
 X-Mailman-Approved-At: Thu, 22 Feb 2024 14:01:06 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -128,88 +72,40 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Hi All,
+The Xserver's System() function is a special wrapper for calling a program
+(xkbcomp) as an unprivileged user, when the Xserver is running as suid-roo=
+t.
+(which today only needed on a few platforms, eg. Solaris). Therefore it's
+not suited for being called by arbitrary drivers.
 
-> -----Original Message-----
-> From: Stephen Rothwell <sfr@canb.auug.org.au>
-> Sent: Thursday, February 22, 2024 1:46 AM
-> Subject: linux-next: build failure after merge of the drm-misc tree
->=20
-> Hi all,
->=20
-> After merging the drm-misc tree, today's linux-next build (x86_64
-> allmodconfig) failed like this:
->=20
-> drivers/gpu/drm/renesas/rz-du/rzg2l_du_vsp.c:47:6: error: redefinition of
-> 'rzg2l_du_vsp_enable'
->    47 | void rzg2l_du_vsp_enable(struct rzg2l_du_crtc *crtc)
->       |      ^~~~~~~~~~~~~~~~~~~
-> In file included from drivers/gpu/drm/renesas/rz-du/rzg2l_du_drv.h:18,
->                  from drivers/gpu/drm/renesas/rz-du/rzg2l_du_vsp.c:30:
-> drivers/gpu/drm/renesas/rz-du/rzg2l_du_vsp.h:72:20: note: previous
-> definition of 'rzg2l_du_vsp_enable' with type 'void(struct rzg2l_du_crtc
-> *)'
->    72 | static inline void rzg2l_du_vsp_enable(struct rzg2l_du_crtc *crtc=
-)
-> { };
->       |                    ^~~~~~~~~~~~~~~~~~~
-> drivers/gpu/drm/renesas/rz-du/rzg2l_du_vsp.c:61:6: error: redefinition of
-> 'rzg2l_du_vsp_disable'
->    61 | void rzg2l_du_vsp_disable(struct rzg2l_du_crtc *crtc)
->       |      ^~~~~~~~~~~~~~~~~~~~
-> drivers/gpu/drm/renesas/rz-du/rzg2l_du_vsp.h:73:20: note: previous
-> definition of 'rzg2l_du_vsp_disable' with type 'void(struct rzg2l_du_crtc
-> *)'
->    73 | static inline void rzg2l_du_vsp_disable(struct rzg2l_du_crtc
-> *crtc) { };
->       |                    ^~~~~~~~~~~~~~~~~~~~
-> drivers/gpu/drm/renesas/rz-du/rzg2l_du_vsp.c:66:6: error: redefinition of
-> 'rzg2l_du_vsp_atomic_flush'
->    66 | void rzg2l_du_vsp_atomic_flush(struct rzg2l_du_crtc *crtc)
->       |      ^~~~~~~~~~~~~~~~~~~~~~~~~
-> drivers/gpu/drm/renesas/rz-du/rzg2l_du_vsp.h:74:20: note: previous
-> definition of 'rzg2l_du_vsp_atomic_flush' with type 'void(struct
-> rzg2l_du_crtc *)'
->    74 | static inline void rzg2l_du_vsp_atomic_flush(struct rzg2l_du_crtc
-> *crtc) { };
->       |                    ^~~~~~~~~~~~~~~~~~~~~~~~~
-> drivers/gpu/drm/renesas/rz-du/rzg2l_du_vsp.c:76:19: error: redefinition o=
-f
-> 'rzg2l_du_vsp_get_drm_plane'
->    76 | struct drm_plane *rzg2l_du_vsp_get_drm_plane(struct rzg2l_du_crtc
-> *crtc,
->       |                   ^~~~~~~~~~~~~~~~~~~~~~~~~~
-> drivers/gpu/drm/renesas/rz-du/rzg2l_du_vsp.h:75:33: note: previous
-> definition of 'rzg2l_du_vsp_get_drm_plane' with type 'struct drm_plane
-> *(struct rzg2l_du_crtc *, unsigned int)'
->    75 | static inline struct drm_plane *rzg2l_du_vsp_get_drm_plane(struct
-> rzg2l_du_crtc *crtc,
->       |                                 ^~~~~~~~~~~~~~~~~~~~~~~~~~
-> drivers/gpu/drm/renesas/rz-du/rzg2l_du_vsp.c:302:5: error: redefinition o=
-f
-> 'rzg2l_du_vsp_init'
->   302 | int rzg2l_du_vsp_init(struct rzg2l_du_vsp *vsp, struct device_nod=
-e
-> *np,
->       |     ^~~~~~~~~~~~~~~~~
-> drivers/gpu/drm/renesas/rz-du/rzg2l_du_vsp.h:66:19: note: previous
-> definition of 'rzg2l_du_vsp_init' with type 'int(struct rzg2l_du_vsp *,
-> struct device_node *, unsigned int)'
->    66 | static inline int rzg2l_du_vsp_init(struct rzg2l_du_vsp *vsp,
-> struct device_node *np,
->       |                   ^~~~~~~~~~~~~~~~~
->=20
-> Caused by commit
->=20
->   768e9e61b3b9 ("drm: renesas: Add RZ/G2L DU Support")
->=20
-> I have used the drm-misc tree from next-20240221 for today.
+In this specific context it doesn't even much sense, since it's just used
+for checking whether pkexec command is present at all (and just should be
+used), while the actual exec'ing of the helper is done directly by fork()
+and exec() syscalls.
 
-I will send an incremental patch to fix this build error with x86 on drm-ne=
-xt.
+Thus we can safely use standard system() call instead - clearing the road
+for dropping System() from Xserver's public/driver API.
 
-I need to use the macro #if IS_ENABLED(CONFIG_VIDEO_RENESAS_VSP1)
-in drivers/gpu/drm/renesas/rz-du/rzg2l_du_vsp.h to fix this error.
+Signed-off-by: Enrico Weigelt, metux IT consult <info@metux.net>
+=2D--
+ src/backlight.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-Cheers,
-Biju
+diff --git a/src/backlight.c b/src/backlight.c
+index fcbb279f..f416f2a4 100644
+=2D-- a/src/backlight.c
++++ b/src/backlight.c
+@@ -366,7 +366,7 @@ static int __backlight_helper_init(struct backlight *b=
+, char *iface)
+ 		return 0;
+
+ 	if ((st.st_mode & (S_IFREG | S_ISUID | S_IXUSR)) !=3D (S_IFREG | S_ISUID=
+ | S_IXUSR)) {
+-		if (System("pkexec --version"))
++		if (system("pkexec --version"))
+ 			return 0;
+
+ 		use_pkexec =3D 1;
+=2D-
+2.39.2
+
