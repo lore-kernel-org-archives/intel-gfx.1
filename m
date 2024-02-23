@@ -4,46 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 18603C54E4A
-	for <intel-gfx@archiver.kernel.org>; Fri, 23 Feb 2024 08:17:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 31E52C54E49
+	for <intel-gfx@archiver.kernel.org>; Fri, 23 Feb 2024 08:17:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CDACD10EB25;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4FC3010EB27;
 	Fri, 23 Feb 2024 08:17:06 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="Rqyb4+Il";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="jhWx1ff6";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.17])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D9DBA10EB1C
- for <intel-gfx@lists.freedesktop.org>; Fri, 23 Feb 2024 08:17:01 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CA33610EB1C
+ for <intel-gfx@lists.freedesktop.org>; Fri, 23 Feb 2024 08:16:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1708676222; x=1740212222;
+ t=1708676216; x=1740212216;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=0M0LiGXHnCXgQAqwJLSkTbMClh18jNcs+mWAMMb+1IA=;
- b=Rqyb4+IlUvXeyrEbC2Tp++n1tJ0FpaQTyoOApEDKtGtZVi388Uz7gECS
- OWqH3VKshMOO3QyKO3vpeJM2B7vg4ppOfFddLxi+kSk0zx1MPVGX8TK1u
- ESzWe95eWX3PYaHg7dmqzeSc+DfYvlRpmjULhN/vydNC5TDqZKkfUFqWK
- 8lumuUrVqdG4kZYMjgHk1KcAeL8Vxz5GKRojIBSMeVOBbhq4VzCc5pKHe
- nyhG9zvibfofsEQAG7FuU+9nydhzcWDGeHz31RuTb+epfuTdq5Jx1e2Gx
- 2vBGC2IV1yKM3iTvOdLZvh9zm7zBdFjcUbQT7G6FQ8Jn7+7NzzIm38+l2 w==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10992"; a="2830033"
+ bh=FiBXU414RMlgf54TqlQ/an1cEZV1Szebx6dy0pYOB20=;
+ b=jhWx1ff6+J7DwpAmKaI9B9k3zIO3RTC4rhjjTN79B7R9kuMbapan2Eb0
+ itoVBycCXsQulKVLIEX1vl4g1/qRoiOXyWXMAeDa7vrKRlYSYue2bKpp3
+ R2tDa5821yEEtR+V0DTgfZJtfjaTqSHwZJ93TKB29bACNFpEjf23MeuQC
+ jAwN7lRbVAXa+DHRZgsFC7sz4q3BHizLOqaGmdcmJQOYkjAXSqtAuh0Op
+ 6OfCOh+FwzQx9IDYtnKIIApEuLShgz6i+sLEzNQfLBRd0i/QHruVijK9C
+ dfAJbva/5/r0u7/IzdBdRtITpXmCf+Qv8BBKiBXJmLSfNX9s8U2nFZVok w==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10992"; a="2830011"
 X-IronPort-AV: E=Sophos;i="6.06,179,1705392000"; 
-   d="scan'208";a="2830033"
+   d="scan'208";a="2830011"
 Received: from orviesa003.jf.intel.com ([10.64.159.143])
  by fmvoesa111.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 Feb 2024 00:17:02 -0800
+ 23 Feb 2024 00:16:56 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.06,179,1705392000"; d="scan'208";a="10528900"
+X-IronPort-AV: E=Sophos;i="6.06,179,1705392000"; d="scan'208";a="10528820"
 Received: from kandpal-x299-ud4-pro.iind.intel.com ([10.190.239.32])
- by orviesa003.jf.intel.com with ESMTP; 23 Feb 2024 00:16:59 -0800
+ by orviesa003.jf.intel.com with ESMTP; 23 Feb 2024 00:16:54 -0800
 From: Suraj Kandpal <suraj.kandpal@intel.com>
 To: intel-gfx@lists.freedesktop.org
 Cc: uma.shankar@intel.com, ankit.k.nautiyal@intel.com,
  Suraj Kandpal <suraj.kandpal@intel.com>
-Subject: [PATCH 05/13] drm/i915/hdcp: Rename hdcp capable functions
-Date: Fri, 23 Feb 2024 13:44:46 +0530
-Message-ID: <20240223081453.1576918-7-suraj.kandpal@intel.com>
+Subject: [PATCH 02/13] drm/i915/hdcp: Move source hdcp2 checks into its own
+ function
+Date: Fri, 23 Feb 2024 13:44:43 +0530
+Message-ID: <20240223081453.1576918-4-suraj.kandpal@intel.com>
 X-Mailer: git-send-email 2.43.2
 In-Reply-To: <20240223081453.1576918-2-suraj.kandpal@intel.com>
 References: <20240223081453.1576918-2-suraj.kandpal@intel.com>
@@ -64,243 +65,56 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Rename hdcp_capable and hdcp_2_2_capable to hdcp_get_capability
-and hdcp_2_2_get_capability to properly reflect what these functions
-are doing.
+Move checks on the source side for HDCP2.2 into its own function
+so that they can be used in the HDCP remote capability check
+function.
 
 Signed-off-by: Suraj Kandpal <suraj.kandpal@intel.com>
 Reviewed-by: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
 ---
- .../drm/i915/display/intel_display_debugfs.c  |  4 ++--
- .../drm/i915/display/intel_display_types.h    |  8 +++----
- drivers/gpu/drm/i915/display/intel_dp_hdcp.c  | 22 +++++++++----------
- drivers/gpu/drm/i915/display/intel_hdcp.c     | 18 +++++++--------
- drivers/gpu/drm/i915/display/intel_hdcp.h     |  4 ++--
- drivers/gpu/drm/i915/display/intel_hdmi.c     |  6 ++---
- 6 files changed, 31 insertions(+), 31 deletions(-)
+ drivers/gpu/drm/i915/display/intel_hdcp.c | 20 +++++++++++++++++---
+ 1 file changed, 17 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_display_debugfs.c b/drivers/gpu/drm/i915/display/intel_display_debugfs.c
-index a962b48bcf13..d8f1a23ac2b1 100644
---- a/drivers/gpu/drm/i915/display/intel_display_debugfs.c
-+++ b/drivers/gpu/drm/i915/display/intel_display_debugfs.c
-@@ -197,8 +197,8 @@ static void intel_hdcp_info(struct seq_file *m,
- 		goto out;
- 	}
- 
--	hdcp_cap = intel_hdcp_capable(intel_connector);
--	hdcp2_cap = intel_hdcp2_capable(intel_connector);
-+	hdcp_cap = intel_hdcp_get_capability(intel_connector);
-+	hdcp2_cap = intel_hdcp2_get_capability(intel_connector);
- 
- 	if (hdcp_cap)
- 		seq_puts(m, "HDCP1.4 ");
-diff --git a/drivers/gpu/drm/i915/display/intel_display_types.h b/drivers/gpu/drm/i915/display/intel_display_types.h
-index 578763e202c0..b6f86129c0bc 100644
---- a/drivers/gpu/drm/i915/display/intel_display_types.h
-+++ b/drivers/gpu/drm/i915/display/intel_display_types.h
-@@ -498,15 +498,15 @@ struct intel_hdcp_shim {
- 			   struct intel_connector *connector);
- 
- 	/* Detects panel's hdcp capability. This is optional for HDMI. */
--	int (*hdcp_capable)(struct intel_digital_port *dig_port,
--			    bool *hdcp_capable);
-+	int (*hdcp_get_capability)(struct intel_digital_port *dig_port,
-+				   bool *hdcp_capable);
- 
- 	/* HDCP adaptation(DP/HDMI) required on the port */
- 	enum hdcp_wired_protocol protocol;
- 
- 	/* Detects whether sink is HDCP2.2 capable */
--	int (*hdcp_2_2_capable)(struct intel_connector *connector,
--				bool *capable);
-+	int (*hdcp_2_2_get_capability)(struct intel_connector *connector,
-+				       bool *capable);
- 
- 	/* Write HDCP2.2 messages */
- 	int (*write_2_2_msg)(struct intel_connector *connector,
-diff --git a/drivers/gpu/drm/i915/display/intel_dp_hdcp.c b/drivers/gpu/drm/i915/display/intel_dp_hdcp.c
-index 5394391acbe1..bf90e9024feb 100644
---- a/drivers/gpu/drm/i915/display/intel_dp_hdcp.c
-+++ b/drivers/gpu/drm/i915/display/intel_dp_hdcp.c
-@@ -269,8 +269,8 @@ bool intel_dp_hdcp_check_link(struct intel_digital_port *dig_port,
- }
- 
- static
--int intel_dp_hdcp_capable(struct intel_digital_port *dig_port,
--			  bool *hdcp_capable)
-+int intel_dp_hdcp_get_capability(struct intel_digital_port *dig_port,
-+				 bool *hdcp_capable)
- {
- 	struct drm_i915_private *i915 = to_i915(dig_port->base.base.dev);
- 	ssize_t ret;
-@@ -642,8 +642,8 @@ int intel_dp_hdcp2_check_link(struct intel_digital_port *dig_port,
- }
- 
- static
--int _intel_dp_hdcp2_capable(struct drm_dp_aux *aux,
--			    bool *capable)
-+int _intel_dp_hdcp2_get_capability(struct drm_dp_aux *aux,
-+				   bool *capable)
- {
- 	u8 rx_caps[3];
- 	int ret;
-@@ -663,13 +663,13 @@ int _intel_dp_hdcp2_capable(struct drm_dp_aux *aux,
- }
- 
- static
--int intel_dp_hdcp2_capable(struct intel_connector *connector,
--			   bool *capable)
-+int intel_dp_hdcp2_get_capability(struct intel_connector *connector,
-+				  bool *capable)
- {
- 	struct intel_digital_port *dig_port = intel_attached_dig_port(connector);
- 	struct drm_dp_aux *aux = &dig_port->dp.aux;
- 
--	return _intel_dp_hdcp2_capable(aux, capable);
-+	return _intel_dp_hdcp2_get_capability(aux, capable);
- }
- 
- static const struct intel_hdcp_shim intel_dp_hdcp_shim = {
-@@ -683,12 +683,12 @@ static const struct intel_hdcp_shim intel_dp_hdcp_shim = {
- 	.read_v_prime_part = intel_dp_hdcp_read_v_prime_part,
- 	.toggle_signalling = intel_dp_hdcp_toggle_signalling,
- 	.check_link = intel_dp_hdcp_check_link,
--	.hdcp_capable = intel_dp_hdcp_capable,
-+	.hdcp_get_capability = intel_dp_hdcp_get_capability,
- 	.write_2_2_msg = intel_dp_hdcp2_write_msg,
- 	.read_2_2_msg = intel_dp_hdcp2_read_msg,
- 	.config_stream_type = intel_dp_hdcp2_config_stream_type,
- 	.check_2_2_link = intel_dp_hdcp2_check_link,
--	.hdcp_2_2_capable = intel_dp_hdcp2_capable,
-+	.hdcp_2_2_get_capability = intel_dp_hdcp2_get_capability,
- 	.protocol = HDCP_PROTOCOL_DP,
- };
- 
-@@ -813,13 +813,13 @@ static const struct intel_hdcp_shim intel_dp_mst_hdcp_shim = {
- 	.toggle_signalling = intel_dp_hdcp_toggle_signalling,
- 	.stream_encryption = intel_dp_mst_hdcp_stream_encryption,
- 	.check_link = intel_dp_hdcp_check_link,
--	.hdcp_capable = intel_dp_hdcp_capable,
-+	.hdcp_get_capability = intel_dp_hdcp_get_capability,
- 	.write_2_2_msg = intel_dp_hdcp2_write_msg,
- 	.read_2_2_msg = intel_dp_hdcp2_read_msg,
- 	.config_stream_type = intel_dp_hdcp2_config_stream_type,
- 	.stream_2_2_encryption = intel_dp_mst_hdcp2_stream_encryption,
- 	.check_2_2_link = intel_dp_mst_hdcp2_check_link,
--	.hdcp_2_2_capable = intel_dp_hdcp2_capable,
-+	.hdcp_2_2_get_capability = intel_dp_hdcp2_get_capability,
- 	.protocol = HDCP_PROTOCOL_DP,
- };
- 
 diff --git a/drivers/gpu/drm/i915/display/intel_hdcp.c b/drivers/gpu/drm/i915/display/intel_hdcp.c
-index 4593ac10e2fa..c1a32f9f1199 100644
+index c3e692e7f790..4593ac10e2fa 100644
 --- a/drivers/gpu/drm/i915/display/intel_hdcp.c
 +++ b/drivers/gpu/drm/i915/display/intel_hdcp.c
-@@ -140,7 +140,7 @@ int intel_hdcp_read_valid_bksv(struct intel_digital_port *dig_port,
- }
- 
- /* Is HDCP1.4 capable on Platform and Sink */
--bool intel_hdcp_capable(struct intel_connector *connector)
-+bool intel_hdcp_get_capability(struct intel_connector *connector)
- {
- 	struct intel_digital_port *dig_port = intel_attached_dig_port(connector);
- 	const struct intel_hdcp_shim *shim = connector->hdcp.shim;
-@@ -150,8 +150,8 @@ bool intel_hdcp_capable(struct intel_connector *connector)
- 	if (!shim)
- 		return capable;
- 
--	if (shim->hdcp_capable) {
--		shim->hdcp_capable(dig_port, &capable);
-+	if (shim->hdcp_get_capability) {
-+		shim->hdcp_get_capability(dig_port, &capable);
- 	} else {
- 		if (!intel_hdcp_read_valid_bksv(dig_port, shim, bksv))
- 			capable = true;
-@@ -191,7 +191,7 @@ static bool intel_hdcp2_prerequisite(struct intel_connector *connector)
- }
- 
- /* Is HDCP2.2 capable on Platform and Sink */
--bool intel_hdcp2_capable(struct intel_connector *connector)
-+bool intel_hdcp2_get_capability(struct intel_connector *connector)
- {
- 	struct intel_hdcp *hdcp = &connector->hdcp;
- 	bool capable = false;
-@@ -200,7 +200,7 @@ bool intel_hdcp2_capable(struct intel_connector *connector)
- 		return false;
- 
- 	/* Sink's capability for HDCP2.2 */
--	hdcp->shim->hdcp_2_2_capable(connector, &capable);
-+	hdcp->shim->hdcp_2_2_get_capability(connector, &capable);
- 
+@@ -160,12 +160,14 @@ bool intel_hdcp_capable(struct intel_connector *connector)
  	return capable;
  }
-@@ -740,8 +740,8 @@ static int intel_hdcp_auth(struct intel_connector *connector)
- 	 * whether the display supports HDCP before we write An. For HDMI
- 	 * displays, this is not necessary.
- 	 */
--	if (shim->hdcp_capable) {
--		ret = shim->hdcp_capable(dig_port, &hdcp_capable);
-+	if (shim->hdcp_get_capability) {
-+		ret = shim->hdcp_get_capability(dig_port, &hdcp_capable);
- 		if (ret)
- 			return ret;
- 		if (!hdcp_capable) {
-@@ -2388,7 +2388,7 @@ static int _intel_hdcp_enable(struct intel_atomic_state *state,
- 	 * Considering that HDCP2.2 is more secure than HDCP1.4, If the setup
- 	 * is capable of HDCP2.2, it is preferred to use HDCP2.2.
- 	 */
--	if (intel_hdcp2_capable(connector)) {
-+	if (intel_hdcp2_get_capability(connector)) {
- 		ret = intel_hdcp_set_streams(dig_port, state);
- 		if (!ret) {
- 			ret = _intel_hdcp2_enable(connector);
-@@ -2406,7 +2406,7 @@ static int _intel_hdcp_enable(struct intel_atomic_state *state,
- 	 * When HDCP2.2 fails and Content Type is not Type1, HDCP1.4 will
- 	 * be attempted.
- 	 */
--	if (ret && intel_hdcp_capable(connector) &&
-+	if (ret && intel_hdcp_get_capability(connector) &&
- 	    hdcp->content_type != DRM_MODE_HDCP_CONTENT_TYPE1) {
- 		ret = intel_hdcp1_enable(connector);
- 	}
-diff --git a/drivers/gpu/drm/i915/display/intel_hdcp.h b/drivers/gpu/drm/i915/display/intel_hdcp.h
-index a9c784fd9ba5..aeefb3c13d2c 100644
---- a/drivers/gpu/drm/i915/display/intel_hdcp.h
-+++ b/drivers/gpu/drm/i915/display/intel_hdcp.h
-@@ -38,8 +38,8 @@ void intel_hdcp_update_pipe(struct intel_atomic_state *state,
- 			    const struct intel_crtc_state *crtc_state,
- 			    const struct drm_connector_state *conn_state);
- bool is_hdcp_supported(struct drm_i915_private *i915, enum port port);
--bool intel_hdcp_capable(struct intel_connector *connector);
--bool intel_hdcp2_capable(struct intel_connector *connector);
-+bool intel_hdcp_get_capability(struct intel_connector *connector);
-+bool intel_hdcp2_get_capability(struct intel_connector *connector);
- void intel_hdcp_component_init(struct drm_i915_private *i915);
- void intel_hdcp_component_fini(struct drm_i915_private *i915);
- void intel_hdcp_cleanup(struct intel_connector *connector);
-diff --git a/drivers/gpu/drm/i915/display/intel_hdmi.c b/drivers/gpu/drm/i915/display/intel_hdmi.c
-index 7020e5806109..90d2236fede3 100644
---- a/drivers/gpu/drm/i915/display/intel_hdmi.c
-+++ b/drivers/gpu/drm/i915/display/intel_hdmi.c
-@@ -1732,8 +1732,8 @@ int intel_hdmi_hdcp2_check_link(struct intel_digital_port *dig_port,
- }
  
- static
--int intel_hdmi_hdcp2_capable(struct intel_connector *connector,
--			     bool *capable)
-+int intel_hdmi_hdcp2_get_capability(struct intel_connector *connector,
-+				    bool *capable)
+-/* Is HDCP2.2 capable on Platform and Sink */
+-bool intel_hdcp2_capable(struct intel_connector *connector)
++/*
++ * Check if the source has all the building blocks ready to make
++ * HDCP 2.2 work
++ */
++static bool intel_hdcp2_prerequisite(struct intel_connector *connector)
  {
- 	struct intel_digital_port *dig_port = intel_attached_dig_port(connector);
- 	u8 hdcp2_version;
-@@ -1762,7 +1762,7 @@ static const struct intel_hdcp_shim intel_hdmi_hdcp_shim = {
- 	.write_2_2_msg = intel_hdmi_hdcp2_write_msg,
- 	.read_2_2_msg = intel_hdmi_hdcp2_read_msg,
- 	.check_2_2_link	= intel_hdmi_hdcp2_check_link,
--	.hdcp_2_2_capable = intel_hdmi_hdcp2_capable,
-+	.hdcp_2_2_get_capability = intel_hdmi_hdcp2_get_capability,
- 	.protocol = HDCP_PROTOCOL_HDMI,
- };
+ 	struct drm_i915_private *i915 = to_i915(connector->base.dev);
+ 	struct intel_hdcp *hdcp = &connector->hdcp;
+-	bool capable = false;
+ 
+ 	/* I915 support for HDCP2.2 */
+ 	if (!hdcp->hdcp2_supported)
+@@ -185,6 +187,18 @@ bool intel_hdcp2_capable(struct intel_connector *connector)
+ 	}
+ 	mutex_unlock(&i915->display.hdcp.hdcp_mutex);
+ 
++	return true;
++}
++
++/* Is HDCP2.2 capable on Platform and Sink */
++bool intel_hdcp2_capable(struct intel_connector *connector)
++{
++	struct intel_hdcp *hdcp = &connector->hdcp;
++	bool capable = false;
++
++	if (!intel_hdcp2_prerequisite(connector))
++		return false;
++
+ 	/* Sink's capability for HDCP2.2 */
+ 	hdcp->shim->hdcp_2_2_capable(connector, &capable);
  
 -- 
 2.43.2
