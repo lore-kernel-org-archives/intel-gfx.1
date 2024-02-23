@@ -4,59 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F18F7C54798
-	for <intel-gfx@archiver.kernel.org>; Fri, 23 Feb 2024 20:43:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9F6C8C54798
+	for <intel-gfx@archiver.kernel.org>; Fri, 23 Feb 2024 20:58:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1EE6510E95A;
-	Fri, 23 Feb 2024 20:43:49 +0000 (UTC)
-Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 07C5310E2AD;
- Fri, 23 Feb 2024 20:43:47 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sin.source.kernel.org (Postfix) with ESMTP id CAB6DCE2E6D;
- Fri, 23 Feb 2024 20:43:45 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 67DE0C43390;
- Fri, 23 Feb 2024 20:43:39 +0000 (UTC)
-Date: Fri, 23 Feb 2024 15:45:32 -0500
-From: Steven Rostedt <rostedt@goodmis.org>
-To: Jeff Johnson <quic_jjohnson@quicinc.com>
-Cc: LKML <linux-kernel@vger.kernel.org>, Linux Trace Kernel
- <linux-trace-kernel@vger.kernel.org>, Masami Hiramatsu
- <mhiramat@kernel.org>, Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
- Linus Torvalds <torvalds@linux-foundation.org>,
- <linuxppc-dev@lists.ozlabs.org>, <kvm@vger.kernel.org>,
- <linux-block@vger.kernel.org>, <linux-cxl@vger.kernel.org>,
- <linux-media@vger.kernel.org>, <dri-devel@lists.freedesktop.org>,
- <amd-gfx@lists.freedesktop.org>, <intel-gfx@lists.freedesktop.org>,
- <intel-xe@lists.freedesktop.org>, <linux-arm-msm@vger.kernel.org>,
- <freedreno@lists.freedesktop.org>, <virtualization@lists.linux.dev>,
- <linux-rdma@vger.kernel.org>, <linux-pm@vger.kernel.org>,
- <iommu@lists.linux.dev>, <linux-tegra@vger.kernel.org>,
- <netdev@vger.kernel.org>, <linux-hyperv@vger.kernel.org>,
- <ath10k@lists.infradead.org>, <linux-wireless@vger.kernel.org>,
- <ath11k@lists.infradead.org>, <ath12k@lists.infradead.org>,
- <brcm80211@lists.linux.dev>, <brcm80211-dev-list.pdl@broadcom.com>,
- <linux-usb@vger.kernel.org>, <linux-bcachefs@vger.kernel.org>,
- <linux-nfs@vger.kernel.org>, <ocfs2-devel@lists.linux.dev>,
- <linux-cifs@vger.kernel.org>, <linux-xfs@vger.kernel.org>,
- <linux-edac@vger.kernel.org>, <selinux@vger.kernel.org>,
- <linux-btrfs@vger.kernel.org>, <linux-erofs@lists.ozlabs.org>,
- <linux-f2fs-devel@lists.sourceforge.net>, <linux-hwmon@vger.kernel.org>,
- <io-uring@vger.kernel.org>, <linux-sound@vger.kernel.org>,
- <bpf@vger.kernel.org>, <linux-wpan@vger.kernel.org>, <dev@openvswitch.org>,
- <linux-s390@vger.kernel.org>, <tipc-discussion@lists.sourceforge.net>,
- Julia Lawall <Julia.Lawall@inria.fr>
-Subject: Re: [FYI][PATCH] tracing/treewide: Remove second parameter of
- __assign_str()
-Message-ID: <20240223154532.76475d82@gandalf.local.home>
-In-Reply-To: <20240223134653.524a5c9e@gandalf.local.home>
-References: <20240223125634.2888c973@gandalf.local.home>
- <0aed6cf2-17ae-45aa-b7ff-03da932ea4e0@quicinc.com>
- <20240223134653.524a5c9e@gandalf.local.home>
-X-Mailer: Claws Mail 3.19.1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4D10410E2AD;
+	Fri, 23 Feb 2024 20:58:43 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="BD7QaMMI";
+	dkim-atps=neutral
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.8])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CAF6710E28E;
+ Fri, 23 Feb 2024 20:58:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1708721922; x=1740257922;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=3k6RPnIrd2eJKzN4GkeO2TOFpuBO5TdVfovnthWRyvk=;
+ b=BD7QaMMI6KBXMX8X1I3XSikbvX1BhEzGMMvU7IjMcHsVg7rIyd78k/Wz
+ dRkgiCUPfRkbJppdnA0oxBo4YPErxr2POa+t8iAd6Btxzho/n4W9MG2FY
+ w9m2zDvh11VkN1H1N+dWQHlnHpxFF8GSGPkb9edPUoa+8bAViHZwQ3anX
+ wwaUsQt/Ma3VmbjTIeyoEEFn7HoaTqM/zc5kp0IS5aV2dV5BrG22tMgiJ
+ FAUDxFz6aCJ8k/zNmyPjdT1ussSgmSkDSZie53EH6qsgxXgRV0hln1sJ0
+ VthH63S6/d4sFmsKaowQN/K6ta0pLVKfaTOGI3Ls3N6Ru8q09xSmT7JbY A==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10993"; a="20604772"
+X-IronPort-AV: E=Sophos;i="6.06,180,1705392000"; d="scan'208";a="20604772"
+Received: from fmviesa007.fm.intel.com ([10.60.135.147])
+ by fmvoesa102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 23 Feb 2024 12:58:41 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.06,180,1705392000"; 
+   d="scan'208";a="5908499"
+Received: from relo-linux-5.jf.intel.com ([10.165.21.152])
+ by fmviesa007.fm.intel.com with ESMTP; 23 Feb 2024 12:58:40 -0800
+From: John.C.Harrison@Intel.com
+To: Intel-GFX@Lists.FreeDesktop.Org
+Cc: DRI-Devel@Lists.FreeDesktop.Org, John Harrison <John.C.Harrison@Intel.com>,
+ Vinay Belgaumkar <vinay.belgaumkar@intel.com>
+Subject: [PATCH v3 1/3] drm/i915: Enable Wa_16019325821
+Date: Fri, 23 Feb 2024 12:56:30 -0800
+Message-ID: <20240223205632.1621019-2-John.C.Harrison@Intel.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20240223205632.1621019-1-John.C.Harrison@Intel.com>
+References: <20240223205632.1621019-1-John.C.Harrison@Intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Organization: Intel Corporation (UK) Ltd. - Co. Reg. #1134945 - Pipers Way,
+ Swindon SN3 1RJ
+Content-Transfer-Encoding: 8bit
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -72,32 +66,151 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Fri, 23 Feb 2024 13:46:53 -0500
-Steven Rostedt <rostedt@goodmis.org> wrote:
+From: John Harrison <John.C.Harrison@Intel.com>
 
-> Now one thing I could do is to not remove the parameter, but just add:
-> 
-> 	WARN_ON_ONCE((src) != __data_offsets->item##_ptr_);
-> 
-> in the __assign_str() macro to make sure that it's still the same that is
-> assigned. But I'm not sure how useful that is, and still causes burden to
-> have it. I never really liked the passing of the string in two places to
-> begin with.
+Some platforms require holding RCS context switches until CCS is idle
+(the reverse w/a of Wa_14014475959). Some platforms require both
+versions.
 
-Hmm, maybe I'll just add this patch for 6.9 and then in 6.10 do the
-parameter removal.
+Signed-off-by: John Harrison <John.C.Harrison@Intel.com>
+Reviewed-by: Vinay Belgaumkar <vinay.belgaumkar@intel.com>
+---
+ drivers/gpu/drm/i915/gt/gen8_engine_cs.c      | 19 +++++++++++--------
+ drivers/gpu/drm/i915/gt/intel_engine_types.h  |  7 ++++---
+ drivers/gpu/drm/i915/gt/uc/intel_guc.c        |  4 ++++
+ drivers/gpu/drm/i915/gt/uc/intel_guc_fwif.h   |  3 ++-
+ .../gpu/drm/i915/gt/uc/intel_guc_submission.c |  7 ++++++-
+ 5 files changed, 27 insertions(+), 13 deletions(-)
 
--- Steve
+diff --git a/drivers/gpu/drm/i915/gt/gen8_engine_cs.c b/drivers/gpu/drm/i915/gt/gen8_engine_cs.c
+index e1bf13e3d3070..bb8e4c151a026 100644
+--- a/drivers/gpu/drm/i915/gt/gen8_engine_cs.c
++++ b/drivers/gpu/drm/i915/gt/gen8_engine_cs.c
+@@ -743,21 +743,23 @@ static u32 *gen12_emit_preempt_busywait(struct i915_request *rq, u32 *cs)
+ }
+ 
+ /* Wa_14014475959:dg2 */
+-#define CCS_SEMAPHORE_PPHWSP_OFFSET	0x540
+-static u32 ccs_semaphore_offset(struct i915_request *rq)
++/* Wa_16019325821 */
++#define HOLD_SWITCHOUT_SEMAPHORE_PPHWSP_OFFSET	0x540
++static u32 hold_switchout_semaphore_offset(struct i915_request *rq)
+ {
+ 	return i915_ggtt_offset(rq->context->state) +
+-		(LRC_PPHWSP_PN * PAGE_SIZE) + CCS_SEMAPHORE_PPHWSP_OFFSET;
++		(LRC_PPHWSP_PN * PAGE_SIZE) + HOLD_SWITCHOUT_SEMAPHORE_PPHWSP_OFFSET;
+ }
+ 
+ /* Wa_14014475959:dg2 */
+-static u32 *ccs_emit_wa_busywait(struct i915_request *rq, u32 *cs)
++/* Wa_16019325821 */
++static u32 *hold_switchout_emit_wa_busywait(struct i915_request *rq, u32 *cs)
+ {
+ 	int i;
+ 
+ 	*cs++ = MI_ATOMIC_INLINE | MI_ATOMIC_GLOBAL_GTT | MI_ATOMIC_CS_STALL |
+ 		MI_ATOMIC_MOVE;
+-	*cs++ = ccs_semaphore_offset(rq);
++	*cs++ = hold_switchout_semaphore_offset(rq);
+ 	*cs++ = 0;
+ 	*cs++ = 1;
+ 
+@@ -773,7 +775,7 @@ static u32 *ccs_emit_wa_busywait(struct i915_request *rq, u32 *cs)
+ 		MI_SEMAPHORE_POLL |
+ 		MI_SEMAPHORE_SAD_EQ_SDD;
+ 	*cs++ = 0;
+-	*cs++ = ccs_semaphore_offset(rq);
++	*cs++ = hold_switchout_semaphore_offset(rq);
+ 	*cs++ = 0;
+ 
+ 	return cs;
+@@ -790,8 +792,9 @@ gen12_emit_fini_breadcrumb_tail(struct i915_request *rq, u32 *cs)
+ 		cs = gen12_emit_preempt_busywait(rq, cs);
+ 
+ 	/* Wa_14014475959:dg2 */
+-	if (intel_engine_uses_wa_hold_ccs_switchout(rq->engine))
+-		cs = ccs_emit_wa_busywait(rq, cs);
++	/* Wa_16019325821 */
++	if (intel_engine_uses_wa_hold_switchout(rq->engine))
++		cs = hold_switchout_emit_wa_busywait(rq, cs);
+ 
+ 	rq->tail = intel_ring_offset(rq, cs);
+ 	assert_ring_tail_valid(rq->ring, rq->tail);
+diff --git a/drivers/gpu/drm/i915/gt/intel_engine_types.h b/drivers/gpu/drm/i915/gt/intel_engine_types.h
+index 960e6be2042fe..b519812ba120d 100644
+--- a/drivers/gpu/drm/i915/gt/intel_engine_types.h
++++ b/drivers/gpu/drm/i915/gt/intel_engine_types.h
+@@ -586,7 +586,7 @@ struct intel_engine_cs {
+ #define I915_ENGINE_HAS_RCS_REG_STATE  BIT(9)
+ #define I915_ENGINE_HAS_EU_PRIORITY    BIT(10)
+ #define I915_ENGINE_FIRST_RENDER_COMPUTE BIT(11)
+-#define I915_ENGINE_USES_WA_HOLD_CCS_SWITCHOUT BIT(12)
++#define I915_ENGINE_USES_WA_HOLD_SWITCHOUT BIT(12)
+ 	unsigned int flags;
+ 
+ 	/*
+@@ -696,10 +696,11 @@ intel_engine_has_relative_mmio(const struct intel_engine_cs * const engine)
+ }
+ 
+ /* Wa_14014475959:dg2 */
++/* Wa_16019325821 */
+ static inline bool
+-intel_engine_uses_wa_hold_ccs_switchout(struct intel_engine_cs *engine)
++intel_engine_uses_wa_hold_switchout(struct intel_engine_cs *engine)
+ {
+-	return engine->flags & I915_ENGINE_USES_WA_HOLD_CCS_SWITCHOUT;
++	return engine->flags & I915_ENGINE_USES_WA_HOLD_SWITCHOUT;
+ }
+ 
+ #endif /* __INTEL_ENGINE_TYPES_H__ */
+diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc.c b/drivers/gpu/drm/i915/gt/uc/intel_guc.c
+index 2b450c43bbd7f..d5c856be31491 100644
+--- a/drivers/gpu/drm/i915/gt/uc/intel_guc.c
++++ b/drivers/gpu/drm/i915/gt/uc/intel_guc.c
+@@ -294,6 +294,10 @@ static u32 guc_ctl_wa_flags(struct intel_guc *guc)
+ 	    IS_DG2(gt->i915))
+ 		flags |= GUC_WA_HOLD_CCS_SWITCHOUT;
+ 
++	/* Wa_16019325821 */
++	if (IS_GFX_GT_IP_RANGE(gt, IP_VER(12, 70), IP_VER(12, 71)))
++		flags |= GUC_WA_RCS_CCS_SWITCHOUT;
++
+ 	/*
+ 	 * Wa_14012197797
+ 	 * Wa_22011391025
+diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_fwif.h b/drivers/gpu/drm/i915/gt/uc/intel_guc_fwif.h
+index 8ae1846431da7..48863188a130e 100644
+--- a/drivers/gpu/drm/i915/gt/uc/intel_guc_fwif.h
++++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_fwif.h
+@@ -96,8 +96,9 @@
+ #define   GUC_WA_GAM_CREDITS		BIT(10)
+ #define   GUC_WA_DUAL_QUEUE		BIT(11)
+ #define   GUC_WA_RCS_RESET_BEFORE_RC6	BIT(13)
+-#define   GUC_WA_CONTEXT_ISOLATION	BIT(15)
+ #define   GUC_WA_PRE_PARSER		BIT(14)
++#define   GUC_WA_CONTEXT_ISOLATION	BIT(15)
++#define   GUC_WA_RCS_CCS_SWITCHOUT	BIT(16)
+ #define   GUC_WA_HOLD_CCS_SWITCHOUT	BIT(17)
+ #define   GUC_WA_POLLCS			BIT(18)
+ #define   GUC_WA_RCS_REGS_IN_CCS_REGS_LIST	BIT(21)
+diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
+index f3dcae4b9d455..ee1cef9bab220 100644
+--- a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
++++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
+@@ -4496,7 +4496,12 @@ static void guc_default_vfuncs(struct intel_engine_cs *engine)
+ 	if (engine->class == COMPUTE_CLASS)
+ 		if (IS_GFX_GT_IP_STEP(engine->gt, IP_VER(12, 70), STEP_A0, STEP_B0) ||
+ 		    IS_DG2(engine->i915))
+-			engine->flags |= I915_ENGINE_USES_WA_HOLD_CCS_SWITCHOUT;
++			engine->flags |= I915_ENGINE_USES_WA_HOLD_SWITCHOUT;
++
++	/* Wa_16019325821 */
++	if ((engine->class == COMPUTE_CLASS || engine->class == RENDER_CLASS) &&
++	    IS_GFX_GT_IP_RANGE(engine->gt, IP_VER(12, 70), IP_VER(12, 71)))
++		engine->flags |= I915_ENGINE_USES_WA_HOLD_SWITCHOUT;
+ 
+ 	/*
+ 	 * TODO: GuC supports timeslicing and semaphores as well, but they're
+-- 
+2.43.0
 
-diff --git a/include/trace/stages/stage6_event_callback.h b/include/trace/stages/stage6_event_callback.h
-index 0c0f50bcdc56..7372e2c2a0c4 100644
---- a/include/trace/stages/stage6_event_callback.h
-+++ b/include/trace/stages/stage6_event_callback.h
-@@ -35,6 +35,7 @@ #define __assign_str(dst, src)
- 	do {								\
- 		char *__str__ = __get_str(dst);				\
- 		int __len__ = __get_dynamic_array_len(dst) - 1;		\
-+		WARN_ON_ONCE((src) != __data_offsets.dst##_ptr_); 	\
- 		memcpy(__str__, __data_offsets.dst##_ptr_ ? :		\
- 		       EVENT_NULL_STR, __len__);			\
- 		__str__[__len__] = '\0';				\
