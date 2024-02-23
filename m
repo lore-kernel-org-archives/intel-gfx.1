@@ -4,47 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 82093C5478C
-	for <intel-gfx@archiver.kernel.org>; Fri, 23 Feb 2024 08:17:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2F042C54E4F
+	for <intel-gfx@archiver.kernel.org>; Fri, 23 Feb 2024 08:17:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0B87110EB2F;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3FCC710EB31;
 	Fri, 23 Feb 2024 08:17:21 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="a5rx7eeZ";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="OBkzgJFU";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.17])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0E5E110EB2A
- for <intel-gfx@lists.freedesktop.org>; Fri, 23 Feb 2024 08:17:13 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D585610EB28
+ for <intel-gfx@lists.freedesktop.org>; Fri, 23 Feb 2024 08:17:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1708676233; x=1740212233;
+ t=1708676237; x=1740212237;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=70Gv/P3pPXzPQnMy4DxSN45gwSkqOBiJwm4FdpL8tPA=;
- b=a5rx7eeZqxIWHxs1c/icVJj3tMNLOCV2RHlYaNXFHvhWlzl9TuJ52pUV
- ZZa35YcmDO/XY/bRZndfnwrzbDkt1yM9F2AYVBSCT2+dDwPst4xR7Uber
- kxHv3ivPfyTXGLzZeht2mMbDYJL9iqt8nM4893gR1ClHVCIxrOjX/ewoi
- Qxf74u2YfbP1DMSUy6W9tA+EiSBUSi1jM3/PTj2tdxOpLiMI8O/JUgnhy
- T5lx2u7KGPzkZX1/tM07sF8P9BY4NUuPyYbhS4aP02NN4A2h7cIwa/mil
- jkun9QQFNpSr1AWd0WBeM2AYZZ10KyxbUiW7YyD+hBPosSM0z5jF8R52r A==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10992"; a="2830058"
+ bh=otMQcpHt4TJ8hpp6yotu/VAlbHUTbS81LGVeHsmCor0=;
+ b=OBkzgJFUbPXeARGQZg2i67zJ0rFD/K/JPrMga9r0C/hNBPqkexf5Pju3
+ Pmo6O93++RhemZKpm2wmiwy744OOyFQGbmhci6w1yVMZx/n5RZeWcfHL8
+ I9SW1vHZVpsec9WhMlI0d2zIm092r7kbfQL2kD/81T1D5yOC5K5WtsLoD
+ 7cuPF3IZ6mdGneXfSeZ+4EcI3h1YK/AuvsTjncSLQE4I7CFP0S80G8Lfz
+ AiIWJoiuuSfpsDl7fs1Eje1G5wl1dNHH05COtD0//fzpn72AfLKMZyBfs
+ kFivQ2IjcHOQWsxD+gLA267zh6l+wLJ6tvaAZQLEH+r7hi4Q6wL30v2qc w==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10992"; a="2830063"
 X-IronPort-AV: E=Sophos;i="6.06,179,1705392000"; 
-   d="scan'208";a="2830058"
+   d="scan'208";a="2830063"
 Received: from orviesa003.jf.intel.com ([10.64.159.143])
  by fmvoesa111.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 Feb 2024 00:17:13 -0800
+ 23 Feb 2024 00:17:17 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.06,179,1705392000"; d="scan'208";a="10529052"
+X-IronPort-AV: E=Sophos;i="6.06,179,1705392000"; d="scan'208";a="10529130"
 Received: from kandpal-x299-ud4-pro.iind.intel.com ([10.190.239.32])
- by orviesa003.jf.intel.com with ESMTP; 23 Feb 2024 00:17:11 -0800
+ by orviesa003.jf.intel.com with ESMTP; 23 Feb 2024 00:17:15 -0800
 From: Suraj Kandpal <suraj.kandpal@intel.com>
 To: intel-gfx@lists.freedesktop.org
 Cc: uma.shankar@intel.com, ankit.k.nautiyal@intel.com,
  Suraj Kandpal <suraj.kandpal@intel.com>
-Subject: [PATCH 11/13] drm/i915/hdcp: Don't enable HDCP1.4 directly from
- check_link
-Date: Fri, 23 Feb 2024 13:44:52 +0530
-Message-ID: <20240223081453.1576918-13-suraj.kandpal@intel.com>
+Subject: [PATCH 13/13] drm/i915/hdcp: Read Rxcaps for robustibility
+Date: Fri, 23 Feb 2024 13:44:54 +0530
+Message-ID: <20240223081453.1576918-15-suraj.kandpal@intel.com>
 X-Mailer: git-send-email 2.43.2
 In-Reply-To: <20240223081453.1576918-2-suraj.kandpal@intel.com>
 References: <20240223081453.1576918-2-suraj.kandpal@intel.com>
@@ -65,41 +64,62 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Whenever LIC fails instead of moving from ENABLED to DESIRED
-CP property we directly enable HDCP1.4 without informing the userspace
-of this failure in link integrity check.
-Now we will just update the value to DESIRED send the event to
-userspace and then continue with the normal flow of HDCP enablement.
+We see some monitors and docks report incorrect hdcp version
+and capability in first few reads so we read rx_caps three times
+before we conclude the monitor's or docks HDCP capability
+
+--v2
+-Add comment to justify the 3 time read loop for hdcp capability[Ankit]
 
 Signed-off-by: Suraj Kandpal <suraj.kandpal@intel.com>
 Reviewed-by: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_hdcp.c | 12 +++---------
- 1 file changed, 3 insertions(+), 9 deletions(-)
+ drivers/gpu/drm/i915/display/intel_dp_hdcp.c | 29 ++++++++++++++------
+ 1 file changed, 20 insertions(+), 9 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_hdcp.c b/drivers/gpu/drm/i915/display/intel_hdcp.c
-index 1023153ba9d4..321c6dd8dbf5 100644
---- a/drivers/gpu/drm/i915/display/intel_hdcp.c
-+++ b/drivers/gpu/drm/i915/display/intel_hdcp.c
-@@ -1088,15 +1088,9 @@ static int intel_hdcp_check_link(struct intel_connector *connector)
- 		goto out;
- 	}
+diff --git a/drivers/gpu/drm/i915/display/intel_dp_hdcp.c b/drivers/gpu/drm/i915/display/intel_dp_hdcp.c
+index 99220f970039..b98a87883fef 100644
+--- a/drivers/gpu/drm/i915/display/intel_dp_hdcp.c
++++ b/drivers/gpu/drm/i915/display/intel_dp_hdcp.c
+@@ -644,18 +644,29 @@ int _intel_dp_hdcp2_get_capability(struct drm_dp_aux *aux,
+ 				   bool *capable)
+ {
+ 	u8 rx_caps[3];
+-	int ret;
++	int ret, i;
  
--	ret = intel_hdcp1_enable(connector);
--	if (ret) {
--		drm_err(&i915->drm, "Failed to enable hdcp (%d)\n", ret);
--		intel_hdcp_update_value(connector,
--					DRM_MODE_CONTENT_PROTECTION_DESIRED,
--					true);
--		goto out;
--	}
--
-+	intel_hdcp_update_value(connector,
-+				DRM_MODE_CONTENT_PROTECTION_DESIRED,
-+				true);
- out:
- 	mutex_unlock(&dig_port->hdcp_mutex);
- 	mutex_unlock(&hdcp->mutex);
+ 	*capable = false;
+-	ret = drm_dp_dpcd_read(aux,
+-			       DP_HDCP_2_2_REG_RX_CAPS_OFFSET,
+-			       rx_caps, HDCP_2_2_RXCAPS_LEN);
+-	if (ret != HDCP_2_2_RXCAPS_LEN)
+-		return ret >= 0 ? -EIO : ret;
+ 
+-	if (rx_caps[0] == HDCP_2_2_RX_CAPS_VERSION_VAL &&
+-	    HDCP_2_2_DP_HDCP_CAPABLE(rx_caps[2]))
+-		*capable = true;
++	/*
++	 * Some HDCP monitors act really shady by not giving the correct hdcp
++	 * capability on the first rx_caps read and usually take an extra read
++	 * to give the capability. We read rx_caps three times before we
++	 * declare a monitor not capable of HDCP 2.2.
++	 */
++	for (i = 0; i < 3; i++) {
++		ret = drm_dp_dpcd_read(aux,
++				       DP_HDCP_2_2_REG_RX_CAPS_OFFSET,
++				       rx_caps, HDCP_2_2_RXCAPS_LEN);
++		if (ret != HDCP_2_2_RXCAPS_LEN)
++			return ret >= 0 ? -EIO : ret;
++
++		if (rx_caps[0] == HDCP_2_2_RX_CAPS_VERSION_VAL &&
++		    HDCP_2_2_DP_HDCP_CAPABLE(rx_caps[2])) {
++			*capable = true;
++			break;
++		}
++	}
+ 
+ 	return 0;
+ }
 -- 
 2.43.2
 
