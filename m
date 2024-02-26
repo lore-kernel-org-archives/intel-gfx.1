@@ -4,77 +4,63 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 38D3DC54E4A
-	for <intel-gfx@archiver.kernel.org>; Mon, 26 Feb 2024 13:47:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 540E0C54E4A
+	for <intel-gfx@archiver.kernel.org>; Mon, 26 Feb 2024 13:54:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2486610E747;
-	Mon, 26 Feb 2024 13:47:10 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1D0AE10F1DC;
+	Mon, 26 Feb 2024 13:54:28 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.b="Xq9oa2sn";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="jKIBt2G7";
 	dkim-atps=neutral
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3C38F10EC4B;
- Fri, 23 Feb 2024 15:50:11 +0000 (UTC)
-Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.17.1.24/8.17.1.24) with ESMTP id
- 41N6wkh5025091; Fri, 23 Feb 2024 15:50:09 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
- message-id:date:mime-version:to:cc:from:subject:content-type
- :content-transfer-encoding; s=qcppdkim1; bh=3exk5qV0X1GJG2wbXB2Z
- JX1n03Di0j+dJ8xw5YC41kY=; b=Xq9oa2snBrxmOaOMoOUGaBvPqwE+wtlNpL7A
- jab5ddtsH2+IFMe9RUjFd4hVD6GyzU1gmY4vvQRB3P68fCHXyByMWyqDPzlCNCzN
- Sd20jQTg3T3/7f8TOCLJ4d9hBcpvOhQBfpZSJ0WqhcmWSU4UBbakUVHmWOq22ppm
- Qq+9NTLV6OeUMoiob9IlSYa/evLX6CTPXTgpJxu0t8lBJKM3tep27xKJwHKZ9vOG
- BfVSlKqURpp2zF/dMeUBCj1ehKt6I7EHf1qv7Og1pX6tTU8J5FwzoOQYpSVN09zn
- N7e+vrRBwjophQD00y8Yllrjdtp7BWvN733Pea+EBzMyHduLQQ==
-Received: from nalasppmta04.qualcomm.com (Global_NAT1.qualcomm.com
- [129.46.96.20])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3weg88swec-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 23 Feb 2024 15:50:08 +0000 (GMT)
-Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
- [10.47.209.196])
- by NALASPPMTA04.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 41NFo8Eq032361
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 23 Feb 2024 15:50:08 GMT
-Received: from [10.226.59.182] (10.80.80.8) by nalasex01a.na.qualcomm.com
- (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.40; Fri, 23 Feb
- 2024 07:50:07 -0800
-Message-ID: <fe8b2841-cbf0-775e-6e74-50476b652f9f@quicinc.com>
-Date: Fri, 23 Feb 2024 08:50:06 -0700
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DF57810E684;
+ Mon, 26 Feb 2024 13:54:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1708955666; x=1740491666;
+ h=from:to:cc:subject:in-reply-to:references:date:
+ message-id:mime-version:content-transfer-encoding;
+ bh=24mtJNUX0HRoeEz85msLbJcbYZOzJJBOcrmOU9W9obs=;
+ b=jKIBt2G7a7hud/PEV+JOX98rc4R9/dnuduwGUDupIZaonmbP1gwalbeF
+ x/gHBbuMFx0RYxs2bOcsT/Q4yKSdNv9CgoP90EtbgciLnqbk4Tvo/8/7M
+ JDxOS8/y1OwKvh7FYyz6WQiJ8UCkG4wQTXKGXMAs9DOAwFKFY1HlQmQ8R
+ W3zEjUBt52mHXtKNAvrrsAw7TX6JIfS1Advpdz8bLn/qi7hn+nig3zM3Y
+ llUNLpMBi0hvriUairKVDgIQ4VdUpnvm4NpdW9KVDczIQL8Lf7XPBZYyH
+ aSWuq2YtN2KsimZBXEex4nsiwYlmbF/bDzjenD8tC+7N4/UbMRdoMp3LA A==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10995"; a="14655682"
+X-IronPort-AV: E=Sophos;i="6.06,185,1705392000"; d="scan'208";a="14655682"
+Received: from orviesa009.jf.intel.com ([10.64.159.149])
+ by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 26 Feb 2024 05:54:25 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.06,185,1705392000"; 
+   d="scan'208";a="6705760"
+Received: from hibeid-mobl.amr.corp.intel.com (HELO localhost)
+ ([10.252.46.254])
+ by orviesa009-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 26 Feb 2024 05:54:20 -0800
+From: Jani Nikula <jani.nikula@linux.intel.com>
+To: Imre Deak <imre.deak@intel.com>, intel-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, Maarten Lankhorst
+ <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>
+Cc: Mika Westerberg <mika.westerberg@linux.intel.com>, Ville
+ =?utf-8?B?U3lyasOkbMOk?=
+ <ville.syrjala@linux.intel.com>, Uma Shankar <uma.shankar@intel.com>,
+ Jouni =?utf-8?Q?H=C3=B6gander?= <jouni.hogander@intel.com>, Saranya Gopal
+ <saranya.gopal@intel.com>, Rajaram Regupathy
+ <rajaram.regupathy@intel.com>, Gil Fine <gil.fine@intel.com>, Naama
+ Shachar <naamax.shachar@intel.com>, Pengfei Xu <pengfei.xu@intel.com>
+Subject: Re: [PATCH v2 00/21] drm/i915: Add Display Port tunnel BW
+ allocation support
+In-Reply-To: <20240220211841.448846-1-imre.deak@intel.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
+References: <20240220211841.448846-1-imre.deak@intel.com>
+Date: Mon, 26 Feb 2024 15:54:19 +0200
+Message-ID: <87il2bmius.fsf@intel.com>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
- Thunderbird/91.6.0
-Content-Language: en-US
-To: Jani Nikula <jani.nikula@linux.intel.com>, <rodrigo.vivi@intel.com>,
- <joonas.lahtinen@linux.intel.com>, Tvrtko Ursulin
- <tvrtko.ursulin@linux.intel.com>
-CC: <intel-gfx@lists.freedesktop.org>, <intel-xe@lists.freedesktop.org>, "open
- list:DRM PANEL DRIVERS" <dri-devel@lists.freedesktop.org>
-From: Jeffrey Hugo <quic_jhugo@quicinc.com>
-Subject: i915 build error on drm-misc-next
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
- nalasex01a.na.qualcomm.com (10.47.209.196)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-ORIG-GUID: 4CyBkN13sxwokaB0aDhMkzWFlnt-n7av
-X-Proofpoint-GUID: 4CyBkN13sxwokaB0aDhMkzWFlnt-n7av
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.272,Aquarius:18.0.1011,Hydra:6.0.619,FMLib:17.11.176.26
- definitions=2024-02-23_02,2024-02-23_01,2023-05-22_02
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- mlxlogscore=823
- malwarescore=0 suspectscore=0 impostorscore=0 clxscore=1011 adultscore=0
- phishscore=0 priorityscore=1501 bulkscore=0 mlxscore=0 spamscore=0
- lowpriorityscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.19.0-2402120000 definitions=main-2402230113
-X-Mailman-Approved-At: Mon, 26 Feb 2024 13:46:52 +0000
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -90,40 +76,103 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-With the x86_64_defconfig I see the following when building drm-misc-next:
+On Tue, 20 Feb 2024, Imre Deak <imre.deak@intel.com> wrote:
+> This is v2 of [1], with the following changes:
+>
+> - Several functional/typo/formatting fixes, detailed in the patches.
+> - Move the BW allocation from encoder hooks to
+>   intel_atomic_commit_tail() fixing the allocation for MST streams
+>   enabled/disabled w/o a full modeset (i.e. w/o re-enabling the master
+>   stream).
+> - Fix an MST mode restore issue during system resume, which also lead
+>   to a tunnel BW allocation failure. (Patch 3)
+> - Ensure a DPCD DPRX cap read as required by the TBT CM any time a long
+>   HPD pulse is detected. (Patch 20)
+> - Explicitly disable the BW allocation mode during system suspend.
+>
+> The patchset is also available at:
+> https://github.com/ideak/linux/commits/dp_tun_bw_alloc
+>
+> Cc: Mika Westerberg <mika.westerberg@linux.intel.com>
+> Cc: Ville Syrj=C3=A4l=C3=A4 <ville.syrjala@linux.intel.com>
+> Cc: Uma Shankar <uma.shankar@intel.com>
+> Cc: Jouni H=C3=B6gander <jouni.hogander@intel.com>
+> Cc: Saranya Gopal <saranya.gopal@intel.com>
+> Cc: Rajaram Regupathy <rajaram.regupathy@intel.com>
+> Cc: Gil Fine <gil.fine@intel.com>
+> Cc: Naama Shachar <naamax.shachar@intel.com>
+> Cc: Pengfei Xu <pengfei.xu@intel.com>
+>
+> [1] https://lore.kernel.org/all/20240123102850.390126-1-imre.deak@intel.c=
+om
+>
+> Imre Deak (21):
+>   drm/dp: Add drm_dp_max_dprx_data_rate()
+>   drm/dp: Add support for DP tunneling
 
-   CC      drivers/gpu/drm/i915/display/intel_crt.o
-   CC      drivers/gpu/drm/i915/display/intel_cx0_phy.o
-   CC      drivers/gpu/drm/i915/display/intel_ddi.o
-   CC      drivers/gpu/drm/i915/display/intel_ddi_buf_trans.o
-   CC      drivers/gpu/drm/i915/display/intel_display_device.o
-   CC      drivers/gpu/drm/i915/display/intel_display_trace.o
-   CC      drivers/gpu/drm/i915/display/intel_dkl_phy.o
-   CC      drivers/gpu/drm/i915/display/intel_dp.o
-   CC      drivers/gpu/drm/i915/display/intel_dp_aux.o
-   CC      drivers/gpu/drm/i915/display/intel_dp_aux_backlight.o
-   CC      drivers/gpu/drm/i915/display/intel_dp_hdcp.o
-   CC      drivers/gpu/drm/i915/display/intel_dp_link_training.o
-   CC      drivers/gpu/drm/i915/display/intel_dp_mst.o
-   CC      drivers/gpu/drm/i915/display/intel_dsi.o
-   CC      drivers/gpu/drm/i915/display/intel_dsi_dcs_backlight.o
-   CC      drivers/gpu/drm/i915/display/intel_dsi_vbt.o
-   CC      drivers/gpu/drm/i915/display/intel_dvo.o
-   CC      drivers/gpu/drm/i915/display/intel_gmbus.o
-   CC      drivers/gpu/drm/i915/display/intel_hdmi.o
-   CC      drivers/gpu/drm/i915/display/intel_lspcon.o
-   CC      drivers/gpu/drm/i915/display/intel_lvds.o
-   CC      drivers/gpu/drm/i915/display/intel_panel.o
-   CC      drivers/gpu/drm/i915/display/intel_pps.o
-drivers/gpu/drm/i915/display/intel_dp.c: In function 
-‘intel_write_dp_vsc_sdp’:
-drivers/gpu/drm/i915/display/intel_dp.c:4232:15: error: implicit 
-declaration of function ‘intel_dp_vsc_sdp_pack’; did you mean 
-‘drm_dp_vsc_sdp_pack’? [-Werror=implicit-function-declaration]
-  4232 |         len = intel_dp_vsc_sdp_pack(vsc, &sdp, sizeof(sdp));
-       |               ^~~~~~~~~~~~~~~~~~~~~
-       |               drm_dp_vsc_sdp_pack
+Maarten, Maxime, Thomas -
 
-Is this a known issue?
+Ack for merging these two patches via drm-intel-next?
 
--Jeff
+BR,
+Jani.
+
+
+>   drm/i915: Fix display bpp limit computation during system resume
+>   drm/i915/dp: Add support to notify MST connectors to retry modesets
+>   drm/i915/dp: Use drm_dp_max_dprx_data_rate()
+>   drm/i915/dp: Factor out intel_dp_config_required_rate()
+>   drm/i915/dp: Export intel_dp_max_common_rate/lane_count()
+>   drm/i915/dp: Factor out intel_dp_update_sink_caps()
+>   drm/i915/dp: Factor out intel_dp_read_dprx_caps()
+>   drm/i915/dp: Add intel_dp_max_link_data_rate()
+>   drm/i915/dp: Add way to get active pipes with syncing commits
+>   drm/i915/dp: Add support for DP tunnel BW allocation
+>   drm/i915/dp: Add DP tunnel atomic state and check BW limit
+>   drm/i915/dp: Account for tunnel BW limit in
+>     intel_dp_max_link_data_rate()
+>   drm/i915/dp: Compute DP tunnel BW during encoder state computation
+>   drm/i915/dp: Allocate/free DP tunnel BW in the encoder enable/disable
+>     hooks
+>   drm/i915/dp: Handle DP tunnel IRQs
+>   drm/i915/dp: Call intel_dp_sync_state() always for DDI DP encoders
+>   drm/i915/dp: Suspend/resume DP tunnels
+>   drm/i915/dp: Read DPRX for all long HPD pulses
+>   drm/i915/dp: Enable DP tunnel BW allocation mode
+>
+>  drivers/gpu/drm/display/Kconfig               |   21 +
+>  drivers/gpu/drm/display/Makefile              |    2 +
+>  drivers/gpu/drm/display/drm_dp_helper.c       |   30 +
+>  drivers/gpu/drm/display/drm_dp_tunnel.c       | 1929 +++++++++++++++++
+>  drivers/gpu/drm/i915/Kconfig                  |   14 +
+>  drivers/gpu/drm/i915/Kconfig.debug            |    1 +
+>  drivers/gpu/drm/i915/Makefile                 |    3 +
+>  drivers/gpu/drm/i915/display/intel_atomic.c   |   10 +
+>  drivers/gpu/drm/i915/display/intel_crtc.c     |   52 +
+>  drivers/gpu/drm/i915/display/intel_crtc.h     |    2 +
+>  drivers/gpu/drm/i915/display/intel_ddi.c      |    3 +-
+>  drivers/gpu/drm/i915/display/intel_display.c  |   26 +-
+>  .../gpu/drm/i915/display/intel_display_core.h |    1 +
+>  .../drm/i915/display/intel_display_driver.c   |   20 +-
+>  .../drm/i915/display/intel_display_types.h    |    9 +
+>  drivers/gpu/drm/i915/display/intel_dp.c       |  292 ++-
+>  drivers/gpu/drm/i915/display/intel_dp.h       |   13 +-
+>  .../drm/i915/display/intel_dp_link_training.c |   33 +-
+>  .../drm/i915/display/intel_dp_link_training.h |    1 +
+>  drivers/gpu/drm/i915/display/intel_dp_mst.c   |   18 +-
+>  .../gpu/drm/i915/display/intel_dp_tunnel.c    |  815 +++++++
+>  .../gpu/drm/i915/display/intel_dp_tunnel.h    |  133 ++
+>  drivers/gpu/drm/i915/display/intel_link_bw.c  |   27 +-
+>  drivers/gpu/drm/i915/display/intel_link_bw.h  |    2 +-
+>  drivers/gpu/drm/i915/display/intel_tc.c       |    7 +
+>  include/drm/display/drm_dp.h                  |   61 +
+>  include/drm/display/drm_dp_helper.h           |    2 +
+>  include/drm/display/drm_dp_tunnel.h           |  248 +++
+>  28 files changed, 3650 insertions(+), 125 deletions(-)
+>  create mode 100644 drivers/gpu/drm/display/drm_dp_tunnel.c
+>  create mode 100644 drivers/gpu/drm/i915/display/intel_dp_tunnel.c
+>  create mode 100644 drivers/gpu/drm/i915/display/intel_dp_tunnel.h
+>  create mode 100644 include/drm/display/drm_dp_tunnel.h
+
+--=20
+Jani Nikula, Intel
