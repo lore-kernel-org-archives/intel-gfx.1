@@ -4,54 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 91486C54798
-	for <intel-gfx@archiver.kernel.org>; Tue, 27 Feb 2024 12:43:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CCBB6C5478C
+	for <intel-gfx@archiver.kernel.org>; Tue, 27 Feb 2024 12:44:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E545B10E6EA;
-	Tue, 27 Feb 2024 12:43:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 40A8410E48D;
+	Tue, 27 Feb 2024 12:44:41 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="IKKYh0B4";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="LwqDCuN6";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.18])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1FBBB10E4DE
- for <intel-gfx@lists.freedesktop.org>; Tue, 27 Feb 2024 12:43:51 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.21])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0270110E48D
+ for <intel-gfx@lists.freedesktop.org>; Tue, 27 Feb 2024 12:44:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1709037831; x=1740573831;
- h=from:to:subject:in-reply-to:references:date:message-id:
- mime-version; bh=emzjvYVXMXMkNaLc/oqisJ6ZJWv3xDEBFRGMh/+IMo0=;
- b=IKKYh0B4ulciDLYzr6Wgx1BZeJuuN/AZr3wfmiAiDCY7p11udcbtIZsy
- XfpCynMCfncIltI3AI81bQbBq5CMo/vPoAY93L8jQ8w9b7VYemAlY3ZOA
- I0qFw1QJAf6jBOBATmkBUflqn5725DEH0oeEJy35WGI3yTqCxgIWxdTmy
- ROWMKywXdwjBVOmdfop5To94JFvu6nfbebFVRPsXTAaBTEgyfozhmnoVt
- SAAdMy0a89++DrMe7JMPCNgrtU61jm0U9bPcCgeaZ/e63v8unbbfAXpup
- zC7E1ljppE2I74WhnmdHdITt3pfNeizMR1kyc/FPf0snUxl4E1RM1QqtM A==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10996"; a="3247316"
+ t=1709037881; x=1740573881;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=pyZ/PDXHY8O+ecYtBRG97twGvBMVHi6Bb93VvlFEpw8=;
+ b=LwqDCuN65XRYqLrg6FeJGtSVC1BiupxolUoz41ErHoLTF6nFG3cwqCMy
+ pXty5rGt5zx/phPAMTfvNvvafj289ynuHDzTbM81sdcBnnrct813zVXZk
+ KdA8/Q9gi0Ey2ey4pr6hdInsQ76fTtSrenyDf9Sq58gi0peS1Hb0bfss/
+ eNa/0OZ584LKoRF3EQH8UKP1UEaqR3LyqOZ726yrg2jbGISvglkfC0W9V
+ AhARt3FugkZXe0yMTJ9gyi0pN8rsSsT03Er5I9uNBUM5IsN3o9jjr9udt
+ VPiZQwAL7oBIQ8toBRD2TzGoZovVT4mKc+ezPUCcf3258jUo/dG2XdMA8 w==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10996"; a="3294932"
 X-IronPort-AV: E=Sophos;i="6.06,187,1705392000"; 
-   d="scan'208";a="3247316"
-Received: from fmviesa006.fm.intel.com ([10.60.135.146])
- by fmvoesa112.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 27 Feb 2024 04:43:39 -0800
+   d="scan'208";a="3294932"
+Received: from orviesa010.jf.intel.com ([10.64.159.150])
+ by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 27 Feb 2024 04:44:40 -0800
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.06,187,1705392000"; 
-   d="scan'208";a="7242281"
-Received: from bdallmer-mobl1.ger.corp.intel.com (HELO localhost)
- ([10.252.49.187])
- by fmviesa006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 27 Feb 2024 04:43:37 -0800
-From: Jani Nikula <jani.nikula@linux.intel.com>
-To: Radhakrishna Sripada <radhakrishna.sripada@intel.com>,
- intel-gfx@lists.freedesktop.org
-Subject: Re: [PATCH v2 4/4] drm/i915: Show bios vbt when read from
- firmware/spi/oprom
-In-Reply-To: <20240220223129.3822480-5-radhakrishna.sripada@intel.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
-References: <20240220223129.3822480-1-radhakrishna.sripada@intel.com>
- <20240220223129.3822480-5-radhakrishna.sripada@intel.com>
-Date: Tue, 27 Feb 2024 14:43:34 +0200
-Message-ID: <87wmqqhybt.fsf@intel.com>
+   d="scan'208";a="6995610"
+Received: from bhanu-nuclab.iind.intel.com ([10.145.169.172])
+ by orviesa010-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 27 Feb 2024 04:44:38 -0800
+From: Bhanuprakash Modem <bhanuprakash.modem@intel.com>
+To: intel-gfx@lists.freedesktop.org
+Cc: Bhanuprakash Modem <bhanuprakash.modem@intel.com>,
+ Jani Nikula <jani.nikula@intel.com>,
+ Ankit Nautiyal <ankit.k.nautiyal@intel.com>,
+ Mitul Golani <mitulkumar.ajitkumar.golani@intel.com>
+Subject: [PATCH 1/2] drm/i915/display/drrs: Refactor CPU transcoder DRRS check
+Date: Tue, 27 Feb 2024 18:08:32 +0530
+Message-ID: <20240227123833.2799647-1-bhanuprakash.modem@intel.com>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Transfer-Encoding: 8bit
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,65 +66,81 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Tue, 20 Feb 2024, Radhakrishna Sripada <radhakrishna.sripada@intel.com> wrote:
-> Make debugfs vbt only shows valid vbt when read from ACPI opregion.
-> Make it work when read from firmware/spi/pci oprom cases.
->
-> Cc: Jani Nikula <jani.nikula@intel.com>
-> Signed-off-by: Radhakrishna Sripada <radhakrishna.sripada@intel.com>
-> ---
->  drivers/gpu/drm/i915/display/intel_bios.c | 30 +++++++++++++++++------
->  1 file changed, 23 insertions(+), 7 deletions(-)
->
-> diff --git a/drivers/gpu/drm/i915/display/intel_bios.c b/drivers/gpu/drm/i915/display/intel_bios.c
-> index 4cd338ed362d..b9b4ebc0ecd6 100644
-> --- a/drivers/gpu/drm/i915/display/intel_bios.c
-> +++ b/drivers/gpu/drm/i915/display/intel_bios.c
-> @@ -3723,14 +3723,30 @@ static int intel_bios_vbt_show(struct seq_file *m, void *unused)
->  	struct drm_i915_private *i915 = m->private;
->  	const void *vbt;
->  	size_t vbt_size;
-> +	bool need_cleanup = false;
->  
-> -	/*
-> -	 * FIXME: VBT might originate from other places than opregion, and then
-> -	 * this would be incorrect.
-> -	 */
-> -	vbt = intel_opregion_get_vbt(i915, &vbt_size);
-> -	if (vbt)
-> -		seq_write(m, vbt, vbt_size);
-> +	vbt = firmware_get_vbt(i915, &vbt_size);
-> +
-> +	if (!vbt)
-> +		vbt = intel_opregion_get_vbt(i915, &vbt_size);
-> +
-> +	if (!vbt && IS_DGFX(i915)) {
-> +		vbt = spi_oprom_get_vbt(i915, &vbt_size);
-> +		need_cleanup = true;
-> +	}
-> +
-> +	if (!vbt) {
-> +		vbt = oprom_get_vbt(i915, &vbt_size);
-> +		need_cleanup = true;
-> +	}
+Rename cpu_transcoder_has_drrs() to intel_cpu_transcoder_has_drrs()
+and make it as non-static, therefore it can be re-used.
 
-We can't duplicate all of that, needs to be a single function that gets
-used in both intel_bios_init() and here.
+Cc: Jani Nikula <jani.nikula@intel.com>
+Cc: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
+Cc: Mitul Golani <mitulkumar.ajitkumar.golani@intel.com>
+Signed-off-by: Bhanuprakash Modem <bhanuprakash.modem@intel.com>
+---
+ drivers/gpu/drm/i915/display/intel_display.c |  9 +++++++++
+ drivers/gpu/drm/i915/display/intel_display.h |  2 ++
+ drivers/gpu/drm/i915/display/intel_dp.c      | 11 +----------
+ 3 files changed, 12 insertions(+), 10 deletions(-)
 
-BR,
-Jani.
-
-> +
-> +	if (!vbt)
-> +		return 0;
-> +
-> +	seq_write(m, vbt, vbt_size);
-> +
-> +	if (need_cleanup)
-> +		kfree(vbt);
->  
->  	return 0;
->  }
-
+diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
+index 00ac65a14029..2210d3bb2e0a 100644
+--- a/drivers/gpu/drm/i915/display/intel_display.c
++++ b/drivers/gpu/drm/i915/display/intel_display.c
+@@ -2582,6 +2582,15 @@ void intel_cpu_transcoder_set_m2_n2(struct intel_crtc *crtc,
+ 		      PIPE_LINK_M2(transcoder), PIPE_LINK_N2(transcoder));
+ }
+ 
++bool intel_cpu_transcoder_has_drrs(struct drm_i915_private *i915,
++				   enum transcoder cpu_transcoder)
++{
++	if (HAS_DOUBLE_BUFFERED_M_N(i915))
++		return true;
++
++	return intel_cpu_transcoder_has_m2_n2(i915, cpu_transcoder);
++}
++
+ static void intel_set_transcoder_timings(const struct intel_crtc_state *crtc_state)
+ {
+ 	struct intel_crtc *crtc = to_intel_crtc(crtc_state->uapi.crtc);
+diff --git a/drivers/gpu/drm/i915/display/intel_display.h b/drivers/gpu/drm/i915/display/intel_display.h
+index f4a0773f0fca..0dc39a8a517e 100644
+--- a/drivers/gpu/drm/i915/display/intel_display.h
++++ b/drivers/gpu/drm/i915/display/intel_display.h
+@@ -484,6 +484,8 @@ void intel_cpu_transcoder_get_m1_n1(struct intel_crtc *crtc,
+ void intel_cpu_transcoder_get_m2_n2(struct intel_crtc *crtc,
+ 				    enum transcoder cpu_transcoder,
+ 				    struct intel_link_m_n *m_n);
++bool intel_cpu_transcoder_has_drrs(struct drm_i915_private *i915,
++				    enum transcoder cpu_transcoder);
+ int intel_dotclock_calculate(int link_freq, const struct intel_link_m_n *m_n);
+ int intel_crtc_dotclock(const struct intel_crtc_state *pipe_config);
+ enum intel_display_power_domain intel_port_to_power_domain(struct intel_digital_port *dig_port);
+diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
+index e13121dc3a03..5c3c0449e866 100644
+--- a/drivers/gpu/drm/i915/display/intel_dp.c
++++ b/drivers/gpu/drm/i915/display/intel_dp.c
+@@ -2689,15 +2689,6 @@ intel_dp_compute_hdr_metadata_infoframe_sdp(struct intel_dp *intel_dp,
+ 		intel_hdmi_infoframe_enable(HDMI_PACKET_TYPE_GAMUT_METADATA);
+ }
+ 
+-static bool cpu_transcoder_has_drrs(struct drm_i915_private *i915,
+-				    enum transcoder cpu_transcoder)
+-{
+-	if (HAS_DOUBLE_BUFFERED_M_N(i915))
+-		return true;
+-
+-	return intel_cpu_transcoder_has_m2_n2(i915, cpu_transcoder);
+-}
+-
+ static bool can_enable_drrs(struct intel_connector *connector,
+ 			    const struct intel_crtc_state *pipe_config,
+ 			    const struct drm_display_mode *downclock_mode)
+@@ -2720,7 +2711,7 @@ static bool can_enable_drrs(struct intel_connector *connector,
+ 	if (pipe_config->has_pch_encoder)
+ 		return false;
+ 
+-	if (!cpu_transcoder_has_drrs(i915, pipe_config->cpu_transcoder))
++	if (!intel_cpu_transcoder_has_drrs(i915, pipe_config->cpu_transcoder))
+ 		return false;
+ 
+ 	return downclock_mode &&
 -- 
-Jani Nikula, Intel
+2.43.0
+
