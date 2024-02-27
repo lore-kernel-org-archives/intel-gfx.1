@@ -4,49 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 146DBC5478C
-	for <intel-gfx@archiver.kernel.org>; Tue, 27 Feb 2024 05:34:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 55E4AC54E49
+	for <intel-gfx@archiver.kernel.org>; Tue, 27 Feb 2024 05:34:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5DEDC10E86B;
+	by gabe.freedesktop.org (Postfix) with ESMTP id BD2D210F01A;
 	Tue, 27 Feb 2024 05:34:09 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="K7zvwPUJ";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="npXuBxH0";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.17])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 07FC310E86B;
- Tue, 27 Feb 2024 05:34:07 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 772CD10F0AD;
+ Tue, 27 Feb 2024 05:34:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1709012047; x=1740548047;
+ t=1709012044; x=1740548044;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=pPF/FZgz2kTjwOrq01AMdjdlxcZpN84lsZbp71GjNmI=;
- b=K7zvwPUJUk0e8z8wam0xoDnDa4FfKtLWytstrZN42+04RLEG8L9hwNFD
- qs0AEXz9Sua4q4cPNYlepzbBbbqsGfhFtuSQ/NKcN5ngXCzJsyVAn4jfp
- wR7gdfoM4Dxv2yr2EG0oeShF2660I4KFRz3xQZ4HFbUgtJ85YI//OI5lC
- nmiv9xe+eLfl+E3OACKK3wrJjks0ULUPNqzwjgnzX6Vu3JADE6AtLTiGg
- EZZlybOaKYJCQIT6EUit+kyveiY7sfx9OHEaohmgobYiHT+FBvFDpmqrM
- 0OHo0wKSbKaFZze/ilmrkeQqzVl+KEVnBgN+32TrBPimRKkh0ixv96j42 w==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10996"; a="3182902"
+ bh=FFiwHv/v+R6EjHJr9nnYSxGEHkKmliAuTDqqI3jRfl8=;
+ b=npXuBxH0xkMtiij8El85NH/RzwLirw6a+gZJOc92Jk7p32QqBpCaMBv2
+ n8DzPQQooTZGgHOyPrvNVR7gK+sAG13s06+AbUVtivyvOfmP032Hb8hVe
+ l4XF3pPhldT0TnOEbA5+7bokz1W06IKV/pgZroQ25NgwbYMJ0+QAJ0rYP
+ KFefZeWd8WRXu350F0FFglyjj9BnxlLl4sm3WTD1R4ruvGguZWEegQOFm
+ 85kL3MEMxPSbAt8C5slluGEhcUw8F4dgD6mpmH1zIMTF65Rhs+cCrgKkm
+ s9xL40pPAgfy/X9UQ/I5w6k/wNtZfdLrSJIAfyJ8gBx4zUIvrzPG4hKFt w==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10996"; a="3182899"
 X-IronPort-AV: E=Sophos;i="6.06,187,1705392000"; 
-   d="scan'208";a="3182902"
+   d="scan'208";a="3182899"
 Received: from fmviesa009.fm.intel.com ([10.60.135.149])
  by fmvoesa111.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 26 Feb 2024 21:34:07 -0800
+ 26 Feb 2024 21:34:04 -0800
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.06,187,1705392000"; 
-   d="scan'208";a="6857598"
+   d="scan'208";a="6857582"
 Received: from kandpal-x299-ud4-pro.iind.intel.com ([10.190.239.32])
- by fmviesa009.fm.intel.com with ESMTP; 26 Feb 2024 21:34:05 -0800
+ by fmviesa009.fm.intel.com with ESMTP; 26 Feb 2024 21:34:02 -0800
 From: Suraj Kandpal <suraj.kandpal@intel.com>
 To: intel-gfx@lists.freedesktop.org,
 	intel-xe@lists.freedesktop.org
-Cc: Suraj Kandpal <suraj.kandpal@intel.com>,
- Arun R Murthy <arun.r.murthy@intel.com>,
- Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>
-Subject: [PATCH 3/4] drm/xe: Use gsc_proxy_init_done to check proxy status
-Date: Tue, 27 Feb 2024 11:02:03 +0530
-Message-ID: <20240227053204.1748920-4-suraj.kandpal@intel.com>
+Cc: Suraj Kandpal <suraj.kandpal@intel.com>
+Subject: [PATCH 1/4] drm/i915/hdcp: Move intel_hdcp_gsc_message def away from
+ header file
+Date: Tue, 27 Feb 2024 11:02:01 +0530
+Message-ID: <20240227053204.1748920-2-suraj.kandpal@intel.com>
 X-Mailer: git-send-email 2.43.2
 In-Reply-To: <20240227053204.1748920-1-suraj.kandpal@intel.com>
 References: <20240227053204.1748920-1-suraj.kandpal@intel.com>
@@ -67,105 +66,53 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Expose gsc_proxy_init_done so that we can check if gsc proxy has
-been initialized or not.
+Move intel_hdcp_gsc_message definition into intel_hdcp_gsc.h
+so that intel_hdcp_gsc_message can be redefined for xe as needed.
 
 --v2
--Check if GSC FW is enabled before taking forcewake ref [Daniele]
+-Correct commit message to reflect what patch is actually doing [Arun]
 
 Signed-off-by: Suraj Kandpal <suraj.kandpal@intel.com>
-Reviewed-by: Arun R Murthy <arun.r.murthy@intel.com>
-Reviewed-by: Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>
 ---
- drivers/gpu/drm/xe/display/xe_hdcp_gsc.c | 30 +++++++++++++++++++++++-
- drivers/gpu/drm/xe/xe_gsc_proxy.c        |  4 ++--
- drivers/gpu/drm/xe/xe_gsc_proxy.h        |  1 +
- 3 files changed, 32 insertions(+), 3 deletions(-)
+ drivers/gpu/drm/i915/display/intel_hdcp_gsc.c | 6 ++++++
+ drivers/gpu/drm/i915/display/intel_hdcp_gsc.h | 7 +------
+ 2 files changed, 7 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/gpu/drm/xe/display/xe_hdcp_gsc.c b/drivers/gpu/drm/xe/display/xe_hdcp_gsc.c
-index 5d1d0054b578..0de06e0373ef 100644
---- a/drivers/gpu/drm/xe/display/xe_hdcp_gsc.c
-+++ b/drivers/gpu/drm/xe/display/xe_hdcp_gsc.c
-@@ -4,8 +4,14 @@
-  */
- 
- #include <drm/drm_print.h>
-+
+diff --git a/drivers/gpu/drm/i915/display/intel_hdcp_gsc.c b/drivers/gpu/drm/i915/display/intel_hdcp_gsc.c
+index 302bff75b06c..35823e1f65d6 100644
+--- a/drivers/gpu/drm/i915/display/intel_hdcp_gsc.c
++++ b/drivers/gpu/drm/i915/display/intel_hdcp_gsc.c
+@@ -13,6 +13,12 @@
  #include "intel_hdcp_gsc.h"
- #include "xe_device_types.h"
-+#include "xe_device.h"
-+#include "xe_gt.h"
-+#include "xe_gsc_proxy.h"
-+#include "xe_pm.h"
-+#include "xe_uc_fw.h"
+ #include "intel_hdcp_gsc_message.h"
  
- bool intel_hdcp_gsc_cs_required(struct xe_device *xe)
++struct intel_hdcp_gsc_message {
++	struct i915_vma *vma;
++	void *hdcp_cmd_in;
++	void *hdcp_cmd_out;
++};
++
+ bool intel_hdcp_gsc_cs_required(struct drm_i915_private *i915)
  {
-@@ -14,7 +20,29 @@ bool intel_hdcp_gsc_cs_required(struct xe_device *xe)
+ 	return DISPLAY_VER(i915) >= 14;
+diff --git a/drivers/gpu/drm/i915/display/intel_hdcp_gsc.h b/drivers/gpu/drm/i915/display/intel_hdcp_gsc.h
+index eba2057c5a9e..5f610df61cc9 100644
+--- a/drivers/gpu/drm/i915/display/intel_hdcp_gsc.h
++++ b/drivers/gpu/drm/i915/display/intel_hdcp_gsc.h
+@@ -10,12 +10,7 @@
+ #include <linux/types.h>
  
- bool intel_hdcp_gsc_check_status(struct xe_device *xe)
- {
--	return false;
-+	struct xe_tile *tile = xe_device_get_root_tile(xe);
-+	struct xe_gt *gt = tile->media_gt;
-+	bool ret = true;
-+
-+	if (!xe_uc_fw_is_enabled(&gt->uc.gsc.fw))
-+		return false;
-+
-+	xe_pm_runtime_get(xe);
-+	ret = xe_force_wake_get(gt_to_fw(gt), XE_FW_GSC);
-+	if (ret) {
-+		drm_dbg_kms(&xe->drm,
-+			    "failed to get forcewake to check proxy status\n");
-+		ret = false;
-+		goto out;
-+	}
-+
-+	if (!xe_gsc_proxy_init_done(&gt->uc.gsc))
-+		ret = false;
-+
-+	xe_force_wake_put(gt_to_fw(gt), XE_FW_GSC);
-+out:
-+	xe_pm_runtime_put(xe);
-+	return ret;
- }
+ struct drm_i915_private;
+-
+-struct intel_hdcp_gsc_message {
+-	struct i915_vma *vma;
+-	void *hdcp_cmd_in;
+-	void *hdcp_cmd_out;
+-};
++struct intel_hdcp_gsc_message;
  
- int intel_hdcp_gsc_init(struct xe_device *xe)
-diff --git a/drivers/gpu/drm/xe/xe_gsc_proxy.c b/drivers/gpu/drm/xe/xe_gsc_proxy.c
-index 309ef80e3b95..1ced6b4d4946 100644
---- a/drivers/gpu/drm/xe/xe_gsc_proxy.c
-+++ b/drivers/gpu/drm/xe/xe_gsc_proxy.c
-@@ -66,7 +66,7 @@ static inline struct xe_device *kdev_to_xe(struct device *kdev)
- 	return dev_get_drvdata(kdev);
- }
- 
--static bool gsc_proxy_init_done(struct xe_gsc *gsc)
-+bool xe_gsc_proxy_init_done(struct xe_gsc *gsc)
- {
- 	struct xe_gt *gt = gsc_to_gt(gsc);
- 	u32 fwsts1 = xe_mmio_read32(gt, HECI_FWSTS1(MTL_GSC_HECI1_BASE));
-@@ -528,7 +528,7 @@ int xe_gsc_proxy_start(struct xe_gsc *gsc)
- 	if (err)
- 		return err;
- 
--	if (!gsc_proxy_init_done(gsc)) {
-+	if (!xe_gsc_proxy_init_done(gsc)) {
- 		xe_gt_err(gsc_to_gt(gsc), "GSC FW reports proxy init not completed\n");
- 		return -EIO;
- 	}
-diff --git a/drivers/gpu/drm/xe/xe_gsc_proxy.h b/drivers/gpu/drm/xe/xe_gsc_proxy.h
-index 908f9441f093..c511ade6b863 100644
---- a/drivers/gpu/drm/xe/xe_gsc_proxy.h
-+++ b/drivers/gpu/drm/xe/xe_gsc_proxy.h
-@@ -11,6 +11,7 @@
- struct xe_gsc;
- 
- int xe_gsc_proxy_init(struct xe_gsc *gsc);
-+bool xe_gsc_proxy_init_done(struct xe_gsc *gsc);
- void xe_gsc_proxy_remove(struct xe_gsc *gsc);
- int xe_gsc_proxy_start(struct xe_gsc *gsc);
- 
+ bool intel_hdcp_gsc_cs_required(struct drm_i915_private *i915);
+ ssize_t intel_hdcp_gsc_msg_send(struct drm_i915_private *i915, u8 *msg_in,
 -- 
 2.43.2
 
