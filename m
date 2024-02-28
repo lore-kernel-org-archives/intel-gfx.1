@@ -4,48 +4,51 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4CA71C5478C
-	for <intel-gfx@archiver.kernel.org>; Wed, 28 Feb 2024 21:34:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 387C8C54E55
+	for <intel-gfx@archiver.kernel.org>; Wed, 28 Feb 2024 21:34:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 41DD910E3C4;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7FDCB10E3C6;
 	Wed, 28 Feb 2024 21:34:09 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="mDUve6mo";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="XQGiF9pi";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E111310E272
- for <intel-gfx@lists.freedesktop.org>; Wed, 28 Feb 2024 21:34:07 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6DD4D10E272
+ for <intel-gfx@lists.freedesktop.org>; Wed, 28 Feb 2024 21:34:08 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1709156048; x=1740692048;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=2qpv2R7LfLoD3iyFoBoNmy2GonRCJNAlqJmTMT7DWeY=;
- b=mDUve6mogTyBDk9BetevxCg+Y8ikbC7tx5zUXgoy63z+CQ4ej9vThurE
- F4AyOYUr+wnGv51+7SQypkAw00pTLqVID8A+P/J+c5m5yc7lpNxYHiC4p
- 3kOZLlJrUcU1iPSHM92FBeznBzZ22XeAGgB7mcgw/mO6+cLyD2dqiq2Tw
- RQz3Flywq1kCB0oMLrVnZNnT7Vurpmf9bnOvmorMXaCHDoDWhQnVnx4uV
- rAmyQOX5rvI0xDiXVlwAxgPoB3ob2S4rYBDOksQs306U02otwCHAa7Zr8
- LJMmgj/IBFoVEqwMi5q9MJGnB34PSwNxRdHkEJ3Us1VZPVIPwg+xZJq+x Q==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10998"; a="3753122"
+ t=1709156049; x=1740692049;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=vkQ0k/Wtb4CDVXQUvOyF9ROj6f9ZqOFIZ4sQiggKMLg=;
+ b=XQGiF9pil6FWBJF4YeXBDI9UrHnYUpC+0j9YHm+Dfsm/DOACOnVqZF+8
+ M6oq5jDxfSMvp/su80e8HJpFHY/hTiu0zX1X4gBFDPs3LzbW+AXjdP9ot
+ gkjgT++Bv1FgyuSCA/sBYnx3r3pD52fkcOBNTa80itMbiiVS9KtZrggCV
+ L3H1WttqGX0sN525faMgkz89XIdAQdLN/ruPPpO3a4OqAkjERvcyvTDUK
+ mvlelrA4qIJKKdMpJJJaqhk4le638Kj6JpvUNNhzl0GRmjxQ4n5mX73I0
+ tFSleTu4id3AzZabR7Qy8q6Rl38DBekAbqIlOpztRi5qvcrYF9TPMTWa4 g==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10998"; a="3753127"
 X-IronPort-AV: E=Sophos;i="6.06,191,1705392000"; 
-   d="scan'208";a="3753122"
+   d="scan'208";a="3753127"
 Received: from orviesa009.jf.intel.com ([10.64.159.149])
  by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 28 Feb 2024 13:34:07 -0800
+ 28 Feb 2024 13:34:08 -0800
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.06,191,1705392000"; 
-   d="scan'208";a="7623723"
+   d="scan'208";a="7623736"
 Received: from invictus.jf.intel.com ([10.165.21.201])
  by orviesa009-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  28 Feb 2024 13:34:07 -0800
 From: Radhakrishna Sripada <radhakrishna.sripada@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Cc: Radhakrishna Sripada <radhakrishna.sripada@intel.com>
-Subject: [PATCH v3 0/6] VBT read cleanup
-Date: Wed, 28 Feb 2024 13:32:29 -0800
-Message-Id: <20240228213235.2495611-1-radhakrishna.sripada@intel.com>
+Cc: Radhakrishna Sripada <radhakrishna.sripada@intel.com>,
+ Jani Nikula <jani.nikula@intel.com>
+Subject: [PATCH v3 4/6] drm/i915: Extract opregion vbt presence check
+Date: Wed, 28 Feb 2024 13:32:33 -0800
+Message-Id: <20240228213235.2495611-5-radhakrishna.sripada@intel.com>
 X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20240228213235.2495611-1-radhakrishna.sripada@intel.com>
+References: <20240228213235.2495611-1-radhakrishna.sripada@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-BeenThere: intel-gfx@lists.freedesktop.org
@@ -63,33 +66,67 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-This series is originally based out of [1], and built on top of [2].
+We want to later change intel_opregion_get_vbt to duplicate the vbt
+memory if present, which would be an overkill when we just want to
+peek into the presence of opregion vbt. Carve out the presence check
+into its own function to use in places where only the presence of vbt
+is required.
 
-The primary departure from [1] was that vbt is no longer cached. During vbt
-show, based on the source of vbt, it would simply be re-read reducing the
-read/cleanup complexity. With this series debugfs dump of vbt should work on
-all the platforms that support display.
+Suggested-by: Jani Nikula <jani.nikula@intel.com>
+Signed-off-by: Radhakrishna Sripada <radhakrishna.sripada@intel.com>
+---
+ drivers/gpu/drm/i915/display/intel_bios.c     |  3 +--
+ drivers/gpu/drm/i915/display/intel_opregion.c | 10 ++++++++++
+ drivers/gpu/drm/i915/display/intel_opregion.h |  1 +
+ 3 files changed, 12 insertions(+), 2 deletions(-)
 
-v3 of the series extracts opregion firmware check and harmonizes the memory
-handling of different variants viz. opregion/oprom/spi/fimrware
-
-1. https://patchwork.freedesktop.org/series/128341/
-2. https://patchwork.freedesktop.org/series/128683/
-
-
-Radhakrishna Sripada (6):
-  drm/i915: Pass size to oprom_get_vbt
-  drm/i915: Pass size to spi_oprom_get_vbt
-  drm/i915: Move vbt read from firmware to intel_bios.c
-  drm/i915: Extract opregion vbt presence check
-  drm/i915: Duplicate opregion vbt memory
-  drm/i915: Show bios vbt when read from firmware/spi/oprom
-
- drivers/gpu/drm/i915/display/intel_bios.c     | 108 +++++++++++++-----
- drivers/gpu/drm/i915/display/intel_opregion.c |  58 ++--------
- drivers/gpu/drm/i915/display/intel_opregion.h |   1 +
- 3 files changed, 92 insertions(+), 75 deletions(-)
-
+diff --git a/drivers/gpu/drm/i915/display/intel_bios.c b/drivers/gpu/drm/i915/display/intel_bios.c
+index a66fc79466bd..c283a5a07010 100644
+--- a/drivers/gpu/drm/i915/display/intel_bios.c
++++ b/drivers/gpu/drm/i915/display/intel_bios.c
+@@ -3364,8 +3364,7 @@ bool intel_bios_is_lvds_present(struct drm_i915_private *i915, u8 *i2c_pin)
+ 		 * additional data.  Trust that if the VBT was written into
+ 		 * the OpRegion then they have validated the LVDS's existence.
+ 		 */
+-		if (intel_opregion_get_vbt(i915, NULL))
+-			return true;
++		return intel_opregion_vbt_present(i915);
+ 	}
+ 
+ 	return false;
+diff --git a/drivers/gpu/drm/i915/display/intel_opregion.c b/drivers/gpu/drm/i915/display/intel_opregion.c
+index 5d07a002edaa..58dfecb617b0 100644
+--- a/drivers/gpu/drm/i915/display/intel_opregion.c
++++ b/drivers/gpu/drm/i915/display/intel_opregion.c
+@@ -1131,6 +1131,16 @@ const struct drm_edid *intel_opregion_get_edid(struct intel_connector *intel_con
+ 	return drm_edid;
+ }
+ 
++bool intel_opregion_vbt_present(struct drm_i915_private *i915)
++{
++	struct intel_opregion *opregion = i915->display.opregion;
++
++	if (!opregion || !opregion->vbt)
++		return false;
++
++	return true;
++}
++
+ const void *intel_opregion_get_vbt(struct drm_i915_private *i915, size_t *size)
+ {
+ 	struct intel_opregion *opregion = i915->display.opregion;
+diff --git a/drivers/gpu/drm/i915/display/intel_opregion.h b/drivers/gpu/drm/i915/display/intel_opregion.h
+index 0bec224f711f..63573c38d735 100644
+--- a/drivers/gpu/drm/i915/display/intel_opregion.h
++++ b/drivers/gpu/drm/i915/display/intel_opregion.h
+@@ -53,6 +53,7 @@ int intel_opregion_notify_adapter(struct drm_i915_private *dev_priv,
+ int intel_opregion_get_panel_type(struct drm_i915_private *dev_priv);
+ const struct drm_edid *intel_opregion_get_edid(struct intel_connector *connector);
+ 
++bool intel_opregion_vbt_present(struct drm_i915_private *i915);
+ const void *intel_opregion_get_vbt(struct drm_i915_private *i915, size_t *size);
+ 
+ bool intel_opregion_headless_sku(struct drm_i915_private *i915);
 -- 
 2.34.1
 
