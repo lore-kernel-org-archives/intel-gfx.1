@@ -4,52 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C36B9C5478C
-	for <intel-gfx@archiver.kernel.org>; Wed, 28 Feb 2024 14:45:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5B3B0C47DD9
+	for <intel-gfx@archiver.kernel.org>; Wed, 28 Feb 2024 14:53:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 05AAB10E9EE;
-	Wed, 28 Feb 2024 14:45:46 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9BF2C10E68C;
+	Wed, 28 Feb 2024 14:53:56 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="GXq3mw0C";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="mnY4/dNi";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.14])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 38F8D10E97B;
- Wed, 28 Feb 2024 14:45:23 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.14])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 716DF10E68C
+ for <intel-gfx@lists.freedesktop.org>; Wed, 28 Feb 2024 14:53:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1709131523; x=1740667523;
+ t=1709132035; x=1740668035;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=CAXuRAZ6aYowxIYJmo4195R8r8wsLlkWoohoKKR/dck=;
- b=GXq3mw0CCN+8UEDhIniY5C3IxHJ34GYAagP3JlOy0cWTPrA4Rb8nmhAl
- 8kxwypFGgAvAzS1SltRAiBceUGQFXfv0mnhgKXx7+EQDc+SNV1WPkVvNg
- 9XVWvR5Iv2bQIPT+dLmzdB3DB4g4yashu1XPn52AUEwfKazXGf4Lttr/D
- VpPcBwk3Wi7mURa+tF8D7UhorJ1B1J9SeurKt1/JJMF6PmbfPeRlNx97d
- nYFClEhVdihlX4Os0zzHLCeCWpzsxLRVtYSyLSvEWlxPXxlD9XcjAYNl3
- ZhgHGq2twcAHM5MekjrjT4wMMIes7ni3AtOzPtJh0cIaCAguiOXchoOal g==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10998"; a="7356150"
+ bh=fpasNn7idfHHrllxUXrRf5lG21K0aP4wxKlmND0JIr8=;
+ b=mnY4/dNiKHPsLih4ffqmKQcBjEQUbcjTufO/UKJGqor46WW/PZOxzObB
+ 6nNyl0LQOqYUMQEazGK1+im0GjSGeFGyjHK4EewGXfla5wGLNx4swsaZO
+ rrMWsH2YsIF4ugPc5DC7M4GQqxegmZbjlPNFFhtY8j3dD1GrcPTb7ov3p
+ cEaNpKzHAN4T795QkdwHBlOTUnNGOdQUMn1PG4SkP3fffZdY04WIajljc
+ k1DfYcNHkhMecYkhuC8776NvKrBMRk3V2Gdg5vjyK06TWs0pr10JenFDN
+ CLuAR3VDtkoZRwFcw29luR+EpkYJZPeneK5Zz94ouyIA95Gr4ACRvXTUR Q==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10998"; a="3696286"
 X-IronPort-AV: E=Sophos;i="6.06,190,1705392000"; 
-   d="scan'208";a="7356150"
-Received: from fmviesa006.fm.intel.com ([10.60.135.146])
- by orvoesa106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 28 Feb 2024 06:45:23 -0800
+   d="scan'208";a="3696286"
+Received: from orviesa003.jf.intel.com ([10.64.159.143])
+ by fmvoesa108.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 28 Feb 2024 06:53:55 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.06,190,1705392000"; 
-   d="scan'208";a="7663277"
-Received: from mgolanimitul-x299-ud4-pro.iind.intel.com ([10.190.239.114])
- by fmviesa006.fm.intel.com with ESMTP; 28 Feb 2024 06:45:21 -0800
-From: Mitul Golani <mitulkumar.ajitkumar.golani@intel.com>
+X-IronPort-AV: E=Sophos;i="6.06,190,1705392000"; d="scan'208";a="12173606"
+Received: from srr4-3-linux-106-armuthy.iind.intel.com ([10.190.238.56])
+ by orviesa003.jf.intel.com with ESMTP; 28 Feb 2024 06:53:54 -0800
+From: Arun R Murthy <arun.r.murthy@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Cc: dri-devel@lists.freedesktop.org, jani.nikula@intel.com,
- ankit.k.nautiyal@intel.com,
- Mitul Golani <mitulkumar.ajitkumar.golani@intel.com>
-Subject: [PATCH v12 6/8] drm/i915/display: Add state checker for Adaptive Sync
- SDP
-Date: Wed, 28 Feb 2024 20:08:21 +0530
-Message-Id: <20240228143823.2762595-7-mitulkumar.ajitkumar.golani@intel.com>
+Cc: jani.nikula@intel.com,
+	Arun R Murthy <arun.r.murthy@intel.com>
+Subject: [PATCHv2] drm/i915/display/dp: Remove support for UHBR13.5
+Date: Wed, 28 Feb 2024 20:13:50 +0530
+Message-Id: <20240228144350.3184930-1-arun.r.murthy@intel.com>
 X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20240228143823.2762595-1-mitulkumar.ajitkumar.golani@intel.com>
-References: <20240228143823.2762595-1-mitulkumar.ajitkumar.golani@intel.com>
+In-Reply-To: <20230620025243.979317>
+References: <20230620025243.979317>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-BeenThere: intel-gfx@lists.freedesktop.org
@@ -67,106 +64,31 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Enable infoframe and add state checker for Adaptive Sync
-SDP enablement.
+UHBR13.5 is not supported in MTL and also the DP2.1 spec says UHBR13.5
+is optional. Hence removing UHBR135 from the supported link rates.
 
-Signed-off-by: Mitul Golani <mitulkumar.ajitkumar.golani@intel.com>
+Fixes: https://gitlab.freedesktop.org/drm/intel/-/issues/8686
+
+v2: Reframed the commit message and added link to the the issue.
+
+Signed-off-by: Arun R Murthy <arun.r.murthy@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_display.c | 46 ++++++++++++++++++++
- drivers/gpu/drm/i915/display/intel_dp.c      |  2 +
- 2 files changed, 48 insertions(+)
+ drivers/gpu/drm/i915/display/intel_dp.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
-index 00ac65a14029..be0a5fae4e58 100644
---- a/drivers/gpu/drm/i915/display/intel_display.c
-+++ b/drivers/gpu/drm/i915/display/intel_display.c
-@@ -4781,6 +4781,17 @@ intel_compare_dp_vsc_sdp(const struct drm_dp_vsc_sdp *a,
- 		a->content_type == b->content_type;
- }
- 
-+static bool
-+intel_compare_dp_as_sdp(const struct drm_dp_as_sdp *a,
-+			const struct drm_dp_as_sdp *b)
-+{
-+	return a->vtotal == b->vtotal &&
-+		a->target_rr == b->target_rr &&
-+		a->duration_incr_ms == b->duration_incr_ms &&
-+		a->duration_decr_ms == b->duration_decr_ms &&
-+		a->mode == b->mode;
-+}
-+
- static bool
- intel_compare_buffer(const u8 *a, const u8 *b, size_t len)
- {
-@@ -4836,6 +4847,30 @@ pipe_config_dp_vsc_sdp_mismatch(struct drm_i915_private *i915,
- 	drm_dp_vsc_sdp_log(&p, b);
- }
- 
-+static void
-+pipe_config_dp_as_sdp_mismatch(struct drm_i915_private *i915,
-+			       bool fastset, const char *name,
-+			       const struct drm_dp_as_sdp *a,
-+			       const struct drm_dp_as_sdp *b)
-+{
-+	struct drm_printer p;
-+
-+	if (fastset) {
-+		p = drm_dbg_printer(&i915->drm, DRM_UT_KMS, NULL);
-+
-+		drm_printf(&p, "fastset requirement not met in %s dp sdp\n", name);
-+	} else {
-+		p = drm_err_printer(&i915->drm, NULL);
-+
-+		drm_printf(&p, "mismatch in %s dp sdp\n", name);
-+	}
-+
-+	drm_printf(&p, "expected:\n");
-+	drm_dp_as_sdp_log(&p, a);
-+	drm_printf(&p, "found:\n");
-+	drm_dp_as_sdp_log(&p, b);
-+}
-+
- /* Returns the length up to and including the last differing byte */
- static size_t
- memcmp_diff_len(const u8 *a, const u8 *b, size_t len)
-@@ -5089,6 +5124,16 @@ intel_pipe_config_compare(const struct intel_crtc_state *current_config,
- 	} \
- } while (0)
- 
-+#define PIPE_CONF_CHECK_DP_AS_SDP(name) do { \
-+	if (!intel_compare_dp_as_sdp(&current_config->infoframes.name, \
-+				      &pipe_config->infoframes.name)) { \
-+		pipe_config_dp_as_sdp_mismatch(dev_priv, fastset, __stringify(name), \
-+						&current_config->infoframes.name, \
-+						&pipe_config->infoframes.name); \
-+		ret = false; \
-+	} \
-+} while (0)
-+
- #define PIPE_CONF_CHECK_BUFFER(name, len) do { \
- 	BUILD_BUG_ON(sizeof(current_config->name) != (len)); \
- 	BUILD_BUG_ON(sizeof(pipe_config->name) != (len)); \
-@@ -5270,6 +5315,7 @@ intel_pipe_config_compare(const struct intel_crtc_state *current_config,
- 	PIPE_CONF_CHECK_INFOFRAME(hdmi);
- 	PIPE_CONF_CHECK_INFOFRAME(drm);
- 	PIPE_CONF_CHECK_DP_VSC_SDP(vsc);
-+	PIPE_CONF_CHECK_DP_AS_SDP(as_sdp);
- 
- 	PIPE_CONF_CHECK_X(sync_mode_slaves_mask);
- 	PIPE_CONF_CHECK_I(master_transcoder);
 diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
-index 1cd3cc0d0c0b..2ec1f923a5a0 100644
+index 6ece2c563c7a..c11d9055981f 100644
 --- a/drivers/gpu/drm/i915/display/intel_dp.c
 +++ b/drivers/gpu/drm/i915/display/intel_dp.c
-@@ -2648,6 +2648,8 @@ static void intel_dp_compute_as_sdp(struct intel_dp *intel_dp,
- 	as_sdp->target_rr = 0;
- 	as_sdp->duration_incr_ms = 0;
- 	as_sdp->duration_incr_ms = 0;
-+
-+	crtc_state->infoframes.enable |= intel_hdmi_infoframe_enable(DP_SDP_ADAPTIVE_SYNC);
- }
- 
- static void intel_dp_compute_vsc_sdp(struct intel_dp *intel_dp,
+@@ -498,7 +498,7 @@ intel_dp_set_source_rates(struct intel_dp *intel_dp)
+ 	/* The values must be in increasing order */
+ 	static const int mtl_rates[] = {
+ 		162000, 216000, 243000, 270000, 324000, 432000, 540000, 675000,
+-		810000,	1000000, 1350000, 2000000,
++		810000,	1000000, 2000000,
+ 	};
+ 	static const int icl_rates[] = {
+ 		162000, 216000, 270000, 324000, 432000, 540000, 648000, 810000,
 -- 
 2.25.1
 
