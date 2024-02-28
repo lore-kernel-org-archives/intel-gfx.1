@@ -4,51 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 36CFCC5478C
-	for <intel-gfx@archiver.kernel.org>; Wed, 28 Feb 2024 21:34:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A8F07C5478C
+	for <intel-gfx@archiver.kernel.org>; Wed, 28 Feb 2024 21:50:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9ACC410E26F;
-	Wed, 28 Feb 2024 21:34:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2B06510E031;
+	Wed, 28 Feb 2024 21:50:34 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="CnwlQ3i0";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="B9G3SElC";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8F10410E36D
- for <intel-gfx@lists.freedesktop.org>; Wed, 28 Feb 2024 21:34:08 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.14])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BE88610E031
+ for <intel-gfx@lists.freedesktop.org>; Wed, 28 Feb 2024 21:50:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1709156049; x=1740692049;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=uaZeCg4qs7tXsglBTNiwB+kTCtzCjDwcRRjEZ3i5qsE=;
- b=CnwlQ3i09BpnRnwb9dy62wWrjN9OkKES5yv3idmF6LxZbQj8+ADz3A+A
- L+n+WZ1o/qe0A1Gdu0Wf1+xfpt/raDi8KbHMzc+nW+QpfH5H2rc5DOuZK
- AX1Kb151hQHLVfeAdSyI6UIfl8lLUUbRvQ3xOfgmlNFhHwZpnr0o1e4LB
- 4jCT9McYXKeZ9aIpIjAtQuVj4BVaGZumlgSqUDvmWMvkMFL4Nl6UL9Mvq
- k+pY0J+pZ7CklXqzPonYUCn0BscDVRncw82/s8yW0cr5plQwD3prkZtLx
- hEMal9PUaUawwemz9ZMXwx53PRV+svFRATDCwWtgBVaEclxZjL6kMCdTk g==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10998"; a="3753128"
+ t=1709157033; x=1740693033;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=xYFIhkCtvCI90uBfPB+aucfk5AFFTQEZNNVjJuKdMpc=;
+ b=B9G3SElCCgYqFXJcvmGngJXWTWLVsaDK7bvnITeZHAfQMEhXev5PI7DL
+ jGpFbjMRPPMNjOr2tbC9d6L3JWY9BEUgzMpM4mE1bbUJU4iDwhrhOsfwm
+ 5OSfjfkbs5vnrG2OxWL+UqmtPSZ15lvVYTSFPD7DkbE1xD88ixDUHc2ip
+ Kl0h7j6dgCRjbAqafd4i/WqIr9Lty+bfG4tV/6cO9mmH3hWQTOZFN28c6
+ E4f4eaOZ9SvUOGRxp/1jxWVngCbBGjr+E7k3tXY394k2SMYE2LlfiBjR9
+ 6HvDeNS9ntvFwos63FsTTZPFitv5AfcYBffZoPZTwKSb04vwu4moC9xrK w==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10998"; a="3757132"
 X-IronPort-AV: E=Sophos;i="6.06,191,1705392000"; 
-   d="scan'208";a="3753128"
-Received: from orviesa009.jf.intel.com ([10.64.159.149])
- by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 28 Feb 2024 13:34:08 -0800
+   d="scan'208";a="3757132"
+Received: from orviesa010.jf.intel.com ([10.64.159.150])
+ by fmvoesa108.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 28 Feb 2024 13:50:32 -0800
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.06,191,1705392000"; 
-   d="scan'208";a="7623739"
+   d="scan'208";a="7520089"
 Received: from invictus.jf.intel.com ([10.165.21.201])
- by orviesa009-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 28 Feb 2024 13:34:07 -0800
+ by orviesa010-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 28 Feb 2024 13:50:32 -0800
 From: Radhakrishna Sripada <radhakrishna.sripada@intel.com>
 To: intel-gfx@lists.freedesktop.org
 Cc: Radhakrishna Sripada <radhakrishna.sripada@intel.com>,
+ Gustavo Sousa <gustavo.sousa@intel.com>,
  Jani Nikula <jani.nikula@intel.com>
-Subject: [PATCH v3 5/6] drm/i915: Duplicate opregion vbt memory
-Date: Wed, 28 Feb 2024 13:32:34 -0800
-Message-Id: <20240228213235.2495611-6-radhakrishna.sripada@intel.com>
+Subject: [PATCH v2] drm/i915: Reuse RPLU cdclk fns for MTL+
+Date: Wed, 28 Feb 2024 13:48:54 -0800
+Message-Id: <20240228214854.2530205-1-radhakrishna.sripada@intel.com>
 X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20240228213235.2495611-1-radhakrishna.sripada@intel.com>
-References: <20240228213235.2495611-1-radhakrishna.sripada@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-BeenThere: intel-gfx@lists.freedesktop.org
@@ -66,47 +65,50 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-In the case of vbt residing in opregion, we simply remap the region
-into the kernel and pass the memory reference. Instead duplicate the
-memory to handle a saner cleanup in intel_bios_init.
+MTL/LNL use the same cdclk functions as RPLU albeit with different
+tables. Having separate tables and not requiring special handling
+for the platforms, reuse RPLU cdclk functions.
 
-Cc: Jani Nikula <jani.nikula@intel.com>
+v2: Update subject and the commit message(Jani)
+
+Cc: Gustavo Sousa <gustavo.sousa@intel.com>
+Reviewed-by: Jani Nikula <jani.nikula@intel.com>
 Signed-off-by: Radhakrishna Sripada <radhakrishna.sripada@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_bios.c     | 6 ++++--
- drivers/gpu/drm/i915/display/intel_opregion.c | 2 +-
- 2 files changed, 5 insertions(+), 3 deletions(-)
+ drivers/gpu/drm/i915/display/intel_cdclk.c | 11 ++---------
+ 1 file changed, 2 insertions(+), 9 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_bios.c b/drivers/gpu/drm/i915/display/intel_bios.c
-index c283a5a07010..e5229c41dbf7 100644
---- a/drivers/gpu/drm/i915/display/intel_bios.c
-+++ b/drivers/gpu/drm/i915/display/intel_bios.c
-@@ -3144,8 +3144,10 @@ void intel_bios_init(struct drm_i915_private *i915)
- 	oprom_vbt = firmware_get_vbt(i915, NULL);
- 	vbt = oprom_vbt;
- 
--	if (!vbt)
--		vbt = intel_opregion_get_vbt(i915, NULL);
-+	if (!vbt) {
-+		oprom_vbt = intel_opregion_get_vbt(i915, NULL);
-+		vbt = oprom_vbt;
-+	}
- 
- 	/*
- 	 * If the OpRegion does not have VBT, look in SPI flash through MMIO or
-diff --git a/drivers/gpu/drm/i915/display/intel_opregion.c b/drivers/gpu/drm/i915/display/intel_opregion.c
-index 58dfecb617b0..68bd5101ec89 100644
---- a/drivers/gpu/drm/i915/display/intel_opregion.c
-+++ b/drivers/gpu/drm/i915/display/intel_opregion.c
-@@ -1151,7 +1151,7 @@ const void *intel_opregion_get_vbt(struct drm_i915_private *i915, size_t *size)
- 	if (size)
- 		*size = opregion->vbt_size;
- 
--	return opregion->vbt;
-+	return kmemdup(opregion->vbt, opregion->vbt_size, GFP_KERNEL);
+diff --git a/drivers/gpu/drm/i915/display/intel_cdclk.c b/drivers/gpu/drm/i915/display/intel_cdclk.c
+index 22473c55b899..5b2688d8c644 100644
+--- a/drivers/gpu/drm/i915/display/intel_cdclk.c
++++ b/drivers/gpu/drm/i915/display/intel_cdclk.c
+@@ -3559,13 +3559,6 @@ void intel_cdclk_debugfs_register(struct drm_i915_private *i915)
+ 			    i915, &i915_cdclk_info_fops);
  }
  
- bool intel_opregion_headless_sku(struct drm_i915_private *i915)
+-static const struct intel_cdclk_funcs mtl_cdclk_funcs = {
+-	.get_cdclk = bxt_get_cdclk,
+-	.set_cdclk = bxt_set_cdclk,
+-	.modeset_calc_cdclk = bxt_modeset_calc_cdclk,
+-	.calc_voltage_level = rplu_calc_voltage_level,
+-};
+-
+ static const struct intel_cdclk_funcs rplu_cdclk_funcs = {
+ 	.get_cdclk = bxt_get_cdclk,
+ 	.set_cdclk = bxt_set_cdclk,
+@@ -3709,10 +3702,10 @@ static const struct intel_cdclk_funcs i830_cdclk_funcs = {
+ void intel_init_cdclk_hooks(struct drm_i915_private *dev_priv)
+ {
+ 	if (DISPLAY_VER(dev_priv) >= 20) {
+-		dev_priv->display.funcs.cdclk = &mtl_cdclk_funcs;
++		dev_priv->display.funcs.cdclk = &rplu_cdclk_funcs;
+ 		dev_priv->display.cdclk.table = lnl_cdclk_table;
+ 	} else if (DISPLAY_VER(dev_priv) >= 14) {
+-		dev_priv->display.funcs.cdclk = &mtl_cdclk_funcs;
++		dev_priv->display.funcs.cdclk = &rplu_cdclk_funcs;
+ 		dev_priv->display.cdclk.table = mtl_cdclk_table;
+ 	} else if (IS_DG2(dev_priv)) {
+ 		dev_priv->display.funcs.cdclk = &tgl_cdclk_funcs;
 -- 
 2.34.1
 
