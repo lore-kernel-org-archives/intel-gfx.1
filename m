@@ -4,49 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4CAFEC5478C
-	for <intel-gfx@archiver.kernel.org>; Wed, 28 Feb 2024 14:45:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 53359C47DD9
+	for <intel-gfx@archiver.kernel.org>; Wed, 28 Feb 2024 14:45:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A19CE10E99C;
-	Wed, 28 Feb 2024 14:45:28 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 923F210E9ED;
+	Wed, 28 Feb 2024 14:45:45 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="EPy4V+ze";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="OWVhrrPU";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.14])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5409C10E995;
- Wed, 28 Feb 2024 14:45:27 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 25FA210E923;
+ Wed, 28 Feb 2024 14:45:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1709131527; x=1740667527;
+ t=1709131521; x=1740667521;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=l8wW4BFy7UHEYsdHX3DNsBLprplcW8NPmSPaVEnAK5o=;
- b=EPy4V+zeBDfoTtnqjZ7FxViQd2b963PS6dQVKdkYGsZ6fIZy6Z+95VCx
- la2pyvvmdYoxmrybfCZSR1FdLvY2D694vQjuT0So63kYRo0JjrRYaCTLa
- hkDz3/uYvD4u2Zb+oTAFLv04FF8rQ8oga9fzQXdw6wfiegPHJW6ypVHhJ
- 8i0CdtfMWL3thR8Gx9HEqyfToc4MfepYuY3lb1nhCfzofOpk/mEpj95oc
- N7Hgun8M2ZCYYbMN0N+rZ3flxYaYYtFEd82fANzTGbM6SU1oYSqJRqIPx
- AuDUbLlvbWYbKQNwUNjpfDQUgjLi0sLWk0QufzFkGvHkEwYeuBQj8LsLT g==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10998"; a="7356157"
+ bh=Ir9i3W5cAzkqpnGXlwurJUQ9kvwNhzWM0326LGRZ6DQ=;
+ b=OWVhrrPUQv5Rwh4p+W1wQcEl0addFtsGD1yNihalK48dL7bwQSAIYR9D
+ qtXPAMTmUhiN15sBBsF/FnkylMhdj7MU3h2RrtWlbrLwyrQgo/pugI6wD
+ H2kvgXYlLL3ybWvXhFSUUMLuz5LikFOR7BkpxKAbhPZ9xRGzuPPUKjkVc
+ FjsxRCSPCMroaBuNvcNi0aIex2nvQorzsGdm4aEOZcqXWdjcUNCqWe/vU
+ H3Qw+ZKvBlLQxcC58YYe6pM4NLfHM/dwB5cfoS1FBM7Zi0CpeBsigAA69
+ YZ2Pq3nFQSPx0nsSfeHBIAKkP2/Ff1Tvwh/2bD9F9TCsSeWeQNQpmnhKr Q==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10998"; a="7356147"
 X-IronPort-AV: E=Sophos;i="6.06,190,1705392000"; 
-   d="scan'208";a="7356157"
+   d="scan'208";a="7356147"
 Received: from fmviesa006.fm.intel.com ([10.60.135.146])
  by orvoesa106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 28 Feb 2024 06:45:27 -0800
+ 28 Feb 2024 06:45:21 -0800
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.06,190,1705392000"; 
-   d="scan'208";a="7663332"
+   d="scan'208";a="7663238"
 Received: from mgolanimitul-x299-ud4-pro.iind.intel.com ([10.190.239.114])
- by fmviesa006.fm.intel.com with ESMTP; 28 Feb 2024 06:45:25 -0800
+ by fmviesa006.fm.intel.com with ESMTP; 28 Feb 2024 06:45:19 -0800
 From: Mitul Golani <mitulkumar.ajitkumar.golani@intel.com>
 To: intel-gfx@lists.freedesktop.org
 Cc: dri-devel@lists.freedesktop.org, jani.nikula@intel.com,
  ankit.k.nautiyal@intel.com,
  Mitul Golani <mitulkumar.ajitkumar.golani@intel.com>
-Subject: [PATCH v12 8/8] drm/i915/display: Read/Write AS sdp only when
- sink/source has enabled
-Date: Wed, 28 Feb 2024 20:08:23 +0530
-Message-Id: <20240228143823.2762595-9-mitulkumar.ajitkumar.golani@intel.com>
+Subject: [PATCH v12 5/8] drm/i915/display: Compute AS SDP parameters.
+Date: Wed, 28 Feb 2024 20:08:20 +0530
+Message-Id: <20240228143823.2762595-6-mitulkumar.ajitkumar.golani@intel.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20240228143823.2762595-1-mitulkumar.ajitkumar.golani@intel.com>
 References: <20240228143823.2762595-1-mitulkumar.ajitkumar.golani@intel.com>
@@ -67,75 +66,83 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Write/Read Adaptive sync SDP only when Sink and Source is enabled
-for the same. Also along with write TRANS_VRR_VSYNC values.
+Add necessary function definitions to compute AS SDP data.
+The new intel_dp_compute_as_sdp function computes AS SDP
+values based on the display configuration, ensuring proper
+handling of Variable Refresh Rate (VRR).
+
+--v2:
+- Added DP_SDP_ADAPTIVE_SYNC to infoframe_type_to_idx(). [Ankit]
+- Separated patch for intel_read/write_dp_sdp. [Ankit]
+- _HSW_VIDEO_DIP_ASYNC_DATA_A should be from ADL onward. [Ankit]
+- Fixed indentation issues. [Ankit]
+
+--v3:
+- Added VIDEO_DIP_ENABLE_AS_HSW flag to intel_dp_set_infoframes.
+
+--v4:
+- Added HAS_VRR check before writing AS SDP.
+
+--v5:
+Added missed HAS_VRR check before reading AS SDP.
+
+--v6:
+- Used Adaptive Sync sink status as a check for read/write SDP. (Ankit)
+
+--v7:
+- Remove as_sdp_enable from crtc_state.
+- Add a comment mentioning current support of
+  DP_AS_SDP_AVT_FIXED_VTOTAL.
+- Add state checker for AS_SDP infoframe enable.
 
 Signed-off-by: Mitul Golani <mitulkumar.ajitkumar.golani@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_ddi.c | 4 ++++
- drivers/gpu/drm/i915/display/intel_dp.c  | 4 ++++
- drivers/gpu/drm/i915/display/intel_vrr.c | 4 ++++
- 3 files changed, 12 insertions(+)
+ drivers/gpu/drm/i915/display/intel_dp.c | 25 +++++++++++++++++++++++++
+ 1 file changed, 25 insertions(+)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_ddi.c b/drivers/gpu/drm/i915/display/intel_ddi.c
-index bea441590204..89b8d50f12c6 100644
---- a/drivers/gpu/drm/i915/display/intel_ddi.c
-+++ b/drivers/gpu/drm/i915/display/intel_ddi.c
-@@ -3926,6 +3926,7 @@ static void intel_ddi_get_config(struct intel_encoder *encoder,
- {
- 	struct drm_i915_private *dev_priv = to_i915(encoder->base.dev);
- 	enum transcoder cpu_transcoder = pipe_config->cpu_transcoder;
-+	struct intel_dp *intel_dp = enc_to_intel_dp(encoder);
- 
- 	/* XXX: DSI transcoder paranoia */
- 	if (drm_WARN_ON(&dev_priv->drm, transcoder_is_dsi(cpu_transcoder)))
-@@ -3972,6 +3973,9 @@ static void intel_ddi_get_config(struct intel_encoder *encoder,
- 	intel_read_dp_sdp(encoder, pipe_config, HDMI_PACKET_TYPE_GAMUT_METADATA);
- 	intel_read_dp_sdp(encoder, pipe_config, DP_SDP_VSC);
- 
-+	if (intel_dp_as_sdp_supported(intel_dp))
-+		intel_read_dp_sdp(encoder, pipe_config, DP_SDP_ADAPTIVE_SYNC);
-+
- 	intel_audio_codec_get_config(encoder, pipe_config);
- }
- 
 diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
-index 2ec1f923a5a0..8304ef912767 100644
+index 7eb83924f3fe..1cd3cc0d0c0b 100644
 --- a/drivers/gpu/drm/i915/display/intel_dp.c
 +++ b/drivers/gpu/drm/i915/display/intel_dp.c
-@@ -4276,6 +4276,7 @@ void intel_dp_set_infoframes(struct intel_encoder *encoder,
- 			 VIDEO_DIP_ENABLE_SPD_HSW | VIDEO_DIP_ENABLE_DRM_GLK |
- 			 VIDEO_DIP_ENABLE_AS_ADL;
- 	u32 val = intel_de_read(dev_priv, reg) & ~dip_enable;
-+	struct intel_dp *intel_dp = enc_to_intel_dp(encoder);
- 
- 	/* TODO: Sanitize DSC enabling wrt. intel_dsc_dp_pps_write(). */
- 	if (!enable && HAS_DSC(dev_priv))
-@@ -4293,6 +4294,9 @@ void intel_dp_set_infoframes(struct intel_encoder *encoder,
- 
- 	intel_write_dp_sdp(encoder, crtc_state, DP_SDP_VSC);
- 
-+	if (intel_dp_as_sdp_supported(intel_dp))
-+		intel_write_dp_sdp(encoder, crtc_state, DP_SDP_ADAPTIVE_SYNC);
-+
- 	intel_write_dp_sdp(encoder, crtc_state, HDMI_PACKET_TYPE_GAMUT_METADATA);
+@@ -2626,6 +2626,30 @@ static void intel_dp_compute_vsc_colorimetry(const struct intel_crtc_state *crtc
+ 	vsc->content_type = DP_CONTENT_TYPE_NOT_DEFINED;
  }
  
-diff --git a/drivers/gpu/drm/i915/display/intel_vrr.c b/drivers/gpu/drm/i915/display/intel_vrr.c
-index 668927524f23..d24a42902e69 100644
---- a/drivers/gpu/drm/i915/display/intel_vrr.c
-+++ b/drivers/gpu/drm/i915/display/intel_vrr.c
-@@ -214,6 +214,10 @@ void intel_vrr_set_transcoder_timings(const struct intel_crtc_state *crtc_state)
- 	intel_de_write(dev_priv, TRANS_VRR_VMAX(cpu_transcoder), crtc_state->vrr.vmax - 1);
- 	intel_de_write(dev_priv, TRANS_VRR_CTL(cpu_transcoder), trans_vrr_ctl(crtc_state));
- 	intel_de_write(dev_priv, TRANS_VRR_FLIPLINE(cpu_transcoder), crtc_state->vrr.flipline - 1);
++static void intel_dp_compute_as_sdp(struct intel_dp *intel_dp,
++				    struct intel_crtc_state *crtc_state,
++				    const struct drm_connector_state *conn_state)
++{
++	struct drm_dp_as_sdp *as_sdp = &crtc_state->infoframes.as_sdp;
++	struct intel_connector *connector = intel_dp->attached_connector;
++	const struct drm_display_mode *adjusted_mode =
++		&crtc_state->hw.adjusted_mode;
++	int vrefresh = drm_mode_vrefresh(adjusted_mode);
 +
-+	if (crtc_state->vrr.vsync_end && crtc_state->vrr.vsync_start)
-+		intel_de_write(dev_priv, TRANS_VRR_VSYNC(cpu_transcoder),
-+			       crtc_state->vrr.vsync_end << 16 | crtc_state->vrr.vsync_start);
- }
++	if (!intel_vrr_is_in_range(connector, vrefresh) ||
++	    !intel_dp_as_sdp_supported(intel_dp))
++		return;
++
++	/* Currently only DP_AS_SDP_AVT_FIXED_VTOTAL mode supported */
++	as_sdp->sdp_type = DP_SDP_ADAPTIVE_SYNC;
++	as_sdp->length = 0x9;
++	as_sdp->mode = DP_AS_SDP_AVT_FIXED_VTOTAL;
++	as_sdp->vtotal = adjusted_mode->vtotal;
++	as_sdp->target_rr = 0;
++	as_sdp->duration_incr_ms = 0;
++	as_sdp->duration_incr_ms = 0;
++}
++
+ static void intel_dp_compute_vsc_sdp(struct intel_dp *intel_dp,
+ 				     struct intel_crtc_state *crtc_state,
+ 				     const struct drm_connector_state *conn_state)
+@@ -2951,6 +2975,7 @@ intel_dp_compute_config(struct intel_encoder *encoder,
+ 		g4x_dp_set_clock(encoder, pipe_config);
  
- void intel_vrr_send_push(const struct intel_crtc_state *crtc_state)
+ 	intel_vrr_compute_config(pipe_config, conn_state);
++	intel_dp_compute_as_sdp(intel_dp, pipe_config, conn_state);
+ 	intel_psr_compute_config(intel_dp, pipe_config, conn_state);
+ 	intel_dp_drrs_compute_config(connector, pipe_config, link_bpp_x16);
+ 	intel_dp_compute_vsc_sdp(intel_dp, pipe_config, conn_state);
 -- 
 2.25.1
 
