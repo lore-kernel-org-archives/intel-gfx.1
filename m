@@ -4,56 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BFE3FC54E49
-	for <intel-gfx@archiver.kernel.org>; Wed, 28 Feb 2024 14:56:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A639BC5478C
+	for <intel-gfx@archiver.kernel.org>; Wed, 28 Feb 2024 15:06:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6045310E9FF;
-	Wed, 28 Feb 2024 14:56:18 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F26C510E17B;
+	Wed, 28 Feb 2024 15:06:09 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="ldhPtvEy";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="YzthLjnZ";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3C7F910E9FF;
- Wed, 28 Feb 2024 14:56:17 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5493C10E17B
+ for <intel-gfx@lists.freedesktop.org>; Wed, 28 Feb 2024 15:06:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1709132177; x=1740668177;
+ t=1709132770; x=1740668770;
  h=from:to:cc:subject:in-reply-to:references:date:
- message-id:mime-version:content-transfer-encoding;
- bh=XHKMIZTbj9bitp8a+76rJdKa+WSqMzI2I1WztVw5LMs=;
- b=ldhPtvEyKUEi9wX8apsTF+IBN9g/nfLQK95HtemVlVbmJKtAve2DLusR
- T8Qksx13m+4oRpCHmBYJ6uv/QEXZDccaRAdj6y1H5Q3WjtMyjpwOFCk7d
- nMyKy9XtUDQUYF469YCM9ERpv3wq4yNgj6aDDbpkjvAskKv7rbKnmFOO1
- +WvbSqsOzgwf+W9WiO1TSxcM48SOpfc8N+LcM06+LDIi6NxzSQu8uTN/g
- 382BJoOyAfhchP12Kol1CjiiiuXHlOpRfxDRRiC67R3RtAsHQnTAWi0nS
- H8b5gXiGLZ1a17zMY3DFZXPx6gFx31je6icKZCCyB0xxxsKVFCadouBQL A==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10998"; a="14952692"
-X-IronPort-AV: E=Sophos;i="6.06,190,1705392000"; d="scan'208";a="14952692"
-Received: from orviesa004.jf.intel.com ([10.64.159.144])
- by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 28 Feb 2024 06:56:17 -0800
+ message-id:mime-version;
+ bh=Mj39iEfY0sxNd8YQbcCG6lRnVM9Oy29DNe+bINgCNwA=;
+ b=YzthLjnZWIfNC6FOaIotOviMsk93km+laClNEqDGCCs0tbaX2QwAp772
+ RwdpW973BiHMh0Mq6PfcJIGhuxpSSZjZ0HP3dN6vguyKVCrKjHhYYVDSl
+ XQK9BQywwVxl6OLtCLXu7kSNUJS/+7+TpmxGIdK+VvQsiLeDjcmR9SxT4
+ P+OzuUbrTX5e1fEPwxneIa/vx9CKMZ2NeX1TVPRkzfWJH2dOe2zxPc0cm
+ +KoCOxgcZ7XFKaePtZPy70wyi6MXYE59CKuqgDeNumse2iscFj522F9FU
+ GMoYhjJFBryzTAdyuZAEoU9ScR3Oa0sHG5rafulPOhiLl+D1jFf7Yifpx g==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10998"; a="20987922"
+X-IronPort-AV: E=Sophos;i="6.06,190,1705392000"; d="scan'208";a="20987922"
+Received: from orviesa009.jf.intel.com ([10.64.159.149])
+ by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 28 Feb 2024 07:06:09 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.06,190,1705392000"; d="scan'208";a="12121542"
+X-IronPort-AV: E=Sophos;i="6.06,190,1705392000"; 
+   d="scan'208";a="7496445"
 Received: from tmelzer-mobl1.ger.corp.intel.com (HELO localhost)
  ([10.252.32.33])
- by orviesa004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 28 Feb 2024 06:56:13 -0800
+ by orviesa009-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 28 Feb 2024 07:06:06 -0800
 From: Jani Nikula <jani.nikula@intel.com>
-To: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
- Intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-Cc: Tvrtko Ursulin <tvrtko.ursulin@intel.com>, Daniel Vetter
- <daniel@ffwll.ch>, Dave Airlie <airlied@redhat.com>, Joonas Lahtinen
- <joonas.lahtinen@linux.intel.com>, Rodrigo Vivi <rodrigo.vivi@intel.com>
-Subject: Re: [PATCH] MAINTAINERS: Update email address for Tvrtko Ursulin
-In-Reply-To: <20240228142240.2539358-1-tvrtko.ursulin@linux.intel.com>
+To: Arun R Murthy <arun.r.murthy@intel.com>, intel-gfx@lists.freedesktop.org
+Cc: Arun R Murthy <arun.r.murthy@intel.com>
+Subject: Re: [PATCHv2] drm/i915/display/dp: Remove support for UHBR13.5
+In-Reply-To: <20240228144350.3184930-1-arun.r.murthy@intel.com>
 Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
-References: <20240228142240.2539358-1-tvrtko.ursulin@linux.intel.com>
-Date: Wed, 28 Feb 2024 16:56:09 +0200
-Message-ID: <8734tcab92.fsf@intel.com>
+References: <20240228144350.3184930-1-arun.r.murthy@intel.com>
+Date: Wed, 28 Feb 2024 17:06:03 +0200
+Message-ID: <87zfvk8w84.fsf@intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,60 +65,47 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Wed, 28 Feb 2024, Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com> wrote:
-> From: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
+On Wed, 28 Feb 2024, Arun R Murthy <arun.r.murthy@intel.com> wrote:
+> UHBR13.5 is not supported in MTL and also the DP2.1 spec says UHBR13.5
+> is optional. Hence removing UHBR135 from the supported link rates.
 >
-> I will lose access to my @.*intel.com e-mail addresses soon so let me
-> adjust the maintainers entry and update the mailmap too.
->
-> While at it consolidate a few other of my old emails to point to the
-> main one.
->
-> Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
-> Cc: Daniel Vetter <daniel@ffwll.ch>
-> Cc: Dave Airlie <airlied@redhat.com>
-> Cc: Jani Nikula <jani.nikula@intel.com>
-> Cc: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
-> Cc: Rodrigo Vivi <rodrigo.vivi@intel.com>
+> Fixes: https://gitlab.freedesktop.org/drm/intel/-/issues/8686
 
-Acked-by: Jani Nikula <jani.nikula@intel.com>
+Fixes: trailer is for commits. And trailers should be together, with no
+blank lines or patch changelogs in between.
+
+>
+> v2: Reframed the commit message and added link to the the issue.
+>
+> Signed-off-by: Arun R Murthy <arun.r.murthy@intel.com>
+
+Closes: https://gitlab.freedesktop.org/drm/intel/-/issues/8686
+Fixes: 62618c7f117e ("drm/i915/mtl: C20 PLL programming")
+Cc: <stable@vger.kernel.org> # v6.5+
+Reviewed-by: Jani Nikula <jani.nikula@intel.com>
+
+There's no need to add /display/ in every subject prefix. drm/i915/dp
+will do just fine.
+
+Can be fixed while applying.
 
 > ---
->  .mailmap    | 5 +++++
->  MAINTAINERS | 2 +-
->  2 files changed, 6 insertions(+), 1 deletion(-)
+>  drivers/gpu/drm/i915/display/intel_dp.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
 >
-> diff --git a/.mailmap b/.mailmap
-> index b99a238ee3bd..d67e351bce8e 100644
-> --- a/.mailmap
-> +++ b/.mailmap
-> @@ -608,6 +608,11 @@ TripleX Chung <xxx.phy@gmail.com> <triplex@zh-kernel=
-.org>
->  TripleX Chung <xxx.phy@gmail.com> <zhongyu@18mail.cn>
->  Tsuneo Yoshioka <Tsuneo.Yoshioka@f-secure.com>
->  Tudor Ambarus <tudor.ambarus@linaro.org> <tudor.ambarus@microchip.com>
-> +Tvrtko Ursulin <tursulin@ursulin.net> <tvrtko.ursulin@intel.com>
-> +Tvrtko Ursulin <tursulin@ursulin.net> <tvrtko.ursulin@linux.intel.com>
-> +Tvrtko Ursulin <tursulin@ursulin.net> <tvrtko.ursulin@sophos.com>
-> +Tvrtko Ursulin <tursulin@ursulin.net> <tvrtko.ursulin@onelan.co.uk>
-> +Tvrtko Ursulin <tursulin@ursulin.net> <tvrtko@ursulin.net>
->  Tycho Andersen <tycho@tycho.pizza> <tycho@tycho.ws>
->  Tzung-Bi Shih <tzungbi@kernel.org> <tzungbi@google.com>
->  Uwe Kleine-K=C3=B6nig <ukleinek@informatik.uni-freiburg.de>
-> diff --git a/MAINTAINERS b/MAINTAINERS
-> index 19f6f8014f94..b940bfe2a692 100644
-> --- a/MAINTAINERS
-> +++ b/MAINTAINERS
-> @@ -10734,7 +10734,7 @@ INTEL DRM I915 DRIVER (Meteor Lake, DG2 and older=
- excluding Poulsbo, Moorestown
->  M:	Jani Nikula <jani.nikula@linux.intel.com>
->  M:	Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
->  M:	Rodrigo Vivi <rodrigo.vivi@intel.com>
-> -M:	Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
-> +M:	Tvrtko Ursulin <tursulin@ursulin.net>
->  L:	intel-gfx@lists.freedesktop.org
->  S:	Supported
->  W:	https://drm.pages.freedesktop.org/intel-docs/
+> diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
+> index 6ece2c563c7a..c11d9055981f 100644
+> --- a/drivers/gpu/drm/i915/display/intel_dp.c
+> +++ b/drivers/gpu/drm/i915/display/intel_dp.c
+> @@ -498,7 +498,7 @@ intel_dp_set_source_rates(struct intel_dp *intel_dp)
+>  	/* The values must be in increasing order */
+>  	static const int mtl_rates[] = {
+>  		162000, 216000, 243000, 270000, 324000, 432000, 540000, 675000,
+> -		810000,	1000000, 1350000, 2000000,
+> +		810000,	1000000, 2000000,
+>  	};
+>  	static const int icl_rates[] = {
+>  		162000, 216000, 270000, 324000, 432000, 540000, 648000, 810000,
 
---=20
+-- 
 Jani Nikula, Intel
