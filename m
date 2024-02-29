@@ -4,52 +4,27 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DE9EAC48BF6
-	for <intel-gfx@archiver.kernel.org>; Thu, 29 Feb 2024 04:51:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E3ECDC48BF6
+	for <intel-gfx@archiver.kernel.org>; Thu, 29 Feb 2024 05:10:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4401D10E2F2;
-	Thu, 29 Feb 2024 04:51:53 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="Wk5QEiJy";
-	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.18])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7BE6910E336
- for <intel-gfx@lists.freedesktop.org>; Thu, 29 Feb 2024 04:51:51 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1709182311; x=1740718311;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=1JERhvPSbnzDty13qLv5fKYth0SBk6WfSxCZRmmRb4E=;
- b=Wk5QEiJy3NFJF7mk8I6JtsanLqUrOfOk+9sy/qJI6TCjwPp2gLSpG042
- 4r9E9BsAX5/SReoQvuONCJXnm1rlG0ZQe0VJOisMbgk9Un/AwbTghI9KA
- KoLfTb7geGK+80UEnwLT1WiVL1aTu/+hqGFVftLaaGPOH/Bjkj+9g50m9
- f/Yb0+9W4yP8pzI9RbfTy+QHbjSKgc0gwwkLn5F8GgaBZW/bFQQn+9JeV
- RhdVclBvwM0iU6PgNipn4C5r+DtHoXWX+1P0Lq8MmX2W0yrBZF/9CCO35
- Qj/rSBeKS7pWFl7m6gdXdRmMGM52xlq/YHIbmUfQmAkvlt7i+xfxFiiyu A==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10998"; a="3751987"
-X-IronPort-AV: E=Sophos;i="6.06,192,1705392000"; 
-   d="scan'208";a="3751987"
-Received: from orviesa004.jf.intel.com ([10.64.159.144])
- by orvoesa110.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 28 Feb 2024 20:51:51 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.06,192,1705392000"; d="scan'208";a="12343640"
-Received: from srr4-3-linux-101-amanna.iind.intel.com ([10.223.74.76])
- by orviesa004.jf.intel.com with ESMTP; 28 Feb 2024 20:51:50 -0800
-From: Animesh Manna <animesh.manna@intel.com>
-To: intel-gfx@lists.freedesktop.org
-Cc: jani.nikula@intel.com, ville.syrjala@linux.intel.com,
- jouni.hogander@intel.com, arun.r.murthy@intel.com,
- Animesh Manna <animesh.manna@intel.com>
-Subject: [PATCH v2] drm/i915/panelreplay: Move out psr_init_dpcd() from
- init_connector()
-Date: Thu, 29 Feb 2024 10:07:16 +0530
-Message-Id: <20240229043716.4065760-1-animesh.manna@intel.com>
-X-Mailer: git-send-email 2.29.0
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3DA8210E37A;
+	Thu, 29 Feb 2024 05:10:26 +0000 (UTC)
+Received: from 8e613ede5ea5 (emeril.freedesktop.org [131.252.210.167])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3CC4110E363;
+ Thu, 29 Feb 2024 05:10:25 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
+Subject: =?utf-8?q?=E2=9C=97_Fi=2ECI=2ECHECKPATCH=3A_warning_for_linux-next=3A_build_?=
+ =?utf-8?q?failure_after_merge_of_the_kunit-next_tree?=
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Stephen Rothwell" <sfr@canb.auug.org.au>
+Cc: intel-gfx@lists.freedesktop.org
+Date: Thu, 29 Feb 2024 05:10:25 -0000
+Message-ID: <170918342525.375736.11074172386907001188@8e613ede5ea5>
+X-Patchwork-Hint: ignore
+References: <20240229152653.09ecf771@canb.auug.org.au>
+In-Reply-To: <20240229152653.09ecf771@canb.auug.org.au>
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,53 +37,28 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Move psr_init_dpcd() from init-connector to connector-detect
-function. The dpcd probe for checking panel replay capability
-for external dp connector is causing delay during boot which can
-be optimized by moving dpcd probe to connector specific detect().
+== Series Details ==
 
-v1: Initial version.
-v2: Add details in commit description. [Jani]
+Series: linux-next: build failure after merge of the kunit-next tree
+URL   : https://patchwork.freedesktop.org/series/130537/
+State : warning
 
-Suggested-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
-Closes: https://gitlab.freedesktop.org/drm/intel/-/issues/10284
-Signed-off-by: Animesh Manna <animesh.manna@intel.com>
----
- drivers/gpu/drm/i915/display/intel_dp.c  | 3 +++
- drivers/gpu/drm/i915/display/intel_psr.c | 3 ---
- 2 files changed, 3 insertions(+), 3 deletions(-)
+== Summary ==
 
-diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
-index 6ece2c563c7a..b485ec320085 100644
---- a/drivers/gpu/drm/i915/display/intel_dp.c
-+++ b/drivers/gpu/drm/i915/display/intel_dp.c
-@@ -5709,6 +5709,9 @@ intel_dp_detect(struct drm_connector *connector,
- 	if (ret == 1)
- 		intel_connector->base.epoch_counter++;
- 
-+	if (!intel_dp_is_edp(intel_dp))
-+		intel_psr_init_dpcd(intel_dp);
-+
- 	intel_dp_detect_dsc_caps(intel_dp, intel_connector);
- 
- 	intel_dp_configure_mst(intel_dp);
-diff --git a/drivers/gpu/drm/i915/display/intel_psr.c b/drivers/gpu/drm/i915/display/intel_psr.c
-index 72cadad09db5..6927785fd6ff 100644
---- a/drivers/gpu/drm/i915/display/intel_psr.c
-+++ b/drivers/gpu/drm/i915/display/intel_psr.c
-@@ -2883,9 +2883,6 @@ void intel_psr_init(struct intel_dp *intel_dp)
- 	if (!(HAS_PSR(dev_priv) || HAS_DP20(dev_priv)))
- 		return;
- 
--	if (!intel_dp_is_edp(intel_dp))
--		intel_psr_init_dpcd(intel_dp);
--
- 	/*
- 	 * HSW spec explicitly says PSR is tied to port A.
- 	 * BDW+ platforms have a instance of PSR registers per transcoder but
--- 
-2.29.0
+Error: dim checkpatch failed
+f4534e24d7e8 linux-next: build failure after merge of the kunit-next tree
+-:14: WARNING:COMMIT_LOG_LONG_LINE: Prefer a maximum 75 chars per line (possible unwrapped commit description?)
+#14: 
+  191 |                                        "buddy_alloc failed with bias(%x-%x), size=%u, ps=%u\n",
+
+-:41: ERROR:GIT_COMMIT_ID: Please use git commit description style 'commit <12+ chars of sha1> ("<title line>")' - ie: 'commit c70703320e55 ("drm/tests/drm_buddy: add alloc_range_bias test")'
+#41: 
+  c70703320e55 ("drm/tests/drm_buddy: add alloc_range_bias test")
+
+total: 1 errors, 1 warnings, 0 checks, 8 lines checked
+
 
