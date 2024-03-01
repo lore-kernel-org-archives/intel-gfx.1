@@ -4,35 +4,80 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 59E87C54E41
-	for <intel-gfx@archiver.kernel.org>; Mon,  4 Mar 2024 14:11:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F0291C5478C
+	for <intel-gfx@archiver.kernel.org>; Mon,  4 Mar 2024 14:11:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 05E2E1121D9;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 124621121DA;
 	Mon,  4 Mar 2024 14:11:36 +0000 (UTC)
-Received: from mail-0201.mail-europe.com (mail-0201.mail-europe.com
- [51.77.79.158])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4988710E78D
- for <intel-gfx@lists.freedesktop.org>; Mon, 26 Feb 2024 16:31:08 +0000 (UTC)
-Date: Mon, 26 Feb 2024 16:30:52 +0000
-To: "Harrison, John C" <john.c.harrison@intel.com>
-From: maksym@wezdecki.pl
-Cc: "Wajdeczko, Michal" <Michal.Wajdeczko@intel.com>,
- "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>
-Subject: RE: GuC issue
-Message-ID: <FJKNlVdWT4pcxEIPqrlrotvNF4LQ9IruZEgoFyoLOiuC06TeBWlw75UpxC5YGBbB3q4K2HGh34RNzJqipPPJV8DMDDQ3lY5yAYmTJezbDtg=@wezdecki.pl>
-In-Reply-To: <CH3PR11MB84410E859B484FD84ACE65E4BD562@CH3PR11MB8441.namprd11.prod.outlook.com>
-References: <mpy7oR29BN-ZuXsGo_DrVjgvt7tZXStYEkdhwHKRFqzjB6DkbATG6i8qLYaNq2fAsXIUiYXJ6HBXTurfBaLHuwcxeggLjtKQHdxwVWdsO04=@pm.me>
- <af232621-ed88-466e-9162-7698b5583503@intel.com>
- <dRxB0peDhbOHBqsX5rpWZN-qZtPdwWItk-L1ZAZm8RH8LQYpNBGa9qghm3dOCuM4fqbzOsNAFEafiu2zSrQNbnH6oCrlBb1fiAm5AhJQr64=@pm.me>
- <G6cnnxkrPv0dkDZ2VYL51hau5Mm-RdGVA74E0lhunn-U3XoV3d8OwF92LK-lCbQ24yM8ksZuOh9EAEpvAgz7Td0xtfFwT-Zy7M-5KJ73qqY=@wezdecki.pl>
- <jDjRWkHtb3G4vJFfktNDbWc_n_3WjYYvIOYbXmZHxbcITIeP3k6FnjerNyECm8NNpgs0H1DRJTaeiE5c9qYib5djHdq34VG4wOPZbNPEj-s=@wezdecki.pl>
- <bb9bd07a-5197-46e1-8541-aeb540b421a3@intel.com>
- <5_wII6n600vppHk7s--lu7jrLDbxtBBglPTXx8BxdhPfYS5YaArq9XZ3OhcuRnYKOfBIxSTUGk7CAz-d1KZ-_-7J9g3qVNkzxDvewTrIX-I=@wezdecki.pl>
- <CH3PR11MB84410E859B484FD84ACE65E4BD562@CH3PR11MB8441.namprd11.prod.outlook.com>
-Feedback-ID: 47772235:user:proton
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (1024-bit key; unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="NbLuOXWL";
+	dkim-atps=neutral
+Received: from mail-io1-f45.google.com (mail-io1-f45.google.com
+ [209.85.166.45])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E7B3F10E660
+ for <intel-gfx@lists.freedesktop.org>; Fri,  1 Mar 2024 16:06:00 +0000 (UTC)
+Received: by mail-io1-f45.google.com with SMTP id
+ ca18e2360f4ac-7c495be1924so7030039f.1
+ for <intel-gfx@lists.freedesktop.org>; Fri, 01 Mar 2024 08:06:00 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linuxfoundation.org; s=google; t=1709309159; x=1709913959;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=GUbUE7aHZo3BLjOSoTSY6Sj6NCxr1dF8uNficZHUOxs=;
+ b=NbLuOXWLbvNX7fyUqY846/yAQs1a2ndTq88xP/SE4Llh/2Y9T0wo1oXTKi6X6LHvIp
+ nQA+YIB7MeNZoqIhp3dGbDv95gJJVMhYcBRRmnPhUwhwWPbmPVsre8z+nkEZjAXmOaFu
+ fEpoBVqpKRBKbo939w0VNfq3/mYWVrk/c/rBQ=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1709309159; x=1709913959;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=GUbUE7aHZo3BLjOSoTSY6Sj6NCxr1dF8uNficZHUOxs=;
+ b=EiNW6k8iAh58+pJCrkJfJ47gpv9AX6I99GRR46MhxIoilJ93FrRhHEtiHaHiXoffgj
+ lLXuDR1whntC35uFOtbY934rGlgi/T3LGxfYhf06OOFddCVoTeRDLs66uwJYAfNlIOcy
+ m3Z60ypF5eWIer0AG7Ovw8xea5cpTyeboSVv5tFpcVhRxV91iax75EJefBYQ6i8k5NzG
+ pl7r+jBY/8MLTBOppS2RqNJpN00zXizhl1e2SRHemqThdQOaefKV+w0qMWBmqLPbyaLm
+ vSZFMc+t1IFivxFcdqX+7o8tXcsGfGVdtI9hlqQo0ET9VScLwH1c4ei17AEm2nh3qPZI
+ uQmw==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCVyqXjDcrygjySM5UGN8XP/hwV/wH2QSM3wBNSKjMc8buHLo7pn+LPzHRw4lwjynV4DfxOmmdv1lb/9tpiz0616zpa/AgPLjTUuxdWgNdng
+X-Gm-Message-State: AOJu0Ywu/noJEd2nCVmRAKw8aw8x86VCuAse3Vl4mgVVrw6ZDKFU9ON9
+ 2lai5daiNblxBqa+OHAdaJWEudlqWIGSNFryAMlRzWQggpIwernAJ0qARv7fpUU=
+X-Google-Smtp-Source: AGHT+IGLKG/dlw1Pu3A6/meWaV0By6c320QkCU8gs6LdvRo4CGlpb1xlzzuSAIl6HVYSrqxP9Zte7g==
+X-Received: by 2002:a05:6e02:1bea:b0:365:2f19:e58e with SMTP id
+ y10-20020a056e021bea00b003652f19e58emr2334918ilv.3.1709309159574; 
+ Fri, 01 Mar 2024 08:05:59 -0800 (PST)
+Received: from [192.168.1.128] ([38.175.170.29])
+ by smtp.gmail.com with ESMTPSA id
+ fw20-20020a0566381d9400b004747c7f22bdsm866787jab.74.2024.03.01.08.05.59
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 01 Mar 2024 08:05:59 -0800 (PST)
+Message-ID: <86d87830-100f-4f29-bb7f-9a612b90866a@linuxfoundation.org>
+Date: Fri, 1 Mar 2024 09:05:57 -0700
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: linux-next: build failure after merge of the kunit-next tree
+Content-Language: en-US
+To: Stephen Rothwell <sfr@canb.auug.org.au>, David Gow <davidgow@google.com>
+Cc: Brendan Higgins <brendanhiggins@google.com>,
+ Daniel Vetter <daniel.vetter@ffwll.ch>,
+ Intel Graphics <intel-gfx@lists.freedesktop.org>,
+ DRI <dri-devel@lists.freedesktop.org>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ Matthew Auld <matthew.auld@intel.com>,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ Linux Next Mailing List <linux-next@vger.kernel.org>,
+ Shuah Khan <skhan@linuxfoundation.org>
+References: <20240229152653.09ecf771@canb.auug.org.au>
+ <be2e812c-3898-4be8-8a9d-e221acb837c3@linuxfoundation.org>
+ <CABVgOSmAmkOcY8hFnpPSgz5WZXFkez_BDGhKjBepbWFpKykfUg@mail.gmail.com>
+ <20240301214358.7fdecd66@canb.auug.org.au>
+From: Shuah Khan <skhan@linuxfoundation.org>
+In-Reply-To: <20240301214358.7fdecd66@canb.auug.org.au>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 X-Mailman-Approved-At: Mon, 04 Mar 2024 14:11:34 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -49,176 +94,27 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Hello,
+On 3/1/24 03:43, Stephen Rothwell wrote:
+> Hi all,
+> 
+> On Fri, 1 Mar 2024 15:15:02 +0800 David Gow <davidgow@google.com> wrote:
+>>
+>> On Thu, 29 Feb 2024 at 23:07, Shuah Khan <skhan@linuxfoundation.org> wrote:
+>>>
+>>> I can carry the fix through kselftest kunit if it works
+>>> for all.
+>>
+>> I'm happy for this to go in with the KUnit changes if that's the best
+>> way to keep all of the printk formatting fixes together.
+> 
+> I am pretty sure that the proper fix has been applied to the drm-fixes
+> tree today (in the merge of the drm-misc-fixes tree).
+> 
 
-Thank you for your help.
+What's the commit id for this fix? I Would like to include the details
+in my pull request to Linus.
 
-Is there a possibility to load GuC, then "unload" it and load it again with=
-out cold reset?
-By loading I mean HuC firmware upload, GuC ADS/log init, GuC firmware uploa=
-d, CT init, HuC authentication by GuC.
+If this fix is going before the merge window - we are all set.
 
-I'm asking because I need to perform severe testing on the target for safet=
-y purposes without GPU cold reset.
-What should be done in order to "unload" the GuC? Is it __uc_sanitize() and=
- __uc_fini()?
-
-Maksym
-
-czwartek, 22 lutego 2024 20:31, Harrison, John C <john.c.harrison@intel.com=
-> napisa=C5=82(a):
-
->=20
->=20
-> Hello,
->=20
-> That worked better. The complaint is that the engine mapping table is inv=
-alid. See the i915 code in guc_mapping_table_init () in gt/uc/intel_guc_ads=
-.c for an example of how to initialise the table.
->=20
-> John.
->=20
->=20
-> -----Original Message-----
-> From: maksym@wezdecki.pl maksym@wezdecki.pl
->=20
-> Sent: Wednesday, February 21, 2024 07:15
-> To: Harrison, John C john.c.harrison@intel.com
->=20
-> Cc: maksym@wezdecki.pl; Wajdeczko, Michal Michal.Wajdeczko@intel.com; int=
-el-gfx@lists.freedesktop.org
->=20
-> Subject: Re: GuC issue
->=20
-> Ah, I dumped them with Windows new line characters.
->=20
-> Here is a new log binary dump.
->=20
-> I moved to the newest TGL GuC firmware from linux-firmware repo.
->=20
->=20
-> =C5=9Broda, 21 lutego 2024 12:16 AM, John Harrison john.c.harrison@intel.=
-com napisa=C5=82(a):
->=20
-> > Hello,
-> >=20
-> > Something is very corrupted with that GuC log. The log consists of a
-> > header page and then a stream of log entry structures. The structure
-> > is supposed to be 20 bytes long and starts with a four byte time
-> > stamp. But I am seeing what is conceivably a 32bit timestamp appearing
-> > at 21 byte increments through the log. Even more curiously, the time
-> > stamp seems to have an 0x0D, 0x0A after it. Are you doing any printf
-> > type operation in order to write the log out from memory to disk?
-> >=20
-> > INTEL_GUC_LOAD_STATUS_INIT_DATA_INVALID means that the GuC did not
-> > like the initialisation data passed in. Most likely, something in the
-> > ADS structure is not valid. If you try with the latest GuC version,
-> > that might give you more information as to what is the incorrect. More
-> > status codes have been added since 70.1.1.
-> >=20
-> > John.
-> >=20
-> > On 2/20/2024 05:03, maksym@wezdecki.pl wrote:
-> >=20
-> > > Hi,
-> > >=20
-> > > Please see GuC log attached to this email.
-> > >=20
-> > > Log size is "PAGE_SIZE+Debug Log(64KB) + Crash Log (8KB) + Capture Lo=
-g (1M)"
-> > >=20
-> > > Can anybody from Intel decode this log buffer? Thanks.
-> > >=20
-> > > What am I doing wrong?
-> > >=20
-> > > Maksym
-> > >=20
-> > > poniedzia=C5=82ek, 19 lutego 2024 09:44, maksym@wezdecki.pl maksym@we=
-zdecki.pl napisa=C5=82(a):
-> > >=20
-> > > > Hi,
-> > > >=20
-> > > > I fixed one issue in my driver. Log address was set incorrectly.
-> > > >=20
-> > > > Right now, after GuC uploading, GUC_STATUS changed.
-> > > > Right now, intel_guc_load_status is INTEL_GUC_LOAD_STATUS_INIT_DATA=
-_INVALID =3D 0x71.
-> > > >=20
-> > > > What does it mean?
-> > > > Could you please help me with this?
-> > > >=20
-> > > > Thanks,
-> > > > Maksym
-> > > >=20
-> > > > pi=C4=85tek, 9 lutego 2024 08:42, natur.produkt@pm.me natur.produkt=
-@pm.me napisa=C5=82(a):
-> > > >=20
-> > > > > Hello,
-> > > > >=20
-> > > > > Please see my comments below.
-> > > > >=20
-> > > > > pi=C4=85tek, 9 lutego 2024 2:45 AM, John Harrison john.c.harrison=
-@intel.com napisa=C5=82(a):
-> > > > >=20
-> > > > > > Hello,
-> > > > > >=20
-> > > > > > What platform is this on? And which GuC firmware version are yo=
-u using?
-> > > > > > It's TGL. I'm using tgl_guc_70.1.1.bin firmware blob.
-> > > > >=20
-> > > > > > One thing you made need to do is force maximum GT frequency
-> > > > > > during GuC load. That is something the i915 driver does. If
-> > > > > > the system decides the GPU is idle and drops the frequency to
-> > > > > > minimum then it can take multiple seconds for the GuC initialis=
-ation to complete.
-> > > > > > Thanks for the hint. I'm not doing that at all in my code. How =
-am I supposed to do this? Is there a specific register for that?
-> > > > >=20
-> > > > > > Did the status change at all during that second of waiting? Or
-> > > > > > was it still reading LAPIC_DONE?
-> > > > > > It's always LAPIC_DONE.
-> > > > >=20
-> > > > > > For ADS documentation, I'm afraid that the best we currently
-> > > > > > have publicly available is the i915 driver code. If you are
-> > > > > > not intending to use GuC submission then most of the ADS can be=
- ignored.
-> > > > > > Ok, that great. Which part of ADS is must-have then?
-> > > > >=20
-> > > > > > If you can share the GuC log, that might provide some clues as
-> > > > > > to what is happening. For just logging the boot process, you
-> > > > > > shouldn't need to allocate a large log. The default size of
-> > > > > > i915 for release builds is 64KB. That should be plenty.
-> > > > > > I'll collect GuC log as soon as possible. Is it something that =
-can be understood without a knowledge of GuC internals? Or is it simply hex=
- dumps?
-> > > > >=20
-> > > > > > John.
-> > > > > >=20
-> > > > > > On 2/6/2024 23:59, natur.produkt@pm.me wrote:
-> > > > > >=20
-> > > > > > > Hi,
-> > > > > > >=20
-> > > > > > > I'm currently implementing GuC/HuC firmware support in one Sa=
-fety Critical OS.
-> > > > > > > I'm following i915 code and I implemented all paths (I don't =
-want GuC submission or SLPC features). I need GuC to authenticate HuC firmw=
-are blob.
-> > > > > > >=20
-> > > > > > > I mirrored GuC implementation in my code.
-> > > > > > >=20
-> > > > > > > After GuC DMA transfer succeeds, I'm reading GUC_STATUS regis=
-ter.
-> > > > > > > HW returns INTEL_BOOTROM_STATUS_JUMP_PASSED as bootrom status=
- and INTEL_GUC_LOAD_STATUS_LAPIC_DONE as GuC load status.
-> > > > > > >=20
-> > > > > > > Unfortunately, after one second of waiting, the status didn't=
- get changed to INTEL_GUC_LOAD_STATUS_READY at all.
-> > > > > > >=20
-> > > > > > > What is a potential issue here?
-> > > > > > > Could you please help me?
-> > > > > > >=20
-> > > > > > > In addition to this, could you please point out some document=
-ation about GuC's ADS struct?
-> > > > > > >=20
-> > > > > > > Thanks,
-> > > > > > > Maksym
+thanks,
+-- Shuah
