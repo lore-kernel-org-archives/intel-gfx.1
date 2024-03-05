@@ -4,28 +4,60 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1CA17C54798
-	for <intel-gfx@archiver.kernel.org>; Tue,  5 Mar 2024 14:27:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 34E66C54E41
+	for <intel-gfx@archiver.kernel.org>; Tue,  5 Mar 2024 14:34:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 403A0112B45;
-	Tue,  5 Mar 2024 14:27:18 +0000 (UTC)
-Received: from mblankhorst.nl (lankhorst.se [141.105.120.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1529D112B3F
- for <intel-gfx@lists.freedesktop.org>; Tue,  5 Mar 2024 14:27:14 +0000 (UTC)
-From: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-To: intel-gfx@lists.freedesktop.org
-Cc: =?UTF-8?q?Ville=20Syrj=C3=A4l=C3=A4?= <ville.syrjala@linux.intel.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-Subject: [PATCH v2 2/3] drm/i915: Use vblank worker to unpin old legacy cursor
- fb safely
-Date: Tue,  5 Mar 2024 15:27:13 +0100
-Message-ID: <20240305142714.5298-3-maarten.lankhorst@linux.intel.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20240305142714.5298-1-maarten.lankhorst@linux.intel.com>
-References: <20240305142714.5298-1-maarten.lankhorst@linux.intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 89ADE10E13B;
+	Tue,  5 Mar 2024 14:34:26 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="TALH68jy";
+	dkim-atps=neutral
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D794510E13B
+ for <intel-gfx@lists.freedesktop.org>; Tue,  5 Mar 2024 14:34:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1709649265; x=1741185265;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:content-transfer-encoding:in-reply-to;
+ bh=Qj3f7FW2GrtSfyELwMQpwn6AL8eB8woMjglRE/JftVI=;
+ b=TALH68jyEJRoTzih5fojntpf9luMtL0vWpIu/RcdNsLq2QukYoGDfwJZ
+ SoZKTkrUFz0oql/fkvQSD/upZP1F+mJtJN8kCqC2Qs4Q04fNxeWVrcoVH
+ dbDUjOhsPXSEl6OW0gKZf4dYs+Nf3vAlrSscL9Yy5hfgOMYw9J6EEv/Bm
+ sAvYCxO+SkBSAv1LHHxGLQHdszrD4zg52DL4Zl35lTry7A/+J30n2JXrw
+ Ch1+fdKwlwhg+0MCS0bfjQuKkPiFvysAPYLOX5yTBKOc6LkJhMW3Py15W
+ Gi4EN4IPudwq5qU2Wz3I6RMZT8ydWzmgAxsqfyJu2nk/f6eCOp0Co4ZTI A==;
+X-IronPort-AV: E=McAfee;i="6600,9927,11003"; a="4367246"
+X-IronPort-AV: E=Sophos;i="6.06,205,1705392000"; 
+   d="scan'208";a="4367246"
+Received: from orsmga001.jf.intel.com ([10.7.209.18])
+ by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 05 Mar 2024 06:34:24 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6600,9927,11003"; a="827773870"
+X-IronPort-AV: E=Sophos;i="6.06,205,1705392000"; d="scan'208";a="827773870"
+Received: from stinkpipe.fi.intel.com (HELO stinkbox) ([10.237.72.74])
+ by orsmga001.jf.intel.com with SMTP; 05 Mar 2024 06:34:21 -0800
+Received: by stinkbox (sSMTP sendmail emulation);
+ Tue, 05 Mar 2024 16:34:20 +0200
+Date: Tue, 5 Mar 2024 16:34:20 +0200
+From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
+To: Jani Nikula <jani.nikula@linux.intel.com>
+Cc: "Lisovskiy, Stanislav" <stanislav.lisovskiy@intel.com>,
+ intel-gfx@lists.freedesktop.org
+Subject: Re: [PATCH 1/8] drm/i915: Rename the crtc/crtc_states in the top
+ level DDI hooks/etc
+Message-ID: <ZectbJLgYMWGARU0@intel.com>
+References: <20240301143600.1334-1-ville.syrjala@linux.intel.com>
+ <20240301143600.1334-2-ville.syrjala@linux.intel.com>
+ <ZebazalH8c1j1GGH@intel.com> <Zebcuecv8QHwm4AE@intel.com>
+ <87sf1422mm.fsf@intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <87sf1422mm.fsf@intel.com>
+X-Patchwork-Hint: comment
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -41,117 +73,28 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Ville Syrj√§l√§ <ville.syrjala@linux.intel.com>
+On Tue, Mar 05, 2024 at 04:07:45PM +0200, Jani Nikula wrote:
+> On Tue, 05 Mar 2024, Ville Syrj‰l‰ <ville.syrjala@linux.intel.com> wrote:
+> > On Tue, Mar 05, 2024 at 10:41:49AM +0200, Lisovskiy, Stanislav wrote:
+> >> I also wonder whether should we really emphasize things like "master"/"slave"
+> >> in function names. I thought that one idea in our refactoring was to unify
+> >> joined pipes handling so that there are no(or at least almost no) explicit code
+> >> paths/function names for masters/slaves.
+> >
+> > There are no master vs. slave functions. The split is going to be
+> > transcoder/port vs. pipe.
+> 
+> Besides, for modern platforms the spec has already been changed to use
+> primary/secondary terminology. When renaming or refactoring stuff,
+> please switch to them instead of sticking with master/slave.
 
-The cursor hardware only does sync updates, and thus the hardware
-will be scanning out from the old fb until the next start of vblank.
-So in order to make the legacy cursor fastpath actually safe we
-should not unpin the old fb until we're sure the hardware has
-ceased accessing it. The simplest approach is to just use a vblank
-work here to do the delayed unpin.
+If the spec got updated then we should probably just do a full rename
+pass over the whole codebase instead of confusing things more by
+mixing up the terminology.
 
-Not 100% sure it's a good idea to put this onto the same high
-priority vblank worker as eg. our timing critical gamma updates.
-But let's keep it simple for now, and it we later discover that
-this is causing problems we can think about adding a lower
-priority worker for such things.
+Also we should probably s/bigjoiner/joiner/ to make it clear that
+all of it also applies to uncompressed joiner as well.
 
-This patch is slightly reworked by Maarten
-
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-Signed-off-by: Ville Syrj√§l√§ <ville.syrjala@linux.intel.com>
-Signed-off-by: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
----
- drivers/gpu/drm/i915/display/intel_cursor.c   | 26 +++++++++++++++++--
- drivers/gpu/drm/i915/display/intel_display.c  |  3 +++
- .../drm/i915/display/intel_display_types.h    |  3 +++
- 3 files changed, 30 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/gpu/drm/i915/display/intel_cursor.c b/drivers/gpu/drm/i915/display/intel_cursor.c
-index f8b33999d43f..9021c0c1683d 100644
---- a/drivers/gpu/drm/i915/display/intel_cursor.c
-+++ b/drivers/gpu/drm/i915/display/intel_cursor.c
-@@ -654,6 +654,17 @@ static bool intel_cursor_format_mod_supported(struct drm_plane *_plane,
- 	return format == DRM_FORMAT_ARGB8888;
- }
- 
-+static void intel_cursor_unpin_work(struct kthread_work *base)
-+{
-+	struct drm_vblank_work *work = to_drm_vblank_work(base);
-+	struct intel_plane_state *plane_state =
-+		container_of(work, typeof(*plane_state), unpin_work);
-+	struct intel_plane *plane = to_intel_plane(plane_state->uapi.plane);
-+
-+	intel_plane_unpin_fb(plane_state);
-+	intel_plane_destroy_state(&plane->base, &plane_state->uapi);
-+}
-+
- static int
- intel_legacy_cursor_update(struct drm_plane *_plane,
- 			   struct drm_crtc *_crtc,
-@@ -797,14 +808,25 @@ intel_legacy_cursor_update(struct drm_plane *_plane,
- 
- 	intel_psr_unlock(crtc_state);
- 
--	intel_plane_unpin_fb(old_plane_state);
-+	if (old_plane_state->ggtt_vma != new_plane_state->ggtt_vma) {
-+		drm_vblank_work_init(&old_plane_state->unpin_work, &crtc->base,
-+				     intel_cursor_unpin_work);
-+
-+		drm_vblank_work_schedule(&old_plane_state->unpin_work,
-+					 drm_crtc_accurate_vblank_count(&crtc->base) + 1,
-+					 false);
-+
-+		old_plane_state = NULL;
-+	} else {
-+		intel_plane_unpin_fb(old_plane_state);
-+	}
- 
- out_free:
- 	if (new_crtc_state)
- 		intel_crtc_destroy_state(&crtc->base, &new_crtc_state->uapi);
- 	if (ret)
- 		intel_plane_destroy_state(&plane->base, &new_plane_state->uapi);
--	else
-+	else if (old_plane_state)
- 		intel_plane_destroy_state(&plane->base, &old_plane_state->uapi);
- 	return ret;
- 
-diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
-index ab2f52d21bad..1b56197a1183 100644
---- a/drivers/gpu/drm/i915/display/intel_display.c
-+++ b/drivers/gpu/drm/i915/display/intel_display.c
-@@ -65,6 +65,7 @@
- #include "intel_crt.h"
- #include "intel_crtc.h"
- #include "intel_crtc_state_dump.h"
-+#include "intel_cursor.h"
- #include "intel_ddi.h"
- #include "intel_de.h"
- #include "intel_display_driver.h"
-@@ -6784,6 +6785,8 @@ static void intel_commit_modeset_disables(struct intel_atomic_state *state)
- 			continue;
- 
- 		intel_crtc_disable_planes(state, crtc);
-+
-+		drm_vblank_work_flush_all(&crtc->base);
- 	}
- 
- 	/* Only disable port sync and MST slaves */
-diff --git a/drivers/gpu/drm/i915/display/intel_display_types.h b/drivers/gpu/drm/i915/display/intel_display_types.h
-index 860e867586f4..9b7113cd86fc 100644
---- a/drivers/gpu/drm/i915/display/intel_display_types.h
-+++ b/drivers/gpu/drm/i915/display/intel_display_types.h
-@@ -721,6 +721,9 @@ struct intel_plane_state {
- 
- 	struct intel_fb_view view;
- 
-+	/* for legacy cursor fb unpin */
-+	struct drm_vblank_work unpin_work;
-+
- 	/* Plane pxp decryption state */
- 	bool decrypt;
- 
 -- 
-2.43.0
-
+Ville Syrj‰l‰
+Intel
