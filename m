@@ -4,52 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 986C4C54798
-	for <intel-gfx@archiver.kernel.org>; Wed,  6 Mar 2024 02:49:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 00C2DC54E49
+	for <intel-gfx@archiver.kernel.org>; Wed,  6 Mar 2024 03:06:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0157C10E952;
-	Wed,  6 Mar 2024 02:49:40 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 77633112382;
+	Wed,  6 Mar 2024 03:06:27 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="Op/rb8Ip";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="TKeqSUEA";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.12])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3D28310E857;
- Wed,  6 Mar 2024 02:49:38 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A4301112382
+ for <intel-gfx@lists.freedesktop.org>; Wed,  6 Mar 2024 03:06:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1709693378; x=1741229378;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=V2BESAi5IBTZYNpAmGm7qoPllRzLdgAlyleL0ee44iQ=;
- b=Op/rb8IpR2RogLVdlL9nif3z3/oRHksn0uttZdjXU9/XwrzHpaiZCn+V
- GUcvOKXzKF+r4bN/8BN5zvOzMjOsGXi8+V2bN6ndhZeNSOxJgpqPbroId
- KGiT1dN08180rFa09Mm6TmfJp3dsEuMC2vW3hc+MJhLYJsLHa6Zaljk20
- FUtYSritZdNY2luPdcU5fqKkRmqxVD5qex8lwRXBrRHdJOAdJyEJjDgdY
- MhrbxfMoA9XfQY3Oy0aJoBJtD63nFWP6boZGV52Oe8vIsCWNqvbbRTJcK
- oSIce6Q5qvstXNk76h7lQscBR0rrWI9GZRH6pJWtUqQtDnPk7QU/Gdj6H Q==;
-X-IronPort-AV: E=McAfee;i="6600,9927,11004"; a="15709475"
-X-IronPort-AV: E=Sophos;i="6.06,207,1705392000"; d="scan'208";a="15709475"
-Received: from orviesa003.jf.intel.com ([10.64.159.143])
- by orvoesa104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 05 Mar 2024 18:49:38 -0800
+ t=1709694386; x=1741230386;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=ZAWGyNBOBH/Lk1u7Rc+GiELJ77g12p0bMOJIEZ91S5k=;
+ b=TKeqSUEAq6ZaQcV2FGqcqSRBdC9xtYBCtS2UqEq3G3lGIlKvQPaL8xdz
+ ljx/wnlQzVi25T4k8xr5/Vv8rObZQGkJVZ/xYaqi8jCdy0PV+2MNeI9ib
+ 12sNMcETEn1u00LWeI7Qf0+W5h0t0DuPzhYG0OdWD+PePPS1i5s+gsYm/
+ 9i22MbqWmS91yX67celZGderDFO+z1mHNEvSOYicieDRSJwJKgENgQmf/
+ fOxpqqo9CwkA7UuTV+ELdp3X9tPN1PqZlQxWrXw+ZVLvXyG0P1ksOzIRR
+ Ubaf38SIZkNtiSVTlYrN8afwcjFoAzfsUF8xabb0C2Aj9Ijt2jDUKI7O7 A==;
+X-IronPort-AV: E=McAfee;i="6600,9927,11004"; a="4458789"
+X-IronPort-AV: E=Sophos;i="6.06,207,1705392000"; 
+   d="scan'208";a="4458789"
+Received: from orviesa002.jf.intel.com ([10.64.159.142])
+ by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 05 Mar 2024 19:06:14 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.06,207,1705392000"; d="scan'208";a="14253831"
-Received: from kandpal-x299-ud4-pro.iind.intel.com ([10.190.239.32])
- by orviesa003.jf.intel.com with ESMTP; 05 Mar 2024 18:49:36 -0800
-From: Suraj Kandpal <suraj.kandpal@intel.com>
-To: intel-gfx@lists.freedesktop.org,
-	intel-xe@lists.freedesktop.org
-Cc: Suraj Kandpal <suraj.kandpal@intel.com>,
- Arun R Murthy <arun.r.murthy@intel.com>,
- Jani Nikula <jani.nikula@intel.com>
-Subject: [PATCH 1/4] drm/i915/hdcp: Move intel_hdcp_gsc_message def away from
- header file
-Date: Wed,  6 Mar 2024 08:17:42 +0530
-Message-ID: <20240306024741.1858039-2-suraj.kandpal@intel.com>
-X-Mailer: git-send-email 2.43.2
-In-Reply-To: <20240306024247.1857881-3-suraj.kandpal@intel.com>
-References: <20240306024247.1857881-3-suraj.kandpal@intel.com>
+X-IronPort-AV: E=Sophos;i="6.06,207,1705392000"; d="scan'208";a="40479530"
+Received: from gyu3-linux.itwn.intel.com ([10.225.64.197])
+ by orviesa002.jf.intel.com with ESMTP; 05 Mar 2024 19:06:12 -0800
+From: gareth.yu@intel.com
+To: intel-gfx@lists.freedesktop.org
+Cc: Gareth Yu <gareth.yu@intel.com>
+Subject: [PATCH] drm/i915/display: Fixed a screen flickering when turning on
+ display from off
+Date: Wed,  6 Mar 2024 11:13:48 +0800
+Message-Id: <20240306031348.1344034-1-gareth.yu@intel.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -66,55 +63,36 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Move intel_hdcp_gsc_message definition into intel_hdcp_gsc.c
-so that intel_hdcp_gsc_message can be redefined for xe as needed.
+From: Gareth Yu <gareth.yu@intel.com>
 
---v2
--Correct commit message to reflect what patch is actually doing [Arun]
+Turn on the panel from zero brightness of the last state, the panel was set
+a maximum PWM in the flow. Once the panel initialization is completed, the
+backlight is restored to zero brightness. There is a flckering generated.
 
-Signed-off-by: Suraj Kandpal <suraj.kandpal@intel.com>
-Reviewed-by: Arun R Murthy <arun.r.murthy@intel.com>
-Acked-by: Jani Nikula <jani.nikula@intel.com>
+Set the brightness to the minimum value when the brightness is less or equal
+to the minimum value to fix this flickering
+
+Cc : Tejas Upadhyay <tejaskumarx.surendrakumar.upadhyay@intel.com>
+Cc : Matt Roper <matthew.d.roper@intel.com>
+Cc : Ville Syrjälä <ville.syrjala@linux.intel.com>
+Signed-off-by: Gareth Yu <gareth.yu@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_hdcp_gsc.c | 6 ++++++
- drivers/gpu/drm/i915/display/intel_hdcp_gsc.h | 7 +------
- 2 files changed, 7 insertions(+), 6 deletions(-)
+ drivers/gpu/drm/i915/display/intel_backlight.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_hdcp_gsc.c b/drivers/gpu/drm/i915/display/intel_hdcp_gsc.c
-index 302bff75b06c..35823e1f65d6 100644
---- a/drivers/gpu/drm/i915/display/intel_hdcp_gsc.c
-+++ b/drivers/gpu/drm/i915/display/intel_hdcp_gsc.c
-@@ -13,6 +13,12 @@
- #include "intel_hdcp_gsc.h"
- #include "intel_hdcp_gsc_message.h"
+diff --git a/drivers/gpu/drm/i915/display/intel_backlight.c b/drivers/gpu/drm/i915/display/intel_backlight.c
+index 3f3cd944a1c5..855d6ead905c 100644
+--- a/drivers/gpu/drm/i915/display/intel_backlight.c
++++ b/drivers/gpu/drm/i915/display/intel_backlight.c
+@@ -762,7 +762,7 @@ static void __intel_backlight_enable(const struct intel_crtc_state *crtc_state,
+ 	WARN_ON(panel->backlight.max == 0);
  
-+struct intel_hdcp_gsc_message {
-+	struct i915_vma *vma;
-+	void *hdcp_cmd_in;
-+	void *hdcp_cmd_out;
-+};
-+
- bool intel_hdcp_gsc_cs_required(struct drm_i915_private *i915)
- {
- 	return DISPLAY_VER(i915) >= 14;
-diff --git a/drivers/gpu/drm/i915/display/intel_hdcp_gsc.h b/drivers/gpu/drm/i915/display/intel_hdcp_gsc.h
-index eba2057c5a9e..5f610df61cc9 100644
---- a/drivers/gpu/drm/i915/display/intel_hdcp_gsc.h
-+++ b/drivers/gpu/drm/i915/display/intel_hdcp_gsc.h
-@@ -10,12 +10,7 @@
- #include <linux/types.h>
- 
- struct drm_i915_private;
--
--struct intel_hdcp_gsc_message {
--	struct i915_vma *vma;
--	void *hdcp_cmd_in;
--	void *hdcp_cmd_out;
--};
-+struct intel_hdcp_gsc_message;
- 
- bool intel_hdcp_gsc_cs_required(struct drm_i915_private *i915);
- ssize_t intel_hdcp_gsc_msg_send(struct drm_i915_private *i915, u8 *msg_in,
+ 	if (panel->backlight.level <= panel->backlight.min) {
+-		panel->backlight.level = panel->backlight.max;
++		panel->backlight.level = panel->backlight.min;
+ 		if (panel->backlight.device)
+ 			panel->backlight.device->props.brightness =
+ 				scale_hw_to_user(connector,
 -- 
-2.43.2
+2.25.1
 
