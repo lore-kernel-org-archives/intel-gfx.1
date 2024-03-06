@@ -4,27 +4,27 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 560A2C54E49
-	for <intel-gfx@archiver.kernel.org>; Wed,  6 Mar 2024 03:09:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E5139C54E49
+	for <intel-gfx@archiver.kernel.org>; Wed,  6 Mar 2024 03:36:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C47BD112E52;
-	Wed,  6 Mar 2024 03:09:45 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 502FD10EA2C;
+	Wed,  6 Mar 2024 03:36:25 +0000 (UTC)
 Received: from 8e613ede5ea5 (emeril.freedesktop.org [131.252.210.167])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BAD27112E50;
- Wed,  6 Mar 2024 03:09:44 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1AF9C10EA2C;
+ Wed,  6 Mar 2024 03:36:24 +0000 (UTC)
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
-Subject: =?utf-8?q?=E2=9C=97_Fi=2ECI=2EBUILD=3A_failure_for_Regression_on_linux-next_?=
- =?utf-8?q?=28next-20240228=29?=
+Subject: =?utf-8?q?=E2=9C=97_Fi=2ECI=2ECHECKPATCH=3A_warning_for_Enable_Wa=5F14019159?=
+ =?utf-8?q?160_and_Wa=5F16019325821_for_MTL_=28rev4=29?=
 From: Patchwork <patchwork@emeril.freedesktop.org>
-To: "Matthew Wilcox" <willy@infradead.org>
+To: "John Harrison" <john.c.harrison@intel.com>
 Cc: intel-gfx@lists.freedesktop.org
-Date: Wed, 06 Mar 2024 03:09:44 -0000
-Message-ID: <170969458476.524258.11549502485150953621@8e613ede5ea5>
+Date: Wed, 06 Mar 2024 03:36:24 -0000
+Message-ID: <170969618411.524851.3112574174883110596@8e613ede5ea5>
 X-Patchwork-Hint: ignore
-References: <SJ1PR11MB61292145F3B79DA58ADDDA63B9232@SJ1PR11MB6129.namprd11.prod.outlook.com>
-In-Reply-To: <SJ1PR11MB61292145F3B79DA58ADDDA63B9232@SJ1PR11MB6129.namprd11.prod.outlook.com>
+References: <20240223205632.1621019-1-John.C.Harrison@Intel.com>
+In-Reply-To: <20240223205632.1621019-1-John.C.Harrison@Intel.com>
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -43,21 +43,25 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 == Series Details ==
 
-Series: Regression on linux-next (next-20240228)
-URL   : https://patchwork.freedesktop.org/series/130763/
-State : failure
+Series: Enable Wa_14019159160 and Wa_16019325821 for MTL (rev4)
+URL   : https://patchwork.freedesktop.org/series/130335/
+State : warning
 
 == Summary ==
 
-Error: patch https://patchwork.freedesktop.org/api/1.0/series/130763/revisions/1/mbox/ not applied
-Applying: Regression on linux-next (next-20240228)
-error: sha1 information is lacking or useless (mm/swap.c).
-error: could not build fake ancestor
-hint: Use 'git am --show-current-patch=diff' to see the failed patch
-Patch failed at 0001 Regression on linux-next (next-20240228)
-When you have resolved this problem, run "git am --continue".
-If you prefer to skip this patch, run "git am --skip" instead.
-To restore the original branch and stop patching, run "git am --abort".
-Build failed, no error log produced
+Error: dim checkpatch failed
+cae3f3729701 drm/i915: Enable Wa_16019325821
+2048664461bf drm/i915/guc: Add support for w/a KLVs
+-:105: WARNING:AVOID_BUG: Do not crash the kernel unless it is absolutely unavoidable--use WARN_ON_ONCE() plus recovery code (if feasible) instead of BUG() or variants
+#105: FILE: drivers/gpu/drm/i915/gt/uc/intel_guc_ads.c:829:
++	GEM_BUG_ON(iosys_map_is_null(&guc->ads_map));
+
+total: 0 errors, 1 warnings, 0 checks, 159 lines checked
+38e0cc5f7eed drm/i915/guc: Enable Wa_14019159160
+-:101: WARNING:AVOID_BUG: Do not crash the kernel unless it is absolutely unavoidable--use WARN_ON_ONCE() plus recovery code (if feasible) instead of BUG() or variants
+#101: FILE: drivers/gpu/drm/i915/gt/uc/intel_guc_ads.c:830:
++	GEM_BUG_ON(remain < size);
+
+total: 0 errors, 1 warnings, 0 checks, 99 lines checked
 
 
