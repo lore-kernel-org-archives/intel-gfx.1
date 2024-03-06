@@ -4,53 +4,27 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BD279C54E55
-	for <intel-gfx@archiver.kernel.org>; Wed,  6 Mar 2024 04:08:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5C51EC5475B
+	for <intel-gfx@archiver.kernel.org>; Wed,  6 Mar 2024 04:11:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 26CD3112E8F;
-	Wed,  6 Mar 2024 04:08:25 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="mL+A8YRw";
-	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.8])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8285C112E8E
- for <intel-gfx@lists.freedesktop.org>; Wed,  6 Mar 2024 04:08:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1709698102; x=1741234102;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=/MeaEiD9vJujbGb9i/8TyfY3YwMH/pXlVWUyOqbGrJw=;
- b=mL+A8YRwGLdIrRmxrhU7LwKbixFOCWV90xmwIwE+VjgO7cOz8eEvdPHE
- 7m/r4cRZIDmW2Y+SQjdJn/3FI31Ui/Wo7BOjYRMQ/0jUckjy3Dh+UaCBk
- K3wbqykVGe3Mm9wPBOmsP5SiFPmeZTK0p6FIy0xASDXwrb77wm8K+Qztf
- QbfGiP5x6/KAqRt9906qZDcywkT+mofqaYBjJB+URfgy4aKwHvGL3vM7m
- WUOJD3pslAQqEMZCNK5+ZPrgA+U//d7TiQdPMC/hFyfDYEQ599pQDeBaR
- mKkrb1SzNZ0b4ZjFvFxqa9URZLHBudMghME0SEj1x2n6FOglEu8tBnSvj g==;
-X-IronPort-AV: E=McAfee;i="6600,9927,11004"; a="21817366"
-X-IronPort-AV: E=Sophos;i="6.06,207,1705392000"; d="scan'208";a="21817366"
-Received: from orsmga001.jf.intel.com ([10.7.209.18])
- by fmvoesa102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 05 Mar 2024 20:08:17 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,11004"; a="827774099"
-X-IronPort-AV: E=Sophos;i="6.06,207,1705392000"; d="scan'208";a="827774099"
-Received: from stinkpipe.fi.intel.com (HELO stinkbox) ([10.237.72.74])
- by orsmga001.jf.intel.com with SMTP; 05 Mar 2024 20:08:13 -0800
-Received: by stinkbox (sSMTP sendmail emulation);
- Wed, 06 Mar 2024 06:08:12 +0200
-From: Ville Syrjala <ville.syrjala@linux.intel.com>
-To: intel-gfx@lists.freedesktop.org
-Cc: stable@vger.kernel.org
-Subject: [PATCH 2/3] drm/i915/dsb: Fix DSB vblank waits when using VRR
-Date: Wed,  6 Mar 2024 06:08:05 +0200
-Message-ID: <20240306040806.21697-3-ville.syrjala@linux.intel.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20240306040806.21697-1-ville.syrjala@linux.intel.com>
-References: <20240306040806.21697-1-ville.syrjala@linux.intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id B2022112E93;
+	Wed,  6 Mar 2024 04:11:57 +0000 (UTC)
+Received: from 8e613ede5ea5 (emeril.freedesktop.org [131.252.210.167])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 973EA112E93;
+ Wed,  6 Mar 2024 04:11:56 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
+Subject: =?utf-8?q?=E2=9C=97_Fi=2ECI=2ECHECKPATCH=3A_warning_for_Disable_automatic_lo?=
+ =?utf-8?q?ad_CCS_load_balancing_=28rev5=29?=
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Andi Shyti" <andi.shyti@linux.intel.com>
+Cc: intel-gfx@lists.freedesktop.org
+Date: Wed, 06 Mar 2024 04:11:56 -0000
+Message-ID: <170969831662.524851.6547634054103174331@8e613ede5ea5>
+X-Patchwork-Hint: ignore
+References: <20240306012247.246003-1-andi.shyti@linux.intel.com>
+In-Reply-To: <20240306012247.246003-1-andi.shyti@linux.intel.com>
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,69 +37,43 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Ville Syrjälä <ville.syrjala@linux.intel.com>
+== Series Details ==
 
-Looks like the undelayed vblank gets signalled exactly when
-the active period ends. That is a problem for DSB+VRR when
-we are already in vblank and expect DSB to start executing
-as soon as we send the push. Instead of starting the DSB
-just keeps on waiting for the undelayed vblank which won't
-signal until the end of the next frame's active period,
-which is far too late.
+Series: Disable automatic load CCS load balancing (rev5)
+URL   : https://patchwork.freedesktop.org/series/129951/
+State : warning
 
-The end result is that DSB won't have even started
-executing by the time the flips/etc. have completed.
-We then wait for an extra 1ms, after which we terminate
-the DSB and report a timeout:
-[drm] *ERROR* [CRTC:80:pipe A] DSB 0 timed out waiting for idle (current head=0xfedf4000, head=0x0, tail=0x1080)
+== Summary ==
 
-To fix this let's configure DSB to use the so called VRR
-"safe window" instead of the undelayed vblank to trigger
-the DSB vblank logic, when VRR is enabled.
+Error: dim checkpatch failed
+5b93f1cd8989 drm/i915/gt: Disable HW load balancing for CCS
+380b317702a8 drm/i915/gt: Refactor uabi engine class/instance list creation
+-:55: WARNING:AVOID_BUG: Do not crash the kernel unless it is absolutely unavoidable--use WARN_ON_ONCE() plus recovery code (if feasible) instead of BUG() or variants
+#55: FILE: drivers/gpu/drm/i915/gt/intel_engine_user.c:233:
++		GEM_BUG_ON(uabi_class >= ARRAY_SIZE(class_instance));
 
-Cc: stable@vger.kernel.org
-Fixes: 34d8311f4a1c ("drm/i915/dsb: Re-instate DSB for LUT updates")
-Closes: https://gitlab.freedesktop.org/drm/intel/-/issues/9927
-Signed-off-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
----
- drivers/gpu/drm/i915/display/intel_dsb.c | 14 ++++++++++++++
- 1 file changed, 14 insertions(+)
+-:71: WARNING:AVOID_BUG: Do not crash the kernel unless it is absolutely unavoidable--use WARN_ON_ONCE() plus recovery code (if feasible) instead of BUG() or variants
+#71: FILE: drivers/gpu/drm/i915/gt/intel_engine_user.c:247:
++		GEM_BUG_ON(uabi_class >=
 
-diff --git a/drivers/gpu/drm/i915/display/intel_dsb.c b/drivers/gpu/drm/i915/display/intel_dsb.c
-index d62e050185e7..e4515bf92038 100644
---- a/drivers/gpu/drm/i915/display/intel_dsb.c
-+++ b/drivers/gpu/drm/i915/display/intel_dsb.c
-@@ -340,6 +340,17 @@ static int intel_dsb_dewake_scanline(const struct intel_crtc_state *crtc_state)
- 	return max(0, vblank_start - intel_usecs_to_scanlines(adjusted_mode, latency));
- }
- 
-+static u32 dsb_chicken(struct intel_crtc *crtc)
-+{
-+	if (crtc->mode_flags & I915_MODE_FLAG_VRR)
-+		return DSB_CTRL_WAIT_SAFE_WINDOW |
-+			DSB_CTRL_NO_WAIT_VBLANK |
-+			DSB_INST_WAIT_SAFE_WINDOW |
-+			DSB_INST_NO_WAIT_VBLANK;
-+	else
-+		return 0;
-+}
-+
- static void _intel_dsb_commit(struct intel_dsb *dsb, u32 ctrl,
- 			      int dewake_scanline)
- {
-@@ -361,6 +372,9 @@ static void _intel_dsb_commit(struct intel_dsb *dsb, u32 ctrl,
- 	intel_de_write_fw(dev_priv, DSB_CTRL(pipe, dsb->id),
- 			  ctrl | DSB_ENABLE);
- 
-+	intel_de_write_fw(dev_priv, DSB_CHICKEN(pipe, dsb->id),
-+			  dsb_chicken(crtc));
-+
- 	intel_de_write_fw(dev_priv, DSB_HEAD(pipe, dsb->id),
- 			  intel_dsb_buffer_ggtt_offset(&dsb->dsb_buf));
- 
--- 
-2.43.0
+total: 0 errors, 2 warnings, 0 checks, 56 lines checked
+4cdfe2cf85b2 drm/i915/gt: Enable only one CCS for compute workload
+-:16: WARNING:COMMIT_LOG_LONG_LINE: Prefer a maximum 75 chars per line (possible unwrapped commit description?)
+#16: 
+Requires: 97aba5e46038 ("drm/i915/gt: Refactor uabi engine class/instance list creation")
+
+-:104: CHECK:MACRO_ARG_PRECEDENCE: Macro argument 'cslice' may be better as '(cslice)' to avoid precedence issues
+#104: FILE: drivers/gpu/drm/i915/gt/intel_gt_regs.h:1486:
++#define   XEHP_CCS_MODE_CSLICE(cslice, ccs)	(ccs << (cslice * XEHP_CCS_MODE_CSLICE_WIDTH))
+
+-:104: CHECK:MACRO_ARG_PRECEDENCE: Macro argument 'ccs' may be better as '(ccs)' to avoid precedence issues
+#104: FILE: drivers/gpu/drm/i915/gt/intel_gt_regs.h:1486:
++#define   XEHP_CCS_MODE_CSLICE(cslice, ccs)	(ccs << (cslice * XEHP_CCS_MODE_CSLICE_WIDTH))
+
+total: 0 errors, 1 warnings, 2 checks, 69 lines checked
+
 
