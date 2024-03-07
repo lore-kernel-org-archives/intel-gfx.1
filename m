@@ -4,54 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AAF88C48BF6
-	for <intel-gfx@archiver.kernel.org>; Thu,  7 Mar 2024 08:34:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6D242C54E55
+	for <intel-gfx@archiver.kernel.org>; Thu,  7 Mar 2024 08:35:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 07C7110EF04;
-	Thu,  7 Mar 2024 08:34:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 76570113622;
+	Thu,  7 Mar 2024 08:35:20 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="NK5tzUdk";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="hGK6kqHi";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.13])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D8DC310EECE;
- Thu,  7 Mar 2024 08:34:17 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.13])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B525910EF12;
+ Thu,  7 Mar 2024 08:35:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1709800458; x=1741336458;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=2B59420ynTgLTszu70LAWDP8Dkj2iPq41o0RHgyx3RY=;
- b=NK5tzUdkDYuDT1ZEFMSMY69fMEeNLsDbMGhKLhxjcqmk/Tk64ukQXC3Y
- OAle75WYaO8YR4PuVXR3VsjYVW+jz1sblBe3TAXbi2p3MuKrMgQyZqamF
- VF87/2o7ieTQi+X5A6gzndRCSV/OVxQrPKtg7w0E9Dge5/n2ft544whX7
- pm1lG+LYrWIE3THfNZSFoSxc4Q9NRIbMLN+/r9IVumrA+K/7bt70IQySI
- WI0IUQx46SXTJcXyUDdeYvTGSns2VWcenvG+zlfl3RCd57WOS7qsEMGcw
- YPtGEc15hbomWJQbuu4ZFqpxykxdZYV4iLzQ2d2l8Dk/S8P8Iok75og65 A==;
-X-IronPort-AV: E=McAfee;i="6600,9927,11005"; a="7397069"
-X-IronPort-AV: E=Sophos;i="6.06,210,1705392000"; 
-   d="scan'208";a="7397069"
-Received: from orviesa010.jf.intel.com ([10.64.159.150])
- by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 07 Mar 2024 00:34:17 -0800
+ t=1709800518; x=1741336518;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=QbkiNvbOCkBe6g/9H9GqMUk3HmNRFCmZHlALEYofPIg=;
+ b=hGK6kqHi8m0ap+nyZFAt99mnoZUObxL/Z7NUxc5yAvBZL+BKStiYgCTU
+ m3ljFiA7uUx83h8dJTRJ7YaQFcSi5meeS+y3MAr4IDV/fsDyEWiUgkLei
+ +eEPc079fgrt9sZAvRuo/jGxRVU5F81BLnz17CmB3ENQFFSOftBJ73PBG
+ GhH8OTOf0p5OH8qhzvfgSPSu1canAnM3KZRSCZHJ/7olR8VlQg/bG54hE
+ Z7uQ5qzrzXdjXvXQvGl82Fbf4Qxwx4PY2/US+9ySII9wWD59QONGGor+K
+ IV7iKQFG/VwITm6gTYunV6dkqDPg+YZk2N/h7i0n3p/veF5nlETLuX80B Q==;
+X-IronPort-AV: E=McAfee;i="6600,9927,11005"; a="15597893"
+X-IronPort-AV: E=Sophos;i="6.06,210,1705392000"; d="scan'208";a="15597893"
+Received: from fmviesa009.fm.intel.com ([10.60.135.149])
+ by orvoesa105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 07 Mar 2024 00:35:17 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.06,210,1705392000"; d="scan'208";a="10015566"
-Received: from tcavalax-mobl.ger.corp.intel.com (HELO localhost)
- ([10.252.33.241])
- by orviesa010-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 07 Mar 2024 00:34:15 -0800
-From: Jani Nikula <jani.nikula@intel.com>
-To: Jani Nikula <jani.nikula@intel.com>,
+X-IronPort-AV: E=Sophos;i="6.06,210,1705392000"; 
+   d="scan'208";a="9937294"
+Received: from nemesa.iind.intel.com ([10.190.239.22])
+ by fmviesa009.fm.intel.com with ESMTP; 07 Mar 2024 00:35:15 -0800
+From: Nemesa Garg <nemesa.garg@intel.com>
+To: intel-gfx@lists.freedesktop.org,
 	dri-devel@lists.freedesktop.org
-Cc: intel-gfx@lists.freedesktop.org,
-	intel-xe@lists.freedesktop.org
-Subject: [PATCH v2] drm/crtc: make drm_crtc_internal.h self-contained
-Date: Thu,  7 Mar 2024 10:34:10 +0200
-Message-Id: <20240307083410.2604712-1-jani.nikula@intel.com>
-X-Mailer: git-send-email 2.39.2
-In-Reply-To: <c6b286b33976baf65dff209596acd59675983d68.1709749576.git.jani.nikula@intel.com>
-References: <c6b286b33976baf65dff209596acd59675983d68.1709749576.git.jani.nikula@intel.com>
+Cc: Nemesa Garg <nemesa.garg@intel.com>
+Subject: [PATCH 0/5]  Introduce drm sharpening property
+Date: Thu,  7 Mar 2024 14:02:32 +0530
+Message-Id: <20240307083237.576177-1-nemesa.garg@intel.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
 Content-Transfer-Encoding: 8bit
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -68,35 +62,55 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Forward declare struct drm_printer and include <linux/err.h>.
+	Many a times images are blurred or upscaled content is also not as
+crisp as original rendered image. Traditional sharpening techniques often
+apply a uniform level of enhancement across entire image, which sometimes
+result in over-sharpening of some areas and potential loss of natural details. 
 
-v2: Include <linux/err.h> (kernel test robot)
+Intel has come up with Display Engine based adaptive sharpening filter 
+with minimal power and performance impact. From LNL onwards, the Display
+hardware can use one of the pipe scaler for adaptive sharpness filter.
+This can be used for both gaming and non-gaming use cases like photos,
+image viewing. It works on a region of pixels depending on the tap size.
 
-Signed-off-by: Jani Nikula <jani.nikula@intel.com>
----
- drivers/gpu/drm/drm_crtc_internal.h | 2 ++
- 1 file changed, 2 insertions(+)
-
-diff --git a/drivers/gpu/drm/drm_crtc_internal.h b/drivers/gpu/drm/drm_crtc_internal.h
-index a514d5207e41..c0c5d79ed4c9 100644
---- a/drivers/gpu/drm/drm_crtc_internal.h
-+++ b/drivers/gpu/drm/drm_crtc_internal.h
-@@ -32,6 +32,7 @@
-  * and are not exported to drivers.
-  */
+This RFC is an attempt to introduce an adaptive sharpness solution which
+helps in improving the image quality. For this new CRTC property is added.
+The user can set this property with desired sharpness strength value with
+0-255. A value of 1 representing minimum sharpening strength and 255
+representing maximum sharpness strength. A strength value of 0 means no
+sharpening or sharpening feature disabled.
+It works on a region of pixels depending on the tap size. The coefficients
+are used to generate an alpha value which is used to blend the sharpened
+image to original image.
  
-+#include <linux/err.h>
- #include <linux/types.h>
- 
- enum drm_color_encoding;
-@@ -54,6 +55,7 @@ struct drm_mode_object;
- struct drm_mode_set;
- struct drm_plane;
- struct drm_plane_state;
-+struct drm_printer;
- struct drm_property;
- struct edid;
- struct fwnode_handle;
+Userspace implementation for sharpening feature and IGT implementation
+is in progress.
+
+Nemesa Garg (5):
+  drm: Introduce sharpness mode property
+  drm/i915/display: Compute the scaler filter coefficients
+  drm/i915/display: Enable the second scaler
+  drm/i915/display: Add registers and compute the strength
+  drm/i915/display: Load the lut values and enable sharpness
+
+ drivers/gpu/drm/drm_atomic_uapi.c             |   4 +
+ drivers/gpu/drm/drm_crtc.c                    |  17 ++
+ drivers/gpu/drm/i915/Makefile                 |   1 +
+ drivers/gpu/drm/i915/display/intel_crtc.c     |   3 +
+ drivers/gpu/drm/i915/display/intel_display.c  |  22 +-
+ .../drm/i915/display/intel_display_types.h    |  11 +
+ .../drm/i915/display/intel_modeset_verify.c   |   1 +
+ .../drm/i915/display/intel_sharpen_filter.c   | 211 ++++++++++++++++++
+ .../drm/i915/display/intel_sharpen_filter.h   |  31 +++
+ drivers/gpu/drm/i915/display/skl_scaler.c     |  97 +++++++-
+ drivers/gpu/drm/i915/display/skl_scaler.h     |   1 +
+ drivers/gpu/drm/i915/i915_reg.h               |  19 ++
+ drivers/gpu/drm/xe/Makefile                   |   1 +
+ include/drm/drm_crtc.h                        |  17 ++
+ 14 files changed, 425 insertions(+), 11 deletions(-)
+ create mode 100644 drivers/gpu/drm/i915/display/intel_sharpen_filter.c
+ create mode 100644 drivers/gpu/drm/i915/display/intel_sharpen_filter.h
+
 -- 
-2.39.2
+2.25.1
 
