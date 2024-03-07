@@ -4,59 +4,55 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2540EC54E49
-	for <intel-gfx@archiver.kernel.org>; Thu,  7 Mar 2024 08:27:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AAF88C48BF6
+	for <intel-gfx@archiver.kernel.org>; Thu,  7 Mar 2024 08:34:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C7DA4113475;
-	Thu,  7 Mar 2024 08:27:40 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 07C7110EF04;
+	Thu,  7 Mar 2024 08:34:19 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="YBd2WnFW";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="NK5tzUdk";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.9])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E2BCC10F202;
- Thu,  7 Mar 2024 08:27:38 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.13])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D8DC310EECE;
+ Thu,  7 Mar 2024 08:34:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1709800059; x=1741336059;
- h=mime-version:content-transfer-encoding:in-reply-to:
- references:to:subject:from:cc:message-id:date;
- bh=ulYlFZq32K9jOmqyoqOs/Z5jeTVGLC6Oth42YMlqJT4=;
- b=YBd2WnFWfeeQuqyAPBMXSXaeUksN3MCptiYQ4Lml9rVzBd1VO/nlFnUa
- krRtBkAQ85UPZeF7AZrVAnU01qgbzBELgIiSSupJIwYhhM2ogcaLE4s4D
- ox12NgrQCCcSHaGUia1FFLRQwQW9WNY5LGeWOLDeqCD0WP7NS5zsdvTx5
- YC264dE0McEvnCMop0NFke0Pe8yFwGq67IAFGGxAhK/yt4yxsCdI+3wFx
- KK9pW7RBp3aLjA+D86/UCMvEa2JwLHi9kFKLTRnefAqweELT6Orzq2JUH
- 14RfVA5rWp6ac2JSjMXPi2hYWQuB4OA6h3kG2O1/+BuI+NPcq/ka55Wel g==;
-X-IronPort-AV: E=McAfee;i="6600,9927,11005"; a="26930909"
-X-IronPort-AV: E=Sophos;i="6.06,210,1705392000"; d="scan'208";a="26930909"
-Received: from fmviesa002.fm.intel.com ([10.60.135.142])
- by orvoesa101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 07 Mar 2024 00:27:37 -0800
+ t=1709800458; x=1741336458;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=2B59420ynTgLTszu70LAWDP8Dkj2iPq41o0RHgyx3RY=;
+ b=NK5tzUdkDYuDT1ZEFMSMY69fMEeNLsDbMGhKLhxjcqmk/Tk64ukQXC3Y
+ OAle75WYaO8YR4PuVXR3VsjYVW+jz1sblBe3TAXbi2p3MuKrMgQyZqamF
+ VF87/2o7ieTQi+X5A6gzndRCSV/OVxQrPKtg7w0E9Dge5/n2ft544whX7
+ pm1lG+LYrWIE3THfNZSFoSxc4Q9NRIbMLN+/r9IVumrA+K/7bt70IQySI
+ WI0IUQx46SXTJcXyUDdeYvTGSns2VWcenvG+zlfl3RCd57WOS7qsEMGcw
+ YPtGEc15hbomWJQbuu4ZFqpxykxdZYV4iLzQ2d2l8Dk/S8P8Iok75og65 A==;
+X-IronPort-AV: E=McAfee;i="6600,9927,11005"; a="7397069"
+X-IronPort-AV: E=Sophos;i="6.06,210,1705392000"; 
+   d="scan'208";a="7397069"
+Received: from orviesa010.jf.intel.com ([10.64.159.150])
+ by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 07 Mar 2024 00:34:17 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.06,210,1705392000"; d="scan'208";a="33192969"
-Received: from unknown (HELO localhost) ([10.245.244.162])
- by fmviesa002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 07 Mar 2024 00:27:35 -0800
-Content-Type: text/plain; charset="utf-8"
+X-IronPort-AV: E=Sophos;i="6.06,210,1705392000"; d="scan'208";a="10015566"
+Received: from tcavalax-mobl.ger.corp.intel.com (HELO localhost)
+ ([10.252.33.241])
+ by orviesa010-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 07 Mar 2024 00:34:15 -0800
+From: Jani Nikula <jani.nikula@intel.com>
+To: Jani Nikula <jani.nikula@intel.com>,
+	dri-devel@lists.freedesktop.org
+Cc: intel-gfx@lists.freedesktop.org,
+	intel-xe@lists.freedesktop.org
+Subject: [PATCH v2] drm/crtc: make drm_crtc_internal.h self-contained
+Date: Thu,  7 Mar 2024 10:34:10 +0200
+Message-Id: <20240307083410.2604712-1-jani.nikula@intel.com>
+X-Mailer: git-send-email 2.39.2
+In-Reply-To: <c6b286b33976baf65dff209596acd59675983d68.1709749576.git.jani.nikula@intel.com>
+References: <c6b286b33976baf65dff209596acd59675983d68.1709749576.git.jani.nikula@intel.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-In-Reply-To: <20240307131027.66be2266@canb.auug.org.au>
-References: <20240307131027.66be2266@canb.auug.org.au>
-To: Daniel Vetter <daniel.vetter@ffwll.ch>, Dave Airlie <airlied@redhat.com>,
- Jani Nikula <jani.nikula@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, Stephen Rothwell <sfr@canb.auug.org.au>
-Subject: Re: linux-next: manual merge of the drm tree with the drm-intel-fixes
- tree
-From: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
-Cc: Intel Graphics <intel-gfx@lists.freedesktop.org>,
- DRI <dri-devel@lists.freedesktop.org>, Animesh Manna <animesh.manna@intel.com>,
- Imre Deak <imre.deak@intel.com>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- Linux Next Mailing List <linux-next@vger.kernel.org>
 Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
-Message-ID: <170980005216.6042.11359885960417882116@jlahtine-mobl.ger.corp.intel.com>
-User-Agent: alot/0.8.1
-Date: Thu, 07 Mar 2024 10:27:32 +0200
+Content-Transfer-Encoding: 8bit
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -72,61 +68,35 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Quoting Stephen Rothwell (2024-03-07 04:10:27)
-> Hi all,
->=20
-> Today's linux-next merge of the drm tree got a conflict in:
->=20
->   drivers/gpu/drm/i915/display/intel_dp.c
->=20
-> between commit:
->=20
->   984318aaf7b6 ("drm/i915/panelreplay: Move out psr_init_dpcd() from init=
-_connector()")
->=20
-> from the drm-intel-fixes tree and commit:
->=20
->   e60cff453b82 ("drm/i915/dp: Enable DP tunnel BW allocation mode")
->=20
-> from the drm tree.
->=20
-> I fixed it up (see below) and can carry the fix as necessary. This
-> is now fixed as far as linux-next is concerned, but any non trivial
-> conflicts should be mentioned to your upstream maintainer when your tree
-> is submitted for merging.  You may also want to consider cooperating
-> with the maintainer of the conflicting tree to minimise any particularly
-> complex conflicts.
->=20
-> --=20
-> Cheers,
-> Stephen Rothwell
->=20
-> diff --cc drivers/gpu/drm/i915/display/intel_dp.c
-> index 94d2a15d8444,6ece2c563c7a..000000000000
-> --- a/drivers/gpu/drm/i915/display/intel_dp.c
-> +++ b/drivers/gpu/drm/i915/display/intel_dp.c
-> @@@ -5699,9 -5702,13 +5702,16 @@@ intel_dp_detect(struct drm_connector *c
->                 goto out;
->         }
->  =20
-> +       ret =3D intel_dp_tunnel_detect(intel_dp, ctx);
-> +       if (ret =3D=3D -EDEADLK)
-> +               return ret;
-> +=20
-> +       if (ret =3D=3D 1)
-> +               intel_connector->base.epoch_counter++;
-> +=20
->  +      if (!intel_dp_is_edp(intel_dp))
->  +              intel_psr_init_dpcd(intel_dp);
->  +
+Forward declare struct drm_printer and include <linux/err.h>.
 
-Hi,
+v2: Include <linux/err.h> (kernel test robot)
 
-This is the right resolution, should be cleared up shortly once the
-drm-intel-fixes PR is pulled.
+Signed-off-by: Jani Nikula <jani.nikula@intel.com>
+---
+ drivers/gpu/drm/drm_crtc_internal.h | 2 ++
+ 1 file changed, 2 insertions(+)
 
-Regards, Joonas
+diff --git a/drivers/gpu/drm/drm_crtc_internal.h b/drivers/gpu/drm/drm_crtc_internal.h
+index a514d5207e41..c0c5d79ed4c9 100644
+--- a/drivers/gpu/drm/drm_crtc_internal.h
++++ b/drivers/gpu/drm/drm_crtc_internal.h
+@@ -32,6 +32,7 @@
+  * and are not exported to drivers.
+  */
+ 
++#include <linux/err.h>
+ #include <linux/types.h>
+ 
+ enum drm_color_encoding;
+@@ -54,6 +55,7 @@ struct drm_mode_object;
+ struct drm_mode_set;
+ struct drm_plane;
+ struct drm_plane_state;
++struct drm_printer;
+ struct drm_property;
+ struct edid;
+ struct fwnode_handle;
+-- 
+2.39.2
 
->         intel_dp_detect_dsc_caps(intel_dp, intel_connector);
->  =20
->         intel_dp_configure_mst(intel_dp);
