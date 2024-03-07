@@ -4,49 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A63A7C54798
-	for <intel-gfx@archiver.kernel.org>; Thu,  7 Mar 2024 20:40:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 30D89C54E4A
+	for <intel-gfx@archiver.kernel.org>; Thu,  7 Mar 2024 20:40:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5990F10F546;
-	Thu,  7 Mar 2024 20:40:10 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 768F510F54D;
+	Thu,  7 Mar 2024 20:40:28 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="RK+kh9Xv";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="aQYjnogs";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.17])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 199F210F54A;
- Thu,  7 Mar 2024 20:40:02 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C6A6B10F54A;
+ Thu,  7 Mar 2024 20:40:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1709844003; x=1741380003;
+ t=1709844012; x=1741380012;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=iPLq7WWRHXR3x1I/IBCp+ljHLEXkUTNs6qmyxZ+qJ5U=;
- b=RK+kh9Xv5/ZmtwEm2fHJOuQdFQTj7UnfWIb9gL//7GUoNE2FX8rEcPIS
- p3gmG3plVO1OYWtUJspX7JozRu1SY4cusmVf7aqrqItI7JRXyHXotQx32
- TTSP5ejqZgtXm2eOX7Cv/W7rzpufPs54QQulXcqH0sklflwRASX2J1Ptn
- NQ4fjWgJ9Mo8Mhp+tu/LS0Ld3VP+liotk73UJfnbLq4ay4+GZxBYLeaOo
- X3ecn0kokXojx0ixOHS1RXzQlBXFiOkAEaV/ZiED23Pn/Z27rbIjxOjOL
- jQaVXo4E4FbnZRB/D1lYiIoBiDnZUDTLNj0qLFne+DGoZD1t2Wxv7Gwka A==;
-X-IronPort-AV: E=McAfee;i="6600,9927,11006"; a="4680417"
+ bh=Gk6ZVmaHBaEkSrB+mkN7Ku8YoTc8fxI9mzl5FGbhlBg=;
+ b=aQYjnogsFo5G/8EiKh+RPJPOj8epCHiOMHfahkHglf5PpUrhHYNpC0oZ
+ 0CvyS/SNGAktis6cF918zfiJ7tHSojai8kJGfdNWDlCDSz6YXDOY7D/MF
+ 6ig8os2rmK7BSLqMsffMLtuPEvjhneTooq/ZrW6/Kka5HdZFlGY7GE5b9
+ 2unTLwED5lHxXd9lo6oZZvbCK8F74M3+BifXQBmL2MuzJCb25ddWSwHio
+ HvG00XmDyzcMg2ut933WmVS7IWGYITwZU/7vpLkYyBkGoGCvX2d1xq6RZ
+ RHhpnetvO8JDmj8VqSz4ONvsjTDPiBTpvKCLbSGaJNkIC7i8LVvo7dWup A==;
+X-IronPort-AV: E=McAfee;i="6600,9927,11006"; a="4680443"
 X-IronPort-AV: E=Sophos;i="6.07,107,1708416000"; 
-   d="scan'208";a="4680417"
+   d="scan'208";a="4680443"
 Received: from fmviesa006.fm.intel.com ([10.60.135.146])
  by orvoesa109.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 07 Mar 2024 12:40:02 -0800
+ 07 Mar 2024 12:40:12 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.07,107,1708416000"; d="scan'208";a="10362419"
+X-IronPort-AV: E=Sophos;i="6.07,107,1708416000"; d="scan'208";a="10362486"
 Received: from tofferse-mobl.ger.corp.intel.com (HELO localhost)
  ([10.252.33.212])
  by fmviesa006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 07 Mar 2024 12:39:59 -0800
+ 07 Mar 2024 12:40:09 -0800
 From: Jani Nikula <jani.nikula@intel.com>
 To: dri-devel@lists.freedesktop.org
 Cc: intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
  jani.nikula@intel.com
-Subject: [PATCH 3/6] drm/modes: switch drm_mode_prune_invalid() to use struct
- drm_printer
-Date: Thu,  7 Mar 2024 22:39:35 +0200
-Message-Id: <b9e4f74f13a732b4d8e2536dcc0debe10e6bc6d8.1709843865.git.jani.nikula@intel.com>
+Subject: [PATCH 5/6] drm/sysfs: switch to drm device based logging
+Date: Thu,  7 Mar 2024 22:39:37 +0200
+Message-Id: <baae2d1e432ed9657857d3681c773e0373ddd9ad.1709843865.git.jani.nikula@intel.com>
 X-Mailer: git-send-email 2.39.2
 In-Reply-To: <cover.1709843865.git.jani.nikula@intel.com>
 References: <cover.1709843865.git.jani.nikula@intel.com>
@@ -68,45 +67,82 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Use device based debug logging for the mode via drm_printer.
-
-This changes the output from the format:
-
-[drm:drm_mode_debug_printmodeline] Modeline "6144x3456": 60 1378800 6144 6192 6224 6464 3456 3459 3464 3555 0x48 0x9
-[drm:drm_mode_prune_invalid] Not using 6144x3456 mode: CLOCK_HIGH
-
-to format:
-
-i915 0000:00:02.0: [drm] Rejected mode: "6144x3456": 60 1378800 6144 6192 6224 6464 3456 3459 3464 3555 0x48 0x9
-i915 0000:00:02.0: [drm] Rejected mode: "6144x3456": CLOCK_HIGH
+Prefer drm_dbg_kms() and drm_dbg_lease() over DRM_DEBUG_KMS() and
+DRM_DEBUG() to debug log the drm device info. Fix some debug categories
+and unify connector logging while at it.
 
 Signed-off-by: Jani Nikula <jani.nikula@intel.com>
 ---
- drivers/gpu/drm/drm_modes.c | 11 +++++++----
- 1 file changed, 7 insertions(+), 4 deletions(-)
+ drivers/gpu/drm/drm_sysfs.c | 21 ++++++++++-----------
+ 1 file changed, 10 insertions(+), 11 deletions(-)
 
-diff --git a/drivers/gpu/drm/drm_modes.c b/drivers/gpu/drm/drm_modes.c
-index 711750ab57c7..0fff5a8d4d81 100644
---- a/drivers/gpu/drm/drm_modes.c
-+++ b/drivers/gpu/drm/drm_modes.c
-@@ -1825,10 +1825,13 @@ void drm_mode_prune_invalid(struct drm_device *dev,
- 					 DRM_MODE_FMT "\n", DRM_MODE_ARG(mode));
- 			}
- 			if (verbose) {
--				drm_mode_debug_printmodeline(mode);
--				DRM_DEBUG_KMS("Not using %s mode: %s\n",
--					      mode->name,
--					      drm_get_mode_status_name(mode->status));
-+				struct drm_printer p;
-+
-+				p = drm_dbg_printer(dev, DRM_UT_KMS, "Rejected mode:");
-+
-+				drm_mode_print(&p, mode);
-+				drm_printf(&p, "\"%s\": %s\n", mode->name,
-+					   drm_get_mode_status_name(mode->status));
- 			}
- 			drm_mode_destroy(dev, mode);
- 		}
+diff --git a/drivers/gpu/drm/drm_sysfs.c b/drivers/gpu/drm/drm_sysfs.c
+index a953f69a34b6..6cfd888beadd 100644
+--- a/drivers/gpu/drm/drm_sysfs.c
++++ b/drivers/gpu/drm/drm_sysfs.c
+@@ -209,10 +209,9 @@ static ssize_t status_store(struct device *device,
+ 		ret = -EINVAL;
+ 
+ 	if (old_force != connector->force || !connector->force) {
+-		DRM_DEBUG_KMS("[CONNECTOR:%d:%s] force updated from %d to %d or reprobing\n",
+-			      connector->base.id,
+-			      connector->name,
+-			      old_force, connector->force);
++		drm_dbg_kms(dev, "[CONNECTOR:%d:%s] force updated from %d to %d or reprobing\n",
++			    connector->base.id, connector->name,
++			    old_force, connector->force);
+ 
+ 		connector->funcs->fill_modes(connector,
+ 					     dev->mode_config.max_width,
+@@ -383,8 +382,8 @@ int drm_sysfs_connector_add(struct drm_connector *connector)
+ 	if (r)
+ 		goto err_free;
+ 
+-	DRM_DEBUG("adding \"%s\" to sysfs\n",
+-		  connector->name);
++	drm_dbg_kms(dev, "[CONNECTOR:%d:%s] adding connector to sysfs\n",
++		    connector->base.id, connector->name);
+ 
+ 	r = device_add(kdev);
+ 	if (r) {
+@@ -430,8 +429,9 @@ void drm_sysfs_connector_remove(struct drm_connector *connector)
+ 	if (dev_fwnode(connector->kdev))
+ 		component_del(connector->kdev, &typec_connector_ops);
+ 
+-	DRM_DEBUG("removing \"%s\" from sysfs\n",
+-		  connector->name);
++	drm_dbg_kms(connector->dev,
++		    "[CONNECTOR:%d:%s] removing connector from sysfs\n",
++		    connector->base.id, connector->name);
+ 
+ 	device_unregister(connector->kdev);
+ 	connector->kdev = NULL;
+@@ -442,7 +442,7 @@ void drm_sysfs_lease_event(struct drm_device *dev)
+ 	char *event_string = "LEASE=1";
+ 	char *envp[] = { event_string, NULL };
+ 
+-	DRM_DEBUG("generating lease event\n");
++	drm_dbg_lease(dev, "generating lease event\n");
+ 
+ 	kobject_uevent_env(&dev->primary->kdev->kobj, KOBJ_CHANGE, envp);
+ }
+@@ -463,7 +463,7 @@ void drm_sysfs_hotplug_event(struct drm_device *dev)
+ 	char *event_string = "HOTPLUG=1";
+ 	char *envp[] = { event_string, NULL };
+ 
+-	DRM_DEBUG("generating hotplug event\n");
++	drm_dbg_kms(dev, "generating hotplug event\n");
+ 
+ 	kobject_uevent_env(&dev->primary->kdev->kobj, KOBJ_CHANGE, envp);
+ }
+@@ -489,7 +489,6 @@ void drm_sysfs_connector_hotplug_event(struct drm_connector *connector)
+ 	drm_dbg_kms(connector->dev,
+ 		    "[CONNECTOR:%d:%s] generating connector hotplug event\n",
+ 		    connector->base.id, connector->name);
+-
+ 	kobject_uevent_env(&dev->primary->kdev->kobj, KOBJ_CHANGE, envp);
+ }
+ EXPORT_SYMBOL(drm_sysfs_connector_hotplug_event);
 -- 
 2.39.2
 
