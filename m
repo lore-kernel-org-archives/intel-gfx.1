@@ -4,58 +4,143 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 055E3C5475B
-	for <intel-gfx@archiver.kernel.org>; Fri,  8 Mar 2024 15:11:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7489EC54E58
+	for <intel-gfx@archiver.kernel.org>; Fri,  8 Mar 2024 15:13:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6C84410FA40;
-	Fri,  8 Mar 2024 15:11:47 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DCD721138F5;
+	Fri,  8 Mar 2024 15:13:01 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="AQBAFhjT";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="HoTcdU5Z";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.13])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4A79C1121C6
- for <intel-gfx@lists.freedesktop.org>; Fri,  8 Mar 2024 15:11:46 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.18])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5BBEA1138EF;
+ Fri,  8 Mar 2024 15:13:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1709910706; x=1741446706;
+ t=1709910781; x=1741446781;
  h=date:from:to:cc:subject:message-id:references:
- mime-version:content-transfer-encoding:in-reply-to;
- bh=T6uI1eRIte07xmoZQJoQdKhH/t23+sL0fF0xGMRRmwM=;
- b=AQBAFhjTZum7a6n+WH7T7V4+JkLsRTftaAkYyc23h/cTpqK0K4cK0f5b
- cxxRMYJ/SxPS+evt/Bt+ZPyDSnZBGJl7l8H/+yafFk2Fit+6qIXeFxUjY
- zSGo+zSZQttNXQpOZ1HMZ0stHsnsfe+3uBbSbJ8ASwKWNaxsjLcQHjp5O
- witqU+ihxH3VyIwvPIYpmVOH7Gwma594vi0kTrg1+/LkrgiP/vkidGCqg
- wqyVNZM2oicDne+h/PIUrxtbGsBP3WjPK7StB9rsrnzVGrFMXeR9xk9iG
- ANW7cJjI10h/DpbWogI20F6SH/mvm/CyRPjrstI4kiI2jDBq9yvxmbyG7 Q==;
-X-IronPort-AV: E=McAfee;i="6600,9927,11006"; a="7578792"
+ in-reply-to:mime-version;
+ bh=dMGcZz0pvTtpPEXoiBLgZc6hs/2ABWk07jQQhHRbCQI=;
+ b=HoTcdU5Zuna5Uym6EM0R2kHkpptRP8ccSluSkXTQE1Fxv5yv6JgsDc+M
+ mZz4bk5Oy4xwSqz+4M28sfOpir87++WXs7+/XmqqvnxJ4W3IFj2EgJpET
+ Wi/KhkdUnu0ddZE3fd/6ABR7ZC/AKeL2V1Axjpv8b2APy1W3vtFJXbAz4
+ 4iDH1CYq1+Mhl4uH2/FHyIPL8O0AMMRGuM9plrz1Wt+h39czgqhp8y/m2
+ NG3N7vBJqscLpMoSGX6P149Eo09P/T2ragQVbWwIukc+dLvOYZhhJ4Zpx
+ NauiIZaVBTHeTqqNK7vf+q/FyRyzv9ZEZR9FAIU7Gq2TQsknzgH4RMYBb Q==;
+X-IronPort-AV: E=McAfee;i="6600,9927,11006"; a="4477091"
 X-IronPort-AV: E=Sophos;i="6.07,109,1708416000"; 
-   d="scan'208";a="7578792"
-Received: from orsmga001.jf.intel.com ([10.7.209.18])
- by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 08 Mar 2024 07:11:46 -0800
+   d="scan'208";a="4477091"
+Received: from orviesa005.jf.intel.com ([10.64.159.145])
+ by fmvoesa112.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 08 Mar 2024 07:12:59 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,11006"; a="827775264"
-X-IronPort-AV: E=Sophos;i="6.07,109,1708416000"; d="scan'208";a="827775264"
-Received: from stinkpipe.fi.intel.com (HELO stinkbox) ([10.237.72.74])
- by orsmga001.jf.intel.com with SMTP; 08 Mar 2024 07:11:42 -0800
-Received: by stinkbox (sSMTP sendmail emulation);
- Fri, 08 Mar 2024 17:11:42 +0200
-Date: Fri, 8 Mar 2024 17:11:42 +0200
-From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
-To: "Lisovskiy, Stanislav" <stanislav.lisovskiy@intel.com>
-Cc: intel-gfx@lists.freedesktop.org, jani.saarinen@intel.com
-Subject: Re: [PATCH 2/2] drm/i915: Implement vblank synchronized MBUS join
- changes
-Message-ID: <ZesqrnNp9lH2gTd8@intel.com>
-References: <20240228080213.17441-1-stanislav.lisovskiy@intel.com>
- <20240228080213.17441-3-stanislav.lisovskiy@intel.com>
- <ZerjV9jnlUp-GTwP@intel.com> <ZesWB7CpU3b9X28J@intel.com>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
+X-IronPort-AV: E=Sophos;i="6.07,109,1708416000"; d="scan'208";a="15188264"
+Received: from fmsmsx601.amr.corp.intel.com ([10.18.126.81])
+ by orviesa005.jf.intel.com with ESMTP/TLS/AES256-GCM-SHA384;
+ 08 Mar 2024 07:12:59 -0800
+Received: from fmsmsx603.amr.corp.intel.com (10.18.126.83) by
+ fmsmsx601.amr.corp.intel.com (10.18.126.81) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2507.35; Fri, 8 Mar 2024 07:12:58 -0800
+Received: from fmsedg601.ED.cps.intel.com (10.1.192.135) by
+ fmsmsx603.amr.corp.intel.com (10.18.126.83) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2507.35 via Frontend Transport; Fri, 8 Mar 2024 07:12:58 -0800
+Received: from NAM02-DM3-obe.outbound.protection.outlook.com (104.47.56.40) by
+ edgegateway.intel.com (192.55.55.70) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.1.2507.35; Fri, 8 Mar 2024 07:12:58 -0800
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=LigYCj9bQM27+IUijoiHQ2Mo81nEByq67ONpOlXdHyB1wM2q66AexKEITMgToF2g6bJiQwSXZLxx7zk+leo45f3YT487lpHkqGqn+m3NuZBd5CInfqCZCV417jl3cX2wTLpDQU7L6eO4zvD85FGeHCXO5dDuvzXq1F0B82i/IeSnQbxSEHFNuPMFtMndj8Aa7VeRRquSGBlcF7qdYOg0JZNbA2zdQ7p0KtO28zfhfdgomaaKvAu88NI2SA+MwKlbFpFzw10acf2u31ThEpY7rOrmsuCgMeO0IDzqIMtHW45EFWVJ5tcIOBQgUXo0NFVuGSPwZ4G+SUd8nod1Yv5jSw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=m2Z8Aaho7cSVc7ky0Ek95Syf3icSyDFdCMZhaAYEe0Y=;
+ b=czoPed29u1Iib/KbAdgrELkuLPXOhS16+g0p7jiq+OcJuKXsUhMyjv0vgjcrErsUy77DwOG6lDXRitkVN9WML0cJCk8drZHMalzEWUvYAXFM0By3Hu5VDpLrUGmWuIe2XFtiqu/ym2Xm+crJeobvH6WzPgrakWaqis46CJ4YLJ33HavCoi0AE76Ae5Vbk6Ov8YTJsfThFZ15925H3d36PtNr9usnS+GqDGed6J4CwUno/MJwcNpczKt6Rr0mL7795S0i/ru+g8ZhFzGa0FSFKiz41pOtVW5krcTJ1rgDp4Zm2ASbujHzIgMuOAQYC4CVpChJbtXgcleFBONRt/r5og==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+Received: from CY5PR11MB6139.namprd11.prod.outlook.com (2603:10b6:930:29::17)
+ by SA2PR11MB4812.namprd11.prod.outlook.com (2603:10b6:806:f8::5) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7386.8; Fri, 8 Mar
+ 2024 15:12:56 +0000
+Received: from CY5PR11MB6139.namprd11.prod.outlook.com
+ ([fe80::e9dd:320:976f:e257]) by CY5PR11MB6139.namprd11.prod.outlook.com
+ ([fe80::e9dd:320:976f:e257%4]) with mapi id 15.20.7386.006; Fri, 8 Mar 2024
+ 15:12:56 +0000
+Date: Fri, 8 Mar 2024 09:12:53 -0600
+From: Lucas De Marchi <lucas.demarchi@intel.com>
+To: Jani Nikula <jani.nikula@intel.com>
+CC: <dri-devel@lists.freedesktop.org>, <intel-gfx@lists.freedesktop.org>,
+ <intel-xe@lists.freedesktop.org>, David Airlie <airlied@gmail.com>, "Daniel
+ Vetter" <daniel@ffwll.ch>, Maarten Lankhorst
+ <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, Masahiro Yamada
+ <masahiroy@kernel.org>
+Subject: Re: [PATCH v2 15/16] drm: avoid includes in drm_crtc_helper_internal.h
+Message-ID: <q252pusyd7c6awvx7rw67d5haqltbw74i2sk44yu4dyqxpsmky@4xpcdpw2ibfg>
+References: <cover.1709898638.git.jani.nikula@intel.com>
+ <fb7fb2986e19f949bf3a9b16230a59e0f7aaebdf.1709898638.git.jani.nikula@intel.com>
+Content-Type: text/plain; charset="us-ascii"; format=flowed
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <ZesWB7CpU3b9X28J@intel.com>
-X-Patchwork-Hint: comment
+In-Reply-To: <fb7fb2986e19f949bf3a9b16230a59e0f7aaebdf.1709898638.git.jani.nikula@intel.com>
+X-ClientProxiedBy: SJ0PR13CA0108.namprd13.prod.outlook.com
+ (2603:10b6:a03:2c5::23) To CY5PR11MB6139.namprd11.prod.outlook.com
+ (2603:10b6:930:29::17)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CY5PR11MB6139:EE_|SA2PR11MB4812:EE_
+X-MS-Office365-Filtering-Correlation-Id: 342edcb1-a65d-44c0-aa9a-08dc3f823bd3
+X-LD-Processed: 46c98d88-e344-4ed4-8496-4ed7712e255d,ExtAddr
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: EosaK//vlhh5r7Vl6KvX++z/6AxAlgOQmGO5uFLzs6+aqfGZjv81StL5J7A2MOa/lMqV0r/kdscjQ84Oss/29sDpcAaIgmd7rk0V+OPFzyXpQoPYwB8vf+prmaKHQmZ21kVw1N0SnnZlrM7TRre854i7NXqpFH8KLmvIX4m3F6o+D4e0H6tqTp1it7jg/vN40cvMyTQjq3Y3rro8VERhzxynUyZot3UOrKuf2Eb5Cs5e9DijYGGKn9th+A12+FNCtNxcQU4Pujd7fowvKekpJznemi655KjASSgZ/VsFrP4NVVjz4FMRYz6M1xlfOklrGZaAwVjoxbfjoIrtcbrxsMEQ2D2Fwx7QEbwjSEXu3EJYJRSPp4YAdybSvc0/mHblNfx7D/Wxj3V4cw/UTzlDSQ56YNbYpRbr1dc+dV6h2fJjAu54ZEStPT7KF8HXlxp3uU4RYp69Xq9PGA1Ow9GU3Z7PWeMGAwRiS0o+qubjWBVVUHzFRWAiu/sgXL4MrJU22tceYEbwNLC6hKW7VaP2ceizoN61aMoMtMT6mcNRj1fjSiIOH+CEIDAHUz6rzNDc6djASOiPzkHtk1EdbOkcKtBkLNVIOSIpIaiJyhXIlwkQLkyywrBzMrktrusucl0bkhWa+3yWyoCuNchc4CT/eWrqBr/rjg+RJ/GApqKd/tI=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:CY5PR11MB6139.namprd11.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230031)(1800799015)(376005); DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?ydV/nL5hbyk+QyfGPIjXfnouQe+y51ygQHaJUIISeO6v60TI4HZ3OZx9bzzp?=
+ =?us-ascii?Q?gpdZe0CZzofyogRLgPaCmHznKrrGd2TsHdWgVl9Qpqo0VJM/6/GuIN3Hqmdd?=
+ =?us-ascii?Q?7qurWRcxONEZ2yWghVj63hAefFHaDHxAi8J+oDI61VKyW6vDoiZ+iB6Xslsp?=
+ =?us-ascii?Q?S1nTLy+lMgF2ohFzzKrenNkW0d7Yp9ZQHoUx1yP7NabzFgI9BFCKfNDTf0Oi?=
+ =?us-ascii?Q?4mqxnHakXp6l1og2ajPvaZA2R1DHBSOo7psL6xEajhwd4QBc2iPBiZjYeFJr?=
+ =?us-ascii?Q?jMK88rSh/5+UywRQlaGZsvCX3gGkyHF6K4K77Lry8NHR7v052VdydhIbtapO?=
+ =?us-ascii?Q?v2qH1ERZtMVbQ1vYfZ8IJnxwhG1K6n7bOIeCoJ3/MJYT0V7UR7kMe0AJTj0F?=
+ =?us-ascii?Q?K+IB0NNT00bw1JSYWj+0jGQ3W9UpmJzJRP4UlSVQuxUt5immLbInkCj74BKy?=
+ =?us-ascii?Q?HyA+dyDCugN9i+iH2tz6afvHYAw/5rd6wROVjovw9yH7pNI/hL7Z8fh2EhhG?=
+ =?us-ascii?Q?eW/vRCFA1LndwgXSA2oquvid3b70SgqW7NtPXaCE3Ps+4zWLXfloZ90xZn1k?=
+ =?us-ascii?Q?SyP+2TmemY4ytQNfL1GJ3o20FnTYE5fXL+WGLxO8uWrYGsAGlLjXZeOBBoU8?=
+ =?us-ascii?Q?q2/FdbJNmMKWdg0By3ICjt3Ryw0WLUC/HL9jL8ZsiWzOQZZ6HVMBNcWKVrra?=
+ =?us-ascii?Q?9vuXruk7udt+6F5fgDECk2GPLEpApEpl8BSHZgF/oZArpmDzBaR5VU7l+0kd?=
+ =?us-ascii?Q?h+8kltY7DCuXVU/dtXFGVvL/4YKPKCuHBRJFjFA94oJGD37ZZtHwmv1Noqln?=
+ =?us-ascii?Q?bsREteoRPWwpUPJImQblywNP+SYIN8/4KDtudFi/w1BZK5nHI7q+VUHlb3hc?=
+ =?us-ascii?Q?+kbVtV+IwogbfC5MH+HfXKOIIKm8iG58sr46jxcHrftK27TikLZ+ioZ33rVM?=
+ =?us-ascii?Q?STmCObLBY5DoOQCDhwHQRHqJgPc+ethvy9PmcB449o/T14SR+QucN6mo7xqR?=
+ =?us-ascii?Q?7MFiZ/G9GXXCZcC1J4/VEwfuo7l8ONyDS4ej7jtUdzCkYVGCprx85F88OOxY?=
+ =?us-ascii?Q?tqOx3aaRg4fZKpLIpZ2hpQWywH3MF6GlRt2ZImBkTz4hvGybZZNiBVrGfSKN?=
+ =?us-ascii?Q?NUcE55w0HkRpn8O+bpWxSWreOEmTFzEaUVeu4MqkHGOPu7hc4ZXCe4KVf7J6?=
+ =?us-ascii?Q?uBoaLnJ/x+ZXWyIwmobYdhn+iLRbPInG1E3l5fwLcPTo5yNjut7KNSQ8kckG?=
+ =?us-ascii?Q?+EBNWp9OilaBNKvEmYbP0oM1hkzlVdzrPTQ4nwtDXBCPDKJiNrrKfJKfk8I0?=
+ =?us-ascii?Q?NvRkviyyNwCLKonyW1LBU9Vs4caxLB0ujOZj3HjDNzKGCxf+ljb8XBB7xU4n?=
+ =?us-ascii?Q?4y/RP+6JtBt5UshoxxbUyX4I6WHsn3Y570+6XPHJrGmPWu8WJelg/pr35Phi?=
+ =?us-ascii?Q?Byvyjv6nsfX6Wyb0Cmuo7YUjEXg7AxPA2/7tSLasQvnKJK3iUQQoUOC5PoJP?=
+ =?us-ascii?Q?509HuPqF4/z8CTn0qt7VAaYHD8QdLWPYOVLrI+KEZRMZWme/A7+EdikhyDHu?=
+ =?us-ascii?Q?3jM8CR9tLWzE9ZDm3eHbTpe1WsO5cKzzMwqD9qtkfmBGQ421MfQDFlmX+QCg?=
+ =?us-ascii?Q?uA=3D=3D?=
+X-MS-Exchange-CrossTenant-Network-Message-Id: 342edcb1-a65d-44c0-aa9a-08dc3f823bd3
+X-MS-Exchange-CrossTenant-AuthSource: CY5PR11MB6139.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Mar 2024 15:12:56.3149 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: SxOk/zDIfimEE5APnAhzsz0+CHVb4FnE6KvcYdyTkGBuD8JOMnvK/0O9DR7wdFPMkwmWMwfxjNtSexnJNfAHU5Fjp/aCZ/D86cKLgmH6+aU=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA2PR11MB4812
+X-OriginatorOrg: intel.com
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,148 +156,41 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Fri, Mar 08, 2024 at 03:43:35PM +0200, Lisovskiy, Stanislav wrote:
-> On Fri, Mar 08, 2024 at 12:07:19PM +0200, Ville Syrjälä wrote:
-> > On Wed, Feb 28, 2024 at 10:02:13AM +0200, Stanislav Lisovskiy wrote:
-> > > Currently we can't change MBUS join status without doing a modeset,
-> > > because we are lacking mechanism to synchronize those with vblank.
-> > > However then this means that we can't do a fastset, if there is a need
-> > > to change MBUS join state. Fix that by implementing such change.
-> > > We already call correspondent check and update at pre_plane dbuf update,
-> > > so the only thing left is to have a non-modeset version of that.
-> > > If active pipes stay the same then fastset is possible and only MBUS
-> > > join state/ddb allocation updates would be committed.
-> > > 
-> > > v2: Implement additional changes according to BSpec.
-> > >     Vblank wait is needed after MBus/Dbuf programming in case if
-> > >     no modeset is done and we are switching from single to multiple
-> > >     displays, i.e mbus join state switches from "joined" to  "non-joined"
-> > >     state. Otherwise vblank wait is not needed according to spec.
-> > > 
-> > > v3: Split mbus and dbox programming into to pre/post plane update parts,
-> > >     how it should be done according to BSpec.
-> > > 
-> > > v4: - Place "single display to multiple displays scenario" MBUS/DBOX programming
-> > >       after DDB reallocation, but before crtc enabling(that is where is has
-> > >       to be according to spec).
-> > >     - Check if crtc is still active, not only the old state.
-> > >     - Do a vblank wait if MBUX DBOX register was modified.
-> > >     - And of course do vblank wait only if crtc was active.
-> > >     - Do vblank wait only if we are not doing a modeset, if we are doing
-> > >       something before *commit_modeset_enables, because all crtcs might be
-> > >       disabled at this moment, so we will get WARN if try waiting for vblank
-> > >       then.
-> > >     - Still getting FIFO underrun so try waiting for vblank in pre_plane update
-> > >       as well.
-> > >     - Write also pipe that we need to sync with to MBUS_CTL register.
-> > > 
-> > > v5: - Do vblank wait only for the first pipe, if mbus is joined
-> > >     - Check also if new/old_dbuf_state is not NULL, before getting single pipe
-> > >       and active pipes.
-> > > 
-> > > Signed-off-by: Stanislav Lisovskiy <stanislav.lisovskiy@intel.com>
-> > > ---
-> > >  drivers/gpu/drm/i915/display/intel_display.c |  13 ++-
-> > >  drivers/gpu/drm/i915/display/skl_watermark.c | 104 +++++++++++++++----
-> > >  drivers/gpu/drm/i915/display/skl_watermark.h |   1 +
-> > >  3 files changed, 96 insertions(+), 22 deletions(-)
-> > > 
-> > > diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
-> > > index 00ac65a140298..989818f5d342f 100644
-> > > --- a/drivers/gpu/drm/i915/display/intel_display.c
-> > > +++ b/drivers/gpu/drm/i915/display/intel_display.c
-> > > @@ -6906,6 +6906,17 @@ static void skl_commit_modeset_enables(struct intel_atomic_state *state)
-> > >  		}
-> > >  	}
-> > >  
-> > > +	/*
-> > > +	 * Some MBUS/DBuf update scenarios(mbus join disable) require that
-> > > +	 * changes are done _after_ DDB reallocation, but _before_ crtc enabling.
-> > > +	 * Typically we are disabling resources in post_plane/crtc_enable hooks,
-> > > +	 * however in that case BSpec explicitly states that this should be done
-> > > +	 * before we enable additional displays.
-> > > +	 * FIXME: Should we still call this also there(post_plane hook)
-> > > +	 * for extra-safety? If so, how to make sure, we don't call it twice?
-> > > +	 */
-> > > +	intel_dbuf_mbus_post_ddb_update(state);
-> > > +
-> > >  	update_pipes = modeset_pipes;
-> > >  
-> > >  	/*
-> > > @@ -7148,9 +7159,7 @@ static void intel_atomic_commit_tail(struct intel_atomic_state *state)
-> > >  	}
-> > >  
-> > >  	intel_encoders_update_prepare(state);
-> > > -
-> > >  	intel_dbuf_pre_plane_update(state);
-> > > -	intel_mbus_dbox_update(state);
-> > >  
-> > >  	for_each_new_intel_crtc_in_state(state, crtc, new_crtc_state, i) {
-> > >  		if (new_crtc_state->do_async_flip)
-> > > diff --git a/drivers/gpu/drm/i915/display/skl_watermark.c b/drivers/gpu/drm/i915/display/skl_watermark.c
-> > > index 606b7ba9db9ce..f0604ede399f7 100644
-> > > --- a/drivers/gpu/drm/i915/display/skl_watermark.c
-> > > +++ b/drivers/gpu/drm/i915/display/skl_watermark.c
-> > > @@ -2628,13 +2628,6 @@ skl_compute_ddb(struct intel_atomic_state *state)
-> > >  		if (ret)
-> > >  			return ret;
-> > >  
-> > > -		if (old_dbuf_state->joined_mbus != new_dbuf_state->joined_mbus) {
-> > > -			/* TODO: Implement vblank synchronized MBUS joining changes */
-> > > -			ret = intel_modeset_all_pipes_late(state, "MBUS joining change");
-> > > -			if (ret)
-> > > -				return ret;
-> > > -		}
-> > > -
-> > >  		drm_dbg_kms(&i915->drm,
-> > >  			    "Enabled dbuf slices 0x%x -> 0x%x (total dbuf slices 0x%x), mbus joined? %s->%s\n",
-> > >  			    old_dbuf_state->enabled_slices,
-> > > @@ -3539,8 +3532,9 @@ static void intel_dbuf_mbus_update(struct intel_atomic_state *state)
-> > >  	struct drm_i915_private *i915 = to_i915(state->base.dev);
-> > >  	u32 mbus_ctl, dbuf_min_tracker_val;
-> > >  	enum dbuf_slice slice;
-> > > -	const struct intel_dbuf_state *dbuf_state =
-> > > +	const struct intel_dbuf_state *new_dbuf_state =
-> > >  		intel_atomic_get_new_dbuf_state(state);
-> > > +	enum pipe pipe = ffs(new_dbuf_state->active_pipes) - 1;
-> > 
-> > That pipe might not even be enabled at this point.
-> 
-> Which scenario do you mean?
-> intel_dbuf_mbus_update is called in two cases:
-> 
-> 1) When switching from single display to multiple displays, according
->    to spec we should program it before enabling additional displays,
->    but after ddb allocation happens.
-> 
-> 2) When switching from multiple displays to a single display,
->    we program it after disabling all displays except one, but
->    before ddb reallocation happens.
+On Fri, Mar 08, 2024 at 01:55:53PM +0200, Jani Nikula wrote:
+>Prefer forward declarations over includes where possible.
+>
+>Signed-off-by: Jani Nikula <jani.nikula@intel.com>
 
-You seem to call it when the number of active pipes changes.
-That doesn't necessarily mean anything for mbus joining.
 
-> Probably you mean the case when its called from intel_dbuf_pre_plane_update,
-> because commit_modeset_enables hasn't been yet called?
+Reviewed-by: Lucas De Marchi <lucas.demarchi@intel.com>
 
-Yes, the pipe may still be off.
+Lucas De Marchi
 
-> That would be the case of switching from multiple displays to single one,
-> for non-modeset at least shoudln't be a problem, as I understand.
-
-I don't know what the hardware does in this case. Better not
-to ask for trouble IMO in case it turns out the hardware won't
-like it.
-
-> 
-> But where should this be called then from? 
-> 
-> We always called this function from intel_dbuf_pre_plane_update.
-
-As mentioned later in my mail, I think we just want a pre/post
-ddb callsites for this stuff. Though the credit stuff (should we
-need to account for those changing) might complicate things further...
-
--- 
-Ville Syrjälä
-Intel
+>---
+> drivers/gpu/drm/drm_crtc_helper_internal.h | 10 ++++++----
+> 1 file changed, 6 insertions(+), 4 deletions(-)
+>
+>diff --git a/drivers/gpu/drm/drm_crtc_helper_internal.h b/drivers/gpu/drm/drm_crtc_helper_internal.h
+>index ed4deed07abd..8059f65c5d6c 100644
+>--- a/drivers/gpu/drm/drm_crtc_helper_internal.h
+>+++ b/drivers/gpu/drm/drm_crtc_helper_internal.h
+>@@ -29,10 +29,12 @@
+> #ifndef __DRM_CRTC_HELPER_INTERNAL_H__
+> #define __DRM_CRTC_HELPER_INTERNAL_H__
+>
+>-#include <drm/drm_connector.h>
+>-#include <drm/drm_crtc.h>
+>-#include <drm/drm_encoder.h>
+>-#include <drm/drm_modes.h>
+>+enum drm_mode_status;
+>+struct drm_connector;
+>+struct drm_crtc;
+>+struct drm_display_mode;
+>+struct drm_encoder;
+>+struct drm_modeset_acquire_ctx;
+>
+> /* drm_probe_helper.c */
+> enum drm_mode_status drm_crtc_mode_valid(struct drm_crtc *crtc,
+>-- 
+>2.39.2
+>
