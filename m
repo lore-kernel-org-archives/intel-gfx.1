@@ -4,50 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DF774C5475B
-	for <intel-gfx@archiver.kernel.org>; Fri,  8 Mar 2024 11:01:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 16274C5475B
+	for <intel-gfx@archiver.kernel.org>; Fri,  8 Mar 2024 11:01:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 21923113857;
-	Fri,  8 Mar 2024 11:01:08 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 79B9A113847;
+	Fri,  8 Mar 2024 11:01:11 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="a2Ye0ORR";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="BENEiM4O";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.17])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E855011241A
- for <intel-gfx@lists.freedesktop.org>; Fri,  8 Mar 2024 11:01:04 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E493811385B
+ for <intel-gfx@lists.freedesktop.org>; Fri,  8 Mar 2024 11:01:08 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1709895665; x=1741431665;
+ t=1709895669; x=1741431669;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=YFmn+jzGqKXYgBl6u80zJoPHqwdjafNd+k+kAO4QBDs=;
- b=a2Ye0ORRzK/uplVKdjD5R6CIFbfJmAMpGmGeqC6nfddWk4y37FLMIWEl
- eSPuPUZSwBzLQ02uhpiYpU45qWH3Y65/jn172fE2tioGjWDLilWM2HWsm
- 3rh9YjnFfYkgb97PsX14pNTYGgHEHSNHqSwkSFqSl3foc4Q/luQegH8bV
- 1qC9lfBvZOllD6XkDQgrH4X/Em/zj85jlq8qqzgfwe1E5H5WD3d+cA4Ub
- F3lrX+d59p937eEIthBMNzNS+vYJNnAVfHP3yjvPNuJydFoI/rkHz2W+n
- fNZDV5ROL0DZk5NWK+HxRgfekUi64evpcFCibBSBHD49f05vLckifYgzg g==;
-X-IronPort-AV: E=McAfee;i="6600,9927,11006"; a="4480320"
+ bh=r+7p0ADbEZ9NN5zHCBuEgDY40v739QalCbReUyg16lM=;
+ b=BENEiM4O3czsuIWablIQh4fIGhQ9JD0uYhXjVrf63FctXEw6PQv79+Oe
+ 0nwaihu/s0FfOqQVaP7cqz+g+Ei5om3R+UqI+RjLr2ntvgBGM80NHtU4b
+ 1pRNZKsjOwKo703tKz3M2Uv5L/ZGUS7TrdbgQp30RvXRaQM/003T36lM3
+ c0nd0/5EZ1fmbSL7X1mKJ53WfigVlNE2oCKdBwguW1wf5Ri5leTAvxLGV
+ Crx7jk+CRqLAYoChx9B8DWAHQdbQan4JiRpwyxQPpsa2V0j1LdaVAHanA
+ 40QQizNJHzOQe7yUOdWYkyY+hZDW7TW0VNLaXu1iOoZfnKe6QtMpbY19Z Q==;
+X-IronPort-AV: E=McAfee;i="6600,9927,11006"; a="4480333"
 X-IronPort-AV: E=Sophos;i="6.07,109,1708416000"; 
-   d="scan'208";a="4480320"
+   d="scan'208";a="4480333"
 Received: from orviesa005.jf.intel.com ([10.64.159.145])
  by fmvoesa111.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 08 Mar 2024 03:01:05 -0800
+ 08 Mar 2024 03:01:09 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.07,109,1708416000"; d="scan'208";a="15130069"
+X-IronPort-AV: E=Sophos;i="6.07,109,1708416000"; d="scan'208";a="15130091"
 Received: from mkupniew-mobl.ger.corp.intel.com (HELO
  jhogande-mobl1.intel.com) ([10.251.208.210])
  by orviesa005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 08 Mar 2024 03:01:03 -0800
+ 08 Mar 2024 03:01:07 -0800
 From: =?UTF-8?q?Jouni=20H=C3=B6gander?= <jouni.hogander@intel.com>
 To: intel-gfx@lists.freedesktop.org
 Cc: =?UTF-8?q?Ville=20Syrj=C3=A4l=C3=A4?= <ville.syrjala@linux.intel.com>,
  Jani Nikula <jani.nikula@linux.intel.com>,
  =?UTF-8?q?Jouni=20H=C3=B6gander?= <jouni.hogander@intel.com>
-Subject: [PATCH v5 3/5] drm/i915/psr: Calculate IO wake and fast wake lines
- for DISPLAY_VER < 12
-Date: Fri,  8 Mar 2024 13:00:37 +0200
-Message-Id: <20240308110039.3900838-4-jouni.hogander@intel.com>
+Subject: [PATCH v5 5/5] drm/i915/display: Increase number of fast wake
+ precharge pulses
+Date: Fri,  8 Mar 2024 13:00:39 +0200
+Message-Id: <20240308110039.3900838-6-jouni.hogander@intel.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20240308110039.3900838-1-jouni.hogander@intel.com>
 References: <20240308110039.3900838-1-jouni.hogander@intel.com>
@@ -70,99 +70,30 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Bspec mentions 50 us for IO wake time and 32 us for fast wake time. 32 us
-is most probably wrong as it doesn't meet the specification as fast wake
-time is calculated in Bspec like this:
+Increasing number of fast wake sync pulses seem to fix problems with
+certain PSR panels. This should be ok for other panels as well as the eDP
+specification allows 10...16 precharge pulses and we are still within that
+range.
 
-10..16 us (precharge) + 8 us (preamble) + 4 us (phy_wake) + 20 us
-(tfw_exit_latency)
-
-Instead of using these constants calculate IO wake and fast wake for
-DISPLAY_VER < 12 as well.
-
-v3:
-  - do not handle < 9 separately
-  - add own helper for skl and tgl io buffer wake times
-v2:
-  - initialize io/fast_wake_time for display version < 9
-
+Closes: https://gitlab.freedesktop.org/drm/intel/-/issues/9739
 Signed-off-by: Jouni Högander <jouni.hogander@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_psr.c | 46 ++++++++++++++++--------
- 1 file changed, 31 insertions(+), 15 deletions(-)
+ drivers/gpu/drm/i915/display/intel_dp_aux.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_psr.c b/drivers/gpu/drm/i915/display/intel_psr.c
-index 7736bdcad82d..747761efa4be 100644
---- a/drivers/gpu/drm/i915/display/intel_psr.c
-+++ b/drivers/gpu/drm/i915/display/intel_psr.c
-@@ -1150,36 +1150,52 @@ static bool _lnl_compute_alpm_params(struct intel_dp *intel_dp,
- 	return true;
- }
+diff --git a/drivers/gpu/drm/i915/display/intel_dp_aux.c b/drivers/gpu/drm/i915/display/intel_dp_aux.c
+index 7e69be100d90..5dff1bc85d61 100644
+--- a/drivers/gpu/drm/i915/display/intel_dp_aux.c
++++ b/drivers/gpu/drm/i915/display/intel_dp_aux.c
+@@ -145,7 +145,7 @@ static int intel_dp_aux_sync_len(void)
  
--static int io_buffer_wake_time(void)
-+/*
-+ * IO wake time for DISPLAY_VER < 12 is not directly mentioned in Bspec. There
-+ * are 50 us io wake time and 32 us fast wake time. Clearly preharge pulses are
-+ * not (improperly) included in 32 us fast wake time. 50 us - 32 us = 18 us.
-+ */
-+static int skl_io_buffer_wake_time(void)
-+{
-+	return 18;
-+}
-+
-+static int tgl_io_buffer_wake_time(void)
+ int intel_dp_aux_fw_sync_len(void)
  {
- 	return 10;
- }
+-	int precharge = 10; /* 10-16 */
++	int precharge = 12; /* 10-16 */
+ 	int preamble = 8;
  
-+static int io_buffer_wake_time(const struct intel_crtc_state *crtc_state)
-+{
-+	struct drm_i915_private *i915 = to_i915(crtc_state->uapi.crtc->dev);
-+
-+	if (DISPLAY_VER(i915) >= 12)
-+		return tgl_io_buffer_wake_time();
-+	else
-+		return skl_io_buffer_wake_time();
-+}
-+
- static bool _compute_alpm_params(struct intel_dp *intel_dp,
- 				 struct intel_crtc_state *crtc_state)
- {
- 	struct drm_i915_private *i915 = dp_to_i915(intel_dp);
- 	int io_wake_lines, io_wake_time, fast_wake_lines, fast_wake_time;
-+	int tfw_exit_latency = 20; /* eDP spec */
-+	int phy_wake = 4;	   /* eDP spec */
-+	int preamble = 8;	   /* eDP spec */
-+	int precharge = intel_dp_aux_fw_sync_len() - preamble;
- 	u8 max_wake_lines;
- 
--	if (DISPLAY_VER(i915) >= 12) {
--		int tfw_exit_latency = 20; /* eDP spec */
--		int phy_wake = 4;	   /* eDP spec */
--		int preamble = 8;	   /* eDP spec */
--		int precharge = intel_dp_aux_fw_sync_len() - preamble;
--
--		io_wake_time = max(precharge, io_buffer_wake_time()) + preamble +
--			phy_wake + tfw_exit_latency;
--		fast_wake_time = precharge + preamble + phy_wake +
--			tfw_exit_latency;
-+	io_wake_time = max(precharge, io_buffer_wake_time(crtc_state)) +
-+		preamble + phy_wake + tfw_exit_latency;
-+	fast_wake_time = precharge + preamble + phy_wake +
-+		tfw_exit_latency;
- 
-+	if (DISPLAY_VER(i915) >= 12)
- 		/* TODO: Check how we can use ALPM_CTL fast wake extended field */
- 		max_wake_lines = 12;
--	} else {
--		io_wake_time = 50;
--		fast_wake_time = 32;
-+	else
- 		max_wake_lines = 8;
--	}
- 
- 	io_wake_lines = intel_usecs_to_scanlines(
- 		&crtc_state->hw.adjusted_mode, io_wake_time);
+ 	return precharge + preamble;
 -- 
 2.34.1
 
