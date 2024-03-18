@@ -4,27 +4,27 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D5FC7C54E5D
-	for <intel-gfx@archiver.kernel.org>; Mon, 18 Mar 2024 20:44:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 81A8EC54E5D
+	for <intel-gfx@archiver.kernel.org>; Mon, 18 Mar 2024 21:00:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5FFCD1120B6;
-	Mon, 18 Mar 2024 20:44:34 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CB4C511216A;
+	Mon, 18 Mar 2024 21:00:37 +0000 (UTC)
 Received: from 8e613ede5ea5 (emeril.freedesktop.org [131.252.210.167])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 83D7B1120BC;
- Mon, 18 Mar 2024 20:44:32 +0000 (UTC)
-Content-Type: multipart/alternative;
- boundary="===============8280837591347371688=="
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9374311216A;
+ Mon, 18 Mar 2024 21:00:36 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
-Subject: =?utf-8?q?=E2=9C=97_Fi=2ECI=2EBAT=3A_failure_for_Bigjoiner_refactoring_=28re?=
- =?utf-8?q?v12=29?=
+Content-Transfer-Encoding: 7bit
+Subject: =?utf-8?q?=E2=9C=97_Fi=2ECI=2ECHECKPATCH=3A_warning_for_drm/xe/display=3A_fi?=
+ =?utf-8?q?x_potential_overflow_when_multiplying_2_u32_=28rev2=29?=
 From: Patchwork <patchwork@emeril.freedesktop.org>
-To: "Stanislav Lisovskiy" <stanislav.lisovskiy@intel.com>
+To: "Arun R Murthy" <arun.r.murthy@intel.com>
 Cc: intel-gfx@lists.freedesktop.org
-Date: Mon, 18 Mar 2024 20:44:32 -0000
-Message-ID: <171079467254.886689.18270587704912271526@8e613ede5ea5>
+Date: Mon, 18 Mar 2024 21:00:36 -0000
+Message-ID: <171079563660.886732.12923408488924410944@8e613ede5ea5>
 X-Patchwork-Hint: ignore
-References: <20240313095949.6898-1-stanislav.lisovskiy@intel.com>
-In-Reply-To: <20240313095949.6898-1-stanislav.lisovskiy@intel.com>
+References: <20240318110103.3872169-1-arun.r.murthy@intel.com>
+In-Reply-To: <20240318110103.3872169-1-arun.r.murthy@intel.com>
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -41,281 +41,29 @@ Reply-To: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
---===============8280837591347371688==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-
 == Series Details ==
 
-Series: Bigjoiner refactoring (rev12)
-URL   : https://patchwork.freedesktop.org/series/128311/
-State : failure
+Series: drm/xe/display: fix potential overflow when multiplying 2 u32 (rev2)
+URL   : https://patchwork.freedesktop.org/series/131014/
+State : warning
 
 == Summary ==
 
-CI Bug Log - changes from CI_DRM_14443 -> Patchwork_128311v12
-====================================================
+Error: dim checkpatch failed
+8f904ca289af drm/xe/display: fix potential overflow when multiplying 2 u32
+-:20: WARNING:LONG_LINE: line length of 101 exceeds 100 columns
+#20: FILE: drivers/gpu/drm/xe/display/xe_fb_pin.c:32:
++			u64 pte = ggtt->pt_ops->pte_encode_bo(bo, mul_u32_u32(src_idx, XE_PAGE_SIZE),
 
-Summary
--------
+-:30: CHECK:PARENTHESIS_ALIGNMENT: Alignment should match open parenthesis
+#30: FILE: drivers/gpu/drm/xe/display/xe_fb_pin.c:65:
++				     pte_encode_bo(bo, mul_u32_u32(src_idx, XE_PAGE_SIZE),
+ 				     xe->pat.idx[XE_CACHE_WB]));
 
-  **FAILURE**
+-:47: WARNING:LONG_LINE: line length of 101 exceeds 100 columns
+#47: FILE: drivers/gpu/drm/xe/display/xe_fb_pin.c:167:
++			u64 pte = ggtt->pt_ops->pte_encode_bo(bo, mul_u32_u32(src_idx, XE_PAGE_SIZE),
 
-  Serious unknown changes coming with Patchwork_128311v12 absolutely need to be
-  verified manually.
-  
-  If you think the reported changes have nothing to do with the changes
-  introduced in Patchwork_128311v12, please notify your bug team (I915-ci-infra@lists.freedesktop.org) to allow them
-  to document this new failure mode, which will reduce false positives in CI.
-
-  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_128311v12/index.html
-
-Participating hosts (35 -> 35)
-------------------------------
-
-  Additional (1): bat-arls-4 
-  Missing    (1): fi-snb-2520m 
-
-Possible new issues
--------------------
-
-  Here are the unknown changes that may have been introduced in Patchwork_128311v12:
-
-### IGT changes ###
-
-#### Possible regressions ####
-
-  * igt@i915_module_load@load:
-    - bat-dg2-8:          [PASS][1] -> [DMESG-WARN][2]
-   [1]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_14443/bat-dg2-8/igt@i915_module_load@load.html
-   [2]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_128311v12/bat-dg2-8/igt@i915_module_load@load.html
-
-  
-Known issues
-------------
-
-  Here are the changes found in Patchwork_128311v12 that come from known issues:
-
-### CI changes ###
-
-#### Issues hit ####
-
-  * boot:
-    - fi-apl-guc:         [PASS][3] -> [FAIL][4] ([i915#8293])
-   [3]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_14443/fi-apl-guc/boot.html
-   [4]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_128311v12/fi-apl-guc/boot.html
-    - fi-kbl-8809g:       [PASS][5] -> [FAIL][6] ([i915#8293])
-   [5]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_14443/fi-kbl-8809g/boot.html
-   [6]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_128311v12/fi-kbl-8809g/boot.html
-
-  
-#### Possible fixes ####
-
-  * boot:
-    - fi-cfl-8109u:       [FAIL][7] ([i915#8293]) -> [PASS][8]
-   [7]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_14443/fi-cfl-8109u/boot.html
-   [8]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_128311v12/fi-cfl-8109u/boot.html
-
-  
-
-### IGT changes ###
-
-#### Issues hit ####
-
-  * igt@gem_huc_copy@huc-copy:
-    - fi-cfl-8109u:       NOTRUN -> [SKIP][9] ([i915#2190])
-   [9]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_128311v12/fi-cfl-8109u/igt@gem_huc_copy@huc-copy.html
-
-  * igt@gem_lmem_swapping@verify-random:
-    - fi-cfl-8109u:       NOTRUN -> [SKIP][10] ([i915#4613]) +3 other tests skip
-   [10]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_128311v12/fi-cfl-8109u/igt@gem_lmem_swapping@verify-random.html
-
-  * igt@kms_pm_backlight@basic-brightness:
-    - fi-cfl-8109u:       NOTRUN -> [SKIP][11] +11 other tests skip
-   [11]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_128311v12/fi-cfl-8109u/igt@kms_pm_backlight@basic-brightness.html
-
-  
-#### Possible fixes ####
-
-  * igt@i915_selftest@live@hangcheck:
-    - bat-adlp-6:         [ABORT][12] ([i915#10021]) -> [PASS][13]
-   [12]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_14443/bat-adlp-6/igt@i915_selftest@live@hangcheck.html
-   [13]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_128311v12/bat-adlp-6/igt@i915_selftest@live@hangcheck.html
-
-  
-  {name}: This element is suppressed. This means it is ignored when computing
-          the status of the difference (SUCCESS, WARNING, or FAILURE).
-
-  [i915#10021]: https://gitlab.freedesktop.org/drm/intel/issues/10021
-  [i915#10196]: https://gitlab.freedesktop.org/drm/intel/issues/10196
-  [i915#10197]: https://gitlab.freedesktop.org/drm/intel/issues/10197
-  [i915#10200]: https://gitlab.freedesktop.org/drm/intel/issues/10200
-  [i915#10202]: https://gitlab.freedesktop.org/drm/intel/issues/10202
-  [i915#10206]: https://gitlab.freedesktop.org/drm/intel/issues/10206
-  [i915#10207]: https://gitlab.freedesktop.org/drm/intel/issues/10207
-  [i915#10208]: https://gitlab.freedesktop.org/drm/intel/issues/10208
-  [i915#10209]: https://gitlab.freedesktop.org/drm/intel/issues/10209
-  [i915#10211]: https://gitlab.freedesktop.org/drm/intel/issues/10211
-  [i915#10212]: https://gitlab.freedesktop.org/drm/intel/issues/10212
-  [i915#10213]: https://gitlab.freedesktop.org/drm/intel/issues/10213
-  [i915#10214]: https://gitlab.freedesktop.org/drm/intel/issues/10214
-  [i915#10216]: https://gitlab.freedesktop.org/drm/intel/issues/10216
-  [i915#2190]: https://gitlab.freedesktop.org/drm/intel/issues/2190
-  [i915#3708]: https://gitlab.freedesktop.org/drm/intel/issues/3708
-  [i915#4077]: https://gitlab.freedesktop.org/drm/intel/issues/4077
-  [i915#4079]: https://gitlab.freedesktop.org/drm/intel/issues/4079
-  [i915#4083]: https://gitlab.freedesktop.org/drm/intel/issues/4083
-  [i915#4613]: https://gitlab.freedesktop.org/drm/intel/issues/4613
-  [i915#8293]: https://gitlab.freedesktop.org/drm/intel/issues/8293
-  [i915#8809]: https://gitlab.freedesktop.org/drm/intel/issues/8809
-  [i915#9318]: https://gitlab.freedesktop.org/drm/intel/issues/9318
-  [i915#9732]: https://gitlab.freedesktop.org/drm/intel/issues/9732
-  [i915#9812]: https://gitlab.freedesktop.org/drm/intel/issues/9812
-  [i915#9886]: https://gitlab.freedesktop.org/drm/intel/issues/9886
+total: 0 errors, 2 warnings, 1 checks, 38 lines checked
 
 
-Build changes
--------------
-
-  * Linux: CI_DRM_14443 -> Patchwork_128311v12
-
-  CI-20190529: 20190529
-  CI_DRM_14443: ce8cc731d53f9197a853b0d00386d7835f2b80e6 @ git://anongit.freedesktop.org/gfx-ci/linux
-  IGT_7769: 7769
-  Patchwork_128311v12: ce8cc731d53f9197a853b0d00386d7835f2b80e6 @ git://anongit.freedesktop.org/gfx-ci/linux
-
-
-### Linux commits
-
-855055ad2952 drm/i915: Allow bigjoiner for MST
-483c09c3a81e drm/i915: Handle joined pipes inside hsw_crtc_enable()
-958acdb188be drm/i915: Handle joined pipes inside hsw_crtc_disable()
-2679c84b46a9 drm/i915: Utilize intel_crtc_joined_pipe_mask() more
-5f1b449b6907 drm/i915: Extract intel_ddi_post_disable_hdmi_or_sst()
-88d19b661cf6 drm/i915: Add a small helper to compute the set of pipes for crtc
-
-== Logs ==
-
-For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_128311v12/index.html
-
---===============8280837591347371688==
-Content-Type: text/html; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-
-
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
- <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-  <title>Project List - Patchwork</title>
-  <style id="css-table-select" type="text/css">
-   td { padding: 2pt; }
-  </style>
-</head>
-<body>
-
-
-<b>Patch Details</b>
-<table>
-<tr><td><b>Series:</b></td><td>Bigjoiner refactoring (rev12)</td></tr>
-<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/128311/">https://patchwork.freedesktop.org/series/128311/</a></td></tr>
-<tr><td><b>State:</b></td><td>failure</td></tr>
-
-    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_128311v12/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_128311v12/index.html</a></td></tr>
-
-</table>
-
-
-    <h1>CI Bug Log - changes from CI_DRM_14443 -&gt; Patchwork_128311v12</h1>
-<h2>Summary</h2>
-<p><strong>FAILURE</strong></p>
-<p>Serious unknown changes coming with Patchwork_128311v12 absolutely need to be<br />
-  verified manually.</p>
-<p>If you think the reported changes have nothing to do with the changes<br />
-  introduced in Patchwork_128311v12, please notify your bug team (I915-ci-infra@lists.freedesktop.org) to allow them<br />
-  to document this new failure mode, which will reduce false positives in CI.</p>
-<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_128311v12/index.html</p>
-<h2>Participating hosts (35 -&gt; 35)</h2>
-<p>Additional (1): bat-arls-4 <br />
-  Missing    (1): fi-snb-2520m </p>
-<h2>Possible new issues</h2>
-<p>Here are the unknown changes that may have been introduced in Patchwork_128311v12:</p>
-<h3>IGT changes</h3>
-<h4>Possible regressions</h4>
-<ul>
-<li>igt@i915_module_load@load:<ul>
-<li>bat-dg2-8:          <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_14443/bat-dg2-8/igt@i915_module_load@load.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_128311v12/bat-dg2-8/igt@i915_module_load@load.html">DMESG-WARN</a></li>
-</ul>
-</li>
-</ul>
-<h2>Known issues</h2>
-<p>Here are the changes found in Patchwork_128311v12 that come from known issues:</p>
-<h3>CI changes</h3>
-<h4>Issues hit</h4>
-<ul>
-<li>boot:<ul>
-<li>fi-apl-guc:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_14443/fi-apl-guc/boot.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_128311v12/fi-apl-guc/boot.html">FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/8293">i915#8293</a>)</li>
-<li>fi-kbl-8809g:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_14443/fi-kbl-8809g/boot.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_128311v12/fi-kbl-8809g/boot.html">FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/8293">i915#8293</a>)</li>
-</ul>
-</li>
-</ul>
-<h4>Possible fixes</h4>
-<ul>
-<li>boot:<ul>
-<li>fi-cfl-8109u:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_14443/fi-cfl-8109u/boot.html">FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/8293">i915#8293</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_128311v12/fi-cfl-8109u/boot.html">PASS</a></li>
-</ul>
-</li>
-</ul>
-<h3>IGT changes</h3>
-<h4>Issues hit</h4>
-<ul>
-<li>
-<p>igt@gem_huc_copy@huc-copy:</p>
-<ul>
-<li>fi-cfl-8109u:       NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_128311v12/fi-cfl-8109u/igt@gem_huc_copy@huc-copy.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/2190">i915#2190</a>)</li>
-</ul>
-</li>
-<li>
-<p>igt@gem_lmem_swapping@verify-random:</p>
-<ul>
-<li>fi-cfl-8109u:       NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_128311v12/fi-cfl-8109u/igt@gem_lmem_swapping@verify-random.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/4613">i915#4613</a>) +3 other tests skip</li>
-</ul>
-</li>
-<li>
-<p>igt@kms_pm_backlight@basic-brightness:</p>
-<ul>
-<li>fi-cfl-8109u:       NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_128311v12/fi-cfl-8109u/igt@kms_pm_backlight@basic-brightness.html">SKIP</a> +11 other tests skip</li>
-</ul>
-</li>
-</ul>
-<h4>Possible fixes</h4>
-<ul>
-<li>igt@i915_selftest@live@hangcheck:<ul>
-<li>bat-adlp-6:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_14443/bat-adlp-6/igt@i915_selftest@live@hangcheck.html">ABORT</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/10021">i915#10021</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_128311v12/bat-adlp-6/igt@i915_selftest@live@hangcheck.html">PASS</a></li>
-</ul>
-</li>
-</ul>
-<p>{name}: This element is suppressed. This means it is ignored when computing<br />
-          the status of the difference (SUCCESS, WARNING, or FAILURE).</p>
-<h2>Build changes</h2>
-<ul>
-<li>Linux: CI_DRM_14443 -&gt; Patchwork_128311v12</li>
-</ul>
-<p>CI-20190529: 20190529<br />
-  CI_DRM_14443: ce8cc731d53f9197a853b0d00386d7835f2b80e6 @ git://anongit.freedesktop.org/gfx-ci/linux<br />
-  IGT_7769: 7769<br />
-  Patchwork_128311v12: ce8cc731d53f9197a853b0d00386d7835f2b80e6 @ git://anongit.freedesktop.org/gfx-ci/linux</p>
-<h3>Linux commits</h3>
-<p>855055ad2952 drm/i915: Allow bigjoiner for MST<br />
-483c09c3a81e drm/i915: Handle joined pipes inside hsw_crtc_enable()<br />
-958acdb188be drm/i915: Handle joined pipes inside hsw_crtc_disable()<br />
-2679c84b46a9 drm/i915: Utilize intel_crtc_joined_pipe_mask() more<br />
-5f1b449b6907 drm/i915: Extract intel_ddi_post_disable_hdmi_or_sst()<br />
-88d19b661cf6 drm/i915: Add a small helper to compute the set of pipes for crtc</p>
-
-</body>
-</html>
-
---===============8280837591347371688==--
