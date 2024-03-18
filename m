@@ -4,49 +4,76 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9A8EDC54E58
-	for <intel-gfx@archiver.kernel.org>; Mon, 18 Mar 2024 11:18:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4ED2CC54E5D
+	for <intel-gfx@archiver.kernel.org>; Mon, 18 Mar 2024 12:30:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E418210F290;
-	Mon, 18 Mar 2024 11:18:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 599ED10F69F;
+	Mon, 18 Mar 2024 12:30:58 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="OSj5+Vt3";
+	dkim=pass (2048-bit key; unprotected) header.d=huaqin-corp-partner-google-com.20230601.gappssmtp.com header.i=@huaqin-corp-partner-google-com.20230601.gappssmtp.com header.b="mLx0AXpp";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8855310F290
- for <intel-gfx@lists.freedesktop.org>; Mon, 18 Mar 2024 11:18:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1710760730; x=1742296730;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=wt3Xt2I8zKGtaMQlvmgY9GjH4NclDbFTqRcByLlEtWw=;
- b=OSj5+Vt3jdAArHp0AfMUgY5B34a/3d/BgN9XggOLYM2FcOOPgryXJksV
- 81htV1CL0UIX2f4fu2Yfjfi1yFJpJQEmzZGDIaAMVM/hL5gY0N2BML0VQ
- OI5pqgjuMXcNtsdDeJPXb+sjvZY7n0wZRprd9jFa0VWwrKy8mNk4UxsrW
- USGXOBjyAVIc/PMhEt6tP0o6L2EscDjaqytHNaGZvlGk9VEYzyYGzcX8C
- /ck+dC8B7xN31I9kp7lf1xL+i3e61pQqlEIh2AEdn3lIVXWrGD2uXljrV
- gFlbsubvz7iNSGfFRK+j644Pdo9rliaU3IwKeNZRL8vDTqIYXmjNk1Cir w==;
-X-IronPort-AV: E=McAfee;i="6600,9927,11016"; a="16203899"
-X-IronPort-AV: E=Sophos;i="6.07,134,1708416000"; d="scan'208";a="16203899"
-Received: from orviesa005.jf.intel.com ([10.64.159.145])
- by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 18 Mar 2024 04:18:49 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.07,134,1708416000"; d="scan'208";a="18124268"
-Received: from mgolanimitul-x299-ud4-pro.iind.intel.com ([10.190.239.114])
- by orviesa005.jf.intel.com with ESMTP; 18 Mar 2024 04:18:48 -0700
-From: Mitul Golani <mitulkumar.ajitkumar.golani@intel.com>
-To: intel-gfx@lists.freedesktop.org
-Cc: Mitul Golani <mitulkumar.ajitkumar.golani@intel.com>
-Subject: [PATCH v19 8/9] drm/i915/display: Compute vrr_vsync params
-Date: Mon, 18 Mar 2024 16:42:16 +0530
-Message-Id: <20240318111216.3715694-1-mitulkumar.ajitkumar.golani@intel.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20240313035625.3339996-1-mitulkumar.ajitkumar.golani@intel.com>
-References: <20240313035625.3339996-1-mitulkumar.ajitkumar.golani@intel.com>
+Received: from mail-oi1-f177.google.com (mail-oi1-f177.google.com
+ [209.85.167.177])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1B65610F2FE
+ for <intel-gfx@lists.freedesktop.org>; Mon, 18 Mar 2024 07:58:35 +0000 (UTC)
+Received: by mail-oi1-f177.google.com with SMTP id
+ 5614622812f47-3c38998684eso224370b6e.1
+ for <intel-gfx@lists.freedesktop.org>; Mon, 18 Mar 2024 00:58:35 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=huaqin-corp-partner-google-com.20230601.gappssmtp.com; s=20230601;
+ t=1710748715; x=1711353515; darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=ZoHpKQy6DfN7T8kVeyTSxYIGpsi/jXvN+vSJaAeMKfQ=;
+ b=mLx0AXppw6Rdi9xByU4QnA1TUxVDD8uWYWJSNL9TxvEts9dXmepaJWqfMFY9zQtHN9
+ SuxYluj5kyW2xwEQsEZOZxr3ga1wPy7eJiJ2ZnBnuULN2pDUHmJJ11kRQiX3GI2YA7RY
+ dUGC1soulxyaOoQc2x107tZ7RIJ7ApW8GoJ5u15gjUl8gV5lNlIW9h2nGuXbZUBYkwPo
+ 2c3vEp2BsYLj37TZyYXr1ckZnWo6K9DA1P0a5P/3yDwSgXM/l1DIxc6uomUDAkk97SND
+ FoftBHB4ggu0gnvj69BQP42g9EeW3VZjW5CNqz2uxVPjc0DgsPadsSM256VUM/8e9XQh
+ R/fg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1710748715; x=1711353515;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=ZoHpKQy6DfN7T8kVeyTSxYIGpsi/jXvN+vSJaAeMKfQ=;
+ b=QDd6sLN3lzDtrlky/OZuFoDLUdlFAC+sABUqMTy5LZkBlzsm39LEbf91sOLr2PjGhn
+ unnZfb6U8AGhm8F5Emj0bHQ7naj2SOdOgRXkSCnA4JPOQkDFUxljrn4s4sF8tAJG7Ky8
+ jQp+ZRp5Jf2KcR8bcpJIPJ31Fs2Xbqj3IGJm+PV2iUHVqZ+5SrdRwbQE3qFs7iVpZy4f
+ Qs4IFmjhTEvnFeTGx9wgoc7IgLoaToAMb/g+r/78MmTtXA8GneR4N8k6zCUR9OSTyGaf
+ xuZuS52/imSkKjpz+NjkaCba2mb//hgkZfnFJLS3vV7j/2NpF4aVsleSjHd9KrSNzimA
+ udsg==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCVMbtAIOJ9EG6JdKsj5MNhA4oS1VDX6auhdslzYkNbTuTNHejqxOTsQxZzzkjf5D7Y0E0TCJWsseg1hLxXITrLWwwfJ4tCBXWtEvCbIt7zU
+X-Gm-Message-State: AOJu0YwnH1UOh0211rp6TGOhyiDdlBR1yfKuL/3p8c/imyDfEn7CB6dB
+ JnzGe1Jndrb69Ib/XXnQEqdbEfGcstwRKDWwzze2N17Xz9FrNFQ8wpoYke2zaug=
+X-Google-Smtp-Source: AGHT+IF7H6AgtukiR4yPmZr3g0P/gRI8OBhCqGtaw0RzL3RwGC8hA0d+KEBJb8hsNIRld4/cf1klZw==
+X-Received: by 2002:aca:1806:0:b0:3c2:4cd9:551d with SMTP id
+ h6-20020aca1806000000b003c24cd9551dmr9965789oih.40.1710748714916; 
+ Mon, 18 Mar 2024 00:58:34 -0700 (PDT)
+Received: from [10.34.16.111] ([101.78.151.206])
+ by smtp.gmail.com with ESMTPSA id
+ le3-20020a056a004fc300b006e6c088d5afsm7436467pfb.177.2024.03.18.00.58.33
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 18 Mar 2024 00:58:34 -0700 (PDT)
+Message-ID: <004a0b4f-a619-4989-901f-251de3de4af1@huaqin.corp-partner.google.com>
+Date: Mon, 18 Mar 2024 15:58:31 +0800
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] drm/i915/display: Fixed a screen flickering when turning
+ on display from off
+To: =?UTF-8?B?VmlsbGUgU3lyasOkbMOk?= <ville.syrjala@linux.intel.com>,
+ Jani Nikula <jani.nikula@linux.intel.com>
+Cc: gareth.yu@intel.com, intel-gfx@lists.freedesktop.org
+References: <20240306031348.1344034-1-gareth.yu@intel.com>
+ <87il1zzmpt.fsf@intel.com> <ZfQqyLJBAAuNLKZ2@intel.com>
+Content-Language: en-US
+From: Dolan Liu <liuyong5@huaqin.corp-partner.google.com>
+In-Reply-To: <ZfQqyLJBAAuNLKZ2@intel.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
+X-Mailman-Approved-At: Mon, 18 Mar 2024 12:30:57 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,159 +89,60 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Compute vrr_vsync_start/end, which sets the position
-for hardware to send the Vsync at a fixed position
-relative to the end of the Vblank.
 
---v2:
-- Updated VSYNC_START/END macros to VRR_VSYNC_START/END. (Ankit)
-- Updated bit fields of VRR_VSYNC_START/END. (Ankit)
+this case have been there so many years, it's time to fix it if 
+possible. And user-space software may improved by themselves in we 
+didn't realize place.
 
---v3:
-- Add PIPE_CONF_CHECK_I(vrr.vsync_start/end).
-- Read/write vrr_vsync params only when we intend to send
-adaptive_sync sdp.
+even if not,  for the proof user-space setting  0, it's better to change to
 
---v4:
-- Use VRR_SYNC_START/END macros correctly.
 
---v5:
-- Send AS SDP only when VRR is enabled.
-Signed-off-by: Mitul Golani <mitulkumar.ajitkumar.golani@intel.com>
----
- drivers/gpu/drm/i915/display/intel_display.c  |  2 ++
- .../drm/i915/display/intel_display_types.h    |  1 +
- drivers/gpu/drm/i915/display/intel_vrr.c      | 33 +++++++++++++++++--
- drivers/gpu/drm/i915/i915_reg.h               |  7 ++++
- 4 files changed, 41 insertions(+), 2 deletions(-)
+    if (level < min || level == 0 )
 
-diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
-index 8f1d948408d3..fed4ed18d53b 100644
---- a/drivers/gpu/drm/i915/display/intel_display.c
-+++ b/drivers/gpu/drm/i915/display/intel_display.c
-@@ -5377,6 +5377,8 @@ intel_pipe_config_compare(const struct intel_crtc_state *current_config,
- 		PIPE_CONF_CHECK_I(vrr.flipline);
- 		PIPE_CONF_CHECK_I(vrr.pipeline_full);
- 		PIPE_CONF_CHECK_I(vrr.guardband);
-+		PIPE_CONF_CHECK_I(vrr.vsync_start);
-+		PIPE_CONF_CHECK_I(vrr.vsync_end);
- 	}
- 
- #undef PIPE_CONF_CHECK_X
-diff --git a/drivers/gpu/drm/i915/display/intel_display_types.h b/drivers/gpu/drm/i915/display/intel_display_types.h
-index 8a286751dc39..c2e08f641989 100644
---- a/drivers/gpu/drm/i915/display/intel_display_types.h
-+++ b/drivers/gpu/drm/i915/display/intel_display_types.h
-@@ -1430,6 +1430,7 @@ struct intel_crtc_state {
- 		bool enable, in_range;
- 		u8 pipeline_full;
- 		u16 flipline, vmin, vmax, guardband;
-+		u32 vsync_end, vsync_start;
- 	} vrr;
- 
- 	/* Stream Splitter for eDP MSO */
-diff --git a/drivers/gpu/drm/i915/display/intel_vrr.c b/drivers/gpu/drm/i915/display/intel_vrr.c
-index eb5bd0743902..1d53623e7e0b 100644
---- a/drivers/gpu/drm/i915/display/intel_vrr.c
-+++ b/drivers/gpu/drm/i915/display/intel_vrr.c
-@@ -9,6 +9,7 @@
- #include "intel_de.h"
- #include "intel_display_types.h"
- #include "intel_vrr.h"
-+#include "intel_dp.h"
- 
- bool intel_vrr_is_capable(struct intel_connector *connector)
- {
-@@ -113,6 +114,7 @@ intel_vrr_compute_config(struct intel_crtc_state *crtc_state,
- 	struct drm_i915_private *i915 = to_i915(crtc->base.dev);
- 	struct intel_connector *connector =
- 		to_intel_connector(conn_state->connector);
-+	struct intel_dp *intel_dp = intel_attached_dp(connector);
- 	struct drm_display_mode *adjusted_mode = &crtc_state->hw.adjusted_mode;
- 	const struct drm_display_info *info = &connector->base.display_info;
- 	int vmin, vmax;
-@@ -165,6 +167,14 @@ intel_vrr_compute_config(struct intel_crtc_state *crtc_state,
- 	if (crtc_state->uapi.vrr_enabled) {
- 		crtc_state->vrr.enable = true;
- 		crtc_state->mode_flags |= I915_MODE_FLAG_VRR;
-+		if (intel_dp_as_sdp_supported(intel_dp)) {
-+			crtc_state->vrr.vsync_start =
-+				(crtc_state->hw.adjusted_mode.crtc_vtotal -
-+					crtc_state->hw.adjusted_mode.vsync_start);
-+			crtc_state->vrr.vsync_end =
-+				(crtc_state->hw.adjusted_mode.crtc_vtotal -
-+					crtc_state->hw.adjusted_mode.vsync_end);
-+		}
- 	}
- }
- 
-@@ -242,6 +252,12 @@ void intel_vrr_enable(const struct intel_crtc_state *crtc_state)
- 	intel_de_write(dev_priv, TRANS_PUSH(cpu_transcoder), TRANS_PUSH_EN);
- 	intel_de_write(dev_priv, TRANS_VRR_CTL(cpu_transcoder),
- 		       VRR_CTL_VRR_ENABLE | trans_vrr_ctl(crtc_state));
-+
-+	if (HAS_AS_SDP(dev_priv)) {
-+		intel_de_write(dev_priv, TRANS_VRR_VSYNC(cpu_transcoder),
-+			       VRR_VSYNC_END(crtc_state->vrr.vsync_end) |
-+			       VRR_VSYNC_START(crtc_state->vrr.vsync_start));
-+	}
- }
- 
- void intel_vrr_disable(const struct intel_crtc_state *old_crtc_state)
-@@ -258,13 +274,16 @@ void intel_vrr_disable(const struct intel_crtc_state *old_crtc_state)
- 	intel_de_wait_for_clear(dev_priv, TRANS_VRR_STATUS(cpu_transcoder),
- 				VRR_STATUS_VRR_EN_LIVE, 1000);
- 	intel_de_write(dev_priv, TRANS_PUSH(cpu_transcoder), 0);
-+
-+	if (HAS_AS_SDP(dev_priv))
-+		intel_de_write(dev_priv, TRANS_VRR_VSYNC(cpu_transcoder), 0);
- }
- 
- void intel_vrr_get_config(struct intel_crtc_state *crtc_state)
- {
- 	struct drm_i915_private *dev_priv = to_i915(crtc_state->uapi.crtc->dev);
- 	enum transcoder cpu_transcoder = crtc_state->cpu_transcoder;
--	u32 trans_vrr_ctl;
-+	u32 trans_vrr_ctl, trans_vrr_vsync;
- 
- 	trans_vrr_ctl = intel_de_read(dev_priv, TRANS_VRR_CTL(cpu_transcoder));
- 
-@@ -284,6 +303,16 @@ void intel_vrr_get_config(struct intel_crtc_state *crtc_state)
- 		crtc_state->vrr.vmin = intel_de_read(dev_priv, TRANS_VRR_VMIN(cpu_transcoder)) + 1;
- 	}
- 
--	if (crtc_state->vrr.enable)
-+	if (crtc_state->vrr.enable) {
- 		crtc_state->mode_flags |= I915_MODE_FLAG_VRR;
-+
-+		if (HAS_AS_SDP(dev_priv)) {
-+			trans_vrr_vsync =
-+				intel_de_read(dev_priv, TRANS_VRR_VSYNC(cpu_transcoder));
-+			crtc_state->vrr.vsync_start =
-+				REG_FIELD_GET(VRR_VSYNC_START_MASK, trans_vrr_vsync);
-+			crtc_state->vrr.vsync_end =
-+				REG_FIELD_GET(VRR_VSYNC_END_MASK, trans_vrr_vsync);
-+		}
-+	}
- }
-diff --git a/drivers/gpu/drm/i915/i915_reg.h b/drivers/gpu/drm/i915/i915_reg.h
-index 3ff6a38826cb..2ede6982175c 100644
---- a/drivers/gpu/drm/i915/i915_reg.h
-+++ b/drivers/gpu/drm/i915/i915_reg.h
-@@ -2095,6 +2095,13 @@
- #define   TRANS_PUSH_EN			REG_BIT(31)
- #define   TRANS_PUSH_SEND		REG_BIT(30)
- 
-+#define _TRANS_VRR_VSYNC_A		0x60078
-+#define TRANS_VRR_VSYNC(trans)		_MMIO_TRANS2(trans, _TRANS_VRR_VSYNC_A)
-+#define VRR_VSYNC_END_MASK		REG_GENMASK(28, 16)
-+#define VRR_VSYNC_END(vsync_end)	REG_FIELD_PREP(VRR_VSYNC_END_MASK, (vsync_end))
-+#define VRR_VSYNC_START_MASK		REG_GENMASK(12, 0)
-+#define VRR_VSYNC_START(vsync_start)	REG_FIELD_PREP(VRR_VSYNC_START_MASK, (vsync_start))
-+
- /* VGA port control */
- #define ADPA			_MMIO(0x61100)
- #define PCH_ADPA                _MMIO(0xe1100)
--- 
-2.25.1
+         level =max;
 
+
+Intel default FSP will set the default min is 2% (6/255). if someone 
+missed the setting, it will be keep the default and level.min will be 
+larger than 0.
+
+if someone changed the default min in VBT or coreboot, the user-space 
+lowest level set as 0, still can go though to this logic.
+
+
+whatever, we think this one should correct back, otherwise it will keep 
+occurring in each new kernel release on all Intel device, this is not 
+very friendly to all developers.
+
+and the only fix way is  hack patch to remove "level=max".
+
+
+On 3/15/24 19:02, Ville Syrjälä wrote:
+> On Wed, Mar 06, 2024 at 12:19:42PM +0200, Jani Nikula wrote:
+>> On Wed, 06 Mar 2024, gareth.yu@intel.com wrote:
+>>> From: Gareth Yu <gareth.yu@intel.com>
+>>>
+>>> Turn on the panel from zero brightness of the last state, the panel was set
+>>> a maximum PWM in the flow. Once the panel initialization is completed, the
+>>> backlight is restored to zero brightness. There is a flckering generated.
+>> Please be more precise in describing what exactly happens and
+>> when. Driver probe? Modeset? What restores backlight to zero brightness?
+>>
+>> Better yet, please file a bug at fdo gitlab, attach full dmesg with
+>> debugs, etc.
+>>
+>> Before we had the concept of minimum brightness, the minimum was always
+>> 0. And the check was:
+>>
+>> 	if (level == 0)
+>> 		level = max;
+>>
+>> Historically, the point was, if you're enabling the display and
+>> backlight, you don't want it to be at 0 brightness, because for most
+>> displays that means a black screen.
+> I think that hack was originally added becaue some silly
+> userspace thingy was setting the backlight level to 0 on
+> suspend/etc. and then forgetting to restore it back to a
+> sane value afterwards. Dunno if that nonsense behaviour
+> still persists to this day.
+>
