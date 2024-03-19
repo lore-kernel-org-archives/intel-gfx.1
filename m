@@ -4,52 +4,27 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 06C7FC54E60
-	for <intel-gfx@archiver.kernel.org>; Tue, 19 Mar 2024 07:00:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F3FB8C54E5D
+	for <intel-gfx@archiver.kernel.org>; Tue, 19 Mar 2024 07:28:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6849210F113;
-	Tue, 19 Mar 2024 07:00:27 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="XJw/vrXl";
-	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.21])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5DAB510F113
- for <intel-gfx@lists.freedesktop.org>; Tue, 19 Mar 2024 07:00:26 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1710831626; x=1742367626;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=s/+3UMYfIZzOEiDHmv03gQc2o9ysKMoX0yOvUQnbh58=;
- b=XJw/vrXlhYM5hkoJ1aCgnCRjDexUZ/K3fKiohh1q3n8cR7w/ZZVr5kbO
- bwl/nLdfuiV1mEJMLk7vLhddG4LT+xps0qFp44ocax84CgqOSdbnd1w3B
- D5TrNQNzRUUBYyBULfTGUg2H7kI+0ydT6YEc6CMCcM7gGq0qVj5Bioj5k
- sqCp5UOTN9KBAwqWBTTnUToDg6OAT22rIi2G9tBdsTXKpRFrU/jS43mgm
- C/JPUuvD/Z9rVM3jpjZdd7Z1sBf9MFAoAYrXjkQBpe1XGrMBwLiFHU76K
- 2iQwVEhoQGRyftSGmiBdEy3pNtCPLEcILU2u/1VVpBJo44JRcNb1fvC6T w==;
-X-IronPort-AV: E=McAfee;i="6600,9927,11017"; a="5611721"
-X-IronPort-AV: E=Sophos;i="6.07,136,1708416000"; 
-   d="scan'208";a="5611721"
-Received: from fmviesa006.fm.intel.com ([10.60.135.146])
- by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 19 Mar 2024 00:00:20 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.07,136,1708416000"; d="scan'208";a="13802762"
-Received: from mgolanimitul-x299-ud4-pro.iind.intel.com ([10.190.239.114])
- by fmviesa006.fm.intel.com with ESMTP; 19 Mar 2024 00:00:19 -0700
-From: Mitul Golani <mitulkumar.ajitkumar.golani@intel.com>
-To: intel-gfx@lists.freedesktop.org
-Cc: Mitul Golani <mitulkumar.ajitkumar.golani@intel.com>,
- Ankit Nautiyal <ankit.k.nautiyal@intel.com>
-Subject: [PATCH v18 3/9] drm/i915/display: Add crtc state dump for Adaptive
- Sync SDP
-Date: Tue, 19 Mar 2024 12:23:46 +0530
-Message-Id: <20240319065346.3764331-1-mitulkumar.ajitkumar.golani@intel.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20240311094238.3320888-4-mitulkumar.ajitkumar.golani@intel.com>
-References: <20240311094238.3320888-4-mitulkumar.ajitkumar.golani@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7E0D210F33C;
+	Tue, 19 Mar 2024 07:28:39 +0000 (UTC)
+Received: from 8e613ede5ea5 (emeril.freedesktop.org [131.252.210.167])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2DFA110F33C;
+ Tue, 19 Mar 2024 07:28:38 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
+Subject: =?utf-8?q?=E2=9C=97_Fi=2ECI=2ECHECKPATCH=3A_warning_for_Enable_Adaptive_Sync?=
+ =?utf-8?q?_SDP_Support_for_DP_=28rev20=29?=
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Mitul Golani" <mitulkumar.ajitkumar.golani@intel.com>
+Cc: intel-gfx@lists.freedesktop.org
+Date: Tue, 19 Mar 2024 07:28:38 -0000
+Message-ID: <171083331818.900422.13931510491940625817@8e613ede5ea5>
+X-Patchwork-Hint: ignore
+References: <20240311094238.3320888-1-mitulkumar.ajitkumar.golani@intel.com>
+In-Reply-To: <20240311094238.3320888-1-mitulkumar.ajitkumar.golani@intel.com>
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,48 +37,40 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Add crtc state dump for Adaptive Sync SDP to know which
-crtc specifically caused the failure.
+== Series Details ==
 
---v1:
-- Rebase Patches to latest.
+Series: Enable Adaptive Sync SDP Support for DP (rev20)
+URL   : https://patchwork.freedesktop.org/series/126829/
+State : warning
 
-Signed-off-by: Mitul Golani <mitulkumar.ajitkumar.golani@intel.com>
-Reviewed-by: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
----
- drivers/gpu/drm/i915/display/intel_crtc_state_dump.c | 3 +++
- drivers/gpu/drm/i915/display/intel_display_types.h   | 1 +
- 2 files changed, 4 insertions(+)
+== Summary ==
 
-diff --git a/drivers/gpu/drm/i915/display/intel_crtc_state_dump.c b/drivers/gpu/drm/i915/display/intel_crtc_state_dump.c
-index cd78c200d483..ccaa4cb2809b 100644
---- a/drivers/gpu/drm/i915/display/intel_crtc_state_dump.c
-+++ b/drivers/gpu/drm/i915/display/intel_crtc_state_dump.c
-@@ -286,6 +286,9 @@ void intel_crtc_state_dump(const struct intel_crtc_state *pipe_config,
- 	if (pipe_config->infoframes.enable &
- 	    intel_hdmi_infoframe_enable(DP_SDP_VSC))
- 		drm_dp_vsc_sdp_log(&p, &pipe_config->infoframes.vsc);
-+	if (pipe_config->infoframes.enable &
-+	    intel_hdmi_infoframe_enable(DP_SDP_ADAPTIVE_SYNC))
-+		drm_dp_as_sdp_log(&p, &pipe_config->infoframes.as_sdp);
- 
- 	if (pipe_config->has_audio)
- 		intel_dump_buffer("ELD: ", pipe_config->eld,
-diff --git a/drivers/gpu/drm/i915/display/intel_display_types.h b/drivers/gpu/drm/i915/display/intel_display_types.h
-index 8b9860cefaae..36fcded7564a 100644
---- a/drivers/gpu/drm/i915/display/intel_display_types.h
-+++ b/drivers/gpu/drm/i915/display/intel_display_types.h
-@@ -1346,6 +1346,7 @@ struct intel_crtc_state {
- 		union hdmi_infoframe hdmi;
- 		union hdmi_infoframe drm;
- 		struct drm_dp_vsc_sdp vsc;
-+		struct drm_dp_as_sdp as_sdp;
- 	} infoframes;
- 
- 	u8 eld[MAX_ELD_BYTES];
--- 
-2.25.1
+Error: dim checkpatch failed
+8881e3d928c3 drm/dp: Add support to indicate if sink supports AS SDP
+2468b16d56e8 drm: Add Adaptive Sync SDP logging
+4ea83bf720b4 drm/i915/display: Add crtc state dump for Adaptive Sync SDP
+e06cff7ad5a6 drm/i915/dp: Add Read/Write support for Adaptive Sync SDP
+bfac1ef47375 drm/i915/dp: Add wrapper function to check AS SDP
+9342fb44a3b9 drm/i915/display: Compute AS SDP parameters
+6cfdd53c7dd6 drm/i915/display: Add state checker for Adaptive Sync SDP
+-:72: CHECK:MACRO_ARG_REUSE: Macro argument reuse 'name' - possible side-effects?
+#72: FILE: drivers/gpu/drm/i915/display/intel_display.c:5116:
++#define PIPE_CONF_CHECK_DP_AS_SDP(name) do { \
++	if (!intel_compare_dp_as_sdp(&current_config->infoframes.name, \
++				      &pipe_config->infoframes.name)) { \
++		pipe_config_dp_as_sdp_mismatch(dev_priv, fastset, __stringify(name), \
++						&current_config->infoframes.name, \
++						&pipe_config->infoframes.name); \
++		ret = false; \
++	} \
++} while (0)
+
+total: 0 errors, 0 warnings, 1 checks, 70 lines checked
+99beb6119427 drm/i915/display: Compute vrr_vsync params
+ec9141f1d1f7 drm/i915/display: Read/Write Adaptive Sync SDP
+
 
