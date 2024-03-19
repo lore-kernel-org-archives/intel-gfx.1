@@ -4,24 +4,24 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F3FB8C54E5D
-	for <intel-gfx@archiver.kernel.org>; Tue, 19 Mar 2024 07:28:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2438AC54E60
+	for <intel-gfx@archiver.kernel.org>; Tue, 19 Mar 2024 07:28:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7E0D210F33C;
-	Tue, 19 Mar 2024 07:28:39 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8730C10F357;
+	Tue, 19 Mar 2024 07:28:41 +0000 (UTC)
 Received: from 8e613ede5ea5 (emeril.freedesktop.org [131.252.210.167])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2DFA110F33C;
- Tue, 19 Mar 2024 07:28:38 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B0D9210F357;
+ Tue, 19 Mar 2024 07:28:40 +0000 (UTC)
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
-Subject: =?utf-8?q?=E2=9C=97_Fi=2ECI=2ECHECKPATCH=3A_warning_for_Enable_Adaptive_Sync?=
- =?utf-8?q?_SDP_Support_for_DP_=28rev20=29?=
+Subject: =?utf-8?q?=E2=9C=97_Fi=2ECI=2ESPARSE=3A_warning_for_Enable_Adaptive_Sync_SDP?=
+ =?utf-8?q?_Support_for_DP_=28rev20=29?=
 From: Patchwork <patchwork@emeril.freedesktop.org>
 To: "Mitul Golani" <mitulkumar.ajitkumar.golani@intel.com>
 Cc: intel-gfx@lists.freedesktop.org
-Date: Tue, 19 Mar 2024 07:28:38 -0000
-Message-ID: <171083331818.900422.13931510491940625817@8e613ede5ea5>
+Date: Tue, 19 Mar 2024 07:28:40 -0000
+Message-ID: <171083332072.900422.10835836725635300367@8e613ede5ea5>
 X-Patchwork-Hint: ignore
 References: <20240311094238.3320888-1-mitulkumar.ajitkumar.golani@intel.com>
 In-Reply-To: <20240311094238.3320888-1-mitulkumar.ajitkumar.golani@intel.com>
@@ -49,28 +49,8 @@ State : warning
 
 == Summary ==
 
-Error: dim checkpatch failed
-8881e3d928c3 drm/dp: Add support to indicate if sink supports AS SDP
-2468b16d56e8 drm: Add Adaptive Sync SDP logging
-4ea83bf720b4 drm/i915/display: Add crtc state dump for Adaptive Sync SDP
-e06cff7ad5a6 drm/i915/dp: Add Read/Write support for Adaptive Sync SDP
-bfac1ef47375 drm/i915/dp: Add wrapper function to check AS SDP
-9342fb44a3b9 drm/i915/display: Compute AS SDP parameters
-6cfdd53c7dd6 drm/i915/display: Add state checker for Adaptive Sync SDP
--:72: CHECK:MACRO_ARG_REUSE: Macro argument reuse 'name' - possible side-effects?
-#72: FILE: drivers/gpu/drm/i915/display/intel_display.c:5116:
-+#define PIPE_CONF_CHECK_DP_AS_SDP(name) do { \
-+	if (!intel_compare_dp_as_sdp(&current_config->infoframes.name, \
-+				      &pipe_config->infoframes.name)) { \
-+		pipe_config_dp_as_sdp_mismatch(dev_priv, fastset, __stringify(name), \
-+						&current_config->infoframes.name, \
-+						&pipe_config->infoframes.name); \
-+		ret = false; \
-+	} \
-+} while (0)
-
-total: 0 errors, 0 warnings, 1 checks, 70 lines checked
-99beb6119427 drm/i915/display: Compute vrr_vsync params
-ec9141f1d1f7 drm/i915/display: Read/Write Adaptive Sync SDP
+Error: dim sparse failed
+Sparse version: v0.6.2
+Fast mode used, each commit won't be checked separately.
 
 
