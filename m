@@ -4,46 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DA84ECD11DB
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5147BC54E58
 	for <intel-gfx@archiver.kernel.org>; Wed, 20 Mar 2024 20:11:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CDF2A10F534;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 28DAE10F00C;
 	Wed, 20 Mar 2024 20:11:39 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="nEH/s+oR";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="MPjJAbNK";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.7])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4B61310E6B7;
- Wed, 20 Mar 2024 20:11:32 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C45C410E649
+ for <intel-gfx@lists.freedesktop.org>; Wed, 20 Mar 2024 20:11:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1710965492; x=1742501492;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=u6/zZaAncZkZuQotY8O+E0nbKRmqLKTh+sHfaWuORDE=;
- b=nEH/s+oR9RdgA4Rrcth9bABvZoCLpQVSrDrHkMsS6FlAtFZpTOmboZQz
- PVQUhcnIkWvBkqhE2WUtO2B43H461BUMSFPiCQTTjtpGwf0lhPwe984W/
- 8gMCjTmeT1yyOlCZtKd+klBHrCT5cvK9giPfEnlAKC8H2LHfdwMPdVBgP
- 60+EEfM5EOUZqykbXpSBcquAK5q8nFyYkt+Da8EsxfEMulfNCLLUZA90j
- AAuzp9P7oH2g9aXssLrYZU07DF00B5CHhWf9694jVKhS9S9pXhy9Bz6ht
- Sn5AxZlrw4miYkQRrHR14WhMR7Jxt3ptw3dFq3aIb0rn7Rl06dmGJNlXW A==;
-X-IronPort-AV: E=McAfee;i="6600,9927,11019"; a="31352341"
-X-IronPort-AV: E=Sophos;i="6.07,141,1708416000"; d="scan'208";a="31352341"
+ t=1710965490; x=1742501490;
+ h=from:to:subject:date:message-id:in-reply-to:references:
+ mime-version:content-transfer-encoding;
+ bh=2deTvRS8k5Y+ckfEBWxBmPOfGIA3Fp+tQ10vNu8vM4Y=;
+ b=MPjJAbNKzIeO2xi8RcBqkq6/iNrp1b/FYlpYk5zVz08XoPleKTV8g1qG
+ MGiDYdAT8b78UDdHXA/vPSTGPETweBof7vIX/wsgThjkg3e1j+gqf/TpB
+ OL4/tzCSIAqZxL9lkcHi7Q/AyyCJolenuhehZN0hlmoSVR8kr9d54A+91
+ EMXwLDz99nykf4QrzLdZFo7rvUp3g5hkdHMzHkmx46xBCuAg9Py6hNc56
+ JimpAOMVHE2Optbqj3Wi2xN4Pr9scIurieWzc2PuIrEKLcgInzTsECvHL
+ /Xt3G46DmEEPjDKn1iMvp9JyLSYimNNE3h7XMlad3ETBF699N63epHafW g==;
+X-IronPort-AV: E=McAfee;i="6600,9927,11019"; a="31352337"
+X-IronPort-AV: E=Sophos;i="6.07,141,1708416000"; d="scan'208";a="31352337"
 Received: from fmviesa007.fm.intel.com ([10.60.135.147])
  by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 20 Mar 2024 13:11:32 -0700
+ 20 Mar 2024 13:11:29 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.07,141,1708416000"; d="scan'208";a="14246519"
+X-IronPort-AV: E=Sophos;i="6.07,141,1708416000"; d="scan'208";a="14246509"
 Received: from ideak-desk.fi.intel.com ([10.237.72.78])
  by fmviesa007-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 20 Mar 2024 13:11:31 -0700
+ 20 Mar 2024 13:11:29 -0700
 From: Imre Deak <imre.deak@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Cc: Lyude Paul <lyude@redhat.com>,
-	dri-devel@lists.freedesktop.org
-Subject: [PATCH 08/11] drm/dp_mst: Factor out drm_dp_mst_port_is_logical()
-Date: Wed, 20 Mar 2024 22:11:48 +0200
-Message-ID: <20240320201152.3487892-9-imre.deak@intel.com>
+Subject: [PATCH 06/11] drm/i915/dp_mst: Sanitize calculating the DSC DPT bpp
+ limit
+Date: Wed, 20 Mar 2024 22:11:46 +0200
+Message-ID: <20240320201152.3487892-7-imre.deak@intel.com>
 X-Mailer: git-send-email 2.43.3
 In-Reply-To: <20240320201152.3487892-1-imre.deak@intel.com>
 References: <20240320201152.3487892-1-imre.deak@intel.com>
@@ -64,66 +63,99 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Factor out a function to check if an MST port is logical, used by a
-follow-up i915 patch in the patchset.
+Instead of checking each compressed bpp value against the maximum
+DSC/DPT bpp, simplify things by calculating the maximum bpp upfront and
+limiting the range of bpps looped over using this maximum.
 
-Cc: Lyude Paul <lyude@redhat.com>
-Cc: dri-devel@lists.freedesktop.org
+While at it add a comment about the origin of the DSC/DPT bpp limit.
+
+Bspec: 49259, 68912
+
 Signed-off-by: Imre Deak <imre.deak@intel.com>
 ---
- drivers/gpu/drm/display/drm_dp_mst_topology.c | 6 +++---
- include/drm/display/drm_dp_mst_helper.h       | 7 +++++++
- 2 files changed, 10 insertions(+), 3 deletions(-)
+ drivers/gpu/drm/i915/display/intel_dp_mst.c | 45 +++++++++++----------
+ 1 file changed, 23 insertions(+), 22 deletions(-)
 
-diff --git a/drivers/gpu/drm/display/drm_dp_mst_topology.c b/drivers/gpu/drm/display/drm_dp_mst_topology.c
-index 03d5282094262..6bd471a2266ce 100644
---- a/drivers/gpu/drm/display/drm_dp_mst_topology.c
-+++ b/drivers/gpu/drm/display/drm_dp_mst_topology.c
-@@ -2274,7 +2274,7 @@ drm_dp_mst_port_add_connector(struct drm_dp_mst_branch *mstb,
+diff --git a/drivers/gpu/drm/i915/display/intel_dp_mst.c b/drivers/gpu/drm/i915/display/intel_dp_mst.c
+index 40660dc5edb45..516b00f791420 100644
+--- a/drivers/gpu/drm/i915/display/intel_dp_mst.c
++++ b/drivers/gpu/drm/i915/display/intel_dp_mst.c
+@@ -51,27 +51,24 @@
+ #include "intel_vdsc.h"
+ #include "skl_scaler.h"
  
- 	if (port->pdt != DP_PEER_DEVICE_NONE &&
- 	    drm_dp_mst_is_end_device(port->pdt, port->mcs) &&
--	    port->port_num >= DP_MST_LOGICAL_PORT_0)
-+	    drm_dp_mst_port_is_logical(port))
- 		port->cached_edid = drm_edid_read_ddc(port->connector,
- 						      &port->aux.ddc);
+-static int intel_dp_mst_check_constraints(struct drm_i915_private *i915, int bpp,
+-					  const struct drm_display_mode *adjusted_mode,
+-					  struct intel_crtc_state *crtc_state,
+-					  bool dsc)
++static int intel_dp_mst_max_dpt_bpp(const struct intel_crtc_state *crtc_state,
++				    bool dsc)
+ {
+-	if (intel_dp_is_uhbr(crtc_state) && DISPLAY_VER(i915) < 20 && dsc) {
+-		int output_bpp = bpp;
+-		int symbol_clock = intel_dp_link_symbol_clock(crtc_state->port_clock);
+-		int available_bw = mul_u32_u32(symbol_clock * 72,
+-					       drm_dp_bw_channel_coding_efficiency(true)) /
+-				   1000000;
++	struct drm_i915_private *i915 = to_i915(crtc_state->uapi.crtc->dev);
++	const struct drm_display_mode *adjusted_mode =
++		&crtc_state->hw.adjusted_mode;
  
-@@ -4213,7 +4213,7 @@ drm_dp_mst_detect_port(struct drm_connector *connector,
- 	case DP_PEER_DEVICE_SST_SINK:
- 		ret = connector_status_connected;
- 		/* for logical ports - cache the EDID */
--		if (port->port_num >= DP_MST_LOGICAL_PORT_0 && !port->cached_edid)
-+		if (drm_dp_mst_port_is_logical(port) && !port->cached_edid)
- 			port->cached_edid = drm_edid_read_ddc(connector, &port->aux.ddc);
- 		break;
- 	case DP_PEER_DEVICE_DP_LEGACY_CONV:
-@@ -5977,7 +5977,7 @@ static bool drm_dp_mst_is_virtual_dpcd(struct drm_dp_mst_port *port)
- 		return false;
+-		if (output_bpp * adjusted_mode->crtc_clock >
+-		    available_bw) {
+-			drm_dbg_kms(&i915->drm, "UHBR check failed(required bw %d available %d)\n",
+-				    output_bpp * adjusted_mode->crtc_clock, available_bw);
+-			return -EINVAL;
+-		}
+-	}
++	if (!intel_dp_is_uhbr(crtc_state) || DISPLAY_VER(i915) >= 20 || !dsc)
++		return INT_MAX;
  
- 	/* Virtual DP Sink (Internal Display Panel) */
--	if (port->port_num >= 8)
-+	if (drm_dp_mst_port_is_logical(port))
- 		return true;
+-	return 0;
++	/*
++	 * DSC->DPT interface width:
++	 *   ICL-MTL: 72 bits (each branch has 72 bits, only left branch is used)
++	 *   LNL+:    144 bits (not a bottleneck in any config)
++	 */
++	return div64_u64(mul_u32_u32(intel_dp_link_symbol_clock(crtc_state->port_clock) * 72,
++				     drm_dp_bw_channel_coding_efficiency(true)),
++			 mul_u32_u32(adjusted_mode->crtc_clock, 1000000));
+ }
  
- 	/* DP-to-HDMI Protocol Converter */
-diff --git a/include/drm/display/drm_dp_mst_helper.h b/include/drm/display/drm_dp_mst_helper.h
-index 3ae88a383a41f..c12f18b744d01 100644
---- a/include/drm/display/drm_dp_mst_helper.h
-+++ b/include/drm/display/drm_dp_mst_helper.h
-@@ -927,6 +927,13 @@ int __must_check drm_dp_mst_root_conn_atomic_check(struct drm_connector_state *n
- void drm_dp_mst_get_port_malloc(struct drm_dp_mst_port *port);
- void drm_dp_mst_put_port_malloc(struct drm_dp_mst_port *port);
+ static int intel_dp_mst_bw_overhead(const struct intel_crtc_state *crtc_state,
+@@ -160,6 +157,7 @@ static int intel_dp_mst_find_vcpi_slots_for_bpp(struct intel_encoder *encoder,
+ 	const struct drm_display_mode *adjusted_mode =
+ 		&crtc_state->hw.adjusted_mode;
+ 	int bpp, slots = -EINVAL;
++	int max_dpt_bpp;
+ 	int ret = 0;
  
-+static inline
-+bool drm_dp_mst_port_is_logical(struct drm_dp_mst_port *port)
-+{
-+	return port->port_num >= DP_MST_LOGICAL_PORT_0;
-+}
+ 	mst_state = drm_atomic_get_mst_topology_state(state, &intel_dp->mst_mgr);
+@@ -180,6 +178,13 @@ static int intel_dp_mst_find_vcpi_slots_for_bpp(struct intel_encoder *encoder,
+ 						      crtc_state->port_clock,
+ 						      crtc_state->lane_count);
+ 
++	max_dpt_bpp = intel_dp_mst_max_dpt_bpp(crtc_state, dsc);
++	if (max_bpp > max_dpt_bpp) {
++		drm_dbg_kms(&i915->drm, "Limiting bpp to max DPT bpp (%d -> %d)\n",
++			    max_bpp, max_dpt_bpp);
++		max_bpp = max_dpt_bpp;
++	}
 +
-+struct drm_dp_aux *drm_dp_mst_aux_for_parent(struct drm_dp_mst_port *port);
- struct drm_dp_aux *drm_dp_mst_dsc_aux_for_port(struct drm_dp_mst_port *port);
+ 	drm_dbg_kms(&i915->drm, "Looking for slots in range min bpp %d max bpp %d\n",
+ 		    min_bpp, max_bpp);
  
- static inline struct drm_dp_mst_topology_state *
+@@ -191,10 +196,6 @@ static int intel_dp_mst_find_vcpi_slots_for_bpp(struct intel_encoder *encoder,
+ 
+ 		drm_dbg_kms(&i915->drm, "Trying bpp %d\n", bpp);
+ 
+-		ret = intel_dp_mst_check_constraints(i915, bpp, adjusted_mode, crtc_state, dsc);
+-		if (ret)
+-			continue;
+-
+ 		link_bpp_x16 = to_bpp_x16(dsc ? bpp :
+ 					  intel_dp_output_bpp(crtc_state->output_format, bpp));
+ 
 -- 
 2.43.3
 
