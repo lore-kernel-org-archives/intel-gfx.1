@@ -4,45 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DCD11C54E67
-	for <intel-gfx@archiver.kernel.org>; Wed, 20 Mar 2024 20:11:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6E293C6FD1F
+	for <intel-gfx@archiver.kernel.org>; Wed, 20 Mar 2024 20:11:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4FFB910E7FC;
+	by gabe.freedesktop.org (Postfix) with ESMTP id EA0B710EAFD;
 	Wed, 20 Mar 2024 20:11:40 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="P4Jy+mSY";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="Iwy1H/Z9";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.7])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 952EB10E6D9
- for <intel-gfx@lists.freedesktop.org>; Wed, 20 Mar 2024 20:11:34 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F2ACB10E6B7;
+ Wed, 20 Mar 2024 20:11:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1710965494; x=1742501494;
- h=from:to:subject:date:message-id:in-reply-to:references:
- mime-version:content-transfer-encoding;
- bh=+jr28jUZnu1S7ycOXADDBlsrijggiIgtQz03y9USJ1c=;
- b=P4Jy+mSYj7OyX3G5kc+r9+DVsiQn97FLC33cvA3MU/FpDBBJCrjXC4EF
- kx/wTLIX7LV3qv55dOobsLzaM8gpuLmjml7Tw2u0SNs/IBGC+6rdWr3YI
- X7dJuWMa0ZKFO9nFxOrVhtbop6Boqs70AR/V8fnq3jKcFjYTiyXjDDYD9
- 36ZehQ7j3ufiOY44it88bsIxLTJNi5zvP5+boOc//QJv0/rDovfVCdtC5
- Een4P55lsBvH8dtxD8QznFdJ9iKHyNmQ/P/LPh+X2zDJS4s0bsxv6wmtq
- bzKI51NyGvq2c1h2zlTL7YscEprLjAlkfy5wvdaVBGkIowekEvX7rH7+A w==;
-X-IronPort-AV: E=McAfee;i="6600,9927,11019"; a="31352350"
-X-IronPort-AV: E=Sophos;i="6.07,141,1708416000"; d="scan'208";a="31352350"
+ t=1710965491; x=1742501491;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=Ly6p1Y33UBPvpoptNwEzwhg8CPrlAMNgKErWdAIka3w=;
+ b=Iwy1H/Z98N6F2Axe5t1/eo6DT3hJQbCC9mknF3XfqTimfnK+NAsncl/u
+ GXQgC9CIyEjwg+x7J4c9nVfn9jR/nJKlSUFMs/oAlBiGyxi73NKtOEk3Y
+ C7qTLEBgtTJkNQO3Yp5RvuPPwnvumOk0tOG++azfYPeg7Lw3umLUBB08X
+ FgNjYhdBchq03rc2QQPUbkYeE+sUyOjmsMDasp+FAX38ZP1zNojFJwmV+
+ MeQVq7JSwggXEqtuVW2Bo5BXsjy9IlBb9IbL0fxSc8qIZtn2ZJzO180JY
+ AGIXSzjbXBm29VnM1eSCriGr8Qsmqg889b6hiNmOf7QhEedqHFCqewz7g g==;
+X-IronPort-AV: E=McAfee;i="6600,9927,11019"; a="31352339"
+X-IronPort-AV: E=Sophos;i="6.07,141,1708416000"; d="scan'208";a="31352339"
 Received: from fmviesa007.fm.intel.com ([10.60.135.147])
  by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 20 Mar 2024 13:11:34 -0700
+ 20 Mar 2024 13:11:31 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.07,141,1708416000"; d="scan'208";a="14246529"
+X-IronPort-AV: E=Sophos;i="6.07,141,1708416000"; d="scan'208";a="14246517"
 Received: from ideak-desk.fi.intel.com ([10.237.72.78])
  by fmviesa007-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 20 Mar 2024 13:11:34 -0700
+ 20 Mar 2024 13:11:30 -0700
 From: Imre Deak <imre.deak@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Subject: [PATCH 10/11] drm/i915/dp_mst: Make HBLANK expansion quirk work for
- logical ports
-Date: Wed, 20 Mar 2024 22:11:50 +0200
-Message-ID: <20240320201152.3487892-11-imre.deak@intel.com>
+Cc: dri-devel@lists.freedesktop.org
+Subject: [PATCH 07/11] drm/dp: Add drm_dp_uhbr_channel_coding_supported()
+Date: Wed, 20 Mar 2024 22:11:47 +0200
+Message-ID: <20240320201152.3487892-8-imre.deak@intel.com>
 X-Mailer: git-send-email 2.43.3
 In-Reply-To: <20240320201152.3487892-1-imre.deak@intel.com>
 References: <20240320201152.3487892-1-imre.deak@intel.com>
@@ -63,67 +63,46 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-The DPCD OUI of the logical port on a Dell UHBR monitor - on which the
-AUX device is used to enable DSC - is all 0. To detect if the HBLANK
-expansion quirk is required for this monitor use the OUI of the port's
-parent instead.
+Factor out a function to check for UHBR channel coding support used by a
+follow-up patch in the patchset.
 
-Since in the above case the DPCD of both the logical port and the parent
-port reports being a sink device (vs. branch device) type, read the
-proper sink/branch OUI based on the DPCD device type.
-
-This is required by a follow-up patch enabling the quirk for the above
-Dell monitor.
-
+Cc: dri-devel@lists.freedesktop.org
 Signed-off-by: Imre Deak <imre.deak@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_dp_mst.c | 22 +++++++++++++++------
- 1 file changed, 16 insertions(+), 6 deletions(-)
+ drivers/gpu/drm/i915/display/intel_dp.c | 2 +-
+ include/drm/display/drm_dp_helper.h     | 6 ++++++
+ 2 files changed, 7 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_dp_mst.c b/drivers/gpu/drm/i915/display/intel_dp_mst.c
-index 516b00f791420..76a8fb21b8e52 100644
---- a/drivers/gpu/drm/i915/display/intel_dp_mst.c
-+++ b/drivers/gpu/drm/i915/display/intel_dp_mst.c
-@@ -1512,23 +1512,33 @@ intel_dp_mst_read_decompression_port_dsc_caps(struct intel_dp *intel_dp,
- static bool detect_dsc_hblank_expansion_quirk(const struct intel_connector *connector)
+diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
+index dbe65651bf277..1d13a1ba2b97d 100644
+--- a/drivers/gpu/drm/i915/display/intel_dp.c
++++ b/drivers/gpu/drm/i915/display/intel_dp.c
+@@ -217,7 +217,7 @@ static void intel_dp_set_dpcd_sink_rates(struct intel_dp *intel_dp)
+ 	 * Sink rates for 128b/132b. If set, sink should support all 8b/10b
+ 	 * rates and 10 Gbps.
+ 	 */
+-	if (intel_dp->dpcd[DP_MAIN_LINK_CHANNEL_CODING] & DP_CAP_ANSI_128B132B) {
++	if (drm_dp_uhbr_channel_coding_supported(intel_dp->dpcd)) {
+ 		u8 uhbr_rates = 0;
+ 
+ 		BUILD_BUG_ON(ARRAY_SIZE(intel_dp->sink_rates) < ARRAY_SIZE(dp_rates) + 3);
+diff --git a/include/drm/display/drm_dp_helper.h b/include/drm/display/drm_dp_helper.h
+index a62fcd051d4d4..150c37a99a16f 100644
+--- a/include/drm/display/drm_dp_helper.h
++++ b/include/drm/display/drm_dp_helper.h
+@@ -221,6 +221,12 @@ drm_dp_channel_coding_supported(const u8 dpcd[DP_RECEIVER_CAP_SIZE])
+ 	return dpcd[DP_MAIN_LINK_CHANNEL_CODING] & DP_CAP_ANSI_8B10B;
+ }
+ 
++static inline bool
++drm_dp_uhbr_channel_coding_supported(const u8 dpcd[DP_RECEIVER_CAP_SIZE])
++{
++	return dpcd[DP_MAIN_LINK_CHANNEL_CODING] & DP_CAP_ANSI_128B132B;
++}
++
+ static inline bool
+ drm_dp_alternate_scrambler_reset_cap(const u8 dpcd[DP_RECEIVER_CAP_SIZE])
  {
- 	struct drm_i915_private *i915 = to_i915(connector->base.dev);
-+	struct drm_dp_aux *aux = connector->dp.dsc_decompression_aux;
- 	struct drm_dp_desc desc;
- 	u8 dpcd[DP_RECEIVER_CAP_SIZE];
- 
--	if (!connector->dp.dsc_decompression_aux)
-+	if (!aux)
- 		return false;
- 
--	if (drm_dp_read_desc(connector->dp.dsc_decompression_aux,
--			     &desc, true) < 0)
-+	/*
-+	 * A logical port's OUI (at least for affected sinks) is all 0, so
-+	 * instead of that the parent port's OUI is used for identification.
-+	 */
-+	if (drm_dp_mst_port_is_logical(connector->port)) {
-+		aux = drm_dp_mst_aux_for_parent(connector->port);
-+		if (!aux)
-+			aux = &connector->mst_port->aux;
-+	}
-+
-+	if (drm_dp_read_dpcd_caps(aux, dpcd) < 0)
-+		return false;
-+
-+	if (drm_dp_read_desc(aux, &desc, drm_dp_is_branch(dpcd)) < 0)
- 		return false;
- 
- 	if (!drm_dp_has_quirk(&desc,
- 			      DP_DPCD_QUIRK_HBLANK_EXPANSION_REQUIRES_DSC))
- 		return false;
- 
--	if (drm_dp_read_dpcd_caps(connector->dp.dsc_decompression_aux, dpcd) < 0)
--		return false;
--
- 	if (!(dpcd[DP_RECEIVE_PORT_0_CAP_0] & DP_HBLANK_EXPANSION_CAPABLE))
- 		return false;
- 
 -- 
 2.43.3
 
