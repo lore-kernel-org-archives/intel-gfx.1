@@ -4,49 +4,51 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6E293C6FD1F
-	for <intel-gfx@archiver.kernel.org>; Wed, 20 Mar 2024 20:11:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 42014C54E58
+	for <intel-gfx@archiver.kernel.org>; Wed, 20 Mar 2024 21:06:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EA0B710EAFD;
-	Wed, 20 Mar 2024 20:11:40 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B34B310EAFC;
+	Wed, 20 Mar 2024 21:05:59 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="Iwy1H/Z9";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="SmoCjmL4";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.7])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F2ACB10E6B7;
- Wed, 20 Mar 2024 20:11:30 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.16])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 67BFD10EAFC
+ for <intel-gfx@lists.freedesktop.org>; Wed, 20 Mar 2024 21:05:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1710965491; x=1742501491;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=Ly6p1Y33UBPvpoptNwEzwhg8CPrlAMNgKErWdAIka3w=;
- b=Iwy1H/Z98N6F2Axe5t1/eo6DT3hJQbCC9mknF3XfqTimfnK+NAsncl/u
- GXQgC9CIyEjwg+x7J4c9nVfn9jR/nJKlSUFMs/oAlBiGyxi73NKtOEk3Y
- C7qTLEBgtTJkNQO3Yp5RvuPPwnvumOk0tOG++azfYPeg7Lw3umLUBB08X
- FgNjYhdBchq03rc2QQPUbkYeE+sUyOjmsMDasp+FAX38ZP1zNojFJwmV+
- MeQVq7JSwggXEqtuVW2Bo5BXsjy9IlBb9IbL0fxSc8qIZtn2ZJzO180JY
- AGIXSzjbXBm29VnM1eSCriGr8Qsmqg889b6hiNmOf7QhEedqHFCqewz7g g==;
-X-IronPort-AV: E=McAfee;i="6600,9927,11019"; a="31352339"
-X-IronPort-AV: E=Sophos;i="6.07,141,1708416000"; d="scan'208";a="31352339"
-Received: from fmviesa007.fm.intel.com ([10.60.135.147])
- by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 20 Mar 2024 13:11:31 -0700
+ t=1710968759; x=1742504759;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=Viusi5bI+gehLjOEfWeudYlWnM+w8NLUlTK2XMaw/Rs=;
+ b=SmoCjmL4Bh/bK44u/RSJ7bTBDs2GYhXJ0POIgub+0+fRdvuY9MLjiYKm
+ gfZt30Ud2C3SDDLEhs+DSdBiDzKvuP+C+lim5hS+yiBbfrmEbV0OLSw5N
+ zSwj8Ol+lTGdS3n9juO3gtiq5nEubA9LxgOEv0V6g6GtI7vG1jCrhTkBT
+ F2WGEe8lIbwPvGQg6an19WTC5ZRaPHpZf1+BRUwXaYnf1JnIyfc/jBQ2r
+ ltKJklSdilHBJQFnbjs7DqirJ6TG2yxSP667mHowjN5k3CxYXsAxCdxo2
+ F/KcgeF/OKm5t04G8ZMY7xlHyCDrMO4zIwm9HpFeMuXBXcxk42EZluzJd w==;
+X-IronPort-AV: E=McAfee;i="6600,9927,11019"; a="6533096"
+X-IronPort-AV: E=Sophos;i="6.07,141,1708416000"; 
+   d="scan'208";a="6533096"
+Received: from orviesa010.jf.intel.com ([10.64.159.150])
+ by fmvoesa110.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 20 Mar 2024 14:05:58 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.07,141,1708416000"; d="scan'208";a="14246517"
-Received: from ideak-desk.fi.intel.com ([10.237.72.78])
- by fmviesa007-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 20 Mar 2024 13:11:30 -0700
-From: Imre Deak <imre.deak@intel.com>
+X-IronPort-AV: E=Sophos;i="6.07,141,1708416000"; d="scan'208";a="14181222"
+Received: from josouza-mobl2.bz.intel.com ([10.87.243.88])
+ by orviesa010-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 20 Mar 2024 14:05:57 -0700
+From: =?UTF-8?q?Jos=C3=A9=20Roberto=20de=20Souza?= <jose.souza@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Cc: dri-devel@lists.freedesktop.org
-Subject: [PATCH 07/11] drm/dp: Add drm_dp_uhbr_channel_coding_supported()
-Date: Wed, 20 Mar 2024 22:11:47 +0200
-Message-ID: <20240320201152.3487892-8-imre.deak@intel.com>
-X-Mailer: git-send-email 2.43.3
-In-Reply-To: <20240320201152.3487892-1-imre.deak@intel.com>
-References: <20240320201152.3487892-1-imre.deak@intel.com>
+Cc: Alan Previn <alan.previn.teres.alexis@intel.com>,
+ =?UTF-8?q?Jos=C3=A9=20Roberto=20de=20Souza?= <jose.souza@intel.com>
+Subject: [PATCH] drm/i915: Do not print 'pxp init failed with 0' when it
+ succeed
+Date: Wed, 20 Mar 2024 14:05:47 -0700
+Message-ID: <20240320210547.71937-1-jose.souza@intel.com>
+X-Mailer: git-send-email 2.44.0
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -63,46 +65,28 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Factor out a function to check for UHBR channel coding support used by a
-follow-up patch in the patchset.
+It is misleading, if the intention was to also print something
+in case it succeed it should have a different string.
 
-Cc: dri-devel@lists.freedesktop.org
-Signed-off-by: Imre Deak <imre.deak@intel.com>
+Cc: Alan Previn <alan.previn.teres.alexis@intel.com>
+Signed-off-by: José Roberto de Souza <jose.souza@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_dp.c | 2 +-
- include/drm/display/drm_dp_helper.h     | 6 ++++++
- 2 files changed, 7 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/i915/i915_driver.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
-index dbe65651bf277..1d13a1ba2b97d 100644
---- a/drivers/gpu/drm/i915/display/intel_dp.c
-+++ b/drivers/gpu/drm/i915/display/intel_dp.c
-@@ -217,7 +217,7 @@ static void intel_dp_set_dpcd_sink_rates(struct intel_dp *intel_dp)
- 	 * Sink rates for 128b/132b. If set, sink should support all 8b/10b
- 	 * rates and 10 Gbps.
- 	 */
--	if (intel_dp->dpcd[DP_MAIN_LINK_CHANNEL_CODING] & DP_CAP_ANSI_128B132B) {
-+	if (drm_dp_uhbr_channel_coding_supported(intel_dp->dpcd)) {
- 		u8 uhbr_rates = 0;
+diff --git a/drivers/gpu/drm/i915/i915_driver.c b/drivers/gpu/drm/i915/i915_driver.c
+index 9ee902d5b72c4..4b9233c07a22c 100644
+--- a/drivers/gpu/drm/i915/i915_driver.c
++++ b/drivers/gpu/drm/i915/i915_driver.c
+@@ -800,7 +800,7 @@ int i915_driver_probe(struct pci_dev *pdev, const struct pci_device_id *ent)
+ 		goto out_cleanup_modeset2;
  
- 		BUILD_BUG_ON(ARRAY_SIZE(intel_dp->sink_rates) < ARRAY_SIZE(dp_rates) + 3);
-diff --git a/include/drm/display/drm_dp_helper.h b/include/drm/display/drm_dp_helper.h
-index a62fcd051d4d4..150c37a99a16f 100644
---- a/include/drm/display/drm_dp_helper.h
-+++ b/include/drm/display/drm_dp_helper.h
-@@ -221,6 +221,12 @@ drm_dp_channel_coding_supported(const u8 dpcd[DP_RECEIVER_CAP_SIZE])
- 	return dpcd[DP_MAIN_LINK_CHANNEL_CODING] & DP_CAP_ANSI_8B10B;
- }
+ 	ret = intel_pxp_init(i915);
+-	if (ret != -ENODEV)
++	if (ret && ret != -ENODEV)
+ 		drm_dbg(&i915->drm, "pxp init failed with %d\n", ret);
  
-+static inline bool
-+drm_dp_uhbr_channel_coding_supported(const u8 dpcd[DP_RECEIVER_CAP_SIZE])
-+{
-+	return dpcd[DP_MAIN_LINK_CHANNEL_CODING] & DP_CAP_ANSI_128B132B;
-+}
-+
- static inline bool
- drm_dp_alternate_scrambler_reset_cap(const u8 dpcd[DP_RECEIVER_CAP_SIZE])
- {
+ 	ret = intel_display_driver_probe(i915);
 -- 
-2.43.3
+2.44.0
 
