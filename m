@@ -4,44 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 03543C54E58
-	for <intel-gfx@archiver.kernel.org>; Wed, 20 Mar 2024 06:05:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A8FB1C54E58
+	for <intel-gfx@archiver.kernel.org>; Wed, 20 Mar 2024 06:05:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E150410EC55;
-	Wed, 20 Mar 2024 06:05:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DECCA10ED7F;
+	Wed, 20 Mar 2024 06:05:30 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="nYwKZ+WI";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="YsYZffLi";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.9])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BFE5D10EC10
- for <intel-gfx@lists.freedesktop.org>; Wed, 20 Mar 2024 06:05:17 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 10DB810EC10
+ for <intel-gfx@lists.freedesktop.org>; Wed, 20 Mar 2024 06:05:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
  t=1710914718; x=1742450718;
  h=from:to:subject:date:message-id:in-reply-to:references:
  mime-version:content-transfer-encoding;
- bh=pVIXEglHDwTlsXBTQ+YyD0VfBpbF64lnopQFmIP0zbw=;
- b=nYwKZ+WIMagaAnqQu/ywgClL+ALgpVh7C8v3obDsOLf6vLn/8cv/7KSO
- aZuuHM1gsCoT2pNF9J/b/6zdz6NfrfshO6eML1PzsptwTUtwOINMqqiq1
- p1aEbIA3EwdJ6SOdQnzkxmDIe8oc/g8lnGvS0mePlnaa5KfSL8Scq+sL6
- mExad+p3yUgQpgVE2uiS1m6HisvhF1QodQy+A8hxhw40h6omET8EPL0+l
- Bpt2s6G/BKXhfDGaMZ0qiVrnGzJUaVOIk0CvY8oZFfUCHD8r4fIjxKXlJ
- hhb8OH7sAUgPBcqFJZagbX0S82gSD/CAfQDFDKJbGAgKflDaUjjtrW0Pp Q==;
-X-IronPort-AV: E=McAfee;i="6600,9927,11018"; a="28295579"
-X-IronPort-AV: E=Sophos;i="6.07,139,1708416000"; d="scan'208";a="28295579"
+ bh=jINrDRQISz3CgmYGSOemnq8uEyH09kyPbj4w5p4gbsg=;
+ b=YsYZffLiP4cDA7Ly/2+oNeW15GY94iVSLdGwie/KN8a7NRHr4uUaHBz/
+ AonVG5sw0dxzORnK1coHsZkmIGzZEUpPbae3Gk04NEVpkxRev/sOyZAJn
+ vSFeSBMVS6w43V3x+1c3EIGolw5JkIBkBJ8auq5LRSmnecfl9WARgPPkx
+ ukdnDzZ6Ny3i3a8fUq9XddxdfzDMB4XwZYSFcgkkpjJcCkvL98FxbnehT
+ XyJhnLXSTNsQ6ACM9TiV+2/eGF2e5wPJWaL18eryk2Hsn+xyuanGnEf8e
+ Y52xff0l8/CSWIg7naHoJSFVZF14458kIU7lZjK84tYaqtKLHF3m7cHqT A==;
+X-IronPort-AV: E=McAfee;i="6600,9927,11018"; a="28295583"
+X-IronPort-AV: E=Sophos;i="6.07,139,1708416000"; d="scan'208";a="28295583"
 Received: from orviesa001.jf.intel.com ([10.64.159.141])
  by orvoesa101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  19 Mar 2024 23:05:17 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.07,139,1708416000"; d="scan'208";a="51485496"
+X-IronPort-AV: E=Sophos;i="6.07,139,1708416000"; d="scan'208";a="51485508"
 Received: from lucas-s2600cw.jf.intel.com ([10.165.21.196])
  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 19 Mar 2024 23:05:16 -0700
+ 19 Mar 2024 23:05:17 -0700
 From: Lucas De Marchi <lucas.demarchi@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Subject: [CI 1/6] drm/i915: Drop dead code for xehpsdv
-Date: Tue, 19 Mar 2024 23:02:58 -0700
-Message-ID: <20240320060543.4034215-2-lucas.demarchi@intel.com>
+Subject: [CI 5/6] drm/i915: Drop dead code for pvc
+Date: Tue, 19 Mar 2024 23:03:02 -0700
+Message-ID: <20240320060543.4034215-6-lucas.demarchi@intel.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20240320060543.4034215-1-lucas.demarchi@intel.com>
 References: <20240320060543.4034215-1-lucas.demarchi@intel.com>
@@ -62,1013 +62,970 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-PCI IDs for XEHPSDV were never added and platform always marked with
-force_probe. Drop what's not used and rename some places to either be
-xehp or dg2, depending on the platform/IP checks.
+PCI IDs for PVC were never added and platform always marked with
+force_probe. Drop what's not used and rename some places as needed.
 
 The registers not used anymore are also removed.
 
 Reviewed-by: Rodrigo Vivi <rodrigo.vivi@intel.com>
 Signed-off-by: Lucas De Marchi <lucas.demarchi@intel.com>
 ---
- Documentation/gpu/rfc/i915_vm_bind.h          | 11 +--
- drivers/gpu/drm/i915/gt/gen8_ppgtt.c          | 40 ++++----
- drivers/gpu/drm/i915/gt/intel_gsc.c           | 15 ---
- drivers/gpu/drm/i915/gt/intel_gt_mcr.c        | 20 +---
- drivers/gpu/drm/i915/gt/intel_gt_regs.h       | 50 ----------
- drivers/gpu/drm/i915/gt/intel_gt_sysfs_pm.c   | 21 ++--
- drivers/gpu/drm/i915/gt/intel_lrc.c           | 43 ---------
- drivers/gpu/drm/i915/gt/intel_migrate.c       | 18 ++--
- drivers/gpu/drm/i915/gt/intel_mocs.c          | 31 ------
- drivers/gpu/drm/i915/gt/intel_rps.c           |  2 -
- drivers/gpu/drm/i915/gt/intel_workarounds.c   | 95 -------------------
- drivers/gpu/drm/i915/gt/uc/intel_uc.c         |  4 +-
- drivers/gpu/drm/i915/i915_drv.h               |  4 -
- drivers/gpu/drm/i915/i915_hwmon.c             |  6 --
- drivers/gpu/drm/i915/i915_pci.c               | 17 ----
- drivers/gpu/drm/i915/i915_perf.c              | 11 +--
- drivers/gpu/drm/i915/i915_reg.h               |  3 +-
- drivers/gpu/drm/i915/intel_clock_gating.c     | 10 --
- drivers/gpu/drm/i915/intel_device_info.c      |  1 -
- drivers/gpu/drm/i915/intel_device_info.h      |  1 -
- drivers/gpu/drm/i915/intel_step.c             | 10 --
- drivers/gpu/drm/i915/intel_uncore.c           | 23 +----
- drivers/gpu/drm/i915/selftests/intel_uncore.c |  1 -
- .../gpu/drm/xe/compat-i915-headers/i915_drv.h |  2 -
- 24 files changed, 55 insertions(+), 384 deletions(-)
+ .../gpu/drm/i915/gem/i915_gem_object_types.h  |   2 +-
+ drivers/gpu/drm/i915/gt/gen8_engine_cs.c      |   3 -
+ drivers/gpu/drm/i915/gt/intel_engine_cs.c     |  33 ----
+ drivers/gpu/drm/i915/gt/intel_gt_mcr.c        |  30 +---
+ drivers/gpu/drm/i915/gt/intel_gt_regs.h       |   9 --
+ drivers/gpu/drm/i915/gt/intel_mocs.c          |  19 ---
+ drivers/gpu/drm/i915/gt/intel_rps.c           |   4 +-
+ drivers/gpu/drm/i915/gt/intel_sseu.c          |   9 +-
+ drivers/gpu/drm/i915/gt/intel_workarounds.c   |  82 +---------
+ .../gpu/drm/i915/gt/intel_workarounds.c.rej   |  18 +++
+ drivers/gpu/drm/i915/gt/uc/intel_uc.c         |   4 -
+ drivers/gpu/drm/i915/i915_debugfs.c           |  12 --
+ drivers/gpu/drm/i915/i915_drv.h               |   9 --
+ drivers/gpu/drm/i915/i915_pci.c               |  36 -----
+ drivers/gpu/drm/i915/i915_reg.h               |   1 -
+ drivers/gpu/drm/i915/intel_clock_gating.c     |  16 +-
+ drivers/gpu/drm/i915/intel_device_info.c      |   1 -
+ drivers/gpu/drm/i915/intel_device_info.h      |   1 -
+ drivers/gpu/drm/i915/intel_step.c             |  70 +--------
+ drivers/gpu/drm/i915/intel_uncore.c           | 142 ------------------
+ drivers/gpu/drm/i915/selftests/intel_uncore.c |   2 -
+ .../gpu/drm/xe/compat-i915-headers/i915_drv.h |   4 -
+ 22 files changed, 27 insertions(+), 480 deletions(-)
+ create mode 100644 drivers/gpu/drm/i915/gt/intel_workarounds.c.rej
 
-diff --git a/Documentation/gpu/rfc/i915_vm_bind.h b/Documentation/gpu/rfc/i915_vm_bind.h
-index 8a8fcd4fceac6..bc26dc1261041 100644
---- a/Documentation/gpu/rfc/i915_vm_bind.h
-+++ b/Documentation/gpu/rfc/i915_vm_bind.h
-@@ -93,12 +93,11 @@ struct drm_i915_gem_timeline_fence {
-  * Multiple VA mappings can be created to the same section of the object
-  * (aliasing).
-  *
-- * The @start, @offset and @length must be 4K page aligned. However the DG2
-- * and XEHPSDV has 64K page size for device local memory and has compact page
-- * table. On those platforms, for binding device local-memory objects, the
-- * @start, @offset and @length must be 64K aligned. Also, UMDs should not mix
-- * the local memory 64K page and the system memory 4K page bindings in the same
-- * 2M range.
-+ * The @start, @offset and @length must be 4K page aligned. However the DG2 has
-+ * 64K page size for device local memory and has compact page table. On that
-+ * platform, for binding device local-memory objects, the @start, @offset and
-+ * @length must be 64K aligned. Also, UMDs should not mix the local memory 64K
-+ * page and the system memory 4K page bindings in the same 2M range.
-  *
-  * Error code -EINVAL will be returned if @start, @offset and @length are not
-  * properly aligned. In version 1 (See I915_PARAM_VM_BIND_VERSION), error code
-diff --git a/drivers/gpu/drm/i915/gt/gen8_ppgtt.c b/drivers/gpu/drm/i915/gt/gen8_ppgtt.c
-index fa46d2308b0ed..1bd0e041e15c2 100644
---- a/drivers/gpu/drm/i915/gt/gen8_ppgtt.c
-+++ b/drivers/gpu/drm/i915/gt/gen8_ppgtt.c
-@@ -500,11 +500,11 @@ gen8_ppgtt_insert_pte(struct i915_ppgtt *ppgtt,
- }
- 
- static void
--xehpsdv_ppgtt_insert_huge(struct i915_address_space *vm,
--			  struct i915_vma_resource *vma_res,
--			  struct sgt_dma *iter,
--			  unsigned int pat_index,
--			  u32 flags)
-+xehp_ppgtt_insert_huge(struct i915_address_space *vm,
-+		       struct i915_vma_resource *vma_res,
-+		       struct sgt_dma *iter,
-+		       unsigned int pat_index,
-+		       u32 flags)
+diff --git a/drivers/gpu/drm/i915/gem/i915_gem_object_types.h b/drivers/gpu/drm/i915/gem/i915_gem_object_types.h
+index 0c5cdab278b69..1495b60744928 100644
+--- a/drivers/gpu/drm/i915/gem/i915_gem_object_types.h
++++ b/drivers/gpu/drm/i915/gem/i915_gem_object_types.h
+@@ -386,7 +386,7 @@ struct drm_i915_gem_object {
+ 	 * and kernel mode driver for caching policy control after GEN12.
+ 	 * In the meantime platform specific tables are created to translate
+ 	 * i915_cache_level into pat index, for more details check the macros
+-	 * defined i915/i915_pci.c, e.g. PVC_CACHELEVEL.
++	 * defined i915/i915_pci.c, e.g. TGL_CACHELEVEL.
+ 	 * For backward compatibility, this field contains values exactly match
+ 	 * the entries of enum i915_cache_level for pre-GEN12 platforms (See
+ 	 * LEGACY_CACHELEVEL), so that the PTE encode functions for these
+diff --git a/drivers/gpu/drm/i915/gt/gen8_engine_cs.c b/drivers/gpu/drm/i915/gt/gen8_engine_cs.c
+index f59914df6b5a7..e9f65f27b53fb 100644
+--- a/drivers/gpu/drm/i915/gt/gen8_engine_cs.c
++++ b/drivers/gpu/drm/i915/gt/gen8_engine_cs.c
+@@ -189,9 +189,6 @@ static bool gen12_needs_ccs_aux_inv(struct intel_engine_cs *engine)
  {
- 	const gen8_pte_t pte_encode = vm->pte_encode(0, pat_index, flags);
- 	unsigned int rem = sg_dma_len(iter->sg);
-@@ -741,8 +741,8 @@ static void gen8_ppgtt_insert(struct i915_address_space *vm,
- 	struct sgt_dma iter = sgt_dma(vma_res);
+ 	i915_reg_t reg = gen12_get_aux_inv_reg(engine);
  
- 	if (vma_res->bi.page_sizes.sg > I915_GTT_PAGE_SIZE) {
--		if (GRAPHICS_VER_FULL(vm->i915) >= IP_VER(12, 50))
--			xehpsdv_ppgtt_insert_huge(vm, vma_res, &iter, pat_index, flags);
-+		if (GRAPHICS_VER_FULL(vm->i915) >= IP_VER(12, 55))
-+			xehp_ppgtt_insert_huge(vm, vma_res, &iter, pat_index, flags);
- 		else
- 			gen8_ppgtt_insert_huge(vm, vma_res, &iter, pat_index, flags);
- 	} else  {
-@@ -781,11 +781,11 @@ static void gen8_ppgtt_insert_entry(struct i915_address_space *vm,
- 	drm_clflush_virt_range(&vaddr[gen8_pd_index(idx, 0)], sizeof(*vaddr));
- }
- 
--static void __xehpsdv_ppgtt_insert_entry_lm(struct i915_address_space *vm,
--					    dma_addr_t addr,
--					    u64 offset,
--					    unsigned int pat_index,
--					    u32 flags)
-+static void xehp_ppgtt_insert_entry_lm(struct i915_address_space *vm,
-+				       dma_addr_t addr,
-+				       u64 offset,
-+				       unsigned int pat_index,
-+				       u32 flags)
- {
- 	u64 idx = offset >> GEN8_PTE_SHIFT;
- 	struct i915_page_directory * const pdp =
-@@ -810,15 +810,15 @@ static void __xehpsdv_ppgtt_insert_entry_lm(struct i915_address_space *vm,
- 	vaddr[gen8_pd_index(idx, 0) / 16] = vm->pte_encode(addr, pat_index, flags);
- }
- 
--static void xehpsdv_ppgtt_insert_entry(struct i915_address_space *vm,
--				       dma_addr_t addr,
--				       u64 offset,
--				       unsigned int pat_index,
--				       u32 flags)
-+static void xehp_ppgtt_insert_entry(struct i915_address_space *vm,
-+				    dma_addr_t addr,
-+				    u64 offset,
-+				    unsigned int pat_index,
-+				    u32 flags)
- {
- 	if (flags & PTE_LM)
--		return __xehpsdv_ppgtt_insert_entry_lm(vm, addr, offset,
--						       pat_index, flags);
-+		return xehp_ppgtt_insert_entry_lm(vm, addr, offset,
-+						  pat_index, flags);
- 
- 	return gen8_ppgtt_insert_entry(vm, addr, offset, pat_index, flags);
- }
-@@ -1042,7 +1042,7 @@ struct i915_ppgtt *gen8_ppgtt_create(struct intel_gt *gt,
- 	ppgtt->vm.bind_async_flags = I915_VMA_LOCAL_BIND;
- 	ppgtt->vm.insert_entries = gen8_ppgtt_insert;
- 	if (HAS_64K_PAGES(gt->i915))
--		ppgtt->vm.insert_page = xehpsdv_ppgtt_insert_entry;
-+		ppgtt->vm.insert_page = xehp_ppgtt_insert_entry;
- 	else
- 		ppgtt->vm.insert_page = gen8_ppgtt_insert_entry;
- 	ppgtt->vm.allocate_va_range = gen8_ppgtt_alloc;
-diff --git a/drivers/gpu/drm/i915/gt/intel_gsc.c b/drivers/gpu/drm/i915/gt/intel_gsc.c
-index 6d440de8ba017..1e925c75fb080 100644
---- a/drivers/gpu/drm/i915/gt/intel_gsc.c
-+++ b/drivers/gpu/drm/i915/gt/intel_gsc.c
-@@ -103,19 +103,6 @@ static const struct gsc_def gsc_def_dg1[] = {
- 	}
- };
- 
--static const struct gsc_def gsc_def_xehpsdv[] = {
--	{
--		/* HECI1 not enabled on the device. */
--	},
--	{
--		.name = "mei-gscfi",
--		.bar = DG1_GSC_HECI2_BASE,
--		.bar_size = GSC_BAR_LENGTH,
--		.use_polling = true,
--		.slow_firmware = true,
--	}
--};
+-	if (IS_PONTEVECCHIO(engine->i915))
+-		return false;
 -
- static const struct gsc_def gsc_def_dg2[] = {
- 	{
- 		.name = "mei-gsc",
-@@ -188,8 +175,6 @@ static void gsc_init_one(struct drm_i915_private *i915, struct intel_gsc *gsc,
+ 	/*
+ 	 * So far platforms supported by i915 having flat ccs do not require
+ 	 * AUX invalidation. Check also whether the engine requires it.
+diff --git a/drivers/gpu/drm/i915/gt/intel_engine_cs.c b/drivers/gpu/drm/i915/gt/intel_engine_cs.c
+index 75bde8c1aa5da..396f5fe993c3f 100644
+--- a/drivers/gpu/drm/i915/gt/intel_engine_cs.c
++++ b/drivers/gpu/drm/i915/gt/intel_engine_cs.c
+@@ -839,38 +839,6 @@ static void engine_mask_apply_compute_fuses(struct intel_gt *gt)
+ 	}
+ }
  
- 	if (IS_DG1(i915)) {
- 		def = &gsc_def_dg1[intf_id];
--	} else if (IS_XEHPSDV(i915)) {
--		def = &gsc_def_xehpsdv[intf_id];
- 	} else if (IS_DG2(i915)) {
- 		def = &gsc_def_dg2[intf_id];
- 	} else {
+-static void engine_mask_apply_copy_fuses(struct intel_gt *gt)
+-{
+-	struct drm_i915_private *i915 = gt->i915;
+-	struct intel_gt_info *info = &gt->info;
+-	unsigned long meml3_mask;
+-	unsigned long quad;
+-
+-	if (!(GRAPHICS_VER_FULL(i915) >= IP_VER(12, 60) &&
+-	      GRAPHICS_VER_FULL(i915) < IP_VER(12, 70)))
+-		return;
+-
+-	meml3_mask = intel_uncore_read(gt->uncore, GEN10_MIRROR_FUSE3);
+-	meml3_mask = REG_FIELD_GET(GEN12_MEML3_EN_MASK, meml3_mask);
+-
+-	/*
+-	 * Link Copy engines may be fused off according to meml3_mask. Each
+-	 * bit is a quad that houses 2 Link Copy and two Sub Copy engines.
+-	 */
+-	for_each_clear_bit(quad, &meml3_mask, GEN12_MAX_MSLICES) {
+-		unsigned int instance = quad * 2 + 1;
+-		intel_engine_mask_t mask = GENMASK(_BCS(instance + 1),
+-						   _BCS(instance));
+-
+-		if (mask & info->engine_mask) {
+-			gt_dbg(gt, "bcs%u fused off\n", instance);
+-			gt_dbg(gt, "bcs%u fused off\n", instance + 1);
+-
+-			info->engine_mask &= ~mask;
+-		}
+-	}
+-}
+-
+ /*
+  * Determine which engines are fused off in our particular hardware.
+  * Note that we have a catch-22 situation where we need to be able to access
+@@ -889,7 +857,6 @@ static intel_engine_mask_t init_engine_mask(struct intel_gt *gt)
+ 
+ 	engine_mask_apply_media_fuses(gt);
+ 	engine_mask_apply_compute_fuses(gt);
+-	engine_mask_apply_copy_fuses(gt);
+ 
+ 	/*
+ 	 * The only use of the GSC CS is to load and communicate with the GSC
 diff --git a/drivers/gpu/drm/i915/gt/intel_gt_mcr.c b/drivers/gpu/drm/i915/gt/intel_gt_mcr.c
-index e253750a51c56..5a2bd8de155a8 100644
+index 29443bf7c06c9..b8912bd6c08ed 100644
 --- a/drivers/gpu/drm/i915/gt/intel_gt_mcr.c
 +++ b/drivers/gpu/drm/i915/gt/intel_gt_mcr.c
-@@ -57,24 +57,12 @@ static const struct intel_mmio_range icl_l3bank_steering_table[] = {
-  * are of a "GAM" subclass that has special rules.  Thus we use a separate
-  * GAM table farther down for those.
-  */
--static const struct intel_mmio_range xehpsdv_mslice_steering_table[] = {
-+static const struct intel_mmio_range dg2_mslice_steering_table[] = {
- 	{ 0x00DD00, 0x00DDFF },
- 	{ 0x00E900, 0x00FFFF }, /* 0xEA00 - OxEFFF is unused */
+@@ -69,27 +69,6 @@ static const struct intel_mmio_range dg2_lncf_steering_table[] = {
  	{},
  };
  
--static const struct intel_mmio_range xehpsdv_gam_steering_table[] = {
--	{ 0x004000, 0x004AFF },
--	{ 0x00C800, 0x00CFFF },
+-/*
+- * We have several types of MCR registers on PVC where steering to (0,0)
+- * will always provide us with a non-terminated value.  We'll stick them
+- * all in the same table for simplicity.
+- */
+-static const struct intel_mmio_range pvc_instance0_steering_table[] = {
+-	{ 0x004000, 0x004AFF },		/* HALF-BSLICE */
+-	{ 0x008800, 0x00887F },		/* CC */
+-	{ 0x008A80, 0x008AFF },		/* TILEPSMI */
+-	{ 0x00B000, 0x00B0FF },		/* HALF-BSLICE */
+-	{ 0x00B100, 0x00B3FF },		/* L3BANK */
+-	{ 0x00C800, 0x00CFFF },		/* HALF-BSLICE */
+-	{ 0x00D800, 0x00D8FF },		/* HALF-BSLICE */
+-	{ 0x00DD00, 0x00DDFF },		/* BSLICE */
+-	{ 0x00E900, 0x00E9FF },		/* HALF-BSLICE */
+-	{ 0x00EC00, 0x00EEFF },		/* HALF-BSLICE */
+-	{ 0x00F000, 0x00FFFF },		/* HALF-BSLICE */
+-	{ 0x024180, 0x0241FF },		/* HALF-BSLICE */
 -	{},
 -};
 -
--static const struct intel_mmio_range xehpsdv_lncf_steering_table[] = {
--	{ 0x00B000, 0x00B0FF },
--	{ 0x00D800, 0x00D8FF },
--	{},
--};
--
- static const struct intel_mmio_range dg2_lncf_steering_table[] = {
- 	{ 0x00B000, 0x00B0FF },
- 	{ 0x00D880, 0x00D8FF },
-@@ -188,17 +176,13 @@ void intel_gt_mcr_init(struct intel_gt *gt)
- 	} else if (IS_PONTEVECCHIO(i915)) {
- 		gt->steering_table[INSTANCE0] = pvc_instance0_steering_table;
+ static const struct intel_mmio_range xelpg_instance0_steering_table[] = {
+ 	{ 0x000B00, 0x000BFF },         /* SQIDI */
+ 	{ 0x001000, 0x001FFF },         /* SQIDI */
+@@ -173,8 +152,6 @@ void intel_gt_mcr_init(struct intel_gt *gt)
+ 		gt->steering_table[INSTANCE0] = xelpg_instance0_steering_table;
+ 		gt->steering_table[L3BANK] = xelpg_l3bank_steering_table;
+ 		gt->steering_table[DSS] = xelpg_dss_steering_table;
+-	} else if (IS_PONTEVECCHIO(i915)) {
+-		gt->steering_table[INSTANCE0] = pvc_instance0_steering_table;
  	} else if (IS_DG2(i915)) {
--		gt->steering_table[MSLICE] = xehpsdv_mslice_steering_table;
-+		gt->steering_table[MSLICE] = dg2_mslice_steering_table;
+ 		gt->steering_table[MSLICE] = dg2_mslice_steering_table;
  		gt->steering_table[LNCF] = dg2_lncf_steering_table;
- 		/*
- 		 * No need to hook up the GAM table since it has a dedicated
- 		 * steering control register on DG2 and can use implicit
- 		 * steering.
- 		 */
--	} else if (IS_XEHPSDV(i915)) {
--		gt->steering_table[MSLICE] = xehpsdv_mslice_steering_table;
--		gt->steering_table[LNCF] = xehpsdv_lncf_steering_table;
--		gt->steering_table[GAM] = xehpsdv_gam_steering_table;
- 	} else if (GRAPHICS_VER(i915) >= 11 &&
- 		   GRAPHICS_VER_FULL(i915) < IP_VER(12, 50)) {
- 		gt->steering_table[L3BANK] = icl_l3bank_steering_table;
+@@ -805,8 +782,6 @@ void intel_gt_mcr_report_steering(struct drm_printer *p, struct intel_gt *gt,
+ 		for (int i = 0; i < NUM_STEERING_TYPES; i++)
+ 			if (gt->steering_table[i])
+ 				report_steering_type(p, gt, i, dump_table);
+-	} else if (IS_PONTEVECCHIO(gt->i915)) {
+-		report_steering_type(p, gt, INSTANCE0, dump_table);
+ 	} else if (HAS_MSLICE_STEERING(gt->i915)) {
+ 		report_steering_type(p, gt, MSLICE, dump_table);
+ 		report_steering_type(p, gt, LNCF, dump_table);
+@@ -826,10 +801,7 @@ void intel_gt_mcr_report_steering(struct drm_printer *p, struct intel_gt *gt,
+ void intel_gt_mcr_get_ss_steering(struct intel_gt *gt, unsigned int dss,
+ 				   unsigned int *group, unsigned int *instance)
+ {
+-	if (IS_PONTEVECCHIO(gt->i915)) {
+-		*group = dss / GEN_DSS_PER_CSLICE;
+-		*instance = dss % GEN_DSS_PER_CSLICE;
+-	} else if (GRAPHICS_VER_FULL(gt->i915) >= IP_VER(12, 55)) {
++	if (GRAPHICS_VER_FULL(gt->i915) >= IP_VER(12, 55)) {
+ 		*group = dss / GEN_DSS_PER_GSLICE;
+ 		*instance = dss % GEN_DSS_PER_GSLICE;
+ 	} else {
 diff --git a/drivers/gpu/drm/i915/gt/intel_gt_regs.h b/drivers/gpu/drm/i915/gt/intel_gt_regs.h
-index 50962cfd1353a..919c079037677 100644
+index 919c079037677..8d8d781b44b6b 100644
 --- a/drivers/gpu/drm/i915/gt/intel_gt_regs.h
 +++ b/drivers/gpu/drm/i915/gt/intel_gt_regs.h
-@@ -718,44 +718,11 @@
+@@ -953,10 +953,6 @@
+ #define   GEN7_WA_FOR_GEN7_L3_CONTROL		0x3C47FF8C
+ #define   GEN7_L3AGDIS				(1 << 19)
  
- #define UNSLICE_UNIT_LEVEL_CLKGATE		_MMIO(0x9434)
- #define   VFUNIT_CLKGATE_DIS			REG_BIT(20)
--#define   TSGUNIT_CLKGATE_DIS			REG_BIT(17) /* XEHPSDV */
- #define   CG3DDISCFEG_CLKGATE_DIS		REG_BIT(17) /* DG2 */
- #define   GAMEDIA_CLKGATE_DIS			REG_BIT(11)
- #define   HSUNIT_CLKGATE_DIS			REG_BIT(8)
- #define   VSUNIT_CLKGATE_DIS			REG_BIT(3)
+-#define XEHPC_LNCFMISCCFGREG0			MCR_REG(0xb01c)
+-#define   XEHPC_HOSTCACHEEN			REG_BIT(1)
+-#define   XEHPC_OVRLSCCC			REG_BIT(0)
+-
+ #define GEN7_L3CNTLREG2				_MMIO(0xb020)
  
--#define UNSLCGCTL9440				_MMIO(0x9440)
--#define   GAMTLBOACS_CLKGATE_DIS		REG_BIT(28)
--#define   GAMTLBVDBOX5_CLKGATE_DIS		REG_BIT(27)
--#define   GAMTLBVDBOX6_CLKGATE_DIS		REG_BIT(26)
--#define   GAMTLBVDBOX3_CLKGATE_DIS		REG_BIT(24)
--#define   GAMTLBVDBOX4_CLKGATE_DIS		REG_BIT(23)
--#define   GAMTLBVDBOX7_CLKGATE_DIS		REG_BIT(22)
--#define   GAMTLBVDBOX2_CLKGATE_DIS		REG_BIT(21)
--#define   GAMTLBVDBOX0_CLKGATE_DIS		REG_BIT(17)
--#define   GAMTLBKCR_CLKGATE_DIS			REG_BIT(16)
--#define   GAMTLBGUC_CLKGATE_DIS			REG_BIT(15)
--#define   GAMTLBBLT_CLKGATE_DIS			REG_BIT(14)
--#define   GAMTLBVDBOX1_CLKGATE_DIS		REG_BIT(6)
--
--#define UNSLCGCTL9444				_MMIO(0x9444)
--#define   GAMTLBGFXA0_CLKGATE_DIS		REG_BIT(30)
--#define   GAMTLBGFXA1_CLKGATE_DIS		REG_BIT(29)
--#define   GAMTLBCOMPA0_CLKGATE_DIS		REG_BIT(28)
--#define   GAMTLBCOMPA1_CLKGATE_DIS		REG_BIT(27)
--#define   GAMTLBCOMPB0_CLKGATE_DIS		REG_BIT(26)
--#define   GAMTLBCOMPB1_CLKGATE_DIS		REG_BIT(25)
--#define   GAMTLBCOMPC0_CLKGATE_DIS		REG_BIT(24)
--#define   GAMTLBCOMPC1_CLKGATE_DIS		REG_BIT(23)
--#define   GAMTLBCOMPD0_CLKGATE_DIS		REG_BIT(22)
--#define   GAMTLBCOMPD1_CLKGATE_DIS		REG_BIT(21)
--#define   GAMTLBMERT_CLKGATE_DIS		REG_BIT(20)
--#define   GAMTLBVEBOX3_CLKGATE_DIS		REG_BIT(19)
--#define   GAMTLBVEBOX2_CLKGATE_DIS		REG_BIT(18)
--#define   GAMTLBVEBOX1_CLKGATE_DIS		REG_BIT(17)
--#define   GAMTLBVEBOX0_CLKGATE_DIS		REG_BIT(16)
--#define   LTCDD_CLKGATE_DIS			REG_BIT(10)
--
- #define GEN11_SLICE_UNIT_LEVEL_CLKGATE		_MMIO(0x94d4)
- #define XEHP_SLICE_UNIT_LEVEL_CLKGATE		MCR_REG(0x94d4)
- #define   SARBUNIT_CLKGATE_DIS			(1 << 5)
-@@ -765,9 +732,6 @@
- #define   L3_CLKGATE_DIS			REG_BIT(16)
- #define   L3_CR2X_CLKGATE_DIS			REG_BIT(17)
- 
--#define SCCGCTL94DC				MCR_REG(0x94dc)
--#define   CG3DDISURB				REG_BIT(14)
--
- #define UNSLICE_UNIT_LEVEL_CLKGATE2		_MMIO(0x94e4)
- #define   VSUNIT_CLKGATE_DIS_TGL		REG_BIT(19)
- #define   PSDUNIT_CLKGATE_DIS			REG_BIT(5)
-@@ -1046,9 +1010,6 @@
- #define XEHP_L3SQCREG5				MCR_REG(0xb158)
- #define   L3_PWM_TIMER_INIT_VAL_MASK		REG_GENMASK(9, 0)
- 
--#define MLTICTXCTL				MCR_REG(0xb170)
--#define   TDONRENDER				REG_BIT(2)
--
+ /* MOCS (Memory Object Control State) registers */
+@@ -1013,11 +1009,6 @@
  #define XEHP_L3SCQREG7				MCR_REG(0xb188)
  #define   BLEND_FILL_CACHING_OPT_DIS		REG_BIT(3)
  
-@@ -1057,9 +1018,6 @@
- #define   SCRUB_RATE_PER_BANK_MASK		REG_GENMASK(2, 0)
- #define   SCRUB_RATE_4B_PER_CLK			REG_FIELD_PREP(SCRUB_RATE_PER_BANK_MASK, 0x6)
- 
--#define L3SQCREG1_CCS0				MCR_REG(0xb200)
--#define   FLUSHALLNONCOH			REG_BIT(5)
+-#define XEHPC_L3SCRUB				MCR_REG(0xb18c)
+-#define   SCRUB_CL_DWNGRADE_SHARED		REG_BIT(12)
+-#define   SCRUB_RATE_PER_BANK_MASK		REG_GENMASK(2, 0)
+-#define   SCRUB_RATE_4B_PER_CLK			REG_FIELD_PREP(SCRUB_RATE_PER_BANK_MASK, 0x6)
 -
  #define GEN11_GLBLINVL				_MMIO(0xb404)
  #define   GEN11_BANK_HASH_ADDR_EXCL_MASK	(0x7f << 5)
  #define   GEN11_BANK_HASH_ADDR_EXCL_BIT0	(1 << 5)
-@@ -1109,7 +1067,6 @@
- #define XEHP_COMPCTX_TLB_INV_CR			MCR_REG(0xcf04)
- #define XELPMP_GSC_TLB_INV_CR			_MMIO(0xcf04)   /* media GT only */
- 
--#define XEHP_MERT_MOD_CTRL			MCR_REG(0xcf28)
- #define RENDER_MOD_CTRL				MCR_REG(0xcf2c)
- #define COMP_MOD_CTRL				MCR_REG(0xcf30)
- #define XELPMP_GSC_MOD_CTRL			_MMIO(0xcf30)	/* media GT only */
-@@ -1185,7 +1142,6 @@
- #define EU_PERF_CNTL4				PERF_REG(0xe45c)
- 
- #define GEN9_ROW_CHICKEN4			MCR_REG(0xe48c)
--#define   GEN12_DISABLE_GRF_CLEAR		REG_BIT(13)
- #define   XEHP_DIS_BBL_SYSPIPE			REG_BIT(11)
- #define   GEN12_DISABLE_TDL_PUSH		REG_BIT(9)
- #define   GEN11_DIS_PICK_2ND_EU			REG_BIT(7)
-@@ -1202,7 +1158,6 @@
- #define   FLOW_CONTROL_ENABLE			REG_BIT(15)
- #define   UGM_BACKUP_MODE			REG_BIT(13)
- #define   MDQ_ARBITRATION_MODE			REG_BIT(12)
--#define   SYSTOLIC_DOP_CLOCK_GATING_DIS		REG_BIT(10)
- #define   PARTIAL_INSTRUCTION_SHOOTDOWN_DISABLE	REG_BIT(8)
- #define   STALL_DOP_GATING_DISABLE		REG_BIT(5)
- #define   THROTTLE_12_5				REG_GENMASK(4, 2)
-@@ -1679,11 +1634,6 @@
- 
- #define GEN12_SFC_DONE(n)			_MMIO(0x1cc000 + (n) * 0x1000)
- 
--#define GT0_PACKAGE_ENERGY_STATUS		_MMIO(0x250004)
--#define GT0_PACKAGE_RAPL_LIMIT			_MMIO(0x250008)
--#define GT0_PACKAGE_POWER_SKU_UNIT		_MMIO(0x250068)
--#define GT0_PLATFORM_ENERGY_STATUS		_MMIO(0x25006c)
--
- /*
-  * Standalone Media's non-engine GT registers are located at their regular GT
-  * offsets plus 0x380000.  This extra offset is stored inside the intel_uncore
-diff --git a/drivers/gpu/drm/i915/gt/intel_gt_sysfs_pm.c b/drivers/gpu/drm/i915/gt/intel_gt_sysfs_pm.c
-index eca4a6a65556b..d7784650e4d93 100644
---- a/drivers/gpu/drm/i915/gt/intel_gt_sysfs_pm.c
-+++ b/drivers/gpu/drm/i915/gt/intel_gt_sysfs_pm.c
-@@ -573,7 +573,6 @@ static ssize_t media_freq_factor_show(struct kobject *kobj,
- 				      char *buff)
- {
- 	struct intel_gt *gt = intel_gt_sysfs_get_drvdata(kobj, attr->attr.name);
--	struct intel_guc_slpc *slpc = &gt_to_guc(gt)->slpc;
- 	intel_wakeref_t wakeref;
- 	u32 mode;
- 
-@@ -581,20 +580,12 @@ static ssize_t media_freq_factor_show(struct kobject *kobj,
- 	 * Retrieve media_ratio_mode from GEN6_RPNSWREQ bit 13 set by
- 	 * GuC. GEN6_RPNSWREQ:13 value 0 represents 1:2 and 1 represents 1:1
- 	 */
--	if (IS_XEHPSDV(gt->i915) &&
--	    slpc->media_ratio_mode == SLPC_MEDIA_RATIO_MODE_DYNAMIC_CONTROL) {
--		/*
--		 * For XEHPSDV dynamic mode GEN6_RPNSWREQ:13 does not contain
--		 * the media_ratio_mode, just return the cached media ratio
--		 */
--		mode = slpc->media_ratio_mode;
--	} else {
--		with_intel_runtime_pm(gt->uncore->rpm, wakeref)
--			mode = intel_uncore_read(gt->uncore, GEN6_RPNSWREQ);
--		mode = REG_FIELD_GET(GEN12_MEDIA_FREQ_RATIO, mode) ?
--			SLPC_MEDIA_RATIO_MODE_FIXED_ONE_TO_ONE :
--			SLPC_MEDIA_RATIO_MODE_FIXED_ONE_TO_TWO;
--	}
-+	with_intel_runtime_pm(gt->uncore->rpm, wakeref)
-+		mode = intel_uncore_read(gt->uncore, GEN6_RPNSWREQ);
-+
-+	mode = REG_FIELD_GET(GEN12_MEDIA_FREQ_RATIO, mode) ?
-+		SLPC_MEDIA_RATIO_MODE_FIXED_ONE_TO_ONE :
-+		SLPC_MEDIA_RATIO_MODE_FIXED_ONE_TO_TWO;
- 
- 	return sysfs_emit(buff, "%u\n", media_ratio_mode_to_factor(mode));
- }
-diff --git a/drivers/gpu/drm/i915/gt/intel_lrc.c b/drivers/gpu/drm/i915/gt/intel_lrc.c
-index 7c367ba8d9dcf..7f1b00cb9924c 100644
---- a/drivers/gpu/drm/i915/gt/intel_lrc.c
-+++ b/drivers/gpu/drm/i915/gt/intel_lrc.c
-@@ -546,47 +546,6 @@ static const u8 gen12_rcs_offsets[] = {
- 	END
- };
- 
--static const u8 xehp_rcs_offsets[] = {
--	NOP(1),
--	LRI(13, POSTED),
--	REG16(0x244),
--	REG(0x034),
--	REG(0x030),
--	REG(0x038),
--	REG(0x03c),
--	REG(0x168),
--	REG(0x140),
--	REG(0x110),
--	REG(0x1c0),
--	REG(0x1c4),
--	REG(0x1c8),
--	REG(0x180),
--	REG16(0x2b4),
--
--	NOP(5),
--	LRI(9, POSTED),
--	REG16(0x3a8),
--	REG16(0x28c),
--	REG16(0x288),
--	REG16(0x284),
--	REG16(0x280),
--	REG16(0x27c),
--	REG16(0x278),
--	REG16(0x274),
--	REG16(0x270),
--
--	LRI(3, POSTED),
--	REG(0x1b0),
--	REG16(0x5a8),
--	REG16(0x5ac),
--
--	NOP(6),
--	LRI(1, 0),
--	REG(0x0c8),
--
--	END
--};
--
- static const u8 dg2_rcs_offsets[] = {
- 	NOP(1),
- 	LRI(15, POSTED),
-@@ -695,8 +654,6 @@ static const u8 *reg_offsets(const struct intel_engine_cs *engine)
- 			return mtl_rcs_offsets;
- 		else if (GRAPHICS_VER_FULL(engine->i915) >= IP_VER(12, 55))
- 			return dg2_rcs_offsets;
--		else if (GRAPHICS_VER_FULL(engine->i915) >= IP_VER(12, 50))
--			return xehp_rcs_offsets;
- 		else if (GRAPHICS_VER(engine->i915) >= 12)
- 			return gen12_rcs_offsets;
- 		else if (GRAPHICS_VER(engine->i915) >= 11)
-diff --git a/drivers/gpu/drm/i915/gt/intel_migrate.c b/drivers/gpu/drm/i915/gt/intel_migrate.c
-index 576e5ef0289ba..86ba2f2e485c5 100644
---- a/drivers/gpu/drm/i915/gt/intel_migrate.c
-+++ b/drivers/gpu/drm/i915/gt/intel_migrate.c
-@@ -35,9 +35,9 @@ static bool engine_supports_migration(struct intel_engine_cs *engine)
- 	return true;
- }
- 
--static void xehpsdv_toggle_pdes(struct i915_address_space *vm,
--				struct i915_page_table *pt,
--				void *data)
-+static void xehp_toggle_pdes(struct i915_address_space *vm,
-+			     struct i915_page_table *pt,
-+			     void *data)
- {
- 	struct insert_pte_data *d = data;
- 
-@@ -52,9 +52,9 @@ static void xehpsdv_toggle_pdes(struct i915_address_space *vm,
- 	d->offset += SZ_2M;
- }
- 
--static void xehpsdv_insert_pte(struct i915_address_space *vm,
--			       struct i915_page_table *pt,
--			       void *data)
-+static void xehp_insert_pte(struct i915_address_space *vm,
-+			    struct i915_page_table *pt,
-+			    void *data)
- {
- 	struct insert_pte_data *d = data;
- 
-@@ -120,7 +120,7 @@ static struct i915_address_space *migrate_vm(struct intel_gt *gt)
- 	 * 512 entry layout using 4K GTT pages. The other two windows just map
- 	 * lmem pages and must use the new compact 32 entry layout using 64K GTT
- 	 * pages, which ensures we can address any lmem object that the user
--	 * throws at us. We then also use the xehpsdv_toggle_pdes as a way of
-+	 * throws at us. We then also use the xehp_toggle_pdes as a way of
- 	 * just toggling the PDE bit(GEN12_PDE_64K) for us, to enable the
- 	 * compact layout for each of these page-tables, that fall within the
- 	 * [CHUNK_SIZE, 3 * CHUNK_SIZE) range.
-@@ -209,12 +209,12 @@ static struct i915_address_space *migrate_vm(struct intel_gt *gt)
- 		/* Now allow the GPU to rewrite the PTE via its own ppGTT */
- 		if (HAS_64K_PAGES(gt->i915)) {
- 			vm->vm.foreach(&vm->vm, base, d.offset - base,
--				       xehpsdv_insert_pte, &d);
-+				       xehp_insert_pte, &d);
- 			d.offset = base + CHUNK_SZ;
- 			vm->vm.foreach(&vm->vm,
- 				       d.offset,
- 				       2 * CHUNK_SZ,
--				       xehpsdv_toggle_pdes, &d);
-+				       xehp_toggle_pdes, &d);
- 		} else {
- 			vm->vm.foreach(&vm->vm, base, d.offset - base,
- 				       insert_pte, &d);
 diff --git a/drivers/gpu/drm/i915/gt/intel_mocs.c b/drivers/gpu/drm/i915/gt/intel_mocs.c
-index 25c1023eb5f9f..c931c56945bde 100644
+index 9fac5e2318e2b..d791d63d49b49 100644
 --- a/drivers/gpu/drm/i915/gt/intel_mocs.c
 +++ b/drivers/gpu/drm/i915/gt/intel_mocs.c
-@@ -367,31 +367,6 @@ static const struct drm_i915_mocs_entry gen12_mocs_table[] = {
- 		   L3_3_WB),
+@@ -53,7 +53,6 @@ struct drm_i915_mocs_table {
+ 
+ /* Helper defines */
+ #define GEN9_NUM_MOCS_ENTRIES	64  /* 63-64 are reserved, but configured. */
+-#define PVC_NUM_MOCS_ENTRIES	3
+ #define MTL_NUM_MOCS_ENTRIES	16
+ 
+ /* (e)LLC caching options */
+@@ -379,17 +378,6 @@ static const struct drm_i915_mocs_entry dg2_mocs_table[] = {
+ 	MOCS_ENTRY(3, 0, L3_3_WB | L3_LKUP(1)),
  };
  
--static const struct drm_i915_mocs_entry xehpsdv_mocs_table[] = {
--	/* wa_1608975824 */
--	MOCS_ENTRY(0, 0, L3_3_WB | L3_LKUP(1)),
+-static const struct drm_i915_mocs_entry pvc_mocs_table[] = {
+-	/* Error */
+-	MOCS_ENTRY(0, 0, L3_3_WB),
 -
--	/* UC - Coherent; GO:L3 */
--	MOCS_ENTRY(1, 0, L3_1_UC | L3_LKUP(1)),
--	/* UC - Coherent; GO:Memory */
--	MOCS_ENTRY(2, 0, L3_1_UC | L3_GLBGO(1) | L3_LKUP(1)),
--	/* UC - Non-Coherent; GO:Memory */
--	MOCS_ENTRY(3, 0, L3_1_UC | L3_GLBGO(1)),
--	/* UC - Non-Coherent; GO:L3 */
--	MOCS_ENTRY(4, 0, L3_1_UC),
+-	/* UC */
+-	MOCS_ENTRY(1, 0, L3_1_UC),
 -
 -	/* WB */
--	MOCS_ENTRY(5, 0, L3_3_WB | L3_LKUP(1)),
--
--	/* HW Reserved - SW program but never use. */
--	MOCS_ENTRY(48, 0, L3_3_WB | L3_LKUP(1)),
--	MOCS_ENTRY(49, 0, L3_1_UC | L3_LKUP(1)),
--	MOCS_ENTRY(60, 0, L3_1_UC),
--	MOCS_ENTRY(61, 0, L3_1_UC),
--	MOCS_ENTRY(62, 0, L3_1_UC),
--	MOCS_ENTRY(63, 0, L3_1_UC),
+-	MOCS_ENTRY(2, 0, L3_3_WB),
 -};
 -
- static const struct drm_i915_mocs_entry dg2_mocs_table[] = {
- 	/* UC - Coherent; GO:L3 */
- 	MOCS_ENTRY(0, 0, L3_1_UC | L3_LKUP(1)),
-@@ -514,12 +489,6 @@ static unsigned int get_mocs_settings(struct drm_i915_private *i915,
- 		table->uc_index = 1;
- 		table->n_entries = GEN9_NUM_MOCS_ENTRIES;
- 		table->unused_entries_index = 3;
--	} else if (IS_XEHPSDV(i915)) {
--		table->size = ARRAY_SIZE(xehpsdv_mocs_table);
--		table->table = xehpsdv_mocs_table;
--		table->uc_index = 2;
--		table->n_entries = GEN9_NUM_MOCS_ENTRIES;
--		table->unused_entries_index = 5;
- 	} else if (IS_DG1(i915)) {
- 		table->size = ARRAY_SIZE(dg1_mocs_table);
- 		table->table = dg1_mocs_table;
+ static const struct drm_i915_mocs_entry mtl_mocs_table[] = {
+ 	/* Error - Reserved for Non-Use */
+ 	MOCS_ENTRY(0,
+@@ -476,13 +464,6 @@ static unsigned int get_mocs_settings(struct drm_i915_private *i915,
+ 		table->n_entries = MTL_NUM_MOCS_ENTRIES;
+ 		table->uc_index = 9;
+ 		table->unused_entries_index = 1;
+-	} else if (IS_PONTEVECCHIO(i915)) {
+-		table->size = ARRAY_SIZE(pvc_mocs_table);
+-		table->table = pvc_mocs_table;
+-		table->n_entries = PVC_NUM_MOCS_ENTRIES;
+-		table->uc_index = 1;
+-		table->wb_index = 2;
+-		table->unused_entries_index = 2;
+ 	} else if (IS_DG2(i915)) {
+ 		table->size = ARRAY_SIZE(dg2_mocs_table);
+ 		table->table = dg2_mocs_table;
 diff --git a/drivers/gpu/drm/i915/gt/intel_rps.c b/drivers/gpu/drm/i915/gt/intel_rps.c
-index a929aa6e3c85a..1788db4376e50 100644
+index 1788db4376e50..c9cb2a3919423 100644
 --- a/drivers/gpu/drm/i915/gt/intel_rps.c
 +++ b/drivers/gpu/drm/i915/gt/intel_rps.c
-@@ -1092,8 +1092,6 @@ static u32 intel_rps_read_state_cap(struct intel_rps *rps)
+@@ -1090,9 +1090,7 @@ static u32 intel_rps_read_state_cap(struct intel_rps *rps)
+ 	struct drm_i915_private *i915 = rps_to_i915(rps);
+ 	struct intel_uncore *uncore = rps_to_uncore(rps);
  
- 	if (IS_PONTEVECCHIO(i915))
- 		return intel_uncore_read(uncore, PVC_RP_STATE_CAP);
--	else if (IS_XEHPSDV(i915))
--		return intel_uncore_read(uncore, XEHPSDV_RP_STATE_CAP);
- 	else if (IS_GEN9_LP(i915))
+-	if (IS_PONTEVECCHIO(i915))
+-		return intel_uncore_read(uncore, PVC_RP_STATE_CAP);
+-	else if (IS_GEN9_LP(i915))
++	if (IS_GEN9_LP(i915))
  		return intel_uncore_read(uncore, BXT_RP_STATE_CAP);
  	else
+ 		return intel_uncore_read(uncore, GEN6_RP_STATE_CAP);
+diff --git a/drivers/gpu/drm/i915/gt/intel_sseu.c b/drivers/gpu/drm/i915/gt/intel_sseu.c
+index 5eec9cd6199f4..c8fadf58d8361 100644
+--- a/drivers/gpu/drm/i915/gt/intel_sseu.c
++++ b/drivers/gpu/drm/i915/gt/intel_sseu.c
+@@ -214,13 +214,8 @@ static void xehp_sseu_info_init(struct intel_gt *gt)
+ 	int num_compute_regs, num_geometry_regs;
+ 	int eu;
+ 
+-	if (IS_PONTEVECCHIO(gt->i915)) {
+-		num_geometry_regs = 0;
+-		num_compute_regs = 2;
+-	} else {
+-		num_geometry_regs = 1;
+-		num_compute_regs = 1;
+-	}
++	num_geometry_regs = 1;
++	num_compute_regs = 1;
+ 
+ 	/*
+ 	 * The concept of slice has been removed in Xe_HP.  To be compatible
 diff --git a/drivers/gpu/drm/i915/gt/intel_workarounds.c b/drivers/gpu/drm/i915/gt/intel_workarounds.c
-index b079cbbc1897e..cfe2f4b64f040 100644
+index ba502c0be9b10..8a1adc8aadddf 100644
 --- a/drivers/gpu/drm/i915/gt/intel_workarounds.c
 +++ b/drivers/gpu/drm/i915/gt/intel_workarounds.c
-@@ -922,8 +922,6 @@ __intel_engine_init_ctx_wa(struct intel_engine_cs *engine,
- 		; /* noop; none at this time */
- 	else if (IS_DG2(i915))
- 		dg2_ctx_workarounds_init(engine, wal);
--	else if (IS_XEHPSDV(i915))
--		; /* noop; none at this time */
- 	else if (IS_DG1(i915))
- 		dg1_ctx_workarounds_init(engine, wal);
- 	else if (GRAPHICS_VER(i915) == 12)
-@@ -1350,9 +1348,6 @@ xehp_init_mcr(struct intel_gt *gt, struct i915_wa_list *wal)
- 		gt->steering_table[MSLICE] = NULL;
- 	}
- 
--	if (IS_XEHPSDV(gt->i915) && slice_mask & BIT(0))
--		gt->steering_table[GAM] = NULL;
--
- 	slice = __ffs(slice_mask);
- 	subslice = intel_sseu_find_first_xehp_dss(sseu, GEN_DSS_PER_GSLICE, slice) %
- 		GEN_DSS_PER_GSLICE;
-@@ -1519,76 +1514,6 @@ dg1_gt_workarounds_init(struct intel_gt *gt, struct i915_wa_list *wal)
- 	wa_write_or(wal, UNSLICE_UNIT_LEVEL_CLKGATE2, VSUNIT_CLKGATE_DIS_TGL);
+@@ -257,12 +257,6 @@ wa_write(struct i915_wa_list *wal, i915_reg_t reg, u32 set)
+ 	wa_write_clr_set(wal, reg, ~0, set);
  }
  
 -static void
--xehpsdv_gt_workarounds_init(struct intel_gt *gt, struct i915_wa_list *wal)
+-wa_mcr_write(struct i915_wa_list *wal, i915_mcr_reg_t reg, u32 set)
 -{
--	struct drm_i915_private *i915 = gt->i915;
--
--	xehp_init_mcr(gt, wal);
--
--	/* Wa_1409757795:xehpsdv */
--	wa_mcr_write_or(wal, SCCGCTL94DC, CG3DDISURB);
--
--	/* Wa_18011725039:xehpsdv */
--	if (IS_XEHPSDV_GRAPHICS_STEP(i915, STEP_A1, STEP_B0)) {
--		wa_mcr_masked_dis(wal, MLTICTXCTL, TDONRENDER);
--		wa_mcr_write_or(wal, L3SQCREG1_CCS0, FLUSHALLNONCOH);
--	}
--
--	/* Wa_16011155590:xehpsdv */
--	if (IS_XEHPSDV_GRAPHICS_STEP(i915, STEP_A0, STEP_B0))
--		wa_write_or(wal, UNSLICE_UNIT_LEVEL_CLKGATE,
--			    TSGUNIT_CLKGATE_DIS);
--
--	/* Wa_14011780169:xehpsdv */
--	if (IS_XEHPSDV_GRAPHICS_STEP(i915, STEP_B0, STEP_FOREVER)) {
--		wa_write_or(wal, UNSLCGCTL9440, GAMTLBOACS_CLKGATE_DIS |
--			    GAMTLBVDBOX7_CLKGATE_DIS |
--			    GAMTLBVDBOX6_CLKGATE_DIS |
--			    GAMTLBVDBOX5_CLKGATE_DIS |
--			    GAMTLBVDBOX4_CLKGATE_DIS |
--			    GAMTLBVDBOX3_CLKGATE_DIS |
--			    GAMTLBVDBOX2_CLKGATE_DIS |
--			    GAMTLBVDBOX1_CLKGATE_DIS |
--			    GAMTLBVDBOX0_CLKGATE_DIS |
--			    GAMTLBKCR_CLKGATE_DIS |
--			    GAMTLBGUC_CLKGATE_DIS |
--			    GAMTLBBLT_CLKGATE_DIS);
--		wa_write_or(wal, UNSLCGCTL9444, GAMTLBGFXA0_CLKGATE_DIS |
--			    GAMTLBGFXA1_CLKGATE_DIS |
--			    GAMTLBCOMPA0_CLKGATE_DIS |
--			    GAMTLBCOMPA1_CLKGATE_DIS |
--			    GAMTLBCOMPB0_CLKGATE_DIS |
--			    GAMTLBCOMPB1_CLKGATE_DIS |
--			    GAMTLBCOMPC0_CLKGATE_DIS |
--			    GAMTLBCOMPC1_CLKGATE_DIS |
--			    GAMTLBCOMPD0_CLKGATE_DIS |
--			    GAMTLBCOMPD1_CLKGATE_DIS |
--			    GAMTLBMERT_CLKGATE_DIS   |
--			    GAMTLBVEBOX3_CLKGATE_DIS |
--			    GAMTLBVEBOX2_CLKGATE_DIS |
--			    GAMTLBVEBOX1_CLKGATE_DIS |
--			    GAMTLBVEBOX0_CLKGATE_DIS);
--	}
--
--	/* Wa_16012725990:xehpsdv */
--	if (IS_XEHPSDV_GRAPHICS_STEP(i915, STEP_A1, STEP_FOREVER))
--		wa_write_or(wal, UNSLICE_UNIT_LEVEL_CLKGATE, VFUNIT_CLKGATE_DIS);
--
--	/* Wa_14011060649:xehpsdv */
--	wa_14011060649(gt, wal);
--
--	/* Wa_14012362059:xehpsdv */
--	wa_mcr_write_or(wal, XEHP_MERT_MOD_CTRL, FORCE_MISS_FTLB);
--
--	/* Wa_14014368820:xehpsdv */
--	wa_mcr_write_or(wal, XEHP_GAMCNTRL_CTRL,
--			INVALIDATION_BROADCAST_MODE_DIS | GLOBAL_INVALIDATION_MODE);
--
--	/* Wa_14010670810:xehpsdv */
--	wa_mcr_write_or(wal, XEHP_L3NODEARBCFG, XEHP_LNESPARE);
+-	wa_mcr_write_clr_set(wal, reg, ~0, set);
 -}
 -
  static void
- dg2_gt_workarounds_init(struct intel_gt *gt, struct i915_wa_list *wal)
+ wa_write_or(struct i915_wa_list *wal, i915_reg_t reg, u32 set)
  {
-@@ -1759,8 +1684,6 @@ gt_init_workarounds(struct intel_gt *gt, struct i915_wa_list *wal)
- 		pvc_gt_workarounds_init(gt, wal);
+@@ -918,8 +912,6 @@ __intel_engine_init_ctx_wa(struct intel_engine_cs *engine,
+ 
+ 	if (IS_GFX_GT_IP_RANGE(engine->gt, IP_VER(12, 70), IP_VER(12, 74)))
+ 		xelpg_ctx_workarounds_init(engine, wal);
+-	else if (IS_PONTEVECCHIO(i915))
+-		; /* noop; none at this time */
+ 	else if (IS_DG2(i915))
+ 		dg2_ctx_workarounds_init(engine, wal);
+ 	else if (IS_DG1(i915))
+@@ -1374,20 +1366,6 @@ xehp_init_mcr(struct intel_gt *gt, struct i915_wa_list *wal)
+ 		__set_mcr_steering(wal, GAM_MCR_SELECTOR, 1, 0);
+ }
+ 
+-static void
+-pvc_init_mcr(struct intel_gt *gt, struct i915_wa_list *wal)
+-{
+-	unsigned int dss;
+-
+-	/*
+-	 * Setup implicit steering for COMPUTE and DSS ranges to the first
+-	 * non-fused-off DSS.  All other types of MCR registers will be
+-	 * explicitly steered.
+-	 */
+-	dss = intel_sseu_find_first_xehp_dss(&gt->info.sseu, 0, 0);
+-	__add_mcr_wa(gt, wal, dss / GEN_DSS_PER_CSLICE, dss % GEN_DSS_PER_CSLICE);
+-}
+-
+ static void
+ icl_gt_workarounds_init(struct intel_gt *gt, struct i915_wa_list *wal)
+ {
+@@ -1556,24 +1534,6 @@ dg2_gt_workarounds_init(struct intel_gt *gt, struct i915_wa_list *wal)
+ 	wa_mcr_write_or(wal, XEHP_L3NODEARBCFG, XEHP_LNESPARE);
+ }
+ 
+-static void
+-pvc_gt_workarounds_init(struct intel_gt *gt, struct i915_wa_list *wal)
+-{
+-	pvc_init_mcr(gt, wal);
+-
+-	/* Wa_14015795083 */
+-	wa_write_clr(wal, GEN7_MISCCPCTL, GEN12_DOP_CLOCK_GATE_RENDER_ENABLE);
+-
+-	/* Wa_18018781329 */
+-	wa_mcr_write_or(wal, RENDER_MOD_CTRL, FORCE_MISS_FTLB);
+-	wa_mcr_write_or(wal, COMP_MOD_CTRL, FORCE_MISS_FTLB);
+-	wa_mcr_write_or(wal, XEHP_VDBX_MOD_CTRL, FORCE_MISS_FTLB);
+-	wa_mcr_write_or(wal, XEHP_VEBX_MOD_CTRL, FORCE_MISS_FTLB);
+-
+-	/* Wa_16016694945 */
+-	wa_mcr_masked_en(wal, XEHPC_LNCFMISCCFGREG0, XEHPC_OVRLSCCC);
+-}
+-
+ static void
+ xelpg_gt_workarounds_init(struct intel_gt *gt, struct i915_wa_list *wal)
+ {
+@@ -1650,12 +1610,6 @@ static void gt_tuning_settings(struct intel_gt *gt, struct i915_wa_list *wal)
+ 		wa_mcr_write_or(wal, XEHP_SQCM, EN_32B_ACCESS);
+ 	}
+ 
+-	if (IS_PONTEVECCHIO(gt->i915)) {
+-		wa_mcr_write(wal, XEHPC_L3SCRUB,
+-			     SCRUB_CL_DWNGRADE_SHARED | SCRUB_RATE_4B_PER_CLK);
+-		wa_mcr_masked_en(wal, XEHPC_LNCFMISCCFGREG0, XEHPC_HOSTCACHEEN);
+-	}
+-
+ 	if (IS_DG2(gt->i915)) {
+ 		wa_mcr_write_or(wal, XEHP_L3SCQREG7, BLEND_FILL_CACHING_OPT_DIS);
+ 		wa_mcr_write_or(wal, XEHP_SQCM, EN_32B_ACCESS);
+@@ -1680,8 +1634,6 @@ gt_init_workarounds(struct intel_gt *gt, struct i915_wa_list *wal)
+ 
+ 	if (IS_GFX_GT_IP_RANGE(gt, IP_VER(12, 70), IP_VER(12, 74)))
+ 		xelpg_gt_workarounds_init(gt, wal);
+-	else if (IS_PONTEVECCHIO(i915))
+-		pvc_gt_workarounds_init(gt, wal);
  	else if (IS_DG2(i915))
  		dg2_gt_workarounds_init(gt, wal);
--	else if (IS_XEHPSDV(i915))
--		xehpsdv_gt_workarounds_init(gt, wal);
  	else if (IS_DG1(i915))
- 		dg1_gt_workarounds_init(gt, wal);
- 	else if (GRAPHICS_VER(i915) == 12)
-@@ -2232,8 +2155,6 @@ void intel_engine_init_whitelist(struct intel_engine_cs *engine)
- 		pvc_whitelist_build(engine);
+@@ -2101,30 +2053,6 @@ static void dg2_whitelist_build(struct intel_engine_cs *engine)
+ 	}
+ }
+ 
+-static void blacklist_trtt(struct intel_engine_cs *engine)
+-{
+-	struct i915_wa_list *w = &engine->whitelist;
+-
+-	/*
+-	 * Prevent read/write access to [0x4400, 0x4600) which covers
+-	 * the TRTT range across all engines. Note that normally userspace
+-	 * cannot access the other engines' trtt control, but for simplicity
+-	 * we cover the entire range on each engine.
+-	 */
+-	whitelist_reg_ext(w, _MMIO(0x4400),
+-			  RING_FORCE_TO_NONPRIV_DENY |
+-			  RING_FORCE_TO_NONPRIV_RANGE_64);
+-	whitelist_reg_ext(w, _MMIO(0x4500),
+-			  RING_FORCE_TO_NONPRIV_DENY |
+-			  RING_FORCE_TO_NONPRIV_RANGE_64);
+-}
+-
+-static void pvc_whitelist_build(struct intel_engine_cs *engine)
+-{
+-	/* Wa_16014440446:pvc */
+-	blacklist_trtt(engine);
+-}
+-
+ static void xelpg_whitelist_build(struct intel_engine_cs *engine)
+ {
+ 	struct i915_wa_list *w = &engine->whitelist;
+@@ -2151,8 +2079,6 @@ void intel_engine_init_whitelist(struct intel_engine_cs *engine)
+ 		; /* none yet */
+ 	else if (IS_GFX_GT_IP_RANGE(engine->gt, IP_VER(12, 70), IP_VER(12, 74)))
+ 		xelpg_whitelist_build(engine);
+-	else if (IS_PONTEVECCHIO(i915))
+-		pvc_whitelist_build(engine);
  	else if (IS_DG2(i915))
  		dg2_whitelist_build(engine);
--	else if (IS_XEHPSDV(i915))
--		; /* none needed */
  	else if (GRAPHICS_VER(i915) == 12)
- 		tgl_whitelist_build(engine);
- 	else if (GRAPHICS_VER(i915) == 11)
-@@ -2969,22 +2890,6 @@ general_render_compute_wa_init(struct intel_engine_cs *engine, struct i915_wa_li
- 			   0 /* write-only, so skip validation */,
- 			   true);
- 	}
--
--	if (IS_XEHPSDV(i915)) {
--		/* Wa_1409954639 */
--		wa_mcr_masked_en(wal,
--				 GEN8_ROW_CHICKEN,
--				 SYSTOLIC_DOP_CLOCK_GATING_DIS);
--
--		/* Wa_1607196519 */
--		wa_mcr_masked_en(wal,
--				 GEN9_ROW_CHICKEN4,
--				 GEN12_DISABLE_GRF_CLEAR);
--
--		/* Wa_14010449647:xehpsdv */
--		wa_mcr_masked_en(wal, GEN8_HALF_SLICE_CHICKEN1,
--				 GEN7_PSD_SINGLE_PORT_DISPATCH_ENABLE);
+@@ -2735,10 +2661,7 @@ xcs_engine_wa_init(struct intel_engine_cs *engine, struct i915_wa_list *wal)
+ static void
+ ccs_engine_wa_init(struct intel_engine_cs *engine, struct i915_wa_list *wal)
+ {
+-	if (IS_PVC_CT_STEP(engine->i915, STEP_A0, STEP_C0)) {
+-		/* Wa_14014999345:pvc */
+-		wa_mcr_masked_en(wal, GEN10_CACHE_MODE_SS, DISABLE_ECC);
 -	}
++	/* boilerplate for any CCS engine workaround */
  }
  
- static void
+ /*
+@@ -2844,13 +2767,12 @@ general_render_compute_wa_init(struct intel_engine_cs *engine, struct i915_wa_li
+ 
+ 	if (IS_GFX_GT_IP_STEP(gt, IP_VER(12, 70), STEP_A0, STEP_B0) ||
+ 	    IS_GFX_GT_IP_STEP(gt, IP_VER(12, 71), STEP_A0, STEP_B0) ||
+-	    IS_PONTEVECCHIO(i915) ||
+ 	    IS_DG2(i915)) {
+ 		/* Wa_22014226127 */
+ 		wa_mcr_write_or(wal, LSC_CHICKEN_BIT_0, DISABLE_D8_D16_COASLESCE);
+ 	}
+ 
+-	if (IS_PONTEVECCHIO(i915) || IS_DG2(i915))
++	if (IS_DG2(i915))
+ 		/* Wa_14015227452:dg2,pvc */
+ 		wa_mcr_masked_en(wal, GEN9_ROW_CHICKEN4, XEHP_DIS_BBL_SYSPIPE);
+ 
+diff --git a/drivers/gpu/drm/i915/gt/intel_workarounds.c.rej b/drivers/gpu/drm/i915/gt/intel_workarounds.c.rej
+new file mode 100644
+index 0000000000000..91463b1d684ad
+--- /dev/null
++++ b/drivers/gpu/drm/i915/gt/intel_workarounds.c.rej
+@@ -0,0 +1,18 @@
++diff a/drivers/gpu/drm/i915/gt/intel_workarounds.c b/drivers/gpu/drm/i915/gt/intel_workarounds.c	(rejected hunks)
++@@ -2844,14 +2767,13 @@ general_render_compute_wa_init(struct intel_engine_cs *engine, struct i915_wa_li
++ 
++ 	if (IS_GFX_GT_IP_STEP(gt, IP_VER(12, 70), STEP_A0, STEP_B0) ||
++ 	    IS_GFX_GT_IP_STEP(gt, IP_VER(12, 71), STEP_A0, STEP_B0) ||
++-	    IS_PONTEVECCHIO(i915) ||
++ 	    IS_DG2(i915)) {
++ 		/* Wa_22014226127 */
++ 		wa_mcr_write_or(wal, LSC_CHICKEN_BIT_0, DISABLE_D8_D16_COASLESCE);
++ 	}
++ 
++-	if (IS_PONTEVECCHIO(i915) || IS_DG2(i915))
++-		/* Wa_14015227452:dg2,pvc */
+++	if (IS_DG2(i915))
+++		/* Wa_14015227452 */
++ 		wa_mcr_masked_en(wal, GEN9_ROW_CHICKEN4, XEHP_DIS_BBL_SYSPIPE);
++ 
++ 	if (IS_DG2(i915)) {
 diff --git a/drivers/gpu/drm/i915/gt/uc/intel_uc.c b/drivers/gpu/drm/i915/gt/uc/intel_uc.c
-index 6dfe5d9456c69..28277321d9ca9 100644
+index 28277321d9ca9..b47051ddf17f2 100644
 --- a/drivers/gpu/drm/i915/gt/uc/intel_uc.c
 +++ b/drivers/gpu/drm/i915/gt/uc/intel_uc.c
-@@ -51,8 +51,8 @@ static void uc_expand_default_options(struct intel_uc *uc)
+@@ -50,10 +50,6 @@ static void uc_expand_default_options(struct intel_uc *uc)
+ 
  	/* Default: enable HuC authentication and GuC submission */
  	i915->params.enable_guc = ENABLE_GUC_LOAD_HUC | ENABLE_GUC_SUBMISSION;
- 
--	/* XEHPSDV and PVC do not use HuC */
--	if (IS_XEHPSDV(i915) || IS_PONTEVECCHIO(i915))
-+	/* PVC does not use HuC */
-+	if (IS_PONTEVECCHIO(i915))
- 		i915->params.enable_guc &= ~ENABLE_GUC_LOAD_HUC;
+-
+-	/* PVC does not use HuC */
+-	if (IS_PONTEVECCHIO(i915))
+-		i915->params.enable_guc &= ~ENABLE_GUC_LOAD_HUC;
  }
  
+ /* Reset GuC providing us with fresh state for both GuC and HuC.
+diff --git a/drivers/gpu/drm/i915/i915_debugfs.c b/drivers/gpu/drm/i915/i915_debugfs.c
+index 990eaa029d9c2..24c78873b3cf5 100644
+--- a/drivers/gpu/drm/i915/i915_debugfs.c
++++ b/drivers/gpu/drm/i915/i915_debugfs.c
+@@ -156,18 +156,6 @@ static const char *i915_cache_level_str(struct drm_i915_gem_object *obj)
+ 		case 4: return " WB (2-Way Coh)";
+ 		default: return " not defined";
+ 		}
+-	} else if (IS_PONTEVECCHIO(i915)) {
+-		switch (obj->pat_index) {
+-		case 0: return " UC";
+-		case 1: return " WC";
+-		case 2: return " WT";
+-		case 3: return " WB";
+-		case 4: return " WT (CLOS1)";
+-		case 5: return " WB (CLOS1)";
+-		case 6: return " WT (CLOS2)";
+-		case 7: return " WT (CLOS2)";
+-		default: return " not defined";
+-		}
+ 	} else if (GRAPHICS_VER(i915) >= 12) {
+ 		switch (obj->pat_index) {
+ 		case 0: return " WB";
 diff --git a/drivers/gpu/drm/i915/i915_drv.h b/drivers/gpu/drm/i915/i915_drv.h
-index e81b3b2858acc..dff056587459f 100644
+index dff056587459f..cf52d4adaa204 100644
 --- a/drivers/gpu/drm/i915/i915_drv.h
 +++ b/drivers/gpu/drm/i915/i915_drv.h
-@@ -544,7 +544,6 @@ IS_SUBPLATFORM(const struct drm_i915_private *i915,
- #define IS_DG1(i915)        IS_PLATFORM(i915, INTEL_DG1)
+@@ -545,7 +545,6 @@ IS_SUBPLATFORM(const struct drm_i915_private *i915,
  #define IS_ALDERLAKE_S(i915) IS_PLATFORM(i915, INTEL_ALDERLAKE_S)
  #define IS_ALDERLAKE_P(i915) IS_PLATFORM(i915, INTEL_ALDERLAKE_P)
--#define IS_XEHPSDV(i915) IS_PLATFORM(i915, INTEL_XEHPSDV)
  #define IS_DG2(i915)	IS_PLATFORM(i915, INTEL_DG2)
- #define IS_PONTEVECCHIO(i915) IS_PLATFORM(i915, INTEL_PONTEVECCHIO)
+-#define IS_PONTEVECCHIO(i915) IS_PLATFORM(i915, INTEL_PONTEVECCHIO)
  #define IS_METEORLAKE(i915) IS_PLATFORM(i915, INTEL_METEORLAKE)
-@@ -621,9 +620,6 @@ IS_SUBPLATFORM(const struct drm_i915_private *i915,
+ #define IS_LUNARLAKE(i915) 0
+ 
+@@ -620,14 +619,6 @@ IS_SUBPLATFORM(const struct drm_i915_private *i915,
  #define IS_TIGERLAKE_UY(i915) \
  	IS_SUBPLATFORM(i915, INTEL_TIGERLAKE, INTEL_SUBPLATFORM_UY)
  
--#define IS_XEHPSDV_GRAPHICS_STEP(__i915, since, until) \
--	(IS_XEHPSDV(__i915) && IS_GRAPHICS_STEP(__i915, since, until))
+-#define IS_PVC_BD_STEP(__i915, since, until) \
+-	(IS_PONTEVECCHIO(__i915) && \
+-	 IS_BASEDIE_STEP(__i915, since, until))
 -
- #define IS_PVC_BD_STEP(__i915, since, until) \
- 	(IS_PONTEVECCHIO(__i915) && \
- 	 IS_BASEDIE_STEP(__i915, since, until))
-diff --git a/drivers/gpu/drm/i915/i915_hwmon.c b/drivers/gpu/drm/i915/i915_hwmon.c
-index b758fd110c204..c9169e56b9a18 100644
---- a/drivers/gpu/drm/i915/i915_hwmon.c
-+++ b/drivers/gpu/drm/i915/i915_hwmon.c
-@@ -739,12 +739,6 @@ hwm_get_preregistration_info(struct drm_i915_private *i915)
- 		hwmon->rg.pkg_rapl_limit = PCU_PACKAGE_RAPL_LIMIT;
- 		hwmon->rg.energy_status_all = PCU_PACKAGE_ENERGY_STATUS;
- 		hwmon->rg.energy_status_tile = INVALID_MMIO_REG;
--	} else if (IS_XEHPSDV(i915)) {
--		hwmon->rg.pkg_power_sku_unit = GT0_PACKAGE_POWER_SKU_UNIT;
--		hwmon->rg.pkg_power_sku = INVALID_MMIO_REG;
--		hwmon->rg.pkg_rapl_limit = GT0_PACKAGE_RAPL_LIMIT;
--		hwmon->rg.energy_status_all = GT0_PLATFORM_ENERGY_STATUS;
--		hwmon->rg.energy_status_tile = GT0_PACKAGE_ENERGY_STATUS;
- 	} else {
- 		hwmon->rg.pkg_power_sku_unit = INVALID_MMIO_REG;
- 		hwmon->rg.pkg_power_sku = INVALID_MMIO_REG;
+-#define IS_PVC_CT_STEP(__i915, since, until) \
+-	(IS_PONTEVECCHIO(__i915) && \
+-	 IS_GRAPHICS_STEP(__i915, since, until))
+-
+ #define IS_LP(i915)		(INTEL_INFO(i915)->is_lp)
+ #define IS_GEN9_LP(i915)	(GRAPHICS_VER(i915) == 9 && IS_LP(i915))
+ #define IS_GEN9_BC(i915)	(GRAPHICS_VER(i915) == 9 && !IS_LP(i915))
 diff --git a/drivers/gpu/drm/i915/i915_pci.c b/drivers/gpu/drm/i915/i915_pci.c
-index 8b4fdeabb12a5..b318b7c6bf737 100644
+index 8b673fdcf178f..1e69783ae4fd9 100644
 --- a/drivers/gpu/drm/i915/i915_pci.c
 +++ b/drivers/gpu/drm/i915/i915_pci.c
-@@ -734,23 +734,6 @@ static const struct intel_device_info adl_p_info = {
- 	.__runtime.media.ip.ver = 12, \
- 	.__runtime.media.ip.rel = 50
+@@ -59,14 +59,6 @@
+ 		[I915_CACHE_WT]     = 2, \
+ 	}
  
+-#define PVC_CACHELEVEL \
+-	.cachelevel_to_pat = { \
+-		[I915_CACHE_NONE]   = 0, \
+-		[I915_CACHE_LLC]    = 3, \
+-		[I915_CACHE_L3_LLC] = 3, \
+-		[I915_CACHE_WT]     = 2, \
+-	}
+-
+ #define MTL_CACHELEVEL \
+ 	.cachelevel_to_pat = { \
+ 		[I915_CACHE_NONE]   = 2, \
+@@ -756,34 +748,6 @@ static const struct intel_device_info ats_m_info = {
+ 	.tuning_thread_rr_after_dep = 1,
+ };
+ 
+-#define XE_HPC_FEATURES \
+-	XE_HP_FEATURES, \
+-	.dma_mask_size = 52, \
+-	.has_3d_pipeline = 0, \
+-	.has_guc_deprivilege = 1, \
+-	.has_l3_ccs_read = 1, \
+-	.has_mslice_steering = 0, \
+-	.has_one_eu_per_fuse_bit = 1
+-
 -__maybe_unused
--static const struct intel_device_info xehpsdv_info = {
--	XE_HP_FEATURES,
--	XE_HPM_FEATURES,
+-static const struct intel_device_info pvc_info = {
+-	XE_HPC_FEATURES,
 -	DGFX_FEATURES,
--	PLATFORM(INTEL_XEHPSDV),
--	.has_64k_pages = 1,
--	.has_media_ratio_mode = 1,
+-	.__runtime.graphics.ip.ver = 12,
+-	.__runtime.graphics.ip.rel = 60,
+-	.__runtime.media.ip.ver = 12,
+-	.__runtime.media.ip.rel = 60,
+-	PLATFORM(INTEL_PONTEVECCHIO),
+-	.has_flat_ccs = 0,
+-	.max_pat_index = 7,
 -	.platform_engine_mask =
--		BIT(RCS0) | BIT(BCS0) |
--		BIT(VECS0) | BIT(VECS1) | BIT(VECS2) | BIT(VECS3) |
--		BIT(VCS0) | BIT(VCS1) | BIT(VCS2) | BIT(VCS3) |
--		BIT(VCS4) | BIT(VCS5) | BIT(VCS6) | BIT(VCS7) |
+-		BIT(BCS0) |
+-		BIT(VCS0) |
 -		BIT(CCS0) | BIT(CCS1) | BIT(CCS2) | BIT(CCS3),
 -	.require_force_probe = 1,
+-	PVC_CACHELEVEL,
 -};
 -
- #define DG2_FEATURES \
- 	XE_HP_FEATURES, \
- 	XE_HPM_FEATURES, \
-diff --git a/drivers/gpu/drm/i915/i915_perf.c b/drivers/gpu/drm/i915/i915_perf.c
-index bd9d812b1afa7..9052889dc0dc8 100644
---- a/drivers/gpu/drm/i915/i915_perf.c
-+++ b/drivers/gpu/drm/i915/i915_perf.c
-@@ -2881,11 +2881,11 @@ gen12_enable_metric_set(struct i915_perf_stream *stream,
- 	int ret;
- 
- 	/*
--	 * Wa_1508761755:xehpsdv, dg2
-+	 * Wa_1508761755
- 	 * EU NOA signals behave incorrectly if EU clock gating is enabled.
- 	 * Disable thread stall DOP gating and EU DOP gating.
- 	 */
--	if (IS_XEHPSDV(i915) || IS_DG2(i915)) {
-+	if (IS_DG2(i915)) {
- 		intel_gt_mcr_multicast_write(uncore->gt, GEN8_ROW_CHICKEN,
- 					     _MASKED_BIT_ENABLE(STALL_DOP_GATING_DISABLE));
- 		intel_uncore_write(uncore, GEN7_ROW_CHICKEN2,
-@@ -2911,7 +2911,7 @@ gen12_enable_metric_set(struct i915_perf_stream *stream,
- 	/*
- 	 * Initialize Super Queue Internal Cnt Register
- 	 * Set PMON Enable in order to collect valid metrics.
--	 * Enable byets per clock reporting in OA for XEHPSDV onward.
-+	 * Enable bytes per clock reporting in OA.
- 	 */
- 	sqcnt1 = GEN12_SQCNT1_PMON_ENABLE |
- 		 (HAS_OA_BPC_REPORTING(i915) ? GEN12_SQCNT1_OABPC : 0);
-@@ -2971,10 +2971,9 @@ static void gen12_disable_metric_set(struct i915_perf_stream *stream)
- 	u32 sqcnt1;
- 
- 	/*
--	 * Wa_1508761755:xehpsdv, dg2
--	 * Enable thread stall DOP gating and EU DOP gating.
-+	 * Wa_1508761755: Enable thread stall DOP gating and EU DOP gating.
- 	 */
--	if (IS_XEHPSDV(i915) || IS_DG2(i915)) {
-+	if (IS_DG2(i915)) {
- 		intel_gt_mcr_multicast_write(uncore->gt, GEN8_ROW_CHICKEN,
- 					     _MASKED_BIT_DISABLE(STALL_DOP_GATING_DISABLE));
- 		intel_uncore_write(uncore, GEN7_ROW_CHICKEN2,
+ static const struct intel_gt_definition xelpmp_extra_gt[] = {
+ 	{
+ 		.type = GT_MEDIA,
 diff --git a/drivers/gpu/drm/i915/i915_reg.h b/drivers/gpu/drm/i915/i915_reg.h
-index d6193c858a74f..7a84eb31818cc 100644
+index 7a84eb31818cc..c18e7dbb025e7 100644
 --- a/drivers/gpu/drm/i915/i915_reg.h
 +++ b/drivers/gpu/drm/i915/i915_reg.h
 @@ -1750,7 +1750,6 @@
  
  #define BXT_RP_STATE_CAP        _MMIO(0x138170)
  #define GEN9_RP_STATE_LIMITS	_MMIO(0x138148)
--#define XEHPSDV_RP_STATE_CAP	_MMIO(0x250014)
- #define PVC_RP_STATE_CAP	_MMIO(0x281014)
+-#define PVC_RP_STATE_CAP	_MMIO(0x281014)
  
  #define MTL_RP_STATE_CAP	_MMIO(0x138000)
-@@ -5401,7 +5400,7 @@
- #define	    POWER_SETUP_I1_SHIFT		6	/* 10.6 fixed point format */
- #define	    POWER_SETUP_I1_DATA_MASK		REG_GENMASK(15, 0)
- #define GEN12_PCODE_READ_SAGV_BLOCK_TIME_US	0x23
--#define   XEHP_PCODE_FREQUENCY_CONFIG		0x6e	/* xehpsdv, pvc */
-+#define   XEHP_PCODE_FREQUENCY_CONFIG		0x6e	/* pvc */
- /* XEHP_PCODE_FREQUENCY_CONFIG sub-commands (param1) */
- #define     PCODE_MBOX_FC_SC_READ_FUSED_P0	0x0
- #define     PCODE_MBOX_FC_SC_READ_FUSED_PN	0x1
+ #define MTL_MEDIAP_STATE_CAP	_MMIO(0x138020)
 diff --git a/drivers/gpu/drm/i915/intel_clock_gating.c b/drivers/gpu/drm/i915/intel_clock_gating.c
-index 39f23288e8a80..e34e1aabe6f86 100644
+index e34e1aabe6f86..7e70ee4fbd84d 100644
 --- a/drivers/gpu/drm/i915/intel_clock_gating.c
 +++ b/drivers/gpu/drm/i915/intel_clock_gating.c
-@@ -343,13 +343,6 @@ static void gen8_set_l3sqc_credits(struct drm_i915_private *i915,
- 	intel_uncore_write(&i915->uncore, GEN7_MISCCPCTL, misccpctl);
+@@ -350,17 +350,6 @@ static void dg2_init_clock_gating(struct drm_i915_private *i915)
+ 			 SGSI_SIDECLK_DIS);
  }
  
--static void xehpsdv_init_clock_gating(struct drm_i915_private *i915)
+-static void pvc_init_clock_gating(struct drm_i915_private *i915)
 -{
--	/* Wa_22010146351:xehpsdv */
--	if (IS_XEHPSDV_GRAPHICS_STEP(i915, STEP_A0, STEP_B0))
+-	/* Wa_14012385139:pvc */
+-	if (IS_PVC_BD_STEP(i915, STEP_A0, STEP_B0))
 -		intel_uncore_rmw(&i915->uncore, XEHP_CLOCK_GATE_DIS, 0, SGR_DIS);
+-
+-	/* Wa_22010954014:pvc */
+-	if (IS_PVC_BD_STEP(i915, STEP_A0, STEP_B0))
+-		intel_uncore_rmw(&i915->uncore, XEHP_CLOCK_GATE_DIS, 0, SGSI_SIDECLK_DIS);
 -}
 -
- static void dg2_init_clock_gating(struct drm_i915_private *i915)
+ static void cnp_init_clock_gating(struct drm_i915_private *i915)
  {
- 	/* Wa_22010954014:dg2 */
-@@ -731,7 +724,6 @@ static const struct drm_i915_clock_gating_funcs platform##_clock_gating_funcs =
+ 	if (!HAS_PCH_CNP(i915))
+@@ -722,7 +711,6 @@ static const struct drm_i915_clock_gating_funcs platform##_clock_gating_funcs =
+ 	.init_clock_gating = platform##_init_clock_gating,		\
+ }
  
- CG_FUNCS(pvc);
+-CG_FUNCS(pvc);
  CG_FUNCS(dg2);
--CG_FUNCS(xehpsdv);
  CG_FUNCS(cfl);
  CG_FUNCS(skl);
- CG_FUNCS(kbl);
-@@ -768,8 +760,6 @@ void intel_clock_gating_hooks_init(struct drm_i915_private *i915)
- 		i915->clock_gating_funcs = &pvc_clock_gating_funcs;
- 	else if (IS_DG2(i915))
+@@ -756,9 +744,7 @@ CG_FUNCS(nop);
+  */
+ void intel_clock_gating_hooks_init(struct drm_i915_private *i915)
+ {
+-	if (IS_PONTEVECCHIO(i915))
+-		i915->clock_gating_funcs = &pvc_clock_gating_funcs;
+-	else if (IS_DG2(i915))
++	if (IS_DG2(i915))
  		i915->clock_gating_funcs = &dg2_clock_gating_funcs;
--	else if (IS_XEHPSDV(i915))
--		i915->clock_gating_funcs = &xehpsdv_clock_gating_funcs;
  	else if (IS_COFFEELAKE(i915) || IS_COMETLAKE(i915))
  		i915->clock_gating_funcs = &cfl_clock_gating_funcs;
- 	else if (IS_SKYLAKE(i915))
 diff --git a/drivers/gpu/drm/i915/intel_device_info.c b/drivers/gpu/drm/i915/intel_device_info.c
-index 59bea1398c911..de28cbe758f7e 100644
+index de28cbe758f7e..a0a43ea07f118 100644
 --- a/drivers/gpu/drm/i915/intel_device_info.c
 +++ b/drivers/gpu/drm/i915/intel_device_info.c
-@@ -70,7 +70,6 @@ static const char * const platform_names[] = {
- 	PLATFORM_NAME(DG1),
+@@ -71,7 +71,6 @@ static const char * const platform_names[] = {
  	PLATFORM_NAME(ALDERLAKE_S),
  	PLATFORM_NAME(ALDERLAKE_P),
--	PLATFORM_NAME(XEHPSDV),
  	PLATFORM_NAME(DG2),
- 	PLATFORM_NAME(PONTEVECCHIO),
+-	PLATFORM_NAME(PONTEVECCHIO),
  	PLATFORM_NAME(METEORLAKE),
+ };
+ #undef PLATFORM_NAME
 diff --git a/drivers/gpu/drm/i915/intel_device_info.h b/drivers/gpu/drm/i915/intel_device_info.h
-index eba2f0b919c87..2299327e59f0a 100644
+index 2299327e59f0a..d1a2abc7e5139 100644
 --- a/drivers/gpu/drm/i915/intel_device_info.h
 +++ b/drivers/gpu/drm/i915/intel_device_info.h
-@@ -87,7 +87,6 @@ enum intel_platform {
- 	INTEL_DG1,
+@@ -88,7 +88,6 @@ enum intel_platform {
  	INTEL_ALDERLAKE_S,
  	INTEL_ALDERLAKE_P,
--	INTEL_XEHPSDV,
  	INTEL_DG2,
- 	INTEL_PONTEVECCHIO,
+-	INTEL_PONTEVECCHIO,
  	INTEL_METEORLAKE,
+ 	INTEL_MAX_PLATFORMS
+ };
 diff --git a/drivers/gpu/drm/i915/intel_step.c b/drivers/gpu/drm/i915/intel_step.c
-index b4162f1be7651..d524bfe17c270 100644
+index d524bfe17c270..a5adfb5d8fd2a 100644
 --- a/drivers/gpu/drm/i915/intel_step.c
 +++ b/drivers/gpu/drm/i915/intel_step.c
-@@ -102,13 +102,6 @@ static const struct intel_step_info adlp_revids[] = {
- 	[0xC] = { COMMON_GT_MEDIA_STEP(C0), .display_step = STEP_D0 },
- };
+@@ -146,8 +146,6 @@ static u8 gmd_to_intel_step(struct drm_i915_private *i915,
+ 	return step;
+ }
  
--static const struct intel_step_info xehpsdv_revids[] = {
--	[0x0] = { COMMON_GT_MEDIA_STEP(A0) },
--	[0x1] = { COMMON_GT_MEDIA_STEP(A1) },
--	[0x4] = { COMMON_GT_MEDIA_STEP(B0) },
--	[0x8] = { COMMON_GT_MEDIA_STEP(C0) },
+-static void pvc_step_init(struct drm_i915_private *i915, int pci_revid);
+-
+ void intel_step_init(struct drm_i915_private *i915)
+ {
+ 	const struct intel_step_info *revids = NULL;
+@@ -171,10 +169,7 @@ void intel_step_init(struct drm_i915_private *i915)
+ 		return;
+ 	}
+ 
+-	if (IS_PONTEVECCHIO(i915)) {
+-		pvc_step_init(i915, revid);
+-		return;
+-	} else if (IS_DG2_G10(i915)) {
++	if (IS_DG2_G10(i915)) {
+ 		revids = dg2_g10_revid_step_tbl;
+ 		size = ARRAY_SIZE(dg2_g10_revid_step_tbl);
+ 	} else if (IS_DG2_G11(i915)) {
+@@ -267,69 +262,6 @@ void intel_step_init(struct drm_i915_private *i915)
+ 	RUNTIME_INFO(i915)->step = step;
+ }
+ 
+-#define PVC_BD_REVID	GENMASK(5, 3)
+-#define PVC_CT_REVID	GENMASK(2, 0)
+-
+-static const int pvc_bd_subids[] = {
+-	[0x0] = STEP_A0,
+-	[0x3] = STEP_B0,
+-	[0x4] = STEP_B1,
+-	[0x5] = STEP_B3,
 -};
 -
- static const struct intel_step_info dg2_g10_revid_step_tbl[] = {
- 	[0x0] = { COMMON_GT_MEDIA_STEP(A0), .display_step = STEP_A0 },
- 	[0x1] = { COMMON_GT_MEDIA_STEP(A1), .display_step = STEP_A0 },
-@@ -190,9 +183,6 @@ void intel_step_init(struct drm_i915_private *i915)
- 	} else if (IS_DG2_G12(i915)) {
- 		revids = dg2_g12_revid_step_tbl;
- 		size = ARRAY_SIZE(dg2_g12_revid_step_tbl);
--	} else if (IS_XEHPSDV(i915)) {
--		revids = xehpsdv_revids;
--		size = ARRAY_SIZE(xehpsdv_revids);
- 	} else if (IS_ALDERLAKE_P_N(i915)) {
- 		revids = adlp_n_revids;
- 		size = ARRAY_SIZE(adlp_n_revids);
+-static const int pvc_ct_subids[] = {
+-	[0x3] = STEP_A0,
+-	[0x5] = STEP_B0,
+-	[0x6] = STEP_B1,
+-	[0x7] = STEP_C0,
+-};
+-
+-static int
+-pvc_step_lookup(struct drm_i915_private *i915, const char *type,
+-		const int *table, int size, int subid)
+-{
+-	if (subid < size && table[subid] != STEP_NONE)
+-		return table[subid];
+-
+-	drm_warn(&i915->drm, "Unknown %s id 0x%02x\n", type, subid);
+-
+-	/*
+-	 * As on other platforms, try to use the next higher ID if we land on a
+-	 * gap in the table.
+-	 */
+-	while (subid < size && table[subid] == STEP_NONE)
+-		subid++;
+-
+-	if (subid < size) {
+-		drm_dbg(&i915->drm, "Using steppings for %s id 0x%02x\n",
+-			type, subid);
+-		return table[subid];
+-	}
+-
+-	drm_dbg(&i915->drm, "Using future steppings\n");
+-	return STEP_FUTURE;
+-}
+-
+-/*
+- * PVC needs special handling since we don't lookup the
+- * revid in a table, but rather specific bitfields within
+- * the revid for various components.
+- */
+-static void pvc_step_init(struct drm_i915_private *i915, int pci_revid)
+-{
+-	int ct_subid, bd_subid;
+-
+-	bd_subid = FIELD_GET(PVC_BD_REVID, pci_revid);
+-	ct_subid = FIELD_GET(PVC_CT_REVID, pci_revid);
+-
+-	RUNTIME_INFO(i915)->step.basedie_step =
+-		pvc_step_lookup(i915, "Base Die", pvc_bd_subids,
+-				ARRAY_SIZE(pvc_bd_subids), bd_subid);
+-	RUNTIME_INFO(i915)->step.graphics_step =
+-		pvc_step_lookup(i915, "Compute Tile", pvc_ct_subids,
+-				ARRAY_SIZE(pvc_ct_subids), ct_subid);
+-}
+-
+ #define STEP_NAME_CASE(name)	\
+ 	case STEP_##name:	\
+ 		return #name;
 diff --git a/drivers/gpu/drm/i915/intel_uncore.c b/drivers/gpu/drm/i915/intel_uncore.c
-index 76400e9c40f05..7695bb946fff4 100644
+index 4d2b15dbe9acd..729409a4bada8 100644
 --- a/drivers/gpu/drm/i915/intel_uncore.c
 +++ b/drivers/gpu/drm/i915/intel_uncore.c
-@@ -1533,21 +1533,16 @@ static const struct intel_forcewake_range __gen12_fw_ranges[] = {
- 		0x12000 - 0x127ff: always on					\
- 		0x12800 - 0x12fff: reserved */					\
- 	GEN_FW_RANGE(0x13000, 0x131ff, FORCEWAKE_MEDIA_VDBOX0), /* DG2 only */	\
--	GEN_FW_RANGE(0x13200, 0x13fff, FORCEWAKE_MEDIA_VDBOX2), /*		\
-+	GEN_FW_RANGE(0x13200, 0x147ff, FORCEWAKE_MEDIA_VDBOX2), /*		\
- 		0x13200 - 0x133ff: VD2 (DG2 only)				\
--		0x13400 - 0x13fff: reserved */					\
--	GEN_FW_RANGE(0x14000, 0x141ff, FORCEWAKE_MEDIA_VDBOX0), /* XEHPSDV only */	\
--	GEN_FW_RANGE(0x14200, 0x143ff, FORCEWAKE_MEDIA_VDBOX2), /* XEHPSDV only */	\
--	GEN_FW_RANGE(0x14400, 0x145ff, FORCEWAKE_MEDIA_VDBOX4), /* XEHPSDV only */	\
--	GEN_FW_RANGE(0x14600, 0x147ff, FORCEWAKE_MEDIA_VDBOX6), /* XEHPSDV only */	\
-+		0x13400 - 0x147ff: reserved */					\
- 	GEN_FW_RANGE(0x14800, 0x14fff, FORCEWAKE_RENDER),			\
- 	GEN_FW_RANGE(0x15000, 0x16dff, FORCEWAKE_GT), /*			\
- 		0x15000 - 0x15fff: gt (DG2 only)				\
- 		0x16000 - 0x16dff: reserved */					\
--	GEN_FW_RANGE(0x16e00, 0x1ffff, FORCEWAKE_RENDER),			\
--	GEN_FW_RANGE(0x20000, 0x21fff, FORCEWAKE_MEDIA_VDBOX0), /*		\
--		0x20000 - 0x20fff: VD0 (XEHPSDV only)				\
--		0x21000 - 0x21fff: reserved */					\
-+	GEN_FW_RANGE(0x16e00, 0x21fff, FORCEWAKE_RENDER), /*			\
-+		0x16e00 - 0x1ffff: render					\
-+		0x20000 - 0x21fff: reserved */					\
- 	GEN_FW_RANGE(0x22000, 0x23fff, FORCEWAKE_GT),				\
- 	GEN_FW_RANGE(0x24000, 0x2417f, 0), /*					\
- 		0x24000 - 0x2407f: always on					\
-@@ -1627,10 +1622,6 @@ static const struct intel_forcewake_range __gen12_fw_ranges[] = {
- 		0x1f6e00 - 0x1f7fff: reserved */				\
- 	GEN_FW_RANGE(0x1f8000, 0x1fa0ff, FORCEWAKE_MEDIA_VEBOX3),
+@@ -1106,45 +1106,6 @@ static const struct i915_range dg2_shadowed_regs[] = {
+ 	{ .start = 0x1F8510, .end = 0x1F8550 },
+ };
  
--static const struct intel_forcewake_range __xehp_fw_ranges[] = {
--	XEHP_FWRANGES(FORCEWAKE_GT)
+-static const struct i915_range pvc_shadowed_regs[] = {
+-	{ .start =   0x2030, .end =   0x2030 },
+-	{ .start =   0x2510, .end =   0x2550 },
+-	{ .start =   0xA008, .end =   0xA00C },
+-	{ .start =   0xA188, .end =   0xA188 },
+-	{ .start =   0xA278, .end =   0xA278 },
+-	{ .start =   0xA540, .end =   0xA56C },
+-	{ .start =   0xC4C8, .end =   0xC4C8 },
+-	{ .start =   0xC4E0, .end =   0xC4E0 },
+-	{ .start =   0xC600, .end =   0xC600 },
+-	{ .start =   0xC658, .end =   0xC658 },
+-	{ .start =  0x22030, .end =  0x22030 },
+-	{ .start =  0x22510, .end =  0x22550 },
+-	{ .start = 0x1C0030, .end = 0x1C0030 },
+-	{ .start = 0x1C0510, .end = 0x1C0550 },
+-	{ .start = 0x1C4030, .end = 0x1C4030 },
+-	{ .start = 0x1C4510, .end = 0x1C4550 },
+-	{ .start = 0x1C8030, .end = 0x1C8030 },
+-	{ .start = 0x1C8510, .end = 0x1C8550 },
+-	{ .start = 0x1D0030, .end = 0x1D0030 },
+-	{ .start = 0x1D0510, .end = 0x1D0550 },
+-	{ .start = 0x1D4030, .end = 0x1D4030 },
+-	{ .start = 0x1D4510, .end = 0x1D4550 },
+-	{ .start = 0x1D8030, .end = 0x1D8030 },
+-	{ .start = 0x1D8510, .end = 0x1D8550 },
+-	{ .start = 0x1E0030, .end = 0x1E0030 },
+-	{ .start = 0x1E0510, .end = 0x1E0550 },
+-	{ .start = 0x1E4030, .end = 0x1E4030 },
+-	{ .start = 0x1E4510, .end = 0x1E4550 },
+-	{ .start = 0x1E8030, .end = 0x1E8030 },
+-	{ .start = 0x1E8510, .end = 0x1E8550 },
+-	{ .start = 0x1F0030, .end = 0x1F0030 },
+-	{ .start = 0x1F0510, .end = 0x1F0550 },
+-	{ .start = 0x1F4030, .end = 0x1F4030 },
+-	{ .start = 0x1F4510, .end = 0x1F4550 },
+-	{ .start = 0x1F8030, .end = 0x1F8030 },
+-	{ .start = 0x1F8510, .end = 0x1F8550 },
 -};
 -
- static const struct intel_forcewake_range __dg2_fw_ranges[] = {
- 	XEHP_FWRANGES(FORCEWAKE_RENDER)
+ static const struct i915_range mtl_shadowed_regs[] = {
+ 	{ .start =   0x2030, .end =   0x2030 },
+ 	{ .start =   0x2510, .end =   0x2550 },
+@@ -1619,105 +1580,6 @@ static const struct intel_forcewake_range __dg2_fw_ranges[] = {
+ 	GEN_FW_RANGE(0x1f8000, 0x1fa0ff, FORCEWAKE_MEDIA_VEBOX3),
  };
-@@ -2584,10 +2575,6 @@ static int uncore_forcewake_init(struct intel_uncore *uncore)
+ 
+-static const struct intel_forcewake_range __pvc_fw_ranges[] = {
+-	GEN_FW_RANGE(0x0, 0xaff, 0),
+-	GEN_FW_RANGE(0xb00, 0xbff, FORCEWAKE_GT),
+-	GEN_FW_RANGE(0xc00, 0xfff, 0),
+-	GEN_FW_RANGE(0x1000, 0x1fff, FORCEWAKE_GT),
+-	GEN_FW_RANGE(0x2000, 0x26ff, FORCEWAKE_RENDER),
+-	GEN_FW_RANGE(0x2700, 0x2fff, FORCEWAKE_GT),
+-	GEN_FW_RANGE(0x3000, 0x3fff, FORCEWAKE_RENDER),
+-	GEN_FW_RANGE(0x4000, 0x813f, FORCEWAKE_GT), /*
+-		0x4000 - 0x4aff: gt
+-		0x4b00 - 0x4fff: reserved
+-		0x5000 - 0x51ff: gt
+-		0x5200 - 0x52ff: reserved
+-		0x5300 - 0x53ff: gt
+-		0x5400 - 0x7fff: reserved
+-		0x8000 - 0x813f: gt */
+-	GEN_FW_RANGE(0x8140, 0x817f, FORCEWAKE_RENDER),
+-	GEN_FW_RANGE(0x8180, 0x81ff, 0),
+-	GEN_FW_RANGE(0x8200, 0x94cf, FORCEWAKE_GT), /*
+-		0x8200 - 0x82ff: gt
+-		0x8300 - 0x84ff: reserved
+-		0x8500 - 0x887f: gt
+-		0x8880 - 0x8a7f: reserved
+-		0x8a80 - 0x8aff: gt
+-		0x8b00 - 0x8fff: reserved
+-		0x9000 - 0x947f: gt
+-		0x9480 - 0x94cf: reserved */
+-	GEN_FW_RANGE(0x94d0, 0x955f, FORCEWAKE_RENDER),
+-	GEN_FW_RANGE(0x9560, 0x967f, 0), /*
+-		0x9560 - 0x95ff: always on
+-		0x9600 - 0x967f: reserved */
+-	GEN_FW_RANGE(0x9680, 0x97ff, FORCEWAKE_RENDER), /*
+-		0x9680 - 0x96ff: render
+-		0x9700 - 0x97ff: reserved */
+-	GEN_FW_RANGE(0x9800, 0xcfff, FORCEWAKE_GT), /*
+-		0x9800 - 0xb4ff: gt
+-		0xb500 - 0xbfff: reserved
+-		0xc000 - 0xcfff: gt */
+-	GEN_FW_RANGE(0xd000, 0xd3ff, 0),
+-	GEN_FW_RANGE(0xd400, 0xdbff, FORCEWAKE_GT),
+-	GEN_FW_RANGE(0xdc00, 0xdcff, FORCEWAKE_RENDER),
+-	GEN_FW_RANGE(0xdd00, 0xde7f, FORCEWAKE_GT), /*
+-		0xdd00 - 0xddff: gt
+-		0xde00 - 0xde7f: reserved */
+-	GEN_FW_RANGE(0xde80, 0xe8ff, FORCEWAKE_RENDER), /*
+-		0xde80 - 0xdeff: render
+-		0xdf00 - 0xe1ff: reserved
+-		0xe200 - 0xe7ff: render
+-		0xe800 - 0xe8ff: reserved */
+-	GEN_FW_RANGE(0xe900, 0x11fff, FORCEWAKE_GT), /*
+-		 0xe900 -  0xe9ff: gt
+-		 0xea00 -  0xebff: reserved
+-		 0xec00 -  0xffff: gt
+-		0x10000 - 0x11fff: reserved */
+-	GEN_FW_RANGE(0x12000, 0x12fff, 0), /*
+-		0x12000 - 0x127ff: always on
+-		0x12800 - 0x12fff: reserved */
+-	GEN_FW_RANGE(0x13000, 0x19fff, FORCEWAKE_GT), /*
+-		0x13000 - 0x135ff: gt
+-		0x13600 - 0x147ff: reserved
+-		0x14800 - 0x153ff: gt
+-		0x15400 - 0x19fff: reserved */
+-	GEN_FW_RANGE(0x1a000, 0x21fff, FORCEWAKE_RENDER), /*
+-		0x1a000 - 0x1ffff: render
+-		0x20000 - 0x21fff: reserved */
+-	GEN_FW_RANGE(0x22000, 0x23fff, FORCEWAKE_GT),
+-	GEN_FW_RANGE(0x24000, 0x2417f, 0), /*
+-		24000 - 0x2407f: always on
+-		24080 - 0x2417f: reserved */
+-	GEN_FW_RANGE(0x24180, 0x25fff, FORCEWAKE_GT), /*
+-		0x24180 - 0x241ff: gt
+-		0x24200 - 0x251ff: reserved
+-		0x25200 - 0x252ff: gt
+-		0x25300 - 0x25fff: reserved */
+-	GEN_FW_RANGE(0x26000, 0x2ffff, FORCEWAKE_RENDER), /*
+-		0x26000 - 0x27fff: render
+-		0x28000 - 0x2ffff: reserved */
+-	GEN_FW_RANGE(0x30000, 0x3ffff, FORCEWAKE_GT),
+-	GEN_FW_RANGE(0x40000, 0x1bffff, 0),
+-	GEN_FW_RANGE(0x1c0000, 0x1c3fff, FORCEWAKE_MEDIA_VDBOX0), /*
+-		0x1c0000 - 0x1c2bff: VD0
+-		0x1c2c00 - 0x1c2cff: reserved
+-		0x1c2d00 - 0x1c2dff: VD0
+-		0x1c2e00 - 0x1c3eff: reserved
+-		0x1c3f00 - 0x1c3fff: VD0 */
+-	GEN_FW_RANGE(0x1c4000, 0x1cffff, FORCEWAKE_MEDIA_VDBOX1), /*
+-		0x1c4000 - 0x1c6aff: VD1
+-		0x1c6b00 - 0x1c7eff: reserved
+-		0x1c7f00 - 0x1c7fff: VD1
+-		0x1c8000 - 0x1cffff: reserved */
+-	GEN_FW_RANGE(0x1d0000, 0x23ffff, FORCEWAKE_MEDIA_VDBOX2), /*
+-		0x1d0000 - 0x1d2aff: VD2
+-		0x1d2b00 - 0x1d3eff: reserved
+-		0x1d3f00 - 0x1d3fff: VD2
+-		0x1d4000 - 0x23ffff: reserved */
+-	GEN_FW_RANGE(0x240000, 0x3dffff, 0),
+-	GEN_FW_RANGE(0x3e0000, 0x3effff, FORCEWAKE_GT),
+-};
+-
+ static const struct intel_forcewake_range __mtl_fw_ranges[] = {
+ 	GEN_FW_RANGE(0x0, 0xaff, 0),
+ 	GEN_FW_RANGE(0xb00, 0xbff, FORCEWAKE_GT),
+@@ -2560,10 +2422,6 @@ static int uncore_forcewake_init(struct intel_uncore *uncore)
+ 		ASSIGN_FW_DOMAINS_TABLE(uncore, __mtl_fw_ranges);
+ 		ASSIGN_SHADOW_TABLE(uncore, mtl_shadowed_regs);
+ 		ASSIGN_WRITE_MMIO_VFUNCS(uncore, fwtable);
+-	} else if (GRAPHICS_VER_FULL(i915) >= IP_VER(12, 60)) {
+-		ASSIGN_FW_DOMAINS_TABLE(uncore, __pvc_fw_ranges);
+-		ASSIGN_SHADOW_TABLE(uncore, pvc_shadowed_regs);
+-		ASSIGN_WRITE_MMIO_VFUNCS(uncore, fwtable);
+ 	} else if (GRAPHICS_VER_FULL(i915) >= IP_VER(12, 55)) {
  		ASSIGN_FW_DOMAINS_TABLE(uncore, __dg2_fw_ranges);
  		ASSIGN_SHADOW_TABLE(uncore, dg2_shadowed_regs);
- 		ASSIGN_WRITE_MMIO_VFUNCS(uncore, fwtable);
--	} else if (GRAPHICS_VER_FULL(i915) >= IP_VER(12, 50)) {
--		ASSIGN_FW_DOMAINS_TABLE(uncore, __xehp_fw_ranges);
--		ASSIGN_SHADOW_TABLE(uncore, gen12_shadowed_regs);
--		ASSIGN_WRITE_MMIO_VFUNCS(uncore, fwtable);
- 	} else if (GRAPHICS_VER(i915) >= 12) {
- 		ASSIGN_FW_DOMAINS_TABLE(uncore, __gen12_fw_ranges);
- 		ASSIGN_SHADOW_TABLE(uncore, gen12_shadowed_regs);
 diff --git a/drivers/gpu/drm/i915/selftests/intel_uncore.c b/drivers/gpu/drm/i915/selftests/intel_uncore.c
-index 4f98aa8a861ea..502bcadc5f396 100644
+index 502bcadc5f396..41eaa9b7f67d0 100644
 --- a/drivers/gpu/drm/i915/selftests/intel_uncore.c
 +++ b/drivers/gpu/drm/i915/selftests/intel_uncore.c
-@@ -119,7 +119,6 @@ int intel_uncore_mock_selftests(void)
+@@ -71,7 +71,6 @@ static int intel_shadow_table_check(void)
+ 		{ gen11_shadowed_regs, ARRAY_SIZE(gen11_shadowed_regs) },
+ 		{ gen12_shadowed_regs, ARRAY_SIZE(gen12_shadowed_regs) },
+ 		{ dg2_shadowed_regs, ARRAY_SIZE(dg2_shadowed_regs) },
+-		{ pvc_shadowed_regs, ARRAY_SIZE(pvc_shadowed_regs) },
+ 		{ mtl_shadowed_regs, ARRAY_SIZE(mtl_shadowed_regs) },
+ 		{ xelpmp_shadowed_regs, ARRAY_SIZE(xelpmp_shadowed_regs) },
+ 	};
+@@ -119,7 +118,6 @@ int intel_uncore_mock_selftests(void)
  		{ __gen9_fw_ranges, ARRAY_SIZE(__gen9_fw_ranges), true },
  		{ __gen11_fw_ranges, ARRAY_SIZE(__gen11_fw_ranges), true },
  		{ __gen12_fw_ranges, ARRAY_SIZE(__gen12_fw_ranges), true },
--		{ __xehp_fw_ranges, ARRAY_SIZE(__xehp_fw_ranges), true },
- 		{ __pvc_fw_ranges, ARRAY_SIZE(__pvc_fw_ranges), true },
+-		{ __pvc_fw_ranges, ARRAY_SIZE(__pvc_fw_ranges), true },
  		{ __mtl_fw_ranges, ARRAY_SIZE(__mtl_fw_ranges), true },
  		{ __xelpmp_fw_ranges, ARRAY_SIZE(__xelpmp_fw_ranges), true },
+ 	};
 diff --git a/drivers/gpu/drm/xe/compat-i915-headers/i915_drv.h b/drivers/gpu/drm/xe/compat-i915-headers/i915_drv.h
-index fef969112b1dc..a7e7ec3b5db92 100644
+index a7e7ec3b5db92..a01d1b869c2df 100644
 --- a/drivers/gpu/drm/xe/compat-i915-headers/i915_drv.h
 +++ b/drivers/gpu/drm/xe/compat-i915-headers/i915_drv.h
-@@ -85,7 +85,6 @@ static inline struct drm_i915_private *kdev_to_i915(struct device *kdev)
- #define IS_DG1(dev_priv)        IS_PLATFORM(dev_priv, XE_DG1)
+@@ -86,7 +86,6 @@ static inline struct drm_i915_private *kdev_to_i915(struct device *kdev)
  #define IS_ALDERLAKE_S(dev_priv) IS_PLATFORM(dev_priv, XE_ALDERLAKE_S)
  #define IS_ALDERLAKE_P(dev_priv) IS_PLATFORM(dev_priv, XE_ALDERLAKE_P)
--#define IS_XEHPSDV(dev_priv) (dev_priv && 0)
  #define IS_DG2(dev_priv)	IS_PLATFORM(dev_priv, XE_DG2)
- #define IS_PONTEVECCHIO(dev_priv) IS_PLATFORM(dev_priv, XE_PVC)
+-#define IS_PONTEVECCHIO(dev_priv) IS_PLATFORM(dev_priv, XE_PVC)
  #define IS_METEORLAKE(dev_priv) IS_PLATFORM(dev_priv, XE_METEORLAKE)
-@@ -130,7 +129,6 @@ static inline struct drm_i915_private *kdev_to_i915(struct device *kdev)
- #define IS_DG2_GRAPHICS_STEP(xe, variant, first, last) \
+ #define IS_LUNARLAKE(dev_priv) IS_PLATFORM(dev_priv, XE_LUNARLAKE)
+ 
+@@ -130,9 +129,6 @@ static inline struct drm_i915_private *kdev_to_i915(struct device *kdev)
  	((xe)->info.subplatform == XE_SUBPLATFORM_DG2_ ## variant && \
  	 IS_GRAPHICS_STEP(xe, first, last))
--#define IS_XEHPSDV_GRAPHICS_STEP(xe, first, last) (IS_XEHPSDV(xe) && IS_GRAPHICS_STEP(xe, first, last))
  
- /* XXX: No basedie stepping support yet */
- #define IS_PVC_BD_STEP(xe, first, last) (!WARN_ON(1) && IS_PONTEVECCHIO(xe))
+-/* XXX: No basedie stepping support yet */
+-#define IS_PVC_BD_STEP(xe, first, last) (!WARN_ON(1) && IS_PONTEVECCHIO(xe))
+-
+ #define IS_TIGERLAKE_DISPLAY_STEP(xe, first, last) (IS_TIGERLAKE(xe) && IS_DISPLAY_STEP(xe, first, last))
+ #define IS_ROCKETLAKE_DISPLAY_STEP(xe, first, last) (IS_ROCKETLAKE(xe) && IS_DISPLAY_STEP(xe, first, last))
+ #define IS_DG1_DISPLAY_STEP(xe, first, last) (IS_DG1(xe) && IS_DISPLAY_STEP(xe, first, last))
 -- 
 2.43.0
 
