@@ -4,24 +4,24 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E8C7BC6FD1F
-	for <intel-gfx@archiver.kernel.org>; Thu, 21 Mar 2024 23:52:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 173F0C6FD1F
+	for <intel-gfx@archiver.kernel.org>; Thu, 21 Mar 2024 23:52:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 460CE112262;
-	Thu, 21 Mar 2024 23:52:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6ED49112263;
+	Thu, 21 Mar 2024 23:52:17 +0000 (UTC)
 Received: from 8e613ede5ea5 (emeril.freedesktop.org [131.252.210.167])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EB9DE112262;
- Thu, 21 Mar 2024 23:52:12 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 99CB6112263;
+ Thu, 21 Mar 2024 23:52:15 +0000 (UTC)
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
-Subject: =?utf-8?q?=E2=9C=97_Fi=2ECI=2ECHECKPATCH=3A_warning_for_drm/i915/display=3A_?=
- =?utf-8?q?move_dmc=5Ffirmware=5Fpath_to_display_params?=
+Subject: =?utf-8?q?=E2=9C=97_Fi=2ECI=2ESPARSE=3A_warning_for_drm/i915/display=3A_move?=
+ =?utf-8?q?_dmc=5Ffirmware=5Fpath_to_display_params?=
 From: Patchwork <patchwork@emeril.freedesktop.org>
 To: "Jani Nikula" <jani.nikula@intel.com>
 Cc: intel-gfx@lists.freedesktop.org
-Date: Thu, 21 Mar 2024 23:52:12 -0000
-Message-ID: <171106513296.940819.9012645372087358338@8e613ede5ea5>
+Date: Thu, 21 Mar 2024 23:52:15 -0000
+Message-ID: <171106513563.940819.16676216534605202940@8e613ede5ea5>
 X-Patchwork-Hint: ignore
 References: <20240321161856.3517856-1-jani.nikula@intel.com>
 In-Reply-To: <20240321161856.3517856-1-jani.nikula@intel.com>
@@ -49,13 +49,8 @@ State : warning
 
 == Summary ==
 
-Error: dim checkpatch failed
-dc34fc4bd4c3 drm/i915/display: move dmc_firmware_path to display params
--:20: CHECK:PARENTHESIS_ALIGNMENT: Alignment should match open parenthesis
-#20: FILE: drivers/gpu/drm/i915/display/intel_display_params.c:31:
-+intel_display_param_named_unsafe(dmc_firmware_path, charp, 0400,
-+	"DMC firmware path to use instead of the default one");
-
-total: 0 errors, 0 warnings, 1 checks, 66 lines checked
+Error: dim sparse failed
+Sparse version: v0.6.2
+Fast mode used, each commit won't be checked separately.
 
 
