@@ -4,47 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C08C2C54E68
-	for <intel-gfx@archiver.kernel.org>; Thu, 21 Mar 2024 15:45:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A0FB1CD11DE
+	for <intel-gfx@archiver.kernel.org>; Thu, 21 Mar 2024 15:45:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EF92510EE2D;
-	Thu, 21 Mar 2024 15:45:00 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C31F510EE2B;
+	Thu, 21 Mar 2024 15:45:01 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="B2DdfddZ";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="h0XeD4TE";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.18])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E634010EE08
- for <intel-gfx@lists.freedesktop.org>; Thu, 21 Mar 2024 15:44:57 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D69AE10EE2B
+ for <intel-gfx@lists.freedesktop.org>; Thu, 21 Mar 2024 15:45:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1711035898; x=1742571898;
+ t=1711035901; x=1742571901;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=ELSmPRdpPHCWUf5t6+NNpogsoWYWWGjRdMnplQDfl70=;
- b=B2DdfddZ7eA+hSZ7k/viTGmAuV98PDTqHoEVz4zVaT0uqF/s2Ng0Dwax
- uLCMSklD/DCaw4NCjEDIxr6oUMLh+dorrl20MBB1jGqhuqnySpjhgoN1m
- 7O/90UN1qjfbbVMtDcRIMICbce6oldmvR/6xmey8ONQ+/6zP/B3ZQk1rB
- fOSWFLuA6u63X8eOz9mKQLYAi1U1GsvDf2lvWSKvo6TkCOB972ItliFrl
- 89TMZQJfKVxGezTeWoLuXGAvsF0YMLGfSWgO9a1ZpgKn6EI+DH7cT6vY+
- mNcStqpRtJLBc2CoqZ89snSKUvtuO+NMDp1itIFev88mVi1phWgk/LNnk g==;
-X-IronPort-AV: E=McAfee;i="6600,9927,11020"; a="5867555"
+ bh=cvApeDi3ectFwuRUG0QZdgHhcgaA8wo7VrHvcm0uKks=;
+ b=h0XeD4TEn0DrlDS9WuiFpycxWEVvfLOr1kNBUFIyb8y8VgOUTc2dWTwl
+ 5F4QfrZyipT5a/nyZLog7ZL9gONTtkdOKfW3aTw+B40yfD5OSB+imW1eX
+ YKzZcDpFKceqU9Ds7nlJpVNYBZ+CgDQJS73vdIg20sBSgX+C7fV3dOwO1
+ 7SumdtKhv4CKNiVb0fYbgSa/1giVxNNn5wXG1T6NYa6dMKs8De6LUa3AE
+ 5z+loOjEM02drfMOXpKpxSsHtprTGBz+LuTC3qGaAPdtfLb6mlOEm3cIb
+ lrikwOpsL44APpkVxYHVO3x/PoSfedpI94YJ4p51QqoGV8zDycqWEtl4I g==;
+X-IronPort-AV: E=McAfee;i="6600,9927,11020"; a="5867560"
 X-IronPort-AV: E=Sophos;i="6.07,143,1708416000"; 
-   d="scan'208";a="5867555"
+   d="scan'208";a="5867560"
 Received: from fmviesa005.fm.intel.com ([10.60.135.145])
  by fmvoesa112.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 21 Mar 2024 08:44:58 -0700
+ 21 Mar 2024 08:45:01 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.07,143,1708416000"; d="scan'208";a="19018745"
+X-IronPort-AV: E=Sophos;i="6.07,143,1708416000"; d="scan'208";a="19018751"
 Received: from mgolanimitul-x299-ud4-pro.iind.intel.com ([10.190.239.114])
- by fmviesa005.fm.intel.com with ESMTP; 21 Mar 2024 08:44:56 -0700
+ by fmviesa005.fm.intel.com with ESMTP; 21 Mar 2024 08:44:59 -0700
 From: Mitul Golani <mitulkumar.ajitkumar.golani@intel.com>
 To: intel-gfx@lists.freedesktop.org
 Cc: Mitul Golani <mitulkumar.ajitkumar.golani@intel.com>,
  Ankit Nautiyal <ankit.k.nautiyal@intel.com>
-Subject: [PATCH v18 1/9] drm/dp: Add support to indicate if sink supports AS
- SDP
-Date: Thu, 21 Mar 2024 21:08:15 +0530
-Message-Id: <20240321153828.3815870-2-mitulkumar.ajitkumar.golani@intel.com>
+Subject: [PATCH v18 3/9] drm/i915/display: Add crtc state dump for Adaptive
+ Sync SDP
+Date: Thu, 21 Mar 2024 21:08:17 +0530
+Message-Id: <20240321153828.3815870-4-mitulkumar.ajitkumar.golani@intel.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20240311094238.3320888-2-mitulkumar.ajitkumar.golani@intel.com>
 References: <20240311094238.3320888-2-mitulkumar.ajitkumar.golani@intel.com>
@@ -65,67 +65,45 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Add an API that indicates support for Adaptive Sync SDP in
-the sink, which can be utilized by the rest of the DP programming.
+Add crtc state dump for Adaptive Sync SDP to know which
+crtc specifically caused the failure.
 
 --v1:
-- Format commit message properly.
+- Rebase Patches to latest.
 
 Signed-off-by: Mitul Golani <mitulkumar.ajitkumar.golani@intel.com>
 Reviewed-by: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
 ---
- drivers/gpu/drm/display/drm_dp_helper.c | 25 +++++++++++++++++++++++++
- include/drm/display/drm_dp_helper.h     |  1 +
- 2 files changed, 26 insertions(+)
+ drivers/gpu/drm/i915/display/intel_crtc_state_dump.c | 3 +++
+ drivers/gpu/drm/i915/display/intel_display_types.h   | 1 +
+ 2 files changed, 4 insertions(+)
 
-diff --git a/drivers/gpu/drm/display/drm_dp_helper.c b/drivers/gpu/drm/display/drm_dp_helper.c
-index f5d4be897866..5d7c6bab8e33 100644
---- a/drivers/gpu/drm/display/drm_dp_helper.c
-+++ b/drivers/gpu/drm/display/drm_dp_helper.c
-@@ -2948,6 +2948,31 @@ void drm_dp_vsc_sdp_log(struct drm_printer *p, const struct drm_dp_vsc_sdp *vsc)
- }
- EXPORT_SYMBOL(drm_dp_vsc_sdp_log);
+diff --git a/drivers/gpu/drm/i915/display/intel_crtc_state_dump.c b/drivers/gpu/drm/i915/display/intel_crtc_state_dump.c
+index cd78c200d483..ccaa4cb2809b 100644
+--- a/drivers/gpu/drm/i915/display/intel_crtc_state_dump.c
++++ b/drivers/gpu/drm/i915/display/intel_crtc_state_dump.c
+@@ -286,6 +286,9 @@ void intel_crtc_state_dump(const struct intel_crtc_state *pipe_config,
+ 	if (pipe_config->infoframes.enable &
+ 	    intel_hdmi_infoframe_enable(DP_SDP_VSC))
+ 		drm_dp_vsc_sdp_log(&p, &pipe_config->infoframes.vsc);
++	if (pipe_config->infoframes.enable &
++	    intel_hdmi_infoframe_enable(DP_SDP_ADAPTIVE_SYNC))
++		drm_dp_as_sdp_log(&p, &pipe_config->infoframes.as_sdp);
  
-+/**
-+ * drm_dp_as_sdp_supported() - check if adaptive sync sdp is supported
-+ * @aux: DisplayPort AUX channel
-+ * @dpcd: DisplayPort configuration data
-+ *
-+ * Returns true if adaptive sync sdp is supported, else returns false
-+ */
-+bool drm_dp_as_sdp_supported(struct drm_dp_aux *aux, const u8 dpcd[DP_RECEIVER_CAP_SIZE])
-+{
-+	u8 rx_feature;
-+
-+	if (dpcd[DP_DPCD_REV] < DP_DPCD_REV_13)
-+		return false;
-+
-+	if (drm_dp_dpcd_readb(aux, DP_DPRX_FEATURE_ENUMERATION_LIST_CONT_1,
-+			      &rx_feature) != 1) {
-+		drm_dbg_dp(aux->drm_dev,
-+			   "Failed to read DP_DPRX_FEATURE_ENUMERATION_LIST_CONT_1\n");
-+		return false;
-+	}
-+
-+	return (rx_feature & DP_ADAPTIVE_SYNC_SDP_SUPPORTED);
-+}
-+EXPORT_SYMBOL(drm_dp_as_sdp_supported);
-+
- /**
-  * drm_dp_vsc_sdp_supported() - check if vsc sdp is supported
-  * @aux: DisplayPort AUX channel
-diff --git a/include/drm/display/drm_dp_helper.h b/include/drm/display/drm_dp_helper.h
-index a62fcd051d4d..7df19acdc790 100644
---- a/include/drm/display/drm_dp_helper.h
-+++ b/include/drm/display/drm_dp_helper.h
-@@ -101,6 +101,7 @@ struct drm_dp_vsc_sdp {
- void drm_dp_vsc_sdp_log(struct drm_printer *p, const struct drm_dp_vsc_sdp *vsc);
+ 	if (pipe_config->has_audio)
+ 		intel_dump_buffer("ELD: ", pipe_config->eld,
+diff --git a/drivers/gpu/drm/i915/display/intel_display_types.h b/drivers/gpu/drm/i915/display/intel_display_types.h
+index 8a35fb6b2ade..c00f6c3548b9 100644
+--- a/drivers/gpu/drm/i915/display/intel_display_types.h
++++ b/drivers/gpu/drm/i915/display/intel_display_types.h
+@@ -1346,6 +1346,7 @@ struct intel_crtc_state {
+ 		union hdmi_infoframe hdmi;
+ 		union hdmi_infoframe drm;
+ 		struct drm_dp_vsc_sdp vsc;
++		struct drm_dp_as_sdp as_sdp;
+ 	} infoframes;
  
- bool drm_dp_vsc_sdp_supported(struct drm_dp_aux *aux, const u8 dpcd[DP_RECEIVER_CAP_SIZE]);
-+bool drm_dp_as_sdp_supported(struct drm_dp_aux *aux, const u8 dpcd[DP_RECEIVER_CAP_SIZE]);
- 
- int drm_dp_psr_setup_time(const u8 psr_cap[EDP_PSR_RECEIVER_CAP_SIZE]);
- 
+ 	u8 eld[MAX_ELD_BYTES];
 -- 
 2.25.1
 
