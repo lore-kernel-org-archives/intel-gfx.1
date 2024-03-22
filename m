@@ -4,48 +4,27 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C76DEC47DD9
-	for <intel-gfx@archiver.kernel.org>; Fri, 22 Mar 2024 12:24:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 33282C54E71
+	for <intel-gfx@archiver.kernel.org>; Fri, 22 Mar 2024 12:28:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 595C610E1E4;
-	Fri, 22 Mar 2024 12:24:59 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="MbN/Tf1p";
-	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.18])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F1ABB10E3B2
- for <intel-gfx@lists.freedesktop.org>; Fri, 22 Mar 2024 12:24:51 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1711110292; x=1742646292;
- h=from:to:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=uOfQfxRHgSTkxCrR/9iHEOCv/JvGRKeLeKai6BPLoYI=;
- b=MbN/Tf1pOi5JyrCBDIwd7TX7CgRoykkLLyRlGDR9BHFAPKqy/lh6WAq+
- cYhIg08ilDsWBjpc7hDHePH7KiHFb3nI5MWNVB5SsN858ifXWef0QGZhD
- QB0qkfti2hy+xesvXjVtiiXpfxBVrYOZ3Ggsil/KM9lzqGD4vlfIw38WI
- GtKyT0ztQmJnnd3hD3CWN0E7+VC1LKp43LEKFF7+tZacJawjjPN34Rx3i
- 1Af1Y2OwM/rqO9DJOPP9QyC0Y2f13nVnsM7AXFUALYcm6mxq2LCYWicuQ
- QX1cU3nwmrjtX8OsFaOxDcF/tDsBNLL7RLPqdBayQeh037dehDSxDXu5F Q==;
-X-IronPort-AV: E=McAfee;i="6600,9927,11020"; a="6281194"
-X-IronPort-AV: E=Sophos;i="6.07,146,1708416000"; 
-   d="scan'208";a="6281194"
-Received: from orviesa006.jf.intel.com ([10.64.159.146])
- by orvoesa110.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 22 Mar 2024 05:24:51 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.07,146,1708416000"; d="scan'208";a="15322033"
-Received: from srr4-3-linux-103-aknautiy.iind.intel.com ([10.223.34.160])
- by orviesa006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 22 Mar 2024 05:24:50 -0700
-From: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
-To: intel-gfx@lists.freedesktop.org
-Subject: [PATCH 0/2] Avoid unwanted lspcon init and probe warnings
-Date: Fri, 22 Mar 2024 17:48:30 +0530
-Message-Id: <20240322121832.4170061-1-ankit.k.nautiyal@intel.com>
-X-Mailer: git-send-email 2.40.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id ADD8110E48E;
+	Fri, 22 Mar 2024 12:28:14 +0000 (UTC)
+Received: from 8e613ede5ea5 (emeril.freedesktop.org [131.252.210.167])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B64D810E44D;
+ Fri, 22 Mar 2024 12:28:13 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
+Subject: =?utf-8?q?=E2=9C=97_Fi=2ECI=2ECHECKPATCH=3A_warning_for_Enable_fastset_for_m?=
+ =?utf-8?q?bus=5Fjoin_state_change_=28rev2=29?=
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Stanislav Lisovskiy" <stanislav.lisovskiy@intel.com>
+Cc: intel-gfx@lists.freedesktop.org
+Date: Fri, 22 Mar 2024 12:28:13 -0000
+Message-ID: <171111049374.961261.8268690379276300280@8e613ede5ea5>
+X-Patchwork-Hint: ignore
+References: <20240322114046.24930-1-stanislav.lisovskiy@intel.com>
+In-Reply-To: <20240322114046.24930-1-stanislav.lisovskiy@intel.com>
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,29 +37,49 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Currently we probe for lspcon, inside lspcon init.
+== Series Details ==
 
-If there is no lspcon connected, the probe expectedly fails and
-results in error message. This inturn gets propogated to
-lspcon init and we get again error message for lspcon init
-failure.
+Series: Enable fastset for mbus_join state change (rev2)
+URL   : https://patchwork.freedesktop.org/series/130480/
+State : warning
 
-Separate the probe function and avoid displaying error if probe fails.
-If probe succeeds, only then start lspcon init and set the expected
-LS/PCON mode as first step.
+== Summary ==
 
-Ankit Nautiyal (2):
-  drm/i915/lspcon: Separate function to set expected mode
-  drm/i915/lspcon: Separate lspcon probe and lspcon init
+Error: dim checkpatch failed
+9509e256b405 drm/i915: Update mbus in intel_dbuf_mbus_update and do it properly
+-:9: WARNING:TYPO_SPELLING: 'swithing' may be misspelled - perhaps 'switching'?
+#9: 
+or disabling mbus joining(typical scenario is swithing between
+                                              ^^^^^^^^
 
- drivers/gpu/drm/i915/display/intel_dp.c     |  3 +
- drivers/gpu/drm/i915/display/intel_lspcon.c | 66 +++++++++++++--------
- drivers/gpu/drm/i915/display/intel_lspcon.h |  1 +
- 3 files changed, 45 insertions(+), 25 deletions(-)
+total: 0 errors, 1 warnings, 0 checks, 27 lines checked
+cd3089203bd3 drm/i915: Break intel_dbuf_mbus_update into 2 separate parts
+ea40cb166010 drm/i915: Use old mbus_join value when increasing CDCLK
+466a77763a9b drm/i915: Loop over all active pipes in intel_mbus_dbox_update
+4b6e068f01cf drm/i915: Implement vblank synchronized MBUS join changes
+-:80: ERROR:CODE_INDENT: code indent should use tabs where possible
+#80: FILE: drivers/gpu/drm/i915/display/skl_watermark.c:3592:
++^I^I^I^I        const struct intel_dbuf_state *dbuf_state)$
 
--- 
-2.40.1
+-:80: CHECK:PARENTHESIS_ALIGNMENT: Alignment should match open parenthesis
+#80: FILE: drivers/gpu/drm/i915/display/skl_watermark.c:3592:
++static enum pipe intel_mbus_joined_pipe(struct intel_atomic_state *state,
++				        const struct intel_dbuf_state *dbuf_state)
+
+-:140: CHECK:UNNECESSARY_PARENTHESES: Unnecessary parentheses around 'new_dbuf_state->enabled_slices == old_dbuf_state->enabled_slices'
+#140: FILE: drivers/gpu/drm/i915/display/skl_watermark.c:3656:
++	if (!new_dbuf_state ||
++	    (new_dbuf_state->enabled_slices == old_dbuf_state->enabled_slices))
+
+-:159: CHECK:UNNECESSARY_PARENTHESES: Unnecessary parentheses around 'new_dbuf_state->enabled_slices == old_dbuf_state->enabled_slices'
+#159: FILE: drivers/gpu/drm/i915/display/skl_watermark.c:3675:
++	if (!new_dbuf_state ||
++	    (new_dbuf_state->enabled_slices == old_dbuf_state->enabled_slices))
+
+total: 1 errors, 0 warnings, 3 checks, 210 lines checked
+
 
