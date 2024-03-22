@@ -4,51 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 41BC6CD11DD
-	for <intel-gfx@archiver.kernel.org>; Fri, 22 Mar 2024 11:41:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E7344C47DD9
+	for <intel-gfx@archiver.kernel.org>; Fri, 22 Mar 2024 12:24:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6D29610F6B6;
-	Fri, 22 Mar 2024 11:40:58 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 31C4510E3B2;
+	Fri, 22 Mar 2024 12:24:54 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="NpUTG7mP";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="FK7S9DYf";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.15])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 69D8C10F657
- for <intel-gfx@lists.freedesktop.org>; Fri, 22 Mar 2024 11:40:55 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.18])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A0D7A10E3B2
+ for <intel-gfx@lists.freedesktop.org>; Fri, 22 Mar 2024 12:24:53 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1711107655; x=1742643655;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=fIwXMhZmHKfP+KX8LwCOj1r2FugRCJOYZFUZxZrNk5Y=;
- b=NpUTG7mPBtVZTpVU9mNcmLcsjYjrXgwoeETSRKQkIkqvwRavBLpZmJYX
- 4/Hi2fN/TA62DlQJ+MP5wzIdebMBwv/1h7qU2Dpik8uGQn5jZNaSeQUCp
- ZYamsqncS4mOXCzT64+Z1cPI731McYu+J2Og6IGqVPPaarkT5M0Msw5Eq
- edCb1YeRYBFle3z9Yaxy1DtE1+PX9DYCCX5j8JpF9kkWCRdwJiFiRegHe
- Wrtq43rvp9maK+ptvvRLjoJona+OZscu3aFK9ukgB36Ne3E5CkTAC98xL
- l+zbjufOpzeb3tCZHAQZL5LFgueplR2JfO7wPAUUGHBvIg6OG09VSwkOS g==;
-X-IronPort-AV: E=McAfee;i="6600,9927,11020"; a="9939220"
-X-IronPort-AV: E=Sophos;i="6.07,145,1708416000"; 
-   d="scan'208";a="9939220"
-Received: from fmviesa009.fm.intel.com ([10.60.135.149])
- by orvoesa107.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 22 Mar 2024 04:40:55 -0700
+ t=1711110294; x=1742646294;
+ h=from:to:subject:date:message-id:in-reply-to:references:
+ mime-version:content-transfer-encoding;
+ bh=hvGWrwDzvE0P8RHKx7UXP2xMBzYnN06qzuYysZ6IAKg=;
+ b=FK7S9DYfeLvxX0QusAYj2ABr35FV/8nbUrpvBOwoepO5G8RZ7Jrtww3l
+ CpVPk7DD2BSxGM+7HDkXWG+DguIzjTLAsBKiwRT6nnpMwS9sBZryJUVmW
+ XwTItHOE+od/cbYYofdnvWAilyWqIzXptSw1ndWxSAe1k597pvSTtSUpG
+ AxzDvbmVSyWx6AMiJtWeH6z8Xy+5lRIT4yjGYikaj5GzJDK+80tX5NxtW
+ uZTUoZD5Qi4dREhugkuln69q4POE5pxCtPDYhgmvJ0YPBvHDYM06ReTZb
+ 0EE02qU2RLqLiW+AKruh0mvIJEZWWq2lnTex40XMP4atVgwQEGz0uvXJS w==;
+X-IronPort-AV: E=McAfee;i="6600,9927,11020"; a="6281202"
+X-IronPort-AV: E=Sophos;i="6.07,146,1708416000"; 
+   d="scan'208";a="6281202"
+Received: from orviesa006.jf.intel.com ([10.64.159.146])
+ by orvoesa110.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 22 Mar 2024 05:24:54 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.07,145,1708416000"; d="scan'208";a="14906490"
-Received: from unknown (HELO slisovsk-Lenovo-ideapad-720S-13IKB.fi.intel.com)
- ([10.237.72.65])
- by fmviesa009.fm.intel.com with ESMTP; 22 Mar 2024 04:40:53 -0700
-From: Stanislav Lisovskiy <stanislav.lisovskiy@intel.com>
+X-IronPort-AV: E=Sophos;i="6.07,146,1708416000"; d="scan'208";a="15322042"
+Received: from srr4-3-linux-103-aknautiy.iind.intel.com ([10.223.34.160])
+ by orviesa006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 22 Mar 2024 05:24:53 -0700
+From: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Cc: jani.saarinen@intel.com, Stanislav.Lisovskiy@intel.com,
- ville.syrjala@linux.intel.com
-Subject: [PATCH 4/5] drm/i915: Loop over all active pipes in
- intel_mbus_dbox_update
-Date: Fri, 22 Mar 2024 13:40:45 +0200
-Message-Id: <20240322114046.24930-5-stanislav.lisovskiy@intel.com>
-X-Mailer: git-send-email 2.37.3
-In-Reply-To: <20240322114046.24930-1-stanislav.lisovskiy@intel.com>
-References: <20240322114046.24930-1-stanislav.lisovskiy@intel.com>
+Subject: [PATCH 2/2] drm/i915/lspcon: Separate lspcon probe and lspcon init
+Date: Fri, 22 Mar 2024 17:48:32 +0530
+Message-Id: <20240322121832.4170061-3-ankit.k.nautiyal@intel.com>
+X-Mailer: git-send-email 2.40.1
+In-Reply-To: <20240322121832.4170061-1-ankit.k.nautiyal@intel.com>
+References: <20240322121832.4170061-1-ankit.k.nautiyal@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-BeenThere: intel-gfx@lists.freedesktop.org
@@ -66,44 +63,123 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-We need to loop through all active pipes, not just the ones, that
-are in current state, because disabling and enabling even a particular
-pipe affects credits in another one.
+Currently we probe for lspcon, inside lspcon init. Which does 2 things:
+probe the lspcon and set the expected LS/PCON mode.
 
-Signed-off-by: Stanislav Lisovskiy <stanislav.lisovskiy@intel.com>
+If there is no lspcon connected, the probe expectedly fails and
+results in error message. This inturn gets propogated to
+lspcon init and we get again error message for lspcon init
+failure.
+
+Separate the probe function and avoid displaying error if probe fails.
+If probe succeeds, only then start lspcon init and set the expected
+LS/PCON mode as first step.
+
+While at it move the drm_err message in lspcon init, instead of the
+caller.
+
+Signed-off-by: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
 ---
- drivers/gpu/drm/i915/display/skl_watermark.c | 7 +------
- 1 file changed, 1 insertion(+), 6 deletions(-)
+ drivers/gpu/drm/i915/display/intel_dp.c     |  3 +++
+ drivers/gpu/drm/i915/display/intel_lspcon.c | 27 +++++++++++----------
+ drivers/gpu/drm/i915/display/intel_lspcon.h |  1 +
+ 3 files changed, 18 insertions(+), 13 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/display/skl_watermark.c b/drivers/gpu/drm/i915/display/skl_watermark.c
-index 2b947870527fc..7eb78e0c8c8e3 100644
---- a/drivers/gpu/drm/i915/display/skl_watermark.c
-+++ b/drivers/gpu/drm/i915/display/skl_watermark.c
-@@ -3696,10 +3696,8 @@ void intel_mbus_dbox_update(struct intel_atomic_state *state)
- {
- 	struct drm_i915_private *i915 = to_i915(state->base.dev);
- 	const struct intel_dbuf_state *new_dbuf_state, *old_dbuf_state;
--	const struct intel_crtc_state *new_crtc_state;
- 	const struct intel_crtc *crtc;
- 	u32 val = 0;
--	int i;
+diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
+index 94fa34f77cf0..ea8d3e70127e 100644
+--- a/drivers/gpu/drm/i915/display/intel_dp.c
++++ b/drivers/gpu/drm/i915/display/intel_dp.c
+@@ -5882,6 +5882,9 @@ intel_dp_connector_register(struct drm_connector *connector)
+ 	 * ToDo: Clean this up to handle lspcon init and resume more
+ 	 * efficiently and streamlined.
+ 	 */
++	if (!lspcon_probe(lspcon))
++		return ret;
++
+ 	if (lspcon_init(dig_port)) {
+ 		lspcon_detect_hdr_capability(lspcon);
+ 		if (lspcon->hdr_supported)
+diff --git a/drivers/gpu/drm/i915/display/intel_lspcon.c b/drivers/gpu/drm/i915/display/intel_lspcon.c
+index 62159d3ead56..570fde848d00 100644
+--- a/drivers/gpu/drm/i915/display/intel_lspcon.c
++++ b/drivers/gpu/drm/i915/display/intel_lspcon.c
+@@ -266,7 +266,7 @@ static bool lspcon_set_expected_mode(struct intel_lspcon *lspcon)
+ 	return true;
+ }
  
- 	if (DISPLAY_VER(i915) < 11)
- 		return;
-@@ -3743,12 +3741,9 @@ void intel_mbus_dbox_update(struct intel_atomic_state *state)
- 		val |= MBUS_DBOX_B_CREDIT(8);
+-static bool lspcon_probe(struct intel_lspcon *lspcon)
++bool lspcon_probe(struct intel_lspcon *lspcon)
+ {
+ 	int retry;
+ 	enum drm_dp_dual_mode_type adaptor_type;
+@@ -676,30 +676,31 @@ bool lspcon_init(struct intel_digital_port *dig_port)
+ 	lspcon->active = false;
+ 	lspcon->mode = DRM_LSPCON_MODE_INVALID;
+ 
+-	if (!lspcon_probe(lspcon)) {
+-		drm_err(&i915->drm, "Failed to probe lspcon\n");
+-		return false;
+-	}
+-
+ 	if (!lspcon_set_expected_mode(lspcon)) {
+ 		drm_err(&i915->drm, "LSPCON Set expected Mode failed\n");
+-		return false;
++		goto lspcon_init_failed;
  	}
  
--	for_each_new_intel_crtc_in_state(state, crtc, new_crtc_state, i) {
-+	for_each_intel_crtc_in_pipe_mask(&i915->drm, crtc, new_dbuf_state->active_pipes) {
- 		u32 pipe_val = val;
+ 	if (drm_dp_read_dpcd_caps(&intel_dp->aux, intel_dp->dpcd) != 0) {
+ 		drm_err(&i915->drm, "LSPCON DPCD read failed\n");
+-		return false;
++		goto lspcon_init_failed;
+ 	}
  
--		if (!new_crtc_state->hw.active)
--			continue;
--
- 		if (DISPLAY_VER(i915) >= 14) {
- 			if (xelpdp_is_only_pipe_per_dbuf_bank(crtc->pipe,
- 							      new_dbuf_state->active_pipes))
+ 	if (!lspcon_detect_vendor(lspcon)) {
+ 		drm_err(&i915->drm, "LSPCON vendor detection failed\n");
+-		return false;
++		goto lspcon_init_failed;
+ 	}
+ 
+ 	connector->ycbcr_420_allowed = true;
+ 	lspcon->active = true;
+ 	drm_dbg_kms(&i915->drm, "Success: LSPCON init\n");
+ 	return true;
++
++lspcon_init_failed:
++	drm_err(&i915->drm, "LSPCON init failed on port %c\n",
++		port_name(dig_port->base.port));
++
++	return false;
+ }
+ 
+ u32 intel_lspcon_infoframes_enabled(struct intel_encoder *encoder,
+@@ -721,11 +722,11 @@ void lspcon_resume(struct intel_digital_port *dig_port)
+ 		return;
+ 
+ 	if (!lspcon->active) {
+-		if (!lspcon_init(dig_port)) {
+-			drm_err(&i915->drm, "LSPCON init failed on port %c\n",
+-				port_name(dig_port->base.port));
++		if (!lspcon_probe(lspcon))
++			return;
++
++		if (!lspcon_init(dig_port))
+ 			return;
+-		}
+ 	}
+ 
+ 	if (lspcon_wake_native_aux_ch(lspcon)) {
+diff --git a/drivers/gpu/drm/i915/display/intel_lspcon.h b/drivers/gpu/drm/i915/display/intel_lspcon.h
+index e19e10492b05..b156cc6b3a23 100644
+--- a/drivers/gpu/drm/i915/display/intel_lspcon.h
++++ b/drivers/gpu/drm/i915/display/intel_lspcon.h
+@@ -16,6 +16,7 @@ struct intel_encoder;
+ struct intel_lspcon;
+ 
+ bool lspcon_init(struct intel_digital_port *dig_port);
++bool lspcon_probe(struct intel_lspcon *lspcon);
+ void lspcon_detect_hdr_capability(struct intel_lspcon *lspcon);
+ void lspcon_resume(struct intel_digital_port *dig_port);
+ void lspcon_wait_pcon_mode(struct intel_lspcon *lspcon);
 -- 
-2.37.3
+2.40.1
 
