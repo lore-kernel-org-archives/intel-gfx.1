@@ -4,60 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 429DACD11DB
-	for <intel-gfx@archiver.kernel.org>; Mon, 25 Mar 2024 12:47:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5E723C54E64
+	for <intel-gfx@archiver.kernel.org>; Mon, 25 Mar 2024 13:02:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3BE1510E82C;
-	Mon, 25 Mar 2024 12:47:45 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C47E210E882;
+	Mon, 25 Mar 2024 13:02:10 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=qq.com header.i=@qq.com header.b="YFaNDsZX";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="dgbStPhL";
 	dkim-atps=neutral
-X-Greylist: delayed 5533 seconds by postgrey-1.36 at gabe;
- Thu, 21 Mar 2024 11:53:43 UTC
-Received: from xmbg7.mail.qq.com (xmbg7.mail.qq.com [101.91.43.89])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1C90210E0DA;
- Thu, 21 Mar 2024 11:53:42 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
- t=1711022016; bh=CijDDPXIIKYijD0oU6bytFzYpJFbs41y0dCnEbbMEmE=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References;
- b=YFaNDsZXxmKxMYKQmXv4qTnQXTQvXHQWiDof8rHF2E6zFGcI0ETk+HwdjkRMnYo/v
- vmZtwkKqkrmcobVon9tagqD/bckVvk0kYA056I+4GhC01FE1K/EbA4bidJ5LLD6X0U
- q56Slb+JSUebtp0k2/93UVfKGqauF/yhYZKdlGnE=
-Received: from localhost.localdomain ([153.3.156.52])
- by newxmesmtplogicsvrszb6-0.qq.com (NewEsmtp) with SMTP
- id C6E2A2A5; Thu, 21 Mar 2024 17:49:46 +0800
-X-QQ-mid: xmsmtpt1711014586tr1sopbsu
-Message-ID: <tencent_864C9D9720448AC02448E31A5A53C3803007@qq.com>
-X-QQ-XMAILINFO: MB5+LsFw85NoZgDWhwFckWueoxRu1QK8cEr3VHGTtrQE4542GylxBh/fqzsv+S
- VJfMmkUTBwOcG+RPggxAfE1P7MX317RESSqPGtCoSkFh8WGBhhu9TwKYU47q8P++OsGYwVuq6SoF
- DM6sllukwQd4EYBMx5Nrze1aRjJBmgyihDz248GKjI4nSi+QeBkestUgpcf8XRePeLmQ8QPHeLRC
- e3Hxfxt6CG0Ukmf4IALP3n/KL6iz3gUYOXM4/gfofZC5qYKjDU01BBICzuFPdm+J9E5caIxDfh7f
- F5YFgYgGMunjAWFe3uLXdLx3lsCkRHMdd/jluVIBSxnFzJIUb5tZ6Rf71w2ys+EXr8w/47wIE+Fa
- Xs//Ac/lrOfm3VzIxgoAIYcivCLphSsNSISKJF1O1LQw5Nj/80WZeWveRHI+9ZFLB9Brw6kEuhlS
- XtfRlt1dUFjWRLsQgGd8Jt3ndWfuAeCih8a57Z1WV3iRkhBeDUhlnlmoHdqxtjO78nnUIUUHFUDe
- ZI31E1BJyvkvSomMmebhqZBBmTDfLfUT6V1s65MEjl+4bgPrgpRVcAKBXteKWe95g1vVC6x2THwF
- 27yUhvyQ3FJbCBS+223pxKdCdwb6Pgkqj/ljpNd/jYrQErrY1E/EvVTpCKUZ60Laee9ycgagj0fd
- GYHazn9wUTom1Bk4M62GqPfdYenM8QHjY8Sh0zyjgysnx+SsZ/O4R899KkHeWdL7rjqxNIR29e3i
- c/IOmL9/JNiH3O96eFDt1ipREiMt6LkAzOFxtXV9IlnZkNrb0Q6fQpVWYXXM3FCdLlcTb+shtIII
- ahBlEGe2sk8wmp+sYIGtsKgXsAyZDZlzoHdqkD90Ao23xlSTwiBeJIthbhn0UReMywROdCXUXVTX
- 7X2zKHYoHxugiRMIOw/Ilw7lwIXUR2riPVWjmryRDq8CBCICsFnwnPXabNUCp/xlQkJY0agQM4Y/
- 3VqWwV7icg0MHvOMPbIx0N5bOa6s2e9gpA78gLcBd6LR3m747ryQcLszJR5KVStgS2AeAjKPvAfA
- OYbX3hoW354O2P3ed6s7W91/4W0Udl+qxoa4VfxA==
-X-QQ-XMRINFO: NI4Ajvh11aEj8Xl/2s1/T8w=
-From: linke li <lilinke99@qq.com>
-To: lilinke99@qq.com
-Cc: airlied@gmail.com, daniel@ffwll.ch, dri-devel@lists.freedesktop.org,
- intel-gfx@lists.freedesktop.org
-Subject: Re: [PATCH] drm/i915: use READ_ONCE() to read vma->iomap in
- concurrent environment
-Date: Thu, 21 Mar 2024 17:49:44 +0800
-X-OQ-MSGID: <20240321094944.64732-1-lilinke99@qq.com>
-X-Mailer: git-send-email 2.39.3 (Apple Git-146)
-In-Reply-To: <tencent_1A51A82501181FD23618C68685EBC405990A@qq.com>
-References: <tencent_1A51A82501181FD23618C68685EBC405990A@qq.com>
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.16])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5CBE410E882
+ for <intel-gfx@lists.freedesktop.org>; Mon, 25 Mar 2024 13:02:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1711371730; x=1742907730;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=Y7O5KnncesUzjuc4iK64lXl78xl2oGtKzGmkgs2TFrw=;
+ b=dgbStPhLqKLBtDYr0J7sRNX5KkDxnuSurnxho6QXfaT0glHrEIiVzRsO
+ rp/zPa5atDpG6c1ZaGcCu3WizPcAkGOo+vR4UWO5LCo/bw1onv47Ukwff
+ EnI2bexUljPvc8pdznOeOGjvZVh5g9TLs4ML4zJW+e767LYcUqoTW59Yd
+ Zw7+wXxNDpyG+AvBOdO+QgtVWMqknevJRFRIsdzQB2Sw8q45zosh460Tl
+ M2qXoCulfDL4AXElKZmTyTFGJfjo3EKyvlvYXFzOzU2ssyCI/25kK5IpL
+ OdEYL4tLxHwJlNK81N2V1lcjaS/MM5+qdS2/AuzV2Dc0NP1ue2KKJo0af g==;
+X-IronPort-AV: E=McAfee;i="6600,9927,11023"; a="6484191"
+X-IronPort-AV: E=Sophos;i="6.07,153,1708416000"; 
+   d="scan'208";a="6484191"
+Received: from orviesa004.jf.intel.com ([10.64.159.144])
+ by orvoesa108.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 25 Mar 2024 06:02:09 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.07,153,1708416000"; d="scan'208";a="20289103"
+Received: from kridax-mobl1.ger.corp.intel.com (HELO vgovind2-mobl3.intel.com)
+ ([10.252.55.79])
+ by orviesa004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 25 Mar 2024 06:02:07 -0700
+From: Vinod Govindapillai <vinod.govindapillai@intel.com>
+To: intel-gfx@lists.freedesktop.org
+Cc: vinod.govindapillai@intel.com, stanislav.lisovskiy@intel.com,
+ ville.syrjala@intel.com, jani.saarinen@intel.com
+Subject: [PATCH v8 0/4] QGV/SAGV related fixes
+Date: Mon, 25 Mar 2024 15:01:52 +0200
+Message-Id: <20240325130156.205726-1-vinod.govindapillai@intel.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
 Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Mon, 25 Mar 2024 12:47:44 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,6 +66,22 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Hi, I want to confirm the status of this patch and whether need any
-additional information.
+We have couple of customer issues, related to SAGV/QGV point
+calculation. Those patches contain fixes plus some additional
+debugs for those issues.
+
+Stanislav Lisovskiy (4):
+  drm/i915: Add meaningful traces for QGV point info error handling
+  drm/i915: Extract code required to calculate max qgv/psf gv point
+  drm/i915: Disable SAGV on bw init, to force QGV point recalculation
+  drm/i915/display: handle systems with duplicate qgv/psf gv points
+
+ drivers/gpu/drm/i915/display/intel_bw.c      | 139 ++++++++++++++-----
+ drivers/gpu/drm/i915/display/skl_watermark.c |   2 +-
+ drivers/gpu/drm/i915/display/skl_watermark.h |   1 +
+ drivers/gpu/drm/i915/soc/intel_dram.c        |   2 +
+ 4 files changed, 112 insertions(+), 32 deletions(-)
+
+-- 
+2.34.1
 
