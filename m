@@ -4,53 +4,27 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E3829C54E58
-	for <intel-gfx@archiver.kernel.org>; Mon, 25 Mar 2024 15:11:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 42DA6C54E64
+	for <intel-gfx@archiver.kernel.org>; Mon, 25 Mar 2024 15:17:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5AC9610E984;
-	Mon, 25 Mar 2024 15:11:25 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="P83NXhFO";
-	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.19])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2D57E10E98A;
- Mon, 25 Mar 2024 15:11:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1711379484; x=1742915484;
- h=from:to:cc:subject:in-reply-to:references:date:
- message-id:mime-version;
- bh=uo6EW6o1ThMIneFfstinf+Enjdx0oToIU38SIGgjgSw=;
- b=P83NXhFOCsmZhhLgMQtfBlor4rYGnr4pZlcKCPnGULtJSII7ORss298i
- p2ayzJB2zuyQ4P0IPuznE78Fl2nIrL9jnw/llatrHuYh0lGxk3lIErCA+
- h8Fhb6lSl+BoiJuzQ8P7LptwqLFUXbm9ZmASot/OpSFGkemWp7argn9P6
- DzmjimQlIIK68lFvXnKSuenE/g/lNI0xE+SnqRGHlttFhs1XUItT6f0Yp
- wogaGNSa9uxzgmLdCGdF7HKKaMU7jvzhrw1xsXhPTNUSmN8Kqzl6n5Z9E
- ELU7ScKwSZCid35N5MMAmfK4BDfbHWcUWWXJ8VqNed0QLRmJBET25Gkfu g==;
-X-IronPort-AV: E=McAfee;i="6600,9927,11023"; a="6246634"
-X-IronPort-AV: E=Sophos;i="6.07,153,1708416000"; 
-   d="scan'208";a="6246634"
-Received: from orviesa005.jf.intel.com ([10.64.159.145])
- by fmvoesa113.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 25 Mar 2024 08:11:24 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.07,153,1708416000"; d="scan'208";a="20374360"
-Received: from idirlea-mobl.ger.corp.intel.com (HELO localhost)
- ([10.252.55.171])
- by orviesa005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 25 Mar 2024 08:11:21 -0700
-From: Jani Nikula <jani.nikula@linux.intel.com>
-To: Lucas De Marchi <lucas.demarchi@intel.com>, intel-gfx@lists.freedesktop.org
-Cc: dri-devel@lists.freedesktop.org, Lucas De Marchi
- <lucas.demarchi@intel.com>, Stephen Rothwell <sfr@canb.auug.org.au>
-Subject: Re: [PATCH] drm/i915: Delete stray .rej file
-In-Reply-To: <20240325144728.537855-1-lucas.demarchi@intel.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
-References: <20240325144728.537855-1-lucas.demarchi@intel.com>
-Date: Mon, 25 Mar 2024 17:11:18 +0200
-Message-ID: <87edbyibxl.fsf@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id C02F810E97D;
+	Mon, 25 Mar 2024 15:17:54 +0000 (UTC)
+Received: from 8e613ede5ea5 (emeril.freedesktop.org [131.252.210.167])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CED8910E97B;
+ Mon, 25 Mar 2024 15:17:53 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Transfer-Encoding: 7bit
+Subject: =?utf-8?q?=E2=9C=97_Fi=2ECI=2EBUILD=3A_failure_for_drm/ttm=3A_remove_unused_?=
+ =?utf-8?q?paramter?=
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Jesse Zhang" <jesse.zhang@amd.com>
+Cc: intel-gfx@lists.freedesktop.org
+Date: Mon, 25 Mar 2024 15:17:53 -0000
+Message-ID: <171137987384.1035680.10649793535603597186@8e613ede5ea5>
+X-Patchwork-Hint: ignore
+References: <20240325074540.2426476-1-jesse.zhang@amd.com>
+In-Reply-To: <20240325074540.2426476-1-jesse.zhang@amd.com>
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,49 +37,31 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Mon, 25 Mar 2024, Lucas De Marchi <lucas.demarchi@intel.com> wrote:
-> drivers/gpu/drm/i915/gt/intel_workarounds.c.rej was incorrectly added to
-> the tree after solving a conflict. Remove it.
->
-> Fixes: 326e30e4624c ("drm/i915: Drop dead code for pvc")
-> Reported-by: Stephen Rothwell <sfr@canb.auug.org.au>
-> Closes: https://lore.kernel.org/r/20240325083435.4f970eec@canb.auug.org.au
-> Cc: Jani Nikula <jani.nikula@linux.intel.com>
-> Signed-off-by: Lucas De Marchi <lucas.demarchi@intel.com>
+== Series Details ==
 
-Reviewed-by: Jani Nikula <jani.nikula@intel.com>
-> ---
->  .../gpu/drm/i915/gt/intel_workarounds.c.rej    | 18 ------------------
->  1 file changed, 18 deletions(-)
->  delete mode 100644 drivers/gpu/drm/i915/gt/intel_workarounds.c.rej
->
-> diff --git a/drivers/gpu/drm/i915/gt/intel_workarounds.c.rej b/drivers/gpu/drm/i915/gt/intel_workarounds.c.rej
-> deleted file mode 100644
-> index 91463b1d684a..000000000000
-> --- a/drivers/gpu/drm/i915/gt/intel_workarounds.c.rej
-> +++ /dev/null
-> @@ -1,18 +0,0 @@
-> -diff a/drivers/gpu/drm/i915/gt/intel_workarounds.c b/drivers/gpu/drm/i915/gt/intel_workarounds.c	(rejected hunks)
-> -@@ -2844,14 +2767,13 @@ general_render_compute_wa_init(struct intel_engine_cs *engine, struct i915_wa_li
-> - 
-> - 	if (IS_GFX_GT_IP_STEP(gt, IP_VER(12, 70), STEP_A0, STEP_B0) ||
-> - 	    IS_GFX_GT_IP_STEP(gt, IP_VER(12, 71), STEP_A0, STEP_B0) ||
-> --	    IS_PONTEVECCHIO(i915) ||
-> - 	    IS_DG2(i915)) {
-> - 		/* Wa_22014226127 */
-> - 		wa_mcr_write_or(wal, LSC_CHICKEN_BIT_0, DISABLE_D8_D16_COASLESCE);
-> - 	}
-> - 
-> --	if (IS_PONTEVECCHIO(i915) || IS_DG2(i915))
-> --		/* Wa_14015227452:dg2,pvc */
-> -+	if (IS_DG2(i915))
-> -+		/* Wa_14015227452 */
-> - 		wa_mcr_masked_en(wal, GEN9_ROW_CHICKEN4, XEHP_DIS_BBL_SYSPIPE);
-> - 
-> - 	if (IS_DG2(i915)) {
+Series: drm/ttm: remove unused paramter
+URL   : https://patchwork.freedesktop.org/series/131576/
+State : failure
 
--- 
-Jani Nikula, Intel
+== Summary ==
+
+Error: patch https://patchwork.freedesktop.org/api/1.0/series/131576/revisions/1/mbox/ not applied
+Applying: drm/ttm: remove unused paramter
+Using index info to reconstruct a base tree...
+M	drivers/gpu/drm/ttm/ttm_bo.c
+Falling back to patching base and 3-way merge...
+Auto-merging drivers/gpu/drm/ttm/ttm_bo.c
+CONFLICT (content): Merge conflict in drivers/gpu/drm/ttm/ttm_bo.c
+error: Failed to merge in the changes.
+hint: Use 'git am --show-current-patch=diff' to see the failed patch
+Patch failed at 0001 drm/ttm: remove unused paramter
+When you have resolved this problem, run "git am --continue".
+If you prefer to skip this patch, run "git am --skip" instead.
+To restore the original branch and stop patching, run "git am --abort".
+Build failed, no error log produced
+
+
