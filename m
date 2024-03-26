@@ -4,51 +4,51 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CBE20CD1280
-	for <intel-gfx@archiver.kernel.org>; Tue, 26 Mar 2024 23:10:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CE172CD11DF
+	for <intel-gfx@archiver.kernel.org>; Tue, 26 Mar 2024 23:11:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6D9AD10F49E;
-	Tue, 26 Mar 2024 23:10:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 44F9B10F4A2;
+	Tue, 26 Mar 2024 23:11:01 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="h19NrPtg";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="ToMfPV1Q";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.18])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F099510F49E
- for <intel-gfx@lists.freedesktop.org>; Tue, 26 Mar 2024 23:10:55 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 89B0A10F4A2
+ for <intel-gfx@lists.freedesktop.org>; Tue, 26 Mar 2024 23:10:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1711494656; x=1743030656;
+ t=1711494660; x=1743030660;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=ylqtey0ZXs81sKuj+Z1df6a8c70238Xst+LeTMyWFoU=;
- b=h19NrPtgqq0dnSCOrkdSWbYlAa+8IKIK2zrDPewwPC62pNRUMqGMQWvQ
- EhJBvJKJQWOU5f9p0MMvFruAbt2zb4uyuXH9rsXtGMfPFNZm9lITXfamP
- MUOirROKKLiT5Vgjh00ilU3e03DgBiNk8MfLHajeokKUD71drYWuiZ6ut
- blT+3SwJy1TV1pqjxQeO0QfndOp8/vdRWliowISQBCdL0PH3wX5fS2mLQ
- UTKqxmkj3MbxYxETVU9rBWdF8q0BWuPd/exeA14/8GqzkACMp9Kd+1Dmf
- 3lrL4LaskW/WadU9My6LIbHzBU/uy+DjfQZhrgt7QbEEFKugFi1GY5TVo A==;
-X-CSE-ConnectionGUID: 6AqRwM/4To2NiJsiUqSLqA==
-X-CSE-MsgGUID: B7pZRusnQF29aI2501eydg==
-X-IronPort-AV: E=McAfee;i="6600,9927,11025"; a="6702997"
+ bh=1sfoqamWofKuUWFtfzBp+nQhL0ytKxg2G2CtBr4HuL4=;
+ b=ToMfPV1QhfotauRkLmQnQ6uo26Eo1doAZ2YeWwf9j4DHIRW2NQ/uP8Vj
+ zmdEam1Mzw0viEPr7eZQ6Tr4GQ8o3Kos1+BrxL6YZummIsaIZ6xymVHgI
+ 36IITpXBeiTBE4A7vxUQhAI6M4T9fMM9WmvwQg4opdSybd7VCWO21hh8x
+ 1zK1a+IdCAq0ETeACWW6wurG+pECPCXPUxe2/+A7fsNClCKPkY5TSY0BX
+ r0B4RjZ003xWVxlE0RvnpPOoVQnDEBY+ruJQAjOrpx6gcmFvg2hU05byI
+ HuYCV11XeBltp/s4x5+Ag3GgSWPchjWK1EREUd5MXzbcQwWzJPsioXmx/ g==;
+X-CSE-ConnectionGUID: +xCfM6B8QNqeNW5r7IMHwQ==
+X-CSE-MsgGUID: zm1hjcwGT5i4uB2+ER+0Vg==
+X-IronPort-AV: E=McAfee;i="6600,9927,11025"; a="6703008"
 X-IronPort-AV: E=Sophos;i="6.07,157,1708416000"; 
-   d="scan'208";a="6702997"
+   d="scan'208";a="6703008"
 Received: from fmviesa007.fm.intel.com ([10.60.135.147])
  by orvoesa110.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 26 Mar 2024 16:10:54 -0700
+ 26 Mar 2024 16:11:00 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.07,157,1708416000"; d="scan'208";a="16101245"
+X-IronPort-AV: E=Sophos;i="6.07,157,1708416000"; d="scan'208";a="16101289"
 Received: from dfantini-mobl.ger.corp.intel.com (HELO
  vgovind2-mobl3.intel.com) ([10.249.33.69])
  by fmviesa007-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 26 Mar 2024 16:10:52 -0700
+ 26 Mar 2024 16:10:57 -0700
 From: Vinod Govindapillai <vinod.govindapillai@intel.com>
 To: intel-gfx@lists.freedesktop.org
 Cc: vinod.govindapillai@intel.com, stanislav.lisovskiy@intel.com,
  ville.syrjala@intel.com, jani.saarinen@intel.com
-Subject: [PATCH v9 1/6] drm/i915/display: Add meaningful traces for QGV point
- info error handling
-Date: Wed, 27 Mar 2024 01:10:16 +0200
-Message-Id: <20240326231021.281780-2-vinod.govindapillai@intel.com>
+Subject: [PATCH v9 3/6] drm/i915/display: extract code to prepare qgv points
+ mask
+Date: Wed, 27 Mar 2024 01:10:18 +0200
+Message-Id: <20240326231021.281780-4-vinod.govindapillai@intel.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20240326231021.281780-1-vinod.govindapillai@intel.com>
 References: <20240326231021.281780-1-vinod.govindapillai@intel.com>
@@ -70,55 +70,49 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Stanislav Lisovskiy <stanislav.lisovskiy@intel.com>
+Extract the code to prepare the QGV points mask as per the
+format expected by the pcode as this could be utlized from
+multiple points.
 
-For debug purposes we need those - error path won't flood the log,
-however there has been already numerous cases, when due to lack
-of debugs, we couldn't immediately tell what was the problem on
-customer machine, which slowed down the investigation, requiring
-to get access to target device and adding those traces manually.
-
-v2: - Make the debug more generic and move it to intel_dram_detect
-      (Gustavo Sousa)
-v3: - Use %u for unsigned variable in debug prints (Gustavo)
-
-Reviewed-by: Gustavo Sousa <gustavo.sousa@intel.com>
-Signed-off-by: Stanislav Lisovskiy <stanislav.lisovskiy@intel.com>
 Signed-off-by: Vinod Govindapillai <vinod.govindapillai@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_bw.c | 4 +++-
- drivers/gpu/drm/i915/soc/intel_dram.c   | 2 ++
- 2 files changed, 5 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/i915/display/intel_bw.c | 16 +++++++++++-----
+ 1 file changed, 11 insertions(+), 5 deletions(-)
 
 diff --git a/drivers/gpu/drm/i915/display/intel_bw.c b/drivers/gpu/drm/i915/display/intel_bw.c
-index 7f2a50b4f494..77886cc21211 100644
+index c00094e5f11c..4fed84869e09 100644
 --- a/drivers/gpu/drm/i915/display/intel_bw.c
 +++ b/drivers/gpu/drm/i915/display/intel_bw.c
-@@ -290,8 +290,10 @@ static int icl_get_qgv_points(struct drm_i915_private *dev_priv,
- 		struct intel_qgv_point *sp = &qi->points[i];
+@@ -851,6 +851,14 @@ static unsigned int icl_max_bw_qgv_point_mask(struct drm_i915_private *i915,
+ 	return max_bw_point_mask;
+ }
  
- 		ret = intel_read_qgv_point_info(dev_priv, sp, i);
--		if (ret)
-+		if (ret) {
-+			drm_dbg_kms(&dev_priv->drm, "Could not read QGV %d info\n", i);
- 			return ret;
-+		}
- 
- 		drm_dbg_kms(&dev_priv->drm,
- 			    "QGV %d: DCLK=%d tRP=%d tRDPRE=%d tRAS=%d tRCD=%d tRC=%d\n",
-diff --git a/drivers/gpu/drm/i915/soc/intel_dram.c b/drivers/gpu/drm/i915/soc/intel_dram.c
-index 15492b69f698..e3287f1de774 100644
---- a/drivers/gpu/drm/i915/soc/intel_dram.c
-+++ b/drivers/gpu/drm/i915/soc/intel_dram.c
-@@ -681,6 +681,8 @@ void intel_dram_detect(struct drm_i915_private *i915)
- 	if (ret)
- 		return;
- 
-+	drm_dbg_kms(&i915->drm, "Num qgv points %u\n", dram_info->num_qgv_points);
++static u16 icl_prepare_qgv_points_mask(struct drm_i915_private *i915,
++				       unsigned int qgv_points,
++				       unsigned int psf_points)
++{
++	return ~(ICL_PCODE_REQ_QGV_PT(qgv_points) |
++		 ADLS_PCODE_REQ_PSF_PT(psf_points)) & icl_qgv_points_mask(i915);
++}
 +
- 	drm_dbg_kms(&i915->drm, "DRAM channels: %u\n", dram_info->num_channels);
- 
- 	drm_dbg_kms(&i915->drm, "Watermark level 0 adjustment needed: %s\n",
+ static int mtl_find_qgv_points(struct drm_i915_private *i915,
+ 			       unsigned int data_rate,
+ 			       unsigned int num_active_planes,
+@@ -994,11 +1002,9 @@ static int icl_find_qgv_points(struct drm_i915_private *i915,
+ 	 * We store the ones which need to be masked as that is what PCode
+ 	 * actually accepts as a parameter.
+ 	 */
+-	new_bw_state->qgv_points_mask =
+-		~(ICL_PCODE_REQ_QGV_PT(qgv_points) |
+-		  ADLS_PCODE_REQ_PSF_PT(psf_points)) &
+-		icl_qgv_points_mask(i915);
+-
++	new_bw_state->qgv_points_mask = icl_prepare_qgv_points_mask(i915,
++								    qgv_points,
++								    psf_points);
+ 	/*
+ 	 * If the actual mask had changed we need to make sure that
+ 	 * the commits are serialized(in case this is a nomodeset, nonblocking)
 -- 
 2.34.1
 
