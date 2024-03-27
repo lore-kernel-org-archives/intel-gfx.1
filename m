@@ -4,55 +4,58 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 27240CD1284
-	for <intel-gfx@archiver.kernel.org>; Wed, 27 Mar 2024 17:46:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6C4D7C47DD9
+	for <intel-gfx@archiver.kernel.org>; Wed, 27 Mar 2024 19:37:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8C72C10FEC9;
-	Wed, 27 Mar 2024 17:46:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DD91410E19D;
+	Wed, 27 Mar 2024 19:37:32 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="AensC8MJ";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="kQs9J8KF";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.17])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 35EE310FEC8
- for <intel-gfx@lists.freedesktop.org>; Wed, 27 Mar 2024 17:46:23 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.16])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 081FF10E19D
+ for <intel-gfx@lists.freedesktop.org>; Wed, 27 Mar 2024 19:37:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1711561583; x=1743097583;
- h=from:to:subject:date:message-id:in-reply-to:references:
- mime-version:content-transfer-encoding;
- bh=OYkXSnuoP8eCnYjl37dlehfqRs/mHvUNl92xyf1iXSk=;
- b=AensC8MJlps2JQFC0Karxx9YRc0MG9lC8macZwdDN9cyuwRob6reO7YB
- IF0MtScLfHv16HdcNuFDCX3JmbQu0yn4nw2Z2e/qWpPy30kSlS/KZb19x
- Kt75DQq6JOBzvIAOM/cQxSMflu/Tzmkccdleeu6ymaFfhD64I2bm/vQwg
- lvR0GO/40i99cqs45LwzYCKHTzqG3ilyBGllr7rDVQWPKcW2FANRfvEMJ
- 6z09G8BDugqVg7oXMre2ymgrkGuh4lOkovdrVbm9vHO/eEwJffDMZf3dH
- Ixc+9gzH5Z4/KoVaIMr9mMdsHL5VtM/YlqjGDNR2fI49g6Rng9dywnz6K Q==;
-X-CSE-ConnectionGUID: gDI+accERJqgazqHmWBHKg==
-X-CSE-MsgGUID: CO1Cgi84RtCmjHKKdhZRSA==
-X-IronPort-AV: E=McAfee;i="6600,9927,11026"; a="6795484"
+ t=1711568251; x=1743104251;
+ h=date:message-id:from:to:cc:subject:in-reply-to:
+ references:mime-version;
+ bh=j9ETbo/YA6QA/FxGEQb33EoTjR+pKuNtE4CZgyViYCI=;
+ b=kQs9J8KF4uZjexex942hWMVmkfyjjZw40QSBBi0wYvVtZ+9JCrnHtQBA
+ VtyznQ9BCEXhBAmLvhqXKwg9TYjh70/wp5pcghK1HcvFWb/KcwCSKRfro
+ L5teHXufIHKJYRcBZFfvEmkWc/xtoh23/Lj1YcZa766BQWVOhzu5uSPlE
+ hflYOW/jWJWFchDSruEPJHF21fBsNRhY7QMtc3I+PmL6iFG2xQlnlBG1/
+ U6C3qHFiTPKOImD7rK92hD/rWPJ59fApWxE3EGc5aINlg5w1NL8dld4e8
+ raQcKj0nEChhrNXeQqThLkAsJ0B+LP0Q7j/bUIsjM0Xf5NPnk4bTS00E7 w==;
+X-CSE-ConnectionGUID: Dz9hxYWKS560Y5EJW8KmYw==
+X-CSE-MsgGUID: WivsWiAcTPmLWnR1KUJ0pA==
+X-IronPort-AV: E=McAfee;i="6600,9927,11026"; a="7298581"
 X-IronPort-AV: E=Sophos;i="6.07,159,1708416000"; 
-   d="scan'208";a="6795484"
-Received: from orsmga001.jf.intel.com ([10.7.209.18])
- by orvoesa109.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 27 Mar 2024 10:46:23 -0700
+   d="scan'208";a="7298581"
+Received: from orviesa008.jf.intel.com ([10.64.159.148])
+ by fmvoesa110.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 27 Mar 2024 12:37:30 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,11026"; a="827785915"
-X-IronPort-AV: E=Sophos;i="6.07,159,1708416000"; d="scan'208";a="827785915"
-Received: from stinkpipe.fi.intel.com (HELO stinkbox) ([10.237.72.74])
- by orsmga001.jf.intel.com with SMTP; 27 Mar 2024 10:46:20 -0700
-Received: by stinkbox (sSMTP sendmail emulation);
- Wed, 27 Mar 2024 19:46:20 +0200
-From: Ville Syrjala <ville.syrjala@linux.intel.com>
-To: intel-gfx@lists.freedesktop.org
-Subject: [PATCH 12/13] drm/i915: Use a plain old int for the cdclk/mdclk ratio
-Date: Wed, 27 Mar 2024 19:45:43 +0200
-Message-ID: <20240327174544.983-13-ville.syrjala@linux.intel.com>
-X-Mailer: git-send-email 2.43.2
-In-Reply-To: <20240327174544.983-1-ville.syrjala@linux.intel.com>
-References: <20240327174544.983-1-ville.syrjala@linux.intel.com>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+X-IronPort-AV: E=Sophos;i="6.07,159,1708416000"; d="scan'208";a="17025416"
+Received: from orsosgc001.jf.intel.com (HELO orsosgc001.intel.com)
+ ([10.165.21.138])
+ by orviesa008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 27 Mar 2024 12:37:30 -0700
+Date: Wed, 27 Mar 2024 12:37:29 -0700
+Message-ID: <85h6gr5uva.wl-ashutosh.dixit@intel.com>
+From: "Dixit, Ashutosh" <ashutosh.dixit@intel.com>
+To: Badal Nilawar <badal.nilawar@intel.com>
+Cc: <intel-gfx@lists.freedesktop.org>, <anshuman.gupta@intel.com>,
+ <janusz.krzysztofik@intel.com>
+Subject: Re: [PATCH] drm/i915/hwmon: Remove i915_hwmon_unregister() during
+ driver unbind
+In-Reply-To: <20240326124838.3049215-1-badal.nilawar@intel.com>
+References: <20240326124838.3049215-1-badal.nilawar@intel.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI-EPG/1.14.7 (Harue)
+ FLIM-LB/1.14.9 (=?ISO-8859-4?Q?Goj=F2?=) APEL-LB/10.8 EasyPG/1.0.0
+ Emacs/28.2 (x86_64-redhat-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,102 +71,118 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Ville Syrjälä <ville.syrjala@linux.intel.com>
+On Tue, 26 Mar 2024 05:48:38 -0700, Badal Nilawar wrote:
+>
 
-No point in throwing around u8 when we're dealing with
-just an integer. Use a plain old boring 'int'.
+Hi Badal,
 
-Signed-off-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
----
- drivers/gpu/drm/i915/display/intel_cdclk.c   | 6 +++---
- drivers/gpu/drm/i915/display/intel_cdclk.h   | 4 ++--
- drivers/gpu/drm/i915/display/skl_watermark.c | 6 ++++--
- drivers/gpu/drm/i915/display/skl_watermark.h | 6 ++++--
- 4 files changed, 13 insertions(+), 9 deletions(-)
+> i915_hwmon and its resources are managed resources of i915 dev.
+> During i915 driver unregister flow the function i915_hwmon_unregister()
+> explicitly makes i915_hwmon resource NULL. This happen before
+> hwmon is actually unregistered. Doing so may cause UAF if hwmon
+> sysfs is being accessed:
 
-diff --git a/drivers/gpu/drm/i915/display/intel_cdclk.c b/drivers/gpu/drm/i915/display/intel_cdclk.c
-index 66c161d7b485..5cba0d08189b 100644
---- a/drivers/gpu/drm/i915/display/intel_cdclk.c
-+++ b/drivers/gpu/drm/i915/display/intel_cdclk.c
-@@ -1893,8 +1893,8 @@ static u32 xe2lpd_mdclk_source_sel(struct drm_i915_private *i915)
- 	return MDCLK_SOURCE_SEL_CD2XCLK;
- }
- 
--u8 intel_mdclk_cdclk_ratio(struct drm_i915_private *i915,
--			   const struct intel_cdclk_config *cdclk_config)
-+int intel_mdclk_cdclk_ratio(struct drm_i915_private *i915,
-+			    const struct intel_cdclk_config *cdclk_config)
- {
- 	if (mdclk_source_is_cdclk_pll(i915))
- 		return DIV_ROUND_UP(cdclk_config->vco, cdclk_config->cdclk);
-@@ -3321,7 +3321,7 @@ int intel_modeset_calc_cdclk(struct intel_atomic_state *state)
- 
- 	if (intel_mdclk_cdclk_ratio(dev_priv, &old_cdclk_state->actual) !=
- 	    intel_mdclk_cdclk_ratio(dev_priv, &new_cdclk_state->actual)) {
--		u8 ratio = intel_mdclk_cdclk_ratio(dev_priv, &new_cdclk_state->actual);
-+		int ratio = intel_mdclk_cdclk_ratio(dev_priv, &new_cdclk_state->actual);
- 
- 		ret = intel_dbuf_state_set_mdclk_cdclk_ratio(state, ratio);
- 		if (ret)
-diff --git a/drivers/gpu/drm/i915/display/intel_cdclk.h b/drivers/gpu/drm/i915/display/intel_cdclk.h
-index 5d4faf401774..cfdcdec07a4d 100644
---- a/drivers/gpu/drm/i915/display/intel_cdclk.h
-+++ b/drivers/gpu/drm/i915/display/intel_cdclk.h
-@@ -67,8 +67,8 @@ void intel_update_cdclk(struct drm_i915_private *dev_priv);
- u32 intel_read_rawclk(struct drm_i915_private *dev_priv);
- bool intel_cdclk_clock_changed(const struct intel_cdclk_config *a,
- 			       const struct intel_cdclk_config *b);
--u8 intel_mdclk_cdclk_ratio(struct drm_i915_private *i915,
--			   const struct intel_cdclk_config *cdclk_config);
-+int intel_mdclk_cdclk_ratio(struct drm_i915_private *i915,
-+			    const struct intel_cdclk_config *cdclk_config);
- bool intel_cdclk_is_decreasing_later(struct intel_atomic_state *state);
- void intel_set_cdclk_pre_plane_update(struct intel_atomic_state *state);
- void intel_set_cdclk_post_plane_update(struct intel_atomic_state *state);
-diff --git a/drivers/gpu/drm/i915/display/skl_watermark.c b/drivers/gpu/drm/i915/display/skl_watermark.c
-index ca0f1f89e6d9..1b48009efe2b 100644
---- a/drivers/gpu/drm/i915/display/skl_watermark.c
-+++ b/drivers/gpu/drm/i915/display/skl_watermark.c
-@@ -3616,7 +3616,8 @@ static void intel_mbus_dbox_update(struct intel_atomic_state *state)
- 	}
- }
- 
--int intel_dbuf_state_set_mdclk_cdclk_ratio(struct intel_atomic_state *state, u8 ratio)
-+int intel_dbuf_state_set_mdclk_cdclk_ratio(struct intel_atomic_state *state,
-+					   int ratio)
- {
- 	struct intel_dbuf_state *dbuf_state;
- 
-@@ -3629,7 +3630,8 @@ int intel_dbuf_state_set_mdclk_cdclk_ratio(struct intel_atomic_state *state, u8
- 	return intel_atomic_lock_global_state(&dbuf_state->base);
- }
- 
--void intel_dbuf_mdclk_cdclk_ratio_update(struct drm_i915_private *i915, u8 ratio, bool joined_mbus)
-+void intel_dbuf_mdclk_cdclk_ratio_update(struct drm_i915_private *i915,
-+					 int ratio, bool joined_mbus)
- {
- 	enum dbuf_slice slice;
- 
-diff --git a/drivers/gpu/drm/i915/display/skl_watermark.h b/drivers/gpu/drm/i915/display/skl_watermark.h
-index 3323a1d973f9..ef1a008466be 100644
---- a/drivers/gpu/drm/i915/display/skl_watermark.h
-+++ b/drivers/gpu/drm/i915/display/skl_watermark.h
-@@ -74,11 +74,13 @@ intel_atomic_get_dbuf_state(struct intel_atomic_state *state);
- 	to_intel_dbuf_state(intel_atomic_get_new_global_obj_state(state, &to_i915(state->base.dev)->display.dbuf.obj))
- 
- int intel_dbuf_init(struct drm_i915_private *i915);
--int intel_dbuf_state_set_mdclk_cdclk_ratio(struct intel_atomic_state *state, u8 ratio);
-+int intel_dbuf_state_set_mdclk_cdclk_ratio(struct intel_atomic_state *state,
-+					   int ratio);
- 
- void intel_dbuf_pre_plane_update(struct intel_atomic_state *state);
- void intel_dbuf_post_plane_update(struct intel_atomic_state *state);
--void intel_dbuf_mdclk_cdclk_ratio_update(struct drm_i915_private *i915, u8 ratio, bool joined_mbus);
-+void intel_dbuf_mdclk_cdclk_ratio_update(struct drm_i915_private *i915,
-+					 int ratio, bool joined_mbus);
- void intel_dbuf_mbus_pre_ddb_update(struct intel_atomic_state *state);
- void intel_dbuf_mbus_post_ddb_update(struct intel_atomic_state *state);
- 
--- 
-2.43.2
+I don't agree with this patch. For even if we remove setting to NULL, it
+doesn't explain what we see, which is that the devm_kzalloc'd i915->hwmon
+has been *freed* (since ddat (i915->hwmon->ddat) is 0x6b6b6b6b6b6b6dbf):
 
+	(gdb) list *hwm_energy+0x2b
+	0x161f8b is in hwm_energy (drivers/gpu/drm/i915/i915_hwmon.c:134).
+	129             struct hwm_energy_info *ei = &ddat->ei;
+	130             intel_wakeref_t wakeref;
+	131             i915_reg_t rgaddr;
+	132             u32 reg_val;
+	133
+	134             if (ddat->gt_n >= 0)
+	135                     rgaddr = hwmon->rg.energy_status_tile;
+	136             else
+	137                     rgaddr = hwmon->rg.energy_status_all;
+	138
+
+If we don't have i915_hwmon_unregister equivalent in xe, that's because xe
+has not implemented equivalents of i915_hwmon_power_max_disable and
+i915_hwmon_power_max_restore, where the check is used.
+
+Also, we should verify any fix before sending a patch out, either via local
+repro (say use a script to read hwmon energy file while running the
+selftests) or CI. Though in this case CI doesn't show any failures but I am
+wondering if that is only by chance.
+
+Fwiu, the issue is somehow being caused by ddat being *freed* before hwmon
+sysfs has disappeared, at module unload time (since selftests use module
+unload), allowing prometheus-node process to call into the energy read
+sysfs and cause the crash.
+
+Thanks.
+--
+Ashutosh
+
+
+>
+> <7> [518.386591] i915 0000:03:00.0: [drm] intel_gt_set_wedged called from intel_gt_set_wedged_on_fini+0xd/0x30 [i915]
+> <7> [518.471128] i915 0000:03:00.0: [drm:drm_client_release] drm_fb_helper
+> <4> [518.501476] general protection fault, probably for non-canonical address 0x6b6b6b6b6b6b6dbf: 0000 [#1] PREEMPT SMP NOPTI
+> <4> [518.512264] CPU: 6 PID: 679 Comm: prometheus-node Tainted: G     U             6.9.0-rc1-CI_DRM_14482-g4a8fabcf2f1a+ #1
+> <4> [518.522951] Hardware name: Intel Corporation Raptor Lake Client Platform/RPL-S ADP-S DDR5 UDIMM CRB, BIOS RPLSFWI1.R00.4221.A00.2305271351 05/27/2023
+> <4> [518.536217] RIP: 0010:hwm_energy+0x2b/0x100 [i915]
+> <4> [518.541159] Code: 48 89 e5 41 57 41 56 41 55 41 54 53 48 89 fb 48 83 e4 f0 48 83 ec 10 4c 8b 77 08 4c 8b 2f 8b 7f 34 48 89 74 24 08 85 ff 78 2b <45> 8b bd 54 02 00 00 49 8b 7e 18 e8 35 e4 ea ff 49 89 c4 48 85 c0
+> <4> [518.559746] RSP: 0018:ffffc900077efd00 EFLAGS: 00010202
+> <4> [518.564943] RAX: 0000000000000000 RBX: ffff8881e3078428 RCX: 0000000000000000
+> <4> [518.572025] RDX: 0000000000000001 RSI: ffffc900077efda0 RDI: 000000006b6b6b6b
+> <4> [518.579107] RBP: ffffc900077efd40 R08: ffffc900077efda0 R09: 0000000000000001
+> <4> [518.586186] R10: 0000000000000001 R11: ffff88810c19aa00 R12: ffff888243e1a010
+> <4> [518.593264] R13: 6b6b6b6b6b6b6b6b R14: 6b6b6b6b6b6b6b6b R15: ffff8881e3078428
+> <4> [518.600343] FS:  00007f9def400700(0000) GS:ffff88888d100000(0000) knlGS:0000000000000000
+> <4> [518.608373] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+> <4> [518.614077] CR2: 0000564f19bff288 CR3: 0000000119f94000 CR4: 0000000000f50ef0
+> <4> [518.621158] PKRU: 55555554
+> <4> [518.623858] Call Trace:
+> <4> [518.626303]  <TASK>
+> <4> [518.628400]  ? __die_body+0x1a/0x60
+> <4> [518.631881]  ? die_addr+0x38/0x60
+> <4> [518.635182]  ? exc_general_protection+0x1a1/0x400
+> <4> [518.639862]  ? asm_exc_general_protection+0x26/0x30
+> <4> [518.644710]  ? hwm_energy+0x2b/0x100 [i915]
+> <4> [518.649007]  hwm_read+0x9a/0x310 [i915]
+> <4> [518.652953]  hwmon_attr_show+0x36/0x140
+> <4> [518.656775]  dev_attr_show+0x15/0x60
+>
+> Fixes: b3b088e28183 ("drm/i915/hwmon: Add HWMON infrastructure")
+> Closes: https://gitlab.freedesktop.org/drm/intel/issues/10366
+> Cc: Ashutosh Dixit <ashutosh.dixit@intel.com>
+> Cc: Janusz Krzysztofik <janusz.krzysztofik@linux.intel.com>
+> Signed-off-by: Badal Nilawar <badal.nilawar@intel.com>
+> ---
+>  drivers/gpu/drm/i915/i915_driver.c | 2 --
+>  drivers/gpu/drm/i915/i915_hwmon.c  | 5 -----
+>  2 files changed, 7 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/i915/i915_driver.c b/drivers/gpu/drm/i915/i915_driver.c
+> index 4b9233c07a22..a95b455964b7 100644
+> --- a/drivers/gpu/drm/i915/i915_driver.c
+> +++ b/drivers/gpu/drm/i915/i915_driver.c
+> @@ -660,8 +660,6 @@ static void i915_driver_unregister(struct drm_i915_private *dev_priv)
+>	for_each_gt(gt, dev_priv, i)
+>		intel_gt_driver_unregister(gt);
+>
+> -	i915_hwmon_unregister(dev_priv);
+> -
+>	i915_perf_unregister(dev_priv);
+>	i915_pmu_unregister(dev_priv);
+>
+> diff --git a/drivers/gpu/drm/i915/i915_hwmon.c b/drivers/gpu/drm/i915/i915_hwmon.c
+> index c9169e56b9a1..91f171752d34 100644
+> --- a/drivers/gpu/drm/i915/i915_hwmon.c
+> +++ b/drivers/gpu/drm/i915/i915_hwmon.c
+> @@ -841,8 +841,3 @@ void i915_hwmon_register(struct drm_i915_private *i915)
+>			ddat_gt->hwmon_dev = hwmon_dev;
+>	}
+>  }
+> -
+> -void i915_hwmon_unregister(struct drm_i915_private *i915)
+> -{
+> -	fetch_and_zero(&i915->hwmon);
+> -}
+> --
+> 2.25.1
+>
