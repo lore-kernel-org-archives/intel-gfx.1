@@ -4,24 +4,24 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AEB02CD11DD
-	for <intel-gfx@archiver.kernel.org>; Wed, 27 Mar 2024 23:20:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5DF62C54E67
+	for <intel-gfx@archiver.kernel.org>; Wed, 27 Mar 2024 23:20:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D308011215F;
-	Wed, 27 Mar 2024 23:20:37 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DEC79112167;
+	Wed, 27 Mar 2024 23:20:39 +0000 (UTC)
 Received: from 8e613ede5ea5 (emeril.freedesktop.org [131.252.210.167])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 60AB0112164;
- Wed, 27 Mar 2024 23:20:36 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 06335112166;
+ Wed, 27 Mar 2024 23:20:39 +0000 (UTC)
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
-Subject: =?utf-8?q?=E2=9C=97_Fi=2ECI=2ECHECKPATCH=3A_warning_for_drm/i915/gt=3A_Limit?=
- =?utf-8?q?_the_reserved_VM_space_to_only_the_platforms_that_need_it?=
+Subject: =?utf-8?q?=E2=9C=97_Fi=2ECI=2ESPARSE=3A_warning_for_drm/i915/gt=3A_Limit_the?=
+ =?utf-8?q?_reserved_VM_space_to_only_the_platforms_that_need_it?=
 From: Patchwork <patchwork@emeril.freedesktop.org>
 To: "Andi Shyti" <andi.shyti@linux.intel.com>
 Cc: intel-gfx@lists.freedesktop.org
-Date: Wed, 27 Mar 2024 23:20:36 -0000
-Message-ID: <171158163639.1060939.9463788692704281715@8e613ede5ea5>
+Date: Wed, 27 Mar 2024 23:20:39 -0000
+Message-ID: <171158163902.1055708.8390503202013499651@8e613ede5ea5>
 X-Patchwork-Hint: ignore
 References: <20240327200546.640108-1-andi.shyti@linux.intel.com>
 In-Reply-To: <20240327200546.640108-1-andi.shyti@linux.intel.com>
@@ -49,20 +49,8 @@ State : warning
 
 == Summary ==
 
-Error: dim checkpatch failed
-438bf8f0a744 drm/i915/gt: Limit the reserved VM space to only the platforms that need it
--:72: CHECK:MACRO_ARG_REUSE: Macro argument reuse 'engine' - possible side-effects?
-#72: FILE: drivers/gpu/drm/i915/gt/intel_gt.h:93:
-+#define NEEDS_FASTCOLOR_BLT_WABB(engine) ( \
-+	intel_gt_needs_wa_16018031267(engine->gt) && \
-+	engine->class == COPY_ENGINE_CLASS && engine->instance == 0)
-
--:72: CHECK:MACRO_ARG_PRECEDENCE: Macro argument 'engine' may be better as '(engine)' to avoid precedence issues
-#72: FILE: drivers/gpu/drm/i915/gt/intel_gt.h:93:
-+#define NEEDS_FASTCOLOR_BLT_WABB(engine) ( \
-+	intel_gt_needs_wa_16018031267(engine->gt) && \
-+	engine->class == COPY_ENGINE_CLASS && engine->instance == 0)
-
-total: 0 errors, 0 warnings, 2 checks, 43 lines checked
+Error: dim sparse failed
+Sparse version: v0.6.2
+Fast mode used, each commit won't be checked separately.
 
 
