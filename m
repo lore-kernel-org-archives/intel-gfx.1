@@ -4,27 +4,68 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A512BC47DD9
-	for <intel-gfx@archiver.kernel.org>; Wed, 27 Mar 2024 10:38:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 633F5C47DD9
+	for <intel-gfx@archiver.kernel.org>; Wed, 27 Mar 2024 11:29:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C6A9C10E918;
-	Wed, 27 Mar 2024 10:38:20 +0000 (UTC)
-Received: from 8e613ede5ea5 (emeril.freedesktop.org [131.252.210.167])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5340D10E918;
- Wed, 27 Mar 2024 10:38:19 +0000 (UTC)
-Content-Type: multipart/alternative;
- boundary="===============4298254917625245774=="
+	by gabe.freedesktop.org (Postfix) with ESMTP id 51C1B10FA31;
+	Wed, 27 Mar 2024 11:29:30 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=haloniitty.fi header.i=@haloniitty.fi header.b="FQ60FFdj";
+	dkim-atps=neutral
+Received: from whm50.louhi.net (whm50.louhi.net [77.240.19.51])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B7D3810FA30;
+ Wed, 27 Mar 2024 11:29:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=haloniitty.fi; s=default; h=Content-Type:MIME-Version:References:
+ In-Reply-To:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
+ Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
+ Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
+ List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=4yqcVS9tS0F+Iulfwdo+fmCleD7lL6bAvnduFniubqA=; b=FQ60FFdj24vArt0Y1vJ1Nud6aF
+ SYWXEOJc2C7d9M3XQygfO7ozy2Z/vnOm8tz6WvBCUj6Nt/yKFbYYbxgbpJHRdv4q2X1HP7mM5ZOwU
+ XRAaPPwfP32+YqIG2O/l8Vq838cP7r0lTUR8qv+2uKtsBLyMO/gZdM+F/qapTi90MoKhnO/pDDDwV
+ bDf/973zcDf+hMxEGkEShiPYTULdw9WvxFNrwswjtqZKKeq0LwcKsLdAW1AaB3PlDfKAtNxZTW76G
+ 0XwAt/eBDK1LIQz4uHntQ7Yv7PAg/tju4tPE9u/6WUbnLv+klJwytU4eqoV6S1e0afUFISewIrd1k
+ aWAZqong==;
+Received: from [194.136.85.206] (port=37818 helo=eldfell)
+ by whm50.louhi.net with esmtpsa (TLS1.2) tls
+ TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.96.2)
+ (envelope-from <pekka.paalanen@haloniitty.fi>) id 1rpRTB-0001Iy-22;
+ Wed, 27 Mar 2024 13:29:25 +0200
+Date: Wed, 27 Mar 2024 13:29:16 +0200
+From: Pekka Paalanen <pekka.paalanen@haloniitty.fi>
+To: "Garg, Nemesa" <nemesa.garg@intel.com>
+Cc: Simon Ser <contact@emersion.fr>, "intel-gfx@lists.freedesktop.org"
+ <intel-gfx@lists.freedesktop.org>, "dri-devel@lists.freedesktop.org"
+ <dri-devel@lists.freedesktop.org>, "G M, Adarsh" <adarsh.g.m@intel.com>
+Subject: Re: [RFC 0/5]  Introduce drm sharpening property
+Message-ID: <20240327132916.43f83069@eldfell>
+In-Reply-To: <IA1PR11MB646705FED711C1F129E5C5E3E3342@IA1PR11MB6467.namprd11.prod.outlook.com>
+References: <20240214112457.3734871-1-nemesa.garg@intel.com>
+ <8Ma-GlU3bFAuSPpFhGbYYuXQ8OeeDjMK9WiWO6KP-4pPO41fLnLrgABkRfhjHY6XlIh5u67vcEbD8ejDq7-zo5BXf-too0Pt7oTDhWCOPlU=@emersion.fr>
+ <IA1PR11MB6467A91412978DE0FFCAB50FE34C2@IA1PR11MB6467.namprd11.prod.outlook.com>
+ <20240216103620.33deabb1@eldfell>
+ <IA1PR11MB6467F801FFB564769E357EA9E3232@IA1PR11MB6467.namprd11.prod.outlook.com>
+ <uL84QKNtst1cp9uG3HqNAqEpJS2pT07qxwufONZx8Zq3t665BwY15fHRm3cZxMtiecQlPlNTs9srrmlIzRKmRYItWUv6cQbDEkms8eUT84Y=@emersion.fr>
+ <IA1PR11MB6467C642ABBD54BD82DF46B9E32B2@IA1PR11MB6467.namprd11.prod.outlook.com>
+ <20240312162600.7358e146@eldfell> <20240313113638.3ff61e4f@eldfell>
+ <IA1PR11MB646705FED711C1F129E5C5E3E3342@IA1PR11MB6467.namprd11.prod.outlook.com>
+X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; x86_64-pc-linux-gnu)
 MIME-Version: 1.0
-Subject: =?utf-8?q?=E2=9C=97_Fi=2ECI=2EBAT=3A_failure_for_drm/i915/gt=3A_Report_full_?=
- =?utf-8?q?vm_address_range_=28rev5=29?=
-From: Patchwork <patchwork@emeril.freedesktop.org>
-To: "Andi Shyti" <andi.shyti@linux.intel.com>
-Cc: intel-gfx@lists.freedesktop.org
-Date: Wed, 27 Mar 2024 10:38:19 -0000
-Message-ID: <171153589934.1055670.16649888814988906657@8e613ede5ea5>
-X-Patchwork-Hint: ignore
-References: <20240321151726.207866-1-andi.shyti@linux.intel.com>
-In-Reply-To: <20240321151726.207866-1-andi.shyti@linux.intel.com>
+Content-Type: multipart/signed; boundary="Sig_/z6jMLYSlrTMOJ3Gjd3=7liM";
+ protocol="application/pgp-signature"; micalg=pgp-sha256
+X-AntiAbuse: This header was added to track abuse,
+ please include it with any abuse report
+X-AntiAbuse: Primary Hostname - whm50.louhi.net
+X-AntiAbuse: Original Domain - lists.freedesktop.org
+X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
+X-AntiAbuse: Sender Address Domain - haloniitty.fi
+X-Get-Message-Sender-Via: whm50.louhi.net: authenticated_id:
+ pekka.paalanen@haloniitty.fi
+X-Authenticated-Sender: whm50.louhi.net: pekka.paalanen@haloniitty.fi
+X-Source: 
+X-Source-Args: 
+X-Source-Dir: 
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -37,232 +78,157 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
---===============4298254917625245774==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
+--Sig_/z6jMLYSlrTMOJ3Gjd3=7liM
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: quoted-printable
 
-== Series Details ==
+On Wed, 27 Mar 2024 07:11:48 +0000
+"Garg, Nemesa" <nemesa.garg@intel.com> wrote:
 
-Series: drm/i915/gt: Report full vm address range (rev5)
-URL   : https://patchwork.freedesktop.org/series/131095/
-State : failure
+> > -----Original Message-----
+> > From: Pekka Paalanen <pekka.paalanen@haloniitty.fi>
+> > Sent: Wednesday, March 13, 2024 3:07 PM
+> > To: Garg, Nemesa <nemesa.garg@intel.com>
+> > Cc: Simon Ser <contact@emersion.fr>; intel-gfx@lists.freedesktop.org; d=
+ri-
+> > devel@lists.freedesktop.org; G M, Adarsh <adarsh.g.m@intel.com>
+> > Subject: Re: [RFC 0/5] Introduce drm sharpening property
+> >=20
+> > On Tue, 12 Mar 2024 16:26:00 +0200
+> > Pekka Paalanen <pekka.paalanen@haloniitty.fi> wrote:
+> >  =20
+> > > On Tue, 12 Mar 2024 08:30:34 +0000
+> > > "Garg, Nemesa" <nemesa.garg@intel.com> wrote:
+> > > =20
+> > > > This  KMS property is not implementing any formula =20
+> > >
+> > > Sure it is. Maybe Intel just does not want to tell what the algorithm
+> > > is, or maybe it's even patented.
+> > > =20
+> > > > and the values
+> > > > that are being used are based on empirical analysis and certain
+> > > > experiments done on the hardware. These values are fixed and is not
+> > > > expected to change and this can change from vendor to vendor. The
+> > > > client can choose any sharpness value on the scale and on the basis
+> > > > of it the sharpness will be set. The sharpness effect can be changed
+> > > > from content to content and from display to display so user needs to
+> > > > adjust the optimum intensity value so as to get good experience on
+> > > > the screen.
+> > > > =20
+> > >
+> > > IOW, it's an opaque box operation, and there is no way to reproduce
+> > > its results without the specific Intel hardware. Definitely no way to
+> > > reproduce its results in free open source software alone.
+> > >
+> > > Such opaque box operations can only occur after KMS blending, at the
+> > > CRTC or later stage. They cannot appear before blending, not in the
+> > > new KMS color pipeline design at least. The reason is that the modern
+> > > way to use KMS planes is opportunistic composition off-loading.
+> > > Opportunistic means that userspace decides from time to time whether
+> > > it composes the final picture using KMS or some other rendering method
+> > > (usually GPU and shaders). Since userspace will arbitrarily switch
+> > > between KMS and render composition, both must result in the exact same
+> > > image, or end users will observe unwanted flicker.
+> > >
+> > > Such opaque box operations are fine after blending, because there they
+> > > can be configured once and remain on forever. No switching, no flicke=
+r. =20
+> >=20
+> > If you want to see how sharpness property would apply in Wayland design=
+, it
+> > would be in step 5 "Adjust (settings UI)" of
+> > https://gitlab.freedesktop.org/pq/color-and-hdr/-/blob/main/doc/color-
+> > management-model.md#compositor-color-management-model
+> >=20
+> > To relate that diagram to KMS color processing, you can identify step 3=
+ "Compose"
+> > as the KMS blending step. Everything before step 3 happens in KMS plane=
+ color
+> > processing, and steps 4-5 happen in KMS CRTC color processing.
+> >=20
+> > Sharpening would essentially be a "compositor color effect", it just ha=
+ppens to be
+> > implementable only by specific Intel hardware.
+> >=20
+> > If a color effect is dynamic or content-dependant, it will preclude col=
+orimetric
+> > monitor calibration.
+> >=20
+> >=20
+> > Thanks,
+> > pq
+> >=20
+> >  =20
+> > > Where does "sharpeness" operation occur in the Intel color processing
+> > > chain? Is it before or after blending?
+> > >  =20
+> Thank you for detail explanation and link.
+> Sharpness operation occur post blending in CRTC ie on the final=20
+> composed output after blending . Yes Pekka you are right as per the=20
+> diagram it is done at step 5  "Adjust (settings UI)").  I  will also docu=
+ment this thing=20
+> along with documentation change.
+>=20
+> > > What kind of transfer characteristics does it expect from the image,
+> > > and can those be realized with KMS CRTC properties if KMS is
+> > > configured such that the blending happens using some other characteri=
+stics =20
+> > (e.g. =20
+> > > blending in optical space)?
+> > > =20
+> The filter values are not dependent/calculated on the inputs of=20
+>  image but depending on the blending space and other inputs the=20
+> blended output gets changed and the sharpness is applied post=20
+> blending so according to the content user needs to adjust the=20
+> strength value to get the better visual effect. So tuning of sharpness st=
+rength=20
+> may be needed by user based on  the input contents and blending policy
+> to get the desired experience.
+>=20
+> > > What about SDR vs. HDR imagery?
+> > > =20
+> The interface can be used for both HDR and SDR. The effect is more promin=
+ent for SDR use cases.
+> For HDR filter values and tap value may change.
 
-== Summary ==
+Who will be providing these values?
 
-CI Bug Log - changes from CI_DRM_14489 -> Patchwork_131095v5
-====================================================
+The kernel driver cannot know if it is dealing with SDR or HDR or which
+transfer function is in effect at that point of the post-blending color
+pipeline.
 
-Summary
--------
+If the UAPI is one "strength" value, then how can it work?
 
-  **FAILURE**
-
-  Serious unknown changes coming with Patchwork_131095v5 absolutely need to be
-  verified manually.
-  
-  If you think the reported changes have nothing to do with the changes
-  introduced in Patchwork_131095v5, please notify your bug team (I915-ci-infra@lists.freedesktop.org) to allow them
-  to document this new failure mode, which will reduce false positives in CI.
-
-  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_131095v5/index.html
-
-Participating hosts (38 -> 35)
-------------------------------
-
-  Additional (1): fi-blb-e6850 
-  Missing    (4): bat-arls-4 bat-kbl-2 fi-bsw-nick fi-snb-2520m 
-
-Possible new issues
--------------------
-
-  Here are the unknown changes that may have been introduced in Patchwork_131095v5:
-
-### IGT changes ###
-
-#### Possible regressions ####
-
-  * igt@gem_busy@busy@all-engines:
-    - fi-blb-e6850:       NOTRUN -> [ABORT][1]
-   [1]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_131095v5/fi-blb-e6850/igt@gem_busy@busy@all-engines.html
-    - fi-pnv-d510:        [PASS][2] -> [ABORT][3]
-   [2]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_14489/fi-pnv-d510/igt@gem_busy@busy@all-engines.html
-   [3]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_131095v5/fi-pnv-d510/igt@gem_busy@busy@all-engines.html
-    - fi-ivb-3770:        [PASS][4] -> [ABORT][5]
-   [4]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_14489/fi-ivb-3770/igt@gem_busy@busy@all-engines.html
-   [5]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_131095v5/fi-ivb-3770/igt@gem_busy@busy@all-engines.html
-    - fi-elk-e7500:       [PASS][6] -> [ABORT][7]
-   [6]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_14489/fi-elk-e7500/igt@gem_busy@busy@all-engines.html
-   [7]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_131095v5/fi-elk-e7500/igt@gem_busy@busy@all-engines.html
-    - fi-ilk-650:         [PASS][8] -> [ABORT][9]
-   [8]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_14489/fi-ilk-650/igt@gem_busy@busy@all-engines.html
-   [9]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_131095v5/fi-ilk-650/igt@gem_busy@busy@all-engines.html
-
-  * igt@gem_softpin@allocator-basic:
-    - bat-dg2-14:         [PASS][10] -> [FAIL][11] +3 other tests fail
-   [10]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_14489/bat-dg2-14/igt@gem_softpin@allocator-basic.html
-   [11]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_131095v5/bat-dg2-14/igt@gem_softpin@allocator-basic.html
-
-  * igt@gem_softpin@allocator-basic-reserve:
-    - bat-atsm-1:         [PASS][12] -> [FAIL][13] +2 other tests fail
-   [12]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_14489/bat-atsm-1/igt@gem_softpin@allocator-basic-reserve.html
-   [13]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_131095v5/bat-atsm-1/igt@gem_softpin@allocator-basic-reserve.html
-    - bat-dg2-9:          [PASS][14] -> [FAIL][15] +2 other tests fail
-   [14]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_14489/bat-dg2-9/igt@gem_softpin@allocator-basic-reserve.html
-   [15]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_131095v5/bat-dg2-9/igt@gem_softpin@allocator-basic-reserve.html
-    - bat-dg2-8:          [PASS][16] -> [FAIL][17] +2 other tests fail
-   [16]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_14489/bat-dg2-8/igt@gem_softpin@allocator-basic-reserve.html
-   [17]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_131095v5/bat-dg2-8/igt@gem_softpin@allocator-basic-reserve.html
-
-  
-Known issues
-------------
-
-  Here are the changes found in Patchwork_131095v5 that come from known issues:
-
-### IGT changes ###
-
-#### Issues hit ####
-
-  * igt@debugfs_test@basic-hwmon:
-    - fi-blb-e6850:       NOTRUN -> [SKIP][18]
-   [18]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_131095v5/fi-blb-e6850/igt@debugfs_test@basic-hwmon.html
-
-  
-#### Possible fixes ####
-
-  * igt@i915_selftest@live@ring_submission:
-    - bat-dg2-14:         [ABORT][19] ([i915#10366]) -> [PASS][20]
-   [19]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_14489/bat-dg2-14/igt@i915_selftest@live@ring_submission.html
-   [20]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_131095v5/bat-dg2-14/igt@i915_selftest@live@ring_submission.html
-
-  
-  [i915#10366]: https://gitlab.freedesktop.org/drm/intel/issues/10366
-
-
-Build changes
--------------
-
-  * Linux: CI_DRM_14489 -> Patchwork_131095v5
-
-  CI-20190529: 20190529
-  CI_DRM_14489: f9c56f1a03b5c35488671e4ffe61e28b12ffe163 @ git://anongit.freedesktop.org/gfx-ci/linux
-  IGT_7785: 7785
-  Patchwork_131095v5: f9c56f1a03b5c35488671e4ffe61e28b12ffe163 @ git://anongit.freedesktop.org/gfx-ci/linux
-
-
-### Linux commits
-
-65268abd84f6 drm/i915/gt: Report full vm address range
-
-== Logs ==
-
-For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_131095v5/index.html
-
---===============4298254917625245774==
-Content-Type: text/html; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
+Maybe the UAPI needs more controls, if not providing all "filter and
+tap" values directly. Maybe all the filter and tap values should be
+provided by userspace?
 
 
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
- <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-  <title>Project List - Patchwork</title>
-  <style id="css-table-select" type="text/css">
-   td { padding: 2pt; }
-  </style>
-</head>
-<body>
+Thanks,
+pq
 
+--Sig_/z6jMLYSlrTMOJ3Gjd3=7liM
+Content-Type: application/pgp-signature
+Content-Description: OpenPGP digital signature
 
-<b>Patch Details</b>
-<table>
-<tr><td><b>Series:</b></td><td>drm/i915/gt: Report full vm address range (rev5)</td></tr>
-<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/131095/">https://patchwork.freedesktop.org/series/131095/</a></td></tr>
-<tr><td><b>State:</b></td><td>failure</td></tr>
+-----BEGIN PGP SIGNATURE-----
 
-    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_131095v5/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_131095v5/index.html</a></td></tr>
+iQIzBAEBCAAdFiEEJQjwWQChkWOYOIONI1/ltBGqqqcFAmYEAwwACgkQI1/ltBGq
+qqcoCg/9F7rUs1SNU1cehYWcs7ZjnrbUPFcR6zF6wI1uKryRcv2WPn7HFX1nPKfv
+yeIsit0cqibCs/FhD/DEUUsYo3u9qIzJA4wRZABUdUojwsMpy8bK0vhRFs6iKtZM
+GKkJbZtvSmcRp2Fm0c/sO5EZiqquOXHab/obJxwrUQ6t6wrqGOXMOPaSQnmpbtkY
+D/9R5We8q5JGyJ4YqMpfkyMpeTeF5Yzp6x8vrcIKHEk9WpJopPyKMH3MXV5zyVIP
+LW3ZG+0XbmEfW3fHuzboAf2JcJzbHsK5wYWrMkAPVBRB+PoZGCTOH5s+mx0uD1Yg
+Ow+PNtltwq7n15WoWDsiGbuiIqn4GEKmAi7vNbiDqz1QYGpx617aeO04cg1enGEX
+XWNlH7TPEvhv5Thz7dt78OjuY6/SGKkfCheOQhfHadRtEf/+D3bBo62UK2YilaZD
+/24m+2tDPLdnfTos1I9ROV6cxoFRZmfujy2sCbOgkjEI7dG28w0hnObjYK0oo5bJ
+42H+bubpX6amjmNi1co4hD3TVpUNt2LLzzzmYH76h64vaapf4TKYap2GYtxgoFtp
+RzPXI28Unlj/WJhUZA1RAK0cT1EBQJsX31ai1Kvz02HviGPtS3/7ZYhIIaI9D8aN
+8wHy+45U9IYzwWTLGO1JjIFb9Cuje8Ft4SYYKRCnL9OdbVhmoAk=
+=3q9E
+-----END PGP SIGNATURE-----
 
-</table>
-
-
-    <h1>CI Bug Log - changes from CI_DRM_14489 -&gt; Patchwork_131095v5</h1>
-<h2>Summary</h2>
-<p><strong>FAILURE</strong></p>
-<p>Serious unknown changes coming with Patchwork_131095v5 absolutely need to be<br />
-  verified manually.</p>
-<p>If you think the reported changes have nothing to do with the changes<br />
-  introduced in Patchwork_131095v5, please notify your bug team (I915-ci-infra@lists.freedesktop.org) to allow them<br />
-  to document this new failure mode, which will reduce false positives in CI.</p>
-<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_131095v5/index.html</p>
-<h2>Participating hosts (38 -&gt; 35)</h2>
-<p>Additional (1): fi-blb-e6850 <br />
-  Missing    (4): bat-arls-4 bat-kbl-2 fi-bsw-nick fi-snb-2520m </p>
-<h2>Possible new issues</h2>
-<p>Here are the unknown changes that may have been introduced in Patchwork_131095v5:</p>
-<h3>IGT changes</h3>
-<h4>Possible regressions</h4>
-<ul>
-<li>
-<p>igt@gem_busy@busy@all-engines:</p>
-<ul>
-<li>fi-blb-e6850:       NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_131095v5/fi-blb-e6850/igt@gem_busy@busy@all-engines.html">ABORT</a></li>
-<li>fi-pnv-d510:        <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_14489/fi-pnv-d510/igt@gem_busy@busy@all-engines.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_131095v5/fi-pnv-d510/igt@gem_busy@busy@all-engines.html">ABORT</a></li>
-<li>fi-ivb-3770:        <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_14489/fi-ivb-3770/igt@gem_busy@busy@all-engines.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_131095v5/fi-ivb-3770/igt@gem_busy@busy@all-engines.html">ABORT</a></li>
-<li>fi-elk-e7500:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_14489/fi-elk-e7500/igt@gem_busy@busy@all-engines.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_131095v5/fi-elk-e7500/igt@gem_busy@busy@all-engines.html">ABORT</a></li>
-<li>fi-ilk-650:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_14489/fi-ilk-650/igt@gem_busy@busy@all-engines.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_131095v5/fi-ilk-650/igt@gem_busy@busy@all-engines.html">ABORT</a></li>
-</ul>
-</li>
-<li>
-<p>igt@gem_softpin@allocator-basic:</p>
-<ul>
-<li>bat-dg2-14:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_14489/bat-dg2-14/igt@gem_softpin@allocator-basic.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_131095v5/bat-dg2-14/igt@gem_softpin@allocator-basic.html">FAIL</a> +3 other tests fail</li>
-</ul>
-</li>
-<li>
-<p>igt@gem_softpin@allocator-basic-reserve:</p>
-<ul>
-<li>bat-atsm-1:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_14489/bat-atsm-1/igt@gem_softpin@allocator-basic-reserve.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_131095v5/bat-atsm-1/igt@gem_softpin@allocator-basic-reserve.html">FAIL</a> +2 other tests fail</li>
-<li>bat-dg2-9:          <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_14489/bat-dg2-9/igt@gem_softpin@allocator-basic-reserve.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_131095v5/bat-dg2-9/igt@gem_softpin@allocator-basic-reserve.html">FAIL</a> +2 other tests fail</li>
-<li>bat-dg2-8:          <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_14489/bat-dg2-8/igt@gem_softpin@allocator-basic-reserve.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_131095v5/bat-dg2-8/igt@gem_softpin@allocator-basic-reserve.html">FAIL</a> +2 other tests fail</li>
-</ul>
-</li>
-</ul>
-<h2>Known issues</h2>
-<p>Here are the changes found in Patchwork_131095v5 that come from known issues:</p>
-<h3>IGT changes</h3>
-<h4>Issues hit</h4>
-<ul>
-<li>igt@debugfs_test@basic-hwmon:<ul>
-<li>fi-blb-e6850:       NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_131095v5/fi-blb-e6850/igt@debugfs_test@basic-hwmon.html">SKIP</a></li>
-</ul>
-</li>
-</ul>
-<h4>Possible fixes</h4>
-<ul>
-<li>igt@i915_selftest@live@ring_submission:<ul>
-<li>bat-dg2-14:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_14489/bat-dg2-14/igt@i915_selftest@live@ring_submission.html">ABORT</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/10366">i915#10366</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_131095v5/bat-dg2-14/igt@i915_selftest@live@ring_submission.html">PASS</a></li>
-</ul>
-</li>
-</ul>
-<h2>Build changes</h2>
-<ul>
-<li>Linux: CI_DRM_14489 -&gt; Patchwork_131095v5</li>
-</ul>
-<p>CI-20190529: 20190529<br />
-  CI_DRM_14489: f9c56f1a03b5c35488671e4ffe61e28b12ffe163 @ git://anongit.freedesktop.org/gfx-ci/linux<br />
-  IGT_7785: 7785<br />
-  Patchwork_131095v5: f9c56f1a03b5c35488671e4ffe61e28b12ffe163 @ git://anongit.freedesktop.org/gfx-ci/linux</p>
-<h3>Linux commits</h3>
-<p>65268abd84f6 drm/i915/gt: Report full vm address range</p>
-
-</body>
-</html>
-
---===============4298254917625245774==--
+--Sig_/z6jMLYSlrTMOJ3Gjd3=7liM--
