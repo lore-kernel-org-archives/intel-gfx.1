@@ -4,50 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9079CC54E67
-	for <intel-gfx@archiver.kernel.org>; Wed, 27 Mar 2024 17:46:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3C9B4C47DD9
+	for <intel-gfx@archiver.kernel.org>; Wed, 27 Mar 2024 17:46:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 057F610FEC6;
-	Wed, 27 Mar 2024 17:46:06 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8B9F910FEE4;
+	Wed, 27 Mar 2024 17:46:10 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="VMk+/Cd7";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="As7KpTT3";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.17])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 622CD10FECB
- for <intel-gfx@lists.freedesktop.org>; Wed, 27 Mar 2024 17:46:02 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 59DEB10FED6
+ for <intel-gfx@lists.freedesktop.org>; Wed, 27 Mar 2024 17:46:08 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1711561562; x=1743097562;
+ t=1711561568; x=1743097568;
  h=from:to:subject:date:message-id:in-reply-to:references:
  mime-version:content-transfer-encoding;
- bh=6SuZlLEqh5683K9Kgt8aXwGuatLKIBWV/77VTEq+lH8=;
- b=VMk+/Cd7L1/atuy1pOj6z16FIaUXlAiPwW4BaVgF1qowLYBj6jg+OXFC
- kgfl/x/v/UpHodLvh0NBb+injrLxyiBwVYwP1dAnPhhWiN2ar9hdNMHk+
- xWIN9wSyDYj1fJ776ThqnohZgEvA62ABodHGKbgfGgTcfP+pRopfhkrhr
- RZfX7kwXq2JJC3IphIvnyjxiC7dUcEtG0q9e8Cd7YrhhimEerEG/XlFKT
- +rW3IwoL84Aot++hm5pq9CCVtz/2QSgC+ByFRAPfj1CzBLs+R/l6QEYBp
- Zs21i76BCn4RmoPC5ttoJmSRYVn5gWtqESgJ0QMZcBgswvkQJNMvf2ld4 A==;
-X-CSE-ConnectionGUID: ukDFb/+DQWae7pNGCAfpFg==
-X-CSE-MsgGUID: pbEYe0DWQp67uzqgyjpuxA==
-X-IronPort-AV: E=McAfee;i="6600,9927,11026"; a="6795409"
+ bh=ZBUe+MOKsHoUO0i9vWgMI0QKTSj9yEn8cTexHcisuhg=;
+ b=As7KpTT3gRYIBNMtMc5Hs13EI8u+PkE9GS3MdcnmR5RkfVwcxesyaewS
+ nJ1+0Uh6zfBD0AFul/bMnzVVAkE9UOvtAiT29SHB2fbN4w04GEXrWyJfb
+ bpTLSoDULS97+a6/ObkX+ufdN6eMvitiiWiuBBEcMSQi5gZmgHpWHjmyr
+ gFSCN54uo6Q8FlT0zXjO0r024u4lDr8KEvp9xtFSI9Zwgky+xOJlJJHtP
+ 5LOHnoZDjJcRRP8f/vsPKR8WQCA4RXFx2wRxfmdPaQPM5mdIpOEi2WQ7g
+ 3E6QzWu659kSARTOxkiB/lTZNQm5VyDzLt8eysJa+lnU9drAuirleTELW A==;
+X-CSE-ConnectionGUID: rN3PcISoTZik/VCGJctBsA==
+X-CSE-MsgGUID: Y3NA8mlAQNOuRPd2BfKRNA==
+X-IronPort-AV: E=McAfee;i="6600,9927,11026"; a="6795437"
 X-IronPort-AV: E=Sophos;i="6.07,159,1708416000"; 
-   d="scan'208";a="6795409"
+   d="scan'208";a="6795437"
 Received: from orsmga001.jf.intel.com ([10.7.209.18])
  by orvoesa109.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 27 Mar 2024 10:46:02 -0700
+ 27 Mar 2024 10:46:08 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,11026"; a="827785908"
-X-IronPort-AV: E=Sophos;i="6.07,159,1708416000"; d="scan'208";a="827785908"
+X-IronPort-AV: E=McAfee;i="6600,9927,11026"; a="827785910"
+X-IronPort-AV: E=Sophos;i="6.07,159,1708416000"; d="scan'208";a="827785910"
 Received: from stinkpipe.fi.intel.com (HELO stinkbox) ([10.237.72.74])
- by orsmga001.jf.intel.com with SMTP; 27 Mar 2024 10:46:00 -0700
+ by orsmga001.jf.intel.com with SMTP; 27 Mar 2024 10:46:06 -0700
 Received: by stinkbox (sSMTP sendmail emulation);
- Wed, 27 Mar 2024 19:45:59 +0200
+ Wed, 27 Mar 2024 19:46:05 +0200
 From: Ville Syrjala <ville.syrjala@linux.intel.com>
 To: intel-gfx@lists.freedesktop.org
-Subject: [PATCH 05/13] drm/i915: Loop over all active pipes in
- intel_mbus_dbox_update
-Date: Wed, 27 Mar 2024 19:45:36 +0200
-Message-ID: <20240327174544.983-6-ville.syrjala@linux.intel.com>
+Subject: [PATCH 07/13] drm/i915: Extract intel_dbuf_mbus_join_update()
+Date: Wed, 27 Mar 2024 19:45:38 +0200
+Message-ID: <20240327174544.983-8-ville.syrjala@linux.intel.com>
 X-Mailer: git-send-email 2.43.2
 In-Reply-To: <20240327174544.983-1-ville.syrjala@linux.intel.com>
 References: <20240327174544.983-1-ville.syrjala@linux.intel.com>
@@ -69,47 +68,75 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Stanislav Lisovskiy <stanislav.lisovskiy@intel.com>
+From: Ville Syrjälä <ville.syrjala@linux.intel.com>
 
-We need to loop through all active pipes, not just the ones, that
-are in current state, because disabling and enabling even a particular
-pipe affects credits in another one.
+Extact the stuff that writes the joining bits in MBUS_CTL
+into its own function. Will help with correctly sequencing
+the operations done during mbus programming.
 
-Signed-off-by: Stanislav Lisovskiy <stanislav.lisovskiy@intel.com>
 Signed-off-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
 ---
- drivers/gpu/drm/i915/display/skl_watermark.c | 7 +------
- 1 file changed, 1 insertion(+), 6 deletions(-)
+ drivers/gpu/drm/i915/display/skl_watermark.c | 37 +++++++++++++-------
+ 1 file changed, 25 insertions(+), 12 deletions(-)
 
 diff --git a/drivers/gpu/drm/i915/display/skl_watermark.c b/drivers/gpu/drm/i915/display/skl_watermark.c
-index bc341abcab2f..f582992592c1 100644
+index 6bd3fec0aa56..f7e03078bd43 100644
 --- a/drivers/gpu/drm/i915/display/skl_watermark.c
 +++ b/drivers/gpu/drm/i915/display/skl_watermark.c
-@@ -3680,10 +3680,8 @@ void intel_mbus_dbox_update(struct intel_atomic_state *state)
+@@ -3653,21 +3653,12 @@ void intel_dbuf_mdclk_cdclk_ratio_update(struct drm_i915_private *i915, u8 ratio
+ 			     DBUF_MIN_TRACKER_STATE_SERVICE(ratio - 1));
+ }
+ 
+-/*
+- * Configure MBUS_CTL and all DBUF_CTL_S of each slice to join_mbus state before
+- * update the request state of all DBUS slices.
+- */
+-static void update_mbus_pre_enable(struct intel_atomic_state *state)
++static void intel_dbuf_mbus_join_update(struct intel_atomic_state *state)
  {
  	struct drm_i915_private *i915 = to_i915(state->base.dev);
- 	const struct intel_dbuf_state *new_dbuf_state, *old_dbuf_state;
--	const struct intel_crtc_state *new_crtc_state;
- 	const struct intel_crtc *crtc;
- 	u32 val = 0;
--	int i;
- 
- 	if (DISPLAY_VER(i915) < 11)
- 		return;
-@@ -3727,12 +3725,9 @@ void intel_mbus_dbox_update(struct intel_atomic_state *state)
- 		val |= MBUS_DBOX_B_CREDIT(8);
- 	}
- 
--	for_each_new_intel_crtc_in_state(state, crtc, new_crtc_state, i) {
-+	for_each_intel_crtc_in_pipe_mask(&i915->drm, crtc, new_dbuf_state->active_pipes) {
- 		u32 pipe_val = val;
- 
--		if (!new_crtc_state->hw.active)
--			continue;
++	const struct intel_dbuf_state *new_dbuf_state =
++		intel_atomic_get_new_dbuf_state(state);
+ 	u32 mbus_ctl;
+-	const struct intel_dbuf_state *old_dbuf_state =
+-		intel_atomic_get_old_dbuf_state(state);
+-	const struct intel_dbuf_state *new_dbuf_state =
+-		intel_atomic_get_new_dbuf_state(state);
 -
- 		if (DISPLAY_VER(i915) >= 14) {
- 			if (xelpdp_is_only_pipe_per_dbuf_bank(crtc->pipe,
- 							      new_dbuf_state->active_pipes))
+-	if (!HAS_MBUS_JOINING(i915))
+-		return;
+ 
+ 	/*
+ 	 * TODO: Implement vblank synchronized MBUS joining changes.
+@@ -3683,6 +3674,28 @@ static void update_mbus_pre_enable(struct intel_atomic_state *state)
+ 	intel_de_rmw(i915, MBUS_CTL,
+ 		     MBUS_HASHING_MODE_MASK | MBUS_JOIN |
+ 		     MBUS_JOIN_PIPE_SELECT_MASK, mbus_ctl);
++}
++
++/*
++ * Configure MBUS_CTL and all DBUF_CTL_S of each slice to join_mbus state before
++ * update the request state of all DBUS slices.
++ */
++static void update_mbus_pre_enable(struct intel_atomic_state *state)
++{
++	struct drm_i915_private *i915 = to_i915(state->base.dev);
++	const struct intel_dbuf_state *old_dbuf_state =
++		intel_atomic_get_old_dbuf_state(state);
++	const struct intel_dbuf_state *new_dbuf_state =
++		intel_atomic_get_new_dbuf_state(state);
++
++	if (!HAS_MBUS_JOINING(i915))
++		return;
++
++	/*
++	 * TODO: Implement vblank synchronized MBUS joining changes.
++	 * Must be properly coordinated with dbuf reprogramming.
++	 */
++	intel_dbuf_mbus_join_update(state);
+ 
+ 	if (DISPLAY_VER(i915) >= 20 &&
+ 	    old_dbuf_state->mdclk_cdclk_ratio != new_dbuf_state->mdclk_cdclk_ratio) {
 -- 
 2.43.2
 
