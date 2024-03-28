@@ -4,41 +4,41 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 492B9C54E67
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8AD1ECD1284
 	for <intel-gfx@archiver.kernel.org>; Thu, 28 Mar 2024 12:26:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 928D91123F1;
+	by gabe.freedesktop.org (Postfix) with ESMTP id BB85311240B;
 	Thu, 28 Mar 2024 12:26:51 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="jIMYFviK";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="IDJASl8P";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.9])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C69E31123F1
- for <intel-gfx@lists.freedesktop.org>; Thu, 28 Mar 2024 12:26:50 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0398611240A
+ for <intel-gfx@lists.freedesktop.org>; Thu, 28 Mar 2024 12:26:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1711628811; x=1743164811;
+ t=1711628805; x=1743164805;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=pTau1N9kok1E1vlNW/B+GOKBtuZqhfkaXfTH0H/6QvA=;
- b=jIMYFviK72hrQHlM1tlRb4v/yCy7QLxAO5p9NZMjHObYmwa2eSE2hsso
- FiexDm/ArVxt0b+1su7gVFg3ImCFq87rOzdZNnEdUZl2Mo9MoA5whK695
- 8giLI1btmE08soqOP8YMYAMYchSqsqvduSumqN/S0zX1XP59BQIQhzcff
- +9BmcpRff2A4auUGVDITRDZfgyuovqdIvBVSrZVQwbxXXPG+Uu1r1B92b
- jKdzwvHANvAKy4EMLSOAQsg5QtCXwSFV+wHTPKcdt49fChCEOekLQSfET
- soPobK/aJI3kwfXkjEqsGH20B/baxki54IfdLviWJN3yepH0aW3wohHn/ w==;
-X-CSE-ConnectionGUID: hMcIit/PREO4haEtm54QQg==
-X-CSE-MsgGUID: qFmf0/1UTNKQrLoYqkL+kQ==
-X-IronPort-AV: E=McAfee;i="6600,9927,11026"; a="17505528"
-X-IronPort-AV: E=Sophos;i="6.07,161,1708416000"; d="scan'208";a="17505528"
+ bh=sXq/tVm3G7cATprwOb2m7/tmxsL2XmDjuuC2FM05pac=;
+ b=IDJASl8Py8+mfZ7fHjfFYL+Vt6kcb9CXPRZDSToKbF2mnVTKFKXyQcgi
+ +a+0Di/dVKIUtmSxxFjiN7aBm9pR6XT+avrid+dZ1oTlh/NdJJmTOARyY
+ 3ScAvpdx/rsmRi2gSmHZP+u9Bj5xMzHjM0GO43DfDoJmCE58jAGMx3klN
+ EvGKqPUwIPzW173H2YrKW3OzJ2QOH0kVfgjHrhHfORfgW70+d0UoFI92s
+ i+ZdFxTJERztPXCgxX6rVX/dBhH86yjMZDJV2aVcqWXnFs4Mfz8u+a1gJ
+ NK8ALip8TJ9u9VHaf1oY4ddEDVehrHAWQ4Q86hfhvuDWvjykUP+DaORjY Q==;
+X-CSE-ConnectionGUID: olYRHsMmR3W0wAMwPliozg==
+X-CSE-MsgGUID: dIOEVOVHTyimHJ6LFaiaxw==
+X-IronPort-AV: E=McAfee;i="6600,9927,11026"; a="17505512"
+X-IronPort-AV: E=Sophos;i="6.07,161,1708416000"; d="scan'208";a="17505512"
 Received: from fmviesa009.fm.intel.com ([10.60.135.149])
  by fmvoesa103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 28 Mar 2024 05:26:51 -0700
+ 28 Mar 2024 05:26:45 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.07,161,1708416000"; d="scan'208";a="16657598"
+X-IronPort-AV: E=Sophos;i="6.07,161,1708416000"; d="scan'208";a="16657592"
 Received: from sannilnx-dsk.jer.intel.com ([10.12.231.107])
  by fmviesa009-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 28 Mar 2024 05:26:48 -0700
+ 28 Mar 2024 05:26:42 -0700
 From: Alexander Usyskin <alexander.usyskin@intel.com>
 To: Miquel Raynal <miquel.raynal@bootlin.com>,
  Richard Weinberger <richard@nod.at>, Vignesh Raghavendra <vigneshr@ti.com>,
@@ -47,10 +47,12 @@ To: Miquel Raynal <miquel.raynal@bootlin.com>,
  Rodrigo Vivi <rodrigo.vivi@intel.com>
 Cc: Alexander Usyskin <alexander.usyskin@intel.com>,
  Vitaly Lubart <vitaly.lubart@intel.com>, linux-mtd@lists.infradead.org,
- intel-gfx@lists.freedesktop.org, Lucas De Marchi <lucas.demarchi@intel.com>
-Subject: [PATCH 11/13] spi: intel-dg: wake card on operations
-Date: Thu, 28 Mar 2024 14:22:34 +0200
-Message-Id: <20240328122236.1718111-12-alexander.usyskin@intel.com>
+ intel-gfx@lists.freedesktop.org,
+ Lucas De Marchi <lucas.demarchi@intel.com>,
+ Tomas Winkler <tomas.winkler@intel.com>
+Subject: [PATCH 09/13] spi: intel-dg: implement mtd access handlers
+Date: Thu, 28 Mar 2024 14:22:32 +0200
+Message-Id: <20240328122236.1718111-10-alexander.usyskin@intel.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20240328122236.1718111-1-alexander.usyskin@intel.com>
 References: <20240328122236.1718111-1-alexander.usyskin@intel.com>
@@ -71,142 +73,221 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Enable runtime PM in spi driver to notify graphics driver that
-whole card should be kept awake while spi operations are
-performed through this driver.
+Implement mtd read, erase, and write handlers.
+For erase operation address and size should be 4K aligned.
+For write operation address and size has to be 4bytes aligned.
 
+CC: Rodrigo Vivi <rodrigo.vivi@intel.com>
 CC: Lucas De Marchi <lucas.demarchi@intel.com>
+Signed-off-by: Tomas Winkler <tomas.winkler@intel.com>
+Signed-off-by: Vitaly Lubart <vitaly.lubart@intel.com>
 Signed-off-by: Alexander Usyskin <alexander.usyskin@intel.com>
 ---
- drivers/spi/spi-intel-dg.c | 44 ++++++++++++++++++++++++++++++++++++++
- 1 file changed, 44 insertions(+)
+ drivers/spi/spi-intel-dg.c | 152 +++++++++++++++++++++++++++++++++++--
+ 1 file changed, 147 insertions(+), 5 deletions(-)
 
 diff --git a/drivers/spi/spi-intel-dg.c b/drivers/spi/spi-intel-dg.c
-index d626e9526631..24be2f7e14d7 100644
+index 4af8a2314fc7..9e8be7713f1a 100644
 --- a/drivers/spi/spi-intel-dg.c
 +++ b/drivers/spi/spi-intel-dg.c
-@@ -12,11 +12,14 @@
- #include <linux/module.h>
- #include <linux/mtd/mtd.h>
- #include <linux/mtd/partitions.h>
-+#include <linux/pm_runtime.h>
- #include <linux/string.h>
- #include <linux/slab.h>
- #include <linux/sizes.h>
- #include <linux/types.h>
- 
-+#define INTEL_DG_SPI_RPM_TIMEOUT 500
-+
- struct intel_dg_spi {
- 	struct kref refcnt;
- 	struct mtd_info mtd;
-@@ -471,6 +474,12 @@ static int intel_dg_spi_erase(struct mtd_info *mtd, struct erase_info *info)
- 	total_len = info->len;
- 	addr = info->addr;
- 
-+	ret = pm_runtime_resume_and_get(mtd->dev.parent);
-+	if (ret < 0) {
-+		dev_err(&mtd->dev, "rpm: get failed %d\n", ret);
-+		return ret;
-+	}
-+
- 	mutex_lock(&spi->lock);
- 
- 	while (total_len > 0) {
-@@ -512,6 +521,8 @@ static int intel_dg_spi_erase(struct mtd_info *mtd, struct erase_info *info)
- 
- out:
- 	mutex_unlock(&spi->lock);
-+	pm_runtime_mark_last_busy(mtd->dev.parent);
-+	pm_runtime_put_autosuspend(mtd->dev.parent);
- 	return ret;
- }
- 
-@@ -545,6 +556,12 @@ static int intel_dg_spi_read(struct mtd_info *mtd, loff_t from, size_t len,
- 	if (len > spi->regions[idx].size - from)
- 		len = spi->regions[idx].size - from;
- 
-+	ret = pm_runtime_resume_and_get(mtd->dev.parent);
-+	if (ret < 0) {
-+		dev_err(&mtd->dev, "rpm: get failed %zd\n", ret);
-+		return ret;
-+	}
-+
- 	mutex_lock(&spi->lock);
- 
- 	ret = spi_read(spi, region, from, len, buf);
-@@ -557,6 +574,8 @@ static int intel_dg_spi_read(struct mtd_info *mtd, loff_t from, size_t len,
- 	*retlen = ret;
- 
- 	mutex_unlock(&spi->lock);
-+	pm_runtime_mark_last_busy(mtd->dev.parent);
-+	pm_runtime_put_autosuspend(mtd->dev.parent);
+@@ -174,7 +174,6 @@ static int intel_dg_spi_is_valid(struct intel_dg_spi *spi)
  	return 0;
  }
  
-@@ -590,6 +609,12 @@ static int intel_dg_spi_write(struct mtd_info *mtd, loff_t to, size_t len,
- 	if (len > spi->regions[idx].size - to)
- 		len = spi->regions[idx].size - to;
+-__maybe_unused
+ static unsigned int spi_get_region(const struct intel_dg_spi *spi, loff_t from)
+ {
+ 	unsigned int i;
+@@ -206,7 +205,6 @@ static ssize_t spi_rewrite_partial(struct intel_dg_spi *spi, loff_t to,
+ 	return len;
+ }
  
-+	ret = pm_runtime_resume_and_get(mtd->dev.parent);
+-__maybe_unused
+ static ssize_t spi_write(struct intel_dg_spi *spi, u8 region,
+ 			 loff_t to, size_t len, const unsigned char *buf)
+ {
+@@ -265,7 +263,6 @@ static ssize_t spi_write(struct intel_dg_spi *spi, u8 region,
+ 	return len;
+ }
+ 
+-__maybe_unused
+ static ssize_t spi_read(struct intel_dg_spi *spi, u8 region,
+ 			loff_t from, size_t len, unsigned char *buf)
+ {
+@@ -324,7 +321,6 @@ static ssize_t spi_read(struct intel_dg_spi *spi, u8 region,
+ 	return len;
+ }
+ 
+-__maybe_unused
+ static ssize_t
+ spi_erase(struct intel_dg_spi *spi, u8 region, loff_t from, u64 len, u64 *fail_addr)
+ {
+@@ -413,18 +409,164 @@ static int intel_dg_spi_init(struct intel_dg_spi *spi, struct device *device)
+ 
+ static int intel_dg_spi_erase(struct mtd_info *mtd, struct erase_info *info)
+ {
+-	return 0;
++	struct intel_dg_spi *spi;
++	unsigned int idx;
++	u8 region;
++	u64 addr;
++	ssize_t bytes;
++	loff_t from;
++	size_t len;
++	size_t total_len;
++	int ret = 0;
++
++	if (!mtd || !info)
++		return -EINVAL;
++
++	spi = mtd->priv;
++	if (WARN_ON(!spi))
++		return -EINVAL;
++
++	if (!IS_ALIGNED(info->addr, SZ_4K) || !IS_ALIGNED(info->len, SZ_4K)) {
++		dev_err(&mtd->dev, "unaligned erase %llx %llx\n",
++			info->addr, info->len);
++		info->fail_addr = MTD_FAIL_ADDR_UNKNOWN;
++		return -EINVAL;
++	}
++
++	total_len = info->len;
++	addr = info->addr;
++
++	mutex_lock(&spi->lock);
++
++	while (total_len > 0) {
++		if (!IS_ALIGNED(addr, SZ_4K) || !IS_ALIGNED(total_len, SZ_4K)) {
++			dev_err(&mtd->dev, "unaligned erase %llx %zx\n", addr, total_len);
++			info->fail_addr = addr;
++			ret = -ERANGE;
++			goto out;
++		}
++
++		idx = spi_get_region(spi, addr);
++		if (idx >= spi->nregions) {
++			dev_err(&mtd->dev, "out of range");
++			info->fail_addr = MTD_FAIL_ADDR_UNKNOWN;
++			ret = -ERANGE;
++			goto out;
++		}
++
++		from = addr - spi->regions[idx].offset;
++		region = spi->regions[idx].id;
++		len = total_len;
++		if (len > spi->regions[idx].size - from)
++			len = spi->regions[idx].size - from;
++
++		dev_dbg(&mtd->dev, "erasing region[%d] %s from %llx len %zx\n",
++			region, spi->regions[idx].name, from, len);
++
++		bytes = spi_erase(spi, region, from, len, &info->fail_addr);
++		if (bytes < 0) {
++			dev_dbg(&mtd->dev, "erase failed with %zd\n", bytes);
++			info->fail_addr += spi->regions[idx].offset;
++			ret = bytes;
++			goto out;
++		}
++
++		addr += len;
++		total_len -= len;
++	}
++
++out:
++	mutex_unlock(&spi->lock);
++	return ret;
+ }
+ 
+ static int intel_dg_spi_read(struct mtd_info *mtd, loff_t from, size_t len,
+ 			     size_t *retlen, u_char *buf)
+ {
++	struct intel_dg_spi *spi;
++	ssize_t ret;
++	unsigned int idx;
++	u8 region;
++
++	if (!mtd)
++		return -EINVAL;
++
++	spi = mtd->priv;
++	if (WARN_ON(!spi))
++		return -EINVAL;
++
++	idx = spi_get_region(spi, from);
++
++	dev_dbg(&mtd->dev, "reading region[%d] %s from %lld len %zd\n",
++		spi->regions[idx].id, spi->regions[idx].name, from, len);
++
++	if (idx >= spi->nregions) {
++		dev_err(&mtd->dev, "out of ragnge");
++		return -ERANGE;
++	}
++
++	from -= spi->regions[idx].offset;
++	region = spi->regions[idx].id;
++	if (len > spi->regions[idx].size - from)
++		len = spi->regions[idx].size - from;
++
++	mutex_lock(&spi->lock);
++
++	ret = spi_read(spi, region, from, len, buf);
 +	if (ret < 0) {
-+		dev_err(&mtd->dev, "rpm: get failed %zd\n", ret);
++		dev_dbg(&mtd->dev, "read failed with %zd\n", ret);
++		mutex_unlock(&spi->lock);
 +		return ret;
 +	}
 +
- 	mutex_lock(&spi->lock);
- 
- 	ret = spi_write(spi, region, to, len, buf);
-@@ -602,6 +627,8 @@ static int intel_dg_spi_write(struct mtd_info *mtd, loff_t to, size_t len,
- 	*retlen = ret;
- 
- 	mutex_unlock(&spi->lock);
-+	pm_runtime_mark_last_busy(mtd->dev.parent);
-+	pm_runtime_put_autosuspend(mtd->dev.parent);
++	*retlen = ret;
++
++	mutex_unlock(&spi->lock);
  	return 0;
  }
  
-@@ -747,6 +774,17 @@ static int intel_dg_spi_probe(struct auxiliary_device *aux_dev,
- 		}
- 	}
- 
-+	pm_runtime_enable(device);
+ static int intel_dg_spi_write(struct mtd_info *mtd, loff_t to, size_t len,
+ 			      size_t *retlen, const u_char *buf)
+ {
++	struct intel_dg_spi *spi;
++	ssize_t ret;
++	unsigned int idx;
++	u8 region;
 +
-+	pm_runtime_set_autosuspend_delay(device, INTEL_DG_SPI_RPM_TIMEOUT);
-+	pm_runtime_use_autosuspend(device);
++	if (!mtd)
++		return -EINVAL;
 +
-+	ret = pm_runtime_resume_and_get(device);
-+	if (ret < 0) {
-+		dev_err(device, "rpm: get failed %d\n", ret);
-+		goto err_norpm;
++	spi = mtd->priv;
++	if (WARN_ON(!spi))
++		return -EINVAL;
++
++	idx = spi_get_region(spi, to);
++
++	dev_dbg(&mtd->dev, "writing region[%d] %s to %lld len %zd\n",
++		spi->regions[idx].id, spi->regions[idx].name, to, len);
++
++	if (idx >= spi->nregions) {
++		dev_err(&mtd->dev, "out of range");
++		return -ERANGE;
 +	}
 +
- 	spi->base = devm_ioremap_resource(device, &ispi->bar);
- 	if (IS_ERR(spi->base)) {
- 		dev_err(device, "mmio not mapped\n");
-@@ -771,9 +809,13 @@ static int intel_dg_spi_probe(struct auxiliary_device *aux_dev,
- 
- 	dev_dbg(device, "bound\n");
- 
-+	pm_runtime_put(device);
- 	return 0;
- 
- err:
-+	pm_runtime_put(device);
-+err_norpm:
-+	pm_runtime_disable(device);
- 	kref_put(&spi->refcnt, intel_dg_spi_release);
- 	return ret;
- }
-@@ -785,6 +827,8 @@ static void intel_dg_spi_remove(struct auxiliary_device *aux_dev)
- 	if (!spi)
- 		return;
- 
-+	pm_runtime_disable(&aux_dev->dev);
++	to -= spi->regions[idx].offset;
++	region = spi->regions[idx].id;
++	if (len > spi->regions[idx].size - to)
++		len = spi->regions[idx].size - to;
 +
- 	mtd_device_unregister(&spi->mtd);
++	mutex_lock(&spi->lock);
++
++	ret = spi_write(spi, region, to, len, buf);
++	if (ret < 0) {
++		dev_dbg(&mtd->dev, "write failed with %zd\n", ret);
++		mutex_unlock(&spi->lock);
++		return ret;
++	}
++
++	*retlen = ret;
++
++	mutex_unlock(&spi->lock);
+ 	return 0;
+ }
  
- 	dev_set_drvdata(&aux_dev->dev, NULL);
 -- 
 2.34.1
 
