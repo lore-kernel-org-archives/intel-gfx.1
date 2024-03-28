@@ -4,82 +4,58 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 805EFC54E64
-	for <intel-gfx@archiver.kernel.org>; Thu, 28 Mar 2024 11:01:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 32266C54E64
+	for <intel-gfx@archiver.kernel.org>; Thu, 28 Mar 2024 11:08:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1654F10E1A6;
-	Thu, 28 Mar 2024 11:01:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AF16C10F51D;
+	Thu, 28 Mar 2024 11:08:11 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=arndb.de header.i=@arndb.de header.b="BLt9jvNz";
-	dkim=pass (2048-bit key; unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.b="XS2xnBUC";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="iZcer+z5";
 	dkim-atps=neutral
-X-Greylist: delayed 509 seconds by postgrey-1.36 at gabe;
- Thu, 28 Mar 2024 11:01:23 UTC
-Received: from fhigh2-smtp.messagingengine.com
- (fhigh2-smtp.messagingengine.com [103.168.172.153])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2CD1910E1A6
- for <intel-gfx@lists.freedesktop.org>; Thu, 28 Mar 2024 11:01:23 +0000 (UTC)
-Received: from compute5.internal (compute5.nyi.internal [10.202.2.45])
- by mailfhigh.nyi.internal (Postfix) with ESMTP id 1323D11400DB;
- Thu, 28 Mar 2024 06:52:53 -0400 (EDT)
-Received: from imap51 ([10.202.2.101])
- by compute5.internal (MEProxy); Thu, 28 Mar 2024 06:52:53 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arndb.de; h=cc
- :cc:content-type:content-type:date:date:from:from:in-reply-to
- :in-reply-to:message-id:mime-version:references:reply-to:subject
- :subject:to:to; s=fm1; t=1711623173; x=1711709573; bh=pYSP327WQF
- DVmZr6n7v2NiEuO6ZV1nPOeivuxd5HieM=; b=BLt9jvNz5hthy4N8+5JykzYgPC
- RyR2Kt4srpR8FZvhqE9UwZolwjy9UkgDiU8jmpvrn+guG9q4ww72iOw1B3KSthtf
- nHLqJyI3829+aCC5BHGqFU05vCbXClHgFHJuBZa9QPacaLx7CpO0BSMx87Ap1YHw
- GUIjOQnl/3TMwsb4/O7Q60lBBRSUAayuhVbsDCb2HwaT66g8vqv+IJkHViaogjIi
- cEfTAg7S7n4LBhtI3Ija9tGw6Imk2IwfOdDb9pJc6dNYJheSz71+5/t1B3G9HreX
- B94kzTGzEnVXQJngAzZWGiKCPoRN8nvKMIjeufHCLPoJv8gpDMateEzqOKeg==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:cc:content-type:content-type:date:date
- :feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
- :message-id:mime-version:references:reply-to:subject:subject:to
- :to:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
- fm2; t=1711623173; x=1711709573; bh=pYSP327WQFDVmZr6n7v2NiEuO6ZV
- 1nPOeivuxd5HieM=; b=XS2xnBUCepnAJHRLgcsCubXP1XsFjy6OOTVNxv+0P+76
- ukUTzYGCbiDEDEM95MyJo21HL+0HhJiI4w5E+ccfhieJv0qbjNALiKdFHBD4G7I5
- mJCV/A7ejDpfSuhJvrDJSv4HiLX1I54FhMJyZ6XSpYnL29cEpa+vJ5vvXx/6wPJ0
- ZytjPwl5YQ2BGV2eIY6w9kcT9W/Shd2neMba8WyGisC3x1ccHPy2pCKOZ9Z+RaF4
- 7aakQtP8pfvSAq278waGWLjzOWYZDYRPXzOf7dOJ+roAEM+wIDP8Hfie57wCVLH0
- sPjUcZ+22H6wJJuzPf+SdV/QsfC7aHr0Qg/d4EK52w==
-X-ME-Sender: <xms:BEwFZv9jxM0BDAz1baL4uM02Ml6RNROftPOkbjKzAqU8JxG53jRXMA>
- <xme:BEwFZrvJf6eNq4Y937lpeVHM2fyOpxeisx18g0oB2lDodHVcZOnseBNwc9yUXgVAI
- Z2WWdejKsEkShPh45A>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvledrudduledgudelucetufdoteggodetrfdotf
- fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
- uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
- cujfgurhepofgfggfkjghffffhvfevufgtsehttdertderredtnecuhfhrohhmpedftehr
- nhguuceuvghrghhmrghnnhdfuceorghrnhgusegrrhhnuggsrdguvgeqnecuggftrfgrth
- htvghrnhepffehueegteeihfegtefhjefgtdeugfegjeelheejueethfefgeeghfektdek
- teffnecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehmrghilhhfrhhomheprg
- hrnhgusegrrhhnuggsrdguvg
-X-ME-Proxy: <xmx:BEwFZtA-azog78eutfczfFlihiGGHZlKj4ml-8hUktdPSQKtpJXI5w>
- <xmx:BEwFZrcKvMZHlR92jcI9_-6Asa6d5N2MmPl1LJ-7YbTE7qwLGqMv3Q>
- <xmx:BEwFZkO-qF7k5HExohyO9gtcNMEOIIQhD3f48VZRWJdcE8XpMgpZkA>
- <xmx:BEwFZtnQc-ll8LflCyOKn3qR-ocduIe3YWUqZTYSvjeXiKKyJsAyJA>
- <xmx:BUwFZhp1EmcC3sdwiY9YA3Ysuv6PgfrPv1h0cwBUw9K0OxyMcdPZ8w>
-Feedback-ID: i56a14606:Fastmail
-Received: by mailuser.nyi.internal (Postfix, from userid 501)
- id C68DDB6008D; Thu, 28 Mar 2024 06:52:52 -0400 (EDT)
-X-Mailer: MessagingEngine.com Webmail Interface
-User-Agent: Cyrus-JMAP/3.11.0-alpha0-333-gbfea15422e-fm-20240327.001-gbfea1542
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.14])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9FEF510F4FF;
+ Thu, 28 Mar 2024 11:08:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1711624090; x=1743160090;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:in-reply-to;
+ bh=dsxSQ7j6YAgkLCDxmDPnwUC5gjaZLRO+Vqr/G20RCXI=;
+ b=iZcer+z5tydbfTUU1HzJ8YH7bg7tor1Ol97NIzVnDPRUzffAPtBZWCW2
+ cK+khMoJWERjkfHWzQY5l2YkU7BNBtrBclmGfDco9cwOVQKw3uofIB2lZ
+ TCglHWCBMiLLDWyTvg4teZxTewjuNxkdxMJdwOw9bLuGZm4HbXMnqX7Io
+ CVLa+ZzyHlTYz8p5kVgKFtoZnuuE0ffv/1gHIBhJ9tFPX5GnTHU4CMvHN
+ +zRIoq5cyhNlmFdtKPcTsWf7A28tBBPNnYYGLEfoJ2alMV+z9wtcpruIG
+ mW29h9e/liAXZxVgXTnBZYfYStgpFCHu9eAqL2Ri9aRfgDDYDDtjN+t6F Q==;
+X-CSE-ConnectionGUID: 25AhlhSHTA+VNmgGBaiM7A==
+X-CSE-MsgGUID: x9dsU8FMQVqEMHEzhiRTmQ==
+X-IronPort-AV: E=McAfee;i="6600,9927,11026"; a="10564784"
+X-IronPort-AV: E=Sophos;i="6.07,161,1708416000"; d="scan'208";a="10564784"
+Received: from fmviesa007.fm.intel.com ([10.60.135.147])
+ by orvoesa106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 28 Mar 2024 04:08:10 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.07,161,1708416000"; d="scan'208";a="16609539"
+Received: from unknown (HELO intel.com) ([10.247.118.221])
+ by fmviesa007-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 28 Mar 2024 04:08:05 -0700
+Date: Thu, 28 Mar 2024 12:07:59 +0100
+From: Andi Shyti <andi.shyti@linux.intel.com>
+To: "Murthy, Arun R" <arun.r.murthy@intel.com>
+Cc: Andi Shyti <andi.shyti@linux.intel.com>,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>,
+ "intel-xe@lists.freedesktop.org" <intel-xe@lists.freedesktop.org>
+Subject: Re: [PATCHv2] drm/xe/display: check for error on drmm_mutex_init
+Message-ID: <ZgVPj8wHbjj2Oyu_@ashyti-mobl2.lan>
+References: <20240328080005.410961-1-arun.r.murthy@intel.com>
+ <ZgUq47D313cr2VYp@ashyti-mobl2.lan> <87r0fufxy2.fsf@intel.com>
+ <ZgVKWBQqEat-3iR3@ashyti-mobl2.lan>
+ <IA0PR11MB730702DC9B3DBCAFB8396B33BA3B2@IA0PR11MB7307.namprd11.prod.outlook.com>
 MIME-Version: 1.0
-Message-Id: <84c264bb-0316-42eb-85d2-ddd8f8dbf1d4@app.fastmail.com>
-In-Reply-To: <87o7ayfxbh.fsf@intel.com>
-References: <20240328102455.944131-1-jani.nikula@intel.com>
- <b9138bc4-61e4-476a-9aa5-8842235bce2e@app.fastmail.com>
- <87o7ayfxbh.fsf@intel.com>
-Date: Thu, 28 Mar 2024 11:52:32 +0100
-From: "Arnd Bergmann" <arnd@arndb.de>
-To: "Jani Nikula" <jani.nikula@intel.com>, intel-gfx@lists.freedesktop.org,
- intel-xe@lists.freedesktop.org
-Cc: "Lucas De Marchi" <lucas.demarchi@intel.com>
-Subject: Re: [PATCH] drm/i915: use fine grained -Woverride-init disable
-Content-Type: text/plain
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <IA0PR11MB730702DC9B3DBCAFB8396B33BA3B2@IA0PR11MB7307.namprd11.prod.outlook.com>
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -95,35 +71,71 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Thu, Mar 28, 2024, at 11:46, Jani Nikula wrote:
-> On Thu, 28 Mar 2024, "Arnd Bergmann" <arnd@arndb.de> wrote:
->> On Thu, Mar 28, 2024, at 11:24, Jani Nikula wrote:
->>> Use localized __diag_push(), __diag_ignore_all() with rationale, and
->>> __diag_pop() for specific initializations instead of blanket disabling
->>> of -Woverride-init across several files.
->>>
->>> Note that we've tried this before with commit 88e9664434c9 ("drm/i915:
->>> use localized __diag_ignore_all() instead of per file") and reverted in
->>> commit 290d16104575 ("Revert "drm/i915: use localized
->>> __diag_ignore_all() instead of per file""). The issue turned out to be
->>> in __diag_ignore_all() and it was fixed by commit 689b097a06ba
->>> ("compiler-gcc: Suppress -Wmissing-prototypes warning for all supported
->>> GCC"). So we should be able to pull this off now.
->>>
->>> Cc: "Arnd Bergmann" <arnd@arndb.de>
->>> Cc: Lucas De Marchi <lucas.demarchi@intel.com>
->>> Signed-off-by: Jani Nikula <jani.nikula@intel.com>
->>
->> Looks good to me,
->>
->> Acked-by: Arnd Bergmann <arnd@arndb.de>
->
-> Thanks! I'll take this via drm-intel-next for v6.10. Up to you what to
-> do with your patch [1], either drop the i915 and xe changes, or we can
-> handle the trivial conflict too if keeping the changes helps you
-> somehow.
+Hi Arun,
 
-I'll just drop all of the parts for drivers/gpu and send another
-patch for the amdgpu driver to do the same as your patch.
+> > On Thu, Mar 28, 2024 at 12:33:09PM +0200, Jani Nikula wrote:
+> > > On Thu, 28 Mar 2024, Andi Shyti <andi.shyti@linux.intel.com> wrote:
+> > > >> -	drmm_mutex_init(&xe->drm, &xe->sb_lock);
+> > > >> -	drmm_mutex_init(&xe->drm, &xe->display.backlight.lock);
+> > > >> -	drmm_mutex_init(&xe->drm, &xe->display.audio.mutex);
+> > > >> -	drmm_mutex_init(&xe->drm, &xe->display.wm.wm_mutex);
+> > > >> -	drmm_mutex_init(&xe->drm, &xe->display.pps.mutex);
+> > > >> -	drmm_mutex_init(&xe->drm, &xe->display.hdcp.hdcp_mutex);
+> > > >> +	if (drmm_mutex_init(&xe->drm, &xe->sb_lock) ||
+> > > >> +	    drmm_mutex_init(&xe->drm, &xe->display.backlight.lock) ||
+> > > >> +	    drmm_mutex_init(&xe->drm, &xe->display.audio.mutex) ||
+> > > >> +	    drmm_mutex_init(&xe->drm, &xe->display.wm.wm_mutex) ||
+> > > >> +	    drmm_mutex_init(&xe->drm, &xe->display.pps.mutex) ||
+> > > >> +	    drmm_mutex_init(&xe->drm, &xe->display.hdcp.hdcp_mutex))
+> > > >> +		return -ENOMEM;
+> > > >
+> > > > why not extract the value from drmm_mutex_init()? it would make the
+> > > > code a bit more complex, but better than forcing a -ENOMEM return.
+> > > >
+> > > > 	err = drmm_mutex_init(...)
+> > > > 	if (err)
+> > > > 		return err;
+> > > >
+> > > > 	err = drmm_mutex_init(...)
+> > > > 	if (err)
+> > > > 		return err;
+> > > >
+> > > > 	err = drmm_mutex_init(...)
+> > > > 	if (err)
+> > > > 		return err;
+> > > >
+> > > > 	...
+> > > >
+> > > > On the other hand drmm_mutex_init(), as of now returns only -ENOMEM,
+> 
+> The function is also returning -ENOMEM and there is no other error code returned from the error.
 
-     Arnd
+yes, but it's wrong to assume this will always be true.
+
+> > > > but it's a bad practice to assume it will always do. I'd rather
+> > > > prefer not to check the error value at all.
+> > >
+> > > And round and round we go. This is exactly what v1 was [1], but it's
+> > > not clear because the patch doesn't have a changelog.
+> > 
+> > ha! funny! I missed v1.
+> > 
+> > > This is all utterly ridiculous compared to *why* we even have or use
+> > > drmm_mutex_init(). Managed initialization causes more trouble here
+> > > than it gains us. Gah.
+> > 
+> > As I wrote here:
+> > 
+> > > > I'd rather prefer not to check the error value at all.
+> > 
+> > we could rather drop this patch. Checking the error value is always good, but
+> > checking implausible errors with this price is not really worth it.
+> 
+> This is reported as error from Coverity. My suggestion was also to discard this error from Coverity but the same API used in other places in our driver is considering the return value.
+
+Strictly speaking, coverity is right and if I have to choose, I'd
+prefer your v1. v2, in my opinion, is wrong, even if it's more
+nice and readable.
+
+Thanks,
+Andi
