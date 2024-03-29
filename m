@@ -4,50 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3D2A9CD128A
-	for <intel-gfx@archiver.kernel.org>; Fri, 29 Mar 2024 01:13:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D3941CD1288
+	for <intel-gfx@archiver.kernel.org>; Fri, 29 Mar 2024 01:13:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9082D10ECD8;
-	Fri, 29 Mar 2024 01:13:13 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 563A210E79D;
+	Fri, 29 Mar 2024 01:13:19 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="EQ3bgerY";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="ZF9GE2+I";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.20])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3702F10E7A1
- for <intel-gfx@lists.freedesktop.org>; Fri, 29 Mar 2024 01:13:12 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E8EE810E872
+ for <intel-gfx@lists.freedesktop.org>; Fri, 29 Mar 2024 01:13:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1711674793; x=1743210793;
+ t=1711674798; x=1743210798;
  h=from:to:subject:date:message-id:in-reply-to:references:
  mime-version:content-transfer-encoding;
- bh=ZI2hfCofviX1SSXNA7/JtHFSkyfJetejZEwQtcWGd8U=;
- b=EQ3bgerYzzv2uLktYOVHGquwc6Qcj/V0T6+MRJNEm7QWn7iO19Wd2fOh
- lqMulX3t8JR5FkMyeZYKuqxZ+ajITd7o8dzMUWkLkQPg5WhRbDdbV+Old
- PnEv2OCrIL7RvWkWY3jS4T+dCboBj1gAaDUNgk2vl3KJjIwz8QffI7PL8
- 7yIOzcbWmgN43jMsAW1wkbNZYMn1boBpBPShNs7P4mkcHcMOy6DBJcmM1
- 62x8y0M+dTwMOAaElQC+C3sBmNaC4EPD1P1H0VYjldIMbMs406EJCJ+/J
- g+HJtiXUF6hcuK1GXJMXzNtglo2HT7m0Gb3NZlT2dOd6qoUOZjWH1/PXs w==;
-X-CSE-ConnectionGUID: eM1Ci1Z+SSS0z7RMvHkQ1Q==
-X-CSE-MsgGUID: aXWyrq7OS4+svTenJTHB4Q==
-X-IronPort-AV: E=McAfee;i="6600,9927,11027"; a="6756291"
+ bh=k6VRwUjv0NRN8YQsBdE3TqL6ZL7JuhKmB35yrBFpe+I=;
+ b=ZF9GE2+IPwjz3vu/JwqVX91R/QQpTw2qnVwDPCFgA5ldM+CuM++a8q/M
+ L0a8NZiRs9IlhNmBLqNyUbcBD6/SLGd2yKi/0gZPr+QqQZ8ZYrrV1fVsm
+ VqNvrHAPIN6SaJHXf/kFeypvwVIWxzp+cXJ9OMn6GKWIqIJWcmvsxSlgm
+ FenTrtW/ajJl3PqOkz26kJN1eT05qd4l7Ijp/tYDMjyDE8DPK8Quba/9D
+ 1ScqjzhI+c8v8jA+Vgl60TM3ZQBRz0mmlGxGUlC4P93F5b51oqRZZ/oNp
+ D7H2PST27l8eZnIxWMZbaBPGRYklbCpzdxKkLPlCQfub/YP6n3nfmRmZM A==;
+X-CSE-ConnectionGUID: XCGBNQ7/QQGP11W5IrMtGQ==
+X-CSE-MsgGUID: 6vFKQ1cQQcS4glPbFcUqcw==
+X-IronPort-AV: E=McAfee;i="6600,9927,11027"; a="6756304"
 X-IronPort-AV: E=Sophos;i="6.07,162,1708416000"; 
-   d="scan'208";a="6756291"
+   d="scan'208";a="6756304"
 Received: from orsmga001.jf.intel.com ([10.7.209.18])
  by orvoesa112.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 28 Mar 2024 18:13:13 -0700
+ 28 Mar 2024 18:13:18 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,11027"; a="827786769"
-X-IronPort-AV: E=Sophos;i="6.07,162,1708416000"; d="scan'208";a="827786769"
+X-IronPort-AV: E=McAfee;i="6600,9927,11027"; a="827786771"
+X-IronPort-AV: E=Sophos;i="6.07,162,1708416000"; d="scan'208";a="827786771"
 Received: from stinkpipe.fi.intel.com (HELO stinkbox) ([10.237.72.74])
- by orsmga001.jf.intel.com with SMTP; 28 Mar 2024 18:13:10 -0700
+ by orsmga001.jf.intel.com with SMTP; 28 Mar 2024 18:13:15 -0700
 Received: by stinkbox (sSMTP sendmail emulation);
- Fri, 29 Mar 2024 03:13:09 +0200
+ Fri, 29 Mar 2024 03:13:15 +0200
 From: Ville Syrjala <ville.syrjala@linux.intel.com>
 To: intel-gfx@lists.freedesktop.org
-Subject: [PATCH 05/22] drm/i915: Remove DRM_MODE_FLAG_DBLSCAN checks from
- .mode_valid() hooks
-Date: Fri, 29 Mar 2024 03:12:37 +0200
-Message-ID: <20240329011254.24160-6-ville.syrjala@linux.intel.com>
+Subject: [PATCH 07/22] drm/i915: Clean up glk_pipe_scaler_clock_gating_wa()
+Date: Fri, 29 Mar 2024 03:12:39 +0200
+Message-ID: <20240329011254.24160-8-ville.syrjala@linux.intel.com>
 X-Mailer: git-send-email 2.43.2
 In-Reply-To: <20240329011254.24160-1-ville.syrjala@linux.intel.com>
 References: <20240329011254.24160-1-ville.syrjala@linux.intel.com>
@@ -71,124 +70,70 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 From: Ville Syrjälä <ville.syrjala@linux.intel.com>
 
-We never set connector->doublescan_allowed, so the probe helper
-already filters out all doublescan modes for us.
-
-Sadly we still need to keep the explicit doublescan checks
-in .compute_config as outlined in commit e4dd27aadd20
-("drm/i915: Allow DBLSCAN user modes with eDP/LVDS/DSI")
+glk_pipe_scaler_clock_gating_wa() is messy. Clean it up via
+intel_de_rmw(), and also just pass in the whole crtc so the
+caller doesn't dance around so much.
 
 Signed-off-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_crt.c    | 3 ---
- drivers/gpu/drm/i915/display/intel_dp_mst.c | 5 -----
- drivers/gpu/drm/i915/display/intel_dsi.c    | 3 ---
- drivers/gpu/drm/i915/display/intel_dvo.c    | 3 ---
- drivers/gpu/drm/i915/display/intel_lvds.c   | 3 ---
- drivers/gpu/drm/i915/display/intel_sdvo.c   | 3 ---
- drivers/gpu/drm/i915/display/intel_tv.c     | 3 ---
- 7 files changed, 23 deletions(-)
+ drivers/gpu/drm/i915/display/intel_display.c | 19 +++++++------------
+ 1 file changed, 7 insertions(+), 12 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_crt.c b/drivers/gpu/drm/i915/display/intel_crt.c
-index 93479db0f89f..2e95093aa4d4 100644
---- a/drivers/gpu/drm/i915/display/intel_crt.c
-+++ b/drivers/gpu/drm/i915/display/intel_crt.c
-@@ -356,9 +356,6 @@ intel_crt_mode_valid(struct drm_connector *connector,
- 	if (status != MODE_OK)
- 		return status;
+diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
+index 08705042b4f8..83474fcf4131 100644
+--- a/drivers/gpu/drm/i915/display/intel_display.c
++++ b/drivers/gpu/drm/i915/display/intel_display.c
+@@ -1551,18 +1551,13 @@ static void ilk_crtc_enable(struct intel_atomic_state *state,
+ 	intel_set_pch_fifo_underrun_reporting(dev_priv, pipe, true);
+ }
  
--	if (mode->flags & DRM_MODE_FLAG_DBLSCAN)
--		return MODE_NO_DBLESCAN;
+-static void glk_pipe_scaler_clock_gating_wa(struct drm_i915_private *dev_priv,
+-					    enum pipe pipe, bool apply)
++static void glk_pipe_scaler_clock_gating_wa(struct intel_crtc *crtc, bool enable)
+ {
+-	u32 val = intel_de_read(dev_priv, CLKGATE_DIS_PSL(pipe));
++	struct drm_i915_private *i915 = to_i915(crtc->base.dev);
+ 	u32 mask = DPF_GATING_DIS | DPF_RAM_GATING_DIS | DPFR_GATING_DIS;
+ 
+-	if (apply)
+-		val |= mask;
+-	else
+-		val &= ~mask;
 -
- 	if (mode->clock < 25000)
- 		return MODE_CLOCK_LOW;
+-	intel_de_write(dev_priv, CLKGATE_DIS_PSL(pipe), val);
++	intel_de_rmw(i915, CLKGATE_DIS_PSL(crtc->pipe),
++		     mask, enable ? mask : 0);
+ }
  
-diff --git a/drivers/gpu/drm/i915/display/intel_dp_mst.c b/drivers/gpu/drm/i915/display/intel_dp_mst.c
-index 53aec023ce92..9a7c75039989 100644
---- a/drivers/gpu/drm/i915/display/intel_dp_mst.c
-+++ b/drivers/gpu/drm/i915/display/intel_dp_mst.c
-@@ -1302,11 +1302,6 @@ intel_dp_mst_mode_valid_ctx(struct drm_connector *connector,
- 	if (*status != MODE_OK)
- 		return 0;
+ static void hsw_set_linetime_wm(const struct intel_crtc_state *crtc_state)
+@@ -1638,8 +1633,8 @@ static void hsw_crtc_enable(struct intel_atomic_state *state,
+ 	const struct intel_crtc_state *new_crtc_state =
+ 		intel_atomic_get_new_crtc_state(state, crtc);
+ 	struct drm_i915_private *dev_priv = to_i915(crtc->base.dev);
+-	enum pipe pipe = crtc->pipe, hsw_workaround_pipe;
+ 	enum transcoder cpu_transcoder = new_crtc_state->cpu_transcoder;
++	enum pipe hsw_workaround_pipe;
+ 	bool psl_clkgate_wa;
  
--	if (mode->flags & DRM_MODE_FLAG_DBLSCAN) {
--		*status = MODE_NO_DBLESCAN;
--		return 0;
--	}
--
- 	max_link_clock = intel_dp_max_link_rate(intel_dp);
- 	max_lanes = intel_dp_max_lane_count(intel_dp);
+ 	if (drm_WARN_ON(&dev_priv->drm, crtc->active))
+@@ -1677,7 +1672,7 @@ static void hsw_crtc_enable(struct intel_atomic_state *state,
+ 	psl_clkgate_wa = DISPLAY_VER(dev_priv) == 10 &&
+ 		new_crtc_state->pch_pfit.enabled;
+ 	if (psl_clkgate_wa)
+-		glk_pipe_scaler_clock_gating_wa(dev_priv, pipe, true);
++		glk_pipe_scaler_clock_gating_wa(crtc, true);
  
-diff --git a/drivers/gpu/drm/i915/display/intel_dsi.c b/drivers/gpu/drm/i915/display/intel_dsi.c
-index d3cf6a652221..2dfc60e4b615 100644
---- a/drivers/gpu/drm/i915/display/intel_dsi.c
-+++ b/drivers/gpu/drm/i915/display/intel_dsi.c
-@@ -69,9 +69,6 @@ enum drm_mode_status intel_dsi_mode_valid(struct drm_connector *connector,
+ 	if (DISPLAY_VER(dev_priv) >= 9)
+ 		skl_pfit_enable(new_crtc_state);
+@@ -1709,7 +1704,7 @@ static void hsw_crtc_enable(struct intel_atomic_state *state,
  
- 	drm_dbg_kms(&dev_priv->drm, "\n");
+ 	if (psl_clkgate_wa) {
+ 		intel_crtc_wait_for_next_vblank(crtc);
+-		glk_pipe_scaler_clock_gating_wa(dev_priv, pipe, false);
++		glk_pipe_scaler_clock_gating_wa(crtc, false);
+ 	}
  
--	if (mode->flags & DRM_MODE_FLAG_DBLSCAN)
--		return MODE_NO_DBLESCAN;
--
- 	status = intel_panel_mode_valid(intel_connector, mode);
- 	if (status != MODE_OK)
- 		return status;
-diff --git a/drivers/gpu/drm/i915/display/intel_dvo.c b/drivers/gpu/drm/i915/display/intel_dvo.c
-index c076da75b066..060328c0df7e 100644
---- a/drivers/gpu/drm/i915/display/intel_dvo.c
-+++ b/drivers/gpu/drm/i915/display/intel_dvo.c
-@@ -231,9 +231,6 @@ intel_dvo_mode_valid(struct drm_connector *_connector,
- 	if (status != MODE_OK)
- 		return status;
- 
--	if (mode->flags & DRM_MODE_FLAG_DBLSCAN)
--		return MODE_NO_DBLESCAN;
--
- 	/* XXX: Validate clock range */
- 
- 	if (fixed_mode) {
-diff --git a/drivers/gpu/drm/i915/display/intel_lvds.c b/drivers/gpu/drm/i915/display/intel_lvds.c
-index 221f5c6c871b..24860945f2e4 100644
---- a/drivers/gpu/drm/i915/display/intel_lvds.c
-+++ b/drivers/gpu/drm/i915/display/intel_lvds.c
-@@ -399,9 +399,6 @@ intel_lvds_mode_valid(struct drm_connector *_connector,
- 	if (status != MODE_OK)
- 		return status;
- 
--	if (mode->flags & DRM_MODE_FLAG_DBLSCAN)
--		return MODE_NO_DBLESCAN;
--
- 	status = intel_panel_mode_valid(connector, mode);
- 	if (status != MODE_OK)
- 		return status;
-diff --git a/drivers/gpu/drm/i915/display/intel_sdvo.c b/drivers/gpu/drm/i915/display/intel_sdvo.c
-index 50f0557d9ca2..df76044a739a 100644
---- a/drivers/gpu/drm/i915/display/intel_sdvo.c
-+++ b/drivers/gpu/drm/i915/display/intel_sdvo.c
-@@ -1952,9 +1952,6 @@ intel_sdvo_mode_valid(struct drm_connector *connector,
- 	if (status != MODE_OK)
- 		return status;
- 
--	if (mode->flags & DRM_MODE_FLAG_DBLSCAN)
--		return MODE_NO_DBLESCAN;
--
- 	if (clock > max_dotclk)
- 		return MODE_CLOCK_HIGH;
- 
-diff --git a/drivers/gpu/drm/i915/display/intel_tv.c b/drivers/gpu/drm/i915/display/intel_tv.c
-index ba5d2b7174b7..79d35c1b3c81 100644
---- a/drivers/gpu/drm/i915/display/intel_tv.c
-+++ b/drivers/gpu/drm/i915/display/intel_tv.c
-@@ -969,9 +969,6 @@ intel_tv_mode_valid(struct drm_connector *connector,
- 	if (status != MODE_OK)
- 		return status;
- 
--	if (mode->flags & DRM_MODE_FLAG_DBLSCAN)
--		return MODE_NO_DBLESCAN;
--
- 	if (mode->clock > max_dotclk)
- 		return MODE_CLOCK_HIGH;
- 
+ 	/* If we change the relative order between pipe/planes enabling, we need
 -- 
 2.43.2
 
