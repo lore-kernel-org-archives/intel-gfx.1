@@ -4,32 +4,37 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 621D2CD1291
-	for <intel-gfx@archiver.kernel.org>; Sun, 31 Mar 2024 08:50:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 75586CD1284
+	for <intel-gfx@archiver.kernel.org>; Sun, 31 Mar 2024 08:50:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E8EBD10EA2C;
-	Sun, 31 Mar 2024 08:50:10 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 31BD310EA2F;
+	Sun, 31 Mar 2024 08:50:11 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b="b+Tl2nhY";
+	dkim=pass (1024-bit key; unprotected) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b="HXt1rRSU";
 	dkim-atps=neutral
 Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
- by gabe.freedesktop.org (Postfix) with ESMTP id 9EBA710E88E;
- Fri, 29 Mar 2024 17:02:20 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTP id 3ABA31127D5;
+ Fri, 29 Mar 2024 17:02:28 +0000 (UTC)
 Received: from rrs24-12-35.corp.microsoft.com (unknown [131.107.147.137])
- by linux.microsoft.com (Postfix) with ESMTPSA id EE6F520E6F4C;
- Fri, 29 Mar 2024 10:02:19 -0700 (PDT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com EE6F520E6F4C
+ by linux.microsoft.com (Postfix) with ESMTPSA id E709B20E6F50;
+ Fri, 29 Mar 2024 10:02:27 -0700 (PDT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com E709B20E6F50
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
- s=default; t=1711731740;
- bh=t49SSijH5qcn8ATNHvvOtx0aTbYoWILOcpPZfTIIf5A=;
+ s=default; t=1711731748;
+ bh=FBEap9UriasmuWH1luz/pYU8Vj/ov3W7GcXI5HcE8Oc=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=b+Tl2nhYCHS6FtKRbxbOukN4V4yufNBRXQxXpxjRy4FT1iMF4FHj0kmCEY9/iOGP9
- 810vjByH634Jjyhi4F8eZTuQ50mz0N6b170peelO1xcWydhYP8ZJSDBDr3oRMLSwXY
- TfEm2CpowjnlO3jIW88+wusfcxhSkotAZmFp6RhQ=
+ b=HXt1rRSU2n8RHfjdj+dQSPpD5mqqmQZS2xo1RoJb1Tx7aw63Shmx6szGeIXPbhjJ9
+ KCJAEVxyAoSUBA0s8+2FYyT4zuT5SAC4MIJ9rIwYY/l4JyWAWCSaJhyxH+uk29eM4h
+ Z+uxKwMTyQKbiiWtAXBnNEC7siWDf+GZGFaxGqY8=
 From: Easwar Hariharan <eahariha@linux.microsoft.com>
-To: Mauro Carvalho Chehab <mchehab@kernel.org>,
+To: Edward Cree <ecree.xilinx@gmail.com>,
+ Martin Habets <habetsm.xilinx@gmail.com>,
+ "David S. Miller" <davem@davemloft.net>,
+ Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>,
  Easwar Hariharan <eahariha@linux.microsoft.com>,
- linux-media@vger.kernel.org (open list:MEDIA INPUT INFRASTRUCTURE (V4L/DVB)), 
+ netdev@vger.kernel.org (open list:SFC NETWORK DRIVER),
+ linux-net-drivers@amd.com (open list:SFC NETWORK DRIVER),
  linux-kernel@vger.kernel.org (open list)
 Cc: Wolfram Sang <wsa+renesas@sang-engineering.com>,
  amd-gfx@lists.freedesktop.org (open list:RADEON and AMDGPU DRM DRIVERS),
@@ -43,9 +48,9 @@ Cc: Wolfram Sang <wsa+renesas@sang-engineering.com>,
  GPUS), linux-i2c@vger.kernel.org (open list:I2C SUBSYSTEM HOST DRIVERS),
  linux-media@vger.kernel.org (open list:BTTV VIDEO4LINUX DRIVER),
  linux-fbdev@vger.kernel.org (open list:FRAMEBUFFER LAYER)
-Subject: [PATCH v0 07/14] media: cx25821: Make I2C terminology more inclusive
-Date: Fri, 29 Mar 2024 17:00:31 +0000
-Message-Id: <20240329170038.3863998-8-eahariha@linux.microsoft.com>
+Subject: [PATCH v0 10/14] sfc: falcon: Make I2C terminology more inclusive
+Date: Fri, 29 Mar 2024 17:00:34 +0000
+Message-Id: <20240329170038.3863998-11-eahariha@linux.microsoft.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20240329170038.3863998-1-eahariha@linux.microsoft.com>
 References: <20240329170038.3863998-1-eahariha@linux.microsoft.com>
@@ -79,40 +84,22 @@ Compile tested, no functionality changes intended
 
 Signed-off-by: Easwar Hariharan <eahariha@linux.microsoft.com>
 ---
- drivers/media/pci/cx25821/cx25821-i2c.c | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+ drivers/net/ethernet/sfc/falcon/falcon.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/media/pci/cx25821/cx25821-i2c.c b/drivers/media/pci/cx25821/cx25821-i2c.c
-index 0ef4cd6528a0..bad8fb9f5319 100644
---- a/drivers/media/pci/cx25821/cx25821-i2c.c
-+++ b/drivers/media/pci/cx25821/cx25821-i2c.c
-@@ -33,7 +33,7 @@ do {									\
- #define I2C_EXTEND  (1 << 3)
- #define I2C_NOSTOP  (1 << 4)
+diff --git a/drivers/net/ethernet/sfc/falcon/falcon.c b/drivers/net/ethernet/sfc/falcon/falcon.c
+index 7a1c9337081b..147e7c8e3c02 100644
+--- a/drivers/net/ethernet/sfc/falcon/falcon.c
++++ b/drivers/net/ethernet/sfc/falcon/falcon.c
+@@ -367,7 +367,7 @@ static const struct i2c_algo_bit_data falcon_i2c_bit_operations = {
+ 	.getsda		= falcon_getsda,
+ 	.getscl		= falcon_getscl,
+ 	.udelay		= 5,
+-	/* Wait up to 50 ms for slave to let us pull SCL high */
++	/* Wait up to 50 ms for client to let us pull SCL high */
+ 	.timeout	= DIV_ROUND_UP(HZ, 20),
+ };
  
--static inline int i2c_slave_did_ack(struct i2c_adapter *i2c_adap)
-+static inline int i2c_client_did_ack(struct i2c_adapter *i2c_adap)
- {
- 	struct cx25821_i2c *bus = i2c_adap->algo_data;
- 	struct cx25821_dev *dev = bus->dev;
-@@ -85,7 +85,7 @@ static int i2c_sendbytes(struct i2c_adapter *i2c_adap,
- 		if (!i2c_wait_done(i2c_adap))
- 			return -EIO;
- 
--		if (!i2c_slave_did_ack(i2c_adap))
-+		if (!i2c_client_did_ack(i2c_adap))
- 			return -EIO;
- 
- 		dprintk(1, "%s(): returns 0\n", __func__);
-@@ -174,7 +174,7 @@ static int i2c_readbytes(struct i2c_adapter *i2c_adap,
- 		cx_write(bus->reg_ctrl, bus->i2c_period | (1 << 2) | 1);
- 		if (!i2c_wait_done(i2c_adap))
- 			return -EIO;
--		if (!i2c_slave_did_ack(i2c_adap))
-+		if (!i2c_client_did_ack(i2c_adap))
- 			return -EIO;
- 
- 		dprintk(1, "%s(): returns 0\n", __func__);
 -- 
 2.34.1
 
