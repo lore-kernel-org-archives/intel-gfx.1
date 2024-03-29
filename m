@@ -4,50 +4,87 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D25E6CD1284
-	for <intel-gfx@archiver.kernel.org>; Sun, 31 Mar 2024 08:50:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6E7BBCD1291
+	for <intel-gfx@archiver.kernel.org>; Sun, 31 Mar 2024 08:50:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C0EDE10EA20;
-	Sun, 31 Mar 2024 08:50:09 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6728F10EA27;
+	Sun, 31 Mar 2024 08:50:10 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b="s/NFcY4W";
+	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b="pXGtnHj3";
 	dkim-atps=neutral
 Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
- by gabe.freedesktop.org (Postfix) with ESMTP id 9217710E16A;
- Fri, 29 Mar 2024 17:00:55 +0000 (UTC)
-Received: from rrs24-12-35.corp.microsoft.com (unknown [131.107.147.137])
- by linux.microsoft.com (Postfix) with ESMTPSA id 2915720E6F3E;
- Fri, 29 Mar 2024 10:00:51 -0700 (PDT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com 2915720E6F3E
+ by gabe.freedesktop.org (Postfix) with ESMTP id 0B03610E29D;
+ Fri, 29 Mar 2024 18:51:26 +0000 (UTC)
+Received: from [100.64.128.229] (unknown [20.29.225.195])
+ by linux.microsoft.com (Postfix) with ESMTPSA id 3DC7F20E6F42;
+ Fri, 29 Mar 2024 11:51:22 -0700 (PDT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com 3DC7F20E6F42
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
- s=default; t=1711731651;
- bh=R1kI4fSdjXgmDTBK4gwdz/7qy7m6HdXCoh75MR5W1fU=;
- h=From:To:Cc:Subject:Date:From;
- b=s/NFcY4WhBBLC6P0yXaPdWjdSd1KLEhzt5QlU8HUQPolmdd//5jDkAXQu4mn4SjCo
- bn4fbp4Ho3VTBmf5gX48VajFN/A7PdTHE1O7evCm9ovfbS/jyxuny9FcLln7MTu1me
- /f8k2ymXnbN/1Rh3AQVd0O93PYUn/pPgQtCm+y+U=
-From: Easwar Hariharan <eahariha@linux.microsoft.com>
-To: 
-Cc: Wolfram Sang <wsa+renesas@sang-engineering.com>,
- amd-gfx@lists.freedesktop.org (open list:RADEON and AMDGPU DRM DRIVERS),
- dri-devel@lists.freedesktop.org (open list:DRM DRIVERS),
- linux-kernel@vger.kernel.org (open list),
- intel-gfx@lists.freedesktop.org (open list:INTEL DRM DISPLAY FOR XE AND I915
- DRIVERS), 
- intel-xe@lists.freedesktop.org (open list:INTEL DRM DISPLAY FOR XE AND I915
- DRIVERS), 
- nouveau@lists.freedesktop.org (open list:DRM DRIVER FOR NVIDIA GEFORCE/QUADRO
- GPUS), linux-i2c@vger.kernel.org (open list:I2C SUBSYSTEM HOST DRIVERS),
- linux-media@vger.kernel.org (open list:BTTV VIDEO4LINUX DRIVER),
- linux-fbdev@vger.kernel.org (open list:FRAMEBUFFER LAYER),
- Easwar Hariharan <eahariha@linux.microsoft.com>
-Subject: [PATCH v0 00/14] Make I2C terminology more inclusive for I2C Algobit
- and consumers
-Date: Fri, 29 Mar 2024 17:00:24 +0000
-Message-Id: <20240329170038.3863998-1-eahariha@linux.microsoft.com>
-X-Mailer: git-send-email 2.34.1
+ s=default; t=1711738284;
+ bh=/pwtgF4mJa43U7u8eGPihHXysR53d8MYCc7SQXhSzb8=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+ b=pXGtnHj3DxKqLXh0cvZCSvcaLvUsOJN/dP3lwRNbukpYU9EaB53wcWvXKvtfs1jy5
+ bJOw7CGRycUoouJw+APpXY6nb+neaFD76BLiDLQVXc02pqRxYlxecAeIpSrNcIxic/
+ vz7SB5uqZmwS7X85Y0Jv1eOtFAQjodiyD0paH60Y=
+Message-ID: <a667a8b9-f7c3-4cb3-9a19-858f10d8bb9d@linux.microsoft.com>
+Date: Fri, 29 Mar 2024 11:51:21 -0700
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v0 02/14] drm/amdgpu, drm/radeon: Make I2C terminology more
+ inclusive
+To: Andi Shyti <andi.shyti@linux.intel.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ "Pan, Xinhui" <Xinhui.Pan@amd.com>, David Airlie <airlied@gmail.com>,
+ Daniel Vetter <daniel@ffwll.ch>, Harry Wentland <harry.wentland@amd.com>,
+ Leo Li <sunpeng.li@amd.com>, Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
+ Evan Quan <evan.quan@amd.com>, Hawking Zhang <Hawking.Zhang@amd.com>,
+ Candice Li <candice.li@amd.com>, Ran Sun <sunran001@208suo.com>,
+ Alexander Richards <electrodeyt@gmail.com>,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Heiner Kallweit <hkallweit1@gmail.com>, Hamza Mahfooz
+ <hamza.mahfooz@amd.com>, Ruan Jinjie <ruanjinjie@huawei.com>,
+ Alan Liu <haoping.liu@amd.com>, Aurabindo Pillai <aurabindo.pillai@amd.com>,
+ Wayne Lin <wayne.lin@amd.com>, Samson Tam <samson.tam@amd.com>,
+ Alvin Lee <alvin.lee2@amd.com>, Charlene Liu <charlene.liu@amd.com>,
+ Sohaib Nadeem <sohaib.nadeem@amd.com>, Lewis Huang <lewis.huang@amd.com>,
+ Tom Chung <chiahsuan.chung@amd.com>,
+ Bhawanpreet Lakha <Bhawanpreet.Lakha@amd.com>,
+ Meenakshikumar Somasundaram <meenakshikumar.somasundaram@amd.com>,
+ George Shen <george.shen@amd.com>, Aric Cyr <aric.cyr@amd.com>,
+ Jun Lei <jun.lei@amd.com>, Nicholas Kazlauskas
+ <nicholas.kazlauskas@amd.com>, Qingqing Zhuo <Qingqing.Zhuo@amd.com>,
+ Dillon Varone <dillon.varone@amd.com>, Le Ma <Le.Ma@amd.com>,
+ Lijo Lazar <lijo.lazar@amd.com>, Asad kamal <asad.kamal@amd.com>,
+ Kenneth Feng <kenneth.feng@amd.com>, Ma Jun <Jun.Ma2@amd.com>,
+ Mario Limonciello <mario.limonciello@amd.com>,
+ Yang Wang <kevinyang.wang@amd.com>, Darren Powell <darren.powell@amd.com>,
+ Yifan Zhang <yifan1.zhang@amd.com>,
+ "open list:RADEON and AMDGPU DRM DRIVERS" <amd-gfx@lists.freedesktop.org>,
+ "open list:DRM DRIVERS" <dri-devel@lists.freedesktop.org>,
+ open list <linux-kernel@vger.kernel.org>,
+ Wolfram Sang <wsa+renesas@sang-engineering.com>,
+ "open list:INTEL DRM DISPLAY FOR XE AND I915 DRIVERS"
+ <intel-gfx@lists.freedesktop.org>,
+ "open list:INTEL DRM DISPLAY FOR XE AND I915 DRIVERS"
+ <intel-xe@lists.freedesktop.org>,
+ "open list:DRM DRIVER FOR NVIDIA GEFORCE/QUADRO GPUS"
+ <nouveau@lists.freedesktop.org>,
+ "open list:I2C SUBSYSTEM HOST DRIVERS" <linux-i2c@vger.kernel.org>,
+ "open list:BTTV VIDEO4LINUX DRIVER" <linux-media@vger.kernel.org>,
+ "open list:FRAMEBUFFER LAYER" <linux-fbdev@vger.kernel.org>,
+ Andi Shyti <andi.shyti@kernel.org>
+References: <20240329170038.3863998-1-eahariha@linux.microsoft.com>
+ <20240329170038.3863998-3-eahariha@linux.microsoft.com>
+ <Zgb3VYsgLjhJ2HKs@ashyti-mobl2.lan>
+ <ceeaafe1-49d5-4602-8251-eed63a1be2b6@linux.microsoft.com>
+ <Zgb8gieDzZtZmg2q@ashyti-mobl2.lan>
+Content-Language: en-CA
+From: Easwar Hariharan <eahariha@linux.microsoft.com>
+In-Reply-To: <Zgb8gieDzZtZmg2q@ashyti-mobl2.lan>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 X-Mailman-Approved-At: Sun, 31 Mar 2024 08:50:08 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -64,136 +101,48 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-I2C v7, SMBus 3.2, and I3C specifications have replaced "master/slave"
-with more appropriate terms. Inspired by and following on to Wolfram's
-series to fix drivers/i2c/[1], fix the terminology for users of the
-I2C_ALGOBIT bitbanging interface, now that the approved verbiage exists
-in the specification.
+On 3/29/2024 10:38 AM, Andi Shyti wrote:
+> Hi,
+> 
 
-Compile tested, no functionality changes intended
+<snip>
 
-The last patch updating the .master_xfer method to .xfer depends on
-patch 1 of Wolfram's series below, but the series is otherwise
-independent. It may make sense for the last patch to go in with
-Wolfram's patch series via the I2C tree. Please chime in with your
-opinions and suggestions.
+> 
+>>>> with more appropriate terms. Inspired by and following on to Wolfram's
+>>>> series to fix drivers/i2c/[1], fix the terminology for users of
+>>>> I2C_ALGOBIT bitbanging interface, now that the approved verbiage exists
+>>>> in the specification.
+>>>
+>>> The specification talks about:
+>>>
+>>>  - master -> controller
+>>>  - slave -> target (and not client)
+>>>
+>>> But both you and Wolfram have used client. I'd like to reach
+>>> some more consistency here.
+>>
+>> I had the impression that remote targets (i.e external to the device) were to be called clients,
+>> e.g. the QSFP FRUs in drivers/infiniband, and internal ones targets.
+>> I chose the terminology according to that understanding, but now I can't find where I got that
+>> information.
+> 
+> The word "client" does not even appear in the documentation (only
+> one instance in the i3c document), so that the change is not
+> related to the document as stated in the commit log. Unless, of
+> course, I am missing something.
+> 
+> I'm OK with choosing a "customized" naming, but we need to reach
+> an agreement.
+> 
+> I raised the same question to Wolfram.
+> 
+> Thanks,
+> Andi
 
-This series is based on v6.9-rc1.
+I don't have a preference between using target and client. As I mentioned in the thread fork, my
+information came entirely from Wolfram's cover letter and patch messages. I'll follow along with
+whatever you and Wolfram settle on.
 
-[1]: https://lore.kernel.org/all/20240322132619.6389-1-wsa+renesas@sang-engineering.com/
-
-Easwar Hariharan (14):
-  IB/hfi1, IB/qib: Make I2C terminology more inclusive
-  drm/amdgpu,drm/radeon: Make I2C terminology more inclusive
-  drm/gma500,drm/i915: Make I2C terminology more inclusive
-  media: au0828: Make I2C terminology more inclusive
-  media: cobalt: Make I2C terminology more inclusive
-  media: cx18: Make I2C terminology more inclusive
-  media: cx25821: Make I2C terminology more inclusive
-  media: ivtv: Make I2C terminology more inclusive
-  media: cx23885: Make I2C terminology more inclusive
-  sfc: falcon: Make I2C terminology more inclusive
-  fbdev/smscufx: Make I2C terminology more inclusive
-  fbdev/viafb: Make I2C terminology more inclusive
-  drm/nouveau: Make I2C terminology more inclusive
-  i2c and treewide: Make I2C terminology more inclusive
-
- .../gpu/drm/amd/amdgpu/amdgpu_atomfirmware.c  |  8 ++---
- drivers/gpu/drm/amd/amdgpu/amdgpu_i2c.c       | 12 +++----
- drivers/gpu/drm/amd/amdgpu/atombios_i2c.c     |  8 ++---
- drivers/gpu/drm/amd/amdgpu/smu_v11_0_i2c.c    | 18 +++++-----
- .../gpu/drm/amd/display/dc/bios/bios_parser.c |  2 +-
- .../drm/amd/display/dc/bios/bios_parser2.c    |  2 +-
- .../drm/amd/display/dc/core/dc_link_exports.c |  4 +--
- drivers/gpu/drm/amd/display/dc/dc.h           |  2 +-
- drivers/gpu/drm/amd/display/dc/dce/dce_i2c.c  |  4 +--
- .../display/include/grph_object_ctrl_defs.h   |  2 +-
- drivers/gpu/drm/amd/include/atombios.h        |  2 +-
- drivers/gpu/drm/amd/include/atomfirmware.h    | 26 +++++++-------
- .../powerplay/hwmgr/vega20_processpptables.c  |  4 +--
- .../amd/pm/powerplay/inc/smu11_driver_if.h    |  2 +-
- .../inc/pmfw_if/smu11_driver_if_arcturus.h    |  2 +-
- .../inc/pmfw_if/smu11_driver_if_navi10.h      |  2 +-
- .../pmfw_if/smu11_driver_if_sienna_cichlid.h  |  2 +-
- .../inc/pmfw_if/smu13_driver_if_aldebaran.h   |  2 +-
- .../inc/pmfw_if/smu13_driver_if_v13_0_0.h     |  2 +-
- .../inc/pmfw_if/smu13_driver_if_v13_0_7.h     |  2 +-
- .../gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c |  4 +--
- .../amd/pm/swsmu/smu11/sienna_cichlid_ppt.c   |  8 ++---
- drivers/gpu/drm/gma500/cdv_intel_dp.c         |  2 +-
- drivers/gpu/drm/gma500/cdv_intel_lvds.c       |  2 +-
- drivers/gpu/drm/gma500/intel_bios.c           | 22 ++++++------
- drivers/gpu/drm/gma500/intel_bios.h           |  4 +--
- drivers/gpu/drm/gma500/intel_gmbus.c          |  6 ++--
- drivers/gpu/drm/gma500/oaktrail_hdmi_i2c.c    |  2 +-
- drivers/gpu/drm/gma500/psb_drv.h              |  2 +-
- drivers/gpu/drm/gma500/psb_intel_drv.h        |  2 +-
- drivers/gpu/drm/gma500/psb_intel_lvds.c       |  4 +--
- drivers/gpu/drm/gma500/psb_intel_sdvo.c       | 28 +++++++--------
- drivers/gpu/drm/i915/display/dvo_ch7017.c     | 14 ++++----
- drivers/gpu/drm/i915/display/dvo_ch7xxx.c     | 18 +++++-----
- drivers/gpu/drm/i915/display/dvo_ivch.c       | 16 ++++-----
- drivers/gpu/drm/i915/display/dvo_ns2501.c     | 18 +++++-----
- drivers/gpu/drm/i915/display/dvo_sil164.c     | 18 +++++-----
- drivers/gpu/drm/i915/display/dvo_tfp410.c     | 18 +++++-----
- drivers/gpu/drm/i915/display/intel_bios.c     | 22 ++++++------
- drivers/gpu/drm/i915/display/intel_ddi.c      |  2 +-
- .../gpu/drm/i915/display/intel_display_core.h |  2 +-
- drivers/gpu/drm/i915/display/intel_dsi.h      |  2 +-
- drivers/gpu/drm/i915/display/intel_dsi_vbt.c  | 18 +++++-----
- drivers/gpu/drm/i915/display/intel_dvo.c      | 14 ++++----
- drivers/gpu/drm/i915/display/intel_dvo_dev.h  |  2 +-
- drivers/gpu/drm/i915/display/intel_gmbus.c    |  8 ++---
- drivers/gpu/drm/i915/display/intel_sdvo.c     | 34 +++++++++---------
- drivers/gpu/drm/i915/display/intel_vbt_defs.h |  4 +--
- drivers/gpu/drm/i915/gvt/edid.c               | 28 +++++++--------
- drivers/gpu/drm/i915/gvt/edid.h               |  4 +--
- drivers/gpu/drm/i915/gvt/opregion.c           |  2 +-
- drivers/gpu/drm/nouveau/dispnv04/dfp.c        | 14 ++++----
- .../nouveau/include/nvkm/subdev/bios/dcb.h    |  2 +-
- drivers/gpu/drm/nouveau/nouveau_bios.c        |  4 +--
- drivers/gpu/drm/nouveau/nvkm/subdev/i2c/aux.c |  2 +-
- drivers/gpu/drm/nouveau/nvkm/subdev/i2c/bus.c |  2 +-
- drivers/gpu/drm/radeon/atombios.h             |  2 +-
- drivers/gpu/drm/radeon/atombios_i2c.c         |  4 +--
- drivers/gpu/drm/radeon/radeon_combios.c       | 28 +++++++--------
- drivers/gpu/drm/radeon/radeon_i2c.c           | 14 ++++----
- drivers/gpu/drm/radeon/radeon_mode.h          |  6 ++--
- drivers/i2c/algos/i2c-algo-bit.c              | 12 +++----
- drivers/infiniband/hw/hfi1/chip.c             |  6 ++--
- drivers/infiniband/hw/hfi1/chip.h             |  2 +-
- drivers/infiniband/hw/hfi1/chip_registers.h   |  2 +-
- drivers/infiniband/hw/hfi1/file_ops.c         |  2 +-
- drivers/infiniband/hw/hfi1/firmware.c         | 22 ++++++------
- drivers/infiniband/hw/hfi1/pcie.c             |  2 +-
- drivers/infiniband/hw/hfi1/qsfp.c             | 36 +++++++++----------
- drivers/infiniband/hw/hfi1/user_exp_rcv.c     |  2 +-
- drivers/infiniband/hw/qib/qib_twsi.c          |  6 ++--
- drivers/media/pci/bt8xx/bttv-i2c.c            |  2 +-
- drivers/media/pci/cobalt/cobalt-i2c.c         |  8 ++---
- drivers/media/pci/cx18/cx18-av-firmware.c     |  8 ++---
- drivers/media/pci/cx18/cx18-cards.c           |  6 ++--
- drivers/media/pci/cx18/cx18-cards.h           |  4 +--
- drivers/media/pci/cx18/cx18-gpio.c            |  6 ++--
- drivers/media/pci/cx23885/cx23885-f300.c      |  8 ++---
- drivers/media/pci/cx23885/cx23885-i2c.c       |  8 ++---
- drivers/media/pci/cx25821/cx25821-i2c.c       |  8 ++---
- drivers/media/pci/dm1105/dm1105.c             |  2 +-
- drivers/media/pci/ivtv/ivtv-i2c.c             | 18 +++++-----
- drivers/media/pci/saa7164/saa7164-i2c.c       |  2 +-
- drivers/media/usb/au0828/au0828-i2c.c         |  6 ++--
- drivers/media/usb/au0828/au0828-input.c       |  2 +-
- drivers/net/ethernet/sfc/falcon/falcon.c      |  2 +-
- drivers/video/fbdev/mb862xx/mb862xx-i2c.c     |  2 +-
- drivers/video/fbdev/smscufx.c                 |  4 +--
- drivers/video/fbdev/via/chip.h                |  8 ++---
- drivers/video/fbdev/via/dvi.c                 | 24 ++++++-------
- drivers/video/fbdev/via/lcd.c                 |  6 ++--
- drivers/video/fbdev/via/via_aux.h             |  2 +-
- drivers/video/fbdev/via/via_i2c.c             | 12 +++----
- drivers/video/fbdev/via/vt1636.c              |  6 ++--
- 94 files changed, 381 insertions(+), 381 deletions(-)
-
--- 
-2.34.1
+Thanks,
+Easwar
 
