@@ -4,49 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0BDE6CD1284
-	for <intel-gfx@archiver.kernel.org>; Fri, 29 Mar 2024 01:13:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2F968CD1284
+	for <intel-gfx@archiver.kernel.org>; Fri, 29 Mar 2024 01:13:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 631EC10E7A8;
-	Fri, 29 Mar 2024 01:13:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C456E10E888;
+	Fri, 29 Mar 2024 01:13:23 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="ONxhfmCH";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="PKTgWhrF";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.20])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1BADE10E8FA
- for <intel-gfx@lists.freedesktop.org>; Fri, 29 Mar 2024 01:13:15 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D102310E7F1
+ for <intel-gfx@lists.freedesktop.org>; Fri, 29 Mar 2024 01:13:20 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1711674796; x=1743210796;
+ t=1711674801; x=1743210801;
  h=from:to:subject:date:message-id:in-reply-to:references:
  mime-version:content-transfer-encoding;
- bh=dBCY9pgXBSavj7OF21AnGl+kEbM7i2qMplxvqJG4H/U=;
- b=ONxhfmCHDrA7IMI5ZOmrl36/xRCDB9svVNXD1VimK2JQtbuJgxY795S8
- 1GXNB3lu9uPJ1xE6pzju3vjIYIynwNWrGUsl8R9qHqN1JHUkLErzgkB15
- KgytROvHU084GpQu9CYnxTnkWWsL6sxkgEECkgSbUTnDSlm5luWdD7m6u
- boP8HHDPFH4ATDMHtK9ZqIBVbKEeVYTi6wczjF3LIPhByX2cWnfE60PUm
- n6cY2ENw2QlJlbqQqglqG3OPCko+5xnpRMAqSpSItEP+ztfaUkqQicL0n
- Wq6VgCbzGan2tqBxHvuynInpYxFmxBqdAo3MwILapsgnNYgQOOIwhTUsZ Q==;
-X-CSE-ConnectionGUID: YVkC72DxSFS6x0+WrfdjMQ==
-X-CSE-MsgGUID: 9SmkodGnTOijRmK/8ug03Q==
-X-IronPort-AV: E=McAfee;i="6600,9927,11027"; a="6756297"
+ bh=H7ZUV3oDD0mCSQBJGKDildnkHUwWHcNw7qc5iTHYHqc=;
+ b=PKTgWhrFcRoMuQpRC6hkSvhGOwOj38CTwwOpSNMYstI/Ndc66CRQVPRN
+ x7/1pl6P3mTWEYjiir45rg80TCsrZO41vnhvW0VFZSHDJpNqtroHb5vGB
+ OHU5+FHoPy5mPwK1Y2TU0PdmG0uP7FpoO5Jcurs98wTLW6I5rT1JpszjQ
+ iEINVi7Zdo0tZFwy5CXyIEcngq3n0xI7IX6d4JneX67JUAUQBPnTgreVm
+ yBK9+tqtSri7zmStj+gbNiQO0iyg4GFJUSThcPZamsVlw6rHhm337JZMY
+ snyhguU8FCK65HORr9AU3COSoakOv3FXNpnK9kBamtsYm5XDUZEl+fvFB w==;
+X-CSE-ConnectionGUID: LUFvLfbeRaaEgcW8+UKEtw==
+X-CSE-MsgGUID: nrvPx4OnTLyr7t4iUcbGng==
+X-IronPort-AV: E=McAfee;i="6600,9927,11027"; a="6756308"
 X-IronPort-AV: E=Sophos;i="6.07,162,1708416000"; 
-   d="scan'208";a="6756297"
+   d="scan'208";a="6756308"
 Received: from orsmga001.jf.intel.com ([10.7.209.18])
  by orvoesa112.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 28 Mar 2024 18:13:15 -0700
+ 28 Mar 2024 18:13:21 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,11027"; a="827786770"
-X-IronPort-AV: E=Sophos;i="6.07,162,1708416000"; d="scan'208";a="827786770"
+X-IronPort-AV: E=McAfee;i="6600,9927,11027"; a="827786772"
+X-IronPort-AV: E=Sophos;i="6.07,162,1708416000"; d="scan'208";a="827786772"
 Received: from stinkpipe.fi.intel.com (HELO stinkbox) ([10.237.72.74])
- by orsmga001.jf.intel.com with SMTP; 28 Mar 2024 18:13:13 -0700
+ by orsmga001.jf.intel.com with SMTP; 28 Mar 2024 18:13:18 -0700
 Received: by stinkbox (sSMTP sendmail emulation);
- Fri, 29 Mar 2024 03:13:12 +0200
+ Fri, 29 Mar 2024 03:13:18 +0200
 From: Ville Syrjala <ville.syrjala@linux.intel.com>
 To: intel-gfx@lists.freedesktop.org
-Subject: [PATCH 06/22] drm/i915: Shuffle DP .mode_valid() checks
-Date: Fri, 29 Mar 2024 03:12:38 +0200
-Message-ID: <20240329011254.24160-7-ville.syrjala@linux.intel.com>
+Subject: [PATCH 08/22] drm/i915: Extract glk_need_scaler_clock_gating_wa()
+Date: Fri, 29 Mar 2024 03:12:40 +0200
+Message-ID: <20240329011254.24160-9-ville.syrjala@linux.intel.com>
 X-Mailer: git-send-email 2.43.2
 In-Reply-To: <20240329011254.24160-1-ville.syrjala@linux.intel.com>
 References: <20240329011254.24160-1-ville.syrjala@linux.intel.com>
@@ -70,79 +70,62 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 From: Ville Syrjälä <ville.syrjala@linux.intel.com>
 
-Move some of the more trivial checks in the DP .mode_valid()
-hooks upwards to lessen the noise amongst the more complex
-checks.
+Simplify our life by extracting the "do we need the glk scaler
+clock gating w/a?" check into a small helper.
 
 Signed-off-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_dp.c     |  6 +++---
- drivers/gpu/drm/i915/display/intel_dp_mst.c | 21 ++++++++++-----------
- 2 files changed, 13 insertions(+), 14 deletions(-)
+ drivers/gpu/drm/i915/display/intel_display.c | 16 ++++++++++------
+ 1 file changed, 10 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
-index bc9d6efc99ee..2490ce32da50 100644
---- a/drivers/gpu/drm/i915/display/intel_dp.c
-+++ b/drivers/gpu/drm/i915/display/intel_dp.c
-@@ -1229,6 +1229,9 @@ intel_dp_mode_valid(struct drm_connector *_connector,
- 	if (mode->flags & DRM_MODE_FLAG_DBLCLK)
- 		return MODE_H_ILLEGAL;
+diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
+index 83474fcf4131..6197b62dac55 100644
+--- a/drivers/gpu/drm/i915/display/intel_display.c
++++ b/drivers/gpu/drm/i915/display/intel_display.c
+@@ -1551,6 +1551,14 @@ static void ilk_crtc_enable(struct intel_atomic_state *state,
+ 	intel_set_pch_fifo_underrun_reporting(dev_priv, pipe, true);
+ }
  
-+	if (mode->clock < 10000)
-+		return MODE_CLOCK_LOW;
++/* Display WA #1180: WaDisableScalarClockGating: glk */
++static bool glk_need_scaler_clock_gating_wa(const struct intel_crtc_state *crtc_state)
++{
++	struct drm_i915_private *i915 = to_i915(crtc_state->uapi.crtc->dev);
 +
- 	fixed_mode = intel_panel_fixed_mode(connector, mode);
- 	if (intel_dp_is_edp(intel_dp) && fixed_mode) {
- 		status = intel_panel_mode_valid(connector, mode);
-@@ -1238,9 +1241,6 @@ intel_dp_mode_valid(struct drm_connector *_connector,
- 		target_clock = fixed_mode->clock;
++	return DISPLAY_VER(i915) == 10 && crtc_state->pch_pfit.enabled;
++}
++
+ static void glk_pipe_scaler_clock_gating_wa(struct intel_crtc *crtc, bool enable)
+ {
+ 	struct drm_i915_private *i915 = to_i915(crtc->base.dev);
+@@ -1635,7 +1643,6 @@ static void hsw_crtc_enable(struct intel_atomic_state *state,
+ 	struct drm_i915_private *dev_priv = to_i915(crtc->base.dev);
+ 	enum transcoder cpu_transcoder = new_crtc_state->cpu_transcoder;
+ 	enum pipe hsw_workaround_pipe;
+-	bool psl_clkgate_wa;
+ 
+ 	if (drm_WARN_ON(&dev_priv->drm, crtc->active))
+ 		return;
+@@ -1668,10 +1675,7 @@ static void hsw_crtc_enable(struct intel_atomic_state *state,
+ 
+ 	crtc->active = true;
+ 
+-	/* Display WA #1180: WaDisableScalarClockGating: glk */
+-	psl_clkgate_wa = DISPLAY_VER(dev_priv) == 10 &&
+-		new_crtc_state->pch_pfit.enabled;
+-	if (psl_clkgate_wa)
++	if (glk_need_scaler_clock_gating_wa(new_crtc_state))
+ 		glk_pipe_scaler_clock_gating_wa(crtc, true);
+ 
+ 	if (DISPLAY_VER(dev_priv) >= 9)
+@@ -1702,7 +1706,7 @@ static void hsw_crtc_enable(struct intel_atomic_state *state,
+ 
+ 	intel_encoders_enable(state, crtc);
+ 
+-	if (psl_clkgate_wa) {
++	if (glk_need_scaler_clock_gating_wa(new_crtc_state)) {
+ 		intel_crtc_wait_for_next_vblank(crtc);
+ 		glk_pipe_scaler_clock_gating_wa(crtc, false);
  	}
- 
--	if (mode->clock < 10000)
--		return MODE_CLOCK_LOW;
--
- 	if (intel_dp_need_bigjoiner(intel_dp, mode->hdisplay, target_clock)) {
- 		bigjoiner = true;
- 		max_dotclk *= 2;
-diff --git a/drivers/gpu/drm/i915/display/intel_dp_mst.c b/drivers/gpu/drm/i915/display/intel_dp_mst.c
-index 9a7c75039989..1405ab5e3acc 100644
---- a/drivers/gpu/drm/i915/display/intel_dp_mst.c
-+++ b/drivers/gpu/drm/i915/display/intel_dp_mst.c
-@@ -1302,6 +1302,16 @@ intel_dp_mst_mode_valid_ctx(struct drm_connector *connector,
- 	if (*status != MODE_OK)
- 		return 0;
- 
-+	if (mode->flags & DRM_MODE_FLAG_DBLCLK) {
-+		*status = MODE_H_ILLEGAL;
-+		return 0;
-+	}
-+
-+	if (mode->clock < 10000) {
-+		*status = MODE_CLOCK_LOW;
-+		return 0;
-+	}
-+
- 	max_link_clock = intel_dp_max_link_rate(intel_dp);
- 	max_lanes = intel_dp_max_lane_count(intel_dp);
- 
-@@ -1330,17 +1340,6 @@ intel_dp_mst_mode_valid_ctx(struct drm_connector *connector,
- 		*status = MODE_CLOCK_HIGH;
- 		return 0;
- 	}
--
--	if (mode->clock < 10000) {
--		*status = MODE_CLOCK_LOW;
--		return 0;
--	}
--
--	if (mode->flags & DRM_MODE_FLAG_DBLCLK) {
--		*status = MODE_H_ILLEGAL;
--		return 0;
--	}
--
- 	if (intel_dp_need_bigjoiner(intel_dp, mode->hdisplay, target_clock)) {
- 		bigjoiner = true;
- 		max_dotclk *= 2;
 -- 
 2.43.2
 
