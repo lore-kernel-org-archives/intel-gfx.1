@@ -4,65 +4,107 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0F60ECD1296
-	for <intel-gfx@archiver.kernel.org>; Mon,  8 Apr 2024 14:24:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6BAABCD1297
+	for <intel-gfx@archiver.kernel.org>; Mon,  8 Apr 2024 14:24:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 991D310FE2C;
-	Mon,  8 Apr 2024 14:24:18 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D546A112574;
+	Mon,  8 Apr 2024 14:24:19 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="YHvGCW8V";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="eUHucCjD";
 	dkim-atps=neutral
-Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com
- [209.85.128.53])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E0B4B10E9C6
- for <intel-gfx@lists.freedesktop.org>; Fri,  5 Apr 2024 13:58:45 +0000 (UTC)
-Received: by mail-wm1-f53.google.com with SMTP id
- 5b1f17b1804b1-415523d9824so22440855e9.3
- for <intel-gfx@lists.freedesktop.org>; Fri, 05 Apr 2024 06:58:45 -0700 (PDT)
+Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com
+ [209.85.128.41])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C0FEF10FB84;
+ Tue,  2 Apr 2024 09:00:32 +0000 (UTC)
+Received: by mail-wm1-f41.google.com with SMTP id
+ 5b1f17b1804b1-4161d73d876so903625e9.3; 
+ Tue, 02 Apr 2024 02:00:32 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1712325524; x=1712930324; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-disposition:mime-version
- :message-id:subject:to:from:date:from:to:cc:subject:date:message-id
- :reply-to; bh=HJrUbQT5Hw4+7pS+U2AF4YkErSdro5FnoqDalj6wnaE=;
- b=YHvGCW8V6hYO7akb8dEeqWtklIpgINoNW1j+Z9gE0pMeM0g+35kFD6sKj0SByMah+b
- EhlXICXFfN+comBIIxjUvJomIKWvyK7I7vGJ35AvqQ7tcopg0zhqhBC4PYVNa7pM0eZM
- 1ZAipF6yCUccPLEEbj3OCWFpxmaWFnKkhNBGBNCbxHuF4c4fN/vdbDCPgUvCDEiK0DPG
- KVOyGXZxqn9x1ZBNIxLikc28l8wVb/mLuppc8Xt8Z5D1tV1VQYwkHsSE3jBR/ptO1cfq
- ug39+WUrcwdwTw/Cy+Lrba7KOlmaYxQXNtXpCQR5StNZzK0Z+ZNGf2hjfzn+alC+cLmX
- H6Pg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1712325524; x=1712930324;
- h=content-transfer-encoding:content-disposition:mime-version
- :message-id:subject:to:from:date:x-gm-message-state:from:to:cc
+ d=gmail.com; s=20230601; t=1712048431; x=1712653231; darn=lists.freedesktop.org;
+ h=in-reply-to:content-disposition:mime-version:references
+ :mail-followup-to:message-id:subject:cc:to:from:date:from:to:cc
  :subject:date:message-id:reply-to;
- bh=HJrUbQT5Hw4+7pS+U2AF4YkErSdro5FnoqDalj6wnaE=;
- b=mju7tvGrW/VQehadww8F94iupejiy/97DAtjSdYWJFlC/erwp/BSpq4i42NO6eoNOC
- B7XnRhqxPxvW0cUD9BP73rItMM21vcxBjS/hyQooIo94gwyopQX1B0cs4h/2Cz3yVO4R
- LG0Xn97C2PW1lkgpbmgyXPJUOFC+L4huBB+l6Bv8S4K07w8eTH/w1o/OCZ03Vbp8Z7k+
- FILKOdRyHGm5Ejbwo+Ojpy0g8pyLD9lsRYTu4phzcbDQA6K8Eb8zzPOfQfFAHXZCr4ve
- I7/pWfrB2CN6zRuknWNJK+QcRxIzNd0OCNpQjyj2+/QviFZKPzXpoNBN8eVxEwLZJL8F
- BHRw==
-X-Gm-Message-State: AOJu0YzxCp/DHn4JT7qqu4KMADoaYrqK6QP1A0g7+iPLYlijTkEg/bJ2
- YS88dZxQZBbkXBPAiV70Kedfl2NHdDxraLdon5Ae6qm7p1uJpp0xjDdroPkK
-X-Google-Smtp-Source: AGHT+IHAuoqQKQgv2M7rxfLiMVQ/Uhz3GeVokNvq4IzoqiroUC59fbs4Y7LjifoAC1KBbKgH55lw2g==
-X-Received: by 2002:a7b:c44e:0:b0:415:6860:eafb with SMTP id
- l14-20020a7bc44e000000b004156860eafbmr1674084wmi.15.1712325524001; 
- Fri, 05 Apr 2024 06:58:44 -0700 (PDT)
-Received: from aquecedor-3-0.lan ([2001:818:e81c:ce00:7193:3bd:90d8:9d8])
- by smtp.gmail.com with ESMTPSA id
- f14-20020a05600c154e00b0041552dbc539sm3114824wmg.11.2024.04.05.06.58.42
- for <intel-gfx@lists.freedesktop.org>
+ bh=S7HP43l12eov1KUoh9mzxUyEYfgWNMnEq1EVajRpXoI=;
+ b=eUHucCjDjdWtoZrOvfp8lQtzuyFUNnok+lJz/So0dtsJ/oyzvTrTl0D0yA9hO4+KS9
+ kymFy0b8eVUFYhuzKJFLHTGcf+4dbjfJzTQLZiDJ0XwhO5FtfPzi864eI+gXjvcu5W0A
+ 2MwU02sqyx75K/Vp1Z7IfmD+bYuOjYNIbjr9ALDgkXEOawDMbNppQrVqzEeuXXKcUwjm
+ 0fY6X23gp+PQdKMg1DzskGUMHM/s/JmF3vv/YFfilXZnjghGS1csYkO3gUoVOqBWc9O7
+ gV6/2b5FRr5l5g0BLrOLLYpbEEQB3sRTYwxfFzYLDh1p+oEQWZjjQp+V4Z1VBdrXa+SD
+ rNWA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1712048431; x=1712653231;
+ h=in-reply-to:content-disposition:mime-version:references
+ :mail-followup-to:message-id:subject:cc:to:from:date
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=S7HP43l12eov1KUoh9mzxUyEYfgWNMnEq1EVajRpXoI=;
+ b=sWOVvuLOYE1qI6qlkNA0QGfzntPYfBKIclrR7sapx0p2dDPx6SwAXKFFdJ51vT88M7
+ vb6uCpV1X14rJ7uW271mM5lcAtAQwaWmrvDLFhApzaTMc68DZX8eCHAVFVIeT9AdFTBE
+ fmOV0wcpkmIw3WUIp1qp8CdXNhdIQHC2KduwntNYFxUG8ElFT9Z0s4c61K1n9PhBkP64
+ yweyg5OiRbDkqqDOqkYc4kgqhqtGUMkmh1Q8uDP9dY3y0+O+9mY+2w1PU0DWwR8i/UYj
+ Q5KVLSlgD6DQrovfsKTXlhrO9McYa5ywaf+BJeTxe5Ehwbropr1GDHgfQ4HPOTeu9RKb
+ WxTw==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCW0Sg2MJHvueFFQhOWWoDux3hird57ULd7EF4lFkA1DM2YJdrwCSQcprdO3PZE7pONP1eBykVS62FuSJFNErxYTTiPMQjirOqomV6JKAyJfg6cRW5xPoE8BIKfnDy7BxgTzi48TiGBt5HeICih5tttQKsHszu/NhKZB0O3v5ZnpCNnCpO7997/55bSsnUj6vK0wDODfPI2uTLIroF4dtyArHinteRVQXWPi0Ox7FllTOImAaXoFSUBQTgp3jdQnN39YR5sPue9TMYZs2Jy9ag==
+X-Gm-Message-State: AOJu0YyHaENh5Y1rrUpmmhiA+G9g94ceIjwc5INlWv7Fpc0phheApl79
+ k5cVAZTEbjDvfVDYj9PIQWPJdkmJrguwFWXKxedeGqxu2zJFhF93
+X-Google-Smtp-Source: AGHT+IG8frznok1aF9okpQQTY2pR3XWd8JzFp2tX7BIUva1VqLJJmQZ3+crxPhY7ojqin4XV81Hf4w==
+X-Received: by 2002:a05:6000:1143:b0:33d:b2d6:b3a6 with SMTP id
+ d3-20020a056000114300b0033db2d6b3a6mr7466595wrx.48.1712048430463; 
+ Tue, 02 Apr 2024 02:00:30 -0700 (PDT)
+Received: from localhost ([81.168.73.77]) by smtp.gmail.com with ESMTPSA id
+ l2-20020adff482000000b0033ec312cd8asm13554997wro.33.2024.04.02.02.00.29
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 05 Apr 2024 06:58:43 -0700 (PDT)
-Date: Fri, 5 Apr 2024 14:58:41 +0100
-From: =?iso-8859-1?Q?Jos=E9?= Relvas <josemonsantorelvas@gmail.com>
-To: intel-gfx@lists.freedesktop.org
-Subject: [REQUEST] Add support for Intel DPST (Display Power Saving Technology)
-Message-ID: <ZhADkdyItNEuoxKN@aquecedor-3-0.lan>
+ Tue, 02 Apr 2024 02:00:29 -0700 (PDT)
+Date: Tue, 2 Apr 2024 10:00:28 +0100
+From: Martin Habets <habetsm.xilinx@gmail.com>
+To: Easwar Hariharan <eahariha@linux.microsoft.com>
+Cc: Edward Cree <ecree.xilinx@gmail.com>,
+ "David S. Miller" <davem@davemloft.net>,
+ Eric Dumazet <edumazet@google.com>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ "open list:SFC NETWORK DRIVER" <netdev@vger.kernel.org>,
+ "open list:SFC NETWORK DRIVER" <linux-net-drivers@amd.com>,
+ open list <linux-kernel@vger.kernel.org>,
+ Wolfram Sang <wsa+renesas@sang-engineering.com>,
+ "open list:RADEON and AMDGPU DRM DRIVERS" <amd-gfx@lists.freedesktop.org>,
+ "open list:DRM DRIVERS" <dri-devel@lists.freedesktop.org>,
+ "open list:INTEL DRM DISPLAY FOR XE AND I915 DRIVERS"
+ <intel-gfx@lists.freedesktop.org>, 
+ "open list:INTEL DRM DISPLAY FOR XE AND I915 DRIVERS"
+ <intel-xe@lists.freedesktop.org>, 
+ "open list:DRM DRIVER FOR NVIDIA GEFORCE/QUADRO GPUS"
+ <nouveau@lists.freedesktop.org>, 
+ "open list:I2C SUBSYSTEM HOST DRIVERS" <linux-i2c@vger.kernel.org>,
+ "open list:BTTV VIDEO4LINUX DRIVER" <linux-media@vger.kernel.org>,
+ "open list:FRAMEBUFFER LAYER" <linux-fbdev@vger.kernel.org>
+Subject: Re: [PATCH v0 10/14] sfc: falcon: Make I2C terminology more inclusive
+Message-ID: <20240402090028.GA1759653@gmail.com>
+Mail-Followup-To: Easwar Hariharan <eahariha@linux.microsoft.com>,
+ Edward Cree <ecree.xilinx@gmail.com>,
+ "David S. Miller" <davem@davemloft.net>,
+ Eric Dumazet <edumazet@google.com>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ "open list:SFC NETWORK DRIVER" <netdev@vger.kernel.org>,
+ "open list:SFC NETWORK DRIVER" <linux-net-drivers@amd.com>,
+ open list <linux-kernel@vger.kernel.org>,
+ Wolfram Sang <wsa+renesas@sang-engineering.com>,
+ "open list:RADEON and AMDGPU DRM DRIVERS" <amd-gfx@lists.freedesktop.org>,
+ "open list:DRM DRIVERS" <dri-devel@lists.freedesktop.org>,
+ "open list:INTEL DRM DISPLAY FOR XE AND I915 DRIVERS"
+ <intel-gfx@lists.freedesktop.org>, 
+ "open list:INTEL DRM DISPLAY FOR XE AND I915 DRIVERS"
+ <intel-xe@lists.freedesktop.org>, 
+ "open list:DRM DRIVER FOR NVIDIA GEFORCE/QUADRO GPUS"
+ <nouveau@lists.freedesktop.org>, 
+ "open list:I2C SUBSYSTEM HOST DRIVERS" <linux-i2c@vger.kernel.org>,
+ "open list:BTTV VIDEO4LINUX DRIVER" <linux-media@vger.kernel.org>,
+ "open list:FRAMEBUFFER LAYER" <linux-fbdev@vger.kernel.org>
+References: <20240329170038.3863998-1-eahariha@linux.microsoft.com>
+ <20240329170038.3863998-11-eahariha@linux.microsoft.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
+In-Reply-To: <20240329170038.3863998-11-eahariha@linux.microsoft.com>
 X-Mailman-Approved-At: Mon, 08 Apr 2024 14:24:15 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -79,53 +121,38 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Hey folks,
+On Fri, Mar 29, 2024 at 05:00:34PM +0000, Easwar Hariharan wrote:
+> I2C v7, SMBus 3.2, and I3C specifications have replaced "master/slave"
+> with more appropriate terms. Inspired by and following on to Wolfram's
+> series to fix drivers/i2c/[1], fix the terminology for users of
+> I2C_ALGOBIT bitbanging interface, now that the approved verbiage exists
+> in the specification.
+> 
+> Compile tested, no functionality changes intended
+> 
+> [1]: https://lore.kernel.org/all/20240322132619.6389-1-wsa+renesas@sang-engineering.com/
+> 
+> Signed-off-by: Easwar Hariharan <eahariha@linux.microsoft.com>
 
-I've noticed that power-profiles-daemon recently added support for AMD's panel power saving technology with this MR:
-https://gitlab.freedesktop.org/upower/power-profiles-daemon/-/merge_requests/137
+Reviewed-by: Martin Habets <habetsm.xilinx@gmail.com>
 
-It appears to be controlled via a panel_power_saving SYSFS property.
-
-This reminded that Intel has a similar technology. RPL's datasheets confirm this:
-https://edc.intel.com/content/www/us/en/design/products/platforms/details/raptor-lake-s/13th-generation-core-processors-datasheet-volume-1-of-2/display-power-savings-technologies/
-
-> The Intel® DPST technique achieves back-light power savings while maintaining
-> a good visual experience. This is accomplished by adaptively enhancing the
-> displayed image while decreasing the back-light brightness simultaneously. 
-> The goal of this technique is to provide equivalent end-user-perceived 
-> image quality at a decreased back-light power level. 
-
-> Intel® OPST solution uses same HW infrastructure as Intel® DPST. Frames are 
-> processed using frame change threshold based interrupt mechanism similar
-> to Intel® DPST. Intel® OPST SW algorithm determines which pixels in the 
-> frame should be dimmed to save power keeping visual quality (such as contrast, color) 
-> impact to acceptable level. Since there is no backlight for OLED panels,
-> the power savings come solely from pixel dimming. 
-
-However, it doesn't seem like i915 has any support for this. Searching online was
-ineffective too:
-
-- I found mentions of /sys/class/drm/card0/power/i915_dpst, but it doesn't seem to exist,
-at least not anymore.
-
-- A i915.dpst parameter was also brought up, but it doesn't seem to exist either.
-
-Interestingly, all mentions of dpst on Linux were referring to Android, so maybe
-this was a downstream thing with Android?
-
-In any case, I found this email in the archive which confirms
-that DPST was not supported (at least in 2012):
-https://lore.kernel.org/intel-gfx/50ADFFB3.8030907@linux.intel.com/
-
-Since AMD's equivalent to DPST is now supported by their driver and being used by userspace,
-it seems like a sensible idea to implement this for i915. I've confirmed that this feature
-has existed since (at least) Haswell (released over a decade ago!) so implementing it
-would likely net a few energy consumption improvements for a large chunk of Intel laptops.
-
-The best approach here would probably be to expose a similar attribute to amdgpu's 
-"panel_power_savings", with a scale that controls the feature's aggressiveness,
-then update userspace tools, including power-profiles-daemon, to set the value
-based on the intended energy scheme.
-
-Thanks for reading,
-José Relvas
+> ---
+>  drivers/net/ethernet/sfc/falcon/falcon.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/drivers/net/ethernet/sfc/falcon/falcon.c b/drivers/net/ethernet/sfc/falcon/falcon.c
+> index 7a1c9337081b..147e7c8e3c02 100644
+> --- a/drivers/net/ethernet/sfc/falcon/falcon.c
+> +++ b/drivers/net/ethernet/sfc/falcon/falcon.c
+> @@ -367,7 +367,7 @@ static const struct i2c_algo_bit_data falcon_i2c_bit_operations = {
+>  	.getsda		= falcon_getsda,
+>  	.getscl		= falcon_getscl,
+>  	.udelay		= 5,
+> -	/* Wait up to 50 ms for slave to let us pull SCL high */
+> +	/* Wait up to 50 ms for client to let us pull SCL high */
+>  	.timeout	= DIV_ROUND_UP(HZ, 20),
+>  };
+>  
+> -- 
+> 2.34.1
+> 
