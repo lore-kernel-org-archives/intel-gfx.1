@@ -4,63 +4,68 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 97C21CD1296
-	for <intel-gfx@archiver.kernel.org>; Mon,  8 Apr 2024 13:38:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B9B2AC67861
+	for <intel-gfx@archiver.kernel.org>; Mon,  8 Apr 2024 14:24:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B065E11260B;
-	Mon,  8 Apr 2024 13:38:05 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D80A210F18C;
+	Mon,  8 Apr 2024 14:24:17 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="b9lsiYI3";
+	dkim=pass (1024-bit key; unprotected) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b="Rj3Ojj+f";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.8])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9A44210FB98;
- Mon,  8 Apr 2024 13:37:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1712583482; x=1744119482;
- h=from:to:cc:subject:in-reply-to:references:date:
- message-id:mime-version;
- bh=NqNuGgdOQhMl2cgDAhqioCFPGePyXfrTiluJMgjiswY=;
- b=b9lsiYI37aNuHn1IFlXONkPtycEFE71UD9FHWrQr6MuoFjfxCKcz9gzp
- diIogPc+ZfASpsa5lpP+h+O3mujLPqW1ULzMQ1EAy3GWGk2ajp+HG+x8o
- ZWyU9mjWEzu1mfk0iv4uQbtpL8y7t5wP/DeUDQvU/JsfZ0pHfrxzqbO2C
- MlEswc5bzYYYQvqjWw6wKej/S1PgUL3hdoOvhq0ExN158HUWJeGO5IX/e
- XXjaziLDAW1Z9nr9ni3jo1frQMXOWKcXTZkos/VzamjlzFbyWEDoARGWP
- 6h2R0PYvOk5JY4bEKqlneD4VvmucW2nZ842qWshlqwuq9pM6Ok92sP06x Q==;
-X-CSE-ConnectionGUID: NG8jVoxtRqeI/QoR0+BpLA==
-X-CSE-MsgGUID: r8cqDtE9RWaUF1CskOfidg==
-X-IronPort-AV: E=McAfee;i="6600,9927,11038"; a="25356990"
-X-IronPort-AV: E=Sophos;i="6.07,187,1708416000"; d="scan'208";a="25356990"
-Received: from orviesa008.jf.intel.com ([10.64.159.148])
- by fmvoesa102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 08 Apr 2024 06:37:56 -0700
-X-CSE-ConnectionGUID: myMvSM4vSxafXuZRXogUxw==
-X-CSE-MsgGUID: tkH0UI+wT5i+T5+ikqVIuQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.07,187,1708416000"; d="scan'208";a="20448228"
-Received: from bauinger-mobl1.ger.corp.intel.com (HELO localhost)
- ([10.252.42.71])
- by orviesa008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 08 Apr 2024 06:37:53 -0700
-From: Jani Nikula <jani.nikula@intel.com>
-To: Melissa Wen <mwen@igalia.com>
-Cc: dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org, Ville
- Syrjala <ville.syrjala@linux.intel.com>, Harry Wentland
- <harry.wentland@amd.com>, Mario Limonciello <mario.limonciello@amd.com>,
- Alex Hung <alex.hung@amd.com>
-Subject: Re: [PATCH 0/4] drm/edid & drm/i915: vendor and product id logging
- improvements
-In-Reply-To: <y53wbwylvn4ybx3gdxb3r3w5harbkyavtqepdevnhygn5e63xs@z2iexp765n7o>
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
-References: <cover.1711015462.git.jani.nikula@intel.com>
- <87zfucdu9v.fsf@intel.com>
- <2qptajfrvnotxjyymphzrqyjxcrof46rlnjto62j6wtkanzk5g@e6oek426opcj>
- <87o7ak9f86.fsf@intel.com>
- <y53wbwylvn4ybx3gdxb3r3w5harbkyavtqepdevnhygn5e63xs@z2iexp765n7o>
-Date: Mon, 08 Apr 2024 16:37:49 +0300
-Message-ID: <87h6gc9dqq.fsf@intel.com>
+Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 34F6C10FE3E;
+ Tue,  2 Apr 2024 16:20:36 +0000 (UTC)
+Received: from [100.64.232.220] (unknown [20.29.225.195])
+ by linux.microsoft.com (Postfix) with ESMTPSA id 90A6D20E8BEB;
+ Tue,  2 Apr 2024 09:20:34 -0700 (PDT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com 90A6D20E8BEB
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
+ s=default; t=1712074835;
+ bh=diMLxdSPqVbdaJFyTeRrOWtjesbV9nks1RgdOComYig=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+ b=Rj3Ojj+f8L4oLg5jPxJITV4lljtaNQ1MZ7dSIzWZF5J+LfZs3X5diAKiUWhTUVFe0
+ FUnY9QuJZFaj3I6g90zBj9Bl1fU2tfaf4JxF0B4epu6O6DxnLXUVrTwkNb92FpwqlH
+ y1p3X2h3VTCj1AN7QMru6U7yC6w74c0lVL9oSGbg=
+Message-ID: <fde7a0da-1981-48db-95e2-96d45655c11c@linux.microsoft.com>
+Date: Tue, 2 Apr 2024 09:20:33 -0700
 MIME-Version: 1.0
-Content-Type: text/plain
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v0 03/14] drm/gma500,drm/i915: Make I2C terminology more
+ inclusive
+To: Jani Nikula <jani.nikula@linux.intel.com>,
+ Patrik Jakobsson <patrik.r.jakobsson@gmail.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Tvrtko Ursulin <tursulin@ursulin.net>, Zhenyu Wang
+ <zhenyuw@linux.intel.com>, Zhi Wang <zhi.wang.linux@gmail.com>,
+ dri-devel@lists.freedesktop.org, open list <linux-kernel@vger.kernel.org>,
+ "open list:INTEL DRM DISPLAY FOR XE AND I915 DRIVERS"
+ <intel-gfx@lists.freedesktop.org>,
+ "open list:INTEL DRM DISPLAY FOR XE AND I915 DRIVERS"
+ <intel-xe@lists.freedesktop.org>,
+ "open list:INTEL GVT-g DRIVERS (Intel GPU Virtualization)"
+ <intel-gvt-dev@lists.freedesktop.org>
+Cc: Wolfram Sang <wsa+renesas@sang-engineering.com>,
+ "open list:RADEON and AMDGPU DRM DRIVERS" <amd-gfx@lists.freedesktop.org>,
+ "open list:DRM DRIVER FOR NVIDIA GEFORCE/QUADRO GPUS"
+ <nouveau@lists.freedesktop.org>,
+ "open list:I2C SUBSYSTEM HOST DRIVERS" <linux-i2c@vger.kernel.org>,
+ "open list:BTTV VIDEO4LINUX DRIVER" <linux-media@vger.kernel.org>,
+ "open list:FRAMEBUFFER LAYER" <linux-fbdev@vger.kernel.org>
+References: <20240329170038.3863998-1-eahariha@linux.microsoft.com>
+ <20240329170038.3863998-4-eahariha@linux.microsoft.com>
+ <87a5mcfbms.fsf@intel.com>
+ <7d5e6ed0-ffe9-46c2-b3b4-a4a47c09532e@linux.microsoft.com>
+ <87ttkjesx8.fsf@intel.com>
+Content-Language: en-CA
+From: Easwar Hariharan <eahariha@linux.microsoft.com>
+In-Reply-To: <87ttkjesx8.fsf@intel.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Mailman-Approved-At: Mon, 08 Apr 2024 14:24:14 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,93 +81,57 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Mon, 08 Apr 2024, Melissa Wen <mwen@igalia.com> wrote:
-> On 04/08, Jani Nikula wrote:
->> On Mon, 08 Apr 2024, Melissa Wen <mwen@igalia.com> wrote:
->> > On 04/02, Jani Nikula wrote:
->> >> On Thu, 21 Mar 2024, Jani Nikula <jani.nikula@intel.com> wrote:
->> >> > Jani Nikula (4):
->> >> >   drm/edid: add drm_edid_get_product_id()
->> >> >   drm/edid: add drm_edid_print_product_id()
->> >> >   drm/i915/bios: switch to struct drm_edid and struct
->> >> >     drm_edid_product_id
->> >> >   drm/i915/bios: return drm_edid_product_id from get_lvds_pnp_id()
->> >> 
->> >> Ping for reviews please? This should be helpful in eradicating one class
->> >> of drm_edid_raw() uses.
->> >
->> > Hi Jani,
->> >
->> > I took a look at the series. AFAIU your solution with
->> > `drm_edid_product_id` mostly fits AMD display driver needs, except that
->> > it needs the `product_code` split into two parts (like manufacturer
->> > name) because the driver handles prod_code parts to configure a register
->> > for audio, as in the path below:
->> >
->> > 1. https://gitlab.freedesktop.org/drm/kernel/-/blob/drm-next/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c#L113
->> > 2. https://gitlab.freedesktop.org/drm/kernel/-/blob/drm-next/drivers/gpu/drm/amd/display/dc/core/dc_stream.c#L90
->> > 3. https://gitlab.freedesktop.org/drm/kernel/-/blob/drm-next/drivers/gpu/drm/amd/display/dc/dce/dce_audio.c#L873
->> >
->> > What do you think on keeping `prod_code` split into two part in
->> > `drm_edid_product_id`?
->> 
->> I think having it as "__le16 product_code" is better and
->> self-documenting. This is what the spec says it is, so why split it to
->> two parts where you always need to wonder about the byte order?
->
-> I have no strong opinion, I was only thinking that two parts would make
-> this `edid_buf->prod_code[0] | edid_buf->prod_code[1] << 8` operation
-> more intuitive.
->
-> As you mentioned the currrent product_code format fits specs better, I
-> understand we can get the same result on amd with:
-> le16_to_cpu() --> split --> second part shift.
+On 4/2/2024 7:32 AM, Jani Nikula wrote:
+> On Tue, 02 Apr 2024, Easwar Hariharan <eahariha@linux.microsoft.com> wrote:
+>> On 4/2/2024 12:48 AM, Jani Nikula wrote:
+>>> On Fri, 29 Mar 2024, Easwar Hariharan <eahariha@linux.microsoft.com> wrote:
+>>>> I2C v7, SMBus 3.2, and I3C specifications have replaced "master/slave"
+>>>> with more appropriate terms. Inspired by and following on to Wolfram's
+>>>> series to fix drivers/i2c/[1], fix the terminology for users of
+>>>> I2C_ALGOBIT bitbanging interface, now that the approved verbiage exists
+>>>> in the specification.
+>>>
+>>> gma500 and i915 changes should be split. See MAINTAINERS.
+>>>
+>>> Might also split the i915 changes to smaller pieces, it's kind of
+>>> random. And the changes here are not strictly related to I2C AFAICT, so
+>>> the commit message should be updated.
+>>>
+>>> BR,
+>>> Jani.
+>>>
+>>>
+>>
+>> <snip>
+>>
+>> I will split gma500 and i915 into their respective patches if possible in v2.
+>>
+>> Can you say more about the changes being "not strictly related to I2C"? My
+>> heuristic was to grep for master/slave, and look in the surrounding context for
+>> i2c-related terminology (i2c_pin, 7-bit address, struct i2c_adapter, i2c_bus, etc)
+>> to confirm that they are i2c-related, then following the references around to
+>> make the compiler happy. For e.g., I did not change the many references to bigjoiner
+>> master and slave because I understood from context they were not i2c references.
+>>
+>> A couple examples would help me restrict the changes to I2C, since as mentioned in the
+>> discussion on Wolfram's thread, there are places where migrating away from master/slave
+>> terms in the code would conflict with the original technical manuals and reduce correlation
+>> and understanding of the code.
+> 
+> I guess I was looking at the VBT changes in intel_bios.c. Granted, they
+> do end up being used as i2c addresses. No big deal.
+> 
+> I think I'd expect the treewide i2c adapter changes to land first, via
+> i2c, and subsequent cleanups to happen next, via individual driver
+> trees. There's quite a bit of conflict potential merging this outside of
+> drm-intel-next, and there's really no need for that.
+> 
+> BR,
+> Jani.
+> 
 
-Wait, what? No. le16_to_cpu() directly gives you what you want. That's
-the whole point. No splits, no shifts, no OR-ing. One macro that forces
-the right byte order for you, as the member is defined __le16.
+Great! Just so I'm clear, do you still want the i915 changes split up more, along with them being
+split off from gma500?
 
-> Anyway, it's certainly not a blocker. The series LGTM.
->
-> Acked-by: Melissa Wen <mwen@igalia.com>
->
->> 
->> This is how you'd use it:
->> 
->> 	edid_caps->product_id = le16_to_cpu(id->product_code);
-
-This is intended to be an example how to deal with your URL 1 above.
-
-BR,
-Jani.
-
->> 
->> BR,
->> Jani.
->> 
->> >
->> > (cc'ing some AMD devs that might have a better understanding of this use case)
->> >
->> > Thanks a lot for addressing this pending issue!
->> >
->> > Melissa
->> >
->> >> 
->> >> BR,
->> >> Jani.
->> >> 
->> >> 
->> >> >
->> >> >  drivers/gpu/drm/drm_edid.c                | 50 +++++++++++++++++++++++
->> >> >  drivers/gpu/drm/i915/display/intel_bios.c | 49 ++++++++++------------
->> >> >  include/drm/drm_edid.h                    | 28 ++++++++++---
->> >> >  3 files changed, 94 insertions(+), 33 deletions(-)
->> >> 
->> >> -- 
->> >> Jani Nikula, Intel
->> 
->> -- 
->> Jani Nikula, Intel
-
--- 
-Jani Nikula, Intel
+Thanks,
+Easwar
