@@ -4,51 +4,54 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4C917CD1284
-	for <intel-gfx@archiver.kernel.org>; Tue,  2 Apr 2024 09:50:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1A86CCD1292
+	for <intel-gfx@archiver.kernel.org>; Tue,  2 Apr 2024 09:50:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C721D10FBCD;
-	Tue,  2 Apr 2024 09:50:27 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 33AB010FBCB;
+	Tue,  2 Apr 2024 09:50:29 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="EXXn5i4Q";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="m4ek4zJ7";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.14])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9103A10FBCA
- for <intel-gfx@lists.freedesktop.org>; Tue,  2 Apr 2024 09:50:25 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C71B910FBCB
+ for <intel-gfx@lists.freedesktop.org>; Tue,  2 Apr 2024 09:50:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1712051426; x=1743587426;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=5zazif3nJTpFrfFiXAg7fLOT5dnLupoBNQo8nIJRN2M=;
- b=EXXn5i4QMWaj3YgRuyFUjiuR4oCbxeBozhL0jcNRLHoVbQLckJaU404S
- 5WDXCrmzAeqmNP2iF/bAOljVPrbXy3BdZhwpDS3IqIhyHAleukFZMpg6a
- pp6dNqRLoaDtqJPpexBQxYY1jfW/MjQfiSwTVx2Fjugr4kWoFWQeNUshk
- 4BM64IovOPG+fCDHYo1bO4nZx4u1DiSIZxlYuU6VZf2pWHWMfsZudmmAT
- eZonbsFivQdB44rR04HVjErgKq+Kv2xEzJZepslJJ9jRjmD65Vc8Fjvmb
- BP57/b889ygiSfHNVfMmoLB27zr7+W0MnF456LjxcTo/1VuAxkm0ZlsrY Q==;
-X-CSE-ConnectionGUID: wwfRMlT1Qs+5xst1Pz/MwA==
-X-CSE-MsgGUID: 9A4lSb2gSTi0iVhhaATOjQ==
-X-IronPort-AV: E=McAfee;i="6600,9927,11031"; a="7422601"
+ t=1712051428; x=1743587428;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=RYFSCakAwHZPUULUyx31afwM5axrWyaujTkRBG8HHUQ=;
+ b=m4ek4zJ7c2CzimSKCeeSSsKmBXZsF4F3n8mpXldcyfbumGfvtNDO5sPU
+ v2VRsJNJbKZLOzhq6nCR5xSJco/uP1Us5biPFu4WJym93i20YxeWE+cBM
+ NfO8EYwKgSRGRMa6D27kV7yAp0e+qqfuMPzlPjidO7OaCw2mUNL0owpQP
+ yELAn4ia6FgNctcJC2Hrq8cQW1fFLCTHdw1u551CxXLq54agL0/szKgl4
+ IHLn0e8YlnqazxZCFQldrxG3x0EZ7ugxKLxN7HU9nhnKQ7jjg6iJ2Xy1C
+ /XV/IXl3ILOyA87tELIe4EguSnzHzQXkpTDA6tP02YAeE98TmkBqMeI6c A==;
+X-CSE-ConnectionGUID: ChBPlDZwTqi3f2OyOWlAdQ==
+X-CSE-MsgGUID: dAMTk8EpTjyOO8Uu3796nA==
+X-IronPort-AV: E=McAfee;i="6600,9927,11031"; a="7422617"
 X-IronPort-AV: E=Sophos;i="6.07,174,1708416000"; 
-   d="scan'208";a="7422601"
+   d="scan'208";a="7422617"
 Received: from orviesa003.jf.intel.com ([10.64.159.143])
  by fmvoesa108.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 02 Apr 2024 02:50:25 -0700
+ 02 Apr 2024 02:50:28 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.07,174,1708416000"; d="scan'208";a="22693234"
+X-IronPort-AV: E=Sophos;i="6.07,174,1708416000"; d="scan'208";a="22693263"
 Received: from sudhirj1-mobl.ger.corp.intel.com (HELO
  jhogande-mobl1.intel.com) ([10.249.34.252])
  by ORVIESA003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 02 Apr 2024 02:50:23 -0700
+ 02 Apr 2024 02:50:26 -0700
 From: =?UTF-8?q?Jouni=20H=C3=B6gander?= <jouni.hogander@intel.com>
 To: intel-gfx@lists.freedesktop.org
 Cc: Animesh Manna <animesh.manna@intel.com>,
  =?UTF-8?q?Jouni=20H=C3=B6gander?= <jouni.hogander@intel.com>
-Subject: [PATCH v4 00/19] Panel replay selective update support
-Date: Tue,  2 Apr 2024 12:49:52 +0300
-Message-Id: <20240402095011.200558-1-jouni.hogander@intel.com>
+Subject: [PATCH v4 02/19] drm/i915/psr: Set intel_crtc_state->has_psr on panel
+ replay as well
+Date: Tue,  2 Apr 2024 12:49:54 +0300
+Message-Id: <20240402095011.200558-3-jouni.hogander@intel.com>
 X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20240402095011.200558-1-jouni.hogander@intel.com>
+References: <20240402095011.200558-1-jouni.hogander@intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
@@ -68,69 +71,56 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-This patch set is implementing panel replay selective update support
-for Intel hardware.
+Current code is setting only intel_crtc_state->has_panel_replay in panel
+replay case. There are lots of stuff behind intel_crtc_state->has_psr that
+is needed for panel replay as well. Instead of converting each check to
+has_psr || has_panel_replay set has_psr in case of panel replay as
+well. Code can then differentiate between psr and panel replay by using
+intel_crtc_state->has_panel_replay.
 
-It is also fixing several exisiting issues in current panel replay implementation:
+Signed-off-by: Jouni Högander <jouni.hogander@intel.com>
+Reviewed-by: Animesh Manna <animesh.manna@intel.com>
+---
+ drivers/gpu/drm/i915/display/intel_psr.c | 11 ++++++-----
+ 1 file changed, 6 insertions(+), 5 deletions(-)
 
-Several needed functions are not executed for panel replay
-Ensure link training follows enabling panel replay on sink side
-Do not update phy power state for panel replay.
-Do not apply workarounds not applicable for panel replay
-Do not write registers/bits not applicable for panel replay
-
-v4:
-  - do not rename intel_psr_enabled
-  - do not add sel_update_et_enabled into struct intel_psr
-v3:
-  - do not disable panel replay by default
-  - set has_psr for panel replay as well
-  - enable sink before link training
-  - do not apply all PSR workarounds for panel replay
-  - do not write/read registers/bits not applicable for panel replay
-  - use psr bit definitions in granularity configuration as well
-  - goto unsupported instead of return when global enabled check fails
-  - update module parameter descriptions.
-v2:
-  - make psr pause/resume to work for panel replay as well
-
-Jouni Högander (19):
-  drm/i915/psr: Add some documentation of variables used in psr code
-  drm/i915/psr: Set intel_crtc_state->has_psr on panel replay as well
-  drm/i915/psr: Intel_psr_pause/resume needs to support panel replay
-  drm/i915/psr: Do not update phy power state in case of non-eDP panel
-    replay
-  drm/i915/psr: Check possible errors for panel replay as well
-  drm/i915/psr: Do not write registers/bits not applicable for panel
-    replay
-  drm/i915/psr: Call intel_psr_init_dpcd in intel_dp_detect
-  drm/i915/psr: Unify panel replay enable/disable sink
-  drm/i915/psr: Panel replay has to be enabled before link training
-  drm/i915/psr: Rename has_psr2 as has_sel_update
-  drm/i915/psr: Rename psr2_enabled as sel_update_enabled
-  drm/panelreplay: dpcd register definition for panelreplay SU
-  drm/i915/psr: Detect panel replay selective update support
-  drm/i915/psr: Modify intel_dp_get_su_granularity to support panel
-    replay
-  drm/i915/psr: Panel replay uses SRD_STATUS to track it's status
-  drm/i915/psr: Do not apply workarounds in case of panel replay
-  drm/i915/psr: Update PSR module parameter descriptions
-  drm/i915/psr: Split intel_psr2_config_valid for panel replay
-  drm/i915/psr: Add panel replay sel update support to debugfs interface
-
- .../drm/i915/display/intel_crtc_state_dump.c  |  10 +-
- drivers/gpu/drm/i915/display/intel_ddi.c      |  11 +-
- drivers/gpu/drm/i915/display/intel_display.c  |  12 +
- .../drm/i915/display/intel_display_params.c   |   5 +-
- .../drm/i915/display/intel_display_types.h    |   5 +-
- drivers/gpu/drm/i915/display/intel_dp.c       |  13 +-
- drivers/gpu/drm/i915/display/intel_fbc.c      |   5 +-
- drivers/gpu/drm/i915/display/intel_hdmi.c     |   3 +-
- drivers/gpu/drm/i915/display/intel_psr.c      | 420 ++++++++++++------
- drivers/gpu/drm/i915/display/intel_psr.h      |   5 +
- include/drm/display/drm_dp.h                  |   6 +
- 11 files changed, 343 insertions(+), 152 deletions(-)
-
+diff --git a/drivers/gpu/drm/i915/display/intel_psr.c b/drivers/gpu/drm/i915/display/intel_psr.c
+index 45d13e042ade..10a7795cdb6f 100644
+--- a/drivers/gpu/drm/i915/display/intel_psr.c
++++ b/drivers/gpu/drm/i915/display/intel_psr.c
+@@ -1602,10 +1602,11 @@ void intel_psr_compute_config(struct intel_dp *intel_dp,
+ 
+ 	if (CAN_PANEL_REPLAY(intel_dp))
+ 		crtc_state->has_panel_replay = true;
+-	else
+-		crtc_state->has_psr = _psr_compute_config(intel_dp, crtc_state);
+ 
+-	if (!(crtc_state->has_panel_replay || crtc_state->has_psr))
++	crtc_state->has_psr = crtc_state->has_panel_replay ? true :
++		_psr_compute_config(intel_dp, crtc_state);
++
++	if (!crtc_state->has_psr)
+ 		return;
+ 
+ 	crtc_state->has_psr2 = intel_psr2_config_valid(intel_dp, crtc_state);
+@@ -1632,7 +1633,7 @@ void intel_psr_get_config(struct intel_encoder *encoder,
+ 		goto unlock;
+ 
+ 	if (intel_dp->psr.panel_replay_enabled) {
+-		pipe_config->has_panel_replay = true;
++		pipe_config->has_psr = pipe_config->has_panel_replay = true;
+ 	} else {
+ 		/*
+ 		 * Not possible to read EDP_PSR/PSR2_CTL registers as it is
+@@ -2651,7 +2652,7 @@ void intel_psr_post_plane_update(struct intel_atomic_state *state,
+ 		intel_atomic_get_new_crtc_state(state, crtc);
+ 	struct intel_encoder *encoder;
+ 
+-	if (!(crtc_state->has_psr || crtc_state->has_panel_replay))
++	if (!crtc_state->has_psr)
+ 		return;
+ 
+ 	for_each_intel_encoder_mask_with_psr(state->base.dev, encoder,
 -- 
 2.34.1
 
