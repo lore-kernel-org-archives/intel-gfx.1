@@ -4,54 +4,55 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 424ACCD1297
-	for <intel-gfx@archiver.kernel.org>; Wed,  3 Apr 2024 10:51:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0BBF1CD128A
+	for <intel-gfx@archiver.kernel.org>; Wed,  3 Apr 2024 10:51:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A69791129CE;
-	Wed,  3 Apr 2024 10:51:49 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1E4F31129D2;
+	Wed,  3 Apr 2024 10:51:51 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="ijQcPfsV";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="POjKnH22";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.18])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 89BDD1129C2;
- Wed,  3 Apr 2024 10:51:47 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E5B2C1129C6;
+ Wed,  3 Apr 2024 10:51:48 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1712141508; x=1743677508;
+ t=1712141509; x=1743677509;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=QxM+kkrrWmnY6l+PtNpH+qYLdv73kcRtv8GuKIRMRN8=;
- b=ijQcPfsV9p2UHvxKJLui+QRDqcRcTKIRB/kckcDwqcyDmK3HUT2bPGju
- Jd2fkVGrF2aDFRqq5PWZFFJTm1O110kF52J/Y6/0jETNIXU9qX92vcmKY
- 2C3Mms6c7EJ8bSKcD/D6KR+QU+UjUgyBgE/s12GCd/6P2O+OW64OnAAFo
- jdZLZQ5R6W5dNfFYzYM5jGAHN5HDKzk77Gvwnum+HHJds66/oHpnuBUzq
- DWgtvA2X+h9YMpvIf5jMy1xFeAjezp1FjNcnhP4JcCZeYOz9Y/VLiNw43
- BjObG8QK/MGc8g+UoI7+dHrO/HRwhgl4wI/0LMuysM+rtlcA6dpfzsj8s A==;
-X-CSE-ConnectionGUID: DzB233w3SDGAKvvMeVC5ng==
-X-CSE-MsgGUID: u3LDsH0xQSOPhkLGXJteyA==
-X-IronPort-AV: E=McAfee;i="6600,9927,11032"; a="7212136"
+ bh=6R0fMystsVo5T+jMvskHwueBz3Hm2C+9jMDX3tPEKYc=;
+ b=POjKnH22/l+CTYzvMtqPaKU2ef0jK1+BhBgyD+C+nSSk+zXYeDXVf7p9
+ qg+7b4kxlqmgMD1hFTKjl5IfzG9UuHAAaar+l2GuCQeDSHYpXvtLalL0b
+ LSgujRWx2oiSLgiwwDTUD4ay9v8xSEod3nOktwNfnCNh/gYrIUgJsPZPE
+ fuW1YnZoEHmvCMZqW2yaVVZzq/GI4V2isR3GbJHDA99aNSAbhuhB1OXeE
+ nNKn9OI1Ll9XCGiFt7B3KNrnjdFlJtwcfZcSFiaVKrpMw2erhmi6gs+oW
+ wt+S4zmw4rN19lA2V/RmrHb837wyXYyNwVC9bRh7GuxVak76jA0cb5gDT Q==;
+X-CSE-ConnectionGUID: H2TUoSAURBq/F5rpej5osg==
+X-CSE-MsgGUID: qGm+llI8RUieORVTTlH3eQ==
+X-IronPort-AV: E=McAfee;i="6600,9927,11032"; a="7212153"
 X-IronPort-AV: E=Sophos;i="6.07,177,1708416000"; 
-   d="scan'208";a="7212136"
+   d="scan'208";a="7212153"
 Received: from fmviesa007.fm.intel.com ([10.60.135.147])
  by fmvoesa112.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 03 Apr 2024 03:51:27 -0700
-X-CSE-ConnectionGUID: /aoE/YebTz+zGRWwMtzgfg==
-X-CSE-MsgGUID: zf/ztes0Q6GwWPxjBRjvFA==
+ 03 Apr 2024 03:51:34 -0700
+X-CSE-ConnectionGUID: mHXjDuSoTpO/5ZqEy7mz2A==
+X-CSE-MsgGUID: mvT9xhEVToqudTftDGCumw==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.07,177,1708416000"; d="scan'208";a="18493356"
+X-IronPort-AV: E=Sophos;i="6.07,177,1708416000"; d="scan'208";a="18493372"
 Received: from bvivekan-desk.iind.intel.com ([10.190.238.63])
  by fmviesa007-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 03 Apr 2024 03:51:24 -0700
+ 03 Apr 2024 03:51:31 -0700
 From: Balasubramani Vivekanandan <balasubramani.vivekanandan@intel.com>
 To: intel-gfx@lists.freedesktop.org,
 	intel-xe@lists.freedesktop.org
 Cc: Matt Roper <matthew.d.roper@intel.com>,
  Lucas De Marchi <lucas.demarchi@intel.com>,
- Ankit Nautiyal <ankit.k.nautiyal@intel.com>,
- Balasubramani Vivekanandan <balasubramani.vivekanandan@intel.com>
-Subject: [PATCH 07/25] Revert "drm/i915/dgfx: DGFX uses direct VBT pin mapping"
-Date: Wed,  3 Apr 2024 16:21:05 +0530
-Message-Id: <20240403105123.1327669-8-balasubramani.vivekanandan@intel.com>
+ Balasubramani Vivekanandan <balasubramani.vivekanandan@intel.com>,
+ Clint Taylor <Clinton.A.Taylor@intel.com>,
+ Gustavo Sousa <gustavo.sousa@intel.com>
+Subject: [PATCH 10/25] drm/i915/xe2hpd: Add new C20 PLL register address
+Date: Wed,  3 Apr 2024 16:21:08 +0530
+Message-Id: <20240403105123.1327669-11-balasubramani.vivekanandan@intel.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20240403105123.1327669-1-balasubramani.vivekanandan@intel.com>
 References: <20240403105123.1327669-1-balasubramani.vivekanandan@intel.com>
@@ -72,40 +73,115 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
+Xe2_HPD has different address for C20 PLL registers. Enable the support
+to use the right PLL register address based on display version.
 
-This reverts commit 562f33836f519a235e5c5e71bcc723ab1faccd2f.
-For BMG it seems that the VBT to DDI mapping does not follow DG1, and
-DG2, but follows ADLP mapping given in Bspec:20124.
+Note that Xe2_LPD uses the same C20 SRAM offsets used by Xe_LPDP (i.e.
+MTL's display). According to the BSpec, currently, only Xe2_HPD has
+different offsets, so make sure it is the only display using them in the
+driver.
 
-Signed-off-by: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
+Bspec: 67610
+Cc: Clint Taylor <Clinton.A.Taylor@intel.com>
+Cc: Gustavo Sousa <gustavo.sousa@intel.com>
 Signed-off-by: Balasubramani Vivekanandan <balasubramani.vivekanandan@intel.com>
+Signed-off-by: Lucas De Marchi <lucas.demarchi@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_bios.c | 5 ++---
- 1 file changed, 2 insertions(+), 3 deletions(-)
+ drivers/gpu/drm/i915/display/intel_cx0_phy.c  | 27 +++++++++++++++++--
+ .../gpu/drm/i915/display/intel_cx0_phy_regs.h |  9 +++++++
+ 2 files changed, 34 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_bios.c b/drivers/gpu/drm/i915/display/intel_bios.c
-index 2abd2d7ceda2..03fbd6c73f3f 100644
---- a/drivers/gpu/drm/i915/display/intel_bios.c
-+++ b/drivers/gpu/drm/i915/display/intel_bios.c
-@@ -2238,15 +2238,14 @@ static u8 map_ddc_pin(struct drm_i915_private *i915, u8 vbt_pin)
- 	const u8 *ddc_pin_map;
- 	int i, n_entries;
+diff --git a/drivers/gpu/drm/i915/display/intel_cx0_phy.c b/drivers/gpu/drm/i915/display/intel_cx0_phy.c
+index caaae5d3758e..6e4647859fc6 100644
+--- a/drivers/gpu/drm/i915/display/intel_cx0_phy.c
++++ b/drivers/gpu/drm/i915/display/intel_cx0_phy.c
+@@ -770,6 +770,17 @@ static struct intel_c20pll_reg mtl_c20_reg = {
+ 	.mpllb_b = MTL_C20_B_MPLLB_CFG_ADDR
+ };
  
--	if (IS_DGFX(i915))
--		return vbt_pin;
--
- 	if (INTEL_PCH_TYPE(i915) >= PCH_MTL || IS_ALDERLAKE_P(i915)) {
- 		ddc_pin_map = adlp_ddc_pin_map;
- 		n_entries = ARRAY_SIZE(adlp_ddc_pin_map);
- 	} else if (IS_ALDERLAKE_S(i915)) {
- 		ddc_pin_map = adls_ddc_pin_map;
- 		n_entries = ARRAY_SIZE(adls_ddc_pin_map);
-+	} else if (INTEL_PCH_TYPE(i915) >= PCH_DG1) {
-+		return vbt_pin;
- 	} else if (IS_ROCKETLAKE(i915) && INTEL_PCH_TYPE(i915) == PCH_TGP) {
- 		ddc_pin_map = rkl_pch_tgp_ddc_pin_map;
- 		n_entries = ARRAY_SIZE(rkl_pch_tgp_ddc_pin_map);
++static struct intel_c20pll_reg xe2hpd_c20_reg = {
++	.tx_cnt_a = XE2HPD_C20_A_TX_CNTX_CFG_ADDR,
++	.tx_cnt_b = XE2HPD_C20_B_TX_CNTX_CFG_ADDR,
++	.cmn_cnt_a = XE2HPD_C20_A_CMN_CNTX_CFG_ADDR,
++	.cmn_cnt_b = XE2HPD_C20_B_CMN_CNTX_CFG_ADDR,
++	.mplla_a = XE2HPD_C20_A_MPLLA_CFG_ADDR,
++	.mplla_b = XE2HPD_C20_B_MPLLA_CFG_ADDR,
++	.mpllb_a = XE2HPD_C20_A_MPLLB_CFG_ADDR,
++	.mpllb_b = XE2HPD_C20_B_MPLLB_CFG_ADDR,
++};
++
+ /* C20 basic DP 1.4 tables */
+ static const struct intel_c20pll_state mtl_c20_dp_rbr = {
+ 	.clock = 162000,
+@@ -2166,19 +2177,29 @@ static int intel_c20pll_calc_port_clock(struct intel_encoder *encoder,
+ 	return vco << tx_rate_mult >> tx_clk_div >> tx_rate;
+ }
+ 
++static struct intel_c20pll_reg *intel_c20_get_pll_reg(struct drm_i915_private *i915)
++{
++	if (DISPLAY_VER_FULL(i915) == IP_VER(14, 1))
++		return &xe2hpd_c20_reg;
++	else
++		return &mtl_c20_reg;
++}
++
+ static void intel_c20pll_readout_hw_state(struct intel_encoder *encoder,
+ 					  struct intel_c20pll_state *pll_state)
+ {
+ 	bool cntx;
+ 	intel_wakeref_t wakeref;
+ 	int i;
+-	struct intel_c20pll_reg *pll_reg = &mtl_c20_reg;
++	struct intel_c20pll_reg *pll_reg;
+ 
+ 	wakeref = intel_cx0_phy_transaction_begin(encoder);
+ 
+ 	/* 1. Read current context selection */
+ 	cntx = intel_cx0_read(encoder, INTEL_CX0_LANE0, PHY_C20_VDR_CUSTOM_SERDES_RATE) & PHY_C20_CONTEXT_TOGGLE;
+ 
++	pll_reg = intel_c20_get_pll_reg(to_i915(encoder->base.dev));
++
+ 	/* Read Tx configuration */
+ 	for (i = 0; i < ARRAY_SIZE(pll_state->tx); i++) {
+ 		if (cntx)
+@@ -2353,7 +2374,7 @@ static void intel_c20_pll_program(struct drm_i915_private *i915,
+ 	u32 clock = crtc_state->port_clock;
+ 	bool cntx;
+ 	int i;
+-	const struct intel_c20pll_reg *pll_reg = &mtl_c20_reg;
++	const struct intel_c20pll_reg *pll_reg;
+ 
+ 	if (intel_crtc_has_dp_encoder(crtc_state))
+ 		dp = true;
+@@ -2372,6 +2393,8 @@ static void intel_c20_pll_program(struct drm_i915_private *i915,
+ 		usleep_range(4000, 4100);
+ 	}
+ 
++	pll_reg = intel_c20_get_pll_reg(i915);
++
+ 	/* 3. Write SRAM configuration context. If A in use, write configuration to B context */
+ 	/* 3.1 Tx configuration */
+ 	for (i = 0; i < ARRAY_SIZE(pll_state->tx); i++) {
+diff --git a/drivers/gpu/drm/i915/display/intel_cx0_phy_regs.h b/drivers/gpu/drm/i915/display/intel_cx0_phy_regs.h
+index 882b98dc347b..8e5fd605b99e 100644
+--- a/drivers/gpu/drm/i915/display/intel_cx0_phy_regs.h
++++ b/drivers/gpu/drm/i915/display/intel_cx0_phy_regs.h
+@@ -292,6 +292,15 @@ struct intel_c20pll_reg {
+ #define MTL_C20_A_MPLLB_CFG_ADDR	0xCB5A
+ #define MTL_C20_B_MPLLB_CFG_ADDR	0xCB4E
+ 
++#define XE2HPD_C20_A_TX_CNTX_CFG_ADDR	0xCF5E
++#define XE2HPD_C20_B_TX_CNTX_CFG_ADDR	0xCF5A
++#define XE2HPD_C20_A_CMN_CNTX_CFG_ADDR	0xCE8E
++#define XE2HPD_C20_B_CMN_CNTX_CFG_ADDR	0xCE89
++#define XE2HPD_C20_A_MPLLA_CFG_ADDR	0xCE58
++#define XE2HPD_C20_B_MPLLA_CFG_ADDR	0xCE4D
++#define XE2HPD_C20_A_MPLLB_CFG_ADDR	0xCCC2
++#define XE2HPD_C20_B_MPLLB_CFG_ADDR	0xCCB6
++
+ /* C20 Phy VSwing Masks */
+ #define C20_PHY_VSWING_PREEMPH_MASK	REG_GENMASK8(5, 0)
+ #define C20_PHY_VSWING_PREEMPH(val)	REG_FIELD_PREP8(C20_PHY_VSWING_PREEMPH_MASK, val)
 -- 
 2.25.1
 
