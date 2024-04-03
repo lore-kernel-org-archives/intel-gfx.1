@@ -4,60 +4,62 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 95263CD1299
-	for <intel-gfx@archiver.kernel.org>; Wed,  3 Apr 2024 12:10:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4064CCD1288
+	for <intel-gfx@archiver.kernel.org>; Wed,  3 Apr 2024 12:16:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AD0DC112A6C;
-	Wed,  3 Apr 2024 12:10:41 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C61AF112A70;
+	Wed,  3 Apr 2024 12:16:02 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="dAFpQ6bp";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="ii6zXhYM";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.13])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3650F112A6B;
- Wed,  3 Apr 2024 12:10:40 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.9])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A7C7511268F;
+ Wed,  3 Apr 2024 12:16:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1712146241; x=1743682241;
- h=from:to:cc:subject:in-reply-to:references:date:
- message-id:mime-version;
- bh=23fq9E2QHaP1cwRS/gBt3YRYnPybXOnaonqdo2J1stg=;
- b=dAFpQ6bpXNJIBS+um9G4jj2La+RqLpoFW+4xrEr+DFgCjh8fk8mEgyV6
- e3y3bR7gjR0lED1VgskEOj9Fr2QQrM/mj3vpYIocQSsxZ5sKE2UWQZlhW
- XChebNs2c2KkLEEURqh8d1uz9ReCoRAevJwR2k+ytIBI2Ni/wRMCvJoXU
- bgSnMOwNKIMue9/Rc6Z1w+ISFK1zBZ3zk2JP6JyYH1TA91ZwKyfjgNhUX
- HWSe7xkWWnoTn4osLzyutRhPYUZIVBi2vy2+zDcomUyqsgSAIXBzR6Svt
- Djr+SnzLqZ+GLAlVfg02SbbVrJgK0gqFZCSuDCDFi40kafrvZ9XN4pdut w==;
-X-CSE-ConnectionGUID: rKSoVTbLRX6+v4V9a26f5g==
-X-CSE-MsgGUID: 64+DFCvgQJenZDDRzw9s8A==
-X-IronPort-AV: E=McAfee;i="6600,9927,11032"; a="10341792"
-X-IronPort-AV: E=Sophos;i="6.07,177,1708416000"; d="scan'208";a="10341792"
-Received: from fmviesa005.fm.intel.com ([10.60.135.145])
- by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 03 Apr 2024 05:10:40 -0700
-X-CSE-ConnectionGUID: Hvq7v1j9Sz6r5oWWugAruQ==
-X-CSE-MsgGUID: +7saXZVQSNKw9Y6rpV/xZA==
+ t=1712146561; x=1743682561;
+ h=message-id:date:mime-version:subject:to:cc:references:
+ from:in-reply-to:content-transfer-encoding;
+ bh=goLCLOZBNgA+svw0BeKJ+W5z6Acs9JCc8OcAPAz8F1Q=;
+ b=ii6zXhYMWQWlOVFZ5cSiqlIXyVqXhaT8/0dLDzmr5ao3yFXhvITYHg5r
+ nOy4qBYi3q0H91Qd2iUab7Aq2jQ59QX6gsnxbnWZtO71XDX6mc6LbDXqr
+ ROdS8OCjYk2JtG8AWwZOjOKm3qqpCVFatEsRgevs3s4bDQe3YhfiY8KCJ
+ xBo+pLxmeSfdkkNGhFmrCUFuNJfJmIFnP1R32Tnu2GbgLYIXYWdV8xYyp
+ jWudKW4/OdY0IdEA4haIUMzGAg13kK8G8RnQG6NYwuq9GnYhiMJOPSTDf
+ Iw/pn7oK5a6A6QXIZyRfjvfZemOmyQUkKOrmY45rtA1jU+BdmI+r4c3lG w==;
+X-CSE-ConnectionGUID: VzYjGmO+QiGzIad8LOgL5A==
+X-CSE-MsgGUID: JxV3Eo8SRwiapZLkjVpOxg==
+X-IronPort-AV: E=McAfee;i="6600,9927,11032"; a="29851742"
+X-IronPort-AV: E=Sophos;i="6.07,177,1708416000"; d="scan'208";a="29851742"
+Received: from orviesa003.jf.intel.com ([10.64.159.143])
+ by orvoesa101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 03 Apr 2024 05:16:01 -0700
+X-CSE-ConnectionGUID: 5ueAnYPhTzGdzJhypsXGkA==
+X-CSE-MsgGUID: GBX6HQQvQDmpizS9Dyem/w==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.07,177,1708416000"; d="scan'208";a="22890461"
-Received: from melsaid-mobl.ger.corp.intel.com (HELO localhost)
- ([10.252.41.235])
- by fmviesa005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 03 Apr 2024 05:10:37 -0700
-From: Jani Nikula <jani.nikula@intel.com>
-To: imre.deak@intel.com, intel-gfx@lists.freedesktop.org, Thomas Zimmermann
- <tzimmermann@suse.de>, Maarten Lankhorst
- <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>
-Cc: dri-devel@lists.freedesktop.org, Lyude Paul <lyude@redhat.com>, Ankit K
- Nautiyal <ankit.k.nautiyal@intel.com>
-Subject: Re: [PATCH 01/11] drm/i915/dp: Fix DSC line buffer depth programming
-In-Reply-To: <ZgVymQ8a9iALSuEi@ideak-desk.fi.intel.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
-References: <20240320201152.3487892-1-imre.deak@intel.com>
- <20240320201152.3487892-2-imre.deak@intel.com>
- <ZgVymQ8a9iALSuEi@ideak-desk.fi.intel.com>
-Date: Wed, 03 Apr 2024 15:10:34 +0300
-Message-ID: <87v84yd4ud.fsf@intel.com>
+X-IronPort-AV: E=Sophos;i="6.07,177,1708416000"; d="scan'208";a="23115868"
+Received: from nirmoyda-mobl.ger.corp.intel.com (HELO [10.246.36.15])
+ ([10.246.36.15])
+ by ORVIESA003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 03 Apr 2024 05:15:59 -0700
+Message-ID: <04c2f0a1-dcda-4763-89a1-370db9d408f1@linux.intel.com>
+Date: Wed, 3 Apr 2024 14:15:56 +0200
 MIME-Version: 1.0
-Content-Type: text/plain
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 24/25] drm/i915/display: perform transient flush
+To: Balasubramani Vivekanandan <balasubramani.vivekanandan@intel.com>,
+ intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org
+Cc: Matt Roper <matthew.d.roper@intel.com>,
+ Lucas De Marchi <lucas.demarchi@intel.com>,
+ Matthew Auld <matthew.auld@intel.com>,
+ "Hogander, Jouni" <jouni.hogander@intel.com>
+References: <20240403112253.1432390-1-balasubramani.vivekanandan@intel.com>
+ <20240403112253.1432390-25-balasubramani.vivekanandan@intel.com>
+Content-Language: en-US
+From: Nirmoy Das <nirmoy.das@linux.intel.com>
+In-Reply-To: <20240403112253.1432390-25-balasubramani.vivekanandan@intel.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,106 +75,131 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Thu, 28 Mar 2024, Imre Deak <imre.deak@intel.com> wrote:
-> On Wed, Mar 20, 2024 at 10:11:41PM +0200, Imre Deak wrote:
->> Fix the calculation of the DSC line buffer depth. This is limited both
->> by the source's and sink's maximum line buffer depth, but the former one
->> was not taken into account. On all Intel platform's the source's maximum
->> buffer depth is 13, so the overall limit is simply the minimum of the
->> source/sink's limit, regardless of the DSC version.
->> 
->> This leaves the DSI DSC line buffer depth calculation as-is, trusting
->> VBT.
->> 
->> On DSC version 1.2 for sinks reporting a maximum line buffer depth of 16
->> the line buffer depth was incorrectly programmed as 0, leading to a
->> corruption in color gradients / lines on the decompressed screen image.
->> 
->> Cc: dri-devel@lists.freedesktop.org
->> Signed-off-by: Imre Deak <imre.deak@intel.com>
++Jouni
+
+On 4/3/2024 1:22 PM, Balasubramani Vivekanandan wrote:
+> From: Matthew Auld <matthew.auld@intel.com>
 >
-> Hi Maarten, Thomas, Maxime,
+> Perform manual transient cache flush prior to flip and at the end of
+> frontbuffer_flush. This is needed to ensure display engine doesn't see
+> garbage if the surface is L3:XD dirty.
 >
-> are you ok to merge the DRM DP-DSC/MST changes in patches 1, 7-9, 11 via
-> drm-intel-next?
-
-Ping? Ack for merging via drm-intel-next, please?
-
-BR,
-Jani.
-
-
+> Testcase: igt@xe-pat@display-vs-wb-transient
+> Signed-off-by: Matthew Auld <matthew.auld@intel.com>
+> Signed-off-by: Balasubramani Vivekanandan <balasubramani.vivekanandan@intel.com>
+Acked-by: Nirmoy Das <nirmoy.das@intel.com>
+> ---
+>   drivers/gpu/drm/i915/display/intel_display.c  |  3 +++
+>   .../gpu/drm/i915/display/intel_frontbuffer.c  |  2 ++
+>   drivers/gpu/drm/i915/display/intel_tdf.h      | 25 +++++++++++++++++++
+>   drivers/gpu/drm/xe/Makefile                   |  3 ++-
+>   drivers/gpu/drm/xe/display/xe_tdf.c           | 13 ++++++++++
+>   5 files changed, 45 insertions(+), 1 deletion(-)
+>   create mode 100644 drivers/gpu/drm/i915/display/intel_tdf.h
+>   create mode 100644 drivers/gpu/drm/xe/display/xe_tdf.c
 >
-> --Imre
->
->> ---
->>  drivers/gpu/drm/i915/display/intel_dp.c | 16 ++++++----------
->>  include/drm/display/drm_dsc.h           |  3 ---
->>  2 files changed, 6 insertions(+), 13 deletions(-)
->> 
->> diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
->> index af7ca00e9bc0a..dbe65651bf277 100644
->> --- a/drivers/gpu/drm/i915/display/intel_dp.c
->> +++ b/drivers/gpu/drm/i915/display/intel_dp.c
->> @@ -89,6 +89,9 @@
->>  #define DP_DSC_MAX_ENC_THROUGHPUT_0		340000
->>  #define DP_DSC_MAX_ENC_THROUGHPUT_1		400000
->>  
->> +/* Max DSC line buffer depth supported by HW. */
->> +#define INTEL_DP_DSC_MAX_LINE_BUF_DEPTH		13
->> +
->>  /* DP DSC FEC Overhead factor in ppm = 1/(0.972261) = 1.028530 */
->>  #define DP_DSC_FEC_OVERHEAD_FACTOR		1028530
->>  
->> @@ -1703,7 +1706,6 @@ static int intel_dp_dsc_compute_params(const struct intel_connector *connector,
->>  {
->>  	struct drm_i915_private *i915 = to_i915(connector->base.dev);
->>  	struct drm_dsc_config *vdsc_cfg = &crtc_state->dsc.config;
->> -	u8 line_buf_depth;
->>  	int ret;
->>  
->>  	/*
->> @@ -1732,20 +1734,14 @@ static int intel_dp_dsc_compute_params(const struct intel_connector *connector,
->>  			connector->dp.dsc_dpcd[DP_DSC_DEC_COLOR_FORMAT_CAP - DP_DSC_SUPPORT] &
->>  			DP_DSC_RGB;
->>  
->> -	line_buf_depth = drm_dp_dsc_sink_line_buf_depth(connector->dp.dsc_dpcd);
->> -	if (!line_buf_depth) {
->> +	vdsc_cfg->line_buf_depth = min(INTEL_DP_DSC_MAX_LINE_BUF_DEPTH,
->> +				       drm_dp_dsc_sink_line_buf_depth(connector->dp.dsc_dpcd));
->> +	if (!vdsc_cfg->line_buf_depth) {
->>  		drm_dbg_kms(&i915->drm,
->>  			    "DSC Sink Line Buffer Depth invalid\n");
->>  		return -EINVAL;
->>  	}
->>  
->> -	if (vdsc_cfg->dsc_version_minor == 2)
->> -		vdsc_cfg->line_buf_depth = (line_buf_depth == DSC_1_2_MAX_LINEBUF_DEPTH_BITS) ?
->> -			DSC_1_2_MAX_LINEBUF_DEPTH_VAL : line_buf_depth;
->> -	else
->> -		vdsc_cfg->line_buf_depth = (line_buf_depth > DSC_1_1_MAX_LINEBUF_DEPTH_BITS) ?
->> -			DSC_1_1_MAX_LINEBUF_DEPTH_BITS : line_buf_depth;
->> -
->>  	vdsc_cfg->block_pred_enable =
->>  		connector->dp.dsc_dpcd[DP_DSC_BLK_PREDICTION_SUPPORT - DP_DSC_SUPPORT] &
->>  		DP_DSC_BLK_PREDICTION_IS_SUPPORTED;
->> diff --git a/include/drm/display/drm_dsc.h b/include/drm/display/drm_dsc.h
->> index bc90273d06a62..bbbe7438473d3 100644
->> --- a/include/drm/display/drm_dsc.h
->> +++ b/include/drm/display/drm_dsc.h
->> @@ -40,9 +40,6 @@
->>  #define DSC_PPS_RC_RANGE_MINQP_SHIFT		11
->>  #define DSC_PPS_RC_RANGE_MAXQP_SHIFT		6
->>  #define DSC_PPS_NATIVE_420_SHIFT		1
->> -#define DSC_1_2_MAX_LINEBUF_DEPTH_BITS		16
->> -#define DSC_1_2_MAX_LINEBUF_DEPTH_VAL		0
->> -#define DSC_1_1_MAX_LINEBUF_DEPTH_BITS		13
->>  
->>  /**
->>   * struct drm_dsc_rc_range_parameters - DSC Rate Control range parameters
->> -- 
->> 2.43.3
->> 
-
--- 
-Jani Nikula, Intel
+> diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
+> index aed25890b6f5..0a720e9d12a7 100644
+> --- a/drivers/gpu/drm/i915/display/intel_display.c
+> +++ b/drivers/gpu/drm/i915/display/intel_display.c
+> @@ -110,6 +110,7 @@
+>   #include "intel_sdvo.h"
+>   #include "intel_snps_phy.h"
+>   #include "intel_tc.h"
+> +#include "intel_tdf.h"
+>   #include "intel_tv.h"
+>   #include "intel_vblank.h"
+>   #include "intel_vdsc.h"
+> @@ -7095,6 +7096,8 @@ static void intel_atomic_commit_tail(struct intel_atomic_state *state)
+>   
+>   	intel_atomic_commit_fence_wait(state);
+>   
+> +	intel_td_flush(dev_priv);
+> +
+>   	drm_atomic_helper_wait_for_dependencies(&state->base);
+>   	drm_dp_mst_atomic_wait_for_dependencies(&state->base);
+>   	intel_atomic_global_state_wait_for_dependencies(state);
+> diff --git a/drivers/gpu/drm/i915/display/intel_frontbuffer.c b/drivers/gpu/drm/i915/display/intel_frontbuffer.c
+> index 2ea37c0414a9..4923c340a0b6 100644
+> --- a/drivers/gpu/drm/i915/display/intel_frontbuffer.c
+> +++ b/drivers/gpu/drm/i915/display/intel_frontbuffer.c
+> @@ -65,6 +65,7 @@
+>   #include "intel_fbc.h"
+>   #include "intel_frontbuffer.h"
+>   #include "intel_psr.h"
+> +#include "intel_tdf.h"
+>   
+>   /**
+>    * frontbuffer_flush - flush frontbuffer
+> @@ -93,6 +94,7 @@ static void frontbuffer_flush(struct drm_i915_private *i915,
+>   	trace_intel_frontbuffer_flush(i915, frontbuffer_bits, origin);
+>   
+>   	might_sleep();
+> +	intel_td_flush(i915);
+>   	intel_drrs_flush(i915, frontbuffer_bits);
+>   	intel_psr_flush(i915, frontbuffer_bits, origin);
+>   	intel_fbc_flush(i915, frontbuffer_bits, origin);
+> diff --git a/drivers/gpu/drm/i915/display/intel_tdf.h b/drivers/gpu/drm/i915/display/intel_tdf.h
+> new file mode 100644
+> index 000000000000..353cde21f6c2
+> --- /dev/null
+> +++ b/drivers/gpu/drm/i915/display/intel_tdf.h
+> @@ -0,0 +1,25 @@
+> +/* SPDX-License-Identifier: MIT */
+> +/*
+> + * Copyright © 2024 Intel Corporation
+> + */
+> +
+> +#ifndef __INTEL_TDF_H__
+> +#define __INTEL_TDF_H__
+> +
+> +/*
+> + * TDF (Transient-Data-Flush) is needed for Xe2+ where special L3:XD caching can
+> + * be enabled through various PAT index modes. Idea is to use this caching mode
+> + * when for example rendering onto the display surface, with the promise that
+> + * KMD will ensure transient cache entries are always flushed by the time we do
+> + * the display flip, since display engine is never coherent with CPU/GPU caches.
+> + */
+> +
+> +struct drm_i915_private;
+> +
+> +#ifdef I915
+> +static inline void intel_td_flush(struct drm_i915_private *i915) {}
+> +#else
+> +void intel_td_flush(struct drm_i915_private *i915);
+> +#endif
+> +
+> +#endif
+> diff --git a/drivers/gpu/drm/xe/Makefile b/drivers/gpu/drm/xe/Makefile
+> index e5b1715f721e..401a4492c625 100644
+> --- a/drivers/gpu/drm/xe/Makefile
+> +++ b/drivers/gpu/drm/xe/Makefile
+> @@ -196,7 +196,8 @@ xe-$(CONFIG_DRM_XE_DISPLAY) += \
+>   	display/xe_dsb_buffer.o \
+>   	display/xe_fb_pin.o \
+>   	display/xe_hdcp_gsc.o \
+> -	display/xe_plane_initial.o
+> +	display/xe_plane_initial.o \
+> +	display/xe_tdf.o
+>   
+>   # SOC code shared with i915
+>   xe-$(CONFIG_DRM_XE_DISPLAY) += \
+> diff --git a/drivers/gpu/drm/xe/display/xe_tdf.c b/drivers/gpu/drm/xe/display/xe_tdf.c
+> new file mode 100644
+> index 000000000000..2c0d4e144e09
+> --- /dev/null
+> +++ b/drivers/gpu/drm/xe/display/xe_tdf.c
+> @@ -0,0 +1,13 @@
+> +// SPDX-License-Identifier: MIT
+> +/*
+> + * Copyright © 2024 Intel Corporation
+> + */
+> +
+> +#include "xe_device.h"
+> +#include "intel_display_types.h"
+> +#include "intel_tdf.h"
+> +
+> +void intel_td_flush(struct drm_i915_private *i915)
+> +{
+> +	xe_device_td_flush(i915);
+> +}
