@@ -4,54 +4,55 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 070A7CD1288
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8452CCD129D
 	for <intel-gfx@archiver.kernel.org>; Wed,  3 Apr 2024 10:52:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 54B4B1129DA;
+	by gabe.freedesktop.org (Postfix) with ESMTP id B0622112642;
 	Wed,  3 Apr 2024 10:52:07 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="KPfutzgN";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="DQn0ZsgY";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.18])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4F129112642;
- Wed,  3 Apr 2024 10:52:04 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E3CAD1129DA;
+ Wed,  3 Apr 2024 10:52:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1712141524; x=1743677524;
+ t=1712141527; x=1743677527;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=covl09Hpcqu9WKIB4A3Hrrei1Pqv6zHu6aNl1eE+XAU=;
- b=KPfutzgNKDdToPZyIlF6nK3YOw6Wf3U3ZobWXlkUrgJ4dDtowEAANfLv
- +oEuqxV/LvdJs2NslH1nAtOd1b29LYL6ei7gyaYhvE1FLk+Cz39ul2q0p
- WHMXcKxCCfivhF4V5/aEBn7ZtLEDBIG5/ITf2r7ryXOuRcDAHtsajw8v1
- MNbie8VigcCJX2mpQ2Xwsg36GAaiKniDpDOu1Uf+O74BT/y1Yxz5W/Iy1
- AcTBIdoIY5H2L/GMt+O9Ko2K18vV8cmJ2m14Rjza3KoFNE/INe448Lpl3
- +T0QXbl3Tl/IfKzk5zCk5+rYyi0PsEBvP30MKsk4iV3KxrCsqRc1NEtsu w==;
-X-CSE-ConnectionGUID: BCt6yUBJTv+HIoxVBSTWZw==
-X-CSE-MsgGUID: +ifimZhgSrG3Ew5XZ6sXtw==
-X-IronPort-AV: E=McAfee;i="6600,9927,11032"; a="7212169"
+ bh=95rIAOk23JgjKHgGzwFjF7V4BcAHOjBvOInSOjzO5G0=;
+ b=DQn0ZsgYK4jOe2P435vrSP50hYb3j53FO4BGMav8YCeZ9KxWu9hg8g3D
+ PxA0cfzqraKrzLFEiJtoqK/kFOJN8rDYUb0OSg8Nc2D5shIQNo8kv7E4m
+ wT19TcLeh6gr0I6PYJlCiui5GFBt7oFuDGn+q4dfZ62gMjP/X+J5PWkNf
+ mcBz9EP20yxZervecsLXGdGzP8sm63DgPCwENOhC76Av7HfgrVxfU1+nq
+ MsI5nRs2EACcKte5SPHVcLfdGrssveh0VEQnGUQuhiNQL+VPcKpIYe2WI
+ 0bptK7y0P7XmdLEvIgaXftDLrf1QBtK9ECSexCVl0kwMVR4hRyaZn7/46 A==;
+X-CSE-ConnectionGUID: rNoVIdQySHaJune2aBJ5fg==
+X-CSE-MsgGUID: +h5gwRaCSo2B8Ah8g8r6/A==
+X-IronPort-AV: E=McAfee;i="6600,9927,11032"; a="7212182"
 X-IronPort-AV: E=Sophos;i="6.07,177,1708416000"; 
-   d="scan'208";a="7212169"
+   d="scan'208";a="7212182"
 Received: from fmviesa007.fm.intel.com ([10.60.135.147])
  by fmvoesa112.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 03 Apr 2024 03:51:38 -0700
-X-CSE-ConnectionGUID: oUx+bBygSkOwOfOaqMqjLA==
-X-CSE-MsgGUID: f24fI0xERIOOwutc4WbqxA==
+ 03 Apr 2024 03:51:42 -0700
+X-CSE-ConnectionGUID: Hh01OFgURLCwLxL6VYf/dw==
+X-CSE-MsgGUID: P3cGyPbmQ+O9d3d1+PXQhw==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.07,177,1708416000"; d="scan'208";a="18493379"
+X-IronPort-AV: E=Sophos;i="6.07,177,1708416000"; d="scan'208";a="18493391"
 Received: from bvivekan-desk.iind.intel.com ([10.190.238.63])
  by fmviesa007-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 03 Apr 2024 03:51:36 -0700
+ 03 Apr 2024 03:51:40 -0700
 From: Balasubramani Vivekanandan <balasubramani.vivekanandan@intel.com>
 To: intel-gfx@lists.freedesktop.org,
 	intel-xe@lists.freedesktop.org
 Cc: Matt Roper <matthew.d.roper@intel.com>,
  Lucas De Marchi <lucas.demarchi@intel.com>,
- Ravi Kumar Vodapalli <ravi.kumar.vodapalli@intel.com>,
+ Anusha Srivatsa <anusha.srivatsa@intel.com>,
  Balasubramani Vivekanandan <balasubramani.vivekanandan@intel.com>
-Subject: [PATCH 12/25] drm/i915/xe2hpd: update pll values in sync with Bspec
-Date: Wed,  3 Apr 2024 16:21:10 +0530
-Message-Id: <20240403105123.1327669-13-balasubramani.vivekanandan@intel.com>
+Subject: [PATCH 14/25] drm/i915/xe2hpd: Add missing chicken bit register
+ programming
+Date: Wed,  3 Apr 2024 16:21:12 +0530
+Message-Id: <20240403105123.1327669-15-balasubramani.vivekanandan@intel.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20240403105123.1327669-1-balasubramani.vivekanandan@intel.com>
 References: <20240403105123.1327669-1-balasubramani.vivekanandan@intel.com>
@@ -72,87 +73,45 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Ravi Kumar Vodapalli <ravi.kumar.vodapalli@intel.com>
+From: Anusha Srivatsa <anusha.srivatsa@intel.com>
 
-DP/eDP and HDMI pll values are updated for Xe2_HPD platform
+Add step 9 from initialize display sequence.
 
-Bspec: 74165
-Signed-off-by: Ravi Kumar Vodapalli <ravi.kumar.vodapalli@intel.com>
+Bpsec: 49189
+Signed-off-by: Anusha Srivatsa <anusha.srivatsa@intel.com>
 Signed-off-by: Balasubramani Vivekanandan <balasubramani.vivekanandan@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_cx0_phy.c | 47 +++++++++++++++++++-
- 1 file changed, 45 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/i915/display/intel_display_power.c | 4 ++++
+ drivers/gpu/drm/i915/i915_reg.h                    | 1 +
+ 2 files changed, 5 insertions(+)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_cx0_phy.c b/drivers/gpu/drm/i915/display/intel_cx0_phy.c
-index d948035f07ad..20035be015c3 100644
---- a/drivers/gpu/drm/i915/display/intel_cx0_phy.c
-+++ b/drivers/gpu/drm/i915/display/intel_cx0_phy.c
-@@ -1109,6 +1109,42 @@ static const struct intel_c20pll_state * const xe2hpd_c20_edp_tables[] = {
- 	NULL,
- };
+diff --git a/drivers/gpu/drm/i915/display/intel_display_power.c b/drivers/gpu/drm/i915/display/intel_display_power.c
+index 6fd4fa52253a..bf9685acf75a 100644
+--- a/drivers/gpu/drm/i915/display/intel_display_power.c
++++ b/drivers/gpu/drm/i915/display/intel_display_power.c
+@@ -1694,6 +1694,10 @@ static void icl_display_core_init(struct drm_i915_private *dev_priv,
+ 	if (IS_DG2(dev_priv))
+ 		intel_snps_phy_wait_for_calibration(dev_priv);
  
-+static const struct intel_c20pll_state xe2hpd_c20_dp_uhbr13_5 = {
-+	.clock = 1350000, /* 13.5 Gbps */
-+	.tx = {	0xbea0, /* tx cfg0 */
-+		0x4800, /* tx cfg1 */
-+		0x0000, /* tx cfg2 */
-+		},
-+	.cmn = {0x0500, /* cmn cfg0*/
-+		0x0005, /* cmn cfg1 */
-+		0x0000, /* cmn cfg2 */
-+		0x0000, /* cmn cfg3 */
-+		},
-+	.mpllb = { 0x015f,	/* mpllb cfg0 */
-+		0x2205,		/* mpllb cfg1 */
-+		0x1b17,		/* mpllb cfg2 */
-+		0xffc1,		/* mpllb cfg3 */
-+		0xbd00,		/* mpllb cfg4 */
-+		0x9ec3,		/* mpllb cfg5 */
-+		0x2000,		/* mpllb cfg6 */
-+		0x0001,		/* mpllb cfg7 */
-+		0x4800,		/* mpllb cfg8 */
-+		0x0000,		/* mpllb cfg9 */
-+		0x0000,		/* mpllb cfg10 */
-+		},
-+};
++	/* 9. XE2_HPD: Program CHICKEN_MISC_2 before any cursor or planes are enabled */
++	if (DISPLAY_VER_FULL(dev_priv) == IP_VER(14, 1))
++		intel_de_rmw(dev_priv, CHICKEN_MISC_2, BMG_DARB_HALF_BLK_END_BURST, 1);
 +
-+static const struct intel_c20pll_state * const xe2hpd_c20_dp_tables[] = {
-+	&mtl_c20_dp_rbr,
-+	&mtl_c20_dp_hbr1,
-+	&mtl_c20_dp_hbr2,
-+	&mtl_c20_dp_hbr3,
-+	&mtl_c20_dp_uhbr10,
-+	&xe2hpd_c20_dp_uhbr13_5,
-+	&mtl_c20_dp_uhbr20,
-+	NULL,
-+};
-+
- /*
-  * HDMI link rates with 38.4 MHz reference clock.
-  */
-@@ -2225,13 +2261,20 @@ static const struct intel_c20pll_state * const *
- intel_c20_pll_tables_get(struct intel_crtc_state *crtc_state,
- 			 struct intel_encoder *encoder)
- {
--	if (intel_crtc_has_dp_encoder(crtc_state))
-+	struct drm_i915_private *i915 = to_i915(encoder->base.dev);
-+
-+	if (intel_crtc_has_dp_encoder(crtc_state)) {
- 		if (intel_crtc_has_type(crtc_state, INTEL_OUTPUT_EDP))
- 			return xe2hpd_c20_edp_tables;
-+
-+		if (DISPLAY_VER_FULL(i915) == IP_VER(14, 1))
-+			return xe2hpd_c20_dp_tables;
- 		else
- 			return mtl_c20_dp_tables;
--	else if (intel_crtc_has_type(crtc_state, INTEL_OUTPUT_HDMI))
-+
-+	} else if (intel_crtc_has_type(crtc_state, INTEL_OUTPUT_HDMI)) {
- 		return mtl_c20_hdmi_tables;
-+	}
+ 	if (resume)
+ 		intel_dmc_load_program(dev_priv);
  
- 	MISSING_CASE(encoder->type);
- 	return NULL;
+diff --git a/drivers/gpu/drm/i915/i915_reg.h b/drivers/gpu/drm/i915/i915_reg.h
+index 58f3e4bfe254..875d76fb8cd0 100644
+--- a/drivers/gpu/drm/i915/i915_reg.h
++++ b/drivers/gpu/drm/i915/i915_reg.h
+@@ -4548,6 +4548,7 @@
+ 
+ #define CHICKEN_MISC_2		_MMIO(0x42084)
+ #define   CHICKEN_MISC_DISABLE_DPT	REG_BIT(30) /* adl,dg2 */
++#define   BMG_DARB_HALF_BLK_END_BURST	REG_BIT(27)
+ #define   KBL_ARB_FILL_SPARE_14		REG_BIT(14)
+ #define   KBL_ARB_FILL_SPARE_13		REG_BIT(13)
+ #define   GLK_CL2_PWR_DOWN		REG_BIT(12)
 -- 
 2.25.1
 
