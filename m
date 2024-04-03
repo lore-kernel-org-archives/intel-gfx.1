@@ -4,53 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 87C40CD1296
-	for <intel-gfx@archiver.kernel.org>; Wed,  3 Apr 2024 09:00:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B993DCD1288
+	for <intel-gfx@archiver.kernel.org>; Wed,  3 Apr 2024 09:00:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DE86C1128EB;
-	Wed,  3 Apr 2024 09:00:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1717F1128E5;
+	Wed,  3 Apr 2024 09:00:35 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="DYr2CWqW";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="et+zPgw4";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.17])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 115EC1128E5
- for <intel-gfx@lists.freedesktop.org>; Wed,  3 Apr 2024 09:00:30 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 13EF21128E5
+ for <intel-gfx@lists.freedesktop.org>; Wed,  3 Apr 2024 09:00:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1712134830; x=1743670830;
+ t=1712134833; x=1743670833;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=RYFSCakAwHZPUULUyx31afwM5axrWyaujTkRBG8HHUQ=;
- b=DYr2CWqWDRp3AcVhd4GZ4UhTVAmbk6A4k5WzXN0kBG0H+mkT+Ta7K0t0
- gr5hwv8bdnO0hYwhMISBLa/QAljcl9Nx0Tat7gmS49ZM+d1DxW6ilBnhG
- B0uRk6tzeLIqGlG99y3BGVFZeWOoUvRhuupVAo28xa6pxIpnILarQLgtx
- 2ru4eCN7abjOUNB+mB4sUpfQhtbVkl56ZDxNoRATkfN6wNaBfJJRAaWAj
- EEmTlzWxeC0iien72uPbdUNb6ayESRiQMYf3an+jeIUQDi73KGkXv7pjo
- VIX/fvEvZsQVFD2emuLEbLWurl32vsnmWtfQzDQvMx/C1UNg9W0zsIrAJ w==;
-X-CSE-ConnectionGUID: 4zFP8vP+TL69KKLbRRld1A==
-X-CSE-MsgGUID: +vVXLeOPSMibQyEQ+h4o9w==
-X-IronPort-AV: E=McAfee;i="6600,9927,11032"; a="7472378"
+ bh=TDZXsq7k7DFhR+d2Gl5dBGJBm45Rq88agF/rHZLdug4=;
+ b=et+zPgw4OhYzpd88N8dH4Tn7AjhJpjxBTzuLDBEeOeOhRWG+UJGuf9Ps
+ m/6ZirK+bB53r1NMnZZqDIMOgx7W+Gsi/QfRbh/6pWHtGCGsdnNC4MBtq
+ Kx/7u4Utkd/M85tkyJyV38OoJxrvBW9lpaBXf68l9MERYozWS/54OBPly
+ OTUWAQpp+zowm73bR9ZS83jvvHox9yOkTQOyfXdXF/1TKSnMc9oOA4HVq
+ W7IutI2WI6t6jO/euTRnxn17lX3moS8CYRXlIX29mKVPBnV9e/bdP6OVT
+ 69yiR8nb3/X1FJ9yDnd60N50VwpjUJ1bPtZQkX0BYZc09cd38YNCCaLiT Q==;
+X-CSE-ConnectionGUID: xOKH6TpHSquB8j5QwFym2g==
+X-CSE-MsgGUID: //4rX1dUS9Ok7yac0pXo6g==
+X-IronPort-AV: E=McAfee;i="6600,9927,11032"; a="7472397"
 X-IronPort-AV: E=Sophos;i="6.07,177,1708416000"; 
-   d="scan'208";a="7472378"
+   d="scan'208";a="7472397"
 Received: from fmviesa007.fm.intel.com ([10.60.135.147])
  by orvoesa109.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 03 Apr 2024 02:00:28 -0700
-X-CSE-ConnectionGUID: AliMpmaXTx+tsAQa5i/3MQ==
-X-CSE-MsgGUID: la0yveqAQfS1u53jFWQ1Pw==
+ 03 Apr 2024 02:00:31 -0700
+X-CSE-ConnectionGUID: MeZWui+/TjuilY7eQjFmBw==
+X-CSE-MsgGUID: 1CMtD8XGS22gMJR7Sb7a3g==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.07,177,1708416000"; d="scan'208";a="18452934"
+X-IronPort-AV: E=Sophos;i="6.07,177,1708416000"; d="scan'208";a="18452982"
 Received: from esavax-mobl.ger.corp.intel.com (HELO jhogande-mobl1.intel.com)
  ([10.249.35.175])
  by fmviesa007-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 03 Apr 2024 02:00:27 -0700
+ 03 Apr 2024 02:00:30 -0700
 From: =?UTF-8?q?Jouni=20H=C3=B6gander?= <jouni.hogander@intel.com>
 To: intel-gfx@lists.freedesktop.org
 Cc: Animesh Manna <animesh.manna@intel.com>,
  =?UTF-8?q?Jouni=20H=C3=B6gander?= <jouni.hogander@intel.com>
-Subject: [PATCH v5 02/19] drm/i915/psr: Set intel_crtc_state->has_psr on panel
- replay as well
-Date: Wed,  3 Apr 2024 11:59:56 +0300
-Message-Id: <20240403090013.54296-3-jouni.hogander@intel.com>
+Subject: [PATCH v5 04/19] drm/i915/psr: Do not update phy power state in case
+ of non-eDP panel replay
+Date: Wed,  3 Apr 2024 11:59:58 +0300
+Message-Id: <20240403090013.54296-5-jouni.hogander@intel.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20240403090013.54296-1-jouni.hogander@intel.com>
 References: <20240403090013.54296-1-jouni.hogander@intel.com>
@@ -73,56 +73,52 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Current code is setting only intel_crtc_state->has_panel_replay in panel
-replay case. There are lots of stuff behind intel_crtc_state->has_psr that
-is needed for panel replay as well. Instead of converting each check to
-has_psr || has_panel_replay set has_psr in case of panel replay as
-well. Code can then differentiate between psr and panel replay by using
-intel_crtc_state->has_panel_replay.
+Currently panel replay is supporting only main link on mode -> Do not
+update phy power state for non-eDP panel replay.
+
+Bspec: 53370
+
+v2: use intel_dp_is_edp to differentiate
 
 Signed-off-by: Jouni Högander <jouni.hogander@intel.com>
-Reviewed-by: Animesh Manna <animesh.manna@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_psr.c | 11 ++++++-----
- 1 file changed, 6 insertions(+), 5 deletions(-)
+ drivers/gpu/drm/i915/display/intel_psr.c | 12 ++++++++----
+ 1 file changed, 8 insertions(+), 4 deletions(-)
 
 diff --git a/drivers/gpu/drm/i915/display/intel_psr.c b/drivers/gpu/drm/i915/display/intel_psr.c
-index 45d13e042ade..10a7795cdb6f 100644
+index bd99b9953274..07c1ddec2d86 100644
 --- a/drivers/gpu/drm/i915/display/intel_psr.c
 +++ b/drivers/gpu/drm/i915/display/intel_psr.c
-@@ -1602,10 +1602,11 @@ void intel_psr_compute_config(struct intel_dp *intel_dp,
+@@ -1930,13 +1930,16 @@ static void intel_psr_enable_locked(struct intel_dp *intel_dp,
+ 	if (!psr_interrupt_error_check(intel_dp))
+ 		return;
  
- 	if (CAN_PANEL_REPLAY(intel_dp))
- 		crtc_state->has_panel_replay = true;
+-	if (intel_dp->psr.panel_replay_enabled)
++	if (intel_dp->psr.panel_replay_enabled) {
+ 		drm_dbg_kms(&dev_priv->drm, "Enabling Panel Replay\n");
 -	else
--		crtc_state->has_psr = _psr_compute_config(intel_dp, crtc_state);
- 
--	if (!(crtc_state->has_panel_replay || crtc_state->has_psr))
-+	crtc_state->has_psr = crtc_state->has_panel_replay ? true :
-+		_psr_compute_config(intel_dp, crtc_state);
++	} else {
+ 		drm_dbg_kms(&dev_priv->drm, "Enabling PSR%s\n",
+ 			    intel_dp->psr.psr2_enabled ? "2" : "1");
++	}
 +
-+	if (!crtc_state->has_psr)
- 		return;
++	if (intel_dp_is_edp(intel_dp))
++		intel_snps_phy_update_psr_power_state(&dig_port->base, true);
  
- 	crtc_state->has_psr2 = intel_psr2_config_valid(intel_dp, crtc_state);
-@@ -1632,7 +1633,7 @@ void intel_psr_get_config(struct intel_encoder *encoder,
- 		goto unlock;
+-	intel_snps_phy_update_psr_power_state(&dig_port->base, true);
+ 	intel_psr_enable_sink(intel_dp);
+ 	intel_psr_enable_source(intel_dp, crtc_state);
+ 	intel_dp->psr.enabled = true;
+@@ -2041,7 +2044,8 @@ static void intel_psr_disable_locked(struct intel_dp *intel_dp)
+ 				     CLKGATE_DIS_MISC_DMASC_GATING_DIS, 0);
+ 	}
  
- 	if (intel_dp->psr.panel_replay_enabled) {
--		pipe_config->has_panel_replay = true;
-+		pipe_config->has_psr = pipe_config->has_panel_replay = true;
- 	} else {
- 		/*
- 		 * Not possible to read EDP_PSR/PSR2_CTL registers as it is
-@@ -2651,7 +2652,7 @@ void intel_psr_post_plane_update(struct intel_atomic_state *state,
- 		intel_atomic_get_new_crtc_state(state, crtc);
- 	struct intel_encoder *encoder;
+-	intel_snps_phy_update_psr_power_state(&dp_to_dig_port(intel_dp)->base, false);
++	if (intel_dp_is_edp(intel_dp))
++		intel_snps_phy_update_psr_power_state(&dp_to_dig_port(intel_dp)->base, false);
  
--	if (!(crtc_state->has_psr || crtc_state->has_panel_replay))
-+	if (!crtc_state->has_psr)
- 		return;
- 
- 	for_each_intel_encoder_mask_with_psr(state->base.dev, encoder,
+ 	/* Panel Replay on eDP is always using ALPM aux less. */
+ 	if (intel_dp->psr.panel_replay_enabled && intel_dp_is_edp(intel_dp)) {
 -- 
 2.34.1
 
