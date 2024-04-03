@@ -4,54 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EFD14CD1296
-	for <intel-gfx@archiver.kernel.org>; Wed,  3 Apr 2024 09:00:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 56D07CD1294
+	for <intel-gfx@archiver.kernel.org>; Wed,  3 Apr 2024 09:00:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 635DF1128F3;
-	Wed,  3 Apr 2024 09:00:55 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 903431128F8;
+	Wed,  3 Apr 2024 09:00:56 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="EGMRiRk9";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="QYgJoIGF";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.17])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 833A31128F1
- for <intel-gfx@lists.freedesktop.org>; Wed,  3 Apr 2024 09:00:54 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 354381128DA
+ for <intel-gfx@lists.freedesktop.org>; Wed,  3 Apr 2024 09:00:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1712134855; x=1743670855;
+ t=1712134853; x=1743670853;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=fKlS1yOgdpGRFsk9wsnL93KYNxTR1szrtIbAM6IuFAY=;
- b=EGMRiRk9wrQYip5hFb72YPwkdzRWOPvFPhqZ3aEh8od35F5yy1iV9ddh
- rCKmFTvbob3JUJXb8pdjxUTMdoK7qhZK4OrK+96Ds+Q3IMV7YH3vrqo0L
- xpVmx94f8BT5KYyp5qKlh9SYz1PgqHLOy/cp9FIv56cTakvJgX8i495IG
- 55UGwlqVe3LnYJ/TR6xsPGLlKUsvnjzAt2YjMq2SkL1fhE2M76E6uzFBw
- cCZyQWYyMvOg+SitjEQrtWcaGfLUdkLSv5JSEgLTcmCSF70rx+tbVPLEV
- veIf8G2rsCfwCSmHblkimNl+nN+f3ZP/TaYkBzWKvCZze8Wj/eoiwVqG6 Q==;
-X-CSE-ConnectionGUID: elSM6rl8TEyXRkN2LPqUuQ==
-X-CSE-MsgGUID: DXoBMElbTbGx7XS6VKUpVg==
-X-IronPort-AV: E=McAfee;i="6600,9927,11032"; a="7472568"
+ bh=a4k/wuR1TlMBwm75zNBzSk5SGi5ygoKs6hh7X5/Ls6A=;
+ b=QYgJoIGF52TwJsDc+Q0ESCJ1CNVBShJuPYMWO3iYKpS4Sf4qZMguQyT3
+ U6T1yUQcnNINJ9VI1/J33PpoHjUlGw/6NW8rDLMudRIQJy0AARHhGcMYd
+ TNGvZZEqxBAvUW3VMSbLjJ4180zHtx0+lvLwuUozSOOTeUCkRuz0SXSOG
+ ctgkTi0NGjfsixIalmFcnU88d36CyLofP/km0n/r8dgWoUxodZYi1XMzU
+ 7vOCXIPk++rsd22gFZGNmJvawAz4fp2OGxN+sEnlZM1hA+rezDMd3EoYY
+ wSn6IVxVqkE97rfC41a1Ohb6Ce1QdKE2gDmL5WhXV+osJPos+yonmfyER w==;
+X-CSE-ConnectionGUID: SJjk8TRET++trDxyiyBJUg==
+X-CSE-MsgGUID: RvU/sfzqRgCmruidTERqYg==
+X-IronPort-AV: E=McAfee;i="6600,9927,11032"; a="7472550"
 X-IronPort-AV: E=Sophos;i="6.07,177,1708416000"; 
-   d="scan'208";a="7472568"
+   d="scan'208";a="7472550"
 Received: from fmviesa007.fm.intel.com ([10.60.135.147])
  by orvoesa109.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 03 Apr 2024 02:00:53 -0700
-X-CSE-ConnectionGUID: pUES+0YHT3+7YUfMtK5GtA==
-X-CSE-MsgGUID: M8wwlvJ2S4uS5x+6Er7VCQ==
+ 03 Apr 2024 02:00:50 -0700
+X-CSE-ConnectionGUID: DudWZ+K7Qx6ojaI5oEsdlQ==
+X-CSE-MsgGUID: Dsnu1HfkS1y/62OukrdxJA==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.07,177,1708416000"; d="scan'208";a="18453307"
+X-IronPort-AV: E=Sophos;i="6.07,177,1708416000"; d="scan'208";a="18453274"
 Received: from esavax-mobl.ger.corp.intel.com (HELO jhogande-mobl1.intel.com)
  ([10.249.35.175])
  by fmviesa007-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 03 Apr 2024 02:00:52 -0700
+ 03 Apr 2024 02:00:49 -0700
 From: =?UTF-8?q?Jouni=20H=C3=B6gander?= <jouni.hogander@intel.com>
 To: intel-gfx@lists.freedesktop.org
 Cc: Animesh Manna <animesh.manna@intel.com>,
- =?UTF-8?q?Jouni=20H=C3=B6gander?= <jouni.hogander@intel.com>,
- Kunal Joshi <kunal1.joshi@intel.com>
-Subject: [PATCH v5 19/19] drm/i915/psr: Add panel replay sel update support to
- debugfs interface
-Date: Wed,  3 Apr 2024 12:00:13 +0300
-Message-Id: <20240403090013.54296-20-jouni.hogander@intel.com>
+ =?UTF-8?q?Jouni=20H=C3=B6gander?= <jouni.hogander@intel.com>
+Subject: [PATCH v5 17/19] drm/i915/psr: Update PSR module parameter
+ descriptions
+Date: Wed,  3 Apr 2024 12:00:11 +0300
+Message-Id: <20240403090013.54296-18-jouni.hogander@intel.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20240403090013.54296-1-jouni.hogander@intel.com>
 References: <20240403090013.54296-1-jouni.hogander@intel.com>
@@ -74,53 +73,50 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Add panel replay selective update support to debugfs status interface. In
-case of sink supporting panel replay we will print out:
+We are re-using PSR module parameters for panel replay. Update module
+parameter descriptions with panel replay information:
 
-Sink support: PSR = no, Panel Replay = yes, Panel Replay Selective Update = yes
+enable_psr:
 
-and PSR mode will look like this if printing out enabled panel replay
-selective update:
+-1 (default) == follow what is in VBT
+0 == disable PSR/PR
+1 == Allow PSR1 and PR full frame update
+2 == allow PSR1/PSR2 and PR Selective Update
 
-PSR mode: Panel Replay Selective Update Enabled
+enable_psr2_sel_fetch
 
-Current PSR and panel replay printouts remain same.
-
-Cc: Kunal Joshi <kunal1.joshi@intel.com>
+0 == disable selective fetch for PSR and PR
+1 (default) == allow selective fetch for PSR PR
 
 Signed-off-by: Jouni Högander <jouni.hogander@intel.com>
+Reviewed-by: Animesh Manna <animesh.manna@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_psr.c | 9 ++++++---
- 1 file changed, 6 insertions(+), 3 deletions(-)
+ drivers/gpu/drm/i915/display/intel_display_params.c | 5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_psr.c b/drivers/gpu/drm/i915/display/intel_psr.c
-index 50bb3739d197..3d564276273d 100644
---- a/drivers/gpu/drm/i915/display/intel_psr.c
-+++ b/drivers/gpu/drm/i915/display/intel_psr.c
-@@ -3564,7 +3564,9 @@ static int intel_psr_status(struct seq_file *m, struct intel_dp *intel_dp)
+diff --git a/drivers/gpu/drm/i915/display/intel_display_params.c b/drivers/gpu/drm/i915/display/intel_display_params.c
+index 11e03cfb774d..1c5e20ec7f1d 100644
+--- a/drivers/gpu/drm/i915/display/intel_display_params.c
++++ b/drivers/gpu/drm/i915/display/intel_display_params.c
+@@ -102,7 +102,8 @@ intel_display_param_named_unsafe(enable_fbc, int, 0400,
  
- 	if (psr->sink_support)
- 		seq_printf(m, " [0x%02x]", intel_dp->psr_dpcd[0]);
--	seq_printf(m, ", Panel Replay = %s\n", str_yes_no(psr->sink_panel_replay_support));
-+	seq_printf(m, ", Panel Replay = %s", str_yes_no(psr->sink_panel_replay_support));
-+	seq_printf(m, ", Panel Replay Selective Update = %s\n",
-+		   str_yes_no(psr->sink_panel_replay_su_support));
+ intel_display_param_named_unsafe(enable_psr, int, 0400,
+ 	"Enable PSR "
+-	"(0=disabled, 1=enable up to PSR1, 2=enable up to PSR2) "
++	"(0=disabled, 1=enable up to PSR1 and Panel Replay full frame update, "
++	"2=enable up to PSR2 and Panel Replay Selective Update) "
+ 	"Default: -1 (use per-chip default)");
  
- 	if (!(psr->sink_support || psr->sink_panel_replay_support))
- 		return 0;
-@@ -3573,9 +3575,10 @@ static int intel_psr_status(struct seq_file *m, struct intel_dp *intel_dp)
- 	mutex_lock(&psr->lock);
+ intel_display_param_named(psr_safest_params, bool, 0400,
+@@ -112,7 +113,7 @@ intel_display_param_named(psr_safest_params, bool, 0400,
+ 	"Default: 0");
  
- 	if (psr->panel_replay_enabled)
--		status = "Panel Replay Enabled";
-+		status = psr->sel_update_enabled ? "Panel Replay Selective Update Enabled" :
-+			"Panel Replay Enabled";
- 	else if (psr->enabled)
--		status = psr->sel_update_enabled ? "PSR2 enabled" : "PSR1 enabled";
-+		status = psr->sel_update_enabled ? "PSR2" : "PSR1";
- 	else
- 		status = "disabled";
- 	seq_printf(m, "PSR mode: %s\n", status);
+ intel_display_param_named_unsafe(enable_psr2_sel_fetch, bool, 0400,
+-	"Enable PSR2 selective fetch "
++	"Enable PSR2 and Panel Replay selective fetch "
+ 	"(0=disabled, 1=enabled) "
+ 	"Default: 1");
+ 
 -- 
 2.34.1
 
