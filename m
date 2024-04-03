@@ -4,54 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7EB20CD128A
-	for <intel-gfx@archiver.kernel.org>; Wed,  3 Apr 2024 10:52:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F32A5CD129A
+	for <intel-gfx@archiver.kernel.org>; Wed,  3 Apr 2024 10:52:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D269A112990;
-	Wed,  3 Apr 2024 10:52:04 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 43DD11129D8;
+	Wed,  3 Apr 2024 10:52:06 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="OrmeOrN2";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="WE18r1c+";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.18])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 74E8B11263E;
- Wed,  3 Apr 2024 10:52:03 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7D9F4112990;
+ Wed,  3 Apr 2024 10:52:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1712141524; x=1743677524;
+ t=1712141525; x=1743677525;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=k5vVrDHOGXGIX6TqFn0d1Wmuo+zGSGpmn15xT/TVfYI=;
- b=OrmeOrN2tI80BSL3+qsQargP5jcvGxGv5pC/xG8STX3tfZMQ309WCRwj
- 7obLFXWVaHAQ51+bUu5cEN4g62wkiUOfpcmKrkVtKNxZ5BvKNT6+ebkc0
- 6dvS9afL+a65agz35yakJ/nfZ2kDbCP2KT+7hst1jabeC+Ej5kL37X4jZ
- rKoFdgGOHpOEJPbKui4unMhK/GrRGZqrzo4W0soJ7dLauM0jkmgUhkZ9Q
- V9XwTbIj8JFbwQ2fPkAE5Z02n6FXQd6/Ss9580IgcFBFpBUdW5rCcmMxs
- 98nZ5QPDkBaAyeEumE6lTG7ON8PZn2rAYLrHgeMKujV2cSa7agqB3Ywe5 w==;
-X-CSE-ConnectionGUID: Rlu1CagiTROsyiUHCkNPEQ==
-X-CSE-MsgGUID: PyycgKGERf62J7RQXZUiTg==
-X-IronPort-AV: E=McAfee;i="6600,9927,11032"; a="7212141"
+ bh=x9FWVleKs7D+4e4BU7/Le3GMyZ17Ep+oh7ErJsqOPgA=;
+ b=WE18r1c+pyvupqDBQpoM1xJn7k0cblktk8MpcFlvDozBsoOuERhwVpDU
+ 3wPuNjp+2w/SxDpDpr3KVky9ALg06xCUg5GyPEvh8L1CatGj88964fvIt
+ JngV9imoctPA+msqIVnfM3qZsu8rMd2XGhKt8qIWe83vbenow8bHxyOEZ
+ ufTbGvi+1sUcEwntJFp+d3xTn+BPhJoLicaxRllbvWkLwINBfI/cNjA5J
+ 4cmWwutaRub3ct8SZJGSsZWYiJAj6KhBx8P6fruMG34qfxTaavxUCiVu5
+ Am58NeMi85tSxpi3yNElNvahlcs/+qMrx4I1f6UId6okQzUAexdO7FngE g==;
+X-CSE-ConnectionGUID: iE77hsEDR5uKy+5GislueA==
+X-CSE-MsgGUID: wjXohbPPR26hvdJFaNFe5g==
+X-IronPort-AV: E=McAfee;i="6600,9927,11032"; a="7212175"
 X-IronPort-AV: E=Sophos;i="6.07,177,1708416000"; 
-   d="scan'208";a="7212141"
+   d="scan'208";a="7212175"
 Received: from fmviesa007.fm.intel.com ([10.60.135.147])
  by fmvoesa112.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 03 Apr 2024 03:51:29 -0700
-X-CSE-ConnectionGUID: N5eEYlFYSgix8SG3+VQLiA==
-X-CSE-MsgGUID: wGIJpg06TmWRkezM9os1Wg==
+ 03 Apr 2024 03:51:40 -0700
+X-CSE-ConnectionGUID: ArBj8K9jQGCrcNHR07htBw==
+X-CSE-MsgGUID: Qvv1ho2DSuisr4sXGqPL9w==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.07,177,1708416000"; d="scan'208";a="18493360"
+X-IronPort-AV: E=Sophos;i="6.07,177,1708416000"; d="scan'208";a="18493384"
 Received: from bvivekan-desk.iind.intel.com ([10.190.238.63])
  by fmviesa007-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 03 Apr 2024 03:51:27 -0700
+ 03 Apr 2024 03:51:38 -0700
 From: Balasubramani Vivekanandan <balasubramani.vivekanandan@intel.com>
 To: intel-gfx@lists.freedesktop.org,
 	intel-xe@lists.freedesktop.org
 Cc: Matt Roper <matthew.d.roper@intel.com>,
  Lucas De Marchi <lucas.demarchi@intel.com>,
- Radhakrishna Sripada <radhakrishna.sripada@intel.com>,
  Balasubramani Vivekanandan <balasubramani.vivekanandan@intel.com>
-Subject: [PATCH 08/25] drm/i915/bmg: Extend DG2 tc check to future
-Date: Wed,  3 Apr 2024 16:21:06 +0530
-Message-Id: <20240403105123.1327669-9-balasubramani.vivekanandan@intel.com>
+Subject: [PATCH 13/25] drm/i915/xe2hpd: Add display info
+Date: Wed,  3 Apr 2024 16:21:11 +0530
+Message-Id: <20240403105123.1327669-14-balasubramani.vivekanandan@intel.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20240403105123.1327669-1-balasubramani.vivekanandan@intel.com>
 References: <20240403105123.1327669-1-balasubramani.vivekanandan@intel.com>
@@ -72,37 +71,52 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Radhakrishna Sripada <radhakrishna.sripada@intel.com>
+From: Lucas De Marchi <lucas.demarchi@intel.com>
 
-Discrete cards use the Port numbers TC1-4 for the offsets. The regular
-flow for type-c subsystem port initialization can be skipped. This check
-is present in DG2. Extend this to future discrete products.
+Add initial display info for xe2hpd. It is similar to xelpd, but with no
+PORT_B.
 
-Signed-off-by: Radhakrishna Sripada <radhakrishna.sripada@intel.com>
+Bspec: 67066
+Signed-off-by: Lucas De Marchi <lucas.demarchi@intel.com>
 Signed-off-by: Balasubramani Vivekanandan <balasubramani.vivekanandan@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_display.c | 7 +++----
- 1 file changed, 3 insertions(+), 4 deletions(-)
+ .../gpu/drm/i915/display/intel_display_device.c  | 16 ++++++++++++++++
+ 1 file changed, 16 insertions(+)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
-index 614e60420a29..aed25890b6f5 100644
---- a/drivers/gpu/drm/i915/display/intel_display.c
-+++ b/drivers/gpu/drm/i915/display/intel_display.c
-@@ -1861,11 +1861,10 @@ bool intel_phy_is_combo(struct drm_i915_private *dev_priv, enum phy phy)
- bool intel_phy_is_tc(struct drm_i915_private *dev_priv, enum phy phy)
- {
- 	/*
--	 * DG2's "TC1", although TC-capable output, doesn't share the same flow
--	 * as other platforms on the display engine side and rather rely on the
--	 * SNPS PHY, that is programmed separately
-+	 * Discrete GPU phy's are not attached to FIA's to support TC
-+	 * subsystem Legacy or non-legacy, and only support native DP/HDMI
- 	 */
--	if (IS_DG2(dev_priv))
-+	if (IS_DGFX(dev_priv))
- 		return false;
+diff --git a/drivers/gpu/drm/i915/display/intel_display_device.c b/drivers/gpu/drm/i915/display/intel_display_device.c
+index c02d79b50006..2c505c480337 100644
+--- a/drivers/gpu/drm/i915/display/intel_display_device.c
++++ b/drivers/gpu/drm/i915/display/intel_display_device.c
+@@ -768,6 +768,21 @@ static const struct intel_display_device_info xe2_lpd_display = {
+ 		BIT(INTEL_FBC_C) | BIT(INTEL_FBC_D),
+ };
  
- 	if (DISPLAY_VER(dev_priv) >= 13)
++static const struct intel_display_device_info xe2_hpd_display = {
++	XE_LPD_FEATURES,
++	.has_cdclk_crawl = 1,
++	.has_cdclk_squash = 1,
++
++	.__runtime_defaults.ip.ver = 14,
++	.__runtime_defaults.ip.rel = 1,
++	.__runtime_defaults.fbc_mask = BIT(INTEL_FBC_A) | BIT(INTEL_FBC_B),
++	.__runtime_defaults.cpu_transcoder_mask =
++		BIT(TRANSCODER_A) | BIT(TRANSCODER_B) |
++		BIT(TRANSCODER_C) | BIT(TRANSCODER_D),
++	.__runtime_defaults.port_mask = BIT(PORT_A) |
++		BIT(PORT_TC1) | BIT(PORT_TC2) | BIT(PORT_TC3) | BIT(PORT_TC4),
++};
++
+ /*
+  * Separate detection for no display cases to keep the display id array simple.
+  *
+@@ -847,6 +862,7 @@ static const struct {
+ 	const struct intel_display_device_info *display;
+ } gmdid_display_map[] = {
+ 	{ 14,  0, &xe_lpdp_display },
++	{ 14,  1, &xe2_hpd_display },
+ 	{ 20,  0, &xe2_lpd_display },
+ };
+ 
 -- 
 2.25.1
 
