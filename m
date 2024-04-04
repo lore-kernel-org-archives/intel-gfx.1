@@ -4,52 +4,51 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 55C0EC67861
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5E0A5CD1296
 	for <intel-gfx@archiver.kernel.org>; Thu,  4 Apr 2024 21:35:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9026211356C;
+	by gabe.freedesktop.org (Postfix) with ESMTP id A6235113570;
 	Thu,  4 Apr 2024 21:35:24 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="LY9DyxXC";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="dQmdFtOE";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.16])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BE94E113575
- for <intel-gfx@lists.freedesktop.org>; Thu,  4 Apr 2024 21:35:08 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F28DA113583
+ for <intel-gfx@lists.freedesktop.org>; Thu,  4 Apr 2024 21:35:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1712266509; x=1743802509;
+ t=1712266518; x=1743802518;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=rkcCSoi7j/W6DHSgx8msGjXd3EROo0JnnmocxL3TMgU=;
- b=LY9DyxXCnUpDC8a5Sp9pemX9PHWn5g2TU4b8leW8nXdUCuxMYeXgqDZh
- XNS5bEzQHXk2QbsCGIP6B74Kck84q0OuZIujAeMMdMPfhjNSAEXtVV+5V
- RhQiiIX4V7fu9hYCnnO8E54BLj9HzhjZz1DLPj5YNcEaDw+7jQsFfBrNf
- mCYurMKuEoybYrtpxoiBgfG9Gha/uWHWpXd/S7M7nM8XvpSuiQeDkI9kt
- 1SDeyAICOLe3tuCHYVrMnsfp5rrDbVNpn0R3Ym+7UuRRnsCAzdOLhQxOJ
- 0eNFxmmO0b+y6oTQGnnv2XpIjHLDo45FfCDMnaE6V3ikCmZ69i1EUOV36 g==;
-X-CSE-ConnectionGUID: +SWwEUoFR0SSn6sGFZ44og==
-X-CSE-MsgGUID: /DGKSZnqRXurATrZdB2G5A==
-X-IronPort-AV: E=McAfee;i="6600,9927,11034"; a="7710811"
+ bh=qLdMmYl+QSgDSDJ2iyHsYSBn3RX4tDNedhMkwmCEyiU=;
+ b=dQmdFtOEp9RuOnIXNr4bEj1+9y37c/wK+aj5Aigr16aDl6Go2NY7fVnd
+ SUM86fYsTJ15VGbYVqipWijn2g+zLTdf2f1ouM9ySgDKfUGBFO8M+u7d4
+ 5zSC7JyYt4mLuLZniCmyuiQShz3yxxHc9bHU7mvgd91oehGO5ncw+4sgX
+ J/YX0D7EtgFSA6Qd02fGqScas1jINhngUpBx6YjwA3N3hhVRcIYZvkMMn
+ Sxetjn/hMIIPGNemQUtdOZNEgsxcwwhXOMFdU/xC9sQ6ATdsPu8bgVu4F
+ EUCpvsXot5c7kzGMbOvdqd7W0h4D8tkZaQQZYrTg2qzuTCRZWiILBsL08 g==;
+X-CSE-ConnectionGUID: HEwItCALQ+iWx7UkttZu0Q==
+X-CSE-MsgGUID: q2sW/FsvRV2VTnUNhHQz+A==
+X-IronPort-AV: E=McAfee;i="6600,9927,11034"; a="7710825"
 X-IronPort-AV: E=Sophos;i="6.07,180,1708416000"; 
-   d="scan'208";a="7710811"
+   d="scan'208";a="7710825"
 Received: from orsmga001.jf.intel.com ([10.7.209.18])
  by orvoesa108.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 04 Apr 2024 14:35:09 -0700
+ 04 Apr 2024 14:35:16 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,11034"; a="827790618"
-X-IronPort-AV: E=Sophos;i="6.07,180,1708416000"; d="scan'208";a="827790618"
+X-IronPort-AV: E=McAfee;i="6600,9927,11034"; a="827790624"
+X-IronPort-AV: E=Sophos;i="6.07,180,1708416000"; d="scan'208";a="827790624"
 Received: from stinkpipe.fi.intel.com (HELO stinkbox) ([10.237.72.74])
- by orsmga001.jf.intel.com with SMTP; 04 Apr 2024 14:35:06 -0700
+ by orsmga001.jf.intel.com with SMTP; 04 Apr 2024 14:35:12 -0700
 Received: by stinkbox (sSMTP sendmail emulation);
- Fri, 05 Apr 2024 00:35:05 +0300
+ Fri, 05 Apr 2024 00:35:12 +0300
 From: Ville Syrjala <ville.syrjala@linux.intel.com>
 To: intel-gfx@lists.freedesktop.org
 Cc: Vidya Srinivas <vidya.srinivas@intel.com>,
- Vandita Kulkarni <vandita.kulkarni@intel.com>
-Subject: [PATCH v2 07/17] drm/i915:
- s/intel_dp_can_bigjoiner()/intel_dp_has_bigjoiner()/
-Date: Fri,  5 Apr 2024 00:34:31 +0300
-Message-ID: <20240404213441.17637-8-ville.syrjala@linux.intel.com>
+ Uma Shankar <uma.shankar@intel.com>
+Subject: [PATCH v2 09/17] drm/i915/mst: Check intel_dp_joiner_needs_dsc()
+Date: Fri,  5 Apr 2024 00:34:33 +0300
+Message-ID: <20240404213441.17637-10-ville.syrjala@linux.intel.com>
 X-Mailer: git-send-email 2.43.2
 In-Reply-To: <20240404213441.17637-1-ville.syrjala@linux.intel.com>
 References: <20240404213441.17637-1-ville.syrjala@linux.intel.com>
@@ -73,52 +72,55 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 From: Ville Syrjälä <ville.syrjala@linux.intel.com>
 
-Rename intel_dp_can_bigjoiner() to intel_dp_has_bigjoiner()
-to better reflect its function.
+intel_dp_mst_compute_config() is missing the "does the
+joiner need DSC?" check despite claiming to have a lot
+of other joiner/dsc stuff in there (albeit disabled).
+Replicate the logic from the SST side.
+
+TODO: refactor all this duplicated code!
 
 Tested-by: Vidya Srinivas <vidya.srinivas@intel.com>
-Reviewed-by: Vandita Kulkarni <vandita.kulkarni@intel.com>
+Reviewed-by: Uma Shankar <uma.shankar@intel.com>
 Signed-off-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_dp.c | 4 ++--
- drivers/gpu/drm/i915/display/intel_dp.h | 2 +-
- 2 files changed, 3 insertions(+), 3 deletions(-)
+ drivers/gpu/drm/i915/display/intel_dp_mst.c | 10 ++++++----
+ 1 file changed, 6 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
-index 4552005caae2..4553c0c41bc6 100644
---- a/drivers/gpu/drm/i915/display/intel_dp.c
-+++ b/drivers/gpu/drm/i915/display/intel_dp.c
-@@ -433,7 +433,7 @@ int intel_dp_max_link_data_rate(struct intel_dp *intel_dp,
- 	return max_rate;
- }
+diff --git a/drivers/gpu/drm/i915/display/intel_dp_mst.c b/drivers/gpu/drm/i915/display/intel_dp_mst.c
+index da731dc503aa..aac66c2f65a1 100644
+--- a/drivers/gpu/drm/i915/display/intel_dp_mst.c
++++ b/drivers/gpu/drm/i915/display/intel_dp_mst.c
+@@ -532,7 +532,7 @@ static int intel_dp_mst_compute_config(struct intel_encoder *encoder,
+ 	const struct drm_display_mode *adjusted_mode =
+ 		&pipe_config->hw.adjusted_mode;
+ 	struct link_config_limits limits;
+-	bool dsc_needed;
++	bool dsc_needed, joiner_needs_dsc;
+ 	int ret = 0;
  
--bool intel_dp_can_bigjoiner(struct intel_dp *intel_dp)
-+bool intel_dp_has_bigjoiner(struct intel_dp *intel_dp)
- {
- 	struct intel_digital_port *intel_dig_port = dp_to_dig_port(intel_dp);
- 	struct intel_encoder *encoder = &intel_dig_port->base;
-@@ -1207,7 +1207,7 @@ bool intel_dp_need_bigjoiner(struct intel_dp *intel_dp,
- 	struct drm_i915_private *i915 = dp_to_i915(intel_dp);
- 	struct intel_connector *connector = intel_dp->attached_connector;
+ 	if (pipe_config->fec_enable &&
+@@ -546,7 +546,9 @@ static int intel_dp_mst_compute_config(struct intel_encoder *encoder,
+ 	pipe_config->output_format = INTEL_OUTPUT_FORMAT_RGB;
+ 	pipe_config->has_pch_encoder = false;
  
--	if (!intel_dp_can_bigjoiner(intel_dp))
-+	if (!intel_dp_has_bigjoiner(intel_dp))
- 		return false;
+-	dsc_needed = intel_dp->force_dsc_en ||
++	joiner_needs_dsc = intel_dp_joiner_needs_dsc(dev_priv, pipe_config->bigjoiner_pipes);
++
++	dsc_needed = joiner_needs_dsc || intel_dp->force_dsc_en ||
+ 		     !intel_dp_mst_compute_config_limits(intel_dp,
+ 							 connector,
+ 							 pipe_config,
+@@ -566,8 +568,8 @@ static int intel_dp_mst_compute_config(struct intel_encoder *encoder,
  
- 	return clock > i915->max_dotclk_freq || hdisplay > 5120 ||
-diff --git a/drivers/gpu/drm/i915/display/intel_dp.h b/drivers/gpu/drm/i915/display/intel_dp.h
-index 9f880d7865d1..8d1c3ca28159 100644
---- a/drivers/gpu/drm/i915/display/intel_dp.h
-+++ b/drivers/gpu/drm/i915/display/intel_dp.h
-@@ -120,7 +120,7 @@ int intel_dp_effective_data_rate(int pixel_clock, int bpp_x16,
- 				 int bw_overhead);
- int intel_dp_max_link_data_rate(struct intel_dp *intel_dp,
- 				int max_dprx_rate, int max_dprx_lanes);
--bool intel_dp_can_bigjoiner(struct intel_dp *intel_dp);
-+bool intel_dp_has_bigjoiner(struct intel_dp *intel_dp);
- bool intel_dp_needs_vsc_sdp(const struct intel_crtc_state *crtc_state,
- 			    const struct drm_connector_state *conn_state);
- void intel_dp_set_infoframes(struct intel_encoder *encoder, bool enable,
+ 	/* enable compression if the mode doesn't fit available BW */
+ 	if (dsc_needed) {
+-		drm_dbg_kms(&dev_priv->drm, "Try DSC (fallback=%s, force=%s)\n",
+-			    str_yes_no(ret),
++		drm_dbg_kms(&dev_priv->drm, "Try DSC (fallback=%s, joiner=%s, force=%s)\n",
++			    str_yes_no(ret), str_yes_no(joiner_needs_dsc),
+ 			    str_yes_no(intel_dp->force_dsc_en));
+ 
+ 		if (!intel_dp_mst_dsc_source_support(pipe_config))
 -- 
 2.43.2
 
