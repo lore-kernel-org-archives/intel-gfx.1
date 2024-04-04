@@ -4,51 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id ACB52CD1296
-	for <intel-gfx@archiver.kernel.org>; Thu,  4 Apr 2024 21:35:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id ACC3DC67861
+	for <intel-gfx@archiver.kernel.org>; Thu,  4 Apr 2024 21:35:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 408B7113572;
-	Thu,  4 Apr 2024 21:35:30 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0EF23113576;
+	Thu,  4 Apr 2024 21:35:31 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="AcoSWHAB";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="CYRLmaio";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.16])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 66D31113579
- for <intel-gfx@lists.freedesktop.org>; Thu,  4 Apr 2024 21:35:12 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 36658113575
+ for <intel-gfx@lists.freedesktop.org>; Thu,  4 Apr 2024 21:35:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1712266513; x=1743802513;
+ t=1712266526; x=1743802526;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=b67a0wH3BRtV51nWVZtu89uZXEfq948NsSIFQkqN8Gc=;
- b=AcoSWHABo94Y2FCU7N0RI1VugEabqhhKjEYXcWK4/5MEIXzAgChfNx0z
- kkFt4selmg5UrKFOtbrQ+pMp8LTzjdcaVGAlDEQ+LKw69ZH5Y04NRg0G9
- Q6SYGcuRktwAD9nF/WwW7lWed1H8FXhlcCY8e7NhyfGNNURmAu/O6FDnM
- GhHaYES9ux3j6l7B0o+qNG5mZISv90761YR6nssDZ1y573eqHnp+ctEm2
- WtGFFlpobD09ypT7o2t0Z//PTYCiRa79FhkaqGa6Kv6x+KyRuw7GRYCF/
- gJnYcr2tv/st0ttdBv4hGDvVfpfR37YGESGl8EUzLxf5m4NfB3j4BGz/5 w==;
-X-CSE-ConnectionGUID: F55Hd4lLQ1alvLQ6WopfYQ==
-X-CSE-MsgGUID: Z1BwQRGXQ4CwypZ4jI+N5w==
-X-IronPort-AV: E=McAfee;i="6600,9927,11034"; a="7710821"
+ bh=LZsHYyZ4zECzyC0bqe4RNzzu9MOxa80sNjURKMmfW50=;
+ b=CYRLmaioJRLRM+StqRwLfMl4i0mGSgQxRaFvKW9JfigGA1RsactyepYW
+ D0s1hQbHAxZMWNKV0sGcetvEyLHSBOiudI/NpX2aLtn7TNzp+vfp+6ito
+ KjbIa7nQNBxAp/Yx+UMkegd8JNE6jdM4+FwnqXYGTJFkFia+52E0ubeT7
+ unC+8haik8kvey3+7BAJid37Cl0mqGPuYSu8ebFFGl0XQVXgsINQBwQvc
+ qecit6LwMutf4orNpFv7qHSty+lpcDyJkkedjPmdSNbxnz3peRNym5UK7
+ O4E5k8JqYwkWqTcnHoVQ83j13ZJjzLc82VxyFS+81V31dFAuAxT+4M2To g==;
+X-CSE-ConnectionGUID: h8tbdH3RR1etxbVCPi3kJg==
+X-CSE-MsgGUID: od0Ah9iVSu2DMIxJr9prVQ==
+X-IronPort-AV: E=McAfee;i="6600,9927,11034"; a="7710838"
 X-IronPort-AV: E=Sophos;i="6.07,180,1708416000"; 
-   d="scan'208";a="7710821"
+   d="scan'208";a="7710838"
 Received: from orsmga001.jf.intel.com ([10.7.209.18])
  by orvoesa108.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 04 Apr 2024 14:35:12 -0700
+ 04 Apr 2024 14:35:26 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,11034"; a="827790621"
-X-IronPort-AV: E=Sophos;i="6.07,180,1708416000"; d="scan'208";a="827790621"
+X-IronPort-AV: E=McAfee;i="6600,9927,11034"; a="827790633"
+X-IronPort-AV: E=Sophos;i="6.07,180,1708416000"; d="scan'208";a="827790633"
 Received: from stinkpipe.fi.intel.com (HELO stinkbox) ([10.237.72.74])
- by orsmga001.jf.intel.com with SMTP; 04 Apr 2024 14:35:09 -0700
+ by orsmga001.jf.intel.com with SMTP; 04 Apr 2024 14:35:23 -0700
 Received: by stinkbox (sSMTP sendmail emulation);
- Fri, 05 Apr 2024 00:35:08 +0300
+ Fri, 05 Apr 2024 00:35:22 +0300
 From: Ville Syrjala <ville.syrjala@linux.intel.com>
 To: intel-gfx@lists.freedesktop.org
 Cc: Vidya Srinivas <vidya.srinivas@intel.com>,
- Uma Shankar <uma.shankar@intel.com>
-Subject: [PATCH v2 08/17] drm/i915: Extract intel_dp_joiner_needs_dsc()
-Date: Fri,  5 Apr 2024 00:34:32 +0300
-Message-ID: <20240404213441.17637-9-ville.syrjala@linux.intel.com>
+ Arun R Murthy <arun.r.murthy@intel.com>
+Subject: [PATCH v2 12/17] drm/i915: Extract
+ intel_ddi_post_disable_hdmi_or_sst()
+Date: Fri,  5 Apr 2024 00:34:36 +0300
+Message-ID: <20240404213441.17637-13-ville.syrjala@linux.intel.com>
 X-Mailer: git-send-email 2.43.2
 In-Reply-To: <20240404213441.17637-1-ville.syrjala@linux.intel.com>
 References: <20240404213441.17637-1-ville.syrjala@linux.intel.com>
@@ -72,105 +73,92 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 From: Ville Syrjälä <ville.syrjala@linux.intel.com>
 
-Pull the "does joiner need DSC?" check into a helper. MST will
-want to use this too at some point.
+Extract the "not-MST" stuff from intel_ddi_post_disable() so that
+the whole thing isn't so cluttered.
+
+The bigjoiner slave handling was outside of the !MST check,
+but it really should have been inside it as its the counterpart
+to the master handling inside the check. So we pull that
+in as well. There is no functional change here as we don't
+currently support bigjoiner+MST anyway.
+
+v2: Rebase
 
 Tested-by: Vidya Srinivas <vidya.srinivas@intel.com>
-Reviewed-by: Uma Shankar <uma.shankar@intel.com>
+Reviewed-by: Arun R Murthy <arun.r.murthy@intel.com>
 Signed-off-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_dp.c     | 26 ++++++++++-----------
- drivers/gpu/drm/i915/display/intel_dp.h     |  1 +
- drivers/gpu/drm/i915/display/intel_dp_mst.c |  6 +----
- 3 files changed, 15 insertions(+), 18 deletions(-)
+ drivers/gpu/drm/i915/display/intel_ddi.c | 52 +++++++++++-------------
+ 1 file changed, 24 insertions(+), 28 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
-index 4553c0c41bc6..4f15529212a1 100644
---- a/drivers/gpu/drm/i915/display/intel_dp.c
-+++ b/drivers/gpu/drm/i915/display/intel_dp.c
-@@ -1310,11 +1310,7 @@ intel_dp_mode_valid(struct drm_connector *_connector,
- 		dsc = dsc_max_compressed_bpp && dsc_slice_count;
- 	}
- 
--	/*
--	 * Big joiner configuration needs DSC for TGL which is not true for
--	 * XE_LPD where uncompressed joiner is supported.
--	 */
--	if (DISPLAY_VER(dev_priv) < 13 && bigjoiner && !dsc)
-+	if (intel_dp_joiner_needs_dsc(dev_priv, bigjoiner) && !dsc)
- 		return MODE_CLOCK_HIGH;
- 
- 	if (mode_rate > max_rate && !dsc)
-@@ -2405,6 +2401,16 @@ int intel_dp_config_required_rate(const struct intel_crtc_state *crtc_state)
- 	return intel_dp_link_required(adjusted_mode->crtc_clock, bpp);
+diff --git a/drivers/gpu/drm/i915/display/intel_ddi.c b/drivers/gpu/drm/i915/display/intel_ddi.c
+index 9bfe0fd3cffc..0846d005fa16 100644
+--- a/drivers/gpu/drm/i915/display/intel_ddi.c
++++ b/drivers/gpu/drm/i915/display/intel_ddi.c
+@@ -3092,39 +3092,35 @@ static void intel_ddi_post_disable_hdmi(struct intel_atomic_state *state,
+ 	intel_dp_dual_mode_set_tmds_output(intel_hdmi, false);
  }
  
-+bool intel_dp_joiner_needs_dsc(struct drm_i915_private *i915, bool use_joiner)
++static void intel_ddi_post_disable_hdmi_or_sst(struct intel_atomic_state *state,
++					       struct intel_encoder *encoder,
++					       const struct intel_crtc_state *old_crtc_state,
++					       const struct drm_connector_state *old_conn_state)
 +{
-+	/*
-+	 * Pipe joiner needs compression up to display 12 due to bandwidth
-+	 * limitation. DG2 onwards pipe joiner can be enabled without
-+	 * compression.
-+	 */
-+	return DISPLAY_VER(i915) < 13 && use_joiner;
++	struct drm_i915_private *dev_priv = to_i915(encoder->base.dev);
++
++	intel_crtc_vblank_off(old_crtc_state);
++
++	intel_disable_transcoder(old_crtc_state);
++
++	intel_ddi_disable_transcoder_func(old_crtc_state);
++
++	intel_dsc_disable(old_crtc_state);
++
++	if (DISPLAY_VER(dev_priv) >= 9)
++		skl_scaler_disable(old_crtc_state);
++	else
++		ilk_pfit_disable(old_crtc_state);
 +}
 +
- static int
- intel_dp_compute_link_config(struct intel_encoder *encoder,
- 			     struct intel_crtc_state *pipe_config,
-@@ -2419,8 +2425,7 @@ intel_dp_compute_link_config(struct intel_encoder *encoder,
- 		&pipe_config->hw.adjusted_mode;
- 	struct intel_dp *intel_dp = enc_to_intel_dp(encoder);
- 	struct link_config_limits limits;
--	bool joiner_needs_dsc = false;
--	bool dsc_needed;
-+	bool dsc_needed, joiner_needs_dsc;
- 	int ret = 0;
+ static void intel_ddi_post_disable(struct intel_atomic_state *state,
+ 				   struct intel_encoder *encoder,
+ 				   const struct intel_crtc_state *old_crtc_state,
+ 				   const struct drm_connector_state *old_conn_state)
+ {
+-	struct drm_i915_private *dev_priv = to_i915(encoder->base.dev);
+-	struct intel_crtc *slave_crtc;
+-
+-	if (!intel_crtc_has_type(old_crtc_state, INTEL_OUTPUT_DP_MST)) {
+-		intel_crtc_vblank_off(old_crtc_state);
+-
+-		intel_disable_transcoder(old_crtc_state);
+-
+-		intel_ddi_disable_transcoder_func(old_crtc_state);
+-
+-		intel_dsc_disable(old_crtc_state);
+-
+-		if (DISPLAY_VER(dev_priv) >= 9)
+-			skl_scaler_disable(old_crtc_state);
+-		else
+-			ilk_pfit_disable(old_crtc_state);
+-	}
+-
+-	for_each_intel_crtc_in_pipe_mask(&dev_priv->drm, slave_crtc,
+-					 intel_crtc_bigjoiner_slave_pipes(old_crtc_state)) {
+-		const struct intel_crtc_state *old_slave_crtc_state =
+-			intel_atomic_get_old_crtc_state(state, slave_crtc);
+-
+-		intel_crtc_vblank_off(old_slave_crtc_state);
+-
+-		intel_dsc_disable(old_slave_crtc_state);
+-		skl_scaler_disable(old_slave_crtc_state);
+-	}
++	if (!intel_crtc_has_type(old_crtc_state, INTEL_OUTPUT_DP_MST))
++		intel_ddi_post_disable_hdmi_or_sst(state, encoder,
++						   old_crtc_state, old_conn_state);
  
- 	if (pipe_config->fec_enable &&
-@@ -2431,12 +2436,7 @@ intel_dp_compute_link_config(struct intel_encoder *encoder,
- 				    adjusted_mode->crtc_clock))
- 		pipe_config->bigjoiner_pipes = GENMASK(crtc->pipe + 1, crtc->pipe);
- 
--	/*
--	 * Pipe joiner needs compression up to display 12 due to bandwidth
--	 * limitation. DG2 onwards pipe joiner can be enabled without
--	 * compression.
--	 */
--	joiner_needs_dsc = DISPLAY_VER(i915) < 13 && pipe_config->bigjoiner_pipes;
-+	joiner_needs_dsc = intel_dp_joiner_needs_dsc(i915, pipe_config->bigjoiner_pipes);
- 
- 	dsc_needed = joiner_needs_dsc || intel_dp->force_dsc_en ||
- 		     !intel_dp_compute_config_limits(intel_dp, pipe_config,
-diff --git a/drivers/gpu/drm/i915/display/intel_dp.h b/drivers/gpu/drm/i915/display/intel_dp.h
-index 8d1c3ca28159..9f6be562fa08 100644
---- a/drivers/gpu/drm/i915/display/intel_dp.h
-+++ b/drivers/gpu/drm/i915/display/intel_dp.h
-@@ -120,6 +120,7 @@ int intel_dp_effective_data_rate(int pixel_clock, int bpp_x16,
- 				 int bw_overhead);
- int intel_dp_max_link_data_rate(struct intel_dp *intel_dp,
- 				int max_dprx_rate, int max_dprx_lanes);
-+bool intel_dp_joiner_needs_dsc(struct drm_i915_private *i915, bool use_joiner);
- bool intel_dp_has_bigjoiner(struct intel_dp *intel_dp);
- bool intel_dp_needs_vsc_sdp(const struct intel_crtc_state *crtc_state,
- 			    const struct drm_connector_state *conn_state);
-diff --git a/drivers/gpu/drm/i915/display/intel_dp_mst.c b/drivers/gpu/drm/i915/display/intel_dp_mst.c
-index 6497542e3e65..da731dc503aa 100644
---- a/drivers/gpu/drm/i915/display/intel_dp_mst.c
-+++ b/drivers/gpu/drm/i915/display/intel_dp_mst.c
-@@ -1377,11 +1377,7 @@ intel_dp_mst_mode_valid_ctx(struct drm_connector *connector,
- 		dsc = dsc_max_compressed_bpp && dsc_slice_count;
- 	}
- 
--	/*
--	 * Big joiner configuration needs DSC for TGL which is not true for
--	 * XE_LPD where uncompressed joiner is supported.
--	 */
--	if (DISPLAY_VER(dev_priv) < 13 && bigjoiner && !dsc) {
-+	if (intel_dp_joiner_needs_dsc(dev_priv, bigjoiner) && !dsc) {
- 		*status = MODE_CLOCK_HIGH;
- 		return 0;
- 	}
+ 	/*
+ 	 * When called from DP MST code:
 -- 
 2.43.2
 
