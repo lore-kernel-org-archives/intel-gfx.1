@@ -4,51 +4,51 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1D3BBCD1292
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id ACB52CD1296
 	for <intel-gfx@archiver.kernel.org>; Thu,  4 Apr 2024 21:35:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 54C36113578;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 408B7113572;
 	Thu,  4 Apr 2024 21:35:30 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="KH+XbBOX";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="AcoSWHAB";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.16])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9ACAE113574
- for <intel-gfx@lists.freedesktop.org>; Thu,  4 Apr 2024 21:35:22 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 66D31113579
+ for <intel-gfx@lists.freedesktop.org>; Thu,  4 Apr 2024 21:35:12 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1712266523; x=1743802523;
+ t=1712266513; x=1743802513;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=IWc4DNL8eFAGjSyenDY4Gkv2KPKae6sBurmhsOk3BDI=;
- b=KH+XbBOXxruGazTGP25yyaclQZNC04iCi/lTqLlJgTVaMZVCOINliNir
- nemaNXl/r56uu9GbaT4gWiWowmaHdJnSUthyhfhl9mKeYd68affHUHv2j
- gzNOly288+96GRQFeTsgbFBkDPc7QAtmlwY/fc1bxp42m+tctCsl5griE
- MB+Z6jrncUtbEdfYFqigt4T9P/2hg0CiUg/OQHAe7rnfrpYlydD0GJwVW
- Di5eAID7QKc2kPsoy+7O+erzgiAMF3B+Nxr3MpnqV/9SGR4jtiDOHGIpJ
- Gc/m0L0ELtniGcIjLXQKmTEg6EZSS5VXg8MFZXPuozC6TwXre8zPSLKcf w==;
-X-CSE-ConnectionGUID: SGn178QzTi+9WVN9dHhs0w==
-X-CSE-MsgGUID: /H0kwSn7R0qhPtPaLqK90Q==
-X-IronPort-AV: E=McAfee;i="6600,9927,11034"; a="7710835"
+ bh=b67a0wH3BRtV51nWVZtu89uZXEfq948NsSIFQkqN8Gc=;
+ b=AcoSWHABo94Y2FCU7N0RI1VugEabqhhKjEYXcWK4/5MEIXzAgChfNx0z
+ kkFt4selmg5UrKFOtbrQ+pMp8LTzjdcaVGAlDEQ+LKw69ZH5Y04NRg0G9
+ Q6SYGcuRktwAD9nF/WwW7lWed1H8FXhlcCY8e7NhyfGNNURmAu/O6FDnM
+ GhHaYES9ux3j6l7B0o+qNG5mZISv90761YR6nssDZ1y573eqHnp+ctEm2
+ WtGFFlpobD09ypT7o2t0Z//PTYCiRa79FhkaqGa6Kv6x+KyRuw7GRYCF/
+ gJnYcr2tv/st0ttdBv4hGDvVfpfR37YGESGl8EUzLxf5m4NfB3j4BGz/5 w==;
+X-CSE-ConnectionGUID: F55Hd4lLQ1alvLQ6WopfYQ==
+X-CSE-MsgGUID: Z1BwQRGXQ4CwypZ4jI+N5w==
+X-IronPort-AV: E=McAfee;i="6600,9927,11034"; a="7710821"
 X-IronPort-AV: E=Sophos;i="6.07,180,1708416000"; 
-   d="scan'208";a="7710835"
+   d="scan'208";a="7710821"
 Received: from orsmga001.jf.intel.com ([10.7.209.18])
  by orvoesa108.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 04 Apr 2024 14:35:23 -0700
+ 04 Apr 2024 14:35:12 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,11034"; a="827790630"
-X-IronPort-AV: E=Sophos;i="6.07,180,1708416000"; d="scan'208";a="827790630"
+X-IronPort-AV: E=McAfee;i="6600,9927,11034"; a="827790621"
+X-IronPort-AV: E=Sophos;i="6.07,180,1708416000"; d="scan'208";a="827790621"
 Received: from stinkpipe.fi.intel.com (HELO stinkbox) ([10.237.72.74])
- by orsmga001.jf.intel.com with SMTP; 04 Apr 2024 14:35:19 -0700
+ by orsmga001.jf.intel.com with SMTP; 04 Apr 2024 14:35:09 -0700
 Received: by stinkbox (sSMTP sendmail emulation);
- Fri, 05 Apr 2024 00:35:19 +0300
+ Fri, 05 Apr 2024 00:35:08 +0300
 From: Ville Syrjala <ville.syrjala@linux.intel.com>
 To: intel-gfx@lists.freedesktop.org
 Cc: Vidya Srinivas <vidya.srinivas@intel.com>,
- Arun R Murthy <arun.r.murthy@intel.com>
-Subject: [PATCH v2 11/17] drm/i915: Introduce intel_crtc_joined_pipe_mask()
-Date: Fri,  5 Apr 2024 00:34:35 +0300
-Message-ID: <20240404213441.17637-12-ville.syrjala@linux.intel.com>
+ Uma Shankar <uma.shankar@intel.com>
+Subject: [PATCH v2 08/17] drm/i915: Extract intel_dp_joiner_needs_dsc()
+Date: Fri,  5 Apr 2024 00:34:32 +0300
+Message-ID: <20240404213441.17637-9-ville.syrjala@linux.intel.com>
 X-Mailer: git-send-email 2.43.2
 In-Reply-To: <20240404213441.17637-1-ville.syrjala@linux.intel.com>
 References: <20240404213441.17637-1-ville.syrjala@linux.intel.com>
@@ -72,82 +72,105 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 From: Ville Syrjälä <ville.syrjala@linux.intel.com>
 
-Add a small helper to compute the set of pipes that the current
-crtc is using.
-
-And we have at least one trivial place in
-intel_ddi_update_active_dpll() where we can use it
-immediately, so let's do that.
-
-v2: Use the name 'pipe_crtc' for the per-pipe crtc pointer
+Pull the "does joiner need DSC?" check into a helper. MST will
+want to use this too at some point.
 
 Tested-by: Vidya Srinivas <vidya.srinivas@intel.com>
-Reviewed-by: Arun R Murthy <arun.r.murthy@intel.com>
+Reviewed-by: Uma Shankar <uma.shankar@intel.com>
 Signed-off-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_ddi.c     | 11 +++++------
- drivers/gpu/drm/i915/display/intel_display.c |  7 +++++++
- drivers/gpu/drm/i915/display/intel_display.h |  1 +
- 3 files changed, 13 insertions(+), 6 deletions(-)
+ drivers/gpu/drm/i915/display/intel_dp.c     | 26 ++++++++++-----------
+ drivers/gpu/drm/i915/display/intel_dp.h     |  1 +
+ drivers/gpu/drm/i915/display/intel_dp_mst.c |  6 +----
+ 3 files changed, 15 insertions(+), 18 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_ddi.c b/drivers/gpu/drm/i915/display/intel_ddi.c
-index 909c0102c865..9bfe0fd3cffc 100644
---- a/drivers/gpu/drm/i915/display/intel_ddi.c
-+++ b/drivers/gpu/drm/i915/display/intel_ddi.c
-@@ -3463,18 +3463,17 @@ void intel_ddi_update_active_dpll(struct intel_atomic_state *state,
- 				  struct intel_crtc *crtc)
- {
- 	struct drm_i915_private *i915 = to_i915(encoder->base.dev);
--	struct intel_crtc_state *crtc_state =
-+	const struct intel_crtc_state *crtc_state =
- 		intel_atomic_get_new_crtc_state(state, crtc);
--	struct intel_crtc *slave_crtc;
-+	struct intel_crtc *pipe_crtc;
+diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
+index 4553c0c41bc6..4f15529212a1 100644
+--- a/drivers/gpu/drm/i915/display/intel_dp.c
++++ b/drivers/gpu/drm/i915/display/intel_dp.c
+@@ -1310,11 +1310,7 @@ intel_dp_mode_valid(struct drm_connector *_connector,
+ 		dsc = dsc_max_compressed_bpp && dsc_slice_count;
+ 	}
  
- 	/* FIXME: Add MTL pll_mgr */
- 	if (DISPLAY_VER(i915) >= 14 || !intel_encoder_is_tc(encoder))
- 		return;
+-	/*
+-	 * Big joiner configuration needs DSC for TGL which is not true for
+-	 * XE_LPD where uncompressed joiner is supported.
+-	 */
+-	if (DISPLAY_VER(dev_priv) < 13 && bigjoiner && !dsc)
++	if (intel_dp_joiner_needs_dsc(dev_priv, bigjoiner) && !dsc)
+ 		return MODE_CLOCK_HIGH;
  
--	intel_update_active_dpll(state, crtc, encoder);
--	for_each_intel_crtc_in_pipe_mask(&i915->drm, slave_crtc,
--					 intel_crtc_bigjoiner_slave_pipes(crtc_state))
--		intel_update_active_dpll(state, slave_crtc, encoder);
-+	for_each_intel_crtc_in_pipe_mask(&i915->drm, pipe_crtc,
-+					 intel_crtc_joined_pipe_mask(crtc_state))
-+		intel_update_active_dpll(state, pipe_crtc, encoder);
+ 	if (mode_rate > max_rate && !dsc)
+@@ -2405,6 +2401,16 @@ int intel_dp_config_required_rate(const struct intel_crtc_state *crtc_state)
+ 	return intel_dp_link_required(adjusted_mode->crtc_clock, bpp);
  }
  
- static void
-diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
-index 449dd8667685..9f5ff11d74b8 100644
---- a/drivers/gpu/drm/i915/display/intel_display.c
-+++ b/drivers/gpu/drm/i915/display/intel_display.c
-@@ -275,6 +275,13 @@ static int intel_bigjoiner_num_pipes(const struct intel_crtc_state *crtc_state)
- 	return hweight8(crtc_state->bigjoiner_pipes);
- }
- 
-+u8 intel_crtc_joined_pipe_mask(const struct intel_crtc_state *crtc_state)
++bool intel_dp_joiner_needs_dsc(struct drm_i915_private *i915, bool use_joiner)
 +{
-+	struct intel_crtc *crtc = to_intel_crtc(crtc_state->uapi.crtc);
-+
-+	return BIT(crtc->pipe) | crtc_state->bigjoiner_pipes;
++	/*
++	 * Pipe joiner needs compression up to display 12 due to bandwidth
++	 * limitation. DG2 onwards pipe joiner can be enabled without
++	 * compression.
++	 */
++	return DISPLAY_VER(i915) < 13 && use_joiner;
 +}
 +
- struct intel_crtc *intel_master_crtc(const struct intel_crtc_state *crtc_state)
- {
- 	struct drm_i915_private *i915 = to_i915(crtc_state->uapi.crtc->dev);
-diff --git a/drivers/gpu/drm/i915/display/intel_display.h b/drivers/gpu/drm/i915/display/intel_display.h
-index 423074d6947a..898b11663377 100644
---- a/drivers/gpu/drm/i915/display/intel_display.h
-+++ b/drivers/gpu/drm/i915/display/intel_display.h
-@@ -416,6 +416,7 @@ intel_cpu_transcoder_mode_valid(struct drm_i915_private *i915,
- enum phy intel_port_to_phy(struct drm_i915_private *i915, enum port port);
- bool is_trans_port_sync_mode(const struct intel_crtc_state *state);
- bool is_trans_port_sync_master(const struct intel_crtc_state *state);
-+u8 intel_crtc_joined_pipe_mask(const struct intel_crtc_state *crtc_state);
- bool intel_crtc_is_bigjoiner_slave(const struct intel_crtc_state *crtc_state);
- bool intel_crtc_is_bigjoiner_master(const struct intel_crtc_state *crtc_state);
- u8 intel_crtc_bigjoiner_slave_pipes(const struct intel_crtc_state *crtc_state);
+ static int
+ intel_dp_compute_link_config(struct intel_encoder *encoder,
+ 			     struct intel_crtc_state *pipe_config,
+@@ -2419,8 +2425,7 @@ intel_dp_compute_link_config(struct intel_encoder *encoder,
+ 		&pipe_config->hw.adjusted_mode;
+ 	struct intel_dp *intel_dp = enc_to_intel_dp(encoder);
+ 	struct link_config_limits limits;
+-	bool joiner_needs_dsc = false;
+-	bool dsc_needed;
++	bool dsc_needed, joiner_needs_dsc;
+ 	int ret = 0;
+ 
+ 	if (pipe_config->fec_enable &&
+@@ -2431,12 +2436,7 @@ intel_dp_compute_link_config(struct intel_encoder *encoder,
+ 				    adjusted_mode->crtc_clock))
+ 		pipe_config->bigjoiner_pipes = GENMASK(crtc->pipe + 1, crtc->pipe);
+ 
+-	/*
+-	 * Pipe joiner needs compression up to display 12 due to bandwidth
+-	 * limitation. DG2 onwards pipe joiner can be enabled without
+-	 * compression.
+-	 */
+-	joiner_needs_dsc = DISPLAY_VER(i915) < 13 && pipe_config->bigjoiner_pipes;
++	joiner_needs_dsc = intel_dp_joiner_needs_dsc(i915, pipe_config->bigjoiner_pipes);
+ 
+ 	dsc_needed = joiner_needs_dsc || intel_dp->force_dsc_en ||
+ 		     !intel_dp_compute_config_limits(intel_dp, pipe_config,
+diff --git a/drivers/gpu/drm/i915/display/intel_dp.h b/drivers/gpu/drm/i915/display/intel_dp.h
+index 8d1c3ca28159..9f6be562fa08 100644
+--- a/drivers/gpu/drm/i915/display/intel_dp.h
++++ b/drivers/gpu/drm/i915/display/intel_dp.h
+@@ -120,6 +120,7 @@ int intel_dp_effective_data_rate(int pixel_clock, int bpp_x16,
+ 				 int bw_overhead);
+ int intel_dp_max_link_data_rate(struct intel_dp *intel_dp,
+ 				int max_dprx_rate, int max_dprx_lanes);
++bool intel_dp_joiner_needs_dsc(struct drm_i915_private *i915, bool use_joiner);
+ bool intel_dp_has_bigjoiner(struct intel_dp *intel_dp);
+ bool intel_dp_needs_vsc_sdp(const struct intel_crtc_state *crtc_state,
+ 			    const struct drm_connector_state *conn_state);
+diff --git a/drivers/gpu/drm/i915/display/intel_dp_mst.c b/drivers/gpu/drm/i915/display/intel_dp_mst.c
+index 6497542e3e65..da731dc503aa 100644
+--- a/drivers/gpu/drm/i915/display/intel_dp_mst.c
++++ b/drivers/gpu/drm/i915/display/intel_dp_mst.c
+@@ -1377,11 +1377,7 @@ intel_dp_mst_mode_valid_ctx(struct drm_connector *connector,
+ 		dsc = dsc_max_compressed_bpp && dsc_slice_count;
+ 	}
+ 
+-	/*
+-	 * Big joiner configuration needs DSC for TGL which is not true for
+-	 * XE_LPD where uncompressed joiner is supported.
+-	 */
+-	if (DISPLAY_VER(dev_priv) < 13 && bigjoiner && !dsc) {
++	if (intel_dp_joiner_needs_dsc(dev_priv, bigjoiner) && !dsc) {
+ 		*status = MODE_CLOCK_HIGH;
+ 		return 0;
+ 	}
 -- 
 2.43.2
 
