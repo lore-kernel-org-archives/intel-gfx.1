@@ -4,35 +4,65 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B061FCD1297
-	for <intel-gfx@archiver.kernel.org>; Mon,  8 Apr 2024 14:24:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0F60ECD1296
+	for <intel-gfx@archiver.kernel.org>; Mon,  8 Apr 2024 14:24:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2A01010F72E;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 991D310FE2C;
 	Mon,  8 Apr 2024 14:24:18 +0000 (UTC)
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by gabe.freedesktop.org (Postfix) with ESMTP id 977AB112DAF;
- Thu,  4 Apr 2024 15:16:37 +0000 (UTC)
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 4011CFEC;
- Thu,  4 Apr 2024 08:17:07 -0700 (PDT)
-Received: from [10.57.17.51] (unknown [10.57.17.51])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id C047D3F64C;
- Thu,  4 Apr 2024 08:16:35 -0700 (PDT)
-Message-ID: <2ac758ce-a196-4e89-a397-488ba31014c4@arm.com>
-Date: Thu, 4 Apr 2024 16:16:34 +0100
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="YHvGCW8V";
+	dkim-atps=neutral
+Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com
+ [209.85.128.53])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E0B4B10E9C6
+ for <intel-gfx@lists.freedesktop.org>; Fri,  5 Apr 2024 13:58:45 +0000 (UTC)
+Received: by mail-wm1-f53.google.com with SMTP id
+ 5b1f17b1804b1-415523d9824so22440855e9.3
+ for <intel-gfx@lists.freedesktop.org>; Fri, 05 Apr 2024 06:58:45 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1712325524; x=1712930324; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:content-disposition:mime-version
+ :message-id:subject:to:from:date:from:to:cc:subject:date:message-id
+ :reply-to; bh=HJrUbQT5Hw4+7pS+U2AF4YkErSdro5FnoqDalj6wnaE=;
+ b=YHvGCW8V6hYO7akb8dEeqWtklIpgINoNW1j+Z9gE0pMeM0g+35kFD6sKj0SByMah+b
+ EhlXICXFfN+comBIIxjUvJomIKWvyK7I7vGJ35AvqQ7tcopg0zhqhBC4PYVNa7pM0eZM
+ 1ZAipF6yCUccPLEEbj3OCWFpxmaWFnKkhNBGBNCbxHuF4c4fN/vdbDCPgUvCDEiK0DPG
+ KVOyGXZxqn9x1ZBNIxLikc28l8wVb/mLuppc8Xt8Z5D1tV1VQYwkHsSE3jBR/ptO1cfq
+ ug39+WUrcwdwTw/Cy+Lrba7KOlmaYxQXNtXpCQR5StNZzK0Z+ZNGf2hjfzn+alC+cLmX
+ H6Pg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1712325524; x=1712930324;
+ h=content-transfer-encoding:content-disposition:mime-version
+ :message-id:subject:to:from:date:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=HJrUbQT5Hw4+7pS+U2AF4YkErSdro5FnoqDalj6wnaE=;
+ b=mju7tvGrW/VQehadww8F94iupejiy/97DAtjSdYWJFlC/erwp/BSpq4i42NO6eoNOC
+ B7XnRhqxPxvW0cUD9BP73rItMM21vcxBjS/hyQooIo94gwyopQX1B0cs4h/2Cz3yVO4R
+ LG0Xn97C2PW1lkgpbmgyXPJUOFC+L4huBB+l6Bv8S4K07w8eTH/w1o/OCZ03Vbp8Z7k+
+ FILKOdRyHGm5Ejbwo+Ojpy0g8pyLD9lsRYTu4phzcbDQA6K8Eb8zzPOfQfFAHXZCr4ve
+ I7/pWfrB2CN6zRuknWNJK+QcRxIzNd0OCNpQjyj2+/QviFZKPzXpoNBN8eVxEwLZJL8F
+ BHRw==
+X-Gm-Message-State: AOJu0YzxCp/DHn4JT7qqu4KMADoaYrqK6QP1A0g7+iPLYlijTkEg/bJ2
+ YS88dZxQZBbkXBPAiV70Kedfl2NHdDxraLdon5Ae6qm7p1uJpp0xjDdroPkK
+X-Google-Smtp-Source: AGHT+IHAuoqQKQgv2M7rxfLiMVQ/Uhz3GeVokNvq4IzoqiroUC59fbs4Y7LjifoAC1KBbKgH55lw2g==
+X-Received: by 2002:a7b:c44e:0:b0:415:6860:eafb with SMTP id
+ l14-20020a7bc44e000000b004156860eafbmr1674084wmi.15.1712325524001; 
+ Fri, 05 Apr 2024 06:58:44 -0700 (PDT)
+Received: from aquecedor-3-0.lan ([2001:818:e81c:ce00:7193:3bd:90d8:9d8])
+ by smtp.gmail.com with ESMTPSA id
+ f14-20020a05600c154e00b0041552dbc539sm3114824wmg.11.2024.04.05.06.58.42
+ for <intel-gfx@lists.freedesktop.org>
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 05 Apr 2024 06:58:43 -0700 (PDT)
+Date: Fri, 5 Apr 2024 14:58:41 +0100
+From: =?iso-8859-1?Q?Jos=E9?= Relvas <josemonsantorelvas@gmail.com>
+To: intel-gfx@lists.freedesktop.org
+Subject: [REQUEST] Add support for Intel DPST (Display Power Saving Technology)
+Message-ID: <ZhADkdyItNEuoxKN@aquecedor-3-0.lan>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 0/6] drm: enable W=1 warnings by default across the
- subsystem
-To: Jani Nikula <jani.nikula@intel.com>
-Cc: intel-gfx@lists.freedesktop.org, Mark Brown <broonie@kernel.org>,
- dri-devel@lists.freedesktop.org
-References: <cover.1704908087.git.jani.nikula@intel.com>
-Content-Language: en-US
-From: Aishwarya TCV <aishwarya.tcv@arm.com>
-In-Reply-To: <cover.1704908087.git.jani.nikula@intel.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Mon, 08 Apr 2024 14:24:15 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -49,130 +79,53 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
+Hey folks,
 
+I've noticed that power-profiles-daemon recently added support for AMD's panel power saving technology with this MR:
+https://gitlab.freedesktop.org/upower/power-profiles-daemon/-/merge_requests/137
 
-On 10/01/2024 17:39, Jani Nikula wrote:
-> This is v2 of [1] to enable most W=1 warnings across the drm
-> subsystem. Some fixes first, and a CONFIG_DRM_WERROR on top.
-> 
-> I build tested this for x86 (both gcc and clang), arm and arm64.
-> 
-> BR,
-> Jani.
-> 
-> 
-> [1] https://lore.kernel.org/r/20231129181219.1237887-1-jani.nikula@intel.com
-> 
-> 
-> 
-> 
-> Jani Nikula (6):
->   drm/nouveau/acr/ga102: remove unused but set variable
->   drm/nouveau/svm: remove unused but set variables
->   drm/amdgpu: prefer snprintf over sprintf
->   drm/imx: prefer snprintf over sprintf
->   drm: enable (most) W=1 warnings by default across the subsystem
->   drm: Add CONFIG_DRM_WERROR
-> 
->  drivers/gpu/drm/Kconfig                       | 18 +++++++++++
->  drivers/gpu/drm/Makefile                      | 30 +++++++++++++++++++
->  drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c       |  3 +-
->  drivers/gpu/drm/imx/ipuv3/imx-ldb.c           |  2 +-
->  drivers/gpu/drm/nouveau/nouveau_svm.c         | 10 ++-----
->  .../gpu/drm/nouveau/nvkm/subdev/acr/lsfw.c    |  3 +-
->  6 files changed, 55 insertions(+), 11 deletions(-)
-> 
+It appears to be controlled via a panel_power_saving SYSFS property.
 
-Hi Jani,
+This reminded that Intel has a similar technology. RPL's datasheets confirm this:
+https://edc.intel.com/content/www/us/en/design/products/platforms/details/raptor-lake-s/13th-generation-core-processors-datasheet-volume-1-of-2/display-power-savings-technologies/
 
-Observed warning "include/drm/drm_print.h:536:35: warning: '%4.4s'
-directive argument is null [-Wformat-overflow=]" when building the
-modules with "defconfig+kselftest-ftrace"(
-https://github.com/torvalds/linux/blob/master/tools/testing/selftests/ftrace/config
-) against next-master(next-20240404) kernel with Arm64 in our CI.
+> The Intel® DPST technique achieves back-light power savings while maintaining
+> a good visual experience. This is accomplished by adaptively enhancing the
+> displayed image while decreasing the back-light brightness simultaneously. 
+> The goal of this technique is to provide equivalent end-user-perceived 
+> image quality at a decreased back-light power level. 
 
-A bisect identified a61ddb4393ad1be61d2ffd92576d42707b05be17 as the
-first bad commit. Bisected it on the tag "next-20240326" at repo
-"https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git".
+> Intel® OPST solution uses same HW infrastructure as Intel® DPST. Frames are 
+> processed using frame change threshold based interrupt mechanism similar
+> to Intel® DPST. Intel® OPST SW algorithm determines which pixels in the 
+> frame should be dimmed to save power keeping visual quality (such as contrast, color) 
+> impact to acceptable level. Since there is no backlight for OLED panels,
+> the power savings come solely from pixel dimming. 
 
-I understand that you are turning on the warning here, thought worth
-mentioning about the observation.
+However, it doesn't seem like i915 has any support for this. Searching online was
+ineffective too:
 
-Build log:
----------------
-In file included from ../include/drm/drm_mm.h:51,
-                 from ../include/drm/drm_vma_manager.h:26,
-                 from ../include/drm/drm_gem.h:42,
-                 from ../drivers/gpu/drm/msm/msm_drv.h:34,
-                 from ../drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c:20:
-In function '_dpu_plane_set_qos_lut',
-    inlined from 'dpu_plane_sspp_update_pipe' at
-../drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c:1078:2:
-../include/drm/drm_print.h:536:35: warning: '%4.4s' directive argument
-is null [-Wformat-overflow=]
-  536 | #define __drm_dbg(cat, fmt, ...)  ___drm_dbg(NULL, cat, fmt,
-##__VA_ARGS__)
-      |
-^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-../include/drm/drm_print.h:594:2: note: in expansion of macro '__drm_dbg'
-  594 |  __drm_dbg(DRM_UT_ATOMIC, fmt, ##__VA_ARGS__)
-      |  ^~~~~~~~~
-../drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c:30:39: note: in expansion
-of macro 'DRM_DEBUG_ATOMIC'
-   30 | #define DPU_DEBUG_PLANE(pl, fmt, ...) DRM_DEBUG_ATOMIC("plane%d
-" fmt,\
-      |                                       ^~~~~~~~~~~~~~~~
-../drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c:290:2: note: in expansion
-of macro 'DPU_DEBUG_PLANE'
-  290 |  DPU_DEBUG_PLANE(pdpu, "pnum:%d fmt: %4.4s rt:%d fl:%u
-lut:0x%llx\n",
-      |  ^~~~~~~~~~~~~~~
-  CC [M]  drivers/net/can/spi/mcp251xfd/mcp251xfd-ethtool.o
+- I found mentions of /sys/class/drm/card0/power/i915_dpst, but it doesn't seem to exist,
+at least not anymore.
 
+- A i915.dpst parameter was also brought up, but it doesn't seem to exist either.
 
+Interestingly, all mentions of dpst on Linux were referring to Android, so maybe
+this was a downstream thing with Android?
 
-Bisect log:
-------------
-git bisect start
-# good: [4cece764965020c22cff7665b18a012006359095] Linux 6.9-rc1
-git bisect good 4cece764965020c22cff7665b18a012006359095
-# bad: [084c8e315db34b59d38d06e684b1a0dd07d30287] Add linux-next
-specific files for 20240326
-git bisect bad 084c8e315db34b59d38d06e684b1a0dd07d30287
-# good: [1cc931629f2b3de04b7608b8d26692c6f6a52aeb] Merge branch
-'nand/next' of git://git.kernel.org/pub/scm/linux/kernel/git/mtd/linux.git
-git bisect good 1cc931629f2b3de04b7608b8d26692c6f6a52aeb
-# bad: [4f5a3415aaf8fdf945e4cb67b847254ddda2f583] Merge branch
-'drm-xe-next' of https://gitlab.freedesktop.org/drm/xe/kernel
-git bisect bad 4f5a3415aaf8fdf945e4cb67b847254ddda2f583
-# bad: [a13305486485d0657fbf09cee72fca9553d7d6cd] Merge branch
-'drm-next' of https://gitlab.freedesktop.org/agd5f/linux
-git bisect bad a13305486485d0657fbf09cee72fca9553d7d6cd
-# good: [417f78a2a1c8c2d517db8b2e04785c1c94a563b4] drm/amdkfd: Cleanup
-workqueue during module unload
-git bisect good 417f78a2a1c8c2d517db8b2e04785c1c94a563b4
-# bad: [57a4e3a94caee6cfda41700da877bee77eab939c] Revert "drm/panthor:
-Fix undefined panthor_device_suspend/resume symbol issue"
-git bisect bad 57a4e3a94caee6cfda41700da877bee77eab939c
-# bad: [2cddf770be0cebb663af3d72c049b9e24928f335] drm/kunit: fix
-drm_kunit_helpers.h kernel-doc
-git bisect bad 2cddf770be0cebb663af3d72c049b9e24928f335
-# good: [d72f049087d4f973f6332b599c92177e718107de] drm/panthor: Allow
-driver compilation
-git bisect good d72f049087d4f973f6332b599c92177e718107de
-# good: [e18aeeda0b6905c333df5a0566b99f5c84426098] drm/bridge: Fix
-improper bridge init order with pre_enable_prev_first
-git bisect good e18aeeda0b6905c333df5a0566b99f5c84426098
-# bad: [f89632a9e5fa6c4787c14458cd42a9ef42025434] drm: Add CONFIG_DRM_WERROR
-git bisect bad f89632a9e5fa6c4787c14458cd42a9ef42025434
-# good: [460be1d527a8e296d85301e8b14923299508d4fc] drm/nouveau: move
-more missing UAPI bits
-git bisect good 460be1d527a8e296d85301e8b14923299508d4fc
-# bad: [a61ddb4393ad1be61d2ffd92576d42707b05be17] drm: enable (most) W=1
-warnings by default across the subsystem
-git bisect bad a61ddb4393ad1be61d2ffd92576d42707b05be17
-# first bad commit: [a61ddb4393ad1be61d2ffd92576d42707b05be17] drm:
-enable (most) W=1 warnings by default across the subsystem
+In any case, I found this email in the archive which confirms
+that DPST was not supported (at least in 2012):
+https://lore.kernel.org/intel-gfx/50ADFFB3.8030907@linux.intel.com/
 
-Thanks,
-Aishwarya
+Since AMD's equivalent to DPST is now supported by their driver and being used by userspace,
+it seems like a sensible idea to implement this for i915. I've confirmed that this feature
+has existed since (at least) Haswell (released over a decade ago!) so implementing it
+would likely net a few energy consumption improvements for a large chunk of Intel laptops.
+
+The best approach here would probably be to expose a similar attribute to amdgpu's 
+"panel_power_savings", with a scale that controls the feature's aggressiveness,
+then update userspace tools, including power-profiles-daemon, to set the value
+based on the intended energy scheme.
+
+Thanks for reading,
+José Relvas
