@@ -4,107 +4,54 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6BAABCD1297
-	for <intel-gfx@archiver.kernel.org>; Mon,  8 Apr 2024 14:24:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6AD50CD1299
+	for <intel-gfx@archiver.kernel.org>; Mon,  8 Apr 2024 14:24:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D546A112574;
+	by gabe.freedesktop.org (Postfix) with ESMTP id D7262112657;
 	Mon,  8 Apr 2024 14:24:19 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="eUHucCjD";
+	dkim=pass (1024-bit key; unprotected) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b="C0d1SRjy";
 	dkim-atps=neutral
-Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com
- [209.85.128.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C0FEF10FB84;
- Tue,  2 Apr 2024 09:00:32 +0000 (UTC)
-Received: by mail-wm1-f41.google.com with SMTP id
- 5b1f17b1804b1-4161d73d876so903625e9.3; 
- Tue, 02 Apr 2024 02:00:32 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1712048431; x=1712653231; darn=lists.freedesktop.org;
- h=in-reply-to:content-disposition:mime-version:references
- :mail-followup-to:message-id:subject:cc:to:from:date:from:to:cc
- :subject:date:message-id:reply-to;
- bh=S7HP43l12eov1KUoh9mzxUyEYfgWNMnEq1EVajRpXoI=;
- b=eUHucCjDjdWtoZrOvfp8lQtzuyFUNnok+lJz/So0dtsJ/oyzvTrTl0D0yA9hO4+KS9
- kymFy0b8eVUFYhuzKJFLHTGcf+4dbjfJzTQLZiDJ0XwhO5FtfPzi864eI+gXjvcu5W0A
- 2MwU02sqyx75K/Vp1Z7IfmD+bYuOjYNIbjr9ALDgkXEOawDMbNppQrVqzEeuXXKcUwjm
- 0fY6X23gp+PQdKMg1DzskGUMHM/s/JmF3vv/YFfilXZnjghGS1csYkO3gUoVOqBWc9O7
- gV6/2b5FRr5l5g0BLrOLLYpbEEQB3sRTYwxfFzYLDh1p+oEQWZjjQp+V4Z1VBdrXa+SD
- rNWA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1712048431; x=1712653231;
- h=in-reply-to:content-disposition:mime-version:references
- :mail-followup-to:message-id:subject:cc:to:from:date
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=S7HP43l12eov1KUoh9mzxUyEYfgWNMnEq1EVajRpXoI=;
- b=sWOVvuLOYE1qI6qlkNA0QGfzntPYfBKIclrR7sapx0p2dDPx6SwAXKFFdJ51vT88M7
- vb6uCpV1X14rJ7uW271mM5lcAtAQwaWmrvDLFhApzaTMc68DZX8eCHAVFVIeT9AdFTBE
- fmOV0wcpkmIw3WUIp1qp8CdXNhdIQHC2KduwntNYFxUG8ElFT9Z0s4c61K1n9PhBkP64
- yweyg5OiRbDkqqDOqkYc4kgqhqtGUMkmh1Q8uDP9dY3y0+O+9mY+2w1PU0DWwR8i/UYj
- Q5KVLSlgD6DQrovfsKTXlhrO9McYa5ywaf+BJeTxe5Ehwbropr1GDHgfQ4HPOTeu9RKb
- WxTw==
-X-Forwarded-Encrypted: i=1;
- AJvYcCW0Sg2MJHvueFFQhOWWoDux3hird57ULd7EF4lFkA1DM2YJdrwCSQcprdO3PZE7pONP1eBykVS62FuSJFNErxYTTiPMQjirOqomV6JKAyJfg6cRW5xPoE8BIKfnDy7BxgTzi48TiGBt5HeICih5tttQKsHszu/NhKZB0O3v5ZnpCNnCpO7997/55bSsnUj6vK0wDODfPI2uTLIroF4dtyArHinteRVQXWPi0Ox7FllTOImAaXoFSUBQTgp3jdQnN39YR5sPue9TMYZs2Jy9ag==
-X-Gm-Message-State: AOJu0YyHaENh5Y1rrUpmmhiA+G9g94ceIjwc5INlWv7Fpc0phheApl79
- k5cVAZTEbjDvfVDYj9PIQWPJdkmJrguwFWXKxedeGqxu2zJFhF93
-X-Google-Smtp-Source: AGHT+IG8frznok1aF9okpQQTY2pR3XWd8JzFp2tX7BIUva1VqLJJmQZ3+crxPhY7ojqin4XV81Hf4w==
-X-Received: by 2002:a05:6000:1143:b0:33d:b2d6:b3a6 with SMTP id
- d3-20020a056000114300b0033db2d6b3a6mr7466595wrx.48.1712048430463; 
- Tue, 02 Apr 2024 02:00:30 -0700 (PDT)
-Received: from localhost ([81.168.73.77]) by smtp.gmail.com with ESMTPSA id
- l2-20020adff482000000b0033ec312cd8asm13554997wro.33.2024.04.02.02.00.29
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 02 Apr 2024 02:00:29 -0700 (PDT)
-Date: Tue, 2 Apr 2024 10:00:28 +0100
-From: Martin Habets <habetsm.xilinx@gmail.com>
-To: Easwar Hariharan <eahariha@linux.microsoft.com>
-Cc: Edward Cree <ecree.xilinx@gmail.com>,
- "David S. Miller" <davem@davemloft.net>,
- Eric Dumazet <edumazet@google.com>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- "open list:SFC NETWORK DRIVER" <netdev@vger.kernel.org>,
- "open list:SFC NETWORK DRIVER" <linux-net-drivers@amd.com>,
- open list <linux-kernel@vger.kernel.org>,
- Wolfram Sang <wsa+renesas@sang-engineering.com>,
+Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 5815810EB62;
+ Fri,  5 Apr 2024 17:09:07 +0000 (UTC)
+Received: from [100.64.217.16] (unknown [20.29.225.195])
+ by linux.microsoft.com (Postfix) with ESMTPSA id C079220E98C5;
+ Fri,  5 Apr 2024 10:09:06 -0700 (PDT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com C079220E98C5
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
+ s=default; t=1712336947;
+ bh=8/pqkmLMlPcre5fV5qkvKEs/2rR9bcZxNm4kNFHWSjQ=;
+ h=Date:Subject:To:References:From:In-Reply-To:From;
+ b=C0d1SRjyurGtxNvhWTTmtbPSCA+yIp/OoN3XC/p90jKg2/Te57kQIcZHNpxQ3N2VQ
+ sXQcWE6qovKVAf63szhiTG9qVBhLM1mFp1anVH+P8e81uOq0H+Hm08czNqSAQAwLsT
+ RqFrEA3QupgZYOJZGbxAxqLnmILZ6wWm5h9HB87o=
+Message-ID: <3bd8d2f6-dfe1-479f-bff1-f2921b1940ed@linux.microsoft.com>
+Date: Fri, 5 Apr 2024 10:09:05 -0700
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v0 00/14] Make I2C terminology more inclusive for I2C
+ Algobit and consumers
+To: Wolfram Sang <wsa+renesas@sang-engineering.com>,
  "open list:RADEON and AMDGPU DRM DRIVERS" <amd-gfx@lists.freedesktop.org>,
  "open list:DRM DRIVERS" <dri-devel@lists.freedesktop.org>,
- "open list:INTEL DRM DISPLAY FOR XE AND I915 DRIVERS"
- <intel-gfx@lists.freedesktop.org>, 
- "open list:INTEL DRM DISPLAY FOR XE AND I915 DRIVERS"
- <intel-xe@lists.freedesktop.org>, 
- "open list:DRM DRIVER FOR NVIDIA GEFORCE/QUADRO GPUS"
- <nouveau@lists.freedesktop.org>, 
- "open list:I2C SUBSYSTEM HOST DRIVERS" <linux-i2c@vger.kernel.org>,
- "open list:BTTV VIDEO4LINUX DRIVER" <linux-media@vger.kernel.org>,
- "open list:FRAMEBUFFER LAYER" <linux-fbdev@vger.kernel.org>
-Subject: Re: [PATCH v0 10/14] sfc: falcon: Make I2C terminology more inclusive
-Message-ID: <20240402090028.GA1759653@gmail.com>
-Mail-Followup-To: Easwar Hariharan <eahariha@linux.microsoft.com>,
- Edward Cree <ecree.xilinx@gmail.com>,
- "David S. Miller" <davem@davemloft.net>,
- Eric Dumazet <edumazet@google.com>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- "open list:SFC NETWORK DRIVER" <netdev@vger.kernel.org>,
- "open list:SFC NETWORK DRIVER" <linux-net-drivers@amd.com>,
  open list <linux-kernel@vger.kernel.org>,
- Wolfram Sang <wsa+renesas@sang-engineering.com>,
- "open list:RADEON and AMDGPU DRM DRIVERS" <amd-gfx@lists.freedesktop.org>,
- "open list:DRM DRIVERS" <dri-devel@lists.freedesktop.org>,
  "open list:INTEL DRM DISPLAY FOR XE AND I915 DRIVERS"
- <intel-gfx@lists.freedesktop.org>, 
+ <intel-gfx@lists.freedesktop.org>,
  "open list:INTEL DRM DISPLAY FOR XE AND I915 DRIVERS"
- <intel-xe@lists.freedesktop.org>, 
+ <intel-xe@lists.freedesktop.org>,
  "open list:DRM DRIVER FOR NVIDIA GEFORCE/QUADRO GPUS"
- <nouveau@lists.freedesktop.org>, 
+ <nouveau@lists.freedesktop.org>,
  "open list:I2C SUBSYSTEM HOST DRIVERS" <linux-i2c@vger.kernel.org>,
  "open list:BTTV VIDEO4LINUX DRIVER" <linux-media@vger.kernel.org>,
  "open list:FRAMEBUFFER LAYER" <linux-fbdev@vger.kernel.org>
 References: <20240329170038.3863998-1-eahariha@linux.microsoft.com>
- <20240329170038.3863998-11-eahariha@linux.microsoft.com>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20240329170038.3863998-11-eahariha@linux.microsoft.com>
+ <ffumcagmzdstcf3qcn3f26555pnu7i6azjppciyd4zvcoit7pv@vu262tsfnqyr>
+Content-Language: en-CA
+From: Easwar Hariharan <eahariha@linux.microsoft.com>
+In-Reply-To: <ffumcagmzdstcf3qcn3f26555pnu7i6azjppciyd4zvcoit7pv@vu262tsfnqyr>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 X-Mailman-Approved-At: Mon, 08 Apr 2024 14:24:15 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -121,38 +68,60 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Fri, Mar 29, 2024 at 05:00:34PM +0000, Easwar Hariharan wrote:
-> I2C v7, SMBus 3.2, and I3C specifications have replaced "master/slave"
-> with more appropriate terms. Inspired by and following on to Wolfram's
-> series to fix drivers/i2c/[1], fix the terminology for users of
-> I2C_ALGOBIT bitbanging interface, now that the approved verbiage exists
-> in the specification.
-> 
-> Compile tested, no functionality changes intended
-> 
-> [1]: https://lore.kernel.org/all/20240322132619.6389-1-wsa+renesas@sang-engineering.com/
-> 
-> Signed-off-by: Easwar Hariharan <eahariha@linux.microsoft.com>
+Hi Wolfram,
 
-Reviewed-by: Martin Habets <habetsm.xilinx@gmail.com>
+On 4/5/2024 3:18 AM, Wolfram Sang wrote:
+> Hello Easwar,
+> 
+> On Fri, Mar 29, 2024 at 05:00:24PM +0000, Easwar Hariharan wrote:
+>> I2C v7, SMBus 3.2, and I3C specifications have replaced "master/slave"
+>> with more appropriate terms. Inspired by and following on to Wolfram's
+>> series to fix drivers/i2c/[1], fix the terminology for users of the
+>> I2C_ALGOBIT bitbanging interface, now that the approved verbiage exists
+>> in the specification.
+> 
+> I really appreciate that you want to assist in this task to improve the
+> I2C core. I do. I am afraid, however, that you took the second step
+> before the first one, though. As I mentioned in my original cover
+> letter, this is not only about renaming but also improving the I2C API
+> (splitting up header files...). So, drivers are not a priority right
+> now. They can be better fixed once the core is ready.
+>
 
-> ---
->  drivers/net/ethernet/sfc/falcon/falcon.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
+Sorry, got excited. :) There were drivers I'd been part of that I specifically
+wanted to fixup, but then the scope grew to other users of algobit.
+
+> It is true that I changed quite some controller drivers within the i2c
+> realm. I did this to gain experience. As you also noticed quite some
+> questions came up. We need to agree on answers first. And once we are
+> happy with the answers we found, then IMO we can go outside of the i2c
+> realm and send patches to other subsystems referencing agreed
+> precedence. I intentionally did not go outside i2c yet. Since your
+> patches are already there, you probably want to foster them until they
+> are ready for inclusion.
+
+Sorry, I don't quite follow what you mean by foster in this context. Are
+you asking me to hold off on merging the series, or to follow through on
+getting it merged?
+
+ Yet, regarding further patches, my suggestion
+> is to wait until the core is ready. That might take a while, though.
+> However, there is enough to discuss until the core is ready. So, your
+> collaboration there is highly appreciated!
 > 
-> diff --git a/drivers/net/ethernet/sfc/falcon/falcon.c b/drivers/net/ethernet/sfc/falcon/falcon.c
-> index 7a1c9337081b..147e7c8e3c02 100644
-> --- a/drivers/net/ethernet/sfc/falcon/falcon.c
-> +++ b/drivers/net/ethernet/sfc/falcon/falcon.c
-> @@ -367,7 +367,7 @@ static const struct i2c_algo_bit_data falcon_i2c_bit_operations = {
->  	.getsda		= falcon_getsda,
->  	.getscl		= falcon_getscl,
->  	.udelay		= 5,
-> -	/* Wait up to 50 ms for slave to let us pull SCL high */
-> +	/* Wait up to 50 ms for client to let us pull SCL high */
->  	.timeout	= DIV_ROUND_UP(HZ, 20),
->  };
->  
-> -- 
-> 2.34.1
+>> The last patch updating the .master_xfer method to .xfer depends on
+>> patch 1 of Wolfram's series below, but the series is otherwise
+>> independent. It may make sense for the last patch to go in with
 > 
+> Please drop the last patch from this series. It will nicely remove the
+> dependency. Also, like above, I first want to gain experience with i2c
+> before going to other subsystems. That was intended.
+>
+
+Will do, thanks!
+
+> All the best and happy hacking,
+> 
+>    Wolfram
+> 
+
