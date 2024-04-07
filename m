@@ -4,58 +4,71 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5FAA4C67861
-	for <intel-gfx@archiver.kernel.org>; Sat,  6 Apr 2024 21:59:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D71C2CD128A
+	for <intel-gfx@archiver.kernel.org>; Sun,  7 Apr 2024 17:50:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AAAA010E971;
-	Sat,  6 Apr 2024 21:59:55 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 79B1510FB7A;
+	Sun,  7 Apr 2024 17:50:52 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="dprD2xMz";
+	dkim=pass (2048-bit key; secure) header.d=sang-engineering.com header.i=@sang-engineering.com header.b="I8rcFXs8";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0ED2010E7E9;
- Sat,  6 Apr 2024 21:59:52 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1712440793; x=1743976793;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:in-reply-to;
- bh=X36AahOvRdmhhEHZoQJWezKkzEmJVfURxWwBjvTWeA0=;
- b=dprD2xMzXc9iaFUsqVz7I66Br7n7nFTwbCx6XF82xnZf4DuyuEczVpYC
- DCp9V/bsg3cKRSQZweHERggSW4k5a+vvQCkXEtD8AGs4tJ+XLX5EWrKiM
- omAsBDSAW4FmFJ8W7rMYSpxZ6pcS3bvJb6aLNhU4vhUYh675L3j5OaCE/
- ukDy7Afwks3cHyo19VRHIhXEdSktNvLCRmomUS/WoAtyzR/Bt2NSVKObZ
- k0vdchPayIVwvZbIv2I3rzByKqGV+4/DUO+B0i0r2tzgUhOau8LH0AMzH
- 0h7RW/FN165lExpKi472lYeChFyfiZkQ2ClLS0cHOnwFfAZvjFiLM5ucX A==;
-X-CSE-ConnectionGUID: W1QN0I9HTI231ah3UjJUFQ==
-X-CSE-MsgGUID: 9HGohI1jT5W6DRqI8a0icw==
-X-IronPort-AV: E=McAfee;i="6600,9927,11036"; a="18318127"
-X-IronPort-AV: E=Sophos;i="6.07,184,1708416000"; d="scan'208";a="18318127"
-Received: from fmviesa005.fm.intel.com ([10.60.135.145])
- by orvoesa103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 06 Apr 2024 14:59:52 -0700
-X-CSE-ConnectionGUID: eoTrljCeSVq8BwFg4XTNfg==
-X-CSE-MsgGUID: QWTEMOYVTByICr1JYSSDiQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.07,184,1708416000"; d="scan'208";a="23977349"
-Received: from lkp-server01.sh.intel.com (HELO e61807b1d151) ([10.239.97.150])
- by fmviesa005.fm.intel.com with ESMTP; 06 Apr 2024 14:59:50 -0700
-Received: from kbuild by e61807b1d151 with local (Exim 4.96)
- (envelope-from <lkp@intel.com>) id 1rtE4i-0003sj-0k;
- Sat, 06 Apr 2024 21:59:48 +0000
-Date: Sun, 7 Apr 2024 05:59:38 +0800
-From: kernel test robot <lkp@intel.com>
-To: Ville Syrjala <ville.syrjala@linux.intel.com>,
- dri-devel@lists.freedesktop.org
-Cc: llvm@lists.linux.dev, oe-kbuild-all@lists.linux.dev,
- intel-gfx@lists.freedesktop.org
-Subject: Re: [PATCH 06/12] drm/client: Constify modes
-Message-ID: <202404070528.NgbaKKH3-lkp@intel.com>
-References: <20240404203336.10454-7-ville.syrjala@linux.intel.com>
+Received: from mail.zeus03.de (www.zeus03.de [194.117.254.33])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4D3DA10FB7A
+ for <intel-gfx@lists.freedesktop.org>; Sun,  7 Apr 2024 17:50:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ sang-engineering.com; h=date:from:to:cc:subject:message-id
+ :references:mime-version:content-type:in-reply-to; s=k1; bh=4t2Y
+ Q/qy30jidZ7O24IB3uqzEABMi7K+pNMZ6EvQcas=; b=I8rcFXs8Ya99YYGwKQjv
+ BDixyZfMkAM0HErrUX9O+UN9Cl4QLLoj+1+tW9ghHFlZcZLg19vMflJtIBWr6mWI
+ kiREuEovpji1/WrfPNyyxzK+loDURCBXJYw+OqS0f5b7x/XJw2SkAD3LRrOpJ5T6
+ T0JwU2yacMK0fgWJzl8kuPxknxooMbcY0LcPQsVNdLuBpf1Lnq1jdSlIfvMEfSAE
+ STnGfKR202alQDncdL3TVlC5VPbqov6TNPuwo0CLHEtm3j9qvg4XBx392N8pPGLG
+ 5D6FQEzlzMX8kvu28JTDoA2tgyNWbZmW6r2OsRZBr5oP4flPBJMXUjGFHhLf8d2Y
+ 6w==
+Received: (qmail 538382 invoked from network); 7 Apr 2024 19:50:45 +0200
+Received: by mail.zeus03.de with ESMTPSA (TLS_AES_256_GCM_SHA384 encrypted,
+ authenticated); 7 Apr 2024 19:50:45 +0200
+X-UD-Smtp-Session: l3s3148p1@Dli0U4UVEoUgAQnoAF4/ADroH6KhJW9n
+Date: Sun, 7 Apr 2024 19:50:39 +0200
+From: Wolfram Sang <wsa+renesas@sang-engineering.com>
+To: Easwar Hariharan <eahariha@linux.microsoft.com>
+Cc: "open list:RADEON and AMDGPU DRM DRIVERS" <amd-gfx@lists.freedesktop.org>, 
+ "open list:DRM DRIVERS" <dri-devel@lists.freedesktop.org>,
+ open list <linux-kernel@vger.kernel.org>,
+ "open list:INTEL DRM DISPLAY FOR XE AND I915 DRIVERS"
+ <intel-gfx@lists.freedesktop.org>, 
+ "open list:INTEL DRM DISPLAY FOR XE AND I915 DRIVERS"
+ <intel-xe@lists.freedesktop.org>, 
+ "open list:DRM DRIVER FOR NVIDIA GEFORCE/QUADRO GPUS"
+ <nouveau@lists.freedesktop.org>, 
+ "open list:I2C SUBSYSTEM HOST DRIVERS" <linux-i2c@vger.kernel.org>,
+ "open list:BTTV VIDEO4LINUX DRIVER" <linux-media@vger.kernel.org>,
+ "open list:FRAMEBUFFER LAYER" <linux-fbdev@vger.kernel.org>
+Subject: Re: [PATCH v0 00/14] Make I2C terminology more inclusive for I2C
+ Algobit and consumers
+Message-ID: <20240407175039.za3eg7la7i2jwvun@kunai>
+Mail-Followup-To: Wolfram Sang <wsa+renesas@sang-engineering.com>,
+ Easwar Hariharan <eahariha@linux.microsoft.com>,
+ "open list:RADEON and AMDGPU DRM DRIVERS" <amd-gfx@lists.freedesktop.org>,
+ "open list:DRM DRIVERS" <dri-devel@lists.freedesktop.org>,
+ open list <linux-kernel@vger.kernel.org>,
+ "open list:INTEL DRM DISPLAY FOR XE AND I915 DRIVERS"
+ <intel-gfx@lists.freedesktop.org>, 
+ "open list:INTEL DRM DISPLAY FOR XE AND I915 DRIVERS"
+ <intel-xe@lists.freedesktop.org>, 
+ "open list:DRM DRIVER FOR NVIDIA GEFORCE/QUADRO GPUS"
+ <nouveau@lists.freedesktop.org>, 
+ "open list:I2C SUBSYSTEM HOST DRIVERS" <linux-i2c@vger.kernel.org>,
+ "open list:BTTV VIDEO4LINUX DRIVER" <linux-media@vger.kernel.org>,
+ "open list:FRAMEBUFFER LAYER" <linux-fbdev@vger.kernel.org>
+References: <20240329170038.3863998-1-eahariha@linux.microsoft.com>
+ <ffumcagmzdstcf3qcn3f26555pnu7i6azjppciyd4zvcoit7pv@vu262tsfnqyr>
+ <3bd8d2f6-dfe1-479f-bff1-f2921b1940ed@linux.microsoft.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="otbz5n53lv3dv44g"
 Content-Disposition: inline
-In-Reply-To: <20240404203336.10454-7-ville.syrjala@linux.intel.com>
+In-Reply-To: <3bd8d2f6-dfe1-479f-bff1-f2921b1940ed@linux.microsoft.com>
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,148 +84,62 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Hi Ville,
 
-kernel test robot noticed the following build errors:
+--otbz5n53lv3dv44g
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-[auto build test ERROR on drm-misc/drm-misc-next]
-[also build test ERROR on drm-intel/for-linux-next drm-intel/for-linux-next-fixes drm-tip/drm-tip linus/master v6.9-rc2 next-20240405]
-[If your patch is applied to the wrong git tree, kindly drop us a note.
-And when submitting patch, we suggest to use '--base' as documented in
-https://git-scm.com/docs/git-format-patch#_base_tree_information]
+Hi Easwar,
 
-url:    https://github.com/intel-lab-lkp/linux/commits/Ville-Syrjala/drm-client-Fully-protect-modes-with-dev-mode_config-mutex/20240405-043540
-base:   git://anongit.freedesktop.org/drm/drm-misc drm-misc-next
-patch link:    https://lore.kernel.org/r/20240404203336.10454-7-ville.syrjala%40linux.intel.com
-patch subject: [PATCH 06/12] drm/client: Constify modes
-config: hexagon-allyesconfig (https://download.01.org/0day-ci/archive/20240407/202404070528.NgbaKKH3-lkp@intel.com/config)
-compiler: clang version 19.0.0git (https://github.com/llvm/llvm-project 546dc2245ffc4cccd0b05b58b7a5955e355a3b27)
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20240407/202404070528.NgbaKKH3-lkp@intel.com/reproduce)
+> Sorry, got excited. :) There were drivers I'd been part of that I specifi=
+cally
+> wanted to fixup, but then the scope grew to other users of algobit.
 
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202404070528.NgbaKKH3-lkp@intel.com/
+Well, you got some positive feedback, so that is good.
 
-All errors (new ones prefixed by >>):
+> > It is true that I changed quite some controller drivers within the i2c
+> > realm. I did this to gain experience. As you also noticed quite some
+> > questions came up. We need to agree on answers first. And once we are
+> > happy with the answers we found, then IMO we can go outside of the i2c
+> > realm and send patches to other subsystems referencing agreed
+> > precedence. I intentionally did not go outside i2c yet. Since your
+> > patches are already there, you probably want to foster them until they
+> > are ready for inclusion.
+>=20
+> Sorry, I don't quite follow what you mean by foster in this context. Are
+> you asking me to hold off on merging the series, or to follow through on
+> getting it merged?
 
-   In file included from drivers/gpu/drm/drm_client_modeset.c:16:
-   In file included from include/drm/drm_atomic.h:31:
-   In file included from include/drm/drm_crtc.h:32:
-   In file included from include/drm/drm_modes.h:33:
-   In file included from include/drm/drm_connector.h:32:
-   In file included from include/drm/drm_util.h:35:
-   In file included from include/linux/interrupt.h:11:
-   In file included from include/linux/hardirq.h:11:
-   In file included from ./arch/hexagon/include/generated/asm/hardirq.h:1:
-   In file included from include/asm-generic/hardirq.h:17:
-   In file included from include/linux/irq.h:20:
-   In file included from include/linux/io.h:13:
-   In file included from arch/hexagon/include/asm/io.h:328:
-   include/asm-generic/io.h:547:31: error: performing pointer arithmetic on a null pointer has undefined behavior [-Werror,-Wnull-pointer-arithmetic]
-     547 |         val = __raw_readb(PCI_IOBASE + addr);
-         |                           ~~~~~~~~~~ ^
-   include/asm-generic/io.h:560:61: error: performing pointer arithmetic on a null pointer has undefined behavior [-Werror,-Wnull-pointer-arithmetic]
-     560 |         val = __le16_to_cpu((__le16 __force)__raw_readw(PCI_IOBASE + addr));
-         |                                                         ~~~~~~~~~~ ^
-   include/uapi/linux/byteorder/little_endian.h:37:51: note: expanded from macro '__le16_to_cpu'
-      37 | #define __le16_to_cpu(x) ((__force __u16)(__le16)(x))
-         |                                                   ^
-   In file included from drivers/gpu/drm/drm_client_modeset.c:16:
-   In file included from include/drm/drm_atomic.h:31:
-   In file included from include/drm/drm_crtc.h:32:
-   In file included from include/drm/drm_modes.h:33:
-   In file included from include/drm/drm_connector.h:32:
-   In file included from include/drm/drm_util.h:35:
-   In file included from include/linux/interrupt.h:11:
-   In file included from include/linux/hardirq.h:11:
-   In file included from ./arch/hexagon/include/generated/asm/hardirq.h:1:
-   In file included from include/asm-generic/hardirq.h:17:
-   In file included from include/linux/irq.h:20:
-   In file included from include/linux/io.h:13:
-   In file included from arch/hexagon/include/asm/io.h:328:
-   include/asm-generic/io.h:573:61: error: performing pointer arithmetic on a null pointer has undefined behavior [-Werror,-Wnull-pointer-arithmetic]
-     573 |         val = __le32_to_cpu((__le32 __force)__raw_readl(PCI_IOBASE + addr));
-         |                                                         ~~~~~~~~~~ ^
-   include/uapi/linux/byteorder/little_endian.h:35:51: note: expanded from macro '__le32_to_cpu'
-      35 | #define __le32_to_cpu(x) ((__force __u32)(__le32)(x))
-         |                                                   ^
-   In file included from drivers/gpu/drm/drm_client_modeset.c:16:
-   In file included from include/drm/drm_atomic.h:31:
-   In file included from include/drm/drm_crtc.h:32:
-   In file included from include/drm/drm_modes.h:33:
-   In file included from include/drm/drm_connector.h:32:
-   In file included from include/drm/drm_util.h:35:
-   In file included from include/linux/interrupt.h:11:
-   In file included from include/linux/hardirq.h:11:
-   In file included from ./arch/hexagon/include/generated/asm/hardirq.h:1:
-   In file included from include/asm-generic/hardirq.h:17:
-   In file included from include/linux/irq.h:20:
-   In file included from include/linux/io.h:13:
-   In file included from arch/hexagon/include/asm/io.h:328:
-   include/asm-generic/io.h:584:33: error: performing pointer arithmetic on a null pointer has undefined behavior [-Werror,-Wnull-pointer-arithmetic]
-     584 |         __raw_writeb(value, PCI_IOBASE + addr);
-         |                             ~~~~~~~~~~ ^
-   include/asm-generic/io.h:594:59: error: performing pointer arithmetic on a null pointer has undefined behavior [-Werror,-Wnull-pointer-arithmetic]
-     594 |         __raw_writew((u16 __force)cpu_to_le16(value), PCI_IOBASE + addr);
-         |                                                       ~~~~~~~~~~ ^
-   include/asm-generic/io.h:604:59: error: performing pointer arithmetic on a null pointer has undefined behavior [-Werror,-Wnull-pointer-arithmetic]
-     604 |         __raw_writel((u32 __force)cpu_to_le32(value), PCI_IOBASE + addr);
-         |                                                       ~~~~~~~~~~ ^
-   In file included from drivers/gpu/drm/drm_client_modeset.c:16:
-   In file included from include/drm/drm_atomic.h:31:
-   In file included from include/drm/drm_crtc.h:32:
-   In file included from include/drm/drm_modes.h:33:
-   In file included from include/drm/drm_connector.h:32:
-   In file included from include/drm/drm_util.h:36:
-   In file included from include/linux/kgdb.h:19:
-   In file included from include/linux/kprobes.h:28:
-   In file included from include/linux/ftrace.h:13:
-   In file included from include/linux/kallsyms.h:13:
-   In file included from include/linux/mm.h:2208:
-   include/linux/vmstat.h:522:36: error: arithmetic between different enumeration types ('enum node_stat_item' and 'enum lru_list') [-Werror,-Wenum-enum-conversion]
-     522 |         return node_stat_name(NR_LRU_BASE + lru) + 3; // skip "nr_"
-         |                               ~~~~~~~~~~~ ^ ~~~
-   In file included from drivers/gpu/drm/drm_client_modeset.c:1241:
->> drivers/gpu/drm/tests/drm_client_modeset_test.c:108:7: error: assigning to 'struct drm_display_mode *' from 'const struct drm_display_mode *' discards qualifiers [-Werror,-Wincompatible-pointer-types-discards-qualifiers]
-     108 |         mode = drm_connector_pick_cmdline_mode(connector);
-         |              ^ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-   8 errors generated.
+I think they are your patches, so this is up to you to decide. With
+"foster", I meant you keep working on them until everyone is happy. I
+haven't looked at the drivers you modify. I can't tell if they can be
+converted right away or if they use a lot of I2C API calls, so that it
+makes sense to wait until the core is converted. I trust you to decide
+this.
 
+Happy hacking,
 
-vim +108 drivers/gpu/drm/tests/drm_client_modeset_test.c
+   Wolfram
 
-8fc0380f6ba7e9 Maxime Ripard 2022-11-14   84  
-8fc0380f6ba7e9 Maxime Ripard 2022-11-14   85  static void drm_test_pick_cmdline_res_1920_1080_60(struct kunit *test)
-8fc0380f6ba7e9 Maxime Ripard 2022-11-14   86  {
-8fc0380f6ba7e9 Maxime Ripard 2022-11-14   87  	struct drm_client_modeset_test_priv *priv = test->priv;
-8fc0380f6ba7e9 Maxime Ripard 2022-11-14   88  	struct drm_device *drm = priv->drm;
-8fc0380f6ba7e9 Maxime Ripard 2022-11-14   89  	struct drm_connector *connector = &priv->connector;
-8fc0380f6ba7e9 Maxime Ripard 2022-11-14   90  	struct drm_cmdline_mode *cmdline_mode = &connector->cmdline_mode;
-8fc0380f6ba7e9 Maxime Ripard 2022-11-14   91  	struct drm_display_mode *expected_mode, *mode;
-8fc0380f6ba7e9 Maxime Ripard 2022-11-14   92  	const char *cmdline = "1920x1080@60";
-8fc0380f6ba7e9 Maxime Ripard 2022-11-14   93  	int ret;
-8fc0380f6ba7e9 Maxime Ripard 2022-11-14   94  
-8fc0380f6ba7e9 Maxime Ripard 2022-11-14   95  	expected_mode = drm_mode_find_dmt(priv->drm, 1920, 1080, 60, false);
-8fc0380f6ba7e9 Maxime Ripard 2022-11-14   96  	KUNIT_ASSERT_NOT_NULL(test, expected_mode);
-8fc0380f6ba7e9 Maxime Ripard 2022-11-14   97  
-8fc0380f6ba7e9 Maxime Ripard 2022-11-14   98  	KUNIT_ASSERT_TRUE(test,
-8fc0380f6ba7e9 Maxime Ripard 2022-11-14   99  			  drm_mode_parse_command_line_for_connector(cmdline,
-8fc0380f6ba7e9 Maxime Ripard 2022-11-14  100  								    connector,
-8fc0380f6ba7e9 Maxime Ripard 2022-11-14  101  								    cmdline_mode));
-8fc0380f6ba7e9 Maxime Ripard 2022-11-14  102  
-8fc0380f6ba7e9 Maxime Ripard 2022-11-14  103  	mutex_lock(&drm->mode_config.mutex);
-8fc0380f6ba7e9 Maxime Ripard 2022-11-14  104  	ret = drm_helper_probe_single_connector_modes(connector, 1920, 1080);
-8fc0380f6ba7e9 Maxime Ripard 2022-11-14  105  	mutex_unlock(&drm->mode_config.mutex);
-8fc0380f6ba7e9 Maxime Ripard 2022-11-14  106  	KUNIT_ASSERT_GT(test, ret, 0);
-8fc0380f6ba7e9 Maxime Ripard 2022-11-14  107  
-8fc0380f6ba7e9 Maxime Ripard 2022-11-14 @108  	mode = drm_connector_pick_cmdline_mode(connector);
-8fc0380f6ba7e9 Maxime Ripard 2022-11-14  109  	KUNIT_ASSERT_NOT_NULL(test, mode);
-8fc0380f6ba7e9 Maxime Ripard 2022-11-14  110  
-8fc0380f6ba7e9 Maxime Ripard 2022-11-14  111  	KUNIT_EXPECT_TRUE(test, drm_mode_equal(expected_mode, mode));
-8fc0380f6ba7e9 Maxime Ripard 2022-11-14  112  }
-8fc0380f6ba7e9 Maxime Ripard 2022-11-14  113  
+--otbz5n53lv3dv44g
+Content-Type: application/pgp-signature; name="signature.asc"
 
--- 
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEEOZGx6rniZ1Gk92RdFA3kzBSgKbYFAmYS3OoACgkQFA3kzBSg
+KbYf7g/+KaVes7wupe7nkKcoPIanoG7cxHpUDAmN7oUnNvo+ohAUMW4QQArNIm2s
+5XNlfsu3X6VylCN8OD2kzHwBeAv706tbSViyjCtxmeVKAaXEh7/WMAfKBkrcDZMr
+RCcbCz3DiLj7jX+r4iaSebNE3FBuLX6seWUJgN0vF0M+RvsS5uQhsmUd4+cUHBo3
+pMk38vgS7Q3H47QRW64JJRKsKT3N5S8NMoYZKGDMt8omF6hnkvgJ9W0TnvenD6Q9
+QTMZur4Z25/gnF3Ds2WS4R4Y0VNo6EFludz5hNNg56DuMF9ErhUkGeixAYIgRJG2
+6YxZ1f003gWC3SgXuw91vD32QNJoR49DTaE4AnRhSx/EFK7zvwMoA7jOj7xx43i1
+xUPEpGjI4K68E32JP9wLj/rvjAW7REQyA+nKVaO7O6vbKVihpdMr/HgMq/UE3sIK
+CpMJ1Czfd56FUKE38vNihyL4V70O9iqMMiJmGd0gTQZ+WLYootZU9u68kQeMDah7
+2bbZnQzBSDy/xGzVdfrozrUkvAqd0Lo9qIJcCxTqMSrC7QWBGLkQXMOTWivlCRe7
+TtE5kBO4N4deizuNFwQEnoBpM9RCV+P/Jxd9EXHbQ8uwVWC2xU0QAJdWJwjicO5x
+Qmmz2/i/uKhU6Xwi82t8aASq+Lyc/L5LLwBDymYh51o1dRG3mVM=
+=V5fB
+-----END PGP SIGNATURE-----
+
+--otbz5n53lv3dv44g--
