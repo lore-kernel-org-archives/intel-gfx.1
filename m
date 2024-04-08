@@ -4,52 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6FE0DCD129A
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F3F32CD129F
 	for <intel-gfx@archiver.kernel.org>; Mon,  8 Apr 2024 18:09:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6A7B31127F2;
+	by gabe.freedesktop.org (Postfix) with ESMTP id EFFA01127F7;
 	Mon,  8 Apr 2024 18:09:24 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="b0w3jmCI";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="HRGlvv9F";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.13])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5CC2611256C;
- Mon,  8 Apr 2024 18:09:18 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.14])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 807201127F3;
+ Mon,  8 Apr 2024 18:09:22 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1712599758; x=1744135758;
+ t=1712599762; x=1744135762;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=KEA9uqiToitVRSv996cq6D7shQMXlywPHqyASt2ySQw=;
- b=b0w3jmCIjVnLSIJJi51klah9sECllyjABgcMV9b6sGhuvRqIUFq/mKic
- 6YVeRiaShjEG31K5lQoCW4NuSvHv1/JRtJfiKlQ2gO/XoK00Qx8HLFFVa
- KtXzxKzRm4FOsdTEZf+bEUUTylWpqSknhmW388fFI0318ixelO/NSBw6M
- UIaqLeNT/wP3iATJ9T1bPDQmwow+ll6C+lXrSXQSmMKbcrwG3PAoWZnkm
- O+8FhgZsZY9t55dKMkP6Mn/r22e0O6j1muzvzm7V4PQzzzb53RNQI+9IG
- yne9TP6HgvQ9Ykr7LQxz7yzuhK3JX+qgUQHV98LbPXXKSy+INgEa2arfD w==;
-X-CSE-ConnectionGUID: 0JLV4LitR7iWF1ppf3nYDg==
-X-CSE-MsgGUID: GDM0yLdYQCOIo5uTz54IeQ==
-X-IronPort-AV: E=McAfee;i="6600,9927,11038"; a="19038680"
-X-IronPort-AV: E=Sophos;i="6.07,187,1708416000"; d="scan'208";a="19038680"
-Received: from fmviesa002.fm.intel.com ([10.60.135.142])
- by orvoesa105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 08 Apr 2024 11:09:18 -0700
-X-CSE-ConnectionGUID: L99tCtN4T8+p3b/Tkpalhg==
-X-CSE-MsgGUID: OJmRLjMhSESbV5CiK0W7FA==
+ bh=uuchuP1FGDJu77ocjZD3I05keeUwbn6mcs8NW+Dvh+Q=;
+ b=HRGlvv9FonycGgMGtam3YbUt/PK1qO7IN9lYsS41LK8NA2OqEOJtIBLT
+ Ynu35+T8oJrhWjK4G+kb+ohFOMndNIilEHu/VIbiLzMhOYwXteQoCQIaY
+ 3rbrlpU3xWz65fAoMvvcPOtKEpbTZLOJ+QDU8zcrDkmKrzPa5327hHy3X
+ Q3pKGB+x6bM2PKH0haBXXcxBjEw9pPU1dE9vTsVEV//lclM9OSe2CiDmU
+ ATOoQCBkvMxatSNuaOL53M4ftRE6dih7TP4EDdtT8kfdBgn9MYsIM+scu
+ YwLTlHul2q59wSKTWzR+hVPP+G0NfXko7Av0hTfxnjARryFKtbJJuwdlD g==;
+X-CSE-ConnectionGUID: +JFXpmyhRkOwuFFZqP3SOg==
+X-CSE-MsgGUID: j7axvTBxQQ2ycQFmuIz/Tw==
+X-IronPort-AV: E=McAfee;i="6600,9927,11038"; a="11730236"
+X-IronPort-AV: E=Sophos;i="6.07,187,1708416000"; d="scan'208";a="11730236"
+Received: from fmviesa010.fm.intel.com ([10.60.135.150])
+ by orvoesa106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 08 Apr 2024 11:09:22 -0700
+X-CSE-ConnectionGUID: 5hHS3PVnSUGXD7vXAQKVww==
+X-CSE-MsgGUID: ciBiL7tYS9OwIjXPS5KMow==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.07,187,1708416000"; d="scan'208";a="43145283"
+X-IronPort-AV: E=Sophos;i="6.07,187,1708416000"; d="scan'208";a="19915284"
 Received: from bauinger-mobl1.ger.corp.intel.com (HELO localhost)
  ([10.252.42.71])
- by fmviesa002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 08 Apr 2024 11:08:57 -0700
+ by fmviesa010-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 08 Apr 2024 11:09:20 -0700
 From: Jani Nikula <jani.nikula@intel.com>
 To: intel-gfx@lists.freedesktop.org,
 	intel-xe@lists.freedesktop.org
 Cc: jani.nikula@intel.com,
 	lucas.demarchi@intel.com
-Subject: [PATCH 2/8] drm/i915: move skl_preferred_vco_freq to display substruct
-Date: Mon,  8 Apr 2024 21:08:37 +0300
-Message-Id: <4e9877d1641bce905cc9dd5eabe40df51ddbe9b5.1712599670.git.jani.nikula@intel.com>
+Subject: [PATCH 6/8] drm/i915: move de_irq_mask to display substruct
+Date: Mon,  8 Apr 2024 21:08:41 +0300
+Message-Id: <733fc96df9153c6af8979d9b23d3aa3734937b56.1712599670.git.jani.nikula@intel.com>
 X-Mailer: git-send-email 2.39.2
 In-Reply-To: <cover.1712599670.git.jani.nikula@intel.com>
 References: <cover.1712599670.git.jani.nikula@intel.com>
@@ -76,109 +76,108 @@ i915->display.
 
 Signed-off-by: Jani Nikula <jani.nikula@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_cdclk.c      | 17 ++++++++---------
- .../gpu/drm/i915/display/intel_display_core.h   |  1 +
- drivers/gpu/drm/i915/i915_drv.h                 |  1 -
- drivers/gpu/drm/xe/xe_device_types.h            |  2 +-
- 4 files changed, 10 insertions(+), 11 deletions(-)
+ .../gpu/drm/i915/display/intel_display_core.h   |  2 ++
+ .../gpu/drm/i915/display/intel_display_irq.c    | 17 +++++++++--------
+ drivers/gpu/drm/i915/i915_drv.h                 |  5 +----
+ drivers/gpu/drm/xe/xe_device_types.h            |  7 ++-----
+ 4 files changed, 14 insertions(+), 17 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_cdclk.c b/drivers/gpu/drm/i915/display/intel_cdclk.c
-index d61aa5b7cbdb..950942dc3d60 100644
---- a/drivers/gpu/drm/i915/display/intel_cdclk.c
-+++ b/drivers/gpu/drm/i915/display/intel_cdclk.c
-@@ -1021,15 +1021,14 @@ static int skl_cdclk_decimal(int cdclk)
- 	return DIV_ROUND_CLOSEST(cdclk - 1000, 500);
- }
- 
--static void skl_set_preferred_cdclk_vco(struct drm_i915_private *dev_priv,
--					int vco)
-+static void skl_set_preferred_cdclk_vco(struct drm_i915_private *i915, int vco)
- {
--	bool changed = dev_priv->skl_preferred_vco_freq != vco;
-+	bool changed = i915->display.cdclk.skl_preferred_vco_freq != vco;
- 
--	dev_priv->skl_preferred_vco_freq = vco;
-+	i915->display.cdclk.skl_preferred_vco_freq = vco;
- 
- 	if (changed)
--		intel_update_max_cdclk(dev_priv);
-+		intel_update_max_cdclk(i915);
- }
- 
- static u32 skl_dpll0_link_rate(struct drm_i915_private *dev_priv, int vco)
-@@ -1233,7 +1232,7 @@ static void skl_cdclk_init_hw(struct drm_i915_private *dev_priv)
- 		 * Use the current vco as our initial
- 		 * guess as to what the preferred vco is.
- 		 */
--		if (dev_priv->skl_preferred_vco_freq == 0)
-+		if (dev_priv->display.cdclk.skl_preferred_vco_freq == 0)
- 			skl_set_preferred_cdclk_vco(dev_priv,
- 						    dev_priv->display.cdclk.hw.vco);
- 		return;
-@@ -1241,7 +1240,7 @@ static void skl_cdclk_init_hw(struct drm_i915_private *dev_priv)
- 
- 	cdclk_config = dev_priv->display.cdclk.hw;
- 
--	cdclk_config.vco = dev_priv->skl_preferred_vco_freq;
-+	cdclk_config.vco = dev_priv->display.cdclk.skl_preferred_vco_freq;
- 	if (cdclk_config.vco == 0)
- 		cdclk_config.vco = 8100000;
- 	cdclk_config.cdclk = skl_calc_cdclk(0, cdclk_config.vco);
-@@ -3011,7 +3010,7 @@ static int skl_dpll0_vco(struct intel_cdclk_state *cdclk_state)
- 
- 	vco = cdclk_state->logical.vco;
- 	if (!vco)
--		vco = dev_priv->skl_preferred_vco_freq;
-+		vco = dev_priv->display.cdclk.skl_preferred_vco_freq;
- 
- 	for_each_new_intel_crtc_in_state(state, crtc, crtc_state, i) {
- 		if (!crtc_state->hw.enable)
-@@ -3397,7 +3396,7 @@ void intel_update_max_cdclk(struct drm_i915_private *dev_priv)
- 		u32 limit = intel_de_read(dev_priv, SKL_DFSM) & SKL_DFSM_CDCLK_LIMIT_MASK;
- 		int max_cdclk, vco;
- 
--		vco = dev_priv->skl_preferred_vco_freq;
-+		vco = dev_priv->display.cdclk.skl_preferred_vco_freq;
- 		drm_WARN_ON(&dev_priv->drm, vco != 8100000 && vco != 8640000);
- 
- 		/*
 diff --git a/drivers/gpu/drm/i915/display/intel_display_core.h b/drivers/gpu/drm/i915/display/intel_display_core.h
-index 2167dbee5eea..b577429ee6e9 100644
+index 68aee44b4822..7a70b162b015 100644
 --- a/drivers/gpu/drm/i915/display/intel_display_core.h
 +++ b/drivers/gpu/drm/i915/display/intel_display_core.h
-@@ -345,6 +345,7 @@ struct intel_display {
- 		struct intel_global_obj obj;
+@@ -452,6 +452,8 @@ struct intel_display {
  
- 		unsigned int max_cdclk_freq;
-+		unsigned int skl_preferred_vco_freq;
- 	} cdclk;
+ 		/* For i915gm/i945gm vblank irq workaround */
+ 		u8 vblank_enabled;
++
++		u32 de_irq_mask[I915_MAX_PIPES];
+ 	} irq;
  
  	struct {
+diff --git a/drivers/gpu/drm/i915/display/intel_display_irq.c b/drivers/gpu/drm/i915/display/intel_display_irq.c
+index e9fcdac90efd..9b9548ae9797 100644
+--- a/drivers/gpu/drm/i915/display/intel_display_irq.c
++++ b/drivers/gpu/drm/i915/display/intel_display_irq.c
+@@ -117,13 +117,14 @@ static void bdw_update_pipe_irq(struct drm_i915_private *dev_priv,
+ 	if (drm_WARN_ON(&dev_priv->drm, !intel_irqs_enabled(dev_priv)))
+ 		return;
+ 
+-	new_val = dev_priv->de_irq_mask[pipe];
++	new_val = dev_priv->display.irq.de_irq_mask[pipe];
+ 	new_val &= ~interrupt_mask;
+ 	new_val |= (~enabled_irq_mask & interrupt_mask);
+ 
+-	if (new_val != dev_priv->de_irq_mask[pipe]) {
+-		dev_priv->de_irq_mask[pipe] = new_val;
+-		intel_uncore_write(&dev_priv->uncore, GEN8_DE_PIPE_IMR(pipe), dev_priv->de_irq_mask[pipe]);
++	if (new_val != dev_priv->display.irq.de_irq_mask[pipe]) {
++		dev_priv->display.irq.de_irq_mask[pipe] = new_val;
++		intel_uncore_write(&dev_priv->uncore, GEN8_DE_PIPE_IMR(pipe),
++				   dev_priv->display.irq.de_irq_mask[pipe]);
+ 		intel_uncore_posting_read(&dev_priv->uncore, GEN8_DE_PIPE_IMR(pipe));
+ 	}
+ }
+@@ -1497,8 +1498,8 @@ void gen8_irq_power_well_post_enable(struct drm_i915_private *dev_priv,
+ 
+ 	for_each_pipe_masked(dev_priv, pipe, pipe_mask)
+ 		GEN8_IRQ_INIT_NDX(uncore, DE_PIPE, pipe,
+-				  dev_priv->de_irq_mask[pipe],
+-				  ~dev_priv->de_irq_mask[pipe] | extra_ier);
++				  dev_priv->display.irq.de_irq_mask[pipe],
++				  ~dev_priv->display.irq.de_irq_mask[pipe] | extra_ier);
+ 
+ 	spin_unlock_irq(&dev_priv->irq_lock);
+ }
+@@ -1694,12 +1695,12 @@ void gen8_de_irq_postinstall(struct drm_i915_private *dev_priv)
+ 	}
+ 
+ 	for_each_pipe(dev_priv, pipe) {
+-		dev_priv->de_irq_mask[pipe] = ~de_pipe_masked;
++		dev_priv->display.irq.de_irq_mask[pipe] = ~de_pipe_masked;
+ 
+ 		if (intel_display_power_is_enabled(dev_priv,
+ 						   POWER_DOMAIN_PIPE(pipe)))
+ 			GEN8_IRQ_INIT_NDX(uncore, DE_PIPE, pipe,
+-					  dev_priv->de_irq_mask[pipe],
++					  dev_priv->display.irq.de_irq_mask[pipe],
+ 					  de_pipe_enables);
+ 	}
+ 
 diff --git a/drivers/gpu/drm/i915/i915_drv.h b/drivers/gpu/drm/i915/i915_drv.h
-index cf52d4adaa20..ba3c27c969f2 100644
+index b3daca57f32c..41add82ca369 100644
 --- a/drivers/gpu/drm/i915/i915_drv.h
 +++ b/drivers/gpu/drm/i915/i915_drv.h
-@@ -251,7 +251,6 @@ struct drm_i915_private {
+@@ -240,10 +240,7 @@ struct drm_i915_private {
+ 	struct pm_qos_request sb_qos;
+ 
+ 	/** Cached value of IMR to avoid reads in updating the bitfield */
+-	union {
+-		u32 irq_mask;
+-		u32 de_irq_mask[I915_MAX_PIPES];
+-	};
++	u32 irq_mask;
+ 	u32 pipestat_irq_mask[I915_MAX_PIPES];
+ 
  	bool preserve_bios_swizzle;
- 
- 	unsigned int fsb_freq, mem_freq, is_ddr3;
--	unsigned int skl_preferred_vco_freq;
- 
- 	unsigned int max_dotclk_freq;
- 	unsigned int hpll_freq;
 diff --git a/drivers/gpu/drm/xe/xe_device_types.h b/drivers/gpu/drm/xe/xe_device_types.h
-index c710cec835a7..6f46234d1241 100644
+index 956a5f5289bb..359c912359fa 100644
 --- a/drivers/gpu/drm/xe/xe_device_types.h
 +++ b/drivers/gpu/drm/xe/xe_device_types.h
-@@ -501,7 +501,7 @@ struct xe_device {
+@@ -500,11 +500,8 @@ struct xe_device {
+ 	/* For pcode */
  	struct mutex sb_lock;
  
- 	/* Should be in struct intel_display */
--	u32 skl_preferred_vco_freq, max_dotclk_freq;
-+	u32 max_dotclk_freq;
+-	union {
+-		/* only to allow build, not used functionally */
+-		u32 irq_mask;
+-		u32 de_irq_mask[I915_MAX_PIPES];
+-	};
++	/* only to allow build, not used functionally */
++	u32 irq_mask;
+ 	u32 pipestat_irq_mask[I915_MAX_PIPES];
  
- 	union {
- 		/* only to allow build, not used functionally */
+ 	u32 enabled_irq_mask;
 -- 
 2.39.2
 
