@@ -4,110 +4,77 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 33489CD1299
-	for <intel-gfx@archiver.kernel.org>; Mon,  8 Apr 2024 14:24:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9BD74C67861
+	for <intel-gfx@archiver.kernel.org>; Mon,  8 Apr 2024 16:00:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D8AD911266D;
-	Mon,  8 Apr 2024 14:24:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9A474112746;
+	Mon,  8 Apr 2024 16:00:28 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="I7g+Hq4j";
+	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="dIB0h2Zl";
 	dkim-atps=neutral
-Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com
- [209.85.128.51])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BDE71112298;
- Mon,  8 Apr 2024 08:35:26 +0000 (UTC)
-Received: by mail-wm1-f51.google.com with SMTP id
- 5b1f17b1804b1-41673509e8eso4476755e9.3; 
- Mon, 08 Apr 2024 01:35:26 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1712565325; x=1713170125; darn=lists.freedesktop.org;
- h=in-reply-to:content-disposition:mime-version:references
- :mail-followup-to:message-id:subject:cc:to:from:date:from:to:cc
- :subject:date:message-id:reply-to;
- bh=uYeAXyuKGODULO+FbNEaQzDLowkIhH9uCziDxOY+3pM=;
- b=I7g+Hq4j88PUIh8k+YMVjBTi8sHVgzKAX2XlQUaftSC/eMMQL0tD/zwdFE+UPDSg3o
- VutdjDmVOCKYGPZ8cU4UG8xR0kjJBT+Fdv/tb1Q+JeeXS0qJen1ggnQkTKKhk04JfkYT
- igT2qrhe364bSVrdpMdtiESpraXE/u0nLYqa9EpTvipP+H75F6qFNEcCqfzcXab7Ss8u
- qqn42N+6J5Bvn1G9SGuY6fdj753QG52yXG8rhnl3F4Ay7WZV/9OSj2sfoldOuCf/tfns
- B6iBpU6616j3L98kvUqF0Ofsa///AjsrVJgcc3hcBiBwvNqZl+AfMtzwhq6WgJGiPh4H
- W4/A==
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 05CB8112744
+ for <intel-gfx@lists.freedesktop.org>; Mon,  8 Apr 2024 16:00:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1712592024;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=xzT0TmTCc3PocC0E+JBIML1F0GfPUfaU3FMisghLLDg=;
+ b=dIB0h2ZlzMrT6vIZiu0DLXlghDp8pTF4ahjlnotnoXOqSZrJLM/F3DVjEmonDoRJzc+JFO
+ 73PTlZuvy6A2e9kHxC+ZXWqIJOrn5e2AR1CS18vx7u+fzdvfmxJ1U5t8sWk9M6Tz3lX2Lj
+ FJMzKttsMktiDldmMD9uGcltd7RyHxw=
+Received: from mail-ed1-f71.google.com (mail-ed1-f71.google.com
+ [209.85.208.71]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-376-D6R3dS39OvOoy-ExYmghnQ-1; Mon, 08 Apr 2024 12:00:20 -0400
+X-MC-Unique: D6R3dS39OvOoy-ExYmghnQ-1
+Received: by mail-ed1-f71.google.com with SMTP id
+ 4fb4d7f45d1cf-56e67c53f23so500535a12.2
+ for <intel-gfx@lists.freedesktop.org>; Mon, 08 Apr 2024 09:00:19 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1712565325; x=1713170125;
- h=in-reply-to:content-disposition:mime-version:references
- :mail-followup-to:message-id:subject:cc:to:from:date
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=uYeAXyuKGODULO+FbNEaQzDLowkIhH9uCziDxOY+3pM=;
- b=M6KIBh32Xyc75UOgjFXeu3XEMHSAXh5qlFCovdBQeokZ5BA7/HMyYNfjqvTKmAO/Gh
- /GUCjwGZZa+WNjLYriP377d11/J9uv5QXKH4j3RHplPm4KPj6RRTimw4RS1RI7BxwIKz
- E9aezXcpcEZ+HoBAYrt5cHvpyDemsVdi6ADZ0znliuLKixV5VhfJPlh2VbYykveLVcPO
- Rs9e0tRjWo00vEQILECf2MX+WrWJth9Z3sNIkbHmQz4X3wsGuqf5c7MXjE7623mnFpWv
- weYpZXoBn38yANmqJb3oWg90SlBJbxX2EZKPj+BXRTZLncRCR3BcePpk2tjs8NqtVFZa
- bJRQ==
+ d=1e100.net; s=20230601; t=1712592018; x=1713196818;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=xzT0TmTCc3PocC0E+JBIML1F0GfPUfaU3FMisghLLDg=;
+ b=qaRQkjxLkPxdEhnxTh0IZ7YEXxrQMbaz2aDT+aRw47jsM+6ts5qicAGEmEHp5LwaPk
+ 9jFzWshPiYCgirvdM7Oy99CEsz0GDzIGqQJumCUgjP1aSsOqtlowa6oGQgkiSHiIw/1D
+ lbjhEjK7Fx0AU40hJH8dimVOMR455yJc4c0ZgK+bTw592FM47nry04dcSTDaAeCGDkl1
+ C9hcJL1x3ALgti9HeFEeBwnFGcfmrcvw2SM3biJtuWrxVxCNIGxhwHXzO3EfYUDS8j+b
+ fs2+EeJ2E1uK24ktsBZg6zPxP2tEglK8JG1pYaBw9cMnXY9H+FekZsjAahRtNBANvGiM
+ q/MA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCU1F+0IfJRU1ixjth72LzrRjdA7FO3c9Kv/Q8daAqNS1V/eR6hpmFXKUX3ReT9ws4s5690ycDcTIiwKquTqJAFMciMzO2woZrdWuXoc9TIKIq2X9neOHOTwIP1kV+tFXmOOlaIxLCvWUoWGKW7PMEuzGOrJgQTeTUJkFb2PQMffE+vK1mMtAFdOxeHTTcxLYcJj1nyUCGU1o7EVoEQwxxjkyF5jyHqxqz4Gq+R0hC6O68Hag1CPtEknO6wK2WspmUO+3qBlUXa41VTLdya6UA==
-X-Gm-Message-State: AOJu0YylXKRLXHzpT2pzRFTUB/g2OBgSD7TgdAufaEuGEnmfd+pGPl0r
- iC6piY1kh9I17tnGDEFmxCV+nvN4kkaonMyZs0vWOA6e5JI8WV1X
-X-Google-Smtp-Source: AGHT+IHU5k1SefaWsJ4Dm8FLb/xA0Oa19OOVbWsUeKtS2E4eDYDTEpvWcL36P791FhCHmqL0tKsDyA==
-X-Received: by 2002:a05:600c:468b:b0:415:6dae:7759 with SMTP id
- p11-20020a05600c468b00b004156dae7759mr5328190wmo.19.1712565324886; 
- Mon, 08 Apr 2024 01:35:24 -0700 (PDT)
-Received: from localhost ([185.57.101.252]) by smtp.gmail.com with ESMTPSA id
- be9-20020a05600c1e8900b004163ee3922csm7570545wmb.38.2024.04.08.01.35.24
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 08 Apr 2024 01:35:24 -0700 (PDT)
-Date: Mon, 8 Apr 2024 09:35:23 +0100
-From: Martin Habets <habetsm.xilinx@gmail.com>
-To: Easwar Hariharan <eahariha@linux.microsoft.com>
-Cc: Edward Cree <ecree.xilinx@gmail.com>,
- "David S. Miller" <davem@davemloft.net>,
- Eric Dumazet <edumazet@google.com>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- "open list:SFC NETWORK DRIVER" <netdev@vger.kernel.org>,
- "open list:SFC NETWORK DRIVER" <linux-net-drivers@amd.com>,
- open list <linux-kernel@vger.kernel.org>,
- Wolfram Sang <wsa+renesas@sang-engineering.com>,
- "open list:RADEON and AMDGPU DRM DRIVERS" <amd-gfx@lists.freedesktop.org>,
- "open list:DRM DRIVERS" <dri-devel@lists.freedesktop.org>,
- "open list:INTEL DRM DISPLAY FOR XE AND I915 DRIVERS"
- <intel-gfx@lists.freedesktop.org>, 
- "open list:INTEL DRM DISPLAY FOR XE AND I915 DRIVERS"
- <intel-xe@lists.freedesktop.org>, 
- "open list:DRM DRIVER FOR NVIDIA GEFORCE/QUADRO GPUS"
- <nouveau@lists.freedesktop.org>, 
- "open list:I2C SUBSYSTEM HOST DRIVERS" <linux-i2c@vger.kernel.org>,
- "open list:BTTV VIDEO4LINUX DRIVER" <linux-media@vger.kernel.org>,
- "open list:FRAMEBUFFER LAYER" <linux-fbdev@vger.kernel.org>
-Subject: Re: [PATCH v0 10/14] sfc: falcon: Make I2C terminology more inclusive
-Message-ID: <20240408083523.GA5341@gmail.com>
-Mail-Followup-To: Easwar Hariharan <eahariha@linux.microsoft.com>,
- Edward Cree <ecree.xilinx@gmail.com>,
- "David S. Miller" <davem@davemloft.net>,
- Eric Dumazet <edumazet@google.com>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- "open list:SFC NETWORK DRIVER" <netdev@vger.kernel.org>,
- "open list:SFC NETWORK DRIVER" <linux-net-drivers@amd.com>,
- open list <linux-kernel@vger.kernel.org>,
- Wolfram Sang <wsa+renesas@sang-engineering.com>,
- "open list:RADEON and AMDGPU DRM DRIVERS" <amd-gfx@lists.freedesktop.org>,
- "open list:DRM DRIVERS" <dri-devel@lists.freedesktop.org>,
- "open list:INTEL DRM DISPLAY FOR XE AND I915 DRIVERS"
- <intel-gfx@lists.freedesktop.org>, 
- "open list:INTEL DRM DISPLAY FOR XE AND I915 DRIVERS"
- <intel-xe@lists.freedesktop.org>, 
- "open list:DRM DRIVER FOR NVIDIA GEFORCE/QUADRO GPUS"
- <nouveau@lists.freedesktop.org>, 
- "open list:I2C SUBSYSTEM HOST DRIVERS" <linux-i2c@vger.kernel.org>,
- "open list:BTTV VIDEO4LINUX DRIVER" <linux-media@vger.kernel.org>,
- "open list:FRAMEBUFFER LAYER" <linux-fbdev@vger.kernel.org>
-References: <20240329170038.3863998-1-eahariha@linux.microsoft.com>
- <20240329170038.3863998-11-eahariha@linux.microsoft.com>
- <20240402090028.GA1759653@gmail.com>
- <0c6ff90d-0709-4fc5-951e-1b0f0b1273dc@linux.microsoft.com>
+ AJvYcCWim9unEnbrBdZmKiGSQdquhnEp2VASrEg/6rnBRRVMGmYFrrKNgObE8PK8W4Izw+MIPBqezRSxAs9k2nXSZfQzKhMsjZO1mMmtsDneR95b
+X-Gm-Message-State: AOJu0Yw1SbfD0L644sjKnSSgChnGXGghiVyTro/2PO4wXh5cI+C9AWKK
+ dXmesLoZz0UHjkIKpC4zxAXt+dbbgMICnKsdCEB6jSJplB7RF2I1eTVOD4eblCiHZro4p6f+p3P
+ KH806RoZ8rQNOWaSXioVCcWltesEjwyqh6R/xTbI8dPoZm+M5Leh5BtgDTkK1I1kxNFFZ4XOIrY
+ kw71XLTmBtDG+RnYQ/BDrsEbw0lBIaxe42okOicAxj
+X-Received: by 2002:a50:8a81:0:b0:56d:fca8:d209 with SMTP id
+ j1-20020a508a81000000b0056dfca8d209mr6746749edj.10.1712592018032; 
+ Mon, 08 Apr 2024 09:00:18 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IHo52vVJrQ0FGG8nNa/HY0uMoIxU2eMhB6fe+Tht1BFvEDfqO+atzRfiaR0I7oU7XLBMwQMR60tv+ZHmsFspzo=
+X-Received: by 2002:a50:8a81:0:b0:56d:fca8:d209 with SMTP id
+ j1-20020a508a81000000b0056dfca8d209mr6746732edj.10.1712592017681; Mon, 08 Apr
+ 2024 09:00:17 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <0c6ff90d-0709-4fc5-951e-1b0f0b1273dc@linux.microsoft.com>
-X-Mailman-Approved-At: Mon, 08 Apr 2024 14:24:15 +0000
+References: <cover.1712345787.git.jani.nikula@intel.com>
+ <15935837a0c15f861bb2a688cc53514f47153ef3.1712345787.git.jani.nikula@intel.com>
+ <xdp2oca3z7aaxohhxmlethruxuwnmz5jdcbshooyrte5fzndfy@agmh33pvzbvs>
+In-Reply-To: <xdp2oca3z7aaxohhxmlethruxuwnmz5jdcbshooyrte5fzndfy@agmh33pvzbvs>
+From: Josh Boyer <jwboyer@redhat.com>
+Date: Mon, 8 Apr 2024 12:00:05 -0400
+Message-ID: <CANyg3HgrEDfDav_ZuHxSe38v3H4w3Kr0ON4wZCFPEpqzNnE4LA@mail.gmail.com>
+Subject: Re: [PATCH 2/6] drm/i915/dmc: define firmware URL locally
+To: Lucas De Marchi <lucas.demarchi@intel.com>
+Cc: Jani Nikula <jani.nikula@intel.com>, intel-gfx@lists.freedesktop.org, 
+ intel-xe@lists.freedesktop.org
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -123,32 +90,105 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Thu, Apr 04, 2024 at 12:18:06PM -0700, Easwar Hariharan wrote:
-> On 4/2/2024 2:00 AM, Martin Habets wrote:
-> > On Fri, Mar 29, 2024 at 05:00:34PM +0000, Easwar Hariharan wrote:
-> >> I2C v7, SMBus 3.2, and I3C specifications have replaced "master/slave"
-> >> with more appropriate terms. Inspired by and following on to Wolfram's
-> >> series to fix drivers/i2c/[1], fix the terminology for users of
-> >> I2C_ALGOBIT bitbanging interface, now that the approved verbiage exists
-> >> in the specification.
-> >>
-> >> Compile tested, no functionality changes intended
-> >>
-> >> [1]: https://lore.kernel.org/all/20240322132619.6389-1-wsa+renesas@sang-engineering.com/
-> >>
-> >> Signed-off-by: Easwar Hariharan <eahariha@linux.microsoft.com>
-> > 
-> > Reviewed-by: Martin Habets <habetsm.xilinx@gmail.com>
-> > 
-> 
-> Thank you, Martin, for reviewing. I believe that we are settling on controller/target
-> terminology from feedback on the other drivers in this series. Would you want to re-review
-> v1 with that change, or should I add your R-B in v1 despite the change?
+On Fri, Apr 5, 2024 at 4:29=E2=80=AFPM Lucas De Marchi <lucas.demarchi@inte=
+l.com> wrote:
+>
+> On Fri, Apr 05, 2024 at 10:37:39PM +0300, Jani Nikula wrote:
+> >Avoid the dependency on intel_uc_fw.h, and allow removal of xe compat
+> >intel_uc_fw.h. If there needs to be duplication of the URL, at least
+> >have the duplication in a sensible way.
+> >
+> >Cc: Lucas De Marchi <lucas.demarchi@intel.com>
+> >Signed-off-by: Jani Nikula <jani.nikula@intel.com>
+>
+>
+> Reviewed-by: Lucas De Marchi <lucas.demarchi@intel.com>
+>
+> but see below. +Josh
+>
+> >---
+> > drivers/gpu/drm/i915/display/intel_dmc.c             |  4 +++-
+> > drivers/gpu/drm/xe/compat-i915-headers/i915_drv.h    |  1 -
+> > drivers/gpu/drm/xe/compat-i915-headers/intel_uc_fw.h | 11 -----------
+> > 3 files changed, 3 insertions(+), 13 deletions(-)
+> > delete mode 100644 drivers/gpu/drm/xe/compat-i915-headers/intel_uc_fw.h
+> >
+> >diff --git a/drivers/gpu/drm/i915/display/intel_dmc.c b/drivers/gpu/drm/=
+i915/display/intel_dmc.c
+> >index 3fa851b5c7a6..e61e9c1b8947 100644
+> >--- a/drivers/gpu/drm/i915/display/intel_dmc.c
+> >+++ b/drivers/gpu/drm/i915/display/intel_dmc.c
+> >@@ -38,6 +38,8 @@
+> >  * low-power state and comes back to normal.
+> >  */
+> >
+> >+#define INTEL_DMC_FIRMWARE_URL "https://git.kernel.org/pub/scm/linux/ke=
+rnel/git/firmware/linux-firmware.git"
+>
+> repo recently moved to gitlab, but as far as I know the one on
+> kernel.org will still work. Do we want to change it?
+>
+> https://gitlab.com/kernel-firmware/linux-firmware
 
-You can add in my Reviewed-by.
+I don't think there's a need to change it right now.  I can't see us
+removing the kernel.org linux-firmware tree.  Given it's firmware, I
+don't think the defined macro is really trying to point to a
+contribution site either so pointing to gitlab probably isn't
+worthwhile.
 
-Martin
+josh
 
-> Thanks,
-> Easwar
-> 
+> thanks
+> Lucas De Marchi
+>
+> >+
+> > enum intel_dmc_id {
+> >       DMC_FW_MAIN =3D 0,
+> >       DMC_FW_PIPEA,
+> >@@ -953,7 +955,7 @@ static void dmc_load_work_fn(struct work_struct *wor=
+k)
+> >                          " Disabling runtime power management.\n",
+> >                          dmc->fw_path);
+> >               drm_notice(&i915->drm, "DMC firmware homepage: %s",
+> >-                         INTEL_UC_FIRMWARE_URL);
+> >+                         INTEL_DMC_FIRMWARE_URL);
+> >       }
+> >
+> >       release_firmware(fw);
+> >diff --git a/drivers/gpu/drm/xe/compat-i915-headers/i915_drv.h b/drivers=
+/gpu/drm/xe/compat-i915-headers/i915_drv.h
+> >index a01d1b869c2d..837e95e3604e 100644
+> >--- a/drivers/gpu/drm/xe/compat-i915-headers/i915_drv.h
+> >+++ b/drivers/gpu/drm/xe/compat-i915-headers/i915_drv.h
+> >@@ -26,7 +26,6 @@
+> > #include "i915_utils.h"
+> > #include "intel_gt_types.h"
+> > #include "intel_step.h"
+> >-#include "intel_uc_fw.h"
+> > #include "intel_uncore.h"
+> > #include "intel_runtime_pm.h"
+> > #include <linux/pm_runtime.h>
+> >diff --git a/drivers/gpu/drm/xe/compat-i915-headers/intel_uc_fw.h b/driv=
+ers/gpu/drm/xe/compat-i915-headers/intel_uc_fw.h
+> >deleted file mode 100644
+> >index 009745328992..000000000000
+> >--- a/drivers/gpu/drm/xe/compat-i915-headers/intel_uc_fw.h
+> >+++ /dev/null
+> >@@ -1,11 +0,0 @@
+> >-/* SPDX-License-Identifier: MIT */
+> >-/*
+> >- * Copyright =C2=A9 2023 Intel Corporation
+> >- */
+> >-
+> >-#ifndef _INTEL_UC_FW_H_
+> >-#define _INTEL_UC_FW_H_
+> >-
+> >-#define INTEL_UC_FIRMWARE_URL "https://git.kernel.org/pub/scm/linux/ker=
+nel/git/firmware/linux-firmware.git"
+> >-
+> >-#endif
+> >--
+> >2.39.2
+> >
+>
+
