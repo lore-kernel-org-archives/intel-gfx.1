@@ -4,53 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7EC96CD128A
-	for <intel-gfx@archiver.kernel.org>; Mon,  8 Apr 2024 13:08:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7BBEAC67861
+	for <intel-gfx@archiver.kernel.org>; Mon,  8 Apr 2024 13:30:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CC7BC11258B;
-	Mon,  8 Apr 2024 13:08:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E89291125D5;
+	Mon,  8 Apr 2024 13:30:49 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="TZf6cp9Z";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="IIL1o73o";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.13])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D2C5911258B
- for <intel-gfx@lists.freedesktop.org>; Mon,  8 Apr 2024 13:08:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1712581685; x=1744117685;
- h=from:to:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=8euM0pXgk1EXABtcYN/m3sFssQtAlE+Rfabf50AYnro=;
- b=TZf6cp9ZMIekPAoWuWMwpnIWaYuoVJliVF3y8UJTOC82hYWfwLz1vqeX
- RJH/Q5h8dm0WbqeUBL5vbeahx5yW833sxvtL3OWiAkIEVsTsfFs3o49b6
- VIPBjXz4GuK0uEyjRiu0yYBCizknjFj3ZKZ8vsLdZNPaIdd/Swiv93HhD
- 1jJJEmIuDStH4shUP8PdyIE4a/7oj9YwcOtHckfat9z3ghn5wYNpjLl90
- XuMp6ZVLBgyKQm96DiveEJuxXjw2taSr3T/w3r9Pbff83U+Mim9S50rB8
- oZ+bgAyrPjpoNFnhQ8nl0lIYPjyClWpdOIBnti+TSvANd0CW1HEXA37uL A==;
-X-CSE-ConnectionGUID: LSpjPlK8Qzam03iQSMN+fg==
-X-CSE-MsgGUID: AiMsRnRuRG+a8lCnwYKqZw==
-X-IronPort-AV: E=McAfee;i="6600,9927,11038"; a="19001075"
-X-IronPort-AV: E=Sophos;i="6.07,186,1708416000"; d="scan'208";a="19001075"
-Received: from orviesa003.jf.intel.com ([10.64.159.143])
- by orvoesa105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 08 Apr 2024 06:08:04 -0700
-X-CSE-ConnectionGUID: PPydATy/R4aJRlX5TL1Dmw==
-X-CSE-MsgGUID: XD+J5Mi/Q5mHJu+g1UCD2A==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.07,186,1708416000"; d="scan'208";a="24584601"
-Received: from srr4-3-linux-103-aknautiy.iind.intel.com ([10.223.34.160])
- by ORVIESA003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 08 Apr 2024 06:08:03 -0700
-From: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
-To: intel-gfx@lists.freedesktop.org,
- 20240408050558.865396-4-ankit.k.nautiyal@intel.com
-Subject: [PATCH v2 3/3] drm/915/lspcon: Reduce dmesg errors during lspcon_init
- failure
-Date: Mon,  8 Apr 2024 18:29:36 +0530
-Message-Id: <20240408125936.1026666-1-ankit.k.nautiyal@intel.com>
-X-Mailer: git-send-email 2.40.1
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E40391125D5;
+ Mon,  8 Apr 2024 13:30:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=In-Reply-To:Content-Type:MIME-Version:References:Message-ID:
+ Subject:Cc:To:From:Date:Sender:Reply-To:Content-Transfer-Encoding:Content-ID:
+ Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
+ :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
+ List-Post:List-Owner:List-Archive;
+ bh=iEzhrV/4AZ1Q2iBVM+ClyexC/iuULKkkSDvEbS9aDPk=; b=IIL1o73oseMI77kloHVdkvTz8x
+ LtkUrLmDuqXg8+GctRIrzKBlKpX9jZowl0p045Upbr7ETmsrj8c0QkNKyBjXkxlKpJyNUcaxFEOQa
+ QLBEM1Jm736SjxOKz/LiMjSfuXQ2j/MnQvntp97qNLc8TEFNoBPW5cJ6vmyca7bFUn0QTFCizw2O9
+ c7dB9ELsRYjR59Gi6bdi6wEnJI8fRvyXfQt8PKh7YgMYuCAFMujSVBhrKDT/Cn+UC7h+TUcDNn6fw
+ vFQo6Ll8JSzkG7ID3epOlLMAAHhQ1NBSCtVrAiUGtBoXFKGz9+R0doDxwbeY4hrH9B7wODlY+ky8j
+ hOUpXzHw==;
+Received: from [189.6.17.125] (helo=mail.igalia.com)
+ by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
+ id 1rtp56-002VxU-Ee; Mon, 08 Apr 2024 15:30:41 +0200
+Date: Mon, 8 Apr 2024 10:30:09 -0300
+From: Melissa Wen <mwen@igalia.com>
+To: Jani Nikula <jani.nikula@intel.com>
+Cc: dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org, 
+ Ville Syrjala <ville.syrjala@linux.intel.com>,
+ Harry Wentland <harry.wentland@amd.com>, 
+ Mario Limonciello <mario.limonciello@amd.com>, Alex Hung <alex.hung@amd.com>
+Subject: Re: [PATCH 0/4] drm/edid & drm/i915: vendor and product id logging
+ improvements
+Message-ID: <y53wbwylvn4ybx3gdxb3r3w5harbkyavtqepdevnhygn5e63xs@z2iexp765n7o>
+References: <cover.1711015462.git.jani.nikula@intel.com>
+ <87zfucdu9v.fsf@intel.com>
+ <2qptajfrvnotxjyymphzrqyjxcrof46rlnjto62j6wtkanzk5g@e6oek426opcj>
+ <87o7ak9f86.fsf@intel.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <87o7ak9f86.fsf@intel.com>
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,71 +65,79 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Currently lspcon_resume calls lspcon_init and in case of failure we get
-error messages from lspcon_init and then again from lspcon_resume.
+On 04/08, Jani Nikula wrote:
+> On Mon, 08 Apr 2024, Melissa Wen <mwen@igalia.com> wrote:
+> > On 04/02, Jani Nikula wrote:
+> >> On Thu, 21 Mar 2024, Jani Nikula <jani.nikula@intel.com> wrote:
+> >> > Jani Nikula (4):
+> >> >   drm/edid: add drm_edid_get_product_id()
+> >> >   drm/edid: add drm_edid_print_product_id()
+> >> >   drm/i915/bios: switch to struct drm_edid and struct
+> >> >     drm_edid_product_id
+> >> >   drm/i915/bios: return drm_edid_product_id from get_lvds_pnp_id()
+> >> 
+> >> Ping for reviews please? This should be helpful in eradicating one class
+> >> of drm_edid_raw() uses.
+> >
+> > Hi Jani,
+> >
+> > I took a look at the series. AFAIU your solution with
+> > `drm_edid_product_id` mostly fits AMD display driver needs, except that
+> > it needs the `product_code` split into two parts (like manufacturer
+> > name) because the driver handles prod_code parts to configure a register
+> > for audio, as in the path below:
+> >
+> > 1. https://gitlab.freedesktop.org/drm/kernel/-/blob/drm-next/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c#L113
+> > 2. https://gitlab.freedesktop.org/drm/kernel/-/blob/drm-next/drivers/gpu/drm/amd/display/dc/core/dc_stream.c#L90
+> > 3. https://gitlab.freedesktop.org/drm/kernel/-/blob/drm-next/drivers/gpu/drm/amd/display/dc/dce/dce_audio.c#L873
+> >
+> > What do you think on keeping `prod_code` split into two part in
+> > `drm_edid_product_id`?
+> 
+> I think having it as "__le16 product_code" is better and
+> self-documenting. This is what the spec says it is, so why split it to
+> two parts where you always need to wonder about the byte order?
 
-Just have a single error message in lspcon_init.
+I have no strong opinion, I was only thinking that two parts would make
+this `edid_buf->prod_code[0] | edid_buf->prod_code[1] << 8` operation
+more intuitive.
 
-v2: Add the relavant info with each error, and avoid mix of dbg and
-error messages. (Jani)
+As you mentioned the currrent product_code format fits specs better, I
+understand we can get the same result on amd with:
+le16_to_cpu() --> split --> second part shift.
 
-Signed-off-by: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
-Reviewed-by: Jani Nikula <jani.nikula@intel.com>
----
- drivers/gpu/drm/i915/display/intel_lspcon.c | 19 +++++++++----------
- 1 file changed, 9 insertions(+), 10 deletions(-)
+Anyway, it's certainly not a blocker. The series LGTM.
 
-diff --git a/drivers/gpu/drm/i915/display/intel_lspcon.c b/drivers/gpu/drm/i915/display/intel_lspcon.c
-index 16ee0dc179f7..84d953496098 100644
---- a/drivers/gpu/drm/i915/display/intel_lspcon.c
-+++ b/drivers/gpu/drm/i915/display/intel_lspcon.c
-@@ -680,23 +680,27 @@ bool lspcon_init(struct intel_digital_port *dig_port)
- 		return false;
- 
- 	if (!lspcon_set_pcon_mode(lspcon)) {
--		drm_err(&i915->drm, "LSPCON mode change to PCON failed\n");
-+		drm_err(&i915->drm, "Failure: LSPCON init on port %c, mode change to PCON failed\n",
-+			port_name(dig_port->base.port));
- 		return false;
- 	}
- 
- 	if (drm_dp_read_dpcd_caps(&intel_dp->aux, intel_dp->dpcd) != 0) {
--		drm_err(&i915->drm, "LSPCON DPCD read failed\n");
-+		drm_err(&i915->drm, "Failure: LSPCON init on port %c, DPCD caps read failed\n",
-+			port_name(dig_port->base.port));
- 		return false;
- 	}
- 
- 	if (!lspcon_detect_vendor(lspcon)) {
--		drm_err(&i915->drm, "LSPCON vendor detection failed\n");
-+		drm_err(&i915->drm, "Failure: LSPCON init on port %c, vendor detection failed\n",
-+			port_name(dig_port->base.port));
- 		return false;
- 	}
- 
- 	connector->ycbcr_420_allowed = true;
- 	lspcon->active = true;
- 	drm_dbg_kms(&i915->drm, "Success: LSPCON init\n");
-+
- 	return true;
- }
- 
-@@ -718,13 +722,8 @@ void lspcon_resume(struct intel_digital_port *dig_port)
- 	if (!intel_bios_encoder_is_lspcon(dig_port->base.devdata))
- 		return;
- 
--	if (!lspcon->active) {
--		if (!lspcon_init(dig_port)) {
--			drm_err(&i915->drm, "LSPCON init failed on port %c\n",
--				port_name(dig_port->base.port));
--			return;
--		}
--	}
-+	if (!lspcon->active && !lspcon_init(dig_port))
-+		return;
- 
- 	expected_mode = lspcon_get_expected_mode(lspcon);
- 	if (expected_mode == DRM_LSPCON_MODE_PCON)
--- 
-2.40.1
+Acked-by: Melissa Wen <mwen@igalia.com>
 
+> 
+> This is how you'd use it:
+> 
+> 	edid_caps->product_id = le16_to_cpu(id->product_code);
+> 
+> BR,
+> Jani.
+> 
+> >
+> > (cc'ing some AMD devs that might have a better understanding of this use case)
+> >
+> > Thanks a lot for addressing this pending issue!
+> >
+> > Melissa
+> >
+> >> 
+> >> BR,
+> >> Jani.
+> >> 
+> >> 
+> >> >
+> >> >  drivers/gpu/drm/drm_edid.c                | 50 +++++++++++++++++++++++
+> >> >  drivers/gpu/drm/i915/display/intel_bios.c | 49 ++++++++++------------
+> >> >  include/drm/drm_edid.h                    | 28 ++++++++++---
+> >> >  3 files changed, 94 insertions(+), 33 deletions(-)
+> >> 
+> >> -- 
+> >> Jani Nikula, Intel
+> 
+> -- 
+> Jani Nikula, Intel
