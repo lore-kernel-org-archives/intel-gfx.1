@@ -4,50 +4,51 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1575CCD128A
-	for <intel-gfx@archiver.kernel.org>; Tue,  9 Apr 2024 16:35:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4AE7EC67861
+	for <intel-gfx@archiver.kernel.org>; Tue,  9 Apr 2024 16:35:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EF5A8112B16;
-	Tue,  9 Apr 2024 16:35:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 82CFB112D4F;
+	Tue,  9 Apr 2024 16:35:20 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="iGqmJD3y";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="Ppm/i0gr";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CDB3B112518
- for <intel-gfx@lists.freedesktop.org>; Tue,  9 Apr 2024 16:35:11 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 90D6A112D4F
+ for <intel-gfx@lists.freedesktop.org>; Tue,  9 Apr 2024 16:35:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1712680511; x=1744216511;
+ t=1712680518; x=1744216518;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=VxJ3cH8M2pyMxMsSBubFGZawTMeLcSnKg1yRlpi1vJk=;
- b=iGqmJD3ycDa+3OparI9q4Lsm+dtTZuiC2bvSb74iDx0F8Daj9m162eoc
- Lh+p4Od/ciYgGIRPhqaaWvwkjqlw/jaRrLykW8bwq2srv9dlSijK/ItVg
- GeD0hp5gXb17qljgxk5NVPwvlNnHs8iiDp2GQmw1wMSYlldzOXkagNgr/
- BxDy1x6v3/MHg1iXTxp2LwojzCHPnW1+nzOHk7CTg5QRckuOdus8FbP7p
- 6xgYd3jx0iJ+2ocl4gBvxi38JTcP3F98RoK2IAYpKZzKhgQSfGoLMYre5
- 91SsubnRhm6Lad9ctPVhoegquhJICM1/nTCOFwCqUwFvPpD9C7rB8IPsk g==;
-X-CSE-ConnectionGUID: 9c88i9AZSKaWCHArERf2Yw==
-X-CSE-MsgGUID: G/okWGI6SseHBtydK0bBwQ==
-X-IronPort-AV: E=McAfee;i="6600,9927,11039"; a="18570853"
-X-IronPort-AV: E=Sophos;i="6.07,189,1708416000"; d="scan'208";a="18570853"
+ bh=Uow8pukgEBHAANxbnf1BlxOATGeTH2ZZCcNBEtkQeA4=;
+ b=Ppm/i0grUOQWLEpXlXa29kw8WJcyv41s/YItApnxgiTjSbqhA/dnHidS
+ T+8iW1L97nkBihOARC4/m8o1vR0fo+hTdDdf33Ic1cTNITVLfDLkTAkWH
+ caj7/XzohPfkOZgwgTbUHePs7Ghote597QQaUe9PFleSLr9nFvrL93Enf
+ qs7DX95uKuw84uecErB/+pkuEjOwctYP7lbmknmO2MmBdtddYkbMR5trk
+ jLUU9pOpTHhV4mJFwg8N4QpRpfwwXhtujyjfFEd53tODB7vFOamiHOf1W
+ AmIZHcDWXLTUcBmUli/luRgqhWCL04OUB3kEjRHMZkdtv0EC0uHUaaQ3s g==;
+X-CSE-ConnectionGUID: wDCUlhH9RCi1wpuFus2PWA==
+X-CSE-MsgGUID: ynIrXc90TKeGKO2ctTsOZg==
+X-IronPort-AV: E=McAfee;i="6600,9927,11039"; a="18570863"
+X-IronPort-AV: E=Sophos;i="6.07,189,1708416000"; d="scan'208";a="18570863"
 Received: from orsmga001.jf.intel.com ([10.7.209.18])
  by orvoesa103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 09 Apr 2024 09:35:11 -0700
+ 09 Apr 2024 09:35:18 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,11039"; a="827792679"
-X-IronPort-AV: E=Sophos;i="6.07,189,1708416000"; d="scan'208";a="827792679"
+X-IronPort-AV: E=McAfee;i="6600,9927,11039"; a="827792685"
+X-IronPort-AV: E=Sophos;i="6.07,189,1708416000"; d="scan'208";a="827792685"
 Received: from stinkpipe.fi.intel.com (HELO stinkbox) ([10.237.72.74])
- by orsmga001.jf.intel.com with SMTP; 09 Apr 2024 09:35:09 -0700
+ by orsmga001.jf.intel.com with SMTP; 09 Apr 2024 09:35:15 -0700
 Received: by stinkbox (sSMTP sendmail emulation);
- Tue, 09 Apr 2024 19:35:08 +0300
+ Tue, 09 Apr 2024 19:35:15 +0300
 From: Ville Syrjala <ville.syrjala@linux.intel.com>
 To: intel-gfx@lists.freedesktop.org
 Cc: Vidya Srinivas <vidya.srinivas@intel.com>,
- Arun R Murthy <arun.r.murthy@intel.com>
-Subject: [PATCH v3 2/6] drm/i915: Utilize intel_crtc_joined_pipe_mask() more
-Date: Tue,  9 Apr 2024 19:34:58 +0300
-Message-ID: <20240409163502.29633-3-ville.syrjala@linux.intel.com>
+ Manasi Navare <navaremanasi@chromium.org>,
+ =?UTF-8?q?Ville=20Syrj=C3=A4l=C3=A4?= <ville.syrjala@linux.intel.com>
+Subject: [PATCH v3 4/6] drm/i915: Handle joined pipes inside hsw_crtc_enable()
+Date: Tue,  9 Apr 2024 19:35:00 +0300
+Message-ID: <20240409163502.29633-5-ville.syrjala@linux.intel.com>
 X-Mailer: git-send-email 2.43.2
 In-Reply-To: <20240409163502.29633-1-ville.syrjala@linux.intel.com>
 References: <20240409163502.29633-1-ville.syrjala@linux.intel.com>
@@ -69,78 +70,343 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Ville Syrjälä <ville.syrjala@linux.intel.com>
+From: Stanislav Lisovskiy <stanislav.lisovskiy@intel.com>
 
-Unify the master vs. slave handling in
-intel_ddi_post_disable_hdmi_or_sst() by looping over all the
-pipes in one go.
+Handle only bigjoiner masters in skl_commit_modeset_enables/disables,
+slave crtcs should be handled by master hooks. Same for encoders.
+That way we can also remove a bunch of checks like intel_crtc_is_bigjoiner_slave.
 
-This also lets us move the intel_crtc_vblank_off() calls to
-happen in a consistent place vs. the transcoder disable.
-Previously we did the master vs. slaves on different sides
-of that.
+v2: - Moved skl_pfit_enable, intel_dsc_enable, intel_crtc_vblank_on to intel_enable_ddi,
+      so that it is now finally symmetrical with the disable case, because currently
+      for some weird reason we are calling those from skl_commit_modeset_enables, while
+      for the disable case those are called from the ddi disable hooks.
+v3: - Create intel_ddi_enable_hdmi_or_sst symmetrical to
+      intel_ddi_post_disable_hdmi_or_sst and move it also under non-mst check.
+v4: - Fix intel_enable_ddi sequence
+    - Call intel_crtc_update_active_timings for slave pipes as well
+[v5: vsyrjala: Use the name 'pipe_crtc' for the per-pipe crtc pointer
+               Use consistent style and naming
+	       Protect macro arguments properly
+               Drop superfluous changes to the modeset sequence,
+	       this now follows the old non-joiner sequence 100%
+	       apart from just looping in places]
 
-v2: Use the name 'pipe_crtc' for the per-pipe crtc pointer
-
+Signed-off-by: Stanislav Lisovskiy <stanislav.lisovskiy@intel.com>
 Tested-by: Vidya Srinivas <vidya.srinivas@intel.com>
-Reviewed-by: Arun R Murthy <arun.r.murthy@intel.com>
+Reviewed-by: Manasi Navare <navaremanasi@chromium.org> #v4?
+Co-developed-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
 Signed-off-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_ddi.c | 33 ++++++++++++------------
- 1 file changed, 17 insertions(+), 16 deletions(-)
+ drivers/gpu/drm/i915/display/intel_ddi.c     |  14 +-
+ drivers/gpu/drm/i915/display/intel_display.c | 188 ++++++++++---------
+ drivers/gpu/drm/i915/display/intel_display.h |   6 +
+ 3 files changed, 116 insertions(+), 92 deletions(-)
 
 diff --git a/drivers/gpu/drm/i915/display/intel_ddi.c b/drivers/gpu/drm/i915/display/intel_ddi.c
-index 6d1b3de3045b..deaed9ff3f95 100644
+index deaed9ff3f95..3255d4e375af 100644
 --- a/drivers/gpu/drm/i915/display/intel_ddi.c
 +++ b/drivers/gpu/drm/i915/display/intel_ddi.c
-@@ -3097,30 +3097,31 @@ static void intel_ddi_post_disable_hdmi_or_sst(struct intel_atomic_state *state,
- 					       const struct drm_connector_state *old_conn_state)
+@@ -3363,10 +3363,10 @@ static void intel_enable_ddi(struct intel_atomic_state *state,
+ 			     const struct intel_crtc_state *crtc_state,
+ 			     const struct drm_connector_state *conn_state)
  {
- 	struct drm_i915_private *dev_priv = to_i915(encoder->base.dev);
--	struct intel_crtc *slave_crtc;
+-	drm_WARN_ON(state->base.dev, crtc_state->has_pch_encoder);
++	struct drm_i915_private *i915 = to_i915(encoder->base.dev);
 +	struct intel_crtc *pipe_crtc;
  
--	intel_crtc_vblank_off(old_crtc_state);
-+	for_each_intel_crtc_in_pipe_mask(&dev_priv->drm, pipe_crtc,
-+					 intel_crtc_joined_pipe_mask(old_crtc_state)) {
-+		const struct intel_crtc_state *old_pipe_crtc_state =
-+			intel_atomic_get_old_crtc_state(state, pipe_crtc);
+-	if (!intel_crtc_is_bigjoiner_slave(crtc_state))
+-		intel_ddi_enable_transcoder_func(encoder, crtc_state);
++	intel_ddi_enable_transcoder_func(encoder, crtc_state);
+ 
+ 	/* Enable/Disable DP2.0 SDP split config before transcoder */
+ 	intel_audio_sdp_split_update(crtc_state);
+@@ -3375,7 +3375,13 @@ static void intel_enable_ddi(struct intel_atomic_state *state,
+ 
+ 	intel_ddi_wait_for_fec_status(encoder, crtc_state, true);
+ 
+-	intel_crtc_vblank_on(crtc_state);
++	for_each_intel_crtc_in_pipe_mask_reverse(&i915->drm, pipe_crtc,
++						 intel_crtc_joined_pipe_mask(crtc_state)) {
++		const struct intel_crtc_state *pipe_crtc_state =
++			intel_atomic_get_new_crtc_state(state, pipe_crtc);
 +
-+		intel_crtc_vblank_off(old_pipe_crtc_state);
++		intel_crtc_vblank_on(pipe_crtc_state);
 +	}
  
- 	intel_disable_transcoder(old_crtc_state);
+ 	if (intel_crtc_has_type(crtc_state, INTEL_OUTPUT_HDMI))
+ 		intel_enable_ddi_hdmi(state, encoder, crtc_state, conn_state);
+diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
+index b944248598b3..0c53f9c0a76f 100644
+--- a/drivers/gpu/drm/i915/display/intel_display.c
++++ b/drivers/gpu/drm/i915/display/intel_display.c
+@@ -1595,24 +1595,6 @@ static void hsw_set_frame_start_delay(const struct intel_crtc_state *crtc_state)
+ 		     HSW_FRAME_START_DELAY(crtc_state->framestart_delay - 1));
+ }
  
- 	intel_ddi_disable_transcoder_func(old_crtc_state);
+-static void icl_ddi_bigjoiner_pre_enable(struct intel_atomic_state *state,
+-					 const struct intel_crtc_state *crtc_state)
+-{
+-	struct intel_crtc *master_crtc = intel_master_crtc(crtc_state);
+-
+-	/*
+-	 * Enable sequence steps 1-7 on bigjoiner master
+-	 */
+-	if (intel_crtc_is_bigjoiner_slave(crtc_state))
+-		intel_encoders_pre_pll_enable(state, master_crtc);
+-
+-	if (crtc_state->shared_dpll)
+-		intel_enable_shared_dpll(crtc_state);
+-
+-	if (intel_crtc_is_bigjoiner_slave(crtc_state))
+-		intel_encoders_pre_enable(state, master_crtc);
+-}
+-
+ static void hsw_configure_cpu_transcoder(const struct intel_crtc_state *crtc_state)
+ {
+ 	struct intel_crtc *crtc = to_intel_crtc(crtc_state->uapi.crtc);
+@@ -1649,85 +1631,106 @@ static void hsw_crtc_enable(struct intel_atomic_state *state,
+ 		intel_atomic_get_new_crtc_state(state, crtc);
+ 	struct drm_i915_private *dev_priv = to_i915(crtc->base.dev);
+ 	enum transcoder cpu_transcoder = new_crtc_state->cpu_transcoder;
+-	enum pipe hsw_workaround_pipe;
++	struct intel_crtc *pipe_crtc;
  
--	intel_dsc_disable(old_crtc_state);
-+	for_each_intel_crtc_in_pipe_mask(&dev_priv->drm, pipe_crtc,
-+					 intel_crtc_joined_pipe_mask(old_crtc_state)) {
-+		const struct intel_crtc_state *old_pipe_crtc_state =
-+			intel_atomic_get_old_crtc_state(state, pipe_crtc);
+ 	if (drm_WARN_ON(&dev_priv->drm, crtc->active))
+ 		return;
  
+-	intel_dmc_enable_pipe(dev_priv, crtc->pipe);
++	for_each_intel_crtc_in_pipe_mask_reverse(&dev_priv->drm, pipe_crtc,
++						 intel_crtc_joined_pipe_mask(new_crtc_state))
++		intel_dmc_enable_pipe(dev_priv, pipe_crtc->pipe);
+ 
+-	if (!new_crtc_state->bigjoiner_pipes) {
+-		intel_encoders_pre_pll_enable(state, crtc);
++	intel_encoders_pre_pll_enable(state, crtc);
+ 
+-		if (new_crtc_state->shared_dpll)
+-			intel_enable_shared_dpll(new_crtc_state);
++	for_each_intel_crtc_in_pipe_mask_reverse(&dev_priv->drm, pipe_crtc,
++						 intel_crtc_joined_pipe_mask(new_crtc_state)) {
++		const struct intel_crtc_state *pipe_crtc_state =
++			intel_atomic_get_new_crtc_state(state, pipe_crtc);
+ 
+-		intel_encoders_pre_enable(state, crtc);
+-	} else {
+-		icl_ddi_bigjoiner_pre_enable(state, new_crtc_state);
++		if (pipe_crtc_state->shared_dpll)
++			intel_enable_shared_dpll(pipe_crtc_state);
+ 	}
+ 
+-	intel_dsc_enable(new_crtc_state);
++	intel_encoders_pre_enable(state, crtc);
+ 
+-	if (DISPLAY_VER(dev_priv) >= 13)
+-		intel_uncompressed_joiner_enable(new_crtc_state);
++	for_each_intel_crtc_in_pipe_mask_reverse(&dev_priv->drm, pipe_crtc,
++						 intel_crtc_joined_pipe_mask(new_crtc_state)) {
++		const struct intel_crtc_state *pipe_crtc_state =
++			intel_atomic_get_new_crtc_state(state, pipe_crtc);
+ 
+-	intel_set_pipe_src_size(new_crtc_state);
+-	if (DISPLAY_VER(dev_priv) >= 9 || IS_BROADWELL(dev_priv))
+-		bdw_set_pipe_misc(new_crtc_state);
++		intel_dsc_enable(pipe_crtc_state);
+ 
+-	if (!intel_crtc_is_bigjoiner_slave(new_crtc_state) &&
+-	    !transcoder_is_dsi(cpu_transcoder))
++		if (DISPLAY_VER(dev_priv) >= 13)
++			intel_uncompressed_joiner_enable(pipe_crtc_state);
++
++		intel_set_pipe_src_size(pipe_crtc_state);
++
++		if (DISPLAY_VER(dev_priv) >= 9 || IS_BROADWELL(dev_priv))
++			bdw_set_pipe_misc(pipe_crtc_state);
++	}
++
++	if (!transcoder_is_dsi(cpu_transcoder))
+ 		hsw_configure_cpu_transcoder(new_crtc_state);
+ 
+-	crtc->active = true;
+-
+-	if (glk_need_scaler_clock_gating_wa(new_crtc_state))
+-		glk_pipe_scaler_clock_gating_wa(crtc, true);
+-
 -	if (DISPLAY_VER(dev_priv) >= 9)
--		skl_scaler_disable(old_crtc_state);
+-		skl_pfit_enable(new_crtc_state);
 -	else
--		ilk_pfit_disable(old_crtc_state);
-+		intel_dsc_disable(old_pipe_crtc_state);
- 
--	for_each_intel_crtc_in_pipe_mask(&dev_priv->drm, slave_crtc,
--					 intel_crtc_bigjoiner_slave_pipes(old_crtc_state)) {
--		const struct intel_crtc_state *old_slave_crtc_state =
--			intel_atomic_get_old_crtc_state(state, slave_crtc);
+-		ilk_pfit_enable(new_crtc_state);
 -
--		intel_crtc_vblank_off(old_slave_crtc_state);
+-	/*
+-	 * On ILK+ LUT must be loaded before the pipe is running but with
+-	 * clocks enabled
+-	 */
+-	intel_color_load_luts(new_crtc_state);
+-	intel_color_commit_noarm(new_crtc_state);
+-	intel_color_commit_arm(new_crtc_state);
+-	/* update DSPCNTR to configure gamma/csc for pipe bottom color */
+-	if (DISPLAY_VER(dev_priv) < 9)
+-		intel_disable_primary_plane(new_crtc_state);
 -
--		intel_dsc_disable(old_slave_crtc_state);
--		skl_scaler_disable(old_slave_crtc_state);
+-	hsw_set_linetime_wm(new_crtc_state);
+-
+-	if (DISPLAY_VER(dev_priv) >= 11)
+-		icl_set_pipe_chicken(new_crtc_state);
+-
+-	intel_initial_watermarks(state, crtc);
+-
+-	if (intel_crtc_is_bigjoiner_slave(new_crtc_state))
+-		intel_crtc_vblank_on(new_crtc_state);
+-
+-	intel_encoders_enable(state, crtc);
+-
+-	if (glk_need_scaler_clock_gating_wa(new_crtc_state)) {
+-		intel_crtc_wait_for_next_vblank(crtc);
+-		glk_pipe_scaler_clock_gating_wa(crtc, false);
++	for_each_intel_crtc_in_pipe_mask_reverse(&dev_priv->drm, pipe_crtc,
++						 intel_crtc_joined_pipe_mask(new_crtc_state)) {
++		const struct intel_crtc_state *pipe_crtc_state =
++			intel_atomic_get_new_crtc_state(state, pipe_crtc);
++
++		pipe_crtc->active = true;
++
++		if (glk_need_scaler_clock_gating_wa(pipe_crtc_state))
++			glk_pipe_scaler_clock_gating_wa(pipe_crtc, true);
++
 +		if (DISPLAY_VER(dev_priv) >= 9)
-+			skl_scaler_disable(old_pipe_crtc_state);
++			skl_pfit_enable(pipe_crtc_state);
 +		else
-+			ilk_pfit_disable(old_pipe_crtc_state);
++			ilk_pfit_enable(pipe_crtc_state);
++
++		/*
++		 * On ILK+ LUT must be loaded before the pipe is running but with
++		 * clocks enabled
++		 */
++		intel_color_load_luts(pipe_crtc_state);
++		intel_color_commit_noarm(pipe_crtc_state);
++		intel_color_commit_arm(pipe_crtc_state);
++		/* update DSPCNTR to configure gamma/csc for pipe bottom color */
++		if (DISPLAY_VER(dev_priv) < 9)
++			intel_disable_primary_plane(pipe_crtc_state);
++
++		hsw_set_linetime_wm(pipe_crtc_state);
++
++		if (DISPLAY_VER(dev_priv) >= 11)
++			icl_set_pipe_chicken(pipe_crtc_state);
++
++		intel_initial_watermarks(state, pipe_crtc);
+ 	}
+ 
+-	/* If we change the relative order between pipe/planes enabling, we need
+-	 * to change the workaround. */
+-	hsw_workaround_pipe = new_crtc_state->hsw_workaround_pipe;
+-	if (IS_HASWELL(dev_priv) && hsw_workaround_pipe != INVALID_PIPE) {
+-		struct intel_crtc *wa_crtc;
++	intel_encoders_enable(state, crtc);
+ 
+-		wa_crtc = intel_crtc_for_pipe(dev_priv, hsw_workaround_pipe);
++	for_each_intel_crtc_in_pipe_mask_reverse(&dev_priv->drm, pipe_crtc,
++						 intel_crtc_joined_pipe_mask(new_crtc_state)) {
++		const struct intel_crtc_state *pipe_crtc_state =
++			intel_atomic_get_new_crtc_state(state, pipe_crtc);
++		enum pipe hsw_workaround_pipe;
+ 
+-		intel_crtc_wait_for_next_vblank(wa_crtc);
+-		intel_crtc_wait_for_next_vblank(wa_crtc);
++		if (glk_need_scaler_clock_gating_wa(pipe_crtc_state)) {
++			intel_crtc_wait_for_next_vblank(pipe_crtc);
++			glk_pipe_scaler_clock_gating_wa(pipe_crtc, false);
++		}
++
++		/*
++		 * If we change the relative order between pipe/planes
++		 * enabling, we need to change the workaround.
++		 */
++		hsw_workaround_pipe = pipe_crtc_state->hsw_workaround_pipe;
++		if (IS_HASWELL(dev_priv) && hsw_workaround_pipe != INVALID_PIPE) {
++			struct intel_crtc *wa_crtc =
++				intel_crtc_for_pipe(dev_priv, hsw_workaround_pipe);
++
++			intel_crtc_wait_for_next_vblank(wa_crtc);
++			intel_crtc_wait_for_next_vblank(wa_crtc);
++		}
  	}
  }
  
+@@ -6738,18 +6741,22 @@ static void intel_enable_crtc(struct intel_atomic_state *state,
+ 	struct drm_i915_private *dev_priv = to_i915(state->base.dev);
+ 	const struct intel_crtc_state *new_crtc_state =
+ 		intel_atomic_get_new_crtc_state(state, crtc);
++	struct intel_crtc *pipe_crtc;
+ 
+ 	if (!intel_crtc_needs_modeset(new_crtc_state))
+ 		return;
+ 
+-	/* VRR will be enable later, if required */
+-	intel_crtc_update_active_timings(new_crtc_state, false);
++	for_each_intel_crtc_in_pipe_mask_reverse(&dev_priv->drm, pipe_crtc,
++						 intel_crtc_joined_pipe_mask(new_crtc_state)) {
++		const struct intel_crtc_state *pipe_crtc_state =
++			intel_atomic_get_new_crtc_state(state, pipe_crtc);
++
++		/* VRR will be enable later, if required */
++		intel_crtc_update_active_timings(pipe_crtc_state, false);
++	}
+ 
+ 	dev_priv->display.funcs.display->crtc_enable(state, crtc);
+ 
+-	if (intel_crtc_is_bigjoiner_slave(new_crtc_state))
+-		return;
+-
+ 	/* vblanks work again, re-enable pipe CRC. */
+ 	intel_crtc_enable_pipe_crc(crtc);
+ }
+@@ -7054,12 +7061,14 @@ static void skl_commit_modeset_enables(struct intel_atomic_state *state)
+ 		if ((modeset_pipes & BIT(pipe)) == 0)
+ 			continue;
+ 
++		if (intel_crtc_is_bigjoiner_slave(new_crtc_state))
++			continue;
++
+ 		if (intel_dp_mst_is_slave_trans(new_crtc_state) ||
+-		    is_trans_port_sync_master(new_crtc_state) ||
+-		    intel_crtc_is_bigjoiner_master(new_crtc_state))
++		    is_trans_port_sync_master(new_crtc_state))
+ 			continue;
+ 
+-		modeset_pipes &= ~BIT(pipe);
++		modeset_pipes &= ~intel_crtc_joined_pipe_mask(new_crtc_state);
+ 
+ 		intel_enable_crtc(state, crtc);
+ 	}
+@@ -7074,7 +7083,10 @@ static void skl_commit_modeset_enables(struct intel_atomic_state *state)
+ 		if ((modeset_pipes & BIT(pipe)) == 0)
+ 			continue;
+ 
+-		modeset_pipes &= ~BIT(pipe);
++		if (intel_crtc_is_bigjoiner_slave(new_crtc_state))
++			continue;
++
++		modeset_pipes &= ~intel_crtc_joined_pipe_mask(new_crtc_state);
+ 
+ 		intel_enable_crtc(state, crtc);
+ 	}
+diff --git a/drivers/gpu/drm/i915/display/intel_display.h b/drivers/gpu/drm/i915/display/intel_display.h
+index 898b11663377..56d1c0e3e62c 100644
+--- a/drivers/gpu/drm/i915/display/intel_display.h
++++ b/drivers/gpu/drm/i915/display/intel_display.h
+@@ -280,6 +280,12 @@ enum phy_fia {
+ 			    base.head)					\
+ 		for_each_if((pipe_mask) & BIT(intel_crtc->pipe))
+ 
++#define for_each_intel_crtc_in_pipe_mask_reverse(dev, intel_crtc, pipe_mask)	\
++	list_for_each_entry_reverse((intel_crtc),				\
++				    &(dev)->mode_config.crtc_list,		\
++				    base.head)					\
++		for_each_if((pipe_mask) & BIT((intel_crtc)->pipe))
++
+ #define for_each_intel_encoder(dev, intel_encoder)		\
+ 	list_for_each_entry(intel_encoder,			\
+ 			    &(dev)->mode_config.encoder_list,	\
 -- 
 2.43.2
 
