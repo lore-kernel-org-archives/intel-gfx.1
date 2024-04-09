@@ -4,69 +4,32 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D707CCD129A
-	for <intel-gfx@archiver.kernel.org>; Tue,  9 Apr 2024 08:10:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A5FD1CD1297
+	for <intel-gfx@archiver.kernel.org>; Tue,  9 Apr 2024 08:10:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4D0D5112B73;
-	Tue,  9 Apr 2024 08:10:42 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="d6VHIrI5";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="tvJlpUqX";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="d6VHIrI5";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="tvJlpUqX";
-	dkim-atps=neutral
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8C52C112B76;
+	Tue,  9 Apr 2024 08:10:45 +0000 (UTC)
 Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 78E32112B67;
- Tue,  9 Apr 2024 08:10:33 +0000 (UTC)
-Received: from imap2.dmz-prg2.suse.org (imap2.dmz-prg2.suse.org [10.150.64.98])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 36689112B6C;
+ Tue,  9 Apr 2024 08:10:35 +0000 (UTC)
+Received: from imap2.dmz-prg2.suse.org (imap2.dmz-prg2.suse.org
+ [IPv6:2a07:de40:b281:104:10:150:64:98])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 17F442087F;
- Tue,  9 Apr 2024 08:10:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1712650232; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding;
- bh=NSQZ6fWBKatUDWf7NqolXGcHzoq0ZQuzggLmEGpex14=;
- b=d6VHIrI5uLZHSiq141CdJ6SuokKwlW0BJKxoWaS0KLxdDUgy6wHfG6mAKAnp4J6bj/7+Cy
- QbRlYHWXWShFauxol5u2p787jIa4nIVFyAwYKNIpnxQ66l4aWMjsoDemd55/p7bE7Y6eHN
- p50mxTwpQqx7LeFCQbAdkpJOJIq4E74=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1712650232;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding;
- bh=NSQZ6fWBKatUDWf7NqolXGcHzoq0ZQuzggLmEGpex14=;
- b=tvJlpUqXXZtTJwtwYjY+M7HONOxr0Z12DXCHOdKoYAmTBnsNXLM82QhWu3HRfnw9pZI5ot
- /PmvGKXr3cKSOvDQ==
+ by smtp-out2.suse.de (Postfix) with ESMTPS id E76FB20892;
+ Tue,  9 Apr 2024 08:10:33 +0000 (UTC)
 Authentication-Results: smtp-out2.suse.de;
 	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1712650232; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding;
- bh=NSQZ6fWBKatUDWf7NqolXGcHzoq0ZQuzggLmEGpex14=;
- b=d6VHIrI5uLZHSiq141CdJ6SuokKwlW0BJKxoWaS0KLxdDUgy6wHfG6mAKAnp4J6bj/7+Cy
- QbRlYHWXWShFauxol5u2p787jIa4nIVFyAwYKNIpnxQ66l4aWMjsoDemd55/p7bE7Y6eHN
- p50mxTwpQqx7LeFCQbAdkpJOJIq4E74=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1712650232;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding;
- bh=NSQZ6fWBKatUDWf7NqolXGcHzoq0ZQuzggLmEGpex14=;
- b=tvJlpUqXXZtTJwtwYjY+M7HONOxr0Z12DXCHOdKoYAmTBnsNXLM82QhWu3HRfnw9pZI5ot
- /PmvGKXr3cKSOvDQ==
 Received: from imap2.dmz-prg2.suse.org (localhost [127.0.0.1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by imap2.dmz-prg2.suse.org (Postfix) with ESMTPS id 9B9E113253;
- Tue,  9 Apr 2024 08:10:31 +0000 (UTC)
+ by imap2.dmz-prg2.suse.org (Postfix) with ESMTPS id 79AB713AAF;
+ Tue,  9 Apr 2024 08:10:33 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([10.150.64.162])
- by imap2.dmz-prg2.suse.org with ESMTPSA id INMrJPf3FGbWNAAAn2gu4w
- (envelope-from <tzimmermann@suse.de>); Tue, 09 Apr 2024 08:10:31 +0000
+ by imap2.dmz-prg2.suse.org with ESMTPSA id KBZpHPn3FGbWNAAAn2gu4w
+ (envelope-from <tzimmermann@suse.de>); Tue, 09 Apr 2024 08:10:33 +0000
 From: Thomas Zimmermann <tzimmermann@suse.de>
 To: jani.nikula@linux.intel.com, joonas.lahtinen@linux.intel.com,
  rodrigo.vivi@intel.com, ville.syrjala@linux.intel.com, imre.deak@intel.com,
@@ -75,26 +38,23 @@ To: jani.nikula@linux.intel.com, joonas.lahtinen@linux.intel.com,
  ogabbay@kernel.org, thomas.hellstrom@linux.intel.com
 Cc: intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
  intel-xe@lists.freedesktop.org, Thomas Zimmermann <tzimmermann@suse.de>
-Subject: [PATCH v8 0/6] drm/{i915,xe}: Convert fbdev to DRM client
-Date: Tue,  9 Apr 2024 10:04:22 +0200
-Message-ID: <20240409081029.17843-1-tzimmermann@suse.de>
+Subject: [PATCH v8 4/6] drm/{i915,xe}: Unregister in-kernel clients
+Date: Tue,  9 Apr 2024 10:04:26 +0200
+Message-ID: <20240409081029.17843-5-tzimmermann@suse.de>
 X-Mailer: git-send-email 2.44.0
+In-Reply-To: <20240409081029.17843-1-tzimmermann@suse.de>
+References: <20240409081029.17843-1-tzimmermann@suse.de>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-Spamd-Result: default: False [-3.30 / 50.00]; BAYES_HAM(-3.00)[100.00%];
- NEURAL_HAM_LONG(-1.00)[-1.000]; MID_CONTAINS_FROM(1.00)[];
- NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
- MIME_TRACE(0.00)[0:+];
- FREEMAIL_TO(0.00)[linux.intel.com,intel.com,redhat.com,gmail.com,ffwll.ch,kernel.org];
- ARC_NA(0.00)[]; RCPT_COUNT_TWELVE(0.00)[17];
- RCVD_VIA_SMTP_AUTH(0.00)[]; FREEMAIL_ENVRCPT(0.00)[gmail.com];
- DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- FUZZY_BLOCKED(0.00)[rspamd.com]; FROM_EQ_ENVFROM(0.00)[];
- FROM_HAS_DN(0.00)[]; TO_DN_SOME(0.00)[]; RCVD_TLS_ALL(0.00)[];
- TO_MATCH_ENVRCPT_ALL(0.00)[]; RCVD_COUNT_TWO(0.00)[2];
- DBL_BLOCKED_OPENRESOLVER(0.00)[imap2.dmz-prg2.suse.org:helo,
- imap2.dmz-prg2.suse.org:rdns]
+X-Rspamd-Pre-Result: action=no action; module=replies;
+ Message is reply to one we originated
+X-Rspamd-Pre-Result: action=no action; module=replies;
+ Message is reply to one we originated
+X-Rspamd-Action: no action
+X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
+X-Spamd-Result: default: False [-4.00 / 50.00];
+	REPLY(-4.00)[]
+X-Rspamd-Queue-Id: E76FB20892
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -110,73 +70,59 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-(was: drm/i915: Convert fbdev to DRM client)
+Unregister all in-kernel clients before unloading the i915 driver. For
+other drivers, drm_dev_unregister() does this automatically. As i915 and
+xe do not use this helper, they have to perform the call by themselves.
 
-Convert i915's fbdev code to struct drm_client. Replaces the current
-ad-hoc integration. The conversion includes a number of cleanups. Also
-update the xe driver accordingly.
-
-As with the other drivers' fbdev emulation, fbdev in i915 is now
-an in-kernel DRM client that runs after the DRM device has been
-registered. This allows to remove the asynchronous initialization.
-
-i915 and xe are the final drivers with an fbdev emulation that is not
-build upon struct drm_client. Once reviewed, the patches would ideally go
-into drm-misc-next, so that the old fbdev helper code can be removed.
-
-We can also attempt to add additional in-kernel clients. A DRM-based
-dmesg log or a bootsplash are commonly mentioned. DRM can then switch
-easily among the existing clients if/when required.
+Note that there are currently no in-kernel clients in i915 or xe. The
+patch prepares the drivers for a related update of their fbdev support.
 
 v8:
-- do setup and cleanup in intel_display_driver_{register,unregister}()
-  (Jani, Jouni)
-- mention xe in several commit messages (Rodrigo, Jani)
-- resort patches to put driver-independent changes first
-- slightly reword cover letter
+- unregister clients in intel_display_driver_unregister() (Jani)
+- mention xe in commit message (Rodrigo, Jani)
 
 v7:
 - update xe driver
 
-v6:
-- reorder patches to fix build (Jouni)
-- remove unnecessary handling of non-atomic commits (Jouni, Ville)
-- return errors from callbacks (Jouni)
-- various minor fixes
+Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
+---
+ drivers/gpu/drm/i915/display/intel_display_driver.c | 3 +++
+ drivers/gpu/drm/xe/xe_device.c                      | 1 +
+ 2 files changed, 4 insertions(+)
 
-v5:
-- style fixes (checkpatch)
-	
-v4:
-<no changes>
-		
-v3:
-- support module unloading (Jani, CI bot)
-- as before, silently ignore devices without displays (CI  bot)
-
-v2:		
-- fix error handling (Jani)
-- fix non-fbdev builds
-- various minor fixes and cleanups
-
-Thomas Zimmermann (6):
-  drm/client: Export drm_client_dev_unregister()
-  drm/i915: Move fbdev functions
-  drm/i915: Initialize fbdev DRM client with callback functions
-  drm/{i915,xe}: Unregister in-kernel clients
-  drm/{i915,xe}: Implement fbdev client callbacks
-  drm/{i915,xe}: Implement fbdev emulation as in-kernel client
-
- drivers/gpu/drm/drm_client.c                  |  13 +
- drivers/gpu/drm/i915/display/intel_display.c  |   1 -
- .../drm/i915/display/intel_display_driver.c   |  24 +-
- drivers/gpu/drm/i915/display/intel_fbdev.c    | 265 ++++++++++--------
- drivers/gpu/drm/i915/display/intel_fbdev.h    |  29 +-
- drivers/gpu/drm/i915/i915_driver.c            |  22 --
- drivers/gpu/drm/xe/display/xe_display.c       |  11 -
- drivers/gpu/drm/xe/xe_device.c                |   1 +
- 8 files changed, 167 insertions(+), 199 deletions(-)
-
+diff --git a/drivers/gpu/drm/i915/display/intel_display_driver.c b/drivers/gpu/drm/i915/display/intel_display_driver.c
+index 87dd07e0d138d..b7d636980d83a 100644
+--- a/drivers/gpu/drm/i915/display/intel_display_driver.c
++++ b/drivers/gpu/drm/i915/display/intel_display_driver.c
+@@ -11,6 +11,7 @@
+ #include <acpi/video.h>
+ #include <drm/display/drm_dp_mst_helper.h>
+ #include <drm/drm_atomic_helper.h>
++#include <drm/drm_client.h>
+ #include <drm/drm_mode_config.h>
+ #include <drm/drm_privacy_screen_consumer.h>
+ #include <drm/drm_probe_helper.h>
+@@ -638,6 +639,8 @@ void intel_display_driver_unregister(struct drm_i915_private *i915)
+ 	if (!HAS_DISPLAY(i915))
+ 		return;
+ 
++	drm_client_dev_unregister(&i915->drm);
++
+ 	intel_fbdev_unregister(i915);
+ 	/*
+ 	 * After flushing the fbdev (incl. a late async config which
+diff --git a/drivers/gpu/drm/xe/xe_device.c b/drivers/gpu/drm/xe/xe_device.c
+index 01bd5ccf05ca6..231ab2f4cd0b9 100644
+--- a/drivers/gpu/drm/xe/xe_device.c
++++ b/drivers/gpu/drm/xe/xe_device.c
+@@ -9,6 +9,7 @@
+ 
+ #include <drm/drm_aperture.h>
+ #include <drm/drm_atomic_helper.h>
++#include <drm/drm_client.h>
+ #include <drm/drm_gem_ttm_helper.h>
+ #include <drm/drm_ioctl.h>
+ #include <drm/drm_managed.h>
 -- 
 2.44.0
 
