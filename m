@@ -4,60 +4,61 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C9861CD1297
-	for <intel-gfx@archiver.kernel.org>; Wed, 10 Apr 2024 10:06:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 66C11CD1296
+	for <intel-gfx@archiver.kernel.org>; Wed, 10 Apr 2024 10:06:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AAA3310FAD0;
-	Wed, 10 Apr 2024 10:06:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DFD9610F2C9;
+	Wed, 10 Apr 2024 10:06:32 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="hTqq+ACY";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="e1jsvs9M";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.15])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 94990113288;
- Wed, 10 Apr 2024 10:06:15 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.9])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 75C8410EA32;
+ Wed, 10 Apr 2024 10:06:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1712743575; x=1744279575;
+ t=1712743564; x=1744279564;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=POvhEB8t0WFy4nylAwlrruFpDkkoF+yFUljeDXXjvvs=;
- b=hTqq+ACYd3hZrEgcFQSHNB970LB0M+0R4AmVkVHr54pjvWkzFY+88nUQ
- bLgnwnQifDLmEmGYt6DzOWWPA88kFmT+FQo9Xcar//cjbdIQtMT5tI4UZ
- dhb1de6wwRiZr7gtHAXIJv2Pi7y9QBL3rHFH26V5JidvuDyBztFJl5wKt
- Et/M5/1sYJwF8o4+WwBgmjlCh52FJkx06N7pnhcgRsXuoQ1v/bZJCdkaf
- gw0tB3GTOU2fO8JJ0p2AR9T6GbRJhBFObYGb+HuGEATgLW+2ohOSeuqRT
- qkVqXs2ckb1ObYT7352e7wxVbWe4yoTDLhCHw0xedqpiSzpaBbXl6uzeF Q==;
-X-CSE-ConnectionGUID: BXK6g0h6Sl6EtJQs/NWsDA==
-X-CSE-MsgGUID: 51PdHwINTv6QtY6ughQnbg==
-X-IronPort-AV: E=McAfee;i="6600,9927,11039"; a="11888332"
-X-IronPort-AV: E=Sophos;i="6.07,190,1708416000"; d="scan'208";a="11888332"
-Received: from orviesa003.jf.intel.com ([10.64.159.143])
- by orvoesa107.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 Apr 2024 03:06:15 -0700
-X-CSE-ConnectionGUID: 828wEhnrQJKOq+bQ1BnWZg==
-X-CSE-MsgGUID: VgheGFgMRouN0Yu/LadwLA==
+ bh=oE6m4k6fw2ovbCGonnwUHHaFNIXRtdmEHq0iiCK39IU=;
+ b=e1jsvs9Mf9UvW8AtLlKtpNvL8Zrurv4VgFFGKG49JaeUAeu1NBFx0ejg
+ plE75IuRasMbZFzJgUItR92nKdNEhSOUai8UdhE7w8bD9FfKAOPbhLoew
+ Jbrff99eKRNWt2M/vQNveOIhdPRLDXeyKU3/+lZGQzAK7wwkJTYncJYIF
+ JTXMSrO5fjJEEWUxauQ4rYChzajPsx80dMUEdoslUD8p9pkztn+6zgNm6
+ s0ZCoDlDAuymt7LlTKnBH8ivp0J/hxDk16Oc1Hcn11WQjFJgItMmOh+mJ
+ r8Pr9tp71Kaughay4r7FKZbkRU9BmSKcpU5Ug46gdzdYGt1MgNH4sQjTE g==;
+X-CSE-ConnectionGUID: co/K+BAqQfafxZ57ehYjgw==
+X-CSE-MsgGUID: ZKFbk5EiT/2PorE3vRl0Ww==
+X-IronPort-AV: E=McAfee;i="6600,9927,11039"; a="18808949"
+X-IronPort-AV: E=Sophos;i="6.07,190,1708416000"; d="scan'208";a="18808949"
+Received: from fmviesa001.fm.intel.com ([10.60.135.141])
+ by fmvoesa103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 10 Apr 2024 03:06:02 -0700
+X-CSE-ConnectionGUID: NpK971YpQ36V9YICNPUFKw==
+X-CSE-MsgGUID: 4FHN7mZUSLKjXS0WIS0u0Q==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.07,190,1708416000"; d="scan'208";a="25195110"
+X-IronPort-AV: E=Sophos;i="6.07,190,1708416000"; d="scan'208";a="51735615"
 Received: from oakasatk-mobl.ger.corp.intel.com (HELO localhost)
  ([10.252.60.54])
- by ORVIESA003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 Apr 2024 03:06:12 -0700
+ by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 10 Apr 2024 03:05:58 -0700
 From: Jani Nikula <jani.nikula@intel.com>
 To: intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
  dri-devel@lists.freedesktop.org
 Cc: jani.nikula@intel.com, Daniel Vetter <daniel@ffwll.ch>,
  Dave Airlie <airlied@gmail.com>,
  Lucas De Marchi <lucas.demarchi@intel.com>,
- Bjorn Helgaas <bhelgaas@google.com>
-Subject: [PATCH 08/10] drm: move i915_pciids.h under include/drm/intel
-Date: Wed, 10 Apr 2024 13:05:15 +0300
-Message-Id: <949c8dc81d825b29a4adc6a4f46751f89ae7a831.1712743191.git.jani.nikula@intel.com>
+ Bjorn Helgaas <bhelgaas@google.com>, Hans de Goede <hdegoede@redhat.com>,
+ =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
+Subject: [PATCH 06/10] drm: move i915_drm.h under include/drm/intel
+Date: Wed, 10 Apr 2024 13:05:13 +0300
+Message-Id: <63e199dec91cc2e717d81ab00e28f68b9bec8461.1712743191.git.jani.nikula@intel.com>
 X-Mailer: git-send-email 2.39.2
 In-Reply-To: <cover.1712743191.git.jani.nikula@intel.com>
 References: <cover.1712743191.git.jani.nikula@intel.com>
 MIME-Version: 1.0
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
 Content-Type: text/plain; charset=UTF-8
+Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
 Content-Transfer-Encoding: 8bit
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -81,72 +82,116 @@ Cc: Daniel Vetter <daniel@ffwll.ch>
 Cc: Dave Airlie <airlied@gmail.com>
 Cc: Lucas De Marchi <lucas.demarchi@intel.com>
 Cc: Bjorn Helgaas <bhelgaas@google.com>
+Cc: Hans de Goede <hdegoede@redhat.com>
+Cc: Ilpo Järvinen <ilpo.jarvinen@linux.intel.com>
 Signed-off-by: Jani Nikula <jani.nikula@intel.com>
 ---
- arch/x86/kernel/early-quirks.c                      | 2 +-
- drivers/gpu/drm/i915/display/intel_display_device.c | 2 +-
- drivers/gpu/drm/i915/i915_pci.c                     | 2 +-
- drivers/gpu/drm/i915/intel_device_info.c            | 2 +-
- include/drm/{ => intel}/i915_pciids.h               | 0
- 5 files changed, 4 insertions(+), 4 deletions(-)
- rename include/drm/{ => intel}/i915_pciids.h (100%)
+ arch/x86/kernel/early-quirks.c             | 2 +-
+ drivers/gpu/drm/i915/gem/i915_gem_stolen.c | 2 +-
+ drivers/gpu/drm/i915/gt/intel_ggtt.c       | 2 +-
+ drivers/gpu/drm/i915/gt/intel_rps.c        | 2 +-
+ drivers/gpu/drm/i915/soc/intel_gmch.c      | 2 +-
+ drivers/gpu/drm/xe/xe_ggtt.c               | 2 +-
+ drivers/platform/x86/intel_ips.c           | 2 +-
+ include/drm/{ => intel}/i915_drm.h         | 0
+ 8 files changed, 7 insertions(+), 7 deletions(-)
+ rename include/drm/{ => intel}/i915_drm.h (100%)
 
 diff --git a/arch/x86/kernel/early-quirks.c b/arch/x86/kernel/early-quirks.c
-index 5b867c02d2b5..6019949a3f68 100644
+index 59f4aefc6bc1..5b867c02d2b5 100644
 --- a/arch/x86/kernel/early-quirks.c
 +++ b/arch/x86/kernel/early-quirks.c
-@@ -18,7 +18,7 @@
+@@ -17,7 +17,7 @@
+ #include <linux/bcma/bcma.h>
  #include <linux/bcma/bcma_regs.h>
  #include <linux/platform_data/x86/apple.h>
- #include <drm/intel/i915_drm.h>
--#include <drm/i915_pciids.h>
-+#include <drm/intel/i915_pciids.h>
+-#include <drm/i915_drm.h>
++#include <drm/intel/i915_drm.h>
+ #include <drm/i915_pciids.h>
  #include <asm/pci-direct.h>
  #include <asm/dma.h>
- #include <asm/io_apic.h>
-diff --git a/drivers/gpu/drm/i915/display/intel_display_device.c b/drivers/gpu/drm/i915/display/intel_display_device.c
-index b8903bd0e82a..15525fbf91c1 100644
---- a/drivers/gpu/drm/i915/display/intel_display_device.c
-+++ b/drivers/gpu/drm/i915/display/intel_display_device.c
-@@ -3,7 +3,7 @@
-  * Copyright © 2023 Intel Corporation
-  */
+diff --git a/drivers/gpu/drm/i915/gem/i915_gem_stolen.c b/drivers/gpu/drm/i915/gem/i915_gem_stolen.c
+index ad6dd7f3259b..30595b2b63e1 100644
+--- a/drivers/gpu/drm/i915/gem/i915_gem_stolen.c
++++ b/drivers/gpu/drm/i915/gem/i915_gem_stolen.c
+@@ -8,7 +8,7 @@
+ #include <linux/mutex.h>
  
--#include <drm/i915_pciids.h>
-+#include <drm/intel/i915_pciids.h>
- #include <drm/drm_color_mgmt.h>
- #include <linux/pci.h>
+ #include <drm/drm_mm.h>
+-#include <drm/i915_drm.h>
++#include <drm/intel/i915_drm.h>
  
-diff --git a/drivers/gpu/drm/i915/i915_pci.c b/drivers/gpu/drm/i915/i915_pci.c
-index 405ca17a990b..983848e5b5b4 100644
---- a/drivers/gpu/drm/i915/i915_pci.c
-+++ b/drivers/gpu/drm/i915/i915_pci.c
-@@ -24,7 +24,7 @@
+ #include "gem/i915_gem_lmem.h"
+ #include "gem/i915_gem_region.h"
+diff --git a/drivers/gpu/drm/i915/gt/intel_ggtt.c b/drivers/gpu/drm/i915/gt/intel_ggtt.c
+index 2717699c6591..206a5e0fedf1 100644
+--- a/drivers/gpu/drm/i915/gt/intel_ggtt.c
++++ b/drivers/gpu/drm/i915/gt/intel_ggtt.c
+@@ -9,7 +9,7 @@
+ #include <linux/stop_machine.h>
  
- #include <drm/drm_color_mgmt.h>
- #include <drm/drm_drv.h>
--#include <drm/i915_pciids.h>
-+#include <drm/intel/i915_pciids.h>
+ #include <drm/drm_managed.h>
+-#include <drm/i915_drm.h>
++#include <drm/intel/i915_drm.h>
+ #include <drm/intel/intel-gtt.h>
  
  #include "display/intel_display.h"
- #include "display/intel_display_driver.h"
-diff --git a/drivers/gpu/drm/i915/intel_device_info.c b/drivers/gpu/drm/i915/intel_device_info.c
-index a0a43ea07f11..12948d586143 100644
---- a/drivers/gpu/drm/i915/intel_device_info.c
-+++ b/drivers/gpu/drm/i915/intel_device_info.c
-@@ -25,7 +25,7 @@
+diff --git a/drivers/gpu/drm/i915/gt/intel_rps.c b/drivers/gpu/drm/i915/gt/intel_rps.c
+index c9cb2a391942..70176be269d3 100644
+--- a/drivers/gpu/drm/i915/gt/intel_rps.c
++++ b/drivers/gpu/drm/i915/gt/intel_rps.c
+@@ -5,7 +5,7 @@
+ 
  #include <linux/string_helpers.h>
  
- #include <drm/drm_print.h>
--#include <drm/i915_pciids.h>
-+#include <drm/intel/i915_pciids.h>
+-#include <drm/i915_drm.h>
++#include <drm/intel/i915_drm.h>
  
- #include "gt/intel_gt_regs.h"
+ #include "display/intel_display.h"
+ #include "display/intel_display_irq.h"
+diff --git a/drivers/gpu/drm/i915/soc/intel_gmch.c b/drivers/gpu/drm/i915/soc/intel_gmch.c
+index 40874ebfb64c..734e9f2801ea 100644
+--- a/drivers/gpu/drm/i915/soc/intel_gmch.c
++++ b/drivers/gpu/drm/i915/soc/intel_gmch.c
+@@ -8,7 +8,7 @@
+ #include <linux/vgaarb.h>
+ 
+ #include <drm/drm_managed.h>
+-#include <drm/i915_drm.h>
++#include <drm/intel/i915_drm.h>
+ 
  #include "i915_drv.h"
-diff --git a/include/drm/i915_pciids.h b/include/drm/intel/i915_pciids.h
+ #include "intel_gmch.h"
+diff --git a/drivers/gpu/drm/xe/xe_ggtt.c b/drivers/gpu/drm/xe/xe_ggtt.c
+index ff2239c0eda5..7af1a48f3b59 100644
+--- a/drivers/gpu/drm/xe/xe_ggtt.c
++++ b/drivers/gpu/drm/xe/xe_ggtt.c
+@@ -9,7 +9,7 @@
+ #include <linux/sizes.h>
+ 
+ #include <drm/drm_managed.h>
+-#include <drm/i915_drm.h>
++#include <drm/intel/i915_drm.h>
+ 
+ #include "regs/xe_gt_regs.h"
+ #include "regs/xe_gtt_defs.h"
+diff --git a/drivers/platform/x86/intel_ips.c b/drivers/platform/x86/intel_ips.c
+index ba38649cc142..2a88012958eb 100644
+--- a/drivers/platform/x86/intel_ips.c
++++ b/drivers/platform/x86/intel_ips.c
+@@ -59,7 +59,7 @@
+ #include <linux/tick.h>
+ #include <linux/timer.h>
+ #include <linux/dmi.h>
+-#include <drm/i915_drm.h>
++#include <drm/intel/i915_drm.h>
+ #include <asm/msr.h>
+ #include <asm/processor.h>
+ #include "intel_ips.h"
+diff --git a/include/drm/i915_drm.h b/include/drm/intel/i915_drm.h
 similarity index 100%
-rename from include/drm/i915_pciids.h
-rename to include/drm/intel/i915_pciids.h
+rename from include/drm/i915_drm.h
+rename to include/drm/intel/i915_drm.h
 -- 
 2.39.2
 
