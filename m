@@ -4,55 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4F44ECD11C2
-	for <intel-gfx@archiver.kernel.org>; Wed, 10 Apr 2024 13:53:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8CF1FCD128A
+	for <intel-gfx@archiver.kernel.org>; Wed, 10 Apr 2024 14:06:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A88A410EA5A;
-	Wed, 10 Apr 2024 13:53:27 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="Wt9AB1w+";
-	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.8])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0380110EA5A
- for <intel-gfx@lists.freedesktop.org>; Wed, 10 Apr 2024 13:53:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1712757206; x=1744293206;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:in-reply-to;
- bh=ixT2P2oier7tHPpXsRCKs4FUIgA0XwcdheGcbzBucd4=;
- b=Wt9AB1w+bIHzUAGQ5mNuYHAN90HBTSPDekfeRkwv3ZWMUXhnA6c/lm9r
- ZRZuqWptGJVEMHVMPYPFfG5t5S5KG1r7VdpeTMdJI5uwTgJShT3hoF1wO
- NrqbbQiL7L2rOHS4yj3GyNQ4RTRuujsaOjtHhHCxLnKM19RDY1VX5okbs
- Te56thy17325BEq1754rC/Zsn1EIHJr8fXwxqUE1uxy1+4frpR2kK6nzj
- bDQ6AxAO1o1cVIp+Ij6fjDpYGQBinvEnnBUy/I2ds+QJOCeUmxet9ls3e
- QtcoWNZbunsD8bU5JDFXvn8mDX0ZM6aVu3OntmVn2NvTwgJzCyel+uEdq w==;
-X-CSE-ConnectionGUID: tvk8ntETT32xUbZVhmzMxg==
-X-CSE-MsgGUID: vqDRJYAXTpeYGdVzqDF9BA==
-X-IronPort-AV: E=McAfee;i="6600,9927,11039"; a="25624757"
-X-IronPort-AV: E=Sophos;i="6.07,190,1708416000"; d="scan'208";a="25624757"
-Received: from orviesa001.jf.intel.com ([10.64.159.141])
- by fmvoesa102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 Apr 2024 06:53:25 -0700
-X-CSE-ConnectionGUID: bZzmonBdRJ+dJL7nIUu/Iw==
-X-CSE-MsgGUID: Fxo3jt5QTwqNFTZ9l33ttg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.07,190,1708416000"; d="scan'208";a="58007163"
-Received: from unknown (HELO intel.com) ([10.247.118.254])
- by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 Apr 2024 06:53:22 -0700
-Date: Wed, 10 Apr 2024 15:53:15 +0200
-From: Andi Shyti <andi.shyti@linux.intel.com>
-To: Ashutosh Dixit <ashutosh.dixit@intel.com>
-Cc: intel-gfx@lists.freedesktop.org,
-	Badal Nilawar <badal.nilawar@intel.com>
-Subject: Re: [PATCH] drm/i915: Don't enable hwmon for selftests
-Message-ID: <ZhaZy5MQtDaP10My@ashyti-mobl2.lan>
-References: <20240410060549.201177-1-ashutosh.dixit@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 41E5711332E;
+	Wed, 10 Apr 2024 14:06:38 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6782F10FF96;
+ Wed, 10 Apr 2024 14:06:34 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by dfw.source.kernel.org (Postfix) with ESMTP id 7F99C61BE9;
+ Wed, 10 Apr 2024 14:06:33 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 38980C433C7;
+ Wed, 10 Apr 2024 14:06:32 +0000 (UTC)
+Date: Wed, 10 Apr 2024 10:09:08 -0400
+From: Steven Rostedt <rostedt@goodmis.org>
+To: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
+Cc: intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org, Jani
+ Nikula <jani.nikula@linux.intel.com>, Joonas Lahtinen
+ <joonas.lahtinen@linux.intel.com>, Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Thomas Gleixner <tglx@linutronix.de>, Tvrtko Ursulin <tursulin@ursulin.net>
+Subject: Re: [PATCH 05/10] drm/i915: skip DRM_I915_LOW_LEVEL_TRACEPOINTS
+ with NOTRACE
+Message-ID: <20240410100908.7d13393c@gandalf.local.home>
+In-Reply-To: <20240410110857.BBV2fQYP@linutronix.de>
+References: <20240405142737.920626-1-bigeasy@linutronix.de>
+ <20240405142737.920626-6-bigeasy@linutronix.de>
+ <20240408130650.6f9c1e1c@rorschach.local.home>
+ <20240409110601.FWFqmGjM@linutronix.de>
+ <20240409115533.7c84b283@gandalf.local.home>
+ <20240410110857.BBV2fQYP@linutronix.de>
+X-Mailer: Claws Mail 3.19.1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20240410060549.201177-1-ashutosh.dixit@intel.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,52 +53,104 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Hi Ashutosh,
+On Wed, 10 Apr 2024 13:08:57 +0200
+Sebastian Andrzej Siewior <bigeasy@linutronix.de> wrote:
 
-please use "git format-patch -v 3 ..." which generates subject
-[PATCH v3] ...". Otherwise it gets confusing to see the patch
-that needs to be reviewed.
+> On 2024-04-09 11:55:33 [-0400], Steven Rostedt wrote:
+> > I believe you need to do it in the .c file:
+> >=20
+> > Can you try something like this?
+> >  =20
+> =E2=80=A6
+> >  ? =20
+>=20
+> I tried and nothing changed because the lowlevel config option isn't the
+> problem. What about I drop this and replace 4/10 from this series with
+> the patch below? After enabling all tracing I don't see any events in
+> events/i915.
 
-On Tue, Apr 09, 2024 at 11:05:49PM -0700, Ashutosh Dixit wrote:
-> There are no hwmon selftests so there is no need to enable hwmon for
-> selftests. So enable hwmon only for real driver load.
-> 
-> v2: Move the logic inside i915_hwmon.c
-> v3: Move is_i915_selftest definition to i915_selftest.h (Badal)
-> 
-> Closes: https://gitlab.freedesktop.org/drm/intel/-/issues/10366
-> Signed-off-by: Ashutosh Dixit <ashutosh.dixit@intel.com>
+I don't see anything wrong with this approach.
+
+>=20
+> Sebastian
+>=20
+> --------------------->8---------------------------- =20
+>=20
+> From: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
+> Date: Thu, 6 Dec 2018 09:52:20 +0100
+> Subject: [PATCH] drm/i915: Disable tracing points on PREEMPT_RT
+>=20
+> Luca Abeni reported this:
+> | BUG: scheduling while atomic: kworker/u8:2/15203/0x00000003
+> | CPU: 1 PID: 15203 Comm: kworker/u8:2 Not tainted 4.19.1-rt3 #10
+> | Call Trace:
+> |  rt_spin_lock+0x3f/0x50
+> |  gen6_read32+0x45/0x1d0 [i915]
+> |  g4x_get_vblank_counter+0x36/0x40 [i915]
+> |  trace_event_raw_event_i915_pipe_update_start+0x7d/0xf0 [i915]
+>=20
+> The tracing events use trace_i915_pipe_update_start() among other events
+> use functions acquire spinlock_t locks which are transformed into
+> sleeping locks on PREEMPT_RT. A few trace points use
+> intel_get_crtc_scanline(), others use ->get_vblank_counter() wich also
+> might acquire a sleeping locks on PREEMPT_RT.
+> At the time the arguments are evaluated within trace point, preemption
+> is disabled and so the locks must not be acquired on PREEMPT_RT.
+>=20
+> Based on this I don't see any other way than disable trace points on
+> PREMPT_RT.
+>=20
+> Reported-by: Luca Abeni <lucabe72@gmail.com>
+> Cc: Steven Rostedt <rostedt@goodmis.org>
+> Signed-off-by: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
 > ---
->  drivers/gpu/drm/i915/i915_hwmon.c    |  3 ++-
->  drivers/gpu/drm/i915/i915_selftest.h | 10 ++++++++++
->  2 files changed, 12 insertions(+), 1 deletion(-)
-> 
-> diff --git a/drivers/gpu/drm/i915/i915_hwmon.c b/drivers/gpu/drm/i915/i915_hwmon.c
-> index 8c3f443c8347..cf1689333ebf 100644
-> --- a/drivers/gpu/drm/i915/i915_hwmon.c
-> +++ b/drivers/gpu/drm/i915/i915_hwmon.c
-> @@ -10,6 +10,7 @@
->  #include "i915_drv.h"
->  #include "i915_hwmon.h"
->  #include "i915_reg.h"
-> +#include "i915_selftest.h"
->  #include "intel_mchbar_regs.h"
->  #include "intel_pcode.h"
->  #include "gt/intel_gt.h"
-> @@ -789,7 +790,7 @@ void i915_hwmon_register(struct drm_i915_private *i915)
->  	int i;
->  
->  	/* hwmon is available only for dGfx */
-> -	if (!IS_DGFX(i915))
-> +	if (!IS_DGFX(i915) || is_i915_selftest())
->  		return;
+>  drivers/gpu/drm/i915/display/intel_display_trace.h | 4 ++++
+>  drivers/gpu/drm/i915/i915_trace.h                  | 4 ++++
+>  2 files changed, 8 insertions(+)
+>=20
+> diff --git a/drivers/gpu/drm/i915/display/intel_display_trace.h b/drivers=
+/gpu/drm/i915/display/intel_display_trace.h
+> index 7862e7cefe027..e4608d855bfba 100644
+> --- a/drivers/gpu/drm/i915/display/intel_display_trace.h
+> +++ b/drivers/gpu/drm/i915/display/intel_display_trace.h
+> @@ -9,6 +9,10 @@
+>  #if !defined(__INTEL_DISPLAY_TRACE_H__) || defined(TRACE_HEADER_MULTI_RE=
+AD)
+>  #define __INTEL_DISPLAY_TRACE_H__
+> =20
+> +#ifdef CONFIG_PREEMPT_RT
 
-I wonder if this is the right place to put it or rather place it
-in i915_driver.c and avoid calling i915_hwmon_register() at all.
+Hmm, should these be:
 
-In any case, it's good:
+ #if defined(CONFIG_PREEMPT_RT) && !defined(NOTRACE)
 
-Reviewed-by: Andi Shyti <andi.shyti@linux.intel.com>
+?
 
-Thanks,
-Andi
+because it's not protected due to the TRACE_HEADER_MULTI_READ.
+
+-- Steve
+
+
+> +#define NOTRACE
+> +#endif
+> +
+>  #include <linux/string_helpers.h>
+>  #include <linux/types.h>
+>  #include <linux/tracepoint.h>
+> diff --git a/drivers/gpu/drm/i915/i915_trace.h b/drivers/gpu/drm/i915/i91=
+5_trace.h
+> index ce1cbee1b39dd..c54653cf72c95 100644
+> --- a/drivers/gpu/drm/i915/i915_trace.h
+> +++ b/drivers/gpu/drm/i915/i915_trace.h
+> @@ -6,6 +6,10 @@
+>  #if !defined(_I915_TRACE_H_) || defined(TRACE_HEADER_MULTI_READ)
+>  #define _I915_TRACE_H_
+> =20
+> +#ifdef CONFIG_PREEMPT_RT
+> +#define NOTRACE
+> +#endif
+> +
+>  #include <linux/stringify.h>
+>  #include <linux/types.h>
+>  #include <linux/tracepoint.h>
+
