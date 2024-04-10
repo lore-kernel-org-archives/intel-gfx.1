@@ -4,55 +4,56 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6272DCD129A
-	for <intel-gfx@archiver.kernel.org>; Wed, 10 Apr 2024 10:06:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 54BE1CD1296
+	for <intel-gfx@archiver.kernel.org>; Wed, 10 Apr 2024 10:06:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4F16910EF56;
-	Wed, 10 Apr 2024 10:06:10 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5FDE010FB6D;
+	Wed, 10 Apr 2024 10:06:18 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="EHq8dzZp";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="N0EgCkzg";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.14])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 323E610EA24;
- Wed, 10 Apr 2024 10:05:56 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E31EA10EA32;
+ Wed, 10 Apr 2024 10:06:08 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1712743557; x=1744279557;
+ t=1712743570; x=1744279570;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=mumY1GcVkw8mOGIhsUnZxpQfZ2vPMs+xTyKtdEBX6sA=;
- b=EHq8dzZpHBOXYZRkf1wNC1xb1JGJhAUgn+u5EoU2hWmpXTeL9xlJQpSk
- ZySLH5J1kCk/P+sl51YYtwOJ1EmGiRo+8gKcWF2qJ0H5zeGg4z5ePCiLP
- BtauN7ocTKcdH+BR8aSxDMOmRZHuz/mG46xCY9NR5TnvvRu2bz9SCkjPq
- aDofTZ1p1gdQJpidQzfaWUskRB6keFZy6qGCAmPe12/0mVypuFwKPro+k
- BTgWWs4xtbwHtm0PslcyGcO5/lgVu1QwGd/pJrH8mzovsyVZmsFoMClvH
- WPdzXxZQ4vupm8smdrqepFJRYnxk1h3tKgpl/w5cC6cjLIlv2RItc1a8z w==;
-X-CSE-ConnectionGUID: l1UFSHqnTjS26jQwchrPdw==
-X-CSE-MsgGUID: ccfq0duARJq2slbZqHEsjQ==
-X-IronPort-AV: E=McAfee;i="6600,9927,11039"; a="8320059"
+ bh=zceLu27KX5mycpwBq7C7JSyU6Z7R7YwGkoFyQkqqkkw=;
+ b=N0EgCkzgFuK9JCv+7VSgI6P6QJ/Qgb/IXymyRjqbvTUWeYRhU3c/CfSK
+ sP3/fTy0C88+utrIlxY0HiwTPh9R9zgp8cw8XxWgoHFj/H2qKk0qv0Oa6
+ z/ndeazN+liBJe2pMmbsUMbMcgBQFUL7tnlrJsTWDTiLCJmmBevmEVGCx
+ qjkIAFB6abAF1JrvLVERRefNqBuTGtXLEhrlRcvnq/8Bz2kZR9c93+Dti
+ i7vLdNjzHedWKQmjT6yzV1bQPjMuPYrAv1JaFG5op5MlvfeL7XlmV2BUi
+ aUhTQiwaKVjkB+GOjVrWfpOatxlwLAoLRX5fKDn2FMoGkAU7rFE9Uioq/ A==;
+X-CSE-ConnectionGUID: NSpDovzwT6ufQA69yXsDFQ==
+X-CSE-MsgGUID: qp80G83NRFqso89PzIcRrQ==
+X-IronPort-AV: E=McAfee;i="6600,9927,11039"; a="8320092"
 X-IronPort-AV: E=Sophos;i="6.07,190,1708416000"; 
-   d="scan'208";a="8320059"
+   d="scan'208";a="8320092"
 Received: from orviesa009.jf.intel.com ([10.64.159.149])
  by fmvoesa108.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 Apr 2024 03:05:57 -0700
-X-CSE-ConnectionGUID: TIwbQ4EKRyKCz3sNkTAnyA==
-X-CSE-MsgGUID: vb+dWgstRWOEVPpFwbvF2w==
+ 10 Apr 2024 03:06:10 -0700
+X-CSE-ConnectionGUID: nD496gKnTkOo3oqplLfFEQ==
+X-CSE-MsgGUID: bci8PQ4BQpCgI2iEXXTt1w==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.07,190,1708416000"; d="scan'208";a="20460996"
+X-IronPort-AV: E=Sophos;i="6.07,190,1708416000"; d="scan'208";a="20461024"
 Received: from oakasatk-mobl.ger.corp.intel.com (HELO localhost)
  ([10.252.60.54])
  by orviesa009-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 Apr 2024 03:05:53 -0700
+ 10 Apr 2024 03:06:05 -0700
 From: Jani Nikula <jani.nikula@intel.com>
 To: intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
  dri-devel@lists.freedesktop.org
 Cc: jani.nikula@intel.com, Daniel Vetter <daniel@ffwll.ch>,
  Dave Airlie <airlied@gmail.com>,
  Lucas De Marchi <lucas.demarchi@intel.com>,
- Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>
-Subject: [PATCH 05/10] drm: move intel_lpe_audio.h under include/drm/intel
-Date: Wed, 10 Apr 2024 13:05:12 +0300
-Message-Id: <bf584e79e13001b962370a26e3b93c1c57ac6a1e.1712743191.git.jani.nikula@intel.com>
+ Tomas Winkler <tomas.winkler@intel.com>
+Subject: [PATCH 07/10] drm: move i915_pxp_tee_interface.h under
+ include/drm/intel
+Date: Wed, 10 Apr 2024 13:05:14 +0300
+Message-Id: <e91e71bcefa861601e321213e317a1ac2afb2a3f.1712743191.git.jani.nikula@intel.com>
 X-Mailer: git-send-email 2.39.2
 In-Reply-To: <cover.1712743191.git.jani.nikula@intel.com>
 References: <cover.1712743191.git.jani.nikula@intel.com>
@@ -80,60 +81,45 @@ specific files under a common subdirectory.
 Cc: Daniel Vetter <daniel@ffwll.ch>
 Cc: Dave Airlie <airlied@gmail.com>
 Cc: Lucas De Marchi <lucas.demarchi@intel.com>
-Cc: Jaroslav Kysela <perex@perex.cz>
-Cc: Takashi Iwai <tiwai@suse.com>
+Cc: Tomas Winkler <tomas.winkler@intel.com>
 Signed-off-by: Jani Nikula <jani.nikula@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_hdmi.c      | 2 +-
- drivers/gpu/drm/i915/display/intel_lpe_audio.c | 2 +-
- include/drm/{ => intel}/intel_lpe_audio.h      | 0
- sound/x86/intel_hdmi_audio.c                   | 2 +-
- 4 files changed, 3 insertions(+), 3 deletions(-)
- rename include/drm/{ => intel}/intel_lpe_audio.h (100%)
+ drivers/gpu/drm/i915/pxp/intel_pxp_tee.c         | 2 +-
+ drivers/misc/mei/pxp/mei_pxp.c                   | 2 +-
+ include/drm/{ => intel}/i915_pxp_tee_interface.h | 0
+ 3 files changed, 2 insertions(+), 2 deletions(-)
+ rename include/drm/{ => intel}/i915_pxp_tee_interface.h (100%)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_hdmi.c b/drivers/gpu/drm/i915/display/intel_hdmi.c
-index 5f6deceaf8ba..959aa1143a7d 100644
---- a/drivers/gpu/drm/i915/display/intel_hdmi.c
-+++ b/drivers/gpu/drm/i915/display/intel_hdmi.c
-@@ -38,7 +38,7 @@
- #include <drm/drm_atomic_helper.h>
- #include <drm/drm_crtc.h>
- #include <drm/drm_edid.h>
--#include <drm/intel_lpe_audio.h>
-+#include <drm/intel/intel_lpe_audio.h>
+diff --git a/drivers/gpu/drm/i915/pxp/intel_pxp_tee.c b/drivers/gpu/drm/i915/pxp/intel_pxp_tee.c
+index 051b6cdcf721..1784153f0cf8 100644
+--- a/drivers/gpu/drm/i915/pxp/intel_pxp_tee.c
++++ b/drivers/gpu/drm/i915/pxp/intel_pxp_tee.c
+@@ -5,7 +5,7 @@
  
- #include "g4x_hdmi.h"
- #include "i915_drv.h"
-diff --git a/drivers/gpu/drm/i915/display/intel_lpe_audio.c b/drivers/gpu/drm/i915/display/intel_lpe_audio.c
-index 5863763de530..4e3f78d1d4f9 100644
---- a/drivers/gpu/drm/i915/display/intel_lpe_audio.c
-+++ b/drivers/gpu/drm/i915/display/intel_lpe_audio.c
-@@ -68,7 +68,7 @@
- #include <linux/platform_device.h>
- #include <linux/pm_runtime.h>
+ #include <linux/component.h>
  
--#include <drm/intel_lpe_audio.h>
-+#include <drm/intel/intel_lpe_audio.h>
+-#include <drm/i915_pxp_tee_interface.h>
++#include <drm/intel/i915_pxp_tee_interface.h>
+ #include <drm/intel/i915_component.h>
  
- #include "i915_drv.h"
- #include "i915_irq.h"
-diff --git a/include/drm/intel_lpe_audio.h b/include/drm/intel/intel_lpe_audio.h
+ #include "gem/i915_gem_lmem.h"
+diff --git a/drivers/misc/mei/pxp/mei_pxp.c b/drivers/misc/mei/pxp/mei_pxp.c
+index 5a7a4d8b0e23..4268a868255f 100644
+--- a/drivers/misc/mei/pxp/mei_pxp.c
++++ b/drivers/misc/mei/pxp/mei_pxp.c
+@@ -20,7 +20,7 @@
+ #include <linux/component.h>
+ #include <drm/drm_connector.h>
+ #include <drm/intel/i915_component.h>
+-#include <drm/i915_pxp_tee_interface.h>
++#include <drm/intel/i915_pxp_tee_interface.h>
+ 
+ #include "mei_pxp.h"
+ 
+diff --git a/include/drm/i915_pxp_tee_interface.h b/include/drm/intel/i915_pxp_tee_interface.h
 similarity index 100%
-rename from include/drm/intel_lpe_audio.h
-rename to include/drm/intel/intel_lpe_audio.h
-diff --git a/sound/x86/intel_hdmi_audio.c b/sound/x86/intel_hdmi_audio.c
-index 02f5a7f9b728..d41ea09ffbe5 100644
---- a/sound/x86/intel_hdmi_audio.c
-+++ b/sound/x86/intel_hdmi_audio.c
-@@ -31,7 +31,7 @@
- #include <sound/jack.h>
- #include <drm/drm_edid.h>
- #include <drm/drm_eld.h>
--#include <drm/intel_lpe_audio.h>
-+#include <drm/intel/intel_lpe_audio.h>
- #include "intel_hdmi_audio.h"
- 
- #define INTEL_HDMI_AUDIO_SUSPEND_DELAY_MS  5000
+rename from include/drm/i915_pxp_tee_interface.h
+rename to include/drm/intel/i915_pxp_tee_interface.h
 -- 
 2.39.2
 
