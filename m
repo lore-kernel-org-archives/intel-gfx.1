@@ -4,78 +4,74 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B73F5C04FF6
-	for <intel-gfx@archiver.kernel.org>; Fri, 12 Apr 2024 12:18:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E956BC4345F
+	for <intel-gfx@archiver.kernel.org>; Fri, 12 Apr 2024 12:18:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8D33D10E529;
-	Fri, 12 Apr 2024 12:18:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0C6C410F5E0;
+	Fri, 12 Apr 2024 12:18:32 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=toblux-com.20230601.gappssmtp.com header.i=@toblux-com.20230601.gappssmtp.com header.b="zkyYPdFW";
+	dkim=pass (2048-bit key; unprotected) header.d=toblux-com.20230601.gappssmtp.com header.i=@toblux-com.20230601.gappssmtp.com header.b="Y7vqhVQS";
 	dkim-atps=neutral
-Received: from mail-ej1-f49.google.com (mail-ej1-f49.google.com
- [209.85.218.49])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4AB9610E6C8
- for <intel-gfx@lists.freedesktop.org>; Thu, 11 Apr 2024 17:13:09 +0000 (UTC)
-Received: by mail-ej1-f49.google.com with SMTP id
- a640c23a62f3a-a47385a4379so205359866b.0
- for <intel-gfx@lists.freedesktop.org>; Thu, 11 Apr 2024 10:13:09 -0700 (PDT)
+Received: from mail-ed1-f49.google.com (mail-ed1-f49.google.com
+ [209.85.208.49])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 81A2E10F157
+ for <intel-gfx@lists.freedesktop.org>; Thu, 11 Apr 2024 15:06:06 +0000 (UTC)
+Received: by mail-ed1-f49.google.com with SMTP id
+ 4fb4d7f45d1cf-56e6f4ee104so4794400a12.2
+ for <intel-gfx@lists.freedesktop.org>; Thu, 11 Apr 2024 08:06:06 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=toblux-com.20230601.gappssmtp.com; s=20230601; t=1712855587; x=1713460387;
+ d=toblux-com.20230601.gappssmtp.com; s=20230601; t=1712847964; x=1713452764;
  darn=lists.freedesktop.org; 
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=hvFX8Zcz52PjVSzNzeS44mNpf2auNf+csb4v+mS26SM=;
- b=zkyYPdFWDiOIpv8Bf2GkB/3/BKbC/rung07d7OFvVAwQNKHSgjczhnUVaWLA3Hpti3
- X6SRoC9ALZP4knf+TTbW6JfkzFmPZvXtcpzz9IU8uH0oBoI/Pu2W/2Nm7biCROCsUccD
- eeUIxy+F4rq/MLRHQZoCGZBcvK7bu14/njkP7PIp9001Wg/J6s7b/W7rF+Qqj93Z3ImP
- M78RdMkK54boBpzZuXTKzGguE6fN3EBd8iD1gWZeaBMJlsrk6KFWXM3R1NZ+pwzUpNKM
- 4QNj9ynMLGvPYfleaalWqWBhWSHg1rDHx1Kc2grEXtkdcURnc/N+3vHVw2GV0LrBOpRm
- m4fQ==
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=3XY9FvpYK3RhqyAoY8N9ZZOBhodm4LlWdXEwCqf+YMk=;
+ b=Y7vqhVQSsHVXQrJOG4oDKtSeCOvPIkXN81Gllnd/Bp2lVzX89oSldK67up3ClpdaC/
+ kfM5Dsc4L1ah/0oT4gG4j7OoBfuFdeRqF9wIZyMmA0fTqPbbRjHVG2GvMu29DZIXGnkM
+ MEGPtgnttCchgMOtsLq6Px4BFM8FfJ1b+sklut7UhxuLGTH+MoBMq3iIy3/cujifEySd
+ LDJ85IVQbITGp5TmvH8RZHgrJ/H/Bv4GM1zDuP9DcQhzjln3m7D1IlaKDRAeAKwQBb/l
+ /suFB9c8bUAeQdoa4SF4m3a0AXJnKVgkapOok0lF/uElTh/1CxsxoOZprWxSyTRAb3/M
+ v/rA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1712855587; x=1713460387;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=hvFX8Zcz52PjVSzNzeS44mNpf2auNf+csb4v+mS26SM=;
- b=lmwGFyhkBAxFfmUpG0zKiP71YnITpr8RtZ83Q9nNKk4/+Irg6XF4nBUhmAGxlUueBx
- D95TkgPEAbACMcAa42adcMTfOPUs7o6ZbLGqjXQtAkZsLWWFQrlnjjnG873VatfTf5nx
- rn7XrNEtdQHaeXryqJRuTpdi2MpAgTWre9ti5b41AlprWCd5UH5YyjwSVQJty2IOHqfG
- Up5FghrMiLulW9CZ9SD+2lFMwuAj20Ti5X26JuNTKQm9GVz+0oEb8jMiTjSHio4lTnq7
- Os5+uKQV5C9tPQQyPG4CNARJlRp2oqazi67pU/I38JBtkgjDpS4tOanjrnyDRztPlV4w
- 5tFQ==
+ d=1e100.net; s=20230601; t=1712847964; x=1713452764;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=3XY9FvpYK3RhqyAoY8N9ZZOBhodm4LlWdXEwCqf+YMk=;
+ b=eJm1QmYi+6ghZZCwOWVp3Lrxhk/rsauha9bdudwVdBedKRWfpPqUqVw5ZVZtgHSx7w
+ ymevfwecf9pI62WAKqVzOUmdE1OkK376HlFrfWELYB8NBBBBIgMX5AktW6MNraGAA8ki
+ xJGFDQWSh/ichNhyxuva10WmHIgnZxJ81jzARg/xLkynOBp0m8jhS739lzGFWeVW9xQ8
+ ZvkC1N1m7GU9gDkUXcIDlcyN42gqahX1ADfhEsNysDGovBFlE0wqVB/+HUFiCvtzlL+u
+ xQhdb4pGMV+st8N3j3o64r2mI9pROXBTIAy9KxYEEcbRDz401iW7fkVTitupAjpymxRw
+ oxnw==
 X-Forwarded-Encrypted: i=1;
- AJvYcCWmN3RtCZhfnRKue6e8ZEY5sUvlzsY/P4AOuXi8755NVywkGe+FbkWqYPjhn/EaRzBo4tgvRedqumJUNRP1KeaONslP4pwVQauSgI/XXqsr
-X-Gm-Message-State: AOJu0YyqrLJSN/CO9HRPW36NtbKXJqRtfEq5ChdfSSNaGDHAybTosZPu
- Q6VoF+ANWfP6irxlz5vLkY1bOX8L+ePAa/5n4zSx7Y4qY3V5vg2nMVuTm3EsyUs=
-X-Google-Smtp-Source: AGHT+IFBhtL3EwHN8QLn6F8m7cRV6r1+33o4Pg84QV8nXC7s3i+NcHAHEmjm0MeoaB6rJi5Xyepv0A==
-X-Received: by 2002:a17:907:9450:b0:a52:1fe5:d1bb with SMTP id
- dl16-20020a170907945000b00a521fe5d1bbmr2387576ejc.11.1712855587193; 
- Thu, 11 Apr 2024 10:13:07 -0700 (PDT)
+ AJvYcCUGDJUDK2CfvLVpwOTowcOMi9P4iZv1Xeoec8WUbUGA8/JVnPmad0saB+kDLCdHjc0/xDCRlcmm1vYSTkgnFXcGUOzY9peNc7ek+A7eHLN/
+X-Gm-Message-State: AOJu0YzevBlKHYZe7NAKFRTSU4dk5W0WUSgDz4N7/LGSjggzYkNVIib/
+ yuCeAhx5fwr24/MpxOn/E6QDmGiN8uU9L00yrLM2+gMfa0V5Gnd4HtZNp6GSNVk=
+X-Google-Smtp-Source: AGHT+IHD8Aol4VG3+TWeRF8vO+k+xa2SzGRSIh0TnwsiDVmsP/sGKLIykE4sii1nSP4TUsdBmFyt2w==
+X-Received: by 2002:a50:9ea9:0:b0:566:18ba:6b80 with SMTP id
+ a38-20020a509ea9000000b0056618ba6b80mr45026edf.31.1712847963956; 
+ Thu, 11 Apr 2024 08:06:03 -0700 (PDT)
 Received: from fedora.fritz.box (aftr-82-135-80-212.dynamic.mnet-online.de.
  [82.135.80.212]) by smtp.gmail.com with ESMTPSA id
- g4-20020a1709063b0400b00a51bbee7e55sm918610ejf.53.2024.04.11.10.13.05
+ w4-20020a056402128400b0056e2b351956sm777108edv.22.2024.04.11.08.06.02
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 11 Apr 2024 10:13:06 -0700 (PDT)
+ Thu, 11 Apr 2024 08:06:03 -0700 (PDT)
 From: Thorsten Blum <thorsten.blum@toblux.com>
-To: robin.murphy@arm.com
-Cc: cocci@inria.fr, dri-devel@lists.freedesktop.org, ecryptfs@vger.kernel.org,
+To: kernel-janitors@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org, linux-trace-kernel@vger.kernel.org,
+ linux-doc@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-s390@vger.kernel.org, speakup@linux-speakup.org,
  intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
- io-uring@vger.kernel.org, kernel-janitors@vger.kernel.org,
- linux-afs@lists.infradead.org, linux-arch@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-doc@vger.kernel.org,
- linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-perf-users@vger.kernel.org, linux-s390@vger.kernel.org,
- linux-scsi@vger.kernel.org, linux-trace-kernel@vger.kernel.org,
- linux-unionfs@vger.kernel.org, linux-wireless@vger.kernel.org,
- netfs@lists.linux.dev, speakup@linux-speakup.org, thorsten.blum@toblux.com,
- Randy Dunlap <rdunlap@infradead.org>, Tyler Hicks <code@tyhicks.com>
-Subject: [PATCH v2] treewide: Fix common grammar mistake "the the"
-Date: Thu, 11 Apr 2024 19:11:47 +0200
-Message-ID: <20240411171145.535123-3-thorsten.blum@toblux.com>
+ dri-devel@lists.freedesktop.org, linux-wireless@vger.kernel.org,
+ linux-scsi@vger.kernel.org, linux-afs@lists.infradead.org,
+ ecryptfs@vger.kernel.org, netfs@lists.linux.dev,
+ linux-fsdevel@vger.kernel.org, linux-unionfs@vger.kernel.org,
+ linux-arch@vger.kernel.org, io-uring@vger.kernel.org, cocci@inria.fr,
+ linux-perf-users@vger.kernel.org, Thorsten Blum <thorsten.blum@toblux.com>
+Subject: [PATCH] treewide: Fix common grammar mistake "the the"
+Date: Thu, 11 Apr 2024 17:04:40 +0200
+Message-ID: <20240411150437.496153-4-thorsten.blum@toblux.com>
 X-Mailer: git-send-email 2.44.0
-In-Reply-To: <f2d1bb68-7ab7-4bbf-a1b1-88334ba52bab@arm.com>
-References: <f2d1bb68-7ab7-4bbf-a1b1-88334ba52bab@arm.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Fri, 12 Apr 2024 12:18:22 +0000
@@ -97,18 +93,9 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 Use `find . -type f -exec sed -i 's/\<the the\>/the/g' {} +` to find all
 occurrences of "the the" and replace them with a single "the".
 
-In arch/arm/include/asm/unwind.h replace "the the" with "to the".
-
 Changes only comments and documentation - no code changes.
 
 Signed-off-by: Thorsten Blum <thorsten.blum@toblux.com>
-Reviewed-by: Randy Dunlap <rdunlap@infradead.org>
-Reviewed-by: Tyler Hicks <code@tyhicks.com>
----
-Changes in v2:
-- In arch/arm/include/asm/unwind.h: s/the the/to the/ as pointed out by
-  Robin Murphy
-- Preserve Reviewed-by: tags
 ---
  Documentation/trace/histogram.rst                 | 2 +-
  arch/arm/Kconfig                                  | 4 ++--
@@ -178,7 +165,7 @@ index b14aed3a17ab..f46fb69ff247 100644
  	  firmware need to be enabled. This would require the DMI subsystem
  	  to be enabled much earlier than we do on ARM, which is non-trivial.
 diff --git a/arch/arm/include/asm/unwind.h b/arch/arm/include/asm/unwind.h
-index d60b09a5acfc..9e4313a6309c 100644
+index d60b09a5acfc..a75da9a01f91 100644
 --- a/arch/arm/include/asm/unwind.h
 +++ b/arch/arm/include/asm/unwind.h
 @@ -10,7 +10,7 @@
@@ -186,7 +173,7 @@ index d60b09a5acfc..9e4313a6309c 100644
  #ifndef __ASSEMBLY__
  
 -/* Unwind reason code according the the ARM EABI documents */
-+/* Unwind reason code according to the ARM EABI documents */
++/* Unwind reason code according the ARM EABI documents */
  enum unwind_reason_code {
  	URC_OK = 0,			/* operation completed successfully */
  	URC_CONTINUE_UNWIND = 8,
