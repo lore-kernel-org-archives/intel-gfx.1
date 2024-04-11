@@ -4,51 +4,51 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3FF41CD1297
-	for <intel-gfx@archiver.kernel.org>; Thu, 11 Apr 2024 06:12:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8DC99CD128A
+	for <intel-gfx@archiver.kernel.org>; Thu, 11 Apr 2024 06:12:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7F17710EE58;
-	Thu, 11 Apr 2024 06:12:13 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DDC6310EE5A;
+	Thu, 11 Apr 2024 06:12:18 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="Zybk3flo";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="ObzlPJVB";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3992A10EE58
- for <intel-gfx@lists.freedesktop.org>; Thu, 11 Apr 2024 06:12:06 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 38DDD10EE5A
+ for <intel-gfx@lists.freedesktop.org>; Thu, 11 Apr 2024 06:12:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1712815926; x=1744351926;
+ t=1712815934; x=1744351934;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=ZZJ+jWsN0UQcqfbcBvl0Sw7AZaQhBuD1yLa8ZuuvVTs=;
- b=Zybk3flo356n3P3ZtELgk3xLpm9Xg/Utt3ae8BRgsDMLhlUvYmu/nOiJ
- pkyYKsTYHGSZ/rQOPgHLGGB8+3Nv1YndDXqqr5zjONTCIBY5Nf/BRHucf
- IeF6g64i9MFv83pMXTX8NjV7u5guahIKgWp2S70FPz2O4yylSISHvz7cS
- oomEFGPRgizlg+Uqjn/MaEazUFWSpfVs0cNbjbdjpK//ROC8BJU9z6zaS
- /2EEarA+F+5Hdp/VHbrbhxUkSsmjbyvtytlWpRUXr/+YVpYm7JroR9VVN
- taqbK4Eqypp4WlUcKflin97J9xhBvn7Nsr8S4+Ta8SXqOThiYBGb3q5AG A==;
-X-CSE-ConnectionGUID: 0S5FSv0CTti/TEuFQCVQ+g==
-X-CSE-MsgGUID: 5tvshylMRkKtcvn7x/zkPQ==
-X-IronPort-AV: E=McAfee;i="6600,9927,11039"; a="8385000"
+ bh=aI3DYDDJ9Va/tLQsWztcz90BpPxagJOWnGgCEq9HV6k=;
+ b=ObzlPJVBWBx+Gq/EChmVE6RXFUmVu8WFaNbBN+U7TbHBnACCwJIgvRbj
+ kzt4QBtnJAx1TZZOHnCVqgc7YeyAN+dfV9Oo0RwXkVqx7RXV32kzYOess
+ 5M7bFSWRvXU+skLcYRPWyn4+TEWd7hVyBzgusMGajp6ky+TAh9WaUFrGp
+ Oc/TzyWXyepxDwa8nUMTuPrUfKExSNhtx4QsjLJKacDJuD2wrXiDpcR/U
+ 7nY3b+LFyTtdaf06b1LI9U3Qf4zq6bakQopdLAbXYCMAee+NHZZxbySKu
+ ZrgkiRiJdJn7OmFoDU1TEAitUNaaq30e5uPdReKDtkC2SoOyGiH4CZlKt w==;
+X-CSE-ConnectionGUID: TFoWf0GpSluvBqUK+/NzLg==
+X-CSE-MsgGUID: bkQaASiqTkWyugF5+dxLNA==
+X-IronPort-AV: E=McAfee;i="6600,9927,11039"; a="8385018"
 X-IronPort-AV: E=Sophos;i="6.07,192,1708416000"; 
-   d="scan'208";a="8385000"
+   d="scan'208";a="8385018"
 Received: from orviesa001.jf.intel.com ([10.64.159.141])
  by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 Apr 2024 23:12:06 -0700
-X-CSE-ConnectionGUID: ZFsPL38FQ0a1zWQz6ICqqw==
-X-CSE-MsgGUID: DsMGwXLvQ86IUPdvCz5+bg==
+ 10 Apr 2024 23:12:12 -0700
+X-CSE-ConnectionGUID: NAugEJYNT1yYPEbHZtFwwA==
+X-CSE-MsgGUID: v1z1gl/qTmKwMidFNwTZWQ==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.07,192,1708416000"; d="scan'208";a="58226446"
+X-IronPort-AV: E=Sophos;i="6.07,192,1708416000"; d="scan'208";a="58226466"
 Received: from kandpal-x299-ud4-pro.iind.intel.com ([10.190.239.32])
- by orviesa001.jf.intel.com with ESMTP; 10 Apr 2024 23:12:03 -0700
+ by orviesa001.jf.intel.com with ESMTP; 10 Apr 2024 23:12:09 -0700
 From: Suraj Kandpal <suraj.kandpal@intel.com>
 To: intel-gfx@lists.freedesktop.org
 Cc: chaitanya.kumar.borah@intel.com, uma.shankar@intel.com,
  ankit.k.nautiyal@intel.com, arun.r.murthy@intel.com, jani.nikula@intel.com,
  naveen1.kumar@intel.com, Suraj Kandpal <suraj.kandpal@intel.com>
-Subject: [PATCH 4/6] drm/i915/dp: Drop comments on EDP HDR DPCD registers
-Date: Thu, 11 Apr 2024 11:39:23 +0530
-Message-ID: <20240411060925.475456-5-suraj.kandpal@intel.com>
+Subject: [PATCH 6/6] drm/i915/dp: Write panel override luminance values
+Date: Thu, 11 Apr 2024 11:39:25 +0530
+Message-ID: <20240411060925.475456-7-suraj.kandpal@intel.com>
 X-Mailer: git-send-email 2.43.2
 In-Reply-To: <20240411060925.475456-1-suraj.kandpal@intel.com>
 References: <20240411060925.475456-1-suraj.kandpal@intel.com>
@@ -69,39 +69,57 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Drop comments for EDP HDR DPCD registers as the code and
-conditions will tell us what can be written where.
-
---v2
--Drop the comments altogether instead of just renaming them
-[Sebastian]
+Write panel override luminance values which helps the TCON decide
+if tone mapping needs to be enabled or not.
 
 Signed-off-by: Suraj Kandpal <suraj.kandpal@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_dp_aux_backlight.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ .../drm/i915/display/intel_dp_aux_backlight.c | 25 +++++++++++++++++++
+ 1 file changed, 25 insertions(+)
 
 diff --git a/drivers/gpu/drm/i915/display/intel_dp_aux_backlight.c b/drivers/gpu/drm/i915/display/intel_dp_aux_backlight.c
-index 3d9723714c96..b61bad218994 100644
+index b13eee250dc4..cb6f01daae42 100644
 --- a/drivers/gpu/drm/i915/display/intel_dp_aux_backlight.c
 +++ b/drivers/gpu/drm/i915/display/intel_dp_aux_backlight.c
-@@ -69,14 +69,14 @@
- #define INTEL_EDP_HDR_GETSET_CTRL_PARAMS                               0x344
- # define INTEL_EDP_HDR_TCON_2084_DECODE_ENABLE                        BIT(0)
- # define INTEL_EDP_HDR_TCON_2020_GAMUT_ENABLE                         BIT(1)
--# define INTEL_EDP_HDR_TCON_TONE_MAPPING_ENABLE                       BIT(2) /* Pre-TGL+ */
-+# define INTEL_EDP_HDR_TCON_TONE_MAPPING_ENABLE                       BIT(2)
- # define INTEL_EDP_HDR_TCON_SEGMENTED_BACKLIGHT_ENABLE                BIT(3)
- # define INTEL_EDP_HDR_TCON_BRIGHTNESS_AUX_ENABLE                     BIT(4)
- # define INTEL_EDP_HDR_TCON_SRGB_TO_PANEL_GAMUT_ENABLE                BIT(5)
- /* Bit 6 is reserved */
- # define INTEL_EDP_HDR_TCON_SDP_OVERRIDE_AUX			      BIT(7)
+@@ -381,6 +381,29 @@ static const char *dpcd_vs_pwm_str(bool aux)
+ 	return aux ? "DPCD" : "PWM";
+ }
  
--#define INTEL_EDP_HDR_CONTENT_LUMINANCE                                0x346 /* Pre-TGL+ */
-+#define INTEL_EDP_HDR_CONTENT_LUMINANCE                                0x346
- #define INTEL_EDP_HDR_PANEL_LUMINANCE_OVERRIDE                         0x34A
- #define INTEL_EDP_SDR_LUMINANCE_LEVEL                                  0x352
- #define INTEL_EDP_BRIGHTNESS_NITS_LSB                                  0x354
++static void
++intel_dp_aux_write_panel_luminance_override(struct intel_connector *connector)
++{
++	struct drm_i915_private *i915 = to_i915(connector->base.dev);
++	struct intel_panel *panel = &connector->panel;
++	struct intel_dp *intel_dp = enc_to_intel_dp(connector->encoder);
++	int ret;
++	u8 buf[4] = {};
++
++	buf[0] = panel->backlight.min & 0xFF;
++	buf[1] = (panel->backlight.min & 0xFF00) >> 8;
++	buf[2] = panel->backlight.max & 0xFF;
++	buf[3] = (panel->backlight.max & 0xFF00) >> 8;
++
++	ret = drm_dp_dpcd_write(&intel_dp->aux,
++				INTEL_EDP_HDR_PANEL_LUMINANCE_OVERRIDE,
++				buf, sizeof(buf));
++	if (ret < 0)
++		drm_dbg_kms(&i915->drm,
++			    "Panel Luminance DPCD reg write failed, err:-%d\n",
++			    ret);
++}
++
+ static int
+ intel_dp_aux_hdr_setup_backlight(struct intel_connector *connector, enum pipe pipe)
+ {
+@@ -412,6 +435,8 @@ intel_dp_aux_hdr_setup_backlight(struct intel_connector *connector, enum pipe pi
+ 		panel->backlight.min = 0;
+ 	}
+ 
++	intel_dp_aux_write_panel_luminance_override(connector);
++
+ 	drm_dbg_kms(&i915->drm, "[CONNECTOR:%d:%s] Using AUX HDR interface for backlight control (range %d..%d)\n",
+ 		    connector->base.base.id, connector->base.name,
+ 		    panel->backlight.min, panel->backlight.max);
 -- 
 2.43.2
 
