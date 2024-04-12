@@ -4,56 +4,60 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2B213C4345F
-	for <intel-gfx@archiver.kernel.org>; Fri, 12 Apr 2024 16:08:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D9F6FC04FF8
+	for <intel-gfx@archiver.kernel.org>; Fri, 12 Apr 2024 16:26:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 657DB10F778;
-	Fri, 12 Apr 2024 16:08:54 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 49BDE10E3F0;
+	Fri, 12 Apr 2024 16:26:47 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="SsvyYlYb";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="N8pWUJuu";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.17])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CF7AA10F752;
- Fri, 12 Apr 2024 16:08:22 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.13])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 976B910E3F0;
+ Fri, 12 Apr 2024 16:26:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1712938102; x=1744474102;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=rjoq9JZ9aRAI5Vdj5iblad5chcAyzYh2XtJfo9AP85U=;
- b=SsvyYlYbVvPmutuSMRd15c1bYHoubb/eK0t/mbOUj2zhdQN7F9VQf+AM
- yV8hpBTmmEHB4flCKFLN2g+9f7FvxNTfx3Q0H4okPFB94nS71uvqvHnYH
- bk7oJEIjwCsq3C//lbyzynGugzm4ynw0qqJzQ479p5+1dDq6FHS9HP+/0
- 9yVIbtKLV90sKzei7HWacoqprjAu+tOoJRNuWuO04S7tlaz3MDUqcYb0m
- 1hHHKOhCJRzfmsnZfvVSmSIO2Nb1AoWWScVJrWgrf8Uru3WJARsgZvl4/
- d2mpmqQe6fs5Wx1D2QYyihaycQeysHNS8HivclvT4OYBj714kPMnwlYjz g==;
-X-CSE-ConnectionGUID: glXNnlyORHiA8dF/7oaGag==
-X-CSE-MsgGUID: 41F4QPrKQuWONNjumG5ciw==
-X-IronPort-AV: E=McAfee;i="6600,9927,11042"; a="8256923"
-X-IronPort-AV: E=Sophos;i="6.07,196,1708416000"; 
-   d="scan'208";a="8256923"
-Received: from orviesa003.jf.intel.com ([10.64.159.143])
- by fmvoesa111.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 12 Apr 2024 09:08:22 -0700
-X-CSE-ConnectionGUID: GmG0Lf4CRHy3hYdJIYQYCQ==
-X-CSE-MsgGUID: 769bdcL3SYyqzHd4hPieiQ==
+ t=1712939205; x=1744475205;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:content-transfer-encoding:in-reply-to;
+ bh=CoAvhTMt+ClKYJyx9fkeMjn4e9bz8hoVk80daUywBS8=;
+ b=N8pWUJuuJYU5j90Gwz/SHogocrEPsQOz84qksTSG87BSAosECvcxUaBb
+ E2+rQJYzYvLKoEPa6UeZ2rSuflgNH+S4MvkJRPkKHpyeZEc79JIH2fwFQ
+ Ug4KAf/vWwfj17nQ3Pi322g5xSyO72FsPaGcicIEJNf6MEtY3NEEqgc1H
+ YUIZhHME6k2Wh316pRcC2Em251zH0VQzqpZVEx5s+BsZoUEKDb7VPiDxV
+ CuRQ2mQFk5CTuVQ7ZsG7Lrlqc3oGCo79x0FWNj5DUMwbmr1ciB/YUHeV/
+ HLWe8vIwF4CR3oKU/4I+T3ZvnUZgRwZCoSswnpWabNmyNy9QCCPuFudC2 Q==;
+X-CSE-ConnectionGUID: 2AzUKGSSQ8WpzBSlzqwDrQ==
+X-CSE-MsgGUID: Q5ovyFeFQkuUMhqWVwBXpg==
+X-IronPort-AV: E=McAfee;i="6600,9927,11042"; a="19549558"
+X-IronPort-AV: E=Sophos;i="6.07,196,1708416000"; d="scan'208";a="19549558"
+Received: from fmviesa008.fm.intel.com ([10.60.135.148])
+ by orvoesa105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 12 Apr 2024 09:26:44 -0700
+X-CSE-ConnectionGUID: n5FwUVExRJy+fMF3HNUbyg==
+X-CSE-MsgGUID: VzQi4Jv1TIm87yvipc87CQ==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.07,196,1708416000"; d="scan'208";a="25964127"
-Received: from srr4-3-linux-101-amanna.iind.intel.com ([10.223.74.76])
- by orviesa003.jf.intel.com with ESMTP; 12 Apr 2024 09:08:21 -0700
-From: Animesh Manna <animesh.manna@intel.com>
-To: intel-gfx@lists.freedesktop.org
-Cc: dri-devel@lists.freedesktop.org, jani.nikula@intel.com,
- jouni.hogander@intel.com, arun.r.murthy@intel.com,
- Animesh Manna <animesh.manna@intel.com>
-Subject: [PATCH v2 5/6] drm/i915/alpm: Enable lobf from source in ALPM_CTL
-Date: Fri, 12 Apr 2024 21:22:42 +0530
-Message-Id: <20240412155243.2891996-6-animesh.manna@intel.com>
-X-Mailer: git-send-email 2.29.0
-In-Reply-To: <20240412155243.2891996-1-animesh.manna@intel.com>
-References: <20240412155243.2891996-1-animesh.manna@intel.com>
+X-IronPort-AV: E=Sophos;i="6.07,196,1708416000"; d="scan'208";a="21361963"
+Received: from stinkpipe.fi.intel.com (HELO stinkbox) ([10.237.72.74])
+ by fmviesa008.fm.intel.com with SMTP; 12 Apr 2024 09:26:41 -0700
+Received: by stinkbox (sSMTP sendmail emulation);
+ Fri, 12 Apr 2024 19:26:40 +0300
+Date: Fri, 12 Apr 2024 19:26:40 +0300
+From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
+To: Jani Nikula <jani.nikula@intel.com>
+Cc: intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org
+Subject: Re: [PATCH 3/6] drm/i915/display: split out intel_fbc_regs.h from
+ i915_reg.h
+Message-ID: <ZhlgwJSSemaZjEC5@intel.com>
+References: <cover.1712933479.git.jani.nikula@intel.com>
+ <eaf07dab79ff057547501892056dd06afec4f213.1712933479.git.jani.nikula@intel.com>
+ <ZhlO_c62Tdlx_ck8@intel.com> <87bk6e4m1q.fsf@intel.com>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <87bk6e4m1q.fsf@intel.com>
+X-Patchwork-Hint: comment
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,42 +73,55 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Set the Link Off Between Frames Enable bit in ALPM_CTL register.
+On Fri, Apr 12, 2024 at 06:50:57PM +0300, Jani Nikula wrote:
+> On Fri, 12 Apr 2024, Ville Syrjälä <ville.syrjala@linux.intel.com> wrote:
+> > On Fri, Apr 12, 2024 at 05:52:55PM +0300, Jani Nikula wrote:
+> >> +/*
+> >> + * Framebuffer compression (915+ only)
+> >> + */
+> >
+> > Outdated comment. Looks like pretty much all the comments
+> > in this file are misleading/outdated. Maybe just nuke them
+> > all while at it.
+> 
+> Ack.
+> 
+> >> +#define ILK_DISPLAY_CHICKEN1	_MMIO(0x42000)
+> >
+> > Not an FBC register.
+> 
+> Whoops, this one was an accident.
+> 
+> >> +#define CHICKEN_MISC_4		_MMIO(0x4208c)
+> >
+> > Also not an FBC register.
+> 
+> However this one was intentional. So the register isn't "an fbc
+> register", but the contents are all about fbc,
 
-Signed-off-by: Animesh Manna <animesh.manna@intel.com>
----
- drivers/gpu/drm/i915/display/intel_alpm.c          | 5 +++++
- drivers/gpu/drm/i915/display/intel_display_types.h | 1 +
- 2 files changed, 6 insertions(+)
+Only the bits we have thus far defined. There's other stuff
+in there that we haven't bothered to name.
 
-diff --git a/drivers/gpu/drm/i915/display/intel_alpm.c b/drivers/gpu/drm/i915/display/intel_alpm.c
-index 699f2f051766..ae894c85233c 100644
---- a/drivers/gpu/drm/i915/display/intel_alpm.c
-+++ b/drivers/gpu/drm/i915/display/intel_alpm.c
-@@ -325,6 +325,11 @@ static void lnl_alpm_configure(struct intel_dp *intel_dp)
- 			   ALPM_CTL_EXTENDED_FAST_WAKE_TIME(intel_dp->alpm_parameters.fast_wake_lines);
- 	}
- 
-+	if (intel_dp->lobf_supported) {
-+		alpm_ctl |= ALPM_CTL_LOBF_ENABLE;
-+		intel_dp->lobf_enabled = true;
-+	}
-+
- 	alpm_ctl |= ALPM_CTL_ALPM_ENTRY_CHECK(intel_dp->alpm_parameters.check_entry_lines);
- 
- 	intel_de_write(dev_priv, ALPM_CTL(cpu_transcoder), alpm_ctl);
-diff --git a/drivers/gpu/drm/i915/display/intel_display_types.h b/drivers/gpu/drm/i915/display/intel_display_types.h
-index 6116c383b543..f61ba582429b 100644
---- a/drivers/gpu/drm/i915/display/intel_display_types.h
-+++ b/drivers/gpu/drm/i915/display/intel_display_types.h
-@@ -1884,6 +1884,7 @@ struct intel_dp {
- 
- 	/* LOBF flags*/
- 	bool lobf_supported;
-+	bool lobf_enabled;
- };
- 
- enum lspcon_vendor {
+> and it's only used in
+> intel_fbc.c.
+
+I don't think we should place chicken register/etc definitons based
+purely on where it might be currently used. That may change at any
+point when we discover a new chicken bit that needs to be flipped.
+At that point the defintion would have to be moved again, or what
+seems rather likely to happen, people will overlook the existing
+definiton and add a duplicate elsewhere.
+
+> 
+> I guess after all reasonable topical things have been split out from
+> i915_reg.h, whatever display stuff is left will need to be put to a new
+> intel_display_regs.h or something. Things like this would then end up
+> there. Better or worse that way, I don't know.
+
+Yeah, there are a bunch of "these don't really belong anywhere"
+registers. Though maybe this kind of non-specific chicken registers
+could even live in the intel_chicken_regs.h file. Shrug.
+
 -- 
-2.29.0
-
+Ville Syrjälä
+Intel
