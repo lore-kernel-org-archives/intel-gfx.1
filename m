@@ -4,37 +4,27 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 16BF6C00A94
-	for <intel-gfx@archiver.kernel.org>; Fri, 12 Apr 2024 12:28:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E8544C00A94
+	for <intel-gfx@archiver.kernel.org>; Fri, 12 Apr 2024 13:09:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4DE7F10E41C;
-	Fri, 12 Apr 2024 12:28:48 +0000 (UTC)
-Received: from coelho.fi (paleale.coelho.fi [176.9.41.70])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E44BD10E687;
- Fri, 12 Apr 2024 12:28:46 +0000 (UTC)
-Received: from 87-95-9-152.bb.dnainternet.fi ([87.95.9.152]
- helo=[192.168.8.139])
- by coelho.fi with esmtpsa (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
- (Exim 4.97) (envelope-from <luca@coelho.fi>)
- id 1rvG1K-00000000FLo-0IyM; Fri, 12 Apr 2024 15:28:43 +0300
-Message-ID: <7c2a11df009a90646d39783c01f722b96717966c.camel@coelho.fi>
-From: Luca Coelho <luca@coelho.fi>
-To: "Shankar, Uma" <uma.shankar@intel.com>, "Coelho, Luciano"
- <luciano.coelho@intel.com>, "intel-gfx@lists.freedesktop.org"
- <intel-gfx@lists.freedesktop.org>
-Cc: "intel-xe@lists.freedesktop.org" <intel-xe@lists.freedesktop.org>, 
- "ville.syrjala@linux.intel.com"
- <ville.syrjala@linux.intel.com>, "Nikula, Jani" <jani.nikula@intel.com>
-Date: Fri, 12 Apr 2024 15:27:10 +0300
-In-Reply-To: <DM4PR11MB63600F7F0EE905B24FED01B2F4042@DM4PR11MB6360.namprd11.prod.outlook.com>
-References: <20240412094148.808179-1-luciano.coelho@intel.com>
- <20240412094148.808179-2-luciano.coelho@intel.com>
- <DM4PR11MB63600F7F0EE905B24FED01B2F4042@DM4PR11MB6360.namprd11.prod.outlook.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.46.4-2 
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0238210F627;
+	Fri, 12 Apr 2024 13:09:37 +0000 (UTC)
+Received: from mblankhorst.nl (lankhorst.se [141.105.120.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F070A10EF11;
+ Fri, 12 Apr 2024 13:09:33 +0000 (UTC)
+From: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+To: intel-gfx@lists.freedesktop.org
+Cc: intel-xe@lists.freedesktop.org
+Subject: [CI-only 2/8] drm/i915: Use vblank worker to unpin old legacy cursor
+ fb safely
+Date: Fri, 12 Apr 2024 15:09:38 +0200
+Message-ID: <20240412130946.13148-2-maarten.lankhorst@linux.intel.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20240412130946.13148-1-maarten.lankhorst@linux.intel.com>
+References: <20240412130946.13148-1-maarten.lankhorst@linux.intel.com>
 MIME-Version: 1.0
-Subject: Re: [PATCH v5 1/4] drm/i915/display: add support for DMC wakelocks
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -50,53 +40,117 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Fri, 2024-04-12 at 10:30 +0000, Shankar, Uma wrote:
->=20
-> > -----Original Message-----
-> > From: Coelho, Luciano <luciano.coelho@intel.com>
-> > Sent: Friday, April 12, 2024 3:12 PM
-> > To: intel-gfx@lists.freedesktop.org
-> > Cc: intel-xe@lists.freedesktop.org; Shankar, Uma <uma.shankar@intel.com=
->;
-> > ville.syrjala@linux.intel.com; Nikula, Jani <jani.nikula@intel.com>
-> > Subject: [PATCH v5 1/4] drm/i915/display: add support for DMC wakelocks
-> >=20
-> > In order to reduce the DC5->DC2 restore time, wakelocks have been intro=
-duced
-> > in DMC so the driver can tell it when registers and other memory areas =
-are going
-> > to be accessed and keep their respective blocks awake.
-> >=20
-> > Implement this in the driver by adding the concept of DMC wakelocks.
-> > When the driver needs to access memory which lies inside pre-defined ra=
-nges, it
-> > will tell DMC to set the wakelock, access the memory, then wait for a w=
-hile and
-> > clear the wakelock.
-> >=20
-> > The wakelock state is protected in the driver with spinlocks to prevent
-> > concurrency issues.
->=20
-> Hi Luca,
-> Seems you missed to add the version history.
+From: Ville Syrjälä <ville.syrjala@linux.intel.com>
 
-I've been sending the version history in the cover letter, because I
-don't think it adds any information after it gets to the mainline
-kernel.  The history is lost anyway, so the mailing list is a better
-place to store it (it's unique and meaningful there).
+The cursor hardware only does sync updates, and thus the hardware
+will be scanning out from the old fb until the next start of vblank.
+So in order to make the legacy cursor fastpath actually safe we
+should not unpin the old fb until we're sure the hardware has
+ceased accessing it. The simplest approach is to just use a vblank
+work here to do the delayed unpin.
 
-Bur as I said to someone else before, I can add it to the commit
-message if you think that it's needed.
+Not 100% sure it's a good idea to put this onto the same high
+priority vblank worker as eg. our timing critical gamma updates.
+But let's keep it simple for now, and it we later discover that
+this is causing problems we can think about adding a lower
+priority worker for such things.
 
->=20
-> Anyways, changes look good to me.
-> Reviewed-by: Uma Shankar <uma.shankar@intel.com>
+This patch is slightly reworked by Maarten
 
-Thanks a lot!
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+Signed-off-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
+Signed-off-by: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+---
+ drivers/gpu/drm/i915/display/intel_cursor.c   | 26 +++++++++++++++++--
+ drivers/gpu/drm/i915/display/intel_display.c  |  3 +++
+ .../drm/i915/display/intel_display_types.h    |  3 +++
+ 3 files changed, 30 insertions(+), 2 deletions(-)
 
-Though you didn't review patch 3/4, the one about the module parameter.
-Was that intentional or did you just miss it?
+diff --git a/drivers/gpu/drm/i915/display/intel_cursor.c b/drivers/gpu/drm/i915/display/intel_cursor.c
+index 23a122ee20c9..3cebeaa6e8b4 100644
+--- a/drivers/gpu/drm/i915/display/intel_cursor.c
++++ b/drivers/gpu/drm/i915/display/intel_cursor.c
+@@ -674,6 +674,17 @@ static bool intel_cursor_format_mod_supported(struct drm_plane *_plane,
+ 	return format == DRM_FORMAT_ARGB8888;
+ }
+ 
++static void intel_cursor_unpin_work(struct kthread_work *base)
++{
++	struct drm_vblank_work *work = to_drm_vblank_work(base);
++	struct intel_plane_state *plane_state =
++		container_of(work, typeof(*plane_state), unpin_work);
++	struct intel_plane *plane = to_intel_plane(plane_state->uapi.plane);
++
++	intel_plane_unpin_fb(plane_state);
++	intel_plane_destroy_state(&plane->base, &plane_state->uapi);
++}
++
+ static int
+ intel_legacy_cursor_update(struct drm_plane *_plane,
+ 			   struct drm_crtc *_crtc,
+@@ -817,14 +828,25 @@ intel_legacy_cursor_update(struct drm_plane *_plane,
+ 
+ 	intel_psr_unlock(crtc_state);
+ 
+-	intel_plane_unpin_fb(old_plane_state);
++	if (old_plane_state->ggtt_vma != new_plane_state->ggtt_vma) {
++		drm_vblank_work_init(&old_plane_state->unpin_work, &crtc->base,
++				     intel_cursor_unpin_work);
++
++		drm_vblank_work_schedule(&old_plane_state->unpin_work,
++					 drm_crtc_accurate_vblank_count(&crtc->base) + 1,
++					 false);
++
++		old_plane_state = NULL;
++	} else {
++		intel_plane_unpin_fb(old_plane_state);
++	}
+ 
+ out_free:
+ 	if (new_crtc_state)
+ 		intel_crtc_destroy_state(&crtc->base, &new_crtc_state->uapi);
+ 	if (ret)
+ 		intel_plane_destroy_state(&plane->base, &new_plane_state->uapi);
+-	else
++	else if (old_plane_state)
+ 		intel_plane_destroy_state(&plane->base, &old_plane_state->uapi);
+ 	return ret;
+ 
+diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
+index a92b67adee9c..46982fdc6a30 100644
+--- a/drivers/gpu/drm/i915/display/intel_display.c
++++ b/drivers/gpu/drm/i915/display/intel_display.c
+@@ -65,6 +65,7 @@
+ #include "intel_crt.h"
+ #include "intel_crtc.h"
+ #include "intel_crtc_state_dump.h"
++#include "intel_cursor.h"
+ #include "intel_ddi.h"
+ #include "intel_de.h"
+ #include "intel_display_driver.h"
+@@ -6932,6 +6933,8 @@ static void intel_commit_modeset_disables(struct intel_atomic_state *state)
+ 			continue;
+ 
+ 		intel_crtc_disable_planes(state, crtc);
++
++		drm_vblank_work_flush_all(&crtc->base);
+ 	}
+ 
+ 	/* Only disable port sync and MST slaves */
+diff --git a/drivers/gpu/drm/i915/display/intel_display_types.h b/drivers/gpu/drm/i915/display/intel_display_types.h
+index 0f4bd5710796..563637f20abf 100644
+--- a/drivers/gpu/drm/i915/display/intel_display_types.h
++++ b/drivers/gpu/drm/i915/display/intel_display_types.h
+@@ -730,6 +730,9 @@ struct intel_plane_state {
+ 	struct intel_fb_view view;
+ 	u32 phys_dma_addr; /* for cursor_needs_physical */
+ 
++	/* for legacy cursor fb unpin */
++	struct drm_vblank_work unpin_work;
++
+ 	/* Plane pxp decryption state */
+ 	bool decrypt;
+ 
+-- 
+2.43.0
 
---
-Cheers,
-Luca.
