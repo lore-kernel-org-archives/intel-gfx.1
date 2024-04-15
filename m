@@ -4,63 +4,56 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 04F39C04FF8
-	for <intel-gfx@archiver.kernel.org>; Mon, 15 Apr 2024 13:12:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BACB5C4345F
+	for <intel-gfx@archiver.kernel.org>; Mon, 15 Apr 2024 13:44:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 572BE11256A;
-	Mon, 15 Apr 2024 13:12:20 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 580FB1125BA;
+	Mon, 15 Apr 2024 13:44:44 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="YgManY5k";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="EGkvilIe";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.18])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 64215112568;
- Mon, 15 Apr 2024 13:12:18 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1189E1125A5;
+ Mon, 15 Apr 2024 13:44:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1713186738; x=1744722738;
+ t=1713188682; x=1744724682;
  h=from:to:cc:subject:in-reply-to:references:date:
- message-id:mime-version:content-transfer-encoding;
- bh=mNAj3Ryy9jivqTI9PPpQtWLl4nojXJetPRW08D+N/5k=;
- b=YgManY5k/+lI2x29h32jTwPuLMLrN/Q+7DxlPoBb2anURhRkP0fqleAG
- DEnrffk0dIIL0n5SzavWGRiPeUGB6a12OqticPVaOii7kI7QmnCMtacZN
- 4aWlXpHdNblxaEcBdMUn5ew7OYRaNvFFjbcKtu/NYZoFAuotq49BSRw9A
- L7ov0g/Ju8LhQzlDH3+W7cLEmXmQ3dnfcAdasvOD8+n5fXlrDWxJSAEm4
- UVjUaTQ0ykWdcrwYMEGTDtUJ62UyyTmrFWokO2srC+81UyKtr7ywuTIeh
- ft+B6UdSPCZO5gUKXhnRqS0z3kaS8fCd0plKlRPJNyK0YaVr8i/CiKgq0 w==;
-X-CSE-ConnectionGUID: kf1qIhdESFObKCbF41Ym5Q==
-X-CSE-MsgGUID: dMRgs4MuRrey94dow5XzOA==
-X-IronPort-AV: E=McAfee;i="6600,9927,11044"; a="8432642"
-X-IronPort-AV: E=Sophos;i="6.07,203,1708416000"; 
-   d="scan'208";a="8432642"
-Received: from fmviesa003.fm.intel.com ([10.60.135.143])
- by fmvoesa112.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 15 Apr 2024 06:09:00 -0700
-X-CSE-ConnectionGUID: wP/4heWQRo2Y8WtAMU42Aw==
-X-CSE-MsgGUID: wTNMkuADR/a7+meNGBpdBg==
+ message-id:mime-version;
+ bh=rsGdx6yD3BC7fZxSgiVyOAwMhw2H2rbVRG7Vf/53Ayw=;
+ b=EGkvilIeZntLG1ZT6TdJ66cBqUHjG0AOAO6tfsG157aKF3D+YhD/dRC2
+ VnYvgrwL61lMaivh5UvABe0Ab+CEB3d/CybtjmKIGtFvr3gLILv2rtEeG
+ hErEd/F+TFs8FbxLrhOHv/DyKar8P+LOyrOYINX265rDJId9x28i9Gcsa
+ VrFqZxAwaBiAiwoNdeWUIsnjiR6FdfaJ7PIo7BJ51xgU6xuZcDE8zIlgn
+ Sz7/WUdbjagbI3qW4hsVmK9pZBMHMqlikLWmsmGSLN9pi3HiM6kf8U8tm
+ K3/yvCv9sESlUGgHHHQDs1XGC3b+5F6DKRswzjG2hyQtUWT9uclTHQgA4 w==;
+X-CSE-ConnectionGUID: B683LIwfSYuHAygPFQG4Sg==
+X-CSE-MsgGUID: f9zIxNDeQvGPqAFwdr749A==
+X-IronPort-AV: E=McAfee;i="6600,9927,11045"; a="26036650"
+X-IronPort-AV: E=Sophos;i="6.07,203,1708416000"; d="scan'208";a="26036650"
+Received: from orviesa007.jf.intel.com ([10.64.159.147])
+ by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 15 Apr 2024 06:44:41 -0700
+X-CSE-ConnectionGUID: sCH522LETumbe32L0tZunQ==
+X-CSE-MsgGUID: j2W0Qo42QvSt1OwF3UI/qw==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.07,203,1708416000"; d="scan'208";a="26462502"
+X-IronPort-AV: E=Sophos;i="6.07,203,1708416000"; d="scan'208";a="22394590"
 Received: from lcariou-mobl.ger.corp.intel.com (HELO localhost)
  ([10.252.61.121])
- by fmviesa003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 15 Apr 2024 06:08:56 -0700
+ by orviesa007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 15 Apr 2024 06:44:40 -0700
 From: Jani Nikula <jani.nikula@intel.com>
-To: intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org
-Cc: Bjorn Helgaas <bhelgaas@google.com>, Daniel
- Vetter <daniel@ffwll.ch>, Dave Airlie <airlied@gmail.com>, Hans de Goede
- <hdegoede@redhat.com>, Ilpo =?utf-8?Q?J=C3=A4rvinen?=
- <ilpo.jarvinen@linux.intel.com>, Jaroslav Kysela <perex@perex.cz>, Lucas De
- Marchi <lucas.demarchi@intel.com>, Takashi Iwai <tiwai@suse.com>, Tomas
- Winkler <tomas.winkler@intel.com>
-Subject: Re: [PATCH 00/10] drm: move Intel drm headers to a subdirectory
-In-Reply-To: <cover.1712743191.git.jani.nikula@intel.com>
+To: dri-devel@lists.freedesktop.org
+Cc: intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
+ ville.syrjala@linux.intel.com, Thomas Zimmermann <tzimmermann@suse.de>
+Subject: Re: [PATCH v2 0/7] drm: debug logging improvements
+In-Reply-To: <cover.1712568037.git.jani.nikula@intel.com>
 Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
-References: <cover.1712743191.git.jani.nikula@intel.com>
-Date: Mon, 15 Apr 2024 16:08:45 +0300
-Message-ID: <87bk6a3h9e.fsf@intel.com>
+References: <cover.1712568037.git.jani.nikula@intel.com>
+Date: Mon, 15 Apr 2024 16:44:29 +0300
+Message-ID: <875xwi3flu.fsf@intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,98 +69,39 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Wed, 10 Apr 2024, Jani Nikula <jani.nikula@intel.com> wrote:
-> We've accumulated enough Intel specific header files under include/drm
-> that they warrant a subdirectory of their own. Clean up the top drm
-> header directory by moving the Intel files under include/drm/intel.
->
-> Since i915 is most impacted, I suggest merging the lot via
-> drm-intel-next. Please ack if this is fine for you.
+On Mon, 08 Apr 2024, Jani Nikula <jani.nikula@intel.com> wrote:
+> v2 of [1], dropping drm_mode_print() stuff altogether, and switching to
+> DRM_MODE_FMT/DRM_MODE_ARG() in a separate patch. Also add a few more drm
+> device based logging conversion patches, so the last patch makes more sense.
 
-While all of this is trivial, merely changing some includes, please
-consider acking the changes to your corner of the kernel.
+Thanks for the reviews, pushed the lot to drm-misc-next.
 
-Thanks,
+BR,
 Jani.
-
 
 >
 > BR,
 > Jani.
 >
+> [1] https://patchwork.freedesktop.org/series/130881/
 >
-> Cc: Bjorn Helgaas <bhelgaas@google.com>
-> Cc: Daniel Vetter <daniel@ffwll.ch>
-> Cc: Dave Airlie <airlied@gmail.com>
-> Cc: Hans de Goede <hdegoede@redhat.com>
-> Cc: Ilpo J=C3=A4rvinen <ilpo.jarvinen@linux.intel.com>
-> Cc: Jaroslav Kysela <perex@perex.cz>
-> Cc: Lucas De Marchi <lucas.demarchi@intel.com>
-> Cc: Takashi Iwai <tiwai@suse.com>
-> Cc: Tomas Winkler <tomas.winkler@intel.com>
+> Jani Nikula (7):
+>   drm/probe-helper: switch to drm device based logging
+>   drm/modes: switch to drm device based error logging
+>   drm/sysfs: switch to drm device based logging
+>   drm/client: switch to drm device based logging, and more
+>   drm/crtc: switch to drm device based logging
+>   drm/crtc-helper: switch to drm device based logging and warns
+>   drm: prefer DRM_MODE_FMT/ARG over drm_mode_debug_printmodeline()
 >
-> Jani Nikula (10):
->   drm/i915: use system include for drm headers
->   drm: move intel-gtt.h under include/drm/intel
->   drm: move i915_gsc_proxy_mei_interface.h under include/drm/intel
->   drm: move i915_component.h under include/drm/intel
->   drm: move intel_lpe_audio.h under include/drm/intel
->   drm: move i915_drm.h under include/drm/intel
->   drm: move i915_pxp_tee_interface.h under include/drm/intel
->   drm: move i915_pciids.h under include/drm/intel
->   drm: move xe_pciids.h under include/drm/intel
->   drm: move i915_hdcp_interface.h under include/drm/intel
->
->  arch/x86/kernel/early-quirks.c                         | 4 ++--
->  drivers/char/agp/intel-agp.c                           | 2 +-
->  drivers/char/agp/intel-gtt.c                           | 2 +-
->  drivers/gpu/drm/i915/display/intel_audio.c             | 2 +-
->  drivers/gpu/drm/i915/display/intel_display_device.c    | 2 +-
->  drivers/gpu/drm/i915/display/intel_display_types.h     | 2 +-
->  drivers/gpu/drm/i915/display/intel_hdcp.c              | 2 +-
->  drivers/gpu/drm/i915/display/intel_hdcp_gsc.c          | 2 +-
->  drivers/gpu/drm/i915/display/intel_hdcp_gsc_message.c  | 2 +-
->  drivers/gpu/drm/i915/display/intel_hdmi.c              | 2 +-
->  drivers/gpu/drm/i915/display/intel_lpe_audio.c         | 2 +-
->  drivers/gpu/drm/i915/gem/i915_gem_stolen.c             | 2 +-
->  drivers/gpu/drm/i915/gt/intel_ggtt.c                   | 4 ++--
->  drivers/gpu/drm/i915/gt/intel_ggtt_gmch.c              | 2 +-
->  drivers/gpu/drm/i915/gt/intel_gt.c                     | 2 +-
->  drivers/gpu/drm/i915/gt/intel_rps.c                    | 2 +-
->  drivers/gpu/drm/i915/gt/uc/intel_gsc_proxy.c           | 4 ++--
->  drivers/gpu/drm/i915/i915_pci.c                        | 2 +-
->  drivers/gpu/drm/i915/intel_device_info.c               | 2 +-
->  drivers/gpu/drm/i915/pxp/intel_pxp_tee.c               | 4 ++--
->  drivers/gpu/drm/i915/soc/intel_gmch.c                  | 2 +-
->  drivers/gpu/drm/xe/display/xe_hdcp_gsc.c               | 2 +-
->  drivers/gpu/drm/xe/xe_ggtt.c                           | 2 +-
->  drivers/gpu/drm/xe/xe_gsc_proxy.c                      | 4 ++--
->  drivers/gpu/drm/xe/xe_pci.c                            | 2 +-
->  drivers/misc/mei/gsc_proxy/mei_gsc_proxy.c             | 4 ++--
->  drivers/misc/mei/hdcp/mei_hdcp.c                       | 4 ++--
->  drivers/misc/mei/pxp/mei_pxp.c                         | 4 ++--
->  drivers/platform/x86/intel_ips.c                       | 2 +-
->  include/drm/{ =3D> intel}/i915_component.h               | 2 +-
->  include/drm/{ =3D> intel}/i915_drm.h                     | 0
->  include/drm/{ =3D> intel}/i915_gsc_proxy_mei_interface.h | 0
->  include/drm/{ =3D> intel}/i915_hdcp_interface.h          | 0
->  include/drm/{ =3D> intel}/i915_pciids.h                  | 0
->  include/drm/{ =3D> intel}/i915_pxp_tee_interface.h       | 0
->  include/drm/{ =3D> intel}/intel-gtt.h                    | 0
->  include/drm/{ =3D> intel}/intel_lpe_audio.h              | 0
->  include/drm/{ =3D> intel}/xe_pciids.h                    | 0
->  include/sound/hdaudio.h                                | 2 +-
->  sound/x86/intel_hdmi_audio.c                           | 2 +-
->  40 files changed, 40 insertions(+), 40 deletions(-)
->  rename include/drm/{ =3D> intel}/i915_component.h (98%)
->  rename include/drm/{ =3D> intel}/i915_drm.h (100%)
->  rename include/drm/{ =3D> intel}/i915_gsc_proxy_mei_interface.h (100%)
->  rename include/drm/{ =3D> intel}/i915_hdcp_interface.h (100%)
->  rename include/drm/{ =3D> intel}/i915_pciids.h (100%)
->  rename include/drm/{ =3D> intel}/i915_pxp_tee_interface.h (100%)
->  rename include/drm/{ =3D> intel}/intel-gtt.h (100%)
->  rename include/drm/{ =3D> intel}/intel_lpe_audio.h (100%)
->  rename include/drm/{ =3D> intel}/xe_pciids.h (100%)
+>  drivers/gpu/drm/drm_atomic_uapi.c    |   6 +-
+>  drivers/gpu/drm/drm_client_modeset.c | 129 +++++++++++++++------------
+>  drivers/gpu/drm/drm_crtc.c           |  38 ++++----
+>  drivers/gpu/drm/drm_crtc_helper.c    | 100 +++++++++++----------
+>  drivers/gpu/drm/drm_modes.c          |  40 ++++-----
+>  drivers/gpu/drm/drm_probe_helper.c   |  39 ++++----
+>  drivers/gpu/drm/drm_sysfs.c          |  20 ++---
+>  7 files changed, 193 insertions(+), 179 deletions(-)
 
---=20
+-- 
 Jani Nikula, Intel
