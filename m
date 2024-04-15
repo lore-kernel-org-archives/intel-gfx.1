@@ -4,56 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 38BAAC04FF9
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BB802C04FFF
 	for <intel-gfx@archiver.kernel.org>; Mon, 15 Apr 2024 08:14:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9970A10FC22;
-	Mon, 15 Apr 2024 08:14:03 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 46CB41122BA;
+	Mon, 15 Apr 2024 08:14:04 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="mkPIO7LD";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="Zekm+CHT";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.16])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8ACDA10E904;
- Mon, 15 Apr 2024 08:13:58 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3075F10F9E9;
+ Mon, 15 Apr 2024 08:14:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1713168838; x=1744704838;
+ t=1713168843; x=1744704843;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=fC78lGAE3cjESggx6aACPu9G/QPlnTxk7ZKZtWJtk+w=;
- b=mkPIO7LDzgm0whN/suiHlWKUo+dIKdMnLXM/J7lyw9cEgCJ1D7vTe6jd
- wgwHREL2iDRoyrWiGvWbp9h4Dqj59krDG6DtFT4ef1fevQWiLaN4qqZXr
- NoM+yC9jma0nspmgrsTlGgHBE6A3EUmR99H7ivxgxVqi9I1+fd2jmOGMn
- 4h2v9D8dT2LXdBqePqyTK4r6X425U4aIcOgG3xKi76oC1JHbjZB959fX7
- /zxb543loTafPtXcMJOhDuedZkn40UCvpFiZ+eec+Sk8TIox60y5bivf4
- XD3tt+ePBc9rVkFmQhxj+UTvShOd2cEur6j8rcxkFKxXwpnzNUPBKzaDA Q==;
-X-CSE-ConnectionGUID: z0CFOnceSO++YVVO3Mg91A==
-X-CSE-MsgGUID: 4sl9A17cSe2iNhKLPTsDXA==
-X-IronPort-AV: E=McAfee;i="6600,9927,11044"; a="9096309"
+ bh=1Y3C3FX8MB/kAdXrV30QFY/0qbNF7IFd78Cax7VMtDY=;
+ b=Zekm+CHTXIKxoMUBuPrNb15GGVrY5CfUNsvKsXZaeR/IUHfugU0JKeLt
+ xYpLqZKQCxS56kFVFx4BUNPeikhDpNgX4NtIz+cqx0RzaPjW/WRFq+sbK
+ CRH+YHrNH5f3iKmIta7gqzJ0Q428ZqqENAXMGOUObjSf9W9h8v3/GM4v3
+ hS8f/OKTr0+hfMR3N7Rnh7qqRa7h960eJUNXOc5OehnQGOjuB3m5grFyr
+ keYKqNr28GNno/lEq75qZxDOrjnSffvujVRGNhbxa7EVyxBMIs3Qb0Ga3
+ bt2pBjgsTncUaL8ioiuKmK7nKe3DoiFGZBSitMBXGH8Fpxes6K0Lx87wD Q==;
+X-CSE-ConnectionGUID: y8JSWILgRhKIB40QPjHtbQ==
+X-CSE-MsgGUID: riiM+A+2SjOAUFiPsLb2bw==
+X-IronPort-AV: E=McAfee;i="6600,9927,11044"; a="9096336"
 X-IronPort-AV: E=Sophos;i="6.07,202,1708416000"; 
-   d="scan'208";a="9096309"
+   d="scan'208";a="9096336"
 Received: from fmviesa003.fm.intel.com ([10.60.135.143])
  by fmvoesa110.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 15 Apr 2024 01:13:58 -0700
-X-CSE-ConnectionGUID: aSOWjbL1RaC1ryx2fdBZRw==
-X-CSE-MsgGUID: rDrak7RMTcmEEdn4YOsk2Q==
+ 15 Apr 2024 01:14:03 -0700
+X-CSE-ConnectionGUID: OCvNEkbKR8ewoM3lBACP8g==
+X-CSE-MsgGUID: Okk30dX2SzaiQ0cSBXGS9Q==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.07,202,1708416000"; d="scan'208";a="26400110"
+X-IronPort-AV: E=Sophos;i="6.07,202,1708416000"; d="scan'208";a="26400179"
 Received: from bvivekan-desk.iind.intel.com ([10.190.238.63])
  by fmviesa003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 15 Apr 2024 01:13:56 -0700
+ 15 Apr 2024 01:14:01 -0700
 From: Balasubramani Vivekanandan <balasubramani.vivekanandan@intel.com>
 To: intel-xe@lists.freedesktop.org,
 	intel-gfx@lists.freedesktop.org
 Cc: Lucas De Marchi <lucas.demarchi@intel.com>,
  Matt Roper <matthew.d.roper@intel.com>,
- Clint Taylor <clinton.a.taylor@intel.com>,
- Jani Nikula <jani.nikula@linux.intel.com>,
  Balasubramani Vivekanandan <balasubramani.vivekanandan@intel.com>
-Subject: [PATCH v3 01/21] drm/xe/display: Lane reversal requires writes to
- both context lanes
-Date: Mon, 15 Apr 2024 13:44:03 +0530
-Message-Id: <20240415081423.495834-2-balasubramani.vivekanandan@intel.com>
+Subject: [PATCH v3 03/21] drm/i915/bmg: Define IS_BATTLEMAGE macro
+Date: Mon, 15 Apr 2024 13:44:05 +0530
+Message-Id: <20240415081423.495834-4-balasubramani.vivekanandan@intel.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20240415081423.495834-1-balasubramani.vivekanandan@intel.com>
 References: <20240415081423.495834-1-balasubramani.vivekanandan@intel.com>
@@ -74,63 +71,43 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Clint Taylor <clinton.a.taylor@intel.com>
+Display code uses IS_BATTLEMAGE macro but the platform support doesn't
+exist in i915. So fake IS_BATTLEMAGE macro defined to enable building
+i915 code.  We should make sure the macro parameter is used in the
+always-false expression so that we don't run into "unused variable"
+warnings from i915 builds if the IS_BATTLEMAGE() check is the only place
+the i915 pointer gets used in a function.
 
-Write both CX0 Lanes for Context Toggle for all except TC pin assignment D.
+While we're at it, also update the IS_LUNARLAKE macro to include the
+parameter in the false expression for consistency.
 
-Bspec: 64539
-CC: Jani Nikula <jani.nikula@linux.intel.com>
-Signed-off-by: Clint Taylor <clinton.a.taylor@intel.com>
 Signed-off-by: Balasubramani Vivekanandan <balasubramani.vivekanandan@intel.com>
+Reviewed-by: Matt Roper <matthew.d.roper@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_cx0_phy.c | 10 +++++-----
- 1 file changed, 5 insertions(+), 5 deletions(-)
+ drivers/gpu/drm/i915/i915_drv.h | 10 +++++++++-
+ 1 file changed, 9 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_cx0_phy.c b/drivers/gpu/drm/i915/display/intel_cx0_phy.c
-index a2c4bf33155f..5cf5d9b59708 100644
---- a/drivers/gpu/drm/i915/display/intel_cx0_phy.c
-+++ b/drivers/gpu/drm/i915/display/intel_cx0_phy.c
-@@ -2337,7 +2337,7 @@ static void intel_c20_pll_program(struct drm_i915_private *i915,
- {
- 	const struct intel_c20pll_state *pll_state = &crtc_state->cx0pll_state.c20;
- 	bool dp = false;
--	int lane = crtc_state->lane_count > 2 ? INTEL_CX0_BOTH_LANES : INTEL_CX0_LANE0;
-+	u8 owned_lane_mask = intel_cx0_get_owned_lane_mask(encoder);
- 	u32 clock = crtc_state->port_clock;
- 	bool cntx;
- 	int i;
-@@ -2402,19 +2402,19 @@ static void intel_c20_pll_program(struct drm_i915_private *i915,
- 	}
+diff --git a/drivers/gpu/drm/i915/i915_drv.h b/drivers/gpu/drm/i915/i915_drv.h
+index ee0d7d5f135d..481ddce038b2 100644
+--- a/drivers/gpu/drm/i915/i915_drv.h
++++ b/drivers/gpu/drm/i915/i915_drv.h
+@@ -535,7 +535,15 @@ IS_SUBPLATFORM(const struct drm_i915_private *i915,
+ #define IS_ALDERLAKE_P(i915) IS_PLATFORM(i915, INTEL_ALDERLAKE_P)
+ #define IS_DG2(i915)	IS_PLATFORM(i915, INTEL_DG2)
+ #define IS_METEORLAKE(i915) IS_PLATFORM(i915, INTEL_METEORLAKE)
+-#define IS_LUNARLAKE(i915) 0
++/*
++ * Display code shared by i915 and Xe relies on macros like IS_LUNARLAKE,
++ * so we need to define these even on platforms that the i915 base driver
++ * doesn't support.  Ensure the parameter is used in the definition to
++ * avoid 'unused variable' warnings when compiling the shared display code
++ * for i915.
++ */
++#define IS_LUNARLAKE(i915) (0 && i915)
++#define IS_BATTLEMAGE(i915)  (0 && i915)
  
- 	/* 4. Program custom width to match the link protocol */
--	intel_cx0_rmw(encoder, lane, PHY_C20_VDR_CUSTOM_WIDTH,
-+	intel_cx0_rmw(encoder, owned_lane_mask, PHY_C20_VDR_CUSTOM_WIDTH,
- 		      PHY_C20_CUSTOM_WIDTH_MASK,
- 		      PHY_C20_CUSTOM_WIDTH(intel_get_c20_custom_width(clock, dp)),
- 		      MB_WRITE_COMMITTED);
- 
- 	/* 5. For DP or 6. For HDMI */
- 	if (dp) {
--		intel_cx0_rmw(encoder, lane, PHY_C20_VDR_CUSTOM_SERDES_RATE,
-+		intel_cx0_rmw(encoder, owned_lane_mask, PHY_C20_VDR_CUSTOM_SERDES_RATE,
- 			      BIT(6) | PHY_C20_CUSTOM_SERDES_MASK,
- 			      BIT(6) | PHY_C20_CUSTOM_SERDES(intel_c20_get_dp_rate(clock)),
- 			      MB_WRITE_COMMITTED);
- 	} else {
--		intel_cx0_rmw(encoder, lane, PHY_C20_VDR_CUSTOM_SERDES_RATE,
-+		intel_cx0_rmw(encoder, owned_lane_mask, PHY_C20_VDR_CUSTOM_SERDES_RATE,
- 			      BIT(7) | PHY_C20_CUSTOM_SERDES_MASK,
- 			      is_hdmi_frl(clock) ? BIT(7) : 0,
- 			      MB_WRITE_COMMITTED);
-@@ -2428,7 +2428,7 @@ static void intel_c20_pll_program(struct drm_i915_private *i915,
- 	 * 7. Write Vendor specific registers to toggle context setting to load
- 	 * the updated programming toggle context bit
- 	 */
--	intel_cx0_rmw(encoder, lane, PHY_C20_VDR_CUSTOM_SERDES_RATE,
-+	intel_cx0_rmw(encoder, owned_lane_mask, PHY_C20_VDR_CUSTOM_SERDES_RATE,
- 		      BIT(0), cntx ? 0 : 1, MB_WRITE_COMMITTED);
- }
- 
+ #define IS_DG2_G10(i915) \
+ 	IS_SUBPLATFORM(i915, INTEL_DG2, INTEL_SUBPLATFORM_G10)
 -- 
 2.25.1
 
