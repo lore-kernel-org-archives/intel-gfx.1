@@ -4,69 +4,132 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6DACDC04FF6
-	for <intel-gfx@archiver.kernel.org>; Tue, 16 Apr 2024 12:02:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 186DEC4345F
+	for <intel-gfx@archiver.kernel.org>; Tue, 16 Apr 2024 12:19:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AAAE610E683;
-	Tue, 16 Apr 2024 12:02:33 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8578410ED0F;
+	Tue, 16 Apr 2024 12:19:09 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=gmx.de header.i=w_armin@gmx.de header.b="W1j9IjH6";
+	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="wdopkbdq";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="PYKdx0B3";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="wdopkbdq";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="PYKdx0B3";
 	dkim-atps=neutral
-Received: from mout.gmx.net (mout.gmx.net [212.227.15.15])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DDC511128C9;
- Mon, 15 Apr 2024 23:35:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmx.de;
- s=s31663417; t=1713224104; x=1713828904; i=w_armin@gmx.de;
- bh=pmyP4CEy69Uj8iXjSnZkR04t7uBjJ8fSPa2KWueQbQ4=;
- h=X-UI-Sender-Class:Message-ID:Date:MIME-Version:Subject:To:Cc:
- References:From:In-Reply-To:Content-Type:
- Content-Transfer-Encoding:cc:content-transfer-encoding:
- content-type:date:from:message-id:mime-version:reply-to:subject:
- to;
- b=W1j9IjH6rPw3vQO8G2QC+YvF7IpAOWhh/CyowQqwGUWGgcMhrcEm5ApdwwiKt+1I
- B+4CQYxiYB+S5ZiI4ZzgjOCYs1cH1fdcP8A9KlNV3Ry7f55C7roxyaNDs6P/twNjj
- T8Gx28ayYHIEgLpnugDJTOKnQqaMHAQsCrjVlZfbbGQJm0C44HpxaEKkFwYlI8OdX
- ou5GPQeNBCrVEGFPYp3FDW7Yz47kX3wd5vcP8e0ZMpMBXkJ1lCqzVOva4Y6idy53f
- rQ57YNWeX9WeydGHPC1IZEaQqOCHy/fwLlkGqPCJHRsZxDhOJfS88q7cyCG6E6fXU
- ZkgA4PuHcYkFDexOdw==
-X-UI-Sender-Class: 724b4f7f-cbec-4199-ad4e-598c01a50d3a
-Received: from [141.30.226.129] ([141.30.226.129]) by mail.gmx.net (mrgmx005
- [212.227.17.190]) with ESMTPSA (Nemesis) id 1Mulm5-1snW4x1Ywt-00rs8c; Tue, 16
- Apr 2024 01:35:04 +0200
-Message-ID: <020612d1-2e6b-4bd7-87a6-dbd31574fdd8@gmx.de>
-Date: Tue, 16 Apr 2024 01:35:02 +0200
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0D781112C1A;
+ Tue, 16 Apr 2024 12:19:07 +0000 (UTC)
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
+ [IPv6:2a07:de40:b281:104:10:150:64:97])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 767A8373DA;
+ Tue, 16 Apr 2024 12:19:06 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1713269946; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=SG9LgJTPJWeVdN2wv4tQ/5V2BEOa+enYxvxU9lAmf8M=;
+ b=wdopkbdqwqgDxPNOrk/be93Rh/gQiEpbzOylkj3sPPGdMJJcNdLRpbSCpEBIA4gG0Q4LlU
+ RLsE9WyO996CJ4WSMQ4wNTxKMK4D1nvewFr354eedc/WmBOoGvT38EyKEFA/oJ7CBm7Hym
+ OUaaq6FhCqdYBPJiB8A+nOtB/ppyfqM=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1713269946;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=SG9LgJTPJWeVdN2wv4tQ/5V2BEOa+enYxvxU9lAmf8M=;
+ b=PYKdx0B3LhBKsMD3GroH7w4jVs5I+SFUSHYtfU2ggVJpCfsrEEPIVTjtOlXH9MbOWD9I3h
+ EgCEOjwwNaQyGADA==
+Authentication-Results: smtp-out1.suse.de;
+ dkim=pass header.d=suse.de header.s=susede2_rsa header.b=wdopkbdq;
+ dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=PYKdx0B3
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1713269946; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=SG9LgJTPJWeVdN2wv4tQ/5V2BEOa+enYxvxU9lAmf8M=;
+ b=wdopkbdqwqgDxPNOrk/be93Rh/gQiEpbzOylkj3sPPGdMJJcNdLRpbSCpEBIA4gG0Q4LlU
+ RLsE9WyO996CJ4WSMQ4wNTxKMK4D1nvewFr354eedc/WmBOoGvT38EyKEFA/oJ7CBm7Hym
+ OUaaq6FhCqdYBPJiB8A+nOtB/ppyfqM=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1713269946;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=SG9LgJTPJWeVdN2wv4tQ/5V2BEOa+enYxvxU9lAmf8M=;
+ b=PYKdx0B3LhBKsMD3GroH7w4jVs5I+SFUSHYtfU2ggVJpCfsrEEPIVTjtOlXH9MbOWD9I3h
+ EgCEOjwwNaQyGADA==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 5533013931;
+ Tue, 16 Apr 2024 12:19:06 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([10.150.64.162])
+ by imap1.dmz-prg2.suse.org with ESMTPSA id uyaHE7psHmb8PQAAD6G6ig
+ (envelope-from <tzimmermann@suse.de>); Tue, 16 Apr 2024 12:19:06 +0000
+Message-ID: <fb57c317-25ec-4001-abb4-cb52b0aff741@suse.de>
+Date: Tue, 16 Apr 2024 14:19:05 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] drm/i915/hwmon: Get rid of devm
-To: Ashutosh Dixit <ashutosh.dixit@intel.com>, intel-gfx@lists.freedesktop.org
-Cc: Badal Nilawar <badal.nilawar@intel.com>, Andi Shyti
- <andi.shyti@intel.com>, =?UTF-8?B?VmlsbGUgU3lyasOkbMOk?=
- <ville.syrjala@linux.intel.com>, linux-hwmon@vger.kernel.org,
- dri-devel@lists.freedesktop.org
-References: <20240415223612.738535-1-ashutosh.dixit@intel.com>
+Subject: Re: [REBASE 5/7] drm/edid: avoid drm_edid_find_extension() internally
+To: Jani Nikula <jani.nikula@intel.com>, dri-devel@lists.freedesktop.org
+Cc: intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org
+References: <cover.1713259151.git.jani.nikula@intel.com>
+ <9fa366147b06a28304527be48f1b363c3484c8a3.1713259151.git.jani.nikula@intel.com>
 Content-Language: en-US
-From: Armin Wolf <W_Armin@gmx.de>
-In-Reply-To: <20240415223612.738535-1-ashutosh.dixit@intel.com>
+From: Thomas Zimmermann <tzimmermann@suse.de>
+Autocrypt: addr=tzimmermann@suse.de; keydata=
+ xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
+ XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
+ BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
+ hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
+ 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
+ AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
+ AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
+ AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
+ lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
+ U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
+ vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
+ 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
+ j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
+ T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
+ 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
+ GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
+ hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
+ EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
+ C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
+ yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
+ SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
+ Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
+ 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
+In-Reply-To: <9fa366147b06a28304527be48f1b363c3484c8a3.1713259151.git.jani.nikula@intel.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: quoted-printable
-X-Provags-ID: V03:K1:GhwclRSw6uw2wiE9i9/X26NsE6ctQeALOum9cO8peT7yGbZMg0/
- JpdGPYYjvOgyyHFWEAYlCrYuviHaIolXb1tCOHhNpevSpXk5eHbc2guPc/W2Z7A00LE/4lR
- KBvJvRIOWkqERqBbsJyZ5EkT1FnhI7hPW73hb2ZMy8pFcGAFlsGNhk/DmZP0IfCvBoQRIC5
- etLWABmwKUoY2sx1Tf/3w==
-UI-OutboundReport: notjunk:1;M01:P0:39UMfrACpkQ=;Nxvl/d83CXve9SVn4lI8ejM+FCx
- IDCTWvmOihpWpoooOYU5ed5+5XJhHlu7xM4OPN+NleSt4n1BRubRUT016ZFgDqO0EAQC8f3ig
- 3HYJ0u9Ex01ongkbm6PKgDP/UyCOsXptjSzz243vSMg2kMXOZ4KPXyHNz85jB1dxT47TI0/sp
- 4NV1TUK3AguiMLK/8B0/zAwKJAERykqQH7pnQr3p9EJG+F0KrBnGuC5ZIbcgwtCxZ7QBNqF7q
- JfHR5vdgDT496mOeFWgdX1b9J8snMGrCENCJzaC5xHas/lSgYnV0BUMm1rQ0i3JL8xWUpMPOS
- 3HErTh9omTbHDKCMOTeLylwEZ1gRa6DpvpxJznr3Lq2vQOK/wAbDjU/Msu5QAROW4meYcjIfL
- SHGq04I2DCfkvx98okwzO7rr4pT9owKKIktxJqtBAIYu1OvGygaE+am+7nzPjaLgu9UJ1e7aC
- jbFtn6+7jQZm/2vmTxIYftD4OR4C9Scct6kBDh0y/XykJAELgJoAcrnsun+l1nr8KIJPIE3w+
- NjdlJRqHXdDfIgNWOQBGJDSoNtD4560clklZiM3ccitU046CTHV3APGTlK213+QOW8kyN9vvG
- ZS+d9RgcNByqUnGT5MS93tJAtRujBSRC70YkXcPGbppfqKj6DSucaRpxFNq1NQyCg8BL8sXhr
- BhCR8SujhXNrhpqsQpCKhtbJEKrkjkTXtg6UON8UO+xRDIkZcI8OsVyfu3Bjy3Rmonk5Qy+cK
- tuOiEuXWIOEPXCJ/pIoBUl3JU33T5B1JNvEECkaRE8pI1fiZLzZ1t/edEcglrIhDGOmXvEuAb
- JXJA7St151+xWeWopODEriri6PQvCIlpNBzYIaCwiEF6w=
-X-Mailman-Approved-At: Tue, 16 Apr 2024 12:02:32 +0000
+Content-Transfer-Encoding: 7bit
+X-Spamd-Result: default: False [-5.50 / 50.00]; BAYES_HAM(-3.00)[100.00%];
+ DWL_DNSWL_LOW(-1.00)[suse.de:dkim];
+ NEURAL_HAM_LONG(-1.00)[-1.000];
+ R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
+ MX_GOOD(-0.01)[]; XM_UA_NO_VERSION(0.01)[];
+ FUZZY_BLOCKED(0.00)[rspamd.com]; RCVD_VIA_SMTP_AUTH(0.00)[];
+ MIME_TRACE(0.00)[0:+]; ARC_NA(0.00)[]; TO_DN_SOME(0.00)[];
+ MID_RHS_MATCH_FROM(0.00)[]; RCVD_TLS_ALL(0.00)[];
+ DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ FROM_EQ_ENVFROM(0.00)[]; FROM_HAS_DN(0.00)[];
+ RCPT_COUNT_THREE(0.00)[4]; RCVD_COUNT_TWO(0.00)[2];
+ TO_MATCH_ENVRCPT_ALL(0.00)[];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns,intel.com:email,suse.de:dkim];
+ DNSWL_BLOCKED(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+ DKIM_TRACE(0.00)[suse.de:+]
+X-Rspamd-Action: no action
+X-Rspamd-Queue-Id: 767A8373DA
+X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -82,141 +145,59 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Am 16.04.24 um 00:36 schrieb Ashutosh Dixit:
+Hi
 
-> When both hwmon and hwmon drvdata (on which hwmon depends) are device
-> managed resources, the expectation, on device unbind, is that hwmon will=
- be
-> released before drvdata. However, in i915 there are two separate code
-> paths, which both release either drvdata or hwmon and either can be
-> released before the other. These code paths (for device unbind) are as
-> follows (see also the bug referenced below):
+Am 16.04.24 um 11:19 schrieb Jani Nikula:
+> Prefer the EDID iterators over drm_edid_find_extension() in
+> drm_edid_has_cta_extension(), even if this leads to more code. The key
+> is to use the same patterns as much as possible.
+
+Should this patch go before patch 4? That would limit the impact of the 
+latter.
+
+Why is this instance different than the one in 
+drm_find_displayid_extension()? Best regards Thomas
 >
-> Call Trace:
-> release_nodes+0x11/0x70
-> devres_release_group+0xb2/0x110
-> component_unbind_all+0x8d/0xa0
-> component_del+0xa5/0x140
-> intel_pxp_tee_component_fini+0x29/0x40 [i915]
-> intel_pxp_fini+0x33/0x80 [i915]
-> i915_driver_remove+0x4c/0x120 [i915]
-> i915_pci_remove+0x19/0x30 [i915]
-> pci_device_remove+0x32/0xa0
-> device_release_driver_internal+0x19c/0x200
-> unbind_store+0x9c/0xb0
->
-> and
->
-> Call Trace:
-> release_nodes+0x11/0x70
-> devres_release_all+0x8a/0xc0
-> device_unbind_cleanup+0x9/0x70
-> device_release_driver_internal+0x1c1/0x200
-> unbind_store+0x9c/0xb0
->
-> This means that in i915, if use devm, we cannot gurantee that hwmon will
-> always be released before drvdata. Which means that we have a uaf if hwm=
-on
-> sysfs is accessed when drvdata has been released but hwmon hasn't.
->
-> The only way out of this seems to be do get rid of devm_ and release/fre=
-e
-> everything explicitly during device unbind.
->
-> v2: Change commit message and other minor code changes
->
-> Closes: https://gitlab.freedesktop.org/drm/intel/-/issues/10366
-> Signed-off-by: Ashutosh Dixit <ashutosh.dixit@intel.com>
+> Signed-off-by: Jani Nikula <jani.nikula@intel.com>
 > ---
->   drivers/gpu/drm/i915/i915_hwmon.c | 41 +++++++++++++++++++++++--------
->   1 file changed, 31 insertions(+), 10 deletions(-)
+>   drivers/gpu/drm/drm_edid.c | 14 ++++++++++++--
+>   1 file changed, 12 insertions(+), 2 deletions(-)
 >
-> diff --git a/drivers/gpu/drm/i915/i915_hwmon.c b/drivers/gpu/drm/i915/i9=
-15_hwmon.c
-> index 8c3f443c8347..46c24b1ee6df 100644
-> --- a/drivers/gpu/drm/i915/i915_hwmon.c
-> +++ b/drivers/gpu/drm/i915/i915_hwmon.c
-> @@ -792,7 +792,7 @@ void i915_hwmon_register(struct drm_i915_private *i9=
-15)
->   	if (!IS_DGFX(i915))
->   		return;
->
-> -	hwmon =3D devm_kzalloc(dev, sizeof(*hwmon), GFP_KERNEL);
-> +	hwmon =3D kzalloc(sizeof(*hwmon), GFP_KERNEL);
->   	if (!hwmon)
->   		return;
->
-> @@ -818,10 +818,10 @@ void i915_hwmon_register(struct drm_i915_private *=
-i915)
->   	hwm_get_preregistration_info(i915);
->
->   	/*  hwmon_dev points to device hwmon<i> */
-> -	hwmon_dev =3D devm_hwmon_device_register_with_info(dev, ddat->name,
-> -							 ddat,
-> -							 &hwm_chip_info,
-> -							 hwm_groups);
-> +	hwmon_dev =3D hwmon_device_register_with_info(dev, ddat->name,
-> +						    ddat,
-> +						    &hwm_chip_info,
-> +						    hwm_groups);
->   	if (IS_ERR(hwmon_dev)) {
->   		i915->hwmon =3D NULL;
-
-Hi,
-
-you need to free hwmon here, since it is not managed by devres anymore.
-
->   		return;
-> @@ -838,10 +838,10 @@ void i915_hwmon_register(struct drm_i915_private *=
-i915)
->   		if (!hwm_gt_is_visible(ddat_gt, hwmon_energy, hwmon_energy_input, 0)=
-)
->   			continue;
->
-> -		hwmon_dev =3D devm_hwmon_device_register_with_info(dev, ddat_gt->name=
-,
-> -								 ddat_gt,
-> -								 &hwm_gt_chip_info,
-> -								 NULL);
-> +		hwmon_dev =3D hwmon_device_register_with_info(dev, ddat_gt->name,
-> +							    ddat_gt,
-> +							    &hwm_gt_chip_info,
-> +							    NULL);
->   		if (!IS_ERR(hwmon_dev))
->   			ddat_gt->hwmon_dev =3D hwmon_dev;
->   	}
-> @@ -849,5 +849,26 @@ void i915_hwmon_register(struct drm_i915_private *i=
-915)
->
->   void i915_hwmon_unregister(struct drm_i915_private *i915)
+> diff --git a/drivers/gpu/drm/drm_edid.c b/drivers/gpu/drm/drm_edid.c
+> index c29f31dcc818..4b3ad42a8f95 100644
+> --- a/drivers/gpu/drm/drm_edid.c
+> +++ b/drivers/gpu/drm/drm_edid.c
+> @@ -4230,11 +4230,21 @@ static bool drm_edid_has_cta_extension(const struct drm_edid *drm_edid)
 >   {
-> -	fetch_and_zero(&i915->hwmon);
-> +	struct i915_hwmon *hwmon =3D fetch_and_zero(&i915->hwmon);
-
-Why is fetch_and_zero() necessary here?
-
-Thanks,
-Armin Wolf
-
-> +	struct hwm_drvdata *ddat =3D &hwmon->ddat;
-> +	struct intel_gt *gt;
-> +	int i;
-> +
-> +	if (!hwmon)
-> +		return;
-> +
-> +	for_each_gt(gt, i915, i) {
-> +		struct hwm_drvdata *ddat_gt =3D hwmon->ddat_gt + i;
-> +
-> +		if (ddat_gt->hwmon_dev) {
-> +			hwmon_device_unregister(ddat_gt->hwmon_dev);
-> +			ddat_gt->hwmon_dev =3D NULL;
+>   	const struct displayid_block *block;
+>   	struct displayid_iter iter;
+> -	int ext_index = 0;
+> +	struct drm_edid_iter edid_iter;
+> +	const u8 *ext;
+>   	bool found = false;
+>   
+>   	/* Look for a top level CEA extension block */
+> -	if (drm_edid_find_extension(drm_edid, CEA_EXT, &ext_index))
+> +	drm_edid_iter_begin(drm_edid, &edid_iter);
+> +	drm_edid_iter_for_each(ext, &edid_iter) {
+> +		if (ext[0] == CEA_EXT) {
+> +			found = true;
+> +			break;
 > +		}
 > +	}
+> +	drm_edid_iter_end(&edid_iter);
 > +
-> +	if (ddat->hwmon_dev)
-> +		hwmon_device_unregister(ddat->hwmon_dev);
-> +
-> +	mutex_destroy(&hwmon->hwmon_lock);
-> +	kfree(hwmon);
->   }
+> +	if (found)
+>   		return true;
+>   
+>   	/* CEA blocks can also be found embedded in a DisplayID block */
+
+-- 
+--
+Thomas Zimmermann
+Graphics Driver Developer
+SUSE Software Solutions Germany GmbH
+Frankenstrasse 146, 90461 Nuernberg, Germany
+GF: Ivo Totev, Andrew Myers, Andrew McDonald, Boudien Moerman
+HRB 36809 (AG Nuernberg)
+
