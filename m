@@ -4,50 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1B2F6C04FFF
-	for <intel-gfx@archiver.kernel.org>; Tue, 16 Apr 2024 22:09:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2A772C4345F
+	for <intel-gfx@archiver.kernel.org>; Tue, 16 Apr 2024 22:09:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3958F112EA9;
-	Tue, 16 Apr 2024 22:09:42 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 541EE112EAF;
+	Tue, 16 Apr 2024 22:09:44 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="RteDjbTe";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="fdIIcqgw";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7E54710F3D4
- for <intel-gfx@lists.freedesktop.org>; Tue, 16 Apr 2024 22:09:40 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BD216112EAC
+ for <intel-gfx@lists.freedesktop.org>; Tue, 16 Apr 2024 22:09:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1713305380; x=1744841380;
+ t=1713305383; x=1744841383;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=wRCVqrGmiMdOVn5x5SuyYtOdwC+JubeBA4htvUFYAlM=;
- b=RteDjbTeT3nLdtlDAcHh/N01zB1k4Nh8Ot787GmHilCFXFMw7ut0qQ3h
- f0F9U+GSQ6d2qbNwUo0xq77FsKQJ83XSfw0FHGKjgHHuSPpChwyNBKM85
- tqcYr8Wymiw3wV9Ke+myO2XxxWd4MoaRnuUDvvrYMioDy2xQmT03Ff82G
- CKNiRcbDWV9bFlwLtImq4brM/a9HlTicu3/G7LMVwVptehWOekFEW4fDk
- MvioQI0CBKZUNQsgkkPpFm4HNYXlBfokXxeZJ4eC+qP+knL8yVrDgRvGe
- lSwOUKJ/6rTqE509oxSpO4redMkZ21AjsIZbMyn16TwMo1MD0Fnm6fkmt w==;
-X-CSE-ConnectionGUID: EuuWUGVhSl63zQ6BQNAcCw==
-X-CSE-MsgGUID: v5uNUC93Rn+BI4uylJLq4w==
-X-IronPort-AV: E=McAfee;i="6600,9927,11046"; a="20165148"
-X-IronPort-AV: E=Sophos;i="6.07,207,1708416000"; d="scan'208";a="20165148"
+ bh=ll1fcqDxUghtaRU8w55zfMCzF69P0rvOczHSLSZ86ck=;
+ b=fdIIcqgwbT58yLml62z50CugAyPe0Dq8t0AG8/dOEfW1OtmtiBCcYTci
+ YXT1eacNOFPL8l7S+0/VDtf6UMbCgDu4YAfO+H4mVnhE+eSJueKGYFlb4
+ mjOe7R+Rs33JoKkfmUoUAZcvvPxIGgtiruQB1hFCNpDQzMKV5QzRacG3z
+ yGSQH2soaxBYYFxH4pA9RbahBU97wmM6AmcnE/uwz7A1ERuyuYnicwIlZ
+ OyVTtm3OVqXI4Lsa2fit0UfbYn90gro7upifGZ2BjKI0d/BDm4Xid7npY
+ qBtTEIWP5p6STbFYiPTJG9i/39yWBkkIYtyNfRDqJ6fICk/eh2TCWMLUM Q==;
+X-CSE-ConnectionGUID: Xwmm4TmDSPmkqU2UTDgJzg==
+X-CSE-MsgGUID: HBScXkrNRbK2oZiZ3PEqAg==
+X-IronPort-AV: E=McAfee;i="6600,9927,11046"; a="20165156"
+X-IronPort-AV: E=Sophos;i="6.07,207,1708416000"; d="scan'208";a="20165156"
 Received: from fmviesa003.fm.intel.com ([10.60.135.143])
  by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 16 Apr 2024 15:09:40 -0700
-X-CSE-ConnectionGUID: 6j/6gW5CSk2vE6sRP0iorg==
-X-CSE-MsgGUID: KEaqX8kYRE2znEUPHgcoig==
+ 16 Apr 2024 15:09:42 -0700
+X-CSE-ConnectionGUID: PEglloKuRbaPu89I8O9pFw==
+X-CSE-MsgGUID: WwsPnkPTQDyTcBxzIEha0A==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.07,207,1708416000"; d="scan'208";a="26965473"
+X-IronPort-AV: E=Sophos;i="6.07,207,1708416000"; d="scan'208";a="26965482"
 Received: from ideak-desk.fi.intel.com ([10.237.72.78])
  by fmviesa003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 16 Apr 2024 15:09:39 -0700
+ 16 Apr 2024 15:09:42 -0700
 From: Imre Deak <imre.deak@intel.com>
 To: intel-gfx@lists.freedesktop.org
 Cc: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
-Subject: [PATCH v2 02/11] drm/i915/dp_mst: Fix symbol clock when calculating
- the DSC DPT bpp limit
-Date: Wed, 17 Apr 2024 01:10:01 +0300
-Message-ID: <20240416221010.376865-3-imre.deak@intel.com>
+Subject: [PATCH v2 04/11] drm/i915/dp_mst: Account for channel coding
+ efficiency in the DSC DPT bpp limit
+Date: Wed, 17 Apr 2024 01:10:03 +0300
+Message-ID: <20240416221010.376865-5-imre.deak@intel.com>
 X-Mailer: git-send-email 2.43.3
 In-Reply-To: <20240416221010.376865-1-imre.deak@intel.com>
 References: <20240416221010.376865-1-imre.deak@intel.com>
@@ -68,33 +68,65 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-The expected link symbol clock unit when calculating the DSC DPT bpp
-limit is kSymbols/sec, aligning with the dotclock's kPixels/sec unit
-based on the crtc clock. As opposed to this port_clock is used - which
-has a 10 kbits/sec unit - with the resulting symbol clock in 10
-kSymbols/sec units (disregarding the rounding error for the 13.5Gbps
-rate). Fix the calculation using the expected 10x factor.
+The DSC DPT interface BW limit check should take into account the link
+clock's (aka DDI clock in bspec) channel coding efficiency overhead.
+Bspec suggests that the FEC overhead needs to be applied, however HW
+people claim this isn't the case, nor is any overhead applicable.
 
-Reviewed-by: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
+However based on testing various 5k/6k modes both on the DELL U3224KBA
+monitor and the Unigraf UCD-500 CTS test device, both the channel coding
+efficiency (which includes the FEC overhead) and an additional 3%
+overhead must be accounted for to get these modes working.
+
+Bspec: 49259
+
+v2:
+- Apply an additional 3% overhead, add a commit log and code comment
+  about these overheads and the relation to the Bspec BW limit formula.
+
+Reviewed-by: Ankit Nautiyal <ankit.k.nautiyal@intel.com> (v1)
 Signed-off-by: Imre Deak <imre.deak@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_dp_mst.c | 3 +--
- 1 file changed, 1 insertion(+), 2 deletions(-)
+ drivers/gpu/drm/i915/display/intel_dp_mst.c | 23 +++++++++++++++++++--
+ 1 file changed, 21 insertions(+), 2 deletions(-)
 
 diff --git a/drivers/gpu/drm/i915/display/intel_dp_mst.c b/drivers/gpu/drm/i915/display/intel_dp_mst.c
-index d43617734009c..196eeead8cf02 100644
+index 58eb6bf33c92e..0448cc343a33f 100644
 --- a/drivers/gpu/drm/i915/display/intel_dp_mst.c
 +++ b/drivers/gpu/drm/i915/display/intel_dp_mst.c
-@@ -58,8 +58,7 @@ static int intel_dp_mst_check_constraints(struct drm_i915_private *i915, int bpp
- {
+@@ -59,11 +59,30 @@ static int intel_dp_mst_check_constraints(struct drm_i915_private *i915, int bpp
  	if (intel_dp_is_uhbr(crtc_state) && DISPLAY_VER(i915) < 14 && dsc) {
  		int output_bpp = bpp;
--		/* DisplayPort 2 128b/132b, bits per lane is always 32 */
--		int symbol_clock = crtc_state->port_clock / 32;
-+		int symbol_clock = intel_dp_link_symbol_clock(crtc_state->port_clock);
+ 		int symbol_clock = intel_dp_link_symbol_clock(crtc_state->port_clock);
++		/*
++		 * Bspec/49259 suggests that the FEC overhead needs to be
++		 * applied here, though HW people claim that neither this FEC
++		 * or any other overhead is applicable here (that is the actual
++		 * available_bw is just symbol_clock * 72). However based on
++		 * testing on MTL-P the
++		 * - DELL U3224KBA display
++		 * - Unigraf UCD-500 CTS test sink
++		 * devices the
++		 * - 5120x2880/995.59Mhz
++		 * - 6016x3384/1357.23Mhz
++		 * - 6144x3456/1413.39Mhz
++		 * modes (all which had a DPT limit on the above devices),
++		 * both the channel coding efficiency and an additional 3%
++		 * overhead needs to be accounted for.
++		 */
++		int available_bw = mul_u32_u32(symbol_clock * 72,
++					       drm_dp_bw_channel_coding_efficiency(true)) /
++				   1030000;
  
- 		if (output_bpp * adjusted_mode->crtc_clock >=
- 		    symbol_clock * 72) {
+ 		if (output_bpp * adjusted_mode->crtc_clock >
+-		    symbol_clock * 72) {
++		    available_bw) {
+ 			drm_dbg_kms(&i915->drm, "UHBR check failed(required bw %d available %d)\n",
+-				    output_bpp * adjusted_mode->crtc_clock, symbol_clock * 72);
++				    output_bpp * adjusted_mode->crtc_clock, available_bw);
+ 			return -EINVAL;
+ 		}
+ 	}
 -- 
 2.43.3
 
