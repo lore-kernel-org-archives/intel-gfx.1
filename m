@@ -4,60 +4,24 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3195BC4345F
-	for <intel-gfx@archiver.kernel.org>; Tue, 23 Apr 2024 10:05:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 473D0C16B13
+	for <intel-gfx@archiver.kernel.org>; Tue, 23 Apr 2024 10:06:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8595810FB64;
-	Tue, 23 Apr 2024 10:05:33 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="M88zFfaU";
-	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.13])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7243710FB64;
- Tue, 23 Apr 2024 10:05:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1713866732; x=1745402732;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:content-transfer-encoding:in-reply-to;
- bh=JlqaQjHeeUnkbHgGAnCGAm0JwArhkJonGKKlfTLIK3A=;
- b=M88zFfaUtJBgmXpv+Bd9Gl1sdmOokATdu71+zRdhJXncvLL8dmyXEIQ9
- E2ku0CZJj+LXx1JdIvhnd08+1ZClsz8zFxd133hu8wZRPvg67IGiA1PK1
- oTItDYHqXShIA1pgbOKKyjoFBS/+qfqg7h7dq44K9t6hDyheRtiq8T6/B
- n4c0J0Kk2LocyOyx4iQntjUhQO9VsmBaSu7SXtZ5O8hVBPIsfHkelOJ7r
- AYfOzRHhe9PaKuFXZCw+RZMnNe2ucOsvSnpApp70hQRBHgd7G4SMC2Mw6
- hr6+ZTwfnjs2my6PRvRR07BmH3BjdxPMshWXNGYqDVzTfAtV1xKdDdG00 g==;
-X-CSE-ConnectionGUID: oxNnmVsYTj6q2DAPldytiA==
-X-CSE-MsgGUID: UtWcBbQBQ9661MLZ8DEJ6w==
-X-IronPort-AV: E=McAfee;i="6600,9927,11052"; a="12375481"
-X-IronPort-AV: E=Sophos;i="6.07,222,1708416000"; d="scan'208";a="12375481"
-Received: from orviesa006.jf.intel.com ([10.64.159.146])
- by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 Apr 2024 03:05:31 -0700
-X-CSE-ConnectionGUID: ujT31sNvT8m43mBzGYsaFg==
-X-CSE-MsgGUID: lSM4gHXyS1Ke78Nv+tXzEg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.07,222,1708416000"; d="scan'208";a="24763526"
-Received: from unknown (HELO intel.com) ([10.247.119.79])
- by orviesa006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 Apr 2024 03:05:19 -0700
-Date: Tue, 23 Apr 2024 12:05:09 +0200
-From: Andi Shyti <andi.shyti@linux.intel.com>
-To: Nirmoy Das <nirmoy.das@linux.intel.com>
-Cc: Andi Shyti <andi.shyti@linux.intel.com>,
- intel-gfx <intel-gfx@lists.freedesktop.org>,
- dri-devel <dri-devel@lists.freedesktop.org>,
- Tvrtko Ursulin <tursulin@ursulin.net>
-Subject: Re: [PATCH] drm/i915/gt: Refactor uabi engine class/instance list
- creation
-Message-ID: <ZieH1WjOS8cyPfXl@ashyti-mobl2.lan>
-References: <20240416224953.385726-1-andi.shyti@linux.intel.com>
- <3e69af0e-11e5-4bfc-8400-8ebbec7d34ef@linux.intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5866311327B;
+	Tue, 23 Apr 2024 10:06:13 +0000 (UTC)
+Received: from mblankhorst.nl (lankhorst.se [141.105.120.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0ECBE113278;
+ Tue, 23 Apr 2024 10:06:11 +0000 (UTC)
+From: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+To: intel-xe@lists.freedesktop.org
+Cc: intel-gfx@lists.freedesktop.org,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+Subject: [PATCH v2 0/3] drm/xe: More fb pinning optimizations.
+Date: Mon, 22 Apr 2024 15:44:57 +0200
+Message-ID: <20240422134500.219271-1-maarten.lankhorst@linux.intel.com>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-15
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <3e69af0e-11e5-4bfc-8400-8ebbec7d34ef@linux.intel.com>
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,51 +37,31 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Hi Nirmoy,
+This reduces the latency of pinning framebuffers by
+re-using the previous mapping, if available.
 
-On Tue, Apr 23, 2024 at 11:02:06AM +0200, Nirmoy Das wrote:
-> On 4/17/2024 12:49 AM, Andi Shyti wrote:
+Additionally, DPT is preallocated when creating the FB, instead
+of performing a bo allocation on every pin.
 
-...
+Changes since v1:
+- Drop the patch to prevent overwriting GGTT, to see if this fixes the test results.
+  It's not needed for optimizing FB pinning.
 
->      void intel_engines_driver_register(struct drm_i915_private *i915)
->      {
->     -       u16 name_instance, other_instance = 0;
->     +       u16 class_instance[I915_LAST_UABI_ENGINE_CLASS + 2] = { };
-> 
-> +2 is confusing here. I think we need a better macro.
+Maarten Lankhorst (3):
+  drm/xe/display: Preparations for preallocating dpt bo
+  drm/xe: Use simple xchg to cache DPT
+  drm/xe/display: Re-use display vmas when possible
 
-This is to avoid buffer overflow, otherwise we will always hit
-the GEM_BUG_ON below.
+ .../gpu/drm/i915/display/intel_atomic_plane.c |   2 +-
+ drivers/gpu/drm/i915/display/intel_cursor.c   |   2 +-
+ drivers/gpu/drm/i915/display/intel_fb_pin.c   |   3 +-
+ drivers/gpu/drm/i915/display/intel_fb_pin.h   |   3 +-
+ drivers/gpu/drm/i915/display/intel_fbdev.c    |   5 +
+ drivers/gpu/drm/i915/display/intel_fbdev.h    |   9 +
+ .../gpu/drm/xe/compat-i915-headers/i915_vma.h |   3 +
+ drivers/gpu/drm/xe/display/xe_fb_pin.c        | 220 ++++++++++++++----
+ 8 files changed, 198 insertions(+), 49 deletions(-)
 
->             struct legacy_ring ring = {};
->             struct list_head *it, *next;
->             struct rb_node **p, *prev;
+-- 
+2.43.0
 
-...
-
->     +               GEM_BUG_ON(uabi_class >=
->     +                          ARRAY_SIZE(i915->engine_uabi_class_count));
->     +               i915->engine_uabi_class_count[uabi_class]++;
-> 
-> Shouldn't this be  i915->engine_uabi_class_count[uabi_class] =  class_instance
-> [uabi_class]; ?
-
-that's mostly a counter, we don't really need to be on sync with
-the real instance of the engines.
-
-> What I see is that this patch mainly adding this class_instance array and rest
-> looks the same.
-> May be it make sense to add other upcoming  patches to better understand why we
-> need this patch.
-
-yes, this patch simplifies the coming patches and the logic
-inside, as well.
-
-I just wanted to anticipate some of the refactorings so that we
-could speed up the reviews. There is no functional change in
-here, that's why I thought it was harmless.
-
-Thanks for taking a look into it.
-
-Andi
