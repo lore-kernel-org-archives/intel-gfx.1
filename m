@@ -4,64 +4,54 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 10511C07E8E
-	for <intel-gfx@archiver.kernel.org>; Mon, 22 Apr 2024 14:13:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B6369C4345F
+	for <intel-gfx@archiver.kernel.org>; Mon, 22 Apr 2024 14:15:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C347F10EEE0;
-	Mon, 22 Apr 2024 14:13:11 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1752E112B3C;
+	Mon, 22 Apr 2024 14:15:19 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="dKjskCcn";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="W/pnHxy3";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7D3C210EEE0;
- Mon, 22 Apr 2024 14:13:09 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.13])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C8E75112B3C
+ for <intel-gfx@lists.freedesktop.org>; Mon, 22 Apr 2024 14:15:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1713795190; x=1745331190;
- h=from:to:cc:subject:in-reply-to:references:date:
- message-id:mime-version;
- bh=3VH0wPSYjbxLBOo5XQYtJGrCcBkZEO/wQnEkLB2vOfM=;
- b=dKjskCcn2P2xfyGsZHavSSTJ4LGBRSmfvTG1nNDobMmGJ2Dvwy1piB7I
- CNVL3eI0J06KkNgvS+ODj8HV6z6O4GXv9h85fncdrmaFofiaSTviq0kmX
- O+nGLLL51eokpkfTOKhcXaswo+1Bm0p8MqLw1Vb4bcfFLB+rJf3vyEHYL
- TDY0gIDHs4QAquLJhJXMLH3aM/+aozvkXR1qtevVqK6rjCvUrJtAQtOcJ
- pxzgMj2HYhjT0qy3QOVR9Bc1nCwbrO04Rmws9o93UUruGpLUJ4XWThVq8
- LLLNM6YpZxszdFZJ3kN+J2X0N65mjEwZsmJyPalEEPP5OfdAV2ty4HGaS Q==;
-X-CSE-ConnectionGUID: SnDZN2xJSHSI2vzSF4quNg==
-X-CSE-MsgGUID: vpmbyvWHSOGtlyS0NNdCKg==
-X-IronPort-AV: E=McAfee;i="6600,9927,11052"; a="19941196"
-X-IronPort-AV: E=Sophos;i="6.07,220,1708416000"; d="scan'208";a="19941196"
-Received: from orviesa005.jf.intel.com ([10.64.159.145])
- by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 22 Apr 2024 07:13:09 -0700
-X-CSE-ConnectionGUID: DZsqbfzjR8OdPfj3CGCp5w==
-X-CSE-MsgGUID: SRZKEL0xRoiveeHtQ3FgsA==
+ t=1713795318; x=1745331318;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=SMEeyAUjJ/kaTYgayrnUJGuwTIb/oDVMT3r+PbbktKM=;
+ b=W/pnHxy3E9U5fe7R7IacmidaB1gc1iKiamXQgR84pF5/FTxhamKziMLn
+ TrZ4X8I2T/jcQYKZKQqXIfCkldUDsnUEZiNlmRiJQLtXLuA55DO54BxOl
+ XSBK3b+wktRPq4E5ByGZHxAYFbfUHBI7DaCekuOgIeO6PvS9KvPgL+IWW
+ trHQMmXnUnEt7wZGulrk2HQbb988FGuNNRuN7EEeWRKqIcuwpQ1TwyWEt
+ uPp71/njljCsOBusl9/XpUJHXRIJVuqoYjv22hZidTLjZg9jDTGRA8teB
+ U3a/S1Nzi7Slc2fX3WnGJzZwmyBlaw44JaDX1385Oq+vLWaRgpV2sf7fs w==;
+X-CSE-ConnectionGUID: soI0/3ncRn+OpBACF4iL+w==
+X-CSE-MsgGUID: QHwogikWRW6sa3s9JoiFzQ==
+X-IronPort-AV: E=McAfee;i="6600,9927,11052"; a="20481922"
+X-IronPort-AV: E=Sophos;i="6.07,220,1708416000"; d="scan'208";a="20481922"
+Received: from fmviesa007.fm.intel.com ([10.60.135.147])
+ by orvoesa105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 22 Apr 2024 07:15:17 -0700
+X-CSE-ConnectionGUID: ophMnXgJSt6bxLy14V8vbg==
+X-CSE-MsgGUID: Hkhzg0rnQXS03e5rmOd8uw==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.07,220,1708416000"; d="scan'208";a="28810038"
-Received: from ralbanes-mobl.ger.corp.intel.com (HELO localhost)
- ([10.252.63.128])
- by orviesa005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 22 Apr 2024 07:13:04 -0700
-From: Jani Nikula <jani.nikula@linux.intel.com>
-To: Michael Olbrich <m.olbrich@pengutronix.de>,
- dri-devel@lists.freedesktop.org, David Airlie <airlied@gmail.com>, Daniel
- Vetter <daniel@ffwll.ch>, Maarten Lankhorst
- <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, Ville =?utf-8?B?U3lyasOkbMOk?=
- <ville.syrjala@linux.intel.com>, Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, Tvrtko Ursulin
- <tursulin@ursulin.net>, intel-gfx@lists.freedesktop.org,
- intel-xe@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Cc: graphics@pengutronix.de
-Subject: Re: Reliably selecting non-CEA modes on Intel graphics (and maybe
- others)
-In-Reply-To: <ZiZs94-ZP1n98RZu@pengutronix.de>
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
-References: <ZiZs94-ZP1n98RZu@pengutronix.de>
-Date: Mon, 22 Apr 2024 17:13:00 +0300
-Message-ID: <8734rdtrir.fsf@intel.com>
+X-IronPort-AV: E=Sophos;i="6.07,220,1708416000"; d="scan'208";a="24100232"
+Received: from dut-internal-9dd7.jf.intel.com ([10.165.21.194])
+ by fmviesa007-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 22 Apr 2024 07:15:17 -0700
+From: Jonathan Cavitt <jonathan.cavitt@intel.com>
+To: intel-gfx@lists.freedesktop.org
+Cc: saurabhg.gupta@intel.com, jonathan.cavitt@intel.com,
+ John.C.Harrison@intel.com, chris.p.wilson@linux.intel.com,
+ andi.shyti@linux.intel.com, nirmoy.das@intel.com
+Subject: [PATCH v2] drm/i915/gem: Downgrade stolen lmem setup warning
+Date: Mon, 22 Apr 2024 06:59:59 -0700
+Message-Id: <20240422135959.4127003-1-jonathan.cavitt@intel.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Transfer-Encoding: 8bit
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,71 +67,61 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Mon, 22 Apr 2024, Michael Olbrich <m.olbrich@pengutronix.de> wrote:
-> Hi,
->
-> In short: I have a HDMI monitor attached to Intel graphics. I'm trying to
-> set a non-CEA mode but the driver always maps it to the corresponding CEA
-> mode.
+In the case where lmem_size < dsm_base, hardware is reporting that
+stolen lmem is unusable.  In this case, instead of throwing a warning,
+we can continue execution as normal by disabling stolen LMEM support.
+For example, this change will allow the following error report from
+ATS-M to no longer apply:
 
-Please file a bug as described at [1], and attach dmesg with debugs
-enabled, so we can see what's going on and what kernel and hardware
-you're using exactly, and so on.
+<6> [144.859887] pcieport 0000:4b:00.0: bridge window [mem 0xb1000000-0xb11fffff]
+<6> [144.859900] pcieport 0000:4b:00.0: bridge window [mem 0x3bbc00000000-0x3bbc17ffffff 64bit pref]
+<6> [144.859917] pcieport 0000:4c:01.0: PCI bridge to [bus 4d-4e]
+<6> [144.859932] pcieport 0000:4c:01.0: bridge window [mem 0xb1000000-0xb11fffff]
+<6> [144.859945] pcieport 0000:4c:01.0: bridge window [mem 0x3bbc00000000-0x3bbc17ffffff 64bit pref]
+<6> [144.859984] i915 0000:4d:00.0: [drm] BAR2 resized to 256M
+<6> [144.860640] i915 0000:4d:00.0: [drm] Using a reduced BAR size of 256MiB. Consider enabling 'Resizable BAR' or similar, if available in the BIOS.
+<4> [144.860719] -----------[ cut here ]-----------
+<4> [144.860727] WARNING: CPU: 17 PID: 1815 at drivers/gpu/drm/i915/gem/i915_gem_stolen.c:939 i915_gem_stolen_lmem_setup+0x38c/0x430 [i915]
+<4> [144.861430] Modules linked in: i915 snd_intel_dspcfg snd_hda_codec snd_hwdep snd_hda_core snd_pcm vgem drm_shmem_helper prime_numbers i2c_algo_bit ttm video drm_display_helper drm_buddy fuse x86_pkg_temp_thermal coretemp kvm_intel kvm ixgbe mdio irqbypass ptp crct10dif_pclmul crc32_pclmul ghash_clmulni_intel pps_core i2c_i801 mei_me i2c_smbus mei wmi acpi_power_meter [last unloaded: i915]
+<4> [144.861611] CPU: 17 PID: 1815 Comm: i915_module_loa Tainted: G U 6.8.0-rc5-drmtip_1515-g78f49af27723+ #1
+<4> [144.861624] Hardware name: Intel Corporation WHITLEY/WHITLEY, BIOS SE5C6200.86B.0020.P41.2109300305 09/30/2021
+<4> [144.861632] RIP: 0010:i915_gem_stolen_lmem_setup+0x38c/0x430 [i915]
+<4> [144.862287] Code: ff 41 c1 e4 05 e9 ac fe ff ff 4d 63 e4 48 89 ef 48 85 ed 74 04 48 8b 7d 08 48 c7 c6 10 a3 7b a0 e8 e9 90 43 e1 e9 ee fd ff ff <0f> 0b 49 c7 c4 ed ff ff ff e9 e0 fd ff ff 0f b7 d2 48 c7 c6 00 d9
+<4> [144.862299] RSP: 0018:ffffc90005607980 EFLAGS: 00010207
+<4> [144.862315] RAX: fffffffffff00000 RBX: 0000000000000003 RCX: 0000000000000000
 
-BR,
-Jani.
+Closes: https://gitlab.freedesktop.org/drm/intel/-/issues/10833
+Suggested-by: Chris Wilson <chris.p.wilson@linux.intel.com>
+Signed-off-by: Jonathan Cavitt <jonathan.cavitt@intel.com>
+---
 
+v2:
+- Return 0 to allow execution to continue
+- Remove white space in commit message
+- s/Fixes/Closes
 
+ drivers/gpu/drm/i915/gem/i915_gem_stolen.c | 8 ++++++--
+ 1 file changed, 6 insertions(+), 2 deletions(-)
 
-[1] https://drm.pages.freedesktop.org/intel-docs/how-to-file-i915-bugs.html
-
-
->
-> More specifically, the monitor has two 1920x1080@60 modes in the EDID:
-> 1. The CEA mode with VIC 16
-> 2. A custom DTD mode with exactly the same timings (this is the preferred
->    mode).
->
-> From a userspace perspective, the two modes are mostly identical, except
-> for the 16:9 aspect ratio flag in the CEA mode and the preferred type in
-> the other.
->
-> I want to select the second (preferred) mode, but that does not seem
-> possible:
-> intel_hdmi_compute_avi_infoframe() tries to determine which VIC should be
-> added to the avi infoframe and if limited or full range is used.
-> It uses various DRM helpers here but in the end drm_match_cea_mode() is
-> called. And here lies the problem:
-> The mode provided by the userspace has explicitly no aspect ratio. But
-> here, it is interpreted as "the aspect ration is undefined". So matching
-> ignored the aspect ratio and the CEA mode with VIC 16 is found and limited
-> range is used.
->
-> The commit that introduces this fuzzy matching
-> 357768cc9e3fdacf6551da0ae1483bc87dbcb4e8 ("drm/edid: Fix cea mode aspect
-> ratio handling") made sense at the time. The capability
-> DRM_CLIENT_CAP_ASPECT_RATIO that exposes aspect ratios to userspace was
-> introduced later in the same merge request, from what I can tell
-> 7595bda2fb4378ccbb8db1d0e8de56d15ea7f7fa ("drm: Add DRM client cap for
-> aspect-ratio").
->
-> Am I missing something here, or is it just not possible to select the
-> non-CEA mode right now? In my specific example, the selected CEA mode is
-> actually supported by the monitor, but as far as I can tell, the CEA mode
-> is used even if the monitor does not support it at all.
->
-> I've only tested this on Intel, but I assume that other drivers that use
-> the same helpers have the same problem.
->
-> So how can this be fixed? I've considered matching the aspect ratio based
-> on the DRM_CLIENT_CAP_ASPECT_RATIO capability, but I'm not sure if that is
-> valid. The documentation is limited and I found nothing that describes what
-> the userspace should do here.
-> Or would a new capability make sense here? Or something entirely different?
-> I'm not sure how I should proceed here. Any help would be appreciated.
->
-> Regards,
-> Michael
-
+diff --git a/drivers/gpu/drm/i915/gem/i915_gem_stolen.c b/drivers/gpu/drm/i915/gem/i915_gem_stolen.c
+index ad6dd7f3259bc..4d60a5b375053 100644
+--- a/drivers/gpu/drm/i915/gem/i915_gem_stolen.c
++++ b/drivers/gpu/drm/i915/gem/i915_gem_stolen.c
+@@ -936,8 +936,12 @@ i915_gem_stolen_lmem_setup(struct drm_i915_private *i915, u16 type,
+ 	} else {
+ 		/* Use DSM base address instead for stolen memory */
+ 		dsm_base = intel_uncore_read64(uncore, GEN6_DSMBASE) & GEN11_BDSM_MASK;
+-		if (WARN_ON(lmem_size < dsm_base))
+-			return ERR_PTR(-ENODEV);
++		if (lmem_size < dsm_base) {
++			drm_dbg(&i915->drm,
++				"Disabling stolen memory support due to OOB placement: lmem_size = %lli vs dsm_base = %lli\n",
++				lmem_size, dsm_base);
++			return 0;
++		}
+ 		dsm_size = ALIGN_DOWN(lmem_size - dsm_base, SZ_1M);
+ 	}
+ 
 -- 
-Jani Nikula, Intel
+2.25.1
+
