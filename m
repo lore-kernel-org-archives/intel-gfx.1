@@ -4,24 +4,24 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D22DFC19F4F
-	for <intel-gfx@archiver.kernel.org>; Tue, 23 Apr 2024 10:06:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E2F20C18E72
+	for <intel-gfx@archiver.kernel.org>; Tue, 23 Apr 2024 10:06:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 502F4113283;
-	Tue, 23 Apr 2024 10:06:15 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D003A11327F;
+	Tue, 23 Apr 2024 10:06:14 +0000 (UTC)
 Received: from mblankhorst.nl (lankhorst.se [141.105.120.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 98A8411327E;
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5687A11327A;
  Tue, 23 Apr 2024 10:06:13 +0000 (UTC)
 From: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
 To: intel-xe@lists.freedesktop.org
 Cc: intel-gfx@lists.freedesktop.org,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
 Subject: [PATCH v2 2/3] drm/xe: Use simple xchg to cache DPT
-Date: Tue, 23 Apr 2024 11:54:40 +0200
-Message-ID: <20240423095441.227953-3-maarten.lankhorst@linux.intel.com>
+Date: Mon, 22 Apr 2024 15:44:59 +0200
+Message-ID: <20240422134500.219271-3-maarten.lankhorst@linux.intel.com>
 X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20240423095441.227953-1-maarten.lankhorst@linux.intel.com>
-References: <20240423095441.227953-1-maarten.lankhorst@linux.intel.com>
+In-Reply-To: <20240422134500.219271-1-maarten.lankhorst@linux.intel.com>
+References: <20240422134500.219271-1-maarten.lankhorst@linux.intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-BeenThere: intel-gfx@lists.freedesktop.org
