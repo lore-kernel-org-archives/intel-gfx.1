@@ -4,57 +4,60 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D6D5DC4345F
-	for <intel-gfx@archiver.kernel.org>; Tue, 23 Apr 2024 09:58:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3195BC4345F
+	for <intel-gfx@archiver.kernel.org>; Tue, 23 Apr 2024 10:05:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4397610FB74;
-	Tue, 23 Apr 2024 09:58:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8595810FB64;
+	Tue, 23 Apr 2024 10:05:33 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="Zotvg0wd";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="M88zFfaU";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.20])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 424E910FB74
- for <intel-gfx@lists.freedesktop.org>; Tue, 23 Apr 2024 09:58:43 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.13])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7243710FB64;
+ Tue, 23 Apr 2024 10:05:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1713866324; x=1745402324;
+ t=1713866732; x=1745402732;
  h=date:from:to:cc:subject:message-id:references:
- mime-version:in-reply-to;
- bh=9Q2Yk9vw0YGolhyBbBOe+loE+FG6xlQ/oK4meHgsJZY=;
- b=Zotvg0wdbY5uffVf5rKvvb+mhM6EUOUjYt0LeApQMCOhzfUElSJNz6az
- 7wHdvSNwv+rTPSk/k0ER/qyP0vJKNrMx+R2Exqz8fMRHwMTIuIBEJUVAT
- 4dJB8HC/AsLjZF98Sy8IRNpatfUWvTkuVRBCa6aO+Sh2YYSzE9byaeWTj
- EmuNGqN8XaoOvIRPg6io8DczyopnL1il0Uyph8WnVNSYVuHmv+iSt+4xL
- ATHdRW7aOSd5lWG0RfsNxILb1P3NP/ykw3ZjvAEImmM9Qg62qFSfC8G1E
- PazUOP+GXDeRrVNDrK4ezY5kd3EySE4YcdLbfL7eVi42GI8UXJfdxEh0V g==;
-X-CSE-ConnectionGUID: MekOAqN+SzuyKpnJGjoMRQ==
-X-CSE-MsgGUID: 0+y49nYRTji0PK9Eei5UEg==
-X-IronPort-AV: E=McAfee;i="6600,9927,11052"; a="9272333"
-X-IronPort-AV: E=Sophos;i="6.07,222,1708416000"; 
-   d="scan'208";a="9272333"
-Received: from orviesa009.jf.intel.com ([10.64.159.149])
- by orvoesa112.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 Apr 2024 02:58:43 -0700
-X-CSE-ConnectionGUID: UuMxqTkbRtWDWYHS4kVojQ==
-X-CSE-MsgGUID: 4VURtXs6RROU/x/JlFeqaw==
+ mime-version:content-transfer-encoding:in-reply-to;
+ bh=JlqaQjHeeUnkbHgGAnCGAm0JwArhkJonGKKlfTLIK3A=;
+ b=M88zFfaUtJBgmXpv+Bd9Gl1sdmOokATdu71+zRdhJXncvLL8dmyXEIQ9
+ E2ku0CZJj+LXx1JdIvhnd08+1ZClsz8zFxd133hu8wZRPvg67IGiA1PK1
+ oTItDYHqXShIA1pgbOKKyjoFBS/+qfqg7h7dq44K9t6hDyheRtiq8T6/B
+ n4c0J0Kk2LocyOyx4iQntjUhQO9VsmBaSu7SXtZ5O8hVBPIsfHkelOJ7r
+ AYfOzRHhe9PaKuFXZCw+RZMnNe2ucOsvSnpApp70hQRBHgd7G4SMC2Mw6
+ hr6+ZTwfnjs2my6PRvRR07BmH3BjdxPMshWXNGYqDVzTfAtV1xKdDdG00 g==;
+X-CSE-ConnectionGUID: oxNnmVsYTj6q2DAPldytiA==
+X-CSE-MsgGUID: UtWcBbQBQ9661MLZ8DEJ6w==
+X-IronPort-AV: E=McAfee;i="6600,9927,11052"; a="12375481"
+X-IronPort-AV: E=Sophos;i="6.07,222,1708416000"; d="scan'208";a="12375481"
+Received: from orviesa006.jf.intel.com ([10.64.159.146])
+ by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 23 Apr 2024 03:05:31 -0700
+X-CSE-ConnectionGUID: ujT31sNvT8m43mBzGYsaFg==
+X-CSE-MsgGUID: lSM4gHXyS1Ke78Nv+tXzEg==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.07,222,1708416000"; d="scan'208";a="24292592"
+X-IronPort-AV: E=Sophos;i="6.07,222,1708416000"; d="scan'208";a="24763526"
 Received: from unknown (HELO intel.com) ([10.247.119.79])
- by orviesa009-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 Apr 2024 02:58:37 -0700
-Date: Tue, 23 Apr 2024 11:58:27 +0200
+ by orviesa006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 23 Apr 2024 03:05:19 -0700
+Date: Tue, 23 Apr 2024 12:05:09 +0200
 From: Andi Shyti <andi.shyti@linux.intel.com>
-To: Jonathan Cavitt <jonathan.cavitt@intel.com>
-Cc: intel-gfx@lists.freedesktop.org, saurabhg.gupta@intel.com,
- John.C.Harrison@intel.com, chris.p.wilson@linux.intel.com,
- andi.shyti@linux.intel.com, nirmoy.das@intel.com
-Subject: Re: [PATCH v2] drm/i915/gem: Downgrade stolen lmem setup warning
-Message-ID: <ZieGQ1ymADCI98s3@ashyti-mobl2.lan>
-References: <20240422135959.4127003-1-jonathan.cavitt@intel.com>
+To: Nirmoy Das <nirmoy.das@linux.intel.com>
+Cc: Andi Shyti <andi.shyti@linux.intel.com>,
+ intel-gfx <intel-gfx@lists.freedesktop.org>,
+ dri-devel <dri-devel@lists.freedesktop.org>,
+ Tvrtko Ursulin <tursulin@ursulin.net>
+Subject: Re: [PATCH] drm/i915/gt: Refactor uabi engine class/instance list
+ creation
+Message-ID: <ZieH1WjOS8cyPfXl@ashyti-mobl2.lan>
+References: <20240416224953.385726-1-andi.shyti@linux.intel.com>
+ <3e69af0e-11e5-4bfc-8400-8ebbec7d34ef@linux.intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=iso-8859-15
 Content-Disposition: inline
-In-Reply-To: <20240422135959.4127003-1-jonathan.cavitt@intel.com>
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <3e69af0e-11e5-4bfc-8400-8ebbec7d34ef@linux.intel.com>
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,37 +73,51 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Hi Jonathan,
+Hi Nirmoy,
 
-On Mon, Apr 22, 2024 at 06:59:59AM -0700, Jonathan Cavitt wrote:
-> In the case where lmem_size < dsm_base, hardware is reporting that
-> stolen lmem is unusable.  In this case, instead of throwing a warning,
-> we can continue execution as normal by disabling stolen LMEM support.
-> For example, this change will allow the following error report from
-> ATS-M to no longer apply:
+On Tue, Apr 23, 2024 at 11:02:06AM +0200, Nirmoy Das wrote:
+> On 4/17/2024 12:49 AM, Andi Shyti wrote:
+
+...
+
+>      void intel_engines_driver_register(struct drm_i915_private *i915)
+>      {
+>     -       u16 name_instance, other_instance = 0;
+>     +       u16 class_instance[I915_LAST_UABI_ENGINE_CLASS + 2] = { };
 > 
-> <6> [144.859887] pcieport 0000:4b:00.0: bridge window [mem 0xb1000000-0xb11fffff]
-> <6> [144.859900] pcieport 0000:4b:00.0: bridge window [mem 0x3bbc00000000-0x3bbc17ffffff 64bit pref]
-> <6> [144.859917] pcieport 0000:4c:01.0: PCI bridge to [bus 4d-4e]
-> <6> [144.859932] pcieport 0000:4c:01.0: bridge window [mem 0xb1000000-0xb11fffff]
-> <6> [144.859945] pcieport 0000:4c:01.0: bridge window [mem 0x3bbc00000000-0x3bbc17ffffff 64bit pref]
-> <6> [144.859984] i915 0000:4d:00.0: [drm] BAR2 resized to 256M
-> <6> [144.860640] i915 0000:4d:00.0: [drm] Using a reduced BAR size of 256MiB. Consider enabling 'Resizable BAR' or similar, if available in the BIOS.
-> <4> [144.860719] -----------[ cut here ]-----------
-> <4> [144.860727] WARNING: CPU: 17 PID: 1815 at drivers/gpu/drm/i915/gem/i915_gem_stolen.c:939 i915_gem_stolen_lmem_setup+0x38c/0x430 [i915]
-> <4> [144.861430] Modules linked in: i915 snd_intel_dspcfg snd_hda_codec snd_hwdep snd_hda_core snd_pcm vgem drm_shmem_helper prime_numbers i2c_algo_bit ttm video drm_display_helper drm_buddy fuse x86_pkg_temp_thermal coretemp kvm_intel kvm ixgbe mdio irqbypass ptp crct10dif_pclmul crc32_pclmul ghash_clmulni_intel pps_core i2c_i801 mei_me i2c_smbus mei wmi acpi_power_meter [last unloaded: i915]
-> <4> [144.861611] CPU: 17 PID: 1815 Comm: i915_module_loa Tainted: G U 6.8.0-rc5-drmtip_1515-g78f49af27723+ #1
-> <4> [144.861624] Hardware name: Intel Corporation WHITLEY/WHITLEY, BIOS SE5C6200.86B.0020.P41.2109300305 09/30/2021
-> <4> [144.861632] RIP: 0010:i915_gem_stolen_lmem_setup+0x38c/0x430 [i915]
-> <4> [144.862287] Code: ff 41 c1 e4 05 e9 ac fe ff ff 4d 63 e4 48 89 ef 48 85 ed 74 04 48 8b 7d 08 48 c7 c6 10 a3 7b a0 e8 e9 90 43 e1 e9 ee fd ff ff <0f> 0b 49 c7 c4 ed ff ff ff e9 e0 fd ff ff 0f b7 d2 48 c7 c6 00 d9
-> <4> [144.862299] RSP: 0018:ffffc90005607980 EFLAGS: 00010207
-> <4> [144.862315] RAX: fffffffffff00000 RBX: 0000000000000003 RCX: 0000000000000000
+> +2 is confusing here. I think we need a better macro.
+
+This is to avoid buffer overflow, otherwise we will always hit
+the GEM_BUG_ON below.
+
+>             struct legacy_ring ring = {};
+>             struct list_head *it, *next;
+>             struct rb_node **p, *prev;
+
+...
+
+>     +               GEM_BUG_ON(uabi_class >=
+>     +                          ARRAY_SIZE(i915->engine_uabi_class_count));
+>     +               i915->engine_uabi_class_count[uabi_class]++;
 > 
-> Closes: https://gitlab.freedesktop.org/drm/intel/-/issues/10833
-> Suggested-by: Chris Wilson <chris.p.wilson@linux.intel.com>
-> Signed-off-by: Jonathan Cavitt <jonathan.cavitt@intel.com>
+> Shouldn't this be  i915->engine_uabi_class_count[uabi_class] =  class_instance
+> [uabi_class]; ?
 
-Reviewed-by: Andi Shyti <andi.shyti@linux.intel.com>
+that's mostly a counter, we don't really need to be on sync with
+the real instance of the engines.
 
-Thanks,
+> What I see is that this patch mainly adding this class_instance array and rest
+> looks the same.
+> May be it make sense to add other upcoming  patches to better understand why we
+> need this patch.
+
+yes, this patch simplifies the coming patches and the logic
+inside, as well.
+
+I just wanted to anticipate some of the refactorings so that we
+could speed up the reviews. There is no functional change in
+here, that's why I thought it was harmless.
+
+Thanks for taking a look into it.
+
 Andi
