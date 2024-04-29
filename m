@@ -4,52 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 55D15C4345F
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B8A5CC25B10
 	for <intel-gfx@archiver.kernel.org>; Mon, 29 Apr 2024 12:08:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9679810F3E4;
+	by gabe.freedesktop.org (Postfix) with ESMTP id F0B6810F7F4;
 	Mon, 29 Apr 2024 12:08:24 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="YJOVjuLY";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="jLYpPnty";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3E3B310F3E4
- for <intel-gfx@lists.freedesktop.org>; Mon, 29 Apr 2024 12:08:23 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1A90A10F3E4
+ for <intel-gfx@lists.freedesktop.org>; Mon, 29 Apr 2024 12:08:20 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1714392503; x=1745928503;
+ t=1714392500; x=1745928500;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=n5I6w6VyyN0X+4+UTF0VGb16HvCjdBWf5HUy0sPfZ28=;
- b=YJOVjuLYRsPrP+CDp8krWAv9Bwyq0gmWkqgCAqX2Y+SObVZ5CSAKbw86
- Rg4Qm+AfYc9cVzJPogsOnaLTWVd1oBtKFgP3jw/G5R48iRffDXtpNNCTo
- 1FeqD6W4TXXO5SPqu/KCQXerDCb3ND8e5++i9hc/dTz08xWTP9GCYH4/Q
- 8GE41HgPBVgqaC6OsG1rBUt8GJ2s24Ri5aApNC6RUdPv3FWQZOHmZdnvW
- ycffP4qhXOZ1PWZSejER7FioCod0R11UHwOZsNxKYe3C5ahBk2n+h7ze1
- DMIkxLqQ6AlX9JvaKz1XpxOoa0Yo51EqBkeVTzHklfFiEHvED/jHMDryl w==;
-X-CSE-ConnectionGUID: JpX4AOZqTAqJI/YXSGQo1A==
-X-CSE-MsgGUID: z6kFOCCMRrmTvkNjLDSw2A==
-X-IronPort-AV: E=McAfee;i="6600,9927,11057"; a="21455446"
-X-IronPort-AV: E=Sophos;i="6.07,239,1708416000"; d="scan'208";a="21455446"
+ bh=ulzhZRtBs1WgHHROZPxeE5+9sVY6c5DrqWLLfY76br8=;
+ b=jLYpPntyNpC6VAm9QN1nDuCyGUrMzG2KK/Y2W59tzSaMgGMC/H1Cyt0w
+ a5ELTYDLqCktB/+BFqi1m5h/R7qK0SSWaPLhbY99PPjI8+TzgkubpX8uY
+ 7jhPram/z5BLpwUGibDoH9dDgfPlE5RHnwwrxiGP5AliKG+Z4xsrzz871
+ 3xOkJUUHGrscNgSfmUeJhi62rJXXQWh7cxMT6EHUxdCBiTDFwNSSpw9cM
+ tMB1eaorc6jlBnh1rtHoIl9UXIGv2xRaxN02eJKNz/qlbT5zBQGIgXOgv
+ V0w8hCzJp8gQwMAyWBVTj+vHDl0RZUOjog7JvA74a4ziD3iJrEpkp2vx6 Q==;
+X-CSE-ConnectionGUID: W6P6VWXFTEK5sjiY8AiH5g==
+X-CSE-MsgGUID: K08rAxypTY+/4gFQqKHV2w==
+X-IronPort-AV: E=McAfee;i="6600,9927,11057"; a="21455443"
+X-IronPort-AV: E=Sophos;i="6.07,239,1708416000"; d="scan'208";a="21455443"
 Received: from orviesa009.jf.intel.com ([10.64.159.149])
  by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 29 Apr 2024 05:08:23 -0700
-X-CSE-ConnectionGUID: E+UlKA1qT8iYrQITzpVleg==
-X-CSE-MsgGUID: rKqZ/kkTQoWqWrZAAkEuPQ==
+ 29 Apr 2024 05:08:20 -0700
+X-CSE-ConnectionGUID: ilwHLyZOStWwVBLOLWRGYw==
+X-CSE-MsgGUID: 0pc7EiIMSLWeUmCz68nSlg==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.07,239,1708416000"; d="scan'208";a="26074471"
+X-IronPort-AV: E=Sophos;i="6.07,239,1708416000"; d="scan'208";a="26074445"
 Received: from domelchx-mobl2.ger.corp.intel.com (HELO
  jhogande-mobl1.intel.com) ([10.251.208.96])
  by orviesa009-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 29 Apr 2024 05:08:22 -0700
+ 29 Apr 2024 05:08:19 -0700
 From: =?UTF-8?q?Jouni=20H=C3=B6gander?= <jouni.hogander@intel.com>
 To: intel-gfx@lists.freedesktop.org
 Cc: Animesh Manna <animesh.manna@intel.com>,
  =?UTF-8?q?Jouni=20H=C3=B6gander?= <jouni.hogander@intel.com>
-Subject: [PATCH v8 06/11] drm/i915/psr: Modify intel_dp_get_su_granularity to
- support panel replay
-Date: Mon, 29 Apr 2024 15:07:50 +0300
-Message-Id: <20240429120755.3990652-7-jouni.hogander@intel.com>
+Subject: [PATCH v8 04/11] drm/panelreplay: dpcd register definition for
+ panelreplay SU
+Date: Mon, 29 Apr 2024 15:07:48 +0300
+Message-Id: <20240429120755.3990652-5-jouni.hogander@intel.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20240429120755.3990652-1-jouni.hogander@intel.com>
 References: <20240429120755.3990652-1-jouni.hogander@intel.com>
@@ -72,121 +72,33 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Currently intel_dp_get_su_granularity doesn't support panel replay.
-This fix modifies it to support panel replay as well.
+Add definitions for panel replay selective update
 
-v3: use correct offset for DP_PANEL_PANEL_REPLAY_CAPABILITY
-v2: rely on PSR definitions on common bits
+v2: Remove unnecessary Cc from commit message
 
 Signed-off-by: Jouni Högander <jouni.hogander@intel.com>
+Reviewed-by: Animesh Manna <animesh.manna@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_psr.c | 62 +++++++++++++++++++++---
- 1 file changed, 55 insertions(+), 7 deletions(-)
+ include/drm/display/drm_dp.h | 6 ++++++
+ 1 file changed, 6 insertions(+)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_psr.c b/drivers/gpu/drm/i915/display/intel_psr.c
-index b94f8e33ed1f..807423db3a13 100644
---- a/drivers/gpu/drm/i915/display/intel_psr.c
-+++ b/drivers/gpu/drm/i915/display/intel_psr.c
-@@ -466,6 +466,40 @@ static u8 intel_dp_get_sink_sync_latency(struct intel_dp *intel_dp)
- 	return val;
- }
+diff --git a/include/drm/display/drm_dp.h b/include/drm/display/drm_dp.h
+index 0b032faa8cf2..906949ca3cee 100644
+--- a/include/drm/display/drm_dp.h
++++ b/include/drm/display/drm_dp.h
+@@ -548,6 +548,12 @@
+ # define DP_PANEL_REPLAY_SUPPORT            (1 << 0)
+ # define DP_PANEL_REPLAY_SU_SUPPORT         (1 << 1)
  
-+static u8 intel_dp_get_su_capability(struct intel_dp *intel_dp)
-+{
-+	u8 su_capability;
++#define DP_PANEL_PANEL_REPLAY_CAPABILITY		0xb1
++# define DP_PANEL_PANEL_REPLAY_SU_GRANULARITY_REQUIRED	(1 << 5)
 +
-+	if (intel_dp->psr.sink_panel_replay_su_support)
-+		drm_dp_dpcd_read(&intel_dp->aux,
-+				 DP_PANEL_PANEL_REPLAY_CAPABILITY,
-+				 &su_capability, 1);
-+	else
-+		su_capability = intel_dp->psr_dpcd[1];
++#define DP_PANEL_PANEL_REPLAY_X_GRANULARITY		0xb2
++#define DP_PANEL_PANEL_REPLAY_Y_GRANULARITY		0xb4
 +
-+	return su_capability;
-+}
-+
-+static unsigned int
-+intel_dp_get_su_x_granularity_offset(struct intel_dp *intel_dp)
-+{
-+	return intel_dp->psr.sink_panel_replay_su_support ?
-+		DP_PANEL_PANEL_REPLAY_X_GRANULARITY :
-+		DP_PSR2_SU_X_GRANULARITY;
-+}
-+
-+static unsigned int
-+intel_dp_get_su_y_granularity_offset(struct intel_dp *intel_dp)
-+{
-+	return intel_dp->psr.sink_panel_replay_su_support ?
-+		DP_PANEL_PANEL_REPLAY_Y_GRANULARITY :
-+		DP_PSR2_SU_Y_GRANULARITY;
-+}
-+
-+/*
-+ * Note: Bits related to granularity are same in panel replay and psr
-+ * registers. Rely on PSR definitions on these "common" bits.
-+ */
- static void intel_dp_get_su_granularity(struct intel_dp *intel_dp)
- {
- 	struct drm_i915_private *i915 = dp_to_i915(intel_dp);
-@@ -473,18 +507,29 @@ static void intel_dp_get_su_granularity(struct intel_dp *intel_dp)
- 	u16 w;
- 	u8 y;
- 
--	/* If sink don't have specific granularity requirements set legacy ones */
--	if (!(intel_dp->psr_dpcd[1] & DP_PSR2_SU_GRANULARITY_REQUIRED)) {
-+	/*
-+	 * TODO: Do we need to take into account panel supporting both PSR and
-+	 * Panel replay?
-+	 */
-+
-+	/*
-+	 * If sink don't have specific granularity requirements set legacy
-+	 * ones.
-+	 */
-+	if (!(intel_dp_get_su_capability(intel_dp) &
-+	      DP_PSR2_SU_GRANULARITY_REQUIRED)) {
- 		/* As PSR2 HW sends full lines, we do not care about x granularity */
- 		w = 4;
- 		y = 4;
- 		goto exit;
- 	}
- 
--	r = drm_dp_dpcd_read(&intel_dp->aux, DP_PSR2_SU_X_GRANULARITY, &w, 2);
-+	r = drm_dp_dpcd_read(&intel_dp->aux,
-+			     intel_dp_get_su_x_granularity_offset(intel_dp),
-+			     &w, 2);
- 	if (r != 2)
- 		drm_dbg_kms(&i915->drm,
--			    "Unable to read DP_PSR2_SU_X_GRANULARITY\n");
-+			    "Unable to read selective update x granularity\n");
- 	/*
- 	 * Spec says that if the value read is 0 the default granularity should
- 	 * be used instead.
-@@ -492,10 +537,12 @@ static void intel_dp_get_su_granularity(struct intel_dp *intel_dp)
- 	if (r != 2 || w == 0)
- 		w = 4;
- 
--	r = drm_dp_dpcd_read(&intel_dp->aux, DP_PSR2_SU_Y_GRANULARITY, &y, 1);
-+	r = drm_dp_dpcd_read(&intel_dp->aux,
-+			     intel_dp_get_su_y_granularity_offset(intel_dp),
-+			     &y, 1);
- 	if (r != 1) {
- 		drm_dbg_kms(&i915->drm,
--			    "Unable to read DP_PSR2_SU_Y_GRANULARITY\n");
-+			    "Unable to read selective update y granularity\n");
- 		y = 4;
- 	}
- 	if (y == 0)
-@@ -588,7 +635,8 @@ void intel_psr_init_dpcd(struct intel_dp *intel_dp)
- 	if (intel_dp->psr_dpcd[0])
- 		_psr_init_dpcd(intel_dp);
- 
--	if (intel_dp->psr.sink_psr2_support)
-+	if (intel_dp->psr.sink_psr2_support ||
-+	    intel_dp->psr.sink_panel_replay_su_support)
- 		intel_dp_get_su_granularity(intel_dp);
- }
- 
+ /* Link Configuration */
+ #define	DP_LINK_BW_SET		            0x100
+ # define DP_LINK_RATE_TABLE		    0x00    /* eDP 1.4 */
 -- 
 2.34.1
 
