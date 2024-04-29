@@ -4,52 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 38D4EC04FFE
-	for <intel-gfx@archiver.kernel.org>; Mon, 29 Apr 2024 12:08:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2A98AC4345F
+	for <intel-gfx@archiver.kernel.org>; Mon, 29 Apr 2024 12:08:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 308F810FC9D;
+	by gabe.freedesktop.org (Postfix) with ESMTP id A14D810F693;
 	Mon, 29 Apr 2024 12:08:25 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="UeyuCIfa";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="ekC275o0";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E550A10EE87
- for <intel-gfx@lists.freedesktop.org>; Mon, 29 Apr 2024 12:08:16 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DC8D310F693
+ for <intel-gfx@lists.freedesktop.org>; Mon, 29 Apr 2024 12:08:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1714392497; x=1745928497;
+ t=1714392505; x=1745928505;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=WHwgdzwJv8l3+nzbAKhxrn5Snh42QHjfynTi8wbYIMI=;
- b=UeyuCIfaAgTpqykRxHc8XXfp33+XqvE/iJWY96wSFY7AhFjtrNAsY1DJ
- YG0IlCga0Vr0Pn57u6mhWpS4dwyMvECC+urBrFABjOWSje6KBVLZAqVQT
- J7myL8wMck8ehsEL8wjVBv5YI7pt7HRruT4/+R86YWPE8iAs6zIgUptdC
- zLMy9x4pRYC1v7+LkeC+GwNvEuLZjUU/XwmTQ1GtS5zSJzWTXV6KzgB/M
- 7ecgtMx0oAUBWkYBoREiWTdn2f57TDJs+sJpuX0UEGRKADNG2H4cIhCI3
- Q4FOnaczoACbjmPc/FDvwF3IgPVXpNQduedroKGEKNuCTOT2Ym7UWyTEB g==;
-X-CSE-ConnectionGUID: B97cXWsEQ8O7hKBSQgi2xg==
-X-CSE-MsgGUID: 0E9dhVqoQbC1IkB2HcmkMg==
-X-IronPort-AV: E=McAfee;i="6600,9927,11057"; a="21455441"
-X-IronPort-AV: E=Sophos;i="6.07,239,1708416000"; d="scan'208";a="21455441"
+ bh=Jvr78PJcItTQipV+59G0fUcnbBgpvhEgzVAwXYiN/TM=;
+ b=ekC275o0Fmlh+uqJQTe4Vq/Ni+e+DRkzQAzRWe/P7tjS/9n2MAP1sTPj
+ ZF1S5CLBFWA0qvneJ3501gPcFKzDcBTQ/uXnTQkooHguXNpuNgqH2in3c
+ HC95klOBWuXZYlJyJC2cbt6FrcvzfzLEqXl9jrTC+LcicmnXrx6mg85/N
+ Sf4bywXo9zESErqLDQzeJvbLEMCqVPtnp3EJRGyjGaKoierSdsXMEp9hn
+ JismORUI6gNjS01YUdP/xwjaSZ61tfqevSoRZJ99bQv2v1PKcRGF3L6xJ
+ b1/dRVk/jkyIatUEZB0l4/Whtx607mf0w40BNXVidmd6lLblgBVSrNotd A==;
+X-CSE-ConnectionGUID: Pi52WLECRr2OXbSi53unmQ==
+X-CSE-MsgGUID: ocv2hZ/zRVawNBbh6OJHnQ==
+X-IronPort-AV: E=McAfee;i="6600,9927,11057"; a="21455448"
+X-IronPort-AV: E=Sophos;i="6.07,239,1708416000"; d="scan'208";a="21455448"
 Received: from orviesa009.jf.intel.com ([10.64.159.149])
  by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 29 Apr 2024 05:08:17 -0700
-X-CSE-ConnectionGUID: FGcNJP0uQeah4BgIbZ0L8w==
-X-CSE-MsgGUID: wyZPJMKvRlacpEg0VgCewg==
+ 29 Apr 2024 05:08:25 -0700
+X-CSE-ConnectionGUID: UA5GVM4UTKy0XJbDtuf67A==
+X-CSE-MsgGUID: 7EIkHhyVTgiYU4ikw8eSxg==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.07,239,1708416000"; d="scan'208";a="26074420"
+X-IronPort-AV: E=Sophos;i="6.07,239,1708416000"; d="scan'208";a="26074488"
 Received: from domelchx-mobl2.ger.corp.intel.com (HELO
  jhogande-mobl1.intel.com) ([10.251.208.96])
  by orviesa009-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 29 Apr 2024 05:08:16 -0700
+ 29 Apr 2024 05:08:24 -0700
 From: =?UTF-8?q?Jouni=20H=C3=B6gander?= <jouni.hogander@intel.com>
 To: intel-gfx@lists.freedesktop.org
 Cc: Animesh Manna <animesh.manna@intel.com>,
  =?UTF-8?q?Jouni=20H=C3=B6gander?= <jouni.hogander@intel.com>
-Subject: [PATCH v8 02/11] drm/i915/dp: Use always vsc revision 0x6 for Panel
- Replay
-Date: Mon, 29 Apr 2024 15:07:46 +0300
-Message-Id: <20240429120755.3990652-3-jouni.hogander@intel.com>
+Subject: [PATCH v8 07/11] drm/i915/psr: Panel replay uses SRD_STATUS to track
+ it's status
+Date: Mon, 29 Apr 2024 15:07:51 +0300
+Message-Id: <20240429120755.3990652-8-jouni.hogander@intel.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20240429120755.3990652-1-jouni.hogander@intel.com>
 References: <20240429120755.3990652-1-jouni.hogander@intel.com>
@@ -72,49 +72,55 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-We are about to enable Panel Replay Selective update mode. Vsc revision 0x6
-for Panel Replay no matter if it is selective update or full frame update
-mode. Take this into account when preparing VSC SDP package.
+DP Panel replay uses SRD_STATUS to track it's status despite selective
+update mode.
+
+Bspec: 53370, 68920
+
+v3:
+  - do not use PSR2_STATUS for PSR1
+v2:
+  - use intel_dp_is_edp to differentiate
+  - modify debugfs status as well
 
 Signed-off-by: Jouni Högander <jouni.hogander@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_dp.c | 16 ++++++++--------
- 1 file changed, 8 insertions(+), 8 deletions(-)
+ drivers/gpu/drm/i915/display/intel_psr.c | 8 +++++---
+ 1 file changed, 5 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
-index a7c406a9695f..313e7c25b25f 100644
---- a/drivers/gpu/drm/i915/display/intel_dp.c
-+++ b/drivers/gpu/drm/i915/display/intel_dp.c
-@@ -2660,14 +2660,6 @@ static void intel_dp_compute_vsc_sdp(struct intel_dp *intel_dp,
- 	if (intel_dp_needs_vsc_sdp(crtc_state, conn_state)) {
- 		intel_dp_compute_vsc_colorimetry(crtc_state, conn_state,
- 						 vsc);
--	} else if (crtc_state->has_psr && crtc_state->has_sel_update) {
--		/*
--		 * [PSR2 without colorimetry]
--		 * Prepare VSC Header for SU as per eDP 1.4 spec, Table 6-11
--		 * 3D stereo + PSR/PSR2 + Y-coordinate.
--		 */
--		vsc->revision = 0x4;
--		vsc->length = 0xe;
- 	} else if (crtc_state->has_panel_replay) {
- 		/*
- 		 * [Panel Replay without colorimetry info]
-@@ -2676,6 +2668,14 @@ static void intel_dp_compute_vsc_sdp(struct intel_dp *intel_dp,
- 		 */
- 		vsc->revision = 0x6;
- 		vsc->length = 0x10;
-+	} else if (crtc_state->has_psr && crtc_state->has_sel_update) {
-+		/*
-+		 * [PSR2 without colorimetry]
-+		 * Prepare VSC Header for SU as per eDP 1.4 spec, Table 6-11
-+		 * 3D stereo + PSR/PSR2 + Y-coordinate.
-+		 */
-+		vsc->revision = 0x4;
-+		vsc->length = 0xe;
+diff --git a/drivers/gpu/drm/i915/display/intel_psr.c b/drivers/gpu/drm/i915/display/intel_psr.c
+index 807423db3a13..f1b7d17f7b27 100644
+--- a/drivers/gpu/drm/i915/display/intel_psr.c
++++ b/drivers/gpu/drm/i915/display/intel_psr.c
+@@ -2860,7 +2860,8 @@ void intel_psr_wait_for_idle_locked(const struct intel_crtc_state *new_crtc_stat
+ 		if (!intel_dp->psr.enabled)
+ 			continue;
+ 
+-		if (intel_dp->psr.sel_update_enabled)
++		if (intel_dp_is_edp(intel_dp) &&
++		    intel_dp->psr.sel_update_enabled)
+ 			ret = _psr2_ready_for_pipe_update_locked(intel_dp);
+ 		else
+ 			ret = _psr1_ready_for_pipe_update_locked(intel_dp);
+@@ -2881,7 +2882,8 @@ static bool __psr_wait_for_idle_locked(struct intel_dp *intel_dp)
+ 	if (!intel_dp->psr.enabled)
+ 		return false;
+ 
+-	if (intel_dp->psr.sel_update_enabled) {
++	if (!intel_dp->psr.panel_replay_enabled &&
++	    intel_dp->psr.sel_update_enabled) {
+ 		reg = EDP_PSR2_STATUS(cpu_transcoder);
+ 		mask = EDP_PSR2_STATUS_STATE_MASK;
  	} else {
- 		/*
- 		 * [PSR1]
+@@ -3500,7 +3502,7 @@ psr_source_status(struct intel_dp *intel_dp, struct seq_file *m)
+ 	const char *status = "unknown";
+ 	u32 val, status_val;
+ 
+-	if (intel_dp->psr.sel_update_enabled) {
++	if (intel_dp_is_edp(intel_dp) && intel_dp->psr.sel_update_enabled) {
+ 		static const char * const live_status[] = {
+ 			"IDLE",
+ 			"CAPTURE",
 -- 
 2.34.1
 
