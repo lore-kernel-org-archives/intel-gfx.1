@@ -4,61 +4,77 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5AECCC4345F
-	for <intel-gfx@archiver.kernel.org>; Tue, 30 Apr 2024 14:54:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0FF9FC10F16
+	for <intel-gfx@archiver.kernel.org>; Tue, 30 Apr 2024 15:08:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A743610FFC8;
-	Tue, 30 Apr 2024 14:53:59 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 717C010FFFC;
+	Tue, 30 Apr 2024 15:08:32 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="en5MiFZA";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="AzwSYirC";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B5DEC10FFC9;
- Tue, 30 Apr 2024 14:53:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1714488839; x=1746024839;
- h=from:to:cc:subject:in-reply-to:references:date:
- message-id:mime-version:content-transfer-encoding;
- bh=Rl6HLtD+SrAESx6llv2JBjqPlhuySYPH0gh4XoWicNE=;
- b=en5MiFZAgt7OYlBYrd/s/zAceM+cMee9S0s/1I2z6SUax8n1lRYICts1
- 8RisTwvWGP5HhrEkQu5rX0BvnXctzdfX5ymQum49ZbVKXeF8ktgUksPP5
- QpGWH8BZhjnCT4cGIKs5WU2XxW+rW3sC3NTtVlrK8ESeQeGR/lhdIi4ze
- 9ED4G+3rh2Ur01UX6IvS92QdCiADNmmlDi5n+4gk0+E/UKarFSoLvutyo
- zVwUMDh00khH51P1zzbjHsVjTvmz/eoijb9c6vRpx/wn125YaYetIw/Fm
- VeEjvOI2PIrN13YqNw21tScQ1ECpnSdHa9mAM0Wm90D2kMPtSFkDBfAn0 Q==;
-X-CSE-ConnectionGUID: HVKtNojMS9aLxG3SnLtUaA==
-X-CSE-MsgGUID: hP67JdoLSD+iG/tj/7+ghQ==
-X-IronPort-AV: E=McAfee;i="6600,9927,11060"; a="20813919"
-X-IronPort-AV: E=Sophos;i="6.07,242,1708416000"; d="scan'208";a="20813919"
-Received: from orviesa009.jf.intel.com ([10.64.159.149])
- by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 30 Apr 2024 07:53:58 -0700
-X-CSE-ConnectionGUID: t0BPq7emQSicqbUfqrBc/A==
-X-CSE-MsgGUID: q2e9rP2xS+6wN+mdE15vmg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.07,242,1708416000"; d="scan'208";a="26496839"
-Received: from vkats-mobl2.ger.corp.intel.com (HELO localhost)
- ([10.252.33.167])
- by orviesa009-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 30 Apr 2024 07:53:52 -0700
-From: Jani Nikula <jani.nikula@linux.intel.com>
-To: Danilo Krummrich <dakr@redhat.com>, joonas.lahtinen@linux.intel.com,
- rodrigo.vivi@intel.com, tursulin@ursulin.net, airlied@gmail.com,
- daniel@ffwll.ch, dmitry.baryshkov@linaro.org, lyude@redhat.com,
- andrzej.hajda@intel.com, lucas.demarchi@intel.com,
- alexander.deucher@amd.com
-Cc: intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, Danilo
- Krummrich <dakr@redhat.com>, kernel test robot <lkp@intel.com>
-Subject: Re: [PATCH] drm/i915: fix missing linux/debugfs.h includes
-In-Reply-To: <20240430142622.217616-1-dakr@redhat.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
-References: <20240430142622.217616-1-dakr@redhat.com>
-Date: Tue, 30 Apr 2024 17:53:49 +0300
-Message-ID: <875xvy3nr6.fsf@intel.com>
+Received: from mail-io1-f45.google.com (mail-io1-f45.google.com
+ [209.85.166.45])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CDC3E10F0B9;
+ Mon, 29 Apr 2024 19:39:30 +0000 (UTC)
+Received: by mail-io1-f45.google.com with SMTP id
+ ca18e2360f4ac-7dec786b0a7so49973439f.1; 
+ Mon, 29 Apr 2024 12:39:30 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1714419570; x=1715024370; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=tsc/9WsGromIBMCX1IbPd4mLGTopgfHgqr35jw6ogHo=;
+ b=AzwSYirCdL3dfV2cldbHqtlpWj5njzQkcpb81qeKBGVDA/6gTKGLOUIab3vU1MuGVn
+ 89WoWUO+JY5fREeCwWExqZPirm8TvH7tIH01ZniCC0RrggIpHDMNhtzg1xtWjX6ucFSr
+ 8Mpexh6I3mL+xjKtfNBZyD0wLvlNM8eCh9XfqLns7KFWzEg3HR43OBvtfwNL2qdWqTGH
+ 15Y/HR50OkXKt4sO/mMe8pph5oS1sugTRQV/2f4/Hzp3GgFgR2AhPkXvcf4SGqtqh4H6
+ yF8jbSBZKDpiyP2GVlhMXNMeMUwQiqWiJqA51Rp+hgaoPjDurjW2i5MhhPpxwKvnKbf6
+ hfow==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1714419570; x=1715024370;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=tsc/9WsGromIBMCX1IbPd4mLGTopgfHgqr35jw6ogHo=;
+ b=gHp8RZdVj9Kb/ZUSZvpRpDdgidF/1DC/ten7lOmq1ZVhhxlNBAZDjEIsgeTCXXWfdp
+ ocY2fEAJ/aU/Zw8PIc5iyw5tZy1nOuxqGlqCVQ5sPYS5mrp5a+Vppu+hocRM8Lw/nSen
+ fDw4J59tSq2StXJKG7rP5OBkNlfb0LpubjWAbrmvydQEWIpFJPp4KZRz/jnLRWHMGlsa
+ WxMBiFcOfx1l3u7/gjMudeceyt8zoIZzU6arqDr4Y43vEQoEEwqb5gt4s/onQOkkEgqs
+ 0vYJQId6yeNB6GFK1CvKSMDKR+N1AHnB/DyZFXGx7B45MpftROo15qfB95+7MgsKld7k
+ qBhA==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCX0ErhGrgAKHGh/JfHhfSzv2zrmXPfzInJRhXVYigE5IA7Nuzqy/7T0x1d1U5QcB90gnyh2rVN4/zfte3TbpEixNxy86b68+1YpDjpZraD00ufATFH8M9+LaqENZSqsHf7pizC1uD6vbjuIvMVoD9uTlJaesBOKPuCXopT+RQLeMdohy4sTiZCjaWnfjNPGXxookbbDNp61Tk/j8EgqQx5tY1bRO6Oz98cH7T1lw2jru95KDto=
+X-Gm-Message-State: AOJu0YzGreKyk5FXo0e3Ro2VNGGzsZTgSC1jTcpvGZYCAMBQuQb1GmNN
+ Ote59wyI0FQzti3vDxCcstGIQyLwWXqp/BJbaYiKa1Sndu//Bn1q
+X-Google-Smtp-Source: AGHT+IGSjAuBVUKjB/XBUA0dptA+ZKvZmIfrYhF8kqBK8ypwvGZwurqlZkqnE/Ouq9b/MO+XR7xJBQ==
+X-Received: by 2002:a05:6602:2772:b0:7dd:c59c:83a5 with SMTP id
+ l18-20020a056602277200b007ddc59c83a5mr574201ioe.9.1714419569961; 
+ Mon, 29 Apr 2024 12:39:29 -0700 (PDT)
+Received: from frodo.. (c-73-78-62-130.hsd1.co.comcast.net. [73.78.62.130])
+ by smtp.googlemail.com with ESMTPSA id
+ y16-20020a056602165000b007de9f92dc57sm2325105iow.16.2024.04.29.12.39.28
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 29 Apr 2024 12:39:29 -0700 (PDT)
+From: Jim Cromie <jim.cromie@gmail.com>
+To: jbaron@akamai.com, gregkh@linuxfoundation.org,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org, intel-gvt-dev@lists.freedesktop.org,
+ intel-gfx@lists.freedesktop.org
+Cc: ukaszb@chromium.org, linux-doc@vger.kernel.org, daniel.vetter@ffwll.ch,
+ tvrtko.ursulin@linux.intel.com, jani.nikula@intel.com,
+ ville.syrjala@linux.intel.com, seanpaul@chromium.org, robdclark@gmail.com,
+ groeck@google.com, yanivt@google.com, bleung@google.com,
+ Jim Cromie <jim.cromie@gmail.com>
+Subject: [PATCH v8 22/35] selftests-dyndbg: add comma_terminator_tests
+Date: Mon, 29 Apr 2024 13:39:08 -0600
+Message-ID: <20240429193921.66648-3-jim.cromie@gmail.com>
+X-Mailer: git-send-email 2.44.0
+In-Reply-To: <20240429193921.66648-1-jim.cromie@gmail.com>
+References: <20240429193921.66648-1-jim.cromie@gmail.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+X-Mailman-Approved-At: Tue, 30 Apr 2024 15:08:31 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,74 +90,45 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Tue, 30 Apr 2024, Danilo Krummrich <dakr@redhat.com> wrote:
-> After dropping linux/debugfs.h include from drm/drm_print.h the following
-> files in i915 miss the linux/debugfs.h include: i915_debugfs.c,
-> i915_debugfs_params.c and i915_gpu_error.c.
->
-> Add the include to fix the corresponding build errors.
->
-> Reported-by: kernel test robot <lkp@intel.com>
-> Fixes: 33d5ae6cacf4 ("drm/print: drop include debugfs.h and include where=
- needed")
-> Closes: https://lore.kernel.org/oe-kbuild-all/202404260726.nyGuvl59-lkp@i=
-ntel.com/
-> Signed-off-by: Danilo Krummrich <dakr@redhat.com>
+New fn validates parsing and effect of queries using combinations of
+commas and spaces to delimit the tokens.
 
-Thanks, but it's already fixed by commit 7fa043eafdb7 ("drm/i915: fix
-build with missing debugfs includes") in drm-next.
+It manipulates pr-debugs in builtin module/params, so might have deps
+I havent foreseen on odd configurations.
 
-BR,
-Jani.
+Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
+---
+ .../selftests/dynamic_debug/dyndbg_selftest.sh     | 14 ++++++++++++++
+ 1 file changed, 14 insertions(+)
 
+diff --git a/tools/testing/selftests/dynamic_debug/dyndbg_selftest.sh b/tools/testing/selftests/dynamic_debug/dyndbg_selftest.sh
+index cb77ae142520..7a7d437e948b 100755
+--- a/tools/testing/selftests/dynamic_debug/dyndbg_selftest.sh
++++ b/tools/testing/selftests/dynamic_debug/dyndbg_selftest.sh
+@@ -217,9 +217,23 @@ EOF
+     ddcmd =_
+ }
+ 
++function comma_terminator_tests {
++    echo -e "${GREEN}# COMMA_TERMINATOR_TESTS ${NC}"
++    # try combos of spaces & commas
++    check_match_ct '\[params\]' 4 -r
++    ddcmd module,params,=_		# commas as spaces
++    ddcmd module,params,+mpf		# turn on module's pr-debugs
++    check_match_ct =pmf 4
++    ddcmd ,module ,, ,  params, -p
++    check_match_ct =mf 4
++    ddcmd " , module ,,, ,  params, -m"	#
++    check_match_ct =f 4
++    ddcmd =_
++}
+ 
+ tests_list=(
+     basic_tests
++    comma_terminator_tests
+ )
+ 
+ # Run tests
+-- 
+2.44.0
 
-> ---
->  drivers/gpu/drm/i915/i915_debugfs.c        | 1 +
->  drivers/gpu/drm/i915/i915_debugfs_params.c | 1 +
->  drivers/gpu/drm/i915/i915_gpu_error.c      | 1 +
->  3 files changed, 3 insertions(+)
->
-> diff --git a/drivers/gpu/drm/i915/i915_debugfs.c b/drivers/gpu/drm/i915/i=
-915_debugfs.c
-> index 24c78873b3cf..b552e27cdcd5 100644
-> --- a/drivers/gpu/drm/i915/i915_debugfs.c
-> +++ b/drivers/gpu/drm/i915/i915_debugfs.c
-> @@ -26,6 +26,7 @@
->   *
->   */
->=20=20
-> +#include <linux/debugfs.h>
->  #include <linux/sched/mm.h>
->  #include <linux/sort.h>
->  #include <linux/string_helpers.h>
-> diff --git a/drivers/gpu/drm/i915/i915_debugfs_params.c b/drivers/gpu/drm=
-/i915/i915_debugfs_params.c
-> index 8bca02025e09..295486b8ceb1 100644
-> --- a/drivers/gpu/drm/i915/i915_debugfs_params.c
-> +++ b/drivers/gpu/drm/i915/i915_debugfs_params.c
-> @@ -3,6 +3,7 @@
->   * Copyright =C2=A9 2019 Intel Corporation
->   */
->=20=20
-> +#include <linux/debugfs.h>
->  #include <linux/kernel.h>
->=20=20
->  #include "i915_debugfs_params.h"
-> diff --git a/drivers/gpu/drm/i915/i915_gpu_error.c b/drivers/gpu/drm/i915=
-/i915_gpu_error.c
-> index 2594eb10c559..625b3c024540 100644
-> --- a/drivers/gpu/drm/i915/i915_gpu_error.c
-> +++ b/drivers/gpu/drm/i915/i915_gpu_error.c
-> @@ -28,6 +28,7 @@
->   */
->=20=20
->  #include <linux/ascii85.h>
-> +#include <linux/debugfs.h>
->  #include <linux/highmem.h>
->  #include <linux/nmi.h>
->  #include <linux/pagevec.h>
->
-> base-commit: 4a9a567ab101e659a4fafb7a691ff6b84531a10a
-
---=20
-Jani Nikula, Intel
