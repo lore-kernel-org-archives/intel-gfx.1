@@ -4,58 +4,58 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8CCE6C25B5F
-	for <intel-gfx@archiver.kernel.org>; Tue, 30 Apr 2024 15:09:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DC2B0C4345F
+	for <intel-gfx@archiver.kernel.org>; Tue, 30 Apr 2024 15:10:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 45FC3112046;
-	Tue, 30 Apr 2024 15:09:50 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4ADE5112038;
+	Tue, 30 Apr 2024 15:10:09 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="dpIL0B5f";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="aIqSfr45";
 	dkim-atps=neutral
-Received: from mail-io1-f44.google.com (mail-io1-f44.google.com
- [209.85.166.44])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4197E10E4D6;
- Mon, 29 Apr 2024 19:32:36 +0000 (UTC)
-Received: by mail-io1-f44.google.com with SMTP id
- ca18e2360f4ac-7d5db134badso207103639f.2; 
- Mon, 29 Apr 2024 12:32:36 -0700 (PDT)
+Received: from mail-io1-f48.google.com (mail-io1-f48.google.com
+ [209.85.166.48])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9332D10E514;
+ Mon, 29 Apr 2024 19:39:29 +0000 (UTC)
+Received: by mail-io1-f48.google.com with SMTP id
+ ca18e2360f4ac-7decef0e157so58219239f.1; 
+ Mon, 29 Apr 2024 12:39:29 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1714419155; x=1715023955; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1714419569; x=1715024369; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=zQVyPBV5Ch/zzQnquQeBlF3N9BA6vTpLwN146FcLEmI=;
- b=dpIL0B5fnTpsX8GfHAEYseqX//tJORXRneTFYEvh408tcGROu2AdZJTZiINZvGvYwX
- QZY+EaPvwIfnB0jxozSMxE8ZgCfXHOA+xXaZ6GlLtYlQpZjKkHiGwp+XWvaR2iD5brJI
- 6fxuARYKW7oQjyraW/5eGt1fLgog4+hYRVDYJjxHGQoctRpAA22T7n2RqT3wX+xZKeQy
- C1qE+6XnMpV9MjgNffvnUAv1CrRhe+5dKMcQQEPQgm5EIN9APT41EnWlfU6uKDSiAF5V
- mG+XwcUErehGwvs/UgWCyfMzkzCKMXg8TIwr7YAd5st7ELk2f3hVsoylB0+VUWoZPWo5
- 9ywQ==
+ bh=OThLtlQLHmt6Xu/dLjE7jt3V84uDU3HgUSM9F2dF2XI=;
+ b=aIqSfr45uQxu6jkqW7Y1GPky1eaK32rJvZy4IQaVw5hk+78ARuJ02N/FdGeDfhfYRY
+ UU+lZqiZZIIMPFwQ+4cgiLWk8Tk0zPKHvy/qlpglYKu3+jKNJVEzhk9/fJZ8TosfmYlR
+ gfVVGri1DGmTcSgw4PlxxZI53W0JRGEw/sykWzyvMlOMUEF97JiM95WJgbt+VGswlAHe
+ BVIjlQQJdQ40f+D5CZqXuYGkrEITWZ2gfIhX+cxMybD/AoTb0DLLWj0dUMTGQDX8EuIC
+ WurPs/SVcpGessDLGdD8k5y/HtcMVIJFoxcvIphuGfja9WZIytPLzzIerKbZNrp1y0EB
+ 2zUw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1714419155; x=1715023955;
+ d=1e100.net; s=20230601; t=1714419569; x=1715024369;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=zQVyPBV5Ch/zzQnquQeBlF3N9BA6vTpLwN146FcLEmI=;
- b=YKGKx3RVGzwQnEFj3rgwjstzZLwGVr4WwaOh7uJIc5hqKdKSf/eVI0MRdHn6s4twRf
- AOYJqqVG5nW1Vp0bsm6sg4OB4MZ41xRpZQ4wUX6DSIBBhuziJLm1QPf1ZVoQch7tpnoS
- 51KJy6Krk8oegZYIemppiF6X+yohYXPpi7p+y+kqAjYDUFsdgrgd8zI2gOwqMvzOVizj
- 7CmN8Ybs4GCbEI28aMeQTzCWJAwm3xC/dsyvAzt3UhTBp9WblYTcqX58uu58XRbZiCSV
- GV+doN5cPznLAtP314QLQofPSMrbTZ54VlGHM0SZvhANQhJKL4XWtR91yShZr75YgyCC
- OKhg==
+ bh=OThLtlQLHmt6Xu/dLjE7jt3V84uDU3HgUSM9F2dF2XI=;
+ b=xDOUAtBCkcWeHbtUdNL4kEbFLAoI1PG+UvDjQOsEXqReoaKKomML6d81hHeKtHDSfS
+ 8yRwf0f+DXjeZ/DvaEujsC7HHS4+e4IdM7ILi0ad0fssBOa6S2KAReBGVUAJyxFxSAXa
+ t+gVClAzY1J19ZCOCsiOJSCNVzna8Bdk/G3iQ2EyJZhpuPpJ54Kasfb7cE3wzAein2Nn
+ yXktQQpiGNZYyIQljx8JNvSQ8mTEClaMSsWD57G6YmPw5B1IkijPpdKOnz+ZSKrNxGYG
+ KnNpCibJ1oAbF0WSq9WLtfqhpTtumADHAyGvNHjBpQNYOZGh+cfsCt/QJdGvuavwYmKK
+ 3Lmw==
 X-Forwarded-Encrypted: i=1;
- AJvYcCWExPzvDLGlyA5ayQ0fif2yjt2u0fnvIlHiMC6oYuXYZ+boCNn/nk1SC0vIJB38zMyWgbGH/AapOJ4bAN6iAfEKlDqSJBwS701xuM32sdr5szeIHsa4oj4UAccEO7kUOir/gAm7fysP00M5Gl6OYcozCUEEVqqBSNcGCOuDfSX1+1Ge8KzIUnJBa61Etf1zFrOB3ORm/+Ify/2AkpAcIitBD8PIJqwCHEZFaR2VJ4295D0Kd30=
-X-Gm-Message-State: AOJu0YxGXI1IgjISUlCxrFWmCrzcFu2Eih64Yj4BapgKf62UFlUhhc1+
- vuDk8G9CCvpxH8K/ffyNcEbNkcJtr/H/xlJTAVx4f7UCsLnWF5gQ
-X-Google-Smtp-Source: AGHT+IFwjPQnHNdpL82QFoyvK82ch9P2MSNspb9WoQ/jz8r4btCyyStrJ5splTPFta5Lxtp3yMCjpQ==
-X-Received: by 2002:a5d:8498:0:b0:7d5:f78f:ab21 with SMTP id
- t24-20020a5d8498000000b007d5f78fab21mr13368935iom.11.1714419155409; 
- Mon, 29 Apr 2024 12:32:35 -0700 (PDT)
+ AJvYcCX/bWA7z+a4JEEe0/n+gpC8Yzv8GIdFSWWBXR2fyWFarAvAZm4fhdOQMUGg5C9GAZU1FQGThs67+LAfb4fCKXlVkZ18lNotCVwlWr7XothU2bk9E0PIzeSQsyYxebhujxPM1+L97sIXDVG+dg6xGxajG3ZXITeM3m0ySpiGtJCp2YAfvo/A5cMBPNelkLvOT1Pps9KdRHp8Hqpx6D0T+jL/HGRD/iyjBHl2hjlBOL87PPv6fsY=
+X-Gm-Message-State: AOJu0Yxj0uFGEXcsRpdGrqdnCYJ+xecLtndx7oPUlQj6lJX4NHK38nVb
+ TepuLEFi6GQYfE1RXs1Rskux6HCXAVxAetfU4eNm+te/Jfa1+jdK
+X-Google-Smtp-Source: AGHT+IG8SYyWWKZD11FY0NPPG/D9eJB+PcSN6dz+CzhLKof+BDDE1ptiGYSje0vARpyD55y/WCWs2A==
+X-Received: by 2002:a05:6602:14f:b0:7d9:6568:144e with SMTP id
+ v15-20020a056602014f00b007d96568144emr14013964iot.8.1714419568763; 
+ Mon, 29 Apr 2024 12:39:28 -0700 (PDT)
 Received: from frodo.. (c-73-78-62-130.hsd1.co.comcast.net. [73.78.62.130])
  by smtp.googlemail.com with ESMTPSA id
- dq18-20020a0566021b9200b007d5ec9b77aesm5988402iob.51.2024.04.29.12.32.34
+ y16-20020a056602165000b007de9f92dc57sm2325105iow.16.2024.04.29.12.39.27
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 29 Apr 2024 12:32:34 -0700 (PDT)
+ Mon, 29 Apr 2024 12:39:28 -0700 (PDT)
 From: Jim Cromie <jim.cromie@gmail.com>
 To: jbaron@akamai.com, gregkh@linuxfoundation.org,
  linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
@@ -66,13 +66,14 @@ Cc: ukaszb@chromium.org, linux-doc@vger.kernel.org, daniel.vetter@ffwll.ch,
  ville.syrjala@linux.intel.com, seanpaul@chromium.org, robdclark@gmail.com,
  groeck@google.com, yanivt@google.com, bleung@google.com,
  Jim Cromie <jim.cromie@gmail.com>
-Subject: [PATCH v8 18/35] selftests-dyndbg: exit 127 if no facility
-Date: Mon, 29 Apr 2024 13:31:28 -0600
-Message-ID: <20240429193145.66543-19-jim.cromie@gmail.com>
+Subject: [PATCH v8 21/35] dyndbg: treat comma as a token separator
+Date: Mon, 29 Apr 2024 13:39:07 -0600
+Message-ID: <20240429193921.66648-2-jim.cromie@gmail.com>
 X-Mailer: git-send-email 2.44.0
-In-Reply-To: <20240429193145.66543-1-jim.cromie@gmail.com>
-References: <20240429193145.66543-1-jim.cromie@gmail.com>
+In-Reply-To: <20240429193921.66648-1-jim.cromie@gmail.com>
+References: <20240429193921.66648-1-jim.cromie@gmail.com>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Tue, 30 Apr 2024 15:08:31 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
@@ -90,35 +91,83 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Test if /proc/dynamic_debug/control exists, exit 127 otherwise.
-This distinguishes an untestable config from both pass & fail.
-The 127 choice is pretty arbitrary, but imitating bisect.
+Treat comma as a token terminator, just like a space.  This allows a
+user to avoid quoting hassles when spaces are otherwise needed:
 
-That control file's presense guarantees that dynamic-debugging is
-configured (unless /proc is off, unusually), without dealing with the
-<debugfs> mount.
+ :#> modprobe drm dyndbg=class,DRM_UT_CORE,+p\;class,DRM_UT_KMS,+p
+
+or as a boot arg:
+
+ drm.dyndbg=class,DRM_UT_CORE,+p  # todo: support multi-query here
+
+Given the many ways a boot-line +args can be assembled and then passed
+in/down/around shell based tools, this may allow side-stepping all
+sorts of quoting hassles thru those layers.
+
+existing query format:
+
+ modprobe test_dynamic_debug dyndbg="class D2_CORE +p"
+
+new format:
+
+ modprobe test_dynamic_debug dyndbg=class,D2_CORE,+p
 
 Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
+Co-developed-by: Łukasz Bartosik <ukaszb@chromium.org>
+Signed-off-by: Łukasz Bartosik <ukaszb@chromium.org>
 ---
- tools/testing/selftests/dynamic_debug/dyndbg_selftest.sh | 5 +++++
- 1 file changed, 5 insertions(+)
+ lib/dynamic_debug.c | 17 +++++++++++++----
+ 1 file changed, 13 insertions(+), 4 deletions(-)
 
-diff --git a/tools/testing/selftests/dynamic_debug/dyndbg_selftest.sh b/tools/testing/selftests/dynamic_debug/dyndbg_selftest.sh
-index 1be70af26a38..cb77ae142520 100755
---- a/tools/testing/selftests/dynamic_debug/dyndbg_selftest.sh
-+++ b/tools/testing/selftests/dynamic_debug/dyndbg_selftest.sh
-@@ -11,6 +11,11 @@ CYAN="\033[0;36m"
- NC="\033[0;0m"
- error_msg=""
+diff --git a/lib/dynamic_debug.c b/lib/dynamic_debug.c
+index 31fd67597928..c1bc728cb050 100644
+--- a/lib/dynamic_debug.c
++++ b/lib/dynamic_debug.c
+@@ -290,6 +290,14 @@ static int ddebug_change(const struct ddebug_query *query,
+ 	return nfound;
+ }
  
-+[ -e /proc/dynamic_debug/control ] || {
-+    echo -e "${RED}: kernel not configured for this test ${NC}"
-+    exit 127
++static char *skip_spaces_and_commas(const char *str)
++{
++	str = skip_spaces(str);
++	while (*str == ',')
++		str = skip_spaces(++str);
++	return (char *)str;
 +}
 +
- function vx () {
-     echo $1 > /sys/module/dynamic_debug/parameters/verbose
- }
+ /*
+  * Split the buffer `buf' into space-separated words.
+  * Handles simple " and ' quoting, i.e. without nested,
+@@ -303,8 +311,8 @@ static int ddebug_tokenize(char *buf, char *words[], int maxwords)
+ 	while (*buf) {
+ 		char *end;
+ 
+-		/* Skip leading whitespace */
+-		buf = skip_spaces(buf);
++		/* Skip leading whitespace and comma */
++		buf = skip_spaces_and_commas(buf);
+ 		if (!*buf)
+ 			break;	/* oh, it was trailing whitespace */
+ 		if (*buf == '#')
+@@ -320,7 +328,7 @@ static int ddebug_tokenize(char *buf, char *words[], int maxwords)
+ 				return -EINVAL;	/* unclosed quote */
+ 			}
+ 		} else {
+-			for (end = buf; *end && !isspace(*end); end++)
++			for (end = buf; *end && !isspace(*end) && *end != ','; end++)
+ 				;
+ 			if (end == buf) {
+ 				pr_err("parse err after word:%d=%s\n", nwords,
+@@ -592,7 +600,8 @@ static int ddebug_exec_queries(char *query, const char *modname)
+ 		if (split)
+ 			*split++ = '\0';
+ 
+-		query = skip_spaces(query);
++		query = skip_spaces_and_commas(query);
++
+ 		if (!query || !*query || *query == '#')
+ 			continue;
+ 
 -- 
 2.44.0
 
