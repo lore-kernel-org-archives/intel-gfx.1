@@ -4,52 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 39C67C4345F
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E373BC10F16
 	for <intel-gfx@archiver.kernel.org>; Tue, 30 Apr 2024 17:31:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 99AE7112D83;
-	Tue, 30 Apr 2024 17:31:18 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 17516112D94;
+	Tue, 30 Apr 2024 17:31:19 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="ACLsh1lg";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="U9+lvb9G";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.8])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BD3EA112D7A;
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 36285112D79;
  Tue, 30 Apr 2024 17:30:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
  t=1714498221; x=1746034221;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=r1sklwSj48CNNRxPiIAqoKjo7MaVp0gz+dElCYGXxnE=;
- b=ACLsh1lg6A8Y66Ugu802rUgvkJ9AniTeyro4fbN+kN3geMemuPWLOQIV
- i4mn9tf2XE5aPgrILk7+kBxz7XnnNVL863MI3dK82DYWN/mFxx7nF3ogY
- 2sYp2Kf+l8yAn+BecvG3nFcmbLKkxzscc/w8kLsbDt8dx3JjybKZqFy7N
- GXKuh6/afy74UciKS5D4+eXxTanbqwa4s6eLaguh803STVVsXic6Qs5Gn
- rgO45bOku0rDnaqdUegZ/rx35u1AE0/dJoTvgNYRWRhgEK7ztFi+swI1F
- PrkLozC313i0Zv/k1Isw9pkKUoCFkrL3/eCIZ7FDFZEu5Fe1GAcLA6ujC g==;
-X-CSE-ConnectionGUID: Xjw3MIWBTc6cDo4QVHLTQg==
-X-CSE-MsgGUID: U5oNP7nWQ+WgnP7wFo70qg==
-X-IronPort-AV: E=McAfee;i="6600,9927,11060"; a="27742002"
-X-IronPort-AV: E=Sophos;i="6.07,242,1708416000"; d="scan'208";a="27742002"
+ bh=FewVEvq68BJuspVFQjRmefNzDxO+/zqhnTctQSSajmQ=;
+ b=U9+lvb9GNceUZ9JlFjdbDQx0OqX/pCgKUMugik2Npvy/a77+VP9FISQ2
+ fST3U9z+HZ41jFCGGsQUvwZUBesEJVXG5hroq67ypJB4Jg/vP0FpPMDLN
+ dHe9bYYY/+WVpJsrWEOaX2Q/Kl6TPYxCAk4En5KidN9keHEdMZ113FoJ1
+ dTGDQhjZ286i4uG/p3JJBcHo2Z6WU9B7KTGWLq3lwUPS7vIeGA4OD5Av+
+ 62yOg1moiy2u/rkxM5oeqm6ojY9vcMyy9t/dp4yyIdzS1uJ1vUFOsqYkY
+ XLosIzbdrZ0Bog0hsRFXyjyav/kD+C24NfkISe6UOwzycraF4CbwfFWLY w==;
+X-CSE-ConnectionGUID: ZKmCPoSFSnOs3KXIQQezkg==
+X-CSE-MsgGUID: RNqisU/rTCKM15DSzoYwmQ==
+X-IronPort-AV: E=McAfee;i="6600,9927,11060"; a="27741998"
+X-IronPort-AV: E=Sophos;i="6.07,242,1708416000"; d="scan'208";a="27741998"
 Received: from fmviesa006.fm.intel.com ([10.60.135.146])
  by fmvoesa102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  30 Apr 2024 10:30:21 -0700
-X-CSE-ConnectionGUID: LTOuyirKQuSRxxSAmksKWw==
-X-CSE-MsgGUID: KlZswUupTte14HxdqkgJMQ==
+X-CSE-ConnectionGUID: hVVRvC3ER/aJGFeibqVVHQ==
+X-CSE-MsgGUID: 5ApwjS0WQzKGgb94WUPg0g==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.07,242,1708416000"; d="scan'208";a="26617855"
+X-IronPort-AV: E=Sophos;i="6.07,242,1708416000"; d="scan'208";a="26617849"
 Received: from invictus.jf.intel.com ([10.165.21.201])
  by fmviesa006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  30 Apr 2024 10:30:21 -0700
 From: Radhakrishna Sripada <radhakrishna.sripada@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Cc: intel-xe@lists.freedesktop.org,
+Cc: intel-xe@lists.freedesktop.org, Matt Roper <matthew.d.roper@intel.com>,
  Balasubramani Vivekanandan <balasubramani.vivekanandan@intel.com>,
- Shekhar Chauhan <shekhar.chauhan@intel.com>,
+ Dnyaneshwar Bhadane <dnyaneshwar.bhadane@intel.com>,
  Radhakrishna Sripada <radhakrishna.sripada@intel.com>
-Subject: [PATCH v3 15/19] drm/i915/xe2hpd: Set maximum DP rate to UHBR13.5
-Date: Tue, 30 Apr 2024 10:28:46 -0700
-Message-Id: <20240430172850.1881525-16-radhakrishna.sripada@intel.com>
+Subject: [PATCH v3 13/19] drm/i915/bmg: BMG should re-use MTL's south display
+ logic
+Date: Tue, 30 Apr 2024 10:28:44 -0700
+Message-Id: <20240430172850.1881525-14-radhakrishna.sripada@intel.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20240430172850.1881525-1-radhakrishna.sripada@intel.com>
 References: <20240430172850.1881525-1-radhakrishna.sripada@intel.com>
@@ -70,33 +71,36 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Balasubramani Vivekanandan <balasubramani.vivekanandan@intel.com>
+From: Matt Roper <matthew.d.roper@intel.com>
 
-Max supported speed by xe2hpd is UHBR13.5. Limit the max DP source rate
-to it.
+Battlemage's south display is the same as Meteor Lake's, including the
+need to invert the HPD pins, which Lunar Lake does not need.
 
-Bspec: 67066
+Signed-off-by: Matt Roper <matthew.d.roper@intel.com>
 Signed-off-by: Balasubramani Vivekanandan <balasubramani.vivekanandan@intel.com>
-Reviewed-by: Shekhar Chauhan <shekhar.chauhan@intel.com>
+Reviewed-by: Dnyaneshwar Bhadane <dnyaneshwar.bhadane@intel.com>
 Signed-off-by: Radhakrishna Sripada <radhakrishna.sripada@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_dp.c | 3 +++
- 1 file changed, 3 insertions(+)
+ drivers/gpu/drm/i915/soc/intel_pch.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
-index e05e25cd4a94..486361eb0070 100644
---- a/drivers/gpu/drm/i915/display/intel_dp.c
-+++ b/drivers/gpu/drm/i915/display/intel_dp.c
-@@ -477,6 +477,9 @@ static int mtl_max_source_rate(struct intel_dp *intel_dp)
- 	if (intel_encoder_is_c10phy(encoder))
- 		return 810000;
- 
-+	if (DISPLAY_VER_FULL(to_i915(encoder->base.dev)) == IP_VER(14, 1))
-+		return 1350000;
-+
- 	return 2000000;
- }
- 
+diff --git a/drivers/gpu/drm/i915/soc/intel_pch.c b/drivers/gpu/drm/i915/soc/intel_pch.c
+index 3cad6dac06b0..542eea50093c 100644
+--- a/drivers/gpu/drm/i915/soc/intel_pch.c
++++ b/drivers/gpu/drm/i915/soc/intel_pch.c
+@@ -218,10 +218,10 @@ void intel_detect_pch(struct drm_i915_private *dev_priv)
+ 	if (DISPLAY_VER(dev_priv) >= 20) {
+ 		dev_priv->pch_type = PCH_LNL;
+ 		return;
+-	} else if (IS_METEORLAKE(dev_priv)) {
++	} else if (IS_BATTLEMAGE(dev_priv) || IS_METEORLAKE(dev_priv)) {
+ 		/*
+ 		 * Both north display and south display are on the SoC die.
+-		 * The real PCH is uninvolved in display.
++		 * The real PCH (if it even exists) is uninvolved in display.
+ 		 */
+ 		dev_priv->pch_type = PCH_MTL;
+ 		return;
 -- 
 2.34.1
 
