@@ -4,52 +4,56 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 76B68C4345F
-	for <intel-gfx@archiver.kernel.org>; Tue, 30 Apr 2024 16:48:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 65FF0C10F16
+	for <intel-gfx@archiver.kernel.org>; Tue, 30 Apr 2024 17:30:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 07B2B1127BA;
-	Tue, 30 Apr 2024 16:48:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DB45C112D78;
+	Tue, 30 Apr 2024 17:30:20 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="L0N5p/mT";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="Rm2smwRU";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.16])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3A51110EF30
- for <Intel-GFX@lists.freedesktop.org>; Tue, 30 Apr 2024 16:48:29 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.8])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0A00C112D78;
+ Tue, 30 Apr 2024 17:30:20 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1714495710; x=1746031710;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=7Bvlg46zXPQET1u/JRg4DooDuLEOoFpvms2fUwsI6fY=;
- b=L0N5p/mTmWmYsEyIuwP2paGdE9pHSpgzdKT9dUhm7BqDEGWigdgloS1m
- NDAA51jkaCFwA0CGLMNGlT3r3wjMTS7kz/lgogBR0cb9143UJCdBiZe8+
- +IWWY9Jw7wWa/STIW5C0Fk4A4CoM2gHzDEgJXEpexnkyxe/lPgWFsWiJX
- i7v5zNTBxthPHNy2h+rD50lkbU6WRO8dpED7QiNPok6ztQkiuvaWORqjA
- DzbdG6YVgGdfrjE7Kqx53rhR5aC3+EqxU+5TCt2moNL7mme9HTGhdk3sz
- sJV0681w/UE5PK2VY4aVc4Nr58JrwKseBwGlF52HZxciBoNjb3/YoFIfN w==;
-X-CSE-ConnectionGUID: TgG75zPXQbCBJocMfo2hPA==
-X-CSE-MsgGUID: UUrBBYACTgalx2Qfc9awyQ==
-X-IronPort-AV: E=McAfee;i="6600,9927,11060"; a="10339316"
-X-IronPort-AV: E=Sophos;i="6.07,242,1708416000"; d="scan'208";a="10339316"
-Received: from fmviesa002.fm.intel.com ([10.60.135.142])
- by orvoesa108.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 30 Apr 2024 09:48:23 -0700
-X-CSE-ConnectionGUID: tAeZBNypQqiHbt6eALGXow==
-X-CSE-MsgGUID: ClN3XcDuTgys6og5XfATHg==
+ t=1714498220; x=1746034220;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=M/Augv4QApN+dSPQmN9/1exhM7/SjAqWXkbZ26nRHnU=;
+ b=Rm2smwRUVrBL2QkTcBGK4RsnDZcbYjQm9JzAGKbYwhGXVO9XO8Ho5PuE
+ bZd7KVUaryqSfxMx5SfwuHYF1JDVVxyvwrJteh9n87urr5Rgk3eEDnjsk
+ ftrfVEvTu6Hi5DtWqrUXO/eiQNGHTqBnyQDOd2q/v0RBqXPW+tkseGOuQ
+ PN8uSFCkvQhF1gUSDZnS8Yl2eb77fjaOvjscorBhf7I6nE+5uZ1nbgnfD
+ 9GHPBCi9v3XlfZ+JcFaJ4zEaLnIfNd7AXE7bo/2M4IWGBgE4vGaY9JTr3
+ 4DDn6CWAZdLLLQ9m2bVgarn4pIzxTrEeqq11uYTk7PIaRL3uD5EZM24wJ g==;
+X-CSE-ConnectionGUID: wMSUROPMR7aDsDP/bnuyOg==
+X-CSE-MsgGUID: pRjyjOtqRc+u5QV4yBlixQ==
+X-IronPort-AV: E=McAfee;i="6600,9927,11060"; a="27741987"
+X-IronPort-AV: E=Sophos;i="6.07,242,1708416000"; d="scan'208";a="27741987"
+Received: from fmviesa006.fm.intel.com ([10.60.135.146])
+ by fmvoesa102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 30 Apr 2024 10:30:19 -0700
+X-CSE-ConnectionGUID: 4W2D6InDRQ6tUgs7O5n6Gw==
+X-CSE-MsgGUID: P3pOHltnRd6bGDun28MIDA==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.07,242,1708416000"; d="scan'208";a="49731340"
-Received: from bfilipch-desk.jf.intel.com ([10.165.21.204])
- by fmviesa002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 30 Apr 2024 09:48:22 -0700
-From: Julia Filipchuk <julia.filipchuk@intel.com>
-To: Intel-GFX@Lists.FreeDesktop.Org
-Cc: Arnd Bergmann <arnd@arndb.de>,
- Michal Wajdeczko <michal.wajdeczko@intel.com>,
- Julia Filipchuk <julia.filipchuk@intel.com>
-Subject: [PATCH] drm/i915/guc: avoid FIELD_PREP warning
-Date: Tue, 30 Apr 2024 09:48:09 -0700
-Message-ID: <20240430164809.482131-1-julia.filipchuk@intel.com>
-X-Mailer: git-send-email 2.43.2
+X-IronPort-AV: E=Sophos;i="6.07,242,1708416000"; d="scan'208";a="26617819"
+Received: from invictus.jf.intel.com ([10.165.21.201])
+ by fmviesa006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 30 Apr 2024 10:30:19 -0700
+From: Radhakrishna Sripada <radhakrishna.sripada@intel.com>
+To: intel-gfx@lists.freedesktop.org
+Cc: intel-xe@lists.freedesktop.org, Clint Taylor <clinton.a.taylor@intel.com>,
+ Lucas De Marchi <lucas.demarchi@intel.com>,
+ Balasubramani Vivekanandan <balasubramani.vivekanandan@intel.com>,
+ Matt Roper <matthew.d.roper@intel.com>,
+ Radhakrishna Sripada <radhakrishna.sripada@intel.com>
+Subject: [PATCH v3 03/19] drm/i915/xe2hpd: Initial cdclk table
+Date: Tue, 30 Apr 2024 10:28:34 -0700
+Message-Id: <20240430172850.1881525-4-radhakrishna.sripada@intel.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20240430172850.1881525-1-radhakrishna.sripada@intel.com>
+References: <20240430172850.1881525-1-radhakrishna.sripada@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-BeenThere: intel-gfx@lists.freedesktop.org
@@ -67,62 +71,49 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Arnd Bergmann <arnd@arndb.de>
+From: Clint Taylor <clinton.a.taylor@intel.com>
 
-With gcc-7 and earlier, there are lots of warnings like
+Add Xe2_HPD specific CDCLK table and use MTL Funcs.
 
-In file included from <command-line>:0:0:
-In function '__guc_context_policy_add_priority.isra.66',
-    inlined from '__guc_context_set_prio.isra.67' at drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c:3292:3,
-    inlined from 'guc_context_set_prio' at drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c:3320:2:
-include/linux/compiler_types.h:399:38: error: call to '__compiletime_assert_631' declared with attribute error: FIELD_PREP: mask is not constant
-  _compiletime_assert(condition, msg, __compiletime_assert_, __COUNTER__)
-                                      ^
-...
-drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c:2422:3: note: in expansion of macro 'FIELD_PREP'
-   FIELD_PREP(GUC_KLV_0_KEY, GUC_CONTEXT_POLICIES_KLV_ID_##id) | \
-   ^~~~~~~~~~
-
-Make sure that GUC_KLV_0_KEY is an unsigned value to avoid the warning.
-
-Fixes: 77b6f79df66e ("drm/i915/guc: Update to GuC version 69.0.3")
-Signed-off-by: Arnd Bergmann <arnd@arndb.de>
-Reviewed-by: Michal Wajdeczko <michal.wajdeczko@intel.com>
-Signed-off-by: Julia Filipchuk <julia.filipchuk@intel.com>
+Bspec: 65243
+CC: Lucas De Marchi <lucas.demarchi@intel.com>
+Signed-off-by: Clint Taylor <clinton.a.taylor@intel.com>
+Signed-off-by: Balasubramani Vivekanandan <balasubramani.vivekanandan@intel.com>
+Reviewed-by: Matt Roper <matthew.d.roper@intel.com>
+Signed-off-by: Radhakrishna Sripada <radhakrishna.sripada@intel.com>
 ---
+ drivers/gpu/drm/i915/display/intel_cdclk.c | 11 +++++++++++
+ 1 file changed, 11 insertions(+)
 
-Resubmit of a previous patch that was reviewed but never merged.
-Patch resolves warnings on some older GCC versions of failed
-constant propagation. Issue has been reported again; hoping to
-resolve.
-
-Previous Unmerged Patch:
-https://patchwork.freedesktop.org/series/114145/
-
-Reported Issue:
-https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/10821
-
-
- drivers/gpu/drm/i915/gt/uc/abi/guc_klvs_abi.h | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
-
-diff --git a/drivers/gpu/drm/i915/gt/uc/abi/guc_klvs_abi.h b/drivers/gpu/drm/i915/gt/uc/abi/guc_klvs_abi.h
-index bebf28e3c479..525587cfe1af 100644
---- a/drivers/gpu/drm/i915/gt/uc/abi/guc_klvs_abi.h
-+++ b/drivers/gpu/drm/i915/gt/uc/abi/guc_klvs_abi.h
-@@ -29,9 +29,9 @@
-  */
+diff --git a/drivers/gpu/drm/i915/display/intel_cdclk.c b/drivers/gpu/drm/i915/display/intel_cdclk.c
+index 7a833b5f2de2..b78154c82a71 100644
+--- a/drivers/gpu/drm/i915/display/intel_cdclk.c
++++ b/drivers/gpu/drm/i915/display/intel_cdclk.c
+@@ -1443,6 +1443,14 @@ static const struct intel_cdclk_vals xe2lpd_cdclk_table[] = {
+ 	{}
+ };
  
- #define GUC_KLV_LEN_MIN				1u
--#define GUC_KLV_0_KEY				(0xffff << 16)
--#define GUC_KLV_0_LEN				(0xffff << 0)
--#define GUC_KLV_n_VALUE				(0xffffffff << 0)
-+#define GUC_KLV_0_KEY				(0xffffu << 16)
-+#define GUC_KLV_0_LEN				(0xffffu << 0)
-+#define GUC_KLV_n_VALUE				(0xffffffffu << 0)
++/*
++ * Xe2_HPD always uses the minimal cdclk table from Wa_15015413771
++ */
++static const struct intel_cdclk_vals xe2hpd_cdclk_table[] = {
++	{ .refclk = 38400, .cdclk = 652800, .ratio = 34, .waveform = 0xffff },
++	{}
++};
++
+ static const int cdclk_squash_len = 16;
  
- /**
-  * DOC: GuC Self Config KLVs
+ static int cdclk_squash_divider(u16 waveform)
+@@ -3778,6 +3786,9 @@ void intel_init_cdclk_hooks(struct drm_i915_private *dev_priv)
+ 	if (DISPLAY_VER(dev_priv) >= 20) {
+ 		dev_priv->display.funcs.cdclk = &rplu_cdclk_funcs;
+ 		dev_priv->display.cdclk.table = xe2lpd_cdclk_table;
++	} else if (DISPLAY_VER_FULL(dev_priv) >= IP_VER(14, 1)) {
++		dev_priv->display.funcs.cdclk = &rplu_cdclk_funcs;
++		dev_priv->display.cdclk.table = xe2hpd_cdclk_table;
+ 	} else if (DISPLAY_VER(dev_priv) >= 14) {
+ 		dev_priv->display.funcs.cdclk = &rplu_cdclk_funcs;
+ 		dev_priv->display.cdclk.table = mtl_cdclk_table;
 -- 
-2.43.2
+2.34.1
 
