@@ -4,52 +4,51 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B9158C4345F
-	for <intel-gfx@archiver.kernel.org>; Tue, 30 Apr 2024 09:56:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3EB59C4345F
+	for <intel-gfx@archiver.kernel.org>; Tue, 30 Apr 2024 09:56:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 13E9F10F4CC;
-	Tue, 30 Apr 2024 09:56:50 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A44ED10F507;
+	Tue, 30 Apr 2024 09:56:53 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="goeQG/NB";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="EJoObuLO";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 003FD10F507
- for <intel-gfx@lists.freedesktop.org>; Tue, 30 Apr 2024 09:56:47 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EF61910F507
+ for <intel-gfx@lists.freedesktop.org>; Tue, 30 Apr 2024 09:56:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1714471008; x=1746007008;
+ t=1714471011; x=1746007011;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=Rs3FZi1xuS0Rja/jbmHMwoUChZ+p6qkRMRpzUqupod0=;
- b=goeQG/NBjN/V3epAJGieH9NwXHsVLDGiCODuhu9z45I6gHtP43rlgKoU
- NmmVX8l9Qor4fIUVBORAl86NvQYnB87Di2A41sDY1Chxizf80RPnnzhKh
- 9xbvCxgQlXVyN+Qpe2sSMh7Ac6pKz+gq81+bYPEqj2ileJoS8ICx6r3ob
- ysOzPBz8oF0DCkXOU+6RO2M9fYcMnki47D569aMFBgRultlr/wI+Q+bB9
- 5VPMCCIWP5S0EpNqzpElPpHSiKqcQQnBf8Pa14bV0p7KauhPRSPSfavvG
- vQpv+8JQavOTsX19Cf7+emxRPizFRwDxypfd6dnKAjBI53MJ/DZi+X5+t A==;
-X-CSE-ConnectionGUID: HkMZHislTBS07QtDk02oIg==
-X-CSE-MsgGUID: u7ehCxQ3QtOzx7UIeHM6Fg==
-X-IronPort-AV: E=McAfee;i="6600,9927,11059"; a="27617858"
-X-IronPort-AV: E=Sophos;i="6.07,241,1708416000"; d="scan'208";a="27617858"
+ bh=98H7LdSTt5MOxG9obkSdwAIGNWN05z7HTdTWtzmfb0M=;
+ b=EJoObuLOv5CVQMutHtQdYdNGo69wlT+3x28mtZzdDY2l13a6LvKrvb3n
+ YHcANrizDlHWTUuGE5XrDg+SvdF8rouQaHS7EJ0DvXVHzxEeQ7oaoV1W+
+ fFK35IREI+64VeT1nqBdBlAWq88i0yWWVQZeygNoTkEeK/8mRn7Ppk4Sb
+ Q0WHQ9Cz1lwfY9FlIbaEhZ795CoK8qNQqeXhtbQ5O72H9yBwn7XmDri3u
+ Wvg99jBRzmyBDvET0UusSCtqAWLlxTJQtyuxFqOVcxnH9Q+Y5HzUJ6Afi
+ rGZAtTbUcQq38LtGmqy8uiK29RUW9ovjYM5MyqadSEmdq3OS4uX4yyeH8 A==;
+X-CSE-ConnectionGUID: Rru/8RCCTiynuR659OycDg==
+X-CSE-MsgGUID: SoHA0y49QMWWnUXLVcpLqg==
+X-IronPort-AV: E=McAfee;i="6600,9927,11059"; a="27617859"
+X-IronPort-AV: E=Sophos;i="6.07,241,1708416000"; d="scan'208";a="27617859"
 Received: from fmviesa008.fm.intel.com ([10.60.135.148])
  by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 30 Apr 2024 02:56:48 -0700
-X-CSE-ConnectionGUID: y7g5S4YNSjqBs08/vYfBmQ==
-X-CSE-MsgGUID: jdFOE5yWS5eLWO99z0BX1Q==
+ 30 Apr 2024 02:56:51 -0700
+X-CSE-ConnectionGUID: cI4LaCYjT3Co/WfW2D+zKA==
+X-CSE-MsgGUID: lF+PaB5kSSi25ENPmbvM3w==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.07,241,1708416000"; d="scan'208";a="26419310"
+X-IronPort-AV: E=Sophos;i="6.07,241,1708416000"; d="scan'208";a="26419316"
 Received: from stinkpipe.fi.intel.com (HELO stinkbox) ([10.237.72.74])
- by fmviesa008.fm.intel.com with SMTP; 30 Apr 2024 02:56:45 -0700
+ by fmviesa008.fm.intel.com with SMTP; 30 Apr 2024 02:56:49 -0700
 Received: by stinkbox (sSMTP sendmail emulation);
- Tue, 30 Apr 2024 12:56:44 +0300
+ Tue, 30 Apr 2024 12:56:48 +0300
 From: Ville Syrjala <ville.syrjala@linux.intel.com>
 To: intel-gfx@lists.freedesktop.org
-Cc: Vandita Kulkarni <vandita.kulkarni@intel.com>,
- Arun R Murthy <arun.r.murthy@intel.com>
-Subject: [PATCH v2 2/5] drm/i915: Reject async flips if we need to change
- DDB/watermarks
-Date: Tue, 30 Apr 2024 12:56:36 +0300
-Message-ID: <20240430095639.26390-3-ville.syrjala@linux.intel.com>
+Cc: Vandita Kulkarni <vandita.kulkarni@intel.com>
+Subject: [PATCH v2 3/5] drm/i915: Allow the initial async flip to change
+ modifier
+Date: Tue, 30 Apr 2024 12:56:37 +0300
+Message-ID: <20240430095639.26390-4-ville.syrjala@linux.intel.com>
 X-Mailer: git-send-email 2.43.2
 In-Reply-To: <20240430095639.26390-1-ville.syrjala@linux.intel.com>
 References: <20240430095639.26390-1-ville.syrjala@linux.intel.com>
@@ -73,49 +72,71 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 From: Ville Syrjälä <ville.syrjala@linux.intel.com>
 
-DDB/watermarks are always double buffered on the vblank, so we
-can't safely change them during async flips. Currently this never
-happens, but we'll be making changing between sync and async
-flips a bit more flexible, in which case we can actually end up
-here.
+With Xorg+modesetting on skl+ we see the following behaviour:
+1. root pixmap is X-tiled
+2. client submitted buffers can be Y-tiled (w/ 'Option "dmabuf_capable"')
+3. we try to switch from the X-tiled buffer to the Y-tiled buffer
+   using an async flip (when vsync is disabled).
+4. the async flip will be rejected by i915 due to the modifier change
+
+Relax the rules a bit by turning the first async flip into a sync
+flip so that we can change the modifier if necessary. Note that
+we already convert the first async flip into a sync flip on adl+
+in order to reprogram the watermarks.
 
 Reviewed-by: Vandita Kulkarni <vandita.kulkarni@intel.com>
-Reviewed-by: Arun R Murthy <arun.r.murthy@intel.com>
 Signed-off-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
 ---
- drivers/gpu/drm/i915/display/skl_watermark.c | 12 ++++++++++++
- 1 file changed, 12 insertions(+)
+ .../gpu/drm/i915/display/intel_atomic_plane.c    | 16 +++++++++++++---
+ drivers/gpu/drm/i915/display/intel_display.c     |  7 +++++++
+ 2 files changed, 20 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/display/skl_watermark.c b/drivers/gpu/drm/i915/display/skl_watermark.c
-index 7c6187b4479f..e6476aa621a7 100644
---- a/drivers/gpu/drm/i915/display/skl_watermark.c
-+++ b/drivers/gpu/drm/i915/display/skl_watermark.c
-@@ -2540,6 +2540,12 @@ skl_ddb_add_affected_planes(const struct intel_crtc_state *old_crtc_state,
- 					&new_crtc_state->wm.skl.plane_ddb_y[plane_id]))
- 			continue;
+diff --git a/drivers/gpu/drm/i915/display/intel_atomic_plane.c b/drivers/gpu/drm/i915/display/intel_atomic_plane.c
+index 76d77d5a0409..769010d0ebc4 100644
+--- a/drivers/gpu/drm/i915/display/intel_atomic_plane.c
++++ b/drivers/gpu/drm/i915/display/intel_atomic_plane.c
+@@ -429,10 +429,20 @@ static bool intel_plane_do_async_flip(struct intel_plane *plane,
+ 	 * In platforms after DISPLAY13, we might need to override
+ 	 * first async flip in order to change watermark levels
+ 	 * as part of optimization.
+-	 * So for those, we are checking if this is a first async flip.
+-	 * For platforms earlier than DISPLAY13 we always do async flip.
++	 *
++	 * And let's do this for all skl+ so that we can eg. change the
++	 * modifier as well.
++	 *
++	 * TODO: For older platforms there is less reason to do this as
++	 * only X-tile is supported with async flips, though we could
++	 * extend this so other scanout parameters (stride/etc) could
++	 * be changed as well...
++	 *
++	 * FIXME: Platforms with need_async_flip_disable_wa==true will
++	 * now end up doing two sync flips initially. Would be nice to
++	 * combine those into just the one sync flip...
+ 	 */
+-	return DISPLAY_VER(i915) < 13 || old_crtc_state->uapi.async_flip;
++	return DISPLAY_VER(i915) < 9 || old_crtc_state->uapi.async_flip;
+ }
  
-+		if (new_crtc_state->do_async_flip) {
-+			drm_dbg_kms(&i915->drm, "[PLANE:%d:%s] Can't change DDB during async flip\n",
-+				    plane->base.base.id, plane->base.name);
-+			return -EINVAL;
-+		}
-+
- 		plane_state = intel_atomic_get_plane_state(state, plane);
- 		if (IS_ERR(plane_state))
- 			return PTR_ERR(plane_state);
-@@ -2899,6 +2905,12 @@ static int skl_wm_add_affected_planes(struct intel_atomic_state *state,
- 						 &new_crtc_state->wm.skl.optimal))
- 			continue;
+ static bool i9xx_must_disable_cxsr(const struct intel_crtc_state *new_crtc_state,
+diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
+index f45e5f02096d..fa1ddb558f48 100644
+--- a/drivers/gpu/drm/i915/display/intel_display.c
++++ b/drivers/gpu/drm/i915/display/intel_display.c
+@@ -6165,6 +6165,13 @@ static int intel_async_flip_check_hw(struct intel_atomic_state *state, struct in
+ 			return -EINVAL;
+ 		}
  
-+		if (new_crtc_state->do_async_flip) {
-+			drm_dbg_kms(&i915->drm, "[PLANE:%d:%s] Can't change watermarks during async flip\n",
-+				    plane->base.base.id, plane->base.name);
-+			return -EINVAL;
-+		}
++		/*
++		 * We turn the first async flip request into a sync flip
++		 * so that we can reconfigure the plane (eg. change modifier).
++		 */
++		if (!new_crtc_state->do_async_flip)
++			continue;
 +
- 		plane_state = intel_atomic_get_plane_state(state, plane);
- 		if (IS_ERR(plane_state))
- 			return PTR_ERR(plane_state);
+ 		if (old_plane_state->view.color_plane[0].mapping_stride !=
+ 		    new_plane_state->view.color_plane[0].mapping_stride) {
+ 			drm_dbg_kms(&i915->drm,
 -- 
 2.43.2
 
