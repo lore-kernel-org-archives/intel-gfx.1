@@ -4,53 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8DF3BC25B10
-	for <intel-gfx@archiver.kernel.org>; Tue, 30 Apr 2024 17:30:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A2E04C4345F
+	for <intel-gfx@archiver.kernel.org>; Tue, 30 Apr 2024 17:30:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D3278112D8B;
-	Tue, 30 Apr 2024 17:30:33 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0CDC4112D7F;
+	Tue, 30 Apr 2024 17:30:43 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="efH9SLjX";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="RC6S2uYK";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.8])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8A749112D73;
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EF83C112D73;
  Tue, 30 Apr 2024 17:30:20 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1714498220; x=1746034220;
+ t=1714498221; x=1746034221;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=HckQYKInlTNRCo6IVB6FWqwpDyV1uSWPPAkFbas0hB0=;
- b=efH9SLjX5D+mY9C2VYGKoVNP70yeHsJ9s74qRM8YoSxltq1471LdKkYE
- n9aQwU4G0FQQ5NkUViMGiWppX2l17WAUHWUbdpeUsHIQKcZSR4LxID38X
- 1hGAIh71VaGTdT1T0IU5wU/1Uu+ut/QoG6MKtXajhT5AO/nPEdxwWKNnr
- 4VGgbS+IoLzGwNQu9FLG94RGvmagaEVuCwYSkTO/J0ACl5xARAvD+Bz+C
- QHED+WQRVDRoPlk6SSA6dKTtE+0bPA4jWScZaLrtfnqNZyqBQuhWk6tc1
- b8fOc+wNJOwD1EcNibejnafduaR2zieuxcn76HG5OyM1iUFqze8CKoXEQ g==;
-X-CSE-ConnectionGUID: yy3WfzIWSmyudCyYHsfTig==
-X-CSE-MsgGUID: g4F2s5+sTAaZvZbN8e2M0g==
-X-IronPort-AV: E=McAfee;i="6600,9927,11060"; a="27741992"
-X-IronPort-AV: E=Sophos;i="6.07,242,1708416000"; d="scan'208";a="27741992"
+ bh=T5ClS7VLsbLjMGyZQI1wehlRMuYavXYLDONl9hlEgdo=;
+ b=RC6S2uYK5yjVfCsiCMdKO5NSknLHEmOACD3hqaASTz6YiUzTkkBEJSzQ
+ CdeYfsKpzab7PEGfgSz1/pJHyQVzGVV1vsT2l7QZaUPfO9mF/I0Wo6EV5
+ xJ/aI8wGV9MuaLoW1HXO7BlUu3ZzUOR0BbvW+3NYXYTj3/VvqhOxYKq+5
+ Qyv1QZmZMja6+xFjwMOyS5wC99Q+gQFLJ3t5+QM9raWCI4NrrxNlrR26d
+ 9DnBCtaiwCYVfBm7yAqD4sXxRXSHI5OaIOl/+YilyjtyxPu5WCxib42a7
+ anbfGn0AKZUZtNEI6NN9/YJSJvaOuo+cQuimGNSlqTqWoLXg/2swKPr1V g==;
+X-CSE-ConnectionGUID: mHAvjTD7R7mqlsDaUsuyLg==
+X-CSE-MsgGUID: mHzPfdWrSoiJbR4VAhqrTQ==
+X-IronPort-AV: E=McAfee;i="6600,9927,11060"; a="27741996"
+X-IronPort-AV: E=Sophos;i="6.07,242,1708416000"; d="scan'208";a="27741996"
 Received: from fmviesa006.fm.intel.com ([10.60.135.146])
  by fmvoesa102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  30 Apr 2024 10:30:20 -0700
-X-CSE-ConnectionGUID: 8Tnww/KWTg2lTZfU7a89NA==
-X-CSE-MsgGUID: op0a3JcLQwKnytMRAVsZaA==
+X-CSE-ConnectionGUID: eNOOmZ65T86DInrkUidF5A==
+X-CSE-MsgGUID: 3pMonEWqTfKV4rTP1vqz4w==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.07,242,1708416000"; d="scan'208";a="26617834"
+X-IronPort-AV: E=Sophos;i="6.07,242,1708416000"; d="scan'208";a="26617843"
 Received: from invictus.jf.intel.com ([10.165.21.201])
  by fmviesa006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  30 Apr 2024 10:30:20 -0700
 From: Radhakrishna Sripada <radhakrishna.sripada@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Cc: intel-xe@lists.freedesktop.org,
- Ravi Kumar Vodapalli <ravi.kumar.vodapalli@intel.com>,
+Cc: intel-xe@lists.freedesktop.org, Matt Roper <matthew.d.roper@intel.com>,
+ Jani Nikula <jani.nikula@linux.intel.com>,
  Balasubramani Vivekanandan <balasubramani.vivekanandan@intel.com>,
- Matt Roper <matthew.d.roper@intel.com>,
  Radhakrishna Sripada <radhakrishna.sripada@intel.com>
-Subject: [PATCH v3 08/19] drm/i915/xe2hpd: update pll values in sync with Bspec
-Date: Tue, 30 Apr 2024 10:28:39 -0700
-Message-Id: <20240430172850.1881525-9-radhakrishna.sripada@intel.com>
+Subject: [PATCH v3 11/19] drm/i915/xe2hpd: Add max memory bandwidth algorithm
+Date: Tue, 30 Apr 2024 10:28:42 -0700
+Message-Id: <20240430172850.1881525-12-radhakrishna.sripada@intel.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20240430172850.1881525-1-radhakrishna.sripada@intel.com>
 References: <20240430172850.1881525-1-radhakrishna.sripada@intel.com>
@@ -71,90 +70,174 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Ravi Kumar Vodapalli <ravi.kumar.vodapalli@intel.com>
+From: Matt Roper <matthew.d.roper@intel.com>
 
-DP/eDP and HDMI pll values are updated for Xe2_HPD platform
+Unlike DG2, Xe2_HPD does support multiple GV points with different
+maximum memory bandwidths, but uses a much simpler algorithm than igpu
+platforms use.
 
-v2: Removed the unsupported mtl_c20_dp_uhbr20 from xehpd_c20_dp_tables
-
-Bspec: 74165
-Signed-off-by: Ravi Kumar Vodapalli <ravi.kumar.vodapalli@intel.com>
+Bspec: 64631
+CC: Jani Nikula <jani.nikula@linux.intel.com>
+Signed-off-by: Matt Roper <matthew.d.roper@intel.com>
 Signed-off-by: Balasubramani Vivekanandan <balasubramani.vivekanandan@intel.com>
-Reviewed-by: Matt Roper <matthew.d.roper@intel.com>
-Signed-off-by: Radhakrishna Sripada <radhakrishna.sripada@intel.com>
+Reviewed-by: Radhakrishna Sripada <radhakrishna.sripada@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_cx0_phy.c | 46 +++++++++++++++++++-
- 1 file changed, 44 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/i915/display/intel_bw.c | 65 ++++++++++++++++++++++++-
+ drivers/gpu/drm/i915/i915_drv.h         |  1 +
+ drivers/gpu/drm/i915/soc/intel_dram.c   |  4 ++
+ drivers/gpu/drm/xe/xe_device_types.h    |  1 +
+ 4 files changed, 69 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_cx0_phy.c b/drivers/gpu/drm/i915/display/intel_cx0_phy.c
-index d16aab31349f..368daf43382a 100644
---- a/drivers/gpu/drm/i915/display/intel_cx0_phy.c
-+++ b/drivers/gpu/drm/i915/display/intel_cx0_phy.c
-@@ -1087,6 +1087,41 @@ static const struct intel_c20pll_state * const xe2hpd_c20_edp_tables[] = {
- 	NULL,
+diff --git a/drivers/gpu/drm/i915/display/intel_bw.c b/drivers/gpu/drm/i915/display/intel_bw.c
+index 972ea887e232..47036d4abb33 100644
+--- a/drivers/gpu/drm/i915/display/intel_bw.c
++++ b/drivers/gpu/drm/i915/display/intel_bw.c
+@@ -22,6 +22,8 @@ struct intel_qgv_point {
+ 	u16 dclk, t_rp, t_rdpre, t_rc, t_ras, t_rcd;
  };
  
-+static const struct intel_c20pll_state xe2hpd_c20_dp_uhbr13_5 = {
-+	.clock = 1350000, /* 13.5 Gbps */
-+	.tx = {	0xbea0, /* tx cfg0 */
-+		0x4800, /* tx cfg1 */
-+		0x0000, /* tx cfg2 */
-+		},
-+	.cmn = {0x0500, /* cmn cfg0*/
-+		0x0005, /* cmn cfg1 */
-+		0x0000, /* cmn cfg2 */
-+		0x0000, /* cmn cfg3 */
-+		},
-+	.mpllb = { 0x015f,	/* mpllb cfg0 */
-+		0x2205,		/* mpllb cfg1 */
-+		0x1b17,		/* mpllb cfg2 */
-+		0xffc1,		/* mpllb cfg3 */
-+		0xbd00,		/* mpllb cfg4 */
-+		0x9ec3,		/* mpllb cfg5 */
-+		0x2000,		/* mpllb cfg6 */
-+		0x0001,		/* mpllb cfg7 */
-+		0x4800,		/* mpllb cfg8 */
-+		0x0000,		/* mpllb cfg9 */
-+		0x0000,		/* mpllb cfg10 */
-+		},
-+};
++#define DEPROGBWPCLIMIT		60
 +
-+static const struct intel_c20pll_state * const xe2hpd_c20_dp_tables[] = {
-+	&mtl_c20_dp_rbr,
-+	&mtl_c20_dp_hbr1,
-+	&mtl_c20_dp_hbr2,
-+	&mtl_c20_dp_hbr3,
-+	&mtl_c20_dp_uhbr10,
-+	&xe2hpd_c20_dp_uhbr13_5,
-+	NULL,
-+};
-+
- /*
-  * HDMI link rates with 38.4 MHz reference clock.
-  */
-@@ -2203,13 +2238,20 @@ static const struct intel_c20pll_state * const *
- intel_c20_pll_tables_get(struct intel_crtc_state *crtc_state,
- 			 struct intel_encoder *encoder)
- {
--	if (intel_crtc_has_dp_encoder(crtc_state))
-+	struct drm_i915_private *i915 = to_i915(encoder->base.dev);
-+
-+	if (intel_crtc_has_dp_encoder(crtc_state)) {
- 		if (intel_crtc_has_type(crtc_state, INTEL_OUTPUT_EDP))
- 			return xe2hpd_c20_edp_tables;
-+
-+		if (DISPLAY_VER_FULL(i915) == IP_VER(14, 1))
-+			return xe2hpd_c20_dp_tables;
- 		else
- 			return mtl_c20_dp_tables;
--	else if (intel_crtc_has_type(crtc_state, INTEL_OUTPUT_HDMI))
-+
-+	} else if (intel_crtc_has_type(crtc_state, INTEL_OUTPUT_HDMI)) {
- 		return mtl_c20_hdmi_tables;
-+	}
+ struct intel_psf_gv_point {
+ 	u8 clk; /* clock in multiples of 16.6666 MHz */
+ };
+@@ -241,6 +243,9 @@ static int icl_get_qgv_points(struct drm_i915_private *dev_priv,
+ 			qi->channel_width = 16;
+ 			qi->deinterleave = 4;
+ 			break;
++		case INTEL_DRAM_GDDR:
++			qi->channel_width = 32;
++			break;
+ 		default:
+ 			MISSING_CASE(dram_info->type);
+ 			return -EINVAL;
+@@ -387,6 +392,12 @@ static const struct intel_sa_info mtl_sa_info = {
+ 	.derating = 10,
+ };
  
- 	MISSING_CASE(encoder->type);
- 	return NULL;
++static const struct intel_sa_info xe2_hpd_sa_info = {
++	.derating = 30,
++	.deprogbwlimit = 53,
++	/* Other values not used by simplified algorithm */
++};
++
+ static int icl_get_bw_info(struct drm_i915_private *dev_priv, const struct intel_sa_info *sa)
+ {
+ 	struct intel_qgv_info qi = {};
+@@ -493,7 +504,7 @@ static int tgl_get_bw_info(struct drm_i915_private *dev_priv, const struct intel
+ 	dclk_max = icl_sagv_max_dclk(&qi);
+ 
+ 	peakbw = num_channels * DIV_ROUND_UP(qi.channel_width, 8) * dclk_max;
+-	maxdebw = min(sa->deprogbwlimit * 1000, peakbw * 6 / 10); /* 60% */
++	maxdebw = min(sa->deprogbwlimit * 1000, peakbw * DEPROGBWPCLIMIT / 100);
+ 
+ 	ipqdepth = min(ipqdepthpch, sa->displayrtids / num_channels);
+ 	/*
+@@ -598,6 +609,54 @@ static void dg2_get_bw_info(struct drm_i915_private *i915)
+ 	i915->display.sagv.status = I915_SAGV_NOT_CONTROLLED;
+ }
+ 
++static int xe2_hpd_get_bw_info(struct drm_i915_private *i915,
++			       const struct intel_sa_info *sa)
++{
++	struct intel_qgv_info qi = {};
++	int num_channels = i915->dram_info.num_channels;
++	int peakbw, maxdebw;
++	int ret, i;
++
++	ret = icl_get_qgv_points(i915, &qi, true);
++	if (ret) {
++		drm_dbg_kms(&i915->drm,
++			    "Failed to get memory subsystem information, ignoring bandwidth limits");
++		return ret;
++	}
++
++	peakbw = num_channels * qi.channel_width / 8 * icl_sagv_max_dclk(&qi);
++	maxdebw = min(sa->deprogbwlimit * 1000, peakbw * DEPROGBWPCLIMIT / 10);
++
++	for (i = 0; i < qi.num_points; i++) {
++		const struct intel_qgv_point *point = &qi.points[i];
++		int bw = num_channels * (qi.channel_width / 8) * point->dclk;
++
++		i915->display.bw.max[0].deratedbw[i] =
++			min(maxdebw, (100 - sa->derating) * bw / 100);
++		i915->display.bw.max[0].peakbw[i] = bw;
++
++		drm_dbg_kms(&i915->drm, "QGV %d: deratedbw=%u peakbw: %u\n",
++			    i, i915->display.bw.max[0].deratedbw[i],
++			    i915->display.bw.max[0].peakbw[i]);
++	}
++
++	/* Bandwidth does not depend on # of planes; set all groups the same */
++	i915->display.bw.max[0].num_planes = 1;
++	i915->display.bw.max[0].num_qgv_points = qi.num_points;
++	for (i = 1; i < ARRAY_SIZE(i915->display.bw.max); i++)
++		memcpy(&i915->display.bw.max[i], &i915->display.bw.max[0],
++		       sizeof(i915->display.bw.max[0]));
++
++	/*
++	 * Xe2_HPD should always have exactly two QGV points representing
++	 * battery and plugged-in operation.
++	 */
++	drm_WARN_ON(&i915->drm, qi.num_points != 2);
++	i915->display.sagv.status = I915_SAGV_ENABLED;
++
++	return 0;
++}
++
+ static unsigned int icl_max_bw_index(struct drm_i915_private *dev_priv,
+ 				     int num_planes, int qgv_point)
+ {
+@@ -684,7 +743,9 @@ void intel_bw_init_hw(struct drm_i915_private *dev_priv)
+ 	if (!HAS_DISPLAY(dev_priv))
+ 		return;
+ 
+-	if (DISPLAY_VER(dev_priv) >= 14)
++	if (DISPLAY_VER_FULL(dev_priv) >= IP_VER(14, 1) && IS_DGFX(dev_priv))
++		xe2_hpd_get_bw_info(dev_priv, &xe2_hpd_sa_info);
++	else if (DISPLAY_VER(dev_priv) >= 14)
+ 		tgl_get_bw_info(dev_priv, &mtl_sa_info);
+ 	else if (IS_DG2(dev_priv))
+ 		dg2_get_bw_info(dev_priv);
+diff --git a/drivers/gpu/drm/i915/i915_drv.h b/drivers/gpu/drm/i915/i915_drv.h
+index 481ddce038b2..d1d21d433766 100644
+--- a/drivers/gpu/drm/i915/i915_drv.h
++++ b/drivers/gpu/drm/i915/i915_drv.h
+@@ -305,6 +305,7 @@ struct drm_i915_private {
+ 			INTEL_DRAM_LPDDR4,
+ 			INTEL_DRAM_DDR5,
+ 			INTEL_DRAM_LPDDR5,
++			INTEL_DRAM_GDDR,
+ 		} type;
+ 		u8 num_qgv_points;
+ 		u8 num_psf_gv_points;
+diff --git a/drivers/gpu/drm/i915/soc/intel_dram.c b/drivers/gpu/drm/i915/soc/intel_dram.c
+index e3287f1de774..18a879e98f03 100644
+--- a/drivers/gpu/drm/i915/soc/intel_dram.c
++++ b/drivers/gpu/drm/i915/soc/intel_dram.c
+@@ -640,6 +640,10 @@ static int xelpdp_get_dram_info(struct drm_i915_private *i915)
+ 	case 5:
+ 		dram_info->type = INTEL_DRAM_LPDDR3;
+ 		break;
++	case 8:
++		drm_WARN_ON(&i915->drm, !IS_DGFX(i915));
++		dram_info->type = INTEL_DRAM_GDDR;
++		break;
+ 	default:
+ 		MISSING_CASE(val);
+ 		return -EINVAL;
+diff --git a/drivers/gpu/drm/xe/xe_device_types.h b/drivers/gpu/drm/xe/xe_device_types.h
+index 0f68c55ea405..842e897a04c7 100644
+--- a/drivers/gpu/drm/xe/xe_device_types.h
++++ b/drivers/gpu/drm/xe/xe_device_types.h
+@@ -492,6 +492,7 @@ struct xe_device {
+ 			INTEL_DRAM_LPDDR4,
+ 			INTEL_DRAM_DDR5,
+ 			INTEL_DRAM_LPDDR5,
++			INTEL_DRAM_GDDR,
+ 		} type;
+ 		u8 num_qgv_points;
+ 		u8 num_psf_gv_points;
 -- 
 2.34.1
 
