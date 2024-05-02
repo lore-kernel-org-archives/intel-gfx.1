@@ -4,65 +4,66 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 64515C25B10
-	for <intel-gfx@archiver.kernel.org>; Thu,  2 May 2024 22:33:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 70809C4345F
+	for <intel-gfx@archiver.kernel.org>; Thu,  2 May 2024 22:33:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 86EC310F6AA;
-	Thu,  2 May 2024 22:33:45 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 392BA1126EB;
+	Thu,  2 May 2024 22:33:46 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=chromium.org header.i=@chromium.org header.b="bTlM6HG1";
+	dkim=pass (1024-bit key; unprotected) header.d=chromium.org header.i=@chromium.org header.b="NOKGyqIw";
 	dkim-atps=neutral
-Received: from mail-pl1-f172.google.com (mail-pl1-f172.google.com
- [209.85.214.172])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4ECFD10F6AA
+Received: from mail-pf1-f182.google.com (mail-pf1-f182.google.com
+ [209.85.210.182])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6F16110EE05
  for <intel-gfx@lists.freedesktop.org>; Thu,  2 May 2024 22:33:44 +0000 (UTC)
-Received: by mail-pl1-f172.google.com with SMTP id
- d9443c01a7336-1ecd9dab183so12081185ad.1
+Received: by mail-pf1-f182.google.com with SMTP id
+ d2e1a72fcca58-6f3f6aa1437so4770423b3a.3
  for <intel-gfx@lists.freedesktop.org>; Thu, 02 May 2024 15:33:44 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=chromium.org; s=google; t=1714689223; x=1715294023;
+ d=chromium.org; s=google; t=1714689224; x=1715294024;
  darn=lists.freedesktop.org; 
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=Alkyi5JqXUdcGMCJmPn2xNXTUHn7MjYy9EVPcBLGUQQ=;
- b=bTlM6HG1Us0dHeidylhPUimN0RRV8pgph1DmnIOqtT7wzN66taD5q9KDaRUzEtF44d
- Rh2o+pUB+CFib/T3YEjU+VP+Lgfhwy+AWWqWRhosvdkUnJqVRcpC60KgvgHyKxp4OxoR
- XYB21zYp0Zfgm6I4KN7l16fQH1ckx1m0owXTc=
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=1A06K+cPndg/pyM0u+MnZKl+yBNNRhhQ81oQHFD2WfU=;
+ b=NOKGyqIwSIXXlZkVuwpJY2wKvjpaOOtvxf8kqVJH3GsFeDpBHd8U9KMfa0vWh8363v
+ DE1xvdpG/KlSkmf3qsKqRebokJHpr/ZLrcWEsfMU1M1rAuMUf2VAFysre94LeT0n2snO
+ WGteOqEogjK1YcWy6n/kFQP/Wr5PGT7Z5/RRQ=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1714689223; x=1715294023;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=Alkyi5JqXUdcGMCJmPn2xNXTUHn7MjYy9EVPcBLGUQQ=;
- b=Ma6rUW1bqsL76L/1uxDcgnP1tun2PypGpt51jYaUsZPsbSkNWIzJh78Mde0jOQqVWe
- vcfERyYBEdc38AW8RJTscMp2mRS2UsUv9TW8tUXoLXNi/XG/4YQFEEa0zmb1i+u1STux
- 1ZHOU30rRXGNMKX8qa4ZvMB/3xhB0MzrxPXW5e5mSEVV6To/ftHZsMOIB034rwyEALKI
- bTUB0DVv859rGOlHrn6pPvzrufj6HTxPQSDEgZwmzJ+lvlZyPRJ5cWinSaXPU/WT7ssX
- /IukdI4NiGNal/RMIh85ikqHzBxKBi+uobFspRxloAuPEJtJ+5AxDU4eDehyySaIeBY2
- qZkQ==
+ d=1e100.net; s=20230601; t=1714689224; x=1715294024;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=1A06K+cPndg/pyM0u+MnZKl+yBNNRhhQ81oQHFD2WfU=;
+ b=PRq8BJS2xdDe2hXdYXH3zSEtg9AZzKMI5qsp5QVuQG6BUmonDxaoMSuycAdiZZS57L
+ XG3caFMSlDRdBq7kYexIBagJxyS7qtBmYoAvKaRylNWMsA1j4K+jvG9BADB9trWXx3+8
+ 6TbjPmf5c5gNh1jt0vk/k3wfUiz2rvlXrYeGRuB6OmlNSgnnksFqHzgONrtZdy/5S/4p
+ T8UUjknq79ZPPkDOaVcWAH5nYvZpH4IkD9+xT67tiWcV4JYAungd99gNiDQ/7ojGIKwL
+ FoNX2yzJOcaWnaSzlpUv6MSRuW8coiRyYjXbYfym/dcfjnStyz/F3c7SIFBr28qqzb5K
+ xw+g==
 X-Forwarded-Encrypted: i=1;
- AJvYcCWLDpGJaxMzYeNbf2RZWnWYEXgu+bS4LmEoNzsfd6B7nb07NCO6zVe7eTPncDqBR+7imm6thUUZIXpqb+UNa/nqEnc3zA0gjF7AcMioybXS
-X-Gm-Message-State: AOJu0YxcMo2kVPu36cYt65bV28KgbZrC0lgE69fDx+7Xf3+ljFAgHupF
- ACXw/fiSQRqpMwpSYfzRUSCO30gaFuHGlOfEBrL0m32c3vKf4WauuWeR7en/Fw==
-X-Google-Smtp-Source: AGHT+IGAayZiLEBsyLgIJp727/HOhIW8jcf68JHnImgIz5MoqiH36x7xVdhDcqAQUHQ4AOs7ALD8tQ==
-X-Received: by 2002:a17:902:ce81:b0:1e2:7734:63dd with SMTP id
- f1-20020a170902ce8100b001e2773463ddmr5911220plg.30.1714689223609; 
+ AJvYcCUsbpX/u2PsLF4JGYE90ZEJjyNU4kdtHDyLak8E6sPf/Gq/vYN+m4erzTVpB9w4gFDzChkBZ8XsgYez4GSBZ61BvQYzM88e3R0kqbTaqX2X
+X-Gm-Message-State: AOJu0YzAYw0ucmX1J4IU8FZUql7+x0sBzD22SgWBYmUEzBtRpSivjSd6
+ aTwSfMlUxqicR+r0DW7rAaG+txnxFyZbNUjFybkp42/Uz7ZrMQ1S9VPWV4wJHA==
+X-Google-Smtp-Source: AGHT+IG2YWa+9vY4h3Nt4PaRaRqLrTI7aivCYrlbdPDKTXJ4+9jbccE7kk1f6L0pdlB3sdtwRrv0Kg==
+X-Received: by 2002:a05:6a20:2ea1:b0:1a7:64dd:ebe8 with SMTP id
+ bj33-20020a056a202ea100b001a764ddebe8mr1102791pzb.49.1714689223844; 
  Thu, 02 May 2024 15:33:43 -0700 (PDT)
 Received: from www.outflux.net ([198.0.35.241])
  by smtp.gmail.com with ESMTPSA id
- e15-20020a17090301cf00b001ec852124f6sm1859006plh.309.2024.05.02.15.33.41
+ c12-20020a631c4c000000b005c6617b52e6sm1794043pgm.5.2024.05.02.15.33.41
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
  Thu, 02 May 2024 15:33:42 -0700 (PDT)
 From: Kees Cook <keescook@chromium.org>
-To: Christian Brauner <brauner@kernel.org>,
-	Will Deacon <will@kernel.org>
-Cc: Kees Cook <keescook@chromium.org>, Al Viro <viro@zeniv.linux.org.uk>,
- Jan Kara <jack@suse.cz>, Zack Rusin <zack.rusin@broadcom.com>,
+To: Christian Brauner <brauner@kernel.org>
+Cc: Kees Cook <keescook@chromium.org>, Zack Rusin <zack.rusin@broadcom.com>,
  Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, 
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
  Maxime Ripard <mripard@kernel.org>,
  Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Daniel Vetter <daniel@ffwll.ch>, Jani Nikula <jani.nikula@linux.intel.com>,
+ Daniel Vetter <daniel@ffwll.ch>, dri-devel@lists.freedesktop.org,
+ Al Viro <viro@zeniv.linux.org.uk>, Jan Kara <jack@suse.cz>,
+ Jani Nikula <jani.nikula@linux.intel.com>,
  Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
  Rodrigo Vivi <rodrigo.vivi@intel.com>,
  Tvrtko Ursulin <tursulin@ursulin.net>,
@@ -70,36 +71,37 @@ Cc: Kees Cook <keescook@chromium.org>, Al Viro <viro@zeniv.linux.org.uk>,
  Lucas De Marchi <lucas.demarchi@intel.com>,
  Matt Atwood <matthew.s.atwood@intel.com>,
  Matthew Auld <matthew.auld@intel.com>, Nirmoy Das <nirmoy.das@intel.com>,
- Jonathan Cavitt <jonathan.cavitt@intel.com>,
+ Jonathan Cavitt <jonathan.cavitt@intel.com>, Will Deacon <will@kernel.org>,
  Peter Zijlstra <peterz@infradead.org>, Boqun Feng <boqun.feng@gmail.com>,
  Mark Rutland <mark.rutland@arm.com>,
  Kent Overstreet <kent.overstreet@linux.dev>,
  Masahiro Yamada <masahiroy@kernel.org>,
  Nathan Chancellor <nathan@kernel.org>, Nicolas Schier <nicolas@fjasle.eu>,
  Andrew Morton <akpm@linux-foundation.org>, linux-kernel@vger.kernel.org,
- linux-fsdevel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- intel-gfx@lists.freedesktop.org, linux-kbuild@vger.kernel.org,
- linux-hardening@vger.kernel.org
-Subject: [PATCH 0/5] fs: Do not allow get_file() to resurrect 0 f_count
-Date: Thu,  2 May 2024 15:33:35 -0700
-Message-Id: <20240502222252.work.690-kees@kernel.org>
+ linux-fsdevel@vger.kernel.org, intel-gfx@lists.freedesktop.org,
+ linux-kbuild@vger.kernel.org, linux-hardening@vger.kernel.org
+Subject: [PATCH 2/5] drm/vmwgfx: Do not directly manipulate file->f_count
+Date: Thu,  2 May 2024 15:33:37 -0700
+Message-Id: <20240502223341.1835070-2-keescook@chromium.org>
 X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20240502222252.work.690-kees@kernel.org>
+References: <20240502222252.work.690-kees@kernel.org>
 MIME-Version: 1.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1562; i=keescook@chromium.org; 
- h=from:subject:message-id;
- bh=zh3jTYlv3gAfsJ0fJDEOOWbgXfu84QDhZ5jAngTPr/A=; 
- b=owEBbQKS/ZANAwAKAYly9N/cbcAmAcsmYgBmNBTDFUoY6TVoqmQxs375eqvdFBj89/ctuDLOW
- 2+X99yJ49+JAjMEAAEKAB0WIQSlw/aPIp3WD3I+bhOJcvTf3G3AJgUCZjQUwwAKCRCJcvTf3G3A
- JspPEACtGBTA/04xGkfNe0POOY6UGlh9ESMNyH/8oZZ8d3UQPt4M6jepl1PWlD4m3cEnHJK7W59
- Ew1O/o3JMO6xpM/DaYhVWnWU6vmyOuXC2BLL3sC0H78DoDCS1YeGvgwcsLvoJQkPR6yocxZc1Lp
- ArPQeS2n1GN6Natd2CKQpRU1hHaVx8V4k47jJ1C1ooXgDt7NaA3v3Mxp2k1nkVABc40Xt0iPZHe
- N135yJYCUnJcpYLB0ibjarI10wI4Q38s3kkHaSPBUFFlyZzwaqs8cVJtVafb+WFIadgKLSgplR6
- Gvo818ypPYTYB7jNIlptvHB2MpN4nJBL6DYjM9W9EA22HbIDDGJexmcFxNXqlQl/qXZpFt7XmnP
- Q6IX+BvQ65e6Zl3n+AYDDb+8lD/3uddFxKLY+yN8uImNTJaomfLEsLEdpWNQISX4Sd0iZoqRgNU
- wW8OcE471z7VJafbM8my64tY9J+xrj7sh3jZrbv695WaOXZVOZhvKl4yHNKdmuB7SwoTxzGJp8c
- 6H/kFSBF+jTC0H5n89DfR0Uuy/y1HoONrXrvE252vDox1DwVh8Gfz62Vr1+HtbNlBpcN9K4w/k7
- /tznwjyRyIqPUxNhJJzdX9hpAs9d/CHvDyY8049XOPocPYOnqRtriVf3abZjlh68t5HB+axTGF/
- GHusxWn D0shXk1Q==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1187; i=keescook@chromium.org; 
+ h=from:subject;
+ bh=OUKzE9BVu8bWw6VjJLw4TE6pDmrAN0hiIKHseOy5gQI=; 
+ b=owEBbQKS/ZANAwAKAYly9N/cbcAmAcsmYgBmNBTDv/zsdqEX/aWrvJELPzlHroMCjXF3QLhey
+ S4S5ggvUL6JAjMEAAEKAB0WIQSlw/aPIp3WD3I+bhOJcvTf3G3AJgUCZjQUwwAKCRCJcvTf3G3A
+ JkpxD/oDlial29qMNd66BSgea9O5UW/Aq3fbPMw4W3EMgMW8bVd/2Cha0TLF9V6wPXJVpP9GICw
+ eySmpxWOHWSZcjcLDQcl3iM4a9UgU5v0D/1sXfoWYpKb8RVGeGLgKP3alVDBkkX0vAShE079Rgv
+ AaOYBsxL4AWKH0J2mPuUNW1OfLBaqETFXnLQBSaj2UyS3/WXTVW1GHxm9VvBJGhFVxuE+wCb6J2
+ xOaHDjJd0EfmnXYWA5G0fszOm/QZch9KwaaSnl4bvV6ennST4HrFfxcb3aoODK7M6tHEtze1gql
+ 3NOu5+wUDcxv68MozmrUGEAXWOvGgTGZ5kugToTTsHflWiG23cemytSMo203nmTfyKc8/u3S0AO
+ fT0/foBY7k3RMwGcqYBnsdh1/Jq5xVXpDYVLyMgNRsgW1NXdWmM1cA+dosWN6PMw6lRAue96s9c
+ i3rmc1I8FSgzzkU6CVzCHA2OvjWHWnAtCxDZFGoTWPNSt68KMgYxy+w7dhirZS3oY8UA8NByD4z
+ iU0Wr8PshZ6X/yOrMNAqrLv/YHZHlXt9M1fl5FRs35Y9Cfj6SaJjRhsWINHqY7XmL7DbZgLHnfT
+ 2sm2WcxYxdug3OFoyke5UhhyXwLjB1tcBLaU3maUuNFLkfVGdBWJy1b3jBcj9FeFF/FmdXedjLE
+ f5Rb9fzOhMoS+kQ==
 X-Developer-Key: i=keescook@chromium.org; a=openpgp;
  fpr=A5C3F68F229DD60F723E6E138972F4DFDC6DC026
 Content-Transfer-Encoding: 8bit
@@ -118,42 +120,36 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Hi,
+The correct helper for taking an f_count reference is get_file().
+Now that it checks for 0 counts, use it and check results.
 
-Failure with f_count reference counting are better contained by
-an actual reference counting type, like refcount_t. The first step
-is for get_file() to use inc_not_zero to avoid resurrection. I also
-found a couple open-coded modifications of f_count that should be using
-get_file(). Since long ago, f_count was switched to atomic_long_t, so to
-get proper reference count checking, I've added a refcount_long_t API,
-and then converted f_count to refcount_long_t.
+Signed-off-by: Kees Cook <keescook@chromium.org>
+---
+Cc: Zack Rusin <zack.rusin@broadcom.com>
+Cc: Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+Cc: Maxime Ripard <mripard@kernel.org>
+Cc: Thomas Zimmermann <tzimmermann@suse.de>
+Cc: David Airlie <airlied@gmail.com>
+Cc: Daniel Vetter <daniel@ffwll.ch>
+Cc: dri-devel@lists.freedesktop.org
+---
+ drivers/gpu/drm/vmwgfx/ttm_object.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-Now if there are underflows (or somehow an overflow), we'll see them
-reported.
-
--Kees
-
-Kees Cook (5):
-  fs: Do not allow get_file() to resurrect 0 f_count
-  drm/vmwgfx: Do not directly manipulate file->f_count
-  drm/i915: Do not directly manipulate file->f_count
-  refcount: Introduce refcount_long_t and APIs
-  fs: Convert struct file::f_count to refcount_long_t
-
- MAINTAINERS                           |   2 +-
- Makefile                              |  11 +-
- drivers/gpu/drm/i915/gt/shmem_utils.c |   5 +-
- drivers/gpu/drm/vmwgfx/ttm_object.c   |   2 +-
- fs/file.c                             |   4 +-
- fs/file_table.c                       |   6 +-
- include/linux/fs.h                    |   7 +-
- include/linux/refcount-impl.h         | 344 ++++++++++++++++++++++++++
- include/linux/refcount.h              | 341 +------------------------
- include/linux/refcount_types.h        |  12 +
- lib/refcount.c                        |  17 +-
- 11 files changed, 398 insertions(+), 353 deletions(-)
- create mode 100644 include/linux/refcount-impl.h
-
+diff --git a/drivers/gpu/drm/vmwgfx/ttm_object.c b/drivers/gpu/drm/vmwgfx/ttm_object.c
+index 6806c05e57f6..68d8ee3020b1 100644
+--- a/drivers/gpu/drm/vmwgfx/ttm_object.c
++++ b/drivers/gpu/drm/vmwgfx/ttm_object.c
+@@ -475,7 +475,7 @@ void ttm_object_device_release(struct ttm_object_device **p_tdev)
+  */
+ static bool __must_check get_dma_buf_unless_doomed(struct dma_buf *dmabuf)
+ {
+-	return atomic_long_inc_not_zero(&dmabuf->file->f_count) != 0L;
++	return get_file(dmabuf->file) != NULL;
+ }
+ 
+ /**
 -- 
 2.34.1
 
