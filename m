@@ -4,61 +4,66 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D1C8CC25B5F
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 44770C04FFE
 	for <intel-gfx@archiver.kernel.org>; Thu,  2 May 2024 22:33:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7F32E1126FB;
-	Thu,  2 May 2024 22:33:49 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CC3721126F9;
+	Thu,  2 May 2024 22:33:48 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=chromium.org header.i=@chromium.org header.b="h7+FHtd3";
+	dkim=pass (1024-bit key; unprotected) header.d=chromium.org header.i=@chromium.org header.b="Ilz+6c/B";
 	dkim-atps=neutral
-Received: from mail-pf1-f171.google.com (mail-pf1-f171.google.com
- [209.85.210.171])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 802DA1126EE
- for <intel-gfx@lists.freedesktop.org>; Thu,  2 May 2024 22:33:46 +0000 (UTC)
-Received: by mail-pf1-f171.google.com with SMTP id
- d2e1a72fcca58-6f4178aec15so2719377b3a.0
- for <intel-gfx@lists.freedesktop.org>; Thu, 02 May 2024 15:33:46 -0700 (PDT)
+Received: from mail-pf1-f176.google.com (mail-pf1-f176.google.com
+ [209.85.210.176])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CE2081126EE
+ for <intel-gfx@lists.freedesktop.org>; Thu,  2 May 2024 22:33:47 +0000 (UTC)
+Received: by mail-pf1-f176.google.com with SMTP id
+ d2e1a72fcca58-6ed04c91c46so8126431b3a.0
+ for <intel-gfx@lists.freedesktop.org>; Thu, 02 May 2024 15:33:47 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=chromium.org; s=google; t=1714689226; x=1715294026;
+ d=chromium.org; s=google; t=1714689227; x=1715294027;
  darn=lists.freedesktop.org; 
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=FS85aS0uSYWPmkJmR+HxkNl8OY9pDJKR/ix6jc3gM1o=;
- b=h7+FHtd3vfLs32TLdegJT6TjeStXP11xuQcgLHUe3P4m0JfYKZVyRUIafYR/Yqu4pD
- dEiokBgu2VRmXndPMFWP4UDypCYYDtD9mPsKtcKwvQ+Kzrwkk9BA9qYUPHdRIf9giTVF
- BlOTPyA7qdWCBmq80u2RAajrsWl22c/oF/6yI=
+ bh=lF5MThykxvPk9uyVBf2VyyviHzvbPbdlmOnhbtR5xIY=;
+ b=Ilz+6c/B892A5FSZdwU//UQ4FaE6Q3uOgA+HnJ8WpbpEeHlYcmluPu2B+U0Ra/BoCe
+ IdIkgjgsiIvE7KopBre40J2ilvxNuh6mdIJzEVL8zbNnOfIlP0Mq+PxLsODLVYU8lli4
+ 3cNT7m14oTjKTTRhqR3Kl7SSp/tMm0J3UGRV0=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1714689226; x=1715294026;
+ d=1e100.net; s=20230601; t=1714689227; x=1715294027;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=FS85aS0uSYWPmkJmR+HxkNl8OY9pDJKR/ix6jc3gM1o=;
- b=V8FhagBLHT/fGyFM0Oj4Cgp3ZYGhJ+8hMnFP+db3jcau9t00MIyRWGjqXl71ZKW5vE
- vTSfNE/91mk3wroorFeXIFyjyj6cAVvbhU3+8n/ROaImgc2DmgQGtj0ozyoEjuOJqlh5
- +pfI4ilchvXLbjbKxh6TlFNchM9BR4ExyKAw1HsxVlSZp7kLyIJ2yfWO1goqsGI1xidW
- lVYOlvV0qMRIJg+CYc+oBw2s3KH4NgZNUTjHTVaHs6kZPQHRZ4lN9/lMDSbmIqV0uOH8
- FeGCIPpXH2s3UTJjVKPGI9A0QCSIKxH/Inp+XM0RYY0VI2xfofqHVAz2w6T/H7nnHSag
- FW6w==
+ bh=lF5MThykxvPk9uyVBf2VyyviHzvbPbdlmOnhbtR5xIY=;
+ b=AFKT0NqFlQYVLG112iB6OUcvrVdbVC1zP9RA+9J1skqqfwHGPRenPw/M8BlJ8WR5oo
+ Yo4zWI1slLXAhifgvbDC6xelvn+UEzTKCKfwgP/AqeyvlKAz0ai6wVOWuU/CefS8bdNa
+ WjrHYdZS2/7SFtm3/t8ajU2k83uuj7vW2mlRbgTDP8OcXq+1Xe5Ja5fadVUtb7uTvYzm
+ iJ5geh7pqyamPFVmaRO93BEjBq912NCHOFow0iUv4tpc4D5ygVSvlLR3pgZrtpi5jtGV
+ QRI/ZhKxs32rsdajposDguXfZRoCY2MDzo1PqIUEqncHFkt1Tsp7cGUZ5CtcjEsMPaNb
+ pD9Q==
 X-Forwarded-Encrypted: i=1;
- AJvYcCVYq0RUX1faNYpzE1xi4ZK9VWkw70Auae3P1HbePJQHm6TNxkWrzVkM3Vxuh+v0IwrcCjTH5syS1COv6dNU/o3b7hFS0nEVYYo+/dCwU6T4
-X-Gm-Message-State: AOJu0YyzVDt6Oh4CYQ4+Akw2Av7Won4onKDnI97a8CY7oidhmFkY6ygz
- 1VXNqLDsTip82G/EFHkc/T70OuCVNeZDkCZ5s2eog23+Z1GegB61R8yDVS2MQw==
-X-Google-Smtp-Source: AGHT+IHPqWSEIWAkmTHA3m+ip5N1siYc+jc02yV1sSYNCUk2VbsJlQut2h0V+Wbt+chL+SgMhgBGWw==
-X-Received: by 2002:a05:6a21:1f27:b0:1ac:6762:e62e with SMTP id
- ry39-20020a056a211f2700b001ac6762e62emr1201922pzb.30.1714689225930; 
- Thu, 02 May 2024 15:33:45 -0700 (PDT)
+ AJvYcCXuyBgqoY52xOhNkEY1qG1Ex3G1wNPzBsCRBbAUzOznSI0/H0LM2dvU2dJgjBF69i+5p1plf2WfcGSq6hO1YqC50+Wva6U2EUfmJyIAzj+/
+X-Gm-Message-State: AOJu0YxOpmzSgyXRMLN69mWWxU0SwmqdUqQpsmHqbEvTtydSbhflG1/g
+ gS06cXVgPb7PVnFcBCSh4I2Q7LfezP42JvYJhaFu61w/pgmLxpIAQRyhG949PA==
+X-Google-Smtp-Source: AGHT+IHtiShlIqDNUhw3v6g852b7qDSgAQXi3kqCqyOfYkujNeIEUghf0HtbZSg1PqKylxw220jafA==
+X-Received: by 2002:a05:6a20:4daa:b0:1a9:7f1b:e3f7 with SMTP id
+ gj42-20020a056a204daa00b001a97f1be3f7mr1097122pzb.50.1714689227324; 
+ Thu, 02 May 2024 15:33:47 -0700 (PDT)
 Received: from www.outflux.net ([198.0.35.241])
  by smtp.gmail.com with ESMTPSA id
- eu6-20020a17090af94600b002b3631c9270sm2784217pjb.25.2024.05.02.15.33.41
+ y21-20020a056a00191500b006ece7bb5636sm1777178pfi.134.2024.05.02.15.33.41
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
  Thu, 02 May 2024 15:33:42 -0700 (PDT)
 From: Kees Cook <keescook@chromium.org>
 To: Christian Brauner <brauner@kernel.org>
-Cc: Kees Cook <keescook@chromium.org>,
- Alexander Viro <viro@zeniv.linux.org.uk>, Jan Kara <jack@suse.cz>,
- linux-fsdevel@vger.kernel.org, Zack Rusin <zack.rusin@broadcom.com>,
+Cc: Kees Cook <keescook@chromium.org>, Will Deacon <will@kernel.org>,
+ Peter Zijlstra <peterz@infradead.org>, Boqun Feng <boqun.feng@gmail.com>,
+ Mark Rutland <mark.rutland@arm.com>,
+ Kent Overstreet <kent.overstreet@linux.dev>,
+ Masahiro Yamada <masahiroy@kernel.org>,
+ Nathan Chancellor <nathan@kernel.org>, Nicolas Schier <nicolas@fjasle.eu>,
+ linux-kbuild@vger.kernel.org, Al Viro <viro@zeniv.linux.org.uk>,
+ Jan Kara <jack@suse.cz>, Zack Rusin <zack.rusin@broadcom.com>,
  Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, 
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
  Maxime Ripard <mripard@kernel.org>,
@@ -71,36 +76,31 @@ Cc: Kees Cook <keescook@chromium.org>,
  Lucas De Marchi <lucas.demarchi@intel.com>,
  Matt Atwood <matthew.s.atwood@intel.com>,
  Matthew Auld <matthew.auld@intel.com>, Nirmoy Das <nirmoy.das@intel.com>,
- Jonathan Cavitt <jonathan.cavitt@intel.com>, Will Deacon <will@kernel.org>,
- Peter Zijlstra <peterz@infradead.org>, Boqun Feng <boqun.feng@gmail.com>,
- Mark Rutland <mark.rutland@arm.com>,
- Kent Overstreet <kent.overstreet@linux.dev>,
- Masahiro Yamada <masahiroy@kernel.org>,
- Nathan Chancellor <nathan@kernel.org>, Nicolas Schier <nicolas@fjasle.eu>,
+ Jonathan Cavitt <jonathan.cavitt@intel.com>,
  Andrew Morton <akpm@linux-foundation.org>, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
- linux-kbuild@vger.kernel.org, linux-hardening@vger.kernel.org
-Subject: [PATCH 1/5] fs: Do not allow get_file() to resurrect 0 f_count
-Date: Thu,  2 May 2024 15:33:36 -0700
-Message-Id: <20240502223341.1835070-1-keescook@chromium.org>
+ linux-fsdevel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ intel-gfx@lists.freedesktop.org, linux-hardening@vger.kernel.org
+Subject: [PATCH 4/5] refcount: Introduce refcount_long_t and APIs
+Date: Thu,  2 May 2024 15:33:39 -0700
+Message-Id: <20240502223341.1835070-4-keescook@chromium.org>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20240502222252.work.690-kees@kernel.org>
 References: <20240502222252.work.690-kees@kernel.org>
 MIME-Version: 1.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=923; i=keescook@chromium.org;
- h=from:subject; bh=WtgCtyIMNT2LXHS8P/KpT13C94RxNhKJ7RovKI+clEE=;
- b=owEBbQKS/ZANAwAKAYly9N/cbcAmAcsmYgBmNBTDS8z47/RFROL1IOhhstMS1R8chpsln1UTA
- /ua0FxEWaCJAjMEAAEKAB0WIQSlw/aPIp3WD3I+bhOJcvTf3G3AJgUCZjQUwwAKCRCJcvTf3G3A
- JmiTD/9h3vxAjfd+x38LUO8iBg0XaVYG0fE+uUAgPtl4+tThkzIHVPwRZvUaAttpv0rxblAgfyt
- blgim7dvZLmsZwvtY+fG0B7Ex0KmlH4jF9o/0oOrFCCJcHFKogjX9q8vOq7nXb0AutdLQxXbALT
- Gi07OKXY6BfixXgXojnjmDsDX37JKM+9aMT/Js5FWDOhIaFSpn/b4bEgh4VvE5aUCW2AMcqbZUa
- 5fIMXU+GdA6q1EHkPu/V/oANVb9vi6kkL3MQRMd2Q6yY/QjA5EVHCA2u8w+Wu2DgUCffgY3zli5
- QvqPOdlTd2unyBGzT+05ygn2f+4E7JW9FczuGQ9wfArVgUiCUZ5OrOhU7YpgHTgtmZhuA/XKvrb
- 2uemrbNiU2fmNpil1TqgxnryEz0MfaYDb8BjLOmchF87oBK0wKbVOHNJjVVSoKmqPh3qEk1jC2s
- uHic4zSh8WIZc/ycwpUNqcghKK0fL0v0apyhBiLHa7PYDDRWE89n4xXFDk8p3es23xa8pvtFZ3p
- xrXlj4DW1sDT08plpkk0UXHYq6K8qAaSw1Ts1IwjwkVHo95wmegwPwc3/U1ZfqsuTr9BG7ugDI5
- LiSdxoiZF/Q9dl04c99LliAAzAHYWqj9BQJwJkkOe2KTTQ5L/Hi4L4GT4RdcdaHuJAF0JTaTtR2
- hEa2Zvq5tUpbQpQ==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=30349; i=keescook@chromium.org;
+ h=from:subject; bh=nA88bPD2WL8ZV8ljbWg9pw64tzn8llNidezlYm5uvKM=;
+ b=owEBbQKS/ZANAwAKAYly9N/cbcAmAcsmYgBmNBTDcl6TtH0GVE9GWJhPEYcrNfUnHW4Y0kjRd
+ xoCLSGozA+JAjMEAAEKAB0WIQSlw/aPIp3WD3I+bhOJcvTf3G3AJgUCZjQUwwAKCRCJcvTf3G3A
+ JmuCEACNdtzqcUYqDarKRX44A6dJJMhRBRisjH2wnxt4JqEeFbHKKpU9QD0me7kV2TikLgtqzdP
+ e6C0c0hkvH9YX+0X6BidFQyurXXIpRdwmyCVYWX/oAZ4IjaAf1HxVDXcqb9C3YT3niQh2s7TDRU
+ TAAci1qDRpdfNlG7Xw95SBog0U6x+7Ph+/xJS4d7UNOKeglYTC3H/xnHNlZRHH92B3bEPRxXoDG
+ vB+cNXLiw0VFe1ZNxMte7anqzC4GUyUGsw1IvFQ3VK8wl2anlwb0D3sp85loKkcbN24e1PFwbMU
+ 1BhPrs8ZbP/mHt9TYi8MQKYtjeiq60W54qJG4/JMMLWUdFWziA0/a4Oin8M/FzbtoDqznzXScWq
+ vk+mkxRX07K4KzEbbpokrZH1udptZArIV7/afi3qRawEOU/Rxt+S4Ck0/Q92CgEG5AUQ5xhAaN4
+ V3O2sAxrxQTdasz1zm1ozzIsXmQp8S5lRNBuK9yMcHbP4uZHdLd6NHif6eQ797zgL1NVzfa9q3d
+ 4eudvSgIzr5W29diGSYiLIthiGc1ij5pCximj86dQwMFbS3sbIXwHdn2VXTQ0xw1YwqHqOEkPkZ
+ j5xtEMtONaf8NOgF4hm6L8VZSm4dF8ttytzold77hjPbiZnVVEhPlRtfNactJML3zur2Xq/6j/1
+ +RmN8ZDstIWEdQg==
 X-Developer-Key: i=keescook@chromium.org; a=openpgp;
  fpr=A5C3F68F229DD60F723E6E138972F4DFDC6DC026
 Content-Transfer-Encoding: 8bit
@@ -119,35 +119,849 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-If f_count reaches 0, calling get_file() should be a failure. Adjust to
-use atomic_long_inc_not_zero() and return NULL on failure. In the future
-get_file() can be annotated with __must_check, though that is not
-currently possible.
+Duplicate the refcount_t types and APIs gain refcount_long_t. This is
+needed for larger counters that while currently very unlikely to overflow,
+still want to detect and mitigate underflow.
+
+Generate refcount-long.h via direct string replacements. Doing macros
+like compat_binfmt_elf doesn't appear to work well.
 
 Signed-off-by: Kees Cook <keescook@chromium.org>
 ---
-Cc: Christian Brauner <brauner@kernel.org>
-Cc: Alexander Viro <viro@zeniv.linux.org.uk>
-Cc: Jan Kara <jack@suse.cz>
-Cc: linux-fsdevel@vger.kernel.org
+Cc: Will Deacon <will@kernel.org>
+Cc: Peter Zijlstra <peterz@infradead.org>
+Cc: Boqun Feng <boqun.feng@gmail.com>
+Cc: Mark Rutland <mark.rutland@arm.com>
+Cc: Kent Overstreet <kent.overstreet@linux.dev>
+Cc: Masahiro Yamada <masahiroy@kernel.org>
+Cc: Nathan Chancellor <nathan@kernel.org>
+Cc: Nicolas Schier <nicolas@fjasle.eu>
+Cc: linux-kbuild@vger.kernel.org
 ---
- include/linux/fs.h | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ MAINTAINERS                    |   2 +-
+ Makefile                       |  11 +-
+ include/linux/refcount-impl.h  | 344 +++++++++++++++++++++++++++++++++
+ include/linux/refcount.h       | 341 +-------------------------------
+ include/linux/refcount_types.h |  12 ++
+ lib/refcount.c                 |  17 +-
+ 6 files changed, 385 insertions(+), 342 deletions(-)
+ create mode 100644 include/linux/refcount-impl.h
 
-diff --git a/include/linux/fs.h b/include/linux/fs.h
-index 00fc429b0af0..210bbbfe9b83 100644
---- a/include/linux/fs.h
-+++ b/include/linux/fs.h
-@@ -1038,7 +1038,8 @@ struct file_handle {
+diff --git a/MAINTAINERS b/MAINTAINERS
+index 7c121493f43d..2e6c8eaab194 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -3360,7 +3360,7 @@ S:	Maintained
+ F:	Documentation/atomic_*.txt
+ F:	arch/*/include/asm/atomic*.h
+ F:	include/*/atomic*.h
+-F:	include/linux/refcount.h
++F:	include/linux/refcount*.h
+ F:	scripts/atomic/
  
- static inline struct file *get_file(struct file *f)
+ ATTO EXPRESSSAS SAS/SATA RAID SCSI DRIVER
+diff --git a/Makefile b/Makefile
+index 4bef6323c47d..a4bdcd34f323 100644
+--- a/Makefile
++++ b/Makefile
+@@ -1190,7 +1190,9 @@ PHONY += prepare archprepare
+ 
+ archprepare: outputmakefile archheaders archscripts scripts include/config/kernel.release \
+ 	asm-generic $(version_h) include/generated/utsrelease.h \
+-	include/generated/compile.h include/generated/autoconf.h remove-stale-files
++	include/generated/compile.h include/generated/autoconf.h \
++	include/generated/refcount-long.h \
++	remove-stale-files
+ 
+ prepare0: archprepare
+ 	$(Q)$(MAKE) $(build)=scripts/mod
+@@ -1262,6 +1264,13 @@ filechk_compile.h = $(srctree)/scripts/mkcompile_h \
+ include/generated/compile.h: FORCE
+ 	$(call filechk,compile.h)
+ 
++include/generated/refcount-long.h: $(srctree)/include/linux/refcount-impl.h
++	$(Q)$(PERL) -pe 's/\b(atomic|(__)?refcount)_/\1_long_/g;	\
++			 s/ATOMIC_/ATOMIC_LONG_/g;			\
++			 s/(REFCOUNT)_(IMPL|INIT|MAX|SAT)/\1_LONG_\2/g;	\
++			 s/\b(U?)INT_/\1LONG_/g;			\
++			 s/\bint\b/long/g;' $< >$@
++
+ PHONY += headerdep
+ headerdep:
+ 	$(Q)find $(srctree)/include/ -name '*.h' | xargs --max-args 1 \
+diff --git a/include/linux/refcount-impl.h b/include/linux/refcount-impl.h
+new file mode 100644
+index 000000000000..f5c73a0f46a4
+--- /dev/null
++++ b/include/linux/refcount-impl.h
+@@ -0,0 +1,344 @@
++/* SPDX-License-Identifier: GPL-2.0 */
++/*
++ * Variant of atomic_t specialized for reference counts.
++ *
++ * The interface matches the atomic_t interface (to aid in porting) but only
++ * provides the few functions one should use for reference counting.
++ *
++ * Saturation semantics
++ * ====================
++ *
++ * refcount_t differs from atomic_t in that the counter saturates at
++ * REFCOUNT_SATURATED and will not move once there. This avoids wrapping the
++ * counter and causing 'spurious' use-after-free issues. In order to avoid the
++ * cost associated with introducing cmpxchg() loops into all of the saturating
++ * operations, we temporarily allow the counter to take on an unchecked value
++ * and then explicitly set it to REFCOUNT_SATURATED on detecting that underflow
++ * or overflow has occurred. Although this is racy when multiple threads
++ * access the refcount concurrently, by placing REFCOUNT_SATURATED roughly
++ * equidistant from 0 and INT_MAX we minimise the scope for error:
++ *
++ *	                           INT_MAX     REFCOUNT_SATURATED   UINT_MAX
++ *   0                          (0x7fff_ffff)    (0xc000_0000)    (0xffff_ffff)
++ *   +--------------------------------+----------------+----------------+
++ *                                     <---------- bad value! ---------->
++ *
++ * (in a signed view of the world, the "bad value" range corresponds to
++ * a negative counter value).
++ *
++ * As an example, consider a refcount_inc() operation that causes the counter
++ * to overflow:
++ *
++ *	int old = atomic_fetch_add_relaxed(r);
++ *	// old is INT_MAX, refcount now INT_MIN (0x8000_0000)
++ *	if (old < 0)
++ *		atomic_set(r, REFCOUNT_SATURATED);
++ *
++ * If another thread also performs a refcount_inc() operation between the two
++ * atomic operations, then the count will continue to edge closer to 0. If it
++ * reaches a value of 1 before /any/ of the threads reset it to the saturated
++ * value, then a concurrent refcount_dec_and_test() may erroneously free the
++ * underlying object.
++ * Linux limits the maximum number of tasks to PID_MAX_LIMIT, which is currently
++ * 0x400000 (and can't easily be raised in the future beyond FUTEX_TID_MASK).
++ * With the current PID limit, if no batched refcounting operations are used and
++ * the attacker can't repeatedly trigger kernel oopses in the middle of refcount
++ * operations, this makes it impossible for a saturated refcount to leave the
++ * saturation range, even if it is possible for multiple uses of the same
++ * refcount to nest in the context of a single task:
++ *
++ *     (UINT_MAX+1-REFCOUNT_SATURATED) / PID_MAX_LIMIT =
++ *     0x40000000 / 0x400000 = 0x100 = 256
++ *
++ * If hundreds of references are added/removed with a single refcounting
++ * operation, it may potentially be possible to leave the saturation range; but
++ * given the precise timing details involved with the round-robin scheduling of
++ * each thread manipulating the refcount and the need to hit the race multiple
++ * times in succession, there doesn't appear to be a practical avenue of attack
++ * even if using refcount_add() operations with larger increments.
++ *
++ * Memory ordering
++ * ===============
++ *
++ * Memory ordering rules are slightly relaxed wrt regular atomic_t functions
++ * and provide only what is strictly required for refcounts.
++ *
++ * The increments are fully relaxed; these will not provide ordering. The
++ * rationale is that whatever is used to obtain the object we're increasing the
++ * reference count on will provide the ordering. For locked data structures,
++ * its the lock acquire, for RCU/lockless data structures its the dependent
++ * load.
++ *
++ * Do note that inc_not_zero() provides a control dependency which will order
++ * future stores against the inc, this ensures we'll never modify the object
++ * if we did not in fact acquire a reference.
++ *
++ * The decrements will provide release order, such that all the prior loads and
++ * stores will be issued before, it also provides a control dependency, which
++ * will order us against the subsequent free().
++ *
++ * The control dependency is against the load of the cmpxchg (ll/sc) that
++ * succeeded. This means the stores aren't fully ordered, but this is fine
++ * because the 1->0 transition indicates no concurrency.
++ *
++ * Note that the allocator is responsible for ordering things between free()
++ * and alloc().
++ *
++ * The decrements dec_and_test() and sub_and_test() also provide acquire
++ * ordering on success.
++ *
++ */
++#ifndef _LINUX_REFCOUNT_IMPL_H
++#define _LINUX_REFCOUNT_IMPL_H
++
++#define REFCOUNT_INIT(n)	{ .refs = ATOMIC_INIT(n), }
++#define REFCOUNT_MAX		INT_MAX
++#define REFCOUNT_SATURATED	(INT_MIN / 2)
++
++void refcount_warn_saturate(refcount_t *r, enum refcount_saturation_type t);
++
++/**
++ * refcount_set - set a refcount's value
++ * @r: the refcount
++ * @n: value to which the refcount will be set
++ */
++static inline void refcount_set(refcount_t *r, int n)
++{
++	atomic_set(&r->refs, n);
++}
++
++/**
++ * refcount_read - get a refcount's value
++ * @r: the refcount
++ *
++ * Return: the refcount's value
++ */
++static inline unsigned int refcount_read(const refcount_t *r)
++{
++	return atomic_read(&r->refs);
++}
++
++static inline __must_check __signed_wrap
++bool __refcount_add_not_zero(int i, refcount_t *r, int *oldp)
++{
++	int old = refcount_read(r);
++
++	do {
++		if (!old)
++			break;
++	} while (!atomic_try_cmpxchg_relaxed(&r->refs, &old, old + i));
++
++	if (oldp)
++		*oldp = old;
++
++	if (unlikely(old < 0 || old + i < 0))
++		refcount_warn_saturate(r, REFCOUNT_ADD_NOT_ZERO_OVF);
++
++	return old;
++}
++
++/**
++ * refcount_add_not_zero - add a value to a refcount unless it is 0
++ * @i: the value to add to the refcount
++ * @r: the refcount
++ *
++ * Will saturate at REFCOUNT_SATURATED and WARN.
++ *
++ * Provides no memory ordering, it is assumed the caller has guaranteed the
++ * object memory to be stable (RCU, etc.). It does provide a control dependency
++ * and thereby orders future stores. See the comment on top.
++ *
++ * Use of this function is not recommended for the normal reference counting
++ * use case in which references are taken and released one at a time.  In these
++ * cases, refcount_inc(), or one of its variants, should instead be used to
++ * increment a reference count.
++ *
++ * Return: false if the passed refcount is 0, true otherwise
++ */
++static inline __must_check bool refcount_add_not_zero(int i, refcount_t *r)
++{
++	return __refcount_add_not_zero(i, r, NULL);
++}
++
++static inline __signed_wrap
++void __refcount_add(int i, refcount_t *r, int *oldp)
++{
++	int old = atomic_fetch_add_relaxed(i, &r->refs);
++
++	if (oldp)
++		*oldp = old;
++
++	if (unlikely(!old))
++		refcount_warn_saturate(r, REFCOUNT_ADD_UAF);
++	else if (unlikely(old < 0 || old + i < 0))
++		refcount_warn_saturate(r, REFCOUNT_ADD_OVF);
++}
++
++/**
++ * refcount_add - add a value to a refcount
++ * @i: the value to add to the refcount
++ * @r: the refcount
++ *
++ * Similar to atomic_add(), but will saturate at REFCOUNT_SATURATED and WARN.
++ *
++ * Provides no memory ordering, it is assumed the caller has guaranteed the
++ * object memory to be stable (RCU, etc.). It does provide a control dependency
++ * and thereby orders future stores. See the comment on top.
++ *
++ * Use of this function is not recommended for the normal reference counting
++ * use case in which references are taken and released one at a time.  In these
++ * cases, refcount_inc(), or one of its variants, should instead be used to
++ * increment a reference count.
++ */
++static inline void refcount_add(int i, refcount_t *r)
++{
++	__refcount_add(i, r, NULL);
++}
++
++static inline __must_check bool __refcount_inc_not_zero(refcount_t *r, int *oldp)
++{
++	return __refcount_add_not_zero(1, r, oldp);
++}
++
++/**
++ * refcount_inc_not_zero - increment a refcount unless it is 0
++ * @r: the refcount to increment
++ *
++ * Similar to atomic_inc_not_zero(), but will saturate at REFCOUNT_SATURATED
++ * and WARN.
++ *
++ * Provides no memory ordering, it is assumed the caller has guaranteed the
++ * object memory to be stable (RCU, etc.). It does provide a control dependency
++ * and thereby orders future stores. See the comment on top.
++ *
++ * Return: true if the increment was successful, false otherwise
++ */
++static inline __must_check bool refcount_inc_not_zero(refcount_t *r)
++{
++	return __refcount_inc_not_zero(r, NULL);
++}
++
++static inline void __refcount_inc(refcount_t *r, int *oldp)
++{
++	__refcount_add(1, r, oldp);
++}
++
++/**
++ * refcount_inc - increment a refcount
++ * @r: the refcount to increment
++ *
++ * Similar to atomic_inc(), but will saturate at REFCOUNT_SATURATED and WARN.
++ *
++ * Provides no memory ordering, it is assumed the caller already has a
++ * reference on the object.
++ *
++ * Will WARN if the refcount is 0, as this represents a possible use-after-free
++ * condition.
++ */
++static inline void refcount_inc(refcount_t *r)
++{
++	__refcount_inc(r, NULL);
++}
++
++static inline __must_check __signed_wrap
++bool __refcount_sub_and_test(int i, refcount_t *r, int *oldp)
++{
++	int old = atomic_fetch_sub_release(i, &r->refs);
++
++	if (oldp)
++		*oldp = old;
++
++	if (old == i) {
++		smp_acquire__after_ctrl_dep();
++		return true;
++	}
++
++	if (unlikely(old < 0 || old - i < 0))
++		refcount_warn_saturate(r, REFCOUNT_SUB_UAF);
++
++	return false;
++}
++
++/**
++ * refcount_sub_and_test - subtract from a refcount and test if it is 0
++ * @i: amount to subtract from the refcount
++ * @r: the refcount
++ *
++ * Similar to atomic_dec_and_test(), but it will WARN, return false and
++ * ultimately leak on underflow and will fail to decrement when saturated
++ * at REFCOUNT_SATURATED.
++ *
++ * Provides release memory ordering, such that prior loads and stores are done
++ * before, and provides an acquire ordering on success such that free()
++ * must come after.
++ *
++ * Use of this function is not recommended for the normal reference counting
++ * use case in which references are taken and released one at a time.  In these
++ * cases, refcount_dec(), or one of its variants, should instead be used to
++ * decrement a reference count.
++ *
++ * Return: true if the resulting refcount is 0, false otherwise
++ */
++static inline __must_check bool refcount_sub_and_test(int i, refcount_t *r)
++{
++	return __refcount_sub_and_test(i, r, NULL);
++}
++
++static inline __must_check bool __refcount_dec_and_test(refcount_t *r, int *oldp)
++{
++	return __refcount_sub_and_test(1, r, oldp);
++}
++
++/**
++ * refcount_dec_and_test - decrement a refcount and test if it is 0
++ * @r: the refcount
++ *
++ * Similar to atomic_dec_and_test(), it will WARN on underflow and fail to
++ * decrement when saturated at REFCOUNT_SATURATED.
++ *
++ * Provides release memory ordering, such that prior loads and stores are done
++ * before, and provides an acquire ordering on success such that free()
++ * must come after.
++ *
++ * Return: true if the resulting refcount is 0, false otherwise
++ */
++static inline __must_check bool refcount_dec_and_test(refcount_t *r)
++{
++	return __refcount_dec_and_test(r, NULL);
++}
++
++static inline void __refcount_dec(refcount_t *r, int *oldp)
++{
++	int old = atomic_fetch_sub_release(1, &r->refs);
++
++	if (oldp)
++		*oldp = old;
++
++	if (unlikely(old <= 1))
++		refcount_warn_saturate(r, REFCOUNT_DEC_LEAK);
++}
++
++/**
++ * refcount_dec - decrement a refcount
++ * @r: the refcount
++ *
++ * Similar to atomic_dec(), it will WARN on underflow and fail to decrement
++ * when saturated at REFCOUNT_SATURATED.
++ *
++ * Provides release memory ordering, such that prior loads and stores are done
++ * before.
++ */
++static inline void refcount_dec(refcount_t *r)
++{
++	__refcount_dec(r, NULL);
++}
++
++extern __must_check bool refcount_dec_if_one(refcount_t *r);
++extern __must_check bool refcount_dec_not_one(refcount_t *r);
++extern __must_check bool refcount_dec_and_mutex_lock(refcount_t *r, struct mutex *lock) __cond_acquires(lock);
++extern __must_check bool refcount_dec_and_lock(refcount_t *r, spinlock_t *lock) __cond_acquires(lock);
++extern __must_check bool refcount_dec_and_lock_irqsave(refcount_t *r,
++						       spinlock_t *lock,
++						       unsigned long *flags) __cond_acquires(lock);
++
++#endif /* _LINUX_REFCOUNT_IMPL_H */
+diff --git a/include/linux/refcount.h b/include/linux/refcount.h
+index 59b3b752394d..a744f814374f 100644
+--- a/include/linux/refcount.h
++++ b/include/linux/refcount.h
+@@ -1,94 +1,4 @@
+ /* SPDX-License-Identifier: GPL-2.0 */
+-/*
+- * Variant of atomic_t specialized for reference counts.
+- *
+- * The interface matches the atomic_t interface (to aid in porting) but only
+- * provides the few functions one should use for reference counting.
+- *
+- * Saturation semantics
+- * ====================
+- *
+- * refcount_t differs from atomic_t in that the counter saturates at
+- * REFCOUNT_SATURATED and will not move once there. This avoids wrapping the
+- * counter and causing 'spurious' use-after-free issues. In order to avoid the
+- * cost associated with introducing cmpxchg() loops into all of the saturating
+- * operations, we temporarily allow the counter to take on an unchecked value
+- * and then explicitly set it to REFCOUNT_SATURATED on detecting that underflow
+- * or overflow has occurred. Although this is racy when multiple threads
+- * access the refcount concurrently, by placing REFCOUNT_SATURATED roughly
+- * equidistant from 0 and INT_MAX we minimise the scope for error:
+- *
+- * 	                           INT_MAX     REFCOUNT_SATURATED   UINT_MAX
+- *   0                          (0x7fff_ffff)    (0xc000_0000)    (0xffff_ffff)
+- *   +--------------------------------+----------------+----------------+
+- *                                     <---------- bad value! ---------->
+- *
+- * (in a signed view of the world, the "bad value" range corresponds to
+- * a negative counter value).
+- *
+- * As an example, consider a refcount_inc() operation that causes the counter
+- * to overflow:
+- *
+- * 	int old = atomic_fetch_add_relaxed(r);
+- *	// old is INT_MAX, refcount now INT_MIN (0x8000_0000)
+- *	if (old < 0)
+- *		atomic_set(r, REFCOUNT_SATURATED);
+- *
+- * If another thread also performs a refcount_inc() operation between the two
+- * atomic operations, then the count will continue to edge closer to 0. If it
+- * reaches a value of 1 before /any/ of the threads reset it to the saturated
+- * value, then a concurrent refcount_dec_and_test() may erroneously free the
+- * underlying object.
+- * Linux limits the maximum number of tasks to PID_MAX_LIMIT, which is currently
+- * 0x400000 (and can't easily be raised in the future beyond FUTEX_TID_MASK).
+- * With the current PID limit, if no batched refcounting operations are used and
+- * the attacker can't repeatedly trigger kernel oopses in the middle of refcount
+- * operations, this makes it impossible for a saturated refcount to leave the
+- * saturation range, even if it is possible for multiple uses of the same
+- * refcount to nest in the context of a single task:
+- *
+- *     (UINT_MAX+1-REFCOUNT_SATURATED) / PID_MAX_LIMIT =
+- *     0x40000000 / 0x400000 = 0x100 = 256
+- *
+- * If hundreds of references are added/removed with a single refcounting
+- * operation, it may potentially be possible to leave the saturation range; but
+- * given the precise timing details involved with the round-robin scheduling of
+- * each thread manipulating the refcount and the need to hit the race multiple
+- * times in succession, there doesn't appear to be a practical avenue of attack
+- * even if using refcount_add() operations with larger increments.
+- *
+- * Memory ordering
+- * ===============
+- *
+- * Memory ordering rules are slightly relaxed wrt regular atomic_t functions
+- * and provide only what is strictly required for refcounts.
+- *
+- * The increments are fully relaxed; these will not provide ordering. The
+- * rationale is that whatever is used to obtain the object we're increasing the
+- * reference count on will provide the ordering. For locked data structures,
+- * its the lock acquire, for RCU/lockless data structures its the dependent
+- * load.
+- *
+- * Do note that inc_not_zero() provides a control dependency which will order
+- * future stores against the inc, this ensures we'll never modify the object
+- * if we did not in fact acquire a reference.
+- *
+- * The decrements will provide release order, such that all the prior loads and
+- * stores will be issued before, it also provides a control dependency, which
+- * will order us against the subsequent free().
+- *
+- * The control dependency is against the load of the cmpxchg (ll/sc) that
+- * succeeded. This means the stores aren't fully ordered, but this is fine
+- * because the 1->0 transition indicates no concurrency.
+- *
+- * Note that the allocator is responsible for ordering things between free()
+- * and alloc().
+- *
+- * The decrements dec_and_test() and sub_and_test() also provide acquire
+- * ordering on success.
+- *
+- */
+-
+ #ifndef _LINUX_REFCOUNT_H
+ #define _LINUX_REFCOUNT_H
+ 
+@@ -101,10 +11,6 @@
+ 
+ struct mutex;
+ 
+-#define REFCOUNT_INIT(n)	{ .refs = ATOMIC_INIT(n), }
+-#define REFCOUNT_MAX		INT_MAX
+-#define REFCOUNT_SATURATED	(INT_MIN / 2)
+-
+ enum refcount_saturation_type {
+ 	REFCOUNT_ADD_NOT_ZERO_OVF,
+ 	REFCOUNT_ADD_OVF,
+@@ -113,249 +19,10 @@ enum refcount_saturation_type {
+ 	REFCOUNT_DEC_LEAK,
+ };
+ 
+-void refcount_warn_saturate(refcount_t *r, enum refcount_saturation_type t);
+-
+-/**
+- * refcount_set - set a refcount's value
+- * @r: the refcount
+- * @n: value to which the refcount will be set
+- */
+-static inline void refcount_set(refcount_t *r, int n)
+-{
+-	atomic_set(&r->refs, n);
+-}
+-
+-/**
+- * refcount_read - get a refcount's value
+- * @r: the refcount
+- *
+- * Return: the refcount's value
+- */
+-static inline unsigned int refcount_read(const refcount_t *r)
+-{
+-	return atomic_read(&r->refs);
+-}
+-
+-static inline __must_check __signed_wrap
+-bool __refcount_add_not_zero(int i, refcount_t *r, int *oldp)
+-{
+-	int old = refcount_read(r);
+-
+-	do {
+-		if (!old)
+-			break;
+-	} while (!atomic_try_cmpxchg_relaxed(&r->refs, &old, old + i));
+-
+-	if (oldp)
+-		*oldp = old;
+-
+-	if (unlikely(old < 0 || old + i < 0))
+-		refcount_warn_saturate(r, REFCOUNT_ADD_NOT_ZERO_OVF);
+-
+-	return old;
+-}
+-
+-/**
+- * refcount_add_not_zero - add a value to a refcount unless it is 0
+- * @i: the value to add to the refcount
+- * @r: the refcount
+- *
+- * Will saturate at REFCOUNT_SATURATED and WARN.
+- *
+- * Provides no memory ordering, it is assumed the caller has guaranteed the
+- * object memory to be stable (RCU, etc.). It does provide a control dependency
+- * and thereby orders future stores. See the comment on top.
+- *
+- * Use of this function is not recommended for the normal reference counting
+- * use case in which references are taken and released one at a time.  In these
+- * cases, refcount_inc(), or one of its variants, should instead be used to
+- * increment a reference count.
+- *
+- * Return: false if the passed refcount is 0, true otherwise
+- */
+-static inline __must_check bool refcount_add_not_zero(int i, refcount_t *r)
+-{
+-	return __refcount_add_not_zero(i, r, NULL);
+-}
+-
+-static inline __signed_wrap
+-void __refcount_add(int i, refcount_t *r, int *oldp)
+-{
+-	int old = atomic_fetch_add_relaxed(i, &r->refs);
+-
+-	if (oldp)
+-		*oldp = old;
+-
+-	if (unlikely(!old))
+-		refcount_warn_saturate(r, REFCOUNT_ADD_UAF);
+-	else if (unlikely(old < 0 || old + i < 0))
+-		refcount_warn_saturate(r, REFCOUNT_ADD_OVF);
+-}
+-
+-/**
+- * refcount_add - add a value to a refcount
+- * @i: the value to add to the refcount
+- * @r: the refcount
+- *
+- * Similar to atomic_add(), but will saturate at REFCOUNT_SATURATED and WARN.
+- *
+- * Provides no memory ordering, it is assumed the caller has guaranteed the
+- * object memory to be stable (RCU, etc.). It does provide a control dependency
+- * and thereby orders future stores. See the comment on top.
+- *
+- * Use of this function is not recommended for the normal reference counting
+- * use case in which references are taken and released one at a time.  In these
+- * cases, refcount_inc(), or one of its variants, should instead be used to
+- * increment a reference count.
+- */
+-static inline void refcount_add(int i, refcount_t *r)
+-{
+-	__refcount_add(i, r, NULL);
+-}
+-
+-static inline __must_check bool __refcount_inc_not_zero(refcount_t *r, int *oldp)
+-{
+-	return __refcount_add_not_zero(1, r, oldp);
+-}
+-
+-/**
+- * refcount_inc_not_zero - increment a refcount unless it is 0
+- * @r: the refcount to increment
+- *
+- * Similar to atomic_inc_not_zero(), but will saturate at REFCOUNT_SATURATED
+- * and WARN.
+- *
+- * Provides no memory ordering, it is assumed the caller has guaranteed the
+- * object memory to be stable (RCU, etc.). It does provide a control dependency
+- * and thereby orders future stores. See the comment on top.
+- *
+- * Return: true if the increment was successful, false otherwise
+- */
+-static inline __must_check bool refcount_inc_not_zero(refcount_t *r)
+-{
+-	return __refcount_inc_not_zero(r, NULL);
+-}
+-
+-static inline void __refcount_inc(refcount_t *r, int *oldp)
+-{
+-	__refcount_add(1, r, oldp);
+-}
+-
+-/**
+- * refcount_inc - increment a refcount
+- * @r: the refcount to increment
+- *
+- * Similar to atomic_inc(), but will saturate at REFCOUNT_SATURATED and WARN.
+- *
+- * Provides no memory ordering, it is assumed the caller already has a
+- * reference on the object.
+- *
+- * Will WARN if the refcount is 0, as this represents a possible use-after-free
+- * condition.
+- */
+-static inline void refcount_inc(refcount_t *r)
+-{
+-	__refcount_inc(r, NULL);
+-}
+-
+-static inline __must_check __signed_wrap
+-bool __refcount_sub_and_test(int i, refcount_t *r, int *oldp)
+-{
+-	int old = atomic_fetch_sub_release(i, &r->refs);
+-
+-	if (oldp)
+-		*oldp = old;
+-
+-	if (old == i) {
+-		smp_acquire__after_ctrl_dep();
+-		return true;
+-	}
+-
+-	if (unlikely(old < 0 || old - i < 0))
+-		refcount_warn_saturate(r, REFCOUNT_SUB_UAF);
+-
+-	return false;
+-}
+-
+-/**
+- * refcount_sub_and_test - subtract from a refcount and test if it is 0
+- * @i: amount to subtract from the refcount
+- * @r: the refcount
+- *
+- * Similar to atomic_dec_and_test(), but it will WARN, return false and
+- * ultimately leak on underflow and will fail to decrement when saturated
+- * at REFCOUNT_SATURATED.
+- *
+- * Provides release memory ordering, such that prior loads and stores are done
+- * before, and provides an acquire ordering on success such that free()
+- * must come after.
+- *
+- * Use of this function is not recommended for the normal reference counting
+- * use case in which references are taken and released one at a time.  In these
+- * cases, refcount_dec(), or one of its variants, should instead be used to
+- * decrement a reference count.
+- *
+- * Return: true if the resulting refcount is 0, false otherwise
+- */
+-static inline __must_check bool refcount_sub_and_test(int i, refcount_t *r)
+-{
+-	return __refcount_sub_and_test(i, r, NULL);
+-}
+-
+-static inline __must_check bool __refcount_dec_and_test(refcount_t *r, int *oldp)
+-{
+-	return __refcount_sub_and_test(1, r, oldp);
+-}
+-
+-/**
+- * refcount_dec_and_test - decrement a refcount and test if it is 0
+- * @r: the refcount
+- *
+- * Similar to atomic_dec_and_test(), it will WARN on underflow and fail to
+- * decrement when saturated at REFCOUNT_SATURATED.
+- *
+- * Provides release memory ordering, such that prior loads and stores are done
+- * before, and provides an acquire ordering on success such that free()
+- * must come after.
+- *
+- * Return: true if the resulting refcount is 0, false otherwise
+- */
+-static inline __must_check bool refcount_dec_and_test(refcount_t *r)
+-{
+-	return __refcount_dec_and_test(r, NULL);
+-}
+-
+-static inline void __refcount_dec(refcount_t *r, int *oldp)
+-{
+-	int old = atomic_fetch_sub_release(1, &r->refs);
+-
+-	if (oldp)
+-		*oldp = old;
+-
+-	if (unlikely(old <= 1))
+-		refcount_warn_saturate(r, REFCOUNT_DEC_LEAK);
+-}
++/* Make the generation of refcount_long_t easier. */
++#define refcount_long_saturation_type refcount_saturation_type
+ 
+-/**
+- * refcount_dec - decrement a refcount
+- * @r: the refcount
+- *
+- * Similar to atomic_dec(), it will WARN on underflow and fail to decrement
+- * when saturated at REFCOUNT_SATURATED.
+- *
+- * Provides release memory ordering, such that prior loads and stores are done
+- * before.
+- */
+-static inline void refcount_dec(refcount_t *r)
+-{
+-	__refcount_dec(r, NULL);
+-}
++#include <linux/refcount-impl.h>
++#include <generated/refcount-long.h>
+ 
+-extern __must_check bool refcount_dec_if_one(refcount_t *r);
+-extern __must_check bool refcount_dec_not_one(refcount_t *r);
+-extern __must_check bool refcount_dec_and_mutex_lock(refcount_t *r, struct mutex *lock) __cond_acquires(lock);
+-extern __must_check bool refcount_dec_and_lock(refcount_t *r, spinlock_t *lock) __cond_acquires(lock);
+-extern __must_check bool refcount_dec_and_lock_irqsave(refcount_t *r,
+-						       spinlock_t *lock,
+-						       unsigned long *flags) __cond_acquires(lock);
+ #endif /* _LINUX_REFCOUNT_H */
+diff --git a/include/linux/refcount_types.h b/include/linux/refcount_types.h
+index 162004f06edf..6ea02d6a9623 100644
+--- a/include/linux/refcount_types.h
++++ b/include/linux/refcount_types.h
+@@ -16,4 +16,16 @@ typedef struct refcount_struct {
+ 	atomic_t refs;
+ } refcount_t;
+ 
++/**
++ * typedef refcount_long_t - variant of atomic64_t specialized for reference counts
++ * @refs: atomic_long_t counter field
++ *
++ * The counter saturates at REFCOUNT_LONG_SATURATED and will not move once
++ * there. This avoids wrapping the counter and causing 'spurious'
++ * use-after-free bugs.
++ */
++typedef struct refcount_long_struct {
++	atomic_long_t refs;
++} refcount_long_t;
++
+ #endif /* _LINUX_REFCOUNT_TYPES_H */
+diff --git a/lib/refcount.c b/lib/refcount.c
+index a207a8f22b3c..201304b7d7a5 100644
+--- a/lib/refcount.c
++++ b/lib/refcount.c
+@@ -10,10 +10,8 @@
+ 
+ #define REFCOUNT_WARN(str)	WARN_ONCE(1, "refcount_t: " str ".\n")
+ 
+-void refcount_warn_saturate(refcount_t *r, enum refcount_saturation_type t)
++static void refcount_report_saturation(enum refcount_saturation_type t)
  {
--	atomic_long_inc(&f->f_count);
-+	if (unlikely(!atomic_long_inc_not_zero(&f->f_count)))
-+		return NULL;
- 	return f;
+-	refcount_set(r, REFCOUNT_SATURATED);
+-
+ 	switch (t) {
+ 	case REFCOUNT_ADD_NOT_ZERO_OVF:
+ 		REFCOUNT_WARN("saturated; leaking memory");
+@@ -34,8 +32,21 @@ void refcount_warn_saturate(refcount_t *r, enum refcount_saturation_type t)
+ 		REFCOUNT_WARN("unknown saturation event!?");
+ 	}
  }
++
++void refcount_warn_saturate(refcount_t *r, enum refcount_saturation_type t)
++{
++	refcount_set(r, REFCOUNT_SATURATED);
++	refcount_report_saturation(t);
++}
+ EXPORT_SYMBOL(refcount_warn_saturate);
  
++void refcount_long_warn_saturate(refcount_long_t *r, enum refcount_saturation_type t)
++{
++	refcount_long_set(r, REFCOUNT_LONG_SATURATED);
++	refcount_report_saturation(t);
++}
++EXPORT_SYMBOL(refcount_long_warn_saturate);
++
+ /**
+  * refcount_dec_if_one - decrement a refcount if it is 1
+  * @r: the refcount
 -- 
 2.34.1
 
