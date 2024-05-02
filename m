@@ -4,67 +4,27 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 043DEC4345F
-	for <intel-gfx@archiver.kernel.org>; Thu,  2 May 2024 23:05:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1B3F5C4345F
+	for <intel-gfx@archiver.kernel.org>; Thu,  2 May 2024 23:08:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3A68B10F86D;
-	Thu,  2 May 2024 23:05:01 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=linux.org.uk header.i=@linux.org.uk header.b="NNuR3eFN";
-	dkim-atps=neutral
-X-Greylist: delayed 1303 seconds by postgrey-1.36 at gabe;
- Thu, 02 May 2024 23:04:59 UTC
-Received: from zeniv.linux.org.uk (zeniv.linux.org.uk [62.89.141.173])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DAAF910F86D;
- Thu,  2 May 2024 23:04:59 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=linux.org.uk; s=zeniv-20220401; h=Sender:In-Reply-To:Content-Type:
- MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:Reply-To:
- Content-Transfer-Encoding:Content-ID:Content-Description;
- bh=ULmPR6hNHGKvfw+x5JwcQb4TEP/e6WVplfSdLUYOMgQ=; b=NNuR3eFNcyOS5w/isy/zTLRRaO
- onkClByWbmCmRL22TUag18at6tRT063x5web+FO3DofpsddeR40Fxrmy28bSrpWv7i4p+1yLeikpn
- EYbpPlGUaFPmC3sMIoJpMg8TQeMrNL45IYY9piBB9jmaMTUtNM1s//whrWuNmUGA+zygfNQJ37d/i
- Vkf//jPzrLoKGrzTQ0duPSTjOCODLfcBJjIBJqJqXbjsFGJq2qCgCqfUWSbAYzrvnLWUFE6cKzOyz
- 1PUzkElvAPYcXaYecp7LqBbN9Dzk1D0oicseeFPfjzh2181gcIvkDpOuetjBnt4NaFS63aMLfea70
- xEGx9oWA==;
-Received: from viro by zeniv.linux.org.uk with local (Exim 4.96 #2 (Red Hat
- Linux)) id 1s2f8c-009pC0-1L; Thu, 02 May 2024 22:42:50 +0000
-Date: Thu, 2 May 2024 23:42:50 +0100
-From: Al Viro <viro@zeniv.linux.org.uk>
-To: Kees Cook <keescook@chromium.org>
-Cc: Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>,
- linux-fsdevel@vger.kernel.org, Zack Rusin <zack.rusin@broadcom.com>,
- Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
- Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Tvrtko Ursulin <tursulin@ursulin.net>,
- Andi Shyti <andi.shyti@linux.intel.com>,
- Lucas De Marchi <lucas.demarchi@intel.com>,
- Matt Atwood <matthew.s.atwood@intel.com>,
- Matthew Auld <matthew.auld@intel.com>, Nirmoy Das <nirmoy.das@intel.com>,
- Jonathan Cavitt <jonathan.cavitt@intel.com>, Will Deacon <will@kernel.org>,
- Peter Zijlstra <peterz@infradead.org>, Boqun Feng <boqun.feng@gmail.com>,
- Mark Rutland <mark.rutland@arm.com>,
- Kent Overstreet <kent.overstreet@linux.dev>,
- Masahiro Yamada <masahiroy@kernel.org>,
- Nathan Chancellor <nathan@kernel.org>, Nicolas Schier <nicolas@fjasle.eu>,
- Andrew Morton <akpm@linux-foundation.org>,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- intel-gfx@lists.freedesktop.org, linux-kbuild@vger.kernel.org,
- linux-hardening@vger.kernel.org
-Subject: Re: [PATCH 5/5] fs: Convert struct file::f_count to refcount_long_t
-Message-ID: <20240502224250.GM2118490@ZenIV>
-References: <20240502222252.work.690-kees@kernel.org>
- <20240502223341.1835070-5-keescook@chromium.org>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 72CA710F8AB;
+	Thu,  2 May 2024 23:08:18 +0000 (UTC)
+Received: from 8e613ede5ea5 (emeril.freedesktop.org [131.252.210.167])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8060210F8A9;
+ Thu,  2 May 2024 23:08:16 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20240502223341.1835070-5-keescook@chromium.org>
+Content-Transfer-Encoding: 7bit
+Subject: =?utf-8?q?=E2=9C=97_Fi=2ECI=2ECHECKPATCH=3A_warning_for_fs=3A_Do_not_allow_g?=
+ =?utf-8?q?et=5Ffile=28=29_to_resurrect_0_f=5Fcount?=
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Kees Cook" <keescook@chromium.org>
+Cc: intel-gfx@lists.freedesktop.org
+Date: Thu, 02 May 2024 23:08:16 -0000
+Message-ID: <171469129652.1848696.13371127924656812711@8e613ede5ea5>
+X-Patchwork-Hint: ignore
+References: <20240502222252.work.690-kees@kernel.org>
+In-Reply-To: <20240502222252.work.690-kees@kernel.org>
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,16 +37,65 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Thu, May 02, 2024 at 03:33:40PM -0700, Kees Cook wrote:
-> Underflow of f_count needs to be more carefully detected than it
-> currently is. The results of get_file() should be checked, but the
-> first step is detection. Redefine f_count from atomic_long_t to
-> refcount_long_t.
+== Series Details ==
 
-	It is used on fairly hot paths.  What's more, it's not
-at all obvious what the hell would right semantics be.
+Series: fs: Do not allow get_file() to resurrect 0 f_count
+URL   : https://patchwork.freedesktop.org/series/133157/
+State : warning
 
-NAKed-by: Al Viro <viro@zeniv.linux.org.uk>
+== Summary ==
+
+Error: dim checkpatch failed
+05a74d02542d fs: Do not allow get_file() to resurrect 0 f_count
+cb506a379959 drm/vmwgfx: Do not directly manipulate file->f_count
+-:20: CHECK:COMPARISON_TO_NULL: Comparison to NULL could be written "get_file"
+#20: FILE: drivers/gpu/drm/vmwgfx/ttm_object.c:474:
++	return get_file(dmabuf->file) != NULL;
+
+total: 0 errors, 0 warnings, 1 checks, 8 lines checked
+82672373ae1d drm/i915: Do not directly manipulate file->f_count
+1f5237fd1d94 refcount: Introduce refcount_long_t and APIs
+-:58: WARNING:FILE_PATH_CHANGES: added, moved or deleted file(s), does MAINTAINERS need updating?
+#58: 
+new file mode 100644
+
+-:398: CHECK:AVOID_EXTERNS: extern prototypes should be avoided in .h files
+#398: FILE: include/linux/refcount-impl.h:336:
++extern __must_check bool refcount_dec_if_one(refcount_t *r);
+
+-:399: CHECK:AVOID_EXTERNS: extern prototypes should be avoided in .h files
+#399: FILE: include/linux/refcount-impl.h:337:
++extern __must_check bool refcount_dec_not_one(refcount_t *r);
+
+-:400: WARNING:LONG_LINE: line length of 110 exceeds 100 columns
+#400: FILE: include/linux/refcount-impl.h:338:
++extern __must_check bool refcount_dec_and_mutex_lock(refcount_t *r, struct mutex *lock) __cond_acquires(lock);
+
+-:400: CHECK:AVOID_EXTERNS: extern prototypes should be avoided in .h files
+#400: FILE: include/linux/refcount-impl.h:338:
++extern __must_check bool refcount_dec_and_mutex_lock(refcount_t *r, struct mutex *lock) __cond_acquires(lock);
+
+-:401: WARNING:LONG_LINE: line length of 102 exceeds 100 columns
+#401: FILE: include/linux/refcount-impl.h:339:
++extern __must_check bool refcount_dec_and_lock(refcount_t *r, spinlock_t *lock) __cond_acquires(lock);
+
+-:401: CHECK:AVOID_EXTERNS: extern prototypes should be avoided in .h files
+#401: FILE: include/linux/refcount-impl.h:339:
++extern __must_check bool refcount_dec_and_lock(refcount_t *r, spinlock_t *lock) __cond_acquires(lock);
+
+-:402: CHECK:AVOID_EXTERNS: extern prototypes should be avoided in .h files
+#402: FILE: include/linux/refcount-impl.h:340:
++extern __must_check bool refcount_dec_and_lock_irqsave(refcount_t *r,
+
+-:787: WARNING:NEW_TYPEDEFS: do not add new typedefs
+#787: FILE: include/linux/refcount_types.h:27:
++typedef struct refcount_long_struct {
+
+total: 0 errors, 4 warnings, 5 checks, 780 lines checked
+7c03be650afd fs: Convert struct file::f_count to refcount_long_t
+
+
