@@ -4,84 +4,27 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 47485C4345F
-	for <intel-gfx@archiver.kernel.org>; Fri,  3 May 2024 12:38:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 87DE0C4345F
+	for <intel-gfx@archiver.kernel.org>; Fri,  3 May 2024 13:05:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6144410FD2C;
-	Fri,  3 May 2024 12:38:32 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.b="U0Fo00mN";
-	dkim-atps=neutral
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9AA9010F6A1;
- Fri,  3 May 2024 06:01:07 +0000 (UTC)
-Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 4433a53G004818;
- Fri, 3 May 2024 06:01:00 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
- message-id:date:mime-version:subject:to:cc:references:from
- :in-reply-to:content-type:content-transfer-encoding; s=
- qcppdkim1; bh=noN7kBLxq9TVGdHUBmY+gSoaFbzmaEzOs2TwYGDA4NA=; b=U0
- Fo00mN+XXjGU8b/VaAv8ENQXxmXztOCDwkY1Qe1bQiafxAnopThnVdYwUX/Jf4Aa
- xATL/sB5o1OokTs7y0NcRSRY1KEkcpwI84k40q31WC41CUkzv5Hg6utRT/K29FQv
- pyuyOIwGZSfxj8AdrnRprofbH4RRj37b6KJDFo9P6EIGzu8K9KI3O7QDjOG2j4sJ
- QjLUjeBQnrW6xQ49pG1m6ZYYd0u2BV8/dmUVxuEzs1gSxRTZ+wq4qbOMkncesqUt
- 5PiFQWkY3M1pYZi5qYpZqyQd5uOIC8tp9Bs3zlkoJHEd50J/HNOPb4wC+J73gPP7
- eO02QrtSpjm4vE6TKdDQ==
-Received: from nalasppmta01.qualcomm.com (Global_NAT1.qualcomm.com
- [129.46.96.20])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3xv6q0td3h-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 03 May 2024 06:00:59 +0000 (GMT)
-Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
- [10.47.209.196])
- by NALASPPMTA01.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 44360wPC008346
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 3 May 2024 06:00:58 GMT
-Received: from [10.216.13.234] (10.80.80.8) by nalasex01a.na.qualcomm.com
- (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.9; Thu, 2 May 2024
- 23:00:54 -0700
-Message-ID: <d7f7cfae-78d5-41aa-aaf9-0d558cdfcbea@quicinc.com>
-Date: Fri, 3 May 2024 11:30:50 +0530
+	by gabe.freedesktop.org (Postfix) with ESMTP id DF9B610FC2D;
+	Fri,  3 May 2024 13:05:45 +0000 (UTC)
+Received: from 8e613ede5ea5 (emeril.freedesktop.org [131.252.210.167])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 908CE10FC2D;
+ Fri,  3 May 2024 13:05:44 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [linux-next:master] BUILD REGRESSION
- 9c6ecb3cb6e20c4fd7997047213ba0efcf9ada1a
-To: Greg KH <gregkh@linuxfoundation.org>, kernel test robot <lkp@intel.com>
-CC: Andrew Morton <akpm@linux-foundation.org>, Linux Memory Management List
- <linux-mm@kvack.org>,
- <amd-gfx@lists.freedesktop.org>, <devicetree@vger.kernel.org>,
- <dri-devel@lists.freedesktop.org>, <intel-gfx@lists.freedesktop.org>,
- <intel-xe@lists.freedesktop.org>, <linux-arch@vger.kernel.org>,
- <linux-usb@vger.kernel.org>, <netdev@vger.kernel.org>,
- <nouveau@lists.freedesktop.org>
-References: <202405030439.AH8NR0Mg-lkp@intel.com>
- <2024050342-slashing-froth-bcf9@gregkh>
-Content-Language: en-US
-From: Krishna Kurapati PSSNV <quic_kriskura@quicinc.com>
-In-Reply-To: <2024050342-slashing-froth-bcf9@gregkh>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
 Content-Transfer-Encoding: 7bit
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
- nalasex01a.na.qualcomm.com (10.47.209.196)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-ORIG-GUID: O6_fT_RHzM9at2lNZPzBwfaLMctBtVtb
-X-Proofpoint-GUID: O6_fT_RHzM9at2lNZPzBwfaLMctBtVtb
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1011,Hydra:6.0.650,FMLib:17.11.176.26
- definitions=2024-05-03_03,2024-05-03_01,2023-05-22_02
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0
- lowpriorityscore=0 bulkscore=0 priorityscore=1501 spamscore=0
- mlxlogscore=726 malwarescore=0 phishscore=0 adultscore=0 clxscore=1011
- mlxscore=0 suspectscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.19.0-2404010003 definitions=main-2405030041
-X-Mailman-Approved-At: Fri, 03 May 2024 12:38:28 +0000
+Subject: =?utf-8?q?=E2=9C=97_Fi=2ECI=2ECHECKPATCH=3A_warning_for_drm/i915/bios=3A_Def?=
+ =?utf-8?q?ine_=28almost=29_all_BDB_blocks?=
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Ville Syrjala" <ville.syrjala@linux.intel.com>
+Cc: intel-gfx@lists.freedesktop.org
+Date: Fri, 03 May 2024 13:05:44 -0000
+Message-ID: <171474154458.1887365.4492278068984603486@8e613ede5ea5>
+X-Patchwork-Hint: ignore
+References: <20240503122449.27266-1-ville.syrjala@linux.intel.com>
+In-Reply-To: <20240503122449.27266-1-ville.syrjala@linux.intel.com>
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -94,35 +37,59 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
+== Series Details ==
+
+Series: drm/i915/bios: Define (almost) all BDB blocks
+URL   : https://patchwork.freedesktop.org/series/133169/
+State : warning
+
+== Summary ==
+
+Error: dim checkpatch failed
+da729809e1d5 drm/i915/bios: Define eDP DSC disable bit
+b3bf97c68e98 drm/i915/bios: Remove version number comment from DEVICE_HANDLE_EFP4
+f21e9ca180aa drm/i915/bios: Indicate which VBT structures are based on EDID
+0b46faab7f53 drm/i915/bios: Get rid of "LVDS" from all LFP data stuff
+a4771f0a6ee1 drm/i915/bios: Rename SDVO DTD blocks a bit
+403f4f36faa1 drm/i915/bios: Define "TV" child device handle
+78756cf33765 drm/i915/bios: Flag "VBIOS only" VBT data blocks
+d2c010e3c8c0 drm/i915/bios: Add version notes for some blocks
+613106335c58 drm/i915/bios: Define VBT block 3 (Display Toggle Option) contents
+d0a342dc8526 drm/i915/bios: Define VBT block 4 (Mode Support List) contents
+1b18443b8777 drm/i915/bios: Define VBT block 5 (Generic Mode Table)
+f88c6b2dac47 drm/i915/bios: Define VBT blocks 6, 7, 8 (register tables) contents
+5022159a3bb3 drm/i915/bios: Define VBT block 10 (Mode Removal Table) contents
+b53301562c43 drm/i915/bios: Define VBT block 12 (Driver Persistent Algorithm) contents
+6f2a9f7540b4 drm/i915/bios: Define VBT block 15 (Dot Clock Override Table) contents
+780e79356def drm/i915/bios: Define ALM only VBT block 9 contents
+-:51: ERROR:FLEXIBLE_ARRAY: Use C99 flexible arrays - see https://docs.kernel.org/process/deprecated.html#zero-length-and-one-element-arrays
+#51: FILE: drivers/gpu/drm/i915/display/intel_vbt_defs.h:671:
++	struct dot_clock_override_entry_gen2 t[0];
++} __packed;
+
+total: 1 errors, 0 warnings, 0 checks, 49 lines checked
+bc8a1ad9d9e8 drm/i915/bios: Define VBT block 17 (SV Test Functions) contents
+81c9f3da4917 drm/i915/bios: Define VBT block 18 (Driver Rotation) contents
+76d2393227a5 drm/i915/bios: Define VBT blocks 16, 29, 31 (Toggle List) contents
+7766468413aa drm/i915/bios: Define VBT blocks 19, 30, 32 (Display Configuration Removal Table) contents
+f115adad0975 drm/i915/bios: Define VBT block 20 (OEM Customizable Modes) contents
+a6f7d6b10ece drm/i915/bios: Define VBT block 21 (EFP List) contents
+8a53f5e4b114 drm/i915/bios: Define VBT block 24 (SDVO LVDS PnP ID) contents
+46fc32698ae9 drm/i915/bios: Define VBT block 25 (SDVO LVDS PPS) contents
+712d377ad383 drm/i915/bios: Define VBT block 26 (TV Options) contents
+aafc45f77a40 drm/i915/bios: Define VBT block 28 (EFP DTD) contents
+1513b1b6f365 drm/i915/bios: Define VBT block 45 (eDP BFI) contents
+9fddf03e4aa0 drm/i915/bios: Define VBT block 46 (Chromaticity For Narrow Gamut Panel) contents
+d5c916aa7854 drm/i915/bios: Define VBT block 51 (Fixed Set Mode Table) contents
+5168f333f009 drm/i915/bios: Define VBT block 55 (RGB Palette Table) contents
+8583a728e753 drm/i915/bios: Define VBT block 57 (Vswing PreEmphasis Table) contents
+cefcbd6413e4 drm/i915/bios: Define VBT block 50 (MIPI) contents
+b77455dcf3d3 drm/i915/bios: Define VBT block 55 (Compression Parameters)
+f0cb4e49136f drm/i915/bios: Define VBT block 252 (int15 Hook)
+77279f1c2a50 drm/i915/bios: Define VBT block 253 (PRD Table) contents
 
 
-On 5/3/2024 10:42 AM, Greg KH wrote:
-> Ok, I'm getting tired of seeing these for the USB portion of the tree,
-> so I went to look for:
-> 
-> On Fri, May 03, 2024 at 04:44:42AM +0800, kernel test robot wrote:
->> |-- arc-randconfig-002-20240503
->> |   `-- drivers-usb-dwc3-core.c:warning:variable-hw_mode-set-but-not-used
-> 
-> This warning (same for all arches), but can't seem to find it anywhere.
-> 
-> Any hints as to where it would be?
-> 
-
-Hi Greg,
-
-  I think the hw_mode was not removed in hs_phy_setup and left unused.
-
-  Thinh reported the same when there was a merge conflict into linux 
-next (that the hw_mode variable was removed in ss_phy_setup and should 
-be removed in hs_phy_setup as well):
-
-https://lore.kernel.org/all/20240426213923.tyeddub4xszypeju@synopsys.com/
-
-  Perhaps that was missed ?
-
-Regards,
-Krishna,
