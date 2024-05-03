@@ -4,69 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7418AC4345F
-	for <intel-gfx@archiver.kernel.org>; Fri,  3 May 2024 11:36:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 40CD9C4345F
+	for <intel-gfx@archiver.kernel.org>; Fri,  3 May 2024 12:24:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A9E5D10F0A6;
-	Fri,  3 May 2024 11:36:07 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8ED8610FBF3;
+	Fri,  3 May 2024 12:24:54 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="kU+Pbgfm";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="g52FuJ4a";
 	dkim-atps=neutral
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8434610F0A6;
- Fri,  3 May 2024 11:36:06 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id 6738261454;
- Fri,  3 May 2024 11:36:05 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 35FEDC116B1;
- Fri,  3 May 2024 11:35:57 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1714736165;
- bh=fIbetBuQVrEG023U7eI1zy1F+Dx8KclRAJyueT8XV4Y=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=kU+PbgfmV2WYTvcKoIKD2SagvRYfVtWIILVja2exLH0MFtfHic0+Py5SLz8ioBh2c
- bqpbYbxJ/W9l6syTIapYfSN8oXLB4jn8f3Me0mm0uAJK/HVh9Fym6kP9MVBwSMsr3k
- Jxor+f8RX7pVwuuRJivzQlZh7ay51U+v39/npfLfZ7SyAMSRMB4SIfamdKqeQwinVk
- K9VNzZ0cPydBqTF+/eTYn5JPlrfdcNvCY5ixi4VD0+WIvYHt43TEYrbf91dw/oLydB
- tffGxIoNupZL31C61JfQelalR2aYh/QVLvdIroxHiS3/lJQpV1lJ/uyXJPQRKOstnd
- l8jmPUnOkSLrw==
-Date: Fri, 3 May 2024 13:35:54 +0200
-From: Christian Brauner <brauner@kernel.org>
-To: Peter Zijlstra <peterz@infradead.org>
-Cc: Kees Cook <keescook@chromium.org>, Al Viro <viro@zeniv.linux.org.uk>, 
- Jan Kara <jack@suse.cz>, linux-fsdevel@vger.kernel.org, 
- Zack Rusin <zack.rusin@broadcom.com>, 
- Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>, 
- Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, 
- Rodrigo Vivi <rodrigo.vivi@intel.com>, Tvrtko Ursulin <tursulin@ursulin.net>, 
- Andi Shyti <andi.shyti@linux.intel.com>,
- Lucas De Marchi <lucas.demarchi@intel.com>, 
- Matt Atwood <matthew.s.atwood@intel.com>, Matthew Auld <matthew.auld@intel.com>,
- Nirmoy Das <nirmoy.das@intel.com>, Jonathan Cavitt <jonathan.cavitt@intel.com>,
- Will Deacon <will@kernel.org>, Boqun Feng <boqun.feng@gmail.com>, 
- Mark Rutland <mark.rutland@arm.com>,
- Kent Overstreet <kent.overstreet@linux.dev>, 
- Masahiro Yamada <masahiroy@kernel.org>, Nathan Chancellor <nathan@kernel.org>, 
- Nicolas Schier <nicolas@fjasle.eu>, Andrew Morton <akpm@linux-foundation.org>, 
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- intel-gfx@lists.freedesktop.org, 
- linux-kbuild@vger.kernel.org, linux-hardening@vger.kernel.org
-Subject: Re: [PATCH 5/5] fs: Convert struct file::f_count to refcount_long_t
-Message-ID: <20240503-kramen-punkten-848aa0cfd3d0@brauner>
-References: <20240502224250.GM2118490@ZenIV> <202405021548.040579B1C@keescook>
- <20240502231228.GN2118490@ZenIV> <202405021620.C8115568@keescook>
- <20240502234152.GP2118490@ZenIV> <202405021708.267B02842@keescook>
- <20240503001445.GR2118490@ZenIV> <202405021736.574A688@keescook>
- <20240503-inventar-braut-c82e15e56a32@brauner>
- <20240503103614.GF30852@noisy.programming.kicks-ass.net>
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.20])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2295210FBF3
+ for <intel-gfx@lists.freedesktop.org>; Fri,  3 May 2024 12:24:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1714739093; x=1746275093;
+ h=from:to:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=oiCPAgwNtPC3ivbc9JeAZ/Rg349lqKoL2uiAEb3Tg3I=;
+ b=g52FuJ4al5b7xbKoi1OujS55xvHvKbttbbtFgLFfOKK7Kfm5x5Au4uPT
+ pyhHZKPcqMUm1JZCoY9FnWTDeplL09q9M5c3cZV+gCxO68+8LeRUQYhtF
+ d6+DQfGZgdWNokQwfO75qd1VsZnkyjyjkhEmnDZNs9QV62o1EqeeTL/2f
+ d6aM1ZC+qbaPu6AzJwJfY8HH+uUtkNBS7BIuHB0B+NEqG/rCiQzOdPUGI
+ 52doUnwrDoKuaJjTihbqb3451ZMf0KtushvcUW4lcQWfJZrapolwGbB0j
+ 1SePbIb59KOc3igaVhl6evK/Zi0AEEzPLcWk6FkjBbqDjSKIcemjrMjwE w==;
+X-CSE-ConnectionGUID: DLn/TznZTtiA5DqkgZ2WkA==
+X-CSE-MsgGUID: zCT7werfT0y4iZiMaO6b/g==
+X-IronPort-AV: E=McAfee;i="6600,9927,11062"; a="10372717"
+X-IronPort-AV: E=Sophos;i="6.07,251,1708416000"; d="scan'208";a="10372717"
+Received: from fmviesa008.fm.intel.com ([10.60.135.148])
+ by orvoesa112.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 03 May 2024 05:24:52 -0700
+X-CSE-ConnectionGUID: cKcMLPzNQvitE4rqyGjc6g==
+X-CSE-MsgGUID: 9Ux5b/D+S6mMdTcjucPgeg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.07,251,1708416000"; d="scan'208";a="27463549"
+Received: from stinkpipe.fi.intel.com (HELO stinkbox) ([10.237.72.74])
+ by fmviesa008.fm.intel.com with SMTP; 03 May 2024 05:24:50 -0700
+Received: by stinkbox (sSMTP sendmail emulation);
+ Fri, 03 May 2024 15:24:49 +0300
+From: Ville Syrjala <ville.syrjala@linux.intel.com>
+To: intel-gfx@lists.freedesktop.org
+Subject: [PATCH 00/35] drm/i915/bios: Define (almost) all BDB blocks
+Date: Fri,  3 May 2024 15:24:14 +0300
+Message-ID: <20240503122449.27266-1-ville.syrjala@linux.intel.com>
+X-Mailer: git-send-email 2.43.2
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20240503103614.GF30852@noisy.programming.kicks-ass.net>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -82,37 +66,76 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Fri, May 03, 2024 at 12:36:14PM +0200, Peter Zijlstra wrote:
-> On Fri, May 03, 2024 at 11:37:25AM +0200, Christian Brauner wrote:
-> > On Thu, May 02, 2024 at 05:41:23PM -0700, Kees Cook wrote:
-> > > On Fri, May 03, 2024 at 01:14:45AM +0100, Al Viro wrote:
-> > > > On Thu, May 02, 2024 at 05:10:18PM -0700, Kees Cook wrote:
-> > > > 
-> > > > > But anyway, there needs to be a general "oops I hit 0"-aware form of
-> > > > > get_file(), and it seems like it should just be get_file() itself...
-> > > > 
-> > > > ... which brings back the question of what's the sane damage mitigation
-> > > > for that.  Adding arseloads of never-exercised failure exits is generally
-> > > > a bad idea - it's asking for bitrot and making the thing harder to review
-> > > > in future.
-> > > 
-> > > Linus seems to prefer best-effort error recovery to sprinkling BUG()s
-> > > around.  But if that's really the solution, then how about get_file()
-> > > switching to to use inc_not_zero and BUG on 0?
-> > 
-> > Making get_file() return an error is not an option. For all current
-> > callers that's pointless churn for a condition that's not supposed to
-> > happen at all.
-> > 
-> > Additionally, iirc *_inc_not_zero() variants are implemented with
-> > try_cmpxchg() which scales poorly under contention for a condition
-> > that's not supposed to happen.
-> 
-> 	unsigned long old = atomic_long_fetch_inc_relaxed(&f->f_count);
-> 	WARN_ON(!old);
-> 
-> Or somesuch might be an option?
+From: Ville Syrjälä <ville.syrjala@linux.intel.com>
 
-Yeah, I'd be fine with that. WARN_ON() (or WARN_ON_ONCE() even?) and
-then people can do their panic_on_warn stuff to get the BUG_ON()
-behavior if they want to.
+I got curious about what gems (or turds) might be hiding
+inside the BDB blocks we aren't parsing. So I undertook the
+effort to dig up the definition for pretty much all of them.
+
+Unfortunately I didn't find anything really interesting, but
+might as well stick the definitions into the header for
+posterity. And I do have a followup to intel_vbt_decode to
+parse pretty much everything.
+
+I left out a few VBIOS only blocks, as well as the obsolete
+compression parameters block.
+
+The details were dug up from varius sources:
+- some came from various copies of the spec
+- some were derived from VBIOS sources
+- some I just had to reverse engineer by hand
+
+And I still have a few VBTs with a bunch of completely unknown
+blocks: one VLV with blocks 60-65, and one ADL with block 212.
+No clue as of now what those might be.
+
+Ville Syrjälä (35):
+  drm/i915/bios: Define eDP DSC disable bit
+  drm/i915/bios: Remove version number comment from DEVICE_HANDLE_EFP4
+  drm/i915/bios: Indicate which VBT structures are based on EDID
+  drm/i915/bios: Get rid of "LVDS" from all LFP data stuff
+  drm/i915/bios: Rename SDVO DTD blocks a bit
+  drm/i915/bios: Define "TV" child device handle
+  drm/i915/bios: Flag "VBIOS only" VBT data blocks
+  drm/i915/bios: Add version notes for some blocks
+  drm/i915/bios: Define VBT block 3 (Display Toggle Option) contents
+  drm/i915/bios: Define VBT block 4 (Mode Support List) contents
+  drm/i915/bios: Define VBT block 5 (Generic Mode Table)
+  drm/i915/bios: Define VBT blocks 6,7,8 (register tables) contents
+  drm/i915/bios: Define VBT block 10 (Mode Removal Table) contents
+  drm/i915/bios: Define VBT block 12 (Driver Persistent Algorithm)
+    contents
+  drm/i915/bios: Define VBT block 15 (Dot Clock Override Table) contents
+  drm/i915/bios: Define ALM only VBT block 9 contents
+  drm/i915/bios: Define VBT block 17 (SV Test Functions) contents
+  drm/i915/bios: Define VBT block 18 (Driver Rotation) contents
+  drm/i915/bios: Define VBT blocks 16,29,31 (Toggle List) contents
+  drm/i915/bios: Define VBT blocks 19,30,32 (Display Configuration
+    Removal Table) contents
+  drm/i915/bios: Define VBT block 20 (OEM Customizable Modes) contents
+  drm/i915/bios: Define VBT block 21 (EFP List) contents
+  drm/i915/bios: Define VBT block 24 (SDVO LVDS PnP ID) contents
+  drm/i915/bios: Define VBT block 25 (SDVO LVDS PPS) contents
+  drm/i915/bios: Define VBT block 26 (TV Options) contents
+  drm/i915/bios: Define VBT block 28 (EFP DTD) contents
+  drm/i915/bios: Define VBT block 45 (eDP BFI) contents
+  drm/i915/bios: Define VBT block 46 (Chromaticity For Narrow Gamut
+    Panel) contents
+  drm/i915/bios: Define VBT block 51 (Fixed Set Mode Table) contents
+  drm/i915/bios: Define VBT block 55 (RGB Palette Table) contents
+  drm/i915/bios: Define VBT block 57 (Vswing PreEmphasis Table) contents
+  drm/i915/bios: Define VBT block 50 (MIPI) contents
+  drm/i915/bios: Define VBT block 55 (Compression Parameters)
+  drm/i915/bios: Define VBT block 252 (int15 Hook)
+  drm/i915/bios: Define VBT block 253 (PRD Table) contents
+
+ drivers/gpu/drm/i915/display/intel_bios.c     | 229 +++---
+ .../drm/i915/display/intel_display_types.h    |   2 +-
+ drivers/gpu/drm/i915/display/intel_dsi_vbt.c  |   2 +-
+ drivers/gpu/drm/i915/display/intel_panel.c    |   2 +-
+ drivers/gpu/drm/i915/display/intel_vbt_defs.h | 714 +++++++++++++++---
+ 5 files changed, 742 insertions(+), 207 deletions(-)
+
+-- 
+2.43.2
+
