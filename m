@@ -4,69 +4,84 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 195BCC25B5C
-	for <intel-gfx@archiver.kernel.org>; Fri,  3 May 2024 12:38:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 47485C4345F
+	for <intel-gfx@archiver.kernel.org>; Fri,  3 May 2024 12:38:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C8B9E10F228;
-	Fri,  3 May 2024 12:38:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6144410FD2C;
+	Fri,  3 May 2024 12:38:32 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="c9oNAuFF";
+	dkim=pass (2048-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.b="U0Fo00mN";
 	dkim-atps=neutral
-Received: from mail-ua1-f48.google.com (mail-ua1-f48.google.com
- [209.85.222.48])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CB555112E4E;
- Tue, 30 Apr 2024 18:49:53 +0000 (UTC)
-Received: by mail-ua1-f48.google.com with SMTP id
- a1e0cc1a2514c-7ed38f80242so1939524241.2; 
- Tue, 30 Apr 2024 11:49:53 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1714502992; x=1715107792; darn=lists.freedesktop.org;
- h=content-transfer-encoding:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=ovRxnaBd6FTDXqV2H7WIeHH2Iv92ouqScbx2FXXHbgo=;
- b=c9oNAuFFGWgtB8PviX8vjvs7i64xGDXWWi8RmMYzHfWllZ/xNIvBHQcYz7gIkg2LwB
- C7Kfl3JWRBFGq0sSjO311qcwB+mxdu0U4B6bmByUgXkEKpBd69/VGmGpN3TLkULN2ig/
- XJ7T4TjFlMptivSyrOW9psWJDuQMANF33ysCjkHxxihshmqG9J2/Fcr/blPmgQeAld7t
- lkN3MSNaUUvxT4vHEBr6t5OQ0Zhi68x4VtkHaIrE3qZ9SzVGjmtq7FAtK5E7c4wf7dpV
- Z7OHH1l1PEfv7L4HGeVdfR4MXoRulwZ9awLd+vd46OmedytH6rV3qrHjhq3soZe0wRN/
- KreA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1714502992; x=1715107792;
- h=content-transfer-encoding:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=ovRxnaBd6FTDXqV2H7WIeHH2Iv92ouqScbx2FXXHbgo=;
- b=b7SF9eyj2LCpMyaqVO5hTZvJmZYBtwUfeDzVfrazwFGzSqc8nSKQ5A5yHmN+wVWek7
- QCsP6n0SUK7kgUG7wJpDFIpdPKdt7NrS3a1IfiMsxEJPv6XAO564nIRpgiWmq6gLIuU4
- xQGyPa+Iw1QAE7sPp2viLuhKsqTUkJbZ/mybCPeBskLOuIu4GcJW9isZQ/8aVA8ok6vA
- 4p7Yo21QKsW+nttGeTodBfKxHyLXpJMKoLIrxbS2C2pEQsyxkHz6VhIoc6yXj91gFJh2
- 0iGGqc3ah1ppwEQwSnhC3bCOo145+a6xi5RfhlHyrHtizYPHrK2XiZjXlflIvgWV//P5
- ZBig==
-X-Forwarded-Encrypted: i=1;
- AJvYcCWPlKLAVg1tvDquJg5AnfLg2+cbuZFGXwS8yYqSWpZXuSL76KaPluY0c9O/BjNoscF6OptjPhU77UaBNuaqHC2iKR2D0d2IuP8FYOYD4feOc2/SdwUqk+kvA67DBIlndxnlr0Yi8oNdEzzxJKEVoZ3quDpDDU8JnQ+AVEEkCRPTwVcWCJO9J3nwgtQdlh4UePGqu5PKvTEy+PX0bLxQCQ9z4m/Zn++VBaLWp1MPieMYzYFBeEs=
-X-Gm-Message-State: AOJu0Yy+4DtfsQCP6ha9eD6qtFYFHIm/8OTVge+bLLEUgDHyiFaP2Qut
- UE0mPjDa7D72MtY05QJ7Eq7KnzbAfJNhew6hSAG7HSrdDGQfOPj2vO8ztUwiyZJiXGQrYTunKT6
- 2Sihnolj1JOjgsShxp13eWoVmAeg=
-X-Google-Smtp-Source: AGHT+IEYrpal3QoBPRQ++rwUqDaIC9CmdEKHvVPwvAQ+vncPDFl0h7pwu+HmwYOWtzcwQ1PiHyzGG1EvQK6S81Uls4s=
-X-Received: by 2002:a67:eed7:0:b0:47d:8561:99aa with SMTP id
- o23-20020a67eed7000000b0047d856199aamr661606vsp.4.1714502992443; Tue, 30 Apr
- 2024 11:49:52 -0700 (PDT)
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9AA9010F6A1;
+ Fri,  3 May 2024 06:01:07 +0000 (UTC)
+Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 4433a53G004818;
+ Fri, 3 May 2024 06:01:00 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
+ message-id:date:mime-version:subject:to:cc:references:from
+ :in-reply-to:content-type:content-transfer-encoding; s=
+ qcppdkim1; bh=noN7kBLxq9TVGdHUBmY+gSoaFbzmaEzOs2TwYGDA4NA=; b=U0
+ Fo00mN+XXjGU8b/VaAv8ENQXxmXztOCDwkY1Qe1bQiafxAnopThnVdYwUX/Jf4Aa
+ xATL/sB5o1OokTs7y0NcRSRY1KEkcpwI84k40q31WC41CUkzv5Hg6utRT/K29FQv
+ pyuyOIwGZSfxj8AdrnRprofbH4RRj37b6KJDFo9P6EIGzu8K9KI3O7QDjOG2j4sJ
+ QjLUjeBQnrW6xQ49pG1m6ZYYd0u2BV8/dmUVxuEzs1gSxRTZ+wq4qbOMkncesqUt
+ 5PiFQWkY3M1pYZi5qYpZqyQd5uOIC8tp9Bs3zlkoJHEd50J/HNOPb4wC+J73gPP7
+ eO02QrtSpjm4vE6TKdDQ==
+Received: from nalasppmta01.qualcomm.com (Global_NAT1.qualcomm.com
+ [129.46.96.20])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3xv6q0td3h-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Fri, 03 May 2024 06:00:59 +0000 (GMT)
+Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
+ [10.47.209.196])
+ by NALASPPMTA01.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 44360wPC008346
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Fri, 3 May 2024 06:00:58 GMT
+Received: from [10.216.13.234] (10.80.80.8) by nalasex01a.na.qualcomm.com
+ (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.9; Thu, 2 May 2024
+ 23:00:54 -0700
+Message-ID: <d7f7cfae-78d5-41aa-aaf9-0d558cdfcbea@quicinc.com>
+Date: Fri, 3 May 2024 11:30:50 +0530
 MIME-Version: 1.0
-References: <20240429193921.66648-1-jim.cromie@gmail.com>
- <20240429193921.66648-10-jim.cromie@gmail.com>
-In-Reply-To: <20240429193921.66648-10-jim.cromie@gmail.com>
-From: jim.cromie@gmail.com
-Date: Tue, 30 Apr 2024 12:49:26 -0600
-Message-ID: <CAJfuBxxdfaATOCvZ2giY1Y-KTP+65UarRqwcKsg9tKjyrNtBXw@mail.gmail.com>
-Subject: Re: [PATCH v8 29/35] dyndbg: add __counted_by annotations
-To: jbaron@akamai.com, gregkh@linuxfoundation.org, 
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org, 
- amd-gfx@lists.freedesktop.org, intel-gvt-dev@lists.freedesktop.org, 
- intel-gfx@lists.freedesktop.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-X-Mailman-Approved-At: Fri, 03 May 2024 12:38:27 +0000
+User-Agent: Mozilla Thunderbird
+Subject: Re: [linux-next:master] BUILD REGRESSION
+ 9c6ecb3cb6e20c4fd7997047213ba0efcf9ada1a
+To: Greg KH <gregkh@linuxfoundation.org>, kernel test robot <lkp@intel.com>
+CC: Andrew Morton <akpm@linux-foundation.org>, Linux Memory Management List
+ <linux-mm@kvack.org>,
+ <amd-gfx@lists.freedesktop.org>, <devicetree@vger.kernel.org>,
+ <dri-devel@lists.freedesktop.org>, <intel-gfx@lists.freedesktop.org>,
+ <intel-xe@lists.freedesktop.org>, <linux-arch@vger.kernel.org>,
+ <linux-usb@vger.kernel.org>, <netdev@vger.kernel.org>,
+ <nouveau@lists.freedesktop.org>
+References: <202405030439.AH8NR0Mg-lkp@intel.com>
+ <2024050342-slashing-froth-bcf9@gregkh>
+Content-Language: en-US
+From: Krishna Kurapati PSSNV <quic_kriskura@quicinc.com>
+In-Reply-To: <2024050342-slashing-froth-bcf9@gregkh>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
+ nalasex01a.na.qualcomm.com (10.47.209.196)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-ORIG-GUID: O6_fT_RHzM9at2lNZPzBwfaLMctBtVtb
+X-Proofpoint-GUID: O6_fT_RHzM9at2lNZPzBwfaLMctBtVtb
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1011,Hydra:6.0.650,FMLib:17.11.176.26
+ definitions=2024-05-03_03,2024-05-03_01,2023-05-22_02
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0
+ lowpriorityscore=0 bulkscore=0 priorityscore=1501 spamscore=0
+ mlxlogscore=726 malwarescore=0 phishscore=0 adultscore=0 clxscore=1011
+ mlxscore=0 suspectscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.19.0-2404010003 definitions=main-2405030041
+X-Mailman-Approved-At: Fri, 03 May 2024 12:38:28 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -82,17 +97,32 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Mon, Apr 29, 2024 at 1:39=E2=80=AFPM Jim Cromie <jim.cromie@gmail.com> w=
-rote:
->
-> Tell the compiler about our vectors (array,length), in 2 places:
->
-
-these are not flex-arrays,  using counted-by is wrong here.
-
-Ive dropped this commit, series rebases clean wo it.
 
 
-> h: struct _ddebug_info, which keeps refs to the __dyndbg_* ELF/DATA
-> sections, these are all vectors with a length.
->
+On 5/3/2024 10:42 AM, Greg KH wrote:
+> Ok, I'm getting tired of seeing these for the USB portion of the tree,
+> so I went to look for:
+> 
+> On Fri, May 03, 2024 at 04:44:42AM +0800, kernel test robot wrote:
+>> |-- arc-randconfig-002-20240503
+>> |   `-- drivers-usb-dwc3-core.c:warning:variable-hw_mode-set-but-not-used
+> 
+> This warning (same for all arches), but can't seem to find it anywhere.
+> 
+> Any hints as to where it would be?
+> 
+
+Hi Greg,
+
+  I think the hw_mode was not removed in hs_phy_setup and left unused.
+
+  Thinh reported the same when there was a merge conflict into linux 
+next (that the hw_mode variable was removed in ss_phy_setup and should 
+be removed in hs_phy_setup as well):
+
+https://lore.kernel.org/all/20240426213923.tyeddub4xszypeju@synopsys.com/
+
+  Perhaps that was missed ?
+
+Regards,
+Krishna,
