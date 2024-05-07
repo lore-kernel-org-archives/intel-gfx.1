@@ -4,65 +4,122 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 89F2AC10F1A
-	for <intel-gfx@archiver.kernel.org>; Tue,  7 May 2024 11:06:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id ED87CC25B4F
+	for <intel-gfx@archiver.kernel.org>; Tue,  7 May 2024 12:04:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EBE5810F4C3;
-	Tue,  7 May 2024 11:05:56 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AA97510F6BC;
+	Tue,  7 May 2024 12:04:31 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="iNHtiz8n";
+	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="OpOyebzZ";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="pda3UEWI";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="OpOyebzZ";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="pda3UEWI";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.16])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2BF0A10F498;
- Tue,  7 May 2024 11:05:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1715079955; x=1746615955;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:content-transfer-encoding:in-reply-to;
- bh=qsiykdfT6HGbR0ILtz1HnDdybhnkI6RfpUXlO9B3Wak=;
- b=iNHtiz8noH76lGywmvHPsdKh3vMTMi5KcdaX3ifyjt5FHjjoN6tFgtw7
- 2IOEa4pixPWDCfD8oIuOjgLVo92O3mehkxRfd3s2HelZyEIvXdShbCofB
- 8384pkY2iLO37l6g4Xk5uoPAMvz6jDvh9hkkH5WgqDLsIltod9NM5UEcW
- nbwzZta+tQ7x9veA4TdYXe4ZEh7aXLrlekaW55hgp6+X+c4yrWhSABdyg
- LEeVfRch1Kxj61ibJYVtqAWV63g4qNP1GfMvP4x48htnleaGyr2fSpwo7
- oTcRgCY83WAFUeNCurYrn4wXMfsZufsPfrXqimNxE2rqYlh4R2LVqfL4U g==;
-X-CSE-ConnectionGUID: O0qeuS59RyOHS4nci11XIw==
-X-CSE-MsgGUID: cJ/9JGmfQPOHXXe/ohvsEw==
-X-IronPort-AV: E=McAfee;i="6600,9927,11065"; a="11406458"
-X-IronPort-AV: E=Sophos;i="6.07,261,1708416000"; d="scan'208";a="11406458"
-Received: from fmviesa008.fm.intel.com ([10.60.135.148])
- by fmvoesa110.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 07 May 2024 04:05:54 -0700
-X-CSE-ConnectionGUID: 365tfxiDTwaI0bkDHm+j9A==
-X-CSE-MsgGUID: cCnkjgeJSdact9Hn5hHLhg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.07,261,1708416000"; d="scan'208";a="28458630"
-Received: from stinkpipe.fi.intel.com (HELO stinkbox) ([10.237.72.74])
- by fmviesa008.fm.intel.com with SMTP; 07 May 2024 04:05:49 -0700
-Received: by stinkbox (sSMTP sendmail emulation);
- Tue, 07 May 2024 14:05:48 +0300
-Date: Tue, 7 May 2024 14:05:48 +0300
-From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
-To: Karthikeyan Ramasubramanian <kramasub@chromium.org>
-Cc: LKML <linux-kernel@vger.kernel.org>, stable@vger.kernel.org,
- Jani Nikula <jani.nikula@intel.com>,
- Daniel Vetter <daniel@ffwll.ch>, David Airlie <airlied@gmail.com>,
- Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
- dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
- intel-xe@lists.freedesktop.org
-Subject: Re: [PATCH v2] drivers/i915/intel_bios: Fix parsing backlight BDB data
-Message-ID: <ZjoLDJJdfZKKcBFt@intel.com>
-References: <20240221180622.v2.1.I0690aa3e96a83a43b3fc33f50395d334b2981826@changeid>
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 632D010F337;
+ Tue,  7 May 2024 12:04:30 +0000 (UTC)
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
+ [IPv6:2a07:de40:b281:104:10:150:64:97])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id B373C33E3F;
+ Tue,  7 May 2024 12:04:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1715083468; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=6M/1znDmR7ciwJqAZ2BKWZkxwGA809n4DYjPqrQzrvc=;
+ b=OpOyebzZBXfYW4zrwTjlbV1Sf7wTT76VcSHbROOVa6A01YJgGCzG5x99MbD6Km/cbB4tlD
+ fZTLaxZt0p58ViEOQgpY7o+hVNZvOlDyJcHhdRubDqSIwdy3QwJOPEPh3ZNsmBUwndtESk
+ W3uyK+zN99TJyl3bTzc7YoDyWK/3ymw=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1715083468;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=6M/1znDmR7ciwJqAZ2BKWZkxwGA809n4DYjPqrQzrvc=;
+ b=pda3UEWIzBeaBvz3MtN12BDdw42VN83oVVap4+qwc8/6cFN18yUS6Cs4Y4jpA0nMdyc7kd
+ UykbpIsO4DkR+FBw==
+Authentication-Results: smtp-out1.suse.de;
+ dkim=pass header.d=suse.de header.s=susede2_rsa header.b=OpOyebzZ;
+ dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=pda3UEWI
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1715083468; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=6M/1znDmR7ciwJqAZ2BKWZkxwGA809n4DYjPqrQzrvc=;
+ b=OpOyebzZBXfYW4zrwTjlbV1Sf7wTT76VcSHbROOVa6A01YJgGCzG5x99MbD6Km/cbB4tlD
+ fZTLaxZt0p58ViEOQgpY7o+hVNZvOlDyJcHhdRubDqSIwdy3QwJOPEPh3ZNsmBUwndtESk
+ W3uyK+zN99TJyl3bTzc7YoDyWK/3ymw=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1715083468;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=6M/1znDmR7ciwJqAZ2BKWZkxwGA809n4DYjPqrQzrvc=;
+ b=pda3UEWIzBeaBvz3MtN12BDdw42VN83oVVap4+qwc8/6cFN18yUS6Cs4Y4jpA0nMdyc7kd
+ UykbpIsO4DkR+FBw==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 0188813A2D;
+ Tue,  7 May 2024 12:04:27 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+ by imap1.dmz-prg2.suse.org with ESMTPSA id uD+5OssYOmZDCgAAD6G6ig
+ (envelope-from <tzimmermann@suse.de>); Tue, 07 May 2024 12:04:27 +0000
+From: Thomas Zimmermann <tzimmermann@suse.de>
+To: javierm@redhat.com, daniel@ffwll.ch, maarten.lankhorst@linux.intel.com,
+ mripard@kernel.org, inki.dae@samsung.com, sw0312.kim@samsung.com,
+ kyungmin.park@samsung.com, linux@armlinux.org.uk, krzk@kernel.org,
+ alim.akhtar@samsung.com, patrik.r.jakobsson@gmail.com,
+ jani.nikula@linux.intel.com, rodrigo.vivi@intel.com,
+ joonas.lahtinen@linux.intel.com, tursulin@ursulin.net, robdclark@gmail.com,
+ quic_abhinavk@quicinc.com, dmitry.baryshkov@linaro.org, sean@poorly.run,
+ marijn.suijten@somainline.org, tomi.valkeinen@ideasonboard.com,
+ alexander.deucher@amd.com, christian.koenig@amd.com, Xinhui.Pan@amd.com,
+ thierry.reding@gmail.com, mperttunen@nvidia.com, jonathanh@nvidia.com
+Cc: dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org, Thomas Zimmermann <tzimmermann@suse.de>
+Subject: [PATCH 03/11] drm/fbdev-shmem: Use fbdev client helpers
+Date: Tue,  7 May 2024 13:58:24 +0200
+Message-ID: <20240507120422.25492-4-tzimmermann@suse.de>
+X-Mailer: git-send-email 2.44.0
+In-Reply-To: <20240507120422.25492-1-tzimmermann@suse.de>
+References: <20240507120422.25492-1-tzimmermann@suse.de>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20240221180622.v2.1.I0690aa3e96a83a43b3fc33f50395d334b2981826@changeid>
-X-Patchwork-Hint: comment
+X-Rspamd-Action: no action
+X-Rspamd-Queue-Id: B373C33E3F
+X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
+X-Spamd-Result: default: False [-2.51 / 50.00]; BAYES_HAM(-3.00)[100.00%];
+ SUSPICIOUS_RECIPS(1.50)[]; NEURAL_HAM_LONG(-1.00)[-1.000];
+ MID_CONTAINS_FROM(1.00)[]; DWL_DNSWL_LOW(-1.00)[suse.de:dkim];
+ R_MISSING_CHARSET(0.50)[];
+ R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
+ MX_GOOD(-0.01)[];
+ FREEMAIL_TO(0.00)[redhat.com,ffwll.ch,linux.intel.com,kernel.org,samsung.com,armlinux.org.uk,gmail.com,intel.com,ursulin.net,quicinc.com,linaro.org,poorly.run,somainline.org,ideasonboard.com,amd.com,nvidia.com];
+ DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ FUZZY_BLOCKED(0.00)[rspamd.com];
+ RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from]; 
+ SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+ ARC_NA(0.00)[]; RCPT_COUNT_TWELVE(0.00)[31];
+ MIME_TRACE(0.00)[0:+];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:dkim,suse.de:email,imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns];
+ TO_MATCH_ENVRCPT_ALL(0.00)[]; FROM_EQ_ENVFROM(0.00)[];
+ RCVD_COUNT_TWO(0.00)[2]; TAGGED_RCPT(0.00)[];
+ RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+ FROM_HAS_DN(0.00)[]; RCVD_VIA_SMTP_AUTH(0.00)[];
+ DKIM_TRACE(0.00)[suse.de:+];
+ R_RATELIMIT(0.00)[to_ip_from(RL346nweebskz488kew7dz74ge)];
+ TO_DN_SOME(0.00)[]; RCVD_TLS_ALL(0.00)[];
+ FREEMAIL_ENVRCPT(0.00)[gmail.com]
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -78,89 +135,90 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Feb 21, 2024 at 06:06:24PM -0700, Karthikeyan Ramasubramanian wrote:
-> Starting BDB version 239, hdr_dpcd_refresh_timeout is introduced to
-> backlight BDB data. Commit 700034566d68 ("drm/i915/bios: Define more BDB
-> contents") updated the backlight BDB data accordingly. This broke the
-> parsing of backlight BDB data in VBT for versions 236 - 238 (both
-> inclusive) and hence the backlight controls are not responding on units
-> with the concerned BDB version.
-> 
-> backlight_control information has been present in backlight BDB data
-> from at least BDB version 191 onwards, if not before. Hence this patch
-> extracts the backlight_control information for BDB version 191 or newer.
-> Tested on Chromebooks using Jasperlake SoC (reports bdb->version = 236).
-> Tested on Chromebooks using Raptorlake SoC (reports bdb->version = 251).
-> 
-> Fixes: 700034566d68 ("drm/i915/bios: Define more BDB contents")
-> Cc: stable@vger.kernel.org
-> Cc: Jani Nikula <jani.nikula@intel.com>
-> Cc: Ville Syrjälä <ville.syrjala@linux.intel.com>
-> Signed-off-by: Karthikeyan Ramasubramanian <kramasub@chromium.org>
-> ---
-> 
-> Changes in v2:
-> - removed checking the block size of the backlight BDB data
+Implement struct drm_client_funcs with the respective helpers and
+remove the custom code from the emulation. The generic helpers are
+equivalent in functionality.
 
-I fixed up the formatting of the commit message a bit,
-added a note indicating why it's ok to remove the size
-checks, and pushed to drm-intel-next. Thanks.
+Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
+---
+ drivers/gpu/drm/drm_fbdev_shmem.c | 56 ++-----------------------------
+ 1 file changed, 2 insertions(+), 54 deletions(-)
 
-> 
->  drivers/gpu/drm/i915/display/intel_bios.c     | 19 ++++---------------
->  drivers/gpu/drm/i915/display/intel_vbt_defs.h |  5 -----
->  2 files changed, 4 insertions(+), 20 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/i915/display/intel_bios.c b/drivers/gpu/drm/i915/display/intel_bios.c
-> index aa169b0055e97..8c1eb05fe77d2 100644
-> --- a/drivers/gpu/drm/i915/display/intel_bios.c
-> +++ b/drivers/gpu/drm/i915/display/intel_bios.c
-> @@ -1042,22 +1042,11 @@ parse_lfp_backlight(struct drm_i915_private *i915,
->  	panel->vbt.backlight.type = INTEL_BACKLIGHT_DISPLAY_DDI;
->  	panel->vbt.backlight.controller = 0;
->  	if (i915->display.vbt.version >= 191) {
-> -		size_t exp_size;
-> +		const struct lfp_backlight_control_method *method;
->  
-> -		if (i915->display.vbt.version >= 236)
-> -			exp_size = sizeof(struct bdb_lfp_backlight_data);
-> -		else if (i915->display.vbt.version >= 234)
-> -			exp_size = EXP_BDB_LFP_BL_DATA_SIZE_REV_234;
-> -		else
-> -			exp_size = EXP_BDB_LFP_BL_DATA_SIZE_REV_191;
-> -
-> -		if (get_blocksize(backlight_data) >= exp_size) {
-> -			const struct lfp_backlight_control_method *method;
-> -
-> -			method = &backlight_data->backlight_control[panel_type];
-> -			panel->vbt.backlight.type = method->type;
-> -			panel->vbt.backlight.controller = method->controller;
-> -		}
-> +		method = &backlight_data->backlight_control[panel_type];
-> +		panel->vbt.backlight.type = method->type;
-> +		panel->vbt.backlight.controller = method->controller;
->  	}
->  
->  	panel->vbt.backlight.pwm_freq_hz = entry->pwm_freq_hz;
-> diff --git a/drivers/gpu/drm/i915/display/intel_vbt_defs.h b/drivers/gpu/drm/i915/display/intel_vbt_defs.h
-> index a9f44abfc9fc2..b50cd0dcabda9 100644
-> --- a/drivers/gpu/drm/i915/display/intel_vbt_defs.h
-> +++ b/drivers/gpu/drm/i915/display/intel_vbt_defs.h
-> @@ -897,11 +897,6 @@ struct lfp_brightness_level {
->  	u16 reserved;
->  } __packed;
->  
-> -#define EXP_BDB_LFP_BL_DATA_SIZE_REV_191 \
-> -	offsetof(struct bdb_lfp_backlight_data, brightness_level)
-> -#define EXP_BDB_LFP_BL_DATA_SIZE_REV_234 \
-> -	offsetof(struct bdb_lfp_backlight_data, brightness_precision_bits)
-> -
->  struct bdb_lfp_backlight_data {
->  	u8 entry_size;
->  	struct lfp_backlight_data_entry data[16];
-> -- 
-> 2.44.0.rc0.258.g7320e95886-goog
-
+diff --git a/drivers/gpu/drm/drm_fbdev_shmem.c b/drivers/gpu/drm/drm_fbdev_shmem.c
+index a85a8a8e2eb8b..475e2c228d97f 100644
+--- a/drivers/gpu/drm/drm_fbdev_shmem.c
++++ b/drivers/gpu/drm/drm_fbdev_shmem.c
+@@ -2,7 +2,6 @@
+ 
+ #include <linux/fb.h>
+ 
+-#include <drm/drm_crtc_helper.h>
+ #include <drm/drm_drv.h>
+ #include <drm/drm_fb_helper.h>
+ #include <drm/drm_framebuffer.h>
+@@ -210,60 +209,9 @@ static const struct drm_fb_helper_funcs drm_fbdev_shmem_helper_funcs = {
+  * struct drm_client_funcs
+  */
+ 
+-static void drm_fbdev_shmem_client_unregister(struct drm_client_dev *client)
+-{
+-	struct drm_fb_helper *fb_helper = drm_fb_helper_from_client(client);
+-
+-	if (fb_helper->info) {
+-		drm_fb_helper_unregister_info(fb_helper);
+-	} else {
+-		drm_client_release(&fb_helper->client);
+-		drm_fb_helper_unprepare(fb_helper);
+-		kfree(fb_helper);
+-	}
+-}
+-
+-static int drm_fbdev_shmem_client_restore(struct drm_client_dev *client)
+-{
+-	drm_fb_helper_lastclose(client->dev);
+-
+-	return 0;
+-}
+-
+-static int drm_fbdev_shmem_client_hotplug(struct drm_client_dev *client)
+-{
+-	struct drm_fb_helper *fb_helper = drm_fb_helper_from_client(client);
+-	struct drm_device *dev = client->dev;
+-	int ret;
+-
+-	if (dev->fb_helper)
+-		return drm_fb_helper_hotplug_event(dev->fb_helper);
+-
+-	ret = drm_fb_helper_init(dev, fb_helper);
+-	if (ret)
+-		goto err_drm_err;
+-
+-	if (!drm_drv_uses_atomic_modeset(dev))
+-		drm_helper_disable_unused_functions(dev);
+-
+-	ret = drm_fb_helper_initial_config(fb_helper);
+-	if (ret)
+-		goto err_drm_fb_helper_fini;
+-
+-	return 0;
+-
+-err_drm_fb_helper_fini:
+-	drm_fb_helper_fini(fb_helper);
+-err_drm_err:
+-	drm_err(dev, "fbdev-shmem: Failed to setup emulation (ret=%d)\n", ret);
+-	return ret;
+-}
+-
+ static const struct drm_client_funcs drm_fbdev_shmem_client_funcs = {
+-	.owner		= THIS_MODULE,
+-	.unregister	= drm_fbdev_shmem_client_unregister,
+-	.restore	= drm_fbdev_shmem_client_restore,
+-	.hotplug	= drm_fbdev_shmem_client_hotplug,
++	.owner = THIS_MODULE,
++	DRM_FBDEV_HELPER_CLIENT_FUNCS,
+ };
+ 
+ /**
 -- 
-Ville Syrjälä
-Intel
+2.44.0
+
