@@ -4,52 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 77C65C25B74
-	for <intel-gfx@archiver.kernel.org>; Thu,  9 May 2024 05:27:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 98884C10F1A
+	for <intel-gfx@archiver.kernel.org>; Thu,  9 May 2024 05:47:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5995210E0C5;
-	Thu,  9 May 2024 05:27:00 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C2CF710E191;
+	Thu,  9 May 2024 05:47:52 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="Ha2ISRUI";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="ZRPHCXOg";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.19])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5B19510E0C5;
- Thu,  9 May 2024 05:26:59 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.8])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B834E10E13E;
+ Thu,  9 May 2024 05:47:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1715232419; x=1746768419;
+ t=1715233671; x=1746769671;
  h=from:to:cc:subject:date:message-id:mime-version:
  content-transfer-encoding;
- bh=G/am8F1JWmlyxXWzHgntCdgpGeXleO2MUKmXkQW6buA=;
- b=Ha2ISRUIKO9ezO7zIlYkpk4BLzRRNNlwN2VfOofLXe0IllpCeQt5kqAS
- FG6Zp5Ir3cry7sAGjZa/RlsEG9IwCD1a97YQXbNYMLQqrr5MdmwYQDuKL
- wJYMxufp180gI3VNZpoOna19B11T3E5OJOp6l170bJED+MlCFVQjHnUGC
- gZNhhvqwZ4H7V0t3czqxPQK8DyGG8YuZlbDYrXUFT4vbobOhNGbmK8Apd
- lBWC7w1SgqQSIzTnk0E4h1UXZxEFK6DG1lMCM9EdTCpnF2DrT/8cEkTkd
- 9A5LPumxIbygbdBX94QxqiBlpfywmjf7sfOUj5EDm8/MVKkcxxroi8l7u g==;
-X-CSE-ConnectionGUID: i1Ye3YXhQGivnbPpBmLL1g==
-X-CSE-MsgGUID: YLruQ16FQWmyeQyHIVJueA==
-X-IronPort-AV: E=McAfee;i="6600,9927,11067"; a="10981628"
-X-IronPort-AV: E=Sophos;i="6.08,146,1712646000"; d="scan'208";a="10981628"
-Received: from fmviesa004.fm.intel.com ([10.60.135.144])
- by orvoesa111.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 08 May 2024 22:26:59 -0700
-X-CSE-ConnectionGUID: mh2dz4wzSV2LwIYLfaQ6Tg==
-X-CSE-MsgGUID: pB0tG9UQS5ehCs975xuetA==
+ bh=z0ofP8b8xVz/hcwjIWxDId0pRjehukJynCHU5at7sCI=;
+ b=ZRPHCXOgoXjOrhaJDpYh6JXZ+cAmhevpXe0MhFp7cWrJADj5LHE3RcfR
+ gQCb3QK0DYAZtsyBFJU3Ophmp9XNhR6XEmgqwyzR3cyLCkBY+AlEq0d37
+ VMCdKx2PcIqc8JiD3xdOQwOqNbNDMHXSueSBzxeOa30VBXzPnXxAb7QiV
+ qSMv2hFjJjp6istoIfW6wwtpkLvcXkauBZTeK5yrjs0uljTlT0lRr1AWS
+ a2OB2rIo4YcWtQDGYbu/J1jBK8J+BVXdXL9JGt/VlTYeD2U/v4iJsmoGJ
+ j/7K93sFrsGJR9fmBDiQdtwZXRVzd0LPwbnMk07RSMQ7s90ZcJhGCPC0M w==;
+X-CSE-ConnectionGUID: nOpP09r4T5OSRO3tzvGB3g==
+X-CSE-MsgGUID: SAYov37tQamUCARVipr8Ng==
+X-IronPort-AV: E=McAfee;i="6600,9927,11067"; a="28645984"
+X-IronPort-AV: E=Sophos;i="6.08,146,1712646000"; d="scan'208";a="28645984"
+Received: from orviesa003.jf.intel.com ([10.64.159.143])
+ by fmvoesa102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 08 May 2024 22:47:50 -0700
+X-CSE-ConnectionGUID: /jOmStZkSeS+6Wm9yAhMww==
+X-CSE-MsgGUID: JUxgSwPjS2iZCwG2lBS0wQ==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.08,146,1712646000"; d="scan'208";a="33686106"
-Received: from cfl-desktop.iind.intel.com ([10.190.239.20])
- by fmviesa004.fm.intel.com with ESMTP; 08 May 2024 22:26:56 -0700
-From: Uma Shankar <uma.shankar@intel.com>
-To: intel-gfx@lists.freedesktop.org,
-	intel-xe@lists.freedesktop.org
-Cc: chaitanya.kumar.borah@intel.com, jani.nikula@linux.intel.com,
- matthew.d.roper@intel.com, Uma Shankar <uma.shankar@intel.com>
-Subject: [v4] drm/i915: Implement Audio WA_14020863754
-Date: Thu,  9 May 2024 11:05:08 +0530
-Message-ID: <20240509053508.2807834-1-uma.shankar@intel.com>
-X-Mailer: git-send-email 2.42.0
+X-IronPort-AV: E=Sophos;i="6.08,146,1712646000"; d="scan'208";a="33817619"
+Received: from srr4-3-linux-101-amanna.iind.intel.com ([10.223.74.76])
+ by orviesa003.jf.intel.com with ESMTP; 08 May 2024 22:47:48 -0700
+From: Animesh Manna <animesh.manna@intel.com>
+To: intel-gfx@lists.freedesktop.org
+Cc: dri-devel@lists.freedesktop.org, jani.nikula@intel.com,
+ jouni.hogander@intel.com, arun.r.murthy@intel.com,
+ Animesh Manna <animesh.manna@intel.com>
+Subject: [PATCH v4 0/6] Link off between frames for edp
+Date: Thu,  9 May 2024 11:01:49 +0530
+Message-Id: <20240509053155.327071-1-animesh.manna@intel.com>
+X-Mailer: git-send-email 2.29.0
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -66,88 +67,41 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-WA_14020863754: Corner case with Min Hblank Fix can cause
-audio hang
+Link Off Between Active Frames (LOBF) allows an eDP link to be turned Off and On
+durning long VBLANK durations without enabling any of the PSR/PSR2/PR modes of operation.
 
-Issue: Previously a fix was made to avoid issues with extremely
-small hblanks, called the "Min Hblank Fix". However, this can
-potentially cause an audio hang.
+Bspec: 71477
 
-Workaround :
-During "Audio Programming Sequence" Audio Enabling -
-When DP mode is enabled Set mmio offset 0x65F1C bit 18 = 1b,
-before step #1 "Enable audio Presence Detect"
+Note: Lobf need to be enabled adaptive sync fixed refresh mode
+where vmin = vmax = flipline, which will arise after cmmr feature
+enablement. Currently existing code refactored and make compute-config()
+and enabling function ready. Will add enabling sequence in a separate patch.
 
-During "Audio Programming Sequence" Audio Disabling -
-When DP mode is enabled Clear mmio offset 0x65F1C bit 18 = 0b,
-after step #6 "Disable Audio PD (Presence Detect)"
-If not clearing PD bit, must also not clear 0x65F1C bit 18 (leave = 1b)
+Signed-off-by: Animesh Manna <animesh.manna@intel.com>
 
-v2: Update the platform checks (Jani Nikula)
+Animesh Manna (5):
+  drm/i915/alpm: Move alpm parameters from intel_psr
+  drm/i915/alpm: Move alpm related code to a new file
+  drm/i915/alpm: Add compute config for lobf
+  drm/i915/alpm: Enable lobf from source in ALPM_CTL
+  drm/i915/alpm: Add debugfs for LOBF
 
-v3: Limited the WA to LNL and BMG, added a helper (Matt Roper)
+Jouni Högander (1):
+  drm/display: Add missing aux less alpm wake related bits
 
-v4: Updated the bit naming, fixed redundant if statement
+ drivers/gpu/drm/i915/Makefile                 |   1 +
+ drivers/gpu/drm/i915/display/intel_alpm.c     | 405 ++++++++++++++++++
+ drivers/gpu/drm/i915/display/intel_alpm.h     |  25 ++
+ .../drm/i915/display/intel_display_debugfs.c  |   2 +
+ .../drm/i915/display/intel_display_types.h    |  32 +-
+ drivers/gpu/drm/i915/display/intel_dp.c       |   4 +
+ drivers/gpu/drm/i915/display/intel_psr.c      | 301 +------------
+ drivers/gpu/drm/xe/Makefile                   |   1 +
+ include/drm/display/drm_dp.h                  |   5 +-
+ 9 files changed, 475 insertions(+), 301 deletions(-)
+ create mode 100644 drivers/gpu/drm/i915/display/intel_alpm.c
+ create mode 100644 drivers/gpu/drm/i915/display/intel_alpm.h
 
-Signed-off-by: Uma Shankar <uma.shankar@intel.com>
-Reviewed-by: Chaitanya Kumar Borah <chaitanya.kumar.borah@intel.com>
----
- drivers/gpu/drm/i915/display/intel_audio.c      | 15 +++++++++++++++
- drivers/gpu/drm/i915/display/intel_audio_regs.h |  3 +++
- 2 files changed, 18 insertions(+)
-
-diff --git a/drivers/gpu/drm/i915/display/intel_audio.c b/drivers/gpu/drm/i915/display/intel_audio.c
-index ed81e1466c4b..adde87900557 100644
---- a/drivers/gpu/drm/i915/display/intel_audio.c
-+++ b/drivers/gpu/drm/i915/display/intel_audio.c
-@@ -183,6 +183,15 @@ static const struct hdmi_aud_ncts hdmi_aud_ncts_36bpp[] = {
- 	{ 192000, TMDS_445_5M, 20480, 371250 },
- };
- 
-+/*
-+ * WA_14020863754: Implement Audio Workaround
-+ * Corner case with Min Hblank Fix can cause audio hang
-+ */
-+static bool needs_wa_14020863754(struct drm_i915_private *i915)
-+{
-+	return (DISPLAY_VER(i915) == 20 || IS_BATTLEMAGE(i915));
-+}
-+
- /* get AUD_CONFIG_PIXEL_CLOCK_HDMI_* value for mode */
- static u32 audio_config_hdmi_pixel_clock(const struct intel_crtc_state *crtc_state)
- {
-@@ -415,6 +424,9 @@ static void hsw_audio_codec_disable(struct intel_encoder *encoder,
- 	intel_de_rmw(i915, HSW_AUD_PIN_ELD_CP_VLD,
- 		     AUDIO_OUTPUT_ENABLE(cpu_transcoder), 0);
- 
-+	if (needs_wa_14020863754(i915))
-+		intel_de_rmw(i915, AUD_CHICKENBIT_REG3, DACBE_DISABLE_MIN_HBLANK_FIX, 0);
-+
- 	mutex_unlock(&i915->display.audio.mutex);
- }
- 
-@@ -540,6 +552,9 @@ static void hsw_audio_codec_enable(struct intel_encoder *encoder,
- 	if (intel_crtc_has_type(crtc_state, INTEL_OUTPUT_DP))
- 		enable_audio_dsc_wa(encoder, crtc_state);
- 
-+	if (needs_wa_14020863754(i915))
-+		intel_de_rmw(i915, AUD_CHICKENBIT_REG3, 0, DACBE_DISABLE_MIN_HBLANK_FIX);
-+
- 	/* Enable audio presence detect */
- 	intel_de_rmw(i915, HSW_AUD_PIN_ELD_CP_VLD,
- 		     0, AUDIO_OUTPUT_ENABLE(cpu_transcoder));
-diff --git a/drivers/gpu/drm/i915/display/intel_audio_regs.h b/drivers/gpu/drm/i915/display/intel_audio_regs.h
-index 88ea2740365d..4c31844d21df 100644
---- a/drivers/gpu/drm/i915/display/intel_audio_regs.h
-+++ b/drivers/gpu/drm/i915/display/intel_audio_regs.h
-@@ -164,4 +164,7 @@
- 							 _VLV_AUD_PORT_EN_D_DBG)
- #define VLV_AMP_MUTE		        (1 << 1)
- 
-+#define AUD_CHICKENBIT_REG3		_MMIO(0x65F1C)
-+#define  DACBE_DISABLE_MIN_HBLANK_FIX	REG_BIT(18)
-+
- #endif /* __INTEL_AUDIO_REGS_H__ */
 -- 
-2.42.0
+2.29.0
 
