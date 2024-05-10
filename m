@@ -4,42 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C5F0FC25B10
-	for <intel-gfx@archiver.kernel.org>; Mon, 13 May 2024 13:34:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C1EF1C25B78
+	for <intel-gfx@archiver.kernel.org>; Mon, 13 May 2024 13:34:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E306410E5B2;
-	Mon, 13 May 2024 13:34:50 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C58E410E644;
+	Mon, 13 May 2024 13:34:54 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=purdue.edu header.i=@purdue.edu header.b="cAbkSRKt";
+	dkim=pass (1024-bit key; unprotected) header.d=purdue.edu header.i=@purdue.edu header.b="H5xh2okd";
 	dkim-atps=neutral
-Received: from NAM10-BN7-obe.outbound.protection.outlook.com
- (mail-bn7nam10on2131.outbound.protection.outlook.com [40.107.92.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5D34A10E157;
- Sat, 11 May 2024 15:36:26 +0000 (UTC)
+Received: from NAM11-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam11on2095.outbound.protection.outlook.com [40.107.236.95])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 93C7210E0E7;
+ Fri, 10 May 2024 19:37:46 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=MB/7n+x8V9+KWcTp6JyarEwMfx2HppxBjC8WQxDISKgp59Cn7B/VhL4K9lGnxaw3r4A/Y47x8div4NI5EsYAu2BoUbn/Ac2g6MgcsRYtwaujnnhxfZcaBJGMxFZCUDk8uNtiXD5TptxnMvFvbcgP849TYsfPxYTsiJMUR//8HFuvTGbVrFNqPG8ywM0Yt0ELzfedrCETJ9xudwPD16+4BOe0MFsltwjuXIjVE2W3GYOdglVOrG/ikeezvivwDqQKlW5UjjPMO5mBSGqPRxVQ5Beto9yIOfIF0kDAzHoCpHKo4N2tSBlHvCG/Kmlp/3bySiTVOyj2Hl7GMcum1aLW8g==
+ b=bn1+FDM9Meh0r2J+bYquz0E0kK/WkeRGh/rr0+xtGxDYTs12ETKqTTMssUxbXCGFKqpGIbAoRnKAF0uNF0wHAfQuq9anzsKrLZK8yT/IVJfY/1uVTUZMVQUwkeBsHZTdWi637Yt9SF9gp40nCx+dco7D9BO99UlFUGs+guW1HLZoPS2fXYmBe/YcHpaY/NhEraQh+inVb6qml8uq4rJku2bWtA0N0F7CaOoo9IlGAVsuhgY3wS1OGp7CBxkrZeHm3cBowCO3yTOOPGRo1OEiTjEf/vxWNu7/0Ne1uorK1WFLbThkTlFaTICosz+2mCzQZHyr4ONrDHXb7e0mAMTWwg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=r6AqEL8h/LaWaHA/3hsstGIAvKJ9mNr0YVDDdeKwZRU=;
- b=PPLsm1c0xCAJZbk4LtY60VrqKHSP3VLIQjr7GyMGHz+aEMDBmZeU9LOXgC3pWkgPzdRun5aYv4dy2xFRa8vDXPq9xIM5hXU+tL+SwLb+coW6CMZG9a2XykaqkFeOCB2q97oBwiqSl0UR9247PqH/lCprNJbW6/T8SxlYzD5Etx/Bqsw2L/5GnBfLWHyQLbuqj44tf5y5KqwFji/rXFfQk+29Ab7/ZglEBIzweK+JH3et4ybx5NWWfLIAdFod5VybooFwxjFepbE9LkzkDGZdLagV5vc2QjbmNPXCdQh/OKihwojvhtBL3DJHWNR5edewVjkbKbEIOVIzBLo7gOTQAg==
+ bh=GOrqD0IVD5FWy89xDIAitnyDLNwGmrI0eezJx6cMxUI=;
+ b=fH1NUORn4hnFYPpw0GxPEQEagnoD22s4A/+dip1HZAho/Xb0DZvo8gEc7aMvtM8uIk5BiadkEBOp6h0u/pZIV7MdmxVh0aZErWTlpDhpEdVz58FU0ybFOA4w4HV524e3/KzXjgW50iSFJCruXE1D7rmgzx9uxJzjhyclvzISsEWOMksXyodUAL9Gr/BAQsrk6m4GNeDZ3EPS4tGnqrrV/xjIj3w+CL//eGfm5hUnZSLR44I3lIHrJfMbxKpmnI4TfIph0dPnxjg+KxAxENK679fTiSsvxLQaW5rNiO8I6uqmbOX0Q5ObZQpSNC/w2gnxb8DdNJ/c1ZDx1g9kmgb5Zw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=purdue.edu; dmarc=pass action=none header.from=purdue.edu;
  dkim=pass header.d=purdue.edu; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=purdue.edu;
  s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=r6AqEL8h/LaWaHA/3hsstGIAvKJ9mNr0YVDDdeKwZRU=;
- b=cAbkSRKtldCaazC8XkGDoO8XHXA8GyG+PjjIHQau9TppX5CM776K8SSmh5wY62ZvrWDpxJGjNMIk/VCsNfoHm5jasGbEp4dG97HqleYDVhEYb0SxhNevrZBSqll7nNuNTCZzJjLEesEB11mFqxYqFjnAJlWNH542L7jsG++cTYA=
+ bh=GOrqD0IVD5FWy89xDIAitnyDLNwGmrI0eezJx6cMxUI=;
+ b=H5xh2okdgnZldY0lX65TdWpyQubD2fiPlsmGayPz9WPAXviepdBm+85ZFG/wkYvcns7PN41JaJnFO7uojv2fzhuOUJsDg0PxwNwlOWb7ap5E2TLDQDDqYA8AGzpBk7AE9HiOzwtSxIOWFPhHj4vlDXwbQVQ2h6zgLQEYt0LPVcs=
 Received: from SA1PR22MB5493.namprd22.prod.outlook.com (2603:10b6:806:3dc::14)
- by SN7PR22MB3979.namprd22.prod.outlook.com (2603:10b6:806:358::19)
+ by MN0PR22MB5544.namprd22.prod.outlook.com (2603:10b6:208:4cb::13)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7544.47; Sat, 11 May
- 2024 15:36:22 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7544.49; Fri, 10 May
+ 2024 19:37:43 +0000
 Received: from SA1PR22MB5493.namprd22.prod.outlook.com
  ([fe80::a308:2ed6:d751:9a0c]) by SA1PR22MB5493.namprd22.prod.outlook.com
- ([fe80::a308:2ed6:d751:9a0c%3]) with mapi id 15.20.7544.048; Sat, 11 May 2024
- 15:36:22 +0000
+ ([fe80::a308:2ed6:d751:9a0c%3]) with mapi id 15.20.7544.048; Fri, 10 May 2024
+ 19:37:42 +0000
 From: Jiasheng Jiang <jian1000@purdue.edu>
 To: "jani.nikula@linux.intel.com" <jani.nikula@linux.intel.com>,
  "joonas.lahtinen@linux.intel.com" <joonas.lahtinen@linux.intel.com>,
@@ -50,97 +50,93 @@ To: "jani.nikula@linux.intel.com" <jani.nikula@linux.intel.com>,
 CC: "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>,
  "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
  "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH] drm/i915: Correct error handler
-Thread-Topic: [PATCH] drm/i915: Correct error handler
-Thread-Index: AQHaoxG6TBQoAhaMu0CLAXku3n0QM7GSK3tm
-Date: Sat, 11 May 2024 15:36:22 +0000
-Message-ID: <SA1PR22MB5493FEAD09C01811F539A9D6AEE02@SA1PR22MB5493.namprd22.prod.outlook.com>
-References: <SA1PR22MB5493ED5E56E154E77AE9C788AEE72@SA1PR22MB5493.namprd22.prod.outlook.com>
-In-Reply-To: <SA1PR22MB5493ED5E56E154E77AE9C788AEE72@SA1PR22MB5493.namprd22.prod.outlook.com>
+Subject: [PATCH] drm/i915: Correct error handler 
+Thread-Topic: [PATCH] drm/i915: Correct error handler 
+Thread-Index: AQHaoxETCk8DC9ozWUiFWKd1h6T+Yg==
+Date: Fri, 10 May 2024 19:37:42 +0000
+Message-ID: <SA1PR22MB54936E5DBE266CFFD42C001EAEE72@SA1PR22MB5493.namprd22.prod.outlook.com>
 Accept-Language: en-US, zh-CN
 Content-Language: en-US
 X-MS-Has-Attach: 
 X-MS-TNEF-Correlator: 
-msip_labels: 
 authentication-results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=purdue.edu;
 x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: SA1PR22MB5493:EE_|SN7PR22MB3979:EE_
-x-ms-office365-filtering-correlation-id: b4d26522-3ced-4b88-8301-08dc71d01c9a
+x-ms-traffictypediagnostic: SA1PR22MB5493:EE_|MN0PR22MB5544:EE_
+x-ms-office365-filtering-correlation-id: a2da9241-82ba-4c39-416b-08dc7128a89c
 x-ms-exchange-senderadcheck: 1
 x-ms-exchange-antispam-relay: 0
 x-microsoft-antispam: BCL:0;
- ARA:13230031|366007|7416005|1800799015|376005|38070700009; 
-x-microsoft-antispam-message-info: =?iso-8859-1?Q?cA9TtHnMoKvPkpatkpGfH1mvkDoBF/dHK4tDZSqENCVZFzo9AkS6A3RG/S?=
- =?iso-8859-1?Q?f2hq7U7NTlAS3/niwTC4q2Bf2iIPIOw584iyMaG6x31latSLTcM/6zKsPa?=
- =?iso-8859-1?Q?qDuZxgXoQDvaHfqrfQ3digz/vQRLtRQcM0oif48G2eQtjdKLAsUlW9hAvd?=
- =?iso-8859-1?Q?CExLE3lgyDIIYd+af/gJnQn41/jsNfGG+WKzh4OsiwOWgUPP4HKGnK+q34?=
- =?iso-8859-1?Q?0nOnmw7FiF3tRfhfWvv/bcgdg5muqjqlfd6Yl5M0++05zOQG4v91dUaaZV?=
- =?iso-8859-1?Q?PGD+NGzaj9nZo6aEbBvmUsKQFABWzEuiNQsoi4Yej2BKcpqC9Ig99lRqL+?=
- =?iso-8859-1?Q?9TrgXTwUK1Vc7VkcKj36rS3OyyvYDZXJpJi42GoXD6IXUV1KI/viExpszS?=
- =?iso-8859-1?Q?ULkce6DpTyyelDdNmZeP/1hDh4TprQu6/UAvQk+NjFzSoOLlqbaPbhBKvj?=
- =?iso-8859-1?Q?o10AeABZ3gLrZ3ap0LBipt+s+sU9WtXzHXrgCxWOz2ssKaUKVzhG5FirW0?=
- =?iso-8859-1?Q?Md8LlLhs8JJAc58s3r8D2QztRubJDygHnoc4HouKIibRDccE7vzc3CD07N?=
- =?iso-8859-1?Q?HnDguCktKpR1e1GcBho0nMF1MUGy3iHtBUKbce2WwLFMuhhQR0ApCp2Qk7?=
- =?iso-8859-1?Q?4OctI6wPaG59lKqnR6tPDH2701mJYTP1zQlSXCQBE38c8y5GKqvUFGS795?=
- =?iso-8859-1?Q?0PUG9ZitaIw0oXt9Hq7b27dEFlsWU3TDXoKTOjcNYXIt0EaLwDqO0tc8wa?=
- =?iso-8859-1?Q?tBHRRTIW7A0f0Za/FKyt3YcjZnlX2iSM92xn+SJfF2PxSm67QeTGKlHwoa?=
- =?iso-8859-1?Q?Hul6zYxoZ244rRflfQm6F/FA/Yb5jGngN4cty7Kt5XNL1tBPRDNlr1qOV8?=
- =?iso-8859-1?Q?Fy7HC+EFQzQk+Gc5WvICC68YvmY4I2TA3kBjqOS8OpVhiSiPWvvtl6lv7E?=
- =?iso-8859-1?Q?YKrMxKN95mtMBpnVYiTtcO8U3N8/6493V9wpGG7biGTXwE41VjUeDDoYcV?=
- =?iso-8859-1?Q?bD5yn/UFtAd047BsPgQz/yJ6mEukMeBJI1M8mch7z0+5AzDTfKoTO3u/5N?=
- =?iso-8859-1?Q?Q+cbj6yNjMfwt0SRNj6DR2/8IzNTmEvQ5IGQTV/iJc+dZHW2ayTgD/BjCb?=
- =?iso-8859-1?Q?k2oKIW190YFj7mXFOKFME9U01DARC8sVkon+zEXNQdOI5FByoce/LFjdPQ?=
- =?iso-8859-1?Q?XrcrIwt0Lo5b0DF7j0dfZt9lgr6y9MHpGtTnvbLmwPWJb8iGyxp1ROhzx/?=
- =?iso-8859-1?Q?RFoW49hyWvdhp+YXT+o3WLeEm39YKbQWK+Wc9/0h3vxQP5BBTOGtw21g//?=
- =?iso-8859-1?Q?XRZxhpQj35o+BuYJnCctuxq/Y4bMkMBoA4gOCNCObJyzB25g3c05oeXCno?=
- =?iso-8859-1?Q?JNNfQqV/vUfqXGyGeizaQbysW0tv0ojw=3D=3D?=
+ ARA:13230031|376005|366007|1800799015|7416005|38070700009; 
+x-microsoft-antispam-message-info: =?us-ascii?Q?51BS3vT4gtTc4f8jeVpD/YsFV4KemIKJVcau7owoeVyll7kBgIUTjEuGGh1j?=
+ =?us-ascii?Q?/N9pzFA3t5BkTQ44EugEQlwnvCTqhyfu9kY4Nwp+Fb48NQ3bS71ADfj88AeD?=
+ =?us-ascii?Q?sJkny26ZQ7IpHzmFpYWxuGGsybsUgh5V0ec6GIZMzKS8j+cn00AO81hAxV85?=
+ =?us-ascii?Q?rL3H+DvXJXm7jg1EEvlpTq6pBGU0E7NDhJDxTiPEuEBOEpxHJMz/fq4mkBbE?=
+ =?us-ascii?Q?c5gmVMI+wW8Gnl3RXxjqR1Rod3qN+lreZadw6QAOkZKj0CYhCheOVk9yhxxF?=
+ =?us-ascii?Q?BIYboJw8hMpQ7iAcwVG5Ds7FkoNnMUuALLJXtSaxU4hH15MQ8EPyPOGYsWAq?=
+ =?us-ascii?Q?6p+tIeH0JtLdm3XI/O8NkHpaJu94oew/d/i3Ic14nnFD8OxBgV9LISLWkZIy?=
+ =?us-ascii?Q?rReR1n4bgVWmJzNNFtmYlMpE+Zze/mUmdbfKNQy4z+cqvGkQRmTtt992Ku1A?=
+ =?us-ascii?Q?rOhVff1lzgqpmO5cWeLhDpBF3xlN9Vanqn29noZ3IJvdMJVGdmTBnvsj5jH8?=
+ =?us-ascii?Q?V927g66urimSotj2+CpkLXWSmW3FB9h8Gs+lOJngr9E9mHFEAZUq35jWp5/6?=
+ =?us-ascii?Q?J9TG0IZutJiTi9T7cdVUipbhr4kjmtoSyc4BwQS03qI3ug9Yy5UnTAB8l3A2?=
+ =?us-ascii?Q?4s+1/+QFtCadkpg7miAt1SaNauW7kM8s1jvHnapD9r7jcL9ydMLzAOzV0szI?=
+ =?us-ascii?Q?Ierb35jB+35f/cp2Ur8ZOEjEfHp1ZdJhdvrIQfLT2KWxHYZ34Cd38br7qjl0?=
+ =?us-ascii?Q?N0mTd29c/ok5XkaA2xDCKHlEYAnztG2xWR5ZnbiwhFQKNYLS1d2uSjjSGVPV?=
+ =?us-ascii?Q?y78XS7UabDi9EHmg/lvSiQAkrYChhQVvTGq2iZJik7lu4J+yG+mVTqdLLq8y?=
+ =?us-ascii?Q?vqXbMWzx7pXexduUGl7G7HKtsh8QuwWZA4RBqE7hItExCBOUvuyNpGV1Apld?=
+ =?us-ascii?Q?AgzboOZUBfFYC/SoacZe4TaYQiZd52EeOEe6/C/5ltLJ15yoJXBLINXsh9W2?=
+ =?us-ascii?Q?iGPUq5e8J+rZJkV1ueNl4BzbuHlVp9VD6n8Zw11F5OxQ4mAZBW2+eRmFLotL?=
+ =?us-ascii?Q?FT9ZR1Wvx1IBCbGs5Gs/EPfFMUrnz//jPRRzKulMNo7VP2Q13l7BzRoOUeUA?=
+ =?us-ascii?Q?FiMG4jkIefxN6gct2E6/MzvwtmkPQ1sAP8yQu0KIQs8tVcY/H09PKpq1E/c2?=
+ =?us-ascii?Q?DOwIws9qydbAuR+hLluNOj1V3QlQKPVevR3yZeyMu8y6q08qqArY+xJ1z4q7?=
+ =?us-ascii?Q?QZyjn4jme7DtrAQIYPpFQZWgCEY1AEtlPhrvYMPejXyS8IYvK8UsVg2/TQyM?=
+ =?us-ascii?Q?FiPCZMJ0HVLsIrZw7jhd5A/EjjGtX8jWLquXQ6JnIWrIOg=3D=3D?=
 x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:SA1PR22MB5493.namprd22.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230031)(366007)(7416005)(1800799015)(376005)(38070700009); DIR:OUT;
+ SFS:(13230031)(376005)(366007)(1800799015)(7416005)(38070700009); DIR:OUT;
  SFP:1102; 
 x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?iso-8859-1?Q?BghCcSpTe+vk3rlWe0E/fm0RTaPHCKBTymUYizwzrCKjqJUBQ+S9n7Nd0q?=
- =?iso-8859-1?Q?wMqWUkEMj5mmT9aeEVamIJPklgCmbY7peaq1rO44HJ+QwesxIF+b6bNxhf?=
- =?iso-8859-1?Q?Yca5EZI7wKqFjywuZ99sLgp86gYxqo7TIuQ6A1SbzoBuEggEuxdfD8abNa?=
- =?iso-8859-1?Q?X5rzUwG/wZIEKFrSKMuenkthoi0j9AhwMykdRqgx823pMRlOOELqxOBeAh?=
- =?iso-8859-1?Q?H9Tk+WPNriUNvnKSN3a4YPHnNtaGNsXeEbxMxqG4XxbdWJzEqhaOJrusCY?=
- =?iso-8859-1?Q?4IOG9A6rPbVfV7BmWi2cjRd0+cEzF5pwOviSIx4g7ArWy4qz0btr5fWvg2?=
- =?iso-8859-1?Q?kmfbZUZSew2pSPcQcVfvCqLx35w/Xfaqrz6Kjc8H5E8QMsqwJ13eJ9rEei?=
- =?iso-8859-1?Q?TFiYQ/W7trEvRBYVjZe5eAFmLW9Fcg3m9DJQJSxWNWj4zGkamO44LvthAZ?=
- =?iso-8859-1?Q?dQWpEDRfc1Vyu+/g4fjUfqHcd3FWiQtUOONYIhCCDF2qddQxzcAgIj2fS9?=
- =?iso-8859-1?Q?SrGOnblV05xG5WYuJZloqDYKsaImZ91Up96uZCcfo3k8llsi8Wflzx/7ww?=
- =?iso-8859-1?Q?f5qZ+vQn/3oV17+GjOugZ2bakuQRuS5dthd5B+bHC3u5fR5VoD+QaOXL+c?=
- =?iso-8859-1?Q?xCEQ5feDLZ2Cz/gfQmnhmZZtGYm+BjixKKU4fWBL13fcJ7CFsZbjem51os?=
- =?iso-8859-1?Q?E58FV2qyWGvvz3hgBsE7HRB67FrKeG8EmLoOX3O0hR0ziY0sBDVAx4bmlZ?=
- =?iso-8859-1?Q?3dg0V+Mr8+8G7GPurd0Gm7r0hSbAUcp3mOns4H/BYHmmym7bRo+Ce2wLnJ?=
- =?iso-8859-1?Q?tVe3ODxsqoLcPbh38BG5p9Xz4LsAheeAfgLE+sai+LfL8cYXltAKttpYO/?=
- =?iso-8859-1?Q?eA4cLWz5bFz3Q8mr3rkg2K3hk08bXKbwc5L0pZNmC9L+vaAyCQcYgBJhH7?=
- =?iso-8859-1?Q?9WKvhtQ042w4aC0CzfE0LAHdenSm5PUFV+eqN8HQBata/hmncLaxUFC/J+?=
- =?iso-8859-1?Q?QopA6D+yh/oRl6ADcTkdJVvu19XO86yhA94Qgoys0Akpj5tXX8KI1QjaDQ?=
- =?iso-8859-1?Q?zau6jyiQAaa8XqxBkYcMBDBIQHesnrW7w3seqU8S6n6MpFnHvcZ2rmoVR4?=
- =?iso-8859-1?Q?gF01Cj3zbgXqLqVWa2gy8vR5up0+DA0hX63VtR1uvkU7oxUTEl7Hv6q5C+?=
- =?iso-8859-1?Q?U7ujT/PDIVUYlTEZ1XNI8mY9sDupiYmcWM46OLHmlV3x7yOh9FfnYpRKPe?=
- =?iso-8859-1?Q?OZYbzLl8kIcDG8Wt/+4wR+NVv4gK9YZmUj7lIuk9r7RlIzYt/5Rs7omtGb?=
- =?iso-8859-1?Q?xJEq4PUOQ9xARKQSid2ok92N6kfRW1Ssa6TrOgVh1Zm7+rKD+VFXkndb7Q?=
- =?iso-8859-1?Q?BwTPF7iXVL8MrytjkJtsPTI+I2Ryr33GtMCUSSzs+waDhS7v5Ewlx2pDtM?=
- =?iso-8859-1?Q?UG9UZnAbM1enQKl2LQp8HOQnyBgT7UhbRHVpEFqF3X1xnUD+FbNFSqKXsF?=
- =?iso-8859-1?Q?t661Jsh2FmIyvvlNNGUWqwnmxea9ZgBUjXJD1dsSaiJyXx47/LJ9w8rUAz?=
- =?iso-8859-1?Q?nhfb08Xy01ELeq5PxFMlFbANj1qW8JvUfpZZHgXl6CG0pSCswVSaEed+11?=
- =?iso-8859-1?Q?R38PuPCnGCTzCzd+lh0uIxx3oeLZzYP4yc?=
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?IQx7FTw8cQrKsDhzHtjU3nQBakLtE3zohudBX9Mg68uBoQ8f/CCvoF9SOD2j?=
+ =?us-ascii?Q?FAVbZSCmlIgaVX+t5GLvLmZO+ZNOlNWdCE+HKAmCkEyZvPOF6brjcpKbdQz5?=
+ =?us-ascii?Q?GWPmNyPoYFz3P118m3mm4bUp/Kc+QJTC/NSk+roF0D85CEvdSx36ufiu23d5?=
+ =?us-ascii?Q?4nqopUMb+tXlgkYLr2GhFrdhNH7posl6ZuT4gAA9WLJcevx55rn7rClGW4Vh?=
+ =?us-ascii?Q?2WxNO1djMyjUOplFQS6aGXxkXyW+uA5XV22jrumycWIHQEm+4a1cPaVhup2N?=
+ =?us-ascii?Q?o7jJUocMK+Wth/j1TMOXB85eD/MIBPFg6bfVvwCFJxOmFL1Xr5vpPgL5Y4i7?=
+ =?us-ascii?Q?LjX8HI/OFARYCmSnUmp8xSQETlUXx1D7Wltb4RU1PkLaJIKhvPi78bcCyij4?=
+ =?us-ascii?Q?Av7brusiq8YAA18B2A/2t+kkYbl6KiCo7Xj92xY3ai3sr+VeqnaFZepudbxv?=
+ =?us-ascii?Q?AEFPtHD7qesQ++Cx94AinUsPqSck0hefV+/PODlzdfjYtsZYH4H+aLm2Gwl6?=
+ =?us-ascii?Q?P5F2jVGrAP+F253GB7n/XvyQhQ5KZO8j8KZuIgY9nvoUJcgqvUxY7VL5ZsVN?=
+ =?us-ascii?Q?jqekbxfhwnKHV5a0c4uq7HWOcoGfdMGfAeVXss8rjt641fvafaQuDjyPk0g/?=
+ =?us-ascii?Q?3U0NqZMYbHLge+eqNrcWkkwpmvLc8gf8gzbMJ2Z3cFxgDcVFffNsXrmskA8B?=
+ =?us-ascii?Q?x9OfszT1BjfTTkNCs68yAb0XwlCD4ln2OpxJZrJNGUKGF59yIazM5Bhcg+wn?=
+ =?us-ascii?Q?0AwDtaL441BfURYdwFGMbp54XP4KJGUP3sknT43d6ReP4uv2OxtPkCtbFgNQ?=
+ =?us-ascii?Q?+djiUaJdeJQIqqn67nzTXekcwUXrbduBul/SMDOaFiRvR8+ncv4lhBrm/OcK?=
+ =?us-ascii?Q?G+Wz6dDM0g6DrStaGYwDeC0q/xHxV7j/dGHnJkV1Ks39Nv/7hWXz24tAgFxZ?=
+ =?us-ascii?Q?zAX4KLln6AnDNA+Z9P+zrAorb/fkR5jvyh7667Z/a5K1faJtf3etVaala9Mm?=
+ =?us-ascii?Q?2IkjO9b54rrC0Dn96RpCRSUY19mGSyCeAyAJiDs7+NVaRYmJN78ZIDE0eGfo?=
+ =?us-ascii?Q?8/lOrBgruguQel27vb9b9+HsLMdMWWDdBhUr6nQAJPSAYUJoiFf/jO14OjAv?=
+ =?us-ascii?Q?H3nn2cMrsJbM2bs0dxivzpDEsREm6kfwgb5UXoAFRYZbQ10XRcPsU5s+mt/r?=
+ =?us-ascii?Q?i6JIUNC+J9vbmAqoGV11RWR75AyHUEITQtTF4RWWo5OmoJgTcVGakvpH7tT+?=
+ =?us-ascii?Q?wf2Qczbhr0wROEGCnKVMQFQNmC5e0KrxJLZYcxOuhf0FmHEs8ilIz/+GqsdK?=
+ =?us-ascii?Q?nenLwrvowV2lsNK/PCOrOYfRq/lYPZ/SadK9rzGpmlPUzbWhpoCKTPpnazNA?=
+ =?us-ascii?Q?8oDynI/ik4OncBqDF1WL9CSgYkHkz0JUfKm5N86vLm/L3Ixthqyd9++vRMvm?=
+ =?us-ascii?Q?g8cu29mZqLi66+8pTrQSuo0/O2uor0LuLaLcXXKSW092IUTjCEdKaopA+Yrn?=
+ =?us-ascii?Q?Xd4rVVH4+XXjCfBepMKvikQD56ugGWPhFwrfLNA+NwlD59Mby3ULnXiEUfaZ?=
+ =?us-ascii?Q?ssYhdekX1Z/qbKvNkOOMvGEc6n09oQ9TYXbR53qu9BTmF7EkvRcwHrBJhkff?=
+ =?us-ascii?Q?TA=3D=3D?=
+Content-Type: multipart/alternative;
+ boundary="_000_SA1PR22MB54936E5DBE266CFFD42C001EAEE72SA1PR22MB5493namp_"
 MIME-Version: 1.0
 X-OriginatorOrg: purdue.edu
 X-MS-Exchange-CrossTenant-AuthAs: Internal
 X-MS-Exchange-CrossTenant-AuthSource: SA1PR22MB5493.namprd22.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: b4d26522-3ced-4b88-8301-08dc71d01c9a
-X-MS-Exchange-CrossTenant-originalarrivaltime: 11 May 2024 15:36:22.6292 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: a2da9241-82ba-4c39-416b-08dc7128a89c
+X-MS-Exchange-CrossTenant-originalarrivaltime: 10 May 2024 19:37:42.0935 (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
 X-MS-Exchange-CrossTenant-id: 4130bd39-7c53-419c-b1e5-8758d6d63f21
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: OGSt1XeUigbJVv69s21PHFPGzZAXKvmtmO8v96q85w482SONnWHL+6nA7y37xQKPQy4LnJhnOPTaapgPahYAMQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR22MB3979
+X-MS-Exchange-CrossTenant-userprincipalname: NI7+V1iSG+Xhn8EtY5sZc6sDQQwbInII8xpgdnZ1wMHRutQx7bNHR12Xerd50RXfzmoYSBL0aMvspPz7F38MHg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN0PR22MB5544
 X-Mailman-Approved-At: Mon, 13 May 2024 13:34:46 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -157,43 +153,139 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Maybe the format is incorrect. I would like to use "jiashengjiangcool@outlo=
-ok.com" to resend my patch.=0A=
-=0A=
--Jiasheng=0A=
-=0A=
-________________________________________=0A=
-From: Jiasheng Jiang=0A=
-Sent: Saturday, May 11, 2024 3:40=0A=
-To: jani.nikula@linux.intel.com; joonas.lahtinen@linux.intel.com; rodrigo.v=
-ivi@intel.com; tursulin@ursulin.net; airlied@gmail.com; daniel@ffwll.ch; ch=
-ris@chris-wilson.co.uk=0A=
-Cc: intel-gfx@lists.freedesktop.org; dri-devel@lists.freedesktop.org; linux=
--kernel@vger.kernel.org=0A=
-Subject: [PATCH] drm/i915: Correct error handler=0A=
-=0A=
-Replace "slab_priorities" with "slab_dependencies" in the error handler=0A=
-to avoid memory leak.=0A=
-=0A=
-Fixes: 32eb6bcfdda9 ("drm/i915: Make request allocation caches global")=0A=
-Signed-off-by: Jiasheng Jiang <jiasheng@purdue.edu>=0A=
----=0A=
- drivers/gpu/drm/i915/i915_scheduler.c | 2 +-=0A=
- 1 file changed, 1 insertion(+), 1 deletion(-)=0A=
-=0A=
+--_000_SA1PR22MB54936E5DBE266CFFD42C001EAEE72SA1PR22MB5493namp_
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+Replace "slab_priorities" with "slab_dependencies" in the error handler
+to avoid memory leak.
+
+Fixes: 32eb6bcfdda9 ("drm/i915: Make request allocation caches global")
+Signed-off-by: Jiasheng Jiang <jiasheng@purdue.edu>
+---
+drivers/gpu/drm/i915/i915_scheduler.c | 2 +-
+1 file changed, 1 insertion(+), 1 deletion(-)
+
 diff --git a/drivers/gpu/drm/i915/i915_scheduler.c b/drivers/gpu/drm/i915/i=
-915_scheduler.c=0A=
-index 762127dd56c5..70a854557e6e 100644=0A=
---- a/drivers/gpu/drm/i915/i915_scheduler.c=0A=
-+++ b/drivers/gpu/drm/i915/i915_scheduler.c=0A=
-@@ -506,6 +506,6 @@ int __init i915_scheduler_module_init(void)=0A=
-        return 0;=0A=
-=0A=
- err_priorities:=0A=
--       kmem_cache_destroy(slab_priorities);=0A=
-+       kmem_cache_destroy(slab_dependencies);=0A=
-        return -ENOMEM;=0A=
- }=0A=
---=0A=
-2.25.1=0A=
-=0A=
+915_scheduler.c
+index 762127dd56c5..70a854557e6e 100644
+--- a/drivers/gpu/drm/i915/i915_scheduler.c
++++ b/drivers/gpu/drm/i915/i915_scheduler.c
+@@ -506,6 +506,6 @@ int __init i915_scheduler_module_init(void)
+               return 0;
+ err_priorities:
+-              kmem_cache_destroy(slab_priorities);
++              kmem_cache_destroy(slab_dependencies);
+               return -ENOMEM;
+}
+--
+2.25.1
+
+
+--_000_SA1PR22MB54936E5DBE266CFFD42C001EAEE72SA1PR22MB5493namp_
+Content-Type: text/html; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+<html xmlns:o=3D"urn:schemas-microsoft-com:office:office" xmlns:w=3D"urn:sc=
+hemas-microsoft-com:office:word" xmlns:m=3D"http://schemas.microsoft.com/of=
+fice/2004/12/omml" xmlns=3D"http://www.w3.org/TR/REC-html40">
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
+>
+<meta name=3D"Generator" content=3D"Microsoft Word 15 (filtered medium)">
+<style><!--
+/* Font Definitions */
+@font-face
+	{font-family:"Cambria Math";
+	panose-1:2 4 5 3 5 4 6 3 2 4;}
+@font-face
+	{font-family:DengXian;
+	panose-1:2 1 6 0 3 1 1 1 1 1;}
+@font-face
+	{font-family:Aptos;
+	panose-1:2 11 0 4 2 2 2 2 2 4;}
+@font-face
+	{font-family:"\@DengXian";
+	panose-1:2 1 6 0 3 1 1 1 1 1;}
+/* Style Definitions */
+p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{margin:0in;
+	font-size:12.0pt;
+	font-family:"Aptos",sans-serif;
+	mso-ligatures:standardcontextual;}
+span.EmailStyle17
+	{mso-style-type:personal-compose;
+	font-family:"Aptos",sans-serif;
+	color:windowtext;}
+.MsoChpDefault
+	{mso-style-type:export-only;}
+@page WordSection1
+	{size:8.5in 11.0in;
+	margin:1.0in 1.0in 1.0in 1.0in;}
+div.WordSection1
+	{page:WordSection1;}
+--></style>
+</head>
+<body lang=3D"EN-US" link=3D"#467886" vlink=3D"#96607D" style=3D"word-wrap:=
+break-word">
+<div class=3D"WordSection1">
+<p class=3D"MsoNormal"><span style=3D"font-size:10.5pt">Replace &quot;slab_=
+priorities&quot; with &quot;slab_dependencies&quot; in the error handler<o:=
+p></o:p></span></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:10.5pt">to avoid memory lea=
+k.<o:p></o:p></span></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:10.5pt"><o:p>&nbsp;</o:p></=
+span></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:10.5pt">Fixes: 32eb6bcfdda9=
+ (&quot;drm/i915: Make request allocation caches global&quot;)<o:p></o:p></=
+span></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:10.5pt">Signed-off-by: Jias=
+heng Jiang &lt;jiasheng@purdue.edu&gt;<o:p></o:p></span></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:10.5pt">---<o:p></o:p></spa=
+n></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:10.5pt">drivers/gpu/drm/i91=
+5/i915_scheduler.c | 2 +-<o:p></o:p></span></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:10.5pt">1 file changed, 1 i=
+nsertion(+), 1 deletion(-)<o:p></o:p></span></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:10.5pt"><o:p>&nbsp;</o:p></=
+span></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:10.5pt">diff --git a/driver=
+s/gpu/drm/i915/i915_scheduler.c b/drivers/gpu/drm/i915/i915_scheduler.c<o:p=
+></o:p></span></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:10.5pt">index 762127dd56c5.=
+.70a854557e6e 100644<o:p></o:p></span></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:10.5pt">--- a/drivers/gpu/d=
+rm/i915/i915_scheduler.c<o:p></o:p></span></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:10.5pt">+++ b/drivers/gpu/d=
+rm/i915/i915_scheduler.c<o:p></o:p></span></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:10.5pt">@@ -506,6 +506,6 @@=
+ int __init i915_scheduler_module_init(void)<o:p></o:p></span></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:10.5pt">&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return 0;=
+<o:p></o:p></span></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:10.5pt"><o:p></o:p></span><=
+/p>
+<p class=3D"MsoNormal"><span style=3D"font-size:10.5pt">&nbsp;err_prioritie=
+s:<o:p></o:p></span></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:10.5pt">-&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; kmem_cache_des=
+troy(slab_priorities);<o:p></o:p></span></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:10.5pt">+&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; kmem_cache_des=
+troy(slab_dependencies);<o:p></o:p></span></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:10.5pt">&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return -E=
+NOMEM;<o:p></o:p></span></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:10.5pt">}<o:p></o:p></span>=
+</p>
+<p class=3D"MsoNormal"><span style=3D"font-size:10.5pt">-- <o:p></o:p></spa=
+n></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:10.5pt">2.25.1<o:p></o:p></=
+span></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:10.5pt"><o:p>&nbsp;</o:p></=
+span></p>
+</div>
+</body>
+</html>
+
+--_000_SA1PR22MB54936E5DBE266CFFD42C001EAEE72SA1PR22MB5493namp_--
