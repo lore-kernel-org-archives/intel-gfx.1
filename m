@@ -4,58 +4,37 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CCE30C25B75
-	for <intel-gfx@archiver.kernel.org>; Mon, 13 May 2024 10:40:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8A5B9C25B75
+	for <intel-gfx@archiver.kernel.org>; Mon, 13 May 2024 10:48:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4D2EC10E631;
-	Mon, 13 May 2024 10:40:38 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="TI9uvuRg";
-	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.12])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8E3D310E631
- for <intel-gfx@lists.freedesktop.org>; Mon, 13 May 2024 10:40:36 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1715596837; x=1747132837;
- h=from:to:subject:in-reply-to:references:date:message-id:
- mime-version:content-transfer-encoding;
- bh=SF6GC2bN4H9SEW3sXZ8ejGtutEwrTPim5jI0VJuBiCw=;
- b=TI9uvuRgRltBO5KnRtWgGERLBZmJOAKnrKHbSZY++AyrirzoCmN/tdNh
- Us6Hybg7BjrT9k1rMmmS3fI8u3S65pxcvtSuFhHG3Pd+mB5kY9+JqRf4S
- dGHzl9svEQl4uG+EbNrlFxX05QVsY8Dtt/sC37WtL8lkvrGWlyd7bl6Ec
- 7Bck3aFzufaO6cAePzR85WC15REnc5oyDY2bsey3wat9VDMQrxUF+9hle
- A6ecaiGItADHcXHYs5oSrImIsVU7zTBMm3nedyPFAe/dlCbY+v+K2jcV9
- 4oU6zy5o+A1kWyJN0xxNuUonZAcHmMjTpk4f3J5W8yONT3V5CrHZXwOOK g==;
-X-CSE-ConnectionGUID: yHVeQTw1TIq0C7E51TFjDA==
-X-CSE-MsgGUID: LqRcmbn4To6ofU1llYeLKg==
-X-IronPort-AV: E=McAfee;i="6600,9927,11071"; a="15335291"
-X-IronPort-AV: E=Sophos;i="6.08,158,1712646000"; d="scan'208";a="15335291"
-Received: from orviesa004.jf.intel.com ([10.64.159.144])
- by fmvoesa106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 13 May 2024 03:40:36 -0700
-X-CSE-ConnectionGUID: Mtx1LKY2Toq/zQnx9AaQkw==
-X-CSE-MsgGUID: LN5Nv38xRCWQREmm4AFpYw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.08,158,1712646000"; d="scan'208";a="35169150"
-Received: from fdefranc-mobl3.ger.corp.intel.com (HELO localhost)
- ([10.245.246.7])
- by orviesa004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 13 May 2024 03:40:34 -0700
-From: Jani Nikula <jani.nikula@linux.intel.com>
-To: Ville Syrjala <ville.syrjala@linux.intel.com>,
- intel-gfx@lists.freedesktop.org
-Subject: Re: [PATCH 12/16] drm/i915: Drop a few unwanted tabs from skl+
- plane reg defines
-In-Reply-To: <20240510152329.24098-13-ville.syrjala@linux.intel.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
-References: <20240510152329.24098-1-ville.syrjala@linux.intel.com>
- <20240510152329.24098-13-ville.syrjala@linux.intel.com>
-Date: Mon, 13 May 2024 13:40:31 +0300
-Message-ID: <87cypqf10g.fsf@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0700B10E64F;
+	Mon, 13 May 2024 10:47:59 +0000 (UTC)
+X-Greylist: delayed 618 seconds by postgrey-1.36 at gabe;
+ Mon, 13 May 2024 10:47:56 UTC
+Received: from mx3.molgen.mpg.de (mx3.molgen.mpg.de [141.14.17.11])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C8D7610E636;
+ Mon, 13 May 2024 10:47:56 +0000 (UTC)
+Received: from abreu.molgen.mpg.de (g34.guest.molgen.mpg.de [141.14.220.34])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ (No client certificate requested) (Authenticated sender: pmenzel)
+ by mx.molgen.mpg.de (Postfix) with ESMTPSA id 7B18161E5FE01;
+ Mon, 13 May 2024 12:36:59 +0200 (CEST)
+From: Paul Menzel <pmenzel@molgen.mpg.de>
+To: Jani Nikula <jani.nikula@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Tvrtko Ursulin <tursulin@ursulin.net>, David Airlie <airlied@gmail.com>,
+ Daniel Vetter <daniel@ffwll.ch>
+Cc: Paul Menzel <pmenzel@molgen.mpg.de>, intel-gfx@lists.freedesktop.org,
+ intel-xe@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+Subject: [PATCH] drm/i915/fbc: Add sizes to info message about reducing fb size
+Date: Mon, 13 May 2024 12:36:51 +0200
+Message-ID: <20240513103652.371721-1-pmenzel@molgen.mpg.de>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,52 +50,32 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Fri, 10 May 2024, Ville Syrjala <ville.syrjala@linux.intel.com> wrote:
-> From: Ville Syrj=C3=A4l=C3=A4 <ville.syrjala@linux.intel.com>
->
-> A few extra tabs have snuck into the skl+ plane register bit
-> definitions. Remove them.
->
-> Signed-off-by: Ville Syrj=C3=A4l=C3=A4 <ville.syrjala@linux.intel.com>
+The info message currently does not contain any information, how much
+the stolen memory size should be increased.
 
-Reviewed-by: Jani Nikula <jani.nikula@intel.com>
+    [drm] Reducing the compressed framebuffer size. This may lead to less power savings than a non-reduced-size. Try to increase stolen memory size if available in BIOS.
 
-> ---
->  drivers/gpu/drm/i915/display/skl_universal_plane_regs.h | 6 +++---
->  1 file changed, 3 insertions(+), 3 deletions(-)
->
-> diff --git a/drivers/gpu/drm/i915/display/skl_universal_plane_regs.h b/dr=
-ivers/gpu/drm/i915/display/skl_universal_plane_regs.h
-> index 8ef9bd50d021..18dbe717ea21 100644
-> --- a/drivers/gpu/drm/i915/display/skl_universal_plane_regs.h
-> +++ b/drivers/gpu/drm/i915/display/skl_universal_plane_regs.h
-> @@ -199,17 +199,17 @@
->=20=20
->  #define _PLANE_CUS_CTL_1_A			0x701c8
->  #define   PLANE_CUS_ENABLE			REG_BIT(31)
-> -#define   PLANE_CUS_Y_PLANE_MASK			REG_BIT(30)
-> +#define   PLANE_CUS_Y_PLANE_MASK		REG_BIT(30)
->  #define   PLANE_CUS_Y_PLANE_4_RKL		REG_FIELD_PREP(PLANE_CUS_Y_PLANE_MASK=
-, 0)
->  #define   PLANE_CUS_Y_PLANE_5_RKL		REG_FIELD_PREP(PLANE_CUS_Y_PLANE_MASK=
-, 1)
->  #define   PLANE_CUS_Y_PLANE_6_ICL		REG_FIELD_PREP(PLANE_CUS_Y_PLANE_MASK=
-, 0)
->  #define   PLANE_CUS_Y_PLANE_7_ICL		REG_FIELD_PREP(PLANE_CUS_Y_PLANE_MASK=
-, 1)
-> -#define   PLANE_CUS_HPHASE_SIGN_NEGATIVE		REG_BIT(19)
-> +#define   PLANE_CUS_HPHASE_SIGN_NEGATIVE	REG_BIT(19)
->  #define   PLANE_CUS_HPHASE_MASK			REG_GENMASK(17, 16)
->  #define   PLANE_CUS_HPHASE_0			REG_FIELD_PREP(PLANE_CUS_HPHASE_MASK, 0)
->  #define   PLANE_CUS_HPHASE_0_25			REG_FIELD_PREP(PLANE_CUS_HPHASE_MASK, =
-1)
->  #define   PLANE_CUS_HPHASE_0_5			REG_FIELD_PREP(PLANE_CUS_HPHASE_MASK, 2)
-> -#define   PLANE_CUS_VPHASE_SIGN_NEGATIVE		REG_BIT(15)
-> +#define   PLANE_CUS_VPHASE_SIGN_NEGATIVE	REG_BIT(15)
->  #define   PLANE_CUS_VPHASE_MASK			REG_GENMASK(13, 12)
->  #define   PLANE_CUS_VPHASE_0			REG_FIELD_PREP(PLANE_CUS_VPHASE_MASK, 0)
->  #define   PLANE_CUS_VPHASE_0_25			REG_FIELD_PREP(PLANE_CUS_VPHASE_MASK, =
-1)
+To be more useful to the user, add the sizes to the message.
 
---=20
-Jani Nikula, Intel
+Signed-off-by: Paul Menzel <pmenzel@molgen.mpg.de>
+---
+ drivers/gpu/drm/i915/display/intel_fbc.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/i915/display/intel_fbc.c b/drivers/gpu/drm/i915/display/intel_fbc.c
+index b453fcbd67da..e4a5d251013f 100644
+--- a/drivers/gpu/drm/i915/display/intel_fbc.c
++++ b/drivers/gpu/drm/i915/display/intel_fbc.c
+@@ -801,7 +801,8 @@ static int intel_fbc_alloc_cfb(struct intel_fbc *fbc,
+ 		goto err_llb;
+ 	else if (ret > min_limit)
+ 		drm_info_once(&i915->drm,
+-			      "Reducing the compressed framebuffer size. This may lead to less power savings than a non-reduced-size. Try to increase stolen memory size if available in BIOS.\n");
++			      "Reducing the compressed framebuffer size from %d bytes to %d bytes. This may lead to less power savings than a non-reduced-size. Try to increase stolen memory size if available in BIOS.\n",
++			      min_limit, ret);
+ 
+ 	fbc->limit = ret;
+ 
+-- 
+2.43.0
+
