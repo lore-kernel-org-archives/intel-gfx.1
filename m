@@ -4,54 +4,54 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A45F4C25B10
-	for <intel-gfx@archiver.kernel.org>; Mon, 13 May 2024 10:32:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7CFCDC25B10
+	for <intel-gfx@archiver.kernel.org>; Mon, 13 May 2024 10:38:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1D99010E624;
-	Mon, 13 May 2024 10:32:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 014BF10E62E;
+	Mon, 13 May 2024 10:38:53 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="d/lMjH/u";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="M+76MA9z";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.13])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 31D5E10E624
- for <intel-gfx@lists.freedesktop.org>; Mon, 13 May 2024 10:32:47 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.7])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 33F2610E62E
+ for <intel-gfx@lists.freedesktop.org>; Mon, 13 May 2024 10:38:51 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1715596367; x=1747132367;
+ t=1715596731; x=1747132731;
  h=from:to:subject:in-reply-to:references:date:message-id:
  mime-version:content-transfer-encoding;
- bh=Wh/nvtYMZrEBhxYz5gYMFPifaggbFYT+1naHYFyMofw=;
- b=d/lMjH/u1yyatESeI2653hNeO8UOzBKfWt5EK1aygBv2vf3i6ZJvO2ar
- xgQzcYPrzriPZV3taqxk8YUfEpr+xb+SDUjBUBLURUm3ZQzZ48F5KUTID
- wFEf9NN/vT70L0MvCmYFb9Dhs4Aq5lQiUku1t7JDnU3sJhJroxvGJKQct
- MxW3QyWXGPZvDX47Fr1Ot6uN/DseIaLylXXGFThiQ2eA6hQoQv+xydmz1
- eMaKy9tFyUkSlSmI4MOCr66nUfjsPfxRoTdKZU9LIHu4/OYZk7F9XHAql
- HPmHN5MnVXaTkJgi+wXj3wfBImAyO1XMSzA0KGdxnvqs8/NVl11d5l2jH Q==;
-X-CSE-ConnectionGUID: FE4Y4VXSTs69HtOd+06sIw==
-X-CSE-MsgGUID: rzS1hivLScipMZ/8aaHHqg==
-X-IronPort-AV: E=McAfee;i="6600,9927,11071"; a="14471158"
-X-IronPort-AV: E=Sophos;i="6.08,158,1712646000"; d="scan'208";a="14471158"
-Received: from fmviesa003.fm.intel.com ([10.60.135.143])
- by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 13 May 2024 03:32:47 -0700
-X-CSE-ConnectionGUID: aV5z2EIMQ6+9d9zbS95zYQ==
-X-CSE-MsgGUID: aGBE2lVXRpuAHAjsXtnNAw==
+ bh=YWFqXIVRkylauvITUt9aaeOEzVJdlnryfpGBw8PCDAk=;
+ b=M+76MA9zm1mWXJSehetShiifaHpGYjCvHPExAWGKTuxf6w1vUZ4+hfou
+ mWZJv/VNuBEoK7Y/vMg5O6dmZlItlw3VQDwUtSsNdvMg1KI0+l9AEJiS+
+ BWTa+d1Py0qWIVPGl5dXjSFKbUsWHAU+T5Oa2iosi4tkNkgr4yB1/5wkk
+ frYd3O2e3eabrOZVVWGwFGEOzdDgIna3n2Kx0WUoSnP8PfzZD0XzzmQGK
+ gTVVGRPcjtWaj/6YUePdh1c1KH5kuvFfHHq9OiKaY/NPiriOB4t9axfQ1
+ b5SIFR7G080q8myER7+VhNqzUyY8hNlv07OQ13C9q4P3cvinoSZZG4grG g==;
+X-CSE-ConnectionGUID: aZBSHdRnTcKI9zdKuw9OCw==
+X-CSE-MsgGUID: RNjCMpsGTeK3BH4RrEOoAA==
+X-IronPort-AV: E=McAfee;i="6600,9927,11071"; a="36902967"
+X-IronPort-AV: E=Sophos;i="6.08,158,1712646000"; d="scan'208";a="36902967"
+Received: from fmviesa007.fm.intel.com ([10.60.135.147])
+ by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 13 May 2024 03:38:51 -0700
+X-CSE-ConnectionGUID: 0Dn9+46RQ6iT2FiUN4uwjg==
+X-CSE-MsgGUID: sxX7HiJnQ5q9ynUj7Zl6Ew==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.08,158,1712646000"; d="scan'208";a="34808944"
+X-IronPort-AV: E=Sophos;i="6.08,158,1712646000"; d="scan'208";a="30256701"
 Received: from fdefranc-mobl3.ger.corp.intel.com (HELO localhost)
  ([10.245.246.7])
- by fmviesa003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 13 May 2024 03:32:45 -0700
+ by fmviesa007-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 13 May 2024 03:38:49 -0700
 From: Jani Nikula <jani.nikula@linux.intel.com>
 To: Ville Syrjala <ville.syrjala@linux.intel.com>,
  intel-gfx@lists.freedesktop.org
-Subject: Re: [PATCH 09/16] drm/i915: Drop useless PLANE_FOO_3 register defines
-In-Reply-To: <20240510152329.24098-10-ville.syrjala@linux.intel.com>
+Subject: Re: [PATCH 11/16] drm/i915: Use REG_BIT for PLANE_WM bits
+In-Reply-To: <20240510152329.24098-12-ville.syrjala@linux.intel.com>
 Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
 References: <20240510152329.24098-1-ville.syrjala@linux.intel.com>
- <20240510152329.24098-10-ville.syrjala@linux.intel.com>
-Date: Mon, 13 May 2024 13:32:42 +0300
-Message-ID: <87ikzif1dh.fsf@intel.com>
+ <20240510152329.24098-12-ville.syrjala@linux.intel.com>
+Date: Mon, 13 May 2024 13:38:46 +0300
+Message-ID: <87frumf13d.fsf@intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
@@ -73,80 +73,34 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 On Fri, 10 May 2024, Ville Syrjala <ville.syrjala@linux.intel.com> wrote:
 > From: Ville Syrj=C3=A4l=C3=A4 <ville.syrjala@linux.intel.com>
 >
-> We only need register defines for the first two planes
-> on the first two pipes. Nuke everything else.
+> A couple of PLANE_WM bits were still using the hand
+> rolled (1<<N) form. Replace with REG_BIT().
 >
 > Signed-off-by: Ville Syrj=C3=A4l=C3=A4 <ville.syrjala@linux.intel.com>
 
 Reviewed-by: Jani Nikula <jani.nikula@intel.com>
 
 > ---
->  .../gpu/drm/i915/display/skl_universal_plane_regs.h  | 12 ------------
->  1 file changed, 12 deletions(-)
+>  drivers/gpu/drm/i915/display/skl_universal_plane_regs.h | 4 ++--
+>  1 file changed, 2 insertions(+), 2 deletions(-)
 >
 > diff --git a/drivers/gpu/drm/i915/display/skl_universal_plane_regs.h b/dr=
 ivers/gpu/drm/i915/display/skl_universal_plane_regs.h
-> index 2222d0c760e8..0558d97614e1 100644
+> index 0ad14727e334..8ef9bd50d021 100644
 > --- a/drivers/gpu/drm/i915/display/skl_universal_plane_regs.h
 > +++ b/drivers/gpu/drm/i915/display/skl_universal_plane_regs.h
-> @@ -234,49 +234,38 @@
+> @@ -300,8 +300,8 @@
+>  	_MMIO_PLANE(plane, _PLANE_CSC_POSTOFF_HI_1(pipe) + (index) * 4, _PLANE_=
+CSC_POSTOFF_HI_2(pipe) + (index) * 4)
 >=20=20
->  #define _PLANE_CTL_1_B				0x71180
->  #define _PLANE_CTL_2_B				0x71280
-> -#define _PLANE_CTL_3_B				0x71380
->  #define _PLANE_CTL_1(pipe)	_PIPE(pipe, _PLANE_CTL_1_A, _PLANE_CTL_1_B)
->  #define _PLANE_CTL_2(pipe)	_PIPE(pipe, _PLANE_CTL_2_A, _PLANE_CTL_2_B)
-> -#define _PLANE_CTL_3(pipe)	_PIPE(pipe, _PLANE_CTL_3_A, _PLANE_CTL_3_B)
->  #define PLANE_CTL(pipe, plane)	\
->  	_MMIO_PLANE(plane, _PLANE_CTL_1(pipe), _PLANE_CTL_2(pipe))
->=20=20
->  #define _PLANE_STRIDE_1_B			0x71188
->  #define _PLANE_STRIDE_2_B			0x71288
-> -#define _PLANE_STRIDE_3_B			0x71388
->  #define _PLANE_STRIDE_1(pipe)	\
->  	_PIPE(pipe, _PLANE_STRIDE_1_A, _PLANE_STRIDE_1_B)
->  #define _PLANE_STRIDE_2(pipe)	\
->  	_PIPE(pipe, _PLANE_STRIDE_2_A, _PLANE_STRIDE_2_B)
-> -#define _PLANE_STRIDE_3(pipe)	\
-> -	_PIPE(pipe, _PLANE_STRIDE_3_A, _PLANE_STRIDE_3_B)
->  #define PLANE_STRIDE(pipe, plane)	\
->  	_MMIO_PLANE(plane, _PLANE_STRIDE_1(pipe), _PLANE_STRIDE_2(pipe))
->=20=20
->  #define _PLANE_POS_1_B				0x7118c
->  #define _PLANE_POS_2_B				0x7128c
-> -#define _PLANE_POS_3_B				0x7138c
->  #define _PLANE_POS_1(pipe)	_PIPE(pipe, _PLANE_POS_1_A, _PLANE_POS_1_B)
->  #define _PLANE_POS_2(pipe)	_PIPE(pipe, _PLANE_POS_2_A, _PLANE_POS_2_B)
-> -#define _PLANE_POS_3(pipe)	_PIPE(pipe, _PLANE_POS_3_A, _PLANE_POS_3_B)
->  #define PLANE_POS(pipe, plane)	\
->  	_MMIO_PLANE(plane, _PLANE_POS_1(pipe), _PLANE_POS_2(pipe))
->=20=20
->  #define _PLANE_SIZE_1_B				0x71190
->  #define _PLANE_SIZE_2_B				0x71290
-> -#define _PLANE_SIZE_3_B				0x71390
->  #define _PLANE_SIZE_1(pipe)	_PIPE(pipe, _PLANE_SIZE_1_A, _PLANE_SIZE_1_B)
->  #define _PLANE_SIZE_2(pipe)	_PIPE(pipe, _PLANE_SIZE_2_A, _PLANE_SIZE_2_B)
-> -#define _PLANE_SIZE_3(pipe)	_PIPE(pipe, _PLANE_SIZE_3_A, _PLANE_SIZE_3_B)
->  #define PLANE_SIZE(pipe, plane)	\
->  	_MMIO_PLANE(plane, _PLANE_SIZE_1(pipe), _PLANE_SIZE_2(pipe))
->=20=20
->  #define _PLANE_SURF_1_B				0x7119c
->  #define _PLANE_SURF_2_B				0x7129c
-> -#define _PLANE_SURF_3_B				0x7139c
->  #define _PLANE_SURF_1(pipe)	_PIPE(pipe, _PLANE_SURF_1_A, _PLANE_SURF_1_B)
->  #define _PLANE_SURF_2(pipe)	_PIPE(pipe, _PLANE_SURF_2_A, _PLANE_SURF_2_B)
-> -#define _PLANE_SURF_3(pipe)	_PIPE(pipe, _PLANE_SURF_3_A, _PLANE_SURF_3_B)
->  #define PLANE_SURF(pipe, plane)	\
->  	_MMIO_PLANE(plane, _PLANE_SURF_1(pipe), _PLANE_SURF_2(pipe))
->=20=20
-> @@ -351,7 +340,6 @@
->=20=20
->  #define _PLANE_COLOR_CTL_1_B			0x711CC
->  #define _PLANE_COLOR_CTL_2_B			0x712CC
-> -#define _PLANE_COLOR_CTL_3_B			0x713CC
->  #define _PLANE_COLOR_CTL_1(pipe)	\
->  	_PIPE(pipe, _PLANE_COLOR_CTL_1_A, _PLANE_COLOR_CTL_1_B)
->  #define _PLANE_COLOR_CTL_2(pipe)	\
+>  #define _PLANE_WM_1_A_0				0x70240
+> -#define   PLANE_WM_EN				(1 << 31)
+> -#define   PLANE_WM_IGNORE_LINES			(1 << 30)
+> +#define   PLANE_WM_EN				REG_BIT(31)
+> +#define   PLANE_WM_IGNORE_LINES			REG_BIT(30)
+>  #define   PLANE_WM_LINES_MASK			REG_GENMASK(26, 14)
+>  #define   PLANE_WM_BLOCKS_MASK			REG_GENMASK(11, 0)
+>  #define _PLANE_WM_1_B_0				0x71240
 
 --=20
 Jani Nikula, Intel
