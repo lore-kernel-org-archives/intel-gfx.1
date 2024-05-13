@@ -4,102 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 56936C25B75
-	for <intel-gfx@archiver.kernel.org>; Tue, 14 May 2024 14:03:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0BA55C04FFE
+	for <intel-gfx@archiver.kernel.org>; Tue, 14 May 2024 14:03:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 61D1910E92B;
-	Tue, 14 May 2024 14:03:41 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BAA8C10E8BC;
+	Tue, 14 May 2024 14:03:36 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=outlook.com header.i=@outlook.com header.b="o4DNDdcE";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="BBlPQbz3";
 	dkim-atps=neutral
-Received: from NAM12-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam12olkn2092.outbound.protection.outlook.com [40.92.23.92])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6E74210E7E6;
- Mon, 13 May 2024 14:36:01 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=U5XT2txjeD3zL/PxVykda5MpEWVeN06RoCIfruhaSdQzL0FWz5P7M/rZ5X/Q3sAQMvGG/EW8Ekw5Epz30ZHmLIKOgP0P50piI1/dqs9IDWrCi4uaAVQYijiSNLidwueaofum455/kJJRZ8wWDa/tr2pHscCLzGzbSLvr+CO+4R/PgGhoG6JSIhO8jiMqz/SirjR7qISBf1o8UJ3GGyt0bex9dwxFfCc9OoFhU+AFWQZqY5LU2DZOMKflzRhErdXU1xUwo08msaoAEHUbeGIw8ZFHH9eQ0huD7piV3Nn5XunyxsavlDIldSmB+DBOWVyoTJhg3bH6hHY3ZT4ar6KMKg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=io7tNMpbOIsc/Devg/AdRlyTB4Dnardyd+SX0B8fH0A=;
- b=cnHK4tO0oI9H/iwPPzEpV8qNsg9E/tRmmrNe1lcUtweofskOhg3bS9hTlQiuIhm5xdh0j/ebCIjao1pha6Eb2klIe4SIwJZiJu9St6WXKhdqFduboHTWPfTnzLkpY5z7IGhszDZSLKXormHo6IHiDePzs4qzfwhyvCrRIvHxN0IN22wcgHoEokWt9MIzriPq+BkFBIgcLnnr/dIqX0kgH6oEztjCrChtHmMWVYXk+d4bTxn61yxt1NFD2CvOJftjFy24euFzzmUDIe55lj82vw9nSrRmy555YmAH14Of05OguwLlxaIEfWOJ1mMVLgrh2bss0b+DvR6m0aLL2GVUDQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
- dkim=none; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=outlook.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=io7tNMpbOIsc/Devg/AdRlyTB4Dnardyd+SX0B8fH0A=;
- b=o4DNDdcE+yFuuLzLwKvZ33eeHB3qqYMW+LpuPS+Yo+s64WcLcUGM2R+OUgPqDzHUTY/uJNA93c7PM9BMw9XymBwfTbLfwy1mOcnwLbNRQKKgWe8cBzrr2DzNIBGcLmuPbsQadTFRaPw8VxNsSF/8+kz4h2uJgSOwD4JD9DHqvHzrGA0YgFSm61uhOsmO5wfX/Vez7zt5ALTYjeyZiPJncL65LVGFsnG+U5Qx+AP0lIwvf4qnSZx/iMLLxvQ6REfvwtNGEhTawgQcSb3PNkaKCOIWjqiZ11Xvw7CWLeWDwY0SjgbeDo7ejiNG5D7CuXmbelO6emd9q3BlNcIdJkbgXw==
-Received: from BYAPR03MB4168.namprd03.prod.outlook.com (2603:10b6:a03:78::23)
- by SJ0PR03MB6730.namprd03.prod.outlook.com (2603:10b6:a03:405::17)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7544.55; Mon, 13 May
- 2024 14:35:57 +0000
-Received: from BYAPR03MB4168.namprd03.prod.outlook.com
- ([fe80::b8b1:7fdc:95d4:238a]) by BYAPR03MB4168.namprd03.prod.outlook.com
- ([fe80::b8b1:7fdc:95d4:238a%6]) with mapi id 15.20.7544.052; Mon, 13 May 2024
- 14:35:56 +0000
-From: Jiasheng Jiang <jiashengjiangcool@outlook.com>
-To: nirmoy.das@linux.intel.com, jani.nikula@linux.intel.com,
- joonas.lahtinen@linux.intel.com, rodrigo.vivi@intel.com,
- tursulin@ursulin.net, airlied@gmail.com, daniel@ffwll.ch,
- chris@chris-wilson.co.uk
-Cc: intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org,
- Jiasheng Jiang <jiashengjiangcool@outlook.com>
-Subject: [PATCH v2] drm/i915: Fix memory leak by correcting cache object name
- in error handler
-Date: Mon, 13 May 2024 14:35:48 +0000
-Message-ID: <BYAPR03MB4168C6D020B750EAF8021731ADE22@BYAPR03MB4168.namprd03.prod.outlook.com>
-X-Mailer: git-send-email 2.25.1
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-TMN: [nbHuf0Huc2lUYpRMJ7Cv6aulzoshEwyI]
-X-ClientProxiedBy: CH3P220CA0016.NAMP220.PROD.OUTLOOK.COM
- (2603:10b6:610:1e8::10) To BYAPR03MB4168.namprd03.prod.outlook.com
- (2603:10b6:a03:78::23)
-X-Microsoft-Original-Message-ID: <20240513143548.2670-1-jiashengjiangcool@outlook.com>
+Received: from fanzine2.igalia.com (fanzine.igalia.com [178.60.130.6])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0CF7010E984
+ for <intel-gfx@lists.freedesktop.org>; Mon, 13 May 2024 21:01:32 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Content-Transfer-Encoding:MIME-Version:References:In-Reply-To:
+ Message-ID:Date:Subject:Cc:To:From:Sender:Reply-To:Content-Type:Content-ID:
+ Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
+ :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
+ List-Post:List-Owner:List-Archive;
+ bh=yI8F0jLFaYOFx45f7KBd7yvzrMCZyoBpk5AJJX0V7ro=; b=BBlPQbz3MzzaNOM9+InjpUAa9w
+ TMNSAvpEWm1AIcwkjEP5Fu9e+XCapkUaXCtoIc054FVwcAkxRlPuq/aVU8K+6weHHWvMOyiZYfpRx
+ fdZgNJ0GGcZmbPwcHiijPo8i+V6ZimHzaqbKpGNyv/Tn0XDm00ggvAwUC+1X9CjuXoY5iRwwZG9EZ
+ iZtyPQySKkg2FEF5jmG0tRKpWVXDMHp9m14EE0k1ZBeE9DILhP7HxRM3th05q46/ijb95wxmqU8xe
+ 4909Ww5Rglm000oAGyP3AZ4kM8sXBhB75AJ1oOPgoaXzmZW5kmVF0dRo3cGC2M9v5SkVlOlLX//x3
+ LVznBQmQ==;
+Received: from [84.69.19.168] (helo=localhost)
+ by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
+ id 1s6cna-007hS9-RR; Mon, 13 May 2024 23:01:30 +0200
+From: Tvrtko Ursulin <tursulin@igalia.com>
+To: intel-gfx@lists.freedesktop.org
+Cc: Tvrtko Ursulin <tvrtko.ursulin@intel.com>,
+ Lionel Landwerlin <lionel.g.landwerlin@intel.com>,
+ Carlos Santa <carlos.santa@intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, Tvrtko Ursulin <tursulin@igalia.com>
+Subject: [CI 2/2] drm/i915: Support replaying GPU hangs with captured context
+ image
+Date: Mon, 13 May 2024 22:01:01 +0100
+Message-ID: <20240513210101.75304-2-tursulin@igalia.com>
+X-Mailer: git-send-email 2.44.0
+In-Reply-To: <20240513210101.75304-1-tursulin@igalia.com>
+References: <20240513210101.75304-1-tursulin@igalia.com>
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BYAPR03MB4168:EE_|SJ0PR03MB6730:EE_
-X-MS-Office365-Filtering-Correlation-Id: 991093dc-59c7-459d-264d-08dc7359fff8
-X-Microsoft-Antispam: BCL:0;
- ARA:14566002|461199019|440099019|3412199016|3430499023|3420499023|1710799017; 
-X-Microsoft-Antispam-Message-Info: iHJaGdwxz6+ApXs0JqNOTpOL/vDcBTcavGHqrVxqYqAoFjr4XavK0InF37wo33fnKl2NAQfDJyBpq2adD4QcnOnMbD94VeNCX9K/uxON9HKp9jW4VQJGMbs7EIFRZPWowhuGgyJqxksnoMumYUchqjCiTIRoQG6vJg0c6dEWx3i2QLM/+8Rux4hSfhUX0F5TVt0Za69V93qCv+BECDjBgpsz6vd8EgTRbgiawZ3B4JOFxue0vwGz+17Jx3GrXEM5dhIl7ZqLNzUlpig/RMdjyb5l6ugEQw3h23C0VhDRi7tGOacjhXb9oL9TxGVa8NvNt9i24/ScHgGUQnWf/DTB1WI4h4sG/qzTKq7rYJLcUOGHH/cNTPieZz54KsKR8JXA4OsRrCuPBEh5hJ67L+0MGD0DRH+cfchiYB8Z4gjXcuYfIUQJ4LQq8E7RZIbcs+8ELS3iYO5A5CMlhuaYmUqpfzH5CkaqT48dP/GixtjZGAQDz3K2cd6PkwUqdzpOHnz0vjAuDaM2iWnvTA6Q3rTZm8pPTKB8Ags5+1prg9pfd+9G8jcWmfhE8bXv7g1mtSQZSPTJpHqZS7pBRTKsM15aj6+GCDyj63NNiFyxEv7ELMCNtldOzDbW6WI8ELsGTsbQ
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?iT2kMiF4xiUPXOrovIiDX3pRnwcrN9ThKtzc5GMMnrKxSXmWLEgbNTKrweJ4?=
- =?us-ascii?Q?MM6CP+gBa4My7SiBKouReeN9x8hJJuXefjL3QabyTKHEfwBSo2SrIcKdwKR2?=
- =?us-ascii?Q?z67S18TEzXWb7qujPYpHu3OPpjnQrvAzxE5iHkk61nrLPglpEOxRDUaUi9LP?=
- =?us-ascii?Q?zai3bac3d1G6IYhkBjwHWkkDJwLaHd5WfL0Gj5COdZT6p5br+Ysz+48hG8sr?=
- =?us-ascii?Q?jIUil28+5udzDFFmyyYfANT7mERF+txNyxSM6+8Ee+qHpCZMPwF+w+dqfPEA?=
- =?us-ascii?Q?n/LqhVJQ2wbUokpfTDWdyMq6oXLn51kt+KPPmZr0sAH1l320WlfMoWL46qba?=
- =?us-ascii?Q?q7+vvpwWwoBuNy4LLukaWHRSJJjpaFCQu5UFAKQeHBZGnK/XqR3nFymOVc0x?=
- =?us-ascii?Q?UJKv1isnrlx/p3+kCb4EcIQbNtiy9MGVixZrG/oHtNz8bKStv1KQUpCaGCK7?=
- =?us-ascii?Q?/E7QhNr6HsSvo0RM3uujOAb1H7Ri4fC7PlUdKKIuSbQ2vwMSc46TP6OQ9365?=
- =?us-ascii?Q?S61szPbons49PLWwqWGkSGht9UcHYQpk9xT8sTPj+L8+npwUCRwWCHjWLWUJ?=
- =?us-ascii?Q?KoxogVwvBTanzcM9x13BFybt9KQ5emA4xcPnZCUMdhATPKvXritgt3xkO3cJ?=
- =?us-ascii?Q?JNKS6htl+1TyBz9d4MjrhMz4iFG0bYvx3AI1kWLlapf0nMZ1rys8Nz2nwrCs?=
- =?us-ascii?Q?4Xv9nEYAKaQIL5OeOXIamI0YHmgYXSJc9F0js93Objlb4gqmePQ+5NCbEagJ?=
- =?us-ascii?Q?UwX1NE9DeycNg+4C/SkWSJmIF3uKWz5uQsj+xaDciypWlVWb9MRx/8HU4LQg?=
- =?us-ascii?Q?CcuvY8i00hSyJL+NEjKy1TMc0aYU8iuStbV/0K8JtdxtteJ910vilog45a/P?=
- =?us-ascii?Q?2kwMUDKqfEA+JKQvo0JZCjrLIamz99eNxvwvmu4C6T1tUrWZe6GeS8/uUl3k?=
- =?us-ascii?Q?5uMqelS3Fq4TcYAxgl1ETiGbRu+Bq0+HJgvNiC3+iW2bgfSLstz5Z/ZkdC7f?=
- =?us-ascii?Q?IHO+C0qcoH5eqPvjKSucURmfomJe2G8tIL5z2dv+oi8kPbnRIYJ8CMg71L32?=
- =?us-ascii?Q?ajOcC5Gpa0WuXwbGCBeu+SjCKj4g0AuJhkA7yKhgUjlyXcyHJIAUiRsADTpF?=
- =?us-ascii?Q?4bZc2gH5Q0tLypQsakR2hAM4svPy/Uq15Hw3ZeQkhy7JFRCsDMDTg++HWfBA?=
- =?us-ascii?Q?QwL6S4/KUJVP94zunQ0frfHopufr3Nwmmo98hLqPMtVNvA1Dld1TpczvlcYE?=
- =?us-ascii?Q?E5LF1ZRaxpGMe5DQBhYG?=
-X-OriginatorOrg: outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 991093dc-59c7-459d-264d-08dc7359fff8
-X-MS-Exchange-CrossTenant-AuthSource: BYAPR03MB4168.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 May 2024 14:35:56.5840 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
-X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg: 00000000-0000-0000-0000-000000000000
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR03MB6730
-X-Mailman-Approved-At: Tue, 14 May 2024 14:03:35 +0000
+Content-Transfer-Encoding: 8bit
+X-Mailman-Approved-At: Tue, 14 May 2024 14:03:34 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -115,33 +63,407 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Replace "slab_priorities" with "slab_dependencies" in the error handler
-to avoid memory leak.
+From: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
 
-Fixes: 32eb6bcfdda9 ("drm/i915: Make request allocation caches global")
-Signed-off-by: Jiasheng Jiang <jiashengjiangcool@outlook.com>
+When debugging GPU hangs Mesa developers are finding it useful to replay
+the captured error state against the simulator. But due various simulator
+limitations which prevent replicating all hangs, one step further is being
+able to replay against a real GPU.
+
+This is almost doable today with the missing part being able to upload the
+captured context image into the driver state prior to executing the
+uploaded hanging batch and all the buffers.
+
+To enable this last part we add a new context parameter called
+I915_CONTEXT_PARAM_CONTEXT_IMAGE. It follows the existing SSEU
+configuration pattern of being able to select which context to apply
+against, paired with the actual image and its size.
+
+Since this is adding a new concept of debug only uapi, we hide it behind
+a new kconfig option and also require activation with a module parameter.
+Together with a warning banner printed at driver load, all those combined
+should be sufficient to guard against inadvertently enabling the feature.
+
+In terms of implementation we allow the legacy context set param to be
+used since that removes the need to record the per context data in the
+proto context, while still allowing flexibility of specifying context
+images for any context.
+
+Mesa MR using the uapi can be seen at:
+  https://gitlab.freedesktop.org/mesa/mesa/-/merge_requests/27594
+
+v2:
+ * Fix whitespace alignment as per checkpatch.
+ * Added warning on userspace misuse.
+ * Rebase for extracting ce->default_state shadowing.
+
+Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
+Cc: Lionel Landwerlin <lionel.g.landwerlin@intel.com>
+Cc: Carlos Santa <carlos.santa@intel.com>
+Cc: Rodrigo Vivi <rodrigo.vivi@intel.com>
+Reviewed-by: Rodrigo Vivi <rodrigo.vivi@intel.com>
+Tested-by: Carlos Santa <carlos.santa@intel.com>
+Signed-off-by: Tvrtko Ursulin <tursulin@igalia.com>
 ---
-Changelog:
+ drivers/gpu/drm/i915/Kconfig.debug            |  17 +++
+ drivers/gpu/drm/i915/gem/i915_gem_context.c   | 113 ++++++++++++++++++
+ drivers/gpu/drm/i915/gt/intel_context.c       |   2 +
+ drivers/gpu/drm/i915/gt/intel_context.h       |  22 ++++
+ drivers/gpu/drm/i915/gt/intel_context_types.h |   1 +
+ drivers/gpu/drm/i915/gt/intel_lrc.c           |   3 +-
+ .../gpu/drm/i915/gt/intel_ring_submission.c   |   3 +-
+ drivers/gpu/drm/i915/i915_params.c            |   5 +
+ drivers/gpu/drm/i915/i915_params.h            |   3 +-
+ include/uapi/drm/i915_drm.h                   |  27 +++++
+ 10 files changed, 193 insertions(+), 3 deletions(-)
 
-v1 -> v2:
-
-1. Alter the subject.
----
- drivers/gpu/drm/i915/i915_scheduler.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/drivers/gpu/drm/i915/i915_scheduler.c b/drivers/gpu/drm/i915/i915_scheduler.c
-index 762127dd56c5..70a854557e6e 100644
---- a/drivers/gpu/drm/i915/i915_scheduler.c
-+++ b/drivers/gpu/drm/i915/i915_scheduler.c
-@@ -506,6 +506,6 @@ int __init i915_scheduler_module_init(void)
- 	return 0;
+diff --git a/drivers/gpu/drm/i915/Kconfig.debug b/drivers/gpu/drm/i915/Kconfig.debug
+index d8397065c3f0..1852e0804942 100644
+--- a/drivers/gpu/drm/i915/Kconfig.debug
++++ b/drivers/gpu/drm/i915/Kconfig.debug
+@@ -16,6 +16,23 @@ config DRM_I915_WERROR
  
- err_priorities:
--	kmem_cache_destroy(slab_priorities);
-+	kmem_cache_destroy(slab_dependencies);
- 	return -ENOMEM;
+ 	  If in doubt, say "N".
+ 
++config DRM_I915_REPLAY_GPU_HANGS_API
++	bool "Enable GPU hang replay userspace API"
++	depends on DRM_I915
++	depends on EXPERT
++	default n
++	help
++	  Choose this option if you want to enable special and unstable
++	  userspace API used for replaying GPU hangs on a running system.
++
++	  This API is intended to be used by userspace graphics stack developers
++	  and provides no stability guarantees.
++
++	  The API needs to be activated at boot time using the
++	  enable_debug_only_api module parameter.
++
++	  If in doubt, say "N".
++
+ config DRM_I915_DEBUG
+ 	bool "Enable additional driver debugging"
+ 	depends on DRM_I915
+diff --git a/drivers/gpu/drm/i915/gem/i915_gem_context.c b/drivers/gpu/drm/i915/gem/i915_gem_context.c
+index 81f65cab1330..c0543c35cd6a 100644
+--- a/drivers/gpu/drm/i915/gem/i915_gem_context.c
++++ b/drivers/gpu/drm/i915/gem/i915_gem_context.c
+@@ -78,6 +78,7 @@
+ #include "gt/intel_engine_user.h"
+ #include "gt/intel_gpu_commands.h"
+ #include "gt/intel_ring.h"
++#include "gt/shmem_utils.h"
+ 
+ #include "pxp/intel_pxp.h"
+ 
+@@ -957,6 +958,7 @@ static int set_proto_ctx_param(struct drm_i915_file_private *fpriv,
+ 	case I915_CONTEXT_PARAM_NO_ZEROMAP:
+ 	case I915_CONTEXT_PARAM_BAN_PERIOD:
+ 	case I915_CONTEXT_PARAM_RINGSIZE:
++	case I915_CONTEXT_PARAM_CONTEXT_IMAGE:
+ 	default:
+ 		ret = -EINVAL;
+ 		break;
+@@ -2104,6 +2106,95 @@ static int get_protected(struct i915_gem_context *ctx,
+ 	return 0;
  }
+ 
++static int set_context_image(struct i915_gem_context *ctx,
++			     struct drm_i915_gem_context_param *args)
++{
++	struct i915_gem_context_param_context_image user;
++	struct intel_context *ce;
++	struct file *shmem_state;
++	unsigned long lookup;
++	void *state;
++	int ret = 0;
++
++	if (!IS_ENABLED(CONFIG_DRM_I915_REPLAY_GPU_HANGS_API))
++		return -EINVAL;
++
++	if (!ctx->i915->params.enable_debug_only_api)
++		return -EINVAL;
++
++	if (args->size < sizeof(user))
++		return -EINVAL;
++
++	if (copy_from_user(&user, u64_to_user_ptr(args->value), sizeof(user)))
++		return -EFAULT;
++
++	if (user.mbz)
++		return -EINVAL;
++
++	if (user.flags & ~(I915_CONTEXT_IMAGE_FLAG_ENGINE_INDEX))
++		return -EINVAL;
++
++	lookup = 0;
++	if (user.flags & I915_CONTEXT_IMAGE_FLAG_ENGINE_INDEX)
++		lookup |= LOOKUP_USER_INDEX;
++
++	ce = lookup_user_engine(ctx, lookup, &user.engine);
++	if (IS_ERR(ce))
++		return PTR_ERR(ce);
++
++	if (user.size < ce->engine->context_size) {
++		ret = -EINVAL;
++		goto out_ce;
++	}
++
++	if (drm_WARN_ON_ONCE(&ctx->i915->drm,
++			     test_bit(CONTEXT_ALLOC_BIT, &ce->flags))) {
++		/*
++		 * This is racy but for a debug only API, if userspace is keen
++		 * to create and configure contexts, while simultaneously using
++		 * them from a second thread, let them suffer by potentially not
++		 * executing with the context image they just raced to apply.
++		 */
++		ret = -EBUSY;
++		goto out_ce;
++	}
++
++	state = kmalloc(ce->engine->context_size, GFP_KERNEL);
++	if (!state) {
++		ret = -ENOMEM;
++		goto out_ce;
++	}
++
++	if (copy_from_user(state, u64_to_user_ptr(user.image),
++			   ce->engine->context_size)) {
++		ret = -EFAULT;
++		goto out_state;
++	}
++
++	shmem_state = shmem_create_from_data(ce->engine->name,
++					     state, ce->engine->context_size);
++	if (IS_ERR(shmem_state)) {
++		ret = PTR_ERR(shmem_state);
++		goto out_state;
++	}
++
++	if (intel_context_set_own_state(ce)) {
++		ret = -EBUSY;
++		fput(shmem_state);
++		goto out_state;
++	}
++
++	ce->default_state = shmem_state;
++
++	args->size = sizeof(user);
++
++out_state:
++	kfree(state);
++out_ce:
++	intel_context_put(ce);
++	return ret;
++}
++
+ static int ctx_setparam(struct drm_i915_file_private *fpriv,
+ 			struct i915_gem_context *ctx,
+ 			struct drm_i915_gem_context_param *args)
+@@ -2156,6 +2247,10 @@ static int ctx_setparam(struct drm_i915_file_private *fpriv,
+ 		ret = set_persistence(ctx, args);
+ 		break;
+ 
++	case I915_CONTEXT_PARAM_CONTEXT_IMAGE:
++		ret = set_context_image(ctx, args);
++		break;
++
+ 	case I915_CONTEXT_PARAM_PROTECTED_CONTENT:
+ 	case I915_CONTEXT_PARAM_NO_ZEROMAP:
+ 	case I915_CONTEXT_PARAM_BAN_PERIOD:
+@@ -2500,6 +2595,7 @@ int i915_gem_context_getparam_ioctl(struct drm_device *dev, void *data,
+ 	case I915_CONTEXT_PARAM_BAN_PERIOD:
+ 	case I915_CONTEXT_PARAM_ENGINES:
+ 	case I915_CONTEXT_PARAM_RINGSIZE:
++	case I915_CONTEXT_PARAM_CONTEXT_IMAGE:
+ 	default:
+ 		ret = -EINVAL;
+ 		break;
+@@ -2612,5 +2708,22 @@ int __init i915_gem_context_module_init(void)
+ 	if (!slab_luts)
+ 		return -ENOMEM;
+ 
++	if (IS_ENABLED(CONFIG_DRM_I915_REPLAY_GPU_HANGS_API)) {
++		pr_notice("**************************************************************\n");
++		pr_notice("**     NOTICE NOTICE NOTICE NOTICE NOTICE NOTICE NOTICE     **\n");
++		pr_notice("**                                                          **\n");
++		if (i915_modparams.enable_debug_only_api)
++			pr_notice("** i915.enable_debug_only_api is intended to be set         **\n");
++		else
++			pr_notice("** CONFIG_DRM_I915_REPLAY_GPU_HANGS_API builds are intended **\n");
++		pr_notice("** for specific userspace graphics stack developers only!   **\n");
++		pr_notice("**                                                          **\n");
++		pr_notice("** If you are seeing this message please report this to the **\n");
++		pr_notice("** provider of your kernel build.                           **\n");
++		pr_notice("**                                                          **\n");
++		pr_notice("**     NOTICE NOTICE NOTICE NOTICE NOTICE NOTICE NOTICE     **\n");
++		pr_notice("**************************************************************\n");
++	}
++
+ 	return 0;
+ }
+diff --git a/drivers/gpu/drm/i915/gt/intel_context.c b/drivers/gpu/drm/i915/gt/intel_context.c
+index a2f1245741bb..b1b8695ba7c9 100644
+--- a/drivers/gpu/drm/i915/gt/intel_context.c
++++ b/drivers/gpu/drm/i915/gt/intel_context.c
+@@ -27,6 +27,8 @@ static void rcu_context_free(struct rcu_head *rcu)
+ 	struct intel_context *ce = container_of(rcu, typeof(*ce), rcu);
+ 
+ 	trace_intel_context_free(ce);
++	if (intel_context_has_own_state(ce))
++		fput(ce->default_state);
+ 	kmem_cache_free(slab_ce, ce);
+ }
+ 
+diff --git a/drivers/gpu/drm/i915/gt/intel_context.h b/drivers/gpu/drm/i915/gt/intel_context.h
+index 25564c01507e..9f523999acd1 100644
+--- a/drivers/gpu/drm/i915/gt/intel_context.h
++++ b/drivers/gpu/drm/i915/gt/intel_context.h
+@@ -375,6 +375,28 @@ intel_context_clear_nopreempt(struct intel_context *ce)
+ 	clear_bit(CONTEXT_NOPREEMPT, &ce->flags);
+ }
+ 
++#if IS_ENABLED(CONFIG_DRM_I915_REPLAY_GPU_HANGS_API)
++static inline bool intel_context_has_own_state(const struct intel_context *ce)
++{
++	return test_bit(CONTEXT_OWN_STATE, &ce->flags);
++}
++
++static inline bool intel_context_set_own_state(struct intel_context *ce)
++{
++	return test_and_set_bit(CONTEXT_OWN_STATE, &ce->flags);
++}
++#else
++static inline bool intel_context_has_own_state(const struct intel_context *ce)
++{
++	return false;
++}
++
++static inline bool intel_context_set_own_state(struct intel_context *ce)
++{
++	return true;
++}
++#endif
++
+ u64 intel_context_get_total_runtime_ns(struct intel_context *ce);
+ u64 intel_context_get_avg_runtime_ns(struct intel_context *ce);
+ 
+diff --git a/drivers/gpu/drm/i915/gt/intel_context_types.h b/drivers/gpu/drm/i915/gt/intel_context_types.h
+index 6ae8abfeccdb..98c7f6052069 100644
+--- a/drivers/gpu/drm/i915/gt/intel_context_types.h
++++ b/drivers/gpu/drm/i915/gt/intel_context_types.h
+@@ -133,6 +133,7 @@ struct intel_context {
+ #define CONTEXT_IS_PARKING		12
+ #define CONTEXT_EXITING			13
+ #define CONTEXT_LOW_LATENCY		14
++#define CONTEXT_OWN_STATE		15
+ 
+ 	struct {
+ 		u64 timeout_us;
+diff --git a/drivers/gpu/drm/i915/gt/intel_lrc.c b/drivers/gpu/drm/i915/gt/intel_lrc.c
+index d4ffb352403c..7bd5d2c29056 100644
+--- a/drivers/gpu/drm/i915/gt/intel_lrc.c
++++ b/drivers/gpu/drm/i915/gt/intel_lrc.c
+@@ -1130,7 +1130,8 @@ int lrc_alloc(struct intel_context *ce, struct intel_engine_cs *engine)
+ 
+ 	GEM_BUG_ON(ce->state);
+ 
+-	ce->default_state = engine->default_state;
++	if (!intel_context_has_own_state(ce))
++		ce->default_state = engine->default_state;
+ 
+ 	vma = __lrc_alloc_state(ce, engine);
+ 	if (IS_ERR(vma))
+diff --git a/drivers/gpu/drm/i915/gt/intel_ring_submission.c b/drivers/gpu/drm/i915/gt/intel_ring_submission.c
+index 8625e88e785f..72277bc8322e 100644
+--- a/drivers/gpu/drm/i915/gt/intel_ring_submission.c
++++ b/drivers/gpu/drm/i915/gt/intel_ring_submission.c
+@@ -569,7 +569,8 @@ static int ring_context_alloc(struct intel_context *ce)
+ {
+ 	struct intel_engine_cs *engine = ce->engine;
+ 
+-	ce->default_state = engine->default_state;
++	if (!intel_context_has_own_state(ce))
++		ce->default_state = engine->default_state;
+ 
+ 	/* One ringbuffer to rule them all */
+ 	GEM_BUG_ON(!engine->legacy.ring);
+diff --git a/drivers/gpu/drm/i915/i915_params.c b/drivers/gpu/drm/i915/i915_params.c
+index 8c00169e3ab7..316e55f3e87b 100644
+--- a/drivers/gpu/drm/i915/i915_params.c
++++ b/drivers/gpu/drm/i915/i915_params.c
+@@ -131,6 +131,11 @@ i915_param_named_unsafe(lmem_size, uint, 0400,
+ i915_param_named_unsafe(lmem_bar_size, uint, 0400,
+ 			"Set the lmem bar size(in MiB).");
+ 
++#if IS_ENABLED(CONFIG_DRM_I915_REPLAY_GPU_HANGS_API)
++i915_param_named(enable_debug_only_api, bool, 0400,
++		 "Enable support for unstable debug only userspace API. (default:false)");
++#endif
++
+ static void _param_print_bool(struct drm_printer *p, const char *name,
+ 			      bool val)
+ {
+diff --git a/drivers/gpu/drm/i915/i915_params.h b/drivers/gpu/drm/i915/i915_params.h
+index 2eb3f2115ff2..0fbcb5b6d7bf 100644
+--- a/drivers/gpu/drm/i915/i915_params.h
++++ b/drivers/gpu/drm/i915/i915_params.h
+@@ -63,7 +63,8 @@ struct drm_printer;
+ 	/* leave bools at the end to not create holes */ \
+ 	param(bool, enable_hangcheck, true, 0600) \
+ 	param(bool, error_capture, true, IS_ENABLED(CONFIG_DRM_I915_CAPTURE_ERROR) ? 0600 : 0) \
+-	param(bool, enable_gvt, false, IS_ENABLED(CONFIG_DRM_I915_GVT) ? 0400 : 0)
++	param(bool, enable_gvt, false, IS_ENABLED(CONFIG_DRM_I915_GVT) ? 0400 : 0) \
++	param(bool, enable_debug_only_api, false, IS_ENABLED(CONFIG_DRM_I915_REPLAY_GPU_HANGS_API) ? 0400 : 0)
+ 
+ #define MEMBER(T, member, ...) T member;
+ struct i915_params {
+diff --git a/include/uapi/drm/i915_drm.h b/include/uapi/drm/i915_drm.h
+index d4d86e566e07..0dcaf766cc04 100644
+--- a/include/uapi/drm/i915_drm.h
++++ b/include/uapi/drm/i915_drm.h
+@@ -2169,6 +2169,15 @@ struct drm_i915_gem_context_param {
+ 	__u64 value;
+ };
+ 
++/*
++ * I915_CONTEXT_PARAM_CONTEXT_IMAGE:
++ *
++ * Allows userspace to provide own context images.
++ *
++ * Note that this is a debug API not available on production kernel builds.
++ */
++#define I915_CONTEXT_PARAM_CONTEXT_IMAGE	0xe
++
+ /*
+  * Context SSEU programming
+  *
+@@ -2564,6 +2573,24 @@ struct i915_context_param_engines {
+ 	struct i915_engine_class_instance engines[N__]; \
+ } __attribute__((packed)) name__
+ 
++struct i915_gem_context_param_context_image {
++	/** @engine: Engine class & instance to be configured. */
++	struct i915_engine_class_instance engine;
++
++	/** @flags: One of the supported flags or zero. */
++	__u32 flags;
++#define I915_CONTEXT_IMAGE_FLAG_ENGINE_INDEX (1u << 0)
++
++	/** @size: Size of the image blob pointed to by @image. */
++	__u32 size;
++
++	/** @mbz: Must be zero. */
++	__u32 mbz;
++
++	/** @image: Userspace memory containing the context image. */
++	__u64 image;
++} __attribute__((packed));
++
+ /**
+  * struct drm_i915_gem_context_create_ext_setparam - Context parameter
+  * to set or query during context creation.
 -- 
-2.25.1
+2.44.0
 
