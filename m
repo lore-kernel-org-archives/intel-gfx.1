@@ -4,49 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A8ACBC25B75
-	for <intel-gfx@archiver.kernel.org>; Tue, 14 May 2024 19:14:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F3847C04FFE
+	for <intel-gfx@archiver.kernel.org>; Tue, 14 May 2024 19:14:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 22AEE10E8FB;
-	Tue, 14 May 2024 19:14:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3617E10E9A9;
+	Tue, 14 May 2024 19:14:30 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="iZ4qESGq";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="OfQhsvLd";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.12])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4EE4810E816
- for <intel-gfx@lists.freedesktop.org>; Tue, 14 May 2024 19:14:28 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A1F8810E859
+ for <intel-gfx@lists.freedesktop.org>; Tue, 14 May 2024 19:14:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1715714068; x=1747250068;
+ t=1715714065; x=1747250065;
  h=from:to:subject:date:message-id:in-reply-to:references:
  mime-version:content-transfer-encoding;
- bh=eSRMWlLhhY9GjAynN+Gi/fiL/nyRS/JKidjqsh1Akrw=;
- b=iZ4qESGqAhmTBtR9iBtcLnYo97jF1HrWBc95fMsI1wTD8Llz1GZWHdxp
- m9jmibLYXdQxloNdbCRLl5gD+BhHhPzWcXEfr7NzeHhQ1bNgaWDcOVIqy
- 9ZjcgItqrm5yiNxWO4qRWlDSFuVh/DsdDJ2tc1pKS6lS7sFCwHk1YAlvL
- eaXHmONpU+jrE/3reprTYpF/NXIQNlI+Ivo5bv+2jvsIarZ9nnnR/dZh/
- fXmvKzMmLTu1YbBbfZdX+00rPt8NqI+PHc9/Xk26TTjASy9NP+raqTqwm
- nUKoXE6BGPNyhD3YSuXv+9L0fpx0yuj2w2bjDzy+QOOTBIz9/DfjEjkch w==;
-X-CSE-ConnectionGUID: X/IEoUNyTd2f7nH0OXe7Rg==
-X-CSE-MsgGUID: j71yK94TTJqB3DJkJdfcew==
-X-IronPort-AV: E=McAfee;i="6600,9927,11073"; a="23124996"
-X-IronPort-AV: E=Sophos;i="6.08,159,1712646000"; d="scan'208";a="23124996"
+ bh=SZZN/rF77InupC9zlToJN3pi5cyChzRs0RHeLYNkIWs=;
+ b=OfQhsvLdsdrXYAaBre/uCb7Gxo13xyZfTUP1KHxa3l0n3PR/khC/PKAL
+ J2akFBJt+A2e5dnBh7Rg/oFLgXN0nXgqC9qhiXVY1Zd+ArfuIsJIRj34I
+ FwIB4EUfbExTn7E4EFaW65kWqrTHmyEOa42Kjm80gJxZ9yc2CqVXi40Lu
+ 0cLX3g/dUEs0uK/QorUshkmrZREfdgXLttDcGm59bSFw2o5IpUrxn8JL4
+ peW3S/SaeSwi40SL25ZXZKNgQXOkqMy+d6m53Bc8Xqsgrrg3NfbAlLL9D
+ +gLAO5us/7H+3Sup17qZxYTP6/TT+YOpTGUPWjfsbdNQGq9roLgSZ0BSu w==;
+X-CSE-ConnectionGUID: 49JPvhrcTkuY3cBumPRv0w==
+X-CSE-MsgGUID: gdYflm6jSqe57xAbyjeSZg==
+X-IronPort-AV: E=McAfee;i="6600,9927,11073"; a="23124991"
+X-IronPort-AV: E=Sophos;i="6.08,159,1712646000"; d="scan'208";a="23124991"
 Received: from fmviesa007.fm.intel.com ([10.60.135.147])
  by orvoesa104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 14 May 2024 12:14:28 -0700
-X-CSE-ConnectionGUID: uiBoxndsQsi4oIgB7d1ZhQ==
-X-CSE-MsgGUID: mRHPl1a6QPiCMFKJOrBFIA==
+ 14 May 2024 12:14:25 -0700
+X-CSE-ConnectionGUID: OW7zReJKTjO0hMCMMttFDg==
+X-CSE-MsgGUID: j83H1b4SRyubcbbmFwcLHw==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.08,159,1712646000"; d="scan'208";a="30724624"
+X-IronPort-AV: E=Sophos;i="6.08,159,1712646000"; d="scan'208";a="30724613"
 Received: from ideak-desk.fi.intel.com ([10.237.72.78])
  by fmviesa007-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 14 May 2024 12:14:27 -0700
+ 14 May 2024 12:14:23 -0700
 From: Imre Deak <imre.deak@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Subject: [PATCH 13/20] drm/i915/dp: Use check link state work in the HPD IRQ
- handler
-Date: Tue, 14 May 2024 22:14:11 +0300
-Message-ID: <20240514191418.2863344-14-imre.deak@intel.com>
+Subject: [PATCH 09/20] drm/i915/dp: Remove the modeset retry event's dependece
+ on atomic state
+Date: Tue, 14 May 2024 22:14:07 +0300
+Message-ID: <20240514191418.2863344-10-imre.deak@intel.com>
 X-Mailer: git-send-email 2.43.3
 In-Reply-To: <20240514191418.2863344-1-imre.deak@intel.com>
 References: <20240514191418.2863344-1-imre.deak@intel.com>
@@ -67,42 +67,102 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Simplify things by retraining a DP link if a bad link is detected in the
-HPD IRQ handler from the encoder's check link state work, similarly to
-how this is done after a modeset link training failure.
+When notifying userspace to retry a modeset, the notified connectors are
+not really specific to those contained in the atomic state. For MST,
+where this makes a difference, all enabled connectors in the same MST
+topology should be notified which is guaranteed by the commit adding all
+these connectors to the atomic state. Instead of relying on this we can
+notify all the relevant connectors based on their (root) encoder. Using
+intel_dp_has_connector() simplifies the SST case as well.
+
+This prepares for a later patch sending a notification during link
+training, to which the atomic state is not passed down.
 
 Signed-off-by: Imre Deak <imre.deak@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_dp.c | 9 +++++----
- 1 file changed, 5 insertions(+), 4 deletions(-)
+ drivers/gpu/drm/i915/display/intel_dp.c       | 29 ++++++++++---------
+ drivers/gpu/drm/i915/display/intel_dp.h       |  5 +---
+ .../gpu/drm/i915/display/intel_dp_tunnel.c    |  2 +-
+ 3 files changed, 17 insertions(+), 19 deletions(-)
 
 diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
-index a41a63b8ae5f0..e5bd2bbcc8d89 100644
+index da56a2b7fa0f8..6969d35b6bb0a 100644
 --- a/drivers/gpu/drm/i915/display/intel_dp.c
 +++ b/drivers/gpu/drm/i915/display/intel_dp.c
-@@ -4996,7 +4996,10 @@ intel_dp_check_mst_status(struct intel_dp *intel_dp)
- 			drm_dp_mst_hpd_irq_send_new_request(&intel_dp->mst_mgr);
- 	}
- 
--	return link_ok && !reprobe_needed;
-+	if (!link_ok)
-+		intel_dp_queue_link_check(intel_dp, 0);
-+
-+	return !reprobe_needed;
+@@ -2800,29 +2800,30 @@ void intel_dp_queue_modeset_retry_work(struct intel_connector *connector)
+ 		drm_connector_put(&connector->base);
  }
  
- static void
-@@ -5472,9 +5475,7 @@ intel_dp_short_pulse(struct intel_dp *intel_dp)
- 	/* Handle CEC interrupts, if any */
- 	drm_dp_cec_irq(&intel_dp->aux);
+-void
+-intel_dp_queue_modeset_retry_for_link(struct intel_atomic_state *state,
+-				      struct intel_encoder *encoder,
+-				      const struct intel_crtc_state *crtc_state)
++static bool intel_dp_has_connector(struct intel_dp *intel_dp,
++				   const struct drm_connector_state *conn_state);
++
++void intel_dp_queue_modeset_retry_for_link(struct intel_encoder *encoder)
+ {
++	struct drm_i915_private *i915 = to_i915(encoder->base.dev);
++	struct drm_connector_list_iter conn_iter;
+ 	struct intel_connector *connector;
+-	struct intel_digital_connector_state *conn_state;
+ 	struct intel_dp *intel_dp = enc_to_intel_dp(encoder);
+-	int i;
  
--	/* defer to the hotplug work for link retraining if needed */
--	if (intel_dp_needs_link_retrain(intel_dp))
--		return false;
-+	intel_dp_check_link_state(intel_dp);
+-	if (!intel_crtc_has_type(crtc_state, INTEL_OUTPUT_DP_MST)) {
+-		intel_dp_queue_modeset_retry_work(intel_dp->attached_connector);
++	drm_connector_list_iter_begin(&i915->drm, &conn_iter);
++	for_each_intel_connector_iter(connector, &conn_iter) {
++		struct drm_connector_state *conn_state =
++			connector->base.state;
  
- 	intel_psr_short_pulse(intel_dp);
+-		return;
+-	}
++		if (!intel_dp_has_connector(intel_dp, conn_state))
++			continue;
  
+-	for_each_new_intel_connector_in_state(state, connector, conn_state, i) {
+-		if (!conn_state->base.crtc)
++		if (!conn_state->crtc)
+ 			continue;
+ 
+-		if (connector->mst_port == intel_dp)
+-			intel_dp_queue_modeset_retry_work(connector);
++		intel_dp_queue_modeset_retry_work(connector);
+ 	}
++	drm_connector_list_iter_end(&conn_iter);
+ }
+ 
+ int
+diff --git a/drivers/gpu/drm/i915/display/intel_dp.h b/drivers/gpu/drm/i915/display/intel_dp.h
+index 6a1f2a2856998..05016e13fb944 100644
+--- a/drivers/gpu/drm/i915/display/intel_dp.h
++++ b/drivers/gpu/drm/i915/display/intel_dp.h
+@@ -45,10 +45,7 @@ bool intel_dp_limited_color_range(const struct intel_crtc_state *crtc_state,
+ int intel_dp_min_bpp(enum intel_output_format output_format);
+ void intel_dp_init_modeset_retry_work(struct intel_connector *connector);
+ void intel_dp_queue_modeset_retry_work(struct intel_connector *connector);
+-void
+-intel_dp_queue_modeset_retry_for_link(struct intel_atomic_state *state,
+-				      struct intel_encoder *encoder,
+-				      const struct intel_crtc_state *crtc_state);
++void intel_dp_queue_modeset_retry_for_link(struct intel_encoder *encoder);
+ bool intel_dp_init_connector(struct intel_digital_port *dig_port,
+ 			     struct intel_connector *intel_connector);
+ void intel_dp_connector_sync_state(struct intel_connector *connector,
+diff --git a/drivers/gpu/drm/i915/display/intel_dp_tunnel.c b/drivers/gpu/drm/i915/display/intel_dp_tunnel.c
+index 6503abdc2b988..34a00b2a40e36 100644
+--- a/drivers/gpu/drm/i915/display/intel_dp_tunnel.c
++++ b/drivers/gpu/drm/i915/display/intel_dp_tunnel.c
+@@ -722,7 +722,7 @@ static void queue_retry_work(struct intel_atomic_state *state,
+ 		    encoder->base.base.id,
+ 		    encoder->base.name);
+ 
+-	intel_dp_queue_modeset_retry_for_link(state, encoder, crtc_state);
++	intel_dp_queue_modeset_retry_for_link(encoder);
+ }
+ 
+ static void atomic_increase_bw(struct intel_atomic_state *state)
 -- 
 2.43.3
 
