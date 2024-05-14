@@ -4,53 +4,59 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C977EC04FFE
-	for <intel-gfx@archiver.kernel.org>; Tue, 14 May 2024 13:47:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 98093C25B75
+	for <intel-gfx@archiver.kernel.org>; Tue, 14 May 2024 14:03:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 352B410E7AF;
-	Tue, 14 May 2024 13:47:45 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 16A8310E788;
+	Tue, 14 May 2024 14:03:36 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="R81A86YS";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="MguecVbz";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.18])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 074F810EA14
- for <intel-gfx@lists.freedesktop.org>; Tue, 14 May 2024 13:47:43 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1715694464; x=1747230464;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=mvyUEijiR99KfwWicKjMasJ+7OQ3qOx+OjxpZqVAuEY=;
- b=R81A86YSJc2B+Y5Un2cMvTxC+CGfNuES6/gih5sNrz35P3BOw8yppYft
- KU7owUs1BITIZEWLAvExDKBMJcXADqKx97qB240XxTEAba5zSidknAj8q
- s4WXjpSmr6rsGmVWxp3EsQdt370nhvXaI6taXJw2cjNrVgDME4X/Q63/N
- /cuLRMt6x+yOCqDeCprh1ZbXpBLihQiddrQvGPuxI+leLfAjN1W+4O56H
- 5tjtpCbM1OlBIYwWchD7K6F/hf1+13zv0XxsfNzvqobBlHJa0B1arcJGG
- /jcE9Yw9552scAWtv6/V6949+GU6fO4wrkdYLt+WmIuvWQ4S9smdZdgRM Q==;
-X-CSE-ConnectionGUID: 9iPgvsAHRVG/t0Z/nln8Ug==
-X-CSE-MsgGUID: JSjtUIqmSPOzGK85klO+gg==
-X-IronPort-AV: E=McAfee;i="6600,9927,11073"; a="11497662"
-X-IronPort-AV: E=Sophos;i="6.08,159,1712646000"; d="scan'208";a="11497662"
-Received: from fmviesa001.fm.intel.com ([10.60.135.141])
- by fmvoesa112.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 14 May 2024 06:47:44 -0700
-X-CSE-ConnectionGUID: YaBR1+yYSOaOzw6rdzWNpA==
-X-CSE-MsgGUID: WyEYoHnOS+yaH5ZsWnNCYA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.08,159,1712646000"; d="scan'208";a="61863563"
-Received: from srr4-3-linux-101-amanna.iind.intel.com ([10.223.74.76])
- by fmviesa001.fm.intel.com with ESMTP; 14 May 2024 06:47:41 -0700
-From: Animesh Manna <animesh.manna@intel.com>
-To: intel-gfx@lists.freedesktop.org
-Cc: jani.nikula@intel.com, ville.syrjala@linux.intel.com,
- jouni.hogander@intel.com, arun.r.murthy@intel.com,
- Animesh Manna <animesh.manna@intel.com>
-Subject: [PATCH v5] drm/i915/panelreplay: Panel replay workaround with VRR
-Date: Tue, 14 May 2024 19:01:43 +0530
-Message-Id: <20240514133143.718389-1-animesh.manna@intel.com>
-X-Mailer: git-send-email 2.29.0
+Received: from mail-pj1-f50.google.com (mail-pj1-f50.google.com
+ [209.85.216.50])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1540010E25D
+ for <intel-gfx@lists.freedesktop.org>; Tue, 14 May 2024 06:39:19 +0000 (UTC)
+Received: by mail-pj1-f50.google.com with SMTP id
+ 98e67ed59e1d1-2b239b5fedaso4060171a91.0
+ for <intel-gfx@lists.freedesktop.org>; Mon, 13 May 2024 23:39:19 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1715668759; x=1716273559; darn=lists.freedesktop.org;
+ h=to:subject:message-id:date:from:mime-version:from:to:cc:subject
+ :date:message-id:reply-to;
+ bh=hOibIN2xitJmQsGGKgpZTUMu3F5H6Nz4kThmUrUT8Pg=;
+ b=MguecVbz4biDa0TwQAsv9xwqPyQzojBAAZm7bMLmnl7gyHW9eT2LEi0VFD6cpZn/5t
+ X7d20+Mr4L3gzUT53D12FF95CZex4jYYqZhjQRj9xVvaexU/VHgcSrOaPLeTTKY82zWf
+ mTddNQk6MnJFE/Ex/aG+plPjyVQWDflUvgnTGCIcDK7f8xEHIqz6z8ZXLbsarBJzaRom
+ +Y3vYUTdM7xNH6aSBVV2jKQsgIzgm8oo/CD6F322xa5n66FooTIjzudgVTQGnDgtJ1Z/
+ xbJq/aJBGJSPNCiYdRRixNhtP+8E6HdDb1x738o/42krRyz98p3uSAuwDuNz6fL7AeSu
+ rhdQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1715668759; x=1716273559;
+ h=to:subject:message-id:date:from:mime-version:x-gm-message-state
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=hOibIN2xitJmQsGGKgpZTUMu3F5H6Nz4kThmUrUT8Pg=;
+ b=ZgnMxpk4ryBnDrcYwKdZxnWfZN3iZA+7dbZszT8egzze/6eNpZkMOnCW0XLBVTBdaw
+ +XO7PdyG+ggsBUSt382dSApJx0K5wroxG4fSWV9CiQzLZbVzHLxeI1fuIANsEutbqoym
+ wSQlJGDIJkR3x4zHoHaQCXwqGukNQ8Leh40TZh0nA10zxKeuSIncPsypbxfVb6WYqWyA
+ RbYHvzlwLDmtt8iqcfr49slM8J9/yybukT8Xf0wMGHeMZHnT7fHlMGz/AuUbXXO3Kr6D
+ q9RYa6mvN/oQRxhMNSJ293RBBHgvUJS72W5n9lereV7xE693TFQWto6ZWNI2Zv7lLUzO
+ 8RHA==
+X-Gm-Message-State: AOJu0YwJ/D+IVrJtKc15ECM1XxSsugeG1awcZFH3E78ZY/TKW7q/ro9a
+ pnrN9xn6AK6+TIFnMfqQfZ7JOMp3AzBe1tZ7Y5r1arljle8cD4XFGbZ/1MYcFC8VoTgbXpzaiiY
+ MjWzgUB9jux4fpr4ex7DKlSklB52XXg==
+X-Google-Smtp-Source: AGHT+IHZ01sMzApXlFteqiimaoUaPVFyudnfTbSK8biUhh61wLMTLsZheXVGKF6yQ9Jn8j0mkAy/8Y4cmql3LhmsYnQ=
+X-Received: by 2002:a17:90a:5502:b0:2ac:40c8:1ed3 with SMTP id
+ 98e67ed59e1d1-2b6cc342957mr10167799a91.5.1715668758959; Mon, 13 May 2024
+ 23:39:18 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+From: Anup Kumarr <kumarranup62@gmail.com>
+Date: Tue, 14 May 2024 12:09:06 +0530
+Message-ID: <CAKdDKJUizCxr326DVe13R0acrGW1Z3VaSRsBN8St7aso_e813Q@mail.gmail.com>
+Subject: Re: [Intel-gfx] [PATCH 1/3] intel: Disable
+ drm_intel_probe_agp_aperture_size() on Android
+To: intel-gfx@lists.freedesktop.org
+Content-Type: multipart/alternative; boundary="000000000000ee1f870618644295"
+X-Mailman-Approved-At: Tue, 14 May 2024 14:03:34 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,82 +72,14 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Panel Replay VSC SDP not getting sent when VRR is enabled
-and W1 and W2 are 0. So Program Set Context Latency in
-TRANS_SET_CONTEXT_LATENCY register to at least a value of 1.
+--000000000000ee1f870618644295
+Content-Type: text/plain; charset="UTF-8"
 
-HSD: 14015406119
 
-v1: Initial version.
-v2: Update timings stored in adjusted_mode struct. [Ville]
-v3: Add WA in compute_config(). [Ville]
-v4:
-- Add DISPLAY_VER() check and improve code comment. [Rodrigo]
-- Introduce centralized intel_crtc_vblank_delay(). [Ville]
-v5: Move to crtc_compute_config(). [Ville]
 
-Signed-off-by: Animesh Manna <animesh.manna@intel.com>
----
- drivers/gpu/drm/i915/display/intel_display.c | 22 ++++++++++++++++++++
- drivers/gpu/drm/i915/display/intel_display.h |  1 +
- 2 files changed, 23 insertions(+)
+--000000000000ee1f870618644295
+Content-Type: text/html; charset="UTF-8"
 
-diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
-index ef986b508431..0664c9478c68 100644
---- a/drivers/gpu/drm/i915/display/intel_display.c
-+++ b/drivers/gpu/drm/i915/display/intel_display.c
-@@ -2497,10 +2497,15 @@ static int intel_crtc_compute_pipe_mode(struct intel_crtc_state *crtc_state)
- static int intel_crtc_compute_config(struct intel_atomic_state *state,
- 				     struct intel_crtc *crtc)
- {
-+	struct drm_i915_private *dev_priv = to_i915(crtc->base.dev);
- 	struct intel_crtc_state *crtc_state =
- 		intel_atomic_get_new_crtc_state(state, crtc);
- 	int ret;
- 
-+	/* wa_14015401596: display versions 13, 14 */
-+	if (DISPLAY_VER(dev_priv) >= 13)
-+		intel_crtc_vblank_delay(crtc_state);
-+
- 	ret = intel_dpll_crtc_compute_clock(state, crtc);
- 	if (ret)
- 		return ret;
-@@ -3889,6 +3894,23 @@ bool intel_crtc_get_pipe_config(struct intel_crtc_state *crtc_state)
- 	return true;
- }
- 
-+void intel_crtc_vblank_delay(struct intel_crtc_state *crtc_state)
-+{
-+	struct drm_display_mode *adjusted_mode = &crtc_state->hw.adjusted_mode;
-+
-+	/*
-+	 * wa_14015401596 for display versions >= 13.
-+	 * Program Set Context Latency in TRANS_SET_CONTEXT_LATENCY register
-+	 * to at least a value of 1 when Panel Replay is enabled with VRR.
-+	 * Value for TRANS_SET_CONTEXT_LATENCY is calculated by substracting
-+	 * crtc_vdisplay from crtc_vblank_start, so incrementing crtc_vblank_start
-+	 * by 1 if both are equal.
-+	 */
-+	if (crtc_state->vrr.enable && crtc_state->has_panel_replay &&
-+	    adjusted_mode->crtc_vblank_start == adjusted_mode->crtc_vdisplay)
-+		adjusted_mode->crtc_vblank_start += 1;
-+}
-+
- int intel_dotclock_calculate(int link_freq,
- 			     const struct intel_link_m_n *m_n)
- {
-diff --git a/drivers/gpu/drm/i915/display/intel_display.h b/drivers/gpu/drm/i915/display/intel_display.h
-index 56d1c0e3e62c..d426dd9f7f87 100644
---- a/drivers/gpu/drm/i915/display/intel_display.h
-+++ b/drivers/gpu/drm/i915/display/intel_display.h
-@@ -428,6 +428,7 @@ bool intel_crtc_is_bigjoiner_master(const struct intel_crtc_state *crtc_state);
- u8 intel_crtc_bigjoiner_slave_pipes(const struct intel_crtc_state *crtc_state);
- struct intel_crtc *intel_master_crtc(const struct intel_crtc_state *crtc_state);
- bool intel_crtc_get_pipe_config(struct intel_crtc_state *crtc_state);
-+void intel_crtc_vblank_delay(struct intel_crtc_state *crtc_state);
- bool intel_pipe_config_compare(const struct intel_crtc_state *current_config,
- 			       const struct intel_crtc_state *pipe_config,
- 			       bool fastset);
--- 
-2.29.0
+<div dir="auto"></div>
 
+--000000000000ee1f870618644295--
