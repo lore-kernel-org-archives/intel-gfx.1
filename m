@@ -4,46 +4,55 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 67F53C25B75
-	for <intel-gfx@archiver.kernel.org>; Tue, 14 May 2024 14:59:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7EE9CC25B75
+	for <intel-gfx@archiver.kernel.org>; Tue, 14 May 2024 15:05:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D4DEB10E8A3;
-	Tue, 14 May 2024 14:59:50 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C7B7E10EA54;
+	Tue, 14 May 2024 15:05:19 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="PSRbay4M";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="H7clV5U/";
 	dkim-atps=neutral
-Received: from fanzine2.igalia.com (fanzine.igalia.com [178.60.130.6])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2830710E174
- for <intel-gfx@lists.freedesktop.org>; Tue, 14 May 2024 14:59:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=Content-Transfer-Encoding:MIME-Version:Message-ID:Date:Subject:
- Cc:To:From:Sender:Reply-To:Content-Type:Content-ID:Content-Description:
- Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:
- In-Reply-To:References:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
- List-Post:List-Owner:List-Archive;
- bh=BBde5bazlhLJQWQKzgVneE1HHq5ceRvGxWBLiYM9Kw8=; b=PSRbay4MrGnRdK4tQiAzAR4zfh
- if0863ebnZuz4lkeFTPC1vj64o/yjnlheRm+wLN9/FgpYJVPjZkR61nWyr0R4kH8bB9sPT/V8GfOk
- zcEfp2kFQeu8FdlCYdjc+gm2vAtcD/XI2Rn56l7+r3tIKcrLPfMi9ri1KMJ0TKEsUo+yZkVfso6dA
- oqdlfK/3xrinh89xPcHn06hOv2X9UY+oq8XP47evsoGY6xXCSUvxUKA9AhmwXhEVlcRDZcLJAmn2s
- hUKRYs/A0IpVFt4RJaKAauL0GTNkVBCQk/ZGbwSwSJGuXedt1NNz2lBMO803cqwjrvFORA5CocJTE
- Gzb4u88A==;
-Received: from [84.69.19.168] (helo=localhost)
- by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1s6td1-00815G-3n; Tue, 14 May 2024 16:59:43 +0200
-From: Tvrtko Ursulin <tursulin@igalia.com>
-To: intel-gfx@lists.freedesktop.org
-Cc: Tvrtko Ursulin <tvrtko.ursulin@intel.com>,
- Lionel Landwerlin <lionel.g.landwerlin@intel.com>,
- Carlos Santa <carlos.santa@intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, Tvrtko Ursulin <tursulin@igalia.com>
-Subject: [CI 1/2] drm/i915: Shadow default engine context image in the context
-Date: Tue, 14 May 2024 15:59:38 +0100
-Message-ID: <20240514145939.87427-1-tursulin@igalia.com>
-X-Mailer: git-send-email 2.44.0
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.18])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DBCD310EA2E;
+ Tue, 14 May 2024 15:05:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1715699118; x=1747235118;
+ h=date:from:to:cc:subject:message-id:mime-version;
+ bh=WO2ZPyFdMDCuN4Vi1bNSiOyJZCjTrUmtLapdLRGv73c=;
+ b=H7clV5U/NJgunwr4rVCXc2PxBbygHe2pFPDJ8WvHHS5cOjpCpYcsMRX6
+ P96qDLBz1YelgKpLsn54jOQkH9EPDgapkPxJcEip/ia6e/LpkUv0aEjx4
+ +w6fHtkEZZX01e8SYwSsugZsb691QStaveYsfeaLT3Es+Li4vx8RPLikc
+ Tx2ChS+oe/ZFSIsQpfjZc7Db/9LhMmiSYqf8u0G6esV1XbhH6FdKqxuYf
+ C7x95vDA7QGRkWhBbH/jX2O16Kp1R0ATkL4txBaS2+Nu0g8pWVqt5oOVZ
+ WskPVQwaU099q/Rh+IHbDCP6+OHsIyYC8SogjJP+Up2Vl3skXEbktR8zO w==;
+X-CSE-ConnectionGUID: 7H/RDDf0S7yfG84prU9ZVQ==
+X-CSE-MsgGUID: dnBb7L6vQB6gvcdIIy5IWA==
+X-IronPort-AV: E=McAfee;i="6600,9927,11073"; a="11855592"
+X-IronPort-AV: E=Sophos;i="6.08,159,1712646000"; d="scan'208";a="11855592"
+Received: from orviesa008.jf.intel.com ([10.64.159.148])
+ by orvoesa110.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 14 May 2024 08:05:18 -0700
+X-CSE-ConnectionGUID: wnLNwo/LR+imyRjkihFGzA==
+X-CSE-MsgGUID: 7DWXS78nTu2nqLuXWed4Qg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.08,159,1712646000"; d="scan'208";a="31257341"
+Received: from lkp-server01.sh.intel.com (HELO f8b243fe6e68) ([10.239.97.150])
+ by orviesa008.jf.intel.com with ESMTP; 14 May 2024 08:05:17 -0700
+Received: from kbuild by f8b243fe6e68 with local (Exim 4.96)
+ (envelope-from <lkp@intel.com>) id 1s6tiL-000BY1-2r;
+ Tue, 14 May 2024 15:05:13 +0000
+Date: Tue, 14 May 2024 23:05:00 +0800
+From: kernel test robot <lkp@intel.com>
+To: Jouni =?iso-8859-1?Q?H=F6gander?= <jouni.hogander@intel.com>
+Cc: oe-kbuild-all@lists.linux.dev, intel-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-doc@vger.kernel.org
+Subject: [drm-tip:drm-tip 10/10] htmldocs: Warning: integration-manifest
+ references a file that doesn't exist: Documentation/i915
+Message-ID: <202405142346.OQO7OOGu-lkp@intel.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,93 +68,26 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
+tree:   git://anongit.freedesktop.org/drm/drm-tip drm-tip
+head:   723adadf19b6bd8a54881b0e7d04ba56c4e8f401
+commit: 723adadf19b6bd8a54881b0e7d04ba56c4e8f401 [10/10] drm-tip: 2024y-05m-14d-12h-21m-31s UTC integration manifest
+reproduce: (https://download.01.org/0day-ci/archive/20240514/202405142346.OQO7OOGu-lkp@intel.com/reproduce)
 
-To enable adding override of the default engine context image let us start
-shadowing the per engine state in the context.
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202405142346.OQO7OOGu-lkp@intel.com/
 
-Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
-Cc: Lionel Landwerlin <lionel.g.landwerlin@intel.com>
-Cc: Carlos Santa <carlos.santa@intel.com>
-Cc: Rodrigo Vivi <rodrigo.vivi@intel.com>
-Reviewed-by: Rodrigo Vivi <rodrigo.vivi@intel.com>
-Signed-off-by: Tvrtko Ursulin <tursulin@igalia.com>
----
- drivers/gpu/drm/i915/gt/intel_context_types.h   | 2 ++
- drivers/gpu/drm/i915/gt/intel_lrc.c             | 7 ++++---
- drivers/gpu/drm/i915/gt/intel_ring_submission.c | 7 ++++---
- 3 files changed, 10 insertions(+), 6 deletions(-)
+All warnings (new ones prefixed by >>):
 
-diff --git a/drivers/gpu/drm/i915/gt/intel_context_types.h b/drivers/gpu/drm/i915/gt/intel_context_types.h
-index ed95a7b57cbb..6ae8abfeccdb 100644
---- a/drivers/gpu/drm/i915/gt/intel_context_types.h
-+++ b/drivers/gpu/drm/i915/gt/intel_context_types.h
-@@ -99,6 +99,8 @@ struct intel_context {
- 	struct i915_address_space *vm;
- 	struct i915_gem_context __rcu *gem_context;
- 
-+	struct file *default_state;
-+
- 	/*
- 	 * @signal_lock protects the list of requests that need signaling,
- 	 * @signals. While there are any requests that need signaling,
-diff --git a/drivers/gpu/drm/i915/gt/intel_lrc.c b/drivers/gpu/drm/i915/gt/intel_lrc.c
-index b387146ede98..d4ffb352403c 100644
---- a/drivers/gpu/drm/i915/gt/intel_lrc.c
-+++ b/drivers/gpu/drm/i915/gt/intel_lrc.c
-@@ -1017,9 +1017,8 @@ void lrc_init_state(struct intel_context *ce,
- 
- 	set_redzone(state, engine);
- 
--	if (engine->default_state) {
--		shmem_read(engine->default_state, 0,
--			   state, engine->context_size);
-+	if (ce->default_state) {
-+		shmem_read(ce->default_state, 0, state, engine->context_size);
- 		__set_bit(CONTEXT_VALID_BIT, &ce->flags);
- 		inhibit = false;
- 	}
-@@ -1131,6 +1130,8 @@ int lrc_alloc(struct intel_context *ce, struct intel_engine_cs *engine)
- 
- 	GEM_BUG_ON(ce->state);
- 
-+	ce->default_state = engine->default_state;
-+
- 	vma = __lrc_alloc_state(ce, engine);
- 	if (IS_ERR(vma))
- 		return PTR_ERR(vma);
-diff --git a/drivers/gpu/drm/i915/gt/intel_ring_submission.c b/drivers/gpu/drm/i915/gt/intel_ring_submission.c
-index 92085ffd23de..8625e88e785f 100644
---- a/drivers/gpu/drm/i915/gt/intel_ring_submission.c
-+++ b/drivers/gpu/drm/i915/gt/intel_ring_submission.c
-@@ -474,8 +474,7 @@ static int ring_context_init_default_state(struct intel_context *ce,
- 	if (IS_ERR(vaddr))
- 		return PTR_ERR(vaddr);
- 
--	shmem_read(ce->engine->default_state, 0,
--		   vaddr, ce->engine->context_size);
-+	shmem_read(ce->default_state, 0, vaddr, ce->engine->context_size);
- 
- 	i915_gem_object_flush_map(obj);
- 	__i915_gem_object_release_map(obj);
-@@ -491,7 +490,7 @@ static int ring_context_pre_pin(struct intel_context *ce,
- 	struct i915_address_space *vm;
- 	int err = 0;
- 
--	if (ce->engine->default_state &&
-+	if (ce->default_state &&
- 	    !test_bit(CONTEXT_VALID_BIT, &ce->flags)) {
- 		err = ring_context_init_default_state(ce, ww);
- 		if (err)
-@@ -570,6 +569,8 @@ static int ring_context_alloc(struct intel_context *ce)
- {
- 	struct intel_engine_cs *engine = ce->engine;
- 
-+	ce->default_state = engine->default_state;
-+
- 	/* One ringbuffer to rule them all */
- 	GEM_BUG_ON(!engine->legacy.ring);
- 	ce->ring = engine->legacy.ring;
+   Warning: Documentation/devicetree/bindings/power/wakeup-source.txt references a file that doesn't exist: Documentation/devicetree/bindings/input/qcom,pm8xxx-keypad.txt
+   Warning: Documentation/devicetree/bindings/regulator/siliconmitus,sm5703-regulator.yaml references a file that doesn't exist: Documentation/devicetree/bindings/mfd/siliconmitus,sm5703.yaml
+   Warning: Documentation/devicetree/bindings/sound/fsl-asoc-card.txt references a file that doesn't exist: Documentation/devicetree/bindings/sound/fsl,asrc.txt
+   Warning: Documentation/userspace-api/netlink/index.rst references a file that doesn't exist: Documentation/networking/netlink_spec/index.rst
+   Warning: Documentation/userspace-api/netlink/specs.rst references a file that doesn't exist: Documentation/networking/netlink_spec/index.rst
+>> Warning: integration-manifest references a file that doesn't exist: Documentation/i915
+   Using alabaster theme
+
 -- 
-2.44.0
-
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
