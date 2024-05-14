@@ -4,49 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 23240C25B7A
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id ACF4CC04FFE
 	for <intel-gfx@archiver.kernel.org>; Tue, 14 May 2024 19:14:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1598710EB27;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 24A3F10EB29;
 	Tue, 14 May 2024 19:14:31 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="AyhkmBvT";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="gxm+j0IV";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.12])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2295210E8CC
- for <intel-gfx@lists.freedesktop.org>; Tue, 14 May 2024 19:14:29 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 928F910E703
+ for <intel-gfx@lists.freedesktop.org>; Tue, 14 May 2024 19:14:22 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1715714069; x=1747250069;
+ t=1715714063; x=1747250063;
  h=from:to:subject:date:message-id:in-reply-to:references:
  mime-version:content-transfer-encoding;
- bh=X3nTdg/G/fGtUCgK3L+WMzVbjg/n7J8u+b2jp8PUfh4=;
- b=AyhkmBvTDyFbfHbKcAL9wQzhH2TlUO5n2DYim6dSjBizRssT4gxpVB/C
- WGhy5Fm68MAWE49NOy65wV7FejY56KtkpI9zJJa0GRUlFhZ3W1mQuIwvE
- VHgFQtPnRWDG1q26kfhIA7b5972O6AHxLc0PeQyXqNc2e6iSoHqNyUHX0
- LdIaGUwVSgNDTrIKx7ZlOweW5tXLhCUjs91RmhRbroXXmxNTd7e6N7Zpr
- PjebW0MGI+ckY9pQL+9UL5b5wtNHs39IyBgBQ0HO6qjl6ez+xceFGSGTm
- n+eE+Q6p6cJcfQUmX4FFrfLj23NYbr/TtmSv+M8iZ2iV6l862tSwcAuHP A==;
-X-CSE-ConnectionGUID: 6mqcPXKySKenEHU3WiZ9SA==
-X-CSE-MsgGUID: BuXnoSxNSeOaWia1n7RHJA==
-X-IronPort-AV: E=McAfee;i="6600,9927,11073"; a="23124998"
-X-IronPort-AV: E=Sophos;i="6.08,159,1712646000"; d="scan'208";a="23124998"
+ bh=1uH1cYbtuvOo4/mwQkXPfvBj6X71daVKEaAFjQza7Kc=;
+ b=gxm+j0IVH+yAH/Kc0ysBI8IBxyQyOlCyUfI9z1ljtqHAeucob93VYVfy
+ hnV4ejTW8WOzRD77Bf84u87hF9pBItIdsQuRjwJk8WFnWDVGkG0dgM6Xb
+ 9ZXHG/St9L1P/fSBGLzm+8IAaU5SUldnQOosRPUj/+jJ3y8o1I0908XD8
+ UuYz1RRMqoSz/+b2nxzEbAlr5i63VglcEfbd6zmgO0M7VFn+IlX2nUM0R
+ cNrO5L8TSwHQtx4xVE1MvJXaf7ydoVfVa5h2RkcTxLWSd+8K3X7P0GqP/
+ 8/MVUk44+zNoUNJz07dIHFabM0A0P+PKUTI26sMxM4VK11OfbkFFa+4R9 g==;
+X-CSE-ConnectionGUID: jiO+dUZsR56fVOuw7PhdsQ==
+X-CSE-MsgGUID: ZTt9Xv94Tjq/DFT99+DtAA==
+X-IronPort-AV: E=McAfee;i="6600,9927,11073"; a="23124989"
+X-IronPort-AV: E=Sophos;i="6.08,159,1712646000"; d="scan'208";a="23124989"
 Received: from fmviesa007.fm.intel.com ([10.60.135.147])
  by orvoesa104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 14 May 2024 12:14:29 -0700
-X-CSE-ConnectionGUID: 5z+pKnUaQWO2MvjHpN2DHA==
-X-CSE-MsgGUID: hw1ayoWxSnWHCQZhaMrt+Q==
+ 14 May 2024 12:14:23 -0700
+X-CSE-ConnectionGUID: ssZuXVnuS46TKmSshDTnIg==
+X-CSE-MsgGUID: lcgVk+mEQ0WcvlkLSGDw/Q==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.08,159,1712646000"; d="scan'208";a="30724627"
+X-IronPort-AV: E=Sophos;i="6.08,159,1712646000"; d="scan'208";a="30724603"
 Received: from ideak-desk.fi.intel.com ([10.237.72.78])
  by fmviesa007-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 14 May 2024 12:14:28 -0700
+ 14 May 2024 12:14:21 -0700
 From: Imre Deak <imre.deak@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Subject: [PATCH 14/20] drm/i915/dp: Disable link retraining after the last
- fallback step
-Date: Tue, 14 May 2024 22:14:12 +0300
-Message-ID: <20240514191418.2863344-15-imre.deak@intel.com>
+Subject: [PATCH 07/20] drm/i915/dp: Recheck link state after modeset
+Date: Tue, 14 May 2024 22:14:05 +0300
+Message-ID: <20240514191418.2863344-8-imre.deak@intel.com>
 X-Mailer: git-send-email 2.43.3
 In-Reply-To: <20240514191418.2863344-1-imre.deak@intel.com>
 References: <20240514191418.2863344-1-imre.deak@intel.com>
@@ -67,121 +66,132 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-After a link training failure if the link parameters can't be further
-reduced, there is no point in trying to retrain the link in the driver.
-This avoids excessive retrain attempts after detecting a bad link, for
-instance while handling MST HPD IRQs, which is likely redundant as the
-link training failed already twice with the same minimum link
-parameters. Userspace can still try to retrain the link with these
-parameters via a modeset.
+Recheck the link state after a passing link training, with a 2 sec delay
+to account for cases where the link goes bad following the link training
+and the sink doesn't report this via an HPD IRQ.
 
-While at it make the error message more accurate and emit instead a
-debug message if the link training failure was only forced for testing
-purposes.
+The delayed work added here will be also used by a later patch after a
+failed link training to try to retrain the link with unchanged link
+params before reducing the link params.
 
 Signed-off-by: Imre Deak <imre.deak@intel.com>
 ---
- .../drm/i915/display/intel_display_types.h    |  1 +
- drivers/gpu/drm/i915/display/intel_dp.c       |  4 ++++
- .../drm/i915/display/intel_dp_link_training.c | 22 +++++++++++++------
- 3 files changed, 20 insertions(+), 7 deletions(-)
+ .../drm/i915/display/intel_display_types.h    |  2 ++
+ drivers/gpu/drm/i915/display/intel_dp.c       | 24 +++++++++++++++++++
+ drivers/gpu/drm/i915/display/intel_dp.h       |  1 +
+ .../drm/i915/display/intel_dp_link_training.c | 10 +++++---
+ 4 files changed, 34 insertions(+), 3 deletions(-)
 
 diff --git a/drivers/gpu/drm/i915/display/intel_display_types.h b/drivers/gpu/drm/i915/display/intel_display_types.h
-index a173b9c105981..fb71bc7eb3d9a 100644
+index 7edb533758416..0da7649e4ba9e 100644
 --- a/drivers/gpu/drm/i915/display/intel_display_types.h
 +++ b/drivers/gpu/drm/i915/display/intel_display_types.h
-@@ -1763,6 +1763,7 @@ struct intel_dp {
- 		int max_lane_count;
- 		/* Max rate for the current link */
- 		int max_rate;
-+		bool retrain_disabled;
- 		/* Sequential failures after a passing LT */
- 		int seq_failures;
- 	} link_train;
+@@ -1773,6 +1773,8 @@ struct intel_dp {
+ 	u32 aux_busy_last_status;
+ 	u8 train_set[4];
+ 
++	struct delayed_work check_link_work;
++
+ 	struct intel_pps pps;
+ 
+ 	bool is_mst;
 diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
-index e5bd2bbcc8d89..fedc0afaf99d5 100644
+index abf1aec2f3217..2ec6e9c34e282 100644
 --- a/drivers/gpu/drm/i915/display/intel_dp.c
 +++ b/drivers/gpu/drm/i915/display/intel_dp.c
-@@ -2951,6 +2951,7 @@ static void intel_dp_reset_link_train_params(struct intel_dp *intel_dp)
- {
- 	intel_dp->link_train.max_lane_count = intel_dp_max_common_lane_count(intel_dp);
- 	intel_dp->link_train.max_rate = intel_dp_max_common_rate(intel_dp);
-+	intel_dp->link_train.retrain_disabled = false;
- 	intel_dp->link_train.seq_failures = 0;
- }
- 
-@@ -5061,6 +5062,9 @@ intel_dp_needs_link_retrain(struct intel_dp *intel_dp)
- 					intel_dp->lane_count))
- 		return false;
- 
-+	if (intel_dp->link_train.retrain_disabled)
-+		return false;
-+
- 	if (intel_dp->link_train.seq_failures)
- 		return true;
- 
-diff --git a/drivers/gpu/drm/i915/display/intel_dp_link_training.c b/drivers/gpu/drm/i915/display/intel_dp_link_training.c
-index 769ad93f615e8..bc3a653e4ce4a 100644
---- a/drivers/gpu/drm/i915/display/intel_dp_link_training.c
-+++ b/drivers/gpu/drm/i915/display/intel_dp_link_training.c
-@@ -1164,10 +1164,8 @@ static int intel_dp_get_link_train_fallback_values(struct intel_dp *intel_dp,
- 		new_link_rate = intel_dp_max_common_rate(intel_dp);
- 	}
- 
--	if (new_lane_count < 0) {
--		drm_err(&i915->drm, "Link Training Unsuccessful\n");
-+	if (new_lane_count < 0)
- 		return -1;
--	}
- 
- 	if (intel_dp_is_edp(intel_dp) &&
- 	    !intel_dp_can_link_train_fallback_for_edp(intel_dp, new_link_rate, new_lane_count)) {
-@@ -1186,14 +1184,14 @@ static int intel_dp_get_link_train_fallback_values(struct intel_dp *intel_dp,
+@@ -75,6 +75,7 @@
+ #include "intel_hotplug_irq.h"
+ #include "intel_lspcon.h"
+ #include "intel_lvds.h"
++#include "intel_modeset_lock.h"
+ #include "intel_panel.h"
+ #include "intel_pch_display.h"
+ #include "intel_pps.h"
+@@ -5230,6 +5231,26 @@ int intel_dp_retrain_link(struct intel_encoder *encoder,
  	return 0;
  }
  
--static void intel_dp_schedule_fallback_link_training(struct intel_dp *intel_dp,
-+static bool intel_dp_schedule_fallback_link_training(struct intel_dp *intel_dp,
- 						     const struct intel_crtc_state *crtc_state)
- {
- 	struct intel_encoder *encoder = &dp_to_dig_port(intel_dp)->base;
- 
- 	if (!intel_digital_port_connected(&dp_to_dig_port(intel_dp)->base)) {
- 		lt_dbg(intel_dp, DP_PHY_DPRX, "Link Training failed on disconnected sink.\n");
--		return;
-+		return true;
- 	}
- 
- 	if (intel_dp->hobl_active) {
-@@ -1201,11 +1199,13 @@ static void intel_dp_schedule_fallback_link_training(struct intel_dp *intel_dp,
- 		       "Link Training failed with HOBL active, not enabling it from now on\n");
- 		intel_dp->hobl_failed = true;
- 	} else if (intel_dp_get_link_train_fallback_values(intel_dp, crtc_state)) {
--		return;
-+		return false;
- 	}
- 
- 	/* Schedule a Hotplug Uevent to userspace to start modeset */
- 	intel_dp_queue_modeset_retry_for_link(encoder);
++static void intel_dp_link_check_work_fn(struct work_struct *work)
++{
++	struct intel_dp *intel_dp =
++		container_of(work, typeof(*intel_dp), check_link_work.work);
++	struct intel_encoder *encoder = &dp_to_dig_port(intel_dp)->base;
++	struct drm_modeset_acquire_ctx ctx;
++	int ret;
 +
-+	return true;
- }
++	intel_modeset_lock_ctx_retry(&ctx, NULL, 0, ret)
++		ret = intel_dp_retrain_link(encoder, &ctx);
++}
++
++void intel_dp_queue_link_check(struct intel_dp *intel_dp, int delay_ms)
++{
++	struct drm_i915_private *i915 = dp_to_i915(intel_dp);
++
++	mod_delayed_work(i915->unordered_wq,
++			 &intel_dp->check_link_work, msecs_to_jiffies(delay_ms));
++}
++
+ static int intel_dp_prep_phy_test(struct intel_dp *intel_dp,
+ 				  struct drm_modeset_acquire_ctx *ctx,
+ 				  u8 *pipe_mask)
+@@ -6000,6 +6021,8 @@ void intel_dp_encoder_flush_work(struct drm_encoder *encoder)
+ 	struct intel_digital_port *dig_port = enc_to_dig_port(to_intel_encoder(encoder));
+ 	struct intel_dp *intel_dp = &dig_port->dp;
  
- /* Perform the link training on all LTTPRs and the DPRX on a link. */
-@@ -1513,7 +1513,15 @@ void intel_dp_start_link_train(struct intel_dp *intel_dp,
++	cancel_delayed_work_sync(&intel_dp->check_link_work);
++
+ 	intel_dp_mst_encoder_cleanup(dig_port);
+ 
+ 	intel_dp_tunnel_destroy(intel_dp);
+@@ -6609,6 +6632,7 @@ intel_dp_init_connector(struct intel_digital_port *dig_port,
+ 
+ 	/* Initialize the work for modeset in case of link train failure */
+ 	intel_dp_init_modeset_retry_work(intel_connector);
++	INIT_DELAYED_WORK(&intel_dp->check_link_work, intel_dp_link_check_work_fn);
+ 
+ 	if (drm_WARN(dev, dig_port->max_lanes < 1,
+ 		     "Not enough lanes (%d) for DP on [ENCODER:%d:%s]\n",
+diff --git a/drivers/gpu/drm/i915/display/intel_dp.h b/drivers/gpu/drm/i915/display/intel_dp.h
+index e7b47e7bcd98b..6a1f2a2856998 100644
+--- a/drivers/gpu/drm/i915/display/intel_dp.h
++++ b/drivers/gpu/drm/i915/display/intel_dp.h
+@@ -60,6 +60,7 @@ int intel_dp_get_active_pipes(struct intel_dp *intel_dp,
+ 			      u8 *pipe_mask);
+ int intel_dp_retrain_link(struct intel_encoder *encoder,
+ 			  struct drm_modeset_acquire_ctx *ctx);
++void intel_dp_queue_link_check(struct intel_dp *intel_dp, int delay_ms);
+ void intel_dp_set_power(struct intel_dp *intel_dp, u8 mode);
+ void intel_dp_configure_protocol_converter(struct intel_dp *intel_dp,
+ 					   const struct intel_crtc_state *crtc_state);
+diff --git a/drivers/gpu/drm/i915/display/intel_dp_link_training.c b/drivers/gpu/drm/i915/display/intel_dp_link_training.c
+index 1ea4aaf9592f1..85074c1c2281d 100644
+--- a/drivers/gpu/drm/i915/display/intel_dp_link_training.c
++++ b/drivers/gpu/drm/i915/display/intel_dp_link_training.c
+@@ -1483,6 +1483,11 @@ void intel_dp_start_link_train(struct intel_dp *intel_dp,
+ 	else
+ 		passed = intel_dp_link_train_all_phys(intel_dp, crtc_state, lttpr_count);
+ 
++	if (passed) {
++		intel_dp_queue_link_check(intel_dp, 2000);
++		return;
++	}
++
+ 	/*
+ 	 * Ignore the link failure in CI
+ 	 *
+@@ -1495,13 +1500,12 @@ void intel_dp_start_link_train(struct intel_dp *intel_dp,
+ 	 * For test cases which rely on the link training or processing of HPDs
+ 	 * ignore_long_hpd flag can unset from the testcase.
+ 	 */
+-	if (!passed && i915->display.hotplug.ignore_long_hpd) {
++	if (i915->display.hotplug.ignore_long_hpd) {
+ 		lt_dbg(intel_dp, DP_PHY_DPRX, "Ignore the link failure\n");
  		return;
  	}
  
--	intel_dp_schedule_fallback_link_training(intel_dp, crtc_state);
-+	if (intel_dp_schedule_fallback_link_training(intel_dp, crtc_state))
-+		return;
-+
-+	intel_dp->link_train.retrain_disabled = true;
-+
-+	if (!passed)
-+		lt_err(intel_dp, DP_PHY_DPRX, "Can't reduce link training parameters after failure\n");
-+	else
-+		lt_dbg(intel_dp, DP_PHY_DPRX, "Can't reduce link training parameters after forced failure\n");
+-	if (!passed)
+-		intel_dp_schedule_fallback_link_training(intel_dp, crtc_state);
++	intel_dp_schedule_fallback_link_training(intel_dp, crtc_state);
  }
  
  void intel_dp_128b132b_sdp_crc16(struct intel_dp *intel_dp,
