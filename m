@@ -4,51 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 97E64C25B74
-	for <intel-gfx@archiver.kernel.org>; Thu, 16 May 2024 08:50:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 23CAFC25B79
+	for <intel-gfx@archiver.kernel.org>; Thu, 16 May 2024 08:50:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EA06910EC3B;
-	Thu, 16 May 2024 08:50:41 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5FC3B10EC03;
+	Thu, 16 May 2024 08:50:42 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="O2yvnrGv";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="fwD6Pi+K";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.18])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6450910EC36
- for <intel-gfx@lists.freedesktop.org>; Thu, 16 May 2024 08:50:34 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B897510EC03
+ for <intel-gfx@lists.freedesktop.org>; Thu, 16 May 2024 08:50:28 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1715849434; x=1747385434;
+ t=1715849429; x=1747385429;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=Bq/D7BbdjAuJ8EKsdKwWCL+pTY7yR5cj4lX5DKdp6UI=;
- b=O2yvnrGvwb7FFuRcPpZgXFETdLhmyd714ivhGnx2rKM/+jlHEpBHnOVQ
- TDlOnQSLkCFCZ5tURwqCZyqFpawpUucJLCl4r4v6Cno4OzUdicdZrx1L1
- wL4cJLz7e9s0/lf1L81Lqdj+46OyCLVrdFF3RsFSluUY9AAUdeoncDd/n
- JW1UnIFLX1e3n42WJCW6dKhM33cw/kr7Dy4btGjT0ErXn3VLjew5f0cPd
- braTubDSezru1AwkDAmgwWVXFvvL2b9BMHrWo/FS8nB3eK2k4tICrQTz6
- V9CDijVWGn5QIDY9+vam+UL+5dV0UMkMw+HfWUtcKzVYcnougJXu1OpVq g==;
-X-CSE-ConnectionGUID: QwXz7LPRTPaeihQi1QDfJQ==
-X-CSE-MsgGUID: SV8XKG/VRze+jnS5bcnW8w==
-X-IronPort-AV: E=McAfee;i="6600,9927,11074"; a="11756105"
-X-IronPort-AV: E=Sophos;i="6.08,164,1712646000"; d="scan'208";a="11756105"
+ bh=GeQYiMaVQG1A+lxUsG0gTnCLuz7UKdOdJ6TS2ZC+yyg=;
+ b=fwD6Pi+K9vWFoCAMK1jKS49ZFney30lV5D9ok5ru4w/85/eyy6lZ+3PU
+ 3zmNZe5/CKTu5627fxer5XJ9DkoapDZrL1f9o/vKtDjH8ysEPVknyxrgz
+ fs21VTuF23wBRCIKy10bsxxS1gsTbKafXklKXlzORjgfsbO03LJuSOF0M
+ PflXc/gCt37tBamzjs/EeHHg+ueSraUjrAa+QcWJnmM2Nc8blVAAaAM2E
+ GO628eAwWRUJzWX2ryvy0CiGuMs8kzJP45x5GaaPwGBHbm39ayfF5X8+I
+ U7nq1/NE/148G4oPIoZ0Oi/FoUxHXsCmwOSk4M7tHdS4lujBNmyEvM1QL Q==;
+X-CSE-ConnectionGUID: 7nCIsbaNSAG13xpUEuDoBg==
+X-CSE-MsgGUID: ip1vwnOBSgyfSIy/RT1tUw==
+X-IronPort-AV: E=McAfee;i="6600,9927,11074"; a="11756086"
+X-IronPort-AV: E=Sophos;i="6.08,164,1712646000"; d="scan'208";a="11756086"
 Received: from fmviesa006.fm.intel.com ([10.60.135.146])
  by fmvoesa112.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 16 May 2024 01:50:34 -0700
-X-CSE-ConnectionGUID: 6ap8hSfMQt2AxB9IIihOlQ==
-X-CSE-MsgGUID: nAgVIW3mQPa2XfrpkMni+A==
+ 16 May 2024 01:50:29 -0700
+X-CSE-ConnectionGUID: TkfKTmy6Sg2S69Srv4u3uA==
+X-CSE-MsgGUID: pNSG3E3rQLmeblub70YVWw==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.08,164,1712646000"; d="scan'208";a="31398242"
+X-IronPort-AV: E=Sophos;i="6.08,164,1712646000"; d="scan'208";a="31398199"
 Received: from tlonnber-mobl3.ger.corp.intel.com (HELO
  jhogande-mobl1.intel.com) ([10.251.211.12])
  by fmviesa006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 16 May 2024 01:50:33 -0700
+ 16 May 2024 01:50:27 -0700
 From: =?UTF-8?q?Jouni=20H=C3=B6gander?= <jouni.hogander@intel.com>
 To: intel-gfx@lists.freedesktop.org
 Cc: animesh.manna@intel.com,
  =?UTF-8?q?Jouni=20H=C3=B6gander?= <jouni.hogander@intel.com>
-Subject: [PATCH 16/17] drm/i915/psr: Add new debug bit to disable Panel Replay
-Date: Thu, 16 May 2024 11:49:56 +0300
-Message-Id: <20240516084957.1557028-17-jouni.hogander@intel.com>
+Subject: [PATCH 12/17] drm/i915/psr: Check panel Early Transport capability
+ for eDP PR
+Date: Thu, 16 May 2024 11:49:52 +0300
+Message-Id: <20240516084957.1557028-13-jouni.hogander@intel.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20240516084957.1557028-1-jouni.hogander@intel.com>
 References: <20240516084957.1557028-1-jouni.hogander@intel.com>
@@ -71,52 +72,45 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Currently there is no way to disable Panel Replay without disabling
-PSR. Add new debug bit to be used with i915_edp_psr_debug debugfs
-interface.
+Our HW doesn't support panel replay without Early Transport on eDP.
+
+Bspec: 68920
 
 Signed-off-by: Jouni Högander <jouni.hogander@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_display_types.h | 1 +
- drivers/gpu/drm/i915/display/intel_psr.c           | 6 ++++--
- 2 files changed, 5 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/i915/display/intel_psr.c | 19 +++++++++++++------
+ 1 file changed, 13 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_display_types.h b/drivers/gpu/drm/i915/display/intel_display_types.h
-index 6fbfe8a18f45..f8863510e722 100644
---- a/drivers/gpu/drm/i915/display/intel_display_types.h
-+++ b/drivers/gpu/drm/i915/display/intel_display_types.h
-@@ -1687,6 +1687,7 @@ struct intel_psr {
- #define I915_PSR_DEBUG_ENABLE_SEL_FETCH		0x4
- #define I915_PSR_DEBUG_IRQ			0x10
- #define I915_PSR_DEBUG_SU_REGION_ET_DISABLE	0x20
-+#define I915_PSR_DEBUG_PANEL_REPLAY_DISABLE	0x40
- 
- 	u32 debug;
- 	bool sink_support;
 diff --git a/drivers/gpu/drm/i915/display/intel_psr.c b/drivers/gpu/drm/i915/display/intel_psr.c
-index 647e5cd70cc8..6a66e738aeb3 100644
+index d01170ccf603..daba46aa1149 100644
 --- a/drivers/gpu/drm/i915/display/intel_psr.c
 +++ b/drivers/gpu/drm/i915/display/intel_psr.c
-@@ -1752,7 +1752,8 @@ void intel_psr_compute_config(struct intel_dp *intel_dp,
- 		return;
+@@ -549,12 +549,19 @@ static void _panel_replay_init_dpcd(struct intel_dp *intel_dp, u8 alpm_caps)
+ {
+ 	struct drm_i915_private *i915 = dp_to_i915(intel_dp);
+ 
+-	if (intel_dp_is_edp(intel_dp) &&
+-	    (!(alpm_caps & DP_ALPM_CAP) ||
+-	     !(alpm_caps & DP_ALPM_AUX_LESS_CAP))) {
+-		drm_dbg_kms(&i915->drm,
+-			    "Panel doesn't support AUX-less ALPM, eDP Panel Replay not possible\n");
+-		return;
++	if (intel_dp_is_edp(intel_dp)) {
++		if (!(alpm_caps & DP_ALPM_CAP) ||
++		    !(alpm_caps & DP_ALPM_AUX_LESS_CAP)) {
++			drm_dbg_kms(&i915->drm,
++				    "Panel doesn't support AUX-less ALPM, eDP Panel Replay not possible\n");
++			return;
++		}
++
++		if (!(intel_dp->pr_dpcd & DP_PANEL_REPLAY_EARLY_TRANSPORT_SUPPORT)) {
++			drm_dbg_kms(&i915->drm,
++				    "Panel doesn't support early transport, eDP Panel Replay not possible\n");
++			return;
++		}
  	}
  
--	if (CAN_PANEL_REPLAY(intel_dp))
-+	if (CAN_PANEL_REPLAY(intel_dp) &&
-+	    !(intel_dp->psr.debug & I915_PSR_DEBUG_PANEL_REPLAY_DISABLE))
- 		crtc_state->has_panel_replay = true;
- 
- 	crtc_state->has_psr = crtc_state->has_panel_replay ? true :
-@@ -3063,7 +3064,8 @@ int intel_psr_debug_set(struct intel_dp *intel_dp, u64 val)
- 	u32 old_mode;
- 	int ret;
- 
--	if (val & ~(I915_PSR_DEBUG_IRQ | I915_PSR_DEBUG_MODE_MASK) ||
-+	if (val & ~(I915_PSR_DEBUG_IRQ | I915_PSR_DEBUG_PANEL_REPLAY_DISABLE |
-+		    I915_PSR_DEBUG_MODE_MASK) ||
- 	    mode > I915_PSR_DEBUG_ENABLE_SEL_FETCH) {
- 		drm_dbg_kms(&dev_priv->drm, "Invalid debug mask %llx\n", val);
- 		return -EINVAL;
+ 	intel_dp->psr.sink_panel_replay_support = true;
 -- 
 2.34.1
 
