@@ -4,49 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 006C4C25B7A
-	for <intel-gfx@archiver.kernel.org>; Fri, 17 May 2024 14:54:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C2216C25B79
+	for <intel-gfx@archiver.kernel.org>; Fri, 17 May 2024 14:54:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 70D5710EEF8;
+	by gabe.freedesktop.org (Postfix) with ESMTP id F34FD10EEFA;
 	Fri, 17 May 2024 14:54:12 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="B/q2cwpz";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="hT/jGmMG";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.17])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DBDA310EEF5
- for <intel-gfx@lists.freedesktop.org>; Fri, 17 May 2024 14:54:10 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5477910EEF5
+ for <intel-gfx@lists.freedesktop.org>; Fri, 17 May 2024 14:54:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
  t=1715957651; x=1747493651;
  h=from:to:subject:date:message-id:in-reply-to:references:
  mime-version:content-transfer-encoding;
- bh=KIcqWJWD5ntbikLN63K4z2+Kto0RbJB6GwcoC7gsW/g=;
- b=B/q2cwpz8NpDw4Cmkr0tTSHGb/BAX5ocEkDIXj01CPYXb7tyQOdRzp5a
- pgPUlF4vdMiQyspc9rdHfp3B25eUlrkm8c6tBvyfz3iVIpGmHFi3S/hT8
- IodIfHOpXYeWkZDl+0RX5vvx3E02yfqtxt3MYK6EUTsCSKrRnix63e99G
- jHoaR1OkHyFv4ncdcBZHMWkqsTiXBd6RML4g0MWIYCCiEpnbRCZY4Tg5C
- ZdwfcaUYTetA2uT6esyIsH8jc7laA5NEx42k05uj3Q4CsaSBVgJ4TYxwI
- Jp08F2dGk0GDxShssjLg5uBct1qI4CLunQb/sUIt+0/jf625LP1ueluSs g==;
-X-CSE-ConnectionGUID: f1IAbUn3Q/qOqe/5tKLjSw==
-X-CSE-MsgGUID: TcYn7q14RTSoOjc/+sR6ug==
-X-IronPort-AV: E=McAfee;i="6600,9927,11075"; a="12008029"
-X-IronPort-AV: E=Sophos;i="6.08,168,1712646000"; d="scan'208";a="12008029"
+ bh=C7m2SPoImBnbL9nLWJhvCuXl/6ZIW7+ECDZOVaBPt7o=;
+ b=hT/jGmMGcxWEUdI+vwpNzD8LLn7PCrwuoa5VcWDvU4T2u3VE458gZYQS
+ Csoc9zxE6NysB7jStMxKAbf5BFZoOlOQNNZGXIDu9qXdEqWctWxtuBB/I
+ vrrKHCDRosQpiRZxCt7AFgkT9GakmcNMYeWlHm9ky6yZFu3v2JHN0ZNRG
+ 1Pae8k8P32++dvOGmHdh8ADeal31DYcOFpi5Esic/uyulRACTf0yIFr+o
+ BWZasLwWSa/loHxXNipYq9cg15HZZ33IenNkraiQuANN68SMWE8SU1vMQ
+ nf5x2LJgSqO370GurS8kC4Q3hafQyx4gNUosQ4X/mwkMTPWTds2BRfFdi g==;
+X-CSE-ConnectionGUID: L3Y4PnNKTVOGMgpfUcIZRQ==
+X-CSE-MsgGUID: xwasytcMS9KrpeCCXKyX2A==
+X-IronPort-AV: E=McAfee;i="6600,9927,11075"; a="12008037"
+X-IronPort-AV: E=Sophos;i="6.08,168,1712646000"; d="scan'208";a="12008037"
 Received: from fmviesa008.fm.intel.com ([10.60.135.148])
  by fmvoesa111.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 17 May 2024 07:54:05 -0700
-X-CSE-ConnectionGUID: pRB+tCgcR+ekYmjYjmLn6A==
-X-CSE-MsgGUID: dNjjqjjMRfGzMAuJMpSsJw==
+ 17 May 2024 07:54:11 -0700
+X-CSE-ConnectionGUID: hAD+LlDDRsa075b1BOr0kQ==
+X-CSE-MsgGUID: m3acIvaaSUmCkUTpgcMFyA==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.08,168,1712646000"; d="scan'208";a="31800953"
+X-IronPort-AV: E=Sophos;i="6.08,168,1712646000"; d="scan'208";a="31800973"
 Received: from stinkpipe.fi.intel.com (HELO stinkbox) ([10.237.72.74])
- by fmviesa008.fm.intel.com with SMTP; 17 May 2024 07:54:03 -0700
+ by fmviesa008.fm.intel.com with SMTP; 17 May 2024 07:54:09 -0700
 Received: by stinkbox (sSMTP sendmail emulation);
- Fri, 17 May 2024 17:54:02 +0300
+ Fri, 17 May 2024 17:54:07 +0300
 From: Ville Syrjala <ville.syrjala@linux.intel.com>
 To: intel-gfx@lists.freedesktop.org
-Subject: [PATCH 2/7] drm/i915: Extract intel_dp_has_dsc()
-Date: Fri, 17 May 2024 17:53:51 +0300
-Message-ID: <20240517145356.26103-3-ville.syrjala@linux.intel.com>
+Subject: [PATCH 4/7] drm/i915: Use intel_dp_has_dsc() during .compute_config()
+Date: Fri, 17 May 2024 17:53:53 +0300
+Message-ID: <20240517145356.26103-5-ville.syrjala@linux.intel.com>
 X-Mailer: git-send-email 2.44.1
 In-Reply-To: <20240517145356.26103-1-ville.syrjala@linux.intel.com>
 References: <20240517145356.26103-1-ville.syrjala@linux.intel.com>
@@ -70,50 +70,49 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 From: Ville Syrjälä <ville.syrjala@linux.intel.com>
 
-Extract a helper to check whether the source+sink combo
-supports DSC. That basic check is needed both during mode
-validation and compute config. We'll also need to add extra
-checks to both places, so having a single place for it is nicer.
+Reuse intel_dp_has_dsc() during .compute_config() instead of
+repeating some of the checks again by hand. We'll be adding
+more checks to intel_dp_has_dsc() and this will make sure
+we cover both .mode_valid() and .compute_config() with them.
 
 Signed-off-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_dp.c | 16 ++++++++++++++--
- 1 file changed, 14 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/i915/display/intel_dp.c | 10 ++++++----
+ 1 file changed, 6 insertions(+), 4 deletions(-)
 
 diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
-index 1e88449fe5f2..7bf283b4df7f 100644
+index a4703b71c498..6dfde22e5f9d 100644
 --- a/drivers/gpu/drm/i915/display/intel_dp.c
 +++ b/drivers/gpu/drm/i915/display/intel_dp.c
-@@ -1220,6 +1220,19 @@ bool intel_dp_need_bigjoiner(struct intel_dp *intel_dp,
- 	       connector->force_bigjoiner_enable;
+@@ -1459,14 +1459,16 @@ bool intel_dp_supports_fec(struct intel_dp *intel_dp,
+ 		drm_dp_sink_supports_fec(connector->dp.fec_capability);
  }
  
-+static bool intel_dp_has_dsc(struct intel_connector *connector)
-+{
-+	struct drm_i915_private *i915 = to_i915(connector->base.dev);
-+
-+	if (!HAS_DSC(i915))
+-static bool intel_dp_supports_dsc(const struct intel_connector *connector,
++static bool intel_dp_supports_dsc(struct intel_connector *connector,
+ 				  const struct intel_crtc_state *crtc_state)
+ {
++	if (!intel_dp_has_dsc(connector))
 +		return false;
 +
-+	if (!drm_dp_sink_supports_dsc(connector->dp.dsc_dpcd))
-+		return false;
-+
-+	return true;
-+}
-+
- static enum drm_mode_status
- intel_dp_mode_valid(struct drm_connector *_connector,
- 		    struct drm_display_mode *mode)
-@@ -1274,8 +1287,7 @@ intel_dp_mode_valid(struct drm_connector *_connector,
- 	mode_rate = intel_dp_link_required(target_clock,
- 					   intel_dp_mode_min_output_bpp(connector, mode));
+ 	if (intel_crtc_has_type(crtc_state, INTEL_OUTPUT_DP) && !crtc_state->fec_enable)
+ 		return false;
  
--	if (HAS_DSC(dev_priv) &&
--	    drm_dp_sink_supports_dsc(connector->dp.dsc_dpcd)) {
-+	if (intel_dp_has_dsc(connector)) {
- 		enum intel_output_format sink_format, output_format;
- 		int pipe_bpp;
+-	return intel_dsc_source_support(crtc_state) &&
+-		drm_dp_sink_supports_dsc(connector->dp.dsc_dpcd);
++	return intel_dsc_source_support(crtc_state);
+ }
  
+ static int intel_dp_hdmi_compute_bpc(struct intel_dp *intel_dp,
+@@ -2213,7 +2215,7 @@ int intel_dp_dsc_compute_config(struct intel_dp *intel_dp,
+ {
+ 	struct intel_digital_port *dig_port = dp_to_dig_port(intel_dp);
+ 	struct drm_i915_private *dev_priv = to_i915(dig_port->base.base.dev);
+-	const struct intel_connector *connector =
++	struct intel_connector *connector =
+ 		to_intel_connector(conn_state->connector);
+ 	const struct drm_display_mode *adjusted_mode =
+ 		&pipe_config->hw.adjusted_mode;
 -- 
 2.44.1
 
