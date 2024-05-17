@@ -4,24 +4,24 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 90353C25B78
-	for <intel-gfx@archiver.kernel.org>; Fri, 17 May 2024 09:32:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 45BB6C25B78
+	for <intel-gfx@archiver.kernel.org>; Fri, 17 May 2024 09:32:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 110F010E1A8;
-	Fri, 17 May 2024 09:32:39 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B7FB210E1C2;
+	Fri, 17 May 2024 09:32:41 +0000 (UTC)
 Received: from 8e613ede5ea5 (emeril.freedesktop.org [131.252.210.167])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A267B10E1A8;
- Fri, 17 May 2024 09:32:37 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9DB1E10E1C2;
+ Fri, 17 May 2024 09:32:40 +0000 (UTC)
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
-Subject: =?utf-8?q?=E2=9C=97_Fi=2ECI=2ECHECKPATCH=3A_warning_for_drm/i915/gt=3A_Fix_C?=
- =?utf-8?q?CS_id=27s_calculation_for_CCS_mode_setting?=
+Subject: =?utf-8?q?=E2=9C=97_Fi=2ECI=2ESPARSE=3A_warning_for_drm/i915/gt=3A_Fix_CCS_i?=
+ =?utf-8?q?d=27s_calculation_for_CCS_mode_setting?=
 From: Patchwork <patchwork@emeril.freedesktop.org>
 To: "Andi Shyti" <andi.shyti@linux.intel.com>
 Cc: intel-gfx@lists.freedesktop.org
-Date: Fri, 17 May 2024 09:32:37 -0000
-Message-ID: <171593835766.2142370.10110311174499458275@8e613ede5ea5>
+Date: Fri, 17 May 2024 09:32:40 -0000
+Message-ID: <171593836064.2142370.17601072882879546064@8e613ede5ea5>
 X-Patchwork-Hint: ignore
 References: <20240517090616.242529-1-andi.shyti@linux.intel.com>
 In-Reply-To: <20240517090616.242529-1-andi.shyti@linux.intel.com>
@@ -49,10 +49,8 @@ State : warning
 
 == Summary ==
 
-Error: dim checkpatch failed
-149a7fb4a88d drm/i915/gt: Fix CCS id's calculation for CCS mode setting
--:79: ERROR:MISSING_SIGN_OFF: Missing Signed-off-by: line(s)
-
-total: 1 errors, 0 warnings, 0 checks, 34 lines checked
+Error: dim sparse failed
+Sparse version: v0.6.2
+Fast mode used, each commit won't be checked separately.
 
 
