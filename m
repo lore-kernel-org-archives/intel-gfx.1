@@ -4,52 +4,55 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 81AECC25B7C
-	for <intel-gfx@archiver.kernel.org>; Fri, 17 May 2024 07:30:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 81DF4C25B78
+	for <intel-gfx@archiver.kernel.org>; Fri, 17 May 2024 07:30:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A691710EE0A;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0EEE710EE07;
 	Fri, 17 May 2024 07:30:35 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="bVPHCxMd";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="dnmAqkMO";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.12])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 22D1310EDFA
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2391D10EE07
  for <intel-gfx@lists.freedesktop.org>; Fri, 17 May 2024 07:30:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
  t=1715931034; x=1747467034;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=3HCvLNw8kvNgydW2WSnLDKY9k+4NtS1fwvBWP25rAyQ=;
- b=bVPHCxMdKQoah+fwj7fUn/LHkeq1yE1A20xaPcqMJUhmm43n8/4b/vZ7
- 0KU8hdl0Q/ZEkma5s7/PU5mIroGKYlF4KOdOjRCziHUPUizuTdDAhuwdn
- caG3AAPxzaK6O/xvWpzgbkywZWIokEB99FBcmYt6AUkVt59cEbQswgLhj
- /RNJvPcBiFOJTfPE11r/Ubt7im6M3tGvf2gMyyvvJtzTInPml/YLx1Q/A
- xnDTGlKZF7XNu8oBmwz1CJl9xVvRBnfEOXA2zqegQXJGyIS4pCSq+m8W0
- xQF4N0qi/+w5YSg6XPzdUJu5IyWEfXRGoGDv0ZXgfy9PRQvy0Np/k6Ssc Q==;
-X-CSE-ConnectionGUID: l0ucCc12T0G3wgpCY7kjBw==
-X-CSE-MsgGUID: dYHhelNzRAe2MMCM0SeFow==
-X-IronPort-AV: E=McAfee;i="6600,9927,11074"; a="15917880"
-X-IronPort-AV: E=Sophos;i="6.08,167,1712646000"; d="scan'208";a="15917880"
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=Kl4IUb8YvG6iCMpq6/uWVKn2CC2mSxcXUTuuIS0a+JQ=;
+ b=dnmAqkMOzE0HQYpgJRdQKW6O+QscjOnVVHqzpUdJat6AWYl3eCyqqfgY
+ Y66mY5xpcMBI3kFBkKaADY3ypNv/hqk0k1MNjtrlRjAI8L23ywuuwDZ3U
+ O0CCGlly7cyworSrUoaO9/1+k0YdubJ5LNaVEUY50MeNYW4CTBDlX+urj
+ lZGEMpAF9KclU2QZbr69F0+ILUqbIiJYx/49VyWJlQqODIs8hPl9AVdwO
+ a8tLW8d3xKe9Y2kdgQJMWT1WkHbNA7FxDM/qrQtr89RvTQBxNNDu21iZ+
+ pYyto7bQy2qya0dSLlACw9FTW0KFkQknXcst+1ELckvhsEBWQOfbdCGw8 A==;
+X-CSE-ConnectionGUID: 5jACaoRCToue5eheGWsw8Q==
+X-CSE-MsgGUID: UXfUGn3OSnO1YRi+u6LWIA==
+X-IronPort-AV: E=McAfee;i="6600,9927,11074"; a="15917887"
+X-IronPort-AV: E=Sophos;i="6.08,167,1712646000"; d="scan'208";a="15917887"
 Received: from fmviesa010.fm.intel.com ([10.60.135.150])
  by fmvoesa106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 17 May 2024 00:30:18 -0700
-X-CSE-ConnectionGUID: lmL2RrJPSIiepaFd1Y1Z4w==
-X-CSE-MsgGUID: X+TtAMlSQC+7tK6zoWqLUA==
+ 17 May 2024 00:30:22 -0700
+X-CSE-ConnectionGUID: ilMZG2JMTsSih+68GilXTw==
+X-CSE-MsgGUID: DiX+rhG1QVmnrmq5rhosIA==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.08,167,1712646000"; d="scan'208";a="31803585"
+X-IronPort-AV: E=Sophos;i="6.08,167,1712646000"; d="scan'208";a="31803593"
 Received: from mspitkan-mobl1.ger.corp.intel.com (HELO
  jhogande-mobl1.intel.com) ([10.251.210.189])
  by fmviesa010-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 17 May 2024 00:30:17 -0700
+ 17 May 2024 00:30:21 -0700
 From: =?UTF-8?q?Jouni=20H=C3=B6gander?= <jouni.hogander@intel.com>
 To: intel-gfx@lists.freedesktop.org
 Cc: uma.shankar@intel.com,
  =?UTF-8?q?Jouni=20H=C3=B6gander?= <jouni.hogander@intel.com>
-Subject: [PATCH v2 0/3] LunarLake IO and Fast Wake changes
-Date: Fri, 17 May 2024 10:30:02 +0300
-Message-Id: <20240517073005.2414293-1-jouni.hogander@intel.com>
+Subject: [PATCH v2 3/3] drm/i915/psr: PSR2_CTL[Block Count Number] not needed
+ for LunarLake
+Date: Fri, 17 May 2024 10:30:05 +0300
+Message-Id: <20240517073005.2414293-4-jouni.hogander@intel.com>
 X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20240517073005.2414293-1-jouni.hogander@intel.com>
+References: <20240517073005.2414293-1-jouni.hogander@intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
@@ -69,26 +72,29 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-There are some changes in LunarLake IO and Fast Wake configuration:
+PSR2_CTL[Block Count Number] is not used by LunarLake do not configure it.
 
-IO Wake Lines configuration is now 6 bits wide
-Fast Wake Lines configuration is now 6 bits wide and in ALPM_CTL register
-PSR2_CTL[Block count number] is not valid for LunarLake and onwards
+Bspec: 69885
 
-This patch set modifies the driver accordingly.
+Signed-off-by: Jouni Högander <jouni.hogander@intel.com>
+Reviewed-by: Uma Shankar <uma.shankar@intel.com>
+---
+ drivers/gpu/drm/i915/display/intel_psr.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-v2: maximum line count is 68 (6 bits + 5 lines added by HW)
-
-Jouni Högander (3):
-  drm/i915/psr: LunarLake IO and Fast Wake time line count maximums are
-    68
-  drm/i915/psr: LunarLake PSR2_CTL[IO Wake Lines] is 6 bits wide
-  drm/i915/psr: PSR2_CTL[Block Count Number] not needed for LunarLake
-
- drivers/gpu/drm/i915/display/intel_psr.c      | 9 ++++++---
- drivers/gpu/drm/i915/display/intel_psr_regs.h | 4 ++++
- 2 files changed, 10 insertions(+), 3 deletions(-)
-
+diff --git a/drivers/gpu/drm/i915/display/intel_psr.c b/drivers/gpu/drm/i915/display/intel_psr.c
+index d2f6488b8fc7..d18baeb971bb 100644
+--- a/drivers/gpu/drm/i915/display/intel_psr.c
++++ b/drivers/gpu/drm/i915/display/intel_psr.c
+@@ -927,7 +927,7 @@ static void hsw_activate_psr2(struct intel_dp *intel_dp)
+ 
+ 	val |= intel_psr2_get_tp_time(intel_dp);
+ 
+-	if (DISPLAY_VER(dev_priv) >= 12) {
++	if (DISPLAY_VER(dev_priv) >= 12 && DISPLAY_VER(dev_priv) < 20) {
+ 		if (psr2_block_count(intel_dp) > 2)
+ 			val |= TGL_EDP_PSR2_BLOCK_COUNT_NUM_3;
+ 		else
 -- 
 2.34.1
 
