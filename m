@@ -4,50 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5C580C25B77
-	for <intel-gfx@archiver.kernel.org>; Mon, 20 May 2024 18:58:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 15603C04FFE
+	for <intel-gfx@archiver.kernel.org>; Mon, 20 May 2024 18:58:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 17E6010E572;
-	Mon, 20 May 2024 18:58:36 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6D53510E51E;
+	Mon, 20 May 2024 18:58:38 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="AQ7VYida";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="AYFepQ2l";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.12])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4FA7310E17B
- for <intel-gfx@lists.freedesktop.org>; Mon, 20 May 2024 18:58:21 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3061510E5A5
+ for <intel-gfx@lists.freedesktop.org>; Mon, 20 May 2024 18:58:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1716231501; x=1747767501;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=oVett7KAVddwcUgqcAHAIt6FOAMlH0D3DcshV0XP2+U=;
- b=AQ7VYidaeIKSGyMx2HutcZGqjQkfCXMulRP0HCvfmFIPQSie6clE+Yx4
- IKOhx4/h1zbEsUq0EM2bl5WGHbk3tT8qjWtxZz+WqOFTWzzhSY2mggND8
- kzNq6/5o4GFlqAPDz2JnayGVT7N5NauHGEegpyRjDcjzg6Iw+TO9dbeOW
- +5STOxEkzpNUHMy8n98DWKvmSsARBNsAcprqtR5ZuSX0GRHwKNM0tJQjN
- KvEyuj0kXEK6y/iwj4Glp8uyYjQlHFcsxg1rCpZ1ZAzMmNxzfMy5szuMQ
- EPMFCpfZ56mw6z9RepnSYGN/uNc4Bw1VPazTb6rYnxdfMqfggW+K0gMWh Q==;
-X-CSE-ConnectionGUID: 0te1wnkhQIeJo1YDGdk4yg==
-X-CSE-MsgGUID: Wa/Cb0hxTSCpWQMeNa0Bag==
-X-IronPort-AV: E=McAfee;i="6600,9927,11078"; a="16218509"
-X-IronPort-AV: E=Sophos;i="6.08,175,1712646000"; d="scan'208";a="16218509"
+ t=1716231506; x=1747767506;
+ h=from:to:subject:date:message-id:in-reply-to:references:
+ mime-version:content-transfer-encoding;
+ bh=TcU6TvzeUWn8kNMwagVOYVYLigWiyhAYPae2SmVtJGc=;
+ b=AYFepQ2lf5I4qj84EJU/zmLslT2fD41x6cUoxEiPZAv8N/NUv4dyecKk
+ cunxdAZ5H8G3W/lRrqGuqEJiLDc8oDPMu/njVLRib20xMhZTbjwG6/8Bk
+ wvG3qUOD0+fWuDLA7JH56dVM/DoL+TIq0iZmuPLUmgVDYS6KLkHs2YJKt
+ fMdfjc9QuH+r+FzoUqdqVeFB1bei0ygX4Tb71SLeD4Ipw7IyA1freNQoT
+ 86O++KHkO/nMKKzoWoy8QWSKKF2i8oGp2QlqNKmkd8+T/Sfdx1ngWoVfe
+ nk9hCyFjH9EUmUeg1c2d+yEObNqJQHaD0ipnNbiIyCUd/bdvnDSs8etQi w==;
+X-CSE-ConnectionGUID: zXcB92GYS7mlS7kytexetA==
+X-CSE-MsgGUID: oYnWOig9SaSBrbpF4KwWng==
+X-IronPort-AV: E=McAfee;i="6600,9927,11078"; a="16218523"
+X-IronPort-AV: E=Sophos;i="6.08,175,1712646000"; d="scan'208";a="16218523"
 Received: from fmviesa004.fm.intel.com ([10.60.135.144])
  by fmvoesa106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 20 May 2024 11:58:21 -0700
-X-CSE-ConnectionGUID: IQuDkE5sSuywEWsYVxRXXw==
-X-CSE-MsgGUID: oHbE2K/UQc6Bh6hYPUITYQ==
+ 20 May 2024 11:58:26 -0700
+X-CSE-ConnectionGUID: y7IYo22IRiaoYmMli7NSRg==
+X-CSE-MsgGUID: TeMi2kDvTYO0/c40fdyPQg==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.08,175,1712646000"; d="scan'208";a="37213837"
+X-IronPort-AV: E=Sophos;i="6.08,175,1712646000"; d="scan'208";a="37213850"
 Received: from ideak-desk.fi.intel.com ([10.237.72.78])
  by fmviesa004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 20 May 2024 11:58:20 -0700
+ 20 May 2024 11:58:25 -0700
 From: Imre Deak <imre.deak@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Cc: Jani Nikula <jani.nikula@intel.com>
-Subject: [PATCH v2 02/21] drm/i915/dp: Move link train params to a substruct
- in intel_dp
-Date: Mon, 20 May 2024 21:58:00 +0300
-Message-ID: <20240520185822.3725844-3-imre.deak@intel.com>
+Subject: [PATCH v2 07/21] drm/i915/dp: Recheck link state after modeset
+Date: Mon, 20 May 2024 21:58:05 +0300
+Message-ID: <20240520185822.3725844-8-imre.deak@intel.com>
 X-Mailer: git-send-email 2.43.3
 In-Reply-To: <20240520185822.3725844-1-imre.deak@intel.com>
 References: <20240520185822.3725844-1-imre.deak@intel.com>
@@ -68,154 +66,214 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-For clarity move the link training parameters updated during link
-training based on the pass/fail LT result under a substruct in intel_dp.
-This prepares for later patches in this patchset adding similar params
-here. Rename intel_dp_reset_max_link_params() to
-intel_dp_reset_link_params() to better reflect what state gets reset.
+Recheck the link state after a passing link training, with a 2 sec delay
+to account for cases where the link goes bad following the link training
+and the sink doesn't report this via an HPD IRQ.
 
-v2: Add the parameters to a more generic link substruct. (Jani)
+The delayed work added here will be also used by a later patch after a
+failed link training to try to retrain the link with unchanged link
+params before reducing the link params.
 
-Cc: Jani Nikula <jani.nikula@intel.com>
+v2: Don't flush an uninitialized delayed work (on HDMI-only DDI ports).
+v3: Add the work to intel_digital_port instead of intel_dp.
+
 Signed-off-by: Imre Deak <imre.deak@intel.com>
 ---
- .../drm/i915/display/intel_display_types.h    | 13 ++++----
- drivers/gpu/drm/i915/display/intel_dp.c       | 30 +++++++++----------
- 2 files changed, 23 insertions(+), 20 deletions(-)
+ drivers/gpu/drm/i915/display/g4x_dp.c         |  7 ++++
+ drivers/gpu/drm/i915/display/intel_ddi.c      | 34 +++++++++++++++++++
+ drivers/gpu/drm/i915/display/intel_ddi.h      |  4 +++
+ .../drm/i915/display/intel_display_types.h    |  3 ++
+ drivers/gpu/drm/i915/display/intel_dp.c       |  1 +
+ .../drm/i915/display/intel_dp_link_training.c | 12 +++++--
+ 6 files changed, 58 insertions(+), 3 deletions(-)
 
+diff --git a/drivers/gpu/drm/i915/display/g4x_dp.c b/drivers/gpu/drm/i915/display/g4x_dp.c
+index 06ec04e667e32..4363e32a834df 100644
+--- a/drivers/gpu/drm/i915/display/g4x_dp.c
++++ b/drivers/gpu/drm/i915/display/g4x_dp.c
+@@ -20,6 +20,7 @@
+ #include "intel_dp_aux.h"
+ #include "intel_dp_link_training.h"
+ #include "intel_dpio_phy.h"
++#include "intel_ddi.h"
+ #include "intel_fifo_underrun.h"
+ #include "intel_hdmi.h"
+ #include "intel_hotplug.h"
+@@ -1241,6 +1242,10 @@ static bool ilk_digital_port_connected(struct intel_encoder *encoder)
+ 
+ static void intel_dp_encoder_destroy(struct drm_encoder *encoder)
+ {
++	struct intel_digital_port *dig_port = enc_to_dig_port(to_intel_encoder(encoder));
++
++	intel_ddi_flush_link_check_work(dig_port);
++
+ 	intel_dp_encoder_flush_work(encoder);
+ 
+ 	drm_encoder_cleanup(encoder);
+@@ -1309,6 +1314,8 @@ bool g4x_dp_init(struct drm_i915_private *dev_priv,
+ 
+ 	dig_port->aux_ch = AUX_CH_NONE;
+ 
++	intel_ddi_init_link_check_work(dig_port);
++
+ 	intel_connector = intel_connector_alloc();
+ 	if (!intel_connector)
+ 		goto err_connector_alloc;
+diff --git a/drivers/gpu/drm/i915/display/intel_ddi.c b/drivers/gpu/drm/i915/display/intel_ddi.c
+index 170ba01786cf8..86358ec27e685 100644
+--- a/drivers/gpu/drm/i915/display/intel_ddi.c
++++ b/drivers/gpu/drm/i915/display/intel_ddi.c
+@@ -4360,6 +4360,7 @@ static void intel_ddi_encoder_destroy(struct drm_encoder *encoder)
+ 	struct drm_i915_private *i915 = to_i915(encoder->dev);
+ 	struct intel_digital_port *dig_port = enc_to_dig_port(to_intel_encoder(encoder));
+ 
++	intel_ddi_flush_link_check_work(dig_port);
+ 	intel_dp_encoder_flush_work(encoder);
+ 	if (intel_encoder_is_tc(&dig_port->base))
+ 		intel_tc_port_cleanup(dig_port);
+@@ -4441,6 +4442,37 @@ intel_ddi_init_dp_connector(struct intel_digital_port *dig_port)
+ 	return connector;
+ }
+ 
++static void intel_ddi_link_check_work_fn(struct work_struct *work)
++{
++	struct intel_digital_port *dig_port =
++		container_of(work, typeof(*dig_port), check_link_work.work);
++	struct intel_encoder *encoder = &dig_port->base;
++	struct drm_modeset_acquire_ctx ctx;
++	int ret;
++
++	intel_modeset_lock_ctx_retry(&ctx, NULL, 0, ret)
++		if (dig_port->dp.attached_connector)
++			ret = intel_dp_retrain_link(encoder, &ctx);
++}
++
++void intel_ddi_init_link_check_work(struct intel_digital_port *dig_port)
++{
++	INIT_DELAYED_WORK(&dig_port->check_link_work, intel_ddi_link_check_work_fn);
++}
++
++void intel_ddi_flush_link_check_work(struct intel_digital_port *dig_port)
++{
++	cancel_delayed_work_sync(&dig_port->check_link_work);
++}
++
++void intel_ddi_queue_link_check(struct intel_digital_port *dig_port, int delay_ms)
++{
++	struct drm_i915_private *i915 = to_i915(dig_port->base.base.dev);
++
++	mod_delayed_work(i915->unordered_wq,
++			 &dig_port->check_link_work, msecs_to_jiffies(delay_ms));
++}
++
+ static int intel_hdmi_reset_link(struct intel_encoder *encoder,
+ 				 struct drm_modeset_acquire_ctx *ctx)
+ {
+@@ -4911,6 +4943,8 @@ void intel_ddi_init(struct drm_i915_private *dev_priv,
+ 
+ 	dig_port->aux_ch = AUX_CH_NONE;
+ 
++	intel_ddi_init_link_check_work(dig_port);
++
+ 	encoder = &dig_port->base;
+ 	encoder->devdata = devdata;
+ 
+diff --git a/drivers/gpu/drm/i915/display/intel_ddi.h b/drivers/gpu/drm/i915/display/intel_ddi.h
+index 434de7196875a..b67714483f3cc 100644
+--- a/drivers/gpu/drm/i915/display/intel_ddi.h
++++ b/drivers/gpu/drm/i915/display/intel_ddi.h
+@@ -15,6 +15,7 @@ struct intel_bios_encoder_data;
+ struct intel_connector;
+ struct intel_crtc;
+ struct intel_crtc_state;
++struct intel_digital_port;
+ struct intel_dp;
+ struct intel_dpll_hw_state;
+ struct intel_encoder;
+@@ -53,6 +54,9 @@ void hsw_prepare_dp_ddi_buffers(struct intel_encoder *encoder,
+ 				const struct intel_crtc_state *crtc_state);
+ void intel_wait_ddi_buf_idle(struct drm_i915_private *dev_priv,
+ 			     enum port port);
++void intel_ddi_init_link_check_work(struct intel_digital_port *dig_port);
++void intel_ddi_flush_link_check_work(struct intel_digital_port *dig_port);
++void intel_ddi_queue_link_check(struct intel_digital_port *dig_port, int delay_ms);
+ void intel_ddi_init(struct drm_i915_private *dev_priv,
+ 		    const struct intel_bios_encoder_data *devdata);
+ bool intel_ddi_get_hw_state(struct intel_encoder *encoder, enum pipe *pipe);
 diff --git a/drivers/gpu/drm/i915/display/intel_display_types.h b/drivers/gpu/drm/i915/display/intel_display_types.h
-index 9678c2b157f6f..1e44a23ca2125 100644
+index 1e44a23ca2125..9317c1ae04efe 100644
 --- a/drivers/gpu/drm/i915/display/intel_display_types.h
 +++ b/drivers/gpu/drm/i915/display/intel_display_types.h
-@@ -1739,7 +1739,6 @@ struct intel_dp {
- 	u8 lane_count;
- 	u8 sink_count;
- 	bool link_trained;
--	bool reset_link_params;
- 	bool use_max_params;
- 	u8 dpcd[DP_RECEIVER_CAP_SIZE];
- 	u8 psr_dpcd[EDP_PSR_RECEIVER_CAP_SIZE];
-@@ -1760,10 +1759,14 @@ struct intel_dp {
- 	/* intersection of source and sink rates */
- 	int num_common_rates;
- 	int common_rates[DP_MAX_SUPPORTED_RATES];
--	/* Max lane count for the current link */
--	int max_link_lane_count;
--	/* Max rate for the current link */
--	int max_link_rate;
-+	struct {
-+		/* TODO: move the rest of link specific fields to here */
-+		/* Max lane count for the current link */
-+		int max_lane_count;
-+		/* Max rate for the current link */
-+		int max_rate;
-+	} link;
-+	bool reset_link_params;
- 	int mso_link_count;
- 	int mso_pixel_overlap;
- 	/* sink or branch descriptor */
+@@ -1880,6 +1880,9 @@ struct intel_digital_port {
+ 
+ 	struct intel_tc_port *tc;
+ 
++	/* Check and recover a bad link status on DP and HDMI ports. */
++	struct delayed_work check_link_work;
++
+ 	/* protects num_hdcp_streams reference count, hdcp_port_data and hdcp_auth_status */
+ 	struct mutex hdcp_mutex;
+ 	/* the number of pipes using HDCP signalling out of this port */
 diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
-index c0a3b6d506817..ceedd3ef41946 100644
+index 120f7b420807b..8da277f0c2735 100644
 --- a/drivers/gpu/drm/i915/display/intel_dp.c
 +++ b/drivers/gpu/drm/i915/display/intel_dp.c
-@@ -372,13 +372,13 @@ int intel_dp_max_common_lane_count(struct intel_dp *intel_dp)
+@@ -75,6 +75,7 @@
+ #include "intel_hotplug_irq.h"
+ #include "intel_lspcon.h"
+ #include "intel_lvds.h"
++#include "intel_modeset_lock.h"
+ #include "intel_panel.h"
+ #include "intel_pch_display.h"
+ #include "intel_pps.h"
+diff --git a/drivers/gpu/drm/i915/display/intel_dp_link_training.c b/drivers/gpu/drm/i915/display/intel_dp_link_training.c
+index edc970036866a..ad1fbb150ff90 100644
+--- a/drivers/gpu/drm/i915/display/intel_dp_link_training.c
++++ b/drivers/gpu/drm/i915/display/intel_dp_link_training.c
+@@ -25,6 +25,7 @@
+ #include "intel_display_types.h"
+ #include "intel_dp.h"
+ #include "intel_dp_link_training.h"
++#include "intel_ddi.h"
+ #include "intel_panel.h"
  
- int intel_dp_max_lane_count(struct intel_dp *intel_dp)
+ #define LT_MSG_PREFIX			"[CONNECTOR:%d:%s][ENCODER:%d:%s][%s] "
+@@ -1464,6 +1465,7 @@ void intel_dp_start_link_train(struct intel_dp *intel_dp,
+ 			       const struct intel_crtc_state *crtc_state)
  {
--	switch (intel_dp->max_link_lane_count) {
-+	switch (intel_dp->link.max_lane_count) {
- 	case 1:
- 	case 2:
- 	case 4:
--		return intel_dp->max_link_lane_count;
-+		return intel_dp->link.max_lane_count;
- 	default:
--		MISSING_CASE(intel_dp->max_link_lane_count);
-+		MISSING_CASE(intel_dp->link.max_lane_count);
- 		return 1;
- 	}
- }
-@@ -644,7 +644,7 @@ static bool intel_dp_link_params_valid(struct intel_dp *intel_dp, int link_rate,
- 	 * boot-up.
+ 	struct drm_i915_private *i915 = dp_to_i915(intel_dp);
++	struct intel_digital_port *dig_port = dp_to_dig_port(intel_dp);
+ 	bool passed;
+ 
+ 	/*
+@@ -1483,6 +1485,11 @@ void intel_dp_start_link_train(struct intel_dp *intel_dp,
+ 	else
+ 		passed = intel_dp_link_train_all_phys(intel_dp, crtc_state, lttpr_count);
+ 
++	if (passed) {
++		intel_ddi_queue_link_check(dig_port, 2000);
++		return;
++	}
++
+ 	/*
+ 	 * Ignore the link failure in CI
+ 	 *
+@@ -1495,13 +1502,12 @@ void intel_dp_start_link_train(struct intel_dp *intel_dp,
+ 	 * For test cases which rely on the link training or processing of HPDs
+ 	 * ignore_long_hpd flag can unset from the testcase.
  	 */
- 	if (link_rate == 0 ||
--	    link_rate > intel_dp->max_link_rate)
-+	    link_rate > intel_dp->link.max_rate)
- 		return false;
- 
- 	if (lane_count == 0 ||
-@@ -705,8 +705,8 @@ int intel_dp_get_link_train_fallback_values(struct intel_dp *intel_dp,
- 				    "Retrying Link training for eDP with same parameters\n");
- 			return 0;
- 		}
--		intel_dp->max_link_rate = intel_dp_common_rate(intel_dp, index - 1);
--		intel_dp->max_link_lane_count = lane_count;
-+		intel_dp->link.max_rate = intel_dp_common_rate(intel_dp, index - 1);
-+		intel_dp->link.max_lane_count = lane_count;
- 	} else if (lane_count > 1) {
- 		if (intel_dp_is_edp(intel_dp) &&
- 		    !intel_dp_can_link_train_fallback_for_edp(intel_dp,
-@@ -716,8 +716,8 @@ int intel_dp_get_link_train_fallback_values(struct intel_dp *intel_dp,
- 				    "Retrying Link training for eDP with same parameters\n");
- 			return 0;
- 		}
--		intel_dp->max_link_rate = intel_dp_max_common_rate(intel_dp);
--		intel_dp->max_link_lane_count = lane_count >> 1;
-+		intel_dp->link.max_rate = intel_dp_max_common_rate(intel_dp);
-+		intel_dp->link.max_lane_count = lane_count >> 1;
- 	} else {
- 		drm_err(&i915->drm, "Link Training Unsuccessful\n");
- 		return -1;
-@@ -1382,7 +1382,7 @@ intel_dp_max_link_rate(struct intel_dp *intel_dp)
- {
- 	int len;
- 
--	len = intel_dp_common_len_rate_limit(intel_dp, intel_dp->max_link_rate);
-+	len = intel_dp_common_len_rate_limit(intel_dp, intel_dp->link.max_rate);
- 
- 	return intel_dp_common_rate(intel_dp, len - 1);
- }
-@@ -3017,10 +3017,10 @@ void intel_dp_set_link_params(struct intel_dp *intel_dp,
- 	intel_dp->lane_count = lane_count;
- }
- 
--static void intel_dp_reset_max_link_params(struct intel_dp *intel_dp)
-+static void intel_dp_reset_link_params(struct intel_dp *intel_dp)
- {
--	intel_dp->max_link_lane_count = intel_dp_max_common_lane_count(intel_dp);
--	intel_dp->max_link_rate = intel_dp_max_common_rate(intel_dp);
-+	intel_dp->link.max_lane_count = intel_dp_max_common_lane_count(intel_dp);
-+	intel_dp->link.max_rate = intel_dp_max_common_rate(intel_dp);
- }
- 
- /* Enable backlight PWM and backlight PP control. */
-@@ -3355,7 +3355,7 @@ void intel_dp_sync_state(struct intel_encoder *encoder,
- 	intel_dp_tunnel_resume(intel_dp, crtc_state, dpcd_updated);
- 
- 	if (crtc_state)
--		intel_dp_reset_max_link_params(intel_dp);
-+		intel_dp_reset_link_params(intel_dp);
- }
- 
- bool intel_dp_initial_fastset_check(struct intel_encoder *encoder,
-@@ -5889,7 +5889,7 @@ intel_dp_detect(struct drm_connector *connector,
- 	 * supports link training fallback params.
- 	 */
- 	if (intel_dp->reset_link_params || intel_dp->is_mst) {
--		intel_dp_reset_max_link_params(intel_dp);
-+		intel_dp_reset_link_params(intel_dp);
- 		intel_dp->reset_link_params = false;
+-	if (!passed && i915->display.hotplug.ignore_long_hpd) {
++	if (i915->display.hotplug.ignore_long_hpd) {
+ 		lt_dbg(intel_dp, DP_PHY_DPRX, "Ignore the link failure\n");
+ 		return;
  	}
  
-@@ -6741,7 +6741,7 @@ intel_dp_init_connector(struct intel_digital_port *dig_port,
+-	if (!passed)
+-		intel_dp_schedule_fallback_link_training(intel_dp, crtc_state);
++	intel_dp_schedule_fallback_link_training(intel_dp, crtc_state);
+ }
  
- 	intel_dp_set_source_rates(intel_dp);
- 	intel_dp_set_common_rates(intel_dp);
--	intel_dp_reset_max_link_params(intel_dp);
-+	intel_dp_reset_link_params(intel_dp);
- 
- 	/* init MST on ports that can support it */
- 	intel_dp_mst_encoder_init(dig_port,
+ void intel_dp_128b132b_sdp_crc16(struct intel_dp *intel_dp,
 -- 
 2.43.3
 
