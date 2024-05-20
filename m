@@ -4,53 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F1114C25B7A
-	for <intel-gfx@archiver.kernel.org>; Mon, 20 May 2024 18:58:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 08AC6C25B77
+	for <intel-gfx@archiver.kernel.org>; Mon, 20 May 2024 18:58:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DF45010E48B;
-	Mon, 20 May 2024 18:58:22 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7735810E5A5;
+	Mon, 20 May 2024 18:58:29 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="e4H00xa8";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="hLoXs0mI";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.12])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2623510E17B
- for <intel-gfx@lists.freedesktop.org>; Mon, 20 May 2024 18:58:20 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6B3D110E31E
+ for <intel-gfx@lists.freedesktop.org>; Mon, 20 May 2024 18:58:22 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1716231500; x=1747767500;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=dCs5w58nUiBthAncKu/uyM+CWHKbk87waPiAP5JvZ3M=;
- b=e4H00xa8yO+RC9a814mSKRQ9CVQgSm3hPBr+2V4dlOPv9AdWBg9xNN3z
- Wdp71dRtYvKM58k0n6Tnc/50nFsKlhPaac4J7Rj9cfH0NeHkjKyacIc62
- ox1BA1/mrKNshbwX9PyyqwjH4E0+5gMSFarF3o5kZD+hiXHAmMNustULI
- jDuWmXsYWT+P96JuYNQWO4VA2+SpjrvV+usA5lOj2apsOAY4XM1nUMxWB
- lfcPUq3iCbO2K+FABw7G3r95FTGxQKJe+5uYZUSCEO1B4LRDcQZe+Xq+l
- hf11HlJOtnq3FztSPhVI5OFcy/ZtiIXkQ/4Rw3XMMlql4YJ8Z4DHFQaO2 w==;
-X-CSE-ConnectionGUID: ZV6RCGGRSxiVoN/I9Zms1w==
-X-CSE-MsgGUID: k3Y0/1tKTw2j7x51jqcJsQ==
-X-IronPort-AV: E=McAfee;i="6600,9927,11078"; a="16218503"
-X-IronPort-AV: E=Sophos;i="6.08,175,1712646000"; d="scan'208";a="16218503"
+ t=1716231502; x=1747767502;
+ h=from:to:subject:date:message-id:in-reply-to:references:
+ mime-version:content-transfer-encoding;
+ bh=x0DbNd6686fxzocvAXwRJe67ESlwWcg0fZradmzD2Bk=;
+ b=hLoXs0mIJBLCveIHCg5Deij1DrrAKdxcQDw4hOvk7FdHJZuvgb0Funad
+ DbhFMJQCVibZUctB71xZDTPNv8Mx9pFlAngnn8EDAR6z1oV1O0F1Agxvu
+ tCvgbCoJyFjJzEsMrns0C6q/OynpP9erVlgCcD+RX+sI1YHmTYrNjwp7W
+ IyHc9vbx5E1mKX8UsWGnoKR1EUGC/+BeMmBoUu7MAVhmkToiql/kvjYq7
+ JpsGD0OFYVrAHkJa9jeZ0x6TgbWcIm9Nd9PTlvE0df4RQd2pbbMtqrMtL
+ ZvRGBn/Zx05IxFozopixO/Kxhw+iyFEFe2gjWsubj8ZEtHDJU8To61R8M w==;
+X-CSE-ConnectionGUID: B04njp9sTsWDqkqWknHX5A==
+X-CSE-MsgGUID: pLXj8/ZWT1a8N5MWpkDC6g==
+X-IronPort-AV: E=McAfee;i="6600,9927,11078"; a="16218513"
+X-IronPort-AV: E=Sophos;i="6.08,175,1712646000"; d="scan'208";a="16218513"
 Received: from fmviesa004.fm.intel.com ([10.60.135.144])
  by fmvoesa106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 20 May 2024 11:58:19 -0700
-X-CSE-ConnectionGUID: whIFkXWzRX2UDdhU6oDXWg==
-X-CSE-MsgGUID: j8X6xdj2S1eVEwa1qu98tw==
+ 20 May 2024 11:58:22 -0700
+X-CSE-ConnectionGUID: Wv2mT8SQQFuxWXVpgI7fRg==
+X-CSE-MsgGUID: wVp4P31DQU6kIWBDXaLl2Q==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.08,175,1712646000"; d="scan'208";a="37213828"
+X-IronPort-AV: E=Sophos;i="6.08,175,1712646000"; d="scan'208";a="37213839"
 Received: from ideak-desk.fi.intel.com ([10.237.72.78])
  by fmviesa004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 20 May 2024 11:58:18 -0700
+ 20 May 2024 11:58:21 -0700
 From: Imre Deak <imre.deak@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Cc: Jani Nikula <jani.nikula@intel.com>,
- =?UTF-8?q?Ville=20Syrj=C3=A4l=C3=A4?= <ville.syrjala@linux.intel.com>
-Subject: [PATCH v2 00/21] drm/i915/dp_mst: Enable link training fallback
-Date: Mon, 20 May 2024 21:57:58 +0300
-Message-ID: <20240520185822.3725844-1-imre.deak@intel.com>
+Subject: [PATCH v2 03/21] drm/i915/dp: Move link train fallback to
+ intel_dp_link_training.c
+Date: Mon, 20 May 2024 21:58:01 +0300
+Message-ID: <20240520185822.3725844-4-imre.deak@intel.com>
 X-Mailer: git-send-email 2.43.3
+In-Reply-To: <20240520185822.3725844-1-imre.deak@intel.com>
+References: <20240520185822.3725844-1-imre.deak@intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -67,61 +67,230 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-This is v2 of [1], addressing the feedback comments from Jani and Ville:
+Move the functions used to reduce the link parameters during link
+training to intel_dp_link_training.c .
 
-- Use a more generic 'link' substruct instead of 'link_train'. (Patch 2)
-- Add the debugfs entries from intel_dp_link_training.c . (Patch 17-21)
-- Add the link state check work to intel_digital_port instead of
-  intel_dp, to allow using it later for HDMI. (Patch 7)
-- Keep using the atomic state to look up MST connectors, avoiding the
-  access to any object's current state. (Patch 9)
-- Add a separate debugfs entry to get the max link rate/lane count.
-  (Patch 18)
+Signed-off-by: Imre Deak <imre.deak@intel.com>
+---
+ drivers/gpu/drm/i915/display/intel_dp.c       | 76 +------------------
+ drivers/gpu/drm/i915/display/intel_dp.h       |  4 +-
+ .../drm/i915/display/intel_dp_link_training.c | 73 ++++++++++++++++++
+ 3 files changed, 77 insertions(+), 76 deletions(-)
 
-[1] https://lore.kernel.org/all/20240514191418.2863344-1-imre.deak@intel.com
-
-Cc: Jani Nikula <jani.nikula@intel.com>
-Cc: Ville Syrjälä <ville.syrjala@linux.intel.com>
-
-Imre Deak (21):
-  drm/i915/dp_mst: Align TUs to avoid splitting symbols across MTPs
-  drm/i915/dp: Move link train params to a substruct in intel_dp
-  drm/i915/dp: Move link train fallback to intel_dp_link_training.c
-  drm/i915/dp: Sanitize intel_dp_get_link_train_fallback_values()
-  drm/i915: Factor out function to modeset commit a set of pipes
-  drm/i915/dp: Use a commit modeset for link retraining MST links
-  drm/i915/dp: Recheck link state after modeset
-  drm/i915/dp: Reduce link params only after retrying with unchanged
-    params
-  drm/i915/dp: Pass atomic state to link training function
-  drm/i915/dp: Send a link training modeset-retry uevent to all MST
-    connectors
-  drm/i915/dp: Use check link state work in the hotplug handler
-  drm/i915/dp: Use check link state work in the detect handler
-  drm/i915/dp: Use check link state work in the HPD IRQ handler
-  drm/i915/dp: Disable link retraining after the last fallback step
-  drm/i915/dp_mst: Reset intel_dp->link_trained during disabling
-  drm/i915/dp_mst: Enable link training fallback for MST
-  drm/i915/dp: Add debugfs entries to set a target link rate/lane count
-  drm/i915/dp: Add debugfs entries to get the max link rate/lane count
-  drm/i915/dp: Add debugfs entry to force link training failure
-  drm/i915/dp: Add debugfs entry to force link retrain
-  drm/i915/dp: Add debugfs entry for link training info
-
- drivers/gpu/drm/i915/display/g4x_dp.c         |  29 +-
- drivers/gpu/drm/i915/display/intel_ddi.c      |  64 +-
- drivers/gpu/drm/i915/display/intel_ddi.h      |   4 +
- drivers/gpu/drm/i915/display/intel_display.c  |  34 ++
- drivers/gpu/drm/i915/display/intel_display.h  |   3 +
- .../drm/i915/display/intel_display_debugfs.c  |   2 +
- .../drm/i915/display/intel_display_types.h    |  26 +-
- drivers/gpu/drm/i915/display/intel_dp.c       | 241 ++++----
- drivers/gpu/drm/i915/display/intel_dp.h       |   8 +-
- .../drm/i915/display/intel_dp_link_training.c | 545 +++++++++++++++++-
- .../drm/i915/display/intel_dp_link_training.h |   8 +-
- drivers/gpu/drm/i915/display/intel_dp_mst.c   |  30 +-
- 12 files changed, 805 insertions(+), 189 deletions(-)
-
+diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
+index ceedd3ef41946..81e620dd33bb7 100644
+--- a/drivers/gpu/drm/i915/display/intel_dp.c
++++ b/drivers/gpu/drm/i915/display/intel_dp.c
+@@ -329,7 +329,7 @@ static int intel_dp_common_len_rate_limit(const struct intel_dp *intel_dp,
+ 				       intel_dp->num_common_rates, max_rate);
+ }
+ 
+-static int intel_dp_common_rate(struct intel_dp *intel_dp, int index)
++int intel_dp_common_rate(struct intel_dp *intel_dp, int index)
+ {
+ 	if (drm_WARN_ON(&dp_to_i915(intel_dp)->drm,
+ 			index < 0 || index >= intel_dp->num_common_rates))
+@@ -604,7 +604,7 @@ static int intersect_rates(const int *source_rates, int source_len,
+ }
+ 
+ /* return index of rate in rates array, or -1 if not found */
+-static int intel_dp_rate_index(const int *rates, int len, int rate)
++int intel_dp_rate_index(const int *rates, int len, int rate)
+ {
+ 	int i;
+ 
+@@ -654,78 +654,6 @@ static bool intel_dp_link_params_valid(struct intel_dp *intel_dp, int link_rate,
+ 	return true;
+ }
+ 
+-static bool intel_dp_can_link_train_fallback_for_edp(struct intel_dp *intel_dp,
+-						     int link_rate,
+-						     u8 lane_count)
+-{
+-	/* FIXME figure out what we actually want here */
+-	const struct drm_display_mode *fixed_mode =
+-		intel_panel_preferred_fixed_mode(intel_dp->attached_connector);
+-	int mode_rate, max_rate;
+-
+-	mode_rate = intel_dp_link_required(fixed_mode->clock, 18);
+-	max_rate = intel_dp_max_link_data_rate(intel_dp, link_rate, lane_count);
+-	if (mode_rate > max_rate)
+-		return false;
+-
+-	return true;
+-}
+-
+-int intel_dp_get_link_train_fallback_values(struct intel_dp *intel_dp,
+-					    int link_rate, u8 lane_count)
+-{
+-	struct drm_i915_private *i915 = dp_to_i915(intel_dp);
+-	int index;
+-
+-	/*
+-	 * TODO: Enable fallback on MST links once MST link compute can handle
+-	 * the fallback params.
+-	 */
+-	if (intel_dp->is_mst) {
+-		drm_err(&i915->drm, "Link Training Unsuccessful\n");
+-		return -1;
+-	}
+-
+-	if (intel_dp_is_edp(intel_dp) && !intel_dp->use_max_params) {
+-		drm_dbg_kms(&i915->drm,
+-			    "Retrying Link training for eDP with max parameters\n");
+-		intel_dp->use_max_params = true;
+-		return 0;
+-	}
+-
+-	index = intel_dp_rate_index(intel_dp->common_rates,
+-				    intel_dp->num_common_rates,
+-				    link_rate);
+-	if (index > 0) {
+-		if (intel_dp_is_edp(intel_dp) &&
+-		    !intel_dp_can_link_train_fallback_for_edp(intel_dp,
+-							      intel_dp_common_rate(intel_dp, index - 1),
+-							      lane_count)) {
+-			drm_dbg_kms(&i915->drm,
+-				    "Retrying Link training for eDP with same parameters\n");
+-			return 0;
+-		}
+-		intel_dp->link.max_rate = intel_dp_common_rate(intel_dp, index - 1);
+-		intel_dp->link.max_lane_count = lane_count;
+-	} else if (lane_count > 1) {
+-		if (intel_dp_is_edp(intel_dp) &&
+-		    !intel_dp_can_link_train_fallback_for_edp(intel_dp,
+-							      intel_dp_max_common_rate(intel_dp),
+-							      lane_count >> 1)) {
+-			drm_dbg_kms(&i915->drm,
+-				    "Retrying Link training for eDP with same parameters\n");
+-			return 0;
+-		}
+-		intel_dp->link.max_rate = intel_dp_max_common_rate(intel_dp);
+-		intel_dp->link.max_lane_count = lane_count >> 1;
+-	} else {
+-		drm_err(&i915->drm, "Link Training Unsuccessful\n");
+-		return -1;
+-	}
+-
+-	return 0;
+-}
+-
+ u32 intel_dp_mode_to_fec_clock(u32 mode_clock)
+ {
+ 	return div_u64(mul_u32_u32(mode_clock, DP_DSC_FEC_OVERHEAD_FACTOR),
+diff --git a/drivers/gpu/drm/i915/display/intel_dp.h b/drivers/gpu/drm/i915/display/intel_dp.h
+index aad2223df2a35..e7b47e7bcd98b 100644
+--- a/drivers/gpu/drm/i915/display/intel_dp.h
++++ b/drivers/gpu/drm/i915/display/intel_dp.h
+@@ -55,8 +55,6 @@ void intel_dp_connector_sync_state(struct intel_connector *connector,
+ 				   const struct intel_crtc_state *crtc_state);
+ void intel_dp_set_link_params(struct intel_dp *intel_dp,
+ 			      int link_rate, int lane_count);
+-int intel_dp_get_link_train_fallback_values(struct intel_dp *intel_dp,
+-					    int link_rate, u8 lane_count);
+ int intel_dp_get_active_pipes(struct intel_dp *intel_dp,
+ 			      struct drm_modeset_acquire_ctx *ctx,
+ 			      u8 *pipe_mask);
+@@ -107,6 +105,8 @@ int intel_dp_config_required_rate(const struct intel_crtc_state *crtc_state);
+ int intel_dp_rate_select(struct intel_dp *intel_dp, int rate);
+ int intel_dp_max_common_rate(struct intel_dp *intel_dp);
+ int intel_dp_max_common_lane_count(struct intel_dp *intel_dp);
++int intel_dp_common_rate(struct intel_dp *intel_dp, int index);
++int intel_dp_rate_index(const int *rates, int len, int rate);
+ void intel_dp_update_sink_caps(struct intel_dp *intel_dp);
+ 
+ void intel_dp_compute_rate(struct intel_dp *intel_dp, int port_clock,
+diff --git a/drivers/gpu/drm/i915/display/intel_dp_link_training.c b/drivers/gpu/drm/i915/display/intel_dp_link_training.c
+index 947575140059d..4db293f256896 100644
+--- a/drivers/gpu/drm/i915/display/intel_dp_link_training.c
++++ b/drivers/gpu/drm/i915/display/intel_dp_link_training.c
+@@ -25,6 +25,7 @@
+ #include "intel_display_types.h"
+ #include "intel_dp.h"
+ #include "intel_dp_link_training.h"
++#include "intel_panel.h"
+ 
+ #define LT_MSG_PREFIX			"[CONNECTOR:%d:%s][ENCODER:%d:%s][%s] "
+ #define LT_MSG_ARGS(_intel_dp, _dp_phy)	(_intel_dp)->attached_connector->base.base.id, \
+@@ -1091,6 +1092,78 @@ intel_dp_link_train_phy(struct intel_dp *intel_dp,
+ 	return ret;
+ }
+ 
++static bool intel_dp_can_link_train_fallback_for_edp(struct intel_dp *intel_dp,
++						     int link_rate,
++						     u8 lane_count)
++{
++	/* FIXME figure out what we actually want here */
++	const struct drm_display_mode *fixed_mode =
++		intel_panel_preferred_fixed_mode(intel_dp->attached_connector);
++	int mode_rate, max_rate;
++
++	mode_rate = intel_dp_link_required(fixed_mode->clock, 18);
++	max_rate = intel_dp_max_link_data_rate(intel_dp, link_rate, lane_count);
++	if (mode_rate > max_rate)
++		return false;
++
++	return true;
++}
++
++static int intel_dp_get_link_train_fallback_values(struct intel_dp *intel_dp,
++						   int link_rate, u8 lane_count)
++{
++	struct drm_i915_private *i915 = dp_to_i915(intel_dp);
++	int index;
++
++	/*
++	 * TODO: Enable fallback on MST links once MST link compute can handle
++	 * the fallback params.
++	 */
++	if (intel_dp->is_mst) {
++		drm_err(&i915->drm, "Link Training Unsuccessful\n");
++		return -1;
++	}
++
++	if (intel_dp_is_edp(intel_dp) && !intel_dp->use_max_params) {
++		drm_dbg_kms(&i915->drm,
++			    "Retrying Link training for eDP with max parameters\n");
++		intel_dp->use_max_params = true;
++		return 0;
++	}
++
++	index = intel_dp_rate_index(intel_dp->common_rates,
++				    intel_dp->num_common_rates,
++				    link_rate);
++	if (index > 0) {
++		if (intel_dp_is_edp(intel_dp) &&
++		    !intel_dp_can_link_train_fallback_for_edp(intel_dp,
++							      intel_dp_common_rate(intel_dp, index - 1),
++							      lane_count)) {
++			drm_dbg_kms(&i915->drm,
++				    "Retrying Link training for eDP with same parameters\n");
++			return 0;
++		}
++		intel_dp->link.max_rate = intel_dp_common_rate(intel_dp, index - 1);
++		intel_dp->link.max_lane_count = lane_count;
++	} else if (lane_count > 1) {
++		if (intel_dp_is_edp(intel_dp) &&
++		    !intel_dp_can_link_train_fallback_for_edp(intel_dp,
++							      intel_dp_max_common_rate(intel_dp),
++							      lane_count >> 1)) {
++			drm_dbg_kms(&i915->drm,
++				    "Retrying Link training for eDP with same parameters\n");
++			return 0;
++		}
++		intel_dp->link.max_rate = intel_dp_max_common_rate(intel_dp);
++		intel_dp->link.max_lane_count = lane_count >> 1;
++	} else {
++		drm_err(&i915->drm, "Link Training Unsuccessful\n");
++		return -1;
++	}
++
++	return 0;
++}
++
+ static void intel_dp_schedule_fallback_link_training(struct intel_dp *intel_dp,
+ 						     const struct intel_crtc_state *crtc_state)
+ {
 -- 
 2.43.3
 
