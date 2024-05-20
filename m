@@ -4,53 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6F4B2C04FFE
-	for <intel-gfx@archiver.kernel.org>; Mon, 20 May 2024 13:10:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A3A7DC04FFE
+	for <intel-gfx@archiver.kernel.org>; Mon, 20 May 2024 13:13:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4B38910E708;
-	Mon, 20 May 2024 13:10:11 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1FE1E10E128;
+	Mon, 20 May 2024 13:13:04 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="N5RNoIzl";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="ezAWSN3g";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.12])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 290ED10E708
- for <intel-gfx@lists.freedesktop.org>; Mon, 20 May 2024 13:10:00 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7742610E128
+ for <intel-gfx@lists.freedesktop.org>; Mon, 20 May 2024 13:13:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1716210600; x=1747746600;
+ t=1716210780; x=1747746780;
  h=from:to:subject:in-reply-to:references:date:message-id:
  mime-version:content-transfer-encoding;
- bh=+BvL0AK/zfIgMMzAuh/2/Y6w6EOsbIKzQ1UX3GDdwRM=;
- b=N5RNoIzlAsI9jhCzlEFWY4mvS80WcRu0iVMw7zqG7se7x4TRloG2Qz0o
- NMvG9JlAkCVdxEXmB39FmHvp+5+TQWIN+L0HdP5/ZsomowGLyeKZUNAqn
- 6VUrdDd3tnlrATiY233c/Xvma2Bz+WUg5NtIjYj3L8/2mhYA57OPV2lpC
- oeVOFCzk2uhz48GLN2XLD+GvYZacITa0z9yaPZybvCQFd0I+WmvjtwV+9
- s35Xw2YPMc3rLbE9cUEzHBrazofCsnZaRSlgqaOwfZi+vYKIrIJ+96z78
- byy0p64cvY6R7ainH4XmhZRth4oW2Cu8HJ+ITjQ4gcp4hWJwFl9oBCXEu Q==;
-X-CSE-ConnectionGUID: 9/PT+X0/Rg6YnvIIQ3xSkQ==
-X-CSE-MsgGUID: 3FEAvdwiTC2sQS2rYj2dZA==
-X-IronPort-AV: E=McAfee;i="6600,9927,11078"; a="16169495"
-X-IronPort-AV: E=Sophos;i="6.08,175,1712646000"; d="scan'208";a="16169495"
-Received: from orviesa002.jf.intel.com ([10.64.159.142])
- by fmvoesa106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 20 May 2024 06:07:57 -0700
-X-CSE-ConnectionGUID: 3iWkSc1rQa21FYTLRNo/6A==
-X-CSE-MsgGUID: 3I+IkgINTLmmWf+OAp/pcw==
+ bh=OCwSnkPjtA+qbgd+AOxRxUnkGk6F/1Fa43Z1dbL2n6g=;
+ b=ezAWSN3gFx0ygmkNyT53pwQkqTuf5rBH+8QBezuSQQzgKU16WCJWBzk+
+ C7CTnBhUz4joc91YhxZHUhF6LnuT6p2WhRudr4I3JmI39mg03o2Kifjff
+ q80xggJHny84NbxwEcRDTc3MgHzCEb/Ihe9kR9gXnr9lD2LHNGzK7+QC1
+ DEMsShrm4U3v+KSSTVSCefBegkBQqq7U5ODJZjbMkJOLbSNXaY64RejZN
+ z5QTtWHb+BfGJHjklrO3apJnXwD+5nsBBri5HM5+eEEOkJZh1uoi/POMD
+ 80LfMq5MXUesXfD4YSS9hmRNbaf7c45uIFGR87l+C76FgY6S8oEI1PxI9 A==;
+X-CSE-ConnectionGUID: t3g7AItbQPyH+xGOr9LZyA==
+X-CSE-MsgGUID: Cdhg0oBbSHC0doaD9FqAFQ==
+X-IronPort-AV: E=McAfee;i="6600,9927,11078"; a="22944034"
+X-IronPort-AV: E=Sophos;i="6.08,175,1712646000"; d="scan'208";a="22944034"
+Received: from orviesa001.jf.intel.com ([10.64.159.141])
+ by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 20 May 2024 06:12:59 -0700
+X-CSE-ConnectionGUID: CldbbIkSRZe1+Rw09OqGuQ==
+X-CSE-MsgGUID: zFMiJaazSSei5hPHGqOoCA==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.08,175,1712646000"; d="scan'208";a="63353643"
+X-IronPort-AV: E=Sophos;i="6.08,175,1712646000"; d="scan'208";a="69967159"
 Received: from unknown (HELO localhost) ([10.245.246.99])
- by orviesa002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 20 May 2024 06:07:55 -0700
+ by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 20 May 2024 06:12:56 -0700
 From: Jani Nikula <jani.nikula@linux.intel.com>
 To: Ville Syrjala <ville.syrjala@linux.intel.com>,
  intel-gfx@lists.freedesktop.org
-Subject: Re: [PATCH 08/13] drm/i915: Move PIPEGCMAX to intel_color_regs.h
-In-Reply-To: <20240516135622.3498-9-ville.syrjala@linux.intel.com>
+Subject: Re: [PATCH 10/13] drm/i915: Polish pre-skl primary plane registers
+In-Reply-To: <20240516135622.3498-11-ville.syrjala@linux.intel.com>
 Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
 References: <20240516135622.3498-1-ville.syrjala@linux.intel.com>
- <20240516135622.3498-9-ville.syrjala@linux.intel.com>
-Date: Mon, 20 May 2024 16:07:51 +0300
-Message-ID: <87seycskbc.fsf@intel.com>
+ <20240516135622.3498-11-ville.syrjala@linux.intel.com>
+Date: Mon, 20 May 2024 16:12:53 +0300
+Message-ID: <87msoksk2y.fsf@intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
@@ -72,54 +72,126 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 On Thu, 16 May 2024, Ville Syrjala <ville.syrjala@linux.intel.com> wrote:
 > From: Ville Syrj=C3=A4l=C3=A4 <ville.syrjala@linux.intel.com>
 >
-> PIPEGCMAX was left behind when all other gamma registers moved
-> into intel_color_regs.h.
+> Group the pre-skl primary plane register definitions
+> sensible, and toss in a few comments to indicate which
+> platforms have what.
 >
 > Signed-off-by: Ville Syrj=C3=A4l=C3=A4 <ville.syrjala@linux.intel.com>
 
 Reviewed-by: Jani Nikula <jani.nikula@intel.com>
 
 > ---
->  drivers/gpu/drm/i915/display/intel_color_regs.h | 5 +++++
->  drivers/gpu/drm/i915/i915_reg.h                 | 4 ----
->  2 files changed, 5 insertions(+), 4 deletions(-)
+>  .../gpu/drm/i915/display/i9xx_plane_regs.h    | 46 ++++++++++++-------
+>  1 file changed, 29 insertions(+), 17 deletions(-)
 >
-> diff --git a/drivers/gpu/drm/i915/display/intel_color_regs.h b/drivers/gp=
-u/drm/i915/display/intel_color_regs.h
-> index bb99ea533842..61c18b4a7fa5 100644
-> --- a/drivers/gpu/drm/i915/display/intel_color_regs.h
-> +++ b/drivers/gpu/drm/i915/display/intel_color_regs.h
-> @@ -36,6 +36,11 @@
->  						  _CHV_PALETTE_C, _CHV_PALETTE_C) + \
->  						  (i) * 4)
+> diff --git a/drivers/gpu/drm/i915/display/i9xx_plane_regs.h b/drivers/gpu=
+/drm/i915/display/i9xx_plane_regs.h
+> index 0bf2cd42bce7..929b26faf31e 100644
+> --- a/drivers/gpu/drm/i915/display/i9xx_plane_regs.h
+> +++ b/drivers/gpu/drm/i915/display/i9xx_plane_regs.h
+> @@ -9,7 +9,10 @@
+>  #include "intel_display_reg_defs.h"
 >=20=20
-> +/* i965/g4x/vlv/chv */
-> +#define  _PIPEAGCMAX           0x70010
-> +#define  _PIPEBGCMAX           0x71010
-> +#define PIPEGCMAX(pipe, i)     _MMIO_PIPE2(dev_priv, pipe, _PIPEAGCMAX +=
- (i) * 4) /* u1.16 */
+>  #define _DSPAADDR_VLV				0x7017C /* vlv/chv */
+> +#define DSPADDR_VLV(plane)			_MMIO_PIPE2(dev_priv, plane, _DSPAADDR_VLV)
 > +
->  /* ilk+ palette */
->  #define _LGC_PALETTE_A           0x4a000
->  #define _LGC_PALETTE_B           0x4a800
-> diff --git a/drivers/gpu/drm/i915/i915_reg.h b/drivers/gpu/drm/i915/i915_=
-reg.h
-> index 52b029cd3981..f5e8833cc37e 100644
-> --- a/drivers/gpu/drm/i915/i915_reg.h
-> +++ b/drivers/gpu/drm/i915/i915_reg.h
-> @@ -1882,10 +1882,6 @@
->  #define PIPEFRAMEPIXEL(pipe)	_MMIO_PIPE2(dev_priv, pipe, _PIPEAFRAMEPIXE=
-L)
->  #define PIPESTAT(pipe)		_MMIO_PIPE2(dev_priv, pipe, _PIPEASTAT)
->=20=20
-> -#define  _PIPEAGCMAX           0x70010
-> -#define  _PIPEBGCMAX           0x71010
-> -#define PIPEGCMAX(pipe, i)     _MMIO_PIPE2(dev_priv, pipe, _PIPEAGCMAX +=
- (i) * 4) /* u1.16 */
+>  #define _DSPACNTR				0x70180
+> +#define DSPCNTR(plane)				_MMIO_PIPE2(dev_priv, plane, _DSPACNTR)
+>  #define   DISP_ENABLE			REG_BIT(31)
+>  #define   DISP_PIPE_GAMMA_ENABLE	REG_BIT(30)
+>  #define   DISP_FORMAT_MASK		REG_GENMASK(29, 26)
+> @@ -39,60 +42,69 @@
+>  #define   DISP_TILED			REG_BIT(10)
+>  #define   DISP_ASYNC_FLIP		REG_BIT(9) /* g4x+ */
+>  #define   DISP_MIRROR			REG_BIT(8) /* CHV pipe B */
+> +
+>  #define _DSPAADDR				0x70184
+> +#define DSPADDR(plane)				_MMIO_PIPE2(dev_priv, plane, _DSPAADDR)
+> +
+> +#define _DSPALINOFF				0x70184
+> +#define DSPLINOFF(plane)			_MMIO_PIPE2(dev_priv, plane, _DSPALINOFF)
+> +
+>  #define _DSPASTRIDE				0x70188
+> +#define DSPSTRIDE(plane)			_MMIO_PIPE2(dev_priv, plane, _DSPASTRIDE)
+> +
+>  #define _DSPAPOS				0x7018C /* reserved */
+> +#define DSPPOS(plane)				_MMIO_PIPE2(dev_priv, plane, _DSPAPOS)
+>  #define   DISP_POS_Y_MASK		REG_GENMASK(31, 16)
+>  #define   DISP_POS_Y(y)			REG_FIELD_PREP(DISP_POS_Y_MASK, (y))
+>  #define   DISP_POS_X_MASK		REG_GENMASK(15, 0)
+>  #define   DISP_POS_X(x)			REG_FIELD_PREP(DISP_POS_X_MASK, (x))
+> +
+>  #define _DSPASIZE				0x70190
+> +#define DSPSIZE(plane)				_MMIO_PIPE2(dev_priv, plane, _DSPASIZE)
+>  #define   DISP_HEIGHT_MASK		REG_GENMASK(31, 16)
+>  #define   DISP_HEIGHT(h)		REG_FIELD_PREP(DISP_HEIGHT_MASK, (h))
+>  #define   DISP_WIDTH_MASK		REG_GENMASK(15, 0)
+>  #define   DISP_WIDTH(w)			REG_FIELD_PREP(DISP_WIDTH_MASK, (w))
+> +
+>  #define _DSPASURF				0x7019C /* 965+ only */
+> +#define DSPSURF(plane)				_MMIO_PIPE2(dev_priv, plane, _DSPASURF)
+>  #define   DISP_ADDR_MASK		REG_GENMASK(31, 12)
+> +
+>  #define _DSPATILEOFF				0x701A4 /* 965+ only */
+> +#define DSPTILEOFF(plane)			_MMIO_PIPE2(dev_priv, plane, _DSPATILEOFF)
+>  #define   DISP_OFFSET_Y_MASK		REG_GENMASK(31, 16)
+>  #define   DISP_OFFSET_Y(y)		REG_FIELD_PREP(DISP_OFFSET_Y_MASK, (y))
+>  #define   DISP_OFFSET_X_MASK		REG_GENMASK(15, 0)
+>  #define   DISP_OFFSET_X(x)		REG_FIELD_PREP(DISP_OFFSET_X_MASK, (x))
+> +
+>  #define _DSPAOFFSET				0x701A4 /* HSW */
+> +#define DSPOFFSET(plane)			_MMIO_PIPE2(dev_priv, plane, _DSPAOFFSET)
+> +
+>  #define _DSPASURFLIVE				0x701AC
+> +#define DSPSURFLIVE(plane)			_MMIO_PIPE2(dev_priv, plane, _DSPASURFLIVE)
+> +
+>  #define _DSPAGAMC				0x701E0
 > -
->  #define _PIPE_ARB_CTL_A			0x70028 /* icl+ */
->  #define PIPE_ARB_CTL(pipe)		_MMIO_PIPE2(dev_priv, pipe, _PIPE_ARB_CTL_A)
->  #define   PIPE_ARB_USE_PROG_SLOTS	REG_BIT(13)
+> -#define DSPADDR_VLV(plane)	_MMIO_PIPE2(dev_priv, plane, _DSPAADDR_VLV)
+> -#define DSPCNTR(plane)		_MMIO_PIPE2(dev_priv, plane, _DSPACNTR)
+> -#define DSPADDR(plane)		_MMIO_PIPE2(dev_priv, plane, _DSPAADDR)
+> -#define DSPSTRIDE(plane)	_MMIO_PIPE2(dev_priv, plane, _DSPASTRIDE)
+> -#define DSPPOS(plane)		_MMIO_PIPE2(dev_priv, plane, _DSPAPOS)
+> -#define DSPSIZE(plane)		_MMIO_PIPE2(dev_priv, plane, _DSPASIZE)
+> -#define DSPSURF(plane)		_MMIO_PIPE2(dev_priv, plane, _DSPASURF)
+> -#define DSPTILEOFF(plane)	_MMIO_PIPE2(dev_priv, plane, _DSPATILEOFF)
+> -#define DSPLINOFF(plane)	DSPADDR(plane)
+> -#define DSPOFFSET(plane)	_MMIO_PIPE2(dev_priv, plane, _DSPAOFFSET)
+> -#define DSPSURFLIVE(plane)	_MMIO_PIPE2(dev_priv, plane, _DSPASURFLIVE)
+> -#define DSPGAMC(plane, i)	_MMIO_PIPE2(dev_priv, plane, _DSPAGAMC + (5 - =
+(i)) * 4) /* plane C only, 6 x u0.8 */
+> +#define DSPGAMC(plane, i)			_MMIO_PIPE2(dev_priv, plane, _DSPAGAMC + (5 =
+- (i)) * 4) /* plane C only, 6 x u0.8 */
+>=20=20
+>  /* CHV pipe B primary plane */
+>  #define _PRIMPOS_A		0x60a08
+> +#define PRIMPOS(plane)		_MMIO_TRANS2(dev_priv, plane, _PRIMPOS_A)
+>  #define   PRIM_POS_Y_MASK	REG_GENMASK(31, 16)
+>  #define   PRIM_POS_Y(y)		REG_FIELD_PREP(PRIM_POS_Y_MASK, (y))
+>  #define   PRIM_POS_X_MASK	REG_GENMASK(15, 0)
+>  #define   PRIM_POS_X(x)		REG_FIELD_PREP(PRIM_POS_X_MASK, (x))
+> +
+>  #define _PRIMSIZE_A		0x60a0c
+> +#define PRIMSIZE(plane)		_MMIO_TRANS2(dev_priv, plane, _PRIMSIZE_A)
+>  #define   PRIM_HEIGHT_MASK	REG_GENMASK(31, 16)
+>  #define   PRIM_HEIGHT(h)	REG_FIELD_PREP(PRIM_HEIGHT_MASK, (h))
+>  #define   PRIM_WIDTH_MASK	REG_GENMASK(15, 0)
+>  #define   PRIM_WIDTH(w)		REG_FIELD_PREP(PRIM_WIDTH_MASK, (w))
+> +
+>  #define _PRIMCNSTALPHA_A	0x60a10
+> +#define PRIMCNSTALPHA(plane)	_MMIO_TRANS2(dev_priv, plane, _PRIMCNSTALPH=
+A_A)
+>  #define   PRIM_CONST_ALPHA_ENABLE	REG_BIT(31)
+>  #define   PRIM_CONST_ALPHA_MASK		REG_GENMASK(7, 0)
+>  #define   PRIM_CONST_ALPHA(alpha)	REG_FIELD_PREP(PRIM_CONST_ALPHA_MASK, =
+(alpha))
+>=20=20
+> -#define PRIMPOS(plane)		_MMIO_TRANS2(dev_priv, plane, _PRIMPOS_A)
+> -#define PRIMSIZE(plane)		_MMIO_TRANS2(dev_priv, plane, _PRIMSIZE_A)
+> -#define PRIMCNSTALPHA(plane)	_MMIO_TRANS2(dev_priv, plane, _PRIMCNSTALPH=
+A_A)
+> -
+>  #endif /* __I9XX_PLANE_REGS_H__ */
 
 --=20
 Jani Nikula, Intel
