@@ -4,49 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2823CC04FFE
-	for <intel-gfx@archiver.kernel.org>; Mon, 20 May 2024 18:58:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 796A8C25B7B
+	for <intel-gfx@archiver.kernel.org>; Mon, 20 May 2024 18:58:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1724310E6D5;
-	Mon, 20 May 2024 18:58:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1AC2610E82E;
+	Mon, 20 May 2024 18:58:36 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="JI9t9fIz";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="cwiEWJxD";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.12])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2845710E5CB
- for <intel-gfx@lists.freedesktop.org>; Mon, 20 May 2024 18:58:27 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 140A110E6D5
+ for <intel-gfx@lists.freedesktop.org>; Mon, 20 May 2024 18:58:31 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1716231507; x=1747767507;
+ t=1716231511; x=1747767511;
  h=from:to:subject:date:message-id:in-reply-to:references:
  mime-version:content-transfer-encoding;
- bh=x0ZeAVyhLbo0sZnsC3WaCsTnrh2+139qI+X4iydrNis=;
- b=JI9t9fIzobtNRyzgGVXPgdUBS/V3rrq7eIy0X5thP2ga4S9BntZUR3EB
- d/pWM1XiSVdkgop6FH+wFfe9uXcyszvQLzKSxijAZbUY0WWGndg+Y+lmy
- nd1Ag6BK16MRD5RXefpkbxEpf22PLbEdb99bpLxyLwK5O+Brbun/+8cGd
- U35uvJve3tVJ7E5A7PNUS3p781rHeYfP0/OuRWR0x64M6vTBVBY1XtdJW
- Cet75dLqOAK8AXPHpEhwDflaBe8Dd6GPIpmBW4OKaeg65LzEl6gD0Lh2Q
- a/hD70ZzBrHvWXGLLu+xzTD+LWw2DNl1OvdGXDhz8Z01SV4q92dAGOa9b Q==;
-X-CSE-ConnectionGUID: pXwDqgZWQo27B9BBWAnGDA==
-X-CSE-MsgGUID: URnT01QERrCwsgp+PGuIsw==
-X-IronPort-AV: E=McAfee;i="6600,9927,11078"; a="16218528"
-X-IronPort-AV: E=Sophos;i="6.08,175,1712646000"; d="scan'208";a="16218528"
+ bh=YEybBqquevP8MFoaIVaywixy1fnz2MGCGCE29KG2Gwo=;
+ b=cwiEWJxD+UL0IbjH7bjQr577g0GqQM3N0qc6EaFjAbNZWHwfk0BtQeeC
+ MKNoEUvs5p0ngrJIpXQo0pKXc9NwSft5+ONUUUpvkvgYnhYTFSmPVOMAG
+ NCCby1pG3Lt/Vw6tGOIItI9qWku5jr//lBsciv+OmtqlTo36rauNT0ede
+ Lt4ghftZRDSUmJN4x4aeT0H0heCtQMtGHoXHeby3yKqrRgoanpcHK16o8
+ ejGEyplilr89qEELv84caClFvi7wNLd09GslbLpneiQyOXx0Y1/naNFFx
+ Oe+Mf2PMMSMhFQoUlAr+tWAfKSU+/MYS74t5lIhN+EnLfDMLW3XRzeMr5 g==;
+X-CSE-ConnectionGUID: 1X84bL1BTISpX0+kzd96EA==
+X-CSE-MsgGUID: kmf3FTnwTKW9LtWpORHeVQ==
+X-IronPort-AV: E=McAfee;i="6600,9927,11078"; a="16218541"
+X-IronPort-AV: E=Sophos;i="6.08,175,1712646000"; d="scan'208";a="16218541"
 Received: from fmviesa004.fm.intel.com ([10.60.135.144])
  by fmvoesa106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 20 May 2024 11:58:27 -0700
-X-CSE-ConnectionGUID: cZ/RINmrTO2/lOOfF6C/zA==
-X-CSE-MsgGUID: q0NldzE8T0ye+6UcRPKpVw==
+ 20 May 2024 11:58:31 -0700
+X-CSE-ConnectionGUID: WS4SIOqGTpmxGuL2CVdOPg==
+X-CSE-MsgGUID: YnY2JmGQRuCwEeYo/5MNrQ==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.08,175,1712646000"; d="scan'208";a="37213851"
+X-IronPort-AV: E=Sophos;i="6.08,175,1712646000"; d="scan'208";a="37213864"
 Received: from ideak-desk.fi.intel.com ([10.237.72.78])
  by fmviesa004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 20 May 2024 11:58:26 -0700
+ 20 May 2024 11:58:30 -0700
 From: Imre Deak <imre.deak@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Subject: [PATCH v2 08/21] drm/i915/dp: Reduce link params only after retrying
- with unchanged params
-Date: Mon, 20 May 2024 21:58:06 +0300
-Message-ID: <20240520185822.3725844-9-imre.deak@intel.com>
+Subject: [PATCH v2 12/21] drm/i915/dp: Use check link state work in the detect
+ handler
+Date: Mon, 20 May 2024 21:58:10 +0300
+Message-ID: <20240520185822.3725844-13-imre.deak@intel.com>
 X-Mailer: git-send-email 2.43.3
 In-Reply-To: <20240520185822.3725844-1-imre.deak@intel.com>
 References: <20240520185822.3725844-1-imre.deak@intel.com>
@@ -67,82 +67,33 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Try to maintain the current link parameters by retrying the link
-training with unchanged link parameters before reducing these parameters
-(sending an uevent to userspace to retrain the link instead).
+Simplify things by retraining a DP link if a bad link is detected in the
+connector detect handler from the encoder's check link state work,
+similarly to how this is done after a modeset link training failure.
 
 Signed-off-by: Imre Deak <imre.deak@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_display_types.h    | 2 ++
- drivers/gpu/drm/i915/display/intel_dp.c               | 4 ++++
- drivers/gpu/drm/i915/display/intel_dp_link_training.c | 8 ++++++++
- 3 files changed, 14 insertions(+)
+ drivers/gpu/drm/i915/display/intel_dp.c | 7 ++-----
+ 1 file changed, 2 insertions(+), 5 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_display_types.h b/drivers/gpu/drm/i915/display/intel_display_types.h
-index 9317c1ae04efe..bde518c843468 100644
---- a/drivers/gpu/drm/i915/display/intel_display_types.h
-+++ b/drivers/gpu/drm/i915/display/intel_display_types.h
-@@ -1765,6 +1765,8 @@ struct intel_dp {
- 		int max_lane_count;
- 		/* Max rate for the current link */
- 		int max_rate;
-+		/* Sequential link training failures after a passing LT */
-+		int seq_train_failures;
- 	} link;
- 	bool reset_link_params;
- 	int mso_link_count;
 diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
-index 8da277f0c2735..7c824c5a13346 100644
+index ff4ed6bb520d8..70b00e5ae7ad7 100644
 --- a/drivers/gpu/drm/i915/display/intel_dp.c
 +++ b/drivers/gpu/drm/i915/display/intel_dp.c
-@@ -2950,6 +2950,7 @@ static void intel_dp_reset_link_params(struct intel_dp *intel_dp)
- {
- 	intel_dp->link.max_lane_count = intel_dp_max_common_lane_count(intel_dp);
- 	intel_dp->link.max_rate = intel_dp_max_common_rate(intel_dp);
-+	intel_dp->link.seq_train_failures = 0;
- }
+@@ -5863,11 +5863,8 @@ intel_dp_detect(struct drm_connector *connector,
+ 	 * Some external monitors do not signal loss of link synchronization
+ 	 * with an IRQ_HPD, so force a link status check.
+ 	 */
+-	if (!intel_dp_is_edp(intel_dp)) {
+-		ret = intel_dp_retrain_link(encoder, ctx);
+-		if (ret)
+-			return ret;
+-	}
++	if (!intel_dp_is_edp(intel_dp))
++		intel_dp_check_link_state(intel_dp);
  
- /* Enable backlight PWM and backlight PP control. */
-@@ -5056,6 +5057,9 @@ intel_dp_needs_link_retrain(struct intel_dp *intel_dp)
- 					intel_dp->lane_count))
- 		return false;
- 
-+	if (intel_dp->link.seq_train_failures)
-+		return true;
-+
- 	/* Retrain if link not ok */
- 	return !intel_dp_link_ok(intel_dp, link_status);
- }
-diff --git a/drivers/gpu/drm/i915/display/intel_dp_link_training.c b/drivers/gpu/drm/i915/display/intel_dp_link_training.c
-index ad1fbb150ff90..e804f0b801c02 100644
---- a/drivers/gpu/drm/i915/display/intel_dp_link_training.c
-+++ b/drivers/gpu/drm/i915/display/intel_dp_link_training.c
-@@ -1486,10 +1486,13 @@ void intel_dp_start_link_train(struct intel_dp *intel_dp,
- 		passed = intel_dp_link_train_all_phys(intel_dp, crtc_state, lttpr_count);
- 
- 	if (passed) {
-+		intel_dp->link.seq_train_failures = 0;
- 		intel_ddi_queue_link_check(dig_port, 2000);
- 		return;
- 	}
- 
-+	intel_dp->link.seq_train_failures++;
-+
  	/*
- 	 * Ignore the link failure in CI
- 	 *
-@@ -1507,6 +1510,11 @@ void intel_dp_start_link_train(struct intel_dp *intel_dp,
- 		return;
- 	}
- 
-+	if (intel_dp->link.seq_train_failures < 2) {
-+		intel_ddi_queue_link_check(dig_port, 0);
-+		return;
-+	}
-+
- 	intel_dp_schedule_fallback_link_training(intel_dp, crtc_state);
- }
- 
+ 	 * Clearing NACK and defer counts to get their exact values
 -- 
 2.43.3
 
