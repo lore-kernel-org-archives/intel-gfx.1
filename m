@@ -4,49 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 270A5C25B7A
-	for <intel-gfx@archiver.kernel.org>; Mon, 20 May 2024 18:58:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2823CC04FFE
+	for <intel-gfx@archiver.kernel.org>; Mon, 20 May 2024 18:58:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0A90210E751;
-	Mon, 20 May 2024 18:58:34 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1724310E6D5;
+	Mon, 20 May 2024 18:58:35 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="OYdgqA+3";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="JI9t9fIz";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.12])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3CE3610E572
- for <intel-gfx@lists.freedesktop.org>; Mon, 20 May 2024 18:58:25 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2845710E5CB
+ for <intel-gfx@lists.freedesktop.org>; Mon, 20 May 2024 18:58:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1716231505; x=1747767505;
+ t=1716231507; x=1747767507;
  h=from:to:subject:date:message-id:in-reply-to:references:
  mime-version:content-transfer-encoding;
- bh=ocZts2b03pi+cwATm6taC9FipPB+Jt6NEu9Uisy9P5U=;
- b=OYdgqA+3Cqik2bux7/oKph+RFhnaAdVuGrhxMNwM90Bwuzrt94Z6Dqjt
- KdApwM0nIRL9unTxkOnhAsZ4rfXuQAQLsRe/tR/vfsKwZlCQZ4loQ0vwH
- nx031hVBB4wIeyqWzFoNM2BJkyudq6SGmy4Dk5HuOwvyEreYBqY7F+mvx
- DqI9MR379hoou1Me2dMkFNsQOeNBWAVzDOYmupBFHMJJcpP09suOfUl7f
- Ql+HGwJWmzRfk05hZw29u6tEWOk41cqGd1/brOFhOW+X2oqPfcKhLm+RF
- gIRRB5C5bb8+WLUkYdaQ7ROXB1bBHKyuTVWFLnhItIMHLMsOl6trgnYS0 w==;
-X-CSE-ConnectionGUID: +8aQiJxIQJ65VGtOUIodAg==
-X-CSE-MsgGUID: QkKkro5yRkqf7slz9KEjmw==
-X-IronPort-AV: E=McAfee;i="6600,9927,11078"; a="16218522"
-X-IronPort-AV: E=Sophos;i="6.08,175,1712646000"; d="scan'208";a="16218522"
+ bh=x0ZeAVyhLbo0sZnsC3WaCsTnrh2+139qI+X4iydrNis=;
+ b=JI9t9fIzobtNRyzgGVXPgdUBS/V3rrq7eIy0X5thP2ga4S9BntZUR3EB
+ d/pWM1XiSVdkgop6FH+wFfe9uXcyszvQLzKSxijAZbUY0WWGndg+Y+lmy
+ nd1Ag6BK16MRD5RXefpkbxEpf22PLbEdb99bpLxyLwK5O+Brbun/+8cGd
+ U35uvJve3tVJ7E5A7PNUS3p781rHeYfP0/OuRWR0x64M6vTBVBY1XtdJW
+ Cet75dLqOAK8AXPHpEhwDflaBe8Dd6GPIpmBW4OKaeg65LzEl6gD0Lh2Q
+ a/hD70ZzBrHvWXGLLu+xzTD+LWw2DNl1OvdGXDhz8Z01SV4q92dAGOa9b Q==;
+X-CSE-ConnectionGUID: pXwDqgZWQo27B9BBWAnGDA==
+X-CSE-MsgGUID: URnT01QERrCwsgp+PGuIsw==
+X-IronPort-AV: E=McAfee;i="6600,9927,11078"; a="16218528"
+X-IronPort-AV: E=Sophos;i="6.08,175,1712646000"; d="scan'208";a="16218528"
 Received: from fmviesa004.fm.intel.com ([10.60.135.144])
  by fmvoesa106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 20 May 2024 11:58:25 -0700
-X-CSE-ConnectionGUID: FvhOTswoQrSC7arRVIqj4g==
-X-CSE-MsgGUID: kEYykyRwR0e3bjLwqZBJng==
+ 20 May 2024 11:58:27 -0700
+X-CSE-ConnectionGUID: cZ/RINmrTO2/lOOfF6C/zA==
+X-CSE-MsgGUID: q0NldzE8T0ye+6UcRPKpVw==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.08,175,1712646000"; d="scan'208";a="37213847"
+X-IronPort-AV: E=Sophos;i="6.08,175,1712646000"; d="scan'208";a="37213851"
 Received: from ideak-desk.fi.intel.com ([10.237.72.78])
  by fmviesa004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 20 May 2024 11:58:24 -0700
+ 20 May 2024 11:58:26 -0700
 From: Imre Deak <imre.deak@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Subject: [PATCH v2 06/21] drm/i915/dp: Use a commit modeset for link
- retraining MST links
-Date: Mon, 20 May 2024 21:58:04 +0300
-Message-ID: <20240520185822.3725844-7-imre.deak@intel.com>
+Subject: [PATCH v2 08/21] drm/i915/dp: Reduce link params only after retrying
+ with unchanged params
+Date: Mon, 20 May 2024 21:58:06 +0300
+Message-ID: <20240520185822.3725844-9-imre.deak@intel.com>
 X-Mailer: git-send-email 2.43.3
 In-Reply-To: <20240520185822.3725844-1-imre.deak@intel.com>
 References: <20240520185822.3725844-1-imre.deak@intel.com>
@@ -67,76 +67,82 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Instead of direct calls to the link train functions, retrain the link
-via a commit modeset. The direct call means that the output port will be
-disabled/re-enabled while the rest of the pipeline (transcoder) is
-active, which doesn't seem to work on MST at least. It leads to
-underruns and black screen, presumedly because the transcoder is not
-disabled/re-enabled along the port.
-
-Leave switching to a commit modeset on SST for a later patchset, as that
-seems to work ok currently (though better to using a commit there too,
-due to the suppressed underruns).
+Try to maintain the current link parameters by retrying the link
+training with unchanged link parameters before reducing these parameters
+(sending an uevent to userspace to retrain the link instead).
 
 Signed-off-by: Imre Deak <imre.deak@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_dp.c | 25 +++++++++++++++++++------
- 1 file changed, 19 insertions(+), 6 deletions(-)
+ drivers/gpu/drm/i915/display/intel_display_types.h    | 2 ++
+ drivers/gpu/drm/i915/display/intel_dp.c               | 4 ++++
+ drivers/gpu/drm/i915/display/intel_dp_link_training.c | 8 ++++++++
+ 3 files changed, 14 insertions(+)
 
+diff --git a/drivers/gpu/drm/i915/display/intel_display_types.h b/drivers/gpu/drm/i915/display/intel_display_types.h
+index 9317c1ae04efe..bde518c843468 100644
+--- a/drivers/gpu/drm/i915/display/intel_display_types.h
++++ b/drivers/gpu/drm/i915/display/intel_display_types.h
+@@ -1765,6 +1765,8 @@ struct intel_dp {
+ 		int max_lane_count;
+ 		/* Max rate for the current link */
+ 		int max_rate;
++		/* Sequential link training failures after a passing LT */
++		int seq_train_failures;
+ 	} link;
+ 	bool reset_link_params;
+ 	int mso_link_count;
 diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
-index 81e620dd33bb7..120f7b420807b 100644
+index 8da277f0c2735..7c824c5a13346 100644
 --- a/drivers/gpu/drm/i915/display/intel_dp.c
 +++ b/drivers/gpu/drm/i915/display/intel_dp.c
-@@ -5147,6 +5147,7 @@ int intel_dp_retrain_link(struct intel_encoder *encoder,
- 	struct intel_dp *intel_dp = enc_to_intel_dp(encoder);
- 	struct intel_crtc *crtc;
- 	u8 pipe_mask;
-+	bool mst_output = false;
- 	int ret;
+@@ -2950,6 +2950,7 @@ static void intel_dp_reset_link_params(struct intel_dp *intel_dp)
+ {
+ 	intel_dp->link.max_lane_count = intel_dp_max_common_lane_count(intel_dp);
+ 	intel_dp->link.max_rate = intel_dp_max_common_rate(intel_dp);
++	intel_dp->link.seq_train_failures = 0;
+ }
  
- 	if (!intel_dp_is_connected(intel_dp))
-@@ -5177,6 +5178,11 @@ int intel_dp_retrain_link(struct intel_encoder *encoder,
- 		const struct intel_crtc_state *crtc_state =
- 			to_intel_crtc_state(crtc->base.state);
+ /* Enable backlight PWM and backlight PP control. */
+@@ -5056,6 +5057,9 @@ intel_dp_needs_link_retrain(struct intel_dp *intel_dp)
+ 					intel_dp->lane_count))
+ 		return false;
  
-+		if (intel_crtc_has_type(crtc_state, INTEL_OUTPUT_DP_MST)) {
-+			mst_output = true;
-+			break;
-+		}
++	if (intel_dp->link.seq_train_failures)
++		return true;
 +
- 		/* Suppress underruns caused by re-training */
- 		intel_set_cpu_fifo_underrun_reporting(dev_priv, crtc->pipe, false);
- 		if (crtc_state->has_pch_encoder)
-@@ -5184,16 +5190,23 @@ int intel_dp_retrain_link(struct intel_encoder *encoder,
- 							      intel_crtc_pch_transcoder(crtc), false);
+ 	/* Retrain if link not ok */
+ 	return !intel_dp_link_ok(intel_dp, link_status);
+ }
+diff --git a/drivers/gpu/drm/i915/display/intel_dp_link_training.c b/drivers/gpu/drm/i915/display/intel_dp_link_training.c
+index ad1fbb150ff90..e804f0b801c02 100644
+--- a/drivers/gpu/drm/i915/display/intel_dp_link_training.c
++++ b/drivers/gpu/drm/i915/display/intel_dp_link_training.c
+@@ -1486,10 +1486,13 @@ void intel_dp_start_link_train(struct intel_dp *intel_dp,
+ 		passed = intel_dp_link_train_all_phys(intel_dp, crtc_state, lttpr_count);
+ 
+ 	if (passed) {
++		intel_dp->link.seq_train_failures = 0;
+ 		intel_ddi_queue_link_check(dig_port, 2000);
+ 		return;
  	}
  
-+	/* TODO: use a modeset for SST as well. */
-+	if (mst_output) {
-+		ret = intel_modeset_commit_pipes(dev_priv, pipe_mask, ctx);
++	intel_dp->link.seq_train_failures++;
 +
-+		if (ret && ret != -EDEADLK)
-+			drm_dbg_kms(&dev_priv->drm,
-+				    "[ENCODER:%d:%s] link retraining failed: %pe\n",
-+				    encoder->base.base.id, encoder->base.name,
-+				    ERR_PTR(ret));
-+
-+		return ret;
+ 	/*
+ 	 * Ignore the link failure in CI
+ 	 *
+@@ -1507,6 +1510,11 @@ void intel_dp_start_link_train(struct intel_dp *intel_dp,
+ 		return;
+ 	}
+ 
++	if (intel_dp->link.seq_train_failures < 2) {
++		intel_ddi_queue_link_check(dig_port, 0);
++		return;
 +	}
 +
- 	for_each_intel_crtc_in_pipe_mask(&dev_priv->drm, crtc, pipe_mask) {
- 		const struct intel_crtc_state *crtc_state =
- 			to_intel_crtc_state(crtc->base.state);
+ 	intel_dp_schedule_fallback_link_training(intel_dp, crtc_state);
+ }
  
--		/* retrain on the MST master transcoder */
--		if (DISPLAY_VER(dev_priv) >= 12 &&
--		    intel_crtc_has_type(crtc_state, INTEL_OUTPUT_DP_MST) &&
--		    !intel_dp_mst_is_master_trans(crtc_state))
--			continue;
--
- 		intel_dp_check_frl_training(intel_dp);
- 		intel_dp_pcon_dsc_configure(intel_dp, crtc_state);
- 		intel_dp_start_link_train(intel_dp, crtc_state);
 -- 
 2.43.3
 
