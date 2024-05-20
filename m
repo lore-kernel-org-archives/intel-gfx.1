@@ -4,79 +4,54 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5970FC25B7B
-	for <intel-gfx@archiver.kernel.org>; Mon, 20 May 2024 11:03:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C5386C25B7A
+	for <intel-gfx@archiver.kernel.org>; Mon, 20 May 2024 11:04:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AF6C210E602;
-	Mon, 20 May 2024 11:03:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 64E7010E612;
+	Mon, 20 May 2024 11:04:33 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="BLPZZPm9";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="hLKdepSd";
 	dkim-atps=neutral
-Received: from mail-lj1-f176.google.com (mail-lj1-f176.google.com
- [209.85.208.176])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 51AFD10E602
- for <intel-gfx@lists.freedesktop.org>; Mon, 20 May 2024 11:03:53 +0000 (UTC)
-Received: by mail-lj1-f176.google.com with SMTP id
- 38308e7fff4ca-2e7078a367eso25826101fa.0
- for <intel-gfx@lists.freedesktop.org>; Mon, 20 May 2024 04:03:53 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1716203031; x=1716807831; darn=lists.freedesktop.org;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=TrnpWE7dPEJmYiT/RDr1bXYldnFvFFfi6hz3R8sA0hI=;
- b=BLPZZPm9yIT+NGfhGAUJROhZ8Ab0xBYpTk86teyJMBnvZXXBgOWXfViI/rMkmds2WG
- oS7rp9YAIc20QyZx+n+GR74lLgKpZDKb7/yJXZdDZrtFStQPi8vp+h2Eaha5eVSCLC52
- yI9iQX7Hc1db9Ykq5oJ9RTwEXoVG/h4yMVyGjD2Z1RRGTwBan9D42qY5fkt5k455RWt4
- oZyxfwu5d+dONhnJ2AGYeRawLwoGNAwDyjJsGXLMcxkbDCprC8NMzetty2Ox/kfEmkTq
- uOPnekfHdyd50zilwNTELmSw1HaD4scrmfmYOPzBUaE8vVA67CpCcPXRH1rD62T4MpTj
- dw/g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1716203031; x=1716807831;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=TrnpWE7dPEJmYiT/RDr1bXYldnFvFFfi6hz3R8sA0hI=;
- b=sFHvcjfi2ovrhFB3vPrP00OQ2Me7tpiGpfp14gJP5Z4OrkcEmRODzAcef0ClVi0UGG
- OAeLmlsZAdoBHqQlJIJTj/q6fFM0OD+yaEadlgHTbu4/RxldQgsRTxJVnPXf34aQR3L3
- IoE3IfNuOCFr22/fqKkfMrhPBu/wPDQOMmwp3C0j+Cy3iNIlkhOnzILw/YIJTDM1CoZT
- ORsHmgM376E0drWwthJXnsEcvqA7fxe7YmYW4iHNU3L7uFIggQqyAo6PAW0q+wtBUyy0
- Dp56RByphYxo774gJ2NG9LKYLsSbA8xHjTJT45ijXCQ99ru4m598nvEnjzgWaM+Lh/Xv
- vXYw==
-X-Forwarded-Encrypted: i=1;
- AJvYcCV1GXgydGQGdqN/gCRAHVCNGIWHQ6RT0z1t3rfTa/0M1djdpd4nuN6O0phXWGaRzvu13KLUwDa33gyoNptBuZ+n25F/S3Ozp4li6k8uxZhE
-X-Gm-Message-State: AOJu0YzclYpXKTJlj3Vzq2VOj3Rlavr28L0OzqgDhBz8amsMvtUAhYoE
- brYSZ0AffEwUqjraxx+xVwhCxfns6OYOf9nc4nc7ncTNlL35yhDYLU7cq90671w=
-X-Google-Smtp-Source: AGHT+IHrPX1EE5HJbqIWKfZcM1kS0oKboB5I8XtzpfJrKSrhX0xiWZVBV8AXw8xry+E6Y03ekdH7bw==
-X-Received: by 2002:a2e:9d8a:0:b0:2d8:611c:228a with SMTP id
- 38308e7fff4ca-2e71714cb85mr17078161fa.8.1716203031220; 
- Mon, 20 May 2024 04:03:51 -0700 (PDT)
-Received: from eriador.lumag.spb.ru
- (dzdbxzyyyyyyyyyyyykxt-3.rev.dnainternet.fi. [2001:14ba:a0c3:3a00::227])
- by smtp.gmail.com with ESMTPSA id
- 38308e7fff4ca-2e4d0ce30e1sm34354131fa.38.2024.05.20.04.03.50
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 20 May 2024 04:03:50 -0700 (PDT)
-Date: Mon, 20 May 2024 14:03:49 +0300
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-To: Vignesh Raman <vignesh.raman@collabora.com>
-Cc: dri-devel@lists.freedesktop.org, daniels@collabora.com, 
- helen.koike@collabora.com, airlied@gmail.com, daniel@ffwll.ch,
- robdclark@gmail.com, 
- david.heidelberg@collabora.com, guilherme.gallo@collabora.com,
- sergi.blanch.torne@collabora.com, 
- mcanal@igalia.com, linux-mediatek@lists.infradead.org, 
- linux-amlogic@lists.infradead.org, linux-rockchip@lists.infradead.org, 
- amd-gfx@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
- intel-gfx@lists.freedesktop.org, 
- virtualization@lists.linux-foundation.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 5/6] drm/ci: skip driver specific tests
-Message-ID: <mxolwwmi5rjaevuwi7qy6rm5n62rhnpbi7hz4n7xbshmi2hoqq@5uzamkipouek>
-References: <20240517092502.647420-1-vignesh.raman@collabora.com>
- <20240517092502.647420-6-vignesh.raman@collabora.com>
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.9])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C075610E611;
+ Mon, 20 May 2024 11:04:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1716203070; x=1747739070;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=PQhCRb+mQCBwJ5/z/XSHrbptac2w2qMbwSlHNGVVY/k=;
+ b=hLKdepSd+y9LW8858RYyZmNSF+//lbnxibkzxOOtOSCiRDr3HUsbb3mL
+ oET7WzR+TuZR8CJigWnBhfJnQjvYA1hL7O2TUFx1h0Wrvfj1LT9JslLmV
+ 7dmJFs9OFEFW9uRp/e4cfwmXm7Q3+OQ1nJ/c02imQj1HnjVzI2bGZf9CK
+ dLeTMsRwRKKunby5fGGVBY+hTQPO+A9guBhC9SZB1qMbI41Eucx9mowUO
+ qpOnIsBRPyPG3jQrgHOGJOWrD7zI3CI4/BGtkqq8yQoufeBZQzkNi1vLh
+ feDO7/Vb04y/CXmw+Zz1NoErOL7/mZdJU+Y6sw2l8vhN7b7DR9nCrR0By A==;
+X-CSE-ConnectionGUID: Jdz4lNu3SL2i+KBJQtbtgA==
+X-CSE-MsgGUID: RdaoFiAQSbCC8X1fW5o3iw==
+X-IronPort-AV: E=McAfee;i="6600,9927,11077"; a="22996338"
+X-IronPort-AV: E=Sophos;i="6.08,174,1712646000"; d="scan'208";a="22996338"
+Received: from fmviesa001.fm.intel.com ([10.60.135.141])
+ by fmvoesa103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 20 May 2024 04:04:29 -0700
+X-CSE-ConnectionGUID: vUJob1dkSjSA6dQ/uAQerg==
+X-CSE-MsgGUID: MSvkV5kYQDKCZiIXfeFONQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.08,174,1712646000"; d="scan'208";a="63723541"
+Received: from srr4-3-linux-101-amanna.iind.intel.com ([10.223.74.76])
+ by fmviesa001.fm.intel.com with ESMTP; 20 May 2024 04:04:27 -0700
+From: Animesh Manna <animesh.manna@intel.com>
+To: intel-gfx@lists.freedesktop.org
+Cc: dri-devel@lists.freedesktop.org, jani.nikula@intel.com,
+ jouni.hogander@intel.com, arun.r.murthy@intel.com,
+ Animesh Manna <animesh.manna@intel.com>
+Subject: [PATCH v5 0/6] Link off between frames for edp
+Date: Mon, 20 May 2024 16:18:16 +0530
+Message-Id: <20240520104822.1116122-1-animesh.manna@intel.com>
+X-Mailer: git-send-email 2.29.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20240517092502.647420-6-vignesh.raman@collabora.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -92,17 +67,41 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Fri, May 17, 2024 at 02:55:01PM +0530, Vignesh Raman wrote:
-> Skip driver specific tests and skip kms tests for
-> panfrost driver since it is not a kms driver.
-> 
-> Signed-off-by: Vignesh Raman <vignesh.raman@collabora.com>
-> ---
+Link Off Between Active Frames (LOBF) allows an eDP link to be turned Off and On
+durning long VBLANK durations without enabling any of the PSR/PSR2/PR modes of operation.
 
-I didn't perform a through check, but generally looks good.
+Bspec: 71477
 
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Note: Lobf need to be enabled adaptive sync fixed refresh mode
+where vmin = vmax = flipline, which will arise after cmmr feature
+enablement. Currently existing code refactored and make compute-config()
+and enabling function ready. Will add enabling sequence in a separate patch.
+
+Signed-off-by: Animesh Manna <animesh.manna@intel.com>
+
+Animesh Manna (5):
+  drm/i915/alpm: Move alpm parameters from intel_psr
+  drm/i915/alpm: Move alpm related code to a new file
+  drm/i915/alpm: Add compute config for lobf
+  drm/i915/alpm: Enable lobf from source in ALPM_CTL
+  drm/i915/alpm: Add debugfs for LOBF
+
+Jouni Högander (1):
+  drm/display: Add missing aux less alpm wake related bits
+
+ drivers/gpu/drm/i915/Makefile                 |   1 +
+ drivers/gpu/drm/i915/display/intel_alpm.c     | 411 ++++++++++++++++++
+ drivers/gpu/drm/i915/display/intel_alpm.h     |  25 ++
+ .../drm/i915/display/intel_display_debugfs.c  |   2 +
+ .../drm/i915/display/intel_display_types.h    |  26 +-
+ drivers/gpu/drm/i915/display/intel_dp.c       |   4 +
+ drivers/gpu/drm/i915/display/intel_psr.c      | 303 +------------
+ drivers/gpu/drm/xe/Makefile                   |   1 +
+ include/drm/display/drm_dp.h                  |   5 +-
+ 9 files changed, 475 insertions(+), 303 deletions(-)
+ create mode 100644 drivers/gpu/drm/i915/display/intel_alpm.c
+ create mode 100644 drivers/gpu/drm/i915/display/intel_alpm.h
 
 -- 
-With best wishes
-Dmitry
+2.29.0
+
