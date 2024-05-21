@@ -4,51 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DA5A7C25B75
-	for <intel-gfx@archiver.kernel.org>; Tue, 21 May 2024 08:47:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CC6C1C25B74
+	for <intel-gfx@archiver.kernel.org>; Tue, 21 May 2024 08:47:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0AF5710E75B;
+	by gabe.freedesktop.org (Postfix) with ESMTP id CE71C10E763;
 	Tue, 21 May 2024 08:47:20 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="iC8CCHbn";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="XwEtfceG";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.19])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7899F10E742
- for <intel-gfx@lists.freedesktop.org>; Tue, 21 May 2024 08:47:14 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 351D010E742
+ for <intel-gfx@lists.freedesktop.org>; Tue, 21 May 2024 08:47:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1716281234; x=1747817234;
+ t=1716281238; x=1747817238;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=RJTgF4JVoQs5Pc67RC3iAswMuhQRvmuDMZmizl1Mxyg=;
- b=iC8CCHbnVpBEbreWx9dqldVYnMbn3IlvcjjALc8hunDU1RhU6rHJolxu
- 6D8Dx2bMiLRvsxgcUqeyPY5IPTmJVq//+Or0zMhiA/Kh+JzHbevzz37JH
- IgJLmLZkmWTzmSauuaakI7ltEpnIUMFFLCOI0MK38ejfgnSNUTsLUo+zq
- PNa2r0LC+tsyXZqlgodi0C5IuqyWX+cAsj32EVq98Mc9FiZDtK1eEjaOD
- mexKao+F7qMxPDytRWV1zrKAhY+vcT/tvs3yS33jLpR3jNEwPzATqjlxS
- 2HS9UHwMTHiCWdeOXLPsFmWkDiH65rp4KJdgbKeJBP5SJpMyOHDrjErEc w==;
-X-CSE-ConnectionGUID: 6/HVMfZoSdyoB8JWZjkuLA==
-X-CSE-MsgGUID: S8Isvp6fTdeztgotjvurCg==
-X-IronPort-AV: E=McAfee;i="6600,9927,11078"; a="12297803"
-X-IronPort-AV: E=Sophos;i="6.08,177,1712646000"; d="scan'208";a="12297803"
+ bh=JQ6Exl7Zd17kV25PVtLWaRbnl0bP1dva4y4CnXKFxXo=;
+ b=XwEtfceGXXZdIoWwwHT3/m4JtCXAT718pYAj3SlRl+P2lWfJ0aO4MAFk
+ mpXA4yhg8rv6gylSjWypmM08bApkDrAcL3t1wZ3BAlGEW8nHS2PDqcGKq
+ x3McWp6P0+s8M/JZz8fPGEr8WDM3TzgjFeHCmaBG8yyjQ3wVCvprKILAK
+ nzfptQ9YWFtC4gRTVt9J5ys9Rrd8I8AvZ9jZoUwLyk/RhtmSTwfTIiRjy
+ uFw7pWk6TxTdCAQxpwlyNMMvreebs0DUyhE1yiTf9NjIXGH08iURlulis
+ ypO4m34Q3RFXOXOri/Bc90AGPVDt85MZHjsvGzvSEi5VsK/CdWkS96LOf w==;
+X-CSE-ConnectionGUID: qWIRSlCCR86IqHtKJS/VmA==
+X-CSE-MsgGUID: 3U7r/kD3TDuBty0S1oSchw==
+X-IronPort-AV: E=McAfee;i="6600,9927,11078"; a="12297812"
+X-IronPort-AV: E=Sophos;i="6.08,177,1712646000"; d="scan'208";a="12297812"
 Received: from orviesa006.jf.intel.com ([10.64.159.146])
  by fmvoesa113.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 21 May 2024 01:47:14 -0700
-X-CSE-ConnectionGUID: SuzZn6LFS52boBZe3E+ZiQ==
-X-CSE-MsgGUID: w+YzCgTvS/W0FQZVKsNxBA==
+ 21 May 2024 01:47:18 -0700
+X-CSE-ConnectionGUID: btGSJV07T1OqmfB7tvWR5g==
+X-CSE-MsgGUID: ptMAH4OHRvOWwqmyi4giEA==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.08,177,1712646000"; d="scan'208";a="33272489"
+X-IronPort-AV: E=Sophos;i="6.08,177,1712646000"; d="scan'208";a="33272505"
 Received: from mathiasj-mobl.amr.corp.intel.com (HELO
  jhogande-mobl1.intel.com) ([10.251.211.157])
  by orviesa006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 21 May 2024 01:47:13 -0700
+ 21 May 2024 01:47:17 -0700
 From: =?UTF-8?q?Jouni=20H=C3=B6gander?= <jouni.hogander@intel.com>
 To: intel-gfx@lists.freedesktop.org
 Cc: animesh.manna@intel.com, mika.kahola@intel.com,
  =?UTF-8?q?Jouni=20H=C3=B6gander?= <jouni.hogander@intel.com>
-Subject: [PATCH v2 04/17] drm/i915/psr: Move printing PSR mode to own function
-Date: Tue, 21 May 2024 11:46:35 +0300
-Message-Id: <20240521084648.1987837-5-jouni.hogander@intel.com>
+Subject: [PATCH v2 06/17] drm/i915/psr: Add Panel Replay support to
+ intel_psr2_config_et_valid
+Date: Tue, 21 May 2024 11:46:37 +0300
+Message-Id: <20240521084648.1987837-7-jouni.hogander@intel.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20240521084648.1987837-1-jouni.hogander@intel.com>
 References: <20240521084648.1987837-1-jouni.hogander@intel.com>
@@ -71,64 +72,72 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-intel_psr_status has grown and is about to grow even. Let's split it a bit
-and move printing PSR mode to an own function.
+Early Transport is possible and in our HW mandatory on eDP Panel
+Replay. Add parameter to intel_psr2_config_et_valid to differentiate
+validity check for Panel Replay.
 
 Signed-off-by: Jouni Högander <jouni.hogander@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_psr.c | 26 ++++++++++++++++--------
- 1 file changed, 17 insertions(+), 9 deletions(-)
+ drivers/gpu/drm/i915/display/intel_psr.c | 21 ++++++++++++---------
+ 1 file changed, 12 insertions(+), 9 deletions(-)
 
 diff --git a/drivers/gpu/drm/i915/display/intel_psr.c b/drivers/gpu/drm/i915/display/intel_psr.c
-index 2ae5cdca5786..de0ce5f3a32c 100644
+index 3884d88e1594..24d832dc26c7 100644
 --- a/drivers/gpu/drm/i915/display/intel_psr.c
 +++ b/drivers/gpu/drm/i915/display/intel_psr.c
-@@ -3605,13 +3605,28 @@ static void intel_psr_sink_capability(struct intel_dp *intel_dp,
- 		   str_yes_no(psr->sink_panel_replay_su_support));
+@@ -673,16 +673,17 @@ static void hsw_psr_setup_aux(struct intel_dp *intel_dp)
+ 		       aux_ctl);
  }
  
-+static void intel_psr_psr_mode(struct intel_dp *intel_dp,
-+			       struct seq_file *m)
-+{
-+	struct intel_psr *psr = &intel_dp->psr;
-+	const char *status;
-+
-+	if (psr->panel_replay_enabled)
-+		status = psr->sel_update_enabled ? "Panel Replay Selective Update Enabled" :
-+			"Panel Replay Enabled";
-+	else if (psr->enabled)
-+		status = psr->sel_update_enabled ? "PSR2" : "PSR1";
-+	else
-+		status = "disabled";
-+	seq_printf(m, "PSR mode: %s\n", status);
-+}
-+
- static int intel_psr_status(struct seq_file *m, struct intel_dp *intel_dp)
+-static bool psr2_su_region_et_valid(struct intel_dp *intel_dp)
++static bool psr2_su_region_et_valid(struct intel_dp *intel_dp, bool panel_replay)
  {
- 	struct drm_i915_private *dev_priv = dp_to_i915(intel_dp);
- 	enum transcoder cpu_transcoder = intel_dp->psr.transcoder;
- 	struct intel_psr *psr = &intel_dp->psr;
- 	intel_wakeref_t wakeref;
--	const char *status;
- 	bool enabled;
- 	u32 val;
+ 	struct drm_i915_private *i915 = dp_to_i915(intel_dp);
  
-@@ -3623,14 +3638,7 @@ static int intel_psr_status(struct seq_file *m, struct intel_dp *intel_dp)
- 	wakeref = intel_runtime_pm_get(&dev_priv->runtime_pm);
- 	mutex_lock(&psr->lock);
+-	if (DISPLAY_VER(i915) >= 20 &&
+-	    intel_dp->psr_dpcd[0] == DP_PSR2_WITH_Y_COORD_ET_SUPPORTED &&
+-	    !(intel_dp->psr.debug & I915_PSR_DEBUG_SU_REGION_ET_DISABLE))
+-		return true;
++	if (DISPLAY_VER(i915) < 20 || !intel_dp_is_edp(intel_dp) ||
++	    intel_dp->psr.debug & I915_PSR_DEBUG_SU_REGION_ET_DISABLE)
++		return false;
  
--	if (psr->panel_replay_enabled)
--		status = psr->sel_update_enabled ? "Panel Replay Selective Update Enabled" :
--			"Panel Replay Enabled";
--	else if (psr->enabled)
--		status = psr->sel_update_enabled ? "PSR2" : "PSR1";
--	else
--		status = "disabled";
--	seq_printf(m, "PSR mode: %s\n", status);
-+	intel_psr_psr_mode(intel_dp, m);
+-	return false;
++	return panel_replay ?
++		intel_dp->pr_dpcd & DP_PANEL_REPLAY_EARLY_TRANSPORT_SUPPORT :
++		intel_dp->psr_dpcd[0] != DP_PSR2_WITH_Y_COORD_ET_SUPPORTED;
+ }
  
- 	if (!psr->enabled) {
- 		seq_printf(m, "PSR sink not reliable: %s\n",
+ static unsigned int intel_psr_get_enable_sink_offset(struct intel_dp *intel_dp)
+@@ -709,7 +710,8 @@ void intel_psr_enable_sink(struct intel_dp *intel_dp,
+ 					   DP_ALPM_ENABLE |
+ 					   DP_ALPM_LOCK_ERROR_IRQ_HPD_ENABLE);
+ 
+-			if (psr2_su_region_et_valid(intel_dp))
++			if (psr2_su_region_et_valid(intel_dp,
++						    intel_dp->psr.panel_replay_enabled))
+ 				dpcd_val |= DP_PSR_ENABLE_SU_REGION_ET;
+ 		}
+ 
+@@ -978,7 +980,8 @@ static void hsw_activate_psr2(struct intel_dp *intel_dp)
+ 			       PSR2_MAN_TRK_CTL(dev_priv, cpu_transcoder), 0);
+ 	}
+ 
+-	if (psr2_su_region_et_valid(intel_dp))
++	if (psr2_su_region_et_valid(intel_dp,
++				    intel_dp->psr.panel_replay_enabled))
+ 		val |= LNL_EDP_PSR2_SU_REGION_ET_ENABLE;
+ 
+ 	/*
+@@ -1587,7 +1590,7 @@ static bool intel_psr2_config_valid(struct intel_dp *intel_dp,
+ 
+ 	tgl_dc3co_exitline_compute_config(intel_dp, crtc_state);
+ 
+-	if (psr2_su_region_et_valid(intel_dp))
++	if (psr2_su_region_et_valid(intel_dp, false))
+ 		crtc_state->enable_psr2_su_region_et = true;
+ 
+ 	return true;
 -- 
 2.34.1
 
