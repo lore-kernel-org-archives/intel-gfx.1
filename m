@@ -4,52 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 85080C25B74
-	for <intel-gfx@archiver.kernel.org>; Tue, 21 May 2024 08:41:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 02602C25B75
+	for <intel-gfx@archiver.kernel.org>; Tue, 21 May 2024 08:42:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CDEFA10E2DA;
-	Tue, 21 May 2024 08:41:58 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 44B0E10E26F;
+	Tue, 21 May 2024 08:41:59 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="WbsBtqyq";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="Guqt913J";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.12])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4F91E10E2A9
- for <intel-gfx@lists.freedesktop.org>; Tue, 21 May 2024 08:41:49 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9558D10E2DA
+ for <intel-gfx@lists.freedesktop.org>; Tue, 21 May 2024 08:41:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1716280909; x=1747816909;
+ t=1716280916; x=1747816916;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=/s4atWTwJImP3dXEJ09CFT60xYzIbYZtW3i5NnNCiXA=;
- b=WbsBtqyq1GyE5DbbqfuLxzuXvN06HvyOs3JVBiYDQolc7/QG5jO/D6d2
- PoBvxowvvD7IM/pYX3jq0DNMBF33Hnea6KFB1IhJk3G4GcwoDUk1xsUiO
- Ryp5L+SgVkPUl3wfzzlZ2OI9UWOO+pNfYHCkI0pBayEiGW/AMWL4P+Ixe
- OZq7BAheubCZYQkDB/ZpbDCeElC688+C7Pb+Id/JdrBeBwEZuZ/PQqoUh
- jRS33zfUsQ9LIno82qdrdR/3i4/PF101svL2VUh9uFG0lRERFVdecJIyB
- HsZhgiW6TTUwwEpVP4U5vlW4DwODB2lS6dlLUeBRvt/TGgzgkasnLBn5q w==;
-X-CSE-ConnectionGUID: 0RDC+1fGTsmM+udVJozNpw==
-X-CSE-MsgGUID: o6lnO9fKST6H/JUeoZbEow==
-X-IronPort-AV: E=McAfee;i="6600,9927,11078"; a="23860347"
-X-IronPort-AV: E=Sophos;i="6.08,177,1712646000"; d="scan'208";a="23860347"
+ bh=jRpSVJqJ6RIs+1nPi0GtWMti1rE4FsirR6dI0g467S8=;
+ b=Guqt913JrO0UYYvRdIhSXBENdiaoKiDc1K4cYy4wg/bHctsAbgweUu0o
+ rU6u2h2N8OESi39llvHU30NWZXhTVmGfFaq1rkVe++xBjkszOF0AsvbXw
+ 1BgCJYTBPCpOBjJi9hl1fnWE9H9LL+XBgLnCM6qtxzTjKrR6Aj8c4Z4PQ
+ bsQsmHj7O8rwbFGkCqRuUFvTZRLKLyESjjuBVO8VKz268hm1NY9+oK2XJ
+ gKHYJTTsNUc+itIvvt5XSy858l6fyis9JxVJ4YkivIVDbX3h7IaGO2OYE
+ kkkRUlkCgoDsTxuit1UYEhA2vygSYVAy3KG+dabAMDAFBv0A180UtrRhr g==;
+X-CSE-ConnectionGUID: CvRMGcPGQ0yqHJCS29jLOw==
+X-CSE-MsgGUID: n1NFZ2WMSIaJeUmchcs2bA==
+X-IronPort-AV: E=McAfee;i="6600,9927,11078"; a="23860366"
+X-IronPort-AV: E=Sophos;i="6.08,177,1712646000"; d="scan'208";a="23860366"
 Received: from fmviesa004.fm.intel.com ([10.60.135.144])
  by orvoesa104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 21 May 2024 01:41:49 -0700
-X-CSE-ConnectionGUID: ccN1mOdFR3aaabK7dFXzPw==
-X-CSE-MsgGUID: wyuuL9c4QWqiYjWVPAB5Zg==
+ 21 May 2024 01:41:54 -0700
+X-CSE-ConnectionGUID: 0Zz5DNnHThKOyolA50bQ3g==
+X-CSE-MsgGUID: 7qRrt/TaQdWcGRa+Q8wxUw==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.08,177,1712646000"; d="scan'208";a="37426222"
+X-IronPort-AV: E=Sophos;i="6.08,177,1712646000"; d="scan'208";a="37426252"
 Received: from mathiasj-mobl.amr.corp.intel.com (HELO
  jhogande-mobl1.intel.com) ([10.251.211.157])
  by fmviesa004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 21 May 2024 01:41:47 -0700
+ 21 May 2024 01:41:53 -0700
 From: =?UTF-8?q?Jouni=20H=C3=B6gander?= <jouni.hogander@intel.com>
 To: intel-gfx@lists.freedesktop.org
 Cc: animesh.manna@intel.com, mika.kahola@intel.com,
  =?UTF-8?q?Jouni=20H=C3=B6gander?= <jouni.hogander@intel.com>
-Subject: [PATCH v2 3/9] drm/i915/psr: Get Early Transport status in
- intel_psr_pipe_get_config
-Date: Tue, 21 May 2024 11:41:17 +0300
-Message-Id: <20240521084123.1984075-4-jouni.hogander@intel.com>
+Subject: [PATCH v2 6/9] drm/i915/display: Take panel replay into account in
+ vsc sdp unpacking
+Date: Tue, 21 May 2024 11:41:20 +0300
+Message-Id: <20240521084123.1984075-7-jouni.hogander@intel.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20240521084123.1984075-1-jouni.hogander@intel.com>
 References: <20240521084123.1984075-1-jouni.hogander@intel.com>
@@ -72,28 +72,38 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-We are currently not getting Early Transport status information in
-intel_psr_pipe_get_config. Fix this.
+Currently intel_dp_vsc_sdp_unpack is not taking into account Panel Replay
+vsc sdp. Fix this by adding vsc sdp revision 0x6 and length 0x10 into
+intel_dp_vsc_sdp_unpack
 
-Fixes: 467e4e061c44 ("drm/i915/psr: Enable psr2 early transport as possible")
 Signed-off-by: Jouni Högander <jouni.hogander@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_psr.c | 2 ++
- 1 file changed, 2 insertions(+)
+ drivers/gpu/drm/i915/display/intel_dp.c | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_psr.c b/drivers/gpu/drm/i915/display/intel_psr.c
-index ac293d1ca447..6430e6a7ee48 100644
---- a/drivers/gpu/drm/i915/display/intel_psr.c
-+++ b/drivers/gpu/drm/i915/display/intel_psr.c
-@@ -1764,6 +1764,8 @@ void intel_psr_get_config(struct intel_encoder *encoder,
- 			pipe_config->enable_psr2_sel_fetch = true;
- 	}
+diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
+index c0a3b6d50681..67d43639b3ab 100644
+--- a/drivers/gpu/drm/i915/display/intel_dp.c
++++ b/drivers/gpu/drm/i915/display/intel_dp.c
+@@ -4435,7 +4435,8 @@ static int intel_dp_vsc_sdp_unpack(struct drm_dp_vsc_sdp *vsc,
+ 	vsc->length = sdp->sdp_header.HB3;
  
-+	pipe_config->enable_psr2_su_region_et = intel_dp->psr.su_region_et_enabled;
-+
- 	if (DISPLAY_VER(dev_priv) >= 12) {
- 		val = intel_de_read(dev_priv,
- 				    TRANS_EXITLINE(dev_priv, cpu_transcoder));
+ 	if ((sdp->sdp_header.HB2 == 0x2 && sdp->sdp_header.HB3 == 0x8) ||
+-	    (sdp->sdp_header.HB2 == 0x4 && sdp->sdp_header.HB3 == 0xe)) {
++	    (sdp->sdp_header.HB2 == 0x4 && sdp->sdp_header.HB3 == 0xe) ||
++	    (sdp->sdp_header.HB2 == 0x6 && sdp->sdp_header.HB3 == 0x10)) {
+ 		/*
+ 		 * - HB2 = 0x2, HB3 = 0x8
+ 		 *   VSC SDP supporting 3D stereo + PSR
+@@ -4443,6 +4444,8 @@ static int intel_dp_vsc_sdp_unpack(struct drm_dp_vsc_sdp *vsc,
+ 		 *   VSC SDP supporting 3D stereo + PSR2 with Y-coordinate of
+ 		 *   first scan line of the SU region (applies to eDP v1.4b
+ 		 *   and higher).
++		 * - HB2 = 0x6, HB3 = 0x10
++		 *   VSC SDP supporting 3D stereo + Panel Replay.
+ 		 */
+ 		return 0;
+ 	} else if (sdp->sdp_header.HB2 == 0x5 && sdp->sdp_header.HB3 == 0x13) {
 -- 
 2.34.1
 
