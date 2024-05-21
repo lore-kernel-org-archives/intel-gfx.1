@@ -4,61 +4,51 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A8C4CC25B7C
-	for <intel-gfx@archiver.kernel.org>; Tue, 21 May 2024 14:10:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 88106C25B74
+	for <intel-gfx@archiver.kernel.org>; Tue, 21 May 2024 14:30:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6353910EC54;
-	Tue, 21 May 2024 14:10:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CAEB210E84A;
+	Tue, 21 May 2024 14:30:29 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="SO6IF96U";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="BN5+pwsT";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.17])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D116810EC08;
- Tue, 21 May 2024 14:10:29 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.15])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 68C0110E876
+ for <intel-gfx@lists.freedesktop.org>; Tue, 21 May 2024 14:30:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1716300629; x=1747836629;
- h=message-id:date:mime-version:subject:to:cc:references:
- from:in-reply-to:content-transfer-encoding;
- bh=kjzULuF+RlW4teVHjQLCoHhAnjqKxp8PzqXvjQkfrSA=;
- b=SO6IF96UFvlcBNx90iLoXQDEpWfUxirPr9SvCnM4OKvEZjM9GCLbmxCW
- Efxq03WJfPUnTWXmHoHiMs5pSLrD7WuneBBPg5emNoSPclN7O3Kb/q1Cc
- GrpzWsPulJZn0SghsqFBxMomqqDMScNlMfEiJK4x/8xsuCnFYxKS9gEt1
- r/welcrR7KF1lGLLq4kydsWxdDEvCiP5CXj/D9OCGlmfehLqHQyJg9F2q
- eD/0n2O0Qvy2Y0thIUnnFtsGPeglcGbV5fk3+1CxfpXrsi6w89ueY3B5k
- vSPYQ44wH2Ct+JJCY1ytw7mmSQ0ODFy3IHdwwHlBsvZpwWWZ7nvvm5OTl g==;
-X-CSE-ConnectionGUID: kcxhdr6RTOyh9w8LjKeTTQ==
-X-CSE-MsgGUID: NM3uKrgXR+qi51h8Q3JATw==
-X-IronPort-AV: E=McAfee;i="6600,9927,11078"; a="12363661"
-X-IronPort-AV: E=Sophos;i="6.08,178,1712646000"; d="scan'208";a="12363661"
-Received: from fmviesa004.fm.intel.com ([10.60.135.144])
- by fmvoesa111.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 21 May 2024 07:10:29 -0700
-X-CSE-ConnectionGUID: J+ujbssjSomZzMFkpLjLtw==
-X-CSE-MsgGUID: tH80IJQhS/O72Rj8gCP2+Q==
+ t=1716301828; x=1747837828;
+ h=from:to:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=UH2lNCngqzkeymvP7QL7BKKuDDq0PzS76phytm1BQGs=;
+ b=BN5+pwsT5UzhMt29KlchtIlB7GdnHKVVKCtL8+SQj+C2NptNkmeLENRP
+ Vd4MTzeuoTxu1beKhg14U59W+pbL6IThpKehFUQrcZIT6IblKAqzqet9y
+ 2R95B5CGD6q1Z1c0ydoxhSvN9+h047ArqvePPQvE5EyFlfFZZN8YSvrAQ
+ QEVhlhDLTyHVh4BiM+zKLIJC8ytLVNUj33XO8tPU6HlwmfEAsiOOLDxIP
+ f80fCBc5SqBNeeVdOz7EEt0O2+/qyXE9TXJEb4JWFqf4W5TcWV2zzm+Sv
+ 4wJJ8k7ttfLTkv4Ip9DN+r2FUEPCA/8YVGPYTBx/PgJ5n9SagRNUiSGfB A==;
+X-CSE-ConnectionGUID: G7yYgldfRx2X8Beif6lHUQ==
+X-CSE-MsgGUID: JO9JkE14RhizYA3ji9q0BQ==
+X-IronPort-AV: E=McAfee;i="6600,9927,11078"; a="16286808"
+X-IronPort-AV: E=Sophos;i="6.08,178,1712646000"; d="scan'208";a="16286808"
+Received: from orviesa008.jf.intel.com ([10.64.159.148])
+ by orvoesa107.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 21 May 2024 07:30:19 -0700
+X-CSE-ConnectionGUID: A0nqTUUXT6GC8hD3ftLKzQ==
+X-CSE-MsgGUID: CUe6XPJBTzeqNw956Hs1kw==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.08,178,1712646000"; d="scan'208";a="37522968"
-Received: from irvmail002.ir.intel.com ([10.43.11.120])
- by fmviesa004.fm.intel.com with ESMTP; 21 May 2024 07:10:27 -0700
-Received: from [10.245.82.128] (mwajdecz-MOBL.ger.corp.intel.com
- [10.245.82.128])
- by irvmail002.ir.intel.com (Postfix) with ESMTP id CD1A928773;
- Tue, 21 May 2024 15:10:25 +0100 (IST)
-Message-ID: <19473e9d-8380-4f39-a42b-c522bfbcbfd1@intel.com>
-Date: Tue, 21 May 2024 16:10:25 +0200
+X-IronPort-AV: E=Sophos;i="6.08,178,1712646000"; d="scan'208";a="33493119"
+Received: from ideak-desk.fi.intel.com ([10.237.72.78])
+ by orviesa008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 21 May 2024 07:30:18 -0700
+From: Imre Deak <imre.deak@intel.com>
+To: intel-gfx@lists.freedesktop.org
+Subject: [PATCH] drm/i915: Fix audio component initialization
+Date: Tue, 21 May 2024 17:30:22 +0300
+Message-ID: <20240521143022.3784539-1-imre.deak@intel.com>
+X-Mailer: git-send-email 2.43.3
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/3] drm/xe: Don't rely on indirect includes from xe_mmio.h
-To: Francois Dugast <francois.dugast@intel.com>
-Cc: intel-xe@lists.freedesktop.org, intel-gfx@lists.freedesktop.org
-References: <20240520181814.2392-1-michal.wajdeczko@intel.com>
- <20240520181814.2392-3-michal.wajdeczko@intel.com>
- <ZkypTw2yXt7R2lIu@fdugast-desk>
-Content-Language: en-US
-From: Michal Wajdeczko <michal.wajdeczko@intel.com>
-In-Reply-To: <ZkypTw2yXt7R2lIu@fdugast-desk>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,146 +64,112 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
+After registering the audio component in i915_audio_component_init()
+the audio driver may call i915_audio_component_get_power() via the
+component ops. This could program AUD_FREQ_CNTRL with an uninitialized
+value if the latter function is called before display.audio.freq_cntrl
+gets initialized. The get_power() function also does a modeset which in
+the above case happens too early before the initialization step and
+triggers the
 
+"Reject display access from task"
 
-On 21.05.2024 16:01, Francois Dugast wrote:
-> Hi Michal,
-> 
-> On Mon, May 20, 2024 at 08:18:13PM +0200, Michal Wajdeczko wrote:
->> These compilation units use udelay() or some GT oriented printk
->> functions without explicitly including proper header files, and
->> relying on #includes from the xe_mmio.h instead. Fix that.
->>
->> Signed-off-by: Michal Wajdeczko <michal.wajdeczko@intel.com>
->> ---
->>  drivers/gpu/drm/xe/xe_device.c         | 2 ++
->>  drivers/gpu/drm/xe/xe_gsc.c            | 2 ++
->>  drivers/gpu/drm/xe/xe_gt_ccs_mode.c    | 1 +
->>  drivers/gpu/drm/xe/xe_guc_ads.c        | 1 +
->>  drivers/gpu/drm/xe/xe_huc.c            | 2 ++
->>  drivers/gpu/drm/xe/xe_mocs.c           | 1 +
->>  drivers/gpu/drm/xe/xe_ttm_stolen_mgr.c | 1 +
->>  drivers/gpu/drm/xe/xe_uc_fw.c          | 1 +
->>  8 files changed, 11 insertions(+)
->>
->> diff --git a/drivers/gpu/drm/xe/xe_device.c b/drivers/gpu/drm/xe/xe_device.c
->> index 8da90934c900..28a4e0c3b1fe 100644
->> --- a/drivers/gpu/drm/xe/xe_device.c
->> +++ b/drivers/gpu/drm/xe/xe_device.c
->> @@ -5,6 +5,7 @@
->>  
->>  #include "xe_device.h"
->>  
->> +#include <linux/delay.h>
->>  #include <linux/units.h>
->>  
->>  #include <drm/drm_aperture.h>
->> @@ -33,6 +34,7 @@
->>  #include "xe_gsc_proxy.h"
->>  #include "xe_gt.h"
->>  #include "xe_gt_mcr.h"
->> +#include "xe_gt_printk.h"
-> 
-> It is obvious in the occurrences of this include in other compilation
-> units below, but in xe_device.c I am not seeing the need for
-> xe_gt_printk.h, am I missing something?
+error message added by the Fixes: commit below.
 
-void xe_device_td_flush(struct xe_device *xe)
-...
-			xe_gt_err_once(gt, "TD flush timeout\n");
+Fix the above issue by registering the audio component only after the
+initialization step.
 
-> 
-> Francois
-> 
->>  #include "xe_hwmon.h"
->>  #include "xe_irq.h"
->>  #include "xe_memirq.h"
->> diff --git a/drivers/gpu/drm/xe/xe_gsc.c b/drivers/gpu/drm/xe/xe_gsc.c
->> index 8cc6420a9e7f..80a61934decc 100644
->> --- a/drivers/gpu/drm/xe/xe_gsc.c
->> +++ b/drivers/gpu/drm/xe/xe_gsc.c
->> @@ -5,6 +5,8 @@
->>  
->>  #include "xe_gsc.h"
->>  
->> +#include <linux/delay.h>
->> +
->>  #include <drm/drm_managed.h>
->>  
->>  #include <generated/xe_wa_oob.h>
->> diff --git a/drivers/gpu/drm/xe/xe_gt_ccs_mode.c b/drivers/gpu/drm/xe/xe_gt_ccs_mode.c
->> index a34c9a24dafc..f90cf679c5d7 100644
->> --- a/drivers/gpu/drm/xe/xe_gt_ccs_mode.c
->> +++ b/drivers/gpu/drm/xe/xe_gt_ccs_mode.c
->> @@ -9,6 +9,7 @@
->>  #include "xe_assert.h"
->>  #include "xe_gt.h"
->>  #include "xe_gt_ccs_mode.h"
->> +#include "xe_gt_printk.h"
->>  #include "xe_gt_sysfs.h"
->>  #include "xe_mmio.h"
->>  
->> diff --git a/drivers/gpu/drm/xe/xe_guc_ads.c b/drivers/gpu/drm/xe/xe_guc_ads.c
->> index 9c33cca4e370..1c60b685dbc6 100644
->> --- a/drivers/gpu/drm/xe/xe_guc_ads.c
->> +++ b/drivers/gpu/drm/xe/xe_guc_ads.c
->> @@ -16,6 +16,7 @@
->>  #include "xe_bo.h"
->>  #include "xe_gt.h"
->>  #include "xe_gt_ccs_mode.h"
->> +#include "xe_gt_printk.h"
->>  #include "xe_guc.h"
->>  #include "xe_guc_ct.h"
->>  #include "xe_hw_engine.h"
->> diff --git a/drivers/gpu/drm/xe/xe_huc.c b/drivers/gpu/drm/xe/xe_huc.c
->> index 39a484a57585..b039ff49341b 100644
->> --- a/drivers/gpu/drm/xe/xe_huc.c
->> +++ b/drivers/gpu/drm/xe/xe_huc.c
->> @@ -5,6 +5,8 @@
->>  
->>  #include "xe_huc.h"
->>  
->> +#include <linux/delay.h>
->> +
->>  #include <drm/drm_managed.h>
->>  
->>  #include "abi/gsc_pxp_commands_abi.h"
->> diff --git a/drivers/gpu/drm/xe/xe_mocs.c b/drivers/gpu/drm/xe/xe_mocs.c
->> index f04754ad911b..de3f2d3f1b04 100644
->> --- a/drivers/gpu/drm/xe/xe_mocs.c
->> +++ b/drivers/gpu/drm/xe/xe_mocs.c
->> @@ -12,6 +12,7 @@
->>  #include "xe_force_wake.h"
->>  #include "xe_gt.h"
->>  #include "xe_gt_mcr.h"
->> +#include "xe_gt_printk.h"
->>  #include "xe_mmio.h"
->>  #include "xe_platform_types.h"
->>  #include "xe_pm.h"
->> diff --git a/drivers/gpu/drm/xe/xe_ttm_stolen_mgr.c b/drivers/gpu/drm/xe/xe_ttm_stolen_mgr.c
->> index f77367329760..64592a8e527b 100644
->> --- a/drivers/gpu/drm/xe/xe_ttm_stolen_mgr.c
->> +++ b/drivers/gpu/drm/xe/xe_ttm_stolen_mgr.c
->> @@ -18,6 +18,7 @@
->>  #include "xe_bo.h"
->>  #include "xe_device.h"
->>  #include "xe_gt.h"
->> +#include "xe_gt_printk.h"
->>  #include "xe_mmio.h"
->>  #include "xe_res_cursor.h"
->>  #include "xe_sriov.h"
->> diff --git a/drivers/gpu/drm/xe/xe_uc_fw.c b/drivers/gpu/drm/xe/xe_uc_fw.c
->> index ed819f1df888..12346645a8e5 100644
->> --- a/drivers/gpu/drm/xe/xe_uc_fw.c
->> +++ b/drivers/gpu/drm/xe/xe_uc_fw.c
->> @@ -14,6 +14,7 @@
->>  #include "xe_force_wake.h"
->>  #include "xe_gsc.h"
->>  #include "xe_gt.h"
->> +#include "xe_gt_printk.h"
->>  #include "xe_map.h"
->>  #include "xe_mmio.h"
->>  #include "xe_module.h"
->> -- 
->> 2.43.0
->>
+Fixes: bd738d859e71 ("drm/i915: Prevent modesets during driver init/shutdown")
+Closes: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/10291
+Signed-off-by: Imre Deak <imre.deak@intel.com>
+---
+ drivers/gpu/drm/i915/display/intel_audio.c    | 32 ++++++++++++-------
+ drivers/gpu/drm/i915/display/intel_audio.h    |  1 +
+ .../drm/i915/display/intel_display_driver.c   |  2 ++
+ 3 files changed, 24 insertions(+), 11 deletions(-)
+
+diff --git a/drivers/gpu/drm/i915/display/intel_audio.c b/drivers/gpu/drm/i915/display/intel_audio.c
+index adde87900557f..4c031e97f9a55 100644
+--- a/drivers/gpu/drm/i915/display/intel_audio.c
++++ b/drivers/gpu/drm/i915/display/intel_audio.c
+@@ -1267,17 +1267,6 @@ static const struct component_ops i915_audio_component_bind_ops = {
+ static void i915_audio_component_init(struct drm_i915_private *i915)
+ {
+ 	u32 aud_freq, aud_freq_init;
+-	int ret;
+-
+-	ret = component_add_typed(i915->drm.dev,
+-				  &i915_audio_component_bind_ops,
+-				  I915_COMPONENT_AUDIO);
+-	if (ret < 0) {
+-		drm_err(&i915->drm,
+-			"failed to add audio component (%d)\n", ret);
+-		/* continue with reduced functionality */
+-		return;
+-	}
+ 
+ 	if (DISPLAY_VER(i915) >= 9) {
+ 		aud_freq_init = intel_de_read(i915, AUD_FREQ_CNTRL);
+@@ -1300,6 +1289,21 @@ static void i915_audio_component_init(struct drm_i915_private *i915)
+ 
+ 	/* init with current cdclk */
+ 	intel_audio_cdclk_change_post(i915);
++}
++
++static void i915_audio_component_register(struct drm_i915_private *i915)
++{
++	int ret;
++
++	ret = component_add_typed(i915->drm.dev,
++				  &i915_audio_component_bind_ops,
++				  I915_COMPONENT_AUDIO);
++	if (ret < 0) {
++		drm_err(&i915->drm,
++			"failed to add audio component (%d)\n", ret);
++		/* continue with reduced functionality */
++		return;
++	}
+ 
+ 	i915->display.audio.component_registered = true;
+ }
+@@ -1332,6 +1336,12 @@ void intel_audio_init(struct drm_i915_private *i915)
+ 		i915_audio_component_init(i915);
+ }
+ 
++void intel_audio_register(struct drm_i915_private *i915)
++{
++	if (!i915->display.audio.lpe.platdev)
++		i915_audio_component_register(i915);
++}
++
+ /**
+  * intel_audio_deinit() - deinitialize the audio driver
+  * @i915: the i915 drm device private data
+diff --git a/drivers/gpu/drm/i915/display/intel_audio.h b/drivers/gpu/drm/i915/display/intel_audio.h
+index 9327954b801e5..576c061d72a45 100644
+--- a/drivers/gpu/drm/i915/display/intel_audio.h
++++ b/drivers/gpu/drm/i915/display/intel_audio.h
+@@ -28,6 +28,7 @@ void intel_audio_codec_get_config(struct intel_encoder *encoder,
+ void intel_audio_cdclk_change_pre(struct drm_i915_private *dev_priv);
+ void intel_audio_cdclk_change_post(struct drm_i915_private *dev_priv);
+ void intel_audio_init(struct drm_i915_private *dev_priv);
++void intel_audio_register(struct drm_i915_private *i915);
+ void intel_audio_deinit(struct drm_i915_private *dev_priv);
+ void intel_audio_sdp_split_update(const struct intel_crtc_state *crtc_state);
+ 
+diff --git a/drivers/gpu/drm/i915/display/intel_display_driver.c b/drivers/gpu/drm/i915/display/intel_display_driver.c
+index 89bd032ed995e..794b4af380558 100644
+--- a/drivers/gpu/drm/i915/display/intel_display_driver.c
++++ b/drivers/gpu/drm/i915/display/intel_display_driver.c
+@@ -540,6 +540,8 @@ void intel_display_driver_register(struct drm_i915_private *i915)
+ 
+ 	intel_display_driver_enable_user_access(i915);
+ 
++	intel_audio_register(i915);
++
+ 	intel_display_debugfs_register(i915);
+ 
+ 	/*
+-- 
+2.43.3
+
