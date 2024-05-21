@@ -4,52 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F0374C25B7C
-	for <intel-gfx@archiver.kernel.org>; Tue, 21 May 2024 08:42:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D5E31C25B78
+	for <intel-gfx@archiver.kernel.org>; Tue, 21 May 2024 08:42:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B343410E2F5;
-	Tue, 21 May 2024 08:41:59 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DE8DA10E320;
+	Tue, 21 May 2024 08:42:00 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="jmiMm3CW";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="m/6z2QdI";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.12])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C5EE810E2F0
- for <intel-gfx@lists.freedesktop.org>; Tue, 21 May 2024 08:41:56 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0147310E2A9
+ for <intel-gfx@lists.freedesktop.org>; Tue, 21 May 2024 08:41:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1716280916; x=1747816916;
+ t=1716280913; x=1747816913;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=hgPh6qkB7OQzwKuydeBfH6K/gntgJs/jtbrMe1myiGc=;
- b=jmiMm3CWyvVEMYSSdZUAAgAjVgstfKlLTtj+pX5rjFgmmNhLdKstbpkp
- nJruKabT1I5XoM00eRIRc8XNQzhL+/fRPODtBLwkNke1MuvhOeHSTig/p
- c55/3unIIcxCGpqnWNF4+GfWv0/lqFZm4EMLtKwizPSx/GMMCSod+UgIR
- qDuZXRoZ1OZUKktg/vIP/Kxtu2FI+n/u0tTxcO6As96lmcKS37L6hTdt4
- fTpmCdN3Ar4v+qDHer7ioWjXfHmzYIvGOmCn2gNhpxnJ4Kx37cWsF5qUT
- K05QJbl0H3ck66525RWgFHVT0DcTtLotaeX3o0v8+jezULhSVHkCwsWh0 g==;
-X-CSE-ConnectionGUID: G36maAbOT2ucYczqaUd0rA==
-X-CSE-MsgGUID: 98dKp4ivQSCfOJxqitU1qg==
-X-IronPort-AV: E=McAfee;i="6600,9927,11078"; a="23860368"
-X-IronPort-AV: E=Sophos;i="6.08,177,1712646000"; d="scan'208";a="23860368"
+ bh=PiWDE2GBEkNq5YgBTs/u+PIN2zspmb5DoHlDXZJeDCw=;
+ b=m/6z2QdIEzn27ZJV8ztxFc3V8iI09DvHY4t9b5NCk57mcpNmQORsh/NE
+ HY71Ry3DAMSH/F7VSeXQzu4jyuZgE0Gw1vr/96oad0nPeQmyyB/XFKJYB
+ 9hfU29vBfl+zvJLIgcQ30tY2JlyrN7xvUmnJhiDibce/XLs7tBTrqVVOQ
+ ie54F5oyEapynedaYU44NWRtcDEiTrTvGttImgVM97dRayI1rR4xgwPzO
+ rEl1XHjnNqwWustNErJJIU7AhChzO1u4U1G5IVNB23LVxJITNvIpq/Uf9
+ 41GNg+lfXYNuI4ulTiatyebp8yDWo+cid6GaxpoMeLEypOLW+H0KcxteT A==;
+X-CSE-ConnectionGUID: ANumVlw3RQS0LpTGpYUCrw==
+X-CSE-MsgGUID: 7LASI/jPTjWKKNsMYY8Ugw==
+X-IronPort-AV: E=McAfee;i="6600,9927,11078"; a="23860360"
+X-IronPort-AV: E=Sophos;i="6.08,177,1712646000"; d="scan'208";a="23860360"
 Received: from fmviesa004.fm.intel.com ([10.60.135.144])
  by orvoesa104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 21 May 2024 01:41:56 -0700
-X-CSE-ConnectionGUID: EVtRvEsoR0CglHORCgqqmg==
-X-CSE-MsgGUID: 1bjFmYyGSeyXXNV0c5agFg==
+ 21 May 2024 01:41:52 -0700
+X-CSE-ConnectionGUID: liXYKV3iQ7CZ1h4ph1S43w==
+X-CSE-MsgGUID: FxXnlYA5R1+tFR5RjCOylg==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.08,177,1712646000"; d="scan'208";a="37426281"
+X-IronPort-AV: E=Sophos;i="6.08,177,1712646000"; d="scan'208";a="37426241"
 Received: from mathiasj-mobl.amr.corp.intel.com (HELO
  jhogande-mobl1.intel.com) ([10.251.211.157])
  by fmviesa004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 21 May 2024 01:41:55 -0700
+ 21 May 2024 01:41:51 -0700
 From: =?UTF-8?q?Jouni=20H=C3=B6gander?= <jouni.hogander@intel.com>
 To: intel-gfx@lists.freedesktop.org
 Cc: animesh.manna@intel.com, mika.kahola@intel.com,
  =?UTF-8?q?Jouni=20H=C3=B6gander?= <jouni.hogander@intel.com>
-Subject: [PATCH v2 7/9] drm/i915/display: Skip Panel Replay on pipe comparison
- if no active planes
-Date: Tue, 21 May 2024 11:41:21 +0300
-Message-Id: <20240521084123.1984075-8-jouni.hogander@intel.com>
+Subject: [PATCH v2 5/9] drm/i915/psr: Allow setting
+ I915_PSR_DEBUG_SU_REGION_ET_DISABLE via debugfs
+Date: Tue, 21 May 2024 11:41:19 +0300
+Message-Id: <20240521084123.1984075-6-jouni.hogander@intel.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20240521084123.1984075-1-jouni.hogander@intel.com>
 References: <20240521084123.1984075-1-jouni.hogander@intel.com>
@@ -72,30 +72,55 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Panel Replay is not enabled if there are no active planes. Do not compare
-it on pipe comparison. Otherwise we get pipe mismatch.
+Currently setting I915_PSR_DEBUG_SU_REGION_ET_DISABLE (0x20) via psr_debug
+debugfs interface is not allowed. This patch allows it.
 
-Fixes: ac9ef327327b ("drm/i915/psr: Panel replay has to be enabled before link training")
+v2: ensure that fastset is performed when the bit changes
+
 Signed-off-by: Jouni Högander <jouni.hogander@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_display.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/i915/display/intel_psr.c | 12 ++++++++----
+ 1 file changed, 8 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
-index cce1420fb541..fdbc2bced5b5 100644
---- a/drivers/gpu/drm/i915/display/intel_display.c
-+++ b/drivers/gpu/drm/i915/display/intel_display.c
-@@ -5320,7 +5320,9 @@ intel_pipe_config_compare(const struct intel_crtc_state *current_config,
- 	 * Panel replay has to be enabled before link training. PSR doesn't have
- 	 * this requirement -> check these only if using panel replay
- 	 */
--	if (current_config->has_panel_replay || pipe_config->has_panel_replay) {
-+	if (current_config->active_planes &&
-+	    (current_config->has_panel_replay ||
-+	     pipe_config->has_panel_replay)) {
- 		PIPE_CONF_CHECK_BOOL(has_psr);
- 		PIPE_CONF_CHECK_BOOL(has_sel_update);
- 		PIPE_CONF_CHECK_BOOL(enable_psr2_sel_fetch);
+diff --git a/drivers/gpu/drm/i915/display/intel_psr.c b/drivers/gpu/drm/i915/display/intel_psr.c
+index 0e081ea21766..64c5d03aff03 100644
+--- a/drivers/gpu/drm/i915/display/intel_psr.c
++++ b/drivers/gpu/drm/i915/display/intel_psr.c
+@@ -3021,10 +3021,12 @@ int intel_psr_debug_set(struct intel_dp *intel_dp, u64 val)
+ {
+ 	struct drm_i915_private *dev_priv = dp_to_i915(intel_dp);
+ 	const u32 mode = val & I915_PSR_DEBUG_MODE_MASK;
+-	u32 old_mode;
++	const u32 disable_bits = val & I915_PSR_DEBUG_SU_REGION_ET_DISABLE;
++	u32 old_mode, old_disable_bits;
+ 	int ret;
+ 
+-	if (val & ~(I915_PSR_DEBUG_IRQ | I915_PSR_DEBUG_MODE_MASK) ||
++	if (val & ~(I915_PSR_DEBUG_IRQ | I915_PSR_DEBUG_SU_REGION_ET_DISABLE |
++		    I915_PSR_DEBUG_MODE_MASK) ||
+ 	    mode > I915_PSR_DEBUG_ENABLE_SEL_FETCH) {
+ 		drm_dbg_kms(&dev_priv->drm, "Invalid debug mask %llx\n", val);
+ 		return -EINVAL;
+@@ -3034,7 +3036,9 @@ int intel_psr_debug_set(struct intel_dp *intel_dp, u64 val)
+ 	if (ret)
+ 		return ret;
+ 
+-	old_mode = intel_dp->psr.debug & I915_PSR_DEBUG_MODE_MASK;
++	old_mode  = intel_dp->psr.debug & I915_PSR_DEBUG_MODE_MASK;
++	old_disable_bits = intel_dp->psr.debug &
++		I915_PSR_DEBUG_SU_REGION_ET_DISABLE;
+ 	intel_dp->psr.debug = val;
+ 
+ 	/*
+@@ -3046,7 +3050,7 @@ int intel_psr_debug_set(struct intel_dp *intel_dp, u64 val)
+ 
+ 	mutex_unlock(&intel_dp->psr.lock);
+ 
+-	if (old_mode != mode)
++	if (old_mode != mode || old_disable_bits != disable_bits)
+ 		ret = intel_psr_fastset_force(dev_priv);
+ 
+ 	return ret;
 -- 
 2.34.1
 
