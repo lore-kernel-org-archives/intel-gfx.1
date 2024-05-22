@@ -4,59 +4,184 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 44E32C25B78
-	for <intel-gfx@archiver.kernel.org>; Wed, 22 May 2024 17:34:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DF6CDC25B79
+	for <intel-gfx@archiver.kernel.org>; Wed, 22 May 2024 18:15:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 85CAE10E31A;
-	Wed, 22 May 2024 17:34:56 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BCDA510E44A;
+	Wed, 22 May 2024 18:15:28 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="D7OMCJX1";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="Zaxn+USc";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.21])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7803910E427;
- Wed, 22 May 2024 17:34:40 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.17])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B82C210E402;
+ Wed, 22 May 2024 18:15:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1716399280; x=1747935280;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=0IR2H8PeaFBYIIyBMbQx4UaMpDaA7ICbLIRO78BwJLk=;
- b=D7OMCJX13FMFCHMg695wU9dsutFobDfJ7r6brXvtLi0QfBJeOU0cEIqJ
- GNZHkPyUjmcGCg7px6pjg4Kz8WhbdRgKaTegupxEBLGgVstvrJFJaPOVB
- F0MDKgD3lrz8o5lUmyIddj3zkm6OTinIiU2g1gL+l0vbcRgWEza7Xkzg7
- dX/TGhkJg/f941VSepGTXvjnnC0tG0FMk8zMdf0ckb6R25Ftb7jPNjxhA
- LFZxTMReL38o9dcvm+zLsRStpMPJj9bV3wKhCh94o7KSbV7gwdDTdnt5i
- OJr6XfI3IGCTo1RBTOnrqlrDscjLSPtQA24W5NI/bxXLU47zGj2/YzvWD g==;
-X-CSE-ConnectionGUID: h91l0Mt0SGaseqfXC5jQwg==
-X-CSE-MsgGUID: TBZSpUObRlK8V9JWRFYITA==
-X-IronPort-AV: E=McAfee;i="6600,9927,11080"; a="12611453"
-X-IronPort-AV: E=Sophos;i="6.08,181,1712646000"; d="scan'208";a="12611453"
-Received: from fmviesa010.fm.intel.com ([10.60.135.150])
- by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 22 May 2024 10:34:40 -0700
-X-CSE-ConnectionGUID: 5PQGM2v+Tz2G/28VVVwAmw==
-X-CSE-MsgGUID: mSzLAbToTfK95UZcXdZyWQ==
+ t=1716401718; x=1747937718;
+ h=content-transfer-encoding:in-reply-to:references:subject:
+ from:cc:to:date:message-id:mime-version;
+ bh=jof6xz/0OR3Yd8h9L6p88pMqFyQcoUwVWCOZdiP6WRU=;
+ b=Zaxn+UScK8licjoVWdysl2qPdS6ypgFQSRzwGLU+whHICSQt4oSXWURB
+ 8JL225USJ81YIbF2/7tk6lqfdl0T2NQiJHUusFpnxxKYn9GnGQUepi3qz
+ kLGLYKS62k9mvFclSkfQJ77jogmO4zbh1AZydgidAGQGRgUzdc6JsYcT2
+ hhQFofcoIivASMxzvpdo/fsilWRSSufgcrOg8LrFfmmViMk4WH2vdcqoI
+ P1PfhJYbKVKtrRyVviq19IQSE55u3H9Rf2GBL06Ux47NzsWdjIoZ9nbIt
+ Eo2kpjRKYpdf6BMMS7nHm2/q6rHzJZ3kvpgaxc8yiifN5OXUgQh+h82XC g==;
+X-CSE-ConnectionGUID: DP6R+V8MQ/io7SStOgoHEw==
+X-CSE-MsgGUID: MwwRb6VxTo6sHeOIHRsJ5A==
+X-IronPort-AV: E=McAfee;i="6600,9927,11080"; a="12793011"
+X-IronPort-AV: E=Sophos;i="6.08,181,1712646000"; d="scan'208";a="12793011"
+Received: from fmviesa004.fm.intel.com ([10.60.135.144])
+ by orvoesa109.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 22 May 2024 11:15:17 -0700
+X-CSE-ConnectionGUID: 6dL6Jhu9RDKXg/EoHGFQhg==
+X-CSE-MsgGUID: n1zmZtzhSGmFDefCT4SCZw==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.08,181,1712646000"; d="scan'208";a="33475046"
-Received: from lfiedoro-mobl.ger.corp.intel.com (HELO localhost)
- ([10.245.246.230])
- by fmviesa010-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 22 May 2024 10:34:38 -0700
-From: Jani Nikula <jani.nikula@intel.com>
-To: intel-gfx@lists.freedesktop.org,
-	intel-xe@lists.freedesktop.org
-Cc: jani.nikula@intel.com,
-	rodrigo.vivi@intel.com,
-	lucas.demarchi@intel.com
-Subject: [PATCH 09/10] drm/i915/display: add support for subplatforms
-Date: Wed, 22 May 2024 20:33:46 +0300
-Message-Id: <8c04e32648395c0b745bc31a1edd4ef6f574bb70.1716399081.git.jani.nikula@intel.com>
-X-Mailer: git-send-email 2.39.2
+X-IronPort-AV: E=Sophos;i="6.08,181,1712646000"; d="scan'208";a="37955759"
+Received: from fmsmsx602.amr.corp.intel.com ([10.18.126.82])
+ by fmviesa004.fm.intel.com with ESMTP/TLS/AES256-GCM-SHA384;
+ 22 May 2024 11:15:17 -0700
+Received: from fmsmsx611.amr.corp.intel.com (10.18.126.91) by
+ fmsmsx602.amr.corp.intel.com (10.18.126.82) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2507.39; Wed, 22 May 2024 11:15:16 -0700
+Received: from fmsmsx610.amr.corp.intel.com (10.18.126.90) by
+ fmsmsx611.amr.corp.intel.com (10.18.126.91) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2507.39; Wed, 22 May 2024 11:15:15 -0700
+Received: from fmsedg601.ED.cps.intel.com (10.1.192.135) by
+ fmsmsx610.amr.corp.intel.com (10.18.126.90) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2507.39 via Frontend Transport; Wed, 22 May 2024 11:15:15 -0700
+Received: from NAM02-BN1-obe.outbound.protection.outlook.com (104.47.51.41) by
+ edgegateway.intel.com (192.55.55.70) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.1.2507.39; Wed, 22 May 2024 11:15:15 -0700
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=SF0seS/4KOPeTpBZMn6Wmm/XnE3nM8qOXnKUdfgL0OL1oYYoUC10erOAH+mI+ZWM7ARs0z/Rtum9dXxtc3NhQRdWP3I2BScYuCd1qQt02zRdmc8mLFG0KuHF1ZoHEtDjdKi+EUrRL6qkZFTlVxeVFlCTs2CiH5Z87hez6tQBUqWChNJ2+uWzQX3xsAXeyNueLfTR6xn8ELMlprStBjKgabwQcXje4757/p0en1m7kICI++SE2lCGSYW8XRTDYcuEfLQ5YfCudbAaSejp+YpKPK8H4zZ78jSAZ8SVmkL4ta0JNofXa2dP+X0rbhI3oTKwzCFcLAg+cE4WF9fIjXjMCQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=xbj8V1JAo4HnFOdCSymIgNXVSXR06obaqFQ+0MlI4NU=;
+ b=VleWcH58XVs3uC5EYUphFt2ui7iiAPDdXDaAiE+yX9SC8bGuv8wvhNEl9ehOuH7vUaDlB0RvwpCw6M8a4F+8aOfIuEuzm/5VHgb9QIeWBUTyF1LADDvdF4kFJn5N6k1PLjSWRh8JSpBPZbt7qDE+mxwfbdVNnZylO18Q7GXFfj0EEe0dXlnR4J9KPZZK12B9Rf3cjUc1muQ1G/UXXW5qzI++93x5PjnukG7HHJ2Jyyju0PYcn516r1z+YzLlEx2xU4Wknd2G2yQassgwv4ZzjKop8MFB7e5Mk5MjC8n+jVve93bIVMfAZU2HpiTUyR/2B7I6uGD/rysrD5mw9BaZ9w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+Received: from PH8PR11MB8287.namprd11.prod.outlook.com (2603:10b6:510:1c7::14)
+ by MW6PR11MB8309.namprd11.prod.outlook.com (2603:10b6:303:24c::19)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7611.19; Wed, 22 May
+ 2024 18:14:54 +0000
+Received: from PH8PR11MB8287.namprd11.prod.outlook.com
+ ([fe80::7e8b:2e5:8ce4:2350]) by PH8PR11MB8287.namprd11.prod.outlook.com
+ ([fe80::7e8b:2e5:8ce4:2350%4]) with mapi id 15.20.7611.016; Wed, 22 May 2024
+ 18:14:53 +0000
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
 In-Reply-To: <cover.1716399081.git.jani.nikula@intel.com>
 References: <cover.1716399081.git.jani.nikula@intel.com>
+Subject: Re: [PATCH 00/10] drm/i915: identify all platforms in display probe
+From: Gustavo Sousa <gustavo.sousa@intel.com>
+CC: <jani.nikula@intel.com>, <rodrigo.vivi@intel.com>,
+ <lucas.demarchi@intel.com>
+To: Jani Nikula <jani.nikula@intel.com>, <intel-gfx@lists.freedesktop.org>,
+ <intel-xe@lists.freedesktop.org>
+Date: Wed, 22 May 2024 15:14:48 -0300
+Message-ID: <171640168863.10417.28066664900974969@gjsousa-mobl2>
+User-Agent: alot/0.10
+X-ClientProxiedBy: BYAPR08CA0028.namprd08.prod.outlook.com
+ (2603:10b6:a03:100::41) To PH8PR11MB8287.namprd11.prod.outlook.com
+ (2603:10b6:510:1c7::14)
 MIME-Version: 1.0
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH8PR11MB8287:EE_|MW6PR11MB8309:EE_
+X-MS-Office365-Filtering-Correlation-Id: b8c30e92-9970-4ea8-e6f6-08dc7a8b1427
+X-LD-Processed: 46c98d88-e344-4ed4-8496-4ed7712e255d,ExtAddr
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230031|366007|376005|1800799015;
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?L3lrMmRWMksyL0pVbkZ4aDFrQXY0aEJqUENmOS9WajA0Uk9YQ2VYcHNKSnFs?=
+ =?utf-8?B?MW13MHNjN2lGbHBBR2w3Y3lCbUZhR1R3bUsvRHFNS0llTTdHQTZUeEFORHJj?=
+ =?utf-8?B?N2VYcENmVWtyZUtuS3RUamlLcVkwUnFYeWljSE1zTm95WVdUTTE0RFVlYXpp?=
+ =?utf-8?B?d2FUR2VlalQ4SmppcTJYeGJ4aE5DUy8xRHhtUnJVNXdSRVE2OExSKytNRUxZ?=
+ =?utf-8?B?WjRQS3NIcjhoRlpkYWUyOUY4bFJxaWxGd3crV1JWMkV5SU93Y0lyU1VkbTZQ?=
+ =?utf-8?B?U3lSZjQ0UWp3VGFNUTJyb1FjdjZzck9RL0p6UmxkUm1NZUI0c0tUeVRYVW5q?=
+ =?utf-8?B?L0FldHZxcGtZT3RURm83cTNKVGxVN3VBYTVhNnZSOHhUdmhjWHNiZ1B5a2Vj?=
+ =?utf-8?B?RURJZGYzSVNFNENhcElpUW8zSmE5NCsxeTNmb3B6cGc3bWpDYVliVmRlZFNL?=
+ =?utf-8?B?elFXRHN0NFlqb0Npb2xPZGhaNkFiWkZoUnpHTFluRVFVeTlyclZUR2wxVE5I?=
+ =?utf-8?B?VktyNUxoUDNrc3Q2ZFhKQ3IxczJyYnF6SHNrQ0QzQ3EyL3NnV0xsUlZETXlM?=
+ =?utf-8?B?MGNEd1dEVDU0MGZMcUQrdGdTbVFWZm1NcmIxOFcvS0t4WW8ramdiUU84aUIz?=
+ =?utf-8?B?QkMvR2pTMFR0RW9pUGJONXlnYnpJK3dPUHNXN1d0VjV1VytEdTJGeWczd3Z4?=
+ =?utf-8?B?VmlMbEp4WkxzREpBdEY3M3J4T1M5MThPeVltekk1WXQyY0VsS2ZSRVFQUHk3?=
+ =?utf-8?B?Y3c4QURUdG1URGRyN0xtMGUvQ1VaUlM0TlF4ZlNPakxNbUpITEZXUm9CaGt2?=
+ =?utf-8?B?d201c1pla0RTN0x6Um1HV3cvbytHelNqOUVPaHp2S1RkZGJmNGRzdzk4ay94?=
+ =?utf-8?B?KzNiclBCNGtNUUFyVW4xcGNjMUhlMFhkSVYrQ2d0MHlvZEdydExzb0IyTnZT?=
+ =?utf-8?B?bnUveWpGYWdwWGc4bmRBam0zRWs0dlNIR2FuZ1ErLzNNQU5aaEMzN3FtaE1G?=
+ =?utf-8?B?R291L21jWUhzTUlPS0VqalhCZzE0akpwaHk0VExhTHdMaC80NjFUZ3dQc0hG?=
+ =?utf-8?B?TW9YQy9NNGZwcTZDb082R1pwaTJna0E2QzlhRUx0TTFkOWRlaVpVSklyTld6?=
+ =?utf-8?B?S1RhdktHb3FkUStKZ0RpbXdsTDV4UHIzWWVrZjZkYzFvbzNOZ2NRWCtmZmVW?=
+ =?utf-8?B?eUdMdVRlVHJZT1l2eUJ5ZXB1TGVya0wxM0pkdjgrWitYT016N0NWZTM4Vzl2?=
+ =?utf-8?B?WUNYTnYzc2F2S1REb1dJcG8yMjRBdGdZZWNucUJvYmZLbTZkQUk2OE0yUk9T?=
+ =?utf-8?B?cjRIVmIxWEJ1TUprMjk3V3cwcy90bkJ5YnU0ZHNQVWRhOXhjSUFiQTZQWDYz?=
+ =?utf-8?B?ckZoMmltTkdrazl5eng4NnRhSmczWjNrNXZNMG5oaTgxZk1iU3JVT3lVdjJo?=
+ =?utf-8?B?Syt5L1Qva0UwcFA1SVRHMk52a2YvOE4zaVh4NEIvRUFuTncwb0Y1YkpLNmxD?=
+ =?utf-8?B?M1pFenQzS1pWWHNlcVhJbnpDZEFOb2F1dlphbW1WZ2U5YTlSN01WUVo4QkdY?=
+ =?utf-8?B?WEtCb1ZDZ0d6eXd6VkJQYlZCYytFMis4WHEzaldJZE04bTdUbHZUNUpCTXg1?=
+ =?utf-8?B?RWlkUTFWWC96ZklNb056OEhweGRTQitZemtxOStKdHdSOHNJWkl4NDRuWkxW?=
+ =?utf-8?B?ZVpqMnFjYytHL2FSSVY1Z21oeE1CZWxEYU0yN0ZubFBuMUZsWFVsaEpRPT0=?=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:PH8PR11MB8287.namprd11.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230031)(366007)(376005)(1800799015); DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?QjVQYVpRWkZpNGFiZTVHbSswbDBobGdoZ2YzcklwMG4zc1orUU9jcUFoNTN6?=
+ =?utf-8?B?dDh0Mm9rWnFNelNTVGxUa0VIaFgwdVZ4N0x4emlJRyt4azZHWW9jWDhwWTND?=
+ =?utf-8?B?b3pHZTlnL0VMVyt3V3ZIYTdXNHhmeGU3eStXS0pKSHFTcFB0VFQyT25SUTk4?=
+ =?utf-8?B?UlRHY09McWZpcGZtb3FxNVBVV05SWGtRZ1FGSjIyQ25lenYwN1FJMUpPWXBx?=
+ =?utf-8?B?c09vOThJbjFIMllwOTEvVUdGTTY5RHAvMEpPREx3R3M1RG9zWmI1aWxpQVNY?=
+ =?utf-8?B?RlQ0NGEzNEp0RkpPSVNuMytNNFBEVkNGdktEd1BkbzFIYU5abythNFl0R2VO?=
+ =?utf-8?B?VnBXWE1rWFZPTjMxWldndW0vQ2dIQnprcGc4bUNzcmhIWGZvMWxsQllKdFVY?=
+ =?utf-8?B?YWNONkVYR0kzNGdPL1VodksybGVQRWpaRnVoYnZERWorSTVFNU5oTEMvZ29Z?=
+ =?utf-8?B?N1FURTNUODNCUU1LZytmZzhqUzVHbWJiTThqN0pOaDNkNEVwTXFXdldsaG1m?=
+ =?utf-8?B?b0FSbUROUStKUXBNdmR4Rm95cnVGd3k4RmFFUmhHNnM3TEZUNnNvN2V0Wk95?=
+ =?utf-8?B?UHJvYVhJQzFjNm5Xb3RkT1NJSTcxOG4wOUs0YkhQU2FGcXlSaDA5OUplRVRO?=
+ =?utf-8?B?UHdzRlhzalorTEpLR2lqR3pnUGVGQjFsU3dWK09rSXV6eU14Z1RLYlpOQ2FT?=
+ =?utf-8?B?Y3ZZNEVKRUZDeTdkUDZUZXluRFp6KzhXR2I2WEt1UGU5YThXTTZyOW04NDZt?=
+ =?utf-8?B?NlVKVXpFMFJmNG03RXBiU0xmN051ZFJCWmtLRXlVVWVkcy8weDRtL0xqZko3?=
+ =?utf-8?B?L0k2aE5vbEJyaEt1bjkrS0ROOVFXQVJjM3p3STRjMWhDbHlYY3VQVTNhR2g5?=
+ =?utf-8?B?TFMrcXZpbVBEbTFqRHFLcVBKdFdWN28xZ0tYOUd1UUxMZ1N1eFJqc3NHY0hZ?=
+ =?utf-8?B?R0xEZ21oamhQNmVoMjlsbzBRWVB6UU42a0pyeW9LaFlrc1VyQWVVdzBUTm9j?=
+ =?utf-8?B?ek5BeVVUUHMwbWUwVzBEakFmeVZjdzliR1hVTjE2SHByYkRadng4UHRqYksy?=
+ =?utf-8?B?alNqRnB1T2lIMjlob1Jaa1h2UmRrZ3lVOHlpOVlVQ0hTNDdVYTVUeHA4TGg5?=
+ =?utf-8?B?WnhpTjJIWXp2QW9melN4bGNYUWY3YnE2T2xxdjk3K0dPZzR3aE5QVkkwUkV3?=
+ =?utf-8?B?REtwZ0hvZlJpYmRZUlJ5N1dvOHF4RnBKNldBeFZuUEI0a1EvRHc0K3JSa242?=
+ =?utf-8?B?UmVRaDQ0bVo4aSs1VDN4RmJYdnBTOXRocVlrTFZUSXFMSjZwaDVVbXVOUUZH?=
+ =?utf-8?B?eURtb2c2SU5JSkgyVnRMSk5JMWsxdlMrMWhnOHJwak5ieWRMRXRwekhWZ0Na?=
+ =?utf-8?B?MUtBbFBYdkRoOXptRzF1anBHSHZEYktzRjZML285ODVFVmpGblJLSmJVTFRU?=
+ =?utf-8?B?U29vaVJKT2N2cTRNOE9DZXJsQTB1NlRDK2tsS0Y1c1dKcG1HZFNFdkQ0VjlU?=
+ =?utf-8?B?SG0rWFdpcWlwTll5bjdSYnVWUXNxT21YUFBNRUR6cXVFdnl0dDdnck54U0VM?=
+ =?utf-8?B?cUUzSkgrK3Y3WXpOM0RFTDRVeVZCeFlLRUtNZUFwSCtUc3IwU1NVbENQUjZK?=
+ =?utf-8?B?Z1VweTFGTXZyVkpzWmY3eU1BbURZam0rcUJxT2JhWmhiakhFNVRLR0I0V3Nz?=
+ =?utf-8?B?Qm85R0ZTZDFMNVp3cUhHbFVMenVaejhKOCswYWVROFR0c2l0TU9MdU05T0gv?=
+ =?utf-8?B?Mys1MDZhUGIxU0l0eGtiVFMyWE9qQzJxZzFLQTlYd2JlWTZJa1YzTWJmbll6?=
+ =?utf-8?B?a0FrVDNNTGFHTUJUbnpjdWJuckJUc202VC9XZkY4V29MNHk4TWl6WTlybEc3?=
+ =?utf-8?B?Yy84ZGFzeXVzWUhockFnOU5MemZWQnNRaFltT2o3TmFPcTRBL2Zra2phRlpv?=
+ =?utf-8?B?ZUpIWEJ5QjVxMmtEb2dOdXhhZkJEeWxZYlhyazV4a0haQS9iSzNvQWF1cGJX?=
+ =?utf-8?B?VzVKWnErWk94UjdoMkIzRHBZeGVmME5JVXQ5ZUNYVGExbVhmN0ZCRS9Vd0c5?=
+ =?utf-8?B?MlB5QUdSSmJNOUNPeDUzUzdla1Z0blYvaXdoaDBLVHdvY3BiSmRhdDY1RDBC?=
+ =?utf-8?B?ZWJQQkFBRVFwUzl3RVhjUmVkUzFDUmFsVVpyZmNBdDlobXRzVitOZG9LbnNO?=
+ =?utf-8?B?N1E9PQ==?=
+X-MS-Exchange-CrossTenant-Network-Message-Id: b8c30e92-9970-4ea8-e6f6-08dc7a8b1427
+X-MS-Exchange-CrossTenant-AuthSource: PH8PR11MB8287.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 May 2024 18:14:53.8253 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: fuWjzkzEBVpxpPBD8U4M6HyHnC3vOFvQEkQ7LNIQPT+hDS1Ec8IVll0lAiXcMcsIPhh+qVodkjyJA1n1V88Wqw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW6PR11MB8309
+X-OriginatorOrg: intel.com
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -72,394 +197,44 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Add support for subplatforms. This is similar to what the xe driver is
-doing. The subplatform is an enum and it's exclusive, i.e. only one
-subplatform can match, and it completely identifies the platform and
-subplatform. This is different from i915 core, and is notable in the
-handling of ULT/ULX and RPL/RPL-U.
+Quoting Jani Nikula (2024-05-22 14:33:37-03:00)
+>Add independent platform probe in display, in preparation for breaking
+>free from i915 and xe code.
+>
+>Up next would be adding separate IS_<PLATFORM>() style macros to
+>display. Not included here, because I couldn't come up with nice names
+>yet. IS_DISPLAY_<PLATFORM>() is a bit verbose.
 
-Signed-off-by: Jani Nikula <jani.nikula@intel.com>
----
- .../drm/i915/display/intel_display_device.c   | 204 ++++++++++++++++++
- .../drm/i915/display/intel_display_device.h   |  26 +++
- 2 files changed, 230 insertions(+)
+Drive-by comment: At least for recent hardware, we can use
+display-specific release names, e.g. IS_XE2LPD() for LNL's display,
+since theoretically that display IP could be reused in a different
+platform.
 
-diff --git a/drivers/gpu/drm/i915/display/intel_display_device.c b/drivers/gpu/drm/i915/display/intel_display_device.c
-index 7c5cead1fe15..59b8ca174ef8 100644
---- a/drivers/gpu/drm/i915/display/intel_display_device.c
-+++ b/drivers/gpu/drm/i915/display/intel_display_device.c
-@@ -20,9 +20,16 @@
- __diag_push();
- __diag_ignore_all("-Woverride-init", "Allow field initialization overrides for display info");
- 
-+struct subplatform_desc {
-+	enum intel_display_subplatform subplatform;
-+	const char *name;
-+	const u16 *pciidlist;
-+};
-+
- struct platform_desc {
- 	enum intel_display_platform platform;
- 	const char *name;
-+	const struct subplatform_desc *subplatforms;
- 	const struct intel_display_device_info *info; /* NULL for GMD ID */
- };
- 
-@@ -30,6 +37,8 @@ struct platform_desc {
- 	.platform = (INTEL_DISPLAY_##_platform), \
- 	.name = #_platform
- 
-+#define ID(id) (id)
-+
- static const struct intel_display_device_info no_display = {};
- 
- #define PIPE_A_OFFSET		0x70000
-@@ -460,8 +469,26 @@ static const struct platform_desc vlv_desc = {
- 	},
- };
- 
-+static const u16 hsw_ult_ids[] = {
-+	INTEL_HSW_ULT_GT1_IDS(ID),
-+	INTEL_HSW_ULT_GT2_IDS(ID),
-+	INTEL_HSW_ULT_GT3_IDS(ID),
-+	0
-+};
-+
-+static const u16 hsw_ulx_ids[] = {
-+	INTEL_HSW_ULX_GT1_IDS(ID),
-+	INTEL_HSW_ULX_GT2_IDS(ID),
-+	0
-+};
-+
- static const struct platform_desc hsw_desc = {
- 	PLATFORM(HASWELL),
-+	.subplatforms = (const struct subplatform_desc[]) {
-+		{ INTEL_DISPLAY_HASWELL_ULT, "ULT", hsw_ult_ids },
-+		{ INTEL_DISPLAY_HASWELL_ULX, "ULX", hsw_ulx_ids },
-+		{},
-+	},
- 	.info = &(const struct intel_display_device_info) {
- 		.has_ddi = 1,
- 		.has_dp_mst = 1,
-@@ -483,8 +510,29 @@ static const struct platform_desc hsw_desc = {
- 	},
- };
- 
-+static const u16 bdw_ult_ids[] = {
-+	INTEL_BDW_ULT_GT1_IDS(ID),
-+	INTEL_BDW_ULT_GT2_IDS(ID),
-+	INTEL_BDW_ULT_GT3_IDS(ID),
-+	INTEL_BDW_ULT_RSVD_IDS(ID),
-+	0
-+};
-+
-+static const u16 bdw_ulx_ids[] = {
-+	INTEL_BDW_ULX_GT1_IDS(ID),
-+	INTEL_BDW_ULX_GT2_IDS(ID),
-+	INTEL_BDW_ULX_GT3_IDS(ID),
-+	INTEL_BDW_ULX_RSVD_IDS(ID),
-+	0
-+};
-+
- static const struct platform_desc bdw_desc = {
- 	PLATFORM(BROADWELL),
-+	.subplatforms = (const struct subplatform_desc[]) {
-+		{ INTEL_DISPLAY_BROADWELL_ULT, "ULT", bdw_ult_ids },
-+		{ INTEL_DISPLAY_BROADWELL_ULX, "ULX", bdw_ulx_ids },
-+		{},
-+	},
- 	.info = &(const struct intel_display_device_info) {
- 		.has_ddi = 1,
- 		.has_dp_mst = 1,
-@@ -549,23 +597,89 @@ static const struct intel_display_device_info skl_display = {
- 	.__runtime_defaults.fbc_mask = BIT(INTEL_FBC_A),
- };
- 
-+static const u16 skl_ult_ids[] = {
-+	INTEL_SKL_ULT_GT1_IDS(ID),
-+	INTEL_SKL_ULT_GT2_IDS(ID),
-+	INTEL_SKL_ULT_GT3_IDS(ID),
-+	0
-+};
-+
-+static const u16 skl_ulx_ids[] = {
-+	INTEL_SKL_ULX_GT1_IDS(ID),
-+	INTEL_SKL_ULX_GT2_IDS(ID),
-+	0
-+};
-+
- static const struct platform_desc skl_desc = {
- 	PLATFORM(SKYLAKE),
-+	.subplatforms = (const struct subplatform_desc[]) {
-+		{ INTEL_DISPLAY_SKYLAKE_ULT, "ULT", skl_ult_ids },
-+		{ INTEL_DISPLAY_SKYLAKE_ULX, "ULX", skl_ulx_ids },
-+		{},
-+	},
- 	.info = &skl_display,
- };
- 
-+static const u16 kbl_ult_ids[] = {
-+	INTEL_KBL_ULT_GT1_IDS(ID),
-+	INTEL_KBL_ULT_GT2_IDS(ID),
-+	INTEL_KBL_ULT_GT3_IDS(ID),
-+	0
-+};
-+
-+static const u16 kbl_ulx_ids[] = {
-+	INTEL_KBL_ULX_GT1_IDS(ID),
-+	INTEL_KBL_ULX_GT2_IDS(ID),
-+	INTEL_AML_KBL_GT2_IDS(ID),
-+	0
-+};
-+
- static const struct platform_desc kbl_desc = {
- 	PLATFORM(KABYLAKE),
-+	.subplatforms = (const struct subplatform_desc[]) {
-+		{ INTEL_DISPLAY_KABYLAKE_ULT, "ULT", kbl_ult_ids },
-+		{ INTEL_DISPLAY_KABYLAKE_ULX, "ULX", kbl_ulx_ids },
-+		{},
-+	},
- 	.info = &skl_display,
- };
- 
-+static const u16 cfl_ult_ids[] = {
-+	INTEL_CFL_U_GT2_IDS(ID),
-+	INTEL_CFL_U_GT3_IDS(ID),
-+	INTEL_WHL_U_GT1_IDS(ID),
-+	INTEL_WHL_U_GT2_IDS(ID),
-+	INTEL_WHL_U_GT3_IDS(ID),
-+	0
-+};
-+
-+static const u16 cfl_ulx_ids[] = {
-+	INTEL_AML_CFL_GT2_IDS(ID),
-+	0
-+};
-+
- static const struct platform_desc cfl_desc = {
- 	PLATFORM(COFFEELAKE),
-+	.subplatforms = (const struct subplatform_desc[]) {
-+		{ INTEL_DISPLAY_COFFEELAKE_ULT, "ULT", cfl_ult_ids },
-+		{ INTEL_DISPLAY_COFFEELAKE_ULX, "ULX", cfl_ulx_ids },
-+		{},
-+	},
- 	.info = &skl_display,
- };
- 
-+static const u16 cml_ult_ids[] = {
-+	INTEL_CML_U_GT1_IDS(ID),
-+	INTEL_CML_U_GT2_IDS(ID),
-+	0
-+};
-+
- static const struct platform_desc cml_desc = {
- 	PLATFORM(COMETLAKE),
-+	.subplatforms = (const struct subplatform_desc[]) {
-+		{ INTEL_DISPLAY_COMETLAKE_ULT, "ULT", cml_ult_ids },
-+		{},
-+	},
- 	.info = &skl_display,
- };
- 
-@@ -654,8 +768,17 @@ static const struct platform_desc glk_desc = {
- 		BIT(TRANSCODER_DSI_0) | BIT(TRANSCODER_DSI_1), \
- 	.__runtime_defaults.fbc_mask = BIT(INTEL_FBC_A)
- 
-+static const u16 icl_port_f_ids[] = {
-+	INTEL_ICL_PORT_F_IDS(ID),
-+	0
-+};
-+
- static const struct platform_desc icl_desc = {
- 	PLATFORM(ICELAKE),
-+	.subplatforms = (const struct subplatform_desc[]) {
-+		{ INTEL_DISPLAY_ICELAKE_PORT_F, "Port F", icl_port_f_ids },
-+		{},
-+	},
- 	.info = &(const struct intel_display_device_info) {
- 		ICL_DISPLAY,
- 
-@@ -722,8 +845,17 @@ static const struct platform_desc ehl_desc = {
- 		BIT(TRANSCODER_DSI_0) | BIT(TRANSCODER_DSI_1), \
- 	.__runtime_defaults.fbc_mask = BIT(INTEL_FBC_A)
- 
-+static const u16 tgl_uy_ids[] = {
-+	INTEL_TGL_GT2_IDS(ID),
-+	0
-+};
-+
- static const struct platform_desc tgl_desc = {
- 	PLATFORM(TIGERLAKE),
-+	.subplatforms = (const struct subplatform_desc[]) {
-+		{ INTEL_DISPLAY_TIGERLAKE_UY, "UY", tgl_uy_ids },
-+		{},
-+	},
- 	.info = &(const struct intel_display_device_info) {
- 		XE_D_DISPLAY,
- 
-@@ -762,8 +894,17 @@ static const struct platform_desc rkl_desc = {
- 	},
- };
- 
-+static const u16 adls_rpls_ids[] = {
-+	INTEL_RPLS_IDS(ID),
-+	0
-+};
-+
- static const struct platform_desc adl_s_desc = {
- 	PLATFORM(ALDERLAKE_S),
-+	.subplatforms = (const struct subplatform_desc[]) {
-+		{ INTEL_DISPLAY_ALDERLAKE_S_RAPTORLAKE_S, "RPL-S", adls_rpls_ids },
-+		{},
-+	},
- 	.info = &(const struct intel_display_device_info) {
- 		XE_D_DISPLAY,
- 		.has_hti = 1,
-@@ -830,8 +971,29 @@ static const struct intel_display_device_info xe_lpd_display = {
- 		BIT(PORT_TC1) | BIT(PORT_TC2) | BIT(PORT_TC3) | BIT(PORT_TC4),
- };
- 
-+static const u16 adlp_adln_ids[] = {
-+	INTEL_ADLN_IDS(ID),
-+	0
-+};
-+
-+static const u16 adlp_rplu_ids[] = {
-+	INTEL_RPLU_IDS(ID),
-+	0
-+};
-+
-+static const u16 adlp_rplp_ids[] = {
-+	INTEL_RPLP_IDS(ID),
-+	0
-+};
-+
- static const struct platform_desc adl_p_desc = {
- 	PLATFORM(ALDERLAKE_P),
-+	.subplatforms = (const struct subplatform_desc[]) {
-+		{ INTEL_DISPLAY_ALDERLAKE_P_ALDERLAKE_N, "ADL-N", adlp_adln_ids },
-+		{ INTEL_DISPLAY_ALDERLAKE_P_RAPTORLAKE_U, "RPL-U", adlp_rplu_ids },
-+		{ INTEL_DISPLAY_ALDERLAKE_P_RAPTORLAKE_P, "RPL-P", adlp_rplp_ids },
-+		{},
-+	},
- 	.info = &xe_lpd_display,
- };
- 
-@@ -846,8 +1008,29 @@ static const struct intel_display_device_info xe_hpd_display = {
- 		BIT(PORT_TC1),
- };
- 
-+static const u16 dg2_g10_ids[] = {
-+	INTEL_DG2_G10_IDS(ID),
-+	0
-+};
-+
-+static const u16 dg2_g11_ids[] = {
-+	INTEL_DG2_G11_IDS(ID),
-+	0
-+};
-+
-+static const u16 dg2_g12_ids[] = {
-+	INTEL_DG2_G12_IDS(ID),
-+	0
-+};
-+
- static const struct platform_desc dg2_desc = {
- 	PLATFORM(DG2),
-+	.subplatforms = (const struct subplatform_desc[]) {
-+		{ INTEL_DISPLAY_DG2_G10, "G10", dg2_g10_ids },
-+		{ INTEL_DISPLAY_DG2_G11, "G11", dg2_g11_ids },
-+		{ INTEL_DISPLAY_DG2_G12, "G12", dg2_g12_ids },
-+		{},
-+	},
- 	.info = &xe_hpd_display,
- };
- 
-@@ -1059,12 +1242,27 @@ static const struct platform_desc *find_platform_desc(struct pci_dev *pdev)
- 	return NULL;
- }
- 
-+static const struct subplatform_desc *
-+find_subplatform_desc(struct pci_dev *pdev, const struct platform_desc *desc)
-+{
-+	const struct subplatform_desc *sp;
-+	const u16 *id;
-+
-+	for (sp = desc->subplatforms; sp && sp->subplatform; sp++)
-+		for (id = sp->pciidlist; *id; id++)
-+			if (*id == pdev->device)
-+				return sp;
-+
-+	return NULL;
-+}
-+
- void intel_display_device_probe(struct drm_i915_private *i915)
- {
- 	struct pci_dev *pdev = to_pci_dev(i915->drm.dev);
- 	const struct intel_display_device_info *info;
- 	struct intel_display_ip_ver ip_ver = {};
- 	const struct platform_desc *desc;
-+	const struct subplatform_desc *subdesc;
- 
- 	/* Add drm device backpointer as early as possible. */
- 	i915->display.drm = &i915->drm;
-@@ -1098,6 +1296,12 @@ void intel_display_device_probe(struct drm_i915_private *i915)
- 	drm_WARN_ON(&i915->drm, !desc->platform || !desc->name);
- 	DISPLAY_RUNTIME_INFO(i915)->platform = desc->platform;
- 
-+	subdesc = find_subplatform_desc(pdev, desc);
-+	if (subdesc) {
-+		drm_WARN_ON(&i915->drm, !subdesc->subplatform || !subdesc->name);
-+		DISPLAY_RUNTIME_INFO(i915)->subplatform = subdesc->subplatform;
-+	}
-+
- 	if (ip_ver.ver || ip_ver.rel || ip_ver.step)
- 		DISPLAY_RUNTIME_INFO(i915)->ip = ip_ver;
- 
-diff --git a/drivers/gpu/drm/i915/display/intel_display_device.h b/drivers/gpu/drm/i915/display/intel_display_device.h
-index 8accd680a61e..e1d9947394dc 100644
---- a/drivers/gpu/drm/i915/display/intel_display_device.h
-+++ b/drivers/gpu/drm/i915/display/intel_display_device.h
-@@ -70,6 +70,31 @@ enum intel_display_platform {
- 	INTEL_DISPLAY_LUNARLAKE,
- };
- 
-+enum intel_display_subplatform {
-+	INTEL_DISPLAY_SUBPLATFORM_UNINITIALIZED = 0,
-+	INTEL_DISPLAY_HASWELL_ULT,
-+	INTEL_DISPLAY_HASWELL_ULX,
-+	INTEL_DISPLAY_BROADWELL_ULT,
-+	INTEL_DISPLAY_BROADWELL_ULX,
-+	INTEL_DISPLAY_SKYLAKE_ULT,
-+	INTEL_DISPLAY_SKYLAKE_ULX,
-+	INTEL_DISPLAY_KABYLAKE_ULT,
-+	INTEL_DISPLAY_KABYLAKE_ULX,
-+	INTEL_DISPLAY_COFFEELAKE_ULT,
-+	INTEL_DISPLAY_COFFEELAKE_ULX,
-+	INTEL_DISPLAY_COMETLAKE_ULT,
-+	INTEL_DISPLAY_COMETLAKE_ULX,
-+	INTEL_DISPLAY_ICELAKE_PORT_F,
-+	INTEL_DISPLAY_TIGERLAKE_UY,
-+	INTEL_DISPLAY_ALDERLAKE_S_RAPTORLAKE_S,
-+	INTEL_DISPLAY_ALDERLAKE_P_ALDERLAKE_N,
-+	INTEL_DISPLAY_ALDERLAKE_P_RAPTORLAKE_P,
-+	INTEL_DISPLAY_ALDERLAKE_P_RAPTORLAKE_U,
-+	INTEL_DISPLAY_DG2_G10,
-+	INTEL_DISPLAY_DG2_G11,
-+	INTEL_DISPLAY_DG2_G12,
-+};
-+
- #define DEV_INFO_DISPLAY_FOR_EACH_FLAG(func) \
- 	/* Keep in alphabetical order */ \
- 	func(cursor_needs_physical); \
-@@ -168,6 +193,7 @@ enum intel_display_platform {
- 
- struct intel_display_runtime_info {
- 	enum intel_display_platform platform;
-+	enum intel_display_subplatform subplatform;
- 
- 	struct intel_display_ip_ver {
- 		u16 ver;
--- 
-2.39.2
+--
+Gustavo Sousa
 
+>
+>BR,
+>Jani.
+>
+>Jani Nikula (10):
+>  drm/i915/display: move params copy at probe earlier
+>  drm/i915/display: change probe for no display case
+>  drm/i915/display: check platforms without display one level higher
+>  drm/i915/display: change GMD ID display ip ver propagation at probe
+>  drm/i915/display: add platform descriptors
+>  drm/i915: add LNL PCI IDs
+>  drm/i915/display: change display probe to identify GMD ID based
+>    platforms
+>  drm/i915/display: identify platforms with enum and name
+>  drm/i915/display: add support for subplatforms
+>  drm/i915/display: add probe message
+>
+> .../drm/i915/display/intel_display_device.c   | 920 ++++++++++++------
+> .../drm/i915/display/intel_display_device.h   |  86 +-
+> include/drm/i915_pciids.h                     |   6 +
+> 3 files changed, 731 insertions(+), 281 deletions(-)
+>
+>--=20
+>2.39.2
+>
