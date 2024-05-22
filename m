@@ -4,99 +4,26 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 495E6C25B79
-	for <intel-gfx@archiver.kernel.org>; Wed, 22 May 2024 06:26:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8C1D5C25B78
+	for <intel-gfx@archiver.kernel.org>; Wed, 22 May 2024 06:28:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BDF2F10F30D;
-	Wed, 22 May 2024 06:26:14 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="xepnFh4h";
-	dkim-atps=neutral
-Received: from mail-lf1-f44.google.com (mail-lf1-f44.google.com
- [209.85.167.44])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2680610E833
- for <intel-gfx@lists.freedesktop.org>; Wed, 22 May 2024 06:25:59 +0000 (UTC)
-Received: by mail-lf1-f44.google.com with SMTP id
- 2adb3069b0e04-51f45104ef0so5935334e87.3
- for <intel-gfx@lists.freedesktop.org>; Tue, 21 May 2024 23:25:59 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1716359157; x=1716963957; darn=lists.freedesktop.org;
- h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
- :mime-version:subject:date:from:from:to:cc:subject:date:message-id
- :reply-to; bh=LQ30IMIqS4FxBzVdWL5H8+rA/52Tn4UUr+hikbOiM00=;
- b=xepnFh4hzKrl+UBLxPhp6oj7bVr9VwejCWjP+VvccYbXwE+g/w4NrRMzbm1EMcebvX
- bHISoqspTmbdIrfw1379ETcmhpTYdJpoz6RojT1Pv4zJNeyVny7fJtVcfKBp/K0HZXZE
- eGgwiu1dv7Xs89tNnGmQDjs692uFmtYdd5MTO4/9bWZkgCEUsc5DoHEI4ClIbzFos0SE
- OpWx0Zz8bPRQ7ZhiqETaUasJcWnFS14mNilC7vbjazL2tB2Ajv5SKVM2x9X1RHGawAbm
- BLXe6VQtwkn2ieiZiB+P3uRncZ/wPt5xvHyFfDiqABWKSPypb9gOCKLZkodVdMhJGpdM
- 0Mbw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1716359157; x=1716963957;
- h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
- :mime-version:subject:date:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=LQ30IMIqS4FxBzVdWL5H8+rA/52Tn4UUr+hikbOiM00=;
- b=Niq+BfjUwaQtUwlFhruD3IZ773KwA+exyOSsAUyHd4kI+53ppRIEtdoRbspwQa5nxi
- NHUGDF1y3lcm/TNlBzjtoa1up0Y/ZBA94AhH10AP596UxiBPYCn1+BopxmgtST21s66X
- zX7OIaF4CdFxoAWnMTXnGyHpcGEvc1H0jqG1mJLFghJyb6ac23NEbid2ev7xOPPa/1Ll
- oOxSve78n627IBHPnhnDPCe/o1L3WD8O5VfqG39O7XKSFsYjMeJG5cLCCtfLtmbCCnP7
- 97uDUaQ6iAj2URoQUPG3GAf9UE0rx3LcnSORmf8GiwMAYVS8wnNOltaUyiO2BX47dGwc
- 806g==
-X-Forwarded-Encrypted: i=1;
- AJvYcCUKTVkN70eEp8RtW3vIYAdBT/sZhS1hCgwr8ibBzRCXhmysQX+pcfqmZUio0nVjABVunmFFMjPyAtNeTol+LbGZXbKut2+tBZJn8VdynAxF
-X-Gm-Message-State: AOJu0YzdVZIFnE+26K3lhdXqJrRtu1NbNoNsw+c2/5ImBndK9p69s+jU
- 9Jtd79C0uodFxWE2o4Cz/wI5vxY/y1vq4y3IaD+qxNw5neJkxTwnV3eg/eEnCUE=
-X-Google-Smtp-Source: AGHT+IF/7QZ0tGCXiFYJB/x+q86OQI6ANWr9joQ1GchVETZy/vH8FMHjzEY05fxM+S1qk+o81MyouA==
-X-Received: by 2002:a19:384e:0:b0:520:98ff:5554 with SMTP id
- 2adb3069b0e04-526bf35c8c2mr521592e87.30.1716359157191; 
- Tue, 21 May 2024 23:25:57 -0700 (PDT)
-Received: from umbar.lan ([192.130.178.91]) by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-521f35ad4d0sm4910023e87.49.2024.05.21.23.25.56
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 21 May 2024 23:25:56 -0700 (PDT)
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Date: Wed, 22 May 2024 09:25:54 +0300
-Subject: [PATCH v3 2/3] drm/panel/lg-sw43408: select
- CONFIG_DRM_DISPLAY_DP_HELPER
+	by gabe.freedesktop.org (Postfix) with ESMTP id A57C010E1E1;
+	Wed, 22 May 2024 06:28:14 +0000 (UTC)
+Received: from 8e613ede5ea5 (emeril.freedesktop.org [131.252.210.167])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 14C0210E1E1;
+ Wed, 22 May 2024 06:28:13 +0000 (UTC)
+Content-Type: multipart/alternative;
+ boundary="===============2068246332747609412=="
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20240522-panel-sw43408-fix-v3-2-6902285adcc0@linaro.org>
-References: <20240522-panel-sw43408-fix-v3-0-6902285adcc0@linaro.org>
-In-Reply-To: <20240522-panel-sw43408-fix-v3-0-6902285adcc0@linaro.org>
-To: Neil Armstrong <neil.armstrong@linaro.org>, 
- Jessica Zhang <quic_jesszhan@quicinc.com>, Sam Ravnborg <sam@ravnborg.org>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>, 
- Sumit Semwal <sumit.semwal@linaro.org>, 
- Caleb Connolly <caleb.connolly@linaro.org>, 
- Alex Deucher <alexander.deucher@amd.com>, 
- =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- Jani Nikula <jani.nikula@linux.intel.com>, 
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, 
- Rodrigo Vivi <rodrigo.vivi@intel.com>, 
- Tvrtko Ursulin <tursulin@ursulin.net>, Rob Clark <robdclark@gmail.com>, 
- Abhinav Kumar <quic_abhinavk@quicinc.com>, Sean Paul <sean@poorly.run>, 
- Marijn Suijten <marijn.suijten@somainline.org>, 
- Vinod Koul <vkoul@kernel.org>, Caleb Connolly <caleb@connolly.tech>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- amd-gfx@lists.freedesktop.org, intel-gfx@lists.freedesktop.org, 
- linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org, 
- kernel test robot <lkp@intel.com>
-X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1052;
- i=dmitry.baryshkov@linaro.org; h=from:subject:message-id;
- bh=OzVLboiQq6/i7927qpGZm3VA/GBlmQcFYUqcIc2Gbpg=;
- b=owEBbQGS/pANAwAKAYs8ij4CKSjVAcsmYgBmTY/y3fKq7yHxjaGudmp6EIq0hsmBQi2qIcxkt
- wwyQWrXMseJATMEAAEKAB0WIQRMcISVXLJjVvC4lX+LPIo+Aiko1QUCZk2P8gAKCRCLPIo+Aiko
- 1ZOwB/9XTi/5fMAIsZRH09go2mO1GT8qtjrK4eDP42uTvxIB9XnQKdrUOLABIzsGrwK1kZMfn0q
- wfp4/kKHBuQgQthNE7p7+8smtARdS0TIcPNAWbc2QD0dLFgMyIUqYt9AYgrRtcQd95UMy/DdWKC
- nRvvBcugj/sYeyCgRMBXRl4nMWUmpbf55b6fWCygEWmfd/FO5SsrnY0sws9XiRHDiQchsCPDR5l
- Q9/0ALMepT5iKL3nIEmo7t+oyAFyGRg9K6RG9biicPfITKy98PVCGtYTQ5emoDN/zz4RmsyFdlx
- Yv00RFSQrYhIJ9jvkr2r2fT7Fshh/pvnqcW40+ltqqaFwfuF
-X-Developer-Key: i=dmitry.baryshkov@linaro.org; a=openpgp;
- fpr=8F88381DD5C873E4AE487DA5199BF1243632046A
+Subject: =?utf-8?q?=E2=9C=97_Fi=2ECI=2EBAT=3A_failure_for_Fix_cursor_FB_unpinning=2E?=
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Maarten Lankhorst" <maarten.lankhorst@linux.intel.com>
+Cc: intel-gfx@lists.freedesktop.org
+Date: Wed, 22 May 2024 06:28:13 -0000
+Message-ID: <171635929307.2165804.15393535113974326885@8e613ede5ea5>
+X-Patchwork-Hint: ignore
+References: <20240522053341.137592-1-maarten.lankhorst@linux.intel.com>
+In-Reply-To: <20240522053341.137592-1-maarten.lankhorst@linux.intel.com>
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -109,35 +36,162 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-This panel driver uses DSC PPS functions and as such depends on the
-DRM_DISPLAY_DP_HELPER. Select this symbol to make required functions
-available to the driver.
+--===============2068246332747609412==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
 
-Reported-by: kernel test robot <lkp@intel.com>
-Closes: https://lore.kernel.org/oe-kbuild-all/202404200800.kYsRYyli-lkp@intel.com/
-Fixes: 069a6c0e94f9 ("drm: panel: Add LG sw43408 panel driver")
-Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
----
- drivers/gpu/drm/panel/Kconfig | 2 ++
- 1 file changed, 2 insertions(+)
+== Series Details ==
 
-diff --git a/drivers/gpu/drm/panel/Kconfig b/drivers/gpu/drm/panel/Kconfig
-index 4a2f621433ef..3e3f63479544 100644
---- a/drivers/gpu/drm/panel/Kconfig
-+++ b/drivers/gpu/drm/panel/Kconfig
-@@ -340,6 +340,8 @@ config DRM_PANEL_LG_SW43408
- 	depends on OF
- 	depends on DRM_MIPI_DSI
- 	depends on BACKLIGHT_CLASS_DEVICE
-+	select DRM_DISPLAY_DSC_HELPER
-+	select DRM_DISPLAY_HELPER
- 	help
- 	  Say Y here if you want to enable support for LG sw43408 panel.
- 	  The panel has a 1080x2160@60Hz resolution and uses 24 bit RGB per
+Series: Fix cursor FB unpinning.
+URL   : https://patchwork.freedesktop.org/series/133896/
+State : failure
 
--- 
-2.39.2
+== Summary ==
 
+CI Bug Log - changes from CI_DRM_14798 -> Patchwork_133896v1
+====================================================
+
+Summary
+-------
+
+  **FAILURE**
+
+  Serious unknown changes coming with Patchwork_133896v1 absolutely need to be
+  verified manually.
+  
+  If you think the reported changes have nothing to do with the changes
+  introduced in Patchwork_133896v1, please notify your bug team (I915-ci-infra@lists.freedesktop.org) to allow them
+  to document this new failure mode, which will reduce false positives in CI.
+
+  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_133896v1/index.html
+
+Participating hosts (44 -> 42)
+------------------------------
+
+  Missing    (2): fi-snb-2520m fi-kbl-8809g 
+
+Possible new issues
+-------------------
+
+  Here are the unknown changes that may have been introduced in Patchwork_133896v1:
+
+### IGT changes ###
+
+#### Possible regressions ####
+
+  * igt@i915_selftest@live@execlists:
+    - fi-bsw-nick:        [PASS][1] -> [INCOMPLETE][2]
+   [1]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_14798/fi-bsw-nick/igt@i915_selftest@live@execlists.html
+   [2]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_133896v1/fi-bsw-nick/igt@i915_selftest@live@execlists.html
+
+  
+Known issues
+------------
+
+  Here are the changes found in Patchwork_133896v1 that come from known issues:
+
+### IGT changes ###
+
+#### Possible fixes ####
+
+  * igt@i915_selftest@live@gt_lrc:
+    - bat-adlp-9:         [INCOMPLETE][3] ([i915#9413]) -> [PASS][4]
+   [3]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_14798/bat-adlp-9/igt@i915_selftest@live@gt_lrc.html
+   [4]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_133896v1/bat-adlp-9/igt@i915_selftest@live@gt_lrc.html
+
+  
+  [i915#9413]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/9413
+
+
+Build changes
+-------------
+
+  * Linux: CI_DRM_14798 -> Patchwork_133896v1
+
+  CI-20190529: 20190529
+  CI_DRM_14798: b134db8544f8d5b8a960b368afe12820c3cbe8cd @ git://anongit.freedesktop.org/gfx-ci/linux
+  IGT_7866: 2b7701838c3ebaa3c717b6521cafafe3b9ae4a4f @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git
+  Patchwork_133896v1: b134db8544f8d5b8a960b368afe12820c3cbe8cd @ git://anongit.freedesktop.org/gfx-ci/linux
+
+== Logs ==
+
+For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_133896v1/index.html
+
+--===============2068246332747609412==
+Content-Type: text/html; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <title>Project List - Patchwork</title>
+  <style id="css-table-select" type="text/css">
+   td { padding: 2pt; }
+  </style>
+</head>
+<body>
+
+
+<b>Patch Details</b>
+<table>
+<tr><td><b>Series:</b></td><td>Fix cursor FB unpinning.</td></tr>
+<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/133896/">https://patchwork.freedesktop.org/series/133896/</a></td></tr>
+<tr><td><b>State:</b></td><td>failure</td></tr>
+
+    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_133896v1/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_133896v1/index.html</a></td></tr>
+
+</table>
+
+
+    <h1>CI Bug Log - changes from CI_DRM_14798 -&gt; Patchwork_133896v1</h1>
+<h2>Summary</h2>
+<p><strong>FAILURE</strong></p>
+<p>Serious unknown changes coming with Patchwork_133896v1 absolutely need to be<br />
+  verified manually.</p>
+<p>If you think the reported changes have nothing to do with the changes<br />
+  introduced in Patchwork_133896v1, please notify your bug team (I915-ci-infra@lists.freedesktop.org) to allow them<br />
+  to document this new failure mode, which will reduce false positives in CI.</p>
+<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_133896v1/index.html</p>
+<h2>Participating hosts (44 -&gt; 42)</h2>
+<p>Missing    (2): fi-snb-2520m fi-kbl-8809g </p>
+<h2>Possible new issues</h2>
+<p>Here are the unknown changes that may have been introduced in Patchwork_133896v1:</p>
+<h3>IGT changes</h3>
+<h4>Possible regressions</h4>
+<ul>
+<li>igt@i915_selftest@live@execlists:<ul>
+<li>fi-bsw-nick:        <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_14798/fi-bsw-nick/igt@i915_selftest@live@execlists.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_133896v1/fi-bsw-nick/igt@i915_selftest@live@execlists.html">INCOMPLETE</a></li>
+</ul>
+</li>
+</ul>
+<h2>Known issues</h2>
+<p>Here are the changes found in Patchwork_133896v1 that come from known issues:</p>
+<h3>IGT changes</h3>
+<h4>Possible fixes</h4>
+<ul>
+<li>igt@i915_selftest@live@gt_lrc:<ul>
+<li>bat-adlp-9:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_14798/bat-adlp-9/igt@i915_selftest@live@gt_lrc.html">INCOMPLETE</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/9413">i915#9413</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_133896v1/bat-adlp-9/igt@i915_selftest@live@gt_lrc.html">PASS</a></li>
+</ul>
+</li>
+</ul>
+<h2>Build changes</h2>
+<ul>
+<li>Linux: CI_DRM_14798 -&gt; Patchwork_133896v1</li>
+</ul>
+<p>CI-20190529: 20190529<br />
+  CI_DRM_14798: b134db8544f8d5b8a960b368afe12820c3cbe8cd @ git://anongit.freedesktop.org/gfx-ci/linux<br />
+  IGT_7866: 2b7701838c3ebaa3c717b6521cafafe3b9ae4a4f @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git<br />
+  Patchwork_133896v1: b134db8544f8d5b8a960b368afe12820c3cbe8cd @ git://anongit.freedesktop.org/gfx-ci/linux</p>
+
+</body>
+</html>
+
+--===============2068246332747609412==--
