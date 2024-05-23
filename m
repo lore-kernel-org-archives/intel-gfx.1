@@ -4,50 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CC934C25B7C
-	for <intel-gfx@archiver.kernel.org>; Thu, 23 May 2024 13:00:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5DB05C25B75
+	for <intel-gfx@archiver.kernel.org>; Thu, 23 May 2024 13:00:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 65C0510E539;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 96ADB10E59C;
 	Thu, 23 May 2024 13:00:46 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="ncUEfxXP";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="DbzbMvz8";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.14])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5477210E64B
- for <intel-gfx@lists.freedesktop.org>; Thu, 23 May 2024 13:00:26 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D06AA10E5A9
+ for <intel-gfx@lists.freedesktop.org>; Thu, 23 May 2024 13:00:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1716469227; x=1748005227;
+ t=1716469234; x=1748005234;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=fcyXY19VOgX+TGhhERMZ+msas78RRAv592fg6OtAxFA=;
- b=ncUEfxXPlmTsVyg/kneF0DxpzJXeGYuGb6QujshIiyey9LOJpIQzznSZ
- 1CK5c9kFbuEYE8b92aR2+On29rJ5Bap5W3wLiZOO11F4vcDF2QHdnDpMW
- gaDHUokDunHsd40gcYERT+807c6RajP4wA0D7uGGopbkUkEdaVDdFpRW8
- YEjY5fLe7UpmgXIyvA04JDAMTHuLLw/QsxkcSyjeD797u75vfyCOCmLiI
- swm3asN3Q6OnEE/ztw3nfru40+D9mC7uuPmZtA2iHyed1vB5nwUka3h6Y
- T0oJQbmHetXwGQaoyb5qM5CpXTSve47IJHa+/PnDXZWvQ8pg8oa907ljE w==;
-X-CSE-ConnectionGUID: t0zAI1mYRiyUh8Lbowkb9A==
-X-CSE-MsgGUID: J3Qq6El3SmCh8hXgJFmyTg==
-X-IronPort-AV: E=McAfee;i="6600,9927,11081"; a="16610014"
-X-IronPort-AV: E=Sophos;i="6.08,182,1712646000"; d="scan'208";a="16610014"
+ bh=JHmCZ6d9V9+jAaoMTMtNocbEmkZAU+7ZrxA6JTL0xls=;
+ b=DbzbMvz8E4zt8afPXMD2Jx9Ps7H66vzKLtu4rdbvSxaWgdowzg5avP0o
+ kAqURNBQ8rH1H1AE+ZXCtQfAhWoAefMCmm7OBDv632kIuyw+YKCkwNJ1z
+ tXjhtRSmUnj5KhlRANoEJCTWfaX3QgDbLDTn84w462WqGXfpwHs6mM6JA
+ CzcWf/we/wnmPO4qSEI51W0ujR5d2lejXDcD1KIoe7axIdIMFOcS+BR0P
+ UuszwaxYtq81Y1O6F/sURETPYkREQXbofAPjdZLbuWxhfT6yPbI5fF2xH
+ vVGrYHQDXFO3jkmX8hfGDHlFgqShb1h72x3MdAWm1zjhRMHNKRXZlNdam w==;
+X-CSE-ConnectionGUID: 7f3wpQq9TDaX6HgmiWS2rA==
+X-CSE-MsgGUID: qjAHSu40SIOFCPcyx/J4ig==
+X-IronPort-AV: E=McAfee;i="6600,9927,11081"; a="16610028"
+X-IronPort-AV: E=Sophos;i="6.08,182,1712646000"; d="scan'208";a="16610028"
 Received: from fmviesa006.fm.intel.com ([10.60.135.146])
  by orvoesa106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 May 2024 06:00:25 -0700
-X-CSE-ConnectionGUID: Q6x0VaRrTU+o3vCbLmjNUg==
-X-CSE-MsgGUID: yJZsIapXTteJ+JwTnFmPxw==
+ 23 May 2024 06:00:33 -0700
+X-CSE-ConnectionGUID: bEctNEd0QRSgoBIfMcxDIw==
+X-CSE-MsgGUID: JW6VC5X1RLy5Uw0R+3XPJg==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.08,182,1712646000"; d="scan'208";a="33672301"
+X-IronPort-AV: E=Sophos;i="6.08,182,1712646000"; d="scan'208";a="33672347"
 Received: from unknown (HELO localhost) ([10.237.66.160])
  by fmviesa006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 May 2024 06:00:22 -0700
+ 23 May 2024 06:00:30 -0700
 From: Jani Nikula <jani.nikula@intel.com>
 To: intel-gfx@lists.freedesktop.org
 Cc: jani.nikula@intel.com,
 	ville.syrjala@linux.intel.com
-Subject: [PATCH 09/16] drm/i915: pass dev_priv explicitly to DSPTILEOFF
-Date: Thu, 23 May 2024 15:59:37 +0300
-Message-Id: <4736b2d65ca3be3e9eb5a835ddac801ba99e1e6b.1716469091.git.jani.nikula@intel.com>
+Subject: [PATCH 11/16] drm/i915: pass dev_priv explicitly to DSPSURFLIVE
+Date: Thu, 23 May 2024 15:59:39 +0300
+Message-Id: <bc252dee67718f729883da7d542c6435384683ae.1716469091.git.jani.nikula@intel.com>
 X-Mailer: git-send-email 2.39.2
 In-Reply-To: <cover.1716469091.git.jani.nikula@intel.com>
 References: <cover.1716469091.git.jani.nikula@intel.com>
@@ -70,63 +70,81 @@ Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 Avoid the implicit dev_priv local variable use, and pass dev_priv
-explicitly to the DSPTILEOFF register macro.
+explicitly to the DSPSURFLIVE register macro.
 
 Signed-off-by: Jani Nikula <jani.nikula@intel.com>
 ---
- drivers/gpu/drm/i915/display/i9xx_plane.c      | 4 ++--
  drivers/gpu/drm/i915/display/i9xx_plane_regs.h | 2 +-
- drivers/gpu/drm/i915/gvt/fb_decoder.c          | 2 +-
- 3 files changed, 4 insertions(+), 4 deletions(-)
+ drivers/gpu/drm/i915/gvt/handlers.c            | 4 ++--
+ drivers/gpu/drm/i915/intel_gvt_mmio_table.c    | 6 +++---
+ 3 files changed, 6 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/display/i9xx_plane.c b/drivers/gpu/drm/i915/display/i9xx_plane.c
-index 7adaf8cbd945..36225c2aa1c8 100644
---- a/drivers/gpu/drm/i915/display/i9xx_plane.c
-+++ b/drivers/gpu/drm/i915/display/i9xx_plane.c
-@@ -487,7 +487,7 @@ static void i9xx_plane_update_arm(struct intel_plane *plane,
- 	} else if (DISPLAY_VER(dev_priv) >= 4) {
- 		intel_de_write_fw(dev_priv, DSPLINOFF(dev_priv, i9xx_plane),
- 				  linear_offset);
--		intel_de_write_fw(dev_priv, DSPTILEOFF(i9xx_plane),
-+		intel_de_write_fw(dev_priv, DSPTILEOFF(dev_priv, i9xx_plane),
- 				  DISP_OFFSET_Y(y) | DISP_OFFSET_X(x));
- 	}
- 
-@@ -1038,7 +1038,7 @@ i9xx_get_initial_plane_config(struct intel_crtc *crtc,
- 	} else if (DISPLAY_VER(dev_priv) >= 4) {
- 		if (plane_config->tiling)
- 			offset = intel_de_read(dev_priv,
--					       DSPTILEOFF(i9xx_plane));
-+					       DSPTILEOFF(dev_priv, i9xx_plane));
- 		else
- 			offset = intel_de_read(dev_priv,
- 					       DSPLINOFF(dev_priv, i9xx_plane));
 diff --git a/drivers/gpu/drm/i915/display/i9xx_plane_regs.h b/drivers/gpu/drm/i915/display/i9xx_plane_regs.h
-index 2771f2a7645b..baa3d348c77e 100644
+index 0930a76ccf3c..22a550c8b41a 100644
 --- a/drivers/gpu/drm/i915/display/i9xx_plane_regs.h
 +++ b/drivers/gpu/drm/i915/display/i9xx_plane_regs.h
-@@ -71,7 +71,7 @@
- #define   DISP_ADDR_MASK		REG_GENMASK(31, 12)
+@@ -81,7 +81,7 @@
+ #define DSPOFFSET(dev_priv, plane)		_MMIO_PIPE2(dev_priv, plane, _DSPAOFFSET)
  
- #define _DSPATILEOFF				0x701A4 /* i965+ */
--#define DSPTILEOFF(plane)			_MMIO_PIPE2(dev_priv, plane, _DSPATILEOFF)
-+#define DSPTILEOFF(dev_priv, plane)		_MMIO_PIPE2(dev_priv, plane, _DSPATILEOFF)
- #define   DISP_OFFSET_Y_MASK		REG_GENMASK(31, 16)
- #define   DISP_OFFSET_Y(y)		REG_FIELD_PREP(DISP_OFFSET_Y_MASK, (y))
- #define   DISP_OFFSET_X_MASK		REG_GENMASK(15, 0)
-diff --git a/drivers/gpu/drm/i915/gvt/fb_decoder.c b/drivers/gpu/drm/i915/gvt/fb_decoder.c
-index 6c3a0f160bea..0afde865a7de 100644
---- a/drivers/gpu/drm/i915/gvt/fb_decoder.c
-+++ b/drivers/gpu/drm/i915/gvt/fb_decoder.c
-@@ -274,7 +274,7 @@ int intel_vgpu_decode_primary_plane(struct intel_vgpu *vgpu,
- 			_PIPE_V_SRCSZ_MASK) >> _PIPE_V_SRCSZ_SHIFT;
- 	plane->height += 1;	/* raw height is one minus the real value */
+ #define _DSPASURFLIVE				0x701AC /* g4x+ */
+-#define DSPSURFLIVE(plane)			_MMIO_PIPE2(dev_priv, plane, _DSPASURFLIVE)
++#define DSPSURFLIVE(dev_priv, plane)		_MMIO_PIPE2(dev_priv, plane, _DSPASURFLIVE)
  
--	val = vgpu_vreg_t(vgpu, DSPTILEOFF(pipe));
-+	val = vgpu_vreg_t(vgpu, DSPTILEOFF(dev_priv, pipe));
- 	plane->x_offset = (val & _PRI_PLANE_X_OFF_MASK) >>
- 		_PRI_PLANE_X_OFF_SHIFT;
- 	plane->y_offset = (val & _PRI_PLANE_Y_OFF_MASK) >>
+ #define _DSPAGAMC				0x701E0 /* pre-g4x */
+ #define DSPGAMC(plane, i)			_MMIO_PIPE2(dev_priv, plane, _DSPAGAMC + (5 - (i)) * 4) /* plane C only, 6 x u0.8 */
+diff --git a/drivers/gpu/drm/i915/gvt/handlers.c b/drivers/gpu/drm/i915/gvt/handlers.c
+index abcb8f0825e0..840fea160aa6 100644
+--- a/drivers/gpu/drm/i915/gvt/handlers.c
++++ b/drivers/gpu/drm/i915/gvt/handlers.c
+@@ -1018,7 +1018,7 @@ static int pri_surf_mmio_write(struct intel_vgpu *vgpu, unsigned int offset,
+ 	int event = SKL_FLIP_EVENT(pipe, PLANE_PRIMARY);
+ 
+ 	write_vreg(vgpu, offset, p_data, bytes);
+-	vgpu_vreg_t(vgpu, DSPSURFLIVE(pipe)) = vgpu_vreg(vgpu, offset);
++	vgpu_vreg_t(vgpu, DSPSURFLIVE(dev_priv, pipe)) = vgpu_vreg(vgpu, offset);
+ 
+ 	vgpu_vreg_t(vgpu, PIPE_FLIPCOUNT_G4X(pipe))++;
+ 
+@@ -1061,7 +1061,7 @@ static int reg50080_mmio_write(struct intel_vgpu *vgpu,
+ 
+ 	write_vreg(vgpu, offset, p_data, bytes);
+ 	if (plane == PLANE_PRIMARY) {
+-		vgpu_vreg_t(vgpu, DSPSURFLIVE(pipe)) = vgpu_vreg(vgpu, offset);
++		vgpu_vreg_t(vgpu, DSPSURFLIVE(dev_priv, pipe)) = vgpu_vreg(vgpu, offset);
+ 		vgpu_vreg_t(vgpu, PIPE_FLIPCOUNT_G4X(pipe))++;
+ 	} else {
+ 		vgpu_vreg_t(vgpu, SPRSURFLIVE(pipe)) = vgpu_vreg(vgpu, offset);
+diff --git a/drivers/gpu/drm/i915/intel_gvt_mmio_table.c b/drivers/gpu/drm/i915/intel_gvt_mmio_table.c
+index 50dfe1f81b99..b4d5592b18df 100644
+--- a/drivers/gpu/drm/i915/intel_gvt_mmio_table.c
++++ b/drivers/gpu/drm/i915/intel_gvt_mmio_table.c
+@@ -172,7 +172,7 @@ static int iterate_generic_mmio(struct intel_gvt_mmio_table_iter *iter)
+ 	MMIO_D(DSPSIZE(dev_priv, PIPE_A));
+ 	MMIO_D(DSPSURF(dev_priv, PIPE_A));
+ 	MMIO_D(DSPOFFSET(dev_priv, PIPE_A));
+-	MMIO_D(DSPSURFLIVE(PIPE_A));
++	MMIO_D(DSPSURFLIVE(dev_priv, PIPE_A));
+ 	MMIO_D(REG_50080(PIPE_A, PLANE_PRIMARY));
+ 	MMIO_D(DSPCNTR(dev_priv, PIPE_B));
+ 	MMIO_D(DSPADDR(dev_priv, PIPE_B));
+@@ -181,7 +181,7 @@ static int iterate_generic_mmio(struct intel_gvt_mmio_table_iter *iter)
+ 	MMIO_D(DSPSIZE(dev_priv, PIPE_B));
+ 	MMIO_D(DSPSURF(dev_priv, PIPE_B));
+ 	MMIO_D(DSPOFFSET(dev_priv, PIPE_B));
+-	MMIO_D(DSPSURFLIVE(PIPE_B));
++	MMIO_D(DSPSURFLIVE(dev_priv, PIPE_B));
+ 	MMIO_D(REG_50080(PIPE_B, PLANE_PRIMARY));
+ 	MMIO_D(DSPCNTR(dev_priv, PIPE_C));
+ 	MMIO_D(DSPADDR(dev_priv, PIPE_C));
+@@ -190,7 +190,7 @@ static int iterate_generic_mmio(struct intel_gvt_mmio_table_iter *iter)
+ 	MMIO_D(DSPSIZE(dev_priv, PIPE_C));
+ 	MMIO_D(DSPSURF(dev_priv, PIPE_C));
+ 	MMIO_D(DSPOFFSET(dev_priv, PIPE_C));
+-	MMIO_D(DSPSURFLIVE(PIPE_C));
++	MMIO_D(DSPSURFLIVE(dev_priv, PIPE_C));
+ 	MMIO_D(REG_50080(PIPE_C, PLANE_PRIMARY));
+ 	MMIO_D(SPRCTL(PIPE_A));
+ 	MMIO_D(SPRLINOFF(PIPE_A));
 -- 
 2.39.2
 
