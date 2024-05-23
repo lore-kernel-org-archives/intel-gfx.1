@@ -4,50 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6ACDFC25B79
-	for <intel-gfx@archiver.kernel.org>; Thu, 23 May 2024 13:00:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 38AACC25B7F
+	for <intel-gfx@archiver.kernel.org>; Thu, 23 May 2024 13:00:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9FA4410E649;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1424410E685;
 	Thu, 23 May 2024 13:00:54 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="ChAUWcJ+";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="keRw+e+L";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B782D10E643
- for <intel-gfx@lists.freedesktop.org>; Thu, 23 May 2024 13:00:52 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.9])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B0C6010E5A0
+ for <intel-gfx@lists.freedesktop.org>; Thu, 23 May 2024 13:00:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1716469252; x=1748005252;
+ t=1716469230; x=1748005230;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=AtaRa5oL4CyU1VHlswWJ9FkQro1Bw24n1zxADvUUdJ0=;
- b=ChAUWcJ+SN6SffOPQanct6lRbjT1HM2XJSxsnMx1OArPTzCHetRL0ErA
- CTgIxNrIMYbooAu2D1C2jYUwkprtJnzUD793oxbZnn1gJokFnu2lkEudu
- 0JzQOR6MxbkInVOgLoCYRLMo6jC6xNlrlbArT10Vy3sBEKFdUesbB+v8X
- 357WeToohVZiSHrb8dbQxEYubU5fz6ZnojYUPM/0XBvRWeNqWuWwhbskD
- +9b9fu3kn0Mdl4fe56/wvnENwA9YoiEmIpdAH7v3rwpjwoc0Hdb9gztlD
- dtL4puPk6eL+feo44XeTPclWdGqOlHXiwAUdF8YMC1J3X6I3WA1S9zK85 Q==;
-X-CSE-ConnectionGUID: 5E6JydwnSCabkwRkVZokWg==
-X-CSE-MsgGUID: Agj1bgG6Qz+00I+1u7tYsg==
-X-IronPort-AV: E=McAfee;i="6600,9927,11081"; a="12966419"
-X-IronPort-AV: E=Sophos;i="6.08,182,1712646000"; d="scan'208";a="12966419"
-Received: from fmviesa001.fm.intel.com ([10.60.135.141])
- by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 May 2024 06:00:52 -0700
-X-CSE-ConnectionGUID: 5BogjUnPQkmn3MUYrOXDcg==
-X-CSE-MsgGUID: MmWlsyupQMSHT0/Qiaj7xA==
+ bh=x0KRGAWLQNHl92H6OR3UMG0d2lnpQPb/GqWphK7JPNg=;
+ b=keRw+e+LemCIYjcMsNif4+xmwIxqBm17nXDrcBnexYqHuE2IWO2w/IPH
+ QSWDDbnNEMxNpggYIA3Wpr65L6khjOKrVPm9HgTiCxPWNT51gBAR2IT+b
+ p/XTTs56pVq7G3crz87akNwIc6IcS78qhCvj0ohlVEnemN2w6eQUW/eb4
+ 6H9jIioZjBD8J/oW+2F6vLJwo566dH3t2xRMBveI5y7fBlsLFf5tRVzsD
+ vkGaJDhle992FhNMpgVcd85dcoiGCuF5p48vekufuYZ3hr7jwmA/SE7UN
+ Xzu/gOu14gsz55xaucLrUcgOIxIECHxBB7l3qMKZFgg4VhL+omcZen3pH g==;
+X-CSE-ConnectionGUID: Q0Zuy4VSSTys4hWUYvK1mw==
+X-CSE-MsgGUID: 2GTxV006T46oo9x7jOwJTg==
+X-IronPort-AV: E=McAfee;i="6600,9927,11081"; a="23451196"
+X-IronPort-AV: E=Sophos;i="6.08,182,1712646000"; d="scan'208";a="23451196"
+Received: from orviesa006.jf.intel.com ([10.64.159.146])
+ by fmvoesa103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 23 May 2024 06:00:29 -0700
+X-CSE-ConnectionGUID: jXIOpvr2Rk6n6fEzik34EA==
+X-CSE-MsgGUID: xkg4tgQfRh+TwTfhZ3YBkw==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.08,182,1712646000"; d="scan'208";a="64874885"
+X-IronPort-AV: E=Sophos;i="6.08,182,1712646000"; d="scan'208";a="34128841"
 Received: from unknown (HELO localhost) ([10.237.66.160])
- by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 May 2024 06:00:50 -0700
+ by orviesa006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 23 May 2024 06:00:27 -0700
 From: Jani Nikula <jani.nikula@intel.com>
 To: intel-gfx@lists.freedesktop.org
 Cc: jani.nikula@intel.com,
 	ville.syrjala@linux.intel.com
-Subject: [PATCH 16/16] drm/i915: pass dev_priv explicitly to PIPEGCMAX
-Date: Thu, 23 May 2024 15:59:44 +0300
-Message-Id: <5fdc8562fe7b8d26e1ec1bb8f9a221348246bbe1.1716469091.git.jani.nikula@intel.com>
+Subject: [PATCH 10/16] drm/i915: pass dev_priv explicitly to DSPOFFSET
+Date: Thu, 23 May 2024 15:59:38 +0300
+Message-Id: <c1d487d2c753221144e8fb8f17e5eb2826dba5f2.1716469091.git.jani.nikula@intel.com>
 X-Mailer: git-send-email 2.39.2
 In-Reply-To: <cover.1716469091.git.jani.nikula@intel.com>
 References: <cover.1716469091.git.jani.nikula@intel.com>
@@ -70,62 +70,82 @@ Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 Avoid the implicit dev_priv local variable use, and pass dev_priv
-explicitly to the PIPEGCMAX register macro.
+explicitly to the DSPOFFSET register macro.
 
 Signed-off-by: Jani Nikula <jani.nikula@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_color.c      | 13 +++++++------
- drivers/gpu/drm/i915/display/intel_color_regs.h |  6 +++---
- 2 files changed, 10 insertions(+), 9 deletions(-)
+ drivers/gpu/drm/i915/display/i9xx_plane.c      | 5 +++--
+ drivers/gpu/drm/i915/display/i9xx_plane_regs.h | 2 +-
+ drivers/gpu/drm/i915/intel_gvt_mmio_table.c    | 6 +++---
+ 3 files changed, 7 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_color.c b/drivers/gpu/drm/i915/display/intel_color.c
-index a83f41ee6834..da56d24eb933 100644
---- a/drivers/gpu/drm/i915/display/intel_color.c
-+++ b/drivers/gpu/drm/i915/display/intel_color.c
-@@ -1284,9 +1284,10 @@ static void i965_load_lut_10p6(struct intel_crtc *crtc,
- 				  i965_lut_10p6_udw(&lut[i]));
+diff --git a/drivers/gpu/drm/i915/display/i9xx_plane.c b/drivers/gpu/drm/i915/display/i9xx_plane.c
+index 36225c2aa1c8..2026323d88ac 100644
+--- a/drivers/gpu/drm/i915/display/i9xx_plane.c
++++ b/drivers/gpu/drm/i915/display/i9xx_plane.c
+@@ -482,7 +482,7 @@ static void i9xx_plane_update_arm(struct intel_plane *plane,
  	}
  
--	intel_de_write_fw(dev_priv, PIPEGCMAX(pipe, 0), lut[i].red);
--	intel_de_write_fw(dev_priv, PIPEGCMAX(pipe, 1), lut[i].green);
--	intel_de_write_fw(dev_priv, PIPEGCMAX(pipe, 2), lut[i].blue);
-+	intel_de_write_fw(dev_priv, PIPEGCMAX(dev_priv, pipe, 0), lut[i].red);
-+	intel_de_write_fw(dev_priv, PIPEGCMAX(dev_priv, pipe, 1),
-+			  lut[i].green);
-+	intel_de_write_fw(dev_priv, PIPEGCMAX(dev_priv, pipe, 2), lut[i].blue);
- }
+ 	if (IS_HASWELL(dev_priv) || IS_BROADWELL(dev_priv)) {
+-		intel_de_write_fw(dev_priv, DSPOFFSET(i9xx_plane),
++		intel_de_write_fw(dev_priv, DSPOFFSET(dev_priv, i9xx_plane),
+ 				  DISP_OFFSET_Y(y) | DISP_OFFSET_X(x));
+ 	} else if (DISPLAY_VER(dev_priv) >= 4) {
+ 		intel_de_write_fw(dev_priv, DSPLINOFF(dev_priv, i9xx_plane),
+@@ -1033,7 +1033,8 @@ i9xx_get_initial_plane_config(struct intel_crtc *crtc,
+ 	fb->format = drm_format_info(fourcc);
  
- static void i965_load_luts(const struct intel_crtc_state *crtc_state)
-@@ -3239,9 +3240,9 @@ static struct drm_property_blob *i965_read_lut_10p6(struct intel_crtc *crtc)
- 		i965_lut_10p6_pack(&lut[i], ldw, udw);
- 	}
+ 	if (IS_HASWELL(dev_priv) || IS_BROADWELL(dev_priv)) {
+-		offset = intel_de_read(dev_priv, DSPOFFSET(i9xx_plane));
++		offset = intel_de_read(dev_priv,
++				       DSPOFFSET(dev_priv, i9xx_plane));
+ 		base = intel_de_read(dev_priv, DSPSURF(dev_priv, i9xx_plane)) & DISP_ADDR_MASK;
+ 	} else if (DISPLAY_VER(dev_priv) >= 4) {
+ 		if (plane_config->tiling)
+diff --git a/drivers/gpu/drm/i915/display/i9xx_plane_regs.h b/drivers/gpu/drm/i915/display/i9xx_plane_regs.h
+index baa3d348c77e..0930a76ccf3c 100644
+--- a/drivers/gpu/drm/i915/display/i9xx_plane_regs.h
++++ b/drivers/gpu/drm/i915/display/i9xx_plane_regs.h
+@@ -78,7 +78,7 @@
+ #define   DISP_OFFSET_X(x)		REG_FIELD_PREP(DISP_OFFSET_X_MASK, (x))
  
--	lut[i].red = i965_lut_11p6_max_pack(intel_de_read_fw(dev_priv, PIPEGCMAX(pipe, 0)));
--	lut[i].green = i965_lut_11p6_max_pack(intel_de_read_fw(dev_priv, PIPEGCMAX(pipe, 1)));
--	lut[i].blue = i965_lut_11p6_max_pack(intel_de_read_fw(dev_priv, PIPEGCMAX(pipe, 2)));
-+	lut[i].red = i965_lut_11p6_max_pack(intel_de_read_fw(dev_priv, PIPEGCMAX(dev_priv, pipe, 0)));
-+	lut[i].green = i965_lut_11p6_max_pack(intel_de_read_fw(dev_priv, PIPEGCMAX(dev_priv, pipe, 1)));
-+	lut[i].blue = i965_lut_11p6_max_pack(intel_de_read_fw(dev_priv, PIPEGCMAX(dev_priv, pipe, 2)));
+ #define _DSPAOFFSET				0x701A4 /* hsw+ */
+-#define DSPOFFSET(plane)			_MMIO_PIPE2(dev_priv, plane, _DSPAOFFSET)
++#define DSPOFFSET(dev_priv, plane)		_MMIO_PIPE2(dev_priv, plane, _DSPAOFFSET)
  
- 	return blob;
- }
-diff --git a/drivers/gpu/drm/i915/display/intel_color_regs.h b/drivers/gpu/drm/i915/display/intel_color_regs.h
-index 61c18b4a7fa5..8eb643cfead7 100644
---- a/drivers/gpu/drm/i915/display/intel_color_regs.h
-+++ b/drivers/gpu/drm/i915/display/intel_color_regs.h
-@@ -37,9 +37,9 @@
- 						  (i) * 4)
- 
- /* i965/g4x/vlv/chv */
--#define  _PIPEAGCMAX           0x70010
--#define  _PIPEBGCMAX           0x71010
--#define PIPEGCMAX(pipe, i)     _MMIO_PIPE2(dev_priv, pipe, _PIPEAGCMAX + (i) * 4) /* u1.16 */
-+#define  _PIPEAGCMAX			0x70010
-+#define  _PIPEBGCMAX			0x71010
-+#define PIPEGCMAX(dev_priv, pipe, i)	_MMIO_PIPE2(dev_priv, pipe, _PIPEAGCMAX + (i) * 4) /* u1.16 */
- 
- /* ilk+ palette */
- #define _LGC_PALETTE_A           0x4a000
+ #define _DSPASURFLIVE				0x701AC /* g4x+ */
+ #define DSPSURFLIVE(plane)			_MMIO_PIPE2(dev_priv, plane, _DSPASURFLIVE)
+diff --git a/drivers/gpu/drm/i915/intel_gvt_mmio_table.c b/drivers/gpu/drm/i915/intel_gvt_mmio_table.c
+index a8be80bde2e7..50dfe1f81b99 100644
+--- a/drivers/gpu/drm/i915/intel_gvt_mmio_table.c
++++ b/drivers/gpu/drm/i915/intel_gvt_mmio_table.c
+@@ -171,7 +171,7 @@ static int iterate_generic_mmio(struct intel_gvt_mmio_table_iter *iter)
+ 	MMIO_D(DSPPOS(dev_priv, PIPE_A));
+ 	MMIO_D(DSPSIZE(dev_priv, PIPE_A));
+ 	MMIO_D(DSPSURF(dev_priv, PIPE_A));
+-	MMIO_D(DSPOFFSET(PIPE_A));
++	MMIO_D(DSPOFFSET(dev_priv, PIPE_A));
+ 	MMIO_D(DSPSURFLIVE(PIPE_A));
+ 	MMIO_D(REG_50080(PIPE_A, PLANE_PRIMARY));
+ 	MMIO_D(DSPCNTR(dev_priv, PIPE_B));
+@@ -180,7 +180,7 @@ static int iterate_generic_mmio(struct intel_gvt_mmio_table_iter *iter)
+ 	MMIO_D(DSPPOS(dev_priv, PIPE_B));
+ 	MMIO_D(DSPSIZE(dev_priv, PIPE_B));
+ 	MMIO_D(DSPSURF(dev_priv, PIPE_B));
+-	MMIO_D(DSPOFFSET(PIPE_B));
++	MMIO_D(DSPOFFSET(dev_priv, PIPE_B));
+ 	MMIO_D(DSPSURFLIVE(PIPE_B));
+ 	MMIO_D(REG_50080(PIPE_B, PLANE_PRIMARY));
+ 	MMIO_D(DSPCNTR(dev_priv, PIPE_C));
+@@ -189,7 +189,7 @@ static int iterate_generic_mmio(struct intel_gvt_mmio_table_iter *iter)
+ 	MMIO_D(DSPPOS(dev_priv, PIPE_C));
+ 	MMIO_D(DSPSIZE(dev_priv, PIPE_C));
+ 	MMIO_D(DSPSURF(dev_priv, PIPE_C));
+-	MMIO_D(DSPOFFSET(PIPE_C));
++	MMIO_D(DSPOFFSET(dev_priv, PIPE_C));
+ 	MMIO_D(DSPSURFLIVE(PIPE_C));
+ 	MMIO_D(REG_50080(PIPE_C, PLANE_PRIMARY));
+ 	MMIO_D(SPRCTL(PIPE_A));
 -- 
 2.39.2
 
