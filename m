@@ -4,56 +4,59 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 099BEC25B7C
-	for <intel-gfx@archiver.kernel.org>; Thu, 23 May 2024 13:00:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B76AAC25B79
+	for <intel-gfx@archiver.kernel.org>; Thu, 23 May 2024 13:01:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E939A10E64B;
-	Thu, 23 May 2024 13:00:56 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C917910E643;
+	Thu, 23 May 2024 13:01:39 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="X6Io4Me9";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="TbCgUTo/";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.14])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2157D10E5A9
- for <intel-gfx@lists.freedesktop.org>; Thu, 23 May 2024 13:00:48 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 888BF10E5A9;
+ Thu, 23 May 2024 13:01:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1716469248; x=1748005248;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=P3khCOKzFVaNKXEZxyL120c2xPRrfbUchSwkyGEk0qo=;
- b=X6Io4Me9cDiaKdlnuRn3mD2HVj4ZOXABsg8EHGQMIStXRhR1d5cEfSME
- zy4PY7Q6zWX46MQL7UlGMyGAOjtBJgwLVglSOOJuzjvUVZxeKvOoutWOG
- skyuF+g8ZpH7t0SkXmigw0t+CGSS6AzsJccBnaDFAlt2srHoB0eRJ2W57
- 1XnYowkHMzhO5fkeJKrgu/MlJqXjYBwc4oLVFnsItTRSTN7FWeaaO4JEj
- xqXX/g/SESPSk+xxGrzOUIVIHWLgc9Fnem1Sv8dwZ+NeBXzdEJjtkk6t8
- 8p/zUBbFksEBAaElFcwi/IqSewZEXCI0Hk8pgjByocFhclY0OFb0+z8Us A==;
-X-CSE-ConnectionGUID: 3IVvIt8BQvur4BB1JYJKgA==
-X-CSE-MsgGUID: wn0Am0HnSm+arHcbKZyi0A==
-X-IronPort-AV: E=McAfee;i="6600,9927,11081"; a="16610052"
-X-IronPort-AV: E=Sophos;i="6.08,182,1712646000"; d="scan'208";a="16610052"
-Received: from fmviesa006.fm.intel.com ([10.60.135.146])
- by orvoesa106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 May 2024 06:00:48 -0700
-X-CSE-ConnectionGUID: jPA6H8oBSPS5/WgTNwlhFQ==
-X-CSE-MsgGUID: 8tRa/rJmTlyzRlkNf6DGZg==
+ t=1716469296; x=1748005296;
+ h=from:to:cc:subject:in-reply-to:references:date:
+ message-id:mime-version:content-transfer-encoding;
+ bh=YU1eMOQnQRxm5I/RuAMauYfwdnrzT9WMuumUW9BoYIo=;
+ b=TbCgUTo/hFqX2Pso70Xqj0BmIf/yrsUdAlTbVv1OIzNU4or3sqi6be8e
+ 7sFfsX7m0xhKRS8Jr6GmIjGlBfh2d7n0sgtzPy9cSjBRikkjGTAI2fy0O
+ 1miUtXoOo0A4WF56j6UtWGL7Wej/gZpTMxylHJfRz7tUa+tOs0exheDIH
+ jU+SIfudTsDasKxSO1Jnp1JyT40XvGnVsuJUIEwnRVMgY53lfAo/2yy5d
+ HFutRVQPLXRalHQOvLyFuntS0PTSyD0LpaOAavkddXKB5L0ZWqzzwpNcQ
+ 6J3sWLoHTJiHk4kUAi/6jvkRyNVH3EUdgLjk6Jew83Tm0dBhckxLvaulv Q==;
+X-CSE-ConnectionGUID: 0p7vi8DWROeHcwju04C0Zg==
+X-CSE-MsgGUID: JKzUnCzLRb2/1sx6FaEehA==
+X-IronPort-AV: E=McAfee;i="6600,9927,11081"; a="23393870"
+X-IronPort-AV: E=Sophos;i="6.08,182,1712646000"; d="scan'208";a="23393870"
+Received: from fmviesa002.fm.intel.com ([10.60.135.142])
+ by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 23 May 2024 06:01:26 -0700
+X-CSE-ConnectionGUID: NyWIvjEIREWR++c9XhDcYg==
+X-CSE-MsgGUID: CNGwPIEJQJynh5+mfp0LMw==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.08,182,1712646000"; d="scan'208";a="33672442"
+X-IronPort-AV: E=Sophos;i="6.08,182,1712646000"; d="scan'208";a="56890382"
 Received: from unknown (HELO localhost) ([10.237.66.160])
- by fmviesa006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 May 2024 06:00:45 -0700
+ by fmviesa002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 23 May 2024 06:01:02 -0700
 From: Jani Nikula <jani.nikula@intel.com>
-To: intel-gfx@lists.freedesktop.org
-Cc: jani.nikula@intel.com,
-	ville.syrjala@linux.intel.com
-Subject: [PATCH 15/16] drm/i915: pass dev_priv explicitly to PRIMCNSTALPHA
-Date: Thu, 23 May 2024 15:59:43 +0300
-Message-Id: <783477b86f4d53849775cbf690bb8b9042792a66.1716469091.git.jani.nikula@intel.com>
-X-Mailer: git-send-email 2.39.2
-In-Reply-To: <cover.1716469091.git.jani.nikula@intel.com>
-References: <cover.1716469091.git.jani.nikula@intel.com>
-MIME-Version: 1.0
+To: Alex Deucher <alexdeucher@gmail.com>
+Cc: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
+ nouveau@lists.freedesktop.org, intel-gfx@lists.freedesktop.org
+Subject: Re: [RESEND 0/6] drm, nouveau/radeon/amdpgu: edid_blob_ptr cleanups
+In-Reply-To: <CADnq5_N75R4G-w=TXz0-kPNseomSK+s4OB8OMyng_tAeGkU+=g@mail.gmail.com>
 Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
-Content-Transfer-Encoding: 8bit
+References: <cover.1715353572.git.jani.nikula@intel.com>
+ <CADnq5_OMOuz_T-OUZ4jVELEAL1FfFdqoFukKdvZA0eSoPQExLg@mail.gmail.com>
+ <87seylewf5.fsf@intel.com>
+ <CADnq5_N75R4G-w=TXz0-kPNseomSK+s4OB8OMyng_tAeGkU+=g@mail.gmail.com>
+Date: Thu, 23 May 2024 16:00:59 +0300
+Message-ID: <878r00ptro.fsf@intel.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,44 +72,26 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Avoid the implicit dev_priv local variable use, and pass dev_priv
-explicitly to the PRIMCNSTALPHA register macro.
+On Mon, 13 May 2024, Alex Deucher <alexdeucher@gmail.com> wrote:
+> On Mon, May 13, 2024 at 8:20=E2=80=AFAM Jani Nikula <jani.nikula@intel.co=
+m> wrote:
+>>
+>> On Fri, 10 May 2024, Alex Deucher <alexdeucher@gmail.com> wrote:
+>> > On Fri, May 10, 2024 at 11:17=E2=80=AFAM Jani Nikula <jani.nikula@inte=
+l.com> wrote:
+>> > Series is:
+>> > Acked-by: Alex Deucher <alexander.deucher@amd.com>
+>>
+>> Thanks, do you want to pick these up via your tree? And do you expect a
+>> proper R-b before merging?
+>
+> Feel free to take them via drm-misc if you'd prefer to land the whole
+> set together, otherwise, I can pick up the radeon/amdgpu patches.
 
-Signed-off-by: Jani Nikula <jani.nikula@intel.com>
----
- drivers/gpu/drm/i915/display/i9xx_plane.c      | 3 ++-
- drivers/gpu/drm/i915/display/i9xx_plane_regs.h | 4 ++--
- 2 files changed, 4 insertions(+), 3 deletions(-)
+Thanks, merged everything to drm-misc-next.
 
-diff --git a/drivers/gpu/drm/i915/display/i9xx_plane.c b/drivers/gpu/drm/i915/display/i9xx_plane.c
-index 82cb393a0a22..5c8778865156 100644
---- a/drivers/gpu/drm/i915/display/i9xx_plane.c
-+++ b/drivers/gpu/drm/i915/display/i9xx_plane.c
-@@ -478,7 +478,8 @@ static void i9xx_plane_update_arm(struct intel_plane *plane,
- 				  PRIM_POS_Y(crtc_y) | PRIM_POS_X(crtc_x));
- 		intel_de_write_fw(dev_priv, PRIMSIZE(dev_priv, i9xx_plane),
- 				  PRIM_HEIGHT(crtc_h - 1) | PRIM_WIDTH(crtc_w - 1));
--		intel_de_write_fw(dev_priv, PRIMCNSTALPHA(i9xx_plane), 0);
-+		intel_de_write_fw(dev_priv,
-+				  PRIMCNSTALPHA(dev_priv, i9xx_plane), 0);
- 	}
- 
- 	if (IS_HASWELL(dev_priv) || IS_BROADWELL(dev_priv)) {
-diff --git a/drivers/gpu/drm/i915/display/i9xx_plane_regs.h b/drivers/gpu/drm/i915/display/i9xx_plane_regs.h
-index 8d45c879e74a..a2ba55fa2b30 100644
---- a/drivers/gpu/drm/i915/display/i9xx_plane_regs.h
-+++ b/drivers/gpu/drm/i915/display/i9xx_plane_regs.h
-@@ -101,8 +101,8 @@
- #define   PRIM_WIDTH_MASK	REG_GENMASK(15, 0)
- #define   PRIM_WIDTH(w)		REG_FIELD_PREP(PRIM_WIDTH_MASK, (w))
- 
--#define _PRIMCNSTALPHA_A	0x60a10
--#define PRIMCNSTALPHA(plane)	_MMIO_TRANS2(dev_priv, plane, _PRIMCNSTALPHA_A)
-+#define _PRIMCNSTALPHA_A		0x60a10
-+#define PRIMCNSTALPHA(dev_priv, plane)	_MMIO_TRANS2(dev_priv, plane, _PRIMCNSTALPHA_A)
- #define   PRIM_CONST_ALPHA_ENABLE	REG_BIT(31)
- #define   PRIM_CONST_ALPHA_MASK		REG_GENMASK(7, 0)
- #define   PRIM_CONST_ALPHA(alpha)	REG_FIELD_PREP(PRIM_CONST_ALPHA_MASK, (alpha))
--- 
-2.39.2
+BR,
+Jani.
 
+--=20
+Jani Nikula, Intel
