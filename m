@@ -4,53 +4,60 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 34F10C25B75
-	for <intel-gfx@archiver.kernel.org>; Thu, 23 May 2024 13:54:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 92362C25B75
+	for <intel-gfx@archiver.kernel.org>; Thu, 23 May 2024 13:59:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 55A2E10E374;
-	Thu, 23 May 2024 13:54:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6B7F410E492;
+	Thu, 23 May 2024 13:59:05 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="HHBVFf8W";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="cD+Fr3+v";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.15])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 11E9110E374
- for <intel-gfx@lists.freedesktop.org>; Thu, 23 May 2024 13:54:19 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.13])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F40A210E492
+ for <intel-gfx@lists.freedesktop.org>; Thu, 23 May 2024 13:59:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1716472460; x=1748008460;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=ufX/SZ+adXbauqBDvTdrpK8PoZxZ9peTs7BZ6PjygH4=;
- b=HHBVFf8WoXCNZTcntEXaw8klhd7dfe50/HUJC2DnTZu0v4VP+3Fj6KHv
- hJ2udtb9ZdxpohUvJN2iS7yn1ySQEI59n5L5aX6gKp7dfK8uUTwRnS6SQ
- +xdjs3EJofWjkv62WhCfTdxZ/eoRieFnLGbKJBcoxOOw6i8Fkvq4Z8XZx
- oPmqquWtX8rYHJjgzahR90klMECxH2aISEfF/teeIS4FevAjPHh6MTiap
- 4YtnqAW5gkdlA8KJpVEPXhoCXl+VBqyyNoTqlEHpVdRintzSx7wQckBa2
- nwUBhuHxg4t4lqHkU3qeOBE92IUiNdq/k5bM2RHZ5ndgkMlK6qYWyvOi9 A==;
-X-CSE-ConnectionGUID: H9ZsklB6QYOD5D+qTpTtgg==
-X-CSE-MsgGUID: blQ1ZIzTQQeE/vB6y9ngRg==
-X-IronPort-AV: E=McAfee;i="6600,9927,11081"; a="16576952"
-X-IronPort-AV: E=Sophos;i="6.08,182,1712646000"; d="scan'208";a="16576952"
-Received: from fmviesa003.fm.intel.com ([10.60.135.143])
- by orvoesa107.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 May 2024 06:54:19 -0700
-X-CSE-ConnectionGUID: ZXHDUXT+R/WZQWH93S+2jQ==
-X-CSE-MsgGUID: 8+VSv5vHQ0Wj8rNrAo6mXg==
+ t=1716472743; x=1748008743;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:content-transfer-encoding:in-reply-to;
+ bh=KYtwgt8Ck7VB7kC3q5I/zbqjVfxZV5zG9gl6XhoFFIc=;
+ b=cD+Fr3+vM5H1dA0MHloKAWFSod0jg3A5NTV9c7a6gJortrFoOFuRg30H
+ o7UmFzvPIg3Eyh/Qg+YHQptdXa+V8MYyEoQtKxGjYz+okkFA3fZ0YSgSE
+ m66Hw1fFKjj2gEJnk8dtbKdEnPvwS1DS0dV+kyPXXjiZNLiixFCkSun3w
+ Ac8FgzVqGvMSVDE44UheaAwXzBsCcKSWvNsVCi5RS9iaPLbur4Dc+qYFB
+ pcXr+8lkFO5JdqmyLfMFxaEWS3hcfibjMREUo7Ha9PShn17KKPrYLZI2v
+ RsLhgCLI8CdrHU4rgNXDeEDuoTgTNsV1/TTmYWDy5RY995qjnl+xjxZoS A==;
+X-CSE-ConnectionGUID: lApuUWW/Tl+3YJPFmy42Cw==
+X-CSE-MsgGUID: A4pW5ojST4CbWFKSfZ/kqw==
+X-IronPort-AV: E=McAfee;i="6600,9927,11081"; a="23924610"
+X-IronPort-AV: E=Sophos;i="6.08,182,1712646000"; d="scan'208";a="23924610"
+Received: from fmviesa008.fm.intel.com ([10.60.135.148])
+ by orvoesa105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 23 May 2024 06:58:41 -0700
+X-CSE-ConnectionGUID: auAzZBKqQe6c6FIGsUUe7Q==
+X-CSE-MsgGUID: UyNJXXdVTJimVAR/ihvKpQ==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.08,182,1712646000"; d="scan'208";a="38143490"
-Received: from sorvi2.fi.intel.com ([10.237.72.194])
- by fmviesa003.fm.intel.com with ESMTP; 23 May 2024 06:54:18 -0700
-From: Mika Kahola <mika.kahola@intel.com>
-To: intel-gfx@lists.freedesktop.org
-Cc: Mika Kahola <mika.kahola@intel.com>
-Subject: [PATCH v2 2/2] drm/i915/display: Add compare config for MTL+ platforms
-Date: Thu, 23 May 2024 16:46:49 +0300
-Message-Id: <20240523134649.31452-3-mika.kahola@intel.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20240523134649.31452-1-mika.kahola@intel.com>
-References: <20240523134649.31452-1-mika.kahola@intel.com>
+X-IronPort-AV: E=Sophos;i="6.08,182,1712646000"; d="scan'208";a="33652302"
+Received: from stinkpipe.fi.intel.com (HELO stinkbox) ([10.237.72.74])
+ by fmviesa008.fm.intel.com with SMTP; 23 May 2024 06:58:39 -0700
+Received: by stinkbox (sSMTP sendmail emulation);
+ Thu, 23 May 2024 16:58:38 +0300
+Date: Thu, 23 May 2024 16:58:38 +0300
+From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
+To: Imre Deak <imre.deak@intel.com>
+Cc: intel-gfx@lists.freedesktop.org
+Subject: Re: [PATCH v2 07/21] drm/i915/dp: Recheck link state after modeset
+Message-ID: <Zk9Ljl7Mf-QTobQV@intel.com>
+References: <20240520185822.3725844-1-imre.deak@intel.com>
+ <20240520185822.3725844-8-imre.deak@intel.com>
+ <Zk9E6k4AF4hPVX1v@intel.com>
+ <Zk9ItgRTutrbhZH5@ideak-desk.fi.intel.com>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <Zk9ItgRTutrbhZH5@ideak-desk.fi.intel.com>
+X-Patchwork-Hint: comment
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,250 +73,237 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Currently, we may bump into pll mismatch errors during the
-state verification stage. This happens when we try to use
-fastset instead of full modeset. Hence, we would need to add
-a check for pipe configuration to ensure that the sw and the
-hw configuration will match. In case of hw and sw mismatch,
-we would need to disable fastset and use full modeset instead.
+On Thu, May 23, 2024 at 04:46:30PM +0300, Imre Deak wrote:
+> On Thu, May 23, 2024 at 04:30:18PM +0300, Ville Syrjälä wrote:
+> > On Mon, May 20, 2024 at 09:58:05PM +0300, Imre Deak wrote:
+> > > Recheck the link state after a passing link training, with a 2 sec delay
+> > > to account for cases where the link goes bad following the link training
+> > > and the sink doesn't report this via an HPD IRQ.
+> > > 
+> > > The delayed work added here will be also used by a later patch after a
+> > > failed link training to try to retrain the link with unchanged link
+> > > params before reducing the link params.
+> > > 
+> > > v2: Don't flush an uninitialized delayed work (on HDMI-only DDI ports).
+> > > v3: Add the work to intel_digital_port instead of intel_dp.
+> > > 
+> > > Signed-off-by: Imre Deak <imre.deak@intel.com>
+> > > ---
+> > >  drivers/gpu/drm/i915/display/g4x_dp.c         |  7 ++++
+> > >  drivers/gpu/drm/i915/display/intel_ddi.c      | 34 +++++++++++++++++++
+> > >  drivers/gpu/drm/i915/display/intel_ddi.h      |  4 +++
+> > >  .../drm/i915/display/intel_display_types.h    |  3 ++
+> > >  drivers/gpu/drm/i915/display/intel_dp.c       |  1 +
+> > >  .../drm/i915/display/intel_dp_link_training.c | 12 +++++--
+> > >  6 files changed, 58 insertions(+), 3 deletions(-)
+> > > 
+> > > diff --git a/drivers/gpu/drm/i915/display/g4x_dp.c b/drivers/gpu/drm/i915/display/g4x_dp.c
+> > > index 06ec04e667e32..4363e32a834df 100644
+> > > --- a/drivers/gpu/drm/i915/display/g4x_dp.c
+> > > +++ b/drivers/gpu/drm/i915/display/g4x_dp.c
+> > > @@ -20,6 +20,7 @@
+> > >  #include "intel_dp_aux.h"
+> > >  #include "intel_dp_link_training.h"
+> > >  #include "intel_dpio_phy.h"
+> > > +#include "intel_ddi.h"
+> > >  #include "intel_fifo_underrun.h"
+> > >  #include "intel_hdmi.h"
+> > >  #include "intel_hotplug.h"
+> > > @@ -1241,6 +1242,10 @@ static bool ilk_digital_port_connected(struct intel_encoder *encoder)
+> > >  
+> > >  static void intel_dp_encoder_destroy(struct drm_encoder *encoder)
+> > >  {
+> > > +	struct intel_digital_port *dig_port = enc_to_dig_port(to_intel_encoder(encoder));
+> > > +
+> > > +	intel_ddi_flush_link_check_work(dig_port);
+> > > +
+> > >  	intel_dp_encoder_flush_work(encoder);
+> > >  
+> > >  	drm_encoder_cleanup(encoder);
+> > > @@ -1309,6 +1314,8 @@ bool g4x_dp_init(struct drm_i915_private *dev_priv,
+> > >  
+> > >  	dig_port->aux_ch = AUX_CH_NONE;
+> > >  
+> > > +	intel_ddi_init_link_check_work(dig_port);
+> > 
+> > Using "ddi" for pre-ddi platforms is confusing. The implementation
+> > is also in intel_ddi.c for some reason.
+> 
+> Yes. It's a generic encoder or digital port functionality, neither of
+> which have its own file. How about moving them to intel_display.c and
+> the intel_display_link_{init_work, queue_work, flush_work, work_fn}
+> names?
 
-v2: Fix C10 error on PLL comparison (BAT)
-    Use memcmp instead of fixed loops for pll config
-    comparison (Jani)
-    Clean up and use intel_cx0pll_dump_hw_state() to dump
-    pll information (Jani)
+We could add some new file for this kind of generic encoder stuff.
+intel_encoder.c or intel_dig_port.c maybe?
 
-Signed-off-by: Mika Kahola <mika.kahola@intel.com>
----
- drivers/gpu/drm/i915/display/intel_cx0_phy.c  | 77 +++++++++++++++++--
- drivers/gpu/drm/i915/display/intel_cx0_phy.h  |  8 +-
- drivers/gpu/drm/i915/display/intel_display.c  | 33 ++++++++
- drivers/gpu/drm/i915/display/intel_dpll_mgr.h |  1 +
- 4 files changed, 109 insertions(+), 10 deletions(-)
+> 
+> > > +
+> > >  	intel_connector = intel_connector_alloc();
+> > >  	if (!intel_connector)
+> > >  		goto err_connector_alloc;
+> > > diff --git a/drivers/gpu/drm/i915/display/intel_ddi.c b/drivers/gpu/drm/i915/display/intel_ddi.c
+> > > index 170ba01786cf8..86358ec27e685 100644
+> > > --- a/drivers/gpu/drm/i915/display/intel_ddi.c
+> > > +++ b/drivers/gpu/drm/i915/display/intel_ddi.c
+> > > @@ -4360,6 +4360,7 @@ static void intel_ddi_encoder_destroy(struct drm_encoder *encoder)
+> > >  	struct drm_i915_private *i915 = to_i915(encoder->dev);
+> > >  	struct intel_digital_port *dig_port = enc_to_dig_port(to_intel_encoder(encoder));
+> > >  
+> > > +	intel_ddi_flush_link_check_work(dig_port);
+> > >  	intel_dp_encoder_flush_work(encoder);
+> > >  	if (intel_encoder_is_tc(&dig_port->base))
+> > >  		intel_tc_port_cleanup(dig_port);
+> > > @@ -4441,6 +4442,37 @@ intel_ddi_init_dp_connector(struct intel_digital_port *dig_port)
+> > >  	return connector;
+> > >  }
+> > >  
+> > > +static void intel_ddi_link_check_work_fn(struct work_struct *work)
+> > > +{
+> > > +	struct intel_digital_port *dig_port =
+> > > +		container_of(work, typeof(*dig_port), check_link_work.work);
+> > > +	struct intel_encoder *encoder = &dig_port->base;
+> > > +	struct drm_modeset_acquire_ctx ctx;
+> > > +	int ret;
+> > > +
+> > > +	intel_modeset_lock_ctx_retry(&ctx, NULL, 0, ret)
+> > > +		if (dig_port->dp.attached_connector)
+> > > +			ret = intel_dp_retrain_link(encoder, &ctx);
+> > > +}
+> > > +
+> > > +void intel_ddi_init_link_check_work(struct intel_digital_port *dig_port)
+> > > +{
+> > > +	INIT_DELAYED_WORK(&dig_port->check_link_work, intel_ddi_link_check_work_fn);
+> > > +}
+> > > +
+> > > +void intel_ddi_flush_link_check_work(struct intel_digital_port *dig_port)
+> > > +{
+> > > +	cancel_delayed_work_sync(&dig_port->check_link_work);
+> > > +}
+> > > +
+> > > +void intel_ddi_queue_link_check(struct intel_digital_port *dig_port, int delay_ms)
+> > > +{
+> > > +	struct drm_i915_private *i915 = to_i915(dig_port->base.base.dev);
+> > > +
+> > > +	mod_delayed_work(i915->unordered_wq,
+> > > +			 &dig_port->check_link_work, msecs_to_jiffies(delay_ms));
+> > > +}
+> > > +
+> > >  static int intel_hdmi_reset_link(struct intel_encoder *encoder,
+> > >  				 struct drm_modeset_acquire_ctx *ctx)
+> > >  {
+> > > @@ -4911,6 +4943,8 @@ void intel_ddi_init(struct drm_i915_private *dev_priv,
+> > >  
+> > >  	dig_port->aux_ch = AUX_CH_NONE;
+> > >  
+> > > +	intel_ddi_init_link_check_work(dig_port);
+> > > +
+> > >  	encoder = &dig_port->base;
+> > >  	encoder->devdata = devdata;
+> > >  
+> > > diff --git a/drivers/gpu/drm/i915/display/intel_ddi.h b/drivers/gpu/drm/i915/display/intel_ddi.h
+> > > index 434de7196875a..b67714483f3cc 100644
+> > > --- a/drivers/gpu/drm/i915/display/intel_ddi.h
+> > > +++ b/drivers/gpu/drm/i915/display/intel_ddi.h
+> > > @@ -15,6 +15,7 @@ struct intel_bios_encoder_data;
+> > >  struct intel_connector;
+> > >  struct intel_crtc;
+> > >  struct intel_crtc_state;
+> > > +struct intel_digital_port;
+> > >  struct intel_dp;
+> > >  struct intel_dpll_hw_state;
+> > >  struct intel_encoder;
+> > > @@ -53,6 +54,9 @@ void hsw_prepare_dp_ddi_buffers(struct intel_encoder *encoder,
+> > >  				const struct intel_crtc_state *crtc_state);
+> > >  void intel_wait_ddi_buf_idle(struct drm_i915_private *dev_priv,
+> > >  			     enum port port);
+> > > +void intel_ddi_init_link_check_work(struct intel_digital_port *dig_port);
+> > > +void intel_ddi_flush_link_check_work(struct intel_digital_port *dig_port);
+> > > +void intel_ddi_queue_link_check(struct intel_digital_port *dig_port, int delay_ms);
+> > >  void intel_ddi_init(struct drm_i915_private *dev_priv,
+> > >  		    const struct intel_bios_encoder_data *devdata);
+> > >  bool intel_ddi_get_hw_state(struct intel_encoder *encoder, enum pipe *pipe);
+> > > diff --git a/drivers/gpu/drm/i915/display/intel_display_types.h b/drivers/gpu/drm/i915/display/intel_display_types.h
+> > > index 1e44a23ca2125..9317c1ae04efe 100644
+> > > --- a/drivers/gpu/drm/i915/display/intel_display_types.h
+> > > +++ b/drivers/gpu/drm/i915/display/intel_display_types.h
+> > > @@ -1880,6 +1880,9 @@ struct intel_digital_port {
+> > >  
+> > >  	struct intel_tc_port *tc;
+> > >  
+> > > +	/* Check and recover a bad link status on DP and HDMI ports. */
+> > > +	struct delayed_work check_link_work;
+> > > +
+> > >  	/* protects num_hdcp_streams reference count, hdcp_port_data and hdcp_auth_status */
+> > >  	struct mutex hdcp_mutex;
+> > >  	/* the number of pipes using HDCP signalling out of this port */
+> > > diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
+> > > index 120f7b420807b..8da277f0c2735 100644
+> > > --- a/drivers/gpu/drm/i915/display/intel_dp.c
+> > > +++ b/drivers/gpu/drm/i915/display/intel_dp.c
+> > > @@ -75,6 +75,7 @@
+> > >  #include "intel_hotplug_irq.h"
+> > >  #include "intel_lspcon.h"
+> > >  #include "intel_lvds.h"
+> > > +#include "intel_modeset_lock.h"
+> > >  #include "intel_panel.h"
+> > >  #include "intel_pch_display.h"
+> > >  #include "intel_pps.h"
+> > > diff --git a/drivers/gpu/drm/i915/display/intel_dp_link_training.c b/drivers/gpu/drm/i915/display/intel_dp_link_training.c
+> > > index edc970036866a..ad1fbb150ff90 100644
+> > > --- a/drivers/gpu/drm/i915/display/intel_dp_link_training.c
+> > > +++ b/drivers/gpu/drm/i915/display/intel_dp_link_training.c
+> > > @@ -25,6 +25,7 @@
+> > >  #include "intel_display_types.h"
+> > >  #include "intel_dp.h"
+> > >  #include "intel_dp_link_training.h"
+> > > +#include "intel_ddi.h"
+> > >  #include "intel_panel.h"
+> > >  
+> > >  #define LT_MSG_PREFIX			"[CONNECTOR:%d:%s][ENCODER:%d:%s][%s] "
+> > > @@ -1464,6 +1465,7 @@ void intel_dp_start_link_train(struct intel_dp *intel_dp,
+> > >  			       const struct intel_crtc_state *crtc_state)
+> > >  {
+> > >  	struct drm_i915_private *i915 = dp_to_i915(intel_dp);
+> > > +	struct intel_digital_port *dig_port = dp_to_dig_port(intel_dp);
+> > >  	bool passed;
+> > >  
+> > >  	/*
+> > > @@ -1483,6 +1485,11 @@ void intel_dp_start_link_train(struct intel_dp *intel_dp,
+> > >  	else
+> > >  		passed = intel_dp_link_train_all_phys(intel_dp, crtc_state, lttpr_count);
+> > >  
+> > > +	if (passed) {
+> > > +		intel_ddi_queue_link_check(dig_port, 2000);
+> > > +		return;
+> > > +	}
+> > > +
+> > >  	/*
+> > >  	 * Ignore the link failure in CI
+> > >  	 *
+> > > @@ -1495,13 +1502,12 @@ void intel_dp_start_link_train(struct intel_dp *intel_dp,
+> > >  	 * For test cases which rely on the link training or processing of HPDs
+> > >  	 * ignore_long_hpd flag can unset from the testcase.
+> > >  	 */
+> > > -	if (!passed && i915->display.hotplug.ignore_long_hpd) {
+> > > +	if (i915->display.hotplug.ignore_long_hpd) {
+> > >  		lt_dbg(intel_dp, DP_PHY_DPRX, "Ignore the link failure\n");
+> > >  		return;
+> > >  	}
+> > >  
+> > > -	if (!passed)
+> > > -		intel_dp_schedule_fallback_link_training(intel_dp, crtc_state);
+> > > +	intel_dp_schedule_fallback_link_training(intel_dp, crtc_state);
+> > >  }
+> > >  
+> > >  void intel_dp_128b132b_sdp_crc16(struct intel_dp *intel_dp,
+> > > -- 
+> > > 2.43.3
+> > 
+> > -- 
+> > Ville Syrjälä
+> > Intel
 
-diff --git a/drivers/gpu/drm/i915/display/intel_cx0_phy.c b/drivers/gpu/drm/i915/display/intel_cx0_phy.c
-index c9e5bb6ecfd7..41f684c970dc 100644
---- a/drivers/gpu/drm/i915/display/intel_cx0_phy.c
-+++ b/drivers/gpu/drm/i915/display/intel_cx0_phy.c
-@@ -2038,6 +2038,7 @@ static int intel_c10pll_calc_state(struct intel_crtc_state *crtc_state,
- 		if (crtc_state->port_clock == tables[i]->clock) {
- 			crtc_state->dpll_hw_state.cx0pll.c10 = *tables[i];
- 			intel_c10pll_update_pll(crtc_state, encoder);
-+			crtc_state->dpll_hw_state.cx0pll.use_c10 = true;
- 
- 			return 0;
- 		}
-@@ -2105,8 +2106,8 @@ static void intel_c10_pll_program(struct drm_i915_private *i915,
- 		      MB_WRITE_COMMITTED);
- }
- 
--void intel_c10pll_dump_hw_state(struct drm_i915_private *i915,
--				const struct intel_c10pll_state *hw_state)
-+static void intel_c10pll_dump_hw_state(struct drm_i915_private *i915,
-+				       const struct intel_c10pll_state *hw_state)
- {
- 	bool fracen;
- 	int i;
-@@ -2277,6 +2278,7 @@ static int intel_c20pll_calc_state(struct intel_crtc_state *crtc_state,
- 	for (i = 0; tables[i]; i++) {
- 		if (crtc_state->port_clock == tables[i]->clock) {
- 			crtc_state->dpll_hw_state.cx0pll.c20 = *tables[i];
-+			crtc_state->dpll_hw_state.cx0pll.use_c10 = false;
- 			return 0;
- 		}
- 	}
-@@ -2410,8 +2412,8 @@ static void intel_c20pll_readout_hw_state(struct intel_encoder *encoder,
- 	intel_cx0_phy_transaction_end(encoder, wakeref);
- }
- 
--void intel_c20pll_dump_hw_state(struct drm_i915_private *i915,
--				const struct intel_c20pll_state *hw_state)
-+static void intel_c20pll_dump_hw_state(struct drm_i915_private *i915,
-+				       const struct intel_c20pll_state *hw_state)
- {
- 	int i;
- 
-@@ -2430,6 +2432,15 @@ void intel_c20pll_dump_hw_state(struct drm_i915_private *i915,
- 	}
- }
- 
-+void intel_cx0pll_dump_hw_state(struct drm_i915_private *i915,
-+				const struct intel_cx0pll_state *hw_state)
-+{
-+	if (hw_state->use_c10)
-+		intel_c10pll_dump_hw_state(i915, &hw_state->c10);
-+	else
-+		intel_c20pll_dump_hw_state(i915, &hw_state->c20);
-+}
-+
- static u8 intel_c20_get_dp_rate(u32 clock)
- {
- 	switch (clock) {
-@@ -3266,10 +3277,64 @@ static void intel_c10pll_state_verify(const struct intel_crtc_state *state,
- void intel_cx0pll_readout_hw_state(struct intel_encoder *encoder,
- 				   struct intel_cx0pll_state *pll_state)
- {
--	if (intel_encoder_is_c10phy(encoder))
-+	pll_state->use_c10 = false;
-+
-+	if (intel_encoder_is_c10phy(encoder)) {
- 		intel_c10pll_readout_hw_state(encoder, &pll_state->c10);
--	else
-+		pll_state->use_c10 = true;
-+	} else {
- 		intel_c20pll_readout_hw_state(encoder, &pll_state->c20);
-+	}
-+}
-+
-+static bool mtl_compare_hw_state_c10(const struct intel_c10pll_state *a,
-+				     const struct intel_c10pll_state *b)
-+{
-+	if (a->tx != b->tx)
-+		return false;
-+
-+	if (a->cmn != b->cmn)
-+		return false;
-+
-+	if (memcmp(&a->pll, &b->pll, sizeof(a->pll)) != 0)
-+		return false;
-+
-+	return true;
-+}
-+
-+static bool mtl_compare_hw_state_c20(const struct intel_c20pll_state *a,
-+				     const struct intel_c20pll_state *b)
-+{
-+	if (memcmp(&a->tx, &b->tx, sizeof(a->tx)) != 0)
-+		return false;
-+
-+	if (memcmp(&a->cmn, &b->cmn, sizeof(a->cmn)) != 0)
-+		return false;
-+
-+	if (a->tx[0] & C20_PHY_USE_MPLLB) {
-+		if (memcmp(&a->mpllb, &b->mpllb, sizeof(a->mpllb)) != 0)
-+			return false;
-+	} else {
-+		if (memcmp(&a->mplla, &b->mplla, sizeof(a->mplla)) != 0)
-+			return false;
-+	}
-+
-+	return true;
-+}
-+
-+bool intel_cx0pll_compare_hw_state(const struct intel_cx0pll_state *a,
-+				   const struct intel_cx0pll_state *b)
-+{
-+
-+	if (a->use_c10 != b->use_c10)
-+		return false;
-+
-+	if (a->use_c10)
-+		return mtl_compare_hw_state_c10(&a->c10,
-+						&b->c10);
-+	else
-+		return mtl_compare_hw_state_c20(&a->c20,
-+						&b->c20);
- }
- 
- int intel_cx0pll_calc_port_clock(struct intel_encoder *encoder,
-diff --git a/drivers/gpu/drm/i915/display/intel_cx0_phy.h b/drivers/gpu/drm/i915/display/intel_cx0_phy.h
-index 3e03af3e006c..9004b99bb51f 100644
---- a/drivers/gpu/drm/i915/display/intel_cx0_phy.h
-+++ b/drivers/gpu/drm/i915/display/intel_cx0_phy.h
-@@ -35,12 +35,12 @@ void intel_cx0pll_readout_hw_state(struct intel_encoder *encoder,
- int intel_cx0pll_calc_port_clock(struct intel_encoder *encoder,
- 				 const struct intel_cx0pll_state *pll_state);
- 
--void intel_c10pll_dump_hw_state(struct drm_i915_private *dev_priv,
--				const struct intel_c10pll_state *hw_state);
-+void intel_cx0pll_dump_hw_state(struct drm_i915_private *dev_priv,
-+				const struct intel_cx0pll_state *hw_state);
- void intel_cx0pll_state_verify(struct intel_atomic_state *state,
- 			       struct intel_crtc *crtc);
--void intel_c20pll_dump_hw_state(struct drm_i915_private *i915,
--				const struct intel_c20pll_state *hw_state);
-+bool intel_cx0pll_compare_hw_state(const struct intel_cx0pll_state *a,
-+				   const struct intel_cx0pll_state *b);
- void intel_cx0_phy_set_signal_levels(struct intel_encoder *encoder,
- 				     const struct intel_crtc_state *crtc_state);
- int intel_cx0_phy_check_hdmi_link_rate(struct intel_hdmi *hdmi, int clock);
-diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
-index cce1420fb541..146208675b6e 100644
---- a/drivers/gpu/drm/i915/display/intel_display.c
-+++ b/drivers/gpu/drm/i915/display/intel_display.c
-@@ -66,6 +66,7 @@
- #include "intel_crtc.h"
- #include "intel_crtc_state_dump.h"
- #include "intel_cursor_regs.h"
-+#include "intel_cx0_phy.h"
- #include "intel_ddi.h"
- #include "intel_de.h"
- #include "intel_display_driver.h"
-@@ -5002,6 +5003,24 @@ pipe_config_pll_mismatch(struct drm_printer *p, bool fastset,
- 	intel_dpll_dump_hw_state(i915, p, b);
- }
- 
-+static void
-+pipe_config_cx0pll_mismatch(struct drm_printer *p, bool fastset,
-+			    const struct intel_crtc *crtc,
-+			    const char *name,
-+			    const struct intel_cx0pll_state *a,
-+			    const struct intel_cx0pll_state *b)
-+{
-+	struct drm_i915_private *i915 = to_i915(crtc->base.dev);
-+	char *chipname = a->use_c10 ? "C10" : "C20";
-+
-+	pipe_config_mismatch(p, fastset, crtc, name, chipname);
-+
-+	drm_printf(p, "expected:\n");
-+	intel_cx0pll_dump_hw_state(i915, a);
-+	drm_printf(p, "found:\n");
-+	intel_cx0pll_dump_hw_state(i915, b);
-+}
-+
- bool
- intel_pipe_config_compare(const struct intel_crtc_state *current_config,
- 			  const struct intel_crtc_state *pipe_config,
-@@ -5105,6 +5124,16 @@ intel_pipe_config_compare(const struct intel_crtc_state *current_config,
- 	} \
- } while (0)
- 
-+#define PIPE_CONF_CHECK_PLL_CX0(name) do { \
-+	if (!intel_cx0pll_compare_hw_state(&current_config->name, \
-+					   &pipe_config->name)) { \
-+		pipe_config_cx0pll_mismatch(&p, fastset, crtc, __stringify(name), \
-+					    &current_config->name, \
-+					    &pipe_config->name); \
-+		ret = false; \
-+	} \
-+} while (0)
-+
- #define PIPE_CONF_CHECK_TIMINGS(name) do {     \
- 	PIPE_CONF_CHECK_I(name.crtc_hdisplay); \
- 	PIPE_CONF_CHECK_I(name.crtc_htotal); \
-@@ -5337,6 +5366,10 @@ intel_pipe_config_compare(const struct intel_crtc_state *current_config,
- 	if (dev_priv->display.dpll.mgr || HAS_GMCH(dev_priv))
- 		PIPE_CONF_CHECK_PLL(dpll_hw_state);
- 
-+	/* FIXME convert MTL+ platforms over to dpll_mgr */
-+	if (DISPLAY_VER(dev_priv) >= 14)
-+		PIPE_CONF_CHECK_PLL_CX0(dpll_hw_state.cx0pll);
-+
- 	PIPE_CONF_CHECK_X(dsi_pll.ctrl);
- 	PIPE_CONF_CHECK_X(dsi_pll.div);
- 
-diff --git a/drivers/gpu/drm/i915/display/intel_dpll_mgr.h b/drivers/gpu/drm/i915/display/intel_dpll_mgr.h
-index f09e513ce05b..36baed75b89a 100644
---- a/drivers/gpu/drm/i915/display/intel_dpll_mgr.h
-+++ b/drivers/gpu/drm/i915/display/intel_dpll_mgr.h
-@@ -264,6 +264,7 @@ struct intel_cx0pll_state {
- 		struct intel_c20pll_state c20;
- 	};
- 	bool ssc_enabled;
-+	bool use_c10;
- };
- 
- struct intel_dpll_hw_state {
 -- 
-2.34.1
-
+Ville Syrjälä
+Intel
