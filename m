@@ -4,53 +4,27 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D0792C25B74
-	for <intel-gfx@archiver.kernel.org>; Fri, 24 May 2024 10:30:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F1EA0C25B79
+	for <intel-gfx@archiver.kernel.org>; Fri, 24 May 2024 11:02:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 30B7510E97D;
-	Fri, 24 May 2024 10:30:38 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="KTscsZqf";
-	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.13])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DBC4910E97D
- for <intel-gfx@lists.freedesktop.org>; Fri, 24 May 2024 10:30:26 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1716546627; x=1748082627;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=nVWM4vyxp0Wknorm/wK+BdMLZp2Uv4HGhTN48rj3vWE=;
- b=KTscsZqfO4Jyb1+4W+qjw0wCbQaAG2IHqtsnYSJccs9VRfJzfUBwP7Qy
- Uk80mO6Yu2OYtP859G+AzMLqvv6ysdSfIUnZciUuIn83RozndDTv0a1Kg
- 48VZsGQmKrlGnRPVRBGqV0NGBInN9hd+N/iqmutgsCgWgAUfyO+OI0UUl
- PVLQmJxiaIGiDjEF9ms62P9fNgDZuBWnrZTw8UAcD11mB5eRJmB/OQhz2
- Hq9Aydqf0LjX6/h2B/Kl8Cm6Dn8nF7e/2eXu0l17SCxArGYcZAKbdByK1
- po+3Y30K/lmxsVfGcO+xV4zPrTDLiAV+egdUH4bLbBqC6/Y2eyxdQ1qjn Q==;
-X-CSE-ConnectionGUID: 2VwT/wQmTLysi1/l1rYM8A==
-X-CSE-MsgGUID: TJBIhmNmSKSpANlEPrjBcw==
-X-IronPort-AV: E=McAfee;i="6600,9927,11081"; a="15862739"
-X-IronPort-AV: E=Sophos;i="6.08,185,1712646000"; d="scan'208";a="15862739"
-Received: from orviesa001.jf.intel.com ([10.64.159.141])
- by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 24 May 2024 03:30:23 -0700
-X-CSE-ConnectionGUID: aAUcmUY3RO2YhGY2PbHX/w==
-X-CSE-MsgGUID: AePmKdIhQpygpg/rUQU7ig==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.08,185,1712646000"; d="scan'208";a="71385708"
-Received: from mgolanimitul-x299-ud4-pro.iind.intel.com ([10.190.239.114])
- by orviesa001.jf.intel.com with ESMTP; 24 May 2024 03:30:22 -0700
-From: Mitul Golani <mitulkumar.ajitkumar.golani@intel.com>
-To: intel-gfx@lists.freedesktop.org
-Cc: ankit.k.nautiyal@intel.com
-Subject: [PATCH v9 7/8] drm/i915/display: Compute vrr vsync params
-Date: Fri, 24 May 2024 15:54:31 +0530
-Message-Id: <20240524102432.2499104-8-mitulkumar.ajitkumar.golani@intel.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20240524102432.2499104-1-mitulkumar.ajitkumar.golani@intel.com>
-References: <20240524102432.2499104-1-mitulkumar.ajitkumar.golani@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2523810E797;
+	Fri, 24 May 2024 11:02:28 +0000 (UTC)
+Received: from 8e613ede5ea5 (emeril.freedesktop.org [131.252.210.167])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 773AA10E797;
+ Fri, 24 May 2024 11:02:26 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
+Subject: =?utf-8?q?=E2=9C=97_Fi=2ECI=2ECHECKPATCH=3A_warning_for_Implement_CMRR_Suppo?=
+ =?utf-8?q?rt_=28rev9=29?=
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Mitul Golani" <mitulkumar.ajitkumar.golani@intel.com>
+Cc: intel-gfx@lists.freedesktop.org
+Date: Fri, 24 May 2024 11:02:26 -0000
+Message-ID: <171654854648.2172910.8308917861274478002@8e613ede5ea5>
+X-Patchwork-Hint: ignore
+References: <20240524102432.2499104-1-mitulkumar.ajitkumar.golani@intel.com>
+In-Reply-To: <20240524102432.2499104-1-mitulkumar.ajitkumar.golani@intel.com>
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,56 +37,55 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Compute vrr vsync params in case of FAVT as well instead of
-only to AVT mode of operation.
+== Series Details ==
 
---v2:
-- Remove redundant computation for vrr_vsync_start
-and vrr_vsync_end(Ankit).
+Series: Implement CMRR Support (rev9)
+URL   : https://patchwork.freedesktop.org/series/126443/
+State : warning
 
-Signed-off-by: Mitul Golani <mitulkumar.ajitkumar.golani@intel.com>
----
- drivers/gpu/drm/i915/display/intel_vrr.c | 17 +++++++++--------
- 1 file changed, 9 insertions(+), 8 deletions(-)
+== Summary ==
 
-diff --git a/drivers/gpu/drm/i915/display/intel_vrr.c b/drivers/gpu/drm/i915/display/intel_vrr.c
-index 3fbedd7366bb..07be70f7c536 100644
---- a/drivers/gpu/drm/i915/display/intel_vrr.c
-+++ b/drivers/gpu/drm/i915/display/intel_vrr.c
-@@ -224,14 +224,6 @@ intel_vrr_compute_config(struct intel_crtc_state *crtc_state,
- 	if (crtc_state->uapi.vrr_enabled) {
- 		crtc_state->vrr.enable = true;
- 		crtc_state->mode_flags |= I915_MODE_FLAG_VRR;
--		if (intel_dp_as_sdp_supported(intel_dp)) {
--			crtc_state->vrr.vsync_start =
--				(crtc_state->hw.adjusted_mode.crtc_vtotal -
--					crtc_state->hw.adjusted_mode.vsync_start);
--			crtc_state->vrr.vsync_end =
--				(crtc_state->hw.adjusted_mode.crtc_vtotal -
--					crtc_state->hw.adjusted_mode.vsync_end);
--		}
- 	} else if (is_cmrr_frac_required(crtc_state, is_edp)) {
- 		crtc_state->vrr.enable = true;
- 		crtc_state->vrr.vmax = cmrr_get_vtotal(crtc_state);
-@@ -240,6 +232,15 @@ intel_vrr_compute_config(struct intel_crtc_state *crtc_state,
- 		crtc_state->mode_flags |= I915_MODE_FLAG_VRR;
- 	}
- 
-+	if (intel_dp_as_sdp_supported(intel_dp)) {
-+		crtc_state->vrr.vsync_start =
-+			(crtc_state->hw.adjusted_mode.crtc_vtotal -
-+			 crtc_state->hw.adjusted_mode.vsync_start);
-+		crtc_state->vrr.vsync_end =
-+			(crtc_state->hw.adjusted_mode.crtc_vtotal -
-+			 crtc_state->hw.adjusted_mode.vsync_end);
-+	}
-+
- 	/*
- 	 * For XE_LPD+, we use guardband and pipeline override
- 	 * is deprecated.
--- 
-2.25.1
+Error: dim checkpatch failed
+569f89bc8d2a drm/i915: Define and compute Transcoder CMRR registers
+-:48: CHECK:MACRO_ARG_REUSE: Macro argument reuse 'name' - possible side-effects?
+#48: FILE: drivers/gpu/drm/i915/display/intel_display.c:5064:
++#define PIPE_CONF_CHECK_LLI(name) do { \
++	if (current_config->name != pipe_config->name) { \
++		pipe_config_mismatch(&p, fastset, crtc, __stringify(name), \
++				     "(expected %lli, found %lli)", \
++				     current_config->name, \
++				     pipe_config->name); \
++		ret = false; \
++	} \
++} while (0)
+
+-:48: CHECK:MACRO_ARG_PRECEDENCE: Macro argument 'name' may be better as '(name)' to avoid precedence issues
+#48: FILE: drivers/gpu/drm/i915/display/intel_display.c:5064:
++#define PIPE_CONF_CHECK_LLI(name) do { \
++	if (current_config->name != pipe_config->name) { \
++		pipe_config_mismatch(&p, fastset, crtc, __stringify(name), \
++				     "(expected %lli, found %lli)", \
++				     current_config->name, \
++				     pipe_config->name); \
++		ret = false; \
++	} \
++} while (0)
+
+-:151: WARNING:FILE_PATH_CHANGES: added, moved or deleted file(s), does MAINTAINERS need updating?
+#151: 
+new file mode 100644
+
+total: 0 errors, 1 warnings, 2 checks, 125 lines checked
+223571376cf9 drm/i915: Update trans_vrr_ctl flag when cmrr is computed
+78f31fa1463a drm/i915: Compute CMRR and calculate vtotal
+de5c66dca679 Add refresh rate divider to struct representing AS SDP
+493d5b49771f drm/i915/display: Add support for pack and unpack
+7309d5ca1a2a drm/i915/display: Compute Adaptive sync SDP params
+242a0f1a8d69 drm/i915/display: Compute vrr vsync params
+e0bae01b231a drm/i915/display: Compute cmrr.enable flag
+
 
