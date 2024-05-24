@@ -4,57 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7109AC25B74
-	for <intel-gfx@archiver.kernel.org>; Fri, 24 May 2024 09:32:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9C9DCC25B74
+	for <intel-gfx@archiver.kernel.org>; Fri, 24 May 2024 10:30:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 76BA310E15A;
-	Fri, 24 May 2024 09:32:42 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EAA1A10E471;
+	Fri, 24 May 2024 10:30:30 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="HQZCljLK";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="FdklYH7d";
 	dkim-atps=neutral
-Received: from mail-pf1-f178.google.com (mail-pf1-f178.google.com
- [209.85.210.178])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5127610E15A
- for <intel-gfx@lists.freedesktop.org>; Fri, 24 May 2024 09:32:38 +0000 (UTC)
-Received: by mail-pf1-f178.google.com with SMTP id
- d2e1a72fcca58-6f6765226d0so3041242b3a.3
- for <intel-gfx@lists.freedesktop.org>; Fri, 24 May 2024 02:32:38 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1716543157; x=1717147957; darn=lists.freedesktop.org;
- h=to:subject:message-id:date:from:mime-version:from:to:cc:subject
- :date:message-id:reply-to;
- bh=5BYxhr/fNSuqug37CVsjAC2+4fH96ZEtgP75gEBmpVo=;
- b=HQZCljLKDBlifM0BcyNNd9gPdAwA3gcFlXiFOm8NbttdItCyjEK7N4nycOR6FV8AZv
- 3yPQ1h7QbfXvTYEOrbyE10i14zgEKoZvmKGnZmC9sLC4QP8DhownxBONQYrgr/yz6BWv
- RLH6eRWCN0BY7Up1MbUreGiNgv92E9KpDexZNy7YtFvzKvdZ2w8DQXWsEo+0HyhdDOnE
- Z0IzWVgfd+0IMam5oRMSY++QiY228iF/JIna1dJVdBQ3LvcZxUBbGqDJXldnS+P0WIIm
- +TeGpCdKPIGBU0/+j1pXtpiU1VENynF7xmfg5a2idX3xZ9+7/QfKLh9dJoXcMcXQo2Q/
- c3ng==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1716543157; x=1717147957;
- h=to:subject:message-id:date:from:mime-version:x-gm-message-state
- :from:to:cc:subject:date:message-id:reply-to;
- bh=5BYxhr/fNSuqug37CVsjAC2+4fH96ZEtgP75gEBmpVo=;
- b=BAIsN62hgmHwDQ/4DO31ER06nbrygqP6naPWv9sfQgHtqq5IQ6A32O4hv/30MMJysv
- 78M49oRWfABuKC4nW+Bo+Y3MQq5Fdmdqlrnx4LBsdV1Soi3Lq4qhQq52MqiW3e5EOU1k
- INyTRuvw9Y1scAWFmRNmC33SrjnEV9TokFLdlRL0RinSkOkM+WCONqd3vGLAR3lkCRZP
- YVxZOEgdF7BvW+FZRI5O3SO2vK3LlTP7ISzM0DJWoEGir+3DMFcYKZDg+q5AlOdLeVPl
- d+tS1WaW5hugdGtA37mv9BHbR7jNbc8W7vETS5yEAmk1M8ucg5gwxVHxzLWVv+EM5BrX
- 8DrQ==
-X-Gm-Message-State: AOJu0Yxf4jVspOVp1LfNeoNzsC/PZJJ/t6EtSBy+s2hsnSgkzptnXGA3
- B3L+eHYnPMdmYPXEZk4qi7zZHNGBnJSxFHKJ1pl2ttvRLE23RzM8oA2CEQmQgNEqlguXCUt9/HE
- Hv7IPwBel9Xzc3tpaxb3IIpS74tWKPw1D
-X-Google-Smtp-Source: AGHT+IEAarNT3cn/jLT8uO34lg9U62kvikGqCTQkyuXKvLxmL7NEZbU/LkCbvwNp1H3JR+SiPRDEJzVri6Kd+AjMEaU=
-X-Received: by 2002:a05:6a20:3945:b0:1af:ce5e:ca5e with SMTP id
- adf61e73a8af0-1b212d0f9d0mr2352204637.22.1716543157269; Fri, 24 May 2024
- 02:32:37 -0700 (PDT)
-MIME-Version: 1.0
-From: Choi Wonseok <wonseok9911@gmail.com>
-Date: Fri, 24 May 2024 18:32:25 +0900
-Message-ID: <CADcKPMcKQOUioAEhXhs_zf+z0Z05StnTxwBtfdYpmLD9vbQuAA@mail.gmail.com>
-Subject: Context Switch Monitoring functionality
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.13])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 74F2B10E8F3
+ for <intel-gfx@lists.freedesktop.org>; Fri, 24 May 2024 10:30:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1716546626; x=1748082626;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=zglgiBcXVpHKdabcWZCVGtE3xZawWt4/rOGtkIUxA0E=;
+ b=FdklYH7dnFhzSjRiOCoxV/9/lgzWOAt9aUiytTE6fDB2SD/N03UDUe7g
+ NybE7tZkT/vjQIeaJjIvUSdbqVT6BwDMlwEF+2vbtaiDwFlipPSqS8P+b
+ NN0NeL+HCAhoGT9uJKDJBVBa/5F/o8mFOr6PZndVX8u/pVJllHhEGy6O0
+ 38rP4coc+5tPLC79KrpaudD77SQzeYQpGHez7CKs1CW1Pj6SjftG9s4+3
+ iEB0b5QNtqPQtX7XGHJsFnme1QO/A9u6ivYpznY3KHJYXx/xZQpLPsTDI
+ q4j3Xkrk3QoEocnPjR7e19+JlTUQvQwHp/U4euPX9NraRUCOtg/ZUjGWD g==;
+X-CSE-ConnectionGUID: 6AOijD4WQMupXhYX0fDRUw==
+X-CSE-MsgGUID: lK9yl0rhQymz9lZyXRe2Tw==
+X-IronPort-AV: E=McAfee;i="6600,9927,11081"; a="15862727"
+X-IronPort-AV: E=Sophos;i="6.08,185,1712646000"; d="scan'208";a="15862727"
+Received: from orviesa001.jf.intel.com ([10.64.159.141])
+ by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 24 May 2024 03:30:19 -0700
+X-CSE-ConnectionGUID: MrgQSzubTkOO0LQKFWZtbQ==
+X-CSE-MsgGUID: uRXBitbrRaOeMflO7xS7zg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.08,185,1712646000"; d="scan'208";a="71385678"
+Received: from mgolanimitul-x299-ud4-pro.iind.intel.com ([10.190.239.114])
+ by orviesa001.jf.intel.com with ESMTP; 24 May 2024 03:30:18 -0700
+From: Mitul Golani <mitulkumar.ajitkumar.golani@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Content-Type: multipart/alternative; boundary="000000000000217b4506192fd946"
+Cc: ankit.k.nautiyal@intel.com
+Subject: [PATCH v9 4/8] Add refresh rate divider to struct representing AS SDP
+Date: Fri, 24 May 2024 15:54:28 +0530
+Message-Id: <20240524102432.2499104-5-mitulkumar.ajitkumar.golani@intel.com>
+X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20240524102432.2499104-1-mitulkumar.ajitkumar.golani@intel.com>
+References: <20240524102432.2499104-1-mitulkumar.ajitkumar.golani@intel.com>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,89 +66,28 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
---000000000000217b4506192fd946
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Add target_rr_divider to structure representing AS SDP.
+It is valid only in FAVT mode, sink device ignores the bit in AVT
+mode.
 
-Hello. I am graduate student at Korea University studying Intel GPU.
+Signed-off-by: Mitul Golani <mitulkumar.ajitkumar.golani@intel.com>
+Reviewed-by: Arun R Murthy <arun.r.murthy@intel.com>
+---
+ include/drm/display/drm_dp_helper.h | 1 +
+ 1 file changed, 1 insertion(+)
 
-The functionality I need is to find out the 'context identifier' that was
-just switched-out when a (or specific) context is switched-in to an engine
-(Render Engine etc.).
-I'd like to implement such functionality, especially with 'Context
-Submission via GuC' enabled. (and I understand that in Proxy Submission
-through GuC, guc_id is used as a context identifier instead of Context ID)
+diff --git a/include/drm/display/drm_dp_helper.h b/include/drm/display/drm_dp_helper.h
+index 8bed890eec2c..393dbf8cf6ab 100644
+--- a/include/drm/display/drm_dp_helper.h
++++ b/include/drm/display/drm_dp_helper.h
+@@ -122,6 +122,7 @@ struct drm_dp_as_sdp {
+ 	int target_rr;
+ 	int duration_incr_ms;
+ 	int duration_decr_ms;
++	bool target_rr_divider;
+ 	enum operation_mode mode;
+ };
+ 
+-- 
+2.25.1
 
-Is it possible to monitor context in/out in this way (through kernel
-modification + H2G/G2H communication etc.) and, if possible, Could you
-provide direction/insight on what elements should be used to implement this=
-?
-
-I'm sorry for asking such a bothersome question. I would really appreciate
-it if you could reply.
-
-
-
-[image: Mailtrack]
-<https://mailtrack.io?utm_source=3Dgmail&utm_medium=3Dsignature&utm_campaig=
-n=3Dsignaturevirality11&>
-Sender
-notified by
-Mailtrack
-<https://mailtrack.io?utm_source=3Dgmail&utm_medium=3Dsignature&utm_campaig=
-n=3Dsignaturevirality11&>
-24.
-05. 24. =EC=98=A4=ED=9B=84 06:32:21
-
---000000000000217b4506192fd946
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr">Hello. I am graduate=C2=A0student at Korea University stud=
-ying Intel GPU.<div><br></div><div>The functionality I need is to find out =
-the &#39;context identifier&#39; that was just switched-out when a (or spec=
-ific) context is switched-in to an engine (Render Engine etc.).<br><div>I&#=
-39;d like to implement such functionality, especially with &#39;Context Sub=
-mission via GuC&#39; enabled. (and=C2=A0I understand that in Proxy Submissi=
-on through GuC, guc_id is used as a context identifier instead of Context I=
-D)<br><br>Is it possible to monitor context in/out in this way (through ker=
-nel modification + H2G/G2H communication etc.) and, if possible, Could you =
-provide direction/insight on what elements should be used to implement this=
-?<br><br></div><div>I&#39;m sorry for asking such a bothersome question. I =
-would really appreciate it if you could reply.</div></div><br><br><br><div =
-id=3D"mt-signature">
-        <table border=3D"0" cellpadding=3D"8" cellspacing=3D"0" style=3D"us=
-er-select: none;">
-            <tbody><tr>
-                <td>
-                    <a id=3D"signatureLink-logo" href=3D"https://mailtrack.=
-io?utm_source=3Dgmail&amp;utm_medium=3Dsignature&amp;utm_campaign=3Dsignatu=
-revirality11&amp;" class=3D"" style=3D"text-decoration:none">
-                        <img src=3D"https://s3.amazonaws.com/mailtrack-sign=
-ature/sender-notified-72.gif" alt=3D"Mailtrack" class=3D"" width=3D"32" hei=
-ght=3D"32">
-                    </a>
-                </td>
-                <td>
-                    <span style=3D"color:#777">Sender notified by</span> <b=
-r>
-                    <a id=3D"signatureLink-text" href=3D"https://mailtrack.=
-io?utm_source=3Dgmail&amp;utm_medium=3Dsignature&amp;utm_campaign=3Dsignatu=
-revirality11&amp;" class=3D"mt-install" style=3D"color:#4374f7">Mailtrack</=
-a>
-                   =20
-    </td><td><span style=3D"color:transparent;font-size:0">24. 05. 24. =EC=
-=98=A4=ED=9B=84 06:32:21</span></td>
-
-               =20
-                <td>
-                   =20
-
-                </td>
-            </tr>
-        </tbody></table>
-    </div><img width=3D"0" height=3D"0" class=3D"mailtrack-img" alt=3D"" st=
-yle=3D"display:flex" src=3D"https://mailtrack.io/trace/mail/3e439ad59d49020=
-5cc3f453231727fcf487553d7.png?u=3D11115169"></div>
-
---000000000000217b4506192fd946--
