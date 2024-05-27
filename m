@@ -4,60 +4,27 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 32E14C25B74
-	for <intel-gfx@archiver.kernel.org>; Mon, 27 May 2024 10:52:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 594D5C25B74
+	for <intel-gfx@archiver.kernel.org>; Mon, 27 May 2024 10:53:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 92FE910F9E3;
-	Mon, 27 May 2024 10:52:19 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="ZsJXG0SV";
-	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 53DB910F9E3
- for <intel-gfx@lists.freedesktop.org>; Mon, 27 May 2024 10:52:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1716807137; x=1748343137;
- h=from:to:cc:subject:in-reply-to:references:date:
- message-id:mime-version:content-transfer-encoding;
- bh=q2fXpPeALbLC/20lq2m+5Uu65Zsg5sHk17K9h+aUnag=;
- b=ZsJXG0SVYywWRwYxcCLmDpuD+JTa1BNiaX34YLtIRkmB0U8u1QZO+yEZ
- 4pl/XTQ7YutXjtljaxPgLoXjOcgns3d8x/0psLgGQU50HuAepVcV/sI6C
- deCKdLaC8H8hXUgGLJCZhRfWa+Qcr3qPVWrPSJCu9G3rw2K+p7InTm/FE
- on/ZdqcjNmdaPX857teT+XE6mbKcH3tlfwvVSe2gsA1Cw5ap7Ziafw9wQ
- Kd8xYE1YZpRyIBlo55DyUelr9acWBVbENS5yHP4j1SGGcS3SdLWfTfSox
- pnMb1PhPI9pyRibbVbb3mbD6JlSC6F7YAtG+O3gMyIBIzRoqgoera+YtR w==;
-X-CSE-ConnectionGUID: MDMsgbgWTjWGkLAuBFjNZQ==
-X-CSE-MsgGUID: plVdsHDDTnmEzUkmNMGkDA==
-X-IronPort-AV: E=McAfee;i="6600,9927,11084"; a="23719304"
-X-IronPort-AV: E=Sophos;i="6.08,192,1712646000"; d="scan'208";a="23719304"
-Received: from fmviesa005.fm.intel.com ([10.60.135.145])
- by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 27 May 2024 03:52:17 -0700
-X-CSE-ConnectionGUID: BEfcSX/iQ3Ktb4A0uoD8CQ==
-X-CSE-MsgGUID: VVCKuv1qSJGE7VB2EF3Bzw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.08,192,1712646000"; d="scan'208";a="39124477"
-Received: from lfiedoro-mobl.ger.corp.intel.com (HELO localhost)
- ([10.245.246.200])
- by fmviesa005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 27 May 2024 03:52:15 -0700
-From: Jani Nikula <jani.nikula@linux.intel.com>
-To: Mitul Golani <mitulkumar.ajitkumar.golani@intel.com>,
- intel-gfx@lists.freedesktop.org
-Cc: ankit.k.nautiyal@intel.com
-Subject: Re: [PATCH v9 1/8] drm/i915: Define and compute Transcoder CMRR
- registers
-In-Reply-To: <87ttijmstp.fsf@intel.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
-References: <20240524102432.2499104-1-mitulkumar.ajitkumar.golani@intel.com>
- <20240524102432.2499104-2-mitulkumar.ajitkumar.golani@intel.com>
- <87ttijmstp.fsf@intel.com>
-Date: Mon, 27 May 2024 13:52:12 +0300
-Message-ID: <87r0dnmsrn.fsf@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1B0FE10E219;
+	Mon, 27 May 2024 10:53:18 +0000 (UTC)
+Received: from 8e613ede5ea5 (emeril.freedesktop.org [131.252.210.167])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 60F4110E219;
+ Mon, 27 May 2024 10:53:15 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 7bit
+Subject: =?utf-8?q?=E2=9C=97_Fi=2ECI=2ECHECKPATCH=3A_warning_for_Link_off_between_fra?=
+ =?utf-8?q?mes_for_edp_=28rev6=29?=
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Animesh Manna" <animesh.manna@intel.com>
+Cc: intel-gfx@lists.freedesktop.org
+Date: Mon, 27 May 2024 10:53:15 -0000
+Message-ID: <171680719539.2211934.1188005273734905882@8e613ede5ea5>
+X-Patchwork-Hint: ignore
+References: <20240527082636.1519057-1-animesh.manna@intel.com>
+In-Reply-To: <20240527082636.1519057-1-animesh.manna@intel.com>
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,64 +37,67 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Mon, 27 May 2024, Jani Nikula <jani.nikula@linux.intel.com> wrote:
-> On Fri, 24 May 2024, Mitul Golani <mitulkumar.ajitkumar.golani@intel.com>=
- wrote:
->> diff --git a/drivers/gpu/drm/i915/intel_vrr_reg.h b/drivers/gpu/drm/i915=
-/intel_vrr_reg.h
->> new file mode 100644
->> index 000000000000..e1273b4e1b9b
->> --- /dev/null
->> +++ b/drivers/gpu/drm/i915/intel_vrr_reg.h
->
-> We'll want to call this intel_vrr_regs.h, not _reg.h.
->
-> $ find drivers/gpu/drm/i915/ -name "*_reg*.h" | grep -o "regs*.h" | sort =
-| uniq -c
->       4 reg.h
->      38 regs.h
->
->> @@ -0,0 +1,21 @@
->> +/* SPDX-License-Identifier: MIT */
->> +/*
->> + * Copyright =C2=A9 2024 Intel Corporation
->> + */
->> +
->> +#ifndef __INTEL_VRR_REG_H__
->> +#define __INTEL_VRR_REG_H__
->> +
->> +#define   VRR_CTL_CMRR_ENABLE			REG_BIT(27)
->> +
->> +#define	_TRANS_CMRR_M_LO_A                  0x604F0
->> +#define	_TRANS_CMRR_M_HI_A		            0x604F4
->> +#define	_TRANS_CMRR_N_LO_A		            0x604F8
->> +#define	_TRANS_CMRR_N_HI_A		            0x604FC
->> +#define	TRANS_CMRR_M_LO(dev_priv, trans)    _MMIO_TRANS2(dev_priv, tran=
-s, _TRANS_CMRR_M_LO_A)
->> +#define	TRANS_CMRR_M_HI(dev_priv, trans)    _MMIO_TRANS2(dev_priv, tran=
-s, _TRANS_CMRR_M_HI_A)
->> +#define	TRANS_CMRR_N_LO(dev_priv, trans)    _MMIO_TRANS2(dev_priv, tran=
-s, _TRANS_CMRR_N_LO_A)
->> +#define	TRANS_CMRR_N_HI(dev_priv, trans)    _MMIO_TRANS2(dev_priv, tran=
-s, _TRANS_CMRR_N_HI_A)
->
-> Please read the big comment near the top of i915_reg.h about ordering
-> and indenting and all that stuff.
->
-> See what Ville's doing here [1] to clean up.
->
->
-> BR,
-> Jani.
->
-> [1] https://lore.kernel.org/r/20240516135622.3498-3-ville.syrjala@linux.i=
-ntel.com
+== Series Details ==
 
-PS. This also depends on intel_display_reg_defs.h.
+Series: Link off between frames for edp (rev6)
+URL   : https://patchwork.freedesktop.org/series/130650/
+State : warning
+
+== Summary ==
+
+Error: dim checkpatch failed
+c37a38167321 drm/i915/alpm: Move alpm parameters from intel_psr
+-:83: WARNING:LONG_LINE: line length of 104 exceeds 100 columns
+#83: FILE: drivers/gpu/drm/i915/display/intel_psr.c:958:
++		tmp = map[intel_dp->alpm_parameters.fast_wake_lines - TGL_EDP_PSR2_FAST_WAKE_MIN_LINES];
+
+total: 0 errors, 1 warnings, 0 checks, 143 lines checked
+b3fb72804be7 drm/i915/alpm: Move alpm related code to a new file
+-:27: WARNING:FILE_PATH_CHANGES: added, moved or deleted file(s), does MAINTAINERS need updating?
+#27: 
+new file mode 100644
+
+-:233: CHECK:PARENTHESIS_ALIGNMENT: Alignment should match open parenthesis
+#233: FILE: drivers/gpu/drm/i915/display/intel_alpm.c:202:
++bool intel_alpm_compute_params(struct intel_dp *intel_dp,
++				      struct intel_crtc_state *crtc_state)
+
+-:255: CHECK:OPEN_ENDED_LINE: Lines should not end with a '('
+#255: FILE: drivers/gpu/drm/i915/display/intel_alpm.c:224:
++	io_wake_lines = intel_usecs_to_scanlines(
+
+-:257: CHECK:OPEN_ENDED_LINE: Lines should not end with a '('
+#257: FILE: drivers/gpu/drm/i915/display/intel_alpm.c:226:
++	fast_wake_lines = intel_usecs_to_scanlines(
+
+-:268: CHECK:MULTIPLE_ASSIGNMENTS: multiple assignments should be avoided
+#268: FILE: drivers/gpu/drm/i915/display/intel_alpm.c:237:
++		io_wake_lines = fast_wake_lines = max_wake_lines;
+
+-:301: CHECK:OPEN_ENDED_LINE: Lines should not end with a '('
+#301: FILE: drivers/gpu/drm/i915/display/intel_alpm.c:270:
++			       PORT_ALPM_CTL_SILENCE_PERIOD(
+
+-:307: CHECK:OPEN_ENDED_LINE: Lines should not end with a '('
+#307: FILE: drivers/gpu/drm/i915/display/intel_alpm.c:276:
++			       PORT_ALPM_LFPS_CTL_LFPS_HALF_CYCLE_DURATION(
+
+-:309: CHECK:OPEN_ENDED_LINE: Lines should not end with a '('
+#309: FILE: drivers/gpu/drm/i915/display/intel_alpm.c:278:
++			       PORT_ALPM_LFPS_CTL_FIRST_LFPS_HALF_CYCLE_DURATION(
+
+-:311: CHECK:OPEN_ENDED_LINE: Lines should not end with a '('
+#311: FILE: drivers/gpu/drm/i915/display/intel_alpm.c:280:
++			       PORT_ALPM_LFPS_CTL_LAST_LFPS_HALF_CYCLE_DURATION(
+
+total: 0 errors, 1 warnings, 8 checks, 640 lines checked
+9da2bc7c44f2 drm/display: Add missing aux less alpm wake related bits
+aaf6f54e1a5a drm/i915/alpm: Add compute config for lobf
+5e8ef93b5e10 drm/i915/alpm: Enable lobf from source in ALPM_CTL
+00a74f5e74cf drm/i915/alpm: Add debugfs for LOBF
 
 
---=20
-Jani Nikula, Intel
