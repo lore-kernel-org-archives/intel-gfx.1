@@ -4,60 +4,61 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6A31EC25B7D
-	for <intel-gfx@archiver.kernel.org>; Mon, 27 May 2024 14:08:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 76620C25B78
+	for <intel-gfx@archiver.kernel.org>; Mon, 27 May 2024 15:00:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 96BE310E2C8;
-	Mon, 27 May 2024 14:08:42 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B3ACC10E064;
+	Mon, 27 May 2024 15:00:49 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="i2fkXIN3";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="O2M09NG7";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.18])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5A1B410E0B1;
- Mon, 27 May 2024 14:08:40 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.12])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AD84A10E064;
+ Mon, 27 May 2024 15:00:47 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1716818921; x=1748354921;
- h=from:to:cc:subject:in-reply-to:references:date:
- message-id:mime-version:content-transfer-encoding;
- bh=ZXwbZiy8td+gubmN1p/8TtpDqubSKNzO4ViE717nqXo=;
- b=i2fkXIN3qIZXOB6GjN8+mdHyAdSxcYPQrg4uqgFOaN5L+oxERO6bMHW6
- 2fLcZoiLTlIFRMge9mHZ8O7/DlC3LSQH2isSURHETggYYomos77puKs91
- BEhH+FXlOffStyKDfwbNmT/xHwISpc/mpZ/DHUVLD30a3vH6Nycje4UP8
- A3SBtftCVqQVa/oPcvTUIryrllkOEFQ+bhg4uQr6MMUyLZiQi+cvmY4xH
- 71rsqSjHv5bhxpS2wnaXo2K1osDORWq6DUairG4zBR4+4pFpgRRr777w/
- t0D/qx4dWSMhODTC3/8R8UJcZN5E+y8GMs39x7Ck8JwmsbKxm27PFXlI3 w==;
-X-CSE-ConnectionGUID: +4B0NfmcTJ+PpXDU7RcLNw==
-X-CSE-MsgGUID: U8VjLrZiTlqBvbp9YCiUTQ==
-X-IronPort-AV: E=McAfee;i="6600,9927,11085"; a="13314251"
-X-IronPort-AV: E=Sophos;i="6.08,192,1712646000"; d="scan'208";a="13314251"
-Received: from fmviesa004.fm.intel.com ([10.60.135.144])
- by orvoesa110.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 27 May 2024 07:08:40 -0700
-X-CSE-ConnectionGUID: WclyaCNiQxKBcSASf3gFJQ==
-X-CSE-MsgGUID: e/YtuAi0SRKK8zGxEOOCBw==
+ t=1716822047; x=1748358047;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:in-reply-to;
+ bh=OYpFPWX5MFAZZJ3uPFCA5wogicim7aflVi2MbDpvz54=;
+ b=O2M09NG7eZ4hGB1toDMt/tJxpd99XaPt2/AHybNIOmWe+xtYJ+HyuZPB
+ KfVcprUvTql7jg4DPVOngi66956EofaL9ixts4lZyfVHzTjso+z5XO+Te
+ KRx9g6TJjDid2QOsdgZBBAju6G+OqfrFxDuDCNdwd53TSWqRLEPitqI0d
+ uStLwJbkrdBvu88eBfabUS2Rj8JTOKZijfuEj2Myt8qspKi54vHagWa+I
+ jpuYYB0xtMMsI6Mj3dMBsmgFaM9RuPplbqeOK65ClysNnDk5tOgZ49lRu
+ J+fF33lmD9xU102sxZ3Joa5XUgonAxYhIJUzfGcx4wSm9SoyGhTVtOn3c w==;
+X-CSE-ConnectionGUID: EWj9eOLJQHmGWpOTXl+wQQ==
+X-CSE-MsgGUID: N0KZZ1KoSJadwbpJryL2sw==
+X-IronPort-AV: E=McAfee;i="6600,9927,11085"; a="16979278"
+X-IronPort-AV: E=Sophos;i="6.08,192,1712646000"; d="scan'208";a="16979278"
+Received: from fmviesa002.fm.intel.com ([10.60.135.142])
+ by fmvoesa106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 27 May 2024 08:00:35 -0700
+X-CSE-ConnectionGUID: tYcNymSPQdigvMJK+TNsyA==
+X-CSE-MsgGUID: rFhy3SfAR6KzlOGBQvRKeg==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.08,192,1712646000"; d="scan'208";a="39318700"
-Received: from lfiedoro-mobl.ger.corp.intel.com (HELO localhost)
- ([10.245.246.200])
- by fmviesa004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 27 May 2024 07:08:37 -0700
-From: Jani Nikula <jani.nikula@intel.com>
-To: Andy Shevchenko <andy.shevchenko@gmail.com>
-Cc: linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- intel-gfx@lists.freedesktop.org, Kees Cook <keescook@chromium.org>, Andy
- Shevchenko <andy@kernel.org>
-Subject: Re: [PATCH 2/2] drm: use mem_is_zero() instead of !memchr_inv(s, 0, n)
-In-Reply-To: <CAHp75Ve0vyOv3KNY_7286wLKd8u6HOvu0Trm17rs46h-BOGsfA@mail.gmail.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
-References: <20240527094320.2653177-1-jani.nikula@intel.com>
- <20240527094320.2653177-2-jani.nikula@intel.com>
- <CAHp75Ve0vyOv3KNY_7286wLKd8u6HOvu0Trm17rs46h-BOGsfA@mail.gmail.com>
-Date: Mon, 27 May 2024 17:08:34 +0300
-Message-ID: <87h6ejmjod.fsf@intel.com>
+X-IronPort-AV: E=Sophos;i="6.08,192,1712646000"; d="scan'208";a="57975325"
+Received: from dneilan-mobl1.ger.corp.intel.com (HELO intel.com)
+ ([10.245.244.157])
+ by fmviesa002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 27 May 2024 08:00:33 -0700
+Date: Mon, 27 May 2024 16:00:25 +0100
+From: Andi Shyti <andi.shyti@linux.intel.com>
+To: Andi Shyti <andi.shyti@linux.intel.com>
+Cc: Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ intel-gfx <intel-gfx@lists.freedesktop.org>,
+ dri-devel <dri-devel@lists.freedesktop.org>,
+ Nirmoy Das <nirmoy.das@intel.com>,
+ Janusz Krzysztofik <janusz.krzysztofik@linux.intel.com>,
+ Andi Shyti <andi.shyti@kernel.org>
+Subject: Re: [PATCH v2] drm/i915: Increase FLR timeout from 3s to 9s
+Message-ID: <ZlSgCVqT5vhW7kKI@ashyti-mobl2.lan>
+References: <20240523235853.171796-1-andi.shyti@linux.intel.com>
+ <ZlCfMPZpvQJmHybR@intel.com> <ZlRk1Qdr8i2YPITh@ashyti-mobl2.lan>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <ZlRk1Qdr8i2YPITh@ashyti-mobl2.lan>
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,36 +74,26 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Mon, 27 May 2024, Andy Shevchenko <andy.shevchenko@gmail.com> wrote:
-> On Mon, May 27, 2024 at 12:43=E2=80=AFPM Jani Nikula <jani.nikula@intel.c=
-om> wrote:
->>
->> Use the mem_is_zero() helper where possible.
->
-> ...
->
->> -       if (memchr_inv(guid, 0, 16) =3D=3D NULL) {
->> +       if (mem_is_zero(guid, 16)) {
->>                 tmp64 =3D get_jiffies_64();
->>                 memcpy(&guid[0], &tmp64, sizeof(u64));
->>                 memcpy(&guid[8], &tmp64, sizeof(u64));
->
-> What is the type of guid? Shouldn't it be guid_t with the respective
-> guid_is_null()
+On Mon, May 27, 2024 at 11:47:49AM +0100, Andi Shyti wrote:
+> On Fri, May 24, 2024 at 10:07:44AM -0400, Rodrigo Vivi wrote:
+> > On Fri, May 24, 2024 at 01:58:53AM +0200, Andi Shyti wrote:
+> > > Following the guidelines it takes 3 seconds to perform an FLR
+> > > reset. Let's give it a bit more slack because this time can
+> > > change depending on the platform and on the firmware
+> > 
+> > But did we see any issue with that?
+> 
+> yes, we have some FLR expiration timeouts that apparently are not
+> able to bring up the device and the memory is not accessible
+> anymore. It's worth giving it a bit more time.
+> 
+> > if that changes per platform and per firmware, shouldn't it all
+> > be explicit in the spec as well?
+> 
+> Is it always documented? We might anyway die after the FLR reset
+> failure, so that I see it quite safe to wait and pray a little
+> more.
 
-I can leave out these parts of the patch.
+if needed I can improve the log with the dmesg error print.
 
-BR,
-Jani.
-
->
-> ...
->
->> -       if (memchr_inv(guid, 0, 16))
->> +       if (!mem_is_zero(guid, 16))
->>                 return true;
->
-> Ditto.
-
---=20
-Jani Nikula, Intel
+Andi
