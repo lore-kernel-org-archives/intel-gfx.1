@@ -4,56 +4,57 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 77B65C25B78
-	for <intel-gfx@archiver.kernel.org>; Tue, 28 May 2024 13:38:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 400CAC25B78
+	for <intel-gfx@archiver.kernel.org>; Tue, 28 May 2024 14:00:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CD2F210E329;
-	Tue, 28 May 2024 13:38:52 +0000 (UTC)
-X-Greylist: delayed 416 seconds by postgrey-1.36 at gabe;
- Wed, 22 May 2024 13:58:31 UTC
-Received: from relay08.th.seeweb.it (relay08.th.seeweb.it [5.144.164.169])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D455A10EED2
- for <intel-gfx@lists.freedesktop.org>; Wed, 22 May 2024 13:58:31 +0000 (UTC)
-Received: from SoMainline.org (94-211-6-86.cable.dynamic.v4.ziggo.nl
- [94.211.6.86])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange ECDHE (prime256v1) server-signature RSA-PSS (2048 bits)
- server-digest SHA256) (No client certificate requested)
- by m-r2.th.seeweb.it (Postfix) with ESMTPSA id 57C2F4081E;
- Wed, 22 May 2024 15:51:31 +0200 (CEST)
-Date: Wed, 22 May 2024 15:51:29 +0200
-From: Marijn Suijten <marijn.suijten@somainline.org>
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Cc: Neil Armstrong <neil.armstrong@linaro.org>, 
- Jessica Zhang <quic_jesszhan@quicinc.com>, Sam Ravnborg <sam@ravnborg.org>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, 
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
- Daniel Vetter <daniel@ffwll.ch>, Sumit Semwal <sumit.semwal@linaro.org>, 
- Caleb Connolly <caleb.connolly@linaro.org>,
- Alex Deucher <alexander.deucher@amd.com>, 
- Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>,
- Jani Nikula <jani.nikula@linux.intel.com>, 
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, 
- Tvrtko Ursulin <tursulin@ursulin.net>, Rob Clark <robdclark@gmail.com>, 
- Abhinav Kumar <quic_abhinavk@quicinc.com>, Sean Paul <sean@poorly.run>,
- Vinod Koul <vkoul@kernel.org>, 
- Caleb Connolly <caleb@connolly.tech>, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, 
- amd-gfx@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
- linux-arm-msm@vger.kernel.org, 
- freedreno@lists.freedesktop.org, kernel test robot <lkp@intel.com>
-Subject: Re: [PATCH v3 2/3] drm/panel/lg-sw43408: select
- CONFIG_DRM_DISPLAY_DP_HELPER
-Message-ID: <lpguauybi5xs5hy7vglqvaloy4yykgejdhreeqp6fioeuelav6@pj2ap6eat3cy>
-References: <20240522-panel-sw43408-fix-v3-0-6902285adcc0@linaro.org>
- <20240522-panel-sw43408-fix-v3-2-6902285adcc0@linaro.org>
+	by gabe.freedesktop.org (Postfix) with ESMTP id ADB8110EC04;
+	Tue, 28 May 2024 14:00:42 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="hr2cb1JY";
+	dkim-atps=neutral
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.18])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 33E0E1122E4;
+ Tue, 28 May 2024 14:00:37 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1716904837; x=1748440837;
+ h=date:from:to:cc:subject:message-id:reply-to:references:
+ mime-version:content-transfer-encoding:in-reply-to;
+ bh=wuwD9M3OnrW3S+ZzJk0mp/tDlv32D7qXk0sSujXymA0=;
+ b=hr2cb1JYCJl9yHQmkiYUisgf2AZmPhsCKP1gCrGcvwCaMgkUHs5YalV6
+ z8pM7lG1+xwrF7QRc1bumlk/dlq/bzsfgkbxHY5o/yax0+kIH+AZKlw0H
+ GTLBmffRmeQUXWTD4lGoPfnHn7BKgwnxiD3f5VboIhZufKsdm1+saT1Ar
+ InKz6fnH0NtiK7opbg5fIBfco1yQ58f1q214xY78Cm+PRbUynFobbnPbW
+ rlbiR8aTM5/YZd2vFZj6cRPlCVfuWfwllEyQ3Xm5Q/m6jtsbZeFU+ZVyE
+ 42O4GiMWP3W4mO3bpGeOZd9iddTnjOz0eUmDx2T6KC/vsXASK66kspLHK w==;
+X-CSE-ConnectionGUID: EoFD0fHXTn6YEftwJpWILA==
+X-CSE-MsgGUID: uqhmJ2eoSCexQFGlXTBxfg==
+X-IronPort-AV: E=McAfee;i="6600,9927,11085"; a="13021713"
+X-IronPort-AV: E=Sophos;i="6.08,195,1712646000"; d="scan'208";a="13021713"
+Received: from orviesa001.jf.intel.com ([10.64.159.141])
+ by fmvoesa112.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 28 May 2024 07:00:36 -0700
+X-CSE-ConnectionGUID: orumg5ZrQfmT5LXl4BDupw==
+X-CSE-MsgGUID: IU7j43npSA2F7ZOilOgQ7g==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.08,195,1712646000"; d="scan'208";a="72507202"
+Received: from ideak-desk.fi.intel.com ([10.237.72.78])
+ by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 28 May 2024 07:00:35 -0700
+Date: Tue, 28 May 2024 17:00:40 +0300
+From: Imre Deak <imre.deak@intel.com>
+To: Ville Syrjala <ville.syrjala@linux.intel.com>
+Cc: intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
+Subject: Re: [PATCH 9/9] drm/i915: Nuke the TGL+ chroma plane tile row
+ alignment stuff
+Message-ID: <ZlXjiHRpcEa37hU9@ideak-desk.fi.intel.com>
+References: <20240513175942.12910-1-ville.syrjala@linux.intel.com>
+ <20240513175942.12910-10-ville.syrjala@linux.intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=iso-8859-1
 Content-Disposition: inline
-In-Reply-To: <20240522-panel-sw43408-fix-v3-2-6902285adcc0@linaro.org>
-X-Mailman-Approved-At: Tue, 28 May 2024 13:38:45 +0000
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20240513175942.12910-10-ville.syrjala@linux.intel.com>
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,42 +67,113 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: imre.deak@intel.com
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On 2024-05-22 09:25:54, Dmitry Baryshkov wrote:
-> This panel driver uses DSC PPS functions and as such depends on the
-> DRM_DISPLAY_DP_HELPER. Select this symbol to make required functions
-
-Here and in the title: maybe this is a remnant from v2, but you split out a
-DRM_DISPLAY_DSC_HELPER and shouldn't be enabling DP for a DSI panel now.
-
-- Marijn
-
-> available to the driver.
+On Mon, May 13, 2024 at 08:59:42PM +0300, Ville Syrjala wrote:
+> From: Ville Syrjälä <ville.syrjala@linux.intel.com>
 > 
-> Reported-by: kernel test robot <lkp@intel.com>
-> Closes: https://lore.kernel.org/oe-kbuild-all/202404200800.kYsRYyli-lkp@intel.com/
-> Fixes: 069a6c0e94f9 ("drm: panel: Add LG sw43408 panel driver")
-> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+> I don't think the display hardware really has such chroma
+> plane tile row alignment requirements as outlined in
+> commit d156135e6a54 ("drm/i915/tgl: Make sure a semiplanar
+> UV plane is tile row size aligned")
+> 
+> Bspec had the same exact thing to say about earlier hardware
+> as well, but we never cared and things work just fine.
+> 
+> The one thing mentioned in that commit that is definitely
+> true however is the fence alignment issue. But we don't
+> deal with that on earlier hardware either. We do have code
+> to deal with that issue for the first color plane, but not
+> the chroma planes. So I think if we did want to check this
+> more extensively we should do it in the same places where
+> we already check the first color plane (namely
+> convert_plane_offset_to_xy() and intel_fb_bo_framebuffer_init()).
+
+Imo a correct alignment should be required to help users figure out why
+a given config doesn't work (even if an incorrect alignment doesn't
+cause other HW issues). But agreed that it should be the same then for
+all platforms, so ok to remove it in its current form.
+
+> 
+> Signed-off-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
 > ---
->  drivers/gpu/drm/panel/Kconfig | 2 ++
->  1 file changed, 2 insertions(+)
+>  drivers/gpu/drm/i915/display/intel_fb.c            | 12 +-----------
+>  drivers/gpu/drm/i915/display/intel_fb.h            |  1 -
+>  drivers/gpu/drm/i915/display/skl_universal_plane.c | 11 -----------
+>  3 files changed, 1 insertion(+), 23 deletions(-)
 > 
-> diff --git a/drivers/gpu/drm/panel/Kconfig b/drivers/gpu/drm/panel/Kconfig
-> index 4a2f621433ef..3e3f63479544 100644
-> --- a/drivers/gpu/drm/panel/Kconfig
-> +++ b/drivers/gpu/drm/panel/Kconfig
-> @@ -340,6 +340,8 @@ config DRM_PANEL_LG_SW43408
->  	depends on OF
->  	depends on DRM_MIPI_DSI
->  	depends on BACKLIGHT_CLASS_DEVICE
-> +	select DRM_DISPLAY_DSC_HELPER
-> +	select DRM_DISPLAY_HELPER
->  	help
->  	  Say Y here if you want to enable support for LG sw43408 panel.
->  	  The panel has a 1080x2160@60Hz resolution and uses 24 bit RGB per
-> 
+> diff --git a/drivers/gpu/drm/i915/display/intel_fb.c b/drivers/gpu/drm/i915/display/intel_fb.c
+> index c80f866f3fb6..fc18da3106fd 100644
+> --- a/drivers/gpu/drm/i915/display/intel_fb.c
+> +++ b/drivers/gpu/drm/i915/display/intel_fb.c
+> @@ -584,12 +584,6 @@ static bool is_gen12_ccs_cc_plane(const struct drm_framebuffer *fb, int color_pl
+>  	return intel_fb_rc_ccs_cc_plane(fb) == color_plane;
+>  }
+>  
+> -bool is_semiplanar_uv_plane(const struct drm_framebuffer *fb, int color_plane)
+> -{
+> -	return intel_format_info_is_yuv_semiplanar(fb->format, fb->modifier) &&
+> -		color_plane == 1;
+> -}
+> -
+>  bool is_surface_linear(const struct drm_framebuffer *fb, int color_plane)
+>  {
+>  	return fb->modifier == DRM_FORMAT_MOD_LINEAR ||
+> @@ -1019,11 +1013,7 @@ static int intel_fb_offset_to_xy(int *x, int *y,
+>  	struct drm_i915_private *i915 = to_i915(fb->dev);
+>  	unsigned int height, alignment, unused;
+>  
+> -	if (DISPLAY_VER(i915) >= 12 &&
+> -	    !intel_fb_needs_pot_stride_remap(to_intel_framebuffer(fb)) &&
+> -	    is_semiplanar_uv_plane(fb, color_plane))
+> -		alignment = intel_tile_row_size(fb, color_plane);
+> -	else if (fb->modifier != DRM_FORMAT_MOD_LINEAR)
+> +	if (fb->modifier != DRM_FORMAT_MOD_LINEAR)
+>  		alignment = intel_tile_size(i915);
+>  	else
+>  		alignment = 0;
+> diff --git a/drivers/gpu/drm/i915/display/intel_fb.h b/drivers/gpu/drm/i915/display/intel_fb.h
+> index 1b1fef2dc39a..6dee0c8b7f22 100644
+> --- a/drivers/gpu/drm/i915/display/intel_fb.h
+> +++ b/drivers/gpu/drm/i915/display/intel_fb.h
+> @@ -34,7 +34,6 @@ bool intel_fb_is_ccs_modifier(u64 modifier);
+>  bool intel_fb_is_rc_ccs_cc_modifier(u64 modifier);
+>  bool intel_fb_is_mc_ccs_modifier(u64 modifier);
+>  
+> -bool is_semiplanar_uv_plane(const struct drm_framebuffer *fb, int color_plane);
+>  bool intel_fb_is_ccs_aux_plane(const struct drm_framebuffer *fb, int color_plane);
+>  int intel_fb_rc_ccs_cc_plane(const struct drm_framebuffer *fb);
+>  
+> diff --git a/drivers/gpu/drm/i915/display/skl_universal_plane.c b/drivers/gpu/drm/i915/display/skl_universal_plane.c
+> index ca7fc9fae990..476f5b7d9497 100644
+> --- a/drivers/gpu/drm/i915/display/skl_universal_plane.c
+> +++ b/drivers/gpu/drm/i915/display/skl_universal_plane.c
+> @@ -514,17 +514,6 @@ static u32 tgl_plane_min_alignment(struct intel_plane *plane,
+>  	if (intel_fb_is_ccs_aux_plane(fb, color_plane))
+>  		return mult * 4 * 1024;
+>  
+> -	if (is_semiplanar_uv_plane(fb, color_plane)) {
+> -		/*
+> -		 * TODO: cross-check wrt. the bspec stride in bytes * 64 bytes
+> -		 * alignment for linear UV planes on all platforms.
+> -		 */
+> -		if (fb->modifier == DRM_FORMAT_MOD_LINEAR)
+> -			return 256 * 1024;
+> -
+> -		return intel_tile_row_size(fb, color_plane);
+> -	}
+
+The above will also use the correct 2MB for DPT, which the previous
+patch should've kept already. Other than that looks ok:
+
+Reviewed-by: Imre Deak <imre.deak@intel.com>
+
+> -
+>  	switch (fb->modifier) {
+>  	case DRM_FORMAT_MOD_LINEAR:
+>  	case I915_FORMAT_MOD_X_TILED:
 > -- 
-> 2.39.2
+> 2.43.2
 > 
