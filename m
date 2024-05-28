@@ -4,59 +4,99 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6B80FC25B78
-	for <intel-gfx@archiver.kernel.org>; Tue, 28 May 2024 19:38:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CA1D9C25B78
+	for <intel-gfx@archiver.kernel.org>; Tue, 28 May 2024 19:39:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6DBBA10ED8C;
-	Tue, 28 May 2024 19:38:13 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 477DB10E21A;
+	Tue, 28 May 2024 19:39:24 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="UIWWkx2y";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="LmG+roZO";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F0AAE10E629;
- Tue, 28 May 2024 19:38:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1716925090; x=1748461090;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:content-transfer-encoding:in-reply-to;
- bh=C9lW06eu099x/pTIC/G/Lam71FeDPvMgplZvC9EB3YQ=;
- b=UIWWkx2yzh9tYga30dXd60Qs7PY/TwOeCEN6Dn28YF5vlHKWB6pLkDQc
- /DMOpN5lnk/bAEiOCg2zskCWxgtB3re3v5o9wpOygkgOWHS8HHuYxLneO
- O5qjkrj19qh152OixVtkSuFjWKk3RV3OtC8jEivi8AOC/Uo/hIzHQlzyx
- wxx7bIgYnOj5fJk073LmU7BMUKniOG77+8h0maxpeMA7wy2Vac+1z3pmh
- MDvbSQ2BiyT3Y/k5tTmRHw7iRrgg4nL89QEZc9i2KSB2M2s54oA34p4x0
- f0zVdUuXfQ/yrPSP4qtSZNi5wdHNjNV2fPGzYGPtN8CJw0MTJe3pD8NZo Q==;
-X-CSE-ConnectionGUID: Iz5QhCC/RCSlSOQmmS+tFA==
-X-CSE-MsgGUID: 1FV/VozNQbq6UC1ReDS0nw==
-X-IronPort-AV: E=McAfee;i="6600,9927,11085"; a="23903869"
-X-IronPort-AV: E=Sophos;i="6.08,196,1712646000"; d="scan'208";a="23903869"
-Received: from fmviesa008.fm.intel.com ([10.60.135.148])
- by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 28 May 2024 12:38:09 -0700
-X-CSE-ConnectionGUID: ta5lLl4SR1eAK9RU7wh2qQ==
-X-CSE-MsgGUID: kvHmJLddQLCj8FGYwdhc4g==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.08,196,1712646000"; d="scan'208";a="35159957"
-Received: from stinkpipe.fi.intel.com (HELO stinkbox) ([10.237.72.74])
- by fmviesa008.fm.intel.com with SMTP; 28 May 2024 12:38:07 -0700
-Received: by stinkbox (sSMTP sendmail emulation);
- Tue, 28 May 2024 22:38:06 +0300
-Date: Tue, 28 May 2024 22:38:06 +0300
-From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
-To: Imre Deak <imre.deak@intel.com>
-Cc: intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
-Subject: Re: [PATCH 4/9] drm/i915: Introduce fb->min_alignment
-Message-ID: <ZlYynhN6QJoAkTDm@intel.com>
-References: <20240513175942.12910-1-ville.syrjala@linux.intel.com>
- <20240513175942.12910-5-ville.syrjala@linux.intel.com>
- <ZlW/uMCDFles0dyv@ideak-desk.fi.intel.com>
+Received: from mail-lj1-f170.google.com (mail-lj1-f170.google.com
+ [209.85.208.170])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4217410E362
+ for <intel-gfx@lists.freedesktop.org>; Tue, 28 May 2024 19:39:23 +0000 (UTC)
+Received: by mail-lj1-f170.google.com with SMTP id
+ 38308e7fff4ca-2e73359b979so13131831fa.1
+ for <intel-gfx@lists.freedesktop.org>; Tue, 28 May 2024 12:39:23 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1716925161; x=1717529961; darn=lists.freedesktop.org;
+ h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+ :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+ :reply-to; bh=OMzDrUPXBetRBxhwNhxvFwAUk90y+ybpda/UwhIo+Wg=;
+ b=LmG+roZOpcODjqVXa1u52MuFIoiR44074wbnhYgSIhepbDM4/WQM3AF/aipPpqY/KH
+ 7wg5cJ0OjiyoK5HfeO9UTMrmqPM89B95GhZx79ofkLlBjEhTqta2aflkpEorHuVArxM/
+ IsbjXrB+ERAdrXH5O7/DDwpufLnKf1Y32KHQSycmMBqMAQDl6VEJB+df3oxyq9S3Kwyn
+ tsxDhD+D6P+G4dhxCiMhNqsY5dDKhgGiiZd2e2ImzGLGq39fZIsk2p628oMYjIq9lHT8
+ PO5H9EsOUY1YD+5cxPLC9SL5e9qQSMed6yaieSA62Dmbc0svi7S2e9SqaD6YAxxXbOKq
+ 8EFA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1716925161; x=1717529961;
+ h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+ :mime-version:subject:date:from:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=OMzDrUPXBetRBxhwNhxvFwAUk90y+ybpda/UwhIo+Wg=;
+ b=TWSqB8BHHWlcGBFm1Jo1hg7e5fjb3EaSlqpQSIYQcS4sU29bDW7/tntA5vy4/odYn5
+ 2q5MtJO9UcNfR3w4R+cJqPhFJ0xdCBzMhXFl1jtxxyyeHcMS9G3rdEHMvFZ64RdeSmUR
+ 6BemdzlcytHVZeB8qo1PDA4LBQt4xw+aeUhhzUU8zWsYacvvYqO24jnXXAJ5JxdZgraB
+ DU1mPYiCVVeicoEWIXj+FBMIRvmD8bmFMc1deu6+owIHWY2ImwNLlOe2C8QaJDbAhbUl
+ kYF4CQEJ3LIsFrQcIeaCEt1SLMXQMCRRpv855SgFHd0kgWAcjoyo6s/2iqdiMUK2ua7X
+ qa2g==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCUuRE6DOwexhRN69IGyZPLLxoQaOrgF+HLX+CMYCprtVJvWx+rsybN9a0bTL1DAaBxGu6XtpF1b8eUPVtmRq7Mja30UsZ2g6SM2BuA8j2Hr
+X-Gm-Message-State: AOJu0YyL6D0tIAJu1cuub2IM3lb98QsNBjVANpGqqsxJm68qUB2TA+xp
+ ppsek7UTy6MbarM0H3D8pckWwIU2PVgDjgJ1Pc9znSJOKrC5ls0hPVnQd5tvbVo=
+X-Google-Smtp-Source: AGHT+IErWuce9aRTgzYsOItaSivJAYEUeHJGEILEAjjDTx4aWbFd8+75S49CKu4CNqVt+Ys3JPc30Q==
+X-Received: by 2002:ac2:561c:0:b0:523:88aa:237 with SMTP id
+ 2adb3069b0e04-52964caab7cmr7869500e87.33.1716925161160; 
+ Tue, 28 May 2024 12:39:21 -0700 (PDT)
+Received: from umbar.lan ([192.130.178.91]) by smtp.gmail.com with ESMTPSA id
+ 2adb3069b0e04-529711f96c9sm1045234e87.245.2024.05.28.12.39.20
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 28 May 2024 12:39:20 -0700 (PDT)
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Date: Tue, 28 May 2024 22:39:18 +0300
+Subject: [PATCH v4 1/3] drm/panel/lg-sw43408: select
+ CONFIG_DRM_DISPLAY_DP_HELPER
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <ZlW/uMCDFles0dyv@ideak-desk.fi.intel.com>
-X-Patchwork-Hint: comment
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20240528-panel-sw43408-fix-v4-1-330b42445bcc@linaro.org>
+References: <20240528-panel-sw43408-fix-v4-0-330b42445bcc@linaro.org>
+In-Reply-To: <20240528-panel-sw43408-fix-v4-0-330b42445bcc@linaro.org>
+To: Neil Armstrong <neil.armstrong@linaro.org>, 
+ Jessica Zhang <quic_jesszhan@quicinc.com>, Sam Ravnborg <sam@ravnborg.org>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>, 
+ Sumit Semwal <sumit.semwal@linaro.org>, 
+ Caleb Connolly <caleb.connolly@linaro.org>, 
+ Alex Deucher <alexander.deucher@amd.com>, 
+ =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ Jani Nikula <jani.nikula@linux.intel.com>, 
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, 
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, 
+ Tvrtko Ursulin <tursulin@ursulin.net>, Rob Clark <robdclark@gmail.com>, 
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, Sean Paul <sean@poorly.run>, 
+ Marijn Suijten <marijn.suijten@somainline.org>, 
+ Vinod Koul <vkoul@kernel.org>, Caleb Connolly <caleb@connolly.tech>
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ amd-gfx@lists.freedesktop.org, intel-gfx@lists.freedesktop.org, 
+ linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org, 
+ kernel test robot <lkp@intel.com>
+X-Mailer: b4 0.13.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1108;
+ i=dmitry.baryshkov@linaro.org; h=from:subject:message-id;
+ bh=JpBownv2A/v5s9u+r2T7bmswrFK7bcF3CJY4XHaV/rs=;
+ b=owEBbQGS/pANAwAKAYs8ij4CKSjVAcsmYgBmVjLm9PT4rgSufs1N1DQ9nR+ydH1+hIK4hVb0O
+ UFdMizG9E6JATMEAAEKAB0WIQRMcISVXLJjVvC4lX+LPIo+Aiko1QUCZlYy5gAKCRCLPIo+Aiko
+ 1WTGB/9oJhsxnoP8SaNvbslvwO4vwB8P5YM1pgHeTK4f5awBy1BrzWHcn24PItaIkNG3cJQ9C6G
+ Aq5N0gZ+eFpDMlgog7O6er+IxajzglH+FexACjtnCGhtaLUCCEXIYcxfO759My0X2E7HlKY3Ytb
+ S7Ba3tcWJMb1w0kWduqhEKFVogO0HzdB8tpoLvGVdtS2tkTnGFy5sHGgFZbGfdABLI8ifeddA9D
+ SuArUCPBtWwPNypPH9qgK2zNjOase6dyf2pswXwVuUbrIUPZ5frqzOQSGmqcizEZS7GbM32Z8DN
+ it0a1IQmiGb7yAC3rakxmf03wLnnLWjvrp3WUKIoeZs+0Tra
+X-Developer-Key: i=dmitry.baryshkov@linaro.org; a=openpgp;
+ fpr=8F88381DD5C873E4AE487DA5199BF1243632046A
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -72,231 +112,33 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Tue, May 28, 2024 at 02:27:52PM +0300, Imre Deak wrote:
-> On Mon, May 13, 2024 at 08:59:37PM +0300, Ville Syrjala wrote:
-> > From: Ville Syrjälä <ville.syrjala@linux.intel.com>
-> > 
-> > Different planes could have different alignment requirements
-> > even for the same format/modifier. Collect the alignment
-> > requirements across all planes capable of scanning out the
-> > fb such that the alignment used when pinning the normal ggtt
-> > view is satisfactory to all those planes.
-> > 
-> > When pinning per-plane views we only have to satisfy the
-> > alignment requirements of the specific plane.
-> > 
-> > Signed-off-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
-> > ---
-> >  .../drm/i915/display/intel_display_types.h    |  2 ++
-> >  drivers/gpu/drm/i915/display/intel_fb.c       | 23 ++++++++++++++++
-> >  drivers/gpu/drm/i915/display/intel_fb_pin.c   | 27 +++++++++++++++++--
-> >  drivers/gpu/drm/i915/display/intel_fbdev.c    | 18 +------------
-> >  4 files changed, 51 insertions(+), 19 deletions(-)
-> > 
-> > diff --git a/drivers/gpu/drm/i915/display/intel_display_types.h b/drivers/gpu/drm/i915/display/intel_display_types.h
-> > index 40d6e5f4c350..58bb65832adf 100644
-> > --- a/drivers/gpu/drm/i915/display/intel_display_types.h
-> > +++ b/drivers/gpu/drm/i915/display/intel_display_types.h
-> > @@ -145,6 +145,8 @@ struct intel_framebuffer {
-> >  	};
-> >  
-> >  	struct i915_address_space *dpt_vm;
-> > +
-> > +	unsigned int min_alignment;
-> >  };
-> >  
-> >  enum intel_hotplug_state {
-> > diff --git a/drivers/gpu/drm/i915/display/intel_fb.c b/drivers/gpu/drm/i915/display/intel_fb.c
-> > index 3f3a9cd534f4..c5bae05cbbc3 100644
-> > --- a/drivers/gpu/drm/i915/display/intel_fb.c
-> > +++ b/drivers/gpu/drm/i915/display/intel_fb.c
-> > @@ -10,6 +10,7 @@
-> >  #include <linux/dma-resv.h>
-> >  
-> >  #include "i915_drv.h"
-> > +#include "intel_atomic_plane.h"
-> >  #include "intel_display.h"
-> >  #include "intel_display_types.h"
-> >  #include "intel_dpt.h"
-> > @@ -1616,6 +1617,26 @@ bool intel_fb_supports_90_270_rotation(const struct intel_framebuffer *fb)
-> >  	       fb->base.modifier == I915_FORMAT_MOD_Yf_TILED;
-> >  }
-> >  
-> > +static unsigned int intel_fb_min_alignment(const struct drm_framebuffer *fb)
-> > +{
-> > +	struct drm_i915_private *i915 = to_i915(fb->dev);
-> > +	struct intel_plane *plane;
-> > +	unsigned int min_alignment = 0;
-> > +
-> > +	for_each_intel_plane(&i915->drm, plane) {
-> > +		if (!drm_plane_has_format(&plane->base, fb->format->format, fb->modifier))
-> > +			continue;
-> > +
-> > +		if (intel_plane_needs_physical(plane))
-> > +			continue;
-> > +
-> > +		min_alignment = max(min_alignment,
-> > +				    plane->min_alignment(plane, fb, 0));
-> > +	}
-> > +
-> > +	return min_alignment;
-> > +}
-> > +
-> >  int intel_fill_fb_info(struct drm_i915_private *i915, struct intel_framebuffer *fb)
-> >  {
-> >  	struct drm_i915_gem_object *obj = intel_fb_obj(&fb->base);
-> > @@ -1698,6 +1719,8 @@ int intel_fill_fb_info(struct drm_i915_private *i915, struct intel_framebuffer *
-> >  		return -EINVAL;
-> >  	}
-> >  
-> > +	fb->min_alignment = intel_fb_min_alignment(&fb->base);
-> > +
-> >  	return 0;
-> >  }
-> >  
-> > diff --git a/drivers/gpu/drm/i915/display/intel_fb_pin.c b/drivers/gpu/drm/i915/display/intel_fb_pin.c
-> > index 9b0f1ea41b70..1ae02de906f5 100644
-> > --- a/drivers/gpu/drm/i915/display/intel_fb_pin.c
-> > +++ b/drivers/gpu/drm/i915/display/intel_fb_pin.c
-> > @@ -230,13 +230,36 @@ void intel_fb_unpin_vma(struct i915_vma *vma, unsigned long flags)
-> >  	i915_vma_put(vma);
-> >  }
-> >  
-> > +static bool gtt_view_is_per_plane(const struct intel_plane_state *plane_state)
-> > +{
-> > +	const struct intel_framebuffer *fb = to_intel_framebuffer(plane_state->hw.fb);
-> > +
-> > +	if (plane_state->view.gtt.type == I915_GTT_VIEW_REMAPPED &&
-> > +	    intel_fb_needs_pot_stride_remap(fb))
-> > +		return false;
-> 
-> The above view is created only once for the FB, I suppose this is how
-> you differentiate it from views created each time due to a stride
-> limit (based on intel_plane_needs_remap()).
-> 
-> > +
-> > +	return plane_state->view.gtt.type != I915_GTT_VIEW_NORMAL;
-> 
-> So the rotated and remapped views created for a stride limit are
-> per-plane based on the above. There is also a rotated view created only
-> once for the FB, is it intentional to regard this kind of view as
-> per-plane as well?
+This panel driver uses DSC PPS functions and as such depends on the
+DRM_DISPLAY_DP_HELPER. Select this symbol to make required functions
+available to the driver.
 
-No. Forgot those exist. I guess I should just remove this per-plane
-alignment logic for now. Need to think of a proper way to add it back,
-or just quietly bury the whole idea.
+Reported-by: kernel test robot <lkp@intel.com>
+Closes: https://lore.kernel.org/oe-kbuild-all/202404200800.kYsRYyli-lkp@intel.com/
+Fixes: 069a6c0e94f9 ("drm: panel: Add LG sw43408 panel driver")
+Reviewed-by: Neil Armstrong <neil.armstrong@linaro.org>
+Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+---
+ drivers/gpu/drm/panel/Kconfig | 2 ++
+ 1 file changed, 2 insertions(+)
 
-> 
-> > +}
-> > +
-> >  static unsigned int
-> >  intel_plane_fb_min_alignment(const struct intel_plane_state *plane_state)
-> >  {
-> >  	struct intel_plane *plane = to_intel_plane(plane_state->uapi.plane);
-> > -	const struct drm_framebuffer *fb = plane_state->hw.fb;
-> > +	const struct intel_framebuffer *fb = to_intel_framebuffer(plane_state->hw.fb);
-> >  
-> > -	return plane->min_alignment(plane, fb, 0);
-> > +	/*
-> > +	 * Only use plane specific alignment for binding
-> > +	 * a per-plane gtt view (remapped or rotated),
-> > +	 * otherwise make sure the alignment is suitable
-> > +	 * for all planes.
-> > +	 */
-> > +	if (!gtt_view_is_per_plane(plane_state))
-> > +		return fb->min_alignment;
-> > +
-> > +	if (intel_plane_needs_physical(plane))
-> > +		return 0;
-> 
-> I guess the above is ok, though looks like an unrelated change: the
-> cursor plane min_alignment() for relevant platforms is <= 4k, which will
-> be rounded up to 4k anyway when binding the vma.
-
-When intel_plane_needs_physical()==true the alignment declared
-by the plane only applies to the physical/dma address, as that
-is what the hardware will consume. Doesn't actually matter
-where it gets bound in the ggtt.
-
-> 
-> > +
-> > +	return plane->min_alignment(plane, &fb->base, 0);
-> 
-> The commit could've had more details about the rational for the above.
-> As I understand it avoids having to rebind the vma for different plane
-> types, though this is already handled to some degree by
-> i915_vma::display_alignment.
-
-It was also semi-handled by intel_surf_alignment() trying to
-return the max alignment for all the planes more or less.
-But it was a fairly big mess.
-
-I did't really remember that the display_alignment
-thing even exists. Hmm. I wonder if it's even needed 
-anymore. I suppose we can have cases where the display was
-previously using the vma, which was subsequency unbound,
-and later rebound due to some other reason. We probably
-want to preserve the alignment to make sure it'll again
-be ready to be used by the display without an extra
-rebind.  I guess that only really happens with pre-ppgtt
-platforms and/or software rendering via ggtt.
-
-Hmm. We could perpaps change the implementation to adjust
-display_alignment when the framebuffer is created instead
-of doing it when the vma actually gets pinned. Might not
-matter for real world uses cases though.
-
-> 
-> >  }
-> >  
-> >  static unsigned int
-> > diff --git a/drivers/gpu/drm/i915/display/intel_fbdev.c b/drivers/gpu/drm/i915/display/intel_fbdev.c
-> > index ff685aebbd1a..124aac172acb 100644
-> > --- a/drivers/gpu/drm/i915/display/intel_fbdev.c
-> > +++ b/drivers/gpu/drm/i915/display/intel_fbdev.c
-> > @@ -46,7 +46,6 @@
-> >  #include "gem/i915_gem_mman.h"
-> >  
-> >  #include "i915_drv.h"
-> > -#include "intel_crtc.h"
-> >  #include "intel_display_types.h"
-> >  #include "intel_fb.h"
-> >  #include "intel_fb_pin.h"
-> > @@ -172,21 +171,6 @@ static const struct fb_ops intelfb_ops = {
-> >  
-> >  __diag_pop();
-> >  
-> > -static unsigned int intel_fbdev_min_alignment(const struct drm_framebuffer *fb)
-> > -{
-> > -	struct drm_i915_private *i915 = to_i915(fb->dev);
-> > -	struct intel_plane *plane;
-> > -	struct intel_crtc *crtc;
-> > -
-> > -	crtc = intel_first_crtc(i915);
-> > -	if (!crtc)
-> > -		return 0;
-> > -
-> > -	plane = to_intel_plane(crtc->base.primary);
-> > -
-> > -	return plane->min_alignment(plane, fb, 0);
-> > -}
-> > -
-> >  static int intelfb_create(struct drm_fb_helper *helper,
-> >  			  struct drm_fb_helper_surface_size *sizes)
-> >  {
-> > @@ -244,7 +228,7 @@ static int intelfb_create(struct drm_fb_helper *helper,
-> >  	 * BIOS is suitable for own access.
-> >  	 */
-> >  	vma = intel_fb_pin_to_ggtt(&fb->base, &view,
-> > -				   intel_fbdev_min_alignment(&fb->base), 0,
-> > +				   fb->min_alignment, 0,
-> >  				   false, &flags);
-> >  	if (IS_ERR(vma)) {
-> >  		ret = PTR_ERR(vma);
-> > -- 
-> > 2.43.2
-> > 
+diff --git a/drivers/gpu/drm/panel/Kconfig b/drivers/gpu/drm/panel/Kconfig
+index 982324ef5a41..2ae0eb0638f3 100644
+--- a/drivers/gpu/drm/panel/Kconfig
++++ b/drivers/gpu/drm/panel/Kconfig
+@@ -340,6 +340,8 @@ config DRM_PANEL_LG_SW43408
+ 	depends on OF
+ 	depends on DRM_MIPI_DSI
+ 	depends on BACKLIGHT_CLASS_DEVICE
++	select DRM_DISPLAY_DP_HELPER
++	select DRM_DISPLAY_HELPER
+ 	help
+ 	  Say Y here if you want to enable support for LG sw43408 panel.
+ 	  The panel has a 1080x2160@60Hz resolution and uses 24 bit RGB per
 
 -- 
-Ville Syrjälä
-Intel
+2.39.2
+
