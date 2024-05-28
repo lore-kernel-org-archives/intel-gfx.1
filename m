@@ -4,55 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5E6E7C25B78
-	for <intel-gfx@archiver.kernel.org>; Tue, 28 May 2024 18:57:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B4391C25B78
+	for <intel-gfx@archiver.kernel.org>; Tue, 28 May 2024 19:09:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D4E0310F088;
-	Tue, 28 May 2024 18:57:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2DFE410E2B1;
+	Tue, 28 May 2024 19:09:34 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="aCQNgZKS";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="AmoNzAPG";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.9])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E3CE010EE46
- for <intel-gfx@lists.freedesktop.org>; Tue, 28 May 2024 18:57:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1716922627; x=1748458627;
- h=from:to:subject:date:message-id:in-reply-to:references:
- mime-version:content-transfer-encoding;
- bh=/qsooOdsPNXa+TL/is71rnSX7gSOp9U1GnXld313cG4=;
- b=aCQNgZKSyHaTfQAKzlcm+tt02OmG32/wpyuATtyXy5pnKCdtL8br95dE
- g40Sv3RwdapqMjPeaIxjopsW7ObIRRPHiwmyh6G9ap8fidTUHxjELcwzZ
- /pRJsiGqbOGnRk2sl1ZJNq7AOVanKVPiHW5oX+dBM3vAd/YaycO64O52p
- nsMFNAGdZFM/4ReFse/eMJfCnmT+wQHDFDHcKBflc99/Cst9bJjMe/UfI
- FkqGXw5hUN/j9Hbg9SVs8LXeLl8SHRDyUYAMh2I1sEpmXu+qd7FfWvZEo
- E+JdWdpAXP0DjfyKDpvWDMdJnQP0MEIf2shkPOTP4HQAwgZ8Nj/g+wETL Q==;
-X-CSE-ConnectionGUID: TzYe3GgFRU+OXegpLarMVg==
-X-CSE-MsgGUID: nHdAAPc/R22gEvHVzzXB0g==
-X-IronPort-AV: E=McAfee;i="6600,9927,11085"; a="35815257"
-X-IronPort-AV: E=Sophos;i="6.08,196,1712646000"; d="scan'208";a="35815257"
-Received: from fmviesa008.fm.intel.com ([10.60.135.148])
- by orvoesa101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 28 May 2024 11:57:06 -0700
-X-CSE-ConnectionGUID: vrH7ZKHzSA+80fWahwKMRA==
-X-CSE-MsgGUID: +w2OzbfWR8Kd+k4w+S+UFw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.08,196,1712646000"; d="scan'208";a="35144569"
-Received: from stinkpipe.fi.intel.com (HELO stinkbox) ([10.237.72.74])
- by fmviesa008.fm.intel.com with SMTP; 28 May 2024 11:57:05 -0700
-Received: by stinkbox (sSMTP sendmail emulation);
- Tue, 28 May 2024 21:57:04 +0300
-From: Ville Syrjala <ville.syrjala@linux.intel.com>
-To: intel-gfx@lists.freedesktop.org
-Subject: [PATCH 6/7] drm/i915: Switch intel_usecs_to_scanlines() to 64bit maths
-Date: Tue, 28 May 2024 21:56:46 +0300
-Message-ID: <20240528185647.7765-7-ville.syrjala@linux.intel.com>
-X-Mailer: git-send-email 2.44.1
-In-Reply-To: <20240528185647.7765-1-ville.syrjala@linux.intel.com>
-References: <20240528185647.7765-1-ville.syrjala@linux.intel.com>
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E7D4D10E224;
+ Tue, 28 May 2024 19:09:30 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by dfw.source.kernel.org (Postfix) with ESMTP id ABE186232C;
+ Tue, 28 May 2024 19:09:29 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E94BEC3277B;
+ Tue, 28 May 2024 19:09:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1716923369;
+ bh=TXpIOoXYGmt2pBtqg047ViZFwCKWKQ4ykKIKvnN77vU=;
+ h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+ b=AmoNzAPG5OwWLUnUTGJZOanCQpM32jwGBiGV4Kj4DqPwhtvLBjX7A3wqKxlxsCTWE
+ 4YlTKJUUMXV5uh6+0WPRfwCkH273a1cf0bd5KJpsqdkMUyjI6Vgtfz1tnOzv9bb0IH
+ pMIQ8j+lj9q4gKVtxV33VbBEs7s44f0JV+UutHCBHJeOxjqLgUm1R9HpH/wGhKV05q
+ Tr3TqW24CFEenXZNnu4wZ5SQQw1yk33QrWKJC/VFE/kzwHVqEjPvoMDBH3Bh/1I71B
+ V7tsnBW37DNfRz4Y/6LLe430oK/3rEAzLFnvf7ROuluDFMibMDvOjr8B9MyGzvce2H
+ RwlYJMYFmJ7FQ==
+Date: Tue, 28 May 2024 12:09:28 -0700
+From: Jakub Kicinski <kuba@kernel.org>
+To: kernel test robot <lkp@intel.com>
+Cc: Andrew Morton <akpm@linux-foundation.org>, Linux Memory Management List
+ <linux-mm@kvack.org>, amd-gfx@lists.freedesktop.org, bpf@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
+ intel-xe@lists.freedesktop.org, linux-btrfs@vger.kernel.org,
+ linux-hardening@vger.kernel.org, linux-mtd@lists.infradead.org,
+ linux-pm@vger.kernel.org, netdev@vger.kernel.org,
+ nouveau@lists.freedesktop.org
+Subject: Re: [linux-next:master] BUILD REGRESSION
+ 6dc544b66971c7f9909ff038b62149105272d26a
+Message-ID: <20240528120928.633cca9d@kernel.org>
+In-Reply-To: <202405290242.YsJ4ENkU-lkp@intel.com>
+References: <202405290242.YsJ4ENkU-lkp@intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,33 +63,7 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Ville Syrjälä <ville.syrjala@linux.intel.com>
+On Wed, 29 May 2024 02:19:47 +0800 kernel test robot wrote:
+> |   `-- net-ipv6-route.c-rt6_fill_node()-error:we-previously-assumed-dst-could-be-null-(see-line-)
 
-Dotclocks can reach ~1GHz these days, so intel_usecs_to_scanlines(),
-with its 32bit maths, is currently limited to a few milliseconds.
-I want bigger numbers in DSB selftests, so switch over to 64bit
-maths.
-
-Signed-off-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
----
- drivers/gpu/drm/i915/display/intel_crtc.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/gpu/drm/i915/display/intel_crtc.c b/drivers/gpu/drm/i915/display/intel_crtc.c
-index ca6dc1dc56c8..17edd6099287 100644
---- a/drivers/gpu/drm/i915/display/intel_crtc.c
-+++ b/drivers/gpu/drm/i915/display/intel_crtc.c
-@@ -454,8 +454,8 @@ int intel_usecs_to_scanlines(const struct drm_display_mode *adjusted_mode,
- 	if (!adjusted_mode->crtc_htotal)
- 		return 1;
- 
--	return DIV_ROUND_UP(usecs * adjusted_mode->crtc_clock,
--			    1000 * adjusted_mode->crtc_htotal);
-+	return DIV_ROUND_UP_ULL(mul_u32_u32(usecs, adjusted_mode->crtc_clock),
-+				1000 * adjusted_mode->crtc_htotal);
- }
- 
- /**
--- 
-2.44.1
-
+Is there a way for us to mark this as false positive?
