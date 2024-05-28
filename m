@@ -4,55 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0FBA6C25B78
-	for <intel-gfx@archiver.kernel.org>; Tue, 28 May 2024 11:47:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D8E64C25B78
+	for <intel-gfx@archiver.kernel.org>; Tue, 28 May 2024 11:48:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CA0811121E0;
-	Tue, 28 May 2024 11:47:16 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 58AA210E100;
+	Tue, 28 May 2024 11:48:43 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="IFQPcOyK";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="NVY/e7XR";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.8])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 17028112175
- for <intel-gfx@lists.freedesktop.org>; Tue, 28 May 2024 11:47:06 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.9])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0129A10E100
+ for <intel-gfx@lists.freedesktop.org>; Tue, 28 May 2024 11:48:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1716896826; x=1748432826;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=48WvWawY0UPtpy5gvVsnGgaQ55OhmyWrIt5EJDfEz8s=;
- b=IFQPcOyKA4GdUrDQg3Jt7G+aVSa2OEd3E6VOusKumkAi0DVcWqC/gEDB
- tHnRX/3Jy2hvsur8TfkfrXp+GzLKJJ7RuoWC6slC0hmwzYjJ8msowT/ov
- 8e4KZzks6DqudamL5qel9Qnbp5rUNmZSN5CN2HxDBSaWKhGLr9KuvTvPx
- ru/qiVUb6r+2nWHCQftWjZFeKBBZZlc7SXDundYbOCeVUIU+LE3apZdYm
- S7woIRQyduIX/e0o2ZDhBzp48wkvyt5XWK7Ec2x6PzqxUqC5b9QSh3RnU
- h7UB5n0MNbFrr6fm4xDvi2S1G1TFCYAYUeRr1eo4I+tz+oObcg+b1GlPV g==;
-X-CSE-ConnectionGUID: X0Jaxx13RR2hdGPxp4O+ZQ==
-X-CSE-MsgGUID: BiaOrGGsRr68k9iQfe/ORg==
-X-IronPort-AV: E=McAfee;i="6600,9927,11085"; a="30759839"
-X-IronPort-AV: E=Sophos;i="6.08,195,1712646000"; d="scan'208";a="30759839"
-Received: from orviesa002.jf.intel.com ([10.64.159.142])
- by fmvoesa102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 28 May 2024 04:47:06 -0700
-X-CSE-ConnectionGUID: dDdtCXP4TVyKkNoWy71Ixg==
-X-CSE-MsgGUID: pbgHTTA/R1mV3x4N2xJ1Zw==
+ t=1716896920; x=1748432920;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=9fSDSQaSqnq4m1QrJ3FaZDsthod7ZrmQypdGtf8pCkM=;
+ b=NVY/e7XRy2WU/wxYj12jKrOLm3Mz5Xo5awEapWqfUDWIYLSkf7x1LPts
+ iRNfgHZ9P9fVzCkvb78Ys7heq2YYTd6N4PVVD1k76iW4Cd7V8DxfBLGlk
+ tAj2XpftMd+2a7jiJCdpKTgwIKpPgDwq2FWIBnwPGKDy57qA9anqsnkWv
+ txq+gpZwSsFnnLtr/yBfNpby/QArO8RAtg2xHWif93ik52AIu73MITEfa
+ HJq9lC8JdEWZFjovCS9KNO+Yjv7Pvy/wi5tGadTdU0qtXwBNEl+ivEXtR
+ IkdvqznSEywqhwVM6Dejyvllu1jNCon5PzpQbFd75SbTHi9339+kW110/ A==;
+X-CSE-ConnectionGUID: LGwMci8yQaSc/ZJ9mza1+g==
+X-CSE-MsgGUID: RjR8Fi1yQHO1NJsEw4iHdQ==
+X-IronPort-AV: E=McAfee;i="6600,9927,11085"; a="23900661"
+X-IronPort-AV: E=Sophos;i="6.08,195,1712646000"; d="scan'208";a="23900661"
+Received: from orviesa003.jf.intel.com ([10.64.159.143])
+ by fmvoesa103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 28 May 2024 04:48:39 -0700
+X-CSE-ConnectionGUID: pyAIC5TFSFWJelFznJVVFw==
+X-CSE-MsgGUID: pag/iq0ZSL2n8XkVcKrqVw==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.08,195,1712646000"; d="scan'208";a="65879232"
-Received: from vmanek-mobl1.amr.corp.intel.com (HELO jhogande-mobl1.intel.com)
- ([10.251.212.75])
- by orviesa002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 28 May 2024 04:47:05 -0700
-From: =?UTF-8?q?Jouni=20H=C3=B6gander?= <jouni.hogander@intel.com>
+X-IronPort-AV: E=Sophos;i="6.08,195,1712646000"; d="scan'208";a="39868472"
+Received: from pgcooper-mobl3.ger.corp.intel.com (HELO vgovind2-mobl3..)
+ ([10.245.244.205])
+ by ORVIESA003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 28 May 2024 04:48:38 -0700
+From: Vinod Govindapillai <vinod.govindapillai@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Cc: =?UTF-8?q?Jouni=20H=C3=B6gander?= <jouni.hogander@intel.com>,
- Animesh Manna <animesh.manna@intel.com>
-Subject: [PATCH 3/5] drm/i915/psr: Move printing sink PSR support to own
- function
-Date: Tue, 28 May 2024 14:44:53 +0300
-Message-Id: <20240528114455.175961-4-jouni.hogander@intel.com>
+Cc: vinod.govindapillai@intel.com, ville.syrjala@intel.com,
+ jani.nikula@intel.com
+Subject: [PATCH v3] drm/i915/display: update handling of FBC when VT-d active
+ workaround
+Date: Tue, 28 May 2024 14:48:26 +0300
+Message-Id: <20240528114826.134958-1-vinod.govindapillai@intel.com>
 X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20240528114455.175961-1-jouni.hogander@intel.com>
-References: <20240528114455.175961-1-jouni.hogander@intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
@@ -72,57 +70,68 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-intel_psr_status has grown and is about to grow even. Let's split it a bit
-and move printing sink psr support to an own function.
+Move the handling of the disabling FBC when VT-d is active wa
+as part of the intel_fbc_check_plane(). As the hw is still there,
+intel_fbc_sanitize should be able to handle the state properly.
 
-Signed-off-by: Jouni Högander <jouni.hogander@intel.com>
-Reviewed-by: Animesh Manna <animesh.manna@intel.com>
+v2: update the patch description (Jani Nikula)
+
+v3: fix the return value in wa handling (Jani Nikula)
+
+Bspec: 21664
+Suggested-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
+Signed-off-by: Vinod Govindapillai <vinod.govindapillai@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_psr.c | 22 +++++++++++++++-------
- 1 file changed, 15 insertions(+), 7 deletions(-)
+ drivers/gpu/drm/i915/display/intel_fbc.c | 22 ++++++----------------
+ 1 file changed, 6 insertions(+), 16 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_psr.c b/drivers/gpu/drm/i915/display/intel_psr.c
-index 08d3c8c81585..943de3ca39c2 100644
---- a/drivers/gpu/drm/i915/display/intel_psr.c
-+++ b/drivers/gpu/drm/i915/display/intel_psr.c
-@@ -3590,15 +3590,10 @@ psr_source_status(struct intel_dp *intel_dp, struct seq_file *m)
- 	seq_printf(m, "Source PSR/PanelReplay status: %s [0x%08x]\n", status, val);
+diff --git a/drivers/gpu/drm/i915/display/intel_fbc.c b/drivers/gpu/drm/i915/display/intel_fbc.c
+index e9189a864f69..b546ebc6823d 100644
+--- a/drivers/gpu/drm/i915/display/intel_fbc.c
++++ b/drivers/gpu/drm/i915/display/intel_fbc.c
+@@ -1235,6 +1235,12 @@ static int intel_fbc_check_plane(struct intel_atomic_state *state,
+ 		return 0;
+ 	}
+ 
++	/* WaFbcTurnOffFbcWhenHyperVisorIsUsed:skl,bxt */
++	if (i915_vtd_active(i915) && (IS_SKYLAKE(i915) || IS_BROXTON(i915))) {
++		plane_state->no_fbc_reason = "VT-d enabled";
++		return 0;
++	}
++
+ 	crtc_state = intel_atomic_get_new_crtc_state(state, crtc);
+ 
+ 	if (crtc_state->hw.adjusted_mode.flags & DRM_MODE_FLAG_INTERLACE) {
+@@ -1820,19 +1826,6 @@ static int intel_sanitize_fbc_option(struct drm_i915_private *i915)
+ 	return 0;
  }
  
--static int intel_psr_status(struct seq_file *m, struct intel_dp *intel_dp)
-+static void intel_psr_sink_capability(struct intel_dp *intel_dp,
-+				      struct seq_file *m)
+-static bool need_fbc_vtd_wa(struct drm_i915_private *i915)
+-{
+-	/* WaFbcTurnOffFbcWhenHyperVisorIsUsed:skl,bxt */
+-	if (i915_vtd_active(i915) &&
+-	    (IS_SKYLAKE(i915) || IS_BROXTON(i915))) {
+-		drm_info(&i915->drm,
+-			 "Disabling framebuffer compression (FBC) to prevent screen flicker with VT-d enabled\n");
+-		return true;
+-	}
+-
+-	return false;
+-}
+-
+ void intel_fbc_add_plane(struct intel_fbc *fbc, struct intel_plane *plane)
  {
--	struct drm_i915_private *dev_priv = dp_to_i915(intel_dp);
--	enum transcoder cpu_transcoder = intel_dp->psr.transcoder;
- 	struct intel_psr *psr = &intel_dp->psr;
--	intel_wakeref_t wakeref;
--	const char *status;
--	bool enabled;
--	u32 val;
+ 	plane->fbc = fbc;
+@@ -1878,9 +1871,6 @@ void intel_fbc_init(struct drm_i915_private *i915)
+ {
+ 	enum intel_fbc_id fbc_id;
  
- 	seq_printf(m, "Sink support: PSR = %s",
- 		   str_yes_no(psr->sink_support));
-@@ -3608,6 +3603,19 @@ static int intel_psr_status(struct seq_file *m, struct intel_dp *intel_dp)
- 	seq_printf(m, ", Panel Replay = %s", str_yes_no(psr->sink_panel_replay_support));
- 	seq_printf(m, ", Panel Replay Selective Update = %s\n",
- 		   str_yes_no(psr->sink_panel_replay_su_support));
-+}
-+
-+static int intel_psr_status(struct seq_file *m, struct intel_dp *intel_dp)
-+{
-+	struct drm_i915_private *dev_priv = dp_to_i915(intel_dp);
-+	enum transcoder cpu_transcoder = intel_dp->psr.transcoder;
-+	struct intel_psr *psr = &intel_dp->psr;
-+	intel_wakeref_t wakeref;
-+	const char *status;
-+	bool enabled;
-+	u32 val;
-+
-+	intel_psr_sink_capability(intel_dp, m);
- 
- 	if (!(psr->sink_support || psr->sink_panel_replay_support))
- 		return 0;
+-	if (need_fbc_vtd_wa(i915))
+-		DISPLAY_RUNTIME_INFO(i915)->fbc_mask = 0;
+-
+ 	i915->display.params.enable_fbc = intel_sanitize_fbc_option(i915);
+ 	drm_dbg_kms(&i915->drm, "Sanitized enable_fbc value: %d\n",
+ 		    i915->display.params.enable_fbc);
 -- 
 2.34.1
 
