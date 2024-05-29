@@ -4,52 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B29A4C27C44
-	for <intel-gfx@archiver.kernel.org>; Wed, 29 May 2024 09:39:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C24CAC27C43
+	for <intel-gfx@archiver.kernel.org>; Wed, 29 May 2024 09:39:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 07F7E10E63D;
-	Wed, 29 May 2024 09:39:15 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F016A10E3C3;
+	Wed, 29 May 2024 09:39:14 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="neYa/x5O";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="FLmpncAi";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.13])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1632A10E0BB
- for <intel-gfx@lists.freedesktop.org>; Wed, 29 May 2024 09:39:14 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5FD7810F5B4
+ for <intel-gfx@lists.freedesktop.org>; Wed, 29 May 2024 09:39:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1716975554; x=1748511554;
+ t=1716975550; x=1748511550;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=tZ/m8pX92qX8oNx27zJTHumfkPQhl7DUVtWtcy8j59c=;
- b=neYa/x5O4Tz7YWBmA6EqWH7DVYI/xR5KBNVRcJudxBRZH7IYMPb3m0ep
- 05RJ3bEXg2nsiRr/TBLLuRxq8XQXHSrnRWBC7NSnoESkcBkLU4jl3vVRg
- N4VKbe+K6iaJNCNaaipXFxVUodu1Ak0jQUVSWGBbo6prBaUSiBSGvz3GU
- OdiAPi6czRRdW5pJewgIqXYeEZ0aBHdd5ikRZUmyqT16nGA4wL0L24R7C
- h5I7hVfpswY/vMtE+KbfRtsyQ0wBECbCquXXMHh+qWTkb5FxwFgeq3eYg
- ocV0XQ48LYAyToBK2AObTpeR2k21z48WMMZgE5lKkEIGOJr4myzxZ2jZy Q==;
-X-CSE-ConnectionGUID: 2uDLT80kS66+kvuVo/d+hQ==
-X-CSE-MsgGUID: oMsuXZi6Sci//I/IMfQLxQ==
-X-IronPort-AV: E=McAfee;i="6600,9927,11085"; a="16316836"
-X-IronPort-AV: E=Sophos;i="6.08,198,1712646000"; d="scan'208";a="16316836"
+ bh=B5biMBXaqHsgMjvKiabm/ekIayOo7VFPZMTKvVbv7+o=;
+ b=FLmpncAihaLr/taBZ+bz5R0QQwCdEAOuwEujkGT9HWGJVjc/zFXL6uFj
+ 5ckihVexFCidCS6OL2AbofBwicVWkvEZ1OiqkpKxTQhE6LEGJML1tjnBt
+ n+fk/TIoZiPOUgOtJK9vWZKQgUAuiKAOet2RL8APwfPOsDlpXok74+Txg
+ 8eXmivhjurh8FrI32d35Bax6k0o1n9LE5c/BOh99yW2zNEKsAnMhRdR9w
+ QSkvJR1V6pIzUbnXaz1HA42C3n17spH5aNL87+BWjXoAE4Ql0Ge15Dik7
+ DNVZqsHuTaVv87uEu2ihYckiH4qNLeMfTH+crOdRGERGt4OscoPeuomZY A==;
+X-CSE-ConnectionGUID: 3+Icej0NRxWFI/2IJjfX3g==
+X-CSE-MsgGUID: gQuX2S4uSraijxZ0DwEKgA==
+X-IronPort-AV: E=McAfee;i="6600,9927,11085"; a="16316817"
+X-IronPort-AV: E=Sophos;i="6.08,198,1712646000"; d="scan'208";a="16316817"
 Received: from orviesa005.jf.intel.com ([10.64.159.145])
  by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 29 May 2024 02:39:13 -0700
-X-CSE-ConnectionGUID: m0fVwQcMRWaNN8lVGOK0Aw==
-X-CSE-MsgGUID: tPe2DpheRlSgRnBMfiXxaA==
+ 29 May 2024 02:39:09 -0700
+X-CSE-ConnectionGUID: gjcZ90tXSMeBanhDehif+Q==
+X-CSE-MsgGUID: 7PGcXzLxT6226n37yCKoLg==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.08,198,1712646000"; d="scan'208";a="40273896"
+X-IronPort-AV: E=Sophos;i="6.08,198,1712646000"; d="scan'208";a="40273890"
 Received: from romanove-mobl.ger.corp.intel.com (HELO
  jhogande-mobl1.intel.com) ([10.249.36.185])
  by orviesa005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 29 May 2024 02:39:12 -0700
+ 29 May 2024 02:39:08 -0700
 From: =?UTF-8?q?Jouni=20H=C3=B6gander?= <jouni.hogander@intel.com>
 To: intel-gfx@lists.freedesktop.org
 Cc: animesh.manna@intel.com, mika.kahola@intel.com,
  =?UTF-8?q?Jouni=20H=C3=B6gander?= <jouni.hogander@intel.com>
-Subject: [PATCH 6/6] drm/i915/psr: Add Early Transport into psr debugfs
- interface
-Date: Wed, 29 May 2024 12:38:49 +0300
-Message-Id: <20240529093849.1016172-7-jouni.hogander@intel.com>
+Subject: [PATCH 4/6] drm/i915/display: Selective fetch Y position on Region
+ Early Transport
+Date: Wed, 29 May 2024 12:38:47 +0300
+Message-Id: <20240529093849.1016172-5-jouni.hogander@intel.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20240529093849.1016172-1-jouni.hogander@intel.com>
 References: <20240529093849.1016172-1-jouni.hogander@intel.com>
@@ -72,76 +72,33 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-We want to have sink Early Transport capability and usage in our psr
-debugfs status interface.
+Selective fetch Y position differs when Region Early Transport is
+used. Use formula from Bspec for this.
 
-v4: use su_region_et_enabled instead of psr2_su_region_et_valid
-v3: remove extra space from "PSR mode:  disabled"
-v2: printout "Selective Update enabled (Early Transport)" instead of
-    "Selective Update Early Transport enabled"
+Bspec: 68927
 
 Signed-off-by: Jouni Högander <jouni.hogander@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_psr.c | 35 ++++++++++++++++++------
- 1 file changed, 27 insertions(+), 8 deletions(-)
+ drivers/gpu/drm/i915/display/skl_universal_plane.c | 6 +++++-
+ 1 file changed, 5 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_psr.c b/drivers/gpu/drm/i915/display/intel_psr.c
-index 16fa70c3ae45..c2318fb60f54 100644
---- a/drivers/gpu/drm/i915/display/intel_psr.c
-+++ b/drivers/gpu/drm/i915/display/intel_psr.c
-@@ -3611,25 +3611,44 @@ static void intel_psr_sink_capability(struct intel_dp *intel_dp,
+diff --git a/drivers/gpu/drm/i915/display/skl_universal_plane.c b/drivers/gpu/drm/i915/display/skl_universal_plane.c
+index b7678b8a7f3d..1aa70fc35b9d 100644
+--- a/drivers/gpu/drm/i915/display/skl_universal_plane.c
++++ b/drivers/gpu/drm/i915/display/skl_universal_plane.c
+@@ -1302,7 +1302,11 @@ static void icl_plane_update_sel_fetch_noarm(struct intel_plane *plane,
  
- 	if (psr->sink_support)
- 		seq_printf(m, " [0x%02x]", intel_dp->psr_dpcd[0]);
-+	if (intel_dp->psr_dpcd[0] == DP_PSR2_WITH_Y_COORD_ET_SUPPORTED)
-+		seq_printf(m, " (Early Transport)");
- 	seq_printf(m, ", Panel Replay = %s", str_yes_no(psr->sink_panel_replay_support));
--	seq_printf(m, ", Panel Replay Selective Update = %s\n",
-+	seq_printf(m, ", Panel Replay Selective Update = %s",
- 		   str_yes_no(psr->sink_panel_replay_su_support));
-+	if (intel_dp->pr_dpcd & DP_PANEL_REPLAY_EARLY_TRANSPORT_SUPPORT)
-+		seq_printf(m, " (Early Transport)");
-+	seq_printf(m, "\n");
- }
+ 	clip = &plane_state->psr2_sel_fetch_area;
  
- static void intel_psr_print_mode(struct intel_dp *intel_dp,
- 				 struct seq_file *m)
- {
- 	struct intel_psr *psr = &intel_dp->psr;
--	const char *status;
-+	const char *status, *mode, *region_et;
- 
--	if (psr->panel_replay_enabled)
--		status = psr->sel_update_enabled ? "Panel Replay Selective Update Enabled" :
--			"Panel Replay Enabled";
--	else if (psr->enabled)
--		status = psr->sel_update_enabled ? "PSR2" : "PSR1";
-+	if (psr->enabled)
-+		status = " enabled";
- 	else
- 		status = "disabled";
--	seq_printf(m, "PSR mode: %s\n", status);
-+
-+	if (psr->panel_replay_enabled && psr->sel_update_enabled)
-+		mode = "Panel Replay Selective Update";
-+	else if (psr->panel_replay_enabled)
-+		mode = "Panel Replay";
-+	else if (psr->sel_update_enabled)
-+		mode = "PSR2";
-+	else if (psr->enabled)
-+		mode = "PSR1";
+-	val = (clip->y1 + plane_state->uapi.dst.y1) << 16;
++	if (crtc_state->enable_psr2_su_region_et)
++		y = max(0, plane_state->uapi.dst.y1 - crtc_state->psr2_su_area.y1);
 +	else
-+		mode = "";
-+
-+	if (psr->su_region_et_enabled)
-+		region_et = " (Early Transport)";
-+	else
-+		region_et = "";
-+
-+	seq_printf(m, "PSR mode: %s%s%s\n", mode, status, region_et);
- }
++		y = (clip->y1 + plane_state->uapi.dst.y1);
++	val = y << 16;
+ 	val |= plane_state->uapi.dst.x1;
+ 	intel_de_write_fw(i915, SEL_FETCH_PLANE_POS(pipe, plane->id), val);
  
- static int intel_psr_status(struct seq_file *m, struct intel_dp *intel_dp)
 -- 
 2.34.1
 
