@@ -4,59 +4,57 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 91362C27C44
-	for <intel-gfx@archiver.kernel.org>; Wed, 29 May 2024 09:39:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B8AF6C25B75
+	for <intel-gfx@archiver.kernel.org>; Wed, 29 May 2024 09:48:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 71AF010F572;
-	Wed, 29 May 2024 09:39:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3A58710EB02;
+	Wed, 29 May 2024 09:48:34 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="fqLuDMMM";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="McsTEN60";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.13])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5C84A10EF88
- for <intel-gfx@lists.freedesktop.org>; Wed, 29 May 2024 09:39:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1716975551; x=1748511551;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=31zHeYzB9e4MOX3QXKl+EaJqX6IRbPiJouZRBRxmz34=;
- b=fqLuDMMMcx5Nj/AAJoxNjoTHT/ctaRZwGZZM91a9QrH8/Q6LLhGRzrf3
- RC6x70fGNicdnu3Aq7qo5hH2/32MYYEwE9kC9Phi0FavaV+Mxl+E9OLPt
- jiINmti550ulIiiiKvYTe64sDtzpXqVzCKVvnj4iKw/PcFvQMLfwPXOyv
- acLcnZHMNDMUkbd4CTn+UASPtiNXpY2Vt8l0KLYdUQReWo4mgq54Xlm1u
- 8TeWnR+aEW+bhLDPQnJY62HEWQ70DEDCjp64Nokd0xlO/UmqcKcs9A0M4
- 5xmhC2nZtZaLisUtQBxHfkbsygMpHOZMfibstuVPAByMGM/nPom+6wGj0 Q==;
-X-CSE-ConnectionGUID: PWsgI7+yQZyo/k8olab46g==
-X-CSE-MsgGUID: SzCxn1j0QRa8VNN4y4kBqQ==
-X-IronPort-AV: E=McAfee;i="6600,9927,11085"; a="16316832"
-X-IronPort-AV: E=Sophos;i="6.08,198,1712646000"; d="scan'208";a="16316832"
-Received: from orviesa005.jf.intel.com ([10.64.159.145])
- by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 29 May 2024 02:39:11 -0700
-X-CSE-ConnectionGUID: WnpZNUlUR1uQsN3Cuk/vGA==
-X-CSE-MsgGUID: vJLrftzeQbCXWxMjgZuQdA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.08,198,1712646000"; d="scan'208";a="40273893"
-Received: from romanove-mobl.ger.corp.intel.com (HELO
- jhogande-mobl1.intel.com) ([10.249.36.185])
- by orviesa005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 29 May 2024 02:39:10 -0700
-From: =?UTF-8?q?Jouni=20H=C3=B6gander?= <jouni.hogander@intel.com>
-To: intel-gfx@lists.freedesktop.org
-Cc: animesh.manna@intel.com, mika.kahola@intel.com,
- =?UTF-8?q?Jouni=20H=C3=B6gander?= <jouni.hogander@intel.com>
-Subject: [PATCH 5/6] drm/i915/psr: Allow setting
- I915_PSR_DEBUG_SU_REGION_ET_DISABLE via debugfs
-Date: Wed, 29 May 2024 12:38:48 +0300
-Message-Id: <20240529093849.1016172-6-jouni.hogander@intel.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20240529093849.1016172-1-jouni.hogander@intel.com>
-References: <20240529093849.1016172-1-jouni.hogander@intel.com>
+Received: from madrid.collaboradmins.com (madrid.collaboradmins.com
+ [46.235.227.194])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5FBF710E76D;
+ Wed, 29 May 2024 09:48:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+ s=mail; t=1716976108;
+ bh=qf6ymj3RFfkiiaCFpxQKjdAF3Bl843ub+B+34Y8z/as=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+ b=McsTEN60Vjt8NdHBol50pxTr9PPR0mANAwkso+KggPtbLZ96gx6WFt39jPm6RaST2
+ 9WqjTcIfbEqEMhdoXNljZZnOeUD6j0Y4bb4lPy08ZQ3TCXVOmmqJSvKdPGkTUDWURP
+ VXfmKfgIig01ItkT2gCBlOaVsCXhP8ScrJn91p4t5ICU3QWERtAcUqalqq35HiaG4h
+ 0q5we2lYK1Ihh8muJAvwG+jH9RT1I3ZRltKrUpY80G3rY4+t/ccXt201Zkg9R2Oz77
+ FaIYlc7dSvWos34mvwzBQejHsnFwEeLUGa2WrJvFiFAgKvkFZSmJrJh+6Z7HPjYq7C
+ Dvhq2jHBKWPTQ==
+Received: from [100.66.96.193] (cola.collaboradmins.com [195.201.22.229])
+ (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested) (Authenticated sender: vignesh)
+ by madrid.collaboradmins.com (Postfix) with ESMTPSA id 86B76378205D;
+ Wed, 29 May 2024 09:48:24 +0000 (UTC)
+Message-ID: <12f14064-fd1c-4e9c-94ee-ba7d492a4056@collabora.com>
+Date: Wed, 29 May 2024 15:18:22 +0530
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 4/6] drm/ci: uprev IGT
+Content-Language: en-US
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Cc: dri-devel@lists.freedesktop.org, daniels@collabora.com,
+ helen.koike@collabora.com, airlied@gmail.com, daniel@ffwll.ch,
+ robdclark@gmail.com, david.heidelberg@collabora.com,
+ guilherme.gallo@collabora.com, sergi.blanch.torne@collabora.com,
+ mcanal@igalia.com, linux-mediatek@lists.infradead.org,
+ linux-amlogic@lists.infradead.org, linux-rockchip@lists.infradead.org,
+ amd-gfx@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
+ intel-gfx@lists.freedesktop.org, virtualization@lists.linux-foundation.org,
+ linux-kernel@vger.kernel.org
+References: <20240529024049.356327-1-vignesh.raman@collabora.com>
+ <20240529024049.356327-5-vignesh.raman@collabora.com>
+ <bj6mpegmxo6i5o34xyxwiytdaokv2u6p5iu4eoek3ctqimwviy@jbo5aw7gy4ue>
+From: Vignesh Raman <vignesh.raman@collabora.com>
+In-Reply-To: <bj6mpegmxo6i5o34xyxwiytdaokv2u6p5iu4eoek3ctqimwviy@jbo5aw7gy4ue>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -72,72 +70,71 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Currently setting I915_PSR_DEBUG_SU_REGION_ET_DISABLE (0x20) via psr_debug
-debugfs interface is not allowed. This patch allows it.
+Hi Dmitry,
 
-v3:
-  - ensure psr is disabled/enabled if enable_psr2_su_region_et changes
-  - remove extra space
-v2: ensure that fastset is performed when the bit changes
+On 29/05/24 13:39, Dmitry Baryshkov wrote:
+> On Wed, May 29, 2024 at 08:10:47AM +0530, Vignesh Raman wrote:
+>> test-list.txt and test-list-full.txt are not generated for
+>> cross-builds and they are required by drm-ci for testing
+>> arm32 targets. This is fixed in igt-gpu-tools. So uprev
+>> IGT to include the commit which fixes this issue. Also
+>> disable building xe driver tests for non-intel platforms.
+>>
+>> Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+>> Signed-off-by: Vignesh Raman <vignesh.raman@collabora.com>
+>> ---
+>>
+>> v2:
+>>    - Split IGT uprev to seperate patch.
+>>
+>> v3:
+>>    - No changes.
+>>
+>> ---
+>>   drivers/gpu/drm/ci/build-igt.sh  | 4 ++++
+>>   drivers/gpu/drm/ci/gitlab-ci.yml | 2 +-
+>>   2 files changed, 5 insertions(+), 1 deletion(-)
+>>
+>> diff --git a/drivers/gpu/drm/ci/build-igt.sh b/drivers/gpu/drm/ci/build-igt.sh
+>> index b7d2a49a6db3..eddb5f782a5e 100644
+>> --- a/drivers/gpu/drm/ci/build-igt.sh
+>> +++ b/drivers/gpu/drm/ci/build-igt.sh
+>> @@ -45,6 +45,10 @@ MESON_OPTIONS="-Doverlay=disabled                    \
+>>                  -Dlibunwind=enabled                   \
+>>                  -Dprefix=/igt"
+>>   
+>> +if [[ "$KERNEL_ARCH" = "arm64" ]] || [[ "$KERNEL_ARCH" = "arm" ]]; then
+>> +    MESON_OPTIONS="$MESON_OPTIONS -Dxe_driver=disabled"
+>> +fi
+>> +
+>>   mkdir -p /igt
+>>   meson build $MESON_OPTIONS $EXTRA_MESON_ARGS
+>>   ninja -C build -j${FDO_CI_CONCURRENT:-4} || ninja -C build -j 1
+>> diff --git a/drivers/gpu/drm/ci/gitlab-ci.yml b/drivers/gpu/drm/ci/gitlab-ci.yml
+>> index 8f32de63d92e..1b29c3b6406b 100644
+>> --- a/drivers/gpu/drm/ci/gitlab-ci.yml
+>> +++ b/drivers/gpu/drm/ci/gitlab-ci.yml
+>> @@ -5,7 +5,7 @@ variables:
+>>     UPSTREAM_REPO: git://anongit.freedesktop.org/drm/drm
+>>     TARGET_BRANCH: drm-next
+>>   
+>> -  IGT_VERSION: d2af13d9f5be5ce23d996e4afd3e45990f5ab977
+>> +  IGT_VERSION: 0df7b9b97f9da0e364f5ee30fe331004b8c86b56
+> 
+> Let's land this, then I'll ask to uprev to
+> dc2d7fb4f978048b87707ea9ec32da748b01b378, which fixes an issue with the
+> writeback tests on MSM devices.
 
-Signed-off-by: Jouni Högander <jouni.hogander@intel.com>
----
- drivers/gpu/drm/i915/display/intel_psr.c | 13 ++++++++++---
- 1 file changed, 10 insertions(+), 3 deletions(-)
+Sure. Once this is merged, we can uprev to the latest IGT.
 
-diff --git a/drivers/gpu/drm/i915/display/intel_psr.c b/drivers/gpu/drm/i915/display/intel_psr.c
-index 605ca6b6321d..16fa70c3ae45 100644
---- a/drivers/gpu/drm/i915/display/intel_psr.c
-+++ b/drivers/gpu/drm/i915/display/intel_psr.c
-@@ -2773,12 +2773,15 @@ void intel_psr_pre_plane_update(struct intel_atomic_state *state,
- 		 * - PSR disabled in new state
- 		 * - All planes will go inactive
- 		 * - Changing between PSR versions
-+		 * - Region Early Transport changing
- 		 * - Display WA #1136: skl, bxt
- 		 */
- 		needs_to_disable |= intel_crtc_needs_modeset(new_crtc_state);
- 		needs_to_disable |= !new_crtc_state->has_psr;
- 		needs_to_disable |= !new_crtc_state->active_planes;
- 		needs_to_disable |= new_crtc_state->has_sel_update != psr->sel_update_enabled;
-+		needs_to_disable |= new_crtc_state->enable_psr2_su_region_et !=
-+			psr->su_region_et_enabled;
- 		needs_to_disable |= DISPLAY_VER(i915) < 11 &&
- 			new_crtc_state->wm_level_disabled;
- 
-@@ -3014,10 +3017,12 @@ int intel_psr_debug_set(struct intel_dp *intel_dp, u64 val)
- {
- 	struct drm_i915_private *dev_priv = dp_to_i915(intel_dp);
- 	const u32 mode = val & I915_PSR_DEBUG_MODE_MASK;
--	u32 old_mode;
-+	const u32 disable_bits = val & I915_PSR_DEBUG_SU_REGION_ET_DISABLE;
-+	u32 old_mode, old_disable_bits;
- 	int ret;
- 
--	if (val & ~(I915_PSR_DEBUG_IRQ | I915_PSR_DEBUG_MODE_MASK) ||
-+	if (val & ~(I915_PSR_DEBUG_IRQ | I915_PSR_DEBUG_SU_REGION_ET_DISABLE |
-+		    I915_PSR_DEBUG_MODE_MASK) ||
- 	    mode > I915_PSR_DEBUG_ENABLE_SEL_FETCH) {
- 		drm_dbg_kms(&dev_priv->drm, "Invalid debug mask %llx\n", val);
- 		return -EINVAL;
-@@ -3028,6 +3033,8 @@ int intel_psr_debug_set(struct intel_dp *intel_dp, u64 val)
- 		return ret;
- 
- 	old_mode = intel_dp->psr.debug & I915_PSR_DEBUG_MODE_MASK;
-+	old_disable_bits = intel_dp->psr.debug &
-+		I915_PSR_DEBUG_SU_REGION_ET_DISABLE;
- 	intel_dp->psr.debug = val;
- 
- 	/*
-@@ -3039,7 +3046,7 @@ int intel_psr_debug_set(struct intel_dp *intel_dp, u64 val)
- 
- 	mutex_unlock(&intel_dp->psr.lock);
- 
--	if (old_mode != mode)
-+	if (old_mode != mode || old_disable_bits != disable_bits)
- 		ret = intel_psr_fastset_force(dev_priv);
- 
- 	return ret;
--- 
-2.34.1
+Regards,
+Vignesh
 
+> 
+>>   
+>>     DEQP_RUNNER_GIT_URL: https://gitlab.freedesktop.org/anholt/deqp-runner.git
+>>     DEQP_RUNNER_GIT_TAG: v0.15.0
+>> -- 
+>> 2.40.1
+>>
+> 
