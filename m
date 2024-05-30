@@ -4,54 +4,27 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E1955C25B74
-	for <intel-gfx@archiver.kernel.org>; Thu, 30 May 2024 06:15:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7977EC25B74
+	for <intel-gfx@archiver.kernel.org>; Thu, 30 May 2024 06:49:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4211911B46D;
-	Thu, 30 May 2024 06:15:29 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="EmOehMZA";
-	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9484011B466;
- Thu, 30 May 2024 06:14:43 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1717049684; x=1748585684;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=CisULbMevhQi6s8Mnmi6gzr2KbjQvWUp1RaitIPqz+g=;
- b=EmOehMZAhFs9om5FdR5NwovfRnaTSBToCgzdXVG7htFZ+6O11Ivfu9JV
- hK+D6B6IMcgE5E1ge3SDhldR03FezrsGcnS9//ZDz/OsyjSF+1GzYcHfG
- lmRj60VjkpVY5sUGTYmJc+VZC52hXKgH09SaUZ3FouOZtk3Nl9zHxtynE
- H+WBZoxRnBF+VRCTBmGkRJJvoC11U+Xy4qK89Imsq5H9AhVf2RMYgrieE
- rYgbtZFbh/9j58oC58/iFfNxbWiQX0BhTEEYTffgmrVZJuCv1+DGT0Q+G
- 2yHmHMhUymoOJJDgJSArMKWnpiDM9UC/0uLW0QEtOELb+jBGcYMVMLsVt w==;
-X-CSE-ConnectionGUID: jTWURHr1Q2KCNBaS639cSw==
-X-CSE-MsgGUID: n/SDwRXUTsCKXIR31wS/Eg==
-X-IronPort-AV: E=McAfee;i="6600,9927,11087"; a="24915530"
-X-IronPort-AV: E=Sophos;i="6.08,199,1712646000"; d="scan'208";a="24915530"
-Received: from orviesa007.jf.intel.com ([10.64.159.147])
- by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 29 May 2024 23:14:43 -0700
-X-CSE-ConnectionGUID: jrKF1OXHRou6qEPKshUF3g==
-X-CSE-MsgGUID: 54hvUYNCSfiB0HE/oE+ELw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.08,199,1712646000"; d="scan'208";a="36335688"
-Received: from mgolanimitul-x299-ud4-pro.iind.intel.com ([10.190.239.114])
- by orviesa007.jf.intel.com with ESMTP; 29 May 2024 23:14:42 -0700
-From: Mitul Golani <mitulkumar.ajitkumar.golani@intel.com>
-To: intel-gfx@lists.freedesktop.org
-Cc: dri-devel@lists.freedesktop.org, ankit.k.nautiyal@intel.com,
- jani.nikula@intel.com
-Subject: [PATCH v10 6/8] drm/i915/display: Add support for pack and unpack
-Date: Thu, 30 May 2024 11:34:06 +0530
-Message-Id: <20240530060408.67027-7-mitulkumar.ajitkumar.golani@intel.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20240530060408.67027-1-mitulkumar.ajitkumar.golani@intel.com>
-References: <20240530060408.67027-1-mitulkumar.ajitkumar.golani@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9DE3D10E0E2;
+	Thu, 30 May 2024 06:49:03 +0000 (UTC)
+Received: from 8e613ede5ea5 (emeril.freedesktop.org [131.252.210.167])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1440710E0E2;
+ Thu, 30 May 2024 06:49:01 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
+Subject: =?utf-8?q?=E2=9C=97_Fi=2ECI=2ECHECKPATCH=3A_warning_for_Implement_CMRR_Suppo?=
+ =?utf-8?q?rt_=28rev10=29?=
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Mitul Golani" <mitulkumar.ajitkumar.golani@intel.com>
+Cc: intel-gfx@lists.freedesktop.org
+Date: Thu, 30 May 2024 06:49:01 -0000
+Message-ID: <171705174108.2237379.14507838740804861592@8e613ede5ea5>
+X-Patchwork-Hint: ignore
+References: <20240530060408.67027-1-mitulkumar.ajitkumar.golani@intel.com>
+In-Reply-To: <20240530060408.67027-1-mitulkumar.ajitkumar.golani@intel.com>
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,44 +37,77 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Add support of pack and unpack for target_rr_divider.
+== Series Details ==
 
---v2:
-- Set Target Refresh Rate Divider bit when related
-AS SDP bit is set (Ankit).
+Series: Implement CMRR Support (rev10)
+URL   : https://patchwork.freedesktop.org/series/126443/
+State : warning
 
---v3:
-- target_rr_divider is bools so set accordingly (Ankit).
-Signed-off-by: Mitul Golani <mitulkumar.ajitkumar.golani@intel.com>
----
- drivers/gpu/drm/i915/display/intel_dp.c | 4 ++++
- 1 file changed, 4 insertions(+)
+== Summary ==
 
-diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
-index 4fa977f1e6c4..95cf586f3bed 100644
---- a/drivers/gpu/drm/i915/display/intel_dp.c
-+++ b/drivers/gpu/drm/i915/display/intel_dp.c
-@@ -4230,6 +4230,9 @@ static ssize_t intel_dp_as_sdp_pack(const struct drm_dp_as_sdp *as_sdp,
- 	sdp->db[3] = as_sdp->target_rr & 0xFF;
- 	sdp->db[4] = (as_sdp->target_rr >> 8) & 0x3;
- 
-+	if (as_sdp->target_rr_divider)
-+		sdp->db[4] |= 0x20;
-+
- 	return length;
- }
- 
-@@ -4411,6 +4414,7 @@ int intel_dp_as_sdp_unpack(struct drm_dp_as_sdp *as_sdp,
- 	as_sdp->mode = sdp->db[0] & DP_ADAPTIVE_SYNC_SDP_OPERATION_MODE;
- 	as_sdp->vtotal = (sdp->db[2] << 8) | sdp->db[1];
- 	as_sdp->target_rr = (u64)sdp->db[3] | ((u64)sdp->db[4] & 0x3);
-+	as_sdp->target_rr_divider = sdp->db[4] & 0x20 ? true : false;
- 
- 	return 0;
- }
--- 
-2.25.1
+Error: dim checkpatch failed
+8941224bb0a7 drm/i915: Separate VRR related register definitions
+-:24: WARNING:FILE_PATH_CHANGES: added, moved or deleted file(s), does MAINTAINERS need updating?
+#24: 
+new file mode 100644
+
+-:42: ERROR:CODE_INDENT: code indent should use tabs where possible
+#42: FILE: drivers/gpu/drm/i915/display/intel_vrr_regs.h:14:
++                                                _TRANS_VRR_VSYNC_A)$
+
+-:42: WARNING:LEADING_SPACE: please, no spaces at the start of a line
+#42: FILE: drivers/gpu/drm/i915/display/intel_vrr_regs.h:14:
++                                                _TRANS_VRR_VSYNC_A)$
+
+-:129: ERROR:CODE_INDENT: code indent should use tabs where possible
+#129: FILE: drivers/gpu/drm/i915/display/intel_vrr_regs.h:101:
++                                                _TRANS_VRR_VTOTAL_PREV_A)$
+
+-:129: WARNING:LEADING_SPACE: please, no spaces at the start of a line
+#129: FILE: drivers/gpu/drm/i915/display/intel_vrr_regs.h:101:
++                                                _TRANS_VRR_VTOTAL_PREV_A)$
+
+total: 2 errors, 3 warnings, 0 checks, 230 lines checked
+096a2a62a58c drm/i915: Define and compute Transcoder CMRR registers
+-:52: CHECK:MACRO_ARG_REUSE: Macro argument reuse 'name' - possible side-effects?
+#52: FILE: drivers/gpu/drm/i915/display/intel_display.c:5044:
++#define PIPE_CONF_CHECK_LLI(name) do { \
++	if (current_config->name != pipe_config->name) { \
++		pipe_config_mismatch(&p, fastset, crtc, __stringify(name), \
++				     "(expected %lli, found %lli)", \
++				     current_config->name, \
++				     pipe_config->name); \
++		ret = false; \
++	} \
++} while (0)
+
+-:52: CHECK:MACRO_ARG_PRECEDENCE: Macro argument 'name' may be better as '(name)' to avoid precedence issues
+#52: FILE: drivers/gpu/drm/i915/display/intel_display.c:5044:
++#define PIPE_CONF_CHECK_LLI(name) do { \
++	if (current_config->name != pipe_config->name) { \
++		pipe_config_mismatch(&p, fastset, crtc, __stringify(name), \
++				     "(expected %lli, found %lli)", \
++				     current_config->name, \
++				     pipe_config->name); \
++		ret = false; \
++	} \
++} while (0)
+
+total: 0 errors, 0 warnings, 2 checks, 118 lines checked
+4203af585c18 drm/i915: Update trans_vrr_ctl flag when cmrr is computed
+3dede228e5e5 drm/i915: Compute CMRR and calculate vtotal
+59040f50b24f drm/dp: Add refresh rate divider to struct representing AS SDP
+2fbe9ec90ddd drm/i915/display: Add support for pack and unpack
+c8b5e6951a06 drm/i915/display: Compute Adaptive sync SDP params
+-:43: ERROR:SPACING: space required before the open brace '{'
+#43: FILE: drivers/gpu/drm/i915/display/intel_dp.c:2648:
++	} else{
+
+total: 1 errors, 0 warnings, 0 checks, 31 lines checked
+11e05c6ee4bd drm/i915/display: Compute vrr vsync params
+
 
