@@ -4,55 +4,27 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8BCC4C25B74
-	for <intel-gfx@archiver.kernel.org>; Thu, 30 May 2024 12:44:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0A241C25B74
+	for <intel-gfx@archiver.kernel.org>; Thu, 30 May 2024 12:49:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6A9EE10EA81;
-	Thu, 30 May 2024 12:44:11 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="Mn9lFHQe";
-	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.7])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D43DF10E0D4;
- Thu, 30 May 2024 12:43:59 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1717073048; x=1748609048;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=jkH81MlUsy3b/KKRGwyQFrW7hboGUblmvfxpa2H6Nxw=;
- b=Mn9lFHQegizAos7vwny61mzYmwtSHO9uzZoSaA3sKdt/ItjnF2uoBuo+
- jYhfa9PaOsUejn+x0wDE0pJKurH4KicfdsWLrX0JqjShbDMxk+t/wtaji
- lqz4c048O6OOn3FRph+RuZYJo3lPqb9BfSwKkuqKlP6EsUJqFqzqkcjY8
- 96tBbi+x2WkvMSylrIm8wN8CxMbcGipFsy8NjQTzFeWtq76Drl5/ZrH+V
- V7XChgx3bxlq3btct8ngqGowIwY9LmY6rYO2x2OlHoHxtFTlYrtvRomwI
- q90MrUMb6JnsmeB9qzwSh00nw9aWMRs6mijXBnTQhreqejQhTSWA5/Ha2 Q==;
-X-CSE-ConnectionGUID: jQFBiqokS0uKdpnJrn4pdg==
-X-CSE-MsgGUID: B2NnICBcQSODy4VfArZuPA==
-X-IronPort-AV: E=McAfee;i="6600,9927,11088"; a="38943159"
-X-IronPort-AV: E=Sophos;i="6.08,201,1712646000"; d="scan'208";a="38943159"
-Received: from orviesa002.jf.intel.com ([10.64.159.142])
- by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 30 May 2024 05:43:59 -0700
-X-CSE-ConnectionGUID: jV+0OyEdQzqHuXLLWBCh/Q==
-X-CSE-MsgGUID: mJwPgkeXSOGwKXLycCepRA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.08,201,1712646000"; d="scan'208";a="66665269"
-Received: from unknown (HELO localhost) ([10.237.66.160])
- by orviesa002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 30 May 2024 05:43:56 -0700
-From: Jani Nikula <jani.nikula@intel.com>
-To: intel-gfx@lists.freedesktop.org
-Cc: jani.nikula@intel.com, Zhenyu Wang <zhenyuw@linux.intel.com>,
- Zhi Wang <zhi.wang.linux@gmail.com>, intel-gvt-dev@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org
-Subject: [PATCH 1/2] drm/i915/gvt: stop using drm_edid_block_valid()
-Date: Thu, 30 May 2024 15:43:51 +0300
-Message-Id: <20240530124352.362736-1-jani.nikula@intel.com>
-X-Mailer: git-send-email 2.39.2
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5F17910E659;
+	Thu, 30 May 2024 12:49:53 +0000 (UTC)
+Received: from 8e613ede5ea5 (emeril.freedesktop.org [131.252.210.167])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 00E4A10F0F1;
+ Thu, 30 May 2024 12:49:49 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
+Subject: =?utf-8?q?=E2=9C=97_Fi=2ECI=2ECHECKPATCH=3A_warning_for_drm/i915=3A_Fix_asse?=
+ =?utf-8?q?rt_on_pending_async-put_power_domain_work_when_it_requeues_itself?=
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Imre Deak" <imre.deak@intel.com>
+Cc: intel-gfx@lists.freedesktop.org
+Date: Thu, 30 May 2024 12:49:49 -0000
+Message-ID: <171707338900.2238285.10957634544652872561@8e613ede5ea5>
+X-Patchwork-Hint: ignore
+References: <20240530105312.1016485-1-imre.deak@intel.com>
+In-Reply-To: <20240530105312.1016485-1-imre.deak@intel.com>
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,63 +37,24 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-We'll want to stop drm_edid_block_valid() usage. KVMGT is the last
-user. Replace with drm_edid_valid(), which unfortunately requires an
-allocated drm_edid. However, on the plus side, this would be required to
-handle the TODO comment about EDID extension block support.
+== Series Details ==
 
-Signed-off-by: Jani Nikula <jani.nikula@intel.com>
+Series: drm/i915: Fix assert on pending async-put power domain work when it requeues itself
+URL   : https://patchwork.freedesktop.org/series/134246/
+State : warning
 
----
+== Summary ==
 
-Cc: Zhenyu Wang <zhenyuw@linux.intel.com>
-Cc: Zhi Wang <zhi.wang.linux@gmail.com>
-Cc: intel-gvt-dev@lists.freedesktop.org
-Cc: intel-gfx@lists.freedesktop.org
-Cc: dri-devel@lists.freedesktop.org
----
- drivers/gpu/drm/i915/gvt/kvmgt.c | 18 +++++++++++++-----
- 1 file changed, 13 insertions(+), 5 deletions(-)
+Error: dim checkpatch failed
+ab24310eafdd drm/i915: Fix assert on pending async-put power domain work when it requeues itself
+-:7: WARNING:COMMIT_LOG_LONG_LINE: Prefer a maximum 75 chars per line (possible unwrapped commit description?)
+#7: 
+Commit dd839aa857eb ("drm/i915: Fix incorrect assert about pending power domain async-put work")
 
-diff --git a/drivers/gpu/drm/i915/gvt/kvmgt.c b/drivers/gpu/drm/i915/gvt/kvmgt.c
-index 4f74d867fe1a..7e3e5382c0c0 100644
---- a/drivers/gpu/drm/i915/gvt/kvmgt.c
-+++ b/drivers/gpu/drm/i915/gvt/kvmgt.c
-@@ -425,6 +425,18 @@ static const struct intel_vgpu_regops intel_vgpu_regops_opregion = {
- 	.release = intel_vgpu_reg_release_opregion,
- };
- 
-+static bool edid_valid(const void *edid, size_t size)
-+{
-+	const struct drm_edid *drm_edid;
-+	bool is_valid;
-+
-+	drm_edid = drm_edid_alloc(edid, size);
-+	is_valid = drm_edid_valid(drm_edid);
-+	drm_edid_free(drm_edid);
-+
-+	return is_valid;
-+}
-+
- static int handle_edid_regs(struct intel_vgpu *vgpu,
- 			struct vfio_edid_region *region, char *buf,
- 			size_t count, u16 offset, bool is_write)
-@@ -443,11 +455,7 @@ static int handle_edid_regs(struct intel_vgpu *vgpu,
- 		switch (offset) {
- 		case offsetof(struct vfio_region_gfx_edid, link_state):
- 			if (data == VFIO_DEVICE_GFX_LINK_STATE_UP) {
--				if (!drm_edid_block_valid(
--					(u8 *)region->edid_blob,
--					0,
--					true,
--					NULL)) {
-+				if (!edid_valid(region->edid_blob, EDID_SIZE)) {
- 					gvt_vgpu_err("invalid EDID blob\n");
- 					return -EINVAL;
- 				}
--- 
-2.39.2
+total: 0 errors, 1 warnings, 0 checks, 24 lines checked
+
 
