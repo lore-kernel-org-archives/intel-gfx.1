@@ -4,52 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 26838C27C44
-	for <intel-gfx@archiver.kernel.org>; Fri, 31 May 2024 09:50:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7D8F7C25B75
+	for <intel-gfx@archiver.kernel.org>; Fri, 31 May 2024 09:50:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CB9B710E1AD;
-	Fri, 31 May 2024 09:50:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D4FAD10E3D1;
+	Fri, 31 May 2024 09:50:25 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="b7+Z2uEi";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="CHVCaH10";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.18])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9E3AE10E1BD
- for <intel-gfx@lists.freedesktop.org>; Fri, 31 May 2024 09:50:17 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E464E10E384
+ for <intel-gfx@lists.freedesktop.org>; Fri, 31 May 2024 09:50:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
  t=1717149022; x=1748685022;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=HYT21E5tBkF/t0aZYvt877QYNzGY+4Ji1kDGoKhqTNY=;
- b=b7+Z2uEiFIOakqs3yeW8z7//UgKfwUf1BrnEmI3Yl3VtCa5Ylv7a0e4Q
- yvTkMu+ZRDAf8e/5MN28ixlbimh3Z4ONmBd2qfTIrXuG24wiVK2ciscIT
- Z5sjxxsFMLTe43R8/9yOOIE3FsA1wSTAdtsiquEH1Hno6s4AWtVR99eXj
- UYzRS1/N5X1ujrsDNxobTQcqCFDYkq245t8P76rWy8nAJaiOayUSNTtry
- 0f2VlSXDy/Fp4o1UBJeAgf6HYFSQx/fYv1zb2iB/43yIAdqLai8T2BiF6
- AaW5qcax84u4hu4Ri75y8tL8ot0LR1YmGbB3irFQcqNR0BoeSXN8eV5Xf Q==;
-X-CSE-ConnectionGUID: IWxLASEoR2StVi8CmF1WMA==
-X-CSE-MsgGUID: NX4v9na8QX2ikKhhTihFvg==
-X-IronPort-AV: E=McAfee;i="6600,9927,11088"; a="13446554"
-X-IronPort-AV: E=Sophos;i="6.08,203,1712646000"; d="scan'208";a="13446554"
+ bh=WesjoU+OxefA4cC+hqMK6c4CkX3StrB/8PTQc8jOon4=;
+ b=CHVCaH10F9f4MhV1DWI5zDfDxKnu7ly6mx5CVuvHxWAY0L6SV9fnvpQ2
+ ObD5kGoed4gR1AxdrDTE92GZMvDt0Qm6ZPgxc85NbXZE6D2b/KvtlwpRj
+ jDTBB4hQ5Znm5T6bouKCMtKYoEMotCepYd7xyf7PT7A75MgFW/bkKB+Pb
+ A0F+1xIEPPFZew+PFw407a0omgCb3rDk6Cz3s5zOPtNiyxemJ6ODTd6hy
+ KJr/RkCNEg79GDLgnwCvnT9S1S3UGIjRvhNWiOI98A8iqaGebRHb1r4L8
+ 38mt7Dc80fZpiWUI8MwIDgNjwwYFMVpJrkKsAzYuvPW3rDw9rPxoqoAgv w==;
+X-CSE-ConnectionGUID: Em7TOF8TStuZnK2V1yBFWw==
+X-CSE-MsgGUID: L8H55aDATKi8N5x/LEoWlw==
+X-IronPort-AV: E=McAfee;i="6600,9927,11088"; a="13446558"
+X-IronPort-AV: E=Sophos;i="6.08,203,1712646000"; d="scan'208";a="13446558"
 Received: from orviesa004.jf.intel.com ([10.64.159.144])
  by fmvoesa112.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 31 May 2024 02:50:17 -0700
-X-CSE-ConnectionGUID: ShFgjcNZQSKpKfaAfk6snA==
-X-CSE-MsgGUID: BdBuw1cNSGCxqQyV9c3fkw==
+ 31 May 2024 02:50:20 -0700
+X-CSE-ConnectionGUID: kuXPIxXIQE6pCYGCYmcaaA==
+X-CSE-MsgGUID: 8B9HrDRZQw+3qhcDMhGqdA==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.08,203,1712646000"; d="scan'208";a="41189201"
+X-IronPort-AV: E=Sophos;i="6.08,203,1712646000"; d="scan'208";a="41189210"
 Received: from romanove-mobl.ger.corp.intel.com (HELO
  jhogande-mobl1.intel.com) ([10.249.36.204])
  by orviesa004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 31 May 2024 02:50:15 -0700
+ 31 May 2024 02:50:18 -0700
 From: =?UTF-8?q?Jouni=20H=C3=B6gander?= <jouni.hogander@intel.com>
 To: intel-gfx@lists.freedesktop.org
 Cc: animesh.manna@intel.com, mika.kahola@intel.com,
  =?UTF-8?q?Jouni=20H=C3=B6gander?= <jouni.hogander@intel.com>
-Subject: [PATCH v4 01/19] drm/i915/alpm: Do not use fast_wake_lines for aux
- less wake time
-Date: Fri, 31 May 2024 12:49:35 +0300
-Message-Id: <20240531094953.1797508-2-jouni.hogander@intel.com>
+Subject: [PATCH v4 03/19] drm/i915/display: Take panel replay into account in
+ vsc sdp unpacking
+Date: Fri, 31 May 2024 12:49:37 +0300
+Message-Id: <20240531094953.1797508-4-jouni.hogander@intel.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20240531094953.1797508-1-jouni.hogander@intel.com>
 References: <20240531094953.1797508-1-jouni.hogander@intel.com>
@@ -72,45 +72,38 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-We want to have own variables for fast wake lines and aux less wake
-time. It might be needed to choose if we can enable Panel Replay Selective
-Update or PSR2.
+Currently intel_dp_vsc_sdp_unpack is not taking into account Panel Replay
+vsc sdp. Fix this by adding vsc sdp revision 0x6 and length 0x10 into
+intel_dp_vsc_sdp_unpack
 
-Also currently aux less wake time is overwritten by calculated fast wake
-time.
-
-Fixes: da6a9836ac09 ("drm/i915/psr: Calculate aux less wake time")
 Signed-off-by: Jouni Högander <jouni.hogander@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_alpm.c          | 2 +-
- drivers/gpu/drm/i915/display/intel_display_types.h | 1 +
- 2 files changed, 2 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/i915/display/intel_dp.c | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_alpm.c b/drivers/gpu/drm/i915/display/intel_alpm.c
-index a26716c14aa3..aa15f57cec66 100644
---- a/drivers/gpu/drm/i915/display/intel_alpm.c
-+++ b/drivers/gpu/drm/i915/display/intel_alpm.c
-@@ -159,7 +159,7 @@ static int _lnl_compute_aux_less_alpm_params(struct intel_dp *intel_dp,
- 	if (i915->display.params.psr_safest_params)
- 		aux_less_wake_lines = ALPM_CTL_AUX_LESS_WAKE_TIME_MASK;
+diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
+index fd054e16850d..286119eb77f8 100644
+--- a/drivers/gpu/drm/i915/display/intel_dp.c
++++ b/drivers/gpu/drm/i915/display/intel_dp.c
+@@ -4438,7 +4438,8 @@ static int intel_dp_vsc_sdp_unpack(struct drm_dp_vsc_sdp *vsc,
+ 	vsc->length = sdp->sdp_header.HB3;
  
--	intel_dp->alpm_parameters.fast_wake_lines = aux_less_wake_lines;
-+	intel_dp->alpm_parameters.aux_less_wake_lines = aux_less_wake_lines;
- 	intel_dp->alpm_parameters.silence_period_sym_clocks = silence_period;
- 	intel_dp->alpm_parameters.lfps_half_cycle_num_of_syms = lfps_half_cycle;
- 
-diff --git a/drivers/gpu/drm/i915/display/intel_display_types.h b/drivers/gpu/drm/i915/display/intel_display_types.h
-index 012ff9e18b54..42400e1e9875 100644
---- a/drivers/gpu/drm/i915/display/intel_display_types.h
-+++ b/drivers/gpu/drm/i915/display/intel_display_types.h
-@@ -1846,6 +1846,7 @@ struct intel_dp {
- 
- 		/* LNL and beyond */
- 		u8 check_entry_lines;
-+		u8 aux_less_wake_lines;
- 		u8 silence_period_sym_clocks;
- 		u8 lfps_half_cycle_num_of_syms;
- 	} alpm_parameters;
+ 	if ((sdp->sdp_header.HB2 == 0x2 && sdp->sdp_header.HB3 == 0x8) ||
+-	    (sdp->sdp_header.HB2 == 0x4 && sdp->sdp_header.HB3 == 0xe)) {
++	    (sdp->sdp_header.HB2 == 0x4 && sdp->sdp_header.HB3 == 0xe) ||
++	    (sdp->sdp_header.HB2 == 0x6 && sdp->sdp_header.HB3 == 0x10)) {
+ 		/*
+ 		 * - HB2 = 0x2, HB3 = 0x8
+ 		 *   VSC SDP supporting 3D stereo + PSR
+@@ -4446,6 +4447,8 @@ static int intel_dp_vsc_sdp_unpack(struct drm_dp_vsc_sdp *vsc,
+ 		 *   VSC SDP supporting 3D stereo + PSR2 with Y-coordinate of
+ 		 *   first scan line of the SU region (applies to eDP v1.4b
+ 		 *   and higher).
++		 * - HB2 = 0x6, HB3 = 0x10
++		 *   VSC SDP supporting 3D stereo + Panel Replay.
+ 		 */
+ 		return 0;
+ 	} else if (sdp->sdp_header.HB2 == 0x5 && sdp->sdp_header.HB3 == 0x13) {
 -- 
 2.34.1
 
