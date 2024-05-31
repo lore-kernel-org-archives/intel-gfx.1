@@ -4,52 +4,51 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3042AC41513
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 91F71C27C44
 	for <intel-gfx@archiver.kernel.org>; Fri, 31 May 2024 09:51:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2E12910E628;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6237710E729;
 	Fri, 31 May 2024 09:51:10 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="E4WPD1xF";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="RVg/o9G9";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.18])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2DA5710E5C1
- for <intel-gfx@lists.freedesktop.org>; Fri, 31 May 2024 09:50:45 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BF32A10E412
+ for <intel-gfx@lists.freedesktop.org>; Fri, 31 May 2024 09:50:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1717149045; x=1748685045;
+ t=1717149033; x=1748685033;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=HK20Xf1Cco2A7EfjpIJrKRNBvgdJwkUhsAqNkW+ZCB4=;
- b=E4WPD1xFZL0E5cAPGSVN+wS0QXio/kURi6WV1Or074yEB3em43cnOUQT
- W6ud+X0bTdXKSCrgSq4SVOhN5wlk6kk7LXUfgXmDWa8nkgrUBjv6zy0vT
- Trs8nx6NvFx9cV83qZCY/HWRIFLIpNqI1caIvXxEF6FWXsFr+UK2bft+W
- b4n3x4iRKDYnCNEJkxguZ4im0ZVhoj7MGLu3tEdGQyq5zgeA0NztQ0r7a
- oLm644sVFXWwcVrXzm3FmY1cm5a2Sf23cAuo7x4CUlMvZiZVsHIIzVsPq
- K61ywx7hun7+tTMKIG7AC7wyRcgHYCk+VhMGe7VJcA4uELKbqUJrWYuMr g==;
-X-CSE-ConnectionGUID: b4TWgxkzT1SfXngfZcCbSA==
-X-CSE-MsgGUID: 7p8JAR32RKWtl6z6ru49Iw==
-X-IronPort-AV: E=McAfee;i="6600,9927,11088"; a="13446588"
-X-IronPort-AV: E=Sophos;i="6.08,203,1712646000"; d="scan'208";a="13446588"
+ bh=WQilZbVYAcFUjhgZuyopELkO9faePzT3NUlEfdJL/x0=;
+ b=RVg/o9G9M2Xi0/nSdasZMfYPkTnYq1YSgcfCVzCEWklDmB5IgURdT2mu
+ 6IV5cAK29ZjMKx4f1mm/qbVUTMa1E4/+C8BryyR7tZ9hPz4v9SkKgICsp
+ f5WddSreiyN3ZU4ek9fGo9jxZ0W2YETeplm0OGA9KFvhnOjs+XJaWNlCt
+ N1lXQf14ohrHR5/y43RwyqjD5bhF4aMx6IjyEaEf1+f7E6Drp5yR9Ny/O
+ AGixZ9yFI9vwsuaP1c6zwMcMaYJjMGviZNGzYOm5h7yX9Ka6mAstSa0+j
+ +MCmd5QNGrip0sEjIe6hfYqkO+cd7eSw8visYTET41z1StbD/FiqNZxMr w==;
+X-CSE-ConnectionGUID: y/Qi115pSeyv1tl2xGJVFQ==
+X-CSE-MsgGUID: mljv7LUITCevbndbJIYYKA==
+X-IronPort-AV: E=McAfee;i="6600,9927,11088"; a="13446568"
+X-IronPort-AV: E=Sophos;i="6.08,203,1712646000"; d="scan'208";a="13446568"
 Received: from orviesa004.jf.intel.com ([10.64.159.144])
  by fmvoesa112.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 31 May 2024 02:50:45 -0700
-X-CSE-ConnectionGUID: 9VA2qAB4SVKoHJ8ZgIQOvw==
-X-CSE-MsgGUID: OYKG8YDOQeK/ze8aQSLcVg==
+ 31 May 2024 02:50:33 -0700
+X-CSE-ConnectionGUID: 14wkZXyZQLCT5WC8MrPoHQ==
+X-CSE-MsgGUID: HhtX0h+SSxK6p4guZc6x3g==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.08,203,1712646000"; d="scan'208";a="41189289"
+X-IronPort-AV: E=Sophos;i="6.08,203,1712646000"; d="scan'208";a="41189242"
 Received: from romanove-mobl.ger.corp.intel.com (HELO
  jhogande-mobl1.intel.com) ([10.249.36.204])
  by orviesa004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 31 May 2024 02:50:43 -0700
+ 31 May 2024 02:50:31 -0700
 From: =?UTF-8?q?Jouni=20H=C3=B6gander?= <jouni.hogander@intel.com>
 To: intel-gfx@lists.freedesktop.org
 Cc: animesh.manna@intel.com, mika.kahola@intel.com,
  =?UTF-8?q?Jouni=20H=C3=B6gander?= <jouni.hogander@intel.com>
-Subject: [PATCH v4 17/19] drm/i915/psr: Modify dg2_activate_panel_replay to
- support eDP
-Date: Fri, 31 May 2024 12:49:51 +0300
-Message-Id: <20240531094953.1797508-18-jouni.hogander@intel.com>
+Subject: [PATCH v4 10/19] drm/i915/psr: enable sink for eDP1.5 Panel Replay
+Date: Fri, 31 May 2024 12:49:44 +0300
+Message-Id: <20240531094953.1797508-11-jouni.hogander@intel.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20240531094953.1797508-1-jouni.hogander@intel.com>
 References: <20240531094953.1797508-1-jouni.hogander@intel.com>
@@ -72,39 +71,115 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-There are couple of bits in PSR2_CTL which needs to be written in case of
-eDP Panel Replay
-
-Bspec: 68920
+eDP1.5 allows Panel Replay on eDP as well. Take this into account when
+enabling sink PSR/Panel Replay. Write also PANEL_REPLAY_CONFIG2 register
+accordingly.
 
 Signed-off-by: Jouni Högander <jouni.hogander@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_psr.c | 12 ++++++++++++
- 1 file changed, 12 insertions(+)
+ drivers/gpu/drm/i915/display/intel_psr.c | 63 +++++++++++++++++-------
+ 1 file changed, 46 insertions(+), 17 deletions(-)
 
 diff --git a/drivers/gpu/drm/i915/display/intel_psr.c b/drivers/gpu/drm/i915/display/intel_psr.c
-index 81e29223c026..0a5f0481c6ad 100644
+index 4f1ae5393a60..081109bed0e6 100644
 --- a/drivers/gpu/drm/i915/display/intel_psr.c
 +++ b/drivers/gpu/drm/i915/display/intel_psr.c
-@@ -926,6 +926,18 @@ static u8 frames_before_su_entry(struct intel_dp *intel_dp)
- static void dg2_activate_panel_replay(struct intel_dp *intel_dp)
+@@ -690,6 +690,23 @@ static unsigned int intel_psr_get_enable_sink_offset(struct intel_dp *intel_dp)
+ 		PANEL_REPLAY_CONFIG : DP_PSR_EN_CFG;
+ }
+ 
++static void intel_psr_enable_sink_alpm(struct intel_dp *intel_dp,
++				       const struct intel_crtc_state *crtc_state)
++{
++	u32 val;
++
++	if (!crtc_state->has_sel_update && (!crtc_state->has_panel_replay ||
++					    !intel_dp_is_edp(intel_dp)))
++		return;
++
++	val = DP_ALPM_ENABLE | DP_ALPM_LOCK_ERROR_IRQ_HPD_ENABLE;
++
++	if (crtc_state->has_panel_replay)
++		val |= DP_ALPM_MODE_AUX_LESS;
++
++	drm_dp_dpcd_writeb(&intel_dp->aux, DP_RECEIVER_ALPM_CONFIG, val);
++}
++
+ /*
+  * Note: Most of the bits are same in PANEL_REPLAY_CONFIG and DP_PSR_EN_CFG. We
+  * are relying on PSR definitions on these "common" bits.
+@@ -698,42 +715,54 @@ void intel_psr_enable_sink(struct intel_dp *intel_dp,
+ 			   const struct intel_crtc_state *crtc_state)
  {
  	struct drm_i915_private *dev_priv = dp_to_i915(intel_dp);
-+	struct intel_psr *psr = &intel_dp->psr;
-+	enum transcoder cpu_transcoder = intel_dp->psr.transcoder;
+-	u8 dpcd_val = DP_PSR_ENABLE;
++	u8 enable_val = DP_PSR_ENABLE;
++	u8 panel_replay_config2 = 0;
 +
-+	if (intel_dp_is_edp(intel_dp) && psr->sel_update_enabled) {
-+		u32 val = LNL_EDP_PSR2_SU_REGION_ET_ENABLE;
-+
-+		if (intel_dp->psr.req_psr2_sdp_prior_scanline)
-+			val |= EDP_PSR2_SU_SDP_SCANLINE;
-+
-+		intel_de_write(dev_priv, EDP_PSR2_CTL(dev_priv, cpu_transcoder),
-+			       val);
++	intel_psr_enable_sink_alpm(intel_dp, crtc_state);
+ 
+ 	if (crtc_state->has_sel_update) {
+-		/* Enable ALPM at sink for psr2 */
+-		if (!crtc_state->has_panel_replay) {
+-			drm_dp_dpcd_writeb(&intel_dp->aux,
+-					   DP_RECEIVER_ALPM_CONFIG,
+-					   DP_ALPM_ENABLE |
+-					   DP_ALPM_LOCK_ERROR_IRQ_HPD_ENABLE);
++		/* PSR2 and Panel Replay SU on eDP */
++		if (intel_dp_is_edp(intel_dp)) {
++			if (crtc_state->req_psr2_sdp_prior_scanline) {
++				if (crtc_state->has_panel_replay)
++					panel_replay_config2 |=
++						DP_PANEL_REPLAY_SU_REGION_SCANLINE_CAPTURE;
++				else
++					enable_val |= DP_PSR_SU_REGION_SCANLINE_CAPTURE;
++			}
+ 
+ 			if (psr2_su_region_et_valid(intel_dp, crtc_state->has_panel_replay))
+-				dpcd_val |= DP_PSR_ENABLE_SU_REGION_ET;
++				enable_val |= DP_PSR_ENABLE_SU_REGION_ET;
+ 		}
+ 
+-		dpcd_val |= DP_PSR_ENABLE_PSR2 | DP_PSR_IRQ_HPD_WITH_CRC_ERRORS;
++		enable_val |= DP_PSR_ENABLE_PSR2 | DP_PSR_IRQ_HPD_WITH_CRC_ERRORS;
+ 	} else {
++		/* PSR2 and Panel Replay Full Frame Update */
+ 		if (intel_dp->psr.link_standby)
+-			dpcd_val |= DP_PSR_MAIN_LINK_ACTIVE;
++			enable_val |= DP_PSR_MAIN_LINK_ACTIVE;
+ 
+ 		if (!crtc_state->has_panel_replay && DISPLAY_VER(dev_priv) >= 8)
+-			dpcd_val |= DP_PSR_CRC_VERIFICATION;
++			enable_val |= DP_PSR_CRC_VERIFICATION;
+ 	}
+ 
+-	if (crtc_state->has_panel_replay)
+-		dpcd_val |= DP_PANEL_REPLAY_UNRECOVERABLE_ERROR_EN |
++	if (crtc_state->has_panel_replay) {
++		enable_val |= DP_PANEL_REPLAY_UNRECOVERABLE_ERROR_EN |
+ 			DP_PANEL_REPLAY_RFB_STORAGE_ERROR_EN;
+ 
+-	if (crtc_state->req_psr2_sdp_prior_scanline)
+-		dpcd_val |= DP_PSR_SU_REGION_SCANLINE_CAPTURE;
++		if (intel_dp_is_edp(intel_dp))
++			enable_val |= DP_PANEL_REPLAY_VSC_SDP_CRC_EN;
 +	}
  
- 	intel_de_rmw(dev_priv,
- 		     PSR2_MAN_TRK_CTL(dev_priv, intel_dp->psr.transcoder),
+ 	if (intel_dp->psr.entry_setup_frames > 0)
+-		dpcd_val |= DP_PSR_FRAME_CAPTURE;
++		enable_val |= DP_PSR_FRAME_CAPTURE;
+ 
+ 	drm_dp_dpcd_writeb(&intel_dp->aux,
+ 			   intel_psr_get_enable_sink_offset(intel_dp),
+-			   dpcd_val);
++			   enable_val);
++
++	if (crtc_state->has_panel_replay && intel_dp_is_edp(intel_dp))
++		drm_dp_dpcd_writeb(&intel_dp->aux, PANEL_REPLAY_CONFIG2,
++				   panel_replay_config2);
+ 
+ 	if (intel_dp_is_edp(intel_dp))
+ 		drm_dp_dpcd_writeb(&intel_dp->aux, DP_SET_POWER, DP_SET_POWER_D0);
 -- 
 2.34.1
 
