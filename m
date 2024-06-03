@@ -4,51 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 13380C25B76
-	for <intel-gfx@archiver.kernel.org>; Mon,  3 Jun 2024 13:01:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2B96EC27C52
+	for <intel-gfx@archiver.kernel.org>; Mon,  3 Jun 2024 13:01:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E92BE10E397;
-	Mon,  3 Jun 2024 13:01:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A124710E398;
+	Mon,  3 Jun 2024 13:01:18 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="MDPWtaMp";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="KjfLpLcg";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.17])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B601C10E35C
- for <intel-gfx@lists.freedesktop.org>; Mon,  3 Jun 2024 13:01:11 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id ED5CB10E396
+ for <intel-gfx@lists.freedesktop.org>; Mon,  3 Jun 2024 13:01:12 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1717419672; x=1748955672;
+ t=1717419673; x=1748955673;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=WcSShjXSB9d5zNL5EK1n0puukbwDav4fJXBOT61kjaw=;
- b=MDPWtaMpYYno4C3hZYl80ueiYKL4w7lbh103+6VSCoV47fSHq9r3c0bw
- hXfYZqcujb/IeyjlLe4LvnN40+J+UbmnER2TNe0cvmbBaPl8eVLCZJdqh
- kYYicdXdkMgeO0F1Cp/FumMoEvqFJAwuSXUDxs9g/PbloSBchiyl5sZFF
- gKMeF7PNqh8/bO6Gkq0Fr07GKIeJ92LMaWtAl3ga+xT5nfVETzxm+5AMs
- cHjNEL+UVQq4o+XL4A11cXyik4mR5dFcIxN126PG9jZ9e24DMQLVQTh1s
- W4ywYiTO0mTp/lDuDzWpum3ae7k4odP13Fghkw5o89Ogx/GTec4aXE1Wx g==;
-X-CSE-ConnectionGUID: Z53cjUQYRtyM4YpD1EpECg==
-X-CSE-MsgGUID: FHkQzD+EQKKIqYInYrRyzg==
-X-IronPort-AV: E=McAfee;i="6600,9927,11092"; a="13774471"
-X-IronPort-AV: E=Sophos;i="6.08,211,1712646000"; d="scan'208";a="13774471"
+ bh=BKVCxuHRT6pp1OOKFgBQKRbnC3eY7ZqG114+tXT56lQ=;
+ b=KjfLpLcg/GxmI8/H+yVNSith4QGa4V0Ie1F7IINMO52P9aWtCqhRJAdU
+ rJVpSm63PipmIp1GvPn640ejQgdbpqXPA7TtPBggudz8MPBTk3RwO/l+X
+ BnrS/VthwMvrwtBCfq39xRwSCOavA1nL4pLj0QWTnOcilBCugn6nU0GTx
+ /odF4YyjqgZ/ZY+Y73ORAsvsogDqISrnviBO+0aHuQgx814X9GPPVLrZK
+ 83sBHFgR2ndrHON9aT7BKp+xtjIHAfzFMUdWW8hZJHcjrZiey2Ii+Ewyy
+ cB14A7cVKxDofVsWVCmKSXbnk7oPMdA5ybE10T2UftRI1YoPI9Vw+rvbU A==;
+X-CSE-ConnectionGUID: L12l55W5QTmCpNTkRF6s9w==
+X-CSE-MsgGUID: J3GqbPQJRe2TRaSM141sDA==
+X-IronPort-AV: E=McAfee;i="6600,9927,11092"; a="13774475"
+X-IronPort-AV: E=Sophos;i="6.08,211,1712646000"; d="scan'208";a="13774475"
 Received: from fmviesa003.fm.intel.com ([10.60.135.143])
  by fmvoesa111.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 03 Jun 2024 06:01:07 -0700
-X-CSE-ConnectionGUID: k3kr/l0MT8y+xhWtAxi3FA==
-X-CSE-MsgGUID: +uhGiAsOQdWGc5TDeGik0g==
+ 03 Jun 2024 06:01:11 -0700
+X-CSE-ConnectionGUID: TSr9hWbAQNijNP1I0PE60A==
+X-CSE-MsgGUID: fJpyF5p0SjmhovDPSkvtTw==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.08,211,1712646000"; d="scan'208";a="41291773"
+X-IronPort-AV: E=Sophos;i="6.08,211,1712646000"; d="scan'208";a="41291810"
 Received: from jgulati-mobl.ger.corp.intel.com (HELO jhogande-mobl1.intel.com)
  ([10.251.212.183])
  by fmviesa003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 03 Jun 2024 06:01:06 -0700
+ 03 Jun 2024 06:01:09 -0700
 From: =?UTF-8?q?Jouni=20H=C3=B6gander?= <jouni.hogander@intel.com>
 To: intel-gfx@lists.freedesktop.org
 Cc: animesh.manna@intel.com, mika.kahola@intel.com,
  =?UTF-8?q?Jouni=20H=C3=B6gander?= <jouni.hogander@intel.com>
-Subject: [PATCH v5 06/19] drm/i915/alpm: Make alpm support checks non-static
-Date: Mon,  3 Jun 2024 16:00:30 +0300
-Message-Id: <20240603130043.2615716-7-jouni.hogander@intel.com>
+Subject: [PATCH v5 08/19] drm/i915/psr: Use intel_alpm_aux_wake_supported
+ instead of local variable
+Date: Mon,  3 Jun 2024 16:00:32 +0300
+Message-Id: <20240603130043.2615716-9-jouni.hogander@intel.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20240603130043.2615716-1-jouni.hogander@intel.com>
 References: <20240603130043.2615716-1-jouni.hogander@intel.com>
@@ -71,46 +72,53 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-We want to use intel_alpm_aux_wake_supported and
-intel_alpm_aux_less_wake_supported in intel_psr.c. Convert them as
-non-static.
+We have now intel_alpm_aux_wake_supported. Use that instead of local
+variable.
 
 Signed-off-by: Jouni Högander <jouni.hogander@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_alpm.c | 4 ++--
- drivers/gpu/drm/i915/display/intel_alpm.h | 2 ++
- 2 files changed, 4 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/i915/display/intel_psr.c | 14 ++------------
+ 1 file changed, 2 insertions(+), 12 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_alpm.c b/drivers/gpu/drm/i915/display/intel_alpm.c
-index fd35056237e5..5f766d8be63a 100644
---- a/drivers/gpu/drm/i915/display/intel_alpm.c
-+++ b/drivers/gpu/drm/i915/display/intel_alpm.c
-@@ -11,12 +11,12 @@
- #include "intel_dp_aux.h"
- #include "intel_psr_regs.h"
- 
--static bool intel_alpm_aux_wake_supported(struct intel_dp *intel_dp)
-+bool intel_alpm_aux_wake_supported(struct intel_dp *intel_dp)
- {
- 	return intel_dp->alpm_dpcd & DP_ALPM_CAP;
+diff --git a/drivers/gpu/drm/i915/display/intel_psr.c b/drivers/gpu/drm/i915/display/intel_psr.c
+index a9d82ef37d27..5becf0960c94 100644
+--- a/drivers/gpu/drm/i915/display/intel_psr.c
++++ b/drivers/gpu/drm/i915/display/intel_psr.c
+@@ -446,16 +446,6 @@ void intel_psr_irq_handler(struct intel_dp *intel_dp, u32 psr_iir)
+ 	}
  }
  
--static bool intel_alpm_aux_less_wake_supported(struct intel_dp *intel_dp)
-+bool intel_alpm_aux_less_wake_supported(struct intel_dp *intel_dp)
+-static bool intel_dp_get_alpm_status(struct intel_dp *intel_dp)
+-{
+-	u8 alpm_caps = 0;
+-
+-	if (drm_dp_dpcd_readb(&intel_dp->aux, DP_RECEIVER_ALPM_CAP,
+-			      &alpm_caps) != 1)
+-		return false;
+-	return alpm_caps & DP_ALPM_CAP;
+-}
+-
+ static u8 intel_dp_get_sink_sync_latency(struct intel_dp *intel_dp)
  {
- 	return intel_dp->alpm_dpcd & DP_ALPM_AUX_LESS_CAP;
- }
-diff --git a/drivers/gpu/drm/i915/display/intel_alpm.h b/drivers/gpu/drm/i915/display/intel_alpm.h
-index c82ecc7b4001..d4fb60393c91 100644
---- a/drivers/gpu/drm/i915/display/intel_alpm.h
-+++ b/drivers/gpu/drm/i915/display/intel_alpm.h
-@@ -22,4 +22,6 @@ void intel_alpm_lobf_compute_config(struct intel_dp *intel_dp,
- void intel_alpm_configure(struct intel_dp *intel_dp,
- 			  const struct intel_crtc_state *crtc_state);
- void intel_alpm_lobf_debugfs_add(struct intel_connector *connector);
-+bool intel_alpm_aux_wake_supported(struct intel_dp *intel_dp);
-+bool intel_alpm_aux_less_wake_supported(struct intel_dp *intel_dp);
- #endif
+ 	struct drm_i915_private *i915 = dp_to_i915(intel_dp);
+@@ -607,7 +597,6 @@ static void _psr_init_dpcd(struct intel_dp *intel_dp)
+ 	    intel_dp->psr_dpcd[0] >= DP_PSR2_WITH_Y_COORD_IS_SUPPORTED) {
+ 		bool y_req = intel_dp->psr_dpcd[1] &
+ 			     DP_PSR2_SU_Y_COORDINATE_REQUIRED;
+-		bool alpm = intel_dp_get_alpm_status(intel_dp);
+ 
+ 		/*
+ 		 * All panels that supports PSR version 03h (PSR2 +
+@@ -620,7 +609,8 @@ static void _psr_init_dpcd(struct intel_dp *intel_dp)
+ 		 * Y-coordinate requirement panels we would need to enable
+ 		 * GTC first.
+ 		 */
+-		intel_dp->psr.sink_psr2_support = y_req && alpm;
++		intel_dp->psr.sink_psr2_support = y_req &&
++			intel_alpm_aux_wake_supported(intel_dp);
+ 		drm_dbg_kms(&i915->drm, "PSR2 %ssupported\n",
+ 			    intel_dp->psr.sink_psr2_support ? "" : "not ");
+ 	}
 -- 
 2.34.1
 
