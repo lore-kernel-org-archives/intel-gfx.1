@@ -4,52 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 45D3FC25B76
-	for <intel-gfx@archiver.kernel.org>; Mon,  3 Jun 2024 13:01:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 04E82C25B76
+	for <intel-gfx@archiver.kernel.org>; Mon,  3 Jun 2024 13:01:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 93C5110E3B3;
-	Mon,  3 Jun 2024 13:01:33 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EA70310E3AB;
+	Mon,  3 Jun 2024 13:01:35 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="YWd1Pr6O";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="XcxevdYc";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.17])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0B9FA10E3A4
- for <intel-gfx@lists.freedesktop.org>; Mon,  3 Jun 2024 13:01:26 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9852E10E3AB
+ for <intel-gfx@lists.freedesktop.org>; Mon,  3 Jun 2024 13:01:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1717419686; x=1748955686;
+ t=1717419690; x=1748955690;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=rbdiKdD3JjIdZ0DUN0doxj5iBJyixzLmQOAp94UiFcs=;
- b=YWd1Pr6OJyqYSM4w93iUMWlCe8Vz2Hsem6uImG2sfExtfDCXZiMUQHuJ
- J2fsOwuWsB0plkI1xuwlqwgBvWorto/DmZVmeSY0Oc5pDAz5j9GiBhcPK
- Og0MRyT7qZ6yO9dSESC9+Cbph+U2l0lign4aMAGKuavPDHo0DsAmnDIVy
- a6ROdlNB41gCUDAbN/4R0EEn1nOqC3sUnExg/8nP1d6xLiCOrcL7EveMj
- u+UHpBiiLi5D5cn2jkm3okZeF1DlfxWolEFlN/d8MpNz/MUszBSx0qj6x
- InEe8vMl4kQO8L02x+27tctGoBeUrrySmvmf/IRrdhdu0ulhj41YZCaKR A==;
-X-CSE-ConnectionGUID: NtDMXkG1QOuP/wC1mYbCmg==
-X-CSE-MsgGUID: wHJ1Pt1xTweVaJ2gkJcR8A==
-X-IronPort-AV: E=McAfee;i="6600,9927,11092"; a="13774505"
-X-IronPort-AV: E=Sophos;i="6.08,211,1712646000"; d="scan'208";a="13774505"
+ bh=FTO11mQWAGGEdI3CVI9wR/zNrL+zpGPa1SZ6Gt9LQgg=;
+ b=XcxevdYcjUSU5+ikEZoAugmNY8MOmnFqVSiCko95QzmsCET/MfYYjv56
+ m3/RLmqPAZnKINc9aYy6HrXAgdImCMWe92JRLi9c8O1RdfLaUw7/PAUvx
+ OZZ2xNYjYtkLzDhzv6Wk5xsYZshYuh2eMdB/NdTXnQz0+1acdU70nF22L
+ cCxX/E6JjFlTuQ9pYEWmpMhyNpoSCpWjgMwJeloHV1IfOZPVJHC0qRJpN
+ j6kP64coLcLQr4YFNfgUBIi/CB2Ud3MXoqygs+rVxATBJSub9xiW88jD6
+ bPaNZA9g05nTEj+J/MSQT8r6PaMj2Nay3i7QX/cIx60OGMuv/SqzTgW6+ A==;
+X-CSE-ConnectionGUID: VXewYgFdTd23U56ohpeeag==
+X-CSE-MsgGUID: v//uRrggQ4q69VjBUvIrGA==
+X-IronPort-AV: E=McAfee;i="6600,9927,11092"; a="13774512"
+X-IronPort-AV: E=Sophos;i="6.08,211,1712646000"; d="scan'208";a="13774512"
 Received: from fmviesa003.fm.intel.com ([10.60.135.143])
  by fmvoesa111.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 03 Jun 2024 06:01:26 -0700
-X-CSE-ConnectionGUID: Brd9eT5MTFCiyIlSnQ8cNQ==
-X-CSE-MsgGUID: xGPZnW4aThG8Bq86XewVMA==
+ 03 Jun 2024 06:01:30 -0700
+X-CSE-ConnectionGUID: 8L9bOgYETmac9qw+zzdMMw==
+X-CSE-MsgGUID: +z5KHs4+TpWDVGtoNFRpMQ==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.08,211,1712646000"; d="scan'208";a="41291951"
+X-IronPort-AV: E=Sophos;i="6.08,211,1712646000"; d="scan'208";a="41292003"
 Received: from jgulati-mobl.ger.corp.intel.com (HELO jhogande-mobl1.intel.com)
  ([10.251.212.183])
  by fmviesa003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 03 Jun 2024 06:01:24 -0700
+ 03 Jun 2024 06:01:28 -0700
 From: =?UTF-8?q?Jouni=20H=C3=B6gander?= <jouni.hogander@intel.com>
 To: intel-gfx@lists.freedesktop.org
 Cc: animesh.manna@intel.com, mika.kahola@intel.com,
  =?UTF-8?q?Jouni=20H=C3=B6gander?= <jouni.hogander@intel.com>
-Subject: [PATCH v5 17/19] drm/i915/psr: Modify dg2_activate_panel_replay to
- support eDP
-Date: Mon,  3 Jun 2024 16:00:41 +0300
-Message-Id: <20240603130043.2615716-18-jouni.hogander@intel.com>
+Subject: [PATCH v5 19/19] Revert "drm/i915/psr: Disable early transport by
+ default"
+Date: Mon,  3 Jun 2024 16:00:43 +0300
+Message-Id: <20240603130043.2615716-20-jouni.hogander@intel.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20240603130043.2615716-1-jouni.hogander@intel.com>
 References: <20240603130043.2615716-1-jouni.hogander@intel.com>
@@ -72,42 +72,31 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-There are couple of bits in PSR2_CTL which needs to be written in case of
-eDP Panel Replay
+This reverts commit f3c2031db7dfdf470a2d9bf3bd1efa6edfa72d8d.
 
-Bspec: 68920
-
-v2: use boolean instead of assuming eDP Panel Replay mean Early Transport
+We want to notice possible issues faced with PSR2 Region Early Transport as
+early as possible -> let's revert patch disabling Region Early Transport by
+default. Also eDP 1.5 Panel Replay requires Early Transport.
 
 Signed-off-by: Jouni Högander <jouni.hogander@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_psr.c | 13 +++++++++++++
- 1 file changed, 13 insertions(+)
+ drivers/gpu/drm/i915/display/intel_psr.c | 3 ---
+ 1 file changed, 3 deletions(-)
 
 diff --git a/drivers/gpu/drm/i915/display/intel_psr.c b/drivers/gpu/drm/i915/display/intel_psr.c
-index b918175e9307..e696c760cedb 100644
+index e1861ba8fc0c..68704f6badcb 100644
 --- a/drivers/gpu/drm/i915/display/intel_psr.c
 +++ b/drivers/gpu/drm/i915/display/intel_psr.c
-@@ -930,6 +930,19 @@ static u8 frames_before_su_entry(struct intel_dp *intel_dp)
- static void dg2_activate_panel_replay(struct intel_dp *intel_dp)
- {
- 	struct drm_i915_private *dev_priv = dp_to_i915(intel_dp);
-+	struct intel_psr *psr = &intel_dp->psr;
-+	enum transcoder cpu_transcoder = intel_dp->psr.transcoder;
-+
-+	if (intel_dp_is_edp(intel_dp) && psr->sel_update_enabled) {
-+		u32 val = psr->su_region_et_enabled ?
-+			LNL_EDP_PSR2_SU_REGION_ET_ENABLE : 0;
-+
-+		if (intel_dp->psr.req_psr2_sdp_prior_scanline)
-+			val |= EDP_PSR2_SU_SDP_SCANLINE;
-+
-+		intel_de_write(dev_priv, EDP_PSR2_CTL(dev_priv, cpu_transcoder),
-+			       val);
-+	}
+@@ -3151,9 +3151,6 @@ void intel_psr_init(struct intel_dp *intel_dp)
+ 	if (HAS_PSR(dev_priv) && intel_dp_is_edp(intel_dp))
+ 		intel_dp->psr.source_support = true;
  
- 	intel_de_rmw(dev_priv,
- 		     PSR2_MAN_TRK_CTL(dev_priv, intel_dp->psr.transcoder),
+-	/* Disable early transport for now */
+-	intel_dp->psr.debug |= I915_PSR_DEBUG_SU_REGION_ET_DISABLE;
+-
+ 	/* Set link_standby x link_off defaults */
+ 	if (DISPLAY_VER(dev_priv) < 12)
+ 		/* For new platforms up to TGL let's respect VBT back again */
 -- 
 2.34.1
 
