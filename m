@@ -4,50 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3CFCCC25B75
-	for <intel-gfx@archiver.kernel.org>; Mon,  3 Jun 2024 05:59:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BB8B6C27C4F
+	for <intel-gfx@archiver.kernel.org>; Mon,  3 Jun 2024 05:59:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2204C10E29F;
-	Mon,  3 Jun 2024 05:59:36 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 491C710E2AB;
+	Mon,  3 Jun 2024 05:59:40 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="BYXOw3hH";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="RPGfwmSt";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.9])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1E9EA10E291;
- Mon,  3 Jun 2024 05:59:32 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1397410E2A9;
+ Mon,  3 Jun 2024 05:59:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1717394372; x=1748930372;
+ t=1717394377; x=1748930377;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=E9j6q8PCJEm9kMj4BuzX9ZCmgnl1BJhdUlLOTaeEitk=;
- b=BYXOw3hHuegn/EsFa3MB0puyUHie7L/eG7kvhry9GYRysCV248y2zqDQ
- BdwyS1iSx3kQ0wjlZ5CsUrsAD93JuE/D7EqmykTKsP1VeTVqutvG0D87b
- /ugkUWhki+FNTD8uTRo75KK5LgcCJAoTwdKDROd46ByiqB08Oc3GuzFsJ
- Ye0T++l56lFlUyhrKUHHF8zHHG8DFk5FmZX0arruDmzVt8PSz5oJcdec5
- myoBK8LTiMNYUh74lpHZYrJgeiQh/ZiTUiaFZcuzmC55f0mTUwWVkJrpN
- bfGbVTq1LQklav6PaHuyDwtgSUJNzfoZ6W8UqdZdGxsX+2qj1g22+KqFV w==;
-X-CSE-ConnectionGUID: 76rreH0tRgyHAbeGEHxTxg==
-X-CSE-MsgGUID: TxIYRi18RqW3m+DJ1qJSpg==
-X-IronPort-AV: E=McAfee;i="6600,9927,11091"; a="24527522"
-X-IronPort-AV: E=Sophos;i="6.08,210,1712646000"; d="scan'208";a="24527522"
+ bh=RmNfJqDKZbQEfzwy67D9xvQPiMvwjRMMC/LlKFL8GQ4=;
+ b=RPGfwmStEtN+mt6E/I+6MRoURGxtreNwfYW4WRNyjEgYYJaLwL4Ka7oa
+ opwk7kHjMhF8YUvVObPGSJ3Kj3kZN9puKPlN9w2RsX9Ge1pqZ3ixEzXIN
+ xRkNyFT1Wzp5UOrWvw3g3eTo73wFFWcP24Md4afbF4ds7n4vG5Enkjg71
+ naQpAc2mcf/UEanNLREoRjI3NnWc5eqWcSCqfrrhIgJ1+4YZ4sPpwNugv
+ vUemyiHgySQXivZkwl5ofc4m2z0yDI5WsQVSx4HwoTylCc8uT18Q7csRM
+ 1IgemCXqpyqioTAKC0MN92GwlZjZX2QBORsdhaEESo3nLHxdRqF0lqhGi w==;
+X-CSE-ConnectionGUID: PONlUxOTTB+HEvomXNi3Jw==
+X-CSE-MsgGUID: 1ZksQU+ZTBqyX7RZHM4LIA==
+X-IronPort-AV: E=McAfee;i="6600,9927,11091"; a="24527526"
+X-IronPort-AV: E=Sophos;i="6.08,210,1712646000"; d="scan'208";a="24527526"
 Received: from orviesa002.jf.intel.com ([10.64.159.142])
  by fmvoesa103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 02 Jun 2024 22:59:32 -0700
-X-CSE-ConnectionGUID: 8tjx8cioQN2RvFKPkIQnTg==
-X-CSE-MsgGUID: v3jqxv0HS3eqmIXHSevZEw==
+ 02 Jun 2024 22:59:37 -0700
+X-CSE-ConnectionGUID: ySEcAIs7Ram2yIIXLGD+XA==
+X-CSE-MsgGUID: oOknITzmQ/ygsbERBboHMQ==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.08,210,1712646000"; d="scan'208";a="67616492"
+X-IronPort-AV: E=Sophos;i="6.08,210,1712646000"; d="scan'208";a="67616502"
 Received: from mgolanimitul-x299-ud4-pro.iind.intel.com ([10.190.239.114])
- by orviesa002.jf.intel.com with ESMTP; 02 Jun 2024 22:59:31 -0700
+ by orviesa002.jf.intel.com with ESMTP; 02 Jun 2024 22:59:36 -0700
 From: Mitul Golani <mitulkumar.ajitkumar.golani@intel.com>
 To: intel-gfx@lists.freedesktop.org
 Cc: dri-devel@lists.freedesktop.org, ankit.k.nautiyal@intel.com,
  jani.nikula@intel.com
-Subject: [PATCH v11 4/8] drm/dp: Add refresh rate divider to struct
- representing AS SDP
-Date: Mon,  3 Jun 2024 11:19:00 +0530
-Message-Id: <20240603054904.222589-5-mitulkumar.ajitkumar.golani@intel.com>
+Subject: [PATCH v11 7/8] drm/i915/display: Compute vrr vsync params
+Date: Mon,  3 Jun 2024 11:19:03 +0530
+Message-Id: <20240603054904.222589-8-mitulkumar.ajitkumar.golani@intel.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20240603054904.222589-1-mitulkumar.ajitkumar.golani@intel.com>
 References: <20240603054904.222589-1-mitulkumar.ajitkumar.golani@intel.com>
@@ -68,30 +67,51 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Add target_rr_divider to structure representing AS SDP.
-It is valid only in FAVT mode, sink device ignores the bit in AVT
-mode.
+Compute vrr vsync params in case of FAVT as well instead of
+only to AVT mode of operation.
 
 --v2:
-- Update commit header and send patch to dri-devel.
+- Remove redundant computation for vrr_vsync_start
+and vrr_vsync_end(Ankit).
+
+--v3:
+- vrr.enable and cmrr.enable check together is not required as both
+will be true at the same point in time. (Ankit)
+- Replace vrr.enable flag to cmrr.enable, mistakenly added. (Ankit)
 
 Signed-off-by: Mitul Golani <mitulkumar.ajitkumar.golani@intel.com>
-Reviewed-by: Arun R Murthy <arun.r.murthy@intel.com>
+Reviewed-by: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
 ---
- include/drm/display/drm_dp_helper.h | 1 +
- 1 file changed, 1 insertion(+)
+ drivers/gpu/drm/i915/display/intel_vrr.c | 17 +++++++++--------
+ 1 file changed, 9 insertions(+), 8 deletions(-)
 
-diff --git a/include/drm/display/drm_dp_helper.h b/include/drm/display/drm_dp_helper.h
-index 8defcc399f42..ea03e1dd26ba 100644
---- a/include/drm/display/drm_dp_helper.h
-+++ b/include/drm/display/drm_dp_helper.h
-@@ -122,6 +122,7 @@ struct drm_dp_as_sdp {
- 	int target_rr;
- 	int duration_incr_ms;
- 	int duration_decr_ms;
-+	bool target_rr_divider;
- 	enum operation_mode mode;
- };
+diff --git a/drivers/gpu/drm/i915/display/intel_vrr.c b/drivers/gpu/drm/i915/display/intel_vrr.c
+index 19b364074de0..4ad99a54aa83 100644
+--- a/drivers/gpu/drm/i915/display/intel_vrr.c
++++ b/drivers/gpu/drm/i915/display/intel_vrr.c
+@@ -175,14 +175,15 @@ intel_vrr_compute_config(struct intel_crtc_state *crtc_state,
+ 	if (crtc_state->uapi.vrr_enabled) {
+ 		crtc_state->vrr.enable = true;
+ 		crtc_state->mode_flags |= I915_MODE_FLAG_VRR;
+-		if (intel_dp_as_sdp_supported(intel_dp)) {
+-			crtc_state->vrr.vsync_start =
+-				(crtc_state->hw.adjusted_mode.crtc_vtotal -
+-					crtc_state->hw.adjusted_mode.vsync_start);
+-			crtc_state->vrr.vsync_end =
+-				(crtc_state->hw.adjusted_mode.crtc_vtotal -
+-					crtc_state->hw.adjusted_mode.vsync_end);
+-		}
++	}
++
++	if (intel_dp_as_sdp_supported(intel_dp)) {
++		crtc_state->vrr.vsync_start =
++			(crtc_state->hw.adjusted_mode.crtc_vtotal -
++			 crtc_state->hw.adjusted_mode.vsync_start);
++		crtc_state->vrr.vsync_end =
++			(crtc_state->hw.adjusted_mode.crtc_vtotal -
++			 crtc_state->hw.adjusted_mode.vsync_end);
+ 	}
+ }
  
 -- 
 2.25.1
