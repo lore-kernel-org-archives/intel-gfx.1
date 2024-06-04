@@ -4,50 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 42D09C27C52
-	for <intel-gfx@archiver.kernel.org>; Tue,  4 Jun 2024 15:27:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 72EBAC25B78
+	for <intel-gfx@archiver.kernel.org>; Tue,  4 Jun 2024 15:27:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 42AE610E4DE;
-	Tue,  4 Jun 2024 15:27:45 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 587EF10E0B8;
+	Tue,  4 Jun 2024 15:27:56 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="W0gt/AAv";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="dvBoVAGG";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B7D3010E0B8
- for <intel-gfx@lists.freedesktop.org>; Tue,  4 Jun 2024 15:27:42 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 758DC10E4E7
+ for <intel-gfx@lists.freedesktop.org>; Tue,  4 Jun 2024 15:27:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1717514863; x=1749050863;
+ t=1717514873; x=1749050873;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=cdm0lijiLxZ5BOMTZr5BABO6Dsb7kX4xfj27fzblFKw=;
- b=W0gt/AAvBiCCC47D9RvQ+VZu7EPJeRKlzH2KjSn7HlvyNAlQtfQeIPpi
- x03L+mweVg5f6DA71RmGHLE2s4cOQ58lh2v8aDbq6fZCeQCkQCZAbCPVh
- uaVO+fCAfv4D9hXwJHT36uMe70P/BSc3HLJGoutlwJJWdeY3PrtpZldft
- Jq/jnGE461SsgCRfuxSWihnL62EI3JXXC5GMVqaT1HTO9sKoeRVX7Fkyl
- wkBaGnCuLftKbLJ02kPgOhEdzd63r3V3yG8mmdusMCYIKMJllHJLjSBmC
- aaH8/SOJ7o0bTjLt2Z4KjDf7tEIhMJbVBSjkaLLxE8iOJISmldH4WM33T A==;
-X-CSE-ConnectionGUID: tO0HciLCSwuNVeHwXbYbkQ==
-X-CSE-MsgGUID: HSz44DO5QaKApEYFMac90Q==
-X-IronPort-AV: E=McAfee;i="6600,9927,11093"; a="25469765"
-X-IronPort-AV: E=Sophos;i="6.08,214,1712646000"; d="scan'208";a="25469765"
+ bh=kwE/AyBRc3hUaTHRcPHGj0n4J8SCWKwRY7Os1e0JlaE=;
+ b=dvBoVAGG6QCf2eUTGwLonqnDDUTKO6JibkciiSCLXmXd5OhD72TZh0KV
+ fADy8/wTGxnXSAPLU68xPA1AfW3L1uF+L/kFAe5vPj8XSPY59xSMJAeaJ
+ KGxgW0iqgIu6GrgWEa2yyL5C4gJpGkrjVT0Zu+7JO4P2A1ed0llnVg0+Y
+ vBWhoPOZQsXL4D0WnfkrkcS9T837QRVlXrbk8WV3uXCqIk7wGYgbXo9St
+ NMz7Pl+mFN5ky3vDRCizT0ilNCHzqjSJIH8V4rNFWHkeXOJW1k/F3d8Rw
+ MrlNHH7yl3w4V8a4hhCNelH9AM3pSesit8KPJufbTZwPwdIopcZ9efQsK w==;
+X-CSE-ConnectionGUID: DBAFaphbSXSAXAEoc7jeRg==
+X-CSE-MsgGUID: CFlcWFaNTjy99AaK1Jr/Pg==
+X-IronPort-AV: E=McAfee;i="6600,9927,11093"; a="25469777"
+X-IronPort-AV: E=Sophos;i="6.08,214,1712646000"; d="scan'208";a="25469777"
 Received: from orviesa004.jf.intel.com ([10.64.159.144])
  by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 04 Jun 2024 08:27:43 -0700
-X-CSE-ConnectionGUID: z/4yViFyTKafBRPffJGiRg==
-X-CSE-MsgGUID: NAvlERjeQrakFriGqrBgMQ==
+ 04 Jun 2024 08:27:52 -0700
+X-CSE-ConnectionGUID: EjiLmFsERi2oaV+8hYw4Iw==
+X-CSE-MsgGUID: /vt2JRzFQI+skW9amEsxxg==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.08,214,1712646000"; d="scan'208";a="42383383"
+X-IronPort-AV: E=Sophos;i="6.08,214,1712646000"; d="scan'208";a="42383453"
 Received: from mwiniars-desk2.ger.corp.intel.com (HELO localhost)
  ([10.245.246.123])
  by orviesa004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 04 Jun 2024 08:27:42 -0700
+ 04 Jun 2024 08:27:51 -0700
 From: Jani Nikula <jani.nikula@intel.com>
 To: intel-gfx@lists.freedesktop.org
 Cc: jani.nikula@intel.com
-Subject: [PATCH 15/65] drm/i915: pass dev_priv explicitly to PFIT_CONTROL
-Date: Tue,  4 Jun 2024 18:25:33 +0300
-Message-Id: <fad44d3d987d914c83844cdf172adaa19772e035.1717514638.git.jani.nikula@intel.com>
+Subject: [PATCH 17/65] drm/i915: pass dev_priv explicitly to PFIT_AUTO_RATIOS
+Date: Tue,  4 Jun 2024 18:25:35 +0300
+Message-Id: <148e8c66d37b5eb3077eef44018591d8b6a57937.1717514638.git.jani.nikula@intel.com>
 X-Mailer: git-send-email 2.39.2
 In-Reply-To: <cover.1717514638.git.jani.nikula@intel.com>
 References: <cover.1717514638.git.jani.nikula@intel.com>
@@ -70,95 +70,41 @@ Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 Avoid the implicit dev_priv local variable use, and pass dev_priv
-explicitly to the PFIT_CONTROL register macro.
+explicitly to the PFIT_AUTO_RATIOS register macro.
 
 Signed-off-by: Jani Nikula <jani.nikula@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_display.c | 11 ++++++-----
- drivers/gpu/drm/i915/display/intel_lvds.c    |  2 +-
- drivers/gpu/drm/i915/display/intel_overlay.c |  2 +-
- drivers/gpu/drm/i915/i915_reg.h              |  2 +-
- 4 files changed, 9 insertions(+), 8 deletions(-)
+ drivers/gpu/drm/i915/display/intel_overlay.c | 3 ++-
+ drivers/gpu/drm/i915/i915_reg.h              | 2 +-
+ 2 files changed, 3 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
-index e7ee4970e306..49672694293f 100644
---- a/drivers/gpu/drm/i915/display/intel_display.c
-+++ b/drivers/gpu/drm/i915/display/intel_display.c
-@@ -1861,12 +1861,13 @@ static void i9xx_pfit_enable(const struct intel_crtc_state *crtc_state)
- 	 * according to register description and PRM.
- 	 */
- 	drm_WARN_ON(&dev_priv->drm,
--		    intel_de_read(dev_priv, PFIT_CONTROL) & PFIT_ENABLE);
-+		    intel_de_read(dev_priv, PFIT_CONTROL(dev_priv)) & PFIT_ENABLE);
- 	assert_transcoder_disabled(dev_priv, crtc_state->cpu_transcoder);
- 
- 	intel_de_write(dev_priv, PFIT_PGM_RATIOS,
- 		       crtc_state->gmch_pfit.pgm_ratios);
--	intel_de_write(dev_priv, PFIT_CONTROL, crtc_state->gmch_pfit.control);
-+	intel_de_write(dev_priv, PFIT_CONTROL(dev_priv),
-+		       crtc_state->gmch_pfit.control);
- 
- 	/* Border color in case we don't scale up to the full screen. Black by
- 	 * default, change to something else for debugging. */
-@@ -2195,8 +2196,8 @@ static void i9xx_pfit_disable(const struct intel_crtc_state *old_crtc_state)
- 	assert_transcoder_disabled(dev_priv, old_crtc_state->cpu_transcoder);
- 
- 	drm_dbg_kms(&dev_priv->drm, "disabling pfit, current: 0x%08x\n",
--		    intel_de_read(dev_priv, PFIT_CONTROL));
--	intel_de_write(dev_priv, PFIT_CONTROL, 0);
-+		    intel_de_read(dev_priv, PFIT_CONTROL(dev_priv)));
-+	intel_de_write(dev_priv, PFIT_CONTROL(dev_priv), 0);
- }
- 
- static void i9xx_crtc_disable(struct intel_atomic_state *state,
-@@ -2974,7 +2975,7 @@ static void i9xx_get_pfit_config(struct intel_crtc_state *crtc_state)
- 	if (!i9xx_has_pfit(dev_priv))
- 		return;
- 
--	tmp = intel_de_read(dev_priv, PFIT_CONTROL);
-+	tmp = intel_de_read(dev_priv, PFIT_CONTROL(dev_priv));
- 	if (!(tmp & PFIT_ENABLE))
- 		return;
- 
-diff --git a/drivers/gpu/drm/i915/display/intel_lvds.c b/drivers/gpu/drm/i915/display/intel_lvds.c
-index 891777481dd9..9f018503d4fd 100644
---- a/drivers/gpu/drm/i915/display/intel_lvds.c
-+++ b/drivers/gpu/drm/i915/display/intel_lvds.c
-@@ -148,7 +148,7 @@ static void intel_lvds_get_config(struct intel_encoder *encoder,
- 
- 	/* gen2/3 store dither state in pfit control, needs to match */
- 	if (DISPLAY_VER(dev_priv) < 4) {
--		tmp = intel_de_read(dev_priv, PFIT_CONTROL);
-+		tmp = intel_de_read(dev_priv, PFIT_CONTROL(dev_priv));
- 
- 		crtc_state->gmch_pfit.control |= tmp & PFIT_PANEL_8TO6_DITHER_ENABLE;
- 	}
 diff --git a/drivers/gpu/drm/i915/display/intel_overlay.c b/drivers/gpu/drm/i915/display/intel_overlay.c
-index 1c2099ed5514..e41881f08d1f 100644
+index 117120ce5a1d..d3d0e22cdd34 100644
 --- a/drivers/gpu/drm/i915/display/intel_overlay.c
 +++ b/drivers/gpu/drm/i915/display/intel_overlay.c
-@@ -950,7 +950,7 @@ static void update_pfit_vscale_ratio(struct intel_overlay *overlay)
- 	} else {
+@@ -951,7 +951,8 @@ static void update_pfit_vscale_ratio(struct intel_overlay *overlay)
  		u32 tmp;
  
--		if (intel_de_read(dev_priv, PFIT_CONTROL) & PFIT_VERT_AUTO_SCALE)
-+		if (intel_de_read(dev_priv, PFIT_CONTROL(dev_priv)) & PFIT_VERT_AUTO_SCALE)
- 			tmp = intel_de_read(dev_priv, PFIT_AUTO_RATIOS);
+ 		if (intel_de_read(dev_priv, PFIT_CONTROL(dev_priv)) & PFIT_VERT_AUTO_SCALE)
+-			tmp = intel_de_read(dev_priv, PFIT_AUTO_RATIOS);
++			tmp = intel_de_read(dev_priv,
++					    PFIT_AUTO_RATIOS(dev_priv));
  		else
- 			tmp = intel_de_read(dev_priv, PFIT_PGM_RATIOS);
+ 			tmp = intel_de_read(dev_priv,
+ 					    PFIT_PGM_RATIOS(dev_priv));
 diff --git a/drivers/gpu/drm/i915/i915_reg.h b/drivers/gpu/drm/i915/i915_reg.h
-index 166c7f4f9c6c..b0dbe6113bbc 100644
+index 094e693c40bf..cd6eda1b6bef 100644
 --- a/drivers/gpu/drm/i915/i915_reg.h
 +++ b/drivers/gpu/drm/i915/i915_reg.h
-@@ -1588,7 +1588,7 @@
- #define   VIDEO_DIP_ENABLE_AS_ADL	REG_BIT(23)
+@@ -1617,7 +1617,7 @@
+ #define   PFIT_VERT_SCALE_MASK_965	REG_GENMASK(28, 16) /* 965+ */
+ #define   PFIT_HORIZ_SCALE_MASK_965	REG_GENMASK(12, 0) /* 965+ */
  
- /* Panel fitting */
--#define PFIT_CONTROL	_MMIO(DISPLAY_MMIO_BASE(dev_priv) + 0x61230)
-+#define PFIT_CONTROL(dev_priv)	_MMIO(DISPLAY_MMIO_BASE(dev_priv) + 0x61230)
- #define   PFIT_ENABLE			REG_BIT(31)
- #define   PFIT_PIPE_MASK		REG_GENMASK(30, 29) /* 965+ */
- #define   PFIT_PIPE(pipe)		REG_FIELD_PREP(PFIT_PIPE_MASK, (pipe))
+-#define PFIT_AUTO_RATIOS _MMIO(DISPLAY_MMIO_BASE(dev_priv) + 0x61238)
++#define PFIT_AUTO_RATIOS(dev_priv) _MMIO(DISPLAY_MMIO_BASE(dev_priv) + 0x61238)
+ 
+ #define PCH_GTC_CTL		_MMIO(0xe7000)
+ #define   PCH_GTC_ENABLE	(1 << 31)
 -- 
 2.39.2
 
