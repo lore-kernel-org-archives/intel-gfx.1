@@ -4,50 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 19F1FC25B78
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BB762C27C52
 	for <intel-gfx@archiver.kernel.org>; Tue,  4 Jun 2024 15:30:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2738F10E516;
+	by gabe.freedesktop.org (Postfix) with ESMTP id D855810E525;
 	Tue,  4 Jun 2024 15:30:35 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="jSRTrbNI";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="g4uAxZBX";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.8])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F25BB10E509
- for <intel-gfx@lists.freedesktop.org>; Tue,  4 Jun 2024 15:30:24 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7EBA410E511
+ for <intel-gfx@lists.freedesktop.org>; Tue,  4 Jun 2024 15:30:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1717515027; x=1749051027;
+ t=1717515019; x=1749051019;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=1lwJSozuQesCahQRbxN7Q4h5aUixXv8gpC4IkgJvD0w=;
- b=jSRTrbNIX/QQ3S/AnHzXXentYTYJJLWKUMgFuVMD34tHQcz6//HmhC/1
- haVuTLMXkvh0vQYkU+XnWeF0y+uYGxPxIC1XPYHqMnyd7a0HHsPtJNciR
- ESU8ufmz3/isWBpjtSFsSxoOPO0A0gfsT+ZPo2otK8TMibkYMXPYlYlPs
- 0V+oRnfwx2mnurg/KBSSUonG0GxDC16wAEN/9/FRedfbxCr/cK1Qzlhvh
- 8rEMUQzuxzCSaqoENxR6B9afHWjw4tSg7I3kBO0XnMzq6fO5c0ngshlsy
- h4lRTC+3IajmOl2KitN7wJ03iwOjer9seDQfDzonBndgO1KeIozD2TuFd A==;
-X-CSE-ConnectionGUID: FKmpHkB0TyydnQv/IraF7g==
-X-CSE-MsgGUID: kbFOwjU2ShS5pQqmIKaRCw==
-X-IronPort-AV: E=McAfee;i="6600,9927,11093"; a="31605429"
-X-IronPort-AV: E=Sophos;i="6.08,214,1712646000"; d="scan'208";a="31605429"
+ bh=+pPCOKcOkXH5io/Duj8SzSXOIucrz370gg0tb9paK3Y=;
+ b=g4uAxZBXFMYxnz0z5+o6sBqoUzLJg7suPjxbdlybHhF25q099yt5Jt8O
+ GJ+nOMH7WxaMRsWU3I/ZZ5tEoPf4uKw3XyjGU7242BcjHjeUXkksWrYjQ
+ SNPG9aD8FGT78kEp4zDGtrMXAbMzUJaGghlaw86PjC7TnavcMFxi/DglL
+ NvdPVd9a5nKHqJRfWfc98rRwUTlCicc38RcEwderHLIu0MePcSCoiKJQF
+ XcQYujYMedxibg1+DBLSWOAiS2k3bcmcvK9wnbhYxCRfz2YuEIir/Mdai
+ pbHFn+olpjFhGIx3+lIYM8JY2ihhH8CbkziLAtd9MaMwyIIMSjbW0Sld2 Q==;
+X-CSE-ConnectionGUID: 0uL35ERRRUucB/RfJCB1yw==
+X-CSE-MsgGUID: S5h59HA1Tt68DwSer9F6hw==
+X-IronPort-AV: E=McAfee;i="6600,9927,11093"; a="31605406"
+X-IronPort-AV: E=Sophos;i="6.08,214,1712646000"; d="scan'208";a="31605406"
 Received: from fmviesa007.fm.intel.com ([10.60.135.147])
  by fmvoesa102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 04 Jun 2024 08:30:24 -0700
-X-CSE-ConnectionGUID: Qt5SlOwwS4+x/RUobC8xiw==
-X-CSE-MsgGUID: Ib07YOTtQXidTxYl+UVe+Q==
+ 04 Jun 2024 08:30:16 -0700
+X-CSE-ConnectionGUID: p68BijEEThi2s7VPJ8s8zQ==
+X-CSE-MsgGUID: eRs9fDKeT/2ECgWAnKG6Zw==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.08,214,1712646000"; d="scan'208";a="37145056"
+X-IronPort-AV: E=Sophos;i="6.08,214,1712646000"; d="scan'208";a="37144984"
 Received: from mwiniars-desk2.ger.corp.intel.com (HELO localhost)
  ([10.245.246.123])
  by fmviesa007-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 04 Jun 2024 08:30:24 -0700
+ 04 Jun 2024 08:30:15 -0700
 From: Jani Nikula <jani.nikula@intel.com>
 To: intel-gfx@lists.freedesktop.org
 Cc: jani.nikula@intel.com
-Subject: [PATCH 49/65] drm/i915: pass dev_priv explicitly to _DSPBSURFLIVE
-Date: Tue,  4 Jun 2024 18:26:07 +0300
-Message-Id: <5f05ab9ecfb07c8261c8b5ddea3472259ee1a788.1717514638.git.jani.nikula@intel.com>
+Subject: [PATCH 47/65] drm/i915: pass dev_priv explicitly to _DSPBTILEOFF
+Date: Tue,  4 Jun 2024 18:26:05 +0300
+Message-Id: <66ab5fd62709b4ebfcdfbe45381818e477bd7551.1717514638.git.jani.nikula@intel.com>
 X-Mailer: git-send-email 2.39.2
 In-Reply-To: <cover.1717514638.git.jani.nikula@intel.com>
 References: <cover.1717514638.git.jani.nikula@intel.com>
@@ -70,7 +70,7 @@ Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 Avoid the implicit dev_priv local variable use, and pass dev_priv
-explicitly to the _DSPBSURFLIVE register macro.
+explicitly to the _DSPBTILEOFF register macro.
 
 Signed-off-by: Jani Nikula <jani.nikula@intel.com>
 ---
@@ -78,18 +78,18 @@ Signed-off-by: Jani Nikula <jani.nikula@intel.com>
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/drivers/gpu/drm/i915/i915_reg.h b/drivers/gpu/drm/i915/i915_reg.h
-index 03c7b55e1bd3..62cb456568e5 100644
+index 9bb840895baa..7c4251f62411 100644
 --- a/drivers/gpu/drm/i915/i915_reg.h
 +++ b/drivers/gpu/drm/i915/i915_reg.h
-@@ -2316,7 +2316,7 @@
+@@ -2314,7 +2314,7 @@
+ #define _DSPBPOS(dev_priv)		(DISPLAY_MMIO_BASE(dev_priv) + 0x7118C)
+ #define _DSPBSIZE(dev_priv)		(DISPLAY_MMIO_BASE(dev_priv) + 0x71190)
  #define _DSPBSURF(dev_priv)		(DISPLAY_MMIO_BASE(dev_priv) + 0x7119C)
- #define _DSPBTILEOFF(dev_priv)		(DISPLAY_MMIO_BASE(dev_priv) + 0x711A4)
- #define _DSPBOFFSET(dev_priv)		(DISPLAY_MMIO_BASE(dev_priv) + 0x711A4)
--#define _DSPBSURFLIVE		(DISPLAY_MMIO_BASE(dev_priv) + 0x711AC)
-+#define _DSPBSURFLIVE(dev_priv)		(DISPLAY_MMIO_BASE(dev_priv) + 0x711AC)
+-#define _DSPBTILEOFF		(DISPLAY_MMIO_BASE(dev_priv) + 0x711A4)
++#define _DSPBTILEOFF(dev_priv)		(DISPLAY_MMIO_BASE(dev_priv) + 0x711A4)
+ #define _DSPBOFFSET		(DISPLAY_MMIO_BASE(dev_priv) + 0x711A4)
+ #define _DSPBSURFLIVE		(DISPLAY_MMIO_BASE(dev_priv) + 0x711AC)
  
- /* ICL DSI 0 and 1 */
- #define _PIPEDSI0CONF		0x7b008
 -- 
 2.39.2
 
