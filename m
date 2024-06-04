@@ -4,34 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CA9C9C25B78
-	for <intel-gfx@archiver.kernel.org>; Tue,  4 Jun 2024 15:26:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0F944C27C53
+	for <intel-gfx@archiver.kernel.org>; Tue,  4 Jun 2024 15:26:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6F61810E4AF;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2986410E4AE;
 	Tue,  4 Jun 2024 15:26:43 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="JWil5/qF";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="hjcHsHh4";
 	dkim-atps=neutral
-Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4DE3D10E3E5;
- Mon,  3 Jun 2024 22:00:39 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sin.source.kernel.org (Postfix) with ESMTP id 02B41CE0F7B;
- Mon,  3 Jun 2024 22:00:36 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 54BDEC2BD10;
- Mon,  3 Jun 2024 22:00:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1717452035;
- bh=ZMS/4Gp6hXyd9fPwx/y5x+q7VhsaGgJvMHFGFXB2aCI=;
- h=Date:From:To:Cc:Subject:In-Reply-To:From;
- b=JWil5/qFuymosoPDATfZqx6FJDnMlkeS59q6fSB+oGtZnzLWlZsOYK17IUuX1oHS1
- +ZGbOlO5XGTxStebKzleLLdP/ku6ByksYgWD6+z1Mv7KGjnwR3GMzWiuZo1J++YQBe
- YnonzpNdWoLK+5fnowMqG8M5MeJ10EV/gsKGvDpIY4wVIBC1HO+F/kfe8gBd+/QboZ
- BrnDQ+EAlvw7Yi4J9eZ6M1GbDt3y6+iqhqMKYxUzNtAOVfJ3SN/iHY1B0HdRGk77/Z
- OryQ3BNvB0McYwdX86nz7FOZKP/BNHRMgHpGVTqXr+aaBtJCcPNM0ORUNnE3rDopfE
- 4lfytT5yAufhQ==
-Date: Mon, 3 Jun 2024 17:00:32 -0500
-From: Bjorn Helgaas <helgaas@kernel.org>
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.12])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A279C10E203;
+ Tue,  4 Jun 2024 08:24:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1717489443; x=1749025443;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:in-reply-to;
+ bh=+++E6PT7Ikl/BMgbDWFQCaPzsOD33MgC2YSDizKZxfM=;
+ b=hjcHsHh4rR3xAdSXlm3C6G2Kp2/W7ffGHBrhPphJOiggQzNfwXO8w7Y0
+ +o6Pe4ipvC3QSdDEkxjPQk/jbYthOkqDLGEnZmrmuBTDPxn5GibAgd+AN
+ WnK4SkEFNHCoaKG+vzr0H49OXGa0LZGhfi8tXg8odTToCISAsImaiRLmB
+ OSsuys1dgi2CBYqcOMmo1lNUiQX+yeuGO53eyIt2pRDa3juOdh/zeY6Yf
+ 0quJdHyYCpn1dGvYTqQLRGVLApDCKBYPiT00+l7VjF343NaMMMujDEFxR
+ ahmQ1j/hupNokuxh1tJDGH6FnTXE/sDQrfaJBBKw26M5vhneI1qOqBEbz A==;
+X-CSE-ConnectionGUID: aRIn4eBfSyuhC2KB+1+83w==
+X-CSE-MsgGUID: 3qkvFA73QfipblN7OZKDew==
+X-IronPort-AV: E=McAfee;i="6600,9927,11092"; a="25418656"
+X-IronPort-AV: E=Sophos;i="6.08,213,1712646000"; d="scan'208";a="25418656"
+Received: from fmviesa007.fm.intel.com ([10.60.135.147])
+ by orvoesa104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 04 Jun 2024 01:24:02 -0700
+X-CSE-ConnectionGUID: QnqcRERvTtiWVVqObAcxXA==
+X-CSE-MsgGUID: PnRo7jT/R82Chm81jYLsGg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.08,213,1712646000"; d="scan'208";a="37030218"
+Received: from turnipsi.fi.intel.com (HELO kekkonen.fi.intel.com)
+ ([10.237.72.44])
+ by fmviesa007-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 04 Jun 2024 01:23:51 -0700
+Received: from kekkonen.localdomain (localhost [127.0.0.1])
+ by kekkonen.fi.intel.com (Postfix) with SMTP id E1B7911FA4A;
+ Tue,  4 Jun 2024 11:23:48 +0300 (EEST)
+Date: Tue, 4 Jun 2024 08:23:48 +0000
+From: Sakari Ailus <sakari.ailus@linux.intel.com>
 To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
 Cc: "Rafael J. Wysocki" <rafael.j.wysocki@intel.com>,
  Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
@@ -53,7 +68,7 @@ Cc: "Rafael J. Wysocki" <rafael.j.wysocki@intel.com>,
  Chunfeng Yun <chunfeng.yun@mediatek.com>,
  Linus Walleij <linus.walleij@linaro.org>,
  Hans de Goede <hdegoede@redhat.com>,
- Ilpo =?utf-8?B?SsOkcnZpbmVu?= <ilpo.jarvinen@linux.intel.com>,
+ Ilpo =?iso-8859-1?Q?J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>,
  Nikita Kravets <teackot@gmail.com>, Jiri Slaby <jirislaby@kernel.org>,
  Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>,
  Stanley Chang <stanley_chang@realtek.com>,
@@ -109,7 +124,6 @@ Cc: "Rafael J. Wysocki" <rafael.j.wysocki@intel.com>,
  Len Brown <lenb@kernel.org>, Sergey Shtylyov <s.shtylyov@omp.ru>,
  Damien Le Moal <dlemoal@kernel.org>, Niklas Cassel <cassel@kernel.org>,
  Daniel Scally <djrscally@gmail.com>,
- Sakari Ailus <sakari.ailus@linux.intel.com>,
  Michael Turquette <mturquette@baylibre.com>,
  Stephen Boyd <sboyd@kernel.org>,
  Florian Fainelli <florian.fainelli@broadcom.com>,
@@ -177,12 +191,13 @@ Cc: "Rafael J. Wysocki" <rafael.j.wysocki@intel.com>,
  Linus Torvalds <torvalds@linux-foundation.org>
 Subject: Re: [PATCH v1 1/1] treewide: Align match_string() with
  sysfs_match_string()
-Message-ID: <20240603220032.GA701908@bhelgaas>
+Message-ID: <Zl7PFGprypdZi6ql@kekkonen.localdomain>
+References: <20240603211538.289765-1-andriy.shevchenko@linux.intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 In-Reply-To: <20240603211538.289765-1-andriy.shevchenko@linux.intel.com>
-X-Mailman-Approved-At: Tue, 04 Jun 2024 15:26:34 +0000
+X-Mailman-Approved-At: Tue, 04 Jun 2024 15:26:35 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -198,51 +213,33 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
+Hi Andy,
+
 On Sun, Jun 02, 2024 at 06:57:12PM +0300, Andy Shevchenko wrote:
-> Make two APIs look similar. Hence convert match_string() to be
-> a 2-argument macro. In order to avoid unneeded churn, convert
-> all users as well. There is no functional change intended.
-
-Looks nice, thanks for doing this.
-
-> diff --git a/drivers/pci/pcie/aer.c b/drivers/pci/pcie/aer.c
-> index ac6293c24976..2d317c7e1cea 100644
-> --- a/drivers/pci/pcie/aer.c
-> +++ b/drivers/pci/pcie/aer.c
-> @@ -210,7 +210,7 @@ void pcie_ecrc_get_policy(char *str)
->  {
->  	int i;
+> diff --git a/drivers/acpi/scan.c b/drivers/acpi/scan.c
+> index 503773707e01..9cb350de30f0 100644
+> --- a/drivers/acpi/scan.c
+> +++ b/drivers/acpi/scan.c
+> @@ -798,7 +798,7 @@ static bool acpi_info_matches_ids(struct acpi_device_info *info,
+>  	if (!(info->valid & ACPI_VALID_HID))
+>  		return false;
 >  
-> -	i = match_string(ecrc_policy_str, ARRAY_SIZE(ecrc_policy_str), str);
-> +	i = match_string(ecrc_policy_str, str);
->  	if (i < 0)
->  		return;
+> -	index = match_string(ids, -1, info->hardware_id.string);
+> +	index = __match_string(ids, -1, info->hardware_id.string);
+>  	if (index >= 0)
+>  		return true;
 >  
-
-Acked-by: Bjorn Helgaas <bhelgaas@google.com>	# drivers/pci/
-
-> +++ b/mm/vmpressure.c
-> @@ -388,7 +388,7 @@ int vmpressure_register_event(struct mem_cgroup *memcg,
+> @@ -809,7 +809,7 @@ static bool acpi_info_matches_ids(struct acpi_device_info *info,
+>  		return false;
 >  
->  	/* Find required level */
->  	token = strsep(&spec, ",");
-> -	ret = match_string(vmpressure_str_levels, VMPRESSURE_NUM_LEVELS, token);
-> +	ret = match_string(vmpressure_str_levels, token);
+>  	for (i = 0; i < cid_list->count; i++) {
+> -		index = match_string(ids, -1, cid_list->ids[i].string);
+> +		index = __match_string(ids, -1, cid_list->ids[i].string);
+>  		if (index >= 0)
+>  			return true;
+>  	}
 
-VMPRESSURE_NUM_LEVELS looks like it's no longer used?
+Reviewed-by: Sakari Ailus <sakari.ailus@linux.intel.com> # drivers/acpi
 
->  	if (ret < 0)
->  		goto out;
->  	level = ret;
-> @@ -396,7 +396,7 @@ int vmpressure_register_event(struct mem_cgroup *memcg,
->  	/* Find optional mode */
->  	token = strsep(&spec, ",");
->  	if (token) {
-> -		ret = match_string(vmpressure_str_modes, VMPRESSURE_NUM_MODES, token);
-> +		ret = match_string(vmpressure_str_modes, token);
-
-Ditto.
-
->  		if (ret < 0)
->  			goto out;
->  		mode = ret;
+-- 
+Sakari Ailus
