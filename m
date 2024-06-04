@@ -4,50 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DA51BC25B78
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EE77CC27C53
 	for <intel-gfx@archiver.kernel.org>; Tue,  4 Jun 2024 15:31:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DF33D10E51C;
-	Tue,  4 Jun 2024 15:31:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 023F010E521;
+	Tue,  4 Jun 2024 15:31:27 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="eWqtDJGd";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="BWKYvovY";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.9])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 54EE110E50C
- for <intel-gfx@lists.freedesktop.org>; Tue,  4 Jun 2024 15:31:25 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.18])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D509310E518
+ for <intel-gfx@lists.freedesktop.org>; Tue,  4 Jun 2024 15:31:20 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1717515085; x=1749051085;
+ t=1717515081; x=1749051081;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=xbC/PkxzzNtm+ip+5439t3OOpsNj0ToHdY1+bTTdHWU=;
- b=eWqtDJGdVixZTDCz8FWyLR+KRudXVjEESb7iscM67huF8NntumRn1SXi
- oOk5e8ASg75oYEDZF7YF/V0D9acPL+0yJRlhJ70s7K+FBsTFn4qRU+frz
- BfnPmfgzEEWWJsl0n0+6VN3pVLq2UFfWkeXrml2wuXJxp3dYqDT9c5L+Q
- WLulAUuMRysvA2wolwekl8D10SXPFJI4O/CkMKZDmGU6tWenso5rgnL0y
- /vFSBH37kap+TqWGa6AsdlPKie5GRvZhh6JcuuL7txCtonnJl3v7XHHLz
- ZgY5odwcKW5VAubZw+Nb16wb8AdWcT7mNJ42F9HhFfqMnKArbcywCirjv A==;
-X-CSE-ConnectionGUID: 9VOxQ9ESTjuriTkDKMfN+Q==
-X-CSE-MsgGUID: fi0gFJbMQ9uO/IG29K518A==
-X-IronPort-AV: E=McAfee;i="6600,9927,11093"; a="24733642"
-X-IronPort-AV: E=Sophos;i="6.08,214,1712646000"; d="scan'208";a="24733642"
-Received: from fmviesa004.fm.intel.com ([10.60.135.144])
- by fmvoesa103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 04 Jun 2024 08:31:25 -0700
-X-CSE-ConnectionGUID: cJXbqAC4Rz+yoJvusI0FYA==
-X-CSE-MsgGUID: itBIvHmdT0WLEtEP6IJDew==
+ bh=9Hbpktk7SJ6T97n0XZzemsOxFfw9TTKAA9Svd8kJ0zw=;
+ b=BWKYvovYTJTvwh3dfstZZ1K6f9L6vKGDNdYOqUglWQ+W91cqt5c2mWr9
+ dfqwe8CEv0YeVx3t5aWHdA5caz09DDl5R28PIepwCDNFTNb3L3BHet9jd
+ 3h1/IFk67l+7DU9DhoxT6Mb7tgHusmdnvEsh9vxB8M6E2rnfW/EjMo0yS
+ nCNJH7jLNJiNVowOOOLEHwkewepNo5ZVe9HoyYqn4pVxervlFhaF58834
+ ppkxMOppOnDe5ziydoroGZKzcmIJnskL0ZQYFtjVEpqFpoQw96OzYK+7O
+ f2+E1SvzRiYfroGnmRKgYdUSyck90joZJYdtZaAOpIZMKbWljFDZWkYzY Q==;
+X-CSE-ConnectionGUID: HCuqcaoURRGF4Hw2u/h+hg==
+X-CSE-MsgGUID: mdJ8CN4gS02ryplmvX+vPA==
+X-IronPort-AV: E=McAfee;i="6600,9927,11093"; a="13822129"
+X-IronPort-AV: E=Sophos;i="6.08,214,1712646000"; d="scan'208";a="13822129"
+Received: from orviesa008.jf.intel.com ([10.64.159.148])
+ by fmvoesa112.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 04 Jun 2024 08:30:55 -0700
+X-CSE-ConnectionGUID: lUiSfvWoS7WrNJZ07rPIlA==
+X-CSE-MsgGUID: OEZCGDiRQVasPFdSECYFrA==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.08,214,1712646000"; d="scan'208";a="41828102"
+X-IronPort-AV: E=Sophos;i="6.08,214,1712646000"; d="scan'208";a="37859457"
 Received: from mwiniars-desk2.ger.corp.intel.com (HELO localhost)
  ([10.245.246.123])
- by fmviesa004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 04 Jun 2024 08:31:24 -0700
+ by orviesa008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 04 Jun 2024 08:30:54 -0700
 From: Jani Nikula <jani.nikula@intel.com>
 To: intel-gfx@lists.freedesktop.org
 Cc: jani.nikula@intel.com
-Subject: [PATCH 62/65] drm/i915: pass dev_priv explicitly to TGL_DP_TP_STATUS
-Date: Tue,  4 Jun 2024 18:26:20 +0300
-Message-Id: <c7aaf0e981324bfc5b3aec31f30a7b1a158ba568.1717514638.git.jani.nikula@intel.com>
+Subject: [PATCH 56/65] drm/i915: pass dev_priv explicitly to PIPE_LINK_M2
+Date: Tue,  4 Jun 2024 18:26:14 +0300
+Message-Id: <31337adcaca1333724600b0afe6e3880f0948d5e.1717514638.git.jani.nikula@intel.com>
 X-Mailer: git-send-email 2.39.2
 In-Reply-To: <cover.1717514638.git.jani.nikula@intel.com>
 References: <cover.1717514638.git.jani.nikula@intel.com>
@@ -70,41 +70,92 @@ Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 Avoid the implicit dev_priv local variable use, and pass dev_priv
-explicitly to the TGL_DP_TP_STATUS register macro.
+explicitly to the PIPE_LINK_M2 register macro.
 
 Signed-off-by: Jani Nikula <jani.nikula@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_ddi.c | 3 ++-
- drivers/gpu/drm/i915/i915_reg.h          | 2 +-
- 2 files changed, 3 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/i915/display/intel_display.c | 6 ++++--
+ drivers/gpu/drm/i915/i915_reg.h              | 2 +-
+ drivers/gpu/drm/i915/intel_gvt_mmio_table.c  | 8 ++++----
+ 3 files changed, 9 insertions(+), 7 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_ddi.c b/drivers/gpu/drm/i915/display/intel_ddi.c
-index 135c2e7964fc..368cd1312d8a 100644
---- a/drivers/gpu/drm/i915/display/intel_ddi.c
-+++ b/drivers/gpu/drm/i915/display/intel_ddi.c
-@@ -2196,7 +2196,8 @@ i915_reg_t dp_tp_status_reg(struct intel_encoder *encoder,
- 	struct drm_i915_private *dev_priv = to_i915(encoder->base.dev);
- 
- 	if (DISPLAY_VER(dev_priv) >= 12)
--		return TGL_DP_TP_STATUS(tgl_dp_tp_transcoder(crtc_state));
-+		return TGL_DP_TP_STATUS(dev_priv,
-+				        tgl_dp_tp_transcoder(crtc_state));
- 	else
- 		return DP_TP_STATUS(encoder->port);
+diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
+index eef317984564..9df8e486a86e 100644
+--- a/drivers/gpu/drm/i915/display/intel_display.c
++++ b/drivers/gpu/drm/i915/display/intel_display.c
+@@ -2663,7 +2663,8 @@ void intel_cpu_transcoder_set_m2_n2(struct intel_crtc *crtc,
+ 	intel_set_m_n(dev_priv, m_n,
+ 		      PIPE_DATA_M2(dev_priv, transcoder),
+ 		      PIPE_DATA_N2(dev_priv, transcoder),
+-		      PIPE_LINK_M2(transcoder), PIPE_LINK_N2(transcoder));
++		      PIPE_LINK_M2(dev_priv, transcoder),
++		      PIPE_LINK_N2(transcoder));
  }
+ 
+ static void intel_set_transcoder_timings(const struct intel_crtc_state *crtc_state)
+@@ -3362,7 +3363,8 @@ void intel_cpu_transcoder_get_m2_n2(struct intel_crtc *crtc,
+ 	intel_get_m_n(dev_priv, m_n,
+ 		      PIPE_DATA_M2(dev_priv, transcoder),
+ 		      PIPE_DATA_N2(dev_priv, transcoder),
+-		      PIPE_LINK_M2(transcoder), PIPE_LINK_N2(transcoder));
++		      PIPE_LINK_M2(dev_priv, transcoder),
++		      PIPE_LINK_N2(transcoder));
+ }
+ 
+ static void ilk_get_pfit_config(struct intel_crtc_state *crtc_state)
 diff --git a/drivers/gpu/drm/i915/i915_reg.h b/drivers/gpu/drm/i915/i915_reg.h
-index c1547ecdc352..3de6e4f54bc0 100644
+index ac9ef4bd176e..2a73ad779e26 100644
 --- a/drivers/gpu/drm/i915/i915_reg.h
 +++ b/drivers/gpu/drm/i915/i915_reg.h
-@@ -4048,7 +4048,7 @@ enum skl_power_gate {
- #define _DP_TP_STATUS_B			0x64144
- #define _TGL_DP_TP_STATUS_A		0x60544
- #define DP_TP_STATUS(port) _MMIO_PORT(port, _DP_TP_STATUS_A, _DP_TP_STATUS_B)
--#define TGL_DP_TP_STATUS(tran) _MMIO_TRANS2(dev_priv, (tran), _TGL_DP_TP_STATUS_A)
-+#define TGL_DP_TP_STATUS(dev_priv, tran) _MMIO_TRANS2(dev_priv, (tran), _TGL_DP_TP_STATUS_A)
- #define  DP_TP_STATUS_FEC_ENABLE_LIVE		(1 << 28)
- #define  DP_TP_STATUS_IDLE_DONE			(1 << 25)
- #define  DP_TP_STATUS_ACT_SENT			(1 << 24)
+@@ -2385,7 +2385,7 @@
+ #define PIPE_DATA_N2(dev_priv, tran) _MMIO_TRANS2(dev_priv, tran, _PIPEA_DATA_N2)
+ #define PIPE_LINK_M1(dev_priv, tran) _MMIO_TRANS2(dev_priv, tran, _PIPEA_LINK_M1)
+ #define PIPE_LINK_N1(dev_priv, tran) _MMIO_TRANS2(dev_priv, tran, _PIPEA_LINK_N1)
+-#define PIPE_LINK_M2(tran) _MMIO_TRANS2(dev_priv, tran, _PIPEA_LINK_M2)
++#define PIPE_LINK_M2(dev_priv, tran) _MMIO_TRANS2(dev_priv, tran, _PIPEA_LINK_M2)
+ #define PIPE_LINK_N2(tran) _MMIO_TRANS2(dev_priv, tran, _PIPEA_LINK_N2)
+ 
+ /* CPU panel fitter */
+diff --git a/drivers/gpu/drm/i915/intel_gvt_mmio_table.c b/drivers/gpu/drm/i915/intel_gvt_mmio_table.c
+index 00ce7147a9b6..d1a51ae042f1 100644
+--- a/drivers/gpu/drm/i915/intel_gvt_mmio_table.c
++++ b/drivers/gpu/drm/i915/intel_gvt_mmio_table.c
+@@ -272,7 +272,7 @@ static int iterate_generic_mmio(struct intel_gvt_mmio_table_iter *iter)
+ 	MMIO_D(PIPE_DATA_N2(dev_priv, TRANSCODER_A));
+ 	MMIO_D(PIPE_LINK_M1(dev_priv, TRANSCODER_A));
+ 	MMIO_D(PIPE_LINK_N1(dev_priv, TRANSCODER_A));
+-	MMIO_D(PIPE_LINK_M2(TRANSCODER_A));
++	MMIO_D(PIPE_LINK_M2(dev_priv, TRANSCODER_A));
+ 	MMIO_D(PIPE_LINK_N2(TRANSCODER_A));
+ 	MMIO_D(PIPE_DATA_M1(dev_priv, TRANSCODER_B));
+ 	MMIO_D(PIPE_DATA_N1(dev_priv, TRANSCODER_B));
+@@ -280,7 +280,7 @@ static int iterate_generic_mmio(struct intel_gvt_mmio_table_iter *iter)
+ 	MMIO_D(PIPE_DATA_N2(dev_priv, TRANSCODER_B));
+ 	MMIO_D(PIPE_LINK_M1(dev_priv, TRANSCODER_B));
+ 	MMIO_D(PIPE_LINK_N1(dev_priv, TRANSCODER_B));
+-	MMIO_D(PIPE_LINK_M2(TRANSCODER_B));
++	MMIO_D(PIPE_LINK_M2(dev_priv, TRANSCODER_B));
+ 	MMIO_D(PIPE_LINK_N2(TRANSCODER_B));
+ 	MMIO_D(PIPE_DATA_M1(dev_priv, TRANSCODER_C));
+ 	MMIO_D(PIPE_DATA_N1(dev_priv, TRANSCODER_C));
+@@ -288,7 +288,7 @@ static int iterate_generic_mmio(struct intel_gvt_mmio_table_iter *iter)
+ 	MMIO_D(PIPE_DATA_N2(dev_priv, TRANSCODER_C));
+ 	MMIO_D(PIPE_LINK_M1(dev_priv, TRANSCODER_C));
+ 	MMIO_D(PIPE_LINK_N1(dev_priv, TRANSCODER_C));
+-	MMIO_D(PIPE_LINK_M2(TRANSCODER_C));
++	MMIO_D(PIPE_LINK_M2(dev_priv, TRANSCODER_C));
+ 	MMIO_D(PIPE_LINK_N2(TRANSCODER_C));
+ 	MMIO_D(PIPE_DATA_M1(dev_priv, TRANSCODER_EDP));
+ 	MMIO_D(PIPE_DATA_N1(dev_priv, TRANSCODER_EDP));
+@@ -296,7 +296,7 @@ static int iterate_generic_mmio(struct intel_gvt_mmio_table_iter *iter)
+ 	MMIO_D(PIPE_DATA_N2(dev_priv, TRANSCODER_EDP));
+ 	MMIO_D(PIPE_LINK_M1(dev_priv, TRANSCODER_EDP));
+ 	MMIO_D(PIPE_LINK_N1(dev_priv, TRANSCODER_EDP));
+-	MMIO_D(PIPE_LINK_M2(TRANSCODER_EDP));
++	MMIO_D(PIPE_LINK_M2(dev_priv, TRANSCODER_EDP));
+ 	MMIO_D(PIPE_LINK_N2(TRANSCODER_EDP));
+ 	MMIO_D(PF_CTL(PIPE_A));
+ 	MMIO_D(PF_WIN_SZ(PIPE_A));
 -- 
 2.39.2
 
