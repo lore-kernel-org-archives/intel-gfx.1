@@ -4,50 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5C7FFC27C53
-	for <intel-gfx@archiver.kernel.org>; Tue,  4 Jun 2024 15:27:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 77278C25B78
+	for <intel-gfx@archiver.kernel.org>; Tue,  4 Jun 2024 15:28:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A69BB10E4E2;
-	Tue,  4 Jun 2024 15:27:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CA64110E4CC;
+	Tue,  4 Jun 2024 15:28:04 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="kJYwhKto";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="fvNVdQtJ";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A2CC510E4E2
- for <intel-gfx@lists.freedesktop.org>; Tue,  4 Jun 2024 15:27:47 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.18])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D61F610E4E5
+ for <intel-gfx@lists.freedesktop.org>; Tue,  4 Jun 2024 15:28:01 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1717514868; x=1749050868;
+ t=1717514882; x=1749050882;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=H/6mz60XEpLp6QPOs6PG+lZInM2YrsFJGNHL1HgWwTY=;
- b=kJYwhKtoos6kkdx/Hw38QiJf3lqG7IApqVpj0XK3Hmjf9Kyy5UWmeRU2
- rU0CtSldzGIO7eQQnExHY/ilUuMXvSrVK9Y3IZc48jDPe4a2QJCkYgnIe
- Wcpx5sRQIHLN9izyYUJNy80vdJlXlw8Y0iBm3I2uYIxlf8UZSkhFz/1MK
- 91c0tpVEq8iceKVD9ZTf1zaf3Niln6S6ju9kkH5BzcQk77bEx8t6IEz0J
- cZpQj8dMHYiA+tTFLEVLpRKI08nH7fm4IkZJx0dz28LFllZxdsOWFpLud
- m5PWdNovwUT1KdS4t7hGPA4V611pAIBzkOes1gv5pMG2mgMZp2t+D3nNU A==;
-X-CSE-ConnectionGUID: 1TvxYyrjQpOkJHbymcw0fg==
-X-CSE-MsgGUID: MtJ682b4S+O+vE8ahP8FVA==
-X-IronPort-AV: E=McAfee;i="6600,9927,11093"; a="25469772"
-X-IronPort-AV: E=Sophos;i="6.08,214,1712646000"; d="scan'208";a="25469772"
-Received: from orviesa004.jf.intel.com ([10.64.159.144])
- by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 04 Jun 2024 08:27:48 -0700
-X-CSE-ConnectionGUID: wSqhK0HQSAirgRNOBXKujg==
-X-CSE-MsgGUID: ihnVeoeJQYOIa0wmmVr+OQ==
+ bh=S4hWnFkviDwd3Nhh9k2ytguF1ujxK0H6IezfMtH98os=;
+ b=fvNVdQtJboFLgpXAqxf929LQKs/STV9eTeh1jKIw27g38n4+2QPU1y2v
+ uWaGqDxTj8idaarp9YBJJQC+/IZcCssd0E1c1a9WWLYSSNVeGyJ3wCrNB
+ t1owILG5QVlPiynC5+DGTPKNIxULHKERdr4/yAlYR4z7e8/+EN3MnBp+2
+ 34Ob0ksMTa7QcQL/yx04tETX8HlQa3Lgio7NkdgiUxf7IVmGl3egssqL0
+ OguUVPCTsdNUqMjpmla8ZNIJyh/Wb6MApltI8HyH8TdU3WDxnzFsf8FnJ
+ ce3bBML7ECq5St7Dxgoa33mQ4tfZkZ2XD/3ZhSrsSkzTvwbZAeYtIh8A4 A==;
+X-CSE-ConnectionGUID: oRXTD/FJSZe+u5arzc1qqQ==
+X-CSE-MsgGUID: sfZtkwkHR3S4moFFSAUP1w==
+X-IronPort-AV: E=McAfee;i="6600,9927,11093"; a="14225600"
+X-IronPort-AV: E=Sophos;i="6.08,214,1712646000"; d="scan'208";a="14225600"
+Received: from fmviesa006.fm.intel.com ([10.60.135.146])
+ by orvoesa110.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 04 Jun 2024 08:28:01 -0700
+X-CSE-ConnectionGUID: d1FnHkrYQbOR1ZV4DfhYNg==
+X-CSE-MsgGUID: BEEH+QTySam7ovTqrinDmg==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.08,214,1712646000"; d="scan'208";a="42383426"
+X-IronPort-AV: E=Sophos;i="6.08,214,1712646000"; d="scan'208";a="37277928"
 Received: from mwiniars-desk2.ger.corp.intel.com (HELO localhost)
  ([10.245.246.123])
- by orviesa004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 04 Jun 2024 08:27:47 -0700
+ by fmviesa006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 04 Jun 2024 08:28:00 -0700
 From: Jani Nikula <jani.nikula@intel.com>
 To: intel-gfx@lists.freedesktop.org
 Cc: jani.nikula@intel.com
-Subject: [PATCH 16/65] drm/i915: pass dev_priv explicitly to PFIT_PGM_RATIOS
-Date: Tue,  4 Jun 2024 18:25:34 +0300
-Message-Id: <8453205c9619bb8453bf4904d0c5bb868f614fc4.1717514638.git.jani.nikula@intel.com>
+Subject: [PATCH 19/65] drm/i915: pass dev_priv explicitly to PIPEDSL
+Date: Tue,  4 Jun 2024 18:25:37 +0300
+Message-Id: <53b751f5a883318d44b690284d2e9d5a43fba860.1717514638.git.jani.nikula@intel.com>
 X-Mailer: git-send-email 2.39.2
 In-Reply-To: <cover.1717514638.git.jani.nikula@intel.com>
 References: <cover.1717514638.git.jani.nikula@intel.com>
@@ -70,73 +70,120 @@ Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 Avoid the implicit dev_priv local variable use, and pass dev_priv
-explicitly to the PFIT_PGM_RATIOS register macro.
+explicitly to the PIPEDSL register macro.
 
 Signed-off-by: Jani Nikula <jani.nikula@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_display.c | 4 ++--
- drivers/gpu/drm/i915/display/intel_overlay.c | 5 +++--
- drivers/gpu/drm/i915/i915_reg.h              | 2 +-
- 3 files changed, 6 insertions(+), 5 deletions(-)
+ drivers/gpu/drm/i915/display/intel_crt.c    | 6 +++---
+ drivers/gpu/drm/i915/display/intel_hdmi.c   | 3 ++-
+ drivers/gpu/drm/i915/display/intel_vblank.c | 7 ++++---
+ drivers/gpu/drm/i915/i915_reg.h             | 2 +-
+ drivers/gpu/drm/i915/intel_gvt_mmio_table.c | 8 ++++----
+ 5 files changed, 14 insertions(+), 12 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
-index 49672694293f..1e2ddae5ba94 100644
---- a/drivers/gpu/drm/i915/display/intel_display.c
-+++ b/drivers/gpu/drm/i915/display/intel_display.c
-@@ -1864,7 +1864,7 @@ static void i9xx_pfit_enable(const struct intel_crtc_state *crtc_state)
- 		    intel_de_read(dev_priv, PFIT_CONTROL(dev_priv)) & PFIT_ENABLE);
- 	assert_transcoder_disabled(dev_priv, crtc_state->cpu_transcoder);
+diff --git a/drivers/gpu/drm/i915/display/intel_crt.c b/drivers/gpu/drm/i915/display/intel_crt.c
+index d4f16d894eda..835c8b844494 100644
+--- a/drivers/gpu/drm/i915/display/intel_crt.c
++++ b/drivers/gpu/drm/i915/display/intel_crt.c
+@@ -771,9 +771,9 @@ intel_crt_load_detect(struct intel_crt *crt, enum pipe pipe)
+ 		/*
+ 		 * Wait for the border to be displayed
+ 		 */
+-		while (intel_de_read(dev_priv, PIPEDSL(pipe)) >= vactive)
++		while (intel_de_read(dev_priv, PIPEDSL(dev_priv, pipe)) >= vactive)
+ 			;
+-		while ((dsl = intel_de_read(dev_priv, PIPEDSL(pipe))) <= vsample)
++		while ((dsl = intel_de_read(dev_priv, PIPEDSL(dev_priv, pipe))) <= vsample)
+ 			;
+ 		/*
+ 		 * Watch ST00 for an entire scanline
+@@ -786,7 +786,7 @@ intel_crt_load_detect(struct intel_crt *crt, enum pipe pipe)
+ 			st00 = intel_de_read8(dev_priv, _VGA_MSR_WRITE);
+ 			if (st00 & (1 << 4))
+ 				detect++;
+-		} while ((intel_de_read(dev_priv, PIPEDSL(pipe)) == dsl));
++		} while ((intel_de_read(dev_priv, PIPEDSL(dev_priv, pipe)) == dsl));
  
--	intel_de_write(dev_priv, PFIT_PGM_RATIOS,
-+	intel_de_write(dev_priv, PFIT_PGM_RATIOS(dev_priv),
- 		       crtc_state->gmch_pfit.pgm_ratios);
- 	intel_de_write(dev_priv, PFIT_CONTROL(dev_priv),
- 		       crtc_state->gmch_pfit.control);
-@@ -2990,7 +2990,7 @@ static void i9xx_get_pfit_config(struct intel_crtc_state *crtc_state)
+ 		/* restore vblank if necessary */
+ 		if (restore_vblank)
+diff --git a/drivers/gpu/drm/i915/display/intel_hdmi.c b/drivers/gpu/drm/i915/display/intel_hdmi.c
+index 06ec9ce7fe1c..7704ead5002d 100644
+--- a/drivers/gpu/drm/i915/display/intel_hdmi.c
++++ b/drivers/gpu/drm/i915/display/intel_hdmi.c
+@@ -1476,7 +1476,8 @@ static int kbl_repositioning_enc_en_signal(struct intel_connector *connector,
+ 	int ret;
  
- 	crtc_state->gmch_pfit.control = tmp;
- 	crtc_state->gmch_pfit.pgm_ratios =
--		intel_de_read(dev_priv, PFIT_PGM_RATIOS);
-+		intel_de_read(dev_priv, PFIT_PGM_RATIOS(dev_priv));
- }
+ 	for (;;) {
+-		scanline = intel_de_read(dev_priv, PIPEDSL(crtc->pipe));
++		scanline = intel_de_read(dev_priv,
++					 PIPEDSL(dev_priv, crtc->pipe));
+ 		if (scanline > 100 && scanline < 200)
+ 			break;
+ 		usleep_range(25, 50);
+diff --git a/drivers/gpu/drm/i915/display/intel_vblank.c b/drivers/gpu/drm/i915/display/intel_vblank.c
+index eb80952b0cfd..e2d20064e68d 100644
+--- a/drivers/gpu/drm/i915/display/intel_vblank.c
++++ b/drivers/gpu/drm/i915/display/intel_vblank.c
+@@ -247,7 +247,7 @@ static int __intel_get_crtc_scanline(struct intel_crtc *crtc)
  
- static enum intel_output_format
-diff --git a/drivers/gpu/drm/i915/display/intel_overlay.c b/drivers/gpu/drm/i915/display/intel_overlay.c
-index e41881f08d1f..117120ce5a1d 100644
---- a/drivers/gpu/drm/i915/display/intel_overlay.c
-+++ b/drivers/gpu/drm/i915/display/intel_overlay.c
-@@ -943,7 +943,7 @@ static void update_pfit_vscale_ratio(struct intel_overlay *overlay)
- 	 * line with the intel documentation for the i965
- 	 */
- 	if (DISPLAY_VER(dev_priv) >= 4) {
--		u32 tmp = intel_de_read(dev_priv, PFIT_PGM_RATIOS);
-+		u32 tmp = intel_de_read(dev_priv, PFIT_PGM_RATIOS(dev_priv));
+ 	vtotal = intel_mode_vtotal(mode);
  
- 		/* on i965 use the PGM reg to read out the autoscaler values */
- 		ratio = REG_FIELD_GET(PFIT_VERT_SCALE_MASK_965, tmp);
-@@ -953,7 +953,8 @@ static void update_pfit_vscale_ratio(struct intel_overlay *overlay)
- 		if (intel_de_read(dev_priv, PFIT_CONTROL(dev_priv)) & PFIT_VERT_AUTO_SCALE)
- 			tmp = intel_de_read(dev_priv, PFIT_AUTO_RATIOS);
- 		else
--			tmp = intel_de_read(dev_priv, PFIT_PGM_RATIOS);
-+			tmp = intel_de_read(dev_priv,
-+					    PFIT_PGM_RATIOS(dev_priv));
+-	position = intel_de_read_fw(dev_priv, PIPEDSL(pipe)) & PIPEDSL_LINE_MASK;
++	position = intel_de_read_fw(dev_priv, PIPEDSL(dev_priv, pipe)) & PIPEDSL_LINE_MASK;
  
- 		ratio = REG_FIELD_GET(PFIT_VERT_SCALE_MASK, tmp);
- 	}
+ 	/*
+ 	 * On HSW, the DSL reg (0x70000) appears to return 0 if we
+@@ -266,7 +266,8 @@ static int __intel_get_crtc_scanline(struct intel_crtc *crtc)
+ 
+ 		for (i = 0; i < 100; i++) {
+ 			udelay(1);
+-			temp = intel_de_read_fw(dev_priv, PIPEDSL(pipe)) & PIPEDSL_LINE_MASK;
++			temp = intel_de_read_fw(dev_priv,
++						PIPEDSL(dev_priv, pipe)) & PIPEDSL_LINE_MASK;
+ 			if (temp != position) {
+ 				position = temp;
+ 				break;
+@@ -473,7 +474,7 @@ int intel_get_crtc_scanline(struct intel_crtc *crtc)
+ static bool pipe_scanline_is_moving(struct drm_i915_private *dev_priv,
+ 				    enum pipe pipe)
+ {
+-	i915_reg_t reg = PIPEDSL(pipe);
++	i915_reg_t reg = PIPEDSL(dev_priv, pipe);
+ 	u32 line1, line2;
+ 
+ 	line1 = intel_de_read(dev_priv, reg) & PIPEDSL_LINE_MASK;
 diff --git a/drivers/gpu/drm/i915/i915_reg.h b/drivers/gpu/drm/i915/i915_reg.h
-index b0dbe6113bbc..094e693c40bf 100644
+index 72f5140cf109..fbd004bd1992 100644
 --- a/drivers/gpu/drm/i915/i915_reg.h
 +++ b/drivers/gpu/drm/i915/i915_reg.h
-@@ -1609,7 +1609,7 @@
- #define   PFIT_HORIZ_AUTO_SCALE		REG_BIT(5) /* pre-965 */
- #define   PFIT_PANEL_8TO6_DITHER_ENABLE	REG_BIT(3) /* pre-965 */
+@@ -1877,7 +1877,7 @@
+ #define PIPESTAT_INT_STATUS_MASK		0x0000ffff
  
--#define PFIT_PGM_RATIOS _MMIO(DISPLAY_MMIO_BASE(dev_priv) + 0x61234)
-+#define PFIT_PGM_RATIOS(dev_priv) _MMIO(DISPLAY_MMIO_BASE(dev_priv) + 0x61234)
- #define   PFIT_VERT_SCALE_MASK		REG_GENMASK(31, 20) /* pre-965 */
- #define   PFIT_VERT_SCALE(x)		REG_FIELD_PREP(PFIT_VERT_SCALE_MASK, (x))
- #define   PFIT_HORIZ_SCALE_MASK		REG_GENMASK(15, 4) /* pre-965 */
+ #define TRANSCONF(dev_priv, trans)	_MMIO_PIPE2(dev_priv, (trans), _TRANSACONF)
+-#define PIPEDSL(pipe)		_MMIO_PIPE2(dev_priv, pipe, _PIPEADSL)
++#define PIPEDSL(dev_priv, pipe)		_MMIO_PIPE2(dev_priv, pipe, _PIPEADSL)
+ #define PIPEFRAME(pipe)		_MMIO_PIPE2(dev_priv, pipe, _PIPEAFRAMEHIGH)
+ #define PIPEFRAMEPIXEL(pipe)	_MMIO_PIPE2(dev_priv, pipe, _PIPEAFRAMEPIXEL)
+ #define PIPESTAT(pipe)		_MMIO_PIPE2(dev_priv, pipe, _PIPEASTAT)
+diff --git a/drivers/gpu/drm/i915/intel_gvt_mmio_table.c b/drivers/gpu/drm/i915/intel_gvt_mmio_table.c
+index 436d4a2eccd7..6a37f790c753 100644
+--- a/drivers/gpu/drm/i915/intel_gvt_mmio_table.c
++++ b/drivers/gpu/drm/i915/intel_gvt_mmio_table.c
+@@ -126,10 +126,10 @@ static int iterate_generic_mmio(struct intel_gvt_mmio_table_iter *iter)
+ 	MMIO_D(_MMIO(0x650b4));
+ 	MMIO_D(_MMIO(0xc4040));
+ 	MMIO_D(DERRMR);
+-	MMIO_D(PIPEDSL(PIPE_A));
+-	MMIO_D(PIPEDSL(PIPE_B));
+-	MMIO_D(PIPEDSL(PIPE_C));
+-	MMIO_D(PIPEDSL(_PIPE_EDP));
++	MMIO_D(PIPEDSL(dev_priv, PIPE_A));
++	MMIO_D(PIPEDSL(dev_priv, PIPE_B));
++	MMIO_D(PIPEDSL(dev_priv, PIPE_C));
++	MMIO_D(PIPEDSL(dev_priv, _PIPE_EDP));
+ 	MMIO_D(TRANSCONF(dev_priv, TRANSCODER_A));
+ 	MMIO_D(TRANSCONF(dev_priv, TRANSCODER_B));
+ 	MMIO_D(TRANSCONF(dev_priv, TRANSCODER_C));
 -- 
 2.39.2
 
