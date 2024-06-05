@@ -4,54 +4,63 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BCAE0C27C5E
-	for <intel-gfx@archiver.kernel.org>; Wed,  5 Jun 2024 12:38:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D1613C27C5E
+	for <intel-gfx@archiver.kernel.org>; Wed,  5 Jun 2024 12:40:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E726410E790;
-	Wed,  5 Jun 2024 12:38:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0CBE810E7AA;
+	Wed,  5 Jun 2024 12:40:27 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="HYhP2wl+";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="m/ZIqWNl";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.9])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1CF1510E776;
- Wed,  5 Jun 2024 12:38:44 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BB64910E77F;
+ Wed,  5 Jun 2024 12:40:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1717591124; x=1749127124;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=SncylQLM++QqoofonL3MaVlwjiavXGQ3WnzHL8dHa54=;
- b=HYhP2wl+apd6Mase3kIg3rmBK/jQrpPUoHfoSBppKz2UC6f8tCuDev4v
- cI/yo2Zk/RW/D2cOQmp19TsydpjMD1Cz1b74I6r+Q0Ep0U++LBgdOGXCT
- cjhUyzOns+lCnstGminkBq54Aghya/QX2dJzYCMioCy7D5Bu2Ea+bFN6N
- 4weIH8NrRCb87LVnw5/lhqtL6JVxR4uKS3q7J20jZnOsvbj+b3m0ZUeUX
- v4RzX0MUAmhpjLavbfyWTrNshA1beKqnDZ/wPTNx6uhXYb37MfG7GDSwK
- cvJYLY2ujKoUHrp8F4retEOcIjePeo8ANOLvqnwLZ8avMSs3JxgHwUe+L g==;
-X-CSE-ConnectionGUID: pBBuUBeTTyi4LBBrf8ObpQ==
-X-CSE-MsgGUID: zMkoRIHkSJSs8gVIGUhEiQ==
-X-IronPort-AV: E=McAfee;i="6600,9927,11093"; a="36728179"
-X-IronPort-AV: E=Sophos;i="6.08,216,1712646000"; d="scan'208";a="36728179"
-Received: from orviesa007.jf.intel.com ([10.64.159.147])
- by orvoesa101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 05 Jun 2024 05:38:37 -0700
-X-CSE-ConnectionGUID: 2uyiTmS2ScqPSZWny3kVCA==
-X-CSE-MsgGUID: IiN96V1XQmOHqN3BYpQpww==
+ t=1717591211; x=1749127211;
+ h=from:to:cc:subject:in-reply-to:references:date:
+ message-id:mime-version;
+ bh=YAJJrWwl4fEUOKRvq0Kg7pjzpX3qFQrGjEKU3u2/VuE=;
+ b=m/ZIqWNlUu7Z/pQiDHAx0KSY0oFDJYMILG+zMv/Pyx80kZd7zRcImEEp
+ zJMBfLUwOtdi+MjGMT3kizlN7V/kim+7HClkMReE3F9TwLuWtfwqt/BGT
+ gmUA/UIbABfbvsk6pRd+wd5kGWeIpIPg5/+8cAMjbTsWSiv9dh7KKZvxO
+ wXtLo8CXv30yNkKv1impInDLI6wtwzRmBy4O8b5KBtO2/lAWU0MS1LFjj
+ XyeIn/yHb0mNXC4G9c1O2V95BdhLG5gs62QwPMfA6GJq0LThgoawZBGxw
+ 8hGb77UlhOFNMmTH4bqrUfPXTvr27F6QA2pivvZ82YnSIsTDGZ1uGiK7b w==;
+X-CSE-ConnectionGUID: JWavs4ANQUm0lRSnpblJYw==
+X-CSE-MsgGUID: nYeZkBzuQzWgO4oULtEk4g==
+X-IronPort-AV: E=McAfee;i="6600,9927,11093"; a="24826446"
+X-IronPort-AV: E=Sophos;i="6.08,216,1712646000"; d="scan'208";a="24826446"
+Received: from fmviesa007.fm.intel.com ([10.60.135.147])
+ by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 05 Jun 2024 05:40:10 -0700
+X-CSE-ConnectionGUID: HVDNGhWAQJCFu2GvZtlIDw==
+X-CSE-MsgGUID: M2h9MauQScSGM30EsjTIDQ==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.08,216,1712646000"; d="scan'208";a="38216719"
-Received: from mgolanimitul-x299-ud4-pro.iind.intel.com ([10.190.239.114])
- by orviesa007.jf.intel.com with ESMTP; 05 Jun 2024 05:38:36 -0700
-From: Mitul Golani <mitulkumar.ajitkumar.golani@intel.com>
-To: intel-gfx@lists.freedesktop.org
-Cc: dri-devel@lists.freedesktop.org, ankit.k.nautiyal@intel.com,
- jani.nikula@intel.com
-Subject: [PATCH v12 9/9] drm/i915/display: Compute Adaptive sync SDP params
-Date: Wed,  5 Jun 2024 17:58:02 +0530
-Message-Id: <20240605122802.488124-10-mitulkumar.ajitkumar.golani@intel.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20240605122802.488124-1-mitulkumar.ajitkumar.golani@intel.com>
-References: <20240605122802.488124-1-mitulkumar.ajitkumar.golani@intel.com>
+X-IronPort-AV: E=Sophos;i="6.08,216,1712646000"; d="scan'208";a="37471375"
+Received: from sbutnari-mobl1.ger.corp.intel.com (HELO localhost)
+ ([10.245.246.204])
+ by fmviesa007-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 05 Jun 2024 05:40:06 -0700
+From: Jani Nikula <jani.nikula@intel.com>
+To: intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
+Cc: Alex Deucher <alexander.deucher@amd.com>, Christian =?utf-8?Q?K=C3=B6n?=
+ =?utf-8?Q?ig?=
+ <christian.koenig@amd.com>, Pan Xinhui <Xinhui.Pan@amd.com>, Lucas De
+ Marchi <lucas.demarchi@intel.com>, Thomas =?utf-8?Q?Hellstr=C3=B6m?=
+ <thomas.hellstrom@linux.intel.com>, Joonas Lahtinen
+ <joonas.lahtinen@linux.intel.com>, Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Tvrtko Ursulin <tursulin@ursulin.net>
+Subject: Re: [PATCH 2/3] drm/xe: drop redundant W=1 warnings from Makefile
+In-Reply-To: <958a67adcbb64d3a387d2a07d83b05d71176e938.1716471145.git.jani.nikula@intel.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
+References: <cover.1716471145.git.jani.nikula@intel.com>
+ <958a67adcbb64d3a387d2a07d83b05d71176e938.1716471145.git.jani.nikula@intel.com>
+Date: Wed, 05 Jun 2024 15:40:01 +0300
+Message-ID: <87plsvbm1q.fsf@intel.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,53 +76,63 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Compute params for Adaptive Sync SDP when Fixed Average Vtotal
-mode is enabled.
+On Thu, 23 May 2024, Jani Nikula <jani.nikula@intel.com> wrote:
+> Since commit a61ddb4393ad ("drm: enable (most) W=1 warnings by default
+> across the subsystem"), most of the extra warnings in the driver
+> Makefile are redundant. Remove them.
+>
+> Note that -Wmissing-declarations and -Wmissing-prototypes are always
+> enabled by default in scripts/Makefile.extrawarn.
+>
+> Signed-off-by: Jani Nikula <jani.nikula@intel.com>
 
---v2:
-Since vrr.enable is set in case of cmrr also, handle accordingly(Ankit).
+Pushed this patch to drm-xe-next with Lucas' irc ack.
 
---v3:
-- Since vrr.enable is set in case of cmrr also, handle
-accordingly(Ankit).
-- check cmrr.enable when CMRR flags are set during intel_dp_compute_as_sdp.
+BR,
+Jani.
 
---v4:
-- Use drm_mode_vrefresh instead of manual calculation (Ankit).
 
-Signed-off-by: Mitul Golani <mitulkumar.ajitkumar.golani@intel.com>
-Reviewed-by: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
----
- drivers/gpu/drm/i915/display/intel_dp.c | 14 +++++++++++---
- 1 file changed, 11 insertions(+), 3 deletions(-)
+> ---
+>  drivers/gpu/drm/xe/Makefile | 25 +------------------------
+>  1 file changed, 1 insertion(+), 24 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/xe/Makefile b/drivers/gpu/drm/xe/Makefile
+> index c9f067b8f54d..f4366cb958be 100644
+> --- a/drivers/gpu/drm/xe/Makefile
+> +++ b/drivers/gpu/drm/xe/Makefile
+> @@ -3,31 +3,8 @@
+>  # Makefile for the drm device driver.  This driver provides support for the
+>  # Direct Rendering Infrastructure (DRI) in XFree86 4.1.0 and higher.
+>  
+> -# Unconditionally enable W=1 warnings locally
+> -# --- begin copy-paste W=1 warnings from scripts/Makefile.extrawarn
+> -subdir-ccflags-y += -Wextra -Wunused -Wno-unused-parameter
+> -subdir-ccflags-y += -Wmissing-declarations
+> -subdir-ccflags-y += $(call cc-option, -Wrestrict)
+> -subdir-ccflags-y += -Wmissing-format-attribute
+> -subdir-ccflags-y += -Wmissing-prototypes
+> -subdir-ccflags-y += -Wold-style-definition
+> -subdir-ccflags-y += -Wmissing-include-dirs
+> -subdir-ccflags-y += $(call cc-option, -Wunused-but-set-variable)
+> -subdir-ccflags-y += $(call cc-option, -Wunused-const-variable)
+> -subdir-ccflags-y += $(call cc-option, -Wpacked-not-aligned)
+> -subdir-ccflags-y += $(call cc-option, -Wformat-overflow)
+> +# Enable W=1 warnings not enabled in drm subsystem Makefile
+>  subdir-ccflags-y += $(call cc-option, -Wformat-truncation)
+> -subdir-ccflags-y += $(call cc-option, -Wstringop-truncation)
+> -# The following turn off the warnings enabled by -Wextra
+> -ifeq ($(findstring 2, $(KBUILD_EXTRA_WARN)),)
+> -subdir-ccflags-y += -Wno-missing-field-initializers
+> -subdir-ccflags-y += -Wno-type-limits
+> -subdir-ccflags-y += -Wno-shift-negative-value
+> -endif
+> -ifeq ($(findstring 3, $(KBUILD_EXTRA_WARN)),)
+> -subdir-ccflags-y += -Wno-sign-compare
+> -endif
+> -# --- end copy-paste
+>  
+>  # Enable -Werror in CI and development
+>  subdir-ccflags-$(CONFIG_DRM_XE_WERROR) += -Werror
 
-diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
-index ac81b172b1ec..b5915c23302f 100644
---- a/drivers/gpu/drm/i915/display/intel_dp.c
-+++ b/drivers/gpu/drm/i915/display/intel_dp.c
-@@ -2637,11 +2637,19 @@ static void intel_dp_compute_as_sdp(struct intel_dp *intel_dp,
- 	/* Currently only DP_AS_SDP_AVT_FIXED_VTOTAL mode supported */
- 	as_sdp->sdp_type = DP_SDP_ADAPTIVE_SYNC;
- 	as_sdp->length = 0x9;
--	as_sdp->mode = DP_AS_SDP_AVT_FIXED_VTOTAL;
--	as_sdp->vtotal = adjusted_mode->vtotal;
--	as_sdp->target_rr = 0;
- 	as_sdp->duration_incr_ms = 0;
- 	as_sdp->duration_incr_ms = 0;
-+
-+	if (crtc_state->cmrr.enable) {
-+		as_sdp->mode = DP_AS_SDP_FAVT_TRR_REACHED;
-+		as_sdp->vtotal = adjusted_mode->vtotal;
-+		as_sdp->target_rr = drm_mode_vrefresh(adjusted_mode);
-+		as_sdp->target_rr_divider = true;
-+	} else {
-+		as_sdp->mode = DP_AS_SDP_AVT_FIXED_VTOTAL;
-+		as_sdp->vtotal = adjusted_mode->vtotal;
-+		as_sdp->target_rr = 0;
-+	}
- }
- 
- static void intel_dp_compute_vsc_sdp(struct intel_dp *intel_dp,
 -- 
-2.25.1
-
+Jani Nikula, Intel
