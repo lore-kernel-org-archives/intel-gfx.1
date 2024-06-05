@@ -4,59 +4,59 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DD28AC25B76
-	for <intel-gfx@archiver.kernel.org>; Wed,  5 Jun 2024 10:27:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4BDFCC25B76
+	for <intel-gfx@archiver.kernel.org>; Wed,  5 Jun 2024 10:31:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5D06D10E74C;
-	Wed,  5 Jun 2024 10:27:11 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D6BB710E412;
+	Wed,  5 Jun 2024 10:31:58 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="UWNevm63";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="On1HMUmY";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.21])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A984E10E76D
- for <intel-gfx@lists.freedesktop.org>; Wed,  5 Jun 2024 10:27:02 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.8])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D0FED10E412;
+ Wed,  5 Jun 2024 10:31:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1717583222; x=1749119222;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=Lk4cvOzHDfvvdnCD26C3lRMjQmo1PUicvjmkb0UZOok=;
- b=UWNevm63ynZtlESIxQrhD670NpKDp6y/jPwBsumOa6Q1fBvVOo8EVIAd
- t1fLZiQSD2xO/C1kHTi5mpKsaYLtt2rFNE03ECXbzMVlM/QLjh9WT0N9D
- RcNv4yHuLRvHdJi2lQXC2dH7EESZiqOHfM/jP/gdhwRmiroAXPtiPu/mn
- zi+kXd/8WJPDJMEfEvvHLGVjyLq5wVETd38jdrkzT6hb9KYCmZx4agm/G
- BKMscol89YunVHJKn7nGxCheMDGBmXKUMrO1zhbz2OqsFI6gL1tgxLm3m
- QnRQAwOoUArZpdogrHca7nFYLqnoO45mq/AdCTT/jxaaB2/zJ+FuCaSWr w==;
-X-CSE-ConnectionGUID: HA/wUhnWSN656jbnQF5kJg==
-X-CSE-MsgGUID: 5Dl5c3ClQoyos2BRgVdNKg==
-X-IronPort-AV: E=McAfee;i="6600,9927,11093"; a="14136169"
-X-IronPort-AV: E=Sophos;i="6.08,216,1712646000"; d="scan'208";a="14136169"
-Received: from fmviesa001.fm.intel.com ([10.60.135.141])
- by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 05 Jun 2024 03:27:02 -0700
-X-CSE-ConnectionGUID: HLjjjAm9RNGbw1P0lG8dUQ==
-X-CSE-MsgGUID: ZE+O0uIiQD+s3DQ0KdnFYw==
+ t=1717583516; x=1749119516;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:content-transfer-encoding:in-reply-to;
+ bh=VqD9tUTiV13b94TJwRR6p9gCzG3JFRA6UtuCQujPf+o=;
+ b=On1HMUmYPhSjTpzwhiuxgPtxTZjBivFYSCoZrF90NsoLLhf/6S/JkYgl
+ c4J+EzdTqbdlVrA03EAqOI8xoiTF5NmeyWTw83tDPDHuERItHc91R3F7c
+ TUJ0C+hKHhb27aqIHFErKWdjWrKLf0qeBc/AnpXV22YgwGp7IbIbiEm+n
+ b1/JfgWKc3dq5BYcjYjC1koTLXy4L1mNUmPY/Blq4GsDHns3FDjbEH7Il
+ 7H5+Mo5CAA9meSSDTfr63JqSyXNO6sJbJwiZM1hKHzRhPe1V4l+Sv2PLq
+ poa+tGPzBHvBbdiV7+r+QYWQB7SPFCMbFURWpaeyZRn9NX+wXd0rlU0WY g==;
+X-CSE-ConnectionGUID: DqETnqiNQ1qzs7xhy8HfIw==
+X-CSE-MsgGUID: yYHJYH/+SNKM1NRs/y5hxQ==
+X-IronPort-AV: E=McAfee;i="6600,9927,11093"; a="31721577"
+X-IronPort-AV: E=Sophos;i="6.08,216,1712646000"; d="scan'208";a="31721577"
+Received: from fmviesa008.fm.intel.com ([10.60.135.148])
+ by fmvoesa102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 05 Jun 2024 03:31:56 -0700
+X-CSE-ConnectionGUID: 9Jji5mIdSjWG2DzkorNiTQ==
+X-CSE-MsgGUID: 1qRJt5nbRsymClJdqjHY9A==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.08,216,1712646000"; d="scan'208";a="68686331"
-Received: from amokrov-mobl1.ccr.corp.intel.com (HELO
- jhogande-mobl1.intel.com) ([10.249.37.49])
- by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 05 Jun 2024 03:27:01 -0700
-From: =?UTF-8?q?Jouni=20H=C3=B6gander?= <jouni.hogander@intel.com>
-To: intel-gfx@lists.freedesktop.org
-Cc: animesh.manna@intel.com, mika.kahola@intel.com,
- =?UTF-8?q?Jouni=20H=C3=B6gander?= <jouni.hogander@intel.com>
-Subject: [PATCH v6 25/26] drm/i915/psr: Add new debug bit to disable Panel
- Replay
-Date: Wed,  5 Jun 2024 13:25:52 +0300
-Message-Id: <20240605102553.187309-26-jouni.hogander@intel.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20240605102553.187309-1-jouni.hogander@intel.com>
-References: <20240605102553.187309-1-jouni.hogander@intel.com>
+X-IronPort-AV: E=Sophos;i="6.08,216,1712646000"; d="scan'208";a="37559082"
+Received: from stinkpipe.fi.intel.com (HELO stinkbox) ([10.237.72.74])
+ by fmviesa008.fm.intel.com with SMTP; 05 Jun 2024 03:31:55 -0700
+Received: by stinkbox (sSMTP sendmail emulation);
+ Wed, 05 Jun 2024 13:31:53 +0300
+Date: Wed, 5 Jun 2024 13:31:53 +0300
+From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
+To: Jani Nikula <jani.nikula@intel.com>
+Cc: intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org
+Subject: Re: [PATCH 09/12] drm/i915/cdclk: use i9xx_fsb_freq() for
+ rawclk_freq initialization
+Message-ID: <ZmA-mcwUW7r50rIT@intel.com>
+References: <cover.1716906179.git.jani.nikula@intel.com>
+ <83e668584c898e445552275a09cc4fa55d68f62a.1716906179.git.jani.nikula@intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <83e668584c898e445552275a09cc4fa55d68f62a.1716906179.git.jani.nikula@intel.com>
+X-Patchwork-Hint: comment
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -72,70 +72,94 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Currently there is no way to disable Panel Replay without disabling
-PSR. Add new debug bit to be used with i915_edp_psr_debug debugfs
-interface.
+On Tue, May 28, 2024 at 05:24:58PM +0300, Jani Nikula wrote:
+> Instead of duplicating the CLKCFG parsing, reuse i9xx_fsb_freq() to
+> figure out rawclk_freq where applicable.
+> 
+> Signed-off-by: Jani Nikula <jani.nikula@intel.com>
+> ---
+>  drivers/gpu/drm/i915/display/intel_cdclk.c | 46 ++--------------------
+>  1 file changed, 3 insertions(+), 43 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/i915/display/intel_cdclk.c b/drivers/gpu/drm/i915/display/intel_cdclk.c
+> index b78154c82a71..c731c489c925 100644
+> --- a/drivers/gpu/drm/i915/display/intel_cdclk.c
+> +++ b/drivers/gpu/drm/i915/display/intel_cdclk.c
+> @@ -23,6 +23,7 @@
+>  
+>  #include <linux/time.h>
+>  
+> +#include "soc/intel_dram.h"
+>  #include "hsw_ips.h"
+>  #include "i915_reg.h"
+>  #include "intel_atomic.h"
+> @@ -3529,10 +3530,8 @@ static int vlv_hrawclk(struct drm_i915_private *dev_priv)
+>  				      CCK_DISPLAY_REF_CLOCK_CONTROL);
+>  }
+>  
+> -static int i9xx_hrawclk(struct drm_i915_private *dev_priv)
+> +static int i9xx_hrawclk(struct drm_i915_private *i915)
+>  {
+> -	u32 clkcfg;
+> -
+>  	/*
+>  	 * hrawclock is 1/4 the FSB frequency
+>  	 *
+> @@ -3543,46 +3542,7 @@ static int i9xx_hrawclk(struct drm_i915_private *dev_priv)
+>  	 * don't know which registers have that information,
+>  	 * and all the relevant docs have gone to bit heaven :(
+>  	 */
 
-v2: ensure that fastset is performed when the bit changes
+^ the note about the actual clock vs. straps should probably be moved
+into i9xx_fsb_freq() as a followup.
 
-Signed-off-by: Jouni HÃ¶gander <jouni.hogander@intel.com>
----
- drivers/gpu/drm/i915/display/intel_display_types.h |  1 +
- drivers/gpu/drm/i915/display/intel_psr.c           | 11 +++++++++--
- 2 files changed, 10 insertions(+), 2 deletions(-)
+> -	clkcfg = intel_de_read(dev_priv, CLKCFG) & CLKCFG_FSB_MASK;
+> -
+> -	if (IS_MOBILE(dev_priv)) {
+> -		switch (clkcfg) {
+> -		case CLKCFG_FSB_400:
+> -			return 100000;
+> -		case CLKCFG_FSB_533:
+> -			return 133333;
+> -		case CLKCFG_FSB_667:
+> -			return 166667;
+> -		case CLKCFG_FSB_800:
+> -			return 200000;
+> -		case CLKCFG_FSB_1067:
+> -			return 266667;
+> -		case CLKCFG_FSB_1333:
+> -			return 333333;
+> -		default:
+> -			MISSING_CASE(clkcfg);
+> -			return 133333;
+> -		}
+> -	} else {
+> -		switch (clkcfg) {
+> -		case CLKCFG_FSB_400_ALT:
+> -			return 100000;
+> -		case CLKCFG_FSB_533:
+> -			return 133333;
+> -		case CLKCFG_FSB_667:
+> -			return 166667;
+> -		case CLKCFG_FSB_800:
+> -			return 200000;
+> -		case CLKCFG_FSB_1067_ALT:
+> -			return 266667;
+> -		case CLKCFG_FSB_1333_ALT:
+> -			return 333333;
+> -		case CLKCFG_FSB_1600_ALT:
+> -			return 400000;
+> -		default:
+> -			return 133333;
+> -		}
+> -	}
+> +	return DIV_ROUND_CLOSEST(i9xx_fsb_freq(i915), 4);
+>  }
+>  
+>  /**
+> -- 
+> 2.39.2
 
-diff --git a/drivers/gpu/drm/i915/display/intel_display_types.h b/drivers/gpu/drm/i915/display/intel_display_types.h
-index df29ec37ef28..089c53d5f3c9 100644
---- a/drivers/gpu/drm/i915/display/intel_display_types.h
-+++ b/drivers/gpu/drm/i915/display/intel_display_types.h
-@@ -1690,6 +1690,7 @@ struct intel_psr {
- #define I915_PSR_DEBUG_ENABLE_SEL_FETCH		0x4
- #define I915_PSR_DEBUG_IRQ			0x10
- #define I915_PSR_DEBUG_SU_REGION_ET_DISABLE	0x20
-+#define I915_PSR_DEBUG_PANEL_REPLAY_DISABLE	0x40
- 
- 	u32 debug;
- 	bool sink_support;
-diff --git a/drivers/gpu/drm/i915/display/intel_psr.c b/drivers/gpu/drm/i915/display/intel_psr.c
-index a10d9383cc87..b4cd7a8b17bc 100644
---- a/drivers/gpu/drm/i915/display/intel_psr.c
-+++ b/drivers/gpu/drm/i915/display/intel_psr.c
-@@ -1520,6 +1520,9 @@ _panel_replay_compute_config(struct intel_dp *intel_dp,
- 	if (!CAN_PANEL_REPLAY(intel_dp))
- 		return false;
- 
-+	if (intel_dp->psr.debug & I915_PSR_DEBUG_PANEL_REPLAY_DISABLE)
-+		return false;
-+
- 	if (!intel_dp_is_edp(intel_dp))
- 		return true;
- 
-@@ -2845,11 +2848,13 @@ int intel_psr_debug_set(struct intel_dp *intel_dp, u64 val)
- {
- 	struct drm_i915_private *dev_priv = dp_to_i915(intel_dp);
- 	const u32 mode = val & I915_PSR_DEBUG_MODE_MASK;
--	const u32 disable_bits = val & I915_PSR_DEBUG_SU_REGION_ET_DISABLE;
-+	const u32 disable_bits = val & (I915_PSR_DEBUG_SU_REGION_ET_DISABLE |
-+					I915_PSR_DEBUG_PANEL_REPLAY_DISABLE);
- 	u32 old_mode, old_disable_bits;
- 	int ret;
- 
- 	if (val & ~(I915_PSR_DEBUG_IRQ | I915_PSR_DEBUG_SU_REGION_ET_DISABLE |
-+		    I915_PSR_DEBUG_PANEL_REPLAY_DISABLE |
- 		    I915_PSR_DEBUG_MODE_MASK) ||
- 	    mode > I915_PSR_DEBUG_ENABLE_SEL_FETCH) {
- 		drm_dbg_kms(&dev_priv->drm, "Invalid debug mask %llx\n", val);
-@@ -2862,7 +2867,9 @@ int intel_psr_debug_set(struct intel_dp *intel_dp, u64 val)
- 
- 	old_mode = intel_dp->psr.debug & I915_PSR_DEBUG_MODE_MASK;
- 	old_disable_bits = intel_dp->psr.debug &
--		I915_PSR_DEBUG_SU_REGION_ET_DISABLE;
-+		(I915_PSR_DEBUG_SU_REGION_ET_DISABLE |
-+		 I915_PSR_DEBUG_PANEL_REPLAY_DISABLE);
-+
- 	intel_dp->psr.debug = val;
- 
- 	/*
 -- 
-2.34.1
-
+Ville Syrjälä
+Intel
