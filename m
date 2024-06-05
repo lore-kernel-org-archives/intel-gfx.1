@@ -4,49 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E6A6CC27C5F
-	for <intel-gfx@archiver.kernel.org>; Wed,  5 Jun 2024 17:12:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D5317C27C52
+	for <intel-gfx@archiver.kernel.org>; Wed,  5 Jun 2024 17:12:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 89D1410E795;
-	Wed,  5 Jun 2024 17:12:04 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B1C2210E6BC;
+	Wed,  5 Jun 2024 17:12:14 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="cpqfLBwh";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="J2cRmL52";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.14])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E47F310E64A;
- Wed,  5 Jun 2024 17:11:34 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8668910E66C;
+ Wed,  5 Jun 2024 17:11:38 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1717607495; x=1749143495;
+ t=1717607498; x=1749143498;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=AIIsH+8nPC3RlbN7TX2Vi7D3rPeE7ktU0cYcWrfSzlY=;
- b=cpqfLBwhzK2s7ylrgYzQABGJr1ArZelojaeNGeYl1O+1uCJaSKeuQzSq
- FJaxkOhHC/YBqzcwMexZQLvQCfzH/3LwfiG3hIVGhws5sRXJPrOJ/Zhog
- yDAOtr6bkwPd1+ZD4Ip7uD24gnoEdBowGtESoW930Vuk2tTaO3hyPEDQg
- n0dqTciiNjbX9OsYiHlZnTrMeTYe8BrJhTM0rIVdmbbeYRM4xlZeVIAae
- czOib+/+ZH6K9+xNcKHXgS53pWEdcsPMLbA7BG31x/YDkUL+LiruZwb9k
- 9gaESLFkMIBPHT2h/bdYgT1XAoE74gz8uJGfFHe9JD7en77ITfs94rRVm g==;
-X-CSE-ConnectionGUID: WXGmB7y8SGukIp5vBJznsA==
-X-CSE-MsgGUID: YGUB9PzIRV6MvKpZ/fCw8g==
-X-IronPort-AV: E=McAfee;i="6600,9927,11094"; a="14452441"
-X-IronPort-AV: E=Sophos;i="6.08,217,1712646000"; d="scan'208";a="14452441"
+ bh=SncylQLM++QqoofonL3MaVlwjiavXGQ3WnzHL8dHa54=;
+ b=J2cRmL52w+Vq5y6esQxD6KsrZD40tNlwtC8zd8Y6ZwdZM+Voxy9hJYvV
+ ddko/3k2IBAKw1zjdjXC3amx4a1MdzZ2pI2emQeQXW2/vIoOkM/gMKDQE
+ JU1Q2DPA4djUFqX88qlc4yKGMXhndS8KdDKhaxIXXYhTqqWj8nSQ8Omjl
+ Jwi/N2mjTiR1CDcMK+jNHZbxXJIAaPttF4mWSQ8mAssLC6C6e69B8Gi9p
+ LT2YFKJS9G7D/OGHTj5dvqnKFCHUr1+tnPxRVHkZF6oLZVOpphkTLKJXM
+ mrVCd8bSPdkjTqndphHbg0Vfp5q1BA3h85QXUNx9kY1UUDQ+6inkoxpR5 A==;
+X-CSE-ConnectionGUID: JvE3iyNIRn2F5uY+KDzlZg==
+X-CSE-MsgGUID: mlQM8oRSTb2IP8PQesmlFQ==
+X-IronPort-AV: E=McAfee;i="6600,9927,11094"; a="14452454"
+X-IronPort-AV: E=Sophos;i="6.08,217,1712646000"; d="scan'208";a="14452454"
 Received: from fmviesa002.fm.intel.com ([10.60.135.142])
  by fmvoesa108.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 05 Jun 2024 10:11:34 -0700
-X-CSE-ConnectionGUID: GYXO637qTB+/YZD7GAciwA==
-X-CSE-MsgGUID: kK4c/WgURiuTlRXA6RI6SQ==
+ 05 Jun 2024 10:11:38 -0700
+X-CSE-ConnectionGUID: alS3ZJuNReemtx5A4CRRmg==
+X-CSE-MsgGUID: bsCNMK1NQ0eQb06KmVtuag==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.08,217,1712646000"; d="scan'208";a="60848406"
+X-IronPort-AV: E=Sophos;i="6.08,217,1712646000"; d="scan'208";a="60848413"
 Received: from mgolanimitul-x299-ud4-pro.iind.intel.com ([10.190.239.114])
- by fmviesa002.fm.intel.com with ESMTP; 05 Jun 2024 10:11:34 -0700
+ by fmviesa002.fm.intel.com with ESMTP; 05 Jun 2024 10:11:37 -0700
 From: Mitul Golani <mitulkumar.ajitkumar.golani@intel.com>
 To: intel-gfx@lists.freedesktop.org
 Cc: dri-devel@lists.freedesktop.org
-Subject: [PATCH v13 4/9] drm/i915: Update trans_vrr_ctl flag when cmrr is
- computed
-Date: Wed,  5 Jun 2024 22:31:06 +0530
-Message-Id: <20240605170111.494784-5-mitulkumar.ajitkumar.golani@intel.com>
+Subject: [PATCH v13 7/9] drm/i915/display: Compute Adaptive sync SDP params
+Date: Wed,  5 Jun 2024 22:31:09 +0530
+Message-Id: <20240605170111.494784-8-mitulkumar.ajitkumar.golani@intel.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20240605170111.494784-1-mitulkumar.ajitkumar.golani@intel.com>
 References: <20240605170111.494784-1-mitulkumar.ajitkumar.golani@intel.com>
@@ -67,76 +66,53 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Add/update trans_vrr_ctl flag when crtc_state->cmrr.enable
-is set, With this commit setting the stage for subsequent
-CMRR enablement.
+Compute params for Adaptive Sync SDP when Fixed Average Vtotal
+mode is enabled.
 
 --v2:
-- Check pipe active state in cmrr enabling. [Jani]
-- Remove usage of bitwise OR on booleans. [Jani]
-- Revert unrelated changes. [Jani]
-- Update intel_vrr_enable, vrr and cmrr enable conditions. [Jani]
-- Simplify whole if-ladder in intel_vrr_enable. [Jani]
-- Revert patch restructuring mistakes in intel_vrr_get_config. [Jani]
+Since vrr.enable is set in case of cmrr also, handle accordingly(Ankit).
 
 --v3:
-- Check pipe active state in cmrr disabling.[Jani]
-- Correct messed up condition in intel_vrr_enable. [Jani]
+- Since vrr.enable is set in case of cmrr also, handle
+accordingly(Ankit).
+- check cmrr.enable when CMRR flags are set during intel_dp_compute_as_sdp.
 
 --v4:
-- Removing RFC tag.
-
---v5:
-- CMRR handling in co-existatnce of LRR and DRRS.
-
---v7:
-- Rebase on top of AS SDP merge.
-
---v8:
-- Remove cmrr_enabling/disabling and update commit message. (Ankit)
-
---v9:
-- Revert removed line(Ankit).
+- Use drm_mode_vrefresh instead of manual calculation (Ankit).
 
 Signed-off-by: Mitul Golani <mitulkumar.ajitkumar.golani@intel.com>
 Reviewed-by: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_vrr.c      | 10 ++++++++--
- drivers/gpu/drm/i915/display/intel_vrr_regs.h |  2 ++
- 2 files changed, 10 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/i915/display/intel_dp.c | 14 +++++++++++---
+ 1 file changed, 11 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_vrr.c b/drivers/gpu/drm/i915/display/intel_vrr.c
-index d2f854d9d18b..19b364074de0 100644
---- a/drivers/gpu/drm/i915/display/intel_vrr.c
-+++ b/drivers/gpu/drm/i915/display/intel_vrr.c
-@@ -282,8 +282,14 @@ void intel_vrr_enable(const struct intel_crtc_state *crtc_state)
- 			       VRR_VSYNC_END(crtc_state->vrr.vsync_end) |
- 			       VRR_VSYNC_START(crtc_state->vrr.vsync_start));
- 
--	intel_de_write(dev_priv, TRANS_VRR_CTL(dev_priv, cpu_transcoder),
--		       VRR_CTL_VRR_ENABLE | trans_vrr_ctl(crtc_state));
+diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
+index ac81b172b1ec..b5915c23302f 100644
+--- a/drivers/gpu/drm/i915/display/intel_dp.c
++++ b/drivers/gpu/drm/i915/display/intel_dp.c
+@@ -2637,11 +2637,19 @@ static void intel_dp_compute_as_sdp(struct intel_dp *intel_dp,
+ 	/* Currently only DP_AS_SDP_AVT_FIXED_VTOTAL mode supported */
+ 	as_sdp->sdp_type = DP_SDP_ADAPTIVE_SYNC;
+ 	as_sdp->length = 0x9;
+-	as_sdp->mode = DP_AS_SDP_AVT_FIXED_VTOTAL;
+-	as_sdp->vtotal = adjusted_mode->vtotal;
+-	as_sdp->target_rr = 0;
+ 	as_sdp->duration_incr_ms = 0;
+ 	as_sdp->duration_incr_ms = 0;
++
 +	if (crtc_state->cmrr.enable) {
-+		intel_de_write(dev_priv, TRANS_VRR_CTL(dev_priv, cpu_transcoder),
-+			       VRR_CTL_VRR_ENABLE | VRR_CTL_CMRR_ENABLE |
-+			       trans_vrr_ctl(crtc_state));
++		as_sdp->mode = DP_AS_SDP_FAVT_TRR_REACHED;
++		as_sdp->vtotal = adjusted_mode->vtotal;
++		as_sdp->target_rr = drm_mode_vrefresh(adjusted_mode);
++		as_sdp->target_rr_divider = true;
 +	} else {
-+		intel_de_write(dev_priv, TRANS_VRR_CTL(dev_priv, cpu_transcoder),
-+			       VRR_CTL_VRR_ENABLE | trans_vrr_ctl(crtc_state));
++		as_sdp->mode = DP_AS_SDP_AVT_FIXED_VTOTAL;
++		as_sdp->vtotal = adjusted_mode->vtotal;
++		as_sdp->target_rr = 0;
 +	}
  }
  
- void intel_vrr_disable(const struct intel_crtc_state *old_crtc_state)
-diff --git a/drivers/gpu/drm/i915/display/intel_vrr_regs.h b/drivers/gpu/drm/i915/display/intel_vrr_regs.h
-index 1aeb0cd45068..577b0abb66db 100644
---- a/drivers/gpu/drm/i915/display/intel_vrr_regs.h
-+++ b/drivers/gpu/drm/i915/display/intel_vrr_regs.h
-@@ -123,4 +123,6 @@
- #define _TRANS_CMRR_N_HI_A			0x604FC
- #define TRANS_CMRR_N_HI(dev_priv, trans)        _MMIO_TRANS2(dev_priv, trans, _TRANS_CMRR_N_HI_A)
- 
-+#define VRR_CTL_CMRR_ENABLE			REG_BIT(27)
-+
- #endif /* __INTEL_VRR_REGS__ */
+ static void intel_dp_compute_vsc_sdp(struct intel_dp *intel_dp,
 -- 
 2.25.1
 
