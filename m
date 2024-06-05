@@ -4,52 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DEEA4C27C5E
-	for <intel-gfx@archiver.kernel.org>; Wed,  5 Jun 2024 10:27:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DD28AC25B76
+	for <intel-gfx@archiver.kernel.org>; Wed,  5 Jun 2024 10:27:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 58DCD10E752;
-	Wed,  5 Jun 2024 10:27:07 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5D06D10E74C;
+	Wed,  5 Jun 2024 10:27:11 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="Kz/BNDgA";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="UWNevm63";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.21])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 708C610E733
- for <intel-gfx@lists.freedesktop.org>; Wed,  5 Jun 2024 10:26:59 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A984E10E76D
+ for <intel-gfx@lists.freedesktop.org>; Wed,  5 Jun 2024 10:27:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1717583219; x=1749119219;
+ t=1717583222; x=1749119222;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=QzbaYwNku9+IYGziluxOY2fTMxqcKTHwAR6eo3qXjlY=;
- b=Kz/BNDgA6/1t2kSfa8cPaiTE6Bg4l3DXMABW3GZH4DWsL7TI1djlokND
- 19ZfdzBBnChGX5jukAzb+AVNw+3Cj19+OYok4wZg3FymrX5lHhOa3iX40
- BYeeF9uPy7haa6Z8IHRcnXXfcT1q1BJoT/sVUyyjA5+v3BJ0faCDRDEqp
- kYCR+xT4+A/krKVlmQgS0r8Qcu++pASdEF0ZfRRRDRI9wV0a4+VZvbYfd
- CGCuxH8i3hHIMVxqHvUMKKchXc3F2F13Lv80Vur1jFdckimGQh1do4oT3
- Qf9330OmbsMBo3AH9JaO26+PxuzN1ZUjMZl+F0pBAQo8io8S6eI3fahrp g==;
-X-CSE-ConnectionGUID: YsQdMVqpQ0ascoH0LTuLYA==
-X-CSE-MsgGUID: OallDe6qT663gND5FbyhRw==
-X-IronPort-AV: E=McAfee;i="6600,9927,11093"; a="14136164"
-X-IronPort-AV: E=Sophos;i="6.08,216,1712646000"; d="scan'208";a="14136164"
+ bh=Lk4cvOzHDfvvdnCD26C3lRMjQmo1PUicvjmkb0UZOok=;
+ b=UWNevm63ynZtlESIxQrhD670NpKDp6y/jPwBsumOa6Q1fBvVOo8EVIAd
+ t1fLZiQSD2xO/C1kHTi5mpKsaYLtt2rFNE03ECXbzMVlM/QLjh9WT0N9D
+ RcNv4yHuLRvHdJi2lQXC2dH7EESZiqOHfM/jP/gdhwRmiroAXPtiPu/mn
+ zi+kXd/8WJPDJMEfEvvHLGVjyLq5wVETd38jdrkzT6hb9KYCmZx4agm/G
+ BKMscol89YunVHJKn7nGxCheMDGBmXKUMrO1zhbz2OqsFI6gL1tgxLm3m
+ QnRQAwOoUArZpdogrHca7nFYLqnoO45mq/AdCTT/jxaaB2/zJ+FuCaSWr w==;
+X-CSE-ConnectionGUID: HA/wUhnWSN656jbnQF5kJg==
+X-CSE-MsgGUID: 5Dl5c3ClQoyos2BRgVdNKg==
+X-IronPort-AV: E=McAfee;i="6600,9927,11093"; a="14136169"
+X-IronPort-AV: E=Sophos;i="6.08,216,1712646000"; d="scan'208";a="14136169"
 Received: from fmviesa001.fm.intel.com ([10.60.135.141])
  by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 05 Jun 2024 03:26:59 -0700
-X-CSE-ConnectionGUID: HqbmqeT9TNusEX+xmyACsA==
-X-CSE-MsgGUID: RcLutANORf+rgHLmlptoYg==
+ 05 Jun 2024 03:27:02 -0700
+X-CSE-ConnectionGUID: HLjjjAm9RNGbw1P0lG8dUQ==
+X-CSE-MsgGUID: ZE+O0uIiQD+s3DQ0KdnFYw==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.08,216,1712646000"; d="scan'208";a="68686317"
+X-IronPort-AV: E=Sophos;i="6.08,216,1712646000"; d="scan'208";a="68686331"
 Received: from amokrov-mobl1.ccr.corp.intel.com (HELO
  jhogande-mobl1.intel.com) ([10.249.37.49])
  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 05 Jun 2024 03:26:58 -0700
+ 05 Jun 2024 03:27:01 -0700
 From: =?UTF-8?q?Jouni=20H=C3=B6gander?= <jouni.hogander@intel.com>
 To: intel-gfx@lists.freedesktop.org
 Cc: animesh.manna@intel.com, mika.kahola@intel.com,
  =?UTF-8?q?Jouni=20H=C3=B6gander?= <jouni.hogander@intel.com>
-Subject: [PATCH v6 23/26] drm/i915/psr: Check Early Transport for Panel Replay
- as well
-Date: Wed,  5 Jun 2024 13:25:50 +0300
-Message-Id: <20240605102553.187309-24-jouni.hogander@intel.com>
+Subject: [PATCH v6 25/26] drm/i915/psr: Add new debug bit to disable Panel
+ Replay
+Date: Wed,  5 Jun 2024 13:25:52 +0300
+Message-Id: <20240605102553.187309-26-jouni.hogander@intel.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20240605102553.187309-1-jouni.hogander@intel.com>
 References: <20240605102553.187309-1-jouni.hogander@intel.com>
@@ -72,40 +72,70 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Move Early Transport validity check to be performed for Panel Replay as
-well and use Early Transport for eDP Panel Replay always.
+Currently there is no way to disable Panel Replay without disabling
+PSR. Add new debug bit to be used with i915_edp_psr_debug debugfs
+interface.
 
-v2:set crtc_state->enable_psr2_su_region_et directly (not in if block)
+v2: ensure that fastset is performed when the bit changes
 
 Signed-off-by: Jouni Högander <jouni.hogander@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_psr.c | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+ drivers/gpu/drm/i915/display/intel_display_types.h |  1 +
+ drivers/gpu/drm/i915/display/intel_psr.c           | 11 +++++++++--
+ 2 files changed, 10 insertions(+), 2 deletions(-)
 
+diff --git a/drivers/gpu/drm/i915/display/intel_display_types.h b/drivers/gpu/drm/i915/display/intel_display_types.h
+index df29ec37ef28..089c53d5f3c9 100644
+--- a/drivers/gpu/drm/i915/display/intel_display_types.h
++++ b/drivers/gpu/drm/i915/display/intel_display_types.h
+@@ -1690,6 +1690,7 @@ struct intel_psr {
+ #define I915_PSR_DEBUG_ENABLE_SEL_FETCH		0x4
+ #define I915_PSR_DEBUG_IRQ			0x10
+ #define I915_PSR_DEBUG_SU_REGION_ET_DISABLE	0x20
++#define I915_PSR_DEBUG_PANEL_REPLAY_DISABLE	0x40
+ 
+ 	u32 debug;
+ 	bool sink_support;
 diff --git a/drivers/gpu/drm/i915/display/intel_psr.c b/drivers/gpu/drm/i915/display/intel_psr.c
-index 3aec56d005ef..97d1e4ef6ca5 100644
+index a10d9383cc87..b4cd7a8b17bc 100644
 --- a/drivers/gpu/drm/i915/display/intel_psr.c
 +++ b/drivers/gpu/drm/i915/display/intel_psr.c
-@@ -1394,9 +1394,6 @@ static bool intel_psr2_config_valid(struct intel_dp *intel_dp,
+@@ -1520,6 +1520,9 @@ _panel_replay_compute_config(struct intel_dp *intel_dp,
+ 	if (!CAN_PANEL_REPLAY(intel_dp))
+ 		return false;
  
- 	tgl_dc3co_exitline_compute_config(intel_dp, crtc_state);
- 
--	if (psr2_su_region_et_valid(intel_dp, crtc_state->has_panel_replay))
--		crtc_state->enable_psr2_su_region_et = true;
--
- 	return true;
- }
- 
-@@ -1458,6 +1455,9 @@ static bool intel_sel_update_config_valid(struct intel_dp *intel_dp,
- 		goto unsupported;
- 	}
- 
-+	crtc_state->enable_psr2_su_region_et =
-+		psr2_su_region_et_valid(intel_dp, crtc_state->has_panel_replay);
++	if (intel_dp->psr.debug & I915_PSR_DEBUG_PANEL_REPLAY_DISABLE)
++		return false;
 +
- 	return true;
+ 	if (!intel_dp_is_edp(intel_dp))
+ 		return true;
  
- unsupported:
+@@ -2845,11 +2848,13 @@ int intel_psr_debug_set(struct intel_dp *intel_dp, u64 val)
+ {
+ 	struct drm_i915_private *dev_priv = dp_to_i915(intel_dp);
+ 	const u32 mode = val & I915_PSR_DEBUG_MODE_MASK;
+-	const u32 disable_bits = val & I915_PSR_DEBUG_SU_REGION_ET_DISABLE;
++	const u32 disable_bits = val & (I915_PSR_DEBUG_SU_REGION_ET_DISABLE |
++					I915_PSR_DEBUG_PANEL_REPLAY_DISABLE);
+ 	u32 old_mode, old_disable_bits;
+ 	int ret;
+ 
+ 	if (val & ~(I915_PSR_DEBUG_IRQ | I915_PSR_DEBUG_SU_REGION_ET_DISABLE |
++		    I915_PSR_DEBUG_PANEL_REPLAY_DISABLE |
+ 		    I915_PSR_DEBUG_MODE_MASK) ||
+ 	    mode > I915_PSR_DEBUG_ENABLE_SEL_FETCH) {
+ 		drm_dbg_kms(&dev_priv->drm, "Invalid debug mask %llx\n", val);
+@@ -2862,7 +2867,9 @@ int intel_psr_debug_set(struct intel_dp *intel_dp, u64 val)
+ 
+ 	old_mode = intel_dp->psr.debug & I915_PSR_DEBUG_MODE_MASK;
+ 	old_disable_bits = intel_dp->psr.debug &
+-		I915_PSR_DEBUG_SU_REGION_ET_DISABLE;
++		(I915_PSR_DEBUG_SU_REGION_ET_DISABLE |
++		 I915_PSR_DEBUG_PANEL_REPLAY_DISABLE);
++
+ 	intel_dp->psr.debug = val;
+ 
+ 	/*
 -- 
 2.34.1
 
