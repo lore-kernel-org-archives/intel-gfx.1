@@ -4,48 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B75BBC27C55
-	for <intel-gfx@archiver.kernel.org>; Wed,  5 Jun 2024 17:12:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E6A6CC27C5F
+	for <intel-gfx@archiver.kernel.org>; Wed,  5 Jun 2024 17:12:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3544F10E712;
-	Wed,  5 Jun 2024 17:12:03 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 89D1410E795;
+	Wed,  5 Jun 2024 17:12:04 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="MZ7KTMz1";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="cpqfLBwh";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.14])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3010010E6BC;
- Wed,  5 Jun 2024 17:11:46 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E47F310E64A;
+ Wed,  5 Jun 2024 17:11:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1717607506; x=1749143506;
+ t=1717607495; x=1749143495;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=xAxQ9V7JQknexOjcOjn056EfHQrxLKJmYtQNurS7NHw=;
- b=MZ7KTMz1KZPonZW0yTyyewPgRC3rIqOZT26agfy0Zq1BdXZuJR25BYAB
- GSoY9NHi+2LMXO2CkTNhwSPl8ts53odMIMrgHOuPaJ/U8puH40q55PjNa
- X/x12GDS+b8psfZE6YVf+VjKch8SDbcd+GaHGwcE2k/Yy9yYyzrGUMeqW
- eltxjYg0LmccI5Y0NK+xbo2AkslcyZcKadEnE9toPsuaM84G+qLydUFg3
- SenJdka7xTTMcocaHk83nVnMxiG5uk40NMl1j7NbwklcEvhdnUBcKL+wM
- iX8GjCInWqvnvqSYM2GT7ZsXCm+1p4xVrs6pxrghXmmPdw7UsTvKjCQoE A==;
-X-CSE-ConnectionGUID: Vltdt+QXS664+wX4+kbDgg==
-X-CSE-MsgGUID: 6C0ANIyVTFWMMhqYs3gxkg==
-X-IronPort-AV: E=McAfee;i="6600,9927,11094"; a="14452465"
-X-IronPort-AV: E=Sophos;i="6.08,217,1712646000"; d="scan'208";a="14452465"
+ bh=AIIsH+8nPC3RlbN7TX2Vi7D3rPeE7ktU0cYcWrfSzlY=;
+ b=cpqfLBwhzK2s7ylrgYzQABGJr1ArZelojaeNGeYl1O+1uCJaSKeuQzSq
+ FJaxkOhHC/YBqzcwMexZQLvQCfzH/3LwfiG3hIVGhws5sRXJPrOJ/Zhog
+ yDAOtr6bkwPd1+ZD4Ip7uD24gnoEdBowGtESoW930Vuk2tTaO3hyPEDQg
+ n0dqTciiNjbX9OsYiHlZnTrMeTYe8BrJhTM0rIVdmbbeYRM4xlZeVIAae
+ czOib+/+ZH6K9+xNcKHXgS53pWEdcsPMLbA7BG31x/YDkUL+LiruZwb9k
+ 9gaESLFkMIBPHT2h/bdYgT1XAoE74gz8uJGfFHe9JD7en77ITfs94rRVm g==;
+X-CSE-ConnectionGUID: WXGmB7y8SGukIp5vBJznsA==
+X-CSE-MsgGUID: YGUB9PzIRV6MvKpZ/fCw8g==
+X-IronPort-AV: E=McAfee;i="6600,9927,11094"; a="14452441"
+X-IronPort-AV: E=Sophos;i="6.08,217,1712646000"; d="scan'208";a="14452441"
 Received: from fmviesa002.fm.intel.com ([10.60.135.142])
  by fmvoesa108.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 05 Jun 2024 10:11:41 -0700
-X-CSE-ConnectionGUID: JfaVxIvFRMS49mvoWPvzjQ==
-X-CSE-MsgGUID: T5YOnqdXSkmT6tYzpeHDGw==
+ 05 Jun 2024 10:11:34 -0700
+X-CSE-ConnectionGUID: GYXO637qTB+/YZD7GAciwA==
+X-CSE-MsgGUID: kK4c/WgURiuTlRXA6RI6SQ==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.08,217,1712646000"; d="scan'208";a="60848444"
+X-IronPort-AV: E=Sophos;i="6.08,217,1712646000"; d="scan'208";a="60848406"
 Received: from mgolanimitul-x299-ud4-pro.iind.intel.com ([10.190.239.114])
- by fmviesa002.fm.intel.com with ESMTP; 05 Jun 2024 10:11:40 -0700
+ by fmviesa002.fm.intel.com with ESMTP; 05 Jun 2024 10:11:34 -0700
 From: Mitul Golani <mitulkumar.ajitkumar.golani@intel.com>
 To: intel-gfx@lists.freedesktop.org
 Cc: dri-devel@lists.freedesktop.org
-Subject: [PATCH v13 9/9] drm/i915: Compute CMRR and calculate vtotal
-Date: Wed,  5 Jun 2024 22:31:11 +0530
-Message-Id: <20240605170111.494784-10-mitulkumar.ajitkumar.golani@intel.com>
+Subject: [PATCH v13 4/9] drm/i915: Update trans_vrr_ctl flag when cmrr is
+ computed
+Date: Wed,  5 Jun 2024 22:31:06 +0530
+Message-Id: <20240605170111.494784-5-mitulkumar.ajitkumar.golani@intel.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20240605170111.494784-1-mitulkumar.ajitkumar.golani@intel.com>
 References: <20240605170111.494784-1-mitulkumar.ajitkumar.golani@intel.com>
@@ -66,231 +67,76 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Compute Fixed Average Vtotal/CMRR with resepect to
-userspace VRR enablement. Also calculate required
-parameters in case of CMRR is  enabled. During
-intel_vrr_compute_config, CMRR is getting enabled
-based on userspace has enabled Variable refresh mode
-with VRR timing generator or not. Make CMRR as small subset of
-FAVT mode, when Panel is running on Fixed refresh rate
-and on VRR framework then only enable CMRR to match with
-actual refresh rate.
+Add/update trans_vrr_ctl flag when crtc_state->cmrr.enable
+is set, With this commit setting the stage for subsequent
+CMRR enablement.
 
 --v2:
-- Update is_cmrr_frac_required function return as bool, not int. [Jani]
-- Use signed int math instead of unsigned in cmrr_get_vtotal2. [Jani]
-- Fix typo and usage of camel case in cmrr_get_vtotal. [Jani]
-- Use do_div in cmrr_get_vtotalwhile calculating cmrr_m. [ Jani]
-- Simplify cmrr and vrr compute config in intel_vrr_compute_config. [Jani]
-- Correct valiable name usage in is_cmrr_frac_required. [Ville]
+- Check pipe active state in cmrr enabling. [Jani]
+- Remove usage of bitwise OR on booleans. [Jani]
+- Revert unrelated changes. [Jani]
+- Update intel_vrr_enable, vrr and cmrr enable conditions. [Jani]
+- Simplify whole if-ladder in intel_vrr_enable. [Jani]
+- Revert patch restructuring mistakes in intel_vrr_get_config. [Jani]
 
 --v3:
-- Removing RFC tag.
+- Check pipe active state in cmrr disabling.[Jani]
+- Correct messed up condition in intel_vrr_enable. [Jani]
 
 --v4:
-- Added edp check to address edp usecase for now. (ville)
-- Updated is_cmrr_fraction_required to more simplified calculation.
-- on longterm goal to be worked upon uapi as suggestion from ville.
+- Removing RFC tag.
 
 --v5:
-- Correct vtotal paramas accuracy and add 2 digit precision.
-- Avoid using DIV_ROUND_UP and improve scanline precision.
-
---v6:
-- Make CMRR a small subset of FAVT mode.
+- CMRR handling in co-existatnce of LRR and DRRS.
 
 --v7:
-- Update commit message to avoid confusion with Legacy VRR (Ankit).
-- Add cmrr.enable in last, so remove from this patch.
+- Rebase on top of AS SDP merge.
 
 --v8:
-- Set cmrr.enable in current patch instead of separate patch (Ankit).
-- Since vrr.enable and cmrr.enable are not mutually exclusive,
-handle accordingly (Ankit).
-- is_edp is not required inside is_cmrr_frac_required function (Ankit).
-- Add video_mode_required flag for future enhancement.
-- Correct cmrr_m/cmrr_n calculation.
+- Remove cmrr_enabling/disabling and update commit message. (Ankit)
 
 --v9:
-- Move patch to last and set other bits before computing
-cmrr.enable.(Ankit)
-- Add TODO: for to address target refresh rate precision as future
-enhancement.
+- Revert removed line(Ankit).
 
 Signed-off-by: Mitul Golani <mitulkumar.ajitkumar.golani@intel.com>
 Reviewed-by: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_display.c  |  1 +
- .../drm/i915/display/intel_display_device.h   |  1 +
- drivers/gpu/drm/i915/display/intel_vrr.c      | 92 ++++++++++++++++---
- 3 files changed, 83 insertions(+), 11 deletions(-)
+ drivers/gpu/drm/i915/display/intel_vrr.c      | 10 ++++++++--
+ drivers/gpu/drm/i915/display/intel_vrr_regs.h |  2 ++
+ 2 files changed, 10 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
-index 29d750d2e6f7..634ffff64b1a 100644
---- a/drivers/gpu/drm/i915/display/intel_display.c
-+++ b/drivers/gpu/drm/i915/display/intel_display.c
-@@ -5451,6 +5451,7 @@ intel_pipe_config_compare(const struct intel_crtc_state *current_config,
- 		PIPE_CONF_CHECK_I(vrr.vsync_end);
- 		PIPE_CONF_CHECK_LLI(cmrr.cmrr_m);
- 		PIPE_CONF_CHECK_LLI(cmrr.cmrr_n);
-+		PIPE_CONF_CHECK_BOOL(cmrr.enable);
- 	}
- 
- #undef PIPE_CONF_CHECK_X
-diff --git a/drivers/gpu/drm/i915/display/intel_display_device.h b/drivers/gpu/drm/i915/display/intel_display_device.h
-index e1d9947394dc..92a438ad45a8 100644
---- a/drivers/gpu/drm/i915/display/intel_display_device.h
-+++ b/drivers/gpu/drm/i915/display/intel_display_device.h
-@@ -152,6 +152,7 @@ enum intel_display_subplatform {
- 					  BIT(trans)) != 0)
- #define HAS_VRR(i915)			(DISPLAY_VER(i915) >= 11)
- #define HAS_AS_SDP(i915)		(DISPLAY_VER(i915) >= 13)
-+#define HAS_CMRR(i915)			(DISPLAY_VER(i915) >= 20)
- #define INTEL_NUM_PIPES(i915)		(hweight8(DISPLAY_RUNTIME_INFO(i915)->pipe_mask))
- #define I915_HAS_HOTPLUG(i915)		(DISPLAY_INFO(i915)->has_hotplug)
- #define OVERLAY_NEEDS_PHYSICAL(i915)	(DISPLAY_INFO(i915)->overlay_needs_physical)
 diff --git a/drivers/gpu/drm/i915/display/intel_vrr.c b/drivers/gpu/drm/i915/display/intel_vrr.c
-index 4ad99a54aa83..05f67dc9d98d 100644
+index d2f854d9d18b..19b364074de0 100644
 --- a/drivers/gpu/drm/i915/display/intel_vrr.c
 +++ b/drivers/gpu/drm/i915/display/intel_vrr.c
-@@ -12,6 +12,9 @@
- #include "intel_vrr_regs.h"
- #include "intel_dp.h"
+@@ -282,8 +282,14 @@ void intel_vrr_enable(const struct intel_crtc_state *crtc_state)
+ 			       VRR_VSYNC_END(crtc_state->vrr.vsync_end) |
+ 			       VRR_VSYNC_START(crtc_state->vrr.vsync_start));
  
-+#define FIXED_POINT_PRECISION		100
-+#define CMRR_PRECISION_TOLERANCE	10
-+
- bool intel_vrr_is_capable(struct intel_connector *connector)
- {
- 	const struct drm_display_info *info = &connector->base.display_info;
-@@ -107,6 +110,52 @@ int intel_vrr_vmax_vblank_start(const struct intel_crtc_state *crtc_state)
- 	return crtc_state->vrr.vmax - intel_vrr_vblank_exit_length(crtc_state);
- }
- 
-+static bool
-+is_cmrr_frac_required(struct intel_crtc_state *crtc_state)
-+{
-+	int calculated_refresh_k, actual_refresh_k, pixel_clock_per_line;
-+	struct drm_display_mode *adjusted_mode = &crtc_state->hw.adjusted_mode;
-+	struct drm_i915_private *i915 = to_i915(crtc_state->uapi.crtc->dev);
-+
-+	if (!HAS_CMRR(i915))
-+		return false;
-+
-+	actual_refresh_k =
-+		drm_mode_vrefresh(adjusted_mode) * FIXED_POINT_PRECISION;
-+	pixel_clock_per_line =
-+		adjusted_mode->crtc_clock * 1000 / adjusted_mode->crtc_htotal;
-+	calculated_refresh_k =
-+		pixel_clock_per_line * FIXED_POINT_PRECISION / adjusted_mode->crtc_vtotal;
-+
-+	if ((actual_refresh_k - calculated_refresh_k) < CMRR_PRECISION_TOLERANCE)
-+		return false;
-+
-+	return true;
-+}
-+
-+static unsigned int
-+cmrr_get_vtotal(struct intel_crtc_state *crtc_state, bool video_mode_required)
-+{
-+	int multiplier_m = 1, multiplier_n = 1, vtotal, desired_refresh_rate;
-+	long long adjusted_pixel_rate;
-+	struct drm_display_mode *adjusted_mode = &crtc_state->hw.adjusted_mode;
-+
-+	desired_refresh_rate = drm_mode_vrefresh(adjusted_mode);
-+
-+	if (video_mode_required) {
-+		multiplier_m = 1001;
-+		multiplier_n = 1000;
-+	}
-+
-+	crtc_state->cmrr.cmrr_n =
-+		desired_refresh_rate * adjusted_mode->crtc_htotal * multiplier_n;
-+	vtotal = (adjusted_mode->crtc_clock * 1000 * multiplier_n) / crtc_state->cmrr.cmrr_n;
-+	adjusted_pixel_rate = adjusted_mode->crtc_clock * 1000 * multiplier_m;
-+	crtc_state->cmrr.cmrr_m = do_div(adjusted_pixel_rate, crtc_state->cmrr.cmrr_n);
-+
-+	return vtotal;
-+}
-+
- void
- intel_vrr_compute_config(struct intel_crtc_state *crtc_state,
- 			 struct drm_connector_state *conn_state)
-@@ -116,6 +165,7 @@ intel_vrr_compute_config(struct intel_crtc_state *crtc_state,
- 	struct intel_connector *connector =
- 		to_intel_connector(conn_state->connector);
- 	struct intel_dp *intel_dp = intel_attached_dp(connector);
-+	bool is_edp = intel_dp_is_edp(intel_dp);
- 	struct drm_display_mode *adjusted_mode = &crtc_state->hw.adjusted_mode;
- 	const struct drm_display_info *info = &connector->base.display_info;
- 	int vmin, vmax;
-@@ -160,21 +210,26 @@ intel_vrr_compute_config(struct intel_crtc_state *crtc_state,
- 	crtc_state->vrr.flipline = crtc_state->vrr.vmin + 1;
- 
- 	/*
--	 * For XE_LPD+, we use guardband and pipeline override
--	 * is deprecated.
-+	 * When panel is VRR capable and userspace has
-+	 * not enabled adaptive sync mode then Fixed Average
-+	 * Vtotal mode should be enabled.
- 	 */
--	if (DISPLAY_VER(i915) >= 13) {
--		crtc_state->vrr.guardband =
--			crtc_state->vrr.vmin + 1 - adjusted_mode->crtc_vblank_start;
--	} else {
--		crtc_state->vrr.pipeline_full =
--			min(255, crtc_state->vrr.vmin - adjusted_mode->crtc_vblank_start -
--			    crtc_state->framestart_delay - 1);
--	}
--
- 	if (crtc_state->uapi.vrr_enabled) {
- 		crtc_state->vrr.enable = true;
- 		crtc_state->mode_flags |= I915_MODE_FLAG_VRR;
-+	} else if (is_cmrr_frac_required(crtc_state) && is_edp) {
-+		crtc_state->vrr.enable = true;
-+		crtc_state->cmrr.enable = true;
-+		/*
-+		 * TODO: Compute precise target refresh rate to determine
-+		 * if video_mode_required should be true. Currently set to
-+		 * false due to uncertainty about the precise target
-+		 * refresh Rate.
-+		 */
-+		crtc_state->vrr.vmax = cmrr_get_vtotal(crtc_state, false);
-+		crtc_state->vrr.vmin = crtc_state->vrr.vmax;
-+		crtc_state->vrr.flipline = crtc_state->vrr.vmin;
-+		crtc_state->mode_flags |= I915_MODE_FLAG_VRR;
- 	}
- 
- 	if (intel_dp_as_sdp_supported(intel_dp)) {
-@@ -185,6 +240,19 @@ intel_vrr_compute_config(struct intel_crtc_state *crtc_state,
- 			(crtc_state->hw.adjusted_mode.crtc_vtotal -
- 			 crtc_state->hw.adjusted_mode.vsync_end);
- 	}
-+
-+	/*
-+	 * For XE_LPD+, we use guardband and pipeline override
-+	 * is deprecated.
-+	 */
-+	if (DISPLAY_VER(i915) >= 13) {
-+		crtc_state->vrr.guardband =
-+			crtc_state->vrr.vmin + 1 - adjusted_mode->crtc_vblank_start;
+-	intel_de_write(dev_priv, TRANS_VRR_CTL(dev_priv, cpu_transcoder),
+-		       VRR_CTL_VRR_ENABLE | trans_vrr_ctl(crtc_state));
++	if (crtc_state->cmrr.enable) {
++		intel_de_write(dev_priv, TRANS_VRR_CTL(dev_priv, cpu_transcoder),
++			       VRR_CTL_VRR_ENABLE | VRR_CTL_CMRR_ENABLE |
++			       trans_vrr_ctl(crtc_state));
 +	} else {
-+		crtc_state->vrr.pipeline_full =
-+			min(255, crtc_state->vrr.vmin - adjusted_mode->crtc_vblank_start -
-+			    crtc_state->framestart_delay - 1);
++		intel_de_write(dev_priv, TRANS_VRR_CTL(dev_priv, cpu_transcoder),
++			       VRR_CTL_VRR_ENABLE | trans_vrr_ctl(crtc_state));
 +	}
  }
  
- static u32 trans_vrr_ctl(const struct intel_crtc_state *crtc_state)
-@@ -324,6 +392,8 @@ void intel_vrr_get_config(struct intel_crtc_state *crtc_state)
- 				      TRANS_VRR_CTL(dev_priv, cpu_transcoder));
+ void intel_vrr_disable(const struct intel_crtc_state *old_crtc_state)
+diff --git a/drivers/gpu/drm/i915/display/intel_vrr_regs.h b/drivers/gpu/drm/i915/display/intel_vrr_regs.h
+index 1aeb0cd45068..577b0abb66db 100644
+--- a/drivers/gpu/drm/i915/display/intel_vrr_regs.h
++++ b/drivers/gpu/drm/i915/display/intel_vrr_regs.h
+@@ -123,4 +123,6 @@
+ #define _TRANS_CMRR_N_HI_A			0x604FC
+ #define TRANS_CMRR_N_HI(dev_priv, trans)        _MMIO_TRANS2(dev_priv, trans, _TRANS_CMRR_N_HI_A)
  
- 	crtc_state->vrr.enable = trans_vrr_ctl & VRR_CTL_VRR_ENABLE;
-+	if (HAS_CMRR(dev_priv))
-+		crtc_state->cmrr.enable = (trans_vrr_ctl & VRR_CTL_CMRR_ENABLE);
- 
- 	if (crtc_state->cmrr.enable) {
- 		crtc_state->cmrr.cmrr_n =
++#define VRR_CTL_CMRR_ENABLE			REG_BIT(27)
++
+ #endif /* __INTEL_VRR_REGS__ */
 -- 
 2.25.1
 
