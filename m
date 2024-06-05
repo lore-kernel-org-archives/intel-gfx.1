@@ -4,63 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1414EC27C5E
-	for <intel-gfx@archiver.kernel.org>; Wed,  5 Jun 2024 12:36:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 78AB5C25B76
+	for <intel-gfx@archiver.kernel.org>; Wed,  5 Jun 2024 12:38:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1066510E4E9;
-	Wed,  5 Jun 2024 12:36:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C618110E587;
+	Wed,  5 Jun 2024 12:38:21 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="ehSnSHzm";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="I+KIJ+zk";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4225F10E5DB;
- Wed,  5 Jun 2024 12:36:16 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.9])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9B94410E587;
+ Wed,  5 Jun 2024 12:38:20 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1717590976; x=1749126976;
- h=from:to:cc:subject:in-reply-to:references:date:
- message-id:mime-version;
- bh=+YclYx0u1dt3KvnTUzDYgRHDIhFjiX1Hok5YG51qfsE=;
- b=ehSnSHzmHhJYU90LYsI4FydDDsLllI9n2hTduAhi7grjoCeHasNoUMdU
- U6Oig/jpkWUvnjpz8sbvy9ZFTLwxD2gxRgdV0U9eJ/9b74HwoEg4LhEoP
- e7lhIXUIAbPKRPJDRGhfa3AXnbHX0+ryVXaMlO5NqTVKMpsYtxj3400t8
- QbyK4kVw47Z5mYPRuAkLyqWioVF4QcF0oYmus+BhJvNvKuROSir+pDmRr
- 20XdCJzzv6h10I6HTznfI3MjbNwJF49Fknjm6BYnyCEUw9hSsC5SxkE7g
- FQj4RcPFi4kAqb4qgNM0+EZ3LXhfqOyH478Rsoxihh7cycCwNYSlXikRH w==;
-X-CSE-ConnectionGUID: l3pTT1kVSmWTLlIYv5ZhAg==
-X-CSE-MsgGUID: 8Uxl6ttVQpyIJY03AO+2EQ==
-X-IronPort-AV: E=McAfee;i="6600,9927,11093"; a="14377308"
-X-IronPort-AV: E=Sophos;i="6.08,216,1712646000"; d="scan'208";a="14377308"
-Received: from fmviesa010.fm.intel.com ([10.60.135.150])
- by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 05 Jun 2024 05:36:15 -0700
-X-CSE-ConnectionGUID: Lx6z27YWT7OSx6GJGc5JZg==
-X-CSE-MsgGUID: 4BlE4sM/RKqGf9fTKsM1oQ==
+ t=1717591100; x=1749127100;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=LqBK29Sf3GhP9DGZ9qibizXoszwSXnZDkehTidg+qYo=;
+ b=I+KIJ+zkWhU/cjUhwAHHYk3NHoadc3RzAPs3xIJJMr0P0JWs2TOvSVGb
+ L2N1Q79Wf7mBE3xyDIOplIWqRa4+4HwODaIUiZu6nhlrNlanOGjD0Tx5j
+ 9xhkil4GC6zlmLLkvedouCNZV2oevK6rCbjxtGxEdXDy+iZj0iL8LISwA
+ Xp001YKBVYdknbI6vNWyvSCSaoOx/v0n8597umgAbqrqpRG2zpjfdCPto
+ I63VfPaB6jYmSyE5Mq5Idvdt1rJWI5vNnJ2xVsjqPHG8FAAeDXaozGWtx
+ ykYSisQFhq7Brj4YUXFTRWtpittujaJzTWTomLeeEQKiYlkH5KPjjVxiQ Q==;
+X-CSE-ConnectionGUID: rjeyiuFcS4yLnJcXx8iB2Q==
+X-CSE-MsgGUID: Oc7kXUUWRJqs61U8CBvNIw==
+X-IronPort-AV: E=McAfee;i="6600,9927,11093"; a="36728138"
+X-IronPort-AV: E=Sophos;i="6.08,216,1712646000"; d="scan'208";a="36728138"
+Received: from orviesa007.jf.intel.com ([10.64.159.147])
+ by orvoesa101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 05 Jun 2024 05:38:20 -0700
+X-CSE-ConnectionGUID: igEmXQMLQzCSz0m6tisAkw==
+X-CSE-MsgGUID: 2J8RdfKTRBSlgf6E7qxJ7Q==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.08,216,1712646000"; d="scan'208";a="37683913"
-Received: from sbutnari-mobl1.ger.corp.intel.com (HELO localhost)
- ([10.245.246.204])
- by fmviesa010-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 05 Jun 2024 05:36:11 -0700
-From: Jani Nikula <jani.nikula@intel.com>
-To: intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
-Cc: Alex Deucher <alexander.deucher@amd.com>, Christian =?utf-8?Q?K=C3=B6n?=
- =?utf-8?Q?ig?=
- <christian.koenig@amd.com>, Pan Xinhui <Xinhui.Pan@amd.com>, Lucas De
- Marchi <lucas.demarchi@intel.com>, Thomas =?utf-8?Q?Hellstr=C3=B6m?=
- <thomas.hellstrom@linux.intel.com>, Joonas Lahtinen
- <joonas.lahtinen@linux.intel.com>, Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Tvrtko Ursulin <tursulin@ursulin.net>
-Subject: Re: [PATCH 1/3] drm/i915: drop redundant W=1 warnings from Makefile
-In-Reply-To: <490931748fa9a1dbac2bceda0c4b778240b10b58.1716471145.git.jani.nikula@intel.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
-References: <cover.1716471145.git.jani.nikula@intel.com>
- <490931748fa9a1dbac2bceda0c4b778240b10b58.1716471145.git.jani.nikula@intel.com>
-Date: Wed, 05 Jun 2024 15:36:06 +0300
-Message-ID: <87sexrbm89.fsf@intel.com>
+X-IronPort-AV: E=Sophos;i="6.08,216,1712646000"; d="scan'208";a="38216540"
+Received: from mgolanimitul-x299-ud4-pro.iind.intel.com ([10.190.239.114])
+ by orviesa007.jf.intel.com with ESMTP; 05 Jun 2024 05:38:19 -0700
+From: Mitul Golani <mitulkumar.ajitkumar.golani@intel.com>
+To: intel-gfx@lists.freedesktop.org
+Cc: dri-devel@lists.freedesktop.org, ankit.k.nautiyal@intel.com,
+ jani.nikula@intel.com
+Subject: [PATCH v12 0/9] Implement CMRR Support
+Date: Wed,  5 Jun 2024 17:57:53 +0530
+Message-Id: <20240605122802.488124-1-mitulkumar.ajitkumar.golani@intel.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,62 +66,81 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Thu, 23 May 2024, Jani Nikula <jani.nikula@intel.com> wrote:
-> Since commit a61ddb4393ad ("drm: enable (most) W=1 warnings by default
-> across the subsystem"), most of the extra warnings in the driver
-> Makefile are redundant. Remove them.
->
-> Note that -Wmissing-declarations and -Wmissing-prototypes are always
-> enabled by default in scripts/Makefile.extrawarn.
->
-> Signed-off-by: Jani Nikula <jani.nikula@intel.com>
+CMRR is a display feature that uses adaptive sync
+framework to vary Vtotal slightly to match the
+content rate exactly without frame drops. This
+feature is a variation of VRR where it varies Vtotal
+slightly (between additional 0 and 1 Vtotal scanlines)
+to match content rate exactly without frame drops
+using the adaptive sync framework.
 
-Pushed this patch to drm-intel-next with Lucas' irc ack.
+enable this feature by programing new registers for
+CMRR enable, CMRR_M, CMRR_N, vmin=vmax=flipline.The
+CMRR_M/CMRR_N ratio represents the fractional part
+in (actual refresh rate/target refresh rate) * origVTotal.
 
-BR,
-Jani.
+--v6:
+- CMRR handling in co-existatnce of LRR and DRRS
+- Correct vtotal paramas accuracy and add 2 digit precision.
 
-> ---
->  drivers/gpu/drm/i915/Makefile | 25 +------------------------
->  1 file changed, 1 insertion(+), 24 deletions(-)
->
-> diff --git a/drivers/gpu/drm/i915/Makefile b/drivers/gpu/drm/i915/Makefile
-> index 7cad944b825c..a70d95a8fd7a 100644
-> --- a/drivers/gpu/drm/i915/Makefile
-> +++ b/drivers/gpu/drm/i915/Makefile
-> @@ -3,31 +3,8 @@
->  # Makefile for the drm device driver.  This driver provides support for the
->  # Direct Rendering Infrastructure (DRI) in XFree86 4.1.0 and higher.
->  
-> -# Unconditionally enable W=1 warnings locally
-> -# --- begin copy-paste W=1 warnings from scripts/Makefile.extrawarn
-> -subdir-ccflags-y += -Wextra -Wunused -Wno-unused-parameter
-> -subdir-ccflags-y += -Wmissing-declarations
-> -subdir-ccflags-y += $(call cc-option, -Wrestrict)
-> -subdir-ccflags-y += -Wmissing-format-attribute
-> -subdir-ccflags-y += -Wmissing-prototypes
-> -subdir-ccflags-y += -Wold-style-definition
-> -subdir-ccflags-y += -Wmissing-include-dirs
-> -subdir-ccflags-y += $(call cc-option, -Wunused-but-set-variable)
-> -subdir-ccflags-y += $(call cc-option, -Wunused-const-variable)
-> -subdir-ccflags-y += $(call cc-option, -Wpacked-not-aligned)
-> -subdir-ccflags-y += $(call cc-option, -Wformat-overflow)
-> +# Enable W=1 warnings not enabled in drm subsystem Makefile
->  subdir-ccflags-y += $(call cc-option, -Wformat-truncation)
-> -subdir-ccflags-y += $(call cc-option, -Wstringop-truncation)
-> -# The following turn off the warnings enabled by -Wextra
-> -ifeq ($(findstring 2, $(KBUILD_EXTRA_WARN)),)
-> -subdir-ccflags-y += -Wno-missing-field-initializers
-> -subdir-ccflags-y += -Wno-type-limits
-> -subdir-ccflags-y += -Wno-shift-negative-value
-> -endif
-> -ifeq ($(findstring 3, $(KBUILD_EXTRA_WARN)),)
-> -subdir-ccflags-y += -Wno-sign-compare
-> -endif
-> -# --- end copy-paste
->  
->  # Enable -Werror in CI and development
->  subdir-ccflags-$(CONFIG_DRM_I915_WERROR) += -Werror
+--v7:
+- Rebased patches in-accordance to AS SDP merge.
+- Add neccessary gaurd to prevent crtc_state mismatch
+during intel_vrr_get_config.
+
+-v8:
+- Add support for AS SDP for CMRR.
+- update palce holder for CMRR register(Jani).
+- Make CMRR as subset of FAVT, as per comments in patch#3.
+
+-v9:
+- Add CMRR register definitions to separate intel_vrr_reg.h.
+- Remove cmrr_enabling/disabling, use vrr.enable instead.
+- Update AS SDP pack function to accomodate target_rr_divider.
+- Remove duplicated lines to compute vrr_vsync params.
+- Set cmrr.enable with a separate patch at last.
+
+-v10:
+- Separate VRR related register definitions.
+- Add dependency header intel_display_reg_defs.h.
+- Rename file name to intel_vrr_regs.h instead of reg.h.
+- Revert removed line.
+- Since vrr.enable and cmrr.enable are not mutually exclusive,
+handle accordingly.
+- is_edp is not required inside is_cmrr_frac_required function.
+- Add video_mode_required flag for future enhancement.
+- Correct cmrr_m/cmrr_n calculation.
+- target_rr_divider is bools so handle accordingly.
+
+-v11:
+- Move VRR related register and bits to separate file
+intel_vrr_regs.h.
+- Correct file header macro to intel_vrr_regs.h.
+- Remove adding CMRR flag to vrr_ctl register during
+set_transcoder_timing.
+- Replace vrr.enable flag to cmrr.enable where added mistakenly.
+- Move cmrr computation patch to last and set other other required
+  params before computing cmrr.enable.
+
+-v12:
+- Add patch to fix check patch issues for VRR related registers
+in i915_reg.h then move them to intel_vrr_regs.h with separate
+patch.
+- Use drm_mode_vrefresh instead of manual refresh rate calculation.
+
+Mitul Golani (7):
+  gpu/drm/i915: Update indentation for VRR registers and bits
+  drm/i915: Separate VRR related register definitions
+  drm/i915: Define and compute Transcoder CMRR registers
+  drm/i915: Update trans_vrr_ctl flag when cmrr is computed
+  drm/dp: Add refresh rate divider to struct representing AS SDP
+  drm/i915/display: Add support for pack and unpack
+  drm/i915/display: Compute Adaptive sync SDP params
+
+Ville Syrjälä (2):
+  drm/i915: Protect CRC reg macro arguments for consistency
+  drm-tip: 2024y-06m-05d-09h-52m-50s UTC integration manifest
 
 -- 
-Jani Nikula, Intel
+2.25.1
+
