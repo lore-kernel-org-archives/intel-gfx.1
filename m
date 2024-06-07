@@ -4,200 +4,131 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8CFD8C27C65
-	for <intel-gfx@archiver.kernel.org>; Mon, 10 Jun 2024 14:18:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 77787C27C55
+	for <intel-gfx@archiver.kernel.org>; Mon, 10 Jun 2024 14:39:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BCF7710E189;
-	Mon, 10 Jun 2024 14:18:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AD52C10E1F4;
+	Mon, 10 Jun 2024 14:39:28 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="Jk2pGreX";
+	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="PhNl/1Oh";
 	dkim-atps=neutral
-Received: from mail-lf1-f47.google.com (mail-lf1-f47.google.com
- [209.85.167.47])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0027D10E359
- for <intel-gfx@lists.freedesktop.org>; Mon, 10 Jun 2024 08:08:14 +0000 (UTC)
-Received: by mail-lf1-f47.google.com with SMTP id
- 2adb3069b0e04-5295e488248so4550171e87.2
- for <intel-gfx@lists.freedesktop.org>; Mon, 10 Jun 2024 01:08:14 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1718006893; x=1718611693; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=/L5y1Dv6ivY3eszYnYmdXRYc401x9YYY2yBAmmyUG/k=;
- b=Jk2pGreXJkRau6r88te0sdqz2/QSFFk7lebcZ5AJ3q2j6Wy0eXP2v/GpyxFd6UFjSc
- dS16pOyB0KAd3EyM72fqbgqvIXhQNwFLOYYlaSjaigs+yOatiq+5m/D418mfqx63MJYD
- pBJgtVFOsooenCqgZ7Ew01enSj4ZU5+vOX961EraSp/G67ByQq0SOHrbQi7dSm3Ohi6j
- KdXPjpWqDm7Aewu/QwwxPeIrEcFUeCQFhkWIfAddm8EdAMCTbu3xi1wnpnP9gW1GMKZH
- hS8gPbmrIpoZbH6mj6bkLS0yU6VnwKuRVtFM+F8NQHyHjxywAIAT0l8WFI+NaD56ByqE
- KlAA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1718006893; x=1718611693;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=/L5y1Dv6ivY3eszYnYmdXRYc401x9YYY2yBAmmyUG/k=;
- b=TpzZkqfMn7t0xp6eSO4usS+F4VBE/fea1mU35GB0H52Tmie24tO92oie5JvIQWLN6F
- 7jLZ07ruxtfHISMEmmLV4D9yh3dwUG0YPha1aIkCiobPWV3ucv1jchsKgG0dcSSTtl+E
- s8/ATMK7UUdQ2YH+HPiMp2G17AwD27Sdez+iZPVrgeVjgD4YybZ/BIaB+Kxy+9t9XY0Y
- YaPsXVh2dB6QrIwANuVkWyxc1TSJAspfm7zCoWhaQj76cKOAiPEbm+bBMqGziTN4Tz3X
- u5UNPHL2ZiaWerLqK2zU5JZX65iUKJJN0cJx8n1GwMx7n56rlUVU7lRTbEONr3rfw0jv
- lCFw==
-X-Forwarded-Encrypted: i=1;
- AJvYcCUxB5GMGsndPO9gca4tYYOMq1+6hfYAfdbvYwccsYql9O3+bUeMHLeDpa9dtXmv3X64kuAhGTQAEyuYaIBbAhFAGCISzyO9nFkxTznMgM9X
-X-Gm-Message-State: AOJu0Yxwo0taXosL7JDvCyPDhw9CEYZyo8sDBm8+1sjVTkZ6ARvR2zKS
- kwWOAFmjyK7umVim+0RUTyAXF4vEbnc46g3LV4KIPa3roS6Kt7hD5VYU3SUVbScfndqb3+zjuO4
- U1Cyrz7jKLW3zI4tCYZF0CMqOIUfNFZ5AKAPYoQ==
-X-Google-Smtp-Source: AGHT+IEoIIaopVbMhKiBzu+ZFeFG117iZrYhuaSy1PLsnicMvCE0nAaF1iUL9hhnUeVtUHqe9i20V059/u6XmSWe6yI=
-X-Received: by 2002:a05:6512:234d:b0:52b:be9b:cafe with SMTP id
- 2adb3069b0e04-52bbe9bcbadmr5940256e87.21.1718006892189; Mon, 10 Jun 2024
- 01:08:12 -0700 (PDT)
+Received: from NAM11-CO1-obe.outbound.protection.outlook.com
+ (mail-co1nam11on2070.outbound.protection.outlook.com [40.107.220.70])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 058F210ECC1;
+ Fri,  7 Jun 2024 15:52:41 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=LBo1SvvDnFk2xj2lrIjGgL6Y2LsF/RAzbrQxt2h8IJiL/jonfYkX09p2DyUDT3W1QCPeBy/SGzTmDzBPakII3OtopTYoKklVQMoLwEUUPiV5U9+DdOl59ijUPWQL9WUu0b3vHlngkkvIu3SwhGie6X6O/pXNvklDvG0JQd04L6yjE0pg8sheqC2rm0eH1u+mZ9PUy8gbzyEZOa+n14w4TbK5oWI9TtPH3DPdGTWqCivr6wzvJ6HvSCsud5T1wCDiuouR4ggc2cZbdVu5Drp8GpCjbNwKKh8WkPxVluMuGKLKrKLN/r3COrcpR2Xs2bmigDJEKhWUBSxcupVVzRgdmw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=S2K4eTkIF1GXQgp2QEntpwa7rT1ybn5B1lNDdBidJCI=;
+ b=h4NFqQhmYp/L2u529HMcUL2f8aqhwbUq6cP7pHzGcvlTGtD8ZNJRJnlEjYa/3UJnDJlu6YU/UKzozoeiYV+PcIotn1zLJg/rdl8Qo79YHRVLqqhsj0T1gRyUKEg5QseBMbVMB8zrKJ7BZ/YFoUslTZGi2L/C133vHkRHNQ+81/HOSK8B0EkUW0mXBXn3bVXmfndrsmCNLc1UpEGHGwy17lngFd6gVho8A6r8OQReOzUxlm3xFBW3f9M5neZEyIepPOuezW/lPP6HDbFmFCLrdPGqmWAwbV7kfW/OCoOg85uj/+DfIhJFwTwHnHjMvK5qW+7DBwFQ584dUyuXHnGsZA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 216.228.117.160) smtp.rcpttodomain=intel.com smtp.mailfrom=nvidia.com;
+ dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=S2K4eTkIF1GXQgp2QEntpwa7rT1ybn5B1lNDdBidJCI=;
+ b=PhNl/1OhnRLZcpoDS6/QoQHc9sN/NpQ4oYfjfEzB4Axcr2D2D1oQgl6DdLeyVJzH+zhUdWCpDUzStgHM3z/TOZUpc3vFf811KXhvIjEudvCYBk02pedFIVxIOTuXt0RdY0fQKC7t9lzyyZIvJLvE9QyLc0iAvllN7GlD1C5AHqP/ZB0j3Ylda3ZrM2rOnH33Cnv8GbJhZaIZgY7FO+ReeeQxNc37MsYpgTCcdH6TewJ1EaljOWrvM5XcZhAhnorKVUGj3ualZ7+Q52MGrkIX+hRyL5J+Ed95cLs+Z6SZPB7budZ5B4m4g4RoJBsY04OAj9CaW/sdU+aCsdN+R2qeaw==
+Received: from DM5PR08CA0054.namprd08.prod.outlook.com (2603:10b6:4:60::43) by
+ MW4PR12MB7032.namprd12.prod.outlook.com (2603:10b6:303:1e9::12) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7633.33; Fri, 7 Jun
+ 2024 15:52:39 +0000
+Received: from DS1PEPF0001708F.namprd03.prod.outlook.com
+ (2603:10b6:4:60:cafe::f6) by DM5PR08CA0054.outlook.office365.com
+ (2603:10b6:4:60::43) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7656.22 via Frontend
+ Transport; Fri, 7 Jun 2024 15:52:39 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 216.228.117.160)
+ smtp.mailfrom=nvidia.com;
+ dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=nvidia.com;
+Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
+ 216.228.117.160 as permitted sender) receiver=protection.outlook.com;
+ client-ip=216.228.117.160; helo=mail.nvidia.com; pr=C
+Received: from mail.nvidia.com (216.228.117.160) by
+ DS1PEPF0001708F.mail.protection.outlook.com (10.167.17.139) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.7633.15 via Frontend Transport; Fri, 7 Jun 2024 15:52:39 +0000
+Received: from rnnvmail203.nvidia.com (10.129.68.9) by mail.nvidia.com
+ (10.129.200.66) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.4; Fri, 7 Jun 2024
+ 08:52:22 -0700
+Received: from rnnvmail202.nvidia.com (10.129.68.7) by rnnvmail203.nvidia.com
+ (10.129.68.9) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.4; Fri, 7 Jun 2024
+ 08:52:21 -0700
+Received: from localhost (10.127.8.10) by mail.nvidia.com (10.129.68.7) with
+ Microsoft SMTP Server id 15.2.1544.4 via Frontend Transport; Fri, 7 Jun 2024
+ 08:52:20 -0700
+Date: Fri, 7 Jun 2024 18:52:19 +0300
+From: Zhi Wang <zhiw@nvidia.com>
+To: Jani Nikula <jani.nikula@intel.com>
+CC: <intel-gfx@lists.freedesktop.org>, <intel-gvt-dev@lists.freedesktop.org>, 
+ <rodrigo.vivi@intel.com>, <ville.syrjala@linux.intel.com>, Zhenyu Wang
+ <zhenyuw@linux.intel.com>, Zhi Wang <zhi.wang.linux@gmail.com>
+Subject: Re: [PATCH v2 1/6] drm/i915/gvt: remove the unused end parameter
+ from calc_index()
+Message-ID: <20240607185219.00001b8c.zhiw@nvidia.com>
+In-Reply-To: <aaa24a5cbcf876d3b95e0f5f6594f972a860b6bc.1717773890.git.jani.nikula@intel.com>
+References: <cover.1717773890.git.jani.nikula@intel.com>
+ <aaa24a5cbcf876d3b95e0f5f6594f972a860b6bc.1717773890.git.jani.nikula@intel.com>
+Organization: NVIDIA
+X-Mailer: Claws Mail 4.2.0 (GTK 3.24.38; x86_64-w64-mingw32)
 MIME-Version: 1.0
-References: <20240603211538.289765-1-andriy.shevchenko@linux.intel.com>
- <87tti9cfry.fsf@intel.com>
-In-Reply-To: <87tti9cfry.fsf@intel.com>
-From: Linus Walleij <linus.walleij@linaro.org>
-Date: Mon, 10 Jun 2024 10:08:00 +0200
-Message-ID: <CACRpkdZFPG_YLici-BmYfk9HZ36f4WavCN3JNotkk8cPgCODCg@mail.gmail.com>
-Subject: Re: [PATCH v1 1/1] treewide: Align match_string() with
- sysfs_match_string()
-To: Jani Nikula <jani.nikula@linux.intel.com>
-Cc: Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
- "Rafael J. Wysocki" <rafael.j.wysocki@intel.com>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Corey Minyard <minyard@acm.org>, Allen Pais <apais@linux.microsoft.com>, 
- Sebastian Reichel <sebastian.reichel@collabora.com>,
- Perry Yuan <perry.yuan@amd.com>, 
- Giovanni Cabiddu <giovanni.cabiddu@intel.com>,
- Herbert Xu <herbert@gondor.apana.org.au>, 
- Nuno Sa <nuno.sa@analog.com>, Guenter Roeck <linux@roeck-us.net>, 
- Randy Dunlap <rdunlap@infradead.org>, Andi Shyti <andi.shyti@kernel.org>, 
- Heiner Kallweit <hkallweit1@gmail.com>, Lee Jones <lee@kernel.org>, 
- Samuel Holland <samuel@sholland.org>, Elad Nachman <enachman@marvell.com>, 
- Arseniy Krasnov <AVKrasnov@sberdevices.ru>,
- Johannes Berg <johannes.berg@intel.com>, 
- Gregory Greenman <gregory.greenman@intel.com>,
- Benjamin Berg <benjamin.berg@intel.com>, 
- Bjorn Helgaas <bhelgaas@google.com>, Robert Richter <rrichter@amd.com>,
- Vinod Koul <vkoul@kernel.org>, 
- Chunfeng Yun <chunfeng.yun@mediatek.com>, Hans de Goede <hdegoede@redhat.com>, 
- =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>, 
- Nikita Kravets <teackot@gmail.com>, Jiri Slaby <jirislaby@kernel.org>, 
- Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>, 
- Stanley Chang <stanley_chang@realtek.com>, 
- Heikki Krogerus <heikki.krogerus@linux.intel.com>,
- Abdel Alkuor <abdelalkuor@geotab.com>, 
- Kent Overstreet <kent.overstreet@linux.dev>, Eric Biggers <ebiggers@google.com>,
- Kees Cook <keescook@chromium.org>, Ingo Molnar <mingo@kernel.org>, 
- "Steven Rostedt (Google)" <rostedt@goodmis.org>,
- Daniel Bristot de Oliveira <bristot@kernel.org>, 
- Andrew Morton <akpm@linux-foundation.org>, Hugh Dickins <hughd@google.com>, 
- Abel Wu <wuyun.abel@bytedance.com>, John Johansen <john.johansen@canonical.com>,
- Mimi Zohar <zohar@linux.ibm.com>, Stefan Berger <stefanb@linux.ibm.com>, 
- Roberto Sassu <roberto.sassu@huawei.com>,
- Eric Snowberg <eric.snowberg@oracle.com>, 
- Takashi Iwai <tiwai@suse.de>, Takashi Sakamoto <o-takashi@sakamocchi.jp>, 
- Jiapeng Chong <jiapeng.chong@linux.alibaba.com>,
- Mark Brown <broonie@kernel.org>, 
- Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
- linuxppc-dev@lists.ozlabs.org, 
- linux-kernel@vger.kernel.org, keyrings@vger.kernel.org, 
- linux-crypto@vger.kernel.org, linux-acpi@vger.kernel.org, 
- linux-ide@vger.kernel.org, openipmi-developer@lists.sourceforge.net, 
- linux-clk@vger.kernel.org, linux-rpi-kernel@lists.infradead.org, 
- linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org, 
- linux-tegra@vger.kernel.org, linux-pm@vger.kernel.org, qat-linux@intel.com, 
- dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org, 
- intel-xe@lists.freedesktop.org, nouveau@lists.freedesktop.org, 
- linux-hwmon@vger.kernel.org, linux-i2c@vger.kernel.org, 
- linux-leds@vger.kernel.org, linux-sunxi@lists.linux.dev, 
- linux-omap@vger.kernel.org, linux-mmc@vger.kernel.org, 
- linux-mtd@lists.infradead.org, netdev@vger.kernel.org, 
- linux-wireless@vger.kernel.org, linux-pci@vger.kernel.org, 
- linux-mediatek@lists.infradead.org, linux-phy@lists.infradead.org, 
- linux-gpio@vger.kernel.org, platform-driver-x86@vger.kernel.org, 
- linux-staging@lists.linux.dev, linux-usb@vger.kernel.org, 
- linux-fbdev@vger.kernel.org, linux-bcachefs@vger.kernel.org, 
- linux-hardening@vger.kernel.org, cgroups@vger.kernel.org, 
- linux-trace-kernel@vger.kernel.org, linux-mm@kvack.org, 
- apparmor@lists.ubuntu.com, linux-security-module@vger.kernel.org, 
- linux-integrity@vger.kernel.org, alsa-devel@alsa-project.org, 
- linux-sound@vger.kernel.org, Michael Ellerman <mpe@ellerman.id.au>, 
- Nicholas Piggin <npiggin@gmail.com>,
- Christophe Leroy <christophe.leroy@csgroup.eu>, 
- "Naveen N. Rao" <naveen.n.rao@linux.ibm.com>,
- Thomas Gleixner <tglx@linutronix.de>, 
- Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, 
- Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org, 
- "H. Peter Anvin" <hpa@zytor.com>, David Howells <dhowells@redhat.com>, 
- "David S. Miller" <davem@davemloft.net>,
- "Rafael J. Wysocki" <rafael@kernel.org>, Len Brown <lenb@kernel.org>, 
- Sergey Shtylyov <s.shtylyov@omp.ru>, Damien Le Moal <dlemoal@kernel.org>, 
- Niklas Cassel <cassel@kernel.org>, Daniel Scally <djrscally@gmail.com>, 
- Sakari Ailus <sakari.ailus@linux.intel.com>,
- Michael Turquette <mturquette@baylibre.com>, 
- Stephen Boyd <sboyd@kernel.org>,
- Florian Fainelli <florian.fainelli@broadcom.com>, 
- Ray Jui <rjui@broadcom.com>, Scott Branden <sbranden@broadcom.com>, 
- Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
- Heiko Stuebner <heiko@sntech.de>, 
- Peter De Schrijver <pdeschrijver@nvidia.com>,
- Prashant Gaikwad <pgaikwad@nvidia.com>, 
- Thierry Reding <thierry.reding@gmail.com>,
- Jonathan Hunter <jonathanh@nvidia.com>, 
- Huang Rui <ray.huang@amd.com>, "Gautham R. Shenoy" <gautham.shenoy@amd.com>, 
- Mario Limonciello <mario.limonciello@amd.com>,
- Viresh Kumar <viresh.kumar@linaro.org>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, 
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Daniel Vetter <daniel@ffwll.ch>, Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, 
- Tvrtko Ursulin <tursulin@ursulin.net>, Karol Herbst <kherbst@redhat.com>,
- Lyude Paul <lyude@redhat.com>, 
- Danilo Krummrich <dakr@redhat.com>, Jean Delvare <jdelvare@suse.com>, 
- Alexander Shishkin <alexander.shishkin@linux.intel.com>,
- Pavel Machek <pavel@ucw.cz>, 
- Chen-Yu Tsai <wens@csie.org>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
- Tony Lindgren <tony@atomide.com>, Adrian Hunter <adrian.hunter@intel.com>,
- Hu Ziji <huziji@marvell.com>, 
- Ulf Hansson <ulf.hansson@linaro.org>, Miquel Raynal <miquel.raynal@bootlin.com>,
- Richard Weinberger <richard@nod.at>, Vignesh Raghavendra <vigneshr@ti.com>, 
- Potnuri Bharat Teja <bharat@chelsio.com>, Eric Dumazet <edumazet@google.com>, 
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
- Miri Korenblit <miriam.rachel.korenblit@intel.com>,
- Kalle Valo <kvalo@kernel.org>, Mahesh J Salgaonkar <mahesh@linux.ibm.com>,
- "Oliver O'Halloran" <oohall@gmail.com>, 
- Kishon Vijay Abraham I <kishon@kernel.org>,
- Matthias Brugger <matthias.bgg@gmail.com>, 
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
- JC Kuo <jckuo@nvidia.com>, 
- Andrew Lunn <andrew@lunn.ch>, Gregory Clement <gregory.clement@bootlin.com>, 
- Sebastian Hesselbarth <sebastian.hesselbarth@gmail.com>,
- Sebastian Reichel <sre@kernel.org>, 
- Daniel Lezcano <daniel.lezcano@linaro.org>, Zhang Rui <rui.zhang@intel.com>, 
- Lukasz Luba <lukasz.luba@arm.com>, Thinh Nguyen <Thinh.Nguyen@synopsys.com>, 
- Helge Deller <deller@gmx.de>, Brian Foster <bfoster@redhat.com>, 
- Zhihao Cheng <chengzhihao1@huawei.com>, Tejun Heo <tj@kernel.org>, 
- Zefan Li <lizefan.x@bytedance.com>, Johannes Weiner <hannes@cmpxchg.org>, 
- Peter Zijlstra <peterz@infradead.org>, Juri Lelli <juri.lelli@redhat.com>, 
- Vincent Guittot <vincent.guittot@linaro.org>,
- Dietmar Eggemann <dietmar.eggemann@arm.com>, 
- Ben Segall <bsegall@google.com>, Mel Gorman <mgorman@suse.de>, 
- Daniel Bristot de Oliveira <bristot@redhat.com>,
- Valentin Schneider <vschneid@redhat.com>, 
- Masami Hiramatsu <mhiramat@kernel.org>,
- Mathieu Desnoyers <mathieu.desnoyers@efficios.com>, 
- Jason Baron <jbaron@akamai.com>, Jim Cromie <jim.cromie@gmail.com>, 
- Paul Moore <paul@paul-moore.com>, James Morris <jmorris@namei.org>, 
- "Serge E. Hallyn" <serge@hallyn.com>,
- Dmitry Kasatkin <dmitry.kasatkin@gmail.com>, 
- Clemens Ladisch <clemens@ladisch.de>, Jaroslav Kysela <perex@perex.cz>,
- Takashi Iwai <tiwai@suse.com>, Liam Girdwood <lgirdwood@gmail.com>,
- Linus Torvalds <torvalds@linux-foundation.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-X-Mailman-Approved-At: Mon, 10 Jun 2024 14:18:34 +0000
+Content-Type: text/plain; charset="US-ASCII"
+Content-Transfer-Encoding: 7bit
+X-NV-OnPremToCloud: ExternallySecured
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DS1PEPF0001708F:EE_|MW4PR12MB7032:EE_
+X-MS-Office365-Filtering-Correlation-Id: 43a003a4-4483-4b16-3203-08dc8709dbd2
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230031|82310400017|1800799015|36860700004|376005; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?EhMgXlj4RHRC/QfdrYFxmsssNBUagAJeGFek5jlav23K4KC8mZlx7zydB/Mg?=
+ =?us-ascii?Q?h3y+3EjyQQ4C3GHmMrk7NfSLpVWr5C+e9iK+xu3ajbs0vbin9S1KvHS2vNMo?=
+ =?us-ascii?Q?NPOU93pghti2E/pSxzeaCHpv1tqr+uSAsYYlbC+tGQKkV+bRLmbE2FMhKLG2?=
+ =?us-ascii?Q?ZhX38quNyOJivmFWgAUiBglCV0vCscv1oOHuRwEGkNoGQuVXZPVJ9L+lLrFw?=
+ =?us-ascii?Q?iXTj25PqiGC5EL6Am4q5kht/WzEnWLW9KxE1MFptV+7P7xE8NgDQQDEMSKOG?=
+ =?us-ascii?Q?jg8DCejG4rcl+s23+W1vwFRrZtZvJFnK2PWPGuWIiZrBnZmiB8ZphiXqm6HH?=
+ =?us-ascii?Q?3vbjEAcz93RGr/xsNjNqA0iFZvjvOTFfjIjCNvuuRnZUsBUwDNR4ANX3Uh26?=
+ =?us-ascii?Q?pw4pXKLCloPf1zIRYgtGjiz5c6jQVV9C3NE8klSCcBEjTpJnAGhrF6KTYI1N?=
+ =?us-ascii?Q?Af6NaIvsgfCw+bzBVXWzwdltLbEOlROXzMUz36+5xcjk+b2PL18PxsTvxGg2?=
+ =?us-ascii?Q?KzNAHj/+DGPE6pczvvy1SB2dxlF1fn/L+Fw2U3dVVlJbKrnsu5T4nKyHW3i4?=
+ =?us-ascii?Q?8DcWzrZCzN+hZl4jv5kGsA70g70CVj00hJvnyxQ7b7inH+F5sYpj6DCeG0hz?=
+ =?us-ascii?Q?8wEMySDyTbYzmP6zFQVjlUttwLKNaJFCySWToVUegsVXmEW1fMPZG2j++rhw?=
+ =?us-ascii?Q?CCjztSUG5reT3ecQPjn1SQHb/eXBjw/Y2SYLJmJrbIxA8KJNrHvlE3Oh8bIV?=
+ =?us-ascii?Q?ZnmOH1aOyUarCCIgxTLf8uAyzQZj3qicxUgEMtZ1q0oow9rzuaeXfKic4iRW?=
+ =?us-ascii?Q?DT2/Zu04JWxWLekmU824UuiGXSoWIante6TogjisbXUnI10ZhT66eIYuguxf?=
+ =?us-ascii?Q?VD+GVw7Qb5WrlWsVBA1gT40OxpxAsaQek362Av8QaTNxzTuRLyzzRPeDN7Ks?=
+ =?us-ascii?Q?9yFJ9thGYzg8a96mHM0X/LiQRRG+50d1BuNu7/hPAYgECwFU2VIQbw/Q0KK2?=
+ =?us-ascii?Q?CQMkgWePK4scsbiq3QA3Yp2eVlEPUc35XQSH68p8s4q9OQayjPvUc+3APwOu?=
+ =?us-ascii?Q?maQFmKIllVy4l7IYfiTfj8OtxPFJRZOyvTR3ca1la4T0GaqSt99W/NLES689?=
+ =?us-ascii?Q?GstecSXe+MC0KVf/Peua2O+0fsZgOPuObfzNt/FI4j/u0IPVp1mwOkL0R667?=
+ =?us-ascii?Q?tGUPGM9O7Ou5vHyh5xsGApGkhK2lCp0ztV0xmFJ76AwARTc+Tvxm2npPfFj2?=
+ =?us-ascii?Q?EFoW57JUP/7mdNUEnA/T1XeHDSRst15MRLu9eBZpdorUpbs2qJnpJrsolcJz?=
+ =?us-ascii?Q?7jhUVntpxfl1y0eoY61W2pVb2ppXQ5B/1GWvu5RAUWUUpGKlVjtI3zb+Jhvg?=
+ =?us-ascii?Q?1DsaSJQTep60Gk0Ep/SOxE4/bPGDEsXp9CP01ww9PP00PPAPNw=3D=3D?=
+X-Forefront-Antispam-Report: CIP:216.228.117.160; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:mail.nvidia.com; PTR:dc6edge1.nvidia.com; CAT:NONE;
+ SFS:(13230031)(82310400017)(1800799015)(36860700004)(376005); DIR:OUT;
+ SFP:1101; 
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Jun 2024 15:52:39.0958 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 43a003a4-4483-4b16-3203-08dc8709dbd2
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a; Ip=[216.228.117.160];
+ Helo=[mail.nvidia.com]
+X-MS-Exchange-CrossTenant-AuthSource: DS1PEPF0001708F.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR12MB7032
+X-Mailman-Approved-At: Mon, 10 Jun 2024 14:39:26 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -213,38 +144,89 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Tue, Jun 4, 2024 at 9:46=E2=80=AFAM Jani Nikula <jani.nikula@linux.intel=
-.com> wrote:
+On Fri,  7 Jun 2024 18:25:35 +0300
+Jani Nikula <jani.nikula@intel.com> wrote:
 
-[Maybe slightly off-topic, ranty]
+Reviewed-by: Zhi Wang <zhiwang@kernel.org>
 
-> Why do we think it's a good idea to increase and normalize the use of
-> double-underscore function names across the kernel, like
-> __match_string() in this case? It should mean "reserved for the
-> implementation, not to be called directly".
->
-> If it's to be used directly, it should be named accordingly, right?
+> All callers of calc_index() pass 0 for the end parameter. Remove it.
+> 
+> Cc: Zhenyu Wang <zhenyuw@linux.intel.com>
+> Cc: Zhi Wang <zhi.wang.linux@gmail.com>
+> Cc: intel-gvt-dev@lists.freedesktop.org
+> Signed-off-by: Jani Nikula <jani.nikula@intel.com>
+> ---
+>  drivers/gpu/drm/i915/gvt/handlers.c | 17 ++++++++---------
+>  1 file changed, 8 insertions(+), 9 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/i915/gvt/handlers.c
+> b/drivers/gpu/drm/i915/gvt/handlers.c index
+> b3b5fdbee64f..a2e9d24d646e 100644 ---
+> a/drivers/gpu/drm/i915/gvt/handlers.c +++
+> b/drivers/gpu/drm/i915/gvt/handlers.c @@ -882,12 +882,11 @@ static
+> int check_fdi_rx_train_status(struct intel_vgpu *vgpu, #define
+> INVALID_INDEX (~0U) 
+>  static unsigned int calc_index(unsigned int offset, unsigned int
+> start,
+> -	unsigned int next, unsigned int end, i915_reg_t i915_end)
+> +			       unsigned int next, i915_reg_t _end)
+>  {
+> +	u32 end = i915_mmio_reg_offset(_end);
+>  	unsigned int range = next - start;
+>  
+> -	if (!end)
+> -		end = i915_mmio_reg_offset(i915_end);
+>  	if (offset < start || offset > end)
+>  		return INVALID_INDEX;
+>  	offset -= start;
+> @@ -895,13 +894,13 @@ static unsigned int calc_index(unsigned int
+> offset, unsigned int start, }
+>  
+>  #define FDI_RX_CTL_TO_PIPE(offset) \
+> -	calc_index(offset, _FDI_RXA_CTL, _FDI_RXB_CTL, 0,
+> FDI_RX_CTL(PIPE_C))
+> +	calc_index(offset, _FDI_RXA_CTL, _FDI_RXB_CTL,
+> FDI_RX_CTL(PIPE_C)) 
+>  #define FDI_TX_CTL_TO_PIPE(offset) \
+> -	calc_index(offset, _FDI_TXA_CTL, _FDI_TXB_CTL, 0,
+> FDI_TX_CTL(PIPE_C))
+> +	calc_index(offset, _FDI_TXA_CTL, _FDI_TXB_CTL,
+> FDI_TX_CTL(PIPE_C)) 
+>  #define FDI_RX_IMR_TO_PIPE(offset) \
+> -	calc_index(offset, _FDI_RXA_IMR, _FDI_RXB_IMR, 0,
+> FDI_RX_IMR(PIPE_C))
+> +	calc_index(offset, _FDI_RXA_IMR, _FDI_RXB_IMR,
+> FDI_RX_IMR(PIPE_C)) 
+>  static int update_fdi_rx_iir_status(struct intel_vgpu *vgpu,
+>  		unsigned int offset, void *p_data, unsigned int
+> bytes) @@ -945,7 +944,7 @@ static int update_fdi_rx_iir_status(struct
+> intel_vgpu *vgpu, }
+>  
+>  #define DP_TP_CTL_TO_PORT(offset) \
+> -	calc_index(offset, _DP_TP_CTL_A, _DP_TP_CTL_B, 0,
+> DP_TP_CTL(PORT_E))
+> +	calc_index(offset, _DP_TP_CTL_A, _DP_TP_CTL_B,
+> DP_TP_CTL(PORT_E)) 
+>  static int dp_tp_ctl_mmio_write(struct intel_vgpu *vgpu, unsigned
+> int offset, void *p_data, unsigned int bytes)
+> @@ -1009,7 +1008,7 @@ static int south_chicken2_mmio_write(struct
+> intel_vgpu *vgpu, }
+>  
+>  #define DSPSURF_TO_PIPE(offset) \
+> -	calc_index(offset, _DSPASURF, _DSPBSURF, 0,
+> DSPSURF(dev_priv, PIPE_C))
+> +	calc_index(offset, _DSPASURF, _DSPBSURF, DSPSURF(dev_priv,
+> PIPE_C)) 
+>  static int pri_surf_mmio_write(struct intel_vgpu *vgpu, unsigned int
+> offset, void *p_data, unsigned int bytes)
+> @@ -1032,7 +1031,7 @@ static int pri_surf_mmio_write(struct
+> intel_vgpu *vgpu, unsigned int offset, }
+>  
+>  #define SPRSURF_TO_PIPE(offset) \
+> -	calc_index(offset, _SPRA_SURF, _SPRB_SURF, 0,
+> SPRSURF(PIPE_C))
+> +	calc_index(offset, _SPRA_SURF, _SPRB_SURF, SPRSURF(PIPE_C))
+>  
+>  static int spr_surf_mmio_write(struct intel_vgpu *vgpu, unsigned int
+> offset, void *p_data, unsigned int bytes)
 
-It's a huge mess. "__" prefix is just so ambiguous I think it just
-shouldn't be used or prolifierated, and it usually breaks Rusty Russells
-API rules times over.
-
-Consider __set_bit() from <linux/bitops.h>, used all over the place,
-in contrast with set_bit() for example, what does "__" represent in
-this context that makes __set_bit() different from set_bit()?
-
-It means "non-atomic"...
-
-How does a random contributor know this?
-
-Yeah, you guess it. By the token of "everybody knows that".
-(Grep, google, repeat for the number of contributors to the kernel.)
-
-I was considering to send a script to Torvalds to just change all
-this to set_bit_nonatomic() (etc) but was hesitating because that
-makes the name unambiguous but long. I think I stayed off it
-because changing stuff like that all over the place creates churn
-and churn is bad.
-
-Yours,
-Linus Walleij
