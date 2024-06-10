@@ -4,53 +4,55 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4E802C27C55
-	for <intel-gfx@archiver.kernel.org>; Mon, 10 Jun 2024 16:49:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 454BFC27C5E
+	for <intel-gfx@archiver.kernel.org>; Mon, 10 Jun 2024 16:49:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A952E10E4E5;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1A41C10E34E;
 	Mon, 10 Jun 2024 16:49:50 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="nFp0cBDk";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="TUiEO9Ne";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.15])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 426A610E377
- for <intel-gfx@lists.freedesktop.org>; Mon, 10 Jun 2024 16:49:36 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3EBEB10E4EA
+ for <intel-gfx@lists.freedesktop.org>; Mon, 10 Jun 2024 16:49:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1718038177; x=1749574177;
- h=from:to:subject:date:message-id:in-reply-to:references:
- mime-version:content-transfer-encoding;
- bh=OHJVSsjGF0mTojRyCVj96DsZD8hHglRhkUTbg57ioFo=;
- b=nFp0cBDkJdV11BYjysGw0K5ee+5jQngUvMc0ux+p++KeTHaKWZjsO3e0
- ODKDn1Lw5Ij5vA36pj0vL+TEVxc5E2bzs3Rv48PjxZ+BtUXEtISxsvlLm
- VdNonabY85GPDnpW4l5vecL7o1tVh6trGZZX3Q5u1KzFMMzitz5f6qxyb
- Q9oT5QYOpQgSh/C/qu2GJzUkZRUcLLjZiQ6QXAKABAC+quqGdx87jrAQZ
- VJIwuf+sGhLWVBs0DLkFq9DKzVRmZqPilGQnoAtlae/dmHTzW1ehfKBDG
- oIoWQlvqQL7F89i84HsNqIXgfkBItKjK9I3zFbhUzYUgYcA7vTdknl+PO Q==;
-X-CSE-ConnectionGUID: efPqaPqFQYicXLwKDqWbiw==
-X-CSE-MsgGUID: rPEd0+SGRKCpws0naxox5Q==
-X-IronPort-AV: E=McAfee;i="6600,9927,11099"; a="18493990"
-X-IronPort-AV: E=Sophos;i="6.08,227,1712646000"; d="scan'208";a="18493990"
+ t=1718038174; x=1749574174;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=D+h2vvkpE8Df5hgBJjn8yjCseyILmFrITeolgF7gYl8=;
+ b=TUiEO9NedD62H7gpd0F72Fb/cksoXBzc/NLopcfxVTZRXMukA0aXAmhQ
+ cffdFEOM18eQSoWyAGwTxP61oAlphT6IuYkBd98dWN0BiuCvaYbLNDVoM
+ QZbrlXvzxtCUkvW9G8QCrwyvPjkY9BPn2wEvSmg7dfQ7iZGz+Hl+JNViw
+ m6Ay17UICrfk3wko+eJl/XcbzqK7dvYYwgJjl1KGifTFjaMIjIsbIvpdf
+ ek/32J54vEVSQOHYC3CFWYH8ZVaqK0hWYuURAXbUjEF2YoX9t0FHq6pZf
+ wUZYywyK2NiGzkQKXJ+Imj0iM9HyhDCmngxHIIGArhrtbcOSLvbhomQ6p g==;
+X-CSE-ConnectionGUID: +OyBRLpTR/O+zz6XQ9Fp3Q==
+X-CSE-MsgGUID: aR7WU+fsR3mOLF7kDJyalQ==
+X-IronPort-AV: E=McAfee;i="6600,9927,11099"; a="18493980"
+X-IronPort-AV: E=Sophos;i="6.08,227,1712646000"; d="scan'208";a="18493980"
 Received: from orviesa010.jf.intel.com ([10.64.159.150])
  by orvoesa107.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 Jun 2024 09:49:37 -0700
-X-CSE-ConnectionGUID: Z6biZbWWTkOPvHZZUZ04ug==
-X-CSE-MsgGUID: +sWRILHPQbWJW4Sbb7LXAw==
+ 10 Jun 2024 09:49:33 -0700
+X-CSE-ConnectionGUID: zrIzMcg0Rdipfl7QpgqFJA==
+X-CSE-MsgGUID: NV8cbmkTSHafcFfcw+Lc6Q==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.08,227,1712646000"; d="scan'208";a="39060591"
+X-IronPort-AV: E=Sophos;i="6.08,227,1712646000"; d="scan'208";a="39060575"
 Received: from ideak-desk.fi.intel.com ([10.237.72.78])
  by orviesa010-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 Jun 2024 09:49:36 -0700
+ 10 Jun 2024 09:49:32 -0700
 From: Imre Deak <imre.deak@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Subject: [PATCH v3 08/21] drm/i915/dp: Reduce link params only after retrying
- with unchanged params
-Date: Mon, 10 Jun 2024 19:49:20 +0300
-Message-ID: <20240610164933.2947366-9-imre.deak@intel.com>
+Cc: =?UTF-8?q?Ville=20Syrj=C3=A4l=C3=A4?= <ville.syrjala@linux.intel.com>
+Subject: [PATCH v3 05/21] drm/i915: Factor out function to modeset commit a
+ set of pipes
+Date: Mon, 10 Jun 2024 19:49:17 +0300
+Message-ID: <20240610164933.2947366-6-imre.deak@intel.com>
 X-Mailer: git-send-email 2.43.3
 In-Reply-To: <20240610164933.2947366-1-imre.deak@intel.com>
 References: <20240610164933.2947366-1-imre.deak@intel.com>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -67,82 +69,125 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Try to maintain the current link parameters by retrying the link
-training with unchanged link parameters before reducing these parameters
-(sending an uevent to userspace to retrain the link instead).
+Factor out a function to modeset commit a set of pipes, which a later
+patch will reuse for DP link retraining.
 
+Reviewed-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
 Signed-off-by: Imre Deak <imre.deak@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_display_types.h    | 2 ++
- drivers/gpu/drm/i915/display/intel_dp.c               | 4 ++++
- drivers/gpu/drm/i915/display/intel_dp_link_training.c | 8 ++++++++
- 3 files changed, 14 insertions(+)
+ drivers/gpu/drm/i915/display/intel_ddi.c     | 31 +-----------------
+ drivers/gpu/drm/i915/display/intel_display.c | 34 ++++++++++++++++++++
+ drivers/gpu/drm/i915/display/intel_display.h |  3 ++
+ 3 files changed, 38 insertions(+), 30 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_display_types.h b/drivers/gpu/drm/i915/display/intel_display_types.h
-index 00ba671c9d86d..d8e00cbfa8246 100644
---- a/drivers/gpu/drm/i915/display/intel_display_types.h
-+++ b/drivers/gpu/drm/i915/display/intel_display_types.h
-@@ -1765,6 +1765,8 @@ struct intel_dp {
- 		int max_lane_count;
- 		/* Max rate for the current link */
- 		int max_rate;
-+		/* Sequential link training failures after a passing LT */
-+		int seq_train_failures;
- 	} link;
- 	bool reset_link_params;
- 	int mso_link_count;
-diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
-index 9f5624c4f3586..1e8de50fa918c 100644
---- a/drivers/gpu/drm/i915/display/intel_dp.c
-+++ b/drivers/gpu/drm/i915/display/intel_dp.c
-@@ -2953,6 +2953,7 @@ static void intel_dp_reset_link_params(struct intel_dp *intel_dp)
+diff --git a/drivers/gpu/drm/i915/display/intel_ddi.c b/drivers/gpu/drm/i915/display/intel_ddi.c
+index f306e0d2d418b..db601c230ac7b 100644
+--- a/drivers/gpu/drm/i915/display/intel_ddi.c
++++ b/drivers/gpu/drm/i915/display/intel_ddi.c
+@@ -4454,35 +4454,6 @@ intel_ddi_init_dp_connector(struct intel_digital_port *dig_port)
+ 	return connector;
+ }
+ 
+-static int modeset_pipe(struct drm_crtc *crtc,
+-			struct drm_modeset_acquire_ctx *ctx)
+-{
+-	struct drm_atomic_state *state;
+-	struct drm_crtc_state *crtc_state;
+-	int ret;
+-
+-	state = drm_atomic_state_alloc(crtc->dev);
+-	if (!state)
+-		return -ENOMEM;
+-
+-	state->acquire_ctx = ctx;
+-	to_intel_atomic_state(state)->internal = true;
+-
+-	crtc_state = drm_atomic_get_crtc_state(state, crtc);
+-	if (IS_ERR(crtc_state)) {
+-		ret = PTR_ERR(crtc_state);
+-		goto out;
+-	}
+-
+-	crtc_state->connectors_changed = true;
+-
+-	ret = drm_atomic_commit(state);
+-out:
+-	drm_atomic_state_put(state);
+-
+-	return ret;
+-}
+-
+ static int intel_hdmi_reset_link(struct intel_encoder *encoder,
+ 				 struct drm_modeset_acquire_ctx *ctx)
  {
- 	intel_dp->link.max_lane_count = intel_dp_max_common_lane_count(intel_dp);
- 	intel_dp->link.max_rate = intel_dp_max_common_rate(intel_dp);
-+	intel_dp->link.seq_train_failures = 0;
+@@ -4552,7 +4523,7 @@ static int intel_hdmi_reset_link(struct intel_encoder *encoder,
+ 	 * would be perfectly happy if were to just reconfigure
+ 	 * the SCDC settings on the fly.
+ 	 */
+-	return modeset_pipe(&crtc->base, ctx);
++	return intel_modeset_commit_pipes(dev_priv, BIT(crtc->pipe), ctx);
  }
  
- /* Enable backlight PWM and backlight PP control. */
-@@ -5060,6 +5061,9 @@ intel_dp_needs_link_retrain(struct intel_dp *intel_dp)
- 					intel_dp->lane_count))
- 		return false;
- 
-+	if (intel_dp->link.seq_train_failures)
-+		return true;
-+
- 	/* Retrain if link not ok */
- 	return !intel_dp_link_ok(intel_dp, link_status);
+ static enum intel_hotplug_state
+diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
+index c608329dac420..63c87fe9fd609 100644
+--- a/drivers/gpu/drm/i915/display/intel_display.c
++++ b/drivers/gpu/drm/i915/display/intel_display.c
+@@ -5608,6 +5608,40 @@ int intel_modeset_all_pipes_late(struct intel_atomic_state *state,
+ 	return 0;
  }
-diff --git a/drivers/gpu/drm/i915/display/intel_dp_link_training.c b/drivers/gpu/drm/i915/display/intel_dp_link_training.c
-index 1164255cf5f2d..8caf740e642f2 100644
---- a/drivers/gpu/drm/i915/display/intel_dp_link_training.c
-+++ b/drivers/gpu/drm/i915/display/intel_dp_link_training.c
-@@ -1487,10 +1487,13 @@ void intel_dp_start_link_train(struct intel_dp *intel_dp,
- 		passed = intel_dp_link_train_all_phys(intel_dp, crtc_state, lttpr_count);
  
- 	if (passed) {
-+		intel_dp->link.seq_train_failures = 0;
- 		intel_encoder_link_check_queue_work(encoder, 2000);
- 		return;
- 	}
- 
-+	intel_dp->link.seq_train_failures++;
++int intel_modeset_commit_pipes(struct drm_i915_private *i915,
++			       u8 pipe_mask,
++			       struct drm_modeset_acquire_ctx *ctx)
++{
++	struct drm_atomic_state *state;
++	struct intel_crtc *crtc;
++	int ret;
 +
- 	/*
- 	 * Ignore the link failure in CI
- 	 *
-@@ -1508,6 +1511,11 @@ void intel_dp_start_link_train(struct intel_dp *intel_dp,
- 		return;
- 	}
- 
-+	if (intel_dp->link.seq_train_failures < 2) {
-+		intel_encoder_link_check_queue_work(encoder, 0);
-+		return;
++	state = drm_atomic_state_alloc(&i915->drm);
++	if (!state)
++		return -ENOMEM;
++
++	state->acquire_ctx = ctx;
++	to_intel_atomic_state(state)->internal = true;
++
++	for_each_intel_crtc_in_pipe_mask(&i915->drm, crtc, pipe_mask) {
++		struct intel_crtc_state *crtc_state =
++			intel_atomic_get_crtc_state(state, crtc);
++
++		if (IS_ERR(crtc_state)) {
++			ret = PTR_ERR(crtc_state);
++			goto out;
++		}
++
++		crtc_state->uapi.connectors_changed = true;
 +	}
 +
- 	intel_dp_schedule_fallback_link_training(intel_dp, crtc_state);
- }
- 
++	ret = drm_atomic_commit(state);
++out:
++	drm_atomic_state_put(state);
++
++	return ret;
++}
++
+ /*
+  * This implements the workaround described in the "notes" section of the mode
+  * set sequence documentation. When going from no pipes or single pipe to
+diff --git a/drivers/gpu/drm/i915/display/intel_display.h b/drivers/gpu/drm/i915/display/intel_display.h
+index 56d1c0e3e62cd..dfdc42cef8723 100644
+--- a/drivers/gpu/drm/i915/display/intel_display.h
++++ b/drivers/gpu/drm/i915/display/intel_display.h
+@@ -537,6 +537,9 @@ int intel_modeset_pipes_in_mask_early(struct intel_atomic_state *state,
+ 				      const char *reason, u8 pipe_mask);
+ int intel_modeset_all_pipes_late(struct intel_atomic_state *state,
+ 				 const char *reason);
++int intel_modeset_commit_pipes(struct drm_i915_private *i915,
++			       u8 pipe_mask,
++			       struct drm_modeset_acquire_ctx *ctx);
+ void intel_modeset_get_crtc_power_domains(struct intel_crtc_state *crtc_state,
+ 					  struct intel_power_domain_mask *old_domains);
+ void intel_modeset_put_crtc_power_domains(struct intel_crtc *crtc,
 -- 
 2.43.3
 
