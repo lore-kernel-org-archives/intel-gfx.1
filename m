@@ -4,53 +4,27 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 930B3C27C5E
-	for <intel-gfx@archiver.kernel.org>; Mon, 10 Jun 2024 02:59:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 97D5FC27C5E
+	for <intel-gfx@archiver.kernel.org>; Mon, 10 Jun 2024 03:25:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 83B5110E311;
-	Mon, 10 Jun 2024 02:59:04 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="dmWpeJnT";
-	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5652A10E30A
- for <intel-gfx@lists.freedesktop.org>; Mon, 10 Jun 2024 02:58:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1717988330; x=1749524330;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=SncylQLM++QqoofonL3MaVlwjiavXGQ3WnzHL8dHa54=;
- b=dmWpeJnTuM3BiMNRKrk6+3OGNahQRv0RfvgZ0J7XLPpXwjYoq6FO+9kE
- 2mqjCCdV+5ccYgO2cN2Ee/DQlV6yGa2RgVKdNnQIfYKSHeO/+icdWWyGd
- jviaJalp54w/yPA3hKa85SHqmbdx71Ip+hu+QtDrEV1EpWAOjM2fPDdZ7
- Zmjdza4okC4lTI9ekwtMlqVQn3e4CdtrImibtWehiwrk59c1mq/Qk/iEX
- 7nsDLhSXjVWmhv/LURlgs7kSHvBm6aXuD4N+kiZfeUbLp08omqJDXjeos
- aOKkUPI4BhHL8fEP+8R1YKa5o8oUdlGStjspygg+4C0wJg5NshoZ/6AQx A==;
-X-CSE-ConnectionGUID: 8opVD1XCQ1OHElazCgtbtA==
-X-CSE-MsgGUID: RoahT42GT9mjHADSusXgNw==
-X-IronPort-AV: E=McAfee;i="6600,9927,11098"; a="14812995"
-X-IronPort-AV: E=Sophos;i="6.08,226,1712646000"; d="scan'208";a="14812995"
-Received: from fmviesa006.fm.intel.com ([10.60.135.146])
- by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 09 Jun 2024 19:58:50 -0700
-X-CSE-ConnectionGUID: kTZqtEToRXquPYQJ59OwYg==
-X-CSE-MsgGUID: IBn9aUHrRdKcfnmpCtuJ3Q==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.08,226,1712646000"; d="scan'208";a="38842916"
-Received: from mgolanimitul-x299-ud4-pro.iind.intel.com ([10.190.239.114])
- by fmviesa006.fm.intel.com with ESMTP; 09 Jun 2024 19:58:48 -0700
-From: Mitul Golani <mitulkumar.ajitkumar.golani@intel.com>
-To: intel-gfx@lists.freedesktop.org
-Cc: ankit.k.nautiyal@intel.com
-Subject: [PATCH v15 7/9] drm/i915/display: Compute Adaptive sync SDP params
-Date: Mon, 10 Jun 2024 08:18:23 +0530
-Message-Id: <20240610024825.823096-8-mitulkumar.ajitkumar.golani@intel.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20240610024825.823096-1-mitulkumar.ajitkumar.golani@intel.com>
-References: <20240610024825.823096-1-mitulkumar.ajitkumar.golani@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 67FE810E31B;
+	Mon, 10 Jun 2024 03:25:48 +0000 (UTC)
+Received: from a6498e030952 (emeril.freedesktop.org [131.252.210.167])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A34E610E31B;
+ Mon, 10 Jun 2024 03:25:46 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
+Subject: =?utf-8?q?=E2=9C=97_Fi=2ECI=2ECHECKPATCH=3A_warning_for_Implement_CMRR_Suppo?=
+ =?utf-8?q?rt_=28rev16=29?=
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Mitul Golani" <mitulkumar.ajitkumar.golani@intel.com>
+Cc: intel-gfx@lists.freedesktop.org
+Date: Mon, 10 Jun 2024 03:25:46 -0000
+Message-ID: <171798994666.30429.13339679078329762066@a6498e030952>
+X-Patchwork-Hint: ignore
+References: <20240610024825.823096-1-mitulkumar.ajitkumar.golani@intel.com>
+In-Reply-To: <20240610024825.823096-1-mitulkumar.ajitkumar.golani@intel.com>
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,56 +37,66 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Compute params for Adaptive Sync SDP when Fixed Average Vtotal
-mode is enabled.
+== Series Details ==
 
---v2:
-Since vrr.enable is set in case of cmrr also, handle accordingly(Ankit).
+Series: Implement CMRR Support (rev16)
+URL   : https://patchwork.freedesktop.org/series/126443/
+State : warning
 
---v3:
-- Since vrr.enable is set in case of cmrr also, handle
-accordingly(Ankit).
-- check cmrr.enable when CMRR flags are set during intel_dp_compute_as_sdp.
+== Summary ==
 
---v4:
-- Use drm_mode_vrefresh instead of manual calculation (Ankit).
+Error: dim checkpatch failed
+b8cc2eb5f1b3 gpu/drm/i915: Update indentation for VRR registers and bits
+-:56: WARNING:LONG_LINE: line length of 101 exceeds 100 columns
+#56: FILE: drivers/gpu/drm/i915/i915_reg.h:1163:
++#define	 XELPD_VRR_CTL_VRR_GUARDBAND(x)		REG_FIELD_PREP(XELPD_VRR_CTL_VRR_GUARDBAND_MASK, (x))
 
-Signed-off-by: Mitul Golani <mitulkumar.ajitkumar.golani@intel.com>
-Reviewed-by: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
----
- drivers/gpu/drm/i915/display/intel_dp.c | 14 +++++++++++---
- 1 file changed, 11 insertions(+), 3 deletions(-)
+total: 0 errors, 1 warnings, 0 checks, 191 lines checked
+7741c9db9350 drm/i915: Separate VRR related register definitions
+-:24: WARNING:FILE_PATH_CHANGES: added, moved or deleted file(s), does MAINTAINERS need updating?
+#24: 
+new file mode 100644
 
-diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
-index ac81b172b1ec..b5915c23302f 100644
---- a/drivers/gpu/drm/i915/display/intel_dp.c
-+++ b/drivers/gpu/drm/i915/display/intel_dp.c
-@@ -2637,11 +2637,19 @@ static void intel_dp_compute_as_sdp(struct intel_dp *intel_dp,
- 	/* Currently only DP_AS_SDP_AVT_FIXED_VTOTAL mode supported */
- 	as_sdp->sdp_type = DP_SDP_ADAPTIVE_SYNC;
- 	as_sdp->length = 0x9;
--	as_sdp->mode = DP_AS_SDP_AVT_FIXED_VTOTAL;
--	as_sdp->vtotal = adjusted_mode->vtotal;
--	as_sdp->target_rr = 0;
- 	as_sdp->duration_incr_ms = 0;
- 	as_sdp->duration_incr_ms = 0;
-+
-+	if (crtc_state->cmrr.enable) {
-+		as_sdp->mode = DP_AS_SDP_FAVT_TRR_REACHED;
-+		as_sdp->vtotal = adjusted_mode->vtotal;
-+		as_sdp->target_rr = drm_mode_vrefresh(adjusted_mode);
-+		as_sdp->target_rr_divider = true;
-+	} else {
-+		as_sdp->mode = DP_AS_SDP_AVT_FIXED_VTOTAL;
-+		as_sdp->vtotal = adjusted_mode->vtotal;
-+		as_sdp->target_rr = 0;
-+	}
- }
- 
- static void intel_dp_compute_vsc_sdp(struct intel_dp *intel_dp,
--- 
-2.25.1
+-:52: WARNING:LONG_LINE: line length of 101 exceeds 100 columns
+#52: FILE: drivers/gpu/drm/i915/display/intel_vrr_regs.h:24:
++#define  XELPD_VRR_CTL_VRR_GUARDBAND(x)		REG_FIELD_PREP(XELPD_VRR_CTL_VRR_GUARDBAND_MASK, (x))
+
+total: 0 errors, 2 warnings, 0 checks, 224 lines checked
+44cea8d41519 drm/i915: Define and compute Transcoder CMRR registers
+-:58: CHECK:MACRO_ARG_REUSE: Macro argument reuse 'name' - possible side-effects?
+#58: FILE: drivers/gpu/drm/i915/display/intel_display.c:5088:
++#define PIPE_CONF_CHECK_LLI(name) do { \
++	if (current_config->name != pipe_config->name) { \
++		pipe_config_mismatch(&p, fastset, crtc, __stringify(name), \
++				     "(expected %lli, found %lli)", \
++				     current_config->name, \
++				     pipe_config->name); \
++		ret = false; \
++	} \
++} while (0)
+
+-:58: CHECK:MACRO_ARG_PRECEDENCE: Macro argument 'name' may be better as '(name)' to avoid precedence issues
+#58: FILE: drivers/gpu/drm/i915/display/intel_display.c:5088:
++#define PIPE_CONF_CHECK_LLI(name) do { \
++	if (current_config->name != pipe_config->name) { \
++		pipe_config_mismatch(&p, fastset, crtc, __stringify(name), \
++				     "(expected %lli, found %lli)", \
++				     current_config->name, \
++				     pipe_config->name); \
++		ret = false; \
++	} \
++} while (0)
+
+total: 0 errors, 0 warnings, 2 checks, 113 lines checked
+db37dc341b7a drm/i915: Update trans_vrr_ctl flag when cmrr is computed
+c4d451d75652 drm/dp: Add refresh rate divider to struct representing AS SDP
+7ca4826c4e55 drm/i915/display: Add support for pack and unpack
+faef2ab5539c drm/i915/display: Compute Adaptive sync SDP params
+65adee246cc0 drm/i915/display: Compute vrr vsync params
+613540a63c0e drm/i915: Compute CMRR and calculate vtotal
+
 
