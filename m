@@ -4,50 +4,51 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 454BFC27C5E
-	for <intel-gfx@archiver.kernel.org>; Mon, 10 Jun 2024 16:49:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 42DACC27C65
+	for <intel-gfx@archiver.kernel.org>; Mon, 10 Jun 2024 16:49:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1A41C10E34E;
-	Mon, 10 Jun 2024 16:49:50 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2FEFA10E4E0;
+	Mon, 10 Jun 2024 16:49:51 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="TUiEO9Ne";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="OQuGiBjx";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.15])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3EBEB10E4EA
- for <intel-gfx@lists.freedesktop.org>; Mon, 10 Jun 2024 16:49:33 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DCF4A10E0D7
+ for <intel-gfx@lists.freedesktop.org>; Mon, 10 Jun 2024 16:49:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1718038174; x=1749574174;
+ t=1718038178; x=1749574178;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=D+h2vvkpE8Df5hgBJjn8yjCseyILmFrITeolgF7gYl8=;
- b=TUiEO9NedD62H7gpd0F72Fb/cksoXBzc/NLopcfxVTZRXMukA0aXAmhQ
- cffdFEOM18eQSoWyAGwTxP61oAlphT6IuYkBd98dWN0BiuCvaYbLNDVoM
- QZbrlXvzxtCUkvW9G8QCrwyvPjkY9BPn2wEvSmg7dfQ7iZGz+Hl+JNViw
- m6Ay17UICrfk3wko+eJl/XcbzqK7dvYYwgJjl1KGifTFjaMIjIsbIvpdf
- ek/32J54vEVSQOHYC3CFWYH8ZVaqK0hWYuURAXbUjEF2YoX9t0FHq6pZf
- wUZYywyK2NiGzkQKXJ+Imj0iM9HyhDCmngxHIIGArhrtbcOSLvbhomQ6p g==;
-X-CSE-ConnectionGUID: +OyBRLpTR/O+zz6XQ9Fp3Q==
-X-CSE-MsgGUID: aR7WU+fsR3mOLF7kDJyalQ==
-X-IronPort-AV: E=McAfee;i="6600,9927,11099"; a="18493980"
-X-IronPort-AV: E=Sophos;i="6.08,227,1712646000"; d="scan'208";a="18493980"
+ bh=X8s4cZJ7WvNBcBf0DZnGaMP7E3Okd8640nEKO656Byw=;
+ b=OQuGiBjxlBAUbPlGsdEMTiW1MQ/qqY2QvY5QnqZBYmT1fPOyG3sOuFkn
+ xnJkGr8NRNWOw7DO85XJnVdz7jtCsCbKpIBek2e5qZGjFN8dwxEr3p+Qn
+ SRc9deruHnVP0iOpOu0+BDeyfzPYwoAAN+7Kkf6PV+w7U+hDuo3wb8vDZ
+ ZrVveOJrSo1fBvSaKZb7N5pSQdIaGmSYAlsZDztqCM0BtqwuTy6IIjSEx
+ 2xCsMaju7Yns/bvFVMjG3OjnnIVtez47R4859OlBL2TCj1vKfZKGRLYzi
+ IYkFfgQyj3hxPo16dXgaIkoyS8vVyrChq4IG2I4rqKRoZ1OtoLjj98Gn6 Q==;
+X-CSE-ConnectionGUID: //kCaGi6Rm2BPPyksteGOw==
+X-CSE-MsgGUID: 80kSYgyxQGemm9FeTXyOLA==
+X-IronPort-AV: E=McAfee;i="6600,9927,11099"; a="18493992"
+X-IronPort-AV: E=Sophos;i="6.08,227,1712646000"; d="scan'208";a="18493992"
 Received: from orviesa010.jf.intel.com ([10.64.159.150])
  by orvoesa107.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 Jun 2024 09:49:33 -0700
-X-CSE-ConnectionGUID: zrIzMcg0Rdipfl7QpgqFJA==
-X-CSE-MsgGUID: NV8cbmkTSHafcFfcw+Lc6Q==
+ 10 Jun 2024 09:49:38 -0700
+X-CSE-ConnectionGUID: qXv3euPSTUON9f5enb1rOA==
+X-CSE-MsgGUID: qi90eBjsQ+WtLj9IFnPfvg==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.08,227,1712646000"; d="scan'208";a="39060575"
+X-IronPort-AV: E=Sophos;i="6.08,227,1712646000"; d="scan'208";a="39060593"
 Received: from ideak-desk.fi.intel.com ([10.237.72.78])
  by orviesa010-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 Jun 2024 09:49:32 -0700
+ 10 Jun 2024 09:49:37 -0700
 From: Imre Deak <imre.deak@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Cc: =?UTF-8?q?Ville=20Syrj=C3=A4l=C3=A4?= <ville.syrjala@linux.intel.com>
-Subject: [PATCH v3 05/21] drm/i915: Factor out function to modeset commit a
- set of pipes
-Date: Mon, 10 Jun 2024 19:49:17 +0300
-Message-ID: <20240610164933.2947366-6-imre.deak@intel.com>
+Cc: Imre Deak <imre.deak@gmail.com>,
+ =?UTF-8?q?Ville=20Syrj=C3=A4l=C3=A4?= <ville.syrjala@linux.intel.com>
+Subject: [PATCH v3 09/21] drm/i915/dp: Pass atomic state to link training
+ function
+Date: Mon, 10 Jun 2024 19:49:21 +0300
+Message-ID: <20240610164933.2947366-10-imre.deak@intel.com>
 X-Mailer: git-send-email 2.43.3
 In-Reply-To: <20240610164933.2947366-1-imre.deak@intel.com>
 References: <20240610164933.2947366-1-imre.deak@intel.com>
@@ -69,125 +70,146 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Factor out a function to modeset commit a set of pipes, which a later
-patch will reuse for DP link retraining.
+From: Imre Deak <imre.deak@gmail.com>
 
-Reviewed-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
-Signed-off-by: Imre Deak <imre.deak@intel.com>
+The next patch adds sending a modeset-retry uevent after a link training
+failure to all MST connectors on link. This requires the atomic state,
+so pass it to intel_dp_start_link_train(). In case of SST where
+retraining still happens by calling this function directly instead of a
+modeset commit the atomic state is not available and NULL is passed
+instead. This is ok, since in this case the encoder's only DP connector
+is available from intel_dp->attached_connector not requiring the atomic
+state.
+
+v2: Add NOTE that the atomic state may not be valid for SST links and
+    assert that it's valid for MST links. (Ville)
+
+Cc: Ville Syrjälä <ville.syrjala@linux.intel.com>
+Signed-off-by: Imre Deak <imre.deak@gmail.com>
 ---
- drivers/gpu/drm/i915/display/intel_ddi.c     | 31 +-----------------
- drivers/gpu/drm/i915/display/intel_display.c | 34 ++++++++++++++++++++
- drivers/gpu/drm/i915/display/intel_display.h |  3 ++
- 3 files changed, 38 insertions(+), 30 deletions(-)
+ drivers/gpu/drm/i915/display/g4x_dp.c                 |  2 +-
+ drivers/gpu/drm/i915/display/intel_ddi.c              |  6 +++---
+ drivers/gpu/drm/i915/display/intel_dp.c               |  2 +-
+ drivers/gpu/drm/i915/display/intel_dp_link_training.c | 11 ++++++++++-
+ drivers/gpu/drm/i915/display/intel_dp_link_training.h |  4 +++-
+ 5 files changed, 18 insertions(+), 7 deletions(-)
 
+diff --git a/drivers/gpu/drm/i915/display/g4x_dp.c b/drivers/gpu/drm/i915/display/g4x_dp.c
+index 75a6e7bc10e13..07f1e719bdfc2 100644
+--- a/drivers/gpu/drm/i915/display/g4x_dp.c
++++ b/drivers/gpu/drm/i915/display/g4x_dp.c
+@@ -707,7 +707,7 @@ static void intel_enable_dp(struct intel_atomic_state *state,
+ 	intel_dp_configure_protocol_converter(intel_dp, pipe_config);
+ 	intel_dp_check_frl_training(intel_dp);
+ 	intel_dp_pcon_dsc_configure(intel_dp, pipe_config);
+-	intel_dp_start_link_train(intel_dp, pipe_config);
++	intel_dp_start_link_train(state, intel_dp, pipe_config);
+ 	intel_dp_stop_link_train(intel_dp, pipe_config);
+ }
+ 
 diff --git a/drivers/gpu/drm/i915/display/intel_ddi.c b/drivers/gpu/drm/i915/display/intel_ddi.c
-index f306e0d2d418b..db601c230ac7b 100644
+index 127283fc6c9ed..5b27410280355 100644
 --- a/drivers/gpu/drm/i915/display/intel_ddi.c
 +++ b/drivers/gpu/drm/i915/display/intel_ddi.c
-@@ -4454,35 +4454,6 @@ intel_ddi_init_dp_connector(struct intel_digital_port *dig_port)
- 	return connector;
- }
- 
--static int modeset_pipe(struct drm_crtc *crtc,
--			struct drm_modeset_acquire_ctx *ctx)
--{
--	struct drm_atomic_state *state;
--	struct drm_crtc_state *crtc_state;
--	int ret;
--
--	state = drm_atomic_state_alloc(crtc->dev);
--	if (!state)
--		return -ENOMEM;
--
--	state->acquire_ctx = ctx;
--	to_intel_atomic_state(state)->internal = true;
--
--	crtc_state = drm_atomic_get_crtc_state(state, crtc);
--	if (IS_ERR(crtc_state)) {
--		ret = PTR_ERR(crtc_state);
--		goto out;
--	}
--
--	crtc_state->connectors_changed = true;
--
--	ret = drm_atomic_commit(state);
--out:
--	drm_atomic_state_put(state);
--
--	return ret;
--}
--
- static int intel_hdmi_reset_link(struct intel_encoder *encoder,
- 				 struct drm_modeset_acquire_ctx *ctx)
- {
-@@ -4552,7 +4523,7 @@ static int intel_hdmi_reset_link(struct intel_encoder *encoder,
- 	 * would be perfectly happy if were to just reconfigure
- 	 * the SCDC settings on the fly.
+@@ -2596,7 +2596,7 @@ static void mtl_ddi_pre_enable_dp(struct intel_atomic_state *state,
+ 	 *     Pattern, wait for 5 idle patterns (DP_TP_STATUS Min_Idles_Sent)
+ 	 *     (timeout after 800 us)
  	 */
--	return modeset_pipe(&crtc->base, ctx);
-+	return intel_modeset_commit_pipes(dev_priv, BIT(crtc->pipe), ctx);
- }
+-	intel_dp_start_link_train(intel_dp, crtc_state);
++	intel_dp_start_link_train(state, intel_dp, crtc_state);
  
- static enum intel_hotplug_state
-diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
-index c608329dac420..63c87fe9fd609 100644
---- a/drivers/gpu/drm/i915/display/intel_display.c
-+++ b/drivers/gpu/drm/i915/display/intel_display.c
-@@ -5608,6 +5608,40 @@ int intel_modeset_all_pipes_late(struct intel_atomic_state *state,
- 	return 0;
- }
+ 	/* 6.n Set DP_TP_CTL link training to Normal */
+ 	if (!is_trans_port_sync_mode(crtc_state))
+@@ -2738,7 +2738,7 @@ static void tgl_ddi_pre_enable_dp(struct intel_atomic_state *state,
+ 	 *     Pattern, wait for 5 idle patterns (DP_TP_STATUS Min_Idles_Sent)
+ 	 *     (timeout after 800 us)
+ 	 */
+-	intel_dp_start_link_train(intel_dp, crtc_state);
++	intel_dp_start_link_train(state, intel_dp, crtc_state);
  
-+int intel_modeset_commit_pipes(struct drm_i915_private *i915,
-+			       u8 pipe_mask,
-+			       struct drm_modeset_acquire_ctx *ctx)
-+{
-+	struct drm_atomic_state *state;
-+	struct intel_crtc *crtc;
-+	int ret;
+ 	/* 7.k Set DP_TP_CTL link training to Normal */
+ 	if (!is_trans_port_sync_mode(crtc_state))
+@@ -2805,7 +2805,7 @@ static void hsw_ddi_pre_enable_dp(struct intel_atomic_state *state,
+ 						   to_intel_connector(conn_state->connector),
+ 						   crtc_state);
+ 	intel_dp_sink_set_fec_ready(intel_dp, crtc_state, true);
+-	intel_dp_start_link_train(intel_dp, crtc_state);
++	intel_dp_start_link_train(state, intel_dp, crtc_state);
+ 	if ((port != PORT_A || DISPLAY_VER(dev_priv) >= 9) &&
+ 	    !is_trans_port_sync_mode(crtc_state))
+ 		intel_dp_stop_link_train(intel_dp, crtc_state);
+diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
+index 1e8de50fa918c..4438ec2989249 100644
+--- a/drivers/gpu/drm/i915/display/intel_dp.c
++++ b/drivers/gpu/drm/i915/display/intel_dp.c
+@@ -5218,7 +5218,7 @@ int intel_dp_retrain_link(struct intel_encoder *encoder,
+ 
+ 		intel_dp_check_frl_training(intel_dp);
+ 		intel_dp_pcon_dsc_configure(intel_dp, crtc_state);
+-		intel_dp_start_link_train(intel_dp, crtc_state);
++		intel_dp_start_link_train(NULL, intel_dp, crtc_state);
+ 		intel_dp_stop_link_train(intel_dp, crtc_state);
+ 		break;
+ 	}
+diff --git a/drivers/gpu/drm/i915/display/intel_dp_link_training.c b/drivers/gpu/drm/i915/display/intel_dp_link_training.c
+index 8caf740e642f2..04629a4341eef 100644
+--- a/drivers/gpu/drm/i915/display/intel_dp_link_training.c
++++ b/drivers/gpu/drm/i915/display/intel_dp_link_training.c
+@@ -1453,6 +1453,7 @@ intel_dp_128b132b_link_train(struct intel_dp *intel_dp,
+ 
+ /**
+  * intel_dp_start_link_train - start link training
++ * @state: Atomic state
+  * @intel_dp: DP struct
+  * @crtc_state: state for CRTC attached to the encoder
+  *
+@@ -1460,8 +1461,11 @@ intel_dp_128b132b_link_train(struct intel_dp *intel_dp,
+  * retraining with reduced link rate/lane parameters if the link training
+  * fails.
+  * After calling this function intel_dp_stop_link_train() must be called.
++ *
++ * NOTE: @state is only valid for MST links and can be %NULL for SST.
+  */
+-void intel_dp_start_link_train(struct intel_dp *intel_dp,
++void intel_dp_start_link_train(struct intel_atomic_state *state,
++			       struct intel_dp *intel_dp,
+ 			       const struct intel_crtc_state *crtc_state)
+ {
+ 	struct drm_i915_private *i915 = dp_to_i915(intel_dp);
+@@ -1475,6 +1479,11 @@ void intel_dp_start_link_train(struct intel_dp *intel_dp,
+ 	 */
+ 	int lttpr_count = intel_dp_init_lttpr_and_dprx_caps(intel_dp);
+ 
++	if (drm_WARN_ON(&i915->drm,
++			intel_crtc_has_type(crtc_state, INTEL_OUTPUT_DP_MST) &&
++			!state))
++		return;
 +
-+	state = drm_atomic_state_alloc(&i915->drm);
-+	if (!state)
-+		return -ENOMEM;
-+
-+	state->acquire_ctx = ctx;
-+	to_intel_atomic_state(state)->internal = true;
-+
-+	for_each_intel_crtc_in_pipe_mask(&i915->drm, crtc, pipe_mask) {
-+		struct intel_crtc_state *crtc_state =
-+			intel_atomic_get_crtc_state(state, crtc);
-+
-+		if (IS_ERR(crtc_state)) {
-+			ret = PTR_ERR(crtc_state);
-+			goto out;
-+		}
-+
-+		crtc_state->uapi.connectors_changed = true;
-+	}
-+
-+	ret = drm_atomic_commit(state);
-+out:
-+	drm_atomic_state_put(state);
-+
-+	return ret;
-+}
-+
- /*
-  * This implements the workaround described in the "notes" section of the mode
-  * set sequence documentation. When going from no pipes or single pipe to
-diff --git a/drivers/gpu/drm/i915/display/intel_display.h b/drivers/gpu/drm/i915/display/intel_display.h
-index 56d1c0e3e62cd..dfdc42cef8723 100644
---- a/drivers/gpu/drm/i915/display/intel_display.h
-+++ b/drivers/gpu/drm/i915/display/intel_display.h
-@@ -537,6 +537,9 @@ int intel_modeset_pipes_in_mask_early(struct intel_atomic_state *state,
- 				      const char *reason, u8 pipe_mask);
- int intel_modeset_all_pipes_late(struct intel_atomic_state *state,
- 				 const char *reason);
-+int intel_modeset_commit_pipes(struct drm_i915_private *i915,
-+			       u8 pipe_mask,
-+			       struct drm_modeset_acquire_ctx *ctx);
- void intel_modeset_get_crtc_power_domains(struct intel_crtc_state *crtc_state,
- 					  struct intel_power_domain_mask *old_domains);
- void intel_modeset_put_crtc_power_domains(struct intel_crtc *crtc,
+ 	if (lttpr_count < 0)
+ 		/* Still continue with enabling the port and link training. */
+ 		lttpr_count = 0;
+diff --git a/drivers/gpu/drm/i915/display/intel_dp_link_training.h b/drivers/gpu/drm/i915/display/intel_dp_link_training.h
+index 19836a8a4f904..f658230960333 100644
+--- a/drivers/gpu/drm/i915/display/intel_dp_link_training.h
++++ b/drivers/gpu/drm/i915/display/intel_dp_link_training.h
+@@ -8,6 +8,7 @@
+ 
+ #include <drm/display/drm_dp_helper.h>
+ 
++struct intel_atomic_state;
+ struct intel_crtc_state;
+ struct intel_dp;
+ 
+@@ -25,7 +26,8 @@ void intel_dp_program_link_training_pattern(struct intel_dp *intel_dp,
+ void intel_dp_set_signal_levels(struct intel_dp *intel_dp,
+ 				const struct intel_crtc_state *crtc_state,
+ 				enum drm_dp_phy dp_phy);
+-void intel_dp_start_link_train(struct intel_dp *intel_dp,
++void intel_dp_start_link_train(struct intel_atomic_state *state,
++			       struct intel_dp *intel_dp,
+ 			       const struct intel_crtc_state *crtc_state);
+ void intel_dp_stop_link_train(struct intel_dp *intel_dp,
+ 			      const struct intel_crtc_state *crtc_state);
 -- 
 2.43.3
 
