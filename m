@@ -4,53 +4,55 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 54CA0C27C78
-	for <intel-gfx@archiver.kernel.org>; Mon, 10 Jun 2024 16:49:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3784EC27C5F
+	for <intel-gfx@archiver.kernel.org>; Mon, 10 Jun 2024 16:49:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BD31210E4F2;
-	Mon, 10 Jun 2024 16:49:55 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 44D7710E4F7;
+	Mon, 10 Jun 2024 16:49:56 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="R32M5nZC";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="hHmzAk+4";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.15])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5458910E4E9
- for <intel-gfx@lists.freedesktop.org>; Mon, 10 Jun 2024 16:49:51 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4415A10E417
+ for <intel-gfx@lists.freedesktop.org>; Mon, 10 Jun 2024 16:49:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1718038192; x=1749574192;
- h=from:to:subject:date:message-id:in-reply-to:references:
- mime-version:content-transfer-encoding;
- bh=Fc2gqmHKdHzYZsgp/yfhJPQ4hY82VuB4z3qYzw5tsUo=;
- b=R32M5nZCn62kbm0tr2GZw1J+wexbbjfykOyj6g5to2eo3y2QuA32IEFE
- EgY082sAnTj+5ZU7eUh1ummrLnOK3xG+aK7nryp0tzYyKy0UNOwsSRdNA
- 91O6Ka1v06Z3nnGTxjVZxeSYBRAom9MxV999iwKtzYyqUj98PSEDcdyjJ
- g7KY/aK0Vb++ZiSe27WMKuXE98Sm6nDVDioKX3g95OCdOTcZbcgNVzYih
- gT2thL6y9bseJUHIZQnnFPi0q1jDWoexTBK1rjZ2UnmYAeE69nHWZIuP/
- C4Zol1Y7Ul/sl+mOMCa2FphZquyIZGFk8haJBB7uYnkDoEFSJcXze/LVc A==;
-X-CSE-ConnectionGUID: DYYusLIHS1uNDaQfpadCLA==
-X-CSE-MsgGUID: RTApyARCSrCqFWQmschsRA==
-X-IronPort-AV: E=McAfee;i="6600,9927,11099"; a="18494025"
-X-IronPort-AV: E=Sophos;i="6.08,227,1712646000"; d="scan'208";a="18494025"
+ t=1718038182; x=1749574182;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=oylYWMikVtldDRahwKyMZvj0KSdwn2+r5ToEgOOs4Vk=;
+ b=hHmzAk+4IaPwgwzrtYH9Ela6WuEt6PNeTnSWqr5R7SWBi3MpYLV0QlCc
+ FzrNb8zvYyAySd5TUd37aDT8SApGyj6M7JycO5+uJWeK5El42C+Jzwg2p
+ f3gryMh8s4MeR/lHE1JsuEwbq/1PRNHPdqh8lbW7Mu6KN9VboB6ATDny2
+ s+BdsZUoY5uNva+3pMqsEloDBqdr6bmaxGkIE+paKfYOLj40DP/HPaUe3
+ Dl6WlsGGQIi1akKCU0HJ4B4qWPSh/grbqfVirPuzHlSNTqqHwg1FEJ/h9
+ KI8olB2Yt+ecc8asK9R8Qg8NrkHvQ7ipb39vGs4KHrlXwQsR5NY8sNHxo g==;
+X-CSE-ConnectionGUID: yKXqzydcQpqv4LMvM+5irg==
+X-CSE-MsgGUID: lE+xzJTWSWOoPa/8KRxqYg==
+X-IronPort-AV: E=McAfee;i="6600,9927,11099"; a="18494005"
+X-IronPort-AV: E=Sophos;i="6.08,227,1712646000"; d="scan'208";a="18494005"
 Received: from orviesa010.jf.intel.com ([10.64.159.150])
  by orvoesa107.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 Jun 2024 09:49:52 -0700
-X-CSE-ConnectionGUID: na06nDtAQomWZ3IJono2Jg==
-X-CSE-MsgGUID: v3joR2uKTW282C0wrUiDrQ==
+ 10 Jun 2024 09:49:41 -0700
+X-CSE-ConnectionGUID: LlS2qgQ7T8GKgu/AahrHpQ==
+X-CSE-MsgGUID: sJwuV90ORWCoJ7d9cTQupA==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.08,227,1712646000"; d="scan'208";a="39060623"
+X-IronPort-AV: E=Sophos;i="6.08,227,1712646000"; d="scan'208";a="39060598"
 Received: from ideak-desk.fi.intel.com ([10.237.72.78])
  by orviesa010-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 Jun 2024 09:49:51 -0700
+ 10 Jun 2024 09:49:40 -0700
 From: Imre Deak <imre.deak@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Subject: [PATCH v3 21/21] drm/i915/dp: Add debugfs entry to get the link
- retrain disabled state
-Date: Mon, 10 Jun 2024 19:49:33 +0300
-Message-ID: <20240610164933.2947366-22-imre.deak@intel.com>
+Cc: =?UTF-8?q?Ville=20Syrj=C3=A4l=C3=A4?= <ville.syrjala@linux.intel.com>
+Subject: [PATCH v3 12/21] drm/i915/dp: Use check link state work in the detect
+ handler
+Date: Mon, 10 Jun 2024 19:49:24 +0300
+Message-ID: <20240610164933.2947366-13-imre.deak@intel.com>
 X-Mailer: git-send-email 2.43.3
 In-Reply-To: <20240610164933.2947366-1-imre.deak@intel.com>
 References: <20240610164933.2947366-1-imre.deak@intel.com>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -67,51 +69,67 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Add a connector debugfs entry showing if link retraining is disabled.
+Simplify things by retraining a DP link if a bad link is detected in the
+connector detect handler from the encoder's check link state work,
+similarly to how this is done after a modeset link training failure.
 
+v2: Add TODO: comment to remove the detect-time link state check.
+    (Ville)
+
+Cc: Ville Syrjälä <ville.syrjala@linux.intel.com>
 Signed-off-by: Imre Deak <imre.deak@intel.com>
 ---
- .../drm/i915/display/intel_dp_link_training.c | 22 +++++++++++++++++++
- 1 file changed, 22 insertions(+)
+ drivers/gpu/drm/i915/display/intel_dp.c | 15 ++++++++-------
+ drivers/gpu/drm/i915/display/intel_dp.h |  2 --
+ 2 files changed, 8 insertions(+), 9 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_dp_link_training.c b/drivers/gpu/drm/i915/display/intel_dp_link_training.c
-index 4da550d6e0ffc..1bc4ef84ff3bc 100644
---- a/drivers/gpu/drm/i915/display/intel_dp_link_training.c
-+++ b/drivers/gpu/drm/i915/display/intel_dp_link_training.c
-@@ -1898,6 +1898,25 @@ DEFINE_DEBUGFS_ATTRIBUTE(i915_dp_force_link_retrain_fops,
- 			 i915_dp_force_link_retrain_show,
- 			 i915_dp_force_link_retrain_write, "%llu\n");
- 
-+static int i915_dp_link_retrain_disabled_show(struct seq_file *m, void *data)
-+{
-+	struct intel_connector *connector = to_intel_connector(m->private);
-+	struct drm_i915_private *i915 = to_i915(connector->base.dev);
-+	struct intel_dp *intel_dp = intel_connector_to_intel_dp(connector);
-+	int err;
-+
-+	err = drm_modeset_lock_single_interruptible(&i915->drm.mode_config.connection_mutex);
-+	if (err)
-+		return err;
-+
-+	seq_printf(m, "%s\n", str_yes_no(intel_dp->link.retrain_disabled));
-+
-+	drm_modeset_unlock(&i915->drm.mode_config.connection_mutex);
-+
-+	return 0;
-+}
-+DEFINE_SHOW_ATTRIBUTE(i915_dp_link_retrain_disabled);
-+
- void intel_dp_link_training_debugfs_add(struct intel_connector *connector)
- {
- 	struct dentry *root = connector->base.debugfs_entry;
-@@ -1923,4 +1942,7 @@ void intel_dp_link_training_debugfs_add(struct intel_connector *connector)
- 
- 	debugfs_create_file("i915_dp_force_link_retrain", 0644, root,
- 			    connector, &i915_dp_force_link_retrain_fops);
-+
-+	debugfs_create_file("i915_dp_link_retrain_disabled", 0444, root,
-+			    connector, &i915_dp_link_retrain_disabled_fops);
+diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
+index 1e770f1bfbcd2..6e9c85a94d27e 100644
+--- a/drivers/gpu/drm/i915/display/intel_dp.c
++++ b/drivers/gpu/drm/i915/display/intel_dp.c
+@@ -5154,8 +5154,8 @@ static bool intel_dp_is_connected(struct intel_dp *intel_dp)
+ 		intel_dp->is_mst;
  }
+ 
+-int intel_dp_retrain_link(struct intel_encoder *encoder,
+-			  struct drm_modeset_acquire_ctx *ctx)
++static int intel_dp_retrain_link(struct intel_encoder *encoder,
++				 struct drm_modeset_acquire_ctx *ctx)
+ {
+ 	struct drm_i915_private *dev_priv = to_i915(encoder->base.dev);
+ 	struct intel_dp *intel_dp = enc_to_intel_dp(encoder);
+@@ -5889,12 +5889,13 @@ intel_dp_detect(struct drm_connector *connector,
+ 	/*
+ 	 * Some external monitors do not signal loss of link synchronization
+ 	 * with an IRQ_HPD, so force a link status check.
++	 *
++	 * TODO: this probably became redundant, so remove it: the link state
++	 * is rechecked/recovered now after modesets, where the loss of
++	 * synchronization tends to occur.
+ 	 */
+-	if (!intel_dp_is_edp(intel_dp)) {
+-		ret = intel_dp_retrain_link(encoder, ctx);
+-		if (ret)
+-			return ret;
+-	}
++	if (!intel_dp_is_edp(intel_dp))
++		intel_dp_check_link_state(intel_dp);
+ 
+ 	/*
+ 	 * Clearing NACK and defer counts to get their exact values
+diff --git a/drivers/gpu/drm/i915/display/intel_dp.h b/drivers/gpu/drm/i915/display/intel_dp.h
+index 3bb8189b9698d..5b0e66e22cd8b 100644
+--- a/drivers/gpu/drm/i915/display/intel_dp.h
++++ b/drivers/gpu/drm/i915/display/intel_dp.h
+@@ -57,8 +57,6 @@ void intel_dp_set_link_params(struct intel_dp *intel_dp,
+ int intel_dp_get_active_pipes(struct intel_dp *intel_dp,
+ 			      struct drm_modeset_acquire_ctx *ctx,
+ 			      u8 *pipe_mask);
+-int intel_dp_retrain_link(struct intel_encoder *encoder,
+-			  struct drm_modeset_acquire_ctx *ctx);
+ void intel_dp_link_check(struct intel_encoder *encoder);
+ void intel_dp_check_link_state(struct intel_dp *intel_dp);
+ void intel_dp_set_power(struct intel_dp *intel_dp, u8 mode);
 -- 
 2.43.3
 
