@@ -4,51 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id ECF8FC27C75
-	for <intel-gfx@archiver.kernel.org>; Tue, 11 Jun 2024 14:31:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2F056C27C75
+	for <intel-gfx@archiver.kernel.org>; Tue, 11 Jun 2024 14:31:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4887B10E0BD;
-	Tue, 11 Jun 2024 14:31:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 86E4A10E146;
+	Tue, 11 Jun 2024 14:31:04 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="b6958V0w";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="W7jEN3e8";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.16])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0836810E665;
- Tue, 11 Jun 2024 14:30:50 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4E2A310E146;
+ Tue, 11 Jun 2024 14:30:45 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1718116251; x=1749652251;
+ t=1718116245; x=1749652245;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=xsM6mT/kbHhSjlkYC4/8I43M70F0uuiXz7xlAx9zu94=;
- b=b6958V0wRAvT+DSwGTUFBkS12gopKNR2tG1frsaPeGTgDE5h0Z5xBXxe
- +nlZHzLfxeAzVP1AaT8aHUatzM7uHsShrdL8IkYO2fDro5hz/pocmStsw
- YSmH1X3wmL0g5YO9TdnJQIwTq7r33MXlFMble7eWs+n4iT4WTdGKQCYR2
- sQxIBfgpbFM6fADE0PluxJhsfTtrkS9ZPg3Vo+pYpB/PqZKwqul1LDJbX
- 17BlKoh2WoW8AzJNOIifdhhrwaTYZQMrc82vwZ5TkyqZVk3blDmizVZlZ
- apygAyCzwX7bchemi5A+uxVRVs9xny8YMR2OOaA+pU1PC2iLXeL9EXv2Q g==;
-X-CSE-ConnectionGUID: 8tuAm0e3Tg6jmJ6oP6kuQg==
-X-CSE-MsgGUID: cWlj/+tuSnOAQw/wdcKvhg==
-X-IronPort-AV: E=McAfee;i="6600,9927,11099"; a="14957571"
-X-IronPort-AV: E=Sophos;i="6.08,230,1712646000"; d="scan'208";a="14957571"
+ bh=iQR9YStS7FggKdxkqYsdu0V++xnNM67wMQUDjdil6cA=;
+ b=W7jEN3e81JGR+Y98s8lw0yWXPJYaK3Wt/EOYkxU9Qd7+PLbFVF8n+ZLD
+ JSS+cYMMamTwhtaHc3o+wfWjPCewa9PGtCyXdPFatZ3ue7Lh9r8xg8b64
+ /QwKAxVD7QlAfpD/CPjKOrBbdhcXY79HvL34RgJ4UzUl9lqNJX8yrWinl
+ NpAHzLdS3aLOY3DCvLYXV2pPuTAC4w7GXWrZ9DImSyS1X9wqlU71kRkKp
+ +qic8jbILh0r/5+Ry2ekZ06qaxm6YljzElRU170OjvJ0oB9QyAdkc+PKk
+ SwsXfsK1nNByHgwcl68hr31yTU2MEEjgOQz27z0ih71Z/TFWhYPX33DpS g==;
+X-CSE-ConnectionGUID: Hr0bw8ExTzSgkS8YGhZY0Q==
+X-CSE-MsgGUID: Jd5UF1PlR6mO3nVUF/gcvQ==
+X-IronPort-AV: E=McAfee;i="6600,9927,11099"; a="14957511"
+X-IronPort-AV: E=Sophos;i="6.08,230,1712646000"; d="scan'208";a="14957511"
 Received: from orviesa003.jf.intel.com ([10.64.159.143])
  by orvoesa108.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 11 Jun 2024 07:30:50 -0700
-X-CSE-ConnectionGUID: 8Ovo/IMORPCbBdl/xUS/Mg==
-X-CSE-MsgGUID: oMqcFSbcQZqVGIfKXs6L0Q==
+ 11 Jun 2024 07:30:42 -0700
+X-CSE-ConnectionGUID: hLns3ZKEQ1K7WGSVyATcuQ==
+X-CSE-MsgGUID: Jpp9T/dqSayjLNjiXvnM/A==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.08,230,1712646000"; d="scan'208";a="44357866"
+X-IronPort-AV: E=Sophos;i="6.08,230,1712646000"; d="scan'208";a="44357799"
 Received: from mwajdecz-mobl.ger.corp.intel.com ([10.94.248.185])
  by ORVIESA003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 11 Jun 2024 07:30:49 -0700
+ 11 Jun 2024 07:30:41 -0700
 From: Michal Wajdeczko <michal.wajdeczko@intel.com>
 To: intel-gfx@lists.freedesktop.org,
 	intel-xe@lists.freedesktop.org
 Cc: Michal Wajdeczko <michal.wajdeczko@intel.com>
-Subject: [RFC 7/7] drm/xe: Promote SR-IOV GuC ABI definitions to shared
- location
-Date: Tue, 11 Jun 2024 16:30:08 +0200
-Message-Id: <20240611143008.1900-8-michal.wajdeczko@intel.com>
+Subject: [RFC 2/7] Documentation/gpu: Separate GuC ABI section
+Date: Tue, 11 Jun 2024 16:30:03 +0200
+Message-Id: <20240611143008.1900-3-michal.wajdeczko@intel.com>
 X-Mailer: git-send-email 2.21.0
 In-Reply-To: <20240611143008.1900-1-michal.wajdeczko@intel.com>
 References: <20240611143008.1900-1-michal.wajdeczko@intel.com>
@@ -69,48 +68,71 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Move SR-IOV GuC ABI definitions to shared location and include
-them in the generated GuC documentation chapter.
+GuC ABI definitions are not strictly tied to the i915 driver.
+Move them to a separate section.
 
 Signed-off-by: Michal Wajdeczko <michal.wajdeczko@intel.com>
 ---
- Documentation/gpu/guc.rst                                  | 7 +++++++
- .../gpu/drm/{xe => intel/guc}/abi/guc_actions_sriov_abi.h  | 0
- .../gpu/drm/{xe => intel/guc}/abi/guc_relay_actions_abi.h  | 0
- .../{xe => intel/guc}/abi/guc_relay_communication_abi.h    | 0
- 4 files changed, 7 insertions(+)
- rename drivers/gpu/drm/{xe => intel/guc}/abi/guc_actions_sriov_abi.h (100%)
- rename drivers/gpu/drm/{xe => intel/guc}/abi/guc_relay_actions_abi.h (100%)
- rename drivers/gpu/drm/{xe => intel/guc}/abi/guc_relay_communication_abi.h (100%)
+ Documentation/gpu/drivers.rst |  1 +
+ Documentation/gpu/guc.rst     | 16 ++++++++++++++++
+ Documentation/gpu/i915.rst    |  9 ---------
+ 3 files changed, 17 insertions(+), 9 deletions(-)
+ create mode 100644 Documentation/gpu/guc.rst
 
+diff --git a/Documentation/gpu/drivers.rst b/Documentation/gpu/drivers.rst
+index b899cbc5c2b4..294e39e34c32 100644
+--- a/Documentation/gpu/drivers.rst
++++ b/Documentation/gpu/drivers.rst
+@@ -7,6 +7,7 @@ GPU Driver Documentation
+ 
+    amdgpu/index
+    i915
++   guc
+    imagination/index
+    mcde
+    meson
 diff --git a/Documentation/gpu/guc.rst b/Documentation/gpu/guc.rst
-index 55ae1476bf9e..468ba5a978e1 100644
---- a/Documentation/gpu/guc.rst
+new file mode 100644
+index 000000000000..b0fcb824c15a
+--- /dev/null
 +++ b/Documentation/gpu/guc.rst
-@@ -13,4 +13,11 @@ GuC ABI
- .. kernel-doc:: drivers/gpu/drm/intel/guc/abi/guc_communication_ctb_abi.h
- .. kernel-doc:: drivers/gpu/drm/intel/guc/abi/guc_messages_abi.h
- .. kernel-doc:: drivers/gpu/drm/i915/gt/uc/abi/guc_actions_abi.h
-+.. kernel-doc:: drivers/gpu/drm/intel/guc/abi/guc_actions_sriov_abi.h
- .. kernel-doc:: drivers/gpu/drm/intel/guc/abi/guc_klvs_abi.h
+@@ -0,0 +1,16 @@
++.. SPDX-License-Identifier: (GPL-2.0+ OR MIT)
 +
-+GuC Relay ABI
-+=============
++======================
++drm/intel GuC firmware
++======================
 +
-+.. kernel-doc:: drivers/gpu/drm/intel/guc/abi/guc_relay_communication_abi.h
-+.. kernel-doc:: drivers/gpu/drm/intel/guc/abi/guc_relay_actions_abi.h
-diff --git a/drivers/gpu/drm/xe/abi/guc_actions_sriov_abi.h b/drivers/gpu/drm/intel/guc/abi/guc_actions_sriov_abi.h
-similarity index 100%
-rename from drivers/gpu/drm/xe/abi/guc_actions_sriov_abi.h
-rename to drivers/gpu/drm/intel/guc/abi/guc_actions_sriov_abi.h
-diff --git a/drivers/gpu/drm/xe/abi/guc_relay_actions_abi.h b/drivers/gpu/drm/intel/guc/abi/guc_relay_actions_abi.h
-similarity index 100%
-rename from drivers/gpu/drm/xe/abi/guc_relay_actions_abi.h
-rename to drivers/gpu/drm/intel/guc/abi/guc_relay_actions_abi.h
-diff --git a/drivers/gpu/drm/xe/abi/guc_relay_communication_abi.h b/drivers/gpu/drm/intel/guc/abi/guc_relay_communication_abi.h
-similarity index 100%
-rename from drivers/gpu/drm/xe/abi/guc_relay_communication_abi.h
-rename to drivers/gpu/drm/intel/guc/abi/guc_relay_communication_abi.h
++The graphics microcontroller (GuC) is available starting from Gen9 hardware.
++
++GuC ABI
++=======
++
++.. kernel-doc:: drivers/gpu/drm/i915/gt/uc/abi/guc_communication_mmio_abi.h
++.. kernel-doc:: drivers/gpu/drm/i915/gt/uc/abi/guc_communication_ctb_abi.h
++.. kernel-doc:: drivers/gpu/drm/i915/gt/uc/abi/guc_messages_abi.h
++.. kernel-doc:: drivers/gpu/drm/i915/gt/uc/abi/guc_actions_abi.h
++.. kernel-doc:: drivers/gpu/drm/i915/gt/uc/abi/guc_klvs_abi.h
+diff --git a/Documentation/gpu/i915.rst b/Documentation/gpu/i915.rst
+index ad59ae579237..e96fd87ffd94 100644
+--- a/Documentation/gpu/i915.rst
++++ b/Documentation/gpu/i915.rst
+@@ -541,15 +541,6 @@ GuC-based command submission
+ .. kernel-doc:: drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
+    :doc: GuC-based command submission
+ 
+-GuC ABI
+-~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+-
+-.. kernel-doc:: drivers/gpu/drm/i915/gt/uc/abi/guc_messages_abi.h
+-.. kernel-doc:: drivers/gpu/drm/i915/gt/uc/abi/guc_communication_mmio_abi.h
+-.. kernel-doc:: drivers/gpu/drm/i915/gt/uc/abi/guc_communication_ctb_abi.h
+-.. kernel-doc:: drivers/gpu/drm/i915/gt/uc/abi/guc_actions_abi.h
+-.. kernel-doc:: drivers/gpu/drm/i915/gt/uc/abi/guc_klvs_abi.h
+-
+ HuC
+ ---
+ .. kernel-doc:: drivers/gpu/drm/i915/gt/uc/intel_huc.c
 -- 
 2.43.0
 
