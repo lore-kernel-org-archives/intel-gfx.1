@@ -4,51 +4,54 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 30A09C27C75
-	for <intel-gfx@archiver.kernel.org>; Wed, 12 Jun 2024 20:47:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E94BAC27C75
+	for <intel-gfx@archiver.kernel.org>; Wed, 12 Jun 2024 20:47:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 93E1B10E121;
-	Wed, 12 Jun 2024 20:47:18 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E731710E8FF;
+	Wed, 12 Jun 2024 20:47:23 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="N+kQr+vu";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="bzzqFfWb";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.21])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CBAB910E121;
- Wed, 12 Jun 2024 20:47:16 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5398010E8FE;
+ Wed, 12 Jun 2024 20:47:22 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1718225237; x=1749761237;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=AX8/vmrvVy5iiGq37QTBW4BhaAQsHZDEZtO502dghZo=;
- b=N+kQr+vu9zHZ+Ow4RkeqAS6nX8S2cQNvgzBeod1KWRu4manzVaTwANO1
- EPDJKaMbUZP+zEKMHpuRfpjNdroXLCXncLJOJ7NIGBk7mDnbg6XkmF0y1
- gQ56hJhvBnBoKiyP0LUqy0N7Bvv6HHPx6zfrSAQAl4H8ZN0NADVmx7v33
- yV8vXCQkGWgHA2noZSkOrDpnjwn0S7EFnQDNpeRskpvIcgk9jF4fTz79C
- SawjeChVebj/e9XZXPujP87oZN8IbljwWLRIAhvUMl2eo344puO5OF9HW
- tje9Vx7rIMFvpmsRhLOO6vg0glj/fKTU5Tdq3yYzDY9aO8bvz/a9iN19i w==;
-X-CSE-ConnectionGUID: 3fUkJkC6RRiRs0xUq4aC0g==
-X-CSE-MsgGUID: Yj8kG5zCTK6FTC9CoOcOfA==
-X-IronPort-AV: E=McAfee;i="6700,10204,11101"; a="14976499"
-X-IronPort-AV: E=Sophos;i="6.08,234,1712646000"; d="scan'208";a="14976499"
+ t=1718225243; x=1749761243;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=sDO5t6+SgFkDNQBN+IosP8kKMyXQmXUbV/0Nu/o2i2w=;
+ b=bzzqFfWbdHQwV9h9EYWYOWT9APv/ay/qOElQlFcR6oSHADmyuqFbsDRV
+ m3l/et+1g8UMEqE9J02bcbu+4yfsB67NgKbzhMzItBwx1BD223tRX74qe
+ ws8PNQaQlcHf61hcTVGbOic5HfNzs9+RXNL1Vy/r+I7UHegJXqE8nCkIe
+ 8CXxuLp2mG2JPDZa4JAiZzO2O7OG+1d71GQg90NOsoInhgwCs+TuYTATe
+ kKZtYNeqaXsY0LNWFVfnFsjn/c3lYDLBSIB3Upl5nk2GyIFuckei6FPuT
+ ru4nUv6Exp/Y1zmlB3shz0T4o+IYX0emfYs9z8asvV57Smae/nEfQBpAg A==;
+X-CSE-ConnectionGUID: I4xNoCd4QrSu59b/EkquHQ==
+X-CSE-MsgGUID: WThpTGtjS5yexRXhwVPoSA==
+X-IronPort-AV: E=McAfee;i="6700,10204,11101"; a="14976534"
+X-IronPort-AV: E=Sophos;i="6.08,234,1712646000"; d="scan'208";a="14976534"
 Received: from fmviesa008.fm.intel.com ([10.60.135.148])
  by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 12 Jun 2024 13:47:16 -0700
-X-CSE-ConnectionGUID: zDZt2Q7ARPay2Si7tWz9Pw==
-X-CSE-MsgGUID: 9ATVZrkvQrWjKRnZ4g5z+A==
+ 12 Jun 2024 13:47:22 -0700
+X-CSE-ConnectionGUID: 38+MusxoQQSLg0EJ6+kftw==
+X-CSE-MsgGUID: NZAoSL+hRe69TjKeNl49HA==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.08,234,1712646000"; d="scan'208";a="39863941"
+X-IronPort-AV: E=Sophos;i="6.08,234,1712646000"; d="scan'208";a="39863948"
 Received: from stinkpipe.fi.intel.com (HELO stinkbox) ([10.237.72.74])
- by fmviesa008.fm.intel.com with SMTP; 12 Jun 2024 13:47:13 -0700
+ by fmviesa008.fm.intel.com with SMTP; 12 Jun 2024 13:47:19 -0700
 Received: by stinkbox (sSMTP sendmail emulation);
- Wed, 12 Jun 2024 23:47:12 +0300
+ Wed, 12 Jun 2024 23:47:18 +0300
 From: Ville Syrjala <ville.syrjala@linux.intel.com>
 To: intel-gfx@lists.freedesktop.org
-Cc: dri-devel@lists.freedesktop.org
-Subject: [PATCH v2 0/9] drm/i915: Polish plane surface alignment handling
-Date: Wed, 12 Jun 2024 23:47:03 +0300
-Message-ID: <20240612204712.31404-1-ville.syrjala@linux.intel.com>
+Cc: dri-devel@lists.freedesktop.org,
+	Jani Nikula <jani.nikula@intel.com>
+Subject: [PATCH v2 2/9] drm: Export drm_plane_has_format()
+Date: Wed, 12 Jun 2024 23:47:05 +0300
+Message-ID: <20240612204712.31404-3-ville.syrjala@linux.intel.com>
 X-Mailer: git-send-email 2.44.2
+In-Reply-To: <20240612204712.31404-1-ville.syrjala@linux.intel.com>
+References: <20240612204712.31404-1-ville.syrjala@linux.intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
@@ -69,44 +72,54 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 From: Ville Syrjälä <ville.syrjala@linux.intel.com>
 
-intel_surf_alignment() in particular has devolved into
-a complete mess. Redesign the code so that we can handle
-alignment restrictions in a nicer. Also adjust alignment
-for TGL+ to actually match the hardware requirements.
+Export drm_plane_has_format() so that drivers can use it.
 
-v2: Drop the per-plane vma stuff as it was borked
-    Don't temporarily remove the 2MiB DPT alignment for UV on TGL
+Reviewed-by: Jani Nikula <jani.nikula@intel.com>
+Signed-off-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
+---
+ drivers/gpu/drm/drm_crtc_internal.h | 2 --
+ drivers/gpu/drm/drm_plane.c         | 1 +
+ include/drm/drm_plane.h             | 2 ++
+ 3 files changed, 3 insertions(+), 2 deletions(-)
 
-Ville Syrjälä (9):
-  drm: Rename drm_plane_check_pixel_format() to drm_plane_has_format()
-  drm: Export drm_plane_has_format()
-  drm/i915: Introduce the plane->min_alignment() vfunc
-  drm/i915: Introduce fb->min_alignment
-  drm/i915: Split cursor alignment to per-platform vfuncs
-  drm/i915: Split pre-skl platforms out from intel_surf_alignment()
-  drm/i915: Move intel_surf_alignment() into skl_univerals_plane.c
-  drm/i915: Update plane alignment requirements for TGL+
-  drm/i915: Nuke the TGL+ chroma plane tile row alignment stuff
-
- drivers/gpu/drm/drm_atomic.c                  |   7 +-
- drivers/gpu/drm/drm_crtc.c                    |   6 +-
- drivers/gpu/drm/drm_crtc_internal.h           |   2 -
- drivers/gpu/drm/drm_plane.c                   |  23 ++-
- drivers/gpu/drm/i915/display/i9xx_plane.c     |  75 ++++++++-
- drivers/gpu/drm/i915/display/intel_cursor.c   |  38 +++++
- .../drm/i915/display/intel_display_types.h    |   5 +
- drivers/gpu/drm/i915/display/intel_fb.c       | 151 ++++--------------
- drivers/gpu/drm/i915/display/intel_fb.h       |   3 -
- drivers/gpu/drm/i915/display/intel_fb_pin.c   |  39 +++--
- drivers/gpu/drm/i915/display/intel_fb_pin.h   |   3 +-
- drivers/gpu/drm/i915/display/intel_fbdev.c    |   5 +-
- drivers/gpu/drm/i915/display/intel_sprite.c   |  26 +++
- .../drm/i915/display/skl_universal_plane.c    |  85 +++++++++-
- drivers/gpu/drm/xe/display/xe_fb_pin.c        |   3 +-
- drivers/gpu/drm/xe/display/xe_plane_initial.c |   4 +-
- include/drm/drm_plane.h                       |   2 +
- 17 files changed, 309 insertions(+), 168 deletions(-)
-
+diff --git a/drivers/gpu/drm/drm_crtc_internal.h b/drivers/gpu/drm/drm_crtc_internal.h
+index cdd60f2a4052..1f73b8d6d750 100644
+--- a/drivers/gpu/drm/drm_crtc_internal.h
++++ b/drivers/gpu/drm/drm_crtc_internal.h
+@@ -272,8 +272,6 @@ int drm_mode_atomic_ioctl(struct drm_device *dev,
+ /* drm_plane.c */
+ int drm_plane_register_all(struct drm_device *dev);
+ void drm_plane_unregister_all(struct drm_device *dev);
+-bool drm_plane_has_format(struct drm_plane *plane,
+-			  u32 format, u64 modifier);
+ struct drm_mode_rect *
+ __drm_plane_get_damage_clips(const struct drm_plane_state *state);
+ 
+diff --git a/drivers/gpu/drm/drm_plane.c b/drivers/gpu/drm/drm_plane.c
+index 268aa2299df5..a51d4dd3f7de 100644
+--- a/drivers/gpu/drm/drm_plane.c
++++ b/drivers/gpu/drm/drm_plane.c
+@@ -906,6 +906,7 @@ bool drm_plane_has_format(struct drm_plane *plane,
+ 
+ 	return true;
+ }
++EXPORT_SYMBOL(drm_plane_has_format);
+ 
+ static int __setplane_check(struct drm_plane *plane,
+ 			    struct drm_crtc *crtc,
+diff --git a/include/drm/drm_plane.h b/include/drm/drm_plane.h
+index 9507542121fa..dd718c62ac31 100644
+--- a/include/drm/drm_plane.h
++++ b/include/drm/drm_plane.h
+@@ -972,6 +972,8 @@ static inline struct drm_plane *drm_plane_find(struct drm_device *dev,
+ #define drm_for_each_plane(plane, dev) \
+ 	list_for_each_entry(plane, &(dev)->mode_config.plane_list, head)
+ 
++bool drm_plane_has_format(struct drm_plane *plane,
++			  u32 format, u64 modifier);
+ bool drm_any_plane_has_format(struct drm_device *dev,
+ 			      u32 format, u64 modifier);
+ 
 -- 
 2.44.2
 
