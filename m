@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BF202C27C4F
-	for <intel-gfx@archiver.kernel.org>; Thu, 13 Jun 2024 10:28:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4A6C6C27C7B
+	for <intel-gfx@archiver.kernel.org>; Thu, 13 Jun 2024 10:28:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0D4A610EA20;
-	Thu, 13 Jun 2024 10:28:37 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 720B310EA21;
+	Thu, 13 Jun 2024 10:28:38 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=linutronix.de header.i=@linutronix.de header.b="PfKzSUPN";
-	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="KLZe3TYX";
+	dkim=pass (2048-bit key; secure) header.d=linutronix.de header.i=@linutronix.de header.b="g6bo0wpT";
+	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="O/i5dtYk";
 	dkim-atps=neutral
 Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4378410EA0C;
- Thu, 13 Jun 2024 10:28:26 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 64A9A10EA11;
+ Thu, 13 Jun 2024 10:28:28 +0000 (UTC)
 From: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
- s=2020; t=1718274504;
+ s=2020; t=1718274506;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=klSNWQQYRArbUq1sdGb5aifUF4FwgxDjzil4nZonFY4=;
- b=PfKzSUPNvC85exFqsrILD9WsMOOq0ofRF5GRAoeUrtIimqNiEAfhjNeyg8eTwCXMCpjcDP
- NffeX8zgFQsZIbgyrL8urUyjYBzOh3LJ2COy+Z1Vxw1vj/vTIJviaPwdYgegUgjbL08t6u
- Lxa1jS+u87JiCuUCc6Ji0TnC8S6D0NRA8sx95snIRAO5y84znD3RVDk+mz4UMexvqU2CD9
- eKuRMjF3eIWP9auUcKV82KJljqqDJneoO9rds3LWKNMgQ4I9jg0jTqq4I9RGO+yu91p076
- dvWuu0GCFzn8MNjW3YrTAzaKzYMq1MOYZd0FVwRIrIdUOA23zDonw9wgeHbh0Q==
+ bh=AA2zfxjtkVY5UVBSS4SHCEYagP/l342CiKwYNj0Le48=;
+ b=g6bo0wpTAx3SpwWMk0Ai6ouTNno1Eez5G0zFr/nt34tPxJBAmFgH8hQ/9QkU9T4f9lHIUu
+ kQt8i5OU5TaioDKCrjOtmFrzn+5q0WJ3lio3v2aAjBhdwH58VgIkg9AuolILykteuC7gnY
+ sRwtEYFGMDLJhDLTC8EYyzvqTe130NhvFzywU1/jyae+ZCCnj46xUH6uk0f+GOgc9Xu/AQ
+ EBc9zbvsfXxsFLYPsYly2togpXYt7KxRjWC2qy3jhGp+WWPGuxRMiI/rVSo7kwSJx2gPfi
+ EccQi08TiAFoyQ5Oj65hJjTGeouKfiZZKa1tqmmf/9W27f+5mqkebZgBMSCsug==
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
- s=2020e; t=1718274504;
+ s=2020e; t=1718274506;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=klSNWQQYRArbUq1sdGb5aifUF4FwgxDjzil4nZonFY4=;
- b=KLZe3TYXFB15J3rLYBwrIyesgUWJ2FA8kOQVQoJanTJ8uo7FGEYWduDhprSVLHN9SXjhlI
- Hfbg0jrohlS9nVDA==
+ bh=AA2zfxjtkVY5UVBSS4SHCEYagP/l342CiKwYNj0Le48=;
+ b=O/i5dtYk9bA9+0YfJNJWCwqvQ/iYEdhuLFyH39wNC8G/Wakdf2i2lIp5agIyhf6T7McBPL
+ xo60bxqbyyHNPkBg==
 To: intel-gfx@lists.freedesktop.org,
 	intel-xe@lists.freedesktop.org
 Cc: Jani Nikula <jani.nikula@linux.intel.com>,
@@ -45,12 +45,11 @@ Cc: Jani Nikula <jani.nikula@linux.intel.com>,
  Rodrigo Vivi <rodrigo.vivi@intel.com>,
  Thomas Gleixner <tglx@linutronix.de>,
  Tvrtko Ursulin <tursulin@ursulin.net>,
- Mike Galbraith <umgwanakikbuti@gmail.com>,
- Sebastian Andrzej Siewior <bigeasy@linutronix.de>
-Subject: [PATCH v2 2/8] drm/i915: Don't disable interrupts on PREEMPT_RT
- during atomic updates
-Date: Thu, 13 Jun 2024 12:20:19 +0200
-Message-ID: <20240613102818.4056866-3-bigeasy@linutronix.de>
+ Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
+ "John B. Wyatt IV" <jwyatt@redhat.com>
+Subject: [PATCH v2 7/8] drm/i915/guc: Consider also RCU depth in busy loop.
+Date: Thu, 13 Jun 2024 12:20:24 +0200
+Message-ID: <20240613102818.4056866-8-bigeasy@linutronix.de>
 In-Reply-To: <20240613102818.4056866-1-bigeasy@linutronix.de>
 References: <20240613102818.4056866-1-bigeasy@linutronix.de>
 MIME-Version: 1.0
@@ -70,103 +69,36 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Mike Galbraith <umgwanakikbuti@gmail.com>
+intel_guc_send_busy_loop() looks at in_atomic() and irqs_disabled() to
+decide if it should busy-spin while waiting or if it may sleep.
+Both checks will report false on PREEMPT_RT if sleeping spinlocks are
+acquired leading to RCU splats while the function sleeps.
 
-Commit
-   8d7849db3eab7 ("drm/i915: Make sprite updates atomic")
+Check also if RCU has been disabled.
 
-started disabling interrupts across atomic updates. This breaks on PREEMPT_=
-RT
-because within this section the code attempt to acquire spinlock_t locks wh=
-ich
-are sleeping locks on PREEMPT_RT.
-
-According to the comment the interrupts are disabled to avoid random delays=
- and
-not required for protection or synchronisation.
-If this needs to happen with disabled interrupts on PREEMPT_RT, and the
-whole section is restricted to register access then all sleeping locks
-need to be acquired before interrupts are disabled and some function
-maybe moved after enabling interrupts again.
-This includes:
-- prepare_to_wait() + finish_wait() due its wake queue.
-- drm_crtc_vblank_put() -> vblank_disable_fn() drm_device::vbl_lock.
-- skl_pfit_enable(), intel_update_plane(), vlv_atomic_update_fifo() and
-  maybe others due to intel_uncore::lock
-- drm_crtc_arm_vblank_event() due to drm_device::event_lock and
-  drm_device::vblank_time_lock.
-
-Don't disable interrupts on PREEMPT_RT during atomic updates.
-
-[bigeasy: drop local locks, commit message]
-
-Signed-off-by: Mike Galbraith <umgwanakikbuti@gmail.com>
+Reported-by: "John B. Wyatt IV" <jwyatt@redhat.com>
+Reviewed-by: Rodrigo Vivi <rodrigo.vivi@intel.com>
 Signed-off-by: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
 ---
- drivers/gpu/drm/i915/display/intel_crtc.c   | 9 ++++++---
- drivers/gpu/drm/i915/display/intel_vblank.c | 6 ++++--
- 2 files changed, 10 insertions(+), 5 deletions(-)
+ drivers/gpu/drm/i915/gt/uc/intel_guc.h | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_crtc.c b/drivers/gpu/drm/i9=
-15/display/intel_crtc.c
-index 25593f6aae7de..22b80004574fa 100644
---- a/drivers/gpu/drm/i915/display/intel_crtc.c
-+++ b/drivers/gpu/drm/i915/display/intel_crtc.c
-@@ -512,7 +512,8 @@ void intel_pipe_update_start(struct intel_atomic_state =
-*state,
- 	 */
- 	intel_psr_wait_for_idle_locked(new_crtc_state);
+diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc.h b/drivers/gpu/drm/i915/=
+gt/uc/intel_guc.h
+index 57b9031327767..ff213b79ba83d 100644
+--- a/drivers/gpu/drm/i915/gt/uc/intel_guc.h
++++ b/drivers/gpu/drm/i915/gt/uc/intel_guc.h
+@@ -362,7 +362,7 @@ static inline int intel_guc_send_busy_loop(struct intel=
+_guc *guc,
+ {
+ 	int err;
+ 	unsigned int sleep_period_ms =3D 1;
+-	bool not_atomic =3D !in_atomic() && !irqs_disabled();
++	bool not_atomic =3D !in_atomic() && !irqs_disabled() && !rcu_preempt_dept=
+h();
 =20
--	local_irq_disable();
-+	if (!IS_ENABLED(CONFIG_PREEMPT_RT))
-+		local_irq_disable();
-=20
- 	crtc->debug.min_vbl =3D evade.min;
- 	crtc->debug.max_vbl =3D evade.max;
-@@ -530,7 +531,8 @@ void intel_pipe_update_start(struct intel_atomic_state =
-*state,
- 	return;
-=20
- irq_disable:
--	local_irq_disable();
-+	if (!IS_ENABLED(CONFIG_PREEMPT_RT))
-+		local_irq_disable();
- }
-=20
- #if IS_ENABLED(CONFIG_DRM_I915_DEBUG_VBLANK_EVADE)
-@@ -632,7 +634,8 @@ void intel_pipe_update_end(struct intel_atomic_state *s=
-tate,
- 	 */
- 	intel_vrr_send_push(new_crtc_state);
-=20
--	local_irq_enable();
-+	if (!IS_ENABLED(CONFIG_PREEMPT_RT))
-+		local_irq_enable();
-=20
- 	if (intel_vgpu_active(dev_priv))
- 		goto out;
-diff --git a/drivers/gpu/drm/i915/display/intel_vblank.c b/drivers/gpu/drm/=
-i915/display/intel_vblank.c
-index 71d6071121460..d639b51a49195 100644
---- a/drivers/gpu/drm/i915/display/intel_vblank.c
-+++ b/drivers/gpu/drm/i915/display/intel_vblank.c
-@@ -700,11 +700,13 @@ int intel_vblank_evade(struct intel_vblank_evade_ctx =
-*evade)
- 			break;
- 		}
-=20
--		local_irq_enable();
-+		if (!IS_ENABLED(CONFIG_PREEMPT_RT))
-+			local_irq_enable();
-=20
- 		timeout =3D schedule_timeout(timeout);
-=20
--		local_irq_disable();
-+		if (!IS_ENABLED(CONFIG_PREEMPT_RT))
-+			local_irq_disable();
- 	}
-=20
- 	finish_wait(wq, &wait);
+ 	/*
+ 	 * FIXME: Have caller pass in if we are in an atomic context to avoid
 --=20
 2.45.1
 
