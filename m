@@ -4,53 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AD851C27C4F
-	for <intel-gfx@archiver.kernel.org>; Thu, 13 Jun 2024 22:27:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E0C61C27C4F
+	for <intel-gfx@archiver.kernel.org>; Thu, 13 Jun 2024 22:29:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EEBB510EBDB;
-	Thu, 13 Jun 2024 22:27:15 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1E73710EBDD;
+	Thu, 13 Jun 2024 22:29:30 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="gvr/FziJ";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="ZKMUhRVX";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.9])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A6E1010EBDC;
- Thu, 13 Jun 2024 22:27:11 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.13])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 251A010EBDD;
+ Thu, 13 Jun 2024 22:29:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1718317633; x=1749853633;
+ t=1718317769; x=1749853769;
  h=from:to:cc:subject:date:message-id:mime-version:
  content-transfer-encoding;
- bh=7QDd6cePhK8QHB5XjMVL3VXLSQFYxqKwR/SMxkipkhk=;
- b=gvr/FziJGsMppHXvZ7EIAZuIxxjr/Q/C0jw2PJZM0iNUn3E+8k3ihURL
- Q2LTS4ZmDS3+KsZ1zwKfqT84KbFfTzXPkOMmf/nkPdaYGKqutfE3XFZvn
- 5sGRQGppt62BDc+8Yih3ps0+LYMl4dSEoxfQ/n6NZ8nKxj4N0mSD6cZlt
- LJmJ+c5mXDrRw/jQ/xdIxmjej3n5YeFpaZ+d2eIWhcJkDMoIT4HHz0mh1
- 6ShINXsYtktkiLkfyXgExxWdG+oJt/Smxm0DDyzASTs0vzAViuGCwmF3f
- 3+UU2h5rP0MRxGN6mi91latcbgNRBhyPxe3bhDn/fNUdRXURqr7XqTxpB A==;
-X-CSE-ConnectionGUID: T1VIy+3iTpKdgsfgsW1DGw==
-X-CSE-MsgGUID: WW9HO6I0Ssy3O6Dsova5Wg==
-X-IronPort-AV: E=McAfee;i="6700,10204,11102"; a="25855172"
-X-IronPort-AV: E=Sophos;i="6.08,236,1712646000"; d="scan'208";a="25855172"
-Received: from orviesa008.jf.intel.com ([10.64.159.148])
- by fmvoesa103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 13 Jun 2024 15:24:19 -0700
-X-CSE-ConnectionGUID: Bd3wn/CvSNqWtRRM4iePqg==
-X-CSE-MsgGUID: B+dQYD1XR0+4DFWauxRZWw==
+ bh=gV5t4h6DdTVeFRJm1DHjRxcbA8d05SKdD/yDybc/8Kc=;
+ b=ZKMUhRVX6JjcZw5GmI/QlEOpHAAVzmWO6u4vZWN5pYNdgD571B3ybuWY
+ J2k1U/33bMHEkqimXjSMoymTQVWsRaxbGaapmfuyU9akMJhd4HavJzbr2
+ KBzHAtw6Lh5NI2qnakdExzm4JWz2+WxBq01xBq5tDZwv0IrYYs8Vfbiat
+ +He6dLcXiEV6WOs+gg2H2DJ9xCBPrRtrsGUp1N+oelMoVGG+JvdTas5d0
+ i2FhKvrb/Qzd+fUapfxnfhSFQ7c1P3JaUdLS8UxDQgKcyFMrj4Q9nMx+9
+ 74MDNgwjDjTf7OkNrIwzjX2MYza/s4JRPy6WlRueVCAFzdoOQV30GBM09 A==;
+X-CSE-ConnectionGUID: lxNHFZbRTpyTpUI/d5g5xg==
+X-CSE-MsgGUID: yntK5vveTuShCRHUobYi7g==
+X-IronPort-AV: E=McAfee;i="6700,10204,11102"; a="18107479"
+X-IronPort-AV: E=Sophos;i="6.08,236,1712646000"; d="scan'208";a="18107479"
+Received: from orviesa001.jf.intel.com ([10.64.159.141])
+ by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 13 Jun 2024 15:29:24 -0700
+X-CSE-ConnectionGUID: vzvGRmhcRsGljlvavM9S8g==
+X-CSE-MsgGUID: CmqylpEJSMi3GfzvR07DQQ==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.08,236,1712646000"; d="scan'208";a="40963074"
+X-IronPort-AV: E=Sophos;i="6.08,236,1712646000"; d="scan'208";a="77764390"
 Received: from bergbenj-mobl1.ger.corp.intel.com (HELO intel.com)
  ([10.245.246.176])
- by orviesa008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 13 Jun 2024 15:24:16 -0700
+ by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 13 Jun 2024 15:28:59 -0700
 From: Andi Shyti <andi.shyti@linux.intel.com>
 To: intel-gfx <intel-gfx@lists.freedesktop.org>,
  dri-devel <dri-devel@lists.freedesktop.org>
 Cc: Andi Shyti <andi.shyti@linux.intel.com>,
- Matthew Brost <matthew.brost@intel.com>,
- Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>
-Subject: [PATCH] drm/i915/gt/uc: Evaluate GuC priority within locks
-Date: Fri, 14 Jun 2024 00:24:01 +0200
-Message-ID: <20240613222402.551625-1-andi.shyti@linux.intel.com>
+ John Harrison <John.C.Harrison@Intel.com>
+Subject: [PATCH] drm/i915/gt/uc: Fix typo in comment
+Date: Fri, 14 Jun 2024 00:28:37 +0200
+Message-ID: <20240613222837.552277-1-andi.shyti@linux.intel.com>
 X-Mailer: git-send-email 2.45.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
@@ -69,74 +68,27 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-The ce->guc_state.lock was made to protect guc_prio, which
-indicates the GuC priority level.
-
-But at the begnning of the function we perform some sanity check
-of guc_prio outside its protected section. Move them within the
-locked region.
-
-Use this occasion to expand the if statement to make it clearer.
+Replace "dynmically" with "dynamically".
 
 Signed-off-by: Andi Shyti <andi.shyti@linux.intel.com>
-Cc: Matthew Brost <matthew.brost@intel.com>
-Reviewed-by: Matthew Brost <matthew.brost@intel.com>
+Cc: John Harrison <John.C.Harrison@Intel.com>
 ---
-Cc: Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>
+ drivers/gpu/drm/i915/gt/uc/intel_guc_fwif.h | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-Changelog
-=========
- - Removed the stable tags as this path is not normally under
-   multi task stress.
- - Refactored the if statements in order to remove unnecessary
-   checks (thanks, Daniele)
- - Added Matt's r-b.
-
-
- .../gpu/drm/i915/gt/uc/intel_guc_submission.c | 27 +++++++++++--------
- 1 file changed, 16 insertions(+), 11 deletions(-)
-
-diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
-index 0eaa1064242c..9400d0eb682b 100644
---- a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
-+++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
-@@ -4267,20 +4267,25 @@ static void guc_bump_inflight_request_prio(struct i915_request *rq,
- 	u8 new_guc_prio = map_i915_prio_to_guc_prio(prio);
+diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_fwif.h b/drivers/gpu/drm/i915/gt/uc/intel_guc_fwif.h
+index 14797e80bc92..263c9c3f6a03 100644
+--- a/drivers/gpu/drm/i915/gt/uc/intel_guc_fwif.h
++++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_fwif.h
+@@ -295,7 +295,7 @@ struct guc_update_scheduling_policy_header {
+ } __packed;
  
- 	/* Short circuit function */
--	if (prio < I915_PRIORITY_NORMAL ||
--	    rq->guc_prio == GUC_PRIO_FINI ||
--	    (rq->guc_prio != GUC_PRIO_INIT &&
--	     !new_guc_prio_higher(rq->guc_prio, new_guc_prio)))
-+	if (prio < I915_PRIORITY_NORMAL)
- 		return;
- 
- 	spin_lock(&ce->guc_state.lock);
--	if (rq->guc_prio != GUC_PRIO_FINI) {
--		if (rq->guc_prio != GUC_PRIO_INIT)
--			sub_context_inflight_prio(ce, rq->guc_prio);
--		rq->guc_prio = new_guc_prio;
--		add_context_inflight_prio(ce, rq->guc_prio);
--		update_context_prio(ce);
--	}
-+
-+	if (rq->guc_prio == GUC_PRIO_FINI)
-+		goto exit;
-+
-+	if (!new_guc_prio_higher(rq->guc_prio, new_guc_prio))
-+		goto exit;
-+
-+	if (rq->guc_prio != GUC_PRIO_INIT)
-+		sub_context_inflight_prio(ce, rq->guc_prio);
-+
-+	rq->guc_prio = new_guc_prio;
-+	add_context_inflight_prio(ce, rq->guc_prio);
-+	update_context_prio(ce);
-+
-+exit:
- 	spin_unlock(&ce->guc_state.lock);
- }
- 
+ /*
+- * Can't dynmically allocate memory for the scheduling policy KLV because
++ * Can't dynamically allocate memory for the scheduling policy KLV because
+  * it will be sent from within the reset path. Need a fixed size lump on
+  * the stack instead :(.
+  *
 -- 
 2.45.1
 
