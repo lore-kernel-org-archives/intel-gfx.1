@@ -4,31 +4,29 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AEDA0C27C6E
-	for <intel-gfx@archiver.kernel.org>; Fri, 14 Jun 2024 20:23:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 37346C27C79
+	for <intel-gfx@archiver.kernel.org>; Fri, 14 Jun 2024 20:24:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4070D10EE52;
-	Fri, 14 Jun 2024 20:23:45 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 53C1710EE57;
+	Fri, 14 Jun 2024 20:24:19 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=ucw.cz header.i=@ucw.cz header.b="TeCLKarI";
+	dkim=pass (1024-bit key; unprotected) header.d=ucw.cz header.i=@ucw.cz header.b="dEp5aFQo";
 	dkim-atps=neutral
-X-Greylist: delayed 596 seconds by postgrey-1.36 at gabe;
- Fri, 14 Jun 2024 20:23:43 UTC
 Received: from jabberwock.ucw.cz (jabberwock.ucw.cz [46.255.230.98])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8F42B10EE52
- for <intel-gfx@lists.freedesktop.org>; Fri, 14 Jun 2024 20:23:43 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C330B10EE54;
+ Fri, 14 Jun 2024 20:24:15 +0000 (UTC)
 Received: by jabberwock.ucw.cz (Postfix, from userid 1017)
- id 847B01C009D; Fri, 14 Jun 2024 22:13:44 +0200 (CEST)
+ id 6C7F71C00A9; Fri, 14 Jun 2024 22:24:14 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ucw.cz; s=gen1;
- t=1718396024;
+ t=1718396654;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=9Z8ZU3Qerhy8BbHEZ0VEi1vZnCyP+NEN+cexQC5goGM=;
- b=TeCLKarIVylkNJZTOfyxXHpPRwWdxGrp02dM41hB3seAXL0JZuXpPsoxGavoGMz20eNklc
- GhORYoeUsYJjdMUdl+S3YwhzYU2eEHjMSOPNCaA9D2/C3ly7VJwJ8+hntnzTHtIVxxEwcV
- hj1GnrpwHcAx2hMsSKLhH7e848e3qUw=
-Date: Fri, 14 Jun 2024 22:13:44 +0200
+ bh=11wEK8Clby+612CgqiRJqYq/lMXJ8CEG8ZdCUKNN3o4=;
+ b=dEp5aFQothUREbECVVo0OdD6dmKTHwx+KFVhdcLYq0IGkj13qouAtxiS+MunjcCC9hGcgu
+ Gvl+5rzBnsQkCMnJ8aVU+iPE1US3jKon9Ootv8/mW6vJc6r9AzwBbwb9WookOPoXknCNm6
+ 792V+QKfgwbM0PQ0EEknai/R0cjX164=
+Date: Fri, 14 Jun 2024 22:24:13 +0200
 From: Pavel Machek <pavel@ucw.cz>
 To: Linus Torvalds <torvalds@linux-foundation.org>
 Cc: Dave Airlie <airlied@gmail.com>, Jani Nikula <jani.nikula@linux.intel.com>,
@@ -37,7 +35,7 @@ Cc: Dave Airlie <airlied@gmail.com>, Jani Nikula <jani.nikula@linux.intel.com>,
  intel-gfx <intel-gfx@lists.freedesktop.org>,
  dri-devel <dri-devel@lists.freedesktop.org>
 Subject: Re: Linux 6.10-rc1
-Message-ID: <ZmykeKxwkPEOp9UM@duo.ucw.cz>
+Message-ID: <Zmym7SuLa32UjVyZ@duo.ucw.cz>
 References: <CAHk-=wjQv_CSPzhjOMoOjGO3FmuHe5hzm6Ds69zZSFPa4PeuCA@mail.gmail.com>
  <ZmrTZozoi0t/tuva@duo.ucw.cz>
  <CAHk-=wjqHL7KjOWYBVKFewcKPWL7CJxddWfJnvL3AfOqfR8vMg@mail.gmail.com>
@@ -46,7 +44,7 @@ References: <CAHk-=wjQv_CSPzhjOMoOjGO3FmuHe5hzm6Ds69zZSFPa4PeuCA@mail.gmail.com>
  <CAHk-=wjcdUUip96PnfC+iRjAwPHn3XKsgcohk1ad5VcckCFVKA@mail.gmail.com>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha1;
- protocol="application/pgp-signature"; boundary="9jY3Fdg/BAZtCs3r"
+ protocol="application/pgp-signature"; boundary="u7NG0n/GuAps+/Vo"
 Content-Disposition: inline
 In-Reply-To: <CAHk-=wjcdUUip96PnfC+iRjAwPHn3XKsgcohk1ad5VcckCFVKA@mail.gmail.com>
 X-BeenThere: intel-gfx@lists.freedesktop.org
@@ -65,7 +63,7 @@ Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 
---9jY3Fdg/BAZtCs3r
+--u7NG0n/GuAps+/Vo
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
@@ -89,33 +87,55 @@ Hi!
 >=20
 > So current -git might be worth checking.
 
-Ok, let me check. That sounds like something that could make machine
-hotter.
+Is that:
 
-My problem seems to be that machine seems to run way hotter with 6.10,
-and when it hovers around the 97C limit, it is unusable with all the
-throttling.
+commit 0cac73eb3875f6ecb6105e533218dba1868d04c9
+Merge: 94df82fe5bfd 350cbb5d2f67
+Author: Linus Torvalds <torvalds@linux-foundation.org>
+Date:   Fri Jun 14 09:52:51 2024 -0700
 
-It gets unusable with 6.9 at 97C, too, it is just that it is harder to
-make it so hot with 6.9.
+    Merge tag 'pm-6.10-rc4' of git://git.kernel.org/pub/scm/linux/kernel/gi=
+t/rafael/linux-pm
+   =20
+    Pull power management fix from Rafael Wysocki:
+     "Restore the behavior of the no_turbo sysfs attribute in the
+      intel_pstate driver which allowed users to make the driver start using
+      turbo P-states if they have been enabled on the fly by the firmware
+      after OS initialization (Rafael Wysocki)"
+   =20
+    * tag 'pm-6.10-rc4' of git://git.kernel.org/pub/scm/linux/kernel/git/ra=
+fael/linux-pm:
+      cpufreq: intel_pstate: Check turbo_is_disabled() in store_no_turbo()
 
-(And yes, I'm running Chromium, and yes, that means websites influence
-this. Media playback also does, 1080p video pushes thermals close to
-the limits even on good kernels.)
+
+? I don't think I tweaking no_turbo in the sysfs.
+
+But the thermal stuff looks important:
+
+commit cee84c0b003f2e0f486f200a72eca2bcdb3a49a7
+Merge: d20f6b3d747c b6846826982b
+Author: Linus Torvalds <torvalds@linux-foundation.org>
+Date:   Fri Jun 14 09:28:56 2024 -0700
+
+    Merge tag 'thermal-6.10-rc4' of git://git.kernel.org/pub/scm/linux/kern=
+el/git/rafael/linux-pm
+
+So I guess I'll have to try again.
 
 Thanks and best regards,
-								Pavel
+							Pavel
+
 --=20
 People of Russia, stop Putin before his war on Ukraine escalates.
 
---9jY3Fdg/BAZtCs3r
+--u7NG0n/GuAps+/Vo
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iF0EABECAB0WIQRPfPO7r0eAhk010v0w5/Bqldv68gUCZmykeAAKCRAw5/Bqldv6
-8gIcAJ9B4RKjJ+DF3U4YiKKPR2TtRW0KEQCgpTFbTJaqCrmvTB23IRLtTeGI328=
-=ruMg
+iF0EABECAB0WIQRPfPO7r0eAhk010v0w5/Bqldv68gUCZmym7QAKCRAw5/Bqldv6
+8kb0AJ97gwIRHUiD47Mml3lQACLV5Xsu2wCdFT+Pwv7O4oovUY9/KqIbjbSEaUE=
+=YIIy
 -----END PGP SIGNATURE-----
 
---9jY3Fdg/BAZtCs3r--
+--u7NG0n/GuAps+/Vo--
