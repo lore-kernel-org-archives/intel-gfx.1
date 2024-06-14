@@ -4,50 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5782BC27C77
-	for <intel-gfx@archiver.kernel.org>; Fri, 14 Jun 2024 17:39:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 12518C27C7B
+	for <intel-gfx@archiver.kernel.org>; Fri, 14 Jun 2024 17:39:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DB83D10EE0E;
-	Fri, 14 Jun 2024 17:39:22 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 27D3510EE0F;
+	Fri, 14 Jun 2024 17:39:23 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="FdKBtFF4";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="ns+hZtZ+";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.15])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 628BA10EE04;
- Fri, 14 Jun 2024 17:39:06 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4CC9110EE03;
+ Fri, 14 Jun 2024 17:39:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1718386747; x=1749922747;
+ t=1718386754; x=1749922754;
  h=from:to:subject:date:message-id:in-reply-to:references:
  mime-version:content-transfer-encoding;
- bh=J0WSdqr/b4+F+YMoNkkOGHUCkrj+9arxfW/r4aga18M=;
- b=FdKBtFF4dg3XOxXawRqViJ6XhhiRkzGwb+9a2cjR8RLVZwQq7/TJvFOY
- fTW0Q+ORkGocu4sgGzG0AQit2C1FTanh7LXmDOoF6WX7skTH4XlUR8H7s
- Bc0u13TyIcVX43lWsmlQAoRo3dhHhge8ZsnIJPsYGLcN06s5H/GGHIBQ5
- K5acN5ASG0DQ7LC3rhvriuzZQfIj4E+N7YCfkYpYR66EW/irrDAXketIM
- NN+wWzFiymbC3odjwAx188StdlDhIbeCxeHMebok7sEYIT5ZWi2vJ5/U5
- tFhoF3t+ogCIiiANKu5ijA2K9B02eyr38kFStPIN/O1xnhvmghdqxb/8z A==;
-X-CSE-ConnectionGUID: Q2fDOiwsTzudcUxaOEX4QA==
-X-CSE-MsgGUID: lzdxyrUGSxqKo8lX3R3eew==
-X-IronPort-AV: E=McAfee;i="6700,10204,11103"; a="19069304"
-X-IronPort-AV: E=Sophos;i="6.08,238,1712646000"; d="scan'208";a="19069304"
+ bh=h3n5PwNAVx/9NfMHvIQK2/QA/doChwvnvOjTsWN49XI=;
+ b=ns+hZtZ+pmjjldbM5Fjpq9g9hAN9YXRi2gjcZBCAFVAHie4CH0bycE56
+ RIYOYYcmWE0uaWJ3CtgLEABr6o0y5/gGNM/1uDjZpa04o7ml18HbSz5L7
+ fPsupAvB0XF1VLCO87N/zPv4dfVSKA9sdeiz5/QfQ8KeMCp03CJaA7ma+
+ jNs+92hXR24dBGib5bVbsO9u+L/cUtsoxIkaULQau9CjAw+ZFh3UW3ONl
+ oqBlqKL+/Cholmi+/fOJsVAE+SegBqtBFOh5udpfeYuVsuhQo9x3aj2ti
+ J34H/EGHTWK9C+dvhEbNrFhbVFNKAJWUSfc7fGJL1q4JmrvhM/Swwp9AL Q==;
+X-CSE-ConnectionGUID: o+WKsZxYRi2nGOCpTsIYNA==
+X-CSE-MsgGUID: ZtU0pX8gR+6QHeDPeYokgA==
+X-IronPort-AV: E=McAfee;i="6700,10204,11103"; a="19069348"
+X-IronPort-AV: E=Sophos;i="6.08,238,1712646000"; d="scan'208";a="19069348"
 Received: from orviesa009.jf.intel.com ([10.64.159.149])
  by orvoesa107.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 14 Jun 2024 10:39:06 -0700
-X-CSE-ConnectionGUID: LlVmuTsjTqCWaN42nGQAWA==
-X-CSE-MsgGUID: R3HrgygcQ9GLUVoK29t8bQ==
+ 14 Jun 2024 10:39:13 -0700
+X-CSE-ConnectionGUID: gIeSu5noTH+ZG5v1WRuZPw==
+X-CSE-MsgGUID: BpErcX+vTpG6lb+F5TRpnQ==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.08,238,1712646000"; d="scan'208";a="40712431"
+X-IronPort-AV: E=Sophos;i="6.08,238,1712646000"; d="scan'208";a="40712473"
 Received: from ideak-desk.fi.intel.com ([10.237.72.78])
  by orviesa009-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 14 Jun 2024 10:39:04 -0700
+ 14 Jun 2024 10:39:12 -0700
 From: Imre Deak <imre.deak@intel.com>
 To: intel-gfx@lists.freedesktop.org,
 	dri-devel@lists.freedesktop.org
-Subject: [PATCH 2/9] drm/display/dsc: Add a helper to dump the DSC
- configuration
-Date: Fri, 14 Jun 2024 20:39:02 +0300
-Message-ID: <20240614173911.3743172-3-imre.deak@intel.com>
+Subject: [PATCH 8/9] drm/i915: Dump DSC state to dmesg and
+ debugfs/i915_display_info
+Date: Fri, 14 Jun 2024 20:39:08 +0300
+Message-ID: <20240614173911.3743172-9-imre.deak@intel.com>
 X-Mailer: git-send-email 2.43.3
 In-Reply-To: <20240614173911.3743172-1-imre.deak@intel.com>
 References: <20240614173911.3743172-1-imre.deak@intel.com>
@@ -68,142 +68,116 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Add a helper to dump the Display Stream Compression configuration, taken
-into use in the i915 driver by a later patch.
+Dump the DSC state to dmesg during HW readout and state computation as
+well as the i915_display_info debugfs entry.
 
 Signed-off-by: Imre Deak <imre.deak@intel.com>
 ---
- drivers/gpu/drm/display/drm_dsc_helper.c | 91 ++++++++++++++++++++++++
- include/drm/display/drm_dsc_helper.h     |  3 +
- 2 files changed, 94 insertions(+)
+ .../drm/i915/display/intel_crtc_state_dump.c  |  3 +++
+ .../drm/i915/display/intel_display_debugfs.c  |  4 ++++
+ drivers/gpu/drm/i915/display/intel_vdsc.c     | 20 +++++++++++++++++++
+ drivers/gpu/drm/i915/display/intel_vdsc.h     |  4 ++++
+ 4 files changed, 31 insertions(+)
 
-diff --git a/drivers/gpu/drm/display/drm_dsc_helper.c b/drivers/gpu/drm/display/drm_dsc_helper.c
-index 4424380c6cb63..ef2237f2b8630 100644
---- a/drivers/gpu/drm/display/drm_dsc_helper.c
-+++ b/drivers/gpu/drm/display/drm_dsc_helper.c
-@@ -14,6 +14,7 @@
+diff --git a/drivers/gpu/drm/i915/display/intel_crtc_state_dump.c b/drivers/gpu/drm/i915/display/intel_crtc_state_dump.c
+index 6df526e189b5b..705ec5ad385c8 100644
+--- a/drivers/gpu/drm/i915/display/intel_crtc_state_dump.c
++++ b/drivers/gpu/drm/i915/display/intel_crtc_state_dump.c
+@@ -10,6 +10,7 @@
+ #include "intel_crtc_state_dump.h"
+ #include "intel_display_types.h"
+ #include "intel_hdmi.h"
++#include "intel_vdsc.h"
+ #include "intel_vrr.h"
  
- #include <drm/display/drm_dp_helper.h>
- #include <drm/display/drm_dsc_helper.h>
-+#include <drm/drm_fixed.h>
- #include <drm/drm_print.h>
+ static void intel_dump_crtc_timings(struct drm_printer *p,
+@@ -369,6 +370,8 @@ void intel_crtc_state_dump(const struct intel_crtc_state *pipe_config,
+ 	else if (IS_VALLEYVIEW(i915))
+ 		vlv_dump_csc(&p, "wgc csc", &pipe_config->csc);
  
- /**
-@@ -1472,3 +1473,93 @@ u32 drm_dsc_flatness_det_thresh(const struct drm_dsc_config *dsc)
- 	return 2 << (dsc->bits_per_component - 8);
++	intel_vdsc_state_dump(&p, 0, pipe_config);
++
+ dump_planes:
+ 	if (!state)
+ 		return;
+diff --git a/drivers/gpu/drm/i915/display/intel_display_debugfs.c b/drivers/gpu/drm/i915/display/intel_display_debugfs.c
+index 91757fed9c6d2..c20a5097ea331 100644
+--- a/drivers/gpu/drm/i915/display/intel_display_debugfs.c
++++ b/drivers/gpu/drm/i915/display/intel_display_debugfs.c
+@@ -36,6 +36,7 @@
+ #include "intel_pps.h"
+ #include "intel_psr.h"
+ #include "intel_psr_regs.h"
++#include "intel_vdsc.h"
+ #include "intel_wm.h"
+ 
+ static inline struct drm_i915_private *node_to_i915(struct drm_info_node *node)
+@@ -551,6 +552,7 @@ static void crtc_updates_add(struct intel_crtc *crtc)
+ static void intel_crtc_info(struct seq_file *m, struct intel_crtc *crtc)
+ {
+ 	struct drm_i915_private *dev_priv = node_to_i915(m->private);
++	struct drm_printer p = drm_seq_file_printer(m);
+ 	const struct intel_crtc_state *crtc_state =
+ 		to_intel_crtc_state(crtc->base.state);
+ 	struct intel_encoder *encoder;
+@@ -581,6 +583,8 @@ static void intel_crtc_info(struct seq_file *m, struct intel_crtc *crtc)
+ 			   crtc_state->joiner_pipes,
+ 			   intel_crtc_is_joiner_secondary(crtc_state) ? "slave" : "master");
+ 
++	intel_vdsc_state_dump(&p, 1, crtc_state);
++
+ 	for_each_intel_encoder_mask(&dev_priv->drm, encoder,
+ 				    crtc_state->uapi.encoder_mask)
+ 		intel_encoder_info(m, crtc, encoder);
+diff --git a/drivers/gpu/drm/i915/display/intel_vdsc.c b/drivers/gpu/drm/i915/display/intel_vdsc.c
+index ffda11b417e24..ca1d8be659195 100644
+--- a/drivers/gpu/drm/i915/display/intel_vdsc.c
++++ b/drivers/gpu/drm/i915/display/intel_vdsc.c
+@@ -990,3 +990,23 @@ void intel_dsc_get_config(struct intel_crtc_state *crtc_state)
+ out:
+ 	intel_display_power_put(dev_priv, power_domain, wakeref);
  }
- EXPORT_SYMBOL(drm_dsc_flatness_det_thresh);
 +
-+static void drm_dsc_dump_config_main_params(struct drm_printer *p, int indent,
-+					    const struct drm_dsc_config *cfg)
++static void intel_vdsc_dump_state(struct drm_printer *p, int indent,
++				  const struct intel_crtc_state *crtc_state)
 +{
 +	drm_printf_indent(p, indent,
-+			  "dsc-cfg: version: %d.%d, picture: w=%d, h=%d, slice: count=%d, w=%d, h=%d, size=%d\n",
-+			  cfg->dsc_version_major, cfg->dsc_version_minor,
-+			  cfg->pic_width, cfg->pic_height,
-+			  cfg->slice_count, cfg->slice_width, cfg->slice_height, cfg->slice_chunk_size);
-+	drm_printf_indent(p, indent,
-+			  "dsc-cfg: mode: block-pred=%s, vbr=%s, rgb=%s, simple-422=%s, native-422=%s, native-420=%s\n",
-+			  str_yes_no(cfg->block_pred_enable), str_yes_no(cfg->vbr_enable),
-+			  str_yes_no(cfg->convert_rgb),
-+			  str_yes_no(cfg->simple_422), str_yes_no(cfg->native_422), str_yes_no(cfg->native_420));
-+	drm_printf_indent(p, indent,
-+			  "dsc-cfg: color-depth: uncompressed-bpc=%d, compressed-bpp=" DRM_X16_FMT " line-buf-bpp=%d\n",
-+			  cfg->bits_per_component, DRM_X16_ARGS(cfg->bits_per_pixel), cfg->line_buf_depth);
-+	drm_printf_indent(p, indent,
-+			  "dsc-cfg: rc-model: size=%d, bits=%d, mux-word-size: %d, initial-delays: xmit=%d, dec=%d\n",
-+			  cfg->rc_model_size, cfg->rc_bits, cfg->mux_word_size,
-+			  cfg->initial_xmit_delay, cfg->initial_dec_delay);
-+	drm_printf_indent(p, indent,
-+			  "dsc-cfg: offsets: initial=%d, final=%d, slice-bpg=%d\n",
-+			  cfg->initial_offset, cfg->final_offset, cfg->slice_bpg_offset);
-+	drm_printf_indent(p, indent,
-+			  "dsc-cfg: line-bpg-offsets: first=%d, non-first=%d, second=%d, non-second=%d, second-adj=%d\n",
-+			  cfg->first_line_bpg_offset, cfg->nfl_bpg_offset,
-+			  cfg->second_line_bpg_offset, cfg->nsl_bpg_offset, cfg->second_line_offset_adj);
-+	drm_printf_indent(p, indent,
-+			  "dsc-cfg: rc-tgt-offsets: low=%d, high=%d, rc-edge-factor: %d, rc-quant-incr-limits: [0]=%d, [1]=%d\n",
-+			  cfg->rc_tgt_offset_low, cfg->rc_tgt_offset_high,
-+			  cfg->rc_edge_factor, cfg->rc_quant_incr_limit0, cfg->rc_quant_incr_limit1);
-+	drm_printf_indent(p, indent,
-+			  "dsc-cfg: initial-scale: %d, scale-intervals: increment=%d, decrement=%d\n",
-+			  cfg->initial_scale_value, cfg->scale_increment_interval, cfg->scale_decrement_interval);
-+	drm_printf_indent(p, indent,
-+			  "dsc-cfg: flatness: min-qp=%d, max-qp=%d\n",
-+			  cfg->flatness_min_qp, cfg->flatness_max_qp);
++			  "dsc-dss: compressed-bpp:" DRM_X16_FMT ", slice-count: %d, split: %s\n",
++			  DRM_X16_ARGS(crtc_state->dsc.compressed_bpp_x16),
++			  crtc_state->dsc.slice_count,
++			  str_yes_no(crtc_state->dsc.dsc_split));
 +}
 +
-+static void drm_dsc_dump_config_rc_params(struct drm_printer *p, int indent,
-+					  const struct drm_dsc_config *cfg)
++void intel_vdsc_state_dump(struct drm_printer *p, int indent,
++			   const struct intel_crtc_state *crtc_state)
 +{
-+	const u16 *bt = cfg->rc_buf_thresh;
-+	const struct drm_dsc_rc_range_parameters *rp = cfg->rc_range_params;
++	if (!crtc_state->dsc.compression_enable)
++		return;
 +
-+	BUILD_BUG_ON(ARRAY_SIZE(cfg->rc_buf_thresh) != 14);
-+	BUILD_BUG_ON(ARRAY_SIZE(cfg->rc_range_params) != 15);
-+
-+	drm_printf_indent(p, indent,
-+			  "dsc-cfg: rc-level:         0,  1,  2,  3,  4,  5,  6,  7,  8,  9, 10, 11, 12, 13, 14\n");
-+	drm_printf_indent(p, indent,
-+			  "dsc-cfg: rc-buf-thresh:  %3d,%3d,%3d,%3d,%3d,%3d,%3d,%3d,%3d,%3d,%3d,%3d,%3d,%3d\n",
-+			  bt[0], bt[1], bt[2],  bt[3],  bt[4],  bt[5], bt[6], bt[7],
-+			  bt[8], bt[9], bt[10], bt[11], bt[12], bt[13]);
-+	drm_printf_indent(p, indent,
-+			  "dsc-cfg: rc-min-qp:      %3d,%3d,%3d,%3d,%3d,%3d,%3d,%3d,%3d,%3d,%3d,%3d,%3d,%3d,%3d\n",
-+			  rp[0].range_min_qp,  rp[1].range_min_qp,  rp[2].range_min_qp,  rp[3].range_min_qp,
-+			  rp[4].range_min_qp,  rp[5].range_min_qp,  rp[6].range_min_qp,  rp[7].range_min_qp,
-+			  rp[8].range_min_qp,  rp[9].range_min_qp,  rp[10].range_min_qp, rp[11].range_min_qp,
-+			  rp[12].range_min_qp, rp[13].range_min_qp, rp[14].range_min_qp);
-+	drm_printf_indent(p, indent,
-+			  "dsc-cfg: rc-max-qp:      %3d,%3d,%3d,%3d,%3d,%3d,%3d,%3d,%3d,%3d,%3d,%3d,%3d,%3d,%3d\n",
-+			  rp[0].range_max_qp,  rp[1].range_max_qp,  rp[2].range_max_qp,  rp[3].range_max_qp,
-+			  rp[4].range_max_qp,  rp[5].range_max_qp,  rp[6].range_max_qp,  rp[7].range_max_qp,
-+			  rp[8].range_max_qp,  rp[9].range_max_qp,  rp[10].range_max_qp, rp[11].range_max_qp,
-+			  rp[12].range_max_qp, rp[13].range_max_qp, rp[14].range_max_qp);
-+	drm_printf_indent(p, indent,
-+			  "dsc-cfg: rc-bpg-offset:  %3d,%3d,%3d,%3d,%3d,%3d,%3d,%3d,%3d,%3d,%3d,%3d,%3d,%3d,%3d\n",
-+			  rp[0].range_bpg_offset,  rp[1].range_bpg_offset,  rp[2].range_bpg_offset,  rp[3].range_bpg_offset,
-+			  rp[4].range_bpg_offset,  rp[5].range_bpg_offset,  rp[6].range_bpg_offset,  rp[7].range_bpg_offset,
-+			  rp[8].range_bpg_offset,  rp[9].range_bpg_offset,  rp[10].range_bpg_offset, rp[11].range_bpg_offset,
-+			  rp[12].range_bpg_offset, rp[13].range_bpg_offset, rp[14].range_bpg_offset);
++	intel_vdsc_dump_state(p, indent, crtc_state);
++	drm_dsc_dump_config(p, indent, &crtc_state->dsc.config);
 +}
-+
-+/**
-+ * drm_dsc_dump_config - Dump the provided DSC configuration
-+ * @p: The printer used for output
-+ * @indent: Tab indentation level (max 5)
-+ * @cfg: DSC configuration to print
-+ *
-+ * Print the provided DSC configration in @cfg.
-+ */
-+void drm_dsc_dump_config(struct drm_printer *p, int indent,
-+			 const struct drm_dsc_config *cfg)
-+{
-+	drm_dsc_dump_config_main_params(p, indent, cfg);
-+	drm_dsc_dump_config_rc_params(p, indent, cfg);
-+}
-+EXPORT_SYMBOL(drm_dsc_dump_config);
-diff --git a/include/drm/display/drm_dsc_helper.h b/include/drm/display/drm_dsc_helper.h
-index 913aa20712322..2c2b9033f60f3 100644
---- a/include/drm/display/drm_dsc_helper.h
-+++ b/include/drm/display/drm_dsc_helper.h
-@@ -17,6 +17,8 @@ enum drm_dsc_params_type {
- 	DRM_DSC_1_2_420,
- };
+diff --git a/drivers/gpu/drm/i915/display/intel_vdsc.h b/drivers/gpu/drm/i915/display/intel_vdsc.h
+index 2cc41ff089094..290b2e9b3482e 100644
+--- a/drivers/gpu/drm/i915/display/intel_vdsc.h
++++ b/drivers/gpu/drm/i915/display/intel_vdsc.h
+@@ -8,6 +8,8 @@
+ 
+ #include <linux/types.h>
  
 +struct drm_printer;
 +
- void drm_dsc_dp_pps_header_init(struct dp_sdp_header *pps_header);
- int drm_dsc_dp_rc_buffer_size(u8 rc_buffer_block_size, u8 rc_buffer_size);
- void drm_dsc_pps_payload_pack(struct drm_dsc_picture_parameter_set *pps_sdp,
-@@ -28,6 +30,7 @@ int drm_dsc_compute_rc_parameters(struct drm_dsc_config *vdsc_cfg);
- u8 drm_dsc_initial_scale_value(const struct drm_dsc_config *dsc);
- u32 drm_dsc_flatness_det_thresh(const struct drm_dsc_config *dsc);
- u32 drm_dsc_get_bpp_int(const struct drm_dsc_config *vdsc_cfg);
-+void drm_dsc_dump_config(struct drm_printer *p, int indent, const struct drm_dsc_config *cfg);
+ enum transcoder;
+ struct intel_crtc;
+ struct intel_crtc_state;
+@@ -27,5 +29,7 @@ void intel_dsc_dsi_pps_write(struct intel_encoder *encoder,
+ 			     const struct intel_crtc_state *crtc_state);
+ void intel_dsc_dp_pps_write(struct intel_encoder *encoder,
+ 			    const struct intel_crtc_state *crtc_state);
++void intel_vdsc_state_dump(struct drm_printer *p, int indent,
++			   const struct intel_crtc_state *crtc_state);
  
- #endif /* _DRM_DSC_HELPER_H_ */
- 
+ #endif /* __INTEL_VDSC_H__ */
 -- 
 2.43.3
 
