@@ -4,77 +4,111 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BDF55C27C6E
-	for <intel-gfx@archiver.kernel.org>; Fri, 14 Jun 2024 12:19:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C731BC2BA15
+	for <intel-gfx@archiver.kernel.org>; Fri, 14 Jun 2024 13:36:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E8A8A10E116;
-	Fri, 14 Jun 2024 12:19:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A040A10E252;
+	Fri, 14 Jun 2024 13:36:03 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=ursulin-net.20230601.gappssmtp.com header.i=@ursulin-net.20230601.gappssmtp.com header.b="HlH8RRq8";
+	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="PF2thHKd";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="AFUO5oQW";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="PF2thHKd";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="AFUO5oQW";
 	dkim-atps=neutral
-Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com
- [209.85.128.48])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 139AA10E116
- for <intel-gfx@lists.freedesktop.org>; Fri, 14 Jun 2024 12:19:28 +0000 (UTC)
-Received: by mail-wm1-f48.google.com with SMTP id
- 5b1f17b1804b1-421cd1e5f93so15420785e9.0
- for <intel-gfx@lists.freedesktop.org>; Fri, 14 Jun 2024 05:19:28 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=ursulin-net.20230601.gappssmtp.com; s=20230601; t=1718367567; x=1718972367;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=BtOVFjE7gxlKH3/WSl8BYOZN/5omBfi6w3Mm7iSj0co=;
- b=HlH8RRq8Z8Zf6jNI//D5YCrLvWGtQZP6i9uZHNVZlIOGjUjdQ+qCGdunDi+YRchVJB
- hyGs/TjFBuPED67z8vt+m0MEv6Bout9UVn54IfxVyaahnvVoZ7c/0I1SRvTza6KaVoq9
- 2oJWcKElQTFEoJauXN83T1335tlevJFRK5Nlm6juWm8PSLlyNoV8MV+P/n2bkHc5/Vtm
- iVESiTFSon1ksUnjv98T0Lj5/R2C6QDcmhTGziaJO9Zroq5EeAAYJzNkoSolUrEjwJRf
- duSrOXiKabuBYiLRzwyRiicf97vees+ZYeLy0AR1FNpxuSyfrJJGh9LFWdoRpfKRX7qo
- wAPw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1718367567; x=1718972367;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=BtOVFjE7gxlKH3/WSl8BYOZN/5omBfi6w3Mm7iSj0co=;
- b=WvnGmhNs8C5aBBpbbO58WLNCDOfzdmB49v+Etp5Ck799mS3ST6wLVMplCLrGB2tDyH
- qj5CnZ9wznDK0dJbRIqqUGuuQxgkLnsvClOb9j+6vi1w28TtP/StNyVQe5mzCCfSMs2E
- Iy9pw5oR8UaHx1IK/1tebY7wYiejknnmdzcVvDCO+FAfTvRsj/7N+YdQa/LzNr533g66
- GdjwbiQvTcaEKesEGJnVjAJNKMq+XAaN8yv0SdvXBxmCr1viY+zpx8uLSVgSuta3l+vn
- o27+pzM6SXk6oKeI91+wu21jgnmUhp8gBCVGfCP7cU4ta478RKJmdMLU9aPiiIxqsnC/
- R3Nw==
-X-Gm-Message-State: AOJu0Yz787ZYFrKIOsToxgqZpCNQykfWrOzodtfSWz1jNfbAUM9p8ebe
- JdlbSEDOgnqSX8fXi2SQmMHTgSYVUyAFYPQCF8HSw06cjHDAVk8dxCBQLIQbwX0=
-X-Google-Smtp-Source: AGHT+IG/ob9iNNkFn0jYXrWVHLMfYh6pM9Z1fdorhs68L3rYxCHUSr8OyvPvv3bb/r59bWIE6wNE7g==
-X-Received: by 2002:adf:f148:0:b0:360:86e3:4cd2 with SMTP id
- ffacd0b85a97d-36086e34da0mr13262f8f.58.1718367567001; 
- Fri, 14 Jun 2024 05:19:27 -0700 (PDT)
-Received: from [192.168.0.101] ([84.69.19.168])
- by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-36075093531sm4253590f8f.15.2024.06.14.05.19.26
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 14 Jun 2024 05:19:26 -0700 (PDT)
-Message-ID: <fa38f377-a00a-4e0c-b416-54a1c3f15d4d@ursulin.net>
-Date: Fri, 14 Jun 2024 13:19:25 +0100
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A940B10E746;
+ Fri, 14 Jun 2024 13:36:01 +0000 (UTC)
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
+ [IPv6:2a07:de40:b281:104:10:150:64:97])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 4EE4B33872;
+ Fri, 14 Jun 2024 13:36:00 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1718372160; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=SaNx5tqAjaiAhSizfBYzjoCWc6At7tuq/F7DXXxrZUI=;
+ b=PF2thHKdPo2R5mQRADdfg2/U2EPXIhcE9/dQfmOAv1cGuq340wcWsB+T5HT0kUgByGa072
+ MMXo97v82qhd0d1Ry2FmxD9uGeuV6LZq/XHmtL6kxRr3mFg5Gphs/2hucSiEUxG1uYfapU
+ a5PY99sADp2wKtkmLYmTZcEj/PJ2a+s=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1718372160;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=SaNx5tqAjaiAhSizfBYzjoCWc6At7tuq/F7DXXxrZUI=;
+ b=AFUO5oQWfd7T2q/P6N9bHcGPOAiHKRlw//g1kqcjJb4RZmRB5VZe6KLgahZz0GwEdyzV6y
+ JBj+Bml9scEDcHDw==
+Authentication-Results: smtp-out1.suse.de;
+ dkim=pass header.d=suse.de header.s=susede2_rsa header.b=PF2thHKd;
+ dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=AFUO5oQW
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1718372160; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=SaNx5tqAjaiAhSizfBYzjoCWc6At7tuq/F7DXXxrZUI=;
+ b=PF2thHKdPo2R5mQRADdfg2/U2EPXIhcE9/dQfmOAv1cGuq340wcWsB+T5HT0kUgByGa072
+ MMXo97v82qhd0d1Ry2FmxD9uGeuV6LZq/XHmtL6kxRr3mFg5Gphs/2hucSiEUxG1uYfapU
+ a5PY99sADp2wKtkmLYmTZcEj/PJ2a+s=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1718372160;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=SaNx5tqAjaiAhSizfBYzjoCWc6At7tuq/F7DXXxrZUI=;
+ b=AFUO5oQWfd7T2q/P6N9bHcGPOAiHKRlw//g1kqcjJb4RZmRB5VZe6KLgahZz0GwEdyzV6y
+ JBj+Bml9scEDcHDw==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id DF79013AB5;
+ Fri, 14 Jun 2024 13:35:59 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+ by imap1.dmz-prg2.suse.org with ESMTPSA id wDhUNT9HbGavPwAAD6G6ig
+ (envelope-from <tzimmermann@suse.de>); Fri, 14 Jun 2024 13:35:59 +0000
+From: Thomas Zimmermann <tzimmermann@suse.de>
+To: maarten.lankhorst@linux.intel.com, mripard@kernel.org, airlied@gmail.com,
+ daniel@ffwll.ch, lucas.demarchi@intel.com, rodrigo.vivi@intel.com,
+ jani.nikula@linux.intel.com, ray.huang@amd.com, christian.koenig@amd.com,
+ kraxel@redhat.com, airlied@redhat.com, suijingfeng@loongson.cn
+Cc: dri-devel@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
+ intel-gfx@lists.freedesktop.org, Thomas Zimmermann <tzimmermann@suse.de>
+Subject: [PATCH 3/6] drm/ttm: Support partial buffer mappings for ttm_bo_vmap()
+Date: Fri, 14 Jun 2024 15:21:57 +0200
+Message-ID: <20240614133556.11378-4-tzimmermann@suse.de>
+X-Mailer: git-send-email 2.45.2
+In-Reply-To: <20240614133556.11378-1-tzimmermann@suse.de>
+References: <20240614133556.11378-1-tzimmermann@suse.de>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 3/8] drm/i915: Don't check for atomic context on
- PREEMPT_RT
-Content-Language: en-GB
-To: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
-Cc: intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
- Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, Thomas Gleixner <tglx@linutronix.de>
-References: <20240613102818.4056866-1-bigeasy@linutronix.de>
- <20240613102818.4056866-4-bigeasy@linutronix.de>
- <94423591-adba-46d4-a9ba-f377dfab369f@ursulin.net>
- <20240614110548.m3lloBjv@linutronix.de>
-From: Tvrtko Ursulin <tursulin@ursulin.net>
-In-Reply-To: <20240614110548.m3lloBjv@linutronix.de>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+X-Spamd-Result: default: False [-3.01 / 50.00]; BAYES_HAM(-3.00)[100.00%];
+ MID_CONTAINS_FROM(1.00)[]; NEURAL_HAM_LONG(-1.00)[-1.000];
+ R_MISSING_CHARSET(0.50)[];
+ R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
+ MX_GOOD(-0.01)[]; RCPT_COUNT_TWELVE(0.00)[16];
+ TO_MATCH_ENVRCPT_ALL(0.00)[]; FUZZY_BLOCKED(0.00)[rspamd.com];
+ FREEMAIL_TO(0.00)[linux.intel.com,kernel.org,gmail.com,ffwll.ch,intel.com,amd.com,redhat.com,loongson.cn];
+ DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ MIME_TRACE(0.00)[0:+]; ARC_NA(0.00)[]; RCVD_TLS_ALL(0.00)[];
+ DKIM_TRACE(0.00)[suse.de:+]; RCVD_COUNT_TWO(0.00)[2];
+ FROM_EQ_ENVFROM(0.00)[]; FROM_HAS_DN(0.00)[];
+ TO_DN_SOME(0.00)[];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:email,suse.de:dkim,imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns];
+ DWL_DNSWL_BLOCKED(0.00)[suse.de:dkim];
+ DNSWL_BLOCKED(0.00)[2a07:de40:b281:106:10:150:64:167:received,2a07:de40:b281:104:10:150:64:97:from];
+ R_RATELIMIT(0.00)[to_ip_from(RLau4tukfh38qp3nirdnk14qe9)];
+ RCVD_VIA_SMTP_AUTH(0.00)[]; FREEMAIL_ENVRCPT(0.00)[gmail.com]
+X-Rspamd-Action: no action
+X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
+X-Rspamd-Queue-Id: 4EE4B33872
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -90,83 +124,193 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
+Add offset and size parameters to ttm_bo_vmap() to allow for partial
+mappings of a buffer object. This brings the functionality on par with
+ttm_bo_kmap().
 
-On 14/06/2024 12:05, Sebastian Andrzej Siewior wrote:
-> On 2024-06-14 09:32:07 [+0100], Tvrtko Ursulin wrote:
->> I think this could be okay-ish in principle, but the commit text is not
->> entirely accurate because there is no direct coupling between the wait
->> helpers and the uncore lock. They can be used from any atomic context.
->>
->> Okay-ish in principle because there is sufficient testing in Intel's CI on
->> non-PREEMPT_RT kernels to catch any conceptual misuses.
-> 
-> You just avoid disabling preemption if you expect to be in atomic
-> context to save a few cycles. It wouldn't hurt to disable it anyway. The
-> only reason you need it is to remain on the same CPU while reading the
-> clock because it is not guaranteed otherwise.
+Callers pass the byte offset and size within the buffer object and
+receive a page-aligned mapping of the buffer object's memory for the
+specified area.
 
-Ah no, that is not why. Reason for conditional disabling of preemption 
-is to have an implementation for very short delays which does not run 
-with preemption permanently disabled. So it is disabled only around time 
-tracking.
+Also update all callers of ttm_bo_vmap() for the new parameters. As
+before, existing callers map the buffer object's complete memory.
 
-> Delays > 50ms are detected at build time.
+Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
+---
+ drivers/gpu/drm/drm_gem_ttm_helper.c  |  2 +-
+ drivers/gpu/drm/drm_gem_vram_helper.c |  2 +-
+ drivers/gpu/drm/loongson/lsdc_gem.c   |  2 +-
+ drivers/gpu/drm/qxl/qxl_object.c      |  2 +-
+ drivers/gpu/drm/ttm/ttm_bo_util.c     | 21 +++++++++++++++------
+ drivers/gpu/drm/xe/xe_lrc.c           |  2 +-
+ drivers/gpu/drm/xe/xe_vm.c            |  2 +-
+ include/drm/ttm/ttm_bo.h              |  4 +++-
+ 8 files changed, 24 insertions(+), 13 deletions(-)
 
-Right, point of that is to ask the contributor if they are sure this is 
-what they want. Catching misuse of the short delay wait helper step one..
+diff --git a/drivers/gpu/drm/drm_gem_ttm_helper.c b/drivers/gpu/drm/drm_gem_ttm_helper.c
+index 3734aa2d1c5b5..f26b7c9077a68 100644
+--- a/drivers/gpu/drm/drm_gem_ttm_helper.c
++++ b/drivers/gpu/drm/drm_gem_ttm_helper.c
+@@ -67,7 +67,7 @@ int drm_gem_ttm_vmap(struct drm_gem_object *gem,
+ {
+ 	struct ttm_buffer_object *bo = drm_gem_ttm_of_gem(gem);
+ 
+-	return ttm_bo_vmap(bo, map);
++	return ttm_bo_vmap(bo, 0, gem->size, map);
+ }
+ EXPORT_SYMBOL(drm_gem_ttm_vmap);
+ 
+diff --git a/drivers/gpu/drm/drm_gem_vram_helper.c b/drivers/gpu/drm/drm_gem_vram_helper.c
+index 6027584406af6..1670f9a459a9d 100644
+--- a/drivers/gpu/drm/drm_gem_vram_helper.c
++++ b/drivers/gpu/drm/drm_gem_vram_helper.c
+@@ -398,7 +398,7 @@ int drm_gem_vram_vmap(struct drm_gem_vram_object *gbo, struct iosys_map *map)
+ 	 * no mapping present.
+ 	 */
+ 	if (iosys_map_is_null(&gbo->map)) {
+-		ret = ttm_bo_vmap(&gbo->bo, &gbo->map);
++		ret = ttm_bo_vmap(&gbo->bo, 0, gbo->bo.base.size, &gbo->map);
+ 		if (ret)
+ 			return ret;
+ 	}
+diff --git a/drivers/gpu/drm/loongson/lsdc_gem.c b/drivers/gpu/drm/loongson/lsdc_gem.c
+index a720d8f532093..f709960c781b9 100644
+--- a/drivers/gpu/drm/loongson/lsdc_gem.c
++++ b/drivers/gpu/drm/loongson/lsdc_gem.c
+@@ -77,7 +77,7 @@ static int lsdc_gem_object_vmap(struct drm_gem_object *obj, struct iosys_map *ma
+ 		return ret;
+ 	}
+ 
+-	ret = ttm_bo_vmap(tbo, &lbo->map);
++	ret = ttm_bo_vmap(tbo, 0, tbo->base.size, &lbo->map);
+ 	if (ret) {
+ 		drm_err(obj->dev, "ttm bo vmap failed\n");
+ 		lsdc_bo_unpin(lbo);
+diff --git a/drivers/gpu/drm/qxl/qxl_object.c b/drivers/gpu/drm/qxl/qxl_object.c
+index 5893e27a7ae50..9f06d5e26a32c 100644
+--- a/drivers/gpu/drm/qxl/qxl_object.c
++++ b/drivers/gpu/drm/qxl/qxl_object.c
+@@ -164,7 +164,7 @@ int qxl_bo_vmap_locked(struct qxl_bo *bo, struct iosys_map *map)
+ 		goto out;
+ 	}
+ 
+-	r = ttm_bo_vmap(&bo->tbo, &bo->map);
++	r = ttm_bo_vmap(&bo->tbo, 0, bo->tbo.base.size, &bo->map);
+ 	if (r) {
+ 		qxl_bo_unpin_locked(bo);
+ 		return r;
+diff --git a/drivers/gpu/drm/ttm/ttm_bo_util.c b/drivers/gpu/drm/ttm/ttm_bo_util.c
+index a9df0deff2deb..31f9772f05dac 100644
+--- a/drivers/gpu/drm/ttm/ttm_bo_util.c
++++ b/drivers/gpu/drm/ttm/ttm_bo_util.c
+@@ -457,17 +457,23 @@ EXPORT_SYMBOL(ttm_bo_kunmap);
+  * ttm_bo_vmap
+  *
+  * @bo: The buffer object.
++ * @offset: Byte offset into the buffer.
++ * @size: Number of bytes to map.
+  * @map: pointer to a struct iosys_map representing the map.
+  *
+  * Sets up a kernel virtual mapping, using ioremap or vmap to the
+  * data in the buffer object. The parameter @map returns the virtual
+  * address as struct iosys_map. Unmap the buffer with ttm_bo_vunmap().
++ * The address stored in @map will be aligned to the next lower page
++ * boundaries.
+  *
+  * Returns
+  * -ENOMEM: Out of memory.
+  * -EINVAL: Invalid range.
+  */
+-int ttm_bo_vmap(struct ttm_buffer_object *bo, struct iosys_map *map)
++int ttm_bo_vmap(struct ttm_buffer_object *bo,
++		unsigned long offset, unsigned long size,
++		struct iosys_map *map)
+ {
+ 	struct ttm_resource *mem = bo->resource;
+ 	int ret;
+@@ -483,18 +489,18 @@ int ttm_bo_vmap(struct ttm_buffer_object *bo, struct iosys_map *map)
+ 		u16 alloc_flags;
+ 
+ 		if (mem->bus.addr) {
+-			vaddr_iomem = (void __iomem *)mem->bus.addr;
++			vaddr_iomem = (u8 __iomem *)mem->bus.addr + offset;
+ 			alloc_flags = ttm_bo_map_premapped;
+ 		} else if (mem->bus.caching == ttm_write_combined) {
+-			vaddr_iomem = ioremap_wc(mem->bus.offset, bo->base.size);
++			vaddr_iomem = ioremap_wc(mem->bus.offset + offset, size);
+ 			alloc_flags = ttm_bo_map_iomap;
+ #ifdef CONFIG_X86
+ 		} else if (mem->bus.caching == ttm_cached) {
+-			vaddr_iomem = ioremap_cache(mem->bus.offset, bo->base.size);
++			vaddr_iomem = ioremap_cache(mem->bus.offset + offset, size);
+ 			alloc_flags = ttm_bo_map_iomap;
+ #endif
+ 		} else {
+-			vaddr_iomem = ioremap(mem->bus.offset, bo->base.size);
++			vaddr_iomem = ioremap(mem->bus.offset + offset, size);
+ 			alloc_flags = ttm_bo_map_iomap;
+ 		}
+ 
+@@ -510,6 +516,9 @@ int ttm_bo_vmap(struct ttm_buffer_object *bo, struct iosys_map *map)
+ 			.no_wait_gpu = false
+ 		};
+ 		struct ttm_tt *ttm = bo->ttm;
++		unsigned long start_page = offset >> PAGE_SHIFT;
++		unsigned long aligned_size = size + (offset - (start_page << PAGE_SHIFT));
++		unsigned long num_pages = DIV_ROUND_UP(aligned_size, PAGE_SIZE);
+ 		pgprot_t prot;
+ 		void *vaddr;
+ 		u16 alloc_flags;
+@@ -523,7 +532,7 @@ int ttm_bo_vmap(struct ttm_buffer_object *bo, struct iosys_map *map)
+ 		 * or to make the buffer object look contiguous.
+ 		 */
+ 		prot = ttm_io_prot(bo, mem, PAGE_KERNEL);
+-		vaddr = vmap(ttm->pages, ttm->num_pages, 0, prot);
++		vaddr = vmap(ttm->pages + start_page, num_pages, 0, prot);
+ 		if (!vaddr)
+ 			return -ENOMEM;
+ 		alloc_flags = ttm_bo_map_vmap;
+diff --git a/drivers/gpu/drm/xe/xe_lrc.c b/drivers/gpu/drm/xe/xe_lrc.c
+index c1bb85d2e243f..3a68fe6d592ed 100644
+--- a/drivers/gpu/drm/xe/xe_lrc.c
++++ b/drivers/gpu/drm/xe/xe_lrc.c
+@@ -1595,7 +1595,7 @@ void xe_lrc_snapshot_capture_delayed(struct xe_lrc_snapshot *snapshot)
+ 		goto put_bo;
+ 
+ 	xe_bo_lock(bo, false);
+-	if (!ttm_bo_vmap(&bo->ttm, &src)) {
++	if (!ttm_bo_vmap(&bo->ttm, 0, bo->ttm.base.size, &src)) {
+ 		xe_map_memcpy_from(xe_bo_device(bo),
+ 				   snapshot->lrc_snapshot, &src, snapshot->lrc_offset,
+ 				   snapshot->lrc_size);
+diff --git a/drivers/gpu/drm/xe/xe_vm.c b/drivers/gpu/drm/xe/xe_vm.c
+index 99bf7412475c0..81306c32f5d09 100644
+--- a/drivers/gpu/drm/xe/xe_vm.c
++++ b/drivers/gpu/drm/xe/xe_vm.c
+@@ -3485,7 +3485,7 @@ void xe_vm_snapshot_capture_delayed(struct xe_vm_snapshot *snap)
+ 
+ 		if (bo) {
+ 			xe_bo_lock(bo, false);
+-			err = ttm_bo_vmap(&bo->ttm, &src);
++			err = ttm_bo_vmap(&bo->ttm, 0, bo->ttm.base.size, &src);
+ 			if (!err) {
+ 				xe_map_memcpy_from(xe_bo_device(bo),
+ 						   snap->snap[i].data,
+diff --git a/include/drm/ttm/ttm_bo.h b/include/drm/ttm/ttm_bo.h
+index 6ccf96c91f3ae..c421ffe3563b1 100644
+--- a/include/drm/ttm/ttm_bo.h
++++ b/include/drm/ttm/ttm_bo.h
+@@ -375,7 +375,9 @@ int ttm_bo_init_validate(struct ttm_device *bdev, struct ttm_buffer_object *bo,
+ int ttm_bo_kmap(struct ttm_buffer_object *bo, unsigned long start_page,
+ 		unsigned long num_pages, struct ttm_bo_kmap_obj *map);
+ void ttm_bo_kunmap(struct ttm_bo_kmap_obj *map);
+-int ttm_bo_vmap(struct ttm_buffer_object *bo, struct iosys_map *map);
++int ttm_bo_vmap(struct ttm_buffer_object *bo,
++		unsigned long offset, unsigned long size,
++		struct iosys_map *map);
+ void ttm_bo_vunmap(struct ttm_buffer_object *bo, struct iosys_map *map);
+ int ttm_bo_mmap_obj(struct vm_area_struct *vma, struct ttm_buffer_object *bo);
+ int ttm_bo_swapout(struct ttm_buffer_object *bo, struct ttm_operation_ctx *ctx,
+-- 
+2.45.2
 
->> But see also the caller in skl_pcode_request. It is a bit harder to hit
->> since it is the fallback path. Or gen5_rps_enable which nests under a
->> different lock.
->>
->> Hmm would there be a different helper, or combination of helpers, which
->> could replace in_atomic() which would do the right thing on both kernels?
->> Something to tell us we are neither under a spin_lock, nor preempt_disable,
->> nor interrupts disabled, nor bottom-half. On either stock or PREEMPT_RT.
-> 
-> There is nothing that you can use to deduct that you are under a
-> spin-lock. preemptible() works only if you have a preemption counter
-> which is not mandatory. It can affect RCU but not in all configurations.
-> 
->> WARN_ON_ONCE((ATOMIC) && !(!preemptible() || in_hardirq() ||
->> in_serving_softirq())
->>
->> Would this work?
-> 
-> Nope. None of this triggers if you acquire a spinlock_t. And I can't
-> think of something that would always be true.
-
-Bummer.
-
-> So the question is why do you need to know if the context is atomic?
-> The only impact is avoiding disabling preemption. Is it that important
-> to avoid it?
-> If so would cant_migrate() work? It requires CONFIG_DEBUG_ATOMIC_SLEEP=y
-> to do the trick.
-
-... catching misuse of atomic wait helpers step 2 - are you calling it 
-from a non-atomic context without the real need. So should use the 
-non-atomic helper instead.
-
-When i915 development was very active and with a lot of contributors it 
-was beneficial to catch these things which code review would easily miss.
-
-Now that the pace is much, much slower, it is probably not very 
-important. So this patch is acceptable for what I am concerned and:
-
-Reviewed-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-
-Actually please also add the PREEMPT_RT angle to the comment above 
-_WAIT_FOR_ATOMIC_CHECK. Sometimes lines change and git blame makes it 
-hard to find the commit text.
-
-Regards,
-
-Tvrtko
-
-> 
->> Regards,
->>
->> Tvrtko
-> 
-> Sebastian
