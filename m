@@ -4,57 +4,27 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 94E52C27C79
-	for <intel-gfx@archiver.kernel.org>; Mon, 17 Jun 2024 14:19:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BA83EC2BA15
+	for <intel-gfx@archiver.kernel.org>; Mon, 17 Jun 2024 14:19:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0C68E10E3E2;
-	Mon, 17 Jun 2024 14:19:37 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="LyXjMa2Z";
-	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.16])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9BE8310E3E2;
- Mon, 17 Jun 2024 14:19:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1718633976; x=1750169976;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=0Yn3khoseLunC6aRDinvmUwl8RNSOSrvBcYvLU4D3vc=;
- b=LyXjMa2Z6cdRafn0uoDFJky0g2Ggqx45fVF7Q4O1gpOP6FmvPEuOvs5C
- kDxMmLty+EFI8Ik9jjBn4wdNKCUCWRQoYl4laMk+LeUSmx4fUksEaG7uX
- n1jxZ0zxiJyB7RY1KZt9aVAEeXdPKSqJUQ4jRSx4YL6JoXQDkT2RWjQHq
- nNp/1N9HDtLO4dNMjqH+nmRVU+GO91OESAq1vQ1IZxnFNxLJZ+TIqONWc
- KmomAViTk9EzwyVrlXFt0q+RIVLtubst47sHIROCyUkNZP6gKnLIWFh0g
- +4C8vwEZrlkkEFfsRIp4wJjkB0evBtqCVzVSMG4ftdYYGqyOBToqdbqwx g==;
-X-CSE-ConnectionGUID: CLhXvjX2TqKDzvmgjEye6w==
-X-CSE-MsgGUID: jU4moI3ZRzSkSPTD3gVqyw==
-X-IronPort-AV: E=McAfee;i="6700,10204,11105"; a="15593327"
-X-IronPort-AV: E=Sophos;i="6.08,244,1712646000"; d="scan'208";a="15593327"
-Received: from fmviesa006.fm.intel.com ([10.60.135.146])
- by orvoesa108.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 17 Jun 2024 07:19:35 -0700
-X-CSE-ConnectionGUID: AaPDnSE2RwGzRDvWCV8CEw==
-X-CSE-MsgGUID: QES4aZV3TrWui6fflAidxQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.08,244,1712646000"; d="scan'208";a="41083544"
-Received: from mjarzebo-mobl1.ger.corp.intel.com (HELO localhost)
- ([10.245.246.85])
- by fmviesa006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 17 Jun 2024 07:19:34 -0700
-From: Jani Nikula <jani.nikula@intel.com>
-To: intel-gfx@lists.freedesktop.org,
-	intel-xe@lists.freedesktop.org
-Cc: jani.nikula@intel.com
-Subject: [PATCH 4/5] drm/i915/frontbuffer: hide ->write
-Date: Mon, 17 Jun 2024 17:19:01 +0300
-Message-Id: <926007fda6f9d9f57d7c84bdeb891cabf4aafac7.1718633874.git.jani.nikula@intel.com>
-X-Mailer: git-send-email 2.39.2
-In-Reply-To: <cover.1718633874.git.jani.nikula@intel.com>
-References: <cover.1718633874.git.jani.nikula@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2E98010E3EA;
+	Mon, 17 Jun 2024 14:19:56 +0000 (UTC)
+Received: from a6498e030952 (emeril.freedesktop.org [131.252.210.167])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CFF7010E3E3;
+ Mon, 17 Jun 2024 14:19:54 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
+Subject: =?utf-8?q?=E2=9C=97_Fi=2ECI=2ECHECKPATCH=3A_warning_for_drm/i915=3A_PREEMPT?=
+ =?utf-8?q?=5FRT_related_fixups=2E_=28rev10=29?=
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Sebastian Andrzej Siewior" <bigeasy@linutronix.de>
+Cc: intel-gfx@lists.freedesktop.org
+Date: Mon, 17 Jun 2024 14:19:54 -0000
+Message-ID: <171863399485.96445.8051172347229819711@a6498e030952>
+X-Patchwork-Hint: ignore
+References: <20240613102818.4056866-1-bigeasy@linutronix.de>
+In-Reply-To: <20240613102818.4056866-1-bigeasy@linutronix.de>
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,60 +37,69 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Add accessor to frontbuffer ->write to avoid direct access from outside
-of intel_frontbuffer.c in preparation for making struct
-intel_frontbuffer opaque.
+== Series Details ==
 
-Signed-off-by: Jani Nikula <jani.nikula@intel.com>
----
- drivers/gpu/drm/i915/display/intel_frontbuffer.c | 5 +++++
- drivers/gpu/drm/i915/display/intel_frontbuffer.h | 2 ++
- drivers/gpu/drm/i915/i915_vma.c                  | 2 +-
- 3 files changed, 8 insertions(+), 1 deletion(-)
+Series: drm/i915: PREEMPT_RT related fixups. (rev10)
+URL   : https://patchwork.freedesktop.org/series/95463/
+State : warning
 
-diff --git a/drivers/gpu/drm/i915/display/intel_frontbuffer.c b/drivers/gpu/drm/i915/display/intel_frontbuffer.c
-index 42defe2b7661..dd5fd1e2859e 100644
---- a/drivers/gpu/drm/i915/display/intel_frontbuffer.c
-+++ b/drivers/gpu/drm/i915/display/intel_frontbuffer.c
-@@ -87,6 +87,11 @@ void intel_frontbuffer_get_raw(struct intel_frontbuffer *front)
- 	kref_get(&front->ref);
- }
- 
-+struct i915_active *intel_frontbuffer_active(struct intel_frontbuffer *front)
-+{
-+	return &front->write;
-+}
-+
- /**
-  * frontbuffer_flush - flush frontbuffer
-  * @i915: i915 device
-diff --git a/drivers/gpu/drm/i915/display/intel_frontbuffer.h b/drivers/gpu/drm/i915/display/intel_frontbuffer.h
-index 221f41096416..62d6e3cedea4 100644
---- a/drivers/gpu/drm/i915/display/intel_frontbuffer.h
-+++ b/drivers/gpu/drm/i915/display/intel_frontbuffer.h
-@@ -134,4 +134,6 @@ void intel_frontbuffer_track(struct intel_frontbuffer *old,
- 			     struct intel_frontbuffer *new,
- 			     unsigned int frontbuffer_bits);
- 
-+struct i915_active *intel_frontbuffer_active(struct intel_frontbuffer *front);
-+
- #endif /* __INTEL_FRONTBUFFER_H__ */
-diff --git a/drivers/gpu/drm/i915/i915_vma.c b/drivers/gpu/drm/i915/i915_vma.c
-index d2f064d2525c..2b5cc7af19c5 100644
---- a/drivers/gpu/drm/i915/i915_vma.c
-+++ b/drivers/gpu/drm/i915/i915_vma.c
-@@ -1975,7 +1975,7 @@ int _i915_vma_move_to_active(struct i915_vma *vma,
- 		front = i915_gem_object_get_frontbuffer(obj);
- 		if (unlikely(front)) {
- 			if (intel_frontbuffer_invalidate(front, ORIGIN_CS))
--				i915_active_add_request(&front->write, rq);
-+				i915_active_add_request(intel_frontbuffer_active(front), rq);
- 			intel_frontbuffer_put(front);
- 		}
- 	}
--- 
-2.39.2
+== Summary ==
+
+Error: dim checkpatch failed
+1d7b86cf3890 drm/i915: Use preempt_disable/enable_rt() where recommended
+-:7: WARNING:COMMIT_LOG_LONG_LINE: Prefer a maximum 75 chars per line (possible unwrapped commit description?)
+#7: 
+  ad3543ede630f ("drm/intel: Push get_scanout_position() timestamping into kms driver.")
+
+total: 0 errors, 1 warnings, 0 checks, 67 lines checked
+8a19314f8a31 drm/i915: Don't disable interrupts on PREEMPT_RT during atomic updates
+-:10: WARNING:COMMIT_LOG_LONG_LINE: Prefer a maximum 75 chars per line (possible unwrapped commit description?)
+#10: 
+started disabling interrupts across atomic updates. This breaks on PREEMPT_RT
+
+total: 0 errors, 1 warnings, 0 checks, 42 lines checked
+0967a9663ccf drm/i915: Don't check for atomic context on PREEMPT_RT
+-:10: WARNING:COMMIT_LOG_LONG_LINE: Prefer a maximum 75 chars per line (possible unwrapped commit description?)
+#10: 
+> > If so would cant_migrate() work? It requires CONFIG_DEBUG_ATOMIC_SLEEP=y
+
+total: 0 errors, 1 warnings, 0 checks, 15 lines checked
+3c9b4da4e61e drm/i915: Disable tracing points on PREEMPT_RT
+-:26: WARNING:BAD_REPORTED_BY_LINK: Reported-by: should be immediately followed by Closes: with a URL to the report
+#26: 
+Reported-by: Luca Abeni <lucabe72@gmail.com>
+Cc: Steven Rostedt <rostedt@goodmis.org>
+
+total: 0 errors, 1 warnings, 0 checks, 20 lines checked
+8d7d90f93301 drm/i915/gt: Use spin_lock_irq() instead of local_irq_disable() + spin_lock()
+-:22: WARNING:BAD_REPORTED_BY_LINK: Reported-by: should be immediately followed by Closes: with a URL to the report
+#22: 
+Reported-by: Clark Williams <williams@redhat.com>
+Signed-off-by: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
+
+total: 0 errors, 1 warnings, 0 checks, 53 lines checked
+c2e7416e25e2 drm/i915: Drop the irqs_disabled() check
+-:16: WARNING:BAD_REPORTED_BY_LINK: Reported-by: should be immediately followed by Closes: with a URL to the report
+#16: 
+Reported-by: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+Signed-off-by: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
+
+total: 0 errors, 1 warnings, 0 checks, 14 lines checked
+f9feb0fe7fc9 drm/i915/guc: Consider also RCU depth in busy loop.
+-:13: WARNING:BAD_REPORTED_BY_LINK: Reported-by: should be immediately followed by Closes: with a URL to the report
+#13: 
+Reported-by: "John B. Wyatt IV" <jwyatt@redhat.com>
+Reviewed-by: Rodrigo Vivi <rodrigo.vivi@intel.com>
+
+-:26: ERROR:IN_ATOMIC: do not use in_atomic in drivers
+#26: FILE: drivers/gpu/drm/i915/gt/uc/intel_guc.h:365:
++	bool not_atomic = !in_atomic() && !irqs_disabled() && !rcu_preempt_depth();
+
+total: 1 errors, 1 warnings, 0 checks, 8 lines checked
+1e0163c23b20 Revert "drm/i915: Depend on !PREEMPT_RT."
+
 
