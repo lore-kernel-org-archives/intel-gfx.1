@@ -4,50 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D4330C2BA18
-	for <intel-gfx@archiver.kernel.org>; Tue, 18 Jun 2024 05:31:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 34062C27C4F
+	for <intel-gfx@archiver.kernel.org>; Tue, 18 Jun 2024 05:31:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 06C6E10E562;
-	Tue, 18 Jun 2024 05:31:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 947E810E56D;
+	Tue, 18 Jun 2024 05:31:05 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="Fl2QYv5w";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="AlLQRpSK";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.8])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2107B10E0D1
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E1D8010E231
  for <intel-gfx@lists.freedesktop.org>; Tue, 18 Jun 2024 05:30:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
  t=1718688656; x=1750224656;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=gKmfbzy9/jnJ1oP3iaW1LmWabsWJ1Smkbs0hdbvbuHo=;
- b=Fl2QYv5wpIGDqVyUQNmC33Xiy1uthL2HB2Pf8Vb6qqlprbmWhqAXfBfb
- OfxyitLqdUvdWGgT9D8V3MFaD19KUg+FY90WWLq93zUt4P1Y54CoSI53x
- /zYp0zfGXShjPKrdNQLk2+FAUrhMp25ZdLIQMeWIiTZHFaKN+ueooznK3
- q+zXHKUmjxt70EKtZHNsm97xkbCvCbE9So+el2kXkYmOe9fQ7uQdtDzLb
- RMsiHMo/Cdd0+SFNfb8Ku+TexxIn2QxNpshdZdmQy7ayFncs9aCD+fSf7
- rMcvOzljdPfz9edpJrTyLRyeb9TJ6+tyDo7bJQpG+zKt1TtXAmR7XD9P0 w==;
-X-CSE-ConnectionGUID: uqbWzTX+QKiJdhvWWAVDww==
-X-CSE-MsgGUID: aE2rs3E7SNiz3btzz+vmTQ==
-X-IronPort-AV: E=McAfee;i="6700,10204,11106"; a="33077706"
-X-IronPort-AV: E=Sophos;i="6.08,246,1712646000"; d="scan'208";a="33077706"
+ bh=jIj9ij5DrGMykLZzp4Iadi8eXI53kOUQOx55c/XXF1w=;
+ b=AlLQRpSKmT9P0jBus/zwCrzedSEr1jrdl/sRaT5ARs8hdFjtF4aMlTpx
+ BwB8kiIQsRCa31jGlAgM57O6//I4VEJOUeqXudU9RyhV1IOY7ZQjtGJoU
+ 60iSLjsglGmllyC48DftfYWV4EdiY1xEp6FiVY+2YoBSiNzPkeFemDeR0
+ W2yRNRAFyxF1lbdjUZdtTeY2/PcSo0OFnIl3CN5Srv0QG8ZPHM8mAXJ/W
+ H4NJOPyHSSFK4/mhlT0HTxcF990T1D4Gw47FAymrH0jdl67JPmxB6aduI
+ bdQgwle5U+48giqnSzRs3qYE6sF32gbnOV7uCMXkI+NDrmpthI1h0alrN Q==;
+X-CSE-ConnectionGUID: 1bL3OeocTTmO+jZUHSSEaA==
+X-CSE-MsgGUID: 8rekRL99TumhSzqHfWE2wA==
+X-IronPort-AV: E=McAfee;i="6700,10204,11106"; a="33077719"
+X-IronPort-AV: E=Sophos;i="6.08,246,1712646000"; d="scan'208";a="33077719"
 Received: from fmviesa008.fm.intel.com ([10.60.135.148])
  by fmvoesa102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 17 Jun 2024 22:30:54 -0700
-X-CSE-ConnectionGUID: JPQH5f0QTUCH5UQgDr365w==
-X-CSE-MsgGUID: a7ZMrKYgTwGvvI/ezYHY0g==
+ 17 Jun 2024 22:30:56 -0700
+X-CSE-ConnectionGUID: MbzDhq6tTWunZPaxkdoNPw==
+X-CSE-MsgGUID: VS3R6OvlSxOctFlL0ilLTQ==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.08,246,1712646000"; d="scan'208";a="41365143"
+X-IronPort-AV: E=Sophos;i="6.08,246,1712646000"; d="scan'208";a="41365156"
 Received: from opintica-mobl1 (HELO jhogande-mobl1..) ([10.245.245.27])
  by fmviesa008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 17 Jun 2024 22:30:40 -0700
+ 17 Jun 2024 22:30:50 -0700
 From: =?UTF-8?q?Jouni=20H=C3=B6gander?= <jouni.hogander@intel.com>
 To: intel-gfx@lists.freedesktop.org
 Cc: animesh.manna@intel.com, mika.kahola@intel.com,
  =?UTF-8?q?Jouni=20H=C3=B6gander?= <jouni.hogander@intel.com>
-Subject: [PATCH 2/9] drm/i915/display: Wa 16021440873 is writing wrong register
-Date: Tue, 18 Jun 2024 08:30:19 +0300
-Message-Id: <20240618053026.3268759-3-jouni.hogander@intel.com>
+Subject: [PATCH 8/9] Revert "drm/i915/psr: Disable early transport by default"
+Date: Tue, 18 Jun 2024 08:30:25 +0300
+Message-Id: <20240618053026.3268759-9-jouni.hogander@intel.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20240618053026.3268759-1-jouni.hogander@intel.com>
 References: <20240618053026.3268759-1-jouni.hogander@intel.com>
@@ -70,69 +70,32 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Wa 16021440873 is writing wrong register. Instead of PIPE_SRCSZ_ERLY_TPT
-write CURPOS_ERLY_TPT.
+This reverts commit f3c2031db7dfdf470a2d9bf3bd1efa6edfa72d8d.
 
-v2: use right offset as well
+We want to notice possible issues faced with PSR2 Region Early Transport as
+early as possible -> let's revert patch disabling Region Early Transport by
+default. Also eDP 1.5 Panel Replay requires Early Transport.
 
-Fixes: 29cdef8539c3 ("drm/i915/display: Implement Wa_16021440873")
 Signed-off-by: Jouni Högander <jouni.hogander@intel.com>
+Reviewed-by: Animesh Manna <animesh.manna@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_cursor.c |  4 ++--
- drivers/gpu/drm/i915/display/intel_psr.c    | 12 +++---------
- 2 files changed, 5 insertions(+), 11 deletions(-)
+ drivers/gpu/drm/i915/display/intel_psr.c | 3 ---
+ 1 file changed, 3 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_cursor.c b/drivers/gpu/drm/i915/display/intel_cursor.c
-index 7f7fc710350c..66436e526021 100644
---- a/drivers/gpu/drm/i915/display/intel_cursor.c
-+++ b/drivers/gpu/drm/i915/display/intel_cursor.c
-@@ -524,8 +524,8 @@ static void wa_16021440873(struct intel_plane *plane,
- 
- 	intel_de_write_fw(dev_priv, SEL_FETCH_CUR_CTL(pipe), ctl);
- 
--	intel_de_write(dev_priv, PIPE_SRCSZ_ERLY_TPT(pipe),
--		       PIPESRC_HEIGHT(et_y_position));
-+	intel_de_write(dev_priv, CURPOS_ERLY_TPT(dev_priv, pipe),
-+		       CURSOR_POS_Y(et_y_position));
- }
- 
- static void i9xx_cursor_update_sel_fetch_arm(struct intel_plane *plane,
 diff --git a/drivers/gpu/drm/i915/display/intel_psr.c b/drivers/gpu/drm/i915/display/intel_psr.c
-index 3f36b94020ff..2a33e35ceeff 100644
+index cd76109e928a..a9d9383e4ee5 100644
 --- a/drivers/gpu/drm/i915/display/intel_psr.c
 +++ b/drivers/gpu/drm/i915/display/intel_psr.c
-@@ -2164,19 +2164,14 @@ static void psr2_man_trk_ctl_calc(struct intel_crtc_state *crtc_state,
- 	crtc_state->psr2_man_track_ctl = val;
- }
+@@ -3110,9 +3110,6 @@ void intel_psr_init(struct intel_dp *intel_dp)
+ 	else
+ 		intel_dp->psr.source_support = true;
  
--static u32
--psr2_pipe_srcsz_early_tpt_calc(struct intel_crtc_state *crtc_state,
--			       bool full_update, bool cursor_in_su_area)
-+static u32 psr2_pipe_srcsz_early_tpt_calc(struct intel_crtc_state *crtc_state,
-+					  bool full_update)
- {
- 	int width, height;
- 
- 	if (!crtc_state->enable_psr2_su_region_et || full_update)
- 		return 0;
- 
--	if (!cursor_in_su_area)
--		return PIPESRC_WIDTH(0) |
--			PIPESRC_HEIGHT(drm_rect_height(&crtc_state->pipe_src));
+-	/* Disable early transport for now */
+-	intel_dp->psr.debug |= I915_PSR_DEBUG_SU_REGION_ET_DISABLE;
 -
- 	width = drm_rect_width(&crtc_state->psr2_su_area);
- 	height = drm_rect_height(&crtc_state->psr2_su_area);
- 
-@@ -2485,8 +2480,7 @@ int intel_psr2_sel_fetch_update(struct intel_atomic_state *state,
- skip_sel_fetch_set_loop:
- 	psr2_man_trk_ctl_calc(crtc_state, full_update);
- 	crtc_state->pipe_srcsz_early_tpt =
--		psr2_pipe_srcsz_early_tpt_calc(crtc_state, full_update,
--					       cursor_in_su_area);
-+		psr2_pipe_srcsz_early_tpt_calc(crtc_state, full_update);
- 	return 0;
- }
- 
+ 	/* Set link_standby x link_off defaults */
+ 	if (DISPLAY_VER(dev_priv) < 12)
+ 		/* For new platforms up to TGL let's respect VBT back again */
 -- 
 2.34.1
 
