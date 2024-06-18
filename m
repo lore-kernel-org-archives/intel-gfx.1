@@ -4,58 +4,27 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8E146C2BBCA
-	for <intel-gfx@archiver.kernel.org>; Tue, 18 Jun 2024 05:31:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8FFC1C27C4F
+	for <intel-gfx@archiver.kernel.org>; Tue, 18 Jun 2024 06:06:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1D03F10E576;
-	Tue, 18 Jun 2024 05:31:07 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="bt+xxpKH";
-	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.8])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7EBF710E0D1
- for <intel-gfx@lists.freedesktop.org>; Tue, 18 Jun 2024 05:30:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1718688656; x=1750224656;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=33YLiH2F4aMq9H0Q/yYlkzJKKTelB/JI3Msgxqc/Gxk=;
- b=bt+xxpKHGM0KGYam41+/O4eVbTFwKQ24QQAyhZ20uSTWHTNELnmS53/e
- zRKdkyXcGabB7RCUehfRAOSx8Eqoez3z23tyZJlK3btJFkTlKfQwWFItI
- H0cJubcR4KzS1VT1mfXAa9Ew8Sf44+Y/Ryv6VzZaHkbisp5WK0ePbIjp8
- Ez59qHjMvYiClrYgYH1rd2KFH7hweCIOvQm6QGdfVhs7wDxmZus8lJ81y
- W4tdCMiyM9nxrl+J7IACDDro7yh9CHcobVGrXA/HGIwb8l7ehbexxDTyw
- WGscIvbKDpXgdeg5YjnjQm4Rf6VSxxZ56UdTJBgrmzneYJ8vyUboxPnC+ A==;
-X-CSE-ConnectionGUID: WMWwLIDaTCGBf7Y/vN4uQQ==
-X-CSE-MsgGUID: WT7FpHFLTAyveYko+9aofg==
-X-IronPort-AV: E=McAfee;i="6700,10204,11106"; a="33077707"
-X-IronPort-AV: E=Sophos;i="6.08,246,1712646000"; d="scan'208";a="33077707"
-Received: from fmviesa008.fm.intel.com ([10.60.135.148])
- by fmvoesa102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 17 Jun 2024 22:30:55 -0700
-X-CSE-ConnectionGUID: F86G9amVQD+Y2EGTN9FemQ==
-X-CSE-MsgGUID: m16ubK0zQPOfTNCqMhf7Zg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.08,246,1712646000"; d="scan'208";a="41365145"
-Received: from opintica-mobl1 (HELO jhogande-mobl1..) ([10.245.245.27])
- by fmviesa008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 17 Jun 2024 22:30:42 -0700
-From: =?UTF-8?q?Jouni=20H=C3=B6gander?= <jouni.hogander@intel.com>
-To: intel-gfx@lists.freedesktop.org
-Cc: animesh.manna@intel.com, mika.kahola@intel.com,
- =?UTF-8?q?Jouni=20H=C3=B6gander?= <jouni.hogander@intel.com>
-Subject: [PATCH 3/9] drm/i915/alpm: Fix port clock usage in AUX Less wake time
- calculation
-Date: Tue, 18 Jun 2024 08:30:20 +0300
-Message-Id: <20240618053026.3268759-4-jouni.hogander@intel.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20240618053026.3268759-1-jouni.hogander@intel.com>
-References: <20240618053026.3268759-1-jouni.hogander@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1E3DA10E202;
+	Tue, 18 Jun 2024 06:06:53 +0000 (UTC)
+Received: from a6498e030952 (emeril.freedesktop.org [131.252.210.167])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3257610E202;
+ Tue, 18 Jun 2024 06:06:51 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
+Subject: =?utf-8?q?=E2=9C=97_Fi=2ECI=2ECHECKPATCH=3A_warning_for_Panel_Replay_eDP_mor?=
+ =?utf-8?q?e_prepare_patches?=
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: =?utf-8?q?Jouni_H=C3=B6gander?= <jouni.hogander@intel.com>
+Cc: intel-gfx@lists.freedesktop.org
+Date: Tue, 18 Jun 2024 06:06:51 -0000
+Message-ID: <171869081120.101778.9344165942236535982@a6498e030952>
+X-Patchwork-Hint: ignore
+References: <20240618053026.3268759-1-jouni.hogander@intel.com>
+In-Reply-To: <20240618053026.3268759-1-jouni.hogander@intel.com>
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,33 +37,40 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Port clock is link rate in 10 kbit/s units. Take this into account when
-calculating AUX Less wake time.
+== Series Details ==
 
-Fixes: da6a9836ac09 ("drm/i915/psr: Calculate aux less wake time")
-Signed-off-by: Jouni Högander <jouni.hogander@intel.com>
-Reviewed-by: Animesh Manna <animesh.manna@intel.com>
----
- drivers/gpu/drm/i915/display/intel_alpm.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+Series: Panel Replay eDP more prepare patches
+URL   : https://patchwork.freedesktop.org/series/134991/
+State : warning
 
-diff --git a/drivers/gpu/drm/i915/display/intel_alpm.c b/drivers/gpu/drm/i915/display/intel_alpm.c
-index 90072f6e3a33..67848fc1e24d 100644
---- a/drivers/gpu/drm/i915/display/intel_alpm.c
-+++ b/drivers/gpu/drm/i915/display/intel_alpm.c
-@@ -125,7 +125,8 @@ static int _lnl_compute_aux_less_wake_time(int port_clock)
- 	int tsilence_max = 180;
- 	int t1 = 50 * 1000;
- 	int tps4 = 252;
--	int tml_phy_lock = 1000 * 1000 * tps4 * 10 / port_clock;
-+	/* port_clock is link rate in 10kbit/s units */
-+	int tml_phy_lock = 1000 * 1000 * tps4 / port_clock;
- 	int num_ml_phy_lock = 7 + DIV_ROUND_UP(6500, tml_phy_lock) + 1;
- 	int t2 = num_ml_phy_lock * tml_phy_lock;
- 	int tcds = 1 * t2;
--- 
-2.34.1
+== Summary ==
+
+Error: dim checkpatch failed
+2478831dfb07 drm/i915/psr: Set SU area width as pipe src width
+80e2348b5cb0 drm/i915/display: Wa 16021440873 is writing wrong register
+526b0dc96c26 drm/i915/alpm: Fix port clock usage in AUX Less wake time calculation
+f99f913ec74a drm/i915/psr: Disable Panel Replay if PSR mode is set via module parameter
+5098b919852f drm/i915/psr: Disable PSR2 SU Region ET if enable_psr module parameter is set
+d1fb0d28d895 drm/i915/psr: Disable PSR/Panel Replay on sink side for PSR only
+c9234652b499 drm/i915/psr: Add new debug bit to disable Panel Replay
+b849a5b71aac Revert "drm/i915/psr: Disable early transport by default"
+2c8b002eee7a intel_alpm: Fix wrong offset for PORT_ALPM_* registers
+-:55: WARNING:MACRO_ARG_UNUSED: Argument 'dev_priv' is not used in function-like macro
+#55: FILE: drivers/gpu/drm/i915/display/intel_psr_regs.h:298:
++#define PORT_ALPM_CTL(dev_priv, port)		_MMIO_PORT(port, _PORT_ALPM_CTL_A, _PORT_ALPM_CTL_B)
+
+-:65: WARNING:LONG_LINE: line length of 126 exceeds 100 columns
+#65: FILE: drivers/gpu/drm/i915/display/intel_psr_regs.h:309:
++#define PORT_ALPM_LFPS_CTL(dev_priv, port)			_MMIO_PORT(port, _PORT_ALPM_LFPS_CTL_A, _PORT_ALPM_LFPS_CTL_B)
+
+-:65: WARNING:MACRO_ARG_UNUSED: Argument 'dev_priv' is not used in function-like macro
+#65: FILE: drivers/gpu/drm/i915/display/intel_psr_regs.h:309:
++#define PORT_ALPM_LFPS_CTL(dev_priv, port)			_MMIO_PORT(port, _PORT_ALPM_LFPS_CTL_A, _PORT_ALPM_LFPS_CTL_B)
+
+total: 0 errors, 3 warnings, 0 checks, 41 lines checked
+
 
