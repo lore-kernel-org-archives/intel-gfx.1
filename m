@@ -4,51 +4,51 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DF1BAC27C53
-	for <intel-gfx@archiver.kernel.org>; Wed, 19 Jun 2024 06:22:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9E4EDC27C53
+	for <intel-gfx@archiver.kernel.org>; Wed, 19 Jun 2024 06:22:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D64E710E8EC;
-	Wed, 19 Jun 2024 06:22:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EA79D10E8F2;
+	Wed, 19 Jun 2024 06:22:25 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="D2sGGKxm";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="VlomscE/";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.9])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0658810E8B8
- for <intel-gfx@lists.freedesktop.org>; Wed, 19 Jun 2024 06:22:12 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E937510E8F2
+ for <intel-gfx@lists.freedesktop.org>; Wed, 19 Jun 2024 06:22:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1718778133; x=1750314133;
+ t=1718778138; x=1750314138;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=L5fNonGOY3fzclpT8+RG67cCf4c+iaCqkfONgz8H5Yc=;
- b=D2sGGKxmldc8Q8ykBh9NhVYp72KrI8pD2VYQ1S6qIo9hVLkvudtJg9WL
- MNoOqoUHrzibuq8Wt+AM9JQ6DlJCfUmqN52ape//ESl7Q1WQizeuwZTr2
- HUWHY/IY5/C3pzkL3dwkr0uvL0cMq1RUEaVyiltsoGPwW/F5sfBHaPAWD
- bCo/DJnIDsRH3QZljCYvCsn884mcwE0ZS4CQ0g0zZ6u/ID4me84JJd3u3
- zScSvuNNQiKYvzH7tI1qbv9zOzW3Q4W/bcHiWJIU248NFQeIezU12a3fk
- LbjH/17Ptb0Y2Dko4A8I/TGg3AsxUfLO4zaZvw7/0nUpPogxyLM60Gw+2 A==;
-X-CSE-ConnectionGUID: mwhSFsuPRTmVsrnEQzuPTQ==
-X-CSE-MsgGUID: 3rz6lJrITU+WVNB5xXsXwQ==
-X-IronPort-AV: E=McAfee;i="6700,10204,11107"; a="26377389"
-X-IronPort-AV: E=Sophos;i="6.08,249,1712646000"; d="scan'208";a="26377389"
+ bh=KyxaereafQbcUdc8/tYSP2KG3XE8cuWnIJ6sYep95D8=;
+ b=VlomscE/GwjDuHbML1pcOQm/meImWnnKKYx3eZswnFKGJ16cBXasm/Ua
+ vaB2cOED0gE5QuDcaS+B/Xne/NiKjofNAY7Q5tSTnBTLF5Azj2cgumOki
+ KaUINOLZ0oH2YiEqJiIcDz6KmCbWR4anP0/alGxqQPCxfPkBUdOG6O0zP
+ XwWR1C4iN7jAvXIbr/R5V/EvmFG7gHngrgMYH+VXLAU3Yl7TEMYd6ANN4
+ eJO7dKTPqf6PKy9H1yaK2HrelGSC6DBKmWj4jne2thOP+V7+h9y5njrfJ
+ RJmijEBgGN7ra3jI1mVBlZjm6lXg0UrP9s5GNbWsk/nrcrnVc51sCBD9s w==;
+X-CSE-ConnectionGUID: i3o8cM78Tgez+/TUkmeDnw==
+X-CSE-MsgGUID: uwPdTk58TkyK8bkJ91O4Zg==
+X-IronPort-AV: E=McAfee;i="6700,10204,11107"; a="26377402"
+X-IronPort-AV: E=Sophos;i="6.08,249,1712646000"; d="scan'208";a="26377402"
 Received: from fmviesa009.fm.intel.com ([10.60.135.149])
  by fmvoesa103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 18 Jun 2024 23:22:13 -0700
-X-CSE-ConnectionGUID: Kb5srHanSIyxyeVKt5vvRA==
-X-CSE-MsgGUID: JCGaMWauRxifgMCHqvtrVQ==
+ 18 Jun 2024 23:22:18 -0700
+X-CSE-ConnectionGUID: img8rsyvR86QeUElY0UxrA==
+X-CSE-MsgGUID: r/AkKIwpTs6RfDcDEsZciA==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.08,249,1712646000"; d="scan'208";a="41906013"
+X-IronPort-AV: E=Sophos;i="6.08,249,1712646000"; d="scan'208";a="41906035"
 Received: from unknown (HELO jhogande-mobl1..) ([10.245.245.109])
  by fmviesa009-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 18 Jun 2024 23:22:11 -0700
+ 18 Jun 2024 23:22:16 -0700
 From: =?UTF-8?q?Jouni=20H=C3=B6gander?= <jouni.hogander@intel.com>
 To: intel-gfx@lists.freedesktop.org
 Cc: animesh.manna@intel.com, mika.kahola@intel.com,
  =?UTF-8?q?Jouni=20H=C3=B6gander?= <jouni.hogander@intel.com>
-Subject: [PATCH v9 08/11] drm/i915/psr: Perform psr2 checks related to ALPM
- for Panel Replay
-Date: Wed, 19 Jun 2024 09:21:28 +0300
-Message-Id: <20240619062131.4021196-9-jouni.hogander@intel.com>
+Subject: [PATCH v9 11/11] drm/i915/psr: Modify dg2_activate_panel_replay to
+ support eDP
+Date: Wed, 19 Jun 2024 09:21:31 +0300
+Message-Id: <20240619062131.4021196-12-jouni.hogander@intel.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20240619062131.4021196-1-jouni.hogander@intel.com>
 References: <20240619062131.4021196-1-jouni.hogander@intel.com>
@@ -71,104 +71,42 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-eDP1.5 support ALPM with Panel Replay as well. We need to check ALPM
-related things for Panel Replay as well.
+There are couple of bits in PSR2_CTL which needs to be written in case of
+eDP Panel Replay
 
 Bspec: 68920
 
-v5:
-  - instead of using crtc_state->has_panel_replay provide aux_less flag
-v4:
-  - do not move _compute_psr2_sdp_prior_scanline_indication
-  - move ALPM related checks to separate function
-v3: move vblank check as well
-v2: do not move Vblank >= PSR2_CTL Block Count Number maximum line count
-    check
+v2: use boolean instead of assuming eDP Panel Replay mean Early Transport
+
 Signed-off-by: Jouni Högander <jouni.hogander@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_psr.c | 41 ++++++++++++++++--------
- 1 file changed, 28 insertions(+), 13 deletions(-)
+ drivers/gpu/drm/i915/display/intel_psr.c | 13 +++++++++++++
+ 1 file changed, 13 insertions(+)
 
 diff --git a/drivers/gpu/drm/i915/display/intel_psr.c b/drivers/gpu/drm/i915/display/intel_psr.c
-index cd9755b7b550..ae1728d2a15c 100644
+index 03b90b06d64a..3df6d2ee3cd8 100644
 --- a/drivers/gpu/drm/i915/display/intel_psr.c
 +++ b/drivers/gpu/drm/i915/display/intel_psr.c
-@@ -1303,14 +1303,15 @@ static int intel_psr_entry_setup_frames(struct intel_dp *intel_dp,
- }
- 
- static bool wake_lines_fit_into_vblank(struct intel_dp *intel_dp,
--				       const struct intel_crtc_state *crtc_state)
-+				       const struct intel_crtc_state *crtc_state,
-+				       bool aux_less)
+@@ -948,6 +948,19 @@ static u8 frames_before_su_entry(struct intel_dp *intel_dp)
+ static void dg2_activate_panel_replay(struct intel_dp *intel_dp)
  {
- 	struct drm_i915_private *i915 = dp_to_i915(intel_dp);
- 	int vblank = crtc_state->hw.adjusted_mode.crtc_vblank_end -
- 		crtc_state->hw.adjusted_mode.crtc_vblank_start;
- 	int wake_lines;
- 
--	if (crtc_state->has_panel_replay)
-+	if (aux_less)
- 		wake_lines = intel_dp->alpm_parameters.aux_less_wake_lines;
- 	else
- 		wake_lines = DISPLAY_VER(i915) < 20 ?
-@@ -1327,6 +1328,27 @@ static bool wake_lines_fit_into_vblank(struct intel_dp *intel_dp,
- 	return true;
- }
- 
-+static bool alpm_config_valid(struct intel_dp *intel_dp,
-+			      const struct intel_crtc_state *crtc_state,
-+			      bool aux_less)
-+{
-+	struct drm_i915_private *i915 = dp_to_i915(intel_dp);
+ 	struct drm_i915_private *dev_priv = dp_to_i915(intel_dp);
++	struct intel_psr *psr = &intel_dp->psr;
++	enum transcoder cpu_transcoder = intel_dp->psr.transcoder;
 +
-+	if (!intel_alpm_compute_params(intel_dp, crtc_state)) {
-+		drm_dbg_kms(&i915->drm,
-+			    "PSR2/Panel Replay  not enabled, Unable to use long enough wake times\n");
-+		return false;
++	if (intel_dp_is_edp(intel_dp) && psr->sel_update_enabled) {
++		u32 val = psr->su_region_et_enabled ?
++			LNL_EDP_PSR2_SU_REGION_ET_ENABLE : 0;
++
++		if (intel_dp->psr.req_psr2_sdp_prior_scanline)
++			val |= EDP_PSR2_SU_SDP_SCANLINE;
++
++		intel_de_write(dev_priv, EDP_PSR2_CTL(dev_priv, cpu_transcoder),
++			       val);
 +	}
-+
-+	if (!wake_lines_fit_into_vblank(intel_dp, crtc_state, aux_less)) {
-+		drm_dbg_kms(&i915->drm,
-+			    "PSR2/Panel Replay not enabled, too short vblank time\n");
-+		return false;
-+	}
-+
-+	return true;
-+}
-+
- static bool intel_psr2_config_valid(struct intel_dp *intel_dp,
- 				    struct intel_crtc_state *crtc_state)
- {
-@@ -1410,18 +1432,8 @@ static bool intel_psr2_config_valid(struct intel_dp *intel_dp,
- 		return false;
- 	}
  
--	if (!intel_alpm_compute_params(intel_dp, crtc_state)) {
--		drm_dbg_kms(&dev_priv->drm,
--			    "PSR2 not enabled, Unable to use long enough wake times\n");
-+	if (!alpm_config_valid(intel_dp, crtc_state, false))
- 		return false;
--	}
--
--	/* Vblank >= PSR2_CTL Block Count Number maximum line count */
--	if (!wake_lines_fit_into_vblank(intel_dp, crtc_state)) {
--		drm_dbg_kms(&dev_priv->drm,
--			    "PSR2 not enabled, too short vblank time\n");
--		return false;
--	}
- 
- 	if (!crtc_state->enable_psr2_sel_fetch &&
- 	    (crtc_hdisplay > psr_max_h || crtc_vdisplay > psr_max_v)) {
-@@ -1555,6 +1567,9 @@ _panel_replay_compute_config(struct intel_dp *intel_dp,
- 		return false;
- 	}
- 
-+	if (!alpm_config_valid(intel_dp, crtc_state, true))
-+		return false;
-+
- 	return true;
- }
- 
+ 	intel_de_rmw(dev_priv,
+ 		     PSR2_MAN_TRK_CTL(dev_priv, intel_dp->psr.transcoder),
 -- 
 2.34.1
 
