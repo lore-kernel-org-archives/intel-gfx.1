@@ -4,54 +4,51 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 24C7EC27C53
-	for <intel-gfx@archiver.kernel.org>; Wed, 19 Jun 2024 06:22:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 01ECBC27C79
+	for <intel-gfx@archiver.kernel.org>; Wed, 19 Jun 2024 06:22:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2CBFC10E85B;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9044810E88C;
 	Wed, 19 Jun 2024 06:22:03 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="b8EzkQhH";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="PETtZa0k";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.9])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C54E010E887
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C0FBD10E85B
  for <intel-gfx@lists.freedesktop.org>; Wed, 19 Jun 2024 06:22:01 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
  t=1718778122; x=1750314122;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=bH1TJFUxKDs9yyyenGk9WhH/U+YXH5ygcjrv70/IjS8=;
- b=b8EzkQhHhgOBsDzCdgAg+ZCiTg0O/ODgDpsT4307i87GjOHshp1wDrdN
- O9gvS1kG6pASz8CnczYp2kHLVtZdh9wWrDaUxaZi0E2WCofXm4rUjnjAs
- OOjSWQulgm9hfuCkFG26p1osRDy4NFHfbuESCVrzvD030RNkdq4UBvCtt
- mJqqP37YXr92dkhO4Eizqmay9xjshxbGn7tn5xACwZ35hh+eyNY+y+vbU
- AI8Ii6rscshYjtHjDbAYImOUi0hc129EzZZ9i+Ohp7enETETZDyDim4L3
- iUEWzQ/sYFs4jxkQFXDz3ov1VUCqE+L4rfXnkWiQ1toqrA00gC/gMUvEi w==;
-X-CSE-ConnectionGUID: KqE/qLkJTn24KzLWa85O1Q==
-X-CSE-MsgGUID: djrbDZsvSN6cv6m0DyO8PA==
-X-IronPort-AV: E=McAfee;i="6700,10204,11107"; a="26377379"
-X-IronPort-AV: E=Sophos;i="6.08,249,1712646000"; d="scan'208";a="26377379"
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=mRPOvpLBfLYNW8TKN9z0M5/6p7ZO/ka4K2kdL2inYcA=;
+ b=PETtZa0kFqkCIIlTbbFpGozc73trpB68UO0BEqtdTlZS5SW+xVGN0kfa
+ 69050r4DH1T04r5Hd+/o+MIY9wyf5epbVz1bmGD3N7VpXaJTv7Gxyhodr
+ JUE94LLLEUm9dxzml7Ye0r3O1JB3/ngTBqqhTMAJF66hA5PxB+7LXIaaJ
+ /3yrBvHxDQOxU4RRFESZpJ2ocLYLUMH7BSVws9z9cKC3pqaoj0olTyYWW
+ FH9Y+c0sSX+Le5j8q3k6ag3+jw69Q59isYl6+aDggUxQTiUFJwlNBgHRh
+ rrV8bsDhOq2zWbt3jXMqqvFSBAPg8mn+2d43fOcD6ELDkXOGH3g6g8rjn Q==;
+X-CSE-ConnectionGUID: ZWnY/op3TiGwJZAwyEtjzA==
+X-CSE-MsgGUID: VMpF6gJPSy2ANtSaS4DQQg==
+X-IronPort-AV: E=McAfee;i="6700,10204,11107"; a="26377378"
+X-IronPort-AV: E=Sophos;i="6.08,249,1712646000"; d="scan'208";a="26377378"
 Received: from fmviesa009.fm.intel.com ([10.60.135.149])
  by fmvoesa103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 18 Jun 2024 23:22:01 -0700
-X-CSE-ConnectionGUID: v14Jd6vCTTqBxgJBD9jBCQ==
-X-CSE-MsgGUID: TBH1GIIYRBuRA1vDez6+Zw==
+ 18 Jun 2024 23:22:00 -0700
+X-CSE-ConnectionGUID: RdVa8rHhRVyjQls06r4f3A==
+X-CSE-MsgGUID: Wfhn3QrhQFWnopDK/I1bKg==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.08,249,1712646000"; d="scan'208";a="41905934"
+X-IronPort-AV: E=Sophos;i="6.08,249,1712646000"; d="scan'208";a="41905912"
 Received: from unknown (HELO jhogande-mobl1..) ([10.245.245.109])
  by fmviesa009-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 18 Jun 2024 23:22:00 -0700
+ 18 Jun 2024 23:21:58 -0700
 From: =?UTF-8?q?Jouni=20H=C3=B6gander?= <jouni.hogander@intel.com>
 To: intel-gfx@lists.freedesktop.org
 Cc: animesh.manna@intel.com, mika.kahola@intel.com,
  =?UTF-8?q?Jouni=20H=C3=B6gander?= <jouni.hogander@intel.com>
-Subject: [PATCH v9 01/11] drm/i915/psr: Check panel ALPM capability for eDP
- Panel Replay
-Date: Wed, 19 Jun 2024 09:21:21 +0300
-Message-Id: <20240619062131.4021196-2-jouni.hogander@intel.com>
+Subject: [PATCH v9 00/11]  Panel Replay eDP support
+Date: Wed, 19 Jun 2024 09:21:20 +0300
+Message-Id: <20240619062131.4021196-1-jouni.hogander@intel.com>
 X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20240619062131.4021196-1-jouni.hogander@intel.com>
-References: <20240619062131.4021196-1-jouni.hogander@intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
@@ -71,36 +68,68 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Our HW doesn't support Panel Replay without AUX_LESS ALPM on eDP. Check
-panel support for this and prevent eDP panel replay if it doesn't exits.
+This patch set is implementing eDP1.5 Panel Replay for Intel hw and
+enabling it on LunarLake HW when eDP1.5 panel is available. Patches
+are tested using two differenet eDP1.5 panel models. IGT modifications
+for testing are under review and available here:
 
-Bspec: 68920
+https://patchwork.freedesktop.org/series/133866/
 
-v2: use intel_alpm_aux_less_wake_supported
+v9:
+  - rebase (part of v8 set is merged)
+v8:
+  - series reordered to ease merging subset
+  - wa 16021440873 modified
+  - Fix port clock usage in AUX Less wake time calculation
+  - Disable PSR/Panel Replay on sink side for PSR only
+v7:
+  - fix improper SU area width
+  - writing wrong register in Wa 16021440873
+  - disable Panel Replay if psr_enable is set != -1
+  - perfrom ALPM check for Panel Replay Full Frame update
+  - printout why Panel Replay is disabled
+v6:
+  - fix and rework sink enable
+  - rework checking vblank length for LunarLake and Panel Replay
+  - reorder patches
+v5:
+  - use psr->su_region_et_enabled instead of psr2_su_region_et_valid
+  - do not check Vblank >= PSR2_CTL Block Count Number for Panel Replay
+v4:
+  - add some patch from "Panel Replay fixes" set here
+  - check 128b/132b encoding and HDCP enable
+  - use intel_alpm_aux_wake_supported instead of local variable
+  - printout debug info in case Panel Replay is prevented
+v3:
+  - commit message modifications
+  - s/intel_psr_psr_mode/intel_psr_print_mode/
+  - remove extra space from "PSR mode:  disabled"
+  - do not allow eDP Panel Replay when using 128b/132b encoding
+  - do not allow eDP Panel Replay when HDCP is enabled
+v2:
+  - printout "Selective Update enabled (Early Transport)" instead of
+    "Selective Update Early Transport enabled"
+  - ensure that fastset is performed when the disable bit changes
 
-Signed-off-by: Jouni Högander <jouni.hogander@intel.com>
----
- drivers/gpu/drm/i915/display/intel_psr.c | 7 +++++++
- 1 file changed, 7 insertions(+)
+Jouni Högander (11):
+  drm/i915/psr: Check panel ALPM capability for eDP Panel Replay
+  drm/i915/psr: Inform Panel Replay source support on eDP as well
+  drm/i915/psr: enable sink for eDP1.5 Panel Replay
+  drm/i915/psr: Check panel Early Transport capability for eDP PR
+  drm/i915/psr: 128b/132b Panel Replay is not supported on eDP
+  drm/i915/psr: HW will not allow PR on eDP when HDCP enabled
+  drm/i915/alpm: Make crtc_state as const in intel_alpm_compute_params
+  drm/i915/psr: Perform psr2 checks related to ALPM for Panel Replay
+  drm/i915/psr: Perform scanline indication check for Panel Replay as
+    well
+  drm/i915/psr: Check Early Transport for Panel Replay as well
+  drm/i915/psr: Modify dg2_activate_panel_replay to support eDP
 
-diff --git a/drivers/gpu/drm/i915/display/intel_psr.c b/drivers/gpu/drm/i915/display/intel_psr.c
-index a9d9383e4ee5..20e6717a5215 100644
---- a/drivers/gpu/drm/i915/display/intel_psr.c
-+++ b/drivers/gpu/drm/i915/display/intel_psr.c
-@@ -571,6 +571,13 @@ static void _panel_replay_init_dpcd(struct intel_dp *intel_dp)
- {
- 	struct drm_i915_private *i915 = dp_to_i915(intel_dp);
- 
-+	if (intel_dp_is_edp(intel_dp) &&
-+	    (!intel_alpm_aux_less_wake_supported(intel_dp))) {
-+		drm_dbg_kms(&i915->drm,
-+			    "Panel doesn't support AUX-less ALPM, eDP Panel Replay not possible\n");
-+		return;
-+	}
-+
- 	intel_dp->psr.sink_panel_replay_support = true;
- 
- 	if (intel_dp->pr_dpcd & DP_PANEL_REPLAY_SU_SUPPORT)
+ drivers/gpu/drm/i915/display/intel_alpm.c |   9 +-
+ drivers/gpu/drm/i915/display/intel_alpm.h |   2 +-
+ drivers/gpu/drm/i915/display/intel_psr.c  | 163 +++++++++++++++++-----
+ 3 files changed, 137 insertions(+), 37 deletions(-)
+
 -- 
 2.34.1
 
