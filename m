@@ -4,49 +4,51 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E6ABDC27C4F
-	for <intel-gfx@archiver.kernel.org>; Sat, 22 Jun 2024 00:46:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4B463C27C78
+	for <intel-gfx@archiver.kernel.org>; Sat, 22 Jun 2024 00:46:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6996C10EBFA;
-	Sat, 22 Jun 2024 00:46:38 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B258410EC0A;
+	Sat, 22 Jun 2024 00:46:45 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="kbkdrI7H";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="QLHTa7X8";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D2BAC10EBB9;
- Sat, 22 Jun 2024 00:46:36 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5E43510EBFA;
+ Sat, 22 Jun 2024 00:46:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
  t=1719017197; x=1750553197;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=xXtVzfJ1/+5bdh7buG6wNVFa71PuzxcqgZUPEEpMaHk=;
- b=kbkdrI7Hd7lgmVFMMrfc51GqH88kNjuNNeWMKYSlV9rgK7Gy10J9M3QW
- jKQ3l1yDYRXJsQW4A+7a5sPMNCnUkoxcWErDgDh7te00Rf2Gj4l06SsQM
- p1aKisGZmd+dWRsEO2ePGNBfvkMv+YjNZwWVLTP+b3uEkv6jaVEnZLCOL
- JnLd00HSJ9PSoZH+/awGXM5l3647myF0BHwTaNjrj5ryUBvAh+FfbkEu9
- dLtx4VJprPm+WhKPE1osPo7U24qoGETAiBG6ywBHj/Lbh99b67QQxSUct
- yE08cIVyE7Pb4YLhrBVPhfIEGOGqoSufjRglb9LzoqT0ZADqhIkqybaZj g==;
-X-CSE-ConnectionGUID: 491lDm6tQSeu6mX9aUcSGw==
-X-CSE-MsgGUID: EBVm9MwvQsCaMFMl6JHdtQ==
-X-IronPort-AV: E=McAfee;i="6700,10204,11110"; a="26657904"
-X-IronPort-AV: E=Sophos;i="6.08,256,1712646000"; d="scan'208";a="26657904"
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=RQoj7RYWPQVZL7PHjbs1R6G/353gcF7rszDy/3rpYLY=;
+ b=QLHTa7X8kfCrDiQSlwVh8cCRBwmRk8ERYJNOx9/5jz3RnT3FgkiTUah6
+ 3QuzeWBwC9mx2DC9nOhuOe83aMrzOLa5IEVyL6cxSlFPgx1mCkUkSM7rT
+ 81Nr9cGJ23BdGxohIr4B4d1DkCkPODvIJS9f3WF3GIZQLHwZPLh6SlFxA
+ vpRu36/JklkNzNxSLi7q1U2dynvkxY94LxxaCmK4BigcHao6HDUO5yHwz
+ PuY8MKioAmOTDzl8ZoBvABESCQVIJpuftsgBIKVet3hDck+3NrkfaEnoW
+ klXcwiCP+2YOcFlbX2WFY0a7U0ZD6PXa/IzWg2eQ9X5+1nJl4j3+GC1ge A==;
+X-CSE-ConnectionGUID: pB4jLwmvTFGUQai55r0Isw==
+X-CSE-MsgGUID: tdqGVVNCSbulDDbXvysmmQ==
+X-IronPort-AV: E=McAfee;i="6700,10204,11110"; a="26657906"
+X-IronPort-AV: E=Sophos;i="6.08,256,1712646000"; d="scan'208";a="26657906"
 Received: from orviesa006.jf.intel.com ([10.64.159.146])
  by orvoesa103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  21 Jun 2024 17:46:36 -0700
-X-CSE-ConnectionGUID: 8Yq0PkBxRz+QiKsaQ8RmtQ==
-X-CSE-MsgGUID: jfGEHN9vRDuBQC4q0s9sKQ==
+X-CSE-ConnectionGUID: 7Gey52RhR5WUwt9ZbkMWIQ==
+X-CSE-MsgGUID: D6n9Y62IS8m1FRoy9DJtUg==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.08,256,1712646000"; d="scan'208";a="43182336"
+X-IronPort-AV: E=Sophos;i="6.08,256,1712646000"; d="scan'208";a="43182342"
 Received: from relo-linux-5.jf.intel.com ([10.165.21.152])
  by orviesa006.jf.intel.com with ESMTP; 21 Jun 2024 17:46:37 -0700
 From: John.C.Harrison@Intel.com
 To: Intel-GFX@Lists.FreeDesktop.Org
 Cc: DRI-Devel@Lists.FreeDesktop.Org, John Harrison <John.C.Harrison@Intel.com>
-Subject: [PATCH 0/2] Extend Wa14019159160 and enable for ARL
-Date: Fri, 21 Jun 2024 17:46:34 -0700
-Message-ID: <20240622004636.662081-1-John.C.Harrison@Intel.com>
+Subject: [PATCH 2/2] drm/i915/guc: Extend w/a 14019159160
+Date: Fri, 21 Jun 2024 17:46:36 -0700
+Message-ID: <20240622004636.662081-3-John.C.Harrison@Intel.com>
 X-Mailer: git-send-email 2.43.2
+In-Reply-To: <20240622004636.662081-1-John.C.Harrison@Intel.com>
+References: <20240622004636.662081-1-John.C.Harrison@Intel.com>
 MIME-Version: 1.0
 Organization: Intel Corporation (UK) Ltd. - Co. Reg. #1134945 - Pipers Way,
  Swindon SN3 1RJ
@@ -68,21 +70,73 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 From: John Harrison <John.C.Harrison@Intel.com>
 
-The context switch out workaround requires an extra piece on top.
-Also, it applies to more platforms.
+There is a new part to an existing workaround, so enable that piece as
+well.
+
+v2: Extend even further.
+v3: Drop DG2 as there are CI failures still to resolve. Also re-order
+the parameters to a function to reduce excessive line wrapping.
 
 Signed-off-by: John Harrison <John.C.Harrison@Intel.com>
-
-
-John Harrison (2):
-  drm/i915/arl: Enable Wa_14019159160 for ARL
-  drm/i915/guc: Extend w/a 14019159160
-
+---
  drivers/gpu/drm/i915/gt/uc/abi/guc_klvs_abi.h |  1 +
- drivers/gpu/drm/i915/gt/uc/intel_guc.c        |  2 +-
  drivers/gpu/drm/i915/gt/uc/intel_guc_ads.c    | 18 +++++++++---------
- 3 files changed, 11 insertions(+), 10 deletions(-)
+ 2 files changed, 10 insertions(+), 9 deletions(-)
 
+diff --git a/drivers/gpu/drm/i915/gt/uc/abi/guc_klvs_abi.h b/drivers/gpu/drm/i915/gt/uc/abi/guc_klvs_abi.h
+index 37ff539a6963d..0c709e6c15be7 100644
+--- a/drivers/gpu/drm/i915/gt/uc/abi/guc_klvs_abi.h
++++ b/drivers/gpu/drm/i915/gt/uc/abi/guc_klvs_abi.h
+@@ -107,6 +107,7 @@ enum {
+ enum {
+ 	GUC_WORKAROUND_KLV_SERIALIZED_RA_MODE				= 0x9001,
+ 	GUC_WORKAROUND_KLV_BLOCK_INTERRUPTS_WHEN_MGSR_BLOCKED		= 0x9002,
++	GUC_WORKAROUND_KLV_AVOID_GFX_CLEAR_WHILE_ACTIVE			= 0x9006,
+ };
+ 
+ #endif /* _ABI_GUC_KLVS_ABI_H */
+diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_ads.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_ads.c
+index f1fe5f9054538..46fabbfc775e0 100644
+--- a/drivers/gpu/drm/i915/gt/uc/intel_guc_ads.c
++++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_ads.c
+@@ -815,8 +815,7 @@ guc_capture_prep_lists(struct intel_guc *guc)
+ 	return PAGE_ALIGN(total_size);
+ }
+ 
+-static void guc_waklv_enable_simple(struct intel_guc *guc,
+-				    u32 klv_id, u32 *offset, u32 *remain)
++static void guc_waklv_enable_simple(struct intel_guc *guc, u32 *offset, u32 *remain, u32 klv_id)
+ {
+ 	u32 size;
+ 	u32 klv_entry[] = {
+@@ -850,19 +849,20 @@ static void guc_waklv_init(struct intel_guc *guc)
+ 	remain = guc_ads_waklv_size(guc);
+ 
+ 	/* Wa_14019159160 */
+-	if (IS_GFX_GT_IP_RANGE(gt, IP_VER(12, 70), IP_VER(12, 74)))
+-		guc_waklv_enable_simple(guc,
+-					GUC_WORKAROUND_KLV_SERIALIZED_RA_MODE,
+-					&offset, &remain);
++	if (IS_GFX_GT_IP_RANGE(gt, IP_VER(12, 70), IP_VER(12, 74))) {
++		guc_waklv_enable_simple(guc, &offset, &remain,
++					GUC_WORKAROUND_KLV_SERIALIZED_RA_MODE);
++		guc_waklv_enable_simple(guc, &offset, &remain,
++					GUC_WORKAROUND_KLV_AVOID_GFX_CLEAR_WHILE_ACTIVE);
++	}
+ 
+ 	/* Wa_16021333562 */
+ 	if ((GUC_FIRMWARE_VER(guc) >= MAKE_GUC_VER(70, 21, 1)) &&
+ 	    (IS_GFX_GT_IP_RANGE(gt, IP_VER(12, 70), IP_VER(12, 74)) ||
+ 	     IS_MEDIA_GT_IP_RANGE(gt, IP_VER(13, 0), IP_VER(13, 0)) ||
+ 	     IS_DG2(gt->i915)))
+-		guc_waklv_enable_simple(guc,
+-					GUC_WORKAROUND_KLV_BLOCK_INTERRUPTS_WHEN_MGSR_BLOCKED,
+-					&offset, &remain);
++		guc_waklv_enable_simple(guc, &offset, &remain,
++					GUC_WORKAROUND_KLV_BLOCK_INTERRUPTS_WHEN_MGSR_BLOCKED);
+ 
+ 	size = guc_ads_waklv_size(guc) - remain;
+ 	if (!size)
 -- 
 2.43.2
 
