@@ -4,48 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BD34FC27C78
-	for <intel-gfx@archiver.kernel.org>; Sat, 22 Jun 2024 01:05:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2DB47C2BB85
+	for <intel-gfx@archiver.kernel.org>; Sat, 22 Jun 2024 01:05:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 66C2C10EC0C;
+	by gabe.freedesktop.org (Postfix) with ESMTP id CCC8A10EC1C;
 	Sat, 22 Jun 2024 01:05:38 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="Ja01KFNH";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="hxFvWMAY";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.19])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 325D810EC0B;
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 715F910E176;
  Sat, 22 Jun 2024 01:05:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1719018337; x=1750554337;
+ t=1719018338; x=1750554338;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=X9VOT6kxYItBL8dPiEK95o+NkQ+WX91XGbMrakSoPcM=;
- b=Ja01KFNHh0OMflZw3nlPTvoleYjeRXMkTDaYLWShFOaLaMR/37WHxlRS
- ZVNjgG4y5WJUrT/gXYwNX4F9MOQ3so+Wt75sh9F3OUJYaU3hWIL8WKA+U
- DJfNy30kwjRN82CTvkHBwAuL+BRIwnf/Q1vK+c1g+5+um5eKfi6km6sRH
- u+VWWAVi08EGf/pPJEClBFeM0XhbLhtzTf7bOjRm5PVXubiwtpVYYeCDk
- KH6YkBfYoebgpVMzTgopth/QUv6gybE3uCUUVqAiheqKGzR116x+vXK3N
- 0hRG1iG0fhYdT+454z9OQRsT2vTqCs5y5DidKA4ddrJgAg3B2wP6WD4Ip Q==;
-X-CSE-ConnectionGUID: sPGZil6aT7q+V81GIRwLUQ==
-X-CSE-MsgGUID: uR5jYoIuQsyFGMiCg+SNOg==
-X-IronPort-AV: E=McAfee;i="6700,10204,11110"; a="15828211"
-X-IronPort-AV: E=Sophos;i="6.08,256,1712646000"; d="scan'208";a="15828211"
+ bh=X1Q4QtQGA1aO8h0WJqPC6Uz20ibMdjQRIHgw7C8U8S8=;
+ b=hxFvWMAYGwc9cuTQHBJXQnwEBLzN37wrefBwQhqdUzPHpuGbZeQ4Ligy
+ 4DVPHRN34/toc6EjE4dIBQJlkAqfv8wPLcnz4dH7v9YVdraP5P6C78WKr
+ XdEDi72LkshJNuv4AST6B/6zPLs9nsLbwNC4y/dcprVz0t/01JBjctYE/
+ PhrsYbjaGLE1kRTYrbMWoyE5iwrXSzqlJSlth+Deggo4nBwW8fVTGnI3N
+ pvqWdHW0YW83WvPIK9aMY6E1z2MUHIXs67B0vcr1CjeHLYCLesolLhOPR
+ 4r8vn6QWu0I5GFjck4L+trf3oL21ebGpd6TJ1v1c9aNNX99QCyVdzjEjj A==;
+X-CSE-ConnectionGUID: of+txjoBQcSArObxITglKg==
+X-CSE-MsgGUID: 4GBjWaElSoerpxDv2cgO5A==
+X-IronPort-AV: E=McAfee;i="6700,10204,11110"; a="15828213"
+X-IronPort-AV: E=Sophos;i="6.08,256,1712646000"; d="scan'208";a="15828213"
 Received: from orviesa005.jf.intel.com ([10.64.159.145])
  by fmvoesa113.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  21 Jun 2024 18:05:36 -0700
-X-CSE-ConnectionGUID: V7rrf9RPRa6JvzYBR0l+pw==
-X-CSE-MsgGUID: 7mexLXzOQdKfYBfh9Hmp6A==
+X-CSE-ConnectionGUID: c2eGaxceSuuPhwGHqxd/qg==
+X-CSE-MsgGUID: oXNtDjxfQZKhpb8Fvu1o1g==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.08,256,1712646000"; d="scan'208";a="47692098"
+X-IronPort-AV: E=Sophos;i="6.08,256,1712646000"; d="scan'208";a="47692105"
 Received: from relo-linux-5.jf.intel.com ([10.165.21.152])
  by orviesa005.jf.intel.com with ESMTP; 21 Jun 2024 18:05:35 -0700
 From: John.C.Harrison@Intel.com
 To: Intel-GFX@Lists.FreeDesktop.Org
 Cc: DRI-Devel@Lists.FreeDesktop.Org, John Harrison <John.C.Harrison@Intel.com>
-Subject: [PATCH 1/3] drm/i915/arl: Enable Wa_14019159160 for ARL
-Date: Fri, 21 Jun 2024 18:05:32 -0700
-Message-ID: <20240622010534.665008-2-John.C.Harrison@Intel.com>
+Subject: [PATCH 3/3] drm/i915/dg2: Enable Wa_14019159160 for DG2
+Date: Fri, 21 Jun 2024 18:05:34 -0700
+Message-ID: <20240622010534.665008-4-John.C.Harrison@Intel.com>
 X-Mailer: git-send-email 2.43.2
 In-Reply-To: <20240622010534.665008-1-John.C.Harrison@Intel.com>
 References: <20240622010534.665008-1-John.C.Harrison@Intel.com>
@@ -70,40 +70,42 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 From: John Harrison <John.C.Harrison@Intel.com>
 
-The context switch out workaround also applies to ARL.
+The context switch hold out workaround also applies to DG2.
 
 Signed-off-by: John Harrison <John.C.Harrison@Intel.com>
 ---
- drivers/gpu/drm/i915/gt/uc/intel_guc.c     | 2 +-
- drivers/gpu/drm/i915/gt/uc/intel_guc_ads.c | 2 +-
- 2 files changed, 2 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/i915/gt/uc/intel_guc.c     | 3 ++-
+ drivers/gpu/drm/i915/gt/uc/intel_guc_ads.c | 3 ++-
+ 2 files changed, 4 insertions(+), 2 deletions(-)
 
 diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc.c b/drivers/gpu/drm/i915/gt/uc/intel_guc.c
-index 5e60a34692af8..097fc6bd1285e 100644
+index 097fc6bd1285e..2a27bc625abe1 100644
 --- a/drivers/gpu/drm/i915/gt/uc/intel_guc.c
 +++ b/drivers/gpu/drm/i915/gt/uc/intel_guc.c
-@@ -296,7 +296,7 @@ static u32 guc_ctl_wa_flags(struct intel_guc *guc)
+@@ -296,7 +296,8 @@ static u32 guc_ctl_wa_flags(struct intel_guc *guc)
  
  	/* Wa_16019325821 */
  	/* Wa_14019159160 */
--	if (IS_GFX_GT_IP_RANGE(gt, IP_VER(12, 70), IP_VER(12, 71)))
-+	if (IS_GFX_GT_IP_RANGE(gt, IP_VER(12, 70), IP_VER(12, 74)))
+-	if (IS_GFX_GT_IP_RANGE(gt, IP_VER(12, 70), IP_VER(12, 74)))
++	if (IS_GFX_GT_IP_RANGE(gt, IP_VER(12, 70), IP_VER(12, 74)) ||
++	    IS_DG2(gt->i915))
  		flags |= GUC_WA_RCS_CCS_SWITCHOUT;
  
  	/*
 diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_ads.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_ads.c
-index 7995f059f30df..f1fe5f9054538 100644
+index 46fabbfc775e0..2378e3c59def9 100644
 --- a/drivers/gpu/drm/i915/gt/uc/intel_guc_ads.c
 +++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_ads.c
-@@ -850,7 +850,7 @@ static void guc_waklv_init(struct intel_guc *guc)
+@@ -849,7 +849,8 @@ static void guc_waklv_init(struct intel_guc *guc)
  	remain = guc_ads_waklv_size(guc);
  
  	/* Wa_14019159160 */
--	if (IS_GFX_GT_IP_RANGE(gt, IP_VER(12, 70), IP_VER(12, 71)))
-+	if (IS_GFX_GT_IP_RANGE(gt, IP_VER(12, 70), IP_VER(12, 74)))
- 		guc_waklv_enable_simple(guc,
- 					GUC_WORKAROUND_KLV_SERIALIZED_RA_MODE,
- 					&offset, &remain);
+-	if (IS_GFX_GT_IP_RANGE(gt, IP_VER(12, 70), IP_VER(12, 74))) {
++	if (IS_GFX_GT_IP_RANGE(gt, IP_VER(12, 70), IP_VER(12, 74)) ||
++	    IS_DG2(gt->i915)) {
+ 		guc_waklv_enable_simple(guc, &offset, &remain,
+ 					GUC_WORKAROUND_KLV_SERIALIZED_RA_MODE);
+ 		guc_waklv_enable_simple(guc, &offset, &remain,
 -- 
 2.43.2
 
