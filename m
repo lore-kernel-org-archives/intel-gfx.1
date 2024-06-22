@@ -4,51 +4,51 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4B463C27C78
-	for <intel-gfx@archiver.kernel.org>; Sat, 22 Jun 2024 00:46:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4FBE1C27C4F
+	for <intel-gfx@archiver.kernel.org>; Sat, 22 Jun 2024 01:05:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B258410EC0A;
-	Sat, 22 Jun 2024 00:46:45 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1609610EC0B;
+	Sat, 22 Jun 2024 01:05:38 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="QLHTa7X8";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="lEWzOG9W";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5E43510EBFA;
- Sat, 22 Jun 2024 00:46:37 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.19])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 58FED10EC0C;
+ Sat, 22 Jun 2024 01:05:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1719017197; x=1750553197;
+ t=1719018338; x=1750554338;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
  bh=RQoj7RYWPQVZL7PHjbs1R6G/353gcF7rszDy/3rpYLY=;
- b=QLHTa7X8kfCrDiQSlwVh8cCRBwmRk8ERYJNOx9/5jz3RnT3FgkiTUah6
- 3QuzeWBwC9mx2DC9nOhuOe83aMrzOLa5IEVyL6cxSlFPgx1mCkUkSM7rT
- 81Nr9cGJ23BdGxohIr4B4d1DkCkPODvIJS9f3WF3GIZQLHwZPLh6SlFxA
- vpRu36/JklkNzNxSLi7q1U2dynvkxY94LxxaCmK4BigcHao6HDUO5yHwz
- PuY8MKioAmOTDzl8ZoBvABESCQVIJpuftsgBIKVet3hDck+3NrkfaEnoW
- klXcwiCP+2YOcFlbX2WFY0a7U0ZD6PXa/IzWg2eQ9X5+1nJl4j3+GC1ge A==;
-X-CSE-ConnectionGUID: pB4jLwmvTFGUQai55r0Isw==
-X-CSE-MsgGUID: tdqGVVNCSbulDDbXvysmmQ==
-X-IronPort-AV: E=McAfee;i="6700,10204,11110"; a="26657906"
-X-IronPort-AV: E=Sophos;i="6.08,256,1712646000"; d="scan'208";a="26657906"
-Received: from orviesa006.jf.intel.com ([10.64.159.146])
- by orvoesa103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 21 Jun 2024 17:46:36 -0700
-X-CSE-ConnectionGUID: 7Gey52RhR5WUwt9ZbkMWIQ==
-X-CSE-MsgGUID: D6n9Y62IS8m1FRoy9DJtUg==
+ b=lEWzOG9WczW5UtxavDMDBg9FbI5tHHWR4DZGinuym3c/FiezDeqBwkXi
+ DpywRsc07GrLS93VsN79geKOyVl3C0YNrzGFFkQd5InmukRgT8mSbeuDf
+ 6dsvwjZv2Fas+dBFeOAOdYX+IsKaWA00IVkY2PlYWxhu44ka4CRqeZLZP
+ oNsttC3pB+ZKB0hdkvHRi1Am1t6q1+NmF2V2FWOGyiRIZlO9AmAQvPHhL
+ lcMPGHiDQqb8XC3NsMdFmlKF+Lz5g8J4l779I5Qpnrllk+tonYoznWOYO
+ IopBJVByihUFCuTbu8ahYD/BsxkaQ69xbDQV/5ylzZwgb0XcyfyT5I5AF g==;
+X-CSE-ConnectionGUID: xvNNP/S9ShuDE+QToUY6tA==
+X-CSE-MsgGUID: kXqNP3wiQZe+9qEZ3jj2Cw==
+X-IronPort-AV: E=McAfee;i="6700,10204,11110"; a="15828212"
+X-IronPort-AV: E=Sophos;i="6.08,256,1712646000"; d="scan'208";a="15828212"
+Received: from orviesa005.jf.intel.com ([10.64.159.145])
+ by fmvoesa113.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 21 Jun 2024 18:05:36 -0700
+X-CSE-ConnectionGUID: wq+buyelT+e5JvWjmLks9Q==
+X-CSE-MsgGUID: OUnPYFiOQnSY7k2/3Z7Z4A==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.08,256,1712646000"; d="scan'208";a="43182342"
+X-IronPort-AV: E=Sophos;i="6.08,256,1712646000"; d="scan'208";a="47692102"
 Received: from relo-linux-5.jf.intel.com ([10.165.21.152])
- by orviesa006.jf.intel.com with ESMTP; 21 Jun 2024 17:46:37 -0700
+ by orviesa005.jf.intel.com with ESMTP; 21 Jun 2024 18:05:35 -0700
 From: John.C.Harrison@Intel.com
 To: Intel-GFX@Lists.FreeDesktop.Org
 Cc: DRI-Devel@Lists.FreeDesktop.Org, John Harrison <John.C.Harrison@Intel.com>
-Subject: [PATCH 2/2] drm/i915/guc: Extend w/a 14019159160
-Date: Fri, 21 Jun 2024 17:46:36 -0700
-Message-ID: <20240622004636.662081-3-John.C.Harrison@Intel.com>
+Subject: [PATCH 2/3] drm/i915/guc: Extend w/a 14019159160
+Date: Fri, 21 Jun 2024 18:05:33 -0700
+Message-ID: <20240622010534.665008-3-John.C.Harrison@Intel.com>
 X-Mailer: git-send-email 2.43.2
-In-Reply-To: <20240622004636.662081-1-John.C.Harrison@Intel.com>
-References: <20240622004636.662081-1-John.C.Harrison@Intel.com>
+In-Reply-To: <20240622010534.665008-1-John.C.Harrison@Intel.com>
+References: <20240622010534.665008-1-John.C.Harrison@Intel.com>
 MIME-Version: 1.0
 Organization: Intel Corporation (UK) Ltd. - Co. Reg. #1134945 - Pipers Way,
  Swindon SN3 1RJ
