@@ -4,127 +4,62 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6139DC2BD09
-	for <intel-gfx@archiver.kernel.org>; Mon, 24 Jun 2024 13:29:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 32FB8C2BD09
+	for <intel-gfx@archiver.kernel.org>; Mon, 24 Jun 2024 14:33:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A926110E43D;
-	Mon, 24 Jun 2024 13:29:47 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3CBDA10E464;
+	Mon, 24 Jun 2024 14:33:10 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Ue47HRvo";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="K9CevZc3";
 	dkim-atps=neutral
-Received: from mail-ej1-f49.google.com (mail-ej1-f49.google.com
- [209.85.218.49])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C03D110ED48;
- Wed, 19 Jun 2024 16:52:50 +0000 (UTC)
-Received: by mail-ej1-f49.google.com with SMTP id
- a640c23a62f3a-a63359aaacaso1086183266b.1; 
- Wed, 19 Jun 2024 09:52:50 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1718815969; x=1719420769; darn=lists.freedesktop.org;
- h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
- :to:content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=sg8iq1YbugOa9R8IB28lqgdNNm+1gAxq/vOOtZ57ZOo=;
- b=Ue47HRvo/V2IKdj8UZN8jTHl7j/Ze4U46pV2uAGl5riE3OMneXrs9q8IrG5HgvF3gM
- crjm5GPj7WLdUB+W9rWyPhpvcpN+ltEA922FrAfiPAFwFGc9G2AW0hxmGBsMT9EsH57F
- BWTcAH/wEDjBhUyLh885r0ad/p/kcPz9bovYpxwrGjYgGgcO4L+q+VvQY86WWWVd1ReW
- lk1NOMzu0PNjP9HLU/LIAYJ5xUR7Ql4S3Ad8g4vn643AqRKxfTxshGCxCKCN1f4vwUM3
- /z84Y6JR2og3tcpKXJi+ibClBT6CMynyrQvjDIJyjSPZpyl7WFS7rYOq9L0zzFCzIAJE
- Pq9g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1718815969; x=1719420769;
- h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
- :to:content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=sg8iq1YbugOa9R8IB28lqgdNNm+1gAxq/vOOtZ57ZOo=;
- b=gN7PLaWOo918iG9FyHIazuWsKKKo/nFaGm9MtsOEkzsl7UAP4UPkhjSwyNrLKODF25
- AlfMXolj4MUp0BjwvKG9PZWLrkX5T0KhwjnBapaSxx4RFXB0uMwzh/wuzjUH6tFEIWUm
- nWDyKok815YqmmwpEHwTy8nORIZaKKBLdEvuISM7EON/GFpbkrTk+gxW8rHw4wGbsNYb
- zyWHEJAox3WBO+CJHwEhKPYqtw+EALc44A0KoARv2zWTNpOHtNBF2Z1XPDeuNecMNi8h
- dHMyD4DKKkl8I3H+s0BYvurXNLtwfyogEnFfx0DsZ6oicPxsmN3MCtmXzlg/ziW5rNsV
- iWwg==
-X-Forwarded-Encrypted: i=1;
- AJvYcCXL2/hx5pSotbAoEfBRxQmUwqxBEvfS0UPhDB6561m8LTQUc5nOY0KIDdbMcezJa/H2AX/odrWB8b9Cq/DKMYD7moL1fdx1jA43/EgdWU6sHcFtWpoCjT2Kg4ESiInBDFIwoILEINyWfN1/qgvkI7us
-X-Gm-Message-State: AOJu0Yxi4Y/RlUaitFa7kPcpQNCXPQxKb1JeQvqX52h+lhWhKq0K0FUP
- 9C2RRoqgsoFMqMzREbYJzHyRhUM9GApuMSZ31ouY2pKMiYCmi851
-X-Google-Smtp-Source: AGHT+IGLVc6V9yHvLlBwOaTLXlaBqSki7ZZ318wMOiFw3bNvll5UDbTnoOeAaDrDMurVE4s7u5vDlA==
-X-Received: by 2002:a17:907:808:b0:a6f:586b:6c1 with SMTP id
- a640c23a62f3a-a6fab7756d5mr237803466b.56.1718815968691; 
- Wed, 19 Jun 2024 09:52:48 -0700 (PDT)
-Received: from ?IPV6:2001:871:22c:6af9:d5cb:1d01:917c:4b48?
- ([2001:871:22c:6af9:d5cb:1d01:917c:4b48])
- by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a6f8f934346sm196331366b.94.2024.06.19.09.52.47
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 19 Jun 2024 09:52:48 -0700 (PDT)
-Message-ID: <63f10133-311e-4c4c-8192-978b01b41247@gmail.com>
-Date: Wed, 19 Jun 2024 18:52:47 +0200
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.17])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BC85110E027;
+ Mon, 24 Jun 2024 14:33:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1719239589; x=1750775589;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:content-transfer-encoding:in-reply-to;
+ bh=ppT9+wGworEO3wIP8mLtLpequEFQ0FX0forqxmjlkaw=;
+ b=K9CevZc3uctRT/zjVugMrIFENt7WZcr6TFyoH9ZRbSVyRbAi1ssUCgIY
+ KqmJ51ePlbHRfRulfhV0odlyGIUhIpf4U939dmyxHAliq1QLDe4XHQVAm
+ Yizem68cYS7QCVerP34H3limZ5ASc+DbTRdnDqpmv17+7+ubRDhBL45Li
+ sykphnGO7Rhj1fQU19IGOSmfz1ZZJUIjIZwh2LUWiNyptRMj81oT43NOp
+ 46+B784kCU3oNTqkx0lcGrdm9NjlfTFQBEDtp7Cdi4deJYaHaTHDWrovx
+ 9Ra747AnAvfBZJpDqTpy7PvuWNtom04Fn2OJ9VtmOfC/bGqZz2W/9cJul A==;
+X-CSE-ConnectionGUID: XafPsfe0QuCbiy+xAVcBlQ==
+X-CSE-MsgGUID: kG65fejURoqKQRE0a0gi+g==
+X-IronPort-AV: E=McAfee;i="6700,10204,11113"; a="16089829"
+X-IronPort-AV: E=Sophos;i="6.08,262,1712646000"; d="scan'208";a="16089829"
+Received: from fmviesa008.fm.intel.com ([10.60.135.148])
+ by fmvoesa111.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 24 Jun 2024 07:33:08 -0700
+X-CSE-ConnectionGUID: CuqHG56sTKSXDXEx2VVHLg==
+X-CSE-MsgGUID: De3pq3rbQTKlmGaUIuGF2g==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.08,262,1712646000"; d="scan'208";a="43289669"
+Received: from stinkpipe.fi.intel.com (HELO stinkbox) ([10.237.72.74])
+ by fmviesa008.fm.intel.com with SMTP; 24 Jun 2024 07:33:05 -0700
+Received: by stinkbox (sSMTP sendmail emulation);
+ Mon, 24 Jun 2024 17:33:04 +0300
+Date: Mon, 24 Jun 2024 17:33:04 +0300
+From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
+To: intel-gfx@lists.freedesktop.org
+Cc: dri-devel@lists.freedesktop.org,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ Lucas De Marchi <lucas.demarchi@intel.com>
+Subject: Re: [PATCH v2 0/9] drm/i915: Polish plane surface alignment handling
+Message-ID: <ZnmDoHVktyz6xwUU@intel.com>
+References: <20240612204712.31404-1-ville.syrjala@linux.intel.com>
+ <ZnLDKM2I8WWrWwmO@intel.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: Linux 6.10-rc1
-Content-Language: en-US
-To: Pavel Machek <pavel@ucw.cz>
-Cc: Dave Airlie <airlied@gmail.com>, Jani Nikula
- <jani.nikula@linux.intel.com>, Rafael Wysocki <rafael@kernel.org>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- intel-gfx <intel-gfx@lists.freedesktop.org>,
- dri-devel <dri-devel@lists.freedesktop.org>,
- Linus Torvalds <torvalds@linux-foundation.org>
-References: <CAHk-=wjQv_CSPzhjOMoOjGO3FmuHe5hzm6Ds69zZSFPa4PeuCA@mail.gmail.com>
- <ZmrTZozoi0t/tuva@duo.ucw.cz>
- <CAHk-=wjqHL7KjOWYBVKFewcKPWL7CJxddWfJnvL3AfOqfR8vMg@mail.gmail.com>
- <ZmwHGviv/6J6FQLf@duo.ucw.cz>
- <CAHk-=wigB-wVK+4=NuYJxoKLnoUXB52J5WU2hpKj2de6vGuY7g@mail.gmail.com>
- <CAHk-=wjcdUUip96PnfC+iRjAwPHn3XKsgcohk1ad5VcckCFVKA@mail.gmail.com>
- <ZnABbKrIzmmEoFEV@duo.ucw.cz> <ZnK2bmDFuwX8E5rY@duo.ucw.cz>
-From: Gerhard Stoiber <stoiber.gerhard@gmail.com>
-Autocrypt: addr=stoiber.gerhard@gmail.com; keydata=
- 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
-In-Reply-To: <ZnK2bmDFuwX8E5rY@duo.ucw.cz>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Mailman-Approved-At: Mon, 24 Jun 2024 13:29:46 +0000
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <ZnLDKM2I8WWrWwmO@intel.com>
+X-Patchwork-Hint: comment
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -140,17 +75,68 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Hello!
->                              
-> Ideas welcome, especially some way to see what graphics is doing.
+On Wed, Jun 19, 2024 at 02:38:16PM +0300, Ville Syrjälä wrote:
+> On Wed, Jun 12, 2024 at 11:47:03PM +0300, Ville Syrjala wrote:
+> > From: Ville Syrjälä <ville.syrjala@linux.intel.com>
+> > 
+> > intel_surf_alignment() in particular has devolved into
+> > a complete mess. Redesign the code so that we can handle
+> > alignment restrictions in a nicer. Also adjust alignment
+> > for TGL+ to actually match the hardware requirements.
+> > 
+> > v2: Drop the per-plane vma stuff as it was borked
+> >     Don't temporarily remove the 2MiB DPT alignment for UV on TGL
+> > 
+> > Ville Syrjälä (9):
+> >   drm: Rename drm_plane_check_pixel_format() to drm_plane_has_format()
+> >   drm: Export drm_plane_has_format()
+> 
+> Maarten/Maxime/Thomas, can I get an ack for merging these via
+> drm-intel please?
 
-I'm unsure about the distro you are using but try package intel_gpu_top. 
-It displays irqs/s and a bunch of other utilization statistics.
+Series pushed to drm-intel-next with Thomas's irc ack.
 
+Thanks for the reviews and acks.
 
-Hope this helps.
+> 
+> >   drm/i915: Introduce the plane->min_alignment() vfunc
+> >   drm/i915: Introduce fb->min_alignment
+> >   drm/i915: Split cursor alignment to per-platform vfuncs
+> >   drm/i915: Split pre-skl platforms out from intel_surf_alignment()
+> >   drm/i915: Move intel_surf_alignment() into skl_univerals_plane.c
+> >   drm/i915: Update plane alignment requirements for TGL+
+> >   drm/i915: Nuke the TGL+ chroma plane tile row alignment stuff
+> > 
+> >  drivers/gpu/drm/drm_atomic.c                  |   7 +-
+> >  drivers/gpu/drm/drm_crtc.c                    |   6 +-
+> >  drivers/gpu/drm/drm_crtc_internal.h           |   2 -
+> >  drivers/gpu/drm/drm_plane.c                   |  23 ++-
+> >  drivers/gpu/drm/i915/display/i9xx_plane.c     |  75 ++++++++-
+> >  drivers/gpu/drm/i915/display/intel_cursor.c   |  38 +++++
+> >  .../drm/i915/display/intel_display_types.h    |   5 +
+> >  drivers/gpu/drm/i915/display/intel_fb.c       | 151 ++++--------------
+> >  drivers/gpu/drm/i915/display/intel_fb.h       |   3 -
+> >  drivers/gpu/drm/i915/display/intel_fb_pin.c   |  39 +++--
+> >  drivers/gpu/drm/i915/display/intel_fb_pin.h   |   3 +-
+> >  drivers/gpu/drm/i915/display/intel_fbdev.c    |   5 +-
+> >  drivers/gpu/drm/i915/display/intel_sprite.c   |  26 +++
+> >  .../drm/i915/display/skl_universal_plane.c    |  85 +++++++++-
+> >  drivers/gpu/drm/xe/display/xe_fb_pin.c        |   3 +-
+> >  drivers/gpu/drm/xe/display/xe_plane_initial.c |   4 +-
+> 
+> Lucas, can you give me an ack for the merging the xe
+> changes via drm-intel?
+> 
+> >  include/drm/drm_plane.h                       |   2 +
+> >  17 files changed, 309 insertions(+), 168 deletions(-)
+> > 
+> > -- 
+> > 2.44.2
+> 
+> -- 
+> Ville Syrjälä
+> Intel
 
---
-BR,
-Gerhard
-
+-- 
+Ville Syrjälä
+Intel
