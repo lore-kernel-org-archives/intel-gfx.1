@@ -4,51 +4,51 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F3D2AC2D0D1
-	for <intel-gfx@archiver.kernel.org>; Mon, 24 Jun 2024 05:35:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 53A6FC2BD05
+	for <intel-gfx@archiver.kernel.org>; Mon, 24 Jun 2024 05:35:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6179110E349;
-	Mon, 24 Jun 2024 05:35:45 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 74E1110E34D;
+	Mon, 24 Jun 2024 05:35:46 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="l9h3mdJV";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="ix/cn73M";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6173E10E349
- for <intel-gfx@lists.freedesktop.org>; Mon, 24 Jun 2024 05:35:41 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D5AA110E349
+ for <intel-gfx@lists.freedesktop.org>; Mon, 24 Jun 2024 05:35:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1719207342; x=1750743342;
+ t=1719207345; x=1750743345;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=oKFyvXsXuzXrWWmyHgBsgF3az3s/sSu21sbMq9XZ4d8=;
- b=l9h3mdJVTM0PWlIRpqMZaprmx63+b3WEQZ9+bZZS6Th3RPNure113LOb
- ITTrRYWSbIWsEkYbq5voHwBW+cBHL/CSJMtM7Q/qvb7jPG39c1d1OOlsc
- IXIb6AaAiUvOUvy8Io0RLaA5TvM5H5oV1Mc1RdHvRVUkRDRQHNkS5DZ5d
- cEqzzwqhnf9LXKoRgZvqhwfJj62L21z/ZPy5v5B+s6F8v2ybD4xe+4bd3
- Aa6T8BaBloUKt+/uILJfk6VUdpvethMZ6HKY+fVLEi31RiK9vqZHx4hyl
- z43vAy3QvtESkbnHm/L/FCJifci8Crjb86foyCCu47f2G/yv6WSRSV7CO Q==;
-X-CSE-ConnectionGUID: /gYZE6xBTMOLCPjQZCVZHA==
-X-CSE-MsgGUID: umrFTzi0Qk2BjDtJ6wJJJg==
-X-IronPort-AV: E=McAfee;i="6700,10204,11112"; a="27567225"
-X-IronPort-AV: E=Sophos;i="6.08,261,1712646000"; d="scan'208";a="27567225"
+ bh=1DWeqDZ21skzl7OMON7e040OWqRJaPSPd9ztXxfl7zY=;
+ b=ix/cn73MAmCvasXA5ygrXwEIlbHHPDGq4nxxxxyBR6mnWkLty/CdUVyc
+ gJFzREwrwaFwDFS6zWjJMWXFkqzLfpHZMeus14/Qfb9PDBJdB5S8Pupne
+ hR1yuTueRTn60edKpOSad7nKv+lniIenuoPfiLkiG9mxXACPIU5AJLkd1
+ /gF1TblXXi9KZmVfmXIQEWPx0PSPiSavqMemqOE+SmAQFjpDOScWL5rFo
+ kgi/oI2klCs0y33epNjMOzRexaTOt6nV/FLnvn75GGNlkHWYW6H+btFlX
+ qrpGtL6FADeoEMF2HCmP29dVMTepBwz0csKDBWSjmmozi97+g82hNS/R/ Q==;
+X-CSE-ConnectionGUID: vz0b793fRXqwleTOrOtgPg==
+X-CSE-MsgGUID: PC8mdsPHSZKIp6LP3pvi0Q==
+X-IronPort-AV: E=McAfee;i="6700,10204,11112"; a="27567240"
+X-IronPort-AV: E=Sophos;i="6.08,261,1712646000"; d="scan'208";a="27567240"
 Received: from fmviesa006.fm.intel.com ([10.60.135.146])
  by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 Jun 2024 22:35:41 -0700
-X-CSE-ConnectionGUID: f3sPesJCS+mP+5TsBPZQXQ==
-X-CSE-MsgGUID: BTmbqvdGQ9StQzJ6u/46/w==
+ 23 Jun 2024 22:35:45 -0700
+X-CSE-ConnectionGUID: 9zKQfoMYSeWyARGEoma5fA==
+X-CSE-MsgGUID: 2fNfiZQ1Qr+7uQ5aMyd/Hg==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.08,261,1712646000"; d="scan'208";a="42994172"
+X-IronPort-AV: E=Sophos;i="6.08,261,1712646000"; d="scan'208";a="42994202"
 Received: from srr4-3-linux-103-aknautiy.iind.intel.com ([10.223.34.160])
  by fmviesa006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 Jun 2024 22:35:40 -0700
+ 23 Jun 2024 22:35:43 -0700
 From: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
 To: intel-gfx@lists.freedesktop.org
 Cc: jani.nikula@linux.intel.com, ville.syrjala@linux.intel.com,
  mitulkumar.ajitkumar.golani@intel.com
-Subject: [PATCH 2/9] drm/i915/display: Get VRR compute config before
- get_transcoder_timing
-Date: Mon, 24 Jun 2024 11:05:53 +0530
-Message-Id: <20240624053600.3803116-3-ankit.k.nautiyal@intel.com>
+Subject: [PATCH 4/9] drm/i915/dp: Set FAVT mode in DP SDP with fixed refresh
+ rate
+Date: Mon, 24 Jun 2024 11:05:55 +0530
+Message-Id: <20240624053600.3803116-5-ankit.k.nautiyal@intel.com>
 X-Mailer: git-send-email 2.40.1
 In-Reply-To: <20240624053600.3803116-1-ankit.k.nautiyal@intel.com>
 References: <20240624053600.3803116-1-ankit.k.nautiyal@intel.com>
@@ -69,40 +69,30 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-For fixed refresh rate with VRR framework, we need to fill
-adjusted_mode->crtc_vtotal from VMAX register in intel_vrr_get_config,
-that can be used in intel_get_transcoder_timings.
-
-Call intel_vrr_get_config before intel_get_transcoder_timings.
-Subsequent changes will move filling of crtc_vtotal in vrr compute
-config step.
+While running with fixed refresh rate and VRR timing generator set FAVT
+mode (Fixed Vtotal) in DP Adaptive Sync SDP to intimate the panel
+about Fixed refresh rate.
 
 Signed-off-by: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_display.c | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+ drivers/gpu/drm/i915/display/intel_dp.c | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
-index c782e65a7123..60d383c9002e 100644
---- a/drivers/gpu/drm/i915/display/intel_display.c
-+++ b/drivers/gpu/drm/i915/display/intel_display.c
-@@ -3843,13 +3843,13 @@ static bool hsw_get_pipe_config(struct intel_crtc *crtc,
- 	intel_joiner_get_config(pipe_config);
- 	intel_dsc_get_config(pipe_config);
- 
-+	if (HAS_VRR(dev_priv) && !transcoder_is_dsi(pipe_config->cpu_transcoder))
-+		intel_vrr_get_config(pipe_config);
-+
- 	if (!transcoder_is_dsi(pipe_config->cpu_transcoder) ||
- 	    DISPLAY_VER(dev_priv) >= 11)
- 		intel_get_transcoder_timings(crtc, pipe_config);
- 
--	if (HAS_VRR(dev_priv) && !transcoder_is_dsi(pipe_config->cpu_transcoder))
--		intel_vrr_get_config(pipe_config);
--
- 	intel_get_pipe_src_size(crtc, pipe_config);
- 
- 	if (IS_HASWELL(dev_priv)) {
+diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
+index 3f46e13bb7b8..dcb94526cf00 100644
+--- a/drivers/gpu/drm/i915/display/intel_dp.c
++++ b/drivers/gpu/drm/i915/display/intel_dp.c
+@@ -2642,6 +2642,10 @@ static void intel_dp_compute_as_sdp(struct intel_dp *intel_dp,
+ 		as_sdp->target_rr = drm_mode_vrefresh(adjusted_mode);
+ 		as_sdp->target_rr_divider = true;
+ 	} else {
++		if (crtc_state->vrr.fixed_rr)
++			as_sdp->mode = DP_AS_SDP_AVT_FIXED_VTOTAL;
++		else
++			as_sdp->mode = DP_AS_SDP_AVT_DYNAMIC_VTOTAL;
+ 		as_sdp->mode = DP_AS_SDP_AVT_DYNAMIC_VTOTAL;
+ 		as_sdp->vtotal = adjusted_mode->vtotal;
+ 		as_sdp->target_rr = 0;
 -- 
 2.40.1
 
