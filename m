@@ -4,51 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 39436C2D0D1
-	for <intel-gfx@archiver.kernel.org>; Mon, 24 Jun 2024 05:35:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8C9E1C30653
+	for <intel-gfx@archiver.kernel.org>; Mon, 24 Jun 2024 05:35:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7D9AE10E357;
-	Mon, 24 Jun 2024 05:35:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E72C510E354;
+	Mon, 24 Jun 2024 05:35:56 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="HaWqcokX";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="YvY83MDF";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2537210E350
- for <intel-gfx@lists.freedesktop.org>; Mon, 24 Jun 2024 05:35:54 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5264F10E351
+ for <intel-gfx@lists.freedesktop.org>; Mon, 24 Jun 2024 05:35:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1719207354; x=1750743354;
+ t=1719207350; x=1750743350;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=R+ulH2M5Cz80YbdHbEbdwvtghNhrNFOE9Dxf0vPBD1c=;
- b=HaWqcokXmqN9eGVfJii3v0ZxGYhBKQHGWAMG3peCR/JFXRYm3CTXkcY3
- ysSBJn8Krgn152HWDc6dBKWRKGW/4GbNB2oRcpwTKiA+8uBPl9we0dqt0
- GZo2ZxeDzee/pbMZPp0QVD+v0j2fO5aTJXVMqhmlAihpEafUrb8BiWCZA
- rxt7VtIoum+wh3+HoBbvSg/jdzZTpbv71V/H/KmqUuGQvPg1S/F02lGbu
- BceEuV8ldVDg9gy2+bJtBlLN3ZnEGFRjGzKE5z5drlOtbgSjRZ7w2WrzN
- dl1QdhSqYhanY6t7hReVIpBizmOUpHCS1ugC8WoihtZQTRVBI66kOn9cQ A==;
-X-CSE-ConnectionGUID: XseZhlBISWODKtaGySwUVA==
-X-CSE-MsgGUID: dFA6CoAWSt6551nrHpn0sQ==
-X-IronPort-AV: E=McAfee;i="6700,10204,11112"; a="27567258"
-X-IronPort-AV: E=Sophos;i="6.08,261,1712646000"; d="scan'208";a="27567258"
+ bh=Qv0kfZDTp8DDIr1B/Z56T78Yu2WVBVGr03PvcyvZDrM=;
+ b=YvY83MDFyLRwK4RpKcDmTLyZ5olplG+jb9mcbJNmZDovUbYjAW8T5eWU
+ FFJjla9aFP54GrkBZsZMXGAg9+tVkTQTfwdJm0C4Xf8sN9kRv27SIwc3O
+ DWSmnGY/K7hK7HQ8mw0IEJTKBjZ8kjp//VKMA8U8ia3wUehoGyBxFs8zk
+ SRMNzZPBF+L7gixntEX4o3+s7ChUaPVuNZO1R6AUfpexQiogwiOPb3afq
+ 831LJ+pD2GHlV87uF7xLpw3xrMhfaYUhQQVNB6lnYwSgBu84hhWoJq4hv
+ 2ZUTdBnPj+4/BfMxbZ7s+dp3ptpfzuo3RRSvx0LVAA804W7vGxw9r9bVD w==;
+X-CSE-ConnectionGUID: rUK3/lvCSxSxeKS94EJb6g==
+X-CSE-MsgGUID: u+jga5k6RUC2vuy5PZuGlA==
+X-IronPort-AV: E=McAfee;i="6700,10204,11112"; a="27567250"
+X-IronPort-AV: E=Sophos;i="6.08,261,1712646000"; d="scan'208";a="27567250"
 Received: from fmviesa006.fm.intel.com ([10.60.135.146])
  by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 Jun 2024 22:35:54 -0700
-X-CSE-ConnectionGUID: Dahxhj5yReqZmZnq+LLelw==
-X-CSE-MsgGUID: 3psAisKZRh+C5G5yV4cQ3w==
+ 23 Jun 2024 22:35:50 -0700
+X-CSE-ConnectionGUID: P8pJ61L7TXOLpwDFF9Ealw==
+X-CSE-MsgGUID: KpKJdq5zTgWpOXezUL78cg==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.08,261,1712646000"; d="scan'208";a="42994239"
+X-IronPort-AV: E=Sophos;i="6.08,261,1712646000"; d="scan'208";a="42994223"
 Received: from srr4-3-linux-103-aknautiy.iind.intel.com ([10.223.34.160])
  by fmviesa006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 Jun 2024 22:35:52 -0700
+ 23 Jun 2024 22:35:49 -0700
 From: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
 To: intel-gfx@lists.freedesktop.org
 Cc: jani.nikula@linux.intel.com, ville.syrjala@linux.intel.com,
  mitulkumar.ajitkumar.golani@intel.com
-Subject: [PATCH 9/9] drm/i915/vrr: Use VRR timing generator whenever panel
- supports VRR
-Date: Mon, 24 Jun 2024 11:06:00 +0530
-Message-Id: <20240624053600.3803116-10-ankit.k.nautiyal@intel.com>
+Subject: [PATCH 7/9] drm/i915/vrr: Handle joiner with vrr
+Date: Mon, 24 Jun 2024 11:05:58 +0530
+Message-Id: <20240624053600.3803116-8-ankit.k.nautiyal@intel.com>
 X-Mailer: git-send-email 2.40.1
 In-Reply-To: <20240624053600.3803116-1-ankit.k.nautiyal@intel.com>
 References: <20240624053600.3803116-1-ankit.k.nautiyal@intel.com>
@@ -69,101 +68,72 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Currently VRR timing generator is used only when VRR is enabled by
-userspace. From MTL+, gradually move away from older timing
-generator and use VRR timing generator for fixed refresh rate also.
-In such a case, Flipline VMin and VMax all are set to the Vtotal of the
-mode, which effectively makes the VRR timing generator work in
-fixed refresh rate mode.
+Do not program transcoder registers for VRR for the secondary pipe of
+the joiner. Remove check to skip VRR for joiner case.
 
 Signed-off-by: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_vrr.c | 59 +++++++++++++++---------
- 1 file changed, 37 insertions(+), 22 deletions(-)
+ drivers/gpu/drm/i915/display/intel_vrr.c | 19 ++++++++++++-------
+ 1 file changed, 12 insertions(+), 7 deletions(-)
 
 diff --git a/drivers/gpu/drm/i915/display/intel_vrr.c b/drivers/gpu/drm/i915/display/intel_vrr.c
-index 025063098370..913752424adc 100644
+index ae9bea854282..025063098370 100644
 --- a/drivers/gpu/drm/i915/display/intel_vrr.c
 +++ b/drivers/gpu/drm/i915/display/intel_vrr.c
-@@ -174,41 +174,56 @@ intel_vrr_compute_config(struct intel_crtc_state *crtc_state,
+@@ -171,13 +171,6 @@ intel_vrr_compute_config(struct intel_crtc_state *crtc_state,
+ 	const struct drm_display_info *info = &connector->base.display_info;
+ 	int vmin, vmax;
+ 
+-	/*
+-	 * FIXME all joined pipes share the same transcoder.
+-	 * Need to account for that during VRR toggle/push/etc.
+-	 */
+-	if (crtc_state->joiner_pipes)
+-		return;
+-
  	if (adjusted_mode->flags & DRM_MODE_FLAG_INTERLACE)
  		return;
  
--	crtc_state->vrr.in_range =
--		intel_vrr_is_in_range(connector, drm_mode_vrefresh(adjusted_mode));
--	if (!crtc_state->vrr.in_range)
--		return;
--
- 	if (HAS_LRR(i915))
- 		crtc_state->update_lrr = true;
+@@ -274,6 +267,9 @@ void intel_vrr_set_transcoder_timings(const struct intel_crtc_state *crtc_state)
+ 	struct drm_i915_private *dev_priv = to_i915(crtc_state->uapi.crtc->dev);
+ 	enum transcoder cpu_transcoder = crtc_state->cpu_transcoder;
  
--	vmin = DIV_ROUND_UP(adjusted_mode->crtc_clock * 1000,
--			    adjusted_mode->crtc_htotal * info->monitor_range.max_vfreq);
--	vmax = adjusted_mode->crtc_clock * 1000 /
--		(adjusted_mode->crtc_htotal * info->monitor_range.min_vfreq);
-+	if (!crtc_state->uapi.vrr_enabled && DISPLAY_VER(i915) >= 14) {
-+		/*
-+		 * for MTL+ if panel supports VRR and user has not set VRR,
-+		 * always go for fixed average Vtotal mode.
-+		 */
-+		crtc_state->vrr.vmin = adjusted_mode->crtc_vtotal;
-+		crtc_state->vrr.vmax = adjusted_mode->crtc_vtotal;
-+		crtc_state->vrr.flipline = adjusted_mode->crtc_vtotal;
-+		crtc_state->vrr.fixed_rr = true;
-+	} else {
- 
--	vmin = max_t(int, vmin, adjusted_mode->crtc_vtotal);
--	vmax = max_t(int, vmax, adjusted_mode->crtc_vtotal);
-+		crtc_state->vrr.in_range =
-+			intel_vrr_is_in_range(connector, drm_mode_vrefresh(adjusted_mode));
- 
--	if (vmin >= vmax)
--		return;
-+		if (!crtc_state->vrr.in_range)
-+			return;
- 
--	/*
--	 * flipline determines the min vblank length the hardware will
--	 * generate, and flipline>=vmin+1, hence we reduce vmin by one
--	 * to make sure we can get the actual min vblank length.
--	 */
--	crtc_state->vrr.vmin = vmin - 1;
--	crtc_state->vrr.vmax = vmax;
- 
--	crtc_state->vrr.flipline = crtc_state->vrr.vmin + 1;
-+		vmin = DIV_ROUND_UP(adjusted_mode->crtc_clock * 1000,
-+				    adjusted_mode->crtc_htotal * info->monitor_range.max_vfreq);
-+		vmax = adjusted_mode->crtc_clock * 1000 /
-+			(adjusted_mode->crtc_htotal * info->monitor_range.min_vfreq);
++	if (intel_crtc_is_joiner_secondary(crtc_state))
++		return;
 +
-+		vmin = max_t(int, vmin, adjusted_mode->crtc_vtotal);
-+		vmax = max_t(int, vmax, adjusted_mode->crtc_vtotal);
-+
-+		if (vmin >= vmax)
-+			return;
-+
-+		/*
-+		 * flipline determines the min vblank length the hardware will
-+		 * generate, and flipline>=vmin+1, hence we reduce vmin by one
-+		 * to make sure we can get the actual min vblank length.
-+		 */
-+		crtc_state->vrr.vmin = vmin - 1;
-+		crtc_state->vrr.vmax = vmax;
-+
-+		crtc_state->vrr.flipline = crtc_state->vrr.vmin + 1;
-+		crtc_state->vrr.fixed_rr = false;
-+	}
- 
  	/*
- 	 * When panel is VRR capable and userspace has
- 	 * not enabled adaptive sync mode then Fixed Average
- 	 * Vtotal mode should be enabled.
- 	 */
--	if (crtc_state->uapi.vrr_enabled) {
-+	if (crtc_state->uapi.vrr_enabled || crtc_state->vrr.fixed_rr) {
- 		crtc_state->vrr.enable = true;
- 		crtc_state->mode_flags |= I915_MODE_FLAG_VRR;
- 	} else if (is_cmrr_frac_required(crtc_state) && is_edp) {
+ 	 * This bit seems to have two meanings depending on the platform:
+ 	 * TGL: generate VRR "safe window" for DSB vblank waits
+@@ -316,6 +312,9 @@ void intel_vrr_send_push(const struct intel_crtc_state *crtc_state)
+ 	struct drm_i915_private *dev_priv = to_i915(crtc->base.dev);
+ 	enum transcoder cpu_transcoder = crtc_state->cpu_transcoder;
+ 
++	if (intel_crtc_is_joiner_secondary(crtc_state))
++		return;
++
+ 	if (!crtc_state->vrr.enable || crtc_state->vrr.fixed_rr)
+ 		return;
+ 
+@@ -340,6 +339,9 @@ void intel_vrr_enable(const struct intel_crtc_state *crtc_state)
+ 	struct drm_i915_private *dev_priv = to_i915(crtc_state->uapi.crtc->dev);
+ 	enum transcoder cpu_transcoder = crtc_state->cpu_transcoder;
+ 
++	if (intel_crtc_is_joiner_secondary(crtc_state))
++		return;
++
+ 	if (!crtc_state->vrr.enable)
+ 		return;
+ 
+@@ -369,6 +371,9 @@ void intel_vrr_disable(const struct intel_crtc_state *old_crtc_state)
+ 	struct drm_i915_private *dev_priv = to_i915(crtc->base.dev);
+ 	enum transcoder cpu_transcoder = old_crtc_state->cpu_transcoder;
+ 
++	if (intel_crtc_is_joiner_secondary(old_crtc_state))
++		return;
++
+ 	if (!old_crtc_state->vrr.enable)
+ 		return;
+ 
 -- 
 2.40.1
 
