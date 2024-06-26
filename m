@@ -4,51 +4,51 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8DA66C3064D
-	for <intel-gfx@archiver.kernel.org>; Wed, 26 Jun 2024 05:00:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0736FC27C4F
+	for <intel-gfx@archiver.kernel.org>; Wed, 26 Jun 2024 05:00:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7623D10E76D;
-	Wed, 26 Jun 2024 05:00:33 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EB40410E770;
+	Wed, 26 Jun 2024 05:00:35 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="fDRVfiL8";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="GfL8Qllk";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.8])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AC9F910E770;
- Wed, 26 Jun 2024 05:00:21 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D28D810E76D;
+ Wed, 26 Jun 2024 05:00:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1719378022; x=1750914022;
+ t=1719378026; x=1750914026;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=bVFQcUPoBjkRqOpYF+q8nxZwhC1E4dll3yXW73Pliko=;
- b=fDRVfiL8FW7e5sBM25+qboNDbsFC1EAiMJznEjz9FzTTncgIJKaCnIKD
- wL88qAsxUSzoHLePxeohc8EZLjyV01hBK1M39mFXgXgY5yTMlRv9xW1P2
- ldGSrbD6ypn8qt/jtU7F1FDoW68TYFMpMxsA2lLYP8zkoDqA1JVjCnU4R
- yiwaVLObRV94EEs7XOtc9ywfjD5tzENdcIsB5axvHOlm7L5RMUbOpCURb
- nnKhzKnIRerRvr5T9ZCYyQ+EPCUfNdSWMPNj6GcRIxXUS27HG/9RtqJ5+
- GhGkbWcXGqsWioNEYxRgND7bcR9XwHyjNKTdIU3stRiIQQ2U3YYJyOz14 w==;
-X-CSE-ConnectionGUID: +/LZbrInR/C6wf54hu5D/Q==
-X-CSE-MsgGUID: YvI3hdcJTu6mIwjrSuvbwQ==
-X-IronPort-AV: E=McAfee;i="6700,10204,11114"; a="33962372"
-X-IronPort-AV: E=Sophos;i="6.08,265,1712646000"; d="scan'208";a="33962372"
+ bh=Kis3AcKmG8a2RgcMQdmfmg5V0GJ+Jn92dnhpzXC/BDE=;
+ b=GfL8QllkMdrLTIAEWK/CZWYpZD852jeZeAaInJhW4R7xchExdOKUVfCE
+ vm1hkrHrnJuskc/zjOjHX1oxlMQdvY34WyQGNdr5dBQi4BxWM3bIDKd3A
+ QSjteqtI8TWAipx4z9PzDc931qK33IN79Bj+1J8s6N5v6Un2n4pweglKv
+ yyWDqYbCmR9GJbuMGDz+IAKJSkFmTr69rgu7R5L0j5yEEO/a3rg5wqVeZ
+ kjTU0PVuBRe5BODLTqH0NXv3MlDbLHsZN+ue77kAA13IxFEAewfQsrKkT
+ lSATHmgfLz1yG88XdtgFSafkvFz7o6PCslXe9tJngXIrtGg/6MshshY65 A==;
+X-CSE-ConnectionGUID: 266MmokET9aKkv+m2GozGw==
+X-CSE-MsgGUID: pKjWztptRRCX81ug/RnU2A==
+X-IronPort-AV: E=McAfee;i="6700,10204,11114"; a="33962386"
+X-IronPort-AV: E=Sophos;i="6.08,265,1712646000"; d="scan'208";a="33962386"
 Received: from orviesa008.jf.intel.com ([10.64.159.148])
  by fmvoesa102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 25 Jun 2024 22:00:21 -0700
-X-CSE-ConnectionGUID: Lbt4jnzuSpu2tpOpGT1cfg==
-X-CSE-MsgGUID: XVX4t4X+RBOQ58STbGEfSA==
+ 25 Jun 2024 22:00:26 -0700
+X-CSE-ConnectionGUID: 5tsU6flUQWadE16RAevb5A==
+X-CSE-MsgGUID: SwoxHEawT4uVkye2kkUEMA==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.08,265,1712646000"; d="scan'208";a="44588254"
+X-IronPort-AV: E=Sophos;i="6.08,265,1712646000"; d="scan'208";a="44588306"
 Received: from srr4-3-linux-103-aknautiy.iind.intel.com ([10.223.34.160])
  by orviesa008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 25 Jun 2024 22:00:19 -0700
+ 25 Jun 2024 22:00:23 -0700
 From: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
 To: intel-gfx@lists.freedesktop.org,
 	intel-xe@lists.freedesktop.org
 Cc: jani.nikula@linux.intel.com, ville.syrjala@linux.intel.com,
  mika.kahola@intel.com, matthew.d.roper@intel.com
-Subject: [PATCH 3/5] drm/i915/cx0_phy_regs: Add C10 registers bits
-Date: Wed, 26 Jun 2024 10:30:54 +0530
-Message-Id: <20240626050056.3996349-4-ankit.k.nautiyal@intel.com>
+Subject: [PATCH 5/5] drm/xe: Add intel_pll_algorithm in Makefile
+Date: Wed, 26 Jun 2024 10:30:56 +0530
+Message-Id: <20240626050056.3996349-6-ankit.k.nautiyal@intel.com>
 X-Mailer: git-send-email 2.40.1
 In-Reply-To: <20240626050056.3996349-1-ankit.k.nautiyal@intel.com>
 References: <20240626050056.3996349-1-ankit.k.nautiyal@intel.com>
@@ -69,53 +69,25 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Add C10 register bits to be used for computing HDMI PLLs with
-algorithm.
+Include the intel_pll_algorithm for xe driver.
 
 Signed-off-by: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
 ---
- .../gpu/drm/i915/display/intel_cx0_phy_regs.h | 24 +++++++++++++++++++
- 1 file changed, 24 insertions(+)
+ drivers/gpu/drm/xe/Makefile | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_cx0_phy_regs.h b/drivers/gpu/drm/i915/display/intel_cx0_phy_regs.h
-index ab3ae110b68f..56443bf3e7cf 100644
---- a/drivers/gpu/drm/i915/display/intel_cx0_phy_regs.h
-+++ b/drivers/gpu/drm/i915/display/intel_cx0_phy_regs.h
-@@ -202,10 +202,34 @@
- 
- /* C10 Vendor Registers */
- #define PHY_C10_VDR_PLL(idx)		(0xC00 + (idx))
-+#define   C10_PLL0_SSC_EN		REG_BIT8(0)
-+#define   C10_PLL0_DIVCLK_EN		REG_BIT8(1)
-+#define   C10_PLL0_DIV5CLK_EN		REG_BIT8(2)
-+#define   C10_PLL0_WORDDIV2_EN		REG_BIT8(3)
- #define   C10_PLL0_FRACEN		REG_BIT8(4)
-+#define   C10_PLL0_PMIX_EN		REG_BIT8(5)
-+#define   C10_PLL0_ANA_FREQ_VCO_MASK	REG_GENMASK8(7, 6)
-+#define   C10_PLL1_DIV_MULTIPLIER_MASK	REG_GENMASK8(7, 0)
-+#define   C10_PLL2_MULTIPLIERL_MASK	REG_GENMASK8(7, 0)
- #define   C10_PLL3_MULTIPLIERH_MASK	REG_GENMASK8(3, 0)
-+#define   C10_PLL8_SSC_UP_SPREAD	REG_BIT(5)
-+#define   C10_PLL9_FRACN_DENL_MASK	REG_GENMASK8(7, 0)
-+#define   C10_PLL10_FRACN_DENH_MASK	REG_GENMASK8(7, 0)
-+#define   C10_PLL11_FRACN_QUOT_L_MASK	REG_GENMASK8(7, 0)
-+#define   C10_PLL12_FRACN_QUOT_H_MASK	REG_GENMASK8(7, 0)
-+#define   C10_PLL13_FRACN_REM_L_MASK	REG_GENMASK8(7, 0)
-+#define   C10_PLL14_FRACN_REM_H_MASK	REG_GENMASK8(7, 0)
- #define   C10_PLL15_TXCLKDIV_MASK	REG_GENMASK8(2, 0)
- #define   C10_PLL15_HDMIDIV_MASK	REG_GENMASK8(5, 3)
-+#define   C10_PLL15_PIXELCLKDIV_MASK	REG_GENMASK8(7, 6)
-+#define   C10_PLL16_ANA_CPINT		REG_GENMASK8(6, 0)
-+#define   C10_PLL16_ANA_CPINTGS_L	REG_BIT(7)
-+#define   C10_PLL17_ANA_CPINTGS_H_MASK	REG_GENMASK8(5, 0)
-+#define   C10_PLL17_ANA_CPPROP_L_MASK	REG_GENMASK8(7, 6)
-+#define   C10_PLL18_ANA_CPPROP_H_MASK	REG_GENMASK8(4, 0)
-+#define   C10_PLL18_ANA_CPPROPGS_L_MASK	REG_GENMASK8(7, 5)
-+#define   C10_PLL19_ANA_CPPROPGS_H_MASK	REG_GENMASK8(3, 0)
-+#define   C10_PLL19_ANA_V2I_MASK	REG_GENMASK8(5, 4)
- 
- #define PHY_C10_VDR_CMN(idx)		(0xC20 + (idx))
- #define   C10_CMN0_REF_RANGE		REG_FIELD_PREP(REG_GENMASK(4, 0), 1)
+diff --git a/drivers/gpu/drm/xe/Makefile b/drivers/gpu/drm/xe/Makefile
+index 478acc94a71c..30b63c2eadd0 100644
+--- a/drivers/gpu/drm/xe/Makefile
++++ b/drivers/gpu/drm/xe/Makefile
+@@ -261,6 +261,7 @@ xe-$(CONFIG_DRM_XE_DISPLAY) += \
+ 	i915-display/intel_modeset_setup.o \
+ 	i915-display/intel_modeset_verify.o \
+ 	i915-display/intel_panel.o \
++	i915-display/intel_pll_algorithm.o \
+ 	i915-display/intel_pmdemand.o \
+ 	i915-display/intel_pps.o \
+ 	i915-display/intel_psr.o \
 -- 
 2.40.1
 
