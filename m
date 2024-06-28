@@ -4,49 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E0ED7C41513
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 77AA3C3065D
 	for <intel-gfx@archiver.kernel.org>; Fri, 28 Jun 2024 16:44:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BC7FD10ECB7;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4D86710ECB3;
 	Fri, 28 Jun 2024 16:44:57 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="ODyzdZpn";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="MTMIkUgV";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.19])
- by gabe.freedesktop.org (Postfix) with ESMTPS id ECA1B10ECA8;
- Fri, 28 Jun 2024 16:44:52 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 53F3F10ECB2;
+ Fri, 28 Jun 2024 16:44:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1719593093; x=1751129093;
+ t=1719593095; x=1751129095;
  h=from:to:subject:date:message-id:in-reply-to:references:
  mime-version:content-transfer-encoding;
- bh=iR92WMC15p9CzJR7IB/GrkBW852vrI3aTmHr0ywZ4Zk=;
- b=ODyzdZpnlhmzBmpeNs7t9qCm8s/bVgYxBw9PfHIGp3PQJ2gaibgElHUQ
- IM87GKfVanaFyOtzHa9hxeDvqxivGOULV9rJK//obf+TorgpYZgz4WMS6
- VmnNDc5IidgyBKt5gBEzL/RT1rr6BtEQu7fDZRRJZ065KepV8oHHz10yV
- Y7u7OA+e6Jzx/bziznjnjDncIpSHQlq6oGQXytA++RzAso5a52b8LmoVH
- DcqlE1ZWwOqGaCk+9V3GZXMeDLWUoZr590p9eCpWzkiwkBZ6pPUczwKwO
- JCq+1wG6qowjmvYeAet7IVQHpv1vLB89af+IqKTJDRkf3Rd7+cgX0JhIj w==;
-X-CSE-ConnectionGUID: nlO8877vQxq+saYx974QGQ==
-X-CSE-MsgGUID: F8yPmelMRt6CfoW3EB8VPA==
-X-IronPort-AV: E=McAfee;i="6700,10204,11117"; a="16620076"
-X-IronPort-AV: E=Sophos;i="6.09,169,1716274800"; d="scan'208";a="16620076"
+ bh=JJ2+Tqi8mJip5DbQDCcIlNTv4nheVYkO/6C9T7I1/TU=;
+ b=MTMIkUgVTv3Uq3eptSWWuRM/U+FC3HgKowwg/0QloWMtikmJv5cwiDrI
+ JqcomuIvkWwJdqpl7C5VYlCl9XdbHMiEpW5d0c8H22rA9Exw8hh1UhoC6
+ 6zHXJDqqohImE+CARlzCgEf5TAB3H+k2mgeIKhGrSWI2JgIT4E9JOzk/N
+ ou3R4R1VKyOOrmUHfrjO/3euntg7a/rYHrAtTOmrE28xF6Hbe0m++W4RT
+ 0kTfvC/jRlMDbGjSzAyORiWMPGFguQwurpUgX7r2MVbjLI8PQCVVy8d2m
+ pVD4UKoUl1tSJHMuia83+qjZPcmXgkAa8aVDKpWX3oPFjIZHFvlwEpR4V A==;
+X-CSE-ConnectionGUID: 9S/sGgX0SdCIUBJWIL9qvQ==
+X-CSE-MsgGUID: v/R7GFA8RcOhy2qpKSvNZA==
+X-IronPort-AV: E=McAfee;i="6700,10204,11117"; a="16620088"
+X-IronPort-AV: E=Sophos;i="6.09,169,1716274800"; d="scan'208";a="16620088"
 Received: from orviesa002.jf.intel.com ([10.64.159.142])
  by orvoesa111.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 28 Jun 2024 09:44:53 -0700
-X-CSE-ConnectionGUID: b1cS93MdQD6Dw3Xo3+850g==
-X-CSE-MsgGUID: NEGsyewIRCGpIOAwrZX2Rg==
+ 28 Jun 2024 09:44:55 -0700
+X-CSE-ConnectionGUID: W5nPzwN8R1+G3uUqu6Hh3A==
+X-CSE-MsgGUID: dM5do//0Qk+tqodRoARj1g==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.09,169,1716274800"; d="scan'208";a="75519923"
+X-IronPort-AV: E=Sophos;i="6.09,169,1716274800"; d="scan'208";a="75519931"
 Received: from ideak-desk.fi.intel.com ([10.237.72.78])
  by orviesa002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 28 Jun 2024 09:44:52 -0700
+ 28 Jun 2024 09:44:54 -0700
 From: Imre Deak <imre.deak@intel.com>
 To: intel-gfx@lists.freedesktop.org,
 	dri-devel@lists.freedesktop.org
-Subject: [PATCH v2 6/9] drm/i915: Replace to_bpp_frac() with fxp_q4_to_frac()
-Date: Fri, 28 Jun 2024 19:44:47 +0300
-Message-ID: <20240628164451.1177612-7-imre.deak@intel.com>
+Subject: [PATCH v2 8/9] drm/i915: Dump DSC state to dmesg and
+ debugfs/i915_display_info
+Date: Fri, 28 Jun 2024 19:44:49 +0300
+Message-ID: <20240628164451.1177612-9-imre.deak@intel.com>
 X-Mailer: git-send-email 2.43.3
 In-Reply-To: <20240628164451.1177612-1-imre.deak@intel.com>
 References: <20240628164451.1177612-1-imre.deak@intel.com>
@@ -67,72 +68,118 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Replace the to_bpp_frac() helper defined by the driver with the
-equivalent fxp_q4_to_frac() helper defined by DRM core.
+Dump the DSC state to dmesg during HW readout and state computation as
+well as the i915_display_info debugfs entry.
 
-v2: Rebase on the s/drm_x16/fxp_q4 change.
+v2: Rebase on the s/DRM_X16/FXP_Q4 change.
 
 Signed-off-by: Imre Deak <imre.deak@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_display_types.h | 7 +------
- drivers/gpu/drm/i915/display/intel_dp.c            | 4 ++--
- drivers/gpu/drm/i915/display/intel_vdsc.c          | 2 +-
- 3 files changed, 4 insertions(+), 9 deletions(-)
+ .../drm/i915/display/intel_crtc_state_dump.c  |  3 +++
+ .../drm/i915/display/intel_display_debugfs.c  |  4 ++++
+ drivers/gpu/drm/i915/display/intel_vdsc.c     | 20 +++++++++++++++++++
+ drivers/gpu/drm/i915/display/intel_vdsc.h     |  4 ++++
+ 4 files changed, 31 insertions(+)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_display_types.h b/drivers/gpu/drm/i915/display/intel_display_types.h
-index d11b0ca6944be..e8b42ceed9529 100644
---- a/drivers/gpu/drm/i915/display/intel_display_types.h
-+++ b/drivers/gpu/drm/i915/display/intel_display_types.h
-@@ -2178,13 +2178,8 @@ to_intel_frontbuffer(struct drm_framebuffer *fb)
- 	return fb ? to_intel_framebuffer(fb)->frontbuffer : NULL;
- }
+diff --git a/drivers/gpu/drm/i915/display/intel_crtc_state_dump.c b/drivers/gpu/drm/i915/display/intel_crtc_state_dump.c
+index 6df526e189b5b..705ec5ad385c8 100644
+--- a/drivers/gpu/drm/i915/display/intel_crtc_state_dump.c
++++ b/drivers/gpu/drm/i915/display/intel_crtc_state_dump.c
+@@ -10,6 +10,7 @@
+ #include "intel_crtc_state_dump.h"
+ #include "intel_display_types.h"
+ #include "intel_hdmi.h"
++#include "intel_vdsc.h"
+ #include "intel_vrr.h"
  
--static inline int to_bpp_frac(int bpp_x16)
--{
--	return bpp_x16 & 0xf;
--}
--
- #define BPP_X16_FMT		"%d.%04d"
--#define BPP_X16_ARGS(bpp_x16)	fxp_q4_to_int(bpp_x16), (to_bpp_frac(bpp_x16) * 625)
-+#define BPP_X16_ARGS(bpp_x16)	fxp_q4_to_int(bpp_x16), (fxp_q4_to_frac(bpp_x16) * 625)
+ static void intel_dump_crtc_timings(struct drm_printer *p,
+@@ -369,6 +370,8 @@ void intel_crtc_state_dump(const struct intel_crtc_state *pipe_config,
+ 	else if (IS_VALLEYVIEW(i915))
+ 		vlv_dump_csc(&p, "wgc csc", &pipe_config->csc);
  
- /*
-  * Conversion functions/macros from various pointer types to struct
-diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
-index 2852d89b0957c..4c078ff664005 100644
---- a/drivers/gpu/drm/i915/display/intel_dp.c
-+++ b/drivers/gpu/drm/i915/display/intel_dp.c
-@@ -1971,7 +1971,7 @@ xelpd_dsc_compute_link_config(struct intel_dp *intel_dp,
- 	     compressed_bppx16 >= dsc_min_bpp;
- 	     compressed_bppx16 -= bppx16_step) {
- 		if (intel_dp->force_dsc_fractional_bpp_en &&
--		    !to_bpp_frac(compressed_bppx16))
-+		    !fxp_q4_to_frac(compressed_bppx16))
- 			continue;
- 		ret = dsc_compute_link_config(intel_dp,
- 					      pipe_config,
-@@ -1981,7 +1981,7 @@ xelpd_dsc_compute_link_config(struct intel_dp *intel_dp,
- 		if (ret == 0) {
- 			pipe_config->dsc.compressed_bpp_x16 = compressed_bppx16;
- 			if (intel_dp->force_dsc_fractional_bpp_en &&
--			    to_bpp_frac(compressed_bppx16))
-+			    fxp_q4_to_frac(compressed_bppx16))
- 				drm_dbg_kms(&i915->drm, "Forcing DSC fractional bpp\n");
++	intel_vdsc_state_dump(&p, 0, pipe_config);
++
+ dump_planes:
+ 	if (!state)
+ 		return;
+diff --git a/drivers/gpu/drm/i915/display/intel_display_debugfs.c b/drivers/gpu/drm/i915/display/intel_display_debugfs.c
+index 91757fed9c6d2..c20a5097ea331 100644
+--- a/drivers/gpu/drm/i915/display/intel_display_debugfs.c
++++ b/drivers/gpu/drm/i915/display/intel_display_debugfs.c
+@@ -36,6 +36,7 @@
+ #include "intel_pps.h"
+ #include "intel_psr.h"
+ #include "intel_psr_regs.h"
++#include "intel_vdsc.h"
+ #include "intel_wm.h"
  
- 			return 0;
+ static inline struct drm_i915_private *node_to_i915(struct drm_info_node *node)
+@@ -551,6 +552,7 @@ static void crtc_updates_add(struct intel_crtc *crtc)
+ static void intel_crtc_info(struct seq_file *m, struct intel_crtc *crtc)
+ {
+ 	struct drm_i915_private *dev_priv = node_to_i915(m->private);
++	struct drm_printer p = drm_seq_file_printer(m);
+ 	const struct intel_crtc_state *crtc_state =
+ 		to_intel_crtc_state(crtc->base.state);
+ 	struct intel_encoder *encoder;
+@@ -581,6 +583,8 @@ static void intel_crtc_info(struct seq_file *m, struct intel_crtc *crtc)
+ 			   crtc_state->joiner_pipes,
+ 			   intel_crtc_is_joiner_secondary(crtc_state) ? "slave" : "master");
+ 
++	intel_vdsc_state_dump(&p, 1, crtc_state);
++
+ 	for_each_intel_encoder_mask(&dev_priv->drm, encoder,
+ 				    crtc_state->uapi.encoder_mask)
+ 		intel_encoder_info(m, crtc, encoder);
 diff --git a/drivers/gpu/drm/i915/display/intel_vdsc.c b/drivers/gpu/drm/i915/display/intel_vdsc.c
-index 99902fbfeec47..ff717dc1a2ce5 100644
+index ff717dc1a2ce5..404ed05371cb8 100644
 --- a/drivers/gpu/drm/i915/display/intel_vdsc.c
 +++ b/drivers/gpu/drm/i915/display/intel_vdsc.c
-@@ -185,7 +185,7 @@ calculate_rc_params(struct drm_dsc_config *vdsc_cfg)
- 		}
- 	} else {
- 		/* fractional bpp part * 10000 (for precision up to 4 decimal places) */
--		int fractional_bits = to_bpp_frac(vdsc_cfg->bits_per_pixel);
-+		int fractional_bits = fxp_q4_to_frac(vdsc_cfg->bits_per_pixel);
+@@ -990,3 +990,23 @@ void intel_dsc_get_config(struct intel_crtc_state *crtc_state)
+ out:
+ 	intel_display_power_put(dev_priv, power_domain, wakeref);
+ }
++
++static void intel_vdsc_dump_state(struct drm_printer *p, int indent,
++				  const struct intel_crtc_state *crtc_state)
++{
++	drm_printf_indent(p, indent,
++			  "dsc-dss: compressed-bpp:" FXP_Q4_FMT ", slice-count: %d, split: %s\n",
++			  FXP_Q4_ARGS(crtc_state->dsc.compressed_bpp_x16),
++			  crtc_state->dsc.slice_count,
++			  str_yes_no(crtc_state->dsc.dsc_split));
++}
++
++void intel_vdsc_state_dump(struct drm_printer *p, int indent,
++			   const struct intel_crtc_state *crtc_state)
++{
++	if (!crtc_state->dsc.compression_enable)
++		return;
++
++	intel_vdsc_dump_state(p, indent, crtc_state);
++	drm_dsc_dump_config(p, indent, &crtc_state->dsc.config);
++}
+diff --git a/drivers/gpu/drm/i915/display/intel_vdsc.h b/drivers/gpu/drm/i915/display/intel_vdsc.h
+index 2cc41ff089094..290b2e9b3482e 100644
+--- a/drivers/gpu/drm/i915/display/intel_vdsc.h
++++ b/drivers/gpu/drm/i915/display/intel_vdsc.h
+@@ -8,6 +8,8 @@
  
- 		static const s8 ofs_und6[] = {
- 			0, -2, -2, -4, -6, -6, -8, -8, -8, -10, -10, -12, -12, -12, -12
+ #include <linux/types.h>
+ 
++struct drm_printer;
++
+ enum transcoder;
+ struct intel_crtc;
+ struct intel_crtc_state;
+@@ -27,5 +29,7 @@ void intel_dsc_dsi_pps_write(struct intel_encoder *encoder,
+ 			     const struct intel_crtc_state *crtc_state);
+ void intel_dsc_dp_pps_write(struct intel_encoder *encoder,
+ 			    const struct intel_crtc_state *crtc_state);
++void intel_vdsc_state_dump(struct drm_printer *p, int indent,
++			   const struct intel_crtc_state *crtc_state);
+ 
+ #endif /* __INTEL_VDSC_H__ */
 -- 
 2.43.3
 
