@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E6975C30658
-	for <intel-gfx@archiver.kernel.org>; Fri, 28 Jun 2024 13:06:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AA8ECC3065B
+	for <intel-gfx@archiver.kernel.org>; Fri, 28 Jun 2024 13:06:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4847010EC48;
-	Fri, 28 Jun 2024 13:06:11 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 52F8710EC4A;
+	Fri, 28 Jun 2024 13:06:12 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=linutronix.de header.i=@linutronix.de header.b="JAmCdGcI";
-	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="6gHegUWK";
+	dkim=pass (2048-bit key; secure) header.d=linutronix.de header.i=@linutronix.de header.b="0uq9RFdT";
+	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="XVk54KdT";
 	dkim-atps=neutral
 Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8FADE10EC3D;
- Fri, 28 Jun 2024 13:06:09 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 12ACC10EC3D;
+ Fri, 28 Jun 2024 13:06:08 +0000 (UTC)
 From: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
- s=2020; t=1719579967;
+ s=2020; t=1719579966;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=fjq5VyonfAPnN9PeL+PDQ4UWGBptU2Ie5BlwPrLO9HE=;
- b=JAmCdGcIKRxP3nT2RntMGhpTrqXRcG/7bn680DElPsx8mbkHq8o9ZxqTH3Pe2wK1SZx2JE
- MPXjhqtrqw0QBfE+woYvxVd/zZQ6cW2O8zsL45JJFBIyyF+MkkjJOE0fOYWS9j7irzsWze
- 6DpOxXNxg/wfxQmoLOY2Tz8SD6pVitchUX2VvwGm7wV1XRTBVWt7aTNwXCCfcn9V+bZeZ/
- DzVe7gDP4+kjkNZUcZw0Kp5sxQRSKZoxS6RRvQo6SZ0k1h2r6zhUMkGMDsbxk9KdE/ZNAU
- xkvKQc+NkrX+DOLv9dgK2ZqnKwAIJI6oQpSrQ0KZii34KkDS5maNhyxu0FOVjA==
+ bh=UXgMZNJcLD6SXsXrrQCAlXc5Nd7zx7riN68jC0FEqBo=;
+ b=0uq9RFdT9rUqjni2IzjW8Tkq1w88pFvEnja9zeMJJO7Tc1CtwD2fgr8VeQopQyBH6+M802
+ /tEZOGyyn9L7JxL++6ZfCPQJBfyU8TlWH6z8vDNNjwBzDTzd+VVxNGbyKhTHvy6MlV4mPN
+ rZSMzE2wmDr+qeVYP9jscljLXB6rkLPs0EQSyosOuk9Gxoh8Gqy3Sx7gizYIv01NjWtfTe
+ b2/UDMiH/L1zIjOV5rV1qnsnw/QNI8HBnbNSxF7yStNkBoQgwKWvFnKqbPxgjZZeyRVFoT
+ mCUwhh+ajbIlGe8LkEipbbefl3GnwSZTQ939CJAM9eLJB3KXG2/FfiXaipqdWA==
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
- s=2020e; t=1719579967;
+ s=2020e; t=1719579966;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=fjq5VyonfAPnN9PeL+PDQ4UWGBptU2Ie5BlwPrLO9HE=;
- b=6gHegUWKYl/d2oLUWSErRmFBM8klP+hnTeM2Zx6IhLA+W5TJd5WtKL/ZiDB01yx/RZ0xye
- KQ9bXS95KlRfZ9Ag==
+ bh=UXgMZNJcLD6SXsXrrQCAlXc5Nd7zx7riN68jC0FEqBo=;
+ b=XVk54KdTG8rPvir9TxAdnbLvGWfu143oLAyGdTbb+X3bKZ+TKa7m9I1zFXRkRKrZ2rbdsm
+ oqDoVKGV2NPabdCA==
 To: intel-gfx@lists.freedesktop.org,
 	intel-xe@lists.freedesktop.org
 Cc: Jani Nikula <jani.nikula@linux.intel.com>,
@@ -45,13 +45,12 @@ Cc: Jani Nikula <jani.nikula@linux.intel.com>,
  Rodrigo Vivi <rodrigo.vivi@intel.com>,
  Thomas Gleixner <tglx@linutronix.de>,
  Tvrtko Ursulin <tursulin@ursulin.net>,
- Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
- Clark Williams <williams@redhat.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-Subject: [PATCH v3 5/8] drm/i915/gt: Use spin_lock_irq() instead of
- local_irq_disable() + spin_lock()
-Date: Fri, 28 Jun 2024 14:58:04 +0200
-Message-ID: <20240628130601.1772849-6-bigeasy@linutronix.de>
+ Mike Galbraith <umgwanakikbuti@gmail.com>,
+ Sebastian Andrzej Siewior <bigeasy@linutronix.de>
+Subject: [PATCH v3 2/8] drm/i915: Don't disable interrupts on PREEMPT_RT
+ during atomic updates
+Date: Fri, 28 Jun 2024 14:58:01 +0200
+Message-ID: <20240628130601.1772849-3-bigeasy@linutronix.de>
 In-Reply-To: <20240628130601.1772849-1-bigeasy@linutronix.de>
 References: <20240628130601.1772849-1-bigeasy@linutronix.de>
 MIME-Version: 1.0
@@ -71,98 +70,103 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-execlists_dequeue() is invoked from a function which uses
-local_irq_disable() to disable interrupts so the spin_lock() behaves
-like spin_lock_irq().
-This breaks PREEMPT_RT because local_irq_disable() + spin_lock() is not
-the same as spin_lock_irq().
+From: Mike Galbraith <umgwanakikbuti@gmail.com>
 
-execlists_dequeue_irq() and execlists_dequeue() has each one caller
-only. If intel_engine_cs::active::lock is acquired and released with the
-_irq suffix then it behaves almost as if execlists_dequeue() would be
-invoked with disabled interrupts. The difference is the last part of the
-function which is then invoked with enabled interrupts.
-I can't tell if this makes a difference. From looking at it, it might
-work to move the last unlock at the end of the function as I didn't find
-anything that would acquire the lock again.
+Commit
+   8d7849db3eab7 ("drm/i915: Make sprite updates atomic")
 
-Reported-by: Clark Williams <williams@redhat.com>
+started disabling interrupts across atomic updates. This breaks on PREEMPT_=
+RT
+because within this section the code attempt to acquire spinlock_t locks wh=
+ich
+are sleeping locks on PREEMPT_RT.
+
+According to the comment the interrupts are disabled to avoid random delays=
+ and
+not required for protection or synchronisation.
+If this needs to happen with disabled interrupts on PREEMPT_RT, and the
+whole section is restricted to register access then all sleeping locks
+need to be acquired before interrupts are disabled and some function
+maybe moved after enabling interrupts again.
+This includes:
+- prepare_to_wait() + finish_wait() due its wake queue.
+- drm_crtc_vblank_put() -> vblank_disable_fn() drm_device::vbl_lock.
+- skl_pfit_enable(), intel_update_plane(), vlv_atomic_update_fifo() and
+  maybe others due to intel_uncore::lock
+- drm_crtc_arm_vblank_event() due to drm_device::event_lock and
+  drm_device::vblank_time_lock.
+
+Don't disable interrupts on PREEMPT_RT during atomic updates.
+
+[bigeasy: drop local locks, commit message]
+
+Signed-off-by: Mike Galbraith <umgwanakikbuti@gmail.com>
 Signed-off-by: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
-Reviewed-by: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
 ---
- .../drm/i915/gt/intel_execlists_submission.c    | 17 +++++------------
- 1 file changed, 5 insertions(+), 12 deletions(-)
+ drivers/gpu/drm/i915/display/intel_crtc.c   | 9 ++++++---
+ drivers/gpu/drm/i915/display/intel_vblank.c | 6 ++++--
+ 2 files changed, 10 insertions(+), 5 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gt/intel_execlists_submission.c b/drivers=
-/gpu/drm/i915/gt/intel_execlists_submission.c
-index 21829439e6867..ed29a2dd6ea0a 100644
---- a/drivers/gpu/drm/i915/gt/intel_execlists_submission.c
-+++ b/drivers/gpu/drm/i915/gt/intel_execlists_submission.c
-@@ -1303,7 +1303,7 @@ static void execlists_dequeue(struct intel_engine_cs =
-*engine)
- 	 * and context switches) submission.
+diff --git a/drivers/gpu/drm/i915/display/intel_crtc.c b/drivers/gpu/drm/i9=
+15/display/intel_crtc.c
+index 25593f6aae7de..22b80004574fa 100644
+--- a/drivers/gpu/drm/i915/display/intel_crtc.c
++++ b/drivers/gpu/drm/i915/display/intel_crtc.c
+@@ -512,7 +512,8 @@ void intel_pipe_update_start(struct intel_atomic_state =
+*state,
  	 */
+ 	intel_psr_wait_for_idle_locked(new_crtc_state);
 =20
--	spin_lock(&sched_engine->lock);
-+	spin_lock_irq(&sched_engine->lock);
+-	local_irq_disable();
++	if (!IS_ENABLED(CONFIG_PREEMPT_RT))
++		local_irq_disable();
 =20
- 	/*
- 	 * If the queue is higher priority than the last
-@@ -1403,7 +1403,7 @@ static void execlists_dequeue(struct intel_engine_cs =
-*engine)
- 				 * Even if ELSP[1] is occupied and not worthy
- 				 * of timeslices, our queue might be.
- 				 */
--				spin_unlock(&sched_engine->lock);
-+				spin_unlock_irq(&sched_engine->lock);
- 				return;
- 			}
- 		}
-@@ -1429,7 +1429,7 @@ static void execlists_dequeue(struct intel_engine_cs =
-*engine)
+ 	crtc->debug.min_vbl =3D evade.min;
+ 	crtc->debug.max_vbl =3D evade.max;
+@@ -530,7 +531,8 @@ void intel_pipe_update_start(struct intel_atomic_state =
+*state,
+ 	return;
 =20
- 		if (last && !can_merge_rq(last, rq)) {
- 			spin_unlock(&ve->base.sched_engine->lock);
--			spin_unlock(&engine->sched_engine->lock);
-+			spin_unlock_irq(&engine->sched_engine->lock);
- 			return; /* leave this for another sibling */
- 		}
-=20
-@@ -1591,7 +1591,7 @@ static void execlists_dequeue(struct intel_engine_cs =
-*engine)
- 	 */
- 	sched_engine->queue_priority_hint =3D queue_prio(sched_engine);
- 	i915_sched_engine_reset_on_empty(sched_engine);
--	spin_unlock(&sched_engine->lock);
-+	spin_unlock_irq(&sched_engine->lock);
-=20
- 	/*
- 	 * We can skip poking the HW if we ended up with exactly the same set
-@@ -1617,13 +1617,6 @@ static void execlists_dequeue(struct intel_engine_cs=
- *engine)
- 	}
+ irq_disable:
+-	local_irq_disable();
++	if (!IS_ENABLED(CONFIG_PREEMPT_RT))
++		local_irq_disable();
  }
 =20
--static void execlists_dequeue_irq(struct intel_engine_cs *engine)
--{
--	local_irq_disable(); /* Suspend interrupts across request submission */
--	execlists_dequeue(engine);
--	local_irq_enable(); /* flush irq_work (e.g. breadcrumb enabling) */
--}
--
- static void clear_ports(struct i915_request **ports, int count)
- {
- 	memset_p((void **)ports, NULL, count);
-@@ -2478,7 +2471,7 @@ static void execlists_submission_tasklet(struct taskl=
-et_struct *t)
+ #if IS_ENABLED(CONFIG_DRM_I915_DEBUG_VBLANK_EVADE)
+@@ -632,7 +634,8 @@ void intel_pipe_update_end(struct intel_atomic_state *s=
+tate,
+ 	 */
+ 	intel_vrr_send_push(new_crtc_state);
+=20
+-	local_irq_enable();
++	if (!IS_ENABLED(CONFIG_PREEMPT_RT))
++		local_irq_enable();
+=20
+ 	if (intel_vgpu_active(dev_priv))
+ 		goto out;
+diff --git a/drivers/gpu/drm/i915/display/intel_vblank.c b/drivers/gpu/drm/=
+i915/display/intel_vblank.c
+index 71d6071121460..d639b51a49195 100644
+--- a/drivers/gpu/drm/i915/display/intel_vblank.c
++++ b/drivers/gpu/drm/i915/display/intel_vblank.c
+@@ -700,11 +700,13 @@ int intel_vblank_evade(struct intel_vblank_evade_ctx =
+*evade)
+ 			break;
+ 		}
+=20
+-		local_irq_enable();
++		if (!IS_ENABLED(CONFIG_PREEMPT_RT))
++			local_irq_enable();
+=20
+ 		timeout =3D schedule_timeout(timeout);
+=20
+-		local_irq_disable();
++		if (!IS_ENABLED(CONFIG_PREEMPT_RT))
++			local_irq_disable();
  	}
 =20
- 	if (!engine->execlists.pending[0]) {
--		execlists_dequeue_irq(engine);
-+		execlists_dequeue(engine);
- 		start_timeslice(engine);
- 	}
-=20
+ 	finish_wait(wq, &wait);
 --=20
 2.45.2
 
