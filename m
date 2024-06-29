@@ -4,63 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A271AC30658
-	for <intel-gfx@archiver.kernel.org>; Tue,  2 Jul 2024 10:26:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B3D65C3064D
+	for <intel-gfx@archiver.kernel.org>; Tue,  2 Jul 2024 12:02:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4296610E5A4;
-	Tue,  2 Jul 2024 10:26:54 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="Qye1EXve";
-	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.12])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 61E1710E5A4;
- Tue,  2 Jul 2024 10:26:52 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1719916013; x=1751452013;
- h=from:to:cc:subject:in-reply-to:references:date:
- message-id:mime-version;
- bh=5bnmTm9hk1PqaY6p+vhjYWr3fJiNhQHdASWi2hlVIWQ=;
- b=Qye1EXve3/wl+maEEumNSVL0ARGDWbk3TZKFZA2Rz3RdDEkZisCPVR0Q
- GhGtVq6WGsFgcuedC7hhCNchUMk5AN43qE5rRhvcD6FLfL6GynM0nLcr9
- yeLiPW7wq678B8Tiu8xzD4OAiuiqJ0LSd7F6kcHt8bSjSpoAvfdz07J9Q
- 0bRT9DpBjOXcRc5GO16gksHquWxgvLe6exU6eYHA3NXMyQLV8OUoie8Ym
- 20IsGIKhb9PCAYAazEh1iBda6R4lRpIgWUb3HZsO/YZgetSGrURMYrs9a
- N5oVNdFAr6PtbMxk+99ygHFlqaSfPDry2KmyRkC9F1MI5//3l+8P+a7lk g==;
-X-CSE-ConnectionGUID: RquYvpLUS3GvMhaiqdtPyw==
-X-CSE-MsgGUID: 8g3T/MKCRVqxlsXtCxJ2CQ==
-X-IronPort-AV: E=McAfee;i="6700,10204,11120"; a="28476881"
-X-IronPort-AV: E=Sophos;i="6.09,178,1716274800"; d="scan'208";a="28476881"
-Received: from orviesa010.jf.intel.com ([10.64.159.150])
- by orvoesa104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 02 Jul 2024 03:26:53 -0700
-X-CSE-ConnectionGUID: Hb+1UAvwSqyRH68gsEr3sg==
-X-CSE-MsgGUID: xqL+kXIqRIODCWfzuJlGZA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.09,178,1716274800"; d="scan'208";a="45747261"
-Received: from bergbenj-mobl1.ger.corp.intel.com (HELO localhost)
- ([10.245.246.179])
- by orviesa010-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 02 Jul 2024 03:26:49 -0700
-From: Jani Nikula <jani.nikula@linux.intel.com>
-To: Matthew Auld <matthew.auld@intel.com>, intel-xe@lists.freedesktop.org
-Cc: intel-gfx@lists.freedesktop.org, Jonathan Cavitt
- <jonathan.cavitt@intel.com>, Matt Roper <matthew.d.roper@intel.com>, Lucas
- De Marchi <lucas.demarchi@intel.com>, Vinod Govindapillai
- <vinod.govindapillai@intel.com>, Rodrigo Vivi <rodrigo.vivi@intel.com>
-Subject: Re: [PATCH v2 2/2] drm/i915: disable fbc due to Wa_16023588340
-In-Reply-To: <e6d5863b-92fa-468f-bb39-2549eadbb13a@intel.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
-References: <20240701132754.101832-3-matthew.auld@intel.com>
- <20240701132754.101832-4-matthew.auld@intel.com>
- <87ikxo9pi1.fsf@intel.com>
- <fe0f61ad-b006-47b4-aee4-2b9408379e7f@intel.com>
- <87a5j09mb6.fsf@intel.com>
- <e6d5863b-92fa-468f-bb39-2549eadbb13a@intel.com>
-Date: Tue, 02 Jul 2024 13:26:46 +0300
-Message-ID: <871q4c9jix.fsf@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 45BAF10E216;
+	Tue,  2 Jul 2024 12:02:17 +0000 (UTC)
+X-Greylist: delayed 418 seconds by postgrey-1.36 at gabe;
+ Sat, 29 Jun 2024 18:32:43 UTC
+Received: from mail.asbjorn.biz (mail.asbjorn.biz [185.38.24.25])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9C2C910E078;
+ Sat, 29 Jun 2024 18:32:43 +0000 (UTC)
+Received: from x201s (space.labitat.dk [185.38.175.0])
+ by mail.asbjorn.biz (Postfix) with ESMTPSA id C4C351C0A988;
+ Sat, 29 Jun 2024 18:25:41 +0000 (UTC)
+Received: by x201s (Postfix, from userid 1000)
+ id 212A62025CC; Sat, 29 Jun 2024 18:25:27 +0000 (UTC)
+From: =?UTF-8?q?Asbj=C3=B8rn=20Sloth=20T=C3=B8nnesen?= <asbjorn@asbjorn.st>
+To: intel-gfx@lists.freedesktop.org
+Cc: =?UTF-8?q?Asbj=C3=B8rn=20Sloth=20T=C3=B8nnesen?= <asbjorn@asbjorn.st>,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Tvrtko Ursulin <tursulin@ursulin.net>, David Airlie <airlied@gmail.com>,
+ Daniel Vetter <daniel@ffwll.ch>,
+ =?UTF-8?q?Jouni=20H=C3=B6gander?= <jouni.hogander@intel.com>,
+ Zhao Liu <zhao1.liu@intel.com>, Thomas Zimmermann <tzimmermann@suse.de>,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Subject: [PATCH] drm/i915: implement vmap/vunmap GEM object functions
+Date: Sat, 29 Jun 2024 18:25:06 +0000
+Message-ID: <20240629182513.78026-1-asbjorn@asbjorn.st>
+X-Mailer: git-send-email 2.45.2
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-Mailman-Approved-At: Tue, 02 Jul 2024 12:02:16 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,16 +53,69 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Tue, 02 Jul 2024, Matthew Auld <matthew.auld@intel.com> wrote:
-> So no major objections with going back to v1 from your side? In 
-> addition, merging both patches via drm-xe-next would be acceptable?
+Implement i915_gem_vmap_object() and i915_gem_vunmap_object(),
+based on i915_gem_dmabuf_vmap() and i915_gem_dmabuf_vunmap().
 
-As discussed, and FYI to others, no objections on v1 from me, and ack on
-merging via drm-xe-next.
+This enables a drm_client to use drm_client_buffer_vmap() and
+drm_client_buffer_vunmap() on hardware using the i915 driver.
 
-BR,
-Jani.
+Tested with a currently out of tree pixelflut drm_client[1] on:
+- Lenovo ThinkCentre M720q (CoffeeLake-S GT2 / Intel UHD Graphics 630)
+- Dell Wyse N06D - 3030 LT (ValleyView on Intel Celeron N2807 SOC)
 
+[1] XDP->DRM pixelflut: https://labitat.dk/wiki/Pixelflut-XDR
 
+Signed-off-by: Asbjørn Sloth Tønnesen <asbjorn@asbjorn.st>
+---
+This patch applies on top of drm-intel/drm-intel-next (32a120f52a4c)
+
+ drivers/gpu/drm/i915/gem/i915_gem_object.c | 26 ++++++++++++++++++++++
+ 1 file changed, 26 insertions(+)
+
+diff --git a/drivers/gpu/drm/i915/gem/i915_gem_object.c b/drivers/gpu/drm/i915/gem/i915_gem_object.c
+index 58e6c680fe0d..356530b599ce 100644
+--- a/drivers/gpu/drm/i915/gem/i915_gem_object.c
++++ b/drivers/gpu/drm/i915/gem/i915_gem_object.c
+@@ -873,6 +873,30 @@ bool i915_gem_object_needs_ccs_pages(struct drm_i915_gem_object *obj)
+ 	return lmem_placement;
+ }
+ 
++static int i915_gem_vmap_object(struct drm_gem_object *gem_obj,
++				struct iosys_map *map)
++{
++	struct drm_i915_gem_object *obj = to_intel_bo(gem_obj);
++	void *vaddr;
++
++	vaddr = i915_gem_object_pin_map(obj, I915_MAP_WB);
++	if (IS_ERR(vaddr))
++		return PTR_ERR(vaddr);
++
++	iosys_map_set_vaddr(map, vaddr);
++
++	return 0;
++}
++
++static void i915_gem_vunmap_object(struct drm_gem_object *gem_obj,
++				   struct iosys_map *map)
++{
++	struct drm_i915_gem_object *obj = to_intel_bo(gem_obj);
++
++	i915_gem_object_flush_map(obj);
++	i915_gem_object_unpin_map(obj);
++}
++
+ void i915_gem_init__objects(struct drm_i915_private *i915)
+ {
+ 	INIT_WORK(&i915->mm.free_work, __i915_gem_free_work);
+@@ -896,6 +920,8 @@ static const struct drm_gem_object_funcs i915_gem_object_funcs = {
+ 	.free = i915_gem_free_object,
+ 	.close = i915_gem_close_object,
+ 	.export = i915_gem_prime_export,
++	.vmap = i915_gem_vmap_object,
++	.vunmap = i915_gem_vunmap_object,
+ };
+ 
+ /**
 -- 
-Jani Nikula, Intel
+2.45.2
+
