@@ -4,58 +4,58 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2BAD7C3DA43
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 825D7C3814E
 	for <intel-gfx@archiver.kernel.org>; Wed,  3 Jul 2024 13:57:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 526F010E89F;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7B53D10E8A3;
 	Wed,  3 Jul 2024 13:57:14 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="aNBAXQlK";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="AKo0qnyy";
 	dkim-atps=neutral
-Received: from mail-io1-f51.google.com (mail-io1-f51.google.com
- [209.85.166.51])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3BA3610E700;
- Tue,  2 Jul 2024 21:59:20 +0000 (UTC)
-Received: by mail-io1-f51.google.com with SMTP id
- ca18e2360f4ac-7f61e75642cso212372639f.1; 
- Tue, 02 Jul 2024 14:59:20 -0700 (PDT)
+Received: from mail-io1-f49.google.com (mail-io1-f49.google.com
+ [209.85.166.49])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AD34E10E6E4;
+ Tue,  2 Jul 2024 21:59:05 +0000 (UTC)
+Received: by mail-io1-f49.google.com with SMTP id
+ ca18e2360f4ac-7eeea388a8eso185105039f.2; 
+ Tue, 02 Jul 2024 14:59:05 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1719957559; x=1720562359; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1719957545; x=1720562345; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=6+Eqreo55RWzciyFbwYCY+bKp2K8wKhzwrrhakb4uDM=;
- b=aNBAXQlKe8tlCnkvrGEq5biAMcKhdEgec9OKUgmu1KrMfHACAvbjiRiX4EVFYcUhml
- y0egujpFFo5syfi9utOtGLDuI/4SKn6dE1zZX8HA0IWFAVNI0OnzfHR9rch+YgHacZ/q
- ZP9uYeUFj9qgLw4oneb8G0NPDvKKV5ptUepKFgPAyKm0HBAjS0sUqJ0ogAeUSxXjIHBk
- Lv0Hmz3OzeueZCiRwRKfzI4QxWtrfOrZAdZR4MNignPuOe02D5QQDsME2gf2JhNk5I9r
- qWKnXxChDolBXUb5HXw8dJ6bcoRW0oVZvgpSPxV3FG7oQvm8dlX2dDi4nNZt0Z3qe5nc
- Qj0g==
+ bh=+GNz3zEEsQ52HQj9oGak+wZ8oAPfmA3LCU3EZ10XWgs=;
+ b=AKo0qnyyDwf6vkQTimsTsfwS3qOHnTt/XI5NeDezE4bl98t1TY3g4nHvWBAt/FUw4t
+ PSdpii7Xt3e+h347zLXNt3B1jRcLQDLpcO/ImBi0LaL7YNkMer4SyydE5bzqzI0i7bX6
+ B1zM5AuObSwRcyA3zljIhlBz6TgWM0o0gLkVj5cFiMpNv8jGhKJh03QKQvYFNTTI7sfO
+ /oUrLzftR6JzS9IGKs6EugJsBoSJvzJfRqbOEJ+lHDGQNyNmEO+vbPQUAAqsJT6p6CtE
+ ZxQxDeyFiX4BuaxXJ6tei1MMv1uxQsZIRuJN9ebiRYBpPrATCRCKqMwQqu2fgTffaFdn
+ zsFw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1719957559; x=1720562359;
+ d=1e100.net; s=20230601; t=1719957545; x=1720562345;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=6+Eqreo55RWzciyFbwYCY+bKp2K8wKhzwrrhakb4uDM=;
- b=IYImwwxFkk/LV/SOdc5RwDH8j5Ua40V5vZx25ghk+R9IqRYYs+uFi5/Meg0hfEaOS2
- pk7vsV1gWBsi0iIUlegC1jT5lgOKQRwICrYJpzbDnoRo8GrwT3HdH6jDoARdM0nHy+9H
- m533bFkaE+jtkSbXa+7UFO6xfOg8ADLDwdOo15it01GmnMjobaz6apsiD9uAK9XBWB1j
- 2RMUGv14cl3lIicMLz9bAe9Dm/FMzLubXIG7raQZZCw/Nyeqw5fwgAcQ/4datGfumQ9z
- 0LHMq/yD0lcXHwy0dHdPSERlgvzybfzLcuBroGus7hsQhIfiV+IMmbJ4f4cGyixB+hxS
- QIKg==
+ bh=+GNz3zEEsQ52HQj9oGak+wZ8oAPfmA3LCU3EZ10XWgs=;
+ b=GLt9pvGtvn6SR6GRGV46mquRoKc/0rHcYZHZH3hj+5ePIXiFdd4pqCHvas21/WI9YN
+ 2kSuX78/0JFJLr057Jcsm0nz8di7RrinRCGmxEXrGJACQsxxM5vdiVZYjabiPYVVmx0k
+ N5LQk79Ypo4dXfBiIf5Gh3YSyTdLA5YEYxhVeliGtjcEbUmQSAsew78yQrkOB7FdX9HV
+ QGLy1+kD0ZStJklSDYRtZyGYEk+3SQcui7CJwuiBvy3bbAyZO52DuMYTkjS2dQq9FttB
+ qb82Rff/HGUAEMjIW/svSYXoLBnpYW2wb8UXgNTCpPIKzbHHvt+UE+DFchenZSa4p0Hb
+ 0ZsA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCWiQ48FgTiKQh4iszAKA3Vb1TDjFZdmWZ8SZx5+cXcf1ZzWeLs3iBvR+Lu1A1k0VchEUJZwlW1ALauczVpjTUMbSVtn2PG6GjvPel49KVKeu5/UJUkWrE7ycmM27J3Jz2GQ+XrUFf9dhoxq4bK9u+S5eMMlnb9xzxhQq//EtgnfrQ4xQyCmbZ8yZVd84wMjutFjg3EaSPFyVi86HTuPZb+2a2+2IKqrIJjNnG15VBx+IfJA4Ic=
-X-Gm-Message-State: AOJu0YzeOaTgAPIXSy0835LVUK4nAwyKLLOWgXKnlfSUccYerp4ayM77
- cNxO8AMdN+/9MUCgPoOjsyCKl70h8Vu21rp3HDwRIO5EBqwn2NAI
-X-Google-Smtp-Source: AGHT+IGcyZCDZRZp6V6RnDZJi7b8GdP/ji76gbOaeQMp4gTOzKk8wvV+sE7C+kypGaK6A4D4KgsymQ==
-X-Received: by 2002:a05:6602:600b:b0:7f6:4f7e:b87e with SMTP id
- ca18e2360f4ac-7f64f7eba13mr445715539f.21.1719957559493; 
- Tue, 02 Jul 2024 14:59:19 -0700 (PDT)
+ AJvYcCVBk6fpBpfaAdQf4/3LK6HbjkkfLrDTwbTBs/XWF41nSrM16/dlcDxSNMhpvLvR5oJujWFNhBs93wSjMss+KJF0ndr86Xc5edHUTh4sI8F0rbBsAQwKyzit28ureW184NIDJ26HTdBqaqzGItj41dj854nZivFuAj1PSRC5OCumbRK5CXXtwiPleycb2lUotLMyxM5vNNP3JuMeE+Bp1JMS22Lm5lg4i+jplxKzus7GkmmI1/Y=
+X-Gm-Message-State: AOJu0Yw2ekyNdm4zDLQsTobKPPKAOYGgYISDPYZEhLhlUJh1iPI9owI5
+ 3Rv5Vu9LVmMqTWPnayyWUOIyqICaJPKrMFkiLetBvwUKGAdveKuQ
+X-Google-Smtp-Source: AGHT+IEpSIuUlWiXo7AlLLZ9H4oUpyxuj1IwsW6JEpLdySuCQ2Dy4tOK0pH6QgalXu1yNAVKG98Eig==
+X-Received: by 2002:a5e:cb42:0:b0:7f6:1f5d:3e02 with SMTP id
+ ca18e2360f4ac-7f62ee18215mr1105126939f.2.1719957544885; 
+ Tue, 02 Jul 2024 14:59:04 -0700 (PDT)
 Received: from frodo.. (c-73-78-62-130.hsd1.co.comcast.net. [73.78.62.130])
  by smtp.googlemail.com with ESMTPSA id
- ca18e2360f4ac-7f61d207fcesm279944739f.51.2024.07.02.14.59.18
+ ca18e2360f4ac-7f61d207fcesm279944739f.51.2024.07.02.14.59.03
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 02 Jul 2024 14:59:19 -0700 (PDT)
+ Tue, 02 Jul 2024 14:59:04 -0700 (PDT)
 From: Jim Cromie <jim.cromie@gmail.com>
 To: daniel.vetter@ffwll.ch, tvrtko.ursulin@linux.intel.com,
  jani.nikula@intel.com, ville.syrjala@linux.intel.com, jbaron@akamai.com,
@@ -64,9 +64,9 @@ Cc: linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
  amd-gfx@lists.freedesktop.org, intel-gvt-dev@lists.freedesktop.org,
  intel-gfx@lists.freedesktop.org, linux@rasmusvillemoes.dk, joe@perches.com,
  mcgrof@kernel.org, Jim Cromie <jim.cromie@gmail.com>
-Subject: [PATCH v9 44/52] drm-dyndbg: add DRM_CLASSMAP_USE to radeon
-Date: Tue,  2 Jul 2024 15:57:47 -0600
-Message-ID: <20240702215804.2201271-58-jim.cromie@gmail.com>
+Subject: [PATCH v9 37/52] drm-print: workaround unused variable compiler meh
+Date: Tue,  2 Jul 2024 15:57:33 -0600
+Message-ID: <20240702215804.2201271-44-jim.cromie@gmail.com>
 X-Mailer: git-send-email 2.45.2
 In-Reply-To: <20240702215804.2201271-1-jim.cromie@gmail.com>
 References: <20240702215804.2201271-1-jim.cromie@gmail.com>
@@ -88,28 +88,40 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-radeon has some DRM_UT_* debugs, make them controllable when
-CONFIG_DRM_USE_DYNAMIC_DEBUG=y by telling dyndbg about its use of
-the class'd debugs.
+With CONFIG_DRM_USE_DYNAMIC_DEBUG=y, I'm getting an unused variable
+warning/error on 'category', though the usage follows immediately, in
+drm_debug_enabled().
 
+This drops the local var and refs the field directly in the
+macro-call, which avoids the warning.  For static-key optimized
+dyndbg, the macro doesn't actually check the category, since the
+static-key patches in the proper state.  This is also likely why the
+auto var appears to be unused by the compiler.
+
+commit 9fd6f61a297e ("drm/print: add drm_dbg_printer() for drm device specific printer")
+CC: Jani Nikula <jani.nikula@intel.com>
 Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
 ---
- drivers/gpu/drm/radeon/radeon_drv.c | 2 ++
- 1 file changed, 2 insertions(+)
+ drivers/gpu/drm/drm_print.c | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/radeon/radeon_drv.c b/drivers/gpu/drm/radeon/radeon_drv.c
-index 7bf08164140e..d22308328c76 100644
---- a/drivers/gpu/drm/radeon/radeon_drv.c
-+++ b/drivers/gpu/drm/radeon/radeon_drv.c
-@@ -247,6 +247,8 @@ int radeon_cik_support = 1;
- MODULE_PARM_DESC(cik_support, "CIK support (1 = enabled (default), 0 = disabled)");
- module_param_named(cik_support, radeon_cik_support, int, 0444);
+diff --git a/drivers/gpu/drm/drm_print.c b/drivers/gpu/drm/drm_print.c
+index efdf82f8cbbb..c400441cd77e 100644
+--- a/drivers/gpu/drm/drm_print.c
++++ b/drivers/gpu/drm/drm_print.c
+@@ -183,11 +183,10 @@ void __drm_printfn_dbg(struct drm_printer *p, struct va_format *vaf)
+ {
+ 	const struct drm_device *drm = p->arg;
+ 	const struct device *dev = drm ? drm->dev : NULL;
+-	enum drm_debug_category category = p->category;
+ 	const char *prefix = p->prefix ?: "";
+ 	const char *prefix_pad = p->prefix ? " " : "";
  
-+DRM_CLASSMAP_USE(drm_debug_classes);
-+
- static struct pci_device_id pciidlist[] = {
- 	radeon_PCI_IDS
- };
+-	if (!__drm_debug_enabled(category))
++	if (!__drm_debug_enabled(p->category))
+ 		return;
+ 
+ 	/* Note: __builtin_return_address(0) is useless here. */
 -- 
 2.45.2
 
