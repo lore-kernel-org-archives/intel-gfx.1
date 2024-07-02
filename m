@@ -4,58 +4,58 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 929F2C3271E
-	for <intel-gfx@archiver.kernel.org>; Wed,  3 Jul 2024 13:57:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0A6A1C3DA41
+	for <intel-gfx@archiver.kernel.org>; Wed,  3 Jul 2024 13:57:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 66F8610E8C5;
-	Wed,  3 Jul 2024 13:57:16 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0F7A810E8AF;
+	Wed,  3 Jul 2024 13:57:15 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="VWGK2C8l";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="KI0sYsjY";
 	dkim-atps=neutral
-Received: from mail-io1-f53.google.com (mail-io1-f53.google.com
- [209.85.166.53])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 180AA10E721;
- Tue,  2 Jul 2024 21:59:25 +0000 (UTC)
-Received: by mail-io1-f53.google.com with SMTP id
- ca18e2360f4ac-7f3d3f1294dso169401139f.2; 
- Tue, 02 Jul 2024 14:59:25 -0700 (PDT)
+Received: from mail-io1-f41.google.com (mail-io1-f41.google.com
+ [209.85.166.41])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4ABA010E6FD;
+ Tue,  2 Jul 2024 21:59:18 +0000 (UTC)
+Received: by mail-io1-f41.google.com with SMTP id
+ ca18e2360f4ac-7f3cd802729so172626539f.1; 
+ Tue, 02 Jul 2024 14:59:18 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1719957564; x=1720562364; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1719957557; x=1720562357; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=Wh8QJ3ROh21ShBzcCiOPzlcJgoRl8pzdhd6qJVNHlVY=;
- b=VWGK2C8l+IqLC1Ig5sX6NNwTpHCwK1LCSk4e+DnmqZO/sx2vwjFmXo+DN3SL+Ed5GR
- usrq9yMBEz6PiUerC7FtzlGDHk3vJytPV4e8qbK/qFOAlkREImm+B8z1z+OunAmLb+fX
- 6Ki7OYNHW4w7aT3rZ+anShyweXfJxvwfodjT7Cx3EZKu2ocBTRoTCwv9+KMFK2oVzWbg
- N0QfF9yhS/4QnfjlfWzzNW7Uo5guAf1eLxES2rWX9384x1jhXVFYLsGcVHKdvv6qvSfb
- uvBx7Ss4O9EHfHJy8RdPZ40MSXp/fdvTsPTrTEDQTQ6HrW9oVK0jf8EPzmTbTJ0LOR6u
- p1hA==
+ bh=MstXp7FK88BMTd8JHXdyfJJm9pHe+R2QRKpv7nuxLhw=;
+ b=KI0sYsjYxjSaQU7HmgL/S6xTEH+5x0hzZWFVbXfkOjNmDvodJpoHpJ1LTfNlx4Ka8e
+ 0RJGQsWtAzI9W2erMliHDlQSxU7foY4Jqce/7Gaj9IAwIUH41YK5c2Ia75xXu+R0+83O
+ 1srKOA7BhOQFzWR/xgcxIriIBFzZwY8PhIJ1QVn+lM2dYRhqKluUnrEpw+GFks669IJ1
+ DatVrFYCVcMJnRj/s5BeyL5zU3R4CVA40zTCvfmbS6dk5BKT9QDbq9p8CfBnDWQyEt/t
+ r/kxsdekP5S2al6ulv+wmrWjPKBBfwsHz+IZq6Tv4trrpunMGC9+fQHZtC3GcRj1faeW
+ wtLw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1719957564; x=1720562364;
+ d=1e100.net; s=20230601; t=1719957557; x=1720562357;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=Wh8QJ3ROh21ShBzcCiOPzlcJgoRl8pzdhd6qJVNHlVY=;
- b=IywNjV9ZF8qiZO3WohfMqMupGRhznooyVATUFCqTP1dQEvsfyyLd9rNhG0Sej0KCza
- FECQFFi7w9YwOf8O0plUCxVErSO62cf+jCBY/1BDeg4Jo1N+Z9k/+kkryBw85ntwkQZO
- KvJuB1LqZ4vki4xzDA/JAnZOtF8EwtqHToNROtDCPyYDXEO4cVHnK080f/mS61sG0CGi
- 3Jmu9LYuymlpEK8fzKD2kZvBoudDMY4mj+a+So5dESGA6ASFL3ab4L9RpFTzJ7aVDtCn
- AnST/OUtqTWI1SREbck2hfOzBs8PSQmZinVcYoKCBtySOojOkljFSLoDO2pFpdt3pbp+
- 8meA==
+ bh=MstXp7FK88BMTd8JHXdyfJJm9pHe+R2QRKpv7nuxLhw=;
+ b=B3OUkltR5Q1skXoBpjQ5BCqomOdFoyTkuoJKbfMg0dI7kYMWJPcN+fpM8UZMXyIGRN
+ N4mv3OZd6KcTdvGS7nhjIlnLya8Uc9WXs1NXh+5n05D72bZwyJqhHiClJAkvuUSFAUms
+ wAd7s7so1sMzYxkf0RlL9Bkb7vbBMRlgdz57EPIzPXkVbx/ZTyGDFDvSzuTvTFz/fdKa
+ VVs6ULjf7EPayaI3eT9R5VMoLHRh+2hYPRzSo8BJPb99yXvKgMQSwGmZ/CyplgUY61Ii
+ nThkoXEzXJOyGeKCRI7Vg+mSN5GUWrCdLQ4+KnY9kYTw93OcUC7F+Hsy47mWVLSExDBs
+ hIHQ==
 X-Forwarded-Encrypted: i=1;
- AJvYcCVOpVSO/CX78jFWSjw++ahMwfsay2JU79qjMBin0aqW1WIBCZko51eZjdYkp6jwr4jD9ECbk0FjQfdrGQjZdTvQCT7zCN9hAJoXX3wf00SPmFkEV9PMEbC5tQSxINvZNE1rp1mFd/8/q/fm/4hiFojcbXEkoz7CIGEZs5APMs3HHlQ3Kc6hV6YqfJ2z6wTSiuXZRl0s9xvVOSzme5a732M+mTiHRBHJQozbsAqE0DmRECPBaMA=
-X-Gm-Message-State: AOJu0Yyzas/JpPZZpZqwalmoRnFzrDYnazMItluhP1WfRn3/v+7qjoIn
- LfKraXI/HdFHHDLu5eFW0ayxJbb9quqfc2iIUGa9F7WkkE+TBowV
-X-Google-Smtp-Source: AGHT+IGsvIlCZD+c570Neze+GHw9bZoFgMkgtz4aIrGReUzG3qZZPt9ry6B+lTwl9sdSHvOE1K8YBA==
-X-Received: by 2002:a05:6602:304b:b0:7eb:8874:99e0 with SMTP id
- ca18e2360f4ac-7f62ee3a19amr1042539839f.12.1719957564338; 
- Tue, 02 Jul 2024 14:59:24 -0700 (PDT)
+ AJvYcCWoJ4jpZg1/qt4oVB5J4JSUeBTKr/MwvXhbCB4coxppCn89yuf4ulLB0Z99MoUsZUYV8NzRR1bc+3+9sjiqk6G/XCgasgZUoFVC5wU/CnVxv0mVnQR7HA0WNVH9UZPP22+Kc//TU+JrgB7aywFlcsKnrWgCaG8sHuysYcb762wd9BIgui0aDxlfBpJsAeOxwnsvmF0gkfDH8CJBVabOLIwRKMN/7hIVOVTArOQ+iyJ9cfQWByQ=
+X-Gm-Message-State: AOJu0YxgE0VLzH/Tg0LPnV85mqqdP4eiMAM0d8BWY+5WKQm8ZdBxDijY
+ odaXQhi/y4DIzwsodS8maek242hRs51kh2428N5lNTmpraGR0qD4
+X-Google-Smtp-Source: AGHT+IFELzazdv52SOJ609vTMnouJkmTMMLQschX/DEhQZmc7e+NLKxBenDxq+yCZxxLRM+vTht15w==
+X-Received: by 2002:a6b:6106:0:b0:7f6:2e72:e81b with SMTP id
+ ca18e2360f4ac-7f62ee168f6mr1110126639f.4.1719957557504; 
+ Tue, 02 Jul 2024 14:59:17 -0700 (PDT)
 Received: from frodo.. (c-73-78-62-130.hsd1.co.comcast.net. [73.78.62.130])
  by smtp.googlemail.com with ESMTPSA id
- ca18e2360f4ac-7f61d207fcesm279944739f.51.2024.07.02.14.59.23
+ ca18e2360f4ac-7f61d207fcesm279944739f.51.2024.07.02.14.59.16
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 02 Jul 2024 14:59:23 -0700 (PDT)
+ Tue, 02 Jul 2024 14:59:17 -0700 (PDT)
 From: Jim Cromie <jim.cromie@gmail.com>
 To: daniel.vetter@ffwll.ch, tvrtko.ursulin@linux.intel.com,
  jani.nikula@intel.com, ville.syrjala@linux.intel.com, jbaron@akamai.com,
@@ -64,9 +64,9 @@ Cc: linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
  amd-gfx@lists.freedesktop.org, intel-gvt-dev@lists.freedesktop.org,
  intel-gfx@lists.freedesktop.org, linux@rasmusvillemoes.dk, joe@perches.com,
  mcgrof@kernel.org, Jim Cromie <jim.cromie@gmail.com>
-Subject: [PATCH v9 46/52] drm-dyndbg: add DRM_CLASSMAP_USE to vkms driver
-Date: Tue,  2 Jul 2024 15:57:50 -0600
-Message-ID: <20240702215804.2201271-61-jim.cromie@gmail.com>
+Subject: [PATCH v9 43/52] drm-dyndbg: add DRM_CLASSMAP_USE to gma500 driver
+Date: Tue,  2 Jul 2024 15:57:45 -0600
+Message-ID: <20240702215804.2201271-56-jim.cromie@gmail.com>
 X-Mailer: git-send-email 2.45.2
 In-Reply-To: <20240702215804.2201271-1-jim.cromie@gmail.com>
 References: <20240702215804.2201271-1-jim.cromie@gmail.com>
@@ -88,28 +88,28 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-The vkms driver has a number of DRM_UT_* debugs, make them
-controllable when CONFIG_DRM_USE_DYNAMIC_DEBUG=y by telling dyndbg
-that the module uses them.
+The gma500 has 126 DRM_UT_* debugs, make them controllable when
+CONFIG_DRM_USE_DYNAMIC_DEBUG=y by telling dyndbg that the module has
+class'd debugs.
 
 Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
 ---
- drivers/gpu/drm/vkms/vkms_drv.c | 2 ++
+ drivers/gpu/drm/gma500/psb_drv.c | 2 ++
  1 file changed, 2 insertions(+)
 
-diff --git a/drivers/gpu/drm/vkms/vkms_drv.c b/drivers/gpu/drm/vkms/vkms_drv.c
-index dd0af086e7fa..086797c4b82b 100644
---- a/drivers/gpu/drm/vkms/vkms_drv.c
-+++ b/drivers/gpu/drm/vkms/vkms_drv.c
+diff --git a/drivers/gpu/drm/gma500/psb_drv.c b/drivers/gpu/drm/gma500/psb_drv.c
+index 8b64f61ffaf9..5e03ac7ff433 100644
+--- a/drivers/gpu/drm/gma500/psb_drv.c
++++ b/drivers/gpu/drm/gma500/psb_drv.c
 @@ -39,6 +39,8 @@
- 
- static struct vkms_config *default_config;
+ static const struct drm_driver driver;
+ static int psb_pci_probe(struct pci_dev *pdev, const struct pci_device_id *ent);
  
 +DRM_CLASSMAP_USE(drm_debug_classes);
 +
- static bool enable_cursor = true;
- module_param_named(enable_cursor, enable_cursor, bool, 0444);
- MODULE_PARM_DESC(enable_cursor, "Enable/Disable cursor support");
+ /*
+  * The table below contains a mapping of the PCI vendor ID and the PCI Device ID
+  * to the different groups of PowerVR 5-series chip designs
 -- 
 2.45.2
 
