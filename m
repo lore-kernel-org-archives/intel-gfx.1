@@ -4,58 +4,58 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7BAC7C38150
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D68EDC2BD09
 	for <intel-gfx@archiver.kernel.org>; Wed,  3 Jul 2024 13:57:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0D02410E8AE;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 00E2D10E8AD;
 	Wed,  3 Jul 2024 13:57:15 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="edI3UR31";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="UfGz+Xuk";
 	dkim-atps=neutral
-Received: from mail-io1-f44.google.com (mail-io1-f44.google.com
- [209.85.166.44])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3E2F010E6E2;
- Tue,  2 Jul 2024 21:58:52 +0000 (UTC)
-Received: by mail-io1-f44.google.com with SMTP id
- ca18e2360f4ac-7f61f41eef0so205080639f.3; 
- Tue, 02 Jul 2024 14:58:52 -0700 (PDT)
+Received: from mail-io1-f46.google.com (mail-io1-f46.google.com
+ [209.85.166.46])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DF3FE10E6D8;
+ Tue,  2 Jul 2024 21:58:45 +0000 (UTC)
+Received: by mail-io1-f46.google.com with SMTP id
+ ca18e2360f4ac-7f3cd802729so172614839f.1; 
+ Tue, 02 Jul 2024 14:58:45 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1719957531; x=1720562331; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1719957525; x=1720562325; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=82cgNbRoYEtZbLGOSF5g6lGYBT3iAgTZZ5N8otaIkxw=;
- b=edI3UR31Z5ZgSERtLXBBy8YUMytYK/ARdjS6UyKtDx1SoiKTdt3X+z7WIM4L/wsQzE
- Ef0NOZc5wE/JadxRubGrsSlA5hYOuYr0bpFvYYCBGGeFe+U98oXGEGh04VuOOcW5A/4z
- 9tXqmucbJRJYYk1/mSQjgvAuGWkQ22Wq4UzetE5R4vkMeyLVDnMuCcqn1ve/Foth4FbL
- VfoxU1DtITZCBUSplXRVP4TGt0i7ZfhzOcHI0xcTsgIglO96W4WKJaZAevftd+Uu8sv1
- Ult0AlXaPasWh+Dqm4ouYoKIWfrZKgnX2oveylV9LYPx/hBmdCbf/hwxQGskFMES3ZAp
- ERSg==
+ bh=c/0f+WJi9XEdvmbVJJgJH3wGY/BCuH90DF46SNcsdjc=;
+ b=UfGz+XukE+Jm2YCPv1g/tpuWwDvMfcnSQWU3gGesVVxUJ5WIqUb2MYyYOcafo6uh5J
+ 0xi7aUyDie/56nNmKshjdSw2QGyFG3UNvsetmCwqEl3j5L85QvnYoeGnld/pLyG6ZADJ
+ yZcvbyeZDQD95VIibAm4NLmrhgNlTMQlosXGAth5PiwJ6rjZoz6t3XCJ2Q6QEcCJ+j8H
+ /E1+FmbUvIreP9DQuAFdyOfhfjnfvz1Yx0+N68IHNgKmRqGodD6+AddSfjhg+hGvsiF4
+ 1iLcnNsgdjC3GCWlRZFrZhelVJFwf9oKTRPE9unbQgEKRHfUI6khhHB29SGWcV00BxPZ
+ EVkg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1719957531; x=1720562331;
+ d=1e100.net; s=20230601; t=1719957525; x=1720562325;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=82cgNbRoYEtZbLGOSF5g6lGYBT3iAgTZZ5N8otaIkxw=;
- b=vHwdDiE+QOybJEWrMuOWNu0HOO3+RaYcdmijJ4xIqWRhNcKoBYKk9C4afHNgR5+piC
- a0kxtnf9RYESVoaLfplRW10x2MrNPoNEVPCPpU3xG0zv8yzy0+RczK/Ru6brfHCyTk4C
- iXMacOcCrvdUrNVPXwVRjB4b0EqBW5ryJYlvOdZ1anPu0bMbH7lFUF3zwe57FnQBcB86
- tN0rBHSGbUAIAvXZpDO8RZc8ZE7PJ4waAVF7iIiQUCT4Ceh3k2cOQxFMeNbvqVBiEtHf
- N8CAreVOWgdbRVgDXSZFhz7tS+Soxy5pMzf8onaMV7a0B+yVPP/ZQKK+f3RSeunkzYbE
- 8lXw==
+ bh=c/0f+WJi9XEdvmbVJJgJH3wGY/BCuH90DF46SNcsdjc=;
+ b=b+T8fvVY0kR/iWbtWq9AtRMl4JG8h7+ljEayTtAXPHCwLyBSwunVTabBUoXiLipDz7
+ v1IAlBW0yIReEXSNMm1fyIoGTCDG5hMGgvNwGIwdCq7i+jvjcQ4tayd/3r2tdkYySf9m
+ SZYmoxqtRUn7i3VfeCTvJvmrCH4xwugIYMpZERneqJnUj/PcoytTu3kn3PHK8bJ0Fvhr
+ 6E8qto4SmJqWkrqt2pdmgvJAtn4MdGWaVAyyHfHtA0UnScykGqsamxgwfPKvpFz2dpHn
+ oFz/+3CyBoUzrTT3EfkSFcZjlcSBr4ps0bsHJyYQ8Nkceoh1/LH6TvvGaTkxjnMmdSyX
+ EgqA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUUfxKFsXYbIRxMiv+lzIeLR022V6ucghyXPS+JxsfOt5/TbRklUkx2y94HKotBjX1KfUYQXTrnP0IOoG+fyIT+zeOfQEcHDVyxZYEGn6kwwo3faEwHTAMomgnzli0S7c/GrddbaLYz+37yeMHLoAq3uD2S8yaBMeYck3TiTUx66vopnpXJZ6UhqDyLK9X2hmSnbjZDyFgrOm/tclzLrlxoEb2JYKCtdTf+tQmwdL95UDq66rQ=
-X-Gm-Message-State: AOJu0YztCWwpNI3EKV8k1zjA/Gbhfxj/yd8wyeVUnuNkDYJiSjKIdMbk
- u//VxV0fkzgvnHcoLMvgdSh21m3y7k0RJUm0Id4o4LUIPZB4ixOF
-X-Google-Smtp-Source: AGHT+IF0XfGuaBZergfyh09/+1cwiSfDW4SSxiw5JoBgqXQoqE0seQNYvFesDvoSIIDGsiZcxnz7Ow==
-X-Received: by 2002:a05:6602:42c8:b0:7f3:d811:d808 with SMTP id
- ca18e2360f4ac-7f62eeae89fmr1232570639f.17.1719957531440; 
- Tue, 02 Jul 2024 14:58:51 -0700 (PDT)
+ AJvYcCUNHIW2l5XU/7uGiL717Cw+w8LFnnGYpXrJ7VwIX1U5hkLHx7Uibag6TLWj3JWYuOmyJ3eKfAJCFhMMDzbLQh2iWdFF6EpYTMmFO7QhUm30TdrCrb70anObmR/uOm9Ky9WCuZXmPMw9vyl1T3I+z2+NIfzkYlz4OGAyn48Eq7y3qqNlm3u4cJw0ZLhkfWolKq3N3M4CEsFiYXUwmBINkkNzBASs+Ou3HrZ9K6MI5aafnjYv+/Y=
+X-Gm-Message-State: AOJu0YycDMs+I4gfn25O4RCEEc6OHGL6PZGLeeEu1y2XbLiJbKQK2xTq
+ btOjDpJrKlFOWFZohrPARquMQvZIlKEoqyiXxge9aCCsy4DFZPHy
+X-Google-Smtp-Source: AGHT+IHLfOgNFYNQh7piopnisG8tXecKttMpNNloe2nsbJJt7+ulnb0/PNAJxeVF6b/DwLmUpVs2Gg==
+X-Received: by 2002:a6b:f212:0:b0:7f6:2b2d:8acd with SMTP id
+ ca18e2360f4ac-7f62ee3d967mr1225918439f.8.1719957525100; 
+ Tue, 02 Jul 2024 14:58:45 -0700 (PDT)
 Received: from frodo.. (c-73-78-62-130.hsd1.co.comcast.net. [73.78.62.130])
  by smtp.googlemail.com with ESMTPSA id
- ca18e2360f4ac-7f61d207fcesm279944739f.51.2024.07.02.14.58.50
+ ca18e2360f4ac-7f61d207fcesm279944739f.51.2024.07.02.14.58.44
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 02 Jul 2024 14:58:50 -0700 (PDT)
+ Tue, 02 Jul 2024 14:58:44 -0700 (PDT)
 From: Jim Cromie <jim.cromie@gmail.com>
 To: daniel.vetter@ffwll.ch, tvrtko.ursulin@linux.intel.com,
  jani.nikula@intel.com, ville.syrjala@linux.intel.com, jbaron@akamai.com,
@@ -64,9 +64,9 @@ Cc: linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
  amd-gfx@lists.freedesktop.org, intel-gvt-dev@lists.freedesktop.org,
  intel-gfx@lists.freedesktop.org, linux@rasmusvillemoes.dk, joe@perches.com,
  mcgrof@kernel.org, Jim Cromie <jim.cromie@gmail.com>
-Subject: [PATCH v9 31/52] drm-dyndbg: adapt DRM to invoke DYNDBG_CLASSMAP_PARAM
-Date: Tue,  2 Jul 2024 15:57:21 -0600
-Message-ID: <20240702215804.2201271-32-jim.cromie@gmail.com>
+Subject: [PATCH v9 25/52] dyndbg-doc: explain flags parse 1st
+Date: Tue,  2 Jul 2024 15:57:15 -0600
+Message-ID: <20240702215804.2201271-26-jim.cromie@gmail.com>
 X-Mailer: git-send-email 2.45.2
 In-Reply-To: <20240702215804.2201271-1-jim.cromie@gmail.com>
 References: <20240702215804.2201271-1-jim.cromie@gmail.com>
@@ -88,54 +88,40 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Invoke DYNDBG_CLASSMAP_PARAM to hook drm.debug (__drm_debug) to the
-DRM_UT_* classmap, replacing the ad-hoc wiring previously doing it.
+When writing queries to >control, flags are parsed 1st, since they are
+the only required field.  So if the flags draw an error, then keyword
+errors aren't reported.  This can be mildly confusing/annoying, so
+explain it instead.
+
+This note could be moved up to just after the grammar id's the flags,
+and before the match-spec is detailed.  Opinions ?
 
 Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
 ---
- drivers/gpu/drm/drm_print.c | 8 ++------
- include/drm/drm_print.h     | 6 ++++--
- 2 files changed, 6 insertions(+), 8 deletions(-)
+ Documentation/admin-guide/dynamic-debug-howto.rst | 10 ++++++++++
+ 1 file changed, 10 insertions(+)
 
-diff --git a/drivers/gpu/drm/drm_print.c b/drivers/gpu/drm/drm_print.c
-index 4a5f2317229b..efdf82f8cbbb 100644
---- a/drivers/gpu/drm/drm_print.c
-+++ b/drivers/gpu/drm/drm_print.c
-@@ -69,12 +69,8 @@ DRM_CLASSMAP_DEFINE(drm_debug_classes, DD_CLASS_TYPE_DISJOINT_BITS,
- 		    "DRM_UT_DP",
- 		    "DRM_UT_DRMRES");
+diff --git a/Documentation/admin-guide/dynamic-debug-howto.rst b/Documentation/admin-guide/dynamic-debug-howto.rst
+index 7b570f29ae98..ccf3704f2143 100644
+--- a/Documentation/admin-guide/dynamic-debug-howto.rst
++++ b/Documentation/admin-guide/dynamic-debug-howto.rst
+@@ -106,6 +106,16 @@ The match-spec's select *prdbgs* from the catalog, upon which to apply
+ the flags-spec, all constraints are ANDed together.  An absent keyword
+ is the same as keyword "*".
  
--static struct ddebug_class_param drm_debug_bitmap = {
--	.bits = &__drm_debug,
--	.flags = "p",
--	.map = &drm_debug_classes,
--};
--module_param_cb(debug, &param_ops_dyndbg_classes, &drm_debug_bitmap, 0600);
-+DRM_CLASSMAP_PARAM_REF(debug, __drm_debug, drm_debug_classes, p);
++Note: because the match-spec can be empty, the flags are checked 1st,
++then the pairs of keyword values.  Flag errs will hide keyword errs:
 +
- #endif
- 
- void __drm_puts_coredump(struct drm_printer *p, const char *str)
-diff --git a/include/drm/drm_print.h b/include/drm/drm_print.h
-index 905fc25bf65a..95c667934bbb 100644
---- a/include/drm/drm_print.h
-+++ b/include/drm/drm_print.h
-@@ -141,11 +141,13 @@ enum drm_debug_category {
- };
- 
- #ifdef CONFIG_DRM_USE_DYNAMIC_DEBUG
--#define DRM_CLASSMAP_DEFINE(...) DYNDBG_CLASSMAP_DEFINE(__VA_ARGS__)
--#define DRM_CLASSMAP_USE(name)   DYNDBG_CLASSMAP_USE(name)
-+#define DRM_CLASSMAP_DEFINE(...)    DYNDBG_CLASSMAP_DEFINE(__VA_ARGS__)
-+#define DRM_CLASSMAP_USE(name)      DYNDBG_CLASSMAP_USE(name)
-+#define DRM_CLASSMAP_PARAM_REF(...) DYNDBG_CLASSMAP_PARAM_REF(__VA_ARGS__)
- #else
- #define DRM_CLASSMAP_DEFINE(...)
- #define DRM_CLASSMAP_USE(name)
-+#define DRM_CLASSMAP_PARAM_REF(...)
- #endif
- 
- static inline bool drm_debug_enabled_raw(enum drm_debug_category category)
++  bash-5.2# ddcmd mod bar +foo
++  dyndbg: read 13 bytes from userspace
++  dyndbg: query 0: "mod bar +foo" mod:*
++  dyndbg: unknown flag 'o'
++  dyndbg: flags parse failed
++  dyndbg: processed 1 queries, with 0 matches, 1 errs
++
+ A match specification is a keyword, which selects the attribute of
+ the callsite to be compared, and a value to compare against.  Possible
+ keywords are:::
 -- 
 2.45.2
 
