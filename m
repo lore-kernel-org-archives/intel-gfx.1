@@ -4,58 +4,58 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C5A96C3271F
-	for <intel-gfx@archiver.kernel.org>; Wed,  3 Jul 2024 13:57:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6246DC2BD09
+	for <intel-gfx@archiver.kernel.org>; Wed,  3 Jul 2024 13:57:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4AD6F10E85D;
-	Wed,  3 Jul 2024 13:57:13 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3518B10E89D;
+	Wed,  3 Jul 2024 13:57:14 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="kwxDdxTx";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="R1hrGbSJ";
 	dkim-atps=neutral
-Received: from mail-io1-f43.google.com (mail-io1-f43.google.com
- [209.85.166.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B7AE610E712;
- Tue,  2 Jul 2024 21:59:38 +0000 (UTC)
-Received: by mail-io1-f43.google.com with SMTP id
- ca18e2360f4ac-7f65715fe2cso34974739f.0; 
- Tue, 02 Jul 2024 14:59:38 -0700 (PDT)
+Received: from mail-io1-f47.google.com (mail-io1-f47.google.com
+ [209.85.166.47])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0CA0510E6F2;
+ Tue,  2 Jul 2024 21:59:10 +0000 (UTC)
+Received: by mail-io1-f47.google.com with SMTP id
+ ca18e2360f4ac-7eb5dd9f994so174432139f.2; 
+ Tue, 02 Jul 2024 14:59:10 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1719957578; x=1720562378; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1719957549; x=1720562349; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=ym+La6D/NLLhNjjl/GCbF3WdukVm3ek2K4bqw3UNhOo=;
- b=kwxDdxTxIvfbOinlbywwgv/wsnwgQkzTeFBiFOha5yCPtRrljIVYMeb7OW5+a4EjCl
- DffoD4aP+C3kN8e3iS2+6o+nyi3RsN/cjtNjI14rUt2/5hg/wMnXPkfEjktfVEvvi4cP
- 4Tlr2jTCMfvdbytwgpyry7dMFeWsdACly/jE2jATYM8nBWskz//0+uL+JWHrTSVI376q
- utepkeodMGcZnNmmrwcMAwJpKGcNbsMPMkoBcPgAwniltEQbCyWpTXHVDDcusHAwhYho
- +marLqpWcpu7VG04JUEp2QxHJeGIKHa0hpJVCN7R4K6HaCeny5lcQtFk2NnUpzLiesFj
- h1Dg==
+ bh=0tTLQ7kYNablnENIf/KeDz5dGwor+/R9FnQHvwE/Et4=;
+ b=R1hrGbSJDOgO+LXq2CgpDjhGMsO59CdfgMETPNk+KkSKyzw+AMSY/Wr50Yx/h/lxcQ
+ /wLrxo3c4kq40DBz5n+SdRpEJi2QEtiMNVd4CLEjd6cnrCxCXhvKXigUrkvYdRWNEyrj
+ i0OD62Nk/u8RarHAxfA0zrTH2C54NvDneydCwjDNlnVUAlXuaqbkGpbTTG/OPtsQ4v6Z
+ xHD2eoSE6XtrGTjZE6hU/WQVdi7ACITAqcEhL6DmQJWg/yzRaM3pE3YhFdL8db8/V/UW
+ 8KgSstmBne7yxTomxwOr3YrnFWl3AxXvJDDB2ZCd07ojfhM1zgNILSuw0VNwrkKOZz+Y
+ sKtw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1719957578; x=1720562378;
+ d=1e100.net; s=20230601; t=1719957549; x=1720562349;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=ym+La6D/NLLhNjjl/GCbF3WdukVm3ek2K4bqw3UNhOo=;
- b=vUH1Jb2CCIaXKfH+B7i3vPBZgNQSv5hLuNvRqJVAOXuKTtBGd0CO88u+UhrM+j3PnU
- 0j0smiyNwlOTxwXIdOakY9Jpv/6bH04hoMX8apNIP1U1Gwyasl//HvOWkIr7x2u8TSNV
- W34WTBKi0b558h7fO2s803zAu4a/TrhVpkWg4PuLnTvQE6lynXZVzlEeccRHJ3+fofVK
- jlbiEcK0ceTwL/08JPycO2RtcTWtN5E7lRgAQ0zqfN/ut2GDtpapbKStoYndjONSV5t1
- hHbagrxDS1qvSSoHQsev/H5ruKKw36AZkX7xrxSUv1/+9+m0Fb4PySe7qLig90t7NFZU
- stSQ==
+ bh=0tTLQ7kYNablnENIf/KeDz5dGwor+/R9FnQHvwE/Et4=;
+ b=FEHlLOl9lcPdzwOiJIQP+JiZxnK/kkpY7qlrI26FkUyNlc3R5vpPyfRmDbcJ2H1R6D
+ oLyX8D0w+O4BA2dr2keMzOcdCBrU/IikoZ1U5scMIVM36QjycjkYKgTxY/U6X7/etjhq
+ V8qF/I6EBZKnlMTQ4FMDd49HnyE1/CI+mg//L6x52pUejI7PYHY5SEYRA9tJ0K3TgPHo
+ Cm3M90vmank/I6gd/DfUzH22fvYYmPVDXzrul5cdYVqOLmMER8U96g6bSWixfAaaqa1f
+ 0hpxeF2eCFGOFK0+4eDzdt3DI7L59KrKD21+73vbBV9Ap0TgSnPDdkFn9Th2L6jiLRrL
+ J/pg==
 X-Forwarded-Encrypted: i=1;
- AJvYcCXzloJ4Twmib2nzxFUFG6bckq1ykJcRpvFivAWf4rURZgrbMTjaXkBeOY423qLyl+qyjJzVJYE1TEcjuQf4tQqTw+jXXtf0pM6lgLFhocGoBrUFiN5SAyu2a2fCsn0y1J2Ld53ZlUmjtCalUEWBzbVlzb+dnGYgJVB5+onYQqyB4DzxkDjmf7l2OvvboAxHBCBVewCRTW94NhuOl8RpzRVlk3992BS0OagawI5szHJYFFsyKu4=
-X-Gm-Message-State: AOJu0YxHP4pFxRYJIWY370SJ1wzlkYZOs1pYIvIrz7nQiQwRsJqQWKbO
- odQSZVv8Ia2kDZGU/OpgvQ164M7BgXAOYaxl+IKAcbtlCr88vKz/HSlpcw==
-X-Google-Smtp-Source: AGHT+IEx2Gyrde0A2uOqS8y+YjAXzajqP8cUSrab+Dm1ugLLW9FFgCd4CeSHn5fLmUCcTWDUd94ipw==
-X-Received: by 2002:a6b:e01a:0:b0:7f6:1fcc:25c5 with SMTP id
- ca18e2360f4ac-7f62ee9b593mr1304401439f.19.1719957578034; 
- Tue, 02 Jul 2024 14:59:38 -0700 (PDT)
+ AJvYcCUdMLS0WYwgCgxPqLWnj1CJePm73tjBar9WWIfki8Y5GJYT426QKXay0Gq7y5/HupAb5jd6PlY5AUCKlgDHcJ3pzHSG/uFLQeKsMPomK8v5s8JNNw4RUXbStQ+VhTog7IeYV4TXG+5QG5BFDftn3+YXAmO4bLmOAV7pct/b1C6aBcY4jh5NNulL/0RYrzsPnooByL5I7Bb4VtfyPVu9V4Fo5dZELwI9y4wa0WQ6M6drMOZdos0=
+X-Gm-Message-State: AOJu0YxnYpB7tOY6FAHcwsVB0ShvuNS586ebgnoYDQgPMpcAqCQpa+zk
+ gQpi5NGfi7q5AmJAcgucu7U6mNO3LqIEGhuIyrFbGVAENBqtIkuJy0eanA==
+X-Google-Smtp-Source: AGHT+IE2I+kZLU2rS/pXH2LWHejqkkSB+OxH8ZpJWiyY2BdB6lV2bIk60uhOaSqkSLWh+0iOsTHn/w==
+X-Received: by 2002:a05:6602:1651:b0:7f6:51ac:bba9 with SMTP id
+ ca18e2360f4ac-7f651acbd92mr409692939f.10.1719957549276; 
+ Tue, 02 Jul 2024 14:59:09 -0700 (PDT)
 Received: from frodo.. (c-73-78-62-130.hsd1.co.comcast.net. [73.78.62.130])
  by smtp.googlemail.com with ESMTPSA id
- ca18e2360f4ac-7f61d207fcesm279944739f.51.2024.07.02.14.59.37
+ ca18e2360f4ac-7f61d207fcesm279944739f.51.2024.07.02.14.59.08
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 02 Jul 2024 14:59:37 -0700 (PDT)
+ Tue, 02 Jul 2024 14:59:08 -0700 (PDT)
 From: Jim Cromie <jim.cromie@gmail.com>
 To: daniel.vetter@ffwll.ch, tvrtko.ursulin@linux.intel.com,
  jani.nikula@intel.com, ville.syrjala@linux.intel.com, jbaron@akamai.com,
@@ -64,9 +64,9 @@ Cc: linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
  amd-gfx@lists.freedesktop.org, intel-gvt-dev@lists.freedesktop.org,
  intel-gfx@lists.freedesktop.org, linux@rasmusvillemoes.dk, joe@perches.com,
  mcgrof@kernel.org, Jim Cromie <jim.cromie@gmail.com>
-Subject: [PATCH v9 52/52] drm: restore CONFIG_DRM_USE_DYNAMIC_DEBUG un-BROKEN
-Date: Tue,  2 Jul 2024 15:58:03 -0600
-Message-ID: <20240702215804.2201271-74-jim.cromie@gmail.com>
+Subject: [PATCH v9 39/53] drm-dyndbg: add DRM_CLASSMAP_USE to Xe driver
+Date: Tue,  2 Jul 2024 15:57:37 -0600
+Message-ID: <20240702215804.2201271-48-jim.cromie@gmail.com>
 X-Mailer: git-send-email 2.45.2
 In-Reply-To: <20240702215804.2201271-1-jim.cromie@gmail.com>
 References: <20240702215804.2201271-1-jim.cromie@gmail.com>
@@ -88,29 +88,28 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-end of official submission.
-
-Time for some quality CI
+Invoke DRM_CLASSMAP_USE from xe_drm_client.c.  When built with
+CONFIG_DRM_USE_DYNAMIC_DEBUG=y, this tells dydnbg that Xe uses
+has drm.debug calls.
 
 Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
 ---
- drivers/gpu/drm/Kconfig | 3 +--
- 1 file changed, 1 insertion(+), 2 deletions(-)
+ drivers/gpu/drm/xe/xe_drm_client.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/drivers/gpu/drm/Kconfig b/drivers/gpu/drm/Kconfig
-index 5a0c476361c3..b2ea73ae48f0 100644
---- a/drivers/gpu/drm/Kconfig
-+++ b/drivers/gpu/drm/Kconfig
-@@ -54,8 +54,7 @@ config DRM_DEBUG_MM
+diff --git a/drivers/gpu/drm/xe/xe_drm_client.c b/drivers/gpu/drm/xe/xe_drm_client.c
+index 87c10bd7958b..c61163d0d945 100644
+--- a/drivers/gpu/drm/xe/xe_drm_client.c
++++ b/drivers/gpu/drm/xe/xe_drm_client.c
+@@ -15,6 +15,8 @@
+ #include "xe_drm_client.h"
+ #include "xe_trace.h"
  
- config DRM_USE_DYNAMIC_DEBUG
- 	bool "use dynamic debug to implement drm.debug"
--	default n
--	depends on BROKEN
-+	default y
- 	depends on DRM
- 	depends on DYNAMIC_DEBUG || DYNAMIC_DEBUG_CORE
- 	depends on JUMP_LABEL
++DRM_CLASSMAP_USE(drm_debug_classes);
++
+ /**
+  * xe_drm_client_alloc() - Allocate drm client
+  * @void: No arg
 -- 
 2.45.2
 
