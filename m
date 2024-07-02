@@ -4,58 +4,58 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 04FC9C3814E
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EAFA3C31D97
 	for <intel-gfx@archiver.kernel.org>; Wed,  3 Jul 2024 13:57:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 14D4710E88B;
-	Wed,  3 Jul 2024 13:57:13 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A7AA210E881;
+	Wed,  3 Jul 2024 13:57:12 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="LCUnpAgW";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="D3docQFf";
 	dkim-atps=neutral
-Received: from mail-io1-f51.google.com (mail-io1-f51.google.com
- [209.85.166.51])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 994A310E71B;
- Tue,  2 Jul 2024 21:59:32 +0000 (UTC)
-Received: by mail-io1-f51.google.com with SMTP id
- ca18e2360f4ac-7eb5dd9f994so174444139f.2; 
- Tue, 02 Jul 2024 14:59:32 -0700 (PDT)
+Received: from mail-io1-f53.google.com (mail-io1-f53.google.com
+ [209.85.166.53])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9985210E729;
+ Tue,  2 Jul 2024 21:59:34 +0000 (UTC)
+Received: by mail-io1-f53.google.com with SMTP id
+ ca18e2360f4ac-7eba486df76so882039f.0; 
+ Tue, 02 Jul 2024 14:59:34 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1719957572; x=1720562372; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1719957574; x=1720562374; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=LdxS3Fv+DdtdyD/OX9RwYgW//DQBvhU2TaujYV4igeo=;
- b=LCUnpAgW+mRailg1nyeMHL/B23KJ7qVULfhOaGbyayKi/ixZEVieX5Wkn5wykzpQAx
- Wj07G1pexURjKoE+TIczgBwhc5wJGzc3O8B0uuQoHwkiVh+Nry8RAyJ4/4upSV3ZoxbZ
- 8nJ5JpK68POrzRFxe3aUac2zPNTL+pZDCuxgSMHkuqtU6A7wvoUwxy3mMKbqNfTqte76
- 1BRGRPCpLdSQttDIIabQ4avUKNBhPe/XcIhLZVLWAz9yr00OxJKy3CQHpS8KcBAt6Q+G
- 3AwT039BOzYixQ1YA3mJw8FVS70c/kotqx364JzzLNUsPXi5R6NIBel6azCvwdPLXhSM
- 88ZQ==
+ bh=3JTbEivvcQUwAcXrAriYcuJGP77J1qAidh1sZIrKRVg=;
+ b=D3docQFfVqACrI0Q5tapAYbw/UAj5TDORLVUlq/CCUnPwt6xqTJPrVozuzqfNA+2jx
+ sjDlThH0rSsegx/yFsqwrtNQSq2IECfbuHp0JajnnhwhPqwkSjfNaba8RiecE/ODybvc
+ nYaKNITFX7P72cm6JQovj1gu2NmKkPG8GBv35MxAu6Q+jwtFR8vUGLkJR5rAMlKBKmBx
+ xH6oJJqJkT1AEyBYJn+KYcIW4l/uO3fUXkfnkbVTVWANpntUHF/xOZtBKwwoBz0yVBYP
+ nmnQDffvC71QUtHCTKKLa3ee/oLs1qrcPxGK/Fmjtj5UZELb9P5Ib1gfsTIcZxdzFoQB
+ zbsg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1719957572; x=1720562372;
+ d=1e100.net; s=20230601; t=1719957574; x=1720562374;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=LdxS3Fv+DdtdyD/OX9RwYgW//DQBvhU2TaujYV4igeo=;
- b=qWAIjOrwon1clMIMvo5h0drb7oOP5rq68U1kQSLuBi/ql8JbdHxzLdJ6qcnWYpukWU
- xtmT1oEz+bb4Ae8rpiP+iBeNIgvUtFu4zq4ngt7XVk+GXamcUCj3piw17DuL+hEzE6bi
- gnIwt9V2nifxvubEYCDAxkvflp+/3TldriaIKiKiQSDrwMyz8K3cNHvTN+gD8bcIiWDo
- ogi3x93waachzp/eaqzz4PqZ9qotgPoeILnTYl+oIrma5H7A/JtpI0MsxV0b14rFCAmH
- 9cN+UH/mEgQZ6ChxKD4JvrpiWGc4M3vX6OX3+U3KmD8KswewP+HlJ6HqTmvrhifYRd33
- 8uDA==
+ bh=3JTbEivvcQUwAcXrAriYcuJGP77J1qAidh1sZIrKRVg=;
+ b=gml+9iMJ2ZyEADYwKfJSkIrwozNq1XU+VfwydQglsBUOjU3nvq5I/tmIV+mC1/XTMI
+ gvzYzQ9q7Yiz1Ebl0wH5fS7rvLp4UQLspYKzYiuP1TIcWI3otWqj7Al+7WlX3R3CnuPq
+ tXpCEQRwyF+awq9j6PMWGxZM6vJIVMft/5PXL51X37x0/rKYlx/pTvQi7T9SC/+tH2eG
+ /6h0xQhoTOApz9oVY4Lc2D8glvz2s/TWaIJMhheTy3fVq6jB53etkv9SxVrORMj/QzZ9
+ ThH5PxBr/Z03tDie8mIz8nR/8yq2CZ4vYbg22ySkaFWsnlJEpieKALD1YLqheNAN813N
+ ZlkQ==
 X-Forwarded-Encrypted: i=1;
- AJvYcCWi6d9iI9J99KtyOKdwyS/QxkVT+YIuid/jVTBuWRE2jCE/Se0OpiXeWfay4ubG6VaRpWE6CtLGYKaHfSi2VwvLuh7e9SZND6NFBx2ZvOmbmrwcPmFCpUZxBqZfzyIeyqZ1xpQ1DZ+T5lauEJ01AbPWomFSTn5ZElgj0QYMwK1NtNmSR0aJPF1tYSsC3UWAMo7CHZ226gV9LcyiOSwtiNFPysQZXY766j/8Tqj3PCwnhzvhc+w=
-X-Gm-Message-State: AOJu0YyHsmE6A45/jhjPw5ySrpCzG4WTjtvxkrBmmpIKSazW48Ykif9k
- qlr1+aCec05Ce9a8rV/t+dP6Ax5JoLJTjsZ/4VFuoUIK5g257n8x
-X-Google-Smtp-Source: AGHT+IG0BidfQmn2qvsEzI4yxcp7Po1yYyxiFL7MCjw8+FHvwJsFiaR7ArnybWXhDCww+r7LW6gVaQ==
-X-Received: by 2002:a6b:7411:0:b0:7eb:8ba1:b03 with SMTP id
- ca18e2360f4ac-7f62ee18032mr1037353639f.1.1719957571867; 
- Tue, 02 Jul 2024 14:59:31 -0700 (PDT)
+ AJvYcCXJHwwpr81Nn+/RYWGXoeJHZuz761XI/k3Fwp747HyVYiW5U4wkYGKWxroBye+r336LaNlBfBf1bXV6t0Cogh13LPBLq5aMP5neRNWN2CYo7+FTGZcNngZ28+C/iLUjIq0BHDbZbOyjxAM9dErTO0zpvZ6a7QXMsp4Cts0775MfH9P8syATOaej8b9bEnNEvZzK4/YqbpGg5J4UopdNPpPU7N2ocU5fUwAYCJoHcCF6YI4X4GE=
+X-Gm-Message-State: AOJu0YyOM8xOjuyqCY5S9fmqJDv0wqOjbWO0woa89InA9adP1ude5voY
+ ur0czzk+WRL0hzfLIRailiT3AYHpXQd8OG9PryvoNRHjJHLxPjq+
+X-Google-Smtp-Source: AGHT+IHm0jXqTVtk7QVjjSb+zomWmd/7d6iWmMvK3abb0BF2wBUE0rEZf9n+FnhAA07EmTqJ9TZwcg==
+X-Received: by 2002:a05:6602:45b:b0:7f6:4c8b:efdc with SMTP id
+ ca18e2360f4ac-7f64c8bf2a0mr206658639f.2.1719957573878; 
+ Tue, 02 Jul 2024 14:59:33 -0700 (PDT)
 Received: from frodo.. (c-73-78-62-130.hsd1.co.comcast.net. [73.78.62.130])
  by smtp.googlemail.com with ESMTPSA id
- ca18e2360f4ac-7f61d207fcesm279944739f.51.2024.07.02.14.59.30
+ ca18e2360f4ac-7f61d207fcesm279944739f.51.2024.07.02.14.59.33
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 02 Jul 2024 14:59:31 -0700 (PDT)
+ Tue, 02 Jul 2024 14:59:33 -0700 (PDT)
 From: Jim Cromie <jim.cromie@gmail.com>
 To: daniel.vetter@ffwll.ch, tvrtko.ursulin@linux.intel.com,
  jani.nikula@intel.com, ville.syrjala@linux.intel.com, jbaron@akamai.com,
@@ -64,9 +64,9 @@ Cc: linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
  amd-gfx@lists.freedesktop.org, intel-gvt-dev@lists.freedesktop.org,
  intel-gfx@lists.freedesktop.org, linux@rasmusvillemoes.dk, joe@perches.com,
  mcgrof@kernel.org, Jim Cromie <jim.cromie@gmail.com>
-Subject: [PATCH v9 49/52] drm-dyndbg: add DRM_CLASSMAP_USE to the gud driver
-Date: Tue,  2 Jul 2024 15:57:57 -0600
-Message-ID: <20240702215804.2201271-68-jim.cromie@gmail.com>
+Subject: [PATCH v9 50/52] drm-dyndbg: add DRM_CLASSMAP_USE to the qxl driver
+Date: Tue,  2 Jul 2024 15:57:59 -0600
+Message-ID: <20240702215804.2201271-70-jim.cromie@gmail.com>
 X-Mailer: git-send-email 2.45.2
 In-Reply-To: <20240702215804.2201271-1-jim.cromie@gmail.com>
 References: <20240702215804.2201271-1-jim.cromie@gmail.com>
@@ -88,28 +88,28 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-The gud driver has a number of DRM_UT_* debugs, make them
+The qxl driver has a number of DRM_UT_* debugs, make them
 controllable when CONFIG_DRM_USE_DYNAMIC_DEBUG=y by telling dyndbg
 that the module uses them.
 
 Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
 ---
- drivers/gpu/drm/gud/gud_drv.c | 2 ++
+ drivers/gpu/drm/qxl/qxl_drv.c | 2 ++
  1 file changed, 2 insertions(+)
 
-diff --git a/drivers/gpu/drm/gud/gud_drv.c b/drivers/gpu/drm/gud/gud_drv.c
-index 9d7bf8ee45f1..5b555045fce4 100644
---- a/drivers/gpu/drm/gud/gud_drv.c
-+++ b/drivers/gpu/drm/gud/gud_drv.c
-@@ -31,6 +31,8 @@
- 
- #include "gud_internal.h"
+diff --git a/drivers/gpu/drm/qxl/qxl_drv.c b/drivers/gpu/drm/qxl/qxl_drv.c
+index beee5563031a..1971bfa8a8a6 100644
+--- a/drivers/gpu/drm/qxl/qxl_drv.c
++++ b/drivers/gpu/drm/qxl/qxl_drv.c
+@@ -65,6 +65,8 @@ module_param_named(modeset, qxl_modeset, int, 0400);
+ MODULE_PARM_DESC(num_heads, "Number of virtual crtcs to expose (default 4)");
+ module_param_named(num_heads, qxl_num_crtc, int, 0400);
  
 +DRM_CLASSMAP_USE(drm_debug_classes);
 +
- /* Only used internally */
- static const struct drm_format_info gud_drm_format_r1 = {
- 	.format = GUD_DRM_FORMAT_R1,
+ static struct drm_driver qxl_driver;
+ static struct pci_driver qxl_pci_driver;
+ 
 -- 
 2.45.2
 
