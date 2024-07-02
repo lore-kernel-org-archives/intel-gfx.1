@@ -4,58 +4,58 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1CD95C30653
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 92E57C31D97
 	for <intel-gfx@archiver.kernel.org>; Wed,  3 Jul 2024 13:57:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 810B110E87C;
+	by gabe.freedesktop.org (Postfix) with ESMTP id D889810E884;
 	Wed,  3 Jul 2024 13:57:12 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="hhM3yFaD";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="VeOf4UyH";
 	dkim-atps=neutral
-Received: from mail-io1-f45.google.com (mail-io1-f45.google.com
- [209.85.166.45])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 64E3610E716;
- Tue,  2 Jul 2024 21:59:28 +0000 (UTC)
-Received: by mail-io1-f45.google.com with SMTP id
- ca18e2360f4ac-7f3c5af0a04so246308139f.0; 
- Tue, 02 Jul 2024 14:59:28 -0700 (PDT)
+Received: from mail-io1-f43.google.com (mail-io1-f43.google.com
+ [209.85.166.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 47E9910E6FD;
+ Tue,  2 Jul 2024 21:59:17 +0000 (UTC)
+Received: by mail-io1-f43.google.com with SMTP id
+ ca18e2360f4ac-7f5f7ecacc0so203296439f.0; 
+ Tue, 02 Jul 2024 14:59:17 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1719957567; x=1720562367; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1719957556; x=1720562356; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=Wh8QJ3ROh21ShBzcCiOPzlcJgoRl8pzdhd6qJVNHlVY=;
- b=hhM3yFaDKvyqFCRUMjDRLrXRf8ck38pezthqRymwJAHgeDiCF9nziyK867489Ypbe+
- 80FD2c/kJN0XHA41sqL+QQdD25WFg7V9esVB6s52qKAeg0MJsf5q+eO72awwukYlmrcF
- rhGHnl7mZO8gNEt4vy4K6SRoyGCJqo640HXWknhfE3Kkbl1hD1SZfNDiZaRww9ZT0M03
- 2fzR47Sk/tg4V/0Knd2Hj3gGw8Waixc9eT1K/5ctkW7Ih3XzIuptzRzd05CV7C8u/p0J
- D95+w2TPuQKK7j36hizmvAIUfRTc5QG6nft6EvsBG1nXanIekZ4L9+QNivn7Sc1tfRWq
- MY7Q==
+ bh=pIsdMzCagTnPqkjtDJJFzcS6RuUfrVRwKo+d8V5q9yk=;
+ b=VeOf4UyHwwDAgF/xcqBvqH2qDgdYNuq+AmjnToKB3vS13zn71v1Q2NvNPw6Oef5CLX
+ BkkkeOLBV2jkwlMBYkZCFPP7tjBweDo5Ji+UXARm8QOR99f3NTGt5tk9oGFaNgSsZf6v
+ X01/BfRRMvmDwgPeu0L+R8JqG76lv/0dGrbX1B9FZCn9mxIju7WatMsMN2RfkgOr0X5T
+ 5J7Lk0zXojnzvDIJnamo9vPs4yizlQgJvmViCdzwFkRyXfRSp+4ERl/p7wCg1i0O/9aS
+ vIgKW+HbK7cYhkw0j5Lza+46dbwcnnL18UDh075aW826Bq8/m3Svci9hEVXpmxcQS2YI
+ nR4Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1719957567; x=1720562367;
+ d=1e100.net; s=20230601; t=1719957556; x=1720562356;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=Wh8QJ3ROh21ShBzcCiOPzlcJgoRl8pzdhd6qJVNHlVY=;
- b=WvlVeVFoGtJdXT4HZygasYX79ohXXm9FEs4Yh/iV9/K6Ks4SDUgAXYqgZHuABYsrmW
- 1MTnME6sDTTnSiXJvg2fwVZJaIvhaZssWR9owptSRPGeAfFQq22LGUTjGohmwVCg4Dap
- ePlohksi08Ep7HlnCAjs8FmeMD4AaZcP8ALXO5ztUDSBiT79zTPDs2UWstgOLyrLgi7+
- HOeppUrq44aCcKrGMJrjECaA/46KvkeJI116t0+riH50QIJfSQNF7Zleaim4qyxKiAwH
- DllXQosoA288Sy+6u11OEU0VCiPfpAPTJNIKIgrqcopY2vQiKjgpW+ReF971epGoQMeM
- uuuA==
+ bh=pIsdMzCagTnPqkjtDJJFzcS6RuUfrVRwKo+d8V5q9yk=;
+ b=xFcr9gu/SGevMOkoXAjmOGvo2NgW1IcYCRYdEqnotqCbJt6ulyLh2tX0qhtpHXPigO
+ Q2eBIgB9bwmuzk49N+HzY6R/suO/SMJoDSXugdYRw8+dvmnESzkGw70tNieWN5tKRpal
+ ctnwI2MCpu3N78Dclkey/sIXeJHW96cIjUL/971uRUKZw3qmEnDONUY/srW2drUWAsfR
+ zw37wwiiyz0L9ZxfOxbeq1z7raTPdizmkWnxtXQcQr2QPssd9aJAtk9p7ojEGBHZ0Dqz
+ jdZA8hVd3TdO9hKVAOkNAZc5wf9nG/n/0ezGqS4WTg+tGU10wPHiGMjn1R7WuRu4G8lS
+ 1TDQ==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUBkaDUZumsaNrHrLRj1H23LxeUNPOiFzlmV+gRShJdiFhV3B0lG4FiIBZfLhG/rRYD6eJTLfQ/TIYMl1P7ySfOGxVKQWxQP6mTmt2pG2rzr/qPOj3bUgNj2rjaJvMh9m1VzWIiQfz90vgpgAawv9iwor2NbXB8SS/OhJiIvPgXaVgMc1oSDymesqeh4CG877A9q9AVGdobqjzfu18JdMEcho+LBQoaNXEPIe8Gy8V9Bx1nKvA=
-X-Gm-Message-State: AOJu0YxjzIfT/ag/OhjpxrZ8uzLOMNMRV3b1FUV4mqgVDJnTPEVojIq5
- 60oSX7ihWx+2gRs/LyxXNWLCycSx97s1FdeWH4R0MvmJuCce4iDn
-X-Google-Smtp-Source: AGHT+IH3xH7tho2sBM1GSeoWG+NM2MBhz/xyUPt2gcXQi9kj/rdgFoV4pSxxHWVcBZJh0cz14Ndmig==
-X-Received: by 2002:a6b:6514:0:b0:7f3:d5d3:3e56 with SMTP id
- ca18e2360f4ac-7f62ee8d268mr1165752739f.17.1719957567640; 
- Tue, 02 Jul 2024 14:59:27 -0700 (PDT)
+ AJvYcCUn/Mx2cKWjShM635oig/7QFYZRCkUCGDlzHEXqJvLy9js6NIV4dtq+QJ5OQQWJCW81CPqAjM4RAtkiba0zs9YyFyPLmJTHivzJCknCzDfZXR8faE8v3clOdEUG63Go7ygkfbDTnuyslayYmff878GEf+bEx0vehYdNcrJ7M2rDxxPUioG5vFV9Igqdhw0pgFJCXpXo3IKuCSIj1GmoNz4BhY+4JOLm039gdqdRA6nzVFKDOrU=
+X-Gm-Message-State: AOJu0YzxVr3jW0pO3fsxGoFy0Zmz5s0Dyi0pbbUGaUUnEu2IDvT7LkHF
+ yIvqzos0ZoOcqnqBvavfw1I7G4ZNoBseE9mQ3YI6SOghACOEZhbn
+X-Google-Smtp-Source: AGHT+IHkqfivsiD8dHTonTZAnkys7OGTa2LDBnrQBx2fInhOiG5IlwUdftnx+Nl9cVfwsK85+z/TuA==
+X-Received: by 2002:a5d:9544:0:b0:7f6:1f20:f137 with SMTP id
+ ca18e2360f4ac-7f62ee3cc32mr1102400639f.5.1719957556538; 
+ Tue, 02 Jul 2024 14:59:16 -0700 (PDT)
 Received: from frodo.. (c-73-78-62-130.hsd1.co.comcast.net. [73.78.62.130])
  by smtp.googlemail.com with ESMTPSA id
- ca18e2360f4ac-7f61d207fcesm279944739f.51.2024.07.02.14.59.26
+ ca18e2360f4ac-7f61d207fcesm279944739f.51.2024.07.02.14.59.15
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 02 Jul 2024 14:59:27 -0700 (PDT)
+ Tue, 02 Jul 2024 14:59:16 -0700 (PDT)
 From: Jim Cromie <jim.cromie@gmail.com>
 To: daniel.vetter@ffwll.ch, tvrtko.ursulin@linux.intel.com,
  jani.nikula@intel.com, ville.syrjala@linux.intel.com, jbaron@akamai.com,
@@ -64,9 +64,9 @@ Cc: linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
  amd-gfx@lists.freedesktop.org, intel-gvt-dev@lists.freedesktop.org,
  intel-gfx@lists.freedesktop.org, linux@rasmusvillemoes.dk, joe@perches.com,
  mcgrof@kernel.org, Jim Cromie <jim.cromie@gmail.com>
-Subject: [PATCH v9 47/53] drm-dyndbg: add DRM_CLASSMAP_USE to vkms driver
-Date: Tue,  2 Jul 2024 15:57:53 -0600
-Message-ID: <20240702215804.2201271-64-jim.cromie@gmail.com>
+Subject: [PATCH v9 43/53] drm-dyndbg: add DRM_CLASSMAP_USE to etnaviv
+Date: Tue,  2 Jul 2024 15:57:44 -0600
+Message-ID: <20240702215804.2201271-55-jim.cromie@gmail.com>
 X-Mailer: git-send-email 2.45.2
 In-Reply-To: <20240702215804.2201271-1-jim.cromie@gmail.com>
 References: <20240702215804.2201271-1-jim.cromie@gmail.com>
@@ -88,28 +88,28 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-The vkms driver has a number of DRM_UT_* debugs, make them
-controllable when CONFIG_DRM_USE_DYNAMIC_DEBUG=y by telling dyndbg
-that the module uses them.
+etnaviv has 5 DRM_UT_CORE debugs, make them controllable when
+CONFIG_DRM_USE_DYNAMIC_DEBUG=y by telling dyndbg that the module has
+class'd debugs as well as plain-old pr_debug()s
 
 Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
 ---
- drivers/gpu/drm/vkms/vkms_drv.c | 2 ++
+ drivers/gpu/drm/etnaviv/etnaviv_drv.c | 2 ++
  1 file changed, 2 insertions(+)
 
-diff --git a/drivers/gpu/drm/vkms/vkms_drv.c b/drivers/gpu/drm/vkms/vkms_drv.c
-index dd0af086e7fa..086797c4b82b 100644
---- a/drivers/gpu/drm/vkms/vkms_drv.c
-+++ b/drivers/gpu/drm/vkms/vkms_drv.c
-@@ -39,6 +39,8 @@
- 
- static struct vkms_config *default_config;
+diff --git a/drivers/gpu/drm/etnaviv/etnaviv_drv.c b/drivers/gpu/drm/etnaviv/etnaviv_drv.c
+index 6500f3999c5f..1d1ddbedcb5a 100644
+--- a/drivers/gpu/drm/etnaviv/etnaviv_drv.c
++++ b/drivers/gpu/drm/etnaviv/etnaviv_drv.c
+@@ -25,6 +25,8 @@
+ #include "etnaviv_mmu.h"
+ #include "etnaviv_perfmon.h"
  
 +DRM_CLASSMAP_USE(drm_debug_classes);
 +
- static bool enable_cursor = true;
- module_param_named(enable_cursor, enable_cursor, bool, 0444);
- MODULE_PARM_DESC(enable_cursor, "Enable/Disable cursor support");
+ /*
+  * DRM operations:
+  */
 -- 
 2.45.2
 
