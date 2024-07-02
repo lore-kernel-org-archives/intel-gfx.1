@@ -4,58 +4,58 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5B4DBC3DA40
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B8178C30653
 	for <intel-gfx@archiver.kernel.org>; Wed,  3 Jul 2024 13:57:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EA7C410E885;
+	by gabe.freedesktop.org (Postfix) with ESMTP id CEA5F10E882;
 	Wed,  3 Jul 2024 13:57:12 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Hth3+2CI";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="UoY8XI4+";
 	dkim-atps=neutral
-Received: from mail-io1-f43.google.com (mail-io1-f43.google.com
- [209.85.166.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3CBFB10E6FB;
- Tue,  2 Jul 2024 21:59:14 +0000 (UTC)
-Received: by mail-io1-f43.google.com with SMTP id
- ca18e2360f4ac-7f38da3800aso181537439f.0; 
- Tue, 02 Jul 2024 14:59:14 -0700 (PDT)
+Received: from mail-il1-f170.google.com (mail-il1-f170.google.com
+ [209.85.166.170])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B02EA10E6CA;
+ Tue,  2 Jul 2024 21:58:30 +0000 (UTC)
+Received: by mail-il1-f170.google.com with SMTP id
+ e9e14a558f8ab-376266a65c8so19416475ab.3; 
+ Tue, 02 Jul 2024 14:58:30 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1719957553; x=1720562353; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1719957510; x=1720562310; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=wzxAaDu6jznCkYGTIESxKGj+agIaj+uEvHm/3W7k4f4=;
- b=Hth3+2CIAq7jrogl2z/nR0BgvcTWbiM+lrJXwsT8HI/wvxlhRAynHglgnvBsPxBubA
- iinpBDIIDRzofavxRyKqKaiwFMb84FDkFtqo5lNcf/Kd1VGdIR2GolNO5kVUhynsXD4i
- 87zAuL7CKGfi+glhXmA7XaKzRTBjm6cresXxb3afQwBSiXrHsp+7/AjhG0S1h7N0GWSH
- fkovmSzKnkmp4rY7N+R/GFmKQoVYtWK5FGswsYleYo3g9YupbiZV3tQCQ3TsZRebg7sp
- 9n42YopQ/ZefbMRGxFZiNpaTnVQpy9A+lB9AC4A9Gb6sia1FuOaAa3eAVRNhdfhx45bu
- zBmQ==
+ bh=PG0HixeKNGYC1yKqg8pO4K0aUEEvqiNOUzi5OjavD2Q=;
+ b=UoY8XI4+bZBTT8F9Qr9kl+0rmdwynNbF3gGYnxasfUu1ZDD5kNpRDE1chNv5twH/Cy
+ u6tR/6ViT+2Ybz80HAaR4uBaeK8nTHU72XOxpKeC1+/pa3aD0O126H6ahpHTMT7ao+WN
+ Tc16T/504/HXNwULLfqi2KzjUI3tSzN+FbxCkV39iuBzrFi3UxZEjw8aqBXiMGs1xN99
+ J8dZeG89TctsmDuGzt1pyGKNYd7Px+JPDqyrSutQl9/jPFV/osb+cXp2CdoKk3cJZzeR
+ DuvC1bxo5acqxShWUV3bDw/TnsLxy+McoezWrSyheYKQOY0gy4vpODytg8pjDZ0xfBai
+ hYoA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1719957553; x=1720562353;
+ d=1e100.net; s=20230601; t=1719957510; x=1720562310;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=wzxAaDu6jznCkYGTIESxKGj+agIaj+uEvHm/3W7k4f4=;
- b=UUzxZUWTzTEDv4n8xKPz78yyQZqdqY99UqLpbxnmDSNwcMeSwRvZ90gyLtPjAxKHOk
- zNw6Uac7kmfAD0Qd53aAKg/8ARtbyPmwyVv9LyPvnDQbFTPUDV4n4NprJX680YLBjhiF
- dZs5Lg1MWgUcMDYwqwltptaaynZ7IGLt31Zgx57/U7CzIa7saCRCrCy4kvukF6op5IuK
- NJ8udA/ab4prq2RLM/YilVn7HXfuD9gE5koOszqemKKn+vLo66uM1yPg6iqN0iwJeqzX
- vFt78VWAOZ2lK/Ong8ku0xHF1SZFcc0qxLBNDQxKj/rI44JimBFV1kSP3LWy8f6GazGf
- Ez7A==
+ bh=PG0HixeKNGYC1yKqg8pO4K0aUEEvqiNOUzi5OjavD2Q=;
+ b=A72gaUj12TsseLAjAL3icZ1Nuc4l730LolCFYPevkmw0VGHyC5GQjoZJVctYA6wvcm
+ CPRrlh8/QZnJ0iAXOJfoP7L+8abwNn9UAvr4mYMtCVoYK3GoooBHt0lN+Wemx7c/R5QC
+ H7iytrFN4rqFdCf9wHs3FUEx+YcCF8O707vy3/bgv82ljLJ2El/0WLAVkaophioheLmF
+ qYiVYs5HS8rwh/09R7F+y+SfFiguHu8YXyzH8vtt0waeQyEOq2lEUyZb7O8RtOpD2WNK
+ lzaexpQfYDmfo7glVuL7atmQyrYjYII4EpAtqAmDmWyJrYmxs2jd7GgOo9Rqy0cN/cZB
+ GSHQ==
 X-Forwarded-Encrypted: i=1;
- AJvYcCW8Np1Bv72HRh6C91m3WsqdR8gSiA0Ji4ecgJElks01nggdqoheX5iriYAxvKds/IS/gMexPOW27v09reFodxcpsOFsjV+M5HJGChgfPvDeiYGzzfi2YCEKSkQfpv387SyPH+Zxb4Kji61t3b3q7iQTfX+7eTLlrPbH+dXy+47YttpNMe3p5Ej4pXuPZNpOZzDusKbV/qsU1W5i9/n+Jr0zD6rGbByl5YvVzCzmqD5klwtLjWc=
-X-Gm-Message-State: AOJu0YygomLXcZy52Qcbt5k+l2JaDovnzttNWAFhy2HxZv1CTkadq+04
- TKf+/t+sx5OEHepDJMBdXDYVjNpiDzQoD/KIL6sBMfx4SuvVVWQX
-X-Google-Smtp-Source: AGHT+IF2IV262mxUL5Fv2D4fSAIWDRHFT00nSwPai7dQls4045AmbHQ4mcu0vY1Ry054DisDUO53kA==
-X-Received: by 2002:a5d:954e:0:b0:7f3:c683:2257 with SMTP id
- ca18e2360f4ac-7f62ee79dacmr1311983139f.19.1719957553542; 
- Tue, 02 Jul 2024 14:59:13 -0700 (PDT)
+ AJvYcCV/EW9jXamk9jd/mqmOagLB7jJbn4uxjYXhPDkfLZUj/1jSQCnwmVKX4aVEGsV650Dmnru6nFSK/+WrlBUyk12c/iHWb/V6C9JRPIW1AWJNbrL9gCHPxpYMInC92ykXysyBg/wQ/C+ksrxAaHsIyU/PAMDMba2zupRboBUNRdQ+jHV+IebuAKh8sNxhM5S1Nw17IZfnFbkTElWjdL/xMcWcrhHYoNJ6KF1ICvTTHkqWm9HDqoM=
+X-Gm-Message-State: AOJu0YxYBA9n2IgUHMXMQbU1c6nq/CTinN3YcCXkwykG0YPQTTDd2bLm
+ HOnGGhW3nh5Y6/T3+FgYwHYDu+1kyKUuUTfncFfUE0CiRIdIUDsl
+X-Google-Smtp-Source: AGHT+IHFxJvBXIHq5LZcv20uJ1NKUAM88ZngYdPTVnyFhFGhwG7OwIeFbtlBvY1gNg2J1W/h7jPgdQ==
+X-Received: by 2002:a05:6602:2be1:b0:7f6:1b3a:437b with SMTP id
+ ca18e2360f4ac-7f62ee79e9emr1172631339f.17.1719957509908; 
+ Tue, 02 Jul 2024 14:58:29 -0700 (PDT)
 Received: from frodo.. (c-73-78-62-130.hsd1.co.comcast.net. [73.78.62.130])
  by smtp.googlemail.com with ESMTPSA id
- ca18e2360f4ac-7f61d207fcesm279944739f.51.2024.07.02.14.59.12
+ ca18e2360f4ac-7f61d207fcesm279944739f.51.2024.07.02.14.58.28
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 02 Jul 2024 14:59:13 -0700 (PDT)
+ Tue, 02 Jul 2024 14:58:29 -0700 (PDT)
 From: Jim Cromie <jim.cromie@gmail.com>
 To: daniel.vetter@ffwll.ch, tvrtko.ursulin@linux.intel.com,
  jani.nikula@intel.com, ville.syrjala@linux.intel.com, jbaron@akamai.com,
@@ -64,9 +64,10 @@ Cc: linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
  amd-gfx@lists.freedesktop.org, intel-gvt-dev@lists.freedesktop.org,
  intel-gfx@lists.freedesktop.org, linux@rasmusvillemoes.dk, joe@perches.com,
  mcgrof@kernel.org, Jim Cromie <jim.cromie@gmail.com>
-Subject: [PATCH v9 41/53] drm-dyndbg: add DRM_CLASSMAP_USE to simpledrm
-Date: Tue,  2 Jul 2024 15:57:41 -0600
-Message-ID: <20240702215804.2201271-52-jim.cromie@gmail.com>
+Subject: [PATCH v9 13/52] dyndbg: reduce verbose=3 messages in
+ ddebug_add_module
+Date: Tue,  2 Jul 2024 15:57:03 -0600
+Message-ID: <20240702215804.2201271-14-jim.cromie@gmail.com>
 X-Mailer: git-send-email 2.45.2
 In-Reply-To: <20240702215804.2201271-1-jim.cromie@gmail.com>
 References: <20240702215804.2201271-1-jim.cromie@gmail.com>
@@ -88,28 +89,36 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-tiny/simpledrm has 3 DRM_UT_DRIVER debugs, make them controllable when
-CONFIG_DRM_USE_DYNAMIC_DEBUG=y by telling dyndbg that the module has
-class'd debugs.
+When modprobing a module, dyndbg currently logs/says "add-module", and
+then "skipping" if the module has no prdbgs.  Instead just check 1st
+and return quietly.
+
+no functional change
 
 Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
 ---
- drivers/gpu/drm/tiny/simpledrm.c | 2 ++
- 1 file changed, 2 insertions(+)
+ lib/dynamic_debug.c | 7 +++----
+ 1 file changed, 3 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/gpu/drm/tiny/simpledrm.c b/drivers/gpu/drm/tiny/simpledrm.c
-index 7ce1c4617675..9cab48bd0581 100644
---- a/drivers/gpu/drm/tiny/simpledrm.c
-+++ b/drivers/gpu/drm/tiny/simpledrm.c
-@@ -33,6 +33,8 @@
- #define DRIVER_MAJOR	1
- #define DRIVER_MINOR	0
+diff --git a/lib/dynamic_debug.c b/lib/dynamic_debug.c
+index d4a0ae31d059..43a8e04b8599 100644
+--- a/lib/dynamic_debug.c
++++ b/lib/dynamic_debug.c
+@@ -1245,11 +1245,10 @@ static int ddebug_add_module(struct _ddebug_info *di, const char *modname)
+ {
+ 	struct ddebug_table *dt;
  
-+DRM_CLASSMAP_USE(drm_debug_classes);
+-	v3pr_info("add-module: %s.%d sites\n", modname, di->num_descs);
+-	if (!di->num_descs) {
+-		v3pr_info(" skip %s\n", modname);
++	if (!di->num_descs)
+ 		return 0;
+-	}
 +
- /*
-  * Helpers for simplefb
-  */
++	v3pr_info("add-module: %s %d sites\n", modname, di->num_descs);
+ 
+ 	dt = kzalloc(sizeof(*dt), GFP_KERNEL);
+ 	if (dt == NULL) {
 -- 
 2.45.2
 
