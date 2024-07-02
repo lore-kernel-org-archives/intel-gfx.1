@@ -4,58 +4,58 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6EBD1C38150
-	for <intel-gfx@archiver.kernel.org>; Wed,  3 Jul 2024 13:57:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2EBBEC3DA41
+	for <intel-gfx@archiver.kernel.org>; Wed,  3 Jul 2024 13:57:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7D7EC10E8A4;
-	Wed,  3 Jul 2024 13:57:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3EA6A10E8C2;
+	Wed,  3 Jul 2024 13:57:16 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="jnlpaID/";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="WFq0a40c";
 	dkim-atps=neutral
-Received: from mail-io1-f47.google.com (mail-io1-f47.google.com
- [209.85.166.47])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6403210E6D0;
- Tue,  2 Jul 2024 21:58:40 +0000 (UTC)
-Received: by mail-io1-f47.google.com with SMTP id
- ca18e2360f4ac-7f649f7868dso113914939f.2; 
- Tue, 02 Jul 2024 14:58:40 -0700 (PDT)
+Received: from mail-io1-f51.google.com (mail-io1-f51.google.com
+ [209.85.166.51])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8BD8510E6DC;
+ Tue,  2 Jul 2024 21:58:54 +0000 (UTC)
+Received: by mail-io1-f51.google.com with SMTP id
+ ca18e2360f4ac-7eba486df76so868039f.0; 
+ Tue, 02 Jul 2024 14:58:54 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1719957519; x=1720562319; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1719957534; x=1720562334; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=86vugQ8piC6pzh4RgCq/qOTI8lQn1pJMR2FsXqHUdq8=;
- b=jnlpaID/1fdqwbPDJAY8bgzP0tfZwSFbDbnVHt4O2bKBgBbpGJ7L77n9+AX/OoC2jO
- r+p4CWANtFxbEGtBVy9h3S5/nYGSYtNpK3eDOILEOJmyr6wa5QZe0Nlw1g9DS0Z5PDxb
- NZdxq8iY+0kmN81GyKChd2apuSgszHDTyNNZxz5ep2lyzoJapg2q9GBYbcgDxO1DWpYc
- I3AjnKRUdeSMP86XqPWvHU+tYutInjYXYfI+XUKu5hy6BjsZhCGHBVR7Os3KByaCR9os
- oJRl90ZfHyW1ezCYqOoQ3WZzkaGMARHW/jtgk7jIHEBnmxuDClTPXdI1fO6oSKUzpE9C
- oT3w==
+ bh=UK1rhky1L0Uh2dLu61vy8boLc9OqspSM7tQ5uDrS370=;
+ b=WFq0a40coKMKuuIa78KcYOxzpV9uy+CAvu9I8wQRUzxFWwGSpdCehAn5RZqE/YP8da
+ SJIFpNNLFlY/hwj4z8q8/hNutKiJBNuMc+RiSR4nD7mw0M8yFTSa9Z4cMzIiDQZjXFxY
+ Tskvq795SVZAVeuQOC4P5a2v5zHAfdCMok5w/cj5hOqHtzcOTSgw8yJB0vSRTAy+35gg
+ dRszIvZMz7H2Trn4NZxgIeqhY3wO6cWm0KUiIMnBdhVx8grBCdjta5bwdZAicqVF0/aP
+ NgxacFhYq4pD/Rb2HmT2GsRRIVg+SBwz+qtLg5b2E1C1OdMyGMOP/0AHrZDrHmMNyxSO
+ Q1MQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1719957519; x=1720562319;
+ d=1e100.net; s=20230601; t=1719957534; x=1720562334;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=86vugQ8piC6pzh4RgCq/qOTI8lQn1pJMR2FsXqHUdq8=;
- b=Qt4VdOl/A89yVGhqFWmetCSgSsFyezdEs6edBhX1sXilfhaRn2AGNuGao3cHacDgvO
- r/DtTBAF4ZxGOmeRPP1DTIKlSdMWOAU1urRNPM4zxVFUkAS5bHAaaLYfE+D1aMFVM0YI
- 1whzltT4EzFntyKC01MtsVS5zVrYE+be9ufWgS3LKlhMdKUrW6VbhwRu41wmEjs94F2U
- 1aI+2EAKbA229s4KYwyiodtQxH/38vNlSUuSMdNuvcxlDTp/UBisGYn8kU/EfG+qco9N
- GZ4GyltgcAySmcsazkuHyAHYEpTub5EUiHqejAgdSM87lwklN7NzaRFQoLLZ0qHyffns
- l75g==
+ bh=UK1rhky1L0Uh2dLu61vy8boLc9OqspSM7tQ5uDrS370=;
+ b=ZhEmx5dTUij3oEsQjHQUrHr+F64XuXgT0o3LaOiI9Xrar+FSsBzp5V7XNt0BerVIed
+ bCMPR3DARqE1eaEkc4GBDdwIWwhNKxUpJIcXbdRZl1CL+YCeUE0smOtsF+k/PsRosPag
+ yM6g2WALd/BO4cEVcIW56fWw61zlZWGqTcU0FwC6N0vjTlk7DkBsYgNpJnyUkDI/3dRV
+ 6kR+7NoWbAkIWSFkLrTcBRc1ATZBqprY1Q2lBE0W0kqc1os9PlINs+ySatzeyxab1d33
+ ie93rxMPzc/WiMCHmCaypYcHEgtxa1v0ublAa+F9NOGEyvTQ2HrHRg4xmq339gLlO9O9
+ YSMw==
 X-Forwarded-Encrypted: i=1;
- AJvYcCXcK2QAiox9X1qppUWGwD61MoYIzh1/bDp+PLu2HYmKzVfd6WYZSWpUVsNJi0ucXVajQ5G83UkL4Wg85Xa92oMGz9K2E+eaWYsoII82i+vNF2OGwDQWa8z+u/L7q3Nd68HBd8yDQ61uPsBb9NyN0gEOxQ3Tuh1x/YAkGvO6smfCQUqCQBkE4mN4Cgdg4mrdIADfBVqDVZZUTgwAWcQMY28XoKzlZecfuy/MAvtQRWpiKbaDJIg=
-X-Gm-Message-State: AOJu0YyoEtvv7pyuMBP7w2kr9M3f9urvUk9uBacblbY8afJBL7ruKJS2
- Om1PJWgvMv7Zhe8su2du/clFb3ZTKh2m7vhJR0g9y20a+PP4x0kW
-X-Google-Smtp-Source: AGHT+IFh4NknMSqrRunexz7bPyO+GFuFsoZTUZjnQuX30OfvbKxEu2+OkmD/dNXRlYHLCXi/CEVDEA==
-X-Received: by 2002:a05:6602:15c2:b0:7f6:19b9:3a3b with SMTP id
- ca18e2360f4ac-7f62edfe2e9mr1313056939f.1.1719957519578; 
- Tue, 02 Jul 2024 14:58:39 -0700 (PDT)
+ AJvYcCWIjzcCQz7f6AwZYr90n9r/MCopIHFNTcjUsnpIBvk8nwRV0PdZxV4nbbt8rOWQOocNQzWXBr8v4hkqCOHrrtjUrak7/EG4elEffKPjEIRBmO/hnMvJhsa1jvBAEyKfdEiWtro99d6zyL4pQlH0V7WfBZBLN72PmtAgx39FvbiTY0ndZfswoCuifpq01zz4ZKns4dHufXF62BXUoZP6HJCPQGpTTh+KP73DzaccH5D6hGutIEg=
+X-Gm-Message-State: AOJu0YxWDcIwvjs04QHby3Ucc1xhzwCu09wLA+vFpI46Ou+VRsXogX6e
+ cF6g5Z1ej0hkLotE9EvqiL9YZnO1eh78c3oAvaYCrhviVzY9ONqx
+X-Google-Smtp-Source: AGHT+IGYp0RboRXc4AYNUXGuU4aFvoVlXDTzLDPuxZv6t3qpmmIpFtCdOXEccDrNUTrugIVGTZM8hg==
+X-Received: by 2002:a05:6602:2558:b0:7eb:dac1:16bf with SMTP id
+ ca18e2360f4ac-7f61f5243e0mr650832239f.6.1719957533818; 
+ Tue, 02 Jul 2024 14:58:53 -0700 (PDT)
 Received: from frodo.. (c-73-78-62-130.hsd1.co.comcast.net. [73.78.62.130])
  by smtp.googlemail.com with ESMTPSA id
- ca18e2360f4ac-7f61d207fcesm279944739f.51.2024.07.02.14.58.38
+ ca18e2360f4ac-7f61d207fcesm279944739f.51.2024.07.02.14.58.53
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 02 Jul 2024 14:58:39 -0700 (PDT)
+ Tue, 02 Jul 2024 14:58:53 -0700 (PDT)
 From: Jim Cromie <jim.cromie@gmail.com>
 To: daniel.vetter@ffwll.ch, tvrtko.ursulin@linux.intel.com,
  jani.nikula@intel.com, ville.syrjala@linux.intel.com, jbaron@akamai.com,
@@ -64,9 +64,9 @@ Cc: linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
  amd-gfx@lists.freedesktop.org, intel-gvt-dev@lists.freedesktop.org,
  intel-gfx@lists.freedesktop.org, linux@rasmusvillemoes.dk, joe@perches.com,
  mcgrof@kernel.org, Jim Cromie <jim.cromie@gmail.com>
-Subject: [PATCH v9 20/52] selftests-dyndbg: add comma_terminator_tests
-Date: Tue,  2 Jul 2024 15:57:10 -0600
-Message-ID: <20240702215804.2201271-21-jim.cromie@gmail.com>
+Subject: [PATCH v9 32/52] drm-dyndbg: DRM_CLASSMAP_USE in amdgpu driver
+Date: Tue,  2 Jul 2024 15:57:23 -0600
+Message-ID: <20240702215804.2201271-34-jim.cromie@gmail.com>
 X-Mailer: git-send-email 2.45.2
 In-Reply-To: <20240702215804.2201271-1-jim.cromie@gmail.com>
 References: <20240702215804.2201271-1-jim.cromie@gmail.com>
@@ -88,45 +88,43 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-New fn validates parsing and effect of queries using combinations of
-commas and spaces to delimit the tokens.
+Following the dyndbg-api-fix, replace DECLARE_DYNDBG_CLASSMAP with
+DRM_CLASSMAP_USE.  This refs the defined & exported classmap, rather
+than re-declaring it redundantly, and error-prone-ly.
 
-It manipulates pr-debugs in builtin module/params, so might have deps
-I havent foreseen on odd configurations.
+This resolves the appearance of "class:_UNKNOWN_" in the control file
+for the driver's drm_dbg()s.
+
+Fixes: f158936b60a7 ("drm: POC drm on dyndbg - use in core, 2 helpers, 3 drivers.")
 
 Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
 ---
- .../selftests/dynamic_debug/dyndbg_selftest.sh     | 14 ++++++++++++++
- 1 file changed, 14 insertions(+)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c | 12 +-----------
+ 1 file changed, 1 insertion(+), 11 deletions(-)
 
-diff --git a/tools/testing/selftests/dynamic_debug/dyndbg_selftest.sh b/tools/testing/selftests/dynamic_debug/dyndbg_selftest.sh
-index 1be70af26a38..b4ba293ab227 100755
---- a/tools/testing/selftests/dynamic_debug/dyndbg_selftest.sh
-+++ b/tools/testing/selftests/dynamic_debug/dyndbg_selftest.sh
-@@ -212,9 +212,23 @@ EOF
-     ddcmd =_
- }
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+index e4277298cf1a..b287f0cfd8fa 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+@@ -217,17 +217,7 @@ int amdgpu_damage_clips = -1; /* auto */
  
-+function comma_terminator_tests {
-+    echo -e "${GREEN}# COMMA_TERMINATOR_TESTS ${NC}"
-+    # try combos of spaces & commas
-+    check_match_ct '\[params\]' 4 -r
-+    ddcmd module,params,=_		# commas as spaces
-+    ddcmd module,params,+mpf		# turn on module's pr-debugs
-+    check_match_ct =pmf 4
-+    ddcmd ,module ,, ,  params, -p
-+    check_match_ct =mf 4
-+    ddcmd " , module ,,, ,  params, -m"	#
-+    check_match_ct =f 4
-+    ddcmd =_
-+}
+ static void amdgpu_drv_delayed_reset_work_handler(struct work_struct *work);
  
- tests_list=(
-     basic_tests
-+    comma_terminator_tests
- )
+-DECLARE_DYNDBG_CLASSMAP(drm_debug_classes, DD_CLASS_TYPE_DISJOINT_BITS, 0,
+-			"DRM_UT_CORE",
+-			"DRM_UT_DRIVER",
+-			"DRM_UT_KMS",
+-			"DRM_UT_PRIME",
+-			"DRM_UT_ATOMIC",
+-			"DRM_UT_VBL",
+-			"DRM_UT_STATE",
+-			"DRM_UT_LEASE",
+-			"DRM_UT_DP",
+-			"DRM_UT_DRMRES");
++DRM_CLASSMAP_USE(drm_debug_classes);
  
- # Run tests
+ struct amdgpu_mgpu_info mgpu_info = {
+ 	.mutex = __MUTEX_INITIALIZER(mgpu_info.mutex),
 -- 
 2.45.2
 
