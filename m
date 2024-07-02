@@ -4,58 +4,58 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B8178C30653
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 04FC9C3814E
 	for <intel-gfx@archiver.kernel.org>; Wed,  3 Jul 2024 13:57:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CEA5F10E882;
-	Wed,  3 Jul 2024 13:57:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 14D4710E88B;
+	Wed,  3 Jul 2024 13:57:13 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="UoY8XI4+";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="LCUnpAgW";
 	dkim-atps=neutral
-Received: from mail-il1-f170.google.com (mail-il1-f170.google.com
- [209.85.166.170])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B02EA10E6CA;
- Tue,  2 Jul 2024 21:58:30 +0000 (UTC)
-Received: by mail-il1-f170.google.com with SMTP id
- e9e14a558f8ab-376266a65c8so19416475ab.3; 
- Tue, 02 Jul 2024 14:58:30 -0700 (PDT)
+Received: from mail-io1-f51.google.com (mail-io1-f51.google.com
+ [209.85.166.51])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 994A310E71B;
+ Tue,  2 Jul 2024 21:59:32 +0000 (UTC)
+Received: by mail-io1-f51.google.com with SMTP id
+ ca18e2360f4ac-7eb5dd9f994so174444139f.2; 
+ Tue, 02 Jul 2024 14:59:32 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1719957510; x=1720562310; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1719957572; x=1720562372; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=PG0HixeKNGYC1yKqg8pO4K0aUEEvqiNOUzi5OjavD2Q=;
- b=UoY8XI4+bZBTT8F9Qr9kl+0rmdwynNbF3gGYnxasfUu1ZDD5kNpRDE1chNv5twH/Cy
- u6tR/6ViT+2Ybz80HAaR4uBaeK8nTHU72XOxpKeC1+/pa3aD0O126H6ahpHTMT7ao+WN
- Tc16T/504/HXNwULLfqi2KzjUI3tSzN+FbxCkV39iuBzrFi3UxZEjw8aqBXiMGs1xN99
- J8dZeG89TctsmDuGzt1pyGKNYd7Px+JPDqyrSutQl9/jPFV/osb+cXp2CdoKk3cJZzeR
- DuvC1bxo5acqxShWUV3bDw/TnsLxy+McoezWrSyheYKQOY0gy4vpODytg8pjDZ0xfBai
- hYoA==
+ bh=LdxS3Fv+DdtdyD/OX9RwYgW//DQBvhU2TaujYV4igeo=;
+ b=LCUnpAgW+mRailg1nyeMHL/B23KJ7qVULfhOaGbyayKi/ixZEVieX5Wkn5wykzpQAx
+ Wj07G1pexURjKoE+TIczgBwhc5wJGzc3O8B0uuQoHwkiVh+Nry8RAyJ4/4upSV3ZoxbZ
+ 8nJ5JpK68POrzRFxe3aUac2zPNTL+pZDCuxgSMHkuqtU6A7wvoUwxy3mMKbqNfTqte76
+ 1BRGRPCpLdSQttDIIabQ4avUKNBhPe/XcIhLZVLWAz9yr00OxJKy3CQHpS8KcBAt6Q+G
+ 3AwT039BOzYixQ1YA3mJw8FVS70c/kotqx364JzzLNUsPXi5R6NIBel6azCvwdPLXhSM
+ 88ZQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1719957510; x=1720562310;
+ d=1e100.net; s=20230601; t=1719957572; x=1720562372;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=PG0HixeKNGYC1yKqg8pO4K0aUEEvqiNOUzi5OjavD2Q=;
- b=A72gaUj12TsseLAjAL3icZ1Nuc4l730LolCFYPevkmw0VGHyC5GQjoZJVctYA6wvcm
- CPRrlh8/QZnJ0iAXOJfoP7L+8abwNn9UAvr4mYMtCVoYK3GoooBHt0lN+Wemx7c/R5QC
- H7iytrFN4rqFdCf9wHs3FUEx+YcCF8O707vy3/bgv82ljLJ2El/0WLAVkaophioheLmF
- qYiVYs5HS8rwh/09R7F+y+SfFiguHu8YXyzH8vtt0waeQyEOq2lEUyZb7O8RtOpD2WNK
- lzaexpQfYDmfo7glVuL7atmQyrYjYII4EpAtqAmDmWyJrYmxs2jd7GgOo9Rqy0cN/cZB
- GSHQ==
+ bh=LdxS3Fv+DdtdyD/OX9RwYgW//DQBvhU2TaujYV4igeo=;
+ b=qWAIjOrwon1clMIMvo5h0drb7oOP5rq68U1kQSLuBi/ql8JbdHxzLdJ6qcnWYpukWU
+ xtmT1oEz+bb4Ae8rpiP+iBeNIgvUtFu4zq4ngt7XVk+GXamcUCj3piw17DuL+hEzE6bi
+ gnIwt9V2nifxvubEYCDAxkvflp+/3TldriaIKiKiQSDrwMyz8K3cNHvTN+gD8bcIiWDo
+ ogi3x93waachzp/eaqzz4PqZ9qotgPoeILnTYl+oIrma5H7A/JtpI0MsxV0b14rFCAmH
+ 9cN+UH/mEgQZ6ChxKD4JvrpiWGc4M3vX6OX3+U3KmD8KswewP+HlJ6HqTmvrhifYRd33
+ 8uDA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCV/EW9jXamk9jd/mqmOagLB7jJbn4uxjYXhPDkfLZUj/1jSQCnwmVKX4aVEGsV650Dmnru6nFSK/+WrlBUyk12c/iHWb/V6C9JRPIW1AWJNbrL9gCHPxpYMInC92ykXysyBg/wQ/C+ksrxAaHsIyU/PAMDMba2zupRboBUNRdQ+jHV+IebuAKh8sNxhM5S1Nw17IZfnFbkTElWjdL/xMcWcrhHYoNJ6KF1ICvTTHkqWm9HDqoM=
-X-Gm-Message-State: AOJu0YxYBA9n2IgUHMXMQbU1c6nq/CTinN3YcCXkwykG0YPQTTDd2bLm
- HOnGGhW3nh5Y6/T3+FgYwHYDu+1kyKUuUTfncFfUE0CiRIdIUDsl
-X-Google-Smtp-Source: AGHT+IHFxJvBXIHq5LZcv20uJ1NKUAM88ZngYdPTVnyFhFGhwG7OwIeFbtlBvY1gNg2J1W/h7jPgdQ==
-X-Received: by 2002:a05:6602:2be1:b0:7f6:1b3a:437b with SMTP id
- ca18e2360f4ac-7f62ee79e9emr1172631339f.17.1719957509908; 
- Tue, 02 Jul 2024 14:58:29 -0700 (PDT)
+ AJvYcCWi6d9iI9J99KtyOKdwyS/QxkVT+YIuid/jVTBuWRE2jCE/Se0OpiXeWfay4ubG6VaRpWE6CtLGYKaHfSi2VwvLuh7e9SZND6NFBx2ZvOmbmrwcPmFCpUZxBqZfzyIeyqZ1xpQ1DZ+T5lauEJ01AbPWomFSTn5ZElgj0QYMwK1NtNmSR0aJPF1tYSsC3UWAMo7CHZ226gV9LcyiOSwtiNFPysQZXY766j/8Tqj3PCwnhzvhc+w=
+X-Gm-Message-State: AOJu0YyHsmE6A45/jhjPw5ySrpCzG4WTjtvxkrBmmpIKSazW48Ykif9k
+ qlr1+aCec05Ce9a8rV/t+dP6Ax5JoLJTjsZ/4VFuoUIK5g257n8x
+X-Google-Smtp-Source: AGHT+IG0BidfQmn2qvsEzI4yxcp7Po1yYyxiFL7MCjw8+FHvwJsFiaR7ArnybWXhDCww+r7LW6gVaQ==
+X-Received: by 2002:a6b:7411:0:b0:7eb:8ba1:b03 with SMTP id
+ ca18e2360f4ac-7f62ee18032mr1037353639f.1.1719957571867; 
+ Tue, 02 Jul 2024 14:59:31 -0700 (PDT)
 Received: from frodo.. (c-73-78-62-130.hsd1.co.comcast.net. [73.78.62.130])
  by smtp.googlemail.com with ESMTPSA id
- ca18e2360f4ac-7f61d207fcesm279944739f.51.2024.07.02.14.58.28
+ ca18e2360f4ac-7f61d207fcesm279944739f.51.2024.07.02.14.59.30
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 02 Jul 2024 14:58:29 -0700 (PDT)
+ Tue, 02 Jul 2024 14:59:31 -0700 (PDT)
 From: Jim Cromie <jim.cromie@gmail.com>
 To: daniel.vetter@ffwll.ch, tvrtko.ursulin@linux.intel.com,
  jani.nikula@intel.com, ville.syrjala@linux.intel.com, jbaron@akamai.com,
@@ -64,10 +64,9 @@ Cc: linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
  amd-gfx@lists.freedesktop.org, intel-gvt-dev@lists.freedesktop.org,
  intel-gfx@lists.freedesktop.org, linux@rasmusvillemoes.dk, joe@perches.com,
  mcgrof@kernel.org, Jim Cromie <jim.cromie@gmail.com>
-Subject: [PATCH v9 13/52] dyndbg: reduce verbose=3 messages in
- ddebug_add_module
-Date: Tue,  2 Jul 2024 15:57:03 -0600
-Message-ID: <20240702215804.2201271-14-jim.cromie@gmail.com>
+Subject: [PATCH v9 49/52] drm-dyndbg: add DRM_CLASSMAP_USE to the gud driver
+Date: Tue,  2 Jul 2024 15:57:57 -0600
+Message-ID: <20240702215804.2201271-68-jim.cromie@gmail.com>
 X-Mailer: git-send-email 2.45.2
 In-Reply-To: <20240702215804.2201271-1-jim.cromie@gmail.com>
 References: <20240702215804.2201271-1-jim.cromie@gmail.com>
@@ -89,36 +88,28 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-When modprobing a module, dyndbg currently logs/says "add-module", and
-then "skipping" if the module has no prdbgs.  Instead just check 1st
-and return quietly.
-
-no functional change
+The gud driver has a number of DRM_UT_* debugs, make them
+controllable when CONFIG_DRM_USE_DYNAMIC_DEBUG=y by telling dyndbg
+that the module uses them.
 
 Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
 ---
- lib/dynamic_debug.c | 7 +++----
- 1 file changed, 3 insertions(+), 4 deletions(-)
+ drivers/gpu/drm/gud/gud_drv.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/lib/dynamic_debug.c b/lib/dynamic_debug.c
-index d4a0ae31d059..43a8e04b8599 100644
---- a/lib/dynamic_debug.c
-+++ b/lib/dynamic_debug.c
-@@ -1245,11 +1245,10 @@ static int ddebug_add_module(struct _ddebug_info *di, const char *modname)
- {
- 	struct ddebug_table *dt;
+diff --git a/drivers/gpu/drm/gud/gud_drv.c b/drivers/gpu/drm/gud/gud_drv.c
+index 9d7bf8ee45f1..5b555045fce4 100644
+--- a/drivers/gpu/drm/gud/gud_drv.c
++++ b/drivers/gpu/drm/gud/gud_drv.c
+@@ -31,6 +31,8 @@
  
--	v3pr_info("add-module: %s.%d sites\n", modname, di->num_descs);
--	if (!di->num_descs) {
--		v3pr_info(" skip %s\n", modname);
-+	if (!di->num_descs)
- 		return 0;
--	}
+ #include "gud_internal.h"
+ 
++DRM_CLASSMAP_USE(drm_debug_classes);
 +
-+	v3pr_info("add-module: %s %d sites\n", modname, di->num_descs);
- 
- 	dt = kzalloc(sizeof(*dt), GFP_KERNEL);
- 	if (dt == NULL) {
+ /* Only used internally */
+ static const struct drm_format_info gud_drm_format_r1 = {
+ 	.format = GUD_DRM_FORMAT_R1,
 -- 
 2.45.2
 
