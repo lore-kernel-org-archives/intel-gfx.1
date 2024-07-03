@@ -4,51 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8B44CC3271F
-	for <intel-gfx@archiver.kernel.org>; Wed,  3 Jul 2024 15:59:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 23F2DC3814E
+	for <intel-gfx@archiver.kernel.org>; Wed,  3 Jul 2024 15:59:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 215EB10E92D;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1E25D10E928;
 	Wed,  3 Jul 2024 15:59:32 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="l1OE7dDm";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="eVjizxDB";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.17])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B512710E924
- for <intel-gfx@lists.freedesktop.org>; Wed,  3 Jul 2024 15:59:29 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A561710E926
+ for <intel-gfx@lists.freedesktop.org>; Wed,  3 Jul 2024 15:59:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1720022370; x=1751558370;
- h=from:to:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=fG1C13N1+JZKaDmK9MX5ZVJHuvc/C4WdOlbnTD8kARo=;
- b=l1OE7dDmc9jwuD/EInKBgt8FelvcewXuCCpeJ5qiJcmWtaqvzvlCnNAC
- 3b4uyisM5B+iarpHksSsREcv1y2qgQbHNLBMOrCGr5eB3RL/UzkoS9BrO
- KgQ73pvWmub8pqJMUjfwPdID1BiR8X7jVgbsbxTyq+y5FNj6qR3Qr7ahR
- pCvj4gRMv340ZJXaOJH1ifaLw6g0jas9MRR4bcG/z+HaoRddYpyJaYxCg
- DmCZ+RsMVNEIayxhel6CdHt7FwnUUPak7htPbsLMcMMAcb30xVSBwXhSe
- qDOXVXaUoGXJXp5Eaz/0ygGouZ1Kx/t0/6gphTyVozOf7YXIdbYWezOZc g==;
-X-CSE-ConnectionGUID: dhftu0nuTeOpdq649Gd0xw==
-X-CSE-MsgGUID: EwrrQOszQPifUV3w0v6FHw==
-X-IronPort-AV: E=McAfee;i="6700,10204,11121"; a="17131762"
-X-IronPort-AV: E=Sophos;i="6.09,182,1716274800"; d="scan'208";a="17131762"
+ t=1720022371; x=1751558371;
+ h=from:to:subject:date:message-id:in-reply-to:references:
+ mime-version:content-transfer-encoding;
+ bh=pN1VnzTfh2Gp1qlYUOrxb1EdoWIL8ZmV1gzqpj7prbo=;
+ b=eVjizxDBqN1yeqgy3itSrc3enBgqz5ZVYiLXBVolNeQY3unG8Ayxws4H
+ cJNTWMWPtC1xzR1jxqBJwNJ6uoTg6piDjQH17Vj1nPWGojCwcDSntSNV6
+ QIt3jlxshCM4kvrExNUn+QJRXtQqnxqO1g3AbRjK6q154aKi3EDGn0yE9
+ MqfcVpQNfUIIRzrMygWJVsE/BIWXk5iv5N1PdlBrV1M+kEJJJmsZ+HaDk
+ xJzq5bkw90W+TSfVKxqd/z5TD29s3nP9h+A+HKh/OI+Vf4Y8HiVxPHYvn
+ E17h09Ol2Bo4hHeDGCtDtLvdYifPatcH8Ja8Y/kqQ3WfdQQXoVXptMdNf A==;
+X-CSE-ConnectionGUID: e5KAkAueT7O/tkozT6hnKQ==
+X-CSE-MsgGUID: +0Jsmzu+TG2pr3TthNnhFg==
+X-IronPort-AV: E=McAfee;i="6700,10204,11121"; a="17131769"
+X-IronPort-AV: E=Sophos;i="6.09,182,1716274800"; d="scan'208";a="17131769"
 Received: from orviesa007.jf.intel.com ([10.64.159.147])
  by fmvoesa111.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 03 Jul 2024 08:59:26 -0700
-X-CSE-ConnectionGUID: /U9BvD3VTLiJ0T8gbGop0A==
-X-CSE-MsgGUID: MiVTy8+USt6VEQfPNOokiA==
+ 03 Jul 2024 08:59:30 -0700
+X-CSE-ConnectionGUID: fhfpP8QJRDq4IiOoB0TBtQ==
+X-CSE-MsgGUID: T/FBkVuFTFqlx4iE0ceRpA==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.09,182,1716274800"; d="scan'208";a="46964094"
+X-IronPort-AV: E=Sophos;i="6.09,182,1716274800"; d="scan'208";a="46964118"
 Received: from ideak-desk.fi.intel.com ([10.237.72.78])
  by orviesa007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 03 Jul 2024 08:59:25 -0700
+ 03 Jul 2024 08:59:29 -0700
 From: Imre Deak <imre.deak@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Subject: [PATCH 0/5] drm/i915/dp: Fix LTTPR detection
-Date: Wed,  3 Jul 2024 18:59:32 +0300
-Message-ID: <20240703155937.1674856-1-imre.deak@intel.com>
+Subject: [PATCH 3/5] drm/i915/dp: Keep cached LTTPR mode up-to-date
+Date: Wed,  3 Jul 2024 18:59:35 +0300
+Message-ID: <20240703155937.1674856-4-imre.deak@intel.com>
 X-Mailer: git-send-email 2.43.3
+In-Reply-To: <20240703155937.1674856-1-imre.deak@intel.com>
+References: <20240703155937.1674856-1-imre.deak@intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -65,22 +66,33 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Fix the DP LTTPR PHY detection, avoiding a loss of link synchronization
-when the detection is done while the link through the LTTPR is active.
-Also dump the LTTPR PHY descriptors to help debugging similar issues.
+Nothing depends on the cached LTTPR mode, however for consistency keep
+it up-to-date with the value programmed to the DPCD register.
 
-Imre Deak (5):
-  drm/i915/dp: Don't switch the LTTPR mode on an active link
-  drm/i915/dp: Reset cached LTTPR count if number of LTTPRs is
-    unsupported
-  drm/i915/dp: Keep cached LTTPR mode up-to-date
-  drm/dp: Add the LTTPR PHY OUI DPCD register
-  drm/i915/dp: Dump the LTTPR PHY descriptors
+Signed-off-by: Imre Deak <imre.deak@intel.com>
+---
+ drivers/gpu/drm/i915/display/intel_dp_link_training.c | 8 +++++++-
+ 1 file changed, 7 insertions(+), 1 deletion(-)
 
- .../drm/i915/display/intel_dp_link_training.c | 81 +++++++++++++++++--
- include/drm/display/drm_dp.h                  |  4 +
- 2 files changed, 78 insertions(+), 7 deletions(-)
-
+diff --git a/drivers/gpu/drm/i915/display/intel_dp_link_training.c b/drivers/gpu/drm/i915/display/intel_dp_link_training.c
+index df9b35491fc44..31089f1b316d2 100644
+--- a/drivers/gpu/drm/i915/display/intel_dp_link_training.c
++++ b/drivers/gpu/drm/i915/display/intel_dp_link_training.c
+@@ -114,7 +114,13 @@ intel_dp_set_lttpr_transparent_mode(struct intel_dp *intel_dp, bool enable)
+ 	u8 val = enable ? DP_PHY_REPEATER_MODE_TRANSPARENT :
+ 			  DP_PHY_REPEATER_MODE_NON_TRANSPARENT;
+ 
+-	return drm_dp_dpcd_write(&intel_dp->aux, DP_PHY_REPEATER_MODE, &val, 1) == 1;
++	if (drm_dp_dpcd_write(&intel_dp->aux, DP_PHY_REPEATER_MODE, &val, 1) != 1)
++		return false;
++
++	intel_dp->lttpr_common_caps[DP_PHY_REPEATER_MODE -
++				    DP_LT_TUNABLE_PHY_REPEATER_FIELD_DATA_STRUCTURE_REV] = val;
++
++	return true;
+ }
+ 
+ static bool intel_dp_lttpr_transparent_mode_enabled(struct intel_dp *intel_dp)
 -- 
 2.43.3
 
