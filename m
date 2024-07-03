@@ -4,75 +4,27 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 44F8FC2BD09
-	for <intel-gfx@archiver.kernel.org>; Wed,  3 Jul 2024 13:57:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 188F9C2BD09
+	for <intel-gfx@archiver.kernel.org>; Wed,  3 Jul 2024 14:40:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9BF0310E8C9;
-	Wed,  3 Jul 2024 13:57:16 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="TnWnYqE7";
-	dkim-atps=neutral
-Received: from mail-io1-f49.google.com (mail-io1-f49.google.com
- [209.85.166.49])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 252D110E6FF;
- Tue,  2 Jul 2024 21:59:16 +0000 (UTC)
-Received: by mail-io1-f49.google.com with SMTP id
- ca18e2360f4ac-7f63db7a69cso142358539f.2; 
- Tue, 02 Jul 2024 14:59:16 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1719957555; x=1720562355; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=pIsdMzCagTnPqkjtDJJFzcS6RuUfrVRwKo+d8V5q9yk=;
- b=TnWnYqE7yJxfkvIBySFFG2GA662t3a4jA645cUlz3bUMXYJttCdnOXij6XN59ek0u4
- e4omDOzZfRnHg18qAAjxz1fT1jook/nY3VjK6TIx+gJcmaLE8RPoTB8fX4o6jaV1NChy
- 8pw2lnbWxz9eGJALJjFOhb9ogU8COP4pMmWqKBQUpDiRmk6HYWa5QtHGO+VaJtbnKRff
- jEwg/WAb/Pw3c1XQ5YDtsOQNiKlU7ddp+K/SptlX0Gujt46prHN5HnmGYhHiSzXyeCVi
- Q89pdHbWAetOuY1A2o8DGinBznlFLPuNi4v+air+H2Fn+/TRbMcpLnWe7e5J7aTTiWkx
- nv1w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1719957555; x=1720562355;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=pIsdMzCagTnPqkjtDJJFzcS6RuUfrVRwKo+d8V5q9yk=;
- b=XgHc6DAcJJ1H9KIVwXl5mI9Wlr01Pvg7bnTlIXY0CV88GCZz/c9gjmMRoYBSxqKPVg
- YJnOqU+mmR0mRcGvgEDnFp32Yj7LunEWBDFVGLdoKVPwP3BQfab4Pnid0SgqoKmwMlJC
- VSIDu/wrJ8Xc1Ui+KHLvbPuT0xSCMvfZomjOvMN93vBkDLvuizXkMHz94ojRz0BTAhiO
- 5K3YqCvCN7lxxJ2YFsuriW9C7Td8zTbXNfk0SZQQBT6OMegahL0LvuL6Qxu1EhSbwlND
- 3KLp30XdqfR0++RAjzZV5sGe1ZHGh1IAc4BSX8CD/WU6vEwoaaPdm4c6ny81NvtANEjW
- Lnmw==
-X-Forwarded-Encrypted: i=1;
- AJvYcCWtyrxqqOj4+n2SCtuTtsrG23DTyqxGaFkGuH91lQLX3WE1EG1kj9hdqFZdJ6A69XOE8/nkQZwW7VIwgDttf7ftmv/0pDL73q7g82kyEgKp94PMLwbVvRiPk10qt+80yXYn2GUuYOaVWGFaGTKfopWobzF3s/SqQGUhVv3FuGzt6zNeVE9p2KJ2y+wkvJAQF/C8O4wq5FcrO6WgkKOy4zc/E01AtXnIb0vd5RYSDokhC2cAsxs=
-X-Gm-Message-State: AOJu0YzbevcEjoxcdCr+Uyf/tGBvrxftYYxo/ALRhStWmY70aNTnUK0y
- o+SCMJSx07HstafxiHdfh0YJh6yhpYStprjzToR2049Wkg8IlUlk
-X-Google-Smtp-Source: AGHT+IFdYfSSGOVrNg8Fii4KNPEZjcEw1XtdTCCtZkWFk6OqEpHnTijp+0TjJsgDqve7B+0xLFhnQw==
-X-Received: by 2002:a6b:6113:0:b0:7f3:a7d9:5922 with SMTP id
- ca18e2360f4ac-7f62ee0c850mr1132473239f.8.1719957555439; 
- Tue, 02 Jul 2024 14:59:15 -0700 (PDT)
-Received: from frodo.. (c-73-78-62-130.hsd1.co.comcast.net. [73.78.62.130])
- by smtp.googlemail.com with ESMTPSA id
- ca18e2360f4ac-7f61d207fcesm279944739f.51.2024.07.02.14.59.14
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 02 Jul 2024 14:59:15 -0700 (PDT)
-From: Jim Cromie <jim.cromie@gmail.com>
-To: daniel.vetter@ffwll.ch, tvrtko.ursulin@linux.intel.com,
- jani.nikula@intel.com, ville.syrjala@linux.intel.com, jbaron@akamai.com,
- gregkh@linuxfoundation.org, ukaszb@chromium.org
-Cc: linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- amd-gfx@lists.freedesktop.org, intel-gvt-dev@lists.freedesktop.org,
- intel-gfx@lists.freedesktop.org, linux@rasmusvillemoes.dk, joe@perches.com,
- mcgrof@kernel.org, Jim Cromie <jim.cromie@gmail.com>
-Subject: [PATCH v9 42/52] drm-dyndbg: add DRM_CLASSMAP_USE to etnaviv
-Date: Tue,  2 Jul 2024 15:57:43 -0600
-Message-ID: <20240702215804.2201271-54-jim.cromie@gmail.com>
-X-Mailer: git-send-email 2.45.2
-In-Reply-To: <20240702215804.2201271-1-jim.cromie@gmail.com>
-References: <20240702215804.2201271-1-jim.cromie@gmail.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id B989F10E0B9;
+	Wed,  3 Jul 2024 14:40:06 +0000 (UTC)
+Received: from 2413ebb6fbb6 (emeril.freedesktop.org [131.252.210.167])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3633F10E021;
+ Wed,  3 Jul 2024 14:40:06 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Wed, 03 Jul 2024 13:57:11 +0000
+Content-Transfer-Encoding: 7bit
+Subject: =?utf-8?b?4pyXIEZpLkNJLkJVSUxEOiBmYWlsdXJlIGZvciBmaXggQ09ORklHX0RSTV9VU0Vf?=
+ =?utf-8?b?RFlOQU1JQ19ERUJVRz15?=
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Jim Cromie" <jim.cromie@gmail.com>
+Cc: intel-gfx@lists.freedesktop.org
+Date: Wed, 03 Jul 2024 14:40:06 -0000
+Message-ID: <172001760621.25710.8142494833314532750@2413ebb6fbb6>
+X-Patchwork-Hint: ignore
+References: <20240702215804.2201271-1-jim.cromie@gmail.com>
+In-Reply-To: <20240702215804.2201271-1-jim.cromie@gmail.com>
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -85,31 +37,41 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-etnaviv has 5 DRM_UT_CORE debugs, make them controllable when
-CONFIG_DRM_USE_DYNAMIC_DEBUG=y by telling dyndbg that the module has
-class'd debugs as well as plain-old pr_debug()s
+== Series Details ==
 
-Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
----
- drivers/gpu/drm/etnaviv/etnaviv_drv.c | 2 ++
- 1 file changed, 2 insertions(+)
+Series: fix CONFIG_DRM_USE_DYNAMIC_DEBUG=y
+URL   : https://patchwork.freedesktop.org/series/135705/
+State : failure
 
-diff --git a/drivers/gpu/drm/etnaviv/etnaviv_drv.c b/drivers/gpu/drm/etnaviv/etnaviv_drv.c
-index 6500f3999c5f..1d1ddbedcb5a 100644
---- a/drivers/gpu/drm/etnaviv/etnaviv_drv.c
-+++ b/drivers/gpu/drm/etnaviv/etnaviv_drv.c
-@@ -25,6 +25,8 @@
- #include "etnaviv_mmu.h"
- #include "etnaviv_perfmon.h"
- 
-+DRM_CLASSMAP_USE(drm_debug_classes);
-+
- /*
-  * DRM operations:
-  */
--- 
-2.45.2
+== Summary ==
+
+Error: patch https://patchwork.freedesktop.org/api/1.0/series/135705/revisions/1/mbox/ not applied
+Applying: docs/dyndbg: update examples \012 to \n
+Applying: test-dyndbg: fixup CLASSMAP usage error
+Applying: dyndbg: reword "class unknown, " to "class:_UNKNOWN_"
+Applying: dyndbg: make ddebug_class_param union members same size
+Applying: dyndbg: replace classmap list with a vector
+Applying: dyndbg: ddebug_apply_class_bitmap - add module arg, select on it
+Applying: dyndbg: split param_set_dyndbg_classes to _module & wrapper fns
+Applying: dyndbg: drop NUM_TYPE_ARRAY
+Applying: dyndbg: reduce verbose/debug clutter
+Applying: dyndbg: silence debugs with no-change updates
+Applying: dyndbg: tighten ddebug_class_name() 1st arg type
+Applying: dyndbg: tighten fn-sig of ddebug_apply_class_bitmap
+Applying: dyndbg: reduce verbose=3 messages in ddebug_add_module
+Applying: dyndbg-API: remove DD_CLASS_TYPE_(DISJOINT|LEVEL)_NAMES and code
+Applying: dyndbg-API: fix DECLARE_DYNDBG_CLASSMAP
+error: sha1 information is lacking or useless (include/linux/dynamic_debug.h).
+error: could not build fake ancestor
+hint: Use 'git am --show-current-patch=diff' to see the failed patch
+Patch failed at 0015 dyndbg-API: fix DECLARE_DYNDBG_CLASSMAP
+When you have resolved this problem, run "git am --continue".
+If you prefer to skip this patch, run "git am --skip" instead.
+To restore the original branch and stop patching, run "git am --abort".
+Build failed, no error log produced
+
 
