@@ -4,75 +4,75 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4BEFCC3DA41
-	for <intel-gfx@archiver.kernel.org>; Tue,  9 Jul 2024 13:53:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 884B9C2BD09
+	for <intel-gfx@archiver.kernel.org>; Tue,  9 Jul 2024 14:02:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EBB1010E56F;
-	Tue,  9 Jul 2024 13:53:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 361A510E571;
+	Tue,  9 Jul 2024 14:02:55 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="L69Jsas5";
+	dkim=pass (2048-bit key; unprotected) header.d=ursulin-net.20230601.gappssmtp.com header.i=@ursulin-net.20230601.gappssmtp.com header.b="q79Qd1p6";
 	dkim-atps=neutral
-Received: from mail-oi1-f171.google.com (mail-oi1-f171.google.com
- [209.85.167.171])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0017710E0AD;
- Wed,  3 Jul 2024 16:11:58 +0000 (UTC)
-Received: by mail-oi1-f171.google.com with SMTP id
- 5614622812f47-3d6301e7279so3417996b6e.3; 
- Wed, 03 Jul 2024 09:11:58 -0700 (PDT)
+Received: from mail-wr1-f48.google.com (mail-wr1-f48.google.com
+ [209.85.221.48])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 136E810E577
+ for <intel-gfx@lists.freedesktop.org>; Tue,  9 Jul 2024 14:02:54 +0000 (UTC)
+Received: by mail-wr1-f48.google.com with SMTP id
+ ffacd0b85a97d-367a2c2e41aso2626049f8f.2
+ for <intel-gfx@lists.freedesktop.org>; Tue, 09 Jul 2024 07:02:53 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1720023118; x=1720627918; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=3/dH8jV/d+x/FI16gAcv4uydOAqFjUfOw8j20FTynlU=;
- b=L69Jsas5/D3/3ApkGSi3VgF0gbzU/gvLHIkKWHRNhIeSj6SRYF/bIgZzqh9t0UQOdC
- bdclcz/L/L4Ie0uE5xUTWkXkHmfLf36Pmp2OgMhLnPUV8C7xZWaRLJ/XyQbBGNBMNNfN
- lJZpj3InNNmdZiZCY0xwa0Uv+lDp8x9MMsdSyUo2jS55vNNbfwtpTR3UA6d4uskZL/sP
- U31QHKKzvBA2eGvc+5ex+qmF/YpxRcGGBaMbl2ZaP9eQbn9k5haU2M/p9Szif3SDbXf4
- boYkoy9Io/l6bsQPIWfJj/nZHVOKcnYoDucVTzxOQYnsI7n8Gr0IECRdTyTT4zxifI5U
- Selw==
+ d=ursulin-net.20230601.gappssmtp.com; s=20230601; t=1720533772; x=1721138572;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=uu9OJhTofwP0VwGCWg6NqwdVMvMXhiTMagbsBjbyLLo=;
+ b=q79Qd1p6aypvNHL3DoZUopo+PUlpmPUg8hy/8JbS8EEL8he6TwuHfUZkKOJLBbhrrB
+ ApwJAm4xXP3Ltp5hDTpRWdyyEHXklF556RZQWvsHE1oDuvzJzlbvMBO9X0kfxHp1isHy
+ CUXUMKsFw0fR7Pa/LBwyKWRqCjgDaGmEAWP68XM8ITwyD0Cvr65RRM1cbHhJxnsgUgEf
+ XsF8miUxagFLlT+iem/MWoTSJCUwW5h/SGMoTcO5uzi2YndXPCXFlQDJ120Y4+ulg6uo
+ B59OKEGLFRGOcOWZnDjhpMn0ETRvnTS8Eyr1xuh54EZ+aK2Fc5dQdfAry2ZGu6dMYB1u
+ 38+w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1720023118; x=1720627918;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=3/dH8jV/d+x/FI16gAcv4uydOAqFjUfOw8j20FTynlU=;
- b=Ap3RvnpyfACigH64Jss15Pyo6CcBISap9ApM/m3QGL9gMvh2DPkU0l7iZPxThKMHWC
- 5ZdcBHjDB6ueBd3yPCasqmn5MSfj8kyjhlIL4DV24PLcYpBWcpgehEooNEhEBYLjoeMC
- xYwR3ToVBkqyi1RfCFcAJZh4PtgkgZwMbMf5YJ618zLmxGwz9oe0Nok84oTuTFnL39cg
- lFME4OzuG3FtAPRDRS8NzZA5h/8aWPt30wzROfEgEeyeGF29Idz4/RUc6BExcD7ZEy2y
- SKWWIz7Ob0ZGSWA2r5zftSZ00rProX88qDn9snG4/yE3+DIgr0pau0Ahy6WknfsEzkms
- TflA==
+ d=1e100.net; s=20230601; t=1720533772; x=1721138572;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=uu9OJhTofwP0VwGCWg6NqwdVMvMXhiTMagbsBjbyLLo=;
+ b=F+yBEUrqYqUHeoWV7N0vTrweTPmIXSHRN6rpR5Z/QAQjVG1Y9MvArNacqvZOpp+Dgz
+ cv2p/KWPobssfQ3MTpuxYuSma5iG+OBuhj5CV92Sj6H76SQu2AdR2FyXooeTfYo/Jqu1
+ DA6ehP0cYh8gUYJhgOZC/mpOUeY97v1QkyJ8gQC21XXyH5vpgBCUiNgpusms6aRozgEz
+ bg2BLuwwPtYA0qRIi6ingBTLeoLXfcwS7RMWhzvBXjC7jUgy/ct1DJ0iWbJIU4A5KBf2
+ 9DWBiun3u64ZXv8obm9pdiUC4533dugcjoEblFQf0rTPBpSDxBVzUs5J8a+lkwPYA8eB
+ D5AA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCVBKy9VqPgK1ij2A4dgB0IFwMtsMF0i6c5+tWyysUDz1iSHqZwUL9GagAwLpVoVAf0gmr2wjjPBiqsvyPYDz+xLD4m2OTYhcOYzMW4iyWgdepLHFshjQlHyAczuVP8w6KJEmjNiCnyks+bKrJExgLvwOTnBIM3V3R5M3JkhzZxY4YMXC2ryeFz+y38KSuLGVKBG9axUJdEbKljRHqhFgEY1CUV3BOw4LVDZa8/wYPNYZpRW9zE=
-X-Gm-Message-State: AOJu0YwMQQu5A4meTmMnNSWFv8kZmGVVP9M/ptn549dVjbRUYFtjdvrw
- WumJhdfrfb4swROrB7PzUmJ7PafY55TL4iZpca0q821nm7YHT/YRXysg1Q6tTw55W35f9GLfDpt
- C1TyGBDCRnKF5RRpP75vSN9+0yYY=
-X-Google-Smtp-Source: AGHT+IHHyVJ7tvgjX6YNT5yXxjT4ZfaP2CSlRVqBQQ9Svv1tUxG/jN+Xkt79kJWNOKN+ENdTMdSGcTnRp+qX6KDNUkc=
-X-Received: by 2002:a05:6808:1909:b0:3d5:5e58:528b with SMTP id
- 5614622812f47-3d6b2b24045mr15706235b6e.1.1720023118007; Wed, 03 Jul 2024
- 09:11:58 -0700 (PDT)
+ AJvYcCXPxDwlIpHi2VmUz+Fekdh3B/L8DM3F1PgB4SMDk0595hBPU00DHoii8UMmrORw69JozkMOHrwAEalp822aHXaeDwKl/BrJZr3HuJwBd/yR
+X-Gm-Message-State: AOJu0YxAVjfIj3xuMlep/LMZTNryEstQthtHRRIva/ZiODwW62oO/KZG
+ iNvvITeDb6h7RAd8de3HVrPl4b9L7dWhFprrDR7IYAPFcfmJkKV8MEbLSS1fMjo=
+X-Google-Smtp-Source: AGHT+IFtT5ee2t3crvq4ZNBz+KhMcZm7i0t9xadFlUz5eVRkiHO6Bw0KLJ9RPYcYHiCfNac1dtmlnQ==
+X-Received: by 2002:adf:a3d9:0:b0:367:958e:9832 with SMTP id
+ ffacd0b85a97d-367cea46060mr1876324f8f.14.1720533772204; 
+ Tue, 09 Jul 2024 07:02:52 -0700 (PDT)
+Received: from [192.168.0.101] ([84.69.19.168])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-4264a2fca8bsm209640155e9.47.2024.07.09.07.02.51
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 09 Jul 2024 07:02:51 -0700 (PDT)
+Message-ID: <51d17145-39bd-4ba5-a703-10725a1d3bc1@ursulin.net>
+Date: Tue, 9 Jul 2024 15:02:50 +0100
 MIME-Version: 1.0
-References: <20240702215804.2201271-1-jim.cromie@gmail.com>
- <20240702215804.2201271-31-jim.cromie@gmail.com> <ZoSOMClB0MeWeokU@intel.com>
- <CAJfuBxzsZUpO-Q_uAfMhzXs0WHYMTnj1F8ju7af-kQZKQjLvNQ@mail.gmail.com>
- <ZoU7kR2aYwVDvd_G@intel.com>
-In-Reply-To: <ZoU7kR2aYwVDvd_G@intel.com>
-From: jim.cromie@gmail.com
-Date: Wed, 3 Jul 2024 10:11:31 -0600
-Message-ID: <CAJfuBxwVWbJ9TdgH0ARmxUy+_DfNVKrTewjkqWKmCQtfOKQEAg@mail.gmail.com>
-Subject: Re: [PATCH v9 30/52] drm-dyndbg: adapt drm core to use dyndbg
- classmaps-v2
-To: =?UTF-8?B?VmlsbGUgU3lyasOkbMOk?= <ville.syrjala@linux.intel.com>
-Cc: daniel.vetter@ffwll.ch, tvrtko.ursulin@linux.intel.com, 
- jani.nikula@intel.com, jbaron@akamai.com, gregkh@linuxfoundation.org, 
- ukaszb@chromium.org, linux-kernel@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org, 
- intel-gvt-dev@lists.freedesktop.org, intel-gfx@lists.freedesktop.org, 
- linux@rasmusvillemoes.dk, joe@perches.com, mcgrof@kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-X-Mailman-Approved-At: Tue, 09 Jul 2024 13:53:50 +0000
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] drm/i915/gt: Do not consider preemption during
+ execlists_dequeue for gen8
+To: Nitin Gote <nitin.r.gote@intel.com>, intel-gfx@lists.freedesktop.org
+Cc: dri-devel@lists.freedesktop.org, andi.shyti@intel.com,
+ chris.p.wilson@linux.intel.com, nirmoy.das@intel.com,
+ janusz.krzysztofik@linux.intel.com, stable@vger.kernel.org
+References: <20240709125302.861319-1-nitin.r.gote@intel.com>
+Content-Language: en-GB
+From: Tvrtko Ursulin <tursulin@ursulin.net>
+In-Reply-To: <20240709125302.861319-1-nitin.r.gote@intel.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -88,115 +88,94 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Got it.
-I had some mental block about passing designated intializers as macro args.
-it just worked, I needed to eyeball the .i file just to be sure.
-thanks.
-I have a fixup patch.
-whats the best thing to do with it, squash it in for later ? send in
-reply here ?
 
-On Wed, Jul 3, 2024 at 5:52=E2=80=AFAM Ville Syrj=C3=A4l=C3=A4
-<ville.syrjala@linux.intel.com> wrote:
->
-> On Tue, Jul 02, 2024 at 08:34:39PM -0600, jim.cromie@gmail.com wrote:
-> > On Tue, Jul 2, 2024 at 5:33=E2=80=AFPM Ville Syrj=C3=A4l=C3=A4
-> > <ville.syrjala@linux.intel.com> wrote:
-> > >
-> > > On Tue, Jul 02, 2024 at 03:57:20PM -0600, Jim Cromie wrote:
-> > > > dyndbg's CLASSMAP-v1 api was broken; DECLARE_DYNDBG_CLASSMAP tried =
-to
-> > > > do too much.  Its replaced by DRM_CLASSMAP_DEFINE, which creates &
-> > > > EXPORTs the classmap when CONFIG_DRM_USE_DYNAMIC_DEBUG=3Dy, for dir=
-ect
-> > > > reference by drivers.
-> > > >
-> > > > The drivers still use DECLARE_DYNDBG_CLASSMAP for now, so they stil=
-l
-> > > > redundantly re-declare the classmap, but we can convert the drivers
-> > > > later to DYNDBG_CLASSMAP_USE
-> > > >
-> > > > Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
-> > > > ---
-> > > >  drivers/gpu/drm/drm_print.c | 25 +++++++++++++------------
-> > > >  include/drm/drm_print.h     |  8 ++++++++
-> > > >  2 files changed, 21 insertions(+), 12 deletions(-)
-> > > >
-> > > > diff --git a/drivers/gpu/drm/drm_print.c b/drivers/gpu/drm/drm_prin=
-t.c
-> > > > index 699b7dbffd7b..4a5f2317229b 100644
-> > > > --- a/drivers/gpu/drm/drm_print.c
-> > > > +++ b/drivers/gpu/drm/drm_print.c
-> > > > @@ -55,18 +55,19 @@ MODULE_PARM_DESC(debug, "Enable debug output, w=
-here each bit enables a debug cat
-> > > >  #if !defined(CONFIG_DRM_USE_DYNAMIC_DEBUG)
-> > > >  module_param_named(debug, __drm_debug, ulong, 0600);
-> > > >  #else
-> > > > -/* classnames must match vals of enum drm_debug_category */
-> > > > -DECLARE_DYNDBG_CLASSMAP(drm_debug_classes, DD_CLASS_TYPE_DISJOINT_=
-BITS, 0,
-> > > > -                     "DRM_UT_CORE",
-> > > > -                     "DRM_UT_DRIVER",
-> > > > -                     "DRM_UT_KMS",
-> > > > -                     "DRM_UT_PRIME",
-> > > > -                     "DRM_UT_ATOMIC",
-> > > > -                     "DRM_UT_VBL",
-> > > > -                     "DRM_UT_STATE",
-> > > > -                     "DRM_UT_LEASE",
-> > > > -                     "DRM_UT_DP",
-> > > > -                     "DRM_UT_DRMRES");
-> > > > +/* classnames must match value-symbols of enum drm_debug_category =
-*/
-> > > > +DRM_CLASSMAP_DEFINE(drm_debug_classes, DD_CLASS_TYPE_DISJOINT_BITS=
-,
-> > > > +                 DRM_UT_CORE,
-> > > > +                 "DRM_UT_CORE",
-> > > > +                 "DRM_UT_DRIVER",
-> > > > +                 "DRM_UT_KMS",
-> > > > +                 "DRM_UT_PRIME",
-> > > > +                 "DRM_UT_ATOMIC",
-> > > > +                 "DRM_UT_VBL",
-> > > > +                 "DRM_UT_STATE",
-> > > > +                 "DRM_UT_LEASE",
-> > > > +                 "DRM_UT_DP",
-> > > > +                 "DRM_UT_DRMRES");
-> > >
-> > > Looks like this stuff just ends up in an array, so presumably
-> > > it should be possible to use designated initializers to make this
-> > > less fragile?
-> >
-> > Im not sure I got your whole point, but:
->
-> I mean using
->  [DRM_UT_CORE] =3D "DRM_UT_CORE"
-> instead of
->  "DRM_UT_CORE"
-> so there is no chance of screwing up the order.
-> Or maybe the order doesn't even matter here?
->
-> Could also stringify to avoid accidental of typos.
->
-> >
-> > the fragility is the repetitive re-statement of the map,
-> > in those un-modified DECLARE_s,
-> > once replaced, the USEs just ref the struct built by the _DEFINE
-> > (once, and exported)
-> >
-> > I dont really like the _DEFINEs restatement of the enum-values: DRM_UT_=
-*
-> > especially as "strings".
-> > I can automate the stringification with an APPLY_FN_(__stringify, ...)
-> > but the enum-list DRM_UT_* (w.o quotes) is still needed as args.
-> >
-> > unless there is something C can do thats like Enum.values() ?
-> >
-> >
-> >
-> > >
-> > > --
-> > > Ville Syrj=C3=A4l=C3=A4
-> > > Intel
->
-> --
-> Ville Syrj=C3=A4l=C3=A4
-> Intel
+On 09/07/2024 13:53, Nitin Gote wrote:
+> We're seeing a GPU HANG issue on a CHV platform, which was caused by
+> bac24f59f454 ("drm/i915/execlists: Enable coarse preemption boundaries for gen8").
+> 
+> Gen8 platform has only timeslice and doesn't support a preemption mechanism
+> as engines do not have a preemption timer and doesn't send an irq if the
+> preemption timeout expires. So, add a fix to not consider preemption
+> during dequeuing for gen8 platforms.
+> 
+> Also move can_preemt() above need_preempt() function to resolve implicit
+> declaration of function ‘can_preempt' error and make can_preempt()
+> function param as const to resolve error: passing argument 1 of
+> ‘can_preempt’ discards ‘const’ qualifier from the pointer target type.
+> 
+> Fixes: bac24f59f454 ("drm/i915/execlists: Enable coarse preemption boundaries for gen8")
+> Closes: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/11396
+> Suggested-by: Andi Shyti <andi.shyti@intel.com>
+> Signed-off-by: Nitin Gote <nitin.r.gote@intel.com>
+> Cc: Chris Wilson <chris.p.wilson@linux.intel.com>
+> CC: <stable@vger.kernel.org> # v5.2+
+> ---
+>   .../drm/i915/gt/intel_execlists_submission.c  | 24 ++++++++++++-------
+>   1 file changed, 15 insertions(+), 9 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/i915/gt/intel_execlists_submission.c b/drivers/gpu/drm/i915/gt/intel_execlists_submission.c
+> index 21829439e686..30631cc690f2 100644
+> --- a/drivers/gpu/drm/i915/gt/intel_execlists_submission.c
+> +++ b/drivers/gpu/drm/i915/gt/intel_execlists_submission.c
+> @@ -294,11 +294,26 @@ static int virtual_prio(const struct intel_engine_execlists *el)
+>   	return rb ? rb_entry(rb, struct ve_node, rb)->prio : INT_MIN;
+>   }
+>   
+> +static bool can_preempt(const struct intel_engine_cs *engine)
+> +{
+> +	if (GRAPHICS_VER(engine->i915) > 8)
+> +		return true;
+> +
+> +	if (IS_CHERRYVIEW(engine->i915) || IS_BROADWELL(engine->i915))
+> +		return false;
+> +
+> +	/* GPGPU on bdw requires extra w/a; not implemented */
+> +	return engine->class != RENDER_CLASS;
+
+Aren't BDW and CHV the only Gen8 platforms, in which case this function 
+can be simplifies as:
+
+...
+{
+	return GRAPHICS_VER(engine->i915) > 8;
+}
+
+?
+
+> +}
+> +
+>   static bool need_preempt(const struct intel_engine_cs *engine,
+>   			 const struct i915_request *rq)
+>   {
+>   	int last_prio;
+>   
+> +	if ((GRAPHICS_VER(engine->i915) <= 8) && can_preempt(engine))
+
+The GRAPHICS_VER check here looks redundant with the one inside 
+can_preempt().
+
+Regards,
+
+Tvrtko
+
+> +		return false;
+> +
+>   	if (!intel_engine_has_semaphores(engine))
+>   		return false;
+>   
+> @@ -3313,15 +3328,6 @@ static void remove_from_engine(struct i915_request *rq)
+>   	i915_request_notify_execute_cb_imm(rq);
+>   }
+>   
+> -static bool can_preempt(struct intel_engine_cs *engine)
+> -{
+> -	if (GRAPHICS_VER(engine->i915) > 8)
+> -		return true;
+> -
+> -	/* GPGPU on bdw requires extra w/a; not implemented */
+> -	return engine->class != RENDER_CLASS;
+> -}
+> -
+>   static void kick_execlists(const struct i915_request *rq, int prio)
+>   {
+>   	struct intel_engine_cs *engine = rq->engine;
