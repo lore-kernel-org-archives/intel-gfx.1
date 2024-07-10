@@ -4,70 +4,63 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2B0B8C3DA45
-	for <intel-gfx@archiver.kernel.org>; Wed, 10 Jul 2024 11:59:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7CD8CC3DA42
+	for <intel-gfx@archiver.kernel.org>; Wed, 10 Jul 2024 12:16:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CDEA910E766;
-	Wed, 10 Jul 2024 11:59:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 146AD10E774;
+	Wed, 10 Jul 2024 12:16:22 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; secure) header.d=ffwll.ch header.i=@ffwll.ch header.b="fpLMKteY";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="h36zUb7v";
 	dkim-atps=neutral
-Received: from mail-oi1-f171.google.com (mail-oi1-f171.google.com
- [209.85.167.171])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AB6BB10E766
- for <intel-gfx@lists.freedesktop.org>; Wed, 10 Jul 2024 11:59:00 +0000 (UTC)
-Received: by mail-oi1-f171.google.com with SMTP id
- 5614622812f47-3d9dd8bc70dso33169b6e.2
- for <intel-gfx@lists.freedesktop.org>; Wed, 10 Jul 2024 04:59:00 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=ffwll.ch; s=google; t=1720612740; x=1721217540; darn=lists.freedesktop.org; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=8YwSacl49HZikhh7TpAVL5zSZM2Ig9YohILbbUy5PtM=;
- b=fpLMKteY6RxZH1rFEl6KcgC2Kq0Im+bIrVsNtGsuMUkTVS4jkYkf49DdButUdKnsDu
- DPwXjZ6mCxOzT39/fR+CJ5FOZkmasASHKl6KAVwPjT8FVH+WnceRaUgHhilgDGP+LXIe
- +FpeQ7hVxibREY7XVrlTdmnHgMHAQFt5/2Lkw=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1720612740; x=1721217540;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=8YwSacl49HZikhh7TpAVL5zSZM2Ig9YohILbbUy5PtM=;
- b=RTSFXOU4ldZ3ZTCuxBKuzd9Db0nkl2qxSqLVMyXXDf7/LntjZcXINGVoq4FpOERYfv
- 0mIsI64op3UzIF3NB027XDzArgsLiVL6q/qgiyVSBrsHPabFxO0+8ZAh2sZZfFYnyXDN
- t0Up62Lmi8BKjmG2tnhyRmi7kJBU5zQTh18mFnaV7JNsjxNaHZw/cCmIHjVDDvaWU5rM
- B3NZ9p3qh0bhAHtCKbV9tf1bnWLmlFodc26Ijgocc6x2ywx3M1wRxfgWc5j+yK9+aLqz
- Dk5mf/x5W6qccIyWkhbnqJUWed5uiGmx5imuGh/d8dabHHDy3Fg90lUbmksdEr0Hz23s
- jGwQ==
-X-Forwarded-Encrypted: i=1;
- AJvYcCWPOSeRlqGAkU2bUhaWDKZaGuuI5+FitDbGr5Hu1koWe/uUkApydR1ZkKKk4q/sRHCnNTFO0jApfChdQP+pRnFLO0eVRkWMvTXFasbCzU6R
-X-Gm-Message-State: AOJu0YwELAxQ/7pPIZnPw+NFcqIYzh0Ocg4qdP4fMsy41YjhdJo1oq0j
- txjTseMRbWePKaHpnwlhLv0hX3OVnH3AppCkDCwZYDDMG9Y5/AzJKQk/1jMBk8T9B2TZFqoalhE
- caglzyBkxKeWShZxOwIWrv2C3e7lP7R1JNSRoEg==
-X-Google-Smtp-Source: AGHT+IEDb4E4R4JLvPaGkcDd2e1PnOfOAi8hfE4Q9IQEkktLnUcIxOmoAJGlW/KgY1cJtU5AbP/Am5hiG+biuNY4XSw=
-X-Received: by 2002:a05:6870:82a4:b0:25e:14d9:da27 with SMTP id
- 586e51a60fabf-25eae2f200fmr5688757fac.0.1720612739640; Wed, 10 Jul 2024
- 04:58:59 -0700 (PDT)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.19])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5E13C10E774;
+ Wed, 10 Jul 2024 12:16:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1720613781; x=1752149781;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:content-transfer-encoding:in-reply-to;
+ bh=y0qjDnLJyo/X2DNmXM+T7MdDK6BJMvAV3BAux5grKmA=;
+ b=h36zUb7vuJ5mfaPjlA3zpB/HAZTzTHeO/cQT/GRLwU6YZVl0KNIJ9UWV
+ Gxm3O2mcwXBi7tKPG9b7vw9Rmtiru55cP6SKfNaXeOsMWejVmBPRnelH1
+ voMXuY9qIvGWpyVzNTWRnkH4yoKxmJ2nTzbMD9xDxERixf+WhL4KWiC6U
+ rpIc8r8b3gxzKUcPEbzm+fsTOe12vVaPKGCTGeihOqjXWNwMFJ1ZWMrYK
+ +Uai7tk4szWiyHnBcrfqJBvR8I8ACm04MDA5HeOMTz1b/tjLeJ5agXeO/
+ 9I4AZFPxM87xYzHW7S7w8y5r8KBh93MVj7dbo+XIcL5VC1kbbe/RT7Ofr g==;
+X-CSE-ConnectionGUID: 2ShKrn/DQvOu/CcyolgIcw==
+X-CSE-MsgGUID: GmVyEwwISZO3nyPMkO2pLg==
+X-IronPort-AV: E=McAfee;i="6700,10204,11128"; a="17627654"
+X-IronPort-AV: E=Sophos;i="6.09,197,1716274800"; d="scan'208";a="17627654"
+Received: from fmviesa008.fm.intel.com ([10.60.135.148])
+ by fmvoesa113.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 10 Jul 2024 05:16:20 -0700
+X-CSE-ConnectionGUID: j0qe4MdASMWZ4BjJSkehMg==
+X-CSE-MsgGUID: hKD5bWzhTgqbJxpf2THtuA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.09,197,1716274800"; d="scan'208";a="48177915"
+Received: from stinkpipe.fi.intel.com (HELO stinkbox) ([10.237.72.74])
+ by fmviesa008.fm.intel.com with SMTP; 10 Jul 2024 05:16:17 -0700
+Received: by stinkbox (sSMTP sendmail emulation);
+ Wed, 10 Jul 2024 15:16:15 +0300
+Date: Wed, 10 Jul 2024 15:16:15 +0300
+From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
+To: Thorsten Blum <thorsten.blum@toblux.com>
+Cc: jani.nikula@linux.intel.com, joonas.lahtinen@linux.intel.com,
+ rodrigo.vivi@intel.com, tursulin@ursulin.net, airlied@gmail.com,
+ daniel@ffwll.ch, intel-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] drm/i915: Explicitly cast divisor to fix Coccinelle
+ warning
+Message-ID: <Zo57j8G2AQbhpORB@intel.com>
+References: <20240710074650.419902-2-thorsten.blum@toblux.com>
+ <Zo5yvk69FB-jEgd8@intel.com>
+ <77194DC0-AA53-4CF9-8BDB-93E212B9FA72@toblux.com>
 MIME-Version: 1.0
-References: <20240710093120.732208-1-daniel.vetter@ffwll.ch>
- <03f7e2ad-fd5c-4da7-a14c-34c2c158c513@amd.com>
-In-Reply-To: <03f7e2ad-fd5c-4da7-a14c-34c2c158c513@amd.com>
-From: Daniel Vetter <daniel.vetter@ffwll.ch>
-Date: Wed, 10 Jul 2024 13:58:48 +0200
-Message-ID: <CAKMK7uFvCr2qcHun06LC-ON3GBqj8=mCpPGHuAOh9BEyr60fiQ@mail.gmail.com>
-Subject: Re: [PATCH 1/2] drm: Add might_fault to drm_modeset_lock priming
-To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-Cc: DRI Development <dri-devel@lists.freedesktop.org>,
- LKML <linux-kernel@vger.kernel.org>, 
- Intel Graphics Development <intel-gfx@lists.freedesktop.org>,
- Daniel Vetter <daniel.vetter@intel.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, 
- Thomas Zimmermann <tzimmermann@suse.de>, Sumit Semwal <sumit.semwal@linaro.org>,
- linux-media@vger.kernel.org, linaro-mm-sig@lists.linaro.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <77194DC0-AA53-4CF9-8BDB-93E212B9FA72@toblux.com>
+X-Patchwork-Hint: comment
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -83,73 +76,44 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Wed, 10 Jul 2024 at 13:39, Christian K=C3=B6nig <christian.koenig@amd.co=
-m> wrote:
->
-> Am 10.07.24 um 11:31 schrieb Daniel Vetter:
-> > We already teach lockdep that dma_resv nests within drm_modeset_lock,
-> > but there's a lot more: All drm kms ioctl rely on being able to
-> > put/get_user while holding modeset locks, so we really need a
-> > might_fault in there too to complete the picture. Add it.
->
-> Mhm, lockdep should be able to deduce that when there might be faults
-> under the dma_resv lock there might also be faults under the
-> drm_modeset_lock.
+On Wed, Jul 10, 2024 at 01:55:32PM +0200, Thorsten Blum wrote:
+> On 10. Jul 2024, at 13:38, Ville Syrjälä <ville.syrjala@linux.intel.com> wrote:
+> > On Wed, Jul 10, 2024 at 09:46:51AM +0200, Thorsten Blum wrote:
+> >> As the comment explains, the if check ensures that the divisor oa_period
+> >> is a u32. Explicitly cast oa_period to u32 to remove the following
+> >> Coccinelle/coccicheck warning reported by do_div.cocci:
+> >> 
+> >>  WARNING: do_div() does a 64-by-32 division, please consider using div64_u64 instead
+> >> 
+> >> Signed-off-by: Thorsten Blum <thorsten.blum@toblux.com>
+> >> ---
+> >> drivers/gpu/drm/i915/i915_perf.c | 2 +-
+> >> 1 file changed, 1 insertion(+), 1 deletion(-)
+> >> 
+> >> diff --git a/drivers/gpu/drm/i915/i915_perf.c b/drivers/gpu/drm/i915/i915_perf.c
+> >> index 0b1cd4c7a525..24722e758aaf 100644
+> >> --- a/drivers/gpu/drm/i915/i915_perf.c
+> >> +++ b/drivers/gpu/drm/i915/i915_perf.c
+> >> @@ -4103,7 +4103,7 @@ static int read_properties_unlocked(struct i915_perf *perf,
+> >>  */
+> >> if (oa_period <= NSEC_PER_SEC) {
+> >> u64 tmp = NSEC_PER_SEC;
+> >> - do_div(tmp, oa_period);
+> >> + do_div(tmp, (u32)oa_period);
+> > 
+> > Why is this code even using do_div() when it doesn't need the
+> > remainder?
+> 
+> do_div() is an optimized 64-by-32 division and the compiler should
+> automatically remove the remainder if it's not used.
 
-You're not allowed to take a fault under dma_resv, because drivers
-might need to take that lock to handle faults. So unfortunately in our
-combined lockdep priming, there really seems to be no chain yet that
-teaches about faults possibly happening while holding
-drm_modeset_lock.
--Sima
+The point is that do_div() is a bad API because it magically
+changes the divided in place. There are more sensible 64bit
+division helpers in math64.h that can be used instead.
 
->
-> >
-> > Motivated by a syzbot report that blew up on bcachefs doing an
-> > unconditional console_lock way deep in the locking hierarchy, and
-> > lockdep only noticing the depency loop in a drm ioctl instead of much
-> > earlier. This annotation will make sure such issues have a much harder
-> > time escaping.
-> >
-> > References: https://lore.kernel.org/dri-devel/00000000000073db8b061cd43=
-496@google.com/
-> > Signed-off-by: Daniel Vetter <daniel.vetter@intel.com>
-> > Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-> > Cc: Maxime Ripard <mripard@kernel.org>
-> > Cc: Thomas Zimmermann <tzimmermann@suse.de>
-> > Cc: Sumit Semwal <sumit.semwal@linaro.org>
-> > Cc: "Christian K=C3=B6nig" <christian.koenig@amd.com>
-> > Cc: linux-media@vger.kernel.org
-> > Cc: linaro-mm-sig@lists.linaro.org
->
-> On the other hand pointing it out explicitly doesn't hurts us at all, so
-> Reviewed-by: Christian K=C3=B6nig <christian.koenig@amd.com>.
->
-> Regards,
-> Christian.
->
-> > ---
-> >   drivers/gpu/drm/drm_mode_config.c | 2 ++
-> >   1 file changed, 2 insertions(+)
-> >
-> > diff --git a/drivers/gpu/drm/drm_mode_config.c b/drivers/gpu/drm/drm_mo=
-de_config.c
-> > index 568972258222..37d2e0a4ef4b 100644
-> > --- a/drivers/gpu/drm/drm_mode_config.c
-> > +++ b/drivers/gpu/drm/drm_mode_config.c
-> > @@ -456,6 +456,8 @@ int drmm_mode_config_init(struct drm_device *dev)
-> >               if (ret =3D=3D -EDEADLK)
-> >                       ret =3D drm_modeset_backoff(&modeset_ctx);
-> >
-> > +             might_fault();
-> > +
-> >               ww_acquire_init(&resv_ctx, &reservation_ww_class);
-> >               ret =3D dma_resv_lock(&resv, &resv_ctx);
-> >               if (ret =3D=3D -EDEADLK)
->
+oa_exponent_to_ns() also hand rolls a DIV_ROUND_UP_ULL()
+for some reason...
 
-
---=20
-Daniel Vetter
-Software Engineer, Intel Corporation
-http://blog.ffwll.ch
+-- 
+Ville Syrjälä
+Intel
