@@ -4,54 +4,63 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 12853C3DA4B
-	for <intel-gfx@archiver.kernel.org>; Fri, 12 Jul 2024 13:57:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3E0D8C2BD09
+	for <intel-gfx@archiver.kernel.org>; Fri, 12 Jul 2024 14:04:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8986E10ED21;
-	Fri, 12 Jul 2024 13:57:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CE61510ED28;
+	Fri, 12 Jul 2024 14:04:06 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="CXzIVwb5";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="jdhrUngX";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6654910EACF
- for <intel-gfx@lists.freedesktop.org>; Fri, 12 Jul 2024 13:57:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1720792649; x=1752328649;
- h=from:to:subject:date:message-id:in-reply-to:references:
- mime-version:content-transfer-encoding;
- bh=l8OoonLhLTjlJuY+HEug9buXsnXbyA0NmV8we7vXSq8=;
- b=CXzIVwb5H0e8UwBJeMEr/zhiMMIwJlNpC50V44Hb2/oJlKc/R0rUSsuW
- I/rFfx5Ni7LMJ3aWJzxCezrDr8HpQB3vgGKQMbksZMrxQmtOorMW2DMau
- leJoCH2DVrj2lLWP5s3CPEY9vyqRRwEY1Dovn3HmQDeg13kbBijfTdPWO
- kUR+B3yoBcxHqyNFwEd6P+cWYDdrgdovjtBQkU6AWOTDJNJh1uUivrbWw
- umtsKYd3O7whNi0WCdusqlfXHTktZ50YsyrOH13V3e4mBSjFV7zLvPWAf
- wWin/azCqELtcCgNqr56DKbx91iPhE6W2771SB2HBetzeZe5YA2QaXIMo A==;
-X-CSE-ConnectionGUID: dJCvBhXbRi20j77WoEl0BA==
-X-CSE-MsgGUID: lI46m7UeRaWA9Du2OWXjLw==
-X-IronPort-AV: E=McAfee;i="6700,10204,11131"; a="28823542"
-X-IronPort-AV: E=Sophos;i="6.09,202,1716274800"; d="scan'208";a="28823542"
-Received: from fmviesa004.fm.intel.com ([10.60.135.144])
- by orvoesa103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 12 Jul 2024 06:57:13 -0700
-X-CSE-ConnectionGUID: JhdVzJp+TlK8ZkWX2Gwepw==
-X-CSE-MsgGUID: FLDTaD7LTz+xod3JGq8aeg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.09,202,1716274800"; d="scan'208";a="53485085"
-Received: from ideak-desk.fi.intel.com ([10.237.72.78])
- by fmviesa004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 12 Jul 2024 06:57:12 -0700
-From: Imre Deak <imre.deak@intel.com>
-To: intel-gfx@lists.freedesktop.org
-Subject: [PATCH 2/3] drm/i915/dp: Require a valid atomic state for SST link
- training
-Date: Fri, 12 Jul 2024 16:57:23 +0300
-Message-ID: <20240712135724.660399-2-imre.deak@intel.com>
-X-Mailer: git-send-email 2.44.2
-In-Reply-To: <20240712135724.660399-1-imre.deak@intel.com>
-References: <20240712135724.660399-1-imre.deak@intel.com>
+Received: from mail-oi1-f178.google.com (mail-oi1-f178.google.com
+ [209.85.167.178])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CEB2A10ED28
+ for <intel-gfx@lists.freedesktop.org>; Fri, 12 Jul 2024 14:04:05 +0000 (UTC)
+Received: by mail-oi1-f178.google.com with SMTP id
+ 5614622812f47-3d9bcb47182so1110401b6e.3
+ for <intel-gfx@lists.freedesktop.org>; Fri, 12 Jul 2024 07:04:05 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1720793045; x=1721397845; darn=lists.freedesktop.org;
+ h=content-disposition:mime-version:message-id:subject:cc:to:from:date
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=D1cTHYlLPKI285ag+BdzYzBGfmmvGEKJkmx+D9uE8GM=;
+ b=jdhrUngXLHK7PiFBs92UzCLzmWcdKFalaVvFsVS2InbyCq9QmcHRPyajdAAOFIy6ko
+ FEJmiwBTffTZihL+4NkB7d3sWDGB8P/mh8WVCKY/Ol2ICRjO3eoJ9ASqNrqPjl0OSdgA
+ dq6BpxlZtEAOpIGkWW1KLNkBrOcEpgVyaLpC/BNVPn75V7O99r5+coedyOJinvRZU1JF
+ t3BT1gktoWKRt+OMOGRoxp9GzaFN26d/OMA1qWXczM9j8vsfrapxatyIRkvVYDZ4wGgZ
+ 4AHfNA7Qqu29+xDb0CckHQjkQBsiV0utABxAfbuJzY0e6uAJQd9LaOH+09IGfOUrwRXp
+ gJwQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1720793045; x=1721397845;
+ h=content-disposition:mime-version:message-id:subject:cc:to:from:date
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=D1cTHYlLPKI285ag+BdzYzBGfmmvGEKJkmx+D9uE8GM=;
+ b=uiRCMyaX1p8ADRpcVDiRFjE0/lir6ySJUGyQF2YgvLmxJ1N6wqqsIqtkWQg9iEQEOn
+ ciE+rvT4GFALlhMcNnZabWQDcdNYylAdInRi3K1wGempcS2Y9Cz+FaK8397JnVVIHY4R
+ REA+IKfYHbgmmIAKxdCo8nhTC6giKM+rOZaRxR/Ygwnk2GZsO7O/glC2MeceXD7DPA4K
+ hhew7O/qQDy88LXmIPODWxv6gQLakYS3DxYI6OzY+7OrWM7+b4DCtm/Yni3rRsCMyxgi
+ P8hdQb9sEN56xTVM5+eceK+8O41lahKhULkKMGqMawBzFIOqfpVVAE15mqyrQjuPyI7C
+ i9YA==
+X-Gm-Message-State: AOJu0Yy1koc5VKcdIcru+/Cj6bisf/gj1GqrwEN9EZt6FjDYmOynodRM
+ bh66UWZ0PSWBh8IsnFyzA1DmpPoKDhJPU08XBB2wGWMMjfdkk3hc46fK9xMeuso=
+X-Google-Smtp-Source: AGHT+IHZIoQpVUUnHbjOLC8GcpR52p9msO2+HdrVIRj8XsP1//ttomcb0hZ22kauiSjJrz9j/IMQHQ==
+X-Received: by 2002:a05:6808:189d:b0:3da:a032:24a6 with SMTP id
+ 5614622812f47-3daa032397amr7378032b6e.19.1720793044948; 
+ Fri, 12 Jul 2024 07:04:04 -0700 (PDT)
+Received: from localhost ([2603:8080:b800:f700:d26:9826:56eb:a2e5])
+ by smtp.gmail.com with ESMTPSA id
+ 5614622812f47-3d9db3232c2sm945763b6e.15.2024.07.12.07.04.04
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 12 Jul 2024 07:04:04 -0700 (PDT)
+Date: Fri, 12 Jul 2024 09:04:02 -0500
+From: Dan Carpenter <dan.carpenter@linaro.org>
+To: Jonathan Cavitt <jonathan.cavitt@intel.com>
+Cc: intel-gfx@lists.freedesktop.org
+Subject: [bug report] drm/i915/gem: Downgrade stolen lmem setup warning
+Message-ID: <085f37db-b2e0-4246-8850-1d6922fec222@stanley.mountain>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,96 +76,75 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-After the previous patch link training happens always with a valid
-atomic state, so remove the NOTE comments and asserts which required a
-valid state only for DP-MST and allowed for a NULL state for DP-SST.
+Hello Jonathan Cavitt,
 
-Signed-off-by: Imre Deak <imre.deak@intel.com>
----
- drivers/gpu/drm/i915/display/intel_dp.c            |  5 -----
- .../gpu/drm/i915/display/intel_dp_link_training.c  | 14 --------------
- 2 files changed, 19 deletions(-)
+Commit 05da7d9f717b ("drm/i915/gem: Downgrade stolen lmem setup
+warning") from Apr 22, 2024 (linux-next), leads to the following
+Smatch static checker warning:
 
-diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
-index f83128ac60756..0365fb1e77eae 100644
---- a/drivers/gpu/drm/i915/display/intel_dp.c
-+++ b/drivers/gpu/drm/i915/display/intel_dp.c
-@@ -2866,7 +2866,6 @@ static void intel_dp_queue_modeset_retry_work(struct intel_connector *connector)
- 		drm_connector_put(&connector->base);
- }
- 
--/* NOTE: @state is only valid for MST links and can be %NULL for SST. */
- void
- intel_dp_queue_modeset_retry_for_link(struct intel_atomic_state *state,
- 				      struct intel_encoder *encoder,
-@@ -2875,7 +2874,6 @@ intel_dp_queue_modeset_retry_for_link(struct intel_atomic_state *state,
- 	struct intel_connector *connector;
- 	struct intel_digital_connector_state *conn_state;
- 	struct intel_dp *intel_dp = enc_to_intel_dp(encoder);
--	struct drm_i915_private *i915 = dp_to_i915(intel_dp);
- 	int i;
- 
- 	if (!intel_crtc_has_type(crtc_state, INTEL_OUTPUT_DP_MST)) {
-@@ -2884,9 +2882,6 @@ intel_dp_queue_modeset_retry_for_link(struct intel_atomic_state *state,
- 		return;
- 	}
- 
--	if (drm_WARN_ON(&i915->drm, !state))
--		return;
--
- 	for_each_new_intel_connector_in_state(state, connector, conn_state, i) {
- 		if (!conn_state->base.crtc)
- 			continue;
-diff --git a/drivers/gpu/drm/i915/display/intel_dp_link_training.c b/drivers/gpu/drm/i915/display/intel_dp_link_training.c
-index af0b71bdf1fcf..58dea87a9fa28 100644
---- a/drivers/gpu/drm/i915/display/intel_dp_link_training.c
-+++ b/drivers/gpu/drm/i915/display/intel_dp_link_training.c
-@@ -1234,12 +1234,10 @@ static int intel_dp_get_link_train_fallback_values(struct intel_dp *intel_dp,
- 	return 0;
- }
- 
--/* NOTE: @state is only valid for MST links and can be %NULL for SST. */
- static bool intel_dp_schedule_fallback_link_training(struct intel_atomic_state *state,
- 						     struct intel_dp *intel_dp,
- 						     const struct intel_crtc_state *crtc_state)
- {
--	struct drm_i915_private *i915 = dp_to_i915(intel_dp);
- 	struct intel_encoder *encoder = &dp_to_dig_port(intel_dp)->base;
- 
- 	if (!intel_digital_port_connected(&dp_to_dig_port(intel_dp)->base)) {
-@@ -1255,11 +1253,6 @@ static bool intel_dp_schedule_fallback_link_training(struct intel_atomic_state *
- 		return false;
- 	}
- 
--	if (drm_WARN_ON(&i915->drm,
--			intel_crtc_has_type(crtc_state, INTEL_OUTPUT_DP_MST) &&
--			!state))
--		return false;
--
- 	/* Schedule a Hotplug Uevent to userspace to start modeset */
- 	intel_dp_queue_modeset_retry_for_link(state, encoder, crtc_state);
- 
-@@ -1518,8 +1511,6 @@ intel_dp_128b132b_link_train(struct intel_dp *intel_dp,
-  * retraining with reduced link rate/lane parameters if the link training
-  * fails.
-  * After calling this function intel_dp_stop_link_train() must be called.
-- *
-- * NOTE: @state is only valid for MST links and can be %NULL for SST.
-  */
- void intel_dp_start_link_train(struct intel_atomic_state *state,
- 			       struct intel_dp *intel_dp,
-@@ -1536,11 +1527,6 @@ void intel_dp_start_link_train(struct intel_atomic_state *state,
- 	 */
- 	int lttpr_count = intel_dp_init_lttpr_and_dprx_caps(intel_dp);
- 
--	if (drm_WARN_ON(&i915->drm,
--			intel_crtc_has_type(crtc_state, INTEL_OUTPUT_DP_MST) &&
--			!state))
--		return;
--
- 	if (lttpr_count < 0)
- 		/* Still continue with enabling the port and link training. */
- 		lttpr_count = 0;
--- 
-2.44.2
+	drivers/gpu/drm/i915/intel_memory_region.c:371 intel_memory_regions_hw_probe()
+	error: potential NULL/IS_ERR bug 'mem'
 
+drivers/gpu/drm/i915/intel_memory_region.c
+    327 int intel_memory_regions_hw_probe(struct drm_i915_private *i915)
+    328 {
+    329         int err, i;
+    330 
+    331         for (i = 0; i < ARRAY_SIZE(i915->mm.regions); i++) {
+    332                 struct intel_memory_region *mem = ERR_PTR(-ENODEV);
+    333                 u16 type, instance;
+    334 
+    335                 if (!HAS_REGION(i915, i))
+    336                         continue;
+    337 
+    338                 type = intel_region_map[i].class;
+    339                 instance = intel_region_map[i].instance;
+    340                 switch (type) {
+    341                 case INTEL_MEMORY_SYSTEM:
+    342                         if (IS_DGFX(i915))
+    343                                 mem = i915_gem_ttm_system_setup(i915, type,
+    344                                                                 instance);
+    345                         else
+    346                                 mem = i915_gem_shmem_setup(i915, type,
+    347                                                            instance);
+    348                         break;
+    349                 case INTEL_MEMORY_STOLEN_LOCAL:
+    350                         mem = i915_gem_stolen_lmem_setup(i915, type, instance);
+
+
+i915_gem_stolen_lmem_setup() used to only return error pointers but now it
+returns NULL as well.
+
+    351                         if (!IS_ERR(mem))
+    352                                 i915->mm.stolen_region = mem;
+    353                         break;
+    354                 case INTEL_MEMORY_STOLEN_SYSTEM:
+    355                         mem = i915_gem_stolen_smem_setup(i915, type, instance);
+    356                         if (!IS_ERR(mem))
+    357                                 i915->mm.stolen_region = mem;
+    358                         break;
+    359                 default:
+    360                         continue;
+    361                 }
+    362 
+    363                 if (IS_ERR(mem)) {
+    364                         err = PTR_ERR(mem);
+    365                         drm_err(&i915->drm,
+    366                                 "Failed to setup region(%d) type=%d\n",
+    367                                 err, type);
+    368                         goto out_cleanup;
+    369                 }
+    370 
+--> 371                 mem->id = i;
+                        ^^^^^^^^^^^^
+Potentially leading to a NULL dereference here?
+
+    372                 i915->mm.regions[i] = mem;
+    373         }
+    374 
+    375         for (i = 0; i < ARRAY_SIZE(i915->mm.regions); i++) {
+    376                 struct intel_memory_region *mem = i915->mm.regions[i];
+    377                 u64 region_size, io_size;
+
+regards,
+dan carpenter
