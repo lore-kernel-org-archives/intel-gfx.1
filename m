@@ -4,58 +4,58 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C0654C3DA4B
-	for <intel-gfx@archiver.kernel.org>; Wed, 17 Jul 2024 15:02:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 84236C3DA4B
+	for <intel-gfx@archiver.kernel.org>; Wed, 17 Jul 2024 15:02:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2ECEF10E288;
-	Wed, 17 Jul 2024 15:02:43 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EA04710E26C;
+	Wed, 17 Jul 2024 15:02:49 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="nNn/qiiE";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="MR1etboQ";
 	dkim-atps=neutral
-Received: from mail-io1-f42.google.com (mail-io1-f42.google.com
- [209.85.166.42])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F344210E82A;
- Tue, 16 Jul 2024 18:59:01 +0000 (UTC)
-Received: by mail-io1-f42.google.com with SMTP id
- ca18e2360f4ac-807687b6652so6221339f.0; 
- Tue, 16 Jul 2024 11:59:01 -0700 (PDT)
+Received: from mail-io1-f50.google.com (mail-io1-f50.google.com
+ [209.85.166.50])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 061B610E832;
+ Tue, 16 Jul 2024 18:58:54 +0000 (UTC)
+Received: by mail-io1-f50.google.com with SMTP id
+ ca18e2360f4ac-816d9285ebdso1238839f.0; 
+ Tue, 16 Jul 2024 11:58:53 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1721156341; x=1721761141; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1721156333; x=1721761133; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=FUz2fuyNm0/W+cer/IlT8tdUcSLjwR0swYFnYz1+7bA=;
- b=nNn/qiiELLQ+nbG3i9pWl2ZL9wvqwelcPtaA1jbq+ApTnFWxmXlbmH+e6Csslq/ygP
- G5In60t6/TS3ubtUBqJ1+XNkkA6wLXJkzJVAxvCweBMcE7jS1QT1eGZx+DJKDYHlmLqV
- ClDbwQXXG72FYoMCiJGsHtnAWjh0Zrm5QvgJvXJbnJi+QtR6HFhTNsAATptBUUYHNJTX
- w4C8qYfDqtPMjnu2N+K4CdtYNUgW1cSxlZni23NotfQENEr7mmCeqeSEj56s4GDTJ2Da
- zn+ZKnAP2ZDTGzChQiAij/9jX3mo334/ZktLfYN8X3dlslyIgwlU04rNc/vfexInOHam
- mduw==
+ bh=aFcSRVkNrMoAaN9TOyRvWGwNcmbCrlZN4vnmf8E27Go=;
+ b=MR1etboQmGKLj35r8nzvjOuKmiXDf9qVV6zZMuCi5RWNkRb0Kabg13qPyclq3L65eU
+ pFql6rEsGO1M3WDHsFWzs7Hyk5j2IOJo+kGlxAQrD0POTQYjKHjV5Gbih89pKn+1SdoG
+ uksDCPxc+tCjxMeZkpn0poH5vvVpMKBEO06j2ZfmRrWMVBRCvwaXRke+i9xo3mAFxR9v
+ 9PDrb0NpQOg2+hZM97Y6vqf3piKJGjdIorX7TqyBVL3kRvfKfymsQmHSM2FlMKwjw14+
+ BOg6qQVjyQ9XJZ+XfVMEppl5FaBk7O3IMWhoGQumPdqJ0S1Yb8Hv1MgXw/yQanUDHc9s
+ mcEw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1721156341; x=1721761141;
+ d=1e100.net; s=20230601; t=1721156333; x=1721761133;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=FUz2fuyNm0/W+cer/IlT8tdUcSLjwR0swYFnYz1+7bA=;
- b=e1aFL781a74YEVt+BQvYIbsxV13UZtAJOvDCv9lLV3NcNPXUrVXb4o1CZUFmJWg4nA
- wGp/SJgo7VRQQuANHdoQcEJNNQiB6ZITGCHTl0jU3qUqfN9zlGVr/W5iM2HTckqshgre
- /0NK16B3U7IosZnZhpVEuKy1ny6vLF7zRn3ehaMWavpEwelvTJpsV680vhlxi0DwsF22
- NM3HqTKJdjGb+3dHKXZOiLt/ATLLTOvb2egKO5Iia7FeRzPsGGuaKB1qNmRYAkmb2gkU
- 179quW04JuVLzMl3MU+mKFuqiQT2EcCW2NbrKrPUv0dWzferZZFJO70GLoVN+VDr5SHW
- Yj4Q==
+ bh=aFcSRVkNrMoAaN9TOyRvWGwNcmbCrlZN4vnmf8E27Go=;
+ b=H3pVO44gFaKLk937OsFNRZliNQlgc2xnwHZk8/44Hzj6X1jKQFmwvwFEwHOTa9wY+1
+ Ts1G27xBpArLRHibXkONugx6lSd/E+x/1DQFAyM8BD2HzVZrlVJDmRWFRmEde7dBNn6L
+ vAa3eq7cCChp78EkgTlTAdvoo3AiT/T8EBxEEO7nYBkG5oDKjSlnRLnGK+ap6xkNmaIA
+ sFn/nraEU8OygdTr2GKsoLCOifZo9U3hc5QKCbSoqE1jHu4KyM9OxyCwyoxYqrQQtNz0
+ ndJhIF2G0SBN9ycioXUjzP/KIC2tofrmqN9UhIrSEsI402lGkPWMzEW8yFRSPBVmKaQ5
+ zdQg==
 X-Forwarded-Encrypted: i=1;
- AJvYcCURoUgAFHja3X6MSpIj0Nv++HVEFvp7odyafhPpj1gMA3/gdcKtJs+/nZBZhLwfZWRloa0xzuqscEg1XIE3tFWmA4J9XqNQ/Jx9IYewL5NEAcXkUS9eKBm2kOIG/6p36Bu6lnUBaFOY0g2MV4bQ0CYAnRow1cQZO/EBB/PYTYAEBIOqfAj524gLdxSRSdc/mZf0W9PfgQ3J6gSY6nb1Ln3myfAjeo6jKzS9KpaXEu8Djq/g4ks=
-X-Gm-Message-State: AOJu0YzfwNGB2RCuqp0EctWKVtcEscngUex1Kf+h6/ikiUnGOJUfOwpH
- qvZJbc4OxELa1ENakBgNoyGxq1dvTWoEY+N0/T1ipZNAQSJSVxID
-X-Google-Smtp-Source: AGHT+IF4Unf7gwTLxZgnHey2dXasTlyxLHDEt1SBVRbfc0oATB2X5dpSsvnnnOAQb/XIyfd8CFvaag==
-X-Received: by 2002:a05:6602:3c6:b0:7f6:1cd3:9659 with SMTP id
- ca18e2360f4ac-816c4c041ecmr47881339f.6.1721156341182; 
- Tue, 16 Jul 2024 11:59:01 -0700 (PDT)
+ AJvYcCUpqPrWmHBrYiYwItI6tu3Q9va5sA6QW0GwhTSKo3KbGLs5OnVLhAiP0NZ4rnarRFwvG/HFdTs+mDIvGXXAVmy9/3yytr4VxdTaKJoV0O2gvs0S4tAy4P46hlQLk3GAyDTfyYWXfu32fD8w9n7GvbzOCSQz41lFfHFtIMK2ZKzyYauz/PdO0+aX8jhPZsFP5JbBMiQUDUsPFdfhxte11qH07jxsLNJM4YhGL4XNEVbfQ6an6SU=
+X-Gm-Message-State: AOJu0Yx1dSmHCN1o6SPkzWh5en/Gew/V3H7DolwAipkc3/3ieXfJfhtE
+ v47wiKNrDf1MA1tLq1IslTezQ9Tx8/DRHqTn1cbwezDzFTwEFYLg
+X-Google-Smtp-Source: AGHT+IFg9obh5N7uqV0H0s+HstduYRg6QMF6jZMCgR24AZccd/1wfKc7SoX9qV+9pLjIo/o6Xjceyg==
+X-Received: by 2002:a05:6602:2cc2:b0:7fc:89ed:c15d with SMTP id
+ ca18e2360f4ac-816c4a1693emr26868439f.13.1721156333211; 
+ Tue, 16 Jul 2024 11:58:53 -0700 (PDT)
 Received: from frodo.. (c-73-78-62-130.hsd1.co.comcast.net. [73.78.62.130])
  by smtp.googlemail.com with ESMTPSA id
- 8926c6da1cb9f-4c210f23f1csm75301173.102.2024.07.16.11.58.59
+ 8926c6da1cb9f-4c210f23f1csm75301173.102.2024.07.16.11.58.52
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 16 Jul 2024 11:59:00 -0700 (PDT)
+ Tue, 16 Jul 2024 11:58:52 -0700 (PDT)
 From: Jim Cromie <jim.cromie@gmail.com>
 To: linux-kernel@vger.kernel.org, jbaron@akamai.com,
  gregkh@linuxfoundation.org, daniel.vetter@ffwll.ch,
@@ -68,15 +68,15 @@ Cc: ukaszb@chromium.org, linux@rasmusvillemoes.dk, joe@perches.com,
  amd-gfx@lists.freedesktop.org, intel-gvt-dev@lists.freedesktop.org,
  intel-gfx@lists.freedesktop.org, kernelnewbies@kernelnewbies.org,
  Jim Cromie <jim.cromie@gmail.com>
-Subject: [PATCH v9-resend 28/54] dyndbg-selftest: reduce default verbosity
-Date: Tue, 16 Jul 2024 12:57:40 -0600
-Message-ID: <20240716185806.1572048-29-jim.cromie@gmail.com>
+Subject: [PATCH v9-resend 22/54] selftests-dyndbg: test_percent_splitting
+Date: Tue, 16 Jul 2024 12:57:34 -0600
+Message-ID: <20240716185806.1572048-23-jim.cromie@gmail.com>
 X-Mailer: git-send-email 2.45.2
 In-Reply-To: <20240716185806.1572048-1-jim.cromie@gmail.com>
 References: <20240716185806.1572048-1-jim.cromie@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Wed, 17 Jul 2024 15:01:13 +0000
+X-Mailman-Approved-At: Wed, 17 Jul 2024 15:01:15 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -92,77 +92,51 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Remove the '-v' arg from the tests in test_mod_submod().
-Setting V=1 in the environment turns it back on, for all tests.
+This does basic testing of classmaps using '%' separated
+multi-queries.  It modprobes test_dynamic_debug with several classes
+enabled, and counts to verify that the expected sites show the
+enablement in the control file.
 
 Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
 ---
- .../dynamic_debug/dyndbg_selftest.sh          | 23 +++++++++----------
- 1 file changed, 11 insertions(+), 12 deletions(-)
+ .../dynamic_debug/dyndbg_selftest.sh          | 21 +++++++++++++++++++
+ 1 file changed, 21 insertions(+)
 
 diff --git a/tools/testing/selftests/dynamic_debug/dyndbg_selftest.sh b/tools/testing/selftests/dynamic_debug/dyndbg_selftest.sh
-index d09ef26b2308..b3d7155cb45c 100755
+index b4ba293ab227..996e6fdcfb52 100755
 --- a/tools/testing/selftests/dynamic_debug/dyndbg_selftest.sh
 +++ b/tools/testing/selftests/dynamic_debug/dyndbg_selftest.sh
-@@ -168,7 +168,6 @@ function error_log_ref {
+@@ -226,9 +226,30 @@ function comma_terminator_tests {
+     ddcmd =_
  }
  
- function ifrmmod {
--    lsmod | grep $1 2>&1>/dev/null || echo $1 not there
-     lsmod | grep $1 2>&1>/dev/null && rmmod $1
- }
- 
-@@ -316,13 +315,13 @@ function test_mod_submod {
- 
-     # change classes again, this time submod too
-     ddcmd class,D2_CORE,+mf%class,D2_KMS,+lt%class,D2_ATOMIC,+ml "# add some prefixes"
--    check_match_ct =pmf 1 -v
--    check_match_ct =plt 1 -v
--    check_match_ct =pml 1 -v
++    
++function test_percent_splitting {
++    echo -e "${GREEN}# TEST_PERCENT_SPLITTING - multi-command splitting on % ${NC}"
++    ifrmmod test_dynamic_debug_submod
++    ifrmmod test_dynamic_debug
++    ddcmd =_
++    modprobe test_dynamic_debug dyndbg=class,D2_CORE,+pf%class,D2_KMS,+pt%class,D2_ATOMIC,+pm
++    check_match_ct =pf 1
++    check_match_ct =pt 1
++    check_match_ct =pm 1
++    check_match_ct test_dynamic_debug 23 -r
++    # add flags to those callsites
++    ddcmd class,D2_CORE,+mf%class,D2_KMS,+lt%class,D2_ATOMIC,+ml
 +    check_match_ct =pmf 1
 +    check_match_ct =plt 1
 +    check_match_ct =pml 1
-     #  submod changed too
--    check_match_ct =mf 1 -v
--    check_match_ct =lt 1 -v
--    check_match_ct =ml 1 -v
-+    check_match_ct =mf 1
-+    check_match_ct =lt 1
-+    check_match_ct =ml 1
- 
-     # now work the classmap-params
-     # fresh start, to clear all above flags (test-fn limits)
-@@ -333,25 +332,25 @@ function test_mod_submod {
-     echo 1 > /sys/module/test_dynamic_debug/parameters/p_disjoint_bits
-     echo 4 > /sys/module/test_dynamic_debug/parameters/p_level_num
-     # 2 mods * ( V1-3 + D2_CORE )
--    check_match_ct =p 8 -v
-+    check_match_ct =p 8
-     echo 3 > /sys/module/test_dynamic_debug/parameters/p_disjoint_bits
-     echo 0 > /sys/module/test_dynamic_debug/parameters/p_level_num
-     # 2 mods * ( D2_CORE, D2_DRIVER )
--    check_match_ct =p 4 -v
-+    check_match_ct =p 4
-     echo 0x16 > /sys/module/test_dynamic_debug/parameters/p_disjoint_bits
-     echo 0 > /sys/module/test_dynamic_debug/parameters/p_level_num
-     # 2 mods * ( D2_DRIVER, D2_KMS, D2_ATOMIC )
--    check_match_ct =p 6 -v
-+    check_match_ct =p 6
- 
-     # recap DRM_USE_DYNAMIC_DEBUG regression
-     ifrmmod test_dynamic_debug_submod
-     ifrmmod test_dynamic_debug
-     # set super-mod params
-     modprobe test_dynamic_debug p_disjoint_bits=0x16 p_level_num=5
--    check_match_ct =p 7 -v
-+    check_match_ct =p 7
-     modprobe test_dynamic_debug_submod
-     # see them picked up by submod
--    check_match_ct =p 14 -v
-+    check_match_ct =p 14
- }
- 
++    check_match_ct test_dynamic_debug 23 -r
++    ifrmmod test_dynamic_debug
++}
++
  tests_list=(
+     basic_tests
+     comma_terminator_tests
++    test_percent_splitting
+ )
+ 
+ # Run tests
 -- 
 2.45.2
 
