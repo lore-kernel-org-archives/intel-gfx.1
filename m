@@ -4,58 +4,58 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9EFC6C3DA4B
-	for <intel-gfx@archiver.kernel.org>; Wed, 17 Jul 2024 15:01:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8019CC3DA42
+	for <intel-gfx@archiver.kernel.org>; Wed, 17 Jul 2024 15:01:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1511010E1CA;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 518F710E1CD;
 	Wed, 17 Jul 2024 15:01:19 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="ggIBJ7px";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="SJ5oqHMH";
 	dkim-atps=neutral
-Received: from mail-il1-f176.google.com (mail-il1-f176.google.com
- [209.85.166.176])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1722310E82A;
- Tue, 16 Jul 2024 18:58:58 +0000 (UTC)
-Received: by mail-il1-f176.google.com with SMTP id
- e9e14a558f8ab-38373958e94so244955ab.0; 
- Tue, 16 Jul 2024 11:58:58 -0700 (PDT)
+Received: from mail-io1-f52.google.com (mail-io1-f52.google.com
+ [209.85.166.52])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1B15310E82A;
+ Tue, 16 Jul 2024 18:58:49 +0000 (UTC)
+Received: by mail-io1-f52.google.com with SMTP id
+ ca18e2360f4ac-8063553b837so4000039f.1; 
+ Tue, 16 Jul 2024 11:58:49 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1721156337; x=1721761137; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1721156328; x=1721761128; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=c/0f+WJi9XEdvmbVJJgJH3wGY/BCuH90DF46SNcsdjc=;
- b=ggIBJ7px65BXAgcxDszfOBXrquW0X6jTltIFnMH9348EwerDD0cWkatNc1joo3+Md0
- sheJ8U3fiCpHnw0VdkfxdfQTkldtnBalDcpO70UVG9ybjw9lEim0rQPDAtO2ivjckhd4
- 6gj/lun9Zivo+FU5dS0HfOLg/i6q/xK8PJmJDyGIGrGMtjWYWn3H8jNBxTwD+mG+ErTd
- oTLxyg0eQdJJBg6P7SdXICl+bglxt8IbwbxoWk9EO9uuO2ju8VKvG6Oe/kgYfRn5E7g6
- 6uKRxW5yqklgzMyjV+9eQP3nn6Pj3yCw98FjRKm8Cqechwdi/oqhOWsI2sxZrqw/hDTl
- J1ag==
+ bh=gkFYDr1/VaUp9nR5GtDe+QedLaRcp6UcXGPB2Rd9f4k=;
+ b=SJ5oqHMHnezQZMA5/iehiJvuBQ6KPcCOOdkSIUuOBk19grC17IodBVllo7rAFENsor
+ rGkv0Na13s+gnZaBmGfdYz9/d3+KMW84FyBhWC84VbOnwukNl6PDaDx/8enKEClWlkFC
+ AaBQ1ZuUYPdSk9t5J/QJRfHTIiK5isFWLgN0LhVnuwwG9g0TL7URmhjc6GKgPZyYAE/u
+ iwP6X3V9jgNy7HLKuoqDZ671+TVNYrNrxPGo6aj/kcohohUNsYH3vnnnN7R04/+G/U9d
+ gbzjybGnNfuMHLIAuitu76XefFbP5DD4K4r0UTviuensufvhRW2Ss5ZLkqC3fTlD0iK/
+ 3wjA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1721156337; x=1721761137;
+ d=1e100.net; s=20230601; t=1721156328; x=1721761128;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=c/0f+WJi9XEdvmbVJJgJH3wGY/BCuH90DF46SNcsdjc=;
- b=mQA2gm77D/ws8DvsZaH+/trprjSZB8TYr4iPsfz0xd/F2xFK25krPTITXXr/lnzfp6
- oNZyBCwLGnO+POtf2opJqPe7kdpw9U2+AnjfyP1+UU5Erc+ZPl3bKWLOjekwJHeR2pCV
- ntmd6cXg0kTKbYGkWDpB4SZjiT8JRTU0+fjbkAyHOylbK9M2rwMrZAp4QPq3cfXR4Xoi
- plmaqQZw89in6sNjbXMrBbsMjt6yPNgJYqRg7Y9QUnO+GPg2XBORuvOi5L75CZwahzXj
- t24cUMAx6NsQ1cXYE7rgF2XNGWM3GR2kA/mIvU8b9KHkRuO3Fp1/Zk6mestJ349XZWKD
- Ll6A==
+ bh=gkFYDr1/VaUp9nR5GtDe+QedLaRcp6UcXGPB2Rd9f4k=;
+ b=fus+HoD62NxIX7iqLbGpyaDXrhnzXo4AKOz4Xv9CafIkoAUF1R9eygOxX/DbQF8M28
+ vYxI7oDVrq7/hBPxCAfzQqaIJWI3uHFuAkBmPBvy1uH+ADGjr7gxVbQCR097Yf6WuXRg
+ Fg1FC5dpxqZPyW0mK+uFM0q/itw27dF9iyaWGEQO1IOeaQNwr1zlRr3Uh0sVSRwSaxsO
+ nfwY2H9DDeSzJcYLZI5y2mnY8n6qLWdWTVouoFMAId+Gr2ow1aDTLHpS6Y4jnPhoOaBC
+ /u6GVv4YLoBvE9p/Dv7b9Bw0xRjpXDDoQ1abUGKgrhoYqXBh/PfLcEoqqkppXGVV/29k
+ 4gwQ==
 X-Forwarded-Encrypted: i=1;
- AJvYcCVL+ObxWyLQ+Nl9YAwns10yJjASLEX28wWNV/ewOjX5wJ1ZsfdBFkBAhgJmHUmfWqehJA7twL+1oNpOfR9C58+sa2iWWjOj/QrebD1X3A+5eTElHW1ntR8R/UGRBIEsSsAG+djIKbL6MRvZmSkTMmB0vvsUJ5BcGnPczuIvHsboxJTV833a597p4ip1PVB8xhQ7QyzqVhyiz5Eq1MyuvfFmSvScDsecz2n7jm6rKltTyG4t7s0=
-X-Gm-Message-State: AOJu0Yx7hikf+mYCO6nCTYNhc+SUwcURDmtwGHCuzXL/oFLZ5ehitzHi
- /bthH1OR8HeKYtxeiBb80zyJy5gdJtoJv289kky/pdjsIBZGMD4M
-X-Google-Smtp-Source: AGHT+IEi4sdjxzQ0oudUt7GMdorsoDaH0Xjh0/KlGssDHL3rDixHQ7EbnOzUaj0Aj/gbK9+Ua+nMLA==
-X-Received: by 2002:a05:6e02:1a04:b0:380:92fd:c4fc with SMTP id
- e9e14a558f8ab-3950f2854b3mr2319965ab.14.1721156337088; 
- Tue, 16 Jul 2024 11:58:57 -0700 (PDT)
+ AJvYcCU5DThk4VZbNfcaFkrvu9Xpac4nIWDFZu2Sb1najq0ws2U///XP4iPo1L8XSEmQBS23tRRTcxnYPwTnSrwe6C2lN1+63sl+jMzUmE1JnykcATtilY4undcrX/F/Uq/yVXf7hZNkK5SM0UAKOjR9wz5Bw5yoThk8rqCK9qAo2G0P4sDAXepZMt9rMHJuLMoMkIMrCkijn0gjIUWRacxFYpc1V8ZT2/qSxxnQzWRFPpOTc6rnffc=
+X-Gm-Message-State: AOJu0YxoKK8v3CDm7bTKSCtm0SxWeLTs14aDEAvpTaNcZTonuSMcsTV6
+ kt4aZpkXrCco57pT/sn4Rqk78IJqy/tl8dY3PSGEiEMF0jmyPhtb
+X-Google-Smtp-Source: AGHT+IEDXU829hTYXjpQpLIXYUbB2ymJ2g2HpirLkcPY0d/I9d3Q+7hGqbny6/SZBNd7qQlx61Y+GQ==
+X-Received: by 2002:a05:6602:154a:b0:804:c529:8601 with SMTP id
+ ca18e2360f4ac-816c2dfb0e5mr47126939f.3.1721156328275; 
+ Tue, 16 Jul 2024 11:58:48 -0700 (PDT)
 Received: from frodo.. (c-73-78-62-130.hsd1.co.comcast.net. [73.78.62.130])
  by smtp.googlemail.com with ESMTPSA id
- 8926c6da1cb9f-4c210f23f1csm75301173.102.2024.07.16.11.58.56
+ 8926c6da1cb9f-4c210f23f1csm75301173.102.2024.07.16.11.58.47
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 16 Jul 2024 11:58:56 -0700 (PDT)
+ Tue, 16 Jul 2024 11:58:47 -0700 (PDT)
 From: Jim Cromie <jim.cromie@gmail.com>
 To: linux-kernel@vger.kernel.org, jbaron@akamai.com,
  gregkh@linuxfoundation.org, daniel.vetter@ffwll.ch,
@@ -68,15 +68,15 @@ Cc: ukaszb@chromium.org, linux@rasmusvillemoes.dk, joe@perches.com,
  amd-gfx@lists.freedesktop.org, intel-gvt-dev@lists.freedesktop.org,
  intel-gfx@lists.freedesktop.org, kernelnewbies@kernelnewbies.org,
  Jim Cromie <jim.cromie@gmail.com>
-Subject: [PATCH v9-resend 25/54] dyndbg-doc: explain flags parse 1st
-Date: Tue, 16 Jul 2024 12:57:37 -0600
-Message-ID: <20240716185806.1572048-26-jim.cromie@gmail.com>
+Subject: [PATCH v9-resend 18/54] dyndbg-doc: add classmap info to howto
+Date: Tue, 16 Jul 2024 12:57:30 -0600
+Message-ID: <20240716185806.1572048-19-jim.cromie@gmail.com>
 X-Mailer: git-send-email 2.45.2
 In-Reply-To: <20240716185806.1572048-1-jim.cromie@gmail.com>
 References: <20240716185806.1572048-1-jim.cromie@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Wed, 17 Jul 2024 15:01:13 +0000
+X-Mailman-Approved-At: Wed, 17 Jul 2024 15:01:14 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -92,40 +92,101 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-When writing queries to >control, flags are parsed 1st, since they are
-the only required field.  So if the flags draw an error, then keyword
-errors aren't reported.  This can be mildly confusing/annoying, so
-explain it instead.
+Describe the 3 API macros providing dynamic_debug's classmaps
 
-This note could be moved up to just after the grammar id's the flags,
-and before the match-spec is detailed.  Opinions ?
+DYNDBG_CLASSMAP_DEFINE - create, exports a module's classmap
+DYNDBG_CLASSMAP_USE    - refer to exported map
+DYNDBG_CLASSMAP_PARAM  - bind control param to the classmap
+DYNDBG_CLASSMAP_PARAM_REF + use module's storage - __drm_debug
 
+cc: linux-doc@vger.kernel.org
 Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
 ---
- Documentation/admin-guide/dynamic-debug-howto.rst | 10 ++++++++++
- 1 file changed, 10 insertions(+)
+v5 adjustments per Randy Dunlap
+v7 checkpatch fixes
+v8 more
+---
+ .../admin-guide/dynamic-debug-howto.rst       | 63 ++++++++++++++++++-
+ 1 file changed, 62 insertions(+), 1 deletion(-)
 
 diff --git a/Documentation/admin-guide/dynamic-debug-howto.rst b/Documentation/admin-guide/dynamic-debug-howto.rst
-index 7b570f29ae98..ccf3704f2143 100644
+index 6a8ce5a34382..742eb4230c6e 100644
 --- a/Documentation/admin-guide/dynamic-debug-howto.rst
 +++ b/Documentation/admin-guide/dynamic-debug-howto.rst
-@@ -106,6 +106,16 @@ The match-spec's select *prdbgs* from the catalog, upon which to apply
- the flags-spec, all constraints are ANDed together.  An absent keyword
- is the same as keyword "*".
+@@ -225,7 +225,6 @@ the ``p`` flag has meaning, other flags are ignored.
+ Note the regexp ``^[-+=][fslmpt_]+$`` matches a flags specification.
+ To clear all flags at once, use ``=_`` or ``-fslmpt``.
  
-+Note: because the match-spec can be empty, the flags are checked 1st,
-+then the pairs of keyword values.  Flag errs will hide keyword errs:
+-
+ Debug messages during Boot Process
+ ==================================
+ 
+@@ -375,3 +374,65 @@ just a shortcut for ``print_hex_dump(KERN_DEBUG)``.
+ For ``print_hex_dump_debug()``/``print_hex_dump_bytes()``, format string is
+ its ``prefix_str`` argument, if it is constant string; or ``hexdump``
+ in case ``prefix_str`` is built dynamically.
 +
-+  bash-5.2# ddcmd mod bar +foo
-+  dyndbg: read 13 bytes from userspace
-+  dyndbg: query 0: "mod bar +foo" mod:*
-+  dyndbg: unknown flag 'o'
-+  dyndbg: flags parse failed
-+  dyndbg: processed 1 queries, with 0 matches, 1 errs
++Dynamic Debug classmaps
++=======================
 +
- A match specification is a keyword, which selects the attribute of
- the callsite to be compared, and a value to compare against.  Possible
- keywords are:::
++Dyndbg allows selection/grouping of *prdbg* callsites using structural
++info: module, file, function, line.  Classmaps allow authors to add
++their own domain-oriented groupings using class-names.  Classmaps are
++exported, so they referencable from other modules.
++
++  # enable classes individually
++  :#> ddcmd class DRM_UT_CORE +p
++  :#> ddcmd class DRM_UT_KMS +p
++  # or more selectively
++  :#> ddcmd class DRM_UT_CORE module drm +p
++
++The "class FOO" syntax protects class'd prdbgs from generic overwrite::
++
++  # IOW this doesn't wipe any DRM.debug settings
++  :#> ddcmd -p
++
++To support the DRM.debug parameter, DYNDBG_CLASSMAP_PARAM* updates all
++classes in a classmap, mapping param-bits 0..N onto the classes:
++DRM_UT_<*> for the DRM use-case.
++
++Dynamic Debug Classmap API
++==========================
++
++DYNDBG_CLASSMAP_DEFINE - modules use this to create classmaps, naming
++each of the classes (stringified enum-symbols: "DRM_UT_<*>"), and
++type, and mapping the class-names to consecutive _class_ids.
++
++By doing so, modules tell dyndbg that they have prdbgs with those
++class_ids, and they authorize dyndbg to accept "class FOO" for the
++module defining the classmap, and its contained classnames.
++
++DYNDBG_CLASSMAP_USE - drm drivers invoke this to ref the CLASSMAP that
++drm DEFINEs.  This shares the classmap definition, and authorizes
++dyndbg to apply changes to the user module's class'd pr_debugs.  It
++also tells dyndbg how to initialize the user's prdbgs at modprobe,
++based upon the current setting of the parent's controlling param.
++
++There are 2 types of classmaps:
++
++ DD_CLASS_TYPE_DISJOINT_BITS: classes are independent, like DRM.debug
++ DD_CLASS_TYPE_LEVEL_NUM: classes are relative, ordered (V3 > V2)
++
++DYNDBG_CLASSMAP_PARAM - modelled after module_param_cb, it refers to a
++DEFINEd classmap, and associates it to the param's data-store.  This
++state is then applied to DEFINEr and USEr modules when they're modprobed.
++
++This interface also enforces the DD_CLASS_TYPE_LEVEL_NUM relation
++amongst the contained classnames; all classes are independent in the
++control parser itself.
++
++Modules or module-groups (drm & drivers) can define multiple
++classmaps, as long as they share the limited 0..62 per-module-group
++_class_id range, without overlap.
++
++``#define DEBUG`` will enable all pr_debugs in scope, including any
++class'd ones.  This won't be reflected in the PARAM readback value,
++but the class'd pr_debug callsites can be forced off by toggling the
++classmap-kparam all-on then all-off.
 -- 
 2.45.2
 
