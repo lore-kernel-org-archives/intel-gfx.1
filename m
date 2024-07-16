@@ -4,58 +4,58 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0BD02C41513
-	for <intel-gfx@archiver.kernel.org>; Wed, 17 Jul 2024 15:01:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CA00DC3DA4B
+	for <intel-gfx@archiver.kernel.org>; Wed, 17 Jul 2024 15:01:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1CC4510E222;
-	Wed, 17 Jul 2024 15:01:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 065F910E224;
+	Wed, 17 Jul 2024 15:01:37 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="BPIeR3rW";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="bc5St8RB";
 	dkim-atps=neutral
-Received: from mail-io1-f46.google.com (mail-io1-f46.google.com
- [209.85.166.46])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9946510E844;
- Tue, 16 Jul 2024 18:59:19 +0000 (UTC)
-Received: by mail-io1-f46.google.com with SMTP id
- ca18e2360f4ac-816d9285ebdso1261139f.0; 
- Tue, 16 Jul 2024 11:59:19 -0700 (PDT)
+Received: from mail-io1-f47.google.com (mail-io1-f47.google.com
+ [209.85.166.47])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F1CA210E851;
+ Tue, 16 Jul 2024 18:59:29 +0000 (UTC)
+Received: by mail-io1-f47.google.com with SMTP id
+ ca18e2360f4ac-7fb93b2e2a3so4708539f.1; 
+ Tue, 16 Jul 2024 11:59:29 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1721156359; x=1721761159; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1721156369; x=1721761169; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=pIsdMzCagTnPqkjtDJJFzcS6RuUfrVRwKo+d8V5q9yk=;
- b=BPIeR3rWK68sWLSMzXgfVzHEOQDHc2D+s9i5or/ljWms9NFkUqSLbXZEl3dAK4NFal
- mvYgUXef1fLstj5CfHhiz/2V5raY9Wl0+F8rumTrQz5ZSfgClNGyEYb66zmg9y8s44lK
- m/kH+4nf02dbhWZVAZD5TDHFMkDfJYARiE5f8QbrS9NEeZCQz+/S8LouaAunM7CwvU/0
- MMmgR/zQ9QNb2jaIsSt3WlKmNf2KD6uIn0M4Wrbih7D7PvBu+mb5cAh2rx+1h9tWeDLF
- dyCdEsebulHn+5iK/hwcTgyq+bsATFyCGfu9t5ud07AQkDjK201ep/CDHkzV0js2++z9
- esEw==
+ bh=3JTbEivvcQUwAcXrAriYcuJGP77J1qAidh1sZIrKRVg=;
+ b=bc5St8RB8xqnl3ER1XRjDv7ZSkDW9jhv6udCD/C7oFXvP3uZuXGITU93VzSUD4QuT5
+ opszjD/3VfBGRsL5YqM+AMUUF1V+GSdYt0LD3XhVUeR+FwNs8XFM7pxCcEIEoAS08Tcf
+ cerHs2PxhH5UshqUvdBIe9cwe67HXPP05rsSdzYAQlVTVidVyFVlL98pMzEEmCTU9b1w
+ n0ue3Z8BC77jpuDsbwDIE2XkCWUDiz79ZU+Q29EXL0crCZmJUeG0kQHQZog6sO6Xh+oW
+ N3c1lxeGZsh10QA0QoS4rzsEWAQLNm781wAdbIPHArB2+rFxJurQPnWlYQrfy9ec6ap6
+ PsIg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1721156359; x=1721761159;
+ d=1e100.net; s=20230601; t=1721156369; x=1721761169;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=pIsdMzCagTnPqkjtDJJFzcS6RuUfrVRwKo+d8V5q9yk=;
- b=d0BPZL8nsbgaKaGz5tzqlvt8nusewoQzr4PBweLGjv9Sw2uc6LqFdHeQAlGdBnQ+lo
- OFNRnUiHWTOx/HpWDPhvuB6OZQCqSW0w7w8DsusYAPBWDYvFNBpIZ/kGPEUQJlQfjoAe
- i0qUN9wyuJpFI34qe0cIKQU6ZVH5BHR1BykfnX2SnfNkqRHw2aXqKVt1v1ot5baB4U64
- 5ZYY/XiGXW1Y3Hxj/wh4HIguZlh70Hp6Wwbvh3HA5KgBSHalg7UsY4/Od4TRZG4AATkP
- j/Mr2FZ+3hf9fF6RmoFT+KDl4kWg9+atHatKNFaYoz5+G3VERhUsU+Tt41b5vZGCbg+n
- vrdw==
+ bh=3JTbEivvcQUwAcXrAriYcuJGP77J1qAidh1sZIrKRVg=;
+ b=auaUCjSbiylbftlRJX1RqKnnSWI1/X3pTeFU5K0FkIH9oS7CHpL51Dp4S8B6kfCbC1
+ pKg6Z7Ozh1hAnqHbLoKlIVCrDkcCsRpXHoXAcg8K+BaqGj61fCdx+djzA559j660u4UB
+ jjBCIKGxd3E72yXx5mjvo2SQlF6LU5AVHqvvCIQYQuHFum+yHiEzBhBjSYGaBFGOPI+D
+ JH8Fdr1N0CubaLuuTK7qnmGpkVGshbrWM79dA08/Z0NZt2cq+5J8ppRy+blZEqmZjnTf
+ YYbTCsENrTilJXPc8iskwkfkuhyqUMOHHdjy8Gr2h2LnYJhRuv0xhigAFpLIE6PeVh1F
+ AGyw==
 X-Forwarded-Encrypted: i=1;
- AJvYcCWFMazxP8+jlO1H/CYEoJ18v9XElYu+k1CRZrDSt+9M9APFlMrjheGKpjZ55VlC+M87Gh/4I+qCvgC5/fp7M1pyCW/4Fiwa1Le4+tPjkoBwYvG2f//PxraQLKEzkh8ivMhTgSugevsp/vJpmDk/0TuwRmS25kDi0zcpt0OMNS6xtRb3SU7JcktUSAWl/hTrLlKdzrkv+gTQs2qZC32BjuL+zLk9FUczc2v6jatP6Oy/FUwsq1c=
-X-Gm-Message-State: AOJu0YyP91pTXzcz9iWVE7bVJBqn2dC4Z3Yv0vKtDr80eE39OmO7hgqY
- yYfWj17FZ3QAQwSYmbWgJryvKcBoQj2AvMqlQ6US8DyY4IKRDa9p
-X-Google-Smtp-Source: AGHT+IHNiuOywTynIegoUOvJ19aVvPGNEUWBbbHPTejWdZydJpz41aRG2QF6opmLXH5eEouAFJcPxg==
-X-Received: by 2002:a05:6602:3fc7:b0:7f9:bef6:2068 with SMTP id
- ca18e2360f4ac-816c35dac54mr41725439f.10.1721156358829; 
- Tue, 16 Jul 2024 11:59:18 -0700 (PDT)
+ AJvYcCUV1BkpJR89v0E0weh8k5k687JezMIUKm9Y1F7qzgxhDZZGOmj/1pA3/DnUF82rsN9Zfja4kI32+SFZBvWjmHFcSaiW8+/C2RZwj8p+ClmzDwZ6nmsw7kJTQC7Va/BwSVvLTAiaJeMkrTSANcN7zblyqx64C1yWJZbMrgPdLkYAT/D29UscSfpmVJfq6ULrfqXjfHy6LmStZpEr3YnJYXoibhOgpnN2VU+HC5wxoQ64YDbfml0=
+X-Gm-Message-State: AOJu0YzC4Nl/trb7k9HrRpSrCBfwwWPUZ1foloVpoce+O9oSursWQ6RK
+ 4gvEz2QwLZMZ8lnsKA9BXtUseXeu6/Wy9MexTIfuxh7QqKaoTY+u
+X-Google-Smtp-Source: AGHT+IGARWh4QxiG+Icc635bMvQOuQFO/eTfpUh5U7VRGb1JDZZ9GA0bt8iTtTyAJOTCk1Gv5ICnMQ==
+X-Received: by 2002:a05:6602:6d0e:b0:80f:81f5:b496 with SMTP id
+ ca18e2360f4ac-816c4a16988mr40830239f.14.1721156369258; 
+ Tue, 16 Jul 2024 11:59:29 -0700 (PDT)
 Received: from frodo.. (c-73-78-62-130.hsd1.co.comcast.net. [73.78.62.130])
  by smtp.googlemail.com with ESMTPSA id
- 8926c6da1cb9f-4c210f23f1csm75301173.102.2024.07.16.11.59.17
+ 8926c6da1cb9f-4c210f23f1csm75301173.102.2024.07.16.11.59.28
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 16 Jul 2024 11:59:18 -0700 (PDT)
+ Tue, 16 Jul 2024 11:59:28 -0700 (PDT)
 From: Jim Cromie <jim.cromie@gmail.com>
 To: linux-kernel@vger.kernel.org, jbaron@akamai.com,
  gregkh@linuxfoundation.org, daniel.vetter@ffwll.ch,
@@ -68,15 +68,16 @@ Cc: ukaszb@chromium.org, linux@rasmusvillemoes.dk, joe@perches.com,
  amd-gfx@lists.freedesktop.org, intel-gvt-dev@lists.freedesktop.org,
  intel-gfx@lists.freedesktop.org, kernelnewbies@kernelnewbies.org,
  Jim Cromie <jim.cromie@gmail.com>
-Subject: [PATCH v9-resend 42/54] drm-dyndbg: add DRM_CLASSMAP_USE to etnaviv
-Date: Tue, 16 Jul 2024 12:57:54 -0600
-Message-ID: <20240716185806.1572048-43-jim.cromie@gmail.com>
+Subject: [PATCH v9-resend 50/54] drm-dyndbg: add DRM_CLASSMAP_USE to the qxl
+ driver
+Date: Tue, 16 Jul 2024 12:58:02 -0600
+Message-ID: <20240716185806.1572048-51-jim.cromie@gmail.com>
 X-Mailer: git-send-email 2.45.2
 In-Reply-To: <20240716185806.1572048-1-jim.cromie@gmail.com>
 References: <20240716185806.1572048-1-jim.cromie@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Wed, 17 Jul 2024 15:01:15 +0000
+X-Mailman-Approved-At: Wed, 17 Jul 2024 15:01:16 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -92,28 +93,28 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-etnaviv has 5 DRM_UT_CORE debugs, make them controllable when
-CONFIG_DRM_USE_DYNAMIC_DEBUG=y by telling dyndbg that the module has
-class'd debugs as well as plain-old pr_debug()s
+The qxl driver has a number of DRM_UT_* debugs, make them
+controllable when CONFIG_DRM_USE_DYNAMIC_DEBUG=y by telling dyndbg
+that the module uses them.
 
 Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
 ---
- drivers/gpu/drm/etnaviv/etnaviv_drv.c | 2 ++
+ drivers/gpu/drm/qxl/qxl_drv.c | 2 ++
  1 file changed, 2 insertions(+)
 
-diff --git a/drivers/gpu/drm/etnaviv/etnaviv_drv.c b/drivers/gpu/drm/etnaviv/etnaviv_drv.c
-index 6500f3999c5f..1d1ddbedcb5a 100644
---- a/drivers/gpu/drm/etnaviv/etnaviv_drv.c
-+++ b/drivers/gpu/drm/etnaviv/etnaviv_drv.c
-@@ -25,6 +25,8 @@
- #include "etnaviv_mmu.h"
- #include "etnaviv_perfmon.h"
+diff --git a/drivers/gpu/drm/qxl/qxl_drv.c b/drivers/gpu/drm/qxl/qxl_drv.c
+index beee5563031a..1971bfa8a8a6 100644
+--- a/drivers/gpu/drm/qxl/qxl_drv.c
++++ b/drivers/gpu/drm/qxl/qxl_drv.c
+@@ -65,6 +65,8 @@ module_param_named(modeset, qxl_modeset, int, 0400);
+ MODULE_PARM_DESC(num_heads, "Number of virtual crtcs to expose (default 4)");
+ module_param_named(num_heads, qxl_num_crtc, int, 0400);
  
 +DRM_CLASSMAP_USE(drm_debug_classes);
 +
- /*
-  * DRM operations:
-  */
+ static struct drm_driver qxl_driver;
+ static struct pci_driver qxl_pci_driver;
+ 
 -- 
 2.45.2
 
