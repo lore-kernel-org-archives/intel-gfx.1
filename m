@@ -4,58 +4,58 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3092BC3DA42
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6F247C3DA4B
 	for <intel-gfx@archiver.kernel.org>; Wed, 17 Jul 2024 15:01:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7DF1110E209;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4701710E204;
 	Wed, 17 Jul 2024 15:01:31 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="KKfBXGtW";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="kEwx1dpY";
 	dkim-atps=neutral
-Received: from mail-io1-f45.google.com (mail-io1-f45.google.com
- [209.85.166.45])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A284310E832;
- Tue, 16 Jul 2024 18:58:56 +0000 (UTC)
-Received: by mail-io1-f45.google.com with SMTP id
- ca18e2360f4ac-8076cee8088so5538039f.0; 
- Tue, 16 Jul 2024 11:58:56 -0700 (PDT)
+Received: from mail-io1-f54.google.com (mail-io1-f54.google.com
+ [209.85.166.54])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 579E910E83B;
+ Tue, 16 Jul 2024 18:58:50 +0000 (UTC)
+Received: by mail-io1-f54.google.com with SMTP id
+ ca18e2360f4ac-7f99d50c1a6so8633839f.0; 
+ Tue, 16 Jul 2024 11:58:50 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1721156336; x=1721761136; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1721156329; x=1721761129; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=gJdYoevwZB2aGfv474+weXhid0sQKo8sv3F+UqQdL9E=;
- b=KKfBXGtWBDn0mrrBIcxaIMsr4p67Fhm/rcVJpAi5UckuJfoAgkbpwiJZA8LgkxNMEG
- dh7qgiAiY2eoWNn3EgRZw/zHl1HUbN41pKApQHFjroHbaOdzdeRKPEUbrADhY2thRHXu
- 6ZY6JN8CApQOxDJe+Fuja9zSJsSz+pBrkih7Gi1egDyv/NXBs7gh6BuwdORRKmCliWaY
- K8fPYnWR4vWPMb04tHE0cY5CWf5MlQWd1+xLg/txJAZzYL/B5lD9n+huDtPEjZwS5uUw
- MsjECtivRj6D8drweHhama/pZVznr/4GJacUhSAULa2vXNa+CL8nXl3BMFj2sSVmESl/
- ta5Q==
+ bh=xowWZ+ekpberKm26oOQ15iL0A2hZa3GfKHRI1+lg3PY=;
+ b=kEwx1dpYuD3RkNZUEFKCvhMXnHLnJN1OUheGHaY3YTO7KbsrNDY39M0LqME/WCUSUo
+ 6bzWVVqvZnnjy1gCaJ+/gIpJuj48uBo7yLpDfHvfa77loazxe0U5AVIL+2tTA4h5XQxV
+ F15qV0Cv6IBYYKURb/Dnm0B/PVRylZ84yED+coyB4JksGcWpne8kB8WbzCOUN2z9IegF
+ M6rPbV6utD2X9S61F2glyHZDhMjgmtYL3TZW55mR8gnR+uame8UxMCU0zvL6Rxcto8Il
+ Q6i++GaHbu9htz2Of+aHr0+MLky0I0PNDGI41GnyyXPt36UsQ9N2jJa/AZsplLdd7e09
+ cRUg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1721156336; x=1721761136;
+ d=1e100.net; s=20230601; t=1721156329; x=1721761129;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=gJdYoevwZB2aGfv474+weXhid0sQKo8sv3F+UqQdL9E=;
- b=ACJ456X2Wd5eizqH5Sz71Iqx3H94UdR/3SgRVu4mZ0S+vzozaH1B1TxGE0C/X8BfYN
- PR5I+A+hekca3npLtE17JXEWI2Ia5vxtmN4HdgLxbq+RINY82Ed+aDpu/FRh9VQV7H+v
- yUZj8Vx93KR4taIuCPfzmNv4YcVAZnTVT5EgUP7mBvSbyN36eZQo9u5MshY6bmxRmJzW
- +0cbLIH8MYV+OKBXnctcybTjFL6AcOErnZHSTHaUtVO0Bj84aadFbteFn3OVF/EOkwIo
- jKEU+vz5mqlAAvJN4imURJu/Kne4ylYtCw16lfuh3SCoFM0YcKolRkYPClIqcxf1OPV9
- vHkA==
+ bh=xowWZ+ekpberKm26oOQ15iL0A2hZa3GfKHRI1+lg3PY=;
+ b=rs0NvqBEb0AHl1xFIDtJJpHer29KIiM0y2cw5PfpdBzvK9giu7RoXtkN7qS9CKpXSs
+ ngcRE4voy2YFJCmfxiGjv79pBKiKjo/1V8LGCdW0P9NN5ahE3nXzDKgR2/X8sdpKt4VQ
+ fAiGp8CA2PliblLx8oZHkzC4xev1HU/Yp0qkjlrLhY1CclEVOrijAT3E0zRtOLdKO4UW
+ qK5FF+mx+6QLmU4t6wH1CoaGz9LS3dTxnYYzQl2NtPxKo2XGFXV4IkcJCAazqoPiMfTR
+ rBbZxJMY/bhJkGiFcwHZMHnEZIaRkbNGy63B3z+E5zyc8I7Hif7B+vx0eEOGPH/6sEnZ
+ VpoA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUDy+IqUDvgmVXb+zZHCa5C0taz+9utFVy0ClxzatnD83hem2MbkophxMZUhPOy4dIibf8saqWHFCJprNLo5EjvXTelr/+7st7Bopv18P4EdsImFVQnuchSIAAAJbvk83qK5TZYf6TLFrEaCQ5iHxBmPuI7rqYBqCgYTKW9FjR9mq9CTyJ4a4vPf4LFwBUJvv4xicBhFL7V1jbwn14bMH1omXEThly52egwvZmByYB3RsnErZs=
-X-Gm-Message-State: AOJu0YxR8VFI2gtS065bXTg1hlT0fRf52MYHJSsFTmtcfj4jsSaIWTGB
- vLZh4l4epiQzmZzxIQPb8n7eI2gFXXz9xInuOKhs2QY/ElcXr/Df
-X-Google-Smtp-Source: AGHT+IEznmXe0kK0CoynYcYtF+WgxWhQ96VOhaEo0TmnyPyzHHCMylbYsvdKD2W05mtvEUB7RgFdSA==
-X-Received: by 2002:a05:6602:2b91:b0:807:82c2:5247 with SMTP id
- ca18e2360f4ac-816c34e59b4mr35528239f.6.1721156335827; 
- Tue, 16 Jul 2024 11:58:55 -0700 (PDT)
+ AJvYcCWobBPFWbzVJIFZszMNSsh/QrqPsLlbEr3ibfu+O4GCEnuceyC/0sM4MOgC7hbDt38lmdjQEPTIEJ/pc/R/w7v90yFvv8+tRr6UQV9JijihuiJs7l9rFN8uTpR0GVJ2rkM/KZV+kPA1r1SsmNQdWPtsIMsJkGWxw8E8q5sMvaN7yAicDzDQKiTX2j2iLNGDPcuXDz07yWE11donRjbp/fjmUYL0zBWDLFBhNDGeM9s+QuAddqo=
+X-Gm-Message-State: AOJu0YyxnkfRUT1dqq1XrX8uP2SCzCYAGmVntbSvGKTgjSbpf7ZCPX33
+ tOymjejpxPQ/YaJ0tpx+GdkYabKrNO2Ge3cjB35BAkAGmxfqarD2
+X-Google-Smtp-Source: AGHT+IFbKxBJYJFRLsqlIc8X6rZ3ddxjJaHcru4WtjoSkVJW1iE/Ay/MRGOURVvx09A7Mej6GaYQYg==
+X-Received: by 2002:a05:6602:1513:b0:805:afed:ce90 with SMTP id
+ ca18e2360f4ac-816c578dc7bmr35156939f.16.1721156329549; 
+ Tue, 16 Jul 2024 11:58:49 -0700 (PDT)
 Received: from frodo.. (c-73-78-62-130.hsd1.co.comcast.net. [73.78.62.130])
  by smtp.googlemail.com with ESMTPSA id
- 8926c6da1cb9f-4c210f23f1csm75301173.102.2024.07.16.11.58.54
+ 8926c6da1cb9f-4c210f23f1csm75301173.102.2024.07.16.11.58.48
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 16 Jul 2024 11:58:55 -0700 (PDT)
+ Tue, 16 Jul 2024 11:58:49 -0700 (PDT)
 From: Jim Cromie <jim.cromie@gmail.com>
 To: linux-kernel@vger.kernel.org, jbaron@akamai.com,
  gregkh@linuxfoundation.org, daniel.vetter@ffwll.ch,
@@ -68,15 +68,16 @@ Cc: ukaszb@chromium.org, linux@rasmusvillemoes.dk, joe@perches.com,
  amd-gfx@lists.freedesktop.org, intel-gvt-dev@lists.freedesktop.org,
  intel-gfx@lists.freedesktop.org, kernelnewbies@kernelnewbies.org,
  Jim Cromie <jim.cromie@gmail.com>
-Subject: [PATCH v9-resend 24/54] selftests-dyndbg: add test_mod_submod
-Date: Tue, 16 Jul 2024 12:57:36 -0600
-Message-ID: <20240716185806.1572048-25-jim.cromie@gmail.com>
+Subject: [PATCH v9-resend 19/54] dyndbg: treat comma as a token separator
+Date: Tue, 16 Jul 2024 12:57:31 -0600
+Message-ID: <20240716185806.1572048-20-jim.cromie@gmail.com>
 X-Mailer: git-send-email 2.45.2
 In-Reply-To: <20240716185806.1572048-1-jim.cromie@gmail.com>
 References: <20240716185806.1572048-1-jim.cromie@gmail.com>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Wed, 17 Jul 2024 15:01:13 +0000
+X-Mailman-Approved-At: Wed, 17 Jul 2024 15:01:14 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -92,119 +93,83 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-This new test-fn runs 3 module/submodule modprobe scenarios, variously
-using both the generic dyndbg=<queries> modprobe arg, and the
-test-module's classmap-params to manipulate the test-mod*'s pr_debugs.
-In all cases, the current flag-settings are counted and tested vs
-expectations.
+Treat comma as a token terminator, just like a space.  This allows a
+user to avoid quoting hassles when spaces are otherwise needed:
 
-The 3rd scenario recapitulates the DRM_USE_DYNAMIC_DEBUG=y failure.
+ :#> modprobe drm dyndbg=class,DRM_UT_CORE,+p\;class,DRM_UT_KMS,+p
 
-1. 2 modprobes (super then sub), with separate dyndbg=class-settings
-   check module specific flag settings
+or as a boot arg:
 
-2. modprobe submod, supermod is auto-loaded
-   set supermod class-params
-   check expected enablements in super & submod
+ drm.dyndbg=class,DRM_UT_CORE,+p  # todo: support multi-query here
 
-3. modprobe super, with param=setting (like drm.debug=0x1ef)
-   modprobe submod
-   validate submod's class'd pr_debugs get properly enabled
+Given the many ways a boot-line +args can be assembled and then passed
+in/down/around shell based tools, this may allow side-stepping all
+sorts of quoting hassles thru those layers.
 
-The test uses multi-queries, with both commas and percents (to avoid
-spaces and quoting).  This is the main reason the test wasn't earlier
-in the patchset, closer to the classmap patches its validating.
+existing query format:
 
-With some tedium, the tests could be refactored to split out early
-tests which avoid multi-cmds, and test only the class-params.
+ modprobe test_dynamic_debug dyndbg="class D2_CORE +p"
+
+new format:
+
+ modprobe test_dynamic_debug dyndbg=class,D2_CORE,+p
 
 Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
+Co-developed-by: Łukasz Bartosik <ukaszb@chromium.org>
+Signed-off-by: Łukasz Bartosik <ukaszb@chromium.org>
 ---
- .../dynamic_debug/dyndbg_selftest.sh          | 67 +++++++++++++++++++
- 1 file changed, 67 insertions(+)
+ lib/dynamic_debug.c | 17 +++++++++++++----
+ 1 file changed, 13 insertions(+), 4 deletions(-)
 
-diff --git a/tools/testing/selftests/dynamic_debug/dyndbg_selftest.sh b/tools/testing/selftests/dynamic_debug/dyndbg_selftest.sh
-index 996e6fdcfb52..fccd2012b548 100755
---- a/tools/testing/selftests/dynamic_debug/dyndbg_selftest.sh
-+++ b/tools/testing/selftests/dynamic_debug/dyndbg_selftest.sh
-@@ -246,10 +246,77 @@ function test_percent_splitting {
-     ifrmmod test_dynamic_debug
+diff --git a/lib/dynamic_debug.c b/lib/dynamic_debug.c
+index e9a95b0f3757..235d85765b63 100644
+--- a/lib/dynamic_debug.c
++++ b/lib/dynamic_debug.c
+@@ -290,6 +290,14 @@ static int ddebug_change(const struct ddebug_query *query,
+ 	return nfound;
  }
  
-+function test_mod_submod {
-+    echo -e "${GREEN}# TEST_MOD_SUBMOD ${NC}"
-+    ifrmmod test_dynamic_debug_submod
-+    ifrmmod test_dynamic_debug
-+    ddcmd =_
-+
-+    # modprobe with class enablements
-+    modprobe test_dynamic_debug \
-+	dyndbg=class,D2_CORE,+pf%class,D2_KMS,+pt%class,D2_ATOMIC,+pm
-+
-+    check_match_ct '\[test_dynamic_debug\]' 23 -r
-+    check_match_ct =pf 1
-+    check_match_ct =pt 1
-+    check_match_ct =pm 1
-+
-+    modprobe test_dynamic_debug_submod
-+    check_match_ct test_dynamic_debug_submod 23 -r
-+    check_match_ct '\[test_dynamic_debug\]' 23 -r
-+    check_match_ct test_dynamic_debug 46 -r
-+
-+    # no enablements propagate here
-+    check_match_ct =pf 1
-+    check_match_ct =pt 1
-+    check_match_ct =pm 1
-+
-+    # change classes again, this time submod too
-+    ddcmd class,D2_CORE,+mf%class,D2_KMS,+lt%class,D2_ATOMIC,+ml "# add some prefixes"
-+    check_match_ct =pmf 1 -v
-+    check_match_ct =plt 1 -v
-+    check_match_ct =pml 1 -v
-+    #  submod changed too
-+    check_match_ct =mf 1 -v
-+    check_match_ct =lt 1 -v
-+    check_match_ct =ml 1 -v
-+
-+    # now work the classmap-params
-+    # fresh start, to clear all above flags (test-fn limits)
-+    ifrmmod test_dynamic_debug_submod
-+    ifrmmod test_dynamic_debug
-+    modprobe test_dynamic_debug_submod # get supermod too
-+
-+    echo 1 > /sys/module/test_dynamic_debug/parameters/p_disjoint_bits
-+    echo 4 > /sys/module/test_dynamic_debug/parameters/p_level_num
-+    # 2 mods * ( V1-3 + D2_CORE )
-+    check_match_ct =p 8 -v
-+    echo 3 > /sys/module/test_dynamic_debug/parameters/p_disjoint_bits
-+    echo 0 > /sys/module/test_dynamic_debug/parameters/p_level_num
-+    # 2 mods * ( D2_CORE, D2_DRIVER )
-+    check_match_ct =p 4 -v
-+    echo 0x16 > /sys/module/test_dynamic_debug/parameters/p_disjoint_bits
-+    echo 0 > /sys/module/test_dynamic_debug/parameters/p_level_num
-+    # 2 mods * ( D2_DRIVER, D2_KMS, D2_ATOMIC )
-+    check_match_ct =p 6 -v
-+
-+    # recap DRM_USE_DYNAMIC_DEBUG regression
-+    ifrmmod test_dynamic_debug_submod
-+    ifrmmod test_dynamic_debug
-+    # set super-mod params
-+    modprobe test_dynamic_debug p_disjoint_bits=0x16 p_level_num=5
-+    check_match_ct =p 7 -v
-+    modprobe test_dynamic_debug_submod
-+    # see them picked up by submod
-+    check_match_ct =p 14 -v
++static char *skip_spaces_and_commas(const char *str)
++{
++	str = skip_spaces(str);
++	while (*str == ',')
++		str = skip_spaces(++str);
++	return (char *)str;
 +}
 +
- tests_list=(
-     basic_tests
-+    # these require test_dynamic_debug*.ko
-     comma_terminator_tests
-     test_percent_splitting
-+    test_mod_submod
- )
+ /*
+  * Split the buffer `buf' into space-separated words.
+  * Handles simple " and ' quoting, i.e. without nested,
+@@ -303,8 +311,8 @@ static int ddebug_tokenize(char *buf, char *words[], int maxwords)
+ 	while (*buf) {
+ 		char *end;
  
- # Run tests
+-		/* Skip leading whitespace */
+-		buf = skip_spaces(buf);
++		/* Skip leading whitespace and comma */
++		buf = skip_spaces_and_commas(buf);
+ 		if (!*buf)
+ 			break;	/* oh, it was trailing whitespace */
+ 		if (*buf == '#')
+@@ -320,7 +328,7 @@ static int ddebug_tokenize(char *buf, char *words[], int maxwords)
+ 				return -EINVAL;	/* unclosed quote */
+ 			}
+ 		} else {
+-			for (end = buf; *end && !isspace(*end); end++)
++			for (end = buf; *end && !isspace(*end) && *end != ','; end++)
+ 				;
+ 			if (end == buf) {
+ 				pr_err("parse err after word:%d=%s\n", nwords,
+@@ -592,7 +600,8 @@ static int ddebug_exec_queries(char *query, const char *modname)
+ 		if (split)
+ 			*split++ = '\0';
+ 
+-		query = skip_spaces(query);
++		query = skip_spaces_and_commas(query);
++
+ 		if (!query || !*query || *query == '#')
+ 			continue;
+ 
 -- 
 2.45.2
 
