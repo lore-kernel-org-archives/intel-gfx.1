@@ -4,58 +4,58 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3A9A8C3DA62
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3092BC3DA42
 	for <intel-gfx@archiver.kernel.org>; Wed, 17 Jul 2024 15:01:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4960010E208;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7DF1110E209;
 	Wed, 17 Jul 2024 15:01:31 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="neDSdMs4";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="KKfBXGtW";
 	dkim-atps=neutral
-Received: from mail-io1-f46.google.com (mail-io1-f46.google.com
- [209.85.166.46])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CE96110E83B;
- Tue, 16 Jul 2024 18:58:31 +0000 (UTC)
-Received: by mail-io1-f46.google.com with SMTP id
- ca18e2360f4ac-807007b8dd1so4811639f.2; 
- Tue, 16 Jul 2024 11:58:31 -0700 (PDT)
+Received: from mail-io1-f45.google.com (mail-io1-f45.google.com
+ [209.85.166.45])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A284310E832;
+ Tue, 16 Jul 2024 18:58:56 +0000 (UTC)
+Received: by mail-io1-f45.google.com with SMTP id
+ ca18e2360f4ac-8076cee8088so5538039f.0; 
+ Tue, 16 Jul 2024 11:58:56 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1721156311; x=1721761111; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1721156336; x=1721761136; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=Kihqcq8gEwvlFuKQVqVa3kRjj6JIPweX7rDvgcIT9h8=;
- b=neDSdMs4xpAR9dvlscP/mx4ZHe10Fjrk3QQHyD1xXDr6D2m28FRakxfNjSKLLkf8gO
- qB7c2pgGYX9MAmXoUfMinGNKW3EcW3EXmr8Gute5Jh31ftSVAjANXkgjqjdRpNiYlHdP
- D8K4vOPje4MwpHO3T57D1d5caz2bCMWpTTEF+f2WzdGCSIzEIabTrN2+6JTL8SeCpbvy
- lKUQRQep3rUFTSXk3UuyxlbwJKmHhz4CUY1rPqdscvvmYr3EYfzIdqgpP2AQqPbSzk7L
- e12nHgisZcCtccJtMM1zMgn/HeCjOkyGfHw91UWoqJexoKf67KmHKBmDZFH0C6ixQ4iQ
- FGNg==
+ bh=gJdYoevwZB2aGfv474+weXhid0sQKo8sv3F+UqQdL9E=;
+ b=KKfBXGtWBDn0mrrBIcxaIMsr4p67Fhm/rcVJpAi5UckuJfoAgkbpwiJZA8LgkxNMEG
+ dh7qgiAiY2eoWNn3EgRZw/zHl1HUbN41pKApQHFjroHbaOdzdeRKPEUbrADhY2thRHXu
+ 6ZY6JN8CApQOxDJe+Fuja9zSJsSz+pBrkih7Gi1egDyv/NXBs7gh6BuwdORRKmCliWaY
+ K8fPYnWR4vWPMb04tHE0cY5CWf5MlQWd1+xLg/txJAZzYL/B5lD9n+huDtPEjZwS5uUw
+ MsjECtivRj6D8drweHhama/pZVznr/4GJacUhSAULa2vXNa+CL8nXl3BMFj2sSVmESl/
+ ta5Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1721156311; x=1721761111;
+ d=1e100.net; s=20230601; t=1721156336; x=1721761136;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=Kihqcq8gEwvlFuKQVqVa3kRjj6JIPweX7rDvgcIT9h8=;
- b=AHbDHwGsSgY5xM4tpGCtnMMpwQhtCXKtUfi71s4/IWefjlsgs4065tWc/q/vT1U6xb
- RPjQ1lw106MmXm/X/HuV/EGyQyhe8BhnUdVPRCXqZBfq8ICwZwE4nyYJngCzIxbOhwqr
- 4Q7xFmb24OBUX1wkctmq5U/TE7s8zUT0aBXHh6QK/QZCdH+oUfs8sVtUr88Xd6v7zio3
- uv04/BlRFAqza2Rx29KGufHPjTv248WoKbyGEjDai2vt8KROVo1KpVArlfPatNhQzC3t
- PDZCYPfyPe7Rpa2rksocMYaLE+D9394G2hiWyPtSZQ5dOOOSO+cx3/hYgtUf63d2ooDJ
- tZ7w==
+ bh=gJdYoevwZB2aGfv474+weXhid0sQKo8sv3F+UqQdL9E=;
+ b=ACJ456X2Wd5eizqH5Sz71Iqx3H94UdR/3SgRVu4mZ0S+vzozaH1B1TxGE0C/X8BfYN
+ PR5I+A+hekca3npLtE17JXEWI2Ia5vxtmN4HdgLxbq+RINY82Ed+aDpu/FRh9VQV7H+v
+ yUZj8Vx93KR4taIuCPfzmNv4YcVAZnTVT5EgUP7mBvSbyN36eZQo9u5MshY6bmxRmJzW
+ +0cbLIH8MYV+OKBXnctcybTjFL6AcOErnZHSTHaUtVO0Bj84aadFbteFn3OVF/EOkwIo
+ jKEU+vz5mqlAAvJN4imURJu/Kne4ylYtCw16lfuh3SCoFM0YcKolRkYPClIqcxf1OPV9
+ vHkA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCVlYzQ7oGND+fN44RPDd+BcMym+Q3GB6f2uD4DIcAFe/MmIFITqS0+XmmR+YQrodUjbFA2Cz//9y9bTXWbnsQ8dAbAjwqBshNK5ArJMc12uUJN+3NWi6mC+fW3RJPA2munqsmg1pO/SfvG4x3NOdw/CtvVomshwnl5eYx1JFVkdVa07NSC0BP385oGCqcY4kgYX9DWgScOgCJqQ95+otudjwDRjwGaHI9M/AL59lXxGJ99PBtY=
-X-Gm-Message-State: AOJu0YxiMW3R6Astik7Y3Oi/ry3yfV2b1676wKudP5sOARGaLjiYSEW8
- Kp0xUyvw0oKfZRKPJxQMPuo/7brRXf6dPdHGDoEUk9zDcjw56sj+
-X-Google-Smtp-Source: AGHT+IG/+jo69dsHArTBqixhUoufA4QPx32dYcoWi4IHunj5MWvseDBGOvH7eIX5hx3svsuPZC331g==
-X-Received: by 2002:a05:6602:601b:b0:80b:8cb:e9a2 with SMTP id
- ca18e2360f4ac-816c39b5f53mr47969539f.9.1721156311067; 
- Tue, 16 Jul 2024 11:58:31 -0700 (PDT)
+ AJvYcCUDy+IqUDvgmVXb+zZHCa5C0taz+9utFVy0ClxzatnD83hem2MbkophxMZUhPOy4dIibf8saqWHFCJprNLo5EjvXTelr/+7st7Bopv18P4EdsImFVQnuchSIAAAJbvk83qK5TZYf6TLFrEaCQ5iHxBmPuI7rqYBqCgYTKW9FjR9mq9CTyJ4a4vPf4LFwBUJvv4xicBhFL7V1jbwn14bMH1omXEThly52egwvZmByYB3RsnErZs=
+X-Gm-Message-State: AOJu0YxR8VFI2gtS065bXTg1hlT0fRf52MYHJSsFTmtcfj4jsSaIWTGB
+ vLZh4l4epiQzmZzxIQPb8n7eI2gFXXz9xInuOKhs2QY/ElcXr/Df
+X-Google-Smtp-Source: AGHT+IEznmXe0kK0CoynYcYtF+WgxWhQ96VOhaEo0TmnyPyzHHCMylbYsvdKD2W05mtvEUB7RgFdSA==
+X-Received: by 2002:a05:6602:2b91:b0:807:82c2:5247 with SMTP id
+ ca18e2360f4ac-816c34e59b4mr35528239f.6.1721156335827; 
+ Tue, 16 Jul 2024 11:58:55 -0700 (PDT)
 Received: from frodo.. (c-73-78-62-130.hsd1.co.comcast.net. [73.78.62.130])
  by smtp.googlemail.com with ESMTPSA id
- 8926c6da1cb9f-4c210f23f1csm75301173.102.2024.07.16.11.58.30
+ 8926c6da1cb9f-4c210f23f1csm75301173.102.2024.07.16.11.58.54
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 16 Jul 2024 11:58:30 -0700 (PDT)
+ Tue, 16 Jul 2024 11:58:55 -0700 (PDT)
 From: Jim Cromie <jim.cromie@gmail.com>
 To: linux-kernel@vger.kernel.org, jbaron@akamai.com,
  gregkh@linuxfoundation.org, daniel.vetter@ffwll.ch,
@@ -68,15 +68,15 @@ Cc: ukaszb@chromium.org, linux@rasmusvillemoes.dk, joe@perches.com,
  amd-gfx@lists.freedesktop.org, intel-gvt-dev@lists.freedesktop.org,
  intel-gfx@lists.freedesktop.org, kernelnewbies@kernelnewbies.org,
  Jim Cromie <jim.cromie@gmail.com>
-Subject: [PATCH v9-resend 10/54] dyndbg: silence debugs with no-change updates
-Date: Tue, 16 Jul 2024 12:57:22 -0600
-Message-ID: <20240716185806.1572048-11-jim.cromie@gmail.com>
+Subject: [PATCH v9-resend 24/54] selftests-dyndbg: add test_mod_submod
+Date: Tue, 16 Jul 2024 12:57:36 -0600
+Message-ID: <20240716185806.1572048-25-jim.cromie@gmail.com>
 X-Mailer: git-send-email 2.45.2
 In-Reply-To: <20240716185806.1572048-1-jim.cromie@gmail.com>
 References: <20240716185806.1572048-1-jim.cromie@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Wed, 17 Jul 2024 15:01:14 +0000
+X-Mailman-Approved-At: Wed, 17 Jul 2024 15:01:13 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -92,53 +92,119 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-In ddebug_apply_class_bitmap(), check for actual changes to the bits
-before announcing them, to declutter logs.
+This new test-fn runs 3 module/submodule modprobe scenarios, variously
+using both the generic dyndbg=<queries> modprobe arg, and the
+test-module's classmap-params to manipulate the test-mod*'s pr_debugs.
+In all cases, the current flag-settings are counted and tested vs
+expectations.
 
-no functional change.
+The 3rd scenario recapitulates the DRM_USE_DYNAMIC_DEBUG=y failure.
+
+1. 2 modprobes (super then sub), with separate dyndbg=class-settings
+   check module specific flag settings
+
+2. modprobe submod, supermod is auto-loaded
+   set supermod class-params
+   check expected enablements in super & submod
+
+3. modprobe super, with param=setting (like drm.debug=0x1ef)
+   modprobe submod
+   validate submod's class'd pr_debugs get properly enabled
+
+The test uses multi-queries, with both commas and percents (to avoid
+spaces and quoting).  This is the main reason the test wasn't earlier
+in the patchset, closer to the classmap patches its validating.
+
+With some tedium, the tests could be refactored to split out early
+tests which avoid multi-cmds, and test only the class-params.
 
 Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
 ---
- lib/dynamic_debug.c | 12 +++++++-----
- 1 file changed, 7 insertions(+), 5 deletions(-)
+ .../dynamic_debug/dyndbg_selftest.sh          | 67 +++++++++++++++++++
+ 1 file changed, 67 insertions(+)
 
-diff --git a/lib/dynamic_debug.c b/lib/dynamic_debug.c
-index 368381dbd266..8320cadeb251 100644
---- a/lib/dynamic_debug.c
-+++ b/lib/dynamic_debug.c
-@@ -595,7 +595,7 @@ static int ddebug_exec_queries(char *query, const char *modname)
- 	return nfound;
+diff --git a/tools/testing/selftests/dynamic_debug/dyndbg_selftest.sh b/tools/testing/selftests/dynamic_debug/dyndbg_selftest.sh
+index 996e6fdcfb52..fccd2012b548 100755
+--- a/tools/testing/selftests/dynamic_debug/dyndbg_selftest.sh
++++ b/tools/testing/selftests/dynamic_debug/dyndbg_selftest.sh
+@@ -246,10 +246,77 @@ function test_percent_splitting {
+     ifrmmod test_dynamic_debug
  }
  
--/* apply a new bitmap to the sys-knob's current bit-state */
-+/* apply a new class-param setting */
- static int ddebug_apply_class_bitmap(const struct ddebug_class_param *dcp,
- 				     unsigned long *new_bits, unsigned long *old_bits,
- 				     const char *query_modname)
-@@ -606,8 +606,9 @@ static int ddebug_apply_class_bitmap(const struct ddebug_class_param *dcp,
- 	int matches = 0;
- 	int bi, ct;
++function test_mod_submod {
++    echo -e "${GREEN}# TEST_MOD_SUBMOD ${NC}"
++    ifrmmod test_dynamic_debug_submod
++    ifrmmod test_dynamic_debug
++    ddcmd =_
++
++    # modprobe with class enablements
++    modprobe test_dynamic_debug \
++	dyndbg=class,D2_CORE,+pf%class,D2_KMS,+pt%class,D2_ATOMIC,+pm
++
++    check_match_ct '\[test_dynamic_debug\]' 23 -r
++    check_match_ct =pf 1
++    check_match_ct =pt 1
++    check_match_ct =pm 1
++
++    modprobe test_dynamic_debug_submod
++    check_match_ct test_dynamic_debug_submod 23 -r
++    check_match_ct '\[test_dynamic_debug\]' 23 -r
++    check_match_ct test_dynamic_debug 46 -r
++
++    # no enablements propagate here
++    check_match_ct =pf 1
++    check_match_ct =pt 1
++    check_match_ct =pm 1
++
++    # change classes again, this time submod too
++    ddcmd class,D2_CORE,+mf%class,D2_KMS,+lt%class,D2_ATOMIC,+ml "# add some prefixes"
++    check_match_ct =pmf 1 -v
++    check_match_ct =plt 1 -v
++    check_match_ct =pml 1 -v
++    #  submod changed too
++    check_match_ct =mf 1 -v
++    check_match_ct =lt 1 -v
++    check_match_ct =ml 1 -v
++
++    # now work the classmap-params
++    # fresh start, to clear all above flags (test-fn limits)
++    ifrmmod test_dynamic_debug_submod
++    ifrmmod test_dynamic_debug
++    modprobe test_dynamic_debug_submod # get supermod too
++
++    echo 1 > /sys/module/test_dynamic_debug/parameters/p_disjoint_bits
++    echo 4 > /sys/module/test_dynamic_debug/parameters/p_level_num
++    # 2 mods * ( V1-3 + D2_CORE )
++    check_match_ct =p 8 -v
++    echo 3 > /sys/module/test_dynamic_debug/parameters/p_disjoint_bits
++    echo 0 > /sys/module/test_dynamic_debug/parameters/p_level_num
++    # 2 mods * ( D2_CORE, D2_DRIVER )
++    check_match_ct =p 4 -v
++    echo 0x16 > /sys/module/test_dynamic_debug/parameters/p_disjoint_bits
++    echo 0 > /sys/module/test_dynamic_debug/parameters/p_level_num
++    # 2 mods * ( D2_DRIVER, D2_KMS, D2_ATOMIC )
++    check_match_ct =p 6 -v
++
++    # recap DRM_USE_DYNAMIC_DEBUG regression
++    ifrmmod test_dynamic_debug_submod
++    ifrmmod test_dynamic_debug
++    # set super-mod params
++    modprobe test_dynamic_debug p_disjoint_bits=0x16 p_level_num=5
++    check_match_ct =p 7 -v
++    modprobe test_dynamic_debug_submod
++    # see them picked up by submod
++    check_match_ct =p 14 -v
++}
++
+ tests_list=(
+     basic_tests
++    # these require test_dynamic_debug*.ko
+     comma_terminator_tests
+     test_percent_splitting
++    test_mod_submod
+ )
  
--	v2pr_info("apply bitmap: 0x%lx to: 0x%lx for %s\n", *new_bits, *old_bits,
--		  query_modname ?: "");
-+	if (*new_bits != *old_bits)
-+		v2pr_info("apply bitmap: 0x%lx to: 0x%lx for %s\n", *new_bits,
-+			  *old_bits, query_modname ?: "'*'");
- 
- 	for (bi = 0; bi < map->length; bi++) {
- 		if (test_bit(bi, new_bits) == test_bit(bi, old_bits))
-@@ -622,8 +623,9 @@ static int ddebug_apply_class_bitmap(const struct ddebug_class_param *dcp,
- 		v2pr_info("bit_%d: %d matches on class: %s -> 0x%lx\n", bi,
- 			  ct, map->class_names[bi], *new_bits);
- 	}
--	v2pr_info("applied bitmap: 0x%lx to: 0x%lx for %s\n", *new_bits, *old_bits,
--		  query_modname ?: "");
-+	if (*new_bits != *old_bits)
-+		v2pr_info("applied bitmap: 0x%lx to: 0x%lx for %s\n", *new_bits,
-+			  *old_bits, query_modname ?: "'*'");
- 
- 	return matches;
- }
+ # Run tests
 -- 
 2.45.2
 
