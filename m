@@ -4,55 +4,70 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2A463C3DA49
-	for <intel-gfx@archiver.kernel.org>; Tue, 16 Jul 2024 16:33:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EB7A1C3DA49
+	for <intel-gfx@archiver.kernel.org>; Tue, 16 Jul 2024 16:35:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 35DFF10E7D2;
-	Tue, 16 Jul 2024 16:33:19 +0000 (UTC)
-Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com
- [209.85.128.44])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AAF5010EABE
- for <intel-gfx@lists.freedesktop.org>; Thu, 11 Jul 2024 15:35:58 +0000 (UTC)
-Received: by mail-wm1-f44.google.com with SMTP id
- 5b1f17b1804b1-42565670e20so12935755e9.0
- for <intel-gfx@lists.freedesktop.org>; Thu, 11 Jul 2024 08:35:58 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 80FEA10E7D9;
+	Tue, 16 Jul 2024 16:35:45 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="theRsoRD";
+	dkim-atps=neutral
+Received: from mail-yb1-f172.google.com (mail-yb1-f172.google.com
+ [209.85.219.172])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 70B7B10E7D9
+ for <intel-gfx@lists.freedesktop.org>; Tue, 16 Jul 2024 16:35:42 +0000 (UTC)
+Received: by mail-yb1-f172.google.com with SMTP id
+ 3f1490d57ef6-dfdb6122992so4802517276.3
+ for <intel-gfx@lists.freedesktop.org>; Tue, 16 Jul 2024 09:35:42 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1721147741; x=1721752541; darn=lists.freedesktop.org;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc:subject:date:message-id:reply-to;
+ bh=34oPXxwUhO+NH/fduZHAOpDo2yc0Dac2FG6FOEu8FG0=;
+ b=theRsoRDFEC+OTG3OUBYDi4RWs3XsrChef4ZO8g7gLbK3QmpAm55wF/W6V8ZoM/bL5
+ b1auriWtjs1ewOlYJDXT3hfzm+VvhGiex42nVXuv0yEXAbqQ8owIP19J4M4xv5Xe+jPq
+ RaKdn6YlvAE9M2OEi3pncJZWDpwctVD4JVyp9JXoyYIn0+YaXSQAGAD7bWu1VLgDXBQM
+ 1cz3D93AjSjvy31JbJx1yoEvpUky1Eu2XJkF7t4R5M3SwXtHvHyHshUikO9hQPU6R3bd
+ qeIvTiMV+WhglU/n1BKYZODeQtjE2C0iPBobIBIUGFBYLoS9WZCAnxDCp424P7XxvvAQ
+ 3JAw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1720712157; x=1721316957;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:to:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=glFCckD1gYDzrAMfqAvC05QeVLA4kmgo3QMbd/yXdZg=;
- b=c8GGD6HCDo69qOq3MBieuoOgGWwzEVNT+2PJ3wKN8IrThZHmK0yokLPjaUvR7FtLxD
- qb/eXni1288KdzkdCVt/k47iveCWGfLY66Ee4iROsrwnkrymYMwWF3R+/bvZ7z5SkmC2
- 7DF29swsp3HSLBppoQ/3jcliGmPzNNdYdtr9cMF503slWLxHFgN5mH7fBLwxX1vBxBDO
- ZOaUxPFTnzACUN9Rzwoe1OKOnpLRN9JSmyCaePkmhvnUDwxNqUeuX1F68WFfJ1v36GUS
- TmoeSSyIjZOJFsoQjBcnv1AirA9pUypoE/5cXDMHZUMGicTf58noGklsKAepKGvEBya+
- JclA==
-X-Gm-Message-State: AOJu0YxWkc7ZHLR5SGLQRm1NTyyGdfJr5AXnAoyae9FdDLN16VizMofr
- GOWOJOYLT8M5Dk6OxzOZtdiTnZMedJcJNpVz/GBfm6kQ1tZ+XoDTbSxHTA==
-X-Google-Smtp-Source: AGHT+IHxcHUiL8A63vrs0aCnXsP584Bem3uHCk68hSskMXfa2MNCq2Z63dl8WlPxTLP0fH3FUELQ8w==
-X-Received: by 2002:a05:600c:22d8:b0:426:5b17:8458 with SMTP id
- 5b1f17b1804b1-4279da067b3mr261045e9.12.1720712157048; 
- Thu, 11 Jul 2024 08:35:57 -0700 (PDT)
-Received: from xavers-framework.localnet
- ([2a04:7d84:aacc:2400:d7ce:2620:d180:5216])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-42797105bfasm48613185e9.10.2024.07.11.08.35.56
- for <intel-gfx@lists.freedesktop.org>
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 11 Jul 2024 08:35:56 -0700 (PDT)
-From: Xaver Hugl <xaver.hugl@kde.org>
-To: intel-gfx@lists.freedesktop.org
-Subject: Re: [PATCH] RFC: drm/drm_plane: Expose the plane capability and
- interoperability
-Date: Thu, 11 Jul 2024 17:35:56 +0200
-Message-ID: <26511362.1r3eYUQgxm@xavers-framework>
-In-Reply-To: <20240709074656.1389387-1-arun.r.murthy@intel.com>
-References: <20240709074656.1389387-1-arun.r.murthy@intel.com>
+ d=1e100.net; s=20230601; t=1721147741; x=1721752541;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=34oPXxwUhO+NH/fduZHAOpDo2yc0Dac2FG6FOEu8FG0=;
+ b=h9dTzhVwpgxOXSYJkTK7yXBFNMtxmt+2Qx2ikSbtOi53EXXEWT3D0KG0izwwncnb+b
+ KGoOV+V5kx+3T0exV4ZCe+ai7+/HNdOgbk3YS2IwNh2J/MTTvGLow3G4umlYglkt/a4p
+ i+hfVzhsOh698j+LeEBGZ7MV/M5msNsTF/KjQVtvEhJYUWDOmuGy8dj2ptocX9CG4O2r
+ jGpLVsLRM+c9FPZ/f1Wbm2gBmC5U7SF3LrEY/nStnxDEXoF27T5jMSUumZi5dvnHLNHv
+ V/ExmkFQs9W4eYOEgRYVUqrMZWMEIBkiOTZ4NabBTEA2dhQTTfC98ihrjGJ4Tqnt0R8Z
+ iZBQ==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCWq+l4d9hhAlx/ea3hhxVaE70hmnh5ZCZ+PttAJE8MieQPfXhpY9rfwV19cM0wEBuNX75IA5eGbcOaBGRvgT8MZqtrHG8kXwdbVtiYS2t/m
+X-Gm-Message-State: AOJu0YxsYUNsZENOXYTqfLPFCNHzaytIwOR2DIVKoI29nRjQs55IGGEa
+ f0IDcswiAbzcj9Tx7nV9MUAPJVFHt/IjhcvDcYTJcjm82WOlChWm5d5EwRyOqeekv1ufWU6ZIcZ
+ gdBMC/OWdbSlWIM1KSAN4GYREhhgMPKnW7Hm5bg==
+X-Google-Smtp-Source: AGHT+IEnIAYeAeq7hqAfRb3BsofJtAOi/bF6/p/RLUOXV2Z8f4Y68QWTBl8HnA/niZH1mJfbe7NjdvQYlDEhmgv9k1o=
+X-Received: by 2002:a05:6902:2510:b0:e05:b9bf:4e58 with SMTP id
+ 3f1490d57ef6-e05d5dfb1d4mr2951145276.25.1721147741099; Tue, 16 Jul 2024
+ 09:35:41 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 7Bit
-Content-Type: text/plain; charset="utf-8"
-X-Mailman-Approved-At: Tue, 16 Jul 2024 16:33:00 +0000
+References: <CAA8EJprfbMs_3PnpebhVg=NVrO5zc23cgx=1f4HAKLnT5b9J6Q@mail.gmail.com>
+ <d3be8832-a6f2-496e-ac2e-9b29cae9f8f2@suse.de>
+In-Reply-To: <d3be8832-a6f2-496e-ac2e-9b29cae9f8f2@suse.de>
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Date: Tue, 16 Jul 2024 19:35:29 +0300
+Message-ID: <CAA8EJprA3aXHex4ctSE+ChhhWVLLdcXtppsadrNYbnHWi+gKLQ@mail.gmail.com>
+Subject: Re: DisplayPort: handling of HPD events / link training
+To: Thomas Zimmermann <tzimmermann@suse.de>
+Cc: "open list:DRM DRIVER FOR MSM ADRENO GPU"
+ <dri-devel@lists.freedesktop.org>, 
+ amd-gfx list <amd-gfx@lists.freedesktop.org>, nouveau@lists.freedesktop.org, 
+ Intel Graphics Development <intel-gfx@lists.freedesktop.org>, 
+ freedreno <freedreno@lists.freedesktop.org>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, 
+ Kuogee Hsieh <quic_khsieh@quicinc.com>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,136 +83,72 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Hi,
+On Tue, 16 Jul 2024 at 18:58, Thomas Zimmermann <tzimmermann@suse.de> wrote:
+>
+> Hi
+>
+> Am 27.02.24 um 23:40 schrieb Dmitry Baryshkov:
+> > Hello,
+> >
+> > We are currently looking at checking and/or possibly redesigning the
+> > way the MSM DRM driver handles the HPD events and link training.
+> >
+> > After a quick glance at the drivers implementing DP support, I noticed
+> > following main approaches:
+> > - Perform link training at the atomic_enable time, don't report
+> > failures (mtk, analogix, zynqmp, tegra, nouveau)
+> > - Perform link training at the atomic_enable time, report errors using
+> > link_status property (i915, mhdp8546)
+> > - Perform link training on the plug event (msm, it8605).
+> > - Perform link training from the DPMS handler, also calling it from
+> > the enable callback (AMDGPU, radeon).
+> >
+> > It looks like the majority wins and we should move HPD to
+> > atomic_enable time. Is that assumption correct?
+>
+> Did you ever receive an answer to this question? I currently investigate
+> ast's DP code, which does link training as part of detecting the
+> connector state (in detect_ctx). But most other drivers do this in
+> atomic_enable. I wonder if ast should follow.
 
-On Dienstag, 9. Juli 2024 09:46:56 MESZ Arun R Murthy wrote:
-> Each plane has its own capability or interoperability based on the
-> harware restrictions. If this is exposed to the user, then user can read
-> it once on boot and store this. Later can be used as a lookup table to
-> check a corresponding capability is supported by plane then only go
-> ahead with the framebuffer creation/calling atomic_ioctl.
-> 
-> For Ex: There are few restiction as to async flip doesnt support all the
-> formats/modifiers. Similar restrictions on scaling. With the
-> availabililty of this info to user, failures in atomic_check can be
-> avoided as these are more the hardware capabilities.
-> 
-> There are two options on how this can be acheived.
-> Option 1:
-> 
-> Add a new element to struct drm_mode_get_plane that holds the addr to
-> the array of a new struct. This new struct consists of the formats
-> supported and the corresponding plane capabilities.
-> 
-> Option 2:
-> 
-> These can be exposed to user as a plane property so that the user can get to
-> know the limitation ahead and avoid failures in atomic_check.
-> 
-> Usually atomic_get_property is controlled over the state struct for the
-> parameters/elements that can change. But here these capabilities or the
-> interoperabilities are rather hardware restrictions and wont change over
-> flips. Hence having as a plane_property may not make much sense.
-> On the other hand, Option 1 include changes in the uapi struct
-> drm_mode_get_plane. Shouldnt have impact on backward compatibility, but
-> if userspace has some implementation so as to check the size of the
-> struct, then it might a challenge.
+Short answer: yes, the only proper place to do it is atomic_enable().
 
-Adding fields to the struct should be okay, but adding a per-plane immutable 
-property is also fine and IMO the cleaner option. We already have the same 
-thing with "IN_FORMATS" and "type" that don't ever change either.
+Long answer: I don't see a way to retrigger link training in ast_dp.c
+Without such change you are just shifting things around. The
+end-result of moving link-training to atomic_enable() is that each
+enable can trigger link training, possibly lowering the link rate,
+etc. if link training is just a status bit from the firmware that we
+don't control, it doesn't make real-real sense to move it.
 
-Either way, having a capability flag per format+modifier pair sounds good to me 
-and should be both easy to make use of in userspace.
-
-> Signed-off-by: Arun R Murthy <arun.r.murthy@intel.com>
-> ---
->  drivers/gpu/drm/drm_atomic_uapi.c |  3 +++
->  include/drm/drm_plane.h           |  8 ++++++++
->  include/uapi/drm/drm_mode.h       | 20 ++++++++++++++++++++
->  3 files changed, 31 insertions(+)
-> 
-> =============Option 2========================
-> 
-> diff --git a/drivers/gpu/drm/drm_atomic_uapi.c
-> b/drivers/gpu/drm/drm_atomic_uapi.c index 22bbb2d83e30..b46177d5fc8c 100644
-> --- a/drivers/gpu/drm/drm_atomic_uapi.c
-> +++ b/drivers/gpu/drm/drm_atomic_uapi.c
-> @@ -631,6 +631,9 @@ drm_atomic_plane_get_property(struct drm_plane *plane,
->  		*val = state->hotspot_x;
->  	} else if (property == plane->hotspot_y_property) {
->  		*val = state->hotspot_y;
-> +	} else if (property == config->prop_plane_caps) {
-> +		*val = (state->plane_caps) ?
-> +			state->plane_caps->base.id : 0;
->  	} else {
->  		drm_dbg_atomic(dev,
->  			       "[PLANE:%d:%s] unknown property 
-[PROP:%d:%s]\n",
-> diff --git a/include/drm/drm_plane.h b/include/drm/drm_plane.h
-> index dd718c62ac31..dfe931677d0a 100644
-> --- a/include/drm/drm_plane.h
-> +++ b/include/drm/drm_plane.h
-> @@ -260,6 +260,14 @@ struct drm_plane_state {
->  	 * flow.
->  	 */
->  	bool color_mgmt_changed : 1;
-> +
-> +	/**
-> +	 * @plane_caps:
-> +	 *
-> +	 * Blob representing plane capcabilites and interoperability.
-> +	 * This element is a pointer to the array of struct 
-drm_format_blob.
-> +	 */
-> +	struct drm_property_blob *plane_caps;
->  };
-> 
->  static inline struct drm_rect
-> 
-> =============Option 1========================
-> 
-> diff --git a/include/uapi/drm/drm_mode.h b/include/uapi/drm/drm_mode.h
-> index d390011b89b4..0b5c1b65ef63 100644
-> --- a/include/uapi/drm/drm_mode.h
-> +++ b/include/uapi/drm/drm_mode.h
-> @@ -312,6 +312,20 @@ struct drm_mode_set_plane {
->  	__u32 src_w;
->  };
-> 
-> +#define DRM_FORMAT_PLANE_CAP_LINEAR_TILE	BIT(0)
-> +#define DRM_FORMAT_PLANE_CAP_X_TILE		BIT(1)
-> +#define DRM_FORMAT_PLANE_CAP_Y_TILE		BIT(2)
-> +#define DRM_FORMAT_PLANE_CAP_Yf_TILE		BIT(3)
-> +#define DRM_FORMAT_PLANE_CAP_ASYNC_FLIP		BIT(4)
-> +#define DRM_FORMAT_PLANE_CAP_FBC		BIT(5)
-> +#define DRM_FORMAT_PLANE_CAP_RC			BIT(6)
-> +
-> +struct drm_format_blob {
-> +	__u64 modifier;
-> +	__u32 plane_caps;
-> +
-> +};
-> +
->  /**
->   * struct drm_mode_get_plane - Get plane metadata.
->   *
-> @@ -355,6 +369,12 @@ struct drm_mode_get_plane {
->  	 * supported by the plane. These formats do not require modifiers.
->  	 */
->  	__u64 format_type_ptr;
-> +	/**
-> +	 * @ format_blob_ptr: Pointer to the array of struct 
-drm_format_blob.
-> +	 * Specify the plane capabilites/restrictions w.r.t tiling/sync-
-async
-> +	 * flips etc
-> +	 */
-> +	__u64 format_blob_ptr;
->  };
-> 
->  struct drm_mode_get_plane_res {
+>
+> Best regards
+> Thomas
+>
+> >
+> > Also two related questions:
+> > - Is there a plan to actually make use of the link_status property?
+> > Intel presented it at FOSDEM 2018, but since that time it was not
+> > picked up by other drivers.
+> >
+> > - Is there any plan to create generic DP link training helpers? After
+> > glancing through the DP drivers there is a lot of similar code in the
+> > link training functions, with minor differences here and there. And
+> > it's those minor differences that bug me. It means that drivers might
+> > respond differently to similar devices. Or that there might be minor
+> > bugs here and there.
+> >
+>
+> --
+> --
+> Thomas Zimmermann
+> Graphics Driver Developer
+> SUSE Software Solutions Germany GmbH
+> Frankenstrasse 146, 90461 Nuernberg, Germany
+> GF: Ivo Totev, Andrew Myers, Andrew McDonald, Boudien Moerman
+> HRB 36809 (AG Nuernberg)
+>
 
 
-
-
+-- 
+With best wishes
+Dmitry
