@@ -4,79 +4,59 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 01FEDC3DA4B
-	for <intel-gfx@archiver.kernel.org>; Wed, 17 Jul 2024 15:03:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E5DBCC3DA42
+	for <intel-gfx@archiver.kernel.org>; Wed, 17 Jul 2024 15:06:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EC3E310E292;
-	Wed, 17 Jul 2024 15:03:06 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7170210E029;
+	Wed, 17 Jul 2024 15:06:02 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Je6fm/HD";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="kGx+NCGO";
 	dkim-atps=neutral
-Received: from mail-io1-f41.google.com (mail-io1-f41.google.com
- [209.85.166.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7468510E841;
- Tue, 16 Jul 2024 18:59:18 +0000 (UTC)
-Received: by mail-io1-f41.google.com with SMTP id
- ca18e2360f4ac-7f70a708f54so6569739f.3; 
- Tue, 16 Jul 2024 11:59:18 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1721156358; x=1721761158; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=BVVliFbCcRiwMu0SQpi190huBei8IpcPa+B6oudggrw=;
- b=Je6fm/HD6CBreDfcngkvHy0dRJwdQKKPlLfkh4rmj4ws4SFl4CemWl3SGOzB41Zb+A
- BjueVL6FVwaxAOkr6AHUnRsc1o+XqG79tRP1R8EX6rYr9Bxnq65rMeb1AIP+w3CJY5bm
- jH2L1zF5SunDmpWCvwXUeEvIDKFEpDgi+GxvpFPFL+6sobSIxfN3mMycwGhBeFg8idHY
- k8wmvOoSqNyjkG7s7vf2BMUbuBW2+wKF4GsIbH0cNCIq/79z6YOXYYJQ1rs3METLCOdo
- 1owRYOb9dqTPvY4gn3MYQjJ1tO5hK/izb3UIa2CTkZJmsiAcxK2o+VuhmemJfm0D/EBZ
- iSYA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1721156358; x=1721761158;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=BVVliFbCcRiwMu0SQpi190huBei8IpcPa+B6oudggrw=;
- b=YZhCqRPcaoMuyMkIRunhU/xOyxdtSKuPvtSDAeZ4rMGWo1hb04ER7QFDMivmVDff9O
- KqZ3UqGVnDUzrZgvVZidoMd/9mDaptcdfyNIQRgoo75sbThTe12SC/uki3PiveQF/Tjp
- qOGqpCT6ESLkMjUy8NAd3HvrPLndwGZo8jRobZETn6566kvehtpBQulN9Xz44W2H8Tav
- m6+Q13wXgTWnhJ6rR03Ah/yLphyhdOxWQHTW9DGUDvKyUc4Y3k6HJ12vsuu57Hfwgssa
- xfxf/gHv2/TD7Mfqs9eTk0BnUl0pxDyhbIJkOExHJMBwYvuMQX2OijuONCJciDLLk2eq
- 1zAw==
-X-Forwarded-Encrypted: i=1;
- AJvYcCW1+oNu0GKg2laj1oYImW3SFqzVH/5p8yxms1Wha0fRRSMT2usKePIDBasibY56TLJ+Uq/G5Q/3trGY9SZPC4T5OdEVFqO3yZmKbKn/yRMXgvh1wRFY45vVe20R5NS1VNSHFlfhin/AGIK19MlZ4tKaminBgmScQ6paPPZ6AHJKgyqH/sfBaI/ZOao0mLfBP8JxD0pwdFSv3fhAq5i0bFoQHERvNnCxy1p4BDEoLnViUEqz01k=
-X-Gm-Message-State: AOJu0Yxp9jgfg//eEZwrk02/N0Tij605X3g25sOgSFYaoSLIfJPgknPv
- DqM3jNgW27p2/REN1TA39xTepSekrDV/oGWGkfM6+pcAzQhBn390NpK4mpOC
-X-Google-Smtp-Source: AGHT+IG55r3J/+WPjmFCfm4i2FdKqBFiyLji83RgakUJ5UGwMl7NPkDm7WMlJ0D93dK102jpqkJ71Q==
-X-Received: by 2002:a6b:ee19:0:b0:7fb:87d6:64b with SMTP id
- ca18e2360f4ac-816c51c78f3mr33599139f.17.1721156357639; 
- Tue, 16 Jul 2024 11:59:17 -0700 (PDT)
-Received: from frodo.. (c-73-78-62-130.hsd1.co.comcast.net. [73.78.62.130])
- by smtp.googlemail.com with ESMTPSA id
- 8926c6da1cb9f-4c210f23f1csm75301173.102.2024.07.16.11.59.16
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 16 Jul 2024 11:59:17 -0700 (PDT)
-From: Jim Cromie <jim.cromie@gmail.com>
-To: linux-kernel@vger.kernel.org, jbaron@akamai.com,
- gregkh@linuxfoundation.org, daniel.vetter@ffwll.ch,
- tvrtko.ursulin@linux.intel.com, jani.nikula@intel.com,
- ville.syrjala@linux.intel.com
-Cc: ukaszb@chromium.org, linux@rasmusvillemoes.dk, joe@perches.com,
- mcgrof@kernel.org, seanpaul@chromium.org, robdclark@gmail.com,
- groeck@google.com, yanivt@google.com, bleung@google.com,
- linux-doc@vger.kernel.org, dri-devel@lists.freedesktop.org,
- amd-gfx@lists.freedesktop.org, intel-gvt-dev@lists.freedesktop.org,
- intel-gfx@lists.freedesktop.org, kernelnewbies@kernelnewbies.org,
- Jim Cromie <jim.cromie@gmail.com>
-Subject: [PATCH v9-resend 41/54] drm-dyndbg: add DRM_CLASSMAP_USE to bochs
-Date: Tue, 16 Jul 2024 12:57:53 -0600
-Message-ID: <20240716185806.1572048-42-jim.cromie@gmail.com>
-X-Mailer: git-send-email 2.45.2
-In-Reply-To: <20240716185806.1572048-1-jim.cromie@gmail.com>
-References: <20240716185806.1572048-1-jim.cromie@gmail.com>
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.14])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id ACF7210E029
+ for <intel-gfx@lists.freedesktop.org>; Wed, 17 Jul 2024 15:05:59 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1721228759; x=1752764759;
+ h=message-id:date:mime-version:subject:to:cc:references:
+ from:in-reply-to:content-transfer-encoding;
+ bh=ejIpcsjleqrLMjv6bA93plu1C2l65qkZEspQQLVJClU=;
+ b=kGx+NCGOMPYymoJ1Vvd2/IV4NB+Lngw21fJBQeme1YHO5jYP8LHc/vOQ
+ IglCoS8eUO8GIbem5bernDDtcQAFu9S7Z/6EXWccykfnOjDRs7wumikFy
+ 9hlRfnI5hBeMRHsdIsdPC4sX+WiXre1gqZBcau05s3cUQ/ltfabvP/RE1
+ TggJEuzNiBKE0ffxgd50v86GW7xeBcxoyapMhZYesG3USc95IhZURhGBu
+ NZkgxAK2UnHpvujmUR++yhwX0JVqzaq8qWrNluY/vXP8Ua0446Hop1iKq
+ RcRz2i1NbCFrWCfrKFy346906eqpRw7czIEHicXHktgblOvg9RsemAneP w==;
+X-CSE-ConnectionGUID: /e1jvqVLQIm/EOozHoCKrg==
+X-CSE-MsgGUID: khVNYFrBRSycKUfrZNo49g==
+X-IronPort-AV: E=McAfee;i="6700,10204,11136"; a="18926010"
+X-IronPort-AV: E=Sophos;i="6.09,215,1716274800"; d="scan'208";a="18926010"
+Received: from orviesa004.jf.intel.com ([10.64.159.144])
+ by fmvoesa108.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 17 Jul 2024 08:05:59 -0700
+X-CSE-ConnectionGUID: VckN6/wKTtKHj2OqfzNhCg==
+X-CSE-MsgGUID: 4Wl7iNIlQDiYrG5gBTF50w==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.09,215,1716274800"; d="scan'208";a="55567758"
+Received: from nirmoyda-mobl.ger.corp.intel.com (HELO [10.246.38.191])
+ ([10.246.38.191])
+ by orviesa004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 17 Jul 2024 08:05:57 -0700
+Message-ID: <e113ec37-3d8e-49fc-b55b-525ef481f540@linux.intel.com>
+Date: Wed, 17 Jul 2024 17:05:55 +0200
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Wed, 17 Jul 2024 15:01:14 +0000
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] drm/i915: Allow NULL memory region
+To: Jonathan Cavitt <jonathan.cavitt@intel.com>,
+ intel-gfx@lists.freedesktop.org
+Cc: saurabhg.gupta@intel.com, dan.carpenter@linaro.org,
+ chris.p.wilson@linux.intel.com, Andi Shyti <andi.shyti@linux.intel.com>
+References: <20240712214156.3969584-1-jonathan.cavitt@intel.com>
+Content-Language: en-US
+From: Nirmoy Das <nirmoy.das@linux.intel.com>
+In-Reply-To: <20240712214156.3969584-1-jonathan.cavitt@intel.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -92,28 +72,40 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-tiny/bochs has 5 DRM_UT_* debugs, make them controllable when
-CONFIG_DRM_USE_DYNAMIC_DEBUG=y by telling dyndbg that the module has
-class'd debugs.
 
-Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
----
- drivers/gpu/drm/tiny/bochs.c | 2 ++
- 1 file changed, 2 insertions(+)
+On 7/12/2024 11:41 PM, Jonathan Cavitt wrote:
+> Prevent a NULL pointer access in intel_memory_regions_hw_probe.
+>
+> Fixes: 05da7d9f717b ("drm/i915/gem: Downgrade stolen lmem setup warning")
+> Reported-by: Dan Carpenter <dan.carpenter@linaro.org>
+> Signed-off-by: Jonathan Cavitt <jonathan.cavitt@intel.com>
+> ---
+>   drivers/gpu/drm/i915/intel_memory_region.c | 6 ++++--
+>   1 file changed, 4 insertions(+), 2 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/i915/intel_memory_region.c b/drivers/gpu/drm/i915/intel_memory_region.c
+> index 172dfa7c3588b..d40ee1b42110a 100644
+> --- a/drivers/gpu/drm/i915/intel_memory_region.c
+> +++ b/drivers/gpu/drm/i915/intel_memory_region.c
+> @@ -368,8 +368,10 @@ int intel_memory_regions_hw_probe(struct drm_i915_private *i915)
+>   			goto out_cleanup;
+>   		}
+>   
+> -		mem->id = i;
+> -		i915->mm.regions[i] = mem;
 
-diff --git a/drivers/gpu/drm/tiny/bochs.c b/drivers/gpu/drm/tiny/bochs.c
-index c23c9f0cf49c..ee98fab5597e 100644
---- a/drivers/gpu/drm/tiny/bochs.c
-+++ b/drivers/gpu/drm/tiny/bochs.c
-@@ -54,6 +54,8 @@ static int bochs_modeset = -1;
- static int defx = 1024;
- static int defy = 768;
- 
-+DRM_CLASSMAP_USE(drm_debug_classes);
-+
- module_param_named(modeset, bochs_modeset, int, 0444);
- MODULE_PARM_DESC(modeset, "enable/disable kernel modesetting");
- 
--- 
-2.45.2
+There is a check for mem just before that. You could use 
+IS_ERR_OR_NULL(mem) instead of IS_ERR().
 
+
+Regards,
+
+Nirmoy
+
+> +		if (mem) { /* Skip on non-fatal errors */
+> +			mem->id = i;
+> +			i915->mm.regions[i] = mem;
+> +		}
+>   	}
+>   
+>   	for (i = 0; i < ARRAY_SIZE(i915->mm.regions); i++) {
