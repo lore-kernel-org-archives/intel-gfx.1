@@ -4,51 +4,51 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A3586C3DA64
-	for <intel-gfx@archiver.kernel.org>; Thu, 18 Jul 2024 08:17:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 91E84C3DA49
+	for <intel-gfx@archiver.kernel.org>; Thu, 18 Jul 2024 08:17:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3A9BC10E5D1;
-	Thu, 18 Jul 2024 08:17:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3C55310E5D4;
+	Thu, 18 Jul 2024 08:17:19 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="SbaMfrIK";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="kv+CX1R0";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.17])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 433FD10E5C0
- for <intel-gfx@lists.freedesktop.org>; Thu, 18 Jul 2024 08:17:16 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6C1F710E5C6
+ for <intel-gfx@lists.freedesktop.org>; Thu, 18 Jul 2024 08:17:08 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1721290636; x=1752826636;
+ t=1721290628; x=1752826628;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=kOgEV9+d+q5J9kRC77BZ5SzmSxWDM/S/L+UbxfG7g14=;
- b=SbaMfrIKY5S7vKzW7tALkaKknrjMPRMt8HOswH1pbq/4Fclujo2lSl1i
- PwE7rkSrXSFtRcJGV78Ix+oE0jZDDTwBzMn0BeH57hPL6O7RLJiFU29/S
- jT+NXLhbIZUfBSZfiCwbcSZ1QtpfjvOzMjNyTQuQspsb0v22L9fWvfSwr
- +n5FnJtoOY87b5nusDxNJjsySBcs4CTpikVD93jSa6hYcHengo+Vbhvc0
- V7amPRUxOboz2hH3T2NW3StBcnGp9LE9bUSZlCsGyyinDSJ0ezxH9orr+
- iuwTJt46/Ja7K2ndUeXpH075zhPn/622EEkHziTw2yjdaae0jDLC5Oca4 A==;
-X-CSE-ConnectionGUID: ETQwF/HDSw6kV4XSbVcWFg==
-X-CSE-MsgGUID: H+p9WWQWR5e5YNxOPccasg==
-X-IronPort-AV: E=McAfee;i="6700,10204,11136"; a="18706064"
-X-IronPort-AV: E=Sophos;i="6.09,217,1716274800"; d="scan'208";a="18706064"
+ bh=cHypcFmdiN3WQcGValkQbbOOtvnq7CbmgFDdNNtDdhM=;
+ b=kv+CX1R0DU6cFFgqfmtjfhy4BLpmBOKlwv/9wj1As45xrFuaFCWqUCfJ
+ 0zPz9aygI3OCtZBgEcBi3LxRJC38B1pO9Bs7e/v/cy+gia8aw1/iwRWaN
+ YNNH3DiK+oIlBjgjIgdqDT11bEwBIKkicl3sF7tMIQOsoIaJQnKkYSJwO
+ OtNdAcbC7sT62svhFMDHni0v85OPzxOCNaQ5A59jDTtow73AoGnpQPMaf
+ TdvKWMvX1Q0IaumlVL9aUSr3Y8Wuof901TMKpZK4uJUmR6NeSlk1gVMba
+ u4yek1MAcM7Y3PBGyhEStlr6I5uQu17JDHSxbRQyLttAz6Uh1wdfqY55k w==;
+X-CSE-ConnectionGUID: RZ2f5X8uSgGuqMABjaqfgw==
+X-CSE-MsgGUID: IpAKChZXS6+fgaMxmTtfZA==
+X-IronPort-AV: E=McAfee;i="6700,10204,11136"; a="18706024"
+X-IronPort-AV: E=Sophos;i="6.09,217,1716274800"; d="scan'208";a="18706024"
 Received: from orviesa008.jf.intel.com ([10.64.159.148])
  by fmvoesa111.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 18 Jul 2024 01:17:16 -0700
-X-CSE-ConnectionGUID: VlWuDLT5QCaGDczhN51tFA==
-X-CSE-MsgGUID: WZMsVE1QQcGEanEU28iiHw==
+ 18 Jul 2024 01:17:08 -0700
+X-CSE-ConnectionGUID: auks8T5ETqGcefVOpE6fNA==
+X-CSE-MsgGUID: lVPp3p6fRLai8gtIP6d/fQ==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.09,217,1716274800"; d="scan'208";a="51400641"
+X-IronPort-AV: E=Sophos;i="6.09,217,1716274800"; d="scan'208";a="51400586"
 Received: from srr4-3-linux-103-aknautiy.iind.intel.com ([10.223.34.160])
  by orviesa008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 18 Jul 2024 01:17:14 -0700
+ 18 Jul 2024 01:17:06 -0700
 From: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
 To: intel-gfx@lists.freedesktop.org
 Cc: stanislav.lisovskiy@intel.com, jani.saarinen@intel.com,
  ville.syrjala@linux.intel.com
-Subject: [PATCH 07/12] drm/i915: Add bigjoiner and uncompressed joiner hw
- readout sanity checks
-Date: Thu, 18 Jul 2024 13:47:58 +0530
-Message-ID: <20240718081803.3338564-8-ankit.k.nautiyal@intel.com>
+Subject: [PATCH 03/12] drm/i915/display: Use joined pipes in
+ intel_mode_valid_max_plane_size
+Date: Thu, 18 Jul 2024 13:47:54 +0530
+Message-ID: <20240718081803.3338564-4-ankit.k.nautiyal@intel.com>
 X-Mailer: git-send-email 2.45.2
 In-Reply-To: <20240718081803.3338564-1-ankit.k.nautiyal@intel.com>
 References: <20240718081803.3338564-1-ankit.k.nautiyal@intel.com>
@@ -69,68 +69,114 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Stanislav Lisovskiy <stanislav.lisovskiy@intel.com>
+In preparation of ultrajoiner, use number of joined pipes in the
+intel_mode_valid_max_plane_size helper, instead of joiner flag.
 
-Adding sanity checks for primary and secondary bigjoiner/uncompressed
-bitmasks, should make it easier to spot possible issues.
-
-Signed-off-by: Stanislav Lisovskiy <stanislav.lisovskiy@intel.com>
+Signed-off-by: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_display.c | 25 +++++++++++++++++++-
- 1 file changed, 24 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/i915/display/intel_display.c | 4 ++--
+ drivers/gpu/drm/i915/display/intel_display.h | 3 ++-
+ drivers/gpu/drm/i915/display/intel_dp.c      | 2 +-
+ drivers/gpu/drm/i915/display/intel_dp_mst.c  | 2 +-
+ drivers/gpu/drm/i915/display/intel_dsi.c     | 2 +-
+ drivers/gpu/drm/i915/display/intel_hdmi.c    | 2 +-
+ 6 files changed, 8 insertions(+), 7 deletions(-)
 
 diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
-index 4aed8117f614..59cb0d2f773b 100644
+index eab07a5fa377..26e4b0c2e9f7 100644
 --- a/drivers/gpu/drm/i915/display/intel_display.c
 +++ b/drivers/gpu/drm/i915/display/intel_display.c
-@@ -3648,11 +3648,17 @@ static void enabled_bigjoiner_pipes(struct drm_i915_private *dev_priv,
- 	}
- }
- 
-+static u8 expected_secondary_pipes(u8 primary_pipes)
-+{
-+	return primary_pipes << 1;
-+}
-+
- static void enabled_joiner_pipes(struct drm_i915_private *dev_priv,
- 				 u8 *primary_pipes, u8 *secondary_pipes)
+@@ -8081,7 +8081,7 @@ enum drm_mode_status intel_cpu_transcoder_mode_valid(struct drm_i915_private *de
+ enum drm_mode_status
+ intel_mode_valid_max_plane_size(struct drm_i915_private *dev_priv,
+ 				const struct drm_display_mode *mode,
+-				bool joiner)
++				enum intel_joiner_pipe_count joined_pipes)
  {
- 	u8 primary_uncompressed_joiner_pipes, primary_bigjoiner_pipes;
- 	u8 secondary_uncompressed_joiner_pipes, secondary_bigjoiner_pipes;
-+	u8 uncompressed_joiner_pipes, bigjoiner_pipes;
+ 	int plane_width_max, plane_height_max;
  
- 	enabled_uncompressed_joiner_pipes(dev_priv, &primary_uncompressed_joiner_pipes,
- 					  &secondary_uncompressed_joiner_pipes);
-@@ -3660,11 +3666,28 @@ static void enabled_joiner_pipes(struct drm_i915_private *dev_priv,
- 	enabled_bigjoiner_pipes(dev_priv, &primary_bigjoiner_pipes,
- 				&secondary_bigjoiner_pipes);
+@@ -8098,7 +8098,7 @@ intel_mode_valid_max_plane_size(struct drm_i915_private *dev_priv,
+ 	 * too big for that.
+ 	 */
+ 	if (DISPLAY_VER(dev_priv) >= 11) {
+-		plane_width_max = 5120 << joiner;
++		plane_width_max = 5120 << joined_pipes / 2;
+ 		plane_height_max = 4320;
+ 	} else {
+ 		plane_width_max = 5120;
+diff --git a/drivers/gpu/drm/i915/display/intel_display.h b/drivers/gpu/drm/i915/display/intel_display.h
+index 0aecc3330a53..bf665f947b97 100644
+--- a/drivers/gpu/drm/i915/display/intel_display.h
++++ b/drivers/gpu/drm/i915/display/intel_display.h
+@@ -31,6 +31,7 @@
+ #include "intel_display_limits.h"
  
-+	uncompressed_joiner_pipes = primary_uncompressed_joiner_pipes |
-+				    secondary_uncompressed_joiner_pipes;
-+	bigjoiner_pipes = primary_bigjoiner_pipes | secondary_bigjoiner_pipes;
-+
-+	drm_WARN(&dev_priv->drm, (uncompressed_joiner_pipes & bigjoiner_pipes) != 0,
-+		 "Uncomressed joiner pipes(%x) and bigjoiner pipes(%x) can't intersect\n",
-+		 uncompressed_joiner_pipes, bigjoiner_pipes);
-+	drm_WARN(&dev_priv->drm, secondary_bigjoiner_pipes !=
-+		 expected_secondary_pipes(primary_bigjoiner_pipes),
-+		 "Wrong secondary bigjoiner pipes(expected %x, current %x)\n",
-+		 expected_secondary_pipes(primary_bigjoiner_pipes),
-+		 secondary_bigjoiner_pipes);
-+	drm_WARN(&dev_priv->drm, secondary_uncompressed_joiner_pipes !=
-+		 expected_secondary_pipes(primary_uncompressed_joiner_pipes),
-+		 "Wrong secondary uncompressed joiner pipes(expected %x, current %x)\n",
-+		 expected_secondary_pipes(primary_uncompressed_joiner_pipes),
-+		 secondary_uncompressed_joiner_pipes);
-+
- 	*primary_pipes = 0;
- 	*secondary_pipes = 0;
+ enum drm_scaling_filter;
++enum intel_joiner_pipe_count;
+ struct dpll;
+ struct drm_atomic_state;
+ struct drm_connector;
+@@ -415,7 +416,7 @@ u32 intel_plane_fb_max_stride(struct drm_i915_private *dev_priv,
+ enum drm_mode_status
+ intel_mode_valid_max_plane_size(struct drm_i915_private *dev_priv,
+ 				const struct drm_display_mode *mode,
+-				bool joiner);
++				enum intel_joiner_pipe_count joined_pipes);
+ enum drm_mode_status
+ intel_cpu_transcoder_mode_valid(struct drm_i915_private *i915,
+ 				const struct drm_display_mode *mode);
+diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
+index 7d66a969c461..320d8b6d1bce 100644
+--- a/drivers/gpu/drm/i915/display/intel_dp.c
++++ b/drivers/gpu/drm/i915/display/intel_dp.c
+@@ -1295,7 +1295,7 @@ intel_dp_mode_valid(struct drm_connector *_connector,
+ 	if (status != MODE_OK)
+ 		return status;
  
- 	*primary_pipes = primary_uncompressed_joiner_pipes | primary_bigjoiner_pipes;
--
- 	*secondary_pipes = secondary_uncompressed_joiner_pipes | secondary_bigjoiner_pipes;
+-	return intel_mode_valid_max_plane_size(dev_priv, mode, joiner);
++	return intel_mode_valid_max_plane_size(dev_priv, mode, joined_pipes);
  }
  
+ bool intel_dp_source_supports_tps3(struct drm_i915_private *i915)
+diff --git a/drivers/gpu/drm/i915/display/intel_dp_mst.c b/drivers/gpu/drm/i915/display/intel_dp_mst.c
+index e5797ee13667..3f45ac7ca4d5 100644
+--- a/drivers/gpu/drm/i915/display/intel_dp_mst.c
++++ b/drivers/gpu/drm/i915/display/intel_dp_mst.c
+@@ -1491,7 +1491,7 @@ intel_dp_mst_mode_valid_ctx(struct drm_connector *connector,
+ 		return 0;
+ 	}
+ 
+-	*status = intel_mode_valid_max_plane_size(dev_priv, mode, joiner);
++	*status = intel_mode_valid_max_plane_size(dev_priv, mode, joined_pipes);
+ 	return 0;
+ }
+ 
+diff --git a/drivers/gpu/drm/i915/display/intel_dsi.c b/drivers/gpu/drm/i915/display/intel_dsi.c
+index bd5888ce4852..acc17546215f 100644
+--- a/drivers/gpu/drm/i915/display/intel_dsi.c
++++ b/drivers/gpu/drm/i915/display/intel_dsi.c
+@@ -76,7 +76,7 @@ enum drm_mode_status intel_dsi_mode_valid(struct drm_connector *connector,
+ 	if (fixed_mode->clock > max_dotclk)
+ 		return MODE_CLOCK_HIGH;
+ 
+-	return intel_mode_valid_max_plane_size(dev_priv, mode, false);
++	return intel_mode_valid_max_plane_size(dev_priv, mode, INTEL_PIPE_JOINER_NONE);
+ }
+ 
+ struct intel_dsi_host *intel_dsi_host_init(struct intel_dsi *intel_dsi,
+diff --git a/drivers/gpu/drm/i915/display/intel_hdmi.c b/drivers/gpu/drm/i915/display/intel_hdmi.c
+index 19498ee455fa..5aa4a9f0c470 100644
+--- a/drivers/gpu/drm/i915/display/intel_hdmi.c
++++ b/drivers/gpu/drm/i915/display/intel_hdmi.c
+@@ -2048,7 +2048,7 @@ intel_hdmi_mode_valid(struct drm_connector *connector,
+ 			return status;
+ 	}
+ 
+-	return intel_mode_valid_max_plane_size(dev_priv, mode, false);
++	return intel_mode_valid_max_plane_size(dev_priv, mode, INTEL_PIPE_JOINER_NONE);
+ }
+ 
+ bool intel_hdmi_bpc_possible(const struct intel_crtc_state *crtc_state,
 -- 
 2.45.2
 
