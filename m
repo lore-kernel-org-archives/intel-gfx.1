@@ -4,51 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6BF0CC3DA49
-	for <intel-gfx@archiver.kernel.org>; Thu, 18 Jul 2024 08:17:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 53103C3DA60
+	for <intel-gfx@archiver.kernel.org>; Thu, 18 Jul 2024 08:17:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DECDC10E5BA;
-	Thu, 18 Jul 2024 08:17:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F153710E5CC;
+	Thu, 18 Jul 2024 08:17:16 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="nS1XvmOp";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="Hm1JBx0M";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.17])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6172410E5A7
- for <intel-gfx@lists.freedesktop.org>; Thu, 18 Jul 2024 08:17:07 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6A97510E5C0
+ for <intel-gfx@lists.freedesktop.org>; Thu, 18 Jul 2024 08:17:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1721290627; x=1752826627;
+ t=1721290634; x=1752826634;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=hxTq/onij2A8kzAYXGSOpHjw0S13yWMQyxpf34LCY2g=;
- b=nS1XvmOpeP0Syd8Tbjwcj73Wqx7B9KcxG6IPEtsTfTKYfRJ1sTyEHKUE
- WlwzpS7EVhhHuB//3bDxmNiXbyAsAV8nUQsE4fQHvSntWjthXvm1u91FH
- sU5lJTbChiBJBMPL+19y2HTouJzb3t35ljfYmLHhuW94jozgdwmNWq1AK
- /8gFvDs704r/+H4aGOCYRo2KqDVuYg1LsuK8jj74vI9hn4GDhWxLW7xIx
- 59EZ7j7mTKrcfWDtNQzPWje6ZmYcG3NCmQGW04QTleLSyktponnLEsB4m
- eRdgMqtrBg+zkpUfoYNOTZNZoMsKOkdS/Dil0FAfQDAAdStiV5jPZZWMc g==;
-X-CSE-ConnectionGUID: 1NtVzK0OTei5Q2ExiPUrxg==
-X-CSE-MsgGUID: E5mEpmOsThm8NZsvo8a8lg==
-X-IronPort-AV: E=McAfee;i="6700,10204,11136"; a="18706018"
-X-IronPort-AV: E=Sophos;i="6.09,217,1716274800"; d="scan'208";a="18706018"
+ bh=bcWAb4wSjH0yIRo7DZqhWtsdlFI3N17DfcuZDPU9XWA=;
+ b=Hm1JBx0MMuC8fkQoskED7WNwouPM+KdFWvGT41mqY5XOeysYj9JcgCu/
+ FbDPR/PVkNQ8zD8L+Zoucs2aBMctjR55JBdCv6hyrQ4FsYJfVem1hBzEP
+ AlM1ziQtzGhuEQ7P/RqwE3XS4xHr9LVe0kbso0oW0aE+V2ko0tkO6FCPp
+ Gp2HIhxdQS/BYk4iMEgxLnGJUKID+b4Y6FWnOpTeyktjtKybq5KOGdT+r
+ 1ihRl/k73UkixTJoznE0IlozZtP71Ck08zxqaBGMACPmS/sjFfXFp3rN/
+ 5ye8ff5V00xRba4EJxvq3eXAKL3uousjAPE2EO+s/K79gxEbccYdUXpea A==;
+X-CSE-ConnectionGUID: XPcMcIP9Qx6bStqyygiwMQ==
+X-CSE-MsgGUID: HJFaLcYMRFO8hf9mINjF1Q==
+X-IronPort-AV: E=McAfee;i="6700,10204,11136"; a="18706056"
+X-IronPort-AV: E=Sophos;i="6.09,217,1716274800"; d="scan'208";a="18706056"
 Received: from orviesa008.jf.intel.com ([10.64.159.148])
  by fmvoesa111.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 18 Jul 2024 01:17:06 -0700
-X-CSE-ConnectionGUID: YnxPYW8WQbCx83lbuxvqAw==
-X-CSE-MsgGUID: Hf4gbAcYSJWTT9sdUzKetw==
+ 18 Jul 2024 01:17:14 -0700
+X-CSE-ConnectionGUID: xJ8XY2jbR1uXRCmjPaxPiw==
+X-CSE-MsgGUID: JID3ONnRS/y1wB6fdXhETQ==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.09,217,1716274800"; d="scan'208";a="51400583"
+X-IronPort-AV: E=Sophos;i="6.09,217,1716274800"; d="scan'208";a="51400618"
 Received: from srr4-3-linux-103-aknautiy.iind.intel.com ([10.223.34.160])
  by orviesa008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 18 Jul 2024 01:17:04 -0700
+ 18 Jul 2024 01:17:12 -0700
 From: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
 To: intel-gfx@lists.freedesktop.org
 Cc: stanislav.lisovskiy@intel.com, jani.saarinen@intel.com,
  ville.syrjala@linux.intel.com
-Subject: [PATCH 02/12] drm/i915/display: Use joined pipes in
- intel_dp_joiner_needs_dsc
-Date: Thu, 18 Jul 2024 13:47:53 +0530
-Message-ID: <20240718081803.3338564-3-ankit.k.nautiyal@intel.com>
+Subject: [PATCH 06/12] drm/i915: Split current joiner hw state readout
+Date: Thu, 18 Jul 2024 13:47:57 +0530
+Message-ID: <20240718081803.3338564-7-ankit.k.nautiyal@intel.com>
 X-Mailer: git-send-email 2.45.2
 In-Reply-To: <20240718081803.3338564-1-ankit.k.nautiyal@intel.com>
 References: <20240718081803.3338564-1-ankit.k.nautiyal@intel.com>
@@ -69,186 +68,125 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-In preparation of ultrajoiner, use number of joined pipes in the
-intel_dp_joiner_needs_dsc helper, instead of joiner flag.
+From: Stanislav Lisovskiy <stanislav.lisovskiy@intel.com>
 
+We need to add a new sanity checks and also do
+some preparations for adding ultrajoiner hw state readout.
+Lets first split reading of the uncompressed joiner and bigjoiner
+bit masks into separate functions.
+
+v2: Fixed checkpatch warnings (Ankit)
+
+Signed-off-by: Stanislav Lisovskiy <stanislav.lisovskiy@intel.com>
 Signed-off-by: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_display.c |  2 +-
- drivers/gpu/drm/i915/display/intel_display.h |  2 ++
- drivers/gpu/drm/i915/display/intel_dp.c      | 18 +++++++++++++-----
- drivers/gpu/drm/i915/display/intel_dp.h      |  4 +++-
- drivers/gpu/drm/i915/display/intel_dp_mst.c  | 13 ++++++++++---
- 5 files changed, 29 insertions(+), 10 deletions(-)
+ drivers/gpu/drm/i915/display/intel_display.c | 65 +++++++++++++++-----
+ 1 file changed, 48 insertions(+), 17 deletions(-)
 
 diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
-index 01a5faa3fea5..eab07a5fa377 100644
+index 38e7c6811bf3..4aed8117f614 100644
 --- a/drivers/gpu/drm/i915/display/intel_display.c
 +++ b/drivers/gpu/drm/i915/display/intel_display.c
-@@ -276,7 +276,7 @@ bool intel_crtc_is_joiner_primary(const struct intel_crtc_state *crtc_state)
- 		crtc->pipe == joiner_primary_pipe(crtc_state);
+@@ -3590,51 +3590,82 @@ static bool transcoder_ddi_func_is_enabled(struct drm_i915_private *dev_priv,
+ 	return tmp & TRANS_DDI_FUNC_ENABLE;
  }
  
--static int intel_joiner_num_pipes(const struct intel_crtc_state *crtc_state)
-+int intel_joiner_num_pipes(const struct intel_crtc_state *crtc_state)
+-static void enabled_joiner_pipes(struct drm_i915_private *dev_priv,
+-				 u8 *primary_pipes, u8 *secondary_pipes)
++static void enabled_uncompressed_joiner_pipes(struct drm_i915_private *dev_priv,
++					      u8 *primary_pipes, u8 *secondary_pipes)
  {
- 	return hweight8(crtc_state->joiner_pipes);
- }
-diff --git a/drivers/gpu/drm/i915/display/intel_display.h b/drivers/gpu/drm/i915/display/intel_display.h
-index b0cf6ca70952..0aecc3330a53 100644
---- a/drivers/gpu/drm/i915/display/intel_display.h
-+++ b/drivers/gpu/drm/i915/display/intel_display.h
-@@ -584,4 +584,6 @@ bool assert_port_valid(struct drm_i915_private *i915, enum port port);
+ 	struct intel_crtc *crtc;
  
- bool intel_scanout_needs_vtd_wa(struct drm_i915_private *i915);
+ 	*primary_pipes = 0;
+ 	*secondary_pipes = 0;
  
-+int intel_joiner_num_pipes(const struct intel_crtc_state *crtc_state);
++	if (DISPLAY_VER(dev_priv) < 13)
++		return;
 +
- #endif
-diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
-index 30442c9da06b..7d66a969c461 100644
---- a/drivers/gpu/drm/i915/display/intel_dp.c
-+++ b/drivers/gpu/drm/i915/display/intel_dp.c
-@@ -1202,6 +1202,7 @@ intel_dp_mode_valid(struct drm_connector *_connector,
- 	u8 dsc_slice_count = 0;
- 	enum drm_mode_status status;
- 	bool dsc = false, joiner = false;
-+	enum intel_joiner_pipe_count joined_pipes = INTEL_PIPE_JOINER_NONE;
+ 	for_each_intel_crtc_in_pipe_mask(&dev_priv->drm, crtc,
+ 					 joiner_pipes(dev_priv)) {
+ 		enum intel_display_power_domain power_domain;
+ 		enum pipe pipe = crtc->pipe;
+ 		intel_wakeref_t wakeref;
  
- 	status = intel_cpu_transcoder_mode_valid(dev_priv, mode);
- 	if (status != MODE_OK)
-@@ -1225,7 +1226,8 @@ intel_dp_mode_valid(struct drm_connector *_connector,
- 	if (intel_dp_need_joiner(intel_dp, connector,
- 				 mode->hdisplay, target_clock)) {
- 		joiner = true;
--		max_dotclk *= 2;
-+		joined_pipes = INTEL_PIPE_JOINER_BIG;
-+		max_dotclk *= INTEL_PIPE_JOINER_BIG;
+-		power_domain = intel_dsc_power_domain(crtc, (enum transcoder) pipe);
++		power_domain = POWER_DOMAIN_PIPE(pipe);
+ 		with_intel_display_power_if_enabled(dev_priv, power_domain, wakeref) {
+ 			u32 tmp = intel_de_read(dev_priv, ICL_PIPE_DSS_CTL1(pipe));
+ 
+-			if (!(tmp & BIG_JOINER_ENABLE))
+-				continue;
+-
+-			if (tmp & PRIMARY_BIG_JOINER_ENABLE)
++			if (tmp & UNCOMPRESSED_JOINER_PRIMARY)
+ 				*primary_pipes |= BIT(pipe);
+-			else
++			if (tmp & UNCOMPRESSED_JOINER_SECONDARY)
+ 				*secondary_pipes |= BIT(pipe);
+ 		}
++	}
++}
+ 
+-		if (DISPLAY_VER(dev_priv) < 13)
+-			continue;
++static void enabled_bigjoiner_pipes(struct drm_i915_private *dev_priv,
++				    u8 *primary_pipes, u8 *secondary_pipes)
++{
++	struct intel_crtc *crtc;
+ 
+-		power_domain = POWER_DOMAIN_PIPE(pipe);
++	*primary_pipes = 0;
++	*secondary_pipes = 0;
++
++	for_each_intel_crtc_in_pipe_mask(&dev_priv->drm, crtc,
++					 joiner_pipes(dev_priv)) {
++		enum intel_display_power_domain power_domain;
++		enum pipe pipe = crtc->pipe;
++		intel_wakeref_t wakeref;
++
++		power_domain = intel_dsc_power_domain(crtc, (enum transcoder)pipe);
+ 		with_intel_display_power_if_enabled(dev_priv, power_domain, wakeref) {
+ 			u32 tmp = intel_de_read(dev_priv, ICL_PIPE_DSS_CTL1(pipe));
+ 
+-			if (tmp & UNCOMPRESSED_JOINER_PRIMARY)
++			if (!(tmp & BIG_JOINER_ENABLE))
++				continue;
++
++			if (tmp & PRIMARY_BIG_JOINER_ENABLE)
+ 				*primary_pipes |= BIT(pipe);
+-			if (tmp & UNCOMPRESSED_JOINER_SECONDARY)
++			else
+ 				*secondary_pipes |= BIT(pipe);
+ 		}
  	}
- 	if (target_clock > max_dotclk)
- 		return MODE_CLOCK_HIGH;
-@@ -1283,7 +1285,7 @@ intel_dp_mode_valid(struct drm_connector *_connector,
- 		dsc = dsc_max_compressed_bpp && dsc_slice_count;
- 	}
++}
++
++static void enabled_joiner_pipes(struct drm_i915_private *dev_priv,
++				 u8 *primary_pipes, u8 *secondary_pipes)
++{
++	u8 primary_uncompressed_joiner_pipes, primary_bigjoiner_pipes;
++	u8 secondary_uncompressed_joiner_pipes, secondary_bigjoiner_pipes;
++
++	enabled_uncompressed_joiner_pipes(dev_priv, &primary_uncompressed_joiner_pipes,
++					  &secondary_uncompressed_joiner_pipes);
++
++	enabled_bigjoiner_pipes(dev_priv, &primary_bigjoiner_pipes,
++				&secondary_bigjoiner_pipes);
++
++	*primary_pipes = 0;
++	*secondary_pipes = 0;
++
++	*primary_pipes = primary_uncompressed_joiner_pipes | primary_bigjoiner_pipes;
  
--	if (intel_dp_joiner_needs_dsc(dev_priv, joiner) && !dsc)
-+	if (intel_dp_joiner_needs_dsc(dev_priv, joined_pipes) && !dsc)
- 		return MODE_CLOCK_HIGH;
- 
- 	if (mode_rate > max_rate && !dsc)
-@@ -2391,14 +2393,15 @@ int intel_dp_config_required_rate(const struct intel_crtc_state *crtc_state)
- 	return intel_dp_link_required(adjusted_mode->crtc_clock, bpp);
+-	/* Joiner pipes should always be consecutive primary and secondary */
+-	drm_WARN(&dev_priv->drm, *secondary_pipes != *primary_pipes << 1,
+-		 "Joiner misconfigured (primary pipes 0x%x, secondary pipes 0x%x)\n",
+-		 *primary_pipes, *secondary_pipes);
++	*secondary_pipes = secondary_uncompressed_joiner_pipes | secondary_bigjoiner_pipes;
  }
  
--bool intel_dp_joiner_needs_dsc(struct drm_i915_private *i915, bool use_joiner)
-+bool intel_dp_joiner_needs_dsc(struct drm_i915_private *i915,
-+			       enum intel_joiner_pipe_count joined_pipes)
- {
- 	/*
- 	 * Pipe joiner needs compression up to display 12 due to bandwidth
- 	 * limitation. DG2 onwards pipe joiner can be enabled without
- 	 * compression.
- 	 */
--	return DISPLAY_VER(i915) < 13 && use_joiner;
-+	return DISPLAY_VER(i915) < 13 && (joined_pipes == INTEL_PIPE_JOINER_BIG);
- }
- 
- static int
-@@ -2416,6 +2419,7 @@ intel_dp_compute_link_config(struct intel_encoder *encoder,
- 	struct intel_dp *intel_dp = enc_to_intel_dp(encoder);
- 	struct link_config_limits limits;
- 	bool dsc_needed, joiner_needs_dsc;
-+	enum intel_joiner_pipe_count joined_pipes;
- 	int ret = 0;
- 
- 	if (pipe_config->fec_enable &&
-@@ -2427,7 +2431,11 @@ intel_dp_compute_link_config(struct intel_encoder *encoder,
- 				 adjusted_mode->crtc_clock))
- 		pipe_config->joiner_pipes = GENMASK(crtc->pipe + 1, crtc->pipe);
- 
--	joiner_needs_dsc = intel_dp_joiner_needs_dsc(i915, pipe_config->joiner_pipes);
-+	joined_pipes = intel_joiner_num_pipes(pipe_config);
-+	if (joined_pipes >= INTEL_PIPE_JOINER_INVALID)
-+		drm_warn(&i915->drm, "Invalid joined pipes : %d\n", joined_pipes);
-+
-+	joiner_needs_dsc = intel_dp_joiner_needs_dsc(i915, joined_pipes);
- 
- 	dsc_needed = joiner_needs_dsc || intel_dp->force_dsc_en ||
- 		     !intel_dp_compute_config_limits(intel_dp, pipe_config,
-diff --git a/drivers/gpu/drm/i915/display/intel_dp.h b/drivers/gpu/drm/i915/display/intel_dp.h
-index 9be539edf817..a8116210c618 100644
---- a/drivers/gpu/drm/i915/display/intel_dp.h
-+++ b/drivers/gpu/drm/i915/display/intel_dp.h
-@@ -8,6 +8,7 @@
- 
- #include <linux/types.h>
- 
-+enum intel_joiner_pipe_count;
- enum intel_output_format;
- enum pipe;
- enum port;
-@@ -121,7 +122,8 @@ int intel_dp_effective_data_rate(int pixel_clock, int bpp_x16,
- 				 int bw_overhead);
- int intel_dp_max_link_data_rate(struct intel_dp *intel_dp,
- 				int max_dprx_rate, int max_dprx_lanes);
--bool intel_dp_joiner_needs_dsc(struct drm_i915_private *i915, bool use_joiner);
-+bool intel_dp_joiner_needs_dsc(struct drm_i915_private *i915,
-+			       enum intel_joiner_pipe_count joined_pipes);
- bool intel_dp_has_joiner(struct intel_dp *intel_dp);
- bool intel_dp_needs_vsc_sdp(const struct intel_crtc_state *crtc_state,
- 			    const struct drm_connector_state *conn_state);
-diff --git a/drivers/gpu/drm/i915/display/intel_dp_mst.c b/drivers/gpu/drm/i915/display/intel_dp_mst.c
-index 27ce5c3f5951..e5797ee13667 100644
---- a/drivers/gpu/drm/i915/display/intel_dp_mst.c
-+++ b/drivers/gpu/drm/i915/display/intel_dp_mst.c
-@@ -567,6 +567,7 @@ static int intel_dp_mst_compute_config(struct intel_encoder *encoder,
- 		&pipe_config->hw.adjusted_mode;
- 	struct link_config_limits limits;
- 	bool dsc_needed, joiner_needs_dsc;
-+	enum intel_joiner_pipe_count joined_pipes;
- 	int ret = 0;
- 
- 	if (pipe_config->fec_enable &&
-@@ -585,7 +586,11 @@ static int intel_dp_mst_compute_config(struct intel_encoder *encoder,
- 	pipe_config->output_format = INTEL_OUTPUT_FORMAT_RGB;
- 	pipe_config->has_pch_encoder = false;
- 
--	joiner_needs_dsc = intel_dp_joiner_needs_dsc(dev_priv, pipe_config->joiner_pipes);
-+	joined_pipes = intel_joiner_num_pipes(pipe_config);
-+	if (joined_pipes >= INTEL_PIPE_JOINER_INVALID)
-+		drm_warn(&dev_priv->drm, "Invalid joined pipes : %d\n", joined_pipes);
-+
-+	joiner_needs_dsc = intel_dp_joiner_needs_dsc(dev_priv, joined_pipes);
- 
- 	dsc_needed = joiner_needs_dsc || intel_dp->force_dsc_en ||
- 		     !intel_dp_mst_compute_config_limits(intel_dp,
-@@ -1392,6 +1397,7 @@ intel_dp_mst_mode_valid_ctx(struct drm_connector *connector,
- 	u16 dsc_max_compressed_bpp = 0;
- 	u8 dsc_slice_count = 0;
- 	int target_clock = mode->clock;
-+	enum intel_joiner_pipe_count joined_pipes = INTEL_PIPE_JOINER_NONE;
- 
- 	if (drm_connector_is_unregistered(connector)) {
- 		*status = MODE_ERROR;
-@@ -1434,7 +1440,8 @@ intel_dp_mst_mode_valid_ctx(struct drm_connector *connector,
- 	if (intel_dp_need_joiner(intel_dp, intel_connector,
- 				 mode->hdisplay, target_clock)) {
- 		joiner = true;
--		max_dotclk *= 2;
-+		joined_pipes = INTEL_PIPE_JOINER_BIG;
-+		max_dotclk *= INTEL_PIPE_JOINER_BIG;
- 	}
- 
- 	ret = drm_modeset_lock(&mgr->base.lock, ctx);
-@@ -1474,7 +1481,7 @@ intel_dp_mst_mode_valid_ctx(struct drm_connector *connector,
- 		dsc = dsc_max_compressed_bpp && dsc_slice_count;
- 	}
- 
--	if (intel_dp_joiner_needs_dsc(dev_priv, joiner) && !dsc) {
-+	if (intel_dp_joiner_needs_dsc(dev_priv, joined_pipes) && !dsc) {
- 		*status = MODE_CLOCK_HIGH;
- 		return 0;
- 	}
+ static enum pipe get_joiner_primary_pipe(enum pipe pipe, u8 primary_pipes, u8 secondary_pipes)
 -- 
 2.45.2
 
