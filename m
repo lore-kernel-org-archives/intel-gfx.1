@@ -4,50 +4,51 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2A47DC3DA5D
-	for <intel-gfx@archiver.kernel.org>; Mon, 22 Jul 2024 08:26:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EC789C3DA59
+	for <intel-gfx@archiver.kernel.org>; Mon, 22 Jul 2024 08:26:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7998810E417;
-	Mon, 22 Jul 2024 08:26:27 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8075710E413;
+	Mon, 22 Jul 2024 08:26:38 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="Rn6ZGvhi";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="EE00nqtx";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2C97F10E411
- for <intel-gfx@lists.freedesktop.org>; Mon, 22 Jul 2024 08:26:21 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A027410E40A
+ for <intel-gfx@lists.freedesktop.org>; Mon, 22 Jul 2024 08:26:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1721636781; x=1753172781;
+ t=1721636776; x=1753172776;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=xhVNF+b4Tb0wGdM52Jrx4zUqvoR2QqVcMM/zQ5uXZXQ=;
- b=Rn6ZGvhivEDGUp4YyBFcnXSgKOHgF4fGYC+i8us1XC8SHrgH1iBrFbjn
- oQ7AZvB1E4yOQDuz8WVudtNKoEGLTcag1AQ3YItTrm/ScEPp4Iw5x+tJj
- mNJPGWSq+tYQxb9ZyAaJWCVnkaAFWPA/ogw/zwKQDRNhND4jqnqVc0thj
- qkRDOGM7qfC3QHyzfnkKKvbrV9u18Viy5awH1jDw6T1SuV3PfjjqFuGR1
- 2r37YaVK9kAWLmP/fEyCh090cys+MWll912+iRpOzpiZb7KuHmoW+pjA1
- 9BatTVcsGrEt4fCkpyGFmVNRNEz2kFBS/bdr9F2kz5APZr0sB1xvPeJ51 Q==;
-X-CSE-ConnectionGUID: p4flPDH6Tjef3kW+RBwBWw==
-X-CSE-MsgGUID: ++JiOgxASzm9VYKU1r+yNg==
-X-IronPort-AV: E=McAfee;i="6700,10204,11140"; a="29806959"
-X-IronPort-AV: E=Sophos;i="6.09,227,1716274800"; d="scan'208";a="29806959"
+ bh=BIqnBqC6sW295DggbwjkX9RUJKx0A6yFAo/utKx2Vws=;
+ b=EE00nqtxu5vERuo0Vha4e10wyN5UZsBYZJeDvzwDCb4gk69nyfdNFghb
+ Qa4ogs/hIuL7lG4D0bIpF40nmNrXZFMzUUrFi7gxv+iJZ0oYW9iIhDDe+
+ eSKhOmxClM7VelE00PAm0hg6/uJkPh5SIWE8eOxAXM7hAFYf9ndRLuspd
+ 1EtrDtzKjdyl/JSfsOcgcFax7j0O7s0tbmwoLWXyfspFL1JvWpThmyalG
+ 6eaYzbHqcUE0WpgnTVI5VTISOLuDG1RMtdC2OMaxMGMjjF925YJDzJ88H
+ 8gA9tCXh8tJWpzchbOLfmc0N1WnJSdVTUbwwfy0obnQcvRhsMy0QlNWUi w==;
+X-CSE-ConnectionGUID: m7MO+lPeRoacbYE5kKxTzA==
+X-CSE-MsgGUID: oX2Q7dCPSxWzA4CKPy4NIA==
+X-IronPort-AV: E=McAfee;i="6700,10204,11140"; a="29806950"
+X-IronPort-AV: E=Sophos;i="6.09,227,1716274800"; d="scan'208";a="29806950"
 Received: from fmviesa009.fm.intel.com ([10.60.135.149])
  by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 22 Jul 2024 01:26:21 -0700
-X-CSE-ConnectionGUID: C5kQ/lZKR5iiNxrE/h1EDQ==
-X-CSE-MsgGUID: YaglC5gLRq+QyITX5qFt7A==
+ 22 Jul 2024 01:26:15 -0700
+X-CSE-ConnectionGUID: uhUOCiliTuqtQa7XanUBaA==
+X-CSE-MsgGUID: MmzN3NIFQhCFlD8P8+BPgQ==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.09,227,1716274800"; d="scan'208";a="51752939"
+X-IronPort-AV: E=Sophos;i="6.09,227,1716274800"; d="scan'208";a="51752924"
 Received: from srr4-3-linux-103-aknautiy.iind.intel.com ([10.223.34.160])
  by fmviesa009-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 22 Jul 2024 01:26:19 -0700
+ 22 Jul 2024 01:26:13 -0700
 From: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
 To: intel-gfx@lists.freedesktop.org
 Cc: jani.nikula@linux.intel.com, ville.syrjala@linux.intel.com,
  mitulkumar.ajitkumar.golani@intel.com
-Subject: [PATCH 10/10] drm/i915/vrr: Always use VRR timing generator for XELPD+
-Date: Mon, 22 Jul 2024 13:57:05 +0530
-Message-ID: <20240722082705.3635041-11-ankit.k.nautiyal@intel.com>
+Subject: [PATCH 07/10] drm/i915/psr: Allow PSR for fixed refrsh rate with VRR
+ TG
+Date: Mon, 22 Jul 2024 13:57:02 +0530
+Message-ID: <20240722082705.3635041-8-ankit.k.nautiyal@intel.com>
 X-Mailer: git-send-email 2.45.2
 In-Reply-To: <20240722082705.3635041-1-ankit.k.nautiyal@intel.com>
 References: <20240722082705.3635041-1-ankit.k.nautiyal@intel.com>
@@ -68,117 +69,29 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Currently VRR timing generator is used only when VRR is enabled by
-userspace. From XELPD+, gradually move away from older timing
-generator and use VRR timing generator for fixed refresh rate also.
-In such a case, Flipline VMin and VMax all are set to the Vtotal of the
-mode, which effectively makes the VRR timing generator work in
-fixed refresh rate mode.
-
-v2: Use VRR Timing Generator from XELPD+ instead of MTL as it needs
-Wa_14015406119.
-
-v3: Set vrr.fixed during vrr_get_config (Mitul)
+At the moment PSR/PSR2 are not supported with variable refresh rate.
+However it can be supported with fixed refresh rate while running with
+VRR timing generator.
+Enable PSR for fixed refresh rate when using the VRR timing generator.
 
 Signed-off-by: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_vrr.c | 63 +++++++++++++++---------
- 1 file changed, 41 insertions(+), 22 deletions(-)
+ drivers/gpu/drm/i915/display/intel_psr.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_vrr.c b/drivers/gpu/drm/i915/display/intel_vrr.c
-index 50ac2770a42d..ef965c273a9e 100644
---- a/drivers/gpu/drm/i915/display/intel_vrr.c
-+++ b/drivers/gpu/drm/i915/display/intel_vrr.c
-@@ -174,41 +174,56 @@ intel_vrr_compute_config(struct intel_crtc_state *crtc_state,
- 	if (adjusted_mode->flags & DRM_MODE_FLAG_INTERLACE)
- 		return;
- 
--	crtc_state->vrr.in_range =
--		intel_vrr_is_in_range(connector, drm_mode_vrefresh(adjusted_mode));
--	if (!crtc_state->vrr.in_range)
--		return;
--
- 	if (HAS_LRR(i915))
- 		crtc_state->update_lrr = true;
- 
--	vmin = DIV_ROUND_UP(adjusted_mode->crtc_clock * 1000,
--			    adjusted_mode->crtc_htotal * info->monitor_range.max_vfreq);
--	vmax = adjusted_mode->crtc_clock * 1000 /
--		(adjusted_mode->crtc_htotal * info->monitor_range.min_vfreq);
-+	if (!crtc_state->uapi.vrr_enabled && DISPLAY_VER(i915) >= 20) {
-+		/*
-+		 * for XELPD+ always go for VRR timing generator even for
-+		 * fixed refresh rate.
-+		 */
-+		crtc_state->vrr.vmin = adjusted_mode->crtc_vtotal;
-+		crtc_state->vrr.vmax = adjusted_mode->crtc_vtotal;
-+		crtc_state->vrr.flipline = adjusted_mode->crtc_vtotal;
-+		crtc_state->vrr.fixed_rr = true;
-+	} else {
- 
--	vmin = max_t(int, vmin, adjusted_mode->crtc_vtotal);
--	vmax = max_t(int, vmax, adjusted_mode->crtc_vtotal);
-+		crtc_state->vrr.in_range =
-+			intel_vrr_is_in_range(connector, drm_mode_vrefresh(adjusted_mode));
- 
--	if (vmin >= vmax)
--		return;
-+		if (!crtc_state->vrr.in_range)
-+			return;
- 
--	/*
--	 * flipline determines the min vblank length the hardware will
--	 * generate, and flipline>=vmin+1, hence we reduce vmin by one
--	 * to make sure we can get the actual min vblank length.
--	 */
--	crtc_state->vrr.vmin = vmin - 1;
--	crtc_state->vrr.vmax = vmax;
- 
--	crtc_state->vrr.flipline = crtc_state->vrr.vmin + 1;
-+		vmin = DIV_ROUND_UP(adjusted_mode->crtc_clock * 1000,
-+				    adjusted_mode->crtc_htotal * info->monitor_range.max_vfreq);
-+		vmax = adjusted_mode->crtc_clock * 1000 /
-+			(adjusted_mode->crtc_htotal * info->monitor_range.min_vfreq);
-+
-+		vmin = max_t(int, vmin, adjusted_mode->crtc_vtotal);
-+		vmax = max_t(int, vmax, adjusted_mode->crtc_vtotal);
-+
-+		if (vmin >= vmax)
-+			return;
-+
-+		/*
-+		 * flipline determines the min vblank length the hardware will
-+		 * generate, and flipline>=vmin+1, hence we reduce vmin by one
-+		 * to make sure we can get the actual min vblank length.
-+		 */
-+		crtc_state->vrr.vmin = vmin - 1;
-+		crtc_state->vrr.vmax = vmax;
-+
-+		crtc_state->vrr.flipline = crtc_state->vrr.vmin + 1;
-+		crtc_state->vrr.fixed_rr = false;
-+	}
- 
- 	/*
- 	 * When panel is VRR capable and userspace has
- 	 * not enabled adaptive sync mode then Fixed Average
- 	 * Vtotal mode should be enabled.
+diff --git a/drivers/gpu/drm/i915/display/intel_psr.c b/drivers/gpu/drm/i915/display/intel_psr.c
+index 9cb1cdaaeefa..5a228d8e93b5 100644
+--- a/drivers/gpu/drm/i915/display/intel_psr.c
++++ b/drivers/gpu/drm/i915/display/intel_psr.c
+@@ -1523,7 +1523,7 @@ static bool _psr_compute_config(struct intel_dp *intel_dp,
+ 	 * Current PSR panels don't work reliably with VRR enabled
+ 	 * So if VRR is enabled, do not enable PSR.
  	 */
--	if (crtc_state->uapi.vrr_enabled) {
-+	if (crtc_state->uapi.vrr_enabled || crtc_state->vrr.fixed_rr) {
- 		crtc_state->vrr.enable = true;
- 		crtc_state->mode_flags |= I915_MODE_FLAG_VRR;
- 	} else if (is_cmrr_frac_required(crtc_state) && is_edp) {
-@@ -426,6 +441,10 @@ void intel_vrr_get_config(struct intel_crtc_state *crtc_state)
- 						     TRANS_VRR_VMAX(dev_priv, cpu_transcoder)) + 1;
- 		crtc_state->vrr.vmin = intel_de_read(dev_priv,
- 						     TRANS_VRR_VMIN(dev_priv, cpu_transcoder)) + 1;
-+
-+		if (crtc_state->vrr.vmax == crtc_state->vrr.flipline &&
-+		    crtc_state->vrr.vmin == crtc_state->vrr.flipline)
-+			crtc_state->vrr.fixed_rr = true;
- 	}
+-	if (crtc_state->vrr.enable)
++	if (crtc_state->vrr.enable && !crtc_state->vrr.fixed_rr)
+ 		return false;
  
- 	if (crtc_state->vrr.enable) {
+ 	if (!CAN_PSR(intel_dp))
 -- 
 2.45.2
 
