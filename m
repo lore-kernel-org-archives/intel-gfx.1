@@ -4,49 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BC026C3DA59
-	for <intel-gfx@archiver.kernel.org>; Mon, 22 Jul 2024 16:55:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5C4AFC3DA5D
+	for <intel-gfx@archiver.kernel.org>; Mon, 22 Jul 2024 16:55:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C154110E1DB;
-	Mon, 22 Jul 2024 16:55:18 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C0CFB10E1ED;
+	Mon, 22 Jul 2024 16:55:34 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="G7Bs9tej";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="TP7RMKn9";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.12])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6E30E10E1F9
- for <intel-gfx@lists.freedesktop.org>; Mon, 22 Jul 2024 16:54:59 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 31CFF10E1DB
+ for <intel-gfx@lists.freedesktop.org>; Mon, 22 Jul 2024 16:54:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1721667299; x=1753203299;
+ t=1721667296; x=1753203296;
  h=from:to:subject:date:message-id:in-reply-to:references:
  mime-version:content-transfer-encoding;
- bh=6/NDtJufNl7PxK6QQNBNhdxfwmN+LX17iwTy/Lc83IA=;
- b=G7Bs9tejdOzNIc3WT0F3HXEnluFcLq7si6LfmRr7qax80NaiN5olkldO
- XcKpw1F7ADtOqlNyKOWlYfAkQ9CecEKT5qaqQWYTgmxo544f8aejOf2WH
- ne3Jb/8ny9GjAIDkGQIS5V4B4dxjKyRrPVHWJkGjuC2asO08TL89tSSx0
- udRkWzG6RR1zH5z2yYWsziyMu3OUHGu10xBaEvZAZTLHawLlrjN+Z4anO
- 5w/9C/nq4Hb+9tsXN+umwEmPM5f0VAMUhYSXFHFUmZu9otJZoRMmcCYf0
- lvtwUMnX7E8eEll1yEmsfGKCoeFJyyrtcMuukmmPnfy4+DEyuZejxX4y0 Q==;
-X-CSE-ConnectionGUID: zLeUqvIxRd28gdv6gZ9Oyg==
-X-CSE-MsgGUID: o/g2Wy7ZRz+vbrHPM0U3eA==
-X-IronPort-AV: E=McAfee;i="6700,10204,11141"; a="23117315"
-X-IronPort-AV: E=Sophos;i="6.09,228,1716274800"; d="scan'208";a="23117315"
+ bh=ibRd6IcLzu6+IZ2fOcdgkyFtQsOTwGMz2s92I5PzfRg=;
+ b=TP7RMKn9a2D1h/yqAsNiGzRGMbf04qYvgZ+DxE6dqegutfKvuRg1bUl9
+ nyWiShyx67y5pKlOKLBW0mDblUwJPvCMYWNVbYle0+rwMrJUjDklIhxKn
+ OFF6471DPWw6/jxqA9pUL+fKYlO6SyIp6YJi7sIi826ALlfO6Ar/ATZ+T
+ hgXPRaq01XSqC/Uqs+NGvqIgaKq5vINKO7RztpeculKzVvN2gUDdwEiHW
+ BrgLbevOAe0nfrII+sDx2Uel3+QRKZFBmAvs/Skw0chw4dJQmgobQpT1C
+ h62pGK3+gw+W0QJEFUoFOUSIFlDAF/z8B0rQFUUIvIBj0W7doNRpQzSSv A==;
+X-CSE-ConnectionGUID: 6l97EAqcRTa1Nu53leuPTQ==
+X-CSE-MsgGUID: S/1jGi1PS9+6qJcoY8xQ5g==
+X-IronPort-AV: E=McAfee;i="6700,10204,11141"; a="23117311"
+X-IronPort-AV: E=Sophos;i="6.09,228,1716274800"; d="scan'208";a="23117311"
 Received: from orviesa004.jf.intel.com ([10.64.159.144])
  by fmvoesa106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 22 Jul 2024 09:54:59 -0700
-X-CSE-ConnectionGUID: 72RlV1XdSjy1UimYU3rAAA==
-X-CSE-MsgGUID: eINodMYWSr6QrXXMcF6weQ==
+ 22 Jul 2024 09:54:56 -0700
+X-CSE-ConnectionGUID: 1s9fjM71TbOM7lt4bT66vA==
+X-CSE-MsgGUID: j8LvtPB/R1Sukajp6RV07g==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.09,228,1716274800"; d="scan'208";a="57056234"
+X-IronPort-AV: E=Sophos;i="6.09,228,1716274800"; d="scan'208";a="57056214"
 Received: from ideak-desk.fi.intel.com ([10.237.72.78])
  by orviesa004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 22 Jul 2024 09:54:58 -0700
+ 22 Jul 2024 09:54:55 -0700
 From: Imre Deak <imre.deak@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Subject: [PATCH 08/14] drm/i915/dp: Add helpers to set link training mode,
- BW parameters
-Date: Mon, 22 Jul 2024 19:54:57 +0300
-Message-ID: <20240722165503.2084999-9-imre.deak@intel.com>
+Subject: [PATCH 05/14] drm/i915/dp: Initialize the link parameters during HW
+ readout
+Date: Mon, 22 Jul 2024 19:54:54 +0300
+Message-ID: <20240722165503.2084999-6-imre.deak@intel.com>
 X-Mailer: git-send-email 2.44.2
 In-Reply-To: <20240722165503.2084999-1-imre.deak@intel.com>
 References: <20240722165503.2084999-1-imre.deak@intel.com>
@@ -67,100 +67,35 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Add helpers to set the link mode and BW parameters. These are required
-by a follow-up patch setting the parameters for a disabled link.
+Initialize the DP link parameters during HW readout. These need to be
+up-to-date at least for the MST topology probing, which depends on the
+link rate and lane count programmed in DPCD. A follow-up patch will
+program the DPCD values to reflect the maximum link parameters before
+the first MST topology probing, but should do so only if the link is
+disabled (link_trained==false).
 
 Signed-off-by: Imre Deak <imre.deak@intel.com>
 ---
- .../drm/i915/display/intel_dp_link_training.c | 34 +++++++++++++------
- .../drm/i915/display/intel_dp_link_training.h |  6 ++++
- 2 files changed, 29 insertions(+), 11 deletions(-)
+ drivers/gpu/drm/i915/display/intel_dp.c | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_dp_link_training.c b/drivers/gpu/drm/i915/display/intel_dp_link_training.c
-index 57536ae200b77..214c8858b8a94 100644
---- a/drivers/gpu/drm/i915/display/intel_dp_link_training.c
-+++ b/drivers/gpu/drm/i915/display/intel_dp_link_training.c
-@@ -21,6 +21,8 @@
-  * IN THE SOFTWARE.
-  */
+diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
+index 1e43e32e05199..421e970b3c180 100644
+--- a/drivers/gpu/drm/i915/display/intel_dp.c
++++ b/drivers/gpu/drm/i915/display/intel_dp.c
+@@ -3352,8 +3352,11 @@ void intel_dp_sync_state(struct intel_encoder *encoder,
  
-+#include <drm/display/drm_dp_helper.h>
-+
- #include "i915_drv.h"
- #include "intel_display_types.h"
- #include "intel_dp.h"
-@@ -703,26 +705,28 @@ static bool intel_dp_link_max_vswing_reached(struct intel_dp *intel_dp,
- 	return true;
+ 	intel_dp_tunnel_resume(intel_dp, crtc_state, dpcd_updated);
+ 
+-	if (crtc_state)
++	if (crtc_state) {
+ 		intel_dp_reset_link_params(intel_dp);
++		intel_dp_set_link_params(intel_dp, crtc_state->port_clock, crtc_state->lane_count);
++		intel_dp->link_trained = true;
++	}
  }
  
--static void
--intel_dp_update_downspread_ctrl(struct intel_dp *intel_dp,
--				const struct intel_crtc_state *crtc_state)
-+void intel_dp_link_training_set_mode(struct intel_dp *intel_dp, int link_rate, bool is_vrr)
- {
- 	u8 link_config[2];
- 
--	link_config[0] = crtc_state->vrr.flipline ? DP_MSA_TIMING_PAR_IGNORE_EN : 0;
--	link_config[1] = intel_dp_is_uhbr(crtc_state) ?
-+	link_config[0] = is_vrr ? DP_MSA_TIMING_PAR_IGNORE_EN : 0;
-+	link_config[1] = drm_dp_is_uhbr_rate(link_rate) ?
- 			 DP_SET_ANSI_128B132B : DP_SET_ANSI_8B10B;
- 	drm_dp_dpcd_write(&intel_dp->aux, DP_DOWNSPREAD_CTRL, link_config, 2);
- }
- 
--static void
--intel_dp_update_link_bw_set(struct intel_dp *intel_dp,
--			    const struct intel_crtc_state *crtc_state,
--			    u8 link_bw, u8 rate_select)
-+static void intel_dp_update_downspread_ctrl(struct intel_dp *intel_dp,
-+					    const struct intel_crtc_state *crtc_state)
- {
--	u8 lane_count = crtc_state->lane_count;
-+	intel_dp_link_training_set_mode(intel_dp,
-+					crtc_state->port_clock, crtc_state->vrr.flipline);
-+}
- 
--	if (crtc_state->enhanced_framing)
-+void intel_dp_link_training_set_bw(struct intel_dp *intel_dp,
-+				   int link_bw, int rate_select, int lane_count,
-+				   bool enhanced_framing)
-+{
-+	if (enhanced_framing)
- 		lane_count |= DP_LANE_COUNT_ENHANCED_FRAME_EN;
- 
- 	if (link_bw) {
-@@ -746,6 +750,14 @@ intel_dp_update_link_bw_set(struct intel_dp *intel_dp,
- 	}
- }
- 
-+static void intel_dp_update_link_bw_set(struct intel_dp *intel_dp,
-+					const struct intel_crtc_state *crtc_state,
-+					u8 link_bw, u8 rate_select)
-+{
-+	intel_dp_link_training_set_bw(intel_dp, link_bw, rate_select, crtc_state->lane_count,
-+				      crtc_state->enhanced_framing);
-+}
-+
- /*
-  * Prepare link training by configuring the link parameters. On DDI platforms
-  * also enable the port here.
-diff --git a/drivers/gpu/drm/i915/display/intel_dp_link_training.h b/drivers/gpu/drm/i915/display/intel_dp_link_training.h
-index 42e7fc6cb171a..2066b91467622 100644
---- a/drivers/gpu/drm/i915/display/intel_dp_link_training.h
-+++ b/drivers/gpu/drm/i915/display/intel_dp_link_training.h
-@@ -16,6 +16,12 @@ struct intel_dp;
- int intel_dp_read_dprx_caps(struct intel_dp *intel_dp, u8 dpcd[DP_RECEIVER_CAP_SIZE]);
- int intel_dp_init_lttpr_and_dprx_caps(struct intel_dp *intel_dp);
- 
-+void intel_dp_link_training_set_mode(struct intel_dp *intel_dp,
-+				     int link_rate, bool is_vrr);
-+void intel_dp_link_training_set_bw(struct intel_dp *intel_dp,
-+				   int link_bw, int rate_select, int lane_count,
-+				   bool enhanced_framing);
-+
- void intel_dp_get_adjust_train(struct intel_dp *intel_dp,
- 			       const struct intel_crtc_state *crtc_state,
- 			       enum drm_dp_phy dp_phy,
+ bool intel_dp_initial_fastset_check(struct intel_encoder *encoder,
 -- 
 2.44.2
 
