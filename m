@@ -4,49 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 592E9C3DA63
-	for <intel-gfx@archiver.kernel.org>; Mon, 22 Jul 2024 16:55:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3E362C3DA7F
+	for <intel-gfx@archiver.kernel.org>; Mon, 22 Jul 2024 16:55:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B41BC10E1F7;
-	Mon, 22 Jul 2024 16:55:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4337A10E1F9;
+	Mon, 22 Jul 2024 16:55:36 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="gWr4wsD5";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="II36GZH1";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.12])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0BA4710E1FD
- for <intel-gfx@lists.freedesktop.org>; Mon, 22 Jul 2024 16:55:06 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9765310E1F6
+ for <intel-gfx@lists.freedesktop.org>; Mon, 22 Jul 2024 16:55:01 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1721667306; x=1753203306;
+ t=1721667301; x=1753203301;
  h=from:to:subject:date:message-id:in-reply-to:references:
  mime-version:content-transfer-encoding;
- bh=F/v/RYPyAZ3OtoFi2SCp0vtMC6r17mysIizevYNQVLI=;
- b=gWr4wsD5zfH5pVH4AOdUanCxZ034jBpGWGgGcOeB1BRCubKRHGY49PwO
- S6PqFxzEwQgHleosjoex/28NB1eHeoYdpfZyG6bVKEq8Oz0vFECUYsCQb
- 8/UR6to4fFKPT/Wcd4+6X67AAshfMrZPiOWyv1aC44V+ZvppyyUucyxg6
- d9ANcDJNWBS4bqW8zGjE9aY0FpGYDTsbT1HJnFJDnwNrwt12l5XnYSrd/
- bDzXKDePR8/vJuSTcdqClOSjBF8Eb23OJIqVuvCedMiHceCzQmJSzuko+
- 8KsBosomxQFKbiIYd8Ue+dvCuvlCHxYS/V7qFoKif7jNsBeasV0yfKZr/ g==;
-X-CSE-ConnectionGUID: OrFRLau3Sq2rVfSeNRSs0Q==
-X-CSE-MsgGUID: 8+oPbfh3Q5+dUxeeVOI/jw==
-X-IronPort-AV: E=McAfee;i="6700,10204,11141"; a="23117331"
-X-IronPort-AV: E=Sophos;i="6.09,228,1716274800"; d="scan'208";a="23117331"
+ bh=ImSkBiCSvLyiuE4j0ITbJNQsWMLAcatqYLV7fL+hwSE=;
+ b=II36GZH1VRR+AF4wvYUQx5ujR7WfHBrAifCLv5yeM5rqDAyctNwFqDmn
+ bJrI2DkxUrIh22SX1lBnMHkfmBxIKuE+JiDPFyOcVQJ6nMLlOa5szfTl3
+ EgfWy/qpU/hRWTocwUhdSC7tCi39JEi3fKk8fH6N2WJ0QYf5pZY6poUTl
+ /PtrWmine8/HEkkF94F7KcrA2WCPXAWPcMfhuX1zK5xrOYfeG7U9nAj8X
+ Q2Y+6UTraxCrtPcF+NClAjYnGtSCSEqG/C6Ng0w0hkK1byV/PaVeVy0vU
+ TwfugQFhngRYJnSxJ1aubsAjXeDlWiX25s8PkuL4qjIjWXwzxJCuAxKA8 A==;
+X-CSE-ConnectionGUID: 6PiGFlkVQH+Pgl8ysC0vAA==
+X-CSE-MsgGUID: 8+JzNp2cRcWMfJFmAleoCQ==
+X-IronPort-AV: E=McAfee;i="6700,10204,11141"; a="23117317"
+X-IronPort-AV: E=Sophos;i="6.09,228,1716274800"; d="scan'208";a="23117317"
 Received: from orviesa004.jf.intel.com ([10.64.159.144])
  by fmvoesa106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 22 Jul 2024 09:55:05 -0700
-X-CSE-ConnectionGUID: 4s9ewpHoSjK7u3JT8tUqww==
-X-CSE-MsgGUID: O//u4lvvQGuKxXH3T5TDnQ==
+ 22 Jul 2024 09:55:01 -0700
+X-CSE-ConnectionGUID: fzKagjIeSSuBtDQfRscX2w==
+X-CSE-MsgGUID: aSM1eoBRRyK+w92WXFrfXg==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.09,228,1716274800"; d="scan'208";a="57056341"
+X-IronPort-AV: E=Sophos;i="6.09,228,1716274800"; d="scan'208";a="57056248"
 Received: from ideak-desk.fi.intel.com ([10.237.72.78])
  by orviesa004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 22 Jul 2024 09:55:05 -0700
+ 22 Jul 2024 09:55:00 -0700
 From: Imre Deak <imre.deak@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Subject: [PATCH 14/14] drm/i915/dp_mst: Enable LT fallback between
- UHBR/non-UHBR link rates
-Date: Mon, 22 Jul 2024 19:55:03 +0300
-Message-ID: <20240722165503.2084999-15-imre.deak@intel.com>
+Subject: [PATCH 10/14] drm/i915/dp_mst: Configure MST after the link
+ parameters are reset
+Date: Mon, 22 Jul 2024 19:54:59 +0300
+Message-ID: <20240722165503.2084999-11-imre.deak@intel.com>
 X-Mailer: git-send-email 2.44.2
 In-Reply-To: <20240722165503.2084999-1-imre.deak@intel.com>
 References: <20240722165503.2084999-1-imre.deak@intel.com>
@@ -67,30 +67,36 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Enable switching between UHBR and non-UHBR link rates on MST links when
-reducing the link parameters after an LT failure.
+The MST topology probing depends on the maximum link parameters -
+programmed to DPCD if required by a follow-up patch - so make sure these
+parameters are up-to-date before configuring and probing the MST
+topology.
 
 Signed-off-by: Imre Deak <imre.deak@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_dp_link_training.c | 5 -----
- 1 file changed, 5 deletions(-)
+ drivers/gpu/drm/i915/display/intel_dp.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_dp_link_training.c b/drivers/gpu/drm/i915/display/intel_dp_link_training.c
-index 0c8e0d6437b5b..270080b2735f2 100644
---- a/drivers/gpu/drm/i915/display/intel_dp_link_training.c
-+++ b/drivers/gpu/drm/i915/display/intel_dp_link_training.c
-@@ -1188,11 +1188,6 @@ static bool reduce_link_params_in_bw_order(struct intel_dp *intel_dp,
- 		     intel_dp->link.force_lane_count != lane_count))
- 			continue;
+diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
+index d3529c5836393..1c6d1db1d2690 100644
+--- a/drivers/gpu/drm/i915/display/intel_dp.c
++++ b/drivers/gpu/drm/i915/display/intel_dp.c
+@@ -6025,13 +6025,13 @@ intel_dp_detect(struct drm_connector *connector,
  
--		/* TODO: Make switching from UHBR to non-UHBR rates work. */
--		if (drm_dp_is_uhbr_rate(crtc_state->port_clock) !=
--		    drm_dp_is_uhbr_rate(link_rate))
--			continue;
+ 	intel_dp_detect_sdp_caps(intel_dp);
+ 
+-	intel_dp_mst_configure(intel_dp);
 -
- 		break;
+ 	if (intel_dp->reset_link_params) {
+ 		intel_dp_reset_link_params(intel_dp);
+ 		intel_dp->reset_link_params = false;
  	}
  
++	intel_dp_mst_configure(intel_dp);
++
+ 	intel_dp_print_rates(intel_dp);
+ 
+ 	if (intel_dp->is_mst) {
 -- 
 2.44.2
 
