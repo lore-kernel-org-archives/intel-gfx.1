@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5E3AEC3DA5D
-	for <intel-gfx@archiver.kernel.org>; Mon, 22 Jul 2024 21:07:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 651C4C3DA5D
+	for <intel-gfx@archiver.kernel.org>; Mon, 22 Jul 2024 21:07:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 709AA10E32F;
-	Mon, 22 Jul 2024 21:07:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B6A9110E334;
+	Mon, 22 Jul 2024 21:07:24 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="mnubm4qa";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="iLjjtSt6";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.13])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F39B310E321;
- Mon, 22 Jul 2024 21:07:02 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 74CAF10E310;
+ Mon, 22 Jul 2024 21:07:01 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1721682423; x=1753218423;
+ t=1721682421; x=1753218421;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=s/KEULd10DAnPOptOFmXVIG1knuSR32VEkwPLEise+Y=;
- b=mnubm4qaev7rrk5ZAEY2jufgxGeWEqpBtk5bOHr8DMua1VcJAmM4hEQu
- ZyujjVesA9dq0DN96BqHaLUBn98uX++x3+Is3v9AsrAj+ZceVaoNt/f9h
- yuNWv5lNxvxAESjLjFFrbHvbGSvPeB8H8IGhxKWtO0dK1O6PnljwImKGf
- 2jzmGqgOMufAYON5t5wo5EUQhXZKuDODmLy6T/mUstEi+yeOqGLv9HHdE
- tuak7rG6rwMwdelAlv/RjgJr9Txe8+bPELSqPbjwtKyYnDGn2lMtx+Iwl
- Sk7YFcA1IcfspRwV4LA2GFluPjkztqCHbPVPpK3eD656K1S+Y8q+8+BV3 Q==;
-X-CSE-ConnectionGUID: yFwvr8Z8QfSeBiOcTOUCFA==
-X-CSE-MsgGUID: PRkanw/PTtuuEqmIBy6/rQ==
-X-IronPort-AV: E=McAfee;i="6700,10204,11141"; a="30428316"
-X-IronPort-AV: E=Sophos;i="6.09,229,1716274800"; d="scan'208";a="30428316"
+ bh=jzjRmAv0FQC+DoGcPDLeFGLEdXtORRGXZvIMK7w3hGY=;
+ b=iLjjtSt6gdW4pvvvqV9LwxRlrJu8GgdaZgP8d9j1DVY2PtKmDWtzzeco
+ 7eKUE9Nd6Oh+26VNxLhqqqRrgWA1hdm+as9x/qIi/Mpuyp5PfDv0g0WMo
+ KJ6phPLtjg6ZetqJWmiBjawZkRr1ePMEGv34A3W5wC0xhFHiDt/sR1BYc
+ MPfRUP+xQQ5Hshmp7GHMc820bvsJL3Pg/zaCrbaX/lJihaoaA4kFlRXBK
+ nHsQMR6PBtXbhqaQ5mu79nlyxrLROGNqVjFu1uTje52hOLQqCg8+eJJ8E
+ 78GgDX6BvmiAmL2xzBF0oG9qW74/b3yTPC8FPcadbgMt1yxoEq3GA6SnH w==;
+X-CSE-ConnectionGUID: HvyoQgELQSORbAtTGNFhcw==
+X-CSE-MsgGUID: mnazB1eKS+OxFNWpojThdg==
+X-IronPort-AV: E=McAfee;i="6700,10204,11141"; a="30428291"
+X-IronPort-AV: E=Sophos;i="6.09,229,1716274800"; d="scan'208";a="30428291"
 Received: from fmviesa006.fm.intel.com ([10.60.135.146])
  by orvoesa105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 22 Jul 2024 14:07:02 -0700
-X-CSE-ConnectionGUID: oco+0Mr7Qq21jwMdRCTvSg==
-X-CSE-MsgGUID: YFa/qX3XQcKBR01IvlORGg==
+ 22 Jul 2024 14:07:00 -0700
+X-CSE-ConnectionGUID: +sqI0r3xT7aWlDU75JtWiQ==
+X-CSE-MsgGUID: 3F7AwXZ2T6eMmuT0vcHHCg==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.09,229,1716274800"; d="scan'208";a="51653301"
+X-IronPort-AV: E=Sophos;i="6.09,229,1716274800"; d="scan'208";a="51653273"
 Received: from lucas-s2600cw.jf.intel.com ([10.165.21.196])
  by fmviesa006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 22 Jul 2024 14:07:02 -0700
+ 22 Jul 2024 14:07:00 -0700
 From: Lucas De Marchi <lucas.demarchi@intel.com>
 To: intel-gfx@lists.freedesktop.org,
 	linux-perf-users@vger.kernel.org
@@ -48,9 +48,9 @@ Cc: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
  dri-devel@lists.freedesktop.org, Peter Zijlstra <peterz@infradead.org>,
  Ingo Molnar <mingo@redhat.com>, Arnaldo Carvalho de Melo <acme@kernel.org>,
  linux-kernel@vger.kernel.org, Lucas De Marchi <lucas.demarchi@intel.com>
-Subject: [PATCH 5/7] drm/i915/pmu: Let resource survive unbind
-Date: Mon, 22 Jul 2024 14:06:46 -0700
-Message-ID: <20240722210648.80892-6-lucas.demarchi@intel.com>
+Subject: [PATCH 1/7] perf/core: Add pmu get/put
+Date: Mon, 22 Jul 2024 14:06:42 -0700
+Message-ID: <20240722210648.80892-2-lucas.demarchi@intel.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20240722210648.80892-1-lucas.demarchi@intel.com>
 References: <20240722210648.80892-1-lucas.demarchi@intel.com>
@@ -71,67 +71,116 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-There's no need to free the resources during unbind. Since perf events
-may still access them due to open events, it's safer to free them when
-dropping the last i915 reference.
+If a pmu is unregistered while there's an active event, perf will still
+access the pmu via event->pmu, even after the event is destroyed. This
+makes it difficult for drivers like i915 that take a reference on the
+device when the event is created and put it when it's destroyed.
+Currently the following use-after-free happens just after destroying the
+event:
+
+	BUG: KASAN: use-after-free in exclusive_event_destroy+0xd8/0xf0
+	Read of size 4 at addr ffff88816e2bb63c by task perf/7748
+
+Whenever and event is created, get a pmu reference to use in event->pmu
+and just before calling module_put(), drop the reference..
 
 Signed-off-by: Lucas De Marchi <lucas.demarchi@intel.com>
 ---
- drivers/gpu/drm/i915/i915_pmu.c | 21 ++++++++++++++++-----
- 1 file changed, 16 insertions(+), 5 deletions(-)
+ include/linux/perf_event.h |  3 +++
+ kernel/events/core.c       | 32 ++++++++++++++++++++++++++++----
+ 2 files changed, 31 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/i915_pmu.c b/drivers/gpu/drm/i915/i915_pmu.c
-index b5d14dd318e4..8708f905f4f4 100644
---- a/drivers/gpu/drm/i915/i915_pmu.c
-+++ b/drivers/gpu/drm/i915/i915_pmu.c
-@@ -5,6 +5,7 @@
-  */
+diff --git a/include/linux/perf_event.h b/include/linux/perf_event.h
+index a5304ae8c654..7048a505e93c 100644
+--- a/include/linux/perf_event.h
++++ b/include/linux/perf_event.h
+@@ -540,6 +540,9 @@ struct pmu {
+ 	 * Check period value for PERF_EVENT_IOC_PERIOD ioctl.
+ 	 */
+ 	int (*check_period)		(struct perf_event *event, u64 value); /* optional */
++
++	struct pmu *(*get)		(struct pmu *pmu); /* optional: get a reference */
++	void (*put)			(struct pmu *pmu); /* optional: put a reference */
+ };
  
- #include <linux/pm_runtime.h>
-+#include <drm/drm_managed.h>
+ enum perf_addr_filter_action_t {
+diff --git a/kernel/events/core.c b/kernel/events/core.c
+index 1b6f5dc7ed32..cc7541b644b0 100644
+--- a/kernel/events/core.c
++++ b/kernel/events/core.c
+@@ -5208,6 +5208,8 @@ static void perf_addr_filters_splice(struct perf_event *event,
  
- #include "gt/intel_engine.h"
- #include "gt/intel_engine_pm.h"
-@@ -1152,6 +1153,17 @@ static void free_event_attributes(struct i915_pmu *pmu)
- 	pmu->pmu_attr = NULL;
+ static void _free_event(struct perf_event *event)
+ {
++	struct module *module;
++
+ 	irq_work_sync(&event->pending_irq);
+ 
+ 	unaccount_event(event);
+@@ -5259,7 +5261,13 @@ static void _free_event(struct perf_event *event)
+ 		put_ctx(event->ctx);
+ 
+ 	exclusive_event_destroy(event);
+-	module_put(event->pmu->module);
++
++	module = event->pmu->module;
++	event->pmu->put(event->pmu);
++	/* can't touch pmu anymore */
++	event->pmu = NULL;
++
++	module_put(module);
+ 
+ 	call_rcu(&event->rcu_head, free_event_rcu);
+ }
+@@ -11331,6 +11339,11 @@ static int perf_pmu_nop_int(struct pmu *pmu)
+ 	return 0;
  }
  
-+static void free_pmu(struct drm_device *dev, void *res)
++static struct pmu *perf_pmu_nop_pmu(struct pmu *pmu)
 +{
-+	struct i915_pmu *pmu = res;
-+	struct drm_i915_private *i915 = pmu_to_i915(pmu);
-+
-+	free_event_attributes(pmu);
-+	kfree(pmu->base.attr_groups);
-+	if (IS_DGFX(i915))
-+		kfree(pmu->name);
++	return pmu;
 +}
 +
- static int i915_pmu_cpu_online(unsigned int cpu, struct hlist_node *node)
+ static int perf_event_nop_int(struct perf_event *event, u64 value)
  {
- 	struct i915_pmu *pmu = hlist_entry_safe(node, typeof(*pmu), cpuhp.node);
-@@ -1302,6 +1314,9 @@ void i915_pmu_register(struct drm_i915_private *i915)
- 	if (ret)
- 		goto err_unreg;
+ 	return 0;
+@@ -11617,6 +11630,12 @@ int perf_pmu_register(struct pmu *pmu, const char *name, int type)
+ 	if (!pmu->event_idx)
+ 		pmu->event_idx = perf_event_idx_default;
  
-+	if (drmm_add_action_or_reset(&i915->drm, free_pmu, pmu))
-+		goto err_unreg;
++	if (!pmu->get)
++		pmu->get = perf_pmu_nop_pmu;
 +
- 	return;
- 
- err_unreg:
-@@ -1336,11 +1351,7 @@ void i915_pmu_unregister(struct drm_i915_private *i915)
- 	hrtimer_cancel(&pmu->timer);
- 
- 	i915_pmu_unregister_cpuhp_state(pmu);
--
- 	perf_pmu_unregister(&pmu->base);
++	if (!pmu->put)
++		pmu->put = perf_pmu_nop_void;
 +
- 	pmu->base.event_init = NULL;
--	kfree(pmu->base.attr_groups);
--	if (IS_DGFX(i915))
--		kfree(pmu->name);
--	free_event_attributes(pmu);
+ 	list_add_rcu(&pmu->entry, &pmus);
+ 	atomic_set(&pmu->exclusive_cnt, 0);
+ 	ret = 0;
+@@ -11695,7 +11714,8 @@ static int perf_try_init_event(struct pmu *pmu, struct perf_event *event)
+ 		BUG_ON(!ctx);
+ 	}
+ 
+-	event->pmu = pmu;
++	event->pmu = pmu->get(pmu);
++
+ 	ret = pmu->event_init(event);
+ 
+ 	if (ctx)
+@@ -11714,8 +11734,12 @@ static int perf_try_init_event(struct pmu *pmu, struct perf_event *event)
+ 			event->destroy(event);
+ 	}
+ 
+-	if (ret)
+-		module_put(pmu->module);
++	if (ret) {
++		struct module *module = pmu->module;
++
++		pmu->put(pmu);
++		module_put(module);
++	}
+ 
+ 	return ret;
  }
 -- 
 2.43.0
