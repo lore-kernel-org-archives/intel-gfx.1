@@ -4,55 +4,27 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BDEFAC3DA5D
-	for <intel-gfx@archiver.kernel.org>; Mon, 22 Jul 2024 06:47:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 43818C3DA59
+	for <intel-gfx@archiver.kernel.org>; Mon, 22 Jul 2024 07:19:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0E07E10E388;
-	Mon, 22 Jul 2024 06:47:27 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="aXGrivUC";
-	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.18])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C382F10E37D;
- Mon, 22 Jul 2024 06:47:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1721630844; x=1753166844;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=VDm2z+0UFsY9+5jVlvAV2utSDLJbFzf/sz/4dn0G6LM=;
- b=aXGrivUC00gdjv8q8zLyu0D+Optq3YGRKPz4x1ugiYWEWKoGOidd+QW7
- YTy/hdAmj3o7eLlwJsQPA7ro42EbCncObnpl/7vIlbimy9DAnDWhbgiU+
- 4NpagIB9C/wUSzyaZYXjv3v+ruNOWDQHS30JoYuOsei5tJv/W/F31h2zX
- 604f6lFP8QirwT4zLB718nchlovkkUtanopO3BEE67BfAGzw/1AVtg86W
- NBUWG2wB2k2bXey0EF8ZOXW+itS0gcszVadmIKADt1S9JxhE+d755zuS6
- NJ5nQnzQonDYE3IENWzdRFo6Zv/uM0JORNy4ZqrcFQiY2t1oZzFcrz7Wu w==;
-X-CSE-ConnectionGUID: 95mwdNDpRk6C9iQc8NrfAA==
-X-CSE-MsgGUID: 4sHvpCQSRNqPRWMHyWRfSA==
-X-IronPort-AV: E=McAfee;i="6700,10204,11140"; a="18798187"
-X-IronPort-AV: E=Sophos;i="6.09,227,1716274800"; d="scan'208";a="18798187"
-Received: from fmviesa008.fm.intel.com ([10.60.135.148])
- by fmvoesa112.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 21 Jul 2024 23:47:23 -0700
-X-CSE-ConnectionGUID: vg9pjzfTT9uBTgEaW/djdA==
-X-CSE-MsgGUID: brL8zWG6QIayp2z7vvtw2A==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.09,227,1716274800"; d="scan'208";a="51670562"
-Received: from kandpal-x299-ud4-pro.iind.intel.com ([10.190.239.32])
- by fmviesa008.fm.intel.com with ESMTP; 21 Jul 2024 23:47:21 -0700
-From: Suraj Kandpal <suraj.kandpal@intel.com>
-To: intel-gfx@lists.freedesktop.org,
-	intel-xe@lists.freedesktop.org
-Cc: ankit.k.nautiyal@intel.com,
-	Suraj Kandpal <suraj.kandpal@intel.com>
-Subject: [PATCH 3/3] drm/xe/hdcp: Check GSC structure validity
-Date: Mon, 22 Jul 2024 12:14:51 +0530
-Message-ID: <20240722064451.3610512-4-suraj.kandpal@intel.com>
-X-Mailer: git-send-email 2.43.2
-In-Reply-To: <20240722064451.3610512-1-suraj.kandpal@intel.com>
-References: <20240722064451.3610512-1-suraj.kandpal@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8FAC510E0A2;
+	Mon, 22 Jul 2024 07:19:35 +0000 (UTC)
+Received: from 2413ebb6fbb6 (emeril.freedesktop.org [131.252.210.167])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 370DA10E0A2;
+ Mon, 22 Jul 2024 07:19:33 +0000 (UTC)
+Content-Type: multipart/alternative;
+ boundary="===============0638549585485442281=="
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Subject: =?utf-8?q?=E2=9C=93_Fi=2ECI=2EBAT=3A_success_for_Fix_null_pointer_error_in_H?=
+ =?utf-8?q?DCP_capability_check_=28rev3=29?=
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Suraj Kandpal" <suraj.kandpal@intel.com>
+Cc: intel-gfx@lists.freedesktop.org
+Date: Mon, 22 Jul 2024 07:19:33 -0000
+Message-ID: <172163277321.326601.7568694955258627708@2413ebb6fbb6>
+X-Patchwork-Hint: ignore
+References: <20240722064451.3610512-1-suraj.kandpal@intel.com>
+In-Reply-To: <20240722064451.3610512-1-suraj.kandpal@intel.com>
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,46 +37,152 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Sometimes xe_gsc is not initialized when checked at HDCP capability
-check. Add gsc structure check to avoid null pointer error.
+--===============0638549585485442281==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
 
-Signed-off-by: Suraj Kandpal <suraj.kandpal@intel.com>
----
- drivers/gpu/drm/xe/display/xe_hdcp_gsc.c | 8 ++++++--
- 1 file changed, 6 insertions(+), 2 deletions(-)
+== Series Details ==
 
-diff --git a/drivers/gpu/drm/xe/display/xe_hdcp_gsc.c b/drivers/gpu/drm/xe/display/xe_hdcp_gsc.c
-index 990285aa9b26..0af667ebebf9 100644
---- a/drivers/gpu/drm/xe/display/xe_hdcp_gsc.c
-+++ b/drivers/gpu/drm/xe/display/xe_hdcp_gsc.c
-@@ -40,10 +40,14 @@ bool intel_hdcp_gsc_check_status(struct xe_device *xe)
- {
- 	struct xe_tile *tile = xe_device_get_root_tile(xe);
- 	struct xe_gt *gt = tile->media_gt;
-+	struct xe_gsc *gsc = &gt->uc.gsc;
- 	bool ret = true;
- 
--	if (!xe_uc_fw_is_enabled(&gt->uc.gsc.fw))
-+	if (!gsc && !xe_uc_fw_is_enabled(&gsc->fw)) {
-+		drm_dbg_kms(&xe->drm,
-+			    "GSC Components not ready for HDCP2.x\n");
- 		return false;
-+	}
- 
- 	xe_pm_runtime_get(xe);
- 	if (xe_force_wake_get(gt_to_fw(gt), XE_FW_GSC)) {
-@@ -53,7 +57,7 @@ bool intel_hdcp_gsc_check_status(struct xe_device *xe)
- 		goto out;
- 	}
- 
--	if (!xe_gsc_proxy_init_done(&gt->uc.gsc))
-+	if (!xe_gsc_proxy_init_done(gsc))
- 		ret = false;
- 
- 	xe_force_wake_put(gt_to_fw(gt), XE_FW_GSC);
--- 
-2.43.2
+Series: Fix null pointer error in HDCP capability check (rev3)
+URL   : https://patchwork.freedesktop.org/series/136318/
+State : success
 
+== Summary ==
+
+CI Bug Log - changes from CI_DRM_15106 -> Patchwork_136318v3
+====================================================
+
+Summary
+-------
+
+  **SUCCESS**
+
+  No regressions found.
+
+  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_136318v3/index.html
+
+Participating hosts (39 -> 39)
+------------------------------
+
+  Additional (1): fi-kbl-8809g 
+  Missing    (1): bat-dg2-11 
+
+Known issues
+------------
+
+  Here are the changes found in Patchwork_136318v3 that come from known issues:
+
+### IGT changes ###
+
+#### Issues hit ####
+
+  * igt@gem_huc_copy@huc-copy:
+    - fi-kbl-8809g:       NOTRUN -> [SKIP][1] ([i915#2190])
+   [1]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_136318v3/fi-kbl-8809g/igt@gem_huc_copy@huc-copy.html
+
+  * igt@gem_lmem_swapping@basic:
+    - fi-kbl-8809g:       NOTRUN -> [SKIP][2] ([i915#4613]) +3 other tests skip
+   [2]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_136318v3/fi-kbl-8809g/igt@gem_lmem_swapping@basic.html
+
+  * igt@kms_force_connector_basic@force-load-detect:
+    - fi-kbl-8809g:       NOTRUN -> [SKIP][3] +30 other tests skip
+   [3]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_136318v3/fi-kbl-8809g/igt@kms_force_connector_basic@force-load-detect.html
+
+  
+  [i915#2190]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/2190
+  [i915#4613]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/4613
+
+
+Build changes
+-------------
+
+  * Linux: CI_DRM_15106 -> Patchwork_136318v3
+
+  CI-20190529: 20190529
+  CI_DRM_15106: db63d8686a4f33822041ab54c0c2c85b9cbefae4 @ git://anongit.freedesktop.org/gfx-ci/linux
+  IGT_7933: 7933
+  Patchwork_136318v3: db63d8686a4f33822041ab54c0c2c85b9cbefae4 @ git://anongit.freedesktop.org/gfx-ci/linux
+
+== Logs ==
+
+For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_136318v3/index.html
+
+--===============0638549585485442281==
+Content-Type: text/html; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <title>Project List - Patchwork</title>
+  <style id="css-table-select" type="text/css">
+   td { padding: 2pt; }
+  </style>
+</head>
+<body>
+
+
+<b>Patch Details</b>
+<table>
+<tr><td><b>Series:</b></td><td>Fix null pointer error in HDCP capability check (rev3)</td></tr>
+<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/136318/">https://patchwork.freedesktop.org/series/136318/</a></td></tr>
+<tr><td><b>State:</b></td><td>success</td></tr>
+
+    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_136318v3/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_136318v3/index.html</a></td></tr>
+
+</table>
+
+
+    <h1>CI Bug Log - changes from CI_DRM_15106 -&gt; Patchwork_136318v3</h1>
+<h2>Summary</h2>
+<p><strong>SUCCESS</strong></p>
+<p>No regressions found.</p>
+<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_136318v3/index.html</p>
+<h2>Participating hosts (39 -&gt; 39)</h2>
+<p>Additional (1): fi-kbl-8809g <br />
+  Missing    (1): bat-dg2-11 </p>
+<h2>Known issues</h2>
+<p>Here are the changes found in Patchwork_136318v3 that come from known issues:</p>
+<h3>IGT changes</h3>
+<h4>Issues hit</h4>
+<ul>
+<li>
+<p>igt@gem_huc_copy@huc-copy:</p>
+<ul>
+<li>fi-kbl-8809g:       NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_136318v3/fi-kbl-8809g/igt@gem_huc_copy@huc-copy.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/2190">i915#2190</a>)</li>
+</ul>
+</li>
+<li>
+<p>igt@gem_lmem_swapping@basic:</p>
+<ul>
+<li>fi-kbl-8809g:       NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_136318v3/fi-kbl-8809g/igt@gem_lmem_swapping@basic.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/4613">i915#4613</a>) +3 other tests skip</li>
+</ul>
+</li>
+<li>
+<p>igt@kms_force_connector_basic@force-load-detect:</p>
+<ul>
+<li>fi-kbl-8809g:       NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_136318v3/fi-kbl-8809g/igt@kms_force_connector_basic@force-load-detect.html">SKIP</a> +30 other tests skip</li>
+</ul>
+</li>
+</ul>
+<h2>Build changes</h2>
+<ul>
+<li>Linux: CI_DRM_15106 -&gt; Patchwork_136318v3</li>
+</ul>
+<p>CI-20190529: 20190529<br />
+  CI_DRM_15106: db63d8686a4f33822041ab54c0c2c85b9cbefae4 @ git://anongit.freedesktop.org/gfx-ci/linux<br />
+  IGT_7933: 7933<br />
+  Patchwork_136318v3: db63d8686a4f33822041ab54c0c2c85b9cbefae4 @ git://anongit.freedesktop.org/gfx-ci/linux</p>
+
+</body>
+</html>
+
+--===============0638549585485442281==--
