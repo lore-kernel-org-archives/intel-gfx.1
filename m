@@ -4,50 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C7D87C3DA63
-	for <intel-gfx@archiver.kernel.org>; Mon, 22 Jul 2024 16:54:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9C94CC3DA59
+	for <intel-gfx@archiver.kernel.org>; Mon, 22 Jul 2024 16:54:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2769610E1DE;
-	Mon, 22 Jul 2024 16:54:55 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9241510E1E0;
+	Mon, 22 Jul 2024 16:54:56 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="kRcqS4CP";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="a1HdLU7b";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.12])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2332310E1D4;
- Mon, 22 Jul 2024 16:54:52 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AED1510E1DB
+ for <intel-gfx@lists.freedesktop.org>; Mon, 22 Jul 2024 16:54:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1721667292; x=1753203292;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=AodyJN6SRyMgd7ViejlGYKmejthVAj4PEvqXXIlxLLE=;
- b=kRcqS4CP7r8F386INc1A1tjEzXpFvQ8aTZh4TUnwJzjs7RkXKoUhbG6P
- M252QH1BXYb/gttKZ6+ZzTeS7sb8fCRVUbmTP9SK7q8Cs0Ff1peCbJGtY
- c1OC+BGPDBjzZZVX1FXh7s0JQesvcqWt3bmuiXagjsYLH9dkZjZI+kcH+
- 3tkfh9M7Vi9J//OahW4ZpZAWughAZ4M5KEfNst/6Jl7hQZpa2PFfjmMx4
- 6qGgvg+8B9wtMeWImsXghzGoyOIBm17v+lYkkffcKzpvJ33xo7faWHfFe
- iSTUFRV1zioZMowVUU1QI3in8jjan7uJUx4xZatUftcahhnEI7BONBsBm w==;
-X-CSE-ConnectionGUID: 2Da/0DpRTMqeSa7R9X6iHQ==
-X-CSE-MsgGUID: 4uZ97U9vQm6WY3/dXSKCcw==
-X-IronPort-AV: E=McAfee;i="6700,10204,11141"; a="23117297"
-X-IronPort-AV: E=Sophos;i="6.09,228,1716274800"; d="scan'208";a="23117297"
+ t=1721667294; x=1753203294;
+ h=from:to:subject:date:message-id:in-reply-to:references:
+ mime-version:content-transfer-encoding;
+ bh=JPp8PTP2yChhejhTJdUg2j0WpQ/6Icg/mLo6vixhSBs=;
+ b=a1HdLU7bniCB0Y8QYaLxs4mX3DL9ODy7DBsWgokuEtoqfc22/2s0cav1
+ Mz+5UdJTffmNZaBeE5SuqkhoUuGj5lkvtXRfbX1rNWK37/TkgzCCLrvoW
+ dKtGFChChPKzgwFhHXB7iCZ8uigEBce4JNSFEvRrneATtMs3a6BTjiEG8
+ 4kzpUjqnTE2khDbfO3cu8rklMoHrEjKGilmwoHDnOCfk3xJB0bp0vJrwj
+ I2fbjpo5Jbj2l7qszJT1ca3UH8wTxTa3X22uihN5Wd+l1HAdZTMWiVcuK
+ Ua7i05q2YhM3NNrFOdufhFcLZ8USPzUiE0l4CnfF4hY6cBXxMcbZGjf2R Q==;
+X-CSE-ConnectionGUID: SVwNIyNaQe2RvhxU+hllHw==
+X-CSE-MsgGUID: jHIaxT+RSQKFLWGzp6QWew==
+X-IronPort-AV: E=McAfee;i="6700,10204,11141"; a="23117306"
+X-IronPort-AV: E=Sophos;i="6.09,228,1716274800"; d="scan'208";a="23117306"
 Received: from orviesa004.jf.intel.com ([10.64.159.144])
  by fmvoesa106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 22 Jul 2024 09:54:51 -0700
-X-CSE-ConnectionGUID: EYZGFMl7T7+SEWy7z/m0Aw==
-X-CSE-MsgGUID: shUHNWt3RUmgG1PEs6NBtQ==
+ 22 Jul 2024 09:54:54 -0700
+X-CSE-ConnectionGUID: aAAa8dddQPC7NxrhgaU2Dw==
+X-CSE-MsgGUID: pV1TzoCcQj+VSm+IUeQEUw==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.09,228,1716274800"; d="scan'208";a="57056196"
+X-IronPort-AV: E=Sophos;i="6.09,228,1716274800"; d="scan'208";a="57056209"
 Received: from ideak-desk.fi.intel.com ([10.237.72.78])
  by orviesa004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 22 Jul 2024 09:54:50 -0700
+ 22 Jul 2024 09:54:53 -0700
 From: Imre Deak <imre.deak@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Cc: Lyude Paul <lyude@redhat.com>,
-	dri-devel@lists.freedesktop.org
-Subject: [PATCH 02/14] drm/dp_mst: Add a helper to queue a topology probe
-Date: Mon, 22 Jul 2024 19:54:51 +0300
-Message-ID: <20240722165503.2084999-3-imre.deak@intel.com>
+Subject: [PATCH 04/14] drm/i915/ddi: For an active output call the DP encoder
+ sync_state() only for DP
+Date: Mon, 22 Jul 2024 19:54:53 +0300
+Message-ID: <20240722165503.2084999-5-imre.deak@intel.com>
 X-Mailer: git-send-email 2.44.2
 In-Reply-To: <20240722165503.2084999-1-imre.deak@intel.com>
 References: <20240722165503.2084999-1-imre.deak@intel.com>
@@ -68,68 +67,30 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-A follow up i915 patch will need to reprobe the MST topology after the
-initial probing, add a helper for this.
+If the DDI encoder output is enabled in HDMI mode there is no point in
+calling intel_dp_sync_state(), as in that case the DPCD initialization
+will fail - as expected - with AUX timeouts. Prevent calling the hook in
+this case.
 
-Cc: Lyude Paul <lyude@redhat.com>
-Cc: dri-devel@lists.freedesktop.org
 Signed-off-by: Imre Deak <imre.deak@intel.com>
 ---
- drivers/gpu/drm/display/drm_dp_mst_topology.c | 27 +++++++++++++++++++
- include/drm/display/drm_dp_mst_helper.h       |  2 ++
- 2 files changed, 29 insertions(+)
+ drivers/gpu/drm/i915/display/intel_ddi.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/display/drm_dp_mst_topology.c b/drivers/gpu/drm/display/drm_dp_mst_topology.c
-index b185b3b38bd2f..70e4bfc3532e0 100644
---- a/drivers/gpu/drm/display/drm_dp_mst_topology.c
-+++ b/drivers/gpu/drm/display/drm_dp_mst_topology.c
-@@ -3728,6 +3728,33 @@ drm_dp_mst_topology_mgr_invalidate_mstb(struct drm_dp_mst_branch *mstb)
- 			drm_dp_mst_topology_mgr_invalidate_mstb(port->mstb);
+diff --git a/drivers/gpu/drm/i915/display/intel_ddi.c b/drivers/gpu/drm/i915/display/intel_ddi.c
+index a07aca96e5517..11ee4406dce8f 100644
+--- a/drivers/gpu/drm/i915/display/intel_ddi.c
++++ b/drivers/gpu/drm/i915/display/intel_ddi.c
+@@ -4172,7 +4172,8 @@ static void intel_ddi_sync_state(struct intel_encoder *encoder,
+ 		intel_tc_port_sanitize_mode(enc_to_dig_port(encoder),
+ 					    crtc_state);
+ 
+-	if (intel_encoder_is_dp(encoder))
++	if ((crtc_state && intel_crtc_has_dp_encoder(crtc_state)) ||
++	    (!crtc_state && intel_encoder_is_dp(encoder)))
+ 		intel_dp_sync_state(encoder, crtc_state);
  }
  
-+/**
-+ * drm_dp_mst_topology_queue_probe - Queue a topology probe
-+ * @mgr: manager to probe
-+ *
-+ * Queue a work to probe the MST topology. Driver's should call this only to
-+ * sync the topology's HW->SW state after the MST link's parameters have
-+ * changed in a way the state could've become out-of-sync. This is the case
-+ * for instance when the link rate between the source and first downstream
-+ * branch device has switched between UHBR and non-UHBR rates. Except of those
-+ * cases - for instance when a sink gets plugged/unplugged to a port - the SW
-+ * state will get updated automatically via MST UP message notifications.
-+ */
-+void drm_dp_mst_topology_queue_probe(struct drm_dp_mst_topology_mgr *mgr)
-+{
-+	mutex_lock(&mgr->lock);
-+
-+	if (drm_WARN_ON(mgr->dev, !mgr->mst_state || !mgr->mst_primary))
-+		goto out_unlock;
-+
-+	drm_dp_mst_topology_mgr_invalidate_mstb(mgr->mst_primary);
-+	drm_dp_mst_queue_probe_work(mgr);
-+
-+out_unlock:
-+	mutex_unlock(&mgr->lock);
-+}
-+EXPORT_SYMBOL(drm_dp_mst_topology_queue_probe);
-+
- /**
-  * drm_dp_mst_topology_mgr_suspend() - suspend the MST manager
-  * @mgr: manager to suspend
-diff --git a/include/drm/display/drm_dp_mst_helper.h b/include/drm/display/drm_dp_mst_helper.h
-index cfe096389d94f..02b037d3a93f7 100644
---- a/include/drm/display/drm_dp_mst_helper.h
-+++ b/include/drm/display/drm_dp_mst_helper.h
-@@ -885,6 +885,8 @@ int drm_dp_check_act_status(struct drm_dp_mst_topology_mgr *mgr);
- void drm_dp_mst_dump_topology(struct seq_file *m,
- 			      struct drm_dp_mst_topology_mgr *mgr);
- 
-+void drm_dp_mst_topology_queue_probe(struct drm_dp_mst_topology_mgr *mgr);
-+
- void drm_dp_mst_topology_mgr_suspend(struct drm_dp_mst_topology_mgr *mgr);
- int __must_check
- drm_dp_mst_topology_mgr_resume(struct drm_dp_mst_topology_mgr *mgr,
 -- 
 2.44.2
 
