@@ -4,174 +4,131 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 91146C3DA49
-	for <intel-gfx@archiver.kernel.org>; Tue, 23 Jul 2024 13:05:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 86CD0C3DA70
+	for <intel-gfx@archiver.kernel.org>; Tue, 23 Jul 2024 13:26:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F246F10E5BC;
-	Tue, 23 Jul 2024 13:05:18 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A7E9C10E5C6;
+	Tue, 23 Jul 2024 13:26:03 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="ISpLIIOU";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="o8z8NEwh";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3DBA210E5BD
- for <intel-gfx@lists.freedesktop.org>; Tue, 23 Jul 2024 13:05:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1721739911; x=1753275911;
- h=from:to:cc:subject:date:message-id:references:
- in-reply-to:content-transfer-encoding:mime-version;
- bh=09ZSI15Y5rJq4+BBWvxiCeoV6Ci/b1eqQhoPiH1G5Ec=;
- b=ISpLIIOUkvaJCZnLtDgO0os+hV/1DO20TpkBtWd01EiinkogS4B7eZ7S
- OZTiBQZCXjYpLPFH3duMKvguOGIzpkRM4BBJhqDgn8aJc4IBLnY1snoB0
- dRC0vJ49k4a2+7gwGxv3URhTUQkjVpF7klezEjMT5cZBI6akoSYuNe7yP
- h87r6NJziuhltwVUO7NtaqK2LLYq2GPNEpnmCwmnBDyGOSPc2Ls+bcToh
- xs+5AzC/U9bZFnCmBd1H3Fw5zc0AJ5L3Fp5O0uV6Ug/WQkt+uAeVdiROR
- lfPXSNwhBqgPbK+SoQl8713gkijtLJ4INJTJvlPFZvUIVATpnN7yxfifF A==;
-X-CSE-ConnectionGUID: 4Gb+qWfAR1iXdsQSALICzQ==
-X-CSE-MsgGUID: 29GtqmvGQbmoNj/Zk0VE7w==
-X-IronPort-AV: E=McAfee;i="6700,10204,11142"; a="29953274"
-X-IronPort-AV: E=Sophos;i="6.09,230,1716274800"; d="scan'208";a="29953274"
-Received: from fmviesa007.fm.intel.com ([10.60.135.147])
- by orvoesa103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 Jul 2024 06:05:11 -0700
-X-CSE-ConnectionGUID: 8isbLT/DQzGwYaTLu0tcLg==
-X-CSE-MsgGUID: vXBqyQgvRemk01LpENvQ8Q==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.09,230,1716274800"; d="scan'208";a="51939773"
-Received: from fmsmsx601.amr.corp.intel.com ([10.18.126.81])
- by fmviesa007.fm.intel.com with ESMTP/TLS/AES256-GCM-SHA384;
- 23 Jul 2024 06:05:10 -0700
-Received: from fmsmsx611.amr.corp.intel.com (10.18.126.91) by
- fmsmsx601.amr.corp.intel.com (10.18.126.81) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.39; Tue, 23 Jul 2024 06:05:10 -0700
-Received: from fmsmsx603.amr.corp.intel.com (10.18.126.83) by
- fmsmsx611.amr.corp.intel.com (10.18.126.91) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.39; Tue, 23 Jul 2024 06:05:10 -0700
-Received: from fmsedg601.ED.cps.intel.com (10.1.192.135) by
- fmsmsx603.amr.corp.intel.com (10.18.126.83) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.39 via Frontend Transport; Tue, 23 Jul 2024 06:05:10 -0700
-Received: from NAM02-SN1-obe.outbound.protection.outlook.com (104.47.57.41) by
- edgegateway.intel.com (192.55.55.70) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.1.2507.39; Tue, 23 Jul 2024 06:05:10 -0700
+Received: from NAM04-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam04on2065.outbound.protection.outlook.com [40.107.100.65])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DD8C910E5C6;
+ Tue, 23 Jul 2024 13:25:51 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=ZRV12ToU1fqlyHUN+U0Hi3rTTfKZG8+uTtao6UjB+WHO9UG/ZbUm6N2/SkZlKhjyLyP+wmH15q6skQ0EENSCcK7ndwZTPUgSZliUHEhwsLQO1iSJTsGisyy3QSIFT+Irvg/0DaB/+Ea8RyfrKa9BM96rnC2CSkEepQ33OMcf5JWBPsjbVlyrpNn3yw/hJiVn+bgrX0H+qtR80hSVpUMvsxAerbXKFAoq8RHpCZQ8AQGZ+V6h1wRzsYZ2Zlae8XBsiBpUCrTcoMMmeHbWlfN2kRQjXzaSBc+EY5GB5dMATFlpULURhO+WmbCVFt8Tjdcu6cqyr5kG33Z2ZzRm2/xnQw==
+ b=iNWr0v0e7262PsPIzi6w33gnJxU8TRIwZvgKTmJg2hHp2Fyay5vP0Pb5kDuYi2iTEyhBkdk2hs/L5QUhI43PyBTCed9tOfaQBFx8fYuWxuWA+KuCmHhnI02skD5RNxnz1w/y60tRiuddR7F7SvYRqyjcyxuvUb6JjOSDlmaHbZ+ahRet0SuTBm9PB11kkOkF1KtqwWYQhbD8nPN6Jo9BtmU+6wHycymsapDTxol0VYXez8Qr38netbauzH4RgXO0ES6rYlu3pqukyyxAg3oHgY8UU/DqwEJRqz08TktKYdrS4WsVwwlz9InmUNAQbfMLF7edjpKWkMcPNiVQl3YYDQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=O3ehqHIvb+s0erpyNUX4V78nZvksRqxdxfXdrwicYzg=;
- b=h4d+s5dmEyy/LxUofNCkh8f6YKr4dND4I/iduCwTyFJST9g6V3ITNv6IqDWR8Vjul4rV+DdPeQ7qI/wHz8FstXWqm78aXW0+Pv3xLzDwOuR0WoZmf1grVSlnr7k42PFNqcB5qCPnsI6+3ILjl5vvsQGIzCupNB6D6HAP7IJbgppNYhCDXYgXIpgEzJdRQscVrbx+QTW0FytPMr0rzw/3FinhlTZv45A2Yrq59/5e/tYzYaoSBhutpceSFeOCqohPEoh6+9QI4IPX7ummljOvCpnQjQb04d6HQyI/ta4IJwALFlTlM8XEuO3zsXy6frzI1BGbhJKXZBkADYBjDW7ScA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Received: from SN7PR11MB6750.namprd11.prod.outlook.com (2603:10b6:806:266::21)
- by DM4PR11MB6285.namprd11.prod.outlook.com (2603:10b6:8:a8::21) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7784.15; Tue, 23 Jul
- 2024 13:05:07 +0000
-Received: from SN7PR11MB6750.namprd11.prod.outlook.com
- ([fe80::9570:169d:a0d5:527]) by SN7PR11MB6750.namprd11.prod.outlook.com
- ([fe80::9570:169d:a0d5:527%3]) with mapi id 15.20.7784.016; Tue, 23 Jul 2024
- 13:05:07 +0000
-From: "Kandpal, Suraj" <suraj.kandpal@intel.com>
-To: "Deak, Imre" <imre.deak@intel.com>
-CC: "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>
-Subject: RE: [PATCH 05/14] drm/i915/dp: Initialize the link parameters during
- HW readout
-Thread-Topic: [PATCH 05/14] drm/i915/dp: Initialize the link parameters during
- HW readout
-Thread-Index: AQHa3FgHeu4Y5TCCmU+GBSr7ws8+QbID/QdwgAA54oCAABIKsA==
-Date: Tue, 23 Jul 2024 13:05:07 +0000
-Message-ID: <SN7PR11MB6750AA01482E11B2E0DA977DE3A92@SN7PR11MB6750.namprd11.prod.outlook.com>
-References: <20240722165503.2084999-1-imre.deak@intel.com>
- <20240722165503.2084999-6-imre.deak@intel.com>
- <SN7PR11MB675009A3083E40276CD2BC3DE3A92@SN7PR11MB6750.namprd11.prod.outlook.com>
- <Zp-bLSQb5wr4-uq6@ideak-desk.fi.intel.com>
-In-Reply-To: <Zp-bLSQb5wr4-uq6@ideak-desk.fi.intel.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: SN7PR11MB6750:EE_|DM4PR11MB6285:EE_
-x-ms-office365-filtering-correlation-id: 92be7c5f-b22a-431e-a073-08dcab18136d
-x-ld-processed: 46c98d88-e344-4ed4-8496-4ed7712e255d,ExtAddr
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0; ARA:13230040|366016|1800799024|376014|38070700018;
-x-microsoft-antispam-message-info: =?us-ascii?Q?UUPDxA8LnBKE90keoH1B5uZVQYAPfZaFH3+XFMLcdqQ1gR1UopR8bO4Pt0MG?=
- =?us-ascii?Q?GTquOvc7V/2xz9xHtG8iGV3vRHTsJykmj/5V72ttmUMsf2J31HnjYy/WngNi?=
- =?us-ascii?Q?Ol3frRCRkpXaJ2ZIjKP/jpfqZbscf5OSqrQdQSEP2ZSGz8vKCo6tS3b+6qEw?=
- =?us-ascii?Q?e5xAPjQY6+XvCkCi9fEw7nplIk15ND2A3n6cS51YY6DNIXYINkDaacOKW3Yl?=
- =?us-ascii?Q?CNeJXKmgQL15UWzcWc5htrf41kIt2zLt7IzXXeszT0WFEUyO8+q3k1P9W1Kd?=
- =?us-ascii?Q?tqWbSjBc2GIelCQlsk4ZKHLZbIbTeS+DE1aRdM3H/qqnRoh/TOmRhRsqtwww?=
- =?us-ascii?Q?8+Fe75VMTaDA8H3kAtwTgWK8lN6QQKHFr5VPxdCBmHi8WaL4MXXd/43cl9Bt?=
- =?us-ascii?Q?aiPrKbabkSQPClKv79f9mveuyg7nppB/NEbUy0UBM2e8IGmUqR1NGwZDR4/M?=
- =?us-ascii?Q?jAcDDRJql/JWTat0FDQJzyFvBafH+TjRh6Onjk9Wu1giOlX++Wz0l06pS/Th?=
- =?us-ascii?Q?MIMJ210bbEbduYJA4Zf4T4A0/jSA2G9fjWv1XQTqeSLiPAaO5P6DdOZTVmut?=
- =?us-ascii?Q?IDF1yGqHcSKUgLIUfA3RLGPp3tXhhR9VSNSv67Y0SQvJI5ymN/r1p9JjEhbk?=
- =?us-ascii?Q?vWf9XEv/Jv0Wm51tlMLikoKRE2EGVbFhNwtEXTZYMOEeMdbTZnrpJqznHK8I?=
- =?us-ascii?Q?5WI0m2Uc2WGhXXGxtPZHJVBQ4Moh8sHR9PQDv4icWogDUs8JlTkIPWvYjQyp?=
- =?us-ascii?Q?5u5DIVzhuOqxNPx0BxmxWc+Xxc+Fcnr2Sk7Dr17hGjvosJSXCfdV6BUc4WjK?=
- =?us-ascii?Q?QTfH8TwWTRQ9dQqgjXEBU0UK1s6X5byavhPLLBaEJYRjJPoMtlI+IzYO+7sK?=
- =?us-ascii?Q?2o4VhS11I9QxlqKk8FMx/Fq9iOMv/sSWQ8n7v+g0p8KgAGh/AxhZ3kAlahrH?=
- =?us-ascii?Q?NMUC3zqKWRWWrcOzzUgw0QKpH3L+KisDMy5IS8w05QTHSlRxvbWWWfbX3dFT?=
- =?us-ascii?Q?PF4hVKb/nklmPpTR2uekaBpb1MGzwrHCa3sETrzPo1uYe+NCLqnYqzIbo3VS?=
- =?us-ascii?Q?HbXwojfn1xFsUAwXUnOw8BKIq5Er69Qt+/DR4ywZYwChJTZc2M9rXdg4pOCE?=
- =?us-ascii?Q?+TX7WsMVH+DMmwQtzuc9ZXZQQNnbs7tRRYi+TycVEFP+K8A6GF+Wm6tafgE9?=
- =?us-ascii?Q?Ap87lXFvTxqLPprjQOzuPVokYnoSsUo+6QbFE6S0svAK+6Y8GWG335KaL8WI?=
- =?us-ascii?Q?dGvsZcjHUgg3bOmXM3thBZWfDSOfWO/ZapCQXG8YVidBwfZat3xeD2FVMVzI?=
- =?us-ascii?Q?GF1iI284435djir81hm11vAqpwzfCihRYbufb9WdENGzADMJtHOZ/u9O441a?=
- =?us-ascii?Q?xpBRzXlVz6kKMi6qoHP/E3u0wJG4CpuQNl1w8jTpw3fyubdXJg=3D=3D?=
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:SN7PR11MB6750.namprd11.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(1800799024)(376014)(38070700018); DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?fqQpwmQ1lFbvg9DPAGyT0782NXZfhsjBTwsxtTWd33r89vzm2cHMCHGCbk6s?=
- =?us-ascii?Q?inmq+DoG9UBxtAWkix/Aw2+CWo43/LMXvRCNwnSCLfPFWlYePHjruettnA5p?=
- =?us-ascii?Q?+JqDaactgMzJgLGThXyr0CyZNYkk71PyBV8T9MFs6fvsweko74UntxV8U4EH?=
- =?us-ascii?Q?RqYc+V04m8dHZ6BJQvq7jyhuqSSa44eR/P3BiDmhOPLeuhATVLqaRTj75hrT?=
- =?us-ascii?Q?cYJToKIEipPx1ws2vK2T85Juws07+bihQnDwvqGd8+6FCkhS47GmjnekoZJ1?=
- =?us-ascii?Q?/pu9z7GEiyT1hlTVMX+mieNyKXyRxlL4UnGtP6ch+Xk/qXQ1EXv+1OROJXF3?=
- =?us-ascii?Q?ZxNYghILb2+osCpk3VU6A0vkiTUstUl9aZ3tLqNfoxQdBhAyg7meV35IoPlw?=
- =?us-ascii?Q?CRH7GrKJqA04kB+tO/ING8Hn/SUOHl7mqYeMEpb9ULvOWp9iM1dyOSc18x1d?=
- =?us-ascii?Q?cEDTrWjP+/mKL4vsQG5COfuOwMk+a0E94Dp8Q7LlVB8FfL2N8JXyoV+qV+xb?=
- =?us-ascii?Q?W/yd6hYBA9M0JmCm4hg14Ed/WSSl5RCutLPTTV7nzSGln+hXPAvUlbahkLU7?=
- =?us-ascii?Q?s0DMAs0fyjJCwU6CRGS8Q3OUBuGMjgsv2H1mfnwFWZc8pfq/cED3r+AZhkxA?=
- =?us-ascii?Q?elnoae7Q1r/yLmTFA75lvksEnq7O1dObElJSPiqP9WrsevcVl7CTpL+iOQMg?=
- =?us-ascii?Q?aAGXt3YJ8gEmjJlPOTzedZ5ewQ8aDpWWcNlZk9uFg0s+aghFDLo9TgKzwSVt?=
- =?us-ascii?Q?732lIKUshvt7uG9e/dMF7AZvcR59W28QoheW3j8L5LITGC2a1ji8B7wqjWAO?=
- =?us-ascii?Q?grqW5GuQPLwRcfqtXfTY0ep7EtD5BDxwm0dxhmE/Il+hZuYQ6reG0DUWSoxy?=
- =?us-ascii?Q?EDInFEgabHS/FkodMi0kguqrBxzLVRp4MN4ajHCM9A7lNskFhHdtncSh/PGA?=
- =?us-ascii?Q?Zw+1+8L+7tfa8GOehyZjw+cUx0ZBUOtHo1CpIZThnkvBOeHEV3SAmwC4FKH6?=
- =?us-ascii?Q?+hiL0JEW8r7KwU5hbB9yeQR/UiaUzmKu0HPkApL6FGC7xNbx0T2nDzKIDmol?=
- =?us-ascii?Q?cdidRGT4I/OUQaK/IHWzUN699cm5DNxkJKMXcEBQl4ff634CZ6NLF0ZY1haV?=
- =?us-ascii?Q?wCI7VTvPh96Ws4ab7je4r49Ss22za/TVdTYrMYRjPjj4IMjbI+A/Osbc+Upc?=
- =?us-ascii?Q?REun40/a3f7XoZwGEVPiddxUG/dV4K4bO478oGdm/KHd1Qm+KVa5zdUIB/ym?=
- =?us-ascii?Q?GyIoCSQuzt5BBkC5PUB+OgDO84zT/4cTXyyKej4HTbCs5bN9ssSCotmJDi2R?=
- =?us-ascii?Q?WuU0Gx+Ern9X5L/RVqF+6KBGOICjEDIk40K9UtVtBqWWmnlrZqjAp+hwJaWh?=
- =?us-ascii?Q?nQO/bXYf/Fy21CZFTBr7GWWCR82jUmMfwEqwsAxQuGJ+xeOOoC+VxcGWHI9K?=
- =?us-ascii?Q?XJyFLlKb8PTrVspHpmiHC1immUj2dinzhfsD832niZd1KWr3HR/NeiKXbpMG?=
- =?us-ascii?Q?0wXY05bj8H97gpLR4HUS6Ju66n+Opofwcb8M1EM/H668Ku7M+vEJLNP9Mq+u?=
- =?us-ascii?Q?b6pOH8AV16avF7W0W4rk60Kh46Y+KKb0Eizky41e?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+ bh=EZCEu7Vf195YsZG39RAsGzWEbwU7TQLeZ6GI9mRDxgU=;
+ b=AV5V+Hkr6nJ9QfujLQbhOP7EU4wETc3su39mrUx+j4ON0t2X4GY/sWa3BJdRjW9LOGLssIJzC94K0Pl4TixFgHgSQQnu63kP/TXwV/wCRW8uLa1lHU71uVka1FJnDeu6I1Z68LfHd2YD/2IxUqxxa/W8tkOkAOKKIgEr1LUHPETbDIpP94uBK5SMvwODcOyGwrFCFF1kP5SltKFc6WuZEkjwXxZdP5nJFfpMUkDXVMVmpfu8AcqRs87RXpvUHjr2NCa/dw2MHCJxhoj6LhTNRbSDdoIhEYpOkIEnUJqxiCkhEEF7c1rR9gwJapjK6Pb97fRDGBX40545YwD3hY0tjQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=EZCEu7Vf195YsZG39RAsGzWEbwU7TQLeZ6GI9mRDxgU=;
+ b=o8z8NEwhBJY5WhO02vFhbkW7s4CNXB6yj6Ij4nzaJUMhrh1NYw0xlubmC/Alljb5j1U3x7OLDMrdbx4DIRl2UxpVdSd3CU7l9AuBCE0FPJ1LZsjQf9Xe3sNsVX3Jxa8mXsvDUKIm5+3rMSLvXhcZciPsWm8aShHTLIbLpJ3KeKM=
+Received: from MW3PR06CA0015.namprd06.prod.outlook.com (2603:10b6:303:2a::20)
+ by SN7PR12MB7251.namprd12.prod.outlook.com (2603:10b6:806:2ab::15)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7762.35; Tue, 23 Jul
+ 2024 13:25:48 +0000
+Received: from CO1PEPF000044F7.namprd21.prod.outlook.com
+ (2603:10b6:303:2a:cafe::b1) by MW3PR06CA0015.outlook.office365.com
+ (2603:10b6:303:2a::20) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7784.20 via Frontend
+ Transport; Tue, 23 Jul 2024 13:25:48 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ CO1PEPF000044F7.mail.protection.outlook.com (10.167.241.197) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.7784.5 via Frontend Transport; Tue, 23 Jul 2024 13:25:48 +0000
+Received: from amd-X570-AORUS-ELITE.amd.com (10.180.168.240) by
+ SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2507.39; Tue, 23 Jul 2024 08:25:44 -0500
+From: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>
+To: <dri-devel@lists.freedesktop.org>, <amd-gfx@lists.freedesktop.org>,
+ <intel-gfx@lists.freedesktop.org>, <matthew.auld@intel.com>
+CC: <christian.koenig@amd.com>, <alexander.deucher@amd.com>,
+ <frank.min@amd.com>, <marek.olsak@amd.com>, Arunpravin Paneer Selvam
+ <Arunpravin.PaneerSelvam@amd.com>, Frank Min <Frank.Min@amd.com>
+Subject: [PATCH v7 2/2] drm/amdgpu: Add address alignment support to DCC
+ buffers
+Date: Tue, 23 Jul 2024 18:55:25 +0530
+Message-ID: <20240723132525.31294-2-Arunpravin.PaneerSelvam@amd.com>
+X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20240723132525.31294-1-Arunpravin.PaneerSelvam@amd.com>
+References: <20240723132525.31294-1-Arunpravin.PaneerSelvam@amd.com>
 MIME-Version: 1.0
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: SN7PR11MB6750.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 92be7c5f-b22a-431e-a073-08dcab18136d
-X-MS-Exchange-CrossTenant-originalarrivaltime: 23 Jul 2024 13:05:07.2924 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: 1oh6a5xUpXZjFo++rTmC2F63iEJw9a7HtT8Jq5J6j0WNpiXQYzHCJLZ19s5HZk4htIXvY4NOob3LPwQOqsGOWw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR11MB6285
-X-OriginatorOrg: intel.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CO1PEPF000044F7:EE_|SN7PR12MB7251:EE_
+X-MS-Office365-Filtering-Correlation-Id: dde841cc-163e-46cc-4ab1-08dcab1af73d
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|376014|82310400026|1800799024|36860700013; 
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?VEtMbUdUNnM1ek1wbGgwcTBic0tKcDY4VUE4MGswbU5vdmQ4UjkvSzRaZ1Nz?=
+ =?utf-8?B?aEs0UlFsVHpNNitGUG1YMjhaV3J0L29XLzd2NmdMbU9rUnBEQnN6OFViM3lK?=
+ =?utf-8?B?M2xLdmFSOEdVZFY2YVlCcEdsNmpETmovbVkxdFdEL0llanoyTWE3anlaNHpG?=
+ =?utf-8?B?MmJqQW5yWmFQTkpYeUdxdTF2eGI5SzRUVFI3WVhvMVhZYkg3ZHM0emhuMkpM?=
+ =?utf-8?B?NTV1Vnl0VFdvQWl2RDlwK2FVYndtNGVOampwcnpoYzU1ZStIbXAwb1FFVGQy?=
+ =?utf-8?B?alFFSmoyOFBJcnNDdmhXWHVGczZ1eWhXcVBjUEUzckNYeUlFMzVidkdENWp2?=
+ =?utf-8?B?VDRRMXZMNVZoTFZKTEUyaGJRS291WlZsRFJycWdZdUFWajJxN2JJcFRwbmV4?=
+ =?utf-8?B?UDFqckU1SUFSYmJOUi9xZlc5Wk1LcFZ0WkJCY3BOR3VzL3BkYVZ3SVRvRldj?=
+ =?utf-8?B?R1RCZk5PU3l4Sk5WQVZZcWVrYURLZzBTVHYvdXVmUlNsS1ROWGFUM0xWK1R6?=
+ =?utf-8?B?N1Q4bmUvOEFZWDNRU0dtb2VFZWphM1FXcTBEaUNWb3FPeXZTdlBGSUYwWUo4?=
+ =?utf-8?B?Mlk1cHp1QXoxWDBXVnRmWVpqcGptVjJyVmJzQ1BZcWRwaFRBbS9idFFoTndZ?=
+ =?utf-8?B?dUlyR2xHcHlpYkM3VFZWY243UEZmTFRTLyt4U3k4bzkyZzRiNERzWkwwMm1q?=
+ =?utf-8?B?UkljZWtwVTBXOXhsWHpPQ3dvVXNRaDd0K3hDcGtJMDhGMDlnRVp0MG45OHdK?=
+ =?utf-8?B?MzNPME81RWNIeG0wQ1lHdCtTcFVaaDNneUpDYWovQ1M1YWRQNThodjZKSVRp?=
+ =?utf-8?B?ZnNISWduNnNYWUhmMjV2OUFGbWZ3eWQ2TlJSRDJGZy9tWDB0ZTJvZkNVdkY5?=
+ =?utf-8?B?WjUwNTIyNjdqTmEvazQxVWxXbTQ3T0ZNV3hRK2ZXVitZUmxPMTJjTkV6WEkw?=
+ =?utf-8?B?WGk0UlgyWmp4NVpPM0R6WkI3ajlja284RXdMWDBnZDV5Skg1RG9xYlBDdnRl?=
+ =?utf-8?B?Zk41Y2ZYTER5OHN5MnArbWJVTzM2T2JwVUZydDZXSGFYTmpFUkh3TWlRZWVK?=
+ =?utf-8?B?ckpaZFp0dTUwbSsxNG92aUdtYnNtUE5lNm9rZ2Y0K29GQ2ZkZmNKSlBTWndy?=
+ =?utf-8?B?eTFKdjVJWnN3S2JWNXozeEdYdWhlK0VTTC9reGV5SEVlZGVxRGxieFlnWG9n?=
+ =?utf-8?B?Qkd0a0ROZXhGdjJCdEx1cFRibDBrUE10MzJDZE93TEJ2QXhRMHQ2UEt6MnFV?=
+ =?utf-8?B?LzZIa2dOcnVjZFNMYlFCcWI2ZEptWW9HbGsrc1pNU29DbXR4eWFmazJXcStN?=
+ =?utf-8?B?OEFvdlJCREl1cnl2T3AxcEl1a2lYS3MrMG9KcG5ZSXlZeVhQMEpKQUczSFdY?=
+ =?utf-8?B?ZndSR0V0N1NRdDJWWWdDSHEzU01wY3c2QmZVRi8zQUZzZVNMTi9KZEZHUkVT?=
+ =?utf-8?B?NGFLS0Zxd2M2R0pLWS9YVGdYWTFTT0RYZHByM2VHSHA0ZVkyYjNYV05RNi9w?=
+ =?utf-8?B?WVI5NS80TUQvR2JmMjZXZ05BYzVhUG4rMmxJVUVuZlVLbDZRR2hZaVlGSDJ4?=
+ =?utf-8?B?dW44aHYwNmpsckhKUDB6RmxuRUxwVW9ZRXhnNEg2b3NETjBVUFE4UnFRVGtE?=
+ =?utf-8?B?L3V6Qjd6akhzbkkyakJ4V20vZmFXVm9PS1VHVlYyQlEvdmpzbW1VRG5Ub1VB?=
+ =?utf-8?B?YXdSL05KZFJDM3lYeThLRXlEM3c3b0VjYmJERHl5WGdVbkVJeWNzRUNNZHFh?=
+ =?utf-8?B?WXFpaG9ycEYrSHJoNkV1d3JUUWRhSDVqQVppRlFFdVpyajRXcHMwMGRML2Zr?=
+ =?utf-8?B?d3ZqS200ME9rWUpmUXdIVEtuamw5bFlEL1c1QVVVb0E4SW16ekNTQWtzc0lU?=
+ =?utf-8?B?endLVmF3ME1iUHJnQnlFRm4zaDVleEhNbXdxRDZDNUhsTnJtT0tDZUVRYlFY?=
+ =?utf-8?Q?Se7Apq1W4q+CNzFsBkwjqp6jyGzutoDH?=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(376014)(82310400026)(1800799024)(36860700013); DIR:OUT;
+ SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Jul 2024 13:25:48.3381 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: dde841cc-163e-46cc-4ab1-08dcab1af73d
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: CO1PEPF000044F7.namprd21.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB7251
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -187,76 +144,179 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
+Add address alignment support to the DCC VRAM buffers.
 
+v2:
+  - adjust size based on the max_texture_channel_caches values
+    only for GFX12 DCC buffers.
+  - used AMDGPU_GEM_CREATE_GFX12_DCC flag to apply change only
+    for DCC buffers.
+  - roundup non power of two DCC buffer adjusted size to nearest
+    power of two number as the buddy allocator does not support non
+    power of two alignments. This applies only to the contiguous
+    DCC buffers.
 
-> -----Original Message-----
-> From: Deak, Imre <imre.deak@intel.com>
-> Sent: Tuesday, July 23, 2024 5:30 PM
-> To: Kandpal, Suraj <suraj.kandpal@intel.com>
-> Cc: intel-gfx@lists.freedesktop.org
-> Subject: Re: [PATCH 05/14] drm/i915/dp: Initialize the link parameters du=
-ring
-> HW readout
->=20
-> On Tue, Jul 23, 2024 at 11:34:58AM +0300, Kandpal, Suraj wrote:
-> >
-> >
-> > > -----Original Message-----
-> > > From: Intel-gfx <intel-gfx-bounces@lists.freedesktop.org> On Behalf
-> > > Of Imre Deak
-> > > Sent: Monday, July 22, 2024 10:25 PM
-> > > To: intel-gfx@lists.freedesktop.org
-> > > Subject: [PATCH 05/14] drm/i915/dp: Initialize the link parameters
-> > > during HW readout
-> > >
-> > > Initialize the DP link parameters during HW readout. These need to
-> > > be up- to-date at least for the MST topology probing, which depends
-> > > on the link rate and lane count programmed in DPCD. A follow-up
-> > > patch will program the DPCD values to reflect the maximum link
-> > > parameters before the first MST topology probing, but should do so
-> > > only if the link is disabled (link_trained=3D=3Dfalse).
-> > >
-> > > Signed-off-by: Imre Deak <imre.deak@intel.com>
-> > > ---
-> > >  drivers/gpu/drm/i915/display/intel_dp.c | 5 ++++-
-> > >  1 file changed, 4 insertions(+), 1 deletion(-)
-> > >
-> > > diff --git a/drivers/gpu/drm/i915/display/intel_dp.c
-> > > b/drivers/gpu/drm/i915/display/intel_dp.c
-> > > index 1e43e32e05199..421e970b3c180 100644
-> > > --- a/drivers/gpu/drm/i915/display/intel_dp.c
-> > > +++ b/drivers/gpu/drm/i915/display/intel_dp.c
-> > > @@ -3352,8 +3352,11 @@ void intel_dp_sync_state(struct intel_encoder
-> > > *encoder,
-> > >
-> > >       intel_dp_tunnel_resume(intel_dp, crtc_state, dpcd_updated);
-> > >
-> > > -     if (crtc_state)
-> > > +     if (crtc_state) {
-> > >               intel_dp_reset_link_params(intel_dp);
-> > > +             intel_dp_set_link_params(intel_dp,
-> > > + crtc_state->port_clock,
-> > > crtc_state->lane_count);
-> > > +             intel_dp->link_trained =3D true;
-> >
-> > Why are we setting link_trained as true here.
->=20
-> link_trained indicates whether the output is enabled or not, which must b=
-e
-> in sync with crtc_state being NULL (output disabled) or not NULL (output
-> enabled).
+v3:(Alex)
+  - rewrite the max texture channel caches comparison code in an
+    algorithmic way to determine the alignment size.
 
-Okay got it=20
-LGTM,
-Reviewed-by: Suraj Kandpal <suraj.kandpal@intel.com>
+v4:(Alex)
+  - Move the logic from amdgpu_vram_mgr_dcc_alignment() to gmc_v12_0.c
+    and add a new gmc func callback for dcc alignment. If the callback
+    is non-NULL, call it to get the alignment, otherwise, use the default.
 
->=20
-> > Regards,
-> > Suraj Kandpal
-> > > +     }
-> > >  }
-> > >
-> > >  bool intel_dp_initial_fastset_check(struct intel_encoder *encoder,
-> > > --
-> > > 2.44.2
-> >
+v5:(Alex)
+  - Set the Alignment to a default value if the callback doesn't exist.
+  - Add the callback to amdgpu_gmc_funcs.
+
+v6:
+  - Fix checkpatch warning reported by Intel CI.
+
+v7:(Christian)
+  - remove the AMDGPU_GEM_CREATE_GFX12_DCC flag and keep a flag that
+    checks the BO pinning and for a specific hw generation.
+
+v8:(Christian)
+  - move this check into gmc_v12_0_get_dcc_alignment.
+
+Signed-off-by: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>
+Acked-by: Alex Deucher <alexander.deucher@amd.com>
+Acked-by: Christian König <christian.koenig@amd.com>
+Reviewed-by: Frank Min <Frank.Min@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h      |  6 ++++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c | 29 ++++++++++++++++++--
+ drivers/gpu/drm/amd/amdgpu/gmc_v12_0.c       | 19 +++++++++++++
+ 3 files changed, 51 insertions(+), 3 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h
+index febca3130497..654d0548a3f8 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h
+@@ -156,6 +156,8 @@ struct amdgpu_gmc_funcs {
+ 				      uint64_t addr, uint64_t *flags);
+ 	/* get the amount of memory used by the vbios for pre-OS console */
+ 	unsigned int (*get_vbios_fb_size)(struct amdgpu_device *adev);
++	/* get the DCC buffer alignment */
++	u64 (*get_dcc_alignment)(struct amdgpu_device *adev);
+ 
+ 	enum amdgpu_memory_partition (*query_mem_partition_mode)(
+ 		struct amdgpu_device *adev);
+@@ -363,6 +365,10 @@ struct amdgpu_gmc {
+ 	(adev)->gmc.gmc_funcs->override_vm_pte_flags			\
+ 		((adev), (vm), (addr), (pte_flags))
+ #define amdgpu_gmc_get_vbios_fb_size(adev) (adev)->gmc.gmc_funcs->get_vbios_fb_size((adev))
++#define amdgpu_gmc_get_dcc_alignment(_adev) ({			\
++	typeof(_adev) (adev) = (_adev);				\
++	((adev)->gmc.gmc_funcs->get_dcc_alignment((adev)));	\
++})
+ 
+ /**
+  * amdgpu_gmc_vram_full_visible - Check if full VRAM is visible through the BAR
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c
+index f91cc149d06c..c6609f4ac3d9 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c
+@@ -450,12 +450,12 @@ static int amdgpu_vram_mgr_new(struct ttm_resource_manager *man,
+ 			       const struct ttm_place *place,
+ 			       struct ttm_resource **res)
+ {
++	u64 size, remaining_size, lpfn, fpfn, adjust_dcc_size = 0;
+ 	struct amdgpu_vram_mgr *mgr = to_vram_mgr(man);
+ 	struct amdgpu_device *adev = to_amdgpu_device(mgr);
+ 	struct amdgpu_bo *bo = ttm_to_amdgpu_bo(tbo);
+ 	u64 vis_usage = 0, max_bytes, min_block_size;
+ 	struct amdgpu_vram_mgr_resource *vres;
+-	u64 size, remaining_size, lpfn, fpfn;
+ 	struct drm_buddy *mm = &mgr->mm;
+ 	struct drm_buddy_block *block;
+ 	unsigned long pages_per_block;
+@@ -511,7 +511,14 @@ static int amdgpu_vram_mgr_new(struct ttm_resource_manager *man,
+ 		/* Allocate blocks in desired range */
+ 		vres->flags |= DRM_BUDDY_RANGE_ALLOCATION;
+ 
++	if (adev->gmc.gmc_funcs->get_dcc_alignment)
++		adjust_dcc_size = amdgpu_gmc_get_dcc_alignment(adev);
++
+ 	remaining_size = (u64)vres->base.size;
++	if (bo->flags & AMDGPU_GEM_CREATE_VRAM_CONTIGUOUS && adjust_dcc_size) {
++		remaining_size = roundup_pow_of_two(remaining_size + adjust_dcc_size);
++		vres->flags |= DRM_BUDDY_TRIM_DISABLE;
++	}
+ 
+ 	mutex_lock(&mgr->lock);
+ 	while (remaining_size) {
+@@ -521,8 +528,11 @@ static int amdgpu_vram_mgr_new(struct ttm_resource_manager *man,
+ 			min_block_size = mgr->default_page_size;
+ 
+ 		size = remaining_size;
+-		if ((size >= (u64)pages_per_block << PAGE_SHIFT) &&
+-		    !(size & (((u64)pages_per_block << PAGE_SHIFT) - 1)))
++
++		if (bo->flags & AMDGPU_GEM_CREATE_VRAM_CONTIGUOUS && adjust_dcc_size)
++			min_block_size = size;
++		else if ((size >= (u64)pages_per_block << PAGE_SHIFT) &&
++			 !(size & (((u64)pages_per_block << PAGE_SHIFT) - 1)))
+ 			min_block_size = (u64)pages_per_block << PAGE_SHIFT;
+ 
+ 		BUG_ON(min_block_size < mm->chunk_size);
+@@ -553,6 +563,19 @@ static int amdgpu_vram_mgr_new(struct ttm_resource_manager *man,
+ 	}
+ 	mutex_unlock(&mgr->lock);
+ 
++	if (bo->flags & AMDGPU_GEM_CREATE_VRAM_CONTIGUOUS && adjust_dcc_size) {
++		struct drm_buddy_block *dcc_block;
++		u64 dcc_start;
++
++		dcc_block = amdgpu_vram_mgr_first_block(&vres->blocks);
++		/* Adjust the start address for DCC buffers only */
++		dcc_start =
++			roundup(amdgpu_vram_mgr_block_start(dcc_block), adjust_dcc_size);
++		drm_buddy_block_trim(mm, &dcc_start,
++				     (u64)vres->base.size,
++				     &vres->blocks);
++	}
++
+ 	vres->base.start = 0;
+ 	size = max_t(u64, amdgpu_vram_mgr_blocks_size(&vres->blocks),
+ 		     vres->base.size);
+diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v12_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v12_0.c
+index fd3ac483760e..093f72eb6dfc 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gmc_v12_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gmc_v12_0.c
+@@ -542,6 +542,24 @@ static unsigned gmc_v12_0_get_vbios_fb_size(struct amdgpu_device *adev)
+ 	return 0;
+ }
+ 
++static u64 gmc_v12_0_get_dcc_alignment(struct amdgpu_device *adev)
++{
++	u64 max_tex_channel_caches, alignment;
++
++	if (amdgpu_ip_version(adev, GC_HWIP, 0) != IP_VERSION(12, 0, 0) &&
++	    amdgpu_ip_version(adev, GC_HWIP, 0) != IP_VERSION(12, 0, 1))
++		return 0;
++
++	max_tex_channel_caches = adev->gfx.config.max_texture_channel_caches;
++	if (is_power_of_2(max_tex_channel_caches))
++		alignment = (max_tex_channel_caches / SZ_4) * max_tex_channel_caches;
++	else
++		alignment = roundup_pow_of_two(max_tex_channel_caches) *
++				max_tex_channel_caches;
++
++	return (u64)alignment * SZ_1K;
++}
++
+ static const struct amdgpu_gmc_funcs gmc_v12_0_gmc_funcs = {
+ 	.flush_gpu_tlb = gmc_v12_0_flush_gpu_tlb,
+ 	.flush_gpu_tlb_pasid = gmc_v12_0_flush_gpu_tlb_pasid,
+@@ -551,6 +569,7 @@ static const struct amdgpu_gmc_funcs gmc_v12_0_gmc_funcs = {
+ 	.get_vm_pde = gmc_v12_0_get_vm_pde,
+ 	.get_vm_pte = gmc_v12_0_get_vm_pte,
+ 	.get_vbios_fb_size = gmc_v12_0_get_vbios_fb_size,
++	.get_dcc_alignment = gmc_v12_0_get_dcc_alignment,
+ };
+ 
+ static void gmc_v12_0_set_gmc_funcs(struct amdgpu_device *adev)
+-- 
+2.25.1
+
