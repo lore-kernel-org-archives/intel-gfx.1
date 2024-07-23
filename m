@@ -4,49 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D09B7C3DA63
-	for <intel-gfx@archiver.kernel.org>; Tue, 23 Jul 2024 04:30:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7C5A7C3DA63
+	for <intel-gfx@archiver.kernel.org>; Tue, 23 Jul 2024 04:47:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C52A610E3E8;
-	Tue, 23 Jul 2024 04:30:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F383310E401;
+	Tue, 23 Jul 2024 04:47:41 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="lwUhSva+";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="N8KeMR4C";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9190810E3E8
- for <intel-gfx@lists.freedesktop.org>; Tue, 23 Jul 2024 04:30:28 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.17])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6581E10E401
+ for <intel-gfx@lists.freedesktop.org>; Tue, 23 Jul 2024 04:47:38 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1721709030; x=1753245030;
+ t=1721710058; x=1753246058;
  h=from:to:cc:subject:date:message-id:mime-version:
  content-transfer-encoding;
- bh=L/s7FRFUB2orgbS0GDWqOeQk+yRQ9EebK5bZahjq7dI=;
- b=lwUhSva++thtaQp59B1oRuBQUAO71H/sYHdOKNPeQx4LMLDmyMURqxZL
- dCUqWqGFynA8x7bRvr5L2itCLoWksNUNewboXDIsrfjSMNmXxzdm1VG2k
- ttddA+v+G0QKiOjTSTmT9mQYjCrMaveGxvT8GwUYQ9e26IwlhQC5WkiGR
- 0AhJAhMOiPSPDfmnihPVZJbYQqhWAV4FqUWg6NS5pbmAgHTv7IdMnsCOe
- 8D/ZiIXTyunD1VC5GO2TEXgyQQeHbul7X0HsdSI1TCyZkSzQ4T5BrmZ1X
- Smg30LQFC3L5poapc4P7UBh0LrtfOzFYmlK5pYM7JjK1RNgKg6x+wsTBR Q==;
-X-CSE-ConnectionGUID: 2c+w7HvRSaGmWkbAD6HbPg==
-X-CSE-MsgGUID: cOmtu+a+RYqaXpHAOZSKwg==
-X-IronPort-AV: E=McAfee;i="6700,10204,11141"; a="29898223"
-X-IronPort-AV: E=Sophos;i="6.09,229,1716274800"; d="scan'208";a="29898223"
-Received: from fmviesa010.fm.intel.com ([10.60.135.150])
- by orvoesa103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 22 Jul 2024 21:30:28 -0700
-X-CSE-ConnectionGUID: 6QmS0PWPRyCs/dSTfjrZ2w==
-X-CSE-MsgGUID: u2VJyQiOTDKIKYbcl0QgcQ==
+ bh=8sY8xLYclNt6solELE9N01Ot+2yFzRVexIEXFXr6Ytc=;
+ b=N8KeMR4CfXIJah31eVS5YfayVVfZNsx3zAUCGeV1hJaFdr/CUsn6uLFa
+ 1z+qUpMZEUHCfNXT03Le5kgMM25v7Qae8UQmvHrq9U0Tr1wVf/11GUHL3
+ w6v/AdSMZunOCfU4e1Ts+WM5JcxUFdeXR/yCr9/g+So6ZFOQkqzDRIZJm
+ FJ+wLIuVr07ihDbTJ2YSbjKGgoGYMNujmGCRoi5af6vXIdUoO9c/EvHY5
+ qwOqEUdh+n6atGMclNzJHHE7Mq1TBImUVGv6PnyUuwrVNpn2a17SWc4gR
+ TGvQ5kzOiuwmDRWNrHQK1rnDDa6Q//Z1+TySERRkI0TNMJWXdtDXcg68T A==;
+X-CSE-ConnectionGUID: Ei5jlhI1QfGXZ86VxfX4UA==
+X-CSE-MsgGUID: lmwujPJcSaCiLIs35lv5ag==
+X-IronPort-AV: E=McAfee;i="6700,10204,11141"; a="19437901"
+X-IronPort-AV: E=Sophos;i="6.09,229,1716274800"; d="scan'208";a="19437901"
+Received: from orviesa010.jf.intel.com ([10.64.159.150])
+ by orvoesa109.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 22 Jul 2024 21:47:38 -0700
+X-CSE-ConnectionGUID: UlYw3PdVRNOBQJOLYq081w==
+X-CSE-MsgGUID: oY1AtwVsQxWGLmXdHFVRNA==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.09,229,1716274800"; d="scan'208";a="52160577"
+X-IronPort-AV: E=Sophos;i="6.09,229,1716274800"; d="scan'208";a="51996638"
 Received: from kandpal-x299-ud4-pro.iind.intel.com ([10.190.239.32])
- by fmviesa010.fm.intel.com with ESMTP; 22 Jul 2024 21:30:26 -0700
+ by orviesa010.jf.intel.com with ESMTP; 22 Jul 2024 21:47:37 -0700
 From: Suraj Kandpal <suraj.kandpal@intel.com>
 To: intel-gfx@lists.freedesktop.org
 Cc: ankit.k.nautiyal@intel.com,
 	Suraj Kandpal <suraj.kandpal@intel.com>
-Subject: [PATCH] drm/i915/dp: Clear VSC SDP during post ddi disable routine
-Date: Tue, 23 Jul 2024 09:58:01 +0530
-Message-ID: <20240723042802.3618046-1-suraj.kandpal@intel.com>
+Subject: [PATCH] drm/i915/hdcp: Derive aux for mst from mst_port
+Date: Tue, 23 Jul 2024 10:15:13 +0530
+Message-ID: <20240723044513.3618353-1-suraj.kandpal@intel.com>
 X-Mailer: git-send-email 2.43.2
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
@@ -65,32 +65,28 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Clear VSC SDP if intel_dp_set_infoframes is called from post ddi disable
-routine i.e with the variable of enable as false. This is to avoid
-an infoframes.enable mismatch issue which is caused when pipe is
-connected to eDp which has psr then connected to DPMST. In this case
-eDp's post ddi disable routine does not clear infoframes.enable VSC
-for the given pipe and DPMST does not recompute VSC SDP and write
-infoframes.enable which causes a mismatch.
+Use the mst_port(intel_dp) variable to derive remote aux. We
+are sporadically seeing connector->port->aux giving an invalid
+address.
 
 Signed-off-by: Suraj Kandpal <suraj.kandpal@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_dp.c | 2 +-
+ drivers/gpu/drm/i915/display/intel_dp_hdcp.c | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
-index 1e43e32e0519..8b60d7f34ab8 100644
---- a/drivers/gpu/drm/i915/display/intel_dp.c
-+++ b/drivers/gpu/drm/i915/display/intel_dp.c
-@@ -4370,7 +4370,7 @@ void intel_dp_set_infoframes(struct intel_encoder *encoder,
- 		val &= ~VDIP_ENABLE_PPS;
+diff --git a/drivers/gpu/drm/i915/display/intel_dp_hdcp.c b/drivers/gpu/drm/i915/display/intel_dp_hdcp.c
+index 2edffe62f360..58915a2ad5dd 100644
+--- a/drivers/gpu/drm/i915/display/intel_dp_hdcp.c
++++ b/drivers/gpu/drm/i915/display/intel_dp_hdcp.c
+@@ -696,7 +696,7 @@ int intel_dp_hdcp_get_remote_capability(struct intel_connector *connector,
+ 	if (!connector->mst_port)
+ 		return -EINVAL;
  
- 	/* When PSR is enabled, this routine doesn't disable VSC DIP */
--	if (!crtc_state->has_psr)
-+	if (!enable || !crtc_state->has_psr)
- 		val &= ~VIDEO_DIP_ENABLE_VSC_HSW;
- 
- 	intel_de_write(dev_priv, reg, val);
+-	aux = &connector->port->aux;
++	aux = &connector->mst_port->aux;
+ 	ret =  _intel_dp_hdcp2_get_capability(aux, hdcp2_capable);
+ 	if (ret)
+ 		drm_dbg_kms(&i915->drm,
 -- 
 2.43.2
 
