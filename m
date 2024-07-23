@@ -4,52 +4,62 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7C5A7C3DA63
-	for <intel-gfx@archiver.kernel.org>; Tue, 23 Jul 2024 04:47:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 03C13C3DA63
+	for <intel-gfx@archiver.kernel.org>; Tue, 23 Jul 2024 04:54:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F383310E401;
-	Tue, 23 Jul 2024 04:47:41 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4CBD410E145;
+	Tue, 23 Jul 2024 04:54:10 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="N8KeMR4C";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="ZZsplcYC";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.17])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6581E10E401
- for <intel-gfx@lists.freedesktop.org>; Tue, 23 Jul 2024 04:47:38 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.12])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E781710E145;
+ Tue, 23 Jul 2024 04:54:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1721710058; x=1753246058;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=8sY8xLYclNt6solELE9N01Ot+2yFzRVexIEXFXr6Ytc=;
- b=N8KeMR4CfXIJah31eVS5YfayVVfZNsx3zAUCGeV1hJaFdr/CUsn6uLFa
- 1z+qUpMZEUHCfNXT03Le5kgMM25v7Qae8UQmvHrq9U0Tr1wVf/11GUHL3
- w6v/AdSMZunOCfU4e1Ts+WM5JcxUFdeXR/yCr9/g+So6ZFOQkqzDRIZJm
- FJ+wLIuVr07ihDbTJ2YSbjKGgoGYMNujmGCRoi5af6vXIdUoO9c/EvHY5
- qwOqEUdh+n6atGMclNzJHHE7Mq1TBImUVGv6PnyUuwrVNpn2a17SWc4gR
- TGvQ5kzOiuwmDRWNrHQK1rnDDa6Q//Z1+TySERRkI0TNMJWXdtDXcg68T A==;
-X-CSE-ConnectionGUID: Ei5jlhI1QfGXZ86VxfX4UA==
-X-CSE-MsgGUID: lmwujPJcSaCiLIs35lv5ag==
-X-IronPort-AV: E=McAfee;i="6700,10204,11141"; a="19437901"
-X-IronPort-AV: E=Sophos;i="6.09,229,1716274800"; d="scan'208";a="19437901"
-Received: from orviesa010.jf.intel.com ([10.64.159.150])
- by orvoesa109.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 22 Jul 2024 21:47:38 -0700
-X-CSE-ConnectionGUID: UlYw3PdVRNOBQJOLYq081w==
-X-CSE-MsgGUID: oY1AtwVsQxWGLmXdHFVRNA==
+ t=1721710447; x=1753246447;
+ h=date:message-id:from:to:cc:subject:in-reply-to:
+ references:mime-version;
+ bh=JG2uTvuHOTSEiYBaoN+6HbN2i7+PPxkKQbrGanmbEA0=;
+ b=ZZsplcYC5KqDEt+KXpBriLJWbVmAiCVVNnBL8JXcAkn/3vwhhix93dWE
+ A+/bvDNGIUkG4PYfGSWITlLmEMyJV5dIkzycTGLyVGwGS/9MQpkm3QW4T
+ JvsoSbllKkKxhXpBeE7vT/9KNKyKBznhkPJy1wmhMQ06J9dMAoy+t0xfZ
+ x1dU7zaSCp/PK0Aq2LxYUOqxU1p01e/KQzbgReY2IoonXAJ9hKcQ0b7ia
+ Yr4m2PtKo07Q0J7kY3z36BKW7lKTOn/GPfdoP1zSi7IId+einaHTz+440
+ 0Nus9jzJAKhMMgsa9VTU+Y1nIaq9hdMnAyeX987vkOpqCqu3qdiOvwCNy Q==;
+X-CSE-ConnectionGUID: 45RooRvPRdmC0lfAOxxSRw==
+X-CSE-MsgGUID: qlaZf5V1QrurfXZmpRzL3g==
+X-IronPort-AV: E=McAfee;i="6700,10204,11141"; a="30699437"
+X-IronPort-AV: E=Sophos;i="6.09,229,1716274800"; d="scan'208";a="30699437"
+Received: from orviesa004.jf.intel.com ([10.64.159.144])
+ by orvoesa104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 22 Jul 2024 21:54:07 -0700
+X-CSE-ConnectionGUID: nvoczLzaSuu5iY0KO25QYQ==
+X-CSE-MsgGUID: 2PlpN+mpTSeS/pftXHIaCw==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.09,229,1716274800"; d="scan'208";a="51996638"
-Received: from kandpal-x299-ud4-pro.iind.intel.com ([10.190.239.32])
- by orviesa010.jf.intel.com with ESMTP; 22 Jul 2024 21:47:37 -0700
-From: Suraj Kandpal <suraj.kandpal@intel.com>
-To: intel-gfx@lists.freedesktop.org
-Cc: ankit.k.nautiyal@intel.com,
-	Suraj Kandpal <suraj.kandpal@intel.com>
-Subject: [PATCH] drm/i915/hdcp: Derive aux for mst from mst_port
-Date: Tue, 23 Jul 2024 10:15:13 +0530
-Message-ID: <20240723044513.3618353-1-suraj.kandpal@intel.com>
-X-Mailer: git-send-email 2.43.2
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-IronPort-AV: E=Sophos;i="6.09,229,1716274800"; d="scan'208";a="57219890"
+Received: from dmprieto-mobl1.amr.corp.intel.com (HELO adixit-arch.intel.com)
+ ([10.125.48.92])
+ by orviesa004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 22 Jul 2024 21:54:06 -0700
+Date: Mon, 22 Jul 2024 21:35:45 -0700
+Message-ID: <878qxsd8ta.wl-ashutosh.dixit@intel.com>
+From: "Dixit, Ashutosh" <ashutosh.dixit@intel.com>
+To: Lucas De Marchi <lucas.demarchi@intel.com>
+Cc: intel-gfx@lists.freedesktop.org, linux-perf-users@vger.kernel.org,
+ Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
+ dri-devel@lists.freedesktop.org, Peter Zijlstra <peterz@infradead.org>,
+ Ingo Molnar <mingo@redhat.com>, Arnaldo Carvalho de Melo <acme@kernel.org>,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 3/7] drm/i915/pmu: Use event_to_pmu()
+In-Reply-To: <20240722210648.80892-4-lucas.demarchi@intel.com>
+References: <20240722210648.80892-1-lucas.demarchi@intel.com>
+ <20240722210648.80892-4-lucas.demarchi@intel.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI-EPG/1.14.7 (Harue)
+ FLIM-LB/1.14.9 (=?ISO-8859-4?Q?Goj=F2?=) APEL-LB/10.8 EasyPG/1.0.0
+ Emacs/29.4 (x86_64-pc-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,28 +75,42 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Use the mst_port(intel_dp) variable to derive remote aux. We
-are sporadically seeing connector->port->aux giving an invalid
-address.
+On Mon, 22 Jul 2024 14:06:44 -0700, Lucas De Marchi wrote:
+>
+> i915 pointer is not needed in this function and all the others simply
+> calculate the i915_pmu container based on the event->pmu. Follow the
+> same logic as in other functions.
 
-Signed-off-by: Suraj Kandpal <suraj.kandpal@intel.com>
----
- drivers/gpu/drm/i915/display/intel_dp_hdcp.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Reviewed-by: Ashutosh Dixit <ashutosh.dixit@intel.com>
 
-diff --git a/drivers/gpu/drm/i915/display/intel_dp_hdcp.c b/drivers/gpu/drm/i915/display/intel_dp_hdcp.c
-index 2edffe62f360..58915a2ad5dd 100644
---- a/drivers/gpu/drm/i915/display/intel_dp_hdcp.c
-+++ b/drivers/gpu/drm/i915/display/intel_dp_hdcp.c
-@@ -696,7 +696,7 @@ int intel_dp_hdcp_get_remote_capability(struct intel_connector *connector,
- 	if (!connector->mst_port)
- 		return -EINVAL;
- 
--	aux = &connector->port->aux;
-+	aux = &connector->mst_port->aux;
- 	ret =  _intel_dp_hdcp2_get_capability(aux, hdcp2_capable);
- 	if (ret)
- 		drm_dbg_kms(&i915->drm,
--- 
-2.43.2
-
+>
+> Signed-off-by: Lucas De Marchi <lucas.demarchi@intel.com>
+> ---
+>  drivers/gpu/drm/i915/i915_pmu.c | 5 ++---
+>  1 file changed, 2 insertions(+), 3 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/i915/i915_pmu.c b/drivers/gpu/drm/i915/i915_pmu.c
+> index cb5f6471ec6e..3a8bd11b87e7 100644
+> --- a/drivers/gpu/drm/i915/i915_pmu.c
+> +++ b/drivers/gpu/drm/i915/i915_pmu.c
+> @@ -820,15 +820,14 @@ static void i915_pmu_event_start(struct perf_event *event, int flags)
+>
+>  static void i915_pmu_event_stop(struct perf_event *event, int flags)
+>  {
+> -	struct drm_i915_private *i915 =
+> -		container_of(event->pmu, typeof(*i915), pmu.base);
+> -	struct i915_pmu *pmu = &i915->pmu;
+> +	struct i915_pmu *pmu = event_to_pmu(event);
+>
+>	if (pmu->closed)
+>		goto out;
+>
+>	if (flags & PERF_EF_UPDATE)
+>		i915_pmu_event_read(event);
+> +
+>	i915_pmu_disable(event);
+>
+>  out:
+> --
+> 2.43.0
+>
