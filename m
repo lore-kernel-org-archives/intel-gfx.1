@@ -4,52 +4,54 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 217D3C3DA49
-	for <intel-gfx@archiver.kernel.org>; Tue, 23 Jul 2024 11:21:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AE86BC3DA63
+	for <intel-gfx@archiver.kernel.org>; Tue, 23 Jul 2024 11:21:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 51E9010E56E;
-	Tue, 23 Jul 2024 11:21:41 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EB90410E571;
+	Tue, 23 Jul 2024 11:21:43 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="GokRrIMn";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="A8XwDXXz";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.17])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EE86210E5B8
- for <intel-gfx@lists.freedesktop.org>; Tue, 23 Jul 2024 11:21:22 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3444010E570
+ for <intel-gfx@lists.freedesktop.org>; Tue, 23 Jul 2024 11:21:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1721733691; x=1753269691;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=fTqNGAnP8LFBTwa5NdZu9YgwzV+WmQ2Pp3eEOR7tc2s=;
- b=GokRrIMnmSsA8mtP3MHN5QWwf9OTSAqiUlom5FLhL8XzjFYgsqr7X8cD
- 0d3esyHyTH0t7UYbUH7HYqI4Jl69SCklVUpO01gvGyH8vfVvc+4sgI4vy
- 0PIboYkanhb+fhToKBwaBnxt4Q4MDBzgXhoh0bcLmka/DAwZrq1M0cse/
- PIX/z7lXUJPOfi1dmdWkL5OKDWhTCr5+5EwZ2WXlaRSO7wV9yw611ELT9
- loKKldVkU9P5NI0yoHLNDVABw9Sicl90IOAhFCqCJAnn5OQuioYYh/xGF
- Xdw8JjBYaadPGgVxHLKYY3ipwstwVe8K3PdVYLD8V3hUTKBNH4v8vqscR g==;
-X-CSE-ConnectionGUID: A2U692BiRDaDuFEAsLpwZQ==
-X-CSE-MsgGUID: pGiOEoTmQvCnzRSWvyHs2Q==
-X-IronPort-AV: E=McAfee;i="6700,10204,11141"; a="19225363"
-X-IronPort-AV: E=Sophos;i="6.09,230,1716274800"; d="scan'208";a="19225363"
+ t=1721733700; x=1753269700;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=GIxIzUMkkyTcSzCr175q/V9fSwMKeXmPuZql8pvhYf0=;
+ b=A8XwDXXzOlVxAJqCxtXjkC1lTROKS0y9yggIkPMcF9WXK6/WqVZ3Ftq7
+ zzkRzkFMuT2obPkbmExegB/moW8n66xMFJbMeNwjDiHVijgH2JrZ2pTFG
+ cDzHV4n3mjb9vYkJe6YRVgTlfD5Mwznln5EoP0Nb/U05GKhAuPmQX7nTq
+ FQwFQqLYclK36ru4a9hhORuBPisb0dnM8n+FWUPww9ZGNYEij3vw1Ko3E
+ S84QbZIuI3+fysw/LM3DYfrg5/iZEwEzzJPediMtfvmA+5zcdWc/uKSXs
+ Uwp6REJpZcB7SuHat/g5gPkhm4JlUn+w/H8Gxe9+bXPJizZbPLJbd3Qd6 g==;
+X-CSE-ConnectionGUID: /xGIVLGDTreSwWdCABLC2A==
+X-CSE-MsgGUID: P4+z11g2RSCGbRctJibIxA==
+X-IronPort-AV: E=McAfee;i="6700,10204,11141"; a="19225397"
+X-IronPort-AV: E=Sophos;i="6.09,230,1716274800"; d="scan'208";a="19225397"
 Received: from fmviesa010.fm.intel.com ([10.60.135.150])
  by fmvoesa111.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 Jul 2024 04:21:22 -0700
-X-CSE-ConnectionGUID: Mra+mlAPSaOoKC3NBQdFpg==
-X-CSE-MsgGUID: qHvKAPQUTc2ThY3sO8JTog==
+ 23 Jul 2024 04:21:39 -0700
+X-CSE-ConnectionGUID: TPM9tb5xSQuNQtIKgaBsRg==
+X-CSE-MsgGUID: MfWE6VS6QB2QoXHO7bpXOQ==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.09,230,1716274800"; d="scan'208";a="52267399"
+X-IronPort-AV: E=Sophos;i="6.09,230,1716274800"; d="scan'208";a="52267446"
 Received: from bergbenj-mobl1.ger.corp.intel.com (HELO intel.com)
  ([10.245.246.52])
  by fmviesa010-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 Jul 2024 04:21:21 -0700
+ 23 Jul 2024 04:21:38 -0700
 From: Andi Shyti <andi.shyti@linux.intel.com>
 To: intel-gfx <intel-gfx@lists.freedesktop.org>
 Cc: Chris Wilson <chris.p.wilson@linux.intel.com>,
  Andi Shyti <andi.shyti@linux.intel.com>
-Subject: [RFC PATCH 0/9] CCS static load balance
-Date: Tue, 23 Jul 2024 13:20:37 +0200
-Message-ID: <20240723112046.123938-1-andi.shyti@linux.intel.com>
+Subject: [RFC PATCH 4/9] drm/i915/gt: Expose the number of total CCS slices
+Date: Tue, 23 Jul 2024 13:20:41 +0200
+Message-ID: <20240723112046.123938-5-andi.shyti@linux.intel.com>
 X-Mailer: git-send-email 2.45.2
+In-Reply-To: <20240723112046.123938-1-andi.shyti@linux.intel.com>
+References: <20240723112046.123938-1-andi.shyti@linux.intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-BeenThere: intel-gfx@lists.freedesktop.org
@@ -67,72 +69,87 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Hi,
+Implement a sysfs interface to show the number of available CCS
+slices. The displayed number does not take into account the CCS
+balancing mode.
 
-This patch series introduces static load balancing for GPUs with
-multiple compute engines. It's a lengthy series, and some
-challenging aspects still need to be resolved.
+Signed-off-by: Andi Shyti <andi.shyti@linux.intel.com>
+---
+ drivers/gpu/drm/i915/gt/intel_gt_ccs_mode.c | 23 +++++++++++++++++++++
+ drivers/gpu/drm/i915/gt/intel_gt_ccs_mode.h |  1 +
+ drivers/gpu/drm/i915/gt/intel_gt_sysfs.c    |  2 ++
+ 3 files changed, 26 insertions(+)
 
-I have tried to split the work as much as possible to facilitate
-the review process.
-
-To summarize, in patches 1 to 7, no functional changes occur
-except for the addition of the num_cslices interface. The
-significant changes happen in patch 8, which is the core part of
-the CCS mode setting, utilizing the groundwork laid in the
-earlier patches.
-
-The i915 driver is not designed to support dynamic removal and
-addition of engines, so this process requires careful attention
-as it can fail in various ways.
-
-One aspect still missing is client management. We need to prevent
-users from connecting to i915 until all engines are recreated.
-There may be a need for a global protection mechanism, or perhaps
-I am overlooking something. I welcome any suggestions on this
-matter.
-
-I would greatly appreciate further input from all reviewers who
-have already assisted with the previous work. Additionally, I
-would be grateful if Chris Wilson could join the discussion and
-provide his insights, as we have previously had valuable
-exchanges on this topic.
-
-Although this series is not yet fully ready, I am submitting it
-to gather feedback early on. My goal is to have this series
-included in version 6.12.
-
-IGT tests have also been developed, but I haven't sent them yet.
-
-Thanks,
-Andi
-
-Andi Shyti (9):
-  drm/i915/gt: Refactor uabi engine class/instance list creation
-  drm/i915/gt: Rename "cslises" with "cslice_mask"
-  drm/i915/gt: Move CCS mode mask creation to intel_ccs_mode.c
-  drm/i915/gt: Expose the number of total CCS slices
-  drm/i915/gt: Move the CCS mode variable to a global position
-  drm/i915/gt: Add sysfs cleanup function for engines
-  drm/i915/gt: Allow the creation of multi-mode CCS masks
-  drm/i915/gt: Allow the user to change the CCS mode through sysfs
-  drm/i915/gt: Document CCS mode load balancing
-
- Documentation/gpu/i915.rst                   |   3 +
- drivers/gpu/drm/i915/gt/intel_engine_cs.c    |  52 +--
- drivers/gpu/drm/i915/gt/intel_engine_types.h |   3 +
- drivers/gpu/drm/i915/gt/intel_engine_user.c  |  29 +-
- drivers/gpu/drm/i915/gt/intel_gt.c           |   3 +
- drivers/gpu/drm/i915/gt/intel_gt_ccs_mode.c  | 319 +++++++++++++++++--
- drivers/gpu/drm/i915/gt/intel_gt_ccs_mode.h  |   6 +-
- drivers/gpu/drm/i915/gt/intel_gt_sysfs.c     |   2 +
- drivers/gpu/drm/i915/gt/intel_gt_types.h     |  14 +-
- drivers/gpu/drm/i915/gt/intel_workarounds.c  |   7 +-
- drivers/gpu/drm/i915/gt/sysfs_engines.c      |  18 ++
- drivers/gpu/drm/i915/gt/sysfs_engines.h      |   1 +
- drivers/gpu/drm/i915/i915_drv.h              |   1 +
- 13 files changed, 372 insertions(+), 86 deletions(-)
-
+diff --git a/drivers/gpu/drm/i915/gt/intel_gt_ccs_mode.c b/drivers/gpu/drm/i915/gt/intel_gt_ccs_mode.c
+index 06d9d1a94317..0710e55d37d7 100644
+--- a/drivers/gpu/drm/i915/gt/intel_gt_ccs_mode.c
++++ b/drivers/gpu/drm/i915/gt/intel_gt_ccs_mode.c
+@@ -8,6 +8,7 @@
+ #include "intel_gt_ccs_mode.h"
+ #include "intel_gt_print.h"
+ #include "intel_gt_regs.h"
++#include "intel_gt_sysfs.h"
+ 
+ void intel_gt_ccs_mode_init(struct intel_gt *gt)
+ {
+@@ -83,3 +84,25 @@ unsigned int intel_gt_apply_ccs_mode(struct intel_gt *gt)
+ 
+ 	return mode;
+ }
++
++static ssize_t num_cslices_show(struct device *dev,
++				struct device_attribute *attr,
++				char *buff)
++{
++	struct intel_gt *gt = kobj_to_gt(&dev->kobj);
++	u32 num_slices;
++
++	num_slices = hweight32(gt->ccs.cslice_mask);
++
++	return sysfs_emit(buff, "%u\n", num_slices);
++}
++static DEVICE_ATTR_RO(num_cslices);
++
++void intel_gt_sysfs_ccs_init(struct intel_gt *gt)
++{
++	int err;
++
++	err = sysfs_create_file(&gt->sysfs_gt, &dev_attr_num_cslices.attr);
++	if (err)
++		gt_dbg(gt, "failed to create sysfs num_cslices files\n");
++}
+diff --git a/drivers/gpu/drm/i915/gt/intel_gt_ccs_mode.h b/drivers/gpu/drm/i915/gt/intel_gt_ccs_mode.h
+index a8b513c43a4f..b9ce29055857 100644
+--- a/drivers/gpu/drm/i915/gt/intel_gt_ccs_mode.h
++++ b/drivers/gpu/drm/i915/gt/intel_gt_ccs_mode.h
+@@ -9,6 +9,7 @@
+ struct intel_gt;
+ 
+ unsigned int intel_gt_apply_ccs_mode(struct intel_gt *gt);
++void intel_gt_sysfs_ccs_init(struct intel_gt *gt);
+ void intel_gt_ccs_mode_init(struct intel_gt *gt);
+ 
+ #endif /* __INTEL_GT_CCS_MODE_H__ */
+diff --git a/drivers/gpu/drm/i915/gt/intel_gt_sysfs.c b/drivers/gpu/drm/i915/gt/intel_gt_sysfs.c
+index 33cba406b569..895eedc402ae 100644
+--- a/drivers/gpu/drm/i915/gt/intel_gt_sysfs.c
++++ b/drivers/gpu/drm/i915/gt/intel_gt_sysfs.c
+@@ -12,6 +12,7 @@
+ #include "i915_drv.h"
+ #include "i915_sysfs.h"
+ #include "intel_gt.h"
++#include "intel_gt_ccs_mode.h"
+ #include "intel_gt_print.h"
+ #include "intel_gt_sysfs.h"
+ #include "intel_gt_sysfs_pm.h"
+@@ -101,6 +102,7 @@ void intel_gt_sysfs_register(struct intel_gt *gt)
+ 		goto exit_fail;
+ 
+ 	intel_gt_sysfs_pm_init(gt, &gt->sysfs_gt);
++	intel_gt_sysfs_ccs_init(gt);
+ 
+ 	return;
+ 
 -- 
 2.45.2
 
