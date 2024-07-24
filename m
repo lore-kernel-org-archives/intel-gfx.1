@@ -4,55 +4,51 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B73F4C3DA61
-	for <intel-gfx@archiver.kernel.org>; Wed, 24 Jul 2024 16:04:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9C148C3DA63
+	for <intel-gfx@archiver.kernel.org>; Wed, 24 Jul 2024 16:12:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 347C310E745;
-	Wed, 24 Jul 2024 16:04:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0A59A10E0FA;
+	Wed, 24 Jul 2024 16:12:11 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="a6+vZCWb";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="MufBSCPj";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.19])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E4DF310E745
- for <intel-gfx@lists.freedesktop.org>; Wed, 24 Jul 2024 16:03:59 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.20])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 676B810E0FA
+ for <intel-gfx@lists.freedesktop.org>; Wed, 24 Jul 2024 16:12:08 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1721837040; x=1753373040;
- h=from:to:subject:in-reply-to:references:date:message-id:
- mime-version; bh=SKiwz1F5rRvkagoyO62JoQJgEmDu6hXDOCJ/+Wq6QBM=;
- b=a6+vZCWboqsBc3z9DXn1WpnFep88IWdh4T/Ehiol2ukbncQawE+UtpCc
- zhQ23AcCdhamwv9FInEFp7l1Uhp/gM0Hqm0ET+OaoqOLOXQhDQpxLxd38
- Qersf7kWLDIxfRZtFFmF3UzHYS5cydcwuMWgDrhiaj78RH51ooYetDbaP
- eTkqkAUAu7Z7nOErSxeFy0ext6o6ddC9FDIbOvgOEBxR+Ofqfu0ZwuKsh
- Y6k7KNo12TCtvP8125O1KHOaq5eoxkvn6ERIzoIajK/hWYOjjGSgtMiH7
- kB7AVb2P1nMILIlzYoxmvpiCJReLZQM7ovgXG6iKVE123qTd8Vn78GDon A==;
-X-CSE-ConnectionGUID: HiO+oQyUR1KHWhxuF0srWg==
-X-CSE-MsgGUID: foVpoGEDSbOuBQnv5fLcAQ==
-X-IronPort-AV: E=McAfee;i="6700,10204,11143"; a="19380236"
-X-IronPort-AV: E=Sophos;i="6.09,233,1716274800"; d="scan'208";a="19380236"
-Received: from fmviesa001.fm.intel.com ([10.60.135.141])
- by orvoesa111.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 24 Jul 2024 09:04:00 -0700
-X-CSE-ConnectionGUID: aZ+GlwyORPm66IruZ+7ZLw==
-X-CSE-MsgGUID: KapyNE9zRcelJQK9DDG7qg==
+ t=1721837529; x=1753373529;
+ h=from:to:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=a5ZOzGKbCNQBlSXM6QVrleKLd1+BG9SC0KruZ22xeo4=;
+ b=MufBSCPjnu1JLxgKPf46jJIVgGDx0NgwAPHwr2XgyAae+/1oa0FXZF2w
+ pPuFvUfhqT9FaJod6udSh/I72B1+ItqGYQAYX4hH1feEBAS0zN7NUG24c
+ GGZoAb9A+ewcB8huTaKftSoozb3SStmpRSwcWGXVWEzEg1kwUweuupkvl
+ Kr9hICOIgV/6WfwZ6n5rC+lIxyh0YQmGHVR2vTMsp/O2v2vYGG27yGnsv
+ Kp7RFLytUSjR/X16xtTXvGYk/fgTKbfe9auADK6alqQQX/QarDSAuXUlA
+ BZtWxdJvAVncywLtaG5PPF2LfBqobJ13cey3iPGWtupKI4XMBLdAKEA4+ Q==;
+X-CSE-ConnectionGUID: bQ/12aYgT6CJunsPomALig==
+X-CSE-MsgGUID: qJaKvBLrRdixSkWo8fxjoA==
+X-IronPort-AV: E=McAfee;i="6700,10204,11143"; a="19338280"
+X-IronPort-AV: E=Sophos;i="6.09,233,1716274800"; d="scan'208";a="19338280"
+Received: from fmviesa002.fm.intel.com ([10.60.135.142])
+ by orvoesa112.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 24 Jul 2024 09:12:08 -0700
+X-CSE-ConnectionGUID: RhgFTsCkSKmH0wWxC6npfQ==
+X-CSE-MsgGUID: qeRDk9V6RWOy/YfqBc7syA==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.09,233,1716274800"; d="scan'208";a="83638631"
-Received: from bergbenj-mobl1.ger.corp.intel.com (HELO localhost)
- ([10.245.246.197])
- by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 24 Jul 2024 09:03:56 -0700
-From: Jani Nikula <jani.nikula@linux.intel.com>
-To: imre.deak@intel.com, Francesco Poli <invernomuto@paranoici.org>, Intel
- GFX list <intel-gfx@lists.freedesktop.org>
-Subject: Re: [bug report] adlp_tc_phy_connect [i915] floods logs with
- drm_WARN_ON(tc->mode == TC_PORT_LEGACY) call traces
-In-Reply-To: <20240715203543.63b40a68931fdc45332ba9f8@paranoici.org>
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
-References: <20240715203543.63b40a68931fdc45332ba9f8@paranoici.org>
-Date: Wed, 24 Jul 2024 19:03:51 +0300
-Message-ID: <871q3ikc9k.fsf@intel.com>
+X-IronPort-AV: E=Sophos;i="6.09,233,1716274800"; d="scan'208";a="75861936"
+Received: from ideak-desk.fi.intel.com ([10.237.72.78])
+ by fmviesa002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 24 Jul 2024 09:12:07 -0700
+From: Imre Deak <imre.deak@intel.com>
+To: intel-gfx@lists.freedesktop.org
+Subject: [PATCH] drm/i915/dp_mst: Fix MST state after a sink reset
+Date: Wed, 24 Jul 2024 19:12:23 +0300
+Message-ID: <20240724161223.2291853-1-imre.deak@intel.com>
+X-Mailer: git-send-email 2.44.2
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Transfer-Encoding: 8bit
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,96 +64,86 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Mon, 15 Jul 2024, Francesco Poli <invernomuto@paranoici.org> wrote:
-> Hi all,
-> on a laptop where I installed Debian testing some 6 months ago,
-> I noticed that the logs are continuously flooded with call traces
-> like the attached snippet (taken from /var/log/kern.log ).
->
-> It seems to me that it also used to happen with previous versions
-> of the Linux kernel, but I am under the impression that, with Linux
-> kernel 6.9.7, it got worse. I have recently upgraded to Linux kernel
-> version 6.9.8 (provided by the distro, Debian testing, as I said), but
-> the bug is still reproducible:
->
->   $ uname -srvmo
->   Linux 6.9.8-amd64 #1 SMP PREEMPT_DYNAMIC Debian 6.9.8-1 (2024-07-07) x86_64 GNU/Linux
->
-> I see at least 12 of these call traces just after boot, before even
-> starting X (with 'startx').
-> More of these call traces are sent to the logs after starting X, or
-> after invoking 'xrandr', or after locking the X session (with
-> XScreenSaver), ...
-> I always see these call traces (I mean the bug is always reproducible:
-> each time I boot, each time I call xrandr, ...).
->
-> They seem to correspond to no actual issue, as far as I can tell,
-> but they are flooding the logs with a significant flow of text...
-> which is worrying by itself.
->
->
-> What's wrong?
-> How can I stop this log-filling flood?
-> Should I black-list some module, for instance?
->
->
-> The outputs of
->
->   # lspci -vnn -d :*:0300
->
-> and of
->
->   # dmidecode
->
-> are attached.
-> Also, I booted with kernel parameters
-> 'drm.debug=0xe log_buf_len=4M ignore_loglevel' and
-> logged in as root right after the boot.
-> The output of
->
->   # dmesg
->
-> is attached.
->
-> Some additional information may be found on the [Debian bug] report I had previously filed.
->
-> [Debian bug]: <https://bugs.debian.org/1075770>
->
->
-> N.B.:
-> Please Cc me and the Debian bug address <1075770@bugs.debian.org>
-> on replies, so that the interested parties (including me!) are kept
-> in the loop.
-> Thanks a lot for your time and for any help you may provide!
+In some cases the sink can reset itself after it was configured into MST
+mode, without the driver noticing the disconnected state. For instance
+the reset may happen in the middle of a modeset, or the (long) HPD pulse
+generated may be not long enough for the encoder detect handler to
+observe the HPD's deasserted state. In this case the sink's DPCD
+register programmed to enable MST will be reset, while the driver still
+assumes MST is still enabled. Detect this condition, which will tear
+down and recreate/re-enable the MST topology.
 
-[dropping Debian bug tracker]
+Closes: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/11195
+Signed-off-by: Imre Deak <imre.deak@intel.com>
+---
+ drivers/gpu/drm/i915/display/intel_dp.c     |  3 +++
+ drivers/gpu/drm/i915/display/intel_dp_mst.c | 30 +++++++++++++++++++++
+ drivers/gpu/drm/i915/display/intel_dp_mst.h |  1 +
+ 3 files changed, 34 insertions(+)
 
-Imre, I'm looking at the warnings in intel_tc.c in general, and
-adlp_tc_phy_connect() in particular, and I think this is too hard to
-parse:
-
-	if (!adlp_tc_phy_take_ownership(tc, true) &&
-	    !drm_WARN_ON(&i915->drm, tc->mode == TC_PORT_LEGACY)) {
-		drm_dbg_kms(&i915->drm, "Port %s: can't take PHY ownership\n",
-			    tc->port_name);
-		goto out_put_port_power;
-	}
-
-	if (!tc_phy_is_ready(tc) &&
-	    !drm_WARN_ON(&i915->drm, tc->mode == TC_PORT_LEGACY)) {
-		drm_dbg_kms(&i915->drm, "Port %s: PHY not ready\n",
-			    tc->port_name);
-		goto out_release_phy;
-	}
-
-There are warnings in the logs, but they are for tc->mode ==
-TC_PORT_LEGACY. Why is that warning duplicated in both if conditions,
-and negated?! Too hard for my poor brain to follow. Don't know which one
-happened, don't know what's going on.
-
-BR,
-Jani.
-
-
+diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
+index 1e43e32e05199..c621f6daf8235 100644
+--- a/drivers/gpu/drm/i915/display/intel_dp.c
++++ b/drivers/gpu/drm/i915/display/intel_dp.c
+@@ -5878,6 +5878,9 @@ intel_dp_detect(struct drm_connector *connector,
+ 	else
+ 		status = connector_status_disconnected;
+ 
++	if (!intel_dp_mst_verify_dpcd_state(intel_dp))
++		status = connector_status_disconnected;
++
+ 	if (status == connector_status_disconnected) {
+ 		memset(&intel_dp->compliance, 0, sizeof(intel_dp->compliance));
+ 		memset(intel_connector->dp.dsc_dpcd, 0, sizeof(intel_connector->dp.dsc_dpcd));
+diff --git a/drivers/gpu/drm/i915/display/intel_dp_mst.c b/drivers/gpu/drm/i915/display/intel_dp_mst.c
+index 27ce5c3f5951e..89b147e37b400 100644
+--- a/drivers/gpu/drm/i915/display/intel_dp_mst.c
++++ b/drivers/gpu/drm/i915/display/intel_dp_mst.c
+@@ -1998,3 +1998,33 @@ bool intel_dp_mst_crtc_needs_modeset(struct intel_atomic_state *state,
+ 
+ 	return false;
+ }
++
++/**
++ * intel_dp_mst_verify_dpcd_state - verify the MST SW enabled state wrt. the DPCD
++ * @intel_dp: DP port object
++ *
++ * Verify if @intel_dp's MST enabled SW state matches the corresponding DPCD
++ * state. A long HPD pulse -not long enough to be detected as a disconnected
++ * state - could've reset the DPCD state, which requires tearing
++ * down/recreating the MST topology.
++ *
++ * Returns %true if the SW MST enabled and DPCD states match, %false
++ * otherwise.
++ */
++bool intel_dp_mst_verify_dpcd_state(struct intel_dp *intel_dp)
++{
++	int ret;
++	u8 val;
++
++	if (!intel_dp->is_mst)
++		return true;
++
++	ret = drm_dp_dpcd_readb(intel_dp->mst_mgr.aux, DP_MSTM_CTRL, &val);
++	if (ret < 0)
++		return false;
++
++	if (val != (DP_MST_EN | DP_UP_REQ_EN | DP_UPSTREAM_IS_SRC))
++		return false;
++
++	return true;
++}
+diff --git a/drivers/gpu/drm/i915/display/intel_dp_mst.h b/drivers/gpu/drm/i915/display/intel_dp_mst.h
+index 8ca1d599091c6..9e4c7679f1c3a 100644
+--- a/drivers/gpu/drm/i915/display/intel_dp_mst.h
++++ b/drivers/gpu/drm/i915/display/intel_dp_mst.h
+@@ -27,5 +27,6 @@ int intel_dp_mst_atomic_check_link(struct intel_atomic_state *state,
+ 				   struct intel_link_bw_limits *limits);
+ bool intel_dp_mst_crtc_needs_modeset(struct intel_atomic_state *state,
+ 				     struct intel_crtc *crtc);
++bool intel_dp_mst_verify_dpcd_state(struct intel_dp *intel_dp);
+ 
+ #endif /* __INTEL_DP_MST_H__ */
 -- 
-Jani Nikula, Intel
+2.44.2
+
