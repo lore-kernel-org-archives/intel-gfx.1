@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 284C5C3DA61
-	for <intel-gfx@archiver.kernel.org>; Wed, 24 Jul 2024 14:09:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4E918C3DA61
+	for <intel-gfx@archiver.kernel.org>; Wed, 24 Jul 2024 14:10:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9C3DE10E703;
-	Wed, 24 Jul 2024 14:09:56 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B7DD910E707;
+	Wed, 24 Jul 2024 14:10:21 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="nnbilA2U";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="KOGAOlXJ";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.9])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DF61210E6EC;
- Wed, 24 Jul 2024 14:09:45 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E01B610E6E0;
+ Wed, 24 Jul 2024 14:09:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1721830186; x=1753366186;
+ t=1721830150; x=1753366150;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=toFn/lljtSKhDgC3VdyIaHY5ZKP1iLDgCoxmZOU3Dds=;
- b=nnbilA2UxygZTMpq4JQzsGnewV8+mCWcw8hz/X5BwjtXsTgMETGKVt50
- bxzOKYXu/jQXKmU445OyZip8NbCEaiaWHATY0xY86iAFZGyne3zqUpo+h
- SVdcTC6yWjVQplO4pwX+TBdb4jxBFrpiWojOXOuRcg851+uZjC/TzYuFl
- mqhoMLJYWMvXwffSvt0McldVf+CbQohDlU/MKDQkQUdxGKiQe85sN5ggK
- dJJNXildIfzHI9N3dEeW1Eq3Ae/mSoFbtSBkGQ5iOS9IbZ9hryk8iKjMc
- xz2FanzrYa4CQziOBnXGq0gjOJZBXmdJYaCputupdVTsRi07TPcdC8M1w w==;
-X-CSE-ConnectionGUID: iONaaaJ5TlaKEbe9lU8FvA==
-X-CSE-MsgGUID: igKyh0beTAaKb3xfCo5z4Q==
-X-IronPort-AV: E=McAfee;i="6700,10204,11143"; a="30173876"
-X-IronPort-AV: E=Sophos;i="6.09,233,1716274800"; d="scan'208";a="30173876"
+ bh=czB05BS6HT4dbgmuzTPUCyCXBiBfJbeYHzptJ2vMm3M=;
+ b=KOGAOlXJKKRlE71hHHVLbFgfm374yPoNv+1oI0n1KPodpFNkdS8Ctnt3
+ Q0KSrBONiBqaIZ0B45qmaimeV/GXIOOlCtmX5FriTFFdBPmXgu7mu1oyl
+ FpHiDp05Gnr8WOZ+wpIhGB15HJ1SLHWqJOW9ZeBfWn8qrd7eAHhEXtRND
+ ZQKFqPa8Ikoc+mmBWGku2gTtZUNH4fA8vcofPDkcfo2OVmcKiTS83ESJS
+ ZOAlA5KtYpGVq6lNnDiaZ3ayXWrMTNYqzQJtritg8eVNTkraKrqlvCqHe
+ glrWoJAmIShUb/av+xpx1iILlMX8bZr37PYN1Ipee4qAeDqxHU1Q1/eX6 w==;
+X-CSE-ConnectionGUID: X39fOocORfKKtNYQEzIAWQ==
+X-CSE-MsgGUID: 61PiKe+RQ/qKFg8xhJrCCQ==
+X-IronPort-AV: E=McAfee;i="6700,10204,11143"; a="30173751"
+X-IronPort-AV: E=Sophos;i="6.09,233,1716274800"; d="scan'208";a="30173751"
 Received: from orviesa002.jf.intel.com ([10.64.159.142])
  by fmvoesa103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 24 Jul 2024 07:09:46 -0700
-X-CSE-ConnectionGUID: vMRayiSPTduEdlGyTgIc1A==
-X-CSE-MsgGUID: GlKCXV81QkermhrP4Cxg0w==
+ 24 Jul 2024 07:09:09 -0700
+X-CSE-ConnectionGUID: RMp7dZquTCCq0ro+Sq+SvQ==
+X-CSE-MsgGUID: reoZ/hvvQAiE1I727tD2aA==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.09,233,1716274800"; d="scan'208";a="83211593"
+X-IronPort-AV: E=Sophos;i="6.09,233,1716274800"; d="scan'208";a="83211453"
 Received: from sannilnx-dsk.jer.intel.com ([10.12.231.107])
  by orviesa002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 24 Jul 2024 07:09:41 -0700
+ 24 Jul 2024 07:09:04 -0700
 From: Alexander Usyskin <alexander.usyskin@intel.com>
 To: Mark Brown <broonie@kernel.org>,
  Lucas De Marchi <lucas.demarchi@intel.com>,
@@ -58,9 +58,9 @@ Cc: Tomas Winkler <tomas.winkler@intel.com>,
  Vitaly Lubart <vitaly.lubart@intel.com>, intel-xe@lists.freedesktop.org,
  dri-devel@lists.freedesktop.org, linux-spi@vger.kernel.org,
  intel-gfx@lists.freedesktop.org
-Subject: [PATCH v2 12/12] drm/xe/spi: add support for access mode
-Date: Wed, 24 Jul 2024 17:00:14 +0300
-Message-Id: <20240724140014.428991-13-alexander.usyskin@intel.com>
+Subject: [PATCH v2 05/12] spi: intel-dg: implement mtd access handlers
+Date: Wed, 24 Jul 2024 17:00:07 +0300
+Message-Id: <20240724140014.428991-6-alexander.usyskin@intel.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20240724140014.428991-1-alexander.usyskin@intel.com>
 References: <20240724140014.428991-1-alexander.usyskin@intel.com>
@@ -81,111 +81,223 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Check SPI access mode from GSC FW status registers
-and overwrite access status read from SPI descriptor, if needed.
+From: Tomas Winkler <tomas.winkler@intel.com>
 
+Implement mtd read, erase, and write handlers.
+For erase operation address and size should be 4K aligned.
+For write operation address and size has to be 4bytes aligned.
+
+CC: Rodrigo Vivi <rodrigo.vivi@intel.com>
+CC: Lucas De Marchi <lucas.demarchi@intel.com>
+Signed-off-by: Tomas Winkler <tomas.winkler@intel.com>
+Signed-off-by: Vitaly Lubart <vitaly.lubart@intel.com>
 Signed-off-by: Alexander Usyskin <alexander.usyskin@intel.com>
 ---
- drivers/gpu/drm/xe/regs/xe_gsc_regs.h |  5 ++++
- drivers/gpu/drm/xe/xe_heci_gsc.c      |  5 +---
- drivers/gpu/drm/xe/xe_spi.c           | 33 ++++++++++++++++++++++++++-
- 3 files changed, 38 insertions(+), 5 deletions(-)
+ drivers/spi/spi-intel-dg.c | 152 +++++++++++++++++++++++++++++++++++--
+ 1 file changed, 147 insertions(+), 5 deletions(-)
 
-diff --git a/drivers/gpu/drm/xe/regs/xe_gsc_regs.h b/drivers/gpu/drm/xe/regs/xe_gsc_regs.h
-index e2a925be137c..28c049e60e66 100644
---- a/drivers/gpu/drm/xe/regs/xe_gsc_regs.h
-+++ b/drivers/gpu/drm/xe/regs/xe_gsc_regs.h
-@@ -16,6 +16,11 @@
- #define MTL_GSC_HECI1_BASE	0x00116000
- #define MTL_GSC_HECI2_BASE	0x00117000
- 
-+#define DG1_GSC_HECI2_BASE	0x00259000
-+#define PVC_GSC_HECI2_BASE	0x00285000
-+#define DG2_GSC_HECI2_BASE	0x00374000
-+
-+
- #define HECI_H_CSR(base)	XE_REG((base) + 0x4)
- #define   HECI_H_CSR_IE		REG_BIT(0)
- #define   HECI_H_CSR_IS		REG_BIT(1)
-diff --git a/drivers/gpu/drm/xe/xe_heci_gsc.c b/drivers/gpu/drm/xe/xe_heci_gsc.c
-index 1c9d38b6f5f1..d3ff3ba678f0 100644
---- a/drivers/gpu/drm/xe/xe_heci_gsc.c
-+++ b/drivers/gpu/drm/xe/xe_heci_gsc.c
-@@ -11,14 +11,11 @@
- #include "xe_device_types.h"
- #include "xe_drv.h"
- #include "xe_heci_gsc.h"
-+#include "regs/xe_gsc_regs.h"
- #include "xe_platform_types.h"
- 
- #define GSC_BAR_LENGTH  0x00000FFC
- 
--#define DG1_GSC_HECI2_BASE			0x259000
--#define PVC_GSC_HECI2_BASE			0x285000
--#define DG2_GSC_HECI2_BASE			0x374000
--
- static void heci_gsc_irq_mask(struct irq_data *d)
- {
- 	/* generic irq handling */
-diff --git a/drivers/gpu/drm/xe/xe_spi.c b/drivers/gpu/drm/xe/xe_spi.c
-index f8ad060f97f2..9019672bd464 100644
---- a/drivers/gpu/drm/xe/xe_spi.c
-+++ b/drivers/gpu/drm/xe/xe_spi.c
-@@ -5,7 +5,10 @@
- 
- #include <linux/intel_dg_spi_aux.h>
- #include <linux/pci.h>
-+#include "xe_device.h"
- #include "xe_device_types.h"
-+#include "xe_mmio.h"
-+#include "regs/xe_gsc_regs.h"
- #include "xe_spi.h"
- 
- #define GEN12_GUNIT_SPI_BASE 0x00102040
-@@ -23,6 +26,34 @@ static void xe_spi_release_dev(struct device *dev)
- {
+diff --git a/drivers/spi/spi-intel-dg.c b/drivers/spi/spi-intel-dg.c
+index 2ffc2d61fdc8..dc4d6c573522 100644
+--- a/drivers/spi/spi-intel-dg.c
++++ b/drivers/spi/spi-intel-dg.c
+@@ -174,7 +174,6 @@ static int intel_dg_spi_is_valid(struct intel_dg_spi *spi)
+ 	return 0;
  }
  
-+static bool xe_spi_writeable_override(struct xe_device *xe)
-+{
-+	struct xe_gt *gt = xe_root_mmio_gt(xe);
-+	struct pci_dev *pdev = to_pci_dev(xe->drm.dev);
-+	resource_size_t base;
-+	bool writeable_override;
+-__maybe_unused
+ static unsigned int spi_get_region(const struct intel_dg_spi *spi, loff_t from)
+ {
+ 	unsigned int i;
+@@ -206,7 +205,6 @@ static ssize_t spi_rewrite_partial(struct intel_dg_spi *spi, loff_t to,
+ 	return len;
+ }
+ 
+-__maybe_unused
+ static ssize_t spi_write(struct intel_dg_spi *spi, u8 region,
+ 			 loff_t to, size_t len, const unsigned char *buf)
+ {
+@@ -265,7 +263,6 @@ static ssize_t spi_write(struct intel_dg_spi *spi, u8 region,
+ 	return len;
+ }
+ 
+-__maybe_unused
+ static ssize_t spi_read(struct intel_dg_spi *spi, u8 region,
+ 			loff_t from, size_t len, unsigned char *buf)
+ {
+@@ -324,7 +321,6 @@ static ssize_t spi_read(struct intel_dg_spi *spi, u8 region,
+ 	return len;
+ }
+ 
+-__maybe_unused
+ static ssize_t
+ spi_erase(struct intel_dg_spi *spi, u8 region, loff_t from, u64 len, u64 *fail_addr)
+ {
+@@ -413,18 +409,164 @@ static int intel_dg_spi_init(struct intel_dg_spi *spi, struct device *device)
+ 
+ static int intel_dg_spi_erase(struct mtd_info *mtd, struct erase_info *info)
+ {
+-	return 0;
++	struct intel_dg_spi *spi;
++	unsigned int idx;
++	u8 region;
++	u64 addr;
++	ssize_t bytes;
++	loff_t from;
++	size_t len;
++	size_t total_len;
++	int ret = 0;
 +
-+	if (xe->info.platform == XE_BATTLEMAGE) {
-+		base = DG2_GSC_HECI2_BASE;
-+	} else if (xe->info.platform == XE_PVC) {
-+		base = PVC_GSC_HECI2_BASE;
-+	} else if (xe->info.platform == XE_DG2) {
-+		base = DG2_GSC_HECI2_BASE;
-+	} else if (xe->info.platform == XE_DG1) {
-+		base = DG1_GSC_HECI2_BASE;
-+	} else {
-+		dev_err(&pdev->dev, "Unknown platform\n");
-+		return true;
++	if (!mtd || !info)
++		return -EINVAL;
++
++	spi = mtd->priv;
++	if (WARN_ON(!spi))
++		return -EINVAL;
++
++	if (!IS_ALIGNED(info->addr, SZ_4K) || !IS_ALIGNED(info->len, SZ_4K)) {
++		dev_err(&mtd->dev, "unaligned erase %llx %llx\n",
++			info->addr, info->len);
++		info->fail_addr = MTD_FAIL_ADDR_UNKNOWN;
++		return -EINVAL;
 +	}
 +
-+	writeable_override =
-+		!(xe_mmio_read32(gt, HECI_H_GS1(base)) &
-+		  HECI_FW_STATUS_2_SPI_ACCESS_MODE);
-+	if (writeable_override)
-+		dev_info(&pdev->dev, "SPI access overridden by jumper\n");
-+	return writeable_override;
-+}
++	total_len = info->len;
++	addr = info->addr;
 +
- void xe_spi_init(struct xe_device *xe)
- {
- 	struct intel_dg_spi_dev *spi = &xe->spi;
-@@ -33,7 +64,7 @@ void xe_spi_init(struct xe_device *xe)
- 	if (!HAS_GSC_SPI(xe))
- 		return;
++	mutex_lock(&spi->lock);
++
++	while (total_len > 0) {
++		if (!IS_ALIGNED(addr, SZ_4K) || !IS_ALIGNED(total_len, SZ_4K)) {
++			dev_err(&mtd->dev, "unaligned erase %llx %zx\n", addr, total_len);
++			info->fail_addr = addr;
++			ret = -ERANGE;
++			goto out;
++		}
++
++		idx = spi_get_region(spi, addr);
++		if (idx >= spi->nregions) {
++			dev_err(&mtd->dev, "out of range");
++			info->fail_addr = MTD_FAIL_ADDR_UNKNOWN;
++			ret = -ERANGE;
++			goto out;
++		}
++
++		from = addr - spi->regions[idx].offset;
++		region = spi->regions[idx].id;
++		len = total_len;
++		if (len > spi->regions[idx].size - from)
++			len = spi->regions[idx].size - from;
++
++		dev_dbg(&mtd->dev, "erasing region[%d] %s from %llx len %zx\n",
++			region, spi->regions[idx].name, from, len);
++
++		bytes = spi_erase(spi, region, from, len, &info->fail_addr);
++		if (bytes < 0) {
++			dev_dbg(&mtd->dev, "erase failed with %zd\n", bytes);
++			info->fail_addr += spi->regions[idx].offset;
++			ret = bytes;
++			goto out;
++		}
++
++		addr += len;
++		total_len -= len;
++	}
++
++out:
++	mutex_unlock(&spi->lock);
++	return ret;
+ }
  
--	spi->writeable_override = false;
-+	spi->writeable_override = xe_spi_writeable_override(xe);
- 	spi->bar.parent = &pdev->resource[0];
- 	spi->bar.start = GEN12_GUNIT_SPI_BASE + pdev->resource[0].start;
- 	spi->bar.end = spi->bar.start + GEN12_GUNIT_SPI_SIZE - 1;
+ static int intel_dg_spi_read(struct mtd_info *mtd, loff_t from, size_t len,
+ 			     size_t *retlen, u_char *buf)
+ {
++	struct intel_dg_spi *spi;
++	ssize_t ret;
++	unsigned int idx;
++	u8 region;
++
++	if (!mtd)
++		return -EINVAL;
++
++	spi = mtd->priv;
++	if (WARN_ON(!spi))
++		return -EINVAL;
++
++	idx = spi_get_region(spi, from);
++
++	dev_dbg(&mtd->dev, "reading region[%d] %s from %lld len %zd\n",
++		spi->regions[idx].id, spi->regions[idx].name, from, len);
++
++	if (idx >= spi->nregions) {
++		dev_err(&mtd->dev, "out of ragnge");
++		return -ERANGE;
++	}
++
++	from -= spi->regions[idx].offset;
++	region = spi->regions[idx].id;
++	if (len > spi->regions[idx].size - from)
++		len = spi->regions[idx].size - from;
++
++	mutex_lock(&spi->lock);
++
++	ret = spi_read(spi, region, from, len, buf);
++	if (ret < 0) {
++		dev_dbg(&mtd->dev, "read failed with %zd\n", ret);
++		mutex_unlock(&spi->lock);
++		return ret;
++	}
++
++	*retlen = ret;
++
++	mutex_unlock(&spi->lock);
+ 	return 0;
+ }
+ 
+ static int intel_dg_spi_write(struct mtd_info *mtd, loff_t to, size_t len,
+ 			      size_t *retlen, const u_char *buf)
+ {
++	struct intel_dg_spi *spi;
++	ssize_t ret;
++	unsigned int idx;
++	u8 region;
++
++	if (!mtd)
++		return -EINVAL;
++
++	spi = mtd->priv;
++	if (WARN_ON(!spi))
++		return -EINVAL;
++
++	idx = spi_get_region(spi, to);
++
++	dev_dbg(&mtd->dev, "writing region[%d] %s to %lld len %zd\n",
++		spi->regions[idx].id, spi->regions[idx].name, to, len);
++
++	if (idx >= spi->nregions) {
++		dev_err(&mtd->dev, "out of range");
++		return -ERANGE;
++	}
++
++	to -= spi->regions[idx].offset;
++	region = spi->regions[idx].id;
++	if (len > spi->regions[idx].size - to)
++		len = spi->regions[idx].size - to;
++
++	mutex_lock(&spi->lock);
++
++	ret = spi_write(spi, region, to, len, buf);
++	if (ret < 0) {
++		dev_dbg(&mtd->dev, "write failed with %zd\n", ret);
++		mutex_unlock(&spi->lock);
++		return ret;
++	}
++
++	*retlen = ret;
++
++	mutex_unlock(&spi->lock);
+ 	return 0;
+ }
+ 
 -- 
 2.34.1
 
