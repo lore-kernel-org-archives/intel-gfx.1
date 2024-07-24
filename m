@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EA1A6C3DA61
-	for <intel-gfx@archiver.kernel.org>; Wed, 24 Jul 2024 14:09:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 70B4AC3DA63
+	for <intel-gfx@archiver.kernel.org>; Wed, 24 Jul 2024 14:09:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 791DF10E6EE;
-	Wed, 24 Jul 2024 14:09:39 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AEA5C10E6F3;
+	Wed, 24 Jul 2024 14:09:41 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="QrYwrmxV";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="cJKWvgCY";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.9])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F2F6510E6E5;
- Wed, 24 Jul 2024 14:09:14 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 11D0110E6ED;
+ Wed, 24 Jul 2024 14:09:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1721830155; x=1753366155;
+ t=1721830176; x=1753366176;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=2uaDlZD0uMy4pTVqQ0jeYFWBfu/L/qwRKStrAtd4+nU=;
- b=QrYwrmxVG8MKyMiipmH1r4DTPnn+Mi/X0/IPkDYpPMmM/GEzUehVPQFz
- ToIEUIx9RTtTWnp7p3SU+Xd/gaRYjc2AEdXNw4pHtXnN9bc1VpdyujMm7
- hQa5nOMtRF55eB4QXGTZIo35TwxuW/gMimPodf2MOUJoJst15bFCLAYu+
- C0apfYGLZz+GQsaObTeMizwPcabzQB7KR4mjK26YKjk4xkIb6N/otW2Bi
- aLQbeWow9gLAbDQs8KalKE4+RNB0GeSPaunCJrdeHkeXowvjeG747rlGR
- Hfxx6aiNYm6ruJEi2mvdigpRHSJMLzBlM2K3YRD3/lj8iNMMlMtk8sDVY A==;
-X-CSE-ConnectionGUID: Cya3PBW0TxaDKtq4wace1Q==
-X-CSE-MsgGUID: o7qRePpDRQOIjRcQH8JkTA==
-X-IronPort-AV: E=McAfee;i="6700,10204,11143"; a="30173771"
-X-IronPort-AV: E=Sophos;i="6.09,233,1716274800"; d="scan'208";a="30173771"
+ bh=qWTpkyGmT+qHfbsiAtnPnaMcQltPze6qXR966ASrSdQ=;
+ b=cJKWvgCYeWMlLKIhFSJMmez+5PuBtogVbptHeSn5ShVHtdJE6RncEQOp
+ q9C2J/xRdF2x5Cb6Vlhqs364tLh5KQ7fzbOFbHtIx2YppoZALyZlojeSQ
+ WuS6BacfgNgdEQyZ9ospjsQ+Tvjl7dZISM3h7b0ud3ZjSIXq4+M7ldxaY
+ NLKyXZqfpSfZP/HsfrH57qaxhfM4RCxmrdG/MDHnGovBo6RsFI6kbtHNt
+ b4C4IyM/In8rEk6HQTgUu1GBXFcGXHcyhrNwh2ehX9TQ/6EocGSDdl6Dl
+ Kq2imLT9hXMw/H6rNfpWP0dntDaXXFR74dVqj83jIFPwfq48KQ7HBcFWY w==;
+X-CSE-ConnectionGUID: f2kxynhFQWGPCLz44Z7bWQ==
+X-CSE-MsgGUID: 28fSjshgTrulmYmRxEowWQ==
+X-IronPort-AV: E=McAfee;i="6700,10204,11143"; a="30173848"
+X-IronPort-AV: E=Sophos;i="6.09,233,1716274800"; d="scan'208";a="30173848"
 Received: from orviesa002.jf.intel.com ([10.64.159.142])
  by fmvoesa103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 24 Jul 2024 07:09:14 -0700
-X-CSE-ConnectionGUID: WdKlyL5/T+GQVhLOs5V+wQ==
-X-CSE-MsgGUID: vzcqRJfiQoaC5yPdBjFQhg==
+ 24 Jul 2024 07:09:35 -0700
+X-CSE-ConnectionGUID: gHORDn0PTo6+/Ct2UTB5iQ==
+X-CSE-MsgGUID: gkvas0LWQcWE60tkqBP0wg==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.09,233,1716274800"; d="scan'208";a="83211476"
+X-IronPort-AV: E=Sophos;i="6.09,233,1716274800"; d="scan'208";a="83211555"
 Received: from sannilnx-dsk.jer.intel.com ([10.12.231.107])
  by orviesa002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 24 Jul 2024 07:09:10 -0700
+ 24 Jul 2024 07:09:31 -0700
 From: Alexander Usyskin <alexander.usyskin@intel.com>
 To: Mark Brown <broonie@kernel.org>,
  Lucas De Marchi <lucas.demarchi@intel.com>,
@@ -58,9 +58,9 @@ Cc: Tomas Winkler <tomas.winkler@intel.com>,
  Vitaly Lubart <vitaly.lubart@intel.com>, intel-xe@lists.freedesktop.org,
  dri-devel@lists.freedesktop.org, linux-spi@vger.kernel.org,
  intel-gfx@lists.freedesktop.org
-Subject: [PATCH v2 06/12] spi: intel-dg: align 64bit read and write
-Date: Wed, 24 Jul 2024 17:00:08 +0300
-Message-Id: <20240724140014.428991-7-alexander.usyskin@intel.com>
+Subject: [PATCH v2 10/12] drm/i915/spi: add support for access mode
+Date: Wed, 24 Jul 2024 17:00:12 +0300
+Message-Id: <20240724140014.428991-11-alexander.usyskin@intel.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20240724140014.428991-1-alexander.usyskin@intel.com>
 References: <20240724140014.428991-1-alexander.usyskin@intel.com>
@@ -81,67 +81,64 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-GSC SPI HW errors on quad access overlapping 1K border.
-Align 64bit read and write to avoid readq/writeq over 1K border.
+Check SPI access mode from GSC FW status registers
+and overwrite access status read from SPI descriptor, if needed.
 
 Signed-off-by: Alexander Usyskin <alexander.usyskin@intel.com>
 ---
- drivers/spi/spi-intel-dg.c | 35 +++++++++++++++++++++++++++++++++++
- 1 file changed, 35 insertions(+)
+ drivers/gpu/drm/i915/spi/intel_spi.c | 25 +++++++++++++++++++++++++
+ 1 file changed, 25 insertions(+)
 
-diff --git a/drivers/spi/spi-intel-dg.c b/drivers/spi/spi-intel-dg.c
-index dc4d6c573522..534e99cb336d 100644
---- a/drivers/spi/spi-intel-dg.c
-+++ b/drivers/spi/spi-intel-dg.c
-@@ -231,6 +231,24 @@ static ssize_t spi_write(struct intel_dg_spi *spi, u8 region,
- 		len_s -= to_shift;
- 	}
+diff --git a/drivers/gpu/drm/i915/spi/intel_spi.c b/drivers/gpu/drm/i915/spi/intel_spi.c
+index 8dd4065551e2..747e43313c6f 100644
+--- a/drivers/gpu/drm/i915/spi/intel_spi.c
++++ b/drivers/gpu/drm/i915/spi/intel_spi.c
+@@ -10,6 +10,7 @@
+ #include "spi/intel_spi.h"
  
-+	if (!IS_ALIGNED(to, sizeof(u64)) &&
-+	    ((to ^ (to + len_s)) & GENMASK(31, 10))) {
-+		/*
-+		 * Workaround reads/writes across 1k-aligned addresses
-+		 * (start u32 before 1k, end u32 after)
-+		 * as this fails on hardware.
-+		 */
-+		u32 data;
+ #define GEN12_GUNIT_SPI_SIZE 0x80
++#define HECI_FW_STATUS_2_SPI_ACCESS_MODE BIT(3)
+ 
+ static const struct intel_dg_spi_region regions[INTEL_DG_SPI_REGIONS] = {
+ 	[0] = { .name = "DESCRIPTOR", },
+@@ -22,6 +23,29 @@ static void i915_spi_release_dev(struct device *dev)
+ {
+ }
+ 
++static bool i915_spi_writeable_override(struct drm_i915_private *dev_priv)
++{
++	struct pci_dev *pdev = to_pci_dev(dev_priv->drm.dev);
++	resource_size_t base;
++	bool writeable_override;
 +
-+		memcpy(&data, &buf[0], sizeof(u32));
-+		spi_write32(spi, to, data);
-+		if (spi_error(spi))
-+			return -EIO;
-+		buf += sizeof(u32);
-+		to += sizeof(u32);
-+		len_s -= sizeof(u32);
++	if (IS_DG1(dev_priv)) {
++		base = DG1_GSC_HECI2_BASE;
++	} else if (IS_DG2(dev_priv)) {
++		base = DG2_GSC_HECI2_BASE;
++	} else {
++		dev_err(&pdev->dev, "Unknown platform\n");
++		return true;
 +	}
 +
- 	len8 = ALIGN_DOWN(len_s, sizeof(u64));
- 	for (i = 0; i < len8; i += sizeof(u64)) {
- 		u64 data;
-@@ -289,6 +307,23 @@ static ssize_t spi_read(struct intel_dg_spi *spi, u8 region,
- 		from += from_shift;
- 	}
++	writeable_override =
++		!(intel_uncore_read(&dev_priv->uncore, HECI_FWSTS(base, 2)) &
++		  HECI_FW_STATUS_2_SPI_ACCESS_MODE);
++	if (writeable_override)
++		dev_info(&pdev->dev, "SPI access overridden by jumper\n");
++	return writeable_override;
++}
++
+ void intel_spi_init(struct drm_i915_private *dev_priv)
+ {
+ 	struct intel_dg_spi_dev *spi = &dev_priv->spi;
+@@ -33,6 +57,7 @@ void intel_spi_init(struct drm_i915_private *dev_priv)
+ 	if (!IS_DGFX(dev_priv))
+ 		return;
  
-+	if (!IS_ALIGNED(from, sizeof(u64)) &&
-+	    ((from ^ (from + len_s)) & GENMASK(31, 10))) {
-+		/*
-+		 * Workaround reads/writes across 1k-aligned addresses
-+		 * (start u32 before 1k, end u32 after)
-+		 * as this fails on hardware.
-+		 */
-+		u32 data = spi_read32(spi, from);
-+
-+		if (spi_error(spi))
-+			return -EIO;
-+		memcpy(&buf[0], &data, sizeof(data));
-+		len_s -= sizeof(u32);
-+		buf += sizeof(u32);
-+		from += sizeof(u32);
-+	}
-+
- 	len8 = ALIGN_DOWN(len_s, sizeof(u64));
- 	for (i = 0; i < len8; i += sizeof(u64)) {
- 		u64 data = spi_read64(spi, from + i);
++	spi->writeable_override = i915_spi_writeable_override(dev_priv);
+ 	spi->bar.parent = &pdev->resource[0];
+ 	spi->bar.start = GEN12_GUNIT_SPI_BASE + pdev->resource[0].start;
+ 	spi->bar.end = spi->bar.start + GEN12_GUNIT_SPI_SIZE - 1;
 -- 
 2.34.1
 
