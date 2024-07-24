@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 30C01C3DA7E
-	for <intel-gfx@archiver.kernel.org>; Wed, 24 Jul 2024 14:09:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6D645C3DA7E
+	for <intel-gfx@archiver.kernel.org>; Wed, 24 Jul 2024 14:09:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EA66510E6E5;
-	Wed, 24 Jul 2024 14:09:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C950210E6F0;
+	Wed, 24 Jul 2024 14:09:31 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="EnlQar8J";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="f4QJ4oya";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.9])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 17BF010E6DD;
- Wed, 24 Jul 2024 14:09:04 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E1DD510E6E4;
+ Wed, 24 Jul 2024 14:09:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1721830144; x=1753366144;
+ t=1721830160; x=1753366160;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=T1iJb8J1XuuHNsMCNwH4FrNffBmlFDaLzqAwwE6g5O0=;
- b=EnlQar8JZ9tJsmlGimkcOVt6Blugx3R4Cf7xt6axZZg/wywnakqG4AgE
- v3uJawbWoegbJEsBgcaNN17Rmw1eItGeM/BP/vJmA+Jszg5qNNHULIvX5
- 3z+W8wvXn3cllvhxgVdWFYXThhUBhx+nfTlhFAEQlGnyHF3pF9nktGIHu
- DX5ehZr3YQzDV0zXwYqr87GfWmq5gMvLJaQbUxNq342FRDvBEEwE2zMU4
- mUVxFNLmpu1VvA2kSKp2E0EyvdEnlIGIVCDhNY1XfxhVWInAa3+KuYayS
- K0oGrx01OTY7PqbAY4HqNTA9q33/QnKgJE1Uq7z6us+ER+SxBetn/0171 Q==;
-X-CSE-ConnectionGUID: vTA8cxeERcymArTLrNj19w==
-X-CSE-MsgGUID: CIDUFhWcQxmRbsteLRqwkg==
-X-IronPort-AV: E=McAfee;i="6700,10204,11143"; a="30173726"
-X-IronPort-AV: E=Sophos;i="6.09,233,1716274800"; d="scan'208";a="30173726"
+ bh=11QOs8u+bUy7eaSFVBIk7XtmbUWxd8eyYN7UZ5kbeYM=;
+ b=f4QJ4oyaQtq1JGp9TdOR9oBln93sGlyIXk5h4UTdH0nTcsnnLPvPOb5q
+ EH/Gl095exvQevN0Y/qjnZU8PIXvM0MR1bNcj74znIvIV4tv2HvxA9YEX
+ G9oDjjhrfh/YHwwPHp/vMsmhI36/kdgNSxP3ig/zylA2812BdA7VtqFXW
+ N7qL40ilVLuXnzbF8queaoC/BD8N06NoWZybuy4lwuJ9Z63NelLbhFACw
+ wGrpcaHT2yA24BqEElbm4Y4DY1wQKncPVKPiws2hmVwUOpUjeJlniy+g/
+ HnsXzH8mhOaPYXBypljcE79wrJ2Omfei3ijBmKcwk2XcCSruoZvADgmWY Q==;
+X-CSE-ConnectionGUID: gKsww4YtSo+MHwMT/Nz9rg==
+X-CSE-MsgGUID: rz3VJyK5QxasAHrb28F52A==
+X-IronPort-AV: E=McAfee;i="6700,10204,11143"; a="30173792"
+X-IronPort-AV: E=Sophos;i="6.09,233,1716274800"; d="scan'208";a="30173792"
 Received: from orviesa002.jf.intel.com ([10.64.159.142])
  by fmvoesa103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 24 Jul 2024 07:09:03 -0700
-X-CSE-ConnectionGUID: IPOL82euTO+on8bZ84kLAg==
-X-CSE-MsgGUID: 6iNRaP4mTAaZAF8fIKbL1A==
+ 24 Jul 2024 07:09:19 -0700
+X-CSE-ConnectionGUID: jAWtK+DZQniwI/JoNncp9w==
+X-CSE-MsgGUID: 8lRaHHmkQxS3H+k+PwJWmA==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.09,233,1716274800"; d="scan'208";a="83211415"
+X-IronPort-AV: E=Sophos;i="6.09,233,1716274800"; d="scan'208";a="83211503"
 Received: from sannilnx-dsk.jer.intel.com ([10.12.231.107])
  by orviesa002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 24 Jul 2024 07:08:59 -0700
+ 24 Jul 2024 07:09:15 -0700
 From: Alexander Usyskin <alexander.usyskin@intel.com>
 To: Mark Brown <broonie@kernel.org>,
  Lucas De Marchi <lucas.demarchi@intel.com>,
@@ -58,9 +58,9 @@ Cc: Tomas Winkler <tomas.winkler@intel.com>,
  Vitaly Lubart <vitaly.lubart@intel.com>, intel-xe@lists.freedesktop.org,
  dri-devel@lists.freedesktop.org, linux-spi@vger.kernel.org,
  intel-gfx@lists.freedesktop.org
-Subject: [PATCH v2 04/12] spi: intel-dg: spi register with mtd
-Date: Wed, 24 Jul 2024 17:00:06 +0300
-Message-Id: <20240724140014.428991-5-alexander.usyskin@intel.com>
+Subject: [PATCH v2 07/12] spi: intel-dg: wake card on operations
+Date: Wed, 24 Jul 2024 17:00:09 +0300
+Message-Id: <20240724140014.428991-8-alexander.usyskin@intel.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20240724140014.428991-1-alexander.usyskin@intel.com>
 References: <20240724140014.428991-1-alexander.usyskin@intel.com>
@@ -81,186 +81,142 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Tomas Winkler <tomas.winkler@intel.com>
+Enable runtime PM in spi driver to notify graphics driver that
+whole card should be kept awake while spi operations are
+performed through this driver.
 
-Register the on-die spi device with the mtd subsystem.
-Refcount spi object on _get and _put mtd callbacks.
-
-CC: Rodrigo Vivi <rodrigo.vivi@intel.com>
 CC: Lucas De Marchi <lucas.demarchi@intel.com>
-Signed-off-by: Tomas Winkler <tomas.winkler@intel.com>
 Signed-off-by: Alexander Usyskin <alexander.usyskin@intel.com>
 ---
- drivers/spi/spi-intel-dg.c | 111 +++++++++++++++++++++++++++++++++++++
- 1 file changed, 111 insertions(+)
+ drivers/spi/spi-intel-dg.c | 44 ++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 44 insertions(+)
 
 diff --git a/drivers/spi/spi-intel-dg.c b/drivers/spi/spi-intel-dg.c
-index 63c8292347e7..2ffc2d61fdc8 100644
+index 534e99cb336d..9671c4ec01a9 100644
 --- a/drivers/spi/spi-intel-dg.c
 +++ b/drivers/spi/spi-intel-dg.c
-@@ -10,6 +10,8 @@
- #include <linux/io-64-nonatomic-lo-hi.h>
- #include <linux/kernel.h>
+@@ -12,11 +12,14 @@
  #include <linux/module.h>
-+#include <linux/mtd/mtd.h>
-+#include <linux/mtd/partitions.h>
+ #include <linux/mtd/mtd.h>
+ #include <linux/mtd/partitions.h>
++#include <linux/pm_runtime.h>
  #include <linux/string.h>
  #include <linux/slab.h>
  #include <linux/sizes.h>
-@@ -17,6 +19,8 @@
+ #include <linux/types.h>
  
++#define INTEL_DG_SPI_RPM_TIMEOUT 500
++
  struct intel_dg_spi {
  	struct kref refcnt;
-+	struct mtd_info mtd;
-+	struct mutex lock; /* region access lock */
- 	void __iomem *base;
- 	size_t size;
- 	unsigned int nregions;
-@@ -407,6 +411,23 @@ static int intel_dg_spi_init(struct intel_dg_spi *spi, struct device *device)
- 	return n;
- }
+ 	struct mtd_info mtd;
+@@ -471,6 +474,12 @@ static int intel_dg_spi_erase(struct mtd_info *mtd, struct erase_info *info)
+ 	total_len = info->len;
+ 	addr = info->addr;
  
-+static int intel_dg_spi_erase(struct mtd_info *mtd, struct erase_info *info)
-+{
-+	return 0;
-+}
-+
-+static int intel_dg_spi_read(struct mtd_info *mtd, loff_t from, size_t len,
-+			     size_t *retlen, u_char *buf)
-+{
-+	return 0;
-+}
-+
-+static int intel_dg_spi_write(struct mtd_info *mtd, loff_t to, size_t len,
-+			      size_t *retlen, const u_char *buf)
-+{
-+	return 0;
-+}
-+
- static void intel_dg_spi_release(struct kref *kref)
- {
- 	struct intel_dg_spi *spi = container_of(kref, struct intel_dg_spi, refcnt);
-@@ -415,9 +436,90 @@ static void intel_dg_spi_release(struct kref *kref)
- 	pr_debug("freeing spi memory\n");
- 	for (i = 0; i < spi->nregions; i++)
- 		kfree(spi->regions[i].name);
-+	mutex_destroy(&spi->lock);
- 	kfree(spi);
- }
- 
-+static int intel_dg_spi_get_device(struct mtd_info *mtd)
-+{
-+	struct mtd_info *master;
-+	struct intel_dg_spi *spi;
-+
-+	if (!mtd)
-+		return -ENODEV;
-+
-+	master = mtd_get_master(mtd);
-+	spi = master->priv;
-+	if (WARN_ON(!spi))
-+		return -EINVAL;
-+	pr_debug("get spi %s %d\n", mtd->name, kref_read(&spi->refcnt));
-+	kref_get(&spi->refcnt);
-+
-+	return 0;
-+}
-+
-+static void intel_dg_spi_put_device(struct mtd_info *mtd)
-+{
-+	struct mtd_info *master;
-+	struct intel_dg_spi *spi;
-+
-+	if (!mtd)
-+		return;
-+
-+	master = mtd_get_master(mtd);
-+	spi = master->priv;
-+	if (WARN_ON(!spi))
-+		return;
-+	pr_debug("put spi %s %d\n", mtd->name, kref_read(&spi->refcnt));
-+	kref_put(&spi->refcnt, intel_dg_spi_release);
-+}
-+
-+static int intel_dg_spi_init_mtd(struct intel_dg_spi *spi, struct device *device,
-+			     unsigned int nparts, bool writeable_override)
-+{
-+	unsigned int i;
-+	unsigned int n;
-+	struct mtd_partition *parts = NULL;
-+	int ret;
-+
-+	dev_dbg(device, "registering with mtd\n");
-+
-+	spi->mtd.owner = THIS_MODULE;
-+	spi->mtd.dev.parent = device;
-+	spi->mtd.flags = MTD_CAP_NORFLASH | MTD_WRITEABLE;
-+	spi->mtd.type = MTD_DATAFLASH;
-+	spi->mtd.priv = spi;
-+	spi->mtd._write = intel_dg_spi_write;
-+	spi->mtd._read = intel_dg_spi_read;
-+	spi->mtd._erase = intel_dg_spi_erase;
-+	spi->mtd._get_device = intel_dg_spi_get_device;
-+	spi->mtd._put_device = intel_dg_spi_put_device;
-+	spi->mtd.writesize = SZ_1; /* 1 byte granularity */
-+	spi->mtd.erasesize = SZ_4K; /* 4K bytes granularity */
-+	spi->mtd.size = spi->size;
-+
-+	parts = kcalloc(spi->nregions, sizeof(*parts), GFP_KERNEL);
-+	if (!parts)
-+		return -ENOMEM;
-+
-+	for (i = 0, n = 0; i < spi->nregions && n < nparts; i++) {
-+		if (!spi->regions[i].is_readable)
-+			continue;
-+		parts[n].name = spi->regions[i].name;
-+		parts[n].offset  = spi->regions[i].offset;
-+		parts[n].size = spi->regions[i].size;
-+		if (!spi->regions[i].is_writable && !writeable_override)
-+			parts[n].mask_flags = MTD_WRITEABLE;
-+		n++;
++	ret = pm_runtime_resume_and_get(mtd->dev.parent);
++	if (ret < 0) {
++		dev_err(&mtd->dev, "rpm: get failed %d\n", ret);
++		return ret;
 +	}
 +
-+	ret = mtd_device_register(&spi->mtd, parts, n);
-+
-+	kfree(parts);
-+
-+	return ret;
-+}
-+
- static int intel_dg_spi_probe(struct auxiliary_device *aux_dev,
- 			  const struct auxiliary_device_id *aux_dev_id)
- {
-@@ -449,6 +551,7 @@ static int intel_dg_spi_probe(struct auxiliary_device *aux_dev,
- 	if (!spi)
- 		return -ENOMEM;
+ 	mutex_lock(&spi->lock);
  
-+	mutex_init(&spi->lock);
- 	kref_init(&spi->refcnt);
+ 	while (total_len > 0) {
+@@ -512,6 +521,8 @@ static int intel_dg_spi_erase(struct mtd_info *mtd, struct erase_info *info)
  
- 	spi->nregions = nregions;
-@@ -481,6 +584,12 @@ static int intel_dg_spi_probe(struct auxiliary_device *aux_dev,
- 		goto err;
+ out:
+ 	mutex_unlock(&spi->lock);
++	pm_runtime_mark_last_busy(mtd->dev.parent);
++	pm_runtime_put_autosuspend(mtd->dev.parent);
+ 	return ret;
+ }
+ 
+@@ -545,6 +556,12 @@ static int intel_dg_spi_read(struct mtd_info *mtd, loff_t from, size_t len,
+ 	if (len > spi->regions[idx].size - from)
+ 		len = spi->regions[idx].size - from;
+ 
++	ret = pm_runtime_resume_and_get(mtd->dev.parent);
++	if (ret < 0) {
++		dev_err(&mtd->dev, "rpm: get failed %zd\n", ret);
++		return ret;
++	}
++
+ 	mutex_lock(&spi->lock);
+ 
+ 	ret = spi_read(spi, region, from, len, buf);
+@@ -557,6 +574,8 @@ static int intel_dg_spi_read(struct mtd_info *mtd, loff_t from, size_t len,
+ 	*retlen = ret;
+ 
+ 	mutex_unlock(&spi->lock);
++	pm_runtime_mark_last_busy(mtd->dev.parent);
++	pm_runtime_put_autosuspend(mtd->dev.parent);
+ 	return 0;
+ }
+ 
+@@ -590,6 +609,12 @@ static int intel_dg_spi_write(struct mtd_info *mtd, loff_t to, size_t len,
+ 	if (len > spi->regions[idx].size - to)
+ 		len = spi->regions[idx].size - to;
+ 
++	ret = pm_runtime_resume_and_get(mtd->dev.parent);
++	if (ret < 0) {
++		dev_err(&mtd->dev, "rpm: get failed %zd\n", ret);
++		return ret;
++	}
++
+ 	mutex_lock(&spi->lock);
+ 
+ 	ret = spi_write(spi, region, to, len, buf);
+@@ -602,6 +627,8 @@ static int intel_dg_spi_write(struct mtd_info *mtd, loff_t to, size_t len,
+ 	*retlen = ret;
+ 
+ 	mutex_unlock(&spi->lock);
++	pm_runtime_mark_last_busy(mtd->dev.parent);
++	pm_runtime_put_autosuspend(mtd->dev.parent);
+ 	return 0;
+ }
+ 
+@@ -747,6 +774,17 @@ static int intel_dg_spi_probe(struct auxiliary_device *aux_dev,
+ 		}
  	}
  
-+	ret = intel_dg_spi_init_mtd(spi, device, ret, ispi->writeable_override);
-+	if (ret) {
-+		dev_err(device, "failed init mtd %d\n", ret);
-+		goto err;
++	pm_runtime_enable(device);
++
++	pm_runtime_set_autosuspend_delay(device, INTEL_DG_SPI_RPM_TIMEOUT);
++	pm_runtime_use_autosuspend(device);
++
++	ret = pm_runtime_resume_and_get(device);
++	if (ret < 0) {
++		dev_err(device, "rpm: get failed %d\n", ret);
++		goto err_norpm;
 +	}
 +
+ 	spi->base = devm_ioremap_resource(device, &ispi->bar);
+ 	if (IS_ERR(spi->base)) {
+ 		dev_err(device, "mmio not mapped\n");
+@@ -769,9 +807,13 @@ static int intel_dg_spi_probe(struct auxiliary_device *aux_dev,
+ 
  	dev_set_drvdata(&aux_dev->dev, spi);
  
++	pm_runtime_put(device);
  	return 0;
-@@ -497,6 +606,8 @@ static void intel_dg_spi_remove(struct auxiliary_device *aux_dev)
+ 
+ err:
++	pm_runtime_put(device);
++err_norpm:
++	pm_runtime_disable(device);
+ 	kref_put(&spi->refcnt, intel_dg_spi_release);
+ 	return ret;
+ }
+@@ -783,6 +825,8 @@ static void intel_dg_spi_remove(struct auxiliary_device *aux_dev)
  	if (!spi)
  		return;
  
-+	mtd_device_unregister(&spi->mtd);
++	pm_runtime_disable(&aux_dev->dev);
 +
- 	dev_set_drvdata(&aux_dev->dev, NULL);
+ 	mtd_device_unregister(&spi->mtd);
  
- 	kref_put(&spi->refcnt, intel_dg_spi_release);
+ 	dev_set_drvdata(&aux_dev->dev, NULL);
 -- 
 2.34.1
 
