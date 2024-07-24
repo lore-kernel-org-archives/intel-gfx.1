@@ -4,66 +4,58 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BC128C3DA61
-	for <intel-gfx@archiver.kernel.org>; Wed, 24 Jul 2024 14:11:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AD509C3DA63
+	for <intel-gfx@archiver.kernel.org>; Wed, 24 Jul 2024 14:20:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 095AF89DFF;
-	Wed, 24 Jul 2024 14:11:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4B04E10E6F6;
+	Wed, 24 Jul 2024 14:20:50 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="cvH0BRId";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="Y029SoSm";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.9])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0BBC510E6ED;
- Wed, 24 Jul 2024 14:09:40 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.12])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B9AFA10E6F6;
+ Wed, 24 Jul 2024 14:20:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1721830181; x=1753366181;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=1UEtBVrG2X6xBW4IkFht3ceQs8CbwV3vmpqfzbwcvIg=;
- b=cvH0BRIdIv3eT3aFMMs5USUo9CWTb7YW98v4Lh8d9xWqg7VyzSPhJ3Cd
- xvn4S58DrO0plI7+HxlX/r7k0Tz30aIHMo78I4Pr7ogC+CKwJgl6fQFXC
- ItRJ/Y8aIlMT7YaE592cLJFmwqT4hLMRpZ21FjH2RJkF8ZYTF22E6A0o5
- Rbd4qKk7yDejhi40c/Aj15cN5adgmF+35ysuAHcnC9hIX/8uQkvb3jj1D
- dsGZEZGGKsUrx4NJBJREeIjBheAaHYtNLNpE5BtAzdR78WTr4s44FD9Fv
- 3XpiRR8W9JFlktEmMTGWFQC71OCWvOEubyOLzm22Y8b4p6xl/76SyeQKt w==;
-X-CSE-ConnectionGUID: YIpHo/D3QaKLqOr59IW/Pg==
-X-CSE-MsgGUID: OIUjKkgKSkuICjKqWWMSbA==
-X-IronPort-AV: E=McAfee;i="6700,10204,11143"; a="30173867"
-X-IronPort-AV: E=Sophos;i="6.09,233,1716274800"; d="scan'208";a="30173867"
-Received: from orviesa002.jf.intel.com ([10.64.159.142])
- by fmvoesa103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 24 Jul 2024 07:09:40 -0700
-X-CSE-ConnectionGUID: kWadJb8ERd6QCBgKxq2kRw==
-X-CSE-MsgGUID: KA09bUYqRGuVIW8v6dqdTw==
+ t=1721830828; x=1753366828;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=LbsuRnA3pBGdgtWnJqzFxpL8r08AyFGJ67WO34DQ2Uo=;
+ b=Y029SoSmAxoY7ABmQXln9qWyS2plz5NzHW6F3LHQAYML2EX/D72sqEQk
+ Zy8DfOU/yi3TGZitHLYkTdtsJUf2PYv9KVmE9e/b55at6dqYDuK1A2YV5
+ xHLVlkZqjkioAcnwX5e8MEhot7a8s1IjFoyzKlvePHXAxTWC7r+M4UBWF
+ sl1aDJRw/K+79Xc9Me1z1JZPfReSbSf0mPpP01FC97okFbEfFjg5uh0Xm
+ mzzrnPSuP7rBLHGZ2wI+HMr7mb6l2iqvanifBjxjU1Eh50ChVPuLeI/4J
+ YHrJUkSjY8i7hGePEqKBPEY8RSRa8fRiGzyilxrxPRp4vy40WZyoRnX+h w==;
+X-CSE-ConnectionGUID: Rg+GIStNS3aS8hjxuwJm4w==
+X-CSE-MsgGUID: oJ84VyHnQYO3zRVjOOm7yQ==
+X-IronPort-AV: E=McAfee;i="6700,10204,11143"; a="23374172"
+X-IronPort-AV: E=Sophos;i="6.09,233,1716274800"; d="scan'208";a="23374172"
+Received: from fmviesa009.fm.intel.com ([10.60.135.149])
+ by fmvoesa106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 24 Jul 2024 07:20:21 -0700
+X-CSE-ConnectionGUID: Dzai1fPIRai1AJ8E0rRnGg==
+X-CSE-MsgGUID: yJoboXJwSFGv7ZTEpEaV3Q==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.09,233,1716274800"; d="scan'208";a="83211574"
-Received: from sannilnx-dsk.jer.intel.com ([10.12.231.107])
- by orviesa002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 24 Jul 2024 07:09:36 -0700
-From: Alexander Usyskin <alexander.usyskin@intel.com>
-To: Mark Brown <broonie@kernel.org>,
- Lucas De Marchi <lucas.demarchi@intel.com>,
- Oded Gabbay <ogabbay@kernel.org>,
- =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Daniel Vetter <daniel@ffwll.ch>, Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Tvrtko Ursulin <tursulin@ursulin.net>
-Cc: Tomas Winkler <tomas.winkler@intel.com>,
- Alexander Usyskin <alexander.usyskin@intel.com>,
- Vitaly Lubart <vitaly.lubart@intel.com>, intel-xe@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-spi@vger.kernel.org,
- intel-gfx@lists.freedesktop.org
-Subject: [PATCH v2 11/12] drm/xe/spi: add on-die spi device
-Date: Wed, 24 Jul 2024 17:00:13 +0300
-Message-Id: <20240724140014.428991-12-alexander.usyskin@intel.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20240724140014.428991-1-alexander.usyskin@intel.com>
-References: <20240724140014.428991-1-alexander.usyskin@intel.com>
+X-IronPort-AV: E=Sophos;i="6.09,233,1716274800"; d="scan'208";a="52543697"
+Received: from kniemiec-mobl1.ger.corp.intel.com (HELO intel.com)
+ ([10.245.246.179])
+ by fmviesa009-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 24 Jul 2024 07:20:17 -0700
+From: Krzysztof Niemiec <krzysztof.niemiec@intel.com>
+To: intel-gfx@lists.freedesktop.org
+Cc: dri-devel@lists.freedesktop.org,
+ Chris Wilson <chris.p.wilson@linux.intel.com>,
+ Nitin Gote <nitin.r.gote@intel.com>,
+ Andi Shyti <andi.shyti@linux.intel.com>,
+ Janusz Krzysztofik <janusz.krzysztofik@linux.intel.com>,
+ Nirmoy Das <nirmoy.das@intel.com>,
+ Krzysztof Niemiec <krzysztof.niemiec@intel.com>
+Subject: [PATCH] drm/i915/gt: Stop poisoning the idle kernel context alone
+ when waking up
+Date: Wed, 24 Jul 2024 16:17:47 +0200
+Message-ID: <20240724141745.17345-3-krzysztof.niemiec@intel.com>
+X-Mailer: git-send-email 2.45.2
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-BeenThere: intel-gfx@lists.freedesktop.org
@@ -81,246 +73,110 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Enable access to internal spi on DGFX with GSC/CSC devices
-via a child device.
-The spi child device is exposed via auxiliary bus.
+From: Chris Wilson <chris.p.wilson@linux.intel.com>
 
-Signed-off-by: Alexander Usyskin <alexander.usyskin@intel.com>
+The kernel context was poisoned on wakeup to simulate how the driver
+would cope with bad HW that caused corruption of any context that was
+still resident during power loss, see commit 1d0e2c9359fe ("drm/i915/gt:
+Always poison the kernel_context image before unparking"). However
+clearing the entire context image also poisons the ppHWSP which may
+contain pertinent information (such as the breadcrumb and context
+switches) that we want to preserve. We could restrict the poisoning to
+exclude the ppHWSP, or more simply recognise that we have poisoned the
+HW enough and can leave the verification to after suspend/resume.
+
+References: 1d0e2c9359fe ("drm/i915/gt: Always poison the kernel_context image before unparking")
+Signed-off-by: Chris Wilson <chris.p.wilson@linux.intel.com>
+Signed-off-by: Krzysztof Niemiec <krzysztof.niemiec@intel.com>
 ---
- drivers/gpu/drm/xe/Makefile          |  1 +
- drivers/gpu/drm/xe/xe_device.c       |  3 ++
- drivers/gpu/drm/xe/xe_device_types.h |  8 +++
- drivers/gpu/drm/xe/xe_pci.c          |  5 ++
- drivers/gpu/drm/xe/xe_spi.c          | 73 ++++++++++++++++++++++++++++
- drivers/gpu/drm/xe/xe_spi.h          | 15 ++++++
- 6 files changed, 105 insertions(+)
- create mode 100644 drivers/gpu/drm/xe/xe_spi.c
- create mode 100644 drivers/gpu/drm/xe/xe_spi.h
+ .../gpu/drm/i915/gt/intel_engine_heartbeat.c  |  4 ++++
+ drivers/gpu/drm/i915/gt/intel_engine_pm.c     | 24 -------------------
+ drivers/gpu/drm/i915/gt/intel_lrc.c           | 12 ++++++----
+ 3 files changed, 12 insertions(+), 28 deletions(-)
 
-diff --git a/drivers/gpu/drm/xe/Makefile b/drivers/gpu/drm/xe/Makefile
-index b165bbf52aef..7dd1baa1a85f 100644
---- a/drivers/gpu/drm/xe/Makefile
-+++ b/drivers/gpu/drm/xe/Makefile
-@@ -130,6 +130,7 @@ xe-y += xe_bb.o \
- 	xe_ring_ops.o \
- 	xe_sa.o \
- 	xe_sched_job.o \
-+	xe_spi.o \
- 	xe_step.o \
- 	xe_sync.o \
- 	xe_tile.o \
-diff --git a/drivers/gpu/drm/xe/xe_device.c b/drivers/gpu/drm/xe/xe_device.c
-index 5ef9b50a20d0..8fca0ea65882 100644
---- a/drivers/gpu/drm/xe/xe_device.c
-+++ b/drivers/gpu/drm/xe/xe_device.c
-@@ -40,6 +40,7 @@
- #include "xe_pcode.h"
- #include "xe_pm.h"
- #include "xe_query.h"
-+#include "xe_spi.h"
- #include "xe_sriov.h"
- #include "xe_tile.h"
- #include "xe_ttm_stolen_mgr.h"
-@@ -634,6 +635,7 @@ int xe_device_probe(struct xe_device *xe)
- 			goto err_fini_gt;
+diff --git a/drivers/gpu/drm/i915/gt/intel_engine_heartbeat.c b/drivers/gpu/drm/i915/gt/intel_engine_heartbeat.c
+index 8d4bb95f8424..7d69bc496283 100644
+--- a/drivers/gpu/drm/i915/gt/intel_engine_heartbeat.c
++++ b/drivers/gpu/drm/i915/gt/intel_engine_heartbeat.c
+@@ -127,6 +127,10 @@ reset_engine(struct intel_engine_cs *engine, struct i915_request *rq)
+ 		 */
+ 		intel_guc_find_hung_context(engine);
+ 
++	/* If the heartbeat failed to resume after reset, declare an emergency. */
++	if (xchg(&rq->fence.error, -ENODEV) == -ENODEV)
++		intel_gt_set_wedged(engine->gt);
++
+ 	intel_gt_handle_error(engine->gt, engine->mask,
+ 			      I915_ERROR_CAPTURE,
+ 			      "stopped heartbeat on %s",
+diff --git a/drivers/gpu/drm/i915/gt/intel_engine_pm.c b/drivers/gpu/drm/i915/gt/intel_engine_pm.c
+index fb7bff27b45a..a5c42b784168 100644
+--- a/drivers/gpu/drm/i915/gt/intel_engine_pm.c
++++ b/drivers/gpu/drm/i915/gt/intel_engine_pm.c
+@@ -59,35 +59,11 @@ static int __engine_unpark(struct intel_wakeref *wf)
+ {
+ 	struct intel_engine_cs *engine =
+ 		container_of(wf, typeof(*engine), wakeref);
+-	struct intel_context *ce;
+ 
+ 	ENGINE_TRACE(engine, "\n");
+ 
+ 	engine->wakeref_track = intel_gt_pm_get(engine->gt);
+ 
+-	/* Discard stale context state from across idling */
+-	ce = engine->kernel_context;
+-	if (ce) {
+-		GEM_BUG_ON(test_bit(CONTEXT_VALID_BIT, &ce->flags));
+-
+-		/* Flush all pending HW writes before we touch the context */
+-		while (unlikely(intel_context_inflight(ce)))
+-			intel_engine_flush_submission(engine);
+-
+-		/* First poison the image to verify we never fully trust it */
+-		dbg_poison_ce(ce);
+-
+-		/* Scrub the context image after our loss of control */
+-		ce->ops->reset(ce);
+-
+-		CE_TRACE(ce, "reset { seqno:%x, *hwsp:%x, ring:%x }\n",
+-			 ce->timeline->seqno,
+-			 READ_ONCE(*ce->timeline->hwsp_seqno),
+-			 ce->ring->emit);
+-		GEM_BUG_ON(ce->timeline->seqno !=
+-			   READ_ONCE(*ce->timeline->hwsp_seqno));
+-	}
+-
+ 	if (engine->unpark)
+ 		engine->unpark(engine);
+ 
+diff --git a/drivers/gpu/drm/i915/gt/intel_lrc.c b/drivers/gpu/drm/i915/gt/intel_lrc.c
+index 7bd5d2c29056..f742707b703e 100644
+--- a/drivers/gpu/drm/i915/gt/intel_lrc.c
++++ b/drivers/gpu/drm/i915/gt/intel_lrc.c
+@@ -1017,15 +1017,19 @@ void lrc_init_state(struct intel_context *ce,
+ 
+ 	set_redzone(state, engine);
+ 
++	/* Clear the ppHWSP (inc. per-context counters) */
++	if (!test_bit(CONTEXT_VALID_BIT, &ce->flags))
++		memset(state, 0, LRC_STATE_OFFSET);
++
+ 	if (ce->default_state) {
+-		shmem_read(ce->default_state, 0, state, engine->context_size);
++		shmem_read(ce->default_state, /* exclude ppHWSP */
++			   LRC_STATE_OFFSET,
++			   state + LRC_STATE_OFFSET,
++			   engine->context_size - LRC_STATE_OFFSET);
+ 		__set_bit(CONTEXT_VALID_BIT, &ce->flags);
+ 		inhibit = false;
  	}
  
-+	xe_spi_init(xe);
- 	xe_heci_gsc_init(xe);
- 
- 	err = xe_display_init(xe);
-@@ -688,6 +690,7 @@ void xe_device_remove(struct xe_device *xe)
- 	xe_display_fini(xe);
- 
- 	xe_heci_gsc_fini(xe);
-+	xe_spi_fini(xe);
- 
- 	for_each_gt(gt, xe, id)
- 		xe_gt_remove(gt);
-diff --git a/drivers/gpu/drm/xe/xe_device_types.h b/drivers/gpu/drm/xe/xe_device_types.h
-index 2e62450d86e1..77ffec80f3d0 100644
---- a/drivers/gpu/drm/xe/xe_device_types.h
-+++ b/drivers/gpu/drm/xe/xe_device_types.h
-@@ -12,6 +12,8 @@
- #include <drm/drm_file.h>
- #include <drm/ttm/ttm_device.h>
- 
-+#include <linux/intel_dg_spi_aux.h>
-+
- #include "xe_devcoredump_types.h"
- #include "xe_heci_gsc.h"
- #include "xe_gt_types.h"
-@@ -39,6 +41,7 @@ struct xe_pat_ops;
- #define MEDIA_VERx100(xe) ((xe)->info.media_verx100)
- #define IS_DGFX(xe) ((xe)->info.is_dgfx)
- #define HAS_HECI_GSCFI(xe) ((xe)->info.has_heci_gscfi)
-+#define HAS_GSC_SPI(xe) ((xe)->info.has_gsc_spi)
- 
- #define XE_VRAM_FLAGS_NEED64K		BIT(0)
- 
-@@ -279,6 +282,8 @@ struct xe_device {
- 		u8 skip_pcode:1;
- 		/** @info.has_heci_gscfi: device has heci gscfi */
- 		u8 has_heci_gscfi:1;
-+		/** @info.has_gsc_spi: device has gsc spi */
-+		u8 has_gsc_spi:1;
- 		/** @info.skip_guc_pc: Skip GuC based PM feature init */
- 		u8 skip_guc_pc:1;
- 
-@@ -456,6 +461,9 @@ struct xe_device {
- 	/** @heci_gsc: graphics security controller */
- 	struct xe_heci_gsc heci_gsc;
- 
-+	/** @spi: discrete graphics spi */
-+	struct intel_dg_spi_dev spi;
-+
- 	/** @needs_flr_on_fini: requests function-reset on fini */
- 	bool needs_flr_on_fini;
- 
-diff --git a/drivers/gpu/drm/xe/xe_pci.c b/drivers/gpu/drm/xe/xe_pci.c
-index f326dbb1cecd..345b25c3a133 100644
---- a/drivers/gpu/drm/xe/xe_pci.c
-+++ b/drivers/gpu/drm/xe/xe_pci.c
-@@ -62,6 +62,7 @@ struct xe_device_desc {
- 
- 	u8 has_display:1;
- 	u8 has_heci_gscfi:1;
-+	u8 has_gsc_spi:1;
- 	u8 has_llc:1;
- 	u8 has_mmio_ext:1;
- 	u8 has_sriov:1;
-@@ -281,6 +282,7 @@ static const struct xe_device_desc dg1_desc = {
- 	PLATFORM(XE_DG1),
- 	.has_display = true,
- 	.has_heci_gscfi = 1,
-+	.has_gsc_spi = 1,
- 	.require_force_probe = true,
- };
- 
-@@ -292,6 +294,7 @@ static const u16 dg2_g12_ids[] = { XE_DG2_G12_IDS(NOP), 0 };
- 	DGFX_FEATURES, \
- 	PLATFORM(XE_DG2), \
- 	.has_heci_gscfi = 1, \
-+	.has_gsc_spi = 1, \
- 	.subplatforms = (const struct xe_subplatform_desc[]) { \
- 		{ XE_SUBPLATFORM_DG2_G10, "G10", dg2_g10_ids }, \
- 		{ XE_SUBPLATFORM_DG2_G11, "G11", dg2_g11_ids }, \
-@@ -323,6 +326,7 @@ static const __maybe_unused struct xe_device_desc pvc_desc = {
- 	PLATFORM(XE_PVC),
- 	.has_display = false,
- 	.has_heci_gscfi = 1,
-+	.has_gsc_spi = 1,
- 	.require_force_probe = true,
- };
- 
-@@ -560,6 +564,7 @@ static int xe_info_init_early(struct xe_device *xe,
- 
- 	xe->info.is_dgfx = desc->is_dgfx;
- 	xe->info.has_heci_gscfi = desc->has_heci_gscfi;
-+	xe->info.has_gsc_spi = desc->has_gsc_spi;
- 	xe->info.has_llc = desc->has_llc;
- 	xe->info.has_mmio_ext = desc->has_mmio_ext;
- 	xe->info.has_sriov = desc->has_sriov;
-diff --git a/drivers/gpu/drm/xe/xe_spi.c b/drivers/gpu/drm/xe/xe_spi.c
-new file mode 100644
-index 000000000000..f8ad060f97f2
---- /dev/null
-+++ b/drivers/gpu/drm/xe/xe_spi.c
-@@ -0,0 +1,73 @@
-+// SPDX-License-Identifier: MIT
-+/*
-+ * Copyright(c) 2019-2024, Intel Corporation. All rights reserved.
-+ */
-+
-+#include <linux/intel_dg_spi_aux.h>
-+#include <linux/pci.h>
-+#include "xe_device_types.h"
-+#include "xe_spi.h"
-+
-+#define GEN12_GUNIT_SPI_BASE 0x00102040
-+#define GEN12_GUNIT_SPI_SIZE 0x80
-+#define HECI_FW_STATUS_2_SPI_ACCESS_MODE BIT(3)
-+
-+static const struct intel_dg_spi_region regions[INTEL_DG_SPI_REGIONS] = {
-+	[0] = { .name = "DESCRIPTOR", },
-+	[2] = { .name = "GSC", },
-+	[11] = { .name = "OptionROM", },
-+	[12] = { .name = "DAM", },
-+};
-+
-+static void xe_spi_release_dev(struct device *dev)
-+{
-+}
-+
-+void xe_spi_init(struct xe_device *xe)
-+{
-+	struct intel_dg_spi_dev *spi = &xe->spi;
-+	struct pci_dev *pdev = to_pci_dev(xe->drm.dev);
-+	struct auxiliary_device *aux_dev = &spi->aux_dev;
-+	int ret;
-+
-+	if (!HAS_GSC_SPI(xe))
-+		return;
-+
-+	spi->writeable_override = false;
-+	spi->bar.parent = &pdev->resource[0];
-+	spi->bar.start = GEN12_GUNIT_SPI_BASE + pdev->resource[0].start;
-+	spi->bar.end = spi->bar.start + GEN12_GUNIT_SPI_SIZE - 1;
-+	spi->bar.flags = IORESOURCE_MEM;
-+	spi->bar.desc = IORES_DESC_NONE;
-+	spi->regions = regions;
-+
-+	aux_dev->name = "spi";
-+	aux_dev->id = (pci_domain_nr(pdev->bus) << 16) |
-+		       PCI_DEVID(pdev->bus->number, pdev->devfn);
-+	aux_dev->dev.parent = &pdev->dev;
-+	aux_dev->dev.release = xe_spi_release_dev;
-+
-+	ret = auxiliary_device_init(aux_dev);
-+	if (ret) {
-+		dev_err(&pdev->dev, "xe-spi aux init failed %d\n", ret);
-+		return;
-+	}
-+
-+	ret = auxiliary_device_add(aux_dev);
-+	if (ret) {
-+		dev_err(&pdev->dev, "xe-spi aux add failed %d\n", ret);
-+		auxiliary_device_uninit(aux_dev);
-+		return;
-+	}
-+}
-+
-+void xe_spi_fini(struct xe_device *xe)
-+{
-+	struct intel_dg_spi_dev *spi = &xe->spi;
-+
-+	if (!HAS_GSC_SPI(xe))
-+		return;
-+
-+	auxiliary_device_delete(&spi->aux_dev);
-+	auxiliary_device_uninit(&spi->aux_dev);
-+}
-diff --git a/drivers/gpu/drm/xe/xe_spi.h b/drivers/gpu/drm/xe/xe_spi.h
-new file mode 100644
-index 000000000000..aef79893a864
---- /dev/null
-+++ b/drivers/gpu/drm/xe/xe_spi.h
-@@ -0,0 +1,15 @@
-+/* SPDX-License-Identifier: MIT */
-+/*
-+ * Copyright(c) 2019-2024 Intel Corporation. All rights reserved.
-+ */
-+
-+#ifndef __XE_SPI_H__
-+#define __XE_SPI_H__
-+
-+struct xe_device;
-+
-+void xe_spi_init(struct xe_device *xe);
-+
-+void xe_spi_fini(struct xe_device *xe);
-+
-+#endif /* __XE_SPI_H__ */
+-	/* Clear the ppHWSP (inc. per-context counters) */
+-	memset(state, 0, PAGE_SIZE);
+-
+ 	/* Clear the indirect wa and storage */
+ 	if (ce->wa_bb_page)
+ 		memset(state + context_wa_bb_offset(ce), 0, PAGE_SIZE);
 -- 
-2.34.1
+2.43.0
 
