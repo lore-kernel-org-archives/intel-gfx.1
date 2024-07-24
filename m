@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D03FFC3DA61
-	for <intel-gfx@archiver.kernel.org>; Wed, 24 Jul 2024 14:09:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 284C5C3DA61
+	for <intel-gfx@archiver.kernel.org>; Wed, 24 Jul 2024 14:09:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D527010E6F4;
-	Wed, 24 Jul 2024 14:09:52 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9C3DE10E703;
+	Wed, 24 Jul 2024 14:09:56 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="Dz8u7Luh";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="nnbilA2U";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.9])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4FF6910E6EA;
- Wed, 24 Jul 2024 14:09:26 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DF61210E6EC;
+ Wed, 24 Jul 2024 14:09:45 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1721830166; x=1753366166;
+ t=1721830186; x=1753366186;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=2k786t6oEuajfFzvVqjudrET3qO6ACTRHww54IOI0F8=;
- b=Dz8u7Luh1i6YD4J/IaJooRtyBkfstIQ+IW9EERHAH+ykobiRMrySp/1G
- A8KHNkIEZg3bkPZ46IDWUtD04rh/TOqlNkIE7ny54Dc/X5DnixNAhp2MV
- Z6E6qw7Nf5bzvhgxSfG0c1vbC9KO5jmJ/aup92eU/JBIxoWyydXIFZE8T
- visTkXqfTllOWRxYncGdfbBBd/NAy2BDBLudxd8ZKFOGxYfM+/LPCCPTO
- mZi2RquAEHwFW/WVSZ361ymIeLyLdCsItIlbGNy5j7rCV+ay0ZOXEB1eq
- B+JoU8iIeHFCm6E0oQ/f+lJ4YfdF2VGyLxVxZ7R9KKuiIsUrvViea5Ph3 A==;
-X-CSE-ConnectionGUID: qYNbdUssSeOiaOl7Ywl9kA==
-X-CSE-MsgGUID: BaONusDhT5eRiA4LgJ1Hfw==
-X-IronPort-AV: E=McAfee;i="6700,10204,11143"; a="30173813"
-X-IronPort-AV: E=Sophos;i="6.09,233,1716274800"; d="scan'208";a="30173813"
+ bh=toFn/lljtSKhDgC3VdyIaHY5ZKP1iLDgCoxmZOU3Dds=;
+ b=nnbilA2UxygZTMpq4JQzsGnewV8+mCWcw8hz/X5BwjtXsTgMETGKVt50
+ bxzOKYXu/jQXKmU445OyZip8NbCEaiaWHATY0xY86iAFZGyne3zqUpo+h
+ SVdcTC6yWjVQplO4pwX+TBdb4jxBFrpiWojOXOuRcg851+uZjC/TzYuFl
+ mqhoMLJYWMvXwffSvt0McldVf+CbQohDlU/MKDQkQUdxGKiQe85sN5ggK
+ dJJNXildIfzHI9N3dEeW1Eq3Ae/mSoFbtSBkGQ5iOS9IbZ9hryk8iKjMc
+ xz2FanzrYa4CQziOBnXGq0gjOJZBXmdJYaCputupdVTsRi07TPcdC8M1w w==;
+X-CSE-ConnectionGUID: iONaaaJ5TlaKEbe9lU8FvA==
+X-CSE-MsgGUID: igKyh0beTAaKb3xfCo5z4Q==
+X-IronPort-AV: E=McAfee;i="6700,10204,11143"; a="30173876"
+X-IronPort-AV: E=Sophos;i="6.09,233,1716274800"; d="scan'208";a="30173876"
 Received: from orviesa002.jf.intel.com ([10.64.159.142])
  by fmvoesa103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 24 Jul 2024 07:09:25 -0700
-X-CSE-ConnectionGUID: 9y7QOT/gSHyrqS69UB/awQ==
-X-CSE-MsgGUID: bEU1SiE8QCufcTJKnKxLIw==
+ 24 Jul 2024 07:09:46 -0700
+X-CSE-ConnectionGUID: vMRayiSPTduEdlGyTgIc1A==
+X-CSE-MsgGUID: GlKCXV81QkermhrP4Cxg0w==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.09,233,1716274800"; d="scan'208";a="83211512"
+X-IronPort-AV: E=Sophos;i="6.09,233,1716274800"; d="scan'208";a="83211593"
 Received: from sannilnx-dsk.jer.intel.com ([10.12.231.107])
  by orviesa002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 24 Jul 2024 07:09:20 -0700
+ 24 Jul 2024 07:09:41 -0700
 From: Alexander Usyskin <alexander.usyskin@intel.com>
 To: Mark Brown <broonie@kernel.org>,
  Lucas De Marchi <lucas.demarchi@intel.com>,
@@ -58,9 +58,9 @@ Cc: Tomas Winkler <tomas.winkler@intel.com>,
  Vitaly Lubart <vitaly.lubart@intel.com>, intel-xe@lists.freedesktop.org,
  dri-devel@lists.freedesktop.org, linux-spi@vger.kernel.org,
  intel-gfx@lists.freedesktop.org
-Subject: [PATCH v2 08/12] drm/i915/spi: add spi device for discrete graphics
-Date: Wed, 24 Jul 2024 17:00:10 +0300
-Message-Id: <20240724140014.428991-9-alexander.usyskin@intel.com>
+Subject: [PATCH v2 12/12] drm/xe/spi: add support for access mode
+Date: Wed, 24 Jul 2024 17:00:14 +0300
+Message-Id: <20240724140014.428991-13-alexander.usyskin@intel.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20240724140014.428991-1-alexander.usyskin@intel.com>
 References: <20240724140014.428991-1-alexander.usyskin@intel.com>
@@ -81,197 +81,111 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Tomas Winkler <tomas.winkler@intel.com>
+Check SPI access mode from GSC FW status registers
+and overwrite access status read from SPI descriptor, if needed.
 
-Enable access to internal spi on DGFX devices via a child device.
-The spi child device is exposed via auxiliary bus.
-
-CC: Rodrigo Vivi <rodrigo.vivi@intel.com>
-CC: Lucas De Marchi <lucas.demarchi@intel.com>
-Signed-off-by: Tomas Winkler <tomas.winkler@intel.com>
 Signed-off-by: Alexander Usyskin <alexander.usyskin@intel.com>
 ---
- drivers/gpu/drm/i915/Makefile        |  4 ++
- drivers/gpu/drm/i915/i915_driver.c   |  6 +++
- drivers/gpu/drm/i915/i915_drv.h      |  4 ++
- drivers/gpu/drm/i915/i915_reg.h      |  1 +
- drivers/gpu/drm/i915/spi/intel_spi.c | 64 ++++++++++++++++++++++++++++
- drivers/gpu/drm/i915/spi/intel_spi.h | 15 +++++++
- 6 files changed, 94 insertions(+)
- create mode 100644 drivers/gpu/drm/i915/spi/intel_spi.c
- create mode 100644 drivers/gpu/drm/i915/spi/intel_spi.h
+ drivers/gpu/drm/xe/regs/xe_gsc_regs.h |  5 ++++
+ drivers/gpu/drm/xe/xe_heci_gsc.c      |  5 +---
+ drivers/gpu/drm/xe/xe_spi.c           | 33 ++++++++++++++++++++++++++-
+ 3 files changed, 38 insertions(+), 5 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/Makefile b/drivers/gpu/drm/i915/Makefile
-index c8c8b31da4fb..fe4882e19f70 100644
---- a/drivers/gpu/drm/i915/Makefile
-+++ b/drivers/gpu/drm/i915/Makefile
-@@ -234,6 +234,10 @@ i915-y += \
- i915-y += \
- 	gt/intel_gsc.o
- 
-+# graphics spi device (DGFX) support
-+i915-y += \
-+	spi/intel_spi.o
-+
- # graphics hardware monitoring (HWMON) support
- i915-$(CONFIG_HWMON) += \
- 	i915_hwmon.o
-diff --git a/drivers/gpu/drm/i915/i915_driver.c b/drivers/gpu/drm/i915/i915_driver.c
-index 161b21eff694..49916a586dac 100644
---- a/drivers/gpu/drm/i915/i915_driver.c
-+++ b/drivers/gpu/drm/i915/i915_driver.c
-@@ -81,6 +81,8 @@
- #include "soc/intel_dram.h"
- #include "soc/intel_gmch.h"
- 
-+#include "spi/intel_spi.h"
-+
- #include "i915_debugfs.h"
- #include "i915_driver.h"
- #include "i915_drm_client.h"
-@@ -619,6 +621,8 @@ static void i915_driver_register(struct drm_i915_private *dev_priv)
- 	/* Depends on sysfs having been initialized */
- 	i915_perf_register(dev_priv);
- 
-+	intel_spi_init(dev_priv);
-+
- 	for_each_gt(gt, dev_priv, i)
- 		intel_gt_driver_register(gt);
- 
-@@ -662,6 +666,8 @@ static void i915_driver_unregister(struct drm_i915_private *dev_priv)
- 
- 	i915_hwmon_unregister(dev_priv);
- 
-+	intel_spi_fini(dev_priv);
-+
- 	i915_perf_unregister(dev_priv);
- 	i915_pmu_unregister(dev_priv);
- 
-diff --git a/drivers/gpu/drm/i915/i915_drv.h b/drivers/gpu/drm/i915/i915_drv.h
-index ee0d7d5f135d..3d4144d600ce 100644
---- a/drivers/gpu/drm/i915/i915_drv.h
-+++ b/drivers/gpu/drm/i915/i915_drv.h
-@@ -34,6 +34,8 @@
- 
- #include <linux/pm_qos.h>
- 
-+#include <linux/intel_dg_spi_aux.h>
-+
- #include <drm/ttm/ttm_device.h>
- 
- #include "display/intel_display_limits.h"
-@@ -314,6 +316,8 @@ struct drm_i915_private {
- 
- 	struct i915_perf perf;
- 
-+	struct intel_dg_spi_dev spi;
-+
- 	struct i915_hwmon *hwmon;
- 
- 	struct intel_gt *gt[I915_MAX_GT];
-diff --git a/drivers/gpu/drm/i915/i915_reg.h b/drivers/gpu/drm/i915/i915_reg.h
-index e22a82a5ddd7..fe7a296eb84b 100644
---- a/drivers/gpu/drm/i915/i915_reg.h
-+++ b/drivers/gpu/drm/i915/i915_reg.h
-@@ -323,6 +323,7 @@
- #define DG2_GSC_HECI2_BASE	0x00374000
+diff --git a/drivers/gpu/drm/xe/regs/xe_gsc_regs.h b/drivers/gpu/drm/xe/regs/xe_gsc_regs.h
+index e2a925be137c..28c049e60e66 100644
+--- a/drivers/gpu/drm/xe/regs/xe_gsc_regs.h
++++ b/drivers/gpu/drm/xe/regs/xe_gsc_regs.h
+@@ -16,6 +16,11 @@
  #define MTL_GSC_HECI1_BASE	0x00116000
  #define MTL_GSC_HECI2_BASE	0x00117000
-+#define GEN12_GUNIT_SPI_BASE	0x00102040
  
- #define HECI_H_CSR(base)	_MMIO((base) + 0x4)
++#define DG1_GSC_HECI2_BASE	0x00259000
++#define PVC_GSC_HECI2_BASE	0x00285000
++#define DG2_GSC_HECI2_BASE	0x00374000
++
++
+ #define HECI_H_CSR(base)	XE_REG((base) + 0x4)
  #define   HECI_H_CSR_IE		REG_BIT(0)
-diff --git a/drivers/gpu/drm/i915/spi/intel_spi.c b/drivers/gpu/drm/i915/spi/intel_spi.c
-new file mode 100644
-index 000000000000..17e4c7861ef5
---- /dev/null
-+++ b/drivers/gpu/drm/i915/spi/intel_spi.c
-@@ -0,0 +1,64 @@
-+// SPDX-License-Identifier: MIT
-+/*
-+ * Copyright(c) 2019-2024, Intel Corporation. All rights reserved.
-+ */
-+
-+#include <linux/intel_dg_spi_aux.h>
-+#include <linux/irq.h>
-+#include "i915_reg.h"
-+#include "i915_drv.h"
-+#include "spi/intel_spi.h"
-+
-+#define GEN12_GUNIT_SPI_SIZE 0x80
-+
-+static void i915_spi_release_dev(struct device *dev)
+ #define   HECI_H_CSR_IS		REG_BIT(1)
+diff --git a/drivers/gpu/drm/xe/xe_heci_gsc.c b/drivers/gpu/drm/xe/xe_heci_gsc.c
+index 1c9d38b6f5f1..d3ff3ba678f0 100644
+--- a/drivers/gpu/drm/xe/xe_heci_gsc.c
++++ b/drivers/gpu/drm/xe/xe_heci_gsc.c
+@@ -11,14 +11,11 @@
+ #include "xe_device_types.h"
+ #include "xe_drv.h"
+ #include "xe_heci_gsc.h"
++#include "regs/xe_gsc_regs.h"
+ #include "xe_platform_types.h"
+ 
+ #define GSC_BAR_LENGTH  0x00000FFC
+ 
+-#define DG1_GSC_HECI2_BASE			0x259000
+-#define PVC_GSC_HECI2_BASE			0x285000
+-#define DG2_GSC_HECI2_BASE			0x374000
+-
+ static void heci_gsc_irq_mask(struct irq_data *d)
+ {
+ 	/* generic irq handling */
+diff --git a/drivers/gpu/drm/xe/xe_spi.c b/drivers/gpu/drm/xe/xe_spi.c
+index f8ad060f97f2..9019672bd464 100644
+--- a/drivers/gpu/drm/xe/xe_spi.c
++++ b/drivers/gpu/drm/xe/xe_spi.c
+@@ -5,7 +5,10 @@
+ 
+ #include <linux/intel_dg_spi_aux.h>
+ #include <linux/pci.h>
++#include "xe_device.h"
+ #include "xe_device_types.h"
++#include "xe_mmio.h"
++#include "regs/xe_gsc_regs.h"
+ #include "xe_spi.h"
+ 
+ #define GEN12_GUNIT_SPI_BASE 0x00102040
+@@ -23,6 +26,34 @@ static void xe_spi_release_dev(struct device *dev)
+ {
+ }
+ 
++static bool xe_spi_writeable_override(struct xe_device *xe)
 +{
-+}
++	struct xe_gt *gt = xe_root_mmio_gt(xe);
++	struct pci_dev *pdev = to_pci_dev(xe->drm.dev);
++	resource_size_t base;
++	bool writeable_override;
 +
-+void intel_spi_init(struct drm_i915_private *dev_priv)
-+{
-+	struct intel_dg_spi_dev *spi = &dev_priv->spi;
-+	struct pci_dev *pdev = to_pci_dev(dev_priv->drm.dev);
-+	struct auxiliary_device *aux_dev = &spi->aux_dev;
-+	int ret;
-+
-+	/* Only the DGFX devices have internal SPI */
-+	if (!IS_DGFX(dev_priv))
-+		return;
-+
-+	spi->bar.parent = &pdev->resource[0];
-+	spi->bar.start = GEN12_GUNIT_SPI_BASE + pdev->resource[0].start;
-+	spi->bar.end = spi->bar.start + GEN12_GUNIT_SPI_SIZE - 1;
-+	spi->bar.flags = IORESOURCE_MEM;
-+	spi->bar.desc = IORES_DESC_NONE;
-+
-+	aux_dev->name = "spi";
-+	aux_dev->id = (pci_domain_nr(pdev->bus) << 16) |
-+		       PCI_DEVID(pdev->bus->number, pdev->devfn);
-+	aux_dev->dev.parent = &pdev->dev;
-+	aux_dev->dev.release = i915_spi_release_dev;
-+
-+	ret = auxiliary_device_init(aux_dev);
-+	if (ret) {
-+		dev_err(&pdev->dev, "i915-spi aux init failed %d\n", ret);
-+		return;
++	if (xe->info.platform == XE_BATTLEMAGE) {
++		base = DG2_GSC_HECI2_BASE;
++	} else if (xe->info.platform == XE_PVC) {
++		base = PVC_GSC_HECI2_BASE;
++	} else if (xe->info.platform == XE_DG2) {
++		base = DG2_GSC_HECI2_BASE;
++	} else if (xe->info.platform == XE_DG1) {
++		base = DG1_GSC_HECI2_BASE;
++	} else {
++		dev_err(&pdev->dev, "Unknown platform\n");
++		return true;
 +	}
 +
-+	ret = auxiliary_device_add(aux_dev);
-+	if (ret) {
-+		dev_err(&pdev->dev, "i915-spi aux add failed %d\n", ret);
-+		auxiliary_device_uninit(aux_dev);
-+		return;
-+	}
++	writeable_override =
++		!(xe_mmio_read32(gt, HECI_H_GS1(base)) &
++		  HECI_FW_STATUS_2_SPI_ACCESS_MODE);
++	if (writeable_override)
++		dev_info(&pdev->dev, "SPI access overridden by jumper\n");
++	return writeable_override;
 +}
 +
-+void intel_spi_fini(struct drm_i915_private *dev_priv)
-+{
-+	struct intel_dg_spi_dev *spi = &dev_priv->spi;
-+	struct pci_dev *pdev = to_pci_dev(dev_priv->drm.dev);
-+
-+	dev_dbg(&pdev->dev, "removing i915-spi cell\n");
-+
-+	auxiliary_device_delete(&spi->aux_dev);
-+	auxiliary_device_uninit(&spi->aux_dev);
-+}
-diff --git a/drivers/gpu/drm/i915/spi/intel_spi.h b/drivers/gpu/drm/i915/spi/intel_spi.h
-new file mode 100644
-index 000000000000..ed4153401f5d
---- /dev/null
-+++ b/drivers/gpu/drm/i915/spi/intel_spi.h
-@@ -0,0 +1,15 @@
-+/* SPDX-License-Identifier: MIT */
-+/*
-+ * Copyright(c) 2019-2024 Intel Corporation. All rights reserved.
-+ */
-+
-+#ifndef __INTEL_SPI_H__
-+#define __INTEL_SPI_H__
-+
-+struct drm_i915_private;
-+
-+void intel_spi_init(struct drm_i915_private *i915);
-+
-+void intel_spi_fini(struct drm_i915_private *i915);
-+
-+#endif /* __INTEL_SPI_H__ */
+ void xe_spi_init(struct xe_device *xe)
+ {
+ 	struct intel_dg_spi_dev *spi = &xe->spi;
+@@ -33,7 +64,7 @@ void xe_spi_init(struct xe_device *xe)
+ 	if (!HAS_GSC_SPI(xe))
+ 		return;
+ 
+-	spi->writeable_override = false;
++	spi->writeable_override = xe_spi_writeable_override(xe);
+ 	spi->bar.parent = &pdev->resource[0];
+ 	spi->bar.start = GEN12_GUNIT_SPI_BASE + pdev->resource[0].start;
+ 	spi->bar.end = spi->bar.start + GEN12_GUNIT_SPI_SIZE - 1;
 -- 
 2.34.1
 
