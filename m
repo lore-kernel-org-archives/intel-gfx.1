@@ -4,75 +4,73 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 08981C52D72
-	for <intel-gfx@archiver.kernel.org>; Wed, 31 Jul 2024 12:23:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A0D39C3DA7F
+	for <intel-gfx@archiver.kernel.org>; Wed, 31 Jul 2024 12:23:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 61E9210E5E5;
+	by gabe.freedesktop.org (Postfix) with ESMTP id E8BE610E5ED;
 	Wed, 31 Jul 2024 12:23:22 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="LgwVuBbC";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="o6WiVRVI";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="mAzjFuLm";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="sRK1JjGp";
+	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="SgBd4YTQ";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="H6OM2LJu";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="SgBd4YTQ";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="H6OM2LJu";
 	dkim-atps=neutral
 Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D7DB910E5D9;
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F29E110E5E4;
  Wed, 31 Jul 2024 12:23:20 +0000 (UTC)
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
- [IPv6:2a07:de40:b281:104:10:150:64:97])
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 8D7B921B91;
- Wed, 31 Jul 2024 12:23:18 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 8758D21BC8;
+ Wed, 31 Jul 2024 12:23:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
  t=1722428599; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=kVWaVob/7LNt16AIaHxjwq6RwAFHI6gy9kBArD5iSYk=;
- b=LgwVuBbCgPrHv4XfT4L3lIKWpiN29qcQ9NXRUdezFIaqG0kk+n2+asJ45RVjYv1BBPRxqk
- U5hFSI1tZnKBWSs/NpQDfOosQaialEjMpQ39YqgdOkArd6+v/+nBRmh2AGYSwxZnQLpETF
- Arx0Aozzemlc1T8ntTWxxpRV6Iahnqs=
+ bh=t68LhlhOJJf7RAG/eIZXnqyISnELmY7Z/GfEWW3/rIw=;
+ b=SgBd4YTQEu2JEIXPI6MrzMaXLWiida9M4alSAlYhaC1y2D0QtPaDTLk8RG3EHNmSFxeZ1p
+ TDFbzkZPy3PhMftjXyN3kx9pvTcV5k+tL+LzUp8ps+o8RSe1tXngi/RvrbKPgAkOIoE69l
+ HyvJtMNhldLUZFRwfndDyoBqH7PBE7o=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
  s=susede2_ed25519; t=1722428599;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=kVWaVob/7LNt16AIaHxjwq6RwAFHI6gy9kBArD5iSYk=;
- b=o6WiVRVIRjRjHyhlbq/KD4+Sc/gEm8teOU6vOGhdU2cSbMk86LT0Cve0Jz3K4ZiHh+J56B
- pyYYVcxgpQKtoDAw==
+ bh=t68LhlhOJJf7RAG/eIZXnqyISnELmY7Z/GfEWW3/rIw=;
+ b=H6OM2LJuQ9ISLGY29TYwl+SXgQsjBWGMhNc4pfGSqP2eaciK4n45cTVgDJvXntAK7XGq7Z
+ YOAIr4hkGRM3h3Dg==
 Authentication-Results: smtp-out1.suse.de;
- dkim=pass header.d=suse.de header.s=susede2_rsa header.b=mAzjFuLm;
- dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=sRK1JjGp
+	none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1722428598; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1722428599; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=kVWaVob/7LNt16AIaHxjwq6RwAFHI6gy9kBArD5iSYk=;
- b=mAzjFuLmUgS65EbRv+zJdvegD0aqVHUriiFrl7Rju/+eybYJqZFWJeLm1RGVLrSNnhkBIW
- cPVH92qgBzaiAKRKqtyc4lo2JyGEkPE0lDDiHz1phq9NbedQS5SQlR8vo13WkXQM2eKs5u
- 8G8u9+/oKvbSQ1kfJsHmU4+LA5r4K4I=
+ bh=t68LhlhOJJf7RAG/eIZXnqyISnELmY7Z/GfEWW3/rIw=;
+ b=SgBd4YTQEu2JEIXPI6MrzMaXLWiida9M4alSAlYhaC1y2D0QtPaDTLk8RG3EHNmSFxeZ1p
+ TDFbzkZPy3PhMftjXyN3kx9pvTcV5k+tL+LzUp8ps+o8RSe1tXngi/RvrbKPgAkOIoE69l
+ HyvJtMNhldLUZFRwfndDyoBqH7PBE7o=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1722428598;
+ s=susede2_ed25519; t=1722428599;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=kVWaVob/7LNt16AIaHxjwq6RwAFHI6gy9kBArD5iSYk=;
- b=sRK1JjGp+N0MJyl7rjrDdcXkfbUjzEOxhvzUPvgtJ9WvfTOncRYKUiskUJmhSlUD//HBDX
- lFwX5+3dtEjl65Cg==
+ bh=t68LhlhOJJf7RAG/eIZXnqyISnELmY7Z/GfEWW3/rIw=;
+ b=H6OM2LJuQ9ISLGY29TYwl+SXgQsjBWGMhNc4pfGSqP2eaciK4n45cTVgDJvXntAK7XGq7Z
+ YOAIr4hkGRM3h3Dg==
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 4114B13ADA;
- Wed, 31 Jul 2024 12:23:18 +0000 (UTC)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 3C75513297;
+ Wed, 31 Jul 2024 12:23:19 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id qEqVDrYsqmacTQAAD6G6ig
- (envelope-from <tzimmermann@suse.de>); Wed, 31 Jul 2024 12:23:18 +0000
+ by imap1.dmz-prg2.suse.org with ESMTPSA id kFuEDbcsqmacTQAAD6G6ig
+ (envelope-from <tzimmermann@suse.de>); Wed, 31 Jul 2024 12:23:19 +0000
 From: Thomas Zimmermann <tzimmermann@suse.de>
 To: maarten.lankhorst@linux.intel.com, mripard@kernel.org, airlied@gmail.com,
  daniel@ffwll.ch
@@ -81,34 +79,28 @@ Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
  Thomas Zimmermann <tzimmermann@suse.de>,
  Neil Armstrong <neil.armstrong@linaro.org>,
  Jessica Zhang <quic_jesszhan@quicinc.com>
-Subject: [PATCH 4/9] drm/panel: panel-orisetech-otm8009a: Use backlight power
+Subject: [PATCH 7/9] drm/panel: panel-sony-acx565akm: Use backlight power
  constants
-Date: Wed, 31 Jul 2024 14:17:16 +0200
-Message-ID: <20240731122311.1143153-5-tzimmermann@suse.de>
+Date: Wed, 31 Jul 2024 14:17:19 +0200
+Message-ID: <20240731122311.1143153-8-tzimmermann@suse.de>
 X-Mailer: git-send-email 2.45.2
 In-Reply-To: <20240731122311.1143153-1-tzimmermann@suse.de>
 References: <20240731122311.1143153-1-tzimmermann@suse.de>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
-X-Spamd-Result: default: False [-1.81 / 50.00];
- DWL_DNSWL_MED(-2.00)[suse.de:dkim]; MID_CONTAINS_FROM(1.00)[];
- NEURAL_HAM_LONG(-1.00)[-1.000]; R_MISSING_CHARSET(0.50)[];
- R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- MIME_GOOD(-0.10)[text/plain]; MX_GOOD(-0.01)[];
- DBL_BLOCKED_OPENRESOLVER(0.00)[quicinc.com:email,linaro.org:email,suse.de:email,suse.de:dkim];
- ARC_NA(0.00)[]; RCVD_TLS_ALL(0.00)[];
- FUZZY_BLOCKED(0.00)[rspamd.com];
- FREEMAIL_ENVRCPT(0.00)[gmail.com]; MIME_TRACE(0.00)[0:+];
- RCVD_VIA_SMTP_AUTH(0.00)[]; TO_MATCH_ENVRCPT_ALL(0.00)[];
- FREEMAIL_TO(0.00)[linux.intel.com,kernel.org,gmail.com,ffwll.ch];
- FROM_HAS_DN(0.00)[]; RCVD_COUNT_TWO(0.00)[2];
+X-Spamd-Result: default: False [-2.60 / 50.00]; BAYES_HAM(-3.00)[100.00%];
+ MID_CONTAINS_FROM(1.00)[]; NEURAL_HAM_LONG(-1.00)[-1.000];
+ R_MISSING_CHARSET(0.50)[]; MIME_GOOD(-0.10)[text/plain];
+ MIME_TRACE(0.00)[0:+]; RCVD_VIA_SMTP_AUTH(0.00)[];
  RCPT_COUNT_SEVEN(0.00)[11];
+ FREEMAIL_TO(0.00)[linux.intel.com,kernel.org,gmail.com,ffwll.ch];
+ ARC_NA(0.00)[];
  DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- TO_DN_SOME(0.00)[]; FROM_EQ_ENVFROM(0.00)[];
- DKIM_TRACE(0.00)[suse.de:+]
-X-Rspamd-Action: no action
-X-Rspamd-Queue-Id: 8D7B921B91
+ FUZZY_BLOCKED(0.00)[rspamd.com]; FROM_EQ_ENVFROM(0.00)[];
+ FROM_HAS_DN(0.00)[]; TO_DN_SOME(0.00)[]; RCVD_TLS_ALL(0.00)[];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[linaro.org:email,suse.de:email,quicinc.com:email];
+ RCVD_COUNT_TWO(0.00)[2]; TO_MATCH_ENVRCPT_ALL(0.00)[];
+ FREEMAIL_ENVRCPT(0.00)[gmail.com]
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -132,31 +124,22 @@ Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
 Cc: Neil Armstrong <neil.armstrong@linaro.org>
 Cc: Jessica Zhang <quic_jesszhan@quicinc.com>
 ---
- drivers/gpu/drm/panel/panel-orisetech-otm8009a.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/panel/panel-sony-acx565akm.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/panel/panel-orisetech-otm8009a.c b/drivers/gpu/drm/panel/panel-orisetech-otm8009a.c
-index 93183f30d7d6..a9b5dad70bc1 100644
---- a/drivers/gpu/drm/panel/panel-orisetech-otm8009a.c
-+++ b/drivers/gpu/drm/panel/panel-orisetech-otm8009a.c
-@@ -389,7 +389,7 @@ static int otm8009a_backlight_update_status(struct backlight_device *bd)
- 		return -ENXIO;
- 	}
- 
--	if (bd->props.power <= FB_BLANK_NORMAL) {
-+	if (bd->props.power <= BACKLIGHT_POWER_REDUCED) {
- 		/* Power on the backlight with the requested brightness
- 		 * Note We can not use mipi_dsi_dcs_set_display_brightness()
- 		 * as otm8009a driver support only 8-bit brightness (1 param).
-@@ -465,7 +465,7 @@ static int otm8009a_probe(struct mipi_dsi_device *dsi)
- 
- 	ctx->bl_dev->props.max_brightness = OTM8009A_BACKLIGHT_MAX;
- 	ctx->bl_dev->props.brightness = OTM8009A_BACKLIGHT_DEFAULT;
--	ctx->bl_dev->props.power = FB_BLANK_POWERDOWN;
-+	ctx->bl_dev->props.power = BACKLIGHT_POWER_OFF;
- 	ctx->bl_dev->props.type = BACKLIGHT_RAW;
- 
- 	drm_panel_add(&ctx->panel);
+diff --git a/drivers/gpu/drm/panel/panel-sony-acx565akm.c b/drivers/gpu/drm/panel/panel-sony-acx565akm.c
+index 73ba93ff00fe..217f03569494 100644
+--- a/drivers/gpu/drm/panel/panel-sony-acx565akm.c
++++ b/drivers/gpu/drm/panel/panel-sony-acx565akm.c
+@@ -342,7 +342,7 @@ static const struct backlight_ops acx565akm_bl_ops = {
+ static int acx565akm_backlight_init(struct acx565akm_panel *lcd)
+ {
+ 	struct backlight_properties props = {
+-		.power = FB_BLANK_UNBLANK,
++		.power = BACKLIGHT_POWER_ON,
+ 		.type = BACKLIGHT_RAW,
+ 	};
+ 	int ret;
 -- 
 2.45.2
 
