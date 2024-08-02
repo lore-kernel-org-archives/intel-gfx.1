@@ -4,74 +4,68 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4A957C3DA4A
-	for <intel-gfx@archiver.kernel.org>; Mon,  5 Aug 2024 15:41:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 188FDC52D71
+	for <intel-gfx@archiver.kernel.org>; Mon,  5 Aug 2024 15:41:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 36B9F10E233;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5962B10E227;
 	Mon,  5 Aug 2024 15:41:49 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (4096-bit key; unprotected) header.d=davidgow.net header.i=@davidgow.net header.b="RPovt8hv";
-	dkim=fail reason="signature verification failed" (4096-bit key) header.d=davidgow.net header.i=@davidgow.net header.b="cC3lp0kU";
+	dkim=pass (2048-bit key; unprotected) header.d=toblux-com.20230601.gappssmtp.com header.i=@toblux-com.20230601.gappssmtp.com header.b="DWPPxiAD";
 	dkim-atps=neutral
-Received: from sphereful.davidgow.net (sphereful.davidgow.net [203.29.242.92])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5B8A510E0DD;
- Sun,  4 Aug 2024 09:19:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=davidgow.net;
- s=201606; t=1722763154;
- bh=PEUXQAcLo0EsZ5sdEKiSD3qA6h0wU3l4S5Fvl64PCmk=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=RPovt8hvJ2vDw+LavVkyDHe8gXNEOdFYrN/3HsQIjCu7KoW9wkz1jsDuD8G8O/AGb
- WnuFIKKoKMNRHRJaAWMANx+Yh/IlCjRMBpfGxnyqQ2a7Ppd0PzDf8E4HkiVJR6xStA
- nIPlQVgeG9+ixogcQhCY194/DjC3oqi+IhH6MDbFy5t28+UklGBP9T5BLt+AsMC+TG
- IwoBVhDgOBBx3DLH/u7ZqkkcXeGGonYZ6o3PY0p7pjcqshokGB14vVspfU4gCh0mKn
- mpsswU3VxIBgTYnIm22DQlb0c3kPFjOj4GIlr2nGMYIMnWIhUfzHT/4/712qe4qv9j
- go6mZvyigCTmdTqn+VPh7oXCTjQFy/Vk9c9Bg2Xmq4Ev2Z8FraYW9b+1zZ4F95drXq
- pqFC44JUDoz32udp9a6Qv/7CgYlquGmqlKS6PCSUkzbtheMdNfs+WE3xaLH0+ZELDk
- uQkEctXOCEdUVp4hZixfnM6nJJC1WIw0gBuQxGbsHVVMnSKatO34TIlgtTFKmDXo6o
- w1s6leLHfccDTWftGF2ZHiqGk5UdEvBqp2NmQlqMz6b5cd63jq6xn4whM8Tg6El16w
- V/D9Fg0Kd889UKvfmbJIOOKBYGi1IPfrrlAvZ08BmbsOJxaPbSTfpjXHdgg+rliOy5
- +Jsict0bRleoPcGVpDQW3HuM=
-Received: by sphereful.davidgow.net (Postfix, from userid 119)
- id 18BD81DC0A3; Sun,  4 Aug 2024 17:19:14 +0800 (AWST)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=davidgow.net;
- s=201606; t=1722763150;
- bh=PEUXQAcLo0EsZ5sdEKiSD3qA6h0wU3l4S5Fvl64PCmk=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=cC3lp0kUAN/idgTORACmVH+lFo1vws1WDhLDm7nLam7iwYLAMJn4PKNQ4xv+cp2dw
- xqS9PbLzvFCfyqp9fylBPJZIM7H+b+XV9GPaU8GDpAbQnzOVrxwZJPRFVoS4FO4yaB
- CBmBmVpJVtTsvCjd1KzwryOh0fbS/bvoJ8C3A/5vxXpVdRog3qmwPAtke4bXWz/xTm
- WZwOAjHDQKeR8yWuvV4iHophSnoHAOVhcOu1OgzECPTzJbbE7Zc91eEu5lwpMknZh0
- jP/pBZxT3+p4tcytsU91FReRAdzjt+N2yitC61H+l9kCbPf2vWKbviP8+5t2pOsUlc
- HvKLk8fHCgwUxV6Y6TGzLsMtBwQLex5EpxD+a/3TxX6++1YC92mPbjUxjt2rB0uMnP
- j79h4l3RDCsl09YU6adom8zugxSQRwjpk7Rgc4ndJg5jKEdApo95ltstjnMFpnU2hQ
- Pmma6f9IpUpZNev4aiqg2bDFDEpB8ikjeWi1QqTkIRyf7GDNWRu+ssMX5TDU36jmPW
- HquQQsp3FdBJDn7ydlWHdHKlZMAzGkhvuBB82abq8dRKWXyj9JGHrRVHX4d19NnrlH
- PX/J69JA1WUTxj/hgw9h0Gub9Tf6Pps0JIILkvh3p7uIQ8BGrCWwCl6qx0dt1G8Qtr
- +d0GBwj26Z1axNd44tgN7OWI=
-Received: from sparky.lan (unknown [IPv6:2001:8003:8824:9e00::bec])
- by sphereful.davidgow.net (Postfix) with ESMTPSA id 7CA821DC092;
- Sun,  4 Aug 2024 17:19:10 +0800 (AWST)
-From: David Gow <david@davidgow.net>
-To: =?UTF-8?q?Christian=20K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>,
- Somalapuram Amaranath <Amaranath.Somalapuram@amd.com>,
- =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
- Lucas De Marchi <lucas.demarchi@intel.com>,
- Andi Shyti <andi.shyti@linux.intel.com>,
- Thomas Zimmermann <tzimmermann@suse.de>
-Cc: David Gow <david@davidgow.net>, Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Tvrtko Ursulin <tursulin@ursulin.net>,
- =?UTF-8?q?Ville=20Syrj=C3=A4l=C3=A4?= <ville.syrjala@linux.intel.com>,
- intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-Subject: [PATCH 1/2] drm/i915: Allow evicting to use the requested placement
-Date: Sun,  4 Aug 2024 17:18:47 +0800
-Message-ID: <20240804091851.122186-2-david@davidgow.net>
-X-Mailer: git-send-email 2.46.0
-In-Reply-To: <20240804091851.122186-1-david@davidgow.net>
-References: <20240804091851.122186-1-david@davidgow.net>
+Received: from mail-lj1-f169.google.com (mail-lj1-f169.google.com
+ [209.85.208.169])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 65BBB10E192
+ for <intel-gfx@lists.freedesktop.org>; Fri,  2 Aug 2024 16:03:57 +0000 (UTC)
+Received: by mail-lj1-f169.google.com with SMTP id
+ 38308e7fff4ca-2ef2cce8be8so103283781fa.1
+ for <intel-gfx@lists.freedesktop.org>; Fri, 02 Aug 2024 09:03:57 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=toblux-com.20230601.gappssmtp.com; s=20230601; t=1722614635; x=1723219435;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=vWX0mheMHoq/ICPp8r+x9QWJESTdzniHyuoFDx+Vayc=;
+ b=DWPPxiADVjYWSSHnSQii1tn+4UhE98+Lo/G8vg1tTqwYJ85O8trKymvwyI8Ac8lYNE
+ cIg1r8brEcnW0WTY0r9Ggwat1GAhEBA270y/tAjpQ7Tz7UOCkHyQadbEdzjiRiiy6TI3
+ NFVdLUPkcG9yAObaUXbNRV7tmYxdQipLqV6AIeroYA4j/qcLSb5c9WXG7V3peMBLsloc
+ qc+NCyZ9G+GchSIVaPuKboWeFB8WfoSJOMr/ce65U9wbOv5QAghavFh+I/GTGQpxRZK7
+ g+KgCBylOigHwtRvTKTlzVUWJdVCshzhiHYQQleX+XOogBOv/8d/L81ZDASPmVB3saD5
+ zwfw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1722614635; x=1723219435;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=vWX0mheMHoq/ICPp8r+x9QWJESTdzniHyuoFDx+Vayc=;
+ b=nApwOvXbiWHS8whbV9ORAYf2EGY/ZIHs4s+pQ1U1J1ik09svImy3PrYhtrXvQVnBLd
+ bVAm/pjk7R29ZTjZEMpMwd//+LerNqD0kxO4enrWqrFTppsMtJKcMR1JUCToybi558zc
+ x+I9xZlfFgVhYAURzEuyMqw8NIVeenmIPsLDFuOoyK2VsyJphUvC0+LdJaEapW7XOHfF
+ Fx6Zlmu1mQWO8aElsgw2GDanuW/fyatEu8neKmp3+kSchaVbLhLVPol+CkPWSm2yoHIG
+ HSX+uRa7BJEYuHgYBACFzb4mx7iSuE5oGs7d1by+lPl+G8zv4HODVnfvtQIxOcaHQ3eo
+ hFoQ==
+X-Gm-Message-State: AOJu0Yz/oopmuOUl79O4dNqVfEslzOZZ6xGPxFJelPdOQ5YmsKblRP39
+ 57TB6ArJbo/BnWsShNGaOsVE8lqv43LV9Azm/u6N/FRPpk0ul+LzZqyp/7Tvsok=
+X-Google-Smtp-Source: AGHT+IHWMAsctgqofI5c9OnE2DkE2XnE2nCF4IAIqFKxoTDbkmHYkLOn8gZfpr7W3peLpSgzogberA==
+X-Received: by 2002:a2e:2418:0:b0:2ef:3258:4961 with SMTP id
+ 38308e7fff4ca-2f15aa9919cmr26771621fa.15.1722614635006; 
+ Fri, 02 Aug 2024 09:03:55 -0700 (PDT)
+Received: from fedora.fritz.box (aftr-82-135-80-26.dynamic.mnet-online.de.
+ [82.135.80.26]) by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-428e6cd8d67sm38603285e9.0.2024.08.02.09.03.53
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 02 Aug 2024 09:03:54 -0700 (PDT)
+From: Thorsten Blum <thorsten.blum@toblux.com>
+To: jani.nikula@linux.intel.com, joonas.lahtinen@linux.intel.com,
+ rodrigo.vivi@intel.com, tursulin@ursulin.net, airlied@gmail.com,
+ daniel@ffwll.ch
+Cc: intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, Thorsten Blum <thorsten.blum@toblux.com>
+Subject: [PATCH v2] drm/i915: Explicitly cast divisor and use div_u64()
+Date: Fri,  2 Aug 2024 18:03:23 +0200
+Message-ID: <20240802160323.46518-2-thorsten.blum@toblux.com>
+X-Mailer: git-send-email 2.45.2
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Mon, 05 Aug 2024 15:41:47 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
@@ -89,49 +83,46 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-In commit a78a8da51b36 ("drm/ttm: replace busy placement with flags v6"),
-the old system of having a separate placement list (for placements
-which should be used without eviction) and a 'busy' placement list (for
-placements which should be attempted if eviction is required) was
-replaced with a new one where placements could be marked 'FALLBACK' (to
-be attempted if eviction is required) or 'DESIRED' (to be attempted
-first, but not if eviction is required).
+As the comment explains, the if check ensures that the divisor oa_period
+is a u32. Explicitly cast oa_period to u32 to remove the following
+Coccinelle/coccicheck warning reported by do_div.cocci:
 
-i915 had always included the requested placement in the list of
-'busy' placements: i.e., the placement could be used either if eviction
-is required or not. But when the new system was put in place, the
-requested (first) placement was marked 'DESIRED', so would never be used
-if eviction became necessary. While a bug in the original commit
-prevented this flag from working, when this was fixed in
-4a0e7b3c ("drm/i915: fix applying placement flag"), it caused long hangs
-on DG2 systems with small BAR.
+  WARNING: do_div() does a 64-by-32 division, please consider using div64_u64 instead
 
-Don't mark the requested placement DESIRED (or FALLBACK), allowing it to
-be used in both situations. This matches the old behaviour, and resolves
-the hangs.
+Use the preferred div_u64() function instead of the do_div() macro and
+remove the now unnecessary local variable tmp.
 
-Thanks to Justin Brewer for bisecting the issue.
-
-Fixes: a78a8da51b36 ("drm/ttm: replace busy placement with flags v6")
-Fixes: 4a0e7b3c3753 ("drm/i915: fix applying placement flag")
-Link: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/11255
-Signed-off-by: David Gow <david@davidgow.net>
+Signed-off-by: Thorsten Blum <thorsten.blum@toblux.com>
 ---
- drivers/gpu/drm/i915/gem/i915_gem_ttm.c | 1 -
- 1 file changed, 1 deletion(-)
+Changes in v2:
+- Use div_u64() instead of do_div() after feedback from Ville Syrjälä
+- Link to v1: https://lore.kernel.org/linux-kernel/20240710074650.419902-2-thorsten.blum@toblux.com/
+---
+ drivers/gpu/drm/i915/i915_perf.c | 6 ++----
+ 1 file changed, 2 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gem/i915_gem_ttm.c b/drivers/gpu/drm/i915/gem/i915_gem_ttm.c
-index e6f177183c0f..fb848fd8ba15 100644
---- a/drivers/gpu/drm/i915/gem/i915_gem_ttm.c
-+++ b/drivers/gpu/drm/i915/gem/i915_gem_ttm.c
-@@ -165,7 +165,6 @@ i915_ttm_placement_from_obj(const struct drm_i915_gem_object *obj,
- 	i915_ttm_place_from_region(num_allowed ? obj->mm.placements[0] :
- 				   obj->mm.region, &places[0], obj->bo_offset,
- 				   obj->base.size, flags);
--	places[0].flags |= TTM_PL_FLAG_DESIRED;
+diff --git a/drivers/gpu/drm/i915/i915_perf.c b/drivers/gpu/drm/i915/i915_perf.c
+index 0b1cd4c7a525..f65fbe13ab59 100644
+--- a/drivers/gpu/drm/i915/i915_perf.c
++++ b/drivers/gpu/drm/i915/i915_perf.c
+@@ -4096,15 +4096,13 @@ static int read_properties_unlocked(struct i915_perf *perf,
+ 			oa_period = oa_exponent_to_ns(perf, value);
  
- 	/* Cache this on object? */
- 	for (i = 0; i < num_allowed; ++i) {
+ 			/* This check is primarily to ensure that oa_period <=
+-			 * UINT32_MAX (before passing to do_div which only
++			 * UINT32_MAX (before passing it to div_u64 which only
+ 			 * accepts a u32 denominator), but we can also skip
+ 			 * checking anything < 1Hz which implicitly can't be
+ 			 * limited via an integer oa_max_sample_rate.
+ 			 */
+ 			if (oa_period <= NSEC_PER_SEC) {
+-				u64 tmp = NSEC_PER_SEC;
+-				do_div(tmp, oa_period);
+-				oa_freq_hz = tmp;
++				oa_freq_hz = div_u64(NSEC_PER_SEC, (u32)oa_period);
+ 			} else
+ 				oa_freq_hz = 0;
+ 
 -- 
-2.46.0
+2.45.2
 
