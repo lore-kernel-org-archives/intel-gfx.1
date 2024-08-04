@@ -4,54 +4,75 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F18C4C3DA7F
-	for <intel-gfx@archiver.kernel.org>; Mon,  5 Aug 2024 15:07:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6D8C1C3DA7F
+	for <intel-gfx@archiver.kernel.org>; Mon,  5 Aug 2024 15:41:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9EC8610E21A;
-	Mon,  5 Aug 2024 15:07:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B49F910E16D;
+	Mon,  5 Aug 2024 15:41:47 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="VIjH73Yu";
+	dkim=fail reason="signature verification failed" (4096-bit key; unprotected) header.d=davidgow.net header.i=@davidgow.net header.b="ASNlvdi/";
+	dkim=fail reason="signature verification failed" (4096-bit key) header.d=davidgow.net header.i=@davidgow.net header.b="QIGm0K3O";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.19])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AFD8410E235
- for <intel-gfx@lists.freedesktop.org>; Mon,  5 Aug 2024 15:07:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1722870477; x=1754406477;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=Mqme95LjgJEd0W4w0+YXXIbf4SvMmEWr18Vx0tmvkF0=;
- b=VIjH73YuYNJRek7GMNj8ABSonD/QWv8dgbXov3RBdPNGtFsgwvKuLhBH
- gqxU6UmkCzvHY7gDqebQxCWkVULok1fNAgiCL8M+kgRB6G2BupqPe3hW4
- QZuVRqIRdv8ttZkDjbAjKm5QH97PwMh3oG9dAFmbcYEj9q9uq4Ee7p7Fy
- wOiWZSqGzG3qwxaU3qCCamVw9L2mseISjnneS1LWHxQrWcc17qHI+1F/D
- AU4lgooPVT+TspRLmShviv3e0oI2d+2ajkkQjJ+Ki/4Pgf/xbXjDWj9qu
- zxiGs+Eegw/75kaFaGPHkqcKMfZ6zixJAf86DpmGNtnmR3CpSklfwPYQS g==;
-X-CSE-ConnectionGUID: K+PICSF0SMaQhIaHX32VXQ==
-X-CSE-MsgGUID: OAro7z/bRiKv66U7QXmg7A==
-X-IronPort-AV: E=McAfee;i="6700,10204,11155"; a="20694459"
-X-IronPort-AV: E=Sophos;i="6.09,264,1716274800"; d="scan'208";a="20694459"
-Received: from fmviesa005.fm.intel.com ([10.60.135.145])
- by orvoesa111.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 05 Aug 2024 08:07:54 -0700
-X-CSE-ConnectionGUID: o/oKl2kkQVir0LZHQW/pTw==
-X-CSE-MsgGUID: /1sGUn/rQQqGT2TBgcJhhQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.09,264,1716274800"; d="scan'208";a="60558911"
-Received: from ideak-desk.fi.intel.com ([10.237.72.78])
- by fmviesa005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 05 Aug 2024 08:07:52 -0700
-From: Imre Deak <imre.deak@intel.com>
-To: intel-gfx@lists.freedesktop.org
-Cc: Jani Nikula <jani.nikula@intel.com>
-Subject: [CI 7/7] drm/i915: Remove DSC register dump
-Date: Mon,  5 Aug 2024 18:07:56 +0300
-Message-ID: <20240805150802.3568970-8-imre.deak@intel.com>
-X-Mailer: git-send-email 2.44.2
-In-Reply-To: <20240805150802.3568970-1-imre.deak@intel.com>
-References: <20240805150802.3568970-1-imre.deak@intel.com>
+Received: from sphereful.davidgow.net (sphereful.davidgow.net [203.29.242.92])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 59AAB10E0A5;
+ Sun,  4 Aug 2024 09:19:18 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=davidgow.net;
+ s=201606; t=1722763152;
+ bh=GTfJG1pVvOlhqeRhPSZ2jJbhnESq6sDdGs2cv+XUfw0=;
+ h=From:To:Cc:Subject:Date:From;
+ b=ASNlvdi/XbEbGIl33NUUJ32FYboHOs1OVRls5DPkp5PIWjTgZhyzQpNtcK67deqWO
+ P5akvYjTEF00zJMFNrtMdkpO6z+TmihIGgfYQJGfFWeULJ1P0t35vy/USl5SJLs+r4
+ xkvl8LH9WDsIsq/qDUiJMfX003vxqb7uBnsh8r1VKZ3E2OV3dL/ogm4uNLzd0gp4bS
+ oc42kIvZhGHAUVriGDkAkTeuAA0o5MoY6Ibz7/SidO8PmCLKeAzSmnr8OsIUyclome
+ mk2NzdpPoxRnE53goq/A/2/K1mTSfbnS3NoQjEb52M9vofO9kTt4Jto3QTuAO77qge
+ 1wkiKceNnwotWfczCvkiFDf7o5xKv8FQ3P9d65HbFb5ll116c8SbcYeQbwuSD0ziqr
+ +mO8V+ns4HMmqFK78cKlzA+mov6AAHx1a46LTdyDqambimmvti+ySKYq89l/fZK5ip
+ Gs7g72kz1l54kAnUzKHPpJJBEqpuTRBuf3omIN7eiayxIJ0+/TEyAx17GAqxoVtfMc
+ KQGig57TZXhk5qDnQgmfLjwpFKtwjQ0ohIMmAdH0xGudUIDUWjL7JDOFnyx0EN16/8
+ OjHvP5rn0l3VXzPz4mJelTlsH9WQy4IUdiBl0LFn8eS5mFBLZBKtAiCsSzcViC7Uho
+ AvKawS5hLieqr8RHLGOHz184=
+Received: by sphereful.davidgow.net (Postfix, from userid 119)
+ id EDE8E1DC09D; Sun,  4 Aug 2024 17:19:12 +0800 (AWST)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=davidgow.net;
+ s=201606; t=1722763150;
+ bh=GTfJG1pVvOlhqeRhPSZ2jJbhnESq6sDdGs2cv+XUfw0=;
+ h=From:To:Cc:Subject:Date:From;
+ b=QIGm0K3OkrTWQwqraYIIN9nqs7Lnz2DGGNuMl/TFA3ChCVqYtusuY4ZmiK5pjf8oH
+ xTFfTF4+W4RNaD+v6r8A/6k/ighywGA3tQ3ZPZEauM/nFenOdwfe0sQ4PuIslcL+8Q
+ ZduTawJWwsgZHIMRAQCRYQs/1lP8G3mbex4+XH2Jbf+0ODNa0mKiAq0s5Js02YwonS
+ N83GBCxwjNEh1R+M3Xn0C0Ng/w+CKo46lq/pNf4XWLkUOPhzA4Rf/UWjiH44yaA093
+ a13tS7Nx+pW7zUgLLyOgo8Z62S4/9phl8UDu9hMe05mk6PunmqQNXhXRt93x7x6Cwn
+ fuHWCrKU9pdYqBQnsKJBdOr4CsN8ZB3OVN9dbrFNX3pV/XbSYtqlBikYfZN+ISCdRF
+ EvF5Yy9/6TRev/3Z9hzqoSmAYojVFThuIysFIDlABdCHpE38D7qMIk9ZUXfUgvv53t
+ ZRXRUWMWAPxOiMnBHPHPc99Jxts8GNxPn9SEohomS+jvKesVUbTiPP4bjbYdVnDXPu
+ MDDqZH5+Omb5sq+/+iM1mWYiBnW10RMtWUUSROa4t/0rMbXpWw5hGGtaZPyRTHXnc4
+ mcNbFhrxXeWZovcQaSXn3RQXT5dtFowQDnF0FxMUMSjyXzn4AQ6DJWqnrlsT7l5asO
+ Ky0P7UVv42VcjvcSM5vyfPno=
+Received: from sparky.lan (unknown [IPv6:2001:8003:8824:9e00::bec])
+ by sphereful.davidgow.net (Postfix) with ESMTPSA id 69BD51DC091;
+ Sun,  4 Aug 2024 17:19:10 +0800 (AWST)
+From: David Gow <david@davidgow.net>
+To: =?UTF-8?q?Christian=20K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>,
+ Somalapuram Amaranath <Amaranath.Somalapuram@amd.com>,
+ =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+ Lucas De Marchi <lucas.demarchi@intel.com>,
+ Andi Shyti <andi.shyti@linux.intel.com>,
+ Thomas Zimmermann <tzimmermann@suse.de>
+Cc: David Gow <david@ingeniumdigital.com>,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Tvrtko Ursulin <tursulin@ursulin.net>,
+ =?UTF-8?q?Ville=20Syrj=C3=A4l=C3=A4?= <ville.syrjala@linux.intel.com>,
+ intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+Subject: [PATCH 0/2] drm/i915: Fix ttm small BAR placement handling
+Date: Sun,  4 Aug 2024 17:18:46 +0800
+Message-ID: <20240804091851.122186-1-david@davidgow.net>
+X-Mailer: git-send-email 2.46.0
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-Mailman-Approved-At: Mon, 05 Aug 2024 15:41:47 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,144 +88,38 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-The Display Engine's DSC register values are deducted from the DSC
-configuration stored in intel_crtc_state::dsc. The latter one is
-dumped in a human-readable format, so dumping the register values is
-redundant, remove it.
+From: David Gow <david@ingeniumdigital.com>
 
-Acked-by: Jani Nikula <jani.nikula@intel.com>
-Signed-off-by: Imre Deak <imre.deak@intel.com>
+As described in [1], there have been a couple of regressions in the TTM
+placement handling for i915, which adversely affect DG2 systems with
+small BAR.  In particular, performance become very poor when eviction
+from the mappable BAR memory is required, as suboptimal placements can
+be preferred, leading to thrashing. This often leads to hangs of >10s,
+during which even the compositor is unusable.
+
+These regressions were largely introduced during the flag rework in
+commit a78a8da51b36 ("drm/ttm: replace busy placement with flags v6").
+
+The first patch has already been sent out[2]. I'm resending it as part
+of this series which fixes both known regressions.
+
+Thanks to Justin Brewer for bisecting the issue.
+
+Cheers,
+-- David
+
+[1]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/11255
+[2]: https://lore.kernel.org/dri-devel/20240722074540.15295-1-david@davidgow.net/
+
 ---
- drivers/gpu/drm/i915/display/intel_vdsc.c | 24 ++---------------------
- 1 file changed, 2 insertions(+), 22 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_vdsc.c b/drivers/gpu/drm/i915/display/intel_vdsc.c
-index 404ed05371cb8..2e849b015e748 100644
---- a/drivers/gpu/drm/i915/display/intel_vdsc.c
-+++ b/drivers/gpu/drm/i915/display/intel_vdsc.c
-@@ -457,36 +457,30 @@ static void intel_dsc_pps_configure(const struct intel_crtc_state *crtc_state)
- 		pps_val |= DSC_PPS0_422_ENABLE;
- 	if (vdsc_cfg->vbr_enable)
- 		pps_val |= DSC_PPS0_VBR_ENABLE;
--	drm_dbg_kms(&dev_priv->drm, "PPS0 = 0x%08x\n", pps_val);
- 	intel_dsc_pps_write(crtc_state, 0, pps_val);
- 
- 	/* PPS 1 */
- 	pps_val = DSC_PPS1_BPP(vdsc_cfg->bits_per_pixel);
--	drm_dbg_kms(&dev_priv->drm, "PPS1 = 0x%08x\n", pps_val);
- 	intel_dsc_pps_write(crtc_state, 1, pps_val);
- 
- 	/* PPS 2 */
- 	pps_val = DSC_PPS2_PIC_HEIGHT(vdsc_cfg->pic_height) |
- 		DSC_PPS2_PIC_WIDTH(vdsc_cfg->pic_width / num_vdsc_instances);
--	drm_dbg_kms(&dev_priv->drm, "PPS2 = 0x%08x\n", pps_val);
- 	intel_dsc_pps_write(crtc_state, 2, pps_val);
- 
- 	/* PPS 3 */
- 	pps_val = DSC_PPS3_SLICE_HEIGHT(vdsc_cfg->slice_height) |
- 		DSC_PPS3_SLICE_WIDTH(vdsc_cfg->slice_width);
--	drm_dbg_kms(&dev_priv->drm, "PPS3 = 0x%08x\n", pps_val);
- 	intel_dsc_pps_write(crtc_state, 3, pps_val);
- 
- 	/* PPS 4 */
- 	pps_val = DSC_PPS4_INITIAL_XMIT_DELAY(vdsc_cfg->initial_xmit_delay) |
- 		DSC_PPS4_INITIAL_DEC_DELAY(vdsc_cfg->initial_dec_delay);
--	drm_dbg_kms(&dev_priv->drm, "PPS4 = 0x%08x\n", pps_val);
- 	intel_dsc_pps_write(crtc_state, 4, pps_val);
- 
- 	/* PPS 5 */
- 	pps_val = DSC_PPS5_SCALE_INC_INT(vdsc_cfg->scale_increment_interval) |
- 		DSC_PPS5_SCALE_DEC_INT(vdsc_cfg->scale_decrement_interval);
--	drm_dbg_kms(&dev_priv->drm, "PPS5 = 0x%08x\n", pps_val);
- 	intel_dsc_pps_write(crtc_state, 5, pps_val);
- 
- 	/* PPS 6 */
-@@ -494,25 +488,21 @@ static void intel_dsc_pps_configure(const struct intel_crtc_state *crtc_state)
- 		DSC_PPS6_FIRST_LINE_BPG_OFFSET(vdsc_cfg->first_line_bpg_offset) |
- 		DSC_PPS6_FLATNESS_MIN_QP(vdsc_cfg->flatness_min_qp) |
- 		DSC_PPS6_FLATNESS_MAX_QP(vdsc_cfg->flatness_max_qp);
--	drm_dbg_kms(&dev_priv->drm, "PPS6 = 0x%08x\n", pps_val);
- 	intel_dsc_pps_write(crtc_state, 6, pps_val);
- 
- 	/* PPS 7 */
- 	pps_val = DSC_PPS7_SLICE_BPG_OFFSET(vdsc_cfg->slice_bpg_offset) |
- 		DSC_PPS7_NFL_BPG_OFFSET(vdsc_cfg->nfl_bpg_offset);
--	drm_dbg_kms(&dev_priv->drm, "PPS7 = 0x%08x\n", pps_val);
- 	intel_dsc_pps_write(crtc_state, 7, pps_val);
- 
- 	/* PPS 8 */
- 	pps_val = DSC_PPS8_FINAL_OFFSET(vdsc_cfg->final_offset) |
- 		DSC_PPS8_INITIAL_OFFSET(vdsc_cfg->initial_offset);
--	drm_dbg_kms(&dev_priv->drm, "PPS8 = 0x%08x\n", pps_val);
- 	intel_dsc_pps_write(crtc_state, 8, pps_val);
- 
- 	/* PPS 9 */
- 	pps_val = DSC_PPS9_RC_MODEL_SIZE(vdsc_cfg->rc_model_size) |
- 		DSC_PPS9_RC_EDGE_FACTOR(DSC_RC_EDGE_FACTOR_CONST);
--	drm_dbg_kms(&dev_priv->drm, "PPS9 = 0x%08x\n", pps_val);
- 	intel_dsc_pps_write(crtc_state, 9, pps_val);
- 
- 	/* PPS 10 */
-@@ -520,7 +510,6 @@ static void intel_dsc_pps_configure(const struct intel_crtc_state *crtc_state)
- 		DSC_PPS10_RC_QUANT_INC_LIMIT1(vdsc_cfg->rc_quant_incr_limit1) |
- 		DSC_PPS10_RC_TARGET_OFF_HIGH(DSC_RC_TGT_OFFSET_HI_CONST) |
- 		DSC_PPS10_RC_TARGET_OFF_LOW(DSC_RC_TGT_OFFSET_LO_CONST);
--	drm_dbg_kms(&dev_priv->drm, "PPS10 = 0x%08x\n", pps_val);
- 	intel_dsc_pps_write(crtc_state, 10, pps_val);
- 
- 	/* PPS 16 */
-@@ -529,31 +518,25 @@ static void intel_dsc_pps_configure(const struct intel_crtc_state *crtc_state)
- 					 vdsc_cfg->slice_width) |
- 		DSC_PPS16_SLICE_ROW_PER_FRAME(vdsc_cfg->pic_height /
- 					      vdsc_cfg->slice_height);
--	drm_dbg_kms(&dev_priv->drm, "PPS16 = 0x%08x\n", pps_val);
- 	intel_dsc_pps_write(crtc_state, 16, pps_val);
- 
- 	if (DISPLAY_VER(dev_priv) >= 14) {
- 		/* PPS 17 */
- 		pps_val = DSC_PPS17_SL_BPG_OFFSET(vdsc_cfg->second_line_bpg_offset);
--		drm_dbg_kms(&dev_priv->drm, "PPS17 = 0x%08x\n", pps_val);
- 		intel_dsc_pps_write(crtc_state, 17, pps_val);
- 
- 		/* PPS 18 */
- 		pps_val = DSC_PPS18_NSL_BPG_OFFSET(vdsc_cfg->nsl_bpg_offset) |
- 			DSC_PPS18_SL_OFFSET_ADJ(vdsc_cfg->second_line_offset_adj);
--		drm_dbg_kms(&dev_priv->drm, "PPS18 = 0x%08x\n", pps_val);
- 		intel_dsc_pps_write(crtc_state, 18, pps_val);
- 	}
- 
- 	/* Populate the RC_BUF_THRESH registers */
- 	memset(rc_buf_thresh_dword, 0, sizeof(rc_buf_thresh_dword));
--	for (i = 0; i < DSC_NUM_BUF_RANGES - 1; i++) {
-+	for (i = 0; i < DSC_NUM_BUF_RANGES - 1; i++)
- 		rc_buf_thresh_dword[i / 4] |=
- 			(u32)(vdsc_cfg->rc_buf_thresh[i] <<
- 			      BITS_PER_BYTE * (i % 4));
--		drm_dbg_kms(&dev_priv->drm, "RC_BUF_THRESH_%d = 0x%08x\n", i,
--			    rc_buf_thresh_dword[i / 4]);
--	}
- 	if (!is_pipe_dsc(crtc, cpu_transcoder)) {
- 		intel_de_write(dev_priv, DSCA_RC_BUF_THRESH_0,
- 			       rc_buf_thresh_dword[0]);
-@@ -600,7 +583,7 @@ static void intel_dsc_pps_configure(const struct intel_crtc_state *crtc_state)
- 
- 	/* Populate the RC_RANGE_PARAMETERS registers */
- 	memset(rc_range_params_dword, 0, sizeof(rc_range_params_dword));
--	for (i = 0; i < DSC_NUM_BUF_RANGES; i++) {
-+	for (i = 0; i < DSC_NUM_BUF_RANGES; i++)
- 		rc_range_params_dword[i / 2] |=
- 			(u32)(((vdsc_cfg->rc_range_params[i].range_bpg_offset <<
- 				RC_BPG_OFFSET_SHIFT) |
-@@ -608,9 +591,6 @@ static void intel_dsc_pps_configure(const struct intel_crtc_state *crtc_state)
- 				RC_MAX_QP_SHIFT) |
- 			       (vdsc_cfg->rc_range_params[i].range_min_qp <<
- 				RC_MIN_QP_SHIFT)) << 16 * (i % 2));
--		drm_dbg_kms(&dev_priv->drm, "RC_RANGE_PARAM_%d = 0x%08x\n", i,
--			    rc_range_params_dword[i / 2]);
--	}
- 	if (!is_pipe_dsc(crtc, cpu_transcoder)) {
- 		intel_de_write(dev_priv, DSCA_RC_RANGE_PARAMETERS_0,
- 			       rc_range_params_dword[0]);
+David Gow (2):
+  drm/i915: Allow evicting to use the requested placement
+  drm/i915: Attempt to get pages without eviction first
+
+ drivers/gpu/drm/i915/gem/i915_gem_ttm.c | 13 +++++++------
+ 1 file changed, 7 insertions(+), 6 deletions(-)
+
 -- 
-2.44.2
+2.46.0
 
