@@ -4,48 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 877ABC531DC
-	for <intel-gfx@archiver.kernel.org>; Mon, 12 Aug 2024 13:57:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 04E53C531DD
+	for <intel-gfx@archiver.kernel.org>; Mon, 12 Aug 2024 13:57:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2D88B10E224;
-	Mon, 12 Aug 2024 13:57:05 +0000 (UTC)
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by gabe.freedesktop.org (Postfix) with ESMTP id 50D4510E0E5
- for <intel-gfx@lists.freedesktop.org>; Wed,  7 Aug 2024 07:38:30 +0000 (UTC)
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 6FBB2FEC;
- Wed,  7 Aug 2024 00:38:55 -0700 (PDT)
-Received: from [10.57.81.112] (unknown [10.57.81.112])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 687A53F5A1;
- Wed,  7 Aug 2024 00:38:25 -0700 (PDT)
-Message-ID: <e693ed7a-97bf-486b-84fb-f57e44a399b4@arm.com>
-Date: Wed, 7 Aug 2024 08:38:23 +0100
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9C85D10E227;
+	Mon, 12 Aug 2024 13:57:07 +0000 (UTC)
+X-Greylist: delayed 413 seconds by postgrey-1.36 at gabe;
+ Tue, 06 Aug 2024 09:30:00 UTC
+Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E17AE10E1E7;
+ Tue,  6 Aug 2024 09:30:00 +0000 (UTC)
+Received: from icess-ProLiant-DL380-Gen10.. (unknown [183.174.60.14])
+ by APP-03 (Coremail) with SMTP id rQCowABXfQBq67Fm3g3cAw--.39396S2;
+ Tue, 06 Aug 2024 17:22:57 +0800 (CST)
+From: Ma Ke <make24@iscas.ac.cn>
+To: jani.nikula@linux.intel.com, rodrigo.vivi@intel.com,
+ joonas.lahtinen@linux.intel.com, tursulin@ursulin.net, airlied@gmail.com,
+ daniel@ffwll.ch, ville.syrjala@linux.intel.com,
+ stanislav.lisovskiy@intel.com
+Cc: intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ Ma Ke <make24@iscas.ac.cn>, stable@vger.kernel.org
+Subject: [PATCH] drm/i915: Fix NULL ptr deref in intel_async_flip_check_uapi()
+Date: Tue,  6 Aug 2024 17:22:49 +0800
+Message-Id: <20240806092249.2407555-1-make24@iscas.ac.cn>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [linux-next:master] [fs] cdc4ad36a8:
- kernel_BUG_at_include/linux/page-flags.h
-Content-Language: en-GB
-To: Matthew Wilcox <willy@infradead.org>,
- kernel test robot <oliver.sang@intel.com>,
- Christian Brauner <brauner@kernel.org>
-Cc: oe-lkp@lists.linux.dev, lkp@intel.com,
- Linux Memory Management List <linux-mm@kvack.org>,
- linux-fsdevel@vger.kernel.org, linux-block@vger.kernel.org,
- intel-gfx@lists.freedesktop.org, linux-bcachefs@vger.kernel.org,
- ceph-devel@vger.kernel.org, ecryptfs@vger.kernel.org,
- linux-ext4@vger.kernel.org, linux-f2fs-devel@lists.sourceforge.net,
- linux-um@lists.infradead.org, linux-mtd@lists.infradead.org,
- jfs-discussion@lists.sourceforge.net, linux-nfs@vger.kernel.org,
- linux-nilfs@vger.kernel.org, ntfs3@lists.linux.dev,
- ocfs2-devel@lists.linux.dev, linux-karma-devel@lists.sourceforge.net,
- devel@lists.orangefs.org, reiserfs-devel@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <202408062249.2194d51b-lkp@intel.com>
- <ZrLuBz1eBdgFzIyC@casper.infradead.org>
-From: Ryan Roberts <ryan.roberts@arm.com>
-In-Reply-To: <ZrLuBz1eBdgFzIyC@casper.infradead.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID: rQCowABXfQBq67Fm3g3cAw--.39396S2
+X-Coremail-Antispam: 1UD129KBjvdXoWrKFy3JF48Aw4UCF1rury3Jwb_yoWkKrgEgF
+ 1UArnayry5AFs0va17Crs3uFyFka4qvFWxZ340qa4ava42k348u3yfur1rWw1S9FyjyrWU
+ Za1jgF92kwsa9jkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
+ 9fnUUIcSsGvfJTRUUUbSkFF20E14v26r4j6ryUM7CY07I20VC2zVCF04k26cxKx2IYs7xG
+ 6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48ve4kI8w
+ A2z4x0Y4vE2Ix0cI8IcVAFwI0_JFI_Gr1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI0_Gr0_
+ Cr1l84ACjcxK6I8E87Iv67AKxVW8Jr0_Cr1UM28EF7xvwVC2z280aVCY1x0267AKxVW8Jr
+ 0_Cr1UM2vYz4IE04k24VAvwVAKI4IrM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVAC
+ Y4xI64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r1j6r18McIj6I8E87Iv67AKxVWUJV
+ W8JwAm72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IYc2Ij64vIr41lF7I21c0EjII2zVCS5cI2
+ 0VAGYxC7M4IIrI8v6xkF7I0E8cxan2IY04v7MxkF7I0En4kS14v26r1q6r43MxAIw28Icx
+ kI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2Iq
+ xVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUtVW8ZwCIc40Y0x0EwIxGrwCI42
+ IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVW8JVWxJwCI42IY
+ 6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAIcVC2z280aV
+ CY1x0267AKxVW8JVW8JrUvcSsGvfC2KfnxnUUI43ZEXa7VUbQVy7UUUUU==
+X-Originating-IP: [183.174.60.14]
+X-CM-SenderInfo: ppdnvj2u6l2u1dvotugofq/
 X-Mailman-Approved-At: Mon, 12 Aug 2024 13:57:02 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -62,39 +66,31 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On 07/08/2024 04:46, Matthew Wilcox wrote:
-> On Tue, Aug 06, 2024 at 10:26:17PM +0800, kernel test robot wrote:
->> kernel test robot noticed "kernel_BUG_at_include/linux/page-flags.h" on:
->>
->> commit: cdc4ad36a871b7ac43fcc6b2891058d332ce60ce ("fs: Convert aops->write_begin to take a folio")
->> https://git.kernel.org/cgit/linux/kernel/git/next/linux-next.git master
->>
->> [test failed on linux-next/master 1e391b34f6aa043c7afa40a2103163a0ef06d179]
->>
->> in testcase: boot
-> 
-> This patch should fix it.
-> 
-> Christian, can you squash the fix in?
-> 
-> 
-> diff --git a/mm/shmem.c b/mm/shmem.c
-> index 7d28304aea0f..66ff87417090 100644
-> --- a/mm/shmem.c
-> +++ b/mm/shmem.c
-> @@ -2904,7 +2904,8 @@ shmem_write_begin(struct file *file, struct address_space *mapping,
->  	if (ret)
->  		return ret;
->  
-> -	if (folio_test_has_hwpoisoned(folio)) {
-> +	if (folio_test_hwpoison(folio) ||
-> +	    (folio_test_large(folio) && folio_test_has_hwpoisoned(folio))) {
+intel_atomic_get_new_crtc_state can return NULL, unless crtc state wasn't
+obtained previously with intel_atomic_get_crtc_state. We should check it
+for NULLness here, just as in many other places, where we can't guarantee
+that intel_atomic_get_crtc_state was called.
 
-Reviewed-by: Ryan Roberts <ryan.roberts@arm.com>
-Tested-by: Ryan Roberts <ryan.roberts@arm.com>
+Cc: stable@vger.kernel.org
+Fixes: b0b2bed2a130 ("drm/i915: Check async flip capability early on")
+Signed-off-by: Ma Ke <make24@iscas.ac.cn>
+---
+ drivers/gpu/drm/i915/display/intel_display.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-
->  		folio_unlock(folio);
->  		folio_put(folio);
->  		return -EIO;
+diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
+index c2c388212e2e..9dd7b5985d57 100644
+--- a/drivers/gpu/drm/i915/display/intel_display.c
++++ b/drivers/gpu/drm/i915/display/intel_display.c
+@@ -6115,7 +6115,7 @@ static int intel_async_flip_check_uapi(struct intel_atomic_state *state,
+ 		return -EINVAL;
+ 	}
+ 
+-	if (intel_crtc_needs_modeset(new_crtc_state)) {
++	if (new_crtc_state && intel_crtc_needs_modeset(new_crtc_state)) {
+ 		drm_dbg_kms(&i915->drm,
+ 			    "[CRTC:%d:%s] modeset required\n",
+ 			    crtc->base.base.id, crtc->base.name);
+-- 
+2.25.1
 
