@@ -4,62 +4,70 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BD1A9C52D7F
-	for <intel-gfx@archiver.kernel.org>; Mon, 12 Aug 2024 13:50:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C8A23C3DA7F
+	for <intel-gfx@archiver.kernel.org>; Mon, 12 Aug 2024 13:57:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 531F910E222;
-	Mon, 12 Aug 2024 13:50:59 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 401EF10E220;
+	Mon, 12 Aug 2024 13:57:03 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="dd3niisA";
+	dkim=pass (2048-bit key; unprotected) header.d=toblux-com.20230601.gappssmtp.com header.i=@toblux-com.20230601.gappssmtp.com header.b="zgL+YztH";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.13])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8189210E228;
- Mon, 12 Aug 2024 13:50:57 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1723470658; x=1755006658;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:in-reply-to;
- bh=iZp5l59CAGjLpHSJneafAUtnEDyDDH25DA7+A9E6wP8=;
- b=dd3niisAd0ekOeuqFs9WFTJdztL8Q0aesAkJZTIUY1yrQD8uglqHdMVd
- ybA/ntgOeJ9oRl7Nm7lSXiGH0YXHxjyzY40oeq6Tx5CCGmYVTXaWGXhHG
- M2FUMqgzPd3pU3dExgm+GLxSWo7Nb51HkgAIUPH+AD0hK/HaIcs6AWWx/
- Ukf6bDkyJRdSmlZXW/e0ZVFuark4KCXfXh5XMXmRIHY6Q9iaNifQHvQzv
- QJ8RuOt1QTeimDItXP7E6K+RjoKkJZshdIt4afyhzzVyIpeKkDadJJ7ML
- hOwKFIbrwO8Qw2ds3G3qj3hVZf0eQo8wq0JKRQkE3DP3iOYIPYl1cX7wY A==;
-X-CSE-ConnectionGUID: kL3ES5gdQxupLqT+KlyEdw==
-X-CSE-MsgGUID: MdiL5iEyTs2RDl1XKM88Cw==
-X-IronPort-AV: E=McAfee;i="6700,10204,11162"; a="24488317"
-X-IronPort-AV: E=Sophos;i="6.09,283,1716274800"; d="scan'208";a="24488317"
-Received: from fmviesa009.fm.intel.com ([10.60.135.149])
- by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 12 Aug 2024 06:50:57 -0700
-X-CSE-ConnectionGUID: yU49dKNsSOSVTrqEuovdIg==
-X-CSE-MsgGUID: C6k8NsNYRsqMqzjvAcWSuw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.09,283,1716274800"; d="scan'208";a="58212835"
-Received: from slindbla-desk.ger.corp.intel.com (HELO intel.com)
- ([10.245.246.165])
- by fmviesa009-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 12 Aug 2024 06:50:50 -0700
-Date: Mon, 12 Aug 2024 15:50:47 +0200
-From: Andi Shyti <andi.shyti@linux.intel.com>
-To: Raag Jadav <raag.jadav@intel.com>
-Cc: jani.nikula@linux.intel.com, joonas.lahtinen@linux.intel.com,
+Received: from mail-ej1-f53.google.com (mail-ej1-f53.google.com
+ [209.85.218.53])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D10D310E1A3
+ for <intel-gfx@lists.freedesktop.org>; Wed,  7 Aug 2024 20:21:33 +0000 (UTC)
+Received: by mail-ej1-f53.google.com with SMTP id
+ a640c23a62f3a-a6265d3ba8fso21285466b.0
+ for <intel-gfx@lists.freedesktop.org>; Wed, 07 Aug 2024 13:21:33 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=toblux-com.20230601.gappssmtp.com; s=20230601; t=1723062092; x=1723666892;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=z4X1/+A4ARSAdI+l8r/PaTc1tSVNBTTGzDxsEIt0H8M=;
+ b=zgL+YztHQDDO95gVFdt+o8Y+Z59XelUbVq5kRzsBLcKAC0+WmlCYbh5Yv0U2EEnnP5
+ SXYUQ8SZSw/SkCPXr6+lrhdRPLqlNBMcZQNL2inRjH7t0wLoneTCLc+ZrpCFFZ2S+CIk
+ BQa4P73IXGM2mDM2naKuVMaDvYfZZVOg1LWZd8DpNVt3IZJzTaJL9cvI2tQMGK0r3Y//
+ BWGqQvcRR+E85Z/sBmF+129GDvZqfae35csZmqRx+/0p+UMaEEXmPfyavuseVlHjAL7P
+ I6O8y6s6TSuKnPJcyIethVamC3pGUq38Vs9BRcvUmEt+CnFCyHl43QxsZjoB6vGhzU2m
+ UgYA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1723062092; x=1723666892;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=z4X1/+A4ARSAdI+l8r/PaTc1tSVNBTTGzDxsEIt0H8M=;
+ b=wcvlxKd7o8ZhcCRuWP/FF42VFD20K+5KsXpV1daJNWF8B+FXRibzQpVX9WAS4tE6Ot
+ GfTcL+HSa+Xb4LnwMo7Aa4MU1UBchQUlaWpN59URagpCwEiCghpcsqUBcdVwVKmbUJwj
+ b3rMbEIglf7gwZSjZ0AneZcUHZMKCi1O/HDCQd/l1OZt3SAJzUrp5x+F6g43rwOFBPf0
+ Paewi4HsNjS52oFJF9gDzz2uQETJwgw+HUuiFFt+v7rC+wXvq3CMTlMUvhui43dmXusw
+ EKYQzb9CJ1v9NZ+oRn4daTrIB7WplEROkUNOostuy6T61GLDRnSWqDQE9coa8nLoNlKO
+ IAkw==
+X-Gm-Message-State: AOJu0Yzqv1I0KJbE+qL2CyEHcPfdjsmzxSYQyQiLuOogRJP0DdKukuuG
+ E6L4+RcCl/u3ezznFvCz6XFMcxmAVu6cjinJTwKJNv7giyxUWWW7GHIvayNUgEs=
+X-Google-Smtp-Source: AGHT+IG3cOPvJ9ZkCZ88ekCEODTh9Bsjt5Em1rI+r3qZ5LW0b41f9BBVAF+DAZPVJBB0M+s39MgZzA==
+X-Received: by 2002:a17:907:2d91:b0:a71:ddb8:9394 with SMTP id
+ a640c23a62f3a-a7dc4ff1ad2mr1408109966b.40.1723062091623; 
+ Wed, 07 Aug 2024 13:21:31 -0700 (PDT)
+Received: from fedora.fritz.box (pd9e1640a.dip0.t-ipconnect.de.
+ [217.225.100.10]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-a7dc9c0b6casm666122766b.51.2024.08.07.13.21.30
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 07 Aug 2024 13:21:31 -0700 (PDT)
+From: Thorsten Blum <thorsten.blum@toblux.com>
+To: jani.nikula@linux.intel.com, joonas.lahtinen@linux.intel.com,
  rodrigo.vivi@intel.com, tursulin@ursulin.net, airlied@gmail.com,
- daniel@ffwll.ch, linux@roeck-us.net, andi.shyti@linux.intel.com,
- andriy.shevchenko@linux.intel.com, intel-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-hwmon@vger.kernel.org,
- linux-kernel@vger.kernel.org, anshuman.gupta@intel.com,
- badal.nilawar@intel.com, riana.tauro@intel.com,
- ashutosh.dixit@intel.com, karthik.poosa@intel.com
-Subject: Re: [PATCH v5] drm/i915/hwmon: expose fan speed
-Message-ID: <ZroTN3UudwvIJ7oR@ashyti-mobl2.lan>
-References: <20240812081538.1457396-1-raag.jadav@intel.com>
+ daniel@ffwll.ch, jonathan.cavitt@intel.com, andi.shyti@linux.intel.com
+Cc: intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, Thorsten Blum <thorsten.blum@toblux.com>
+Subject: [PATCH v3] drm/i915: Explicitly cast divisor and use div_u64()
+Date: Wed,  7 Aug 2024 22:20:39 +0200
+Message-ID: <20240807202040.54796-2-thorsten.blum@toblux.com>
+X-Mailer: git-send-email 2.45.2
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20240812081538.1457396-1-raag.jadav@intel.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-Mailman-Approved-At: Mon, 12 Aug 2024 13:57:02 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,65 +83,56 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Hi Raag,
+As the comment explains, the if check ensures that the divisor oa_period
+is a u32. Explicitly cast oa_period to u32 to remove the following
+Coccinelle/coccicheck warning reported by do_div.cocci:
 
-> +static int
-> +hwm_fan_read(struct hwm_drvdata *ddat, u32 attr, long *val)
-> +{
-> +	struct i915_hwmon *hwmon = ddat->hwmon;
-> +	struct hwm_fan_info *fi = &ddat->fi;
-> +	u64 rotations, time_now, time;
-> +	intel_wakeref_t wakeref;
-> +	u32 reg_val, pulses;
-> +	int ret = 0;
-> +
-> +	if (attr != hwmon_fan_input)
-> +		return -EOPNOTSUPP;
-> +
-> +	wakeref = intel_runtime_pm_get(ddat->uncore->rpm);
-> +	mutex_lock(&hwmon->hwmon_lock);
-> +
-> +	reg_val = intel_uncore_read(ddat->uncore, hwmon->rg.fan_speed);
-> +	time_now = get_jiffies_64();
-> +
-> +	/* Handle HW register overflow */
-> +	if (reg_val >= fi->reg_val_prev)
-> +		pulses = reg_val - fi->reg_val_prev;
-> +	else
-> +		pulses = UINT_MAX - fi->reg_val_prev + reg_val;
-> +
-> +	/*
-> +	 * HW register value is accumulated count of pulses from
-> +	 * PWM fan with the scale of 2 pulses per rotation.
-> +	 */
-> +	rotations = pulses / 2;
-> +
-> +	time = jiffies_delta_to_msecs(time_now - fi->time_prev);
-> +	if (unlikely(!time)) {
-> +		ret = -EAGAIN;
-> +		goto exit;
-> +	}
+  WARNING: do_div() does a 64-by-32 division, please consider using div64_u64 instead
 
-Can you please add a comment describing how you obtain the speed
-calculation?
+Use the preferred div_u64() function instead of the do_div() macro and
+remove the now unnecessary local variable tmp.
 
-Basically at every read you store the values. Is it possible that
-we don't have reads for a long time and the register resets more
-than once?
+Inline the if/else and invert the conditional expression.
 
-Thanks,
-Andi
+Reviewed-by: Jonathan Cavitt <jonathan.cavitt@intel.com>
+Signed-off-by: Thorsten Blum <thorsten.blum@toblux.com>
+---
+Changes in v2:
+- Use div_u64() instead of do_div() after feedback from Ville Syrjälä
+- Link to v1: https://lore.kernel.org/linux-kernel/20240710074650.419902-2-thorsten.blum@toblux.com/
 
-> +	/*
-> +	 * Convert to minutes for calculating RPM.
-> +	 * RPM = number of rotations * msecs per minute / time in msecs
-> +	 */
-> +	*val = DIV_ROUND_UP(rotations * (MSEC_PER_SEC * 60), time);
-> +
-> +	fi->reg_val_prev = reg_val;
-> +	fi->time_prev = time_now;
-> +exit:
-> +	mutex_unlock(&hwmon->hwmon_lock);
-> +	intel_runtime_pm_put(ddat->uncore->rpm, wakeref);
-> +	return ret;
-> +}
+Changes in v3:
+- Inline if/else as suggested by Jonathan Cavitt and Andi Shyti
+- Link to v2: https://lore.kernel.org/linux-kernel/20240802160323.46518-2-thorsten.blum@toblux.com/
+---
+ drivers/gpu/drm/i915/i915_perf.c | 10 +++-------
+ 1 file changed, 3 insertions(+), 7 deletions(-)
+
+diff --git a/drivers/gpu/drm/i915/i915_perf.c b/drivers/gpu/drm/i915/i915_perf.c
+index 025a79fe5920..6ff905d2b78f 100644
+--- a/drivers/gpu/drm/i915/i915_perf.c
++++ b/drivers/gpu/drm/i915/i915_perf.c
+@@ -4063,17 +4063,13 @@ static int read_properties_unlocked(struct i915_perf *perf,
+ 			oa_period = oa_exponent_to_ns(perf, value);
+ 
+ 			/* This check is primarily to ensure that oa_period <=
+-			 * UINT32_MAX (before passing to do_div which only
++			 * UINT32_MAX (before passing it to div_u64 which only
+ 			 * accepts a u32 denominator), but we can also skip
+ 			 * checking anything < 1Hz which implicitly can't be
+ 			 * limited via an integer oa_max_sample_rate.
+ 			 */
+-			if (oa_period <= NSEC_PER_SEC) {
+-				u64 tmp = NSEC_PER_SEC;
+-				do_div(tmp, oa_period);
+-				oa_freq_hz = tmp;
+-			} else
+-				oa_freq_hz = 0;
++			oa_freq_hz = oa_period > NSEC_PER_SEC ? 0 :
++				div_u64(NSEC_PER_SEC, (u32)oa_period);
+ 
+ 			if (oa_freq_hz > i915_oa_max_sample_rate && !perfmon_capable()) {
+ 				drm_dbg(&perf->i915->drm,
+-- 
+2.45.2
+
