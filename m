@@ -4,53 +4,27 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 04E53C531DD
-	for <intel-gfx@archiver.kernel.org>; Mon, 12 Aug 2024 13:57:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 04BF7C3DA7F
+	for <intel-gfx@archiver.kernel.org>; Mon, 12 Aug 2024 14:19:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9C85D10E227;
-	Mon, 12 Aug 2024 13:57:07 +0000 (UTC)
-X-Greylist: delayed 413 seconds by postgrey-1.36 at gabe;
- Tue, 06 Aug 2024 09:30:00 UTC
-Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E17AE10E1E7;
- Tue,  6 Aug 2024 09:30:00 +0000 (UTC)
-Received: from icess-ProLiant-DL380-Gen10.. (unknown [183.174.60.14])
- by APP-03 (Coremail) with SMTP id rQCowABXfQBq67Fm3g3cAw--.39396S2;
- Tue, 06 Aug 2024 17:22:57 +0800 (CST)
-From: Ma Ke <make24@iscas.ac.cn>
-To: jani.nikula@linux.intel.com, rodrigo.vivi@intel.com,
- joonas.lahtinen@linux.intel.com, tursulin@ursulin.net, airlied@gmail.com,
- daniel@ffwll.ch, ville.syrjala@linux.intel.com,
- stanislav.lisovskiy@intel.com
-Cc: intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- Ma Ke <make24@iscas.ac.cn>, stable@vger.kernel.org
-Subject: [PATCH] drm/i915: Fix NULL ptr deref in intel_async_flip_check_uapi()
-Date: Tue,  6 Aug 2024 17:22:49 +0800
-Message-Id: <20240806092249.2407555-1-make24@iscas.ac.cn>
-X-Mailer: git-send-email 2.25.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id A48E710E234;
+	Mon, 12 Aug 2024 14:19:25 +0000 (UTC)
+Received: from 2413ebb6fbb6 (emeril.freedesktop.org [131.252.210.167])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0E15A10E233;
+ Mon, 12 Aug 2024 14:19:25 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID: rQCowABXfQBq67Fm3g3cAw--.39396S2
-X-Coremail-Antispam: 1UD129KBjvdXoWrKFy3JF48Aw4UCF1rury3Jwb_yoWkKrgEgF
- 1UArnayry5AFs0va17Crs3uFyFka4qvFWxZ340qa4ava42k348u3yfur1rWw1S9FyjyrWU
- Za1jgF92kwsa9jkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
- 9fnUUIcSsGvfJTRUUUbSkFF20E14v26r4j6ryUM7CY07I20VC2zVCF04k26cxKx2IYs7xG
- 6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48ve4kI8w
- A2z4x0Y4vE2Ix0cI8IcVAFwI0_JFI_Gr1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI0_Gr0_
- Cr1l84ACjcxK6I8E87Iv67AKxVW8Jr0_Cr1UM28EF7xvwVC2z280aVCY1x0267AKxVW8Jr
- 0_Cr1UM2vYz4IE04k24VAvwVAKI4IrM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVAC
- Y4xI64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r1j6r18McIj6I8E87Iv67AKxVWUJV
- W8JwAm72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IYc2Ij64vIr41lF7I21c0EjII2zVCS5cI2
- 0VAGYxC7M4IIrI8v6xkF7I0E8cxan2IY04v7MxkF7I0En4kS14v26r1q6r43MxAIw28Icx
- kI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2Iq
- xVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUtVW8ZwCIc40Y0x0EwIxGrwCI42
- IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVW8JVWxJwCI42IY
- 6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAIcVC2z280aV
- CY1x0267AKxVW8JVW8JrUvcSsGvfC2KfnxnUUI43ZEXa7VUbQVy7UUUUU==
-X-Originating-IP: [183.174.60.14]
-X-CM-SenderInfo: ppdnvj2u6l2u1dvotugofq/
-X-Mailman-Approved-At: Mon, 12 Aug 2024 13:57:02 +0000
+Content-Transfer-Encoding: 7bit
+Subject: =?utf-8?q?=E2=9C=97_Fi=2ECI=2ESPARSE=3A_warning_for_series_starting_with_=5B?=
+ =?utf-8?q?RESEND=2C1/3=5D_drm/mst=3A_switch_to_guid=5Ft_type_for_GUID?=
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Jani Nikula" <jani.nikula@intel.com>
+Cc: intel-gfx@lists.freedesktop.org
+Date: Mon, 12 Aug 2024 14:19:25 -0000
+Message-ID: <172347236505.595359.18154243065471585516@2413ebb6fbb6>
+X-Patchwork-Hint: ignore
+References: <20240812122312.1567046-1-jani.nikula@intel.com>
+In-Reply-To: <20240812122312.1567046-1-jani.nikula@intel.com>
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,34 +37,20 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-intel_atomic_get_new_crtc_state can return NULL, unless crtc state wasn't
-obtained previously with intel_atomic_get_crtc_state. We should check it
-for NULLness here, just as in many other places, where we can't guarantee
-that intel_atomic_get_crtc_state was called.
+== Series Details ==
 
-Cc: stable@vger.kernel.org
-Fixes: b0b2bed2a130 ("drm/i915: Check async flip capability early on")
-Signed-off-by: Ma Ke <make24@iscas.ac.cn>
----
- drivers/gpu/drm/i915/display/intel_display.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Series: series starting with [RESEND,1/3] drm/mst: switch to guid_t type for GUID
+URL   : https://patchwork.freedesktop.org/series/137167/
+State : warning
 
-diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
-index c2c388212e2e..9dd7b5985d57 100644
---- a/drivers/gpu/drm/i915/display/intel_display.c
-+++ b/drivers/gpu/drm/i915/display/intel_display.c
-@@ -6115,7 +6115,7 @@ static int intel_async_flip_check_uapi(struct intel_atomic_state *state,
- 		return -EINVAL;
- 	}
- 
--	if (intel_crtc_needs_modeset(new_crtc_state)) {
-+	if (new_crtc_state && intel_crtc_needs_modeset(new_crtc_state)) {
- 		drm_dbg_kms(&i915->drm,
- 			    "[CRTC:%d:%s] modeset required\n",
- 			    crtc->base.base.id, crtc->base.name);
--- 
-2.25.1
+== Summary ==
+
+Error: dim sparse failed
+Sparse version: v0.6.2
+Fast mode used, each commit won't be checked separately.
+
 
