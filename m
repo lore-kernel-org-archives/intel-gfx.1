@@ -4,52 +4,27 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AA66DC3DA7F
-	for <intel-gfx@archiver.kernel.org>; Mon, 12 Aug 2024 10:41:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 61AE6C52D7C
+	for <intel-gfx@archiver.kernel.org>; Mon, 12 Aug 2024 11:28:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4B5EB10E1AB;
-	Mon, 12 Aug 2024 10:41:51 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="ZXVHCTYb";
-	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.18])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BEE5910E1AB;
- Mon, 12 Aug 2024 10:41:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1723459310; x=1754995310;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=E70z4N6uUqf/CHyI2Ev59vNMX84olo8lSX2LZBXoWus=;
- b=ZXVHCTYb5x3SwmPl5ClPoE7YKHON7Tj68t38Rgsl94FG1qf0TV67O2fM
- sz/M0+94uHuvA9Qa9bgCEMPmgMS1fLZikxkWaTFV8pdtjbdv+IT/M9HXO
- RJgRaJJiUWma6BmpeNpSlM6WUtKXHoGwlHApUpcyE1MY2hPYuN6ed7oFJ
- kNRXuuHphpPrqpYk4cY7+W4TWf/aYkqQezxpfHQPJoqS+qLLqq6DoSbRH
- c0JxbByMzfBQMRTID3TC5+4eNh/Dy6vTVIv6sntpgNO2VlJ9my0NdnO/c
- EzzRT6p/cRXHpnDL6LoWjraMGwPPoMiWnNc9+l0G5wSwr3PIXwTAI8UDh Q==;
-X-CSE-ConnectionGUID: nMScdf02SNujFfRF1W067Q==
-X-CSE-MsgGUID: eMdSmOdRQWefR0aQ0dKqbw==
-X-IronPort-AV: E=McAfee;i="6700,10204,11161"; a="21125758"
-X-IronPort-AV: E=Sophos;i="6.09,282,1716274800"; d="scan'208";a="21125758"
-Received: from fmviesa003.fm.intel.com ([10.60.135.143])
- by fmvoesa112.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 12 Aug 2024 03:41:49 -0700
-X-CSE-ConnectionGUID: cuXFCT/7TVaAHdaNVWzixA==
-X-CSE-MsgGUID: L0DNO3VySQ6J9FbT4JEt9A==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.09,282,1716274800"; d="scan'208";a="62349812"
-Received: from srr4-3-linux-106-armuthy.iind.intel.com ([10.190.238.56])
- by fmviesa003.fm.intel.com with ESMTP; 12 Aug 2024 03:41:48 -0700
-From: Arun R Murthy <arun.r.murthy@intel.com>
-To: intel-xe@lists.freedesktop.org,
-	intel-gfx@lists.freedesktop.org
-Cc: Arun R Murthy <arun.r.murthy@intel.com>
-Subject: [PATCHv3] drm/xe/display: Change HPD to polling on runtime suspend
-Date: Mon, 12 Aug 2024 16:02:02 +0530
-Message-Id: <20240812103202.3433041-1-arun.r.murthy@intel.com>
-X-Mailer: git-send-email 2.25.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id DA79710E093;
+	Mon, 12 Aug 2024 11:28:03 +0000 (UTC)
+Received: from 2413ebb6fbb6 (emeril.freedesktop.org [131.252.210.167])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DDC3510E093;
+ Mon, 12 Aug 2024 11:28:01 +0000 (UTC)
+Content-Type: multipart/alternative;
+ boundary="===============2838830078902837354=="
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Subject: =?utf-8?q?=E2=9C=97_Fi=2ECI=2EBAT=3A_failure_for_drm/i915=3A_Preserve_value_?=
+ =?utf-8?q?of_fec=5Fenable_calculated_before_DSC_compute_config?=
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Chaitanya Kumar Borah" <chaitanya.kumar.borah@intel.com>
+Cc: intel-gfx@lists.freedesktop.org
+Date: Mon, 12 Aug 2024 11:28:01 -0000
+Message-ID: <172346208190.594619.18045585555350174440@2413ebb6fbb6>
+X-Patchwork-Hint: ignore
+References: <20240812082446.3459081-1-chaitanya.kumar.borah@intel.com>
+In-Reply-To: <20240812082446.3459081-1-chaitanya.kumar.borah@intel.com>
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,36 +37,188 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-HPD is interrupt based and on runtime suspend change it to polling as
-HPD is not a wakeup event. A worker thread is scheduled for doing this
-polling and it keeps polling for HPD live status on an internval of 10s.
-On runtime resume disable polling and fallback to interrupt mechanism.
+--===============2838830078902837354==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
 
-v2: move poll_enable() to xe_display(Imre)
-v3: removed un-wanted comments (Jani)
+== Series Details ==
 
-Signed-off-by: Arun R Murthy <arun.r.murthy@intel.com>
----
- drivers/gpu/drm/xe/display/xe_display.c | 3 +++
- 1 file changed, 3 insertions(+)
+Series: drm/i915: Preserve value of fec_enable calculated before DSC compute config
+URL   : https://patchwork.freedesktop.org/series/137153/
+State : failure
 
-diff --git a/drivers/gpu/drm/xe/display/xe_display.c b/drivers/gpu/drm/xe/display/xe_display.c
-index 0e4adde84cb2..4b8b28f96063 100644
---- a/drivers/gpu/drm/xe/display/xe_display.c
-+++ b/drivers/gpu/drm/xe/display/xe_display.c
-@@ -309,6 +309,9 @@ void xe_display_pm_suspend(struct xe_device *xe, bool runtime)
- 
- 	intel_hpd_cancel_work(xe);
- 
-+	if (runtime)
-+		intel_hpd_poll_enable(xe);
-+
- 	intel_encoder_suspend_all(&xe->display);
- 
- 	intel_opregion_suspend(display, s2idle ? PCI_D1 : PCI_D3cold);
--- 
-2.25.1
+== Summary ==
 
+CI Bug Log - changes from CI_DRM_15216 -> Patchwork_137153v1
+====================================================
+
+Summary
+-------
+
+  **FAILURE**
+
+  Serious unknown changes coming with Patchwork_137153v1 absolutely need to be
+  verified manually.
+  
+  If you think the reported changes have nothing to do with the changes
+  introduced in Patchwork_137153v1, please notify your bug team (I915-ci-infra@lists.freedesktop.org) to allow them
+  to document this new failure mode, which will reduce false positives in CI.
+
+  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_137153v1/index.html
+
+Participating hosts (40 -> 37)
+------------------------------
+
+  Missing    (3): bat-arls-1 fi-snb-2520m fi-kbl-8809g 
+
+Possible new issues
+-------------------
+
+  Here are the unknown changes that may have been introduced in Patchwork_137153v1:
+
+### IGT changes ###
+
+#### Possible regressions ####
+
+  * igt@kms_dsc@dsc-basic@pipe-a-dp-1:
+    - bat-dg2-8:          [PASS][1] -> [FAIL][2]
+   [1]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_15216/bat-dg2-8/igt@kms_dsc@dsc-basic@pipe-a-dp-1.html
+   [2]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_137153v1/bat-dg2-8/igt@kms_dsc@dsc-basic@pipe-a-dp-1.html
+
+  
+Known issues
+------------
+
+  Here are the changes found in Patchwork_137153v1 that come from known issues:
+
+### IGT changes ###
+
+#### Issues hit ####
+
+  * igt@i915_selftest@live@hangcheck:
+    - bat-arls-2:         [PASS][3] -> [DMESG-WARN][4] ([i915#11349] / [i915#11378])
+   [3]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_15216/bat-arls-2/igt@i915_selftest@live@hangcheck.html
+   [4]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_137153v1/bat-arls-2/igt@i915_selftest@live@hangcheck.html
+
+  * igt@kms_pipe_crc_basic@nonblocking-crc:
+    - bat-arls-5:         NOTRUN -> [INCOMPLETE][5] ([i915#11320])
+   [5]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_137153v1/bat-arls-5/igt@kms_pipe_crc_basic@nonblocking-crc.html
+
+  
+  {name}: This element is suppressed. This means it is ignored when computing
+          the status of the difference (SUCCESS, WARNING, or FAILURE).
+
+  [i915#10196]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/10196
+  [i915#11320]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/11320
+  [i915#11346]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/11346
+  [i915#11349]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/11349
+  [i915#11378]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/11378
+  [i915#11671]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/11671
+  [i915#11681]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/11681
+  [i915#11723]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/11723
+  [i915#11726]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/11726
+  [i915#8809]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/8809
+
+
+Build changes
+-------------
+
+  * Linux: CI_DRM_15216 -> Patchwork_137153v1
+
+  CI-20190529: 20190529
+  CI_DRM_15216: 1daf2018001da75c5522669aebdb68ba9a353ea6 @ git://anongit.freedesktop.org/gfx-ci/linux
+  IGT_7966: f16c5f500adc5fa41bd52a3ef2a84165da4fb596 @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git
+  Patchwork_137153v1: 1daf2018001da75c5522669aebdb68ba9a353ea6 @ git://anongit.freedesktop.org/gfx-ci/linux
+
+== Logs ==
+
+For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_137153v1/index.html
+
+--===============2838830078902837354==
+Content-Type: text/html; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <title>Project List - Patchwork</title>
+  <style id="css-table-select" type="text/css">
+   td { padding: 2pt; }
+  </style>
+</head>
+<body>
+
+
+<b>Patch Details</b>
+<table>
+<tr><td><b>Series:</b></td><td>drm/i915: Preserve value of fec_enable calculated before DSC compute config</td></tr>
+<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/137153/">https://patchwork.freedesktop.org/series/137153/</a></td></tr>
+<tr><td><b>State:</b></td><td>failure</td></tr>
+
+    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_137153v1/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_137153v1/index.html</a></td></tr>
+
+</table>
+
+
+    <h1>CI Bug Log - changes from CI_DRM_15216 -&gt; Patchwork_137153v1</h1>
+<h2>Summary</h2>
+<p><strong>FAILURE</strong></p>
+<p>Serious unknown changes coming with Patchwork_137153v1 absolutely need to be<br />
+  verified manually.</p>
+<p>If you think the reported changes have nothing to do with the changes<br />
+  introduced in Patchwork_137153v1, please notify your bug team (I915-ci-infra@lists.freedesktop.org) to allow them<br />
+  to document this new failure mode, which will reduce false positives in CI.</p>
+<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_137153v1/index.html</p>
+<h2>Participating hosts (40 -&gt; 37)</h2>
+<p>Missing    (3): bat-arls-1 fi-snb-2520m fi-kbl-8809g </p>
+<h2>Possible new issues</h2>
+<p>Here are the unknown changes that may have been introduced in Patchwork_137153v1:</p>
+<h3>IGT changes</h3>
+<h4>Possible regressions</h4>
+<ul>
+<li>igt@kms_dsc@dsc-basic@pipe-a-dp-1:<ul>
+<li>bat-dg2-8:          <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_15216/bat-dg2-8/igt@kms_dsc@dsc-basic@pipe-a-dp-1.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_137153v1/bat-dg2-8/igt@kms_dsc@dsc-basic@pipe-a-dp-1.html">FAIL</a></li>
+</ul>
+</li>
+</ul>
+<h2>Known issues</h2>
+<p>Here are the changes found in Patchwork_137153v1 that come from known issues:</p>
+<h3>IGT changes</h3>
+<h4>Issues hit</h4>
+<ul>
+<li>
+<p>igt@i915_selftest@live@hangcheck:</p>
+<ul>
+<li>bat-arls-2:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_15216/bat-arls-2/igt@i915_selftest@live@hangcheck.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_137153v1/bat-arls-2/igt@i915_selftest@live@hangcheck.html">DMESG-WARN</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/11349">i915#11349</a> / <a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/11378">i915#11378</a>)</li>
+</ul>
+</li>
+<li>
+<p>igt@kms_pipe_crc_basic@nonblocking-crc:</p>
+<ul>
+<li>bat-arls-5:         NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_137153v1/bat-arls-5/igt@kms_pipe_crc_basic@nonblocking-crc.html">INCOMPLETE</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/11320">i915#11320</a>)</li>
+</ul>
+</li>
+</ul>
+<p>{name}: This element is suppressed. This means it is ignored when computing<br />
+          the status of the difference (SUCCESS, WARNING, or FAILURE).</p>
+<h2>Build changes</h2>
+<ul>
+<li>Linux: CI_DRM_15216 -&gt; Patchwork_137153v1</li>
+</ul>
+<p>CI-20190529: 20190529<br />
+  CI_DRM_15216: 1daf2018001da75c5522669aebdb68ba9a353ea6 @ git://anongit.freedesktop.org/gfx-ci/linux<br />
+  IGT_7966: f16c5f500adc5fa41bd52a3ef2a84165da4fb596 @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git<br />
+  Patchwork_137153v1: 1daf2018001da75c5522669aebdb68ba9a353ea6 @ git://anongit.freedesktop.org/gfx-ci/linux</p>
+
+</body>
+</html>
+
+--===============2838830078902837354==--
