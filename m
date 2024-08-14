@@ -4,61 +4,61 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 39E74C531DD
-	for <intel-gfx@archiver.kernel.org>; Wed, 14 Aug 2024 13:49:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A241EC52D7B
+	for <intel-gfx@archiver.kernel.org>; Wed, 14 Aug 2024 13:52:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CF22D10E490;
-	Wed, 14 Aug 2024 13:49:25 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 46A7210E494;
+	Wed, 14 Aug 2024 13:52:24 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="l3q7Fhfk";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="Pu+KV+uK";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.9])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C2E4010E490;
- Wed, 14 Aug 2024 13:49:24 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.21])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6742C10E494;
+ Wed, 14 Aug 2024 13:52:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1723643364; x=1755179364;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=vTqUHZqA7usgq9kgddnWezt5lRif8yqQwvYqhBZPvwQ=;
- b=l3q7FhfkTyDZtXdHFxXop7aDhEbQVzFSuXJS1rFtlNJmgIXlEo7HfLI4
- ROLylRz0a85WH9Of5mEWlhDj5UudYSOVkHhiyMvuD4qBv2zS+/b7XPZ2t
- U1aFGwgl4x+GOUwRAP6Put0H04BPhChpoUABuYKmhbNSGJ5v01/FxePwi
- V50YqehotGaCNbH7issXUSaDsbfSu4bkL7n8T5s2fvWmqe1uRTQ3JfSAV
- OD/euKlVYITETe3k9IfYpfV1tFBUVnqb/5Ad+h1WQK3pBpWOC0wiUs2OT
- 0sJd15KjBKczXOeUbIILEgLhbxDNXPf5OUb2UfZJbQY+Eq+LEF2NhoFUC w==;
-X-CSE-ConnectionGUID: +KyHJOobS36tS0+NEHRg9A==
-X-CSE-MsgGUID: h8iYObiYTi20FuA0WJyBTw==
-X-IronPort-AV: E=McAfee;i="6700,10204,11164"; a="32537654"
-X-IronPort-AV: E=Sophos;i="6.10,146,1719903600"; d="scan'208";a="32537654"
-Received: from fmviesa010.fm.intel.com ([10.60.135.150])
- by fmvoesa103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 14 Aug 2024 06:49:24 -0700
-X-CSE-ConnectionGUID: 3bBMSLVYQ6+H4QhHWRE71w==
-X-CSE-MsgGUID: AQktwF4/SLip961pv9nNow==
+ t=1723643544; x=1755179544;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:in-reply-to;
+ bh=8sELu0ZN8+Jm1Zbq5sAGW9Anpsxmnzfr1mCzydBwHKs=;
+ b=Pu+KV+uKHTZ2BNU5PTgZltu4bwfQth4tarQiSKjFr3rq6OQUNH9R0iB8
+ kgDQ4vOfZaIMJ4K4RbSOMoZHPJEjO9BYi9GvIweGTv2DCUSLI8QtaeXFS
+ eOJKcQzfiGhkqXEv2F+bBRgOmuIteye6HlOCyJZwkOzGN07vOdaIlQQc1
+ AeE5/W5qr05Dgp4sWoEQcbvMOfO4rgiywzCy8q4jKQSa6U1WPjIa5V9wO
+ lqjQmWp/9fIpoSbYQR12yxIpqBHLkmvEPRKvQ0Y7dZNWqq6gYTsf2E7Rv
+ Vza4RdNxDKlDDNMCp/8YD++OZQp35SrA95Xg7ufc3J2bC35o0NY9uOZ8V g==;
+X-CSE-ConnectionGUID: We97PijESnqdzs95Ts68bQ==
+X-CSE-MsgGUID: if+8YSUCSwSSX2ncLh+f8Q==
+X-IronPort-AV: E=McAfee;i="6700,10204,11164"; a="21828367"
+X-IronPort-AV: E=Sophos;i="6.10,146,1719903600"; d="scan'208";a="21828367"
+Received: from fmviesa006.fm.intel.com ([10.60.135.146])
+ by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 14 Aug 2024 06:52:02 -0700
+X-CSE-ConnectionGUID: mpcN4dZRTpWrmBv66yKqgQ==
+X-CSE-MsgGUID: uCCiYO59S02amEAuvAOByw==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.10,146,1719903600"; d="scan'208";a="59154321"
+X-IronPort-AV: E=Sophos;i="6.10,146,1719903600"; d="scan'208";a="58654011"
 Received: from sschumil-mobl2.ger.corp.intel.com (HELO intel.com)
  ([10.245.246.62])
- by fmviesa010-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 14 Aug 2024 06:48:49 -0700
+ by fmviesa006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 14 Aug 2024 06:51:55 -0700
+Date: Wed, 14 Aug 2024 15:51:51 +0200
 From: Andi Shyti <andi.shyti@linux.intel.com>
-To: intel-gfx <intel-gfx@lists.freedesktop.org>,
- dri-devel <dri-devel@lists.freedesktop.org>
-Cc: Lionel Landwerlin <lionel.g.landwerlin@intel.com>,
+To: Andi Shyti <andi.shyti@linux.intel.com>
+Cc: intel-gfx <intel-gfx@lists.freedesktop.org>,
+ dri-devel <dri-devel@lists.freedesktop.org>,
+ Lionel Landwerlin <lionel.g.landwerlin@intel.com>,
  Chris Wilson <chris.p.wilson@linux.intel.com>,
  Nirmoy Das <nirmoy.das@intel.com>,
  Krzysztof Niemiec <krzysztof.niemiec@intel.com>,
- Sima <daniel.vetter@ffwll.ch>, Matthew Brost <matthew.brost@intel.com>,
- Andi Shyti <andi.shyti@linux.intel.com>
-Subject: [PATCH v2 1/2] drm/i915/gem: Do not look for the exact address in node
-Date: Wed, 14 Aug 2024 15:48:33 +0200
-Message-ID: <20240814134837.116498-2-andi.shyti@linux.intel.com>
-X-Mailer: git-send-email 2.45.2
-In-Reply-To: <20240814134837.116498-1-andi.shyti@linux.intel.com>
+ Sima <daniel.vetter@ffwll.ch>, Matthew Brost <matthew.brost@intel.com>
+Subject: Re: [PATCH v2 0/2] Allow partial memory mapping for cpu memory
+Message-ID: <Zry2d2LtQLiPY58x@ashyti-mobl2.lan>
 References: <20240814134837.116498-1-andi.shyti@linux.intel.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20240814134837.116498-1-andi.shyti@linux.intel.com>
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,34 +74,65 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-In preparation for the upcoming partial memory mapping feature,
-we want to make sure that when looking for a node we consider
-also the offset and not just the starting address of the virtual
-memory node.
+Argh... sorry, I messed up with format-patch and send-mail and
+sent it twice.
 
-Signed-off-by: Andi Shyti <andi.shyti@linux.intel.com>
-Reviewed-by: Nirmoy Das <nirmoy.das@intel.com>
----
- drivers/gpu/drm/i915/gem/i915_gem_mman.c | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+Maybe I need to resend it if CI complains.
 
-diff --git a/drivers/gpu/drm/i915/gem/i915_gem_mman.c b/drivers/gpu/drm/i915/gem/i915_gem_mman.c
-index e9b2424156f0..99fde0a05632 100644
---- a/drivers/gpu/drm/i915/gem/i915_gem_mman.c
-+++ b/drivers/gpu/drm/i915/gem/i915_gem_mman.c
-@@ -1079,9 +1079,9 @@ int i915_gem_mmap(struct file *filp, struct vm_area_struct *vma)
- 
- 	rcu_read_lock();
- 	drm_vma_offset_lock_lookup(dev->vma_offset_manager);
--	node = drm_vma_offset_exact_lookup_locked(dev->vma_offset_manager,
--						  vma->vm_pgoff,
--						  vma_pages(vma));
-+	node = drm_vma_offset_lookup_locked(dev->vma_offset_manager,
-+					    vma->vm_pgoff,
-+					    vma_pages(vma));
- 	if (node && drm_vma_node_is_allowed(node, priv)) {
- 		/*
- 		 * Skip 0-refcnted objects as it is in the process of being
--- 
-2.45.2
+Andi
 
+On Wed, Aug 14, 2024 at 03:48:32PM +0200, Andi Shyti wrote:
+> Hi,
+> 
+> I am resending this patch series, not to disregard the previous
+> discussions, but to ensure it gets tested with the IGTs that
+> Krzysztof has provided.
+> 
+> This patch series finalizes the memory mapping fixes and
+> improvements by enabling partial memory mapping for CPU memory as
+> well.
+> 
+> The concept of partial memory mapping, achieved by adding an
+> object offset, was implicitly introduced in commit 8bdd9ef7e9b1
+> ("drm/i915/gem: Fix Virtual Memory mapping boundaries
+> calculation") for GTT memory.
+> 
+> To address a previous discussion with Sima and Matt, this feature
+> is used by Mesa and is required across all platforms utilizing
+> Mesa. Although Nirmoy suggested using the Fixes tag to backport
+> this to previous kernels, I view this as a new feature rather
+> than a fix.
+> 
+> Lionel, please let me know if you have a different perspective
+> and believe this should be treated as a bug fix, requiring it
+> to be backported to stable kernels.
+> 
+> The IGTs have been developed in collaboration with the Mesa team
+> to replicate the exact Mesa use case[*].
+> 
+> Thanks Chris for the support, thanks Krzysztof for taking care of
+> the IGT tests, thanks Nirmoy for your reviews and thanks Sima and
+> Matt for the discussion on this series.
+> 
+> Andi
+> 
+> [*] https://patchwork.freedesktop.org/patch/608232/?series=137303&rev=1
+> 
+> Test-with: 20240814132404.18392-1-krzysztof.niemiec@intel.com
+> 
+> Changelog:
+> ==========
+> v1 -> v2
+>  - Added Nirmoy's tags.
+> 
+> Andi Shyti (2):
+>   drm/i915/gem: Do not look for the exact address in node
+>   drm/i915/gem: Calculate object page offset for partial memory mapping
+> 
+>  drivers/gpu/drm/i915/gem/i915_gem_mman.c | 10 ++++++----
+>  drivers/gpu/drm/i915/i915_mm.c           | 12 +++++++++++-
+>  drivers/gpu/drm/i915/i915_mm.h           |  3 ++-
+>  3 files changed, 19 insertions(+), 6 deletions(-)
+> 
+> -- 
+> 2.45.2
