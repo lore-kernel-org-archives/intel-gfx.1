@@ -4,44 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C8BBFC52D7D
-	for <intel-gfx@archiver.kernel.org>; Wed, 14 Aug 2024 13:48:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C412DC3DA4A
+	for <intel-gfx@archiver.kernel.org>; Wed, 14 Aug 2024 13:49:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8ED7610E48C;
-	Wed, 14 Aug 2024 13:48:25 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 537A310E48A;
+	Wed, 14 Aug 2024 13:49:01 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="TU9/4sPd";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="WneyUdun";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.9])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CACC010E48E;
- Wed, 14 Aug 2024 13:48:24 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1E8FD10E489;
+ Wed, 14 Aug 2024 13:49:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1723643304; x=1755179304;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=blm7jAQoSNHeYCs7Wlv7rh0Eni/1qDlqjkgx/wsMrPg=;
- b=TU9/4sPdA3HQkic8Lvw1NfOLWwbBtQ1+Ky2SeVCWm3OgIvUvaUl/OVr2
- tWONOTPTAcWqOy86sVkFGW3vfuGGOKIOTdJBdUQzR+LPHFPshlJ2qq2dp
- tbqKGXSrS3n2wDiwHckOHcOHxfKLTvieEfhw1EchY7mhEOE2hIc++B+6o
- 9kCjICUaGNMxGhe7bS45kKSQr1lye20EwO3AC2SyvDtf6r5xLChtgs3Fj
- DbMvQ6P2X2vHmnl4GeLWVmkLjWGaI5wXmLulIVemPMPCjZdTEKqbqRJ+r
- +BqjURjHwbpSSdYlHMd3QogPpRF3lgTqw53SugRf6rliNvXivZs2JOzRr Q==;
-X-CSE-ConnectionGUID: Hu4D7IF0TR6AmWPZLiNDWQ==
-X-CSE-MsgGUID: 3fpavCQQSxqF7nwHchzzXw==
-X-IronPort-AV: E=McAfee;i="6700,10204,11164"; a="32537544"
-X-IronPort-AV: E=Sophos;i="6.10,146,1719903600"; d="scan'208";a="32537544"
-Received: from fmviesa010.fm.intel.com ([10.60.135.150])
- by fmvoesa103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 14 Aug 2024 06:48:24 -0700
-X-CSE-ConnectionGUID: FvU1hJn1SEuVv/XTbdkt9w==
-X-CSE-MsgGUID: /QtCJ8vNS1KKSpQmb7MCoA==
+ t=1723643340; x=1755179340;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=J3/NYcyQ3JJjSC43GYwuTYf9llBevuT7wY09LyINcLY=;
+ b=WneyUdun7dRnOMF8tSlhpowIwcu10c6ZCLwRSCV/DZvyMOBnZp4P98Hn
+ rAnssUlvJcsm2y/87+Ut1F0CooTEUDWwq0dUqUxXokaIYfZuWWHAG/CQP
+ YrBkoqzaSCLTFJpKo80E+kIAGfcXgjXwWwqAOZXoinyE/6F+/U4+1j00w
+ OjCFjDLdyKNC/eh7Mj5/c5Uh8TtIKp0+x7fcY6RB55kSAx4Ya5UIIRuMq
+ ajPeMnVUwqIp0/Of2y490xlsUaJv7iYyY8yhtKrozhfRHVGFNvFF4UfoP
+ mtyqUwIVynikF1gwwYqNuaKezj2OjiT4mLOH7/FAamSVMbX7KWFh7K6KH Q==;
+X-CSE-ConnectionGUID: /faIezM9RLWz6zlWyvQ8Dw==
+X-CSE-MsgGUID: W/T8LdjxS1OEQCb6JCIGOg==
+X-IronPort-AV: E=McAfee;i="6700,10204,11164"; a="22017018"
+X-IronPort-AV: E=Sophos;i="6.10,146,1719903600"; d="scan'208";a="22017018"
+Received: from orviesa005.jf.intel.com ([10.64.159.145])
+ by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 14 Aug 2024 06:49:00 -0700
+X-CSE-ConnectionGUID: NBDnLJCMQzi2dQlHVfmRlg==
+X-CSE-MsgGUID: 5GhlZ8ZbQaauqDOHH38fqQ==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.10,146,1719903600"; d="scan'208";a="59153915"
+X-IronPort-AV: E=Sophos;i="6.10,146,1719903600"; d="scan'208";a="63900859"
 Received: from sschumil-mobl2.ger.corp.intel.com (HELO intel.com)
  ([10.245.246.62])
- by fmviesa010-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 14 Aug 2024 06:48:21 -0700
+ by orviesa005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 14 Aug 2024 06:48:57 -0700
 From: Andi Shyti <andi.shyti@linux.intel.com>
 To: intel-gfx <intel-gfx@lists.freedesktop.org>,
  dri-devel <dri-devel@lists.freedesktop.org>
@@ -51,10 +51,13 @@ Cc: Lionel Landwerlin <lionel.g.landwerlin@intel.com>,
  Krzysztof Niemiec <krzysztof.niemiec@intel.com>,
  Sima <daniel.vetter@ffwll.ch>, Matthew Brost <matthew.brost@intel.com>,
  Andi Shyti <andi.shyti@linux.intel.com>
-Subject: [PATCH v2 0/2] Allow partial memory mapping for cpu memory
-Date: Wed, 14 Aug 2024 15:47:46 +0200
-Message-ID: <20240814134751.116439-1-andi.shyti@linux.intel.com>
+Subject: [PATCH v2 2/2] drm/i915/gem: Calculate object page offset for partial
+ memory mapping
+Date: Wed, 14 Aug 2024 15:48:34 +0200
+Message-ID: <20240814134837.116498-3-andi.shyti@linux.intel.com>
 X-Mailer: git-send-email 2.45.2
+In-Reply-To: <20240814134837.116498-1-andi.shyti@linux.intel.com>
+References: <20240814134837.116498-1-andi.shyti@linux.intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-BeenThere: intel-gfx@lists.freedesktop.org
@@ -72,58 +75,98 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Hi,
+To enable partial memory mapping of GPU virtual memory, it's
+necessary to introduce an offset to the object's memory
+(obj->mm.pages) scatterlist. This adjustment compensates for
+instances when userspace mappings do not start from the beginning
+of the object.
 
-I am resending this patch series, not to disregard the previous
-discussions, but to ensure it gets tested with the IGTs that
-Krzysztof has provided.
+Based on a patch by Chris Wilson.
 
-This patch series finalizes the memory mapping fixes and
-improvements by enabling partial memory mapping for CPU memory as
-well.
-
-The concept of partial memory mapping, achieved by adding an
-object offset, was implicitly introduced in commit 8bdd9ef7e9b1
-("drm/i915/gem: Fix Virtual Memory mapping boundaries
-calculation") for GTT memory.
-
-To address a previous discussion with Sima and Matt, this feature
-is used by Mesa and is required across all platforms utilizing
-Mesa. Although Nirmoy suggested using the Fixes tag to backport
-this to previous kernels, I view this as a new feature rather
-than a fix.
-
-Lionel, please let me know if you have a different perspective
-and believe this should be treated as a bug fix, requiring it
-to be backported to stable kernels.
-
-The IGTs have been developed in collaboration with the Mesa team
-to replicate the exact Mesa use case[*].
-
-Thanks Chris for the support, thanks Krzysztof for taking care of
-the IGT tests, thanks Nirmoy for your reviews and thanks Sima and
-Matt for the discussion on this series.
-
-Andi
-
-[*] https://patchwork.freedesktop.org/patch/608232/?series=137303&rev=1
-
-Test-with: 20240814132404.18392-1-krzysztof.niemiec@intel.com
-
-Changelog:
-==========
-v1 -> v2
- - Added Nirmoy's tags.
-
-Andi Shyti (2):
-  drm/i915/gem: Do not look for the exact address in node
-  drm/i915/gem: Calculate object page offset for partial memory mapping
-
- drivers/gpu/drm/i915/gem/i915_gem_mman.c | 10 ++++++----
+Signed-off-by: Andi Shyti <andi.shyti@linux.intel.com>
+Cc: Chris Wilson <chris.p.wilson@linux.intel.com>
+Cc: Lionel Landwerlin <lionel.g.landwerlin@intel.com>
+Reviewed-by: Nirmoy Das <nirmoy.das@intel.com>
+---
+ drivers/gpu/drm/i915/gem/i915_gem_mman.c |  4 +++-
  drivers/gpu/drm/i915/i915_mm.c           | 12 +++++++++++-
  drivers/gpu/drm/i915/i915_mm.h           |  3 ++-
- 3 files changed, 19 insertions(+), 6 deletions(-)
+ 3 files changed, 16 insertions(+), 3 deletions(-)
 
+diff --git a/drivers/gpu/drm/i915/gem/i915_gem_mman.c b/drivers/gpu/drm/i915/gem/i915_gem_mman.c
+index 99fde0a05632..21274aa9bddd 100644
+--- a/drivers/gpu/drm/i915/gem/i915_gem_mman.c
++++ b/drivers/gpu/drm/i915/gem/i915_gem_mman.c
+@@ -252,6 +252,7 @@ static vm_fault_t vm_fault_cpu(struct vm_fault *vmf)
+ 	struct vm_area_struct *area = vmf->vma;
+ 	struct i915_mmap_offset *mmo = area->vm_private_data;
+ 	struct drm_i915_gem_object *obj = mmo->obj;
++	unsigned long obj_offset;
+ 	resource_size_t iomap;
+ 	int err;
+ 
+@@ -273,10 +274,11 @@ static vm_fault_t vm_fault_cpu(struct vm_fault *vmf)
+ 		iomap -= obj->mm.region->region.start;
+ 	}
+ 
++	obj_offset = area->vm_pgoff - drm_vma_node_start(&mmo->vma_node);
+ 	/* PTEs are revoked in obj->ops->put_pages() */
+ 	err = remap_io_sg(area,
+ 			  area->vm_start, area->vm_end - area->vm_start,
+-			  obj->mm.pages->sgl, iomap);
++			  obj->mm.pages->sgl, obj_offset, iomap);
+ 
+ 	if (area->vm_flags & VM_WRITE) {
+ 		GEM_BUG_ON(!i915_gem_object_has_pinned_pages(obj));
+diff --git a/drivers/gpu/drm/i915/i915_mm.c b/drivers/gpu/drm/i915/i915_mm.c
+index 7998bc74ab49..f5c97a620962 100644
+--- a/drivers/gpu/drm/i915/i915_mm.c
++++ b/drivers/gpu/drm/i915/i915_mm.c
+@@ -122,13 +122,15 @@ int remap_io_mapping(struct vm_area_struct *vma,
+  * @addr: target user address to start at
+  * @size: size of map area
+  * @sgl: Start sg entry
++ * @offset: offset from the start of the page
+  * @iobase: Use stored dma address offset by this address or pfn if -1
+  *
+  *  Note: this is only safe if the mm semaphore is held when called.
+  */
+ int remap_io_sg(struct vm_area_struct *vma,
+ 		unsigned long addr, unsigned long size,
+-		struct scatterlist *sgl, resource_size_t iobase)
++		struct scatterlist *sgl, unsigned long offset,
++		resource_size_t iobase)
+ {
+ 	struct remap_pfn r = {
+ 		.mm = vma->vm_mm,
+@@ -141,6 +143,14 @@ int remap_io_sg(struct vm_area_struct *vma,
+ 	/* We rely on prevalidation of the io-mapping to skip track_pfn(). */
+ 	GEM_BUG_ON((vma->vm_flags & EXPECTED_FLAGS) != EXPECTED_FLAGS);
+ 
++	while (offset >= sg_dma_len(r.sgt.sgp) >> PAGE_SHIFT) {
++		offset -= sg_dma_len(r.sgt.sgp) >> PAGE_SHIFT;
++		r.sgt = __sgt_iter(__sg_next(r.sgt.sgp), use_dma(iobase));
++		if (!r.sgt.sgp)
++			return -EINVAL;
++	}
++	r.sgt.curr = offset << PAGE_SHIFT;
++
+ 	if (!use_dma(iobase))
+ 		flush_cache_range(vma, addr, size);
+ 
+diff --git a/drivers/gpu/drm/i915/i915_mm.h b/drivers/gpu/drm/i915/i915_mm.h
+index 04c8974d822b..69f9351b1a1c 100644
+--- a/drivers/gpu/drm/i915/i915_mm.h
++++ b/drivers/gpu/drm/i915/i915_mm.h
+@@ -30,6 +30,7 @@ int remap_io_mapping(struct vm_area_struct *vma,
+ 
+ int remap_io_sg(struct vm_area_struct *vma,
+ 		unsigned long addr, unsigned long size,
+-		struct scatterlist *sgl, resource_size_t iobase);
++		struct scatterlist *sgl, unsigned long offset,
++		resource_size_t iobase);
+ 
+ #endif /* __I915_MM_H__ */
 -- 
 2.45.2
 
