@@ -4,55 +4,54 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4844DC3DA7F
-	for <intel-gfx@archiver.kernel.org>; Thu, 15 Aug 2024 08:44:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B2CEEC3DA7F
+	for <intel-gfx@archiver.kernel.org>; Thu, 15 Aug 2024 12:00:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C3D6610E050;
-	Thu, 15 Aug 2024 08:44:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2C0B910E217;
+	Thu, 15 Aug 2024 12:00:09 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="EI3jBLbZ";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="NxtlvuaH";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A05DE10E050
- for <intel-gfx@lists.freedesktop.org>; Thu, 15 Aug 2024 08:44:33 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E037D10E318
+ for <intel-gfx@lists.freedesktop.org>; Thu, 15 Aug 2024 12:00:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1723711473; x=1755247473;
- h=from:to:subject:in-reply-to:references:date:message-id:
- mime-version; bh=khnE8w5/6EE78p7rT4km5c2GgjgCLtZHgsZ/kFGxAqU=;
- b=EI3jBLbZK/au411zSYYxrWSO20rSj6+2noQE476iY+WPfic9QGu2x9MS
- 3mevKWogNDsk6xlwK4PIcmMxnyYCv582dxQIsvPZSkqr0iGDM2XV0ibON
- +Kpk5eXZJ639ZQ8kzFkoqIParoZ+h4qGDeqEcPDEvxvqt4tIUr35ewk4P
- 1ky+24+wZdP0Ge7sYxN3Z0n0+0t1Cd1zQdhMp4gIq2CIcgX5sLnaW8kYm
- OjOyf4MrQX/VaT1dNyr1FbthRng7rpf7wyye6lYRq8wV64IXQY1l56BvT
- EPQ+a+BEyoqg2+bld0b4Fmu/EYea8BFMHzj8OO68Skjw3FmGDgb46pjAZ w==;
-X-CSE-ConnectionGUID: 1AQ1lH5WSPm5FdvR8UlHVg==
-X-CSE-MsgGUID: qdKKRW34RxebOWKKcptZLg==
-X-IronPort-AV: E=McAfee;i="6700,10204,11164"; a="32595440"
-X-IronPort-AV: E=Sophos;i="6.10,148,1719903600"; d="scan'208";a="32595440"
-Received: from fmviesa009.fm.intel.com ([10.60.135.149])
- by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 15 Aug 2024 01:44:33 -0700
-X-CSE-ConnectionGUID: 1/Voow0TTQOoBbmbsM+DEQ==
-X-CSE-MsgGUID: JpLoSDbdRC21yQH4UHv8DA==
+ t=1723723207; x=1755259207;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=0cQs83EnaTZh0mXMLUOnE+h/YPvEkTtUavIl1IETFro=;
+ b=NxtlvuaHyheUyxvrqnGvA0u1gW4PtnznnTwjHr+M1uJLNLOq4pWbC031
+ xcJyMcgDoE/RxiRY5Z+in9MFH6KU5Ps3wnRABPrV9DCDxLSWkNR9iCmCM
+ KmcBjCSpblxT8ZjSOs4UgJfWd7GWeVyqe51DNrL0iJMYS0e86ZvqF+WOK
+ 4hW0bxmYMAf1MjEKT3E6Dh2I2m0HgHub/IxYd91MCgabhS94bhp2BOvDI
+ 89k1Lubnl4gZ98zkrl+alcRHZ2txN9gB51VpY2saCxkjQP4ql5ieErNmR
+ 70bWppbSOFKUur7L5mP04u8Kn9V9P5LtF/FXvRsNZMQWwpKPAtPlW4Ez7 g==;
+X-CSE-ConnectionGUID: gTvqGw0wRb+KruDl+eowxA==
+X-CSE-MsgGUID: +R2lgEUQShu4EbrCaHP0DQ==
+X-IronPort-AV: E=McAfee;i="6700,10204,11164"; a="22135657"
+X-IronPort-AV: E=Sophos;i="6.10,148,1719903600"; d="scan'208";a="22135657"
+Received: from fmviesa006.fm.intel.com ([10.60.135.146])
+ by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 15 Aug 2024 05:00:07 -0700
+X-CSE-ConnectionGUID: jplLi3Q+Sf2VWRS2ibIq8A==
+X-CSE-MsgGUID: +etqQHxiSeOuam3YEUUwgw==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.10,148,1719903600"; d="scan'208";a="59319085"
-Received: from iklimasz-mobl1.ger.corp.intel.com (HELO localhost)
- ([10.245.246.149])
- by fmviesa009-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 15 Aug 2024 01:44:31 -0700
-From: Jani Nikula <jani.nikula@linux.intel.com>
-To: "Renan W. P." <renanwilliamprado@gmail.com>, rodrigo.vivi@intel.com,
- intel-gfx@lists.freedesktop.org, "Deak, Imre" <imre.deak@intel.com>
-Subject: Re: A huge warning in dmesg pointing to
- drivers/gpu/drm/i915/display/intel_tc.c
-In-Reply-To: <2810b938-7df7-408e-9775-6f20d1694176@gmail.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
-References: <2810b938-7df7-408e-9775-6f20d1694176@gmail.com>
-Date: Thu, 15 Aug 2024 11:44:28 +0300
-Message-ID: <87wmkixjir.fsf@intel.com>
+X-IronPort-AV: E=Sophos;i="6.10,148,1719903600"; d="scan'208";a="58960842"
+Received: from jnikula-mobl4.fi.intel.com (HELO localhost) ([10.237.66.160])
+ by fmviesa006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 15 Aug 2024 05:00:06 -0700
+From: Jani Nikula <jani.nikula@intel.com>
+To: intel-gfx@lists.freedesktop.org
+Cc: jani.nikula@intel.com,
+	Imre Deak <imre.deak@intel.com>
+Subject: [PATCH] drm/i915: make intel_display_power_domain_str() static
+Date: Thu, 15 Aug 2024 15:00:02 +0300
+Message-Id: <20240815120002.3472727-1-jani.nikula@intel.com>
+X-Mailer: git-send-email 2.39.2
 MIME-Version: 1.0
-Content-Type: text/plain
+Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
+Content-Transfer-Encoding: 8bit
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,28 +67,43 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
+The function isn't used outside of intel_display_power.c. Make it
+static.
 
-[dropped a bunch of mailing lists and maintainers, added Imre]
+Suggested-by: Imre Deak <imre.deak@intel.com>
+Signed-off-by: Jani Nikula <jani.nikula@intel.com>
+---
+ drivers/gpu/drm/i915/display/intel_display_power.c | 2 +-
+ drivers/gpu/drm/i915/display/intel_display_power.h | 3 ---
+ 2 files changed, 1 insertion(+), 4 deletions(-)
 
-On Thu, 15 Aug 2024, "Renan W. P." <renanwilliamprado@gmail.com> wrote:
-> [2.] Full description of the problem/report:
->
-> I can't identify any factual problems beyond a warning in dmesg triggered at every boot, i.e., I have seen no features affected. The dmesg output is located in the log files in the attachment.
-> I am facing this warning in LENOVO 82MG/LNVNB161216, BIOS H4CN35WW(V2.04) 04/12/2024 (Lenovo Ganing 3i). I have tried two new kernel versions fromwww.kernel.org  site, the Kernel 6.10.5 and 6.1.105.
-> Additionally, I have used Debian at least since kernel version 6.1.22. All kernels present warnings in the same file with slightly different outputs in dmesg. I am compiling the kernel with the config-6.1.105 file in the attachment.
-
-Unless Imre has some obvious ideas what the problem is, please file the
-bug report at freedesktop.org gitlab as described in [1]. While the
-detail in your report here is great, I'm afraid it's just going to be
-completely forgotten on the mailing list.
-
-Thanks,
-Jani.
-
-
-[1] https://drm.pages.freedesktop.org/intel-docs/how-to-file-i915-bugs.html
-
-
-
+diff --git a/drivers/gpu/drm/i915/display/intel_display_power.c b/drivers/gpu/drm/i915/display/intel_display_power.c
+index cf8b38f2ebf5..39ab3117265c 100644
+--- a/drivers/gpu/drm/i915/display/intel_display_power.c
++++ b/drivers/gpu/drm/i915/display/intel_display_power.c
+@@ -36,7 +36,7 @@
+ 	for_each_power_well_reverse(__dev_priv, __power_well)		        \
+ 		for_each_if(test_bit((__domain), (__power_well)->domains.bits))
+ 
+-const char *
++static const char *
+ intel_display_power_domain_str(enum intel_display_power_domain domain)
+ {
+ 	switch (domain) {
+diff --git a/drivers/gpu/drm/i915/display/intel_display_power.h b/drivers/gpu/drm/i915/display/intel_display_power.h
+index 0962f6aaeee6..425452c5a469 100644
+--- a/drivers/gpu/drm/i915/display/intel_display_power.h
++++ b/drivers/gpu/drm/i915/display/intel_display_power.h
+@@ -183,9 +183,6 @@ void intel_display_power_resume(struct drm_i915_private *i915);
+ void intel_display_power_set_target_dc_state(struct drm_i915_private *dev_priv,
+ 					     u32 state);
+ 
+-const char *
+-intel_display_power_domain_str(enum intel_display_power_domain domain);
+-
+ bool intel_display_power_is_enabled(struct drm_i915_private *dev_priv,
+ 				    enum intel_display_power_domain domain);
+ intel_wakeref_t intel_display_power_get(struct drm_i915_private *dev_priv,
 -- 
-Jani Nikula, Intel
+2.39.2
+
