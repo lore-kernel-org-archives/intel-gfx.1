@@ -4,40 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B84D4C531DF
-	for <intel-gfx@archiver.kernel.org>; Fri, 16 Aug 2024 12:57:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 63155C3DA4A
+	for <intel-gfx@archiver.kernel.org>; Fri, 16 Aug 2024 12:57:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 15C7F10E73A;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4FDFE10E75E;
 	Fri, 16 Aug 2024 12:54:43 +0000 (UTC)
 Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 92E6C10E6E5;
- Fri, 16 Aug 2024 12:54:34 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 830F210E6FC;
+ Fri, 16 Aug 2024 12:54:38 +0000 (UTC)
 Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
  [IPv6:2a07:de40:b281:104:10:150:64:97])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 42A85222AB;
- Fri, 16 Aug 2024 12:54:33 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 35C3B22894;
+ Fri, 16 Aug 2024 12:54:37 +0000 (UTC)
 Authentication-Results: smtp-out1.suse.de;
 	none
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id F180213ACA;
- Fri, 16 Aug 2024 12:54:32 +0000 (UTC)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id D512913A2F;
+ Fri, 16 Aug 2024 12:54:36 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id 6ESoOQhMv2bdbgAAD6G6ig
- (envelope-from <tzimmermann@suse.de>); Fri, 16 Aug 2024 12:54:32 +0000
+ by imap1.dmz-prg2.suse.org with ESMTPSA id +InNMgxMv2bdbgAAD6G6ig
+ (envelope-from <tzimmermann@suse.de>); Fri, 16 Aug 2024 12:54:36 +0000
 From: Thomas Zimmermann <tzimmermann@suse.de>
 To: daniel@ffwll.ch, airlied@gmail.com, jfalempe@redhat.com, javierm@redhat.com
 Cc: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
  intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
- nouveau@lists.freedesktop.org, Thomas Zimmermann <tzimmermann@suse.de>
-Subject: [PATCH 64/86] drm/fbdev-ttm: Support struct drm_driver.fbdev_probe
-Date: Fri, 16 Aug 2024 14:23:30 +0200
-Message-ID: <20240816125408.310253-65-tzimmermann@suse.de>
+ nouveau@lists.freedesktop.org, Thomas Zimmermann <tzimmermann@suse.de>,
+ Inki Dae <inki.dae@samsung.com>, Seung-Woo Kim <sw0312.kim@samsung.com>,
+ Kyungmin Park <kyungmin.park@samsung.com>
+Subject: [PATCH 75/86] drm/exynos-drm: Run DRM default client setup
+Date: Fri, 16 Aug 2024 14:23:41 +0200
+Message-ID: <20240816125408.310253-76-tzimmermann@suse.de>
 X-Mailer: git-send-email 2.46.0
 In-Reply-To: <20240816125408.310253-1-tzimmermann@suse.de>
 References: <20240816125408.310253-1-tzimmermann@suse.de>
@@ -45,13 +47,13 @@ MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Rspamd-Pre-Result: action=no action; module=replies;
  Message is reply to one we originated
-X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
-X-Spamd-Result: default: False [-4.00 / 50.00];
-	REPLY(-4.00)[]
-X-Rspamd-Queue-Id: 42A85222AB
-X-Rspamd-Action: no action
 X-Rspamd-Pre-Result: action=no action; module=replies;
  Message is reply to one we originated
+X-Rspamd-Action: no action
+X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
+X-Rspamd-Queue-Id: 35C3B22894
+X-Spamd-Result: default: False [-4.00 / 50.00];
+	REPLY(-4.00)[]
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,207 +70,212 @@ Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 Rework fbdev probing to support fbdev_probe in struct drm_driver
-and reimplement the old fb_probe callback on top of it. Provide an
-initializer macro for struct drm_driver that sets the callback
-according to the kernel configuration.
+and remove the old fb_probe callback. Provide an initializer macro
+for struct drm_driver that sets the callback according to the kernel
+configuration.
 
-This change allows the common fbdev client to run on top of TTM-
-based DRM drivers.
+Call drm_client_setup() to run the kernel's default client setup
+for DRM. Set fbdev_probe in struct drm_driver, so that the client
+setup can start the common fbdev client.
+
+The exynos-drm driver specifies a preferred color mode of 32. As this
+is the default if no format has been given, leave it out entirely.
 
 Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
+Cc: Inki Dae <inki.dae@samsung.com>
+Cc: Seung-Woo Kim <sw0312.kim@samsung.com>
+Cc: Kyungmin Park <kyungmin.park@samsung.com>
 ---
- drivers/gpu/drm/drm_fbdev_ttm.c | 142 +++++++++++++++++---------------
- include/drm/drm_fbdev_ttm.h     |  13 +++
- 2 files changed, 90 insertions(+), 65 deletions(-)
+ drivers/gpu/drm/exynos/exynos_drm_drv.c   |   4 +-
+ drivers/gpu/drm/exynos/exynos_drm_fbdev.c | 101 ++--------------------
+ drivers/gpu/drm/exynos/exynos_drm_fbdev.h |  15 ++--
+ 3 files changed, 19 insertions(+), 101 deletions(-)
 
-diff --git a/drivers/gpu/drm/drm_fbdev_ttm.c b/drivers/gpu/drm/drm_fbdev_ttm.c
-index 119ffb28aaf9..d799cbe944cd 100644
---- a/drivers/gpu/drm/drm_fbdev_ttm.c
-+++ b/drivers/gpu/drm/drm_fbdev_ttm.c
-@@ -71,71 +71,7 @@ static const struct fb_ops drm_fbdev_ttm_fb_ops = {
- static int drm_fbdev_ttm_helper_fb_probe(struct drm_fb_helper *fb_helper,
- 					     struct drm_fb_helper_surface_size *sizes)
+diff --git a/drivers/gpu/drm/exynos/exynos_drm_drv.c b/drivers/gpu/drm/exynos/exynos_drm_drv.c
+index 7c59e1164a48..2a466d8179f4 100644
+--- a/drivers/gpu/drm/exynos/exynos_drm_drv.c
++++ b/drivers/gpu/drm/exynos/exynos_drm_drv.c
+@@ -15,6 +15,7 @@
+ 
+ #include <drm/drm_atomic.h>
+ #include <drm/drm_atomic_helper.h>
++#include <drm/drm_client_setup.h>
+ #include <drm/drm_drv.h>
+ #include <drm/drm_file.h>
+ #include <drm/drm_fourcc.h>
+@@ -111,6 +112,7 @@ static const struct drm_driver exynos_drm_driver = {
+ 	.dumb_create		= exynos_drm_gem_dumb_create,
+ 	.gem_prime_import	= exynos_drm_gem_prime_import,
+ 	.gem_prime_import_sg_table	= exynos_drm_gem_prime_import_sg_table,
++	EXYNOS_DRM_FBDEV_DRIVER_OPS,
+ 	.ioctls			= exynos_ioctls,
+ 	.num_ioctls		= ARRAY_SIZE(exynos_ioctls),
+ 	.fops			= &exynos_drm_driver_fops,
+@@ -288,7 +290,7 @@ static int exynos_drm_bind(struct device *dev)
+ 	if (ret < 0)
+ 		goto err_cleanup_poll;
+ 
+-	exynos_drm_fbdev_setup(drm);
++	drm_client_setup(drm, NULL);
+ 
+ 	return 0;
+ 
+diff --git a/drivers/gpu/drm/exynos/exynos_drm_fbdev.c b/drivers/gpu/drm/exynos/exynos_drm_fbdev.c
+index a379c8ca435a..73fa7b77d8d0 100644
+--- a/drivers/gpu/drm/exynos/exynos_drm_fbdev.c
++++ b/drivers/gpu/drm/exynos/exynos_drm_fbdev.c
+@@ -22,9 +22,6 @@
+ #include "exynos_drm_fb.h"
+ #include "exynos_drm_fbdev.h"
+ 
+-#define MAX_CONNECTOR		4
+-#define PREFERRED_BPP		32
+-
+ static int exynos_drm_fb_mmap(struct fb_info *info, struct vm_area_struct *vma)
  {
--	struct drm_client_dev *client = &fb_helper->client;
--	struct drm_device *dev = fb_helper->dev;
--	struct drm_client_buffer *buffer;
--	struct fb_info *info;
--	size_t screen_size;
--	void *screen_buffer;
--	u32 format;
+ 	struct drm_fb_helper *helper = info->par;
+@@ -87,8 +84,11 @@ static int exynos_drm_fbdev_update(struct drm_fb_helper *helper,
+ 	return 0;
+ }
+ 
+-static int exynos_drm_fbdev_create(struct drm_fb_helper *helper,
+-				    struct drm_fb_helper_surface_size *sizes)
++static const struct drm_fb_helper_funcs exynos_drm_fbdev_helper_funcs = {
++};
++
++int exynos_drm_fbdev_driver_fbdev_probe(struct drm_fb_helper *helper,
++					struct drm_fb_helper_surface_size *sizes)
+ {
+ 	struct exynos_drm_gem *exynos_gem;
+ 	struct drm_device *dev = helper->dev;
+@@ -120,6 +120,7 @@ static int exynos_drm_fbdev_create(struct drm_fb_helper *helper,
+ 		ret = PTR_ERR(helper->fb);
+ 		goto err_destroy_gem;
+ 	}
++	helper->funcs = &exynos_drm_fbdev_helper_funcs;
+ 
+ 	ret = exynos_drm_fbdev_update(helper, sizes, exynos_gem);
+ 	if (ret < 0)
+@@ -134,93 +135,3 @@ static int exynos_drm_fbdev_create(struct drm_fb_helper *helper,
+ 	exynos_drm_gem_destroy(exynos_gem);
+ 	return ret;
+ }
+-
+-static const struct drm_fb_helper_funcs exynos_drm_fb_helper_funcs = {
+-	.fb_probe =	exynos_drm_fbdev_create,
+-};
+-
+-/*
+- * struct drm_client
+- */
+-
+-static void exynos_drm_fbdev_client_unregister(struct drm_client_dev *client)
+-{
+-	struct drm_fb_helper *fb_helper = drm_fb_helper_from_client(client);
+-
+-	if (fb_helper->info) {
+-		drm_fb_helper_unregister_info(fb_helper);
+-	} else {
+-		drm_client_release(&fb_helper->client);
+-		drm_fb_helper_unprepare(fb_helper);
+-		kfree(fb_helper);
+-	}
+-}
+-
+-static int exynos_drm_fbdev_client_restore(struct drm_client_dev *client)
+-{
+-	drm_fb_helper_lastclose(client->dev);
+-
+-	return 0;
+-}
+-
+-static int exynos_drm_fbdev_client_hotplug(struct drm_client_dev *client)
+-{
+-	struct drm_fb_helper *fb_helper = drm_fb_helper_from_client(client);
+-	struct drm_device *dev = client->dev;
 -	int ret;
 -
--	drm_dbg_kms(dev, "surface width(%d), height(%d) and bpp(%d)\n",
--		    sizes->surface_width, sizes->surface_height,
--		    sizes->surface_bpp);
+-	if (dev->fb_helper)
+-		return drm_fb_helper_hotplug_event(dev->fb_helper);
 -
--	format = drm_driver_legacy_fb_format(dev, sizes->surface_bpp,
--					     sizes->surface_depth);
--	buffer = drm_client_framebuffer_create(client, sizes->surface_width,
--					       sizes->surface_height, format);
--	if (IS_ERR(buffer))
--		return PTR_ERR(buffer);
--
--	fb_helper->buffer = buffer;
--	fb_helper->fb = buffer->fb;
--
--	screen_size = buffer->gem->size;
--	screen_buffer = vzalloc(screen_size);
--	if (!screen_buffer) {
--		ret = -ENOMEM;
--		goto err_drm_client_framebuffer_delete;
--	}
--
--	info = drm_fb_helper_alloc_info(fb_helper);
--	if (IS_ERR(info)) {
--		ret = PTR_ERR(info);
--		goto err_vfree;
--	}
--
--	drm_fb_helper_fill_info(info, fb_helper, sizes);
--
--	info->fbops = &drm_fbdev_ttm_fb_ops;
--
--	/* screen */
--	info->flags |= FBINFO_VIRTFB | FBINFO_READS_FAST;
--	info->screen_buffer = screen_buffer;
--	info->fix.smem_len = screen_size;
--
--	/* deferred I/O */
--	fb_helper->fbdefio.delay = HZ / 20;
--	fb_helper->fbdefio.deferred_io = drm_fb_helper_deferred_io;
--
--	info->fbdefio = &fb_helper->fbdefio;
--	ret = fb_deferred_io_init(info);
+-	ret = drm_fb_helper_init(dev, fb_helper);
 -	if (ret)
--		goto err_drm_fb_helper_release_info;
+-		goto err_drm_err;
+-
+-	if (!drm_drv_uses_atomic_modeset(dev))
+-		drm_helper_disable_unused_functions(dev);
+-
+-	ret = drm_fb_helper_initial_config(fb_helper);
+-	if (ret)
+-		goto err_drm_fb_helper_fini;
 -
 -	return 0;
 -
--err_drm_fb_helper_release_info:
--	drm_fb_helper_release_info(fb_helper);
--err_vfree:
--	vfree(screen_buffer);
--err_drm_client_framebuffer_delete:
--	fb_helper->fb = NULL;
--	fb_helper->buffer = NULL;
--	drm_client_framebuffer_delete(buffer);
+-err_drm_fb_helper_fini:
+-	drm_fb_helper_fini(fb_helper);
+-err_drm_err:
+-	drm_err(dev, "Failed to setup fbdev emulation (ret=%d)\n", ret);
 -	return ret;
-+	return drm_fbdev_ttm_driver_fbdev_probe(fb_helper, sizes);
- }
+-}
+-
+-static const struct drm_client_funcs exynos_drm_fbdev_client_funcs = {
+-	.owner		= THIS_MODULE,
+-	.unregister	= exynos_drm_fbdev_client_unregister,
+-	.restore	= exynos_drm_fbdev_client_restore,
+-	.hotplug	= exynos_drm_fbdev_client_hotplug,
+-};
+-
+-void exynos_drm_fbdev_setup(struct drm_device *dev)
+-{
+-	struct drm_fb_helper *fb_helper;
+-	int ret;
+-
+-	drm_WARN(dev, !dev->registered, "Device has not been registered.\n");
+-	drm_WARN(dev, dev->fb_helper, "fb_helper is already set!\n");
+-
+-	fb_helper = kzalloc(sizeof(*fb_helper), GFP_KERNEL);
+-	if (!fb_helper)
+-		return;
+-	drm_fb_helper_prepare(dev, fb_helper, PREFERRED_BPP, &exynos_drm_fb_helper_funcs);
+-
+-	ret = drm_client_init(dev, &fb_helper->client, "fbdev", &exynos_drm_fbdev_client_funcs);
+-	if (ret)
+-		goto err_drm_client_init;
+-
+-	drm_client_register(&fb_helper->client);
+-
+-	return;
+-
+-err_drm_client_init:
+-	drm_fb_helper_unprepare(fb_helper);
+-	kfree(fb_helper);
+-}
+diff --git a/drivers/gpu/drm/exynos/exynos_drm_fbdev.h b/drivers/gpu/drm/exynos/exynos_drm_fbdev.h
+index 1e1dea627cd9..02a9201abea3 100644
+--- a/drivers/gpu/drm/exynos/exynos_drm_fbdev.h
++++ b/drivers/gpu/drm/exynos/exynos_drm_fbdev.h
+@@ -11,12 +11,17 @@
+ #ifndef _EXYNOS_DRM_FBDEV_H_
+ #define _EXYNOS_DRM_FBDEV_H_
  
- static void drm_fbdev_ttm_damage_blit_real(struct drm_fb_helper *fb_helper,
-@@ -240,6 +176,82 @@ static const struct drm_fb_helper_funcs drm_fbdev_ttm_helper_funcs = {
- 	.fb_dirty = drm_fbdev_ttm_helper_fb_dirty,
- };
- 
-+/*
-+ * struct drm_driver
-+ */
-+
-+int drm_fbdev_ttm_driver_fbdev_probe(struct drm_fb_helper *fb_helper,
-+				     struct drm_fb_helper_surface_size *sizes)
-+{
-+	struct drm_client_dev *client = &fb_helper->client;
-+	struct drm_device *dev = fb_helper->dev;
-+	struct drm_client_buffer *buffer;
-+	struct fb_info *info;
-+	size_t screen_size;
-+	void *screen_buffer;
-+	u32 format;
-+	int ret;
-+
-+	drm_dbg_kms(dev, "surface width(%d), height(%d) and bpp(%d)\n",
-+		    sizes->surface_width, sizes->surface_height,
-+		    sizes->surface_bpp);
-+
-+	format = drm_driver_legacy_fb_format(dev, sizes->surface_bpp,
-+					     sizes->surface_depth);
-+	buffer = drm_client_framebuffer_create(client, sizes->surface_width,
-+					       sizes->surface_height, format);
-+	if (IS_ERR(buffer))
-+		return PTR_ERR(buffer);
-+
-+	fb_helper->funcs = &drm_fbdev_ttm_helper_funcs;
-+	fb_helper->buffer = buffer;
-+	fb_helper->fb = buffer->fb;
-+
-+	screen_size = buffer->gem->size;
-+	screen_buffer = vzalloc(screen_size);
-+	if (!screen_buffer) {
-+		ret = -ENOMEM;
-+		goto err_drm_client_framebuffer_delete;
-+	}
-+
-+	info = drm_fb_helper_alloc_info(fb_helper);
-+	if (IS_ERR(info)) {
-+		ret = PTR_ERR(info);
-+		goto err_vfree;
-+	}
-+
-+	drm_fb_helper_fill_info(info, fb_helper, sizes);
-+
-+	info->fbops = &drm_fbdev_ttm_fb_ops;
-+
-+	/* screen */
-+	info->flags |= FBINFO_VIRTFB | FBINFO_READS_FAST;
-+	info->screen_buffer = screen_buffer;
-+	info->fix.smem_len = screen_size;
-+
-+	/* deferred I/O */
-+	fb_helper->fbdefio.delay = HZ / 20;
-+	fb_helper->fbdefio.deferred_io = drm_fb_helper_deferred_io;
-+
-+	info->fbdefio = &fb_helper->fbdefio;
-+	ret = fb_deferred_io_init(info);
-+	if (ret)
-+		goto err_drm_fb_helper_release_info;
-+
-+	return 0;
-+
-+err_drm_fb_helper_release_info:
-+	drm_fb_helper_release_info(fb_helper);
-+err_vfree:
-+	vfree(screen_buffer);
-+err_drm_client_framebuffer_delete:
-+	fb_helper->fb = NULL;
-+	fb_helper->buffer = NULL;
-+	drm_client_framebuffer_delete(buffer);
-+	return ret;
-+}
-+EXPORT_SYMBOL(drm_fbdev_ttm_driver_fbdev_probe);
-+
- static void drm_fbdev_ttm_client_unregister(struct drm_client_dev *client)
- {
- 	struct drm_fb_helper *fb_helper = drm_fb_helper_from_client(client);
-diff --git a/include/drm/drm_fbdev_ttm.h b/include/drm/drm_fbdev_ttm.h
-index 9e6c3bdf3537..243685d02eb1 100644
---- a/include/drm/drm_fbdev_ttm.h
-+++ b/include/drm/drm_fbdev_ttm.h
-@@ -3,11 +3,24 @@
- #ifndef DRM_FBDEV_TTM_H
- #define DRM_FBDEV_TTM_H
- 
-+#include <linux/stddef.h>
-+
- struct drm_device;
+-#ifdef CONFIG_DRM_FBDEV_EMULATION
+-void exynos_drm_fbdev_setup(struct drm_device *dev);
 +struct drm_fb_helper;
 +struct drm_fb_helper_surface_size;
- 
- #ifdef CONFIG_DRM_FBDEV_EMULATION
-+int drm_fbdev_ttm_driver_fbdev_probe(struct drm_fb_helper *fb_helper,
-+				     struct drm_fb_helper_surface_size *sizes);
 +
-+#define DRM_FBDEV_TTM_DRIVER_OPS \
-+	.fbdev_probe = drm_fbdev_ttm_driver_fbdev_probe
-+
- void drm_fbdev_ttm_setup(struct drm_device *dev, unsigned int preferred_bpp);
++#if defined(CONFIG_DRM_FBDEV_EMULATION)
++int exynos_drm_fbdev_driver_fbdev_probe(struct drm_fb_helper *fbh,
++					struct drm_fb_helper_surface_size *sizes);
++#define EXYNOS_DRM_FBDEV_DRIVER_OPS \
++	.fbdev_probe = exynos_drm_fbdev_driver_fbdev_probe
  #else
-+#define DRM_FBDEV_TTM_DRIVER_OPS \
+-static inline void exynos_drm_fbdev_setup(struct drm_device *dev)
+-{
+-}
++#define EXYNOS_DRM_FBDEV_DRIVER_OPS \
 +	.fbdev_probe = NULL
-+
- static inline void drm_fbdev_ttm_setup(struct drm_device *dev, unsigned int preferred_bpp)
- { }
+ #endif
+ 
  #endif
 -- 
 2.46.0
