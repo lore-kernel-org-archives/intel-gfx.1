@@ -4,108 +4,57 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 48078C531DC
-	for <intel-gfx@archiver.kernel.org>; Fri, 16 Aug 2024 12:57:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6BE27C52D7D
+	for <intel-gfx@archiver.kernel.org>; Fri, 16 Aug 2024 12:58:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DD61710E79E;
-	Fri, 16 Aug 2024 12:54:50 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="mVhzsyAL";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="77oAwNpQ";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="mVhzsyAL";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="77oAwNpQ";
-	dkim-atps=neutral
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0026D10E71D;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5CF4B10E7B0;
+	Fri, 16 Aug 2024 12:54:51 +0000 (UTC)
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 141B410E716;
  Fri, 16 Aug 2024 12:54:40 +0000 (UTC)
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
+ [IPv6:2a07:de40:b281:104:10:150:64:97])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 936CA222A9;
- Fri, 16 Aug 2024 12:54:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1723812879; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=DCo5GVjGsUtG0O0bB/qmfKHBM+zaYeeKjwz3wgMawB0=;
- b=mVhzsyALqB4X3/qoUbl7LWxXuXjLpmdfkC/m8QO7Qv1LaU9H39w00R3wQzJimjEnyoju60
- cF5/shpuWQWPeVH8gx73Hjqje7+3Niq3kCWOEQrJrHC8dQnnTjxfwDbTD1axRUezeD4Lgy
- 6fIlGRsiKsUVnMZLTtPor2bIL+FTh5w=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1723812879;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=DCo5GVjGsUtG0O0bB/qmfKHBM+zaYeeKjwz3wgMawB0=;
- b=77oAwNpQq0ceBf3cmLJL6BN9ih92GsRIu4or1laf82ZjEOD4Tckktzdd8028QqGxxbDTj1
- KHhzgSe2bNQr4VBQ==
-Authentication-Results: smtp-out1.suse.de;
+ by smtp-out2.suse.de (Postfix) with ESMTPS id AE28F200BE;
+ Fri, 16 Aug 2024 12:54:38 +0000 (UTC)
+Authentication-Results: smtp-out2.suse.de;
 	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1723812879; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=DCo5GVjGsUtG0O0bB/qmfKHBM+zaYeeKjwz3wgMawB0=;
- b=mVhzsyALqB4X3/qoUbl7LWxXuXjLpmdfkC/m8QO7Qv1LaU9H39w00R3wQzJimjEnyoju60
- cF5/shpuWQWPeVH8gx73Hjqje7+3Niq3kCWOEQrJrHC8dQnnTjxfwDbTD1axRUezeD4Lgy
- 6fIlGRsiKsUVnMZLTtPor2bIL+FTh5w=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1723812879;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=DCo5GVjGsUtG0O0bB/qmfKHBM+zaYeeKjwz3wgMawB0=;
- b=77oAwNpQq0ceBf3cmLJL6BN9ih92GsRIu4or1laf82ZjEOD4Tckktzdd8028QqGxxbDTj1
- KHhzgSe2bNQr4VBQ==
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 2BD4313A2F;
- Fri, 16 Aug 2024 12:54:39 +0000 (UTC)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 58A9C13A2F;
+ Fri, 16 Aug 2024 12:54:38 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id 4FBrCQ9Mv2bdbgAAD6G6ig
- (envelope-from <tzimmermann@suse.de>); Fri, 16 Aug 2024 12:54:39 +0000
+ by imap1.dmz-prg2.suse.org with ESMTPSA id QD5oFA5Mv2bdbgAAD6G6ig
+ (envelope-from <tzimmermann@suse.de>); Fri, 16 Aug 2024 12:54:38 +0000
 From: Thomas Zimmermann <tzimmermann@suse.de>
 To: daniel@ffwll.ch, airlied@gmail.com, jfalempe@redhat.com, javierm@redhat.com
 Cc: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
  intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
  nouveau@lists.freedesktop.org, Thomas Zimmermann <tzimmermann@suse.de>,
- Jani Nikula <jani.nikula@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Tvrtko Ursulin <tursulin@ursulin.net>,
- Lucas De Marchi <lucas.demarchi@intel.com>,
- =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>
-Subject: [PATCH 81/86] drm/i915: Move custom restore code into separate
- callback
-Date: Fri, 16 Aug 2024 14:23:47 +0200
-Message-ID: <20240816125408.310253-82-tzimmermann@suse.de>
+ Thierry Reding <thierry.reding@gmail.com>,
+ Mikko Perttunen <mperttunen@nvidia.com>,
+ Jonathan Hunter <jonathanh@nvidia.com>
+Subject: [PATCH 79/86] drm/tegra: Run DRM default client setup
+Date: Fri, 16 Aug 2024 14:23:45 +0200
+Message-ID: <20240816125408.310253-80-tzimmermann@suse.de>
 X-Mailer: git-send-email 2.46.0
 In-Reply-To: <20240816125408.310253-1-tzimmermann@suse.de>
 References: <20240816125408.310253-1-tzimmermann@suse.de>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-Spamd-Result: default: False [-7.30 / 50.00]; REPLY(-4.00)[];
- BAYES_HAM(-3.00)[100.00%]; MID_CONTAINS_FROM(1.00)[];
- NEURAL_HAM_LONG(-1.00)[-1.000];
- NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
- TO_DN_SOME(0.00)[]; RCVD_VIA_SMTP_AUTH(0.00)[]; ARC_NA(0.00)[];
- FREEMAIL_TO(0.00)[ffwll.ch,gmail.com,redhat.com];
- MIME_TRACE(0.00)[0:+]; RCPT_COUNT_TWELVE(0.00)[16];
- FREEMAIL_ENVRCPT(0.00)[gmail.com];
- DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- FROM_EQ_ENVFROM(0.00)[]; FROM_HAS_DN(0.00)[];
- R_RATELIMIT(0.00)[to_ip_from(RLw9gjjhh8cousxs3wi4trssza)];
- RCVD_TLS_ALL(0.00)[]; RCVD_COUNT_TWO(0.00)[2];
- TO_MATCH_ENVRCPT_ALL(0.00)[]; FUZZY_BLOCKED(0.00)[rspamd.com];
- DBL_BLOCKED_OPENRESOLVER(0.00)[intel.com:email,suse.de:email,suse.de:mid]
+X-Rspamd-Pre-Result: action=no action; module=replies;
+ Message is reply to one we originated
+X-Rspamd-Pre-Result: action=no action; module=replies;
+ Message is reply to one we originated
+X-Rspamd-Action: no action
+X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
+X-Rspamd-Queue-Id: AE28F200BE
+X-Spamd-Result: default: False [-4.00 / 50.00]; REPLY(-4.00)[];
+ TAGGED_RCPT(0.00)[]
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -121,95 +70,209 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-i915's fbdev contains additional code for restoring the client that
-cannot be ported to the common fbdev client. Introduce the callback
-struct drm_fb_helper.fb_restore and implement it for i915. The fbdev
-helpers invoke the callback after restoring the fbdev client.
+Rework fbdev probing to support fbdev_probe in struct drm_driver
+and remove the old fb_probe callback. Provide an initializer macro
+for struct drm_driver that sets the callback according to the kernel
+configuration.
+
+Call drm_client_setup() to run the kernel's default client setup
+for DRM. Set fbdev_probe in struct drm_driver, so that the client
+setup can start the common fbdev client.
+
+The tegra driver specifies a preferred color mode of 32. As this
+is the default if no format has been given, leave it out entirely.
 
 Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
-Cc: Jani Nikula <jani.nikula@linux.intel.com>
-Cc: Rodrigo Vivi <rodrigo.vivi@intel.com>
-Cc: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
-Cc: Tvrtko Ursulin <tursulin@ursulin.net>
-Cc: Lucas De Marchi <lucas.demarchi@intel.com>
-Cc: "Thomas Hellström" <thomas.hellstrom@linux.intel.com>
+Cc: Thierry Reding <thierry.reding@gmail.com>
+Cc: Mikko Perttunen <mperttunen@nvidia.com>
+Cc: Jonathan Hunter <jonathanh@nvidia.com>
 ---
- drivers/gpu/drm/drm_fb_helper.c            |  3 +++
- drivers/gpu/drm/i915/display/intel_fbdev.c | 12 ++++++++++--
- include/drm/drm_fb_helper.h                | 13 +++++++++++++
- 3 files changed, 26 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/tegra/drm.c   |  5 +-
+ drivers/gpu/drm/tegra/drm.h   | 12 +++--
+ drivers/gpu/drm/tegra/fbdev.c | 98 +++--------------------------------
+ 3 files changed, 19 insertions(+), 96 deletions(-)
 
-diff --git a/drivers/gpu/drm/drm_fb_helper.c b/drivers/gpu/drm/drm_fb_helper.c
-index 31e255c2b04a..d9e539b0fd1a 100644
---- a/drivers/gpu/drm/drm_fb_helper.c
-+++ b/drivers/gpu/drm/drm_fb_helper.c
-@@ -245,6 +245,9 @@ __drm_fb_helper_restore_fbdev_mode_unlocked(struct drm_fb_helper *fb_helper,
- 	if (do_delayed)
- 		drm_fb_helper_hotplug_event(fb_helper);
+diff --git a/drivers/gpu/drm/tegra/drm.c b/drivers/gpu/drm/tegra/drm.c
+index d9f0728c3afd..6186524cf1a4 100644
+--- a/drivers/gpu/drm/tegra/drm.c
++++ b/drivers/gpu/drm/tegra/drm.c
+@@ -15,6 +15,7 @@
+ #include <drm/drm_aperture.h>
+ #include <drm/drm_atomic.h>
+ #include <drm/drm_atomic_helper.h>
++#include <drm/drm_client_setup.h>
+ #include <drm/drm_debugfs.h>
+ #include <drm/drm_drv.h>
+ #include <drm/drm_fourcc.h>
+@@ -891,6 +892,8 @@ static const struct drm_driver tegra_drm_driver = {
  
-+	if (fb_helper->funcs->fb_restore)
-+		fb_helper->funcs->fb_restore(fb_helper);
+ 	.dumb_create = tegra_bo_dumb_create,
+ 
++	TEGRA_FBDEV_DRIVER_OPS,
 +
- 	return ret;
- }
+ 	.ioctls = tegra_drm_ioctls,
+ 	.num_ioctls = ARRAY_SIZE(tegra_drm_ioctls),
+ 	.fops = &tegra_drm_fops,
+@@ -1268,7 +1271,7 @@ static int host1x_drm_probe(struct host1x_device *dev)
+ 	if (err < 0)
+ 		goto hub;
  
-diff --git a/drivers/gpu/drm/i915/display/intel_fbdev.c b/drivers/gpu/drm/i915/display/intel_fbdev.c
-index 9ece62783ce1..c03fb00002a4 100644
---- a/drivers/gpu/drm/i915/display/intel_fbdev.c
-+++ b/drivers/gpu/drm/i915/display/intel_fbdev.c
-@@ -296,9 +296,19 @@ static int intelfb_dirty(struct drm_fb_helper *helper, struct drm_clip_rect *cli
+-	tegra_fbdev_setup(drm);
++	drm_client_setup(drm, NULL);
+ 
  	return 0;
- }
  
-+static void intelfb_restore(struct drm_fb_helper *fb_helper)
-+{
-+	struct drm_device *dev = fb_helper->client.dev;
-+	struct drm_i915_private *dev_priv = to_i915(dev);
-+	struct intel_fbdev *ifbdev = dev_priv->display.fbdev.fbdev;
+diff --git a/drivers/gpu/drm/tegra/drm.h b/drivers/gpu/drm/tegra/drm.h
+index 682011166a8f..0bc8d6625aef 100644
+--- a/drivers/gpu/drm/tegra/drm.h
++++ b/drivers/gpu/drm/tegra/drm.h
+@@ -25,6 +25,9 @@
+ /* XXX move to include/uapi/drm/drm_fourcc.h? */
+ #define DRM_FORMAT_MOD_NVIDIA_SECTOR_LAYOUT BIT_ULL(22)
+ 
++struct drm_fb_helper;
++struct drm_fb_helper_surface_size;
 +
-+	intel_fbdev_invalidate(ifbdev);
-+}
-+
- static const struct drm_fb_helper_funcs intel_fb_helper_funcs = {
- 	.fb_probe = intelfb_create,
- 	.fb_dirty = intelfb_dirty,
-+	.fb_restore = intelfb_restore,
+ struct edid;
+ struct reset_control;
+ 
+@@ -190,10 +193,13 @@ struct drm_framebuffer *tegra_fb_create(struct drm_device *drm,
+ 					const struct drm_mode_fb_cmd2 *cmd);
+ 
+ #ifdef CONFIG_DRM_FBDEV_EMULATION
+-void tegra_fbdev_setup(struct drm_device *drm);
++int tegra_fbdev_driver_fbdev_probe(struct drm_fb_helper *helper,
++				   struct drm_fb_helper_surface_size *sizes);
++#define TEGRA_FBDEV_DRIVER_OPS \
++	.fbdev_probe = tegra_fbdev_driver_fbdev_probe
+ #else
+-static inline void tegra_fbdev_setup(struct drm_device *drm)
+-{ }
++#define TEGRA_FBDEV_DRIVER_OPS \
++	.fbdev_probe = NULL
+ #endif
+ 
+ extern struct platform_driver tegra_display_hub_driver;
+diff --git a/drivers/gpu/drm/tegra/fbdev.c b/drivers/gpu/drm/tegra/fbdev.c
+index db6eaac3d30e..cd9d798f8870 100644
+--- a/drivers/gpu/drm/tegra/fbdev.c
++++ b/drivers/gpu/drm/tegra/fbdev.c
+@@ -66,8 +66,11 @@ static const struct fb_ops tegra_fb_ops = {
+ 	.fb_destroy = tegra_fbdev_fb_destroy,
  };
  
- /*
-@@ -582,8 +592,6 @@ static int intel_fbdev_restore_mode(struct drm_i915_private *dev_priv)
- 	if (ret)
- 		return ret;
+-static int tegra_fbdev_probe(struct drm_fb_helper *helper,
+-			     struct drm_fb_helper_surface_size *sizes)
++static const struct drm_fb_helper_funcs tegra_fbdev_helper_funcs = {
++};
++
++int tegra_fbdev_driver_fbdev_probe(struct drm_fb_helper *helper,
++				   struct drm_fb_helper_surface_size *sizes)
+ {
+ 	struct tegra_drm *tegra = helper->dev->dev_private;
+ 	struct drm_device *drm = helper->dev;
+@@ -112,6 +115,7 @@ static int tegra_fbdev_probe(struct drm_fb_helper *helper,
+ 		return PTR_ERR(fb);
+ 	}
  
--	intel_fbdev_invalidate(ifbdev);
++	helper->funcs = &tegra_fbdev_helper_funcs;
+ 	helper->fb = fb;
+ 	helper->info = info;
+ 
+@@ -144,93 +148,3 @@ static int tegra_fbdev_probe(struct drm_fb_helper *helper,
+ 	drm_framebuffer_remove(fb);
+ 	return err;
+ }
 -
- 	return 0;
- }
- 
-diff --git a/include/drm/drm_fb_helper.h b/include/drm/drm_fb_helper.h
-index 699f2790b9ac..34eb77c18a13 100644
---- a/include/drm/drm_fb_helper.h
-+++ b/include/drm/drm_fb_helper.h
-@@ -99,6 +99,19 @@ struct drm_fb_helper_funcs {
- 	 * 0 on success, or an error code otherwise.
- 	 */
- 	int (*fb_dirty)(struct drm_fb_helper *helper, struct drm_clip_rect *clip);
-+
-+	/**
-+	 * @fb_restore:
-+	 *
-+	 * Driver callback to restore internal fbdev state. If set, fbdev
-+	 * emulation will invoke this callback after restoring the display
-+	 * mode.
-+	 *
-+	 * Only for i915. Do not use in new code.
-+	 *
-+	 * TODO: Fix i915 to not require this callback.
-+	 */
-+	void (*fb_restore)(struct drm_fb_helper *helper);
- };
- 
- /**
+-static const struct drm_fb_helper_funcs tegra_fb_helper_funcs = {
+-	.fb_probe = tegra_fbdev_probe,
+-};
+-
+-/*
+- * struct drm_client
+- */
+-
+-static void tegra_fbdev_client_unregister(struct drm_client_dev *client)
+-{
+-	struct drm_fb_helper *fb_helper = drm_fb_helper_from_client(client);
+-
+-	if (fb_helper->info) {
+-		drm_fb_helper_unregister_info(fb_helper);
+-	} else {
+-		drm_client_release(&fb_helper->client);
+-		drm_fb_helper_unprepare(fb_helper);
+-		kfree(fb_helper);
+-	}
+-}
+-
+-static int tegra_fbdev_client_restore(struct drm_client_dev *client)
+-{
+-	drm_fb_helper_lastclose(client->dev);
+-
+-	return 0;
+-}
+-
+-static int tegra_fbdev_client_hotplug(struct drm_client_dev *client)
+-{
+-	struct drm_fb_helper *fb_helper = drm_fb_helper_from_client(client);
+-	struct drm_device *dev = client->dev;
+-	int ret;
+-
+-	if (dev->fb_helper)
+-		return drm_fb_helper_hotplug_event(dev->fb_helper);
+-
+-	ret = drm_fb_helper_init(dev, fb_helper);
+-	if (ret)
+-		goto err_drm_err;
+-
+-	if (!drm_drv_uses_atomic_modeset(dev))
+-		drm_helper_disable_unused_functions(dev);
+-
+-	ret = drm_fb_helper_initial_config(fb_helper);
+-	if (ret)
+-		goto err_drm_fb_helper_fini;
+-
+-	return 0;
+-
+-err_drm_fb_helper_fini:
+-	drm_fb_helper_fini(fb_helper);
+-err_drm_err:
+-	drm_err(dev, "Failed to setup fbdev emulation (ret=%d)\n", ret);
+-	return ret;
+-}
+-
+-static const struct drm_client_funcs tegra_fbdev_client_funcs = {
+-	.owner		= THIS_MODULE,
+-	.unregister	= tegra_fbdev_client_unregister,
+-	.restore	= tegra_fbdev_client_restore,
+-	.hotplug	= tegra_fbdev_client_hotplug,
+-};
+-
+-void tegra_fbdev_setup(struct drm_device *dev)
+-{
+-	struct drm_fb_helper *helper;
+-	int ret;
+-
+-	drm_WARN(dev, !dev->registered, "Device has not been registered.\n");
+-	drm_WARN(dev, dev->fb_helper, "fb_helper is already set!\n");
+-
+-	helper = kzalloc(sizeof(*helper), GFP_KERNEL);
+-	if (!helper)
+-		return;
+-	drm_fb_helper_prepare(dev, helper, 32, &tegra_fb_helper_funcs);
+-
+-	ret = drm_client_init(dev, &helper->client, "fbdev", &tegra_fbdev_client_funcs);
+-	if (ret)
+-		goto err_drm_client_init;
+-
+-	drm_client_register(&helper->client);
+-
+-	return;
+-
+-err_drm_client_init:
+-	drm_fb_helper_unprepare(helper);
+-	kfree(helper);
+-}
 -- 
 2.46.0
 
