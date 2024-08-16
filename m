@@ -4,62 +4,57 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 40242C5320F
-	for <intel-gfx@archiver.kernel.org>; Fri, 16 Aug 2024 12:57:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A75A3C531DC
+	for <intel-gfx@archiver.kernel.org>; Fri, 16 Aug 2024 12:57:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A5E9710E78F;
-	Fri, 16 Aug 2024 12:54:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4E6BF10E791;
+	Fri, 16 Aug 2024 12:54:49 +0000 (UTC)
 Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 579DC10E70C;
- Fri, 16 Aug 2024 12:54:40 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4874410E6FC;
+ Fri, 16 Aug 2024 12:54:39 +0000 (UTC)
 Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
  [IPv6:2a07:de40:b281:104:10:150:64:97])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 24B3021AC0;
- Fri, 16 Aug 2024 12:54:39 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id EC08B22897;
+ Fri, 16 Aug 2024 12:54:37 +0000 (UTC)
 Authentication-Results: smtp-out1.suse.de;
 	none
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id B529B13ACA;
- Fri, 16 Aug 2024 12:54:38 +0000 (UTC)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 8BA0913A2F;
+ Fri, 16 Aug 2024 12:54:37 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id yCb6Kg5Mv2bdbgAAD6G6ig
- (envelope-from <tzimmermann@suse.de>); Fri, 16 Aug 2024 12:54:38 +0000
+ by imap1.dmz-prg2.suse.org with ESMTPSA id EPDUIA1Mv2bdbgAAD6G6ig
+ (envelope-from <tzimmermann@suse.de>); Fri, 16 Aug 2024 12:54:37 +0000
 From: Thomas Zimmermann <tzimmermann@suse.de>
 To: daniel@ffwll.ch, airlied@gmail.com, jfalempe@redhat.com, javierm@redhat.com
 Cc: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
  intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
  nouveau@lists.freedesktop.org, Thomas Zimmermann <tzimmermann@suse.de>,
- Jani Nikula <jani.nikula@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Tvrtko Ursulin <tursulin@ursulin.net>,
- Lucas De Marchi <lucas.demarchi@intel.com>,
- =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>
-Subject: [PATCH 80/86] drm/i915: Remove struct drm_fb_helper from struct
- intel_fbdev
-Date: Fri, 16 Aug 2024 14:23:46 +0200
-Message-ID: <20240816125408.310253-81-tzimmermann@suse.de>
+ Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Sean Paul <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>
+Subject: [PATCH 77/86] drm/msm: Run DRM default client setup
+Date: Fri, 16 Aug 2024 14:23:43 +0200
+Message-ID: <20240816125408.310253-78-tzimmermann@suse.de>
 X-Mailer: git-send-email 2.46.0
 In-Reply-To: <20240816125408.310253-1-tzimmermann@suse.de>
 References: <20240816125408.310253-1-tzimmermann@suse.de>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-Rspamd-Pre-Result: action=no action; module=replies;
  Message is reply to one we originated
-X-Rspamd-Pre-Result: action=no action; module=replies;
- Message is reply to one we originated
-X-Rspamd-Action: no action
-X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
-X-Rspamd-Queue-Id: 24B3021AC0
+X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
 X-Spamd-Result: default: False [-4.00 / 50.00];
 	REPLY(-4.00)[]
+X-Rspamd-Queue-Id: EC08B22897
+X-Rspamd-Action: no action
+X-Rspamd-Pre-Result: action=no action; module=replies;
+ Message is reply to one we originated
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,287 +70,257 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Store instances of drm_fb_helper and struct intel_fbdev separately.
-This will allow i915 to use the common fbdev client, which allocates
-its own instance of struct drm_fb_helper.
+Rework fbdev probing to support fbdev_probe in struct drm_driver
+and remove the old fb_probe callback. Provide an initializer macro
+for struct drm_driver that sets the callback according to the kernel
+configuration.
 
-There is at most one instance of each per DRM device, so both can be
-referenced directly from the i915 and DRM device structures. A later
-patchset might rework the common fbdev client to allow for storing
-both, drm_fb_helper and intel_fbdev, together in the same place.
+Call drm_client_setup() to run the kernel's default client setup
+for DRM. Set fbdev_probe in struct drm_driver, so that the client
+setup can start the common fbdev client.
+
+The msm driver specifies a preferred color mode of 32. As this
+is the default if no format has been given, leave it out entirely.
 
 Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
-Cc: Jani Nikula <jani.nikula@linux.intel.com>
-Cc: Rodrigo Vivi <rodrigo.vivi@intel.com>
-Cc: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
-Cc: Tvrtko Ursulin <tursulin@ursulin.net>
-Cc: Lucas De Marchi <lucas.demarchi@intel.com>
-Cc: "Thomas Hellström" <thomas.hellstrom@linux.intel.com>
+Cc: Rob Clark <robdclark@gmail.com>
+Cc: Abhinav Kumar <quic_abhinavk@quicinc.com>
+Cc: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Cc: Sean Paul <sean@poorly.run>
+Cc: Marijn Suijten <marijn.suijten@somainline.org>
 ---
- drivers/gpu/drm/i915/display/intel_fbdev.c | 86 ++++++++++++----------
- 1 file changed, 47 insertions(+), 39 deletions(-)
+ drivers/gpu/drm/msm/msm_drv.c   |   4 +-
+ drivers/gpu/drm/msm/msm_drv.h   |  13 ++-
+ drivers/gpu/drm/msm/msm_fbdev.c | 144 ++++++--------------------------
+ 3 files changed, 38 insertions(+), 123 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_fbdev.c b/drivers/gpu/drm/i915/display/intel_fbdev.c
-index 49a1ac4f5491..9ece62783ce1 100644
---- a/drivers/gpu/drm/i915/display/intel_fbdev.c
-+++ b/drivers/gpu/drm/i915/display/intel_fbdev.c
-@@ -42,6 +42,7 @@
- #include <drm/drm_fb_helper.h>
- #include <drm/drm_fourcc.h>
- #include <drm/drm_gem_framebuffer_helper.h>
-+#include <drm/drm_managed.h>
+diff --git a/drivers/gpu/drm/msm/msm_drv.c b/drivers/gpu/drm/msm/msm_drv.c
+index 9c33f4e3f822..22fe0716d18b 100644
+--- a/drivers/gpu/drm/msm/msm_drv.c
++++ b/drivers/gpu/drm/msm/msm_drv.c
+@@ -10,6 +10,7 @@
+ #include <linux/of_address.h>
+ #include <linux/uaccess.h>
  
- #include "gem/i915_gem_mman.h"
- #include "gem/i915_gem_object.h"
-@@ -55,7 +56,6 @@
- #include "intel_frontbuffer.h"
++#include <drm/drm_client_setup.h>
+ #include <drm/drm_drv.h>
+ #include <drm/drm_file.h>
+ #include <drm/drm_ioctl.h>
+@@ -292,7 +293,7 @@ static int msm_drm_init(struct device *dev, const struct drm_driver *drv)
  
- struct intel_fbdev {
--	struct drm_fb_helper helper;
- 	struct intel_framebuffer *fb;
- 	struct i915_vma *vma;
- 	unsigned long vma_flags;
-@@ -70,11 +70,6 @@ struct intel_fbdev {
- 	struct mutex hpd_lock;
- };
- 
--static struct intel_fbdev *to_intel_fbdev(struct drm_fb_helper *fb_helper)
--{
--	return container_of(fb_helper, struct intel_fbdev, helper);
--}
--
- static struct intel_frontbuffer *to_frontbuffer(struct intel_fbdev *ifbdev)
- {
- 	return ifbdev->fb->frontbuffer;
-@@ -91,7 +86,9 @@ FB_GEN_DEFAULT_DEFERRED_IOMEM_OPS(intel_fbdev,
- 
- static int intel_fbdev_set_par(struct fb_info *info)
- {
--	struct intel_fbdev *ifbdev = to_intel_fbdev(info->par);
-+	struct drm_fb_helper *fb_helper = info->par;
-+	struct drm_i915_private *i915 = to_i915(fb_helper->client.dev);
-+	struct intel_fbdev *ifbdev = i915->display.fbdev.fbdev;
- 	int ret;
- 
- 	ret = drm_fb_helper_set_par(info);
-@@ -103,7 +100,9 @@ static int intel_fbdev_set_par(struct fb_info *info)
- 
- static int intel_fbdev_blank(int blank, struct fb_info *info)
- {
--	struct intel_fbdev *ifbdev = to_intel_fbdev(info->par);
-+	struct drm_fb_helper *fb_helper = info->par;
-+	struct drm_i915_private *i915 = to_i915(fb_helper->client.dev);
-+	struct intel_fbdev *ifbdev = i915->display.fbdev.fbdev;
- 	int ret;
- 
- 	ret = drm_fb_helper_blank(blank, info);
-@@ -116,7 +115,9 @@ static int intel_fbdev_blank(int blank, struct fb_info *info)
- static int intel_fbdev_pan_display(struct fb_var_screeninfo *var,
- 				   struct fb_info *info)
- {
--	struct intel_fbdev *ifbdev = to_intel_fbdev(info->par);
-+	struct drm_fb_helper *fb_helper = info->par;
-+	struct drm_i915_private *i915 = to_i915(fb_helper->client.dev);
-+	struct intel_fbdev *ifbdev = i915->display.fbdev.fbdev;
- 	int ret;
- 
- 	ret = drm_fb_helper_pan_display(var, info);
-@@ -128,8 +129,8 @@ static int intel_fbdev_pan_display(struct fb_var_screeninfo *var,
- 
- static int intel_fbdev_mmap(struct fb_info *info, struct vm_area_struct *vma)
- {
--	struct intel_fbdev *fbdev = to_intel_fbdev(info->par);
--	struct drm_gem_object *bo = drm_gem_fb_get_obj(&fbdev->fb->base, 0);
-+	struct drm_fb_helper *fb_helper = info->par;
-+	struct drm_gem_object *bo = drm_gem_fb_get_obj(fb_helper->fb, 0);
- 	struct drm_i915_gem_object *obj = to_intel_bo(bo);
- 
- 	return i915_gem_fb_mmap(obj, vma);
-@@ -138,9 +139,11 @@ static int intel_fbdev_mmap(struct fb_info *info, struct vm_area_struct *vma)
- static void intel_fbdev_fb_destroy(struct fb_info *info)
- {
- 	struct drm_fb_helper *fb_helper = info->par;
--	struct intel_fbdev *ifbdev = container_of(fb_helper, struct intel_fbdev, helper);
-+	struct drm_device *dev = fb_helper->client.dev;
-+	struct drm_i915_private *i915 = to_i915(dev);
-+	struct intel_fbdev *ifbdev = i915->display.fbdev.fbdev;
- 
--	drm_fb_helper_fini(&ifbdev->helper);
-+	drm_fb_helper_fini(fb_helper);
- 
- 	/*
- 	 * We rely on the object-free to release the VMA pinning for
-@@ -148,11 +151,11 @@ static void intel_fbdev_fb_destroy(struct fb_info *info)
- 	 * trying to rectify all the possible error paths leading here.
- 	 */
- 	intel_fb_unpin_vma(ifbdev->vma, ifbdev->vma_flags);
--	drm_framebuffer_remove(&ifbdev->fb->base);
-+	drm_framebuffer_remove(fb_helper->fb);
- 
- 	drm_client_release(&fb_helper->client);
--	drm_fb_helper_unprepare(&ifbdev->helper);
--	kfree(ifbdev);
-+	drm_fb_helper_unprepare(fb_helper);
-+	kfree(fb_helper);
- }
- 
- __diag_push();
-@@ -175,10 +178,10 @@ __diag_pop();
- static int intelfb_create(struct drm_fb_helper *helper,
- 			  struct drm_fb_helper_surface_size *sizes)
- {
--	struct intel_fbdev *ifbdev = to_intel_fbdev(helper);
--	struct intel_framebuffer *fb = ifbdev->fb;
--	struct drm_device *dev = helper->dev;
-+	struct drm_device *dev = helper->client.dev;
- 	struct drm_i915_private *dev_priv = to_i915(dev);
-+	struct intel_fbdev *ifbdev = dev_priv->display.fbdev.fbdev;
-+	struct intel_framebuffer *fb = ifbdev->fb;
- 	const struct i915_gtt_view view = {
- 		.type = I915_GTT_VIEW_NORMAL,
- 	};
-@@ -243,7 +246,7 @@ static int intelfb_create(struct drm_fb_helper *helper,
- 		goto out_unpin;
+ 	if (priv->kms_init) {
+ 		drm_kms_helper_poll_init(ddev);
+-		msm_fbdev_setup(ddev);
++		drm_client_setup(ddev, NULL);
  	}
- 
--	ifbdev->helper.fb = &fb->base;
-+	helper->fb = &fb->base;
- 
- 	info->fbops = &intelfb_ops;
- 
-@@ -253,7 +256,7 @@ static int intelfb_create(struct drm_fb_helper *helper,
- 	if (ret)
- 		goto out_unpin;
- 
--	drm_fb_helper_fill_info(info, &ifbdev->helper, sizes);
-+	drm_fb_helper_fill_info(info, dev->fb_helper, sizes);
- 
- 	/* If the object is shmemfs backed, it will have given us zeroed pages.
- 	 * If the object is stolen however, it will be full of whatever
-@@ -468,6 +471,7 @@ static void intel_fbdev_suspend_worker(struct work_struct *work)
- static void intel_fbdev_hpd_set_suspend(struct drm_i915_private *i915, int state)
- {
- 	struct intel_fbdev *ifbdev = i915->display.fbdev.fbdev;
-+	struct drm_device *dev = &i915->drm;
- 	bool send_hpd = false;
- 
- 	mutex_lock(&ifbdev->hpd_lock);
-@@ -478,7 +482,7 @@ static void intel_fbdev_hpd_set_suspend(struct drm_i915_private *i915, int state
- 
- 	if (send_hpd) {
- 		drm_dbg_kms(&i915->drm, "Handling delayed fbcon HPD event\n");
--		drm_fb_helper_hotplug_event(&ifbdev->helper);
-+		drm_fb_helper_hotplug_event(dev->fb_helper);
- 	}
- }
- 
-@@ -497,7 +501,7 @@ void intel_fbdev_set_suspend(struct drm_device *dev, int state, bool synchronous
- 	if (!ifbdev->vma)
- 		goto set_suspend;
- 
--	info = ifbdev->helper.info;
-+	info = dev->fb_helper->info;
- 
- 	if (synchronous) {
- 		/* Flush any pending work to turn the console on, and then
-@@ -536,7 +540,7 @@ void intel_fbdev_set_suspend(struct drm_device *dev, int state, bool synchronous
- 	    !i915_gem_object_is_shmem(intel_fb_obj(&ifbdev->fb->base)))
- 		memset_io(info->screen_base, 0, info->screen_size);
- 
--	drm_fb_helper_set_suspend(&ifbdev->helper, state);
-+	drm_fb_helper_set_suspend(dev->fb_helper, state);
- 	console_unlock();
- 
- set_suspend:
-@@ -556,8 +560,8 @@ static int intel_fbdev_output_poll_changed(struct drm_device *dev)
- 	ifbdev->hpd_waiting = true;
- 	mutex_unlock(&ifbdev->hpd_lock);
- 
--	if (send_hpd && (ifbdev->vma || ifbdev->helper.deferred_setup))
--		drm_fb_helper_hotplug_event(&ifbdev->helper);
-+	if (send_hpd && (ifbdev->vma || dev->fb_helper->deferred_setup))
-+		drm_fb_helper_hotplug_event(dev->fb_helper);
  
  	return 0;
- }
-@@ -565,6 +569,7 @@ static int intel_fbdev_output_poll_changed(struct drm_device *dev)
- static int intel_fbdev_restore_mode(struct drm_i915_private *dev_priv)
- {
- 	struct intel_fbdev *ifbdev = dev_priv->display.fbdev.fbdev;
-+	struct drm_device *dev = &dev_priv->drm;
- 	int ret;
+@@ -903,6 +904,7 @@ static const struct drm_driver msm_driver = {
+ #ifdef CONFIG_DEBUG_FS
+ 	.debugfs_init       = msm_debugfs_init,
+ #endif
++	MSM_FBDEV_DRIVER_OPS,
+ 	.show_fdinfo        = msm_show_fdinfo,
+ 	.ioctls             = msm_ioctls,
+ 	.num_ioctls         = ARRAY_SIZE(msm_ioctls),
+diff --git a/drivers/gpu/drm/msm/msm_drv.h b/drivers/gpu/drm/msm/msm_drv.h
+index be016d7b4ef1..63675a3b7097 100644
+--- a/drivers/gpu/drm/msm/msm_drv.h
++++ b/drivers/gpu/drm/msm/msm_drv.h
+@@ -40,6 +40,9 @@ extern struct fault_attr fail_gem_iova;
+ #  define should_fail(attr, size) 0
+ #endif
  
- 	if (!ifbdev)
-@@ -573,7 +578,7 @@ static int intel_fbdev_restore_mode(struct drm_i915_private *dev_priv)
- 	if (!ifbdev->vma)
- 		return -ENOMEM;
- 
--	ret = drm_fb_helper_restore_fbdev_mode_unlocked(&ifbdev->helper);
-+	ret = drm_fb_helper_restore_fbdev_mode_unlocked(dev->fb_helper);
- 	if (ret)
- 		return ret;
- 
-@@ -656,45 +661,48 @@ void intel_fbdev_setup(struct drm_i915_private *i915)
- {
- 	struct drm_device *dev = &i915->drm;
- 	struct intel_fbdev *ifbdev;
-+	struct drm_fb_helper *fb_helper;
- 	int ret;
- 
- 	if (!HAS_DISPLAY(i915))
- 		return;
- 
--	ifbdev = kzalloc(sizeof(*ifbdev), GFP_KERNEL);
-+	ifbdev = drmm_kzalloc(dev, sizeof(*ifbdev), GFP_KERNEL);
- 	if (!ifbdev)
- 		return;
--	drm_fb_helper_prepare(dev, &ifbdev->helper, 32, &intel_fb_helper_funcs);
- 
- 	i915->display.fbdev.fbdev = ifbdev;
- 	INIT_WORK(&i915->display.fbdev.suspend_work, intel_fbdev_suspend_worker);
- 	mutex_init(&ifbdev->hpd_lock);
--	if (intel_fbdev_init_bios(dev, ifbdev))
--		ifbdev->helper.preferred_bpp = ifbdev->preferred_bpp;
--	else
--		ifbdev->preferred_bpp = ifbdev->helper.preferred_bpp;
-+	if (!intel_fbdev_init_bios(dev, ifbdev))
-+		ifbdev->preferred_bpp = 32;
++struct drm_fb_helper;
++struct drm_fb_helper_surface_size;
 +
-+	fb_helper = kzalloc(sizeof(*fb_helper), GFP_KERNEL);
-+	if (!fb_helper)
-+		return;
-+	drm_fb_helper_prepare(dev, fb_helper, ifbdev->preferred_bpp, &intel_fb_helper_funcs);
+ struct msm_kms;
+ struct msm_gpu;
+ struct msm_mmu;
+@@ -298,11 +301,13 @@ struct drm_framebuffer * msm_alloc_stolen_fb(struct drm_device *dev,
+ 		int w, int h, int p, uint32_t format);
  
--	ret = drm_client_init(dev, &ifbdev->helper.client, "intel-fbdev",
-+	ret = drm_client_init(dev, &fb_helper->client, "intel-fbdev",
- 			      &intel_fbdev_client_funcs);
- 	if (ret) {
- 		drm_err(dev, "Failed to register client: %d\n", ret);
- 		goto err_drm_fb_helper_unprepare;
- 	}
+ #ifdef CONFIG_DRM_FBDEV_EMULATION
+-void msm_fbdev_setup(struct drm_device *dev);
++int msm_fbdev_driver_fbdev_probe(struct drm_fb_helper *helper,
++				 struct drm_fb_helper_surface_size *sizes);
++#define MSM_FBDEV_DRIVER_OPS \
++	.fbdev_probe = msm_fbdev_driver_fbdev_probe
+ #else
+-static inline void msm_fbdev_setup(struct drm_device *dev)
+-{
+-}
++#define MSM_FBDEV_DRIVER_OPS \
++	.fbdev_probe = NULL
+ #endif
  
--	drm_client_register(&ifbdev->helper.client);
-+	drm_client_register(&fb_helper->client);
+ struct hdmi;
+diff --git a/drivers/gpu/drm/msm/msm_fbdev.c b/drivers/gpu/drm/msm/msm_fbdev.c
+index 030bedac632d..c62249b1ab3d 100644
+--- a/drivers/gpu/drm/msm/msm_fbdev.c
++++ b/drivers/gpu/drm/msm/msm_fbdev.c
+@@ -65,8 +65,31 @@ static const struct fb_ops msm_fb_ops = {
+ 	.fb_destroy = msm_fbdev_fb_destroy,
+ };
  
- 	return;
- 
- err_drm_fb_helper_unprepare:
--	drm_fb_helper_unprepare(&ifbdev->helper);
-+	drm_fb_helper_unprepare(dev->fb_helper);
- 	mutex_destroy(&ifbdev->hpd_lock);
--	kfree(ifbdev);
-+	kfree(fb_helper);
- }
- 
- struct intel_framebuffer *intel_fbdev_framebuffer(struct intel_fbdev *fbdev)
+-static int msm_fbdev_create(struct drm_fb_helper *helper,
+-		struct drm_fb_helper_surface_size *sizes)
++static int msm_fbdev_fb_dirty(struct drm_fb_helper *helper,
++			      struct drm_clip_rect *clip)
++{
++	struct drm_device *dev = helper->dev;
++	int ret;
++
++	/* Call damage handlers only if necessary */
++	if (!(clip->x1 < clip->x2 && clip->y1 < clip->y2))
++		return 0;
++
++	if (helper->fb->funcs->dirty) {
++		ret = helper->fb->funcs->dirty(helper->fb, NULL, 0, 0, clip, 1);
++		if (drm_WARN_ONCE(dev, ret, "Dirty helper failed: ret=%d\n", ret))
++			return ret;
++	}
++
++	return 0;
++}
++
++static const struct drm_fb_helper_funcs msm_fbdev_helper_funcs = {
++	.fb_dirty = msm_fbdev_fb_dirty,
++};
++
++int msm_fbdev_driver_fbdev_probe(struct drm_fb_helper *helper,
++				 struct drm_fb_helper_surface_size *sizes)
  {
--	if (!fbdev || !fbdev->helper.fb)
-+	if (!fbdev)
- 		return NULL;
+ 	struct drm_device *dev = helper->dev;
+ 	struct msm_drm_private *priv = dev->dev_private;
+@@ -114,6 +137,7 @@ static int msm_fbdev_create(struct drm_fb_helper *helper,
  
--	return to_intel_framebuffer(fbdev->helper.fb);
-+	return fbdev->fb;
+ 	DBG("fbi=%p, dev=%p", fbi, dev);
+ 
++	helper->funcs = &msm_fbdev_helper_funcs;
+ 	helper->fb = fb;
+ 
+ 	fbi->fbops = &msm_fb_ops;
+@@ -138,119 +162,3 @@ static int msm_fbdev_create(struct drm_fb_helper *helper,
+ 	drm_framebuffer_remove(fb);
+ 	return ret;
  }
+-
+-static int msm_fbdev_fb_dirty(struct drm_fb_helper *helper,
+-			      struct drm_clip_rect *clip)
+-{
+-	struct drm_device *dev = helper->dev;
+-	int ret;
+-
+-	/* Call damage handlers only if necessary */
+-	if (!(clip->x1 < clip->x2 && clip->y1 < clip->y2))
+-		return 0;
+-
+-	if (helper->fb->funcs->dirty) {
+-		ret = helper->fb->funcs->dirty(helper->fb, NULL, 0, 0, clip, 1);
+-		if (drm_WARN_ONCE(dev, ret, "Dirty helper failed: ret=%d\n", ret))
+-			return ret;
+-	}
+-
+-	return 0;
+-}
+-
+-static const struct drm_fb_helper_funcs msm_fb_helper_funcs = {
+-	.fb_probe = msm_fbdev_create,
+-	.fb_dirty = msm_fbdev_fb_dirty,
+-};
+-
+-/*
+- * struct drm_client
+- */
+-
+-static void msm_fbdev_client_unregister(struct drm_client_dev *client)
+-{
+-	struct drm_fb_helper *fb_helper = drm_fb_helper_from_client(client);
+-
+-	if (fb_helper->info) {
+-		drm_fb_helper_unregister_info(fb_helper);
+-	} else {
+-		drm_client_release(&fb_helper->client);
+-		drm_fb_helper_unprepare(fb_helper);
+-		kfree(fb_helper);
+-	}
+-}
+-
+-static int msm_fbdev_client_restore(struct drm_client_dev *client)
+-{
+-	drm_fb_helper_lastclose(client->dev);
+-
+-	return 0;
+-}
+-
+-static int msm_fbdev_client_hotplug(struct drm_client_dev *client)
+-{
+-	struct drm_fb_helper *fb_helper = drm_fb_helper_from_client(client);
+-	struct drm_device *dev = client->dev;
+-	int ret;
+-
+-	if (dev->fb_helper)
+-		return drm_fb_helper_hotplug_event(dev->fb_helper);
+-
+-	ret = drm_fb_helper_init(dev, fb_helper);
+-	if (ret)
+-		goto err_drm_err;
+-
+-	if (!drm_drv_uses_atomic_modeset(dev))
+-		drm_helper_disable_unused_functions(dev);
+-
+-	ret = drm_fb_helper_initial_config(fb_helper);
+-	if (ret)
+-		goto err_drm_fb_helper_fini;
+-
+-	return 0;
+-
+-err_drm_fb_helper_fini:
+-	drm_fb_helper_fini(fb_helper);
+-err_drm_err:
+-	drm_err(dev, "Failed to setup fbdev emulation (ret=%d)\n", ret);
+-	return ret;
+-}
+-
+-static const struct drm_client_funcs msm_fbdev_client_funcs = {
+-	.owner		= THIS_MODULE,
+-	.unregister	= msm_fbdev_client_unregister,
+-	.restore	= msm_fbdev_client_restore,
+-	.hotplug	= msm_fbdev_client_hotplug,
+-};
+-
+-/* initialize fbdev helper */
+-void msm_fbdev_setup(struct drm_device *dev)
+-{
+-	struct drm_fb_helper *helper;
+-	int ret;
+-
+-	if (!fbdev)
+-		return;
+-
+-	drm_WARN(dev, !dev->registered, "Device has not been registered.\n");
+-	drm_WARN(dev, dev->fb_helper, "fb_helper is already set!\n");
+-
+-	helper = kzalloc(sizeof(*helper), GFP_KERNEL);
+-	if (!helper)
+-		return;
+-	drm_fb_helper_prepare(dev, helper, 32, &msm_fb_helper_funcs);
+-
+-	ret = drm_client_init(dev, &helper->client, "fbdev", &msm_fbdev_client_funcs);
+-	if (ret) {
+-		drm_err(dev, "Failed to register client: %d\n", ret);
+-		goto err_drm_fb_helper_unprepare;
+-	}
+-
+-	drm_client_register(&helper->client);
+-
+-	return;
+-
+-err_drm_fb_helper_unprepare:
+-	drm_fb_helper_unprepare(helper);
+-	kfree(helper);
+-}
 -- 
 2.46.0
 
