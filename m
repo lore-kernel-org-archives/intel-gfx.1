@@ -4,56 +4,66 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D2DF2C52D7D
-	for <intel-gfx@archiver.kernel.org>; Sat, 17 Aug 2024 09:49:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A7C33C531DF
+	for <intel-gfx@archiver.kernel.org>; Sat, 17 Aug 2024 10:14:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3D40F10E002;
-	Sat, 17 Aug 2024 09:49:37 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2927A10E037;
+	Sat, 17 Aug 2024 10:14:37 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="HW1WUUPM";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="bYZ3+5a3";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.12])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 761CB10E002
- for <intel-gfx@lists.freedesktop.org>; Sat, 17 Aug 2024 09:49:35 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.14])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 76F1310E037;
+ Sat, 17 Aug 2024 10:14:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1723888176; x=1755424176;
+ t=1723889676; x=1755425676;
  h=date:from:to:cc:subject:message-id:references:
  mime-version:in-reply-to;
- bh=vhzCE5e+EDM95wFzYA5dmNWmHXO6MAlynZe4Iv48IA4=;
- b=HW1WUUPMONv2XxCsfPk1eZU9CkhfLGVSyqqXUSJtK23y7ttRfkqJl6Vh
- 06+Vx6gTpRvFVE06BqwGLR0Zbzv/7knW7Yp1jcqpawlIaY966xbrAdCzf
- Wuad7bJECqlu8reqkwghOlN7ojZZuYl/0U3MFbLykNDogjxB+1qsED9G8
- bSHLCsnpfjAbyI6qFhpU8cnETZc4KdxbaTpmVi5KfD9A9aJNU7mT0oSDI
- 0DP4L+MS7Y6Du2kM+8hNtAm0kDOiW9aCZ/H88QjJDlgVUwW2Hetf2vdZs
- M/KDsIKWSpycONfkVlCbvAP9NH7dGuTBzALmPUVIgEMbFp5sinxxNwebK w==;
-X-CSE-ConnectionGUID: BMsRv3NeTIWTHGVNDM9KqA==
-X-CSE-MsgGUID: okg687bjQ9+FVuvVFKpOhw==
-X-IronPort-AV: E=McAfee;i="6700,10204,11166"; a="33563718"
-X-IronPort-AV: E=Sophos;i="6.10,154,1719903600"; d="scan'208";a="33563718"
-Received: from fmviesa001.fm.intel.com ([10.60.135.141])
- by orvoesa104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 17 Aug 2024 02:49:35 -0700
-X-CSE-ConnectionGUID: jY8fPxtgRLi4snQrsDWoew==
-X-CSE-MsgGUID: A2KPo9IZRMOwQcUIn8/cYw==
+ bh=qn363W5Vxq2cwBv149RyNnUUhY+ADXHMAUkKKo3FvGY=;
+ b=bYZ3+5a3WGgvDur0caJ4BALRUdf+RDkRN3hQKtDUyKa7PndklIOLwNkf
+ L1aDzabdGcDcpdcU/iU06f3and8Qc0xyUDAviqktYiNH6FLmjp6Rn0mjV
+ n5lx4jr5FPbbm711Frxoz9ktuDMPGk5ttgBKCfGzte2BrIaLxyDRgmB8C
+ cQJAz/dJAAA/pG8udBltZB0FpFEYG1E+Y93jQ4qwOw27Rav4vlsvR6udX
+ n/03vJbEn7lxMr8W0aDLLNnT13mVukS+UsSUr0VKVAjBaZyCNdWALoWJ6
+ S5hcg1EFE/A6qg5pDydiZd91ujTZ9oXG0C8ZtLwfBe7oweyD+4qEHj339 g==;
+X-CSE-ConnectionGUID: 9Q8KVxSySXuf4hNfvIbyuA==
+X-CSE-MsgGUID: DAcss0nhSi+hfMSK4Uaxbg==
+X-IronPort-AV: E=McAfee;i="6700,10204,11166"; a="22352445"
+X-IronPort-AV: E=Sophos;i="6.10,154,1719903600"; d="scan'208";a="22352445"
+Received: from fmviesa010.fm.intel.com ([10.60.135.150])
+ by fmvoesa108.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 17 Aug 2024 03:14:36 -0700
+X-CSE-ConnectionGUID: rG9m58IYR3ulX2M5Cg016g==
+X-CSE-MsgGUID: fYKMSDfgSDWpf+HHlwhyYA==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.10,154,1719903600"; d="scan'208";a="90671611"
-Received: from sschumil-mobl2.ger.corp.intel.com (HELO intel.com)
- ([10.245.246.254])
- by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 17 Aug 2024 02:49:32 -0700
-Date: Sat, 17 Aug 2024 11:49:28 +0200
-From: Andi Shyti <andi.shyti@linux.intel.com>
-To: Luca Coelho <luciano.coelho@intel.com>
-Cc: intel-gfx@lists.freedesktop.org
-Subject: Re: [PATCH] drm/i915/gt: remove stray declaration of
- intel_gt_release_all()
-Message-ID: <ZsByKDfHpMDGxcw0@ashyti-mobl2.lan>
-References: <20240813140618.387553-1-luciano.coelho@intel.com>
+X-IronPort-AV: E=Sophos;i="6.10,154,1719903600"; d="scan'208";a="60074409"
+Received: from lkp-server01.sh.intel.com (HELO 9a732dc145d3) ([10.239.97.150])
+ by fmviesa010.fm.intel.com with ESMTP; 17 Aug 2024 03:14:33 -0700
+Received: from kbuild by 9a732dc145d3 with local (Exim 4.96)
+ (envelope-from <lkp@intel.com>) id 1sfGS6-0007LW-1I;
+ Sat, 17 Aug 2024 10:14:30 +0000
+Date: Sat, 17 Aug 2024 18:14:24 +0800
+From: kernel test robot <lkp@intel.com>
+To: Thomas Zimmermann <tzimmermann@suse.de>, daniel@ffwll.ch,
+ airlied@gmail.com, jfalempe@redhat.com, javierm@redhat.com
+Cc: oe-kbuild-all@lists.linux.dev, dri-devel@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
+ intel-xe@lists.freedesktop.org, nouveau@lists.freedesktop.org,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Tvrtko Ursulin <tursulin@ursulin.net>,
+ Lucas De Marchi <lucas.demarchi@intel.com>,
+ Thomas =?iso-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>
+Subject: Re: [PATCH 83/86] drm/{i915,xe}: Run DRM default client setup
+Message-ID: <202408171746.ju5Kg2D3-lkp@intel.com>
+References: <20240816125408.310253-84-tzimmermann@suse.de>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20240813140618.387553-1-luciano.coelho@intel.com>
+In-Reply-To: <20240816125408.310253-84-tzimmermann@suse.de>
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,16 +79,39 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Hi Luca,
+Hi Thomas,
 
-On Tue, Aug 13, 2024 at 05:06:18PM +0300, Luca Coelho wrote:
-> When intel_gt_release_all() was removed from the code in commit
-> e89950553385 ("drm/i915: do not clean GT table on error path"), its
-> declaration in the header file remained.  Remove it.
-> 
-> Signed-off-by: Luca Coelho <luciano.coelho@intel.com>
+kernel test robot noticed the following build errors:
 
-merged to drm-intel-gt-next.
+[auto build test ERROR on 70d6d55dea574b7b78ccf714699cc5d8d62fcc2c]
 
-Thanks,
-Andi
+url:    https://github.com/intel-lab-lkp/linux/commits/Thomas-Zimmermann/drm-fbdev-helper-Move-color-mode-lookup-into-4CC-format-helper/20240816-210651
+base:   70d6d55dea574b7b78ccf714699cc5d8d62fcc2c
+patch link:    https://lore.kernel.org/r/20240816125408.310253-84-tzimmermann%40suse.de
+patch subject: [PATCH 83/86] drm/{i915,xe}: Run DRM default client setup
+config: openrisc-allyesconfig (https://download.01.org/0day-ci/archive/20240817/202408171746.ju5Kg2D3-lkp@intel.com/config)
+compiler: or1k-linux-gcc (GCC) 14.1.0
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20240817/202408171746.ju5Kg2D3-lkp@intel.com/reproduce)
+
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202408171746.ju5Kg2D3-lkp@intel.com/
+
+All errors (new ones prefixed by >>):
+
+>> drivers/gpu/drm/xe/xe_device.c:20:10: fatal error: intel_fbdev.h: No such file or directory
+      20 | #include "intel_fbdev.h"
+         |          ^~~~~~~~~~~~~~~
+   compilation terminated.
+
+
+vim +20 drivers/gpu/drm/xe/xe_device.c
+
+    19	
+  > 20	#include "intel_fbdev.h"
+    21	
+
+-- 
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
