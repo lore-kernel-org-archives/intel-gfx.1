@@ -4,66 +4,55 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B4701C52D7F
-	for <intel-gfx@archiver.kernel.org>; Sat, 17 Aug 2024 12:07:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 97CB3C5320E
+	for <intel-gfx@archiver.kernel.org>; Sat, 17 Aug 2024 21:00:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0107610E0AB;
-	Sat, 17 Aug 2024 12:07:42 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 21EEA10E0E6;
+	Sat, 17 Aug 2024 21:00:46 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="VUyFU02l";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="R0kalL0b";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.18])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8822F10E09D;
- Sat, 17 Aug 2024 12:07:39 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.12])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 327C910E064;
+ Sat, 17 Aug 2024 21:00:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1723896460; x=1755432460;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:in-reply-to;
- bh=0E4qHRWxQycgZwCCTQdnYUaH2mCgBlnpZ8yLGUOGW58=;
- b=VUyFU02l5mhrBLPpDlEvyQ3pVPpU/FBX0noYeU03srMAtCiikOBG2Rg8
- znSJWmXTzSclV7GlSOxk4laRxN2O639KHMFeXw7KDIqXBlQWu824ekJBC
- v4DR84P8pbTsD1LHGYC28URXTLBj8Xd/fiLr3dob0AmgBLcM921UsZCLz
- obnF8oVVrqg/IUix5NnyigXLF6AF3kNXA2mr2NPArBMgIsLdnxddtrgV/
- /2FmRd1pPlEaDyyk8gKqKrIoJFXEZVEPvQvWWB0fhqberVmyTXvAhBQgt
- V89hdaq4s4IjR2lXiJPc2jam+WP5n/Br7C1+gn6RrCf1fV7gWRRMVqV4V Q==;
-X-CSE-ConnectionGUID: ywGLcWIRShOv1USq2JCUaA==
-X-CSE-MsgGUID: wSZ2WCReS3eEj7FzbjeTvA==
-X-IronPort-AV: E=McAfee;i="6700,10204,11167"; a="21730410"
-X-IronPort-AV: E=Sophos;i="6.10,154,1719903600"; d="scan'208";a="21730410"
-Received: from fmviesa010.fm.intel.com ([10.60.135.150])
- by fmvoesa112.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 17 Aug 2024 05:07:39 -0700
-X-CSE-ConnectionGUID: 0OUhR4qTSy61wGP3AQLQCQ==
-X-CSE-MsgGUID: jjuNWhtkQP2hsLtQooMZ0A==
+ t=1723928445; x=1755464445;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=5Z4z0KHnD85/ErbbwwcaCrJZUnJMXvG5mYV6bLfrkU4=;
+ b=R0kalL0bgYlJKv1N8Ljj9uvmPerE9a3SnRbJPZPaJZ5lwnWgj1C9TAMs
+ lDbDoeu/YEn5hs58YsaSJPGJs96vmcWOSkm+Dk+8DGNyLTDSF8HRkocBq
+ zC4j9RBJP0q8GAOif5fsGtp/tx/irjUqot1GUhg4YdXfLawniQqi3mAUE
+ hBaT6J5+GOsutsJatWzMCOm/Mj0V2cK6Q7SsEtRIqXQLKEtfg1sRfhfGq
+ XLAPz/Bst8JgdkHYueQQTRCGilqUDXTJxwMyoU2XomMa77iXNqcffFeVK
+ cy4xlAtV7HLVEkipNKrmCLS4ZOiqvTC5i4a+PJY82FAwZ8+wLaFMDMN05 w==;
+X-CSE-ConnectionGUID: qirds4UrTUeB5H2rcJJB2g==
+X-CSE-MsgGUID: ugo+W+JAS/utd8kYQPSWDA==
+X-IronPort-AV: E=McAfee;i="6700,10204,11167"; a="33585030"
+X-IronPort-AV: E=Sophos;i="6.10,155,1719903600"; d="scan'208";a="33585030"
+Received: from orviesa005.jf.intel.com ([10.64.159.145])
+ by orvoesa104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 17 Aug 2024 14:00:45 -0700
+X-CSE-ConnectionGUID: Ci7Gx0kgQEygx8xNEgUQyA==
+X-CSE-MsgGUID: vq/7a2DBS+y+oU++tWKaOg==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.10,154,1719903600"; d="scan'208";a="60090562"
-Received: from lkp-server01.sh.intel.com (HELO 9a732dc145d3) ([10.239.97.150])
- by fmviesa010.fm.intel.com with ESMTP; 17 Aug 2024 05:07:35 -0700
-Received: from kbuild by 9a732dc145d3 with local (Exim 4.96)
- (envelope-from <lkp@intel.com>) id 1sfIDV-0007QC-0A;
- Sat, 17 Aug 2024 12:07:33 +0000
-Date: Sat, 17 Aug 2024 20:07:15 +0800
-From: kernel test robot <lkp@intel.com>
-To: Thomas Zimmermann <tzimmermann@suse.de>, daniel@ffwll.ch,
- airlied@gmail.com, jfalempe@redhat.com, javierm@redhat.com
-Cc: llvm@lists.linux.dev, oe-kbuild-all@lists.linux.dev,
- dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
- intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
- nouveau@lists.freedesktop.org, Thomas Zimmermann <tzimmermann@suse.de>,
- Jani Nikula <jani.nikula@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Tvrtko Ursulin <tursulin@ursulin.net>,
- Lucas De Marchi <lucas.demarchi@intel.com>,
- Thomas =?iso-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>
-Subject: Re: [PATCH 83/86] drm/{i915,xe}: Run DRM default client setup
-Message-ID: <202408171913.L3jTjYJX-lkp@intel.com>
-References: <20240816125408.310253-84-tzimmermann@suse.de>
+X-IronPort-AV: E=Sophos;i="6.10,155,1719903600"; d="scan'208";a="64885827"
+Received: from fdefranc-mobl3.ger.corp.intel.com (HELO intel.com)
+ ([10.245.246.11])
+ by orviesa005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 17 Aug 2024 14:00:41 -0700
+From: Andi Shyti <andi.shyti@linux.intel.com>
+To: intel-gfx <intel-gfx@lists.freedesktop.org>,
+ dri-devel <dri-devel@lists.freedesktop.org>
+Cc: Chris Wilson <chris.p.wilson@linux.intel.com>,
+ Andi Shyti <andi.shyti@linux.intel.com>
+Subject: [RFC PATCH v2 00/11] CCS static load balance
+Date: Sat, 17 Aug 2024 23:00:15 +0200
+Message-ID: <20240817210026.310645-1-andi.shyti@linux.intel.com>
+X-Mailer: git-send-email 2.45.2
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20240816125408.310253-84-tzimmermann@suse.de>
+Content-Transfer-Encoding: 8bit
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -79,68 +68,74 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Hi Thomas,
+Hi,
 
-kernel test robot noticed the following build errors:
+This patch series introduces static load balancing for GPUs with
+multiple compute engines. It's a lengthy series, and some
+challenging aspects still need to be resolved.
 
-[auto build test ERROR on 70d6d55dea574b7b78ccf714699cc5d8d62fcc2c]
+I have tried to split the work as much as possible to facilitate
+the review process.
 
-url:    https://github.com/intel-lab-lkp/linux/commits/Thomas-Zimmermann/drm-fbdev-helper-Move-color-mode-lookup-into-4CC-format-helper/20240816-210651
-base:   70d6d55dea574b7b78ccf714699cc5d8d62fcc2c
-patch link:    https://lore.kernel.org/r/20240816125408.310253-84-tzimmermann%40suse.de
-patch subject: [PATCH 83/86] drm/{i915,xe}: Run DRM default client setup
-config: riscv-allyesconfig (https://download.01.org/0day-ci/archive/20240817/202408171913.L3jTjYJX-lkp@intel.com/config)
-compiler: clang version 20.0.0git (https://github.com/llvm/llvm-project 26670e7fa4f032a019d23d56c6a02926e854e8af)
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20240817/202408171913.L3jTjYJX-lkp@intel.com/reproduce)
+To summarize, in patches 1 to 10, no functional changes occur
+except for the addition of the num_cslices interface. The
+significant changes happen in patch 11, which is the core part of
+the CCS mode setting, utilizing the groundwork laid in the
+earlier patches.
 
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202408171913.L3jTjYJX-lkp@intel.com/
+Compared to the first version I've taken a completely different
+approach to adding and removing engines. in v1 physical engines
+were directly added and removed, along with the memory allocated
+to them, each time the user changed the CCS mode.
 
-All errors (new ones prefixed by >>):
+In this updated approach, the focus is now on managing the UABI
+engine list, which controls the engines exposed to userspace.
+Instead of manipulating phuscal engines and their memory, we now
+handle engine exposure through this list.
 
-   In file included from drivers/gpu/drm/xe/xe_device.c:6:
-   In file included from drivers/gpu/drm/xe/xe_device.h:9:
-   In file included from include/drm/drm_util.h:35:
-   In file included from include/linux/interrupt.h:22:
-   In file included from arch/riscv/include/asm/sections.h:9:
-   In file included from include/linux/mm.h:2228:
-   include/linux/vmstat.h:500:43: warning: arithmetic between different enumeration types ('enum zone_stat_item' and 'enum numa_stat_item') [-Wenum-enum-conversion]
-     500 |         return vmstat_text[NR_VM_ZONE_STAT_ITEMS +
-         |                            ~~~~~~~~~~~~~~~~~~~~~ ^
-     501 |                            item];
-         |                            ~~~~
-   include/linux/vmstat.h:507:43: warning: arithmetic between different enumeration types ('enum zone_stat_item' and 'enum numa_stat_item') [-Wenum-enum-conversion]
-     507 |         return vmstat_text[NR_VM_ZONE_STAT_ITEMS +
-         |                            ~~~~~~~~~~~~~~~~~~~~~ ^
-     508 |                            NR_VM_NUMA_EVENT_ITEMS +
-         |                            ~~~~~~~~~~~~~~~~~~~~~~
-   include/linux/vmstat.h:514:36: warning: arithmetic between different enumeration types ('enum node_stat_item' and 'enum lru_list') [-Wenum-enum-conversion]
-     514 |         return node_stat_name(NR_LRU_BASE + lru) + 3; // skip "nr_"
-         |                               ~~~~~~~~~~~ ^ ~~~
-   include/linux/vmstat.h:519:43: warning: arithmetic between different enumeration types ('enum zone_stat_item' and 'enum numa_stat_item') [-Wenum-enum-conversion]
-     519 |         return vmstat_text[NR_VM_ZONE_STAT_ITEMS +
-         |                            ~~~~~~~~~~~~~~~~~~~~~ ^
-     520 |                            NR_VM_NUMA_EVENT_ITEMS +
-         |                            ~~~~~~~~~~~~~~~~~~~~~~
-   include/linux/vmstat.h:528:43: warning: arithmetic between different enumeration types ('enum zone_stat_item' and 'enum numa_stat_item') [-Wenum-enum-conversion]
-     528 |         return vmstat_text[NR_VM_ZONE_STAT_ITEMS +
-         |                            ~~~~~~~~~~~~~~~~~~~~~ ^
-     529 |                            NR_VM_NUMA_EVENT_ITEMS +
-         |                            ~~~~~~~~~~~~~~~~~~~~~~
->> drivers/gpu/drm/xe/xe_device.c:20:10: fatal error: 'intel_fbdev.h' file not found
-      20 | #include "intel_fbdev.h"
-         |          ^~~~~~~~~~~~~~~
-   5 warnings and 1 error generated.
+I would greatly appreciate further input from all reviewers who
+have already assisted with the previous work.
 
+IGT tests have also been developed, but I haven't sent them yet.
 
-vim +20 drivers/gpu/drm/xe/xe_device.c
+Thank you Chris for the offline reviews.
 
-    19	
-  > 20	#include "intel_fbdev.h"
-    21	
+Thanks,
+Andi
+
+Changelog
+=========
+v1 -> v2:
+ - Changed engine dynamic creation and removal as described
+   above.
+
+Andi Shyti (11):
+  drm/i915/gt: Move the CCS mode variable to a global position
+  drm/i915/gt: Allow the creation of multi-mode CCS masks
+  drm/i915/gt: Refactor uabi engine class/instance list creation
+  drm/i915/gt: Manage CCS engine creation within UABI exposure
+  drm/i915/gt: Remove cslices mask value from the CCS structure
+  drm/i915/gt: Expose the number of total CCS slices
+  drm/i915/gt: Store engine-related sysfs kobjects
+  drm/i915/gt: Store active CCS mask
+  drm/i915/gt: Isolate single sysfs engine file creation
+  drm/i915/gt: Implement creation and removal routines for CCS engines
+  drm/i915/gt: Allow the user to change the CCS mode through sysfs
+
+ drivers/gpu/drm/i915/gt/intel_engine_cs.c    |  23 --
+ drivers/gpu/drm/i915/gt/intel_engine_types.h |   3 +
+ drivers/gpu/drm/i915/gt/intel_engine_user.c  |  49 +++-
+ drivers/gpu/drm/i915/gt/intel_gt.c           |   3 +
+ drivers/gpu/drm/i915/gt/intel_gt_ccs_mode.c  | 287 +++++++++++++++++--
+ drivers/gpu/drm/i915/gt/intel_gt_ccs_mode.h  |   6 +-
+ drivers/gpu/drm/i915/gt/intel_gt_sysfs.c     |   2 +
+ drivers/gpu/drm/i915/gt/intel_gt_types.h     |  18 +-
+ drivers/gpu/drm/i915/gt/intel_workarounds.c  |   7 +-
+ drivers/gpu/drm/i915/gt/sysfs_engines.c      |  75 +++--
+ drivers/gpu/drm/i915/gt/sysfs_engines.h      |   2 +
+ drivers/gpu/drm/i915/i915_drv.h              |   1 +
+ 12 files changed, 385 insertions(+), 91 deletions(-)
 
 -- 
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+2.45.2
+
