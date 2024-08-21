@@ -4,109 +4,108 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CB63AC52D7C
-	for <intel-gfx@archiver.kernel.org>; Wed, 21 Aug 2024 13:04:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A229AC54730
+	for <intel-gfx@archiver.kernel.org>; Wed, 21 Aug 2024 13:04:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2970F10E631;
-	Wed, 21 Aug 2024 13:03:56 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 67CAF10E6EA;
+	Wed, 21 Aug 2024 13:03:57 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="hYdB96YW";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="KeTdpp4b";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="mvplqmt7";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="eDxtpt02";
+	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="w14pQuX1";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="cMxGPaP8";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="w14pQuX1";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="cMxGPaP8";
 	dkim-atps=neutral
 Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 62EB310E17B;
- Wed, 21 Aug 2024 13:03:54 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 876D410E5FB;
+ Wed, 21 Aug 2024 13:03:56 +0000 (UTC)
 Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
  [IPv6:2a07:de40:b281:104:10:150:64:97])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id CC3FD2007E;
- Wed, 21 Aug 2024 13:03:52 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 443EA20083;
+ Wed, 21 Aug 2024 13:03:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1724245433; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1724245435; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=BPrLhl15Yx9mzoVd22qY9GeieA1ObVSqEHVL3eupvM4=;
- b=hYdB96YWBWHCCO6EJrTiPVJ1t0Dd/Ww0fxsroXBXKEM/GjKC60zYxOUAVp0YnJrBg+L0Lq
- WgjjFO15/2duy4xziq85HhjiffeVxMRLYSUAG+RbWhdTwYkT7sRUgsM2+V3hvJAlcwbSNP
- ofz6QoiaVbjy3FqY+hZcErzSYFZgcR0=
+ bh=qqVTgOC4upq68SQ/Z7eXH49ackW+CGsZMC0iZJh8XmM=;
+ b=w14pQuX1yQT5Qwz/ohCNa42YvWtQFQl1BKGWmxYcJrwGD/ttpthn0nI3g3jnsMqTgI0XwJ
+ N7/iKc2XGSYhhCiD2tg8IhwewpTu3fDwvp1cMYH2L0jPRX9X/lq0jTvTZsxbmXSHdB4Sfy
+ wpGrB2FG2j9gX94ha3D1Q7BuKTJu+zc=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1724245433;
+ s=susede2_ed25519; t=1724245435;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=BPrLhl15Yx9mzoVd22qY9GeieA1ObVSqEHVL3eupvM4=;
- b=KeTdpp4bjCFVT9dykg7IStxFDeKfIYbLvDck5+Owe2zZaTbyV0R5rCat9fo13BvYXm2Vuh
- L8kI6eHKX6ab20Dw==
+ bh=qqVTgOC4upq68SQ/Z7eXH49ackW+CGsZMC0iZJh8XmM=;
+ b=cMxGPaP84dSvhaZ6DZLUlG8lCjK3hiUqnh+41dN282PD65xBejYyszI/GCtox0gmXBkfBR
+ VN7YXGt/5fI/KYAg==
 Authentication-Results: smtp-out2.suse.de;
- dkim=pass header.d=suse.de header.s=susede2_rsa header.b=mvplqmt7;
- dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=eDxtpt02
+ dkim=pass header.d=suse.de header.s=susede2_rsa header.b=w14pQuX1;
+ dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=cMxGPaP8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1724245432; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1724245435; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=BPrLhl15Yx9mzoVd22qY9GeieA1ObVSqEHVL3eupvM4=;
- b=mvplqmt74x7lhESOcWC4hgQxH6+U5IKf69UnaEIj/EYYP7Q1ZSp9KS3wf/lxHJ/t+w4WGf
- v0qZI3W1iWwyQDuyVJsQCcmTUGVVsLjJuTjnCC4DVRmNWuzNge1caZ7z5RvfU+rNBSTc0y
- nlAcppJH8aGINyfFKvbxTRscTU2CTT0=
+ bh=qqVTgOC4upq68SQ/Z7eXH49ackW+CGsZMC0iZJh8XmM=;
+ b=w14pQuX1yQT5Qwz/ohCNa42YvWtQFQl1BKGWmxYcJrwGD/ttpthn0nI3g3jnsMqTgI0XwJ
+ N7/iKc2XGSYhhCiD2tg8IhwewpTu3fDwvp1cMYH2L0jPRX9X/lq0jTvTZsxbmXSHdB4Sfy
+ wpGrB2FG2j9gX94ha3D1Q7BuKTJu+zc=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1724245432;
+ s=susede2_ed25519; t=1724245435;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=BPrLhl15Yx9mzoVd22qY9GeieA1ObVSqEHVL3eupvM4=;
- b=eDxtpt02Raqw+n6IFKKs3fuE82g3ipWwZcEMFzQgVWpxu68uDkQqYw0PVwVAhcKRc+j9N/
- Ej9flcjBpjswrIDg==
+ bh=qqVTgOC4upq68SQ/Z7eXH49ackW+CGsZMC0iZJh8XmM=;
+ b=cMxGPaP84dSvhaZ6DZLUlG8lCjK3hiUqnh+41dN282PD65xBejYyszI/GCtox0gmXBkfBR
+ VN7YXGt/5fI/KYAg==
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 733DF13B18;
- Wed, 21 Aug 2024 13:03:52 +0000 (UTC)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id F07C713770;
+ Wed, 21 Aug 2024 13:03:54 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id gCvzGrjlxWbXGQAAD6G6ig
- (envelope-from <tzimmermann@suse.de>); Wed, 21 Aug 2024 13:03:52 +0000
+ by imap1.dmz-prg2.suse.org with ESMTPSA id yOCBObrlxWbXGQAAD6G6ig
+ (envelope-from <tzimmermann@suse.de>); Wed, 21 Aug 2024 13:03:54 +0000
 From: Thomas Zimmermann <tzimmermann@suse.de>
 To: daniel@ffwll.ch, airlied@gmail.com, jfalempe@redhat.com, javierm@redhat.com
 Cc: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
  intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
  nouveau@lists.freedesktop.org, Thomas Zimmermann <tzimmermann@suse.de>,
- Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
-Subject: [PATCH v2 01/86] drm/fbdev-helper: Move color-mode lookup into 4CC
- format helper
-Date: Wed, 21 Aug 2024 14:58:58 +0200
-Message-ID: <20240821130348.73038-2-tzimmermann@suse.de>
+ Liviu Dudau <liviu.dudau@arm.com>
+Subject: [PATCH v2 09/86] drm/arm/malidp: Run DRM default client setup
+Date: Wed, 21 Aug 2024 14:59:06 +0200
+Message-ID: <20240821130348.73038-10-tzimmermann@suse.de>
 X-Mailer: git-send-email 2.46.0
 In-Reply-To: <20240821130348.73038-1-tzimmermann@suse.de>
 References: <20240821130348.73038-1-tzimmermann@suse.de>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Rspamd-Queue-Id: CC3FD2007E
-X-Spamd-Result: default: False [-1.51 / 50.00]; BAYES_HAM(-3.00)[100.00%];
- SUSPICIOUS_RECIPS(1.50)[]; MID_CONTAINS_FROM(1.00)[];
- NEURAL_HAM_LONG(-1.00)[-1.000]; R_MISSING_CHARSET(0.50)[];
+X-Rspamd-Queue-Id: 443EA20083
+X-Spamd-Result: default: False [-3.01 / 50.00]; BAYES_HAM(-3.00)[100.00%];
+ MID_CONTAINS_FROM(1.00)[]; NEURAL_HAM_LONG(-1.00)[-1.000];
+ R_MISSING_CHARSET(0.50)[];
  R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
  NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
- MX_GOOD(-0.01)[];
+ MX_GOOD(-0.01)[]; TO_MATCH_ENVRCPT_ALL(0.00)[];
  FREEMAIL_TO(0.00)[ffwll.ch,gmail.com,redhat.com];
  MIME_TRACE(0.00)[0:+]; ARC_NA(0.00)[];
+ FUZZY_BLOCKED(0.00)[rspamd.com];
  DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- TO_MATCH_ENVRCPT_ALL(0.00)[]; FUZZY_BLOCKED(0.00)[rspamd.com];
- RCVD_TLS_ALL(0.00)[]; DKIM_TRACE(0.00)[suse.de:+];
+ DKIM_TRACE(0.00)[suse.de:+]; TO_DN_SOME(0.00)[];
  RCVD_COUNT_TWO(0.00)[2]; FROM_EQ_ENVFROM(0.00)[];
- FROM_HAS_DN(0.00)[]; TO_DN_SOME(0.00)[];
+ FROM_HAS_DN(0.00)[]; RCVD_TLS_ALL(0.00)[];
  DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:email,suse.de:dkim,suse.de:mid,imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns];
  RCPT_COUNT_SEVEN(0.00)[11];
  DNSWL_BLOCKED(0.00)[2a07:de40:b281:104:10:150:64:97:from];
- RCVD_VIA_SMTP_AUTH(0.00)[]; TAGGED_RCPT(0.00)[renesas];
- FREEMAIL_ENVRCPT(0.00)[gmail.com]
+ R_RATELIMIT(0.00)[to_ip_from(RLtjf1sgqngceqezr4ayorkryp)];
+ RCVD_VIA_SMTP_AUTH(0.00)[]; FREEMAIL_ENVRCPT(0.00)[gmail.com]
 X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
 X-Rspamd-Action: no action
 X-BeenThere: intel-gfx@lists.freedesktop.org
@@ -124,191 +123,49 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-The color mode as specified on the kernel command line gives the user's
-preferred color depth and number of bits per pixel. Move the
-color-mode-to-format conversion from fbdev helpers into a 4CC helper,
-so that it can be shared among DRM clients.
+Call drm_client_setup() to run the kernel's default client setup
+for DRM. Set fbdev_probe in struct drm_driver, so that the client
+setup can start the common fbdev client.
 
-v2:
-- fix grammar in commit message (Laurent)
+The malidp driver specifies a preferred color mode of 32. As this
+is the default if no format has been given, leave it out entirely.
 
 Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
-Reviewed-by: Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
+Cc: Liviu Dudau <liviu.dudau@arm.com>
+Acked-by: Liviu Dudau <liviu.dudau@arm.com>
 ---
- drivers/gpu/drm/drm_fb_helper.c | 70 +++++++--------------------------
- drivers/gpu/drm/drm_fourcc.c    | 30 +++++++++++++-
- include/drm/drm_fourcc.h        |  1 +
- 3 files changed, 45 insertions(+), 56 deletions(-)
+ drivers/gpu/drm/arm/malidp_drv.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/drm_fb_helper.c b/drivers/gpu/drm/drm_fb_helper.c
-index 29c53f9f449c..af1fe79c701d 100644
---- a/drivers/gpu/drm/drm_fb_helper.c
-+++ b/drivers/gpu/drm/drm_fb_helper.c
-@@ -1441,67 +1441,27 @@ int drm_fb_helper_pan_display(struct fb_var_screeninfo *var,
- EXPORT_SYMBOL(drm_fb_helper_pan_display);
+diff --git a/drivers/gpu/drm/arm/malidp_drv.c b/drivers/gpu/drm/arm/malidp_drv.c
+index 6682131d2910..4cb25004b84f 100644
+--- a/drivers/gpu/drm/arm/malidp_drv.c
++++ b/drivers/gpu/drm/arm/malidp_drv.c
+@@ -18,6 +18,7 @@
  
- static uint32_t drm_fb_helper_find_format(struct drm_fb_helper *fb_helper, const uint32_t *formats,
--					  size_t format_count, uint32_t bpp, uint32_t depth)
-+					  size_t format_count, unsigned int color_mode)
- {
- 	struct drm_device *dev = fb_helper->dev;
- 	uint32_t format;
- 	size_t i;
+ #include <drm/drm_atomic.h>
+ #include <drm/drm_atomic_helper.h>
++#include <drm/drm_client_setup.h>
+ #include <drm/drm_crtc.h>
+ #include <drm/drm_drv.h>
+ #include <drm/drm_fbdev_dma.h>
+@@ -562,6 +563,7 @@ static void malidp_debugfs_init(struct drm_minor *minor)
+ static const struct drm_driver malidp_driver = {
+ 	.driver_features = DRIVER_GEM | DRIVER_MODESET | DRIVER_ATOMIC,
+ 	DRM_GEM_DMA_DRIVER_OPS_WITH_DUMB_CREATE(malidp_dumb_create),
++	DRM_FBDEV_DMA_DRIVER_OPS,
+ #ifdef CONFIG_DEBUG_FS
+ 	.debugfs_init = malidp_debugfs_init,
+ #endif
+@@ -852,7 +854,7 @@ static int malidp_bind(struct device *dev)
+ 	if (ret)
+ 		goto register_fail;
  
--	/*
--	 * Do not consider YUV or other complicated formats
--	 * for framebuffers. This means only legacy formats
--	 * are supported (fmt->depth is a legacy field), but
--	 * the framebuffer emulation can only deal with such
--	 * formats, specifically RGB/BGA formats.
--	 */
--	format = drm_mode_legacy_fb_format(bpp, depth);
--	if (!format)
--		goto err;
-+	format = drm_driver_color_mode_format(dev, color_mode);
-+	if (!format) {
-+		drm_info(dev, "unsupported color mode of %d\n", color_mode);
-+		return DRM_FORMAT_INVALID;
-+	}
+-	drm_fbdev_dma_setup(drm, 32);
++	drm_client_setup(drm, NULL);
  
- 	for (i = 0; i < format_count; ++i) {
- 		if (formats[i] == format)
- 			return format;
- 	}
--
--err:
--	/* We found nothing. */
--	drm_warn(dev, "bpp/depth value of %u/%u not supported\n", bpp, depth);
-+	drm_warn(dev, "format %p4cc not supported\n", &format);
+ 	return 0;
  
- 	return DRM_FORMAT_INVALID;
- }
- 
--static uint32_t drm_fb_helper_find_color_mode_format(struct drm_fb_helper *fb_helper,
--						     const uint32_t *formats, size_t format_count,
--						     unsigned int color_mode)
--{
--	struct drm_device *dev = fb_helper->dev;
--	uint32_t bpp, depth;
--
--	switch (color_mode) {
--	case 1:
--	case 2:
--	case 4:
--	case 8:
--	case 16:
--	case 24:
--		bpp = depth = color_mode;
--		break;
--	case 15:
--		bpp = 16;
--		depth = 15;
--		break;
--	case 32:
--		bpp = 32;
--		depth = 24;
--		break;
--	default:
--		drm_info(dev, "unsupported color mode of %d\n", color_mode);
--		return DRM_FORMAT_INVALID;
--	}
--
--	return drm_fb_helper_find_format(fb_helper, formats, format_count, bpp, depth);
--}
--
- static int __drm_fb_helper_find_sizes(struct drm_fb_helper *fb_helper,
- 				      struct drm_fb_helper_surface_size *sizes)
- {
-@@ -1531,10 +1491,10 @@ static int __drm_fb_helper_find_sizes(struct drm_fb_helper *fb_helper,
- 			if (!cmdline_mode->bpp_specified)
- 				continue;
- 
--			surface_format = drm_fb_helper_find_color_mode_format(fb_helper,
--									      plane->format_types,
--									      plane->format_count,
--									      cmdline_mode->bpp);
-+			surface_format = drm_fb_helper_find_format(fb_helper,
-+								   plane->format_types,
-+								   plane->format_count,
-+								   cmdline_mode->bpp);
- 			if (surface_format != DRM_FORMAT_INVALID)
- 				break; /* found supported format */
- 		}
-@@ -1544,10 +1504,10 @@ static int __drm_fb_helper_find_sizes(struct drm_fb_helper *fb_helper,
- 			break; /* found supported format */
- 
- 		/* try preferred color mode */
--		surface_format = drm_fb_helper_find_color_mode_format(fb_helper,
--								      plane->format_types,
--								      plane->format_count,
--								      fb_helper->preferred_bpp);
-+		surface_format = drm_fb_helper_find_format(fb_helper,
-+							   plane->format_types,
-+							   plane->format_count,
-+							   fb_helper->preferred_bpp);
- 		if (surface_format != DRM_FORMAT_INVALID)
- 			break; /* found supported format */
- 	}
-diff --git a/drivers/gpu/drm/drm_fourcc.c b/drivers/gpu/drm/drm_fourcc.c
-index 193cf8ed7912..3a94ca211f9c 100644
---- a/drivers/gpu/drm/drm_fourcc.c
-+++ b/drivers/gpu/drm/drm_fourcc.c
-@@ -36,7 +36,6 @@
-  * @depth: bit depth per pixel
-  *
-  * Computes a drm fourcc pixel format code for the given @bpp/@depth values.
-- * Useful in fbdev emulation code, since that deals in those values.
-  */
- uint32_t drm_mode_legacy_fb_format(uint32_t bpp, uint32_t depth)
- {
-@@ -140,6 +139,35 @@ uint32_t drm_driver_legacy_fb_format(struct drm_device *dev,
- }
- EXPORT_SYMBOL(drm_driver_legacy_fb_format);
- 
-+/**
-+ * drm_driver_color_mode_format - Compute DRM 4CC code from color mode
-+ * @dev: DRM device
-+ * @color_mode: command-line color mode
-+ *
-+ * Computes a DRM 4CC pixel format code for the given color mode using
-+ * drm_driver_color_mode(). The color mode is in the format used and the
-+ * kernel command line. It specifies the number of bits per pixel
-+ * and color depth in a single value.
-+ *
-+ * Useful in fbdev emulation code, since that deals in those values. The
-+ * helper does not consider YUV or other complicated formats. This means
-+ * only legacy formats are supported (fmt->depth is a legacy field), but
-+ * the framebuffer emulation can only deal with such formats, specifically
-+ * RGB/BGA formats.
-+ */
-+uint32_t drm_driver_color_mode_format(struct drm_device *dev, unsigned int color_mode)
-+{
-+	switch (color_mode) {
-+	case 15:
-+		return drm_driver_legacy_fb_format(dev, 16, 15);
-+	case 32:
-+		return drm_driver_legacy_fb_format(dev, 32, 24);
-+	default:
-+		return drm_driver_legacy_fb_format(dev, color_mode, color_mode);
-+	}
-+}
-+EXPORT_SYMBOL(drm_driver_color_mode_format);
-+
- /*
-  * Internal function to query information for a given format. See
-  * drm_format_info() for the public API.
-diff --git a/include/drm/drm_fourcc.h b/include/drm/drm_fourcc.h
-index ccf91daa4307..c3f4405d6662 100644
---- a/include/drm/drm_fourcc.h
-+++ b/include/drm/drm_fourcc.h
-@@ -313,6 +313,7 @@ drm_get_format_info(struct drm_device *dev,
- uint32_t drm_mode_legacy_fb_format(uint32_t bpp, uint32_t depth);
- uint32_t drm_driver_legacy_fb_format(struct drm_device *dev,
- 				     uint32_t bpp, uint32_t depth);
-+uint32_t drm_driver_color_mode_format(struct drm_device *dev, unsigned int color_mode);
- unsigned int drm_format_info_block_width(const struct drm_format_info *info,
- 					 int plane);
- unsigned int drm_format_info_block_height(const struct drm_format_info *info,
 -- 
 2.46.0
 
