@@ -4,59 +4,101 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5B918C52D7C
-	for <intel-gfx@archiver.kernel.org>; Wed, 21 Aug 2024 12:45:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D4CE3C52D7C
+	for <intel-gfx@archiver.kernel.org>; Wed, 21 Aug 2024 13:03:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0078110E905;
-	Wed, 21 Aug 2024 12:45:42 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 653C110E17B;
+	Wed, 21 Aug 2024 13:03:55 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="Ru6zmtBW";
+	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="D5CxtEsL";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="oI115JQg";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="D5CxtEsL";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="oI115JQg";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DAF3110E901;
- Wed, 21 Aug 2024 12:45:40 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1724244339; x=1755780339;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=i41+sMUZ446YXE/yYL8yUaZnjB+K7nLkyeorA0pQGtQ=;
- b=Ru6zmtBWlKUyso81ERQY58qCW7zPqUTM3acvNDwEZoOSNOTaUF7+Qjyh
- 4OP8Q5Fs5MQs//pdnqFytJHD/Fv1/GqukGoVAAo7yN9uVEA98fKvvFF6Q
- w9HDwZALB5Q6ac9AnWQdEgW5jUZfQzZ8qnll6plLNcEBNhZLX4rJrQzHl
- nT3UQRNsCrZZzCm4sTo4e0ZltuFrediJN3ZU7dQ2CC0uVa7JvL0sMe40v
- e9rXti+uPzePUQeOHjIHt92P6BtLYmJeVIH0P4+2E2KhJWtFCXNAoCwD2
- Bknkgk0tMY3W/O+8BOGRYBMFHro1Jz0+eVpJnMszTzOdlkwxfjRGPW/qa g==;
-X-CSE-ConnectionGUID: eSKsigPIS7WtdmoVBmbKxQ==
-X-CSE-MsgGUID: ItqSWTE6QXCtk/eHKX6Cyw==
-X-IronPort-AV: E=McAfee;i="6700,10204,11171"; a="40059790"
-X-IronPort-AV: E=Sophos;i="6.10,164,1719903600"; d="scan'208";a="40059790"
-Received: from orviesa009.jf.intel.com ([10.64.159.149])
- by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 21 Aug 2024 05:45:39 -0700
-X-CSE-ConnectionGUID: ovQTO5/RSs+Mh7sWWGGlMw==
-X-CSE-MsgGUID: RLlIARBPRzW1vw9NZde2pQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.10,164,1719903600"; d="scan'208";a="61052311"
-Received: from bergbenj-mobl1.ger.corp.intel.com (HELO intel.com)
- ([10.245.246.24])
- by orviesa009-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 21 Aug 2024 05:45:38 -0700
-From: Andi Shyti <andi.shyti@linux.intel.com>
-To: intel-gfx <intel-gfx@lists.freedesktop.org>,
- dri-devel <dri-devel@lists.freedesktop.org>
-Cc: Chris Wilson <chris.p.wilson@linux.intel.com>,
- Tvrtko Ursulin <tursulin@ursulin.net>,
- Andi Shyti <andi.shyti@linux.intel.com>
-Subject: [PATCH v1 14/14] drm/i915/gt: Allow the user to change the CCS mode
- through sysfs
-Date: Wed, 21 Aug 2024 14:43:49 +0200
-Message-ID: <20240821124349.295259-15-andi.shyti@linux.intel.com>
-X-Mailer: git-send-email 2.45.2
-In-Reply-To: <20240821124349.295259-1-andi.shyti@linux.intel.com>
-References: <20240821124349.295259-1-andi.shyti@linux.intel.com>
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7FFA010E402;
+ Wed, 21 Aug 2024 13:03:54 +0000 (UTC)
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 141C32007F;
+ Wed, 21 Aug 2024 13:03:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1724245433; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=+02KtzuL/0apGbJHEoOc1Au4F649MzG1OdyHtZYcJ4M=;
+ b=D5CxtEsLxupjNkc0GupriVkTBSLb/xwrEfAjclCecjz6BJmGEAv5JQ+nU//kZQPrSnsHVN
+ 3fmB3NBAev++qlRvQnqVh0kjRD6XAUQPH1a3gItET3fSHzV8nWSIyKSHc9VHyn/vk4YJTf
+ XVuNn4dfqnKj37UPH/YcwyPrwfFaULI=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1724245433;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=+02KtzuL/0apGbJHEoOc1Au4F649MzG1OdyHtZYcJ4M=;
+ b=oI115JQgTgRzMN1UTKPoIsbjFzEVGMzwT2kghYjcMWTqO55myrvBLIoytV15Qx79d0rOQd
+ rdx1dFnlQdtnmPAA==
+Authentication-Results: smtp-out2.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1724245433; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=+02KtzuL/0apGbJHEoOc1Au4F649MzG1OdyHtZYcJ4M=;
+ b=D5CxtEsLxupjNkc0GupriVkTBSLb/xwrEfAjclCecjz6BJmGEAv5JQ+nU//kZQPrSnsHVN
+ 3fmB3NBAev++qlRvQnqVh0kjRD6XAUQPH1a3gItET3fSHzV8nWSIyKSHc9VHyn/vk4YJTf
+ XVuNn4dfqnKj37UPH/YcwyPrwfFaULI=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1724245433;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=+02KtzuL/0apGbJHEoOc1Au4F649MzG1OdyHtZYcJ4M=;
+ b=oI115JQgTgRzMN1UTKPoIsbjFzEVGMzwT2kghYjcMWTqO55myrvBLIoytV15Qx79d0rOQd
+ rdx1dFnlQdtnmPAA==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id C2ED813B1E;
+ Wed, 21 Aug 2024 13:03:52 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+ by imap1.dmz-prg2.suse.org with ESMTPSA id KB5PLrjlxWbXGQAAD6G6ig
+ (envelope-from <tzimmermann@suse.de>); Wed, 21 Aug 2024 13:03:52 +0000
+From: Thomas Zimmermann <tzimmermann@suse.de>
+To: daniel@ffwll.ch, airlied@gmail.com, jfalempe@redhat.com, javierm@redhat.com
+Cc: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
+ intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
+ nouveau@lists.freedesktop.org, Thomas Zimmermann <tzimmermann@suse.de>
+Subject: [PATCH v2 02/86] drm/fbdev-helper: Set and clear VGA switcheroo
+ client from fb_info
+Date: Wed, 21 Aug 2024 14:58:59 +0200
+Message-ID: <20240821130348.73038-3-tzimmermann@suse.de>
+X-Mailer: git-send-email 2.46.0
+In-Reply-To: <20240821130348.73038-1-tzimmermann@suse.de>
+References: <20240821130348.73038-1-tzimmermann@suse.de>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-Spamd-Result: default: False [-2.80 / 50.00]; BAYES_HAM(-3.00)[100.00%];
+ MID_CONTAINS_FROM(1.00)[]; NEURAL_HAM_LONG(-1.00)[-1.000];
+ R_MISSING_CHARSET(0.50)[]; NEURAL_HAM_SHORT(-0.20)[-1.000];
+ MIME_GOOD(-0.10)[text/plain];
+ FREEMAIL_TO(0.00)[ffwll.ch,gmail.com,redhat.com];
+ TO_MATCH_ENVRCPT_ALL(0.00)[]; FUZZY_BLOCKED(0.00)[rspamd.com];
+ MIME_TRACE(0.00)[0:+]; ARC_NA(0.00)[];
+ DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ RCVD_TLS_ALL(0.00)[]; RCVD_VIA_SMTP_AUTH(0.00)[];
+ FROM_EQ_ENVFROM(0.00)[]; FROM_HAS_DN(0.00)[];
+ TO_DN_SOME(0.00)[]; RCVD_COUNT_TWO(0.00)[2];
+ RCPT_COUNT_SEVEN(0.00)[10];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:mid,suse.de:email,imap1.dmz-prg2.suse.org:helo];
+ FREEMAIL_ENVRCPT(0.00)[gmail.com]
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -72,144 +114,63 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Create the 'ccs_mode' file under
+Call vga_switcheroo_client_fb_set() with the PCI device from the
+instance of struct fb_info. All fbdev clients now run these calls.
+For non-PCI devices or drivers without vga-switcheroo, this does
+nothing. For i915 and radeon, it allows these drivers to use a
+common fbdev client.
 
-/sys/class/drm/cardX/gt/gt0/ccs_mode
+The device is the same as the one stored in struct drm_client and
+struct drm_fb_helper, so there is no difference in behavior. Some
+NULL-pointer checks are being removed, where those pointers cannot
+be NULL.
 
-This file allows the user to read and set the current CCS mode.
-
- - Reading: The user can read the current CCS mode, which can be
-   1, 2, or 4. This value is derived from the current engine
-   mask.
-
- - Writing: The user can set the CCS mode to 1, 2, or 4,
-   depending on the desired number of exposed engines and the
-   required load balancing.
-
-The interface will return -EBUSY if other clients are connected
-to i915, or -EINVAL if an invalid value is set.
-
-Signed-off-by: Andi Shyti <andi.shyti@linux.intel.com>
+Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
 ---
- drivers/gpu/drm/i915/gt/intel_gt_ccs_mode.c | 82 ++++++++++++++++++++-
- 1 file changed, 80 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/drm_fb_helper.c | 15 +++++++++++----
+ 1 file changed, 11 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gt/intel_gt_ccs_mode.c b/drivers/gpu/drm/i915/gt/intel_gt_ccs_mode.c
-index 82de29eb4dd7..ffdcc98b0802 100644
---- a/drivers/gpu/drm/i915/gt/intel_gt_ccs_mode.c
-+++ b/drivers/gpu/drm/i915/gt/intel_gt_ccs_mode.c
-@@ -5,6 +5,7 @@
- 
- #include "i915_drv.h"
- #include "intel_gt_ccs_mode.h"
-+#include "intel_gt_pm.h"
- #include "intel_gt_print.h"
- #include "intel_gt_regs.h"
- #include "intel_gt_sysfs.h"
-@@ -160,7 +161,7 @@ static int rb_engine_cmp(struct rb_node *rb_new, const struct rb_node *rb_old)
- 	return new->uabi_instance - old->uabi_instance;
- }
- 
--static void __maybe_unused add_uabi_ccs_engines(struct intel_gt *gt, u32 ccs_mode)
-+static void add_uabi_ccs_engines(struct intel_gt *gt, u32 ccs_mode)
+diff --git a/drivers/gpu/drm/drm_fb_helper.c b/drivers/gpu/drm/drm_fb_helper.c
+index af1fe79c701d..13095d38aa42 100644
+--- a/drivers/gpu/drm/drm_fb_helper.c
++++ b/drivers/gpu/drm/drm_fb_helper.c
+@@ -562,8 +562,12 @@ EXPORT_SYMBOL(drm_fb_helper_release_info);
+  */
+ void drm_fb_helper_unregister_info(struct drm_fb_helper *fb_helper)
  {
- 	struct drm_i915_private *i915 = gt->i915;
- 	intel_engine_mask_t new_ccs_mask, tmp;
-@@ -194,7 +195,7 @@ static void __maybe_unused add_uabi_ccs_engines(struct intel_gt *gt, u32 ccs_mod
- 	}
+-	if (fb_helper && fb_helper->info)
+-		unregister_framebuffer(fb_helper->info);
++	struct fb_info *info = fb_helper->info;
++	struct device *dev = info->device;
++
++	if (dev_is_pci(dev))
++		vga_switcheroo_client_fb_set(to_pci_dev(dev), NULL);
++	unregister_framebuffer(fb_helper->info);
  }
+ EXPORT_SYMBOL(drm_fb_helper_unregister_info);
  
--static void __maybe_unused remove_uabi_ccs_engines(struct intel_gt *gt, u8 ccs_mode)
-+static void remove_uabi_ccs_engines(struct intel_gt *gt, u8 ccs_mode)
- {
- 	struct drm_i915_private *i915 = gt->i915;
- 	intel_engine_mask_t new_ccs_mask, tmp;
-@@ -240,8 +241,85 @@ static ssize_t num_cslices_show(struct device *dev,
- }
- static DEVICE_ATTR_RO(num_cslices);
+@@ -1615,6 +1619,7 @@ static int drm_fb_helper_single_fb_probe(struct drm_fb_helper *fb_helper)
+ 	struct drm_client_dev *client = &fb_helper->client;
+ 	struct drm_device *dev = fb_helper->dev;
+ 	struct drm_fb_helper_surface_size sizes;
++	struct fb_info *info;
+ 	int ret;
  
-+static ssize_t ccs_mode_show(struct device *dev,
-+			     struct device_attribute *attr, char *buff)
-+{
-+	struct intel_gt *gt = kobj_to_gt(&dev->kobj);
-+	u32 ccs_mode;
+ 	ret = drm_fb_helper_find_sizes(fb_helper, &sizes);
+@@ -1632,9 +1637,11 @@ static int drm_fb_helper_single_fb_probe(struct drm_fb_helper *fb_helper)
+ 
+ 	strcpy(fb_helper->fb->comm, "[fbcon]");
+ 
++	info = fb_helper->info;
 +
-+	ccs_mode = hweight32(gt->ccs.id_mask);
-+
-+	return sysfs_emit(buff, "%u\n", ccs_mode);
-+}
-+
-+static ssize_t ccs_mode_store(struct device *dev,
-+			      struct device_attribute *attr,
-+			      const char *buff, size_t count)
-+{
-+	struct intel_gt *gt = kobj_to_gt(&dev->kobj);
-+	int num_cslices = hweight32(CCS_MASK(gt));
-+	int ccs_mode = hweight32(gt->ccs.id_mask);
-+	ssize_t ret;
-+	u32 val;
-+
-+	ret = kstrtou32(buff, 0, &val);
-+	if (ret)
-+		return ret;
-+
-+	/*
-+	 * As of now possible values to be set are 1, 2, 4,
-+	 * up to the maximum number of available slices
-+	 */
-+	if (!val || val > num_cslices || (num_cslices % val))
-+		return -EINVAL;
-+
-+	/* Let's wait until the GT is no longer in use */
-+	ret = intel_gt_pm_wait_for_idle(gt);
-+	if (ret)
-+		return ret;
-+
-+	mutex_lock(&gt->wakeref.mutex);
-+
-+	/*
-+	 * Let's check again that the GT is idle,
-+	 * we don't want to change the CCS mode
-+	 * while someone is using the GT
-+	 */
-+	if (intel_gt_pm_is_awake(gt)) {
-+		ret = -EBUSY;
-+		goto out;
-+	}
-+
-+	/*
-+	 * Nothing to do if the requested setting
-+	 * is the same as the current one
-+	 */
-+	if (val == ccs_mode)
-+		goto out;
-+	else if (val > ccs_mode)
-+		add_uabi_ccs_engines(gt, val);
-+	else
-+		remove_uabi_ccs_engines(gt, val);
-+
-+out:
-+	mutex_unlock(&gt->wakeref.mutex);
-+
-+	return ret ?: count;
-+}
-+static DEVICE_ATTR_RW(ccs_mode);
-+
- void intel_gt_sysfs_ccs_init(struct intel_gt *gt)
- {
- 	if (sysfs_create_file(&gt->sysfs_gt, &dev_attr_num_cslices.attr))
- 		gt_warn(gt, "Failed to create sysfs num_cslices files\n");
-+
-+	/*
-+	 * Do not create the ccs_mode file for non DG2 platforms
-+	 * because they don't need it as they have only one CCS engine
-+	 */
-+	if (!IS_DG2(gt->i915))
-+		return;
-+
-+	if (sysfs_create_file(&gt->sysfs_gt, &dev_attr_ccs_mode.attr))
-+		gt_warn(gt, "Failed to create sysfs ccs_mode files\n");
+ 	/* Set the fb info for vgaswitcheroo clients. Does nothing otherwise. */
+-	if (dev_is_pci(dev->dev))
+-		vga_switcheroo_client_fb_set(to_pci_dev(dev->dev), fb_helper->info);
++	if (dev_is_pci(info->device))
++		vga_switcheroo_client_fb_set(to_pci_dev(info->device), info);
+ 
+ 	return 0;
  }
 -- 
-2.45.2
+2.46.0
 
