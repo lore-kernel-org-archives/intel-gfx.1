@@ -4,51 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 83E6FC5321E
-	for <intel-gfx@archiver.kernel.org>; Mon, 26 Aug 2024 11:14:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C40B0C5472E
+	for <intel-gfx@archiver.kernel.org>; Mon, 26 Aug 2024 11:14:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2C15F10E1CF;
-	Mon, 26 Aug 2024 11:14:09 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6AFA710E1CD;
+	Mon, 26 Aug 2024 11:14:12 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="Bz1Ahw2a";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="YsxRGub8";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.16])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9BA5A10E1C9;
- Mon, 26 Aug 2024 11:14:07 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B0A4F10E1C9;
+ Mon, 26 Aug 2024 11:14:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1724670847; x=1756206847;
+ t=1724670851; x=1756206851;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=9UijmCNqYAfTONwtO9DrKveS7ZfV7cpecHcoKQEGwLQ=;
- b=Bz1Ahw2ary7YnpVolTxxKBxapyr54vAoWhuJYcYcDBhnix6pFg6qAajb
- HdQ8PQi4all+I1F8r1Njj3964KtcuGIaXQDp9SMryqnKozm45JVFhsWIg
- tMuSJtCG9WkcFOzRxF4AEwPop0uy1UU1CZFexCbCtg0n93uCsGLKkJXuv
- RZXphBbPMa1TS6y/ttTksxGi6hhEoLKmJJbpko6cMIP7ypiIqNY4gYC4I
- M30LqU9see5UGvKL5DOpKt4nl8eiVDXnqpdZJ1CQ90CAKEGp5US47GwjG
- Egm7Pv8lUrEYK1t38YBqmo5x0u9lTRR6FBJhVOf1oCVnkHLmFtBFiifQ3 A==;
-X-CSE-ConnectionGUID: ErQTNM/NQRud6qOzK3OQRA==
-X-CSE-MsgGUID: kdfX16csRIu7yEQjxpcMbA==
-X-IronPort-AV: E=McAfee;i="6700,10204,11175"; a="23213541"
-X-IronPort-AV: E=Sophos;i="6.10,177,1719903600"; d="scan'208";a="23213541"
+ bh=5utVn4c9xPG98n3AX6UDXA6XyN5eH40/lw/NnMMa1bE=;
+ b=YsxRGub81n+99uCd3BV6syKFFQoZeCcW/Ijsq+KjkvOhsNtosMEe9OsC
+ wX3xq+Agkj8DcFDazr98w002dy8V3kHWFXOt3mac3mY5r9F0SfYPsfiu5
+ CD9j+NFfk9xXSr/NpYm9iUBPHzMI17tpsxDknG3G4g8WgdiLZr7JYu8tl
+ 6qqovuhtUYhK5XAQYWMyxQqw1OuMEGAr7PbCIuhPzd8cFDJ4YxVCAG7B7
+ mYZ+8lmbT4ZS1a8eGPTUOTYAmvmp1SAoOrUdPuo/UggAHEWweLSUlVYU8
+ RROVz9XusDFYXGYkl0TDdSW1VM42jT0ENWBAgponru8mWApJxV4O51FcI A==;
+X-CSE-ConnectionGUID: ENS89kvJSpeA6AcygqdjuA==
+X-CSE-MsgGUID: R65d1NdyQJqSp0iHJcCY+g==
+X-IronPort-AV: E=McAfee;i="6700,10204,11175"; a="23213552"
+X-IronPort-AV: E=Sophos;i="6.10,177,1719903600"; d="scan'208";a="23213552"
 Received: from orviesa003.jf.intel.com ([10.64.159.143])
  by orvoesa108.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 26 Aug 2024 04:14:07 -0700
-X-CSE-ConnectionGUID: 5xbwbSYtRHiL2qgi/ypfKg==
-X-CSE-MsgGUID: SjDoPthJQdenOtamJXUh6Q==
+ 26 Aug 2024 04:14:11 -0700
+X-CSE-ConnectionGUID: 7j+kNp8fTJ+xhUJslLdcXQ==
+X-CSE-MsgGUID: rQdd6zUZQ1qMQHs8N/rgdQ==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.10,177,1719903600"; d="scan'208";a="67291318"
+X-IronPort-AV: E=Sophos;i="6.10,177,1719903600"; d="scan'208";a="67291358"
 Received: from srr4-3-linux-103-aknautiy.iind.intel.com ([10.223.34.160])
  by ORVIESA003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 26 Aug 2024 04:14:06 -0700
+ 26 Aug 2024 04:14:10 -0700
 From: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
 To: intel-gfx@lists.freedesktop.org,
 	intel-xe@lists.freedesktop.org
 Cc: jani.nikula@linux.intel.com, suraj.kandpal@intel.com,
  ville.syrjala@linux.intel.com
-Subject: [PATCH 03/12] drm/i915/dss: Move to struct intel_display
-Date: Mon, 26 Aug 2024 16:45:17 +0530
-Message-ID: <20240826111527.1113622-4-ankit.k.nautiyal@intel.com>
+Subject: [PATCH 05/12] drm/i915/vdsc: Rename helper to check if the pipe
+ supports dsc
+Date: Mon, 26 Aug 2024 16:45:19 +0530
+Message-ID: <20240826111527.1113622-6-ankit.k.nautiyal@intel.com>
 X-Mailer: git-send-email 2.45.2
 In-Reply-To: <20240826111527.1113622-1-ankit.k.nautiyal@intel.com>
 References: <20240826111527.1113622-1-ankit.k.nautiyal@intel.com>
@@ -69,123 +70,81 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Use struct intel_display instead of struct drm_i915_private.
+Rename the helper is_pipe_dsc to intel_dsc_is_pipe_dsc to prepare for its
+future use across multiple files. This change is a preliminary step towards
+making the function non-static, enhancing its accessibility and
+reusability.
 
 Signed-off-by: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_ddi.c |  2 +-
- drivers/gpu/drm/i915/display/intel_dss.c | 22 +++++++++++-----------
- drivers/gpu/drm/i915/display/intel_dss.h |  4 ++--
- 3 files changed, 14 insertions(+), 14 deletions(-)
+ drivers/gpu/drm/i915/display/intel_vdsc.c | 14 +++++++-------
+ 1 file changed, 7 insertions(+), 7 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_ddi.c b/drivers/gpu/drm/i915/display/intel_ddi.c
-index 28ef6814c56c..de7db5a028db 100644
---- a/drivers/gpu/drm/i915/display/intel_ddi.c
-+++ b/drivers/gpu/drm/i915/display/intel_ddi.c
-@@ -5115,7 +5115,7 @@ void intel_ddi_init(struct intel_display *display,
- 		dig_port->hpd_pulse = intel_dp_hpd_pulse;
- 
- 		if (dig_port->dp.mso_link_count)
--			encoder->pipe_mask = intel_dss_splitter_pipe_mask(dev_priv);
-+			encoder->pipe_mask = intel_dss_splitter_pipe_mask(display);
- 	}
- 
- 	/*
-diff --git a/drivers/gpu/drm/i915/display/intel_dss.c b/drivers/gpu/drm/i915/display/intel_dss.c
-index 41ea42d234f9..9cb89fe656cb 100644
---- a/drivers/gpu/drm/i915/display/intel_dss.c
-+++ b/drivers/gpu/drm/i915/display/intel_dss.c
-@@ -14,11 +14,11 @@
-  * Splitter enable for eDP MSO is limited to certain pipes, on certain
-  * platforms.
-  */
--u8 intel_dss_splitter_pipe_mask(struct drm_i915_private *i915)
-+u8 intel_dss_splitter_pipe_mask(struct intel_display *display)
- {
--	if (DISPLAY_VER(i915) > 20)
-+	if (DISPLAY_VER(display) > 20)
- 		return ~0;
--	else if (IS_ALDERLAKE_P(i915))
-+	else if (IS_ALDERLAKE_P(to_i915(display->drm)))
- 		return BIT(PIPE_A) | BIT(PIPE_B);
- 	else
- 		return BIT(PIPE_A);
-@@ -27,28 +27,28 @@ u8 intel_dss_splitter_pipe_mask(struct drm_i915_private *i915)
- void intel_dss_get_mso_config(struct intel_encoder *encoder,
- 			      struct intel_crtc_state *pipe_config)
- {
-+	struct intel_display *display = to_intel_display(pipe_config);
- 	struct intel_crtc *crtc = to_intel_crtc(pipe_config->uapi.crtc);
--	struct drm_i915_private *i915 = to_i915(crtc->base.dev);
- 	enum pipe pipe = crtc->pipe;
- 	u32 dss1;
- 
--	if (!HAS_MSO(i915))
-+	if (!HAS_MSO(display))
- 		return;
- 
--	dss1 = intel_de_read(i915, ICL_PIPE_DSS_CTL1(pipe));
-+	dss1 = intel_de_read(display, ICL_PIPE_DSS_CTL1(pipe));
- 
- 	pipe_config->splitter.enable = dss1 & SPLITTER_ENABLE;
- 	if (!pipe_config->splitter.enable)
- 		return;
- 
--	if (drm_WARN_ON(&i915->drm, !(intel_dss_splitter_pipe_mask(i915) & BIT(pipe)))) {
-+	if (drm_WARN_ON(crtc->base.dev, !(intel_dss_splitter_pipe_mask(display) & BIT(pipe)))) {
- 		pipe_config->splitter.enable = false;
- 		return;
- 	}
- 
- 	switch (dss1 & SPLITTER_CONFIGURATION_MASK) {
- 	default:
--		drm_WARN(&i915->drm, true,
-+		drm_WARN(crtc->base.dev, true,
- 			 "Invalid splitter configuration, dss1=0x%08x\n", dss1);
- 		fallthrough;
- 	case SPLITTER_CONFIGURATION_2_SEGMENT:
-@@ -64,12 +64,12 @@ void intel_dss_get_mso_config(struct intel_encoder *encoder,
- 
- void intel_dss_configure_mso(const struct intel_crtc_state *crtc_state)
- {
-+	struct intel_display *display = to_intel_display(crtc_state);
- 	struct intel_crtc *crtc = to_intel_crtc(crtc_state->uapi.crtc);
--	struct drm_i915_private *i915 = to_i915(crtc->base.dev);
- 	enum pipe pipe = crtc->pipe;
- 	u32 dss1 = 0;
- 
--	if (!HAS_MSO(i915))
-+	if (!HAS_MSO(display))
- 		return;
- 
- 	if (crtc_state->splitter.enable) {
-@@ -81,7 +81,7 @@ void intel_dss_configure_mso(const struct intel_crtc_state *crtc_state)
- 			dss1 |= SPLITTER_CONFIGURATION_4_SEGMENT;
- 	}
- 
--	intel_de_rmw(i915, ICL_PIPE_DSS_CTL1(pipe),
-+	intel_de_rmw(display, ICL_PIPE_DSS_CTL1(pipe),
- 		     SPLITTER_ENABLE | SPLITTER_CONFIGURATION_MASK |
- 		     OVERLAP_PIXELS_MASK, dss1);
+diff --git a/drivers/gpu/drm/i915/display/intel_vdsc.c b/drivers/gpu/drm/i915/display/intel_vdsc.c
+index 891346f1f09a..6d60b72a9dfb 100644
+--- a/drivers/gpu/drm/i915/display/intel_vdsc.c
++++ b/drivers/gpu/drm/i915/display/intel_vdsc.c
+@@ -35,7 +35,7 @@ bool intel_dsc_source_support(const struct intel_crtc_state *crtc_state)
+ 	return true;
  }
-diff --git a/drivers/gpu/drm/i915/display/intel_dss.h b/drivers/gpu/drm/i915/display/intel_dss.h
-index 632a00f0ebc1..0571ee2a19f9 100644
---- a/drivers/gpu/drm/i915/display/intel_dss.h
-+++ b/drivers/gpu/drm/i915/display/intel_dss.h
-@@ -8,11 +8,11 @@
  
- #include "linux/types.h"
+-static bool is_pipe_dsc(struct intel_crtc *crtc, enum transcoder cpu_transcoder)
++static bool intel_dsc_is_dsc_pipe(struct intel_crtc *crtc, enum transcoder cpu_transcoder)
+ {
+ 	struct drm_i915_private *i915 = to_i915(crtc->base.dev);
  
--struct drm_i915_private;
- struct intel_crtc_state;
-+struct intel_display;
- struct intel_encoder;
+@@ -366,7 +366,7 @@ intel_dsc_power_domain(struct intel_crtc *crtc, enum transcoder cpu_transcoder)
+ 	 */
+ 	if (DISPLAY_VER(i915) == 12 && !IS_ROCKETLAKE(i915) && pipe == PIPE_A)
+ 		return POWER_DOMAIN_TRANSCODER_VDSC_PW2;
+-	else if (is_pipe_dsc(crtc, cpu_transcoder))
++	else if (intel_dsc_is_dsc_pipe(crtc, cpu_transcoder))
+ 		return POWER_DOMAIN_PIPE(pipe);
+ 	else
+ 		return POWER_DOMAIN_TRANSCODER_VDSC_PW2;
+@@ -395,7 +395,7 @@ static void intel_dsc_get_pps_reg(const struct intel_crtc_state *crtc_state, int
+ 	enum pipe pipe = crtc->pipe;
+ 	bool pipe_dsc;
  
--u8 intel_dss_splitter_pipe_mask(struct drm_i915_private *i915);
-+u8 intel_dss_splitter_pipe_mask(struct intel_display *display);
- void intel_dss_get_mso_config(struct intel_encoder *encoder,
- 			      struct intel_crtc_state *pipe_config);
- void intel_dss_configure_mso(const struct intel_crtc_state *crtc_state);
+-	pipe_dsc = is_pipe_dsc(crtc, cpu_transcoder);
++	pipe_dsc = intel_dsc_is_dsc_pipe(crtc, cpu_transcoder);
+ 
+ 	if (dsc_reg_num >= 3)
+ 		MISSING_CASE(dsc_reg_num);
+@@ -538,7 +538,7 @@ static void intel_dsc_pps_configure(const struct intel_crtc_state *crtc_state)
+ 		rc_buf_thresh_dword[i / 4] |=
+ 			(u32)(vdsc_cfg->rc_buf_thresh[i] <<
+ 			      BITS_PER_BYTE * (i % 4));
+-	if (!is_pipe_dsc(crtc, cpu_transcoder)) {
++	if (!intel_dsc_is_dsc_pipe(crtc, cpu_transcoder)) {
+ 		intel_de_write(dev_priv, DSCA_RC_BUF_THRESH_0,
+ 			       rc_buf_thresh_dword[0]);
+ 		intel_de_write(dev_priv, DSCA_RC_BUF_THRESH_0_UDW,
+@@ -592,7 +592,7 @@ static void intel_dsc_pps_configure(const struct intel_crtc_state *crtc_state)
+ 				RC_MAX_QP_SHIFT) |
+ 			       (vdsc_cfg->rc_range_params[i].range_min_qp <<
+ 				RC_MIN_QP_SHIFT)) << 16 * (i % 2));
+-	if (!is_pipe_dsc(crtc, cpu_transcoder)) {
++	if (!intel_dsc_is_dsc_pipe(crtc, cpu_transcoder)) {
+ 		intel_de_write(dev_priv, DSCA_RC_RANGE_PARAMETERS_0,
+ 			       rc_range_params_dword[0]);
+ 		intel_de_write(dev_priv, DSCA_RC_RANGE_PARAMETERS_0_UDW,
+@@ -726,13 +726,13 @@ void intel_dsc_dp_pps_write(struct intel_encoder *encoder,
+ 
+ static i915_reg_t dss_ctl1_reg(struct intel_crtc *crtc, enum transcoder cpu_transcoder)
+ {
+-	return is_pipe_dsc(crtc, cpu_transcoder) ?
++	return intel_dsc_is_dsc_pipe(crtc, cpu_transcoder) ?
+ 		ICL_PIPE_DSS_CTL1(crtc->pipe) : DSS_CTL1;
+ }
+ 
+ static i915_reg_t dss_ctl2_reg(struct intel_crtc *crtc, enum transcoder cpu_transcoder)
+ {
+-	return is_pipe_dsc(crtc, cpu_transcoder) ?
++	return intel_dsc_is_dsc_pipe(crtc, cpu_transcoder) ?
+ 		ICL_PIPE_DSS_CTL2(crtc->pipe) : DSS_CTL2;
+ }
+ 
 -- 
 2.45.2
 
