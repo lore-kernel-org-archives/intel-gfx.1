@@ -4,49 +4,57 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6FD09C5474A
-	for <intel-gfx@archiver.kernel.org>; Wed, 28 Aug 2024 02:11:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0FCF0C5472D
+	for <intel-gfx@archiver.kernel.org>; Wed, 28 Aug 2024 04:23:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 110DB10E433;
-	Wed, 28 Aug 2024 02:11:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9136D10E493;
+	Wed, 28 Aug 2024 04:23:30 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=canb.auug.org.au header.i=@canb.auug.org.au header.b="SN47Jk7h";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="SVeYAaak";
 	dkim-atps=neutral
-Received: from mail.ozlabs.org (gandalf.ozlabs.org [150.107.74.76])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0655110E433;
- Wed, 28 Aug 2024 02:11:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=canb.auug.org.au;
- s=201702; t=1724811087;
- bh=GrnMPzsealqVcmG/cpz0XaAX0puRx4QlSU1EyZW3TVc=;
- h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
- b=SN47Jk7hrl6yULXmzQpI/AdxR98etvIwKyrOy/q9IfFvesZIdT1A/XPCIpff9faHS
- uagZNk7NmFPmW1FvpzHGKzmwAAkGKCyN+dxql37k/LBh2/3CpgCtPJKi6LPEQ3I1hs
- PP+gfUt3YHQq03DWQKE6OuanXP3Mgk2XtJs72IUFSKPhEABLGBNhrzovimfXOTk50o
- XfC8an27yeEt88Pb21vouA5BqlaH5t2Lfi373LfWtE/p9pMgM9EBUD+o3eG4+20auo
- PFvAL7p0E0uofKceSjUR0Yinn3POUY+vqtPZSTgvjxxLnJCMtonxWPPqXFmNcF7nQl
- 6E9LDWi8Dd3xA==
-Received: from authenticated.ozlabs.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (Client did not present a certificate)
- by mail.ozlabs.org (Postfix) with ESMTPSA id 4Wtnvy1YNqz4x21;
- Wed, 28 Aug 2024 12:11:26 +1000 (AEST)
-Date: Wed, 28 Aug 2024 12:11:25 +1000
-From: Stephen Rothwell <sfr@canb.auug.org.au>
-To: Daniel Vetter <daniel.vetter@ffwll.ch>, Dave Airlie <airlied@redhat.com>
-Cc: Alex Deucher <alexdeucher@gmail.com>, Alex Deucher
- <alexander.deucher@amd.com>, Hamza Mahfooz <hamza.mahfooz@amd.com>, Leo Li
- <sunpeng.li@amd.com>, Intel Graphics <intel-gfx@lists.freedesktop.org>, DRI
- <dri-devel@lists.freedesktop.org>, Linux Kernel Mailing List
- <linux-kernel@vger.kernel.org>, Linux Next Mailing List
- <linux-next@vger.kernel.org>, Rodrigo Siqueira <rodrigo.siqueira@amd.com>
-Subject: Re: linux-next: manual merge of the amdgpu tree with the drm-misc tree
-Message-ID: <20240828121125.1d698246@canb.auug.org.au>
-In-Reply-To: <20240826111022.41db1e95@canb.auug.org.au>
-References: <20240826111022.41db1e95@canb.auug.org.au>
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.8])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 48E3D10E493
+ for <intel-gfx@lists.freedesktop.org>; Wed, 28 Aug 2024 04:23:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1724819009; x=1756355009;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=2/BjnU/1c7jh/FUUf7uBUswm66s5B8Rn07gzGOjtkRM=;
+ b=SVeYAaakaWzry9yW4+9mW9c4reVZZSdhg8OjwqFBbkEx/f5dzrH1ElbG
+ Z7gRq5WJuB2fEg+17ppj8RmRm9VIx+auBdWuO4hWc7Wswyp0hzeaqcUDM
+ X1WAS8SpdqXGBtfQE4Kzu3h9KBBZsFTY4erIYh+3GgM10IluGoX9287oq
+ H7LuGZm2beJGwLHjVkhh0DvosBsU9NiRU+4kKPN1IwNsYaC9oJRPnX4xt
+ LSGlSR8Z8t1690EGOrAKmP544QIT4MY01hVM3OWuO3dIhQll/Tiw3Ww3N
+ cNXCEkErO/mjV4kMNJ4WindClKbLbLcfOmjHa0BwndKQpFKs0v0MWC4LY A==;
+X-CSE-ConnectionGUID: MT6SD1f9THSGorVhpb5REw==
+X-CSE-MsgGUID: tsbzeZz4RESEsVNkEPKZKQ==
+X-IronPort-AV: E=McAfee;i="6700,10204,11177"; a="40830297"
+X-IronPort-AV: E=Sophos;i="6.10,181,1719903600"; d="scan'208";a="40830297"
+Received: from fmviesa010.fm.intel.com ([10.60.135.150])
+ by fmvoesa102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 27 Aug 2024 21:23:28 -0700
+X-CSE-ConnectionGUID: k6lxGecuR0CcjzC24V8cnw==
+X-CSE-MsgGUID: jhVFmW3BSeOKIDsjc8hkGA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.10,181,1719903600"; d="scan'208";a="63269229"
+Received: from jraag-nuc8i7beh.iind.intel.com ([10.145.169.79])
+ by fmviesa010.fm.intel.com with ESMTP; 27 Aug 2024 21:23:24 -0700
+From: Raag Jadav <raag.jadav@intel.com>
+To: jani.nikula@linux.intel.com, joonas.lahtinen@linux.intel.com,
+ rodrigo.vivi@intel.com, tursulin@ursulin.net, linux@roeck-us.net,
+ andi.shyti@linux.intel.com, andriy.shevchenko@linux.intel.com
+Cc: intel-gfx@lists.freedesktop.org, linux-hwmon@vger.kernel.org,
+ anshuman.gupta@intel.com, badal.nilawar@intel.com, riana.tauro@intel.com,
+ ashutosh.dixit@intel.com, karthik.poosa@intel.com,
+ Raag Jadav <raag.jadav@intel.com>
+Subject: [PATCH v1] drm/i915/hwmon: expose package temperature
+Date: Wed, 28 Aug 2024 10:15:12 +0530
+Message-Id: <20240828044512.2710381-1-raag.jadav@intel.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-Content-Type: multipart/signed; boundary="Sig_/B+ciLLBp8C2=DJ/Pi3m_hKM";
- protocol="application/pgp-signature"; micalg=pgp-sha256
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,139 +70,157 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
---Sig_/B+ciLLBp8C2=DJ/Pi3m_hKM
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: quoted-printable
+Add hwmon support for temp1_input attribute, which will expose package
+temperature in millidegree Celsius. With this in place we can monitor
+package temperature using lm-sensors tool.
 
-Hi all,
+$ sensors
+i915-pci-0300
+Adapter: PCI adapter
+in0:         990.00 mV
+fan1:        1260 RPM
+temp1:        +45.0°C
+power1:           N/A  (max =  35.00 W)
+energy1:      12.62 kJ
 
-On Mon, 26 Aug 2024 11:10:22 +1000 Stephen Rothwell <sfr@canb.auug.org.au> =
-wrote:
->
-> Today's linux-next merge of the amdgpu tree got a conflict in:
->=20
->   drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
->=20
-> between commits:
->=20
->   537ef0f88897 ("drm/amd/display: use new vblank enable policy for DCN35+=
-")
->   e45b6716de4b ("drm/amd/display: use a more lax vblank enable policy for=
- DCN35+")
->   58a261bfc967 ("drm/amd/display: use a more lax vblank enable policy for=
- older ASICs")
->=20
-> from the drm-misc tree and commit:
->=20
->   7fb363c57522 ("drm/amd/display: Let drm_crtc_vblank_on/off manage inter=
-rupts")
->=20
-> from the amdgpu tree.
->=20
-> I fixed it up (I think - see below) and can carry the fix as necessary.
-> This is now fixed as far as linux-next is concerned, but any non trivial
-> conflicts should be mentioned to your upstream maintainer when your tree
-> is submitted for merging.  You may also want to consider cooperating
-> with the maintainer of the conflicting tree to minimise any particularly
-> complex conflicts.
->=20
->=20
-> diff --cc drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> index 34872eb4fc84,7d999e352df3..000000000000
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> @@@ -8229,66 -8248,12 +8242,35 @@@ static int amdgpu_dm_encoder_init(struc
->  =20
->   static void manage_dm_interrupts(struct amdgpu_device *adev,
->   				 struct amdgpu_crtc *acrtc,
->  -				 bool enable)
->  +				 struct dm_crtc_state *acrtc_state)
->   {
-> - 	/*
-> - 	 * We have no guarantee that the frontend index maps to the same
-> - 	 * backend index - some even map to more than one.
-> - 	 *
-> - 	 * TODO: Use a different interrupt or check DC itself for the mapping.
-> - 	 */
-> - 	int irq_type =3D
-> - 		amdgpu_display_crtc_idx_to_irq_type(
-> - 			adev,
-> - 			acrtc->crtc_id);
->  -	if (enable)
->  -		drm_crtc_vblank_on(&acrtc->base);
->  -	else
->  +	struct drm_vblank_crtc_config config =3D {0};
->  +	struct dc_crtc_timing *timing;
->  +	int offdelay;
->  +
->  +	if (acrtc_state) {
->  +		if (amdgpu_ip_version(adev, DCE_HWIP, 0) <
->  +		    IP_VERSION(3, 5, 0) ||
->  +		    acrtc_state->stream->link->psr_settings.psr_version <
->  +		    DC_PSR_VERSION_UNSUPPORTED) {
->  +			timing =3D &acrtc_state->stream->timing;
->  +
->  +			/* at least 2 frames */
->  +			offdelay =3D DIV64_U64_ROUND_UP((u64)20 *
->  +						      timing->v_total *
->  +						      timing->h_total,
->  +						      timing->pix_clk_100hz);
->  +
->  +			config.offdelay_ms =3D offdelay ?: 30;
->  +		} else {
->  +			config.disable_immediate =3D true;
->  +		}
->  +
->  +		drm_crtc_vblank_on_config(&acrtc->base,
->  +					  &config);
-> -=20
-> - 		amdgpu_irq_get(
-> - 			adev,
-> - 			&adev->pageflip_irq,
-> - 			irq_type);
-> - #if defined(CONFIG_DRM_AMD_SECURE_DISPLAY)
-> - 		amdgpu_irq_get(
-> - 			adev,
-> - 			&adev->vline0_irq,
-> - 			irq_type);
-> - #endif
->  +	} else {
-> - #if defined(CONFIG_DRM_AMD_SECURE_DISPLAY)
-> - 		amdgpu_irq_put(
-> - 			adev,
-> - 			&adev->vline0_irq,
-> - 			irq_type);
-> - #endif
-> - 		amdgpu_irq_put(
-> - 			adev,
-> - 			&adev->pageflip_irq,
-> - 			irq_type);
->   		drm_crtc_vblank_off(&acrtc->base);
->  +	}
->   }
->  =20
->   static void dm_update_pflip_irq_state(struct amdgpu_device *adev,
+Closes: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/11276
+Signed-off-by: Raag Jadav <raag.jadav@intel.com>
+---
+ .../ABI/testing/sysfs-driver-intel-i915-hwmon |  8 ++++
+ drivers/gpu/drm/i915/i915_hwmon.c             | 39 +++++++++++++++++++
+ drivers/gpu/drm/i915/intel_mchbar_regs.h      |  4 ++
+ 3 files changed, 51 insertions(+)
 
-This is now a conflict between the drm-misc tree and the drm tree.
+diff --git a/Documentation/ABI/testing/sysfs-driver-intel-i915-hwmon b/Documentation/ABI/testing/sysfs-driver-intel-i915-hwmon
+index be4141a7522f..a885e5316d02 100644
+--- a/Documentation/ABI/testing/sysfs-driver-intel-i915-hwmon
++++ b/Documentation/ABI/testing/sysfs-driver-intel-i915-hwmon
+@@ -83,3 +83,11 @@ Contact:	intel-gfx@lists.freedesktop.org
+ Description:	RO. Fan speed of device in RPM.
+ 
+ 		Only supported for particular Intel i915 graphics platforms.
++
++What:		/sys/bus/pci/drivers/i915/.../hwmon/hwmon<i>/temp1_input
++Date:		November 2024
++KernelVersion:	6.12
++Contact:	intel-gfx@lists.freedesktop.org
++Description:	RO. GPU package temperature in millidegree Celsius.
++
++		Only supported for particular Intel i915 graphics platforms.
+diff --git a/drivers/gpu/drm/i915/i915_hwmon.c b/drivers/gpu/drm/i915/i915_hwmon.c
+index 17d30f6b84b0..9f1a2300510b 100644
+--- a/drivers/gpu/drm/i915/i915_hwmon.c
++++ b/drivers/gpu/drm/i915/i915_hwmon.c
+@@ -7,6 +7,7 @@
+ #include <linux/hwmon-sysfs.h>
+ #include <linux/jiffies.h>
+ #include <linux/types.h>
++#include <linux/units.h>
+ 
+ #include "i915_drv.h"
+ #include "i915_hwmon.h"
+@@ -32,6 +33,7 @@
+ 
+ struct hwm_reg {
+ 	i915_reg_t gt_perf_status;
++	i915_reg_t pkg_temp;
+ 	i915_reg_t pkg_power_sku_unit;
+ 	i915_reg_t pkg_power_sku;
+ 	i915_reg_t pkg_rapl_limit;
+@@ -280,6 +282,7 @@ static const struct attribute_group *hwm_groups[] = {
+ };
+ 
+ static const struct hwmon_channel_info * const hwm_info[] = {
++	HWMON_CHANNEL_INFO(temp, HWMON_T_INPUT),
+ 	HWMON_CHANNEL_INFO(in, HWMON_I_INPUT),
+ 	HWMON_CHANNEL_INFO(power, HWMON_P_MAX | HWMON_P_RATED_MAX | HWMON_P_CRIT),
+ 	HWMON_CHANNEL_INFO(energy, HWMON_E_INPUT),
+@@ -310,6 +313,36 @@ static int hwm_pcode_write_i1(struct drm_i915_private *i915, u32 uval)
+ 				  POWER_SETUP_SUBCOMMAND_WRITE_I1, 0, uval);
+ }
+ 
++static umode_t
++hwm_temp_is_visible(const struct hwm_drvdata *ddat, u32 attr)
++{
++	struct i915_hwmon *hwmon = ddat->hwmon;
++
++	if (attr == hwmon_temp_input && i915_mmio_reg_valid(hwmon->rg.pkg_temp))
++		return 0444;
++
++	return 0;
++}
++
++static int
++hwm_temp_read(struct hwm_drvdata *ddat, u32 attr, long *val)
++{
++	struct i915_hwmon *hwmon = ddat->hwmon;
++	intel_wakeref_t wakeref;
++	u32 reg_val;
++
++	if (attr == hwmon_temp_input) {
++		with_intel_runtime_pm(ddat->uncore->rpm, wakeref)
++			reg_val = intel_uncore_read(ddat->uncore, hwmon->rg.pkg_temp);
++
++		/* HW register value is in degrees, convert to millidegrees. */
++		*val = REG_FIELD_GET(TEMP_MASK, reg_val) * MILLIDEGREE_PER_DEGREE;
++		return 0;
++	}
++
++	return -EOPNOTSUPP;
++}
++
+ static umode_t
+ hwm_in_is_visible(const struct hwm_drvdata *ddat, u32 attr)
+ {
+@@ -692,6 +725,8 @@ hwm_is_visible(const void *drvdata, enum hwmon_sensor_types type,
+ 	struct hwm_drvdata *ddat = (struct hwm_drvdata *)drvdata;
+ 
+ 	switch (type) {
++	case hwmon_temp:
++		return hwm_temp_is_visible(ddat, attr);
+ 	case hwmon_in:
+ 		return hwm_in_is_visible(ddat, attr);
+ 	case hwmon_power:
+@@ -714,6 +749,8 @@ hwm_read(struct device *dev, enum hwmon_sensor_types type, u32 attr,
+ 	struct hwm_drvdata *ddat = dev_get_drvdata(dev);
+ 
+ 	switch (type) {
++	case hwmon_temp:
++		return hwm_temp_read(ddat, attr, val);
+ 	case hwmon_in:
+ 		return hwm_in_read(ddat, attr, val);
+ 	case hwmon_power:
+@@ -810,6 +847,7 @@ hwm_get_preregistration_info(struct drm_i915_private *i915)
+ 	hwmon->rg.gt_perf_status = GEN12_RPSTAT1;
+ 
+ 	if (IS_DG1(i915) || IS_DG2(i915)) {
++		hwmon->rg.pkg_temp = PCU_PACKAGE_TEMPERATURE;
+ 		hwmon->rg.pkg_power_sku_unit = PCU_PACKAGE_POWER_SKU_UNIT;
+ 		hwmon->rg.pkg_power_sku = PCU_PACKAGE_POWER_SKU;
+ 		hwmon->rg.pkg_rapl_limit = PCU_PACKAGE_RAPL_LIMIT;
+@@ -817,6 +855,7 @@ hwm_get_preregistration_info(struct drm_i915_private *i915)
+ 		hwmon->rg.energy_status_tile = INVALID_MMIO_REG;
+ 		hwmon->rg.fan_speed = PCU_PWM_FAN_SPEED;
+ 	} else {
++		hwmon->rg.pkg_temp = INVALID_MMIO_REG;
+ 		hwmon->rg.pkg_power_sku_unit = INVALID_MMIO_REG;
+ 		hwmon->rg.pkg_power_sku = INVALID_MMIO_REG;
+ 		hwmon->rg.pkg_rapl_limit = INVALID_MMIO_REG;
+diff --git a/drivers/gpu/drm/i915/intel_mchbar_regs.h b/drivers/gpu/drm/i915/intel_mchbar_regs.h
+index 73900c098d59..dc2477179c3e 100644
+--- a/drivers/gpu/drm/i915/intel_mchbar_regs.h
++++ b/drivers/gpu/drm/i915/intel_mchbar_regs.h
+@@ -207,6 +207,10 @@
+ #define PCU_PACKAGE_ENERGY_STATUS              _MMIO(MCHBAR_MIRROR_BASE_SNB + 0x593c)
+ 
+ #define GEN6_GT_PERF_STATUS			_MMIO(MCHBAR_MIRROR_BASE_SNB + 0x5948)
++
++#define PCU_PACKAGE_TEMPERATURE			_MMIO(MCHBAR_MIRROR_BASE_SNB + 0x5978)
++#define   TEMP_MASK				REG_GENMASK(7, 0)
++
+ #define GEN6_RP_STATE_LIMITS			_MMIO(MCHBAR_MIRROR_BASE_SNB + 0x5994)
+ #define GEN6_RP_STATE_CAP			_MMIO(MCHBAR_MIRROR_BASE_SNB + 0x5998)
+ #define   RP0_CAP_MASK				REG_GENMASK(7, 0)
+-- 
+2.34.1
 
---=20
-Cheers,
-Stephen Rothwell
-
---Sig_/B+ciLLBp8C2=DJ/Pi3m_hKM
-Content-Type: application/pgp-signature
-Content-Description: OpenPGP digital signature
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAEBCAAdFiEENIC96giZ81tWdLgKAVBC80lX0GwFAmbOh00ACgkQAVBC80lX
-0Gw7oQf9EzWizfLWzxAPQO3UVYd23Nrjtx9rLzojxorJcPe/F5a95wCFsldGkRIw
-/YHJT5wnZE8HS5uC/8hIv/6nLvjehq3+WgW1l/qKD2KqYzoHkUmFx4SrkotPFogG
-1pZfy0g/HsZzy0t+5j/f0wSXiELg37Vx/z8fJ/BxTAOkMzg26RVf8zIByv0eIw/K
-ZFxXL57WZoubtpPUTlm0WMwj22inPJEqNrr84LvdJPP/kXcLT9xaak9YgVPGAf3M
-KUdVwqaInM/BV1M9mWfwLwy8zA47oaHSFn/w0o/IBRWnFVE/wiSjcUFabY1n7xSh
-idFnFFwCrmdxKO9nSohIT/Tw/RLRJQ==
-=d0Hz
------END PGP SIGNATURE-----
-
---Sig_/B+ciLLBp8C2=DJ/Pi3m_hKM--
