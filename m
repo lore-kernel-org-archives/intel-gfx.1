@@ -4,59 +4,60 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B859CC83F2F
-	for <intel-gfx@archiver.kernel.org>; Thu, 29 Aug 2024 16:00:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5B3FFC83F2F
+	for <intel-gfx@archiver.kernel.org>; Thu, 29 Aug 2024 16:05:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5D3C310E721;
-	Thu, 29 Aug 2024 16:00:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E9E5D10E726;
+	Thu, 29 Aug 2024 16:05:00 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="gyyP/xwQ";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="gPXMWtbx";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.18])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C7D1010E71A;
- Thu, 29 Aug 2024 16:00:01 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.12])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3B44810E720;
+ Thu, 29 Aug 2024 16:05:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1724947202; x=1756483202;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=FZMzouHuGgFWMsyvFfqSWdgkqnTzjcd2HKW5qqix9aE=;
- b=gyyP/xwQ6h6wIjGDWdSm7JRcVSY7TZP59QRupUAIXfT78nHcLWmTSUEY
- j5g8Fyn5yX6NDViXqqlp+AzwFKT/8Akpf1Ip8R1uBed2LBjwpEkUvZgl2
- Vq3YozXwP/KNi8C01A7lWWgdQEmT1Y+jw6hB0QB1BWzWEhZFnjY9lxw3r
- DKcMg/7rYZtaALWyNNiyy2/cxseodWQbl97WD8z2gvR+d1RX02MMHhYmU
- dfsiv6YFK6c2Gw4u2XV3HZayxtweQzlYpcNBqDvqb07ejagrhacR+voPU
- iGRRceU2k0PhS30W4ZnzcZ4e/dIo7U84wsz1skUjxODA/keKugjnyFtdJ g==;
-X-CSE-ConnectionGUID: gXlk4j7YRDy82hu/NmTIvg==
-X-CSE-MsgGUID: BdlwQx3USSuGE+z26NBSlQ==
-X-IronPort-AV: E=McAfee;i="6700,10204,11179"; a="23695915"
-X-IronPort-AV: E=Sophos;i="6.10,186,1719903600"; d="scan'208";a="23695915"
-Received: from orviesa005.jf.intel.com ([10.64.159.145])
- by orvoesa110.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 29 Aug 2024 09:00:02 -0700
-X-CSE-ConnectionGUID: ji0B6GX1TiCrXeH6j7zzXA==
-X-CSE-MsgGUID: uttuXp35TnSqnZou/4qUug==
+ t=1724947500; x=1756483500;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:content-transfer-encoding:in-reply-to;
+ bh=VLyOoMcazMV5q4QQix3F7SBU49MYqTGbT4np6PoZGTo=;
+ b=gPXMWtbxqV7fKFCHjVylqZ9les2klzwPQgFHaJUM1+tpT4+QkT5eXEN2
+ 4d17CnOP7pmgT+EHHU4Wqbq2hLmnTdy8DVtqwJ6c8tGxj5fSo1soBpWKs
+ epkwlbMeSab1E+ExnHpxN48UALGnOs1NoZA6rKCRUHOqM3UhINMAZm/OP
+ 7Cy2ZR1fTLdlvN+Z+T818yRagJ6xjyy5/r7G3p/cIq005HpeWlc3PhF3F
+ sSrEARknH2vTBcFtaEe1MuLKmiP2En8wOzTsr1sbBKb8Jluwp2cePcdB2
+ dw6SUnqhbQrUQwxUqLI79j6Xr8l9uBSBUACtO6p0od0JEbmLY+KW43xEp g==;
+X-CSE-ConnectionGUID: MJCVLVZARYKtT6jY+ZTfWw==
+X-CSE-MsgGUID: pbwbmivGTUGUlMB036vmew==
+X-IronPort-AV: E=McAfee;i="6700,10204,11179"; a="27430580"
+X-IronPort-AV: E=Sophos;i="6.10,186,1719903600"; d="scan'208";a="27430580"
+Received: from fmviesa008.fm.intel.com ([10.60.135.148])
+ by fmvoesa106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 29 Aug 2024 09:03:55 -0700
+X-CSE-ConnectionGUID: luedtuRBSSCucDkydAf1xA==
+X-CSE-MsgGUID: ij9+LiJSSeuTurDkbm7Msw==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.10,186,1719903600"; d="scan'208";a="68440628"
-Received: from black.fi.intel.com ([10.237.72.28])
- by orviesa005.jf.intel.com with ESMTP; 29 Aug 2024 08:59:58 -0700
-Received: by black.fi.intel.com (Postfix, from userid 1003)
- id A75D2610; Thu, 29 Aug 2024 18:59:56 +0300 (EEST)
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
- intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-Cc: Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Tvrtko Ursulin <tursulin@ursulin.net>, David Airlie <airlied@gmail.com>,
- Daniel Vetter <daniel@ffwll.ch>
-Subject: [PATCH v1 0/2] drm/i915/fence: A couple of build fixes
-Date: Thu, 29 Aug 2024 18:58:36 +0300
-Message-ID: <20240829155950.1141978-1-andriy.shevchenko@linux.intel.com>
-X-Mailer: git-send-email 2.43.0.rc1.1336.g36b5255a03ac
+X-IronPort-AV: E=Sophos;i="6.10,186,1719903600"; d="scan'208";a="63611886"
+Received: from stinkpipe.fi.intel.com (HELO stinkbox) ([10.237.72.74])
+ by fmviesa008.fm.intel.com with SMTP; 29 Aug 2024 09:03:53 -0700
+Received: by stinkbox (sSMTP sendmail emulation);
+ Thu, 29 Aug 2024 19:03:51 +0300
+Date: Thu, 29 Aug 2024 19:03:51 +0300
+From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
+To: Rodrigo Vivi <rodrigo.vivi@intel.com>
+Cc: Jani Nikula <jani.nikula@intel.com>, intel-gfx@lists.freedesktop.org,
+ intel-xe@lists.freedesktop.org, lucas.demarchi@intel.com
+Subject: Re: [PATCH v2 0/9] drm/i915/display: platform identification with
+ display->is.<PLATFORM>
+Message-ID: <ZtCb5yc6KCy1S6bo@intel.com>
+References: <cover.1724092799.git.jani.nikula@intel.com>
+ <Zs-LdJYx_lVDt9PC@intel.com>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <Zs-LdJYx_lVDt9PC@intel.com>
+X-Patchwork-Hint: comment
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -72,16 +73,75 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-With CONFIG_WERROR=y and `make W=1` build fails on my x86_64 machine.
-This is due to some unused functions. Hence these quick fixes.
+On Wed, Aug 28, 2024 at 04:41:24PM -0400, Rodrigo Vivi wrote:
+> On Mon, Aug 19, 2024 at 09:44:27PM +0300, Jani Nikula wrote:
+> > v2 of [1]. Please read the cover letter there.
+> > 
+> > This addresses review comments and adds a few more commits on top, in particular
+> > the last one showcasing the approach.
+> > 
+> > The main question remains, is this what we want?
+> 
+> I don't know why, but the 'is' thing is still strange.
+> 
+> I know I know... I'm bad with naming myself.
+> 
+> I think about 'platform' but that get too big
+> 
+> if (display->platform.BROADWELL)
+> 
+> I think about 'gen' but then it is overloaded....
+> 
+> then I think about 'ip' is worse...
+> 
+> 'version'?
+> 
+> 'name'?
+> 
+> if (display->name.HASWELL)...
+> 
+> ....
+> 
+> But well, I like the overall simplification here in general.
+> Without a better name to suggest, I guess let's just move ahead...
 
-Andy Shevchenko (2):
-  drm/i915/fence: Mark debug_fence_init_onstack() with __maybe_unused
-  drm/i915/fence: Mark debug_fence_free() with __maybe_unused
+One slight concern with the is.foo is whether it complicates finding
+things with eg. cscope. But I suppose for platforms that doesn't matter
+all that much. For the has_foo stuff it'd be much more relevant.
 
- drivers/gpu/drm/i915/i915_sw_fence.c | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
+Anyways, can't think of anything particularly elegant myself either,
+so go ahead I guess.
+
+> 
+> > 
+> > BR,
+> > Jani.
+> > 
+> > [1] https://lore.kernel.org/r/cover.1718719962.git.jani.nikula@intel.com
+> > 
+> > 
+> > Jani Nikula (9):
+> >   drm/i915/display: use a macro to initialize subplatforms
+> >   drm/i915/display: use a macro to define platform enumerations
+> >   drm/i915/display: join the platform and subplatform enums
+> >   drm/i915/display: add display platforms structure with platform
+> >     members
+> >   drm/i915/display: add platforms "is" member to struct intel_display
+> >   drm/i915/display: remove the display platform enum as unnecessary
+> >   drm/i915/display: consider HSW/BDW ULX to also be ULT
+> >   drm/i915/display: keep subplatforms next to their platforms
+> >   drm/i915/bios: use display->is.PLATFORM instead of IS_PLATFORM()
+> > 
+> >  drivers/gpu/drm/i915/display/intel_bios.c     |  36 ++--
+> >  .../gpu/drm/i915/display/intel_display_core.h |   3 +
+> >  .../drm/i915/display/intel_display_device.c   |  89 ++++++---
+> >  .../drm/i915/display/intel_display_device.h   | 180 ++++++++++--------
+> >  4 files changed, 174 insertions(+), 134 deletions(-)
+> > 
+> > -- 
+> > 2.39.2
+> > 
 
 -- 
-2.43.0.rc1.1336.g36b5255a03ac
-
+Ville Syrjälä
+Intel
