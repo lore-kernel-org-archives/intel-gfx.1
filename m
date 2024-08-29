@@ -4,68 +4,56 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 319E8C83F10
-	for <intel-gfx@archiver.kernel.org>; Thu, 29 Aug 2024 12:15:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CE85CC83F0F
+	for <intel-gfx@archiver.kernel.org>; Thu, 29 Aug 2024 12:19:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E25DA10E661;
-	Thu, 29 Aug 2024 12:15:13 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 756D410E65F;
+	Thu, 29 Aug 2024 12:19:43 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=helen.koike@collabora.com header.b="hI48h1WD";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="gRSoCDcZ";
 	dkim-atps=neutral
-Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com
- [136.143.188.112])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7F26710E404;
- Tue, 27 Aug 2024 20:28:04 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1724790480; cv=none; 
- d=zohomail.com; s=zohoarc; 
- b=Aya30ztD33wDitnB3E5Gn+IYVWfddnFNtZwWR4Z/GYc/NTc4LqyK/XEhTgm7ailY6rJKItNYBd/VB14kTXRNB5birLM3a7WFCPi5rZYvBpdJVssJwFlmyfJI9uQ7q/ztXjQwKCMFKKbSA0bxO7So7c6xWW07RuSK2A1R08jXkDo=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1724790480;
- h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=vSjUVm1BVHx+k1tFoVAnnPQhkPlOOk9eSfEVMqyqIEY=; 
- b=Etx//QWRTu3HlBQryriesvrIEINJornZf9rpjNIxM3SwhFaOuf+jX95Yis3yJTCJU63WAKIyTX8pLw2oy9YGJrvoDytcl94RrdY4Ycb1kIthriVX2KmlipBO9sbxLaJxhL570HOW9lR/56evwrN7yFpc8LO2jWjrXcGe1BWGn0s=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
- dkim=pass  header.i=collabora.com;
- spf=pass  smtp.mailfrom=helen.koike@collabora.com;
- dmarc=pass header.from=<helen.koike@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1724790480; 
- s=zohomail; d=collabora.com; i=helen.koike@collabora.com;
- h=Date:Date:From:From:To:To:Cc:Cc:Message-ID:In-Reply-To:References:Subject:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
- bh=vSjUVm1BVHx+k1tFoVAnnPQhkPlOOk9eSfEVMqyqIEY=;
- b=hI48h1WDy87pOMX099fASJTZhXMXCO9sEwV9KBM6EfWRIvETtevOgQMj6/okJmfE
- wXivfv2WtL0RIFAFVAtZ8qayYLD6kLZigOMut2jyKU4CPY+WcdBRNKSKftx+kUhhanY
- HUs/4BwTFTMWQg9V8bYsxQvUQP4+pIx5NxK33DVQ=
-Received: from mail.zoho.com by mx.zohomail.com
- with SMTP id 1724790478227916.9458842035166;
- Tue, 27 Aug 2024 13:27:58 -0700 (PDT)
-Date: Tue, 27 Aug 2024 17:27:58 -0300
-From: Helen Mae Koike Fornazier <helen.koike@collabora.com>
-To: "Vignesh Raman" <vignesh.raman@collabora.com>
-Cc: "dri-devel" <dri-devel@lists.freedesktop.org>,
- "daniels" <daniels@collabora.com>, "airlied" <airlied@gmail.com>,
- "daniel" <daniel@ffwll.ch>, "robdclark" <robdclark@gmail.com>,
- "guilherme.gallo" <guilherme.gallo@collabora.com>,
- "sergi.blanch.torne" <sergi.blanch.torne@collabora.com>,
- "deborah.brouwer" <deborah.brouwer@collabora.com>,
- "linux-mediatek" <linux-mediatek@lists.infradead.org>,
- "linux-amlogic" <linux-amlogic@lists.infradead.org>,
- "linux-rockchip" <linux-rockchip@lists.infradead.org>,
- "amd-gfx" <amd-gfx@lists.freedesktop.org>,
- "linux-arm-msm" <linux-arm-msm@vger.kernel.org>,
- "intel-gfx" <intel-gfx@lists.freedesktop.org>,
- "virtualization" <virtualization@lists.linux.dev>,
- "linux-kernel" <linux-kernel@vger.kernel.org>
-Message-ID: <1919586153a.1236d9a3a2810380.346109493548527669@collabora.com>
-In-Reply-To: <20240820070818.1124403-1-vignesh.raman@collabora.com>
-References: <20240820070818.1124403-1-vignesh.raman@collabora.com>
-Subject: Re: [PATCH v1] drm/ci: increase timeout for all jobs
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.13])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D8EF510E65F;
+ Thu, 29 Aug 2024 12:19:42 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1724933983; x=1756469983;
+ h=from:to:cc:subject:in-reply-to:references:date:
+ message-id:mime-version;
+ bh=f3tHTTdscgIArj7RHjVMwVZriN/Vg8ErIxclkColSE8=;
+ b=gRSoCDcZcYnwZWlGPxiv40s9YLKacZQrZpCXzd/5P9YWs+eswJYulAUC
+ ptKFVDiVG8k5W8qYRqA1uys+dqhYb687cuiZ7GHBA1SObDsKQf7+/j0//
+ Whq+w0ZhcZJhpSKLpuiAubsRTi7NSCndSEV0FiJoyoO+d0edHBvLSlUv3
+ FVEczV7cyjds2QTVj8zkTcJV6fK6eePpngROFoaq7AVcQT137C3bWTJJj
+ Ww7ZXjaxJq2EX3jBpoBmWUdKOeJZSFayXNzVCRChKWsUivrOIAmJX0f0b
+ EQU5qg+ahXyL1dWj6iDLmDG7hmRLqn080nOs27DzmcoWLWmLI2d71LcEH A==;
+X-CSE-ConnectionGUID: EmG1+vO3QzWYQ6NBEtBzZw==
+X-CSE-MsgGUID: pT9nxyVjRv+mQ6NlTibRuw==
+X-IronPort-AV: E=McAfee;i="6700,10204,11179"; a="26420756"
+X-IronPort-AV: E=Sophos;i="6.10,185,1719903600"; d="scan'208";a="26420756"
+Received: from orviesa010.jf.intel.com ([10.64.159.150])
+ by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 29 Aug 2024 05:19:43 -0700
+X-CSE-ConnectionGUID: +pwTtlKOSFKJ+H9u3EhMyg==
+X-CSE-MsgGUID: oSC4DvS5T7WNnEVaGscEaA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.10,185,1719903600"; d="scan'208";a="63387002"
+Received: from hrotuna-mobl2.ger.corp.intel.com (HELO localhost)
+ ([10.245.246.14])
+ by orviesa010-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 29 Aug 2024 05:19:40 -0700
+From: Jani Nikula <jani.nikula@linux.intel.com>
+To: Arun R Murthy <arun.r.murthy@intel.com>, intel-xe@lists.freedesktop.org,
+ intel-gfx@lists.freedesktop.org
+Cc: Arun R Murthy <arun.r.murthy@intel.com>
+Subject: Re: [PATCHv2] drm/i915/display: BMG supports UHBR13.5
+In-Reply-To: <20240827081205.136569-1-arun.r.murthy@intel.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
+References: <20240827081205.136569-1-arun.r.murthy@intel.com>
+Date: Thu, 29 Aug 2024 15:19:37 +0300
+Message-ID: <87le0fwmg6.fsf@intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
-Importance: Medium
-User-Agent: Zoho Mail
-X-Mailer: Zoho Mail
-X-Mailman-Approved-At: Thu, 29 Aug 2024 12:15:11 +0000
+Content-Type: text/plain
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -81,71 +69,62 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
+On Tue, 27 Aug 2024, Arun R Murthy <arun.r.murthy@intel.com> wrote:
+> UHBR20 is not supported by battlemage and the maximum link rate
+> supported is UHBR13.5
+>
+> v2: Replace IS_DGFX with IS_BATTLEMAGE (Jani)
+>
+> HSD: 16023263677
+> Signed-off-by: Arun R Murthy <arun.r.murthy@intel.com>
+
+Also,
+
+Fixes: 98b1c87a5e51 ("drm/i915/xe2hpd: Set maximum DP rate to UHBR13.5")
+
+because that one doesn't DTRT.
+
+BR,
+Jani.
 
 
 
 
----- On Tue, 20 Aug 2024 04:08:16 -0300 Vignesh Raman  wrote ---
+> ---
+>  drivers/gpu/drm/i915/display/intel_dp.c | 13 +++++++++++--
+>  1 file changed, 11 insertions(+), 2 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
+> index 789c2f78826d..99a365a945ae 100644
+> --- a/drivers/gpu/drm/i915/display/intel_dp.c
+> +++ b/drivers/gpu/drm/i915/display/intel_dp.c
+> @@ -528,6 +528,10 @@ static void
+>  intel_dp_set_source_rates(struct intel_dp *intel_dp)
+>  {
+>  	/* The values must be in increasing order */
+> +	static const int bmg_rates[] = {
+> +		162000, 216000, 243000, 270000, 324000, 432000, 540000, 675000,
+> +		810000,	1000000, 1350000,
+> +	};
+>  	static const int mtl_rates[] = {
+>  		162000, 216000, 243000, 270000, 324000, 432000, 540000, 675000,
+>  		810000,	1000000, 2000000,
+> @@ -558,8 +562,13 @@ intel_dp_set_source_rates(struct intel_dp *intel_dp)
+>  		    intel_dp->source_rates || intel_dp->num_source_rates);
+>  
+>  	if (DISPLAY_VER(dev_priv) >= 14) {
+> -		source_rates = mtl_rates;
+> -		size = ARRAY_SIZE(mtl_rates);
+> +		if (IS_BATTLEMAGE(dev_priv)) {
+> +			source_rates = bmg_rates;
+> +			size = ARRAY_SIZE(bmg_rates);
+> +		} else {
+> +			source_rates = mtl_rates;
+> +			size = ARRAY_SIZE(mtl_rates);
+> +		}
+>  		max_rate = mtl_max_source_rate(intel_dp);
+>  	} else if (DISPLAY_VER(dev_priv) >= 11) {
+>  		source_rates = icl_rates;
 
- > Set the timeout of all drm-ci jobs to 1h30m since 
- > some jobs takes more than 1 hour to complete. 
- >  
- > Signed-off-by: Vignesh Raman vignesh.raman@collabora.com> 
-
-Acked-by: Helen Koike <helen.koike@collabora.com>
-
-Thanks
-Helen
-
- > --- 
- >  drivers/gpu/drm/ci/test.yml | 5 ++++- 
- >  1 file changed, 4 insertions(+), 1 deletion(-) 
- >  
- > diff --git a/drivers/gpu/drm/ci/test.yml b/drivers/gpu/drm/ci/test.yml 
- > index b6f428cdaf94..09d8447840e9 100644 
- > --- a/drivers/gpu/drm/ci/test.yml 
- > +++ b/drivers/gpu/drm/ci/test.yml 
- > @@ -10,6 +10,7 @@ 
- >  .lava-test: 
- >  extends: 
- >  - .test-rules 
- > +  timeout: "1h30m" 
- >  script: 
- >  # Note: Build dir (and thus install) may be dirty due to GIT_STRATEGY 
- >  - rm -rf install 
- > @@ -71,6 +72,7 @@ 
- >  - .baremetal-test-arm64 
- >  - .use-debian/baremetal_arm64_test 
- >  - .test-rules 
- > +  timeout: "1h30m" 
- >  variables: 
- >  FDO_CI_CONCURRENT: 10 
- >  HWCI_TEST_SCRIPT: "/install/igt_runner.sh" 
- > @@ -215,7 +217,6 @@ panfrost:rk3399: 
- >  extends: 
- >  - .lava-igt:x86_64 
- >  stage: i915 
- > -  timeout: "1h30m" 
- >  variables: 
- >  DRIVER_NAME: i915 
- >  DTB: "" 
- > @@ -414,6 +415,7 @@ panfrost:g12b: 
- >  
- >  virtio_gpu:none: 
- >  stage: software-driver 
- > +  timeout: "1h30m" 
- >  variables: 
- >  CROSVM_GALLIUM_DRIVER: llvmpipe 
- >  DRIVER_NAME: virtio_gpu 
- > @@ -436,6 +438,7 @@ virtio_gpu:none: 
- >  
- >  vkms:none: 
- >  stage: software-driver 
- > +  timeout: "1h30m" 
- >  variables: 
- >  DRIVER_NAME: vkms 
- >  GPU_VERSION: none 
- > -- 
- > 2.43.0 
- >  
- > 
+-- 
+Jani Nikula, Intel
