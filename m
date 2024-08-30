@@ -4,57 +4,27 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 177CBCA0EDF
-	for <intel-gfx@archiver.kernel.org>; Fri, 30 Aug 2024 05:09:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6A5EFCA0EE0
+	for <intel-gfx@archiver.kernel.org>; Fri, 30 Aug 2024 05:53:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 006AD10E7EE;
-	Fri, 30 Aug 2024 05:08:57 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="hUpVlDvt";
-	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.20])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1EB0310E7E5;
- Fri, 30 Aug 2024 05:08:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1724994529; x=1756530529;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=JdnOqOKaF2+iwAmD4II+c4WGICSUj3CgqgsJz9ic0zo=;
- b=hUpVlDvtkDcl23CoQkHWcM0vUDOTfUuRTIiuixTzcbipVUuQO6Mxv9Bz
- upXYfOaW793oriYLKw/yOEmxlGlYPFaBoMyv0YyEAE6Bu8HcTFKJ1lhhH
- AXQsdlj9Ns1MdAv0ku1xD1mU1wWj/b94jFLhnZ3ihA1gOBHblXkPLwad1
- ro9XKVFy4R/WrDtQ1NkokGgI9gNrnq60yMmRAf2duWmkUc7KAIJPzp2zV
- STsRVT101a4A83vcaDPd1fqXCsdLL7iIr4EDKNyunnFdWZRztjc2QymJZ
- SMU+tz7VbPbIuQTiHCrEQidP7FSoG5sDbVHEoemgtQrq+7RLPWfuPb9Pa w==;
-X-CSE-ConnectionGUID: mhPO3inbQ0270+LiJet3FQ==
-X-CSE-MsgGUID: 6AoCjar3TAC74moXBte51w==
-X-IronPort-AV: E=McAfee;i="6700,10204,11179"; a="23421695"
-X-IronPort-AV: E=Sophos;i="6.10,187,1719903600"; d="scan'208";a="23421695"
-Received: from fmviesa001.fm.intel.com ([10.60.135.141])
- by orvoesa112.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 29 Aug 2024 22:08:48 -0700
-X-CSE-ConnectionGUID: jsf9czNOQmWuTVG/p8zU1g==
-X-CSE-MsgGUID: 0o6Sf2FwT/egWWDrVtuNdA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.10,187,1719903600"; d="scan'208";a="94610292"
-Received: from srr4-3-linux-103-aknautiy.iind.intel.com ([10.223.34.160])
- by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 29 Aug 2024 22:08:46 -0700
-From: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
-To: intel-gfx@lists.freedesktop.org,
-	intel-xe@lists.freedesktop.org
-Cc: jani.nikula@linux.intel.com, suraj.kandpal@intel.com,
- ville.syrjala@linux.intel.com
-Subject: [PATCH 15/19] drm/i915/display: Move helpers for primary joiner to
- intel_joiner
-Date: Fri, 30 Aug 2024 10:39:45 +0530
-Message-ID: <20240830050950.2528450-16-ankit.k.nautiyal@intel.com>
-X-Mailer: git-send-email 2.45.2
-In-Reply-To: <20240830050950.2528450-1-ankit.k.nautiyal@intel.com>
-References: <20240830050950.2528450-1-ankit.k.nautiyal@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id EAFF810E1C6;
+	Fri, 30 Aug 2024 05:53:19 +0000 (UTC)
+Received: from 2413ebb6fbb6 (emeril.freedesktop.org [131.252.210.167])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 22C4110E1C6;
+ Fri, 30 Aug 2024 05:53:19 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
+Subject: =?utf-8?q?=E2=9C=97_Fi=2ECI=2ECHECKPATCH=3A_warning_for_Consolidation_of_DSS?=
+ =?utf-8?q?_Control_in_Separate_Files_=28rev3=29?=
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Ankit Nautiyal" <ankit.k.nautiyal@intel.com>
+Cc: intel-gfx@lists.freedesktop.org
+Date: Fri, 30 Aug 2024 05:53:19 -0000
+Message-ID: <172499719913.850449.12517263881594897565@2413ebb6fbb6>
+X-Patchwork-Hint: ignore
+References: <20240830050950.2528450-1-ankit.k.nautiyal@intel.com>
+In-Reply-To: <20240830050950.2528450-1-ankit.k.nautiyal@intel.com>
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,109 +37,91 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Move helpers to get/check primary joiner pipes to intel_joiner.
-Rename them to align with other intel_joiner helpers.
+== Series Details ==
 
-Signed-off-by: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
----
- drivers/gpu/drm/i915/display/intel_crtc_state_dump.c |  3 ++-
- drivers/gpu/drm/i915/display/intel_display.c         |  8 --------
- drivers/gpu/drm/i915/display/intel_display.h         |  1 -
- drivers/gpu/drm/i915/display/intel_joiner.c          | 10 +++++++++-
- drivers/gpu/drm/i915/display/intel_joiner.h          |  1 +
- 5 files changed, 12 insertions(+), 11 deletions(-)
+Series: Consolidation of DSS Control in Separate Files (rev3)
+URL   : https://patchwork.freedesktop.org/series/137789/
+State : warning
 
-diff --git a/drivers/gpu/drm/i915/display/intel_crtc_state_dump.c b/drivers/gpu/drm/i915/display/intel_crtc_state_dump.c
-index 705ec5ad385c..606fa069c93c 100644
---- a/drivers/gpu/drm/i915/display/intel_crtc_state_dump.c
-+++ b/drivers/gpu/drm/i915/display/intel_crtc_state_dump.c
-@@ -10,6 +10,7 @@
- #include "intel_crtc_state_dump.h"
- #include "intel_display_types.h"
- #include "intel_hdmi.h"
-+#include "intel_joiner.h"
- #include "intel_vdsc.h"
- #include "intel_vrr.h"
- 
-@@ -225,7 +226,7 @@ void intel_crtc_state_dump(const struct intel_crtc_state *pipe_config,
- 
- 	drm_printf(&p, "joiner: %s, pipes: 0x%x\n",
- 		   intel_crtc_is_joiner_secondary(pipe_config) ? "secondary" :
--		   intel_crtc_is_joiner_primary(pipe_config) ? "primary" : "no",
-+		   intel_joiner_crtc_is_joiner_primary(pipe_config) ? "primary" : "no",
- 		   pipe_config->joiner_pipes);
- 
- 	drm_printf(&p, "splitter: %s, link count %d, overlap %d\n",
-diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
-index 97f01a02efe3..4506cf9fa031 100644
---- a/drivers/gpu/drm/i915/display/intel_display.c
-+++ b/drivers/gpu/drm/i915/display/intel_display.c
-@@ -266,14 +266,6 @@ bool intel_crtc_is_joiner_secondary(const struct intel_crtc_state *crtc_state)
- 		crtc->pipe != intel_joiner_get_primary_pipe(crtc_state);
- }
- 
--bool intel_crtc_is_joiner_primary(const struct intel_crtc_state *crtc_state)
--{
--	struct intel_crtc *crtc = to_intel_crtc(crtc_state->uapi.crtc);
--
--	return crtc_state->joiner_pipes &&
--		crtc->pipe == intel_joiner_get_primary_pipe(crtc_state);
--}
--
- struct intel_crtc *intel_primary_crtc(const struct intel_crtc_state *crtc_state)
- {
- 	struct drm_i915_private *i915 = to_i915(crtc_state->uapi.crtc->dev);
-diff --git a/drivers/gpu/drm/i915/display/intel_display.h b/drivers/gpu/drm/i915/display/intel_display.h
-index 72643f278c2e..6ef756a8781e 100644
---- a/drivers/gpu/drm/i915/display/intel_display.h
-+++ b/drivers/gpu/drm/i915/display/intel_display.h
-@@ -423,7 +423,6 @@ enum phy intel_port_to_phy(struct drm_i915_private *i915, enum port port);
- bool is_trans_port_sync_mode(const struct intel_crtc_state *state);
- bool is_trans_port_sync_master(const struct intel_crtc_state *state);
- bool intel_crtc_is_joiner_secondary(const struct intel_crtc_state *crtc_state);
--bool intel_crtc_is_joiner_primary(const struct intel_crtc_state *crtc_state);
- u8 intel_crtc_joiner_secondary_pipes(const struct intel_crtc_state *crtc_state);
- struct intel_crtc *intel_primary_crtc(const struct intel_crtc_state *crtc_state);
- bool intel_crtc_get_pipe_config(struct intel_crtc_state *crtc_state);
-diff --git a/drivers/gpu/drm/i915/display/intel_joiner.c b/drivers/gpu/drm/i915/display/intel_joiner.c
-index e6dfed812564..d36df20f811f 100644
---- a/drivers/gpu/drm/i915/display/intel_joiner.c
-+++ b/drivers/gpu/drm/i915/display/intel_joiner.c
-@@ -225,7 +225,7 @@ int intel_joiner_add_affected_crtcs(struct intel_atomic_state *state)
- 	for_each_new_intel_crtc_in_state(state, crtc, crtc_state, i) {
- 		/* Kill old joiner link, we may re-establish afterwards */
- 		if (intel_crtc_needs_modeset(crtc_state) &&
--		    intel_crtc_is_joiner_primary(crtc_state))
-+		    intel_joiner_crtc_is_joiner_primary(crtc_state))
- 			intel_crtc_kill_joiner_secondaries(state, crtc);
- 	}
- 
-@@ -238,3 +238,11 @@ u8 intel_joiner_crtc_joined_pipe_mask(const struct intel_crtc_state *crtc_state)
- 
- 	return BIT(crtc->pipe) | crtc_state->joiner_pipes;
- }
-+
-+bool intel_joiner_crtc_is_joiner_primary(const struct intel_crtc_state *crtc_state)
-+{
-+	struct intel_crtc *crtc = to_intel_crtc(crtc_state->uapi.crtc);
-+
-+	return crtc_state->joiner_pipes &&
-+		crtc->pipe == intel_joiner_get_primary_pipe(crtc_state);
-+}
-diff --git a/drivers/gpu/drm/i915/display/intel_joiner.h b/drivers/gpu/drm/i915/display/intel_joiner.h
-index f8c0cd27536c..4f19d623558a 100644
---- a/drivers/gpu/drm/i915/display/intel_joiner.h
-+++ b/drivers/gpu/drm/i915/display/intel_joiner.h
-@@ -29,5 +29,6 @@ void intel_joiner_get_config(struct intel_crtc_state *crtc_state);
- int intel_joiner_add_affected_planes(struct intel_atomic_state *state);
- int intel_joiner_add_affected_crtcs(struct intel_atomic_state *state);
- u8 intel_joiner_crtc_joined_pipe_mask(const struct intel_crtc_state *crtc_state);
-+bool intel_joiner_crtc_is_joiner_primary(const struct intel_crtc_state *crtc_state);
- 
- #endif/* __INTEL_JOINER_H__ */
--- 
-2.45.2
+== Summary ==
+
+Error: dim checkpatch failed
+6bf8c6eaf847 drm/i915/display: Move all DSS control registers to a new file
+-:69: WARNING:FILE_PATH_CHANGES: added, moved or deleted file(s), does MAINTAINERS need updating?
+#69: 
+new file mode 100644
+
+total: 0 errors, 1 warnings, 0 checks, 138 lines checked
+02f6d1e91507 drm/i915/dss_regs: Use REG_* macros for the DSS ctl bits
+228964eab8bd drm/i915/ddi: Move all mso related helpers to a new file
+-:162: WARNING:FILE_PATH_CHANGES: added, moved or deleted file(s), does MAINTAINERS need updating?
+#162: 
+new file mode 100644
+
+total: 0 errors, 1 warnings, 0 checks, 243 lines checked
+afcac792cf13 drm/i915/dss: Move to struct intel_display
+e8098456e2e9 drm/i915/icl_dsi: Avoid using intel_dsi in configure_dual_link_mode
+571d50551ffd drm/i915/icl_dsi: Use intel_display in configure_dual_link_mode
+6dec108dbb53 drm/i915/icl_dsi: Move helpers to configure dsi dual link to intel_dss
+7a36a6e71b5b drm/i915/vdsc: Rename helper to check if the pipe supports dsc
+ad177384a260 drm/i915/vdsc: Move all dss stuff in dss files
+0222afd31dc7 drm/i915/dss: Use struct intel_display in dss dsc helpers
+d0c5e1ff9e52 drm/i915/display: Move dss stuff in intel_dss files
+-:78: CHECK:SPACING: No space is necessary after a cast
+#78: FILE: drivers/gpu/drm/i915/display/intel_dss.c:231:
++	power_domain = intel_dsc_power_domain(crtc, (enum transcoder) pipe);
+
+total: 0 errors, 0 warnings, 1 checks, 110 lines checked
+c61eb5319a88 drm/i915/display: Rename static functions that use joiner
+c1b51ea89a7b drm/i915/display: Separate out joiner stuff in a new file
+-:368: WARNING:FILE_PATH_CHANGES: added, moved or deleted file(s), does MAINTAINERS need updating?
+#368: 
+new file mode 100644
+
+total: 0 errors, 1 warnings, 0 checks, 601 lines checked
+1ec8af9999cb drm/i915/display: Move intel_crtc_joined_pipe_mask to intel_joiner
+-:89: WARNING:LONG_LINE: line length of 102 exceeds 100 columns
+#89: FILE: drivers/gpu/drm/i915/display/intel_display.c:1681:
++						 intel_joiner_crtc_joined_pipe_mask(new_crtc_state)) {
+
+-:98: WARNING:LONG_LINE: line length of 102 exceeds 100 columns
+#98: FILE: drivers/gpu/drm/i915/display/intel_display.c:1692:
++						 intel_joiner_crtc_joined_pipe_mask(new_crtc_state)) {
+
+-:107: WARNING:LONG_LINE: line length of 102 exceeds 100 columns
+#107: FILE: drivers/gpu/drm/i915/display/intel_display.c:1711:
++						 intel_joiner_crtc_joined_pipe_mask(new_crtc_state)) {
+
+-:116: WARNING:LONG_LINE: line length of 102 exceeds 100 columns
+#116: FILE: drivers/gpu/drm/i915/display/intel_display.c:1747:
++						 intel_joiner_crtc_joined_pipe_mask(new_crtc_state)) {
+
+-:143: WARNING:LONG_LINE: line length of 102 exceeds 100 columns
+#143: FILE: drivers/gpu/drm/i915/display/intel_display.c:6628:
++						 intel_joiner_crtc_joined_pipe_mask(new_crtc_state)) {
+
+total: 0 errors, 5 warnings, 0 checks, 216 lines checked
+5ea336bbd3cc drm/i915/display: Move helpers for primary joiner to intel_joiner
+0347e820d60a drm/i915/display: Move intel_crtc_is_joiner_secondary to intel_joiner
+2aa81fbdb306 drm/i915/display: Move intel_crtc_joiner_secondary_pipes to intel_joiner
+-:35: WARNING:LONG_LINE: line length of 104 exceeds 100 columns
+#35: FILE: drivers/gpu/drm/i915/display/intel_display.c:5801:
++					 intel_joiner_crtc_joiner_secondary_pipes(primary_crtc_state)) {
+
+-:44: WARNING:LONG_LINE: line length of 104 exceeds 100 columns
+#44: FILE: drivers/gpu/drm/i915/display/intel_display.c:5855:
++					 intel_joiner_crtc_joiner_secondary_pipes(primary_crtc_state)) {
+
+-:114: WARNING:LONG_LINE: line length of 120 exceeds 100 columns
+#114: FILE: drivers/gpu/drm/i915/display/intel_modeset_setup.c:761:
++								 intel_joiner_crtc_joiner_secondary_pipes(crtc_state)) {
+
+total: 0 errors, 3 warnings, 0 checks, 78 lines checked
+2fb58cf8eb22 drm/i915/joiner: Use struct intel_display in intel_joiner_enabled_pipes
+6ecf7b0ee889 drm/i915/joiner: Use struct intel_display in intel_joiner_supported_pipes
+
 
