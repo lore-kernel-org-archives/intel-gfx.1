@@ -4,52 +4,51 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D0B09CA0EFF
-	for <intel-gfx@archiver.kernel.org>; Fri, 30 Aug 2024 10:16:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 667A0CA0EC5
+	for <intel-gfx@archiver.kernel.org>; Fri, 30 Aug 2024 10:16:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6F37B10E9F5;
-	Fri, 30 Aug 2024 10:16:30 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EFC7410EA4D;
+	Fri, 30 Aug 2024 10:16:33 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="b82j/nBY";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="ecHwK5Ur";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.18])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 68C1010E9D7;
- Fri, 30 Aug 2024 10:16:28 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.16])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C780810EA4C;
+ Fri, 30 Aug 2024 10:16:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1725012988; x=1756548988;
+ t=1725012992; x=1756548992;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=iZzVgKxXodfQkSAgfEqaCn5/dloD9jPLB5reVWx4xKE=;
- b=b82j/nBYuxNZe8Sva/yJhBA3TH93E8ndQQGYLfBX/wEjm1uir+Hl1U4l
- 9GMQPobSkPYKBCiHkReuDQlTVv7fCf9RShJWQb2Hg3+zm8B/jSzONlf/C
- ESadGN1+1euQ5Et3OLVRW8doq9F/CEQJN+1RbPZq7qBH2KmSYJqurp0Ef
- BTwmifErLFXk2NRn7aKvJ0ANqMCVhOffWE12ko41uXVgiR+fywhE8ANVh
- IGynY8cd7ZqGY5cVRzqVE0VE3NgvI+gG0sjqebTrejmWtNZaUwNPKpi5z
- PE1vFeNaxnIbdi/jt8r3tp+bBIupTZWd0u3w+V2jF/J86uX0inRDdUgpW w==;
-X-CSE-ConnectionGUID: m0iKpmxAQlO0U2a9y981GQ==
-X-CSE-MsgGUID: XzXhqHeIRHava1WVB3cWgg==
-X-IronPort-AV: E=McAfee;i="6700,10204,11179"; a="23164451"
-X-IronPort-AV: E=Sophos;i="6.10,188,1719903600"; d="scan'208";a="23164451"
-Received: from fmviesa005.fm.intel.com ([10.60.135.145])
- by fmvoesa112.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 30 Aug 2024 03:16:16 -0700
-X-CSE-ConnectionGUID: 9MN2T3OtT5mszHA6Fcd2Ug==
-X-CSE-MsgGUID: eRrovBH7TwCvDFxoYSPthQ==
+ bh=r1o39MS0+KFgjbqPYF3sbaP5UnapmzxIDKjHTG92chE=;
+ b=ecHwK5UrxFxJfZeoKnBHeg/1uKdx8K21Hjzwzdmtp0JJcrG+dzfTKOrG
+ bWZVZ/80UPRWvlqB3pjoROiXSLmo5N1c0OAPR9HvqBDExt8Tetp34Nexl
+ bpmS9i9jk18t3bSy8IQ246P2yEoUtKf42s74dS7QRW69imkSmk4VLjag8
+ /nuL6hNjEtiOEWDfWNsurvBttMFmXI3d1ABZDHRONjSMeoxQR3+J3pAxb
+ iPiakZB3ijlijEj94ecTDf8Wy4OrBhSf092/spqcwhrjFaOSA3R5bjQJp
+ sKn+q2fDGS8VoCGSZKAI/PkJCeqoUm6YF8dvnHInv5f+XnHRT+UfulKrJ w==;
+X-CSE-ConnectionGUID: aNI/410aQACB/2H7J/ANMA==
+X-CSE-MsgGUID: 3DWtxqL9RtiHprb0S6+YLA==
+X-IronPort-AV: E=McAfee;i="6700,10204,11179"; a="13295705"
+X-IronPort-AV: E=Sophos;i="6.10,188,1719903600"; d="scan'208";a="13295705"
+Received: from fmviesa004.fm.intel.com ([10.60.135.144])
+ by fmvoesa110.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 30 Aug 2024 03:16:32 -0700
+X-CSE-ConnectionGUID: sgBZBh5PTuOWLRmyu/OALw==
+X-CSE-MsgGUID: RZR/YeOHTZeBQhl3efZ9iA==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.10,188,1719903600"; d="scan'208";a="68252486"
+X-IronPort-AV: E=Sophos;i="6.10,188,1719903600"; d="scan'208";a="68516185"
 Received: from fdefranc-mobl3.ger.corp.intel.com (HELO localhost)
  ([10.245.246.88])
- by fmviesa005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 30 Aug 2024 03:16:15 -0700
+ by fmviesa004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 30 Aug 2024 03:16:31 -0700
 From: Jani Nikula <jani.nikula@intel.com>
 To: intel-gfx@lists.freedesktop.org,
 	intel-xe@lists.freedesktop.org
 Cc: jani.nikula@intel.com
-Subject: [PATCH 04/11] drm/i915/dp: convert intel_dp_tunnel.[ch] to struct
- intel_display
-Date: Fri, 30 Aug 2024 13:15:41 +0300
-Message-Id: <2c83fe739ab8de05361d6eaae0249e58878a3c06.1725012870.git.jani.nikula@intel.com>
+Subject: [PATCH 07/11] drm/i915/pps: pass intel_dp to pps_name()
+Date: Fri, 30 Aug 2024 13:15:44 +0300
+Message-Id: <f2a7fec4a2ff1f09cb73e6734604fae99ab6b11a.1725012870.git.jani.nikula@intel.com>
 X-Mailer: git-send-email 2.39.2
 In-Reply-To: <cover.1725012870.git.jani.nikula@intel.com>
 References: <cover.1725012870.git.jani.nikula@intel.com>
@@ -71,404 +70,263 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Going forward, struct intel_display shall replace struct
-drm_i915_private as the main display device data pointer type. Convert
-intel_dp_tunnel.[ch] to struct intel_display.
+Currently all of intel_pps.c passes struct intel_dp around. Do the same
+with pps_name() instead of passing both struct drm_i915_private and
+struct intel_pps.
 
 Signed-off-by: Jani Nikula <jani.nikula@intel.com>
 ---
- .../drm/i915/display/intel_display_driver.c   |  6 +-
- .../gpu/drm/i915/display/intel_dp_tunnel.c    | 77 ++++++++++---------
- .../gpu/drm/i915/display/intel_dp_tunnel.h    | 11 ++-
- 3 files changed, 49 insertions(+), 45 deletions(-)
+ drivers/gpu/drm/i915/display/intel_pps.c | 61 +++++++++++++-----------
+ 1 file changed, 32 insertions(+), 29 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_display_driver.c b/drivers/gpu/drm/i915/display/intel_display_driver.c
-index eced20d2ce6e..98ad2eb8db72 100644
---- a/drivers/gpu/drm/i915/display/intel_display_driver.c
-+++ b/drivers/gpu/drm/i915/display/intel_display_driver.c
-@@ -459,7 +459,7 @@ int intel_display_driver_probe_nogem(struct drm_i915_private *i915)
- 	intel_vga_disable(i915);
- 	intel_setup_outputs(i915);
+diff --git a/drivers/gpu/drm/i915/display/intel_pps.c b/drivers/gpu/drm/i915/display/intel_pps.c
+index 68141af4da54..1e87ce95c85d 100644
+--- a/drivers/gpu/drm/i915/display/intel_pps.c
++++ b/drivers/gpu/drm/i915/display/intel_pps.c
+@@ -24,9 +24,12 @@ static void vlv_steal_power_sequencer(struct drm_i915_private *dev_priv,
+ static void pps_init_delays(struct intel_dp *intel_dp);
+ static void pps_init_registers(struct intel_dp *intel_dp, bool force_disable_vdd);
  
--	ret = intel_dp_tunnel_mgr_init(i915);
-+	ret = intel_dp_tunnel_mgr_init(display);
- 	if (ret)
- 		goto err_hdcp;
- 
-@@ -580,6 +580,8 @@ void intel_display_driver_remove(struct drm_i915_private *i915)
- /* part #2: call after irq uninstall */
- void intel_display_driver_remove_noirq(struct drm_i915_private *i915)
+-static const char *pps_name(struct drm_i915_private *i915,
+-			    struct intel_pps *pps)
++static const char *pps_name(struct intel_dp *intel_dp)
  {
-+	struct intel_display *display = &i915->display;
++	struct intel_display *display = to_intel_display(intel_dp);
++	struct drm_i915_private *i915 = to_i915(display->drm);
++	struct intel_pps *pps = &intel_dp->pps;
 +
- 	if (!HAS_DISPLAY(i915))
+ 	if (IS_VALLEYVIEW(i915) || IS_CHERRYVIEW(i915)) {
+ 		switch (pps->pps_pipe) {
+ 		case INVALID_PIPE:
+@@ -97,13 +100,13 @@ vlv_power_sequencer_kick(struct intel_dp *intel_dp)
+ 	if (drm_WARN(&dev_priv->drm,
+ 		     intel_de_read(dev_priv, intel_dp->output_reg) & DP_PORT_EN,
+ 		     "skipping %s kick due to [ENCODER:%d:%s] being active\n",
+-		     pps_name(dev_priv, &intel_dp->pps),
++		     pps_name(intel_dp),
+ 		     dig_port->base.base.base.id, dig_port->base.base.name))
  		return;
  
-@@ -600,7 +602,7 @@ void intel_display_driver_remove_noirq(struct drm_i915_private *i915)
+ 	drm_dbg_kms(&dev_priv->drm,
+ 		    "kicking %s for [ENCODER:%d:%s]\n",
+-		    pps_name(dev_priv, &intel_dp->pps),
++		    pps_name(intel_dp),
+ 		    dig_port->base.base.base.id, dig_port->base.base.name);
  
- 	intel_mode_config_cleanup(i915);
+ 	/* Preserve the BIOS-computed detected bit. This is
+@@ -227,7 +230,7 @@ vlv_power_sequencer_pipe(struct intel_dp *intel_dp)
  
--	intel_dp_tunnel_mgr_cleanup(i915);
-+	intel_dp_tunnel_mgr_cleanup(display);
+ 	drm_dbg_kms(&dev_priv->drm,
+ 		    "picked %s for [ENCODER:%d:%s]\n",
+-		    pps_name(dev_priv, &intel_dp->pps),
++		    pps_name(intel_dp),
+ 		    dig_port->base.base.base.id, dig_port->base.base.name);
  
- 	intel_overlay_cleanup(i915);
+ 	/* init power sequencer on this pipe and port */
+@@ -340,7 +343,7 @@ vlv_initial_power_sequencer_setup(struct intel_dp *intel_dp)
+ 	drm_dbg_kms(&dev_priv->drm,
+ 		    "[ENCODER:%d:%s] initial power sequencer: %s\n",
+ 		    dig_port->base.base.base.id, dig_port->base.base.name,
+-		    pps_name(dev_priv, &intel_dp->pps));
++		    pps_name(intel_dp));
+ }
  
-diff --git a/drivers/gpu/drm/i915/display/intel_dp_tunnel.c b/drivers/gpu/drm/i915/display/intel_dp_tunnel.c
-index 6503abdc2b98..94198bc04939 100644
---- a/drivers/gpu/drm/i915/display/intel_dp_tunnel.c
-+++ b/drivers/gpu/drm/i915/display/intel_dp_tunnel.c
-@@ -69,7 +69,7 @@ static int get_current_link_bw(struct intel_dp *intel_dp,
- 
- static int update_tunnel_state(struct intel_dp *intel_dp)
- {
--	struct drm_i915_private *i915 = dp_to_i915(intel_dp);
-+	struct intel_display *display = to_intel_display(intel_dp);
- 	struct intel_encoder *encoder = &dp_to_dig_port(intel_dp)->base;
- 	bool old_bw_below_dprx;
- 	bool new_bw_below_dprx;
-@@ -81,7 +81,7 @@ static int update_tunnel_state(struct intel_dp *intel_dp)
- 
- 	ret = drm_dp_tunnel_update_state(intel_dp->tunnel);
- 	if (ret < 0) {
--		drm_dbg_kms(&i915->drm,
-+		drm_dbg_kms(display->drm,
- 			    "[DPTUN %s][ENCODER:%d:%s] State update failed (err %pe)\n",
- 			    drm_dp_tunnel_name(intel_dp->tunnel),
+ static int intel_num_pps(struct drm_i915_private *i915)
+@@ -424,12 +427,12 @@ pps_initial_setup(struct intel_dp *intel_dp)
+ 		drm_dbg_kms(&i915->drm,
+ 			    "[ENCODER:%d:%s] no initial power sequencer, assuming %s\n",
  			    encoder->base.base.id, encoder->base.name,
-@@ -103,7 +103,7 @@ static int update_tunnel_state(struct intel_dp *intel_dp)
- 	    !new_bw_below_dprx)
- 		return 0;
- 
--	drm_dbg_kms(&i915->drm,
-+	drm_dbg_kms(display->drm,
- 		    "[DPTUN %s][ENCODER:%d:%s] Notify users about BW change: %d -> %d\n",
- 		    drm_dp_tunnel_name(intel_dp->tunnel),
- 		    encoder->base.base.id, encoder->base.name,
-@@ -121,20 +121,20 @@ static int update_tunnel_state(struct intel_dp *intel_dp)
-  */
- static int allocate_initial_tunnel_bw_for_pipes(struct intel_dp *intel_dp, u8 pipe_mask)
- {
--	struct drm_i915_private *i915 = dp_to_i915(intel_dp);
-+	struct intel_display *display = to_intel_display(intel_dp);
- 	struct intel_encoder *encoder = &dp_to_dig_port(intel_dp)->base;
- 	struct intel_crtc *crtc;
- 	int tunnel_bw = 0;
- 	int err;
- 
--	for_each_intel_crtc_in_pipe_mask(&i915->drm, crtc, pipe_mask) {
-+	for_each_intel_crtc_in_pipe_mask(display->drm, crtc, pipe_mask) {
- 		const struct intel_crtc_state *crtc_state =
- 			to_intel_crtc_state(crtc->base.state);
- 		int stream_bw = intel_dp_config_required_rate(crtc_state);
- 
- 		tunnel_bw += stream_bw;
- 
--		drm_dbg_kms(&i915->drm,
-+		drm_dbg_kms(display->drm,
- 			    "[DPTUN %s][ENCODER:%d:%s][CRTC:%d:%s] Initial BW for stream %d: %d/%d Mb/s\n",
- 			    drm_dp_tunnel_name(intel_dp->tunnel),
+-			    pps_name(i915, &intel_dp->pps));
++			    pps_name(intel_dp));
+ 	} else {
+ 		drm_dbg_kms(&i915->drm,
+ 			    "[ENCODER:%d:%s] initial power sequencer: %s\n",
  			    encoder->base.base.id, encoder->base.name,
-@@ -145,7 +145,7 @@ static int allocate_initial_tunnel_bw_for_pipes(struct intel_dp *intel_dp, u8 pi
- 
- 	err = drm_dp_tunnel_alloc_bw(intel_dp->tunnel, tunnel_bw);
- 	if (err) {
--		drm_dbg_kms(&i915->drm,
-+		drm_dbg_kms(display->drm,
- 			    "[DPTUN %s][ENCODER:%d:%s] Initial BW allocation failed (err %pe)\n",
- 			    drm_dp_tunnel_name(intel_dp->tunnel),
- 			    encoder->base.base.id, encoder->base.name,
-@@ -172,12 +172,12 @@ static int allocate_initial_tunnel_bw(struct intel_dp *intel_dp,
- 
- static int detect_new_tunnel(struct intel_dp *intel_dp, struct drm_modeset_acquire_ctx *ctx)
- {
--	struct drm_i915_private *i915 = dp_to_i915(intel_dp);
-+	struct intel_display *display = to_intel_display(intel_dp);
- 	struct intel_encoder *encoder = &dp_to_dig_port(intel_dp)->base;
- 	struct drm_dp_tunnel *tunnel;
- 	int ret;
- 
--	tunnel = drm_dp_tunnel_detect(i915->display.dp_tunnel_mgr,
-+	tunnel = drm_dp_tunnel_detect(display->dp_tunnel_mgr,
- 				      &intel_dp->aux);
- 	if (IS_ERR(tunnel))
- 		return PTR_ERR(tunnel);
-@@ -189,7 +189,7 @@ static int detect_new_tunnel(struct intel_dp *intel_dp, struct drm_modeset_acqui
- 		if (ret == -EOPNOTSUPP)
- 			return 0;
- 
--		drm_dbg_kms(&i915->drm,
-+		drm_dbg_kms(display->drm,
- 			    "[DPTUN %s][ENCODER:%d:%s] Failed to enable BW allocation mode (ret %pe)\n",
- 			    drm_dp_tunnel_name(intel_dp->tunnel),
- 			    encoder->base.base.id, encoder->base.name,
-@@ -266,14 +266,15 @@ bool intel_dp_tunnel_bw_alloc_is_enabled(struct intel_dp *intel_dp)
-  */
- void intel_dp_tunnel_suspend(struct intel_dp *intel_dp)
- {
--	struct drm_i915_private *i915 = dp_to_i915(intel_dp);
-+	struct intel_display *display = to_intel_display(intel_dp);
- 	struct intel_connector *connector = intel_dp->attached_connector;
- 	struct intel_encoder *encoder = &dp_to_dig_port(intel_dp)->base;
- 
- 	if (!intel_dp_tunnel_bw_alloc_is_enabled(intel_dp))
- 		return;
- 
--	drm_dbg_kms(&i915->drm, "[DPTUN %s][CONNECTOR:%d:%s][ENCODER:%d:%s] Suspend\n",
-+	drm_dbg_kms(display->drm,
-+		    "[DPTUN %s][CONNECTOR:%d:%s][ENCODER:%d:%s] Suspend\n",
- 		    drm_dp_tunnel_name(intel_dp->tunnel),
- 		    connector->base.base.id, connector->base.name,
- 		    encoder->base.base.id, encoder->base.name);
-@@ -295,7 +296,7 @@ void intel_dp_tunnel_resume(struct intel_dp *intel_dp,
- 			    const struct intel_crtc_state *crtc_state,
- 			    bool dpcd_updated)
- {
--	struct drm_i915_private *i915 = dp_to_i915(intel_dp);
-+	struct intel_display *display = to_intel_display(intel_dp);
- 	struct intel_connector *connector = intel_dp->attached_connector;
- 	struct intel_encoder *encoder = &dp_to_dig_port(intel_dp)->base;
- 	u8 dpcd[DP_RECEIVER_CAP_SIZE];
-@@ -307,7 +308,8 @@ void intel_dp_tunnel_resume(struct intel_dp *intel_dp,
- 
- 	intel_dp->tunnel_suspended = false;
- 
--	drm_dbg_kms(&i915->drm, "[DPTUN %s][CONNECTOR:%d:%s][ENCODER:%d:%s] Resume\n",
-+	drm_dbg_kms(display->drm,
-+		    "[DPTUN %s][CONNECTOR:%d:%s][ENCODER:%d:%s] Resume\n",
- 		    drm_dp_tunnel_name(intel_dp->tunnel),
- 		    connector->base.base.id, connector->base.name,
- 		    encoder->base.base.id, encoder->base.name);
-@@ -347,7 +349,7 @@ void intel_dp_tunnel_resume(struct intel_dp *intel_dp,
- 	return;
- 
- out_err:
--	drm_dbg_kms(&i915->drm,
-+	drm_dbg_kms(display->drm,
- 		    "[DPTUN %s][CONNECTOR:%d:%s][ENCODER:%d:%s] Tunnel can't be resumed, will drop and reject it (err %pe)\n",
- 		    drm_dp_tunnel_name(intel_dp->tunnel),
- 		    connector->base.base.id, connector->base.name,
-@@ -369,12 +371,12 @@ add_inherited_tunnel(struct intel_atomic_state *state,
- 		     struct drm_dp_tunnel *tunnel,
- 		     struct intel_crtc *crtc)
- {
--	struct drm_i915_private *i915 = to_i915(state->base.dev);
-+	struct intel_display *display = to_intel_display(state);
- 	struct drm_dp_tunnel *old_tunnel;
- 
- 	old_tunnel = get_inherited_tunnel(state, crtc);
- 	if (old_tunnel) {
--		drm_WARN_ON(&i915->drm, old_tunnel != tunnel);
-+		drm_WARN_ON(display->drm, old_tunnel != tunnel);
- 		return 0;
+-			    pps_name(i915, &intel_dp->pps));
++			    pps_name(intel_dp));
  	}
  
-@@ -394,7 +396,7 @@ static int check_inherited_tunnel_state(struct intel_atomic_state *state,
- 					struct intel_dp *intel_dp,
- 					const struct intel_digital_connector_state *old_conn_state)
- {
--	struct drm_i915_private *i915 = dp_to_i915(intel_dp);
-+	struct intel_display *display = to_intel_display(state);
- 	struct intel_encoder *encoder = &dp_to_dig_port(intel_dp)->base;
- 	struct intel_connector *connector =
- 		to_intel_connector(old_conn_state->base.connector);
-@@ -422,7 +424,7 @@ static int check_inherited_tunnel_state(struct intel_atomic_state *state,
- 	    old_crtc_state->dp_tunnel_ref.tunnel == intel_dp->tunnel)
- 		return 0;
- 
--	drm_dbg_kms(&i915->drm,
-+	drm_dbg_kms(display->drm,
- 		    "[DPTUN %s][CONNECTOR:%d:%s][ENCODER:%d:%s][CRTC:%d:%s] Adding state for inherited tunnel %p\n",
- 		    drm_dp_tunnel_name(intel_dp->tunnel),
- 		    connector->base.base.id, connector->base.name,
-@@ -441,12 +443,13 @@ static int check_inherited_tunnel_state(struct intel_atomic_state *state,
-  */
- void intel_dp_tunnel_atomic_cleanup_inherited_state(struct intel_atomic_state *state)
- {
-+	struct intel_display *display = to_intel_display(state);
- 	enum pipe pipe;
- 
- 	if (!state->inherited_dp_tunnels)
- 		return;
- 
--	for_each_pipe(to_i915(state->base.dev), pipe)
-+	for_each_pipe(display, pipe)
- 		if (state->inherited_dp_tunnels->ref[pipe].tunnel)
- 			drm_dp_tunnel_ref_put(&state->inherited_dp_tunnels->ref[pipe]);
- 
-@@ -457,7 +460,7 @@ void intel_dp_tunnel_atomic_cleanup_inherited_state(struct intel_atomic_state *s
- static int intel_dp_tunnel_atomic_add_group_state(struct intel_atomic_state *state,
- 						  struct drm_dp_tunnel *tunnel)
- {
--	struct drm_i915_private *i915 = to_i915(state->base.dev);
-+	struct intel_display *display = to_intel_display(state);
- 	u32 pipe_mask;
- 	int err;
- 
-@@ -466,7 +469,7 @@ static int intel_dp_tunnel_atomic_add_group_state(struct intel_atomic_state *sta
- 	if (err)
- 		return err;
- 
--	drm_WARN_ON(&i915->drm, pipe_mask & ~((1 << I915_MAX_PIPES) - 1));
-+	drm_WARN_ON(display->drm, pipe_mask & ~((1 << I915_MAX_PIPES) - 1));
- 
- 	return intel_modeset_pipes_in_mask_early(state, "DPTUN", pipe_mask);
- }
-@@ -504,7 +507,7 @@ static int check_group_state(struct intel_atomic_state *state,
- 			     struct intel_connector *connector,
- 			     struct intel_crtc *crtc)
- {
--	struct drm_i915_private *i915 = to_i915(state->base.dev);
-+	struct intel_display *display = to_intel_display(state);
- 	struct intel_encoder *encoder = &dp_to_dig_port(intel_dp)->base;
- 	const struct intel_crtc_state *crtc_state =
- 		intel_atomic_get_new_crtc_state(state, crtc);
-@@ -512,7 +515,7 @@ static int check_group_state(struct intel_atomic_state *state,
- 	if (!crtc_state->dp_tunnel_ref.tunnel)
- 		return 0;
- 
--	drm_dbg_kms(&i915->drm,
-+	drm_dbg_kms(display->drm,
- 		    "[DPTUN %s][CONNECTOR:%d:%s][ENCODER:%d:%s][CRTC:%d:%s] Adding group state for tunnel %p\n",
- 		    drm_dp_tunnel_name(intel_dp->tunnel),
- 		    connector->base.base.id, connector->base.name,
-@@ -583,7 +586,7 @@ int intel_dp_tunnel_atomic_compute_stream_bw(struct intel_atomic_state *state,
- 					     const struct intel_connector *connector,
- 					     struct intel_crtc_state *crtc_state)
- {
--	struct drm_i915_private *i915 = to_i915(state->base.dev);
-+	struct intel_display *display = to_intel_display(state);
- 	struct intel_encoder *encoder = &dp_to_dig_port(intel_dp)->base;
- 	struct intel_crtc *crtc = to_intel_crtc(crtc_state->uapi.crtc);
- 	int required_rate = intel_dp_config_required_rate(crtc_state);
-@@ -592,7 +595,7 @@ int intel_dp_tunnel_atomic_compute_stream_bw(struct intel_atomic_state *state,
- 	if (!intel_dp_tunnel_bw_alloc_is_enabled(intel_dp))
- 		return 0;
- 
--	drm_dbg_kms(&i915->drm,
-+	drm_dbg_kms(display->drm,
- 		    "[DPTUN %s][CONNECTOR:%d:%s][ENCODER:%d:%s][CRTC:%d:%s] Stream %d required BW %d Mb/s\n",
- 		    drm_dp_tunnel_name(intel_dp->tunnel),
- 		    connector->base.base.id, connector->base.name,
-@@ -708,7 +711,7 @@ static void queue_retry_work(struct intel_atomic_state *state,
- 			     struct drm_dp_tunnel *tunnel,
- 			     const struct intel_crtc_state *crtc_state)
- {
--	struct drm_i915_private *i915 = to_i915(state->base.dev);
-+	struct intel_display *display = to_intel_display(state);
- 	struct intel_encoder *encoder;
- 
- 	encoder = intel_get_crtc_new_encoder(state, crtc_state);
-@@ -716,7 +719,7 @@ static void queue_retry_work(struct intel_atomic_state *state,
- 	if (!intel_digital_port_connected(encoder))
- 		return;
- 
--	drm_dbg_kms(&i915->drm,
-+	drm_dbg_kms(display->drm,
- 		    "[DPTUN %s][ENCODER:%d:%s] BW allocation failed on a connected sink\n",
- 		    drm_dp_tunnel_name(tunnel),
- 		    encoder->base.base.id,
-@@ -765,7 +768,7 @@ void intel_dp_tunnel_atomic_alloc_bw(struct intel_atomic_state *state)
- 
- /**
-  * intel_dp_tunnel_mgr_init - Initialize the DP tunnel manager
-- * @i915: i915 device object
-+ * @display: display device
-  *
-  * Initialize the DP tunnel manager. The tunnel manager will support the
-  * detection/management of DP tunnels on all DP connectors, so the function
-@@ -773,14 +776,14 @@ void intel_dp_tunnel_atomic_alloc_bw(struct intel_atomic_state *state)
-  *
-  * Return 0 in case of success, a negative error code otherwise.
-  */
--int intel_dp_tunnel_mgr_init(struct drm_i915_private *i915)
-+int intel_dp_tunnel_mgr_init(struct intel_display *display)
- {
- 	struct drm_dp_tunnel_mgr *tunnel_mgr;
- 	struct drm_connector_list_iter connector_list_iter;
- 	struct intel_connector *connector;
- 	int dp_connectors = 0;
- 
--	drm_connector_list_iter_begin(&i915->drm, &connector_list_iter);
-+	drm_connector_list_iter_begin(display->drm, &connector_list_iter);
- 	for_each_intel_connector_iter(connector, &connector_list_iter) {
- 		if (connector->base.connector_type != DRM_MODE_CONNECTOR_DisplayPort)
- 			continue;
-@@ -789,23 +792,23 @@ int intel_dp_tunnel_mgr_init(struct drm_i915_private *i915)
+ 	return intel_pps_is_valid(intel_dp);
+@@ -565,11 +568,11 @@ void intel_pps_check_power_unlocked(struct intel_dp *intel_dp)
+ 		drm_WARN(&dev_priv->drm, 1,
+ 			 "[ENCODER:%d:%s] %s powered off while attempting AUX CH communication.\n",
+ 			 dig_port->base.base.base.id, dig_port->base.base.name,
+-			 pps_name(dev_priv, &intel_dp->pps));
++			 pps_name(intel_dp));
+ 		drm_dbg_kms(&dev_priv->drm,
+ 			    "[ENCODER:%d:%s] %s PP_STATUS: 0x%08x PP_CONTROL: 0x%08x\n",
+ 			    dig_port->base.base.base.id, dig_port->base.base.name,
+-			    pps_name(dev_priv, &intel_dp->pps),
++			    pps_name(intel_dp),
+ 			    intel_de_read(dev_priv, _pp_stat_reg(intel_dp)),
+ 			    intel_de_read(dev_priv, _pp_ctrl_reg(intel_dp)));
  	}
- 	drm_connector_list_iter_end(&connector_list_iter);
+@@ -603,7 +606,7 @@ static void wait_panel_status(struct intel_dp *intel_dp,
+ 	drm_dbg_kms(&dev_priv->drm,
+ 		    "[ENCODER:%d:%s] %s mask: 0x%08x value: 0x%08x PP_STATUS: 0x%08x PP_CONTROL: 0x%08x\n",
+ 		    dig_port->base.base.base.id, dig_port->base.base.name,
+-		    pps_name(dev_priv, &intel_dp->pps),
++		    pps_name(intel_dp),
+ 		    mask, value,
+ 		    intel_de_read(dev_priv, pp_stat_reg),
+ 		    intel_de_read(dev_priv, pp_ctrl_reg));
+@@ -612,7 +615,7 @@ static void wait_panel_status(struct intel_dp *intel_dp,
+ 		drm_err(&dev_priv->drm,
+ 			"[ENCODER:%d:%s] %s panel status timeout: PP_STATUS: 0x%08x PP_CONTROL: 0x%08x\n",
+ 			dig_port->base.base.base.id, dig_port->base.base.name,
+-			pps_name(dev_priv, &intel_dp->pps),
++			pps_name(intel_dp),
+ 			intel_de_read(dev_priv, pp_stat_reg),
+ 			intel_de_read(dev_priv, pp_ctrl_reg));
  
--	tunnel_mgr = drm_dp_tunnel_mgr_create(&i915->drm, dp_connectors);
-+	tunnel_mgr = drm_dp_tunnel_mgr_create(display->drm, dp_connectors);
- 	if (IS_ERR(tunnel_mgr))
- 		return PTR_ERR(tunnel_mgr);
+@@ -626,7 +629,7 @@ static void wait_panel_on(struct intel_dp *intel_dp)
  
--	i915->display.dp_tunnel_mgr = tunnel_mgr;
-+	display->dp_tunnel_mgr = tunnel_mgr;
- 
- 	return 0;
+ 	drm_dbg_kms(&i915->drm, "[ENCODER:%d:%s] %s wait for panel power on\n",
+ 		    dig_port->base.base.base.id, dig_port->base.base.name,
+-		    pps_name(i915, &intel_dp->pps));
++		    pps_name(intel_dp));
+ 	wait_panel_status(intel_dp, IDLE_ON_MASK, IDLE_ON_VALUE);
  }
  
- /**
-  * intel_dp_tunnel_mgr_cleanup - Clean up the DP tunnel manager state
-- * @i915: i915 device object
-+ * @display: display device
-  *
-  * Clean up the DP tunnel manager state.
-  */
--void intel_dp_tunnel_mgr_cleanup(struct drm_i915_private *i915)
-+void intel_dp_tunnel_mgr_cleanup(struct intel_display *display)
- {
--	drm_dp_tunnel_mgr_destroy(i915->display.dp_tunnel_mgr);
--	i915->display.dp_tunnel_mgr = NULL;
-+	drm_dp_tunnel_mgr_destroy(display->dp_tunnel_mgr);
-+	display->dp_tunnel_mgr = NULL;
- }
-diff --git a/drivers/gpu/drm/i915/display/intel_dp_tunnel.h b/drivers/gpu/drm/i915/display/intel_dp_tunnel.h
-index 08b2cba84af2..a0c00b7d3303 100644
---- a/drivers/gpu/drm/i915/display/intel_dp_tunnel.h
-+++ b/drivers/gpu/drm/i915/display/intel_dp_tunnel.h
-@@ -9,14 +9,13 @@
- #include <linux/errno.h>
- #include <linux/types.h>
+@@ -637,7 +640,7 @@ static void wait_panel_off(struct intel_dp *intel_dp)
  
--struct drm_i915_private;
- struct drm_connector_state;
- struct drm_modeset_acquire_ctx;
--
- struct intel_atomic_state;
- struct intel_connector;
- struct intel_crtc;
- struct intel_crtc_state;
-+struct intel_display;
- struct intel_dp;
- struct intel_encoder;
- struct intel_link_bw_limits;
-@@ -53,8 +52,8 @@ int intel_dp_tunnel_atomic_check_state(struct intel_atomic_state *state,
- 
- void intel_dp_tunnel_atomic_alloc_bw(struct intel_atomic_state *state);
- 
--int intel_dp_tunnel_mgr_init(struct drm_i915_private *i915);
--void intel_dp_tunnel_mgr_cleanup(struct drm_i915_private *i915);
-+int intel_dp_tunnel_mgr_init(struct intel_display *display);
-+void intel_dp_tunnel_mgr_cleanup(struct intel_display *display);
- 
- #else
- 
-@@ -121,12 +120,12 @@ intel_dp_tunnel_atomic_alloc_bw(struct intel_atomic_state *state)
+ 	drm_dbg_kms(&i915->drm, "[ENCODER:%d:%s] %s wait for panel power off time\n",
+ 		    dig_port->base.base.base.id, dig_port->base.base.name,
+-		    pps_name(i915, &intel_dp->pps));
++		    pps_name(intel_dp));
+ 	wait_panel_status(intel_dp, IDLE_OFF_MASK, IDLE_OFF_VALUE);
  }
  
- static inline int
--intel_dp_tunnel_mgr_init(struct drm_i915_private *i915)
-+intel_dp_tunnel_mgr_init(struct intel_display *display)
- {
- 	return 0;
+@@ -650,7 +653,7 @@ static void wait_panel_power_cycle(struct intel_dp *intel_dp)
+ 
+ 	drm_dbg_kms(&i915->drm, "[ENCODER:%d:%s] %s wait for panel power cycle\n",
+ 		    dig_port->base.base.base.id, dig_port->base.base.name,
+-		    pps_name(i915, &intel_dp->pps));
++		    pps_name(intel_dp));
+ 
+ 	/* take the difference of current time and panel power off time
+ 	 * and then make panel wait for t11_t12 if needed. */
+@@ -742,7 +745,7 @@ bool intel_pps_vdd_on_unlocked(struct intel_dp *intel_dp)
+ 
+ 	drm_dbg_kms(&dev_priv->drm, "[ENCODER:%d:%s] %s turning VDD on\n",
+ 		    dig_port->base.base.base.id, dig_port->base.base.name,
+-		    pps_name(dev_priv, &intel_dp->pps));
++		    pps_name(intel_dp));
+ 
+ 	if (!edp_have_panel_power(intel_dp))
+ 		wait_panel_power_cycle(intel_dp);
+@@ -754,7 +757,7 @@ bool intel_pps_vdd_on_unlocked(struct intel_dp *intel_dp)
+ 	intel_de_posting_read(dev_priv, pp_ctrl_reg);
+ 	drm_dbg_kms(&dev_priv->drm, "[ENCODER:%d:%s] %s PP_STATUS: 0x%08x PP_CONTROL: 0x%08x\n",
+ 		    dig_port->base.base.base.id, dig_port->base.base.name,
+-		    pps_name(dev_priv, &intel_dp->pps),
++		    pps_name(intel_dp),
+ 		    intel_de_read(dev_priv, pp_stat_reg),
+ 		    intel_de_read(dev_priv, pp_ctrl_reg));
+ 	/*
+@@ -764,7 +767,7 @@ bool intel_pps_vdd_on_unlocked(struct intel_dp *intel_dp)
+ 		drm_dbg_kms(&dev_priv->drm,
+ 			    "[ENCODER:%d:%s] %s panel power wasn't enabled\n",
+ 			    dig_port->base.base.base.id, dig_port->base.base.name,
+-			    pps_name(dev_priv, &intel_dp->pps));
++			    pps_name(intel_dp));
+ 		msleep(intel_dp->pps.panel_power_up_delay);
+ 	}
+ 
+@@ -792,7 +795,7 @@ void intel_pps_vdd_on(struct intel_dp *intel_dp)
+ 	I915_STATE_WARN(i915, !vdd, "[ENCODER:%d:%s] %s VDD already requested on\n",
+ 			dp_to_dig_port(intel_dp)->base.base.base.id,
+ 			dp_to_dig_port(intel_dp)->base.base.name,
+-			pps_name(i915, &intel_dp->pps));
++			pps_name(intel_dp));
  }
  
--static inline void intel_dp_tunnel_mgr_cleanup(struct drm_i915_private *i915) {}
-+static inline void intel_dp_tunnel_mgr_cleanup(struct intel_display *display) {}
+ static void intel_pps_vdd_off_sync_unlocked(struct intel_dp *intel_dp)
+@@ -812,7 +815,7 @@ static void intel_pps_vdd_off_sync_unlocked(struct intel_dp *intel_dp)
  
- #endif /* CONFIG_DRM_I915_DP_TUNNEL */
+ 	drm_dbg_kms(&dev_priv->drm, "[ENCODER:%d:%s] %s turning VDD off\n",
+ 		    dig_port->base.base.base.id, dig_port->base.base.name,
+-		    pps_name(dev_priv, &intel_dp->pps));
++		    pps_name(intel_dp));
  
+ 	pp = ilk_get_pp_control(intel_dp);
+ 	pp &= ~EDP_FORCE_VDD;
+@@ -826,7 +829,7 @@ static void intel_pps_vdd_off_sync_unlocked(struct intel_dp *intel_dp)
+ 	/* Make sure sequencer is idle before allowing subsequent activity */
+ 	drm_dbg_kms(&dev_priv->drm, "[ENCODER:%d:%s] %s PP_STATUS: 0x%08x PP_CONTROL: 0x%08x\n",
+ 		    dig_port->base.base.base.id, dig_port->base.base.name,
+-		    pps_name(dev_priv, &intel_dp->pps),
++		    pps_name(intel_dp),
+ 		    intel_de_read(dev_priv, pp_stat_reg),
+ 		    intel_de_read(dev_priv, pp_ctrl_reg));
+ 
+@@ -907,7 +910,7 @@ void intel_pps_vdd_off_unlocked(struct intel_dp *intel_dp, bool sync)
+ 			"[ENCODER:%d:%s] %s VDD not forced on",
+ 			dp_to_dig_port(intel_dp)->base.base.base.id,
+ 			dp_to_dig_port(intel_dp)->base.base.name,
+-			pps_name(dev_priv, &intel_dp->pps));
++			pps_name(intel_dp));
+ 
+ 	intel_dp->pps.want_panel_vdd = false;
+ 
+@@ -931,13 +934,13 @@ void intel_pps_on_unlocked(struct intel_dp *intel_dp)
+ 	drm_dbg_kms(&dev_priv->drm, "[ENCODER:%d:%s] %s turn panel power on\n",
+ 		    dp_to_dig_port(intel_dp)->base.base.base.id,
+ 		    dp_to_dig_port(intel_dp)->base.base.name,
+-		    pps_name(dev_priv, &intel_dp->pps));
++		    pps_name(intel_dp));
+ 
+ 	if (drm_WARN(&dev_priv->drm, edp_have_panel_power(intel_dp),
+ 		     "[ENCODER:%d:%s] %s panel power already on\n",
+ 		     dp_to_dig_port(intel_dp)->base.base.base.id,
+ 		     dp_to_dig_port(intel_dp)->base.base.name,
+-		     pps_name(dev_priv, &intel_dp->pps)))
++		     pps_name(intel_dp)))
+ 		return;
+ 
+ 	wait_panel_power_cycle(intel_dp);
+@@ -1005,12 +1008,12 @@ void intel_pps_off_unlocked(struct intel_dp *intel_dp)
+ 
+ 	drm_dbg_kms(&dev_priv->drm, "[ENCODER:%d:%s] %s turn panel power off\n",
+ 		    dig_port->base.base.base.id, dig_port->base.base.name,
+-		    pps_name(dev_priv, &intel_dp->pps));
++		    pps_name(intel_dp));
+ 
+ 	drm_WARN(&dev_priv->drm, !intel_dp->pps.want_panel_vdd,
+ 		 "[ENCODER:%d:%s] %s need VDD to turn off panel\n",
+ 		 dig_port->base.base.base.id, dig_port->base.base.name,
+-		 pps_name(dev_priv, &intel_dp->pps));
++		 pps_name(intel_dp));
+ 
+ 	pp = ilk_get_pp_control(intel_dp);
+ 	/* We need to switch off panel power _and_ force vdd, for otherwise some
+@@ -1146,7 +1149,7 @@ static void vlv_detach_power_sequencer(struct intel_dp *intel_dp)
+ 	 */
+ 	drm_dbg_kms(&dev_priv->drm,
+ 		    "detaching %s from [ENCODER:%d:%s]\n",
+-		    pps_name(dev_priv, &intel_dp->pps),
++		    pps_name(intel_dp),
+ 		    dig_port->base.base.base.id, dig_port->base.base.name);
+ 	intel_de_write(dev_priv, pp_on_reg, 0);
+ 	intel_de_posting_read(dev_priv, pp_on_reg);
+@@ -1219,7 +1222,7 @@ void vlv_pps_init(struct intel_encoder *encoder,
+ 
+ 	drm_dbg_kms(&dev_priv->drm,
+ 		    "initializing %s for [ENCODER:%d:%s]\n",
+-		    pps_name(dev_priv, &intel_dp->pps),
++		    pps_name(intel_dp),
+ 		    encoder->base.base.id, encoder->base.name);
+ 
+ 	/* init power sequencer on this pipe and port */
+@@ -1246,7 +1249,7 @@ static void pps_vdd_init(struct intel_dp *intel_dp)
+ 	drm_dbg_kms(&dev_priv->drm,
+ 		    "[ENCODER:%d:%s] %s VDD left on by BIOS, adjusting state tracking\n",
+ 		    dig_port->base.base.base.id, dig_port->base.base.name,
+-		    pps_name(dev_priv, &intel_dp->pps));
++		    pps_name(intel_dp));
+ 	drm_WARN_ON(&dev_priv->drm, intel_dp->pps.vdd_wakeref);
+ 	intel_dp->pps.vdd_wakeref = intel_display_power_get(dev_priv,
+ 							    intel_aux_power_domain(dig_port));
 -- 
 2.39.2
 
