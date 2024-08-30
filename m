@@ -4,52 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CDC7FCA0EDF
-	for <intel-gfx@archiver.kernel.org>; Fri, 30 Aug 2024 05:08:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 88C12CA0EE1
+	for <intel-gfx@archiver.kernel.org>; Fri, 30 Aug 2024 05:08:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6AA7B10E7E1;
-	Fri, 30 Aug 2024 05:08:46 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0CEC310E7E3;
+	Fri, 30 Aug 2024 05:08:47 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="SJ0AaDaF";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="MlEPUBqs";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.20])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DD1CE10E7E0;
- Fri, 30 Aug 2024 05:08:37 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D5B0210E7DF;
+ Fri, 30 Aug 2024 05:08:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1724994518; x=1756530518;
+ t=1724994514; x=1756530514;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=se4hm+XelaASNCKt5jQijYX0A75nDFCEM9KN5cHIhyk=;
- b=SJ0AaDaF0z9OSh5v1mJMXxNebGUmeSyVH76TUfwhCdBC+dJYCjitZGIw
- bezVZggESxrN90v5j/BW+E7sddR8rkDVlsORa9KbgCJVtR7SF1XwA3hAf
- 1BfjYAcJN+XNDaWdyM0UhzFgOYOvNiq39Yv0RB94nSPL7otcJ1p5pKVWg
- HiqJhN11WT6nAyRkg8oYBvUGXQzg/2g9USGyAc7Icnd3ACzy+M/oj2rWk
- W3HDc9swe6AcNlXQcNC6cExWUYTva927kr6AdBmb5TM6wt4yqgZIEwxR3
- xjFdXFlxeumyt5/7C9UMUo9SBiGNKgSaQ/+7mvvIuGqPBL4K8qk5Ro+7k w==;
-X-CSE-ConnectionGUID: VUKtdDNRQvCAVDXUab8mKw==
-X-CSE-MsgGUID: JjHjUe1ATQSBO3XylcDQNA==
-X-IronPort-AV: E=McAfee;i="6700,10204,11179"; a="23421686"
-X-IronPort-AV: E=Sophos;i="6.10,187,1719903600"; d="scan'208";a="23421686"
+ bh=5utVn4c9xPG98n3AX6UDXA6XyN5eH40/lw/NnMMa1bE=;
+ b=MlEPUBqsabPKPTBsDBAXKljPin+B5gpoFi1g3sJ5A0wYpyBXjuRzezVP
+ J1p1kM3U3LA+RcvsEbQYGu5s3c8vXBuCV7+//f9vA0H0Fk2HCWf87lJaY
+ 4PSUTMnx+b4XGQFF83NvfTW2oV5x5AVBHFGnF5b0f36dJrddpPt86PkKl
+ eTZJZKMwV+MIydYYAdV/ALlvr8CThUbOtQ/Dksg8JwIxUwpVURz98LXXB
+ +DlquQXAd0s6KD5/CEqcFgIDs2vO3ypU7SfpZd+EaUd7cEfHU+CJTERbb
+ 3qxRhwFZDiWGXfqJeHhxzacctLvjz2NS4+3Sxh0rGnJu15Z0F5F8h4oSt g==;
+X-CSE-ConnectionGUID: HWjR/qBVQz2ObNQD0JviwA==
+X-CSE-MsgGUID: nKLKsDzlSwGxHQN7uX54Fg==
+X-IronPort-AV: E=McAfee;i="6700,10204,11179"; a="23421679"
+X-IronPort-AV: E=Sophos;i="6.10,187,1719903600"; d="scan'208";a="23421679"
 Received: from fmviesa001.fm.intel.com ([10.60.135.141])
  by orvoesa112.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 29 Aug 2024 22:08:38 -0700
-X-CSE-ConnectionGUID: B4W9ofjjR2qzmoUKTSysxw==
-X-CSE-MsgGUID: lu17uLZ/QeC8f+xT7T+Jvw==
+ 29 Aug 2024 22:08:34 -0700
+X-CSE-ConnectionGUID: 8B0nacANQlCkURH/fx0qcQ==
+X-CSE-MsgGUID: 3IwGdwiaSH60n9vhsdIqtQ==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.10,187,1719903600"; d="scan'208";a="94610264"
+X-IronPort-AV: E=Sophos;i="6.10,187,1719903600"; d="scan'208";a="94610251"
 Received: from srr4-3-linux-103-aknautiy.iind.intel.com ([10.223.34.160])
  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 29 Aug 2024 22:08:36 -0700
+ 29 Aug 2024 22:08:32 -0700
 From: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
 To: intel-gfx@lists.freedesktop.org,
 	intel-xe@lists.freedesktop.org
 Cc: jani.nikula@linux.intel.com, suraj.kandpal@intel.com,
  ville.syrjala@linux.intel.com
-Subject: [PATCH 10/19] drm/i915/dss: Use struct intel_display in dss dsc
- helpers
-Date: Fri, 30 Aug 2024 10:39:40 +0530
-Message-ID: <20240830050950.2528450-11-ankit.k.nautiyal@intel.com>
+Subject: [PATCH 08/19] drm/i915/vdsc: Rename helper to check if the pipe
+ supports dsc
+Date: Fri, 30 Aug 2024 10:39:38 +0530
+Message-ID: <20240830050950.2528450-9-ankit.k.nautiyal@intel.com>
 X-Mailer: git-send-email 2.45.2
 In-Reply-To: <20240830050950.2528450-1-ankit.k.nautiyal@intel.com>
 References: <20240830050950.2528450-1-ankit.k.nautiyal@intel.com>
@@ -70,83 +70,81 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Replace struct drm_i915_private with intel_display in the dss dsc
-helpers.
+Rename the helper is_pipe_dsc to intel_dsc_is_pipe_dsc to prepare for its
+future use across multiple files. This change is a preliminary step towards
+making the function non-static, enhancing its accessibility and
+reusability.
 
 Signed-off-by: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_dss.c | 22 +++++++++++-----------
- 1 file changed, 11 insertions(+), 11 deletions(-)
+ drivers/gpu/drm/i915/display/intel_vdsc.c | 14 +++++++-------
+ 1 file changed, 7 insertions(+), 7 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_dss.c b/drivers/gpu/drm/i915/display/intel_dss.c
-index b37e9112ab77..fe55f4b1a9bf 100644
---- a/drivers/gpu/drm/i915/display/intel_dss.c
-+++ b/drivers/gpu/drm/i915/display/intel_dss.c
-@@ -154,17 +154,17 @@ static i915_reg_t dss_ctl2_reg(struct intel_crtc *crtc, enum transcoder cpu_tran
- 
- void intel_dss_reset(const struct intel_crtc_state *old_crtc_state)
- {
-+	struct intel_display *display = to_intel_display(old_crtc_state);
- 	struct intel_crtc *crtc = to_intel_crtc(old_crtc_state->uapi.crtc);
--	struct drm_i915_private *dev_priv = to_i915(crtc->base.dev);
- 
--	intel_de_write(dev_priv, dss_ctl1_reg(crtc, old_crtc_state->cpu_transcoder), 0);
--	intel_de_write(dev_priv, dss_ctl2_reg(crtc, old_crtc_state->cpu_transcoder), 0);
-+	intel_de_write(display, dss_ctl1_reg(crtc, old_crtc_state->cpu_transcoder), 0);
-+	intel_de_write(display, dss_ctl2_reg(crtc, old_crtc_state->cpu_transcoder), 0);
+diff --git a/drivers/gpu/drm/i915/display/intel_vdsc.c b/drivers/gpu/drm/i915/display/intel_vdsc.c
+index 891346f1f09a..6d60b72a9dfb 100644
+--- a/drivers/gpu/drm/i915/display/intel_vdsc.c
++++ b/drivers/gpu/drm/i915/display/intel_vdsc.c
+@@ -35,7 +35,7 @@ bool intel_dsc_source_support(const struct intel_crtc_state *crtc_state)
+ 	return true;
  }
  
- void intel_dss_enable_uncompressed_joiner(const struct intel_crtc_state *crtc_state)
+-static bool is_pipe_dsc(struct intel_crtc *crtc, enum transcoder cpu_transcoder)
++static bool intel_dsc_is_dsc_pipe(struct intel_crtc *crtc, enum transcoder cpu_transcoder)
  {
-+	struct intel_display *display = to_intel_display(crtc_state);
- 	struct intel_crtc *crtc = to_intel_crtc(crtc_state->uapi.crtc);
--	struct drm_i915_private *dev_priv = to_i915(crtc->base.dev);
- 	u32 dss_ctl1_val = 0;
+ 	struct drm_i915_private *i915 = to_i915(crtc->base.dev);
  
- 	if (crtc_state->joiner_pipes && !crtc_state->dsc.compression_enable) {
-@@ -173,7 +173,7 @@ void intel_dss_enable_uncompressed_joiner(const struct intel_crtc_state *crtc_st
- 		else
- 			dss_ctl1_val |= UNCOMPRESSED_JOINER_PRIMARY;
+@@ -366,7 +366,7 @@ intel_dsc_power_domain(struct intel_crtc *crtc, enum transcoder cpu_transcoder)
+ 	 */
+ 	if (DISPLAY_VER(i915) == 12 && !IS_ROCKETLAKE(i915) && pipe == PIPE_A)
+ 		return POWER_DOMAIN_TRANSCODER_VDSC_PW2;
+-	else if (is_pipe_dsc(crtc, cpu_transcoder))
++	else if (intel_dsc_is_dsc_pipe(crtc, cpu_transcoder))
+ 		return POWER_DOMAIN_PIPE(pipe);
+ 	else
+ 		return POWER_DOMAIN_TRANSCODER_VDSC_PW2;
+@@ -395,7 +395,7 @@ static void intel_dsc_get_pps_reg(const struct intel_crtc_state *crtc_state, int
+ 	enum pipe pipe = crtc->pipe;
+ 	bool pipe_dsc;
  
--		intel_de_write(dev_priv,
-+		intel_de_write(display,
- 			       dss_ctl1_reg(crtc, crtc_state->cpu_transcoder),
- 			       dss_ctl1_val);
- 	}
-@@ -182,8 +182,8 @@ void intel_dss_enable_uncompressed_joiner(const struct intel_crtc_state *crtc_st
- void intel_dss_enable_compressed_joiner(const struct intel_crtc_state *crtc_state,
- 					int vdsc_instances_per_pipe)
+-	pipe_dsc = is_pipe_dsc(crtc, cpu_transcoder);
++	pipe_dsc = intel_dsc_is_dsc_pipe(crtc, cpu_transcoder);
+ 
+ 	if (dsc_reg_num >= 3)
+ 		MISSING_CASE(dsc_reg_num);
+@@ -538,7 +538,7 @@ static void intel_dsc_pps_configure(const struct intel_crtc_state *crtc_state)
+ 		rc_buf_thresh_dword[i / 4] |=
+ 			(u32)(vdsc_cfg->rc_buf_thresh[i] <<
+ 			      BITS_PER_BYTE * (i % 4));
+-	if (!is_pipe_dsc(crtc, cpu_transcoder)) {
++	if (!intel_dsc_is_dsc_pipe(crtc, cpu_transcoder)) {
+ 		intel_de_write(dev_priv, DSCA_RC_BUF_THRESH_0,
+ 			       rc_buf_thresh_dword[0]);
+ 		intel_de_write(dev_priv, DSCA_RC_BUF_THRESH_0_UDW,
+@@ -592,7 +592,7 @@ static void intel_dsc_pps_configure(const struct intel_crtc_state *crtc_state)
+ 				RC_MAX_QP_SHIFT) |
+ 			       (vdsc_cfg->rc_range_params[i].range_min_qp <<
+ 				RC_MIN_QP_SHIFT)) << 16 * (i % 2));
+-	if (!is_pipe_dsc(crtc, cpu_transcoder)) {
++	if (!intel_dsc_is_dsc_pipe(crtc, cpu_transcoder)) {
+ 		intel_de_write(dev_priv, DSCA_RC_RANGE_PARAMETERS_0,
+ 			       rc_range_params_dword[0]);
+ 		intel_de_write(dev_priv, DSCA_RC_RANGE_PARAMETERS_0_UDW,
+@@ -726,13 +726,13 @@ void intel_dsc_dp_pps_write(struct intel_encoder *encoder,
+ 
+ static i915_reg_t dss_ctl1_reg(struct intel_crtc *crtc, enum transcoder cpu_transcoder)
  {
-+	struct intel_display *display = to_intel_display(crtc_state);
- 	struct intel_crtc *crtc = to_intel_crtc(crtc_state->uapi.crtc);
--	struct drm_i915_private *dev_priv = to_i915(crtc->base.dev);
- 	u32 dss_ctl1_val = 0;
- 	u32 dss_ctl2_val = 0;
- 
-@@ -197,18 +197,18 @@ void intel_dss_enable_compressed_joiner(const struct intel_crtc_state *crtc_stat
- 		if (!intel_crtc_is_joiner_secondary(crtc_state))
- 			dss_ctl1_val |= PRIMARY_BIG_JOINER_ENABLE;
- 	}
--	intel_de_write(dev_priv, dss_ctl1_reg(crtc, crtc_state->cpu_transcoder), dss_ctl1_val);
--	intel_de_write(dev_priv, dss_ctl2_reg(crtc, crtc_state->cpu_transcoder), dss_ctl2_val);
-+	intel_de_write(display, dss_ctl1_reg(crtc, crtc_state->cpu_transcoder), dss_ctl1_val);
-+	intel_de_write(display, dss_ctl2_reg(crtc, crtc_state->cpu_transcoder), dss_ctl2_val);
+-	return is_pipe_dsc(crtc, cpu_transcoder) ?
++	return intel_dsc_is_dsc_pipe(crtc, cpu_transcoder) ?
+ 		ICL_PIPE_DSS_CTL1(crtc->pipe) : DSS_CTL1;
  }
  
- void intel_dss_dsc_get_config(struct intel_crtc_state *crtc_state)
+ static i915_reg_t dss_ctl2_reg(struct intel_crtc *crtc, enum transcoder cpu_transcoder)
  {
-+	struct intel_display *display = to_intel_display(crtc_state);
- 	struct intel_crtc *crtc = to_intel_crtc(crtc_state->uapi.crtc);
--	struct drm_i915_private *dev_priv = to_i915(crtc->base.dev);
- 	u32 dss_ctl1, dss_ctl2;
+-	return is_pipe_dsc(crtc, cpu_transcoder) ?
++	return intel_dsc_is_dsc_pipe(crtc, cpu_transcoder) ?
+ 		ICL_PIPE_DSS_CTL2(crtc->pipe) : DSS_CTL2;
+ }
  
--	dss_ctl1 = intel_de_read(dev_priv, dss_ctl1_reg(crtc, crtc_state->cpu_transcoder));
--	dss_ctl2 = intel_de_read(dev_priv, dss_ctl2_reg(crtc, crtc_state->cpu_transcoder));
-+	dss_ctl1 = intel_de_read(display, dss_ctl1_reg(crtc, crtc_state->cpu_transcoder));
-+	dss_ctl2 = intel_de_read(display, dss_ctl2_reg(crtc, crtc_state->cpu_transcoder));
- 
- 	crtc_state->dsc.compression_enable = dss_ctl2 & LEFT_BRANCH_VDSC_ENABLE;
- 	if (!crtc_state->dsc.compression_enable)
 -- 
 2.45.2
 
