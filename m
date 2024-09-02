@@ -4,50 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C40D5CD3420
-	for <intel-gfx@archiver.kernel.org>; Mon,  2 Sep 2024 08:05:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5CE46CA0ED3
+	for <intel-gfx@archiver.kernel.org>; Mon,  2 Sep 2024 08:05:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6648A10E23B;
-	Mon,  2 Sep 2024 08:05:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BDC7010E241;
+	Mon,  2 Sep 2024 08:05:23 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="bmZ3hOLh";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="Y6lUBAha";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.18])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 509C010E239
- for <intel-gfx@lists.freedesktop.org>; Mon,  2 Sep 2024 08:05:19 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EA50310E23A
+ for <intel-gfx@lists.freedesktop.org>; Mon,  2 Sep 2024 08:05:22 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1725264320; x=1756800320;
+ t=1725264323; x=1756800323;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=vam2QhzhBVW5QkDYiP+Rn8xCNUaFclElSi7CzXeG8Po=;
- b=bmZ3hOLh864LuSZ2x8R4ziL//7SYBebpEn31RcojtLRUJ2AIEqJNI0KI
- pNnbU7bJq6Qlz83lPc+c4s6XCIwaaZ7QK5Jj/PTrM/CY6Y4KxralNDs2G
- N0G9rDBY4boyPW1OaK6a1igfGZCdsZXJF07fseY84Z5qBoKw7XkaDnOnn
- W6o5dQg73FmAh3yurEWn7sc01S6vTPDuhCZ4RWWS7CTNkz58fFOIiZChp
- UDCW7ZLIpgyMk42mlYOy5oxhb5NCScye6em7XtokLNY6uJOnjg3G4JMUU
- BBGbsgLBG5MZS+qbf5kH52VedU02MUErAzyrDUy8LsSpSTKYsb+bKL4nJ Q==;
-X-CSE-ConnectionGUID: iBe2WxEIRoGP8ajp1SzXJA==
-X-CSE-MsgGUID: Wm5i2bCYTGufmfjvXgXNIQ==
-X-IronPort-AV: E=McAfee;i="6700,10204,11182"; a="23967404"
-X-IronPort-AV: E=Sophos;i="6.10,195,1719903600"; d="scan'208";a="23967404"
+ bh=U2eR3j/PbmtZd7fxfFMb2lsw9WLSelfDM+cNmjcioEw=;
+ b=Y6lUBAhaPRFatr3qCKFNSL6g0oSZ9LRf0uGL18778DqEnfoWLT+/wR4f
+ D8FGSYnvoAtX2pDhFFk1E/1sy60/65FCxIOVxgof9LOMnU2MvakRKVYEN
+ EbOrc25nXObHhxbH9jDTALcTy9Pm4zVOtxuWaGgIPXRAVYTAHrC8BHBAf
+ FrfASsed6aQsYPl/wlG7C8WzoVSTC2Rgmi+3ebtlKQZHO3dMe6VYpeiGe
+ yOutKMZDJrG538dMFE970sRY2DW+6rwwmET020k9p1Mo4FwPeJaY2TRpf
+ HRyt+fk+t/MZ7IIROYYkhxT5VQbpKei9vu199f8+h29GkB1+Mx6nlTSM9 w==;
+X-CSE-ConnectionGUID: MybJ+J3oQ/i1KWoA+DuXtw==
+X-CSE-MsgGUID: 4Ff3YSzRRvqWDA6ZVOcEBA==
+X-IronPort-AV: E=McAfee;i="6700,10204,11182"; a="23967415"
+X-IronPort-AV: E=Sophos;i="6.10,195,1719903600"; d="scan'208";a="23967415"
 Received: from orviesa007.jf.intel.com ([10.64.159.147])
  by orvoesa110.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 02 Sep 2024 01:05:19 -0700
-X-CSE-ConnectionGUID: eiyYNzFfSB+Is8nJ2FAofw==
-X-CSE-MsgGUID: zrI26ifVRHCcDqnaakml4w==
+ 02 Sep 2024 01:05:23 -0700
+X-CSE-ConnectionGUID: uGMwReAlSfK06hgezHKtDA==
+X-CSE-MsgGUID: kn7WqlZnQrS9IQCzMKwOYg==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.10,195,1719903600"; d="scan'208";a="65039925"
+X-IronPort-AV: E=Sophos;i="6.10,195,1719903600"; d="scan'208";a="65039963"
 Received: from srr4-3-linux-103-aknautiy.iind.intel.com ([10.223.34.160])
  by orviesa007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 02 Sep 2024 01:05:18 -0700
+ 02 Sep 2024 01:05:22 -0700
 From: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
 To: intel-gfx@lists.freedesktop.org
 Cc: jani.nikula@linux.intel.com, ville.syrjala@linux.intel.com,
  mitulkumar.ajitkumar.golani@intel.com
-Subject: [PATCH 11/13] drm/i915/vrr: Handle joiner with vrr
-Date: Mon,  2 Sep 2024 13:36:32 +0530
-Message-ID: <20240902080635.2946858-12-ankit.k.nautiyal@intel.com>
+Subject: [PATCH 13/13] drm/i915/display: Add fixed_rr to crtc_state_dump
+Date: Mon,  2 Sep 2024 13:36:34 +0530
+Message-ID: <20240902080635.2946858-14-ankit.k.nautiyal@intel.com>
 X-Mailer: git-send-email 2.45.2
 In-Reply-To: <20240902080635.2946858-1-ankit.k.nautiyal@intel.com>
 References: <20240902080635.2946858-1-ankit.k.nautiyal@intel.com>
@@ -68,72 +68,28 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Do not program transcoder registers for VRR for the secondary pipe of
-the joiner. Remove check to skip VRR for joiner case.
+Print vrr.fixed_rr along with other vrr parameters.
 
 Signed-off-by: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_vrr.c | 19 ++++++++++++-------
- 1 file changed, 12 insertions(+), 7 deletions(-)
+ drivers/gpu/drm/i915/display/intel_crtc_state_dump.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_vrr.c b/drivers/gpu/drm/i915/display/intel_vrr.c
-index 5e947465c6e0..e01d4b4b8fa7 100644
---- a/drivers/gpu/drm/i915/display/intel_vrr.c
-+++ b/drivers/gpu/drm/i915/display/intel_vrr.c
-@@ -169,13 +169,6 @@ intel_vrr_compute_config(struct intel_crtc_state *crtc_state,
- 	const struct drm_display_info *info = &connector->base.display_info;
- 	int vmin, vmax;
+diff --git a/drivers/gpu/drm/i915/display/intel_crtc_state_dump.c b/drivers/gpu/drm/i915/display/intel_crtc_state_dump.c
+index 705ec5ad385c..55bb1c327fab 100644
+--- a/drivers/gpu/drm/i915/display/intel_crtc_state_dump.c
++++ b/drivers/gpu/drm/i915/display/intel_crtc_state_dump.c
+@@ -296,8 +296,9 @@ void intel_crtc_state_dump(const struct intel_crtc_state *pipe_config,
+ 		intel_dump_buffer("ELD: ", pipe_config->eld,
+ 				  drm_eld_size(pipe_config->eld));
  
--	/*
--	 * FIXME all joined pipes share the same transcoder.
--	 * Need to account for that during VRR toggle/push/etc.
--	 */
--	if (crtc_state->joiner_pipes)
--		return;
--
- 	if (adjusted_mode->flags & DRM_MODE_FLAG_INTERLACE)
- 		return;
- 
-@@ -272,6 +265,9 @@ void intel_vrr_set_transcoder_timings(const struct intel_crtc_state *crtc_state)
- 	struct intel_display *display = to_intel_display(crtc_state);
- 	enum transcoder cpu_transcoder = crtc_state->cpu_transcoder;
- 
-+	if (intel_crtc_is_joiner_secondary(crtc_state))
-+		return;
-+
- 	/*
- 	 * This bit seems to have two meanings depending on the platform:
- 	 * TGL: generate VRR "safe window" for DSB vblank waits
-@@ -313,6 +309,9 @@ void intel_vrr_send_push(const struct intel_crtc_state *crtc_state)
- 	struct intel_display *display = to_intel_display(crtc_state);
- 	enum transcoder cpu_transcoder = crtc_state->cpu_transcoder;
- 
-+	if (intel_crtc_is_joiner_secondary(crtc_state))
-+		return;
-+
- 	if (!crtc_state->vrr.enable || crtc_state->vrr.fixed_rr)
- 		return;
- 
-@@ -336,6 +335,9 @@ void intel_vrr_enable(const struct intel_crtc_state *crtc_state)
- 	struct intel_display *display = to_intel_display(crtc_state);
- 	enum transcoder cpu_transcoder = crtc_state->cpu_transcoder;
- 
-+	if (intel_crtc_is_joiner_secondary(crtc_state))
-+		return;
-+
- 	if (!crtc_state->vrr.enable)
- 		return;
- 
-@@ -364,6 +366,9 @@ void intel_vrr_disable(const struct intel_crtc_state *old_crtc_state)
- 	struct intel_display *display = to_intel_display(old_crtc_state);
- 	enum transcoder cpu_transcoder = old_crtc_state->cpu_transcoder;
- 
-+	if (intel_crtc_is_joiner_secondary(old_crtc_state))
-+		return;
-+
- 	if (!old_crtc_state->vrr.enable)
- 		return;
- 
+-	drm_printf(&p, "vrr: %s, vmin: %d, vmax: %d, pipeline full: %d, guardband: %d flipline: %d, vmin vblank: %d, vmax vblank: %d\n",
++	drm_printf(&p, "vrr: %s, fixed_rr: %s vmin: %d, vmax: %d, pipeline full: %d, guardband: %d flipline: %d, vmin vblank: %d, vmax vblank: %d\n",
+ 		   str_yes_no(pipe_config->vrr.enable),
++		   str_yes_no(pipe_config->vrr.fixed_rr),
+ 		   pipe_config->vrr.vmin, pipe_config->vrr.vmax,
+ 		   pipe_config->vrr.pipeline_full, pipe_config->vrr.guardband,
+ 		   pipe_config->vrr.flipline,
 -- 
 2.45.2
 
