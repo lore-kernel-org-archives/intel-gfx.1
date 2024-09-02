@@ -4,60 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EABE4CD13CF
-	for <intel-gfx@archiver.kernel.org>; Tue,  3 Sep 2024 12:51:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BD7DACD13CF
+	for <intel-gfx@archiver.kernel.org>; Tue,  3 Sep 2024 12:52:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 92AAE10E589;
-	Tue,  3 Sep 2024 12:51:54 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="iLAVdBpg";
-	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.16])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CDE7010E589
- for <intel-gfx@lists.freedesktop.org>; Tue,  3 Sep 2024 12:51:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1725367914; x=1756903914;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:content-transfer-encoding:in-reply-to;
- bh=R6lWVDTKdQnbMlfCFrkRx9LqvrcUVcHGrCFDllcACTU=;
- b=iLAVdBpgu+/7mKjMegInK72ydQ1t5fegStZhOMOtELfBQqrfX5k4YaBM
- DD14UHc0y0YzTqd5HdIET/ny7DTXuC0mMhydwh0LCWyLJQdkilce/gZiU
- ZGpKF69/f1WiG5zGP1NgG53PkLqzUtAbDNwYQLF0zIGK2EetMW3gQY/gU
- ia4VH2FKurgCSrEykKl4FfcaocblLDRwoQDQWxyMBpPbrZMxCqMQ7tzCe
- bC/icKEJ6CbRKYyvLT/IV1sjC6c1lAcK4UdWgI3FKy6DcOef0zVzI1ocE
- cI4hPM6Etb+8WvsEe9ai9sbrtu8OQ0KmGf0KIPMt9AFFSw09NbKBUEjhy A==;
-X-CSE-ConnectionGUID: SdOzRETzQz+obHt2d8IL0Q==
-X-CSE-MsgGUID: D22rPcNpQPeMgjY66pfccw==
-X-IronPort-AV: E=McAfee;i="6700,10204,11183"; a="24080981"
-X-IronPort-AV: E=Sophos;i="6.10,198,1719903600"; d="scan'208";a="24080981"
-Received: from fmviesa008.fm.intel.com ([10.60.135.148])
- by orvoesa108.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 03 Sep 2024 05:51:54 -0700
-X-CSE-ConnectionGUID: jBqAQyFzTey2eZcuE0OBkw==
-X-CSE-MsgGUID: OqMbTsXbRROZQbY2ZKXK8g==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.10,198,1719903600"; d="scan'208";a="64920702"
-Received: from stinkpipe.fi.intel.com (HELO stinkbox) ([10.237.72.74])
- by fmviesa008.fm.intel.com with SMTP; 03 Sep 2024 05:51:51 -0700
-Received: by stinkbox (sSMTP sendmail emulation);
- Tue, 03 Sep 2024 15:51:50 +0300
-Date: Tue, 3 Sep 2024 15:51:50 +0300
-From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
-To: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
-Cc: intel-gfx@lists.freedesktop.org, jani.nikula@linux.intel.com,
- mitulkumar.ajitkumar.golani@intel.com
-Subject: Re: [PATCH 03/13] drm/i915/display: Add member fixed_rr to denote
- Fixed refresh rate with VRRTG
-Message-ID: <ZtcGZvU82Faddfrc@intel.com>
-References: <20240902080635.2946858-1-ankit.k.nautiyal@intel.com>
- <20240902080635.2946858-4-ankit.k.nautiyal@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5077A10E58B;
+	Tue,  3 Sep 2024 12:52:49 +0000 (UTC)
+X-Greylist: delayed 1227 seconds by postgrey-1.36 at gabe;
+ Mon, 02 Sep 2024 13:22:13 UTC
+Received: from szxga05-in.huawei.com (szxga05-in.huawei.com [45.249.212.191])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8C57210E091;
+ Mon,  2 Sep 2024 13:22:13 +0000 (UTC)
+Received: from mail.maildlp.com (unknown [172.19.163.44])
+ by szxga05-in.huawei.com (SkyGuard) with ESMTP id 4Wy82114g7z1HHyy;
+ Mon,  2 Sep 2024 20:58:17 +0800 (CST)
+Received: from dggpeml500022.china.huawei.com (unknown [7.185.36.66])
+ by mail.maildlp.com (Postfix) with ESMTPS id 86B571400D4;
+ Mon,  2 Sep 2024 21:01:42 +0800 (CST)
+Received: from huawei.com (10.90.53.73) by dggpeml500022.china.huawei.com
+ (7.185.36.66) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.1.2507.39; Mon, 2 Sep
+ 2024 21:01:42 +0800
+From: Hongbo Li <lihongbo22@huawei.com>
+To: <jani.nikula@linux.intel.com>, <joonas.lahtinen@linux.intel.com>,
+ <rodrigo.vivi@intel.com>, <tursulin@ursulin.net>, <airlied@gmail.com>,
+ <daniel@ffwll.ch>
+CC: <lihongbo22@huawei.com>, <intel-gfx@lists.freedesktop.org>,
+ <dri-devel@lists.freedesktop.org>
+Subject: [PATCH -next] drm/i915/gt: Make use of __assign_bit() API
+Date: Mon, 2 Sep 2024 21:10:08 +0800
+Message-ID: <20240902131008.2982156-1-lihongbo22@huawei.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20240902080635.2946858-4-ankit.k.nautiyal@intel.com>
-X-Patchwork-Hint: comment
+Content-Type: text/plain
+X-Originating-IP: [10.90.53.73]
+X-ClientProxiedBy: dggems702-chm.china.huawei.com (10.3.19.179) To
+ dggpeml500022.china.huawei.com (7.185.36.66)
+X-Mailman-Approved-At: Tue, 03 Sep 2024 12:52:48 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,60 +56,37 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Mon, Sep 02, 2024 at 01:36:24PM +0530, Ankit Nautiyal wrote:
-> Add fixed_rr member to struct vrr to represent the case where a
-> fixed refresh rate with VRR timing generator is required.
-> 
-> v2: Move get_config change where vrr.fixed is actually set. (Mitul)
-> 
-> Signed-off-by: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
-> ---
->  drivers/gpu/drm/i915/display/intel_display.c       | 4 +++-
->  drivers/gpu/drm/i915/display/intel_display_types.h | 2 +-
->  2 files changed, 4 insertions(+), 2 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
-> index 78ce402a5cd0..8b437e79c8df 100644
-> --- a/drivers/gpu/drm/i915/display/intel_display.c
-> +++ b/drivers/gpu/drm/i915/display/intel_display.c
-> @@ -1005,7 +1005,8 @@ static bool vrr_params_changed(const struct intel_crtc_state *old_crtc_state,
->  		old_crtc_state->vrr.vmin != new_crtc_state->vrr.vmin ||
->  		old_crtc_state->vrr.vmax != new_crtc_state->vrr.vmax ||
->  		old_crtc_state->vrr.guardband != new_crtc_state->vrr.guardband ||
-> -		old_crtc_state->vrr.pipeline_full != new_crtc_state->vrr.pipeline_full;
-> +		old_crtc_state->vrr.pipeline_full != new_crtc_state->vrr.pipeline_full ||
-> +		old_crtc_state->vrr.fixed_rr != new_crtc_state->vrr.fixed_rr;
+We have for some time the __assign_bit() API to replace
+open coded
+    if (foo)
+        __set_bit(n, bar);
+    else
+        __clear_bit(n, bar);
 
-I have a feeling we shouldn't need this. We could just check for
-vmin==vmax instead.
+Use this API to simplify the code. No functional change
+intended.
 
->  }
->  
->  static bool cmrr_params_changed(const struct intel_crtc_state *old_crtc_state,
-> @@ -5480,6 +5481,7 @@ intel_pipe_config_compare(const struct intel_crtc_state *current_config,
->  
->  	if (!fastset) {
->  		PIPE_CONF_CHECK_BOOL(vrr.enable);
-> +		PIPE_CONF_CHECK_BOOL(vrr.fixed_rr);
->  		PIPE_CONF_CHECK_I(vrr.vmin);
->  		PIPE_CONF_CHECK_I(vrr.vmax);
->  		PIPE_CONF_CHECK_I(vrr.flipline);
-> diff --git a/drivers/gpu/drm/i915/display/intel_display_types.h b/drivers/gpu/drm/i915/display/intel_display_types.h
-> index 868ff8976ed9..62a796f61d20 100644
-> --- a/drivers/gpu/drm/i915/display/intel_display_types.h
-> +++ b/drivers/gpu/drm/i915/display/intel_display_types.h
-> @@ -1407,7 +1407,7 @@ struct intel_crtc_state {
->  
->  	/* Variable Refresh Rate state */
->  	struct {
-> -		bool enable, in_range;
-> +		bool enable, in_range, fixed_rr;
->  		u8 pipeline_full;
->  		u16 flipline, vmin, vmax, guardband;
->  		u32 vsync_end, vsync_start;
-> -- 
-> 2.45.2
+Signed-off-by: Hongbo Li <lihongbo22@huawei.com>
+---
+ drivers/gpu/drm/i915/gt/intel_ggtt_fencing.c | 5 +----
+ 1 file changed, 1 insertion(+), 4 deletions(-)
 
+diff --git a/drivers/gpu/drm/i915/gt/intel_ggtt_fencing.c b/drivers/gpu/drm/i915/gt/intel_ggtt_fencing.c
+index 0ffba50981e3..4380e6f9d0ab 100644
+--- a/drivers/gpu/drm/i915/gt/intel_ggtt_fencing.c
++++ b/drivers/gpu/drm/i915/gt/intel_ggtt_fencing.c
+@@ -827,10 +827,7 @@ i915_gem_object_save_bit_17_swizzle(struct drm_i915_gem_object *obj,
+ 	i = 0;
+ 
+ 	for_each_sgt_page(page, sgt_iter, pages) {
+-		if (page_to_phys(page) & (1 << 17))
+-			__set_bit(i, obj->bit_17);
+-		else
+-			__clear_bit(i, obj->bit_17);
++		__assign_bit(i, obj->bit_17, page_to_phys(page) & (1 << 17));
+ 		i++;
+ 	}
+ }
 -- 
-Ville Syrjälä
-Intel
+2.34.1
+
