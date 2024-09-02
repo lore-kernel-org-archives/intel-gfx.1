@@ -4,27 +4,75 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 41F12CD13CF
-	for <intel-gfx@archiver.kernel.org>; Mon,  2 Sep 2024 10:28:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B4BAACA0ED3
+	for <intel-gfx@archiver.kernel.org>; Mon,  2 Sep 2024 11:13:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A8E7810E283;
-	Mon,  2 Sep 2024 10:28:41 +0000 (UTC)
-Received: from 2413ebb6fbb6 (emeril.freedesktop.org [131.252.210.167])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1699710E283;
- Mon,  2 Sep 2024 10:28:40 +0000 (UTC)
-Content-Type: multipart/alternative;
- boundary="===============1659243220124871512=="
+	by gabe.freedesktop.org (Postfix) with ESMTP id C164310E29D;
+	Mon,  2 Sep 2024 11:13:39 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (1024-bit key; secure) header.d=ffwll.ch header.i=@ffwll.ch header.b="eWahMrwF";
+	dkim-atps=neutral
+Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com
+ [209.85.128.46])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1EDD510E299
+ for <intel-gfx@lists.freedesktop.org>; Mon,  2 Sep 2024 11:13:38 +0000 (UTC)
+Received: by mail-wm1-f46.google.com with SMTP id
+ 5b1f17b1804b1-42c2e50ec13so17866975e9.0
+ for <intel-gfx@lists.freedesktop.org>; Mon, 02 Sep 2024 04:13:38 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=ffwll.ch; s=google; t=1725275616; x=1725880416; darn=lists.freedesktop.org; 
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=LnfCLTwwtLyGWRdEuSUyuc6s9oHiX9QCst9I+RtLHqk=;
+ b=eWahMrwF5Y1RY/Y+6rCSVo1IY3jCc3dVQrhdNkSOYwIuyMZPnNGUs88z1TzD+tyx2o
+ 1HM9r/+SIC/C2I+/H1IMM/Aa13XAjreyRy3y44am90qBIahFcdCpXu8IWN27Z36FkMsY
+ Fj1uVXgdv4EsljT9rn/luTV+rY24tYTmx6KUQ=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1725275616; x=1725880416;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=LnfCLTwwtLyGWRdEuSUyuc6s9oHiX9QCst9I+RtLHqk=;
+ b=XFTX9sAz3T0zK9Yzn0BV9VIVPwKU0OzTZBviAiDNJD3IMs+ZoTMsIrowKkowh+NzmG
+ 3fqMscvS2Kc/hJID2iOojjN+yGKxddYEbJz6qpzNxRg5eV1JsCdOua5ZPh6g/+uIYoE+
+ bNOGcbgpn2nylLGQfpbcxQK0Dm14gnY0ysTpznGB2/qxOrTXpKf4IzhVe2TshoHXZ8It
+ YMPVNYTqyGn72QP89awnuWN9X1wC91iSJjZhPvFbby0TJH4NozSJs31CweFeeH11rGPk
+ eUY24faR59YQ4whnvS1Ux5UhFGaurV1iUfzT7sVmAih00WgqVXXKI5V1LLkDrc43r1ba
+ QxgQ==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCUg1oRaDw9UHTnsEI62PRmuiAFPBGp6jocvMuGNBIvk4ghCXfvt5+A9xLAaN/2O6R5veI4hGkcew4M=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yw7lXIxlcHv1VcJioDJQvzSVK2h5H2w9G+xSIYIc4kbC3O/Y3Xz
+ 42vR/S5R322oC3oFMaKw9/C/L8G4KvRc5MS65OPwLTuJ6F/9FLAtPo9Ho4WOsrI=
+X-Google-Smtp-Source: AGHT+IG40T4YNpa0Ar0Qn9waQeKXCWKcFV47Fgap1uRCEkvH0JzpWsZkM6SyPt8TueXKpy0p93VOsA==
+X-Received: by 2002:a05:600c:3b93:b0:426:5e0b:5823 with SMTP id
+ 5b1f17b1804b1-42bbb44114emr78512405e9.34.1725275616047; 
+ Mon, 02 Sep 2024 04:13:36 -0700 (PDT)
+Received: from phenom.ffwll.local ([2a02:168:57f4:0:5485:d4b2:c087:b497])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-42bb6deb3efsm135381745e9.6.2024.09.02.04.13.35
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 02 Sep 2024 04:13:35 -0700 (PDT)
+Date: Mon, 2 Sep 2024 13:13:33 +0200
+From: Daniel Vetter <daniel.vetter@ffwll.ch>
+To: Andi Shyti <andi.shyti@linux.intel.com>
+Cc: Daniel Vetter <daniel.vetter@ffwll.ch>,
+ intel-gfx <intel-gfx@lists.freedesktop.org>,
+ dri-devel <dri-devel@lists.freedesktop.org>,
+ Chris Wilson <chris.p.wilson@linux.intel.com>,
+ Tvrtko Ursulin <tursulin@ursulin.net>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
+Subject: Re: [PATCH v3 00/15] CCS static load balance
+Message-ID: <ZtWd3QwBwzmOZCDr@phenom.ffwll.local>
+References: <20240823130855.72436-1-andi.shyti@linux.intel.com>
+ <Zs4NaUgcDhcBb4Ok@phenom.ffwll.local>
+ <Zs7dv57piSIj3Og4@ashyti-mobl2.lan>
+ <Zs8qaZftGbq7Ls00@phenom.ffwll.local>
+ <Zs9D0WpVLpZviBNg@ashyti-mobl2.lan>
 MIME-Version: 1.0
-Subject: =?utf-8?q?=E2=9C=93_Fi=2ECI=2EBAT=3A_success_for_Increase_fastwake_sync_puls?=
- =?utf-8?q?e_count_as_a_quirk_=28rev3=29?=
-From: Patchwork <patchwork@emeril.freedesktop.org>
-To: =?utf-8?q?Jouni_H=C3=B6gander?= <jouni.hogander@intel.com>
-Cc: intel-gfx@lists.freedesktop.org
-Date: Mon, 02 Sep 2024 10:28:40 -0000
-Message-ID: <172527292007.889603.7586731250195702168@2413ebb6fbb6>
-X-Patchwork-Hint: ignore
-References: <20240902064241.1020965-1-jouni.hogander@intel.com>
-In-Reply-To: <20240902064241.1020965-1-jouni.hogander@intel.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <Zs9D0WpVLpZviBNg@ashyti-mobl2.lan>
+X-Operating-System: Linux phenom 6.9.12-amd64 
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -37,175 +85,139 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
---===============1659243220124871512==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
+On Wed, Aug 28, 2024 at 05:35:45PM +0200, Andi Shyti wrote:
+> Hi Sima,
+> 
+> On Wed, Aug 28, 2024 at 03:47:21PM +0200, Daniel Vetter wrote:
+> > On Wed, Aug 28, 2024 at 10:20:15AM +0200, Andi Shyti wrote:
+> > > Hi Sima,
+> > > 
+> > > first of all, thanks for looking into this series.
+> > > 
+> > > On Tue, Aug 27, 2024 at 07:31:21PM +0200, Daniel Vetter wrote:
+> > > > On Fri, Aug 23, 2024 at 03:08:40PM +0200, Andi Shyti wrote:
+> > > > > Hi,
+> > > > > 
+> > > > > This patch series introduces static load balancing for GPUs with
+> > > > > multiple compute engines. It's a lengthy series, and some
+> > > > > challenging aspects still need to be resolved.
+> > > > 
+> > > > Do we have an actual user for this, where just reloading the entire driver
+> > > > (or well-rebinding, if you only want to change the value for a specific
+> > > > device) with a new module option isn't enough?
+> > > 
+> > > Yes, we have users for this and this has been already agreed with
+> > > architects and maintainers.
+> > 
+> > So my understanding is that for upstream, this only applies to dg2,
+> > because the other platforms don't have enough CCS engines to make this a
+> > real issue.
+> > 
+> > Do we really have upstream demand for this feature on dg2 only?
+> 
+> That's my understanding.
+> 
+> > Also how hard would it be to make these users happy with xe-on-dg2 in
+> > upstream instead?
+> 
+> I don't know this, I think the user is already on i915.
+> 
+> > > Why are you saying that we are reloading/rebinding the driver?
+> > 
+> > That's the other alternate solution.
+> 
+> But that's not how XE does it, though.
+> 
+> The use case is that userspace has an environment variable that
+> they change ondemand for choosing the CCS mode. They want to
+> change the value of that variable on the fly and, as we are only
+> adding or removing a few engines, this is done without reprobing
+> the whole driver.
+> 
+> In a previous implementation (from where both I and Niranjana for
+> XE took inspiration) the CCS mode was passed during compute
+> execbuf.
+> 
+> > > I'm only removing the exposure of user engines, which is
+> > > basically a flag in the engines data structure.
+> > > 
+> > > > There's some really gnarly locking and lifetime fun in there, and it needs
+> > > > a corresponding justification.
+> > > 
+> > > What locking are you referring about?
+> > > 
+> > > I only added one single mutex that has a comment and a
+> > > justification. If you think that's not enough, I can of course
+> > > improve it (please note that the changes have a good amount of
+> > > comments and I tried to be aso more descriptive as I could).
+> > > 
+> > > When I change the engines configurations only for the compute
+> > > engines and only for DG2 platforms, I need to make sure that no
+> > > other user is affected by the change. Thus I need to make sure
+> > > that access to some of the strucures are properly serialized.
+> > > 
+> > > > Which needs to be enormous for this case,
+> > > > meaning actual customers willing to shout on dri-devel that they really,
+> > > > absolutely need this, or their machines will go up in flames.
+> > > > Otherwise this is a nack from me.
+> > > 
+> > > Would you please tell me why are you nacking the patch? So that I
+> > > address your comments for v4?
+> > 
+> > So for one, this is substantially more flexible than the solution merged
+> > into xe. And the patch set doesn't explain why (the commit messages
+> > actualy describe the design xe has).
+> 
+> I think in XE we might have missed a few things and my plan is to
+> check the XE implementation once I'm done with i915 (I was one of
+> the XE reviewers). And, many of the things in XE are so different
+> that the solution can't be taken as it is.
 
-== Series Details ==
+Please fix XE first. XE is supposed to lead here with all new platform
+support and uapi additions, i915-gem is supposed to be completely in
+feature freeze. And exceptions need really good reasons.
 
-Series: Increase fastwake sync pulse count as a quirk (rev3)
-URL   : https://patchwork.freedesktop.org/series/137524/
-State : success
+> > That does not inspire confidence at all.
+> 
+> Consider that most of the patches are refactoring, only the last
+> patch is doing the real job. That's because the first workaround
+> was already merged a while ago. While XE didn't need the
+> refactorings I made.
+> 
+> > Second, I don't think anyone understands the entire engine/ctx locking
+> > design in i915-gem. And the fix for that was to make as much as absolutely
+> > possible immutable. Yes the implementation looks correct, but when I
+> > looked at the much, much simpler xe implementation I'm pretty sure I've
+> > found an issue there too. Here I can't even tell.
+> 
+> The locking is fairly simple, when the user wants to set a
+> specific CCS mode, I take the wakrefe lock and I check no one is
+> holding it. This way I am sure that I am the only user of the GPU
+> (otherwise the GPU would be off).
+> 
+> I added one single lock to be used for the for_each_uabi_engine.
+> It's not really required but I really want to be sure that I am
+> not changing the CCS mode while someone else is using the uabi
+> engines.
+> 
+> I'm also adding Joonas in Cc with whom I discussed many details
+> of the implementation. I would really appreaciate to know what
+> exactly is wrong here and what are the necessary changes needed
+> to get the series merged.
 
-== Summary ==
+This is i915-gem. Locking is never simple here, and I think that entire
+journey on the mmap confusion shows how little people understand how much
+complexity and confusion and i915-gem being special there really is.
 
-CI Bug Log - changes from CI_DRM_15338 -> Patchwork_137524v3
-====================================================
+You're really not making a good case that you understand this stuff here,
+which really doesn't make me enthusiastic about considering an uapi
+extension for i915-gem.
 
-Summary
--------
-
-  **SUCCESS**
-
-  No regressions found.
-
-  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_137524v3/index.html
-
-Participating hosts (39 -> 38)
-------------------------------
-
-  Additional (1): bat-arlh-3 
-  Missing    (2): bat-arls-1 fi-snb-2520m 
-
-Known issues
-------------
-
-  Here are the changes found in Patchwork_137524v3 that come from known issues:
-
-### IGT changes ###
-
-#### Issues hit ####
-
-  * igt@core_auth@basic-auth:
-    - bat-adlp-9:         [PASS][1] -> [DMESG-WARN][2] ([i915#12119]) +50 other tests dmesg-warn
-   [1]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_15338/bat-adlp-9/igt@core_auth@basic-auth.html
-   [2]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_137524v3/bat-adlp-9/igt@core_auth@basic-auth.html
-
-  * igt@i915_selftest@live@workarounds:
-    - bat-mtlp-8:         [PASS][3] -> [ABORT][4] ([i915#12062])
-   [3]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_15338/bat-mtlp-8/igt@i915_selftest@live@workarounds.html
-   [4]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_137524v3/bat-mtlp-8/igt@i915_selftest@live@workarounds.html
-
-  * igt@kms_flip@basic-flip-vs-wf_vblank@a-dp1:
-    - bat-adlp-9:         [PASS][5] -> [DMESG-WARN][6] ([i915#1982])
-   [5]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_15338/bat-adlp-9/igt@kms_flip@basic-flip-vs-wf_vblank@a-dp1.html
-   [6]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_137524v3/bat-adlp-9/igt@kms_flip@basic-flip-vs-wf_vblank@a-dp1.html
-
-  * igt@kms_psr@psr-cursor-plane-move@edp-1:
-    - bat-jsl-1:          [PASS][7] -> [SKIP][8] ([i915#9688]) +3 other tests skip
-   [7]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_15338/bat-jsl-1/igt@kms_psr@psr-cursor-plane-move@edp-1.html
-   [8]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_137524v3/bat-jsl-1/igt@kms_psr@psr-cursor-plane-move@edp-1.html
-
-  
-  {name}: This element is suppressed. This means it is ignored when computing
-          the status of the difference (SUCCESS, WARNING, or FAILURE).
-
-  [i915#11786]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/11786
-  [i915#12062]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/12062
-  [i915#12119]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/12119
-  [i915#1982]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/1982
-  [i915#9318]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/9318
-  [i915#9688]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/9688
-
-
-Build changes
--------------
-
-  * Linux: CI_DRM_15338 -> Patchwork_137524v3
-
-  CI-20190529: 20190529
-  CI_DRM_15338: c689a348137cb6f8934a9be49438bafe413b97d5 @ git://anongit.freedesktop.org/gfx-ci/linux
-  IGT_8000: fba44baafa5d79b6eed52fa24234781e8e47beb8 @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git
-  Patchwork_137524v3: c689a348137cb6f8934a9be49438bafe413b97d5 @ git://anongit.freedesktop.org/gfx-ci/linux
-
-== Logs ==
-
-For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_137524v3/index.html
-
---===============1659243220124871512==
-Content-Type: text/html; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-
-
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
- <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-  <title>Project List - Patchwork</title>
-  <style id="css-table-select" type="text/css">
-   td { padding: 2pt; }
-  </style>
-</head>
-<body>
-
-
-<b>Patch Details</b>
-<table>
-<tr><td><b>Series:</b></td><td>Increase fastwake sync pulse count as a quirk (rev3)</td></tr>
-<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/137524/">https://patchwork.freedesktop.org/series/137524/</a></td></tr>
-<tr><td><b>State:</b></td><td>success</td></tr>
-
-    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_137524v3/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_137524v3/index.html</a></td></tr>
-
-</table>
-
-
-    <h1>CI Bug Log - changes from CI_DRM_15338 -&gt; Patchwork_137524v3</h1>
-<h2>Summary</h2>
-<p><strong>SUCCESS</strong></p>
-<p>No regressions found.</p>
-<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_137524v3/index.html</p>
-<h2>Participating hosts (39 -&gt; 38)</h2>
-<p>Additional (1): bat-arlh-3 <br />
-  Missing    (2): bat-arls-1 fi-snb-2520m </p>
-<h2>Known issues</h2>
-<p>Here are the changes found in Patchwork_137524v3 that come from known issues:</p>
-<h3>IGT changes</h3>
-<h4>Issues hit</h4>
-<ul>
-<li>
-<p>igt@core_auth@basic-auth:</p>
-<ul>
-<li>bat-adlp-9:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_15338/bat-adlp-9/igt@core_auth@basic-auth.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_137524v3/bat-adlp-9/igt@core_auth@basic-auth.html">DMESG-WARN</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/12119">i915#12119</a>) +50 other tests dmesg-warn</li>
-</ul>
-</li>
-<li>
-<p>igt@i915_selftest@live@workarounds:</p>
-<ul>
-<li>bat-mtlp-8:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_15338/bat-mtlp-8/igt@i915_selftest@live@workarounds.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_137524v3/bat-mtlp-8/igt@i915_selftest@live@workarounds.html">ABORT</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/12062">i915#12062</a>)</li>
-</ul>
-</li>
-<li>
-<p>igt@kms_flip@basic-flip-vs-wf_vblank@a-dp1:</p>
-<ul>
-<li>bat-adlp-9:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_15338/bat-adlp-9/igt@kms_flip@basic-flip-vs-wf_vblank@a-dp1.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_137524v3/bat-adlp-9/igt@kms_flip@basic-flip-vs-wf_vblank@a-dp1.html">DMESG-WARN</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/1982">i915#1982</a>)</li>
-</ul>
-</li>
-<li>
-<p>igt@kms_psr@psr-cursor-plane-move@edp-1:</p>
-<ul>
-<li>bat-jsl-1:          <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_15338/bat-jsl-1/igt@kms_psr@psr-cursor-plane-move@edp-1.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_137524v3/bat-jsl-1/igt@kms_psr@psr-cursor-plane-move@edp-1.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/9688">i915#9688</a>) +3 other tests skip</li>
-</ul>
-</li>
-</ul>
-<p>{name}: This element is suppressed. This means it is ignored when computing<br />
-          the status of the difference (SUCCESS, WARNING, or FAILURE).</p>
-<h2>Build changes</h2>
-<ul>
-<li>Linux: CI_DRM_15338 -&gt; Patchwork_137524v3</li>
-</ul>
-<p>CI-20190529: 20190529<br />
-  CI_DRM_15338: c689a348137cb6f8934a9be49438bafe413b97d5 @ git://anongit.freedesktop.org/gfx-ci/linux<br />
-  IGT_8000: fba44baafa5d79b6eed52fa24234781e8e47beb8 @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git<br />
-  Patchwork_137524v3: c689a348137cb6f8934a9be49438bafe413b97d5 @ git://anongit.freedesktop.org/gfx-ci/linux</p>
-
-</body>
-</html>
-
---===============1659243220124871512==--
+Cheers, Sima
+-- 
+Simona Vetter
+Software Engineer, Intel Corporation
+http://blog.ffwll.ch
