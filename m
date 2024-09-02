@@ -4,67 +4,27 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1B4BFCA0ED3
-	for <intel-gfx@archiver.kernel.org>; Mon,  2 Sep 2024 07:36:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0FBEBCD13CF
+	for <intel-gfx@archiver.kernel.org>; Mon,  2 Sep 2024 07:49:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B21B610E223;
-	Mon,  2 Sep 2024 07:36:30 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="QaPNXadH";
-	dkim-atps=neutral
-Received: from mail-ot1-f51.google.com (mail-ot1-f51.google.com
- [209.85.210.51])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0E0D210E216;
- Mon,  2 Sep 2024 07:36:29 +0000 (UTC)
-Received: by mail-ot1-f51.google.com with SMTP id
- 46e09a7af769-70f63afb792so1751504a34.1; 
- Mon, 02 Sep 2024 00:36:29 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1725262588; x=1725867388; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=fA1r43W3Mqfhdc614VDk/Bo2YVo04K9ABi/DH+AdGfE=;
- b=QaPNXadHByyY7b/JtSXUzlU5dno3b7GboEw+czCSP+uL1+AcXnVSy70IQdgVcjsWaJ
- aU0MZ6PYeUxKVIE6e/GD8MEQxJNNC0T2LmWbSRt10cb+oqlAxhQoQJlexNZ5z6iQ43Ah
- gczl5LD8WaEw2yTjs6o+8qMj2l3NREsL1gFSdYkxoHzeQVbJbaO2OFdR5/0QqcYk3iDY
- SKpicXb/5vHZaNgPfS1JaJAGFqVeM7vBATGnBiZNpiU2ztjwkFLg1L+bFwNP61aFIrbk
- hfSdmJhsOTrceBKrcuZaMEM3YRP872cKbdCn9TRLCcxDsFOAn3uSnMKWPTYRx0xo7hCJ
- 8k+A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1725262588; x=1725867388;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=fA1r43W3Mqfhdc614VDk/Bo2YVo04K9ABi/DH+AdGfE=;
- b=pYZv5PnDAuQR6Hw7w090C5I94xDdAmpTgQCapA1WiRUk3oXsEukI9lDN98RLPTiJtz
- ExYYTCpZI2lrSoEXIM8jo+YLjc3qd36azGW0IqAgxz8cvKO29Z38+BgOgK79/3zINd+G
- 7PbOSL4O5lyA7S83HHrBZXSNqKwNvpvqERc76TSuSYdsh3osrJH6Y0s5BJok/RZAcXKZ
- zvoRiMLPV4UUaJmkP6GcZe+2Ji6FD8IkYnpjgRyND4V/NxaP0fD/i/sj8Pp9MOaky04t
- bbo8V0DkJR/VIrZD7nIMFIi6Ui3bRvALbuo5XYu1A/ctuie6/zNFB+kXR+cVdic/kmjF
- QmjA==
-X-Forwarded-Encrypted: i=1;
- AJvYcCUbhR+dlVIWbRQvzMBWz+5yBu/ivICP8E0qKp0aklzJKuFnora+58N4JSELRhscWnocJM5mSr/ykeU=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yy+8NavGFnbQBlUvBrZ7ZVj8kKlCev/HGi8PJ/wshTbT57S+g0M
- Vmaj+A81YUbXrMzwv+pKkrlq2fPd6NB5fUV3OSzLV+JOnq267VazPikS71Y/
-X-Google-Smtp-Source: AGHT+IFJ1q5A9ivLtFWDa0aR2zqV9Ck2TMR38wNLsLdgW6w0E9It5/Yr9+51I5Eg8mJGD1DJnC3z5Q==
-X-Received: by 2002:a05:6830:4194:b0:703:651b:382f with SMTP id
- 46e09a7af769-70f5c3447bfmr15604350a34.3.1725262587685; 
- Mon, 02 Sep 2024 00:36:27 -0700 (PDT)
-Received: from localhost ([192.55.54.41]) by smtp.gmail.com with ESMTPSA id
- d2e1a72fcca58-715e55a594bsm6307326b3a.55.2024.09.02.00.36.26
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 02 Sep 2024 00:36:27 -0700 (PDT)
-From: Juha-Pekka Heikkila <juhapekka.heikkila@gmail.com>
-To: intel-xe@lists.freedesktop.org,
-	intel-gfx@lists.freedesktop.org
-Cc: Juha-Pekka Heikkila <juhapekka.heikkila@gmail.com>, imre.deak@intel.com,
- rodrigo.vivi@intel.com, maarten.lankhorst@linux.intel.com
-Subject: [PATCH v3] drm/i915/display: Fix BMG CCS modifiers
-Date: Mon,  2 Sep 2024 10:40:21 +0300
-Message-ID: <20240902074021.459480-1-juhapekka.heikkila@gmail.com>
-X-Mailer: git-send-email 2.45.2
+	by gabe.freedesktop.org (Postfix) with ESMTP id A6D1610E22C;
+	Mon,  2 Sep 2024 07:49:17 +0000 (UTC)
+Received: from 2413ebb6fbb6 (emeril.freedesktop.org [131.252.210.167])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 380D310E225;
+ Mon,  2 Sep 2024 07:49:16 +0000 (UTC)
+Content-Type: multipart/alternative;
+ boundary="===============3514681263840533710=="
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Subject: =?utf-8?q?=E2=9C=97_Fi=2ECI=2EBAT=3A_failure_for_Increase_fastwake_sync_puls?=
+ =?utf-8?q?e_count_as_a_quirk_=28rev3=29?=
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: =?utf-8?q?Jouni_H=C3=B6gander?= <jouni.hogander@intel.com>
+Cc: intel-gfx@lists.freedesktop.org
+Date: Mon, 02 Sep 2024 07:49:16 -0000
+Message-ID: <172526335622.888834.989142770419900755@2413ebb6fbb6>
+X-Patchwork-Hint: ignore
+References: <20240902064241.1020965-1-jouni.hogander@intel.com>
+In-Reply-To: <20240902064241.1020965-1-jouni.hogander@intel.com>
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,31 +37,197 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Let I915_FORMAT_MOD_4_TILED_BMG_CCS show up as supported modifier
+--===============3514681263840533710==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
 
-Fixes: 97c6efb36497 ("drm/i915/display: Plane capability for 64k phys alignment")
-Signed-off-by: Juha-Pekka Heikkila <juhapekka.heikkila@gmail.com>
----
- drivers/gpu/drm/i915/display/skl_universal_plane.c | 3 +++
- 1 file changed, 3 insertions(+)
+== Series Details ==
 
-diff --git a/drivers/gpu/drm/i915/display/skl_universal_plane.c b/drivers/gpu/drm/i915/display/skl_universal_plane.c
-index 9452cad41d07..17d4c880ecc4 100644
---- a/drivers/gpu/drm/i915/display/skl_universal_plane.c
-+++ b/drivers/gpu/drm/i915/display/skl_universal_plane.c
-@@ -2453,6 +2453,9 @@ static u8 skl_get_plane_caps(struct drm_i915_private *i915,
- 	if (gen12_plane_has_mc_ccs(i915, plane_id))
- 		caps |= INTEL_PLANE_CAP_CCS_MC;
- 
-+	if (DISPLAY_VER(i915) >= 14 && IS_DGFX(i915))
-+		caps |= INTEL_PLANE_CAP_NEED64K_PHYS;
-+
- 	return caps;
- }
- 
--- 
-2.45.2
+Series: Increase fastwake sync pulse count as a quirk (rev3)
+URL   : https://patchwork.freedesktop.org/series/137524/
+State : failure
 
+== Summary ==
+
+CI Bug Log - changes from CI_DRM_15338 -> Patchwork_137524v3
+====================================================
+
+Summary
+-------
+
+  **FAILURE**
+
+  Serious unknown changes coming with Patchwork_137524v3 absolutely need to be
+  verified manually.
+  
+  If you think the reported changes have nothing to do with the changes
+  introduced in Patchwork_137524v3, please notify your bug team (I915-ci-infra@lists.freedesktop.org) to allow them
+  to document this new failure mode, which will reduce false positives in CI.
+
+  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_137524v3/index.html
+
+Participating hosts (39 -> 38)
+------------------------------
+
+  Additional (1): bat-arlh-3 
+  Missing    (2): bat-arls-1 fi-snb-2520m 
+
+Possible new issues
+-------------------
+
+  Here are the unknown changes that may have been introduced in Patchwork_137524v3:
+
+### IGT changes ###
+
+#### Possible regressions ####
+
+  * igt@core_auth@basic-auth:
+    - bat-adlp-9:         [PASS][1] -> [DMESG-WARN][2] +50 other tests dmesg-warn
+   [1]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_15338/bat-adlp-9/igt@core_auth@basic-auth.html
+   [2]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_137524v3/bat-adlp-9/igt@core_auth@basic-auth.html
+
+  
+Known issues
+------------
+
+  Here are the changes found in Patchwork_137524v3 that come from known issues:
+
+### IGT changes ###
+
+#### Issues hit ####
+
+  * igt@i915_selftest@live@workarounds:
+    - bat-mtlp-8:         [PASS][3] -> [ABORT][4] ([i915#12062])
+   [3]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_15338/bat-mtlp-8/igt@i915_selftest@live@workarounds.html
+   [4]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_137524v3/bat-mtlp-8/igt@i915_selftest@live@workarounds.html
+
+  * igt@kms_flip@basic-flip-vs-wf_vblank@a-dp1:
+    - bat-adlp-9:         [PASS][5] -> [DMESG-WARN][6] ([i915#1982])
+   [5]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_15338/bat-adlp-9/igt@kms_flip@basic-flip-vs-wf_vblank@a-dp1.html
+   [6]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_137524v3/bat-adlp-9/igt@kms_flip@basic-flip-vs-wf_vblank@a-dp1.html
+
+  * igt@kms_psr@psr-cursor-plane-move@edp-1:
+    - bat-jsl-1:          [PASS][7] -> [SKIP][8] ([i915#9688]) +3 other tests skip
+   [7]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_15338/bat-jsl-1/igt@kms_psr@psr-cursor-plane-move@edp-1.html
+   [8]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_137524v3/bat-jsl-1/igt@kms_psr@psr-cursor-plane-move@edp-1.html
+
+  
+  {name}: This element is suppressed. This means it is ignored when computing
+          the status of the difference (SUCCESS, WARNING, or FAILURE).
+
+  [i915#11786]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/11786
+  [i915#12062]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/12062
+  [i915#1982]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/1982
+  [i915#9318]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/9318
+  [i915#9688]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/9688
+
+
+Build changes
+-------------
+
+  * Linux: CI_DRM_15338 -> Patchwork_137524v3
+
+  CI-20190529: 20190529
+  CI_DRM_15338: c689a348137cb6f8934a9be49438bafe413b97d5 @ git://anongit.freedesktop.org/gfx-ci/linux
+  IGT_8000: fba44baafa5d79b6eed52fa24234781e8e47beb8 @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git
+  Patchwork_137524v3: c689a348137cb6f8934a9be49438bafe413b97d5 @ git://anongit.freedesktop.org/gfx-ci/linux
+
+== Logs ==
+
+For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_137524v3/index.html
+
+--===============3514681263840533710==
+Content-Type: text/html; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <title>Project List - Patchwork</title>
+  <style id="css-table-select" type="text/css">
+   td { padding: 2pt; }
+  </style>
+</head>
+<body>
+
+
+<b>Patch Details</b>
+<table>
+<tr><td><b>Series:</b></td><td>Increase fastwake sync pulse count as a quirk (rev3)</td></tr>
+<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/137524/">https://patchwork.freedesktop.org/series/137524/</a></td></tr>
+<tr><td><b>State:</b></td><td>failure</td></tr>
+
+    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_137524v3/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_137524v3/index.html</a></td></tr>
+
+</table>
+
+
+    <h1>CI Bug Log - changes from CI_DRM_15338 -&gt; Patchwork_137524v3</h1>
+<h2>Summary</h2>
+<p><strong>FAILURE</strong></p>
+<p>Serious unknown changes coming with Patchwork_137524v3 absolutely need to be<br />
+  verified manually.</p>
+<p>If you think the reported changes have nothing to do with the changes<br />
+  introduced in Patchwork_137524v3, please notify your bug team (I915-ci-infra@lists.freedesktop.org) to allow them<br />
+  to document this new failure mode, which will reduce false positives in CI.</p>
+<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_137524v3/index.html</p>
+<h2>Participating hosts (39 -&gt; 38)</h2>
+<p>Additional (1): bat-arlh-3 <br />
+  Missing    (2): bat-arls-1 fi-snb-2520m </p>
+<h2>Possible new issues</h2>
+<p>Here are the unknown changes that may have been introduced in Patchwork_137524v3:</p>
+<h3>IGT changes</h3>
+<h4>Possible regressions</h4>
+<ul>
+<li>igt@core_auth@basic-auth:<ul>
+<li>bat-adlp-9:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_15338/bat-adlp-9/igt@core_auth@basic-auth.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_137524v3/bat-adlp-9/igt@core_auth@basic-auth.html">DMESG-WARN</a> +50 other tests dmesg-warn</li>
+</ul>
+</li>
+</ul>
+<h2>Known issues</h2>
+<p>Here are the changes found in Patchwork_137524v3 that come from known issues:</p>
+<h3>IGT changes</h3>
+<h4>Issues hit</h4>
+<ul>
+<li>
+<p>igt@i915_selftest@live@workarounds:</p>
+<ul>
+<li>bat-mtlp-8:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_15338/bat-mtlp-8/igt@i915_selftest@live@workarounds.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_137524v3/bat-mtlp-8/igt@i915_selftest@live@workarounds.html">ABORT</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/12062">i915#12062</a>)</li>
+</ul>
+</li>
+<li>
+<p>igt@kms_flip@basic-flip-vs-wf_vblank@a-dp1:</p>
+<ul>
+<li>bat-adlp-9:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_15338/bat-adlp-9/igt@kms_flip@basic-flip-vs-wf_vblank@a-dp1.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_137524v3/bat-adlp-9/igt@kms_flip@basic-flip-vs-wf_vblank@a-dp1.html">DMESG-WARN</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/1982">i915#1982</a>)</li>
+</ul>
+</li>
+<li>
+<p>igt@kms_psr@psr-cursor-plane-move@edp-1:</p>
+<ul>
+<li>bat-jsl-1:          <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_15338/bat-jsl-1/igt@kms_psr@psr-cursor-plane-move@edp-1.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_137524v3/bat-jsl-1/igt@kms_psr@psr-cursor-plane-move@edp-1.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/9688">i915#9688</a>) +3 other tests skip</li>
+</ul>
+</li>
+</ul>
+<p>{name}: This element is suppressed. This means it is ignored when computing<br />
+          the status of the difference (SUCCESS, WARNING, or FAILURE).</p>
+<h2>Build changes</h2>
+<ul>
+<li>Linux: CI_DRM_15338 -&gt; Patchwork_137524v3</li>
+</ul>
+<p>CI-20190529: 20190529<br />
+  CI_DRM_15338: c689a348137cb6f8934a9be49438bafe413b97d5 @ git://anongit.freedesktop.org/gfx-ci/linux<br />
+  IGT_8000: fba44baafa5d79b6eed52fa24234781e8e47beb8 @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git<br />
+  Patchwork_137524v3: c689a348137cb6f8934a9be49438bafe413b97d5 @ git://anongit.freedesktop.org/gfx-ci/linux</p>
+
+</body>
+</html>
+
+--===============3514681263840533710==--
