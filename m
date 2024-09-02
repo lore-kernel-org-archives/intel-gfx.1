@@ -4,64 +4,70 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B5AB9CD13CF
-	for <intel-gfx@archiver.kernel.org>; Mon,  2 Sep 2024 09:11:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 53820CD13CF
+	for <intel-gfx@archiver.kernel.org>; Mon,  2 Sep 2024 10:20:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2984E10E275;
-	Mon,  2 Sep 2024 09:11:18 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1DD8510E282;
+	Mon,  2 Sep 2024 10:20:37 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="kY644Av9";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="GrvWrLVI";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.12])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 634AD10E270;
- Mon,  2 Sep 2024 09:11:16 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.18])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0707910E281;
+ Mon,  2 Sep 2024 10:20:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1725268277; x=1756804277;
- h=message-id:date:mime-version:subject:to:cc:references:
- from:in-reply-to:content-transfer-encoding;
- bh=y8JOYv3zqvR4zXTBElS17o9P6N9q3t/mIuVGm9ATAq8=;
- b=kY644Av9F+ydxOGDRPjUkhH0OWwml1kJP0OTkhLxmhJzPbV7Hg9d2byd
- ilyMgkLF/hFkDuo0TgVA+kJ6J+RlxXJ90SCDjxNUx+qQ6gBeENYrZ47m8
- uXhqFb7NB5WYnETz3fH6F7nxZtL27GlcWiD6B/EVzblUuMxFLHZetuGMI
- +qyXDRcRmAzJup46SuuEWo4onio2WC/9tGrNsW1oapckN3+tOAXcyzija
- GGa2P57itWHq4od7XSSLj7WeZbqPXsrjoDM82NX0k/D3DJxpmF+JqhjZq
- p+tqnDS7x476O3qufTWuKepggzYPaKi+yMCSE6LAC+6QkWxG2WPtdylgx Q==;
-X-CSE-ConnectionGUID: +SGcAbPWS0uS7XYofDTZ9w==
-X-CSE-MsgGUID: Z0leZoMgRWat73QIM4fVzQ==
-X-IronPort-AV: E=McAfee;i="6700,10204,11182"; a="27713223"
-X-IronPort-AV: E=Sophos;i="6.10,195,1719903600"; d="scan'208";a="27713223"
-Received: from orviesa008.jf.intel.com ([10.64.159.148])
- by fmvoesa106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 02 Sep 2024 02:11:17 -0700
-X-CSE-ConnectionGUID: WaLg3gnKRKSM6JP/hG8vew==
-X-CSE-MsgGUID: avjXx4w4SQq1KBuS6j1uUA==
+ t=1725272435; x=1756808435;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:in-reply-to;
+ bh=vAyw3DGRUW2gmpJRcyy957TXVSU43KBF/YFLb11XwAs=;
+ b=GrvWrLVIX7ELath3BNnFn+nMSNlWbXHgljFEo89cOA5LUjqo4TDqdzF8
+ C06sXPRpIlKcKXQMNCn5d7WPslpT4JRkJP9XhWPtPNB8axzWY63wV77nN
+ FMvIpbRZ0DoqR+w58FmP2kfLIh8MVFDgxsK9hu/e7qWlGTYrHRCf7J8TE
+ Hn8M4/vuUSNG0WLWhfRwQLCl760If/ohBQeOX04z4AJQ1dlx0UXjUDcNR
+ GBxExfnUT96sKCDF1AX64ChNq6QCiddBs8DQ+g3nBnTm/NNXXc9LfpNs6
+ 3clQkC6IKiiCNHNX4oKUbxfXoZkCCnOyYry1GYC1m77qwaohU/VKGmW1j w==;
+X-CSE-ConnectionGUID: IvXoj6TxQGuSRdL7mCJ3Vw==
+X-CSE-MsgGUID: DEvRmmo6TDmKhwgHb6PxZA==
+X-IronPort-AV: E=McAfee;i="6700,10204,11182"; a="23360153"
+X-IronPort-AV: E=Sophos;i="6.10,195,1719903600"; d="scan'208";a="23360153"
+Received: from orviesa006.jf.intel.com ([10.64.159.146])
+ by fmvoesa112.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 02 Sep 2024 03:20:34 -0700
+X-CSE-ConnectionGUID: JKq8O8QDSIm7GjIdEJwMZQ==
+X-CSE-MsgGUID: /q6j8+V8QBKhxdhbT6nl8g==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.10,195,1719903600"; d="scan'208";a="65272580"
-Received: from aravind-dev.iind.intel.com (HELO [10.145.162.146])
- ([10.145.162.146])
- by orviesa008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 02 Sep 2024 02:11:12 -0700
-Message-ID: <7724fc32-3dbe-41dd-ad13-e91f7e6ebd8c@linux.intel.com>
-Date: Mon, 2 Sep 2024 14:44:21 +0530
+X-IronPort-AV: E=Sophos;i="6.10,195,1719903600"; d="scan'208";a="64923875"
+Received: from smile.fi.intel.com ([10.237.72.54])
+ by orviesa006.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 02 Sep 2024 03:20:31 -0700
+Received: from andy by smile.fi.intel.com with local (Exim 4.98)
+ (envelope-from <andriy.shevchenko@linux.intel.com>)
+ id 1sl4Ae-00000004Jho-2Owa; Mon, 02 Sep 2024 13:20:28 +0300
+Date: Mon, 2 Sep 2024 13:20:28 +0300
+From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+To: Jani Nikula <jani.nikula@linux.intel.com>
+Cc: Nathan Chancellor <nathan@kernel.org>,
+ Nick Desaulniers <ndesaulniers@google.com>,
+ Bill Wendling <morbo@google.com>, Justin Stitt <justinstitt@google.com>,
+ intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Tvrtko Ursulin <tursulin@ursulin.net>,
+ David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>
+Subject: Re: [PATCH v1 0/2] drm/i915/fence: A couple of build fixes
+Message-ID: <ZtWRbMAMUxZyq5xz@smile.fi.intel.com>
+References: <20240829155950.1141978-1-andriy.shevchenko@linux.intel.com>
+ <87cylrwahb.fsf@intel.com> <ZtCnhXwtO-gd1fMf@smile.fi.intel.com>
+ <ZtC5oXSzUuuIgLiQ@smile.fi.intel.com>
+ <20240829182255.GA1468662@thelio-3990X> <87a5gvw4y9.fsf@intel.com>
+ <87frqiv4s2.fsf@intel.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 1/3] drm: Introduce device wedged event
-To: Raag Jadav <raag.jadav@intel.com>, airlied@gmail.com, daniel@ffwll.ch,
- lucas.demarchi@intel.com, thomas.hellstrom@linux.intel.com,
- rodrigo.vivi@intel.com, jani.nikula@linux.intel.com,
- joonas.lahtinen@linux.intel.com, tursulin@ursulin.net
-Cc: intel-xe@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, himal.prasad.ghimiray@intel.com,
- francois.dugast@intel.com, anshuman.gupta@intel.com,
- bellekallu.rajkiran@intel.com, saikishore.konda@intel.com
-References: <20240902074859.2992849-1-raag.jadav@intel.com>
- <20240902074859.2992849-2-raag.jadav@intel.com>
-Content-Language: en-US
-From: Aravind Iddamsetty <aravind.iddamsetty@linux.intel.com>
-In-Reply-To: <20240902074859.2992849-2-raag.jadav@intel.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <87frqiv4s2.fsf@intel.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,75 +83,24 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
+On Mon, Sep 02, 2024 at 11:27:57AM +0300, Jani Nikula wrote:
+> On Thu, 29 Aug 2024, Jani Nikula <jani.nikula@linux.intel.com> wrote:
+> > The TL;DR is,
+> >
+> > Reviewed-by: Jani Nikula <jani.nikula@intel.com>
+> >
+> > on the series.
+> 
+> Both pushed to drm-intel-next, thanks for the patches and discussion.
+> 
+> I amended the commit message about clang, config options and commit
+> 6863f5643dd7 ("kbuild: allow Clang to find unused static inline
+> functions for W=1 build") while pushing.
 
-On 02/09/24 13:18, Raag Jadav wrote:
-> Introduce device wedged event, which will notify userspace of wedged
-> (hanged/unusable) state of the DRM device through a uevent. This is
-> useful especially in cases where the device is in unrecoverable state
-> and requires userspace intervention for recovery.
->
-> Purpose of this implementation is to be vendor agnostic. Userspace
-> consumers (sysadmin) can define udev rules to parse this event and
-> take respective action to recover the device.
->
-> Consumer expectations:
-> ----------------------
-> 1) Unbind driver
-> 2) Reset bus device
-> 3) Re-bind driver
->
-> Signed-off-by: Raag Jadav <raag.jadav@intel.com>
-> ---
->  drivers/gpu/drm/drm_drv.c | 21 +++++++++++++++++++++
->  include/drm/drm_drv.h     |  1 +
->  2 files changed, 22 insertions(+)
->
-> diff --git a/drivers/gpu/drm/drm_drv.c b/drivers/gpu/drm/drm_drv.c
-> index 93543071a500..dc55cc237d89 100644
-> --- a/drivers/gpu/drm/drm_drv.c
-> +++ b/drivers/gpu/drm/drm_drv.c
-> @@ -499,6 +499,27 @@ void drm_dev_unplug(struct drm_device *dev)
->  }
->  EXPORT_SYMBOL(drm_dev_unplug);
->  
-> +/**
-> + * drm_dev_wedged - declare DRM device as wedged
-> + * @dev: DRM device
-> + *
-> + * This declares a DRM device specified by @dev as wedged (hanged/unusable)
-this doesn't seem to set any drm state as wedged, it is just sending an
-uevent. you might need to correct the above statement.
+It all makes sense. Thank you!
 
-Thanks,
-Aravind.
-> + * and generates a uevent for it, on the basis of which, userspace may take
-> + * respective action to recover the device.
-> + * Currently we only set WEDGED=1 in the uevent environment, but this can
-> + * be expanded in the future.
-> + */
-> +void drm_dev_wedged(struct drm_device *dev)
-> +{
-> +	char *event_string = "WEDGED=1";
-> +	char *envp[] = { event_string, NULL };
-> +
-> +	DRM_INFO("%s: device wedged, generating uevent\n", dev_name(dev->dev));
-> +
-> +	kobject_uevent_env(&dev->primary->kdev->kobj, KOBJ_CHANGE, envp);
-> +}
-> +EXPORT_SYMBOL(drm_dev_wedged);
-> +
->  /*
->   * DRM internal mount
->   * We want to be able to allocate our own "struct address_space" to control
-> diff --git a/include/drm/drm_drv.h b/include/drm/drm_drv.h
-> index cd37936c3926..a0b2d1435b86 100644
-> --- a/include/drm/drm_drv.h
-> +++ b/include/drm/drm_drv.h
-> @@ -489,6 +489,7 @@ void drm_put_dev(struct drm_device *dev);
->  bool drm_dev_enter(struct drm_device *dev, int *idx);
->  void drm_dev_exit(int idx);
->  void drm_dev_unplug(struct drm_device *dev);
-> +void drm_dev_wedged(struct drm_device *dev);
->  
->  /**
->   * drm_dev_is_unplugged - is a DRM device unplugged
+-- 
+With Best Regards,
+Andy Shevchenko
+
+
