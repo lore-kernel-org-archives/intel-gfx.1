@@ -4,52 +4,60 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8473FCD13CF
-	for <intel-gfx@archiver.kernel.org>; Tue,  3 Sep 2024 12:52:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 226D5CD342E
+	for <intel-gfx@archiver.kernel.org>; Tue,  3 Sep 2024 13:02:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 34FF610E590;
-	Tue,  3 Sep 2024 12:52:50 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B48D710E593;
+	Tue,  3 Sep 2024 13:02:24 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; secure) header.d=kapsi.fi header.i=@kapsi.fi header.b="Bid52OYq";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="VHe3VOFN";
 	dkim-atps=neutral
-Received: from mail.kapsi.fi (mail-auth.kapsi.fi [91.232.154.24])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A0CF010E0C7;
- Sun,  1 Sep 2024 19:28:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=kapsi.fi;
- s=20161220; h=References:Cc:To:Subject:Message-ID:From:
- Content-Transfer-Encoding:Content-Type:Date:MIME-Version:Sender:Reply-To:
- Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
- Resent-To:Resent-Cc:Resent-Message-ID:In-Reply-To:List-Id:List-Help:
- List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=spF0Jr7oCMuWWYaBUzIxTaZcwLNlD+eaLp7borKRh1E=; b=Bid52OYqHgAOY7jLDJTSsnohsQ
- 8HJ/QIhi5h0NUynX9zGzoZSNow4+OW69kkDpBJISynN58L9uchwl5FYnRqu2WkA9jOsBWEU5E/sJN
- Bm3QNxpGw4AGQRgD1Fw6pxQbxhN8bZTfupp/RVObfDTGovrXqh1egiGL7t3lwNSSiFUUBv9DTTcRi
- OqzrUfhCzQMVbVax3u5Iv8Kri3uwKiIpA0JR77aSodJFLwvNMw6nl5GNr6Wt6GF8KqIU2k8cQB1En
- ruC2/k2kcHt2QzK9gnnbQMZ1xNV1QO+Z8CzanFI2jDo9sWOyDvhkJSFw4UBiXrToxNlgtg7Cj1XbF
- mZJmgTOw==;
-Received: from webng-gw.kapsi.fi ([91.232.154.200] helo=rainloop.kapsi.fi)
- by mail.kapsi.fi with esmtpsa (TLS1.3) tls
- TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.96)
- (envelope-from <jyri.sarha@iki.fi>) id 1skqFb-00EgmQ-3B;
- Sun, 01 Sep 2024 22:28:39 +0300
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.16])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7E36A10E5B0
+ for <intel-gfx@lists.freedesktop.org>; Tue,  3 Sep 2024 13:02:23 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1725368544; x=1756904544;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:content-transfer-encoding:in-reply-to;
+ bh=gPU8CmtQFcEUUSu4csHyQo85nlGwKr3uqIZhn+gimVg=;
+ b=VHe3VOFNM0IjGh/KoqpKaFJCAbginpPjpxYg34a8fayuIcebdWgWv1tZ
+ +yrnlIQK5k4BHgFi/BUV3oNiVsXRs6RVZJ35gVYNjb287nwsG+R88x+aP
+ eAy8TpBMvLGQD71i3p/ymt2RXgJ4Ev4BeL5qMFbHfcABy0f/uaX47EnXG
+ CmAbnmgxIxD0LOpplvjy2Rr5yPNoepTV46JegmO+XAoNN5rVLBCMqF4PB
+ D0DihjBklFTbdwiYgt4RXNuytOslDZFyDk+BCnJFjGZuZ72i9auK9guH4
+ jclqyL2mMABUVD2p/VhLpvvBPBbvYgU3LjMmeUzU2TArrWT8gPrkFLPuW A==;
+X-CSE-ConnectionGUID: jo8aM1iTSX2pQKPLIl8Qqg==
+X-CSE-MsgGUID: JJR7hOPaRYian3i5Sw259g==
+X-IronPort-AV: E=McAfee;i="6700,10204,11184"; a="24082304"
+X-IronPort-AV: E=Sophos;i="6.10,198,1719903600"; d="scan'208";a="24082304"
+Received: from fmviesa008.fm.intel.com ([10.60.135.148])
+ by orvoesa108.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 03 Sep 2024 06:02:24 -0700
+X-CSE-ConnectionGUID: gNtis+JTS+iXThEeakpXPw==
+X-CSE-MsgGUID: rb2rp4rOQque+VGL4uuFpQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.10,198,1719903600"; d="scan'208";a="64922419"
+Received: from stinkpipe.fi.intel.com (HELO stinkbox) ([10.237.72.74])
+ by fmviesa008.fm.intel.com with SMTP; 03 Sep 2024 06:02:21 -0700
+Received: by stinkbox (sSMTP sendmail emulation);
+ Tue, 03 Sep 2024 16:02:19 +0300
+Date: Tue, 3 Sep 2024 16:02:19 +0300
+From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
+To: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
+Cc: intel-gfx@lists.freedesktop.org, jani.nikula@linux.intel.com,
+ mitulkumar.ajitkumar.golani@intel.com
+Subject: Re: [PATCH 10/13] drm/i915/vrr: Avoid sending PUSH when VRR TG is
+ used with Fixed refresh rate
+Message-ID: <ZtcI2_aTCVI9kAvy@intel.com>
+References: <20240902080635.2946858-1-ankit.k.nautiyal@intel.com>
+ <20240902080635.2946858-11-ankit.k.nautiyal@intel.com>
 MIME-Version: 1.0
-Date: Sun, 01 Sep 2024 19:28:37 +0000
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
-From: jyri.sarha@iki.fi
-Message-ID: <765bab893c9859e4f73af2ea65e943dd913ec7f4@iki.fi>
-Subject: Re: [PATCH v3 43/81] drm/tilcdc: Run DRM default client setup
-To: "Thomas Zimmermann" <tzimmermann@suse.de>, daniel@ffwll.ch,
- airlied@gmail.com, jfalempe@redhat.com, javierm@redhat.com
-Cc: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
- intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
- nouveau@lists.freedesktop.org, "Tomi Valkeinen"
- <tomi.valkeinen@ideasonboard.com>
-References: undefined <20240830084456.77630-1-tzimmermann@suse.de>
-X-SA-Exim-Connect-IP: 91.232.154.200
-X-SA-Exim-Mail-From: jyri.sarha@iki.fi
-X-SA-Exim-Scanned: No (on mail.kapsi.fi); SAEximRunCond expanded to false
-X-Mailman-Approved-At: Tue, 03 Sep 2024 12:52:48 +0000
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20240902080635.2946858-11-ankit.k.nautiyal@intel.com>
+X-Patchwork-Hint: comment
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,63 +73,61 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-August 30, 2024 at 11:40 AM, "Thomas Zimmermann" <tzimmermann@suse.de mai=
-lto:tzimmermann@suse.de?to=3D%22Thomas%20Zimmermann%22%20%3Ctzimmermann%4=
-0suse.de%3E > wrote:
-
->=20
->=20Call drm_client_setup_with_color_mode() to run the kernel's default
-> client setup for DRM. Set fbdev_probe in struct drm_driver, so that
-> the client setup can start the common fbdev client.
->=20
->=20v3:
-> - add DRM_FBDEV_DMA_DRIVER_OPS macro
->=20
->=20Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
-> Cc: Jyri Sarha <jyri.sarha@iki.fi>
-> Cc: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
-
-Acked-by: Jyri Sarha <jyri.sarha@iki.fi>
-
-Thanks,
-Jyri
-
+On Mon, Sep 02, 2024 at 01:36:31PM +0530, Ankit Nautiyal wrote:
+> As per Bspec:68925: Push enable must be set if not configuring for a
+> fixed refresh rate (i.e Vmin == Flipline == Vmax is not true).
+> 
+> Signed-off-by: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
+> Reviewed-by: Mitul Golani <mitulkumar.ajitkumar.golani@intel.com>
 > ---
-> drivers/gpu/drm/tilcdc/tilcdc_drv.c | 5 ++++-
-> 1 file changed, 4 insertions(+), 1 deletion(-)
->=20
->=20diff --git a/drivers/gpu/drm/tilcdc/tilcdc_drv.c b/drivers/gpu/drm/ti=
-lcdc/tilcdc_drv.c
-> index cd5eefa06060..8c9f3705aa6c 100644
-> --- a/drivers/gpu/drm/tilcdc/tilcdc_drv.c
-> +++ b/drivers/gpu/drm/tilcdc/tilcdc_drv.c
-> @@ -14,6 +14,7 @@
-> #include <linux/pm_runtime.h>
->=20
->=20#include <drm/drm_atomic_helper.h>
-> +#include <drm/drm_client_setup.h>
-> #include <drm/drm_debugfs.h>
-> #include <drm/drm_drv.h>
-> #include <drm/drm_fbdev_dma.h>
-> @@ -374,7 +375,8 @@ static int tilcdc_init(const struct drm_driver *ddr=
-v, struct device *dev)
->  goto init_failed;
->  priv->is_registered =3D true;
->=20
->=20- drm_fbdev_dma_setup(ddev, bpp);
-> + drm_client_setup_with_color_mode(ddev, bpp);
-> +
->  return 0;
->=20
->=20init_failed:
-> @@ -472,6 +474,7 @@ DEFINE_DRM_GEM_DMA_FOPS(fops);
-> static const struct drm_driver tilcdc_driver =3D {
->  .driver_features =3D DRIVER_GEM | DRIVER_MODESET | DRIVER_ATOMIC,
->  DRM_GEM_DMA_DRIVER_OPS,
-> + DRM_FBDEV_DMA_DRIVER_OPS,
-> #ifdef CONFIG_DEBUG_FS
->  .debugfs_init =3D tilcdc_debugfs_init,
-> #endif
-> --=20
->=202.46.0
->
+>  drivers/gpu/drm/i915/display/intel_vrr.c | 9 +++++----
+>  1 file changed, 5 insertions(+), 4 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/i915/display/intel_vrr.c b/drivers/gpu/drm/i915/display/intel_vrr.c
+> index 03af50b9f9eb..5e947465c6e0 100644
+> --- a/drivers/gpu/drm/i915/display/intel_vrr.c
+> +++ b/drivers/gpu/drm/i915/display/intel_vrr.c
+> @@ -313,7 +313,7 @@ void intel_vrr_send_push(const struct intel_crtc_state *crtc_state)
+>  	struct intel_display *display = to_intel_display(crtc_state);
+>  	enum transcoder cpu_transcoder = crtc_state->cpu_transcoder;
+>  
+> -	if (!crtc_state->vrr.enable)
+> +	if (!crtc_state->vrr.enable || crtc_state->vrr.fixed_rr)
+
+Hmm. I wonder if we should keep vrr.enable meaning VRR actually
+enabled... Maybe not as that would complicate the readout/check
+a bit too much perhaps.
+
+But we could have some kind of helper for these "do we need to use
+push?" checks (eg. intel_vrr_use_push()).
+
+>  		return;
+>  
+>  	intel_de_write(display, TRANS_PUSH(display, cpu_transcoder),
+> @@ -325,7 +325,7 @@ bool intel_vrr_is_push_sent(const struct intel_crtc_state *crtc_state)
+>  	struct intel_display *display = to_intel_display(crtc_state);
+>  	enum transcoder cpu_transcoder = crtc_state->cpu_transcoder;
+>  
+> -	if (!crtc_state->vrr.enable)
+> +	if (!crtc_state->vrr.enable || crtc_state->vrr.fixed_rr)
+>  		return false;
+>  
+>  	return intel_de_read(display, TRANS_PUSH(display, cpu_transcoder)) & TRANS_PUSH_SEND;
+> @@ -339,8 +339,9 @@ void intel_vrr_enable(const struct intel_crtc_state *crtc_state)
+>  	if (!crtc_state->vrr.enable)
+>  		return;
+>  
+> -	intel_de_write(display, TRANS_PUSH(display, cpu_transcoder),
+> -		       TRANS_PUSH_EN);
+> +	if (!crtc_state->vrr.fixed_rr)
+> +		intel_de_write(display, TRANS_PUSH(display, cpu_transcoder),
+> +			       TRANS_PUSH_EN);
+>  
+>  	if (HAS_AS_SDP(display))
+>  		intel_de_write(display,
+> -- 
+> 2.45.2
+
+-- 
+Ville Syrjälä
+Intel
