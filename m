@@ -4,69 +4,65 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9E5A3ECE58A
-	for <intel-gfx@archiver.kernel.org>; Mon,  9 Sep 2024 12:37:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 660E8ECE589
+	for <intel-gfx@archiver.kernel.org>; Mon,  9 Sep 2024 12:37:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D54E310E53F;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2136A10E537;
 	Mon,  9 Sep 2024 12:36:59 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="VddFcR4g";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="VJv7FSE8";
 	dkim-atps=neutral
-Received: from mail-wr1-f53.google.com (mail-wr1-f53.google.com
- [209.85.221.53])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8FA1010E2DE;
- Mon,  9 Sep 2024 07:08:18 +0000 (UTC)
-Received: by mail-wr1-f53.google.com with SMTP id
- ffacd0b85a97d-374bfc395a5so2253369f8f.0; 
- Mon, 09 Sep 2024 00:08:18 -0700 (PDT)
+Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com
+ [209.85.128.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BBC0E10E86B;
+ Thu,  5 Sep 2024 12:20:28 +0000 (UTC)
+Received: by mail-wm1-f43.google.com with SMTP id
+ 5b1f17b1804b1-42bbe908380so5803705e9.2; 
+ Thu, 05 Sep 2024 05:20:28 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1725865697; x=1726470497; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1725538827; x=1726143627; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:message-id:date:subject:cc
  :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=miIa0uylE1UFUz+fjwRH8q3H5W2F4hzW6ItDHV+UbYY=;
- b=VddFcR4gQFKd4nBk6ZeE+dBo/WueZFdgzalDFXNjjzYWV9UD9cTDGEfRM/4QLULU0r
- J6x7A45hW6JRcviP7Ghj6+vqXiAQ1fDcQIKAv2CQDehNETRzIruoo5xi2QXHTvXw/leI
- eJIKETdPKNMSqavQy8P6RdujMalkCKYZp9wzDtAoziu7BNgzBzpGzKWr88zQLQSuJxH6
- EVvDPiWamlROHo5xcwyG0mCup2LzNvXfGkJKtaHB15qdsd543FYYQfLO1lkCKu1mLkFf
- weVj7NVSSdqoFkpzzCyldF7qqvpYDsWZlxaSRGiUM8kJJBXWhzbSRLJO97txetrfhUYo
- HYBQ==
+ bh=3/jh7PZokx9IFNSzbVHcZfaNGnzkrP5bD95SXRchUZc=;
+ b=VJv7FSE88hVXVwRggxGas/nxy3i8cstnLHERKaRP2Re62sGbfmt7bcEJFhqi4o9KEA
+ rtMH+3QC1wagSNv6kmEaKSSquRViwNExoenu2TzP1cbMlkW5EtkcZGA5DOJdjE2BzbJu
+ ph+YwjLcQzATfwZh8UPF/N6cYRIRgw0jL3eAl9OCdGD269I1kya/vFaya7/R9fNYxXsv
+ 8zSHODz6/+SM5PKrFwiQ5J+YDwn62WQbQxZ2KSGgyOh93O0xjumfYGfe61/7H+JDSxjp
+ 6YaQQT57mjKJ41iKdcCUPK51TVKziKmXttsw7EbdAauTJ9uzf3WUE+KqDC+PoMIjswrp
+ erHQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1725865697; x=1726470497;
+ d=1e100.net; s=20230601; t=1725538827; x=1726143627;
  h=content-transfer-encoding:mime-version:message-id:date:subject:cc
  :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
  :reply-to;
- bh=miIa0uylE1UFUz+fjwRH8q3H5W2F4hzW6ItDHV+UbYY=;
- b=wzQWRw5HGt+WRKwG0f7dkGY0IllGZHtQyjmehyU0lDYhwBvL41CZu4c3WwSwTRbkzm
- GgIMWS7v5dLJzdA7NU+6lH2lVLYCgCC0zOrmNCLWQk2UuAsiBGL3WP+sCO/DTKMYOWwy
- NaaZ72XUBNTdCAzPvZRPbqwAWrcQ/uCWknwzLQpSv6VphKqTeW8bLWLew7q5F3aPmqYa
- 4l1oX6y8aM6MCS67i6aPz9KtNGWkSVzJeiMVtQBQhtdTSglVxbjkJ0HRee5CiwZSf+DL
- 37Mk5CKgo5OIMizIvf59Pz1T8wTpZ+6YleoollYaZKIwissQIPKImkJ9JjMq5UUHeU2O
- MVyw==
+ bh=3/jh7PZokx9IFNSzbVHcZfaNGnzkrP5bD95SXRchUZc=;
+ b=djCZUBpBy4hEIs2vNZhjcUcOqAqnoqiSnGoRzO0nMfhod0mYu0arpY0BCTFA/FHyiV
+ hiDcbD4xn3GRGW4lVbKGpZOzctSmZTiAPQPtYFvyzLNE+xobllrybgaDJsTVCnao/Lqi
+ S5kMESPkjP1dngG20g2CNfX4FDKO6PdZbvz1EPCcs+Z28znZNwm2gmte37oR0eJdQ//u
+ D7UxbItn5Vl24OE3DnZBMn4z7vpbyzj2I+OdzK5ROtAwyEYWTA5kYnF13KeswkoE8fi4
+ DZeRxjgTJwhaUhXDsmZdawyJwQO65xa7gZNaR/rAXMY6KP3PWOamUakkQOhdpvVjxg9u
+ UN5g==
 X-Forwarded-Encrypted: i=1;
- AJvYcCU2O1MgS2lVktIh726wt3kPg2eFs759RqB7MRV10RvPMJnG+2K6n6WOSneCZC6jjQSMp2GVNods+zs=@lists.freedesktop.org,
- AJvYcCVDe8q3G7Ah8ddKiEdolWJHu3dlxCPD3AqlNoJ883F5VYO1PRzE3YpF3s/NYE+tBvFEf3xUdeSj/a3J@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyGKA9bVrlwyzsLAmSPzvnPhoYkLk/0kVi8hWSLUDqW3NzT6IVU
- Ue+/tyk0ulk4kfAwffxis8wW5Z6lT8J00d2BZHO3q4QCn/1LqR63
-X-Google-Smtp-Source: AGHT+IF7PvU559w9RG/+WWePAWHfln7qrp/xZmFruXqBgk/EtXWofmJCF9Gu7pllhU4Q5vs+uudvoA==
-X-Received: by 2002:a5d:4146:0:b0:367:938f:550 with SMTP id
- ffacd0b85a97d-3779bb2e591mr10665534f8f.25.1725865696041; 
- Mon, 09 Sep 2024 00:08:16 -0700 (PDT)
+ AJvYcCURHmLatdLMYbxwF/sTuce7OCiR0cKtTEts4zqWrdHOdRrxGuSUel/GSbxnYTKPT+qUzr0AobFUglk=@lists.freedesktop.org,
+ AJvYcCXBgY5YlhBXUUYz/Y2SxEwlRtVBGP9TLMJaNKE2naArBjcLTZZ0efd6tudy9S1UNGdnkHuSgpHplvRG@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxHOjaJ+qFMqYqJ5dWQK7Gw45H1GyChv7S71kggK2pp0+tStNd1
+ qAa62ZjjKUr0NOmEKIOJDfYiaRNoBv89Pspqn5kcHjG5V9wGumpe
+X-Google-Smtp-Source: AGHT+IGWPyCho2CwtU7ltqrAmM8Ihsxd2i3XPne6K7qzyDA9oAvQKOeAenEfeGB2Pd/DmOGVTlsXwA==
+X-Received: by 2002:a05:600c:4eca:b0:426:5471:156a with SMTP id
+ 5b1f17b1804b1-42bdc6334cbmr128537975e9.13.1725538826233; 
+ Thu, 05 Sep 2024 05:20:26 -0700 (PDT)
 Received: from fedora.iskraemeco.si ([193.77.86.250])
  by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-378956d375asm5178754f8f.66.2024.09.09.00.08.13
+ 5b1f17b1804b1-42bb6e27364sm230390515e9.34.2024.09.05.05.20.23
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 09 Sep 2024 00:08:15 -0700 (PDT)
+ Thu, 05 Sep 2024 05:20:25 -0700 (PDT)
 From: Uros Bizjak <ubizjak@gmail.com>
-To: x86@kernel.org, linux-crypto@vger.kernel.org,
- intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-media@vger.kernel.org, linux-mtd@lists.infradead.org,
- linux-fscrypt@vger.kernel.org, linux-scsi@vger.kernel.org,
- bpf@vger.kernel.org, linux-kselftest@vger.kernel.org,
- kunit-dev@googlegroups.com
+To: linux-kernel@vger.kernel.org
 Cc: Uros Bizjak <ubizjak@gmail.com>, Dave Hansen <dave.hansen@linux.intel.com>,
  Andy Lutomirski <luto@kernel.org>, Peter Zijlstra <peterz@infradead.org>,
  Thomas Gleixner <tglx@linutronix.de>, Ingo Molnar <mingo@redhat.com>,
- Borislav Petkov <bp@alien8.de>, "H. Peter Anvin" <hpa@zytor.com>,
+ Borislav Petkov <bp@alien8.de>, x86@kernel.org,
+ "H. Peter Anvin" <hpa@zytor.com>,
  Jani Nikula <jani.nikula@linux.intel.com>,
  Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
  Rodrigo Vivi <rodrigo.vivi@intel.com>,
@@ -104,11 +100,16 @@ Cc: Uros Bizjak <ubizjak@gmail.com>, Dave Hansen <dave.hansen@linux.intel.com>,
  Sergey Senozhatsky <senozhatsky@chromium.org>,
  Stephen Hemminger <stephen@networkplumber.org>,
  Jamal Hadi Salim <jhs@mojatatu.com>, Cong Wang <xiyou.wangcong@gmail.com>,
- Kent Overstreet <kent.overstreet@linux.dev>
-Subject: [PATCH v2 00/19] random: Resolve circular include dependency and
- include <linux/percpu.h>
-Date: Mon,  9 Sep 2024 09:05:14 +0200
-Message-ID: <20240909070742.75425-1-ubizjak@gmail.com>
+ Kent Overstreet <kent.overstreet@linux.dev>,
+ intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-media@vger.kernel.org, linux-mtd@lists.infradead.org,
+ linux-fscrypt@vger.kernel.org, linux-scsi@vger.kernel.org,
+ bpf@vger.kernel.org, linux-kselftest@vger.kernel.org,
+ kunit-dev@googlegroups.com
+Subject: [PATCH 00/18] random: Include <linux/percpu.h> and resolve circular
+ include dependency
+Date: Thu,  5 Sep 2024 14:17:08 +0200
+Message-ID: <20240905122020.872466-1-ubizjak@gmail.com>
 X-Mailer: git-send-email 2.46.0
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
@@ -133,7 +134,7 @@ after the addition of percpu.h: 1c9df907da83 ("random: fix circular
 include dependency on arm64 after addition of percpu.h"), c0842fbc1b18
 ("random32: move the pseudo-random 32-bit definitions to prandom.h") and
 finally d9f29deb7fe8 ("prandom: Remove unused include") that completely
-removes the inclusion of <linux/percpu.h>.
+removes inclusion of <linux/percpu.h>.
 
 Due to legacy reasons, <linux/random.h> includes <linux/prandom.h>, but
 with the commit entry remark:
@@ -153,24 +154,14 @@ such fairly core headfers as <linux/net.h>.
 So the "nice cleanup" part may or may never happen.
 --/quote--
 
-We would like to include <linux/percpu.h> in <linux/prandom.h>.
-In [1] we would like to repurpose __percpu tag as a named address space
-qualifier, where __percpu macro uses defines from <linux/percpu.h>.
+__percpu tag is currently defined in include/linux/compiler_types.h,
+so there is no direct need for the inclusion of <linux/percpu.h>.
+However, in [1] we would like to repurpose __percpu tag as a named
+address space qualifier, where __percpu macro uses defines from
+<linux/percpu.h>.
 
-The major roadblock to inclusion of <linux/percpu.h> is the above
-mentioned legacy inclusion of <linux/prandom.h> in <linux/random.h> that
-causes circular include dependency that prevents <linux/percpu.h>
-inclusion.
-
-This patch series is the "nice cleanup" part that:
-
-a) Substitutes the inclusion of <linux/random.h> with the
-inclusion of <linux/prandom.h> where needed (patches 1 - 17).
-
-b) Removes legacy inclusion of <linux/prandom.h> from
-<linux/random.h> (patch 18).
-
-c) Includes <linux/percpu.h> in <linux/prandom.h> (patch 19).
+This patch series is the "nice cleanup" part, and allows us to finally
+include <linux/percpu.h> in prandom.h.
 
 The whole series was tested by compiling the kernel for x86_64 allconfig
 and some popular architectures, namely arm64 defconfig, powerpc defconfig
@@ -237,23 +228,26 @@ Cc: Sergey Senozhatsky <senozhatsky@chromium.org>
 Cc: Stephen Hemminger <stephen@networkplumber.org>
 Cc: Jamal Hadi Salim <jhs@mojatatu.com>
 Cc: Cong Wang <xiyou.wangcong@gmail.com>
+Cc: Uros Bizjak <ubizjak@gmail.com>
 Cc: Kent Overstreet <kent.overstreet@linux.dev>
----
-v2: - Reword commit messages to mention the removal of legacy inclusion
-    of <linux/prandom.h> from <linux/random.h>
-    - Add missing substitution in crypto/testmgr.c
-    (reported by kernel test robot)
-    - Add Acked-by:.
+Cc: intel-gfx@lists.freedesktop.org
+Cc: dri-devel@lists.freedesktop.org
+Cc: linux-media@vger.kernel.org
+Cc: linux-mtd@lists.infradead.org
+Cc: linux-fscrypt@vger.kernel.org
+Cc: linux-scsi@vger.kernel.org
+Cc: bpf@vger.kernel.org
+Cc: linux-kselftest@vger.kernel.org
+Cc: kunit-dev@googlegroups.com
 
-Uros Bizjak (19):
+Uros Bizjak (18):
   x86/kaslr: Include <linux/prandom.h> instead of <linux/random.h>
-  crypto: testmgr: Include <linux/prandom.h> instead of <linux/random.h>
   drm/i915/selftests: Include <linux/prandom.h> instead of
     <linux/random.h>
   drm/lib: Include <linux/prandom.h> instead of <linux/random.h>
   media: vivid: Include <linux/prandom.h> in vivid-vid-cap.c
   mtd: tests: Include <linux/prandom.h> instead of <linux/random.h>
-  fscrypt: Include <linux/once.h> in fs/crypto/keyring.c
+  fscrypt: Include <linux/prandom.h> instead of <linux/random.h>
   scsi: libfcoe: Include <linux/prandom.h> instead of <linux/random.h>
   bpf: Include <linux/prandom.h> instead of <linux/random.h>
   lib/interval_tree_test.c: Include <linux/prandom.h> instead of
@@ -266,11 +260,10 @@ Uros Bizjak (19):
   lib/test_parman: Include <linux/prandom.h> instead of <linux/random.h>
   lib/test_scanf: Include <linux/prandom.h> instead of <linux/random.h>
   netem: Include <linux/prandom.h> in sch_netem.c
-  random: Do not include <linux/prandom.h> in <linux/random.h>
-  prandom: Include <linux/percpu.h> in <linux/prandom.h>
+  random: Do not include <linux/prandom.h>
+  prandom: Include <linux/percpu.h>
 
  arch/x86/mm/kaslr.c                              | 2 +-
- crypto/testmgr.c                                 | 2 +-
  drivers/gpu/drm/i915/selftests/i915_gem.c        | 2 +-
  drivers/gpu/drm/i915/selftests/i915_random.h     | 2 +-
  drivers/gpu/drm/i915/selftests/scatterlist.c     | 2 +-
@@ -279,7 +272,7 @@ Uros Bizjak (19):
  drivers/mtd/tests/oobtest.c                      | 2 +-
  drivers/mtd/tests/pagetest.c                     | 2 +-
  drivers/mtd/tests/subpagetest.c                  | 2 +-
- fs/crypto/keyring.c                              | 1 +
+ fs/crypto/keyring.c                              | 2 +-
  include/linux/prandom.h                          | 1 +
  include/linux/random.h                           | 7 -------
  include/scsi/libfcoe.h                           | 2 +-
@@ -292,7 +285,7 @@ Uros Bizjak (19):
  lib/test_parman.c                                | 2 +-
  lib/test_scanf.c                                 | 2 +-
  net/sched/sch_netem.c                            | 1 +
- 23 files changed, 22 insertions(+), 24 deletions(-)
+ 22 files changed, 21 insertions(+), 24 deletions(-)
 
 -- 
 2.46.0
