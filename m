@@ -4,78 +4,111 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BC55FECE58E
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 67A89ECE57E
 	for <intel-gfx@archiver.kernel.org>; Mon,  9 Sep 2024 12:37:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C204510E531;
-	Mon,  9 Sep 2024 12:36:58 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C6D0E10E53E;
+	Mon,  9 Sep 2024 12:36:59 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="NkADhmHX";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="IEUBYdIs";
 	dkim-atps=neutral
-Received: from mail-wr1-f54.google.com (mail-wr1-f54.google.com
- [209.85.221.54])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 50D2810E2F0;
- Mon,  9 Sep 2024 07:08:47 +0000 (UTC)
-Received: by mail-wr1-f54.google.com with SMTP id
- ffacd0b85a97d-374b9761eecso2644740f8f.2; 
- Mon, 09 Sep 2024 00:08:47 -0700 (PDT)
+Received: from mail-lj1-f171.google.com (mail-lj1-f171.google.com
+ [209.85.208.171])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3223110E89B;
+ Thu,  5 Sep 2024 13:03:39 +0000 (UTC)
+Received: by mail-lj1-f171.google.com with SMTP id
+ 38308e7fff4ca-2f025b94e07so6765241fa.0; 
+ Thu, 05 Sep 2024 06:03:39 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1725865726; x=1726470526; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ d=gmail.com; s=20230601; t=1725541417; x=1726146217; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=diK2vfMDlJNUyXW9lcHoHKMejPsgQZ2jk7i/6JqtmLQ=;
- b=NkADhmHXRiZHdCYG/rQTx8ist+R4MuuU0THUc4jX1ssXHYC7+ZKi5mvp+2gqCLq5Hd
- tA0I/JJZ9nO4gLJA8VsrR0NrXoiTg7J7oYcVe0Fd0yb+1UqUzhTNu9DMGv7sYso/nMfk
- cUU58AU1rs6AXQQt0Jc8GrlAK3X0YdE4GhQH1uPc4V9JK7GdV5A1uh8TuI3oBZ5xAbwh
- wpZ4r+v9dbA3ndXkmjFT2xemJprHTrMvgxgWxxGIJ1jkZOWW1hMBlBO/9GcFugRrK9Gk
- +99ni8/zIviZyrryKDjU9h9c59+jH49Gsi+hAtyCnsat+zdr9ASbG+iPWKY58pBv1Wee
- ve7w==
+ bh=J4Ap3iChcCI6LjI4bbXEj5UiVcIZisPfcA3U2HCE+kE=;
+ b=IEUBYdIsF1GiML4tzwvs5sD1P3TrgSXM7798ilNc5UCG7c8IHASUvvnBmk8dg0zRll
+ SbbqxYbNiPACstyzMyLFTRm2fhjioUDyKM9WNdmsd4wEMyjESE22VJlGJsnwWfYvft0v
+ JVRffnrOp8AvlRbnWIssjm0l+60dV4l4ANRF+l0/AWB2BO/Me478bJ2jxBTE0MQ9RQ1b
+ QnJtaUrLo2KAWK7VU0JpFTuLGGIM9ixYFUJw8jQlZF4d9U8OpK0Br/df9DNhgqhEdKYJ
+ Ssi0snJIvHKj/kjoxIzmAXADLTOIdslXAbIMgQHPeyfviNswxBm7UWhnYUahVjR/YwCu
+ IC8Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1725865726; x=1726470526;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+ d=1e100.net; s=20230601; t=1725541417; x=1726146217;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=diK2vfMDlJNUyXW9lcHoHKMejPsgQZ2jk7i/6JqtmLQ=;
- b=k6594kz3OrbvpJ9OQ/zr1i2kXW6UXRIqQprA7Ci12KO67+72KHYrBBIrEehEyC3VWe
- d8M/6f/Hon6uDRr0AO87zjud3KhAHCUyEyATZ0+g1lRekx0fcGEjWSYD13MGp4ETD3jJ
- MQOz0vh17KG413WnsWcfmp8IPbefZYGSgwoukXzyQ2GJUgqmGnjRCbSfTXcUYf345+AV
- a3ykYnrD2W+Xnfm0U49KOT6c8MBePoJhiFos9Vv29BPpF6a2jtz+9IBYgM9N0mkeFAXH
- AW5/VZRMn0qgFePEpxxdFAYYq+vkRnr9AxvkC65pGDbmpmIAZnptVSOcpEbCai1NQZKD
- ygBw==
+ bh=J4Ap3iChcCI6LjI4bbXEj5UiVcIZisPfcA3U2HCE+kE=;
+ b=GHBnZeK/2gzsTApsAuagHIZhnWXzx7NmfqYFeV9WBiaJc7gjWyOPdm6Fr8ETGqnm+L
+ W5Rvq7Lh1YE8FdcLhJ9Q6mGSdkikOSx2f1UUggiY8vKnSHmUNWOHrw85EwlnIhWeBzwn
+ w+OaGpN3V6qQs66G0DfCmIRXWxak0IR7uZmbeyxRh3Q9V6jPdqIo63a301gxdKgV8RbY
+ DXAP/J6ES6pMpVJZtcHcHjtRq7+p8+hc9xZP5V+Sy0zXxrCQSym2oT0O+qjH9/NW+5kR
+ KKdRmk8NVR2V0fUG0fZZVO3Djn4ycx2GVS4z4rOBIVvveOsCSxgFj9I5rsT1VpKOodTo
+ g/nw==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUra4i7QZ8JhF+Wy+xW32pukSrBt3EI8ylXgYcyp/l5Vd4n5FUZcom0v7vh29lgjMFuLY/JJfYG+x0=@lists.freedesktop.org,
- AJvYcCWidexnkttpFqj8x7NG4ZsK6LMOuA0RnLUOLDQZQlpU0h5ccvou0iPWhpMV7ncwqPYJL9Zzo7t91c5j@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxFSeRzrXMk1rCozNT/NOYxfm3DO6aqZT8FsRdpmyCsJcyNMwgg
- L4usAr37gB4g5EUqQnMYvCpvsh2fAtCGnUtVvtZqC0F5Nhbl0WPB
-X-Google-Smtp-Source: AGHT+IH7d2LCOjCEmuJ4w2L75gV8H1NZjK585Hq//GX1VCkES/VJ6SkCqMbky8lLj0QZa/YVXZoH6g==
-X-Received: by 2002:a05:6000:e51:b0:371:8f19:bff0 with SMTP id
- ffacd0b85a97d-378895cc423mr6510141f8f.20.1725865725676; 
- Mon, 09 Sep 2024 00:08:45 -0700 (PDT)
-Received: from fedora.iskraemeco.si ([193.77.86.250])
- by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-378956d375asm5178754f8f.66.2024.09.09.00.08.44
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 09 Sep 2024 00:08:45 -0700 (PDT)
-From: Uros Bizjak <ubizjak@gmail.com>
-To: x86@kernel.org, linux-crypto@vger.kernel.org,
- intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-media@vger.kernel.org, linux-mtd@lists.infradead.org,
- linux-fscrypt@vger.kernel.org, linux-scsi@vger.kernel.org,
- bpf@vger.kernel.org, linux-kselftest@vger.kernel.org,
- kunit-dev@googlegroups.com
-Cc: Uros Bizjak <ubizjak@gmail.com>, "Theodore Ts'o" <tytso@mit.edu>,
- "Jason A. Donenfeld" <Jason@zx2c4.com>,
- Kent Overstreet <kent.overstreet@linux.dev>
-Subject: [PATCH v2 19/19] prandom: Include <linux/percpu.h> in
- <linux/prandom.h>
-Date: Mon,  9 Sep 2024 09:05:33 +0200
-Message-ID: <20240909070742.75425-20-ubizjak@gmail.com>
-X-Mailer: git-send-email 2.46.0
-In-Reply-To: <20240909070742.75425-1-ubizjak@gmail.com>
-References: <20240909070742.75425-1-ubizjak@gmail.com>
+ AJvYcCUiGJ5Z+i0et1XnFhKHSeIcQBXWa/uZI2tDufvORfA0i/A7ODzXj5y/c1jIUPaZWyK0yez+kFM7GBnO@lists.freedesktop.org,
+ AJvYcCVwKYEo9rQ5zcu4LbQ5FSYe4Ze+7e5/Bc5pFZPgZQ5i/r2SHonTqBaXW2L7HlmEOmh3mDxkuhKkS+Q=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzUp3+AyTi7YBJzZtSNRhTISViNmc3/XLKJ9OizOdUcwAXMR3Tx
+ rKhACcQ8zWXls00rV49QsvA9GIbRUn+FYGXjoI2rqEZNb1+tZl+GF3oWNlRCXFCHCURan+AwWj1
+ xJOmNHKPg9f1wnr2C4xzvw22wOng=
+X-Google-Smtp-Source: AGHT+IETBLGAu3Qd00jjqcPIw+YbfEw8PL6KVZG3phkN8mEHyaiFDy+b4h0Zi/X597x+B58/kQSA12RjAv0BY7eFUFU=
+X-Received: by 2002:a2e:a54b:0:b0:2ef:2b06:b686 with SMTP id
+ 38308e7fff4ca-2f6103a565bmr183794191fa.17.1725541415766; Thu, 05 Sep 2024
+ 06:03:35 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20240905122020.872466-1-ubizjak@gmail.com>
+ <Ztmm00eLBQGtiwRM@smile.fi.intel.com>
+In-Reply-To: <Ztmm00eLBQGtiwRM@smile.fi.intel.com>
+From: Uros Bizjak <ubizjak@gmail.com>
+Date: Thu, 5 Sep 2024 15:03:24 +0200
+Message-ID: <CAFULd4bzyNGcJqeg7w2ZQ0Xmw-HsBhczf8yPna7mSgG4NmdcWw@mail.gmail.com>
+Subject: Re: [PATCH 00/18] random: Include <linux/percpu.h> and resolve
+ circular include dependency
+To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+Cc: linux-kernel@vger.kernel.org, Dave Hansen <dave.hansen@linux.intel.com>, 
+ Andy Lutomirski <luto@kernel.org>, Peter Zijlstra <peterz@infradead.org>, 
+ Thomas Gleixner <tglx@linutronix.de>, Ingo Molnar <mingo@redhat.com>,
+ Borislav Petkov <bp@alien8.de>, x86@kernel.org, 
+ "H. Peter Anvin" <hpa@zytor.com>, Jani Nikula <jani.nikula@linux.intel.com>, 
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, 
+ Tvrtko Ursulin <tursulin@ursulin.net>, David Airlie <airlied@gmail.com>, 
+ Daniel Vetter <daniel@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ Hans Verkuil <hverkuil@xs4all.nl>, Mauro Carvalho Chehab <mchehab@kernel.org>, 
+ Miquel Raynal <miquel.raynal@bootlin.com>, Richard Weinberger <richard@nod.at>,
+ Vignesh Raghavendra <vigneshr@ti.com>, Eric Biggers <ebiggers@kernel.org>, 
+ "Theodore Y. Ts'o" <tytso@mit.edu>, Jaegeuk Kim <jaegeuk@kernel.org>, 
+ "Jason A. Donenfeld" <Jason@zx2c4.com>,
+ Linus Torvalds <torvalds@linux-foundation.org>, 
+ Hannes Reinecke <hare@suse.de>, 
+ "James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>, 
+ "Martin K. Petersen" <martin.petersen@oracle.com>,
+ Alexei Starovoitov <ast@kernel.org>, 
+ Daniel Borkmann <daniel@iogearbox.net>,
+ John Fastabend <john.fastabend@gmail.com>, 
+ Andrii Nakryiko <andrii@kernel.org>, Martin KaFai Lau <martin.lau@linux.dev>, 
+ Eduard Zingerman <eddyz87@gmail.com>, Song Liu <song@kernel.org>, 
+ Yonghong Song <yonghong.song@linux.dev>, KP Singh <kpsingh@kernel.org>, 
+ Stanislav Fomichev <sdf@fomichev.me>, Hao Luo <haoluo@google.com>,
+ Jiri Olsa <jolsa@kernel.org>, Andrew Morton <akpm@linux-foundation.org>,
+ Brendan Higgins <brendan.higgins@linux.dev>, 
+ David Gow <davidgow@google.com>, Rae Moar <rmoar@google.com>, 
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ Jiri Pirko <jiri@resnulli.us>, 
+ Petr Mladek <pmladek@suse.com>, Steven Rostedt <rostedt@goodmis.org>, 
+ Rasmus Villemoes <linux@rasmusvillemoes.dk>,
+ Sergey Senozhatsky <senozhatsky@chromium.org>, 
+ Stephen Hemminger <stephen@networkplumber.org>,
+ Jamal Hadi Salim <jhs@mojatatu.com>, Cong Wang <xiyou.wangcong@gmail.com>,
+ Kent Overstreet <kent.overstreet@linux.dev>, 
+ intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
+ linux-media@vger.kernel.org, linux-mtd@lists.infradead.org, 
+ linux-fscrypt@vger.kernel.org, linux-scsi@vger.kernel.org, 
+ bpf@vger.kernel.org, linux-kselftest@vger.kernel.org, 
+ kunit-dev@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-Mailman-Approved-At: Mon, 09 Sep 2024 12:36:55 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -92,46 +125,75 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-<linux/percpu.h> include was removed from <linux/prandom.h>
-in d9f29deb7fe8 ("prandom: Remove unused include") because
-this inclusion broke arm64 due to a circular dependency
-on include files.
+On Thu, Sep 5, 2024 at 2:41=E2=80=AFPM Andy Shevchenko
+<andriy.shevchenko@linux.intel.com> wrote:
+>
+> On Thu, Sep 05, 2024 at 02:17:08PM +0200, Uros Bizjak wrote:
+> > There were several attempts to resolve circular include dependency
+> > after the addition of percpu.h: 1c9df907da83 ("random: fix circular
+> > include dependency on arm64 after addition of percpu.h"), c0842fbc1b18
+> > ("random32: move the pseudo-random 32-bit definitions to prandom.h") an=
+d
+> > finally d9f29deb7fe8 ("prandom: Remove unused include") that completely
+> > removes inclusion of <linux/percpu.h>.
+> >
+> > Due to legacy reasons, <linux/random.h> includes <linux/prandom.h>, but
+> > with the commit entry remark:
+> >
+> > --quote--
+> > A further cleanup step would be to remove this from <linux/random.h>
+> > entirely, and make people who use the prandom infrastructure include
+> > just the new header file.  That's a bit of a churn patch, but grepping
+> > for "prandom_" and "next_pseudo_random32" "struct rnd_state" should
+> > catch most users.
+> >
+> > But it turns out that that nice cleanup step is fairly painful, because
+> > a _lot_ of code currently seems to depend on the implicit include of
+> > <linux/random.h>, which can currently come in a lot of ways, including
+> > such fairly core headfers as <linux/net.h>.
+> >
+> > So the "nice cleanup" part may or may never happen.
+> > --/quote--
+> >
+> > __percpu tag is currently defined in include/linux/compiler_types.h,
+> > so there is no direct need for the inclusion of <linux/percpu.h>.
+> > However, in [1] we would like to repurpose __percpu tag as a named
+> > address space qualifier, where __percpu macro uses defines from
+> > <linux/percpu.h>.
+> >
+> > This patch series is the "nice cleanup" part, and allows us to finally
+> > include <linux/percpu.h> in prandom.h.
+> >
+> > The whole series was tested by compiling the kernel for x86_64 allconfi=
+g
+> > and some popular architectures, namely arm64 defconfig, powerpc defconf=
+ig
+> > and loongarch defconfig.
+>
+> Obvious question(s) is(are):
+> 1) have you seen the Ingo's gigantic patch series towards resolving issue=
+s with
+> the headers?
+> 2) if not, please look at the preliminary work and take something from th=
+ere, I
+> believe there are many useful changes already waiting for a couple of yea=
+rs to
+> be applied.
+>
+> Because I haven't found any references nor mentions of that in the cover =
+letter
+> here and explanation why it was not taking into consideration.
 
-__percpu tag is defined in include/linux/compiler_types.h, so there
-is currently no direct need for the inclusion of <linux/percpu.h>.
-However, in [1] we would like to repurpose __percpu tag as a named
-address space qualifier, where __percpu macro uses defines from
-<linux/percpu.h>.
+I am aware of the series, but the patch takes only a small bite of it
+and specifically resolves the inclusion of <linux/prandom.h> from
+linux/random.h. The series fixes the missing inclusion of
+<linux/prandom.h> in files that use pseudo-random function and it was
+not meant to be a general header cleanup. The end goal is to allow us
+to include <linux/percpu.h> in linux/prandom.h - which uses __percpu
+tag without the correct include.
 
-The circular dependency was removed in xxxxxxxxxxxx ("random: Do not
-include <linux/prandom.h> in <linux/random.h>") and it cleared
-the path for the inclusion of <linux/percpu.h> in <linux/prandom.h>.
+Thus, the patch series is only tangentially connected to Ingo's patch serie=
+s.
 
-This patch is basically a revert of d9f29deb7fe8
-("prandom: Remove unused include").
-
-[1] https://lore.kernel.org/lkml/20240812115945.484051-4-ubizjak@gmail.com/
-
-Signed-off-by: Uros Bizjak <ubizjak@gmail.com>
-Cc: "Theodore Ts'o" <tytso@mit.edu>
-Cc: "Jason A. Donenfeld" <Jason@zx2c4.com>
-Cc: Kent Overstreet <kent.overstreet@linux.dev>
----
- include/linux/prandom.h | 1 +
- 1 file changed, 1 insertion(+)
-
-diff --git a/include/linux/prandom.h b/include/linux/prandom.h
-index f7f1e5251c67..f2ed5b72b3d6 100644
---- a/include/linux/prandom.h
-+++ b/include/linux/prandom.h
-@@ -10,6 +10,7 @@
- 
- #include <linux/types.h>
- #include <linux/once.h>
-+#include <linux/percpu.h>
- #include <linux/random.h>
- 
- struct rnd_state {
--- 
-2.46.0
-
+Best regards,
+Uros.
