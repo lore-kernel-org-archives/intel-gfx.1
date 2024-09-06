@@ -4,75 +4,70 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 01A94ECE587
-	for <intel-gfx@archiver.kernel.org>; Mon,  9 Sep 2024 12:37:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D7125ECE58B
+	for <intel-gfx@archiver.kernel.org>; Mon,  9 Sep 2024 12:37:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DA67710E533;
+	by gabe.freedesktop.org (Postfix) with ESMTP id D29F810E532;
 	Mon,  9 Sep 2024 12:36:58 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="CP3jYvdr";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="nO4Npbpc";
 	dkim-atps=neutral
-Received: from mail-wr1-f44.google.com (mail-wr1-f44.google.com
- [209.85.221.44])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A8EF610E30A;
- Mon,  9 Sep 2024 07:56:57 +0000 (UTC)
-Received: by mail-wr1-f44.google.com with SMTP id
- ffacd0b85a97d-374c962e5adso2182917f8f.1; 
- Mon, 09 Sep 2024 00:56:57 -0700 (PDT)
+Received: from mail-pg1-f172.google.com (mail-pg1-f172.google.com
+ [209.85.215.172])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 90B4C10EAB2;
+ Fri,  6 Sep 2024 17:46:11 +0000 (UTC)
+Received: by mail-pg1-f172.google.com with SMTP id
+ 41be03b00d2f7-7c1324be8easo2439435a12.1; 
+ Fri, 06 Sep 2024 10:46:11 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1725868616; x=1726473416; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=tT07a8fYg2mX8zdZb0NUXYrNfwc3Lxt6djOa1kz4aGg=;
- b=CP3jYvdrug1Pq+KmL0z1rMHbd3BFmfl3sPXV5O2Mn40kzi7qCLMU2wab24nxuXCj6x
- VK023EcZuEcYHDSOio7CiawiaBzVidxz4EpzhHeHSzrGG7FwISkQ2vu6J5NW6JTQGn8s
- XJLiiW2A3Ms5cW0vRqmjaAD/aBDaZHC06/GTWgD6q33dyEY0a56ktyk2jPY1gTkagjyD
- RTfsqZvUmLinJiajIUDSrrh4jk618rfVgJDNSdqwo63QUR6+bxrjwoQ9o8sPQULRf7cy
- s3h8YOLal3pdSMIIxZC4nEdAY/qtFZsP3jYFu/X/aAl2HYaPS7ExLT9qQIYRq6u1Bs9x
- 8P0Q==
+ d=gmail.com; s=20230601; t=1725644770; x=1726249570; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=//GMh5wcWPuvbL5byVeOpp7gx8/ceI9tmF4jI5oBjrY=;
+ b=nO4NpbpcTbWi0zmIFsKTd7vsqKyz+dk81jitwd+Xta1JCfYpKg3VeJpA9b+ZrYEznc
+ pHjxNkqbnc2BosjYzfS9D8tU+TZNDb2VF4STbF6xGVstUNeun57PuY/KsGMxX9qSFA6n
+ IcShQC+lONSZC89W/gaUPp+Ai1ot/wgeQ+bS3sZYM7ynAj+NFHZQBrRj+hOs/TQMj3vF
+ uTvFWFJ9HQy77vAPbcI/NCdJPn1tau28HW9UQfXBLdQ1bpiaGef+VsSgWBddkGRWZWQY
+ j2Q/7goeUVZU8qUR8ss7CyZmHHzMySggDiZJ3S9XnCMCpSHNZHvIw8ICtYNkQuBu/M4b
+ hm2Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1725868616; x=1726473416;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=tT07a8fYg2mX8zdZb0NUXYrNfwc3Lxt6djOa1kz4aGg=;
- b=l8KSlWZok4ssqUoZ5M7NMvaa1QTmpu+mH6lR0BKXD6dnFEi+A+1W4k4fcSKtwjYqxr
- ExknaGN7Ywt+GgTvI0jNPQ9F0xPiJuihy2owjr9jgo7ESFLShpEJbnXWDJpte003Z2C+
- y+0Y/1kO+vQ/SPykKisGdbQY7GVsykaTRKiJd6Ik1A78bbgj2qnweDlUuOQiWUW+o4K+
- UsrWkOqdBGQA07TiyCTbJFBjd5VBgtcR6GbyHoJhZ5S4d4Uae1m+zL1n5YlymVDJj47J
- SuX+3Fk9TyFIoOWgiF5ArEpPAzuQZvMmSO+sJ5pI/OLPQ+m5w1is6QNwK/19OixHRQaf
- iDKg==
+ d=1e100.net; s=20230601; t=1725644770; x=1726249570;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=//GMh5wcWPuvbL5byVeOpp7gx8/ceI9tmF4jI5oBjrY=;
+ b=kfZAvPhVdEXdrzMTTxKoDhr0IDd8EvmRZIs1UEdRQON+zWmpXisCKyK5RFw3b2Lrh2
+ a53TkgsUSUE1Du22TTCjMKXIasG7pL2CIUR8HFnA1RUTbN6fKmg0c7fzO6ElhX56Vw4r
+ EIVPcAiKC2QX9aHgrmMkKMIf60gRNPdMEi5riYtXiLmKL66x00OesXVhbxmq3synKDwG
+ t3luFQHgxRSJKKkElmKSQ/F4ez0SvzFsFSP5ncOPAb0NH8pdWwAHmTHLFiPzv8QUHEWo
+ /jR2yFfc2yrXEJc6PAuS17AccpAEzqf/8LhmBy0Bbn2qACsmq7U8ojFwHA8TNm8uPNG4
+ Lz9w==
 X-Forwarded-Encrypted: i=1;
- AJvYcCWo5vFMuEd/JssKuZUffp8fFIcMQ8hXYArSarZt92e5vcZs61GeU4oFC4TDW3mKDtclyjVNVGukkVY=@lists.freedesktop.org,
- AJvYcCXBRzWDzZWM/bEBlLIWoiz0yKtMrxHJMdH0DrbCm45GNrTpJ9u9Zwb+M3dV0nr1Wl8d7inr3Am6PYsi@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyjLN/3Iw0ZQmtpXIVX3MVFPLT/H3O8MgSxI+Tzlx7G8fp71qcq
- PRKubtyblcWtD+sNI8f+ODgK1eHELsEsLkQZGeY6UVJyRmn3CPgd
-X-Google-Smtp-Source: AGHT+IGmZsYZCmG7YYhzHupjmmuJRGqS/FOf75V/9MKd4VXHMgO9wuyXejXAu7fFGUQHBhuwF3txfA==
-X-Received: by 2002:a05:6000:a8c:b0:374:d006:ffae with SMTP id
- ffacd0b85a97d-378885c04ebmr6261181f8f.6.1725868615928; 
- Mon, 09 Sep 2024 00:56:55 -0700 (PDT)
-Received: from fedora.iskraemeco.si ([193.77.86.250])
+ AJvYcCW/f7ExC6aTILLYvug0S+jRJkeXRmpzL6VeP74eNEMnO13zR5iN+U2l/X5gm+0N8EXNzwtxjFSnG2Y=@lists.freedesktop.org,
+ AJvYcCXn50zW6CeqkcaxYeKNwIQ91NINnaZ9jyGAewcFIPo0sWwRcvFjn1iY4whruotCGPvQA4YKi+GSDMc=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yyqo3OG2ZOW9YkfA7w2GSw+zdpkXSqiZbNV66Y5Uxn3SGm24wkA
+ tus4Tiklh2yTaIIm9wDqCa2e9B3/loRd2xM79cdN7Pt48l9wX65ZLd5R6Zpi1fNaIQ==
+X-Google-Smtp-Source: AGHT+IHl1QwGj6f27gy0SNNX8R4uHPJcDOIVI4Q+cvPI+qzi59HzqJAavBhcgc+seszYKXg3rYCwsg==
+X-Received: by 2002:a17:90b:4c42:b0:2c9:7343:71f1 with SMTP id
+ 98e67ed59e1d1-2dad511c22fmr5252445a91.14.1725644769664; 
+ Fri, 06 Sep 2024 10:46:09 -0700 (PDT)
+Received: from fedora.. ([2405:201:d007:50c2:4888:86b4:6f32:9ae])
  by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-37895675b7esm5303001f8f.50.2024.09.09.00.56.55
+ 98e67ed59e1d1-2dab6e5dc04sm1466452a91.1.2024.09.06.10.46.05
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 09 Sep 2024 00:56:55 -0700 (PDT)
-From: Uros Bizjak <ubizjak@gmail.com>
-To: x86@kernel.org, linux-crypto@vger.kernel.org,
- intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-media@vger.kernel.org, linux-mtd@lists.infradead.org,
- linux-fscrypt@vger.kernel.org, linux-scsi@vger.kernel.org,
- bpf@vger.kernel.org, linux-kselftest@vger.kernel.org,
- kunit-dev@googlegroups.com, linux-kernel@vger.kernel.org
-Cc: Uros Bizjak <ubizjak@gmail.com>, Miquel Raynal <miquel.raynal@bootlin.com>,
- Richard Weinberger <richard@nod.at>, Vignesh Raghavendra <vigneshr@ti.com>
-Subject: [PATCH RESEND v2 06/19] mtd: tests: Include <linux/prandom.h> instead
- of <linux/random.h>
-Date: Mon,  9 Sep 2024 09:53:49 +0200
-Message-ID: <20240909075641.258968-7-ubizjak@gmail.com>
+ Fri, 06 Sep 2024 10:46:09 -0700 (PDT)
+From: Vamsi Krishna Brahmajosyula <vamsikrishna.brahmajosyula@gmail.com>
+To: dri-devel@lists.freedesktop.org
+Cc: jani.nikula@linux.intel.com, rodrigo.vivi@intel.com,
+ joonas.lahtinen@linux.intel.com, tursulin@ursulin.net, airlied@gmail.com,
+ daniel@ffwll.ch, skhan@linuxfoundation.org,
+ intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+Subject: [PATCH] drm/i915/cx0: Use one lane to set power state to ready in DP
+ alt mode
+Date: Fri,  6 Sep 2024 23:16:01 +0530
+Message-ID: <20240906174601.9271-1-vamsikrishna.brahmajosyula@gmail.com>
 X-Mailer: git-send-email 2.46.0
-In-Reply-To: <20240909075641.258968-1-ubizjak@gmail.com>
-References: <20240909075641.258968-1-ubizjak@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Mon, 09 Sep 2024 12:36:55 +0000
@@ -91,59 +86,42 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Substitute the inclusion of <linux/random.h> header with
-<linux/prandom.h> to allow the removal of legacy inclusion
-of <linux/prandom.h> from <linux/random.h>.
+In DP alt mode one lane is owned by display and the other by usb
+intel_cx0pll_enable currently performs a power cycle ready on both
+the lanes in all cases.
 
-Signed-off-by: Uros Bizjak <ubizjak@gmail.com>
-Cc: Miquel Raynal <miquel.raynal@bootlin.com>
-Cc: Richard Weinberger <richard@nod.at>
-Cc: Vignesh Raghavendra <vigneshr@ti.com>
+Address the todo to perfom power state ready only on the display lane
+when DP alt mode is enabled.
+
+Tested on Meteor Lake-P [Intel Arc Graphics] with DP alt mode.
+
+Signed-off-by: Vamsi Krishna Brahmajosyula <vamsikrishna.brahmajosyula@gmail.com>
 ---
- drivers/mtd/tests/oobtest.c     | 2 +-
- drivers/mtd/tests/pagetest.c    | 2 +-
- drivers/mtd/tests/subpagetest.c | 2 +-
- 3 files changed, 3 insertions(+), 3 deletions(-)
+ drivers/gpu/drm/i915/display/intel_cx0_phy.c | 8 ++++++--
+ 1 file changed, 6 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/mtd/tests/oobtest.c b/drivers/mtd/tests/oobtest.c
-index 13fed398937e..e1ee68f8b8f8 100644
---- a/drivers/mtd/tests/oobtest.c
-+++ b/drivers/mtd/tests/oobtest.c
-@@ -17,7 +17,7 @@
- #include <linux/mtd/mtd.h>
- #include <linux/slab.h>
- #include <linux/sched.h>
--#include <linux/random.h>
-+#include <linux/prandom.h>
+diff --git a/drivers/gpu/drm/i915/display/intel_cx0_phy.c b/drivers/gpu/drm/i915/display/intel_cx0_phy.c
+index 4a6c3040ca15..47aa0418379c 100644
+--- a/drivers/gpu/drm/i915/display/intel_cx0_phy.c
++++ b/drivers/gpu/drm/i915/display/intel_cx0_phy.c
+@@ -2949,9 +2949,13 @@ static void intel_cx0pll_enable(struct intel_encoder *encoder,
  
- #include "mtd_test.h"
+ 	/*
+ 	 * 3. Change Phy power state to Ready.
+-	 * TODO: For DP alt mode use only one lane.
++	 * For DP alt mode use only one lane.
+ 	 */
+-	intel_cx0_powerdown_change_sequence(encoder, INTEL_CX0_BOTH_LANES,
++	if (intel_tc_port_in_dp_alt_mode(dig_port))
++		intel_cx0_powerdown_change_sequence(encoder, maxpclk_lane,
++					    CX0_P2_STATE_READY);
++	else
++		intel_cx0_powerdown_change_sequence(encoder, INTEL_CX0_BOTH_LANES,
+ 					    CX0_P2_STATE_READY);
  
-diff --git a/drivers/mtd/tests/pagetest.c b/drivers/mtd/tests/pagetest.c
-index 8eb40b6e6dfa..6878700d2fc0 100644
---- a/drivers/mtd/tests/pagetest.c
-+++ b/drivers/mtd/tests/pagetest.c
-@@ -17,7 +17,7 @@
- #include <linux/mtd/mtd.h>
- #include <linux/slab.h>
- #include <linux/sched.h>
--#include <linux/random.h>
-+#include <linux/prandom.h>
- 
- #include "mtd_test.h"
- 
-diff --git a/drivers/mtd/tests/subpagetest.c b/drivers/mtd/tests/subpagetest.c
-index 05250a080139..f34bbf033c4d 100644
---- a/drivers/mtd/tests/subpagetest.c
-+++ b/drivers/mtd/tests/subpagetest.c
-@@ -15,7 +15,7 @@
- #include <linux/mtd/mtd.h>
- #include <linux/slab.h>
- #include <linux/sched.h>
--#include <linux/random.h>
-+#include <linux/prandom.h>
- 
- #include "mtd_test.h"
- 
+ 	/*
+
+base-commit: b831f83e40a24f07c8dcba5be408d93beedc820f
 -- 
 2.46.0
 
