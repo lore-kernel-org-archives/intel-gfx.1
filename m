@@ -4,59 +4,27 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 40CA0CE7AE3
-	for <intel-gfx@archiver.kernel.org>; Fri,  6 Sep 2024 07:00:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3876ACE7AE0
+	for <intel-gfx@archiver.kernel.org>; Fri,  6 Sep 2024 07:32:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B850010E816;
-	Fri,  6 Sep 2024 07:00:54 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="R3bBQlW9";
-	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.15])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B926710E816
- for <intel-gfx@lists.freedesktop.org>; Fri,  6 Sep 2024 07:00:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1725606054; x=1757142054;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=IDcq4wlscYdL9z9vMeXIpRX5v5qRtnAIAJvXRmHdOBI=;
- b=R3bBQlW9WGYpLb87oshrQNlcXBsKYb4T/9zmJ+Vk5qxprMM2eWRUjx0M
- iEAAlElwZmH7EJXJIfkjPeuB+HkKIlvDbdHr+pS0r+rIBzDLsOJ63b3af
- KptsRBxK2qIShovugTQi2PSmbMjdgx2BenFMBu6WdPBWCoVgFUjOksrPK
- jgp47cmjVYzYckAfBtLiOVWXoGeUex5awEHAYRc3Vx89k5YMtibYY6QIs
- DKhSLnQjsaTQr8QA8mCe7n3cCQa9aAHPxeBOaMLp8YiONhsrFiLfaO8Q7
- JMC+Y7tlrfpqGnN3gCGT2oJ8BISnGLSyDQxG5/dFBQJKwwFWBP5hRC4R7 g==;
-X-CSE-ConnectionGUID: Y6ZvMgGlT8uCzuW1cKmMFw==
-X-CSE-MsgGUID: dmgpiUGYRayUtVFlnzfAtg==
-X-IronPort-AV: E=McAfee;i="6700,10204,11186"; a="28103043"
-X-IronPort-AV: E=Sophos;i="6.10,207,1719903600"; d="scan'208";a="28103043"
-Received: from fmviesa005.fm.intel.com ([10.60.135.145])
- by orvoesa107.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 06 Sep 2024 00:00:54 -0700
-X-CSE-ConnectionGUID: 1Szyd7MSSfmK2dafy905zA==
-X-CSE-MsgGUID: FFdcppSoTIKSFt2lTp6kdg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.10,207,1719903600"; d="scan'208";a="70292523"
-Received: from dhhellew-desk2.ger.corp.intel.com.ger.corp.intel.com (HELO
- jhogande-mobl1..) ([10.245.244.116])
- by fmviesa005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 06 Sep 2024 00:00:52 -0700
-From: =?UTF-8?q?Jouni=20H=C3=B6gander?= <jouni.hogander@intel.com>
-To: intel-gfx@lists.freedesktop.org
-Cc: imre.deak@intel.com, animesh.manna@intel.com,
- =?UTF-8?q?Jouni=20H=C3=B6gander?= <jouni.hogander@intel.com>
-Subject: [PATCH v2 4/4] drm/i915/psr: Do not wait for PSR being idle on on
- Panel Replay
-Date: Fri,  6 Sep 2024 10:00:33 +0300
-Message-Id: <20240906070033.289015-5-jouni.hogander@intel.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20240906070033.289015-1-jouni.hogander@intel.com>
-References: <20240906070033.289015-1-jouni.hogander@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id BAD7010E108;
+	Fri,  6 Sep 2024 07:32:06 +0000 (UTC)
+Received: from 2413ebb6fbb6 (emeril.freedesktop.org [131.252.210.167])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8B05710E116;
+ Fri,  6 Sep 2024 07:32:05 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
+Subject: =?utf-8?q?=E2=9C=97_Fi=2ECI=2ECHECKPATCH=3A_warning_for_drm/i915/display=3A_?=
+ =?utf-8?q?Workaround_for_odd_panning_for_planar_yuv_=28rev2=29?=
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Nemesa Garg" <nemesa.garg@intel.com>
+Cc: intel-gfx@lists.freedesktop.org
+Date: Fri, 06 Sep 2024 07:32:05 -0000
+Message-ID: <172560792556.953152.7444737871519581497@2413ebb6fbb6>
+X-Patchwork-Hint: ignore
+References: <20240906070040.3843091-1-nemesa.garg@intel.com>
+In-Reply-To: <20240906070040.3843091-1-nemesa.garg@intel.com>
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,59 +37,29 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-We do not have ALPM on DP Panel Replay. Due to this SRD_STATUS[SRD State]
-doesn't change from SRDENT_ON after Panel Replay is enabled until it gets
-disabled.
+== Series Details ==
 
-On eDP Panel Replay DEEP_SLEEP is not reached.
-_psr2_ready_for_pipe_update_locked is waiting DEEP_SLEEP bit getting reset.
+Series: drm/i915/display: Workaround for odd panning for planar yuv (rev2)
+URL   : https://patchwork.freedesktop.org/series/136416/
+State : warning
 
-Take these into account in Panel Replay code by not waiting PSR getting
-idle after enabling VBI.
+== Summary ==
 
-Fixes: 29fb595d4875 ("drm/i915/psr: Panel replay uses SRD_STATUS to track it's status")
-Cc: Animesh Manna <animesh.manna@intel.com>
-Signed-off-by: Jouni Högander <jouni.hogander@intel.com>
----
- drivers/gpu/drm/i915/display/intel_psr.c | 13 ++-----------
- 1 file changed, 2 insertions(+), 11 deletions(-)
+Error: dim checkpatch failed
+611bd4367e03 drm/i915/display: Workaround for odd panning for planar yuv
+-:27: CHECK:LINE_SPACING: Please don't use multiple blank lines
+#27: FILE: drivers/gpu/drm/i915/display/intel_atomic_plane.c:57:
+ 
++
 
-diff --git a/drivers/gpu/drm/i915/display/intel_psr.c b/drivers/gpu/drm/i915/display/intel_psr.c
-index 581c409ce7309..1a4ef231a53ca 100644
---- a/drivers/gpu/drm/i915/display/intel_psr.c
-+++ b/drivers/gpu/drm/i915/display/intel_psr.c
-@@ -2786,13 +2786,6 @@ static int _psr1_ready_for_pipe_update_locked(struct intel_dp *intel_dp)
- 				       EDP_PSR_STATUS_STATE_MASK, 50);
- }
- 
--static int _panel_replay_ready_for_pipe_update_locked(struct intel_dp *intel_dp)
--{
--	return intel_dp_is_edp(intel_dp) ?
--		_psr2_ready_for_pipe_update_locked(intel_dp) :
--		_psr1_ready_for_pipe_update_locked(intel_dp);
--}
--
- /**
-  * intel_psr_wait_for_idle_locked - wait for PSR be ready for a pipe update
-  * @new_crtc_state: new CRTC state
-@@ -2815,12 +2808,10 @@ void intel_psr_wait_for_idle_locked(const struct intel_crtc_state *new_crtc_stat
- 
- 		lockdep_assert_held(&intel_dp->psr.lock);
- 
--		if (!intel_dp->psr.enabled)
-+		if (!intel_dp->psr.enabled || intel_dp->psr.panel_replay_enabled)
- 			continue;
- 
--		if (intel_dp->psr.panel_replay_enabled)
--			ret = _panel_replay_ready_for_pipe_update_locked(intel_dp);
--		else if (intel_dp->psr.sel_update_enabled)
-+		if (intel_dp->psr.sel_update_enabled)
- 			ret = _psr2_ready_for_pipe_update_locked(intel_dp);
- 		else
- 			ret = _psr1_ready_for_pipe_update_locked(intel_dp);
--- 
-2.34.1
+-:60: WARNING:LONG_LINE: line length of 102 exceeds 100 columns
+#60: FILE: drivers/gpu/drm/i915/display/intel_display_wa.h:17:
++static inline bool intel_display_needs_wa_16023981245(struct drm_i915_private *i915) { return false; }
+
+total: 0 errors, 1 warnings, 1 checks, 51 lines checked
+
 
