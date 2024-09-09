@@ -4,81 +4,112 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2BC6EFC6172
-	for <intel-gfx@archiver.kernel.org>; Fri, 13 Sep 2024 21:02:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1B071FC6181
+	for <intel-gfx@archiver.kernel.org>; Fri, 13 Sep 2024 21:02:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 68D6C10ED98;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6849410ED97;
 	Fri, 13 Sep 2024 21:01:55 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=freebox-fr.20230601.gappssmtp.com header.i=@freebox-fr.20230601.gappssmtp.com header.b="NjoyDP3E";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="IsjC4grF";
 	dkim-atps=neutral
-Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com
- [209.85.128.52])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1D9CF10E873
- for <intel-gfx@lists.freedesktop.org>; Tue, 10 Sep 2024 15:54:48 +0000 (UTC)
-Received: by mail-wm1-f52.google.com with SMTP id
- 5b1f17b1804b1-42bbffe38e6so44091785e9.0
- for <intel-gfx@lists.freedesktop.org>; Tue, 10 Sep 2024 08:54:48 -0700 (PDT)
+Received: from mail-lj1-f174.google.com (mail-lj1-f174.google.com
+ [209.85.208.174])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9E9D710E13C;
+ Mon,  9 Sep 2024 19:30:21 +0000 (UTC)
+Received: by mail-lj1-f174.google.com with SMTP id
+ 38308e7fff4ca-2f75d044201so21844191fa.0; 
+ Mon, 09 Sep 2024 12:30:21 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=freebox-fr.20230601.gappssmtp.com; s=20230601; t=1725983687; x=1726588487;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=6PxrvNA8ZTQVOz0CWahQR48w5Gv7e/oF6A+jLaE/Ydo=;
- b=NjoyDP3EIoblnuYOdQC3VqYc0lgMLO1ESkcJa4AzAM9f+39RlOp6mznehS5Qh1vq2A
- LDK4vkr4GX5KD7fYMk9wzkPVt6zPp1YRKk1k8Mx6hOP5oO/XgrnBGQvpAAnCdMe8E/G7
- NCAugbkN+BjU9CUCwxkbYbSn4dNGoQ3rvmnGUP3aYg8sbvoB4sObRY58yFbZCZVlg6eW
- RHfxQ8M+l67kD89ikqYNbsPUZDhCJ750ZyM2X6tHqgaKP3v5jiFDchc8RYYVrRVe/zd/
- mp5xiSm1x+nL8hX5UHArdM6A5CxfyQGuc5NrWGzznrt0DzyGR8cRVSzwRLCpq11h5ivp
- /6bQ==
+ d=gmail.com; s=20230601; t=1725910220; x=1726515020; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=woE07RMIM4YJ88QTc1ZNc52E+GbLSESAkfn/9qs5W1Y=;
+ b=IsjC4grFAvgjLRqJZIcOwhbI1N9YpJBBSfFrRt/4e2YQPPE+e1bEOme6SEyHjujJyv
+ 5LoVh0PF1V2EExPrubGyJUAsyyVJp80dpQ5afpPupmJJS9nuWy+NGv+xgQyBMEqajooS
+ W9nfM3DsSrV4uAMXxx0KUt2jAaVFYA2R4Q3TnmxWosHFGHPW9QxUueks/aZ+InpYuiZA
+ VKvy1qfej1SXRlhilimxpby9hRknvJtTnovkgJBDiCmA0goXyldQwaVlsgJjNygI4VfK
+ 1pMjDNV4cujs8xrLupXHLw3hFGHnFDV3IhmwXqEGVJQM+Ufryd9mezuv18aZxj1+0Gme
+ 2D/Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1725983687; x=1726588487;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=6PxrvNA8ZTQVOz0CWahQR48w5Gv7e/oF6A+jLaE/Ydo=;
- b=qMOczlaJd72+k0dKuFwaF7EysE5yA+9X7EI8q0Q/a0Umw/fHR0Q+PPMl6AyY45LEzc
- hT12bqBiwuTwcpIxQ7Pp72xkXyKrMNNvvNcgVbearP3dhMyQqMsw/KTl/39jKunnFrLy
- ksi6Bo7OYgyxANyQbqqH/UIQfWpjwH/OqqpVagtlnftmmzVvAg454Dg+t3dMk45tZQY+
- 6naUOoPe1UlzfDO9Ox0NLLiUeCTnzpGxQA7N9jsKpY4oHtpami17IEXN/7T3lRxYTvcy
- E8Ji99q/xVjQByNTjiwytmnAksSbVlCWiLWFl/5No1g8jNYfd8957OXi/dcz7jaw8wPJ
- 3HKg==
+ d=1e100.net; s=20230601; t=1725910220; x=1726515020;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=woE07RMIM4YJ88QTc1ZNc52E+GbLSESAkfn/9qs5W1Y=;
+ b=OtcsPga/uIxfsVj85jsyV9yoRvPwzFMm/SdHGKbIsOl74UT3EK92aMyRJINpFvjyJD
+ 4TGXARunEMk7Nb5tmMcoHxlGCPdmRERlfLEfioVKQ9Bp7KTPLTCPiNCS6xA+8rEjkruA
+ fSFbBoqpyDZ4eAO61MMYKqf/ht8QNs1GlgB5gXLU+rbfCw06YCQodgun4fK+yIrWJFMG
+ Px2mACJmrVFRdFI3lVte91leE1gS89IXMCDTTRdAW4W3rHTOrqy0ujc9OgdcI9R5Pc9Q
+ KyBbxJCtgkK/auxTAXRDZ4Q8VHPd+nQcyi66anOiUayxYSubOB2hXb34SCdPd67vIDcE
+ p/LA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUhqBjuA5DSsuCCp/mb/TcrJFnoLS595W4aZQC+8BjhUlj6qD+0Rjn4EnV00Pvwtyt8gzDJP2uouGc=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzqleCT5LHytyiunYqSAfFEF0pDspBObbw/ntb+0LAdPS6K6hLv
- X2jK8XA2MPaUly9/P0mLtafkH+pWK7+8hPPCSc+u0/FCzxXJpHvaJi25FbJmfeg=
-X-Google-Smtp-Source: AGHT+IEb0qA5EpGtNaNVZJscuK0KLM4oa8DNMmxJuy4xu6oN9fz+YV9+rQWeonEJ5VU15eSCcYGm4A==
-X-Received: by 2002:a05:600c:3d11:b0:426:5e91:3920 with SMTP id
- 5b1f17b1804b1-42cad87f264mr87685255e9.29.1725983686172; 
- Tue, 10 Sep 2024 08:54:46 -0700 (PDT)
-Received: from [192.168.108.50] (freebox.vlq16.iliad.fr. [213.36.7.13])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-42cc1375c6esm20178245e9.1.2024.09.10.08.54.45
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 10 Sep 2024 08:54:45 -0700 (PDT)
-Message-ID: <19ac4e25-7609-4d92-8687-585c6ea00c79@freebox.fr>
-Date: Tue, 10 Sep 2024 17:54:44 +0200
+ AJvYcCWeqmu0Yk/vKy6PQXEClsN0TAeSiY1LLVog4dzCQwIes97RsVyawATe3OqnClESursb1o3cCuvqqCs=@lists.freedesktop.org,
+ AJvYcCXNNqYghK178ZZ46H21Q97SDFA7IZhGpPqwpW+7bNQ08M7wn4LphVujQLuBrtlNhgIj9zrKUOU8nhB4@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yxqhh188munkYMmVjhvVKCHG/RKLNpkIRP571F61+wQ0qZrLIYr
+ TqT78L9XAIvbegC4iYhUHwaCrTRtmlkZe7FCVRyt443sWEfPCQrUF+PXrJP7x22py5axrqGAb0k
+ 4iEX1L/moymjk9WblX+AkqH8wwBY=
+X-Google-Smtp-Source: AGHT+IHGDlZWsmVxtU6Y46aEXfBA2sgXqI4naIhOyyLQHvnhEyR7+3HqFvBi8W+gcZkb/4A25yABw4d/bXms0qX89pY=
+X-Received: by 2002:a05:651c:549:b0:2f7:6277:f2be with SMTP id
+ 38308e7fff4ca-2f7727190f4mr2037391fa.22.1725910218656; Mon, 09 Sep 2024
+ 12:30:18 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 7/8] drm/msmi: annotate pll_cmp_to_fdata() with
- __maybe_unused
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Jani Nikula <jani.nikula@intel.com>, Arnaud Vrac <avrac@freebox.fr>
-Cc: dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
- intel-xe@lists.freedesktop.org, Nathan Chancellor <nathan@kernel.org>,
- Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Sean Paul <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>,
- linux-arm-msm@vger.kernel.org
-References: <cover.1725962479.git.jani.nikula@intel.com>
- <3553b1db35665e6ff08592e35eb438a574d1ad65.1725962479.git.jani.nikula@intel.com>
- <4ag2efwiizn5bnskauekqwfhgl4gioafcvetpvsmbdgg37bdja@3g6tt4rlfwcb>
-Content-Language: en-US
-From: Marc Gonzalez <mgonzalez@freebox.fr>
-In-Reply-To: <4ag2efwiizn5bnskauekqwfhgl4gioafcvetpvsmbdgg37bdja@3g6tt4rlfwcb>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Mailman-Approved-At: Fri, 13 Sep 2024 21:01:54 +0000
+References: <20240909075641.258968-1-ubizjak@gmail.com>
+ <Zt8a6_RwLG2pEnZ6@zx2c4.com>
+In-Reply-To: <Zt8a6_RwLG2pEnZ6@zx2c4.com>
+From: Uros Bizjak <ubizjak@gmail.com>
+Date: Mon, 9 Sep 2024 21:30:06 +0200
+Message-ID: <CAFULd4ak3n1x0tGrqiNoxvDBRw6AWgchfBO_k4aKps34DomPvA@mail.gmail.com>
+Subject: Re: [PATCH RESEND v2 00/19] random: Resolve circular include
+ dependency and include <linux/percpu.h>
+To: "Jason A. Donenfeld" <Jason@zx2c4.com>
+Cc: x86@kernel.org, linux-crypto@vger.kernel.org, 
+ intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
+ linux-media@vger.kernel.org, linux-mtd@lists.infradead.org, 
+ linux-fscrypt@vger.kernel.org, linux-scsi@vger.kernel.org, 
+ bpf@vger.kernel.org, linux-kselftest@vger.kernel.org, 
+ kunit-dev@googlegroups.com, linux-kernel@vger.kernel.org, 
+ Dave Hansen <dave.hansen@linux.intel.com>, Andy Lutomirski <luto@kernel.org>, 
+ Peter Zijlstra <peterz@infradead.org>, Thomas Gleixner <tglx@linutronix.de>, 
+ Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>,
+ "H. Peter Anvin" <hpa@zytor.com>, 
+ Jani Nikula <jani.nikula@linux.intel.com>, 
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, 
+ Tvrtko Ursulin <tursulin@ursulin.net>, David Airlie <airlied@gmail.com>, 
+ Daniel Vetter <daniel@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ Hans Verkuil <hverkuil@xs4all.nl>, Mauro Carvalho Chehab <mchehab@kernel.org>, 
+ Miquel Raynal <miquel.raynal@bootlin.com>, Richard Weinberger <richard@nod.at>,
+ Vignesh Raghavendra <vigneshr@ti.com>, Eric Biggers <ebiggers@kernel.org>, 
+ "Theodore Y. Ts'o" <tytso@mit.edu>, Jaegeuk Kim <jaegeuk@kernel.org>, 
+ Linus Torvalds <torvalds@linux-foundation.org>, Hannes Reinecke <hare@suse.de>,
+ "James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>, 
+ "Martin K. Petersen" <martin.petersen@oracle.com>,
+ Alexei Starovoitov <ast@kernel.org>, 
+ Daniel Borkmann <daniel@iogearbox.net>,
+ John Fastabend <john.fastabend@gmail.com>, 
+ Andrii Nakryiko <andrii@kernel.org>, Martin KaFai Lau <martin.lau@linux.dev>, 
+ Eduard Zingerman <eddyz87@gmail.com>, Song Liu <song@kernel.org>, 
+ Yonghong Song <yonghong.song@linux.dev>, KP Singh <kpsingh@kernel.org>, 
+ Stanislav Fomichev <sdf@fomichev.me>, Hao Luo <haoluo@google.com>,
+ Jiri Olsa <jolsa@kernel.org>, Andrew Morton <akpm@linux-foundation.org>,
+ Brendan Higgins <brendan.higgins@linux.dev>, 
+ David Gow <davidgow@google.com>, Rae Moar <rmoar@google.com>, 
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ Jiri Pirko <jiri@resnulli.us>, 
+ Petr Mladek <pmladek@suse.com>, Steven Rostedt <rostedt@goodmis.org>, 
+ Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
+ Rasmus Villemoes <linux@rasmusvillemoes.dk>,
+ Sergey Senozhatsky <senozhatsky@chromium.org>, 
+ Stephen Hemminger <stephen@networkplumber.org>,
+ Jamal Hadi Salim <jhs@mojatatu.com>, Cong Wang <xiyou.wangcong@gmail.com>,
+ Kent Overstreet <kent.overstreet@linux.dev>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+X-Mailman-Approved-At: Fri, 13 Sep 2024 21:01:53 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -94,52 +125,80 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On 10/09/2024 16:51, Dmitry Baryshkov wrote:
+On Mon, Sep 9, 2024 at 5:57=E2=80=AFPM Jason A. Donenfeld <Jason@zx2c4.com>=
+ wrote:
 
-> On Tue, Sep 10, 2024 at 01:03:43PM GMT, Jani Nikula wrote:
+> On Mon, Sep 09, 2024 at 09:53:43AM +0200, Uros Bizjak wrote:
+> > a) Substitutes the inclusion of <linux/random.h> with the
+> > inclusion of <linux/prandom.h> where needed (patches 1 - 17).
+> >
+> > b) Removes legacy inclusion of <linux/prandom.h> from
+> > <linux/random.h> (patch 18).
+> >
+> > c) Includes <linux/percpu.h> in <linux/prandom.h> (patch 19).
 >
->> Building with clang and and W=1 leads to warning about unused
->> pll_cmp_to_fdata(). Fix by annotating it with __maybe_unused.
->>
->> See also commit 6863f5643dd7 ("kbuild: allow Clang to find unused static
->> inline functions for W=1 build").
->>
->> Signed-off-by: Jani Nikula <jani.nikula@intel.com>
-> 
-> I think this function can be dropped. Marc, your call, as an author of
-> the patch?
+> Thanks for doing this. That seems like a fine initiative to me. (I'm
+> also curious about the future percpu changes you've got planned.)
 
-( Why is the patch prefixed "drm/msmi", is "msmi" a typo? )
+As explained in the cover letter, recent GCCs are able to track
+address space of variables in percpu address space from the
+declaration to its usage site. There are certain rules regarding casts
+of variables and their pointers (when this named address space is not
+considered a subspace of the generic address space), so it is possible
+to create much more effective checks for cast-from-as type casts than
+what sparse can achieve.
 
--> For the record, Arnaud is the driver's author.
+Besides GCC, clang can define various named address space via
+address_space attribute:
 
-pll_cmp_to_fdata() was used in hdmi_8998_pll_recalc_rate()
-in a commented code block which was later removed.
+--cut here--
+#define __as(N) __attribute__((address_space(N)))
 
-Thus, yes, it is safe to completely delete the unused function.
-I'm surprised gcc didn't catch that...
+void *foo(void __as(1) *x) { return x; }         // error
 
-Regards
+void *bar(void __as(1) *x) { return (void *)x; } // fine
+--cut here--
 
+When compiling this, the compiler returns:
 
->> ---
->>  drivers/gpu/drm/msm/hdmi/hdmi_phy_8998.c | 2 +-
->>  1 file changed, 1 insertion(+), 1 deletion(-)
->>
->> diff --git a/drivers/gpu/drm/msm/hdmi/hdmi_phy_8998.c b/drivers/gpu/drm/msm/hdmi/hdmi_phy_8998.c
->> index 0e3a2b16a2ce..c0bf1f35539e 100644
->> --- a/drivers/gpu/drm/msm/hdmi/hdmi_phy_8998.c
->> +++ b/drivers/gpu/drm/msm/hdmi/hdmi_phy_8998.c
->> @@ -153,7 +153,7 @@ static inline u32 pll_get_pll_cmp(u64 fdata, unsigned long ref_clk)
->>  	return dividend - 1;
->>  }
->>  
->> -static inline u64 pll_cmp_to_fdata(u32 pll_cmp, unsigned long ref_clk)
->> +static inline __maybe_unused u64 pll_cmp_to_fdata(u32 pll_cmp, unsigned long ref_clk)
->>  {
->>  	u64 fdata = ((u64)pll_cmp) * ref_clk * 10;
->>  
->> -- 
->> 2.39.2
+clang-as.c:3:37: error: returning '__as(1) void *' from a function
+with result type 'void *' changes address space of pointer
 
+Although clang currently errors out when __seg_gs and __seg_fs named
+address space designators are used, we can explore its named address
+spaces functionality to implement percpu checks for all targets. The
+percpu address space checks patchset, referred to in the cover letter,
+also supports this functionality when per_cpu_qual is defined to
+__attribute__((address_space(N))).
 
+Perhaps we can use different address spaces to also handle __user,
+__iomem and __rcu address spaces. This way the compiler will be able
+to handle address space checks instead of sparse.
+
+> Tree-wise, were you expecting me to take this through random.git? And if
+> so, what timeframe did you have in mind? For 6.12 next week (can you
+> poke folks for acks in time?), or punt it for 6.13? Or did you have a
+> different tree in mind for treewide changes (in which case, I'll send
+> you an ack for the [p]random.h changes).
+
+I think that the best approach is to target this patchset for linux
+6.13 via random.git tree. I will prepare a v3 after 6.12rc1, so when
+committed to random.git, the patchset will be able to spend some time
+in linux-next. This way, there will be plenty of time for CI robots to
+do additional checks also for some less popular targets (although
+individual patches are dead simple, removing these kinds of "legacy"
+includes can be tricky), and I will also be able to collect Acked-by:s
+in the meantime.
+
+While the patchset is an improvement by itself, its inclusion is not
+time sensitive. The follow up percpu named address checking
+functionality requires a very recent feature (__typeof_unqual__
+keyword), which is only supported in recent compilers (gcc-14 and
+clang-20). Besides compiler support, sparse doesn't know about
+__typeof_unqual__, resulting in broken type tracing and hundreds of
+sparse errors with C=3D1 due to unknown keyword.
+
+So, I think we are not in a hurry and can take the slow and safe path.
+
+Thanks and best regards,
+Uros.
