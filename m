@@ -4,50 +4,80 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8D416ECE584
-	for <intel-gfx@archiver.kernel.org>; Mon,  9 Sep 2024 12:37:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 409BBECE579
+	for <intel-gfx@archiver.kernel.org>; Mon,  9 Sep 2024 12:37:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E763810E4F2;
-	Mon,  9 Sep 2024 12:36:56 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 47FBC10E51A;
+	Mon,  9 Sep 2024 12:36:57 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=uniontech.com header.i=@uniontech.com header.b="EIlMwSvh";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="DDIf03Uh";
 	dkim-atps=neutral
-Received: from bg5.exmail.qq.com (bg5.exmail.qq.com [43.154.209.5])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3725710E173;
- Fri,  6 Sep 2024 06:10:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=uniontech.com;
- s=onoh2408; t=1725603023;
- bh=/dtohpd2jYZvgldSPgPUfPVsQXMJ8y7tzwUyHG6SqCY=;
- h=Message-ID:Date:MIME-Version:Subject:To:From;
- b=EIlMwSvhq/xTpsgbeu0DmgAdEQrX3FtKro+WVkKt0dchOFoVHKColL59RobV2zdI5
- d+xDhYPX8nDSRuc762Nu6tcYQECmz7u6EFWcFJOtk3i6D5uE8wBiodEfSsujIGajBJ
- 4oQCuYiZf/zWpZp4njQU9/njVygyH91OJ8nWiKqM=
-X-QQ-mid: bizesmtp84t1725602801tkd3vxlw
-X-QQ-Originating-IP: WuapCiZjmsXjdr2Bs5465eW0Whoex+fovHxihMr3iZM=
-Received: from [10.4.11.213] ( [221.226.144.218])
- by bizesmtp.qq.com (ESMTP) with 
- id ; Fri, 06 Sep 2024 14:06:31 +0800 (CST)
-X-QQ-SSF: 0000000000000000000000000000000
-X-QQ-GoodBg: 0
-X-BIZMAIL-ID: 293073832845237998
-Message-ID: <31331B0B65DB108E+082759df-83d7-43ac-a519-853a6e69483d@uniontech.com>
-Date: Fri, 6 Sep 2024 14:06:31 +0800
+Received: from mail-wr1-f54.google.com (mail-wr1-f54.google.com
+ [209.85.221.54])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E997610E307;
+ Mon,  9 Sep 2024 07:56:54 +0000 (UTC)
+Received: by mail-wr1-f54.google.com with SMTP id
+ ffacd0b85a97d-374c326c638so2985728f8f.2; 
+ Mon, 09 Sep 2024 00:56:54 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1725868613; x=1726473413; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=uWDfXNbOPKK8OkK/H/srkd9h9NgocC7Imjlm69NJz1o=;
+ b=DDIf03Uhf8op6gUiMPyNCOhwzKzEGqFtyERqn4/fRRb7rW2AdUZt48CbGedOauyjKh
+ F1dbqEtHTEZA3wVcun3ODh8Wv9qMbvbK/RszywM1cmzUlpi3j/7WWikYXbRD1jbqvdvg
+ rjP+uBEyEqVrEsvevUir3V3wqE0PVuVkHi/WY/F78upKxtzp2tuZbbx3+NHSwb+j/Im0
+ 6oOIJCdvxKXmHCASzUGTICdOEEAO2ZUYts/vQqdbamtzqQ9riEIvaRzPMaUERgU4aGiN
+ /WINnnuOn2tlpyH4e8Of+Tw9e7z4cWFpLEJ+ARofuPa7LD+RbOaODDrs2Q0LpYfuvd4T
+ iMug==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1725868613; x=1726473413;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=uWDfXNbOPKK8OkK/H/srkd9h9NgocC7Imjlm69NJz1o=;
+ b=KtjynGNoKso6L+eRfDrn3Wqj6jgC6UTbIRLLGdTIEQzLBtyXHF1kJaBrKp2LdeoWl3
+ YRGdXj0Ay+X2OOzBWxD+Xjq+QDiKPoI3olAka0S415JJ7musFcnJkR2fVmpazVJkCpzd
+ 3EVkSLoaqSBhTVFykpFjlvHqkWRt4ITI82o4gqwmReXbVxlcrtX8252ML0GiuKEM52pO
+ Pufan8hJPucaJ5AcbeUTe9WthfJ/BHeoOHHtiB7m+CSQsJwaKPStGBIvtoiaYzRG0Hnk
+ ZciZV8ttwngu3FvzOSttlHqhrS4x9NJnD1RPjifawE59gjfMAFM2XGlY2A2TlTsKE5ND
+ ZnZQ==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCWTlvEA7o1rEd4jdjGTR+sv5EDxjNPD15HZZ+BkuJQ3C0yoOhAyadLUHB4fNzF1xaluuD2YhC2fObw=@lists.freedesktop.org,
+ AJvYcCXr7ctQJHCn9swDpU+IbjOLJSsbgFEOd3wYHen2SEpmRR/RtnwKVmm46RFWvOqr5oyIJ5teIzTMYVWp@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxnMZvnV92+6cTR/6bHTrXlwa1Zh1gHkqnP9chMGZ1+gnjF7VmR
+ pOttg+VsGOVb9c41Wpta37LHfryA8n0/Kz6XYxbocKEMw4KyweD0
+X-Google-Smtp-Source: AGHT+IEJwY2izSi9JvPnlSkxsbiABRBgLXcw/WN/9+VtYgXEpeqF7jtackiugNKAcXHsm6kUmrt+Ng==
+X-Received: by 2002:a05:6000:e07:b0:368:7fbc:4062 with SMTP id
+ ffacd0b85a97d-378895e2f23mr6668484f8f.33.1725868613138; 
+ Mon, 09 Sep 2024 00:56:53 -0700 (PDT)
+Received: from fedora.iskraemeco.si ([193.77.86.250])
+ by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-37895675b7esm5303001f8f.50.2024.09.09.00.56.52
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 09 Sep 2024 00:56:52 -0700 (PDT)
+From: Uros Bizjak <ubizjak@gmail.com>
+To: x86@kernel.org, linux-crypto@vger.kernel.org,
+ intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-media@vger.kernel.org, linux-mtd@lists.infradead.org,
+ linux-fscrypt@vger.kernel.org, linux-scsi@vger.kernel.org,
+ bpf@vger.kernel.org, linux-kselftest@vger.kernel.org,
+ kunit-dev@googlegroups.com, linux-kernel@vger.kernel.org
+Cc: Uros Bizjak <ubizjak@gmail.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Daniel Vetter <daniel@ffwll.ch>
+Subject: [PATCH RESEND v2 04/19] drm/lib: Include <linux/prandom.h> instead of
+ <linux/random.h>
+Date: Mon,  9 Sep 2024 09:53:47 +0200
+Message-ID: <20240909075641.258968-5-ubizjak@gmail.com>
+X-Mailer: git-send-email 2.46.0
+In-Reply-To: <20240909075641.258968-1-ubizjak@gmail.com>
+References: <20240909075641.258968-1-ubizjak@gmail.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/i915:Remove unused parameter in marco.
-To: Jani Nikula <jani.nikula@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>
-Cc: joonas.lahtinen@linux.intel.com, tursulin@ursulin.net, airlied@gmail.com, 
- daniel@ffwll.ch, intel-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org
-References: <F84191BE8AA4A690+20240831135114.497043-1-helugang@uniontech.com>
- <Ztnkt8guUcY8hg3h@intel.com> <87le06ownz.fsf@intel.com>
-From: HeLuang <helugang@uniontech.com>
-In-Reply-To: <87le06ownz.fsf@intel.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-QQ-SENDSIZE: 520
-Feedback-ID: bizesmtp:uniontech.com:qybglogicsvrgz:qybglogicsvrgz7a-0
 X-Mailman-Approved-At: Mon, 09 Sep 2024 12:36:55 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -64,95 +94,33 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
+Substitute the inclusion of <linux/random.h> header with
+<linux/prandom.h> to allow the removal of legacy inclusion
+of <linux/prandom.h> from <linux/random.h>.
 
+Signed-off-by: Uros Bizjak <ubizjak@gmail.com>
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+Cc: Maxime Ripard <mripard@kernel.org>
+Cc: Thomas Zimmermann <tzimmermann@suse.de>
+Cc: David Airlie <airlied@gmail.com>
+Cc: Daniel Vetter <daniel@ffwll.ch>
+---
+ drivers/gpu/drm/lib/drm_random.h | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-在 2024/9/6 01:08, Jani Nikula 写道:
-> On Thu, 05 Sep 2024, Rodrigo Vivi <rodrigo.vivi@intel.com> wrote:
->> On Sat, Aug 31, 2024 at 09:51:14PM +0800, He Lugang wrote:
->>> The parameter dev_priv is actually not used in macro PORT_ALPM_CTL
->>> and PORT_ALPM_LFPS_CTL,so remove it to simplify the code.
->>
->> It is magically used on our back... hence the build failures that CI got.
->> Jani is doing a great clean-up work on the display code to get rid
->> of this 'dev_priv' usages in favor of a better display code separation
->> and using intel_display struct.
-> 
-> I actually think this should(tm) work. It's just that it needs a rebase.
-> 
-> BR,
-> Jani.
-> 
-OK,thannks for your reply,I'll rebase it.
->>
->> But thanks for the patch and the interest to help.
->>
-Very glad if that will be help!
->>>
->>> Signed-off-by: He Lugang <helugang@uniontech.com>
->>> ---
->>>   drivers/gpu/drm/i915/display/intel_alpm.c     | 4 ++--
->>>   drivers/gpu/drm/i915/display/intel_psr.c      | 2 +-
->>>   drivers/gpu/drm/i915/display/intel_psr_regs.h | 4 ++--
->>>   3 files changed, 5 insertions(+), 5 deletions(-)
->>>
->>> diff --git a/drivers/gpu/drm/i915/display/intel_alpm.c b/drivers/gpu/drm/i915/display/intel_alpm.c
->>> index 82ee778b2efe..7a93ba627aa6 100644
->>> --- a/drivers/gpu/drm/i915/display/intel_alpm.c
->>> +++ b/drivers/gpu/drm/i915/display/intel_alpm.c
->>> @@ -330,7 +330,7 @@ static void lnl_alpm_configure(struct intel_dp *intel_dp,
->>>   			ALPM_CTL_AUX_LESS_WAKE_TIME(intel_dp->alpm_parameters.aux_less_wake_lines);
->>>   
->>>   		intel_de_write(display,
->>> -			       PORT_ALPM_CTL(display, port),
->>> +			       PORT_ALPM_CTL(port),
->>>   			       PORT_ALPM_CTL_ALPM_AUX_LESS_ENABLE |
->>>   			       PORT_ALPM_CTL_MAX_PHY_SWING_SETUP(15) |
->>>   			       PORT_ALPM_CTL_MAX_PHY_SWING_HOLD(0) |
->>> @@ -338,7 +338,7 @@ static void lnl_alpm_configure(struct intel_dp *intel_dp,
->>>   				       intel_dp->alpm_parameters.silence_period_sym_clocks));
->>>   
->>>   		intel_de_write(display,
->>> -			       PORT_ALPM_LFPS_CTL(display, port),
->>> +			       PORT_ALPM_LFPS_CTL(port),
->>>   			       PORT_ALPM_LFPS_CTL_LFPS_CYCLE_COUNT(10) |
->>>   			       PORT_ALPM_LFPS_CTL_LFPS_HALF_CYCLE_DURATION(
->>>   				       intel_dp->alpm_parameters.lfps_half_cycle_num_of_syms) |
->>> diff --git a/drivers/gpu/drm/i915/display/intel_psr.c b/drivers/gpu/drm/i915/display/intel_psr.c
->>> index 257526362b39..d66dbb529e1d 100644
->>> --- a/drivers/gpu/drm/i915/display/intel_psr.c
->>> +++ b/drivers/gpu/drm/i915/display/intel_psr.c
->>> @@ -2076,7 +2076,7 @@ static void intel_psr_disable_locked(struct intel_dp *intel_dp)
->>>   			     ALPM_CTL_ALPM_AUX_LESS_ENABLE, 0);
->>>   
->>>   		intel_de_rmw(dev_priv,
->>> -			     PORT_ALPM_CTL(dev_priv, cpu_transcoder),
->>> +			     PORT_ALPM_CTL(cpu_transcoder),
->>>   			     PORT_ALPM_CTL_ALPM_AUX_LESS_ENABLE, 0);
->>>   	}
->>>   
->>> diff --git a/drivers/gpu/drm/i915/display/intel_psr_regs.h b/drivers/gpu/drm/i915/display/intel_psr_regs.h
->>> index 642bb15fb547..b4984e589d7e 100644
->>> --- a/drivers/gpu/drm/i915/display/intel_psr_regs.h
->>> +++ b/drivers/gpu/drm/i915/display/intel_psr_regs.h
->>> @@ -295,7 +295,7 @@
->>>   
->>>   #define _PORT_ALPM_CTL_A			0x16fa2c
->>>   #define _PORT_ALPM_CTL_B			0x16fc2c
->>> -#define PORT_ALPM_CTL(dev_priv, port)		_MMIO_PORT(port, _PORT_ALPM_CTL_A, _PORT_ALPM_CTL_B)
->>> +#define PORT_ALPM_CTL(port)			_MMIO_PORT(port, _PORT_ALPM_CTL_A, _PORT_ALPM_CTL_B)
->>>   #define  PORT_ALPM_CTL_ALPM_AUX_LESS_ENABLE	REG_BIT(31)
->>>   #define  PORT_ALPM_CTL_MAX_PHY_SWING_SETUP_MASK	REG_GENMASK(23, 20)
->>>   #define  PORT_ALPM_CTL_MAX_PHY_SWING_SETUP(val)	REG_FIELD_PREP(PORT_ALPM_CTL_MAX_PHY_SWING_SETUP_MASK, val)
->>> @@ -306,7 +306,7 @@
->>>   
->>>   #define _PORT_ALPM_LFPS_CTL_A					0x16fa30
->>>   #define _PORT_ALPM_LFPS_CTL_B					0x16fc30
->>> -#define PORT_ALPM_LFPS_CTL(dev_priv, port)			_MMIO_PORT(port, _PORT_ALPM_LFPS_CTL_A, _PORT_ALPM_LFPS_CTL_B)
->>> +#define PORT_ALPM_LFPS_CTL(port)				_MMIO_PORT(port, _PORT_ALPM_LFPS_CTL_A, _PORT_ALPM_LFPS_CTL_B)
->>>   #define  PORT_ALPM_LFPS_CTL_LFPS_START_POLARITY			REG_BIT(31)
->>>   #define  PORT_ALPM_LFPS_CTL_LFPS_CYCLE_COUNT_MASK		REG_GENMASK(27, 24)
->>>   #define  PORT_ALPM_LFPS_CTL_LFPS_CYCLE_COUNT_MIN		7
->>> -- 
->>> 2.45.2
->>>
-> 
+diff --git a/drivers/gpu/drm/lib/drm_random.h b/drivers/gpu/drm/lib/drm_random.h
+index 5543bf0474bc..9f827260a89d 100644
+--- a/drivers/gpu/drm/lib/drm_random.h
++++ b/drivers/gpu/drm/lib/drm_random.h
+@@ -6,7 +6,7 @@
+  * be transposed to lib/ at the earliest convenience.
+  */
+ 
+-#include <linux/random.h>
++#include <linux/prandom.h>
+ 
+ #define DRM_RND_STATE_INITIALIZER(seed__) ({				\
+ 	struct rnd_state state__;					\
+-- 
+2.46.0
+
