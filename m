@@ -4,76 +4,75 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C8B17ECE579
-	for <intel-gfx@archiver.kernel.org>; Mon,  9 Sep 2024 12:37:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4DB57ECE584
+	for <intel-gfx@archiver.kernel.org>; Mon,  9 Sep 2024 12:37:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 354D210E538;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7069D10E53B;
 	Mon,  9 Sep 2024 12:36:59 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="GJOxAxcN";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="foUI5KS9";
 	dkim-atps=neutral
-Received: from mail-wr1-f54.google.com (mail-wr1-f54.google.com
- [209.85.221.54])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5438510E316;
- Mon,  9 Sep 2024 07:57:16 +0000 (UTC)
-Received: by mail-wr1-f54.google.com with SMTP id
- ffacd0b85a97d-374c8cef906so2607334f8f.2; 
- Mon, 09 Sep 2024 00:57:16 -0700 (PDT)
+Received: from mail-wr1-f50.google.com (mail-wr1-f50.google.com
+ [209.85.221.50])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AFACA10E2E3;
+ Mon,  9 Sep 2024 07:08:26 +0000 (UTC)
+Received: by mail-wr1-f50.google.com with SMTP id
+ ffacd0b85a97d-374c1963cb6so2402909f8f.3; 
+ Mon, 09 Sep 2024 00:08:26 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1725868635; x=1726473435; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1725865705; x=1726470505; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=BivEb0WMZmwNev7ojy/Ht/ekf32lny20AzsfLsOF+vY=;
- b=GJOxAxcNJqzSJfplJzdMi6qg2MKaR9tXMgm7J3LgNl1GdyIvPx8LwFgD26l/ZHb2Ws
- upzWKEqY2QftNnbEHbr41ZA8Ro2ssIWAhaSL67S5sQHIzfw0++F2R/vOG4suRQNulfcd
- Fe9EoF+jiId4XVTrRPircjSSlIspv8GHhtIL06TQT322DDj4oLeCfuClbgwiCJ+tzP+y
- 4nt3bfilbZNbldUptvFJ2jqoA7QHuCrvLo5jLEX01UYGXIN8ooiwAXwbz2qY4QEQgzum
- vYvj180G33qKQ/hxxFSKfu2upri5I3w5DWYeFikzyWPiEB2SQeDnmT4F2GD6wtEzQWQV
- cUeQ==
+ bh=ShjJx/ObaG+8g3GTS0ZEXmep/OHlf8GgKk/3WiVwkKM=;
+ b=foUI5KS9gCLiVU2BbTCwa2Xka/GGYE8sBePDJrasbHlEAIy92BhAYc08eRPQIBge+k
+ 0nT3Nkih93C0Gp5sqezU0Edydq/NrlAhZz0osnkpBwOC2FWoDSj1Y4zg15EMMIq4cxtb
+ sgprr4ubwdekZbLkS/tl4XI+kRI+ifdJ5QO5DwLxijck7k9aiASD1XIbe3rXlNXBFRqY
+ eq6WC8K+QrA1/8xcazb+kF0pPYgKnc4fZjnf+mzCOQ+p42vXbc9Uqh3/BbTERI+fw4CW
+ /UsHk80uNrtSuuhBhdGv8kcvEC18eqDDvALOR4YQBBkXjMM0GhUCXFANK5aQVKfAzljj
+ I+LQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1725868635; x=1726473435;
+ d=1e100.net; s=20230601; t=1725865705; x=1726470505;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=BivEb0WMZmwNev7ojy/Ht/ekf32lny20AzsfLsOF+vY=;
- b=MZ/E3mjNxQDcUtHphx8W87kQ/OGujAmXjqGtXSvZEqK9frqiKvdeOMxCDNEoZK1xEY
- ZXVx8ZSUdIiuFRlB2i7yUn3FBXXLNLsLpiIqzZD3Li4HAmovntKiT7E5N9GjE24yaHaq
- nB+eaA6qz+BkA8kt8KXu86wlSeDU8QO/vdjkjxvDB8WqTr2To391XQ2C6LjuUA2B400P
- chyB01uKlikU8s8c3oGBrrdMpUpwNxzUfHKk/ZRuH7JNp8sgA9zkWgqrqMogwzXSIqKp
- piexPzyD8l4jJ+YCD6jVane6EXAH3glXhdmhTM3W2zh7xzAwfjX653ZuNbwustSbRAYb
- CYFQ==
+ bh=ShjJx/ObaG+8g3GTS0ZEXmep/OHlf8GgKk/3WiVwkKM=;
+ b=mcMfR0DMpHx4bzIGZ3u2OQ7Coe0r+USwSS6HhNEHDTNTcuu3VXTWzw2igM1N9PPwGH
+ 9KmiomPHk8TZtV5THMN/rl/ZZzim7GNIt5EokeOORsAe/8COfqid9kuXyFXEYw/eMpZs
+ SMhLTpICzkgLW9ChCyWPFu1k13Vfjl2Oh963/wEc7G37geRKDdYHBs36JLYHJiL5S+Qw
+ QRoptD82jt0IFMGH9wAWifRq9SsPeHxD912J7d2w97G7lSumJuIb5o0cc32CJ221Rok0
+ +NqNVeIyfauVjiYey/XpkMGaGUAVGYP3J1Y9kafb+QRjQsgVHiU9syl5Ar5RmdFRv5I+
+ DSQQ==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUTrKBi+h1UMO9U1Gx248RR0DSdjAiIobfTL6OlIKMcRts8OEGbGPry65MFwpc0CCl+pORiKCxS/hw=@lists.freedesktop.org,
- AJvYcCVG+WNVDr+nUOtza8zM8oAW0zUpdyssNIkYlX1XF/QaewUka0rAvwdIWqlU4bzhm8bhZNjcBrvuRTog@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxJMVR3NbguhSuwB6CmKW4SrUtqJVQxQDmzRhm6nzlU8lFa62J5
- /O/YLano/0OCybahyJYxHfMnCLXHYwK8YftQsdq48DzKq7eODmWn
-X-Google-Smtp-Source: AGHT+IGFn7bjhhziiFk7ZlVWXk6e2N6wsS1IlnWqQqC142aEHDE+lRu2u+3J5phDWkNcaysihDjQtA==
-X-Received: by 2002:a5d:4101:0:b0:374:cbdd:480d with SMTP id
- ffacd0b85a97d-37889654c77mr5657546f8f.36.1725868634534; 
- Mon, 09 Sep 2024 00:57:14 -0700 (PDT)
+ AJvYcCX2Q6LJSDD81OB2BlkQfdpnhdrhbDfajyEYWhnpQT+ffrRfa5ts/82OpG/HMBhWyslhHVy5lFCfEkA=@lists.freedesktop.org,
+ AJvYcCXikHi/BLjA7U8LHSPAPIp3r/4/frKNPyR56bDShoE1Ij6xIThPFh5sjTW81VWMBLRuCamFF69K22Cr@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzGpaITBHewtqtRafeN8vwxYSbeulduxsMUq2NX0usOa2CbxvvF
+ WRR0o6hDIb05lHEJ8XsOljjCy4I8ov9QMD3rGghUoIVT+BVJjk4q
+X-Google-Smtp-Source: AGHT+IENAg1lx4hzfxdNZ9tmKUR4RCTP87aohUUWb/KE3Nn7ukR11EcqHzf0iJoeJH4fmxJ9dQt47A==
+X-Received: by 2002:a5d:5c87:0:b0:378:89d8:822e with SMTP id
+ ffacd0b85a97d-37889d883e2mr5832530f8f.27.1725865704068; 
+ Mon, 09 Sep 2024 00:08:24 -0700 (PDT)
 Received: from fedora.iskraemeco.si ([193.77.86.250])
  by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-37895675b7esm5303001f8f.50.2024.09.09.00.57.13
+ ffacd0b85a97d-378956d375asm5178754f8f.66.2024.09.09.00.08.22
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 09 Sep 2024 00:57:13 -0700 (PDT)
+ Mon, 09 Sep 2024 00:08:22 -0700 (PDT)
 From: Uros Bizjak <ubizjak@gmail.com>
 To: x86@kernel.org, linux-crypto@vger.kernel.org,
  intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
  linux-media@vger.kernel.org, linux-mtd@lists.infradead.org,
  linux-fscrypt@vger.kernel.org, linux-scsi@vger.kernel.org,
  bpf@vger.kernel.org, linux-kselftest@vger.kernel.org,
- kunit-dev@googlegroups.com, linux-kernel@vger.kernel.org
-Cc: Uros Bizjak <ubizjak@gmail.com>, "Theodore Ts'o" <tytso@mit.edu>,
- "Jason A. Donenfeld" <Jason@zx2c4.com>,
- Linus Torvalds <torvalds@linux-foundation.org>
-Subject: [PATCH RESEND v2 18/19] random: Do not include <linux/prandom.h> in
- <linux/random.h>
-Date: Mon,  9 Sep 2024 09:54:01 +0200
-Message-ID: <20240909075641.258968-19-ubizjak@gmail.com>
+ kunit-dev@googlegroups.com
+Cc: Uros Bizjak <ubizjak@gmail.com>, Hans Verkuil <hverkuil@xs4all.nl>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>
+Subject: [PATCH v2 05/19] media: vivid: Include <linux/prandom.h> in
+ vivid-vid-cap.c
+Date: Mon,  9 Sep 2024 09:05:19 +0200
+Message-ID: <20240909070742.75425-6-ubizjak@gmail.com>
 X-Mailer: git-send-email 2.46.0
-In-Reply-To: <20240909075641.258968-1-ubizjak@gmail.com>
-References: <20240909075641.258968-1-ubizjak@gmail.com>
+In-Reply-To: <20240909070742.75425-1-ubizjak@gmail.com>
+References: <20240909070742.75425-1-ubizjak@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Mon, 09 Sep 2024 12:36:55 +0000
@@ -92,40 +91,30 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Files that use prandom infrastructure are now converted to
-use <linux/prandom.h> header instead of <linux/random.h>.
-Remove the legacy inclusion of <linux/prandom.h> from
-<linux/random.h>.
-
-This is the "nice cleanup" part, wished in c0842fbc1b18.
+Substitute the inclusion of <linux/random.h> header with
+<linux/prandom.h> to allow the removal of legacy inclusion
+of <linux/prandom.h> from <linux/random.h>.
 
 Signed-off-by: Uros Bizjak <ubizjak@gmail.com>
-Fixes: c0842fbc1b18 ("random32: move the pseudo-random 32-bit definitions to prandom.h")
-Cc: "Theodore Ts'o" <tytso@mit.edu>
-Cc: "Jason A. Donenfeld" <Jason@zx2c4.com>
-Cc: Linus Torvalds <torvalds@linux-foundation.org>
+Cc: Hans Verkuil <hverkuil@xs4all.nl>
+Cc: Mauro Carvalho Chehab <mchehab@kernel.org>
+Cc: linux-media@vger.kernel.org
 ---
- include/linux/random.h | 7 -------
- 1 file changed, 7 deletions(-)
+ drivers/media/test-drivers/vivid/vivid-vid-cap.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/include/linux/random.h b/include/linux/random.h
-index b0a940af4fff..333cecfca93f 100644
---- a/include/linux/random.h
-+++ b/include/linux/random.h
-@@ -145,13 +145,6 @@ declare_get_random_var_wait(u64, u32)
- declare_get_random_var_wait(long, unsigned long)
- #undef declare_get_random_var
- 
--/*
-- * This is designed to be standalone for just prandom
-- * users, but for now we include it from <linux/random.h>
-- * for legacy reasons.
-- */
--#include <linux/prandom.h>
--
- #ifdef CONFIG_SMP
- int random_prepare_cpu(unsigned int cpu);
- int random_online_cpu(unsigned int cpu);
+diff --git a/drivers/media/test-drivers/vivid/vivid-vid-cap.c b/drivers/media/test-drivers/vivid/vivid-vid-cap.c
+index 69620e0a35a0..184460eb356e 100644
+--- a/drivers/media/test-drivers/vivid/vivid-vid-cap.c
++++ b/drivers/media/test-drivers/vivid/vivid-vid-cap.c
+@@ -10,6 +10,7 @@
+ #include <linux/sched.h>
+ #include <linux/vmalloc.h>
+ #include <linux/videodev2.h>
++#include <linux/prandom.h>
+ #include <linux/v4l2-dv-timings.h>
+ #include <media/v4l2-common.h>
+ #include <media/v4l2-event.h>
 -- 
 2.46.0
 
