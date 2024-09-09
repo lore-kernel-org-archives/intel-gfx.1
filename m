@@ -4,59 +4,59 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 93408ECE588
-	for <intel-gfx@archiver.kernel.org>; Mon,  9 Sep 2024 12:37:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 33F4FECE586
+	for <intel-gfx@archiver.kernel.org>; Mon,  9 Sep 2024 12:37:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 06BDE10E526;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 99FDE10E52D;
 	Mon,  9 Sep 2024 12:36:58 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="KY+f3qSl";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="kAn9XVh6";
 	dkim-atps=neutral
-Received: from mail-wr1-f52.google.com (mail-wr1-f52.google.com
- [209.85.221.52])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 322B310E2E6;
- Mon,  9 Sep 2024 07:08:31 +0000 (UTC)
-Received: by mail-wr1-f52.google.com with SMTP id
- ffacd0b85a97d-374c1963cb6so2402968f8f.3; 
- Mon, 09 Sep 2024 00:08:31 -0700 (PDT)
+Received: from mail-wr1-f44.google.com (mail-wr1-f44.google.com
+ [209.85.221.44])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4CF2E10E2ED;
+ Mon,  9 Sep 2024 07:08:40 +0000 (UTC)
+Received: by mail-wr1-f44.google.com with SMTP id
+ ffacd0b85a97d-374c1e5fe79so2573753f8f.1; 
+ Mon, 09 Sep 2024 00:08:40 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1725865709; x=1726470509; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1725865719; x=1726470519; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=Tns6DEsLLFvzNa6897gvKPOeII1INdIqfTx8WlLIAvw=;
- b=KY+f3qSlRGvZ7tuJChYeDs19aqeSe8rj7O8bYAgjyk8Qh3tZsJeaNsxBc8EqdOyYlq
- 3JGxu4uGk0tqKPImLX33TI6q47oACyOjEP2dXdyBg05CWHt9qydVKI37r5VK5eLYmOxz
- PGfz/vSjMd12iBE17WiQqGg6vnidtV3MGwF8cVHIMxD/15e6IfCrlf+rkKPFvD3Sjpmd
- BP00xbCmpiFHi4vyXVG/V2CWG6oqCRrs3ZNhrzlKnYQqXrbq/hjQ15fQdh3kLmSd9mkT
- YiQJWFC8ElDCH7p8U/ULfuAXe4Q4TWRy6MiUF/RX3Le3lL687BuvQOYM4Xk9MC4kwXeG
- blVA==
+ bh=uaLYxtWkb9UDRswjf7QQ6H+2Ezg3Jw4reUgYCP+x518=;
+ b=kAn9XVh6KjepPKmrpl3LPJ8O8/CTtpIQpGCKJ7jlbIE9RDtWT2IV6ITGM/bOzeRyvK
+ cmJ0TWsz5Vg5kpaO6tjnBlnfiF4epD04Fir8/h7WJhXURSfqPRyCfM8LZtQF0+4yn93q
+ k4iSiuQqXKFiNLhsTnd/VL6BAOa7cXzODyIRVx33ju1mOCVXFcOpijcreSbf0WJ/2+cx
+ Wb6H857OReC6Y+z4kBla5sEHJlNZeAOAIHwWzmuqraGj074Rap39nIjWhoLVMbsJ2ovP
+ vNfmhev8ROOzWoH7kzNPxVoU65AudV/RD2uAHssZWLUC+v1RmiDlRbeS1HhJcU6keHeo
+ CRbg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1725865709; x=1726470509;
+ d=1e100.net; s=20230601; t=1725865719; x=1726470519;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=Tns6DEsLLFvzNa6897gvKPOeII1INdIqfTx8WlLIAvw=;
- b=osmhUA6SUyBNCt8iO9vEVCnJX8/i/jg1NzONneJQQ4Qfv52rTbNdNbSqKzNmnHmA/C
- rX8e7hRSvJxhapZP1CIA9GAf4ISlWC6URaIAQ3mY0ueK9efIj/X2NMpflW0tnPiyZn3/
- gvQPDM8WvefVu+kf3F4faJ5y49ppXZdVLdwnHELH4vevxU3fmE4XjwbJv7c7GbJ4O3B8
- VWpGSomRkscaYWWEYobrQdFM5K4NNjx/W+xSxAgiPwC2ewcEKRJLUmnHx/7tXenVuxr0
- BRniggelGmv1P24sTgWNmWbHZCRUtzNNeefH4wWaey1hBMzlulw+ufxlE+o0asc6RqJw
- seLg==
+ bh=uaLYxtWkb9UDRswjf7QQ6H+2Ezg3Jw4reUgYCP+x518=;
+ b=GU8U4kS1cRpSKGV5fuIBidlBG+m5y5+HEwpm1rMmHzDSOCfzaf6IqDK58jZmZ2gAyf
+ w6clcxsLL5MYBi0C06H8VcnkV9oTkam4gkVzWf+IsQIPJ9jD0xx92/2ls1DrNDA0B28Q
+ sgtvIxoOFpTBr031XLKIQ/8Ua3icexd9Is9F4sQQq+1M7ecvRLupuV8vEnfxvKEFynXg
+ LgnpmC0e4RnoxEOLW4dkK7HH9Lyk1knRW/THHR0nCUWxpR3KOZywly5HPLtfAAvW9vQF
+ /5w8H36HJz4lEHdV9zjjlCaq8bbja8mhzCjh/CjgG8Mxxk5mETaVR+u5qG+84FYIFStZ
+ BN1g==
 X-Forwarded-Encrypted: i=1;
- AJvYcCV70wVjNywx/P8+DUXCY0ppF0lgt1m6zXLAeVBDCOLgcQGoHd1u7ThPLzWmcoJawWNfwWbN9jfFBlM=@lists.freedesktop.org,
- AJvYcCVdp3g660gvsnCPH0f/wyVTuosPeZ/koyBSae7nIrU2D9z0X4cua30oZEQc1o5rHAU66Yp3yXd/1hKI@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwQ2hO7UPQTAXO7mwGb9hLy8pNlICR4IkJsrmjAxL5HkbSt/fkD
- FhUyU0cLwivqttTRj4MKCU4YHBItd26huGoxLCTIEShggr+oi/hS
-X-Google-Smtp-Source: AGHT+IE4gYqw+4rBd+cHrezcNoH0ZCL4/TV7eTgB/uDbDVBwGdbv1e6X9shSKYPEa98NPjsJYgGg4g==
-X-Received: by 2002:adf:e544:0:b0:368:445e:91cc with SMTP id
- ffacd0b85a97d-378895c9deemr7165822f8f.21.1725865709459; 
- Mon, 09 Sep 2024 00:08:29 -0700 (PDT)
+ AJvYcCV1cbwxqA4UNcYdydOM3rPRY9KKN7sjtRWZf6/DdblaNV1SCRDH2IABJQ679XubnsJLFgszMqShrSQ=@lists.freedesktop.org,
+ AJvYcCWhB9bL/b2hXs5pvAV1ZYJjJqWVQoW5t9zGFj0NvP+f1Wtnue3G8qYMMcHvPSDS7mMb0u6blYOAYaUi@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzwPIt2tLQ141rWV5UO3U5tBFlZMDNIXt18wCyGaRSLq6N8MgnR
+ u/QppvCZ7KZWpt6PeSzJ9Zr6gapsb4RjEBL94g4moPmUVZ5pwW7/
+X-Google-Smtp-Source: AGHT+IEQLNSW+PIzTLcAW22XrPAIo5gWgIG/codxPwAybXuXAtbQozQUICUfaqd7uB8QyM9Iess0AA==
+X-Received: by 2002:a5d:46ca:0:b0:377:9867:9028 with SMTP id
+ ffacd0b85a97d-3788967aaffmr6190593f8f.44.1725865718527; 
+ Mon, 09 Sep 2024 00:08:38 -0700 (PDT)
 Received: from fedora.iskraemeco.si ([193.77.86.250])
  by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-378956d375asm5178754f8f.66.2024.09.09.00.08.27
+ ffacd0b85a97d-378956d375asm5178754f8f.66.2024.09.09.00.08.37
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 09 Sep 2024 00:08:28 -0700 (PDT)
+ Mon, 09 Sep 2024 00:08:38 -0700 (PDT)
 From: Uros Bizjak <ubizjak@gmail.com>
 To: x86@kernel.org, linux-crypto@vger.kernel.org,
  intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
@@ -64,13 +64,20 @@ To: x86@kernel.org, linux-crypto@vger.kernel.org,
  linux-fscrypt@vger.kernel.org, linux-scsi@vger.kernel.org,
  bpf@vger.kernel.org, linux-kselftest@vger.kernel.org,
  kunit-dev@googlegroups.com
-Cc: Uros Bizjak <ubizjak@gmail.com>, Hannes Reinecke <hare@suse.de>,
- "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>,
- "Martin K. Petersen" <martin.petersen@oracle.com>
-Subject: [PATCH v2 08/19] scsi: libfcoe: Include <linux/prandom.h> instead of
+Cc: Uros Bizjak <ubizjak@gmail.com>, Andrew Morton <akpm@linux-foundation.org>,
+ Alexei Starovoitov <ast@kernel.org>,
+ Daniel Borkmann <daniel@iogearbox.net>,
+ Andrii Nakryiko <andrii@kernel.org>,
+ Martin KaFai Lau <martin.lau@linux.dev>,
+ Eduard Zingerman <eddyz87@gmail.com>, Song Liu <song@kernel.org>,
+ Yonghong Song <yonghong.song@linux.dev>,
+ John Fastabend <john.fastabend@gmail.com>, KP Singh <kpsingh@kernel.org>,
+ Stanislav Fomichev <sdf@fomichev.me>, Hao Luo <haoluo@google.com>,
+ Jiri Olsa <jolsa@kernel.org>
+Subject: [PATCH v2 14/19] bpf/tests: Include <linux/prandom.h> instead of
  <linux/random.h>
-Date: Mon,  9 Sep 2024 09:05:22 +0200
-Message-ID: <20240909070742.75425-9-ubizjak@gmail.com>
+Date: Mon,  9 Sep 2024 09:05:28 +0200
+Message-ID: <20240909070742.75425-15-ubizjak@gmail.com>
 X-Mailer: git-send-email 2.46.0
 In-Reply-To: <20240909070742.75425-1-ubizjak@gmail.com>
 References: <20240909070742.75425-1-ubizjak@gmail.com>
@@ -97,26 +104,36 @@ Substitute the inclusion of <linux/random.h> header with
 of <linux/prandom.h> from <linux/random.h>.
 
 Signed-off-by: Uros Bizjak <ubizjak@gmail.com>
-Cc: Hannes Reinecke <hare@suse.de>
-Cc: "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>
-Cc: "Martin K. Petersen" <martin.petersen@oracle.com>
+Cc: Andrew Morton <akpm@linux-foundation.org>
+Cc: Alexei Starovoitov <ast@kernel.org>
+Cc: Daniel Borkmann <daniel@iogearbox.net>
+Cc: Andrii Nakryiko <andrii@kernel.org>
+Cc: Martin KaFai Lau <martin.lau@linux.dev>
+Cc: Eduard Zingerman <eddyz87@gmail.com>
+Cc: Song Liu <song@kernel.org>
+Cc: Yonghong Song <yonghong.song@linux.dev>
+Cc: John Fastabend <john.fastabend@gmail.com>
+Cc: KP Singh <kpsingh@kernel.org>
+Cc: Stanislav Fomichev <sdf@fomichev.me>
+Cc: Hao Luo <haoluo@google.com>
+Cc: Jiri Olsa <jolsa@kernel.org>
 ---
- include/scsi/libfcoe.h | 2 +-
+ lib/test_bpf.c | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/include/scsi/libfcoe.h b/include/scsi/libfcoe.h
-index 3c5899290aed..6616348e59b9 100644
---- a/include/scsi/libfcoe.h
-+++ b/include/scsi/libfcoe.h
-@@ -15,7 +15,7 @@
+diff --git a/lib/test_bpf.c b/lib/test_bpf.c
+index ca4b0eea81a2..eb4a1915e4d2 100644
+--- a/lib/test_bpf.c
++++ b/lib/test_bpf.c
+@@ -14,7 +14,7 @@
  #include <linux/skbuff.h>
- #include <linux/workqueue.h>
- #include <linux/local_lock.h>
+ #include <linux/netdevice.h>
+ #include <linux/if_vlan.h>
 -#include <linux/random.h>
 +#include <linux/prandom.h>
- #include <scsi/fc/fc_fcoe.h>
- #include <scsi/libfc.h>
- #include <scsi/fcoe_sysfs.h>
+ #include <linux/highmem.h>
+ #include <linux/sched.h>
+ 
 -- 
 2.46.0
 
