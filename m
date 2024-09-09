@@ -4,74 +4,75 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 49BABECE584
-	for <intel-gfx@archiver.kernel.org>; Mon,  9 Sep 2024 12:37:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3B642ECE585
+	for <intel-gfx@archiver.kernel.org>; Mon,  9 Sep 2024 12:37:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1E44810E529;
-	Mon,  9 Sep 2024 12:36:58 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BA58910E520;
+	Mon,  9 Sep 2024 12:36:57 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="az3mlxrV";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="N66vnjPp";
 	dkim-atps=neutral
-Received: from mail-wr1-f52.google.com (mail-wr1-f52.google.com
- [209.85.221.52])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EFE2710E2EA;
- Mon,  9 Sep 2024 07:08:34 +0000 (UTC)
-Received: by mail-wr1-f52.google.com with SMTP id
- ffacd0b85a97d-374c84dcc90so2297128f8f.1; 
- Mon, 09 Sep 2024 00:08:34 -0700 (PDT)
+Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com
+ [209.85.128.42])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2C67D10E305;
+ Mon,  9 Sep 2024 07:56:52 +0000 (UTC)
+Received: by mail-wm1-f42.google.com with SMTP id
+ 5b1f17b1804b1-428e0d18666so35769205e9.3; 
+ Mon, 09 Sep 2024 00:56:52 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1725865713; x=1726470513; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1725868610; x=1726473410; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=aK7oAHt19v4bPo2zqG0Ykp0jbeXdGIHNkoqennHtifs=;
- b=az3mlxrVCeZ+e0it1vGYHdoVdwntTXPNLVhq6WH2QJzIjgwyMRPPdnB5I6AFPfTy2E
- s7M5WuyYg6J+FAEUiZQ9ZON8gP7dwms7htt6raBVanqYlMycAwQnFG+H1VsBxMmLsn9d
- oixJPYJ45/t/2Y2PB78sNPQwgvW3vUmqmSiizJT0NfRzcaxoMX9x3fkm7P3/J0z+3X10
- gdE8Z519f9oZgsPNFS1e2h13ETQPI48HVOXsG1YiSCOBOWwgLh3RbmRgre8xe2I/xr3+
- xTipanD2eCS1/EN8MfDcd7+V0RlTcY09FzbFBDcwD5jpn8faASVMb7rShENz4ax5WYuT
- bX6g==
+ bh=NRfmK9XiELkgvke2KZ1pLgHNaRcKS5bA/Qy7jNwAfDM=;
+ b=N66vnjPp963sLE95cjg7nz697Aoe6ZXfo/tBQQq1QJHCkGbJmKqB/4W+1C37hgExYZ
+ MUhhC+6FYfyji+dtu/WzvTU+0hdssremWnXIJ0QOvMi/g+PxMLkL+o5v3Tcvx4ULnVap
+ iF0Ru/GBgIhD6qdghD2JI7R2aUfmrwlpoki3KQxr3cjWNM1/bCiiL0IKv4RKzWIr8Fof
+ OJQYKs0LnxQ1tFO9TAj0Lw9lh19EpGWiolxNK2x/MPIrbOYwA7NQ3uv2/c//13scZUnP
+ Zp31ikkVPaaoi4XJCqvSA2xsUMqnxUrCQ4s1cG/18lYa5p2+Za8i1NgJsaQtOv3xEM5V
+ VCAg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1725865713; x=1726470513;
+ d=1e100.net; s=20230601; t=1725868610; x=1726473410;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=aK7oAHt19v4bPo2zqG0Ykp0jbeXdGIHNkoqennHtifs=;
- b=UDYMYdiy4eR7CFvm43mEAZijA4aq0cUubph+tu93kjHw3WBsFyaTp/0QulEcWhVAuY
- Aa7hzs5szGiJdwSI/woaCH+Ux7smeS77h01Q8Uat4Bdv03Kaee/VMAxt4FMRE9e6q9CS
- 5OxRmfr9xrg1J6NBRIS/5VVMUEC8zPnvsvi2QGswt4RuIH73vH+zw4WJZhMP9I131mOt
- O/osySqUGHaJGML1PizpnGM+ZGyGZ1LnrGtWgnSK6qQ2PM4L2O5sFV4StiB1V6sOoC7n
- H1lnGIuxDv//MV8O8ML6M4SZTsBa37jldL6pVvKFfjSuwmuH1qfSRrXX4SApCawbRYs7
- j+dg==
+ bh=NRfmK9XiELkgvke2KZ1pLgHNaRcKS5bA/Qy7jNwAfDM=;
+ b=ATDaS6tjZjYiJE4Dc2imPXGNWM5RT1tnHqSU3uENLQApTKvqTVU18LSRuqZfzCgU4r
+ 6x8SLzdGn5APVVKe5xK7zi6QoLBBDUYTNVVdGH9wKLwh5OEZ8o2Mq3RBobjPMvK0mmBP
+ F1AKLSrBijWjNg/ehC4QQtx2mX4xQn8uu4l/RUNlUR+izarr722EA2NWhlb1i7/fRnvV
+ PUh7S3T9NIlz8mmQ2+FO5DExPAiLPMZHz5kV3ME+wL2ZLKzQJJSj1I/8Sy9F+siNo6hH
+ 5VdJNQhM/n1TePlOfr8OCdDTlzkZ/1NobCVwG7FYLkcRYLoIASQbyWJVGS8x+ZA/2bu5
+ tUIA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUIer/FTru45HYexpqyUspKlTbN8qq0UJBdBEIh0u3cF6m7NdGms3RM9XTuJzM3yTlea2MV/wIIGVE=@lists.freedesktop.org,
- AJvYcCWsuLUQMLxdyy8ddmkppTynHupkP9gZH/OR7B9YuljZAl/++VT3v3tPn/o4HLoiu9vNB/ERx1X4tgmq@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxbFwj22zi5UI24WmJAOa9RdnGeIK+aaGXUqlx29LkezrT8HOwv
- rNlC9ffR06r9hohv4j+MzexhPyCJRo/UYinGdWu5to9xtcDL2jm7
-X-Google-Smtp-Source: AGHT+IFi67K8QB4r8x5dBm9y5325f1H3SNjB1ndU/CGDMv41P1K19WzeQTZI+70hfCKm0xevGHxxxA==
-X-Received: by 2002:a05:6000:1143:b0:371:87d4:8f12 with SMTP id
- ffacd0b85a97d-378895ca2e1mr6475478f8f.17.1725865713228; 
- Mon, 09 Sep 2024 00:08:33 -0700 (PDT)
+ AJvYcCUhKRKXLi/4mz204pmmm+61mftKUEWMWxiURt1SYI91cyzBwIVtqv+kt/aj20xawi8RFn7ZGFyB8l0=@lists.freedesktop.org,
+ AJvYcCV2C2VvIV6LDVdr3381Vk5l5W5oMTTl+rzKSnsH9DmHXAge3s1+YEMn1rDyQluwCeAX5dnWYzjE3hXS@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwZZ1qTdTc+82sTxjhilSffxMI7nj1arEIFRNfxMOjlUFdpclYo
+ Hv3bsT6AoYeG0y69DiQyGMNbH1RJOMBNZ3o/UM62vp6sloCtAEaT
+X-Google-Smtp-Source: AGHT+IGXcCDv4DFDPdFSIqVFPwRvA3mDfJWQsySfBoGz736imUoLNDjdjo5DUMJkSdrlazNFf7whxA==
+X-Received: by 2002:a05:600c:4e8d:b0:429:d43e:dbb9 with SMTP id
+ 5b1f17b1804b1-42c9f9caa4emr65165305e9.23.1725868610286; 
+ Mon, 09 Sep 2024 00:56:50 -0700 (PDT)
 Received: from fedora.iskraemeco.si ([193.77.86.250])
  by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-378956d375asm5178754f8f.66.2024.09.09.00.08.31
+ ffacd0b85a97d-37895675b7esm5303001f8f.50.2024.09.09.00.56.48
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 09 Sep 2024 00:08:31 -0700 (PDT)
+ Mon, 09 Sep 2024 00:56:49 -0700 (PDT)
 From: Uros Bizjak <ubizjak@gmail.com>
 To: x86@kernel.org, linux-crypto@vger.kernel.org,
  intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
  linux-media@vger.kernel.org, linux-mtd@lists.infradead.org,
  linux-fscrypt@vger.kernel.org, linux-scsi@vger.kernel.org,
  bpf@vger.kernel.org, linux-kselftest@vger.kernel.org,
- kunit-dev@googlegroups.com
-Cc: Uros Bizjak <ubizjak@gmail.com>, Andrew Morton <akpm@linux-foundation.org>
-Subject: [PATCH v2 10/19] lib/interval_tree_test.c: Include <linux/prandom.h>
+ kunit-dev@googlegroups.com, linux-kernel@vger.kernel.org
+Cc: Uros Bizjak <ubizjak@gmail.com>, Herbert Xu <herbert@gondor.apana.org.au>,
+ "David S. Miller" <davem@davemloft.net>
+Subject: [PATCH RESEND v2 02/19] crypto: testmgr: Include <linux/prandom.h>
  instead of <linux/random.h>
-Date: Mon,  9 Sep 2024 09:05:24 +0200
-Message-ID: <20240909070742.75425-11-ubizjak@gmail.com>
+Date: Mon,  9 Sep 2024 09:53:45 +0200
+Message-ID: <20240909075641.258968-3-ubizjak@gmail.com>
 X-Mailer: git-send-email 2.46.0
-In-Reply-To: <20240909070742.75425-1-ubizjak@gmail.com>
-References: <20240909070742.75425-1-ubizjak@gmail.com>
+In-Reply-To: <20240909075641.258968-1-ubizjak@gmail.com>
+References: <20240909075641.258968-1-ubizjak@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Mon, 09 Sep 2024 12:36:55 +0000
@@ -95,24 +96,25 @@ Substitute the inclusion of <linux/random.h> header with
 of <linux/prandom.h> from <linux/random.h>.
 
 Signed-off-by: Uros Bizjak <ubizjak@gmail.com>
-Cc: Andrew Morton <akpm@linux-foundation.org>
+Cc: Herbert Xu <herbert@gondor.apana.org.au>
+Cc: "David S. Miller" <davem@davemloft.net>
 ---
- lib/interval_tree_test.c | 2 +-
+ crypto/testmgr.c | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/lib/interval_tree_test.c b/lib/interval_tree_test.c
-index f37f4d44faa9..837064b83a6c 100644
---- a/lib/interval_tree_test.c
-+++ b/lib/interval_tree_test.c
-@@ -2,7 +2,7 @@
+diff --git a/crypto/testmgr.c b/crypto/testmgr.c
+index f02cb075bd68..eeb7edd99a93 100644
+--- a/crypto/testmgr.c
++++ b/crypto/testmgr.c
+@@ -23,7 +23,7 @@
+ #include <linux/fips.h>
  #include <linux/module.h>
- #include <linux/moduleparam.h>
- #include <linux/interval_tree.h>
+ #include <linux/once.h>
 -#include <linux/random.h>
 +#include <linux/prandom.h>
+ #include <linux/scatterlist.h>
  #include <linux/slab.h>
- #include <asm/timex.h>
- 
+ #include <linux/string.h>
 -- 
 2.46.0
 
