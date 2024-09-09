@@ -4,59 +4,59 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A011BECE586
-	for <intel-gfx@archiver.kernel.org>; Mon,  9 Sep 2024 12:37:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 32A8FECE579
+	for <intel-gfx@archiver.kernel.org>; Mon,  9 Sep 2024 12:37:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C7D4110E523;
+	by gabe.freedesktop.org (Postfix) with ESMTP id C8E4F10E524;
 	Mon,  9 Sep 2024 12:36:57 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="fBdyDMsE";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="J3RikVgC";
 	dkim-atps=neutral
-Received: from mail-wr1-f43.google.com (mail-wr1-f43.google.com
- [209.85.221.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A937210E2E0;
- Mon,  9 Sep 2024 07:08:21 +0000 (UTC)
-Received: by mail-wr1-f43.google.com with SMTP id
- ffacd0b85a97d-374c84dcc64so2947311f8f.1; 
- Mon, 09 Sep 2024 00:08:21 -0700 (PDT)
+Received: from mail-wr1-f45.google.com (mail-wr1-f45.google.com
+ [209.85.221.45])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F0F8110E2EC;
+ Mon,  9 Sep 2024 07:08:38 +0000 (UTC)
+Received: by mail-wr1-f45.google.com with SMTP id
+ ffacd0b85a97d-374c326c638so2945562f8f.2; 
+ Mon, 09 Sep 2024 00:08:38 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1725865700; x=1726470500; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1725865717; x=1726470517; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=14qfBrUBkIolMsRSnhXU/v/JiTjLcMYNIcdp3nVnQBY=;
- b=fBdyDMsEImY11zQgfDNfPVb6vHy5hJir6/QDI0OSa0wAfIZG5DfnafqhV1Z0T58b1a
- pEJzM6FXNjPRtdSph8/baxeSfZYZCdpRLcAw5pICwGDCvgLwSmXNm0FqpN8dRL874kUS
- UNzpjMOLBD1EZB0c/v59R0zwa/tONZMq194EKqH6WYQ0OLGllwmxnFrL16/tfHBP92jS
- 1TWMNCErAEW6aEd4t+w5oUKAk6OGKoORBquJdoGWAK9uCTebx3UQxRZ73TpV1RBG6uCr
- O1SUgVJz0Zr4roDa5Dulo97kC9fX0Pj04ZqZ5hLRXxvmyl1XN2GEDZneTbbbXc5aPINh
- Stlg==
+ bh=dqq6NzUB0QMlVgbuEigLtg4dQP3OsIeGqq5KqtK1ysk=;
+ b=J3RikVgCmcjg0ETCMAAzsQIzYN/lY/ZqQOSA4JS9rjEeXhFex//8QFRYENpc1MJgh5
+ U1jniitBg6tpDG8efbiCFEBeI+9enkHBU/NiUIohCWfsIh4jr8ccjWPjAdK8MKZNVOWV
+ fiBAAU/G81FDNtiakqkjyGTTmb/uxKxXV7313gVLOrjlrQLW2gjDZU/GENNm4cnQuzQy
+ sJqFFmYEm69DFjM1BLoCvhUS93pOu0dmTVmfEI8l0D5AzsnhTyzfkXGu6xrx4pl+CqAY
+ UlsbDgzoTJJ0DBzekZQRdCjKp0Cs2R6BTfKM+7Kw0AXjQEovh7rN1KTe9vlaxI0geX11
+ eP8Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1725865700; x=1726470500;
+ d=1e100.net; s=20230601; t=1725865717; x=1726470517;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=14qfBrUBkIolMsRSnhXU/v/JiTjLcMYNIcdp3nVnQBY=;
- b=wT6OFIKOClevktaHqCEjNUr6TtyvuftR0d1p682OjeFttLykEjfjvWSU6wf4l9Hj4v
- /1tkCr1lFwqNkkkiVeag85W1ot3/F+YKmH/po/jTnXB9nGM/vWUeRnzIUxy9Wnk0rOUL
- WMijV6mFfqQd4DkqopyETGbXn6PbHyHzShEWhJVcyC8GowseO4mRP+Xmn3I9CxQqBYgr
- 4mX6Gz9MFAoPM1h/2tSUE9CnWRPO8I3ZF3d9MdwWW1PKFyhakOJar8rOtZYucS6Bp3Ft
- lrvWL5uMTIHuUDqtOdsmlmehftQg2k2uO4QzCTQUFJKPgfGH1fyvzNgd4vzHhHd6tGCM
- 1+SQ==
+ bh=dqq6NzUB0QMlVgbuEigLtg4dQP3OsIeGqq5KqtK1ysk=;
+ b=phJvh0YkR6dL5lFhwflOOUjPG2XBZ/6wYO71VhFptctIYH0ahuE6ybX9OdpUi7CC2G
+ kYVJCEwJdprVDyb841FxBQElKlFZ924COTrv2xEcBdRjHtoZu4+DvG8PBOGTd/utu9m0
+ AKmG8sAhpXGmB0hfEL9rm9+CzXlO5FNphoGmAY5UwPwU5m9C5xyVZFjkjN41MISPt1DN
+ pld+m+aiyqh6qR7BpjRqLfBXFJe28aEgwwDEQidbYgdXNB65+wovUIjC9SFwQ81eVquo
+ tJ1tbooLxQi6l+YITBjNgFRd5z02heM7op8A8EcUYry6H8xrCYxmJLk9/OYtW6VfzUZR
+ sVMg==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUfO4gLoYYqR2/Tj+taDpOnQ9tCVGt7oXc8zIm1SE0uEca1G2lk+1Xo8vW+ztjqjKt1RcGkuYBG+S4=@lists.freedesktop.org,
- AJvYcCVtNrzpLtMit1hAjwL+cnG37Z9j2ZI0dRdGtpNnchPogzlHRv9gCzwUo6f8bqH+0UgPGyhrsGnJjjvR@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyzzKvX+F2Mw5cxuR4EBONu1VHUAjULGIzNRsqM8Gv5KRtFRPbr
- dDA4vyLU2Cv7yrlwYiObVLkoBjyjytRoXnEmHhd9XxlQ70rG4trE
-X-Google-Smtp-Source: AGHT+IHMxHViAQuYhY7LbiGTRSQjuSO1CzAuIEbDmKQ7N1Z92ayMooKBy6B84PbIuJbIoGvJODw6LA==
-X-Received: by 2002:adf:f4c2:0:b0:374:cb5c:2956 with SMTP id
- ffacd0b85a97d-3789243fd67mr6064910f8f.40.1725865699969; 
- Mon, 09 Sep 2024 00:08:19 -0700 (PDT)
+ AJvYcCV6cOPLB66XrG+RRiVHys81MurcqDdho+oStvKrFEwixx2lS+Upy81zVEdYNv6NePQ7TOuLXuMrnNM=@lists.freedesktop.org,
+ AJvYcCVIyGtv/rU4DFbIt/2axtLed6s9QuDR7tw2g7GowfUzzLUeqv3RuN10G7xpe6H8gOqOmtBCIGG/elQ3@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yx+HYdxbk8Kk9A5gk/5NFgMuLBdMioXIL8hpjN8CQla/KgRaKHD
+ 2+VaD3aZ4GaKBGYqhssDsS8Qk8+1aDlIFfRGOUpzvajUKDASjxZnbCye38K/qLY=
+X-Google-Smtp-Source: AGHT+IGvCGyXAe+yX+BYaSRb/hI+Ilgk0idYw90HidcMT2AOiWBbY9IJ69nJCH4grLww7mZj552B4Q==
+X-Received: by 2002:a05:6000:4581:b0:371:9377:975f with SMTP id
+ ffacd0b85a97d-378895d4740mr6131926f8f.25.1725865717197; 
+ Mon, 09 Sep 2024 00:08:37 -0700 (PDT)
 Received: from fedora.iskraemeco.si ([193.77.86.250])
  by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-378956d375asm5178754f8f.66.2024.09.09.00.08.19
+ ffacd0b85a97d-378956d375asm5178754f8f.66.2024.09.09.00.08.35
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 09 Sep 2024 00:08:19 -0700 (PDT)
+ Mon, 09 Sep 2024 00:08:36 -0700 (PDT)
 From: Uros Bizjak <ubizjak@gmail.com>
 To: x86@kernel.org, linux-crypto@vger.kernel.org,
  intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
@@ -64,20 +64,15 @@ To: x86@kernel.org, linux-crypto@vger.kernel.org,
  linux-fscrypt@vger.kernel.org, linux-scsi@vger.kernel.org,
  bpf@vger.kernel.org, linux-kselftest@vger.kernel.org,
  kunit-dev@googlegroups.com
-Cc: Uros Bizjak <ubizjak@gmail.com>, Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Tvrtko Ursulin <tursulin@ursulin.net>, David Airlie <airlied@gmail.com>,
- Daniel Vetter <daniel@ffwll.ch>
-Subject: [PATCH v2 03/19] drm/i915/selftests: Include <linux/prandom.h>
- instead of <linux/random.h>
-Date: Mon,  9 Sep 2024 09:05:17 +0200
-Message-ID: <20240909070742.75425-4-ubizjak@gmail.com>
+Cc: Uros Bizjak <ubizjak@gmail.com>, Andrew Morton <akpm@linux-foundation.org>
+Subject: [PATCH v2 13/19] lib/rbtree-test: Include <linux/prandom.h> instead
+ of <linux/random.h>
+Date: Mon,  9 Sep 2024 09:05:27 +0200
+Message-ID: <20240909070742.75425-14-ubizjak@gmail.com>
 X-Mailer: git-send-email 2.46.0
 In-Reply-To: <20240909070742.75425-1-ubizjak@gmail.com>
 References: <20240909070742.75425-1-ubizjak@gmail.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Mon, 09 Sep 2024 12:36:55 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
@@ -100,57 +95,24 @@ Substitute the inclusion of <linux/random.h> header with
 of <linux/prandom.h> from <linux/random.h>.
 
 Signed-off-by: Uros Bizjak <ubizjak@gmail.com>
-Acked-by: Jani Nikula <jani.nikula@linux.intel.com>
-Cc: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
-Cc: Rodrigo Vivi <rodrigo.vivi@intel.com>
-Cc: Tvrtko Ursulin <tursulin@ursulin.net>
-Cc: David Airlie <airlied@gmail.com>
-Cc: Daniel Vetter <daniel@ffwll.ch>
+Cc: Andrew Morton <akpm@linux-foundation.org>
 ---
- drivers/gpu/drm/i915/selftests/i915_gem.c    | 2 +-
- drivers/gpu/drm/i915/selftests/i915_random.h | 2 +-
- drivers/gpu/drm/i915/selftests/scatterlist.c | 2 +-
- 3 files changed, 3 insertions(+), 3 deletions(-)
+ lib/rbtree_test.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/i915/selftests/i915_gem.c b/drivers/gpu/drm/i915/selftests/i915_gem.c
-index 61da4ed9d521..0727492576be 100644
---- a/drivers/gpu/drm/i915/selftests/i915_gem.c
-+++ b/drivers/gpu/drm/i915/selftests/i915_gem.c
-@@ -4,7 +4,7 @@
-  * Copyright © 2018 Intel Corporation
-  */
- 
+diff --git a/lib/rbtree_test.c b/lib/rbtree_test.c
+index 41ae3c7570d3..8655a76d29a1 100644
+--- a/lib/rbtree_test.c
++++ b/lib/rbtree_test.c
+@@ -2,7 +2,7 @@
+ #include <linux/module.h>
+ #include <linux/moduleparam.h>
+ #include <linux/rbtree_augmented.h>
 -#include <linux/random.h>
 +#include <linux/prandom.h>
+ #include <linux/slab.h>
+ #include <asm/timex.h>
  
- #include "gem/i915_gem_internal.h"
- #include "gem/i915_gem_pm.h"
-diff --git a/drivers/gpu/drm/i915/selftests/i915_random.h b/drivers/gpu/drm/i915/selftests/i915_random.h
-index 05364eca20f7..70330a2e80f2 100644
---- a/drivers/gpu/drm/i915/selftests/i915_random.h
-+++ b/drivers/gpu/drm/i915/selftests/i915_random.h
-@@ -26,7 +26,7 @@
- #define __I915_SELFTESTS_RANDOM_H__
- 
- #include <linux/math64.h>
--#include <linux/random.h>
-+#include <linux/prandom.h>
- 
- #include "../i915_selftest.h"
- 
-diff --git a/drivers/gpu/drm/i915/selftests/scatterlist.c b/drivers/gpu/drm/i915/selftests/scatterlist.c
-index 805c4bfb85fe..7e59591bbed6 100644
---- a/drivers/gpu/drm/i915/selftests/scatterlist.c
-+++ b/drivers/gpu/drm/i915/selftests/scatterlist.c
-@@ -22,7 +22,7 @@
-  */
- 
- #include <linux/prime_numbers.h>
--#include <linux/random.h>
-+#include <linux/prandom.h>
- 
- #include "i915_selftest.h"
- #include "i915_utils.h"
 -- 
 2.46.0
 
