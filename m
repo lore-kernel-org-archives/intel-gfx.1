@@ -4,56 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2892BECE57A
-	for <intel-gfx@archiver.kernel.org>; Mon,  9 Sep 2024 12:15:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8A9D7ECE584
+	for <intel-gfx@archiver.kernel.org>; Mon,  9 Sep 2024 12:15:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A7DF910E432;
-	Mon,  9 Sep 2024 12:15:50 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1ABEF10E437;
+	Mon,  9 Sep 2024 12:15:52 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="K+JeYtKk";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="jPvHJR1q";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.13])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 58AD110E421;
- Mon,  9 Sep 2024 12:15:49 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1CC8B10E43B
+ for <intel-gfx@lists.freedesktop.org>; Mon,  9 Sep 2024 12:15:51 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1725884149; x=1757420149;
+ t=1725884151; x=1757420151;
  h=from:to:cc:subject:date:message-id:mime-version:
  content-transfer-encoding;
- bh=wpd31bGO1vUSLnj1u7O0cxk+YwoqhUlY3QHzx2K3Y0g=;
- b=K+JeYtKk8N+YTCXdYWZjQvA6RrWuDyULbfm7XXFlNlqMzR99Il0kW4+O
- s0m4ZRqNVZAz8DMA9BSakXsj3qPgca3znbusekqWvpOzoBfP/9aNApQrN
- dh6l58eTyAmryJMyXZeTpo82qPCwGMUGRov6oQE5Wc4NotuCJVincCJug
- kr9PQngSsWSkxyji4PQxwnEt6cA1GgWlFL5cmMrQyq3zxVb7OpsdYla1N
- omgezp7lJRrgjugrk2lMWpZw5O5tluWspCuyD+OJYw9CadXVKJKi/UQMX
- 0MZNM5kGyWmpyOjZi2v1q7NYski2mc6LGmEKtTWtZyHLZHlRlBYGW0uPY A==;
-X-CSE-ConnectionGUID: 02p+R8i/THWh1Olv6to+tA==
-X-CSE-MsgGUID: CQAlR+scSNGSiT5wbu2xxg==
-X-IronPort-AV: E=McAfee;i="6700,10204,11189"; a="27500860"
-X-IronPort-AV: E=Sophos;i="6.10,214,1719903600"; d="scan'208";a="27500860"
-Received: from orviesa008.jf.intel.com ([10.64.159.148])
- by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 09 Sep 2024 05:15:49 -0700
-X-CSE-ConnectionGUID: wfAgUTXsT1KV7coNkRmzgw==
-X-CSE-MsgGUID: K0iZOnvaTVCyAgvfbzP4ew==
+ bh=18zsR8UQsNJhLjdzTb5IQVrtTb3Z3/T+2FJgzaTj7PY=;
+ b=jPvHJR1qLvOoduikuSpEE2gSPAkUPJuV025tEPFHa3ZDYtzfRfTqERd4
+ tqMwA3PX/ZW7qo84u4Fnd9Xr74GAP/99BprOkF0kPvPuTM1G4qvgulLZa
+ 1zFYc5Ogl31br8ZVM4wrUK4i9eB4NUEYGNJygSZhFiLAShuLhiJk/v7ud
+ nJ6G3RC++f7ONzOwywoT1+mIeCqHKM/t9vqlHKm760jvaKl9ZY57gv1QV
+ zsduRdlGjNkkIiW0jOaUNdSAtyZv+iYL5oysBefOjbQU6s9S4u8gwGWzL
+ EzHN0uoTkQ/B7VtnTlzY3+17b+3N29M/xMBjhCZJp7eQmkLHXxpM+pzpw Q==;
+X-CSE-ConnectionGUID: Mg4faoupTrW5Fxwz2DUnPQ==
+X-CSE-MsgGUID: T443prhORNetu9BNlYj2pw==
+X-IronPort-AV: E=McAfee;i="6700,10204,11189"; a="35168339"
+X-IronPort-AV: E=Sophos;i="6.10,214,1719903600"; d="scan'208";a="35168339"
+Received: from orviesa003.jf.intel.com ([10.64.159.143])
+ by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 09 Sep 2024 05:15:51 -0700
+X-CSE-ConnectionGUID: o8ibtaF/QR6Zmqe0J33+Tg==
+X-CSE-MsgGUID: t4hhu8JaQsy1hH2zqJ3Ybg==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.10,214,1719903600"; d="scan'208";a="67383610"
-Received: from hrotuna-mobl2.ger.corp.intel.com (HELO localhost)
- ([10.245.246.176])
- by orviesa008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 09 Sep 2024 05:15:46 -0700
-From: Jani Nikula <jani.nikula@intel.com>
-To: intel-gfx@lists.freedesktop.org,
-	intel-xe@lists.freedesktop.org
-Cc: jani.nikula@intel.com,
-	ville.syrjala@linux.intel.com
-Subject: [PATCH v2 0/8] drm/i915/pps: hide VLV/CHV PPS pipe stuff inside
- intel_pps.c
-Date: Mon,  9 Sep 2024 15:15:35 +0300
-Message-Id: <cover.1725883885.git.jani.nikula@intel.com>
-X-Mailer: git-send-email 2.39.2
+X-IronPort-AV: E=Sophos;i="6.10,214,1719903600"; d="scan'208";a="71436381"
+Received: from ideak-desk.fi.intel.com ([10.237.72.78])
+ by ORVIESA003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 09 Sep 2024 05:15:50 -0700
+From: Imre Deak <imre.deak@intel.com>
+To: intel-gfx@lists.freedesktop.org
+Cc: =?UTF-8?q?Ville=20Syrj=C3=A4l=C3=A4?= <ville.syrjala@linux.intel.com>,
+ Ankit Nautiyal <ankit.k.nautiyal@intel.com>
+Subject: [CI] drm/i915/dp: Dump the LTTPR PHY descriptors
+Date: Mon,  9 Sep 2024 15:16:13 +0300
+Message-ID: <20240909121613.2915283-1-imre.deak@intel.com>
+X-Mailer: git-send-email 2.44.2
 MIME-Version: 1.0
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -70,36 +67,51 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-v2 of [1], and largely changed to isolate VLV/CHV stuff too.
+Dump the descriptor of the detected LTTPRs in non-transparent mode to
+help the debugging related to LTTPRs easier.
 
-There are a couple of stragglers accessing intel_dp->pps directly, but
-this is progress.
+v2: Use drm_dp_dump_lttpr_desc() instead of the driver specific
+    equivalent.
+v3: Add empty line between license and header section. (Ankit)
 
-BR,
-Jani.
+Reviewed-by: Ville Syrjälä <ville.syrjala@linux.intel.com> # v1
+Reviewed-by: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
+Signed-off-by: Imre Deak <imre.deak@intel.com>
+---
 
+Resending [1] now, after the corresponding DRM core helper is merged to
+drm-intel-next.
 
-[1] https://lore.kernel.org/r/cover.1725458428.git.jani.nikula@intel.com
+[1] https://lore.kernel.org/all/20240708190029.271247-7-imre.deak@intel.com
 
+ drivers/gpu/drm/i915/display/intel_dp_link_training.c | 6 +++++-
+ 1 file changed, 5 insertions(+), 1 deletion(-)
 
-Jani Nikula (8):
-  drm/i915/pps: add vlv_ prefix to pps_pipe and active_pipe members
-  drm/i915/pps: only touch the vlv_ members on VLV/CHV
-  drm/i915/pps: add vlv_pps_pipe_init()
-  drm/i915/pps: add vlv_pps_pipe_reset()
-  drm/i915/pps: add vlv_pps_port_disable()
-  drm/i915/pps: rename vlv_pps_init() to vlv_pps_port_enable()
-  drm/i915/pps: add vlv_pps_backlight_initial_pipe()
-  drm/i915/pps: move vlv_active_pipe() to intel_pps.c
-
- drivers/gpu/drm/i915/display/g4x_dp.c         |  32 +---
- drivers/gpu/drm/i915/display/g4x_dp.h         |   5 -
- .../drm/i915/display/intel_display_types.h    |   4 +-
- drivers/gpu/drm/i915/display/intel_dp.c       |  20 +--
- drivers/gpu/drm/i915/display/intel_pps.c      | 156 ++++++++++++------
- drivers/gpu/drm/i915/display/intel_pps.h      |  10 +-
- 6 files changed, 128 insertions(+), 99 deletions(-)
-
+diff --git a/drivers/gpu/drm/i915/display/intel_dp_link_training.c b/drivers/gpu/drm/i915/display/intel_dp_link_training.c
+index f45797c1a2051..b7bd8135c1138 100644
+--- a/drivers/gpu/drm/i915/display/intel_dp_link_training.c
++++ b/drivers/gpu/drm/i915/display/intel_dp_link_training.c
+@@ -21,6 +21,8 @@
+  * IN THE SOFTWARE.
+  */
+ 
++#include <drm/display/drm_dp_helper.h>
++
+ #include <linux/debugfs.h>
+ 
+ #include <drm/display/drm_dp_helper.h>
+@@ -210,8 +212,10 @@ static int intel_dp_init_lttpr(struct intel_dp *intel_dp, const u8 dpcd[DP_RECEI
+ 
+ 	lttpr_count = intel_dp_init_lttpr_phys(intel_dp, dpcd);
+ 
+-	for (i = 0; i < lttpr_count; i++)
++	for (i = 0; i < lttpr_count; i++) {
+ 		intel_dp_read_lttpr_phy_caps(intel_dp, dpcd, DP_PHY_LTTPR(i));
++		drm_dp_dump_lttpr_desc(&intel_dp->aux, DP_PHY_LTTPR(i));
++	}
+ 
+ 	return lttpr_count;
+ }
 -- 
-2.39.2
+2.44.2
 
