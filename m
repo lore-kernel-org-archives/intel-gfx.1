@@ -4,59 +4,59 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C26CDECE587
-	for <intel-gfx@archiver.kernel.org>; Mon,  9 Sep 2024 12:37:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0EB54ECE589
+	for <intel-gfx@archiver.kernel.org>; Mon,  9 Sep 2024 12:37:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5B3BC10E52C;
+	by gabe.freedesktop.org (Postfix) with ESMTP id B857F10E52F;
 	Mon,  9 Sep 2024 12:36:58 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="ErijuGjc";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="j6PVeRRo";
 	dkim-atps=neutral
-Received: from mail-wr1-f43.google.com (mail-wr1-f43.google.com
- [209.85.221.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 45C1210E311;
- Mon,  9 Sep 2024 07:57:09 +0000 (UTC)
-Received: by mail-wr1-f43.google.com with SMTP id
- ffacd0b85a97d-3787f30d892so2469732f8f.0; 
- Mon, 09 Sep 2024 00:57:09 -0700 (PDT)
+Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com
+ [209.85.128.52])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B582710E30E;
+ Mon,  9 Sep 2024 07:57:05 +0000 (UTC)
+Received: by mail-wm1-f52.google.com with SMTP id
+ 5b1f17b1804b1-42cacabd2e0so19139175e9.3; 
+ Mon, 09 Sep 2024 00:57:05 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1725868628; x=1726473428; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1725868624; x=1726473424; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=dqq6NzUB0QMlVgbuEigLtg4dQP3OsIeGqq5KqtK1ysk=;
- b=ErijuGjcvonMiK+kOMgr1S3u9ZKezurhV+IOOZCISKYbEilXG+6I3tuhCuxPlK8cbc
- b4oR/oAzMGPWcpr4d9DBQpnruxTD0h9Z/LYzrOoS5f1XwEBWOrL03rwKHR1dnN5i3mZH
- 2uQQ1YDCIIgvscOpTFAa8ZrYT4tmAurn34n4in69RZwwRiGKEnDDRp+uv+sCuc8y/pOB
- fI5LyKdHEdENEL/QQ5U0ehFsD/WXuqsRecF9bi5IDef0kFSKTOFtjGte9q9rTCGyBwiU
- l9CUxp38cv/oj2Aa/ORac2UgAYHjBsRzrjJG+2T8SBum9O6Gp8phdXYu5XgTkLSjXa7j
- zgYA==
+ bh=0Pq3OAvpMN/C/2QwAD8pzV8PNMpLIVHwySHZrZo9G7g=;
+ b=j6PVeRRo5e2GuWTjthO0qmRwnosliyAr0ROqmtSh+4bq9QPVmHLFclg+5IVXCFespE
+ 4bo44GDHFjy+wY7PslmlyMeadavAkua+giKQNKPUKslgZ4zDhK68Kc8m2DcxcTKiVJRn
+ bXJPr7EOk9Yza9ESA8TcmmDirpqEtQWj4z8yWpa3V9QqbRaMGeTozWTxGZKhaCYneQVm
+ Jk9SL6IJ2DMPIvNZI2wA4V9kTaiIampzmM2ZuWvzXviBa7w+FWqXMajNw1GgNALHLUKE
+ YBL4Pkx0ZLwLxPMucf+3zDmLnHWba58VluO5AQ9VOmSKY6XVfly3bBC5scD2DH61s+ZO
+ JMJw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1725868628; x=1726473428;
+ d=1e100.net; s=20230601; t=1725868624; x=1726473424;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=dqq6NzUB0QMlVgbuEigLtg4dQP3OsIeGqq5KqtK1ysk=;
- b=iVB0HiWrNBn10oKYivE+nzFTN5fjr6bQirjap+A0e1/eaEZDwCXmsVPYdGRnV9Jl3b
- 4PMJyZqA5DARxqAGaGXL1UdL87PxM408G3Go/hpRNcpNzl+TW19lBJXaiRtl8d95gziu
- yeuVfK03nqkTla20pTS7+mx/KeY4TF/gzL3yA3D1AvoOi8RoLxUJ90VG1Ym2/ZCAWjMW
- bgoV/5W3NuL6R3YW2tB+C0PhctWywJyvpypHw+Eg01yXjK4EwdKSqw+ocu755unjT9kO
- PHutjAjlNWqS84lPMTALjot6ez/EP4m1Lk7gGa7f4EhVOM8M8Zh/TDxV9mBvwxss3Q/P
- qgDw==
+ bh=0Pq3OAvpMN/C/2QwAD8pzV8PNMpLIVHwySHZrZo9G7g=;
+ b=DlMSVQKcMcCwmT6eGRHZh+YotKq6VcCRwg4RoZZlznks2mSvAMTKkGbcLiEGSXEGHm
+ Wor7o8wY2kqe31xlzfeJs0l7R/ZpDARxKXNVQ9jExP71L9+V1iPmEZmN513jBtdgh105
+ UwLk4aZlNsKAu34tCAA02CYhNc+wpUJpePNIvYeydz4CxxLcZ+2bmqeSMhJ8twonp+vU
+ me2MEn8FOqbiVSE3QK6U4SHexIiwH0LEmCupXKXCFnC0WtikucS7mE5QOSY9Heu7/Hlr
+ 9uzaDAbRLRvyYEjl/RSUL8BrFhUnZ7dOq04YqRQdd6uOm4Jajfs6lTTukLTdIvgJ7Wmk
+ ABtg==
 X-Forwarded-Encrypted: i=1;
- AJvYcCU7mll8n0fVhTAccZqd3mBETqILbpgGYWGkSADfFjpESKTez/amyTias/9/rINE0pudr5g6lRnl1Nfx@lists.freedesktop.org,
- AJvYcCWxIVk7gRhgLRvFp0oGwLTvDdisK5c1E3JsSFgPL3ACbafLExPW9AmyrGhWGWnqnraUXvUGj1QgaFs=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxSpAbw0b2VItdlQPYp9k+aSKu1EPSe6Ts+4Gjy+ItUD46DJIGn
- 2zdg4+H7RYp2NYypQZy37CefEeJXA28pNVEv2w3ShpdpnZA6hIDK
-X-Google-Smtp-Source: AGHT+IF890nGYevdgrqUf7UHJ87LKcir0BiPP7YH573XiCGqtakWSqkvGhsMvBroQEOSJMo347DAIA==
-X-Received: by 2002:a5d:4fc7:0:b0:374:bad2:6a5e with SMTP id
- ffacd0b85a97d-378895d4894mr6553002f8f.28.1725868627558; 
- Mon, 09 Sep 2024 00:57:07 -0700 (PDT)
+ AJvYcCUYBbwGB8jlJpO0Y31e4UgQdZGPydUZ8jKU73kVajJQQhJ8M1SNgNg7W+bAIUlM6tAGkTR6lWeBk+c4@lists.freedesktop.org,
+ AJvYcCUhhd9LzxgmqCI/odYyaNpti05jUy4VlTSKZdVad44tE6tjTLeIU0qln0aZ50pVTt085BxfbRrt6R0=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yzlt8bLziYTri/n0P9DBO5Pc3kvUnrIdTp3PgkHRBay5wA5HExW
+ 9A8XVB3wAqasndxjWVMTJmiC/p1dxAJUQFastbh0d91nHc3TgVwI
+X-Google-Smtp-Source: AGHT+IHsh4JSj0n795jllGPCHtcshmYEB9h2vcO7+qPsciOrvVvisGOWJv6LsOPnSs3/6a6/hCfK3Q==
+X-Received: by 2002:a05:6000:bca:b0:374:c847:848 with SMTP id
+ ffacd0b85a97d-378896a5c24mr6994466f8f.36.1725868623978; 
+ Mon, 09 Sep 2024 00:57:03 -0700 (PDT)
 Received: from fedora.iskraemeco.si ([193.77.86.250])
  by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-37895675b7esm5303001f8f.50.2024.09.09.00.57.05
+ ffacd0b85a97d-37895675b7esm5303001f8f.50.2024.09.09.00.57.02
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 09 Sep 2024 00:57:06 -0700 (PDT)
+ Mon, 09 Sep 2024 00:57:03 -0700 (PDT)
 From: Uros Bizjak <ubizjak@gmail.com>
 To: x86@kernel.org, linux-crypto@vger.kernel.org,
  intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
@@ -64,11 +64,13 @@ To: x86@kernel.org, linux-crypto@vger.kernel.org,
  linux-fscrypt@vger.kernel.org, linux-scsi@vger.kernel.org,
  bpf@vger.kernel.org, linux-kselftest@vger.kernel.org,
  kunit-dev@googlegroups.com, linux-kernel@vger.kernel.org
-Cc: Uros Bizjak <ubizjak@gmail.com>, Andrew Morton <akpm@linux-foundation.org>
-Subject: [PATCH RESEND v2 13/19] lib/rbtree-test: Include <linux/prandom.h>
- instead of <linux/random.h>
-Date: Mon,  9 Sep 2024 09:53:56 +0200
-Message-ID: <20240909075641.258968-14-ubizjak@gmail.com>
+Cc: Uros Bizjak <ubizjak@gmail.com>,
+ Brendan Higgins <brendan.higgins@linux.dev>,
+ David Gow <davidgow@google.com>, Rae Moar <rmoar@google.com>
+Subject: [PATCH RESEND v2 11/19] kunit: string-stream-test: Include
+ <linux/prandom.h> instead of <linux/random.h>
+Date: Mon,  9 Sep 2024 09:53:54 +0200
+Message-ID: <20240909075641.258968-12-ubizjak@gmail.com>
 X-Mailer: git-send-email 2.46.0
 In-Reply-To: <20240909075641.258968-1-ubizjak@gmail.com>
 References: <20240909075641.258968-1-ubizjak@gmail.com>
@@ -95,23 +97,24 @@ Substitute the inclusion of <linux/random.h> header with
 of <linux/prandom.h> from <linux/random.h>.
 
 Signed-off-by: Uros Bizjak <ubizjak@gmail.com>
-Cc: Andrew Morton <akpm@linux-foundation.org>
+Cc: Brendan Higgins <brendan.higgins@linux.dev>
+Cc: David Gow <davidgow@google.com>
+Cc: Rae Moar <rmoar@google.com>
 ---
- lib/rbtree_test.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ lib/kunit/string-stream-test.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/lib/rbtree_test.c b/lib/rbtree_test.c
-index 41ae3c7570d3..8655a76d29a1 100644
---- a/lib/rbtree_test.c
-+++ b/lib/rbtree_test.c
-@@ -2,7 +2,7 @@
- #include <linux/module.h>
- #include <linux/moduleparam.h>
- #include <linux/rbtree_augmented.h>
--#include <linux/random.h>
+diff --git a/lib/kunit/string-stream-test.c b/lib/kunit/string-stream-test.c
+index 7511442ea98f..7734e33156f9 100644
+--- a/lib/kunit/string-stream-test.c
++++ b/lib/kunit/string-stream-test.c
+@@ -9,6 +9,7 @@
+ #include <kunit/static_stub.h>
+ #include <kunit/test.h>
+ #include <linux/ktime.h>
 +#include <linux/prandom.h>
  #include <linux/slab.h>
- #include <asm/timex.h>
+ #include <linux/timekeeping.h>
  
 -- 
 2.46.0
