@@ -4,82 +4,80 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A0380FC6185
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2BC6EFC6172
 	for <intel-gfx@archiver.kernel.org>; Fri, 13 Sep 2024 21:02:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6DC6610ED99;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 68D6C10ED98;
 	Fri, 13 Sep 2024 21:01:55 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="RS6VGqhT";
+	dkim=pass (2048-bit key; unprotected) header.d=freebox-fr.20230601.gappssmtp.com header.i=@freebox-fr.20230601.gappssmtp.com header.b="NjoyDP3E";
 	dkim-atps=neutral
-Received: from mail-yw1-f174.google.com (mail-yw1-f174.google.com
- [209.85.128.174])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D8ABF10E8F2;
- Tue, 10 Sep 2024 18:48:27 +0000 (UTC)
-Received: by mail-yw1-f174.google.com with SMTP id
- 00721157ae682-6d49cec2a5dso54860657b3.3; 
- Tue, 10 Sep 2024 11:48:27 -0700 (PDT)
+Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com
+ [209.85.128.52])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1D9CF10E873
+ for <intel-gfx@lists.freedesktop.org>; Tue, 10 Sep 2024 15:54:48 +0000 (UTC)
+Received: by mail-wm1-f52.google.com with SMTP id
+ 5b1f17b1804b1-42bbffe38e6so44091785e9.0
+ for <intel-gfx@lists.freedesktop.org>; Tue, 10 Sep 2024 08:54:48 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1725994107; x=1726598907; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=d/xjSlwYNHaCmAEJ52/LetuJr/79SrxTHSb7l1iYHbQ=;
- b=RS6VGqhT7OoLet7ZDMgI6UkUMV9+VZOOJWa/A/Rt+80sSPdfbENqvArTmxJebbIjur
- sgDPle1JEB6dHL5CI62C7o+zXDuGHuWi5El5NHf2F5n+DqgbrDKqg4pHxCiteOe28lRp
- xIXrKti362s0YwurE97q3alPcA3AQGWLm9PrJCSYwoj2iQlTVFuPcZHrYn/LzDu27qEj
- +jah11ZXATynkbOXSR/RnSp5Y2pHsSI9F89H5J7CE+2go0cp8oWgdD9m0axMX1Ot6Yc7
- plgvKu+VMAFGYfriSECFMnIds5KR3rKV6H5hpLruMJwbn77FMffst7U0+V6DUc758HjP
- InzA==
+ d=freebox-fr.20230601.gappssmtp.com; s=20230601; t=1725983687; x=1726588487;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=6PxrvNA8ZTQVOz0CWahQR48w5Gv7e/oF6A+jLaE/Ydo=;
+ b=NjoyDP3EIoblnuYOdQC3VqYc0lgMLO1ESkcJa4AzAM9f+39RlOp6mznehS5Qh1vq2A
+ LDK4vkr4GX5KD7fYMk9wzkPVt6zPp1YRKk1k8Mx6hOP5oO/XgrnBGQvpAAnCdMe8E/G7
+ NCAugbkN+BjU9CUCwxkbYbSn4dNGoQ3rvmnGUP3aYg8sbvoB4sObRY58yFbZCZVlg6eW
+ RHfxQ8M+l67kD89ikqYNbsPUZDhCJ750ZyM2X6tHqgaKP3v5jiFDchc8RYYVrRVe/zd/
+ mp5xiSm1x+nL8hX5UHArdM6A5CxfyQGuc5NrWGzznrt0DzyGR8cRVSzwRLCpq11h5ivp
+ /6bQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1725994107; x=1726598907;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=d/xjSlwYNHaCmAEJ52/LetuJr/79SrxTHSb7l1iYHbQ=;
- b=LAsDqzJLEXoxIS0pTxzDOjOTd7dj9ZQwaeTBD1CYoRQThNMqAgbX2T8vW+D7SO0Q7P
- uvVF6JWGHpnd2UIzC121/5L/ZNWAbaBFO7sMdYim3H3a1hzXzvAy1qyF6XGmhg3tlAQZ
- 2l1N101a+cjG+sa2+jc8zrNJucB43QPD9DegCd3habnhDktJdb6Fnz8O/YKF67BIt3Hm
- wo01tJc8f1DXmukpKbpUloUZzQSIyz2GkdpW45dIfLdV/GykEFGrA0NTbR6TOjKqaD4X
- j6d7VUcQV/HjksGskTImTc3dYQkZQm9UTNKK11XQ/++yv+aqQMcQn6wPOLEhtJDdMSQx
- lOdA==
+ d=1e100.net; s=20230601; t=1725983687; x=1726588487;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=6PxrvNA8ZTQVOz0CWahQR48w5Gv7e/oF6A+jLaE/Ydo=;
+ b=qMOczlaJd72+k0dKuFwaF7EysE5yA+9X7EI8q0Q/a0Umw/fHR0Q+PPMl6AyY45LEzc
+ hT12bqBiwuTwcpIxQ7Pp72xkXyKrMNNvvNcgVbearP3dhMyQqMsw/KTl/39jKunnFrLy
+ ksi6Bo7OYgyxANyQbqqH/UIQfWpjwH/OqqpVagtlnftmmzVvAg454Dg+t3dMk45tZQY+
+ 6naUOoPe1UlzfDO9Ox0NLLiUeCTnzpGxQA7N9jsKpY4oHtpami17IEXN/7T3lRxYTvcy
+ E8Ji99q/xVjQByNTjiwytmnAksSbVlCWiLWFl/5No1g8jNYfd8957OXi/dcz7jaw8wPJ
+ 3HKg==
 X-Forwarded-Encrypted: i=1;
- AJvYcCWVazwLyZJntowGFpnLHxCQz8r0RBebX10vDNpsP9rKsWn7NJOfe2rV3EJ/53vHqlGJKLvrvmKHIW4=@lists.freedesktop.org,
- AJvYcCX6Q5N40CpYEw80DgF5xQlpCS/HZ/dJJUm2VQDbNnJst9ln9+jJwop6vZyi+RzTKyjllNxrMfQoPEdq@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzrmGc90DeaCdmW6sM6fJUdZEKEsgMwVyDdumdICtlWiCB0QNY/
- z0d+XsKmIQ5rtmI6jGlET72r7b6fEiK33satl2+RI6ifCE9eZKJxeLuv+IDLGMX++VGehdt0qn3
- Q6mjkeaVCbJ1C3jpmWxuGcJB8Iyw=
-X-Google-Smtp-Source: AGHT+IFAr+8UZL5HRuL9rkDVnK7n4fTwY7nIMZfqU/kfjldcZ7+fHI5Jwzd1hLqSNjwRpN6xh0YAP7kz2ZQjZ4kX+4A=
-X-Received: by 2002:a05:690c:dc6:b0:6b0:52a6:6515 with SMTP id
- 00721157ae682-6db44d6c4a8mr192458857b3.6.1725994106631; Tue, 10 Sep 2024
- 11:48:26 -0700 (PDT)
+ AJvYcCUhqBjuA5DSsuCCp/mb/TcrJFnoLS595W4aZQC+8BjhUlj6qD+0Rjn4EnV00Pvwtyt8gzDJP2uouGc=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzqleCT5LHytyiunYqSAfFEF0pDspBObbw/ntb+0LAdPS6K6hLv
+ X2jK8XA2MPaUly9/P0mLtafkH+pWK7+8hPPCSc+u0/FCzxXJpHvaJi25FbJmfeg=
+X-Google-Smtp-Source: AGHT+IEb0qA5EpGtNaNVZJscuK0KLM4oa8DNMmxJuy4xu6oN9fz+YV9+rQWeonEJ5VU15eSCcYGm4A==
+X-Received: by 2002:a05:600c:3d11:b0:426:5e91:3920 with SMTP id
+ 5b1f17b1804b1-42cad87f264mr87685255e9.29.1725983686172; 
+ Tue, 10 Sep 2024 08:54:46 -0700 (PDT)
+Received: from [192.168.108.50] (freebox.vlq16.iliad.fr. [213.36.7.13])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-42cc1375c6esm20178245e9.1.2024.09.10.08.54.45
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 10 Sep 2024 08:54:45 -0700 (PDT)
+Message-ID: <19ac4e25-7609-4d92-8687-585c6ea00c79@freebox.fr>
+Date: Tue, 10 Sep 2024 17:54:44 +0200
 MIME-Version: 1.0
-References: <CALvjV29jozswRtmYxDur2TuEQ=1JSDrM+uWVHmghW3hG5Y9F+w@mail.gmail.com>
- <20240909080200.GAZt6reI9c98c9S_Xc@fat_crate.local>
- <SJ1PR11MB60831AF34B75030EBA3D5721FC992@SJ1PR11MB6083.namprd11.prod.outlook.com>
-In-Reply-To: <SJ1PR11MB60831AF34B75030EBA3D5721FC992@SJ1PR11MB6083.namprd11.prod.outlook.com>
-From: Hugues Bruant <hugues.bruant@gmail.com>
-Date: Tue, 10 Sep 2024 11:48:15 -0700
-Message-ID: <CALvjV28edz1zzFeduytOMoVDyeXOKoxPiwcFp6Mbxz1ODSq17g@mail.gmail.com>
-Subject: Re: [REGRESSION] soft lockup on boot starting with kernel 6.10 /
- commit 5186ba33234c9a90833f7c93ce7de80e25fac6f5
-To: "Luck, Tony" <tony.luck@intel.com>
-Cc: Borislav Petkov <bp@alien8.de>,
- "stable@vger.kernel.org" <stable@vger.kernel.org>, 
- "regressions@lists.linux.dev" <regressions@lists.linux.dev>, 
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, "Yu,
- Fenghua" <fenghua.yu@intel.com>, 
- "Chatre, Reinette" <reinette.chatre@intel.com>,
- Tzung-Bi Shih <tzungbi@kernel.org>, 
- Brian Norris <briannorris@chromium.org>, Julius Werner <jwerner@chromium.org>, 
- "chrome-platform@lists.linux.dev" <chrome-platform@lists.linux.dev>,
- Jani Nikula <jani.nikula@linux.intel.com>, 
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, "Vivi,
- Rodrigo" <rodrigo.vivi@intel.com>, Tvrtko Ursulin <tursulin@ursulin.net>, 
- "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>, 
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 7/8] drm/msmi: annotate pll_cmp_to_fdata() with
+ __maybe_unused
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Jani Nikula <jani.nikula@intel.com>, Arnaud Vrac <avrac@freebox.fr>
+Cc: dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
+ intel-xe@lists.freedesktop.org, Nathan Chancellor <nathan@kernel.org>,
+ Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Sean Paul <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>,
+ linux-arm-msm@vger.kernel.org
+References: <cover.1725962479.git.jani.nikula@intel.com>
+ <3553b1db35665e6ff08592e35eb438a574d1ad65.1725962479.git.jani.nikula@intel.com>
+ <4ag2efwiizn5bnskauekqwfhgl4gioafcvetpvsmbdgg37bdja@3g6tt4rlfwcb>
+Content-Language: en-US
+From: Marc Gonzalez <mgonzalez@freebox.fr>
+In-Reply-To: <4ag2efwiizn5bnskauekqwfhgl4gioafcvetpvsmbdgg37bdja@3g6tt4rlfwcb>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 X-Mailman-Approved-At: Fri, 13 Sep 2024 21:01:54 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -96,24 +94,52 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Mon, Sep 9, 2024 at 9:10=E2=80=AFAM Luck, Tony <tony.luck@intel.com> wro=
-te:
+On 10/09/2024 16:51, Dmitry Baryshkov wrote:
+
+> On Tue, Sep 10, 2024 at 01:03:43PM GMT, Jani Nikula wrote:
 >
-> > I have discovered a 100% reliable soft lockup on boot on my laptop:
-> > Purism Librem 14, Intel Core i7-10710U, 48Gb RAM, Samsung Evo Plus 970
-> > SSD, CoreBoot BIOS, grub bootloader, Arch Linux.
-> >
-> > The last working release is kernel 6.9.10, every release from 6.10
-> > onwards reliably exhibit the issue, which, based on journalctl logs,
-> > seems to be triggered somewhere in systemd-udev:
-> > https://gitlab.archlinux.org/-/project/42594/uploads/04583baf22189a0a8b=
-b2f8773096e013/lockup.log
-> >
-> > Bisect points to commit 5186ba33234c9a90833f7c93ce7de80e25fac6f5
->
-> Does that Intel Core i7-10710U even execute the RDT code? Most client par=
-ts
-> don't support RDT. You can check if yours does by looking for "rdt_a" in
-> /proc/cpuinfo.
-Thanks for the suggestion. You're right, I do not see `rdt_a` in `/proc/cpu=
-info`
+>> Building with clang and and W=1 leads to warning about unused
+>> pll_cmp_to_fdata(). Fix by annotating it with __maybe_unused.
+>>
+>> See also commit 6863f5643dd7 ("kbuild: allow Clang to find unused static
+>> inline functions for W=1 build").
+>>
+>> Signed-off-by: Jani Nikula <jani.nikula@intel.com>
+> 
+> I think this function can be dropped. Marc, your call, as an author of
+> the patch?
+
+( Why is the patch prefixed "drm/msmi", is "msmi" a typo? )
+
+-> For the record, Arnaud is the driver's author.
+
+pll_cmp_to_fdata() was used in hdmi_8998_pll_recalc_rate()
+in a commented code block which was later removed.
+
+Thus, yes, it is safe to completely delete the unused function.
+I'm surprised gcc didn't catch that...
+
+Regards
+
+
+>> ---
+>>  drivers/gpu/drm/msm/hdmi/hdmi_phy_8998.c | 2 +-
+>>  1 file changed, 1 insertion(+), 1 deletion(-)
+>>
+>> diff --git a/drivers/gpu/drm/msm/hdmi/hdmi_phy_8998.c b/drivers/gpu/drm/msm/hdmi/hdmi_phy_8998.c
+>> index 0e3a2b16a2ce..c0bf1f35539e 100644
+>> --- a/drivers/gpu/drm/msm/hdmi/hdmi_phy_8998.c
+>> +++ b/drivers/gpu/drm/msm/hdmi/hdmi_phy_8998.c
+>> @@ -153,7 +153,7 @@ static inline u32 pll_get_pll_cmp(u64 fdata, unsigned long ref_clk)
+>>  	return dividend - 1;
+>>  }
+>>  
+>> -static inline u64 pll_cmp_to_fdata(u32 pll_cmp, unsigned long ref_clk)
+>> +static inline __maybe_unused u64 pll_cmp_to_fdata(u32 pll_cmp, unsigned long ref_clk)
+>>  {
+>>  	u64 fdata = ((u64)pll_cmp) * ref_clk * 10;
+>>  
+>> -- 
+>> 2.39.2
+
+
