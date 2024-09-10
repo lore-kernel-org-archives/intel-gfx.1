@@ -4,51 +4,68 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9A6A1FC6184
-	for <intel-gfx@archiver.kernel.org>; Fri, 13 Sep 2024 21:01:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B1ECFFC6182
+	for <intel-gfx@archiver.kernel.org>; Fri, 13 Sep 2024 21:01:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F36EF10ED96;
+	by gabe.freedesktop.org (Postfix) with ESMTP id E400210ED94;
 	Fri, 13 Sep 2024 21:01:54 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=163.com header.i=@163.com header.b="ThXfbiuT";
+	dkim=pass (2048-bit key; unprotected) header.d=acm.org header.i=@acm.org header.b="MYo1X4XB";
 	dkim-atps=neutral
-X-Greylist: delayed 903 seconds by postgrey-1.36 at gabe;
- Tue, 10 Sep 2024 14:25:33 UTC
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.5])
- by gabe.freedesktop.org (Postfix) with ESMTP id C364810E825;
- Tue, 10 Sep 2024 14:25:33 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
- s=s110527; h=Date:From:Subject:Content-Type:MIME-Version:
- Message-ID; bh=rHHxa53jnkhjtd37FzahttNapP2RZOmkSFY37zgUFPs=; b=T
- hXfbiuTIV+cBYLSoIelXDS+q3sG2kWK4DSHJ8WbD2YjvF9d53LCIkh3G31+at+fh
- HI8le8CIbU3PAqfGnWgSyka16WU+5a+9x7fHl8YT0wKeMPMV7fAmP+m4G2PH7h47
- Ccwo9gbcQ+BKFSs4vAfHdhUtlY8gQqFcmWaHcNzcZw=
-Received: from zhanghe9702$163.com ( [183.14.214.29] ) by
- ajax-webmail-wmsvr-40-130 (Coremail) ; Tue, 10 Sep 2024 22:10:04 +0800
- (CST)
-X-Originating-IP: [183.14.214.29]
-Date: Tue, 10 Sep 2024 22:10:04 +0800 (CST)
-From: =?GBK?B?1cW60w==?= <zhanghe9702@163.com>
-To: "Andi Shyti" <andi.shyti@linux.intel.com>
-Cc: trivial@kernel.org, intel-gfx <intel-gfx@lists.freedesktop.org>, 
- dri-devel <dri-devel@lists.freedesktop.org>
-Subject: Re:Re: [PATCH] drm/i915/gt: Fixed an typo
-X-Priority: 3
-X-Mailer: Coremail Webmail Server Version XT5.0.14 build 20240801(9da12a7b)
- Copyright (c) 2002-2024 www.mailtech.cn 163com
-In-Reply-To: <ZuAQUGMTa4btT-ga@ashyti-mobl2.lan>
-References: <20240907092443.81661-1-zhanghe9702@163.com>
- <ZuAQUGMTa4btT-ga@ashyti-mobl2.lan>
-X-NTES-SC: AL_Qu2ZB/WcuEwr4ieYZekXnk4bgeY3XMS5sv4k34FUOZE0mCX13joKQ2B5DGXa7vujOSumrweXeQVp0tZ3Y5tEZLKczuAmEGEXsbrKNGFQLG11
-Content-Type: multipart/alternative; 
- boundary="----=_Part_182745_367905845.1725977404708"
+X-Greylist: delayed 419 seconds by postgrey-1.36 at gabe;
+ Tue, 10 Sep 2024 17:20:25 UTC
+Received: from 008.lax.mailroute.net (008.lax.mailroute.net [199.89.1.11])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F210010E7C5;
+ Tue, 10 Sep 2024 17:20:25 +0000 (UTC)
+Received: from localhost (localhost [127.0.0.1])
+ by 008.lax.mailroute.net (Postfix) with ESMTP id 4X39Jk3hpPz6ClY9D;
+ Tue, 10 Sep 2024 17:13:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=acm.org; h=
+ content-transfer-encoding:content-type:content-type:in-reply-to
+ :from:from:content-language:references:subject:subject
+ :user-agent:mime-version:date:date:message-id:received:received;
+ s=mr01; t=1725988399; x=1728580400; bh=VhmV9oFSRsxf1YqVbemrPn92
+ eKvNnqMS4KCaVT2K6OM=; b=MYo1X4XBYoXLUfKyol0i8lFTKOk2NaIWDRTxGCNG
+ uKoOnMI5w0U/6b5FFZd7UDUCiRVlwq3oiJI1zW7xRRP9uh6nBg+9sKN2B77TnJlD
+ bK/HawOGs8m00YgCnYQArT/y/BXi0U3IF9GyHWceEUD4s7nvcfCoTduzTohYzQd1
+ T5zxUZJzoANEJAm5mOx4eOC1GzXwU2EPY/98crXPajt9SMVhFG6BlrjSLBNXDaBL
+ fQB2LsOA4sytKDzRLjEV2g0NCquB8k+r9wdP1omWTldl+WHfRRwrP7Snlo6Cfdoc
+ jD3Yx88NwPaTj5WXKdkwZwp7VMrPnTzVXqyqTshgUDsmaQ==
+X-Virus-Scanned: by MailRoute
+Received: from 008.lax.mailroute.net ([127.0.0.1])
+ by localhost (008.lax [127.0.0.1]) (mroute_mailscanner, port 10029) with LMTP
+ id tJodp6nfa-sQ; Tue, 10 Sep 2024 17:13:19 +0000 (UTC)
+Received: from [100.66.154.22] (unknown [104.135.204.82])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ (No client certificate requested)
+ (Authenticated sender: bvanassche@acm.org)
+ by 008.lax.mailroute.net (Postfix) with ESMTPSA id 4X39JZ1wvqz6ClY97;
+ Tue, 10 Sep 2024 17:13:18 +0000 (UTC)
+Message-ID: <7ea6ad5b-a569-4f0a-8fc2-fd66bff19387@acm.org>
+Date: Tue, 10 Sep 2024 10:13:17 -0700
 MIME-Version: 1.0
-Message-ID: <21386152.c170.191dc452525.Coremail.zhanghe9702@163.com>
-X-Coremail-Locale: zh_CN
-X-CM-TRANSID: _____wD3X7M_U+BmaaN0AA--.5335W
-X-CM-SenderInfo: x2kd0wlkhzliqs6rljoofrz/1tbiDxxWamVOGkupSQAEsx
-X-Coremail-Antispam: 1U5529EdanIXcx71UUUUU7vcSsGvfC2KfnxnUU==
-X-Mailman-Approved-At: Fri, 13 Sep 2024 21:01:54 +0000
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH RESEND v2 08/19] scsi: libfcoe: Include <linux/prandom.h>
+ instead of <linux/random.h>
+To: Uros Bizjak <ubizjak@gmail.com>, x86@kernel.org,
+ linux-crypto@vger.kernel.org, intel-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-media@vger.kernel.org,
+ linux-mtd@lists.infradead.org, linux-fscrypt@vger.kernel.org,
+ linux-scsi@vger.kernel.org, bpf@vger.kernel.org,
+ linux-kselftest@vger.kernel.org, kunit-dev@googlegroups.com,
+ linux-kernel@vger.kernel.org
+Cc: Hannes Reinecke <hare@suse.de>,
+ "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>,
+ "Martin K. Petersen" <martin.petersen@oracle.com>
+References: <20240909075641.258968-1-ubizjak@gmail.com>
+ <20240909075641.258968-9-ubizjak@gmail.com>
+Content-Language: en-US
+From: Bart Van Assche <bvanassche@acm.org>
+In-Reply-To: <20240909075641.258968-9-ubizjak@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Mailman-Approved-At: Fri, 13 Sep 2024 21:01:53 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,82 +81,31 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-------=_Part_182745_367905845.1725977404708
-Content-Type: text/plain; charset=GBK
-Content-Transfer-Encoding: base64
+On 9/9/24 12:53 AM, Uros Bizjak wrote:
+> Substitute the inclusion of <linux/random.h> header with
+> <linux/prandom.h> to allow the removal of legacy inclusion
+> of <linux/prandom.h> from <linux/random.h>.
+> 
+> Signed-off-by: Uros Bizjak <ubizjak@gmail.com>
+> Cc: Hannes Reinecke <hare@suse.de>
+> Cc: "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>
+> Cc: "Martin K. Petersen" <martin.petersen@oracle.com>
+> ---
+>   include/scsi/libfcoe.h | 2 +-
+>   1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/include/scsi/libfcoe.h b/include/scsi/libfcoe.h
+> index 3c5899290aed..6616348e59b9 100644
+> --- a/include/scsi/libfcoe.h
+> +++ b/include/scsi/libfcoe.h
+> @@ -15,7 +15,7 @@
+>   #include <linux/skbuff.h>
+>   #include <linux/workqueue.h>
+>   #include <linux/local_lock.h>
+> -#include <linux/random.h>
+> +#include <linux/prandom.h>
+>   #include <scsi/fc/fc_fcoe.h>
+>   #include <scsi/libfc.h>
+>   #include <scsi/fcoe_sysfs.h>
 
-OiksIGkgdGhpbmsgeW91IG1lYW4gc2hvdWxkIHVzZSBDUFUgY29sdW1uIGhlYWQ/IGJlY2F1c2Ug
-dGhlIHJlZyB2YWx1ZSBqdXN0IHJlZmxlY3QgQ1BVIHJlbGF0ZWQgaW5mb3JtYXRpb24KCgoKCgoK
-CgoKCgoKCgoKCgpBdCAyMDI0LTA5LTEwIDE3OjI0OjMyLCAiQW5kaSBTaHl0aSIgPGFuZGkuc2h5
-dGlAbGludXguaW50ZWwuY29tPiB3cm90ZToKPkhpIFpoYW5naGUsCj4KPlRoYW5rcyBmb3IgeW91
-ciBwYXRjaC4gUGxlYXNlIG5leHQgdGltZSBjaGVjayBmcm9tCj5nZXRfbWFpbnRhaW5lcnMucGwg
-dGhlIG1haWxpbmcgbGlzdHMgdGhhdCBuZWVkIHRvIGJlIGluY2x1ZGVkIGluCj55b3VyIHBhdGNo
-ZXMuCj4KPkluIHRoaXMgY2FzZSB5b3Ugc2hvdWxkIGhhdmUgaW5jbHVkZWQgYXQgbGVhc3QgdGhl
-Cj5pbnRlbC1nZnggPGludGVsLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmc+IGFuZCB0aGUKPmRy
-aS1kZXZlbCA8ZHJpLWRldmVsQGxpc3RzLmZyZWVkZXNrdG9wLm9yZz4gbWFpbGluZyBsaXN0cy4K
-Pgo+T24gU2F0LCBTZXAgMDcsIDIwMjQgYXQgMDU6MjQ6NDNQTSArMDgwMCwgemhhbmdoZTk3MDIg
-d3JvdGU6Cj4+IGNvbHVtbiBoZWFkZXIgc2hvdWxkIGJlIEdQVSwgbm90IENQVQo+PiAKPj4gU2ln
-bmVkLW9mZi1ieTogemhhbmdoZTk3MDIgPHpoYW5naGU5NzAyQDE2My5jb20+Cj4KPkRvIHlvdSBy
-ZWFsbHkgd2FudCB5b3VyIG5hbWUgdG8gYXBwZWFyIGFzIHpoYW5naGU5NzAyPyBJZiB5b3UgZ2l0
-Cj5sb2cgdGhlIGxpbnV4IGRpcmVjdG9yeSB5b3Ugd2lsbCBzZSB0aGF0IHBlb3BsZSBub3JtYWxs
-eSB1c2UKPnRoZSAiTmFtZSBTdXJuYW1lIDxlbWFpbD4iIHN0eWxlLiBBcyB5b3Ugd2lzaC4KPgo+
-PiAtLS0KPj4gIGRyaXZlcnMvZ3B1L2RybS9pOTE1L2d0L2ludGVsX2d0X3BtX2RlYnVnZnMuYyB8
-IDIgKy0KPj4gIDEgZmlsZSBjaGFuZ2VkLCAxIGluc2VydGlvbigrKSwgMSBkZWxldGlvbigtKQo+
-PiAKPj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9pOTE1L2d0L2ludGVsX2d0X3BtX2Rl
-YnVnZnMuYyBiL2RyaXZlcnMvZ3B1L2RybS9pOTE1L2d0L2ludGVsX2d0X3BtX2RlYnVnZnMuYwo+
-PiBpbmRleCA4ZDA4YjM4ODc0ZWYuLmI2MzVhYTI4MjBkOSAxMDA2NDQKPj4gLS0tIGEvZHJpdmVy
-cy9ncHUvZHJtL2k5MTUvZ3QvaW50ZWxfZ3RfcG1fZGVidWdmcy5jCj4+ICsrKyBiL2RyaXZlcnMv
-Z3B1L2RybS9pOTE1L2d0L2ludGVsX2d0X3BtX2RlYnVnZnMuYwo+PiBAQCAtNDMxLDcgKzQzMSw3
-IEBAIHN0YXRpYyBpbnQgbGxjX3Nob3coc3RydWN0IHNlcV9maWxlICptLCB2b2lkICpkYXRhKQo+
-PiAgCQltYXhfZ3B1X2ZyZXEgLz0gR0VOOV9GUkVRX1NDQUxFUjsKPj4gIAl9Cj4+ICAKPj4gLQlz
-ZXFfcHV0cyhtLCAiR1BVIGZyZXEgKE1IeilcdEVmZmVjdGl2ZSBDUFUgZnJlcSAoTUh6KVx0RWZm
-ZWN0aXZlIFJpbmcgZnJlcSAoTUh6KVxuIik7Cj4+ICsJc2VxX3B1dHMobSwgIkdQVSBmcmVxIChN
-SHopXHRFZmZlY3RpdmUgR1BVIGZyZXEgKE1IeilcdEVmZmVjdGl2ZSBSaW5nIGZyZXEgKE1Ieilc
-biIpOwo+Cj5UaGlzIGlzIGNvcnJlY3Q6Cj4KPlJldmlld2VkLWJ5OiBBbmRpIFNoeXRpIDxhbmRp
-LnNoeXRpQGxpbnV4LmludGVsLmNvbT4KPgo+VGhhbmtzLAo+QW5kaQo=
-------=_Part_182745_367905845.1725977404708
-Content-Type: text/html; charset=GBK
-Content-Transfer-Encoding: base64
-
-PGRpdiBkYXRhLW50ZXM9Im50ZXNfbWFpbF9ib2R5X3Jvb3QiIHN0eWxlPSJsaW5lLWhlaWdodDox
-Ljc7Y29sb3I6IzAwMDAwMDtmb250LXNpemU6MTRweDtmb250LWZhbWlseTpBcmlhbCI+PGRpdiBp
-ZD0ic3BuRWRpdG9yQ29udGVudCI+PHAgc3R5bGU9Im1hcmdpbjogMDsiPjopLCBpIHRoaW5rIHlv
-dSBtZWFuIHNob3VsZCB1c2UgQ1BVIGNvbHVtbiBoZWFkPyBiZWNhdXNlIHRoZSByZWcgdmFsdWUg
-anVzdCByZWZsZWN0IENQVSByZWxhdGVkIGluZm9ybWF0aW9uPC9wPjxwIHN0eWxlPSJtYXJnaW46
-IDA7Ij48YnI+PC9wPjxwIHN0eWxlPSJtYXJnaW46IDA7Ij48YnI+PC9wPjxwIHN0eWxlPSJtYXJn
-aW46IDA7Ij48YnI+PC9wPjxwIHN0eWxlPSJtYXJnaW46IDA7Ij48YnI+PC9wPjwvZGl2PjxkaXYg
-c3R5bGU9InBvc2l0aW9uOnJlbGF0aXZlO3pvb206MSI+PC9kaXY+PGRpdiBpZD0iZGl2TmV0ZWFz
-ZU1haWxDYXJkIj48L2Rpdj48cCBzdHlsZT0ibWFyZ2luOiAwOyI+PGJyPjwvcD48cHJlPjxicj5B
-dCAyMDI0LTA5LTEwIDE3OjI0OjMyLCAiQW5kaSBTaHl0aSIgJmx0O2FuZGkuc2h5dGlAbGludXgu
-aW50ZWwuY29tJmd0OyB3cm90ZToKJmd0O0hpIFpoYW5naGUsCiZndDsKJmd0O1RoYW5rcyBmb3Ig
-eW91ciBwYXRjaC4gUGxlYXNlIG5leHQgdGltZSBjaGVjayBmcm9tCiZndDtnZXRfbWFpbnRhaW5l
-cnMucGwgdGhlIG1haWxpbmcgbGlzdHMgdGhhdCBuZWVkIHRvIGJlIGluY2x1ZGVkIGluCiZndDt5
-b3VyIHBhdGNoZXMuCiZndDsKJmd0O0luIHRoaXMgY2FzZSB5b3Ugc2hvdWxkIGhhdmUgaW5jbHVk
-ZWQgYXQgbGVhc3QgdGhlCiZndDtpbnRlbC1nZnggJmx0O2ludGVsLWdmeEBsaXN0cy5mcmVlZGVz
-a3RvcC5vcmcmZ3Q7IGFuZCB0aGUKJmd0O2RyaS1kZXZlbCAmbHQ7ZHJpLWRldmVsQGxpc3RzLmZy
-ZWVkZXNrdG9wLm9yZyZndDsgbWFpbGluZyBsaXN0cy4KJmd0OwomZ3Q7T24gU2F0LCBTZXAgMDcs
-IDIwMjQgYXQgMDU6MjQ6NDNQTSArMDgwMCwgemhhbmdoZTk3MDIgd3JvdGU6CiZndDsmZ3Q7IGNv
-bHVtbiBoZWFkZXIgc2hvdWxkIGJlIEdQVSwgbm90IENQVQomZ3Q7Jmd0OyAKJmd0OyZndDsgU2ln
-bmVkLW9mZi1ieTogemhhbmdoZTk3MDIgJmx0O3poYW5naGU5NzAyQDE2My5jb20mZ3Q7CiZndDsK
-Jmd0O0RvIHlvdSByZWFsbHkgd2FudCB5b3VyIG5hbWUgdG8gYXBwZWFyIGFzIHpoYW5naGU5NzAy
-PyBJZiB5b3UgZ2l0CiZndDtsb2cgdGhlIGxpbnV4IGRpcmVjdG9yeSB5b3Ugd2lsbCBzZSB0aGF0
-IHBlb3BsZSBub3JtYWxseSB1c2UKJmd0O3RoZSAiTmFtZSBTdXJuYW1lICZsdDtlbWFpbCZndDsi
-IHN0eWxlLiBBcyB5b3Ugd2lzaC4KJmd0OwomZ3Q7Jmd0OyAtLS0KJmd0OyZndDsgIGRyaXZlcnMv
-Z3B1L2RybS9pOTE1L2d0L2ludGVsX2d0X3BtX2RlYnVnZnMuYyB8IDIgKy0KJmd0OyZndDsgIDEg
-ZmlsZSBjaGFuZ2VkLCAxIGluc2VydGlvbigrKSwgMSBkZWxldGlvbigtKQomZ3Q7Jmd0OyAKJmd0
-OyZndDsgZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9pOTE1L2d0L2ludGVsX2d0X3BtX2Rl
-YnVnZnMuYyBiL2RyaXZlcnMvZ3B1L2RybS9pOTE1L2d0L2ludGVsX2d0X3BtX2RlYnVnZnMuYwom
-Z3Q7Jmd0OyBpbmRleCA4ZDA4YjM4ODc0ZWYuLmI2MzVhYTI4MjBkOSAxMDA2NDQKJmd0OyZndDsg
-LS0tIGEvZHJpdmVycy9ncHUvZHJtL2k5MTUvZ3QvaW50ZWxfZ3RfcG1fZGVidWdmcy5jCiZndDsm
-Z3Q7ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9pOTE1L2d0L2ludGVsX2d0X3BtX2RlYnVnZnMuYwom
-Z3Q7Jmd0OyBAQCAtNDMxLDcgKzQzMSw3IEBAIHN0YXRpYyBpbnQgbGxjX3Nob3coc3RydWN0IHNl
-cV9maWxlICptLCB2b2lkICpkYXRhKQomZ3Q7Jmd0OyAgCQltYXhfZ3B1X2ZyZXEgLz0gR0VOOV9G
-UkVRX1NDQUxFUjsKJmd0OyZndDsgIAl9CiZndDsmZ3Q7ICAKJmd0OyZndDsgLQlzZXFfcHV0cyht
-LCAiR1BVIGZyZXEgKE1IeilcdEVmZmVjdGl2ZSBDUFUgZnJlcSAoTUh6KVx0RWZmZWN0aXZlIFJp
-bmcgZnJlcSAoTUh6KVxuIik7CiZndDsmZ3Q7ICsJc2VxX3B1dHMobSwgIkdQVSBmcmVxIChNSHop
-XHRFZmZlY3RpdmUgR1BVIGZyZXEgKE1IeilcdEVmZmVjdGl2ZSBSaW5nIGZyZXEgKE1IeilcbiIp
-OwomZ3Q7CiZndDtUaGlzIGlzIGNvcnJlY3Q6CiZndDsKJmd0O1Jldmlld2VkLWJ5OiBBbmRpIFNo
-eXRpICZsdDthbmRpLnNoeXRpQGxpbnV4LmludGVsLmNvbSZndDsKJmd0OwomZ3Q7VGhhbmtzLAom
-Z3Q7QW5kaQo8L3ByZT48L2Rpdj4=
-------=_Part_182745_367905845.1725977404708--
-
+Reviewed-by: Bart Van Assche <bvanassche@acm.org>
