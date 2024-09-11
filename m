@@ -4,44 +4,27 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1D1F8EE0206
-	for <intel-gfx@archiver.kernel.org>; Wed, 11 Sep 2024 17:47:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C22CBEE0206
+	for <intel-gfx@archiver.kernel.org>; Wed, 11 Sep 2024 18:07:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D585C10EA3D;
-	Wed, 11 Sep 2024 17:46:59 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="RUXBj1q+";
-	dkim-atps=neutral
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 89DD610EA60;
- Wed, 11 Sep 2024 17:46:57 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id 247705C031A;
- Wed, 11 Sep 2024 17:46:53 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 15002C4CEC0;
- Wed, 11 Sep 2024 17:46:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1726076816;
- bh=gmqOGLm0OZGcL+znqyR5wEO+HiAhfmQO/SZmOhbvHTY=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=RUXBj1q+hGKavIEy++hSuAbVH/1LtHH91TLQJgIu+y6wdGQ07CWw/l3S50JW1RZmu
- u7ikYMgmxlF60NvyDWDlJxgUiIXzM9E/0CQ0IoVh+7SeSKRV4a6JmnFVrnVjtl9tqd
- 6yV8D6FlqxofTnsngqPk8CFg73d9tbAUj0LDqB3WbkRv3g/EvK5jIbazDug8EF8OZj
- 7DjnpGLcEBrxy8PDrXUVReXOEZ8QktMxRvoJ1vJv2I0BROF9zUk09K5n4xGgQNtjRz
- B7vkI93dnl3JTaSDnZuOXzIskOqAhEROfnraElps3td6SemllsKe31BM3q+/Fz8yA2
- no5x3Z8PwtS9A==
-Date: Wed, 11 Sep 2024 10:46:54 -0700
-From: Nathan Chancellor <nathan@kernel.org>
-To: Jani Nikula <jani.nikula@intel.com>
-Cc: dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
- intel-xe@lists.freedesktop.org
-Subject: Re: [PATCH 0/8] drm: fix and enable warnings on unused static inlines
-Message-ID: <20240911174654.GA2209716@thelio-3990X>
-References: <cover.1725962479.git.jani.nikula@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 384EC10EA68;
+	Wed, 11 Sep 2024 18:07:14 +0000 (UTC)
+Received: from 2413ebb6fbb6 (emeril.freedesktop.org [131.252.210.167])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0DA3D10EA73;
+ Wed, 11 Sep 2024 18:07:13 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <cover.1725962479.git.jani.nikula@intel.com>
+Content-Transfer-Encoding: 7bit
+Subject: =?utf-8?q?=E2=9C=97_Fi=2ECI=2EBUILD=3A_warning_for_HDCP_intel=5Fdisplay_refa?=
+ =?utf-8?q?ctors_=28rev2=29?=
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Suraj Kandpal" <suraj.kandpal@intel.com>
+Cc: intel-gfx@lists.freedesktop.org
+Date: Wed, 11 Sep 2024 18:07:13 -0000
+Message-ID: <172607803303.987544.16097117196888355220@2413ebb6fbb6>
+X-Patchwork-Hint: ignore
+References: <20240911090540.643155-1-suraj.kandpal@intel.com>
+In-Reply-To: <20240911090540.643155-1-suraj.kandpal@intel.com>
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,20 +37,18 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Tue, Sep 10, 2024 at 01:03:36PM +0300, Jani Nikula wrote:
-> Follow-up to [1].
-> 
-> Annotate unused static inlines with __maybe_unused. In some cases it
-> might be better to remove them, but it's really up to the maintainers
-> what to do. Then enable the warning on default across subsystem.
+== Series Details ==
 
-I merged drm-misc-next into next-20240910 and applied this series on top
-of the result and it looks like all of the instances are fixed.
+Series: HDCP intel_display refactors (rev2)
+URL   : https://patchwork.freedesktop.org/series/138454/
+State : warning
 
-Tested-by: Nathan Chancellor <nathan@kernel.org> # build
+== Summary ==
 
-Cheers,
-Nathan
+Error: patch https://patchwork.freedesktop.org/api/1.0/series/138454/revisions/2/mbox/ not found
+
+
