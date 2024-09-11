@@ -4,24 +4,24 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C22CBEE0206
-	for <intel-gfx@archiver.kernel.org>; Wed, 11 Sep 2024 18:07:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B4598EE0206
+	for <intel-gfx@archiver.kernel.org>; Wed, 11 Sep 2024 18:07:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 384EC10EA68;
-	Wed, 11 Sep 2024 18:07:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2478710EA7A;
+	Wed, 11 Sep 2024 18:07:19 +0000 (UTC)
 Received: from 2413ebb6fbb6 (emeril.freedesktop.org [131.252.210.167])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0DA3D10EA73;
- Wed, 11 Sep 2024 18:07:13 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BE05010EA77;
+ Wed, 11 Sep 2024 18:07:17 +0000 (UTC)
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
-Subject: =?utf-8?q?=E2=9C=97_Fi=2ECI=2EBUILD=3A_warning_for_HDCP_intel=5Fdisplay_refa?=
- =?utf-8?q?ctors_=28rev2=29?=
+Subject: =?utf-8?q?=E2=9C=97_Fi=2ECI=2ESPARSE=3A_warning_for_HDCP_intel=5Fdisplay_ref?=
+ =?utf-8?q?actors_=28rev2=29?=
 From: Patchwork <patchwork@emeril.freedesktop.org>
 To: "Suraj Kandpal" <suraj.kandpal@intel.com>
 Cc: intel-gfx@lists.freedesktop.org
-Date: Wed, 11 Sep 2024 18:07:13 -0000
-Message-ID: <172607803303.987544.16097117196888355220@2413ebb6fbb6>
+Date: Wed, 11 Sep 2024 18:07:17 -0000
+Message-ID: <172607803777.987544.13862471857802429102@2413ebb6fbb6>
 X-Patchwork-Hint: ignore
 References: <20240911090540.643155-1-suraj.kandpal@intel.com>
 In-Reply-To: <20240911090540.643155-1-suraj.kandpal@intel.com>
