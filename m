@@ -4,86 +4,56 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A5DB8EEB595
-	for <intel-gfx@archiver.kernel.org>; Thu, 12 Sep 2024 11:35:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CF9B2EEB591
+	for <intel-gfx@archiver.kernel.org>; Thu, 12 Sep 2024 11:42:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D708810EB50;
-	Thu, 12 Sep 2024 11:35:53 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 81B4410E059;
+	Thu, 12 Sep 2024 11:42:01 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="RbV6sVf+";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="KlO0AA0/";
 	dkim-atps=neutral
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.129.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5787D10EB4F
- for <intel-gfx@lists.freedesktop.org>; Thu, 12 Sep 2024 11:35:52 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1726140951;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=IYaaq+dX0/7DEojW1l9AFpFIChJdEY2bBK1F9k5BgD0=;
- b=RbV6sVf+4F8Jb9xKXS6d/m0T6SHPJdHYQdrCtvekXILAZl1B70+DB6QY6CjOBYeUxb715C
- EOE8xgStkUjCl0Dk+Z1M4GR7AnhpwdKZDAecashU64gi1ocQtUoEflCbTaeQL97vezv8SM
- 5ZkY465XuG1j4Pf+l47A5q2rSRe986c=
-Received: from mail-lf1-f69.google.com (mail-lf1-f69.google.com
- [209.85.167.69]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-531-11D1buh5O9CxaFmeyrH9pw-1; Thu, 12 Sep 2024 07:35:50 -0400
-X-MC-Unique: 11D1buh5O9CxaFmeyrH9pw-1
-Received: by mail-lf1-f69.google.com with SMTP id
- 2adb3069b0e04-5334aba4422so481228e87.3
- for <intel-gfx@lists.freedesktop.org>; Thu, 12 Sep 2024 04:35:50 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1726140949; x=1726745749;
- h=mime-version:message-id:date:references:in-reply-to:subject:cc:to
- :from:x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=IYaaq+dX0/7DEojW1l9AFpFIChJdEY2bBK1F9k5BgD0=;
- b=ZJdn7d3dYXtfQ4A83R2q4T7WAK+E7lk4ijm1cU6z15VWCHpbd3ahLvDXtBc/8+44Xb
- GTPMpT4VehleWI6ZQWIsojvTm+rNo++UEF3HqQaQ7XVmic3L3A4Hr1DMnQPlf95fn5kN
- 0BqS0CUOIGAnYJdCJIHeKUTAxjcVuhDwHObXsCSaq9zCL+K+RDCE/MVSGX5N0a6gnfw9
- 0xPz/6H7gQfxPlGczVHsuxxYzTQ4PMkXiuxULmxSkfZxHREPJ03vhrDdZHeyCeCJqyFI
- W1bsIVpKmNOrgXDVEpAIANf7Lwca+6KzKMnIqw4e/KwAbTIrLm4vpJLe7LcVFDdgmOvG
- RhqQ==
-X-Forwarded-Encrypted: i=1;
- AJvYcCWuwKyOHM0X9tOhK5IWMJyubtLdDLtxxzIaPKnaTjLcqcLg61cgZrR2cWyWWYgVHRVmTcY+hnlmTMQ=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Ywco4S1xbYFf4C3pz2oHLRXREKDJwFMamX8itHcMXlnM1u7o5ag
- vc0N56GMw9D4E2Mq5k0VAKuP3eODa4dFo+pNk+MIzNjOUucf3LObHj2z0To4xRJs2Ek7J5UlZOk
- ZUKGtEeydH9NGwyfjZtjgt7ZWnpTevnqUxy3PIrVmoPwEjag2RdOmpUlDhyzwA7j16Q==
-X-Received: by 2002:a05:6512:4017:b0:533:4785:82a7 with SMTP id
- 2adb3069b0e04-53678fc8586mr1605069e87.28.1726140948559; 
- Thu, 12 Sep 2024 04:35:48 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IEBna+5EinCwR/Lij9CpfGsghHsYmmA3HZg2qxflQ5JJykqP5bH1I+Yy9IcXwnu0/KGf+lDXw==
-X-Received: by 2002:a05:6512:4017:b0:533:4785:82a7 with SMTP id
- 2adb3069b0e04-53678fc8586mr1605032e87.28.1726140947816; 
- Thu, 12 Sep 2024 04:35:47 -0700 (PDT)
-Received: from localhost (62-151-111-63.jazzfree.ya.com. [62.151.111.63])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-42cb179f8e3sm162451165e9.43.2024.09.12.04.35.47
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 12 Sep 2024 04:35:47 -0700 (PDT)
-From: Javier Martinez Canillas <javierm@redhat.com>
-To: Brian Norris <briannorris@chromium.org>, Borislav Petkov <bp@alien8.de>
-Cc: Hugues Bruant <hugues.bruant@gmail.com>, stable@vger.kernel.org,
- regressions@lists.linux.dev, linux-kernel@vger.kernel.org, Fenghua Yu
- <fenghua.yu@intel.com>, Reinette Chatre <reinette.chatre@intel.com>, Tony
- Luck <tony.luck@intel.com>, Tzung-Bi Shih <tzungbi@kernel.org>, Julius
- Werner <jwerner@chromium.org>, chrome-platform@lists.linux.dev, Jani
- Nikula <jani.nikula@linux.intel.com>, Joonas Lahtinen
- <joonas.lahtinen@linux.intel.com>, Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Tvrtko Ursulin <tursulin@ursulin.net>, intel-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org
-Subject: Re: [NOT A REGRESSION] firmware: framebuffer-coreboot: duplicate
- device name "simple-framebuffer.0"
-In-Reply-To: <ZuCGkjoxKxpnhEh6@google.com>
-References: <CALvjV29jozswRtmYxDur2TuEQ=1JSDrM+uWVHmghW3hG5Y9F+w@mail.gmail.com>
- <20240909080200.GAZt6reI9c98c9S_Xc@fat_crate.local>
- <ZuCGkjoxKxpnhEh6@google.com>
-Date: Thu, 12 Sep 2024 13:35:46 +0200
-Message-ID: <87jzfhayul.fsf@minerva.mail-host-address-is-not-set>
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.16])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B3BB110EB4F
+ for <intel-gfx@lists.freedesktop.org>; Thu, 12 Sep 2024 11:42:00 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1726141321; x=1757677321;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=RZ3PRcd3I3g84O+D67Kqzzkkf2szX0nDePaXI7ERpNY=;
+ b=KlO0AA0/gKEmJN7g12YzHcM7qbZ0bBC7B8/XYBDAJGhdU/K1bxntQCxZ
+ RpurFmEwYO1kapFPLwvgoAfa0jNJCd3OgsyOXOToruDwtkRQHmP0QrRzz
+ Le6dAe3EfF5oAqsB98tscti1vyonICkE/BHRe2r+Z8bYxaJ43NK/d+ifv
+ z8PrqYmW1C2dhbOOswANQb4IZgBwXoomcDRTJeSNG/fOHcHcsOdvw63dA
+ o9wwigguJxTooSfxbDTfzJeVDP6Hwi1Lkr0jLyg82D0CU45WR/Ej48r6L
+ VzxC1eeUIqSkFM+2tKPmIPdcIt4KjZ1a0b3zl0gbHWCctvzlFeP6FORry g==;
+X-CSE-ConnectionGUID: rIxYjyZfTFuotxbl7y5tiQ==
+X-CSE-MsgGUID: FNy60uhKSESLauu9M3xgRg==
+X-IronPort-AV: E=McAfee;i="6700,10204,11192"; a="25089225"
+X-IronPort-AV: E=Sophos;i="6.10,222,1719903600"; d="scan'208";a="25089225"
+Received: from fmviesa009.fm.intel.com ([10.60.135.149])
+ by orvoesa108.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 12 Sep 2024 04:42:01 -0700
+X-CSE-ConnectionGUID: B4xHGruLQt+9cDiE1VZBYw==
+X-CSE-MsgGUID: oEMX3w+OQzCC1L2dsbn1VA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.10,222,1719903600"; d="scan'208";a="67675451"
+Received: from srr4-3-linux-103-aknautiy.iind.intel.com ([10.223.34.160])
+ by fmviesa009-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 12 Sep 2024 04:41:57 -0700
+From: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
+To: intel-gfx@lists.freedesktop.org
+Cc: suraj.kandpal@intel.com, jani.saarinen@intel.com,
+ ville.syrjala@linux.intel.com
+Subject: [PATCH 4/4] drm/i915/display: Use joined pipes in dsc helpers for
+ slices, bpp
+Date: Thu, 12 Sep 2024 17:13:30 +0530
+Message-ID: <20240912114330.1244982-5-ankit.k.nautiyal@intel.com>
+X-Mailer: git-send-email 2.45.2
+In-Reply-To: <20240912114330.1244982-1-ankit.k.nautiyal@intel.com>
+References: <20240912114330.1244982-1-ankit.k.nautiyal@intel.com>
 MIME-Version: 1.0
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-Content-Type: text/plain
+Content-Transfer-Encoding: 8bit
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -99,160 +69,221 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Brian Norris <briannorris@chromium.org> writes:
+In preparation of ultrajoiner, use number of joined pipes in the dsc
+helpers to compute dsc slices and max compressed bpp, instead of using
+the joiner flag.
 
-Hello Brian,
+v2: Adjust the formulae to use num of pipes as 1 (no joiner) or 2
+(bigjoiner). (Ankit)
 
-> (Tweaking subject; this indeed isn't related to the regression at all)
->
-> Hi,
->
-> On Mon, Sep 09, 2024 at 10:02:00AM +0200, Borislav Petkov wrote:
->> Looking at your log, the first warn is in framebuffer_coreboot. Some mess in
->> the sysfs platform devices registration.
->> 
->> Adding the relevant people for that:
->> 
->> Aug 20 20:29:36 luna kernel: sysfs: cannot create duplicate filename '/bus/platform/devices/simple-framebuffer.0'
->> Aug 20 20:29:36 luna kernel: CPU: 5 PID: 571 Comm: (udev-worker) Tainted: G           OE      6.10.6-arch1-1 #1 703d152c24f1971e36f16e505405e456fc9e23f8
->> Aug 20 20:29:36 luna kernel: Hardware name: Purism Librem 14/Librem 14, BIOS 4.14-Purism-1 06/18/2021
->> Aug 20 20:29:36 luna kernel: Call Trace:
->> Aug 20 20:29:36 luna kernel:  <TASK>
->> Aug 20 20:29:36 luna kernel:  dump_stack_lvl+0x5d/0x80
->> Aug 20 20:29:36 luna kernel:  sysfs_warn_dup.cold+0x17/0x23
->> Aug 20 20:29:36 luna kernel:  sysfs_do_create_link_sd+0xcf/0xe0
->> Aug 20 20:29:36 luna kernel:  bus_add_device+0x6b/0x130
->> Aug 20 20:29:36 luna kernel:  device_add+0x3b3/0x870
->> Aug 20 20:29:36 luna kernel:  platform_device_add+0xed/0x250
->> Aug 20 20:29:36 luna kernel:  platform_device_register_full+0xbb/0x140
->> Aug 20 20:29:36 luna kernel:  platform_device_register_resndata.constprop.0+0x54/0x80 [framebuffer_coreboot a587d2fc243ebaa0205c3badd33442a004d284e0]
->> Aug 20 20:29:36 luna kernel:  framebuffer_probe+0x165/0x1b0 [framebuffer_coreboot a587d2fc243ebaa0205c3badd33442a004d284e0]
->> Aug 20 20:29:36 luna kernel:  really_probe+0xdb/0x340
->> Aug 20 20:29:36 luna kernel:  ? pm_runtime_barrier+0x54/0x90
->> Aug 20 20:29:36 luna kernel:  ? __pfx___driver_attach+0x10/0x10
->> Aug 20 20:29:36 luna kernel:  __driver_probe_device+0x78/0x110
->> Aug 20 20:29:36 luna kernel:  driver_probe_device+0x1f/0xa0
->> Aug 20 20:29:36 luna kernel:  __driver_attach+0xba/0x1c0
->> Aug 20 20:29:36 luna kernel:  bus_for_each_dev+0x8c/0xe0
->> Aug 20 20:29:36 luna kernel:  bus_add_driver+0x112/0x1f0
->> Aug 20 20:29:36 luna kernel:  driver_register+0x72/0xd0
->> Aug 20 20:29:36 luna kernel:  ? __pfx_framebuffer_driver_init+0x10/0x10 [framebuffer_coreboot a587d2fc243ebaa0205c3badd33442a004d284e0]
->> Aug 20 20:29:36 luna kernel:  do_one_initcall+0x58/0x310
->> Aug 20 20:29:36 luna kernel:  do_init_module+0x60/0x220
->> Aug 20 20:29:36 luna kernel:  init_module_from_file+0x89/0xe0
->> Aug 20 20:29:36 luna kernel:  idempotent_init_module+0x121/0x320
->> Aug 20 20:29:36 luna kernel:  __x64_sys_finit_module+0x5e/0xb0
->> Aug 20 20:29:36 luna kernel:  do_syscall_64+0x82/0x190
->> Aug 20 20:29:36 luna kernel:  ? __do_sys_newfstatat+0x3c/0x80
->> Aug 20 20:29:36 luna kernel:  ? syscall_exit_to_user_mode+0x72/0x200
->> Aug 20 20:29:36 luna kernel:  ? do_syscall_64+0x8e/0x190
->> Aug 20 20:29:36 luna kernel:  ? do_sys_openat2+0x9c/0xe0
->> Aug 20 20:29:36 luna kernel:  ? syscall_exit_to_user_mode+0x72/0x200
->> Aug 20 20:29:36 luna kernel:  ? do_syscall_64+0x8e/0x190
->> Aug 20 20:29:36 luna kernel:  ? clear_bhb_loop+0x25/0x80
->> Aug 20 20:29:36 luna kernel:  ? clear_bhb_loop+0x25/0x80
->> Aug 20 20:29:36 luna kernel:  ? clear_bhb_loop+0x25/0x80
->> Aug 20 20:29:36 luna kernel:  entry_SYSCALL_64_after_hwframe+0x76/0x7e
->> Aug 20 20:29:36 luna kernel: RIP: 0033:0x7b1bee2f81fd
->
-> Looks like it might be a conflict with
-> drivers/firmware/sysfb_simplefb.c, which also uses the
-> "simple-framebuffer" name with a constant ID of 0. It's possible both
-> drivers should be switched to use PLATFORM_DEVID_AUTO? Or at least one
-> of them. Or they should use different base names.
->
-
-I'm unsure about PLATFORM_DEVID_AUTO because I don't know if there are
-user-space programs that assume this to always be "simple-framebuffer.0".
-
-> I'm not really sure what the best option is (does anyone rely on or care
-> about the device naming?), and I don't actually use this driver. But
-> here's an untested diff to try if you'd really like. If you test it,
-> feel free to submit as a proper patch with my:
->
-
-
-I've discussed this with Thomas Zimmermann (simpledrm maintainer) and
-he suggests that the problem is the system framebuffer information to
-be provided in both Coreboot table entry (AFAIU is LB_TAG_FRAMEBUFFER)
-and in the boot_params, which leads to struct screen_info to be filled.
-
-We had the same problem for EFI systems that passed DTB to the kernel
-instead of ACPI, in those cases both a "simple-framebuffer" DT node and
-an EFI-GOP table could be provided.
-
-Commit 3310288f6135 "(of/platform: Disable sysfb if a simple-framebuffer
-node is found") solved that issue. I've typed the same for Coreboot to
-handle in the same way. Please let me know what you think:
-
-From 6955149fb13af1c0cba2e5c1fbb1ac9367a09ae2 Mon Sep 17 00:00:00 2001
-From: Javier Martinez Canillas <javierm@redhat.com>
-Date: Thu, 12 Sep 2024 12:55:29 +0200
-Subject: [RFC PATCH] firmware: coreboot: Disable sysfb if Coreboot already
- provides a FB
-
-On Coreboot platforms, a system framebuffer may be provided to the Linux
-kernel by filling a LB_TAG_FRAMEBUFFER entry in the Coreboot table. But
-it seems SeaBIOS payload can also provide a VGA mode in the boot params.
-
-If that the case, early arch x86 boot code will fill the global struct
-screen_info data.
-
-The data is used by the Generic System Framebuffers (sysfb) framework to
-add a platform device with platform data about the system framebuffer.
-
-But if there is information about the system framebuffer in the Coreboot
-table as well, the framebuffer_coreboot driver will also try to do the
-same and add another device for the system framebuffer. This will fail
-though because there's already a simple-framebuffer.0 device registered:
-
-    sysfs: cannot create duplicate filename '/bus/platform/devices/simple-framebuffer.0'
-    ...
-    coreboot: could not register framebuffer
-    framebuffer coreboot8: probe with driver framebuffer failed with error -17
-
-To prevent the issue, make the framebuffer_core driver to disable sysfb
-if there is system framebuffer data in the Coreboot table. That way only
-this driver will register a device and sysfb would not attempt to do it
-(or remove its registered device if was already executed before).
-
-Reported-by: Brian Norris <briannorris@chromium.org>
-Link: https://lore.kernel.org/all/ZuCG-DggNThuF4pj@b20ea791c01f/T/#ma7fb65acbc1a56042258adac910992bb225a20d2
-Suggested-by: Thomas Zimmermann <tzimmermann@suse.de>
-Signed-off-by: Javier Martinez Canillas <javierm@redhat.com>
+Signed-off-by: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
+Reviewed-by: Suraj Kandpal <suraj.kandpal@intel.com> (v1)
 ---
- drivers/firmware/google/framebuffer-coreboot.c | 13 +++++++++++++
- 1 file changed, 13 insertions(+)
+ drivers/gpu/drm/i915/display/intel_display.c |  2 +-
+ drivers/gpu/drm/i915/display/intel_display.h |  1 +
+ drivers/gpu/drm/i915/display/intel_dp.c      | 24 +++++++++++---------
+ drivers/gpu/drm/i915/display/intel_dp.h      |  4 ++--
+ drivers/gpu/drm/i915/display/intel_dp_mst.c  |  8 ++++---
+ 5 files changed, 22 insertions(+), 17 deletions(-)
 
-diff --git a/drivers/firmware/google/framebuffer-coreboot.c b/drivers/firmware/google/framebuffer-coreboot.c
-index daadd71d8ddd..0a28aa5b17dc 100644
---- a/drivers/firmware/google/framebuffer-coreboot.c
-+++ b/drivers/firmware/google/framebuffer-coreboot.c
-@@ -61,6 +61,19 @@ static int framebuffer_probe(struct coreboot_device *dev)
- 	if (res.end <= res.start)
- 		return -EINVAL;
+diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
+index 1e07780c3510..9e323221cb1c 100644
+--- a/drivers/gpu/drm/i915/display/intel_display.c
++++ b/drivers/gpu/drm/i915/display/intel_display.c
+@@ -278,7 +278,7 @@ bool intel_crtc_is_joiner_primary(const struct intel_crtc_state *crtc_state)
+ 		crtc->pipe == joiner_primary_pipe(crtc_state);
+ }
  
-+	/*
-+	 * Since a "simple-framebuffer" device is already added
-+	 * here, disable the Generic System Framebuffers (sysfb)
-+	 * to prevent it from registering another device for the
-+	 * system framebuffer later (e.g: using the screen_info
-+	 * data that may had been filled as well).
-+	 *
-+	 * This can happen for example on Coreboot systems, that
-+	 * advertise a LB_TAG_FRAMEBUFFER entry in their Coreboot
-+	 * table and also a VESA mode by the BIOS used as payload.
-+	 */
-+	sysfb_disable();
+-static int intel_crtc_num_joined_pipes(const struct intel_crtc_state *crtc_state)
++int intel_crtc_num_joined_pipes(const struct intel_crtc_state *crtc_state)
+ {
+ 	return hweight8(intel_crtc_joined_pipe_mask(crtc_state));
+ }
+diff --git a/drivers/gpu/drm/i915/display/intel_display.h b/drivers/gpu/drm/i915/display/intel_display.h
+index e136814e0f92..df3bd9350aaa 100644
+--- a/drivers/gpu/drm/i915/display/intel_display.h
++++ b/drivers/gpu/drm/i915/display/intel_display.h
+@@ -587,5 +587,6 @@ bool assert_port_valid(struct drm_i915_private *i915, enum port port);
+ })
+ 
+ bool intel_scanout_needs_vtd_wa(struct drm_i915_private *i915);
++int intel_crtc_num_joined_pipes(const struct intel_crtc_state *crtc_state);
+ 
+ #endif
+diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
+index 3646890693c4..24524d2158a7 100644
+--- a/drivers/gpu/drm/i915/display/intel_dp.c
++++ b/drivers/gpu/drm/i915/display/intel_dp.c
+@@ -868,14 +868,14 @@ u32 intel_dp_dsc_nearest_valid_bpp(struct drm_i915_private *i915, u32 bpp, u32 p
+ static
+ u32 get_max_compressed_bpp_with_joiner(struct drm_i915_private *i915,
+ 				       u32 mode_clock, u32 mode_hdisplay,
+-				       bool bigjoiner)
++				       int num_joined_pipes)
+ {
+ 	u32 max_bpp_small_joiner_ram;
+ 
+ 	/* Small Joiner Check: output bpp <= joiner RAM (bits) / Horiz. width */
+ 	max_bpp_small_joiner_ram = small_joiner_ram_size_bits(i915) / mode_hdisplay;
+ 
+-	if (bigjoiner) {
++	if (num_joined_pipes == 2) {
+ 		int bigjoiner_interface_bits = DISPLAY_VER(i915) >= 14 ? 36 : 24;
+ 		/* With bigjoiner multiple dsc engines are used in parallel so PPC is 2 */
+ 		int ppc = 2;
+@@ -894,7 +894,7 @@ u32 get_max_compressed_bpp_with_joiner(struct drm_i915_private *i915,
+ u16 intel_dp_dsc_get_max_compressed_bpp(struct drm_i915_private *i915,
+ 					u32 link_clock, u32 lane_count,
+ 					u32 mode_clock, u32 mode_hdisplay,
+-					bool bigjoiner,
++					int num_joined_pipes,
+ 					enum intel_output_format output_format,
+ 					u32 pipe_bpp,
+ 					u32 timeslots)
+@@ -940,7 +940,7 @@ u16 intel_dp_dsc_get_max_compressed_bpp(struct drm_i915_private *i915,
+ 				intel_dp_mode_to_fec_clock(mode_clock));
+ 
+ 	joiner_max_bpp = get_max_compressed_bpp_with_joiner(i915, mode_clock,
+-							    mode_hdisplay, bigjoiner);
++							    mode_hdisplay, num_joined_pipes);
+ 	bits_per_pixel = min(bits_per_pixel, joiner_max_bpp);
+ 
+ 	bits_per_pixel = intel_dp_dsc_nearest_valid_bpp(i915, bits_per_pixel, pipe_bpp);
+@@ -950,7 +950,7 @@ u16 intel_dp_dsc_get_max_compressed_bpp(struct drm_i915_private *i915,
+ 
+ u8 intel_dp_dsc_get_slice_count(const struct intel_connector *connector,
+ 				int mode_clock, int mode_hdisplay,
+-				bool bigjoiner)
++				int num_joined_pipes)
+ {
+ 	struct drm_i915_private *i915 = to_i915(connector->base.dev);
+ 	u8 min_slice_count, i;
+@@ -984,14 +984,14 @@ u8 intel_dp_dsc_get_slice_count(const struct intel_connector *connector,
+ 
+ 	/* Find the closest match to the valid slice count values */
+ 	for (i = 0; i < ARRAY_SIZE(valid_dsc_slicecount); i++) {
+-		u8 test_slice_count = valid_dsc_slicecount[i] << bigjoiner;
++		u8 test_slice_count = valid_dsc_slicecount[i] * num_joined_pipes;
+ 
+ 		if (test_slice_count >
+ 		    drm_dp_dsc_sink_max_slice_count(connector->dp.dsc_dpcd, false))
+ 			break;
+ 
+ 		/* big joiner needs small joiner to be enabled */
+-		if (bigjoiner && test_slice_count < 4)
++		if (num_joined_pipes == 2 && test_slice_count < 4)
+ 			continue;
+ 
+ 		if (min_slice_count <= test_slice_count)
+@@ -1390,14 +1390,14 @@ intel_dp_mode_valid(struct drm_connector *_connector,
+ 								    max_lanes,
+ 								    target_clock,
+ 								    mode->hdisplay,
+-								    joiner,
++								    num_joined_pipes,
+ 								    output_format,
+ 								    pipe_bpp, 64);
+ 			dsc_slice_count =
+ 				intel_dp_dsc_get_slice_count(connector,
+ 							     target_clock,
+ 							     mode->hdisplay,
+-							     joiner);
++							     num_joined_pipes);
+ 		}
+ 
+ 		dsc = dsc_max_compressed_bpp && dsc_slice_count;
+@@ -2113,6 +2113,7 @@ static int dsc_compute_compressed_bpp(struct intel_dp *intel_dp,
+ 	int dsc_src_min_bpp, dsc_sink_min_bpp, dsc_min_bpp;
+ 	int dsc_src_max_bpp, dsc_sink_max_bpp, dsc_max_bpp;
+ 	int dsc_joiner_max_bpp;
++	int num_joined_pipes = intel_crtc_num_joined_pipes(pipe_config);
+ 
+ 	dsc_src_min_bpp = dsc_src_min_compressed_bpp();
+ 	dsc_sink_min_bpp = intel_dp_dsc_sink_min_compressed_bpp(pipe_config);
+@@ -2127,7 +2128,7 @@ static int dsc_compute_compressed_bpp(struct intel_dp *intel_dp,
+ 
+ 	dsc_joiner_max_bpp = get_max_compressed_bpp_with_joiner(i915, adjusted_mode->clock,
+ 								adjusted_mode->hdisplay,
+-								pipe_config->joiner_pipes);
++								num_joined_pipes);
+ 	dsc_max_bpp = min(dsc_max_bpp, dsc_joiner_max_bpp);
+ 	dsc_max_bpp = min(dsc_max_bpp, fxp_q4_to_int(limits->link.max_bpp_x16));
+ 
+@@ -2312,6 +2313,7 @@ int intel_dp_dsc_compute_config(struct intel_dp *intel_dp,
+ 		to_intel_connector(conn_state->connector);
+ 	const struct drm_display_mode *adjusted_mode =
+ 		&pipe_config->hw.adjusted_mode;
++	int num_joined_pipes = intel_crtc_num_joined_pipes(pipe_config);
+ 	int ret;
+ 
+ 	/*
+@@ -2367,7 +2369,7 @@ int intel_dp_dsc_compute_config(struct intel_dp *intel_dp,
+ 			intel_dp_dsc_get_slice_count(connector,
+ 						     adjusted_mode->crtc_clock,
+ 						     adjusted_mode->crtc_hdisplay,
+-						     pipe_config->joiner_pipes);
++						     num_joined_pipes);
+ 		if (!dsc_dp_slice_count) {
+ 			drm_dbg_kms(&dev_priv->drm,
+ 				    "Compressed Slice Count not supported\n");
+diff --git a/drivers/gpu/drm/i915/display/intel_dp.h b/drivers/gpu/drm/i915/display/intel_dp.h
+index 3aef57dd463a..a0a31fb64716 100644
+--- a/drivers/gpu/drm/i915/display/intel_dp.h
++++ b/drivers/gpu/drm/i915/display/intel_dp.h
+@@ -143,7 +143,7 @@ int intel_dp_dsc_compute_max_bpp(const struct intel_connector *connector,
+ u16 intel_dp_dsc_get_max_compressed_bpp(struct drm_i915_private *i915,
+ 					u32 link_clock, u32 lane_count,
+ 					u32 mode_clock, u32 mode_hdisplay,
+-					bool bigjoiner,
++					int num_joined_pipes,
+ 					enum intel_output_format output_format,
+ 					u32 pipe_bpp,
+ 					u32 timeslots);
+@@ -153,7 +153,7 @@ int intel_dp_dsc_sink_max_compressed_bpp(const struct intel_connector *connector
+ 					 int bpc);
+ u8 intel_dp_dsc_get_slice_count(const struct intel_connector *connector,
+ 				int mode_clock, int mode_hdisplay,
+-				bool bigjoiner);
++				int num_joined_pipes);
+ bool intel_dp_need_joiner(struct intel_dp *intel_dp,
+ 			  struct intel_connector *connector,
+ 			  int hdisplay, int clock);
+diff --git a/drivers/gpu/drm/i915/display/intel_dp_mst.c b/drivers/gpu/drm/i915/display/intel_dp_mst.c
+index 51dded1f7e8a..fb59e28c3f17 100644
+--- a/drivers/gpu/drm/i915/display/intel_dp_mst.c
++++ b/drivers/gpu/drm/i915/display/intel_dp_mst.c
+@@ -102,11 +102,13 @@ static int intel_dp_mst_bw_overhead(const struct intel_crtc_state *crtc_state,
+ 	flags |= crtc_state->fec_enable ? DRM_DP_BW_OVERHEAD_FEC : 0;
+ 
+ 	if (dsc) {
++		int num_joined_pipes = intel_crtc_num_joined_pipes(crtc_state);
 +
- 	pdev = platform_device_register_resndata(&dev->dev,
- 						 "simple-framebuffer", 0,
- 						 &res, 1, &pdata,
--- 
+ 		flags |= DRM_DP_BW_OVERHEAD_DSC;
+ 		dsc_slice_count = intel_dp_dsc_get_slice_count(connector,
+ 							       adjusted_mode->clock,
+ 							       adjusted_mode->hdisplay,
+-							       crtc_state->joiner_pipes);
++							       num_joined_pipes);
+ 	}
  
-Best regards,
-
-Javier Martinez Canillas
-Core Platforms
-Red Hat
+ 	overhead = drm_dp_bw_overhead(crtc_state->lane_count,
+@@ -1501,14 +1503,14 @@ intel_dp_mst_mode_valid_ctx(struct drm_connector *connector,
+ 								    max_lanes,
+ 								    target_clock,
+ 								    mode->hdisplay,
+-								    joiner,
++								    num_joined_pipes,
+ 								    INTEL_OUTPUT_FORMAT_RGB,
+ 								    pipe_bpp, 64);
+ 			dsc_slice_count =
+ 				intel_dp_dsc_get_slice_count(intel_connector,
+ 							     target_clock,
+ 							     mode->hdisplay,
+-							     joiner);
++							     num_joined_pipes);
+ 		}
+ 
+ 		dsc = dsc_max_compressed_bpp && dsc_slice_count;
+-- 
+2.45.2
 
