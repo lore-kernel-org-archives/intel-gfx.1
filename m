@@ -4,51 +4,82 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E4481FC6181
-	for <intel-gfx@archiver.kernel.org>; Fri, 13 Sep 2024 21:01:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9CA57FC6172
+	for <intel-gfx@archiver.kernel.org>; Fri, 13 Sep 2024 21:01:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6EA6E10ED93;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 678E910ED92;
 	Fri, 13 Sep 2024 21:01:54 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="EjkB9ZE6";
+	dkim=pass (2048-bit key; unprotected) header.d=freebox-fr.20230601.gappssmtp.com header.i=@freebox-fr.20230601.gappssmtp.com header.b="GYnPQS/V";
 	dkim-atps=neutral
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8EDC110E12F;
- Tue, 10 Sep 2024 16:55:45 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id 28DC35C03B5;
- Tue, 10 Sep 2024 16:55:41 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EA44DC4CEC3;
- Tue, 10 Sep 2024 16:55:43 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1725987344;
- bh=JScXB/yDn/yMAalsJJVsnq7kUH4Esc0s3LoE68Z1fOE=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=EjkB9ZE6VOjrqBUcRfRB/IGW/03aiRntCIPbyiZBeqvHxaI5jKv9MwDaEG8DDCVms
- WBhJcAiQ4Cq9+12kFHqyGjbeONBmBIgn0n72KfpVQYgC8Cyl9UroP9T+nGG3iddOaY
- zmVEODx+AgQcJsB+zhOqAoZB7x3hKqjF50j3BlxAU9gjugH8ptsITaLY+Elxlr7MZi
- CpuAiqBlceiAqOg8kIcTrYvnqA9Bp0rCsSxI84V/pvG0URubh74hfOPnisgrrcm4Vb
- x73mUjdHWviA8aqphwPn8GbvnM48SNF3nyS6Gs/iX7VRUUVMeRdWM4apgyyiY+yvcF
- habjts3Llgr0g==
-Date: Tue, 10 Sep 2024 09:55:42 -0700
-From: Eric Biggers <ebiggers@kernel.org>
-To: Uros Bizjak <ubizjak@gmail.com>
-Cc: x86@kernel.org, linux-crypto@vger.kernel.org,
- intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-media@vger.kernel.org, linux-mtd@lists.infradead.org,
- linux-fscrypt@vger.kernel.org, linux-scsi@vger.kernel.org,
- bpf@vger.kernel.org, linux-kselftest@vger.kernel.org,
- kunit-dev@googlegroups.com, linux-kernel@vger.kernel.org,
- "Theodore Y. Ts'o" <tytso@mit.edu>, Jaegeuk Kim <jaegeuk@kernel.org>
-Subject: Re: [PATCH RESEND v2 07/19] fscrypt: Include <linux/once.h> in
- fs/crypto/keyring.c
-Message-ID: <20240910165542.GA2642@sol.localdomain>
-References: <20240909075641.258968-1-ubizjak@gmail.com>
- <20240909075641.258968-8-ubizjak@gmail.com>
+Received: from mail-wr1-f47.google.com (mail-wr1-f47.google.com
+ [209.85.221.47])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 19E9010E215
+ for <intel-gfx@lists.freedesktop.org>; Thu, 12 Sep 2024 10:56:07 +0000 (UTC)
+Received: by mail-wr1-f47.google.com with SMTP id
+ ffacd0b85a97d-374c326c638so585534f8f.2
+ for <intel-gfx@lists.freedesktop.org>; Thu, 12 Sep 2024 03:56:07 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=freebox-fr.20230601.gappssmtp.com; s=20230601; t=1726138566; x=1726743366;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=Nt9opV20XXsOa5z/RzMwdzRNoh6hR/E6GTyAUXLI6Is=;
+ b=GYnPQS/V5PSvitV3+TJ99AI9CBqKMeRDHsRwjGsS9YTAv0/iUoHjM8cy+Uf4puYcid
+ z4E+yT79sReHbXkFs9/EsmBN0TpKIof6vbKjkhgrEy01ZDFRsktDY4MotAMEvfoLzuzu
+ dYBZS0+66KWLm4XQ7j1njQ3C0xJlMD5F0fFhxBXPWqJ52ONk3JxJjCW6T+fvwLSxUbzg
+ GiE90JPbYkY5A6foTB/fu35Ig/TD+Zha8eIQdjMtsLsfVEsUVa8BOQS1m/Lxv62mJON3
+ N8GbRTXvNv5Ds8I2Q/lZS717QP96o9ZKFP/VYO4+Ur2uESkg71cp1ehwA1Hc8uXTmeAc
+ q8hg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1726138566; x=1726743366;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=Nt9opV20XXsOa5z/RzMwdzRNoh6hR/E6GTyAUXLI6Is=;
+ b=tOTwHarTfkqI15cDyTG6ooDRmw04Qj0ev4yGmqzqr8HbEpfWMeO19vIS9TqyxtKdPl
+ lsx1AEKIDsPg0IR16L6h3dm3QrbMWiw7BD5l1d1YNuLRqyB2LsjqfFOu2AkDlUxBwTi2
+ DAZH5hLg6wkoXOhHfi4Ht8wRk50fLDBWNFVKOJQstcbpDaa/rWwZs8ACy6foS5d0CFSG
+ ENEgN60t2GJs0VfotTp6Oml8NkppYhvo8rC5+wYe1AK+UDIK32UYRirEGis1CLLaAR4R
+ 7QPOJOiamD/qtssMW7SEF187riQ0Bm3iQM9hDQwaOTnCEewpV+34l1ai5SQ9vpyIpSie
+ t7cA==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCViXSuBShqAgFcOj/5lOwOdwYVBJ2z6oMEVsmAZu0aaGtU3WfsLQNY10NBu09JLO9JVuq5XzUSb0KQ=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxShJtKxSkq45UfTJZ+LggMchfdUxpV8gbOYEIwS4f+N3po2IUQ
+ w4Jas8jEGqF2e/HEvt/ikZTWO8MitK/X1QZVpA77/UV/7Yt+npQZHpqgZLqFTDU=
+X-Google-Smtp-Source: AGHT+IE9+wQX/1J2KsVADvG1QVUpPXoig/hsO7v0VZ7xjkRspuEnpc2g7y3vNOnUaSl7AMnmsynS5Q==
+X-Received: by 2002:adf:ef4a:0:b0:368:31c7:19dd with SMTP id
+ ffacd0b85a97d-378c2cd3ae1mr1221292f8f.5.1726138565430; 
+ Thu, 12 Sep 2024 03:56:05 -0700 (PDT)
+Received: from [192.168.108.50] (freebox.vlq16.iliad.fr. [213.36.7.13])
+ by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-378956e8a98sm14084691f8f.117.2024.09.12.03.56.04
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 12 Sep 2024 03:56:04 -0700 (PDT)
+Message-ID: <9028f858-8c6d-4292-a6aa-27eedff3ac8b@freebox.fr>
+Date: Thu, 12 Sep 2024 12:56:04 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20240909075641.258968-8-ubizjak@gmail.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 7/8] drm/msmi: annotate pll_cmp_to_fdata() with
+ __maybe_unused
+To: Jani Nikula <jani.nikula@intel.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Arnaud Vrac <avrac@freebox.fr>
+Cc: dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
+ intel-xe@lists.freedesktop.org, Nathan Chancellor <nathan@kernel.org>,
+ Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Sean Paul <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>,
+ linux-arm-msm@vger.kernel.org
+References: <cover.1725962479.git.jani.nikula@intel.com>
+ <3553b1db35665e6ff08592e35eb438a574d1ad65.1725962479.git.jani.nikula@intel.com>
+ <4ag2efwiizn5bnskauekqwfhgl4gioafcvetpvsmbdgg37bdja@3g6tt4rlfwcb>
+ <19ac4e25-7609-4d92-8687-585c6ea00c79@freebox.fr> <878qvyjxpg.fsf@intel.com>
+Content-Language: en-US
+From: Marc Gonzalez <mgonzalez@freebox.fr>
+In-Reply-To: <878qvyjxpg.fsf@intel.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 X-Mailman-Approved-At: Fri, 13 Sep 2024 21:01:54 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -65,33 +96,42 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Mon, Sep 09, 2024 at 09:53:50AM +0200, Uros Bizjak wrote:
-> Include <linux/once.h> header to allow the removal of legacy
-> inclusion of <linux/prandom.h> from <linux/random.h>.
+On 11/09/2024 12:23, Jani Nikula wrote:
+> On Tue, 10 Sep 2024, Marc Gonzalez <mgonzalez@freebox.fr> wrote:
+>> On 10/09/2024 16:51, Dmitry Baryshkov wrote:
+>>> On Tue, Sep 10, 2024 at 01:03:43PM GMT, Jani Nikula wrote:
+>>>
+>>>> Building with clang and and W=1 leads to warning about unused
+>>>> pll_cmp_to_fdata(). Fix by annotating it with __maybe_unused.
+>>>>
+>>>> See also commit 6863f5643dd7 ("kbuild: allow Clang to find unused static
+>>>> inline functions for W=1 build").
+>>>>
+>>>> Signed-off-by: Jani Nikula <jani.nikula@intel.com>
+>>>
+>>> I think this function can be dropped. Marc, your call, as an author of
+>>> the patch?
+>>
+>> ( Why is the patch prefixed "drm/msmi", is "msmi" a typo? )
 > 
-> Signed-off-by: Uros Bizjak <ubizjak@gmail.com>
-> Cc: Eric Biggers <ebiggers@kernel.org>
-> Cc: "Theodore Y. Ts'o" <tytso@mit.edu>
-> Cc: Jaegeuk Kim <jaegeuk@kernel.org>
-> ---
-> v2: Include <linux/once.h> instead of <linux/prandom.h>
-> ---
->  fs/crypto/keyring.c | 1 +
->  1 file changed, 1 insertion(+)
+> Whoops, a typo.
 > 
-> diff --git a/fs/crypto/keyring.c b/fs/crypto/keyring.c
-> index 6681a71625f0..82fcc5683649 100644
-> --- a/fs/crypto/keyring.c
-> +++ b/fs/crypto/keyring.c
-> @@ -22,6 +22,7 @@
->  #include <crypto/skcipher.h>
->  #include <linux/key-type.h>
->  #include <linux/random.h>
-> +#include <linux/once.h>
->  #include <linux/seq_file.h>
->  
->  #include "fscrypt_private.h"
+>>> For the record, Arnaud is the driver's author.
+>>
+>> pll_cmp_to_fdata() was used in hdmi_8998_pll_recalc_rate()
+>> in a commented code block which was later removed.
+>>
+>> Thus, yes, it is safe to completely delete the unused function.
+>> I'm surprised gcc didn't catch that...
+> 
+> Thanks, I'll change this to drop the function.
+> 
+> GCC doesn't catch unused static inlines, while Clang does.
 
-Acked-by: Eric Biggers <ebiggers@google.com>
+It makes no sense to me that adding "inline" would prevent
+GCC from diagnosing the issue... GCC should simply ignore
+the "inline" keyword when definition is not in a header file
+(maybe they don't store "origin").
 
-- Eric
+Regards
+
