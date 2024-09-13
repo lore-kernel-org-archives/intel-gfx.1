@@ -4,112 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1B071FC6181
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 79A22FC6183
 	for <intel-gfx@archiver.kernel.org>; Fri, 13 Sep 2024 21:02:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6849410ED97;
+	by gabe.freedesktop.org (Postfix) with ESMTP id A092610ED9B;
 	Fri, 13 Sep 2024 21:01:55 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="IsjC4grF";
+	dkim=pass (1024-bit key; unprotected) header.d=163.com header.i=@163.com header.b="lsyKC0l6";
 	dkim-atps=neutral
-Received: from mail-lj1-f174.google.com (mail-lj1-f174.google.com
- [209.85.208.174])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9E9D710E13C;
- Mon,  9 Sep 2024 19:30:21 +0000 (UTC)
-Received: by mail-lj1-f174.google.com with SMTP id
- 38308e7fff4ca-2f75d044201so21844191fa.0; 
- Mon, 09 Sep 2024 12:30:21 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1725910220; x=1726515020; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=woE07RMIM4YJ88QTc1ZNc52E+GbLSESAkfn/9qs5W1Y=;
- b=IsjC4grFAvgjLRqJZIcOwhbI1N9YpJBBSfFrRt/4e2YQPPE+e1bEOme6SEyHjujJyv
- 5LoVh0PF1V2EExPrubGyJUAsyyVJp80dpQ5afpPupmJJS9nuWy+NGv+xgQyBMEqajooS
- W9nfM3DsSrV4uAMXxx0KUt2jAaVFYA2R4Q3TnmxWosHFGHPW9QxUueks/aZ+InpYuiZA
- VKvy1qfej1SXRlhilimxpby9hRknvJtTnovkgJBDiCmA0goXyldQwaVlsgJjNygI4VfK
- 1pMjDNV4cujs8xrLupXHLw3hFGHnFDV3IhmwXqEGVJQM+Ufryd9mezuv18aZxj1+0Gme
- 2D/Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1725910220; x=1726515020;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=woE07RMIM4YJ88QTc1ZNc52E+GbLSESAkfn/9qs5W1Y=;
- b=OtcsPga/uIxfsVj85jsyV9yoRvPwzFMm/SdHGKbIsOl74UT3EK92aMyRJINpFvjyJD
- 4TGXARunEMk7Nb5tmMcoHxlGCPdmRERlfLEfioVKQ9Bp7KTPLTCPiNCS6xA+8rEjkruA
- fSFbBoqpyDZ4eAO61MMYKqf/ht8QNs1GlgB5gXLU+rbfCw06YCQodgun4fK+yIrWJFMG
- Px2mACJmrVFRdFI3lVte91leE1gS89IXMCDTTRdAW4W3rHTOrqy0ujc9OgdcI9R5Pc9Q
- KyBbxJCtgkK/auxTAXRDZ4Q8VHPd+nQcyi66anOiUayxYSubOB2hXb34SCdPd67vIDcE
- p/LA==
-X-Forwarded-Encrypted: i=1;
- AJvYcCWeqmu0Yk/vKy6PQXEClsN0TAeSiY1LLVog4dzCQwIes97RsVyawATe3OqnClESursb1o3cCuvqqCs=@lists.freedesktop.org,
- AJvYcCXNNqYghK178ZZ46H21Q97SDFA7IZhGpPqwpW+7bNQ08M7wn4LphVujQLuBrtlNhgIj9zrKUOU8nhB4@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yxqhh188munkYMmVjhvVKCHG/RKLNpkIRP571F61+wQ0qZrLIYr
- TqT78L9XAIvbegC4iYhUHwaCrTRtmlkZe7FCVRyt443sWEfPCQrUF+PXrJP7x22py5axrqGAb0k
- 4iEX1L/moymjk9WblX+AkqH8wwBY=
-X-Google-Smtp-Source: AGHT+IHGDlZWsmVxtU6Y46aEXfBA2sgXqI4naIhOyyLQHvnhEyR7+3HqFvBi8W+gcZkb/4A25yABw4d/bXms0qX89pY=
-X-Received: by 2002:a05:651c:549:b0:2f7:6277:f2be with SMTP id
- 38308e7fff4ca-2f7727190f4mr2037391fa.22.1725910218656; Mon, 09 Sep 2024
- 12:30:18 -0700 (PDT)
+X-Greylist: delayed 904 seconds by postgrey-1.36 at gabe;
+ Fri, 13 Sep 2024 14:22:46 UTC
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.3])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 788EB10E0DC
+ for <intel-gfx@lists.freedesktop.org>; Fri, 13 Sep 2024 14:22:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+ s=s110527; h=From:Subject:Date:Message-Id:MIME-Version; bh=vhXsw
+ QNcNfx7zs0+92P6rzpmeXE/YeSFV7cX1UuXW/M=; b=lsyKC0l6/4u2P0oMF6LLj
+ 8T52HnuNh9V71pC3rmEX8+SxoSt2B0Y3nO0dTrGaGofmaw2BAt2bhVeOWLMSJ7AM
+ IzmKNHU7Ahx7V3zXso5BClxN448Qt9VbM5dL0YOrBFf7qn7dUbcLdzNaCjGgEwNp
+ JOw2I/lRMbeP3IJtgknVBg=
+Received: from zhanghe-System-Product-Name.. (unknown [183.14.213.146])
+ by gzga-smtp-mta-g3-0 (Coremail) with SMTP id _____wDnDzkbR+RmkOrcAQ--.52329S4;
+ Fri, 13 Sep 2024 22:07:24 +0800 (CST)
+From: Zhang He <zhanghe9702@163.com>
+To: andi.shyti@linux.intel.com
+Cc: intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ trivial@kernel.org, Zhang He <zhanghe9702@163.com>
+Subject: [PATCH] drm/i915/gt: Fixed an typo
+Date: Fri, 13 Sep 2024 22:07:21 +0800
+Message-Id: <20240913140721.31165-1-zhanghe9702@163.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-References: <20240909075641.258968-1-ubizjak@gmail.com>
- <Zt8a6_RwLG2pEnZ6@zx2c4.com>
-In-Reply-To: <Zt8a6_RwLG2pEnZ6@zx2c4.com>
-From: Uros Bizjak <ubizjak@gmail.com>
-Date: Mon, 9 Sep 2024 21:30:06 +0200
-Message-ID: <CAFULd4ak3n1x0tGrqiNoxvDBRw6AWgchfBO_k4aKps34DomPvA@mail.gmail.com>
-Subject: Re: [PATCH RESEND v2 00/19] random: Resolve circular include
- dependency and include <linux/percpu.h>
-To: "Jason A. Donenfeld" <Jason@zx2c4.com>
-Cc: x86@kernel.org, linux-crypto@vger.kernel.org, 
- intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
- linux-media@vger.kernel.org, linux-mtd@lists.infradead.org, 
- linux-fscrypt@vger.kernel.org, linux-scsi@vger.kernel.org, 
- bpf@vger.kernel.org, linux-kselftest@vger.kernel.org, 
- kunit-dev@googlegroups.com, linux-kernel@vger.kernel.org, 
- Dave Hansen <dave.hansen@linux.intel.com>, Andy Lutomirski <luto@kernel.org>, 
- Peter Zijlstra <peterz@infradead.org>, Thomas Gleixner <tglx@linutronix.de>, 
- Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>,
- "H. Peter Anvin" <hpa@zytor.com>, 
- Jani Nikula <jani.nikula@linux.intel.com>, 
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, 
- Tvrtko Ursulin <tursulin@ursulin.net>, David Airlie <airlied@gmail.com>, 
- Daniel Vetter <daniel@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- Hans Verkuil <hverkuil@xs4all.nl>, Mauro Carvalho Chehab <mchehab@kernel.org>, 
- Miquel Raynal <miquel.raynal@bootlin.com>, Richard Weinberger <richard@nod.at>,
- Vignesh Raghavendra <vigneshr@ti.com>, Eric Biggers <ebiggers@kernel.org>, 
- "Theodore Y. Ts'o" <tytso@mit.edu>, Jaegeuk Kim <jaegeuk@kernel.org>, 
- Linus Torvalds <torvalds@linux-foundation.org>, Hannes Reinecke <hare@suse.de>,
- "James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>, 
- "Martin K. Petersen" <martin.petersen@oracle.com>,
- Alexei Starovoitov <ast@kernel.org>, 
- Daniel Borkmann <daniel@iogearbox.net>,
- John Fastabend <john.fastabend@gmail.com>, 
- Andrii Nakryiko <andrii@kernel.org>, Martin KaFai Lau <martin.lau@linux.dev>, 
- Eduard Zingerman <eddyz87@gmail.com>, Song Liu <song@kernel.org>, 
- Yonghong Song <yonghong.song@linux.dev>, KP Singh <kpsingh@kernel.org>, 
- Stanislav Fomichev <sdf@fomichev.me>, Hao Luo <haoluo@google.com>,
- Jiri Olsa <jolsa@kernel.org>, Andrew Morton <akpm@linux-foundation.org>,
- Brendan Higgins <brendan.higgins@linux.dev>, 
- David Gow <davidgow@google.com>, Rae Moar <rmoar@google.com>, 
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- Jiri Pirko <jiri@resnulli.us>, 
- Petr Mladek <pmladek@suse.com>, Steven Rostedt <rostedt@goodmis.org>, 
- Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
- Rasmus Villemoes <linux@rasmusvillemoes.dk>,
- Sergey Senozhatsky <senozhatsky@chromium.org>, 
- Stephen Hemminger <stephen@networkplumber.org>,
- Jamal Hadi Salim <jhs@mojatatu.com>, Cong Wang <xiyou.wangcong@gmail.com>,
- Kent Overstreet <kent.overstreet@linux.dev>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-X-Mailman-Approved-At: Fri, 13 Sep 2024 21:01:53 +0000
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID: _____wDnDzkbR+RmkOrcAQ--.52329S4
+X-Coremail-Antispam: 1Uf129KBjvdXoWrZw47XrW8XFWUCw1kWFyDWrg_yoWfZFc_Kw
+ 47trs7J3y3Ga909347Ar13uF1jkanI9r97Wr1xtFW3Ary2yr4UX3WfWry7Xr4rKa13JayD
+ A3WkXr1fZwnxGjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
+ 9fnUUvcSsGvfC2KfnxnUUI43ZEXa7sREs2atUUUUU==
+X-Originating-IP: [183.14.213.146]
+X-CM-SenderInfo: x2kd0wlkhzliqs6rljoofrz/xtbBDxxZamVOGqM8SQAAsH
+X-Mailman-Approved-At: Fri, 13 Sep 2024 21:01:54 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -125,80 +59,26 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Mon, Sep 9, 2024 at 5:57=E2=80=AFPM Jason A. Donenfeld <Jason@zx2c4.com>=
- wrote:
+column header should be GPU, not CPU
 
-> On Mon, Sep 09, 2024 at 09:53:43AM +0200, Uros Bizjak wrote:
-> > a) Substitutes the inclusion of <linux/random.h> with the
-> > inclusion of <linux/prandom.h> where needed (patches 1 - 17).
-> >
-> > b) Removes legacy inclusion of <linux/prandom.h> from
-> > <linux/random.h> (patch 18).
-> >
-> > c) Includes <linux/percpu.h> in <linux/prandom.h> (patch 19).
->
-> Thanks for doing this. That seems like a fine initiative to me. (I'm
-> also curious about the future percpu changes you've got planned.)
+Signed-off-by: Zhang He <zhanghe9702@163.com>
+---
+ drivers/gpu/drm/i915/gt/intel_gt_pm_debugfs.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-As explained in the cover letter, recent GCCs are able to track
-address space of variables in percpu address space from the
-declaration to its usage site. There are certain rules regarding casts
-of variables and their pointers (when this named address space is not
-considered a subspace of the generic address space), so it is possible
-to create much more effective checks for cast-from-as type casts than
-what sparse can achieve.
+diff --git a/drivers/gpu/drm/i915/gt/intel_gt_pm_debugfs.c b/drivers/gpu/drm/i915/gt/intel_gt_pm_debugfs.c
+index 8d08b38874ef..b635aa2820d9 100644
+--- a/drivers/gpu/drm/i915/gt/intel_gt_pm_debugfs.c
++++ b/drivers/gpu/drm/i915/gt/intel_gt_pm_debugfs.c
+@@ -431,7 +431,7 @@ static int llc_show(struct seq_file *m, void *data)
+ 		max_gpu_freq /= GEN9_FREQ_SCALER;
+ 	}
+ 
+-	seq_puts(m, "GPU freq (MHz)\tEffective CPU freq (MHz)\tEffective Ring freq (MHz)\n");
++	seq_puts(m, "GPU freq (MHz)\tEffective GPU freq (MHz)\tEffective Ring freq (MHz)\n");
+ 
+ 	wakeref = intel_runtime_pm_get(gt->uncore->rpm);
+ 	for (gpu_freq = min_gpu_freq; gpu_freq <= max_gpu_freq; gpu_freq++) {
+-- 
+2.34.1
 
-Besides GCC, clang can define various named address space via
-address_space attribute:
-
---cut here--
-#define __as(N) __attribute__((address_space(N)))
-
-void *foo(void __as(1) *x) { return x; }         // error
-
-void *bar(void __as(1) *x) { return (void *)x; } // fine
---cut here--
-
-When compiling this, the compiler returns:
-
-clang-as.c:3:37: error: returning '__as(1) void *' from a function
-with result type 'void *' changes address space of pointer
-
-Although clang currently errors out when __seg_gs and __seg_fs named
-address space designators are used, we can explore its named address
-spaces functionality to implement percpu checks for all targets. The
-percpu address space checks patchset, referred to in the cover letter,
-also supports this functionality when per_cpu_qual is defined to
-__attribute__((address_space(N))).
-
-Perhaps we can use different address spaces to also handle __user,
-__iomem and __rcu address spaces. This way the compiler will be able
-to handle address space checks instead of sparse.
-
-> Tree-wise, were you expecting me to take this through random.git? And if
-> so, what timeframe did you have in mind? For 6.12 next week (can you
-> poke folks for acks in time?), or punt it for 6.13? Or did you have a
-> different tree in mind for treewide changes (in which case, I'll send
-> you an ack for the [p]random.h changes).
-
-I think that the best approach is to target this patchset for linux
-6.13 via random.git tree. I will prepare a v3 after 6.12rc1, so when
-committed to random.git, the patchset will be able to spend some time
-in linux-next. This way, there will be plenty of time for CI robots to
-do additional checks also for some less popular targets (although
-individual patches are dead simple, removing these kinds of "legacy"
-includes can be tricky), and I will also be able to collect Acked-by:s
-in the meantime.
-
-While the patchset is an improvement by itself, its inclusion is not
-time sensitive. The follow up percpu named address checking
-functionality requires a very recent feature (__typeof_unqual__
-keyword), which is only supported in recent compilers (gcc-14 and
-clang-20). Besides compiler support, sparse doesn't know about
-__typeof_unqual__, resulting in broken type tracing and hundreds of
-sparse errors with C=3D1 due to unknown keyword.
-
-So, I think we are not in a hurry and can take the slow and safe path.
-
-Thanks and best regards,
-Uros.
