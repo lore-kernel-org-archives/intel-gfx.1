@@ -4,71 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 676D8C3ABA2
-	for <intel-gfx@archiver.kernel.org>; Mon, 16 Sep 2024 12:46:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 21133C3ABD3
+	for <intel-gfx@archiver.kernel.org>; Mon, 16 Sep 2024 12:46:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B018F10E356;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 979CE10E355;
 	Mon, 16 Sep 2024 12:46:51 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=googlemail.com header.i=@googlemail.com header.b="jTJ3UW8t";
+	dkim=pass (1024-bit key; unprotected) header.d=163.com header.i=@163.com header.b="g4B+0WRu";
 	dkim-atps=neutral
-Received: from mail-pl1-f178.google.com (mail-pl1-f178.google.com
- [209.85.214.178])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 91DB010E301;
- Sun, 15 Sep 2024 19:35:50 +0000 (UTC)
-Received: by mail-pl1-f178.google.com with SMTP id
- d9443c01a7336-205722ba00cso31354745ad.0; 
- Sun, 15 Sep 2024 12:35:50 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=googlemail.com; s=20230601; t=1726428950; x=1727033750;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=New3rH6yb16RO+F7ZmxoIv5gWT8XEiNExKpmL8xStLI=;
- b=jTJ3UW8tZInCpJXdXDp3nuoGHsn1d7qOZLBDdM0Qifmz9Mz03XTDUuj4ykgji1Mkd3
- M+eWuARLHY/4ESn7kMlJqsmBY3Jti0fUDMuu0mcRpJNByHhZKi2qjBQxiBmbfNhdDmyB
- OiFxaw2bzwD/mTvTyWixuPhKGSOkfGLG4Omio0rFmtOvDQGMWqQ7M71e6ArGjYQHhoim
- OoNRxhdoYrNy78qDhGBL5lZNmwQ926LEia2poFn8SKQPnxZQrrMBZPHdOccKn60mFJeR
- xRI3DOznmr9kl0EVnBd4Z3Y9IpoWP9CBPaGWTHQmi7W6Hs/BTx6iNwiBdG6Mqn/Mv0v/
- Jobw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1726428950; x=1727033750;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=New3rH6yb16RO+F7ZmxoIv5gWT8XEiNExKpmL8xStLI=;
- b=pG+9BTv1KgMnTvaRb/Ag4+LCj6Xbjh57PKR0ehDsia7iOcbQ/ptDJYcCidi2gKHI6y
- mCgUSgUm+j7G1qp64IQlB8DvidrF/MKwNH5DMQAu22vhLKJHxkUI7cJ9Ge6QiYflgcu7
- ROAOpvYescX65vcPjY3DB48MYKO77FlZkSuMn+BbuEY/FygoGINAoQZVlmuCiU8aOZqL
- 2Hi2nbENCr9AtXtQydsX1qtRP/I0WzfYODPu5mL5uVaQCRdaViUc+2c+gOn2QYH+4ZI+
- q7cMiEna74kneZVWmCbJQy9IjP+8eQxO8R5aZYEFJIVUaKOvQJjdnDe2W/Qnvkka91Fd
- Cgrw==
-X-Forwarded-Encrypted: i=1;
- AJvYcCU1d3RlWKPlTPJjncO/nt7twTKWr8MLcQNOyAmxaSRk3kOrbV1tpAnt41mzjKcs3AN4PEgFxadsK5A=@lists.freedesktop.org,
- AJvYcCVWoDDbjjxcdT3DRd6GKdaWlneZHjchheZE+Q2nPkQs7oZyDw/p2OVocV68Fg604flfrvR6zOLOhCo=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Ywd2C+/LUpMDdtoDbrixooptR8C/haXGICfHF9m1JNOkjZIAE+Q
- Nd0SgjBshq/WKC3OgizhaFnZFunZAzRQz85mbiqSgIyK6wK+gW5OedcJidMXlgZ9orY3B8R7NYn
- FUD3S5MaviULVWQFd1/shYqGYpoU=
-X-Google-Smtp-Source: AGHT+IEeEBWXAkvZAos6gb/1nBcqfIooFzWaDaf/vow493N7u4RygEa1Dt72D3/O8Hf0ci8+dAfBbMiVeaB8K6wpuVU=
-X-Received: by 2002:a17:902:eb8a:b0:206:ca91:1dda with SMTP id
- d9443c01a7336-2076e39c56bmr163749985ad.17.1726428950005; Sun, 15 Sep 2024
- 12:35:50 -0700 (PDT)
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.2])
+ by gabe.freedesktop.org (Postfix) with ESMTP id C4FC310E095;
+ Sat, 14 Sep 2024 01:32:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+ s=s110527; h=From:Subject:Date:Message-Id:MIME-Version; bh=b5ISz
+ Ocl87C2Oa7hmnu46pT5UEWK+FR4Ymk/RNFCsoc=; b=g4B+0WRuTXRGlfAdhbVqN
+ HLW1kIE0TuIYSQTP7PSD4WcoQQHX8IkeYf1LeCuMAX6xPifzVX9YW/6c8sn0S3Gn
+ XsGb6myaXXY3DyHcy+2R9QKZWevOvMu+f7v+CnfYth7fE72OkSRIHLKkdYlVFtXl
+ o/FA8IR9sMuY73vNzOPFBI=
+Received: from zhanghe-System-Product-Name.. (unknown [183.14.213.146])
+ by gzga-smtp-mta-g2-0 (Coremail) with SMTP id _____wD3v7Ko5+Rmp8TEDw--.62024S4;
+ Sat, 14 Sep 2024 09:32:25 +0800 (CST)
+From: Zhang He <zhanghe9702@163.com>
+To: andi.shyti@linux.intel.com
+Cc: intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ Zhang He <zhanghe9702@163.com>
+Subject: [PATCH 2/2] drm/i915/gt: Fixed an typo
+Date: Sat, 14 Sep 2024 09:31:46 +0800
+Message-Id: <20240914013146.65757-1-zhanghe9702@163.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20240913140721.31165-1-zhanghe9702@163.com>
+References: <20240913140721.31165-1-zhanghe9702@163.com>
 MIME-Version: 1.0
-References: <cover.1725962479.git.jani.nikula@intel.com>
- <fdc82abdabed667fc85d278cfb03d19e5c472d7b.1725962479.git.jani.nikula@intel.com>
-In-Reply-To: <fdc82abdabed667fc85d278cfb03d19e5c472d7b.1725962479.git.jani.nikula@intel.com>
-From: Martin Blumenstingl <martin.blumenstingl@googlemail.com>
-Date: Sun, 15 Sep 2024 21:35:39 +0200
-Message-ID: <CAFBinCDQzHkvo1tQxa2pcgBHngtiXyCgdbnr=9nW7xDHy0RLdg@mail.gmail.com>
-Subject: Re: [PATCH 6/8] drm/meson: dw-hdmi: annotate dw_hdmi_dwc_write_bits()
- with __maybe_unused
-To: Jani Nikula <jani.nikula@intel.com>
-Cc: dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org, 
- intel-xe@lists.freedesktop.org, Nathan Chancellor <nathan@kernel.org>, 
- Neil Armstrong <neil.armstrong@linaro.org>, linux-amlogic@lists.infradead.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID: _____wD3v7Ko5+Rmp8TEDw--.62024S4
+X-Coremail-Antispam: 1Uf129KBjvdXoWruw1rJr15ZF4rtr1fXw4rAFb_yoWkArb_Kw
+ 47tr4xAa43Ga909w17Ar13ZF1jkanIvr97WF1xtrW3Ary2yr45Xas3ury7Xrs5Ga13JayD
+ Aa4kXr1fZwsxCjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
+ 9fnUUvcSsGvfC2KfnxnUUI43ZEXa7VUUItCUUUUUU==
+X-Originating-IP: [183.14.213.146]
+X-CM-SenderInfo: x2kd0wlkhzliqs6rljoofrz/1tbiWwtaamV4LmnRgQAAsq
 X-Mailman-Approved-At: Mon, 16 Sep 2024 12:46:50 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -85,20 +59,32 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Hi Jani,
+column header should be GPU, not CPU
 
-On Tue, Sep 10, 2024 at 12:08=E2=80=AFPM Jani Nikula <jani.nikula@intel.com=
-> wrote:
->
-> Building with clang and and W=3D1 leads to warning about unused
-> dw_hdmi_dwc_write_bits(). Fix by annotating it with __maybe_unused.
->
-> See also commit 6863f5643dd7 ("kbuild: allow Clang to find unused static
-> inline functions for W=3D1 build").
->
-> Signed-off-by: Jani Nikula <jani.nikula@intel.com>
-I prefer dropping this function for which there's a patch already: [0]
+---
+ChangeLog:
+    v1: use correct name as Author and Signer
+    v2: change one line in drivers/gpu/drm/i915/gt/intel_gt_pm_debugfs.c,
+        LLC's information header from "Effective CPU freq" to "Effective GPU freq"
 
+Signed-off-by: Zhang He <zhanghe9702@163.com>
+---
+ drivers/gpu/drm/i915/gt/intel_gt_pm_debugfs.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-[0] https://lore.kernel.org/linux-amlogic/20240908-regmap-config-const-v1-1=
--28f349004811@linaro.org/
+diff --git a/drivers/gpu/drm/i915/gt/intel_gt_pm_debugfs.c b/drivers/gpu/drm/i915/gt/intel_gt_pm_debugfs.c
+index 8d08b38874ef..b635aa2820d9 100644
+--- a/drivers/gpu/drm/i915/gt/intel_gt_pm_debugfs.c
++++ b/drivers/gpu/drm/i915/gt/intel_gt_pm_debugfs.c
+@@ -431,7 +431,7 @@ static int llc_show(struct seq_file *m, void *data)
+ 		max_gpu_freq /= GEN9_FREQ_SCALER;
+ 	}
+ 
+-	seq_puts(m, "GPU freq (MHz)\tEffective CPU freq (MHz)\tEffective Ring freq (MHz)\n");
++	seq_puts(m, "GPU freq (MHz)\tEffective GPU freq (MHz)\tEffective Ring freq (MHz)\n");
+ 
+ 	wakeref = intel_runtime_pm_get(gt->uncore->rpm);
+ 	for (gpu_freq = min_gpu_freq; gpu_freq <= max_gpu_freq; gpu_freq++) {
+-- 
+2.34.1
+
