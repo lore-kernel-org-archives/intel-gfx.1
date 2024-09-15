@@ -4,71 +4,71 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EB3D3C3ABB2
-	for <intel-gfx@archiver.kernel.org>; Mon, 16 Sep 2024 12:46:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 676D8C3ABA2
+	for <intel-gfx@archiver.kernel.org>; Mon, 16 Sep 2024 12:46:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 798E110E354;
+	by gabe.freedesktop.org (Postfix) with ESMTP id B018F10E356;
 	Mon, 16 Sep 2024 12:46:51 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Q0HLDVFp";
+	dkim=pass (2048-bit key; unprotected) header.d=googlemail.com header.i=@googlemail.com header.b="jTJ3UW8t";
 	dkim-atps=neutral
-Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com
- [209.85.128.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F27CB10E09B;
- Sun, 15 Sep 2024 12:02:15 +0000 (UTC)
-Received: by mail-wm1-f43.google.com with SMTP id
- 5b1f17b1804b1-42cb58d810eso28480165e9.0; 
- Sun, 15 Sep 2024 05:02:15 -0700 (PDT)
+Received: from mail-pl1-f178.google.com (mail-pl1-f178.google.com
+ [209.85.214.178])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 91DB010E301;
+ Sun, 15 Sep 2024 19:35:50 +0000 (UTC)
+Received: by mail-pl1-f178.google.com with SMTP id
+ d9443c01a7336-205722ba00cso31354745ad.0; 
+ Sun, 15 Sep 2024 12:35:50 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1726401734; x=1727006534; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=P40wET+w71UJyEkZ9BoZfs/VvG0c/BBfUWCIfkdVP7I=;
- b=Q0HLDVFpHzkHyP67ws8Fsgok/VbJtFGAG0IIqrz2MkHBJFWY6NtrPWsokn+4om3tWI
- ecqYu5ulFSupo96DXbcJ/R64Sajv0mFYVkqonCBzEZj6hs5tNAeHQD48dsUR9sq2RRi0
- 38PM8XNl+lDZ3j56ERqlgolcZb8N09tyQ5XwrTN3V1ujfP0H3Ncf7Nh1tgbmU8Ez2SQt
- N8qt+ljn9oANRSRnn9LH/90BtueKp9Iv0JgomGwRme3H8rpHsU/ERCFrBTKJU4qfQ+dg
- mRe+LaumH8DIWdN80qMA0GYdTZ6TQF+7EOWNTs1bok7U7ZlTdUlPdfNQIUX80+HlzE1P
- 4Aug==
+ d=googlemail.com; s=20230601; t=1726428950; x=1727033750;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=New3rH6yb16RO+F7ZmxoIv5gWT8XEiNExKpmL8xStLI=;
+ b=jTJ3UW8tZInCpJXdXDp3nuoGHsn1d7qOZLBDdM0Qifmz9Mz03XTDUuj4ykgji1Mkd3
+ M+eWuARLHY/4ESn7kMlJqsmBY3Jti0fUDMuu0mcRpJNByHhZKi2qjBQxiBmbfNhdDmyB
+ OiFxaw2bzwD/mTvTyWixuPhKGSOkfGLG4Omio0rFmtOvDQGMWqQ7M71e6ArGjYQHhoim
+ OoNRxhdoYrNy78qDhGBL5lZNmwQ926LEia2poFn8SKQPnxZQrrMBZPHdOccKn60mFJeR
+ xRI3DOznmr9kl0EVnBd4Z3Y9IpoWP9CBPaGWTHQmi7W6Hs/BTx6iNwiBdG6Mqn/Mv0v/
+ Jobw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1726401734; x=1727006534;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=P40wET+w71UJyEkZ9BoZfs/VvG0c/BBfUWCIfkdVP7I=;
- b=mp60SN/7r7jsF3t8WzlKgA2SaKjW88w0BOjk0Tvo0Vmi4O2puPUB6yi5C1rzZAYKl3
- sS89xWEia/cijvuXR7VhtBuhRA8oK0pZL7VVXh6ANRnxNm/9M5DJgmKeJm9L/FI5d8FN
- Isn6FfFgeV5YsspbfMqs4Iqk8DxZmOQGD5pKC4+E4qQhR4ft5vzFm6QrH5HSk0z+vHGs
- N5zLioLhjGwisE/wy+pKVUbX/qWAOd08WG5MYgblEbBopvgX1gM2bze4VCtDaX2yB++t
- TntKG4qNwBaiS7KXjtsRfcrWlp77urI8x6aibCeLQWZmTbKmHuV3cNjYwBxSo44s5h3i
- zesw==
+ d=1e100.net; s=20230601; t=1726428950; x=1727033750;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=New3rH6yb16RO+F7ZmxoIv5gWT8XEiNExKpmL8xStLI=;
+ b=pG+9BTv1KgMnTvaRb/Ag4+LCj6Xbjh57PKR0ehDsia7iOcbQ/ptDJYcCidi2gKHI6y
+ mCgUSgUm+j7G1qp64IQlB8DvidrF/MKwNH5DMQAu22vhLKJHxkUI7cJ9Ge6QiYflgcu7
+ ROAOpvYescX65vcPjY3DB48MYKO77FlZkSuMn+BbuEY/FygoGINAoQZVlmuCiU8aOZqL
+ 2Hi2nbENCr9AtXtQydsX1qtRP/I0WzfYODPu5mL5uVaQCRdaViUc+2c+gOn2QYH+4ZI+
+ q7cMiEna74kneZVWmCbJQy9IjP+8eQxO8R5aZYEFJIVUaKOvQJjdnDe2W/Qnvkka91Fd
+ Cgrw==
 X-Forwarded-Encrypted: i=1;
- AJvYcCXkFGwR7hMBuJecgx3Yd+jEqsSkGjwrt3FTKHr7IBeDuBeY7HnwLBH3r4sbDAht3HLytQvIq/P+Bnc=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyM5QkssWb2wg1TFdD79hZzuKy9VTsLFzbmQOPU8T+fv92SBAj1
- bGh8E4sT7/i2Vt5Wj4jtVd/NZ0EI1xv+Z6XMNML1zFV0myQ7D+1F
-X-Google-Smtp-Source: AGHT+IEMZq4/JjBZ/u6UVGa7+slA/nrX41Tt9k6PRPk4mhaKvy6qtno+rb2b7xGKC7WriVIwr6K5xA==
-X-Received: by 2002:a5d:5745:0:b0:374:ca0c:51b0 with SMTP id
- ffacd0b85a97d-378c27a8a55mr7714570f8f.12.1726401734007; 
- Sun, 15 Sep 2024 05:02:14 -0700 (PDT)
-Received: from void.void ([141.226.169.213]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-378e78054b6sm4497832f8f.107.2024.09.15.05.02.12
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 15 Sep 2024 05:02:13 -0700 (PDT)
-From: Andrew Kreimer <algonell@gmail.com>
-To: Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Tvrtko Ursulin <tursulin@ursulin.net>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>
-Cc: intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, kernel-janitors@vger.kernel.org,
- Andrew Kreimer <algonell@gmail.com>, Matthew Wilcox <willy@infradead.org>
-Subject: [PATCH] drm/i915: Fix typos
-Date: Sun, 15 Sep 2024 15:01:55 +0300
-Message-Id: <20240915120155.101395-1-algonell@gmail.com>
-X-Mailer: git-send-email 2.39.5
+ AJvYcCU1d3RlWKPlTPJjncO/nt7twTKWr8MLcQNOyAmxaSRk3kOrbV1tpAnt41mzjKcs3AN4PEgFxadsK5A=@lists.freedesktop.org,
+ AJvYcCVWoDDbjjxcdT3DRd6GKdaWlneZHjchheZE+Q2nPkQs7oZyDw/p2OVocV68Fg604flfrvR6zOLOhCo=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Ywd2C+/LUpMDdtoDbrixooptR8C/haXGICfHF9m1JNOkjZIAE+Q
+ Nd0SgjBshq/WKC3OgizhaFnZFunZAzRQz85mbiqSgIyK6wK+gW5OedcJidMXlgZ9orY3B8R7NYn
+ FUD3S5MaviULVWQFd1/shYqGYpoU=
+X-Google-Smtp-Source: AGHT+IEeEBWXAkvZAos6gb/1nBcqfIooFzWaDaf/vow493N7u4RygEa1Dt72D3/O8Hf0ci8+dAfBbMiVeaB8K6wpuVU=
+X-Received: by 2002:a17:902:eb8a:b0:206:ca91:1dda with SMTP id
+ d9443c01a7336-2076e39c56bmr163749985ad.17.1726428950005; Sun, 15 Sep 2024
+ 12:35:50 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <cover.1725962479.git.jani.nikula@intel.com>
+ <fdc82abdabed667fc85d278cfb03d19e5c472d7b.1725962479.git.jani.nikula@intel.com>
+In-Reply-To: <fdc82abdabed667fc85d278cfb03d19e5c472d7b.1725962479.git.jani.nikula@intel.com>
+From: Martin Blumenstingl <martin.blumenstingl@googlemail.com>
+Date: Sun, 15 Sep 2024 21:35:39 +0200
+Message-ID: <CAFBinCDQzHkvo1tQxa2pcgBHngtiXyCgdbnr=9nW7xDHy0RLdg@mail.gmail.com>
+Subject: Re: [PATCH 6/8] drm/meson: dw-hdmi: annotate dw_hdmi_dwc_write_bits()
+ with __maybe_unused
+To: Jani Nikula <jani.nikula@intel.com>
+Cc: dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org, 
+ intel-xe@lists.freedesktop.org, Nathan Chancellor <nathan@kernel.org>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, linux-amlogic@lists.infradead.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-Mailman-Approved-At: Mon, 16 Sep 2024 12:46:50 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -85,41 +85,20 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Fix typos in documentation.
+Hi Jani,
 
-Reported-by: Matthew Wilcox <willy@infradead.org>
-Signed-off-by: Andrew Kreimer <algonell@gmail.com>
----
- drivers/gpu/drm/i915/display/intel_psr.c | 2 +-
- drivers/gpu/drm/i915/gt/shaders/README   | 2 +-
- 2 files changed, 2 insertions(+), 2 deletions(-)
+On Tue, Sep 10, 2024 at 12:08=E2=80=AFPM Jani Nikula <jani.nikula@intel.com=
+> wrote:
+>
+> Building with clang and and W=3D1 leads to warning about unused
+> dw_hdmi_dwc_write_bits(). Fix by annotating it with __maybe_unused.
+>
+> See also commit 6863f5643dd7 ("kbuild: allow Clang to find unused static
+> inline functions for W=3D1 build").
+>
+> Signed-off-by: Jani Nikula <jani.nikula@intel.com>
+I prefer dropping this function for which there's a patch already: [0]
 
-diff --git a/drivers/gpu/drm/i915/display/intel_psr.c b/drivers/gpu/drm/i915/display/intel_psr.c
-index 1f83b3b67ea6..062e61cf70a0 100644
---- a/drivers/gpu/drm/i915/display/intel_psr.c
-+++ b/drivers/gpu/drm/i915/display/intel_psr.c
-@@ -1017,7 +1017,7 @@ static void hsw_activate_psr2(struct intel_dp *intel_dp)
- 		};
- 		/*
- 		 * Still using the default IO_BUFFER_WAKE and FAST_WAKE, see
--		 * comments bellow for more information
-+		 * comments below for more information
- 		 */
- 		int tmp;
- 
-diff --git a/drivers/gpu/drm/i915/gt/shaders/README b/drivers/gpu/drm/i915/gt/shaders/README
-index e7e96d7073c7..4f5dab3fdcca 100644
---- a/drivers/gpu/drm/i915/gt/shaders/README
-+++ b/drivers/gpu/drm/i915/gt/shaders/README
-@@ -24,7 +24,7 @@ on building.
- Please make sure your Mesa tool is compiled with "-Dtools=intel" and
- "-Ddri-drivers=i965", and run this script from IGT source root directory"
- 
--The instructions bellow assume:
-+The instructions below assume:
-     *  IGT gpu tools source code is located on your home directory (~) as ~/igt
-     *  Mesa source code is located on your home directory (~) as ~/mesa
-        and built under the ~/mesa/build directory
--- 
-2.39.5
 
+[0] https://lore.kernel.org/linux-amlogic/20240908-regmap-config-const-v1-1=
+-28f349004811@linaro.org/
