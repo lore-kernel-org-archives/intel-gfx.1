@@ -4,84 +4,72 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0C841C3ABB2
-	for <intel-gfx@archiver.kernel.org>; Mon, 16 Sep 2024 11:01:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EB3D3C3ABB2
+	for <intel-gfx@archiver.kernel.org>; Mon, 16 Sep 2024 12:46:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3C97F10E348;
-	Mon, 16 Sep 2024 11:01:04 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 798E110E354;
+	Mon, 16 Sep 2024 12:46:51 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="dAGpzON8";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Q0HLDVFp";
 	dkim-atps=neutral
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.129.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D64AA10E345
- for <intel-gfx@lists.freedesktop.org>; Mon, 16 Sep 2024 11:01:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1726484462;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=eEjIF7qtpeO5gdAg8m1MkAHfmOzMzhqhggl+Nd1IK9g=;
- b=dAGpzON8Q5kaPH8cE/rPoBS2sY72pwINs5CcovcngEJlYtnS/qU7H1DpdZ2DF5o/fkAtrW
- XZCQ/iAIkNtRbq/RtXNNfvcWVaq5TiImUWfvKesRVW8/sWe3FVm0gLzmkTRMd062JJ2ybX
- 2iaHNRw83PkP19mCbxor63itQ2Yh/fQ=
-Received: from mail-wm1-f72.google.com (mail-wm1-f72.google.com
- [209.85.128.72]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-637-HUW-3V2GNlmddnOempCiug-1; Mon, 16 Sep 2024 07:00:59 -0400
-X-MC-Unique: HUW-3V2GNlmddnOempCiug-1
-Received: by mail-wm1-f72.google.com with SMTP id
- 5b1f17b1804b1-42cb89fbb8cso27763785e9.0
- for <intel-gfx@lists.freedesktop.org>; Mon, 16 Sep 2024 04:00:58 -0700 (PDT)
+Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com
+ [209.85.128.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F27CB10E09B;
+ Sun, 15 Sep 2024 12:02:15 +0000 (UTC)
+Received: by mail-wm1-f43.google.com with SMTP id
+ 5b1f17b1804b1-42cb58d810eso28480165e9.0; 
+ Sun, 15 Sep 2024 05:02:15 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1726401734; x=1727006534; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=P40wET+w71UJyEkZ9BoZfs/VvG0c/BBfUWCIfkdVP7I=;
+ b=Q0HLDVFpHzkHyP67ws8Fsgok/VbJtFGAG0IIqrz2MkHBJFWY6NtrPWsokn+4om3tWI
+ ecqYu5ulFSupo96DXbcJ/R64Sajv0mFYVkqonCBzEZj6hs5tNAeHQD48dsUR9sq2RRi0
+ 38PM8XNl+lDZ3j56ERqlgolcZb8N09tyQ5XwrTN3V1ujfP0H3Ncf7Nh1tgbmU8Ez2SQt
+ N8qt+ljn9oANRSRnn9LH/90BtueKp9Iv0JgomGwRme3H8rpHsU/ERCFrBTKJU4qfQ+dg
+ mRe+LaumH8DIWdN80qMA0GYdTZ6TQF+7EOWNTs1bok7U7ZlTdUlPdfNQIUX80+HlzE1P
+ 4Aug==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1726484458; x=1727089258;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=eEjIF7qtpeO5gdAg8m1MkAHfmOzMzhqhggl+Nd1IK9g=;
- b=GKrn0ILeWCJ5D1DQ/xMP0pwAtIAdZdj6QqFDK3kuWNNgH3gb0YnYCI7Has1K4chX7j
- EerYDAYZPCdIdfrv6b0YOCLkkNjpE5Q66rKvyWRw7OOq0I+Uql8lhBVyV7SpaJEu1/8D
- NuA5nXFzhgxooiphLFPZ2dnqnnTrJ2ZW0fJNZrhucxrft4ZYxm7F54NPVYBrI1nJsCbm
- Ih8PXsS5qRj+cOYATSrj0y24pExnGkPRP5GqWwpTxoPc0GLni+7yzyUQu8BP9ooEpq4q
- 0+fcOwH2+6twsBMe2A7iZfxXn+X9EcXC2g6vEbwijVIWLO6qG3H8iKrty1j/R0y+ZTW9
- yqSA==
+ d=1e100.net; s=20230601; t=1726401734; x=1727006534;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=P40wET+w71UJyEkZ9BoZfs/VvG0c/BBfUWCIfkdVP7I=;
+ b=mp60SN/7r7jsF3t8WzlKgA2SaKjW88w0BOjk0Tvo0Vmi4O2puPUB6yi5C1rzZAYKl3
+ sS89xWEia/cijvuXR7VhtBuhRA8oK0pZL7VVXh6ANRnxNm/9M5DJgmKeJm9L/FI5d8FN
+ Isn6FfFgeV5YsspbfMqs4Iqk8DxZmOQGD5pKC4+E4qQhR4ft5vzFm6QrH5HSk0z+vHGs
+ N5zLioLhjGwisE/wy+pKVUbX/qWAOd08WG5MYgblEbBopvgX1gM2bze4VCtDaX2yB++t
+ TntKG4qNwBaiS7KXjtsRfcrWlp77urI8x6aibCeLQWZmTbKmHuV3cNjYwBxSo44s5h3i
+ zesw==
 X-Forwarded-Encrypted: i=1;
- AJvYcCWYF/CVPwBZk90tg2wDC0s1dMVNM27zwquhSvD9uZNQZJ1TQ7tHS1lSAg63ckZk+b7meApyKNqiaUc=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzIxlh7r2/IwanFD4xwJhcJjnG5wpRMmu3gs8hWL7zuAr3KEX4L
- 7yVEv/zuTwmkGJHnzepeRwiB31PkpJLY2UHuXbl6GjvZWSR9LHB4BvjIP7IqjzZ43ksEEBDjmZg
- olLf5+AYeScw/gGrMyqLDzkEmSVuOYL/zscvuuGXwYzvSCoM61LccPdud2aqpSMRjlA==
-X-Received: by 2002:a05:600c:21d1:b0:42c:de2f:da27 with SMTP id
- 5b1f17b1804b1-42cde2fdb54mr105453565e9.2.1726484457615; 
- Mon, 16 Sep 2024 04:00:57 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IGuoN48esuPwjXdzhGeiLsvhSvLtwnfWmyh0YiWdZ01XdL7xeFl8Crpz10A2XtyhhYWXONvEQ==
-X-Received: by 2002:a05:600c:21d1:b0:42c:de2f:da27 with SMTP id
- 5b1f17b1804b1-42cde2fdb54mr105453355e9.2.1726484457174; 
- Mon, 16 Sep 2024 04:00:57 -0700 (PDT)
-Received: from localhost ([195.166.127.210]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-42cc137556esm200901665e9.1.2024.09.16.04.00.56
+ AJvYcCXkFGwR7hMBuJecgx3Yd+jEqsSkGjwrt3FTKHr7IBeDuBeY7HnwLBH3r4sbDAht3HLytQvIq/P+Bnc=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YyM5QkssWb2wg1TFdD79hZzuKy9VTsLFzbmQOPU8T+fv92SBAj1
+ bGh8E4sT7/i2Vt5Wj4jtVd/NZ0EI1xv+Z6XMNML1zFV0myQ7D+1F
+X-Google-Smtp-Source: AGHT+IEMZq4/JjBZ/u6UVGa7+slA/nrX41Tt9k6PRPk4mhaKvy6qtno+rb2b7xGKC7WriVIwr6K5xA==
+X-Received: by 2002:a5d:5745:0:b0:374:ca0c:51b0 with SMTP id
+ ffacd0b85a97d-378c27a8a55mr7714570f8f.12.1726401734007; 
+ Sun, 15 Sep 2024 05:02:14 -0700 (PDT)
+Received: from void.void ([141.226.169.213]) by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-378e78054b6sm4497832f8f.107.2024.09.15.05.02.12
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 16 Sep 2024 04:00:56 -0700 (PDT)
-From: Javier Martinez Canillas <javierm@redhat.com>
-To: linux-kernel@vger.kernel.org
-Cc: Brian Norris <briannorris@chromium.org>, dri-devel@lists.freedesktop.org,
- Borislav Petkov <bp@alien8.de>, Julius Werner <jwerner@chromium.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, chrome-platform@lists.linux.dev,
- intel-gfx@lists.freedesktop.org, Hugues Bruant <hugues.bruant@gmail.com>,
- Javier Martinez Canillas <javierm@redhat.com>,
- Tzung-Bi Shih <tzungbi@kernel.org>
-Subject: [PATCH v4 2/2] firmware: coreboot: Don't register a pdev if
- screen_info data is present
-Date: Mon, 16 Sep 2024 13:00:26 +0200
-Message-ID: <20240916110040.1688511-3-javierm@redhat.com>
-X-Mailer: git-send-email 2.46.0
-In-Reply-To: <20240916110040.1688511-1-javierm@redhat.com>
-References: <20240916110040.1688511-1-javierm@redhat.com>
+ Sun, 15 Sep 2024 05:02:13 -0700 (PDT)
+From: Andrew Kreimer <algonell@gmail.com>
+To: Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Tvrtko Ursulin <tursulin@ursulin.net>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>
+Cc: intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, kernel-janitors@vger.kernel.org,
+ Andrew Kreimer <algonell@gmail.com>, Matthew Wilcox <willy@infradead.org>
+Subject: [PATCH] drm/i915: Fix typos
+Date: Sun, 15 Sep 2024 15:01:55 +0300
+Message-Id: <20240915120155.101395-1-algonell@gmail.com>
+X-Mailer: git-send-email 2.39.5
 MIME-Version: 1.0
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain; charset="US-ASCII"; x-default=true
+X-Mailman-Approved-At: Mon, 16 Sep 2024 12:46:50 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -97,88 +85,41 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On coreboot platforms, a system framebuffer may be provided to the Linux
-kernel by filling a LB_TAG_FRAMEBUFFER entry in the coreboot table. But
-a coreboot payload (e.g: SeaBIOS) could also provide its own framebuffer
-information to the Linux kernel.
+Fix typos in documentation.
 
-If that's the case, arch x86 boot code will fill the global screen_info
-data and this used by the Generic System Framebuffers (sysfb) framework,
-to register a platform device with pdata about the system's framebuffer.
-
-But later, the framebuffer_coreboot driver will try to do the same and
-attempt to register a "simple-framebuffer" platform device (using the
-information from the coreboot table), which will lead to an error due a
-device with the same name already being registered:
-
-    sysfs: cannot create duplicate filename '/bus/platform/devices/simple-framebuffer.0'
-    ...
-    coreboot: could not register framebuffer
-    framebuffer coreboot8: probe with driver framebuffer failed with error -17
-
-To prevent this issue, make the framebuffer_core driver to not register
-a platform device if the global struct screen_info data has been filled.
-
-Reported-by: Brian Norris <briannorris@chromium.org>
-Closes: https://lore.kernel.org/all/ZuCG-DggNThuF4pj@b20ea791c01f/T/#ma7fb65acbc1a56042258adac910992bb225a20d2
-Suggested-by: Julius Werner <jwerner@chromium.org>
-Signed-off-by: Javier Martinez Canillas <javierm@redhat.com>
-Reviewed-by: Thomas Zimmermann <tzimmermann@suse.de>
-Reviewed-by: Brian Norris <briannorris@chromium.org>
-Reviewed-by: Julius Werner <jwerner@chromium.org>
+Reported-by: Matthew Wilcox <willy@infradead.org>
+Signed-off-by: Andrew Kreimer <algonell@gmail.com>
 ---
+ drivers/gpu/drm/i915/display/intel_psr.c | 2 +-
+ drivers/gpu/drm/i915/gt/shaders/README   | 2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
 
-Changes in v4:
-- Use a sysfb_handles_screen_info() helper instead of screen_info_video_type()
-  to fix build errors on platforms that don't define a struct screen_info
-  (Thomas Zimmermann).
-
-Changes in v3:
-- Fix coreboot spelling to be all in lowercase (Julius Werner).
-
-Changes in v2:
-- Declare the struct screen_info as constant variable (Thomas Zimmermann).
-- Use screen_info_video_type() instead of checking the screen_info video
-  types directly (Thomas Zimmermann).
-- Fix missing "device" word in a comment (Brian Norris).
-- Fix some mispellings in a comment (Brian Norris).
-- Change error code returned from -EINVAL to -ENODEV (Brian Norris).
-
- drivers/firmware/google/framebuffer-coreboot.c | 14 ++++++++++++++
- 1 file changed, 14 insertions(+)
-
-diff --git a/drivers/firmware/google/framebuffer-coreboot.c b/drivers/firmware/google/framebuffer-coreboot.c
-index daadd71d8ddd..c68c9f56370f 100644
---- a/drivers/firmware/google/framebuffer-coreboot.c
-+++ b/drivers/firmware/google/framebuffer-coreboot.c
-@@ -15,6 +15,7 @@
- #include <linux/module.h>
- #include <linux/platform_data/simplefb.h>
- #include <linux/platform_device.h>
-+#include <linux/sysfb.h>
+diff --git a/drivers/gpu/drm/i915/display/intel_psr.c b/drivers/gpu/drm/i915/display/intel_psr.c
+index 1f83b3b67ea6..062e61cf70a0 100644
+--- a/drivers/gpu/drm/i915/display/intel_psr.c
++++ b/drivers/gpu/drm/i915/display/intel_psr.c
+@@ -1017,7 +1017,7 @@ static void hsw_activate_psr2(struct intel_dp *intel_dp)
+ 		};
+ 		/*
+ 		 * Still using the default IO_BUFFER_WAKE and FAST_WAKE, see
+-		 * comments bellow for more information
++		 * comments below for more information
+ 		 */
+ 		int tmp;
  
- #include "coreboot_table.h"
+diff --git a/drivers/gpu/drm/i915/gt/shaders/README b/drivers/gpu/drm/i915/gt/shaders/README
+index e7e96d7073c7..4f5dab3fdcca 100644
+--- a/drivers/gpu/drm/i915/gt/shaders/README
++++ b/drivers/gpu/drm/i915/gt/shaders/README
+@@ -24,7 +24,7 @@ on building.
+ Please make sure your Mesa tool is compiled with "-Dtools=intel" and
+ "-Ddri-drivers=i965", and run this script from IGT source root directory"
  
-@@ -36,6 +37,19 @@ static int framebuffer_probe(struct coreboot_device *dev)
- 		.format = NULL,
- 	};
- 
-+	/*
-+	 * On coreboot systems, the advertised LB_TAG_FRAMEBUFFER entry
-+	 * in the coreboot table should only be used if the payload did
-+	 * not pass a framebuffer information to the Linux kernel.
-+	 *
-+	 * If the global screen_info data has been filled, the Generic
-+	 * System Framebuffers (sysfb) will already register a platform
-+	 * device and pass that screen_info as platform_data to a driver
-+	 * that can scan-out using the system provided framebuffer.
-+	 */
-+	if (sysfb_handles_screen_info())
-+		return -ENODEV;
-+
- 	if (!fb->physical_address)
- 		return -ENODEV;
- 
+-The instructions bellow assume:
++The instructions below assume:
+     *  IGT gpu tools source code is located on your home directory (~) as ~/igt
+     *  Mesa source code is located on your home directory (~) as ~/mesa
+        and built under the ~/mesa/build directory
 -- 
-2.46.0
+2.39.5
 
