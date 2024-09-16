@@ -4,52 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EC76EC3ABB2
-	for <intel-gfx@archiver.kernel.org>; Mon, 16 Sep 2024 07:43:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D6255C3ABCE
+	for <intel-gfx@archiver.kernel.org>; Mon, 16 Sep 2024 07:43:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7773E10E115;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 82E0710E154;
 	Mon, 16 Sep 2024 07:43:38 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="FNu01wZn";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="GH50Ov82";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.21])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DCC7810E115
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 294F410E115
  for <intel-gfx@lists.freedesktop.org>; Mon, 16 Sep 2024 07:43:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1726472618; x=1758008618;
+ t=1726472617; x=1758008617;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=1jq6fAFlERMu6QNpAP6QAfnW22qHneWLyiS7b5NfGpQ=;
- b=FNu01wZnG11V/tgYs8GyD4AYyxCOHhyTQ1inkn+/7c85O7BMwf5KCOSZ
- h6vODhhswf8rEdgCoCQWXFR7OKQ2+F+YrEbHhonQFJrJxxIAxAniOLrAq
- LC5upjhfWwlrdVt1Fhg9tBP4fwRF0Q2y+fW3uitHVGj9QwhGWfx7ozRtR
- uWxhuGNwVnT1bPlDImmyq95sFYFtUP4mBPY/yuzI/eUe9/aoj2PEqKuvX
- ZQPbBSww5IIZMWyteVLfgBhr/WVtnzInt2/ykI4LjsDCyB2w6q63KNHd3
- 5Dh1a5f/HB3cd1OEOvx7put2S3TlWl8QHtsewEUpOLlCWpD7hnKvQENmH w==;
-X-CSE-ConnectionGUID: 3gSTYyVKS6GHBPlE/IEI3w==
-X-CSE-MsgGUID: yzbOtEosSYOzoLIPJm5IaA==
-X-IronPort-AV: E=McAfee;i="6700,10204,11196"; a="25224135"
-X-IronPort-AV: E=Sophos;i="6.10,232,1719903600"; d="scan'208";a="25224135"
+ bh=dXJeObhfS61AA8RCY8km6U+uQyhsxYlDQ33N3mJG5NE=;
+ b=GH50Ov82vsMf2TmqFBHH94Fa0/gGyXUarMLJJDqXRBwjqOx3f/wMMpn8
+ /GMayLPLiqoc4EC/7apFN067UdXNetfsK/sHSSuUTYZhjJgZXGJ03Fyv1
+ 3PQf0M8wVb3zYoEEY8kEKubzRly4977h1fZAejhCWV0dr+mnApaMnWbnz
+ JXsA5YWkihAl2mQmlt2jEfmNicH/tKoBAmb+0Vo+PlPqU5W/W+tBWBLNG
+ xpX33B0fGWVPBnc9epaPdGdi+qyUmrKHHU61ZML57QxM3+EKZJBQYxJHg
+ 4IQ0EwR5ioIB2c1SGFLkNJ0NIv/Be7fjxHBipK+VK4XVYvnUdq71UsswP w==;
+X-CSE-ConnectionGUID: S8hJRV/ZS+mTdyifCvwBXw==
+X-CSE-MsgGUID: IzpWI65STieAyGTUk1Nqjw==
+X-IronPort-AV: E=McAfee;i="6700,10204,11196"; a="25224132"
+X-IronPort-AV: E=Sophos;i="6.10,232,1719903600"; d="scan'208";a="25224132"
 Received: from fmviesa001.fm.intel.com ([10.60.135.141])
  by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 16 Sep 2024 00:43:38 -0700
-X-CSE-ConnectionGUID: gYh9/c9qTiSXhHuzsF2URw==
-X-CSE-MsgGUID: PVYBk8PVTAG34VCABsj8MA==
+ 16 Sep 2024 00:43:36 -0700
+X-CSE-ConnectionGUID: y85IuZVqTVO0ItS4NeR+VA==
+X-CSE-MsgGUID: usns2WvVSS6iWaoNh1R7SA==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.10,232,1719903600"; d="scan'208";a="99646587"
+X-IronPort-AV: E=Sophos;i="6.10,232,1719903600"; d="scan'208";a="99646575"
 Received: from dneilan-mobl1.ger.corp.intel.com (HELO jhogande-mobl1..)
  ([10.245.244.28])
  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 16 Sep 2024 00:43:36 -0700
+ 16 Sep 2024 00:43:35 -0700
 From: =?UTF-8?q?Jouni=20H=C3=B6gander?= <jouni.hogander@intel.com>
 To: intel-gfx@lists.freedesktop.org
 Cc: ville.syrjala@linux.intel.com,
  =?UTF-8?q?Jouni=20H=C3=B6gander?= <jouni.hogander@intel.com>
-Subject: [PATCH v2 2/2] drm/i915/display: Prevent DC6 while vblank is enabled
- for Panel Replay
-Date: Mon, 16 Sep 2024 10:43:20 +0300
-Message-Id: <20240916074320.2108380-3-jouni.hogander@intel.com>
+Subject: [PATCH v2 1/2] drm/i915/display: Add block_dc6_needed variable into
+ intel_crtc
+Date: Mon, 16 Sep 2024 10:43:19 +0300
+Message-Id: <20240916074320.2108380-2-jouni.hogander@intel.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20240916074320.2108380-1-jouni.hogander@intel.com>
 References: <20240916074320.2108380-1-jouni.hogander@intel.com>
@@ -74,104 +74,86 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 We need to block DC6 entry in case of Panel Replay as enabling VBI doesn't
 prevent DC6 in case of Panel Replay. This causes problems if user-space is
-polling for vblank events.
+polling for vblank events. For this purpose add new block_dc6_needed
+variable into intel_crtc. Check if eDP Panel Replay is possible and set the
+variable accordingly.
 
-Fix this by setting target DC state as DC_STATE_EN_UPTO_DC5 when both
-source and sink are supporting eDP Panel Replay and VBI is enabled.
+v2: set/clear block_dc6_needed in intel_crtc_vblank_on/off
 
-v2:
-  - use READ_ONCE in intel_display_vblank_work
-  - use DC_STATE_DISABLE instead of DC_STATE_EN_UPTO_DC6
-  - use intel_crtc->block_dc6_needed
-
-Closes: https://gitlab.freedesktop.org/drm/xe/kernel/-/issues/2296
 Signed-off-by: Jouni Högander <jouni.hogander@intel.com>
 ---
- .../gpu/drm/i915/display/intel_display_core.h |  2 ++
- .../gpu/drm/i915/display/intel_display_irq.c  | 28 +++++++++++++++++++
- 2 files changed, 30 insertions(+)
+ drivers/gpu/drm/i915/display/intel_crtc.c          | 12 ++++++++++++
+ drivers/gpu/drm/i915/display/intel_display_types.h |  7 +++++++
+ drivers/gpu/drm/i915/display/intel_psr.c           |  1 +
+ 3 files changed, 20 insertions(+)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_display_core.h b/drivers/gpu/drm/i915/display/intel_display_core.h
-index 0a711114ff2b4..0707bc2047931 100644
---- a/drivers/gpu/drm/i915/display/intel_display_core.h
-+++ b/drivers/gpu/drm/i915/display/intel_display_core.h
-@@ -457,6 +457,8 @@ struct intel_display {
- 		/* For i915gm/i945gm vblank irq workaround */
- 		u8 vblank_enabled;
- 
-+		struct work_struct vblank_work;
+diff --git a/drivers/gpu/drm/i915/display/intel_crtc.c b/drivers/gpu/drm/i915/display/intel_crtc.c
+index aed3853952be8..e00f2b0a54be6 100644
+--- a/drivers/gpu/drm/i915/display/intel_crtc.c
++++ b/drivers/gpu/drm/i915/display/intel_crtc.c
+@@ -24,6 +24,7 @@
+ #include "intel_display_irq.h"
+ #include "intel_display_trace.h"
+ #include "intel_display_types.h"
++#include "intel_dp.h"
+ #include "intel_drrs.h"
+ #include "intel_dsi.h"
+ #include "intel_fifo_underrun.h"
+@@ -123,6 +124,15 @@ u32 intel_crtc_max_vblank_count(const struct intel_crtc_state *crtc_state)
+ void intel_crtc_vblank_on(const struct intel_crtc_state *crtc_state)
+ {
+ 	struct intel_crtc *crtc = to_intel_crtc(crtc_state->uapi.crtc);
++	struct intel_encoder *encoder;
 +
- 		u32 de_irq_mask[I915_MAX_PIPES];
- 		u32 pipestat_irq_mask[I915_MAX_PIPES];
- 	} irq;
-diff --git a/drivers/gpu/drm/i915/display/intel_display_irq.c b/drivers/gpu/drm/i915/display/intel_display_irq.c
-index 8f13f148c73e3..4bdc67e1baa31 100644
---- a/drivers/gpu/drm/i915/display/intel_display_irq.c
-+++ b/drivers/gpu/drm/i915/display/intel_display_irq.c
-@@ -1361,16 +1361,38 @@ static bool gen11_dsi_configure_te(struct intel_crtc *intel_crtc,
- 	return true;
++	for_each_encoder_on_crtc(crtc->base.dev, &crtc->base, encoder) {
++		struct intel_dp *intel_dp = enc_to_intel_dp(encoder);
++
++		if (intel_dp_is_edp(intel_dp) &&
++		    CAN_PANEL_REPLAY(intel_dp))
++			crtc->block_dc6_needed = true;
++	}
+ 
+ 	assert_vblank_disabled(&crtc->base);
+ 	drm_crtc_set_max_vblank_count(&crtc->base,
+@@ -150,6 +160,8 @@ void intel_crtc_vblank_off(const struct intel_crtc_state *crtc_state)
+ 
+ 	drm_crtc_vblank_off(&crtc->base);
+ 	assert_vblank_disabled(&crtc->base);
++
++	crtc->block_dc6_needed = false;
  }
  
-+static void intel_display_vblank_work(struct work_struct *work)
-+{
-+	struct intel_display *display =
-+		container_of(work, typeof(*display), irq.vblank_work);
-+	struct drm_i915_private *i915 = to_i915(display->drm);
-+	u8 vblank_enabled = READ_ONCE(display->irq.vblank_enabled);
+ struct intel_crtc_state *intel_crtc_state_alloc(struct intel_crtc *crtc)
+diff --git a/drivers/gpu/drm/i915/display/intel_display_types.h b/drivers/gpu/drm/i915/display/intel_display_types.h
+index 000ab373c8879..df0c3eb750809 100644
+--- a/drivers/gpu/drm/i915/display/intel_display_types.h
++++ b/drivers/gpu/drm/i915/display/intel_display_types.h
+@@ -1413,6 +1413,13 @@ struct intel_crtc {
+ #ifdef CONFIG_DEBUG_FS
+ 	struct intel_pipe_crc pipe_crc;
+ #endif
 +
 +	/*
-+	 * NOTE: intel_display_power_set_target_dc_state is used only by PSR
-+	 * code for DC3CO handling. DC3CO target state is currently disabled in
-+	 * PSR code. If DC3CO is taken into use we need take that into account
-+	 * here as well.
++	 * We need to block DC6 entry in case of Panel Replay as enabling VBI doesn't
++	 * prevent DC6 in case of Panel Replay. This causes problems if user-space is
++	 * polling for vblank events.
 +	 */
-+	intel_display_power_set_target_dc_state(i915, vblank_enabled ? DC_STATE_DISABLE :
-+						DC_STATE_EN_UPTO_DC6);
-+}
-+
- int bdw_enable_vblank(struct drm_crtc *_crtc)
- {
- 	struct intel_crtc *crtc = to_intel_crtc(_crtc);
-+	struct intel_display *display = to_intel_display(crtc);
- 	struct drm_i915_private *dev_priv = to_i915(crtc->base.dev);
- 	enum pipe pipe = crtc->pipe;
- 	unsigned long irqflags;
-+	u8 block_dc6_needed = READ_ONCE(crtc->block_dc6_needed);
++	u8 block_dc6_needed;
+ };
  
- 	if (gen11_dsi_configure_te(crtc, true))
- 		return 0;
- 
-+	if (display->irq.vblank_enabled++ == 0 && block_dc6_needed)
-+		schedule_work(&display->irq.vblank_work);
-+
- 	spin_lock_irqsave(&dev_priv->irq_lock, irqflags);
- 	bdw_enable_pipe_irq(dev_priv, pipe, GEN8_PIPE_VBLANK);
- 	spin_unlock_irqrestore(&dev_priv->irq_lock, irqflags);
-@@ -1436,6 +1458,7 @@ void ilk_disable_vblank(struct drm_crtc *crtc)
- void bdw_disable_vblank(struct drm_crtc *_crtc)
- {
- 	struct intel_crtc *crtc = to_intel_crtc(_crtc);
-+	struct intel_display *display = to_intel_display(crtc);
- 	struct drm_i915_private *dev_priv = to_i915(crtc->base.dev);
- 	enum pipe pipe = crtc->pipe;
- 	unsigned long irqflags;
-@@ -1446,6 +1469,9 @@ void bdw_disable_vblank(struct drm_crtc *_crtc)
- 	spin_lock_irqsave(&dev_priv->irq_lock, irqflags);
- 	bdw_disable_pipe_irq(dev_priv, pipe, GEN8_PIPE_VBLANK);
- 	spin_unlock_irqrestore(&dev_priv->irq_lock, irqflags);
-+
-+	if (--display->irq.vblank_enabled == 0)
-+		schedule_work(&display->irq.vblank_work);
- }
- 
- void vlv_display_irq_reset(struct drm_i915_private *dev_priv)
-@@ -1871,4 +1897,6 @@ void intel_display_irq_init(struct drm_i915_private *i915)
- 		i915->display.irq.display_irqs_enabled = false;
- 
- 	intel_hotplug_irq_init(i915);
-+
-+	INIT_WORK(&i915->display.irq.vblank_work, intel_display_vblank_work);
- }
+ struct intel_plane {
+diff --git a/drivers/gpu/drm/i915/display/intel_psr.c b/drivers/gpu/drm/i915/display/intel_psr.c
+index 1a4ef231a53ca..71ef64a51bacc 100644
+--- a/drivers/gpu/drm/i915/display/intel_psr.c
++++ b/drivers/gpu/drm/i915/display/intel_psr.c
+@@ -35,6 +35,7 @@
+ #include "intel_cursor_regs.h"
+ #include "intel_ddi.h"
+ #include "intel_de.h"
++#include "intel_display_irq.h"
+ #include "intel_display_types.h"
+ #include "intel_dp.h"
+ #include "intel_dp_aux.h"
 -- 
 2.34.1
 
