@@ -4,49 +4,76 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 57478C3ABD1
-	for <intel-gfx@archiver.kernel.org>; Mon, 16 Sep 2024 12:46:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 345AEC3ABB2
+	for <intel-gfx@archiver.kernel.org>; Mon, 16 Sep 2024 12:46:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C1F0D10E357;
-	Mon, 16 Sep 2024 12:46:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C941C10E36F;
+	Mon, 16 Sep 2024 12:46:57 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="hMxf6mYI";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="lPNg/UZf";
 	dkim-atps=neutral
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2B46D10E0F8;
- Sun, 15 Sep 2024 12:53:53 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id BC5CB5C0448;
- Sun, 15 Sep 2024 12:53:48 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 717F5C4CEC3;
- Sun, 15 Sep 2024 12:53:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1726404832;
- bh=LPJ5SATag2i0d8UFpP+hkORo0mZC23PbErfvFGCVqJU=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=hMxf6mYI3/Svo9TsCtzjNWE1vej95mXh2wk9matrrdRv3nG7QqtYJPKpEKeRjhEmI
- oKgfYRkJcVVCg9cZrDz6rgbKMdpfLkpcu3mSPBDaU3kdAgjHs+917hso7w3eRDHsye
- BJxcjCQk1n7xj8TApOhO+OXve7noX8QgmxAw02nfpX3i7n09SV9hvmqbayEu3xcW+4
- NzMugVQ3ji3NOemBG3qibn9zG0CliflB9sTx/nyRY9cZAmENsjRfeD1QD6LOq38Rf5
- BszHw+9SaApfNT6NDik/aTV5dCJji76rZ5K5e9WD+0fy9x+mP6hXVa+x0h7VkmaMvp
- 0IXuKrkctidCQ==
-Date: Sun, 15 Sep 2024 12:53:48 +0000
-From: Tzung-Bi Shih <tzungbi@kernel.org>
-To: Javier Martinez Canillas <javierm@redhat.com>
-Cc: linux-kernel@vger.kernel.org, Julius Werner <jwerner@chromium.org>,
- Hugues Bruant <hugues.bruant@gmail.com>, intel-gfx@lists.freedesktop.org,
- Brian Norris <briannorris@chromium.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- dri-devel@lists.freedesktop.org, Borislav Petkov <bp@alien8.de>,
- chrome-platform@lists.linux.dev
-Subject: Re: [PATCH v3] firmware: coreboot: Don't register a pdev if
- screen_info data is present
-Message-ID: <ZubY3NtRJWWTS1ON@google.com>
-References: <20240913213246.1549213-1-javierm@redhat.com>
+Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com
+ [209.85.128.49])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9278810E03D;
+ Mon, 16 Sep 2024 11:25:30 +0000 (UTC)
+Received: by mail-wm1-f49.google.com with SMTP id
+ 5b1f17b1804b1-42cb1e623d1so42915035e9.0; 
+ Mon, 16 Sep 2024 04:25:30 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1726485929; x=1727090729; darn=lists.freedesktop.org;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=PGdarhuWk372yU46OMujXzMe51cIwvNwh9ENl2oBve0=;
+ b=lPNg/UZfChS+xjsn+2GXmD1eYKRMzh2KCerx9g1y3ELsPwmlizD1X7KUhqMTT8ZclJ
+ kzWXQc9c7MRmQrVzuLHCIJxRP3RFnLqSGNRML+6O1bZDyAE9dJbkMAclV2fcXO9R337T
+ 5w1usXXdgu4qsXsA+R0rWETStCAS8MxK1x83GlVOORjKLypj6FfRngAgFYbngUAMlDSm
+ TyUxu49f9Hp45B0NBYRXbI3mWlOn0AYd/+Obl8M4RYNPiQ/evRI2QjRndkvwnWkGdFFc
+ v7grESc/P0T5UBUWYJ7aUgCFy42hQ2Zxqupv+JHUMEQUZTT3UUuONbgZNX2wM0lWdnpP
+ bmSw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1726485929; x=1727090729;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=PGdarhuWk372yU46OMujXzMe51cIwvNwh9ENl2oBve0=;
+ b=SAlqYX3UDVG1ZBTcagz+2awQL5MXizjDofkw7hmXBh1V6fzb793b2+QRm29Y+sNBR5
+ vuBFcgxmvzoQgt7y53v07kMpwoJnwNvMTIMPRUD6JoMREPZpwTObapDrWMVgti/U7lZJ
+ 9kTSv3NdH/YbuXu7ExUVEht8xT3fCwbOxBSaLHSunLLD8sSPRNB9wgO3Skb5GK9noMA7
+ VodtnfA+hyHGrXLWKN9Cu/4UhJd1NX7H3d8SXbM/Wcc9HQ6eAWB9yXZ+GB48WREQPM5q
+ GjhxW2Z/9b8yJkHS7YCGei0zbztxfWzvp2WkMyWvFQRR+aKoyEe7S7AoZHPeiHuYE9N1
+ 6lFw==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCUC5wQnEhbf1QsVrPdaBeI44xM0FL7iSdRPRnYMNgRpt1EKcDp7M3Z6oB28lxa742E4xm9tPvyuOWcx@lists.freedesktop.org,
+ AJvYcCWH2qsSMk1B+HyDWGG/fMBeA3LWeqLwtIlJRoBdFmfOqUHRr2b5rE4VpxaS3lhKbjeeHCSWQseFQkw=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yy2b4+kmkg1Vl2NbQCZSzAZRZxq4O6xUfv1YlmVay9sgjOaV5SL
+ zQ3PKZPugqNjAjJEft5znMDbdr4DAQKJYecRFg5HBAx0InNG0lHHhBomGki2
+X-Google-Smtp-Source: AGHT+IERYiVEgQ0g8zwBFA2shXp2w0/8MGWnZSEIObYVfBnxT16DBarjV9m0+t1M/1O9HWrZZeyVZg==
+X-Received: by 2002:a5d:42c7:0:b0:373:54c:26a4 with SMTP id
+ ffacd0b85a97d-378c2d5782bmr7669963f8f.54.1726485928241; 
+ Mon, 16 Sep 2024 04:25:28 -0700 (PDT)
+Received: from void.void ([141.226.169.200]) by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-378e78044dfsm6942863f8f.94.2024.09.16.04.25.26
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 16 Sep 2024 04:25:27 -0700 (PDT)
+Date: Mon, 16 Sep 2024 14:25:24 +0300
+From: Andrew Kreimer <algonell@gmail.com>
+To: Andi Shyti <andi.shyti@kernel.org>
+Cc: Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Tvrtko Ursulin <tursulin@ursulin.net>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, kernel-janitors@vger.kernel.org,
+ Matthew Wilcox <willy@infradead.org>
+Subject: Re: [PATCH] drm/i915: Fix typos
+Message-ID: <ZugVpInvVElgJhym@void.void>
+References: <20240915120155.101395-1-algonell@gmail.com>
+ <gamwfgmreryzvy6fazduxs4z3sfjxck7xmsho4elpemcf7llpl@epzlqmudvrzx>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20240913213246.1549213-1-javierm@redhat.com>
+In-Reply-To: <gamwfgmreryzvy6fazduxs4z3sfjxck7xmsho4elpemcf7llpl@epzlqmudvrzx>
 X-Mailman-Approved-At: Mon, 16 Sep 2024 12:46:50 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -63,38 +90,27 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Fri, Sep 13, 2024 at 11:32:29PM +0200, Javier Martinez Canillas wrote:
-> @@ -27,8 +28,10 @@ static int framebuffer_probe(struct coreboot_device *dev)
->  	int i;
->  	u32 length;
->  	struct lb_framebuffer *fb = &dev->framebuffer;
-> +	const struct screen_info *si = &screen_info;
->  	struct platform_device *pdev;
->  	struct resource res;
-> +	unsigned int type;
->  	struct simplefb_platform_data pdata = {
->  		.width = fb->x_resolution,
->  		.height = fb->y_resolution,
-> @@ -36,6 +39,20 @@ static int framebuffer_probe(struct coreboot_device *dev)
->  		.format = NULL,
->  	};
->  
-> +	/*
-> +	 * On coreboot systems, the advertised LB_TAG_FRAMEBUFFER entry
-> +	 * in the coreboot table should only be used if the payload did
-> +	 * not pass a framebuffer information to the Linux kernel.
-> +	 *
-> +	 * If the global screen_info data has been filled, the Generic
-> +	 * System Framebuffers (sysfb) will already register a platform
-> +	 * device and pass that screen_info as platform_data to a driver
-> +	 * that can scan-out using the system provided framebuffer.
-> +	 */
-> +	type = screen_info_video_type(si);
-> +	if (type)
-> +		return -ENODEV;
+On Mon, Sep 16, 2024 at 12:15:32PM +0200, Andi Shyti wrote:
+> Hi Andrew,
+> 
+> On Sun, Sep 15, 2024 at 03:01:55PM GMT, Andrew Kreimer wrote:
+> > Fix typos in documentation.
+> > 
+> > Reported-by: Matthew Wilcox <willy@infradead.org>
+> > Signed-off-by: Andrew Kreimer <algonell@gmail.com>
+> 
+> Reviewed-by: Andi Shyti <andi.shyti@linux.intel.com>
+> 
+> Because we are receiving lots of typos patches in this period,
+> it's nice to have the context written in the subject, e.g., in
+> this case, Fix "bellow" -> "below" typo.
+> 
 
-Given that `type` and `si` aren't used in otherwhere, the local variables can
-be dropped.
+Noted.
 
-I haven't had chance to see how to fix the 0-day build errors properly.  If you
-have chance to send the next versions, please drop the local variables.
+> Don't worry, I will take care of it.
+> 
+> Thanks,
+> Andi
+
+Thank you!
