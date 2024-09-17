@@ -4,52 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 86EFAC35FFD
-	for <intel-gfx@archiver.kernel.org>; Tue, 17 Sep 2024 09:24:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E553EC3ABD2
+	for <intel-gfx@archiver.kernel.org>; Tue, 17 Sep 2024 09:26:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2868010E446;
-	Tue, 17 Sep 2024 09:24:10 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7172C10E447;
+	Tue, 17 Sep 2024 09:26:54 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="MgOUSZiL";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="RjIelsm6";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EC05910E446
- for <intel-gfx@lists.freedesktop.org>; Tue, 17 Sep 2024 09:24:08 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 959EA10E447;
+ Tue, 17 Sep 2024 09:26:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1726565049; x=1758101049;
+ t=1726565213; x=1758101213;
  h=from:to:cc:subject:date:message-id:mime-version:
  content-transfer-encoding;
- bh=RzL8PTM0JTSfR7flg18uaYOxurHfVFSuxK2OshxxxzA=;
- b=MgOUSZiL5laiJJR6/anYqw+aSOVynZkNXsfcVa9dvV+q6FbmIpuNDpZp
- BmLMQ8yJQnZEaHoNfg1cFIqsFT62sH8xKRhelvAfMAQOB+ASvCZLTmcvJ
- DV4lT+4Me5SXE4vcnc/ZzsPtiQfNxRJJi+CqucRCKY4yjhkDBdw0KpSdi
- xt2IK8KHaMi2m8SMgNdg9eyFdP+vYLmX90IgC+zYbSnAdYXp9B/0DUFXr
- JJlmqhwGgQaELuZt1OtIS9ISf8JCPC5DwbSeK8yBxZi3XiJK1U8yVVK9s
- mINcUm5oGCcgEBFlIOK4iOlVnmQONqUyJ4chDzPsb+6vrQdstJdj+J8o1 w==;
-X-CSE-ConnectionGUID: apqnKHeqTRy7nr50sxGL/Q==
-X-CSE-MsgGUID: vsAQXQRtT5mq56oPWcxfSA==
-X-IronPort-AV: E=McAfee;i="6700,10204,11197"; a="35984746"
-X-IronPort-AV: E=Sophos;i="6.10,235,1719903600"; d="scan'208";a="35984746"
-Received: from orviesa006.jf.intel.com ([10.64.159.146])
- by orvoesa103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 17 Sep 2024 02:24:09 -0700
-X-CSE-ConnectionGUID: Ne8fzAMKSp+xdwlBf35iFQ==
-X-CSE-MsgGUID: 1DcI9/x0Q26DwP/Ftgr1NQ==
+ bh=uB/PgTi3mMpr15zn5U0JX8fPkgY7CMKT0DWb3xRBAmg=;
+ b=RjIelsm6pw803OvMV9IKTT2NYrXvTVGQzJWJmWXnq5zhZjeeT6t3MYWD
+ 2IBhDq6DhoM2jG+qLG1wQzKlC2aF6mvcPDpbMxCcB3w56ERz+P6whwCkT
+ slocoW/rD+42Fef+ChqowwWx7lDjClSQ/3dnsWcHUs3W0z4vXPZ8fpbWV
+ 8ORJp1sC1LB8JlaISqEi4U5JhkK6tGiVNu9MrgWCBoZBa4vkHXRoj+d4z
+ 9PUXNBddFYEChR/pJ+Fg/3hTggiEFouD2YGqaCIOwLdPz5Ca3npbo7wNt
+ G/6sqj/s4/AE7U3Bi5+SS1sGuFb6riueXu4jCW6tNWPVnRykTksOIMnSA Q==;
+X-CSE-ConnectionGUID: goIW44q1TMSERLx0bKSx/Q==
+X-CSE-MsgGUID: 5EYP+PUcRCaSfI82e5GKbQ==
+X-IronPort-AV: E=McAfee;i="6700,10204,11197"; a="36789028"
+X-IronPort-AV: E=Sophos;i="6.10,235,1719903600"; d="scan'208";a="36789028"
+Received: from orviesa002.jf.intel.com ([10.64.159.142])
+ by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 17 Sep 2024 02:26:52 -0700
+X-CSE-ConnectionGUID: +9VjOmE1SVipFPQtmaR1JA==
+X-CSE-MsgGUID: rwH0X3gSR02zy+vJ+/rTjA==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.10,235,1719903600"; d="scan'208";a="69449942"
-Received: from anirban-z690i-a-ultra-plus.iind.intel.com ([10.145.169.150])
- by orviesa006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 17 Sep 2024 02:24:07 -0700
-From: Sk Anirban <sk.anirban@intel.com>
-To: intel-gfx@lists.freedesktop.org
-Cc: anshuman.gupta@intel.com,
-	Sk Anirban <sk.anirban@intel.com>
-Subject: [PATCH] drm/i915/selftests: Implement Frequency Check for Energy
- Reading Validation
-Date: Tue, 17 Sep 2024 14:50:23 +0530
-Message-Id: <20240917092023.1238924-1-sk.anirban@intel.com>
-X-Mailer: git-send-email 2.34.1
+X-IronPort-AV: E=Sophos;i="6.10,235,1719903600"; d="scan'208";a="99815974"
+Received: from nemesa.iind.intel.com ([10.190.239.22])
+ by orviesa002.jf.intel.com with ESMTP; 17 Sep 2024 02:26:50 -0700
+From: Nemesa Garg <nemesa.garg@intel.com>
+To: intel-gfx@lists.freedesktop.org,
+	dri-devel@lists.freedesktop.org
+Cc: Nemesa Garg <nemesa.garg@intel.com>
+Subject: [PATCH 0/5]  Introduce drm sharpness property
+Date: Tue, 17 Sep 2024 14:56:29 +0530
+Message-Id: <20240917092634.1109572-1-nemesa.garg@intel.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-BeenThere: intel-gfx@lists.freedesktop.org
@@ -67,59 +65,58 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-This commit introduces a frequency check mechanism aimed at ensuring
-the accuracy of energy readings.
+ Many a times images are blurred or upscaled content is also not as
+crisp as original rendered image. Traditional sharpening techniques often
+apply a uniform level of enhancement across entire image, which sometimes
+result in over-sharpening of some areas and potential loss of natural details. 
 
-Signed-off-by: Sk Anirban <sk.anirban@intel.com>
----
- drivers/gpu/drm/i915/gt/selftest_rc6.c | 6 ++++++
- 1 file changed, 6 insertions(+)
+Intel has come up with Display Engine based adaptive sharpening filter 
+with minimal power and performance impact. From LNL onwards, the Display
+hardware can use one of the pipe scaler for adaptive sharpness filter.
+This can be used for both gaming and non-gaming use cases like photos,
+image viewing. It works on a region of pixels depending on the tap size.
 
-diff --git a/drivers/gpu/drm/i915/gt/selftest_rc6.c b/drivers/gpu/drm/i915/gt/selftest_rc6.c
-index 1aa1446c8fb0..b3602328c832 100644
---- a/drivers/gpu/drm/i915/gt/selftest_rc6.c
-+++ b/drivers/gpu/drm/i915/gt/selftest_rc6.c
-@@ -12,6 +12,7 @@
+This is an attempt to introduce an adaptive sharpness solution which
+helps in improving the image quality. For this new CRTC property is added.
+The user can set this property with desired sharpness strength value with
+0-255. A value of 1 representing minimum sharpening strength and 255
+representing maximum sharpness strength. A strength value of 0 means no
+sharpening or sharpening feature disabled.
+It works on a region of pixels depending on the tap size. The coefficients
+are used to generate an alpha value which is used to blend the sharpened
+image to original image.
  
- #include "selftests/i915_random.h"
- #include "selftests/librapl.h"
-+#include "intel_rps.h"
- 
- static u64 rc6_residency(struct intel_rc6 *rc6)
- {
-@@ -38,6 +39,8 @@ int live_rc6_manual(void *arg)
- 	ktime_t dt;
- 	u64 res[2];
- 	int err = 0;
-+	u32 rc0_freq, rc6_freq;
-+	struct intel_rps *rps = &gt->rps;
- 
- 	/*
- 	 * Our claim is that we can "encourage" the GPU to enter rc6 at will.
-@@ -66,6 +69,7 @@ int live_rc6_manual(void *arg)
- 	rc0_power = librapl_energy_uJ() - rc0_power;
- 	dt = ktime_sub(ktime_get(), dt);
- 	res[1] = rc6_residency(rc6);
-+	rc0_freq = intel_rps_read_actual_frequency(rps);
- 	if ((res[1] - res[0]) >> 10) {
- 		pr_err("RC6 residency increased by %lldus while disabled for 1000ms!\n",
- 		       (res[1] - res[0]) >> 10);
-@@ -91,6 +95,7 @@ int live_rc6_manual(void *arg)
- 	dt = ktime_get();
- 	rc6_power = librapl_energy_uJ();
- 	msleep(100);
-+	rc6_freq = intel_rps_read_actual_frequency(rps);
- 	rc6_power = librapl_energy_uJ() - rc6_power;
- 	dt = ktime_sub(ktime_get(), dt);
- 	res[1] = rc6_residency(rc6);
-@@ -109,6 +114,7 @@ int live_rc6_manual(void *arg)
- 			rc0_power, rc6_power);
- 		if (2 * rc6_power > rc0_power) {
- 			pr_err("GPU leaked energy while in RC6!\n");
-+			pr_info("GPU Freq: %u in RC6 and %u in RC0\n", rc6_freq, rc0_freq);
- 			err = -EINVAL;
- 			goto out_unlock;
- 		}
+Middleware MR link: https://gitlab.gnome.org/GNOME/mutter/-/merge_requests/3665
+IGT patchwork link: https://patchwork.freedesktop.org/series/130218/
+
+Continuing discussions from:  https://patchwork.freedesktop.org/series/129888/
+
+Nemesa Garg (5):
+  drm: Introduce sharpness strength property
+  drm/i915/display: Compute the scaler filter coefficients
+  drm/i915/display: Enable the second scaler for sharpness
+  drm/i915/display: Add registers and compute the strength
+  drm/i915/display: Load the lut values and enable sharpness
+
+ drivers/gpu/drm/drm_atomic_uapi.c             |   4 +
+ drivers/gpu/drm/drm_crtc.c                    |  35 +++
+ drivers/gpu/drm/i915/Makefile                 |   1 +
+ drivers/gpu/drm/i915/display/intel_crtc.c     |   3 +
+ drivers/gpu/drm/i915/display/intel_display.c  |  23 +-
+ .../drm/i915/display/intel_display_types.h    |   2 +
+ .../drm/i915/display/intel_modeset_verify.c   |   1 +
+ drivers/gpu/drm/i915/display/intel_panel.c    |   7 +
+ .../drm/i915/display/intel_sharpness_filter.c | 226 ++++++++++++++++++
+ .../drm/i915/display/intel_sharpness_filter.h |  44 ++++
+ drivers/gpu/drm/i915/display/skl_scaler.c     |  91 ++++++-
+ drivers/gpu/drm/i915/display/skl_scaler.h     |   1 +
+ drivers/gpu/drm/i915/i915_reg.h               |  19 ++
+ drivers/gpu/drm/xe/Makefile                   |   1 +
+ include/drm/drm_crtc.h                        |  17 ++
+ 15 files changed, 461 insertions(+), 14 deletions(-)
+ create mode 100644 drivers/gpu/drm/i915/display/intel_sharpness_filter.c
+ create mode 100644 drivers/gpu/drm/i915/display/intel_sharpness_filter.h
+
 -- 
-2.34.1
+2.25.1
 
