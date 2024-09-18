@@ -4,73 +4,132 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 90CBCCF9C6F
-	for <intel-gfx@archiver.kernel.org>; Mon, 23 Sep 2024 12:40:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7B33DCF9C6E
+	for <intel-gfx@archiver.kernel.org>; Mon, 23 Sep 2024 12:40:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1439310E3EB;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1A2DB10E3EC;
 	Mon, 23 Sep 2024 12:40:02 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="OD8/CcQ9";
+	dkim=pass (2048-bit key; unprotected) header.d=vivo.com header.i=@vivo.com header.b="bLdga7WL";
 	dkim-atps=neutral
-Received: from mail-pf1-f172.google.com (mail-pf1-f172.google.com
- [209.85.210.172])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E819910E3CF;
- Tue, 17 Sep 2024 12:44:57 +0000 (UTC)
-Received: by mail-pf1-f172.google.com with SMTP id
- d2e1a72fcca58-71971d20a95so706113b3a.3; 
- Tue, 17 Sep 2024 05:44:57 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1726577097; x=1727181897; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=PuR2oEx7UOd4jtIaDKowFjYpkaW0nFWhgHvIpNqBCnA=;
- b=OD8/CcQ9/OKsuHE0BeKboW0Ftw1sKJhOiAWEMG/xZ2l9MMuwbEPWRBrFli1sS7GcBe
- GjWZBwdByqJ0FysNx3NzVJba6x7QpxFfe7WmFGvP+vQ6uKS36gB7gWMJvJCGa5fNXzIr
- UZ5b+NuheLt+KztlEhLcmalAIzhob2fq/psJmA2ofFuFZVOR921UHexyIb2GD8Cxiimg
- DB9HA5Brk75IYL+EfcDzpi3N54CPZuxAZc14MXf6DG/+qT22VlnGzvMu/CRW/OuNZDCi
- im3DTajAbKUkUlQ/gkw44+N/hPVWnGQ9+KS1XDQMy18Dty3t1iSGf9hbmw2DAnUCrC9d
- BDOw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1726577097; x=1727181897;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=PuR2oEx7UOd4jtIaDKowFjYpkaW0nFWhgHvIpNqBCnA=;
- b=HKPglcKBnvPNnazZVPcA93gk+pxqiQBuRykNqQV0RDJGTWk9fw2ALCImhR8VzfucrQ
- perqoJQLaIP5YVAGF9K+1lKiuLuNsdNNFUMReiVI79f7bGK1c1eOVSXtw6ovvJXQbtx3
- YU5BudaPdK1NeGuTccc4cmrfsQOci38LrueUu8iLwFacxMovZBFgGCJn4+Hj504i8xDG
- 5nmidjbrtJplT1cxV6tZvVRnr014zph2HGPsmQQQIeid2lsmBVcAGxtxDtOTO7PHUrRI
- f1Yqyi+Id8r6mAhgBIezIKr9Zonf9RSmkNj/CZwD+XsNLOualseaIBeAq8N8BqOKASXe
- plCw==
-X-Forwarded-Encrypted: i=1;
- AJvYcCWvW3SPf38+1463xLx04bu0La+D5pRIPVMNn+zXA5YRMMu7/eaWsRxsKERBxxFOnAgPMA2cxX8aXOg=@lists.freedesktop.org,
- AJvYcCX1YUxH8u4u1qFffc0Wa493pA/DUjMuRvcULyukF2sYmKUMPOHBb/IV2m5ZcMQRUTwgiJoN94dO1A4=@lists.freedesktop.org,
- AJvYcCX6ro5T2sQqDsBEBjJlX+krA720PnbOuKlhPgqM59vCkX5253A/XHHE4NNU/4nL72QV414klcgu2FIM@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxrGjwWQexYNpX3hlrtV0I5ECAOauxoPmMbpdDpieWlqFd6fMmu
- LyAQsrej3GFTSxOnkdJwJSAnGWd64JcbvpX3JirpUUgmPvyDCptw
-X-Google-Smtp-Source: AGHT+IElrNVLMYeSdPugu8LX32nYuMCgAY1uSEYXmKx1Xd1xFBDpCzFzwKVITNzv1ITogJ2layOxZg==
-X-Received: by 2002:a05:6a00:27a0:b0:714:20a8:d79f with SMTP id
- d2e1a72fcca58-71936a60409mr23039083b3a.14.1726577097122; 
- Tue, 17 Sep 2024 05:44:57 -0700 (PDT)
-Received: from fedora.. ([2405:201:d007:50c2:4888:86b4:6f32:9ae])
- by smtp.gmail.com with ESMTPSA id
- d2e1a72fcca58-71944a973d7sm5117415b3a.6.2024.09.17.05.44.52
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 17 Sep 2024 05:44:56 -0700 (PDT)
-From: Vamsi Krishna Brahmajosyula <vamsikrishna.brahmajosyula@gmail.com>
-To: gustavo.sousa@intel.com, jani.nikula@linux.intel.com,
- rodrigo.vivi@intel.com, joonas.lahtinen@linux.intel.com,
- tursulin@ursulin.net, airlied@gmail.com, daniel@ffwll.ch
-Cc: skhan@linuxfoundation.org, intel-gfx@lists.freedesktop.org,
- intel-xe@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-Subject: [PATCH v3] drm/i915/cx0: Set power state to ready only on owned PHY
- lanes
-Date: Tue, 17 Sep 2024 18:14:49 +0530
-Message-ID: <20240917124449.223206-1-vamsikrishna.brahmajosyula@gmail.com>
-X-Mailer: git-send-email 2.46.1
+Received: from HK2PR02CU002.outbound.protection.outlook.com
+ (mail-eastasiaazon11010039.outbound.protection.outlook.com [52.101.128.39])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A847910E526;
+ Wed, 18 Sep 2024 03:28:19 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=qt3gqu7vj4FgarT/RMGxwCmf/uo5t3Bltmt+ICuhye/0wPYsN6reeO2/1aX9SkpS36o8Z9cemStoPJltiG/gYv5J5MPBCOAS0q+2iiLs06PxafVn+bayk1lAEice9nwK7/pJLFGKr2u1HFIEbLgpmRIMPdVdSF0vBKOnpYO4WIqvB8DPGOIYR4/wc2oOPvqUs770nBwJUdskCbx17NRVXOyhWAphoKQNQpwL0xLY3vJp9h+9J9oaVwNevjBG39ZldMKmmXii22ZGMHOq+Spgn8TTEc9ehzgusJVj5UjOUfOFH6MyQW72LW/JalJLwsJn2GEa15y9NXyrqnb6LSWMuw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=L7K1UD5a3SFEk0QjJrP/vl1mJZwRWK7g0Jq24QwT+DY=;
+ b=zMSTOic6Fc+AkfiEHu+X4m2wmF38kOjRuBVCoT6nikxpuO9WXoUtvZ0DV2N6q92LsfEmk3T8HKDl9yOg7uT45ZyeOeq0nmWZ4QMVFoQo/9WAS8NrTelM6XEtmSaOss2OihtCsig32UvmyzvBg6uJGGXr6+Acbkq4NOWOCVKIyMGpfr6Umos4tUr9PEvX/QyzoWt0I3Z03l5dFNpCXmXYz6aa4bhk4hJa+fbifqZrSgOi72Ek6HY0eJriHHzpaRy/XF2Aabv8/qdkfZomsfz3l9o8yo0DvNhqxZfHXxbUDo51lZHJAIA0x8B5zej/GwnI8pbRw6belINRTFIfPxUj2w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=vivo.com; dmarc=pass action=none header.from=vivo.com;
+ dkim=pass header.d=vivo.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vivo.com; s=selector2; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=L7K1UD5a3SFEk0QjJrP/vl1mJZwRWK7g0Jq24QwT+DY=;
+ b=bLdga7WLIZavi+uADsvijHWmRVDgQiWnocrbgFZeHtdT6jUGOaM9hAlP/wKDYBJVH6rBS1dV8ZJvTYkt6e5cbtws9YZFA3nNs9sALn/AP9YtGU2F9ahWu6lk74hbcRcFlnGmpQ21n/gwLPDjcReOAy33pOc6fhUjBv/M5iYLI2ym1aOQY+thPTqSVUValghUWJ1jCtZwntgaMfqV1s68WiA7nNa7mdB/gnhHWlbAnFEnYvm4Dkhq9HdY+sEMGoECdilBpnirJwL2zI15kPXAXEXDTWIy5xfNs3qSqzMlHVp9sVvy3jBWGrTDgkfclesAWDnEKSTWuG1VqFsMQOWuHw==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=vivo.com;
+Received: from SEZPR06MB5899.apcprd06.prod.outlook.com (2603:1096:101:e3::16)
+ by JH0PR06MB6809.apcprd06.prod.outlook.com (2603:1096:990:4c::9) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7962.23; Wed, 18 Sep
+ 2024 03:28:14 +0000
+Received: from SEZPR06MB5899.apcprd06.prod.outlook.com
+ ([fe80::8bfc:f1ee:8923:77ce]) by SEZPR06MB5899.apcprd06.prod.outlook.com
+ ([fe80::8bfc:f1ee:8923:77ce%3]) with mapi id 15.20.7962.022; Wed, 18 Sep 2024
+ 03:28:14 +0000
+From: Shen Lichuan <shenlichuan@vivo.com>
+To: jani.nikula@linux.intel.com, rodrigo.vivi@intel.com,
+ joonas.lahtinen@linux.intel.com, tursulin@ursulin.net, airlied@gmail.com,
+ simona@ffwll.ch
+Cc: intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ opensource.kernel@vivo.com, Shen Lichuan <shenlichuan@vivo.com>
+Subject: [PATCH v1] drm/i915/hdmi: Convert comma to semicolon
+Date: Wed, 18 Sep 2024 11:28:04 +0800
+Message-Id: <20240918032804.9269-1-shenlichuan@vivo.com>
+X-Mailer: git-send-email 2.17.1
+Content-Type: text/plain
+X-ClientProxiedBy: SI1PR02CA0015.apcprd02.prod.outlook.com
+ (2603:1096:4:1f7::18) To SEZPR06MB5899.apcprd06.prod.outlook.com
+ (2603:1096:101:e3::16)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SEZPR06MB5899:EE_|JH0PR06MB6809:EE_
+X-MS-Office365-Filtering-Correlation-Id: ca23810d-109f-4ff2-d321-08dcd791ee22
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|7416014|52116014|1800799024|376014|366016|38350700014; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?klWnS5AYRECK60k1YPsOePz5zMUqTzkfK/FaGSGw4ivo2otC73xGkHotV7DL?=
+ =?us-ascii?Q?KCXl+qF7meRAUJJBm1pJxyPnQaIi9Yb4S0nj+ASyhYBbytAu6hEs0ZeLlKdi?=
+ =?us-ascii?Q?Qovp+x5onnvzU79X4PJXzLZpMLkmHUFEUsLfJoK2toy+iDLFdpp7EdevTn9d?=
+ =?us-ascii?Q?o87LnTiF6iUXi2+nFJXcpeC9wHoyQSIfDvoH2ky5Jlm2SIo2FBLr37Sg9prp?=
+ =?us-ascii?Q?UnYeGG1yKvy6fytMb5BEkcTQ6h4URZeLDHxS03pj+67wlH4G6lnSJbJof5OU?=
+ =?us-ascii?Q?B0RzGd64RiI+WTyPAMMKPqEJRHEFsIABeWUQiQO561wXSQXzwshy+j2ZA54y?=
+ =?us-ascii?Q?LQguMpfwRbEjD84gTyk+O2oZ2Fi/iUEveStPo1MRGNN1S6SQCUq721KHgL60?=
+ =?us-ascii?Q?+aAmwIf6DYSe9xRKYcfhooVQIIbhDrdyBM0hMTufrTSHNlXqEdQHfuD3Pt09?=
+ =?us-ascii?Q?lazMIfPsKudYkkI5aCnyLVcXktRr8ybza/cl9p8NNuQdlBCmbqdFBLOE/A7D?=
+ =?us-ascii?Q?ltLoH+8wnNoT0EFwJIqxNACfkPm5O5XMyfYtL15h23/Qo/Crrb40MTFmgyPx?=
+ =?us-ascii?Q?XYr1tXL9VrMe3lXAXSiN5RRTAZuQvDiLY9ekH8g801QJXcu/a4fmHucR7X54?=
+ =?us-ascii?Q?mrk4dCyZsTVUS/bUWEtbwqg9lenrP3+p/UmTaqZNGSyFU9RqhfDs+xzkToNq?=
+ =?us-ascii?Q?TqcHa3s1zP64GBPwAYqDfe853wBt4ndyjir0+JlQfvPB6L+XTTLY6aaXg0Es?=
+ =?us-ascii?Q?4huw6PZtuuo56eMuqeZpF9MN727AhLouAUUoJ0sWde6j416wSKAQonfU8u6E?=
+ =?us-ascii?Q?SrCQY1UTqkSg5pDTGVb5++2MXv9br3L1K0w7qR2hLyFvRRx6gS4UWHlWGB9h?=
+ =?us-ascii?Q?CaK1ZgpllcLMrnL/XiTqJhU3NRuXb9aMyY6Grm23DeE1gfvxjRdKkXMyx68/?=
+ =?us-ascii?Q?unRWMAgSYs7fr+R6HpAVka9DuJiiCI/ySA70WLkvCFNIZM/d4LuXyJz87TQG?=
+ =?us-ascii?Q?CiqvpUqQh0rRauX/diOYwpgmlz7/XM6UvKLI4iUhXTFx+MeRkrhSRdicKoFa?=
+ =?us-ascii?Q?5x6N4VlIk4l1dMaZ9s/R6dmOV2sxDgG7Qwr9hmB6Ex80tJ+yQ5Ib2O9Y+LqN?=
+ =?us-ascii?Q?mFYw3b4yNUDmu7SIGy+Xl1P+kRISTyvuDWdAqf+8y3FBIksq6AufxEDpiOQ0?=
+ =?us-ascii?Q?prQpjnkK4d4UUTr3oDugH4jNgWTXpNdJggLF7TBYHb6T8tzGpZsIauHmiGZV?=
+ =?us-ascii?Q?YQ3WTretd3SOAofp35sEGN/Zj8b0D4bASlipaelmXkcoZs7DSMATltE6WuKf?=
+ =?us-ascii?Q?SbR/wMia5wVUhs0SwzuEwZ59y4S5QJRXOrYamXKlF8vLrXl1RwOgL+VM4ZFK?=
+ =?us-ascii?Q?05gB8QcS2UMj0wCN4qGthUJT8IEcFzjc//+LkXbT4Q1xUEqngg=3D=3D?=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:SEZPR06MB5899.apcprd06.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(7416014)(52116014)(1800799024)(376014)(366016)(38350700014);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?F05NJVWlxVkKevJZVX9RMaBQKNg5Hi5OcTIm52oRfz6Wf8FCsgCYM7rTRI6g?=
+ =?us-ascii?Q?fCgBFNo1YCqnPndRwUsYomtA3vNnYTPQ31fzAvqH0+RrkOfw1CazuJr9Olu1?=
+ =?us-ascii?Q?MoGR1ft5LCUgC4J2NxGKs59UKqUtJd6EgsyjcPudhDIGY0r0pY+YdLCdCYaC?=
+ =?us-ascii?Q?nTZqm9M3kr+PyuOMnafESzemODOjqWaPk9P0ESRYhHfWQ6eMQEKVqeYEodx1?=
+ =?us-ascii?Q?QSqC8tptB8SV8sGN2A5BrF8sEbNbAYac3hbIbELQp6y62wsRR4nuzPZ5gALK?=
+ =?us-ascii?Q?j4Aqr4x7UUhKzQapT3hUXZfupvOZ1sMLeZE2mX4tyWAt7v2mvjzb80NeLs9k?=
+ =?us-ascii?Q?g4vnNqh74yYQ8eBRQjwH0MRGnzVhunaha9FIHK/1mg2wSLrWGF67trsPKePt?=
+ =?us-ascii?Q?CFeFcauuNBmwjPrWFuCD8As5aBJiCsslS7KIL2V+WxelfPJnA9cjvwaG0NJ1?=
+ =?us-ascii?Q?+nDerq0OFyCBmTurTZHmf3Q6AMFf472A6QrxedWUsXtYUTUFQpZECcRydJwv?=
+ =?us-ascii?Q?PN1aU0iQ3RXA8cvomDRsKxQf7pNesOdUeTxF2fvH7EErmCE+IsUJ+oNMlQxP?=
+ =?us-ascii?Q?nCb6F+Av3cmIX8lmOWYJd5ecV/Movtq5u3M4e/ElsfMkO5EaCbokrnNtheXY?=
+ =?us-ascii?Q?7toT1OWDQCZs/G8/X6+4fJNz59FIpxqoFV2oxtQN5QyqTq6hMPvIpoRLCoyz?=
+ =?us-ascii?Q?8inalbKKE6fk/jKtIF+9BVXTP47Wh4j5xKC35MocYdZpgBKY1kgf8bIYwvK+?=
+ =?us-ascii?Q?r7RJ9ZhmUmAFYwBIvq3lvuEl5cFR0KY1DGteXcTykGl8eyHHnGSvlYMJLzX9?=
+ =?us-ascii?Q?5Q09OsosGgPZfR/uPUcQxB2PXjmHYsTYyQU+OCkQbucWg4y2EcBrCf92YcJK?=
+ =?us-ascii?Q?k7IwhHypPPHvBW356X/w4npa1/8PVFMui3kXDU0pYzCBgPxx9nUjK2g4cP2P?=
+ =?us-ascii?Q?XlIkFVDNMfwVC+BJT2Mrv6JHx1EnA1DfId3xvwgzIb2AtjRUSIIGKjCRy8HX?=
+ =?us-ascii?Q?Y+0sSGEUI4aXIZRXr1uO3A1d2XR2Vc5HBdwVYUrV9NlDvdG8QyoapZwa7H/M?=
+ =?us-ascii?Q?R8N4/WCB8gjoXAFF6MfLFzqCtDifAMnt0FRjIucfWVzJwYz67OaVEm7LmF/f?=
+ =?us-ascii?Q?IQjJn/w/3UdQMPGVRmV44hUkW1tP2L18BiXn6zyPgffciSozRqEX8uex6AGS?=
+ =?us-ascii?Q?PuMmRx1UT8zs4B8WNfZCIFC5LQ2wikeQF6jheH07hAebdZZQMqDTZ7tNObCG?=
+ =?us-ascii?Q?99chMa7Q8+eEe0NYhzuvtNot6qPelTprjq3zdlHmt3yHmuANZlbRf6eCYBir?=
+ =?us-ascii?Q?sN6vBjVcbwG0QZorLvRBPuZs8N/RIs7LGtPka/iEI4+H8N1SpO3+M/csMBWa?=
+ =?us-ascii?Q?q7iSaQK8h0HuoL5gzirDAQNLrD5+GKiHn6q3HBd0G9KltjuIjCvxfUjDuS5r?=
+ =?us-ascii?Q?G842OwqtWSbP/+caq5Qn3AJeVGGR1gq99tKj0TOSUp2Bb8Fgo2jIpFG9HpjQ?=
+ =?us-ascii?Q?n6g1IS5774w5DRQyXfPF6TD6UDntff80Fx845qteYyqgEhnjiaG56S5S0ntT?=
+ =?us-ascii?Q?IuorPpfLSTF6i8C0hSsTqUopvk/YGWvaV2XhYx/F?=
+X-OriginatorOrg: vivo.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: ca23810d-109f-4ff2-d321-08dcd791ee22
+X-MS-Exchange-CrossTenant-AuthSource: SEZPR06MB5899.apcprd06.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Sep 2024 03:28:14.7397 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 923e42dc-48d5-4cbe-b582-1a797a6412ed
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: MAkhBcQU1CFowRhtuOR1ykTGQ1VKs+C+EWCrB9rqKp1dCNfF1LhsGt+lkyw0Fr/z9axfW5qo1HyxmPTsb0Xxjg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: JH0PR06MB6809
 X-Mailman-Approved-At: Mon, 23 Sep 2024 12:39:59 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -87,53 +146,30 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-In DP alt mode, when pin assignment is D, only one PHY lane is owned
-by the display. intel_cx0pll_enable currently performs a power state
-ready on both the lanes in all cases.
+To ensure code clarity and prevent potential errors, it's advisable
+to employ the ';' as a statement separator, except when ',' are
+intentionally used for specific purposes.
 
-Address the todo to perfom power state ready on owned lanes.
-
-Tested on Meteor Lake-P [Intel Arc Graphics] with DP alt mode.
-
-v2 -> v3:
-- Fix changelog per Jani Nikula's feedback
-v1 -> v2: Address Gustavo Sousa's feedback
-- Use owned lanes mask to set Phy power state to Ready, instead of
-  maxpclk_lane with DP alt mode check.
-- Owned lanes are obtained from intel_cx0_get_owned_lane_mask().
-
-Signed-off-by: Vamsi Krishna Brahmajosyula <vamsikrishna.brahmajosyula@gmail.com>
+Signed-off-by: Shen Lichuan <shenlichuan@vivo.com>
 ---
- drivers/gpu/drm/i915/display/intel_cx0_phy.c | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+ drivers/gpu/drm/i915/display/intel_hdmi.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_cx0_phy.c b/drivers/gpu/drm/i915/display/intel_cx0_phy.c
-index 4a6c3040ca15..cbed53d3b250 100644
---- a/drivers/gpu/drm/i915/display/intel_cx0_phy.c
-+++ b/drivers/gpu/drm/i915/display/intel_cx0_phy.c
-@@ -2934,6 +2934,7 @@ static void intel_cx0pll_enable(struct intel_encoder *encoder,
- 	enum phy phy = intel_encoder_to_phy(encoder);
- 	struct intel_digital_port *dig_port = enc_to_dig_port(encoder);
- 	bool lane_reversal = dig_port->saved_port_bits & DDI_BUF_PORT_REVERSAL;
-+	u8 owned_lane_mask = intel_cx0_get_owned_lane_mask(encoder);
- 	u8 maxpclk_lane = lane_reversal ? INTEL_CX0_LANE1 :
- 					  INTEL_CX0_LANE0;
- 	intel_wakeref_t wakeref = intel_cx0_phy_transaction_begin(encoder);
-@@ -2948,10 +2949,9 @@ static void intel_cx0pll_enable(struct intel_encoder *encoder,
- 	intel_cx0_phy_lane_reset(encoder, lane_reversal);
+diff --git a/drivers/gpu/drm/i915/display/intel_hdmi.c b/drivers/gpu/drm/i915/display/intel_hdmi.c
+index cd9ee171e0df..f2dce9896a48 100644
+--- a/drivers/gpu/drm/i915/display/intel_hdmi.c
++++ b/drivers/gpu/drm/i915/display/intel_hdmi.c
+@@ -1310,8 +1310,8 @@ static int intel_hdmi_hdcp_write(struct intel_digital_port *dig_port,
+ 	memcpy(&write_buf[1], buffer, size);
  
- 	/*
--	 * 3. Change Phy power state to Ready.
--	 * TODO: For DP alt mode use only one lane.
-+	 * 3. Change Phy power state to Ready on owned lanes.
- 	 */
--	intel_cx0_powerdown_change_sequence(encoder, INTEL_CX0_BOTH_LANES,
-+	intel_cx0_powerdown_change_sequence(encoder, owned_lane_mask,
- 					    CX0_P2_STATE_READY);
+ 	msg.addr = DRM_HDCP_DDC_ADDR;
+-	msg.flags = 0,
+-	msg.len = size + 1,
++	msg.flags = 0;
++	msg.len = size + 1;
+ 	msg.buf = write_buf;
  
- 	/*
-
-base-commit: ad060dbbcfcfcba624ef1a75e1d71365a98b86d8
+ 	ret = i2c_transfer(ddc, &msg, 1);
 -- 
-2.46.0
+2.17.1
 
