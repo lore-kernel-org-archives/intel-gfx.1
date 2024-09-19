@@ -4,50 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E71ADCDD578
-	for <intel-gfx@archiver.kernel.org>; Thu, 19 Sep 2024 13:41:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EC277CF3942
+	for <intel-gfx@archiver.kernel.org>; Thu, 19 Sep 2024 13:41:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7DD7610E6F2;
-	Thu, 19 Sep 2024 13:41:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8178810E700;
+	Thu, 19 Sep 2024 13:41:30 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="AvsRmIf2";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="Jv7u3G74";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.14])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E5F5910E6F2;
- Thu, 19 Sep 2024 13:41:25 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 94FBD10E700;
+ Thu, 19 Sep 2024 13:41:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1726753286; x=1758289286;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=qyMUoO1F9NEqO9b2AZMK166Oa/sAa01elL9c/ntOAcQ=;
- b=AvsRmIf2aCXnEOxSvVLjcIpTFiajOme5uJEzhyZPd6KcPzWUGzh0Aibd
- g5FHlpEtZaRpK9ZItMZauvRckHhPIyiGlp4ObV/S4yrmzHg59IBxBvqTR
- KiJTbvgtJxN22XeOqN9xa/jYFkbKCKHDEzXnrILHy+uKIOsXFXOdgOtou
- 50RbFAa+kB0vm6dS40z2TTKKsBFRt+BSNf502Sn2lH8tc9xZ6ve/ldwVw
- uMVKRneN78viyDQAvOiwizGuy8hTYckkkzSRTJnkmBw2AOvPhMaurzdUh
- sgIBR0nhZoRoelUZknBkwzj5ANhy1OTJnp2QgHy5wQsO1GCtUbK185Ofq Q==;
-X-CSE-ConnectionGUID: iADwuP6ZS32jS5Ohb7Gapg==
-X-CSE-MsgGUID: dN/L3jLORHqmZst72Wq9DQ==
-X-IronPort-AV: E=McAfee;i="6700,10204,11199"; a="29505343"
-X-IronPort-AV: E=Sophos;i="6.10,241,1719903600"; d="scan'208";a="29505343"
+ t=1726753290; x=1758289290;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=pwQ4AzhoPayIC5MyR7VCqQrmy9EILF63t57iNA+4Gog=;
+ b=Jv7u3G74NYmA/WSVyq8CNYU92757PLAPFT8q8dl9piS6YP7iKjjAOClA
+ m9X063uvgYAVOXqz6R3RTzSQ6B5TnvCbclWhPycIZbzaFynyGZj3WcO8e
+ cueawAxaye72YovepSUiZ9rr7Y8MK6JYI7IDg+oa2EHgIvcHUT9LEIcg8
+ Kiri1mxe9Sp4xMQuURUFl4ryctoINW2Bj++/8TfpUV9sqKq7rQDsVdF8z
+ o4CJxOWRYy4g6vgH/uOyaJcLpBmZkZwjLEI21KxQj0iRF0/MpytHtkhGx
+ 2P0R9wktmYiz9ct6Qm+aiT5HQQYnCCmHYOsGyaqRzrsXpfpJHr4NWBCyD A==;
+X-CSE-ConnectionGUID: n56HAqz8RfyhIPLV9NVnuA==
+X-CSE-MsgGUID: e6JSRmHiTEeo3xT9ewzBeg==
+X-IronPort-AV: E=McAfee;i="6700,10204,11199"; a="29505350"
+X-IronPort-AV: E=Sophos;i="6.10,241,1719903600"; d="scan'208";a="29505350"
 Received: from orviesa004.jf.intel.com ([10.64.159.144])
  by orvoesa106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 19 Sep 2024 06:41:26 -0700
-X-CSE-ConnectionGUID: qj4snylcSy6TxLf4kglkdA==
-X-CSE-MsgGUID: M+dcMOJORcGpEzgqDVh4tA==
+ 19 Sep 2024 06:41:30 -0700
+X-CSE-ConnectionGUID: H4hf5ItAQ5qN6U8w6+iKsw==
+X-CSE-MsgGUID: E8Q03HvnRMekEPlb0VQUUQ==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.10,241,1719903600"; d="scan'208";a="74912629"
+X-IronPort-AV: E=Sophos;i="6.10,241,1719903600"; d="scan'208";a="74912643"
 Received: from srr4-3-linux-106-armuthy.iind.intel.com ([10.190.238.56])
- by orviesa004.jf.intel.com with ESMTP; 19 Sep 2024 06:41:24 -0700
+ by orviesa004.jf.intel.com with ESMTP; 19 Sep 2024 06:41:28 -0700
 From: Arun R Murthy <arun.r.murthy@intel.com>
 To: intel-xe@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
  dri-devel@lists.freedesktop.org
 Cc: Arun R Murthy <arun.r.murthy@intel.com>
-Subject: [PATCH 0/6] Display Global Histogram
-Date: Thu, 19 Sep 2024 19:01:34 +0530
-Message-Id: <20240919133140.1372663-1-arun.r.murthy@intel.com>
+Subject: [PATCHv3 2/6] drm/xe: Add histogram support to Xe builds
+Date: Thu, 19 Sep 2024 19:01:36 +0530
+Message-Id: <20240919133140.1372663-3-arun.r.murthy@intel.com>
 X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20240919133140.1372663-1-arun.r.murthy@intel.com>
+References: <20240919133140.1372663-1-arun.r.murthy@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-BeenThere: intel-gfx@lists.freedesktop.org
@@ -65,54 +67,26 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Display histogram is a hardware functionality where a statistics for 'x'
-number of frames is generated to form a histogram data. This is notified
-to the user via histogram event. Compositor will then upon sensing the
-histogram event will read the histogram data from KMD via crtc property.
-A library can be developed to take this generated histogram as an
-input and apply some algorithm to generate an Image EnhancemenT(IET).
-This is further fed back to the KMD via crtc property. KMD will use this
-IET as a multiplicand factor to multiply with the incoming pixels at the
-end of the pipe which is then pushed onto the display.
+Histogram added as part of i915/display driver. Adding the same for xe
+as well.
 
-One such library Global Histogram Enhancement(GHE) will take the histogram
-as input and applied the algorithm to enhance the density and then
-return the enhanced factor. This library can be located @
-https://github.com/intel/ghe
+Signed-off-by: Arun R Murthy <arun.r.murthy@intel.com>
+---
+ drivers/gpu/drm/xe/Makefile | 1 +
+ 1 file changed, 1 insertion(+)
 
-The corresponding mutter changes to enable/disable histogram, read the
-histogram data, communicate with the library and write the enhanced data
-back to the KMD is also pushed for review at https://gitlab.gnome.org/GNOME/mutter/-/merge_requests/3873
-The IGT changes for validating the histogram event and reading the
-histogram is also pushed for review at https://patchwork.freedesktop.org/series/135789/
-
-Test-with: 20240705091333.328322-1-mohammed.thasleem@intel.com
-
-Arun R Murthy (6):
-  drm/i915/histogram: Add support for histogram
-  drm/xe: Add histogram support to Xe builds
-  drm/i915/histogram: histogram interrupt handling
-  drm/i915/histogram: Add crtc properties for global histogram
-  drm/i915/histogram: histogram delay counter doesnt reset
-  drm/i915/histogram: Histogram changes for Display 20+
-
- drivers/gpu/drm/i915/Makefile                 |   1 +
- drivers/gpu/drm/i915/display/intel_atomic.c   |   5 +
- drivers/gpu/drm/i915/display/intel_crtc.c     | 169 +++++++-
- drivers/gpu/drm/i915/display/intel_crtc.h     |   5 +
- drivers/gpu/drm/i915/display/intel_display.c  |  13 +
- .../gpu/drm/i915/display/intel_display_irq.c  |   6 +-
- .../drm/i915/display/intel_display_types.h    |  15 +
- .../gpu/drm/i915/display/intel_histogram.c    | 365 ++++++++++++++++++
- .../gpu/drm/i915/display/intel_histogram.h    |  38 ++
- .../drm/i915/display/intel_histogram_reg.h    |  80 ++++
- drivers/gpu/drm/i915/i915_reg.h               |   5 +-
- drivers/gpu/drm/xe/Makefile                   |   1 +
- 12 files changed, 699 insertions(+), 4 deletions(-)
- create mode 100644 drivers/gpu/drm/i915/display/intel_histogram.c
- create mode 100644 drivers/gpu/drm/i915/display/intel_histogram.h
- create mode 100644 drivers/gpu/drm/i915/display/intel_histogram_reg.h
-
+diff --git a/drivers/gpu/drm/xe/Makefile b/drivers/gpu/drm/xe/Makefile
+index edfd812e0f41..2a5e3ed5ea17 100644
+--- a/drivers/gpu/drm/xe/Makefile
++++ b/drivers/gpu/drm/xe/Makefile
+@@ -239,6 +239,7 @@ xe-$(CONFIG_DRM_XE_DISPLAY) += \
+ 	i915-display/intel_hdcp.o \
+ 	i915-display/intel_hdcp_gsc_message.o \
+ 	i915-display/intel_hdmi.o \
++	i915-display/intel_histogram.o \
+ 	i915-display/intel_hotplug.o \
+ 	i915-display/intel_hotplug_irq.o \
+ 	i915-display/intel_hti.o \
 -- 
 2.25.1
 
