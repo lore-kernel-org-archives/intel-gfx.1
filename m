@@ -4,63 +4,73 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5A347CF9C6F
-	for <intel-gfx@archiver.kernel.org>; Mon, 23 Sep 2024 11:45:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7263ACF9C6E
+	for <intel-gfx@archiver.kernel.org>; Mon, 23 Sep 2024 12:40:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0CBF710E3E4;
-	Mon, 23 Sep 2024 11:45:52 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1876510E259;
+	Mon, 23 Sep 2024 12:40:00 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="h3gRqgDj";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="WoAnK+p8";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.13])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 64AE910E3DF;
- Mon, 23 Sep 2024 11:45:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1727091950; x=1758627950;
- h=from:to:cc:subject:in-reply-to:references:date:
- message-id:mime-version;
- bh=o8vaZJxrTmZYJGBdKLHx7iRkXj/VX32aWDMQkxVqdpI=;
- b=h3gRqgDjcwucGRMTrjW/+C8v1PDhPGCL3h5RPtQsGy4d1n0p4Qk6pOG+
- imy5YVQyZeAgy9/ITu6i9po6Q4S0jcaxwW73v5evdXx026Td2S/jqTs3q
- JE19cLUykxTdX+sAqXRY2l0SYaMVociziSfQoPBv2OfKfebyWR69bQUwp
- 0bYjnwpgkUgz2ZLyF+jv250l/ijW/26wjaZ+AfVixeLX8PVCFjFb/H83A
- WQbdCzn1fftVG8IjPE+EmyOaRRV+vngBVUl6lRr4AcwvzYuOQZELpoNZu
- Cp801WxTptAzZ5j+IPZ2JBzzGKpoPmdI4qNsM1Oh61GMXVy7ZZW8vnX3C A==;
-X-CSE-ConnectionGUID: ZfLMyAzsSDyxvmLCUZJJtA==
-X-CSE-MsgGUID: VQIu+xX6TqiqLE4Zg9acQA==
-X-IronPort-AV: E=McAfee;i="6700,10204,11202"; a="28929705"
-X-IronPort-AV: E=Sophos;i="6.10,251,1719903600"; d="scan'208";a="28929705"
-Received: from orviesa009.jf.intel.com ([10.64.159.149])
- by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 Sep 2024 04:45:50 -0700
-X-CSE-ConnectionGUID: E+xTNmH4RIaCctGj0993IA==
-X-CSE-MsgGUID: DhNPIzcbQy6ld2OGfF65sw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.10,251,1719903600"; d="scan'208";a="71074762"
-Received: from sschumil-mobl2.ger.corp.intel.com (HELO localhost)
- ([10.245.246.65])
- by orviesa009-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 Sep 2024 04:45:47 -0700
-From: Jani Nikula <jani.nikula@linux.intel.com>
-To: "Srikanth V, NagaVenkata" <nagavenkata.srikanth.v@intel.com>, "Kandpal,
- Suraj" <suraj.kandpal@intel.com>, "Murthy, Arun R"
- <arun.r.murthy@intel.com>, "intel-xe@lists.freedesktop.org"
- <intel-xe@lists.freedesktop.org>, "intel-gfx@lists.freedesktop.org"
- <intel-gfx@lists.freedesktop.org>
-Cc: "Murthy, Arun R" <arun.r.murthy@intel.com>
-Subject: RE: [PATCH 3/3] drm/i915/dp: Include the time taken by AUX Tx for
- timeout
-In-Reply-To: <CH0PR11MB550828F237C40440851BA923C26F2@CH0PR11MB5508.namprd11.prod.outlook.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
-References: <20240912050552.779356-1-arun.r.murthy@intel.com>
- <20240912050552.779356-4-arun.r.murthy@intel.com>
- <SN7PR11MB6750FF1460FA59B579B93954E36F2@SN7PR11MB6750.namprd11.prod.outlook.com>
- <CH0PR11MB550828F237C40440851BA923C26F2@CH0PR11MB5508.namprd11.prod.outlook.com>
-Date: Mon, 23 Sep 2024 14:45:44 +0300
-Message-ID: <87ldzi61av.fsf@intel.com>
+Received: from mail-pl1-f172.google.com (mail-pl1-f172.google.com
+ [209.85.214.172])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AA4B010E749;
+ Thu, 19 Sep 2024 18:30:00 +0000 (UTC)
+Received: by mail-pl1-f172.google.com with SMTP id
+ d9443c01a7336-206f9b872b2so11066805ad.3; 
+ Thu, 19 Sep 2024 11:30:00 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1726770600; x=1727375400; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=+KMrajb1zLurcFqyiwW/j9BszHT3k0A5x96qyT+yYNw=;
+ b=WoAnK+p8PuNHa2DYpVyYCRPDFuAqcoBKobLt1mGzvIrvHZo3yN+PdytMfBUip4acGq
+ sbyfO70VFt8JjGHNPtWQvOHti/UZm0LD3TncErPfXEHZBtn4pU5+1wo0etmsov53Is3C
+ Q6hRDkH8D/5V7K3L6iKWpygzGsatEe+1g0y3Z3Xk5MkSbDbFfmGC3VF6P7+om4aGSd2F
+ pV/Wk3HYLMfHgFh1ghBKYePiXvuXPADqYjIloPselCAZIzPeJt9dXMkdkK5GMLc3w5//
+ vFuFLlrx80jt9SKb1124SCIkYVxUi60VksnDOXL+/ZJ+LcTqn90HpdKDMBmiXmLvdWC+
+ tL0Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1726770600; x=1727375400;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=+KMrajb1zLurcFqyiwW/j9BszHT3k0A5x96qyT+yYNw=;
+ b=MnBttA5lXT2OS+VF+MXYb1boxoScGIjN3xsTYG0DUG1pouxJiugcwtqN4be/ujgU7H
+ fA+RHb7Ipl2XLUrsuVBs5YVXyPi3O7bHw7nARSfckki4GbYjZM9Ae0i2fiAOc62jfUy8
+ JeovhDCswFknFTQi1MiRCzXn4Y7sBWZehKXUdeHuQaLYVA0VOURztcBLIb3BuCXaiOe0
+ VsiOx18phDqCi6GwX5kQZyByErGVTfqYgrUwAQCCRvrFO99Umg5dyc9lBYn4YOL0++f1
+ Ti8MMwbBN0HHCwJJ5/JSJUoL95B9GTPOolpNm+R/Tl3yU66WQajC3kZJ5Pl9dtqePLVP
+ pnwQ==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCUZMV+4kq4/JWsNvEcMM8Nd5y7VQqtnP9s2q7EJAv/BPEPQkzr1T9FILN5yLy/LfAZyTqM2rXIGNkk=@lists.freedesktop.org,
+ AJvYcCVNhfA2AXSCdiIftQjBrPQ86Q3/gnasO9rz33n3e3tSrCFRUH0BlNX7WjDiC6jOXPo4JHfVq0HlUbqA@lists.freedesktop.org,
+ AJvYcCXbcWTZei7SI+HHGAVDiEmIubaZ/j7up2qwf8aGdc9iAXWVkdBDvtXSyT44Ky1QutJjsFE7UmWajMc=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yxp65b/IArGSsviArG++qTtsvnvSdKLXLFVpZdHej/hO53xQKUV
+ sg3TlCOfDiKsMDCYoGRHq8iDpQXCucEcJa/CSH47omU0yYefBSG6
+X-Google-Smtp-Source: AGHT+IE/gUWsxkqc0ZEQJ/8L+xme7Oq1BXvLj6tIvEfVCrLPGjcgd7gcG3+9hX+uwwhCnZGK8WxBAA==
+X-Received: by 2002:a17:903:2449:b0:205:4bc0:1993 with SMTP id
+ d9443c01a7336-208d82fb42amr3255205ad.6.1726770599898; 
+ Thu, 19 Sep 2024 11:29:59 -0700 (PDT)
+Received: from fedora.. ([2405:201:d007:50c2:4888:86b4:6f32:9ae])
+ by smtp.gmail.com with ESMTPSA id
+ d9443c01a7336-20794735728sm83021645ad.271.2024.09.19.11.29.55
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 19 Sep 2024 11:29:59 -0700 (PDT)
+From: Vamsi Krishna Brahmajosyula <vamsikrishna.brahmajosyula@gmail.com>
+To: gustavo.sousa@intel.com, jani.nikula@linux.intel.com,
+ rodrigo.vivi@intel.com, joonas.lahtinen@linux.intel.com,
+ tursulin@ursulin.net, airlied@gmail.com, daniel@ffwll.ch
+Cc: skhan@linuxfoundation.org, intel-gfx@lists.freedesktop.org,
+ intel-xe@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+Subject: [PATCH] drm/i915/cx0: Set power state to ready only on owned PHY lanes
+Date: Thu, 19 Sep 2024 23:59:52 +0530
+Message-ID: <20240919182952.51326-1-vamsikrishna.brahmajosyula@gmail.com>
+X-Mailer: git-send-email 2.46.1
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Transfer-Encoding: 8bit
+X-Mailman-Approved-At: Mon, 23 Sep 2024 12:39:59 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,74 +86,55 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Mon, 23 Sep 2024, "Srikanth V, NagaVenkata" <nagavenkata.srikanth.v@intel.com> wrote:
->> > -----Original Message-----
->> > From: Intel-xe <intel-xe-bounces@lists.freedesktop.org> On Behalf Of
->> > Arun R Murthy
->> > Sent: Thursday, September 12, 2024 10:36 AM
->> > To: intel-xe@lists.freedesktop.org; intel-gfx@lists.freedesktop.org
->> > Cc: Murthy, Arun R <arun.r.murthy@intel.com>; Srikanth V, NagaVenkata
->> > <nagavenkata.srikanth.v@intel.com>
->> > Subject: [PATCH 3/3] drm/i915/dp: Include the time taken by AUX Tx for
->> > timeout
->> >
->> > As per DP spec the timeout for LANE_CHANNEL_EQ_DONE is 400ms. But this
->> 
->> Adding where in DP spec example dp2.1 section x.x is a good idea
->> 
-> Please refer to section 3.5.2.16.1 128b/132b DP LANEx_CHANNEL_EQ_DONE Sequnce
-> and Figure3-51: 128b/132b DP EQ Time Budget Illustration of DP2.1a spec.
->
->> > timeout value is exclusively for the Aux RD Interval and excludes the
->> > time consumed for the AUX Tx (i.e reading/writing FFE presets). Add
->> > another 50ms for these AUX Tx to the 400ms timeout.
->> 
->> Is this something we came up with by trial and error or is this also a part of spec
->> 
-> It's not by trail and erros. Timeout value of 450ms is part of DP.
+In DP alt mode, when pin assignment is D, only one PHY lane is owned
+by the display. intel_cx0pll_enable currently performs a power state
+ready on both the lanes in all cases.
 
-It's a very poorly written spec, and contradicts itself. The only place
-where I see 450 ms even mentioned is Figure 3-52. But everywhere else it
-seems to say many times 400 ms is the max, without a hint that it would
-be exclusive of aux. It does not say anything about the sum of rd
-interval being related to the max of 400 ms either.
+Address the todo to perfom power state ready on owned lanes.
 
-Regardless, I have no qualms about relaxing the timeout by 50 ms.
+Tested on Meteor Lake-P [Intel Arc Graphics] with DP alt mode.
 
-With the commit message explaining the above, with references,
+v2 -> v3:
+- Fix changelog per Jani Nikula's feedback
+v1 -> v2: Address Gustavo Sousa's feedback
+- Use owned lanes mask to set Phy power state to Ready, instead of
+  maxpclk_lane with DP alt mode check.
+- Owned lanes are obtained from intel_cx0_get_owned_lane_mask().
 
-Acked-by: Jani Nikula <jani.nikula@intel.com>
+Signed-off-by: Vamsi Krishna Brahmajosyula <vamsikrishna.brahmajosyula@gmail.com>
+---
+Patch version removed so that patchwork would recognize the entry
 
+ drivers/gpu/drm/i915/display/intel_cx0_phy.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
->
->> Regards,
->> Suraj Kandpal
->> >
->> > Signed-off-by: Srikanth V NagaVenkata
->> > <nagavenkata.srikanth.v@intel.com>
->> > Signed-off-by: Arun R Murthy <arun.r.murthy@intel.com>
->> > ---
->> >  drivers/gpu/drm/i915/display/intel_dp_link_training.c | 2 +-
->> >  1 file changed, 1 insertion(+), 1 deletion(-)
->> >
->> > diff --git a/drivers/gpu/drm/i915/display/intel_dp_link_training.c
->> > b/drivers/gpu/drm/i915/display/intel_dp_link_training.c
->> > index ca179bed46ad..b6573934c6dd 100644
->> > --- a/drivers/gpu/drm/i915/display/intel_dp_link_training.c
->> > +++ b/drivers/gpu/drm/i915/display/intel_dp_link_training.c
->> > @@ -1414,7 +1414,7 @@ intel_dp_128b132b_lane_eq(struct intel_dp
->> > *intel_dp,
->> >  	}
->> >
->> >  	/* Time budget for the LANEx_EQ_DONE Sequence */
->> > -	deadline = jiffies + msecs_to_jiffies_timeout(400);
->> > +	deadline = jiffies + msecs_to_jiffies_timeout(450);
->> >
->> >  	for (try = 0; try < max_tries; try++) {
->> >  		fsleep(delay_us);
->> > --
->> > 2.25.1
->
+diff --git a/drivers/gpu/drm/i915/display/intel_cx0_phy.c b/drivers/gpu/drm/i915/display/intel_cx0_phy.c
+index 4a6c3040ca15..cbed53d3b250 100644
+--- a/drivers/gpu/drm/i915/display/intel_cx0_phy.c
++++ b/drivers/gpu/drm/i915/display/intel_cx0_phy.c
+@@ -2934,6 +2934,7 @@ static void intel_cx0pll_enable(struct intel_encoder *encoder,
+ 	enum phy phy = intel_encoder_to_phy(encoder);
+ 	struct intel_digital_port *dig_port = enc_to_dig_port(encoder);
+ 	bool lane_reversal = dig_port->saved_port_bits & DDI_BUF_PORT_REVERSAL;
++	u8 owned_lane_mask = intel_cx0_get_owned_lane_mask(encoder);
+ 	u8 maxpclk_lane = lane_reversal ? INTEL_CX0_LANE1 :
+ 					  INTEL_CX0_LANE0;
+ 	intel_wakeref_t wakeref = intel_cx0_phy_transaction_begin(encoder);
+@@ -2948,10 +2949,9 @@ static void intel_cx0pll_enable(struct intel_encoder *encoder,
+ 	intel_cx0_phy_lane_reset(encoder, lane_reversal);
+ 
+ 	/*
+-	 * 3. Change Phy power state to Ready.
+-	 * TODO: For DP alt mode use only one lane.
++	 * 3. Change Phy power state to Ready on owned lanes.
+ 	 */
+-	intel_cx0_powerdown_change_sequence(encoder, INTEL_CX0_BOTH_LANES,
++	intel_cx0_powerdown_change_sequence(encoder, owned_lane_mask,
+ 					    CX0_P2_STATE_READY);
+ 
+ 	/*
 
+base-commit: ad060dbbcfcfcba624ef1a75e1d71365a98b86d8
 -- 
-Jani Nikula, Intel
+2.46.0
+
