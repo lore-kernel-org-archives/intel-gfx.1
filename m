@@ -4,132 +4,124 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7B33DCF9C6E
-	for <intel-gfx@archiver.kernel.org>; Mon, 23 Sep 2024 12:40:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 40DB7CF9C69
+	for <intel-gfx@archiver.kernel.org>; Mon, 23 Sep 2024 12:40:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1A2DB10E3EC;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 65E7910E3F1;
 	Mon, 23 Sep 2024 12:40:02 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=vivo.com header.i=@vivo.com header.b="bLdga7WL";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="NhZhaTdP";
 	dkim-atps=neutral
-Received: from HK2PR02CU002.outbound.protection.outlook.com
- (mail-eastasiaazon11010039.outbound.protection.outlook.com [52.101.128.39])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A847910E526;
- Wed, 18 Sep 2024 03:28:19 +0000 (UTC)
+Received: from NAM11-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam11on2078.outbound.protection.outlook.com [40.107.223.78])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 84B9010E738;
+ Thu, 19 Sep 2024 17:40:41 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=qt3gqu7vj4FgarT/RMGxwCmf/uo5t3Bltmt+ICuhye/0wPYsN6reeO2/1aX9SkpS36o8Z9cemStoPJltiG/gYv5J5MPBCOAS0q+2iiLs06PxafVn+bayk1lAEice9nwK7/pJLFGKr2u1HFIEbLgpmRIMPdVdSF0vBKOnpYO4WIqvB8DPGOIYR4/wc2oOPvqUs770nBwJUdskCbx17NRVXOyhWAphoKQNQpwL0xLY3vJp9h+9J9oaVwNevjBG39ZldMKmmXii22ZGMHOq+Spgn8TTEc9ehzgusJVj5UjOUfOFH6MyQW72LW/JalJLwsJn2GEa15y9NXyrqnb6LSWMuw==
+ b=oEqvcP50c3LQaVEqMGi2SAOv9V7IvBPsE2DELLXsDNECm+7+T4poy+41O8v9APv9cqRI98TSuXqkPRKtzpR+5LlO1wk49vw1OPco5A/WAo54u9c37YV/agc+OngUHg7d5tiHe2kaaQu40Zw0vLUVPBFGnQW+Aw73K13Qfac5CCAfmVLbIRiFgJNXZsDoMFzEAymkhiJUvZVgezIiEocfTqED5yaN14yrQyt/9owqo+8h4vnHQrPaX6m8ek0pYikR/63Z2gNJDhdMI2atmYYkgapZpTx+75lbrV/1b2hMjNx+E2drRwtHp9smEfwTVjzxSNsqpjJi84hRHmv10C76DQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=L7K1UD5a3SFEk0QjJrP/vl1mJZwRWK7g0Jq24QwT+DY=;
- b=zMSTOic6Fc+AkfiEHu+X4m2wmF38kOjRuBVCoT6nikxpuO9WXoUtvZ0DV2N6q92LsfEmk3T8HKDl9yOg7uT45ZyeOeq0nmWZ4QMVFoQo/9WAS8NrTelM6XEtmSaOss2OihtCsig32UvmyzvBg6uJGGXr6+Acbkq4NOWOCVKIyMGpfr6Umos4tUr9PEvX/QyzoWt0I3Z03l5dFNpCXmXYz6aa4bhk4hJa+fbifqZrSgOi72Ek6HY0eJriHHzpaRy/XF2Aabv8/qdkfZomsfz3l9o8yo0DvNhqxZfHXxbUDo51lZHJAIA0x8B5zej/GwnI8pbRw6belINRTFIfPxUj2w==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=vivo.com; dmarc=pass action=none header.from=vivo.com;
- dkim=pass header.d=vivo.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vivo.com; s=selector2; 
+ bh=u6UVDNpORVhnisLJPoC/R0S3aXGxJo8pAHUjRW+ekNs=;
+ b=dyhhnvYBbIzR8MbNRlcHLCut/ehwbsM7mcAXoLziM6jrTeR/6MaTXJu83aIoancjGaLmff9jywYV9Hs8iln8da/AAECQ3GXRDyftIQ9Ek0CyO95nyzzUNfwC6X9vn/QhV+NSpEOtq4lfz2NXRE9bulRuQYo+z4qNyDl4cEcSqeDmm1eZqxznef+KwsZRUNborjC7q5Wly58dk/5cT+eNHMJRHzELpXKgKF0HP6ogf1bLqZPTVSKqS1uE/aFV5C+Ww7e4OovAom7UdZ8twtyX1/XQhBBLv3vpi+b+4fSg0JcUq0aVEmiUNgKz9C8jcjL3S7y2fMW5KlKA7o+UfHN91A==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=L7K1UD5a3SFEk0QjJrP/vl1mJZwRWK7g0Jq24QwT+DY=;
- b=bLdga7WLIZavi+uADsvijHWmRVDgQiWnocrbgFZeHtdT6jUGOaM9hAlP/wKDYBJVH6rBS1dV8ZJvTYkt6e5cbtws9YZFA3nNs9sALn/AP9YtGU2F9ahWu6lk74hbcRcFlnGmpQ21n/gwLPDjcReOAy33pOc6fhUjBv/M5iYLI2ym1aOQY+thPTqSVUValghUWJ1jCtZwntgaMfqV1s68WiA7nNa7mdB/gnhHWlbAnFEnYvm4Dkhq9HdY+sEMGoECdilBpnirJwL2zI15kPXAXEXDTWIy5xfNs3qSqzMlHVp9sVvy3jBWGrTDgkfclesAWDnEKSTWuG1VqFsMQOWuHw==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=vivo.com;
-Received: from SEZPR06MB5899.apcprd06.prod.outlook.com (2603:1096:101:e3::16)
- by JH0PR06MB6809.apcprd06.prod.outlook.com (2603:1096:990:4c::9) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7962.23; Wed, 18 Sep
- 2024 03:28:14 +0000
-Received: from SEZPR06MB5899.apcprd06.prod.outlook.com
- ([fe80::8bfc:f1ee:8923:77ce]) by SEZPR06MB5899.apcprd06.prod.outlook.com
- ([fe80::8bfc:f1ee:8923:77ce%3]) with mapi id 15.20.7962.022; Wed, 18 Sep 2024
- 03:28:14 +0000
-From: Shen Lichuan <shenlichuan@vivo.com>
-To: jani.nikula@linux.intel.com, rodrigo.vivi@intel.com,
- joonas.lahtinen@linux.intel.com, tursulin@ursulin.net, airlied@gmail.com,
- simona@ffwll.ch
-Cc: intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- opensource.kernel@vivo.com, Shen Lichuan <shenlichuan@vivo.com>
-Subject: [PATCH v1] drm/i915/hdmi: Convert comma to semicolon
-Date: Wed, 18 Sep 2024 11:28:04 +0800
-Message-Id: <20240918032804.9269-1-shenlichuan@vivo.com>
-X-Mailer: git-send-email 2.17.1
-Content-Type: text/plain
-X-ClientProxiedBy: SI1PR02CA0015.apcprd02.prod.outlook.com
- (2603:1096:4:1f7::18) To SEZPR06MB5899.apcprd06.prod.outlook.com
- (2603:1096:101:e3::16)
+ bh=u6UVDNpORVhnisLJPoC/R0S3aXGxJo8pAHUjRW+ekNs=;
+ b=NhZhaTdPeHLFDFFQTbeiFSaILGD9MIFMmg08bwUYZ/y9qeapDsOLWKOU8jAA4pXnrxQL5K6gpV+in4muPHJOmYIdB5yBsyZur0es8PdtOpl1xrHUrB3bwwzfV0C9QNTfu46zUdrL+nZy/bsn5Uhf1CfG+GIAfY5wVuvOM+ApGww=
+Received: from SA9PR13CA0166.namprd13.prod.outlook.com (2603:10b6:806:28::21)
+ by BL3PR12MB6452.namprd12.prod.outlook.com (2603:10b6:208:3bb::17)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7962.24; Thu, 19 Sep
+ 2024 17:40:35 +0000
+Received: from SN1PEPF0002BA4C.namprd03.prod.outlook.com
+ (2603:10b6:806:28:cafe::39) by SA9PR13CA0166.outlook.office365.com
+ (2603:10b6:806:28::21) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7962.21 via Frontend
+ Transport; Thu, 19 Sep 2024 17:40:35 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
+Received: from SATLEXMB03.amd.com (165.204.84.17) by
+ SN1PEPF0002BA4C.mail.protection.outlook.com (10.167.242.69) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.7918.13 via Frontend Transport; Thu, 19 Sep 2024 17:40:35 +0000
+Received: from SATLEXMB06.amd.com (10.181.40.147) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Thu, 19 Sep
+ 2024 12:40:34 -0500
+Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB06.amd.com
+ (10.181.40.147) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Thu, 19 Sep
+ 2024 12:40:34 -0500
+Received: from jzuo-linux.amd.com (10.180.168.240) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server id 15.1.2507.39 via Frontend
+ Transport; Thu, 19 Sep 2024 12:40:33 -0500
+From: Fangzhi Zuo <Jerry.Zuo@amd.com>
+To: <dri-devel@lists.freedesktop.org>, <intel-gfx@lists.freedesktop.org>,
+ <amd-gfx@lists.freedesktop.org>, <lyude@redhat.com>, <jani.nikula@intel.com>, 
+ <imre.deak@intel.com>, <simona@ffwll.ch>, <wayne.lin@amd.com>,
+ <Harry.Wentland@amd.com>, <rodrigo.siqueira@amd.com>
+CC: Fangzhi Zuo <Jerry.Zuo@amd.com>
+Subject: [PATCH] drm/display/dsc: Refactor MST DSC Determination Policy
+Date: Thu, 19 Sep 2024 13:39:44 -0400
+Message-ID: <20240919173944.256887-1-Jerry.Zuo@amd.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SEZPR06MB5899:EE_|JH0PR06MB6809:EE_
-X-MS-Office365-Filtering-Correlation-Id: ca23810d-109f-4ff2-d321-08dcd791ee22
+X-MS-TrafficTypeDiagnostic: SN1PEPF0002BA4C:EE_|BL3PR12MB6452:EE_
+X-MS-Office365-Filtering-Correlation-Id: 4d73acd3-8bfd-475a-9e4d-08dcd8d22acc
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|7416014|52116014|1800799024|376014|366016|38350700014; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?klWnS5AYRECK60k1YPsOePz5zMUqTzkfK/FaGSGw4ivo2otC73xGkHotV7DL?=
- =?us-ascii?Q?KCXl+qF7meRAUJJBm1pJxyPnQaIi9Yb4S0nj+ASyhYBbytAu6hEs0ZeLlKdi?=
- =?us-ascii?Q?Qovp+x5onnvzU79X4PJXzLZpMLkmHUFEUsLfJoK2toy+iDLFdpp7EdevTn9d?=
- =?us-ascii?Q?o87LnTiF6iUXi2+nFJXcpeC9wHoyQSIfDvoH2ky5Jlm2SIo2FBLr37Sg9prp?=
- =?us-ascii?Q?UnYeGG1yKvy6fytMb5BEkcTQ6h4URZeLDHxS03pj+67wlH4G6lnSJbJof5OU?=
- =?us-ascii?Q?B0RzGd64RiI+WTyPAMMKPqEJRHEFsIABeWUQiQO561wXSQXzwshy+j2ZA54y?=
- =?us-ascii?Q?LQguMpfwRbEjD84gTyk+O2oZ2Fi/iUEveStPo1MRGNN1S6SQCUq721KHgL60?=
- =?us-ascii?Q?+aAmwIf6DYSe9xRKYcfhooVQIIbhDrdyBM0hMTufrTSHNlXqEdQHfuD3Pt09?=
- =?us-ascii?Q?lazMIfPsKudYkkI5aCnyLVcXktRr8ybza/cl9p8NNuQdlBCmbqdFBLOE/A7D?=
- =?us-ascii?Q?ltLoH+8wnNoT0EFwJIqxNACfkPm5O5XMyfYtL15h23/Qo/Crrb40MTFmgyPx?=
- =?us-ascii?Q?XYr1tXL9VrMe3lXAXSiN5RRTAZuQvDiLY9ekH8g801QJXcu/a4fmHucR7X54?=
- =?us-ascii?Q?mrk4dCyZsTVUS/bUWEtbwqg9lenrP3+p/UmTaqZNGSyFU9RqhfDs+xzkToNq?=
- =?us-ascii?Q?TqcHa3s1zP64GBPwAYqDfe853wBt4ndyjir0+JlQfvPB6L+XTTLY6aaXg0Es?=
- =?us-ascii?Q?4huw6PZtuuo56eMuqeZpF9MN727AhLouAUUoJ0sWde6j416wSKAQonfU8u6E?=
- =?us-ascii?Q?SrCQY1UTqkSg5pDTGVb5++2MXv9br3L1K0w7qR2hLyFvRRx6gS4UWHlWGB9h?=
- =?us-ascii?Q?CaK1ZgpllcLMrnL/XiTqJhU3NRuXb9aMyY6Grm23DeE1gfvxjRdKkXMyx68/?=
- =?us-ascii?Q?unRWMAgSYs7fr+R6HpAVka9DuJiiCI/ySA70WLkvCFNIZM/d4LuXyJz87TQG?=
- =?us-ascii?Q?CiqvpUqQh0rRauX/diOYwpgmlz7/XM6UvKLI4iUhXTFx+MeRkrhSRdicKoFa?=
- =?us-ascii?Q?5x6N4VlIk4l1dMaZ9s/R6dmOV2sxDgG7Qwr9hmB6Ex80tJ+yQ5Ib2O9Y+LqN?=
- =?us-ascii?Q?mFYw3b4yNUDmu7SIGy+Xl1P+kRISTyvuDWdAqf+8y3FBIksq6AufxEDpiOQ0?=
- =?us-ascii?Q?prQpjnkK4d4UUTr3oDugH4jNgWTXpNdJggLF7TBYHb6T8tzGpZsIauHmiGZV?=
- =?us-ascii?Q?YQ3WTretd3SOAofp35sEGN/Zj8b0D4bASlipaelmXkcoZs7DSMATltE6WuKf?=
- =?us-ascii?Q?SbR/wMia5wVUhs0SwzuEwZ59y4S5QJRXOrYamXKlF8vLrXl1RwOgL+VM4ZFK?=
- =?us-ascii?Q?05gB8QcS2UMj0wCN4qGthUJT8IEcFzjc//+LkXbT4Q1xUEqngg=3D=3D?=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:SEZPR06MB5899.apcprd06.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(7416014)(52116014)(1800799024)(376014)(366016)(38350700014);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?F05NJVWlxVkKevJZVX9RMaBQKNg5Hi5OcTIm52oRfz6Wf8FCsgCYM7rTRI6g?=
- =?us-ascii?Q?fCgBFNo1YCqnPndRwUsYomtA3vNnYTPQ31fzAvqH0+RrkOfw1CazuJr9Olu1?=
- =?us-ascii?Q?MoGR1ft5LCUgC4J2NxGKs59UKqUtJd6EgsyjcPudhDIGY0r0pY+YdLCdCYaC?=
- =?us-ascii?Q?nTZqm9M3kr+PyuOMnafESzemODOjqWaPk9P0ESRYhHfWQ6eMQEKVqeYEodx1?=
- =?us-ascii?Q?QSqC8tptB8SV8sGN2A5BrF8sEbNbAYac3hbIbELQp6y62wsRR4nuzPZ5gALK?=
- =?us-ascii?Q?j4Aqr4x7UUhKzQapT3hUXZfupvOZ1sMLeZE2mX4tyWAt7v2mvjzb80NeLs9k?=
- =?us-ascii?Q?g4vnNqh74yYQ8eBRQjwH0MRGnzVhunaha9FIHK/1mg2wSLrWGF67trsPKePt?=
- =?us-ascii?Q?CFeFcauuNBmwjPrWFuCD8As5aBJiCsslS7KIL2V+WxelfPJnA9cjvwaG0NJ1?=
- =?us-ascii?Q?+nDerq0OFyCBmTurTZHmf3Q6AMFf472A6QrxedWUsXtYUTUFQpZECcRydJwv?=
- =?us-ascii?Q?PN1aU0iQ3RXA8cvomDRsKxQf7pNesOdUeTxF2fvH7EErmCE+IsUJ+oNMlQxP?=
- =?us-ascii?Q?nCb6F+Av3cmIX8lmOWYJd5ecV/Movtq5u3M4e/ElsfMkO5EaCbokrnNtheXY?=
- =?us-ascii?Q?7toT1OWDQCZs/G8/X6+4fJNz59FIpxqoFV2oxtQN5QyqTq6hMPvIpoRLCoyz?=
- =?us-ascii?Q?8inalbKKE6fk/jKtIF+9BVXTP47Wh4j5xKC35MocYdZpgBKY1kgf8bIYwvK+?=
- =?us-ascii?Q?r7RJ9ZhmUmAFYwBIvq3lvuEl5cFR0KY1DGteXcTykGl8eyHHnGSvlYMJLzX9?=
- =?us-ascii?Q?5Q09OsosGgPZfR/uPUcQxB2PXjmHYsTYyQU+OCkQbucWg4y2EcBrCf92YcJK?=
- =?us-ascii?Q?k7IwhHypPPHvBW356X/w4npa1/8PVFMui3kXDU0pYzCBgPxx9nUjK2g4cP2P?=
- =?us-ascii?Q?XlIkFVDNMfwVC+BJT2Mrv6JHx1EnA1DfId3xvwgzIb2AtjRUSIIGKjCRy8HX?=
- =?us-ascii?Q?Y+0sSGEUI4aXIZRXr1uO3A1d2XR2Vc5HBdwVYUrV9NlDvdG8QyoapZwa7H/M?=
- =?us-ascii?Q?R8N4/WCB8gjoXAFF6MfLFzqCtDifAMnt0FRjIucfWVzJwYz67OaVEm7LmF/f?=
- =?us-ascii?Q?IQjJn/w/3UdQMPGVRmV44hUkW1tP2L18BiXn6zyPgffciSozRqEX8uex6AGS?=
- =?us-ascii?Q?PuMmRx1UT8zs4B8WNfZCIFC5LQ2wikeQF6jheH07hAebdZZQMqDTZ7tNObCG?=
- =?us-ascii?Q?99chMa7Q8+eEe0NYhzuvtNot6qPelTprjq3zdlHmt3yHmuANZlbRf6eCYBir?=
- =?us-ascii?Q?sN6vBjVcbwG0QZorLvRBPuZs8N/RIs7LGtPka/iEI4+H8N1SpO3+M/csMBWa?=
- =?us-ascii?Q?q7iSaQK8h0HuoL5gzirDAQNLrD5+GKiHn6q3HBd0G9KltjuIjCvxfUjDuS5r?=
- =?us-ascii?Q?G842OwqtWSbP/+caq5Qn3AJeVGGR1gq99tKj0TOSUp2Bb8Fgo2jIpFG9HpjQ?=
- =?us-ascii?Q?n6g1IS5774w5DRQyXfPF6TD6UDntff80Fx845qteYyqgEhnjiaG56S5S0ntT?=
- =?us-ascii?Q?IuorPpfLSTF6i8C0hSsTqUopvk/YGWvaV2XhYx/F?=
-X-OriginatorOrg: vivo.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: ca23810d-109f-4ff2-d321-08dcd791ee22
-X-MS-Exchange-CrossTenant-AuthSource: SEZPR06MB5899.apcprd06.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Sep 2024 03:28:14.7397 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 923e42dc-48d5-4cbe-b582-1a797a6412ed
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: MAkhBcQU1CFowRhtuOR1ykTGQ1VKs+C+EWCrB9rqKp1dCNfF1LhsGt+lkyw0Fr/z9axfW5qo1HyxmPTsb0Xxjg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: JH0PR06MB6809
+ ARA:13230040|82310400026|1800799024|36860700013|376014|921020; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?YuN3fSiwbQsI7NT3+GAswMdb7Mv2S5333sHce0L2JooJqSHMZy5UisvEjqsC?=
+ =?us-ascii?Q?Hy8aFdGpoo0SoyZVbOIIO4UIMLgy0S/64uadvQR5vJh4c+ZakSJnw+kDxes5?=
+ =?us-ascii?Q?z+9TrHEuQ8IGiASZKbgGMAFcgONLWB8f4koHuRb/oS4FME/OSzGt6U1JnucX?=
+ =?us-ascii?Q?h2zsbK1V0bMJ7JreR+ASh2ujPmJ2X80SOSFfqtUfA/DMJy5WLrrsGJK77RvP?=
+ =?us-ascii?Q?z6Q6z4H2TEecbhrRz3NiqnEAwW4jVNz4hO05lSAvmXAjpUw05T0c7DsXvvby?=
+ =?us-ascii?Q?PebaoPAzC9V6dbpLG6byeGH50em5tjmqP9gFJan0TB5Xy5VAaaLeK2zHheAd?=
+ =?us-ascii?Q?+sE+3gycibfLMwbWkHbGPDlRznmcowkOuquRhLKV+L2UlHvkZnzRhA0IRhqw?=
+ =?us-ascii?Q?1UYCBQGtLG1mHTOPsApudIlHnGVQ6fc/2gvR5eLyqVLQc8Pv6JTx0aRoQxon?=
+ =?us-ascii?Q?bSrQficYTnhpO4ldAYL3S61e74a9TMw6330T5pNFjyxnFPNgcgZpvaEXgOYX?=
+ =?us-ascii?Q?SPbTV1BxrqyyAhryQ1G2zW6ci86eYshM3PfEmLtPRe6bVAJEBRIPohrDHlkM?=
+ =?us-ascii?Q?Tq9zzmoK2+FWjdZiWEogaf9gUHUkSgph8lu94vyQyV+4Hodevd/+cQOzvzbC?=
+ =?us-ascii?Q?3dNtz9QlfBJWU0JMBpPD8GmlvxOB5DvaD2cI7nGDwSlTa8aC/uq2sQ9/MbUR?=
+ =?us-ascii?Q?0OXNOPyy4qmwCmYp4YUuSa/EEtehl1eO665NKlWNZ0SjNzAjU6YrVyb6MjlA?=
+ =?us-ascii?Q?PTmHuJVnkEQ2sKfuVZUOwzAT4wkeAb3LPaGYPhjUEkKTJ2YwrZeeownShpti?=
+ =?us-ascii?Q?F/STKiMZtZufE/nCSKy+qc9h+qbsBLvb8PE0r6HVhPMEfFGeiJkNtzptw5iO?=
+ =?us-ascii?Q?upMCHbSBwXyAtxw9dAG5EwpfkObAETaSiuVpL79QHGLC0gAxpWP3/2g5XITi?=
+ =?us-ascii?Q?Jb0EpN6p/VzJmTfpusvc4eNZRvhVwJ5y2Kwm8Ft02xUoqeyI20Tgo7R3Qjob?=
+ =?us-ascii?Q?1BhAENjanLkEdhZONO4cqTMoymtS1pucKG9ngz9LNZwGscxsbzQ/PObEvc4C?=
+ =?us-ascii?Q?dYyXFao+Teqcc9J+uothQEPksBAAUePslNFLKcEwLrDZS6+NR7WdyttiAMHG?=
+ =?us-ascii?Q?IzoYoUFw5Lz21QSw0sjeLonez7jkZJA+Wpue4RdlyAW/nBHT4C8kyWOBFcqq?=
+ =?us-ascii?Q?OIg0BC7MhAEa/YSCCVgsyiwlWMhBqGUQ7xSpcyYFOVJKZ34LnFK282zdb7Yj?=
+ =?us-ascii?Q?5LGCD4PiROiwpVY+KyCAwSJlFciZ9juMfzpO8Cn4suU0bOPebMq9+n91qYij?=
+ =?us-ascii?Q?Ia/251o7ZtPXeY4y71u650akv65gq9Tlq4/SR/uNLJxZPICBAPkFwwtypioK?=
+ =?us-ascii?Q?Bv0BRJIpXQBqw16MDYRMYAEJy8EbdoEXYenRcz/Uvm781WEwqDn7mXYGG1K2?=
+ =?us-ascii?Q?IXt01v3sComvRN8LrfYLhqMXqpEoBVAVyYO1hoWy7y03/b0g35JqOg=3D=3D?=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB03.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(82310400026)(1800799024)(36860700013)(376014)(921020); DIR:OUT;
+ SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Sep 2024 17:40:35.1614 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 4d73acd3-8bfd-475a-9e4d-08dcd8d22acc
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB03.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: SN1PEPF0002BA4C.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL3PR12MB6452
 X-Mailman-Approved-At: Mon, 23 Sep 2024 12:39:59 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -146,30 +138,748 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-To ensure code clarity and prevent potential errors, it's advisable
-to employ the ';' as a statement separator, except when ',' are
-intentionally used for specific purposes.
+[why]
+How we determine the dsc_aux used for dsc decompression in
+drm_dp_mst_dsc_aux_for_port() today having some defects:
 
-Signed-off-by: Shen Lichuan <shenlichuan@vivo.com>
+1. The method how we determine a connected peer device is virtual or not
+   in drm_dp_mst_is_virtual_dpcd() is not always correct. There are DP1.4 products
+   in the market which don't fully comply with DP spec to enumerate virtual peer device.
+   That leads to existing logic defects. For example:
+
+   -  Some 1.4 mst hubs with hdmi output port don't enumerate virtual dpcd/peer device.
+      When probing the hub, its topology is constructed with a branch device only, with
+      peer device type set as DP-to-Legacy converter for its HDMI output port.
+      Under this condition, drm_dp_mst_is_virtual_dpcd() will still determine it's connected
+      with a virtual peer device with virtual dpcd. And results in the section for
+      analyzing DP-to-DP peer device case of drm_dp_mst_dsc_aux_for_port(). That's logically
+      incorrect.
+
+2. Existing routine is designed based on analyzing different connected peer device types, such
+   as dp-dp, dp-hdmi peer device, and virtual sink. Such categorization is redundant and unnecessary.
+   The key info of determining where to do dsc decompression relies on the dsc capability from dpcd
+   only. No matter the mst branch device enumerates virtual dpcd or not, if it's supporting dsc, it
+   must declare it's dsc capability at somewhere within its responded topology.
+
+3. Synaptics quirk analyzing today is unnecessary as long as we determine dsc aux generically
+   by dpcd info.
+
+Based on above, we would like to refactor the logic how we determine the dsc aux today a bit.
+
+[how]
+Ideally, dsc_aux should be determined by the topology connection status and
+dpcd capability info only. In this way, dsc aux could be determined in a more generic
+way, instead of enumerating and analyzing on different connected peer device types.
+We construct the refactored algorithm into 2 parts:
+
+1. Firstly, deal with all known quirks or w/a for branch devices in the market that
+   don't comply with DP spec and can't determine its dsc aux in a generic way.
+   e.g. Force to pick root aux as the dsc decompression point.
+
+2. Refine the dsc determination policy by generalizing detection solely based on
+   topology connection status and dpcd info, instead of analyzing it by enumerating
+   different connection types of the peer device.
+
+In addition, we add parsing vendor data 0x50C ~ 0x50F into dpcd quirk routine for
+expanding the ability to determine specific dock products that shall pick root aux as the
+dsc decompression point.
+
+Signed-off-by: Fangzhi Zuo <Jerry.Zuo@amd.com>
+Signed-off-by: Wayne Lin <wayne.lin@amd.com>
 ---
- drivers/gpu/drm/i915/display/intel_hdmi.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ .../amd/display/amdgpu_dm/amdgpu_dm_debugfs.c |   2 +-
+ .../amd/display/amdgpu_dm/amdgpu_dm_helpers.c |  20 +-
+ .../display/amdgpu_dm/amdgpu_dm_mst_types.c   |  59 +---
+ drivers/gpu/drm/display/drm_dp_helper.c       |  30 +-
+ drivers/gpu/drm/display/drm_dp_mst_topology.c | 259 ++++++++----------
+ drivers/gpu/drm/i915/display/intel_dp.c       |   2 +-
+ drivers/gpu/drm/i915/display/intel_dp_mst.c   |   3 +-
+ include/drm/display/drm_dp.h                  |   1 +
+ include/drm/display/drm_dp_helper.h           |   8 +
+ include/drm/display/drm_dp_mst_helper.h       |   5 +-
+ 10 files changed, 181 insertions(+), 208 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_hdmi.c b/drivers/gpu/drm/i915/display/intel_hdmi.c
-index cd9ee171e0df..f2dce9896a48 100644
---- a/drivers/gpu/drm/i915/display/intel_hdmi.c
-+++ b/drivers/gpu/drm/i915/display/intel_hdmi.c
-@@ -1310,8 +1310,8 @@ static int intel_hdmi_hdcp_write(struct intel_digital_port *dig_port,
- 	memcpy(&write_buf[1], buffer, size);
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c
+index db56b0aa5454..0da703f4ccac 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c
+@@ -1370,7 +1370,7 @@ static int dp_dsc_fec_support_show(struct seq_file *m, void *data)
+ 			 * enable DSC on the sink device or on MST branch
+ 			 * its connected to.
+ 			 */
+-			if (aconnector->dsc_aux) {
++			if (aconnector->mst_output_port->dsc_aux) {
+ 				is_fec_supported = true;
+ 				is_dsc_supported = true;
+ 			}
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
+index 50109d13d967..f3613f38b9b8 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
+@@ -806,20 +806,20 @@ bool dm_helpers_dp_write_dsc_enable(
+ 	uint8_t ret = 0;
  
- 	msg.addr = DRM_HDCP_DDC_ADDR;
--	msg.flags = 0,
--	msg.len = size + 1,
-+	msg.flags = 0;
-+	msg.len = size + 1;
- 	msg.buf = write_buf;
+ 	if (stream->signal == SIGNAL_TYPE_DISPLAY_PORT_MST) {
+-		if (!aconnector->dsc_aux)
++		if (!aconnector->mst_output_port->dsc_aux)
+ 			return false;
  
- 	ret = i2c_transfer(ddc, &msg, 1);
+ 		// apply w/a to synaptics
+ 		if (needs_dsc_aux_workaround(aconnector->dc_link) &&
+ 		    (aconnector->mst_downstream_port_present.byte & 0x7) != 0x3)
+ 			return write_dsc_enable_synaptics_non_virtual_dpcd_mst(
+-				aconnector->dsc_aux, stream, enable_dsc);
++				aconnector->mst_output_port->dsc_aux, stream, enable_dsc);
+ 
+ 		port = aconnector->mst_output_port;
+ 
+ 		if (enable) {
+-			if (port->passthrough_aux) {
+-				ret = drm_dp_dpcd_write(port->passthrough_aux,
++			if (port->dsc_passthrough_aux) {
++				ret = drm_dp_dpcd_write(port->dsc_passthrough_aux,
+ 							DP_DSC_ENABLE,
+ 							&enable_passthrough, 1);
+ 				drm_dbg_dp(dev,
+@@ -827,24 +827,24 @@ bool dm_helpers_dp_write_dsc_enable(
+ 					   ret);
+ 			}
+ 
+-			ret = drm_dp_dpcd_write(aconnector->dsc_aux,
++			ret = drm_dp_dpcd_write(aconnector->mst_output_port->dsc_aux,
+ 						DP_DSC_ENABLE, &enable_dsc, 1);
+ 			drm_dbg_dp(dev,
+ 				   "MST_DSC Sent DSC decoding enable to %s port, ret = %u\n",
+-				   (port->passthrough_aux) ? "remote RX" :
++				   (port->dsc_passthrough_aux) ? "remote RX" :
+ 				   "virtual dpcd",
+ 				   ret);
+ 		} else {
+-			ret = drm_dp_dpcd_write(aconnector->dsc_aux,
++			ret = drm_dp_dpcd_write(aconnector->mst_output_port->dsc_aux,
+ 						DP_DSC_ENABLE, &enable_dsc, 1);
+ 			drm_dbg_dp(dev,
+ 				   "MST_DSC Sent DSC decoding disable to %s port, ret = %u\n",
+-				   (port->passthrough_aux) ? "remote RX" :
++				   (port->dsc_passthrough_aux) ? "remote RX" :
+ 				   "virtual dpcd",
+ 				   ret);
+ 
+-			if (port->passthrough_aux) {
+-				ret = drm_dp_dpcd_write(port->passthrough_aux,
++			if (port->dsc_passthrough_aux) {
++				ret = drm_dp_dpcd_write(port->dsc_passthrough_aux,
+ 							DP_DSC_ENABLE,
+ 							&enable_passthrough, 1);
+ 				drm_dbg_dp(dev,
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
+index 6b5eed37532b..61ee3c38a29a 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
+@@ -183,8 +183,8 @@ amdgpu_dm_mst_connector_early_unregister(struct drm_connector *connector)
+ 		dc_sink_release(dc_sink);
+ 		aconnector->dc_sink = NULL;
+ 		aconnector->edid = NULL;
+-		aconnector->dsc_aux = NULL;
+-		port->passthrough_aux = NULL;
++		aconnector->mst_output_port->dsc_aux = NULL;
++		aconnector->mst_output_port->dsc_passthrough_aux = NULL;
+ 	}
+ 
+ 	aconnector->mst_status = MST_STATUS_DEFAULT;
+@@ -214,21 +214,6 @@ bool needs_dsc_aux_workaround(struct dc_link *link)
+ }
+ 
+ #if defined(CONFIG_DRM_AMD_DC_FP)
+-static bool is_synaptics_cascaded_panamera(struct dc_link *link, struct drm_dp_mst_port *port)
+-{
+-	u8 branch_vendor_data[4] = { 0 }; // Vendor data 0x50C ~ 0x50F
+-
+-	if (drm_dp_dpcd_read(port->mgr->aux, DP_BRANCH_VENDOR_SPECIFIC_START, &branch_vendor_data, 4) == 4) {
+-		if (link->dpcd_caps.branch_dev_id == DP_BRANCH_DEVICE_ID_90CC24 &&
+-				IS_SYNAPTICS_CASCADED_PANAMERA(link->dpcd_caps.branch_dev_name, branch_vendor_data)) {
+-			DRM_INFO("Synaptics Cascaded MST hub\n");
+-			return true;
+-		}
+-	}
+-
+-	return false;
+-}
+-
+ static bool validate_dsc_caps_on_connector(struct amdgpu_dm_connector *aconnector)
+ {
+ 	struct dc_sink *dc_sink = aconnector->dc_sink;
+@@ -237,32 +222,14 @@ static bool validate_dsc_caps_on_connector(struct amdgpu_dm_connector *aconnecto
+ 	u8 dsc_branch_dec_caps_raw[3] = { 0 };	// DSC branch decoder caps 0xA0 ~ 0xA2
+ 	u8 *dsc_branch_dec_caps = NULL;
+ 
+-	aconnector->dsc_aux = drm_dp_mst_dsc_aux_for_port(port);
+-
+-	/*
+-	 * drm_dp_mst_dsc_aux_for_port() will return NULL for certain configs
+-	 * because it only check the dsc/fec caps of the "port variable" and not the dock
+-	 *
+-	 * This case will return NULL: DSC capabe MST dock connected to a non fec/dsc capable display
+-	 *
+-	 * Workaround: explicitly check the use case above and use the mst dock's aux as dsc_aux
+-	 *
+-	 */
+-	if (!aconnector->dsc_aux && !port->parent->port_parent &&
+-	    needs_dsc_aux_workaround(aconnector->dc_link))
+-		aconnector->dsc_aux = &aconnector->mst_root->dm_dp_aux.aux;
+-
+-	/* synaptics cascaded MST hub case */
+-	if (is_synaptics_cascaded_panamera(aconnector->dc_link, port))
+-		aconnector->dsc_aux = port->mgr->aux;
+-
+-	if (!aconnector->dsc_aux)
++	drm_dp_mst_dsc_aux_for_port(port);
++	if (!aconnector->mst_output_port->dsc_aux)
+ 		return false;
+ 
+-	if (drm_dp_dpcd_read(aconnector->dsc_aux, DP_DSC_SUPPORT, dsc_caps, 16) < 0)
++	if (drm_dp_dpcd_read(aconnector->mst_output_port->dsc_aux, DP_DSC_SUPPORT, dsc_caps, 16) < 0)
+ 		return false;
+ 
+-	if (drm_dp_dpcd_read(aconnector->dsc_aux,
++	if (drm_dp_dpcd_read(aconnector->mst_output_port->dsc_aux,
+ 			DP_DSC_BRANCH_OVERALL_THROUGHPUT_0, dsc_branch_dec_caps_raw, 3) == 3)
+ 		dsc_branch_dec_caps = dsc_branch_dec_caps_raw;
+ 
+@@ -279,10 +246,10 @@ static bool retrieve_downstream_port_device(struct amdgpu_dm_connector *aconnect
+ {
+ 	union dp_downstream_port_present ds_port_present;
+ 
+-	if (!aconnector->dsc_aux)
++	if (!aconnector->mst_output_port->dsc_aux)
+ 		return false;
+ 
+-	if (drm_dp_dpcd_read(aconnector->dsc_aux, DP_DOWNSTREAMPORT_PRESENT, &ds_port_present, 1) < 0) {
++	if (drm_dp_dpcd_read(aconnector->mst_output_port->dsc_aux, DP_DOWNSTREAMPORT_PRESENT, &ds_port_present, 1) < 0) {
+ 		DRM_INFO("Failed to read downstream_port_present 0x05 from DFP of branch device\n");
+ 		return false;
+ 	}
+@@ -501,8 +468,8 @@ dm_dp_mst_detect(struct drm_connector *connector,
+ 		dc_sink_release(aconnector->dc_sink);
+ 		aconnector->dc_sink = NULL;
+ 		aconnector->edid = NULL;
+-		aconnector->dsc_aux = NULL;
+-		port->passthrough_aux = NULL;
++		aconnector->mst_output_port->dsc_aux = NULL;
++		aconnector->mst_output_port->dsc_passthrough_aux = NULL;
+ 
+ 		amdgpu_dm_set_mst_status(&aconnector->mst_status,
+ 			MST_REMOTE_EDID | MST_ALLOCATE_NEW_PAYLOAD | MST_CLEAR_ALLOCATED_PAYLOAD,
+@@ -1293,7 +1260,7 @@ static bool is_dsc_need_re_compute(
+ 			continue;
+ 
+ 		aconnector = (struct amdgpu_dm_connector *) stream->dm_stream_context;
+-		if (!aconnector || !aconnector->dsc_aux)
++		if (!aconnector || !aconnector->mst_output_port->dsc_aux)
+ 			continue;
+ 
+ 		stream_on_link[new_stream_on_link_num] = aconnector;
+@@ -1778,13 +1745,13 @@ enum dc_status dm_dp_mst_is_port_support_mode(
+ 	}
+ 
+ 	/*DSC necessary case*/
+-	if (!aconnector->dsc_aux)
++	if (!aconnector->mst_output_port->dsc_aux)
+ 		return DC_FAIL_BANDWIDTH_VALIDATE;
+ 
+ 	if (is_dsc_common_config_possible(stream, &bw_range)) {
+ 
+ 		/*capable of dsc passthough. dsc bitstream along the entire path*/
+-		if (aconnector->mst_output_port->passthrough_aux) {
++		if (aconnector->mst_output_port->dsc_passthrough_aux) {
+ 			if (bw_range.min_kbps > end_to_end_bw_in_kbps) {
+ 				DRM_DEBUG_DRIVER("MST_DSC dsc passthrough and decode at endpoint"
+ 						 "Max dsc compression bw can't fit into end-to-end bw\n");
+diff --git a/drivers/gpu/drm/display/drm_dp_helper.c b/drivers/gpu/drm/display/drm_dp_helper.c
+index 6ee51003de3c..fedeec8f8bea 100644
+--- a/drivers/gpu/drm/display/drm_dp_helper.c
++++ b/drivers/gpu/drm/display/drm_dp_helper.c
+@@ -2259,6 +2259,7 @@ EXPORT_SYMBOL(drm_dp_stop_crc);
+ struct dpcd_quirk {
+ 	u8 oui[3];
+ 	u8 device_id[6];
++	u8 vendor_data[4];
+ 	bool is_branch;
+ 	u32 quirks;
+ };
+@@ -2266,26 +2267,31 @@ struct dpcd_quirk {
+ #define OUI(first, second, third) { (first), (second), (third) }
+ #define DEVICE_ID(first, second, third, fourth, fifth, sixth) \
+ 	{ (first), (second), (third), (fourth), (fifth), (sixth) }
++#define VENDOR_DATA(first, second, third, fourth) \
++	{ (first), (second), (third), (fourth) }
+ 
+ #define DEVICE_ID_ANY	DEVICE_ID(0, 0, 0, 0, 0, 0)
++#define VENDOR_DATA_ANY	VENDOR_DATA(0, 0, 0, 0)
+ 
+ static const struct dpcd_quirk dpcd_quirk_list[] = {
+ 	/* Analogix 7737 needs reduced M and N at HBR2 link rates */
+-	{ OUI(0x00, 0x22, 0xb9), DEVICE_ID_ANY, true, BIT(DP_DPCD_QUIRK_CONSTANT_N) },
++	{ OUI(0x00, 0x22, 0xb9), DEVICE_ID_ANY, VENDOR_DATA_ANY, true, BIT(DP_DPCD_QUIRK_CONSTANT_N) },
+ 	/* LG LP140WF6-SPM1 eDP panel */
+-	{ OUI(0x00, 0x22, 0xb9), DEVICE_ID('s', 'i', 'v', 'a', 'r', 'T'), false, BIT(DP_DPCD_QUIRK_CONSTANT_N) },
++	{ OUI(0x00, 0x22, 0xb9), DEVICE_ID('s', 'i', 'v', 'a', 'r', 'T'), VENDOR_DATA_ANY, false, BIT(DP_DPCD_QUIRK_CONSTANT_N) },
+ 	/* Apple panels need some additional handling to support PSR */
+-	{ OUI(0x00, 0x10, 0xfa), DEVICE_ID_ANY, false, BIT(DP_DPCD_QUIRK_NO_PSR) },
++	{ OUI(0x00, 0x10, 0xfa), DEVICE_ID_ANY, VENDOR_DATA_ANY, false, BIT(DP_DPCD_QUIRK_NO_PSR) },
+ 	/* CH7511 seems to leave SINK_COUNT zeroed */
+-	{ OUI(0x00, 0x00, 0x00), DEVICE_ID('C', 'H', '7', '5', '1', '1'), false, BIT(DP_DPCD_QUIRK_NO_SINK_COUNT) },
++	{ OUI(0x00, 0x00, 0x00), DEVICE_ID('C', 'H', '7', '5', '1', '1'), VENDOR_DATA_ANY, false, BIT(DP_DPCD_QUIRK_NO_SINK_COUNT) },
+ 	/* Synaptics DP1.4 MST hubs can support DSC without virtual DPCD */
+-	{ OUI(0x90, 0xCC, 0x24), DEVICE_ID_ANY, true, BIT(DP_DPCD_QUIRK_DSC_WITHOUT_VIRTUAL_DPCD) },
++	{ OUI(0x90, 0xCC, 0x24), DEVICE_ID_ANY, VENDOR_DATA_ANY, true, BIT(DP_DPCD_QUIRK_DSC_WITHOUT_VIRTUAL_DPCD) },
+ 	/* Synaptics DP1.4 MST hubs require DSC for some modes on which it applies HBLANK expansion. */
+-	{ OUI(0x90, 0xCC, 0x24), DEVICE_ID_ANY, true, BIT(DP_DPCD_QUIRK_HBLANK_EXPANSION_REQUIRES_DSC) },
++	{ OUI(0x90, 0xCC, 0x24), DEVICE_ID_ANY, VENDOR_DATA_ANY, true, BIT(DP_DPCD_QUIRK_HBLANK_EXPANSION_REQUIRES_DSC) },
+ 	/* MediaTek panels (at least in U3224KBA) require DSC for modes with a short HBLANK on UHBR links. */
+-	{ OUI(0x00, 0x0C, 0xE7), DEVICE_ID_ANY, false, BIT(DP_DPCD_QUIRK_HBLANK_EXPANSION_REQUIRES_DSC) },
++	{ OUI(0x00, 0x0C, 0xE7), DEVICE_ID_ANY, VENDOR_DATA_ANY, false, BIT(DP_DPCD_QUIRK_HBLANK_EXPANSION_REQUIRES_DSC) },
+ 	/* Apple MacBookPro 2017 15 inch eDP Retina panel reports too low DP_MAX_LINK_RATE */
+-	{ OUI(0x00, 0x10, 0xfa), DEVICE_ID(101, 68, 21, 101, 98, 97), false, BIT(DP_DPCD_QUIRK_CAN_DO_MAX_LINK_RATE_3_24_GBPS) },
++	{ OUI(0x00, 0x10, 0xfa), DEVICE_ID(101, 68, 21, 101, 98, 97), VENDOR_DATA_ANY, false, BIT(DP_DPCD_QUIRK_CAN_DO_MAX_LINK_RATE_3_24_GBPS) },
++	/* Lenovo dock that needs root branch for dsc */
++	{ OUI(0x90, 0xCC, 0x24), DEVICE_ID(83, 89, 78, 65, 83, 50), VENDOR_DATA(4, 6, 90, 0), true, BIT(DP_DPCD_QUIRK_DSC_MUST_ROOT_DECOMPRESSION) },
+ };
+ 
+ #undef OUI
+@@ -2305,6 +2311,7 @@ drm_dp_get_quirks(const struct drm_dp_dpcd_ident *ident, bool is_branch)
+ 	u32 quirks = 0;
+ 	int i;
+ 	u8 any_device[] = DEVICE_ID_ANY;
++	u8 any_vendor[] = VENDOR_DATA_ANY;
+ 
+ 	for (i = 0; i < ARRAY_SIZE(dpcd_quirk_list); i++) {
+ 		quirk = &dpcd_quirk_list[i];
+@@ -2319,6 +2326,10 @@ drm_dp_get_quirks(const struct drm_dp_dpcd_ident *ident, bool is_branch)
+ 		    memcmp(quirk->device_id, ident->device_id, sizeof(ident->device_id)) != 0)
+ 			continue;
+ 
++		if (memcmp(quirk->vendor_data, any_vendor, sizeof(any_vendor)) != 0 &&
++		    memcmp(quirk->vendor_data, ident->vendor_data, sizeof(ident->vendor_data)) != 0)
++			continue;
++
+ 		quirks |= quirk->quirks;
+ 	}
+ 
+@@ -2344,10 +2355,11 @@ static void drm_dp_dump_desc(struct drm_dp_aux *aux,
+ 	const struct drm_dp_dpcd_ident *ident = &desc->ident;
+ 
+ 	drm_dbg_kms(aux->drm_dev,
+-		    "%s: %s: OUI %*phD dev-ID %*pE HW-rev %d.%d SW-rev %d.%d quirks 0x%04x\n",
++		    "%s: %s: OUI %*phD dev-ID %*pE vendor-DATA %*pE HW-rev %d.%d SW-rev %d.%d quirks 0x%04x\n",
+ 		    aux->name, device_name,
+ 		    (int)sizeof(ident->oui), ident->oui,
+ 		    (int)strnlen(ident->device_id, sizeof(ident->device_id)), ident->device_id,
++		    (int)strnlen(ident->vendor_data, sizeof(ident->vendor_data)), ident->vendor_data,
+ 		    ident->hw_rev >> 4, ident->hw_rev & 0xf,
+ 		    ident->sw_major_rev, ident->sw_minor_rev,
+ 		    desc->quirks);
+diff --git a/drivers/gpu/drm/display/drm_dp_mst_topology.c b/drivers/gpu/drm/display/drm_dp_mst_topology.c
+index a040d7dfced1..85fa9234b46d 100644
+--- a/drivers/gpu/drm/display/drm_dp_mst_topology.c
++++ b/drivers/gpu/drm/display/drm_dp_mst_topology.c
+@@ -2258,6 +2258,8 @@ void drm_dp_mst_connector_early_unregister(struct drm_connector *connector,
+ 	drm_dbg_kms(port->mgr->dev, "unregistering %s remote bus for %s\n",
+ 		    port->aux.name, connector->kdev->kobj.name);
+ 	drm_dp_aux_unregister_devnode(&port->aux);
++	port->dsc_aux = NULL;
++	port->dsc_passthrough_aux = NULL;
+ }
+ EXPORT_SYMBOL(drm_dp_mst_connector_early_unregister);
+ 
+@@ -5445,7 +5447,8 @@ int drm_dp_mst_add_affected_dsc_crtcs(struct drm_atomic_state *state, struct drm
+ 		if (!crtc)
+ 			continue;
+ 
+-		if (!drm_dp_mst_dsc_aux_for_port(pos->port))
++		drm_dp_mst_dsc_aux_for_port(pos->port);
++		if (!pos->port->dsc_aux)
+ 			continue;
+ 
+ 		crtc_state = drm_atomic_get_crtc_state(mst_state->base.state, crtc);
+@@ -5994,57 +5997,6 @@ static void drm_dp_mst_unregister_i2c_bus(struct drm_dp_mst_port *port)
+ 	i2c_del_adapter(&port->aux.ddc);
+ }
+ 
+-/**
+- * drm_dp_mst_is_virtual_dpcd() - Is the given port a virtual DP Peer Device
+- * @port: The port to check
+- *
+- * A single physical MST hub object can be represented in the topology
+- * by multiple branches, with virtual ports between those branches.
+- *
+- * As of DP1.4, An MST hub with internal (virtual) ports must expose
+- * certain DPCD registers over those ports. See sections 2.6.1.1.1
+- * and 2.6.1.1.2 of Display Port specification v1.4 for details.
+- *
+- * May acquire mgr->lock
+- *
+- * Returns:
+- * true if the port is a virtual DP peer device, false otherwise
+- */
+-static bool drm_dp_mst_is_virtual_dpcd(struct drm_dp_mst_port *port)
+-{
+-	struct drm_dp_mst_port *downstream_port;
+-
+-	if (!port || port->dpcd_rev < DP_DPCD_REV_14)
+-		return false;
+-
+-	/* Virtual DP Sink (Internal Display Panel) */
+-	if (drm_dp_mst_port_is_logical(port))
+-		return true;
+-
+-	/* DP-to-HDMI Protocol Converter */
+-	if (port->pdt == DP_PEER_DEVICE_DP_LEGACY_CONV &&
+-	    !port->mcs &&
+-	    port->ldps)
+-		return true;
+-
+-	/* DP-to-DP */
+-	mutex_lock(&port->mgr->lock);
+-	if (port->pdt == DP_PEER_DEVICE_MST_BRANCHING &&
+-	    port->mstb &&
+-	    port->mstb->num_ports == 2) {
+-		list_for_each_entry(downstream_port, &port->mstb->ports, next) {
+-			if (downstream_port->pdt == DP_PEER_DEVICE_SST_SINK &&
+-			    !downstream_port->input) {
+-				mutex_unlock(&port->mgr->lock);
+-				return true;
+-			}
+-		}
+-	}
+-	mutex_unlock(&port->mgr->lock);
+-
+-	return false;
+-}
+-
+ /**
+  * drm_dp_mst_aux_for_parent() - Get the AUX device for an MST port's parent
+  * @port: MST port whose parent's AUX device is returned
+@@ -6074,114 +6026,145 @@ EXPORT_SYMBOL(drm_dp_mst_aux_for_parent);
+  * This operation can be expensive (up to four aux reads), so
+  * the caller should cache the return.
+  *
+- * Returns:
+- * NULL if DSC cannot be enabled on this port, otherwise the aux device
++ * port->dsc_aux - point for dsc decompression
++ * port->dsc_passthrough_aux - point for dsc passthrough
++ *
+  */
+-struct drm_dp_aux *drm_dp_mst_dsc_aux_for_port(struct drm_dp_mst_port *port)
++void drm_dp_mst_dsc_aux_for_port(struct drm_dp_mst_port *port)
+ {
+-	struct drm_dp_mst_port *immediate_upstream_port;
+-	struct drm_dp_aux *immediate_upstream_aux;
+-	struct drm_dp_mst_port *fec_port;
++	struct drm_dp_mst_topology_mgr *mgr = port->mgr;
++	struct drm_dp_mst_port *immediate_upstream_port = NULL;
++	struct drm_dp_mst_port *fec_port = NULL;
++	struct drm_dp_mst_port *dsc_port = NULL;
++	struct drm_dp_aux *upstream_aux;
+ 	struct drm_dp_desc desc = {};
+-	u8 endpoint_fec;
+-	u8 endpoint_dsc;
++	bool end_has_dpcd = (port->dpcd_rev > 0);
++	u8 endpoint_dsc = 0;
++	u8 upstream_dsc;
++	u8 fec_cap;
+ 
+ 	if (!port)
+-		return NULL;
++		return;
++
++	port->dsc_aux = NULL;
++	port->dsc_passthrough_aux = NULL;
++
++	/* Check special case first */
++	if (drm_dp_read_desc(mgr->aux, &desc, true) == 0) {
++		if (drm_dp_has_quirk(&desc, DP_DPCD_QUIRK_DSC_MUST_ROOT_DECOMPRESSION)) {
++			port->dsc_aux = mgr->aux;
++			drm_info(mgr->dev, "MST_DSC DSC_MUST_ROOT_DECODING w/a\n");
++			return;
++		}
++	}
++
++	/* Policy start */
++	if (!drm_dp_mst_is_end_device(port->pdt, port->mcs)) {
++		drm_err(mgr->dev,
++			"MST_DSC Can't determine dsc aux for port %p which is not connected to end device\n",
++			port);
++		return;
++	}
+ 
+ 	if (port->parent->port_parent)
+ 		immediate_upstream_port = port->parent->port_parent;
+-	else
+-		immediate_upstream_port = NULL;
+ 
+-	fec_port = immediate_upstream_port;
+-	while (fec_port) {
+-		/*
+-		 * Each physical link (i.e. not a virtual port) between the
+-		 * output and the primary device must support FEC
+-		 */
+-		if (!drm_dp_mst_is_virtual_dpcd(fec_port) &&
+-		    !fec_port->fec_capable)
+-			return NULL;
++	if (end_has_dpcd) {
++		drm_info(mgr->dev, "MST_DSC check port->aux for dsc decompression capability\n");
++		if (drm_dp_dpcd_read(&port->aux, DP_DSC_SUPPORT, &endpoint_dsc, 1) != 1) {
++			drm_err(mgr->dev, "MST_DSC Can't retrieve dsc caps from endpoint port\n");
++			goto out_dsc_fail;
++		}
++	}
+ 
+-		fec_port = fec_port->parent->port_parent;
++	if (immediate_upstream_port) {
++		upstream_aux = &immediate_upstream_port->aux;
++		drm_info(mgr->dev, "MST_DSC check immediate_upstream_port->aux for dsc passthrough capability\n");
++	} else {
++		upstream_aux = mgr->aux;
++		drm_info(mgr->dev, "MST_DSC check mgr->aux for dsc passthrough capability\n");
+ 	}
+ 
+-	/* DP-to-DP peer device */
+-	if (drm_dp_mst_is_virtual_dpcd(immediate_upstream_port)) {
+-		u8 upstream_dsc;
+-
+-		if (drm_dp_dpcd_read(&port->aux,
+-				     DP_DSC_SUPPORT, &endpoint_dsc, 1) != 1)
+-			return NULL;
+-		if (drm_dp_dpcd_read(&port->aux,
+-				     DP_FEC_CAPABILITY, &endpoint_fec, 1) != 1)
+-			return NULL;
+-		if (drm_dp_dpcd_read(&immediate_upstream_port->aux,
+-				     DP_DSC_SUPPORT, &upstream_dsc, 1) != 1)
+-			return NULL;
+-
+-		/* Enpoint decompression with DP-to-DP peer device */
+-		if ((endpoint_dsc & DP_DSC_DECOMPRESSION_IS_SUPPORTED) &&
+-		    (endpoint_fec & DP_FEC_CAPABLE) &&
+-		    (upstream_dsc & DP_DSC_PASSTHROUGH_IS_SUPPORTED)) {
+-			port->passthrough_aux = &immediate_upstream_port->aux;
+-			return &port->aux;
+-		}
++	if (drm_dp_dpcd_read(upstream_aux, DP_DSC_SUPPORT, &upstream_dsc, 1) != 1) {
++		drm_err(mgr->dev, "MST_DSC Can't retrieve dsc caps from upstream port\n");
++		goto out_dsc_fail;
++	}
+ 
+-		/* Virtual DPCD decompression with DP-to-DP peer device */
+-		return &immediate_upstream_port->aux;
++	/* Consider passthrough as the first option for dsc_aux/dsc_passthrough_aux */
++	if (endpoint_dsc & DP_DSC_DECOMPRESSION_IS_SUPPORTED &&
++			upstream_dsc & DP_DSC_PASSTHROUGH_IS_SUPPORTED) {
++		dsc_port = port;
++		port->dsc_aux = &port->aux;
++		port->dsc_passthrough_aux = upstream_aux;
++		drm_info(mgr->dev, "MST_DSC dsc passthrough virtual peer device and decompression at endpoint\n");
+ 	}
+ 
+-	/* Virtual DPCD decompression with DP-to-HDMI or Virtual DP Sink */
+-	if (drm_dp_mst_is_virtual_dpcd(port))
+-		return &port->aux;
++	if (!dsc_port) {
++		if (!immediate_upstream_port) {
++			/* Topology with 1 mstb only
++			 * directly connected dp2.0 case which is enumerated as 1-to-1
++			 * sst branch device that output pdt is stream sink
++			 */
++			if (upstream_dsc & DP_DSC_DECOMPRESSION_IS_SUPPORTED)
++				port->dsc_aux = mgr->aux;
+ 
+-	/*
+-	 * Synaptics quirk
+-	 * Applies to ports for which:
+-	 * - Physical aux has Synaptics OUI
+-	 * - DPv1.4 or higher
+-	 * - Port is on primary branch device
+-	 * - Not a VGA adapter (DP_DWN_STRM_PORT_TYPE_ANALOG)
+-	 */
+-	if (immediate_upstream_port)
+-		immediate_upstream_aux = &immediate_upstream_port->aux;
+-	else
+-		immediate_upstream_aux = port->mgr->aux;
++			if (!port->dsc_aux) {
++				drm_err(mgr->dev, "MST_DSC dsc decompression not support at root branch\n");
++				goto out_dsc_fail;
++			}
+ 
+-	if (drm_dp_read_desc(immediate_upstream_aux, &desc, true))
+-		return NULL;
++			drm_info(mgr->dev, "MST_DSC topology with 1 mstb only, dsc decompression at root branch\n");
++		} else {
++			/* Topology with multiple mstbs */
++			dsc_port = immediate_upstream_port;
++			endpoint_dsc = upstream_dsc;
++
++			if (endpoint_dsc & DP_DSC_DECOMPRESSION_IS_SUPPORTED)
++				port->dsc_aux = &dsc_port->aux;
++			else {
++				drm_err(mgr->dev,
++					"MST_DSC dsc decompression not support at immediate_upstream_port %p\n",
++					dsc_port);
++				goto out_dsc_fail;
++			}
+ 
+-	if (drm_dp_has_quirk(&desc, DP_DPCD_QUIRK_DSC_WITHOUT_VIRTUAL_DPCD)) {
+-		u8 dpcd_ext[DP_RECEIVER_CAP_SIZE];
++			drm_info(mgr->dev, "MST_DSC topology with multiple mstbs, dsc decompression at virtual peer device\n");
++		}
++	}
+ 
+-		if (drm_dp_read_dpcd_caps(immediate_upstream_aux, dpcd_ext) < 0)
+-			return NULL;
++	/* Check the virtual channel from source till dsc port link support FEC */
++	fec_port = dsc_port;
++	while (fec_port) {
++		/*
++		 * Each link between the output and the source
++		 * must support FEC. Note that virtual dpcd fec is identical
++		 * to the fec capability of it's MST BU's DPRx
++		 */
++		if (!fec_port->fec_capable) {
++			/* enum path result of virtual peer device will return fec_capable as false */
++			if ((drm_dp_dpcd_read(&fec_port->aux, DP_FEC_CAPABILITY, &fec_cap, 1) != 1) ||
++					!(fec_cap & DP_FEC_CAPABLE)) {
++				drm_err(mgr->dev, "MST_DSC Failed to retrieve fec caps at port %p\n", fec_port);
++				goto out_dsc_fail;
++			}
++			fec_port->fec_capable = true;
++		}
+ 
+-		if (dpcd_ext[DP_DPCD_REV] >= DP_DPCD_REV_14 &&
+-		    ((dpcd_ext[DP_DOWNSTREAMPORT_PRESENT] & DP_DWN_STRM_PORT_PRESENT) &&
+-		    ((dpcd_ext[DP_DOWNSTREAMPORT_PRESENT] & DP_DWN_STRM_PORT_TYPE_MASK)
+-		     != DP_DWN_STRM_PORT_TYPE_ANALOG)))
+-			return immediate_upstream_aux;
++		fec_port = fec_port->parent->port_parent;
+ 	}
+ 
+-	/*
+-	 * The check below verifies if the MST sink
+-	 * connected to the GPU is capable of DSC -
+-	 * therefore the endpoint needs to be
+-	 * both DSC and FEC capable.
+-	 */
+-	if (drm_dp_dpcd_read(&port->aux,
+-	   DP_DSC_SUPPORT, &endpoint_dsc, 1) != 1)
+-		return NULL;
+-	if (drm_dp_dpcd_read(&port->aux,
+-	   DP_FEC_CAPABILITY, &endpoint_fec, 1) != 1)
+-		return NULL;
+-	if ((endpoint_dsc & DP_DSC_DECOMPRESSION_IS_SUPPORTED) &&
+-	   (endpoint_fec & DP_FEC_CAPABLE))
+-		return &port->aux;
++	/* Ensure fec between source and the connected DPRx */
++	if ((drm_dp_dpcd_read(mgr->aux, DP_FEC_CAPABILITY, &fec_cap, 1) != 1) ||
++			!(fec_cap & DP_FEC_CAPABLE)) {
++		drm_err(mgr->dev, "MST_DSC fec not supported between source and the connected DPRx\n");
++		goto out_dsc_fail;
++	}
+ 
+-	return NULL;
++	return;
++
++out_dsc_fail:
++	port->dsc_aux = NULL;
++	port->dsc_passthrough_aux = NULL;
++	return;
+ }
+ EXPORT_SYMBOL(drm_dp_mst_dsc_aux_for_port);
+diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
+index a1fcedfd404b..d39a7c6f5bfa 100644
+--- a/drivers/gpu/drm/i915/display/intel_dp.c
++++ b/drivers/gpu/drm/i915/display/intel_dp.c
+@@ -3219,7 +3219,7 @@ intel_dp_sink_set_dsc_passthrough(const struct intel_connector *connector,
+ {
+ 	struct drm_i915_private *i915 = to_i915(connector->base.dev);
+ 	struct drm_dp_aux *aux = connector->port ?
+-				 connector->port->passthrough_aux : NULL;
++				 connector->port->dsc_passthrough_aux : NULL;
+ 
+ 	if (!aux)
+ 		return;
+diff --git a/drivers/gpu/drm/i915/display/intel_dp_mst.c b/drivers/gpu/drm/i915/display/intel_dp_mst.c
+index 15541932b809..73cb1c673525 100644
+--- a/drivers/gpu/drm/i915/display/intel_dp_mst.c
++++ b/drivers/gpu/drm/i915/display/intel_dp_mst.c
+@@ -1699,7 +1699,8 @@ static struct drm_connector *intel_dp_add_mst_connector(struct drm_dp_mst_topolo
+ 
+ 	intel_dp_init_modeset_retry_work(intel_connector);
+ 
+-	intel_connector->dp.dsc_decompression_aux = drm_dp_mst_dsc_aux_for_port(port);
++	drm_dp_mst_dsc_aux_for_port(port);
++	intel_connector->dp.dsc_decompression_aux = port->dsc_aux;
+ 	intel_dp_mst_read_decompression_port_dsc_caps(intel_dp, intel_connector);
+ 	intel_connector->dp.dsc_hblank_expansion_quirk =
+ 		detect_dsc_hblank_expansion_quirk(intel_connector);
+diff --git a/include/drm/display/drm_dp.h b/include/drm/display/drm_dp.h
+index a6f8b098c56f..fa454506866b 100644
+--- a/include/drm/display/drm_dp.h
++++ b/include/drm/display/drm_dp.h
+@@ -980,6 +980,7 @@
+ #define DP_BRANCH_REVISION_START            0x509
+ #define DP_BRANCH_HW_REV                    0x509
+ #define DP_BRANCH_SW_REV                    0x50A
++#define DP_BRANCH_VENDOR_SPECIFIC_START     0x50C
+ 
+ /* Link/Sink Device Power Control */
+ #define DP_SET_POWER                        0x600
+diff --git a/include/drm/display/drm_dp_helper.h b/include/drm/display/drm_dp_helper.h
+index 279624833ea9..5eb583004d00 100644
+--- a/include/drm/display/drm_dp_helper.h
++++ b/include/drm/display/drm_dp_helper.h
+@@ -643,6 +643,7 @@ struct drm_dp_dpcd_ident {
+ 	u8 hw_rev;
+ 	u8 sw_major_rev;
+ 	u8 sw_minor_rev;
++	u8 vendor_data[4];
+ } __packed;
+ 
+ /**
+@@ -711,6 +712,13 @@ enum drm_dp_quirk {
+ 	 * requires enabling DSC.
+ 	 */
+ 	DP_DPCD_QUIRK_HBLANK_EXPANSION_REQUIRES_DSC,
++	/**
++	 * @DP_DPCD_QUIRK_DSC_MUST_ROOT_DECOMPRESSION:
++	 *
++	 * The device has internal virutual dpcd with dsc decoding cap,
++	 * but dsc decoding must be done at root mstb.
++	 */
++	DP_DPCD_QUIRK_DSC_MUST_ROOT_DECOMPRESSION,
+ };
+ 
+ /**
+diff --git a/include/drm/display/drm_dp_mst_helper.h b/include/drm/display/drm_dp_mst_helper.h
+index f6a1cbb0f600..b04ca4a97af2 100644
+--- a/include/drm/display/drm_dp_mst_helper.h
++++ b/include/drm/display/drm_dp_mst_helper.h
+@@ -135,7 +135,8 @@ struct drm_dp_mst_port {
+ 	 */
+ 	struct drm_dp_mst_branch *mstb;
+ 	struct drm_dp_aux aux; /* i2c bus for this port? */
+-	struct drm_dp_aux *passthrough_aux;
++	struct drm_dp_aux *dsc_aux;
++	struct drm_dp_aux *dsc_passthrough_aux;
+ 	struct drm_dp_mst_branch *parent;
+ 
+ 	struct drm_connector *connector;
+@@ -956,7 +957,7 @@ bool drm_dp_mst_port_is_logical(struct drm_dp_mst_port *port)
+ }
+ 
+ struct drm_dp_aux *drm_dp_mst_aux_for_parent(struct drm_dp_mst_port *port);
+-struct drm_dp_aux *drm_dp_mst_dsc_aux_for_port(struct drm_dp_mst_port *port);
++void drm_dp_mst_dsc_aux_for_port(struct drm_dp_mst_port *port);
+ 
+ static inline struct drm_dp_mst_topology_state *
+ to_drm_dp_mst_topology_state(struct drm_private_state *state)
 -- 
-2.17.1
+2.34.1
 
