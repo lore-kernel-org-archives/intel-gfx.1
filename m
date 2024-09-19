@@ -4,59 +4,59 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 31D50CF3962
-	for <intel-gfx@archiver.kernel.org>; Thu, 19 Sep 2024 18:06:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9333ACF3962
+	for <intel-gfx@archiver.kernel.org>; Thu, 19 Sep 2024 18:30:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CD11610E73F;
-	Thu, 19 Sep 2024 18:06:07 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 380DD10E74C;
+	Thu, 19 Sep 2024 18:30:22 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="RkElG5wn";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="H7/xY4Uo";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.18])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 852C810E73F;
- Thu, 19 Sep 2024 18:06:06 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3C44010E74C;
+ Thu, 19 Sep 2024 18:30:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1726769167; x=1758305167;
+ t=1726770621; x=1758306621;
  h=date:from:to:cc:subject:message-id:references:
  mime-version:content-transfer-encoding:in-reply-to;
- bh=Gr3DYg/aeEf5SFOvjIinCGDwfAMOSmJ2Z0vRc8X9PwA=;
- b=RkElG5wnEp7FVcS3oT4Jf8DXO3iJvmwJkpUBrew9ggAlbyMW1e7Ujqdo
- 7QBCoRjeKJTmPi7kcNQIxRBrV87F5l1dYAd9E53D/nImpOFJvZusQh2fS
- dGIQXgc/uIdXPk2bTg7z0n+jtKFIVmgnvJKp0TSB0MoTtCptTKUuCmDKX
- lkfKN6heqZmTmZggFp9F/1sKPDL2LErYTmJmDPyongUO0gGKgzJwgCgvI
- 29w0fnNo+wlEXJmt2RuJGvQpUD3suHvZuxz6oG49f8cOAWP/16LvYJHUv
- wnr66sBeg1/j6oDAV8zVNs4XDHkuKfTYdYX3eDEVqBIUi0J5Lg4XkJa0V w==;
-X-CSE-ConnectionGUID: BBbXMv7RSaiGeCX7EvpctQ==
-X-CSE-MsgGUID: CRCu62dJT0KjSG2lrA5a+A==
-X-IronPort-AV: E=McAfee;i="6700,10204,11200"; a="25232825"
-X-IronPort-AV: E=Sophos;i="6.10,242,1719903600"; d="scan'208";a="25232825"
+ bh=ctE1BZOYXI70bG6iOXQX/5ww/F3VatOMg/cK5eYj0Rk=;
+ b=H7/xY4Uo3XS6vwlF8NBIWLM0mRpW5bLQuKp/tJb4NnCnaw4pDZY7TfHb
+ t4XA/mC1dl9sg/Qi7N6E7nU1OEGcvMZcNRRZXRE4eXG56p1CtC9XV/+GC
+ 7auxAje9AWkAgm8kVpwE4QzzahLWrNceP+pKamrfm5OvgdpCkYJt4BHQd
+ riPZ5l1E1IdGNEFV0k+DbxQO/E7PG65WRvTu6BOwBTrRRlXs87scRzu0D
+ b1qCPxi69V75Nn6tmrfot4QA6KdoBIM9lYpghbA4JV5p5rHcXEGUCGYSN
+ A9nS1cVvM4R0o+us1PAcYBLV7d2Eq5jv1tTmNHAQQaYmYfwgq3X2E4uI2 Q==;
+X-CSE-ConnectionGUID: sSHxBTR/S7mI9a3c9Sz54g==
+X-CSE-MsgGUID: G3kJOEnTQoqI7eRg2JAS5Q==
+X-IronPort-AV: E=McAfee;i="6700,10204,11200"; a="25235049"
+X-IronPort-AV: E=Sophos;i="6.10,242,1719903600"; d="scan'208";a="25235049"
 Received: from fmviesa008.fm.intel.com ([10.60.135.148])
  by fmvoesa112.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 19 Sep 2024 11:06:06 -0700
-X-CSE-ConnectionGUID: 1WdO9B2XRxSp98UsSDCQ+Q==
-X-CSE-MsgGUID: 6X3QDeWqS8SrmaCabnFZxw==
+ 19 Sep 2024 11:30:20 -0700
+X-CSE-ConnectionGUID: 6nrrRazsSbu0i2s74iDvRA==
+X-CSE-MsgGUID: NghCphYkTiKAZBtRORiNbA==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.10,242,1719903600"; d="scan'208";a="70149986"
+X-IronPort-AV: E=Sophos;i="6.10,242,1719903600"; d="scan'208";a="70158403"
 Received: from stinkpipe.fi.intel.com (HELO stinkbox) ([10.237.72.74])
- by fmviesa008.fm.intel.com with SMTP; 19 Sep 2024 11:06:04 -0700
+ by fmviesa008.fm.intel.com with SMTP; 19 Sep 2024 11:30:10 -0700
 Received: by stinkbox (sSMTP sendmail emulation);
- Thu, 19 Sep 2024 21:06:03 +0300
-Date: Thu, 19 Sep 2024 21:06:03 +0300
+ Thu, 19 Sep 2024 21:30:09 +0300
+Date: Thu, 19 Sep 2024 21:30:09 +0300
 From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
 To: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
 Cc: intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
  suraj.kandpal@intel.com
-Subject: Re: [PATCH 12/15] drm/i915/display/vdsc: Add ultrajoiner support
- with DSC
-Message-ID: <ZuxoC4mbL_zIqavI@intel.com>
+Subject: Re: [PATCH 13/15] drm/i915: Compute config and mode valid changes
+ for ultrajoiner
+Message-ID: <ZuxtsRz00qagilSw@intel.com>
 References: <20240918144343.2876184-1-ankit.k.nautiyal@intel.com>
- <20240918144343.2876184-13-ankit.k.nautiyal@intel.com>
+ <20240918144343.2876184-14-ankit.k.nautiyal@intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=iso-8859-1
 Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20240918144343.2876184-13-ankit.k.nautiyal@intel.com>
+In-Reply-To: <20240918144343.2876184-14-ankit.k.nautiyal@intel.com>
 X-Patchwork-Hint: comment
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -73,126 +73,162 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Sep 18, 2024 at 08:13:40PM +0530, Ankit Nautiyal wrote:
+On Wed, Sep 18, 2024 at 08:13:41PM +0530, Ankit Nautiyal wrote:
 > From: Stanislav Lisovskiy <stanislav.lisovskiy@intel.com>
 > 
-> Add changes to DSC which are required for Ultrajoiner.
+> Implement required changes for mode validation and compute config,
+> to support Ultrajoiner.
 > 
 > v2:
-> -Use correct helper for setting bits for bigjoiner secondary. (Ankit)
-> -Use primary/secondary instead of master/slave. (Suraj)
-> v3: Add the ultrajoiner helpers and use it for setting ultrajoiner
-> bits (Ankit)
-> v4: Use num_vdsc_instances *= num_joined_pipes (Ville)
+> -Drop changes for HDMI.
+> -Separate out DSC changes into another patch.
+> v3: Fix check in can_ultrajoiner. (Ankit)
 > 
 > Signed-off-by: Stanislav Lisovskiy <stanislav.lisovskiy@intel.com>
 > Signed-off-by: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
 > ---
->  drivers/gpu/drm/i915/display/intel_display.c | 21 +++++++++++++++++
->  drivers/gpu/drm/i915/display/intel_display.h |  2 ++
->  drivers/gpu/drm/i915/display/intel_vdsc.c    | 24 ++++++++++++++++++--
->  3 files changed, 45 insertions(+), 2 deletions(-)
+>  drivers/gpu/drm/i915/display/intel_dp.c | 44 +++++++++++++++++++++----
+>  1 file changed, 37 insertions(+), 7 deletions(-)
 > 
-> diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
-> index 65119c26ec88..044f91359c42 100644
-> --- a/drivers/gpu/drm/i915/display/intel_display.c
-> +++ b/drivers/gpu/drm/i915/display/intel_display.c
-> @@ -314,6 +314,27 @@ u8 _intel_modeset_secondary_pipes(const struct intel_crtc_state *crtc_state)
->  	return bigjoiner_secondary_pipes(crtc_state);
->  }
->  
-> +bool intel_crtc_is_ultrajoiner(const struct intel_crtc_state *crtc_state)
-> +{
-> +	return intel_crtc_num_joined_pipes(crtc_state) >= 4;
-> +}
-> +
-> +static u8 ultrajoiner_primary_pipes(const struct intel_crtc_state *crtc_state)
-> +{
-> +	if (!intel_crtc_is_ultrajoiner(crtc_state))
-> +		return 0;
-> +
-> +	return crtc_state->joiner_pipes & (0b00010001 << joiner_primary_pipe(crtc_state));
-> +}
-> +
-> +bool intel_crtc_is_ultrajoiner_primary(const struct intel_crtc_state *crtc_state)
-> +{
-> +	struct intel_crtc *crtc = to_intel_crtc(crtc_state->uapi.crtc);
-> +
-> +	return intel_crtc_is_ultrajoiner(crtc_state) &&
-> +	       BIT(crtc->pipe) & ultrajoiner_primary_pipes(crtc_state);
-> +}
-> +
->  u8 intel_crtc_joiner_secondary_pipes(const struct intel_crtc_state *crtc_state)
+> diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
+> index 369829ea5a12..4005700ab043 100644
+> --- a/drivers/gpu/drm/i915/display/intel_dp.c
+> +++ b/drivers/gpu/drm/i915/display/intel_dp.c
+> @@ -871,24 +871,34 @@ u32 get_max_compressed_bpp_with_joiner(struct drm_i915_private *i915,
+>  				       int num_joined_pipes)
 >  {
->  	if (crtc_state->joiner_pipes)
-> diff --git a/drivers/gpu/drm/i915/display/intel_display.h b/drivers/gpu/drm/i915/display/intel_display.h
-> index 783562dc013b..6f470ffc61ea 100644
-> --- a/drivers/gpu/drm/i915/display/intel_display.h
-> +++ b/drivers/gpu/drm/i915/display/intel_display.h
-> @@ -442,6 +442,8 @@ bool intel_crtc_is_joiner_secondary(const struct intel_crtc_state *crtc_state);
->  bool intel_crtc_is_joiner_primary(const struct intel_crtc_state *crtc_state);
->  bool intel_crtc_is_bigjoiner_primary(const struct intel_crtc_state *crtc_state);
->  bool intel_crtc_is_bigjoiner_secondary(const struct intel_crtc_state *crtc_state);
-> +bool intel_crtc_is_ultrajoiner(const struct intel_crtc_state *crtc_state);
-> +bool intel_crtc_is_ultrajoiner_primary(const struct intel_crtc_state *crtc_state);
->  u8 intel_crtc_joiner_secondary_pipes(const struct intel_crtc_state *crtc_state);
->  u8 _intel_modeset_primary_pipes(const struct intel_crtc_state *crtc_state);
->  u8 _intel_modeset_secondary_pipes(const struct intel_crtc_state *crtc_state);
-> diff --git a/drivers/gpu/drm/i915/display/intel_vdsc.c b/drivers/gpu/drm/i915/display/intel_vdsc.c
-> index 8158e3702ed5..990abac12779 100644
-> --- a/drivers/gpu/drm/i915/display/intel_vdsc.c
-> +++ b/drivers/gpu/drm/i915/display/intel_vdsc.c
-> @@ -379,9 +379,9 @@ static int intel_dsc_get_vdsc_per_pipe(const struct intel_crtc_state *crtc_state
->  int intel_dsc_get_num_vdsc_instances(const struct intel_crtc_state *crtc_state)
->  {
->  	int num_vdsc_instances = intel_dsc_get_vdsc_per_pipe(crtc_state);
-> +	int num_joined_pipes = intel_crtc_num_joined_pipes(crtc_state);
+>  	u32 max_bpp_small_joiner_ram;
+> +	u32 max_bpp_joiner;
 >  
-> -	if (crtc_state->joiner_pipes)
-> -		num_vdsc_instances *= 2;
-> +	num_vdsc_instances *= num_joined_pipes;
+>  	/* Small Joiner Check: output bpp <= joiner RAM (bits) / Horiz. width */
+>  	max_bpp_small_joiner_ram = small_joiner_ram_size_bits(i915) / mode_hdisplay;
+> +	max_bpp_joiner = max_bpp_small_joiner_ram;
 >  
->  	return num_vdsc_instances;
->  }
-> @@ -751,6 +751,14 @@ void intel_uncompressed_joiner_enable(const struct intel_crtc_state *crtc_state)
->  	}
->  }
->  
-> +static bool intel_crtc_ultrajoiner_enable_needed(const struct intel_crtc_state *crtc_state)
-> +{
-> +	struct intel_crtc *crtc = to_intel_crtc(crtc_state->uapi.crtc);
-> +
-> +	return intel_crtc_is_ultrajoiner(crtc_state) &&
-> +	       crtc->pipe != PIPE_D;
-> +}
+> -	if (num_joined_pipes == 2) {
+> -		int bigjoiner_interface_bits = DISPLAY_VER(i915) >= 14 ? 36 : 24;
+> +	/* if ultra joiner is enabled, we have 2 bigjoiners enabled */
+> +	if (num_joined_pipes == 2 ||
+> +	    num_joined_pipes == 4) {
 
-For this I think we want a function similar to your
-ultrajoiner_primary_pipes(), just with a 0b01110111 mask.
+I guess just 'num_joined_pipes > 1' or something could be
+used for all cases like this.
+
+> +		int joiner_interface_bits = DISPLAY_VER(i915) >= 14 ? 36 : 24;
+
+Isn't this specifically about bigjoiner? If so the name should stay as
+is.
+
+>  		/* With bigjoiner multiple dsc engines are used in parallel so PPC is 2 */
+>  		int ppc = 2;
+> -		u32 max_bpp_bigjoiner =
+> -			i915->display.cdclk.max_cdclk_freq * ppc * bigjoiner_interface_bits /
+> +		max_bpp_joiner =
+> +			i915->display.cdclk.max_cdclk_freq * ppc * joiner_interface_bits /
+>  			intel_dp_mode_to_fec_clock(mode_clock);
+>  
+>  		max_bpp_small_joiner_ram *= 2;
+
+Can't we just multiply both max_* with num_joined_pipes
+to take care of both bigjoiner and ultrajoiner?
+
+>  
+> -		return min(max_bpp_small_joiner_ram, max_bpp_bigjoiner);
+>  	}
+> +	if (num_joined_pipes == 4) {
+> +		/* TODO: Check for ultrajoiner ram constraints */
+>  
+> -	return max_bpp_small_joiner_ram;
+> +		/* both get multiplied by 2, because ram bits/ppc now doubled */
+> +		max_bpp_small_joiner_ram *= 2;
+> +		max_bpp_joiner *= 2;
+> +	}
+> +
+> +	return min(max_bpp_small_joiner_ram, max_bpp_joiner);
+>  }
+>  
+>  u16 intel_dp_dsc_get_max_compressed_bpp(struct drm_i915_private *i915,
+> @@ -994,6 +1004,10 @@ u8 intel_dp_dsc_get_slice_count(const struct intel_connector *connector,
+>  		if (num_joined_pipes == 2 && test_slice_count < 4)
+>  			continue;
+>  
+> +		/* ultrajoiner needs 2 bigjoiners to be enabled */
+> +		if (num_joined_pipes == 4 && test_slice_count < 8)
+> +			continue;
+> +
+>  		if (min_slice_count <= test_slice_count)
+>  			return test_slice_count;
+>  	}
+> @@ -1270,6 +1284,18 @@ intel_dp_mode_valid_downstream(struct intel_connector *connector,
+>  	return MODE_OK;
+>  }
+>  
+> +static
+> +bool intel_dp_needs_ultrajoiner(struct intel_dp *dp, int clock)
+> +{
+> +	const struct intel_encoder *encoder = &dp_to_dig_port(dp)->base;
+> +	struct drm_i915_private *i915 = to_i915(encoder->base.dev);
+
+struct intel_display *display = intel_display(intel_dp);
 
 > +
->  void intel_dsc_enable(const struct intel_crtc_state *crtc_state)
->  {
->  	struct intel_crtc *crtc = to_intel_crtc(crtc_state->uapi.crtc);
-> @@ -770,7 +778,19 @@ void intel_dsc_enable(const struct intel_crtc_state *crtc_state)
->  		dss_ctl1_val |= JOINER_ENABLE;
+> +	if (!HAS_ULTRAJOINER(i915))
+> +		return false;
+> +
+> +	return clock > (i915->display.cdclk.max_dotclk_freq * 2);
+
+Redundant parens.
+
+> +}
+> +
+>  static
+>  bool intel_dp_needs_bigjoiner(struct intel_dp *intel_dp,
+>  			      struct intel_connector *connector,
+> @@ -1296,6 +1322,8 @@ int intel_dp_compute_num_pipes(struct intel_dp *intel_dp,
+>  		MISSING_CASE(connector->force_joined_pipes);
+>  		fallthrough;
+>  	case 0:
+> +		if (intel_dp_needs_ultrajoiner(intel_dp, clock))
+
+Hmm. Technically we should be checking the same things for both
+bigjoiner and ultrajoiner.
+
+How about something like this with parametrized number 
+of pipes:
+
+bool intel_dp_needs_joiner(struct intel_dp *intel_dp,
+                           struct intel_connector *connector,
+                           int hdisplay, int clock,
+                           int num_joined_pipes)
+{
+        if (!intel_dp_has_joiner(intel_dp))
+                return false;
+
+        num_joined_pipes /= 2;
+
+        return clock > num_joined_pipes * max_dotclk_freq ||
+                hdisplay > num_joined_pipes * 5120;
+}
+
+Pair that with HAS_*JOINER(), and pass in the correct number
+of joined pipes to get final answer.
+
+
+> +			return 4;
+>  		if (intel_dp_needs_bigjoiner(intel_dp, connector, hdisplay, clock))
+>  			return 2;
 >  	}
->  	if (crtc_state->joiner_pipes) {
-> +		/*
-> +		 * This bit doesn't seem to follow primary/secondary logic or
-> +		 * any other logic, so lets just add helper function to
-> +		 * at least hide this hassle..
-> +		 */
-> +		if (intel_crtc_ultrajoiner_enable_needed(crtc_state))
-> +			dss_ctl1_val |= ULTRA_JOINER_ENABLE;
-> +
-> +		if (intel_crtc_is_ultrajoiner_primary(crtc_state))
-> +			dss_ctl1_val |= PRIMARY_ULTRA_JOINER_ENABLE;
-> +
->  		dss_ctl1_val |= BIG_JOINER_ENABLE;
-> +
->  		if (intel_crtc_is_bigjoiner_primary(crtc_state))
->  			dss_ctl1_val |= PRIMARY_BIG_JOINER_ENABLE;
->  	}
+> @@ -2542,8 +2570,10 @@ bool intel_dp_joiner_needs_dsc(struct drm_i915_private *i915,
+>  	 * Pipe joiner needs compression up to display 12 due to bandwidth
+>  	 * limitation. DG2 onwards pipe joiner can be enabled without
+>  	 * compression.
+> +	 * Ultrajoiner always needs compression.
+>  	 */
+> -	return !HAS_UNCOMPRESSED_JOINER(i915) && num_joined_pipes == 2;
+> +	return (!HAS_UNCOMPRESSED_JOINER(i915) && num_joined_pipes == 2) ||
+> +		num_joined_pipes == 4;
+>  }
+>  
+>  static int
 > -- 
 > 2.45.2
 
