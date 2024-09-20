@@ -4,172 +4,56 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 774B2CF58C1
-	for <intel-gfx@archiver.kernel.org>; Fri, 20 Sep 2024 03:14:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1876ACF58C0
+	for <intel-gfx@archiver.kernel.org>; Fri, 20 Sep 2024 03:20:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EFB1110E2CC;
-	Fri, 20 Sep 2024 03:14:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8AC8A10E780;
+	Fri, 20 Sep 2024 03:20:09 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="Zq2IuPwZ";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="PgSbHy0J";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.13])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C012110E2C8;
- Fri, 20 Sep 2024 03:14:47 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.18])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 50EAE10E77B;
+ Fri, 20 Sep 2024 03:20:08 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1726802088; x=1758338088;
- h=date:from:to:cc:subject:message-id:references:
- in-reply-to:mime-version;
- bh=3ENNzDOFZxSXoKFDDXDNxp33wUt7HRPzHE9VkhLH2tk=;
- b=Zq2IuPwZFEQZVcyl7PNya+jWctaZN5yS3xDO3pykheZG9pJXND+rwfJB
- cc+LM3FUfriq/U9tJOB4V/wt8mGWecytQgwmfwcZ+z0HKj6I0X/31MLAz
- IJhwvbA1X9FC8q1qe38U7UUN2wv1Fwzf6UVvZmBHCKQlC8AWwNP+XYen0
- PJwrPv7N9yjQp+YYIXeG2rgwyDmgyNxNXNNNkCwDHaQYs0bMEupK/cHZq
- Ago2Y3Aks11d0mdQ+NFJ9LXbl1RkZxTTaTQzibpzBX3eDe7MFAOuQCKhF
- jFWOS6iUQS0kCx6BTNgc0Y4qTkCdqyx4PxodDqmJ+P86aZpEurcnpngp3 g==;
-X-CSE-ConnectionGUID: wwy9kx6ZR/mKu7EBzWt/8Q==
-X-CSE-MsgGUID: V+3cgh+iQVe+A6KcdkNUTA==
-X-IronPort-AV: E=McAfee;i="6700,10204,11200"; a="36929391"
-X-IronPort-AV: E=Sophos;i="6.10,243,1719903600"; d="scan'208";a="36929391"
-Received: from fmviesa009.fm.intel.com ([10.60.135.149])
- by orvoesa105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 19 Sep 2024 20:14:47 -0700
-X-CSE-ConnectionGUID: 80qLwQSOS+G1xKSaSp2+PA==
-X-CSE-MsgGUID: V2ovHlHcQ4mokukEaHx13A==
+ t=1726802408; x=1758338408;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=vgTYRvbNN6vtdOgxWqXoi+clJRO6dmTcyaYBqjo+4BA=;
+ b=PgSbHy0JTewcof+Dto5FZCfis34Jg0Cf0KofRAl3bZYYZknQdxYr4oyF
+ 4VyUIh7oU7CsMGVftun/u66/AbWew537bE7Ms1qBPAZg+BDAiZbRso/NR
+ RLfP/E5MfXCo2XNDLQBvtZK3vvTSk1KBREHNkwCnxORs6ZkgUi1GKakqL
+ 4wExGMxIDQ3SWtYzrk4LlXWNsczHHRx8bVNWKpQrgDp/1pe2jtFKBmMhA
+ 2bk/1FYojHo6+w46PPa03eMNTazKjgfEIjtVlUvRKNulZ9Ib4xpRD5XNX
+ SZyO6TppB1mZKYc/YEeRkrOtTMYzXVAKd60yKvi/bWFd0MrMCHXeFBV2/ g==;
+X-CSE-ConnectionGUID: n+GcdtAZRJOGZpvfk6U3Tw==
+X-CSE-MsgGUID: SOGVxyBJQK+9uY3aXYkOaA==
+X-IronPort-AV: E=McAfee;i="6700,10204,11200"; a="25269800"
+X-IronPort-AV: E=Sophos;i="6.10,243,1719903600"; d="scan'208";a="25269800"
+Received: from fmviesa007.fm.intel.com ([10.60.135.147])
+ by fmvoesa112.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 19 Sep 2024 20:20:08 -0700
+X-CSE-ConnectionGUID: hNFn6fGSRUiqIuNh0HRIrA==
+X-CSE-MsgGUID: B+PmJOz2THGp0g/2Lmz2tA==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.10,243,1719903600"; d="scan'208";a="70166901"
-Received: from fmsmsx601.amr.corp.intel.com ([10.18.126.81])
- by fmviesa009.fm.intel.com with ESMTP/TLS/AES256-GCM-SHA384;
- 19 Sep 2024 20:14:47 -0700
-Received: from fmsmsx612.amr.corp.intel.com (10.18.126.92) by
- fmsmsx601.amr.corp.intel.com (10.18.126.81) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.39; Thu, 19 Sep 2024 20:14:47 -0700
-Received: from fmsmsx610.amr.corp.intel.com (10.18.126.90) by
- fmsmsx612.amr.corp.intel.com (10.18.126.92) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.39; Thu, 19 Sep 2024 20:14:46 -0700
-Received: from FMSEDG603.ED.cps.intel.com (10.1.192.133) by
- fmsmsx610.amr.corp.intel.com (10.18.126.90) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.39 via Frontend Transport; Thu, 19 Sep 2024 20:14:46 -0700
-Received: from NAM02-BN1-obe.outbound.protection.outlook.com (104.47.51.49) by
- edgegateway.intel.com (192.55.55.68) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.1.2507.39; Thu, 19 Sep 2024 20:14:46 -0700
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=r/HOx8qF+nH031oUClV0gW0M99FUvjdiqIQ8vd67lcbZxidRI3zaeVUFG42sJNwuYhDNDf7D2z+QF1kBQdYU0sjUpcKwDAOUJoFMTmTfpC3+ylDxmj1M2LrgbPyeOdjdthV8oEsrtdrlNtdInKfbzwSLwYvysq30drNwjO2vbwD4iB/owwNpGZM4mL2rErpsQkP9ThxxAfSRflgrjvNy+8ydYab02N8wOSf9pNv13r18ufZdCdzQSsbKtzLAcWfDieJ7SJs4sx+VGj0qT5eRNxpA0C5euRAFbEJiBEOYSMxYOlM1en9Kz44tVlm7KuuIeatmetUJjvdN/znf7FLrxw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=3ENNzDOFZxSXoKFDDXDNxp33wUt7HRPzHE9VkhLH2tk=;
- b=wH0zVukE/x+RF0/BiV/JHLezya4r8Yw1zeA/1KFwoO8NPq9xjy9Sa+Zgex0B/ztrcJ8A2yP4swkKFs97oyos63hcPdvQJ4iWYzgD1oGIwCl+YyTTskF68sp+k6f6srazZtaUG03jo5sQ1P2mcBF5J/YYT9CIUxKDfSYB5lrzy6cYOm0rTSrvcOfTwb+9cxWb18ydHDRCXSRIjA/VmcsRvVOzdHK9nn0DLQrlbnSM28RBzZJvjbqw6wbR1HGGfjWKQ3wXN8fBW1vqgKZr2RHks1eb1JHqDy427AuA3jKBVB6Jwtfwv8cscES8Ti0rrz71ZHpxNboxHHkVjKktBmnvXw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-Received: from CY5PR11MB6139.namprd11.prod.outlook.com (2603:10b6:930:29::17)
- by IA0PR11MB7934.namprd11.prod.outlook.com (2603:10b6:208:40d::12)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7982.21; Fri, 20 Sep
- 2024 03:14:39 +0000
-Received: from CY5PR11MB6139.namprd11.prod.outlook.com
- ([fe80::7141:316f:77a0:9c44]) by CY5PR11MB6139.namprd11.prod.outlook.com
- ([fe80::7141:316f:77a0:9c44%5]) with mapi id 15.20.7982.016; Fri, 20 Sep 2024
- 03:14:38 +0000
-Date: Thu, 19 Sep 2024 22:14:33 -0500
-From: Lucas De Marchi <lucas.demarchi@intel.com>
-To: Dave Airlie <airlied@gmail.com>, Simona Vetter <simona.vetter@ffwll.ch>
-CC: Jani Nikula <jani.nikula@linux.intel.com>, Joonas Lahtinen
- <joonas.lahtinen@linux.intel.com>, Tvrtko Ursulin <tursulin@ursulin.net>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, Thomas Zimmermann
- <tzimmermann@suse.de>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas =?utf-8?Q?Hellstr=C3=B6m?=
- <thomas.hellstrom@linux.intel.com>, Oded Gabbay <ogabbay@kernel.org>,
- <dri-devel@lists.freedesktop.org>, <intel-gfx@lists.freedesktop.org>,
- <intel-xe@lists.freedesktop.org>, <dim-tools@lists.freedesktop.org>
-Subject: Re: [PULL] drm-xe-next-fixes
-Message-ID: <vlifgx557dmq22gbqw4ldjm4pjedxaqrk3ecngrzbzae6742xk@aunex327ue4x>
-References: <lr6vhd7x5eb7gubd7utfmnwzvfqfslji4kssxyqisynzlvqjni@svgm6jot7r66>
-Content-Type: text/plain; charset="us-ascii"; format=flowed
-Content-Disposition: inline
-In-Reply-To: <lr6vhd7x5eb7gubd7utfmnwzvfqfslji4kssxyqisynzlvqjni@svgm6jot7r66>
-X-ClientProxiedBy: MW4PR03CA0303.namprd03.prod.outlook.com
- (2603:10b6:303:dd::8) To CY5PR11MB6139.namprd11.prod.outlook.com
- (2603:10b6:930:29::17)
+X-IronPort-AV: E=Sophos;i="6.10,243,1719903600"; d="scan'208";a="69746176"
+Received: from relo-linux-5.jf.intel.com ([10.165.21.152])
+ by fmviesa007.fm.intel.com with ESMTP; 19 Sep 2024 20:20:08 -0700
+From: John.C.Harrison@Intel.com
+To: Intel-GFX@Lists.FreeDesktop.Org
+Cc: DRI-Devel@Lists.FreeDesktop.Org, John Harrison <John.C.Harrison@Intel.com>
+Subject: [PATCH v8 03/11] drm/xe/devcoredump: Improve section headings and add
+ tile info
+Date: Thu, 19 Sep 2024 20:19:58 -0700
+Message-ID: <20240920032007.629624-4-John.C.Harrison@Intel.com>
+X-Mailer: git-send-email 2.46.0
+In-Reply-To: <20240920032007.629624-1-John.C.Harrison@Intel.com>
+References: <20240920032007.629624-1-John.C.Harrison@Intel.com>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CY5PR11MB6139:EE_|IA0PR11MB7934:EE_
-X-MS-Office365-Filtering-Correlation-Id: 97f194bf-bcec-422e-2de4-08dcd9225c93
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|366016|376014|7416014|1800799024;
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?IS6S7lrr3wfNVjAtIUE5zMNzHiA8OAZlrfw+uefi20oH9EAVybutMW75Eopy?=
- =?us-ascii?Q?ILyxFFfYLUMXQ8RpV2bqgfkN0sAsLEltGulpDiIHCRElQsDxoTiAWQqvFyIg?=
- =?us-ascii?Q?Ny9Uv/QDnLgRkH+dAU6nd+6Cs7uo11pWlI7tjQKlFe1sm9mauJBtcY82GwNo?=
- =?us-ascii?Q?KbJXLYhvSdYfyrhuy8aPh/xUNVDSFNbvcctM1ZNTpY22gUF6GGVRxWsu0Bp3?=
- =?us-ascii?Q?MMFqUeVnSuFbvNnZm28ZQqlAnpe2dhCaGvofF/24lCaqUHQCIHBnWwRK/1ib?=
- =?us-ascii?Q?05kZAVq6eHVNXdq9f7Q9a6U48tSOqMhjpPTWYfgNySOZYCC25+vnQaLJwKfq?=
- =?us-ascii?Q?XLpN0PWmDom27Sd/3CXqPHYH+yxqyeOP0wCV7HhLZPgI3Nhj8o4bQReYhgFq?=
- =?us-ascii?Q?mhHq3oAZyitjMZf3UD6SlyitPOKBAIxzBcWDm8GLbfT4DTYlFdKKCkWXlW59?=
- =?us-ascii?Q?TW28sMuHx4DfBuKBcHQyl5bLmPyH3qN1LggnAw8CheQEPr1O9zZu8kSc4q6Y?=
- =?us-ascii?Q?eoPddN10VGExnSzvJnsQoSUPRfHel1eUPwGmdivz5GW+LwbE6CNM0LJ6BCGR?=
- =?us-ascii?Q?r+15UIuAOAbF/qBPJnnkp7ZGmO773Dg6ay6STq7xfiuvoiuVnDwAX/7XRlJc?=
- =?us-ascii?Q?Z0J549oBM62mKlL0w8nZrfewC+qaGZPl+Zsw9IPGWON1PIStw/4rOPkR8CSe?=
- =?us-ascii?Q?rE0FyU3uQvcpscxQkWg0EBbCO9oicy7GeQdcT4vf2Go/XcYocLVxUKqtv51N?=
- =?us-ascii?Q?pQfApRjElxLHxgLh4C9pOCyuNb70Bc6SCVqpyNSWLVR3vW38lHrUbHESJMV1?=
- =?us-ascii?Q?pcwI4CneDGSg00AvpsQNymT66b1r/2eQTKgZd5HDzd7OQqz69yzb7a8NHPKJ?=
- =?us-ascii?Q?pg00+PL1p3M1c7/HsFw8lMSWJQuLC0vm2YkR1ei2YiwzBtFkkI2oX6G3U1Zi?=
- =?us-ascii?Q?9fbu48bAY5A1lJNupN6/YeEM7caG9tlRh5J7y4fC6FHVDsCpHpX2jrlFUDEk?=
- =?us-ascii?Q?vrKA4VfH7LV+x3DfrIWJx8GDWEkpESKIHUbe+JyTZOWjbi6dLfP2XDHpbWgw?=
- =?us-ascii?Q?y2Wt8REZGO/nVJTPPhxRA0gatHGMRxP6KjuNQIhN0ZCt5QHW8ItCpzqB1W11?=
- =?us-ascii?Q?mo3Att4AwIWDYpI/RMCTHp8Gckpj1LmsikwcJaoJZxR/cYYVQiY3Ca3Cjj4V?=
- =?us-ascii?Q?CXuxlfeV8bNRIcYR2m8jHlsnuc1VswwN49jPJUPCbOZ6CbVppcA/EZ9T3KVO?=
- =?us-ascii?Q?ximZvbf9m75c/dnwu7WfYvauLegbRdGDFr1KHfnmE94x/R1tbFugkGv0kpXE?=
- =?us-ascii?Q?Gs4FRyPR9qZyr3E+WD2E26+SM5NIihddGIlTAT9GIU6YXQ=3D=3D?=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:CY5PR11MB6139.namprd11.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(376014)(7416014)(1800799024); DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?sLpUAWc/EdFAhTBz1LFFATOL651ix5jvEnsW+6+e+dgcuuotsPt4G7UFWb4z?=
- =?us-ascii?Q?DxrQ+AtelaMBtA3CtsTdePmMUXj2dDmtoMFpSbHrU1mPguKyNfRh5jDmAbUm?=
- =?us-ascii?Q?2tqh2B6J0og6zkSk90fCKvmIseXXrU3wpGNEHwi+Qz6enNKdXcreT8gBXqi1?=
- =?us-ascii?Q?b48UuKSAL2ndZjZE6sLzbMz1qupqFafYB+EUx5Z0jIbG65kK8xeX87MmdTio?=
- =?us-ascii?Q?9fWToVFTlqtwi/oHP3YJTSRo1IO+eo4vcfhxD8kQz5t3Xkji8XMEvsxyPHlE?=
- =?us-ascii?Q?N+GnCDgIQEd+LlSZMS5/8/oHsplgf9u6jppcCZfDuHPJu7ZpgfGh7Kw+p4PF?=
- =?us-ascii?Q?D+6Wr5tGzGEiBewHa8A3OLdeSu0fXTRX9EqRC0Gb6Q4emfmIyU+sYlvSgdqi?=
- =?us-ascii?Q?eLtmEpYK7282grvRvkbpucEV+jf7FTVKsdlerLmHJojno4gHryg8zFFiKxbM?=
- =?us-ascii?Q?xYRbz4un+y/JVRn7jD3pttnoS0eoW5l0Z9cNRYuKKU9dVOS0BydG6NYZv2wv?=
- =?us-ascii?Q?L0+qwuHNCQQDNfTTYCnC6foY3qbZN0S9IvpV8JEq+i4YohCH9nyzuvY+k99z?=
- =?us-ascii?Q?j+3ZXuMRSLFiZGwb7WQczf4F2rN9WX426xtOz7cyCPXQyXVZGK9B2qVDMkqm?=
- =?us-ascii?Q?gKKBAIsMstqsneP/eVuOqJh0GoeLE6WoV5bJ78PPn0SGwfIptPV8z2Bvv4AT?=
- =?us-ascii?Q?3CeOVJ7kmISYenNJ1+QUND3R4S91v1yK04x/anXCEZs/Vzs8E69ixeELZU42?=
- =?us-ascii?Q?mivI7Ly0Sz2mQWtEv7w7VfA7ggHO0M6KCRSzurRF4FUHqI4/OKnSNjjTcmZ9?=
- =?us-ascii?Q?dwJx1wl3VuhvEHLBVtKNkZ5wdR++7nhxJfCKRS5NUbyrA/9aPKW1nkWoRkue?=
- =?us-ascii?Q?b92/TazDOwcKZdjBplwNoCihfu0XWlQHMwnZyWZnKljJSKXl8654med9b2ZJ?=
- =?us-ascii?Q?lL3UXtgZkT7FXXwc/eqM7RZiE2xWvX0V4GtXLaEYVzgSttmHOaSmoBD8CXjj?=
- =?us-ascii?Q?/puD1jsFL7I5CQnt971LRo6K1jD5fWAjYbl1M6Lll0FMDG97maYLiHLabMmR?=
- =?us-ascii?Q?54QeIq+UneirRKmVa4bwAOc5WFVr4GvgvabymPC9F+u98fCrrwD/almnqnwK?=
- =?us-ascii?Q?9PZ4rjdNu6zz3ypSy+bjmG7AcKkY/yavzffcv9Szd3wwRH3wgqugZ+k993Yy?=
- =?us-ascii?Q?VsljbEP9IZIMun2Gdfhxk3IRR1TeLCpGhiplJnydQpKIUp6ONB18nlsnH7RL?=
- =?us-ascii?Q?kQk6fck9nYJC8GhmnWGiIadVaELH3It5FwZkpZlAwlD5muLbNNpQzCj6ns8V?=
- =?us-ascii?Q?B5ll1cRwUMuu8x+tbX1hcA6nzFfigoe3YpOM8HmXOYP5Oe1YIct2UTJzuZEw?=
- =?us-ascii?Q?MbUSnuvB/D+5Uo8ERUMIBhIeOAXAQVlnn9J3VkHfjOdLKDrwBRA482wvaEmJ?=
- =?us-ascii?Q?WXAo33oURKyF2OOG7DBKPZKN+FVSJocJJZMcN23/JqsbJwOzcN11RoIQMsRo?=
- =?us-ascii?Q?fhaw3gjA8z+iLo1dQZMUfjguhFi5nC+PiUG0ZtYnv1D/TAugZ1MgwbJFLTsI?=
- =?us-ascii?Q?KuKEQlSLgEeadLU+yJA+BX0g5ZVo+cUPrWFiG2KTA+nJnC1y5+iKJcGFManV?=
- =?us-ascii?Q?0g=3D=3D?=
-X-MS-Exchange-CrossTenant-Network-Message-Id: 97f194bf-bcec-422e-2de4-08dcd9225c93
-X-MS-Exchange-CrossTenant-AuthSource: CY5PR11MB6139.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Sep 2024 03:14:38.6021 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 0rv7Gz6fvttVbELMLkMtBijm03W8UQhj+mNQBCTix1Vd1hbAHVeeE7YCkXh9PdY+Z325JzPDU5vxy7hGFmwxpCtIKZYNRpdocHEoEjjp53c=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR11MB7934
-X-OriginatorOrg: intel.com
+Organization: Intel Corporation (UK) Ltd. - Co. Reg. #1134945 - Pipers Way,
+ Swindon SN3 1RJ
+Content-Transfer-Encoding: 8bit
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -185,11 +69,103 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Thu, Sep 19, 2024 at 09:56:47PM GMT, Lucas De Marchi wrote:
->Hi Dave and Simona,
->
->A few fixes for 6.11-rc1.
+From: John Harrison <John.C.Harrison@Intel.com>
 
-oops, I meant 6.12-rc1, of course :)
+The xe_guc_exec_queue_snapshot is not really a GuC internal thing and
+is definitely not a GuC CT thing. So give it its own section heading.
+The snapshot itself is really a capture of the submission backend's
+internal state. Although all it currently prints out is the submission
+contexts. So label it as 'Contexts'. If more general state is added
+later then it could be change to 'Submission backend' or some such.
 
-Lucas De Marchi
+Further, everything from the GuC CT section onwards is GT specific but
+there was no indication of which GT it was related to (and that is
+impossible to work out from the other fields that are given). So add a
+GT section heading. Also include the tile id of the GT, because again
+significant information.
+
+Lastly, drop a couple of unnecessary line feeds within sections.
+
+v2: Add GT section heading, add tile id to device section.
+
+Signed-off-by: John Harrison <John.C.Harrison@Intel.com>
+---
+ drivers/gpu/drm/xe/xe_devcoredump.c       | 5 +++++
+ drivers/gpu/drm/xe/xe_devcoredump_types.h | 3 ++-
+ drivers/gpu/drm/xe/xe_device.c            | 1 +
+ drivers/gpu/drm/xe/xe_guc_submit.c        | 2 +-
+ drivers/gpu/drm/xe/xe_hw_engine.c         | 1 -
+ 5 files changed, 9 insertions(+), 3 deletions(-)
+
+diff --git a/drivers/gpu/drm/xe/xe_devcoredump.c b/drivers/gpu/drm/xe/xe_devcoredump.c
+index d23719d5c2a3..2690f1d1cde4 100644
+--- a/drivers/gpu/drm/xe/xe_devcoredump.c
++++ b/drivers/gpu/drm/xe/xe_devcoredump.c
+@@ -96,8 +96,13 @@ static ssize_t __xe_devcoredump_read(char *buffer, size_t count,
+ 	drm_printf(&p, "Process: %s\n", ss->process_name);
+ 	xe_device_snapshot_print(xe, &p);
+ 
++	drm_printf(&p, "\n**** GT #%d ****\n", ss->gt->info.id);
++	drm_printf(&p, "\tTile: %d\n", ss->gt->tile->id);
++
+ 	drm_puts(&p, "\n**** GuC CT ****\n");
+ 	xe_guc_ct_snapshot_print(ss->ct, &p);
++
++	drm_puts(&p, "\n**** Contexts ****\n");
+ 	xe_guc_exec_queue_snapshot_print(ss->ge, &p);
+ 
+ 	drm_puts(&p, "\n**** Job ****\n");
+diff --git a/drivers/gpu/drm/xe/xe_devcoredump_types.h b/drivers/gpu/drm/xe/xe_devcoredump_types.h
+index 440d05d77a5a..3cc2f095fdfb 100644
+--- a/drivers/gpu/drm/xe/xe_devcoredump_types.h
++++ b/drivers/gpu/drm/xe/xe_devcoredump_types.h
+@@ -37,7 +37,8 @@ struct xe_devcoredump_snapshot {
+ 	/* GuC snapshots */
+ 	/** @ct: GuC CT snapshot */
+ 	struct xe_guc_ct_snapshot *ct;
+-	/** @ge: Guc Engine snapshot */
++
++	/** @ge: GuC Submission Engine snapshot */
+ 	struct xe_guc_submit_exec_queue_snapshot *ge;
+ 
+ 	/** @hwe: HW Engine snapshot array */
+diff --git a/drivers/gpu/drm/xe/xe_device.c b/drivers/gpu/drm/xe/xe_device.c
+index 4d3c794f134c..178e5346979c 100644
+--- a/drivers/gpu/drm/xe/xe_device.c
++++ b/drivers/gpu/drm/xe/xe_device.c
+@@ -955,6 +955,7 @@ void xe_device_snapshot_print(struct xe_device *xe, struct drm_printer *p)
+ 
+ 	for_each_gt(gt, xe, id) {
+ 		drm_printf(p, "GT id: %u\n", id);
++		drm_printf(p, "\tTile: %u\n", gt->tile->id);
+ 		drm_printf(p, "\tType: %s\n",
+ 			   gt->info.type == XE_GT_TYPE_MAIN ? "main" : "media");
+ 		drm_printf(p, "\tIP ver: %u.%u.%u\n",
+diff --git a/drivers/gpu/drm/xe/xe_guc_submit.c b/drivers/gpu/drm/xe/xe_guc_submit.c
+index a98b85129076..4bc5793f627b 100644
+--- a/drivers/gpu/drm/xe/xe_guc_submit.c
++++ b/drivers/gpu/drm/xe/xe_guc_submit.c
+@@ -2209,7 +2209,7 @@ xe_guc_exec_queue_snapshot_print(struct xe_guc_submit_exec_queue_snapshot *snaps
+ 	if (!snapshot)
+ 		return;
+ 
+-	drm_printf(p, "\nGuC ID: %d\n", snapshot->guc.id);
++	drm_printf(p, "GuC ID: %d\n", snapshot->guc.id);
+ 	drm_printf(p, "\tName: %s\n", snapshot->name);
+ 	drm_printf(p, "\tClass: %d\n", snapshot->class);
+ 	drm_printf(p, "\tLogical mask: 0x%x\n", snapshot->logical_mask);
+diff --git a/drivers/gpu/drm/xe/xe_hw_engine.c b/drivers/gpu/drm/xe/xe_hw_engine.c
+index a7abc4b67e67..3ae3713f503b 100644
+--- a/drivers/gpu/drm/xe/xe_hw_engine.c
++++ b/drivers/gpu/drm/xe/xe_hw_engine.c
+@@ -1057,7 +1057,6 @@ void xe_hw_engine_snapshot_print(struct xe_hw_engine_snapshot *snapshot,
+ 	if (snapshot->hwe->class == XE_ENGINE_CLASS_COMPUTE)
+ 		drm_printf(p, "\tRCU_MODE: 0x%08x\n",
+ 			   snapshot->reg.rcu_mode);
+-	drm_puts(p, "\n");
+ }
+ 
+ /**
+-- 
+2.46.0
+
