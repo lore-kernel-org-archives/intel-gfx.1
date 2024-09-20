@@ -4,48 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 68874CF58C2
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BECD1CF58C1
 	for <intel-gfx@archiver.kernel.org>; Fri, 20 Sep 2024 03:20:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1019510E787;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7D6DE10E788;
 	Fri, 20 Sep 2024 03:20:11 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="EaGAQuem";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="RVFnUV0M";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.18])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7654E10E6FD;
- Fri, 20 Sep 2024 03:20:08 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 63F8A10E77E;
+ Fri, 20 Sep 2024 03:20:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1726802408; x=1758338408;
+ t=1726802409; x=1758338409;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=Fs+XtVZS44nUEnynpVBODDwfTEqbVLcWu7ct5t+H1QI=;
- b=EaGAQuem4Rj+UbGzDXgx1au3BvokCC4W1MOgxys8Moz+FKg6vPW2AfIK
- Pzr7keIcyWYl6zkXoyIGpIwfLlSRX7NMinepO6cy5xmuffDtzRp8ruQWg
- Ifl/aLYdOIhCD/2qP0Fv054LbFFj2qGliV0NBxsCYgrDTTqiMtYbqjTZA
- iKS524w4GIbxgBj/N4TAkpp6tyl8gofOejYOVAPdGwrUOMO0SDwSbOZtw
- 3OcL3e4sNcFxgkm2n1rdpMC6K7WCZqwANSqUpRihBVOh67HwSeAyTHsb2
- jNpxmAKMk4NO4ThT24RdxuL/e0PzWLU4OkLkml7w2MTUZFqi+h22zcmSR g==;
-X-CSE-ConnectionGUID: tfWEpHUySsusv6uR3JYI/g==
-X-CSE-MsgGUID: s2L9hy2fSmKcR59LoMWS3g==
-X-IronPort-AV: E=McAfee;i="6700,10204,11200"; a="25269801"
-X-IronPort-AV: E=Sophos;i="6.10,243,1719903600"; d="scan'208";a="25269801"
+ bh=ZX08GJ+B7S70HH6Udtlg1KJsdNtorenXuuQa0d4IjK4=;
+ b=RVFnUV0M2j0o152v1cn7tUhEQxHCzKQnPBrSQgj1Pl7LPcLNk/jhFC04
+ vrGqzmaj7V84E85KsjiyU+9EZOCqdmU6GLoFsMGCiOfiRDOKRDt6YQ1BQ
+ ZJYDMSE+FZWtp2CHBu4mbTttSFs/y0iEMLBdgEC/2SBlQ4W5NoY4gl8vB
+ VtWsQn1Qjq6xohCNNCrljYFSVhocw/R11hh6zYiQ4h6SrkblTQ/LTecmg
+ l6hjVeAMtA+7Y2eQLLrHOYwseaNBPrrXHouY4LKWS9L+urpo10nnH09AM
+ SaOziOUr2ikTbqyhKEq/cjvZ/KdCtecQiX5npzL+uMp0eKFIqRkx64hMG g==;
+X-CSE-ConnectionGUID: GJjmQ0/pSQmnFrpYR9MdEg==
+X-CSE-MsgGUID: fsuL/8zvRTabyjp/OjGIIw==
+X-IronPort-AV: E=McAfee;i="6700,10204,11200"; a="25269809"
+X-IronPort-AV: E=Sophos;i="6.10,243,1719903600"; d="scan'208";a="25269809"
 Received: from fmviesa007.fm.intel.com ([10.60.135.147])
  by fmvoesa112.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 19 Sep 2024 20:20:08 -0700
-X-CSE-ConnectionGUID: VTX0X5azQ1uuEwZDbahpEA==
-X-CSE-MsgGUID: MGoCovnGSEmtNCAC1hmFlw==
+ 19 Sep 2024 20:20:09 -0700
+X-CSE-ConnectionGUID: NDf72ZJoRG+HFgsk0o1QZg==
+X-CSE-MsgGUID: DJkHyfMwQ2e33GYgJSTfWw==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.10,243,1719903600"; d="scan'208";a="69746179"
+X-IronPort-AV: E=Sophos;i="6.10,243,1719903600"; d="scan'208";a="69746197"
 Received: from relo-linux-5.jf.intel.com ([10.165.21.152])
- by fmviesa007.fm.intel.com with ESMTP; 19 Sep 2024 20:20:08 -0700
+ by fmviesa007.fm.intel.com with ESMTP; 19 Sep 2024 20:20:09 -0700
 From: John.C.Harrison@Intel.com
 To: Intel-GFX@Lists.FreeDesktop.Org
-Cc: DRI-Devel@Lists.FreeDesktop.Org, John Harrison <John.C.Harrison@Intel.com>
-Subject: [PATCH v8 04/11] drm/xe/devcoredump: Add ASCII85 dump helper function
-Date: Thu, 19 Sep 2024 20:19:59 -0700
-Message-ID: <20240920032007.629624-5-John.C.Harrison@Intel.com>
+Cc: DRI-Devel@Lists.FreeDesktop.Org, John Harrison <John.C.Harrison@Intel.com>,
+ Julia Filipchuk <julia.filipchuk@intel.com>
+Subject: [PATCH v8 10/11] drm/xe/guc: Add GuC log to devcoredump captures
+Date: Thu, 19 Sep 2024 20:20:05 -0700
+Message-ID: <20240920032007.629624-11-John.C.Harrison@Intel.com>
 X-Mailer: git-send-email 2.46.0
 In-Reply-To: <20240920032007.629624-1-John.C.Harrison@Intel.com>
 References: <20240920032007.629624-1-John.C.Harrison@Intel.com>
@@ -70,149 +71,95 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 From: John Harrison <John.C.Harrison@Intel.com>
 
-There is a need to include the GuC log and other large binary objects
-in core dumps and via dmesg. So add a helper for dumping to a printer
-function via conversion to ASCII85 encoding.
+Include the GuC log in devcoredump captures because they can be useful
+with debugging certain types of bug.
 
-Another issue with dumping such a large buffer is that it can be slow,
-especially if dumping to dmesg over a serial port. So add a yield to
-prevent the 'task has been stuck for 120s' kernel hang check feature
-from firing.
-
-v2: Add a prefix to the output string. Fix memory allocation bug.
-v3: Correct a string size calculation and clean up a define (review
-feedback from Julia F).
+v2: Fix kerneldoc
+v3: Drop module parameter as now using more compact ascii85 encoding
+rather than hexdump (although still not compressed) (review feedback
+from Matthew B). Rebase onto recent refactoring of devcoredump code.
+v4: Don't move the submission snapshot inside the GuC internals
+structure 'cos it really doesn't belong there.
 
 Signed-off-by: John Harrison <John.C.Harrison@Intel.com>
+Reviewed-by: Julia Filipchuk <julia.filipchuk@intel.com>
 ---
- drivers/gpu/drm/xe/xe_devcoredump.c | 87 +++++++++++++++++++++++++++++
- drivers/gpu/drm/xe/xe_devcoredump.h |  6 ++
- 2 files changed, 93 insertions(+)
+ drivers/gpu/drm/xe/xe_devcoredump.c       | 16 ++++++++++++----
+ drivers/gpu/drm/xe/xe_devcoredump_types.h | 10 +++++++---
+ 2 files changed, 19 insertions(+), 7 deletions(-)
 
 diff --git a/drivers/gpu/drm/xe/xe_devcoredump.c b/drivers/gpu/drm/xe/xe_devcoredump.c
-index 2690f1d1cde4..0884c49942fe 100644
+index 0884c49942fe..a2d816713489 100644
 --- a/drivers/gpu/drm/xe/xe_devcoredump.c
 +++ b/drivers/gpu/drm/xe/xe_devcoredump.c
-@@ -6,6 +6,7 @@
- #include "xe_devcoredump.h"
- #include "xe_devcoredump_types.h"
+@@ -18,8 +18,10 @@
+ #include "xe_gt.h"
+ #include "xe_gt_printk.h"
+ #include "xe_guc_ct.h"
++#include "xe_guc_log.h"
+ #include "xe_guc_submit.h"
+ #include "xe_hw_engine.h"
++#include "xe_module.h"
+ #include "xe_sched_job.h"
+ #include "xe_vm.h"
  
-+#include <linux/ascii85.h>
- #include <linux/devcoredump.h>
- #include <generated/utsrelease.h>
+@@ -100,8 +102,10 @@ static ssize_t __xe_devcoredump_read(char *buffer, size_t count,
+ 	drm_printf(&p, "\n**** GT #%d ****\n", ss->gt->info.id);
+ 	drm_printf(&p, "\tTile: %d\n", ss->gt->tile->id);
  
-@@ -315,3 +316,89 @@ int xe_devcoredump_init(struct xe_device *xe)
- }
++	drm_puts(&p, "\n**** GuC Log ****\n");
++	xe_guc_log_snapshot_print(ss->guc.log, &p);
+ 	drm_puts(&p, "\n**** GuC CT ****\n");
+-	xe_guc_ct_snapshot_print(ss->ct, &p);
++	xe_guc_ct_snapshot_print(ss->guc.ct, &p);
  
- #endif
-+
-+/**
-+ * xe_print_blob_ascii85 - print a BLOB to some useful location in ASCII85
-+ *
-+ * The output is split to multiple lines because some print targets, e.g. dmesg
-+ * cannot handle arbitrarily long lines. Note also that printing to dmesg in
-+ * piece-meal fashion is not possible, each separate call to drm_puts() has a
-+ * line-feed automatically added! Therefore, the entire output line must be
-+ * constructed in a local buffer first, then printed in one atomic output call.
-+ *
-+ * There is also a scheduler yield call to prevent the 'task has been stuck for
-+ * 120s' kernel hang check feature from firing when printing to a slow target
-+ * such as dmesg over a serial port.
-+ *
-+ * TODO: Add compression prior to the ASCII85 encoding to shrink huge buffers down.
-+ *
-+ * @p: the printer object to output to
-+ * @prefix: optional prefix to add to output string
-+ * @blob: the Binary Large OBject to dump out
-+ * @offset: offset in bytes to skip from the front of the BLOB, must be a multiple of sizeof(u32)
-+ * @size: the size in bytes of the BLOB, must be a multiple of sizeof(u32)
-+ */
-+void xe_print_blob_ascii85(struct drm_printer *p, const char *prefix,
-+			   const void *blob, size_t offset, size_t size)
-+{
-+	const u32 *blob32 = (const u32 *)blob;
-+	char buff[ASCII85_BUFSZ], *line_buff;
-+	size_t line_pos = 0;
-+
-+#define DMESG_MAX_LINE_LEN	800
-+#define MIN_SPACE		(ASCII85_BUFSZ + 2)		/* 85 + "\n\0" */
-+
-+	if (size & 3)
-+		drm_printf(p, "Size not word aligned: %zu", size);
-+	if (offset & 3)
-+		drm_printf(p, "Offset not word aligned: %zu", size);
-+
-+	line_buff = kzalloc(DMESG_MAX_LINE_LEN, GFP_KERNEL);
-+	if (IS_ERR_OR_NULL(line_buff)) {
-+		drm_printf(p, "Failed to allocate line buffer: %pe", line_buff);
-+		return;
-+	}
-+
-+	blob32 += offset / sizeof(*blob32);
-+	size /= sizeof(*blob32);
-+
-+	if (prefix) {
-+		strscpy(line_buff, prefix, DMESG_MAX_LINE_LEN - MIN_SPACE - 2);
-+		line_pos = strlen(line_buff);
-+
-+		line_buff[line_pos++] = ':';
-+		line_buff[line_pos++] = ' ';
-+	}
-+
-+	while (size--) {
-+		u32 val = *(blob32++);
-+
-+		strscpy(line_buff + line_pos, ascii85_encode(val, buff),
-+			DMESG_MAX_LINE_LEN - line_pos);
-+		line_pos += strlen(line_buff + line_pos);
-+
-+		if ((line_pos + MIN_SPACE) >= DMESG_MAX_LINE_LEN) {
-+			line_buff[line_pos++] = '\n';
-+			line_buff[line_pos++] = 0;
-+
-+			drm_puts(p, line_buff);
-+
-+			line_pos = 0;
-+
-+			/* Prevent 'stuck thread' time out errors */
-+			cond_resched();
-+		}
-+	}
-+
-+	if (line_pos) {
-+		line_buff[line_pos++] = '\n';
-+		line_buff[line_pos++] = 0;
-+
-+		drm_puts(p, line_buff);
-+	}
-+
-+	kfree(line_buff);
-+
-+#undef MIN_SPACE
-+#undef DMESG_MAX_LINE_LEN
-+}
-diff --git a/drivers/gpu/drm/xe/xe_devcoredump.h b/drivers/gpu/drm/xe/xe_devcoredump.h
-index e2fa65ce0932..a4eebc285fc8 100644
---- a/drivers/gpu/drm/xe/xe_devcoredump.h
-+++ b/drivers/gpu/drm/xe/xe_devcoredump.h
-@@ -6,6 +6,9 @@
- #ifndef _XE_DEVCOREDUMP_H_
- #define _XE_DEVCOREDUMP_H_
+ 	drm_puts(&p, "\n**** Contexts ****\n");
+ 	xe_guc_exec_queue_snapshot_print(ss->ge, &p);
+@@ -124,8 +128,11 @@ static void xe_devcoredump_snapshot_free(struct xe_devcoredump_snapshot *ss)
+ {
+ 	int i;
  
-+#include <linux/types.h>
+-	xe_guc_ct_snapshot_free(ss->ct);
+-	ss->ct = NULL;
++	xe_guc_log_snapshot_free(ss->guc.log);
++	ss->guc.log = NULL;
 +
-+struct drm_printer;
- struct xe_device;
- struct xe_sched_job;
++	xe_guc_ct_snapshot_free(ss->guc.ct);
++	ss->guc.ct = NULL;
  
-@@ -23,4 +26,7 @@ static inline int xe_devcoredump_init(struct xe_device *xe)
- }
- #endif
+ 	xe_guc_exec_queue_snapshot_free(ss->ge);
+ 	ss->ge = NULL;
+@@ -253,7 +260,8 @@ static void devcoredump_snapshot(struct xe_devcoredump *coredump,
+ 	if (xe_force_wake_get(gt_to_fw(q->gt), XE_FORCEWAKE_ALL))
+ 		xe_gt_info(ss->gt, "failed to get forcewake for coredump capture\n");
  
-+void xe_print_blob_ascii85(struct drm_printer *p, const char *prefix,
-+			   const void *blob, size_t offset, size_t size);
-+
- #endif
+-	ss->ct = xe_guc_ct_snapshot_capture(&guc->ct, true);
++	ss->guc.log = xe_guc_log_snapshot_capture(&guc->log, true);
++	ss->guc.ct = xe_guc_ct_snapshot_capture(&guc->ct, true);
+ 	ss->ge = xe_guc_exec_queue_snapshot_capture(q);
+ 	ss->job = xe_sched_job_snapshot_capture(job);
+ 	ss->vm = xe_vm_snapshot_capture(q->vm);
+diff --git a/drivers/gpu/drm/xe/xe_devcoredump_types.h b/drivers/gpu/drm/xe/xe_devcoredump_types.h
+index 3cc2f095fdfb..06ac75ce63dd 100644
+--- a/drivers/gpu/drm/xe/xe_devcoredump_types.h
++++ b/drivers/gpu/drm/xe/xe_devcoredump_types.h
+@@ -34,9 +34,13 @@ struct xe_devcoredump_snapshot {
+ 	/** @work: Workqueue for deferred capture outside of signaling context */
+ 	struct work_struct work;
+ 
+-	/* GuC snapshots */
+-	/** @ct: GuC CT snapshot */
+-	struct xe_guc_ct_snapshot *ct;
++	/** @guc: GuC snapshots */
++	struct {
++		/** @guc.ct: GuC CT snapshot */
++		struct xe_guc_ct_snapshot *ct;
++		/** @guc.log: GuC log snapshot */
++		struct xe_guc_log_snapshot *log;
++	} guc;
+ 
+ 	/** @ge: GuC Submission Engine snapshot */
+ 	struct xe_guc_submit_exec_queue_snapshot *ge;
 -- 
 2.46.0
 
