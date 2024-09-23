@@ -4,60 +4,56 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 21F07CF9C6F
-	for <intel-gfx@archiver.kernel.org>; Mon, 23 Sep 2024 18:54:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B124BCF9C6F
+	for <intel-gfx@archiver.kernel.org>; Mon, 23 Sep 2024 19:03:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AF3BD10E46B;
-	Mon, 23 Sep 2024 18:54:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 40E0610E478;
+	Mon, 23 Sep 2024 19:03:42 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="h2/gSCfv";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="TdKLUIYG";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.16])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0D7A710E46B;
- Mon, 23 Sep 2024 18:54:17 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.8])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2B41910E47D
+ for <intel-gfx@lists.freedesktop.org>; Mon, 23 Sep 2024 19:03:40 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1727117657; x=1758653657;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:content-transfer-encoding:in-reply-to;
- bh=LIbvuvRpEoNGZwQjIrlmbWrYwiZk0G6HMRP5J5Ooh5o=;
- b=h2/gSCfvhnMvGOnCxuanuOWK1Ptrx48cPEHQveMhplIuhByOLC9WeRMZ
- BWTt9mvqLUpDBXF2cqjzmj+7BPkzwQUxrxSjmyGAJXkfdcpkJgfYFAard
- 52yZQSnqzSuqTa0Nf+2HdqV3tIoevTbTh/os7NFPZ+hGjUEx4PkPVJHLb
- g6eIbIO/zCMtS2ghf1UaaSxS3MYqwBbpodWy0mVHXiP31lbjJ6qkW57kA
- 2+WDa1cIahIG5U7N8kk9z3vo9Xqlzp6lUSnp2piEVDNfYqfHkP+NVgS/w
- brXT6D3U9+GrTwTszaaJbq+lIeS9Va1loKS8LOevB1xb6IRrZ530ON4wh Q==;
-X-CSE-ConnectionGUID: mlpdsGIzSOKeVzxp4SqbMQ==
-X-CSE-MsgGUID: vdYbqmufSeWVVz+myS+91A==
-X-IronPort-AV: E=McAfee;i="6700,10204,11204"; a="13713993"
-X-IronPort-AV: E=Sophos;i="6.10,252,1719903600"; d="scan'208";a="13713993"
-Received: from fmviesa008.fm.intel.com ([10.60.135.148])
- by fmvoesa110.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 Sep 2024 11:54:17 -0700
-X-CSE-ConnectionGUID: QT1dLQX2TVClEsF6PiS+bg==
-X-CSE-MsgGUID: NT3CYd/YS/2ADUTXRvYo7g==
+ t=1727118220; x=1758654220;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=+Ak7RRhj7S98HOmxJ1bMg+fBMnq9j62qR2I0jOWuqDk=;
+ b=TdKLUIYGIMH6ZawUPcAbE8FjvnSe2mwzc1G4SmVXDZLaW4ABHYIlYQAv
+ wqTlnW1qnrOCwH2Oz1mxFBKQO3tPdNPFmExG7gxoLZREeMHeA2eOWOD6v
+ IOZcUrE14aMXJH/e6dcwb3JJnkjklmoeb8Q4bBP/jS5dt66fXgbr4yKxL
+ pFG8GWl5gfptSay1xlkgWtYHP5M9iNhdl6RQINt72JuHf5GiFWY3EUEht
+ eaLMDBYuEQ/4lEMz8vCIBozDGNzeP373Ekmpb/MczdB3S83vZkzdT+1yh
+ qXOILGrNlYeDKvth2QHStew4LC+I+DmaAS+nIcQkT+6I886fqIhDwC2P4 Q==;
+X-CSE-ConnectionGUID: kc5ppg2HQx6ONGrsNx8K+Q==
+X-CSE-MsgGUID: wYznDRysRka+0p2GvVRPVg==
+X-IronPort-AV: E=McAfee;i="6700,10204,11204"; a="43601314"
+X-IronPort-AV: E=Sophos;i="6.10,252,1719903600"; d="scan'208";a="43601314"
+Received: from orviesa008.jf.intel.com ([10.64.159.148])
+ by fmvoesa102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 23 Sep 2024 12:03:37 -0700
+X-CSE-ConnectionGUID: OM6zKmJrTwGLSLpTz36Ipg==
+X-CSE-MsgGUID: xOrSA5QBRpWbUdiiT8CBEA==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.10,252,1719903600"; d="scan'208";a="71301139"
-Received: from stinkpipe.fi.intel.com (HELO stinkbox) ([10.237.72.74])
- by fmviesa008.fm.intel.com with SMTP; 23 Sep 2024 11:54:14 -0700
-Received: by stinkbox (sSMTP sendmail emulation);
- Mon, 23 Sep 2024 21:54:13 +0300
-Date: Mon, 23 Sep 2024 21:54:13 +0300
-From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
-To: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
-Cc: intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
- suraj.kandpal@intel.com
-Subject: Re: [PATCH 11/16] drm/i915/display/vdsc: Add ultrajoiner support
- with DSC
-Message-ID: <ZvG5VXgbs2d7eOWH@intel.com>
-References: <20240923181336.3303940-1-ankit.k.nautiyal@intel.com>
- <20240923181336.3303940-12-ankit.k.nautiyal@intel.com>
+X-IronPort-AV: E=Sophos;i="6.10,252,1719903600"; d="scan'208";a="71997357"
+Received: from bmurrell-mobl.amr.corp.intel.com (HELO gjsousa-mobl2.intel.com)
+ ([10.125.110.180])
+ by orviesa008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 23 Sep 2024 12:03:36 -0700
+From: Gustavo Sousa <gustavo.sousa@intel.com>
+To: intel-gfx@lists.freedesktop.org
+Cc: Matt Roper <matthew.d.roper@intel.com>
+Subject: [PATCH v2 1/5] drm/i915/display: Fix out-of-bounds access in
+ pipe-related tracepoints
+Date: Mon, 23 Sep 2024 16:02:50 -0300
+Message-ID: <20240923190324.83013-2-gustavo.sousa@intel.com>
+X-Mailer: git-send-email 2.46.1
+In-Reply-To: <20240923190324.83013-1-gustavo.sousa@intel.com>
+References: <20240923190324.83013-1-gustavo.sousa@intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20240923181336.3303940-12-ankit.k.nautiyal@intel.com>
-X-Patchwork-Hint: comment
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,132 +69,144 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Mon, Sep 23, 2024 at 11:43:31PM +0530, Ankit Nautiyal wrote:
-> From: Stanislav Lisovskiy <stanislav.lisovskiy@intel.com>
-> 
-> Add changes to DSC which are required for Ultrajoiner.
-> 
-> v2:
-> -Use correct helper for setting bits for bigjoiner secondary. (Ankit)
-> -Use primary/secondary instead of master/slave. (Suraj)
-> v3: Add the ultrajoiner helpers and use it for setting ultrajoiner
-> bits (Ankit)
-> v4: Use num_vdsc_instances *= num_joined_pipes (Ville)
-> v5: Align the helper to get ultrajoiner enabled pipes with other helpers
-> (Ville)
-> 
-> Signed-off-by: Stanislav Lisovskiy <stanislav.lisovskiy@intel.com>
-> Signed-off-by: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
+Some display trace events use array members to store frame and scanline
+counts for each pipe. However, those arrays are declared with 3 as the
+hardcoded size, which cause out-of-bounds access when the trace event is
+enabled on a platform that contains pipe D.
 
-Reviewed-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
+For example, when looking at the last 10 intel_pipe_enable events after
+running IGT's testdisplay, we see the following on a MTL machine that
+has pipe D available:
 
-> ---
->  drivers/gpu/drm/i915/display/intel_display.c | 42 ++++++++++++++++++++
->  drivers/gpu/drm/i915/display/intel_display.h |  3 ++
->  drivers/gpu/drm/i915/display/intel_vdsc.c    | 11 ++++-
->  3 files changed, 54 insertions(+), 2 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
-> index f35d1e1fdb8a..22ff3e225140 100644
-> --- a/drivers/gpu/drm/i915/display/intel_display.c
-> +++ b/drivers/gpu/drm/i915/display/intel_display.c
-> @@ -312,6 +312,48 @@ u8 _intel_modeset_secondary_pipes(const struct intel_crtc_state *crtc_state)
->  	return bigjoiner_secondary_pipes(crtc_state);
->  }
->  
-> +bool intel_crtc_is_ultrajoiner(const struct intel_crtc_state *crtc_state)
-> +{
-> +	return intel_crtc_num_joined_pipes(crtc_state) >= 4;
-> +}
-> +
-> +static u8 ultrajoiner_primary_pipes(const struct intel_crtc_state *crtc_state)
-> +{
-> +	if (!intel_crtc_is_ultrajoiner(crtc_state))
-> +		return 0;
-> +
-> +	return crtc_state->joiner_pipes & (0b00010001 << joiner_primary_pipe(crtc_state));
-> +}
-> +
-> +bool intel_crtc_is_ultrajoiner_primary(const struct intel_crtc_state *crtc_state)
-> +{
-> +	struct intel_crtc *crtc = to_intel_crtc(crtc_state->uapi.crtc);
-> +
-> +	return intel_crtc_is_ultrajoiner(crtc_state) &&
-> +	       BIT(crtc->pipe) & ultrajoiner_primary_pipes(crtc_state);
-> +}
-> +
-> +/*
-> + * The ultrajoiner enable bit doesn't seem to follow primary/secondary logic or
-> + * any other logic, so lets just add helper function to
-> + * at least hide this hassle..
-> + */
-> +static u8 ultrajoiner_enable_pipes(const struct intel_crtc_state *crtc_state)
-> +{
-> +	if (!intel_crtc_is_ultrajoiner(crtc_state))
-> +		return 0;
-> +
-> +	return crtc_state->joiner_pipes & (0b01110111 << joiner_primary_pipe(crtc_state));
-> +}
-> +
-> +bool intel_crtc_ultrajoiner_enable_needed(const struct intel_crtc_state *crtc_state)
-> +{
-> +	struct intel_crtc *crtc = to_intel_crtc(crtc_state->uapi.crtc);
-> +
-> +	return intel_crtc_is_ultrajoiner(crtc_state) &&
-> +	       BIT(crtc->pipe) & ultrajoiner_enable_pipes(crtc_state);
-> +}
-> +
->  u8 intel_crtc_joiner_secondary_pipes(const struct intel_crtc_state *crtc_state)
->  {
->  	if (crtc_state->joiner_pipes)
-> diff --git a/drivers/gpu/drm/i915/display/intel_display.h b/drivers/gpu/drm/i915/display/intel_display.h
-> index 1f0fed5ea7bc..61e1df878de9 100644
-> --- a/drivers/gpu/drm/i915/display/intel_display.h
-> +++ b/drivers/gpu/drm/i915/display/intel_display.h
-> @@ -441,6 +441,9 @@ bool intel_crtc_is_joiner_secondary(const struct intel_crtc_state *crtc_state);
->  bool intel_crtc_is_joiner_primary(const struct intel_crtc_state *crtc_state);
->  bool intel_crtc_is_bigjoiner_primary(const struct intel_crtc_state *crtc_state);
->  bool intel_crtc_is_bigjoiner_secondary(const struct intel_crtc_state *crtc_state);
-> +bool intel_crtc_is_ultrajoiner(const struct intel_crtc_state *crtc_state);
-> +bool intel_crtc_is_ultrajoiner_primary(const struct intel_crtc_state *crtc_state);
-> +bool intel_crtc_ultrajoiner_enable_needed(const struct intel_crtc_state *crtc_state);
->  u8 intel_crtc_joiner_secondary_pipes(const struct intel_crtc_state *crtc_state);
->  u8 _intel_modeset_primary_pipes(const struct intel_crtc_state *crtc_state);
->  u8 _intel_modeset_secondary_pipes(const struct intel_crtc_state *crtc_state);
-> diff --git a/drivers/gpu/drm/i915/display/intel_vdsc.c b/drivers/gpu/drm/i915/display/intel_vdsc.c
-> index 8158e3702ed5..c3405234dc51 100644
-> --- a/drivers/gpu/drm/i915/display/intel_vdsc.c
-> +++ b/drivers/gpu/drm/i915/display/intel_vdsc.c
-> @@ -379,9 +379,9 @@ static int intel_dsc_get_vdsc_per_pipe(const struct intel_crtc_state *crtc_state
->  int intel_dsc_get_num_vdsc_instances(const struct intel_crtc_state *crtc_state)
->  {
->  	int num_vdsc_instances = intel_dsc_get_vdsc_per_pipe(crtc_state);
-> +	int num_joined_pipes = intel_crtc_num_joined_pipes(crtc_state);
->  
-> -	if (crtc_state->joiner_pipes)
-> -		num_vdsc_instances *= 2;
-> +	num_vdsc_instances *= num_joined_pipes;
->  
->  	return num_vdsc_instances;
->  }
-> @@ -770,7 +770,14 @@ void intel_dsc_enable(const struct intel_crtc_state *crtc_state)
->  		dss_ctl1_val |= JOINER_ENABLE;
->  	}
->  	if (crtc_state->joiner_pipes) {
-> +		if (intel_crtc_ultrajoiner_enable_needed(crtc_state))
-> +			dss_ctl1_val |= ULTRA_JOINER_ENABLE;
-> +
-> +		if (intel_crtc_is_ultrajoiner_primary(crtc_state))
-> +			dss_ctl1_val |= PRIMARY_ULTRA_JOINER_ENABLE;
-> +
->  		dss_ctl1_val |= BIG_JOINER_ENABLE;
-> +
->  		if (intel_crtc_is_bigjoiner_primary(crtc_state))
->  			dss_ctl1_val |= PRIMARY_BIG_JOINER_ENABLE;
->  	}
-> -- 
-> 2.45.2
+    $ trace-cmd report -R -F intel_pipe_enable \
+    > | tail \
+    > | sed 's,\(frame=.*\) \(scanline=.*\),\n\t   \1\n\t\2,'
+         testdisplay-6715  [002] 17591.063491: intel_pipe_enable:     dev=0000:00:02.0
+               frame=ARRAY[83, 01, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00]
+            scanline=ARRAY[00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00] pipe=0
+         testdisplay-6715  [003] 17591.264742: intel_pipe_enable:     dev=0000:00:02.0
+               frame=ARRAY[89, 01, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00]
+            scanline=ARRAY[00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00] pipe=0
+         testdisplay-6715  [003] 17591.464541: intel_pipe_enable:     dev=0000:00:02.0
+               frame=ARRAY[8f, 01, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00]
+            scanline=ARRAY[00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00] pipe=0
+         testdisplay-6715  [001] 17591.695827: intel_pipe_enable:     dev=0000:00:02.0
+               frame=ARRAY[95, 01, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00]
+            scanline=ARRAY[00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00] pipe=0
+         testdisplay-6715  [000] 17591.915841: intel_pipe_enable:     dev=0000:00:02.0
+               frame=ARRAY[9a, 01, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00]
+            scanline=ARRAY[00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00] pipe=0
+         testdisplay-6715  [000] 17592.127114: intel_pipe_enable:     dev=0000:00:02.0
+               frame=ARRAY[a0, 01, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00]
+            scanline=ARRAY[00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00] pipe=0
+         testdisplay-6715  [002] 17592.358351: intel_pipe_enable:     dev=0000:00:02.0
+               frame=ARRAY[a8, 01, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00]
+            scanline=ARRAY[00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00] pipe=0
+         testdisplay-6715  [002] 17592.580467: intel_pipe_enable:     dev=0000:00:02.0
+               frame=ARRAY[ae, 01, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00]
+            scanline=ARRAY[00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00] pipe=0
+         testdisplay-6715  [000] 17592.950946: intel_pipe_enable:     dev=0000:00:02.0
+               frame=ARRAY[b8, 01, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00]
+            scanline=ARRAY[00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00] pipe=0
+         testdisplay-6715  [004] 17593.079597: intel_pipe_enable:     dev=0000:00:02.0
+               frame=ARRAY[bf, 01, 00, 00, 01, 00, 00, 00, 00, 00, 00, 00]
+            scanline=ARRAY[00, 00, 00, 00, 3a, 04, 00, 00, 00, 00, 00, 00] pipe=1
 
+Which shows zeros for pipe A's scanline counts. That happens because
+pipe D's frame counts are overwriting them.
+
+Let's fix that by making the arrays bring able to store info for all
+possible pipes.
+
+With the fix, we get the following:
+
+    $ trace-cmd report -R -F intel_pipe_enable \
+    > | tail \
+    > | sed 's,\(frame=.*\) \(scanline=.*\),\n\t   \1\n\t\2,'
+         testdisplay-7040  [003] 18067.489565: intel_pipe_enable:     dev=0000:00:02.0
+               frame=ARRAY[8c, 01, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00]
+            scanline=ARRAY[8e, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00] pipe=0
+         testdisplay-7040  [002] 18067.699312: intel_pipe_enable:     dev=0000:00:02.0
+               frame=ARRAY[92, 01, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00]
+            scanline=ARRAY[58, 02, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00] pipe=0
+         testdisplay-7040  [002] 18067.908868: intel_pipe_enable:     dev=0000:00:02.0
+               frame=ARRAY[98, 01, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00]
+            scanline=ARRAY[58, 02, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00] pipe=0
+         testdisplay-7040  [002] 18068.122802: intel_pipe_enable:     dev=0000:00:02.0
+               frame=ARRAY[9d, 01, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00]
+            scanline=ARRAY[58, 02, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00] pipe=0
+         testdisplay-7040  [003] 18068.331019: intel_pipe_enable:     dev=0000:00:02.0
+               frame=ARRAY[a2, 01, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00]
+            scanline=ARRAY[e0, 01, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00] pipe=0
+         testdisplay-7040  [002] 18068.529067: intel_pipe_enable:     dev=0000:00:02.0
+               frame=ARRAY[a8, 01, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00]
+            scanline=ARRAY[e0, 01, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00] pipe=0
+         testdisplay-7040  [003] 18068.742033: intel_pipe_enable:     dev=0000:00:02.0
+               frame=ARRAY[ae, 01, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00]
+            scanline=ARRAY[e0, 01, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00] pipe=0
+         testdisplay-7040  [002] 18068.956229: intel_pipe_enable:     dev=0000:00:02.0
+               frame=ARRAY[b3, 01, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00]
+            scanline=ARRAY[1f, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00] pipe=0
+         testdisplay-7040  [002] 18069.295322: intel_pipe_enable:     dev=0000:00:02.0
+               frame=ARRAY[bb, 01, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00]
+            scanline=ARRAY[7b, 08, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00] pipe=0
+         testdisplay-7040  [010] 18069.423527: intel_pipe_enable:     dev=0000:00:02.0
+               frame=ARRAY[c2, 01, 00, 00, 01, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00]
+            scanline=ARRAY[d0, 05, 00, 00, 3a, 04, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00] pipe=1
+
+Which makes more sense now.
+
+Reviewed-by: Matt Roper <matthew.d.roper@intel.com>
+Signed-off-by: Gustavo Sousa <gustavo.sousa@intel.com>
+---
+ drivers/gpu/drm/i915/display/intel_display_trace.h | 13 +++++++------
+ 1 file changed, 7 insertions(+), 6 deletions(-)
+
+diff --git a/drivers/gpu/drm/i915/display/intel_display_trace.h b/drivers/gpu/drm/i915/display/intel_display_trace.h
+index fc28d34b5eef..e70c015a09a1 100644
+--- a/drivers/gpu/drm/i915/display/intel_display_trace.h
++++ b/drivers/gpu/drm/i915/display/intel_display_trace.h
+@@ -15,6 +15,7 @@
+ 
+ #include "i915_drv.h"
+ #include "intel_crtc.h"
++#include "intel_display_limits.h"
+ #include "intel_display_types.h"
+ #include "intel_vblank.h"
+ 
+@@ -27,8 +28,8 @@ TRACE_EVENT(intel_pipe_enable,
+ 
+ 	    TP_STRUCT__entry(
+ 			     __string(dev, __dev_name_kms(crtc))
+-			     __array(u32, frame, 3)
+-			     __array(u32, scanline, 3)
++			     __array(u32, frame, I915_MAX_PIPES)
++			     __array(u32, scanline, I915_MAX_PIPES)
+ 			     __field(enum pipe, pipe)
+ 			     ),
+ 	    TP_fast_assign(
+@@ -55,8 +56,8 @@ TRACE_EVENT(intel_pipe_disable,
+ 
+ 	    TP_STRUCT__entry(
+ 			     __string(dev, __dev_name_kms(crtc))
+-			     __array(u32, frame, 3)
+-			     __array(u32, scanline, 3)
++			     __array(u32, frame, I915_MAX_PIPES)
++			     __array(u32, scanline, I915_MAX_PIPES)
+ 			     __field(enum pipe, pipe)
+ 			     ),
+ 
+@@ -184,8 +185,8 @@ TRACE_EVENT(intel_memory_cxsr,
+ 
+ 	    TP_STRUCT__entry(
+ 			     __string(dev, __dev_name_display(display))
+-			     __array(u32, frame, 3)
+-			     __array(u32, scanline, 3)
++			     __array(u32, frame, I915_MAX_PIPES)
++			     __array(u32, scanline, I915_MAX_PIPES)
+ 			     __field(bool, old)
+ 			     __field(bool, new)
+ 			     ),
 -- 
-Ville Syrjälä
-Intel
+2.46.1
+
