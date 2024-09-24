@@ -4,80 +4,34 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4F384CE8349
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1FB2CCE8348
 	for <intel-gfx@archiver.kernel.org>; Mon, 30 Sep 2024 13:31:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7EEA510E4E9;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 669FA10E4E8;
 	Mon, 30 Sep 2024 13:31:26 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Ub5nO6T+";
-	dkim-atps=neutral
-Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com
- [209.85.128.45])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AA47A10E43B;
- Mon, 30 Sep 2024 12:37:33 +0000 (UTC)
-Received: by mail-wm1-f45.google.com with SMTP id
- 5b1f17b1804b1-42e82f7f36aso34403775e9.0; 
- Mon, 30 Sep 2024 05:37:33 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1727699852; x=1728304652; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=QP8C+iJ4JK1Je/p5BuVlufkcfyY44goQKWFtPIGK2ac=;
- b=Ub5nO6T+fexlFYovOD69rN+9VzvxYWbt8tu25pr3M9kvd1o+kocgCd2crBAesnSl1l
- u/5lIcors75ziDgzJx16KHrpG2pLfQEFCSBKeGVVE6Du6C8AyxTfQmtSnxhWxJ7fdJhm
- NOZ/hBgCIRGvkuXKu/dQv3hIHuimaqr0GMefTqcDxqSpe6jZSEqzftgtXXVsZxutzVFh
- JafTBZwemjiJveYMyCZKKno4wF9AHw+hGZm3B/ZBYoKGeaweUoCbh5/Tay9hvwUU9HXw
- XVQ5GLdnIq+tMoYDDFZixHlaCOwL/1EyLCdJG09YcxkjekJTwO+yhCGKOs5OIdfazgqe
- p0TQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1727699852; x=1728304652;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=QP8C+iJ4JK1Je/p5BuVlufkcfyY44goQKWFtPIGK2ac=;
- b=FM37swTrwnkC/EQpIx8mTEvNpukRBvXT0lsstXLMQ+UUhpYWPo69Hm/2j5YXRH/3Qs
- DbRlNIVq+oPrmXOJZvdw2fyx5GeqR2CRKVEibkSVdVQUav7UiPTsJaf6HN1bj2uF3ysD
- krRoTpSAq3uMCrhPf96PM3+z3sMbe95qAycxLoXEVdAy0/p+4f8P8VugYvN+eLdxxAwK
- k5z9qi2OXCGJq9VDFXV0z7rz2NWmx3wqFI9zPTeW4uHmPd/2oVaG3On0Uy51VsFCGcCL
- EYukQRWkdOyid7sWlZxBm8+1UInggM2VglHvFp2M0+lOOeHaWmD2xqy5ntcXb7VRuDnY
- npiw==
-X-Forwarded-Encrypted: i=1;
- AJvYcCUdc+V2+kAUHoA/aqlixdY+12Q/L+20gGLUy+8rVEqq35Yn5dQHfJwMe58pTuqADjJzTwM+8+z9HFs=@lists.freedesktop.org,
- AJvYcCVjzxl2vGrd8ADXIlF37BSFXqJg3fhjM2VTNLvRuiFMHoPbyIPaBYANDtPrc6py0ClTH+2XFM61jlve@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxrVID9u29qwkkktuV+eQlK19fU6vW2vXu0KMMVXMrxLANALEXz
- Q09vDBv7DiTfRf2OO3NxjKCh3T7Jz2PNqlOupixZaMIHnDql3CoN
-X-Google-Smtp-Source: AGHT+IFhXFsuzmbiOuOqLO3F1XUYhHCyK1gMZJdEjcH96x1NbPGi/KaJvtZi9F1OwQRNBRa/x7UBZA==
-X-Received: by 2002:adf:f1ce:0:b0:371:82ec:206f with SMTP id
- ffacd0b85a97d-37cd5aa9c14mr6102871f8f.16.1727699851849; 
- Mon, 30 Sep 2024 05:37:31 -0700 (PDT)
-Received: from fedora.iskraemeco.si ([193.77.86.250])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-42e96a52308sm149011355e9.43.2024.09.30.05.37.30
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 30 Sep 2024 05:37:30 -0700 (PDT)
-From: Uros Bizjak <ubizjak@gmail.com>
-To: x86@kernel.org, linux-crypto@vger.kernel.org,
- intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-media@vger.kernel.org, linux-mtd@lists.infradead.org,
- linux-fscrypt@vger.kernel.org, linux-scsi@vger.kernel.org,
- bpf@vger.kernel.org, linux-kselftest@vger.kernel.org,
- kunit-dev@googlegroups.com, linux-kernel@vger.kernel.org
-Cc: Uros Bizjak <ubizjak@gmail.com>,
- Stephen Hemminger <stephen@networkplumber.org>,
- Jamal Hadi Salim <jhs@mojatatu.com>, Cong Wang <xiyou.wangcong@gmail.com>,
- Jiri Pirko <jiri@resnulli.us>, "David S. Miller" <davem@davemloft.net>,
- Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>
-Subject: [PATCH v3 17/19] netem: Include <linux/prandom.h> in sch_netem.c
-Date: Mon, 30 Sep 2024 14:33:28 +0200
-Message-ID: <20240930123702.803617-18-ubizjak@gmail.com>
-X-Mailer: git-send-email 2.46.2
-In-Reply-To: <20240930123702.803617-1-ubizjak@gmail.com>
-References: <20240930123702.803617-1-ubizjak@gmail.com>
+X-Greylist: delayed 903 seconds by postgrey-1.36 at gabe;
+ Tue, 24 Sep 2024 11:03:00 UTC
+Received: from MSK-MAILEDGE.securitycode.ru (msk-mailedge.securitycode.ru
+ [195.133.217.143])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9925410E6BF;
+ Tue, 24 Sep 2024 11:03:00 +0000 (UTC)
+From: George Rurikov <g.ryurikov@securitycode.ru>
+To: Jani Nikula <jani.nikula@linux.intel.com>
+CC: George Rurikov <g.ryurikov@securitycode.ru>, Rodrigo Vivi
+ <rodrigo.vivi@intel.com>, Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Tvrtko Ursulin <tursulin@ursulin.net>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, <intel-gfx@lists.freedesktop.org>,
+ <intel-xe@lists.freedesktop.org>, <dri-devel@lists.freedesktop.og>,
+ <linux-kernel@vger.kernel.org>, <stable@vger.kernel.org>
+Subject: [PATCH] drm: Add check for encoder in intel_get_crtc_new_encoder()
+Date: Tue, 24 Sep 2024 13:47:22 +0300
+Message-ID: <20240924104722.1049588-1-g.ryurikov@securitycode.ru>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+X-ClientProxiedBy: SPB-EX2.Securitycode.ru (172.16.24.92) To
+ MSK-EX2.Securitycode.ru (172.17.8.92)
 X-Mailman-Approved-At: Mon, 30 Sep 2024 13:30:58 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -94,34 +48,74 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Include <linux/prandom.h> header to allow the removal of legacy
-inclusion of <linux/prandom.h> from <linux/random.h>.
+If the video card driver could not find the connector assigned to the
+current video controller, or if the hardware status has changed so that
+a pre-existing connector is no longer active, none of the state
+connectors will meet the assignment criteria for the current crtc video
+controller.
 
-Signed-off-by: Uros Bizjak <ubizjak@gmail.com>
-Cc: Stephen Hemminger <stephen@networkplumber.org>
-Cc: Jamal Hadi Salim <jhs@mojatatu.com>
-Cc: Cong Wang <xiyou.wangcong@gmail.com>
-Cc: Jiri Pirko <jiri@resnulli.us>
-Cc: "David S. Miller" <davem@davemloft.net>
-Cc: Eric Dumazet <edumazet@google.com>
-Cc: Jakub Kicinski <kuba@kernel.org>
-Cc: Paolo Abeni <pabeni@redhat.com>
+In the drm_WARN function, encoder->base.dev is called, so
+'&encoder->base.dev' will be dereferenced since encoder will still be
+initialized NULL.
+
+Found by Linux Verification Center (linuxtesting.org) with SVACE.
+
+Fixes: e12d6218fda2 ("drm/i915: Reduce bigjoiner special casing")
+Cc: stable@vger.kernel.org
+Signed-off-by: George Rurikov <g.ryurikov@securitycode.ru>
 ---
- net/sched/sch_netem.c | 1 +
- 1 file changed, 1 insertion(+)
+ drivers/gpu/drm/i915/display/intel_display.c | 7 ++++---
+ 1 file changed, 4 insertions(+), 3 deletions(-)
 
-diff --git a/net/sched/sch_netem.c b/net/sched/sch_netem.c
-index 39382ee1e331..fe6fed291a7b 100644
---- a/net/sched/sch_netem.c
-+++ b/net/sched/sch_netem.c
-@@ -17,6 +17,7 @@
- #include <linux/errno.h>
- #include <linux/skbuff.h>
- #include <linux/vmalloc.h>
-+#include <linux/prandom.h>
- #include <linux/rtnetlink.h>
- #include <linux/reciprocal_div.h>
- #include <linux/rbtree.h>
--- 
-2.46.2
+diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm=
+/i915/display/intel_display.c
+index b4ef4d59da1a..a5e24d64f909 100644
+--- a/drivers/gpu/drm/i915/display/intel_display.c
++++ b/drivers/gpu/drm/i915/display/intel_display.c
+@@ -819,9 +819,10 @@ intel_get_crtc_new_encoder(const struct intel_atomic_s=
+tate *state,
+                num_encoders++;
+        }
 
+-       drm_WARN(state->base.dev, num_encoders !=3D 1,
+-                "%d encoders for pipe %c\n",
+-                num_encoders, pipe_name(primary_crtc->pipe));
++       if (encoder)
++               drm_WARN(state->base.dev, num_encoders !=3D 1,
++                       "%d encoders for pipe %c\n",
++                       num_encoders, pipe_name(primary_crtc->pipe));
+
+        return encoder;
+ }
+--
+2.34.1
+
+=D0=97=D0=B0=D1=8F=D0=B2=D0=BB=D0=B5=D0=BD=D0=B8=D0=B5 =D0=BE =D0=BA=D0=BE=
+=D0=BD=D1=84=D0=B8=D0=B4=D0=B5=D0=BD=D1=86=D0=B8=D0=B0=D0=BB=D1=8C=D0=BD=D0=
+=BE=D1=81=D1=82=D0=B8
+
+=D0=94=D0=B0=D0=BD=D0=BD=D0=BE=D0=B5 =D1=8D=D0=BB=D0=B5=D0=BA=D1=82=D1=80=
+=D0=BE=D0=BD=D0=BD=D0=BE=D0=B5 =D0=BF=D0=B8=D1=81=D1=8C=D0=BC=D0=BE =D0=B8 =
+=D0=BB=D1=8E=D0=B1=D1=8B=D0=B5 =D0=BF=D1=80=D0=B8=D0=BB=D0=BE=D0=B6=D0=B5=
+=D0=BD=D0=B8=D1=8F =D0=BA =D0=BD=D0=B5=D0=BC=D1=83 =D1=8F=D0=B2=D0=BB=D1=8F=
+=D1=8E=D1=82=D1=81=D1=8F =D0=BA=D0=BE=D0=BD=D1=84=D0=B8=D0=B4=D0=B5=D0=BD=
+=D1=86=D0=B8=D0=B0=D0=BB=D1=8C=D0=BD=D1=8B=D0=BC=D0=B8 =D0=B8 =D0=BF=D1=80=
+=D0=B5=D0=B4=D0=BD=D0=B0=D0=B7=D0=BD=D0=B0=D1=87=D0=B5=D0=BD=D1=8B =D0=B8=
+=D1=81=D0=BA=D0=BB=D1=8E=D1=87=D0=B8=D1=82=D0=B5=D0=BB=D1=8C=D0=BD=D0=BE =
+=D0=B4=D0=BB=D1=8F =D0=B0=D0=B4=D1=80=D0=B5=D1=81=D0=B0=D1=82=D0=B0. =D0=95=
+=D1=81=D0=BB=D0=B8 =D0=92=D1=8B =D0=BD=D0=B5 =D1=8F=D0=B2=D0=BB=D1=8F=D0=B5=
+=D1=82=D0=B5=D1=81=D1=8C =D0=B0=D0=B4=D1=80=D0=B5=D1=81=D0=B0=D1=82=D0=BE=
+=D0=BC =D0=B4=D0=B0=D0=BD=D0=BD=D0=BE=D0=B3=D0=BE =D0=BF=D0=B8=D1=81=D1=8C=
+=D0=BC=D0=B0, =D0=BF=D0=BE=D0=B6=D0=B0=D0=BB=D1=83=D0=B9=D1=81=D1=82=D0=B0,=
+ =D1=83=D0=B2=D0=B5=D0=B4=D0=BE=D0=BC=D0=B8=D1=82=D0=B5 =D0=BD=D0=B5=D0=BC=
+=D0=B5=D0=B4=D0=BB=D0=B5=D0=BD=D0=BD=D0=BE =D0=BE=D1=82=D0=BF=D1=80=D0=B0=
+=D0=B2=D0=B8=D1=82=D0=B5=D0=BB=D1=8F, =D0=BD=D0=B5 =D1=80=D0=B0=D1=81=D0=BA=
+=D1=80=D1=8B=D0=B2=D0=B0=D0=B9=D1=82=D0=B5 =D1=81=D0=BE=D0=B4=D0=B5=D1=80=
+=D0=B6=D0=B0=D0=BD=D0=B8=D0=B5 =D0=B4=D1=80=D1=83=D0=B3=D0=B8=D0=BC =D0=BB=
+=D0=B8=D1=86=D0=B0=D0=BC, =D0=BD=D0=B5 =D0=B8=D1=81=D0=BF=D0=BE=D0=BB=D1=8C=
+=D0=B7=D1=83=D0=B9=D1=82=D0=B5 =D0=B5=D0=B3=D0=BE =D0=B2 =D0=BA=D0=B0=D0=BA=
+=D0=B8=D1=85-=D0=BB=D0=B8=D0=B1=D0=BE =D1=86=D0=B5=D0=BB=D1=8F=D1=85, =D0=
+=BD=D0=B5 =D1=85=D1=80=D0=B0=D0=BD=D0=B8=D1=82=D0=B5 =D0=B8 =D0=BD=D0=B5 =
+=D0=BA=D0=BE=D0=BF=D0=B8=D1=80=D1=83=D0=B9=D1=82=D0=B5 =D0=B8=D0=BD=D1=84=
+=D0=BE=D1=80=D0=BC=D0=B0=D1=86=D0=B8=D1=8E =D0=BB=D1=8E=D0=B1=D1=8B=D0=BC =
+=D1=81=D0=BF=D0=BE=D1=81=D0=BE=D0=B1=D0=BE=D0=BC.
