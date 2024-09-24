@@ -4,71 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EC0C1CF9C6B
-	for <intel-gfx@archiver.kernel.org>; Tue, 24 Sep 2024 06:16:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CF3EFCF9C71
+	for <intel-gfx@archiver.kernel.org>; Tue, 24 Sep 2024 06:23:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 60BB810E152;
-	Tue, 24 Sep 2024 06:16:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2166610E4D8;
+	Tue, 24 Sep 2024 06:23:49 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="EcBA7Qss";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="gQ2GMxK6";
 	dkim-atps=neutral
-Received: from mail-yw1-f178.google.com (mail-yw1-f178.google.com
- [209.85.128.178])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F09F410E152
- for <intel-gfx@lists.freedesktop.org>; Tue, 24 Sep 2024 06:16:15 +0000 (UTC)
-Received: by mail-yw1-f178.google.com with SMTP id
- 00721157ae682-6de05b9fd0bso41363807b3.1
- for <intel-gfx@lists.freedesktop.org>; Mon, 23 Sep 2024 23:16:15 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1727158575; x=1727763375; darn=lists.freedesktop.org;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=ZcweUFHFW/KJCW3gKD065UQS3lsmUsHAhy70Femt8O8=;
- b=EcBA7QssVrFlbR9tpASLkuzIepXvpQZS2alGs7SFqmlcArsJJikVY3lrbSS1q/q0gB
- 6XEILUNzcnwqNqi0UF/KtOkZ4g1q2emm8wkVyeNCAxj9DgHAJ5iOAwHLWbDBWcg1/AAp
- 6VBK8wRQ757nXCeZr4sko/lqd7583byAGZXl0DdFtetk3ip2MY/F+Ey9SwGnIs3hNFwp
- noD0uipef5FC5y+ohNy4fEo2Vi8ecefawPE0Y0Y8O9+MGcPHv7LfWtfpXkzoniihkC7+
- YgPUQRHTHqG7PRjvtUoSZlG0yqbBRERFvzop8qVxagrdqE5M/pz/Vw+gMmXEW7Jy5Iuv
- MjEg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1727158575; x=1727763375;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=ZcweUFHFW/KJCW3gKD065UQS3lsmUsHAhy70Femt8O8=;
- b=D40dkVfDh4EZz1CjKafeudfFRrGVKZgfjn4JqMYUW8/w6J5FjGJdBQssypHdhXAP8e
- QE2FPN24Kha1BUmy9VJUzEinqd09K5AVMTSTniKIZ6ydwP4s39TJ4B9BgicR+0DwsltB
- TNE2y/r7RI3oZOizaKVy6tcJ6lwUHgb7pMJuOb5L+Z7vTFrC10Kc08HSr4YsF4bWtAWH
- 9TdkaiOw38c/+p1ZIfOIsO8TPRKakcFzqasy/znJI7l/Gvkq4OD+Resf/R1MqO0Ri8r5
- 626SNMNw6PVAsp/daHVlM/KugrGVax6hcSSeFj/nxIcrDvtFX7mVfGxLOgTTjYn81rNz
- Bknw==
-X-Forwarded-Encrypted: i=1;
- AJvYcCXBuR7NlllSjHCXnhTjp+tjBrWM5H3yZqk1ZtQwg+bEAW1YlUjPEh3jWROBDBpWENGgRzMjfOgq8NM=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzP0mbWpDt6XWKxqf02nlEIRDPWV5vDqCR6Z0SSzoYcBzW8xBCJ
- 1Pw5N0iR6FS1NeimbYomJmNkTRKqHyOoWiuNMSxGQdLLhZBztfqbOhD4nxWLL0ZxAnfMqBYnaPD
- nO40pjkj3WQyeU5XFxZFM6pV9rB8uJMZ/BpVNxg==
-X-Google-Smtp-Source: AGHT+IEF5j0JkBVAgP1jTlkYufGIlKJxFTmmd49IaW+yK41rQF/NpMRTMvOPM1xHJnDTOa2dEHhH9wuEn2USXNPEeWM=
-X-Received: by 2002:a05:690c:89:b0:6b1:4948:f689 with SMTP id
- 00721157ae682-6dff290379dmr105980107b3.34.1727158574971; Mon, 23 Sep 2024
- 23:16:14 -0700 (PDT)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.16])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DF8A410E4D8;
+ Tue, 24 Sep 2024 06:23:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1727159028; x=1758695028;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=Wk/GbHmB/gCsAy7gRQj1l8LNpI9V3QfQiphaPbL6J78=;
+ b=gQ2GMxK6NjwRFpgcZnNkNHzTtgwNePfixtOFKfGYI55pEQI7yI9JxLiT
+ klgOst66GNHnqAhvwg9pO4NCWqMpdw70UUIlrfmuP2ag3iw4NPn4LNgNF
+ knFepfoj6xYrGPxMInBq+vR/LYS3u10d/qRCWOSuEJRiuA1VTRbR/0Yx+
+ R6oYbizHKTu91qXeJitFIDR5PSRgoV/ZPojI2OTHqduS39pPiCR++QCJm
+ szE6FlaFIppEocYy+inch9ynL/BennZMITyWSDhNd5DHCKIGXvNHEaULv
+ aRI4OukMGqyaXDKhzBhOllb5dtfgiqyBuZZotnnerrUb/uSJfEVSomu1i g==;
+X-CSE-ConnectionGUID: eex+TndmRIWxIzi5CkJzOw==
+X-CSE-MsgGUID: AnhVPsD6SK6nIOzj+4a1bQ==
+X-IronPort-AV: E=McAfee;i="6700,10204,11204"; a="26229852"
+X-IronPort-AV: E=Sophos;i="6.10,253,1719903600"; d="scan'208";a="26229852"
+Received: from orviesa003.jf.intel.com ([10.64.159.143])
+ by orvoesa108.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 23 Sep 2024 23:23:47 -0700
+X-CSE-ConnectionGUID: uVgqzcHaQdanczCOYDDIZQ==
+X-CSE-MsgGUID: t8fjvQ4oTN2K4jQNt2K2Bw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.10,253,1719903600"; d="scan'208";a="76085944"
+Received: from srr4-3-linux-106-armuthy.iind.intel.com ([10.190.238.56])
+ by orviesa003.jf.intel.com with ESMTP; 23 Sep 2024 23:23:46 -0700
+From: Arun R Murthy <arun.r.murthy@intel.com>
+To: intel-xe@lists.freedesktop.org,
+	intel-gfx@lists.freedesktop.org
+Cc: Arun R Murthy <arun.r.murthy@intel.com>
+Subject: [PATCHv2 0/3] Some correction in the DP Link Training sequence
+Date: Tue, 24 Sep 2024 11:43:55 +0530
+Message-Id: <20240924061358.1725306-1-arun.r.murthy@intel.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-References: <20240924022600.1441969-1-vignesh.raman@collabora.com>
-In-Reply-To: <20240924022600.1441969-1-vignesh.raman@collabora.com>
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Date: Tue, 24 Sep 2024 08:16:04 +0200
-Message-ID: <CAA8EJprUUUc0iDph-HPrW1anrdnzYju7+JERQdHbwxvznq=H4w@mail.gmail.com>
-Subject: Re: [PATCH v1] docs/gpu: ci: update flake tests requirements
-To: Vignesh Raman <vignesh.raman@collabora.com>
-Cc: dri-devel@lists.freedesktop.org, daniels@collabora.com, 
- helen.koike@collabora.com, airlied@gmail.com, daniel@ffwll.ch, 
- robdclark@gmail.com, guilherme.gallo@collabora.com, 
- sergi.blanch.torne@collabora.com, deborah.brouwer@collabora.com, 
- mripard@kernel.org, rodrigo.vivi@intel.com, 
- linux-mediatek@lists.infradead.org, linux-amlogic@lists.infradead.org, 
- linux-rockchip@lists.infradead.org, amd-gfx@lists.freedesktop.org, 
- linux-arm-msm@vger.kernel.org, intel-gfx@lists.freedesktop.org, 
- virtualization@lists.linux.dev, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -84,61 +65,15 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Tue, 24 Sept 2024 at 04:26, Vignesh Raman
-<vignesh.raman@collabora.com> wrote:
->
-> Update the documentation to require linking to a relevant GitLab
-> issue for each new flake entry instead of an email report. Added
-> specific GitLab issue URLs for i915, xe and other drivers.
->
-> Signed-off-by: Vignesh Raman <vignesh.raman@collabora.com>
-> ---
->  Documentation/gpu/automated_testing.rst | 15 ++++++++++-----
->  1 file changed, 10 insertions(+), 5 deletions(-)
->
-> diff --git a/Documentation/gpu/automated_testing.rst b/Documentation/gpu/automated_testing.rst
-> index 2d5a28866afe..f73b8939dc3a 100644
-> --- a/Documentation/gpu/automated_testing.rst
-> +++ b/Documentation/gpu/automated_testing.rst
-> @@ -67,20 +67,25 @@ Lists the tests that for a given driver on a specific hardware revision are
->  known to behave unreliably. These tests won't cause a job to fail regardless of
->  the result. They will still be run.
->
-> -Each new flake entry must be associated with a link to the email reporting the
-> -bug to the author of the affected driver, the board name or Device Tree name of
-> -the board, the first kernel version affected, the IGT version used for tests,
-> -and an approximation of the failure rate.
-> +Each new flake entry must include a link to the relevant GitLab issue, the board
-> +name or Device Tree name, the first kernel version affected, the IGT version used
-> +for tests and an approximation of the failure rate.
->
->  They should be provided under the following format::
->
-> -  # Bug Report: $LORE_OR_PATCHWORK_URL
-> +  # Bug Report: $GITLAB_ISSUE
->    # Board Name: broken-board.dtb
->    # Linux Version: 6.6-rc1
->    # IGT Version: 1.28-gd2af13d9f
->    # Failure Rate: 100
->    flaky-test
->
-> +The GitLab issue must include the logs and the pipeline link. Use the appropriate
-> +link below to create an issue.
-> +https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/ for i915 drivers
-> +https://gitlab.freedesktop.org/drm/xe/kernel/-/issues/ for xe drivers
 
-drm/msm for msm driver, please. Otherwise we can easily miss such issues.
+Arun R Murthy (3):
+  drm/i915/dp: use fsleep instead of usleep_range for LT
+  drm/i915/dp: read Aux RD interval just before reading the FFE preset
+  drm/i915/dp: Include the time taken by AUX Tx for timeout
 
-> +https://gitlab.freedesktop.org/drm/misc/kernel/-/issues for other drivers
-> +
->  drivers/gpu/drm/ci/${DRIVER_NAME}-${HW_REVISION}-skips.txt
->  -----------------------------------------------------------
->
-> --
-> 2.43.0
->
-
+ .../drm/i915/display/intel_dp_link_training.c | 20 +++++++++----------
+ 1 file changed, 10 insertions(+), 10 deletions(-)
 
 -- 
-With best wishes
-Dmitry
+2.25.1
+
