@@ -4,84 +4,85 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A6566CF9C71
-	for <intel-gfx@archiver.kernel.org>; Tue, 24 Sep 2024 07:19:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 83292CF9C72
+	for <intel-gfx@archiver.kernel.org>; Tue, 24 Sep 2024 07:19:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5268710E573;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 83DDD10E574;
 	Tue, 24 Sep 2024 07:17:57 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="aC5ySC7R";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="dPeFFg7E";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="aC5ySC7R";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="dPeFFg7E";
+	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="i17t00fr";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="JiqB/EvN";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="i17t00fr";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="JiqB/EvN";
 	dkim-atps=neutral
 Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CE7AF10E563;
- Tue, 24 Sep 2024 07:17:54 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 807C910E4FA;
+ Tue, 24 Sep 2024 07:17:44 +0000 (UTC)
 Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 57F5E21BA5;
- Tue, 24 Sep 2024 07:17:53 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id F387C21B96;
+ Tue, 24 Sep 2024 07:17:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1727162273; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1727162263; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=VaDuYI5D19fUT57C+1NF+h2FLzcxxFIIe+UBjlt8n+Y=;
- b=aC5ySC7Rl0IGiTrhS/eqJJZbfBmDMqTHDXrB7Y0/TZZoiKwDQRGNm2Zs7lUwWFqliOGZni
- fnlRbIUxE55VVhESsrwEtllHm04cNYhxAu1+mH8YsCbIvoTNY6wpkpYNT3/btaQ/QFqeyH
- dAUN+aLJS4rMb94zFfOK/oEDuxANTgY=
+ bh=hkd+NLBKxh768nBng6pLlL571Hegx7wybIf6UBSkQtw=;
+ b=i17t00frdkRKiqa0b7OBntSf9UXw+zz7oUyk4AMYDGFYUz6ltMq/cfipI5E/HjVsIlj9WZ
+ M6Muo/PPJqyBxPqBTIJER0L412nDF6XPHMlJ08NN89xOHiXGoONR0lKlr/RPlvQp40HqD2
+ y/Qs6QgL6nmuaiPCFvJuaeMQTNR37j4=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1727162273;
+ s=susede2_ed25519; t=1727162263;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=VaDuYI5D19fUT57C+1NF+h2FLzcxxFIIe+UBjlt8n+Y=;
- b=dPeFFg7E/1KlFIRa1XE94C+hFm0UExLszmN+bo0l4aKbDP63g64Fkmj7f/Cdf6uyUfixzq
- kCAy2FPkn6PJA0AQ==
+ bh=hkd+NLBKxh768nBng6pLlL571Hegx7wybIf6UBSkQtw=;
+ b=JiqB/EvNggxu9mSQBuDZqkIjZ7Ig0+iLC7dL/U68938UQr+KavvTQA+xTCfn42V4174Aq6
+ vsvivYooORX8xcAA==
 Authentication-Results: smtp-out1.suse.de;
 	none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1727162273; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1727162263; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=VaDuYI5D19fUT57C+1NF+h2FLzcxxFIIe+UBjlt8n+Y=;
- b=aC5ySC7Rl0IGiTrhS/eqJJZbfBmDMqTHDXrB7Y0/TZZoiKwDQRGNm2Zs7lUwWFqliOGZni
- fnlRbIUxE55VVhESsrwEtllHm04cNYhxAu1+mH8YsCbIvoTNY6wpkpYNT3/btaQ/QFqeyH
- dAUN+aLJS4rMb94zFfOK/oEDuxANTgY=
+ bh=hkd+NLBKxh768nBng6pLlL571Hegx7wybIf6UBSkQtw=;
+ b=i17t00frdkRKiqa0b7OBntSf9UXw+zz7oUyk4AMYDGFYUz6ltMq/cfipI5E/HjVsIlj9WZ
+ M6Muo/PPJqyBxPqBTIJER0L412nDF6XPHMlJ08NN89xOHiXGoONR0lKlr/RPlvQp40HqD2
+ y/Qs6QgL6nmuaiPCFvJuaeMQTNR37j4=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1727162273;
+ s=susede2_ed25519; t=1727162263;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=VaDuYI5D19fUT57C+1NF+h2FLzcxxFIIe+UBjlt8n+Y=;
- b=dPeFFg7E/1KlFIRa1XE94C+hFm0UExLszmN+bo0l4aKbDP63g64Fkmj7f/Cdf6uyUfixzq
- kCAy2FPkn6PJA0AQ==
+ bh=hkd+NLBKxh768nBng6pLlL571Hegx7wybIf6UBSkQtw=;
+ b=JiqB/EvNggxu9mSQBuDZqkIjZ7Ig0+iLC7dL/U68938UQr+KavvTQA+xTCfn42V4174Aq6
+ vsvivYooORX8xcAA==
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 0CE061386E;
- Tue, 24 Sep 2024 07:17:53 +0000 (UTC)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 94B9313AEE;
+ Tue, 24 Sep 2024 07:17:42 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id gETzAaFn8mb3YAAAD6G6ig
- (envelope-from <tzimmermann@suse.de>); Tue, 24 Sep 2024 07:17:53 +0000
+ by imap1.dmz-prg2.suse.org with ESMTPSA id oJInI5Zn8mb3YAAAD6G6ig
+ (envelope-from <tzimmermann@suse.de>); Tue, 24 Sep 2024 07:17:42 +0000
 From: Thomas Zimmermann <tzimmermann@suse.de>
 To: javierm@redhat.com, jfalempe@redhat.com, airlied@gmail.com, simona@ffwll.ch
 Cc: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
  intel-gfx@lists.freedesktop.org, nouveau@lists.freedesktop.org,
  Thomas Zimmermann <tzimmermann@suse.de>,
- Maxime Ripard <mripard@kernel.org>,
- Dave Stevenson <dave.stevenson@raspberrypi.com>,
- Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>
-Subject: [PATCH v5 46/80] drm/vc4: Run DRM default client setup
-Date: Tue, 24 Sep 2024 09:12:44 +0200
-Message-ID: <20240924071734.98201-47-tzimmermann@suse.de>
+ Xinliang Liu <xinliang.liu@linaro.org>, Tian Tao <tiantao6@hisilicon.com>,
+ Xinwei Kong <kong.kongxinwei@hisilicon.com>,
+ Sumit Semwal <sumit.semwal@linaro.org>,
+ Yongqin Liu <yongqin.liu@linaro.org>, John Stultz <jstultz@google.com>
+Subject: [PATCH v5 13/80] drm/hisilicon/kirin: Run DRM default client setup
+Date: Tue, 24 Sep 2024 09:12:11 +0200
+Message-ID: <20240924071734.98201-14-tzimmermann@suse.de>
 X-Mailer: git-send-email 2.46.0
 In-Reply-To: <20240924071734.98201-1-tzimmermann@suse.de>
 References: <20240924071734.98201-1-tzimmermann@suse.de>
@@ -93,12 +94,12 @@ X-Spamd-Result: default: False [-2.80 / 50.00]; BAYES_HAM(-3.00)[100.00%];
  MIME_GOOD(-0.10)[text/plain]; TO_MATCH_ENVRCPT_ALL(0.00)[];
  FROM_HAS_DN(0.00)[]; ARC_NA(0.00)[];
  RCVD_VIA_SMTP_AUTH(0.00)[]; MIME_TRACE(0.00)[0:+];
- TO_DN_SOME(0.00)[]; RCPT_COUNT_TWELVE(0.00)[12];
+ TO_DN_SOME(0.00)[]; RCPT_COUNT_TWELVE(0.00)[15];
  DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo];
  FREEMAIL_TO(0.00)[redhat.com,gmail.com,ffwll.ch];
  RCVD_TLS_ALL(0.00)[]; RCVD_COUNT_TWO(0.00)[2];
  FROM_EQ_ENVFROM(0.00)[]; FUZZY_BLOCKED(0.00)[rspamd.com];
- R_RATELIMIT(0.00)[to(RLbwen1niosrcqbxsafh1),to_ip_from(RLqirfcw6gnbcr9a9yhi49fhi6)];
+ R_RATELIMIT(0.00)[to_ip_from(RLqirfcw6gnbcr9a9yhi49fhi6)];
  DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
  FREEMAIL_ENVRCPT(0.00)[gmail.com]
 X-BeenThere: intel-gfx@lists.freedesktop.org
@@ -116,66 +117,82 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Call drm_client_setup_with_fourcc() to run the kernel's default client
-setup for DRM. Set fbdev_probe in struct drm_driver, so that the client
+Call drm_client_setup() to run the kernel's default client setup
+for DRM. Set fbdev_probe in struct drm_driver, so that the client
 setup can start the common fbdev client.
+
+The kirin driver specifies a preferred color mode of 32. As this
+is the default if no format has been given, leave it out entirely.
 
 v5:
 - select DRM_CLIENT_SELECTION
-v2:
-- use drm_client_setup_with_fourcc()
 
 Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
-Cc: Maxime Ripard <mripard@kernel.org>
-Cc: Dave Stevenson <dave.stevenson@raspberrypi.com>
-Cc: Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>
-Reviewed-by: Dave Stevenson <dave.stevenson@raspberrypi.com>
+Cc: Xinliang Liu <xinliang.liu@linaro.org>
+Cc: Tian Tao <tiantao6@hisilicon.com>
+Cc: Xinwei Kong <kong.kongxinwei@hisilicon.com>
+Cc: Sumit Semwal <sumit.semwal@linaro.org>
+Cc: Yongqin Liu <yongqin.liu@linaro.org>
+Cc: John Stultz <jstultz@google.com>
+Acked-by: John Stultz <jstultz@google.com>
 ---
- drivers/gpu/drm/vc4/Kconfig   | 1 +
- drivers/gpu/drm/vc4/vc4_drv.c | 5 ++++-
- 2 files changed, 5 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/hisilicon/kirin/Kconfig         | 1 +
+ drivers/gpu/drm/hisilicon/kirin/kirin_drm_ade.c | 2 ++
+ drivers/gpu/drm/hisilicon/kirin/kirin_drm_drv.c | 4 ++--
+ 3 files changed, 5 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/vc4/Kconfig b/drivers/gpu/drm/vc4/Kconfig
-index 269b5f26b2ea..c5f30b317698 100644
---- a/drivers/gpu/drm/vc4/Kconfig
-+++ b/drivers/gpu/drm/vc4/Kconfig
-@@ -9,6 +9,7 @@ config DRM_VC4
- 	depends on SND && SND_SOC
- 	depends on COMMON_CLK
- 	depends on PM
+diff --git a/drivers/gpu/drm/hisilicon/kirin/Kconfig b/drivers/gpu/drm/hisilicon/kirin/Kconfig
+index 0772f79567ef..43e8a4fd2d11 100644
+--- a/drivers/gpu/drm/hisilicon/kirin/Kconfig
++++ b/drivers/gpu/drm/hisilicon/kirin/Kconfig
+@@ -2,6 +2,7 @@
+ config DRM_HISI_KIRIN
+ 	tristate "DRM Support for Hisilicon Kirin series SoCs Platform"
+ 	depends on DRM && OF && (ARM64 || COMPILE_TEST)
 +	select DRM_CLIENT_SELECTION
- 	select DRM_DISPLAY_HDMI_HELPER
- 	select DRM_DISPLAY_HDMI_STATE_HELPER
- 	select DRM_DISPLAY_HELPER
-diff --git a/drivers/gpu/drm/vc4/vc4_drv.c b/drivers/gpu/drm/vc4/vc4_drv.c
-index 8c104ace3dc6..13a1ecddbca3 100644
---- a/drivers/gpu/drm/vc4/vc4_drv.c
-+++ b/drivers/gpu/drm/vc4/vc4_drv.c
-@@ -32,8 +32,10 @@
+ 	select DRM_KMS_HELPER
+ 	select DRM_GEM_DMA_HELPER
+ 	select DRM_MIPI_DSI
+diff --git a/drivers/gpu/drm/hisilicon/kirin/kirin_drm_ade.c b/drivers/gpu/drm/hisilicon/kirin/kirin_drm_ade.c
+index 871f79a6b17e..5616c3917c03 100644
+--- a/drivers/gpu/drm/hisilicon/kirin/kirin_drm_ade.c
++++ b/drivers/gpu/drm/hisilicon/kirin/kirin_drm_ade.c
+@@ -25,6 +25,7 @@
+ #include <drm/drm_crtc.h>
+ #include <drm/drm_drv.h>
+ #include <drm/drm_fb_dma_helper.h>
++#include <drm/drm_fbdev_dma.h>
+ #include <drm/drm_fourcc.h>
+ #include <drm/drm_framebuffer.h>
+ #include <drm/drm_gem_dma_helper.h>
+@@ -925,6 +926,7 @@ static const struct drm_driver ade_driver = {
+ 	.driver_features = DRIVER_GEM | DRIVER_MODESET | DRIVER_ATOMIC,
+ 	.fops = &ade_fops,
+ 	DRM_GEM_DMA_DRIVER_OPS,
++	DRM_FBDEV_DMA_DRIVER_OPS,
+ 	.name = "kirin",
+ 	.desc = "Hisilicon Kirin620 SoC DRM Driver",
+ 	.date = "20150718",
+diff --git a/drivers/gpu/drm/hisilicon/kirin/kirin_drm_drv.c b/drivers/gpu/drm/hisilicon/kirin/kirin_drm_drv.c
+index 12666985686b..86a3a1faff49 100644
+--- a/drivers/gpu/drm/hisilicon/kirin/kirin_drm_drv.c
++++ b/drivers/gpu/drm/hisilicon/kirin/kirin_drm_drv.c
+@@ -18,8 +18,8 @@
+ #include <linux/platform_device.h>
  
- #include <drm/drm_aperture.h>
  #include <drm/drm_atomic_helper.h>
 +#include <drm/drm_client_setup.h>
  #include <drm/drm_drv.h>
- #include <drm/drm_fbdev_dma.h>
-+#include <drm/drm_fourcc.h>
- #include <drm/drm_vblank.h>
+-#include <drm/drm_fbdev_dma.h>
+ #include <drm/drm_gem_dma_helper.h>
+ #include <drm/drm_gem_framebuffer_helper.h>
+ #include <drm/drm_module.h>
+@@ -237,7 +237,7 @@ static int kirin_drm_bind(struct device *dev)
+ 	if (ret)
+ 		goto err_kms_cleanup;
  
- #include <soc/bcm2835/raspberrypi-firmware.h>
-@@ -212,6 +214,7 @@ const struct drm_driver vc4_drm_driver = {
- 	.gem_create_object = vc4_create_object,
- 
- 	DRM_GEM_DMA_DRIVER_OPS_WITH_DUMB_CREATE(vc4_bo_dumb_create),
-+	DRM_FBDEV_DMA_DRIVER_OPS,
- 
- 	.ioctls = vc4_drm_ioctls,
- 	.num_ioctls = ARRAY_SIZE(vc4_drm_ioctls),
-@@ -393,7 +396,7 @@ static int vc4_drm_bind(struct device *dev)
- 	if (ret < 0)
- 		goto err;
- 
--	drm_fbdev_dma_setup(drm, 16);
-+	drm_client_setup_with_fourcc(drm, DRM_FORMAT_RGB565);
+-	drm_fbdev_dma_setup(drm_dev, 32);
++	drm_client_setup(drm_dev, NULL);
  
  	return 0;
  
