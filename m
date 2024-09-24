@@ -4,109 +4,100 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 787F7CF9C7A
-	for <intel-gfx@archiver.kernel.org>; Tue, 24 Sep 2024 07:20:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1A98FCF9C7B
+	for <intel-gfx@archiver.kernel.org>; Tue, 24 Sep 2024 07:20:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2DF1710E5DB;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6620D10E5D7;
 	Tue, 24 Sep 2024 07:18:07 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="ZPDaXCES";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="Giwhoqt6";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="ZPDaXCES";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="Giwhoqt6";
+	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="WdFEPHxm";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="5b46F5lN";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="WdFEPHxm";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="5b46F5lN";
 	dkim-atps=neutral
 Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2864810E51E;
- Tue, 24 Sep 2024 07:17:47 +0000 (UTC)
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
- [IPv6:2a07:de40:b281:104:10:150:64:97])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D7DD310E58C;
+ Tue, 24 Sep 2024 07:17:59 +0000 (UTC)
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id BEFAC21BA6;
- Tue, 24 Sep 2024 07:17:45 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 79F1A21BB2;
+ Tue, 24 Sep 2024 07:17:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1727162265; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1727162278; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=hGvBBFrpdU12FY8WqYgFv3pw8jDEh2YOM5jfNPnQPuA=;
- b=ZPDaXCESzX0/G/Gib61E8lKRNr4mpGa60pyScibSYoaDuJSJ6cryfFCRuuL0dB2stCcyLk
- h2DQ7Ls5t18CZsefnmEG4G8I7xepr/AiyWG/5yoxzthfeaQ+j9rxeH/6vmIrxjBikZ3ChL
- Pn0lJXCyDwdvDmk53qtxVAB46dOEuoE=
+ bh=1dLp6ByNpDH4MTvO2iArduWLdmOPwArIGPYwuTsX+Yc=;
+ b=WdFEPHxmi0AGcdoGQkPS5cVuk8f0PCr5onU0MvWCKydF4DQLDVoz8MNV5z4IOK6CvYg2Pk
+ inBY1/uCh3nxWJVQxGugBqyZT2UK6icn68Bz7oe1UytH0k3O3qOCySZys5qhn5BSZwnpxd
+ q+RgMc/18OUsWEAVrf+F1/nYVrBi/aE=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1727162265;
+ s=susede2_ed25519; t=1727162278;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=hGvBBFrpdU12FY8WqYgFv3pw8jDEh2YOM5jfNPnQPuA=;
- b=Giwhoqt6zxxRlPoFBgDJn4sWpe2R1bt9nflyQ/11PNusxp3R/tCbU25hXF8csro7Csx5Js
- HZeoYhtCfdfQ40Aw==
+ bh=1dLp6ByNpDH4MTvO2iArduWLdmOPwArIGPYwuTsX+Yc=;
+ b=5b46F5lNDBwOnQHjovMKRQTkmnbntr7E7V2tBEO7fjMgpY3OCpBnVS/3vKAtufpaC+GyMj
+ gWU9Ld/IlSEBbJDw==
 Authentication-Results: smtp-out1.suse.de;
- dkim=pass header.d=suse.de header.s=susede2_rsa header.b=ZPDaXCES;
- dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=Giwhoqt6
+	none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1727162265; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1727162278; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=hGvBBFrpdU12FY8WqYgFv3pw8jDEh2YOM5jfNPnQPuA=;
- b=ZPDaXCESzX0/G/Gib61E8lKRNr4mpGa60pyScibSYoaDuJSJ6cryfFCRuuL0dB2stCcyLk
- h2DQ7Ls5t18CZsefnmEG4G8I7xepr/AiyWG/5yoxzthfeaQ+j9rxeH/6vmIrxjBikZ3ChL
- Pn0lJXCyDwdvDmk53qtxVAB46dOEuoE=
+ bh=1dLp6ByNpDH4MTvO2iArduWLdmOPwArIGPYwuTsX+Yc=;
+ b=WdFEPHxmi0AGcdoGQkPS5cVuk8f0PCr5onU0MvWCKydF4DQLDVoz8MNV5z4IOK6CvYg2Pk
+ inBY1/uCh3nxWJVQxGugBqyZT2UK6icn68Bz7oe1UytH0k3O3qOCySZys5qhn5BSZwnpxd
+ q+RgMc/18OUsWEAVrf+F1/nYVrBi/aE=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1727162265;
+ s=susede2_ed25519; t=1727162278;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=hGvBBFrpdU12FY8WqYgFv3pw8jDEh2YOM5jfNPnQPuA=;
- b=Giwhoqt6zxxRlPoFBgDJn4sWpe2R1bt9nflyQ/11PNusxp3R/tCbU25hXF8csro7Csx5Js
- HZeoYhtCfdfQ40Aw==
+ bh=1dLp6ByNpDH4MTvO2iArduWLdmOPwArIGPYwuTsX+Yc=;
+ b=5b46F5lNDBwOnQHjovMKRQTkmnbntr7E7V2tBEO7fjMgpY3OCpBnVS/3vKAtufpaC+GyMj
+ gWU9Ld/IlSEBbJDw==
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 7F52A1386E;
- Tue, 24 Sep 2024 07:17:45 +0000 (UTC)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 3EB0413AE2;
+ Tue, 24 Sep 2024 07:17:58 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id +AvjHZln8mb3YAAAD6G6ig
- (envelope-from <tzimmermann@suse.de>); Tue, 24 Sep 2024 07:17:45 +0000
+ by imap1.dmz-prg2.suse.org with ESMTPSA id IJYdDqZn8mb3YAAAD6G6ig
+ (envelope-from <tzimmermann@suse.de>); Tue, 24 Sep 2024 07:17:58 +0000
 From: Thomas Zimmermann <tzimmermann@suse.de>
 To: javierm@redhat.com, jfalempe@redhat.com, airlied@gmail.com, simona@ffwll.ch
 Cc: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
  intel-gfx@lists.freedesktop.org, nouveau@lists.freedesktop.org,
- Thomas Zimmermann <tzimmermann@suse.de>,
- Paul Cercueil <paul@crapouillou.net>
-Subject: [PATCH v5 22/80] drm/ingenic: Run DRM default client setup
-Date: Tue, 24 Sep 2024 09:12:20 +0200
-Message-ID: <20240924071734.98201-23-tzimmermann@suse.de>
+ Thomas Zimmermann <tzimmermann@suse.de>
+Subject: [PATCH v5 63/80] drm/fbdev-shmem: Remove obsolete setup function
+Date: Tue, 24 Sep 2024 09:13:01 +0200
+Message-ID: <20240924071734.98201-64-tzimmermann@suse.de>
 X-Mailer: git-send-email 2.46.0
 In-Reply-To: <20240924071734.98201-1-tzimmermann@suse.de>
 References: <20240924071734.98201-1-tzimmermann@suse.de>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Rspamd-Queue-Id: BEFAC21BA6
-X-Spamd-Result: default: False [-5.01 / 50.00]; BAYES_HAM(-3.00)[100.00%];
- DWL_DNSWL_MED(-2.00)[suse.de:dkim];
- NEURAL_HAM_LONG(-1.00)[-1.000]; MID_CONTAINS_FROM(1.00)[];
- R_MISSING_CHARSET(0.50)[];
- R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
- MX_GOOD(-0.01)[];
- DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns];
- FREEMAIL_ENVRCPT(0.00)[gmail.com]; ARC_NA(0.00)[];
- RCVD_TLS_ALL(0.00)[]; RCVD_VIA_SMTP_AUTH(0.00)[];
+X-Spamd-Result: default: False [-2.80 / 50.00]; BAYES_HAM(-3.00)[100.00%];
+ MID_CONTAINS_FROM(1.00)[]; NEURAL_HAM_LONG(-1.00)[-1.000];
+ R_MISSING_CHARSET(0.50)[]; NEURAL_HAM_SHORT(-0.20)[-1.000];
+ MIME_GOOD(-0.10)[text/plain]; TO_MATCH_ENVRCPT_ALL(0.00)[];
+ ARC_NA(0.00)[]; RCVD_VIA_SMTP_AUTH(0.00)[];
+ FROM_EQ_ENVFROM(0.00)[]; FROM_HAS_DN(0.00)[];
  TO_DN_SOME(0.00)[]; MIME_TRACE(0.00)[0:+];
- TO_MATCH_ENVRCPT_ALL(0.00)[]; FUZZY_BLOCKED(0.00)[rspamd.com];
- RCPT_COUNT_SEVEN(0.00)[10];
- DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo];
  FREEMAIL_TO(0.00)[redhat.com,gmail.com,ffwll.ch];
- RCVD_COUNT_TWO(0.00)[2]; FROM_HAS_DN(0.00)[];
- FROM_EQ_ENVFROM(0.00)[]; DKIM_TRACE(0.00)[suse.de:+]
-X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
-X-Rspamd-Action: no action
+ RCVD_TLS_ALL(0.00)[]; RCVD_COUNT_TWO(0.00)[2];
+ RCPT_COUNT_SEVEN(0.00)[9]; FUZZY_BLOCKED(0.00)[rspamd.com];
+ R_RATELIMIT(0.00)[to(RLbwen1niosrcqbxsafh1),to_ip_from(RLqirfcw6gnbcr9a9yhi49fhi6)];
+ DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ FREEMAIL_ENVRCPT(0.00)[gmail.com]
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -122,65 +113,197 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Call drm_client_setup() to run the kernel's default client setup
-for DRM. Set fbdev_probe in struct drm_driver, so that the client
-setup can start the common fbdev client.
-
-The ingenic driver specifies a preferred color mode of 32. As this
-is the default if no format has been given, leave it out entirely.
-
-v5:
-- select DRM_CLIENT_SELECTION
+The old setup function drm_fbdev_shmem_setup() is unused. Remove it
+and its internal callbacks. New drivers should call drm_client_setup()
+instead.
 
 Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
-Cc: Paul Cercueil <paul@crapouillou.net>
-Acked-by: Paul Cercueil <paul@crapouillou.net>
+Reviewed-by: Javier Martinez Canillas <javierm@redhat.com>
 ---
- drivers/gpu/drm/ingenic/Kconfig           | 1 +
- drivers/gpu/drm/ingenic/ingenic-drm-drv.c | 4 +++-
- 2 files changed, 4 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/drm_fbdev_shmem.c | 120 +-----------------------------
+ include/drm/drm_fbdev_shmem.h     |   6 --
+ 2 files changed, 1 insertion(+), 125 deletions(-)
 
-diff --git a/drivers/gpu/drm/ingenic/Kconfig b/drivers/gpu/drm/ingenic/Kconfig
-index 8cd7b750dffe..04ecfb0c5dd6 100644
---- a/drivers/gpu/drm/ingenic/Kconfig
-+++ b/drivers/gpu/drm/ingenic/Kconfig
-@@ -6,6 +6,7 @@ config DRM_INGENIC
- 	depends on OF
- 	depends on COMMON_CLK
- 	select DRM_BRIDGE
-+	select DRM_CLIENT_SELECTION
- 	select DRM_PANEL_BRIDGE
- 	select DRM_KMS_HELPER
- 	select DRM_DISPLAY_HELPER
-diff --git a/drivers/gpu/drm/ingenic/ingenic-drm-drv.c b/drivers/gpu/drm/ingenic/ingenic-drm-drv.c
-index 39fa291f43dd..056b70b63554 100644
---- a/drivers/gpu/drm/ingenic/ingenic-drm-drv.c
-+++ b/drivers/gpu/drm/ingenic/ingenic-drm-drv.c
-@@ -24,6 +24,7 @@
- #include <drm/drm_atomic_helper.h>
- #include <drm/drm_bridge.h>
- #include <drm/drm_bridge_connector.h>
-+#include <drm/drm_client_setup.h>
- #include <drm/drm_color_mgmt.h>
- #include <drm/drm_crtc.h>
- #include <drm/drm_damage_helper.h>
-@@ -960,6 +961,7 @@ static const struct drm_driver ingenic_drm_driver_data = {
- 	.fops			= &ingenic_drm_fops,
- 	.gem_create_object	= ingenic_drm_gem_create_object,
- 	DRM_GEM_DMA_DRIVER_OPS,
-+	DRM_FBDEV_DMA_DRIVER_OPS,
+diff --git a/drivers/gpu/drm/drm_fbdev_shmem.c b/drivers/gpu/drm/drm_fbdev_shmem.c
+index 3bca333917d1..f824369baacd 100644
+--- a/drivers/gpu/drm/drm_fbdev_shmem.c
++++ b/drivers/gpu/drm/drm_fbdev_shmem.c
+@@ -2,15 +2,13 @@
+ 
+ #include <linux/fb.h>
+ 
+-#include <drm/drm_crtc_helper.h>
+ #include <drm/drm_drv.h>
++#include <drm/drm_fbdev_shmem.h>
+ #include <drm/drm_fb_helper.h>
+ #include <drm/drm_framebuffer.h>
+ #include <drm/drm_gem_framebuffer_helper.h>
+ #include <drm/drm_gem_shmem_helper.h>
+ 
+-#include <drm/drm_fbdev_shmem.h>
+-
+ /*
+  * struct fb_ops
+  */
+@@ -105,12 +103,6 @@ static struct page *drm_fbdev_shmem_get_page(struct fb_info *info, unsigned long
+  * struct drm_fb_helper
+  */
+ 
+-static int drm_fbdev_shmem_helper_fb_probe(struct drm_fb_helper *fb_helper,
+-					   struct drm_fb_helper_surface_size *sizes)
+-{
+-	return drm_fbdev_shmem_driver_fbdev_probe(fb_helper, sizes);
+-}
+-
+ static int drm_fbdev_shmem_helper_fb_dirty(struct drm_fb_helper *helper,
+ 					   struct drm_clip_rect *clip)
+ {
+@@ -131,7 +123,6 @@ static int drm_fbdev_shmem_helper_fb_dirty(struct drm_fb_helper *helper,
+ }
+ 
+ static const struct drm_fb_helper_funcs drm_fbdev_shmem_helper_funcs = {
+-	.fb_probe = drm_fbdev_shmem_helper_fb_probe,
+ 	.fb_dirty = drm_fbdev_shmem_helper_fb_dirty,
  };
  
- static const struct drm_plane_funcs ingenic_drm_primary_plane_funcs = {
-@@ -1399,7 +1401,7 @@ static int ingenic_drm_bind(struct device *dev, bool has_components)
- 		goto err_clk_notifier_unregister;
- 	}
+@@ -218,112 +209,3 @@ int drm_fbdev_shmem_driver_fbdev_probe(struct drm_fb_helper *fb_helper,
+ 	return ret;
+ }
+ EXPORT_SYMBOL(drm_fbdev_shmem_driver_fbdev_probe);
+-
+-/*
+- * struct drm_client_funcs
+- */
+-
+-static void drm_fbdev_shmem_client_unregister(struct drm_client_dev *client)
+-{
+-	struct drm_fb_helper *fb_helper = drm_fb_helper_from_client(client);
+-
+-	if (fb_helper->info) {
+-		drm_fb_helper_unregister_info(fb_helper);
+-	} else {
+-		drm_client_release(&fb_helper->client);
+-		drm_fb_helper_unprepare(fb_helper);
+-		kfree(fb_helper);
+-	}
+-}
+-
+-static int drm_fbdev_shmem_client_restore(struct drm_client_dev *client)
+-{
+-	drm_fb_helper_lastclose(client->dev);
+-
+-	return 0;
+-}
+-
+-static int drm_fbdev_shmem_client_hotplug(struct drm_client_dev *client)
+-{
+-	struct drm_fb_helper *fb_helper = drm_fb_helper_from_client(client);
+-	struct drm_device *dev = client->dev;
+-	int ret;
+-
+-	if (dev->fb_helper)
+-		return drm_fb_helper_hotplug_event(dev->fb_helper);
+-
+-	ret = drm_fb_helper_init(dev, fb_helper);
+-	if (ret)
+-		goto err_drm_err;
+-
+-	if (!drm_drv_uses_atomic_modeset(dev))
+-		drm_helper_disable_unused_functions(dev);
+-
+-	ret = drm_fb_helper_initial_config(fb_helper);
+-	if (ret)
+-		goto err_drm_fb_helper_fini;
+-
+-	return 0;
+-
+-err_drm_fb_helper_fini:
+-	drm_fb_helper_fini(fb_helper);
+-err_drm_err:
+-	drm_err(dev, "fbdev-shmem: Failed to setup emulation (ret=%d)\n", ret);
+-	return ret;
+-}
+-
+-static const struct drm_client_funcs drm_fbdev_shmem_client_funcs = {
+-	.owner		= THIS_MODULE,
+-	.unregister	= drm_fbdev_shmem_client_unregister,
+-	.restore	= drm_fbdev_shmem_client_restore,
+-	.hotplug	= drm_fbdev_shmem_client_hotplug,
+-};
+-
+-/**
+- * drm_fbdev_shmem_setup() - Setup fbdev emulation for GEM SHMEM helpers
+- * @dev: DRM device
+- * @preferred_bpp: Preferred bits per pixel for the device.
+- *                 32 is used if this is zero.
+- *
+- * This function sets up fbdev emulation for GEM DMA drivers that support
+- * dumb buffers with a virtual address and that can be mmap'ed.
+- * drm_fbdev_shmem_setup() shall be called after the DRM driver registered
+- * the new DRM device with drm_dev_register().
+- *
+- * Restore, hotplug events and teardown are all taken care of. Drivers that do
+- * suspend/resume need to call drm_fb_helper_set_suspend_unlocked() themselves.
+- * Simple drivers might use drm_mode_config_helper_suspend().
+- *
+- * This function is safe to call even when there are no connectors present.
+- * Setup will be retried on the next hotplug event.
+- *
+- * The fbdev is destroyed by drm_dev_unregister().
+- */
+-void drm_fbdev_shmem_setup(struct drm_device *dev, unsigned int preferred_bpp)
+-{
+-	struct drm_fb_helper *fb_helper;
+-	int ret;
+-
+-	drm_WARN(dev, !dev->registered, "Device has not been registered.\n");
+-	drm_WARN(dev, dev->fb_helper, "fb_helper is already set!\n");
+-
+-	fb_helper = kzalloc(sizeof(*fb_helper), GFP_KERNEL);
+-	if (!fb_helper)
+-		return;
+-	drm_fb_helper_prepare(dev, fb_helper, preferred_bpp, &drm_fbdev_shmem_helper_funcs);
+-
+-	ret = drm_client_init(dev, &fb_helper->client, "fbdev", &drm_fbdev_shmem_client_funcs);
+-	if (ret) {
+-		drm_err(dev, "Failed to register client: %d\n", ret);
+-		goto err_drm_client_init;
+-	}
+-
+-	drm_client_register(&fb_helper->client);
+-
+-	return;
+-
+-err_drm_client_init:
+-	drm_fb_helper_unprepare(fb_helper);
+-	kfree(fb_helper);
+-}
+-EXPORT_SYMBOL(drm_fbdev_shmem_setup);
+diff --git a/include/drm/drm_fbdev_shmem.h b/include/drm/drm_fbdev_shmem.h
+index 3a5d1efa9d55..2fc708964d75 100644
+--- a/include/drm/drm_fbdev_shmem.h
++++ b/include/drm/drm_fbdev_shmem.h
+@@ -3,7 +3,6 @@
+ #ifndef DRM_FBDEV_SHMEM_H
+ #define DRM_FBDEV_SHMEM_H
  
--	drm_fbdev_dma_setup(drm, 32);
-+	drm_client_setup(drm, NULL);
+-struct drm_device;
+ struct drm_fb_helper;
+ struct drm_fb_helper_surface_size;
  
- 	return 0;
+@@ -13,12 +12,7 @@ int drm_fbdev_shmem_driver_fbdev_probe(struct drm_fb_helper *fb_helper,
  
+ #define DRM_FBDEV_SHMEM_DRIVER_OPS \
+ 	.fbdev_probe = drm_fbdev_shmem_driver_fbdev_probe
+-
+-void drm_fbdev_shmem_setup(struct drm_device *dev, unsigned int preferred_bpp);
+ #else
+-static inline void drm_fbdev_shmem_setup(struct drm_device *dev, unsigned int preferred_bpp)
+-{ }
+-
+ #define DRM_FBDEV_SHMEM_DRIVER_OPS \
+ 	.fbdev_probe = NULL
+ #endif
 -- 
 2.46.0
 
