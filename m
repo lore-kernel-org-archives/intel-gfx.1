@@ -4,76 +4,32 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A56B6CE834B
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 60E97CE8343
 	for <intel-gfx@archiver.kernel.org>; Mon, 30 Sep 2024 13:31:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A59D710E4DA;
+	by gabe.freedesktop.org (Postfix) with ESMTP id A93E110E4DB;
 	Mon, 30 Sep 2024 13:30:59 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="foTRiJDA";
-	dkim-atps=neutral
-Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com
- [209.85.128.46])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F343E10E42F;
- Mon, 30 Sep 2024 12:37:23 +0000 (UTC)
-Received: by mail-wm1-f46.google.com with SMTP id
- 5b1f17b1804b1-42cd74c0d16so39962275e9.1; 
- Mon, 30 Sep 2024 05:37:23 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1727699842; x=1728304642; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=GqCZlFa0k9WmJz/BFH863M+r457tyeztRr2WseZe9PM=;
- b=foTRiJDA2vm1+0lhZ1rp/209VP6Az8gJlSnGIDoptdovVLqVpGiafx0SWwF6UymVyL
- wM0a39s/AjqLKiY0V92JPgU6I3Xoy6Eu2jub2gJvWL+NPrgSBkb7uZcgoG+jSSGBu8gi
- wqDdX+G0Hlh1uiYaPJrhjeeMdH+ib2kAKBrGpx21ROBU1/fudW7B2CddV0gW0sdedbXp
- lygc0zn+iN+DVq7hyCtyR1jXHur8Gop8zn1GHy7rolurlxE59s1ivlpfAvEgfF9387li
- YnwZwE3xL737nP7JY4OwatWMB6ZIsxhBAob01P9n23vwBbllzzHz4DeVxF4KbbSR1zAy
- 1Y2A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1727699842; x=1728304642;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=GqCZlFa0k9WmJz/BFH863M+r457tyeztRr2WseZe9PM=;
- b=NMcvpd3+Ok9n6/95v9OoLGxjaBgnXON3CXhApiTe29pMxpAI94jtgqMQbP8E2YHYEH
- ZgKibcTVK+xPxWoUCshdsNyNEYBfZXJWNkL5xCvqcZNfpwbjXQEdaSNmb7QguU9gba4g
- mcBzXlfIiLdp03WNrrXwwWDnqdj30oIyvbcIwah9r6/ywvzKdsG1IAxbMltPJVC7PUQ7
- B4MlComH9XTpONo37+4KnoD/r+LFboyyA5xH0TcXI+v/paPQl9/xOvRGH61pNIUqzKQr
- 78z+7n2r4nvzcOVxuOSe8GPCXu2C5Ju4L31Ck4jy+9ojBtd3CSHWKmXjEfhsNM/QYUZc
- cjuA==
-X-Forwarded-Encrypted: i=1;
- AJvYcCVO4h1nUIzEkArEuEmFtzubOwiCFIGuNR/fDCRs1YzVGRZ9t3LxX7aU6x7uxPRTcvZr5MdwWRYkqCs=@lists.freedesktop.org,
- AJvYcCXIXZ4ZWQWX69QSLSuW5vOmzYQj+C/dTpBrzsc7JYcG/4WzGjFWAceU2FM3ssHhiIeVU9it89OvXHyX@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxAzpfQ8kLvXGlt1j8FkIZP0QeU41afNzQwaOqtF13QlDRYu4fy
- osFUzazbpaYbuZvoUMrNKNGztmZRTS9i2a4iRpwKCr/Q+39WlqUs
-X-Google-Smtp-Source: AGHT+IHDSczxlpNlMjqYJQ/J5lvvp+MGxNHf3VyEwPU2HocH3ahQJeDUV9edXRytld8Js+EVeXOtyQ==
-X-Received: by 2002:a05:600c:350a:b0:42c:b74c:d8c3 with SMTP id
- 5b1f17b1804b1-42f584a2da9mr83108865e9.32.1727699841971; 
- Mon, 30 Sep 2024 05:37:21 -0700 (PDT)
-Received: from fedora.iskraemeco.si ([193.77.86.250])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-42e96a52308sm149011355e9.43.2024.09.30.05.37.20
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 30 Sep 2024 05:37:21 -0700 (PDT)
-From: Uros Bizjak <ubizjak@gmail.com>
-To: x86@kernel.org, linux-crypto@vger.kernel.org,
- intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-media@vger.kernel.org, linux-mtd@lists.infradead.org,
- linux-fscrypt@vger.kernel.org, linux-scsi@vger.kernel.org,
- bpf@vger.kernel.org, linux-kselftest@vger.kernel.org,
- kunit-dev@googlegroups.com, linux-kernel@vger.kernel.org
-Cc: Uros Bizjak <ubizjak@gmail.com>, Andrew Morton <akpm@linux-foundation.org>
-Subject: [PATCH v3 10/19] lib/interval_tree_test.c: Include <linux/prandom.h>
- instead of <linux/random.h>
-Date: Mon, 30 Sep 2024 14:33:21 +0200
-Message-ID: <20240930123702.803617-11-ubizjak@gmail.com>
-X-Mailer: git-send-email 2.46.2
-In-Reply-To: <20240930123702.803617-1-ubizjak@gmail.com>
-References: <20240930123702.803617-1-ubizjak@gmail.com>
+Received: from MSK-MAILEDGE.securitycode.ru (msk-mailedge.securitycode.ru
+ [195.133.217.143])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 031B410E6BE;
+ Tue, 24 Sep 2024 11:20:53 +0000 (UTC)
+From: George Rurikov <g.ryurikov@securitycode.ru>
+To: Jani Nikula <jani.nikula@linux.intel.com>
+CC: George Rurikov <g.ryurikov@securitycode.ru>, Rodrigo Vivi
+ <rodrigo.vivi@intel.com>, Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Tvrtko Ursulin <tursulin@ursulin.net>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, <intel-gfx@lists.freedesktop.org>,
+ <intel-xe@lists.freedesktop.org>, <dri-devel@lists.freedesktop.og>,
+ <linux-kernel@vger.kernel.org>, <stable@vger.kernel.org>
+Subject: [PATCH] drm: Add check for encoder in intel_get_crtc_new_encoder()
+Date: Tue, 24 Sep 2024 14:20:23 +0300
+Message-ID: <20240924112023.1071395-1-g.ryurikov@securitycode.ru>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+X-ClientProxiedBy: SPB-EX2.Securitycode.ru (172.16.24.92) To
+ MSK-EX2.Securitycode.ru (172.17.8.92)
 X-Mailman-Approved-At: Mon, 30 Sep 2024 13:30:58 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -90,29 +46,73 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Substitute the inclusion of <linux/random.h> header with
-<linux/prandom.h> to allow the removal of legacy inclusion
-of <linux/prandom.h> from <linux/random.h>.
+If the video card driver could not find the connector assigned to the
+current video controller, or if the hardware status has changed so that
+a pre-existing connector is no longer active, none of the state
+connectors will meet the assignment criteria for the current crtc video
+controller.
 
-Signed-off-by: Uros Bizjak <ubizjak@gmail.com>
-Cc: Andrew Morton <akpm@linux-foundation.org>
+In the drm_WARN function, encoder->base.dev is called, so
+'&encoder->base.dev' will be dereferenced since encoder will still be
+initialized NULL.
+
+Found by Linux Verification Center (linuxtesting.org) with SVACE.
+
+Fixes: e12d6218fda2 ("drm/i915: Reduce bigjoiner special casing")
+Cc: stable@vger.kernel.org
+Signed-off-by: George Rurikov <g.ryurikov@securitycode.ru>
 ---
- lib/interval_tree_test.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/gpu/drm/i915/display/intel_display.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
-diff --git a/lib/interval_tree_test.c b/lib/interval_tree_test.c
-index f37f4d44faa9..837064b83a6c 100644
---- a/lib/interval_tree_test.c
-+++ b/lib/interval_tree_test.c
-@@ -2,7 +2,7 @@
- #include <linux/module.h>
- #include <linux/moduleparam.h>
- #include <linux/interval_tree.h>
--#include <linux/random.h>
-+#include <linux/prandom.h>
- #include <linux/slab.h>
- #include <asm/timex.h>
- 
--- 
-2.46.2
+diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm=
+/i915/display/intel_display.c
+index b4ef4d59da1a..1f25b12e5f67 100644
+--- a/drivers/gpu/drm/i915/display/intel_display.c
++++ b/drivers/gpu/drm/i915/display/intel_display.c
+@@ -819,9 +819,11 @@ intel_get_crtc_new_encoder(const struct intel_atomic_s=
+tate *state,
+                num_encoders++;
+        }
 
+-       drm_WARN(state->base.dev, num_encoders !=3D 1,
++       if (encoder) {
++               drm_WARN(state->base.dev, num_encoders !=3D 1,
+                 "%d encoders for pipe %c\n",
+                 num_encoders, pipe_name(primary_crtc->pipe));
++       }
+
+        return encoder;
+ }
+--
+2.34.1
+
+=D0=97=D0=B0=D1=8F=D0=B2=D0=BB=D0=B5=D0=BD=D0=B8=D0=B5 =D0=BE =D0=BA=D0=BE=
+=D0=BD=D1=84=D0=B8=D0=B4=D0=B5=D0=BD=D1=86=D0=B8=D0=B0=D0=BB=D1=8C=D0=BD=D0=
+=BE=D1=81=D1=82=D0=B8
+
+=D0=94=D0=B0=D0=BD=D0=BD=D0=BE=D0=B5 =D1=8D=D0=BB=D0=B5=D0=BA=D1=82=D1=80=
+=D0=BE=D0=BD=D0=BD=D0=BE=D0=B5 =D0=BF=D0=B8=D1=81=D1=8C=D0=BC=D0=BE =D0=B8 =
+=D0=BB=D1=8E=D0=B1=D1=8B=D0=B5 =D0=BF=D1=80=D0=B8=D0=BB=D0=BE=D0=B6=D0=B5=
+=D0=BD=D0=B8=D1=8F =D0=BA =D0=BD=D0=B5=D0=BC=D1=83 =D1=8F=D0=B2=D0=BB=D1=8F=
+=D1=8E=D1=82=D1=81=D1=8F =D0=BA=D0=BE=D0=BD=D1=84=D0=B8=D0=B4=D0=B5=D0=BD=
+=D1=86=D0=B8=D0=B0=D0=BB=D1=8C=D0=BD=D1=8B=D0=BC=D0=B8 =D0=B8 =D0=BF=D1=80=
+=D0=B5=D0=B4=D0=BD=D0=B0=D0=B7=D0=BD=D0=B0=D1=87=D0=B5=D0=BD=D1=8B =D0=B8=
+=D1=81=D0=BA=D0=BB=D1=8E=D1=87=D0=B8=D1=82=D0=B5=D0=BB=D1=8C=D0=BD=D0=BE =
+=D0=B4=D0=BB=D1=8F =D0=B0=D0=B4=D1=80=D0=B5=D1=81=D0=B0=D1=82=D0=B0. =D0=95=
+=D1=81=D0=BB=D0=B8 =D0=92=D1=8B =D0=BD=D0=B5 =D1=8F=D0=B2=D0=BB=D1=8F=D0=B5=
+=D1=82=D0=B5=D1=81=D1=8C =D0=B0=D0=B4=D1=80=D0=B5=D1=81=D0=B0=D1=82=D0=BE=
+=D0=BC =D0=B4=D0=B0=D0=BD=D0=BD=D0=BE=D0=B3=D0=BE =D0=BF=D0=B8=D1=81=D1=8C=
+=D0=BC=D0=B0, =D0=BF=D0=BE=D0=B6=D0=B0=D0=BB=D1=83=D0=B9=D1=81=D1=82=D0=B0,=
+ =D1=83=D0=B2=D0=B5=D0=B4=D0=BE=D0=BC=D0=B8=D1=82=D0=B5 =D0=BD=D0=B5=D0=BC=
+=D0=B5=D0=B4=D0=BB=D0=B5=D0=BD=D0=BD=D0=BE =D0=BE=D1=82=D0=BF=D1=80=D0=B0=
+=D0=B2=D0=B8=D1=82=D0=B5=D0=BB=D1=8F, =D0=BD=D0=B5 =D1=80=D0=B0=D1=81=D0=BA=
+=D1=80=D1=8B=D0=B2=D0=B0=D0=B9=D1=82=D0=B5 =D1=81=D0=BE=D0=B4=D0=B5=D1=80=
+=D0=B6=D0=B0=D0=BD=D0=B8=D0=B5 =D0=B4=D1=80=D1=83=D0=B3=D0=B8=D0=BC =D0=BB=
+=D0=B8=D1=86=D0=B0=D0=BC, =D0=BD=D0=B5 =D0=B8=D1=81=D0=BF=D0=BE=D0=BB=D1=8C=
+=D0=B7=D1=83=D0=B9=D1=82=D0=B5 =D0=B5=D0=B3=D0=BE =D0=B2 =D0=BA=D0=B0=D0=BA=
+=D0=B8=D1=85-=D0=BB=D0=B8=D0=B1=D0=BE =D1=86=D0=B5=D0=BB=D1=8F=D1=85, =D0=
+=BD=D0=B5 =D1=85=D1=80=D0=B0=D0=BD=D0=B8=D1=82=D0=B5 =D0=B8 =D0=BD=D0=B5 =
+=D0=BA=D0=BE=D0=BF=D0=B8=D1=80=D1=83=D0=B9=D1=82=D0=B5 =D0=B8=D0=BD=D1=84=
+=D0=BE=D1=80=D0=BC=D0=B0=D1=86=D0=B8=D1=8E =D0=BB=D1=8E=D0=B1=D1=8B=D0=BC =
+=D1=81=D0=BF=D0=BE=D1=81=D0=BE=D0=B1=D0=BE=D0=BC.
