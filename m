@@ -4,80 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 231FECE834B
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 41527CE834C
 	for <intel-gfx@archiver.kernel.org>; Mon, 30 Sep 2024 13:31:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4468C10E4EB;
-	Mon, 30 Sep 2024 13:31:27 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 197CF10E4E2;
+	Mon, 30 Sep 2024 13:31:26 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="fmHpal07";
+	dkim=pass (1024-bit key; unprotected) header.d=linux.dev header.i=@linux.dev header.b="qGeYFcQg";
 	dkim-atps=neutral
-Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com
- [209.85.128.54])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3FFA410E431;
- Mon, 30 Sep 2024 12:37:16 +0000 (UTC)
-Received: by mail-wm1-f54.google.com with SMTP id
- 5b1f17b1804b1-42cb1e623d1so40073435e9.0; 
- Mon, 30 Sep 2024 05:37:16 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1727699834; x=1728304634; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=iIz4XxD/MXWvSuHKaNsZDh3MppYU6Ey9Ren8dN/1Nnw=;
- b=fmHpal07DOMQRT2xAEzEP6v0bFRzV9zALy7wzCzoNRLq02WNrJoApgGRuWWkr3dTxN
- 2RleyCmxmCKhRhXZsHZUgtGFKFIPTRwtV8CQlQgxrb9TnCSYJQvYBcqM9uCb7qdFS3Hv
- m6Amdk4EBw7jM7uueO5ls1nIoj5Tn2mCsJWqcYUKvQnrquY+6auxIxqM/aQ5ao/RBC4+
- 2d2MIE0OGOfHQZGTGLonqzSGigMGE3kG11CtezMrsAdfnDv4cEsopnGQYbdidlxmsYO5
- nVQBO/0t6x/M/V2vbk/LVRqHMH9l/QxbNDub8EGCL0w54BpYDP/UtxJUIDMRPSp+lrTy
- 38NA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1727699834; x=1728304634;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=iIz4XxD/MXWvSuHKaNsZDh3MppYU6Ey9Ren8dN/1Nnw=;
- b=E06ZY1Ur5mDcQZtEzT4VmCzJB8kjx9YsWRR2GHWcAUqz2V26UhoP2JKdVOeH1Arj8Y
- OsS51BUrWzIHFQInyyDgJxxb5MN4ZcCvsldYDhyoV7BIMgBYsa3t/3VSpLsD7SJX0q4j
- uRglwnvo5KsKKtlYH5gf71nYyIbvjpWm3LVHj36q/6k5+d1+8oY7yWfDeCQMs93iHq5W
- E3I+Kv6d4yzB7Znrw8Otf7q8PBnCbgRh/AA8RycrrcVPA/GvW70i2ofmhLSTbHakUrKE
- eEZ5sozWqQIKJB13dhkn1h9AhzqNjuu74ySOk2F8Ev5KqQnMIr5Jd4tQqKiHkkbwXkVI
- Sndw==
-X-Forwarded-Encrypted: i=1;
- AJvYcCWlijcM5bCODhRppzWYEIdodVKcj7z6S+R+efIffIbqvMj2KB4Ymfu2vhfiA52IoIaqz1S6p3Cxc9Qg@lists.freedesktop.org,
- AJvYcCWzX8O0htvmHRF8pku1ZD/kO8iF4B3E6NrS+Pn5HhuVqqZR5cmwmWylCQP/wR3d8fbwBqWGwoRzSQE=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzE6E/r3nk2Y8LrSFVbxYcHN24PMwtmWOeOidqY41hTAgmwQx3l
- c2VEbb4nG3YajYHP2a/CzyMp0FFIloNUULygyTV+7ucDQbrBBhNH
-X-Google-Smtp-Source: AGHT+IHLebdUj03VIWRmjVk+jZmmDpfIAH8/fQg7ILqXr2avcVfhMeGRYFMjONtxE6BzkKSMTbFFfw==
-X-Received: by 2002:a05:600c:1549:b0:42c:a574:6360 with SMTP id
- 5b1f17b1804b1-42f584a1d5cmr91192685e9.29.1727699834409; 
- Mon, 30 Sep 2024 05:37:14 -0700 (PDT)
-Received: from fedora.iskraemeco.si ([193.77.86.250])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-42e96a52308sm149011355e9.43.2024.09.30.05.37.13
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 30 Sep 2024 05:37:13 -0700 (PDT)
-From: Uros Bizjak <ubizjak@gmail.com>
-To: x86@kernel.org, linux-crypto@vger.kernel.org,
- intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-media@vger.kernel.org, linux-mtd@lists.infradead.org,
- linux-fscrypt@vger.kernel.org, linux-scsi@vger.kernel.org,
- bpf@vger.kernel.org, linux-kselftest@vger.kernel.org,
- kunit-dev@googlegroups.com, linux-kernel@vger.kernel.org
-Cc: Uros Bizjak <ubizjak@gmail.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Daniel Vetter <daniel@ffwll.ch>
-Subject: [PATCH v3 04/19] drm/lib: Include <linux/prandom.h> instead of
- <linux/random.h>
-Date: Mon, 30 Sep 2024 14:33:15 +0200
-Message-ID: <20240930123702.803617-5-ubizjak@gmail.com>
-X-Mailer: git-send-email 2.46.2
-In-Reply-To: <20240930123702.803617-1-ubizjak@gmail.com>
-References: <20240930123702.803617-1-ubizjak@gmail.com>
+X-Greylist: delayed 467 seconds by postgrey-1.36 at gabe;
+ Wed, 25 Sep 2024 14:26:32 UTC
+Received: from out-188.mta0.migadu.com (out-188.mta0.migadu.com
+ [91.218.175.188])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B63EF10E838
+ for <intel-gfx@lists.freedesktop.org>; Wed, 25 Sep 2024 14:26:32 +0000 (UTC)
+X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and
+ include these headers.
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
+ t=1727273923;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:
+ content-transfer-encoding:content-transfer-encoding;
+ bh=j1jLzGsVDLJpvcx9eHuYorQp4QLT+Mz2rR2lkvgJUBc=;
+ b=qGeYFcQguJyat4m0Y6rli6DTb6lVeOVti6hvTMdkragSAjHgxBhjwN6/6LrJA5+6dgNiCk
+ hAOU41BfwGN7U4syOz+hI6Vh/s1cKJQCsvE1hsqJPBGsLDvf+V2Ay3fDgpuTI383qbRVR5
+ 2+E/pcY3JoBLr04nrI3JspsG8fCFsrM=
+From: Thorsten Blum <thorsten.blum@linux.dev>
+To: Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Tvrtko Ursulin <tursulin@ursulin.net>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Kunwu Chan <chentao@kylinos.cn>,
+ Vinay Belgaumkar <vinay.belgaumkar@intel.com>,
+ Aravind Iddamsetty <aravind.iddamsetty@intel.com>
+Cc: Thorsten Blum <thorsten.blum@linux.dev>,
+ Ivan Briano <ivan.briano@intel.com>, intel-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Subject: [PATCH] drm/i915: Use memdup_user() instead of kmalloc() and
+ copy_from_user()
+Date: Wed, 25 Sep 2024 16:17:46 +0200
+Message-ID: <20240925141750.51198-1-thorsten.blum@linux.dev>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-Migadu-Flow: FLOW_OUT
 X-Mailman-Approved-At: Mon, 30 Sep 2024 13:30:58 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -94,33 +63,45 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Substitute the inclusion of <linux/random.h> header with
-<linux/prandom.h> to allow the removal of legacy inclusion
-of <linux/prandom.h> from <linux/random.h>.
+Use memdup_user() instead of kmalloc() followed by copy_from_user() to
+simplify set_context_image().
 
-Signed-off-by: Uros Bizjak <ubizjak@gmail.com>
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-Cc: Maxime Ripard <mripard@kernel.org>
-Cc: Thomas Zimmermann <tzimmermann@suse.de>
-Cc: David Airlie <airlied@gmail.com>
-Cc: Daniel Vetter <daniel@ffwll.ch>
+Fixes the following Coccinelle/coccicheck warning reported by
+memdup_user.cocci:
+
+  WARNING opportunity for memdup_user
+
+Signed-off-by: Thorsten Blum <thorsten.blum@linux.dev>
 ---
- drivers/gpu/drm/lib/drm_random.h | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/gpu/drm/i915/gem/i915_gem_context.c | 12 +++---------
+ 1 file changed, 3 insertions(+), 9 deletions(-)
 
-diff --git a/drivers/gpu/drm/lib/drm_random.h b/drivers/gpu/drm/lib/drm_random.h
-index 5543bf0474bc..9f827260a89d 100644
---- a/drivers/gpu/drm/lib/drm_random.h
-+++ b/drivers/gpu/drm/lib/drm_random.h
-@@ -6,7 +6,7 @@
-  * be transposed to lib/ at the earliest convenience.
-  */
+diff --git a/drivers/gpu/drm/i915/gem/i915_gem_context.c b/drivers/gpu/drm/i915/gem/i915_gem_context.c
+index c0543c35cd6a..c1cc41e90502 100644
+--- a/drivers/gpu/drm/i915/gem/i915_gem_context.c
++++ b/drivers/gpu/drm/i915/gem/i915_gem_context.c
+@@ -2159,18 +2159,12 @@ static int set_context_image(struct i915_gem_context *ctx,
+ 		goto out_ce;
+ 	}
  
--#include <linux/random.h>
-+#include <linux/prandom.h>
+-	state = kmalloc(ce->engine->context_size, GFP_KERNEL);
+-	if (!state) {
+-		ret = -ENOMEM;
++	state = memdup_user(u64_to_user_ptr(user.image), ce->engine->context_size);
++	if (IS_ERR(state)) {
++		ret = PTR_ERR(state);
+ 		goto out_ce;
+ 	}
  
- #define DRM_RND_STATE_INITIALIZER(seed__) ({				\
- 	struct rnd_state state__;					\
+-	if (copy_from_user(state, u64_to_user_ptr(user.image),
+-			   ce->engine->context_size)) {
+-		ret = -EFAULT;
+-		goto out_state;
+-	}
+-
+ 	shmem_state = shmem_create_from_data(ce->engine->name,
+ 					     state, ce->engine->context_size);
+ 	if (IS_ERR(shmem_state)) {
 -- 
-2.46.2
+2.46.1
 
