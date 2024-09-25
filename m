@@ -4,76 +4,77 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 17DFCC369D5
-	for <intel-gfx@archiver.kernel.org>; Wed, 25 Sep 2024 11:52:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3DB3DC369D3
+	for <intel-gfx@archiver.kernel.org>; Wed, 25 Sep 2024 11:53:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BC86410E97B;
-	Wed, 25 Sep 2024 11:52:07 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D064710E995;
+	Wed, 25 Sep 2024 11:53:37 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; secure) header.d=ffwll.ch header.i=@ffwll.ch header.b="liZeqAsL";
+	dkim=pass (1024-bit key; secure) header.d=ffwll.ch header.i=@ffwll.ch header.b="ZaJnV8sL";
 	dkim-atps=neutral
-Received: from mail-ej1-f41.google.com (mail-ej1-f41.google.com
- [209.85.218.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6F0D710E97B
- for <intel-gfx@lists.freedesktop.org>; Wed, 25 Sep 2024 11:52:06 +0000 (UTC)
-Received: by mail-ej1-f41.google.com with SMTP id
- a640c23a62f3a-a8d4979b843so835574766b.3
- for <intel-gfx@lists.freedesktop.org>; Wed, 25 Sep 2024 04:52:06 -0700 (PDT)
+Received: from mail-lf1-f53.google.com (mail-lf1-f53.google.com
+ [209.85.167.53])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 21A6810E995
+ for <intel-gfx@lists.freedesktop.org>; Wed, 25 Sep 2024 11:53:37 +0000 (UTC)
+Received: by mail-lf1-f53.google.com with SMTP id
+ 2adb3069b0e04-5365c060f47so7811772e87.2
+ for <intel-gfx@lists.freedesktop.org>; Wed, 25 Sep 2024 04:53:37 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=ffwll.ch; s=google; t=1727265125; x=1727869925; darn=lists.freedesktop.org; 
+ d=ffwll.ch; s=google; t=1727265215; x=1727870015; darn=lists.freedesktop.org; 
  h=in-reply-to:content-disposition:mime-version:references:message-id
  :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=4lwbM1moqSYfv+5qScl5Wq7j7UG25Y0knsJfD+SsF5g=;
- b=liZeqAsLCNAlAQ7ptCzECWqQOhcgGwDvBZQx/2IhzwSFMb8FJZcLzms7dSTw7VXKUf
- b+j0mAqJ05elRKfm/CS7jNToiAv5Xi5BBs5/YFnPG1jdqZ7dX7+lN3DvujS1EcBkfjOy
- UeAimZvltaq6J4HvJK8B9u+Kq4Ss57jVKNaWE=
+ bh=o0d3c8Z9r2ZAGxuFjvCvLBTiAAYmewJnB9aenLoqHvo=;
+ b=ZaJnV8sL22hEGoaJRRo3gdgoul5MnM/2fgdy7DO5B8cjpgHmTjjvvIh9bbMYlcZQZX
+ dDoXtw2SSB4hOjY9ZasLjnbG5Fdwjmma9lHE34RPG/53BBradQMwYAzO3i3qWke1YTMM
+ FccDkyqRvmK0ldwmAZEtsCs552G1/7fxHP/R8=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1727265125; x=1727869925;
+ d=1e100.net; s=20230601; t=1727265215; x=1727870015;
  h=in-reply-to:content-disposition:mime-version:references:message-id
  :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to;
- bh=4lwbM1moqSYfv+5qScl5Wq7j7UG25Y0knsJfD+SsF5g=;
- b=H1OVTSgN3ZZmCA4+DEMdm6U4GrX9LTD0bXHRetzKu9L079H/IYhO4he4/eecy37hg1
- 37M0WmcMGu3zM9WeoVIVcHwDpCRiL2nRk2Nu2YP6cTjYKgllS5O9JOJ3rNPLIbCFaJ3A
- HCst40qnLB7H9X91Uw/M/WgW18w68WIE7llB0j8C8rsklQVAt9zqAnsjP0ZeUQugMKjt
- WN18J1qxzEGRUxSOdBjvKZDDSIMTm8os1EM9gRsFPkkDHqfLCctpU0AhW5VF4K3ttQLq
- SZSk1wBgfJx4cyASRYA7xVwZAhPmSslRC7dGkbLbumoIyU4+xK94mRS2UakcKPH21sQh
- VHvQ==
+ bh=o0d3c8Z9r2ZAGxuFjvCvLBTiAAYmewJnB9aenLoqHvo=;
+ b=nDW2lDsJImMS9n4dGRTaEffcBR0FvsvLxdy4cQZYu7h7dm8TCSTCmyt83AD7q40tHT
+ qxTRT98UKSRwPNtdnFP9tFxKu5y5w29goyjHtng+BFBLH0ik65MOrKX9JXw30vF7oahS
+ o8eO6wfeleiyMMQVIhBIBrIjZ9Vhf64wkeabHp0wICGJ2DVrVbVDpIVbTqprbEkMt6/1
+ lo3NemnlZJnM+7yAIseQxdwq1tGFXPn7zp4UVOu7Z7V6VGFHnF5E2vPSUbL1rihEyeKM
+ SxvLSS4q9oefo6Cl/u6cZWLtB/CsVBMYaAEBFIM69YB8dW7XhBLpUrcJ+HrFI2iyuGUa
+ sD1g==
 X-Forwarded-Encrypted: i=1;
- AJvYcCW6bgwrd5bbxcMmwZ9ebP5xiUc8J3DrQzsXD1z/I1njAzIYWHttUDoMCk73/uyV5qSA930OSjfp1p8=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yx429Y45GS5Hh474HVHeQYemQtwSKefUNe7sn5Vyjt8HSCRaWmM
- yXyfewchCSc56g5TESMWsTi2mq7Sybxg58fSeBqCQTQZ/HG+aO7DCPWfBMnQ6KA=
-X-Google-Smtp-Source: AGHT+IGY+tCYKuqC9/Gzg84POK/qJtUX7MhFgwGDzkBxp7Yr3Ux1fiFQ7y+XNjpJFjR0QduqUeYGSw==
-X-Received: by 2002:a17:907:d581:b0:a8d:2d2e:90e6 with SMTP id
- a640c23a62f3a-a93a066fdccmr191317366b.60.1727265124707; 
- Wed, 25 Sep 2024 04:52:04 -0700 (PDT)
+ AJvYcCWo/4FpiFb/i3KvNkDB3ZdWwgv6ZN53kDod3+QwoTJZF80opnADYob/Hei/1YDCZM4ZRXlph6RbpMY=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwA+9jy7HM8te5dZwD1va6PSQeincvGL56KL0vhx5X3EEtRSY7l
+ gpq4lkYjNqCU+r3zqKfpJFRJCyr6476x439e/gJQLPzSqTD8EydD0BsuoOBDAkE=
+X-Google-Smtp-Source: AGHT+IE0Khbx5ubXQZXgepY2DULlIwccn07EkXR+5s84p5vSsBP6AN2P3I4pP1Qg24LWmH7MsF1SMA==
+X-Received: by 2002:a05:6512:10c1:b0:535:6778:952b with SMTP id
+ 2adb3069b0e04-5387755b89dmr1579834e87.44.1727265215049; 
+ Wed, 25 Sep 2024 04:53:35 -0700 (PDT)
 Received: from phenom.ffwll.local ([2a02:168:57f4:0:5485:d4b2:c087:b497])
  by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a93930f7911sm204828866b.172.2024.09.25.04.52.03
+ a640c23a62f3a-a9393138b18sm199347066b.215.2024.09.25.04.53.34
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 25 Sep 2024 04:52:04 -0700 (PDT)
-Date: Wed, 25 Sep 2024 13:52:02 +0200
+ Wed, 25 Sep 2024 04:53:34 -0700 (PDT)
+Date: Wed, 25 Sep 2024 13:53:32 +0200
 From: Simona Vetter <simona.vetter@ffwll.ch>
-To: Guenter Roeck <linux@roeck-us.net>
-Cc: Maxime Ripard <mripard@kernel.org>, Simona Vetter <simona.vetter@ffwll.ch>,
- Jani Nikula <jani.nikula@intel.com>,
- dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
- Carlos Eduardo Gallo Filho <gcarlos@disroot.org>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- Jeff Johnson <quic_jjohnson@quicinc.com>
-Subject: Re: [PATCH 0/2] drm: revert some framebuffer API tests
-Message-ID: <ZvP5YhON49Z5TMI7@phenom.ffwll.local>
-References: <cover.1726594684.git.jani.nikula@intel.com>
- <ZvKPJGQyZmdWNOmd@phenom.ffwll.local>
- <20240924-refined-nocturnal-starfish-2947b8@houat>
- <f3f8bec1-884b-46ac-82a6-6e5cb8840146@roeck-us.net>
- <20240924-handsome-labrador-of-shopping-b1dce5@houat>
- <4accd038-9624-43de-96ad-7ecd0876b607@roeck-us.net>
+To: Raag Jadav <raag.jadav@intel.com>
+Cc: Simona Vetter <simona.vetter@ffwll.ch>, airlied@gmail.com,
+ simona@ffwll.ch, lucas.demarchi@intel.com,
+ thomas.hellstrom@linux.intel.com, rodrigo.vivi@intel.com,
+ jani.nikula@linux.intel.com, joonas.lahtinen@linux.intel.com,
+ tursulin@ursulin.net, lina@asahilina.net,
+ intel-xe@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, himal.prasad.ghimiray@intel.com,
+ francois.dugast@intel.com, aravind.iddamsetty@linux.intel.com,
+ anshuman.gupta@intel.com, andi.shyti@linux.intel.com,
+ andriy.shevchenko@linux.intel.com, matthew.d.roper@intel.com
+Subject: Re: [PATCH v6 1/4] drm: Introduce device wedged event
+Message-ID: <ZvP5vPnoI-MS8Qar@phenom.ffwll.local>
+References: <20240923035826.624196-1-raag.jadav@intel.com>
+ <20240923035826.624196-2-raag.jadav@intel.com>
+ <ZvKhIQGnGrcPURhD@phenom.ffwll.local>
+ <ZvN9yw5AYtxudNne@black.fi.intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <4accd038-9624-43de-96ad-7ecd0876b607@roeck-us.net>
+In-Reply-To: <ZvN9yw5AYtxudNne@black.fi.intel.com>
 X-Operating-System: Linux phenom 6.10.6-amd64 
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -90,88 +91,52 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Tue, Sep 24, 2024 at 08:09:38AM -0700, Guenter Roeck wrote:
-> On 9/24/24 06:56, Maxime Ripard wrote:
-> > On Tue, Sep 24, 2024 at 06:37:59AM GMT, Guenter Roeck wrote:
-> > > On 9/24/24 04:54, Maxime Ripard wrote:
-> > > > +Guenter
-> > > > 
-> > > > On Tue, Sep 24, 2024 at 12:06:28PM GMT, Simona Vetter wrote:
-> > > > > On Tue, Sep 17, 2024 at 08:43:50PM +0300, Jani Nikula wrote:
-> > > > > > The tests consistently trigger WARNs in drm_framebuffer code. I'm not
-> > > > > > sure what the point is with type of belts and suspenders tests. The
-> > > > > > warnings *are* the way to flag erroneous API usage.
-> > > > > > 
-> > > > > > Warnings in turn trigger failures in CI. Filtering the warnings are
-> > > > > > error prone, and, crucially, would also filter actual errors in case the
-> > > > > > kunit tests are not run.
-> > > > > > 
-> > > > > > I acknowledge there may be complex test cases where you'd end up
-> > > > > > triggering warnings somewhere deep, but these are not it. These are
-> > > > > > simple.
-> > > > > > 
-> > > > > > Revert the tests, back to the drawing board.
-> > > > > 
-> > > > > Yeah I think long-term we might want a kunit framework so that we can
-> > > > > catch dmesg warnings we expect and test for those, without those warnings
-> > > > > actually going to dmesg. Similar to how the lockdep tests also reroute
-> > > > > locking validation, so that the expected positive tests don't wreak
-> > > > > lockdep for real.
-> > > > > 
-> > > > > But until that exists, we can't have tests that splat in dmesg when they
-> > > > > work as intended.
-> > > > 
-> 
-> FWIW, that is arguable. More and more tests are added which do add such splats,
-> and I don't see any hesitance by developers to adding more. So far I counted
-> two alone in this commit window, and that does not include new splats from
-> tests which I had already disabled. I simply disable those tests or don't
-> enable them in the first place if they are new. I did the same with the drm
-> unit tests due to the splats generated by the scaling unit tests, so any
-> additional drm unit test splats don't make a difference for me since the
-> tests are already disabled.
-
-I think for at least drm the consensus is clear, we won't have kunit tests
-that splat. Personally I really don't see the point of unit tests that are
-somewhere between unecessarily hard or outright too much pain to deploy in
-a test rig: Either you don't run them (not great), or you filter splats
-and might filter too much (not great either) or you filter as little as
-possible and fight false positives (also kinda suboptimal). Especially for
-unit tests this stuff must be totally rock solid.
-
-We've had similar discussions in the past around unit tests that wasted
-too much cpu time with randomized combinatorial testing, and we've thrown
-those out too from drm. Test hygiene matters.
-
-Also this means if you see this stuff in drm unit tests (or related things
-like dma-buf/fence), please report or send revert.
-
-> > > > It should be pretty soon:
-> > > > https://lore.kernel.org/dri-devel/20240403131936.787234-1-linux@roeck-us.net/
-> > > > 
-> > > > I'm not sure what happened to that series, but it looks like everybody
-> > > > was mostly happy with it?
-> > > > 
+On Wed, Sep 25, 2024 at 06:04:43AM +0300, Raag Jadav wrote:
+> On Tue, Sep 24, 2024 at 01:23:13PM +0200, Simona Vetter wrote:
+> > On Mon, Sep 23, 2024 at 09:28:23AM +0530, Raag Jadav wrote:
+> > > Introduce device wedged event, which will notify userspace of wedged
+> > > (hanged/unusable) state of the DRM device through a uevent. This is
+> > > useful especially in cases where the device is no longer operating as
+> > > expected and has become unrecoverable from driver context.
 > > > 
-> > > Major subsystem maintainers did not provide any feedback at all, and then
-> > > there came the "it is not perfect enough" feedback, so I gave up on it.
+> > > Purpose of this implementation is to provide drivers a way to recover
+> > > through userspace intervention. Different drivers may have different
+> > > ideas of a "wedged device" depending on their hardware implementation,
+> > > and hence the vendor agnostic nature of the event. It is up to the drivers
+> > > to decide when they see the need for recovery and how they want to recover
+> > > from the available methods.
+> > > 
+> > > Current implementation defines three recovery methods, out of which,
+> > > drivers can choose to support any one or multiple of them. Preferred
+> > > recovery method will be sent in the uevent environment as WEDGED=<method>.
+> > > Userspace consumers (sysadmin) can define udev rules to parse this event
+> > > and take respective action to recover the device.
+> > > 
+> > >  Method    | Consumer expectations
+> > > -----------|-----------------------------------
+> > >  rebind    | unbind + rebind driver
+> > >  bus-reset | unbind + reset bus device + rebind
+> > >  reboot    | reboot system
+> > > 
+> > > v4: s/drm_dev_wedged/drm_dev_wedged_event
+> > >     Use drm_info() (Jani)
+> > >     Kernel doc adjustment (Aravind)
+> > > v5: Send recovery method with uevent (Lina)
+> > > v6: Access wedge_recovery_opts[] using helper function (Jani)
+> > >     Use snprintf() (Jani)
+> > > 
+> > > Signed-off-by: Raag Jadav <raag.jadav@intel.com>
 > > 
-> > Well, if that means anything, we're interested even in something
-> > imperfect if it solves the above case :)
-> > 
+> > Finally caught up on mail, so dropping this here again: Please also add a
+> > small section to drm-uapi.rst, pointing at these functions. Just the
+> > kerneldoc for developers is kinda not enough I think.
 > 
-> Maybe someone else is interested picking it up (and no need for credits).
-> I am buried in work and don't have the time (nor, frankly, much interest)
-> to revive it. Also, just for reference: The patch series touches a total
-> of 8 architectures, and unless I missed some I only got feedback from two
-> architecture maintainers. That doesn't include arm - I don't recall if it
-> doesn't need changes or if I never got there.
+> Would you prefer a new section or have the existing one (Device reset which
+> looks somewhat similar but not entirely) modified?
 
-This is great, somehow I missed it and much appreciated for the initial
-version even if you can't push it further. Hopefully one of the folks
-working on drm kunit tests will pick it up, it will be needed here.
-
-Cheers, Sima
+Great point, I think just adding a paragraph and maybe the table/list you
+have to the device reset section is perfect.
+-Sima
 -- 
 Simona Vetter
 Software Engineer, Intel Corporation
