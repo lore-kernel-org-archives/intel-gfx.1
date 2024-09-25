@@ -4,54 +4,77 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D9C10C369D3
-	for <intel-gfx@archiver.kernel.org>; Wed, 25 Sep 2024 11:48:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 17DFCC369D5
+	for <intel-gfx@archiver.kernel.org>; Wed, 25 Sep 2024 11:52:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8383410E949;
-	Wed, 25 Sep 2024 11:48:20 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BC86410E97B;
+	Wed, 25 Sep 2024 11:52:07 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="rwerk5/6";
+	dkim=pass (1024-bit key; secure) header.d=ffwll.ch header.i=@ffwll.ch header.b="liZeqAsL";
 	dkim-atps=neutral
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1830B10E947;
- Wed, 25 Sep 2024 11:48:19 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id 807B55C5B57;
- Wed, 25 Sep 2024 11:48:14 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3B1B1C4CEC3;
- Wed, 25 Sep 2024 11:48:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1727264898;
- bh=n90fJc+OXdT4oVyDP1R+/rKw9pp9dmoKGuJpxpmeC4k=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=rwerk5/643WdtttLWJYNQl3od1D8KyZOIu4L83to9YUz0WjUXSdcpeIwYnuUPJr4T
- nkl160njbTsM8OS9BJEIPlp1QfypBOTERKr8GwlYOJs6vwcFS54rhQBDw/HRxstEQy
- aJHuNW1znsbTw0EtiF6wZQHdRrV5dE2rjarLoLjqAu3PJYdmCpOzTERaNcoy4PJQ3Y
- Y23ZIME82mnkk2ntfzFVOexQipI6gtjxc2BQJjWkhRQ1dTiLnV/jzZdFJWs/VKnWdq
- 6ZcM++R4lCq39sGwqr6+QOQXyKr2sVKlwNEq5Jsq+pJyG/jGRphvr0Xs1Pyd8LWa9B
- rDqL9Euu5kCtw==
-From: Sasha Levin <sashal@kernel.org>
-To: linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Cc: Uma Shankar <uma.shankar@intel.com>,
- Lucas De Marchi <lucas.demarchi@intel.com>,
- Sasha Levin <sashal@kernel.org>, jani.nikula@linux.intel.com,
- rodrigo.vivi@intel.com, thomas.hellstrom@linux.intel.com,
- maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de,
- airlied@gmail.com, daniel@ffwll.ch, intel-gfx@lists.freedesktop.org,
- intel-xe@lists.freedesktop.org, dri-devel@lists.freedesktop.org
-Subject: [PATCH AUTOSEL 6.11 177/244] drm/xe/fbdev: Limit the usage of stolen
- for LNL+
-Date: Wed, 25 Sep 2024 07:26:38 -0400
-Message-ID: <20240925113641.1297102-177-sashal@kernel.org>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20240925113641.1297102-1-sashal@kernel.org>
-References: <20240925113641.1297102-1-sashal@kernel.org>
+Received: from mail-ej1-f41.google.com (mail-ej1-f41.google.com
+ [209.85.218.41])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6F0D710E97B
+ for <intel-gfx@lists.freedesktop.org>; Wed, 25 Sep 2024 11:52:06 +0000 (UTC)
+Received: by mail-ej1-f41.google.com with SMTP id
+ a640c23a62f3a-a8d4979b843so835574766b.3
+ for <intel-gfx@lists.freedesktop.org>; Wed, 25 Sep 2024 04:52:06 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=ffwll.ch; s=google; t=1727265125; x=1727869925; darn=lists.freedesktop.org; 
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=4lwbM1moqSYfv+5qScl5Wq7j7UG25Y0knsJfD+SsF5g=;
+ b=liZeqAsLCNAlAQ7ptCzECWqQOhcgGwDvBZQx/2IhzwSFMb8FJZcLzms7dSTw7VXKUf
+ b+j0mAqJ05elRKfm/CS7jNToiAv5Xi5BBs5/YFnPG1jdqZ7dX7+lN3DvujS1EcBkfjOy
+ UeAimZvltaq6J4HvJK8B9u+Kq4Ss57jVKNaWE=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1727265125; x=1727869925;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=4lwbM1moqSYfv+5qScl5Wq7j7UG25Y0knsJfD+SsF5g=;
+ b=H1OVTSgN3ZZmCA4+DEMdm6U4GrX9LTD0bXHRetzKu9L079H/IYhO4he4/eecy37hg1
+ 37M0WmcMGu3zM9WeoVIVcHwDpCRiL2nRk2Nu2YP6cTjYKgllS5O9JOJ3rNPLIbCFaJ3A
+ HCst40qnLB7H9X91Uw/M/WgW18w68WIE7llB0j8C8rsklQVAt9zqAnsjP0ZeUQugMKjt
+ WN18J1qxzEGRUxSOdBjvKZDDSIMTm8os1EM9gRsFPkkDHqfLCctpU0AhW5VF4K3ttQLq
+ SZSk1wBgfJx4cyASRYA7xVwZAhPmSslRC7dGkbLbumoIyU4+xK94mRS2UakcKPH21sQh
+ VHvQ==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCW6bgwrd5bbxcMmwZ9ebP5xiUc8J3DrQzsXD1z/I1njAzIYWHttUDoMCk73/uyV5qSA930OSjfp1p8=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yx429Y45GS5Hh474HVHeQYemQtwSKefUNe7sn5Vyjt8HSCRaWmM
+ yXyfewchCSc56g5TESMWsTi2mq7Sybxg58fSeBqCQTQZ/HG+aO7DCPWfBMnQ6KA=
+X-Google-Smtp-Source: AGHT+IGY+tCYKuqC9/Gzg84POK/qJtUX7MhFgwGDzkBxp7Yr3Ux1fiFQ7y+XNjpJFjR0QduqUeYGSw==
+X-Received: by 2002:a17:907:d581:b0:a8d:2d2e:90e6 with SMTP id
+ a640c23a62f3a-a93a066fdccmr191317366b.60.1727265124707; 
+ Wed, 25 Sep 2024 04:52:04 -0700 (PDT)
+Received: from phenom.ffwll.local ([2a02:168:57f4:0:5485:d4b2:c087:b497])
+ by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-a93930f7911sm204828866b.172.2024.09.25.04.52.03
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 25 Sep 2024 04:52:04 -0700 (PDT)
+Date: Wed, 25 Sep 2024 13:52:02 +0200
+From: Simona Vetter <simona.vetter@ffwll.ch>
+To: Guenter Roeck <linux@roeck-us.net>
+Cc: Maxime Ripard <mripard@kernel.org>, Simona Vetter <simona.vetter@ffwll.ch>,
+ Jani Nikula <jani.nikula@intel.com>,
+ dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
+ Carlos Eduardo Gallo Filho <gcarlos@disroot.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ Jeff Johnson <quic_jjohnson@quicinc.com>
+Subject: Re: [PATCH 0/2] drm: revert some framebuffer API tests
+Message-ID: <ZvP5YhON49Z5TMI7@phenom.ffwll.local>
+References: <cover.1726594684.git.jani.nikula@intel.com>
+ <ZvKPJGQyZmdWNOmd@phenom.ffwll.local>
+ <20240924-refined-nocturnal-starfish-2947b8@houat>
+ <f3f8bec1-884b-46ac-82a6-6e5cb8840146@roeck-us.net>
+ <20240924-handsome-labrador-of-shopping-b1dce5@houat>
+ <4accd038-9624-43de-96ad-7ecd0876b607@roeck-us.net>
 MIME-Version: 1.0
-X-stable: review
-X-Patchwork-Hint: Ignore
-X-stable-base: Linux 6.11
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <4accd038-9624-43de-96ad-7ecd0876b607@roeck-us.net>
+X-Operating-System: Linux phenom 6.10.6-amd64 
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,104 +90,89 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Uma Shankar <uma.shankar@intel.com>
+On Tue, Sep 24, 2024 at 08:09:38AM -0700, Guenter Roeck wrote:
+> On 9/24/24 06:56, Maxime Ripard wrote:
+> > On Tue, Sep 24, 2024 at 06:37:59AM GMT, Guenter Roeck wrote:
+> > > On 9/24/24 04:54, Maxime Ripard wrote:
+> > > > +Guenter
+> > > > 
+> > > > On Tue, Sep 24, 2024 at 12:06:28PM GMT, Simona Vetter wrote:
+> > > > > On Tue, Sep 17, 2024 at 08:43:50PM +0300, Jani Nikula wrote:
+> > > > > > The tests consistently trigger WARNs in drm_framebuffer code. I'm not
+> > > > > > sure what the point is with type of belts and suspenders tests. The
+> > > > > > warnings *are* the way to flag erroneous API usage.
+> > > > > > 
+> > > > > > Warnings in turn trigger failures in CI. Filtering the warnings are
+> > > > > > error prone, and, crucially, would also filter actual errors in case the
+> > > > > > kunit tests are not run.
+> > > > > > 
+> > > > > > I acknowledge there may be complex test cases where you'd end up
+> > > > > > triggering warnings somewhere deep, but these are not it. These are
+> > > > > > simple.
+> > > > > > 
+> > > > > > Revert the tests, back to the drawing board.
+> > > > > 
+> > > > > Yeah I think long-term we might want a kunit framework so that we can
+> > > > > catch dmesg warnings we expect and test for those, without those warnings
+> > > > > actually going to dmesg. Similar to how the lockdep tests also reroute
+> > > > > locking validation, so that the expected positive tests don't wreak
+> > > > > lockdep for real.
+> > > > > 
+> > > > > But until that exists, we can't have tests that splat in dmesg when they
+> > > > > work as intended.
+> > > > 
+> 
+> FWIW, that is arguable. More and more tests are added which do add such splats,
+> and I don't see any hesitance by developers to adding more. So far I counted
+> two alone in this commit window, and that does not include new splats from
+> tests which I had already disabled. I simply disable those tests or don't
+> enable them in the first place if they are new. I did the same with the drm
+> unit tests due to the splats generated by the scaling unit tests, so any
+> additional drm unit test splats don't make a difference for me since the
+> tests are already disabled.
 
-[ Upstream commit 775d0adc01a55fe0458139330415d86bb3533efe ]
+I think for at least drm the consensus is clear, we won't have kunit tests
+that splat. Personally I really don't see the point of unit tests that are
+somewhere between unecessarily hard or outright too much pain to deploy in
+a test rig: Either you don't run them (not great), or you filter splats
+and might filter too much (not great either) or you filter as little as
+possible and fight false positives (also kinda suboptimal). Especially for
+unit tests this stuff must be totally rock solid.
 
-As per recommendation in the workarounds:
-WA_22019338487
+We've had similar discussions in the past around unit tests that wasted
+too much cpu time with randomized combinatorial testing, and we've thrown
+those out too from drm. Test hygiene matters.
 
-There is an issue with accessing Stolen memory pages due a
-hardware limitation. Limit the usage of stolen memory for
-fbdev for LNL+. Don't use BIOS FB from stolen on LNL+ and
-assign the same from system memory.
+Also this means if you see this stuff in drm unit tests (or related things
+like dma-buf/fence), please report or send revert.
 
-v2: Corrected the WA Number, limited WA to LNL and
-    Adopted XE_WA framework as suggested by Lucas and Matt.
+> > > > It should be pretty soon:
+> > > > https://lore.kernel.org/dri-devel/20240403131936.787234-1-linux@roeck-us.net/
+> > > > 
+> > > > I'm not sure what happened to that series, but it looks like everybody
+> > > > was mostly happy with it?
+> > > > 
+> > > 
+> > > Major subsystem maintainers did not provide any feedback at all, and then
+> > > there came the "it is not perfect enough" feedback, so I gave up on it.
+> > 
+> > Well, if that means anything, we're interested even in something
+> > imperfect if it solves the above case :)
+> > 
+> 
+> Maybe someone else is interested picking it up (and no need for credits).
+> I am buried in work and don't have the time (nor, frankly, much interest)
+> to revive it. Also, just for reference: The patch series touches a total
+> of 8 architectures, and unless I missed some I only got feedback from two
+> architecture maintainers. That doesn't include arm - I don't recall if it
+> doesn't need changes or if I never got there.
 
-v3: Introduced the waxxx_display to implement display side
-    of WA changes on Lunarlake. Used xe_root_mmio_gt and
-    avoid the for loop (Suggested by Lucas)
+This is great, somehow I missed it and much appreciated for the initial
+version even if you can't push it further. Hopefully one of the folks
+working on drm kunit tests will pick it up, it will be needed here.
 
-v4: Fixed some nits (Luca)
-
-Reviewed-by: Lucas De Marchi <lucas.demarchi@intel.com>
-Signed-off-by: Uma Shankar <uma.shankar@intel.com>
-Link: https://patchwork.freedesktop.org/patch/msgid/20240717082252.3875909-1-uma.shankar@intel.com
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- drivers/gpu/drm/xe/display/intel_fbdev_fb.c   | 6 +++++-
- drivers/gpu/drm/xe/display/xe_plane_initial.c | 6 ++++++
- drivers/gpu/drm/xe/xe_wa_oob.rules            | 1 +
- 3 files changed, 12 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/gpu/drm/xe/display/intel_fbdev_fb.c b/drivers/gpu/drm/xe/display/intel_fbdev_fb.c
-index 816ad13821a83..cd8948c08661b 100644
---- a/drivers/gpu/drm/xe/display/intel_fbdev_fb.c
-+++ b/drivers/gpu/drm/xe/display/intel_fbdev_fb.c
-@@ -10,6 +10,9 @@
- #include "xe_bo.h"
- #include "xe_gt.h"
- #include "xe_ttm_stolen_mgr.h"
-+#include "xe_wa.h"
-+
-+#include <generated/xe_wa_oob.h>
- 
- struct intel_framebuffer *intel_fbdev_fb_alloc(struct drm_fb_helper *helper,
- 					       struct drm_fb_helper_surface_size *sizes)
-@@ -37,7 +40,7 @@ struct intel_framebuffer *intel_fbdev_fb_alloc(struct drm_fb_helper *helper,
- 	size = PAGE_ALIGN(size);
- 	obj = ERR_PTR(-ENODEV);
- 
--	if (!IS_DGFX(xe)) {
-+	if (!IS_DGFX(xe) && !XE_WA(xe_root_mmio_gt(xe), 22019338487_display)) {
- 		obj = xe_bo_create_pin_map(xe, xe_device_get_root_tile(xe),
- 					   NULL, size,
- 					   ttm_bo_type_kernel, XE_BO_FLAG_SCANOUT |
-@@ -48,6 +51,7 @@ struct intel_framebuffer *intel_fbdev_fb_alloc(struct drm_fb_helper *helper,
- 		else
- 			drm_info(&xe->drm, "Allocated fbdev into stolen failed: %li\n", PTR_ERR(obj));
- 	}
-+
- 	if (IS_ERR(obj)) {
- 		obj = xe_bo_create_pin_map(xe, xe_device_get_root_tile(xe), NULL, size,
- 					   ttm_bo_type_kernel, XE_BO_FLAG_SCANOUT |
-diff --git a/drivers/gpu/drm/xe/display/xe_plane_initial.c b/drivers/gpu/drm/xe/display/xe_plane_initial.c
-index 5eccd6abb3ef5..a50ab9eae40ae 100644
---- a/drivers/gpu/drm/xe/display/xe_plane_initial.c
-+++ b/drivers/gpu/drm/xe/display/xe_plane_initial.c
-@@ -18,6 +18,9 @@
- #include "intel_frontbuffer.h"
- #include "intel_plane_initial.h"
- #include "xe_bo.h"
-+#include "xe_wa.h"
-+
-+#include <generated/xe_wa_oob.h>
- 
- static bool
- intel_reuse_initial_plane_obj(struct intel_crtc *this,
-@@ -104,6 +107,9 @@ initial_plane_bo(struct xe_device *xe,
- 		phys_base = base;
- 		flags |= XE_BO_FLAG_STOLEN;
- 
-+		if (XE_WA(xe_root_mmio_gt(xe), 22019338487_display))
-+			return NULL;
-+
- 		/*
- 		 * If the FB is too big, just don't use it since fbdev is not very
- 		 * important and we should probably use that space with FBC or other
-diff --git a/drivers/gpu/drm/xe/xe_wa_oob.rules b/drivers/gpu/drm/xe/xe_wa_oob.rules
-index d4c33dbc14c7a..24a5b7d7cdcc1 100644
---- a/drivers/gpu/drm/xe/xe_wa_oob.rules
-+++ b/drivers/gpu/drm/xe/xe_wa_oob.rules
-@@ -29,6 +29,7 @@
- 13011645652	GRAPHICS_VERSION(2004)
- 22019338487	MEDIA_VERSION(2000)
- 		GRAPHICS_VERSION(2001)
-+22019338487_display	PLATFORM(LUNARLAKE)
- 16023588340	GRAPHICS_VERSION(2001)
- 14019789679	GRAPHICS_VERSION(1255)
- 		GRAPHICS_VERSION_RANGE(1270, 2004)
+Cheers, Sima
 -- 
-2.43.0
-
+Simona Vetter
+Software Engineer, Intel Corporation
+http://blog.ffwll.ch
