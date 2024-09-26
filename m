@@ -4,34 +4,73 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1FB2CCE8348
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 83B85CE834A
 	for <intel-gfx@archiver.kernel.org>; Mon, 30 Sep 2024 13:31:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 669FA10E4E8;
+	by gabe.freedesktop.org (Postfix) with ESMTP id BFB6010E4EA;
 	Mon, 30 Sep 2024 13:31:26 +0000 (UTC)
-X-Greylist: delayed 903 seconds by postgrey-1.36 at gabe;
- Tue, 24 Sep 2024 11:03:00 UTC
-Received: from MSK-MAILEDGE.securitycode.ru (msk-mailedge.securitycode.ru
- [195.133.217.143])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9925410E6BF;
- Tue, 24 Sep 2024 11:03:00 +0000 (UTC)
-From: George Rurikov <g.ryurikov@securitycode.ru>
-To: Jani Nikula <jani.nikula@linux.intel.com>
-CC: George Rurikov <g.ryurikov@securitycode.ru>, Rodrigo Vivi
- <rodrigo.vivi@intel.com>, Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Tvrtko Ursulin <tursulin@ursulin.net>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, <intel-gfx@lists.freedesktop.org>,
- <intel-xe@lists.freedesktop.org>, <dri-devel@lists.freedesktop.og>,
- <linux-kernel@vger.kernel.org>, <stable@vger.kernel.org>
-Subject: [PATCH] drm: Add check for encoder in intel_get_crtc_new_encoder()
-Date: Tue, 24 Sep 2024 13:47:22 +0300
-Message-ID: <20240924104722.1049588-1-g.ryurikov@securitycode.ru>
-X-Mailer: git-send-email 2.34.1
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="QUByJcbS";
+	dkim-atps=neutral
+Received: from mail-il1-f175.google.com (mail-il1-f175.google.com
+ [209.85.166.175])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D5AC910E04C;
+ Thu, 26 Sep 2024 00:26:52 +0000 (UTC)
+Received: by mail-il1-f175.google.com with SMTP id
+ e9e14a558f8ab-3a1a7c0f612so1765155ab.3; 
+ Wed, 25 Sep 2024 17:26:52 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1727310412; x=1727915212; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=4h71KNl97QvEZ5noXaz7sknDoxojg3IEoQ/oR2jE0tY=;
+ b=QUByJcbSoGQ00bL+sYxU4lDcGPvp0g4+i15AbLC2hVdkZZf7GQVYpKVgsZZDopbD6E
+ 1Q+ghdb1jhXXXGHFpjDsxEiRv+uKW2jZTesWNaQgm9SPcZn9eWAsyMZxKludJ7z7mMct
+ nfPP4k7boQ7H1sq02svDANEzCLf3iZcMxsaKe9Jlbg/xrkTPe7LkCOE62Z5LBxdZTafD
+ N2HqKy8EddChhjEfU0GWRWVgsqcJCFMFVinpyDkzmlRvenm4b+0COviNvG/9sW4yVk/+
+ 4FXbNlXhvu9qVdU8gkQY6yOW8soinzUJpFtMDYF8W3P7ksPBTb/DBty3ABgkpz5RrW8Z
+ nGOA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1727310412; x=1727915212;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=4h71KNl97QvEZ5noXaz7sknDoxojg3IEoQ/oR2jE0tY=;
+ b=MwFAwf3bam4NVtF6zflOczetWIZkLD1BZQMUjJRT69BfljGGzRdS6aOcikxvxKvnV+
+ /EJ84E33FqU1pf+G1bRjb7bGEmVuyr+Z1rhho01HUuqy37Z5DcSZmq5JOxfQgC/YgQwQ
+ xb2Xb6K3POi/0D0IEU/3c54nu3znKKFBjt5JYeGhUfNitDEqFwz+CCXcV5MzCu4cIxtL
+ kpJuysU/PL44So0gSmTGTVXALGpwQtPnjgWH98wXoXxc0Vo1SzPz+gehSvU1XecnVRMs
+ fOvdvzpFfGWhN5cY6I7zhPRKFL8I4Y72inHpTnJNi8+Y1kGrUyJ7QPZClbGET29fQn9G
+ xriQ==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCWkCuX/ezcPetrms0Zd00LLZdPmS5ExzTLmh9V3iAuSK5BXeNiFun65ROoUCo+jbNEGXu7U9nfCY5VR@lists.freedesktop.org,
+ AJvYcCXa9MPQ+k+BIYbCSSjjFQt593KzJDk9X3gClg6iDTphTc9XhkNjFEhaiJMKxGT/0ne6QsudwQ6WYro=@lists.freedesktop.org,
+ AJvYcCXcHmoL4YDHJ0xnsAelWCeF2CrKry/7VKZ0aubEeUpWMMyzFqGe6/9Dy4N8v7U41BAbDsSVIjZ2LNY=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YyJ4QL+cUBcTckVVzhi4BgjueZeQiBFKku/H7Ox248Ll6MDMXTN
+ b+cnqyPFnJynSMaKCun5Z3lZoqdVK4c3Z9hCTjAjicVzuA571bCa
+X-Google-Smtp-Source: AGHT+IHgTXutoVNi8aDqPPP/+KgfDCgrksJCESMS/68BZDMFkdIdxvC3YnaBA0YfWndNPVbYHVlGDQ==
+X-Received: by 2002:a05:6e02:164d:b0:3a2:6cd7:3254 with SMTP id
+ e9e14a558f8ab-3a26d78f4c9mr48930055ab.14.1727310411822; 
+ Wed, 25 Sep 2024 17:26:51 -0700 (PDT)
+Received: from localhost.localdomain (24-220-248-19-dynamic.midco.net.
+ [24.220.248.19]) by smtp.gmail.com with ESMTPSA id
+ 8926c6da1cb9f-4d40ed005a8sm1407875173.0.2024.09.25.17.26.50
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 25 Sep 2024 17:26:51 -0700 (PDT)
+From: Benjamin Hoefs <bendhoefs@gmail.com>
+To: jani.nikula@linux.intel.com
+Cc: rodrigo.vivi@intel.com, joonas.lahtinen@linux.intel.com,
+ tursulin@ursulin.net, airlied@gmail.com, simona@ffwll.ch,
+ intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ Benjamin Hoefs <bendhoefs@gmail.com>
+Subject: [PATCH] i915: Fix HBLANK Expansion Quirk Causing Modeset Failure on
+ Dell WD19TB Dock at 3440x1440@100Hz
+Date: Wed, 25 Sep 2024 19:25:34 -0500
+Message-ID: <20240926002533.10153-2-bendhoefs@gmail.com>
+X-Mailer: git-send-email 2.46.2
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset="utf-8"
-X-ClientProxiedBy: SPB-EX2.Securitycode.ru (172.16.24.92) To
- MSK-EX2.Securitycode.ru (172.17.8.92)
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Mon, 30 Sep 2024 13:30:58 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -48,74 +87,59 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-If the video card driver could not find the connector assigned to the
-current video controller, or if the hardware status has changed so that
-a pre-existing connector is no longer active, none of the state
-connectors will meet the assignment criteria for the current crtc video
-controller.
+Hello,
 
-In the drm_WARN function, encoder->base.dev is called, so
-'&encoder->base.dev' will be dereferenced since encoder will still be
-initialized NULL.
+I am using a Dell WD19TB dock with a 3440x1440 monitor. Using it at
+100Hz used to work but recently I tried it again and discovered it no longer
+did, specifically the modeset seems to silently fail with no error message in
+userspace utilities like kscreen-doctor and xrandr and no output in dmesg.
+I found the problematic commit using git bisect to be
+55eaef164174480df6827edeac15620f3cbcd52b "Handle the Synaptics HBlank
+expansion quirk".
 
-Found by Linux Verification Center (linuxtesting.org) with SVACE.
+I found the issue to be the hblank_expasion_quirk_needs_dsc function which uses
+the following comparison in the current kernel tree:
 
-Fixes: e12d6218fda2 ("drm/i915: Reduce bigjoiner special casing")
-Cc: stable@vger.kernel.org
-Signed-off-by: George Rurikov <g.ryurikov@securitycode.ru>
+if (mode_hblank_period_ns(adjusted_mode) > hblank_limit)
+	return false;
+
+with hblank_limit being earlier set as
+
+int hblank_limit = is_uhbr_sink ? 500 : 300;
+
+However, my monitor's HBLANK period in the 3440x1440@100Hz mode is
+exactly 300 ns as verified by this printk immediately before the
+problematic comparison.
+
+printk(KERN_INFO "Hello, kernel world! %i\n",
+	mode_hblank_period_ns(adjusted_mode));
+[   38.429839] Hello, kernel world! 300
+
+With the attached change the modeset works as expected at 100Hz. Would it be
+acceptable to modify the comparison from > to >= here?
+
+I'll do my best to provide any additional details you may need although
+that printk and '=' sign is the only kernel code I've written, so my best may
+not be great :).
+
+Signed-off-by: Benjamin D. Hoefs <bendhoefs@gmail.com>
 ---
- drivers/gpu/drm/i915/display/intel_display.c | 7 ++++---
- 1 file changed, 4 insertions(+), 3 deletions(-)
+ drivers/gpu/drm/i915/display/intel_dp_mst.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm=
-/i915/display/intel_display.c
-index b4ef4d59da1a..a5e24d64f909 100644
---- a/drivers/gpu/drm/i915/display/intel_display.c
-+++ b/drivers/gpu/drm/i915/display/intel_display.c
-@@ -819,9 +819,10 @@ intel_get_crtc_new_encoder(const struct intel_atomic_s=
-tate *state,
-                num_encoders++;
-        }
+diff --git a/drivers/gpu/drm/i915/display/intel_dp_mst.c b/drivers/gpu/drm/i915/display/intel_dp_mst.c
+index 15541932b809..052c5a67df93 100644
+--- a/drivers/gpu/drm/i915/display/intel_dp_mst.c
++++ b/drivers/gpu/drm/i915/display/intel_dp_mst.c
+@@ -446,7 +446,7 @@ hblank_expansion_quirk_needs_dsc(const struct intel_connector *connector,
+ 	if (is_uhbr_sink && !drm_dp_is_uhbr_rate(limits->max_rate))
+ 		return false;
+ 
+-	if (mode_hblank_period_ns(adjusted_mode) > hblank_limit)
++	if (mode_hblank_period_ns(adjusted_mode) >= hblank_limit)
+ 		return false;
+ 
+ 	return true;
+-- 
+2.46.2
 
--       drm_WARN(state->base.dev, num_encoders !=3D 1,
--                "%d encoders for pipe %c\n",
--                num_encoders, pipe_name(primary_crtc->pipe));
-+       if (encoder)
-+               drm_WARN(state->base.dev, num_encoders !=3D 1,
-+                       "%d encoders for pipe %c\n",
-+                       num_encoders, pipe_name(primary_crtc->pipe));
-
-        return encoder;
- }
---
-2.34.1
-
-=D0=97=D0=B0=D1=8F=D0=B2=D0=BB=D0=B5=D0=BD=D0=B8=D0=B5 =D0=BE =D0=BA=D0=BE=
-=D0=BD=D1=84=D0=B8=D0=B4=D0=B5=D0=BD=D1=86=D0=B8=D0=B0=D0=BB=D1=8C=D0=BD=D0=
-=BE=D1=81=D1=82=D0=B8
-
-=D0=94=D0=B0=D0=BD=D0=BD=D0=BE=D0=B5 =D1=8D=D0=BB=D0=B5=D0=BA=D1=82=D1=80=
-=D0=BE=D0=BD=D0=BD=D0=BE=D0=B5 =D0=BF=D0=B8=D1=81=D1=8C=D0=BC=D0=BE =D0=B8 =
-=D0=BB=D1=8E=D0=B1=D1=8B=D0=B5 =D0=BF=D1=80=D0=B8=D0=BB=D0=BE=D0=B6=D0=B5=
-=D0=BD=D0=B8=D1=8F =D0=BA =D0=BD=D0=B5=D0=BC=D1=83 =D1=8F=D0=B2=D0=BB=D1=8F=
-=D1=8E=D1=82=D1=81=D1=8F =D0=BA=D0=BE=D0=BD=D1=84=D0=B8=D0=B4=D0=B5=D0=BD=
-=D1=86=D0=B8=D0=B0=D0=BB=D1=8C=D0=BD=D1=8B=D0=BC=D0=B8 =D0=B8 =D0=BF=D1=80=
-=D0=B5=D0=B4=D0=BD=D0=B0=D0=B7=D0=BD=D0=B0=D1=87=D0=B5=D0=BD=D1=8B =D0=B8=
-=D1=81=D0=BA=D0=BB=D1=8E=D1=87=D0=B8=D1=82=D0=B5=D0=BB=D1=8C=D0=BD=D0=BE =
-=D0=B4=D0=BB=D1=8F =D0=B0=D0=B4=D1=80=D0=B5=D1=81=D0=B0=D1=82=D0=B0. =D0=95=
-=D1=81=D0=BB=D0=B8 =D0=92=D1=8B =D0=BD=D0=B5 =D1=8F=D0=B2=D0=BB=D1=8F=D0=B5=
-=D1=82=D0=B5=D1=81=D1=8C =D0=B0=D0=B4=D1=80=D0=B5=D1=81=D0=B0=D1=82=D0=BE=
-=D0=BC =D0=B4=D0=B0=D0=BD=D0=BD=D0=BE=D0=B3=D0=BE =D0=BF=D0=B8=D1=81=D1=8C=
-=D0=BC=D0=B0, =D0=BF=D0=BE=D0=B6=D0=B0=D0=BB=D1=83=D0=B9=D1=81=D1=82=D0=B0,=
- =D1=83=D0=B2=D0=B5=D0=B4=D0=BE=D0=BC=D0=B8=D1=82=D0=B5 =D0=BD=D0=B5=D0=BC=
-=D0=B5=D0=B4=D0=BB=D0=B5=D0=BD=D0=BD=D0=BE =D0=BE=D1=82=D0=BF=D1=80=D0=B0=
-=D0=B2=D0=B8=D1=82=D0=B5=D0=BB=D1=8F, =D0=BD=D0=B5 =D1=80=D0=B0=D1=81=D0=BA=
-=D1=80=D1=8B=D0=B2=D0=B0=D0=B9=D1=82=D0=B5 =D1=81=D0=BE=D0=B4=D0=B5=D1=80=
-=D0=B6=D0=B0=D0=BD=D0=B8=D0=B5 =D0=B4=D1=80=D1=83=D0=B3=D0=B8=D0=BC =D0=BB=
-=D0=B8=D1=86=D0=B0=D0=BC, =D0=BD=D0=B5 =D0=B8=D1=81=D0=BF=D0=BE=D0=BB=D1=8C=
-=D0=B7=D1=83=D0=B9=D1=82=D0=B5 =D0=B5=D0=B3=D0=BE =D0=B2 =D0=BA=D0=B0=D0=BA=
-=D0=B8=D1=85-=D0=BB=D0=B8=D0=B1=D0=BE =D1=86=D0=B5=D0=BB=D1=8F=D1=85, =D0=
-=BD=D0=B5 =D1=85=D1=80=D0=B0=D0=BD=D0=B8=D1=82=D0=B5 =D0=B8 =D0=BD=D0=B5 =
-=D0=BA=D0=BE=D0=BF=D0=B8=D1=80=D1=83=D0=B9=D1=82=D0=B5 =D0=B8=D0=BD=D1=84=
-=D0=BE=D1=80=D0=BC=D0=B0=D1=86=D0=B8=D1=8E =D0=BB=D1=8E=D0=B1=D1=8B=D0=BC =
-=D1=81=D0=BF=D0=BE=D1=81=D0=BE=D0=B1=D0=BE=D0=BC.
