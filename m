@@ -4,57 +4,54 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5D9D2CCFA1A
-	for <intel-gfx@archiver.kernel.org>; Thu, 26 Sep 2024 07:25:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A42D3CCF9E9
+	for <intel-gfx@archiver.kernel.org>; Thu, 26 Sep 2024 07:26:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B7D9010EAC8;
-	Thu, 26 Sep 2024 07:25:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4D62910EAC5;
+	Thu, 26 Sep 2024 07:26:32 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="V4rqkY/W";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="M2HjjNSy";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.7])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 02E1F10EACB;
- Thu, 26 Sep 2024 07:25:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1727335508; x=1758871508;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=fXR6Wd9EJlKTK6AAIRAwwC/Ge3eM1yrPGYM6P8Aqo40=;
- b=V4rqkY/WUqgl8W9xJVFSmlWSsO86KWuxYw+f8d59TSihmZXcHeQscseD
- BMBjR1V0A/+17Y1eYOrrT/qBJYGhNMEWIvDbJWAKoYhx43xM+/Q/7t3yx
- aRCEN7cGohnxZXD/Eq+Iht86rHCQ0e9xBymxgwYHL5fXyhO0tG7CISYdK
- Lqgd196CUOgEpuUJzezK40tC54QRGtBlu+SCqkJLM5GE1+3RiLDh8gaJl
- axEcPU5Kg/DaQys5DhCL30RwoPYUCrAkCKeBjTkFTpsVczPSu6MVK8GvN
- VlP/uVAXuW6ZS9i1MV8wW1YlD53T5lnji2Ulrt1x36b+/YyiGenl2ftwo Q==;
-X-CSE-ConnectionGUID: 6pVXFxhhQsKMUJbeWBAhLA==
-X-CSE-MsgGUID: jp41ZwPmQ2yz0MMmyog8wQ==
-X-IronPort-AV: E=McAfee;i="6700,10204,11206"; a="51829467"
-X-IronPort-AV: E=Sophos;i="6.10,259,1719903600"; d="scan'208";a="51829467"
-Received: from orviesa006.jf.intel.com ([10.64.159.146])
- by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 26 Sep 2024 00:25:08 -0700
-X-CSE-ConnectionGUID: VeQDEBf9R7O/O7uvm7QF5w==
-X-CSE-MsgGUID: erqDWvXLQGGgSeG4WGzCRQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.10,259,1719903600"; d="scan'208";a="72334521"
-Received: from srr4-3-linux-103-aknautiy.iind.intel.com ([10.223.34.160])
- by orviesa006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 26 Sep 2024 00:25:07 -0700
-From: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
-To: intel-gfx@lists.freedesktop.org
-Cc: intel-xe@lists.freedesktop.org, suraj.kandpal@intel.com,
- ville.syrjala@linux.intel.com
-Subject: [PATCH 13/15] drm/i915: Compute config and mode valid changes for
- ultrajoiner
-Date: Thu, 26 Sep 2024 12:56:36 +0530
-Message-ID: <20240926072638.3689367-14-ankit.k.nautiyal@intel.com>
-X-Mailer: git-send-email 2.45.2
-In-Reply-To: <20240926072638.3689367-1-ankit.k.nautiyal@intel.com>
-References: <20240926072638.3689367-1-ankit.k.nautiyal@intel.com>
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 58C1610EAAB;
+ Thu, 26 Sep 2024 07:26:31 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by dfw.source.kernel.org (Postfix) with ESMTP id 8E2945C5DD1;
+ Thu, 26 Sep 2024 07:26:26 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DD8D4C4CEC5;
+ Thu, 26 Sep 2024 07:26:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1727335590;
+ bh=ePa5u/BcnZ/dATlftydtRiE5hN7gmuT0GTtjNoDiKEg=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=M2HjjNSyNaWEZ1yenHHEyui1RPMh8RJVBscCwUg+TXnkGbJouUPm2CIehBM3+Co6X
+ VedGYDOORpYZqCXP1lA+ySO90Fwuu1ocnuaf/2z42w+C0bfF8oHdF9o/oTkHsVlwdt
+ Bf9nj/u01qIShO0iWrBh8GkbROFRYw53rMgHLuBCyUdr+dM6Ch0H1hEOVk1h39MPXE
+ 7xLZP3vgb0rUT9712TiCXty9H7+EMJJ4XbeTqBu35iZX4CcMVSvlhmQeFt1qvfMBRR
+ ugPSGU54cl34WqVGyPrygkOEOE89m5ePQQ98JoI1Rvhy/0rPTMoiMuolGmKpad2Y37
+ nywPery26f36Q==
+Date: Thu, 26 Sep 2024 09:26:27 +0200
+From: Maxime Ripard <mripard@kernel.org>
+To: Vignesh Raman <vignesh.raman@collabora.com>
+Cc: dri-devel@lists.freedesktop.org, daniels@collabora.com, 
+ helen.koike@collabora.com, airlied@gmail.com, daniel@ffwll.ch,
+ robdclark@gmail.com, 
+ guilherme.gallo@collabora.com, sergi.blanch.torne@collabora.com,
+ deborah.brouwer@collabora.com, 
+ dmitry.baryshkov@linaro.org, rodrigo.vivi@intel.com,
+ linux-mediatek@lists.infradead.org, 
+ linux-amlogic@lists.infradead.org, linux-rockchip@lists.infradead.org, 
+ amd-gfx@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
+ intel-gfx@lists.freedesktop.org, 
+ virtualization@lists.linux.dev, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2] docs/gpu: ci: update flake tests requirements
+Message-ID: <20240926-athletic-gregarious-markhor-cc78ac@houat>
+References: <20240926070653.1773597-1-vignesh.raman@collabora.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/signed; micalg=pgp-sha384;
+ protocol="application/pgp-signature"; boundary="xmj2ly46kzbkkxma"
+Content-Disposition: inline
+In-Reply-To: <20240926070653.1773597-1-vignesh.raman@collabora.com>
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,88 +67,86 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Stanislav Lisovskiy <stanislav.lisovskiy@intel.com>
 
-Implement required changes for mode validation and compute config,
-to support Ultrajoiner.
+--xmj2ly46kzbkkxma
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-v2:
--Drop changes for HDMI.
--Separate out DSC changes into another patch.
-v3: Fix check in can_ultrajoiner. (Ankit)
-v4:
--Unify helper to check joiner requirement. (Ville)
--Split patches for ultrajoiner changes for max dsc slices and compressed
-bpp.(Ankit)
-v5: Fix check for joiner. (Ville)
+On Thu, Sep 26, 2024 at 12:36:49PM GMT, Vignesh Raman wrote:
+> Update the documentation to require linking to a relevant GitLab
+> issue for each new flake entry instead of an email report. Added
+> specific GitLab issue URLs for i915, xe and other drivers.
+>=20
+> Signed-off-by: Vignesh Raman <vignesh.raman@collabora.com>
+> ---
+>=20
+> v2:
+> - Add gitlab issue link for msm driver.
+>=20
+> ---
+>  Documentation/gpu/automated_testing.rst | 16 +++++++++++-----
+>  1 file changed, 11 insertions(+), 5 deletions(-)
+>=20
+> diff --git a/Documentation/gpu/automated_testing.rst b/Documentation/gpu/=
+automated_testing.rst
+> index 2d5a28866afe..f918fe56f2b0 100644
+> --- a/Documentation/gpu/automated_testing.rst
+> +++ b/Documentation/gpu/automated_testing.rst
+> @@ -67,20 +67,26 @@ Lists the tests that for a given driver on a specific=
+ hardware revision are
+>  known to behave unreliably. These tests won't cause a job to fail regard=
+less of
+>  the result. They will still be run.
+> =20
+> -Each new flake entry must be associated with a link to the email reporti=
+ng the
+> -bug to the author of the affected driver, the board name or Device Tree =
+name of
+> -the board, the first kernel version affected, the IGT version used for t=
+ests,
+> -and an approximation of the failure rate.
+> +Each new flake entry must include a link to the relevant GitLab issue, t=
+he board
+> +name or Device Tree name, the first kernel version affected, the IGT ver=
+sion used
+> +for tests and an approximation of the failure rate.
+> =20
+>  They should be provided under the following format::
+> =20
+> -  # Bug Report: $LORE_OR_PATCHWORK_URL
+> +  # Bug Report: $GITLAB_ISSUE
+>    # Board Name: broken-board.dtb
+>    # Linux Version: 6.6-rc1
+>    # IGT Version: 1.28-gd2af13d9f
+>    # Failure Rate: 100
+>    flaky-test
+> =20
+> +The GitLab issue must include the logs and the pipeline link. Use the ap=
+propriate
+> +link below to create an issue.
+> +https://gitlab.freedesktop.org/drm/i915/kernel/-/issues for i915 driver
+> +https://gitlab.freedesktop.org/drm/xe/kernel/-/issues for xe driver
+> +https://gitlab.freedesktop.org/drm/msm/-/issues for msm driver
+> +https://gitlab.freedesktop.org/drm/misc/kernel/-/issues for other drivers
+> +
 
-Signed-off-by: Stanislav Lisovskiy <stanislav.lisovskiy@intel.com>
-Signed-off-by: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
-Reviewed-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
----
- drivers/gpu/drm/i915/display/intel_dp.c | 26 +++++++++++++++++++------
- 1 file changed, 20 insertions(+), 6 deletions(-)
+I can't comment for the others, but drm-misc at least still requires
+reporting issues by mail, so, no, sorry, we can't switch to gitlab only
+for now.
 
-diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
-index eb92fda21e87..d0609d007743 100644
---- a/drivers/gpu/drm/i915/display/intel_dp.c
-+++ b/drivers/gpu/drm/i915/display/intel_dp.c
-@@ -1284,26 +1284,38 @@ intel_dp_mode_valid_downstream(struct intel_connector *connector,
- }
- 
- static
--bool intel_dp_needs_bigjoiner(struct intel_dp *intel_dp,
--			      struct intel_connector *connector,
--			      int hdisplay, int clock)
-+bool intel_dp_needs_joiner(struct intel_dp *intel_dp,
-+			   struct intel_connector *connector,
-+			   int hdisplay, int clock,
-+			   int num_joined_pipes)
- {
- 	struct drm_i915_private *i915 = dp_to_i915(intel_dp);
- 
- 	if (!intel_dp_has_joiner(intel_dp))
- 		return false;
- 
--	return clock > i915->display.cdclk.max_dotclk_freq || hdisplay > 5120;
-+	num_joined_pipes /= 2;
-+
-+	return clock > num_joined_pipes * i915->display.cdclk.max_dotclk_freq ||
-+	       hdisplay > num_joined_pipes * 5120;
- }
- 
- int intel_dp_num_joined_pipes(struct intel_dp *intel_dp,
- 			      struct intel_connector *connector,
- 			      int hdisplay, int clock)
- {
-+	struct intel_display *display = to_intel_display(intel_dp);
-+	struct drm_i915_private *i915 = to_i915(display->drm);
-+
- 	if (connector->force_joined_pipes)
- 		return connector->force_joined_pipes;
- 
--	if (intel_dp_needs_bigjoiner(intel_dp, connector, hdisplay, clock))
-+	if (HAS_ULTRAJOINER(i915) &&
-+	    intel_dp_needs_joiner(intel_dp, connector, hdisplay, clock, 4))
-+		return 4;
-+
-+	if ((HAS_BIGJOINER(i915) || HAS_UNCOMPRESSED_JOINER(i915)) &&
-+	    intel_dp_needs_joiner(intel_dp, connector, hdisplay, clock, 2))
- 		return 2;
- 
- 	return 1;
-@@ -2509,8 +2521,10 @@ bool intel_dp_joiner_needs_dsc(struct drm_i915_private *i915,
- 	 * Pipe joiner needs compression up to display 12 due to bandwidth
- 	 * limitation. DG2 onwards pipe joiner can be enabled without
- 	 * compression.
-+	 * Ultrajoiner always needs compression.
- 	 */
--	return !HAS_UNCOMPRESSED_JOINER(i915) && num_joined_pipes == 2;
-+	return (!HAS_UNCOMPRESSED_JOINER(i915) && num_joined_pipes == 2) ||
-+		num_joined_pipes == 4;
- }
- 
- static int
--- 
-2.45.2
+Maxime
 
+--xmj2ly46kzbkkxma
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iJUEABMJAB0WIQTkHFbLp4ejekA/qfgnX84Zoj2+dgUCZvUMowAKCRAnX84Zoj2+
+dmrwAXwJooR80dwdvsWLwVqq5T8Tn9xQ8jXG5egqf3JJs5K3KqLQK01ARZoz96es
+RPNQmi8BgI1h2/qRTFQd2zqn7QgKcGKOtkv4Yc4dQqncavbg/HkcoYrbjgDyP6za
+D5kG4mEAOg==
+=hh9h
+-----END PGP SIGNATURE-----
+
+--xmj2ly46kzbkkxma--
