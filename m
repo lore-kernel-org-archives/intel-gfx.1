@@ -4,75 +4,72 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0A63BCE834F
-	for <intel-gfx@archiver.kernel.org>; Mon, 30 Sep 2024 13:31:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 37970CE8345
+	for <intel-gfx@archiver.kernel.org>; Mon, 30 Sep 2024 13:31:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B121810E4EC;
-	Mon, 30 Sep 2024 13:31:27 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DF10A10E4F5;
+	Mon, 30 Sep 2024 13:31:38 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="J5gpSkVZ";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="mm+Xm1jp";
 	dkim-atps=neutral
-Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com
- [209.85.128.51])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 047A610E40F;
- Mon, 30 Sep 2024 12:37:19 +0000 (UTC)
-Received: by mail-wm1-f51.google.com with SMTP id
- 5b1f17b1804b1-42cc8782869so39888675e9.2; 
- Mon, 30 Sep 2024 05:37:18 -0700 (PDT)
+Received: from mail-ej1-f53.google.com (mail-ej1-f53.google.com
+ [209.85.218.53])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6CB0C10E03B;
+ Fri, 27 Sep 2024 00:01:53 +0000 (UTC)
+Received: by mail-ej1-f53.google.com with SMTP id
+ a640c23a62f3a-a8d29b7edc2so192119766b.1; 
+ Thu, 26 Sep 2024 17:01:53 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1727699837; x=1728304637; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=TTtABT1rYfIzK3Apk8cuoRmJAsuypkLox4BN8k8T5lM=;
- b=J5gpSkVZ/ZdrtFNZKD2og5tL9brqiG0hmeBerztF8xYem2E8hO2hwcYz/hEhIxLEuy
- yTj8QAMm6erBOVLvbCbr5ToTEYssaVzqqAwli5RiEOehgpXImdPKXx9NiftCivK/KkB3
- hvOCuuOcc+Iadqt0DeYyHk+XOMqtgOCxql2+ZRawE99no/HD5Xt8u1K6YuYMTr7otjZq
- gKxf1C4G9aK1gBpivdZ8PrDSxXuvx2zsLmjqjzavHwkuHwHI20MUpgPmTURL4WC0eNV2
- w9qivUlY/w5FVU2V9SdnHkhZibqPyd+DvvoCvkqbTCdHrcbhhmdVHhpQtIqwnB43JHv8
- ZcdQ==
+ d=gmail.com; s=20230601; t=1727395312; x=1728000112; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=U4DmHwZhZIQSDJ1IAkiV7HNtDx5RPl1Sb5duaMbxKCs=;
+ b=mm+Xm1jplZ6F5ysHMOcpx6D08hbhqGsSHlVH9CM/QODFvbyS1lLMrlrCY8z3+2DhtH
+ CLFleft9VXeMLfh8ARcmjVRzGS7iDnQVNJQqJqmb7/aqW7c6GMQki9596k9QfENeTzRo
+ Eg9Rs7F9gv26P6ksnKVgrPfTiKoeZ8P/vfsTu/CnocKYga0hbYepWdBd8PpVE+VOBotK
+ ZLcaG1Fk2/OAFqlDKHM4m5mxA2M7UlV4ttd5WsEXmpT1p3mchjOVZoogoKAjJMmZmegz
+ ybjA1uCNzuybkSFXPYjL+RiaQBbJwYztnl6pDwGU0rOYapZsbn33GvXIxJghy7yMuTl1
+ clKw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1727699837; x=1728304637;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=TTtABT1rYfIzK3Apk8cuoRmJAsuypkLox4BN8k8T5lM=;
- b=ZedRt57VCwStnqEQrYA6GgJDiK2UhKFX+u37Hf5Vee2o9RR6Fv8RZyz/tG1u7ZSKUD
- PEE48FyzMeagMt0n/ZfMWVJpmUIJT5wxLr2FSQe95D064UjN1OpAQPP8Mdy2uctztqJM
- 14IS+ShBsZ5BuvYsM7kGDP6Ox0hp+hkgIXaADoqfiCADsKfn9kln9rikjxBybDa1vX5F
- NfDCcjFpQh1t6To9HYUA7CM2t5WoV/MDVLSV6PJ441RU/hYVRl0fzDEbM6zKl6CxJCJH
- uk4jdYTRJSijSNPE9G4GG2ee0vLHUh3XCCnJyAkzso2qEyeAYBnp9LcVLtUfh8qWvnIm
- uZBA==
+ d=1e100.net; s=20230601; t=1727395312; x=1728000112;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=U4DmHwZhZIQSDJ1IAkiV7HNtDx5RPl1Sb5duaMbxKCs=;
+ b=OLMU2d1MZr5hOvw/ciPXckNWSH51XBpwIqeAa8Wv7xvOeJzpBzBvPfVpnw6AtCr/26
+ APEBjG/iYfrs2/gwVBaqOVljCgr0pydh+rlX8qV+6sxeC0j/2EVX6cRwALxB/CvfF1kc
+ CUR7slIBNtsPbD+5DGukl6pwTLhKF1iii4mPXyJ3bMTwh9KyXngIKcuEpOiV/2T3T7/0
+ Ekp2dcwTnQcBv1tgJ3/Jvaua+/82STUgN6lGCI4CatZgrcjJ+yXWG/N/bdh/2zm84Yzo
+ iy7t8jCIPwoijeBtBcYoc03HlzXtjbRLvvKvRPkRpQZQWV2I0gwXJfhRroWz6Q4UWGoH
+ jZQg==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUafJirsMEKdtGChrCVZXFTUoIXBWiBXVvvQiY6WgLaK1cOL1N+yfR5lkbQKtIgqPvUb2quVveoBhef@lists.freedesktop.org,
- AJvYcCXeRw1x2Zo7Kozr/kU++4veBxmrVETA3bG5GBlA17aAecOMtZ5lq2eDFkqBMsKAQNolj+Z8jPMI6ds=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwU7nMoUTIgOl/d6qLAF7mPVfjXlPoVKxCc5nqyODJ/1vrJIlDf
- ergSYKcXPJ05ScIhVK+N18Wx3UiUDFgcJNFezSV6LGjPkXaLBdNS2e3Df9RWf88=
-X-Google-Smtp-Source: AGHT+IHBiyuHQnT3ULO5RBx3Lp6OpesRYqemaXFPJxpMx4yYeqmrbcmToiuf+tr1+RXNDEzbJ1b58w==
-X-Received: by 2002:a05:600c:4f86:b0:42c:bae0:f066 with SMTP id
- 5b1f17b1804b1-42f58434768mr79576095e9.13.1727699837034; 
- Mon, 30 Sep 2024 05:37:17 -0700 (PDT)
-Received: from fedora.iskraemeco.si ([193.77.86.250])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-42e96a52308sm149011355e9.43.2024.09.30.05.37.15
+ AJvYcCVp6ozfFyIQ4p1AaP57f/72PAHKvfJDXl/nxtRGgyKuCvnLhL5O1RQqUanCisgJaAEsSv8ZrmYlUeM=@lists.freedesktop.org,
+ AJvYcCWnvu9wpZgI4t4htylpJFsxVN2jpjUXRcjJce26PFtHyohSiqEDs8iDCkXsY9DOIvZV1sH8xoSrhl0=@lists.freedesktop.org,
+ AJvYcCX+b+h7FGHKK/GjMnnfz1meeu4zA0r9zD8TDavd0GELyGj9gOeoE3/rUzZPEZCiLmUOtGETfMhIk9x2@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwAzZSw5M6HR01qI8TLC91jB7uCxBb26iaRaEda2A9KIDTMePDu
+ qtkVz7Qrwqm3KCdzHYU5knrmveARPtKZPIaYQmW9WzHeZjP4wqna
+X-Google-Smtp-Source: AGHT+IEe+4qv/gH8mKQLQOBF/U3++C2ZiNBlIGNXsVrwjBIzuzBkLAg83454FCfI+dydv3Tdevl6sg==
+X-Received: by 2002:a17:907:9492:b0:a7a:8da1:eb00 with SMTP id
+ a640c23a62f3a-a93c48f6ea4mr88816366b.7.1727395311367; 
+ Thu, 26 Sep 2024 17:01:51 -0700 (PDT)
+Received: from alessandro-pc.station (net-37-119-37-200.cust.vodafonedsl.it.
+ [37.119.37.200]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-a93c2979d88sm52566666b.156.2024.09.26.17.01.50
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 30 Sep 2024 05:37:16 -0700 (PDT)
-From: Uros Bizjak <ubizjak@gmail.com>
-To: x86@kernel.org, linux-crypto@vger.kernel.org,
- intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-media@vger.kernel.org, linux-mtd@lists.infradead.org,
- linux-fscrypt@vger.kernel.org, linux-scsi@vger.kernel.org,
- bpf@vger.kernel.org, linux-kselftest@vger.kernel.org,
- kunit-dev@googlegroups.com, linux-kernel@vger.kernel.org
-Cc: Uros Bizjak <ubizjak@gmail.com>, Miquel Raynal <miquel.raynal@bootlin.com>,
- Richard Weinberger <richard@nod.at>, Vignesh Raghavendra <vigneshr@ti.com>
-Subject: [PATCH v3 06/19] mtd: tests: Include <linux/prandom.h> instead of
- <linux/random.h>
-Date: Mon, 30 Sep 2024 14:33:17 +0200
-Message-ID: <20240930123702.803617-7-ubizjak@gmail.com>
-X-Mailer: git-send-email 2.46.2
-In-Reply-To: <20240930123702.803617-1-ubizjak@gmail.com>
-References: <20240930123702.803617-1-ubizjak@gmail.com>
+ Thu, 26 Sep 2024 17:01:50 -0700 (PDT)
+From: Alessandro Zanni <alessandro.zanni87@gmail.com>
+To: jani.nikula@linux.intel.com, rodrigo.vivi@intel.com,
+ joonas.lahtinen@linux.intel.com, tursulin@ursulin.net, airlied@gmail.com,
+ simona@ffwll.ch
+Cc: Alessandro Zanni <alessandro.zanni87@gmail.com>,
+ intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ skhan@linuxfoundation.org, anupnewsmail@gmail.com
+Subject: [PATCH] gpu: drm: i915: display: Avoid null values
+ intel_plane_atomic_check_with_state
+Date: Fri, 27 Sep 2024 02:01:44 +0200
+Message-ID: <20240927000146.50830-1-alessandro.zanni87@gmail.com>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Mon, 30 Sep 2024 13:30:58 +0000
@@ -91,59 +88,53 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Substitute the inclusion of <linux/random.h> header with
-<linux/prandom.h> to allow the removal of legacy inclusion
-of <linux/prandom.h> from <linux/random.h>.
+This fix solves multiple Smatch errors:
 
-Signed-off-by: Uros Bizjak <ubizjak@gmail.com>
-Acked-by: Miquel Raynal <miquel.raynal@bootlin.com>
-Cc: Richard Weinberger <richard@nod.at>
-Cc: Vignesh Raghavendra <vigneshr@ti.com>
+drivers/gpu/drm/i915/display/intel_atomic_plane.c:660
+intel_plane_atomic_check_with_state() error:
+we previously assumed 'fb' could be null (see line 648)
+
+drivers/gpu/drm/i915/display/intel_atomic_plane.c:664
+intel_plane_atomic_check_with_state()
+error: we previously assumed 'fb' could be null (see line 659)
+
+drivers/gpu/drm/i915/display/intel_atomic_plane.c:671
+intel_plane_atomic_check_with_state()
+error: we previously assumed 'fb' could be null (see line 663)
+
+We should check first if fb is not null before to access its properties.
+
+Signed-off-by: Alessandro Zanni <alessandro.zanni87@gmail.com>
 ---
- drivers/mtd/tests/oobtest.c     | 2 +-
- drivers/mtd/tests/pagetest.c    | 2 +-
- drivers/mtd/tests/subpagetest.c | 2 +-
- 3 files changed, 3 insertions(+), 3 deletions(-)
+ drivers/gpu/drm/i915/display/intel_atomic_plane.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/mtd/tests/oobtest.c b/drivers/mtd/tests/oobtest.c
-index 13fed398937e..e1ee68f8b8f8 100644
---- a/drivers/mtd/tests/oobtest.c
-+++ b/drivers/mtd/tests/oobtest.c
-@@ -17,7 +17,7 @@
- #include <linux/mtd/mtd.h>
- #include <linux/slab.h>
- #include <linux/sched.h>
--#include <linux/random.h>
-+#include <linux/prandom.h>
+diff --git a/drivers/gpu/drm/i915/display/intel_atomic_plane.c b/drivers/gpu/drm/i915/display/intel_atomic_plane.c
+index e979786aa5cf..1606f79b39e6 100644
+--- a/drivers/gpu/drm/i915/display/intel_atomic_plane.c
++++ b/drivers/gpu/drm/i915/display/intel_atomic_plane.c
+@@ -656,18 +656,18 @@ int intel_plane_atomic_check_with_state(const struct intel_crtc_state *old_crtc_
+ 	    intel_plane_is_scaled(new_plane_state))
+ 		new_crtc_state->scaled_planes |= BIT(plane->id);
  
- #include "mtd_test.h"
+-	if (new_plane_state->uapi.visible &&
++	if (new_plane_state->uapi.visible && fb &&
+ 	    intel_format_info_is_yuv_semiplanar(fb->format, fb->modifier))
+ 		new_crtc_state->nv12_planes |= BIT(plane->id);
  
-diff --git a/drivers/mtd/tests/pagetest.c b/drivers/mtd/tests/pagetest.c
-index 8eb40b6e6dfa..6878700d2fc0 100644
---- a/drivers/mtd/tests/pagetest.c
-+++ b/drivers/mtd/tests/pagetest.c
-@@ -17,7 +17,7 @@
- #include <linux/mtd/mtd.h>
- #include <linux/slab.h>
- #include <linux/sched.h>
--#include <linux/random.h>
-+#include <linux/prandom.h>
+-	if (new_plane_state->uapi.visible &&
++	if (new_plane_state->uapi.visible && fb &&
+ 	    fb->format->format == DRM_FORMAT_C8)
+ 		new_crtc_state->c8_planes |= BIT(plane->id);
  
- #include "mtd_test.h"
+ 	if (new_plane_state->uapi.visible || old_plane_state->uapi.visible)
+ 		new_crtc_state->update_planes |= BIT(plane->id);
  
-diff --git a/drivers/mtd/tests/subpagetest.c b/drivers/mtd/tests/subpagetest.c
-index 05250a080139..f34bbf033c4d 100644
---- a/drivers/mtd/tests/subpagetest.c
-+++ b/drivers/mtd/tests/subpagetest.c
-@@ -15,7 +15,7 @@
- #include <linux/mtd/mtd.h>
- #include <linux/slab.h>
- #include <linux/sched.h>
--#include <linux/random.h>
-+#include <linux/prandom.h>
- 
- #include "mtd_test.h"
- 
+-	if (new_plane_state->uapi.visible &&
++	if (new_plane_state->uapi.visible && fb &&
+ 	    intel_format_info_is_yuv_semiplanar(fb->format, fb->modifier)) {
+ 		new_crtc_state->data_rate_y[plane->id] =
+ 			intel_plane_data_rate(new_crtc_state, new_plane_state, 0);
 -- 
-2.46.2
+2.43.0
 
