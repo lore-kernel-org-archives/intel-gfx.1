@@ -4,50 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 68652CEBF81
-	for <intel-gfx@archiver.kernel.org>; Fri, 27 Sep 2024 08:36:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 211BCCEBF85
+	for <intel-gfx@archiver.kernel.org>; Fri, 27 Sep 2024 08:36:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1014910EC63;
+	by gabe.freedesktop.org (Postfix) with ESMTP id B7A4810EC6A;
 	Fri, 27 Sep 2024 08:36:56 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="SO55AOqk";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="P79JjCiS";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.7])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B2F7610EC63;
- Fri, 27 Sep 2024 08:36:54 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0F47D10EC5F;
+ Fri, 27 Sep 2024 08:36:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1727426214; x=1758962214;
+ t=1727426209; x=1758962209;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=nD/+XvA0NMVYD/9qG+RTuz2w7OvZ6XXKkqFSbuY7YAw=;
- b=SO55AOqkBO4IZY5g4+NSmXooOfBipwrbbVdWLMjsu8sJIaguUO8uRoPW
- Chnkofhway1BrqxVTfJ8GIPL8X8UIGVzUEZ9/u3RQ/1z7MXjkuDlHyfe4
- y0HUAm1VxNokbDlTUWPVKkJydqMgh6cO8EpOup9tuVmOZuBE9H8wF1bcb
- vFSfxpV/P+3S+6s9mP9o1a8gzF36XAJi4y1TOyNB5MuusiEtLxyB9Vz3I
- bRb3mZizLzDcNg+lD+TuJN3bQEY/El8sI8SVi+SuKZOsQwgccWdfElV1O
- azZtC8pWg+IE3AobofsRltoLugroHStPDC2t/nOCSxmggRsvOAo5jxvxg g==;
-X-CSE-ConnectionGUID: 7aG8LRHaRXG4a/ATD+N+4A==
-X-CSE-MsgGUID: 3YEvwzUQSSSPz72Bn96VsQ==
-X-IronPort-AV: E=McAfee;i="6700,10204,11207"; a="51977626"
-X-IronPort-AV: E=Sophos;i="6.11,158,1725346800"; d="scan'208";a="51977626"
+ bh=P52R4SD5Fi/AfTtte9RUU9QzZB1KVGjS+Hf3IpquhZU=;
+ b=P79JjCiSu3UaR9CcxMcuZHoWFDQEFiA2ygk946CH2ByLEpqbBgmTq7b6
+ ixpForAHEX4K0uQ42WwolosLdnVHKpecfpCzlYciTSKCby8IAPWvenVlx
+ Ts8To20qoRMZDKx47y6838aAAf/JQbFJ2m0X0qx10Rh55iEYtoFyYPtRj
+ l8VGue8YqWWwz3zjKoTCvLV35QE3RnaNFdYrGjs3xdDsDsu+DPKqCqX0M
+ yamnDl9U7F1gQVO9NfilymO3snHce3pru5vipO9N57b92ijh7Q52Xk6+/
+ iYFx7sma7xHcHYFCxyNe0vCfQaVTNIFNRAXaENi3vkb5j6qaJ1f7oJU+O g==;
+X-CSE-ConnectionGUID: JwvWttQZSJaqI3axWef69g==
+X-CSE-MsgGUID: v3z2ygvPSFq4yTPOHJ8QdQ==
+X-IronPort-AV: E=McAfee;i="6700,10204,11207"; a="51977622"
+X-IronPort-AV: E=Sophos;i="6.11,158,1725346800"; d="scan'208";a="51977622"
 Received: from orviesa004.jf.intel.com ([10.64.159.144])
  by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 27 Sep 2024 01:36:54 -0700
-X-CSE-ConnectionGUID: vlMlf8euQkeim/LLmmD5HQ==
-X-CSE-MsgGUID: CP1OdtMURZW6jx25Xkux4Q==
+ 27 Sep 2024 01:36:49 -0700
+X-CSE-ConnectionGUID: aXAOZ/uYSxWjeqnpgeCGmg==
+X-CSE-MsgGUID: u/Y2fvx1TYSTAglaaLsQdQ==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.11,158,1725346800"; d="scan'208";a="77409405"
+X-IronPort-AV: E=Sophos;i="6.11,158,1725346800"; d="scan'208";a="77409392"
 Received: from srr4-3-linux-103-aknautiy.iind.intel.com ([10.223.34.160])
  by orviesa004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 27 Sep 2024 01:36:52 -0700
+ 27 Sep 2024 01:36:47 -0700
 From: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
 To: intel-gfx@lists.freedesktop.org
 Cc: intel-xe@lists.freedesktop.org, suraj.kandpal@intel.com,
  ville.syrjala@linux.intel.com
-Subject: [PATCH 10/17] drm/i915/display/vdsc: Add ultrajoiner support with DSC
-Date: Fri, 27 Sep 2024 14:08:24 +0530
-Message-ID: <20240927083831.3913645-11-ankit.k.nautiyal@intel.com>
+Subject: [PATCH 07/17] drm/i915/display: Add macro HAS_ULTRAJOINER()
+Date: Fri, 27 Sep 2024 14:08:21 +0530
+Message-ID: <20240927083831.3913645-8-ankit.k.nautiyal@intel.com>
 X-Mailer: git-send-email 2.45.2
 In-Reply-To: <20240927083831.3913645-1-ankit.k.nautiyal@intel.com>
 References: <20240927083831.3913645-1-ankit.k.nautiyal@intel.com>
@@ -69,126 +69,32 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Stanislav Lisovskiy <stanislav.lisovskiy@intel.com>
-
-Add changes to DSC which are required for Ultrajoiner.
+Add macro to check if platform supports Ultrajoiner.
 
 v2:
--Use correct helper for setting bits for bigjoiner secondary. (Ankit)
--Use primary/secondary instead of master/slave. (Suraj)
-v3: Add the ultrajoiner helpers and use it for setting ultrajoiner
-bits (Ankit)
-v4: Use num_vdsc_instances *= num_joined_pipes (Ville)
-v5: Align the helper to get ultrajoiner enabled pipes with other helpers
-(Ville)
+-Use check for DISPLAY_VER >= 20, and add bmg as a special case. (Ville)
+-Add check for HAS_DSC. (Ville)
 
-Signed-off-by: Stanislav Lisovskiy <stanislav.lisovskiy@intel.com>
 Signed-off-by: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
 Reviewed-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_display.c | 42 ++++++++++++++++++++
- drivers/gpu/drm/i915/display/intel_display.h |  3 ++
- drivers/gpu/drm/i915/display/intel_vdsc.c    | 11 ++++-
- 3 files changed, 54 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/i915/display/intel_display_device.h | 3 +++
+ 1 file changed, 3 insertions(+)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
-index fe50044056fe..70b272add6c1 100644
---- a/drivers/gpu/drm/i915/display/intel_display.c
-+++ b/drivers/gpu/drm/i915/display/intel_display.c
-@@ -312,6 +312,48 @@ u8 _intel_modeset_secondary_pipes(const struct intel_crtc_state *crtc_state)
- 	return bigjoiner_secondary_pipes(crtc_state);
- }
- 
-+bool intel_crtc_is_ultrajoiner(const struct intel_crtc_state *crtc_state)
-+{
-+	return intel_crtc_num_joined_pipes(crtc_state) >= 4;
-+}
-+
-+static u8 ultrajoiner_primary_pipes(const struct intel_crtc_state *crtc_state)
-+{
-+	if (!intel_crtc_is_ultrajoiner(crtc_state))
-+		return 0;
-+
-+	return crtc_state->joiner_pipes & (0b00010001 << joiner_primary_pipe(crtc_state));
-+}
-+
-+bool intel_crtc_is_ultrajoiner_primary(const struct intel_crtc_state *crtc_state)
-+{
-+	struct intel_crtc *crtc = to_intel_crtc(crtc_state->uapi.crtc);
-+
-+	return intel_crtc_is_ultrajoiner(crtc_state) &&
-+	       BIT(crtc->pipe) & ultrajoiner_primary_pipes(crtc_state);
-+}
-+
-+/*
-+ * The ultrajoiner enable bit doesn't seem to follow primary/secondary logic or
-+ * any other logic, so lets just add helper function to
-+ * at least hide this hassle..
-+ */
-+static u8 ultrajoiner_enable_pipes(const struct intel_crtc_state *crtc_state)
-+{
-+	if (!intel_crtc_is_ultrajoiner(crtc_state))
-+		return 0;
-+
-+	return crtc_state->joiner_pipes & (0b01110111 << joiner_primary_pipe(crtc_state));
-+}
-+
-+bool intel_crtc_ultrajoiner_enable_needed(const struct intel_crtc_state *crtc_state)
-+{
-+	struct intel_crtc *crtc = to_intel_crtc(crtc_state->uapi.crtc);
-+
-+	return intel_crtc_is_ultrajoiner(crtc_state) &&
-+	       BIT(crtc->pipe) & ultrajoiner_enable_pipes(crtc_state);
-+}
-+
- u8 intel_crtc_joiner_secondary_pipes(const struct intel_crtc_state *crtc_state)
- {
- 	if (crtc_state->joiner_pipes)
-diff --git a/drivers/gpu/drm/i915/display/intel_display.h b/drivers/gpu/drm/i915/display/intel_display.h
-index 1f0fed5ea7bc..61e1df878de9 100644
---- a/drivers/gpu/drm/i915/display/intel_display.h
-+++ b/drivers/gpu/drm/i915/display/intel_display.h
-@@ -441,6 +441,9 @@ bool intel_crtc_is_joiner_secondary(const struct intel_crtc_state *crtc_state);
- bool intel_crtc_is_joiner_primary(const struct intel_crtc_state *crtc_state);
- bool intel_crtc_is_bigjoiner_primary(const struct intel_crtc_state *crtc_state);
- bool intel_crtc_is_bigjoiner_secondary(const struct intel_crtc_state *crtc_state);
-+bool intel_crtc_is_ultrajoiner(const struct intel_crtc_state *crtc_state);
-+bool intel_crtc_is_ultrajoiner_primary(const struct intel_crtc_state *crtc_state);
-+bool intel_crtc_ultrajoiner_enable_needed(const struct intel_crtc_state *crtc_state);
- u8 intel_crtc_joiner_secondary_pipes(const struct intel_crtc_state *crtc_state);
- u8 _intel_modeset_primary_pipes(const struct intel_crtc_state *crtc_state);
- u8 _intel_modeset_secondary_pipes(const struct intel_crtc_state *crtc_state);
-diff --git a/drivers/gpu/drm/i915/display/intel_vdsc.c b/drivers/gpu/drm/i915/display/intel_vdsc.c
-index 8158e3702ed5..c3405234dc51 100644
---- a/drivers/gpu/drm/i915/display/intel_vdsc.c
-+++ b/drivers/gpu/drm/i915/display/intel_vdsc.c
-@@ -379,9 +379,9 @@ static int intel_dsc_get_vdsc_per_pipe(const struct intel_crtc_state *crtc_state
- int intel_dsc_get_num_vdsc_instances(const struct intel_crtc_state *crtc_state)
- {
- 	int num_vdsc_instances = intel_dsc_get_vdsc_per_pipe(crtc_state);
-+	int num_joined_pipes = intel_crtc_num_joined_pipes(crtc_state);
- 
--	if (crtc_state->joiner_pipes)
--		num_vdsc_instances *= 2;
-+	num_vdsc_instances *= num_joined_pipes;
- 
- 	return num_vdsc_instances;
- }
-@@ -770,7 +770,14 @@ void intel_dsc_enable(const struct intel_crtc_state *crtc_state)
- 		dss_ctl1_val |= JOINER_ENABLE;
- 	}
- 	if (crtc_state->joiner_pipes) {
-+		if (intel_crtc_ultrajoiner_enable_needed(crtc_state))
-+			dss_ctl1_val |= ULTRA_JOINER_ENABLE;
-+
-+		if (intel_crtc_is_ultrajoiner_primary(crtc_state))
-+			dss_ctl1_val |= PRIMARY_ULTRA_JOINER_ENABLE;
-+
- 		dss_ctl1_val |= BIG_JOINER_ENABLE;
-+
- 		if (intel_crtc_is_bigjoiner_primary(crtc_state))
- 			dss_ctl1_val |= PRIMARY_BIG_JOINER_ENABLE;
- 	}
+diff --git a/drivers/gpu/drm/i915/display/intel_display_device.h b/drivers/gpu/drm/i915/display/intel_display_device.h
+index 6a5bee59e6aa..220cca6333ee 100644
+--- a/drivers/gpu/drm/i915/display/intel_display_device.h
++++ b/drivers/gpu/drm/i915/display/intel_display_device.h
+@@ -154,6 +154,9 @@ enum intel_display_subplatform {
+ #define HAS_TRANSCODER(i915, trans)	((DISPLAY_RUNTIME_INFO(i915)->cpu_transcoder_mask & \
+ 					  BIT(trans)) != 0)
+ #define HAS_UNCOMPRESSED_JOINER(i915)	(DISPLAY_VER(i915) >= 13)
++#define HAS_ULTRAJOINER(i915)		((DISPLAY_VER(i915) >= 20 || \
++					  (IS_DGFX(i915) && DISPLAY_VER(i915) == 14)) && \
++					 HAS_DSC(i915))
+ #define HAS_VRR(i915)			(DISPLAY_VER(i915) >= 11)
+ #define HAS_AS_SDP(i915)		(DISPLAY_VER(i915) >= 13)
+ #define HAS_CMRR(i915)			(DISPLAY_VER(i915) >= 20)
 -- 
 2.45.2
 
