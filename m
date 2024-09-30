@@ -4,59 +4,59 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 53FF5CE834E
-	for <intel-gfx@archiver.kernel.org>; Mon, 30 Sep 2024 13:31:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1F8A3CE8345
+	for <intel-gfx@archiver.kernel.org>; Mon, 30 Sep 2024 13:31:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 29A7E10E4DE;
-	Mon, 30 Sep 2024 13:31:00 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BAC4D10E4E6;
+	Mon, 30 Sep 2024 13:31:25 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="SMpFApbp";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Np8xEuA8";
 	dkim-atps=neutral
-Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com
- [209.85.128.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5F28710E431;
- Mon, 30 Sep 2024 12:37:30 +0000 (UTC)
-Received: by mail-wm1-f43.google.com with SMTP id
- 5b1f17b1804b1-42cb9a0c300so33354015e9.0; 
- Mon, 30 Sep 2024 05:37:30 -0700 (PDT)
+Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com
+ [209.85.128.53])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2A54010E431;
+ Mon, 30 Sep 2024 12:37:12 +0000 (UTC)
+Received: by mail-wm1-f53.google.com with SMTP id
+ 5b1f17b1804b1-42e748f78d6so34920585e9.0; 
+ Mon, 30 Sep 2024 05:37:12 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1727699849; x=1728304649; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1727699830; x=1728304630; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=It3uv8+V16fpn+saBfVIlpi9seKMH0hwPDwquZC7SM8=;
- b=SMpFApbpbeVNZBWN6+7rNNJCd03NTUw0tOrxtu+FYDHWaVSCXHbBv713/KSCv1MqHT
- NvYqNillD9W7KST+eXH8pIaynBlkIPSiQFpbESjahlOldgoOCi/xx4F/FUkwI5d2Sd5B
- u+6iZf5XXDqRlesQ7Yzvk64ZpvZ5QuXmUJp/KfnX0jgnSTMzElbFozTxon1lJguIDM0J
- 4eT+H36yCfkS6l6MZE3dHr7N+KA52furX+ERKV5wj+7DV46t0zC9rlObakmGRp/vFz7Y
- VY3Vddd9Nxc02kuKfMG/nTqGJwTPo4cSenf/F5zq3q/3LwkZrF+YwbNamjWJi6BSvd3W
- vuPg==
+ bh=nRI6G1zgxxf6ByUGqs3lmNwTcdt012WbdG6WrxIrfn4=;
+ b=Np8xEuA8qbudA30cxOZr7zpyrSvqF22cJhtvI1J1KvVUBKnw5+7KSyG+byHL3jmeob
+ su0QGiUO9uRBZK/9oFWlZf4ZcJ7JtjQKRCqQ7J5HM5/mrCx/eQ1FTkFdO5FP4ya1JtBE
+ CSbOoZjZnETywY1cYRVOAcYIQkevmx2iNsiybRSxjUi0f5tiKI+SRQB0jtn5caiJ8bdj
+ LVMbzMJnDAOwPCzf9mlzbnOyD+Kzsaj8dlH1d+p0QRfSN7Ob4YAqYEpFJfz2xaKd1KtX
+ PGHHOkNzqFjsAZu/sQbCql4ntMVuzQ3b4sMR/AD5JNpLAOtLh62ceP8OvH/6e68vQoTQ
+ 1Xqw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1727699849; x=1728304649;
+ d=1e100.net; s=20230601; t=1727699830; x=1728304630;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=It3uv8+V16fpn+saBfVIlpi9seKMH0hwPDwquZC7SM8=;
- b=h/+ZqR0vepbZMD2Iuf606Qgs027tuxLLQzDQvTQ9RfW6cX/DvdZBkY4JzoaOyLFAfk
- eSnLS2LOvoYlJ+vZ5uOxMM7UhQurqe83t1UCKO10EMW1wCznvkKNAx5kyhEgvVYVc89z
- yl96R7lv8tpi5Y0r36a7005llnqsqTBaEwtWqhLAiD0gJ/roEQlXtCOOsA1M+EnozTWd
- n5L0ukcBCas/ZqNozXiZdAX7TmNCQvsEot+T/vk/uCh3mC/FtGdfJtzg2jngoq4uCiqj
- ekiNF02DoHIA8+YAZWl8xrPUsYerCbM3QetBrXT81Zm+IQYHXE6Lc0axzquxaXvk2HTv
- qpAw==
+ bh=nRI6G1zgxxf6ByUGqs3lmNwTcdt012WbdG6WrxIrfn4=;
+ b=Hgr9jv2u0qQNPSD6XPYy7CCYviPcGGvKIQkEaXlg1JkIO3hJK/SJ7F7x4dIFzF4j38
+ GdMYgP38ovjDIXrS1DDEPPi29wLNtDOMMXuCElEVVvP2cN+dLUpv5fY465E1bKrO7yjp
+ yL6wl0mAGd5lTzSN9Hr5hmZwsE9xVOL+cZIKPUw6hff9szFxtv8wJW0syWeyH5gHquSJ
+ 1iuxBcHIqS7mIBe84t+Y34wBp+BUOy8b9NsEvpH8Pn6/7zdKumdyKOk9hG2MJBI5Hd1C
+ D073Ny1oW4VVKzI2tyz6DcbGDR5e4lxmezpS7JBI3sCtI43p80ClmWHLND4qnW06/bQP
+ d69Q==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUoPdL0uubOG/1ltRyqSZP9iyQ5lMv7hYCJ8jvEeo0Ca6vCLEx1DpAKIrCz+FMLDzGFgzmp/1I3+DJ1@lists.freedesktop.org,
- AJvYcCWYZvaKLApOqkEL1OpNUhicGv7HmVkp2h7oRrF8kQ1tUirmczj0HoIDJLmyLl8fy0luTHAXmuLz1dM=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxfF/TEtpgascYfpI4HdJShQPIBE6PJV5iiCPezgm5hu8wocZvf
- Bh8Ab9zA2aK8Dwa8zJN1CglCpTrn1EHdG10R9TKptRbPpDAG9aXK
-X-Google-Smtp-Source: AGHT+IEqfXUL1BfL9uwnKBRwxBvUK5HW+SKSYQE3kTn+gocX4MXts0u3yymxZU+7jyC+w/S3B15WBQ==
-X-Received: by 2002:adf:e888:0:b0:37c:d344:8b42 with SMTP id
- ffacd0b85a97d-37cd5a874bdmr6237784f8f.15.1727699848530; 
- Mon, 30 Sep 2024 05:37:28 -0700 (PDT)
+ AJvYcCUoeqkAia8D0dP+s1BWb3CjZpa2yqb0wSNDnBn20ThQGINXDzIailjkQPFh9644ObGIlT5JUv2xpVav@lists.freedesktop.org,
+ AJvYcCVjy8VichzUbL+hnUbR5PnMrv/xCHIMxZ50mQB+eH9gZ3809CUyZU/ac8hUE9VLzr9sLqCXAy/H/GE=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwGhQpl4oDHBjI2d+dN73ukJ4ZNoZ6rdpQ9NU2UkwoDDNX23SFO
+ 93P7xJqv/K/CsPDNdKltRdOCyohxZEKLUeq0vJMZBg5TbjKtJWWS
+X-Google-Smtp-Source: AGHT+IFu5Oiwuj+i68aKGbWWitLMicT3QOqH4yvr2CkBBlw3Y4l78E7VTBxoGWeYODKBQH4FUNaUOw==
+X-Received: by 2002:a05:600c:3b17:b0:426:50e1:ea6e with SMTP id
+ 5b1f17b1804b1-42f5844c301mr92255225e9.18.1727699830327; 
+ Mon, 30 Sep 2024 05:37:10 -0700 (PDT)
 Received: from fedora.iskraemeco.si ([193.77.86.250])
  by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-42e96a52308sm149011355e9.43.2024.09.30.05.37.27
+ 5b1f17b1804b1-42e96a52308sm149011355e9.43.2024.09.30.05.37.08
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 30 Sep 2024 05:37:27 -0700 (PDT)
+ Mon, 30 Sep 2024 05:37:09 -0700 (PDT)
 From: Uros Bizjak <ubizjak@gmail.com>
 To: x86@kernel.org, linux-crypto@vger.kernel.org,
  intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
@@ -64,12 +64,14 @@ To: x86@kernel.org, linux-crypto@vger.kernel.org,
  linux-fscrypt@vger.kernel.org, linux-scsi@vger.kernel.org,
  bpf@vger.kernel.org, linux-kselftest@vger.kernel.org,
  kunit-dev@googlegroups.com, linux-kernel@vger.kernel.org
-Cc: Uros Bizjak <ubizjak@gmail.com>, Andrew Morton <akpm@linux-foundation.org>,
- Jiri Pirko <jiri@resnulli.us>
-Subject: [PATCH v3 15/19] lib/test_parman: Include <linux/prandom.h> instead
- of <linux/random.h>
-Date: Mon, 30 Sep 2024 14:33:26 +0200
-Message-ID: <20240930123702.803617-16-ubizjak@gmail.com>
+Cc: Uros Bizjak <ubizjak@gmail.com>, Dave Hansen <dave.hansen@linux.intel.com>,
+ Andy Lutomirski <luto@kernel.org>, Peter Zijlstra <peterz@infradead.org>,
+ Thomas Gleixner <tglx@linutronix.de>, Ingo Molnar <mingo@kernel.org>,
+ Borislav Petkov <bp@alien8.de>, "H. Peter Anvin" <hpa@zytor.com>
+Subject: [PATCH v3 01/19] x86/kaslr: Include <linux/prandom.h> instead of
+ <linux/random.h>
+Date: Mon, 30 Sep 2024 14:33:12 +0200
+Message-ID: <20240930123702.803617-2-ubizjak@gmail.com>
 X-Mailer: git-send-email 2.46.2
 In-Reply-To: <20240930123702.803617-1-ubizjak@gmail.com>
 References: <20240930123702.803617-1-ubizjak@gmail.com>
@@ -96,25 +98,30 @@ Substitute the inclusion of <linux/random.h> header with
 of <linux/prandom.h> from <linux/random.h>.
 
 Signed-off-by: Uros Bizjak <ubizjak@gmail.com>
-Cc: Andrew Morton <akpm@linux-foundation.org>
-Cc: Jiri Pirko <jiri@resnulli.us>
+Cc: Dave Hansen <dave.hansen@linux.intel.com>
+Cc: Andy Lutomirski <luto@kernel.org>
+Cc: Peter Zijlstra <peterz@infradead.org>
+Cc: Thomas Gleixner <tglx@linutronix.de>
+Cc: Ingo Molnar <mingo@kernel.org>
+Cc: Borislav Petkov <bp@alien8.de>
+Cc: "H. Peter Anvin" <hpa@zytor.com>
 ---
- lib/test_parman.c | 2 +-
+ arch/x86/mm/kaslr.c | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/lib/test_parman.c b/lib/test_parman.c
-index 35e32243693c..f9b97426a337 100644
---- a/lib/test_parman.c
-+++ b/lib/test_parman.c
-@@ -39,7 +39,7 @@
- #include <linux/slab.h>
- #include <linux/bitops.h>
- #include <linux/err.h>
+diff --git a/arch/x86/mm/kaslr.c b/arch/x86/mm/kaslr.c
+index 230f1dee4f09..e17e6e27b7ec 100644
+--- a/arch/x86/mm/kaslr.c
++++ b/arch/x86/mm/kaslr.c
+@@ -22,7 +22,7 @@
+ 
+ #include <linux/kernel.h>
+ #include <linux/init.h>
 -#include <linux/random.h>
 +#include <linux/prandom.h>
- #include <linux/parman.h>
+ #include <linux/memblock.h>
+ #include <linux/pgtable.h>
  
- #define TEST_PARMAN_PRIO_SHIFT 7 /* defines number of prios for testing */
 -- 
 2.46.2
 
