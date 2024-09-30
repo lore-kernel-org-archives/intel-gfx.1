@@ -4,59 +4,59 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1F8A3CE8345
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5C682CE8343
 	for <intel-gfx@archiver.kernel.org>; Mon, 30 Sep 2024 13:31:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BAC4D10E4E6;
+	by gabe.freedesktop.org (Postfix) with ESMTP id E8AF010E4E7;
 	Mon, 30 Sep 2024 13:31:25 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Np8xEuA8";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="BKwnoPVE";
 	dkim-atps=neutral
-Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com
- [209.85.128.53])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2A54010E431;
- Mon, 30 Sep 2024 12:37:12 +0000 (UTC)
-Received: by mail-wm1-f53.google.com with SMTP id
- 5b1f17b1804b1-42e748f78d6so34920585e9.0; 
- Mon, 30 Sep 2024 05:37:12 -0700 (PDT)
+Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com
+ [209.85.128.48])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5FB2110E431;
+ Mon, 30 Sep 2024 12:37:26 +0000 (UTC)
+Received: by mail-wm1-f48.google.com with SMTP id
+ 5b1f17b1804b1-42cbc22e1c4so31362165e9.2; 
+ Mon, 30 Sep 2024 05:37:26 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1727699830; x=1728304630; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1727699845; x=1728304645; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=nRI6G1zgxxf6ByUGqs3lmNwTcdt012WbdG6WrxIrfn4=;
- b=Np8xEuA8qbudA30cxOZr7zpyrSvqF22cJhtvI1J1KvVUBKnw5+7KSyG+byHL3jmeob
- su0QGiUO9uRBZK/9oFWlZf4ZcJ7JtjQKRCqQ7J5HM5/mrCx/eQ1FTkFdO5FP4ya1JtBE
- CSbOoZjZnETywY1cYRVOAcYIQkevmx2iNsiybRSxjUi0f5tiKI+SRQB0jtn5caiJ8bdj
- LVMbzMJnDAOwPCzf9mlzbnOyD+Kzsaj8dlH1d+p0QRfSN7Ob4YAqYEpFJfz2xaKd1KtX
- PGHHOkNzqFjsAZu/sQbCql4ntMVuzQ3b4sMR/AD5JNpLAOtLh62ceP8OvH/6e68vQoTQ
- 1Xqw==
+ bh=YrMbRs6ImQWe+o4vD+CgIqmMsoPFPKHQYE/g1FviBLg=;
+ b=BKwnoPVEb/gaMV2shV9O+PP1mllFkO+pvOVSoBwhof59VOBZjeVHtZcAl46sFS4jFI
+ 8gpgC8vJ1NJYdZv4VvkGSZYPHe0Hw5jShyvMQ04DL+/EgRFgX7bxkxpsWbjUhK3rhyDc
+ /4pZPrztxn6fZO2GHAATR4swCv/13YKYaaQ1BE3dYIUzDzvU8Py3clxb3uOWVJCkGuq4
+ EB4OFjXKkcXrPhi/TWrSGK+fINY1EnDdc51v+7n03Dz5g6SEPQh2SFbgbtLoNbR+iqmV
+ MQgfHzdNmIJXDwVnbH+7KEeNsenjt/A6AJbWnyto65Ci2rSPzEfQUlnLfQrbhwt4odSQ
+ qK+w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1727699830; x=1728304630;
+ d=1e100.net; s=20230601; t=1727699845; x=1728304645;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=nRI6G1zgxxf6ByUGqs3lmNwTcdt012WbdG6WrxIrfn4=;
- b=Hgr9jv2u0qQNPSD6XPYy7CCYviPcGGvKIQkEaXlg1JkIO3hJK/SJ7F7x4dIFzF4j38
- GdMYgP38ovjDIXrS1DDEPPi29wLNtDOMMXuCElEVVvP2cN+dLUpv5fY465E1bKrO7yjp
- yL6wl0mAGd5lTzSN9Hr5hmZwsE9xVOL+cZIKPUw6hff9szFxtv8wJW0syWeyH5gHquSJ
- 1iuxBcHIqS7mIBe84t+Y34wBp+BUOy8b9NsEvpH8Pn6/7zdKumdyKOk9hG2MJBI5Hd1C
- D073Ny1oW4VVKzI2tyz6DcbGDR5e4lxmezpS7JBI3sCtI43p80ClmWHLND4qnW06/bQP
- d69Q==
+ bh=YrMbRs6ImQWe+o4vD+CgIqmMsoPFPKHQYE/g1FviBLg=;
+ b=uP6wBc8IM00louxsp8BB3IswmMU3yvQzR/nvYTeCgCmfliHN4qgPYfWQ2/HirIQGW7
+ HQ5T2t41An7QNqZSHK80npr7By5WcCa/Zr2ktWTf1znSfaopMcL02u4QJiIWcD/Yq6PE
+ g7hZ2W0q4Kt5wpzsAVsg9Y+Y9hz4CJ3ehDJhZ8hapiTYQ1gywce0cpPI82Li4igZhd4q
+ PzWushw+/7rcPuCi56HNFXcOaSI1RUtwpeVTSKtDXs3d0T/HODF4lh8c/vHiWuJhuqgv
+ 7G/tD6Nb1by4V+94yIJxq66aLcRu5sa2IkbO1P/MWcndgbSyrjFRVMHYHLid9nKtsDwu
+ 0l7w==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUoeqkAia8D0dP+s1BWb3CjZpa2yqb0wSNDnBn20ThQGINXDzIailjkQPFh9644ObGIlT5JUv2xpVav@lists.freedesktop.org,
- AJvYcCVjy8VichzUbL+hnUbR5PnMrv/xCHIMxZ50mQB+eH9gZ3809CUyZU/ac8hUE9VLzr9sLqCXAy/H/GE=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwGhQpl4oDHBjI2d+dN73ukJ4ZNoZ6rdpQ9NU2UkwoDDNX23SFO
- 93P7xJqv/K/CsPDNdKltRdOCyohxZEKLUeq0vJMZBg5TbjKtJWWS
-X-Google-Smtp-Source: AGHT+IFu5Oiwuj+i68aKGbWWitLMicT3QOqH4yvr2CkBBlw3Y4l78E7VTBxoGWeYODKBQH4FUNaUOw==
-X-Received: by 2002:a05:600c:3b17:b0:426:50e1:ea6e with SMTP id
- 5b1f17b1804b1-42f5844c301mr92255225e9.18.1727699830327; 
- Mon, 30 Sep 2024 05:37:10 -0700 (PDT)
+ AJvYcCW4RMpmEOWLwToQm5Dkot9umD/QH8d3HKhcUtU1IjhdjwiVZuLPBe0dRaO2zpaytjVbKU65boKs3SE=@lists.freedesktop.org,
+ AJvYcCXuOD3TcRDo5qqvP6NGHH4i133HX+UKq80+75zToJzS3agU0X219sRN+iMObXcSQlQd40tx13SohIt+@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwGresuupZuWa10DO5Ba+cUnNs5Ojtm5uvOv8QJlSjuc/8TkpKq
+ HNhnrRhDtofYGQ8F+E0fpPkh4qh4iLJLtZTnAjYG8l8YU04QJyQM
+X-Google-Smtp-Source: AGHT+IGTpcbHJYLBsw4P9dpJsKy6t/gAtufuejfRIApDiA0V+yz1rvy5JdCXyTqQXYKOI2mgKeAbTw==
+X-Received: by 2002:a05:600c:4f96:b0:426:616e:db8d with SMTP id
+ 5b1f17b1804b1-42f6ded6a45mr9817345e9.15.1727699844581; 
+ Mon, 30 Sep 2024 05:37:24 -0700 (PDT)
 Received: from fedora.iskraemeco.si ([193.77.86.250])
  by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-42e96a52308sm149011355e9.43.2024.09.30.05.37.08
+ 5b1f17b1804b1-42e96a52308sm149011355e9.43.2024.09.30.05.37.23
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 30 Sep 2024 05:37:09 -0700 (PDT)
+ Mon, 30 Sep 2024 05:37:24 -0700 (PDT)
 From: Uros Bizjak <ubizjak@gmail.com>
 To: x86@kernel.org, linux-crypto@vger.kernel.org,
  intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
@@ -64,14 +64,14 @@ To: x86@kernel.org, linux-crypto@vger.kernel.org,
  linux-fscrypt@vger.kernel.org, linux-scsi@vger.kernel.org,
  bpf@vger.kernel.org, linux-kselftest@vger.kernel.org,
  kunit-dev@googlegroups.com, linux-kernel@vger.kernel.org
-Cc: Uros Bizjak <ubizjak@gmail.com>, Dave Hansen <dave.hansen@linux.intel.com>,
- Andy Lutomirski <luto@kernel.org>, Peter Zijlstra <peterz@infradead.org>,
- Thomas Gleixner <tglx@linutronix.de>, Ingo Molnar <mingo@kernel.org>,
- Borislav Petkov <bp@alien8.de>, "H. Peter Anvin" <hpa@zytor.com>
-Subject: [PATCH v3 01/19] x86/kaslr: Include <linux/prandom.h> instead of
+Cc: Uros Bizjak <ubizjak@gmail.com>, Andrew Morton <akpm@linux-foundation.org>,
+ "David S. Miller" <davem@davemloft.net>,
+ Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>
+Subject: [PATCH v3 12/19] random32: Include <linux/prandom.h> instead of
  <linux/random.h>
-Date: Mon, 30 Sep 2024 14:33:12 +0200
-Message-ID: <20240930123702.803617-2-ubizjak@gmail.com>
+Date: Mon, 30 Sep 2024 14:33:23 +0200
+Message-ID: <20240930123702.803617-13-ubizjak@gmail.com>
 X-Mailer: git-send-email 2.46.2
 In-Reply-To: <20240930123702.803617-1-ubizjak@gmail.com>
 References: <20240930123702.803617-1-ubizjak@gmail.com>
@@ -98,30 +98,28 @@ Substitute the inclusion of <linux/random.h> header with
 of <linux/prandom.h> from <linux/random.h>.
 
 Signed-off-by: Uros Bizjak <ubizjak@gmail.com>
-Cc: Dave Hansen <dave.hansen@linux.intel.com>
-Cc: Andy Lutomirski <luto@kernel.org>
-Cc: Peter Zijlstra <peterz@infradead.org>
-Cc: Thomas Gleixner <tglx@linutronix.de>
-Cc: Ingo Molnar <mingo@kernel.org>
-Cc: Borislav Petkov <bp@alien8.de>
-Cc: "H. Peter Anvin" <hpa@zytor.com>
+Cc: Andrew Morton <akpm@linux-foundation.org>
+Cc: "David S. Miller" <davem@davemloft.net>
+Cc: Eric Dumazet <edumazet@google.com>
+Cc: Jakub Kicinski <kuba@kernel.org>
+Cc: Paolo Abeni <pabeni@redhat.com>
 ---
- arch/x86/mm/kaslr.c | 2 +-
+ lib/random32.c | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/arch/x86/mm/kaslr.c b/arch/x86/mm/kaslr.c
-index 230f1dee4f09..e17e6e27b7ec 100644
---- a/arch/x86/mm/kaslr.c
-+++ b/arch/x86/mm/kaslr.c
-@@ -22,7 +22,7 @@
- 
- #include <linux/kernel.h>
- #include <linux/init.h>
+diff --git a/lib/random32.c b/lib/random32.c
+index 32060b852668..31fc2ca68856 100644
+--- a/lib/random32.c
++++ b/lib/random32.c
+@@ -36,7 +36,7 @@
+ #include <linux/percpu.h>
+ #include <linux/export.h>
+ #include <linux/jiffies.h>
 -#include <linux/random.h>
 +#include <linux/prandom.h>
- #include <linux/memblock.h>
- #include <linux/pgtable.h>
- 
+ #include <linux/sched.h>
+ #include <linux/bitops.h>
+ #include <linux/slab.h>
 -- 
 2.46.2
 
