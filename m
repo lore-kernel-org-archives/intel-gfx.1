@@ -4,59 +4,59 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E7DDDCE8347
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A56B6CE834B
 	for <intel-gfx@archiver.kernel.org>; Mon, 30 Sep 2024 13:31:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1ACCD10E4DD;
-	Mon, 30 Sep 2024 13:31:00 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A59D710E4DA;
+	Mon, 30 Sep 2024 13:30:59 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="CTPqtJLK";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="foTRiJDA";
 	dkim-atps=neutral
-Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com
- [209.85.128.47])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D951510E43B;
- Mon, 30 Sep 2024 12:37:36 +0000 (UTC)
-Received: by mail-wm1-f47.google.com with SMTP id
- 5b1f17b1804b1-42cbb08a1a5so39878575e9.3; 
- Mon, 30 Sep 2024 05:37:36 -0700 (PDT)
+Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com
+ [209.85.128.46])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F343E10E42F;
+ Mon, 30 Sep 2024 12:37:23 +0000 (UTC)
+Received: by mail-wm1-f46.google.com with SMTP id
+ 5b1f17b1804b1-42cd74c0d16so39962275e9.1; 
+ Mon, 30 Sep 2024 05:37:23 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1727699855; x=1728304655; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1727699842; x=1728304642; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=b0+j8HZP1cVf+QQUDZOhjhaodRPqf5Kzd1FP1uUxc6s=;
- b=CTPqtJLKmoUaXb6RdXRD2fY4KczLfpOEaXjR5YqITuIM3biyqmQ1qxUGeluRVptwSY
- Ttf8mWQWxSWUnjmAezol1hV6f7ZVqQw1csPx6tOCz20zALoYVnnesderPAujATw75Tzm
- Ut54eXbxyTLsLV7Cp5+ZV5WhfjA/uPw5/C5+5yFMPMyBnqYYNfLUFSCUo2XEo/F5N5ML
- QLSbKaIL4b4/kQ14R6IvQUHFCW3WDl7qWQ/RGNdvQLoar8VTo7VVzZ9B0aOTOFTUpR0f
- YrJHDDtMSdUaFHxzNvmU/oBu2d5gjr0T33WlKV3m6GKfUKGEe1ue2bqnGmsf3WdjxSkt
- OegQ==
+ bh=GqCZlFa0k9WmJz/BFH863M+r457tyeztRr2WseZe9PM=;
+ b=foTRiJDA2vm1+0lhZ1rp/209VP6Az8gJlSnGIDoptdovVLqVpGiafx0SWwF6UymVyL
+ wM0a39s/AjqLKiY0V92JPgU6I3Xoy6Eu2jub2gJvWL+NPrgSBkb7uZcgoG+jSSGBu8gi
+ wqDdX+G0Hlh1uiYaPJrhjeeMdH+ib2kAKBrGpx21ROBU1/fudW7B2CddV0gW0sdedbXp
+ lygc0zn+iN+DVq7hyCtyR1jXHur8Gop8zn1GHy7rolurlxE59s1ivlpfAvEgfF9387li
+ YnwZwE3xL737nP7JY4OwatWMB6ZIsxhBAob01P9n23vwBbllzzHz4DeVxF4KbbSR1zAy
+ 1Y2A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1727699855; x=1728304655;
+ d=1e100.net; s=20230601; t=1727699842; x=1728304642;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=b0+j8HZP1cVf+QQUDZOhjhaodRPqf5Kzd1FP1uUxc6s=;
- b=ubYKzQVFZk/QO0+vvroJmXuqYbsuVkLuUM9tz0jxiOABB5XKxOEURH1H4NJL8efFkF
- bNrjaxosKrhgaYGCA45N0Kf0c+oGNFptWEMc7UikEgB3RJFhixYn0KaxwECJuMZgYm43
- W9rfb59muS3DlZ9LOtb0uJfwXQWBz89rr+gFcIVzhcbXB6/o2WLYCkxdp0vFzxO+gEbL
- IuRRjEl5vmns5a3Huvkaa1H6PjJPMqRDsV4/898lG7rDbpp32V8jKbQ3y0PD83N3XKYd
- Dz6WZrRsFmpxRUTivXpbPVwThHDVoWl2zIejSWkuDfiFCDDEPyrOWzq1J88wyweQh6IL
- /SVA==
+ bh=GqCZlFa0k9WmJz/BFH863M+r457tyeztRr2WseZe9PM=;
+ b=NMcvpd3+Ok9n6/95v9OoLGxjaBgnXON3CXhApiTe29pMxpAI94jtgqMQbP8E2YHYEH
+ ZgKibcTVK+xPxWoUCshdsNyNEYBfZXJWNkL5xCvqcZNfpwbjXQEdaSNmb7QguU9gba4g
+ mcBzXlfIiLdp03WNrrXwwWDnqdj30oIyvbcIwah9r6/ywvzKdsG1IAxbMltPJVC7PUQ7
+ B4MlComH9XTpONo37+4KnoD/r+LFboyyA5xH0TcXI+v/paPQl9/xOvRGH61pNIUqzKQr
+ 78z+7n2r4nvzcOVxuOSe8GPCXu2C5Ju4L31Ck4jy+9ojBtd3CSHWKmXjEfhsNM/QYUZc
+ cjuA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCW26tu6FtaQry/YTMIyUgjamRzbvooh6EWSxFiwYw6kKSW+oMZQimIvdZ6ed4RoU36Iby4xxo8lyZZS@lists.freedesktop.org,
- AJvYcCXFRtAUDqI7/PwOSGYht2C5wq9XWfQT++vHMQG7kmpWdr5nc7pIGrv4hw+I9DzOchM6fXVIli7XOdk=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzQKBoNZ8wsYXDlfYcFTTShEvk2PtXlMVUMDZrVarVANsmio+6y
- pAo1vn46FGc06lRJ8/WXDCXYYuWwOEGwV3ibpcp/Wg2s+WNUSG8Z
-X-Google-Smtp-Source: AGHT+IHdC1cyaWvS05r5143QqcQIcUYzzrxVQfsNi8sq552bi8Bx4Z/Dm3LJ5ZgNcGYz44ssbU9Czw==
-X-Received: by 2002:a05:600c:1da6:b0:42c:b187:bde9 with SMTP id
- 5b1f17b1804b1-42f584a2dd7mr90988995e9.30.1727699855019; 
- Mon, 30 Sep 2024 05:37:35 -0700 (PDT)
+ AJvYcCVO4h1nUIzEkArEuEmFtzubOwiCFIGuNR/fDCRs1YzVGRZ9t3LxX7aU6x7uxPRTcvZr5MdwWRYkqCs=@lists.freedesktop.org,
+ AJvYcCXIXZ4ZWQWX69QSLSuW5vOmzYQj+C/dTpBrzsc7JYcG/4WzGjFWAceU2FM3ssHhiIeVU9it89OvXHyX@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxAzpfQ8kLvXGlt1j8FkIZP0QeU41afNzQwaOqtF13QlDRYu4fy
+ osFUzazbpaYbuZvoUMrNKNGztmZRTS9i2a4iRpwKCr/Q+39WlqUs
+X-Google-Smtp-Source: AGHT+IHDSczxlpNlMjqYJQ/J5lvvp+MGxNHf3VyEwPU2HocH3ahQJeDUV9edXRytld8Js+EVeXOtyQ==
+X-Received: by 2002:a05:600c:350a:b0:42c:b74c:d8c3 with SMTP id
+ 5b1f17b1804b1-42f584a2da9mr83108865e9.32.1727699841971; 
+ Mon, 30 Sep 2024 05:37:21 -0700 (PDT)
 Received: from fedora.iskraemeco.si ([193.77.86.250])
  by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-42e96a52308sm149011355e9.43.2024.09.30.05.37.33
+ 5b1f17b1804b1-42e96a52308sm149011355e9.43.2024.09.30.05.37.20
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 30 Sep 2024 05:37:34 -0700 (PDT)
+ Mon, 30 Sep 2024 05:37:21 -0700 (PDT)
 From: Uros Bizjak <ubizjak@gmail.com>
 To: x86@kernel.org, linux-crypto@vger.kernel.org,
  intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
@@ -64,13 +64,11 @@ To: x86@kernel.org, linux-crypto@vger.kernel.org,
  linux-fscrypt@vger.kernel.org, linux-scsi@vger.kernel.org,
  bpf@vger.kernel.org, linux-kselftest@vger.kernel.org,
  kunit-dev@googlegroups.com, linux-kernel@vger.kernel.org
-Cc: Uros Bizjak <ubizjak@gmail.com>, "Theodore Ts'o" <tytso@mit.edu>,
- "Jason A. Donenfeld" <Jason@zx2c4.com>,
- Kent Overstreet <kent.overstreet@linux.dev>
-Subject: [PATCH v3 19/19] prandom: Include <linux/percpu.h> in
- <linux/prandom.h>
-Date: Mon, 30 Sep 2024 14:33:30 +0200
-Message-ID: <20240930123702.803617-20-ubizjak@gmail.com>
+Cc: Uros Bizjak <ubizjak@gmail.com>, Andrew Morton <akpm@linux-foundation.org>
+Subject: [PATCH v3 10/19] lib/interval_tree_test.c: Include <linux/prandom.h>
+ instead of <linux/random.h>
+Date: Mon, 30 Sep 2024 14:33:21 +0200
+Message-ID: <20240930123702.803617-11-ubizjak@gmail.com>
 X-Mailer: git-send-email 2.46.2
 In-Reply-To: <20240930123702.803617-1-ubizjak@gmail.com>
 References: <20240930123702.803617-1-ubizjak@gmail.com>
@@ -92,46 +90,29 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-<linux/percpu.h> include was removed from <linux/prandom.h>
-in d9f29deb7fe8 ("prandom: Remove unused include") because
-this inclusion broke arm64 due to a circular dependency
-on include files.
-
-__percpu tag is defined in include/linux/compiler_types.h, so there
-is currently no direct need for the inclusion of <linux/percpu.h>.
-However, in [1] we would like to repurpose __percpu tag as a named
-address space qualifier, where __percpu macro uses defines from
-<linux/percpu.h>.
-
-The circular dependency was removed in ddd8e37ebaa1 ("random: Do not
-include <linux/prandom.h> in <linux/random.h>") and it cleared
-the path for the inclusion of <linux/percpu.h> in <linux/prandom.h>.
-
-This patch is basically a revert of d9f29deb7fe8
-("prandom: Remove unused include").
-
-[1] https://lore.kernel.org/lkml/20240812115945.484051-4-ubizjak@gmail.com/
+Substitute the inclusion of <linux/random.h> header with
+<linux/prandom.h> to allow the removal of legacy inclusion
+of <linux/prandom.h> from <linux/random.h>.
 
 Signed-off-by: Uros Bizjak <ubizjak@gmail.com>
-Cc: "Theodore Ts'o" <tytso@mit.edu>
-Cc: "Jason A. Donenfeld" <Jason@zx2c4.com>
-Cc: Kent Overstreet <kent.overstreet@linux.dev>
+Cc: Andrew Morton <akpm@linux-foundation.org>
 ---
- include/linux/prandom.h | 1 +
- 1 file changed, 1 insertion(+)
+ lib/interval_tree_test.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/include/linux/prandom.h b/include/linux/prandom.h
-index f7f1e5251c67..f2ed5b72b3d6 100644
---- a/include/linux/prandom.h
-+++ b/include/linux/prandom.h
-@@ -10,6 +10,7 @@
+diff --git a/lib/interval_tree_test.c b/lib/interval_tree_test.c
+index f37f4d44faa9..837064b83a6c 100644
+--- a/lib/interval_tree_test.c
++++ b/lib/interval_tree_test.c
+@@ -2,7 +2,7 @@
+ #include <linux/module.h>
+ #include <linux/moduleparam.h>
+ #include <linux/interval_tree.h>
+-#include <linux/random.h>
++#include <linux/prandom.h>
+ #include <linux/slab.h>
+ #include <asm/timex.h>
  
- #include <linux/types.h>
- #include <linux/once.h>
-+#include <linux/percpu.h>
- #include <linux/random.h>
- 
- struct rnd_state {
 -- 
 2.46.2
 
