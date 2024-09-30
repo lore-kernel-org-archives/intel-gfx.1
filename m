@@ -4,59 +4,59 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 96937CE8346
-	for <intel-gfx@archiver.kernel.org>; Mon, 30 Sep 2024 13:30:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 793F2CE8343
+	for <intel-gfx@archiver.kernel.org>; Mon, 30 Sep 2024 13:31:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3879610E4C0;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6180010E4CA;
 	Mon, 30 Sep 2024 13:30:59 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="CA409fsj";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="T5Ts9TI6";
 	dkim-atps=neutral
-Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com
- [209.85.128.53])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F3C3010E431;
- Mon, 30 Sep 2024 12:37:28 +0000 (UTC)
-Received: by mail-wm1-f53.google.com with SMTP id
- 5b1f17b1804b1-42cb0f28bfbso33245175e9.1; 
- Mon, 30 Sep 2024 05:37:28 -0700 (PDT)
+Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com
+ [209.85.128.46])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 81EBC10E43B;
+ Mon, 30 Sep 2024 12:37:35 +0000 (UTC)
+Received: by mail-wm1-f46.google.com with SMTP id
+ 5b1f17b1804b1-42cbe624c59so34210055e9.3; 
+ Mon, 30 Sep 2024 05:37:35 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1727699847; x=1728304647; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1727699854; x=1728304654; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=GlV+nN18yw3drRT6eHy6/2hr4o+8F6xizJomHusoOY8=;
- b=CA409fsjLCrTR7uFZHbF/lG/JhqXdsvf0QAaDHP2WulvgRZ2oDHUxYwqiMGTfvvBpK
- GE3I/EtRAAWMdW0vIcqAETcxO6yXNt73nMYV46I7Cx/QKEAVsZWyIncNo6Z9VzZNqLfH
- TmJ55tdEqIx9oPGAKYXHQIryE/qt2qFCZcUJHsh3nJZbOs1UK+kijTHarWV3qPB8nZqs
- 1mCFIW+kMc7ZeMvlVsUD8BjumjEIaL8M5DEdpp54+WdZFXjgYruG6l5A/KtsJD4c5kKU
- 4zKeNncShQpjAKjYhO4ZVx7KQ/LSzLq+h1q8NWE/somlhemvchhen/+vggNnhnORgCBj
- bFwg==
+ bh=4mtn3Z+z0ZXxXMNcR2ig5e/IN1sKqO9BkR2/07EQmxE=;
+ b=T5Ts9TI6Ieb3iD562a95rq0fH/qT959MbOGRDFDhCJtzwg+48xMNNKIsCGcrRQD9bt
+ 095/oPml0secWeMp085H0ApT36eiKw4HSEVPtDROt6QyXR1buqG5Y04aCllkcoZ8KjnU
+ D3tuX8Hk6HJW0+hmgNENYAOqkOxamS+Ps66cqDDras+7kMyf21OLZqMwUcOWhoU0gSPy
+ +zzumzUb0BTQq0cbatYKzhEtgKi4Bn4MljqAvBgJvYj1XPN7Br+zt3SLRi3uHGTUOXbB
+ tsCraPOoXI9wCyVpHEq3EKwoikFyhZEW4gNZrqZvPIhdhrWy6qJ7Vy3mbVwIUBqIzZZB
+ uyWw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1727699847; x=1728304647;
+ d=1e100.net; s=20230601; t=1727699854; x=1728304654;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=GlV+nN18yw3drRT6eHy6/2hr4o+8F6xizJomHusoOY8=;
- b=aAFYqkeT9CdOZqasGBIizx1c89ClNhDlgPjznyIICNxgnD6OKJgfHP7Kcz0kIfP3Ow
- G6tC72q+rz6VTMqFxwRBI0GPNEdmQj6+YkBBamC1+zVFjd5uH4pxdSZUhb86vJyqFB7z
- BYJ3j0uyJWeL6QD2SYTZGEP0kPyQiB+O5Ue/DAe8fevqI5L8H3iCCI7M/WogqdzjoDhD
- dCZCQra72Gex3F4KrJwyBM0AGxL7wIuUc1Z2j6+Fd1zWOiQu0YXC3lauHpDX321QT8U2
- sBokRvzup3YjyJOHW04AKNppqTOPUYKt6hOTfi4e5rvbIYUhFRj3+WEkKffekfuyZ/sH
- rRSQ==
+ bh=4mtn3Z+z0ZXxXMNcR2ig5e/IN1sKqO9BkR2/07EQmxE=;
+ b=cgoBsJT5/z7E8Q5I4qqxZSKDbs0GlM7hNbQnJW4Y8iT9U9RAkn6mjIaO2rvos9Q4cS
+ aZ7s5sQaj2EOT0OJGvPc1Y4OYCLICF/3dxaXR3Worn/QgADl+zuoRUurGP8rvCNanosX
+ zXkCo6BA5r9L7OtPyi6G2W4PuEffisw9NeTApietMxlcjWwLIW8RIA+6mcZlWoRJnL3B
+ BOhKfoG93C/xaGyZIgtWjJkRQ5QBOOTbtxFYihw3PBYl4lbBmCnMy0zWwrYTO9M1ohWM
+ 5/NcKg5TdWnWN7OhA/rH3dpGqNAEtmVPwd9pZ5BHxcdiVJWylp3k474o07YaidWFLpCF
+ SCxA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCVUYpPFEQB6VNM0pNU3fNkpnNJ94ApJPYFDy7h08WHLqFgM3tu4sGOl83nMeuYgn61cu0b7b7WyaIjb@lists.freedesktop.org,
- AJvYcCVWA7dsjndzz7LdncRoOYGIaZpx6lK3VeQSe5LODjugp3B5ZtTNgj5Go1/niRO/OvoXzA9AA41+jhw=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yy1TTFxoji5+VvKYRz2UK1bJuqzoQ92zhqVD6BRugEPf1nu/dQ+
- DxBTA1fD29oMo5tILmrMnOaL47UczZSKOGzFUr0AnOVp6oyr7PKl
-X-Google-Smtp-Source: AGHT+IE0AKmAHzGMSeF7N4UA2hEqVXGKPVEVP5SK27gagSW7PpUlsTlU5xb3Nv2RVaMagE1IaBh5yw==
-X-Received: by 2002:a05:600c:6d4c:b0:42c:b995:20ca with SMTP id
- 5b1f17b1804b1-42f648a27f0mr40922015e9.24.1727699847144; 
- Mon, 30 Sep 2024 05:37:27 -0700 (PDT)
+ AJvYcCUtr8iwOTJuM3dZkl2pYyHf/xxPuGCN7qcZ3+01RWukSXt92YfYS/v0oLVOUS1THLettqGrfHn6aa0h@lists.freedesktop.org,
+ AJvYcCWp3Y34TDuhQ7jmOLvGP31VeXCbU8VuqDRv38y8PqIEBQSL+HMEAPijnikD8ZOFcMKu3vfZzEWtm1E=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Ywxis2W5vz7Uy26qerruXMXiEZtpv31JrZ8X1b0I4YcuUFbNHho
+ zkSZWGhgqIhx5eVo9mV6AfC6r+Ljytg53jd4qad16oTwigke8gUM
+X-Google-Smtp-Source: AGHT+IHR5GBV9Sk+AH/yXxWplf7Dccbv713xjj5lLaRHbnIJlkBTu8kMh1LwOxClCDrwdMW16rb5Wg==
+X-Received: by 2002:a05:600c:4e86:b0:42c:bb75:4f86 with SMTP id
+ 5b1f17b1804b1-42f58498ba3mr80097165e9.32.1727699853769; 
+ Mon, 30 Sep 2024 05:37:33 -0700 (PDT)
 Received: from fedora.iskraemeco.si ([193.77.86.250])
  by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-42e96a52308sm149011355e9.43.2024.09.30.05.37.25
+ 5b1f17b1804b1-42e96a52308sm149011355e9.43.2024.09.30.05.37.32
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 30 Sep 2024 05:37:26 -0700 (PDT)
+ Mon, 30 Sep 2024 05:37:32 -0700 (PDT)
 From: Uros Bizjak <ubizjak@gmail.com>
 To: x86@kernel.org, linux-crypto@vger.kernel.org,
  intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
@@ -64,20 +64,13 @@ To: x86@kernel.org, linux-crypto@vger.kernel.org,
  linux-fscrypt@vger.kernel.org, linux-scsi@vger.kernel.org,
  bpf@vger.kernel.org, linux-kselftest@vger.kernel.org,
  kunit-dev@googlegroups.com, linux-kernel@vger.kernel.org
-Cc: Uros Bizjak <ubizjak@gmail.com>, Andrew Morton <akpm@linux-foundation.org>,
- Alexei Starovoitov <ast@kernel.org>,
- Daniel Borkmann <daniel@iogearbox.net>,
- Andrii Nakryiko <andrii@kernel.org>,
- Martin KaFai Lau <martin.lau@linux.dev>,
- Eduard Zingerman <eddyz87@gmail.com>, Song Liu <song@kernel.org>,
- Yonghong Song <yonghong.song@linux.dev>,
- John Fastabend <john.fastabend@gmail.com>, KP Singh <kpsingh@kernel.org>,
- Stanislav Fomichev <sdf@fomichev.me>, Hao Luo <haoluo@google.com>,
- Jiri Olsa <jolsa@kernel.org>
-Subject: [PATCH v3 14/19] bpf/tests: Include <linux/prandom.h> instead of
+Cc: Uros Bizjak <ubizjak@gmail.com>, "Theodore Ts'o" <tytso@mit.edu>,
+ "Jason A. Donenfeld" <Jason@zx2c4.com>,
+ Linus Torvalds <torvalds@linux-foundation.org>
+Subject: [PATCH v3 18/19] random: Do not include <linux/prandom.h> in
  <linux/random.h>
-Date: Mon, 30 Sep 2024 14:33:25 +0200
-Message-ID: <20240930123702.803617-15-ubizjak@gmail.com>
+Date: Mon, 30 Sep 2024 14:33:29 +0200
+Message-ID: <20240930123702.803617-19-ubizjak@gmail.com>
 X-Mailer: git-send-email 2.46.2
 In-Reply-To: <20240930123702.803617-1-ubizjak@gmail.com>
 References: <20240930123702.803617-1-ubizjak@gmail.com>
@@ -99,41 +92,40 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Substitute the inclusion of <linux/random.h> header with
-<linux/prandom.h> to allow the removal of legacy inclusion
-of <linux/prandom.h> from <linux/random.h>.
+Files that use prandom infrastructure are now converted to
+use <linux/prandom.h> header instead of <linux/random.h>.
+Remove the legacy inclusion of <linux/prandom.h> from
+<linux/random.h>.
+
+This is the "nice cleanup" part, wished in c0842fbc1b18.
 
 Signed-off-by: Uros Bizjak <ubizjak@gmail.com>
-Cc: Andrew Morton <akpm@linux-foundation.org>
-Cc: Alexei Starovoitov <ast@kernel.org>
-Cc: Daniel Borkmann <daniel@iogearbox.net>
-Cc: Andrii Nakryiko <andrii@kernel.org>
-Cc: Martin KaFai Lau <martin.lau@linux.dev>
-Cc: Eduard Zingerman <eddyz87@gmail.com>
-Cc: Song Liu <song@kernel.org>
-Cc: Yonghong Song <yonghong.song@linux.dev>
-Cc: John Fastabend <john.fastabend@gmail.com>
-Cc: KP Singh <kpsingh@kernel.org>
-Cc: Stanislav Fomichev <sdf@fomichev.me>
-Cc: Hao Luo <haoluo@google.com>
-Cc: Jiri Olsa <jolsa@kernel.org>
+Fixes: c0842fbc1b18 ("random32: move the pseudo-random 32-bit definitions to prandom.h")
+Cc: "Theodore Ts'o" <tytso@mit.edu>
+Cc: "Jason A. Donenfeld" <Jason@zx2c4.com>
+Cc: Linus Torvalds <torvalds@linux-foundation.org>
 ---
- lib/test_bpf.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ include/linux/random.h | 7 -------
+ 1 file changed, 7 deletions(-)
 
-diff --git a/lib/test_bpf.c b/lib/test_bpf.c
-index fa5edd6ef7f7..2eed1ad958e9 100644
---- a/lib/test_bpf.c
-+++ b/lib/test_bpf.c
-@@ -14,7 +14,7 @@
- #include <linux/skbuff.h>
- #include <linux/netdevice.h>
- #include <linux/if_vlan.h>
--#include <linux/random.h>
-+#include <linux/prandom.h>
- #include <linux/highmem.h>
- #include <linux/sched.h>
+diff --git a/include/linux/random.h b/include/linux/random.h
+index b0a940af4fff..333cecfca93f 100644
+--- a/include/linux/random.h
++++ b/include/linux/random.h
+@@ -145,13 +145,6 @@ declare_get_random_var_wait(u64, u32)
+ declare_get_random_var_wait(long, unsigned long)
+ #undef declare_get_random_var
  
+-/*
+- * This is designed to be standalone for just prandom
+- * users, but for now we include it from <linux/random.h>
+- * for legacy reasons.
+- */
+-#include <linux/prandom.h>
+-
+ #ifdef CONFIG_SMP
+ int random_prepare_cpu(unsigned int cpu);
+ int random_online_cpu(unsigned int cpu);
 -- 
 2.46.2
 
