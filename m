@@ -4,24 +4,24 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3A35ECEB2CB
-	for <intel-gfx@archiver.kernel.org>; Mon, 30 Sep 2024 22:48:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 89388CEB2CD
+	for <intel-gfx@archiver.kernel.org>; Mon, 30 Sep 2024 22:48:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D312210E230;
-	Mon, 30 Sep 2024 22:48:43 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2E0F510E00F;
+	Mon, 30 Sep 2024 22:48:48 +0000 (UTC)
 Received: from 2413ebb6fbb6 (emeril.freedesktop.org [131.252.210.167])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5DB1510E00F;
- Mon, 30 Sep 2024 22:48:43 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A55B810E00F;
+ Mon, 30 Sep 2024 22:48:46 +0000 (UTC)
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
-Subject: =?utf-8?q?=E2=9C=97_Fi=2ECI=2ECHECKPATCH=3A_warning_for_Introduce_DRM_device?=
- =?utf-8?q?_wedged_event_=28rev5=29?=
+Subject: =?utf-8?q?=E2=9C=97_Fi=2ECI=2ESPARSE=3A_warning_for_Introduce_DRM_device_wed?=
+ =?utf-8?q?ged_event_=28rev5=29?=
 From: Patchwork <patchwork@emeril.freedesktop.org>
 To: "Raag Jadav" <raag.jadav@intel.com>
 Cc: intel-gfx@lists.freedesktop.org
-Date: Mon, 30 Sep 2024 22:48:43 -0000
-Message-ID: <172773652337.1139295.11658809840945957062@2413ebb6fbb6>
+Date: Mon, 30 Sep 2024 22:48:46 -0000
+Message-ID: <172773652667.1139296.1283869914952874931@2413ebb6fbb6>
 X-Patchwork-Hint: ignore
 References: <20240930073845.347326-1-raag.jadav@intel.com>
 In-Reply-To: <20240930073845.347326-1-raag.jadav@intel.com>
@@ -49,6 +49,8 @@ State : warning
 
 == Summary ==
 
-Error: patch https://patchwork.freedesktop.org/api/1.0/series/138069/revisions/5/mbox/ not found
+Error: dim sparse failed
+Sparse version: v0.6.2
+Fast mode used, each commit won't be checked separately.
 
 
