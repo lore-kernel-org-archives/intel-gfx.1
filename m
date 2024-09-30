@@ -4,115 +4,115 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C1C66CE834F
-	for <intel-gfx@archiver.kernel.org>; Mon, 30 Sep 2024 13:10:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8258ECE8351
+	for <intel-gfx@archiver.kernel.org>; Mon, 30 Sep 2024 13:10:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AD3E810E4C2;
-	Mon, 30 Sep 2024 13:09:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0D7DC10E49E;
+	Mon, 30 Sep 2024 13:09:36 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="tN8aw2yE";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="4N7ZOquI";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="qihWeIAg";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="HSZw3XuC";
+	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="NR0Jj+6h";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="0yupbuhH";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="NR0Jj+6h";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="0yupbuhH";
 	dkim-atps=neutral
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AAA0310E48A;
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EC15610E48D;
  Mon, 30 Sep 2024 13:09:32 +0000 (UTC)
 Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
  [IPv6:2a07:de40:b281:104:10:150:64:97])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 6292421A4A;
- Mon, 30 Sep 2024 13:09:30 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 834FE1FB9F;
+ Mon, 30 Sep 2024 13:09:31 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
  t=1727701771; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
+ mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=wTfCIXHhC8OrDV1LQwPI7DRaBMbqmHbKXI5sxds51vI=;
- b=tN8aw2yE1Bw7SRftuaCmQxzNk+Y16EK5a52oPWKpED+dh6+Gf4OUlSbO28HR/czaT0rVIa
- CxMBsnhJsuHl/TY8KvYXv8f+L2M3NGaIh8wvBtlUZZXoWUSgA9dLBRMN3QJSCnR6vKp47X
- 4pZ/RhBmX9sNCfJ/Wtj+nO5vzOCELD8=
+ bh=rShBHYIUvSPsnbKo9fyv4VN0eh6uX8bcaC01oNSeI90=;
+ b=NR0Jj+6hacubC1xYLSsVxw8c6kVmqMiuKrt5zJJgh2WOm4LwBhRRcQtxR57TbmikasgynK
+ 2Ui3uQuEukSZThDhvFuFcuMYbCot2tPeCAcJ0Evj6rIflAWnzjOjljfbN/oDjDHH0Q95T9
+ K3gapY92vuNo0VHA+pieeBfo/dYJJ5A=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
  s=susede2_ed25519; t=1727701771;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
+ mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=wTfCIXHhC8OrDV1LQwPI7DRaBMbqmHbKXI5sxds51vI=;
- b=4N7ZOquI3ifyNRhQcPxBNNGbx9W5ENzDppTF5y6+F3i5sxmeG884AwYoh5Hj8Vv3qsZC70
- QWJtq+N3vzbnW5DA==
-Authentication-Results: smtp-out1.suse.de;
- dkim=pass header.d=suse.de header.s=susede2_rsa header.b=qihWeIAg;
- dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=HSZw3XuC
+ bh=rShBHYIUvSPsnbKo9fyv4VN0eh6uX8bcaC01oNSeI90=;
+ b=0yupbuhHoim0bFXXCehN1hvqyyDCIb9C3tuCBcNv7uZ5FVc3SUI+U2Yw9G8y30b7sLwZOy
+ o+N6ByvtnqaEuUAw==
+Authentication-Results: smtp-out2.suse.de;
+ dkim=pass header.d=suse.de header.s=susede2_rsa header.b=NR0Jj+6h;
+ dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=0yupbuhH
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1727701770; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
+ t=1727701771; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=wTfCIXHhC8OrDV1LQwPI7DRaBMbqmHbKXI5sxds51vI=;
- b=qihWeIAg8dNJ1LagNgpKOAqKeBMTs3ODFXuxRcbp0B2p7YVf54zRj2LIo4Hjb6xuPZ4kW9
- ZDp8cs5w/QT4Zn+sCzim+t9dxQQRCQrz9eimgSp0L2gpjOU8KdS81hTbRn2LIQKYzecgHl
- qrpAlnpURP4VnK7gLXR2GhuYbiDON3o=
+ bh=rShBHYIUvSPsnbKo9fyv4VN0eh6uX8bcaC01oNSeI90=;
+ b=NR0Jj+6hacubC1xYLSsVxw8c6kVmqMiuKrt5zJJgh2WOm4LwBhRRcQtxR57TbmikasgynK
+ 2Ui3uQuEukSZThDhvFuFcuMYbCot2tPeCAcJ0Evj6rIflAWnzjOjljfbN/oDjDHH0Q95T9
+ K3gapY92vuNo0VHA+pieeBfo/dYJJ5A=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1727701770;
+ s=susede2_ed25519; t=1727701771;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
+ mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=wTfCIXHhC8OrDV1LQwPI7DRaBMbqmHbKXI5sxds51vI=;
- b=HSZw3XuC9y97N2gkEI3mj2GCoGMEDe3XLR4LmbZiwo9TJOXKTDGPH4vO1DyxkWvh/E/Zfk
- C2Vt8UNCUNlmtlAg==
+ bh=rShBHYIUvSPsnbKo9fyv4VN0eh6uX8bcaC01oNSeI90=;
+ b=0yupbuhHoim0bFXXCehN1hvqyyDCIb9C3tuCBcNv7uZ5FVc3SUI+U2Yw9G8y30b7sLwZOy
+ o+N6ByvtnqaEuUAw==
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 0DFAB136CB;
- Mon, 30 Sep 2024 13:09:30 +0000 (UTC)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 23E6513A97;
+ Mon, 30 Sep 2024 13:09:31 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id WFsTAgqj+mb2dQAAD6G6ig
- (envelope-from <tzimmermann@suse.de>); Mon, 30 Sep 2024 13:09:30 +0000
+ by imap1.dmz-prg2.suse.org with ESMTPSA id QJOTBwuj+mb2dQAAD6G6ig
+ (envelope-from <tzimmermann@suse.de>); Mon, 30 Sep 2024 13:09:31 +0000
 From: Thomas Zimmermann <tzimmermann@suse.de>
 To: javierm@redhat.com, airlied@gmail.com, simona@ffwll.ch,
  maarten.lankhorst@linux.intel.com, mripard@kernel.org
 Cc: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
  intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
- Thomas Zimmermann <tzimmermann@suse.de>, Sandy Huang <hjc@rock-chips.com>,
- =?UTF-8?q?Heiko=20St=C3=BCbner?= <heiko@sntech.de>,
- Andy Yan <andy.yan@rock-chips.com>
-Subject: [PATCH 16/28] drm/rockchip: Use video aperture helpers
-Date: Mon, 30 Sep 2024 15:03:14 +0200
-Message-ID: <20240930130921.689876-17-tzimmermann@suse.de>
+ Thomas Zimmermann <tzimmermann@suse.de>, Chen-Yu Tsai <wens@csie.org>,
+ Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Samuel Holland <samuel@sholland.org>
+Subject: [PATCH 19/28] drm/sun4i: Use video aperture helpers
+Date: Mon, 30 Sep 2024 15:03:17 +0200
+Message-ID: <20240930130921.689876-20-tzimmermann@suse.de>
 X-Mailer: git-send-email 2.46.0
 In-Reply-To: <20240930130921.689876-1-tzimmermann@suse.de>
 References: <20240930130921.689876-1-tzimmermann@suse.de>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-Rspamd-Queue-Id: 6292421A4A
-X-Rspamd-Action: no action
-X-Spamd-Result: default: False [-3.51 / 50.00]; BAYES_HAM(-3.00)[100.00%];
- MID_CONTAINS_FROM(1.00)[]; NEURAL_HAM_LONG(-1.00)[-1.000];
+X-Rspamd-Queue-Id: 834FE1FB9F
+X-Spamd-Result: default: False [-1.51 / 50.00]; BAYES_HAM(-3.00)[100.00%];
+ SUSPICIOUS_RECIPS(1.50)[]; MID_CONTAINS_FROM(1.00)[];
+ NEURAL_HAM_LONG(-1.00)[-1.000]; R_MISSING_CHARSET(0.50)[];
  R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
  NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
  MX_GOOD(-0.01)[];
- SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
- DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- RCPT_COUNT_TWELVE(0.00)[13]; ARC_NA(0.00)[];
- FUZZY_BLOCKED(0.00)[rspamd.com]; MIME_TRACE(0.00)[0:+];
  FREEMAIL_TO(0.00)[redhat.com,gmail.com,ffwll.ch,linux.intel.com,kernel.org];
+ FUZZY_BLOCKED(0.00)[rspamd.com];
+ DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
  RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from]; 
- FREEMAIL_ENVRCPT(0.00)[gmail.com]; TO_DN_SOME(0.00)[];
- RCVD_COUNT_TWO(0.00)[2]; FROM_EQ_ENVFROM(0.00)[];
- FROM_HAS_DN(0.00)[]; TO_MATCH_ENVRCPT_ALL(0.00)[];
+ ARC_NA(0.00)[]; MIME_TRACE(0.00)[0:+];
+ SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+ RCPT_COUNT_TWELVE(0.00)[13];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns,suse.de:email,suse.de:dkim,suse.de:mid];
+ TO_MATCH_ENVRCPT_ALL(0.00)[]; FROM_HAS_DN(0.00)[];
+ RCVD_VIA_SMTP_AUTH(0.00)[]; TAGGED_RCPT(0.00)[];
  RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
- R_RATELIMIT(0.00)[to_ip_from(RLqtkr6cif1ebgurukgmwdm7xc)];
- RCVD_VIA_SMTP_AUTH(0.00)[]; RCVD_TLS_ALL(0.00)[];
- DKIM_TRACE(0.00)[suse.de:+];
- DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:rdns,
- imap1.dmz-prg2.suse.org:helo, suse.de:dkim, suse.de:mid, suse.de:email]
-X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
+ RCVD_COUNT_TWO(0.00)[2]; DKIM_TRACE(0.00)[suse.de:+];
+ FREEMAIL_CC(0.00)[lists.freedesktop.org,suse.de,csie.org,gmail.com,sholland.org];
+ RCVD_TLS_ALL(0.00)[]; FROM_EQ_ENVFROM(0.00)[];
+ TO_DN_SOME(0.00)[]; FREEMAIL_ENVRCPT(0.00)[gmail.com]
+X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
+X-Rspamd-Action: no action
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -133,42 +133,43 @@ under drivers/video/ for use with fbdev. Avoid the DRM wrappers by
 calling the video functions directly.
 
 Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
-Cc: Sandy Huang <hjc@rock-chips.com>
-Cc: "Heiko Stübner" <heiko@sntech.de>
-Cc: Andy Yan <andy.yan@rock-chips.com>
+Cc: Maxime Ripard <mripard@kernel.org>
+Cc: Chen-Yu Tsai <wens@csie.org>
+Cc: Jernej Skrabec <jernej.skrabec@gmail.com>
+Cc: Samuel Holland <samuel@sholland.org>
 ---
- drivers/gpu/drm/rockchip/rockchip_drm_drv.c | 4 ++--
+ drivers/gpu/drm/sun4i/sun4i_drv.c | 4 ++--
  1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/rockchip/rockchip_drm_drv.c b/drivers/gpu/drm/rockchip/rockchip_drm_drv.c
-index 4e080040ba01..2560b0eec9db 100644
---- a/drivers/gpu/drm/rockchip/rockchip_drm_drv.c
-+++ b/drivers/gpu/drm/rockchip/rockchip_drm_drv.c
+diff --git a/drivers/gpu/drm/sun4i/sun4i_drv.c b/drivers/gpu/drm/sun4i/sun4i_drv.c
+index c3342789e3b0..3f880d8a5666 100644
+--- a/drivers/gpu/drm/sun4i/sun4i_drv.c
++++ b/drivers/gpu/drm/sun4i/sun4i_drv.c
 @@ -6,6 +6,7 @@
-  * based on exynos_drm_drv.c
+  * Maxime Ripard <maxime.ripard@free-electrons.com>
   */
  
 +#include <linux/aperture.h>
+ #include <linux/component.h>
  #include <linux/dma-mapping.h>
+ #include <linux/kfifo.h>
+@@ -14,7 +15,6 @@
+ #include <linux/of_reserved_mem.h>
  #include <linux/platform_device.h>
- #include <linux/pm_runtime.h>
-@@ -16,7 +17,6 @@
- #include <linux/console.h>
- #include <linux/iommu.h>
  
 -#include <drm/drm_aperture.h>
+ #include <drm/drm_atomic_helper.h>
  #include <drm/drm_client_setup.h>
  #include <drm/drm_drv.h>
- #include <drm/drm_fbdev_dma.h>
-@@ -146,7 +146,7 @@ static int rockchip_drm_bind(struct device *dev)
- 	int ret;
+@@ -100,7 +100,7 @@ static int sun4i_drv_bind(struct device *dev)
+ 		goto unbind_all;
  
- 	/* Remove existing drivers that may own the framebuffer memory. */
--	ret = drm_aperture_remove_framebuffers(&rockchip_drm_driver);
-+	ret = aperture_remove_all_conflicting_devices(rockchip_drm_driver.name);
- 	if (ret) {
- 		DRM_DEV_ERROR(dev,
- 			      "Failed to remove existing framebuffers - %d.\n",
+ 	/* Remove early framebuffers (ie. simplefb) */
+-	ret = drm_aperture_remove_framebuffers(&sun4i_drv_driver);
++	ret = aperture_remove_all_conflicting_devices(sun4i_drv_driver.name);
+ 	if (ret)
+ 		goto unbind_all;
+ 
 -- 
 2.46.0
 
