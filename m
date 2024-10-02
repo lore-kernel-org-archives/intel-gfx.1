@@ -4,111 +4,152 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7F788CF6D3B
-	for <intel-gfx@archiver.kernel.org>; Wed,  2 Oct 2024 13:13:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BD8F0CF6D2D
+	for <intel-gfx@archiver.kernel.org>; Wed,  2 Oct 2024 13:46:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 48EDD10E75C;
-	Wed,  2 Oct 2024 13:13:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9DD7A10E738;
+	Wed,  2 Oct 2024 13:46:42 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="LzZoq3JW";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="IfY973VW";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="LzZoq3JW";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="IfY973VW";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="joPC/7v5";
 	dkim-atps=neutral
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BAD8810E71E;
- Wed,  2 Oct 2024 13:13:14 +0000 (UTC)
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
- [IPv6:2a07:de40:b281:104:10:150:64:97])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 372011FD59;
- Wed,  2 Oct 2024 13:13:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1727874793; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=IsvMEHX9PDibqe+CFHjz7sWP3V9vxsZlmK4U6YXqBeg=;
- b=LzZoq3JWHjtyF7phJ0k1tmon0U/0lPSl2F/VylPlQITU5wviQBMIglK8fKE3ccbEoXdA6u
- n0e1roUNwPkTxZFpcoRZqGYMvqIx98GsT9iP0OvI8WPyun0QExFcIxLlg/vSoN1j/R1WCg
- Jg76LqS7DuTcWSEllijWNShHZPxlMxc=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1727874793;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=IsvMEHX9PDibqe+CFHjz7sWP3V9vxsZlmK4U6YXqBeg=;
- b=IfY973VWmNsLHC/GiIOJ9k6AWpXIZniF0VS77JAHsNcP3fEEOZ5iD+optQhljn7D7H2+9e
- jZT92w/z4Q0hNUDA==
-Authentication-Results: smtp-out2.suse.de;
- dkim=pass header.d=suse.de header.s=susede2_rsa header.b=LzZoq3JW;
- dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=IfY973VW
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1727874793; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=IsvMEHX9PDibqe+CFHjz7sWP3V9vxsZlmK4U6YXqBeg=;
- b=LzZoq3JWHjtyF7phJ0k1tmon0U/0lPSl2F/VylPlQITU5wviQBMIglK8fKE3ccbEoXdA6u
- n0e1roUNwPkTxZFpcoRZqGYMvqIx98GsT9iP0OvI8WPyun0QExFcIxLlg/vSoN1j/R1WCg
- Jg76LqS7DuTcWSEllijWNShHZPxlMxc=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1727874793;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=IsvMEHX9PDibqe+CFHjz7sWP3V9vxsZlmK4U6YXqBeg=;
- b=IfY973VWmNsLHC/GiIOJ9k6AWpXIZniF0VS77JAHsNcP3fEEOZ5iD+optQhljn7D7H2+9e
- jZT92w/z4Q0hNUDA==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id DB49013A91;
- Wed,  2 Oct 2024 13:13:12 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id UF47NOhG/Wa/GAAAD6G6ig
- (envelope-from <tzimmermann@suse.de>); Wed, 02 Oct 2024 13:13:12 +0000
-From: Thomas Zimmermann <tzimmermann@suse.de>
-To: simona@ffwll.ch, airlied@gmail.com, javierm@redhat.com, jfalempe@redhat.com
-Cc: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
- intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
- Thomas Zimmermann <tzimmermann@suse.de>,
- Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- Xinhui Pan <Xinhui.Pan@amd.com>
-Subject: [PATCH v2 07/11] drm/amdgpu: Suspend and resume internal clients with
- client helpers
-Date: Wed,  2 Oct 2024 15:04:33 +0200
-Message-ID: <20241002131306.288618-8-tzimmermann@suse.de>
-X-Mailer: git-send-email 2.46.0
-In-Reply-To: <20241002131306.288618-1-tzimmermann@suse.de>
-References: <20241002131306.288618-1-tzimmermann@suse.de>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
+Received: from NAM12-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam12on2065.outbound.protection.outlook.com [40.107.243.65])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 46EB410E086;
+ Wed,  2 Oct 2024 13:46:41 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=wpxTdUtuJXylW+tH1ulRoo8rV6VyJb2ZDJRYxjw/NlGwI2O8IlBJITYvFraCl1Mh+BNNWzQUdiSu9UwEzSNwxuyoPZPXF3ROHC1Vsz3ARyRTZi82cweKO7vONz36q9RWTqAY1BnrHy+XN5B7lMqYzPVdAvL9bBviMRFiMUSdW8SZyN2xjA4InKw4lMqJ3Xex5RID2QgCu3lPCXF3HP908s3ZIctswKt5S0IiRLcayKWM7RipYnIdOuPJ1DMrLadzhT9EHiQhvEwlE0grU8SBy882nrEHIwpl2p5gqjQDh1Cdf+ElC4qL8ra2vxKCT5hEaDZPsHlc/3qcm/rJ7wNAkA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=H2DPsGcdAcV9H+owYaEqbH+dcNAzsMhwesUYwLoz340=;
+ b=sRyhPw54m49sXtGOvpvnR+ZDm3jOKNsFKnX+MFwry5ZentSBjuPg46iXmojBNQf14NBbVzWWc8ochGRR+kv0P7wsE5OgpKq31CU0jeIKN2Fcxcze1B6D07K5f5FHxWYvbIXEq06M0Pnwngu8uxfeSyT2X3/xkkUr8lfHAFEJCz2UI93IiC4gtUZAqnWnuUz4lXMMwvSEJfAl6gqy/KDvqVGIx5jebjwuGP2erDqNPKc9GKEwwClYAhkur/Ws2+sspdYtsJLaKImLGSO1Jhd5vVFG5OZHYq2okdrGBwAogwP3tX0AohPkP0oExiH517nS7TtmMBmP7oZ/etx7XFZAuA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=H2DPsGcdAcV9H+owYaEqbH+dcNAzsMhwesUYwLoz340=;
+ b=joPC/7v5rh42u5eLL0TcEIM5nvwEc9TmtXlCbylRakNOrX3bmDAj7gaDlbZ/Ka7MWMz1w87VY3irUXhTDgj3XdSWatxMSmQ1snNGAtJgCIxwV/3yJ1chGDQKPEuN3UAlxhks2YAofc86ALopX9iILhpe1qm6jeC908+I8oM7G6g=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
+ by DS0PR12MB8320.namprd12.prod.outlook.com (2603:10b6:8:f8::14) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8005.27; Wed, 2 Oct
+ 2024 13:46:38 +0000
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::46fb:96f2:7667:7ca5]) by PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::46fb:96f2:7667:7ca5%2]) with mapi id 15.20.8026.016; Wed, 2 Oct 2024
+ 13:46:38 +0000
+Message-ID: <91d734a4-af1c-4506-98fc-cd1bad0857a4@amd.com>
+Date: Wed, 2 Oct 2024 15:46:29 +0200
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 2/2] drm/ttm: Add a device flag to propagate -ENOSPC on
+ OOM
+To: =?UTF-8?Q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+ intel-xe@lists.freedesktop.org
+Cc: Matthew Brost <matthew.brost@intel.com>,
+ Thomas Zimmermann <tzimmermann@suse.de>, amd-gfx@lists.freedesktop.org,
+ intel-gfx@lists.freedesktop.org, nouveau@lists.freedesktop.org,
+ spice-devel@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ Zack Rusin <zack.rusin@broadcom.com>, bcm-kernel-feedback-list@broadcom.com,
+ Sui Jingfeng <suijingfeng@loongson.cn>
+References: <20241002122422.287276-1-thomas.hellstrom@linux.intel.com>
+ <20241002122422.287276-3-thomas.hellstrom@linux.intel.com>
+Content-Language: en-US
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+In-Reply-To: <20241002122422.287276-3-thomas.hellstrom@linux.intel.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-Rspamd-Queue-Id: 372011FD59
-X-Spamd-Result: default: False [-3.51 / 50.00]; BAYES_HAM(-3.00)[100.00%];
- MID_CONTAINS_FROM(1.00)[]; NEURAL_HAM_LONG(-1.00)[-1.000];
- R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
- MX_GOOD(-0.01)[]; ARC_NA(0.00)[]; RCPT_COUNT_TWELVE(0.00)[12];
- RCVD_VIA_SMTP_AUTH(0.00)[];
- FREEMAIL_TO(0.00)[ffwll.ch,gmail.com,redhat.com];
- MIME_TRACE(0.00)[0:+]; FUZZY_BLOCKED(0.00)[rspamd.com];
- FREEMAIL_ENVRCPT(0.00)[gmail.com];
- DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- FROM_EQ_ENVFROM(0.00)[]; FROM_HAS_DN(0.00)[];
- TO_DN_SOME(0.00)[]; RCVD_TLS_ALL(0.00)[];
- DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:email,suse.de:dkim,suse.de:mid];
- RCVD_COUNT_TWO(0.00)[2]; TO_MATCH_ENVRCPT_ALL(0.00)[];
- DKIM_TRACE(0.00)[suse.de:+]
-X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
-X-Rspamd-Action: no action
+X-ClientProxiedBy: FR3P281CA0023.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:1c::7) To PH7PR12MB5685.namprd12.prod.outlook.com
+ (2603:10b6:510:13c::22)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|DS0PR12MB8320:EE_
+X-MS-Office365-Filtering-Correlation-Id: f4af38f4-b863-48a7-dfb8-08dce2e8a33c
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|1800799024|366016|376014|7416014;
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?c0dnRnFBM2ozUU5Jd2FCenVNRldad1Rab2U4cG9ScERJQ3BOV1pSZFQzWUM3?=
+ =?utf-8?B?eTc5U2VibDMraytEVVhaekZxQ2FNcjdRdzR5RytDclE2RXFZbzdoeERZVVlN?=
+ =?utf-8?B?b1VmdHRwV0hWc09ZRkhnNndzNlE4aTNhWE9odWRhdjl1K2hiMTZsZXhUdzVt?=
+ =?utf-8?B?d0tOSEZwaElPNjh5RjlseG1nb1FtMmNrR2hOOW5BckNXNVJZUHpWVnpQQ1pP?=
+ =?utf-8?B?Q1FVU3Izc3ZNRkZIMkxxRkpxSVJZbDdrTjZ6eWNiWHZEdnFvNjB2SHVndjdy?=
+ =?utf-8?B?ekF1bFNZM3JyL3RMTS85YmlGZVowcVdJdC8wMlFYaFRSdGtqNFJxa1VjeUxH?=
+ =?utf-8?B?eUh2MHU1ZmxnVzJuaW11bS9FZSs3WkYxMkZDYm5kQU1RcnQ1ODFiUTFOY2dZ?=
+ =?utf-8?B?K1RwRkVpL3EyQnBUSUVnWENBa0dmQTVMazZOb2NEaUVmbS96enlFOWxycTdH?=
+ =?utf-8?B?ZENUb3hSdDlSK2R3VDF5SDQxd0xjVVFlQ3dEQm9EWEpSTnZlVlQybTZQTkIr?=
+ =?utf-8?B?WlQzMkxaNVhNcWxYZlRjVTZVbzBySzdZN2dlaVRqam9SY0VhUG50RkV1eDlH?=
+ =?utf-8?B?dGFvZEV1VDNhY2p3OExJRDIvdWVoUHBEVVZUaFVaZDQ5QWJoSXpMV1dvcmhU?=
+ =?utf-8?B?L2szajZiWnIrUytqYTZ0eGhidlpmWWpmT3JKOHliQUs1aXJ2MVdmZkhlbi9W?=
+ =?utf-8?B?NnRKZWsvMWo4YXFyMWg1QncySTBzeDRLd2t1MlZMdmNOcUJMMDhwSm9PVDFk?=
+ =?utf-8?B?YlY1Rk5ONDlPNFk2ZFYwdDQ4eEQ5SXJYS1NuSXc3bVRZeWlsazV5TC8yeEZa?=
+ =?utf-8?B?Yk5NNHJYaXhsd3l0QnB1c3lzdVhPWSt4bVJHbkJoZFErcis0U1dMZVh2UUdT?=
+ =?utf-8?B?eFB5YjF2Rks3YVNSWlZPbm1KeCtKVW1lc2FOMVl1M1o4SHlOdm5SQnVwcm1j?=
+ =?utf-8?B?SVR0RCtEU1VWY0c2dURJZ0w5QmZ1VDA2aUczL25uemFlWW83MFNmenR5VE1h?=
+ =?utf-8?B?RTdTL0RZNG95U0w1MDN1OWVvazFMQ1BZTUxBT2dCdzA2eDdrQm5BQjVML3Yr?=
+ =?utf-8?B?cUpyNVBSNXlVY1JTU0trZy9yL0cyY09HZWo0YnJ4SkJyUkNpMVluOTdvTUZn?=
+ =?utf-8?B?Zno4MStMcFNUVVFRZkVQelJqajlKZDRuOURTWVNmT0k0Q0JCTU1SZ1JDdWtT?=
+ =?utf-8?B?SXdJY2Rac1Yvb2lvMGgraXY3ek1WRW43aEtzTkNzSnJteEdud3pMc3YzYm9M?=
+ =?utf-8?B?SXZVc0pyVnkwWjhrOW9XMEtqWlk3dkMrZW5GTHZkaUozRnY4ZGZjUGdLVE12?=
+ =?utf-8?B?ZUJ3OEpENXphcU0vYjNnK2QvWDZDb2NLOHMwSndYeFhIUVJjS0s1ZFVFMGps?=
+ =?utf-8?B?VW82eXNhbVZmSW8vRzRXSkJESzdjM0dCUWpaenhyWENNS25UeEdCWENwdXVt?=
+ =?utf-8?B?WlNvSGZMYVhSOExaejdiMlJKc2k2b0NKTXN1cVBDenp1ZkxnWkhaMmwyRysr?=
+ =?utf-8?B?UVFnVWFPYnZxWlRDRXhCMVR1YTJsSE8xcVdSSHdoMWxDLzJYeXNkeS9OVzYw?=
+ =?utf-8?B?dTB4TVpWRkxDZ0N4WFZ6YWlhTTRrbit2aVZiV25TeVdVQ3ZVOGNtVkZHQ2hY?=
+ =?utf-8?B?cVE1bWxNS283ekc4YXk1NzluRllZOWwwL3o0NW1oc3VhVWxkaXc3RWhBSW80?=
+ =?utf-8?B?c3ljRXBOWGp5VmJBeDg0MWJIY0hvYnB2dzJsS2lSUFE5ZlB1QlFaSVdBPT0=?=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(366016)(376014)(7416014); DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?NXM5OVp4dWdwUXEzM1ZXVGhLK0R6Z0E5Q1BaOWk1aFRqUlR3TW5xaWN3WktD?=
+ =?utf-8?B?Z0o0ZC80Nm1LUzRvRitoU09NTkZJQjhhME92Szg5THlTRExrK2Jjcis2Tit2?=
+ =?utf-8?B?ZEJzN0NYWTBlMnV3UGtHczBZa0NsQkxUMDFxZElKeDd4T0Z5T0VJNXNKSFhW?=
+ =?utf-8?B?OXRkTWNtQnJ4WkhEZHJMNW5MRFk2c3R4a2RTSFkrSitxVGcwUE9RVm12UzI2?=
+ =?utf-8?B?bnpseE1NLzZPbFc2aC82eTFhZjJCVVFrTXUxOWdCNTB2S0dsMnczVzFENWZw?=
+ =?utf-8?B?VG53RUtiY3R1UHFQaitZUi9ZUkwvcnd6Ylg2ZDBmNDlqa2k5Q0ZWSTI4dklF?=
+ =?utf-8?B?T3ZxWnBLQ3lMZEJsQU5Jc05VNVRqeEpBSDFuRTJGS2FYaUJXKzRzbVIwc0M1?=
+ =?utf-8?B?eVRwam9vT1NONXRybEFiZTRwQUtCZEpCbmpPUjh5YXNmOFlncUR5Q21Ic1dr?=
+ =?utf-8?B?SEx5QldPTDl0Z2hXbTArOVRaYjRSRFZCeUxQKzZtZVR2WmhtYXprMVdyR09x?=
+ =?utf-8?B?d29GN0gvSFBsNEVBNXBBVjhudU9rQzBrUWRuaURJVENGM2FMdndzUlBDYTkr?=
+ =?utf-8?B?NUU3OFdWUG5td3dRQzc5S01hOTc5eVdqdTdDOGd0ajE4a1pieHhxUTdSVk41?=
+ =?utf-8?B?dWtKQUJxUGFRZVlKUTRxRUNIems1cUk5WmIwT1VlckMwaHJJSWF3cEhJaGp6?=
+ =?utf-8?B?c3NMMExSbnZvMHFuMEJ6eWdDOHVXQmpxZ0dEaWt5QytDTTlpSXNHMHZLNGx0?=
+ =?utf-8?B?YmlicDVjVlRQWXFDNk5rakIwUXQ2S0l1OU9jZ2tjOTZvNjFxb2x6U1J0bWpU?=
+ =?utf-8?B?aHZVdDJ6L0VtVDBhUUZDelBHZWVMYzlTRU00SGdYTno0TW82WGdXT1NWSXV0?=
+ =?utf-8?B?aVlaeGlCSVJNdVc5bDUzYTZ3UThhNk8xVGdjRXcvWnVFblhvbGNKT1ExSHVO?=
+ =?utf-8?B?WXl6VUw5TnpLa1NjOEJwN1V6aEloSmgwQnpiZ0FrNlFOamhiZ1h2L0NaZjJJ?=
+ =?utf-8?B?aWNyMkxxcWMvTFBjTG96bzRjOHNhcFZYMEpNS1JscWxZdFlUMlJodDNRNVkr?=
+ =?utf-8?B?cTAvZnV4RStQYzJGc3NlUFp3UTlNZ0xLWjNBRmJWWkpyUFRUT0tWL2l5QmVY?=
+ =?utf-8?B?Sy8rLzZ4eEJ6SjhxYU5tci9adlRtVmFQaStVV0pQbXhVa3NBa0RkcSsxK0cx?=
+ =?utf-8?B?YzZFbEo4YngydU5DU0MvUjRVY0M2WHlySTBMQ2hVdm9xVUQrU2RxcFBvMzY0?=
+ =?utf-8?B?aXYyMDhFOFc0QU55cFJHaER0aDJxbW92aFUxMDFhTVBIMnFBcWEwdEZnbkht?=
+ =?utf-8?B?NUZaS0xDTDdUNG5jUTVtNThqSVhuTmlLL1Q5cFdlMVZiSi96UEdyUDJiQU42?=
+ =?utf-8?B?MEtIa0tRb2ZkU1ZGOGcxNExKcUFCMWtXZFdzRmdRK0Y1dFJtZnJpb20xakl0?=
+ =?utf-8?B?ODRwT2cyd1Q5aXgrYTdNdXdkQnljK2tiWWxTT09pZGRzenlFdXFWbThwcmFG?=
+ =?utf-8?B?eWlMUWx4dm9TZDFHZjE0bzJPNGEvSDA1bEh3MXZvU1Q3eGZjNHB5b3Z0dC8x?=
+ =?utf-8?B?TnpqZW03VlRKOWt3MUZlWCtSNUpGbjRXYWZDTENyeGpudm1CRENFM1ZCbSsz?=
+ =?utf-8?B?L2MzTlRTMXZ0dFBRcWJuMGNmMnJmSjVlNFptM2tWbDExdGtOYmFDSTVPc1p2?=
+ =?utf-8?B?QWNVTzlDNnV0aEF5NE1VQjBnQ3hBK3BJREJPbGJqd1N5UkZIYmRyTlMyR0Zv?=
+ =?utf-8?B?cE16WDVWd2N3Vk56TWllTkdVSVBmVzVTNmJ6SnM3c0tKY0pZeExQa3FJU3Zn?=
+ =?utf-8?B?TWZnSS9sZjZWNEF2bWdYSy9jSVFqelltQmRvZVYwVXhaSGxYemVFZWp5NWRC?=
+ =?utf-8?B?d3BwVzlMdzMyLzlqZ0tjQ1pUQldzRERJNnFWUjhFalBxZTZnZ1dheXZxNkpw?=
+ =?utf-8?B?cUxKWjRvZnhHYkIvbVcvcllNbncxTlpIb2NRU3d3MGNsWGtKSEV6VGJoRFF3?=
+ =?utf-8?B?c0xvQ2ZWWnVHWmJXR1hWSFRRZ0pFQUM5RVVYUC9kVGhUb3d5WTB0S1F6Y3lr?=
+ =?utf-8?B?dFN5VmtvTU1SaWhvNjBpV2JzU0tMaWVQdkxjR3dzM1ZleVZaNlE2VXNueXRP?=
+ =?utf-8?Q?KND1DzIplc9epKPZudLmGHSL0?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: f4af38f4-b863-48a7-dfb8-08dce2e8a33c
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Oct 2024 13:46:38.1157 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: NjfE3aHcs22JWT9tQV16C482MI5bL/Yh9ZSPvMX6ZHcoJvMxbu1rV4TmCQhzrszs
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB8320
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -124,105 +165,86 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Replace calls to drm_fb_helper_set_suspend_unlocked() with calls
-to the client functions drm_client_dev_suspend() and
-drm_client_dev_resume(). Any registered in-kernel client will now
-receive suspend and resume events.
+Am 02.10.24 um 14:24 schrieb Thomas Hellström:
+> Some graphics APIs differentiate between out-of-graphics-memory and
+> out-of-host-memory (system memory). Add a device init flag to
+> have -ENOSPC propagated from the resource managers instead of being
+> converted to -ENOMEM, to aid driver stacks in determining what
+> error code to return or whether corrective action can be taken at
+> the driver level.
+>
+> Cc: Christian König <christian.koenig@amd.com>
+> Cc: Matthew Brost <matthew.brost@intel.com>
+> Signed-off-by: Thomas Hellström <thomas.hellstrom@linux.intel.com>
 
-Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
-Cc: Alex Deucher <alexander.deucher@amd.com>
-Cc: "Christian König" <christian.koenig@amd.com>
-Cc: Xinhui Pan <Xinhui.Pan@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 22 +++++++++++-----------
- 1 file changed, 11 insertions(+), 11 deletions(-)
+Independent of how we communicate flags to the TTM device init function 
+this looks like the right approach to me.
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-index fd853dc843e9..9c40d620a658 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-@@ -37,8 +37,8 @@
- 
- #include <drm/drm_aperture.h>
- #include <drm/drm_atomic_helper.h>
-+#include <drm/drm_client_event.h>
- #include <drm/drm_crtc_helper.h>
--#include <drm/drm_fb_helper.h>
- #include <drm/drm_probe_helper.h>
- #include <drm/amdgpu_drm.h>
- #include <linux/device.h>
-@@ -4711,13 +4711,13 @@ int amdgpu_device_prepare(struct drm_device *dev)
-  * amdgpu_device_suspend - initiate device suspend
-  *
-  * @dev: drm dev pointer
-- * @fbcon : notify the fbdev of suspend
-+ * @notify_clients: notify in-kernel DRM clients
-  *
-  * Puts the hw in the suspend state (all asics).
-  * Returns 0 for success or an error on failure.
-  * Called at driver suspend.
-  */
--int amdgpu_device_suspend(struct drm_device *dev, bool fbcon)
-+int amdgpu_device_suspend(struct drm_device *dev, bool notify_clients)
- {
- 	struct amdgpu_device *adev = drm_to_adev(dev);
- 	int r = 0;
-@@ -4737,8 +4737,8 @@ int amdgpu_device_suspend(struct drm_device *dev, bool fbcon)
- 	if (amdgpu_acpi_smart_shift_update(dev, AMDGPU_SS_DEV_D3))
- 		DRM_WARN("smart shift update failed\n");
- 
--	if (fbcon)
--		drm_fb_helper_set_suspend_unlocked(adev_to_drm(adev)->fb_helper, true);
-+	if (notify_clients)
-+		drm_client_dev_suspend(adev_to_drm(adev), false);
- 
- 	cancel_delayed_work_sync(&adev->delayed_init_work);
- 
-@@ -4773,13 +4773,13 @@ int amdgpu_device_suspend(struct drm_device *dev, bool fbcon)
-  * amdgpu_device_resume - initiate device resume
-  *
-  * @dev: drm dev pointer
-- * @fbcon : notify the fbdev of resume
-+ * @notify_clients: notify in-kernel DRM clients
-  *
-  * Bring the hw back to operating state (all asics).
-  * Returns 0 for success or an error on failure.
-  * Called at driver resume.
-  */
--int amdgpu_device_resume(struct drm_device *dev, bool fbcon)
-+int amdgpu_device_resume(struct drm_device *dev, bool notify_clients)
- {
- 	struct amdgpu_device *adev = drm_to_adev(dev);
- 	int r = 0;
-@@ -4835,8 +4835,8 @@ int amdgpu_device_resume(struct drm_device *dev, bool fbcon)
- 	/* Make sure IB tests flushed */
- 	flush_delayed_work(&adev->delayed_init_work);
- 
--	if (fbcon)
--		drm_fb_helper_set_suspend_unlocked(adev_to_drm(adev)->fb_helper, false);
-+	if (notify_clients)
-+		drm_client_dev_resume(adev_to_drm(adev), false);
- 
- 	amdgpu_ras_resume(adev);
- 
-@@ -5448,7 +5448,7 @@ int amdgpu_do_asic_reset(struct list_head *device_list_handle,
- 				if (r)
- 					goto out;
- 
--				drm_fb_helper_set_suspend_unlocked(adev_to_drm(tmp_adev)->fb_helper, false);
-+				drm_client_dev_resume(adev_to_drm(tmp_adev), false);
- 
- 				/*
- 				 * The GPU enters bad state once faulty pages
-@@ -5734,7 +5734,7 @@ int amdgpu_device_gpu_recover(struct amdgpu_device *adev,
- 		 */
- 		amdgpu_unregister_gpu_instance(tmp_adev);
- 
--		drm_fb_helper_set_suspend_unlocked(adev_to_drm(tmp_adev)->fb_helper, true);
-+		drm_client_dev_suspend(adev_to_drm(tmp_adev), false);
- 
- 		/* disable ras on ALL IPs */
- 		if (!need_emergency_restart &&
--- 
-2.46.0
+So feel free to add Reviewed-by: Christian König <christian.koenig@amd.com>.
+
+Regards,
+Christian.
+
+> ---
+>   drivers/gpu/drm/ttm/ttm_bo.c     |  2 +-
+>   drivers/gpu/drm/ttm/ttm_device.c |  1 +
+>   include/drm/ttm/ttm_device.h     | 13 +++++++++++++
+>   3 files changed, 15 insertions(+), 1 deletion(-)
+>
+> diff --git a/drivers/gpu/drm/ttm/ttm_bo.c b/drivers/gpu/drm/ttm/ttm_bo.c
+> index 320592435252..c4bec2ad301b 100644
+> --- a/drivers/gpu/drm/ttm/ttm_bo.c
+> +++ b/drivers/gpu/drm/ttm/ttm_bo.c
+> @@ -835,7 +835,7 @@ int ttm_bo_validate(struct ttm_buffer_object *bo,
+>   
+>   	/* For backward compatibility with userspace */
+>   	if (ret == -ENOSPC)
+> -		return -ENOMEM;
+> +		return bo->bdev->propagate_enospc ? ret : -ENOMEM;
+>   
+>   	/*
+>   	 * We might need to add a TTM.
+> diff --git a/drivers/gpu/drm/ttm/ttm_device.c b/drivers/gpu/drm/ttm/ttm_device.c
+> index 0c85d10e5e0b..aee9d52d745b 100644
+> --- a/drivers/gpu/drm/ttm/ttm_device.c
+> +++ b/drivers/gpu/drm/ttm/ttm_device.c
+> @@ -203,6 +203,7 @@ int ttm_device_init(struct ttm_device *bdev, const struct ttm_device_funcs *func
+>   	}
+>   
+>   	bdev->funcs = funcs;
+> +	bdev->propagate_enospc = flags.propagate_enospc;
+>   
+>   	ttm_sys_man_init(bdev);
+>   
+> diff --git a/include/drm/ttm/ttm_device.h b/include/drm/ttm/ttm_device.h
+> index 1534bd946c78..f9da78bbd925 100644
+> --- a/include/drm/ttm/ttm_device.h
+> +++ b/include/drm/ttm/ttm_device.h
+> @@ -266,6 +266,13 @@ struct ttm_device {
+>   	 * @wq: Work queue structure for the delayed delete workqueue.
+>   	 */
+>   	struct workqueue_struct *wq;
+> +
+> +	/**
+> +	 * @propagate_enospc: Whether -ENOSPC should be propagated to the caller after
+> +	 * graphics memory allocation failure. If false, this will be converted to
+> +	 * -ENOMEM, which is the default behaviour.
+> +	 */
+> +	bool propagate_enospc;
+>   };
+>   
+>   int ttm_global_swapout(struct ttm_operation_ctx *ctx, gfp_t gfp_flags);
+> @@ -295,6 +302,12 @@ struct ttm_device_init_flags {
+>   	u32 use_dma_alloc : 1;
+>   	/** @use_dma32: If we should use GFP_DMA32 for device memory allocations. */
+>   	u32 use_dma32 : 1;
+> +	/**
+> +	 * @propagate_enospc: Whether -ENOSPC should be propagated to the caller after
+> +	 * graphics memory allocation failure. If false, this will be converted to
+> +	 * -ENOMEM, which is the default behaviour.
+> +	 */
+> +	u32 propagate_enospc : 1;
+>   };
+>   
+>   int ttm_device_init(struct ttm_device *bdev, const struct ttm_device_funcs *funcs,
 
