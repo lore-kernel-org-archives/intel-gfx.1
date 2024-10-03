@@ -4,56 +4,72 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0CF1ECFB443
-	for <intel-gfx@archiver.kernel.org>; Mon,  7 Oct 2024 14:05:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7343ACFB43F
+	for <intel-gfx@archiver.kernel.org>; Mon,  7 Oct 2024 14:30:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B2B8710E358;
-	Mon,  7 Oct 2024 14:05:08 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EE47310E3AE;
+	Mon,  7 Oct 2024 14:30:08 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="l8YLC4MO";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="kD4qUyed";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.19])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4FB1B10E34C;
- Mon,  7 Oct 2024 14:05:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1728309908; x=1759845908;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=C4Wmdi2c7F9qK0dxw1qoUYQ52TqvmBBdAppeS70N2XE=;
- b=l8YLC4MOmBbYUK0LGzWGSU2xDR8s2rCXQnj6vBybO5FI2UgEbvTZEdo0
- 6eGR9FipU9rq9myFYElKWBXmNroqsUjEpzWdNMhq6L+6qKtfTFTEUQQJH
- 6n+m1dweJ7KNklPDmFragMkV/DRxUWUu2vpE6bzAr3qm1Wp4DQuhXNbuN
- JV6FyAs1+D1Th9uFyNOK9cl4HvB8PDF15qly8PlsrcHl1ASnXq7CXQu96
- r3EwSMDALVjyfiiCH98cuBch+Ha27HLcgEkALHQLF6f+IjYR82KBhAozD
- dngzOUpifYiT4mXWnweyyN2gfTBSl7VB6bwdbDv3tPoTB+KZCFLPQzrN2 Q==;
-X-CSE-ConnectionGUID: kXDghJfCRd6do2hE9r7n/Q==
-X-CSE-MsgGUID: 1opu6qSLRlq0Ph+O8NqSpA==
-X-IronPort-AV: E=McAfee;i="6700,10204,11218"; a="27336871"
-X-IronPort-AV: E=Sophos;i="6.11,184,1725346800"; d="scan'208";a="27336871"
-Received: from orviesa004.jf.intel.com ([10.64.159.144])
- by orvoesa111.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 07 Oct 2024 07:05:07 -0700
-X-CSE-ConnectionGUID: aTWUxERLTZmy0HB4moNd0g==
-X-CSE-MsgGUID: dbGIERwtRBSVa78Z6O8vew==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.11,184,1725346800"; d="scan'208";a="80461600"
-Received: from ideak-desk.fi.intel.com ([10.237.72.78])
- by orviesa004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 07 Oct 2024 07:05:05 -0700
-From: Imre Deak <imre.deak@intel.com>
-To: intel-xe@lists.freedesktop.org,
-	intel-gfx@lists.freedesktop.org
-Cc: Rodrigo Vivi <rodrigo.vivi@intel.com>
-Subject: [PATCH 2/2] drm/xe: Add missing HPD interrupt enabling during
- non-d3cold RPM resume
-Date: Mon,  7 Oct 2024 17:05:31 +0300
-Message-ID: <20241007140531.1044630-2-imre.deak@intel.com>
-X-Mailer: git-send-email 2.44.2
-In-Reply-To: <20241007140531.1044630-1-imre.deak@intel.com>
-References: <20241007140531.1044630-1-imre.deak@intel.com>
+Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com
+ [209.85.128.44])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D9F6010E7E1;
+ Thu,  3 Oct 2024 08:45:52 +0000 (UTC)
+Received: by mail-wm1-f44.google.com with SMTP id
+ 5b1f17b1804b1-42cacabd2e0so5372755e9.3; 
+ Thu, 03 Oct 2024 01:45:52 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1727945150; x=1728549950; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=xKrTJrxaC66IYpmC0zcPIsToT+rr6ixnJrZ/0hCTJes=;
+ b=kD4qUyedSbCXe52ciai1ZqmGx/wFCpWUOZThIQtfaM+FiSMON/dGz15qkj/VLAtYYx
+ Fol+FZP3nXwzZxGFYgXvZoANIt5u1Bq9KB8gFaj6l1I1Igk5J6iYyF56DHBQg6mzXNLm
+ +RwOuLX0djMe1yjAl6SVctMtRgwvStUkjWP0DFgiZM4txAk5g4xy2cy+m2fRcE8rUU1L
+ k7euGbyMcFg0DP5M08zwWCSMyPr+37RWtEK5t0wKgBirEOUQ7Y7fC2NwNbG6fQNcNC8Y
+ X/oSbZoit1jcws9r+MSXDLZX2zpt+cVFOGaO8LjJpbdcj3pfvpSpMFT2F5CfIIzgPi+v
+ y3jA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1727945150; x=1728549950;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=xKrTJrxaC66IYpmC0zcPIsToT+rr6ixnJrZ/0hCTJes=;
+ b=s28jSjA7Cg2YIsdcbemXIRQa6ToWlMzUZ6b7sh2rYF542NFt0hOvaO8qd/RrKKeo6B
+ LOBEM4+NAoaYAJ2nRfHBbf9vYoBju0YV7FNbJ+PqW+cF6q0dR1aqN/Exf4otOGz0U/wh
+ 6AgOqLx9EdH1mhbnlKtdjwI5HZ6YeukaeUdiN3Uhgt3mWrq62MnlovssWlGFqTkwQMzP
+ s6sQChrPbARjSWqYzST3+pDwlUtegcCXO1hgaF4Mk8DDewTUSWyYtdOe/SWrVYlBUhir
+ EB132EQO6Ssq2aHiz6fUXgzxesbuEKj6NyzEfJAqJ3rsa1ePv20yrnoXlJohLdbBbLes
+ BB+A==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCV3gawJtNIISpvhNWqbW2bRFCcxhfVgRF50QjvcBLo6zpkKzZihRff0iY+mJg0Kr3SXTsaH3iLnNJg=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwMLcO/iwwN8V645rIU+C4w00MBvnul2a2BFhSlN6P3MCIJC6WN
+ 4kyjDTVfCHJz6wg3LFCZAZKb+N1u35yRB2kpUzfJ4ClFFf95AiJaV/7icMHD
+X-Google-Smtp-Source: AGHT+IHYcJ+v3BvMh9LmMa+x7Pipzt189nt8Wq5bzwu6NOma37eD1ygcwKs6Tjm30wExRNhkHBbT7A==
+X-Received: by 2002:adf:f3c9:0:b0:371:79f2:3d5c with SMTP id
+ ffacd0b85a97d-37cfb8c84e9mr3308661f8f.31.1727945149887; 
+ Thu, 03 Oct 2024 01:45:49 -0700 (PDT)
+Received: from fedora.iskraemeco.si ([193.77.86.250])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-42f771c1401sm27262635e9.0.2024.10.03.01.45.48
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 03 Oct 2024 01:45:49 -0700 (PDT)
+From: Uros Bizjak <ubizjak@gmail.com>
+To: intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+Cc: Uros Bizjak <ubizjak@gmail.com>, Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Tvrtko Ursulin <tursulin@ursulin.net>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>
+Subject: [PATCH] drm/i915/active: Use try_cmpxchg() in active_fence_cb()
+Date: Thu,  3 Oct 2024 10:44:31 +0200
+Message-ID: <20241003084533.871524-1-ubizjak@gmail.com>
+X-Mailer: git-send-email 2.46.2
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-Mailman-Approved-At: Mon, 07 Oct 2024 14:30:08 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,28 +85,41 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Atm the display HPD interrupts that got disabled during runtime
-suspend, are re-enabled only if d3cold is enabled. Fix things by
-also re-enabling the interrupts if d3cold is disabled.
+Replace this pattern in active_fence_cb():
 
+    cmpxchg(*ptr, old, new) == old
+
+... with the simpler and faster:
+
+    try_cmpxchg(*ptr, &old, new)
+
+The x86 CMPXCHG instruction returns success in the ZF flag,
+so this change saves a compare after the CMPXCHG.
+
+Signed-off-by: Uros Bizjak <ubizjak@gmail.com>
+Cc: Jani Nikula <jani.nikula@linux.intel.com>
+Cc: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
 Cc: Rodrigo Vivi <rodrigo.vivi@intel.com>
-Signed-off-by: Imre Deak <imre.deak@intel.com>
+Cc: Tvrtko Ursulin <tursulin@ursulin.net>
+Cc: David Airlie <airlied@gmail.com>
+Cc: Simona Vetter <simona@ffwll.ch>
 ---
- drivers/gpu/drm/xe/display/xe_display.c | 1 +
- 1 file changed, 1 insertion(+)
+ drivers/gpu/drm/i915/i915_active.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/xe/display/xe_display.c b/drivers/gpu/drm/xe/display/xe_display.c
-index cb2449b7921ac..695c27ac6b0f8 100644
---- a/drivers/gpu/drm/xe/display/xe_display.c
-+++ b/drivers/gpu/drm/xe/display/xe_display.c
-@@ -486,6 +486,7 @@ void xe_display_pm_runtime_resume(struct xe_device *xe)
- 		return;
- 	}
+diff --git a/drivers/gpu/drm/i915/i915_active.c b/drivers/gpu/drm/i915/i915_active.c
+index 5ec293011d99..35319228bc51 100644
+--- a/drivers/gpu/drm/i915/i915_active.c
++++ b/drivers/gpu/drm/i915/i915_active.c
+@@ -212,7 +212,7 @@ active_fence_cb(struct dma_fence *fence, struct dma_fence_cb *cb)
+ 	struct i915_active_fence *active =
+ 		container_of(cb, typeof(*active), cb);
  
-+	intel_hpd_init(xe);
- 	intel_hpd_poll_disable(xe);
+-	return cmpxchg(__active_fence_slot(active), fence, NULL) == fence;
++	return try_cmpxchg(__active_fence_slot(active), &fence, NULL);
  }
  
+ static void
 -- 
-2.44.2
+2.46.2
 
