@@ -4,24 +4,26 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8809DCF34B6
-	for <intel-gfx@archiver.kernel.org>; Thu,  3 Oct 2024 15:44:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BE32CCF34B8
+	for <intel-gfx@archiver.kernel.org>; Thu,  3 Oct 2024 15:44:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2140210E885;
-	Thu,  3 Oct 2024 15:44:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 588E010E88F;
+	Thu,  3 Oct 2024 15:44:19 +0000 (UTC)
 Received: from mblankhorst.nl (lankhorst.se [141.105.120.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 260D810E170;
- Thu,  3 Oct 2024 15:44:15 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DC7DD10E170;
+ Thu,  3 Oct 2024 15:44:17 +0000 (UTC)
 From: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
 To: intel-xe@lists.freedesktop.org
 Cc: intel-gfx@lists.freedesktop.org,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-Subject: [PATCH v3 00/12] drm/xe: Reduce flickering when inheriting BIOS fb.
-Date: Thu,  3 Oct 2024 17:44:09 +0200
-Message-ID: <20241003154421.33805-1-maarten.lankhorst@linux.intel.com>
+Subject: [PATCH v3 03/12] drm/i915/display: Use async flip when available for
+ initial plane config
+Date: Thu,  3 Oct 2024 17:44:12 +0200
+Message-ID: <20241003154421.33805-4-maarten.lankhorst@linux.intel.com>
 X-Mailer: git-send-email 2.45.2
+In-Reply-To: <20241003154421.33805-1-maarten.lankhorst@linux.intel.com>
+References: <20241003154421.33805-1-maarten.lankhorst@linux.intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -38,43 +40,48 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-It turns out that xe is performing all kinds of allocations before
-inheriting the BIOS fb. This is problematic as it completely overwrites
-the initial FB on discrete, and on integrated causes flickering until
-the original FB is restored (preserved in stolen memory).
+I'm planning to reorder readout in the Xe sequence in such a way that
+interrupts will not be available, so just use an async flip.
 
-The complete fix requires reshuffling the entire init sequence. I want to
-do that, but first add some preparations. This way I don't need to resubmit
-all these patches that are ready to commit each time.
+Since the new FB points to the same pages, it will not tear. It also
+has the benefit of perhaps being slightly faster.
 
-Maarten Lankhorst (12):
-  drm/xe/display: Handle stolen bar readout in the same way as lmem
-  drm/xe: Remove double pageflip
-  drm/i915/display: Use async flip when available for initial plane
-    config
-  drm/xe/display: Remove single wait for vblank
-  drm/xe: Move suballocator init to after display init
-  drm/xe: Use xe_ggtt_map_bo_unlocked for resume
-  drm/xe: Add xe_ggtt_might_lock
-  drm/xe: Add xe_ggtt_alloc
-  drm/xe: Abstract read/write functions for GGTT PTEs
-  drm/xe: Make xe_ggtt_pt_ops private
-  drm/xe/display: Stop dereferencing ggtt in xe_fb_pin
-  drm/xe: Move struct xe_ggtt to xe_ggtt.c
+Signed-off-by: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+---
+ drivers/gpu/drm/i915/display/skl_universal_plane.c | 13 +++++++++++--
+ 1 file changed, 11 insertions(+), 2 deletions(-)
 
- .../drm/i915/display/skl_universal_plane.c    |  13 +-
- drivers/gpu/drm/xe/display/xe_fb_pin.c        |  36 ++---
- drivers/gpu/drm/xe/display/xe_plane_initial.c |  27 +---
- drivers/gpu/drm/xe/xe_bo.c                    |   2 +-
- drivers/gpu/drm/xe/xe_bo_evict.c              |   9 +-
- drivers/gpu/drm/xe/xe_device.c                |   6 +
- drivers/gpu/drm/xe/xe_ggtt.c                  | 141 +++++++++++++++++-
- drivers/gpu/drm/xe/xe_ggtt.h                  |  22 ++-
- drivers/gpu/drm/xe/xe_ggtt_types.h            |  50 +------
- drivers/gpu/drm/xe/xe_tile.c                  |  16 +-
- drivers/gpu/drm/xe/xe_tile.h                  |   1 +
- 11 files changed, 218 insertions(+), 105 deletions(-)
-
+diff --git a/drivers/gpu/drm/i915/display/skl_universal_plane.c b/drivers/gpu/drm/i915/display/skl_universal_plane.c
+index fdb141cfa4274..73a3624e34098 100644
+--- a/drivers/gpu/drm/i915/display/skl_universal_plane.c
++++ b/drivers/gpu/drm/i915/display/skl_universal_plane.c
+@@ -2800,7 +2800,7 @@ bool skl_fixup_initial_plane_config(struct intel_crtc *crtc,
+ 		to_intel_plane_state(plane->base.state);
+ 	enum plane_id plane_id = plane->id;
+ 	enum pipe pipe = crtc->pipe;
+-	u32 base;
++	u32 base, plane_ctl;
+ 
+ 	if (!plane_state->uapi.visible)
+ 		return false;
+@@ -2814,7 +2814,16 @@ bool skl_fixup_initial_plane_config(struct intel_crtc *crtc,
+ 	if (plane_config->base == base)
+ 		return false;
+ 
++	/* Perform an async flip to the new surface. */
++	plane_ctl = intel_read(i915, PLANE_CTL(pipe, plane_id));
++	plane_ctl |= PLANE_CTL_ASYNC_FLIP;
++
++	intel_de_write(i915, PLANE_CTL(pipe, plane_id), plane_ctl);
+ 	intel_de_write(i915, PLANE_SURF(pipe, plane_id), base);
+ 
+-	return true;
++	if (intel_de_wait_custom(i915, PLANE_SURFLIVE(pipe, plane_id), ~0U, base, 0, 40, NULL) < 0)
++		drm_warn(&i915->drm, "async flip timed out\n");
++
++	/* No need to vblank wait either */
++	return false;
+ }
 -- 
 2.45.2
 
