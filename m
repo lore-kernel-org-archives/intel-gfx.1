@@ -4,59 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A1565CFA77D
-	for <intel-gfx@archiver.kernel.org>; Fri,  4 Oct 2024 13:31:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 92F20CFA77A
+	for <intel-gfx@archiver.kernel.org>; Fri,  4 Oct 2024 13:32:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 25C4710E9FF;
-	Fri,  4 Oct 2024 13:31:58 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8B79010EA03;
+	Fri,  4 Oct 2024 13:31:59 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="Cv+AueeE";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="XEsh+hwC";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.19])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1569F10E9FA;
- Fri,  4 Oct 2024 13:31:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1728048716; x=1759584716;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:in-reply-to;
- bh=LipIKJHXywUFaT6Rr6fuW2hVVH4tKy/aeS0F5KcrTXg=;
- b=Cv+AueeEuKnFZh5G8sJybzceq+BljgOtbtPX66dQRIbwnxEo1ezZBDah
- WXA/Iz+FUsZMh8FtwoC+MAq/+9nmGC+bCKvP+zo9DTmjVl9ta+dGYqcbz
- G4KC9tGxYK1vdDCH4ExDM/fvoYureCs4Hq5hCbAxZcDF/+t/PSFg5cGor
- TkY0c8RteZ8ntsWbdOea9e36m9GEHJZfX+j9QObQ59W1s/iPCrYwCIWcJ
- EGafFnvrK4SR6wqQgiwTILA/nORejkDSmDZ9tzMQu+dkZsfSxAVn6+UhF
- sjnfrUiRaRD/NIDKieP2hL5Xj+lOdd1o12X2kQcgRw87ofjvb/CTuNqGh g==;
-X-CSE-ConnectionGUID: o2TV9mpFSqyaPyrUWdgGTA==
-X-CSE-MsgGUID: La+dVsqXQxKBnDndsZjAJw==
-X-IronPort-AV: E=McAfee;i="6700,10204,11214"; a="27150468"
-X-IronPort-AV: E=Sophos;i="6.11,177,1725346800"; d="scan'208";a="27150468"
-Received: from orviesa009.jf.intel.com ([10.64.159.149])
- by orvoesa111.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 04 Oct 2024 06:30:21 -0700
-X-CSE-ConnectionGUID: IcluhS3fSAu9RiPnoDcCzg==
-X-CSE-MsgGUID: Ij+kEMolRPubbR9Jtmn+6w==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.11,177,1725346800"; d="scan'208";a="74697089"
-Received: from lkp-server01.sh.intel.com (HELO a48cf1aa22e8) ([10.239.97.150])
- by orviesa009.jf.intel.com with ESMTP; 04 Oct 2024 06:30:20 -0700
-Received: from kbuild by a48cf1aa22e8 with local (Exim 4.96)
- (envelope-from <lkp@intel.com>) id 1swiNt-0001fo-1R;
- Fri, 04 Oct 2024 13:30:17 +0000
-Date: Fri, 4 Oct 2024 21:30:05 +0800
-From: kernel test robot <lkp@intel.com>
-To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- intel-xe@lists.freedesktop.org
-Cc: llvm@lists.linux.dev, oe-kbuild-all@lists.linux.dev,
- intel-gfx@lists.freedesktop.org,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-Subject: Re: [PATCH v3 10/12] drm/xe: Make xe_ggtt_pt_ops private
-Message-ID: <202410042102.EdHRO7JI-lkp@intel.com>
-References: <20241003154421.33805-11-maarten.lankhorst@linux.intel.com>
+Received: from bali.collaboradmins.com (bali.collaboradmins.com
+ [148.251.105.195])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 06E5710E9FA;
+ Fri,  4 Oct 2024 13:31:58 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+ s=mail; t=1728048716;
+ bh=roY4AjfacH5tSaPZZt5a+dPVVs9QIen07yXvNWzgQ/k=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+ b=XEsh+hwCRYd8VH6oU6OfQGzwANaLnFLYD0j2w/vYjM900YEGzZaSYb92I+WGT2CkW
+ IVQ/8XJVM38UM4MnaBUxjGTGiDWIVf8H9R5r5yhYCSNegXxmeOspTJc1ZJPsY5XSx6
+ yMiSFgC22PxDMHT2ZRANzwL8Z7Z1HVys6l9YHmACgXcXtJL1zl+EQ67GMiL6Ucdexp
+ GuygQGXHYfQyTts3gzMR8gJEkD2E9pFuVpm9JZCIKWqoCShjBCXAspAhMlDVN5/RMU
+ nW0Jysz0lcB3pVeFGJyJo/B6+Fgv4PZrG80khgri94o4xmZHIH4IS5GZu9h2J511sM
+ WLgv9IxpgXMBA==
+Received: from localhost.localdomain (unknown [171.76.80.165])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested) (Authenticated sender: vignesh)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id BFD8F17E35EF;
+ Fri,  4 Oct 2024 15:31:53 +0200 (CEST)
+From: Vignesh Raman <vignesh.raman@collabora.com>
+To: dri-devel@lists.freedesktop.org
+Cc: daniels@collabora.com, helen.koike@collabora.com, airlied@gmail.com,
+ daniel@ffwll.ch, robdclark@gmail.com, guilherme.gallo@collabora.com,
+ sergi.blanch.torne@collabora.com, deborah.brouwer@collabora.com,
+ dmitry.baryshkov@linaro.org, linux-arm-msm@vger.kernel.org,
+ intel-gfx@lists.freedesktop.org, virtualization@lists.linux.dev,
+ linux-kernel@vger.kernel.org
+Subject: [PATCH v1 2/3] drm/ci: add dedede
+Date: Fri,  4 Oct 2024 19:01:19 +0530
+Message-ID: <20241004133126.2436930-3-vignesh.raman@collabora.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20241004133126.2436930-1-vignesh.raman@collabora.com>
+References: <20241004133126.2436930-1-vignesh.raman@collabora.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20241003154421.33805-11-maarten.lankhorst@linux.intel.com>
+Content-Transfer-Encoding: 8bit
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -72,48 +63,142 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Hi Maarten,
+Add job that executes the IGT test suite for acer-cb317-1h-c3z6-dedede.
+dedede boards use 64 bit Intel Jasper Lake processors.
 
-kernel test robot noticed the following build warnings:
+Signed-off-by: Vignesh Raman <vignesh.raman@collabora.com>
+---
+ drivers/gpu/drm/ci/test.yml                   |  9 ++++
+ drivers/gpu/drm/ci/xfails/i915-jsl-fails.txt  | 51 +++++++++++++++++++
+ drivers/gpu/drm/ci/xfails/i915-jsl-flakes.txt | 13 +++++
+ drivers/gpu/drm/ci/xfails/i915-jsl-skips.txt  | 20 ++++++++
+ 4 files changed, 93 insertions(+)
+ create mode 100644 drivers/gpu/drm/ci/xfails/i915-jsl-fails.txt
+ create mode 100644 drivers/gpu/drm/ci/xfails/i915-jsl-flakes.txt
+ create mode 100644 drivers/gpu/drm/ci/xfails/i915-jsl-skips.txt
 
-[auto build test WARNING on drm-xe/drm-xe-next]
-[also build test WARNING on linus/master v6.12-rc1]
-[cannot apply to drm-intel/for-linux-next drm-intel/for-linux-next-fixes drm-tip/drm-tip next-20241004]
-[If your patch is applied to the wrong git tree, kindly drop us a note.
-And when submitting patch, we suggest to use '--base' as documented in
-https://git-scm.com/docs/git-format-patch#_base_tree_information]
-
-url:    https://github.com/intel-lab-lkp/linux/commits/Maarten-Lankhorst/drm-xe-display-Handle-stolen-bar-readout-in-the-same-way-as-lmem/20241004-000534
-base:   https://gitlab.freedesktop.org/drm/xe/kernel.git drm-xe-next
-patch link:    https://lore.kernel.org/r/20241003154421.33805-11-maarten.lankhorst%40linux.intel.com
-patch subject: [PATCH v3 10/12] drm/xe: Make xe_ggtt_pt_ops private
-config: x86_64-allyesconfig (https://download.01.org/0day-ci/archive/20241004/202410042102.EdHRO7JI-lkp@intel.com/config)
-compiler: clang version 18.1.8 (https://github.com/llvm/llvm-project 3b5b5c1ec4a3095ab096dd780e84d7ab81f3d7ff)
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20241004/202410042102.EdHRO7JI-lkp@intel.com/reproduce)
-
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202410042102.EdHRO7JI-lkp@intel.com/
-
-All warnings (new ones prefixed by >>):
-
->> drivers/gpu/drm/xe/xe_ggtt.c:906: warning: expecting prototype for xe_ggtt_write_pte(). Prototype was for xe_ggtt_get_encode_pte_bo_fn() instead
-
-
-vim +906 drivers/gpu/drm/xe/xe_ggtt.c
-
-   897	
-   898	/**
-   899	 * xe_ggtt_write_pte - Write a PTE to the GGTT
-   900	 * @ggtt: &xe_ggtt
-   901	 * @offset: the offset for which the mapping should be written.
-   902	 *
-   903	 * Used by display for DPT and GGTT paths to enccode BO's.
-   904	 */
-   905	xe_ggtt_pte_encode_bo_fn xe_ggtt_get_encode_pte_bo_fn(struct xe_ggtt *ggtt)
- > 906	{
-
+diff --git a/drivers/gpu/drm/ci/test.yml b/drivers/gpu/drm/ci/test.yml
+index 81472451ccd1..3f50750be1c9 100644
+--- a/drivers/gpu/drm/ci/test.yml
++++ b/drivers/gpu/drm/ci/test.yml
+@@ -306,6 +306,15 @@ i915:tgl:
+     GPU_VERSION: tgl
+     RUNNER_TAG: mesa-ci-x86-64-lava-acer-cp514-2h-1130g7-volteer
+ 
++i915:jsl:
++  extends:
++    - .i915
++  parallel: 4
++  variables:
++    DEVICE_TYPE: acer-cb317-1h-c3z6-dedede
++    GPU_VERSION: jsl
++    RUNNER_TAG: mesa-ci-x86-64-lava-acer-cb317-1h-c3z6-dedede
++
+ .amdgpu:
+   extends:
+     - .lava-igt:x86_64
+diff --git a/drivers/gpu/drm/ci/xfails/i915-jsl-fails.txt b/drivers/gpu/drm/ci/xfails/i915-jsl-fails.txt
+new file mode 100644
+index 000000000000..ed9f7b576843
+--- /dev/null
++++ b/drivers/gpu/drm/ci/xfails/i915-jsl-fails.txt
+@@ -0,0 +1,51 @@
++core_setmaster@master-drop-set-user,Fail
++i915_module_load@load,Fail
++i915_module_load@reload,Fail
++i915_module_load@reload-no-display,Fail
++i915_module_load@resize-bar,Fail
++i915_pm_rpm@gem-execbuf-stress,Timeout
++i915_pm_rpm@module-reload,Fail
++kms_flip@plain-flip-fb-recreate,Fail
++kms_flip_scaled_crc@flip-32bpp-linear-to-64bpp-linear-downscaling,Fail
++kms_flip_scaled_crc@flip-32bpp-linear-to-64bpp-linear-upscaling,Fail
++kms_flip_scaled_crc@flip-32bpp-xtile-to-64bpp-xtile-downscaling,Fail
++kms_flip_scaled_crc@flip-32bpp-xtile-to-64bpp-xtile-upscaling,Fail
++kms_flip_scaled_crc@flip-32bpp-ytile-to-64bpp-ytile-upscaling,Fail
++kms_flip_scaled_crc@flip-32bpp-ytileccs-to-64bpp-ytile-downscaling,Fail
++kms_flip_scaled_crc@flip-32bpp-ytileccs-to-64bpp-ytile-upscaling,Fail
++kms_flip_scaled_crc@flip-64bpp-linear-to-16bpp-linear-downscaling,Fail
++kms_flip_scaled_crc@flip-64bpp-linear-to-16bpp-linear-upscaling,Fail
++kms_flip_scaled_crc@flip-64bpp-linear-to-32bpp-linear-downscaling,Fail
++kms_flip_scaled_crc@flip-64bpp-linear-to-32bpp-linear-upscaling,Fail
++kms_flip_scaled_crc@flip-64bpp-xtile-to-16bpp-xtile-upscaling,Fail
++kms_flip_scaled_crc@flip-64bpp-xtile-to-32bpp-xtile-downscaling,Fail
++kms_flip_scaled_crc@flip-64bpp-xtile-to-32bpp-xtile-upscaling,Fail
++kms_flip_scaled_crc@flip-64bpp-ytile-to-16bpp-ytile-downscaling,Fail
++kms_flip_scaled_crc@flip-64bpp-ytile-to-16bpp-ytile-upscaling,Fail
++kms_flip_scaled_crc@flip-64bpp-ytile-to-32bpp-ytile-downscaling,Fail
++kms_flip_scaled_crc@flip-64bpp-ytile-to-32bpp-ytile-upscaling,Fail
++kms_flip_scaled_crc@flip-64bpp-ytile-to-32bpp-ytilegen12rcccs-upscaling,Fail
++kms_flip_scaled_crc@flip-64bpp-ytile-to-32bpp-ytilercccs-downscaling,Fail
++kms_lease@lease-uevent,Fail
++kms_pm_rpm@legacy-planes,Timeout
++kms_pm_rpm@legacy-planes-dpms,Timeout
++kms_pm_rpm@modeset-stress-extra-wait,Timeout
++kms_pm_rpm@universal-planes,Timeout
++kms_pm_rpm@universal-planes-dpms,Timeout
++kms_rotation_crc@multiplane-rotation,Fail
++kms_rotation_crc@multiplane-rotation-cropping-bottom,Fail
++kms_rotation_crc@multiplane-rotation-cropping-top,Fail
++perf@i915-ref-count,Fail
++perf_pmu@busy-accuracy-50,Fail
++perf_pmu@module-unload,Fail
++perf_pmu@most-busy-idle-check-all,Fail
++perf_pmu@rc6,Crash
++sysfs_heartbeat_interval@long,Timeout
++sysfs_heartbeat_interval@off,Timeout
++sysfs_preempt_timeout@off,Timeout
++sysfs_timeslice_duration@off,Timeout
++xe_module_load@force-load,Fail
++xe_module_load@load,Fail
++xe_module_load@many-reload,Fail
++xe_module_load@reload,Fail
++xe_module_load@reload-no-display,Fail
+diff --git a/drivers/gpu/drm/ci/xfails/i915-jsl-flakes.txt b/drivers/gpu/drm/ci/xfails/i915-jsl-flakes.txt
+new file mode 100644
+index 000000000000..325d23612f5e
+--- /dev/null
++++ b/drivers/gpu/drm/ci/xfails/i915-jsl-flakes.txt
+@@ -0,0 +1,13 @@
++# Board Name: acer-cb317-1h-c3z6-dedede
++# Bug Report:
++# Failure Rate: 100
++# IGT Version: 1.28-ga73311079
++# Linux Version: 6.12.0-rc1
++kms_flip@flip-vs-panning-interruptible
++
++# Board Name: acer-cb317-1h-c3z6-dedede
++# Bug Report:
++# Failure Rate: 100
++# IGT Version: 1.28-ga73311079
++# Linux Version: 6.12.0-rc1
++kms_universal_plane@cursor-fb-leak
+diff --git a/drivers/gpu/drm/ci/xfails/i915-jsl-skips.txt b/drivers/gpu/drm/ci/xfails/i915-jsl-skips.txt
+new file mode 100644
+index 000000000000..1a3d87c0ca6e
+--- /dev/null
++++ b/drivers/gpu/drm/ci/xfails/i915-jsl-skips.txt
+@@ -0,0 +1,20 @@
++# Suspend to RAM seems to be broken on this machine
++.*suspend.*
++
++# Skip driver specific tests
++^amdgpu.*
++^msm.*
++nouveau_.*
++^panfrost.*
++^v3d.*
++^vc4.*
++^vmwgfx*
++
++# GEM tests takes ~1000 hours, so skip it
++gem_.*
++
++# trap_err
++i915_pm_rc6_residency.*
++
++# Hangs the machine and timeout occurs
++i915_pm_rpm@system-hibernate*
 -- 
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+2.43.0
+
