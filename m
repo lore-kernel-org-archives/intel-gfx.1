@@ -4,50 +4,59 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 91D3CCFA77B
-	for <intel-gfx@archiver.kernel.org>; Fri,  4 Oct 2024 13:31:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A1565CFA77D
+	for <intel-gfx@archiver.kernel.org>; Fri,  4 Oct 2024 13:31:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1D8A610E9FC;
-	Fri,  4 Oct 2024 13:31:56 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 25C4710E9FF;
+	Fri,  4 Oct 2024 13:31:58 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="k3Qc+wmI";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="Cv+AueeE";
 	dkim-atps=neutral
-Received: from bali.collaboradmins.com (bali.collaboradmins.com
- [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8798610E9FA;
- Fri,  4 Oct 2024 13:31:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1728048713;
- bh=pKHZFH/Ej/Nl+ncg+maedJ93EJf/kvj5/4vnolIpDs8=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=k3Qc+wmIDgc4YYRGogDWRKGwnlQkqUoJ3MWCAwK4nqYbyJagchEGLF4a0ExqB4hqR
- BQaVDKGGA3ycANjq8Wo2FMTNpAtQHW4YZlIJfYv+eFxH48Y4v1/qi9R5pE0LIAWAjI
- FYdJ+XDhjbh4QN3W7t3XuHpVctDgH8oBDsE4t1zq8LKF4wSqs63xLcCiqeYd/PtPKq
- Tu1Hi3EhiCsiEJRA/0pFIL9PfPywMPe4510+3lp+5UbbgIVFdX2YpYLMLluxXs6yTy
- tRKzT5hHWIEZ9wYdZr1XZojZHMe8S9PCWaxy+obB30NLw8kY9L1xYpDSygQjNqL0RJ
- s+PGKoEYw11Xg==
-Received: from localhost.localdomain (unknown [171.76.80.165])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested) (Authenticated sender: vignesh)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id 7F65517E35ED;
- Fri,  4 Oct 2024 15:31:50 +0200 (CEST)
-From: Vignesh Raman <vignesh.raman@collabora.com>
-To: dri-devel@lists.freedesktop.org
-Cc: daniels@collabora.com, helen.koike@collabora.com, airlied@gmail.com,
- daniel@ffwll.ch, robdclark@gmail.com, guilherme.gallo@collabora.com,
- sergi.blanch.torne@collabora.com, deborah.brouwer@collabora.com,
- dmitry.baryshkov@linaro.org, linux-arm-msm@vger.kernel.org,
- intel-gfx@lists.freedesktop.org, virtualization@lists.linux.dev,
- linux-kernel@vger.kernel.org
-Subject: [PATCH v1 1/3] drm/ci: refactor software-driver stage jobs
-Date: Fri,  4 Oct 2024 19:01:18 +0530
-Message-ID: <20241004133126.2436930-2-vignesh.raman@collabora.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20241004133126.2436930-1-vignesh.raman@collabora.com>
-References: <20241004133126.2436930-1-vignesh.raman@collabora.com>
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.19])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1569F10E9FA;
+ Fri,  4 Oct 2024 13:31:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1728048716; x=1759584716;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:in-reply-to;
+ bh=LipIKJHXywUFaT6Rr6fuW2hVVH4tKy/aeS0F5KcrTXg=;
+ b=Cv+AueeEuKnFZh5G8sJybzceq+BljgOtbtPX66dQRIbwnxEo1ezZBDah
+ WXA/Iz+FUsZMh8FtwoC+MAq/+9nmGC+bCKvP+zo9DTmjVl9ta+dGYqcbz
+ G4KC9tGxYK1vdDCH4ExDM/fvoYureCs4Hq5hCbAxZcDF/+t/PSFg5cGor
+ TkY0c8RteZ8ntsWbdOea9e36m9GEHJZfX+j9QObQ59W1s/iPCrYwCIWcJ
+ EGafFnvrK4SR6wqQgiwTILA/nORejkDSmDZ9tzMQu+dkZsfSxAVn6+UhF
+ sjnfrUiRaRD/NIDKieP2hL5Xj+lOdd1o12X2kQcgRw87ofjvb/CTuNqGh g==;
+X-CSE-ConnectionGUID: o2TV9mpFSqyaPyrUWdgGTA==
+X-CSE-MsgGUID: La+dVsqXQxKBnDndsZjAJw==
+X-IronPort-AV: E=McAfee;i="6700,10204,11214"; a="27150468"
+X-IronPort-AV: E=Sophos;i="6.11,177,1725346800"; d="scan'208";a="27150468"
+Received: from orviesa009.jf.intel.com ([10.64.159.149])
+ by orvoesa111.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 04 Oct 2024 06:30:21 -0700
+X-CSE-ConnectionGUID: IcluhS3fSAu9RiPnoDcCzg==
+X-CSE-MsgGUID: Ij+kEMolRPubbR9Jtmn+6w==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.11,177,1725346800"; d="scan'208";a="74697089"
+Received: from lkp-server01.sh.intel.com (HELO a48cf1aa22e8) ([10.239.97.150])
+ by orviesa009.jf.intel.com with ESMTP; 04 Oct 2024 06:30:20 -0700
+Received: from kbuild by a48cf1aa22e8 with local (Exim 4.96)
+ (envelope-from <lkp@intel.com>) id 1swiNt-0001fo-1R;
+ Fri, 04 Oct 2024 13:30:17 +0000
+Date: Fri, 4 Oct 2024 21:30:05 +0800
+From: kernel test robot <lkp@intel.com>
+To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ intel-xe@lists.freedesktop.org
+Cc: llvm@lists.linux.dev, oe-kbuild-all@lists.linux.dev,
+ intel-gfx@lists.freedesktop.org,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+Subject: Re: [PATCH v3 10/12] drm/xe: Make xe_ggtt_pt_ops private
+Message-ID: <202410042102.EdHRO7JI-lkp@intel.com>
+References: <20241003154421.33805-11-maarten.lankhorst@linux.intel.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20241003154421.33805-11-maarten.lankhorst@linux.intel.com>
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,97 +72,48 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Move common job configuration for software-driver
-stage jobs to seperate job.
+Hi Maarten,
 
-Signed-off-by: Vignesh Raman <vignesh.raman@collabora.com>
----
- drivers/gpu/drm/ci/test.yml | 59 +++++++++++++++----------------------
- 1 file changed, 24 insertions(+), 35 deletions(-)
+kernel test robot noticed the following build warnings:
 
-diff --git a/drivers/gpu/drm/ci/test.yml b/drivers/gpu/drm/ci/test.yml
-index 09d8447840e9..81472451ccd1 100644
---- a/drivers/gpu/drm/ci/test.yml
-+++ b/drivers/gpu/drm/ci/test.yml
-@@ -88,6 +88,26 @@
-   tags:
-     - $RUNNER_TAG
- 
-+.software-driver:
-+  stage: software-driver
-+  extends:
-+    - .test-gl
-+    - .test-rules
-+  timeout: "1h30m"
-+  tags:
-+    - kvm
-+  script:
-+    - ln -sf $CI_PROJECT_DIR/install /install
-+    - mv install/bzImage /lava-files/bzImage
-+    - mkdir -p /lib/modules
-+    - mkdir -p $CI_PROJECT_DIR/results
-+    - ln -sf $CI_PROJECT_DIR/results /results
-+    - install/crosvm-runner.sh install/igt_runner.sh
-+  needs:
-+    - debian/x86_64_test-gl
-+    - testing:x86_64
-+    - igt:x86_64
-+
- .msm-sc7180:
-   extends:
-     - .lava-igt:arm64
-@@ -414,47 +434,16 @@ panfrost:g12b:
-     - .panfrost-gpu
- 
- virtio_gpu:none:
--  stage: software-driver
--  timeout: "1h30m"
-+  extends:
-+    - .software-driver
-   variables:
-     CROSVM_GALLIUM_DRIVER: llvmpipe
-     DRIVER_NAME: virtio_gpu
-     GPU_VERSION: none
--  extends:
--    - .test-gl
--    - .test-rules
--  tags:
--    - kvm
--  script:
--    - ln -sf $CI_PROJECT_DIR/install /install
--    - mv install/bzImage /lava-files/bzImage
--    - mkdir -p $CI_PROJECT_DIR/results
--    - ln -sf $CI_PROJECT_DIR/results /results
--    - install/crosvm-runner.sh install/igt_runner.sh
--  needs:
--    - debian/x86_64_test-gl
--    - testing:x86_64
--    - igt:x86_64
- 
- vkms:none:
--  stage: software-driver
--  timeout: "1h30m"
-+  extends:
-+    - .software-driver
-   variables:
-     DRIVER_NAME: vkms
-     GPU_VERSION: none
--  extends:
--    - .test-gl
--    - .test-rules
--  tags:
--    - kvm
--  script:
--    - ln -sf $CI_PROJECT_DIR/install /install
--    - mv install/bzImage /lava-files/bzImage
--    - mkdir -p /lib/modules
--    - mkdir -p $CI_PROJECT_DIR/results
--    - ln -sf $CI_PROJECT_DIR/results /results
--    - ./install/crosvm-runner.sh ./install/igt_runner.sh
--  needs:
--    - debian/x86_64_test-gl
--    - testing:x86_64
--    - igt:x86_64
+[auto build test WARNING on drm-xe/drm-xe-next]
+[also build test WARNING on linus/master v6.12-rc1]
+[cannot apply to drm-intel/for-linux-next drm-intel/for-linux-next-fixes drm-tip/drm-tip next-20241004]
+[If your patch is applied to the wrong git tree, kindly drop us a note.
+And when submitting patch, we suggest to use '--base' as documented in
+https://git-scm.com/docs/git-format-patch#_base_tree_information]
+
+url:    https://github.com/intel-lab-lkp/linux/commits/Maarten-Lankhorst/drm-xe-display-Handle-stolen-bar-readout-in-the-same-way-as-lmem/20241004-000534
+base:   https://gitlab.freedesktop.org/drm/xe/kernel.git drm-xe-next
+patch link:    https://lore.kernel.org/r/20241003154421.33805-11-maarten.lankhorst%40linux.intel.com
+patch subject: [PATCH v3 10/12] drm/xe: Make xe_ggtt_pt_ops private
+config: x86_64-allyesconfig (https://download.01.org/0day-ci/archive/20241004/202410042102.EdHRO7JI-lkp@intel.com/config)
+compiler: clang version 18.1.8 (https://github.com/llvm/llvm-project 3b5b5c1ec4a3095ab096dd780e84d7ab81f3d7ff)
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20241004/202410042102.EdHRO7JI-lkp@intel.com/reproduce)
+
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202410042102.EdHRO7JI-lkp@intel.com/
+
+All warnings (new ones prefixed by >>):
+
+>> drivers/gpu/drm/xe/xe_ggtt.c:906: warning: expecting prototype for xe_ggtt_write_pte(). Prototype was for xe_ggtt_get_encode_pte_bo_fn() instead
+
+
+vim +906 drivers/gpu/drm/xe/xe_ggtt.c
+
+   897	
+   898	/**
+   899	 * xe_ggtt_write_pte - Write a PTE to the GGTT
+   900	 * @ggtt: &xe_ggtt
+   901	 * @offset: the offset for which the mapping should be written.
+   902	 *
+   903	 * Used by display for DPT and GGTT paths to enccode BO's.
+   904	 */
+   905	xe_ggtt_pte_encode_bo_fn xe_ggtt_get_encode_pte_bo_fn(struct xe_ggtt *ggtt)
+ > 906	{
+
 -- 
-2.43.0
-
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
