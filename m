@@ -4,49 +4,57 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5DBAFCFA752
-	for <intel-gfx@archiver.kernel.org>; Fri,  4 Oct 2024 09:07:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DA4CFCFA74C
+	for <intel-gfx@archiver.kernel.org>; Fri,  4 Oct 2024 09:27:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 00FA710E22B;
-	Fri,  4 Oct 2024 09:07:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7A9D310E29B;
+	Fri,  4 Oct 2024 09:27:48 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=linux.dev header.i=@linux.dev header.b="YFV4lxKL";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="X4esJBEf";
 	dkim-atps=neutral
-X-Greylist: delayed 337 seconds by postgrey-1.36 at gabe;
- Fri, 04 Oct 2024 09:07:46 UTC
-Received: from out-172.mta1.migadu.com (out-172.mta1.migadu.com
- [95.215.58.172])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7AF9610E362
- for <intel-gfx@lists.freedesktop.org>; Fri,  4 Oct 2024 09:07:46 +0000 (UTC)
-Message-ID: <41c46ac0-23e5-4566-8808-f0ad84a58ca0@linux.dev>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
- t=1728032527;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=/q7TCKWkBRa2jleMeAwpZZBWHheD5FpO/n7jqw+l1m0=;
- b=YFV4lxKLCDKae389/8VdPDsh8vRn+pLK9YtOk17Z2dP5w1db+xISdDxHgXFQkfpjM17hVs
- hQqv9zsx6atEPCZJDZuavDaQUhsvZ1h5oLKEJyzKQkQxuTU+ARCdX39GXq1fy2BmznpBb8
- qQkaXngwVnTofn1S0sSBOXvuSssONo8=
-Date: Fri, 4 Oct 2024 17:01:55 +0800
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3D20910E29B;
+ Fri,  4 Oct 2024 09:27:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1728034067; x=1759570067;
+ h=from:to:subject:in-reply-to:references:date:message-id:
+ mime-version; bh=n2ERZzHx17HYUi/YgOUUX9HRmBzHaZ2HDiGPOpM3yqg=;
+ b=X4esJBEfmAW1pzJnBf3KKRQulr16fEGBt9vNyYTfICb1AH9K6jQEHwPf
+ +Otl5HyXUUptj7HyizozWUumaCfe0tjgvfKEDSfZzqs6xETps0bmPDG2b
+ +Tdm1k21hzCKJIgox8HOOxkEhtzNoEQvs3x1TYKMC3FlwuupC6gP8s9a1
+ 5uYxEBUAGElbHmkXDCnj7XJVuAnhdvhVPl5902pXdKHJ2CSMkpBwv+LKZ
+ PO4q1cAOtTens1nDyW2ZKGNXC+7+hQLlxa37/Keau9NdyGupohkROss/u
+ 1nCCi82A0WFndB3mQPXNiwhwu4HYa4NTz9ddumWrTQ4x0XUNv6NXwBcUj w==;
+X-CSE-ConnectionGUID: ttwBfmT7QluCmIrUWhShtA==
+X-CSE-MsgGUID: TKzKOHJST1i7m6MRF5y/YQ==
+X-IronPort-AV: E=McAfee;i="6700,10204,11214"; a="44717676"
+X-IronPort-AV: E=Sophos;i="6.11,177,1725346800"; d="scan'208";a="44717676"
+Received: from orviesa005.jf.intel.com ([10.64.159.145])
+ by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 04 Oct 2024 02:27:47 -0700
+X-CSE-ConnectionGUID: Ib7MwaVkSxiEOoi18Mr5/Q==
+X-CSE-MsgGUID: AGS5a5UBQ4mROksBvwzzaA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.11,177,1725346800"; d="scan'208";a="79413041"
+Received: from dneilan-mobl1.ger.corp.intel.com (HELO localhost)
+ ([10.245.245.89])
+ by orviesa005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 04 Oct 2024 02:27:45 -0700
+From: Jani Nikula <jani.nikula@intel.com>
+To: "Borah, Chaitanya Kumar" <chaitanya.kumar.borah@intel.com>,
+ "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>,
+ "intel-xe@lists.freedesktop.org" <intel-xe@lists.freedesktop.org>
+Subject: RE: [PATCH] drm/i915: use NULL for zero wakeref_t instead of plain
+ integer 0
+In-Reply-To: <SJ1PR11MB61295ADC70452548919B3598B9712@SJ1PR11MB6129.namprd11.prod.outlook.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
+References: <20241002181655.582597-1-jani.nikula@intel.com>
+ <SJ1PR11MB61295ADC70452548919B3598B9712@SJ1PR11MB6129.namprd11.prod.outlook.com>
+Date: Fri, 04 Oct 2024 12:27:42 +0300
+Message-ID: <87jzeorze9.fsf@intel.com>
 MIME-Version: 1.0
-Subject: Re: [PATCH 08/28] drm/loongson: Use video aperture helpers
-To: Thomas Zimmermann <tzimmermann@suse.de>, javierm@redhat.com,
- airlied@gmail.com, simona@ffwll.ch, maarten.lankhorst@linux.intel.com,
- mripard@kernel.org
-Cc: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
- intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org
-References: <20240930130921.689876-1-tzimmermann@suse.de>
- <20240930130921.689876-9-tzimmermann@suse.de>
-Content-Language: en-US
-X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and
- include these headers.
-From: Sui Jingfeng <sui.jingfeng@linux.dev>
-In-Reply-To: <20240930130921.689876-9-tzimmermann@suse.de>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Migadu-Flow: FLOW_OUT
+Content-Type: text/plain
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,65 +70,30 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Hi,
-
-On 2024/9/30 21:03, Thomas Zimmermann wrote:
-> DRM's aperture functions have long been implemented as helpers
-> under drivers/video/ for use with fbdev. Avoid the DRM wrappers by
-> calling the video functions directly.
-
-
-Okay!
-
-Sometimes the aperture_remove_conflicting_devices() is more easier
-to use, as it doesn't need direct reference to the struct drm_driver.
-
-The third argument of aperture_remove_conflicting_devices() does not
-get used, so we can actually pass a casual string.
-
-
-> Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
-> Cc: Sui Jingfeng <suijingfeng@loongson.cn>
-
-
-Acked-by: Sui Jingfeng <sui.jingfeng@linux.dev>
-
-
-> ---
->   drivers/gpu/drm/loongson/lsdc_drv.c | 8 ++++----
->   1 file changed, 4 insertions(+), 4 deletions(-)
+On Thu, 03 Oct 2024, "Borah, Chaitanya Kumar" <chaitanya.kumar.borah@intel.com> wrote:
+>> -----Original Message-----
+>> From: Intel-xe <intel-xe-bounces@lists.freedesktop.org> On Behalf Of Jani
+>> Nikula
+>> Sent: Wednesday, October 2, 2024 11:47 PM
+>> To: intel-gfx@lists.freedesktop.org; intel-xe@lists.freedesktop.org
+>> Cc: Nikula, Jani <jani.nikula@intel.com>
+>> Subject: [PATCH] drm/i915: use NULL for zero wakeref_t instead of plain
+>> integer 0
+>>
+>> As of commit 2edc6a75f26c ("drm/i915: switch intel_wakeref_t underlying
+>> type to struct ref_tracker *") we gained quite a few sparse warnings about
+>> "Using plain integer as NULL pointer" for using 0 to initialize wakeref_t. Switch
+>> to NULL everywhere.
+>>
+>> Signed-off-by: Jani Nikula <jani.nikula@intel.com>
 >
-> diff --git a/drivers/gpu/drm/loongson/lsdc_drv.c b/drivers/gpu/drm/loongson/lsdc_drv.c
-> index a19dce35c839..b350bdcf1645 100644
-> --- a/drivers/gpu/drm/loongson/lsdc_drv.c
-> +++ b/drivers/gpu/drm/loongson/lsdc_drv.c
-> @@ -3,10 +3,10 @@
->    * Copyright (C) 2023 Loongson Technology Corporation Limited
->    */
->   
-> +#include <linux/aperture.h>
->   #include <linux/pci.h>
->   #include <linux/vgaarb.h>
->   
-> -#include <drm/drm_aperture.h>
->   #include <drm/drm_atomic.h>
->   #include <drm/drm_atomic_helper.h>
->   #include <drm/drm_client_setup.h>
-> @@ -215,9 +215,9 @@ lsdc_create_device(struct pci_dev *pdev,
->   		return ERR_PTR(ret);
->   	}
->   
-> -	ret = drm_aperture_remove_conflicting_framebuffers(ldev->vram_base,
-> -							   ldev->vram_size,
-> -							   driver);
-> +	ret = aperture_remove_conflicting_devices(ldev->vram_base,
-> +						  ldev->vram_size,
-> +						  driver->name);
->   	if (ret) {
->   		drm_err(ddev, "Remove firmware framebuffers failed: %d\n", ret);
->   		return ERR_PTR(ret);
+> LGTM
+> Reviewed-by: Chaitanya Kumar Borah <chaitanya.kumar.borah@intel.com>
+
+Thanks, pushed to drm-intel-next.
+
+BR,
+Jani.
 
 -- 
-Best regards,
-Sui
-
+Jani Nikula, Intel
