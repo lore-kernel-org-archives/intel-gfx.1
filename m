@@ -4,73 +4,71 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 98482CFB441
-	for <intel-gfx@archiver.kernel.org>; Mon,  7 Oct 2024 14:30:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BA388CFB449
+	for <intel-gfx@archiver.kernel.org>; Mon,  7 Oct 2024 16:37:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3796F10E3B0;
-	Mon,  7 Oct 2024 14:30:10 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B6CE610E3DB;
+	Mon,  7 Oct 2024 16:37:52 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="UIv80iqB";
+	dkim=pass (2048-bit key; unprotected) header.d=fooishbar.org header.i=@fooishbar.org header.b="ICN5V1x3";
 	dkim-atps=neutral
-Received: from mail-yw1-f175.google.com (mail-yw1-f175.google.com
- [209.85.128.175])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 61B9A10E0CD;
- Mon, 30 Sep 2024 16:22:11 +0000 (UTC)
-Received: by mail-yw1-f175.google.com with SMTP id
- 00721157ae682-6e2346f164cso33923037b3.3; 
- Mon, 30 Sep 2024 09:22:11 -0700 (PDT)
+Received: from mail-qk1-f176.google.com (mail-qk1-f176.google.com
+ [209.85.222.176])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 08E5810E3DB
+ for <intel-gfx@lists.freedesktop.org>; Mon,  7 Oct 2024 16:37:51 +0000 (UTC)
+Received: by mail-qk1-f176.google.com with SMTP id
+ af79cd13be357-7a9acc6f22dso431241185a.0
+ for <intel-gfx@lists.freedesktop.org>; Mon, 07 Oct 2024 09:37:51 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1727713330; x=1728318130; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=uERoXlKgvrIzow4kr39O2y7mJ6EyY4bi7R1vZimkEKo=;
- b=UIv80iqB8p/00gh4dUfosW5Zswi8eHEYYVksB/nsmXux89jsr06veFxWDFlfgTrKdH
- sHIxVNs6qZBP2r4QQHti+kv19pr6XPrLMr3QL5dd16NeR9F8ZZV35t1dQwGMvrD9bFuX
- +DNC0nxfCJYQNs3cNHgI7fJujYO+6Ql+b5EtRHl4eS3b3TKWQc0HbVxWbGdmizQJnSf4
- K3hlAdckfiXtvjVXR/D1A+rJvloMccCoQB8jNuIBqCpfMOWd8wBW9NbeJZoVffx2rVsV
- IpRcfmbm06XXZZBQpEFTubG4EF9WS8Sittyy1t51rUZf5LBPy7AT0zcdKG1TJufsg6Zl
- nP5Q==
+ d=fooishbar.org; s=google; t=1728319071; x=1728923871;
+ darn=lists.freedesktop.org; 
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc:subject:date:message-id:reply-to;
+ bh=W4CFFIJB0/w1KDKpJP7Na0Tu7Wo8uI2KSmr76xqMrKs=;
+ b=ICN5V1x35LJMobUMCUsUw+ba6Iq2eyGvwuOHPZQIP0KxPmqaH4gLbK/3ngESvR1I4j
+ qbOSs3GiNXx6MvHy2PltBCtufZ4wLy1GQOUJdoIE3Hxs6u70z8ORkOCGTliS6TjoQxSC
+ 1G6NIaqXlHvaJQRxMrWIB7sJ9t8X34JoV66IgdjxVHoMqEHN62/1i6jgBbkCh/MtDZSM
+ RZoXQZpqLVGrVfPu8PQPBo2F3ST07IEQeaMnha41mmbAqmaMWph1AUjPKt/zGCJlklRi
+ lKqX4RF7pSBYg5if1jeeZ0V5+iq1+m825OCPKZvIqViRKcgBEghd5Vn8SFgRaP5jLDLz
+ uXbg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1727713330; x=1728318130;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=uERoXlKgvrIzow4kr39O2y7mJ6EyY4bi7R1vZimkEKo=;
- b=o4YLSWZKsPnltd3jb2/TcxJspP0t7vYahZJTkZ5WacbewGQSb9tQiuJP3qMOuAQGgI
- Q8PeBiU/t0qSTRtidCm12YqWnsG+BM80+w94laYs32a+fyM60K/oiAcphOBMAsjuLKm6
- 2jT9QWBZh1WjG11+5gUAA/X9BpUfK/V4GKt0XloqRfVyHmjiEI2BckLg4qwLFu0lgtll
- 8PTSpJxzx5aOH6KivZxuM2i8obLaSXsaAEiZWh4/OerYwqWG75Qu51q1cREDnlMA0YWX
- UoWdmQ9I1jnCMA4G3ZPQqJpBaFUfaMRLy0EL7GCL6inkoCEhn0AS2cqUukMPxG1pHdAf
- 5VIA==
+ d=1e100.net; s=20230601; t=1728319071; x=1728923871;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=W4CFFIJB0/w1KDKpJP7Na0Tu7Wo8uI2KSmr76xqMrKs=;
+ b=U63NongP8g85yaCUTw0FdPFA/9uCt4ZJBj/+MUxH+tnfyBz5lElOpG/dEPViZEvzPj
+ Dpqbw7wJ2JNifSUVGZ9clB6R+1Oc9HZIdUOriucgDIE1/XikV97B8fV6O6BFmNXggqQj
+ BWnWNn5yP+w5V7YkUk+nJUckPTKgYFd8WK5SDpNhfEgLC/eZtvPIkKeaxJtuPWOQQEeY
+ uZP3h1E177cq4Rehwf767MS5pYj3aLs986bF6B7NeV93rOnWXDpq7CIjubIpqfX0FAaz
+ jNUCI6lK1z6eKdouRu+xNrd5HWVfzbqr3zXR76xU4QXf35Eol9mrArfxT0VKcvS6SGux
+ 8EqA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCVhacqlRaiwYqxJ8bKZXOmou1sixQcAUXCzdraDEpHt/RMYTWeEsm51qhjIgrsIPId1QU97dEOS6BLE@lists.freedesktop.org,
- AJvYcCWVI1TH3vnCQsrv8l3EgNz1fRX8ihX/dAhdLY+3pEwuseZHIpMfv/47OCaAUaVGabVw6F98+T8/5CUt@lists.freedesktop.org,
- AJvYcCWyP92iGPnEV6k4vwP8KaqnRR4jAeAXKE1gYtVkSfDovaKIO5MS41Yz9ecaVx/Y9NQLInVhh6eX@lists.freedesktop.org,
- AJvYcCX/5IfquGtvjyMp+oV/XnrrDTmp7l6e0yntb/gq0KvMwb6bs3yFZ5nEDFl/OvrQhCqhLiXv2NCCKVE=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxQ/coJAgzC4elF4RwoqLxpPHgYAu12yCM3zbLdPvBXoVZBVGXi
- 5d+a3a0hpldOboMpkrJ2+j2/mRiJ+EE5dh73s+fNHBbAez9fWQqVy+21QEScycrnZa+GBg7Vh7n
- zFOZeBULc8O492B2k/ePbOkSmV20=
-X-Google-Smtp-Source: AGHT+IH6LGQfRVLoHTpEHgoURLnMbGsh/FhCxNdlE2uAdXWKaqJ3XT+orFnkiDAnokgolLQak1eShauNoxWdW6nGLQM=
-X-Received: by 2002:a05:690c:6612:b0:6e0:447:f257 with SMTP id
- 00721157ae682-6e24757caf8mr95415027b3.22.1727713330446; Mon, 30 Sep 2024
- 09:22:10 -0700 (PDT)
+ AJvYcCXWfN2QziuzcvfEfg9ksGZvH/SWU64x8+TFv2XCeQ2bNEovhmQK6SEorpb+FFvVv6GLF1MD/kFI1I0=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxzDWT74QfIOW7/L1KYGKGlGGpm3VagC0B51WIOsd6zHzWWOK7d
+ GLJoaDhGktwanItcw4TrOHxFxPmn8+j0rIJrmJ+TnDbkozfxYQa88AfZKzSYBbVI5uNAdW/i43p
+ Ae+CbhothnhployiBGWojAQYWdwhOKTwd5Fbm1A==
+X-Google-Smtp-Source: AGHT+IFUEdp+6Zfk/3canOH8YLTeCDElWZbOWdFUC/AjiXkqb6tWoEUHRz5ImwY747H/eYo44KjaW8o6FN6Tmv1CB1Q=
+X-Received: by 2002:a05:620a:1aa0:b0:7ac:b3bf:c30c with SMTP id
+ af79cd13be357-7ae6f48ae1fmr1890545885a.45.1728319070658; Mon, 07 Oct 2024
+ 09:37:50 -0700 (PDT)
 MIME-Version: 1.0
-References: <20240930130921.689876-1-tzimmermann@suse.de>
- <20240930130921.689876-7-tzimmermann@suse.de>
-In-Reply-To: <20240930130921.689876-7-tzimmermann@suse.de>
-From: Deepak Rawat <drawat.floss@gmail.com>
-Date: Mon, 30 Sep 2024 09:22:00 -0700
-Message-ID: <CAHFnvW0TqYDzbay_wtvC5QK7SMgXxC3sKfWQ3z7Q3eXYN9VPZA@mail.gmail.com>
-Subject: Re: [PATCH 06/28] drm/hyperv-drm: Use video aperture helpers
-To: Thomas Zimmermann <tzimmermann@suse.de>
-Cc: javierm@redhat.com, airlied@gmail.com, simona@ffwll.ch, 
- maarten.lankhorst@linux.intel.com, mripard@kernel.org, 
- dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org, 
- intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org
+References: <20241004133126.2436930-1-vignesh.raman@collabora.com>
+ <20241004133126.2436930-2-vignesh.raman@collabora.com>
+In-Reply-To: <20241004133126.2436930-2-vignesh.raman@collabora.com>
+From: Daniel Stone <daniel@fooishbar.org>
+Date: Mon, 7 Oct 2024 12:37:39 -0400
+Message-ID: <CAPj87rPGD8Pu_CSPXfRtsS_w8UYVJGR9CoLx7RAT69EUKefs3A@mail.gmail.com>
+Subject: Re: [PATCH v1 1/3] drm/ci: refactor software-driver stage jobs
+To: Vignesh Raman <vignesh.raman@collabora.com>
+Cc: dri-devel@lists.freedesktop.org, daniels@collabora.com, 
+ helen.koike@collabora.com, airlied@gmail.com, daniel@ffwll.ch, 
+ robdclark@gmail.com, guilherme.gallo@collabora.com, 
+ sergi.blanch.torne@collabora.com, deborah.brouwer@collabora.com, 
+ dmitry.baryshkov@linaro.org, linux-arm-msm@vger.kernel.org, 
+ intel-gfx@lists.freedesktop.org, virtualization@lists.linux.dev, 
+ linux-kernel@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-X-Mailman-Approved-At: Mon, 07 Oct 2024 14:30:08 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -86,49 +84,26 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Mon, Sep 30, 2024 at 6:09=E2=80=AFAM Thomas Zimmermann <tzimmermann@suse=
-.de> wrote:
->
-> DRM's aperture functions have long been implemented as helpers
-> under drivers/video/ for use with fbdev. Avoid the DRM wrappers by
-> calling the video functions directly.
->
-> Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
-> Cc: Deepak Rawat <drawat.floss@gmail.com>
-> ---
->  drivers/gpu/drm/hyperv/hyperv_drm_drv.c | 4 ++--
->  1 file changed, 2 insertions(+), 2 deletions(-)
->
-> diff --git a/drivers/gpu/drm/hyperv/hyperv_drm_drv.c b/drivers/gpu/drm/hy=
-perv/hyperv_drm_drv.c
-> index 3077ce5470f6..e0953777a206 100644
-> --- a/drivers/gpu/drm/hyperv/hyperv_drm_drv.c
-> +++ b/drivers/gpu/drm/hyperv/hyperv_drm_drv.c
-> @@ -3,12 +3,12 @@
->   * Copyright 2021 Microsoft
->   */
->
-> +#include <linux/aperture.h>
->  #include <linux/efi.h>
->  #include <linux/hyperv.h>
->  #include <linux/module.h>
->  #include <linux/pci.h>
->
-> -#include <drm/drm_aperture.h>
->  #include <drm/drm_atomic_helper.h>
->  #include <drm/drm_client_setup.h>
->  #include <drm/drm_drv.h>
-> @@ -126,7 +126,7 @@ static int hyperv_vmbus_probe(struct hv_device *hdev,
->                 goto err_hv_set_drv_data;
->         }
->
-> -       drm_aperture_remove_framebuffers(&hyperv_driver);
-> +       aperture_remove_all_conflicting_devices(hyperv_driver.name);
->
->         ret =3D hyperv_setup_vram(hv, hdev);
->         if (ret)
-> --
-> 2.46.0
->
+Hi Vignesh,
 
-Reviewed-by: Deepak Rawat <drawat.floss@gmail.com>
+On Fri, 4 Oct 2024 at 09:31, Vignesh Raman <vignesh.raman@collabora.com> wrote:
+> +.software-driver:
+> +  stage: software-driver
+> +  extends:
+> +    - .test-gl
+> +    - .test-rules
+> +  timeout: "1h30m"
+> +  tags:
+> +    - kvm
+> +  script:
+> +    - ln -sf $CI_PROJECT_DIR/install /install
+> +    - mv install/bzImage /lava-files/bzImage
+> +    - mkdir -p /lib/modules
+> +    - mkdir -p $CI_PROJECT_DIR/results
+> +    - ln -sf $CI_PROJECT_DIR/results /results
+> +    - install/crosvm-runner.sh install/igt_runner.sh
+
+Instead of inlining this here, can we please move towards reusing more
+of .gitlab-ci/common/init-stage[12].sh? If those files need to be
+modified then that's totally fine, but I'd rather have something more
+predictable, and fewer random pieces of shell in each job section.
