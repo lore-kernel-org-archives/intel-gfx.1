@@ -4,24 +4,24 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0A58FCEF152
-	for <intel-gfx@archiver.kernel.org>; Tue,  8 Oct 2024 11:18:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0D8F4CEF154
+	for <intel-gfx@archiver.kernel.org>; Tue,  8 Oct 2024 11:18:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A6B5310E4BE;
-	Tue,  8 Oct 2024 11:18:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A89CB10E4C2;
+	Tue,  8 Oct 2024 11:18:04 +0000 (UTC)
 Received: from 2413ebb6fbb6 (emeril.freedesktop.org [131.252.210.167])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AC6E910E234;
- Tue,  8 Oct 2024 11:18:01 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EE47710E4C0;
+ Tue,  8 Oct 2024 11:18:03 +0000 (UTC)
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
-Subject: =?utf-8?q?=E2=9C=97_Fi=2ECI=2ECHECKPATCH=3A_warning_for_drm/i915/gt=3A_Retry?=
- =?utf-8?q?_RING=5FHEAD_reset_until_it_sticks_=28rev4=29?=
+Subject: =?utf-8?q?=E2=9C=97_Fi=2ECI=2ESPARSE=3A_warning_for_drm/i915/gt=3A_Retry_RIN?=
+ =?utf-8?q?G=5FHEAD_reset_until_it_sticks_=28rev4=29?=
 From: Patchwork <patchwork@emeril.freedesktop.org>
 To: "Mauro Carvalho Chehab" <mchehab@kernel.org>
 Cc: intel-gfx@lists.freedesktop.org
-Date: Tue, 08 Oct 2024 11:18:01 -0000
-Message-ID: <172838628170.1203126.1787776835842314977@2413ebb6fbb6>
+Date: Tue, 08 Oct 2024 11:18:03 -0000
+Message-ID: <172838628397.1203127.2510810414459009172@2413ebb6fbb6>
 X-Patchwork-Hint: ignore
 References: <20241003141044.149748-1-nitin.r.gote@intel.com>
 In-Reply-To: <20241003141044.149748-1-nitin.r.gote@intel.com>
@@ -49,24 +49,8 @@ State : warning
 
 == Summary ==
 
-Error: dim checkpatch failed
-c9676db85b4d drm/i915/gt: Retry RING_HEAD reset until it sticks
--:15: WARNING:COMMIT_LOG_USE_LINK: Unknown link reference 'References:', use 'Link:' or 'Closes:' instead
-#15: 
-References: https://gitlab.freedesktop.org/drm/intel/-/issues/5432
-
--:47: CHECK:PARENTHESIS_ALIGNMENT: Alignment should match open parenthesis
-#47: FILE: drivers/gpu/drm/i915/gt/intel_ring_submission.c:243:
-+		ENGINE_TRACE(engine, "failed to reset empty ring: [%x, %x]: %x\n",
-+				ENGINE_READ_FW(engine, RING_HEAD),
-
--:113: CHECK:MACRO_ARG_REUSE: Macro argument reuse 'end' - possible side-effects?
-#113: FILE: drivers/gpu/drm/i915/i915_utils.h:239:
-+#define until_timeout_ns(end, timeout_ns) \
-+	for ((end) = ktime_get() + (timeout_ns); \
-+			ktime_before(ktime_get(), (end)); \
-+			cpu_relax())
-
-total: 0 errors, 1 warnings, 2 checks, 88 lines checked
+Error: dim sparse failed
+Sparse version: v0.6.2
+Fast mode used, each commit won't be checked separately.
 
 
