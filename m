@@ -4,56 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6B297CF044A
-	for <intel-gfx@archiver.kernel.org>; Wed,  9 Oct 2024 10:00:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E14F2CEFC5D
+	for <intel-gfx@archiver.kernel.org>; Wed,  9 Oct 2024 10:04:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0E18410E29A;
-	Wed,  9 Oct 2024 10:00:10 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8155810E1BE;
+	Wed,  9 Oct 2024 10:04:12 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="gTPV3Mvu";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="MbsK1Wfj";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BE08610E294;
- Wed,  9 Oct 2024 10:00:08 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.8])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0BCCB10E1BE
+ for <intel-gfx@lists.freedesktop.org>; Wed,  9 Oct 2024 10:04:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1728468009; x=1760004009;
- h=from:to:cc:subject:in-reply-to:references:date:
- message-id:mime-version;
- bh=Om9Kv7He6GsHkkGHMn1iGDJA6woO56EzTCl69qY0Zck=;
- b=gTPV3MvucmPCgx3UGkhz+zeKJt4WPdg2otqoV3Kf1hZ1BYcK54VEauv7
- Pcxoinmx3XTc36AqvxDU+RaFOekLpvfK7lU0RjLb8Vcz1QTD0SBexazEA
- 7709NO6bPVMiBNTpTIHawRk8X67cR6eIq2za/p/YsNCebnXdsCjBMKdyB
- Y/w24CA+LS7VVDOXVVEE/hJ+e6fZ6243iqIkjvHf53+5hyHB9JX0LTdfx
- +dk3cLs6woYB/qbrss+ef6Z2ICIALxZyF4+DvnpzsYSM1YScT1MB83NM1
- aZCIxRa05qGOPokoRrWpjgRVLB1w+E9kNtFXTWSDCRHJxya1n0Vlad2me Q==;
-X-CSE-ConnectionGUID: jEpYujZRTQu0pILXInXvOg==
-X-CSE-MsgGUID: D/23ce2eS+CXwp3JUibK+A==
-X-IronPort-AV: E=McAfee;i="6700,10204,11219"; a="39113420"
-X-IronPort-AV: E=Sophos;i="6.11,189,1725346800"; d="scan'208";a="39113420"
-Received: from fmviesa006.fm.intel.com ([10.60.135.146])
- by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 09 Oct 2024 03:00:09 -0700
-X-CSE-ConnectionGUID: 4Kxmn6ZiTS6otWe6mek/Wg==
-X-CSE-MsgGUID: Ih8IqrQxSy2N8DOEPcGf7w==
+ t=1728468251; x=1760004251;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=w3d6b5GA0Se9XM8Y6tK8f49zs+b4llJo9u5GAHfwxlU=;
+ b=MbsK1WfjtZ0sArJLMPyDrXWFnL4/Lr5vCJUqOtoO8du7Oj3Kco7hEBtR
+ zEGd4z1IxyKCsmyW/f5lM44aoXFOCUWO/0X9cVoJPOwFCuEHSJ/jvlkGF
+ 9x5b4fRS29TwMqrFuzXcPhtd+CFyr0tDJkHyo52y48lbJxMdZnoQ8cRZJ
+ J9MPRKy3JWy865B+p80bKlFjEbNx5VnFE+uBQmOht51ZU0C3TgLxChvjF
+ fBM8yaIgD6TQn+IXycw2h1ZC3n7sUoIJbZWW5bX+YijU8vJKdwCcPvfB3
+ 4oVGhTQCzf+XJqznH3R6baX1Xop+qAgC+ni2bhxuXmDdkaG/vWfL28SoK g==;
+X-CSE-ConnectionGUID: wEk3wb1MQGOxu1l1ByEKVQ==
+X-CSE-MsgGUID: NJgV5KXCR6iDH7/DXT2kwg==
+X-IronPort-AV: E=McAfee;i="6700,10204,11219"; a="45277628"
+X-IronPort-AV: E=Sophos;i="6.11,189,1725346800"; d="scan'208";a="45277628"
+Received: from fmviesa002.fm.intel.com ([10.60.135.142])
+ by fmvoesa102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 09 Oct 2024 03:04:06 -0700
+X-CSE-ConnectionGUID: 1fL465iCSHmEBimJ2yslGg==
+X-CSE-MsgGUID: 8YuE03W0QG6edHnAnap4Dg==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.11,189,1725346800"; d="scan'208";a="75791418"
-Received: from ettammin-mobl2.ger.corp.intel.com (HELO localhost)
- ([10.245.246.80])
- by fmviesa006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 09 Oct 2024 03:00:07 -0700
-From: Jani Nikula <jani.nikula@linux.intel.com>
-To: Suraj Kandpal <suraj.kandpal@intel.com>, intel-xe@lists.freedesktop.org,
- intel-gfx@lists.freedesktop.org
-Cc: ankit.k.nautiyal@intel.com, Suraj Kandpal <suraj.kandpal@intel.com>
-Subject: Re: [PATCH] drm/i915/dp_mst: Fix dsc mst bw overhead calculation
-In-Reply-To: <20241009054050.1796088-1-suraj.kandpal@intel.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
-References: <20241009054050.1796088-1-suraj.kandpal@intel.com>
-Date: Wed, 09 Oct 2024 13:00:03 +0300
-Message-ID: <87v7y1a95o.fsf@intel.com>
+X-IronPort-AV: E=Sophos;i="6.11,189,1725346800"; d="scan'208";a="99522558"
+Received: from tejas-super-server.iind.intel.com ([10.145.169.166])
+ by fmviesa002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 09 Oct 2024 03:04:05 -0700
+From: Tejas Upadhyay <tejas.upadhyay@intel.com>
+To: intel-gfx@lists.freedesktop.org
+Cc: Tejas Upadhyay <tejas.upadhyay@intel.com>
+Subject: [PATCH] drm/xe/mmap: Add mmap support for PCI memory barrier
+Date: Wed,  9 Oct 2024 15:37:25 +0530
+Message-Id: <20241009100725.664150-1-tejas.upadhyay@intel.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Transfer-Encoding: 8bit
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,44 +65,114 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Wed, 09 Oct 2024, Suraj Kandpal <suraj.kandpal@intel.com> wrote:
-> Fix the DSC flag assignment based on the dsc_slice_count returned
-> to avoid divide by zero error.
->
-> Fixes: 4e0837a8d00a ("drm/i915/dp_mst: Account for FEC and DSC overhead during BW allocation")
-> Signed-off-by: Suraj Kandpal <suraj.kandpal@intel.com>
-> ---
->  drivers/gpu/drm/i915/display/intel_dp_mst.c | 7 ++++++-
->  1 file changed, 6 insertions(+), 1 deletion(-)
->
-> diff --git a/drivers/gpu/drm/i915/display/intel_dp_mst.c b/drivers/gpu/drm/i915/display/intel_dp_mst.c
-> index 4765bda154c1..bacd294d6bb6 100644
-> --- a/drivers/gpu/drm/i915/display/intel_dp_mst.c
-> +++ b/drivers/gpu/drm/i915/display/intel_dp_mst.c
-> @@ -105,11 +105,16 @@ static int intel_dp_mst_bw_overhead(const struct intel_crtc_state *crtc_state,
->  	if (dsc) {
->  		int num_joined_pipes = intel_crtc_num_joined_pipes(crtc_state);
->  
-> -		flags |= DRM_DP_BW_OVERHEAD_DSC;
->  		dsc_slice_count = intel_dp_dsc_get_slice_count(connector,
->  							       adjusted_mode->clock,
->  							       adjusted_mode->hdisplay,
->  							       num_joined_pipes);
-> +		/*
-> +		 * Try with dsc only if dsc_slice_count has a sane value i.e value is no
-> +		 * 0
-> +		 */
-> +		if (dsc_slice_count)
-> +			flags |= DRM_DP_BW_OVERHEAD_DSC;
+In order to avoid having userspace to use MI_MEM_FENCE,
+we are adding a mechanism for userspace to generate a
+PCI memory barrier with low overhead (avoiding IOCTL call).
 
-Do you think that's enough to handle the error?!
+This is implemented by memory-mapping a page as uncached
+that is backed by MMIO on the dGPU and thus allowing userspace
+to do memory write to the page without invoking an IOCTL.
+We are selecting the MMIO so that it is not accessible from
+the PCI bus so that the MMIO writes themselves are ignored,
+but the PCI memory barrier will still take action as the MMIO
+filtering will happen after the memory barrier effect.
 
-BR,
-Jani.
+When we detect special defined offset in mmap(), We are mapping
+4K page which contains the last of page of doorbell MMIO range
+to userspace for same purpose.
 
->  	}
->  
->  	overhead = drm_dp_bw_overhead(crtc_state->lane_count,
+Note: Test coverage for this is added by IGT
+      https://patchwork.freedesktop.org/patch/618931/  here.
 
+Signed-off-by: Tejas Upadhyay <tejas.upadhyay@intel.com>
+---
+ drivers/gpu/drm/xe/xe_device.c | 68 +++++++++++++++++++++++++++++++++-
+ 1 file changed, 67 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/xe/xe_device.c b/drivers/gpu/drm/xe/xe_device.c
+index cd241a8e1838..c97a4d1f0a98 100644
+--- a/drivers/gpu/drm/xe/xe_device.c
++++ b/drivers/gpu/drm/xe/xe_device.c
+@@ -239,12 +239,78 @@ static long xe_drm_compat_ioctl(struct file *file, unsigned int cmd, unsigned lo
+ #define xe_drm_compat_ioctl NULL
+ #endif
+ 
++static void barrier_open(struct vm_area_struct *vma)
++{
++	drm_dev_get(vma->vm_private_data);
++}
++
++static void barrier_close(struct vm_area_struct *vma)
++{
++	drm_dev_put(vma->vm_private_data);
++}
++
++static const struct vm_operations_struct vm_ops_barrier = {
++	.open = barrier_open,
++	.close = barrier_close,
++};
++
++static int xe_pci_barrier_mmap(struct file *filp,
++			       struct vm_area_struct *vma)
++{
++	struct drm_file *priv = filp->private_data;
++	struct drm_device *dev = priv->minor->dev;
++	unsigned long pfn;
++	pgprot_t prot;
++
++	if (vma->vm_end - vma->vm_start > PAGE_SIZE)
++		return -EINVAL;
++
++	if (is_cow_mapping(vma->vm_flags))
++		return -EINVAL;
++
++	if (vma->vm_flags & (VM_READ | VM_EXEC))
++		return -EINVAL;
++
++	vm_flags_clear(vma, VM_MAYREAD | VM_MAYEXEC);
++	vm_flags_set(vma, VM_PFNMAP | VM_DONTEXPAND | VM_DONTDUMP | VM_IO);
++
++	prot = vm_get_page_prot(vma->vm_flags);
++#define LAST_DB_PAGE_OFFSET 0x7ff001
++	pfn = PHYS_PFN(pci_resource_start(to_pci_dev(dev->dev), 0) +
++			LAST_DB_PAGE_OFFSET);
++	if (vmf_insert_pfn_prot(vma, vma->vm_start, pfn,
++				pgprot_noncached(prot)) != VM_FAULT_NOPAGE)
++		return -EFAULT;
++
++	vma->vm_ops = &vm_ops_barrier;
++	vma->vm_private_data = dev;
++	drm_dev_get(vma->vm_private_data);
++	return 0;
++}
++
++static int xe_mmap(struct file *filp, struct vm_area_struct *vma)
++{
++	struct drm_file *priv = filp->private_data;
++	struct drm_device *dev = priv->minor->dev;
++
++	if (drm_dev_is_unplugged(dev))
++		return -ENODEV;
++
++#define XE_PCI_BARRIER_MMAP_OFFSET (0x50 << PAGE_SHIFT)
++	switch (vma->vm_pgoff) {
++	case XE_PCI_BARRIER_MMAP_OFFSET >> PAGE_SHIFT:
++		return xe_pci_barrier_mmap(filp, vma);
++	}
++
++	return drm_gem_mmap(filp, vma);
++}
++
+ static const struct file_operations xe_driver_fops = {
+ 	.owner = THIS_MODULE,
+ 	.open = drm_open,
+ 	.release = drm_release_noglobal,
+ 	.unlocked_ioctl = xe_drm_ioctl,
+-	.mmap = drm_gem_mmap,
++	.mmap = xe_mmap,
+ 	.poll = drm_poll,
+ 	.read = drm_read,
+ 	.compat_ioctl = xe_drm_compat_ioctl,
 -- 
-Jani Nikula, Intel
+2.34.1
+
