@@ -4,52 +4,60 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8A918CED618
-	for <intel-gfx@archiver.kernel.org>; Wed,  9 Oct 2024 07:30:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B89D8CED618
+	for <intel-gfx@archiver.kernel.org>; Wed,  9 Oct 2024 07:30:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id ECFFD10E667;
-	Wed,  9 Oct 2024 07:29:59 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6683010E665;
+	Wed,  9 Oct 2024 07:30:46 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="Yy7gpl/r";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="E7ATcErF";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.16])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C28C410E667;
- Wed,  9 Oct 2024 07:29:58 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EB5C410E665
+ for <intel-gfx@lists.freedesktop.org>; Wed,  9 Oct 2024 07:30:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1728458998; x=1759994998;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=FqLQcEYeaZUc5FLj0wqdKGLdyqqhB2J40hGonNR4BoA=;
- b=Yy7gpl/rpAEe+mh3fqvrX28UWO1mHYKi6FeOUbwgPEIt2d8s8zZS1rxf
- J+Hi+pfQK6hwqxJeInzvFJHjHO+/P2aarbGC5uX+wEr3J6gny7QF1W1Z2
- 3b9YziIZiVA4LbWuggcul4XPqRSNv6Kqc2Kcjs/MlD83i6xdRegpCxDyt
- wIjg/hGjF4Bi6Y+H6H/YsnfFwlbmNjwztx1LjbB2HCPQRQBs31EtmnB97
- bnm0eyhi4BkMbx72yDTt0CZTaL+bN4bfHGHaJbO276465lh7/RiecGrxQ
- HMZsTkJ5A/+OPDWqZ0O2br3Il12jkGDT4NW5bvxed+kwOaaqh4xQO3Jvm w==;
-X-CSE-ConnectionGUID: UErGqK9cQAWOblZg3k5jDA==
-X-CSE-MsgGUID: CpVGtFttTBKPLBaHDtObag==
-X-IronPort-AV: E=McAfee;i="6700,10204,11219"; a="15362744"
-X-IronPort-AV: E=Sophos;i="6.11,189,1725346800"; d="scan'208";a="15362744"
-Received: from fmviesa007.fm.intel.com ([10.60.135.147])
- by fmvoesa110.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 09 Oct 2024 00:29:57 -0700
-X-CSE-ConnectionGUID: yKt6mS8GS5CE8Ap40TvaYA==
-X-CSE-MsgGUID: tAgdwgBPT5aytJWa1qGTYw==
+ t=1728459045; x=1759995045;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:content-transfer-encoding:in-reply-to;
+ bh=TSCyqJ5iCA1cXq3YVymDVVvBHFIAis2oPEZIYz8yH9g=;
+ b=E7ATcErFSvO6N28zuENvd0exXMdjOPDE/ADSX/5BE/kBOozIM6te94Jb
+ iXDB9JFqvHOgw/PgrFs50MYaEDoMhHU812JH6DIYdrCoKbz8zkiZTWNsu
+ lNtXFra2s3TQz6rs95nPaSaaWnQLx0ZQxlyLl7mCJGtbFEZeq0xuOEDWJ
+ tWvaXrLzQefaxwAACAxU0wYqC49GW06Lq/nfR9XwVXkfxQDnZRzVfmcBA
+ uLGgV5S2+mSMeVv3AEdJIyJCa3Cz4ZDZ1erB3RTfrvJAD5mux8DrWWJrE
+ OG2w6h+q9RSwZG13v5PVcsyX2pTU9rNOlpAhe50OaCSpLIKdmmTj3TgCg g==;
+X-CSE-ConnectionGUID: X17BSHzCTJ6E5J/TnAGf8g==
+X-CSE-MsgGUID: 50PmAkVdTbSX4gD1TeY1xA==
+X-IronPort-AV: E=McAfee;i="6700,10204,11219"; a="27875547"
+X-IronPort-AV: E=Sophos;i="6.11,189,1725346800"; d="scan'208";a="27875547"
+Received: from fmviesa008.fm.intel.com ([10.60.135.148])
+ by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 09 Oct 2024 00:30:43 -0700
+X-CSE-ConnectionGUID: b/BlI7JCRry2Lh5kO0ATTg==
+X-CSE-MsgGUID: 2zqZgC33Q2S96OyKMqR+Dg==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.11,189,1725346800"; d="scan'208";a="75819481"
-Received: from dut-2a59.iind.intel.com ([10.190.239.113])
- by fmviesa007.fm.intel.com with ESMTP; 09 Oct 2024 00:29:56 -0700
-From: Chaitanya Kumar Borah <chaitanya.kumar.borah@intel.com>
-To: intel-gfx@lists.freedesktop.org,
-	intel-xe@lists.freedesktop.org
-Cc: imre.deak@intel.com, uma.shankar@intel.com, ville.syrjala@linux.intel.com
-Subject: [v2] drm/i915: Allow fastset for change in HDR infoframe
-Date: Wed,  9 Oct 2024 12:55:30 +0530
-Message-Id: <20241009072530.2952143-1-chaitanya.kumar.borah@intel.com>
-X-Mailer: git-send-email 2.25.1
+X-IronPort-AV: E=Sophos;i="6.11,189,1725346800"; d="scan'208";a="76269381"
+Received: from stinkpipe.fi.intel.com (HELO stinkbox) ([10.237.72.74])
+ by fmviesa008.fm.intel.com with SMTP; 09 Oct 2024 00:30:40 -0700
+Received: by stinkbox (sSMTP sendmail emulation);
+ Wed, 09 Oct 2024 10:30:39 +0300
+Date: Wed, 9 Oct 2024 10:30:39 +0300
+From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
+To: Mitul Golani <mitulkumar.ajitkumar.golani@intel.com>
+Cc: intel-gfx@lists.freedesktop.org, jani.nikula@intel.com,
+ ville.syrjala@intel.com, ankit.k.nautiyal@intel.com, uma.shankar@intel.com
+Subject: Re: [PATCH v13 3/3] drm/i915/panelreplay: Panel replay workaround
+ with VRR
+Message-ID: <ZwYxHyd_kzF-WaXj@intel.com>
+References: <20241001134703.1128487-1-mitulkumar.ajitkumar.golani@intel.com>
+ <20241001134703.1128487-4-mitulkumar.ajitkumar.golani@intel.com>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <20241001134703.1128487-4-mitulkumar.ajitkumar.golani@intel.com>
+X-Patchwork-Hint: comment
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,96 +73,104 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Changes in Dynamic Range and Mastering infoframe
-should not trigger a full modeset. Therefore, allow
-fastset. DP SDP programming is already hooked up in the
-fastset flow but HDMI AVI infoframe update is not, add it.
-Any other infoframe that can be fastset should be added to
-the helper intel_hdmi_fastset_infoframes().
+On Tue, Oct 01, 2024 at 07:17:03PM +0530, Mitul Golani wrote:
+> From: Animesh Manna <animesh.manna@intel.com>
+> 
+> Panel Replay VSC SDP not getting sent when VRR is enabled
+> and W1 and W2 are 0. So Program Set Context Latency in
+> TRANS_SET_CONTEXT_LATENCY register to at least a value of 1.
+> The same is applicable for PSR1/PSR2 as well.
+> 
+> HSD: 14015406119
+> 
+> v1: Initial version.
+> v2: Update timings stored in adjusted_mode struct. [Ville]
+> v3: Add WA in compute_config(). [Ville]
+> v4:
+> - Add DISPLAY_VER() check and improve code comment. [Rodrigo]
+> - Introduce centralized intel_crtc_vblank_delay(). [Ville]
+> v5: Move to crtc_compute_config(). [Ville]
+> v6: Restrict DISPLAY_VER till 14. [Mitul]
+> v7:
+> - Corrected code-comment. [Mitul]
+> - dev_priv local variable removed. [Jani]
+> v8: Introduce late_compute_config() which will take care late
+> vblank-delay adjustment. [Ville]
+> v9: Implementation simplified and split into multiple patches.
+> v10:
+> - Split vrr changes and use struct intel_display in DISPLAY_VER(). [Ankit]
+> - Use for_each_new_intel_connector_in_state(). [Jani]
+> v11: Remove loop and use flipline instead of vrr.enable flag. [Ville]
+> v12:
+> - Use intel_Vrr_possible helper.
+> - Correct flag check for flipline.
+> 
+> Signed-off-by: Animesh Manna <animesh.manna@intel.com>
+> Signed-off-by: Mitul Golani <mitulkumar.ajitkumar.golani@intel.com>
+> ---
+>  drivers/gpu/drm/i915/display/intel_display.c | 21 ++++++++++++++++++++
+>  drivers/gpu/drm/i915/display/intel_display.h |  1 +
+>  2 files changed, 22 insertions(+)
+> 
+> diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
+> index c59d7bffbf57..a8f846b654e9 100644
+> --- a/drivers/gpu/drm/i915/display/intel_display.c
+> +++ b/drivers/gpu/drm/i915/display/intel_display.c
+> @@ -2573,6 +2573,8 @@ static int intel_crtc_compute_config(struct intel_atomic_state *state,
+>  		intel_atomic_get_new_crtc_state(state, crtc);
+>  	int ret;
+>  
+> +	intel_crtc_adjust_vblank_delay(crtc_state);
+> +
+>  	ret = intel_dpll_crtc_compute_clock(state, crtc);
+>  	if (ret)
+>  		return ret;
+> @@ -3985,6 +3987,25 @@ bool intel_crtc_get_pipe_config(struct intel_crtc_state *crtc_state)
+>  	return true;
+>  }
+>  
+> +void intel_crtc_adjust_vblank_delay(struct intel_crtc_state *crtc_state)
+> +{
+> +	struct intel_display *display = to_intel_display(crtc_state);
+> +	struct drm_display_mode *adjusted_mode = &crtc_state->hw.adjusted_mode;
+> +
+> +	/*
+> +	 * wa_14015401596 for display versions 13, 14.
+> +	 * Program Set Context Latency in TRANS_SET_CONTEXT_LATENCY register
+> +	 * to at least a value of 1 when PSR1/PSR2/Panel Replay is enabled with VRR.
+> +	 * Value for TRANS_SET_CONTEXT_LATENCY is calculated by substracting
+> +	 * crtc_vdisplay from crtc_vblank_start, so incrementing crtc_vblank_start
+> +	 * by 1 if both are equal.
 
-v2:
- - Update HDMI AVI infoframe during fastset.
+You're just paraphrasing the code in different words here. 
+Please don't, and just drop the whole comment (apart from the
+w/a number ofc).
 
-Signed-off-by: Chaitanya Kumar Borah <chaitanya.kumar.borah@intel.com>
----
- drivers/gpu/drm/i915/display/intel_ddi.c     |  3 +++
- drivers/gpu/drm/i915/display/intel_display.c |  3 ++-
- drivers/gpu/drm/i915/display/intel_hdmi.c    | 19 +++++++++++++++++++
- drivers/gpu/drm/i915/display/intel_hdmi.h    |  3 +++
- 4 files changed, 27 insertions(+), 1 deletion(-)
+> +	 */
+> +	if (intel_vrr_possible(crtc_state) && crtc_state->has_psr &&
+> +	    adjusted_mode->crtc_vblank_start == adjusted_mode->crtc_vdisplay &&
+> +	    IS_DISPLAY_VER(display, 13, 14))
+> +		adjusted_mode->crtc_vblank_start += 1;
+> +}
+> +
+>  int intel_dotclock_calculate(int link_freq,
+>  			     const struct intel_link_m_n *m_n)
+>  {
+> diff --git a/drivers/gpu/drm/i915/display/intel_display.h b/drivers/gpu/drm/i915/display/intel_display.h
+> index 1f0fed5ea7bc..e6bd03ef104d 100644
+> --- a/drivers/gpu/drm/i915/display/intel_display.h
+> +++ b/drivers/gpu/drm/i915/display/intel_display.h
+> @@ -446,6 +446,7 @@ u8 _intel_modeset_primary_pipes(const struct intel_crtc_state *crtc_state);
+>  u8 _intel_modeset_secondary_pipes(const struct intel_crtc_state *crtc_state);
+>  struct intel_crtc *intel_primary_crtc(const struct intel_crtc_state *crtc_state);
+>  bool intel_crtc_get_pipe_config(struct intel_crtc_state *crtc_state);
+> +void intel_crtc_adjust_vblank_delay(struct intel_crtc_state *crtc_state);
+>  bool intel_pipe_config_compare(const struct intel_crtc_state *current_config,
+>  			       const struct intel_crtc_state *pipe_config,
+>  			       bool fastset);
+> -- 
+> 2.46.0
 
-diff --git a/drivers/gpu/drm/i915/display/intel_ddi.c b/drivers/gpu/drm/i915/display/intel_ddi.c
-index fe1ded6707f9..3195c1125ac3 100644
---- a/drivers/gpu/drm/i915/display/intel_ddi.c
-+++ b/drivers/gpu/drm/i915/display/intel_ddi.c
-@@ -3489,6 +3489,9 @@ void intel_ddi_update_pipe(struct intel_atomic_state *state,
- 		intel_ddi_update_pipe_dp(state, encoder, crtc_state,
- 					 conn_state);
- 
-+	if (intel_crtc_has_type(crtc_state, INTEL_OUTPUT_HDMI))
-+		intel_hdmi_fastset_infoframes(encoder, crtc_state, conn_state);
-+
- 	intel_hdcp_update_pipe(state, encoder, crtc_state, conn_state);
- }
- 
-diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
-index e1f6255e918b..e8f8f55f75d2 100644
---- a/drivers/gpu/drm/i915/display/intel_display.c
-+++ b/drivers/gpu/drm/i915/display/intel_display.c
-@@ -5683,7 +5683,8 @@ intel_pipe_config_compare(const struct intel_crtc_state *current_config,
- 	PIPE_CONF_CHECK_INFOFRAME(avi);
- 	PIPE_CONF_CHECK_INFOFRAME(spd);
- 	PIPE_CONF_CHECK_INFOFRAME(hdmi);
--	PIPE_CONF_CHECK_INFOFRAME(drm);
-+	if (!fastset)
-+		PIPE_CONF_CHECK_INFOFRAME(drm);
- 	PIPE_CONF_CHECK_DP_VSC_SDP(vsc);
- 	PIPE_CONF_CHECK_DP_AS_SDP(as_sdp);
- 
-diff --git a/drivers/gpu/drm/i915/display/intel_hdmi.c b/drivers/gpu/drm/i915/display/intel_hdmi.c
-index 72ac910bf6ec..eba79f14d4e2 100644
---- a/drivers/gpu/drm/i915/display/intel_hdmi.c
-+++ b/drivers/gpu/drm/i915/display/intel_hdmi.c
-@@ -1211,6 +1211,25 @@ static void vlv_set_infoframes(struct intel_encoder *encoder,
- 			      &crtc_state->infoframes.hdmi);
- }
- 
-+void intel_hdmi_fastset_infoframes(struct intel_encoder *encoder,
-+				   const struct intel_crtc_state *crtc_state,
-+				   const struct drm_connector_state *conn_state)
-+{
-+	struct intel_display *display = to_intel_display(encoder);
-+	i915_reg_t reg = HSW_TVIDEO_DIP_CTL(display,
-+					    crtc_state->cpu_transcoder);
-+	u32 val = intel_de_read(display, reg);
-+
-+	val &= ~(VIDEO_DIP_ENABLE_DRM_GLK);
-+
-+	intel_de_write(display, reg, val);
-+	intel_de_posting_read(display, reg);
-+
-+	intel_write_infoframe(encoder, crtc_state,
-+			      HDMI_INFOFRAME_TYPE_DRM,
-+			      &crtc_state->infoframes.drm);
-+}
-+
- static void hsw_set_infoframes(struct intel_encoder *encoder,
- 			       bool enable,
- 			       const struct intel_crtc_state *crtc_state,
-diff --git a/drivers/gpu/drm/i915/display/intel_hdmi.h b/drivers/gpu/drm/i915/display/intel_hdmi.h
-index 9b97623665c5..466f48df8a74 100644
---- a/drivers/gpu/drm/i915/display/intel_hdmi.h
-+++ b/drivers/gpu/drm/i915/display/intel_hdmi.h
-@@ -42,6 +42,9 @@ u32 intel_hdmi_infoframes_enabled(struct intel_encoder *encoder,
- u32 intel_hdmi_infoframe_enable(unsigned int type);
- void intel_hdmi_read_gcp_infoframe(struct intel_encoder *encoder,
- 				   struct intel_crtc_state *crtc_state);
-+void intel_hdmi_fastset_infoframes(struct intel_encoder *encoder,
-+				   const struct intel_crtc_state *crtc_state,
-+				   const struct drm_connector_state *conn_state);
- void intel_read_infoframe(struct intel_encoder *encoder,
- 			  const struct intel_crtc_state *crtc_state,
- 			  enum hdmi_infoframe_type type,
 -- 
-2.25.1
-
+Ville Syrjälä
+Intel
