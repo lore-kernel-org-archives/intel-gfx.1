@@ -4,52 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0BDD7D2444F
-	for <intel-gfx@archiver.kernel.org>; Thu, 10 Oct 2024 22:43:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AB8E0D24467
+	for <intel-gfx@archiver.kernel.org>; Thu, 10 Oct 2024 22:43:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EF26010EA07;
+	by gabe.freedesktop.org (Postfix) with ESMTP id E13B110EA05;
 	Thu, 10 Oct 2024 22:43:27 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="ZDDRTa4t";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="CzS/HBjJ";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.12])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 64DDD10E9F8;
- Thu, 10 Oct 2024 22:43:21 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A431510E9FE;
+ Thu, 10 Oct 2024 22:43:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1728600202; x=1760136202;
+ t=1728600205; x=1760136205;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=NzDrpUDzDv1a1yA5bRgXVMX1lLIzsq5xdUniwBRp9tE=;
- b=ZDDRTa4tkZoKNQ3UWY6C7zXtm+L2tr13/VKjq03yHHeeTeaFNDRYmgZM
- NnGmDpdpvMnNhNF7ZzLaG7ymybMrXOcckf3FyaDGhfjlL+ZDWc4sPG8mU
- o34ehKYzbfM+4VHC+E2bJvcqdZthPeN6yoPZFu0BN3qB+3eDm6FjVkRYT
- jji3J8fialReKCdHdnxonIC+8wbOr7o2R7O7Y3eaMjOhupaNUpj9l+0Oj
- P3LNH0VF8S4LHc2TnCrk0wdMIKM108Lz1FeY8gByhfssPMbe/I8GgaUvA
- 8C0iRKlY5QajYLG5Ia6kuhYApVr8zXAPpe1noFtWCukU7GqUii8nEPG9y Q==;
-X-CSE-ConnectionGUID: Mc0S+WqQR4SIG4gkKpPsbA==
-X-CSE-MsgGUID: ItgMI3TlRquKEe5Q1jnTtg==
-X-IronPort-AV: E=McAfee;i="6700,10204,11221"; a="39380872"
-X-IronPort-AV: E=Sophos;i="6.11,194,1725346800"; d="scan'208";a="39380872"
+ bh=/Xe5S40QIsETIkl6FP2vNAvxLa1VsT1n02UD6HzUE68=;
+ b=CzS/HBjJC3N2aWvFa/hpq55xZksb4PFc01swaN0XV4Xej/JnRKCVYmYB
+ u7ilQB/Kcrj/r/IU68OFAzMRFWGQia1tm5GkAM4Mzua0cbm/1Esv8DbmI
+ ftFE1SHt2Idg+j/VUqeQx8XRY4aO+WB+LTAevo/ykrIst5mlCxcr7/gi4
+ QfGLZdVUDQS/WVJRSGhHsItvMi3O3V2GrodqU7hlJ7BOjPchK61AFKPM8
+ gm8oeFBxd0vveLM5qUa3y070LrTXXzrjwgUZDu8dVE34MlUjtpHj5qsNQ
+ RAw2UtiVQizFlHB5kUAJ6D1DP2Rk257ftr6dWlnslEm1NHKnG1eQ14KJT g==;
+X-CSE-ConnectionGUID: S20QmQAiRBuuhyPaHN85mA==
+X-CSE-MsgGUID: ac+xKheCSFOS0TAInUOpfg==
+X-IronPort-AV: E=McAfee;i="6700,10204,11221"; a="39380879"
+X-IronPort-AV: E=Sophos;i="6.11,194,1725346800"; d="scan'208";a="39380879"
 Received: from fmviesa009.fm.intel.com ([10.60.135.149])
  by orvoesa104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 Oct 2024 15:43:22 -0700
-X-CSE-ConnectionGUID: W446wDBKQMeDX83+dCGwnQ==
-X-CSE-MsgGUID: 9O4DABmHQSS+UKBycd6/Rg==
+ 10 Oct 2024 15:43:25 -0700
+X-CSE-ConnectionGUID: Z/VoVR5lQfGuDLzw9/a6xA==
+X-CSE-MsgGUID: mWHJyzGiRcGA9w9JXL6g7w==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.11,194,1725346800"; d="scan'208";a="76732051"
+X-IronPort-AV: E=Sophos;i="6.11,194,1725346800"; d="scan'208";a="76732082"
 Received: from msatwood-mobl.jf.intel.com ([10.24.12.132])
  by fmviesa009-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 Oct 2024 15:43:21 -0700
+ 10 Oct 2024 15:43:24 -0700
 From: Matt Atwood <matthew.s.atwood@intel.com>
 To: intel-xe@lists.freedesktop.org,
 	intel-gfx@lists.freedesktop.org
 Cc: Suraj Kandpal <suraj.kandpal@intel.com>,
  Matt Atwood <matthew.s.atwood@intel.com>
-Subject: [PATCH v2 06/10] drm/i915/xe3lpd: Include hblank restriction for
- xe3lpd
-Date: Thu, 10 Oct 2024 15:43:07 -0700
-Message-ID: <20241010224311.50133-7-matthew.s.atwood@intel.com>
+Subject: [PATCH v2 10/10] drm/i915/xe3lpd: Add condition for EDP to powerdown
+ P2.PG
+Date: Thu, 10 Oct 2024 15:43:11 -0700
+Message-ID: <20241010224311.50133-11-matthew.s.atwood@intel.com>
 X-Mailer: git-send-email 2.45.0
 In-Reply-To: <20241010224311.50133-1-matthew.s.atwood@intel.com>
 References: <20241010224311.50133-1-matthew.s.atwood@intel.com>
@@ -72,48 +72,31 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 From: Suraj Kandpal <suraj.kandpal@intel.com>
 
-hblank restriction now includes all of xe3.
+Add condition for P2.PG power down value.
 
-v2: add additional definition instead of function, commit message typo
-fix and update.
+v2: change subject line to better match patch condition
 
+Bspec: 74494
 Signed-off-by: Suraj Kandpal <suraj.kandpal@intel.com>
 Signed-off-by: Matt Atwood <matthew.s.atwood@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_hdcp.c | 5 +++--
- drivers/gpu/drm/i915/i915_reg.h           | 1 +
- 2 files changed, 4 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/i915/display/intel_cx0_phy.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_hdcp.c b/drivers/gpu/drm/i915/display/intel_hdcp.c
-index ed6aa87403e2..46d5019499a8 100644
---- a/drivers/gpu/drm/i915/display/intel_hdcp.c
-+++ b/drivers/gpu/drm/i915/display/intel_hdcp.c
-@@ -47,10 +47,11 @@ intel_hdcp_disable_hdcp_line_rekeying(struct intel_encoder *encoder,
- 			intel_de_rmw(display, MTL_CHICKEN_TRANS(hdcp->cpu_transcoder),
- 				     0, HDCP_LINE_REKEY_DISABLE);
- 		else if (IS_DISPLAY_VER_STEP(display, IP_VER(14, 1), STEP_B0, STEP_FOREVER) ||
--			 IS_DISPLAY_VER_STEP(display, IP_VER(20, 0), STEP_B0, STEP_FOREVER))
-+			 IS_DISPLAY_VER_STEP(display, IP_VER(20, 0), STEP_B0, STEP_FOREVER) ||
-+			 DISPLAY_VER(display) >= 30)
- 			intel_de_rmw(display,
- 				     TRANS_DDI_FUNC_CTL(display, hdcp->cpu_transcoder),
--				     0, TRANS_DDI_HDCP_LINE_REKEY_DISABLE);
-+				     0, XE3_TRANS_DDI_HDCP_LINE_REKEY_DISABLE);
- 	}
- }
+diff --git a/drivers/gpu/drm/i915/display/intel_cx0_phy.c b/drivers/gpu/drm/i915/display/intel_cx0_phy.c
+index 342cd508d6f6..3d3abffdae65 100644
+--- a/drivers/gpu/drm/i915/display/intel_cx0_phy.c
++++ b/drivers/gpu/drm/i915/display/intel_cx0_phy.c
+@@ -3144,7 +3144,8 @@ static u8 cx0_power_control_disable_val(struct intel_encoder *encoder)
+ 	if (intel_encoder_is_c10phy(encoder))
+ 		return CX0_P2PG_STATE_DISABLE;
  
-diff --git a/drivers/gpu/drm/i915/i915_reg.h b/drivers/gpu/drm/i915/i915_reg.h
-index d30459f8d1cb..fc30e0056b07 100644
---- a/drivers/gpu/drm/i915/i915_reg.h
-+++ b/drivers/gpu/drm/i915/i915_reg.h
-@@ -3833,6 +3833,7 @@ enum skl_power_gate {
- #define  TRANS_DDI_EDP_INPUT_C_ONOFF	(6 << 12)
- #define  TRANS_DDI_EDP_INPUT_D_ONOFF	(7 << 12)
- #define  TRANS_DDI_HDCP_LINE_REKEY_DISABLE	REG_BIT(12)
-+#define  XE3_TRANS_DDI_HDCP_LINE_REKEY_DISABLE	REG_BIT(15)
- #define  TRANS_DDI_MST_TRANSPORT_SELECT_MASK	REG_GENMASK(11, 10)
- #define  TRANS_DDI_MST_TRANSPORT_SELECT(trans)	\
- 	REG_FIELD_PREP(TRANS_DDI_MST_TRANSPORT_SELECT_MASK, trans)
+-	if (IS_BATTLEMAGE(i915) && encoder->port == PORT_A)
++	if ((IS_BATTLEMAGE(i915) && encoder->port == PORT_A) ||
++	    (DISPLAY_VER(i915) >= 30 && encoder->type == INTEL_OUTPUT_EDP))
+ 		return CX0_P2PG_STATE_DISABLE;
+ 
+ 	return CX0_P4PG_STATE_DISABLE;
 -- 
 2.45.0
 
