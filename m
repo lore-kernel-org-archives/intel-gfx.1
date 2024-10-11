@@ -4,38 +4,56 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 48568CFD2E4
-	for <intel-gfx@archiver.kernel.org>; Fri, 11 Oct 2024 08:26:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 868CBCFC61B
+	for <intel-gfx@archiver.kernel.org>; Fri, 11 Oct 2024 08:27:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B177B10EA7A;
-	Fri, 11 Oct 2024 08:26:01 +0000 (UTC)
-X-Greylist: delayed 485 seconds by postgrey-1.36 at gabe;
- Tue, 08 Oct 2024 08:45:35 UTC
-Received: from rtg-sunil-navi33.amd.com (unknown [165.204.156.251])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2FE8B10E4A8;
- Tue,  8 Oct 2024 08:45:34 +0000 (UTC)
-Received: from rtg-sunil-navi33.amd.com (localhost [127.0.0.1])
- by rtg-sunil-navi33.amd.com (8.15.2/8.15.2/Debian-22ubuntu3) with ESMTP id
- 4988bGS7622169; Tue, 8 Oct 2024 14:07:16 +0530
-Received: (from sunil@localhost)
- by rtg-sunil-navi33.amd.com (8.15.2/8.15.2/Submit) id 4988bFhh622168;
- Tue, 8 Oct 2024 14:07:15 +0530
-From: Sunil Khatri <sunil.khatri@amd.com>
-To: Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- intel-gfx@lists.freedesktop.org, Sunil Khatri <sunil.khatri@amd.com>,
- Mitul Golani <mitulkumar.ajitkumar.golani@intel.com>,
- Arun R Murthy <arun.r.murthy@intel.com>,
- Suraj Kandpal <suraj.kandpal@intel.com>
-Subject: [PATCH v1 1/2] drm/dp: fix warning for target_rr_divide missing
- comment
-Date: Tue,  8 Oct 2024 14:07:09 +0530
-Message-Id: <20241008083710.622153-1-sunil.khatri@amd.com>
-X-Mailer: git-send-email 2.34.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1B67810EA7D;
+	Fri, 11 Oct 2024 08:27:58 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="WQDL//cJ";
+	dkim-atps=neutral
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.13])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1622F10EA7D;
+ Fri, 11 Oct 2024 08:27:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1728635277; x=1760171277;
+ h=from:to:cc:subject:in-reply-to:references:date:
+ message-id:mime-version;
+ bh=GuOStsVN7v3Z1w/jlst54taOyydcHInkXiYYOIfP+xA=;
+ b=WQDL//cJ51A82DZB5vZPW46qYsF1ADMPRfPg1gLtyD8dgDZmuvY0FW+8
+ CcqbBILrSIIdZ5AdnmSCqgkU3FyfDOoklN/eoF81M83NsFRBWrBuiWBpN
+ fusB+Lx5YgUoQ8DnK1bE9i2e2tdB4JmMqNvJsQwk6NLV1QYnFzXfeQz8D
+ nOHgthN3a5jeqtum/TbcZRDvMGippzMMMWfekLpe+ZOFcXhTiuZiEXC6N
+ BQ6dw2N8fFdJE0XOnZ+tTpqJMsouGGr1osDOxTvP8lJTws7XlYb3Jyd8P
+ ZwcNUTh14vVTyIOfb2Ip9CYexZAuo/F1QTX6OZ+6/6vrsWhRuyurcoXnp Q==;
+X-CSE-ConnectionGUID: LohqH56yS1CQBquGSdQSvQ==
+X-CSE-MsgGUID: dqBKCzIIQ3mqEG00k3gsdQ==
+X-IronPort-AV: E=McAfee;i="6700,10204,11221"; a="30904481"
+X-IronPort-AV: E=Sophos;i="6.11,195,1725346800"; d="scan'208";a="30904481"
+Received: from orviesa006.jf.intel.com ([10.64.159.146])
+ by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 11 Oct 2024 01:27:56 -0700
+X-CSE-ConnectionGUID: xvPaOFs1StqNsLvTSZAK1g==
+X-CSE-MsgGUID: JXD3HC+lTYeIM327pTThQw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.11,195,1725346800"; d="scan'208";a="77047856"
+Received: from mwiniars-desk2.ger.corp.intel.com (HELO localhost)
+ ([10.245.246.178])
+ by orviesa006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 11 Oct 2024 01:27:55 -0700
+From: Jani Nikula <jani.nikula@intel.com>
+To: Shuicheng Lin <shuicheng.lin@intel.com>, intel-xe@lists.freedesktop.org,
+ intel-gfx@lists.freedesktop.org
+Cc: Shuicheng Lin <shuicheng.lin@intel.com>
+Subject: Re: [PATCH] drm/i915/dp: Fix memory leak in parse_lfp_panel_dtd()
+In-Reply-To: <20241010155552.994880-1-shuicheng.lin@intel.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
+References: <20241010155552.994880-1-shuicheng.lin@intel.com>
+Date: Fri, 11 Oct 2024 11:27:48 +0300
+Message-ID: <877caf6o3f.fsf@intel.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Fri, 11 Oct 2024 08:25:58 +0000
+Content-Type: text/plain
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -51,30 +69,70 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-include/drm/display/drm_dp_helper.h:127: warning:
-Function parameter or struct member 'target_rr_divider'
-not described in 'drm_dp_as_sdp'
+On Thu, 10 Oct 2024, Shuicheng Lin <shuicheng.lin@intel.com> wrote:
+> The function parse_lfp_panel_dtd() is called when the driver
+> attempts to initialize the eDP connector, and it allocates memory,
+> which is recorded in panel->vbt.lfp_vbt_mode. However, since no
+> eDP panel is connected, the driver fails at intel_edp_init_dpcd()
+> and follows the failure path. Unfortunately, the allocated memory
+> is not freed in this case.
+>
+> To fix this issue, free the memory in the failure path.
+>
+> leak info from kmemleak:
+> "
+> unreferenced object 0xffff8881252f8800 (size 128):
+>   comm "systemd-udevd", pid 192, jiffies 4294896880
+>   hex dump (first 32 bytes):
+>     e8 fd 00 00 00 04 18 04 a0 04 40 05 00 00 00 03  ..........@.....
+>     03 03 09 03 26 03 00 00 0a 00 00 00 00 00 00 00  ....&...........
+>   backtrace (crc 7448f6b4):
+>     [<ffffffff82475c9b>] kmemleak_alloc+0x4b/0x80
+>     [<ffffffff814bb50e>] __kmalloc_cache_noprof+0x2be/0x390
+>     [<ffffffffa069862c>] intel_bios_init_panel+0x1c4c/0x2720 [xe]
+>     [<ffffffffa0699123>] intel_bios_init_panel_early+0x13/0x20 [xe]
+>     [<ffffffffa06fceb9>] intel_dp_init_connector+0x2f9/0x1080 [xe]
+>     [<ffffffffa06c370a>] intel_ddi_init+0xbba/0xf50 [xe]
+>     [<ffffffffa069b906>] intel_bios_for_each_encoder+0x36/0x60 [xe]
+>     [<ffffffffa06d7bd6>] intel_setup_outputs+0x206/0x450 [xe]
+>     [<ffffffffa06dad33>] intel_display_driver_probe_nogem+0x163/0x1f0 [xe]
+>     [<ffffffffa0680fc7>] xe_display_init_noaccel+0x27/0x70 [xe]
+>     [<ffffffffa05b30d6>] xe_device_probe+0x806/0x9a0 [xe]
+>     [<ffffffffa0612f0f>] xe_pci_probe+0x31f/0x590 [xe]
+>     [<ffffffff81b41718>] local_pci_probe+0x48/0xb0
+>     [<ffffffff81b432c8>] pci_device_probe+0xc8/0x280
+>     [<ffffffff81d5dde8>] really_probe+0xf8/0x390
+>     [<ffffffff81d5e11a>] __driver_probe_device+0x8a/0x170
+> "
+>
+> Signed-off-by: Shuicheng Lin <shuicheng.lin@intel.com>
+> Cc: Jani Nikula <jani.nikula@intel.com>
 
-Signed-off-by: Sunil Khatri <sunil.khatri@amd.com>
-Cc: Mitul Golani <mitulkumar.ajitkumar.golani@intel.com>
-Cc: Arun R Murthy <arun.r.murthy@intel.com>
-Cc: Suraj Kandpal <suraj.kandpal@intel.com>
----
- include/drm/display/drm_dp_helper.h | 1 +
- 1 file changed, 1 insertion(+)
+For future reference, the commit message and subject should indicate
+this is v2, and what the changes were. See submitting-patches.rst.
 
-diff --git a/include/drm/display/drm_dp_helper.h b/include/drm/display/drm_dp_helper.h
-index ea03e1dd26ba..5b8e70ab087b 100644
---- a/include/drm/display/drm_dp_helper.h
-+++ b/include/drm/display/drm_dp_helper.h
-@@ -112,6 +112,7 @@ struct drm_dp_vsc_sdp {
-  * @target_rr: Target Refresh
-  * @duration_incr_ms: Successive frame duration increase
-  * @duration_decr_ms: Successive frame duration decrease
-+ * @target_rr_divider: Refresh rate divider
-  * @mode: Adaptive Sync Operation Mode
-  */
- struct drm_dp_as_sdp {
+No need to resend for this.
+
+BR,
+Jani.
+
+
+> ---
+>  drivers/gpu/drm/i915/display/intel_dp.c | 1 +
+>  1 file changed, 1 insertion(+)
+>
+> diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
+> index 90fa73575feb..7141e3ca0d83 100644
+> --- a/drivers/gpu/drm/i915/display/intel_dp.c
+> +++ b/drivers/gpu/drm/i915/display/intel_dp.c
+> @@ -6801,6 +6801,7 @@ static bool intel_edp_init_connector(struct intel_dp *intel_dp,
+>  
+>  out_vdd_off:
+>  	intel_pps_vdd_off_sync(intel_dp);
+> +	intel_bios_fini_panel(&intel_connector->panel);
+>  
+>  	return false;
+>  }
+
 -- 
-2.34.1
-
+Jani Nikula, Intel
