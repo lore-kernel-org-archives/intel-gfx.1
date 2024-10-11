@@ -4,44 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C6CB2CFD316
-	for <intel-gfx@archiver.kernel.org>; Fri, 11 Oct 2024 10:40:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EC74BCFD31D
+	for <intel-gfx@archiver.kernel.org>; Fri, 11 Oct 2024 10:44:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5DEE110EAAA;
-	Fri, 11 Oct 2024 10:40:41 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 992EC10E18A;
+	Fri, 11 Oct 2024 10:44:12 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="Cm1osQ+3";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="UYQNXUEv";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.12])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AAB5510EAAA
- for <intel-gfx@lists.freedesktop.org>; Fri, 11 Oct 2024 10:40:40 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.16])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 990DD10E18A
+ for <intel-gfx@lists.freedesktop.org>; Fri, 11 Oct 2024 10:44:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1728643241; x=1760179241;
+ t=1728643451; x=1760179451;
  h=from:to:cc:subject:in-reply-to:references:date:
  message-id:mime-version;
- bh=bSVf9Y4kolye/0i1K3uE2MhorIeHCiMCsplxrTiJMjA=;
- b=Cm1osQ+3g8sTQYuV+bLwATo7i6XENE/m6GQxqph/WBWRke9cyFYckEMJ
- O93FQqYGqCfYYsFjcPb07Vt6VcfbrkwcqqxmqJ6o8+IogueyWJzH3yoOP
- I+QVwIbAeuumBVq/8alykSHRG/nRL2KS33UVhwmG6zp7nBgTv/Q7GvVus
- fh8cLK3K/e9HGt8laO/ayWn6be6nCBTwRYMn/UgQGDmrNNTPkXzjivcJm
- fQFEkcLuKL9u7V6u2ctVrXatB5j+1UFHsoQ/kTFk6JMb/kzFlBtjMisn+
- XLG3McJh5Nqi8c+ekK6AP2OMkcqv2/cSGwkdBGM5qaDtq9voieTxJiq0C Q==;
-X-CSE-ConnectionGUID: q67e+s5kSKCkR8zNesZPtw==
-X-CSE-MsgGUID: IBVwKtLHRSKPmO0kiL86Kg==
-X-IronPort-AV: E=McAfee;i="6700,10204,11221"; a="31945018"
-X-IronPort-AV: E=Sophos;i="6.11,195,1725346800"; d="scan'208";a="31945018"
-Received: from orviesa006.jf.intel.com ([10.64.159.146])
- by fmvoesa106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 11 Oct 2024 03:40:40 -0700
-X-CSE-ConnectionGUID: K/OdPxYbTxeylfAJSzFqzg==
-X-CSE-MsgGUID: cio8sgkIS3aJSDN0F9X6pw==
+ bh=9e2Jh1vyhEHWoW5wv71bn8qb+T1VbSsyFDFADN4DCAg=;
+ b=UYQNXUEvG8eQ0TyM/Hz3RSuylSH7kCLvNtl0EiX9mB91EgPtJWkKrL+U
+ 4nlkXMFwO9HJi+Dx2cAYp/KYdEyofvUqJLCPWVc8hgKe11Rfd5Hvs43OC
+ /R1nOgWHjTLlfz4XfpFgb9bN71cW2B2g18XHDj7ZTJUVak4/C7VRtfhwt
+ LfHoktLCC7uR7c7DM9lcuSW5u5L8VxH5bwmuPFj1hUPL4BjgQxrWsQuBM
+ pfdyQwUiktIQuHtjk4NC+w7AqLr0JLqkMkz5ZF2x3BGgOCL9pJPrscw0N
+ LGo4v4/YfK7oX7V2j8E5eqsAaF/StLlpOffSe4RgiLh7S5DJEOQ8L6Ktr g==;
+X-CSE-ConnectionGUID: UbgrndH1ShCQ4cmMmmxIrQ==
+X-CSE-MsgGUID: +DZZhS9HRqG2KlwKOqsoWg==
+X-IronPort-AV: E=McAfee;i="6700,10204,11221"; a="15661918"
+X-IronPort-AV: E=Sophos;i="6.11,195,1725346800"; d="scan'208";a="15661918"
+Received: from orviesa005.jf.intel.com ([10.64.159.145])
+ by fmvoesa110.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 11 Oct 2024 03:44:11 -0700
+X-CSE-ConnectionGUID: dUEO/EEzRzW5rJOvkN7XwQ==
+X-CSE-MsgGUID: Q1t3tkJYTta5+33ApFmcBQ==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.11,195,1725346800"; d="scan'208";a="77076895"
+X-IronPort-AV: E=Sophos;i="6.11,195,1725346800"; d="scan'208";a="81663986"
 Received: from mwiniars-desk2.ger.corp.intel.com (HELO localhost)
  ([10.245.246.178])
- by orviesa006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 11 Oct 2024 03:40:36 -0700
+ by orviesa005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 11 Oct 2024 03:44:07 -0700
 From: Jani Nikula <jani.nikula@linux.intel.com>
 To: Raag Jadav <raag.jadav@intel.com>, joonas.lahtinen@linux.intel.com,
  rodrigo.vivi@intel.com, matthew.d.roper@intel.com,
@@ -49,14 +49,13 @@ To: Raag Jadav <raag.jadav@intel.com>, joonas.lahtinen@linux.intel.com,
 Cc: intel-gfx@lists.freedesktop.org, anshuman.gupta@intel.com,
  badal.nilawar@intel.com, riana.tauro@intel.com, Raag Jadav
  <raag.jadav@intel.com>
-Subject: Re: [PATCH v2 1/4] drm/i915/pciids: Refactor DG2 PCI IDs into
- workaround ranges
-In-Reply-To: <20241011103250.1035316-2-raag.jadav@intel.com>
+Subject: Re: [PATCH v2 2/4] drm/i915/dg2: Introduce DG2_WA subplatform
+In-Reply-To: <20241011103250.1035316-3-raag.jadav@intel.com>
 Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
 References: <20241011103250.1035316-1-raag.jadav@intel.com>
- <20241011103250.1035316-2-raag.jadav@intel.com>
-Date: Fri, 11 Oct 2024 13:40:31 +0300
-Message-ID: <87ldyu6hy8.fsf@intel.com>
+ <20241011103250.1035316-3-raag.jadav@intel.com>
+Date: Fri, 11 Oct 2024 13:44:01 +0300
+Message-ID: <87ikty6hse.fsf@intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain
 X-BeenThere: intel-gfx@lists.freedesktop.org
@@ -75,85 +74,115 @@ Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 On Fri, 11 Oct 2024, Raag Jadav <raag.jadav@intel.com> wrote:
-> Refactor DG2 PCI IDs into device ranges that will be used in a workaround.
+> Introduce DG2_WA subplatform for the devices that will be used in a
+> workaround and span across multiple DG2 subplatforms.
 
-Give the PCI ID ranges a name other than "WA". What are they?
+Ditto, give the subplatform a name other than "WA". Look up the specs,
+what's in common?
 
-BR,
-Jani.
-
->
 > Signed-off-by: Raag Jadav <raag.jadav@intel.com>
 > ---
->  include/drm/intel/i915_pciids.h | 34 +++++++++++++++++++++++----------
->  1 file changed, 24 insertions(+), 10 deletions(-)
+>  drivers/gpu/drm/i915/i915_drv.h          |  2 ++
+>  drivers/gpu/drm/i915/intel_device_info.c | 34 +++++++++++++++++-------
+>  drivers/gpu/drm/i915/intel_device_info.h |  5 +++-
+>  3 files changed, 31 insertions(+), 10 deletions(-)
 >
-> diff --git a/include/drm/intel/i915_pciids.h b/include/drm/intel/i915_pciids.h
-> index 2bf03ebfcf73..82f960f625c7 100644
-> --- a/include/drm/intel/i915_pciids.h
-> +++ b/include/drm/intel/i915_pciids.h
-> @@ -724,37 +724,51 @@
->  	MACRO__(0xA7AB, ## __VA_ARGS__)
+> diff --git a/drivers/gpu/drm/i915/i915_drv.h b/drivers/gpu/drm/i915/i915_drv.h
+> index 39f6614a0a99..0a68cd9379e8 100644
+> --- a/drivers/gpu/drm/i915/i915_drv.h
+> +++ b/drivers/gpu/drm/i915/i915_drv.h
+> @@ -548,6 +548,8 @@ IS_SUBPLATFORM(const struct drm_i915_private *i915,
+>  	IS_SUBPLATFORM(i915, INTEL_DG2, INTEL_SUBPLATFORM_G11)
+>  #define IS_DG2_G12(i915) \
+>  	IS_SUBPLATFORM(i915, INTEL_DG2, INTEL_SUBPLATFORM_G12)
+> +#define IS_DG2_WA(i915) \
+> +	IS_SUBPLATFORM(i915, INTEL_DG2, INTEL_SUBPLATFORM_WA)
+>  #define IS_RAPTORLAKE_S(i915) \
+>  	IS_SUBPLATFORM(i915, INTEL_ALDERLAKE_S, INTEL_SUBPLATFORM_RPL)
+>  #define IS_ALDERLAKE_P_N(i915) \
+> diff --git a/drivers/gpu/drm/i915/intel_device_info.c b/drivers/gpu/drm/i915/intel_device_info.c
+> index 3c47c625993e..674ab2a4d75e 100644
+> --- a/drivers/gpu/drm/i915/intel_device_info.c
+> +++ b/drivers/gpu/drm/i915/intel_device_info.c
+> @@ -200,6 +200,15 @@ static const u16 subplatform_g12_ids[] = {
+>  	INTEL_DG2_G12_IDS(ID),
+>  };
 >  
->  /* DG2 */
-> +#define INTEL_DG2_G10_WA_IDS(MACRO__, ...) \
-> +	MACRO__(0x56A0, ## __VA_ARGS__), \
-> +	MACRO__(0x56A1, ## __VA_ARGS__), \
-> +	MACRO__(0x56A2, ## __VA_ARGS__)
+> +static const u16 subplatform_dg2_wa_ids[] = {
+> +	INTEL_DG2_WA_IDS(ID),
+> +};
 > +
->  #define INTEL_DG2_G10_IDS(MACRO__, ...) \
-> +	INTEL_DG2_G10_WA_IDS(MACRO__, ## __VA_ARGS__), \
->  	MACRO__(0x5690, ## __VA_ARGS__), \
->  	MACRO__(0x5691, ## __VA_ARGS__), \
->  	MACRO__(0x5692, ## __VA_ARGS__), \
-> -	MACRO__(0x56A0, ## __VA_ARGS__), \
-> -	MACRO__(0x56A1, ## __VA_ARGS__), \
-> -	MACRO__(0x56A2, ## __VA_ARGS__), \
->  	MACRO__(0x56BE, ## __VA_ARGS__), \
->  	MACRO__(0x56BF, ## __VA_ARGS__)
+> +static const u16 subplatform_dg2_ids[] = {
+> +	INTEL_DG2_IDS(ID),
+> +	INTEL_ATS_M_IDS(ID),
+> +};
+
+Nope, you don't need this.
+
+> +
+>  static const u16 subplatform_arl_ids[] = {
+>  	INTEL_ARL_IDS(ID),
+>  };
+> @@ -252,15 +261,22 @@ static void intel_device_info_subplatform_init(struct drm_i915_private *i915)
+>  		if (find_devid(devid, subplatform_rplu_ids,
+>  			       ARRAY_SIZE(subplatform_rplu_ids)))
+>  			mask |= BIT(INTEL_SUBPLATFORM_RPLU);
+> -	} else if (find_devid(devid, subplatform_g10_ids,
+> -			      ARRAY_SIZE(subplatform_g10_ids))) {
+> -		mask = BIT(INTEL_SUBPLATFORM_G10);
+> -	} else if (find_devid(devid, subplatform_g11_ids,
+> -			      ARRAY_SIZE(subplatform_g11_ids))) {
+> -		mask = BIT(INTEL_SUBPLATFORM_G11);
+> -	} else if (find_devid(devid, subplatform_g12_ids,
+> -			      ARRAY_SIZE(subplatform_g12_ids))) {
+> -		mask = BIT(INTEL_SUBPLATFORM_G12);
+> +	} else if (find_devid(devid, subplatform_dg2_ids,
+> +			      ARRAY_SIZE(subplatform_dg2_ids))) {
+
+Nope. Just hoist the below checks to higher level.
+
+> +		if (find_devid(devid, subplatform_g10_ids,
+> +			       ARRAY_SIZE(subplatform_g10_ids)))
+> +			mask = BIT(INTEL_SUBPLATFORM_G10);
+> +		else if (find_devid(devid, subplatform_g11_ids,
+> +				    ARRAY_SIZE(subplatform_g11_ids)))
+> +			mask = BIT(INTEL_SUBPLATFORM_G11);
+> +		else if (find_devid(devid, subplatform_g12_ids,
+> +				    ARRAY_SIZE(subplatform_g12_ids)))
+> +			mask = BIT(INTEL_SUBPLATFORM_G12);
+> +
+> +		/* DG2 WA ids span across multiple subplatforms */
+> +		if (find_devid(devid, subplatform_dg2_wa_ids,
+> +			       ARRAY_SIZE(subplatform_dg2_wa_ids)))
+> +			mask |= BIT(INTEL_SUBPLATFORM_WA);
+>  	} else if (find_devid(devid, subplatform_arl_ids,
+>  			      ARRAY_SIZE(subplatform_arl_ids))) {
+>  		mask = BIT(INTEL_SUBPLATFORM_ARL);
+> diff --git a/drivers/gpu/drm/i915/intel_device_info.h b/drivers/gpu/drm/i915/intel_device_info.h
+> index 643ff1bf74ee..c3623e859c78 100644
+> --- a/drivers/gpu/drm/i915/intel_device_info.h
+> +++ b/drivers/gpu/drm/i915/intel_device_info.h
+> @@ -95,9 +95,11 @@ enum intel_platform {
+>  /*
+>   * Subplatform bits share the same namespace per parent platform. In other words
+>   * it is fine for the same bit to be used on multiple parent platforms.
+> + * Devices can belong to multiple subplatforms if needed, so it's possible to set
+> + * multiple bits for same device.
+>   */
 >  
-> +#define INTEL_DG2_G11_WA_IDS(MACRO__, ...) \
-> +	MACRO__(0x56A5, ## __VA_ARGS__), \
-> +	MACRO__(0x56A6, ## __VA_ARGS__), \
-> +	MACRO__(0x56B0, ## __VA_ARGS__), \
-> +	MACRO__(0x56B1, ## __VA_ARGS__)
-> +
->  #define INTEL_DG2_G11_IDS(MACRO__, ...) \
-> +	INTEL_DG2_G11_WA_IDS(MACRO__, ## __VA_ARGS__), \
->  	MACRO__(0x5693, ## __VA_ARGS__), \
->  	MACRO__(0x5694, ## __VA_ARGS__), \
->  	MACRO__(0x5695, ## __VA_ARGS__), \
-> -	MACRO__(0x56A5, ## __VA_ARGS__), \
-> -	MACRO__(0x56A6, ## __VA_ARGS__), \
-> -	MACRO__(0x56B0, ## __VA_ARGS__), \
-> -	MACRO__(0x56B1, ## __VA_ARGS__), \
->  	MACRO__(0x56BA, ## __VA_ARGS__), \
->  	MACRO__(0x56BB, ## __VA_ARGS__), \
->  	MACRO__(0x56BC, ## __VA_ARGS__), \
->  	MACRO__(0x56BD, ## __VA_ARGS__)
+> -#define INTEL_SUBPLATFORM_BITS (3)
+> +#define INTEL_SUBPLATFORM_BITS (4)
+>  #define INTEL_SUBPLATFORM_MASK (BIT(INTEL_SUBPLATFORM_BITS) - 1)
 >  
-> -#define INTEL_DG2_G12_IDS(MACRO__, ...) \
-> -	MACRO__(0x5696, ## __VA_ARGS__), \
-> -	MACRO__(0x5697, ## __VA_ARGS__), \
-> +#define INTEL_DG2_G12_WA_IDS(MACRO__, ...) \
->  	MACRO__(0x56A3, ## __VA_ARGS__), \
->  	MACRO__(0x56A4, ## __VA_ARGS__), \
->  	MACRO__(0x56B2, ## __VA_ARGS__), \
->  	MACRO__(0x56B3, ## __VA_ARGS__)
+>  /* HSW/BDW/SKL/KBL/CFL */
+> @@ -114,6 +116,7 @@ enum intel_platform {
+>  #define INTEL_SUBPLATFORM_G10	0
+>  #define INTEL_SUBPLATFORM_G11	1
+>  #define INTEL_SUBPLATFORM_G12	2
+> +#define INTEL_SUBPLATFORM_WA	3
 >  
-> +#define INTEL_DG2_G12_IDS(MACRO__, ...) \
-> +	INTEL_DG2_G11_WA_IDS(MACRO__, ## __VA_ARGS__), \
-> +	MACRO__(0x5696, ## __VA_ARGS__), \
-> +	MACRO__(0x5697, ## __VA_ARGS__)
-> +
-> +#define INTEL_DG2_WA_IDS(MACRO__, ...) \
-> +	INTEL_DG2_G10_WA_IDS(MACRO__, ## __VA_ARGS__), \
-> +	INTEL_DG2_G11_WA_IDS(MACRO__, ## __VA_ARGS__), \
-> +	INTEL_DG2_G12_WA_IDS(MACRO__, ## __VA_ARGS__)
-> +
->  #define INTEL_DG2_IDS(MACRO__, ...) \
->  	INTEL_DG2_G10_IDS(MACRO__, ## __VA_ARGS__), \
->  	INTEL_DG2_G11_IDS(MACRO__, ## __VA_ARGS__), \
+>  /* ADL */
+>  #define INTEL_SUBPLATFORM_RPL	0
 
 -- 
 Jani Nikula, Intel
