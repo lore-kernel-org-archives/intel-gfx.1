@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7CE36D1A427
-	for <intel-gfx@archiver.kernel.org>; Fri, 11 Oct 2024 22:55:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EC995D1A427
+	for <intel-gfx@archiver.kernel.org>; Fri, 11 Oct 2024 22:55:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AF73D10EB32;
-	Fri, 11 Oct 2024 22:55:16 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 84F2910EB31;
+	Fri, 11 Oct 2024 22:55:23 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="fRpg/FYO";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="NktBmcbv";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.7])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7849A10E2F1
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C8F8710E11A
  for <intel-gfx@lists.freedesktop.org>; Fri, 11 Oct 2024 22:55:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1728687313; x=1760223313;
+ t=1728687314; x=1760223314;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=Ca7AtEKUPmJo1ZukGXqDsWgvwFDw9CL3+eatjYRyMMs=;
- b=fRpg/FYOEDeRDaavl40Qabm6p3I6SArT/0fh5oarJNGQ6CVzppt/u393
- Nzb3LNs+sKHVzaWGd/CWTkyL+UuRRnZ/vDwX0d4fE3BNPxyX7a8sFp4O4
- NMlSmvVkS2GmBcujvhz2jMY9GMXPioXxT2qJvG58k/rSXsReo8GPQUOc+
- mqAceEfexn/Z9bczYyO3DqTsYO8rwTMhBp3pC1WBZJlC1hpK1FUq4Hvfi
- amHIUdVh3CRdG3RSwrGgEUqAkJrUyh+PVVRteeTPeJpfUpsNu4T/GnZry
- 7rR+RZmxPxqnT4QU2w/cZayrBj++xDLnV6jDWN0Rqq9uDHjwL7tBn/zDi Q==;
-X-CSE-ConnectionGUID: 655cxpaDSXWNoJwA2g9JNQ==
-X-CSE-MsgGUID: Tyxf/fWyQ5eZ1c6JI2f1tw==
-X-IronPort-AV: E=McAfee;i="6700,10204,11222"; a="53519753"
-X-IronPort-AV: E=Sophos;i="6.11,196,1725346800"; d="scan'208";a="53519753"
+ bh=mutcSKtA888TEHP2IQEy7CNsZbPqnLXOfTeQqEdl6w4=;
+ b=NktBmcbvrSSiT86MP5nusVmlRgnrdU0Rkfbij4ZZfYpznY+GLL4FW1CG
+ M0qxTkOQJVrDI4PP5ZTUwt/LNsbEwshp+3G3lve9Cfj+V/Bs4JxJ0462c
+ 67NT0UlzYutbprZDsWQ2wTFpQ4eC7ANS2dDV4dc640ijhjFMSJFnDQulS
+ R/Y8CcWCqSv3zAscZ36o73Jn/qzPGQsTYfDOMH3SfbUnUQX1jKMV2xj4J
+ FU4t2zBp06WPDKUsanNv1v0OwOu4kCeNlyjaaMw33TkguMipNVwA9sBBt
+ cIlc7qxBX1f2LSn+HG6IYekXjdBXVLsU852yTe4NR64+JJQ2HlfuwQ+O4 w==;
+X-CSE-ConnectionGUID: Ac8M9+aUSia/ANk2sycnWA==
+X-CSE-MsgGUID: TDyKBbnVRBeFNcTZE2GNnQ==
+X-IronPort-AV: E=McAfee;i="6700,10204,11222"; a="53519760"
+X-IronPort-AV: E=Sophos;i="6.11,196,1725346800"; d="scan'208";a="53519760"
 Received: from fmviesa009.fm.intel.com ([10.60.135.149])
  by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  11 Oct 2024 15:55:13 -0700
-X-CSE-ConnectionGUID: kJTEofXuRkWtYWY3Dfq6GQ==
-X-CSE-MsgGUID: ZKIYbwAZSyCGb0eclPzBSQ==
+X-CSE-ConnectionGUID: Bak/NmrVR8awEN1n2G2Ftw==
+X-CSE-MsgGUID: s9R9AxFaQBW9Y71OB7ihxA==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.11,196,1725346800"; d="scan'208";a="77040418"
+X-IronPort-AV: E=Sophos;i="6.11,196,1725346800"; d="scan'208";a="77040428"
 Received: from lucas-s2600cw.jf.intel.com ([10.165.21.196])
  by fmviesa009-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  11 Oct 2024 15:55:13 -0700
@@ -46,9 +46,9 @@ To: intel-gfx@lists.freedesktop.org
 Cc: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
  Umesh Nerlige Ramappa <umesh.nerlige.ramappa@intel.com>,
  Lucas De Marchi <lucas.demarchi@intel.com>
-Subject: [PATCH 5/8] drm/i915/pmu: Stop setting event_init to NULL
-Date: Fri, 11 Oct 2024 15:54:27 -0700
-Message-ID: <20241011225430.1219345-6-lucas.demarchi@intel.com>
+Subject: [PATCH 8/8] drm/i915/pmu: Release open events when unregistering
+Date: Fri, 11 Oct 2024 15:54:30 -0700
+Message-ID: <20241011225430.1219345-9-lucas.demarchi@intel.com>
 X-Mailer: git-send-email 2.47.0
 In-Reply-To: <20241011225430.1219345-1-lucas.demarchi@intel.com>
 References: <20241011225430.1219345-1-lucas.demarchi@intel.com>
@@ -69,105 +69,134 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Setting event_init to NULL is mostly done to detect when the driver is
-partially working: i915 probed, but pmu is not registered. However,
-checking for event_init is odd as it was supposed to always be set and
-kernel/events/ would just crash if it found it set to NULL.
+When unregistering the PMU, disable the active events. This
+allows userspace to see the change and possibly react on it, like
+reopening the fd.
 
-Since there's already a "closed" boolean, use that instead and extend
-it's meaning to unregistered/unregistering.
+With perf-stat, "<not counted>" starts to be printed:
+
+	2.007597571        500,909,500 ns   i915_0000_03_00.0/rc6-residency/
+	2.508569383                  0 ns   i915_0000_03_00.0/rc6-residency/
+	3.009405012      <not counted> ns   i915_0000_03_00.0/rc6-residency/
 
 Signed-off-by: Lucas De Marchi <lucas.demarchi@intel.com>
 ---
- drivers/gpu/drm/i915/i915_pmu.c | 19 ++++++-------------
- 1 file changed, 6 insertions(+), 13 deletions(-)
+ drivers/gpu/drm/i915/i915_pmu.c | 35 ++++++++++++++++++++++++++++++++-
+ drivers/gpu/drm/i915/i915_pmu.h |  6 ++++++
+ 2 files changed, 40 insertions(+), 1 deletion(-)
 
 diff --git a/drivers/gpu/drm/i915/i915_pmu.c b/drivers/gpu/drm/i915/i915_pmu.c
-index 2e435f51867db..409e10d8190a8 100644
+index 2f8004ade6d36..1466464c119df 100644
 --- a/drivers/gpu/drm/i915/i915_pmu.c
 +++ b/drivers/gpu/drm/i915/i915_pmu.c
-@@ -303,7 +303,7 @@ void i915_pmu_gt_parked(struct intel_gt *gt)
- {
- 	struct i915_pmu *pmu = &gt->i915->pmu;
+@@ -515,6 +515,18 @@ static enum hrtimer_restart i915_sample(struct hrtimer *hrtimer)
+ 	return HRTIMER_RESTART;
+ }
  
--	if (!pmu->base.event_init)
-+	if (pmu->closed)
- 		return;
- 
- 	spin_lock_irq(&pmu->lock);
-@@ -325,7 +325,7 @@ void i915_pmu_gt_unparked(struct intel_gt *gt)
- {
- 	struct i915_pmu *pmu = &gt->i915->pmu;
- 
--	if (!pmu->base.event_init)
-+	if (pmu->closed)
- 		return;
- 
- 	spin_lock_irq(&pmu->lock);
-@@ -1170,8 +1170,6 @@ static int i915_pmu_cpu_online(unsigned int cpu, struct hlist_node *node)
- {
- 	struct i915_pmu *pmu = hlist_entry_safe(node, typeof(*pmu), cpuhp.node);
- 
--	GEM_BUG_ON(!pmu->base.event_init);
--
- 	/* Select the first online CPU as a designated reader. */
- 	if (cpumask_empty(&i915_pmu_cpumask))
- 		cpumask_set_cpu(cpu, &i915_pmu_cpumask);
-@@ -1184,8 +1182,6 @@ static int i915_pmu_cpu_offline(unsigned int cpu, struct hlist_node *node)
- 	struct i915_pmu *pmu = hlist_entry_safe(node, typeof(*pmu), cpuhp.node);
- 	unsigned int target = i915_pmu_target_cpu;
- 
--	GEM_BUG_ON(!pmu->base.event_init);
--
- 	/*
- 	 * Unregistering an instance generates a CPU offline event which we must
- 	 * ignore to avoid incorrectly modifying the shared i915_pmu_cpumask.
-@@ -1258,9 +1254,10 @@ void i915_pmu_register(struct drm_i915_private *i915)
- 		&i915_pmu_cpumask_attr_group,
- 		NULL
- 	};
--
- 	int ret = -ENOMEM;
- 
-+	pmu->closed = true;
++static void i915_pmu_event_destroy(struct perf_event *event)
++{
++	struct i915_pmu *pmu = event_to_pmu(event);
++	unsigned long idx;
++	struct perf_event *e;
 +
- 	if (GRAPHICS_VER(i915) <= 2) {
- 		drm_info(&i915->drm, "PMU not supported for this GPU.");
- 		return;
-@@ -1319,6 +1316,8 @@ void i915_pmu_register(struct drm_i915_private *i915)
- 	if (drmm_add_action(&i915->drm, free_pmu, pmu))
- 		goto err_unreg;
++	xa_for_each(&pmu->active_events, idx, e)
++		if (e == event) {
++			xa_erase(&pmu->active_events, idx);
++			break;
++		}
++}
  
-+	pmu->closed = false;
+ static int
+ engine_event_status(struct intel_engine_cs *engine,
+@@ -539,7 +551,6 @@ static int
+ config_status(struct drm_i915_private *i915, u64 config)
+ {
+ 	struct intel_gt *gt = to_gt(i915);
+-
+ 	unsigned int gt_id = config_gt_id(config);
+ 	unsigned int max_gt_id = HAS_EXTRA_GT_LIST(i915) ? 1 : 0;
+ 
+@@ -591,6 +602,7 @@ static int i915_pmu_event_init(struct perf_event *event)
+ {
+ 	struct i915_pmu *pmu = event_to_pmu(event);
+ 	struct drm_i915_private *i915 = pmu_to_i915(pmu);
++	u32 event_id;
+ 	int ret;
+ 
+ 	if (!pmu->registered)
+@@ -620,6 +632,13 @@ static int i915_pmu_event_init(struct perf_event *event)
+ 	if (ret)
+ 		return ret;
+ 
++	ret = xa_alloc(&pmu->active_events, &event_id, event,
++		       xa_limit_32b, GFP_KERNEL);
++	if (ret)
++		return ret;
 +
- 	return;
++	event->destroy = i915_pmu_event_destroy;
++
+ 	return 0;
+ }
  
- err_unreg:
-@@ -1326,7 +1325,6 @@ void i915_pmu_register(struct drm_i915_private *i915)
- err_groups:
- 	kfree(pmu->base.attr_groups);
- err_attr:
--	pmu->base.event_init = NULL;
- 	free_event_attributes(pmu);
- err_name:
- 	if (IS_DGFX(i915))
-@@ -1339,9 +1337,6 @@ void i915_pmu_unregister(struct drm_i915_private *i915)
+@@ -1263,6 +1282,7 @@ void i915_pmu_register(struct drm_i915_private *i915)
+ 
+ 	spin_lock_init(&pmu->lock);
+ 	hrtimer_init(&pmu->timer, CLOCK_MONOTONIC, HRTIMER_MODE_REL);
++	xa_init_flags(&pmu->active_events, XA_FLAGS_ALLOC);
+ 	pmu->timer.function = i915_sample;
+ 	pmu->cpuhp.cpu = -1;
+ 	init_rc6(pmu);
+@@ -1331,6 +1351,17 @@ void i915_pmu_register(struct drm_i915_private *i915)
+ 	drm_notice(&i915->drm, "Failed to register PMU!\n");
+ }
+ 
++static void release_active_events(struct i915_pmu *pmu)
++{
++	struct perf_event *event;
++	unsigned long idx;
++
++	xa_for_each(&pmu->active_events, idx, event) {
++		xa_erase(&pmu->active_events, idx);
++		perf_event_disable(event);
++	}
++}
++
+ void i915_pmu_unregister(struct drm_i915_private *i915)
  {
  	struct i915_pmu *pmu = &i915->pmu;
+@@ -1341,6 +1372,8 @@ void i915_pmu_unregister(struct drm_i915_private *i915)
+ 	/* Disconnect the PMU callbacks */
+ 	pmu->registered = false;
  
--	if (!pmu->base.event_init)
--		return;
--
- 	/*
- 	 * "Disconnect" the PMU callbacks - since all are atomic synchronize_rcu
- 	 * ensures all currently executing ones will have exited before we
-@@ -1354,6 +1349,4 @@ void i915_pmu_unregister(struct drm_i915_private *i915)
++	release_active_events(pmu);
++
+ 	hrtimer_cancel(&pmu->timer);
  
  	i915_pmu_unregister_cpuhp_state(pmu);
- 	perf_pmu_unregister(&pmu->base);
--
--	pmu->base.event_init = NULL;
- }
+diff --git a/drivers/gpu/drm/i915/i915_pmu.h b/drivers/gpu/drm/i915/i915_pmu.h
+index 3c1cf594954d9..dd4cac95d032b 100644
+--- a/drivers/gpu/drm/i915/i915_pmu.h
++++ b/drivers/gpu/drm/i915/i915_pmu.h
+@@ -10,6 +10,7 @@
+ #include <linux/hrtimer.h>
+ #include <linux/perf_event.h>
+ #include <linux/spinlock_types.h>
++#include <linux/xarray.h>
+ #include <uapi/drm/i915_drm.h>
+ 
+ struct drm_i915_private;
+@@ -152,6 +153,11 @@ struct i915_pmu {
+ 	 * @pmu_attr: Memory block holding device attributes.
+ 	 */
+ 	void *pmu_attr;
++
++	/**
++	 * @active_events: Events currently open by perf.
++	 */
++	struct xarray active_events;
+ };
+ 
+ #ifdef CONFIG_PERF_EVENTS
 -- 
 2.47.0
 
