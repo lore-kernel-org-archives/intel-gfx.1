@@ -4,54 +4,105 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5691FCFC503
-	for <intel-gfx@archiver.kernel.org>; Mon, 14 Oct 2024 08:08:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 51ABECFC525
+	for <intel-gfx@archiver.kernel.org>; Mon, 14 Oct 2024 08:57:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EE36610E3C5;
-	Mon, 14 Oct 2024 08:08:09 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 96FA310E3DF;
+	Mon, 14 Oct 2024 08:57:48 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="GsJv0yZw";
+	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="vjJrhopo";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="+K/t1O9n";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="1oI5DD8V";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="hgkYh6Hi";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id ADE0410E3C2;
- Mon, 14 Oct 2024 08:08:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1728893283; x=1760429283;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=Guxj9ounDpI3R5CZ1OkpCqwUTn51VDTavEqES1tJGrw=;
- b=GsJv0yZwYJJgyikSNCWtEajvI3hC/B+NZa9Bt2ErkbyTunFk9uKVQNdY
- 77fPjWJSDNqAbPPhRCy9Bxm8XqjmL+xvhX8m9qz381+IJvsvMxvSAWDca
- 4wBcG9V7YfVJk9JTUzUb2hDfDU9b/KpRpcmHq9w1JeocQf873wN/kvv2n
- GY5mDD6pR/xyNJXnklkViamvEvMb1VOKa0sNnZK+O4d7c+Ucs+lcAoZmr
- Es0PlGiL1cOcDVL9wRQiX8eCr7Zj50SIDQfkGa8uHn4DWxiNFUU4f4UBm
- WWzTl1jrvh78nd6/x4jvABOLvs1IAa3JAKxlN0hztL+YN/TzQf3eo6sLH w==;
-X-CSE-ConnectionGUID: XDZb3qx3TVyANjVfOBoxtQ==
-X-CSE-MsgGUID: bK2JZQIjSzWkSu2OY17cTw==
-X-IronPort-AV: E=McAfee;i="6700,10204,11222"; a="38784445"
-X-IronPort-AV: E=Sophos;i="6.11,199,1725346800"; d="scan'208";a="38784445"
-Received: from fmviesa002.fm.intel.com ([10.60.135.142])
- by orvoesa103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 14 Oct 2024 01:08:03 -0700
-X-CSE-ConnectionGUID: OjZwj/8OSImknW8dHA5xIQ==
-X-CSE-MsgGUID: qdYKWU/wQSCwmG7Kmu1WzQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.11,202,1725346800"; d="scan'208";a="100834913"
-Received: from srr4-3-linux-103-aknautiy.iind.intel.com ([10.223.34.160])
- by fmviesa002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 14 Oct 2024 01:08:01 -0700
-From: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
-To: intel-gfx@lists.freedesktop.org
-Cc: intel-xe@lists.freedesktop.org
-Subject: [PATCH 8/9] drm/i915/dsc: Account for Odd pixel removal
-Date: Mon, 14 Oct 2024 13:39:59 +0530
-Message-ID: <20241014081000.2844245-9-ankit.k.nautiyal@intel.com>
-X-Mailer: git-send-email 2.45.2
-In-Reply-To: <20241014081000.2844245-1-ankit.k.nautiyal@intel.com>
-References: <20241014081000.2844245-1-ankit.k.nautiyal@intel.com>
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3546A10E3DD;
+ Mon, 14 Oct 2024 08:57:47 +0000 (UTC)
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id D96941F785;
+ Mon, 14 Oct 2024 08:57:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1728896266; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=W3KFp2IqS9p3ILyHILYeoxZeatf5lbr3l5eZTee8IAw=;
+ b=vjJrhopo0GwpUL72k43lLBGl3IMmd+vkHAhUkJX+O9pJ8crnhkW59H9YEM5g6gYUcP/gK0
+ UgXHmCqE2/u3+uRmj/OFbExwsFRBKPZE02NqmTdQi2LqU8MUTKjRUTnvgxrpI/KADkVkk7
+ Ai3JHOCXRdCbOcue9ojkc6LOAMa+s68=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1728896266;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=W3KFp2IqS9p3ILyHILYeoxZeatf5lbr3l5eZTee8IAw=;
+ b=+K/t1O9n81FKWAUC2eGkNL9yyzsu2/4lHhhQYBTgEzyeWGdd05HzcTy+A/NO+5p7yw3KHz
+ m+Tv43sPx0BcpRCQ==
+Authentication-Results: smtp-out2.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1728896265; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=W3KFp2IqS9p3ILyHILYeoxZeatf5lbr3l5eZTee8IAw=;
+ b=1oI5DD8VFi3l75n945K0FML00pHCKOcPYZHmpuMzYUY5M4cQCcnW15Acp163DbL1S0u5T0
+ LxvqQ9NQjQhuclXptB8qxkN47v4pM7t9a0cMNfYVslr4up26+C5pIvYkc4Gc7DmRzk+3iX
+ 40vbOnYVnv7+Xx26jMqntEqFGh0tPl4=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1728896265;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=W3KFp2IqS9p3ILyHILYeoxZeatf5lbr3l5eZTee8IAw=;
+ b=hgkYh6HiLDLmo6bbf+q+I2ge53r8F+hF4oW8EY2CMQrFS76qecUGG04M218slwsoJy06j9
+ /JXY/sxgPtrulSCw==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 7DBED13A79;
+ Mon, 14 Oct 2024 08:57:45 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+ by imap1.dmz-prg2.suse.org with ESMTPSA id +OFsHQndDGfXfAAAD6G6ig
+ (envelope-from <tzimmermann@suse.de>); Mon, 14 Oct 2024 08:57:45 +0000
+From: Thomas Zimmermann <tzimmermann@suse.de>
+To: simona@ffwll.ch, airlied@gmail.com, javierm@redhat.com, jfalempe@redhat.com
+Cc: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
+ intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Tvrtko Ursulin <tursulin@ursulin.net>,
+ Jonathan Cavitt <jonathan.cavitt@intel.com>
+Subject: [PATCH v4 01/12] drm/i915: Select DRM_CLIENT_SELECTION
+Date: Mon, 14 Oct 2024 10:55:15 +0200
+Message-ID: <20241014085740.582287-2-tzimmermann@suse.de>
+X-Mailer: git-send-email 2.46.0
+In-Reply-To: <20241014085740.582287-1-tzimmermann@suse.de>
+References: <20241014085740.582287-1-tzimmermann@suse.de>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-Spamd-Result: default: False [-2.80 / 50.00]; BAYES_HAM(-3.00)[99.99%];
+ MID_CONTAINS_FROM(1.00)[]; NEURAL_HAM_LONG(-1.00)[-1.000];
+ R_MISSING_CHARSET(0.50)[]; NEURAL_HAM_SHORT(-0.20)[-1.000];
+ MIME_GOOD(-0.10)[text/plain]; TO_MATCH_ENVRCPT_ALL(0.00)[];
+ ARC_NA(0.00)[]; RCVD_VIA_SMTP_AUTH(0.00)[];
+ FROM_HAS_DN(0.00)[]; RCPT_COUNT_TWELVE(0.00)[14];
+ MIME_TRACE(0.00)[0:+];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[intel.com:email,suse.de:email,suse.de:mid];
+ FREEMAIL_TO(0.00)[ffwll.ch,gmail.com,redhat.com];
+ RCVD_TLS_ALL(0.00)[]; RCVD_COUNT_TWO(0.00)[2];
+ FROM_EQ_ENVFROM(0.00)[]; FUZZY_BLOCKED(0.00)[rspamd.com];
+ TO_DN_SOME(0.00)[];
+ DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ FREEMAIL_ENVRCPT(0.00)[gmail.com]
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,64 +118,31 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-With 3 DSC engines we can support 12 slices. With ultra joiner
-usecase while dividing the width into 12 slices, we might
-end up having odd number of pixels per pipe.
-As per Bspec, pipe src size should be even, so an extra pixel is added
-in each pipe. For Pipe A and C the odd pixel is added at the end of
-pipe and for Pipe B and D it is added at the beginning of the pipe.
-This extra pixel needs to be dropped in Splitter hardware.
-So account for odd pixel removal while programming DSS CTL.
+The Kconfig token DRM_CLIENT_SELECTION will make DRM clients
+available to drivers. Select it from i915.
 
-Signed-off-by: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
+Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
+Cc: Jani Nikula <jani.nikula@linux.intel.com>
+Cc: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
+Cc: Rodrigo Vivi <rodrigo.vivi@intel.com>
+Cc: Tvrtko Ursulin <tursulin@ursulin.net>
+Reviewed-by: Jonathan Cavitt <jonathan.cavitt@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_vdsc.c | 26 +++++++++++++++++++++++
- 1 file changed, 26 insertions(+)
+ drivers/gpu/drm/i915/Kconfig | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_vdsc.c b/drivers/gpu/drm/i915/display/intel_vdsc.c
-index f58dac630bb8..d2d712545450 100644
---- a/drivers/gpu/drm/i915/display/intel_vdsc.c
-+++ b/drivers/gpu/drm/i915/display/intel_vdsc.c
-@@ -768,6 +768,26 @@ void intel_uncompressed_joiner_enable(const struct intel_crtc_state *crtc_state)
- 	}
- }
- 
-+/*
-+ * With 12 slices, there can be a case where the src width is odd.
-+ * As per Bspec the src width should be even, so an extra Odd Pixel is
-+ * programmed in Pipe in such cases. This extra pixel needs to be
-+ * dropped in Splitter HW.
-+ */
-+static
-+bool intel_dsc_need_odd_pixel_removal(const struct intel_crtc_state *crtc_state)
-+{
-+	int pipe_src_w = drm_rect_width(&crtc_state->pipe_src);
-+
-+	if (intel_crtc_num_joined_pipes(crtc_state) != 4)
-+		return false;
-+
-+	if ((pipe_src_w + crtc_state->dsc.pixel_replication_count) % 4)
-+		return true;
-+
-+	return false;
-+}
-+
- void intel_dsc_enable(const struct intel_crtc_state *crtc_state)
- {
- 	struct intel_crtc *crtc = to_intel_crtc(crtc_state->uapi.crtc);
-@@ -806,6 +826,12 @@ void intel_dsc_enable(const struct intel_crtc_state *crtc_state)
- 			dss_ctl1_val |= PRIMARY_BIG_JOINER_ENABLE;
- 	}
- 
-+	if (intel_dsc_need_odd_pixel_removal(crtc_state)) {
-+		dss_ctl2_val |= ODD_PIXEL_REMOVAL;
-+		if (crtc->pipe == PIPE_A || crtc->pipe == PIPE_C)
-+			dss_ctl2_val |= ODD_PIXEL_REMOVAL_CONFIG_EOL;
-+	}
-+
- 	if (crtc_state->dsc.pixel_replication_count)
- 		dss_ctl3_val = DSC_PIXEL_REPLICATION(crtc_state->dsc.pixel_replication_count);
- 
+diff --git a/drivers/gpu/drm/i915/Kconfig b/drivers/gpu/drm/i915/Kconfig
+index db400aad88fa..1158a6b97f9a 100644
+--- a/drivers/gpu/drm/i915/Kconfig
++++ b/drivers/gpu/drm/i915/Kconfig
+@@ -10,6 +10,7 @@ config DRM_I915
+ 	# the shmem_readpage() which depends upon tmpfs
+ 	select SHMEM
+ 	select TMPFS
++	select DRM_CLIENT_SELECTION
+ 	select DRM_DISPLAY_DP_HELPER
+ 	select DRM_DISPLAY_DSC_HELPER
+ 	select DRM_DISPLAY_HDCP_HELPER
 -- 
-2.45.2
+2.46.0
 
