@@ -4,49 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A1C27D1A42C
-	for <intel-gfx@archiver.kernel.org>; Mon, 14 Oct 2024 07:00:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9510ACF259D
+	for <intel-gfx@archiver.kernel.org>; Mon, 14 Oct 2024 07:00:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0B92F10E28E;
-	Mon, 14 Oct 2024 07:00:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 37C3910E391;
+	Mon, 14 Oct 2024 07:00:26 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="cRL+f5OS";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="D9GPfZsR";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.13])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7A48310E287;
- Mon, 14 Oct 2024 07:00:22 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CA80310E326;
+ Mon, 14 Oct 2024 07:00:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1728889222; x=1760425222;
+ t=1728889225; x=1760425225;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=uUCuUDv7PwNXW/CbOIhPkZSRJNu3mzSj3haiQJHEoJk=;
- b=cRL+f5OSuDnB6JgOVr5NPvFK2BTighzDjBQWJ7tvLvpfCkF9f++piSHm
- ZKZ8ZZmyVnhghik5/rTFWAjYXztlfPNbLCJCTmiGO1tZb9yZ6xXdG7U4Q
- YTAqvwvhF/wFfqmztFunC134z1PSAXDeO3QQBOAd5g/V6/TxKqWVxRK/o
- jHZnaVei9knhZxwYS7O7qApPPRZlRCAG0vr5AzB2OLi/Oq9lVZzHTI/ej
- Li4cTly9OJZaTbE58612K3wP1iX49Fi9wne34d9iCg8lLZldT66MTIkdj
- Z92lIn+vKBC2H2kubjooWkO0aPTXwAmRACKBtZzbX2OcAUxgEdqRXUMZS g==;
-X-CSE-ConnectionGUID: XfXBBNu7TL+OueUZMlSgXw==
-X-CSE-MsgGUID: Jd1ssAWCQiqNNS90RUvaXg==
-X-IronPort-AV: E=McAfee;i="6700,10204,11222"; a="39337970"
-X-IronPort-AV: E=Sophos;i="6.11,199,1725346800"; d="scan'208";a="39337970"
+ bh=ODyHe/28PaMmJdZA1WKu7HXHOTWhbn4Fb720L8gJTL8=;
+ b=D9GPfZsRCfxFaYBaJXi8j3eU+/BANgvkafjYlYZrpeIKAXlYZlIN3H+K
+ KM3W10pViqx0NJxe999tvL+zKxHNNMLe1PU418DUONBRd2MPBZAMzGqNC
+ 1ahb+7/B60gwzPRDxVr5Ltkd9N3NPAsmvQbZ0bsGCs5cXqEPu71G6k/i7
+ u5Tgb6olKUW8y74aGK+nyf1foEUqoFbdEkTFkg9u3jduFW5uz27g3ERmY
+ 7yaNUse5zmu5+gEeXcCzfIIfBjPzbLHgu2ZKqO4oTeqxUDhFTk/fRsgUy
+ dZj1jEPtbXFmXMMwEMUJZN/bCVdNt97D7LXTqkpkBjwcQhRbKO+mnn/4I w==;
+X-CSE-ConnectionGUID: O/d6M2rjTWSJ5eTCu6O7Ew==
+X-CSE-MsgGUID: JmAcYCgmQouwzWgqfWdPXA==
+X-IronPort-AV: E=McAfee;i="6700,10204,11222"; a="39337996"
+X-IronPort-AV: E=Sophos;i="6.11,199,1725346800"; d="scan'208";a="39337996"
 Received: from orviesa008.jf.intel.com ([10.64.159.148])
  by orvoesa105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 14 Oct 2024 00:00:22 -0700
-X-CSE-ConnectionGUID: bVbbF02uRgCx+RyQzKJD8A==
-X-CSE-MsgGUID: l74K86ooSZOgqiPwu6yUxA==
+ 14 Oct 2024 00:00:24 -0700
+X-CSE-ConnectionGUID: Ip3Nmr1ZQzCa8PcgSfMOCw==
+X-CSE-MsgGUID: w3Dg73zgTIK5T0w5yOdTKw==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.11,202,1725346800"; d="scan'208";a="78310817"
+X-IronPort-AV: E=Sophos;i="6.11,202,1725346800"; d="scan'208";a="78310828"
 Received: from srr4-3-linux-103-aknautiy.iind.intel.com ([10.223.34.160])
  by orviesa008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 14 Oct 2024 00:00:19 -0700
+ 14 Oct 2024 00:00:23 -0700
 From: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
 To: intel-gfx@lists.freedesktop.org
 Cc: intel-xe@lists.freedesktop.org
-Subject: [PATCH 2/9] drm/i915/vdsc: Use VDSC0/VDSC1 for LEFT/RIGHT VDSC engine
-Date: Mon, 14 Oct 2024 12:32:19 +0530
-Message-ID: <20241014070226.2729008-3-ankit.k.nautiyal@intel.com>
+Subject: [PATCH 5/9] drm/i915/dp: Add check for hdisplay divisible by slice
+ count
+Date: Mon, 14 Oct 2024 12:32:22 +0530
+Message-ID: <20241014070226.2729008-6-ankit.k.nautiyal@intel.com>
 X-Mailer: git-send-email 2.45.2
 In-Reply-To: <20241014070226.2729008-1-ankit.k.nautiyal@intel.com>
 References: <20241014070226.2729008-1-ankit.k.nautiyal@intel.com>
@@ -67,60 +68,30 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Drop use of LEFT/RIGHT VDSC engine and use VDSC0/VDSC1 instead.
+As per Bspec:49259 while computing the dsc slice count, we need to
+ensure that mode->hdisplay is divisible by the slice count.
+This check is there for DSI, where we select slice_count from bios,
+but is missing for DP.
 
 Signed-off-by: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_vdsc.c      | 8 ++++----
- drivers/gpu/drm/i915/display/intel_vdsc_regs.h | 4 ++--
- 2 files changed, 6 insertions(+), 6 deletions(-)
+ drivers/gpu/drm/i915/display/intel_dp.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_vdsc.c b/drivers/gpu/drm/i915/display/intel_vdsc.c
-index 14f3dd241e93..33cd3d7e9b94 100644
---- a/drivers/gpu/drm/i915/display/intel_vdsc.c
-+++ b/drivers/gpu/drm/i915/display/intel_vdsc.c
-@@ -777,9 +777,9 @@ void intel_dsc_enable(const struct intel_crtc_state *crtc_state)
+diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
+index 3a8fb19eae75..edcea84a0a59 100644
+--- a/drivers/gpu/drm/i915/display/intel_dp.c
++++ b/drivers/gpu/drm/i915/display/intel_dp.c
+@@ -1030,6 +1030,9 @@ u8 intel_dp_dsc_get_slice_count(const struct intel_connector *connector,
+ 		if (num_joined_pipes > 1 && valid_dsc_slicecount[i] < 2)
+ 			continue;
  
- 	intel_dsc_pps_configure(crtc_state);
- 
--	dss_ctl2_val |= LEFT_BRANCH_VDSC_ENABLE;
-+	dss_ctl2_val |= VDSC0_ENABLE;
- 	if (vdsc_instances_per_pipe > 1) {
--		dss_ctl2_val |= RIGHT_BRANCH_VDSC_ENABLE;
-+		dss_ctl2_val |= VDSC1_ENABLE;
- 		dss_ctl1_val |= JOINER_ENABLE;
++		if (mode_hdisplay % test_slice_count)
++			continue;
++
+ 		if (min_slice_count <= test_slice_count)
+ 			return test_slice_count;
  	}
- 	if (crtc_state->joiner_pipes) {
-@@ -979,12 +979,12 @@ void intel_dsc_get_config(struct intel_crtc_state *crtc_state)
- 	dss_ctl1 = intel_de_read(dev_priv, dss_ctl1_reg(crtc, cpu_transcoder));
- 	dss_ctl2 = intel_de_read(dev_priv, dss_ctl2_reg(crtc, cpu_transcoder));
- 
--	crtc_state->dsc.compression_enable = dss_ctl2 & LEFT_BRANCH_VDSC_ENABLE;
-+	crtc_state->dsc.compression_enable = dss_ctl2 & VDSC0_ENABLE;
- 	if (!crtc_state->dsc.compression_enable)
- 		goto out;
- 
- 	if ((dss_ctl1 & JOINER_ENABLE) &&
--	    (dss_ctl2 & RIGHT_BRANCH_VDSC_ENABLE))
-+	    (dss_ctl2 & VDSC1_ENABLE))
- 		crtc_state->dsc.dsc_split = INTEL_DSC_SPLIT_2_STREAMS;
- 	else
- 		crtc_state->dsc.dsc_split = INTEL_DSC_SPLIT_DISABLED;
-diff --git a/drivers/gpu/drm/i915/display/intel_vdsc_regs.h b/drivers/gpu/drm/i915/display/intel_vdsc_regs.h
-index bf32a3b46fb1..d7a72b95ee7e 100644
---- a/drivers/gpu/drm/i915/display/intel_vdsc_regs.h
-+++ b/drivers/gpu/drm/i915/display/intel_vdsc_regs.h
-@@ -21,8 +21,8 @@
- #define  MAX_DL_BUFFER_TARGET_DEPTH		0x5a0
- 
- #define DSS_CTL2				_MMIO(0x67404)
--#define  LEFT_BRANCH_VDSC_ENABLE		(1 << 31)
--#define  RIGHT_BRANCH_VDSC_ENABLE		(1 << 15)
-+#define  VDSC0_ENABLE				REG_BIT(31)
-+#define  VDSC1_ENABLE				REG_BIT(15)
- #define  RIGHT_DL_BUF_TARGET_DEPTH_MASK		(0xfff << 0)
- #define  RIGHT_DL_BUF_TARGET_DEPTH(pixels)	((pixels) << 0)
- 
 -- 
 2.45.2
 
