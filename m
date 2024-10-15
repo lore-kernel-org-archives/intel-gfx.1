@@ -4,52 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 33830CFC26C
-	for <intel-gfx@archiver.kernel.org>; Tue, 15 Oct 2024 06:12:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E72FECFC26C
+	for <intel-gfx@archiver.kernel.org>; Tue, 15 Oct 2024 06:12:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B8B7B10E2AD;
-	Tue, 15 Oct 2024 06:12:45 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7FC6310E502;
+	Tue, 15 Oct 2024 06:12:49 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="P5+ylEb2";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="SCOq5qSE";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.17])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CC96310E2AD;
- Tue, 15 Oct 2024 06:12:44 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1D23B10E502;
+ Tue, 15 Oct 2024 06:12:48 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1728972764; x=1760508764;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=3eikWa7r3XMd5dF3aLQT9EDRAf32h/dTm/sBeHIfmNs=;
- b=P5+ylEb2JsMmeyCNnNk5dtHMFCoVmxNO3IyWY+w7clxwUGuCBXYM52wp
- jg1mInU46P7snqw3jny7EzHYbPg46K9Koe2dl8ckYUC7seFy5+DxH8gv/
- oy8M86vFBVT2CHiEy605RgBPnC27rXBiBWYm7Ie38AJ2viqX62I62/Qjy
- 6ZW9cyI1gCJCDvqLu2llYOujpak5YWDeKi/s5h/Xd6HGlV+cZEZ2io3kb
- ttTf7zop00DV/snymtIBTmVwEg+JUcKHmnCt+hQ6OPRLkkFa4f+3O+Iw4
- zUaJSW+TX7JeBWpROfBVHcagmnDRzC9F3Y5a+NvHL8mSd3BmFor7+aIer g==;
-X-CSE-ConnectionGUID: G3XgA33iTjWx7PO9E8gsgg==
-X-CSE-MsgGUID: ISC++UjnSLOPRyfQNNaK4Q==
-X-IronPort-AV: E=McAfee;i="6700,10204,11225"; a="28444821"
-X-IronPort-AV: E=Sophos;i="6.11,204,1725346800"; d="scan'208";a="28444821"
+ t=1728972768; x=1760508768;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=MU6P50+wEyljRGxYRUCkTx2hsGllQh48Wso/7mOK0o4=;
+ b=SCOq5qSEafCnTg+0kXl60Q0doTXKLRePyR+Vpgjyu8Y+mB9RBIDi3/6P
+ nzNJN1Z0s1OJ2UG8B95tujueDptuy80oUHnp1HwrbSXrmP8lDqdgUEaKe
+ WIGCpDdC9/E2pdPinrDdnKK9D5VxI2f0x5n/a0piAuXdokFudyvZ01mU1
+ 8VxNrR6OG61om5CK1MWFDp6mXNsRqC/zXAOPBTONP9uMcux5E4YuZzaqQ
+ g/ONai5eXwdC9LnRcflcP13qSLYpTEiH+6eTN6V6BQPVyKopIWG7tMbA5
+ QEj23g6YvWabu6b7svzODYumFdqaYY5m0hAGflB0aM02GXYi5+ta4ugz6 Q==;
+X-CSE-ConnectionGUID: ypkFdJ25SWWDCHFftrjVDg==
+X-CSE-MsgGUID: +BNC2w/cQ9iPxIratFMyZA==
+X-IronPort-AV: E=McAfee;i="6700,10204,11225"; a="28444825"
+X-IronPort-AV: E=Sophos;i="6.11,204,1725346800"; d="scan'208";a="28444825"
 Received: from orviesa003.jf.intel.com ([10.64.159.143])
  by orvoesa109.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 14 Oct 2024 23:12:43 -0700
-X-CSE-ConnectionGUID: /Gdy5rpuSNWqsgFKL9TUiA==
-X-CSE-MsgGUID: v8uKF8BrQdyvBIgvL0y6kw==
+ 14 Oct 2024 23:12:48 -0700
+X-CSE-ConnectionGUID: Wo13KzDYQ9GdE9k6xHWr9Q==
+X-CSE-MsgGUID: o71AJ/C/R8SgGp+mkSPafA==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.11,199,1725346800"; d="scan'208";a="82564151"
+X-IronPort-AV: E=Sophos;i="6.11,199,1725346800"; d="scan'208";a="82564162"
 Received: from kandpal-x299-ud4-pro.iind.intel.com ([10.190.239.32])
- by orviesa003.jf.intel.com with ESMTP; 14 Oct 2024 23:12:42 -0700
+ by orviesa003.jf.intel.com with ESMTP; 14 Oct 2024 23:12:47 -0700
 From: Suraj Kandpal <suraj.kandpal@intel.com>
 To: intel-xe@lists.freedesktop.org,
 	intel-gfx@lists.freedesktop.org
 Cc: uma.shankar@intel.com, vandita.kulkarni@intel.com,
- Suraj Kandpal <suraj.kandpal@intel.com>,
- Arun R Murthy <arun.r.murthy@intel.com>
-Subject: [PATCH 0/4] Add 6k resolution support for a single CRTC
-Date: Tue, 15 Oct 2024 11:40:07 +0530
-Message-ID: <20241015061011.2087826-1-suraj.kandpal@intel.com>
+ Suraj Kandpal <suraj.kandpal@intel.com>
+Subject: [PATCH 2/4] drm/i915/xe3lpd: Increase max_h max_v for PSR
+Date: Tue, 15 Oct 2024 11:40:09 +0530
+Message-ID: <20241015061011.2087826-3-suraj.kandpal@intel.com>
 X-Mailer: git-send-email 2.47.0
+In-Reply-To: <20241015061011.2087826-1-suraj.kandpal@intel.com>
+References: <20241015061011.2087826-1-suraj.kandpal@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-BeenThere: intel-gfx@lists.freedesktop.org
@@ -67,27 +68,32 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Increase the max source width and height to be able to support 6k
-resolution
-on a single pipe. The changes for cdclk that accompany this change are
-already merged in the code.
+Spec states that PSR max active is same as max pipe active values.
+Now that each pipe supports 6k resolution increasing max_h and
+max_v for PSR too.
 
-Bspec: 68858
-Signed-off-by: Arun R Murthy <arun.r.murthy@intel.com>
 Signed-off-by: Suraj Kandpal <suraj.kandpal@intel.com>
+---
+ drivers/gpu/drm/i915/display/intel_psr.c | 6 +++++-
+ 1 file changed, 5 insertions(+), 1 deletion(-)
 
-Suraj Kandpal (4):
-  drm/i915/xe3lpd: Increase resolution for plane to support 6k
-  drm/i915/xe3lpd: Increase max_h max_v for PSR
-  drm/i914/xe3lpd: Increase bigjoiner limitations
-  drm/i915/xe3lpd: Prune modes for YUV420
-
- drivers/gpu/drm/i915/display/intel_display.c     |  5 ++++-
- drivers/gpu/drm/i915/display/intel_dp.c          | 11 ++++++++++-
- drivers/gpu/drm/i915/display/intel_psr.c         |  6 +++++-
- .../gpu/drm/i915/display/skl_universal_plane.c   | 16 +++++++++++++++-
- 4 files changed, 34 insertions(+), 4 deletions(-)
-
+diff --git a/drivers/gpu/drm/i915/display/intel_psr.c b/drivers/gpu/drm/i915/display/intel_psr.c
+index 3b20325b3f6a..8981a180285e 100644
+--- a/drivers/gpu/drm/i915/display/intel_psr.c
++++ b/drivers/gpu/drm/i915/display/intel_psr.c
+@@ -1451,7 +1451,11 @@ static bool intel_psr2_config_valid(struct intel_dp *intel_dp,
+ 		return false;
+ 	}
+ 
+-	if (DISPLAY_VER(display) >= 12) {
++	if (DISPLAY_VER(dev_priv) >= 30) {
++		psr_max_h = 6144;
++		psr_max_v = 4096;
++		max_bpp = 30;
++	} else if (DISPLAY_VER(dev_priv) >= 12) {
+ 		psr_max_h = 5120;
+ 		psr_max_v = 3200;
+ 		max_bpp = 30;
 -- 
 2.47.0
 
