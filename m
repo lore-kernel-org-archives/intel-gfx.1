@@ -4,52 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 473B8D20686
-	for <intel-gfx@archiver.kernel.org>; Tue, 15 Oct 2024 23:11:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7BF59D2068D
+	for <intel-gfx@archiver.kernel.org>; Tue, 15 Oct 2024 23:11:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1D5BF10E62F;
-	Tue, 15 Oct 2024 23:11:37 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0E95510E634;
+	Tue, 15 Oct 2024 23:11:39 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="aLaiEnVh";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="GpdaWg0E";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.18])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2E21510E62B;
- Tue, 15 Oct 2024 23:11:35 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CC69810E633;
+ Tue, 15 Oct 2024 23:11:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1729033896; x=1760569896;
+ t=1729033898; x=1760569898;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=BEjW3ZnAAMRPeBrwVo5lR3dSs+aRcw/H0NgKtd4Rmgo=;
- b=aLaiEnVh8Fnpk0jgfxUpcruk9w5NzK4U9NcSoLWtGDjo813dx4CXso7J
- 6ur3RvGH4FN7OrYkBqROI3Gj+5LSDeOp97OLij81W0aX31ZSMKejGGYpB
- j3vD9fEBfuR3HLlonG255l079nIqRJQ6b+LIjgD33BTt76QR8cijRKHWX
- yCi9wE1hIqpmFJb6/mQxsvonvTE1qrzWD0pvBg86LPsdhwDlGDy+bZXzY
- +Jlj6Dxt8sVZqb3Sm2X3wa9Q3WhoBEptwhjhMeZjYFFjg6roANZt/31tY
- fAiSX2Sa6a6ZIgFAEl+e4omFrpBWyZxjhid59xD8Rui2gvnbNyP0jADvV g==;
-X-CSE-ConnectionGUID: MweFBW6VQ5yxCdoribjnOQ==
-X-CSE-MsgGUID: 1fz2iJeIThqGeXYRcLgN9g==
-X-IronPort-AV: E=McAfee;i="6700,10204,11222"; a="28600792"
-X-IronPort-AV: E=Sophos;i="6.11,199,1725346800"; d="scan'208";a="28600792"
+ bh=TOJWRE0HMua/Udq/2kHULMC6H2uDAQrMO9lUV0Dh3IY=;
+ b=GpdaWg0EX5zZYNVz9tzs4YEsVUfEqvKtrGiefQZqwkRz8PWTznH2GeSy
+ JJLwHM/Aun9GdsClWbmmteDYoCyaB8SkZeptJp2jT24RVYvvrZYq+wyER
+ /LHUtvWLmzpqR0WKEpR4iz6yDIfABCcsk5Lxht/IeVWoCKcke16mmVSFY
+ jwgJ3x575tEmKDGSu8rGOPJknmAHP2Se7FYSLP+L3tuit1ItdXLlhfYT1
+ LGo8e6VjRMI+eF3Y0zT1w41Ak1HOCU0C5L9EFN8KAVGe4o0UkkFUHRYWc
+ 8U494/zrsWTNzb1mcBV9QBQmTy3MZqLhdDdtWA/4ZuPZmcmqilvgMWOrY w==;
+X-CSE-ConnectionGUID: NpsU7xvhQZCV1nHhuWxOkw==
+X-CSE-MsgGUID: sO92FLLjTmC2vSw2utm6vg==
+X-IronPort-AV: E=McAfee;i="6700,10204,11222"; a="28600794"
+X-IronPort-AV: E=Sophos;i="6.11,199,1725346800"; d="scan'208";a="28600794"
 Received: from orviesa004.jf.intel.com ([10.64.159.144])
  by orvoesa110.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  15 Oct 2024 16:11:35 -0700
-X-CSE-ConnectionGUID: yqIvL9HHQi6Q1KPgaIHs2Q==
-X-CSE-MsgGUID: CqAC/TF+QXK5xpUEkfsIkw==
+X-CSE-ConnectionGUID: BLYLvq8rT2ChdjHSGD6RAQ==
+X-CSE-MsgGUID: CV8koEsrS56r1aE/oV5SdQ==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.11,206,1725346800"; d="scan'208";a="83120417"
+X-IronPort-AV: E=Sophos;i="6.11,206,1725346800"; d="scan'208";a="83120430"
 Received: from msatwood-mobl.amr.corp.intel.com (HELO
  msatwood-mobl.hsd1.or.comcast.net) ([10.125.108.167])
  by orviesa004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 15 Oct 2024 16:11:33 -0700
+ 15 Oct 2024 16:11:34 -0700
 From: Matt Atwood <matthew.s.atwood@intel.com>
 To: intel-xe@lists.freedesktop.org,
 	intel-gfx@lists.freedesktop.org
 Cc: Suraj Kandpal <suraj.kandpal@intel.com>,
  Matt Atwood <matthew.s.atwood@intel.com>
-Subject: [PATCH v3 3/7] drm/i915/xe3lpd: Include hblank restriction for xe3lpd
-Date: Tue, 15 Oct 2024 16:11:20 -0700
-Message-ID: <20241015231124.23982-4-matthew.s.atwood@intel.com>
+Subject: [PATCH v3 5/7] drm/i915/xe3lpd: Add new bit range of MAX swing setup
+Date: Tue, 15 Oct 2024 16:11:22 -0700
+Message-ID: <20241015231124.23982-6-matthew.s.atwood@intel.com>
 X-Mailer: git-send-email 2.45.0
 In-Reply-To: <20241015231124.23982-1-matthew.s.atwood@intel.com>
 References: <20241015231124.23982-1-matthew.s.atwood@intel.com>
@@ -72,46 +72,82 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 From: Suraj Kandpal <suraj.kandpal@intel.com>
 
-hblank restriction now includes all of xe3.
+Add new bit range for Max PHY Swing Setup in PORT_ALPM_CTL
+register for DISPLAY_VER >= 30.
 
-v2: add additional definition instead of function, commit message typo
-fix and update.
-v3: restore lost conditional from v2.
+v2: implement as two seperate macros instead of a single macro
 
+Bspec: 70277
 Signed-off-by: Suraj Kandpal <suraj.kandpal@intel.com>
 Signed-off-by: Matt Atwood <matthew.s.atwood@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_hdcp.c | 4 ++++
- drivers/gpu/drm/i915/i915_reg.h           | 1 +
- 2 files changed, 5 insertions(+)
+ drivers/gpu/drm/i915/display/intel_alpm.c     |  9 ++++++--
+ drivers/gpu/drm/i915/display/intel_psr_regs.h | 22 ++++++++++---------
+ 2 files changed, 19 insertions(+), 12 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_hdcp.c b/drivers/gpu/drm/i915/display/intel_hdcp.c
-index ed6aa87403e2..a99b41f258e4 100644
---- a/drivers/gpu/drm/i915/display/intel_hdcp.c
-+++ b/drivers/gpu/drm/i915/display/intel_hdcp.c
-@@ -51,6 +51,10 @@ intel_hdcp_disable_hdcp_line_rekeying(struct intel_encoder *encoder,
- 			intel_de_rmw(display,
- 				     TRANS_DDI_FUNC_CTL(display, hdcp->cpu_transcoder),
- 				     0, TRANS_DDI_HDCP_LINE_REKEY_DISABLE);
-+		else if (DISPLAY_VER(display) >=30)
-+			intel_de_rmw(display,
-+				     TRANS_DDI_FUNC_CTL(display, hdcp->cpu_transcoder),
-+				     0, XE3_TRANS_DDI_HDCP_LINE_REKEY_DISABLE);
- 	}
- }
+diff --git a/drivers/gpu/drm/i915/display/intel_alpm.c b/drivers/gpu/drm/i915/display/intel_alpm.c
+index 55f3ae1e68c9..847662930cb8 100644
+--- a/drivers/gpu/drm/i915/display/intel_alpm.c
++++ b/drivers/gpu/drm/i915/display/intel_alpm.c
+@@ -314,7 +314,7 @@ static void lnl_alpm_configure(struct intel_dp *intel_dp,
+ 	struct intel_display *display = to_intel_display(intel_dp);
+ 	enum transcoder cpu_transcoder = crtc_state->cpu_transcoder;
+ 	enum port port = dp_to_dig_port(intel_dp)->base.port;
+-	u32 alpm_ctl;
++	u32 alpm_ctl, alpm_swing_setup;
  
-diff --git a/drivers/gpu/drm/i915/i915_reg.h b/drivers/gpu/drm/i915/i915_reg.h
-index d30459f8d1cb..fc30e0056b07 100644
---- a/drivers/gpu/drm/i915/i915_reg.h
-+++ b/drivers/gpu/drm/i915/i915_reg.h
-@@ -3833,6 +3833,7 @@ enum skl_power_gate {
- #define  TRANS_DDI_EDP_INPUT_C_ONOFF	(6 << 12)
- #define  TRANS_DDI_EDP_INPUT_D_ONOFF	(7 << 12)
- #define  TRANS_DDI_HDCP_LINE_REKEY_DISABLE	REG_BIT(12)
-+#define  XE3_TRANS_DDI_HDCP_LINE_REKEY_DISABLE	REG_BIT(15)
- #define  TRANS_DDI_MST_TRANSPORT_SELECT_MASK	REG_GENMASK(11, 10)
- #define  TRANS_DDI_MST_TRANSPORT_SELECT(trans)	\
- 	REG_FIELD_PREP(TRANS_DDI_MST_TRANSPORT_SELECT_MASK, trans)
+ 	if (DISPLAY_VER(display) < 20 ||
+ 	    (!intel_dp->psr.sel_update_enabled && !intel_dp_is_edp(intel_dp)))
+@@ -331,10 +331,15 @@ static void lnl_alpm_configure(struct intel_dp *intel_dp,
+ 			ALPM_CTL_AUX_LESS_SLEEP_HOLD_TIME_50_SYMBOLS |
+ 			ALPM_CTL_AUX_LESS_WAKE_TIME(intel_dp->alpm_parameters.aux_less_wake_lines);
+ 
++
++		if (DISPLAY_VER(display) >= 30)
++			alpm_swing_setup = XE3_PORT_ALPM_CTL_MAX_PHY_SWING_SETUP(15);
++		else
++			alpm_swing_setup = PORT_ALPM_CTL_MAX_PHY_SWING_SETUP(15);
+ 		intel_de_write(display,
+ 			       PORT_ALPM_CTL(port),
+ 			       PORT_ALPM_CTL_ALPM_AUX_LESS_ENABLE |
+-			       PORT_ALPM_CTL_MAX_PHY_SWING_SETUP(15) |
++			       alpm_swing_setup |
+ 			       PORT_ALPM_CTL_MAX_PHY_SWING_HOLD(0) |
+ 			       PORT_ALPM_CTL_SILENCE_PERIOD(
+ 				       intel_dp->alpm_parameters.silence_period_sym_clocks));
+diff --git a/drivers/gpu/drm/i915/display/intel_psr_regs.h b/drivers/gpu/drm/i915/display/intel_psr_regs.h
+index 0841242543ca..3aeb2af1fbf9 100644
+--- a/drivers/gpu/drm/i915/display/intel_psr_regs.h
++++ b/drivers/gpu/drm/i915/display/intel_psr_regs.h
+@@ -294,16 +294,18 @@
+ #define  ALPM_CTL2_NUMBER_AUX_LESS_ML_PHY_SLEEP_SEQUENCES_MASK	REG_GENMASK(2, 0)
+ #define  ALPM_CTL2_NUMBER_AUX_LESS_ML_PHY_SLEEP_SEQUENCES(val)	REG_FIELD_PREP(ALPM_CTL2_NUMBER_AUX_LESS_ML_PHY_SLEEP_SEQUENCES_MASK, val)
+ 
+-#define _PORT_ALPM_CTL_A			0x16fa2c
+-#define _PORT_ALPM_CTL_B			0x16fc2c
+-#define PORT_ALPM_CTL(port)			_MMIO_PORT(port, _PORT_ALPM_CTL_A, _PORT_ALPM_CTL_B)
+-#define  PORT_ALPM_CTL_ALPM_AUX_LESS_ENABLE	REG_BIT(31)
+-#define  PORT_ALPM_CTL_MAX_PHY_SWING_SETUP_MASK	REG_GENMASK(23, 20)
+-#define  PORT_ALPM_CTL_MAX_PHY_SWING_SETUP(val)	REG_FIELD_PREP(PORT_ALPM_CTL_MAX_PHY_SWING_SETUP_MASK, val)
+-#define  PORT_ALPM_CTL_MAX_PHY_SWING_HOLD_MASK	REG_GENMASK(19, 16)
+-#define  PORT_ALPM_CTL_MAX_PHY_SWING_HOLD(val)	REG_FIELD_PREP(PORT_ALPM_CTL_MAX_PHY_SWING_HOLD_MASK, val)
+-#define  PORT_ALPM_CTL_SILENCE_PERIOD_MASK	REG_GENMASK(7, 0)
+-#define  PORT_ALPM_CTL_SILENCE_PERIOD(val)	REG_FIELD_PREP(PORT_ALPM_CTL_SILENCE_PERIOD_MASK, val)
++#define _PORT_ALPM_CTL_A				0x16fa2c
++#define _PORT_ALPM_CTL_B				0x16fc2c
++#define PORT_ALPM_CTL(port)				_MMIO_PORT(port, _PORT_ALPM_CTL_A, _PORT_ALPM_CTL_B)
++#define  PORT_ALPM_CTL_ALPM_AUX_LESS_ENABLE		REG_BIT(31)
++#define  PORT_ALPM_CTL_MAX_PHY_SWING_SETUP_MASK		REG_GENMASK(23, 20)
++#define  XE3_PORT_ALPM_CTL_MAX_PHY_SWING_SETUP_MASK	REG_GENMASK(25, 20)
++#define  PORT_ALPM_CTL_MAX_PHY_SWING_SETUP(val)		REG_FIELD_PREP(PORT_ALPM_CTL_MAX_PHY_SWING_SETUP_MASK, val)
++#define  XE3_PORT_ALPM_CTL_MAX_PHY_SWING_SETUP(val)	REG_FIELD_PREP(XE3_PORT_ALPM_CTL_MAX_PHY_SWING_SETUP_MASK, val)
++#define  PORT_ALPM_CTL_MAX_PHY_SWING_HOLD_MASK		REG_GENMASK(19, 16)
++#define  PORT_ALPM_CTL_MAX_PHY_SWING_HOLD(val)		REG_FIELD_PREP(PORT_ALPM_CTL_MAX_PHY_SWING_HOLD_MASK, val)
++#define  PORT_ALPM_CTL_SILENCE_PERIOD_MASK		REG_GENMASK(7, 0)
++#define  PORT_ALPM_CTL_SILENCE_PERIOD(val)		REG_FIELD_PREP(PORT_ALPM_CTL_SILENCE_PERIOD_MASK, val)
+ 
+ #define _PORT_ALPM_LFPS_CTL_A					0x16fa30
+ #define _PORT_ALPM_LFPS_CTL_B					0x16fc30
 -- 
 2.45.0
 
