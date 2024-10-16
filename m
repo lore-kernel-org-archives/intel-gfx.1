@@ -4,49 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6D934D1AD56
-	for <intel-gfx@archiver.kernel.org>; Wed, 16 Oct 2024 13:24:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5D227D1AD57
+	for <intel-gfx@archiver.kernel.org>; Wed, 16 Oct 2024 13:24:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BD20110E097;
-	Wed, 16 Oct 2024 13:23:59 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 910A610E6F0;
+	Wed, 16 Oct 2024 13:24:01 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="RfHbNV+q";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="O3YLrwSx";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 131DB10E097
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C3E9D10E6F0
  for <intel-gfx@lists.freedesktop.org>; Wed, 16 Oct 2024 13:23:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
  t=1729085040; x=1760621040;
  h=from:to:subject:date:message-id:in-reply-to:references:
  mime-version:content-transfer-encoding;
- bh=nUHUswlhZeq/c1Kd/ZJXaP2AdBqFH4uV/FByCavLIlI=;
- b=RfHbNV+qnVL3wCnAOaA+dA9lXHss0yTwkyqPbIIHkPy5/AawDZRXuL3m
- 2mpB2Taks8bkcaESejvDCYqX7QszlUwKeuIk/pGCBmqQ82D4nPv8bO9WA
- TfCWYwNlmMPKCFoiYJ0C55Y/+2t0FsnHPxA4sebxDaHRiyT4L0MaqEzLX
- mD/xDQWHCX5uQNpMD7WF/AivQ3MO2hXShYqyfVgsoUSo63PraKYWVG9IF
- 5qPi7J3trWjp1IyR8x17M+G3OyfJDYU+nvAAvQvyBiKWypAUCs6yfpJKI
- WORD4D4mpCd5qSNPk2Q3vu1FiNup9BvH2y4jEr7+HwS1ZGG+a0IET8xml A==;
-X-CSE-ConnectionGUID: F8WDSVpSS0a1zFC/qLfS/Q==
-X-CSE-MsgGUID: eMkYL+Y3Sn+ZB24jJ9G49A==
-X-IronPort-AV: E=McAfee;i="6700,10204,11222"; a="46005967"
-X-IronPort-AV: E=Sophos;i="6.11,199,1725346800"; d="scan'208";a="46005967"
+ bh=ADGIvmCcT2ZRJLMLd5SutqHlepxDVEmcizqxDze7JMU=;
+ b=O3YLrwSx1XI5RLqHdOLqqEM0iYmBYUsJ1J2PqXtUOftrRJ2jd+1gceVn
+ 0wM/DBpRbJ0tAA+MSdbCO2No+px3VWsFJEOzgBu6RZywgypYEsMZmo8Bh
+ 101f1/HwYvlfvPEUhLPwrFP+Wt0RRun5BVnRGYpTeBXtu4Fdns2emsFG9
+ 2mYraLdGsB3nhHR6sA/AnOkyZAuSM29hAmFjtWjxOTBz/s+EAoMUfZIfN
+ QYyKsltt8Af0aXUXlTzkIkoGp4O0oun4mER3jg5oFJRK/uZYTwZGxIywX
+ stdmrWoDjiWqx8tHRdX4GsaRUQcVCOWp1FEdBwLpii8nNzq07NCjH4x5L Q==;
+X-CSE-ConnectionGUID: MMLfiTcyRwmM4zsRkzR0rw==
+X-CSE-MsgGUID: nZ6YTjkaToihOZ5MjmOAhA==
+X-IronPort-AV: E=McAfee;i="6700,10204,11222"; a="46005985"
+X-IronPort-AV: E=Sophos;i="6.11,199,1725346800"; d="scan'208";a="46005985"
 Received: from orviesa006.jf.intel.com ([10.64.159.146])
  by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 16 Oct 2024 06:23:39 -0700
-X-CSE-ConnectionGUID: W1oK+7mVToOQXM0Fn1FvBQ==
-X-CSE-MsgGUID: tjnbPiyNQ2SZiBwcjGXgFw==
+ 16 Oct 2024 06:23:44 -0700
+X-CSE-ConnectionGUID: HXbQpv5sTmiS6NYl0uYMKg==
+X-CSE-MsgGUID: tEvNNTqmQlm1LMgprTf70A==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.11,208,1725346800"; d="scan'208";a="78384454"
+X-IronPort-AV: E=Sophos;i="6.11,208,1725346800"; d="scan'208";a="78384459"
 Received: from ideak-desk.fi.intel.com ([10.237.72.78])
  by orviesa006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 16 Oct 2024 06:23:38 -0700
+ 16 Oct 2024 06:23:43 -0700
 From: Imre Deak <imre.deak@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Subject: [PATCH v3 2/8] drm/i915/dp: Ensure panel power remains enabled during
- connector detection
-Date: Wed, 16 Oct 2024 16:23:59 +0300
-Message-ID: <20241016132405.2231744-3-imre.deak@intel.com>
+Subject: [PATCH v3 7/8] drm/i915/dp: Write the source OUI during connector
+ detection
+Date: Wed, 16 Oct 2024 16:24:04 +0300
+Message-ID: <20241016132405.2231744-8-imre.deak@intel.com>
 X-Mailer: git-send-email 2.44.2
 In-Reply-To: <20241016132405.2231744-1-imre.deak@intel.com>
 References: <20241016132405.2231744-1-imre.deak@intel.com>
@@ -67,114 +67,30 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-The sink's capabilities, like the DSC caps, depend on the source OUI
-written to the sink's DPCD registers and so this OUI value should be
-valid for the whole duration of the detection. An eDP sink will reset
-this OUI value when the panel power is disabled, so prevent the
-disabling - happening by default after a 1 sec idle period - for the
-whole duration of detection.
+The DP sink's capabilities, like DSC, may depend on the source OUI
+written to the sink. On eDP this OUI value could have been reset before
+the detection started if the panel power on it got disabled. Make sure
+the OUI is re-written at the beginning of detection in this case, before
+the sink capabilities are read out.
 
 Signed-off-by: Imre Deak <imre.deak@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_dp.c  | 18 +++++++++++++-----
- drivers/gpu/drm/i915/display/intel_pps.c | 11 +++++++++++
- drivers/gpu/drm/i915/display/intel_pps.h |  1 +
- 3 files changed, 25 insertions(+), 5 deletions(-)
+ drivers/gpu/drm/i915/display/intel_dp.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
 diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
-index 977ff2ce18eeb..3da06d25bc4ef 100644
+index 520cc6f50a126..063fe92d43786 100644
 --- a/drivers/gpu/drm/i915/display/intel_dp.c
 +++ b/drivers/gpu/drm/i915/display/intel_dp.c
-@@ -5616,6 +5616,8 @@ intel_dp_detect(struct drm_connector *connector,
- 
- 	intel_dp_flush_connector_commits(intel_connector);
- 
-+	intel_pps_vdd_on(intel_dp);
-+
- 	/* Can't disconnect eDP */
- 	if (intel_dp_is_edp(intel_dp))
- 		status = edp_detect(intel_dp);
-@@ -5646,12 +5648,15 @@ intel_dp_detect(struct drm_connector *connector,
- 
- 		intel_dp_tunnel_disconnect(intel_dp);
- 
--		goto out;
-+		goto out_unset_edid;
+@@ -5669,6 +5669,8 @@ intel_dp_detect(struct drm_connector *connector,
+ 		goto out_unset_edid;
  	}
  
++	intel_dp_init_source_oui(intel_dp);
++
  	ret = intel_dp_tunnel_detect(intel_dp, ctx);
--	if (ret == -EDEADLK)
--		return ret;
-+	if (ret == -EDEADLK) {
-+		status = ret;
-+
-+		goto out_vdd_off;
-+	}
- 
- 	if (ret == 1)
- 		intel_connector->base.epoch_counter++;
-@@ -5679,7 +5684,7 @@ intel_dp_detect(struct drm_connector *connector,
- 		 * with EDID on it
- 		 */
- 		status = connector_status_disconnected;
--		goto out;
-+		goto out_unset_edid;
- 	}
- 
- 	/*
-@@ -5708,7 +5713,7 @@ intel_dp_detect(struct drm_connector *connector,
- 
- 	intel_dp_check_device_service_irq(intel_dp);
- 
--out:
-+out_unset_edid:
- 	if (status != connector_status_connected && !intel_dp->is_mst)
- 		intel_dp_unset_edid(intel_dp);
- 
-@@ -5717,6 +5722,9 @@ intel_dp_detect(struct drm_connector *connector,
- 						 status,
- 						 intel_dp->dpcd,
- 						 intel_dp->downstream_ports);
-+out_vdd_off:
-+	intel_pps_vdd_off(intel_dp);
-+
- 	return status;
- }
- 
-diff --git a/drivers/gpu/drm/i915/display/intel_pps.c b/drivers/gpu/drm/i915/display/intel_pps.c
-index ffeee9daa5689..64f1f7ea94993 100644
---- a/drivers/gpu/drm/i915/display/intel_pps.c
-+++ b/drivers/gpu/drm/i915/display/intel_pps.c
-@@ -950,6 +950,17 @@ void intel_pps_vdd_off_unlocked(struct intel_dp *intel_dp, bool sync)
- 		edp_panel_vdd_schedule_off(intel_dp);
- }
- 
-+void intel_pps_vdd_off(struct intel_dp *intel_dp)
-+{
-+	intel_wakeref_t wakeref;
-+
-+	if (!intel_dp_is_edp(intel_dp))
-+		return;
-+
-+	with_intel_pps_lock(intel_dp, wakeref)
-+		intel_pps_vdd_off_unlocked(intel_dp, false);
-+}
-+
- void intel_pps_on_unlocked(struct intel_dp *intel_dp)
- {
- 	struct intel_display *display = to_intel_display(intel_dp);
-diff --git a/drivers/gpu/drm/i915/display/intel_pps.h b/drivers/gpu/drm/i915/display/intel_pps.h
-index bc5046d536264..c83007152f07d 100644
---- a/drivers/gpu/drm/i915/display/intel_pps.h
-+++ b/drivers/gpu/drm/i915/display/intel_pps.h
-@@ -34,6 +34,7 @@ void intel_pps_off_unlocked(struct intel_dp *intel_dp);
- void intel_pps_check_power_unlocked(struct intel_dp *intel_dp);
- 
- void intel_pps_vdd_on(struct intel_dp *intel_dp);
-+void intel_pps_vdd_off(struct intel_dp *intel_dp);
- void intel_pps_on(struct intel_dp *intel_dp);
- void intel_pps_off(struct intel_dp *intel_dp);
- void intel_pps_vdd_off_sync(struct intel_dp *intel_dp);
+ 	if (ret == -EDEADLK) {
+ 		status = ret;
 -- 
 2.44.2
 
