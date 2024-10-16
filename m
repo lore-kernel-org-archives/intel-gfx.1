@@ -4,52 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F1F19D1AD56
-	for <intel-gfx@archiver.kernel.org>; Wed, 16 Oct 2024 13:24:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7B96FD1AD58
+	for <intel-gfx@archiver.kernel.org>; Wed, 16 Oct 2024 13:24:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8D99C10E6FD;
-	Wed, 16 Oct 2024 13:24:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1EC2710E703;
+	Wed, 16 Oct 2024 13:24:06 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="kN1UldbT";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="DauCcOXZ";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3665210E097
- for <intel-gfx@lists.freedesktop.org>; Wed, 16 Oct 2024 13:23:59 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E159010E6F0
+ for <intel-gfx@lists.freedesktop.org>; Wed, 16 Oct 2024 13:23:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1729085040; x=1760621040;
- h=from:to:subject:date:message-id:in-reply-to:references:
- mime-version:content-transfer-encoding;
- bh=snogfWKry1NK+xutXL5UIFaGlIhlrbu9xtQzAQEAtyo=;
- b=kN1UldbTouT1yl00tROwEg1xzxViSZXbJySkZqbvIhIJd1ZkHnaMTKmX
- UjXG2U/dJhcogGqsl3DRi7YkfD3rPwiwRHuk9KgYeNTzFwgKyPZJtteAn
- y1k2ahf1+savow/IFGVejAgH+IcvX06eBmUmkGxDQzPZddvUuzuAi4oq4
- 2kxynKhRm5KyDEp6XU0p45QrNUfuyzS52Dtb+H8WJHKrwsDhM/9oqzDrI
- eVUYkaix7x+Xs7kRW0REET1QUe326I33JGjuYRTQlIY4MMkymO18zCMzi
- IOgLocjMxpLgKg6lwGDAXsLAXbMhBx2eKF5IJBSm2q7j8ohIHkqy6w7iN w==;
-X-CSE-ConnectionGUID: rZAGUDNyRB+1+kZNyg5AVg==
-X-CSE-MsgGUID: nGZ9a++dTp6xVMIoey7dgw==
-X-IronPort-AV: E=McAfee;i="6700,10204,11222"; a="46005970"
-X-IronPort-AV: E=Sophos;i="6.11,199,1725346800"; d="scan'208";a="46005970"
+ t=1729085039; x=1760621039;
+ h=from:to:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=Or+/gRP2Lisv99dkgIMmeQ354WpBpUEO7rR5cDnV8MM=;
+ b=DauCcOXZBFkNVn4/rHMqX+IKPpoiqBYOjBbrNM3F8XEJtM1qEcl3vk/B
+ j6OjFLC7WKOFiiZR3EqgtnaQ8e6D9MzkCVMSVVHI0bewf8QfilGbBqk8C
+ TefL1traS0Zb31R9Is6aVKiNEGEHBRGqIXFQh+GAMPmqV/s5gbEiaY4lw
+ xw5dWZ1JW3JDfnfGkyafPPT+ufphIHdz3orFeIiCaW/WIbEx05g8UWezu
+ wYV83beYSFg2uMPzjwKxNGR/tFq38w30Uirxpk2lJQX8/Gj1U7BtGENFg
+ k/i69BkKo3FdZyB5bzPQv94yXElBognTKMAf3Et7watjEVoMcZuomMrpw A==;
+X-CSE-ConnectionGUID: 6odMGkggTGm5p87YEEJXpA==
+X-CSE-MsgGUID: tBRcclvIT5qc4X1Bl3nEFw==
+X-IronPort-AV: E=McAfee;i="6700,10204,11222"; a="46005957"
+X-IronPort-AV: E=Sophos;i="6.11,199,1725346800"; d="scan'208";a="46005957"
 Received: from orviesa006.jf.intel.com ([10.64.159.146])
  by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 16 Oct 2024 06:23:40 -0700
-X-CSE-ConnectionGUID: FOUB25nhRUKH5ObGLFL+9g==
-X-CSE-MsgGUID: i4DZhxFNQn2psI49uo+CEA==
+ 16 Oct 2024 06:23:37 -0700
+X-CSE-ConnectionGUID: QTIerLL5R96xFBaLLpOIEA==
+X-CSE-MsgGUID: /5OPel0sTzWV0ozOe4XSCg==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.11,208,1725346800"; d="scan'208";a="78384455"
+X-IronPort-AV: E=Sophos;i="6.11,208,1725346800"; d="scan'208";a="78384450"
 Received: from ideak-desk.fi.intel.com ([10.237.72.78])
  by orviesa006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 16 Oct 2024 06:23:39 -0700
+ 16 Oct 2024 06:23:36 -0700
 From: Imre Deak <imre.deak@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Subject: [PATCH v3 3/8] drm/i915/dp: Initialize the source OUI write timestamp
- always
-Date: Wed, 16 Oct 2024 16:24:00 +0300
-Message-ID: <20241016132405.2231744-4-imre.deak@intel.com>
+Subject: [PATCH v3 0/8] drm/i915: Write source OUI for non-eDP sinks
+Date: Wed, 16 Oct 2024 16:23:57 +0300
+Message-ID: <20241016132405.2231744-1-imre.deak@intel.com>
 X-Mailer: git-send-email 2.44.2
-In-Reply-To: <20241016132405.2231744-1-imre.deak@intel.com>
-References: <20241016132405.2231744-1-imre.deak@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-BeenThere: intel-gfx@lists.freedesktop.org
@@ -67,36 +64,34 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-If the source OUI DPCD register value matches the expected Intel OUI
-value, the write timestamp doesn't get updated leaving it at the 0
-initial value if the OUI wasn't written before. This can lead to an
-incorrect wait duration in intel_dp_wait_source_oui(), since jiffies is
-not inited to 0 in general (on a 32 bit system INITIAL_JIFFIES is set to
-5 minutes ahead of wrap-around). Fix this by intializing the write
-timestamp in the above case as well.
+This is v3 of [1] handling a few cases where the source OUI value
+written to an eDP sink could be not yet valid or could have gotten
+reset after the panel power was disabled (in patches 1, 2, 4, 6, 7).
 
-Signed-off-by: Imre Deak <imre.deak@intel.com>
----
- drivers/gpu/drm/i915/display/intel_dp.c | 5 ++++-
- 1 file changed, 4 insertions(+), 1 deletion(-)
+[1] https://lore.kernel.org/all/20241001123259.616486-1-imre.deak@intel.com
 
-diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
-index 3da06d25bc4ef..0b9981f7f1a68 100644
---- a/drivers/gpu/drm/i915/display/intel_dp.c
-+++ b/drivers/gpu/drm/i915/display/intel_dp.c
-@@ -3414,8 +3414,11 @@ intel_edp_init_source_oui(struct intel_dp *intel_dp, bool careful)
- 		if (drm_dp_dpcd_read(&intel_dp->aux, DP_SOURCE_OUI, buf, sizeof(buf)) < 0)
- 			drm_err(&i915->drm, "Failed to read source OUI\n");
- 
--		if (memcmp(oui, buf, sizeof(oui)) == 0)
-+		if (memcmp(oui, buf, sizeof(oui)) == 0) {
-+			/* Assume the OUI was written now. */
-+			intel_dp->last_oui_write = jiffies;
- 			return;
-+		}
- 	}
- 
- 	if (drm_dp_dpcd_write(&intel_dp->aux, DP_SOURCE_OUI, oui, sizeof(oui)) < 0)
+Imre Deak (8):
+  drm/i915/dp: Flush modeset commits during connector detection
+  drm/i915/dp: Ensure panel power remains enabled during connector
+    detection
+  drm/i915/dp: Initialize the source OUI write timestamp always
+  drm/i915/dp: Track source OUI validity explicitly
+  drm/i915/dp: Reuse intel_dp_detect_dsc_caps() for eDP
+  drm/i915/dp: Write the source OUI for eDP before detecting sink
+    capabilities
+  drm/i915/dp: Write the source OUI during connector detection
+  drm/i915/dp: Write the source OUI for non-eDP sinks as well
+
+ drivers/gpu/drm/i915/display/g4x_dp.c         |   1 +
+ drivers/gpu/drm/i915/display/intel_ddi.c      |   1 +
+ .../drm/i915/display/intel_display_types.h    |   1 +
+ drivers/gpu/drm/i915/display/intel_dp.c       | 131 ++++++++++++------
+ drivers/gpu/drm/i915/display/intel_dp.h       |   2 +
+ drivers/gpu/drm/i915/display/intel_dp_mst.c   |   2 +
+ drivers/gpu/drm/i915/display/intel_pps.c      |  17 ++-
+ drivers/gpu/drm/i915/display/intel_pps.h      |   1 +
+ 8 files changed, 113 insertions(+), 43 deletions(-)
+
 -- 
 2.44.2
 
