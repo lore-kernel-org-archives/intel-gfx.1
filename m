@@ -4,48 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7364FD1AD59
-	for <intel-gfx@archiver.kernel.org>; Wed, 16 Oct 2024 13:24:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6C856D1AD5A
+	for <intel-gfx@archiver.kernel.org>; Wed, 16 Oct 2024 13:24:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9045E10E701;
+	by gabe.freedesktop.org (Postfix) with ESMTP id B61A110E702;
 	Wed, 16 Oct 2024 13:24:02 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="nH51NaWB";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="Ww4CjGlx";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5E1AD10E6F0
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8F6AB10E6F0
  for <intel-gfx@lists.freedesktop.org>; Wed, 16 Oct 2024 13:23:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
  t=1729085040; x=1760621040;
  h=from:to:subject:date:message-id:in-reply-to:references:
  mime-version:content-transfer-encoding;
- bh=0kjAFNcDqZSlypfnb4G/JLIHRMEsgeA5kRMK6alZuww=;
- b=nH51NaWB+CcdspzGLpsjCxh1mUTCqKuVc+J2SzU58/2AEAHGjE8kERpV
- /O/PY87ET6Bt5kJg1/1k6qDhL78d5u0koI5rzg/8aEeQ6A5A+5Q42CtYO
- dH6BqnVY2WsAQGFMUFcauChjgHsiGJLzZapqk4f82U2WoK1RFYOFTP7CB
- +ABwZQkSw8iHlDm9uTK5wg75xPy2dzGenPDOO5oH4auhDfsS1FWe5P6vO
- RHYaNEXKtarmsTjviyTHr9gJrrDclPdXgWvEAjfaD4yYxEYZ7pFn1jLmK
- TCQjlZ7qGQK90+jHD1y/iWjig6IkcM2KHNE/FbNp/fmTW4lBkUhi2ON58 A==;
-X-CSE-ConnectionGUID: wDhY85kLRESgRBhUZT7RFQ==
-X-CSE-MsgGUID: ob39JPR7SaS64ZS1D7f+8Q==
-X-IronPort-AV: E=McAfee;i="6700,10204,11222"; a="46005981"
-X-IronPort-AV: E=Sophos;i="6.11,199,1725346800"; d="scan'208";a="46005981"
+ bh=AulHWYoA1CFkAi67AfvEQ9WQYMuMQQ/4W1lU3EEs7ho=;
+ b=Ww4CjGlxXF6++nlNM/sRM6zvgFsXr3V+JT12I2ILrhKROMkpL8DySKRr
+ xwCd9p+g4BWthBVq8P0d81S2qVOmXofjfD9XI2LBjMItSTEe4gjY7Acjb
+ PxZyv23NkHDgFq6WwvIxQbKsv89OxVl3GLzHeCfkPpgSs0dfzadV4AmqT
+ fGtzHokzzDThTSa1BkTxI8VNvQ/zDJzCGNpD1UyHUuTudrpztDCZeUkfl
+ 0kzFz3It+bFFM64dA8DLtahab5bu7+Wv/JJ5Xmd2YyXofX61q3C8OI0kX
+ MeQ9IVAyrA2vOKeiVB8hZOdiku1FnX+Ddn1J28ucWZ1OHNyj5urVAkzKg Q==;
+X-CSE-ConnectionGUID: dH7A24z/QLmOg7LFbOt5Og==
+X-CSE-MsgGUID: 7HeWSyXfTlGd/CgsI14zxw==
+X-IronPort-AV: E=McAfee;i="6700,10204,11222"; a="46005987"
+X-IronPort-AV: E=Sophos;i="6.11,199,1725346800"; d="scan'208";a="46005987"
 Received: from orviesa006.jf.intel.com ([10.64.159.146])
  by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 16 Oct 2024 06:23:42 -0700
-X-CSE-ConnectionGUID: mm+VG4dNTra8KISvyntXZA==
-X-CSE-MsgGUID: pmoN0IUYQPirdPvAW1VdZQ==
+ 16 Oct 2024 06:23:45 -0700
+X-CSE-ConnectionGUID: 3dSm1LrWRS2b7uMWkEJq+w==
+X-CSE-MsgGUID: iglNq0rJS2a/ZYoG4/whSw==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.11,208,1725346800"; d="scan'208";a="78384457"
+X-IronPort-AV: E=Sophos;i="6.11,208,1725346800"; d="scan'208";a="78384460"
 Received: from ideak-desk.fi.intel.com ([10.237.72.78])
  by orviesa006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 16 Oct 2024 06:23:41 -0700
+ 16 Oct 2024 06:23:44 -0700
 From: Imre Deak <imre.deak@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Subject: [PATCH v3 5/8] drm/i915/dp: Reuse intel_dp_detect_dsc_caps() for eDP
-Date: Wed, 16 Oct 2024 16:24:02 +0300
-Message-ID: <20241016132405.2231744-6-imre.deak@intel.com>
+Subject: [PATCH v3 8/8] drm/i915/dp: Write the source OUI for non-eDP sinks as
+ well
+Date: Wed, 16 Oct 2024 16:24:05 +0300
+Message-ID: <20241016132405.2231744-9-imre.deak@intel.com>
 X-Mailer: git-send-email 2.44.2
 In-Reply-To: <20241016132405.2231744-1-imre.deak@intel.com>
 References: <20241016132405.2231744-1-imre.deak@intel.com>
@@ -66,77 +67,40 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Reuse intel_dp_detect_dsc_caps() which already checks for the source's
-DSC cap and retrieves the DPCD version from the DPRX caps.
+At least the i-tec USB-C Nano 2x Display Docking Station (containing a
+Synaptics MST branch device) requires the driver to update the source
+OUI DPCD registers to expose its DSC capability. Accordingly update the
+OUI for all sink types (besides eDP where this has been done already).
 
+Closes: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/11776
 Signed-off-by: Imre Deak <imre.deak@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_dp.c | 38 ++++++++++++-------------
- 1 file changed, 18 insertions(+), 20 deletions(-)
+ drivers/gpu/drm/i915/display/intel_dp.c | 5 ++---
+ 1 file changed, 2 insertions(+), 3 deletions(-)
 
 diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
-index 9ed4e5f8d798a..e2c37680caa91 100644
+index 063fe92d43786..456c87a65ad8d 100644
 --- a/drivers/gpu/drm/i915/display/intel_dp.c
 +++ b/drivers/gpu/drm/i915/display/intel_dp.c
-@@ -4018,6 +4018,23 @@ static void intel_edp_get_dsc_sink_cap(u8 edp_dpcd_rev, struct intel_connector *
- 	intel_dp_read_dsc_dpcd(connector->dp.dsc_decompression_aux, connector->dp.dsc_dpcd);
- }
+@@ -3407,9 +3407,6 @@ intel_dp_init_source_oui(struct intel_dp *intel_dp)
+ 	u8 oui[] = { 0x00, 0xaa, 0x01 };
+ 	u8 buf[3] = {};
  
-+static void
-+intel_dp_detect_dsc_caps(struct intel_dp *intel_dp, struct intel_connector *connector)
-+{
-+	struct drm_i915_private *i915 = dp_to_i915(intel_dp);
-+
-+	/* Read DP Sink DSC Cap DPCD regs for DP v1.4 */
-+	if (!HAS_DSC(i915))
-+		return;
-+
-+	if (intel_dp_is_edp(intel_dp))
-+		intel_edp_get_dsc_sink_cap(intel_dp->edp_dpcd[0],
-+					   connector);
-+	else
-+		intel_dp_get_dsc_sink_cap(intel_dp->dpcd[DP_DPCD_REV],
-+					  connector);
-+}
-+
- static void intel_edp_mso_mode_fixup(struct intel_connector *connector,
- 				     struct drm_display_mode *mode)
- {
-@@ -4193,9 +4210,7 @@ intel_edp_init_dpcd(struct intel_dp *intel_dp, struct intel_connector *connector
- 	intel_dp_set_max_sink_lane_count(intel_dp);
- 
- 	/* Read the eDP DSC DPCD registers */
--	if (HAS_DSC(dev_priv))
--		intel_edp_get_dsc_sink_cap(intel_dp->edp_dpcd[0],
--					   connector);
-+	intel_dp_detect_dsc_caps(intel_dp, connector);
- 
- 	/*
- 	 * If needed, program our source OUI so we can make various Intel-specific AUX services
-@@ -5583,23 +5598,6 @@ intel_dp_unset_edid(struct intel_dp *intel_dp)
- 					       false);
- }
- 
--static void
--intel_dp_detect_dsc_caps(struct intel_dp *intel_dp, struct intel_connector *connector)
--{
--	struct drm_i915_private *i915 = dp_to_i915(intel_dp);
--
--	/* Read DP Sink DSC Cap DPCD regs for DP v1.4 */
--	if (!HAS_DSC(i915))
+-	if (!intel_dp_is_edp(intel_dp))
 -		return;
 -
--	if (intel_dp_is_edp(intel_dp))
--		intel_edp_get_dsc_sink_cap(intel_dp->edp_dpcd[0],
--					   connector);
--	else
--		intel_dp_get_dsc_sink_cap(intel_dp->dpcd[DP_DPCD_REV],
--					  connector);
--}
--
- static void
- intel_dp_detect_sdp_caps(struct intel_dp *intel_dp)
- {
+ 	oui_valid = READ_ONCE(intel_dp->oui_valid);
+ 
+ 	/*
+@@ -6138,6 +6135,8 @@ intel_dp_hpd_pulse(struct intel_digital_port *dig_port, bool long_hpd)
+ 
+ 	if (long_hpd) {
+ 		intel_dp->reset_link_params = true;
++		intel_dp_invalidate_source_oui(intel_dp);
++
+ 		return IRQ_NONE;
+ 	}
+ 
 -- 
 2.44.2
 
