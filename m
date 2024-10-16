@@ -4,49 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6C856D1AD5A
-	for <intel-gfx@archiver.kernel.org>; Wed, 16 Oct 2024 13:24:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F1F19D1AD56
+	for <intel-gfx@archiver.kernel.org>; Wed, 16 Oct 2024 13:24:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B61A110E702;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8D99C10E6FD;
 	Wed, 16 Oct 2024 13:24:02 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="Ww4CjGlx";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="kN1UldbT";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8F6AB10E6F0
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3665210E097
  for <intel-gfx@lists.freedesktop.org>; Wed, 16 Oct 2024 13:23:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
  t=1729085040; x=1760621040;
  h=from:to:subject:date:message-id:in-reply-to:references:
  mime-version:content-transfer-encoding;
- bh=AulHWYoA1CFkAi67AfvEQ9WQYMuMQQ/4W1lU3EEs7ho=;
- b=Ww4CjGlxXF6++nlNM/sRM6zvgFsXr3V+JT12I2ILrhKROMkpL8DySKRr
- xwCd9p+g4BWthBVq8P0d81S2qVOmXofjfD9XI2LBjMItSTEe4gjY7Acjb
- PxZyv23NkHDgFq6WwvIxQbKsv89OxVl3GLzHeCfkPpgSs0dfzadV4AmqT
- fGtzHokzzDThTSa1BkTxI8VNvQ/zDJzCGNpD1UyHUuTudrpztDCZeUkfl
- 0kzFz3It+bFFM64dA8DLtahab5bu7+Wv/JJ5Xmd2YyXofX61q3C8OI0kX
- MeQ9IVAyrA2vOKeiVB8hZOdiku1FnX+Ddn1J28ucWZ1OHNyj5urVAkzKg Q==;
-X-CSE-ConnectionGUID: dH7A24z/QLmOg7LFbOt5Og==
-X-CSE-MsgGUID: 7HeWSyXfTlGd/CgsI14zxw==
-X-IronPort-AV: E=McAfee;i="6700,10204,11222"; a="46005987"
-X-IronPort-AV: E=Sophos;i="6.11,199,1725346800"; d="scan'208";a="46005987"
+ bh=snogfWKry1NK+xutXL5UIFaGlIhlrbu9xtQzAQEAtyo=;
+ b=kN1UldbTouT1yl00tROwEg1xzxViSZXbJySkZqbvIhIJd1ZkHnaMTKmX
+ UjXG2U/dJhcogGqsl3DRi7YkfD3rPwiwRHuk9KgYeNTzFwgKyPZJtteAn
+ y1k2ahf1+savow/IFGVejAgH+IcvX06eBmUmkGxDQzPZddvUuzuAi4oq4
+ 2kxynKhRm5KyDEp6XU0p45QrNUfuyzS52Dtb+H8WJHKrwsDhM/9oqzDrI
+ eVUYkaix7x+Xs7kRW0REET1QUe326I33JGjuYRTQlIY4MMkymO18zCMzi
+ IOgLocjMxpLgKg6lwGDAXsLAXbMhBx2eKF5IJBSm2q7j8ohIHkqy6w7iN w==;
+X-CSE-ConnectionGUID: rZAGUDNyRB+1+kZNyg5AVg==
+X-CSE-MsgGUID: nGZ9a++dTp6xVMIoey7dgw==
+X-IronPort-AV: E=McAfee;i="6700,10204,11222"; a="46005970"
+X-IronPort-AV: E=Sophos;i="6.11,199,1725346800"; d="scan'208";a="46005970"
 Received: from orviesa006.jf.intel.com ([10.64.159.146])
  by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 16 Oct 2024 06:23:45 -0700
-X-CSE-ConnectionGUID: 3dSm1LrWRS2b7uMWkEJq+w==
-X-CSE-MsgGUID: iglNq0rJS2a/ZYoG4/whSw==
+ 16 Oct 2024 06:23:40 -0700
+X-CSE-ConnectionGUID: FOUB25nhRUKH5ObGLFL+9g==
+X-CSE-MsgGUID: i4DZhxFNQn2psI49uo+CEA==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.11,208,1725346800"; d="scan'208";a="78384460"
+X-IronPort-AV: E=Sophos;i="6.11,208,1725346800"; d="scan'208";a="78384455"
 Received: from ideak-desk.fi.intel.com ([10.237.72.78])
  by orviesa006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 16 Oct 2024 06:23:44 -0700
+ 16 Oct 2024 06:23:39 -0700
 From: Imre Deak <imre.deak@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Subject: [PATCH v3 8/8] drm/i915/dp: Write the source OUI for non-eDP sinks as
- well
-Date: Wed, 16 Oct 2024 16:24:05 +0300
-Message-ID: <20241016132405.2231744-9-imre.deak@intel.com>
+Subject: [PATCH v3 3/8] drm/i915/dp: Initialize the source OUI write timestamp
+ always
+Date: Wed, 16 Oct 2024 16:24:00 +0300
+Message-ID: <20241016132405.2231744-4-imre.deak@intel.com>
 X-Mailer: git-send-email 2.44.2
 In-Reply-To: <20241016132405.2231744-1-imre.deak@intel.com>
 References: <20241016132405.2231744-1-imre.deak@intel.com>
@@ -67,40 +67,36 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-At least the i-tec USB-C Nano 2x Display Docking Station (containing a
-Synaptics MST branch device) requires the driver to update the source
-OUI DPCD registers to expose its DSC capability. Accordingly update the
-OUI for all sink types (besides eDP where this has been done already).
+If the source OUI DPCD register value matches the expected Intel OUI
+value, the write timestamp doesn't get updated leaving it at the 0
+initial value if the OUI wasn't written before. This can lead to an
+incorrect wait duration in intel_dp_wait_source_oui(), since jiffies is
+not inited to 0 in general (on a 32 bit system INITIAL_JIFFIES is set to
+5 minutes ahead of wrap-around). Fix this by intializing the write
+timestamp in the above case as well.
 
-Closes: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/11776
 Signed-off-by: Imre Deak <imre.deak@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_dp.c | 5 ++---
- 1 file changed, 2 insertions(+), 3 deletions(-)
+ drivers/gpu/drm/i915/display/intel_dp.c | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
 
 diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
-index 063fe92d43786..456c87a65ad8d 100644
+index 3da06d25bc4ef..0b9981f7f1a68 100644
 --- a/drivers/gpu/drm/i915/display/intel_dp.c
 +++ b/drivers/gpu/drm/i915/display/intel_dp.c
-@@ -3407,9 +3407,6 @@ intel_dp_init_source_oui(struct intel_dp *intel_dp)
- 	u8 oui[] = { 0x00, 0xaa, 0x01 };
- 	u8 buf[3] = {};
+@@ -3414,8 +3414,11 @@ intel_edp_init_source_oui(struct intel_dp *intel_dp, bool careful)
+ 		if (drm_dp_dpcd_read(&intel_dp->aux, DP_SOURCE_OUI, buf, sizeof(buf)) < 0)
+ 			drm_err(&i915->drm, "Failed to read source OUI\n");
  
--	if (!intel_dp_is_edp(intel_dp))
--		return;
--
- 	oui_valid = READ_ONCE(intel_dp->oui_valid);
- 
- 	/*
-@@ -6138,6 +6135,8 @@ intel_dp_hpd_pulse(struct intel_digital_port *dig_port, bool long_hpd)
- 
- 	if (long_hpd) {
- 		intel_dp->reset_link_params = true;
-+		intel_dp_invalidate_source_oui(intel_dp);
-+
- 		return IRQ_NONE;
+-		if (memcmp(oui, buf, sizeof(oui)) == 0)
++		if (memcmp(oui, buf, sizeof(oui)) == 0) {
++			/* Assume the OUI was written now. */
++			intel_dp->last_oui_write = jiffies;
+ 			return;
++		}
  	}
  
+ 	if (drm_dp_dpcd_write(&intel_dp->aux, DP_SOURCE_OUI, oui, sizeof(oui)) < 0)
 -- 
 2.44.2
 
