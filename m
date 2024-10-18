@@ -4,51 +4,51 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5FA95D3F29F
-	for <intel-gfx@archiver.kernel.org>; Fri, 18 Oct 2024 20:49:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A9C4ED3F2AB
+	for <intel-gfx@archiver.kernel.org>; Fri, 18 Oct 2024 20:49:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 64D0810E99F;
-	Fri, 18 Oct 2024 20:49:52 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1659C10E9A9;
+	Fri, 18 Oct 2024 20:49:57 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="i9jMbMTj";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="A4Z6GZOo";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.7])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B62FA10E997;
- Fri, 18 Oct 2024 20:49:50 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 21DB010E9AB;
+ Fri, 18 Oct 2024 20:49:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1729284591; x=1760820591;
+ t=1729284595; x=1760820595;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=nbo35c4Mhhp2vGJ5cDwDut0Pd7xCueHIaM2ahpoZbPU=;
- b=i9jMbMTjjIlDGHFjSTpwSEGcVnOuIHgPg9vLm/VRX3nP+CG5Q3059SAZ
- ajO2I++iRXGzEDc2Khy42jc0Yy6m/TiMiA0ujBvBrEmHRwWSiF2R/7SWU
- SEL44XWDFEIXrPFqREDtlisJSdfqaPUjz+HdIwZFgC2QDbNKlSKSrjWE3
- S66okI7XpixhSTztWr7Z+xtm6PY1Vw16kQ4y9WQiAqQmckM7XS/h73LyJ
- Q7INDu8YuJ7FKJzy/YjpV+HRZV+LNYo6EeIHvPUbGYusjL8jJhLUzufPS
- Iylrd7W2iBEEfYLJxP7MQ6kIgG1irWF5inAauyJvCgfhmevOy1vIbs1F6 g==;
-X-CSE-ConnectionGUID: NZcV2C/BRRalYjEQv/hMFw==
-X-CSE-MsgGUID: Kd3ri3Z4Trqvfj8I7XwqWw==
-X-IronPort-AV: E=McAfee;i="6700,10204,11229"; a="54240187"
-X-IronPort-AV: E=Sophos;i="6.11,214,1725346800"; d="scan'208";a="54240187"
+ bh=szZ3U7ynkULTdsyHsKYiu2AXfli+xslgTSXw9E1mI0c=;
+ b=A4Z6GZOop0KwD7cWdA6cjpDZcBoOAEXwibvaVW/jYhOHf8FkGQWhB/T9
+ YBfecO0zxFC3y5cJvm7RB8yrKdZM+blVkn8Wpkw65UQHt7cBx2EQZHsom
+ LUPQJKY6nU5+qrxkqBEaxERVicgArOWihuU2bB+lhj7BrR32qign5G5cL
+ kUW9NTyO/X2PqHGYjUEnOK9Zxrwjwv2zr6oCB5y5Ju2fWHrG0fQyfSMAM
+ I6hPN2KJcFZqOyhKgaafvKDpO6wd+xS7/EhfU7G4jq8THhXKW7dcOpW5T
+ k+N2TY2eQ+zb0vIY0mZLD+mmL5Y632wwO+XQtL5dqZItOM3paKzqPCssf A==;
+X-CSE-ConnectionGUID: BcZSQRqVQ1CpXJeGboG11w==
+X-CSE-MsgGUID: 1RII0b9oQA+pfXgWlJ2zwQ==
+X-IronPort-AV: E=McAfee;i="6700,10204,11229"; a="54240194"
+X-IronPort-AV: E=Sophos;i="6.11,214,1725346800"; d="scan'208";a="54240194"
 Received: from orviesa002.jf.intel.com ([10.64.159.142])
  by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 18 Oct 2024 13:49:50 -0700
-X-CSE-ConnectionGUID: o9lj2TW1Q+yhQpgugzSGag==
-X-CSE-MsgGUID: OzZhq2aHTK+MyC8ItRPLDg==
+ 18 Oct 2024 13:49:54 -0700
+X-CSE-ConnectionGUID: pKdUpqdzTISqEjPcH4t8mw==
+X-CSE-MsgGUID: vNQ5HktuQwCicpKWZ9t9mQ==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.11,214,1725346800"; d="scan'208";a="109798946"
+X-IronPort-AV: E=Sophos;i="6.11,214,1725346800"; d="scan'208";a="109798969"
 Received: from msatwood-mobl.jf.intel.com ([10.24.12.145])
  by orviesa002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 18 Oct 2024 13:49:48 -0700
+ 18 Oct 2024 13:49:53 -0700
 From: Matt Atwood <matthew.s.atwood@intel.com>
 To: intel-gfx@lists.freedesktop.org,
 	intel-xe@lists.freedesktop.org
-Cc: Ravi Kumar Vodapalli <ravi.kumar.vodapalli@intel.com>,
+Cc: Suraj Kandpal <suraj.kandpal@intel.com>,
  Matt Atwood <matthew.s.atwood@intel.com>
-Subject: [PATCH 05/12] drm/i915/xe3: Underrun recovery does not exist post Xe2
-Date: Fri, 18 Oct 2024 13:49:34 -0700
-Message-ID: <20241018204941.73473-6-matthew.s.atwood@intel.com>
+Subject: [PATCH 09/12] drm/i915/xe3lpd: Increase max_h max_v for PSR
+Date: Fri, 18 Oct 2024 13:49:38 -0700
+Message-ID: <20241018204941.73473-10-matthew.s.atwood@intel.com>
 X-Mailer: git-send-email 2.45.0
 In-Reply-To: <20241018204941.73473-1-matthew.s.atwood@intel.com>
 References: <20241018204941.73473-1-matthew.s.atwood@intel.com>
@@ -69,30 +69,35 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Ravi Kumar Vodapalli <ravi.kumar.vodapalli@intel.com>
+From: Suraj Kandpal <suraj.kandpal@intel.com>
 
-From platforms xe3 Underrun recovery does not exist
+Spec states that PSR max active is same as max pipe active values.
+Now that each pipe supports 6k resolution increasing max_h and
+max_v for PSR too.
 
-BSpec: 68849
-Signed-off-by: Ravi Kumar Vodapalli <ravi.kumar.vodapalli@intel.com>
+Signed-off-by: Suraj Kandpal <suraj.kandpal@intel.com>
 Signed-off-by: Matt Atwood <matthew.s.atwood@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_display.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/gpu/drm/i915/display/intel_psr.c | 6 +++++-
+ 1 file changed, 5 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
-index 01466611eebe..dad415650b40 100644
---- a/drivers/gpu/drm/i915/display/intel_display.c
-+++ b/drivers/gpu/drm/i915/display/intel_display.c
-@@ -861,7 +861,7 @@ static void icl_set_pipe_chicken(const struct intel_crtc_state *crtc_state)
- 	 */
- 	if (IS_DG2(dev_priv))
- 		tmp &= ~UNDERRUN_RECOVERY_ENABLE_DG2;
--	else if (DISPLAY_VER(dev_priv) >= 13)
-+	else if (IS_DISPLAY_VER(dev_priv, IP_VER(13, 0), IP_VER(20, 0)))
- 		tmp |= UNDERRUN_RECOVERY_DISABLE_ADLP;
+diff --git a/drivers/gpu/drm/i915/display/intel_psr.c b/drivers/gpu/drm/i915/display/intel_psr.c
+index 3b20325b3f6a..16dbc8caef5f 100644
+--- a/drivers/gpu/drm/i915/display/intel_psr.c
++++ b/drivers/gpu/drm/i915/display/intel_psr.c
+@@ -1451,7 +1451,11 @@ static bool intel_psr2_config_valid(struct intel_dp *intel_dp,
+ 		return false;
+ 	}
  
- 	/* Wa_14010547955:dg2 */
+-	if (DISPLAY_VER(display) >= 12) {
++	if (DISPLAY_VER(display) >= 30) {
++		psr_max_h = 6144;
++		psr_max_v = 4096;
++		max_bpp = 30;
++	} else if (DISPLAY_VER(display) >= 12) {
+ 		psr_max_h = 5120;
+ 		psr_max_v = 3200;
+ 		max_bpp = 30;
 -- 
 2.45.0
 
