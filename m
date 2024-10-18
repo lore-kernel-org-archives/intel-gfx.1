@@ -4,24 +4,24 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 05D1BD3F29B
-	for <intel-gfx@archiver.kernel.org>; Fri, 18 Oct 2024 21:18:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0ADCDD3F29B
+	for <intel-gfx@archiver.kernel.org>; Fri, 18 Oct 2024 21:18:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 976BC10E240;
-	Fri, 18 Oct 2024 21:18:30 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9E33310E9B3;
+	Fri, 18 Oct 2024 21:18:32 +0000 (UTC)
 Received: from 2413ebb6fbb6 (emeril.freedesktop.org [131.252.210.167])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 85EED10E240;
- Fri, 18 Oct 2024 21:18:29 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EA3E510E9B3;
+ Fri, 18 Oct 2024 21:18:31 +0000 (UTC)
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
-Subject: =?utf-8?q?=E2=9C=97_Fi=2ECI=2ECHECKPATCH=3A_warning_for_Add_xe3lpd_edp_enabl?=
- =?utf-8?q?ing_=28rev4=29?=
+Subject: =?utf-8?q?=E2=9C=97_Fi=2ECI=2ESPARSE=3A_warning_for_Add_xe3lpd_edp_enabling_?=
+ =?utf-8?q?=28rev4=29?=
 From: Patchwork <patchwork@emeril.freedesktop.org>
 To: "Matt Atwood" <matthew.s.atwood@intel.com>
 Cc: intel-gfx@lists.freedesktop.org
-Date: Fri, 18 Oct 2024 21:18:29 -0000
-Message-ID: <172928630954.1294974.7702777627976193694@2413ebb6fbb6>
+Date: Fri, 18 Oct 2024 21:18:31 -0000
+Message-ID: <172928631195.1282733.4494363594225036938@2413ebb6fbb6>
 X-Patchwork-Hint: ignore
 References: <20241018200311.67324-1-matthew.s.atwood@intel.com>
 In-Reply-To: <20241018200311.67324-1-matthew.s.atwood@intel.com>
@@ -49,31 +49,8 @@ State : warning
 
 == Summary ==
 
-Error: dim checkpatch failed
-a9981eac7be9 drm/i915/xe3lpd: Update pmdemand programming
--:75: ERROR:ELSE_AFTER_BRACE: else should follow close brace '}'
-#75: FILE: drivers/gpu/drm/i915/display/intel_pmdemand.c:341:
-+	}
-+	else
-
-total: 1 errors, 0 warnings, 0 checks, 161 lines checked
-4df58ffb4efa drm/i915/xe3lpd: Add cdclk changes
--:15: WARNING:TYPO_SPELLING: 'doesnt' may be misspelled - perhaps 'doesn't'?
-#15: 
-v3: xe3lpd doesnt supply the power control unit the voltage index
-           ^^^^^^
-
-total: 0 errors, 1 warnings, 0 checks, 89 lines checked
-fa8e1f47015a drm/i915/xe3lpd: Disable HDCP Line Rekeying for Xe3
-23bd5927d849 drm/i915/xe3lpd: Add C20 Phy consolidated programming table
-5e14947e9214 drm/i915/xe3lpd: Add new bit range of MAX swing setup
--:9: WARNING:TYPO_SPELLING: 'seperate' may be misspelled - perhaps 'separate'?
-#9: 
-v2: implement as two seperate macros instead of a single macro
-                     ^^^^^^^^
-
-total: 0 errors, 1 warnings, 0 checks, 8 lines checked
-be840fa05685 drm/i915/xe3lpd: Add check to see if edp over type c is allowed
-ab3d3ff44b04 drm/i915/xe3lpd: Add condition for EDP to powerdown P2.PG
+Error: dim sparse failed
+Sparse version: v0.6.2
+Fast mode used, each commit won't be checked separately.
 
 
