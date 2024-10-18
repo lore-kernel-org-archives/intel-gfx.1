@@ -4,54 +4,54 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6BDCFD3F28A
-	for <intel-gfx@archiver.kernel.org>; Fri, 18 Oct 2024 20:03:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 40A58D3F29E
+	for <intel-gfx@archiver.kernel.org>; Fri, 18 Oct 2024 20:49:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E41D510E98C;
-	Fri, 18 Oct 2024 20:03:27 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D59BD10E993;
+	Fri, 18 Oct 2024 20:49:47 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="gvtqy/cT";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="VTMoIA3K";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.19])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 66EDF10E985;
- Fri, 18 Oct 2024 20:03:18 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.7])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 478A610E992;
+ Fri, 18 Oct 2024 20:49:47 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1729281798; x=1760817798;
+ t=1729284587; x=1760820587;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=cXT4YCFT0KBs0fGuh3sOCap9yO/kakU6mS/50FG2lGQ=;
- b=gvtqy/cTlHCMTAeDM941sD10LWMTMnSaUcRYiptTLmYt9/rTsrf6r88U
- n+wXm2EhNO+C4/WwOlbiyPEL881D3fTQPeRpTYI21ib8XtBE2EJAqU0mj
- 8ZMBLYkkvw3uz77GA+SsdZkDuhTexkzv/BzsvzCEMM/x93WG4nCkT5YOn
- eb3IPdODHhYyHTDMhuiFn5lkkwMGYNPKz3NrVXO5sHbd/byfyaeEtrnQx
- CUjhf82PACAdd74iHQCNya6Gilo9aWPRk6kx4G6zJLeEaD25tg4nwJT4K
- p12wjBBm5D2Qjg0h7ZTWEFhDklRFBVjLxkzoVdpHPLsuIjvjo3LJNgX6I A==;
-X-CSE-ConnectionGUID: flapaGBgQ7ibNaDqG6ef2g==
-X-CSE-MsgGUID: /0pyKBbAQJC08Mf8D6LimA==
-X-IronPort-AV: E=McAfee;i="6700,10204,11229"; a="28286789"
-X-IronPort-AV: E=Sophos;i="6.11,214,1725346800"; d="scan'208";a="28286789"
-Received: from fmviesa002.fm.intel.com ([10.60.135.142])
- by fmvoesa113.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 18 Oct 2024 13:03:18 -0700
-X-CSE-ConnectionGUID: jatyrCZQS8W1eskHBklMxA==
-X-CSE-MsgGUID: pTXVEgi3QqyxS1+k35vMpQ==
+ bh=hLDukfrIdwplob1FNU3PxeYoQ1fRvXtTrRyN2LMjxBY=;
+ b=VTMoIA3Ka6tCaaR4bnFZ2S9xeb3Re6dsZY/Z7Whx8H+Wj9cxI9e0n84F
+ HklnKz71xoU99CfVVmmtB/GqB3Ja32+zTQZcgRruZRIpE3rppwTJ6TZjx
+ MLrdt9RRW9D0+hZ36P9doszjF0vmbOitpkkw0N+bU9tE6BdJQll9rT7hk
+ lcmtwunoqHLCxuAUCLsk0iAeTUJztieiWZKhZ4/qybXAY/i8W9FTed+cX
+ uc5dqs1AQ1Pe/nam5YSzj8YjxriTF2C8l30slipt6lgDIUHKAVE9NqGBU
+ Z3lAxnRDNwMUr5GQRi7SGQBg3oJv6wZJwGzWrP7cpmiXZYi89sb4qQ9n4 A==;
+X-CSE-ConnectionGUID: fB4bHO2ZQjSbCOUXy7ZXvQ==
+X-CSE-MsgGUID: 8TMwdOmDRTO8GVOyodlNZw==
+X-IronPort-AV: E=McAfee;i="6700,10204,11229"; a="54240175"
+X-IronPort-AV: E=Sophos;i="6.11,214,1725346800"; d="scan'208";a="54240175"
+Received: from orviesa002.jf.intel.com ([10.64.159.142])
+ by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 18 Oct 2024 13:49:47 -0700
+X-CSE-ConnectionGUID: qPvF9dT3SLmmpjJj205n9g==
+X-CSE-MsgGUID: 7PeE4tLlSQOLu+EhhQeVsQ==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.11,214,1725346800"; d="scan'208";a="102263861"
+X-IronPort-AV: E=Sophos;i="6.11,214,1725346800"; d="scan'208";a="109798929"
 Received: from msatwood-mobl.jf.intel.com ([10.24.12.145])
- by fmviesa002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 18 Oct 2024 13:03:18 -0700
+ by orviesa002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 18 Oct 2024 13:49:47 -0700
 From: Matt Atwood <matthew.s.atwood@intel.com>
-To: intel-xe@lists.freedesktop.org,
-	intel-gfx@lists.freedesktop.org
-Cc: Suraj Kandpal <suraj.kandpal@intel.com>,
+To: intel-gfx@lists.freedesktop.org,
+	intel-xe@lists.freedesktop.org
+Cc: Dnyaneshwar Bhadane <dnyaneshwar.bhadane@intel.com>,
  Matt Atwood <matthew.s.atwood@intel.com>
-Subject: [PATCH v4 3/7] drm/i915/xe3lpd: Disable HDCP Line Rekeying for Xe3
-Date: Fri, 18 Oct 2024 13:03:07 -0700
-Message-ID: <20241018200311.67324-4-matthew.s.atwood@intel.com>
+Subject: [PATCH 02/12] drm/i915/ptl: Define IS_PANTHERLAKE macro
+Date: Fri, 18 Oct 2024 13:49:31 -0700
+Message-ID: <20241018204941.73473-3-matthew.s.atwood@intel.com>
 X-Mailer: git-send-email 2.45.0
-In-Reply-To: <20241018200311.67324-1-matthew.s.atwood@intel.com>
-References: <20241018200311.67324-1-matthew.s.atwood@intel.com>
+In-Reply-To: <20241018204941.73473-1-matthew.s.atwood@intel.com>
+References: <20241018204941.73473-1-matthew.s.atwood@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-BeenThere: intel-gfx@lists.freedesktop.org
@@ -69,62 +69,29 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Suraj Kandpal <suraj.kandpal@intel.com>
+From: Dnyaneshwar Bhadane <dnyaneshwar.bhadane@intel.com>
 
-We need to disable HDCP Line Rekeying for Xe3 when we are using an HDMI
-encoder.
+Common display code requires IS_PANTHERLAKE macro.
+Define the macro and set 0 as PTL is no longer support for i915.
 
-v2: add additional definition instead of function, commit message typo
-fix and update.
-v3: restore lost conditional from v2.
-v4: subject line and subject message updated, fix the if ladder order,
-fix the bit definition order.
-
-Signed-off-by: Suraj Kandpal <suraj.kandpal@intel.com>
+Signed-off-by: Dnyaneshwar Bhadane <dnyaneshwar.bhadane@intel.com>
 Signed-off-by: Matt Atwood <matthew.s.atwood@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_hdcp.c | 10 +++++++---
- drivers/gpu/drm/i915/i915_reg.h           |  1 +
- 2 files changed, 8 insertions(+), 3 deletions(-)
+ drivers/gpu/drm/i915/i915_drv.h | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_hdcp.c b/drivers/gpu/drm/i915/display/intel_hdcp.c
-index ed6aa87403e2..70dfc9d4d6ac 100644
---- a/drivers/gpu/drm/i915/display/intel_hdcp.c
-+++ b/drivers/gpu/drm/i915/display/intel_hdcp.c
-@@ -43,14 +43,18 @@ intel_hdcp_disable_hdcp_line_rekeying(struct intel_encoder *encoder,
- 		return;
+diff --git a/drivers/gpu/drm/i915/i915_drv.h b/drivers/gpu/drm/i915/i915_drv.h
+index a66e5bb078cf..ca1ab5931e28 100644
+--- a/drivers/gpu/drm/i915/i915_drv.h
++++ b/drivers/gpu/drm/i915/i915_drv.h
+@@ -538,6 +538,7 @@ IS_SUBPLATFORM(const struct drm_i915_private *i915,
+  */
+ #define IS_LUNARLAKE(i915) (0 && i915)
+ #define IS_BATTLEMAGE(i915)  (0 && i915)
++#define IS_PANTHERLAKE(i915) (0 && i915)
  
- 	if (DISPLAY_VER(display) >= 14) {
--		if (IS_DISPLAY_VER_STEP(display, IP_VER(14, 0), STEP_D0, STEP_FOREVER))
--			intel_de_rmw(display, MTL_CHICKEN_TRANS(hdcp->cpu_transcoder),
--				     0, HDCP_LINE_REKEY_DISABLE);
-+		if (DISPLAY_VER(display) >= 30)
-+			intel_de_rmw(display,
-+				     TRANS_DDI_FUNC_CTL(display, hdcp->cpu_transcoder),
-+				     0, XE3_TRANS_DDI_HDCP_LINE_REKEY_DISABLE);
- 		else if (IS_DISPLAY_VER_STEP(display, IP_VER(14, 1), STEP_B0, STEP_FOREVER) ||
- 			 IS_DISPLAY_VER_STEP(display, IP_VER(20, 0), STEP_B0, STEP_FOREVER))
- 			intel_de_rmw(display,
- 				     TRANS_DDI_FUNC_CTL(display, hdcp->cpu_transcoder),
- 				     0, TRANS_DDI_HDCP_LINE_REKEY_DISABLE);
-+		else if (IS_DISPLAY_VER_STEP(display, IP_VER(14, 0), STEP_D0, STEP_FOREVER))
-+			intel_de_rmw(display, MTL_CHICKEN_TRANS(hdcp->cpu_transcoder),
-+				     0, HDCP_LINE_REKEY_DISABLE);
- 	}
- }
- 
-diff --git a/drivers/gpu/drm/i915/i915_reg.h b/drivers/gpu/drm/i915/i915_reg.h
-index 89e4381f8baa..8d758947f301 100644
---- a/drivers/gpu/drm/i915/i915_reg.h
-+++ b/drivers/gpu/drm/i915/i915_reg.h
-@@ -3817,6 +3817,7 @@ enum skl_power_gate {
- #define  TRANS_DDI_PVSYNC		(1 << 17)
- #define  TRANS_DDI_PHSYNC		(1 << 16)
- #define  TRANS_DDI_PORT_SYNC_ENABLE	REG_BIT(15)
-+#define  XE3_TRANS_DDI_HDCP_LINE_REKEY_DISABLE	REG_BIT(15)
- #define  TRANS_DDI_EDP_INPUT_MASK	(7 << 12)
- #define  TRANS_DDI_EDP_INPUT_A_ON	(0 << 12)
- #define  TRANS_DDI_EDP_INPUT_A_ONOFF	(4 << 12)
+ #define IS_ARROWLAKE(i915) \
+ 	IS_SUBPLATFORM(i915, INTEL_METEORLAKE, INTEL_SUBPLATFORM_ARL)
 -- 
 2.45.0
 
