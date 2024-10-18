@@ -4,51 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5278ED3F2A0
-	for <intel-gfx@archiver.kernel.org>; Fri, 18 Oct 2024 20:49:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 32C3AD3F29E
+	for <intel-gfx@archiver.kernel.org>; Fri, 18 Oct 2024 20:49:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D34E510E996;
-	Fri, 18 Oct 2024 20:49:49 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9A3AA10E998;
+	Fri, 18 Oct 2024 20:49:50 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="UjL9V86i";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="SuN3cbJ+";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.7])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EF3CE10E994;
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0C7C910E993;
  Fri, 18 Oct 2024 20:49:47 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1729284588; x=1760820588;
+ t=1729284587; x=1760820587;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=IOo7BYoDy99k4tV8+KUOjtIzDdeOCaKkEgwHRriKFaQ=;
- b=UjL9V86iTcsB9BVwQX/X+QwgglpvIBg1ZJyBOqS/DjNhB43cNkUiAuTP
- 3lTWuXJmr7JfViyFLSlWE7i8DbRFQg2TFpOic25wgI5kDjXmoLA4tqAWX
- QO6P0mcMzJFdigo4+LbuW74CkrHXeH72m9aTEI8T9wiix16J7BWNPEYWJ
- npBmy3uzHRYpwqYsK5ea6ttGhwujuitw/1HRakHoQauYhIuR1vQ4zsGmL
- /nMgjIQYUZkH7R71kP+LfreAf59V+l0PXtV0siar3SroqT7DQajIgawoF
- z50pHP3bWbQvd34qloisWr1kDV2JE4aSvH58UQ4hyujrqtqrBD9ULGzbx w==;
-X-CSE-ConnectionGUID: GHAWGQMpS+2jIKk8LwNk1Q==
-X-CSE-MsgGUID: RO/nWq8TTZW6ByF5SHjgIQ==
-X-IronPort-AV: E=McAfee;i="6700,10204,11229"; a="54240180"
-X-IronPort-AV: E=Sophos;i="6.11,214,1725346800"; d="scan'208";a="54240180"
+ bh=0iWqE8xPiM8xgC5QVcLRr8OFRri4Rq0NNVsfE6u4wsY=;
+ b=SuN3cbJ+xJ7KWBfj64W9U4N0IEOOVE5OTwyTol2smVon914TUNw360sE
+ b255s57BIlPw9zDfKw/A61CCAKJLtV1GtWXtRidaj7zRiKzJrFXjAbEAG
+ RLy85fhY3T4PfVkIW7xIJQCRJW02SuPr34oRhmaAcMrpLbxkgu4yJYEBn
+ zv7B1E9BYY+M3G7LlZ+BHqG+vP4aNR8kDqprDNm6F943h9xAF+RQ36LpN
+ +UX7C/wGNW+hCWzkwFDkSFvG3Zz2zGQ+80QaKyiTAdbUym79MT4DfOkEj
+ gjz208SAbh7q1wmMxvHO8KsURsy9g82AIWjC5qdvMiylF/WPtoPMx21jc g==;
+X-CSE-ConnectionGUID: /DIaWZQ4SgusG10AxGvEqg==
+X-CSE-MsgGUID: PM+p13muTI6EqNi3PdfNuw==
+X-IronPort-AV: E=McAfee;i="6700,10204,11229"; a="54240171"
+X-IronPort-AV: E=Sophos;i="6.11,214,1725346800"; d="scan'208";a="54240171"
 Received: from orviesa002.jf.intel.com ([10.64.159.142])
  by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 18 Oct 2024 13:49:47 -0700
-X-CSE-ConnectionGUID: YrkYfjt6Tlq9MV6zEl8T6w==
-X-CSE-MsgGUID: BAFwtNvnRZW29LR+326xeQ==
+ 18 Oct 2024 13:49:46 -0700
+X-CSE-ConnectionGUID: 2XHP5J5ISQ2XGRQ67EbxDA==
+X-CSE-MsgGUID: 0cLgG9/0R9S530KKQBw0xQ==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.11,214,1725346800"; d="scan'208";a="109798932"
+X-IronPort-AV: E=Sophos;i="6.11,214,1725346800"; d="scan'208";a="109798925"
 Received: from msatwood-mobl.jf.intel.com ([10.24.12.145])
  by orviesa002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 18 Oct 2024 13:49:47 -0700
+ 18 Oct 2024 13:49:46 -0700
 From: Matt Atwood <matthew.s.atwood@intel.com>
 To: intel-gfx@lists.freedesktop.org,
 	intel-xe@lists.freedesktop.org
-Cc: Dnyaneshwar Bhadane <dnyaneshwar.bhadane@intel.com>,
+Cc: Mitul Golani <mitulkumar.ajitkumar.golani@intel.com>,
+ Ankit Nautiyal <ankit.k.nautiyal@intel.com>,
  Matt Atwood <matthew.s.atwood@intel.com>
-Subject: [PATCH 03/12] drm/i915/cx0: Extend C10 check to PTL
-Date: Fri, 18 Oct 2024 13:49:32 -0700
-Message-ID: <20241018204941.73473-4-matthew.s.atwood@intel.com>
+Subject: [PATCH 01/12] drm/i915/display/ptl: Fill VRR crtc_state timings
+ before other transcoder timings
+Date: Fri, 18 Oct 2024 13:49:30 -0700
+Message-ID: <20241018204941.73473-2-matthew.s.atwood@intel.com>
 X-Mailer: git-send-email 2.45.0
 In-Reply-To: <20241018204941.73473-1-matthew.s.atwood@intel.com>
 References: <20241018204941.73473-1-matthew.s.atwood@intel.com>
@@ -69,66 +71,41 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Dnyaneshwar Bhadane <dnyaneshwar.bhadane@intel.com>
+From: Mitul Golani <mitulkumar.ajitkumar.golani@intel.com>
 
-When deciding the type of the phy, Add PTL support to make
-sure the correct path is taken for selection of C10 PHY.
-Only port A is connected C10 PHY for Pantherlake.
+In progress to make VRR timing generator as the default timing generator,
+rest other timings will be derived based on vrr.vmin and vrr.vmax. Call
+intel_vrr_get_config before intel_get_transcoder_timings to accomodate
+values getting pre-filled.
 
-Bspec:  72571
-Signed-off-by: Dnyaneshwar Bhadane <dnyaneshwar.bhadane@intel.com>
+Signed-off-by: Mitul Golani <mitulkumar.ajitkumar.golani@intel.com>
+Signed-off-by: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
 Signed-off-by: Matt Atwood <matthew.s.atwood@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_cx0_phy.c      | 9 +++++++--
- drivers/gpu/drm/xe/compat-i915-headers/i915_drv.h | 1 +
- 2 files changed, 8 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/i915/display/intel_display.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_cx0_phy.c b/drivers/gpu/drm/i915/display/intel_cx0_phy.c
-index 13a99f494680..73a151c81706 100644
---- a/drivers/gpu/drm/i915/display/intel_cx0_phy.c
-+++ b/drivers/gpu/drm/i915/display/intel_cx0_phy.c
-@@ -34,6 +34,9 @@ bool intel_encoder_is_c10phy(struct intel_encoder *encoder)
- 	struct drm_i915_private *i915 = to_i915(encoder->base.dev);
- 	enum phy phy = intel_encoder_to_phy(encoder);
+diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
+index ef1436146325..01466611eebe 100644
+--- a/drivers/gpu/drm/i915/display/intel_display.c
++++ b/drivers/gpu/drm/i915/display/intel_display.c
+@@ -4134,13 +4134,13 @@ static bool hsw_get_pipe_config(struct intel_crtc *crtc,
+ 	intel_joiner_get_config(pipe_config);
+ 	intel_dsc_get_config(pipe_config);
  
-+	if (IS_PANTHERLAKE(i915) && phy == PHY_A)
-+		return true;
++	if (HAS_VRR(dev_priv) && !transcoder_is_dsi(pipe_config->cpu_transcoder))
++		intel_vrr_get_config(pipe_config);
 +
- 	if ((IS_LUNARLAKE(i915) || IS_METEORLAKE(i915)) && phy < PHY_C)
- 		return true;
+ 	if (!transcoder_is_dsi(pipe_config->cpu_transcoder) ||
+ 	    DISPLAY_VER(dev_priv) >= 11)
+ 		intel_get_transcoder_timings(crtc, pipe_config);
  
-@@ -221,7 +224,8 @@ static int __intel_cx0_read_once(struct intel_encoder *encoder,
- 	 * down and let the message bus to end up
- 	 * in a known state
- 	 */
--	intel_cx0_bus_reset(encoder, lane);
-+	if (DISPLAY_VER(i915) < 30)
-+		intel_cx0_bus_reset(encoder, lane);
+-	if (HAS_VRR(dev_priv) && !transcoder_is_dsi(pipe_config->cpu_transcoder))
+-		intel_vrr_get_config(pipe_config);
+-
+ 	intel_get_pipe_src_size(crtc, pipe_config);
  
- 	return REG_FIELD_GET(XELPDP_PORT_P2M_DATA_MASK, val);
- }
-@@ -310,7 +314,8 @@ static int __intel_cx0_write_once(struct intel_encoder *encoder,
- 	 * down and let the message bus to end up
- 	 * in a known state
- 	 */
--	intel_cx0_bus_reset(encoder, lane);
-+	if (DISPLAY_VER(i915) < 30)
-+		intel_cx0_bus_reset(encoder, lane);
- 
- 	return 0;
- }
-diff --git a/drivers/gpu/drm/xe/compat-i915-headers/i915_drv.h b/drivers/gpu/drm/xe/compat-i915-headers/i915_drv.h
-index b7041b578e5e..bd8c3de57dcd 100644
---- a/drivers/gpu/drm/xe/compat-i915-headers/i915_drv.h
-+++ b/drivers/gpu/drm/xe/compat-i915-headers/i915_drv.h
-@@ -67,6 +67,7 @@ static inline struct drm_i915_private *to_i915(const struct drm_device *dev)
- #define IS_METEORLAKE(dev_priv) IS_PLATFORM(dev_priv, XE_METEORLAKE)
- #define IS_LUNARLAKE(dev_priv) IS_PLATFORM(dev_priv, XE_LUNARLAKE)
- #define IS_BATTLEMAGE(dev_priv)  IS_PLATFORM(dev_priv, XE_BATTLEMAGE)
-+#define IS_PANTHERLAKE(dev_priv) IS_PLATFORM(dev_priv, XE_PANTHERLAKE)
- 
- #define IS_HASWELL_ULT(dev_priv) (dev_priv && 0)
- #define IS_BROADWELL_ULT(dev_priv) (dev_priv && 0)
+ 	if (IS_HASWELL(dev_priv)) {
 -- 
 2.45.0
 
