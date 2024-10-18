@@ -4,54 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 94B32D3F2AA
-	for <intel-gfx@archiver.kernel.org>; Fri, 18 Oct 2024 20:50:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 93641D3F29E
+	for <intel-gfx@archiver.kernel.org>; Fri, 18 Oct 2024 20:55:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1CFFA10E9AF;
-	Fri, 18 Oct 2024 20:50:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2851910E081;
+	Fri, 18 Oct 2024 20:55:23 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="cOuq5DgS";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="Vw2b1E+7";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.7])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2DA6010E9AB;
- Fri, 18 Oct 2024 20:49:57 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.16])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 02E0F10E994;
+ Fri, 18 Oct 2024 20:55:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1729284597; x=1760820597;
+ t=1729284922; x=1760820922;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=EW15VaBH+37vamYVnk//+DcjLY3x23diwaF6bmis8r8=;
- b=cOuq5DgS0AJbg8otqgkxCJtrsEP0evd/iaZ/YxQ2VTM9/dSpPNQLCOVg
- 9CufON6bOcGUJh4Dvo74hWfapSF7vY4rHFoOPUyv/viVrsqmT7kmyOnD4
- c0wrpP5wI0wcHp+cAELovTgE3SAXSerppiGpA5ieFYD8WFLxTxVIxc/pj
- hQULTm2/SZO/me4yBrnrhqDZTV3HENvl5nvAjLpSMHxAhlLI7kluKJQWG
- 1IgQvyVYUcAj/rnZ8my7k/JyCiXy0Bx3ajGSY2K7WOsdroNdrQQQSty4e
- R9gxudwtUAgejMclrsEBaARQip6j6sb6+HVACW5/o8S9FyfsVQcfJ2pSH w==;
-X-CSE-ConnectionGUID: kh2T/IblRuOQsXMn7Wrt1w==
-X-CSE-MsgGUID: JNoKrUDxS5q+cBgiH/ZQcg==
-X-IronPort-AV: E=McAfee;i="6700,10204,11229"; a="54240197"
-X-IronPort-AV: E=Sophos;i="6.11,214,1725346800"; d="scan'208";a="54240197"
-Received: from orviesa002.jf.intel.com ([10.64.159.142])
- by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 18 Oct 2024 13:49:56 -0700
-X-CSE-ConnectionGUID: FaC3G6XrQImTNwTE8KkL9g==
-X-CSE-MsgGUID: R+E8JUSESd2McGzPTQcKfg==
+ bh=lj32wKQDvLhtlT5n6QtNO68nOGBIKClj17sZdGyNIV4=;
+ b=Vw2b1E+7dDVp3fGpBN0/0G3lr6k2d9ewTH0en1w+hMgcro/pFGm2LKgA
+ qkwl4q1n5I2X0rqDiHkBuaxpvNOrqRshei6UIlx6sSBzCK9no3IYcP8Lh
+ IV2GdL5HjSXOUwfYvWWXN1Z3VpMY4An7no4pzOIHbx3IZ72ehaIUDOa4M
+ JJ21Qq/kjleZovt8DRz7Wq1lYdp4N2hhBAjkwnDGwm4U9cKVNDitHmMzw
+ Klzw1LLHemdyClpcXFS76bWlhQY1zy16p8c48VXb+NS88+jZBRTaa7a41
+ 2AfC39hcpyLQzDfxst6akXNoqyuCiFvzKDeXtn13GvOg0e5Ha3d2KV4jc A==;
+X-CSE-ConnectionGUID: z8+1IOTgRcuECUXARH7Bvg==
+X-CSE-MsgGUID: kLr8CZdtS82Xyq30okNNQA==
+X-IronPort-AV: E=McAfee;i="6700,10204,11222"; a="28937234"
+X-IronPort-AV: E=Sophos;i="6.11,199,1725346800"; d="scan'208";a="28937234"
+Received: from fmviesa007.fm.intel.com ([10.60.135.147])
+ by orvoesa108.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 18 Oct 2024 13:55:22 -0700
+X-CSE-ConnectionGUID: kUZ5RYADSn+ahuEV8sc/uA==
+X-CSE-MsgGUID: yiHIvDyQQUqsR/2+H11vUQ==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.11,214,1725346800"; d="scan'208";a="109798985"
-Received: from msatwood-mobl.jf.intel.com ([10.24.12.145])
- by orviesa002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 18 Oct 2024 13:49:57 -0700
-From: Matt Atwood <matthew.s.atwood@intel.com>
+X-IronPort-AV: E=Sophos;i="6.11,214,1725346800"; d="scan'208";a="78628375"
+Received: from guc-pnp-dev-box-1.fm.intel.com ([10.1.27.7])
+ by fmviesa007.fm.intel.com with ESMTP; 18 Oct 2024 13:55:22 -0700
+From: Zhanjun Dong <zhanjun.dong@intel.com>
 To: intel-gfx@lists.freedesktop.org,
-	intel-xe@lists.freedesktop.org
-Cc: Mika Kahola <mika.kahola@intel.com>,
- Matt Atwood <matthew.s.atwood@intel.com>
-Subject: [PATCH 12/12] drm/i915/xe3lpd: Power request asserting/deasserting
-Date: Fri, 18 Oct 2024 13:49:41 -0700
-Message-ID: <20241018204941.73473-13-matthew.s.atwood@intel.com>
-X-Mailer: git-send-email 2.45.0
-In-Reply-To: <20241018204941.73473-1-matthew.s.atwood@intel.com>
-References: <20241018204941.73473-1-matthew.s.atwood@intel.com>
+	dri-devel@lists.freedesktop.org
+Cc: Zhanjun Dong <zhanjun.dong@intel.com>
+Subject: [PATCH v1 1/1] drm/i915/guc: Disable ct during GuC reset
+Date: Fri, 18 Oct 2024 13:55:19 -0700
+Message-Id: <20241018205519.86326-2-zhanjun.dong@intel.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20241018205519.86326-1-zhanjun.dong@intel.com>
+References: <20241018205519.86326-1-zhanjun.dong@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-BeenThere: intel-gfx@lists.freedesktop.org
@@ -69,108 +67,42 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Mika Kahola <mika.kahola@intel.com>
+During GuC reset prepare, interrupt disabled before hardware reset.
+Add disable ct to prevent unnecessary message processing.
 
-There is a HW issue that arises when there are race conditions
-between TCSS entering/exiting TC7 or TC10 states while the
-driver is asserting/deasserting TCSS power request. As a
-workaround, Display driver will implement a mailbox sequence
-to ensure that the TCSS is in TC0 when TCSS power request is
-asserted/deasserted.
-
-The sequence is the following
-
-1. Read mailbox command status and wait until run/busy bit is
-   clear
-2. Write mailbox data value '1' for power request asserting
-   and '0' for power request deasserting
-3. Write mailbox command run/busy bit and command value with 0x1
-4. Read mailbox command and wait until run/busy bit is clear
-   before continuing power request.
-
-Signed-off-by: Mika Kahola <mika.kahola@intel.com>
-Signed-off-by: Matt Atwood <matthew.s.atwood@intel.com>
+Signed-off-by: Zhanjun Dong <zhanjun.dong@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_tc.c | 40 +++++++++++++++++++++++++
- drivers/gpu/drm/i915/i915_reg.h         |  7 +++++
- 2 files changed, 47 insertions(+)
+ drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c         | 3 +++
+ drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c | 2 ++
+ 2 files changed, 5 insertions(+)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_tc.c b/drivers/gpu/drm/i915/display/intel_tc.c
-index 6f2ee7dbc43b..7d9f87db381c 100644
---- a/drivers/gpu/drm/i915/display/intel_tc.c
-+++ b/drivers/gpu/drm/i915/display/intel_tc.c
-@@ -1013,6 +1013,39 @@ xelpdp_tc_phy_wait_for_tcss_power(struct intel_tc_port *tc, bool enabled)
- 	return true;
- }
+diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c
+index 0d5197c0824a..7fd4f8f9131a 100644
+--- a/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c
++++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c
+@@ -1176,6 +1176,9 @@ static bool ct_process_incoming_requests(struct intel_guc_ct *ct)
+ 	bool done;
+ 	int err;
  
-+static bool xelpdp_tc_phy_wait_for_tcss_ready(struct drm_i915_private *i915,
-+					      bool enable)
-+{
-+	if (DISPLAY_VER(i915) < 30)
++	if (!ct->enabled)
 +		return true;
 +
-+	/* check if mailbox is running busy */
-+	if (intel_de_wait_for_clear(i915, TCSS_DISP_MAILBOX_IN_CMD,
-+				    TCSS_DISP_MAILBOX_IN_CMD_RUN_BUSY, 10)) {
-+		drm_dbg_kms(&i915->drm,
-+			    "timeout waiting for TCSS mailbox run/busy bit to clear\n");
-+		return false;
-+	}
-+
-+	if (enable)
-+		intel_de_write(i915, TCSS_DISP_MAILBOX_IN_DATA, 1);
-+	else
-+		intel_de_write(i915, TCSS_DISP_MAILBOX_IN_DATA, 0);
-+
-+	intel_de_write(i915, TCSS_DISP_MAILBOX_IN_CMD,
-+		       TCSS_DISP_MAILBOX_IN_CMD_DATA(1));
-+
-+	/* wait to clear mailbox running busy bit before continuing */
-+	if (intel_de_wait_for_clear(i915, TCSS_DISP_MAILBOX_IN_CMD,
-+				    TCSS_DISP_MAILBOX_IN_CMD_RUN_BUSY, 10)) {
-+		drm_dbg_kms(&i915->drm,
-+			    "timeout waiting for TCSS mailbox run/busy bit to clear\n");
-+		return false;
-+	}
-+
-+	return true;
-+}
-+
- static void __xelpdp_tc_phy_enable_tcss_power(struct intel_tc_port *tc, bool enable)
- {
- 	struct drm_i915_private *i915 = tc_to_i915(tc);
-@@ -1022,6 +1055,13 @@ static void __xelpdp_tc_phy_enable_tcss_power(struct intel_tc_port *tc, bool ena
+ 	spin_lock_irqsave(&ct->requests.lock, flags);
+ 	request = list_first_entry_or_null(&ct->requests.incoming,
+ 					   struct ct_incoming_msg, link);
+diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
+index 9ede6f240d79..866b71a87630 100644
+--- a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
++++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
+@@ -1684,6 +1684,8 @@ void intel_guc_submission_reset_prepare(struct intel_guc *guc)
+ 	guc->interrupts.disable(guc);
+ 	__reset_guc_busyness_stats(guc);
  
- 	assert_tc_cold_blocked(tc);
- 
-+	/*
-+	 * Gfx driver workaround for PTL tcss_rxdetect_clkswb_req/ack handshake
-+	 * violation when pwwreq= 0->1 during TC7/10 entry
-+	 */
-+	drm_WARN_ON(&i915->drm,
-+		    !xelpdp_tc_phy_wait_for_tcss_ready(i915, enable));
++	intel_guc_ct_disable(&guc->ct);
 +
- 	val = intel_de_read(i915, reg);
- 	if (enable)
- 		val |= XELPDP_TCSS_POWER_REQUEST;
-diff --git a/drivers/gpu/drm/i915/i915_reg.h b/drivers/gpu/drm/i915/i915_reg.h
-index 2743a2dd0a3d..d2775a32bf18 100644
---- a/drivers/gpu/drm/i915/i915_reg.h
-+++ b/drivers/gpu/drm/i915/i915_reg.h
-@@ -4539,6 +4539,13 @@ enum skl_power_gate {
- #define  TCSS_DDI_STATUS_HPD_LIVE_STATUS_TBT	REG_BIT(1)
- #define  TCSS_DDI_STATUS_HPD_LIVE_STATUS_ALT	REG_BIT(0)
- 
-+#define TCSS_DISP_MAILBOX_IN_CMD		_MMIO(0x161300)
-+#define   TCSS_DISP_MAILBOX_IN_CMD_RUN_BUSY	REG_BIT(31)
-+#define   TCSS_DISP_MAILBOX_IN_CMD_CMD_MASK	REG_GENMASK(7, 0)
-+#define   TCSS_DISP_MAILBOX_IN_CMD_DATA(x)	TCSS_DISP_MAILBOX_IN_CMD_RUN_BUSY | \
-+						REG_FIELD_PREP(TCSS_DISP_MAILBOX_IN_CMD_CMD_MASK, (x))
-+#define TCSS_DISP_MAILBOX_IN_DATA		_MMIO(0x161304)
-+
- #define PRIMARY_SPI_TRIGGER			_MMIO(0x102040)
- #define PRIMARY_SPI_ADDRESS			_MMIO(0x102080)
- #define PRIMARY_SPI_REGIONID			_MMIO(0x102084)
+ 	/* Flush IRQ handler */
+ 	spin_lock_irq(guc_to_gt(guc)->irq_lock);
+ 	spin_unlock_irq(guc_to_gt(guc)->irq_lock);
 -- 
-2.45.0
+2.34.1
 
