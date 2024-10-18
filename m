@@ -4,53 +4,51 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4157DD3F2AA
-	for <intel-gfx@archiver.kernel.org>; Fri, 18 Oct 2024 20:49:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C4B29D3F29B
+	for <intel-gfx@archiver.kernel.org>; Fri, 18 Oct 2024 20:49:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CF18F10E9A5;
-	Fri, 18 Oct 2024 20:49:56 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7C25210E9AD;
+	Fri, 18 Oct 2024 20:49:57 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="NkHVxGku";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="ACt0nmfc";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.7])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DCD2F10E9A5;
- Fri, 18 Oct 2024 20:49:54 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 550ED10E9A5;
+ Fri, 18 Oct 2024 20:49:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1729284595; x=1760820595;
+ t=1729284596; x=1760820596;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=Gy+C1wNvqHASzpX8yMLZ8MQ9yXlIHHkmL2QulC9QGio=;
- b=NkHVxGkuPRCJM+cTVxqw/o5EdpjmL0RGb0YQWzRIaZsHaYsljx9RqRKq
- YaM/V/Qo1QqV8E35GOIaXDbSP3mQoe+DHIhA3cTzH+Oqnq+FE3lR6hhtb
- j7365JiM4Kq2zUv793uUwwdYNcOT/FtpDpsRxZRoCmsOj7ivhd1SLJVNU
- beky+bTl4Th/p1xodgGIYcH14Oxml4bGIzIgpfrNz+6OxHPwxaANriUlv
- VWYDdofDw7fbMKNyFEto8r8Mt9rn8AMMyBrFAHei0tKIX0myJuXwah0YK
- av42ibLwcv11EHI6Xtk8H4ptnkKJvBjANy+RhXHSPWz/uzBkI3p8GRWfX A==;
-X-CSE-ConnectionGUID: ctWGloCqRIGUIt/SvLcMNw==
-X-CSE-MsgGUID: r/Ahrr7KRkCGDqYdZVCFRA==
-X-IronPort-AV: E=McAfee;i="6700,10204,11229"; a="54240193"
-X-IronPort-AV: E=Sophos;i="6.11,214,1725346800"; d="scan'208";a="54240193"
+ bh=By1y0aYf3DfUCMTSGonjJbsred8WCBgRRffm0D8ZsOM=;
+ b=ACt0nmfcTPuKZSjM54/75f0R0ECQAXzW+6Bmdl9tCFj/uRJAvbeJau8P
+ shyVI/XGLZwokNrkeW0DUKluR/JOYUi5P8V0cMYPhVOCB38Yr28HABbA4
+ YkQ7DU7v2I+rwMtj8iUfa026Esdej/Wo179aZTV5RLj9vSwPiwNNQ4YYj
+ 6OAa8XNS42hrosrNDx9zmMIKoh2M6vsohJUey30+y3h9J3JvjYGseanUR
+ eI50iprNFMN+TgoRLYMn5yw8cYne+I5+7Vm3XLYnwby1Pm4VxC6rZvd4w
+ riH84V9G0k42Ok4/dCejASQkE/TrVhCFqfYJ0xOVVNoVwBcaH6Sdwgjm/ Q==;
+X-CSE-ConnectionGUID: jps95rQ/SUGGmSIBlCK3MA==
+X-CSE-MsgGUID: TUc1hZ35Q62UoPAtbnftUw==
+X-IronPort-AV: E=McAfee;i="6700,10204,11229"; a="54240196"
+X-IronPort-AV: E=Sophos;i="6.11,214,1725346800"; d="scan'208";a="54240196"
 Received: from orviesa002.jf.intel.com ([10.64.159.142])
  by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 18 Oct 2024 13:49:54 -0700
-X-CSE-ConnectionGUID: rpktiwRaTpGr4auWHvANzQ==
-X-CSE-MsgGUID: QFuMsO14TTGRTYVaSyhaZg==
+ 18 Oct 2024 13:49:56 -0700
+X-CSE-ConnectionGUID: sN8+2VIZQm688gmafmUX5w==
+X-CSE-MsgGUID: wun/3ifqRBKvVSU0GO6huQ==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.11,214,1725346800"; d="scan'208";a="109798966"
+X-IronPort-AV: E=Sophos;i="6.11,214,1725346800"; d="scan'208";a="109798982"
 Received: from msatwood-mobl.jf.intel.com ([10.24.12.145])
  by orviesa002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 18 Oct 2024 13:49:53 -0700
+ 18 Oct 2024 13:49:55 -0700
 From: Matt Atwood <matthew.s.atwood@intel.com>
 To: intel-gfx@lists.freedesktop.org,
 	intel-xe@lists.freedesktop.org
 Cc: Suraj Kandpal <suraj.kandpal@intel.com>,
- Arun R Murthy <arun.r.murthy@intel.com>,
  Matt Atwood <matthew.s.atwood@intel.com>
-Subject: [PATCH 08/12] drm/i915/xe3lpd: Increase resolution for plane to
- support 6k
-Date: Fri, 18 Oct 2024 13:49:37 -0700
-Message-ID: <20241018204941.73473-9-matthew.s.atwood@intel.com>
+Subject: [PATCH 11/12] drm/i915/xe3lpd: Prune modes for YUV420
+Date: Fri, 18 Oct 2024 13:49:40 -0700
+Message-ID: <20241018204941.73473-12-matthew.s.atwood@intel.com>
 X-Mailer: git-send-email 2.45.0
 In-Reply-To: <20241018204941.73473-1-matthew.s.atwood@intel.com>
 References: <20241018204941.73473-1-matthew.s.atwood@intel.com>
@@ -73,65 +71,71 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 From: Suraj Kandpal <suraj.kandpal@intel.com>
 
-DISPLAY_VER >= 30 onwards CRTC can now support 6k resolution.
-Increase pipe and plane max width and height to reflect this
-increase in resolution.
+We only support resolution upto 4k for single pipe when using
+YUV420 format so we prune these modes and restrict the plane size
+at src.
 
-Signed-off-by: Arun R Murthy <arun.r.murthy@intel.com>
 Signed-off-by: Suraj Kandpal <suraj.kandpal@intel.com>
 Signed-off-by: Matt Atwood <matthew.s.atwood@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_display.c       |  5 ++++-
- drivers/gpu/drm/i915/display/skl_universal_plane.c | 13 ++++++++++++-
- 2 files changed, 16 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/i915/display/intel_dp.c            | 11 +++++++++--
+ drivers/gpu/drm/i915/display/skl_universal_plane.c |  5 ++++-
+ 2 files changed, 13 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
-index 90669c7f988b..72150f257969 100644
---- a/drivers/gpu/drm/i915/display/intel_display.c
-+++ b/drivers/gpu/drm/i915/display/intel_display.c
-@@ -8452,7 +8452,10 @@ intel_mode_valid_max_plane_size(struct drm_i915_private *dev_priv,
- 	 * plane so let's not advertize modes that are
- 	 * too big for that.
- 	 */
--	if (DISPLAY_VER(dev_priv) >= 11) {
-+	if (DISPLAY_VER(dev_priv) >= 30) {
-+		plane_width_max = 6144;
-+		plane_height_max = 4096;
-+	} else if (DISPLAY_VER(dev_priv) >= 11) {
- 		plane_width_max = 5120 * num_joined_pipes;
- 		plane_height_max = 4320;
- 	} else {
+diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
+index 0093bd43c712..2a1a86606301 100644
+--- a/drivers/gpu/drm/i915/display/intel_dp.c
++++ b/drivers/gpu/drm/i915/display/intel_dp.c
+@@ -1373,6 +1373,7 @@ intel_dp_mode_valid(struct drm_connector *_connector,
+ {
+ 	struct intel_connector *connector = to_intel_connector(_connector);
+ 	struct intel_dp *intel_dp = intel_attached_dp(connector);
++	enum intel_output_format sink_format;
+ 	struct drm_i915_private *dev_priv = to_i915(connector->base.dev);
+ 	const struct drm_display_mode *fixed_mode;
+ 	int target_clock = mode->clock;
+@@ -1407,6 +1408,13 @@ intel_dp_mode_valid(struct drm_connector *_connector,
+ 						     mode->hdisplay, target_clock);
+ 	max_dotclk *= num_joined_pipes;
+ 
++	sink_format = intel_dp_sink_format(connector, mode);
++	if (num_joined_pipes == 1) {
++		if (sink_format == INTEL_OUTPUT_FORMAT_YCBCR420 &&
++		    mode->hdisplay > 4096)
++			return MODE_NO_420;
++	}
++
+ 	if (target_clock > max_dotclk)
+ 		return MODE_CLOCK_HIGH;
+ 
+@@ -1422,10 +1430,9 @@ intel_dp_mode_valid(struct drm_connector *_connector,
+ 					   intel_dp_mode_min_output_bpp(connector, mode));
+ 
+ 	if (intel_dp_has_dsc(connector)) {
+-		enum intel_output_format sink_format, output_format;
++		enum intel_output_format output_format;
+ 		int pipe_bpp;
+ 
+-		sink_format = intel_dp_sink_format(connector, mode);
+ 		output_format = intel_dp_output_format(connector, sink_format);
+ 		/*
+ 		 * TBD pass the connector BPC,
 diff --git a/drivers/gpu/drm/i915/display/skl_universal_plane.c b/drivers/gpu/drm/i915/display/skl_universal_plane.c
-index da974f4a25bd..bd7786a6161a 100644
+index bd7786a6161a..99548a357dfe 100644
 --- a/drivers/gpu/drm/i915/display/skl_universal_plane.c
 +++ b/drivers/gpu/drm/i915/display/skl_universal_plane.c
-@@ -431,6 +431,13 @@ static int icl_plane_min_width(const struct drm_framebuffer *fb,
- 	}
- }
- 
-+static int xe3_plane_max_width(const struct drm_framebuffer *fb,
-+				   int color_plane,
-+				   unsigned int rotation)
-+{
-+	return 6144;
-+}
-+
- static int icl_hdr_plane_max_width(const struct drm_framebuffer *fb,
+@@ -435,7 +435,10 @@ static int xe3_plane_max_width(const struct drm_framebuffer *fb,
  				   int color_plane,
  				   unsigned int rotation)
-@@ -2589,7 +2596,11 @@ skl_universal_plane_create(struct drm_i915_private *dev_priv,
+ {
+-	return 6144;
++	if (intel_format_info_is_yuv_semiplanar(fb->format, fb->modifier))
++		return 4096;
++	else
++		return 6144;
+ }
  
- 	intel_fbc_add_plane(skl_plane_fbc(dev_priv, pipe, plane_id), plane);
- 
--	if (DISPLAY_VER(dev_priv) >= 11) {
-+	if (DISPLAY_VER(dev_priv) >= 30) {
-+		plane->max_width = xe3_plane_max_width;
-+		plane->max_height = icl_plane_max_height;
-+		plane->min_cdclk = icl_plane_min_cdclk;
-+	}else if (DISPLAY_VER(dev_priv) >= 11) {
- 		plane->min_width = icl_plane_min_width;
- 		if (icl_is_hdr_plane(dev_priv, plane_id))
- 			plane->max_width = icl_hdr_plane_max_width;
+ static int icl_hdr_plane_max_width(const struct drm_framebuffer *fb,
 -- 
 2.45.0
 
