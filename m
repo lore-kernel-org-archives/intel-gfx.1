@@ -4,51 +4,51 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AF024D3F2A0
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4BD39D3F2A6
 	for <intel-gfx@archiver.kernel.org>; Fri, 18 Oct 2024 20:49:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4AD7710E9A8;
-	Fri, 18 Oct 2024 20:49:58 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F047710E9A6;
+	Fri, 18 Oct 2024 20:49:57 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="YEpy4oO3";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="jxlmty6m";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.7])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 22A2810E9AC;
- Fri, 18 Oct 2024 20:49:55 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4C41310E9A0;
+ Fri, 18 Oct 2024 20:49:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1729284595; x=1760820595;
+ t=1729284594; x=1760820594;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=BWjSRRwMvtz851UbvKh5g4kBb5j9EaZ03BLUR8hbJyc=;
- b=YEpy4oO3rE7HcH3QvabUX8LDfCvwNC5BQQ+DzwbChAf9xISCZ5r2cjlm
- DuNEkkeM4owj/j+LTVYBfv0ZT2dYm9fziFUKgW6vNma+MNPjj2lrbYCQt
- EAXtD6G/L5IB2WPCPqoAs9Z0RAeCyP/iWjK9HqE8i5YRwpLS4n5xZRTKG
- PUVcRO8lMIS2iEC9Etovkh3DFnSDFqJ0RPkBjNmn9RFSj8eTvB7J4VSP+
- NXf2gmD+blxqbMjNUwnwr07eOiqblKixOHbRfJUTAXQJV64HV53cSqyET
- +eSFRjNv70wvTkAbL+Av7PKnU5BJENPphQSe1WYfg3ORB+Oe6opU0iSJF A==;
-X-CSE-ConnectionGUID: e9p9HChJSKKHwjybXX5wmQ==
-X-CSE-MsgGUID: cHNdMx2/Tpiry2iaVIv35g==
-X-IronPort-AV: E=McAfee;i="6700,10204,11229"; a="54240195"
-X-IronPort-AV: E=Sophos;i="6.11,214,1725346800"; d="scan'208";a="54240195"
+ bh=kWP9a087hI8Eeqb1wQYHUK9EKqH5asYaOe0Za0WgqTU=;
+ b=jxlmty6mF2M4NO/5XUgGYsEEiGqppCfpTaQqHY/OMcG9ocJaBeTXjWRU
+ akmlvijQnBA5w7yGfsnDLkGkUZ+7Wt4NmLgC0r1Sj0HSrsEMNMWxPOxic
+ HOUXbeyDYcvlMwXQAVnYI46wA8MbuE1pnF6WQzlFQ3PYS6VU1Gw7uNFPc
+ q5i/n1jZrYeCttGIs08Vngr3TO5RkxR9jB3PJR6goeY76cApa6S4fq/iv
+ 35OP/1R6NnoMEMb4tWK+VA3URDUtT0maNAskha3VnEoZW31pJvqN+JKX4
+ ZxVHciT0vz0wM6MoibA2ouZL124KnzkltU3AhF1pmqVqFSvhKqVq1l1ww w==;
+X-CSE-ConnectionGUID: 3MVZanfQSzOO5TFVOu/Pgw==
+X-CSE-MsgGUID: RV9f6z3+SqqQ1miISoYEPw==
+X-IronPort-AV: E=McAfee;i="6700,10204,11229"; a="54240191"
+X-IronPort-AV: E=Sophos;i="6.11,214,1725346800"; d="scan'208";a="54240191"
 Received: from orviesa002.jf.intel.com ([10.64.159.142])
  by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  18 Oct 2024 13:49:54 -0700
-X-CSE-ConnectionGUID: J3dU9nJrRnqP6edXn0kpYA==
-X-CSE-MsgGUID: 0ZdZzEHQSfejizu/RHW4+Q==
+X-CSE-ConnectionGUID: u9UqMPeuTjGEHKLsvo6crQ==
+X-CSE-MsgGUID: dx2N6h1ZSZm8UsGVqmvBqA==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.11,214,1725346800"; d="scan'208";a="109798973"
+X-IronPort-AV: E=Sophos;i="6.11,214,1725346800"; d="scan'208";a="109798956"
 Received: from msatwood-mobl.jf.intel.com ([10.24.12.145])
  by orviesa002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 18 Oct 2024 13:49:54 -0700
+ 18 Oct 2024 13:49:51 -0700
 From: Matt Atwood <matthew.s.atwood@intel.com>
 To: intel-gfx@lists.freedesktop.org,
 	intel-xe@lists.freedesktop.org
-Cc: Suraj Kandpal <suraj.kandpal@intel.com>,
- Matt Atwood <matthew.s.atwood@intel.com>
-Subject: [PATCH 10/12] drm/i915/xe3lpd: Increase bigjoiner limitations
-Date: Fri, 18 Oct 2024 13:49:39 -0700
-Message-ID: <20241018204941.73473-11-matthew.s.atwood@intel.com>
+Cc: "Heikkila, Juha-pekka" <juha-pekka.heikkila@intel.com>,
+	Heikkila@freedesktop.org, Matt Atwood <matthew.s.atwood@intel.com>
+Subject: [PATCH 06/12] drm/i915/display/xe3: disable x-tiled framebuffers
+Date: Fri, 18 Oct 2024 13:49:35 -0700
+Message-ID: <20241018204941.73473-7-matthew.s.atwood@intel.com>
 X-Mailer: git-send-email 2.45.0
 In-Reply-To: <20241018204941.73473-1-matthew.s.atwood@intel.com>
 References: <20241018204941.73473-1-matthew.s.atwood@intel.com>
@@ -69,39 +69,29 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Suraj Kandpal <suraj.kandpal@intel.com>
+From: "Heikkila, Juha-pekka" <juha-pekka.heikkila@intel.com>
 
-With 6k resolution support for a single crtc being added
-bigjoiner will only come into picture when hdisplay > 6144
+Xe3 has no more support for x-tile on display.
 
-Signed-off-by: Suraj Kandpal <suraj.kandpal@intel.com>
+Signed-off-by: Heikkila, Juha-pekka <juha-pekka.heikkila@intel.com>
 Signed-off-by: Matt Atwood <matthew.s.atwood@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_dp.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/i915/display/intel_fb.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
-index be21e2743801..0093bd43c712 100644
---- a/drivers/gpu/drm/i915/display/intel_dp.c
-+++ b/drivers/gpu/drm/i915/display/intel_dp.c
-@@ -1314,14 +1314,16 @@ bool intel_dp_needs_joiner(struct intel_dp *intel_dp,
- 			   int num_joined_pipes)
- {
- 	struct drm_i915_private *i915 = dp_to_i915(intel_dp);
-+	int hdisplay_limit;
- 
- 	if (!intel_dp_has_joiner(intel_dp))
- 		return false;
- 
-+	hdisplay_limit = DISPLAY_VER(i915) >= 30 ? 6144 : 5120;
- 	num_joined_pipes /= 2;
- 
- 	return clock > num_joined_pipes * i915->display.cdclk.max_dotclk_freq ||
--	       hdisplay > num_joined_pipes * 5120;
-+	       hdisplay > num_joined_pipes * hdisplay_limit;
- }
- 
- int intel_dp_num_joined_pipes(struct intel_dp *intel_dp,
+diff --git a/drivers/gpu/drm/i915/display/intel_fb.c b/drivers/gpu/drm/i915/display/intel_fb.c
+index a7b4cf8b6d50..2075541bcdf4 100644
+--- a/drivers/gpu/drm/i915/display/intel_fb.c
++++ b/drivers/gpu/drm/i915/display/intel_fb.c
+@@ -349,7 +349,7 @@ static const struct intel_modifier_desc intel_modifiers[] = {
+ 		.plane_caps = INTEL_PLANE_CAP_TILING_Y,
+ 	}, {
+ 		.modifier = I915_FORMAT_MOD_X_TILED,
+-		.display_ver = DISPLAY_VER_ALL,
++		.display_ver = { 0, 20 },
+ 		.plane_caps = INTEL_PLANE_CAP_TILING_X,
+ 	}, {
+ 		.modifier = DRM_FORMAT_MOD_LINEAR,
 -- 
 2.45.0
 
