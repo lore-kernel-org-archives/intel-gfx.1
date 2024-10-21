@@ -4,50 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D6A63D0E6EE
-	for <intel-gfx@archiver.kernel.org>; Mon, 21 Oct 2024 10:49:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 342C9D0E6F1
+	for <intel-gfx@archiver.kernel.org>; Mon, 21 Oct 2024 10:49:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6BA3F10E472;
-	Mon, 21 Oct 2024 10:49:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C819710E47F;
+	Mon, 21 Oct 2024 10:49:21 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="J2OwL/QD";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="JOAfI+lK";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.19])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F06F310E472
- for <intel-gfx@lists.freedesktop.org>; Mon, 21 Oct 2024 10:49:17 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 854A810E47F
+ for <intel-gfx@lists.freedesktop.org>; Mon, 21 Oct 2024 10:49:20 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1729507758; x=1761043758;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=Y4dO5oZBjqzwRQxl/2O2HkgFNNQYW6RhcC0Nuoxxq+U=;
- b=J2OwL/QDyr0ewiU3Nd8nXGisdjHP4caVonqyrXWgZfKOzVtwAmSa3dUH
- TPvXJcP2XrOYRaoxsJ1x1WQnqHfUe47JoSobo5Zo9A8ir5q4xMnCRlRzD
- mvzYdBuvM7JVEDZQ3BCdYhNhhi33dUcF5xWgdf06LxoEfNQnHQQtblO+I
- owGkOUFehskqjet5x7WPm0Pj5lf750X3m2StcaKTUpyCDbn7m6os5iOsC
- MVRuFUG49dK8jJpHyGTqqzPRDHaqHE8ARWOkV6vriTuaSVGrcEGDZy3Jm
- rgklFrcFhQTFeqiIjbWopVML+5tNYgRoltV7NpfSD+jNMD9tmeND5Yxhw A==;
-X-CSE-ConnectionGUID: IguXm6UbTuylHXYpDGs6kQ==
-X-CSE-MsgGUID: uQU8hGY+Rgyxc8wOT59S0Q==
-X-IronPort-AV: E=McAfee;i="6700,10204,11231"; a="28439934"
-X-IronPort-AV: E=Sophos;i="6.11,220,1725346800"; d="scan'208";a="28439934"
+ t=1729507760; x=1761043760;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=NzvVfkbTqqz1GRo6Sz+qCXSw8dtKNN/6ZjxcImpMbyw=;
+ b=JOAfI+lKaWvdd9GSi3V5VxnnS2vHu/8d+e4QETtX2EPojJ3yGBU3yOPe
+ uaoHvYLksBz46mOKLa75/mU1tEdYQ/ox42PluAC6Kmz/JlrTnFZ8gw7dt
+ hHy4UqMi9qWKKrrMTnTf4Z7v3J0whQBoERzzZE1keOcOw43QKu889n/Tq
+ wH3ygHnOVaic5peZC+YRY3s5ET95s+c+kYffd8pEG6q1qZTiOJbDxNHe8
+ WKzWCOoGxgs8ekuI2uxU+5VvVjLwAR93CaoIrH1aLX6MJGHMNU3DJde+j
+ D1YAlZCNwIT2qTYu0RT2xPac9SR5opG6U+dcFVukp8ApuYABYSrRt7oek g==;
+X-CSE-ConnectionGUID: 1gfsDfQdQTCp3mpO3EGa2g==
+X-CSE-MsgGUID: ynjoCg8lRLGejbMHUl3jig==
+X-IronPort-AV: E=McAfee;i="6700,10204,11231"; a="28439937"
+X-IronPort-AV: E=Sophos;i="6.11,220,1725346800"; d="scan'208";a="28439937"
 Received: from orviesa003.jf.intel.com ([10.64.159.143])
  by fmvoesa113.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 21 Oct 2024 03:49:17 -0700
-X-CSE-ConnectionGUID: cKshuGjTRl6gFezWnZZUag==
-X-CSE-MsgGUID: s6DaE54FTRWPzPiyFg3X7w==
+ 21 Oct 2024 03:49:20 -0700
+X-CSE-ConnectionGUID: xE8Tt+C3ReGdpMANWOpJyQ==
+X-CSE-MsgGUID: R4TCz/D5Sru3tRue76aH/g==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.11,199,1725346800"; d="scan'208";a="84310714"
+X-IronPort-AV: E=Sophos;i="6.11,199,1725346800"; d="scan'208";a="84310749"
 Received: from mgolanimitul-x299-ud4-pro.iind.intel.com ([10.190.239.114])
- by orviesa003.jf.intel.com with ESMTP; 21 Oct 2024 03:49:16 -0700
+ by orviesa003.jf.intel.com with ESMTP; 21 Oct 2024 03:49:19 -0700
 From: Mitul Golani <mitulkumar.ajitkumar.golani@intel.com>
 To: intel-gfx@lists.freedesktop.org
 Cc: ankit.k.nautiyal@intel.com,
 	ville.syrjala@linux.intel.com
-Subject: [PATCH v3 0/3] Add AS_SDP to fastset
-Date: Mon, 21 Oct 2024 16:20:57 +0530
-Message-ID: <20241021105100.2861830-1-mitulkumar.ajitkumar.golani@intel.com>
+Subject: [PATCH v3 2/3] drm/i915/dp: Set FAVT mode in DP SDP with fixed
+ refresh rate
+Date: Mon, 21 Oct 2024 16:20:59 +0530
+Message-ID: <20241021105100.2861830-3-mitulkumar.ajitkumar.golani@intel.com>
 X-Mailer: git-send-email 2.46.0
+In-Reply-To: <20241021105100.2861830-1-mitulkumar.ajitkumar.golani@intel.com>
+References: <20241021105100.2861830-1-mitulkumar.ajitkumar.golani@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-BeenThere: intel-gfx@lists.freedesktop.org
@@ -65,19 +68,29 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-vrr enable disable should happen with fastset, where
-adptive sync SDP should not block it to full modeset.
+While running with fixed refresh rate and VRR timing generator set FAVT
+mode (Fixed Vtotal) in DP Adaptive Sync SDP to intimate the panel
+about Fixed refresh rate.
 
-Mitul Golani (3):
-  drm/i915/vrr: Update vrr.vsync_{start,end} computation
-  drm/i915/dp: Set FAVT mode in DP SDP with fixed refresh rate
-  drm/i915/dp: Compute as_sdp based on if vrr possible
+Signed-off-by: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
+Signed-off-by: Mitul Golani <mitulkumar.ajitkumar.golani@intel.com>
+---
+ drivers/gpu/drm/i915/display/intel_dp.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
- .../drm/i915/display/intel_crtc_state_dump.c  |  4 +++-
- drivers/gpu/drm/i915/display/intel_dp.c       |  6 ++---
- drivers/gpu/drm/i915/display/intel_vrr.c      | 24 +++++++------------
- 3 files changed, 15 insertions(+), 19 deletions(-)
-
+diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
+index 7e04913bc2ff..b1f68fff524d 100644
+--- a/drivers/gpu/drm/i915/display/intel_dp.c
++++ b/drivers/gpu/drm/i915/display/intel_dp.c
+@@ -2785,7 +2785,7 @@ static void intel_dp_compute_as_sdp(struct intel_dp *intel_dp,
+ 		as_sdp->target_rr = drm_mode_vrefresh(adjusted_mode);
+ 		as_sdp->target_rr_divider = true;
+ 	} else {
+-		as_sdp->mode = DP_AS_SDP_AVT_FIXED_VTOTAL;
++		as_sdp->mode = DP_AS_SDP_AVT_DYNAMIC_VTOTAL;
+ 		as_sdp->vtotal = adjusted_mode->vtotal;
+ 		as_sdp->target_rr = 0;
+ 	}
 -- 
 2.46.0
 
