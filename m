@@ -4,51 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 81AE2D15D88
-	for <intel-gfx@archiver.kernel.org>; Mon, 21 Oct 2024 12:32:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B5150D15D89
+	for <intel-gfx@archiver.kernel.org>; Mon, 21 Oct 2024 12:32:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1B05810E4CF;
-	Mon, 21 Oct 2024 12:32:20 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 50A6E10E4CE;
+	Mon, 21 Oct 2024 12:32:29 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="iWCjJLlW";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="GIQPX+Jq";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 464A410E4C8;
- Mon, 21 Oct 2024 12:32:19 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E64DE10E4D9;
+ Mon, 21 Oct 2024 12:32:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1729513939; x=1761049939;
+ t=1729513943; x=1761049943;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=ZbPJcOveEqMemRpcqFimp/L0w96Wd3SN5h1DqKlOJf4=;
- b=iWCjJLlWVksXdTKDR7gx19AWUGychiK9UB2QgnEX7opOIehCF5J95ZjX
- INutjznz/EwrP4fXSWh1Saw9PsSGbtsPwAAIdwyBUnTIt8MDQiy0BWyqb
- AaMspoZ3ToIU6HfdteU2Rdx26Hw660e+v+NMev0WMMOaVArPpFuCzaBfd
- SIqSGrwSxCWOXl/Qffcu4qsA9oROXO37tb1+ogqY8oKXntOz+sNbA5zes
- jtjuzoQXuSGW2UPaSJLnRUPVwGh0OLMyuwxm29eVEUXWpCcoPuvoBICVA
- 6GT9WyT+R/3FZQKelTGZZE1QzE5aM77sUbtQFuIUIjb2AwLPl9HSp6aW2 Q==;
-X-CSE-ConnectionGUID: p+mfPnBYTRuzIxp0x6+4RQ==
-X-CSE-MsgGUID: JhEgeaKKTPiNnr5BibAJZA==
-X-IronPort-AV: E=McAfee;i="6700,10204,11222"; a="46459646"
-X-IronPort-AV: E=Sophos;i="6.11,199,1725346800"; d="scan'208";a="46459646"
+ bh=Trc2GDZgC26B/VwFLJBZqvEAGDojhENcjsHN9bH3BzA=;
+ b=GIQPX+JqNv1U03rDjatV8e8MA7KfV017lREIzC7NHR4K/a5nfOgRBNaO
+ j0baj9Hxi9txHOGNnC0LbHGvraoXKMwfx6xIyZRMdq1MjQVTHMkJAiM/o
+ 4x9ORGlb2QQmAZYgdL+exaMMXXPdHLYAh0zFuRq3/ddKU2EcfkpmkUqDS
+ 5eoVzv+ZTR1FwFd1lJTK3eyLZk+pFFVUBtAe7tI9MpYX4toPoyjiJXT4u
+ NZRwDaTbiQrjPjuvUefoPGQP5U5jinFul7ECbq5CEud8dHiuIEUgRWKj3
+ EgDIZMspEMBuJAuzV9OX9rE8VpBZqhQ/rSCnQSjqcj6gjMu1AcgIfj/67 A==;
+X-CSE-ConnectionGUID: G2J3fYlMTUevkUl3RC36SQ==
+X-CSE-MsgGUID: zuhhP8qaRiSP+kkJhp79vA==
+X-IronPort-AV: E=McAfee;i="6700,10204,11222"; a="46459655"
+X-IronPort-AV: E=Sophos;i="6.11,199,1725346800"; d="scan'208";a="46459655"
 Received: from fmviesa010.fm.intel.com ([10.60.135.150])
  by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 21 Oct 2024 05:32:19 -0700
-X-CSE-ConnectionGUID: 5e5+TdtqSkGJjhAS5VzcCA==
-X-CSE-MsgGUID: 1WQYr4QVS5ijKtgb5/VblA==
+ 21 Oct 2024 05:32:23 -0700
+X-CSE-ConnectionGUID: ujE7TWmWTMmw47pbmyHVmw==
+X-CSE-MsgGUID: uJhS6RScQJiBFynbrXebWw==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.11,220,1725346800"; d="scan'208";a="79866102"
+X-IronPort-AV: E=Sophos;i="6.11,220,1725346800"; d="scan'208";a="79866118"
 Received: from srr4-3-linux-103-aknautiy.iind.intel.com ([10.223.34.160])
  by fmviesa010-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 21 Oct 2024 05:32:17 -0700
+ 21 Oct 2024 05:32:22 -0700
 From: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
 To: intel-gfx@lists.freedesktop.org
 Cc: intel-xe@lists.freedesktop.org,
 	suraj.kandpal@intel.com
-Subject: [PATCH 12/16] drm/i915/display: Account for pixel replication in
- pipe_src
-Date: Mon, 21 Oct 2024 18:04:10 +0530
-Message-ID: <20241021123414.3993899-13-ankit.k.nautiyal@intel.com>
+Subject: [PATCH 15/16] drm/i915/display: Adjust Pipe SRC Width for Odd Pixels
+Date: Mon, 21 Oct 2024 18:04:13 +0530
+Message-ID: <20241021123414.3993899-16-ankit.k.nautiyal@intel.com>
 X-Mailer: git-send-email 2.45.2
 In-Reply-To: <20241021123414.3993899-1-ankit.k.nautiyal@intel.com>
 References: <20241021123414.3993899-1-ankit.k.nautiyal@intel.com>
@@ -69,57 +68,69 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-With DSC pixel replication, extra pixels are added in the last slice
-of the last pipe. Due to this the total hactive gets increased by few
-pixels. Adjust the computation for pipe source width to account for
-pixel replication.
+Enhance the `intel_splitter_adjust_pipe_width` helper to account for
+both pixel replication and odd pixels. When the display width is
+divided among multiple pipes, extra pixels can make the pipe source
+width odd. Since hardware expects an even width, an extra pixel is
+added to each pipe to ensure even width.
 
-These extra pixels will be take care by the Splitter logic in
-hardware.
+The splitter hardware will remove these extra pixels.
 
 Signed-off-by: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_display.c | 20 +++++++++++++++++++-
- 1 file changed, 19 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/i915/display/intel_display.c | 22 +++++++++++++++-----
+ 1 file changed, 17 insertions(+), 5 deletions(-)
 
 diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
-index 1b772f58998e..de682fec45cd 100644
+index ac4a5809efd6..5fe96c53d525 100644
 --- a/drivers/gpu/drm/i915/display/intel_display.c
 +++ b/drivers/gpu/drm/i915/display/intel_display.c
-@@ -2514,6 +2514,22 @@ void intel_encoder_get_config(struct intel_encoder *encoder,
+@@ -2514,12 +2514,18 @@ void intel_encoder_get_config(struct intel_encoder *encoder,
  	intel_crtc_readout_derived_state(crtc_state);
  }
  
-+static int intel_splitter_adjust_pipe_width(int width, int replicated_pixels)
-+{
-+	/* Account for Pixel replication:
-+	 * Pixel replication is required due to the rounding of slice_width (Hactive / slice_count).
+-static int intel_splitter_adjust_pipe_width(int width, int replicated_pixels)
++static int intel_splitter_adjust_pipe_width(int width, int replicated_pixels,
++					    bool has_odd_pixel, int num_pipes)
+ {
+-	/* Account for Pixel replication:
++	/* Account for Pixel replication + Odd pixel:
+ 	 * Pixel replication is required due to the rounding of slice_width (Hactive / slice_count).
+ 	 *
+-	 * Splitter HW takes care of these by removing replicated pixels from the last pipe.
++	 * These extra pixels when added to the pipe source width, can make the pipe source width
++	 * odd. Since HW expects the pipe source width to be even, therefore one extra pixel needs
++	 * to be added to the pipe source width to make it even.
 +	 *
-+	 * Splitter HW takes care of these by removing replicated pixels from the last pipe.
-+	 */
-+
-+	if (!replicated_pixels)
++	 * Splitter HW takes care of these by removing odd pixel from each pipe and
++	 * replicated pixels from the last pipe.
+ 	 */
+ 
+ 	if (!replicated_pixels)
+@@ -2527,7 +2533,11 @@ static int intel_splitter_adjust_pipe_width(int width, int replicated_pixels)
+ 
+ 	width += replicated_pixels;
+ 
+-	return width;
++	if (!has_odd_pixel)
 +		return width;
 +
-+	width += replicated_pixels;
-+
-+	return width;
-+}
-+
++	/* Account for one extra pixel for each pipe */
++	return width + num_pipes;
+ }
+ 
  static void intel_joiner_compute_pipe_src(struct intel_crtc_state *crtc_state)
- {
- 	int num_pipes = intel_crtc_num_joined_pipes(crtc_state);
-@@ -2522,7 +2538,9 @@ static void intel_joiner_compute_pipe_src(struct intel_crtc_state *crtc_state)
- 	if (num_pipes == 1)
+@@ -2539,7 +2549,9 @@ static void intel_joiner_compute_pipe_src(struct intel_crtc_state *crtc_state)
  		return;
  
--	width = drm_rect_width(&crtc_state->pipe_src);
-+	width = intel_splitter_adjust_pipe_width(drm_rect_width(&crtc_state->pipe_src),
-+						 crtc_state->dsc.replicated_pixels);
-+
+ 	width = intel_splitter_adjust_pipe_width(drm_rect_width(&crtc_state->pipe_src),
+-						 crtc_state->dsc.replicated_pixels);
++						 crtc_state->dsc.replicated_pixels,
++						 crtc_state->dsc.has_odd_pixel,
++						 num_pipes);
+ 
  	height = drm_rect_height(&crtc_state->pipe_src);
  
- 	drm_rect_init(&crtc_state->pipe_src, 0, 0,
 -- 
 2.45.2
 
