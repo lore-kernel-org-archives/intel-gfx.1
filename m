@@ -4,43 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BECE8D0E6FC
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0EA33D3C935
 	for <intel-gfx@archiver.kernel.org>; Tue, 22 Oct 2024 10:54:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A7D9B10E665;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 035FD10E65D;
 	Tue, 22 Oct 2024 10:54:08 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="Dzz7suKU";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="PX0B3jeE";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3AEF710E655;
- Tue, 22 Oct 2024 10:53:55 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CACE510E662;
+ Tue, 22 Oct 2024 10:53:51 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1729594435; x=1761130435;
+ t=1729594432; x=1761130432;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=q9tX8Qeailt2qrGPOyqvGVqQwwH9w1F1buOlNoUXGNk=;
- b=Dzz7suKUSp0dKXZfrGHhoWgPTclwwd/EBS34+fbEt5BRGjRPi+hNKlcm
- gQuTmIItzoSPjYjU+tv409B0sQXV+rAl2m92GqRIbcWdbgwYhVNWhwmI4
- PwaPTLv5y/8rgkpiBvh5hkH+IwNNWHWtwm+7mpL8ciqW9UHMCgLwVmYrR
- pRn+13C7W8R+L/UFX09HdBzrFkGDcldPVnEGTHJaz56tN1yjeEg0kYjU4
- Om1vup1SslWyAgB3Ir/Uu4pakjpy1NRIQCMDbzVOnq40qTTxNaMJDEUCa
- WO0nlQjwV8pdXiyEXJ39ajlFz1PzTt1OWIGYGqa76vvJlJwyvygeJQJMg w==;
-X-CSE-ConnectionGUID: 8gxdIcD/TFenXXJs6rXIUg==
-X-CSE-MsgGUID: ta2BHaOES4Kc5C/l7/mbfQ==
-X-IronPort-AV: E=McAfee;i="6700,10204,11232"; a="39705074"
-X-IronPort-AV: E=Sophos;i="6.11,223,1725346800"; d="scan'208";a="39705074"
+ bh=kxRm/gIWV9t8+mhBKVrkdxXSfSLyFC00LqaghTUcp1k=;
+ b=PX0B3jeEw6iX+Rj5KN6Tm7qe+IGJPuLjxgSPepxqTZyWScojWtvx/jXe
+ esp05ShjHlDHPNE4BciBl8RfrWmiZbOBqPspE3FeRlq2KKqXO6w0rmp3G
+ zcy6764Qa1pEPZvWWSF5CXutTuSqT/s8aBsCyppJgQgYuoBOyKQJMv4Su
+ QFj/meUEiA7RmjJ5qxsUc3PecvQSFONsmCQCdB7NzG8LlPCWoeNHiJhLz
+ 6dXpS5unjZ7WoWnVt2oeq41cT6d5h10WyKjxd1GI4CXKIQ8qDktgk66U9
+ Iees9L+7jwFNtbrTC1aTNQ///7g8FLoQEA0MIMzwfZAcYlNeGUj0pxr55 g==;
+X-CSE-ConnectionGUID: 634d+F7YSgmvxX9aBHMiew==
+X-CSE-MsgGUID: cg2zxAAbSa2T44NeUMKsTw==
+X-IronPort-AV: E=McAfee;i="6700,10204,11232"; a="39704979"
+X-IronPort-AV: E=Sophos;i="6.11,223,1725346800"; d="scan'208";a="39704979"
 Received: from fmviesa009.fm.intel.com ([10.60.135.149])
- by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 22 Oct 2024 03:53:48 -0700
-X-CSE-ConnectionGUID: rF/sH3pKS8mq8KWC0lM8sg==
-X-CSE-MsgGUID: mbYX9p6JQGOUCQN3FjPi3A==
+ by fmvoesa105.fm.intel.com with ESMTP; 22 Oct 2024 03:53:41 -0700
+X-CSE-ConnectionGUID: 2lhHKdamTIWdpViQnlu/pA==
+X-CSE-MsgGUID: bfY8UXGTQo2gFVlFhPRXrA==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.11,223,1725346800"; d="scan'208";a="79847665"
+X-IronPort-AV: E=Sophos;i="6.11,223,1725346800"; d="scan'208";a="79847596"
 Received: from sannilnx-dsk.jer.intel.com ([10.12.231.107])
  by fmviesa009-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 22 Oct 2024 03:53:40 -0700
+ 22 Oct 2024 03:53:16 -0700
 From: Alexander Usyskin <alexander.usyskin@intel.com>
 To: Miquel Raynal <miquel.raynal@bootlin.com>,
  Richard Weinberger <richard@nod.at>, Vignesh Raghavendra <vigneshr@ti.com>,
@@ -58,9 +57,9 @@ Cc: Oren Weil <oren.jer.weil@intel.com>, linux-mtd@lists.infradead.org,
  linux-kernel@vger.kernel.org,
  Alexander Usyskin <alexander.usyskin@intel.com>,
  Tomas Winkler <tomasw@gmail.com>
-Subject: [PATCH 07/10] drm/i915/nvm: add nvm device for discrete graphics
-Date: Tue, 22 Oct 2024 13:41:16 +0300
-Message-ID: <20241022104119.3149051-8-alexander.usyskin@intel.com>
+Subject: [PATCH 02/10] mtd: intel-dg: implement region enumeration
+Date: Tue, 22 Oct 2024 13:41:11 +0300
+Message-ID: <20241022104119.3149051-3-alexander.usyskin@intel.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20241022104119.3149051-1-alexander.usyskin@intel.com>
 References: <20241022104119.3149051-1-alexander.usyskin@intel.com>
@@ -81,9 +80,8 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Enable access to internal non-volatile memory on
-DGFX devices via a child device.
-The nvm child device is exposed via auxiliary bus.
+In intel-dg, there is no access to the spi controller,
+the information is extracted from the descriptor region.
 
 CC: Rodrigo Vivi <rodrigo.vivi@intel.com>
 CC: Lucas De Marchi <lucas.demarchi@intel.com>
@@ -91,217 +89,236 @@ Co-developed-by: Tomas Winkler <tomasw@gmail.com>
 Signed-off-by: Tomas Winkler <tomasw@gmail.com>
 Signed-off-by: Alexander Usyskin <alexander.usyskin@intel.com>
 ---
- drivers/gpu/drm/i915/Makefile      |  4 ++
- drivers/gpu/drm/i915/i915_driver.c |  6 ++
- drivers/gpu/drm/i915/i915_drv.h    |  3 +
- drivers/gpu/drm/i915/i915_reg.h    |  1 +
- drivers/gpu/drm/i915/intel_nvm.c   | 95 ++++++++++++++++++++++++++++++
- drivers/gpu/drm/i915/intel_nvm.h   | 15 +++++
- 6 files changed, 124 insertions(+)
- create mode 100644 drivers/gpu/drm/i915/intel_nvm.c
- create mode 100644 drivers/gpu/drm/i915/intel_nvm.h
+ drivers/mtd/devices/mtd-intel-dg.c | 199 +++++++++++++++++++++++++++++
+ 1 file changed, 199 insertions(+)
 
-diff --git a/drivers/gpu/drm/i915/Makefile b/drivers/gpu/drm/i915/Makefile
-index c63fa2133ccb..bcb8ddadde51 100644
---- a/drivers/gpu/drm/i915/Makefile
-+++ b/drivers/gpu/drm/i915/Makefile
-@@ -211,6 +211,10 @@ i915-y += \
- i915-y += \
- 	gt/intel_gsc.o
+diff --git a/drivers/mtd/devices/mtd-intel-dg.c b/drivers/mtd/devices/mtd-intel-dg.c
+index 746c963ea540..05e333771be0 100644
+--- a/drivers/mtd/devices/mtd-intel-dg.c
++++ b/drivers/mtd/devices/mtd-intel-dg.c
+@@ -3,6 +3,8 @@
+  * Copyright(c) 2019-2024, Intel Corporation. All rights reserved.
+  */
  
-+# graphics nvm device (DGFX) support
-+i915-y += \
-+	intel_nvm.o
-+
- # graphics hardware monitoring (HWMON) support
- i915-$(CONFIG_HWMON) += \
- 	i915_hwmon.o
-diff --git a/drivers/gpu/drm/i915/i915_driver.c b/drivers/gpu/drm/i915/i915_driver.c
-index a40f05b993da..782c3c7f913d 100644
---- a/drivers/gpu/drm/i915/i915_driver.c
-+++ b/drivers/gpu/drm/i915/i915_driver.c
-@@ -80,6 +80,8 @@
- #include "soc/intel_dram.h"
- #include "soc/intel_gmch.h"
++#include <linux/bitfield.h>
++#include <linux/bits.h>
+ #include <linux/device.h>
+ #include <linux/intel_dg_nvm_aux.h>
+ #include <linux/io.h>
+@@ -22,9 +24,199 @@ struct intel_dg_nvm {
+ 		u8 id;
+ 		u64 offset;
+ 		u64 size;
++		unsigned int is_readable:1;
++		unsigned int is_writable:1;
+ 	} regions[];
+ };
  
-+#include "intel_nvm.h"
-+
- #include "i915_debugfs.h"
- #include "i915_driver.h"
- #include "i915_drm_client.h"
-@@ -620,6 +622,8 @@ static void i915_driver_register(struct drm_i915_private *dev_priv)
- 	/* Depends on sysfs having been initialized */
- 	i915_perf_register(dev_priv);
- 
-+	intel_nvm_init(dev_priv);
-+
- 	for_each_gt(gt, dev_priv, i)
- 		intel_gt_driver_register(gt);
- 
-@@ -663,6 +667,8 @@ static void i915_driver_unregister(struct drm_i915_private *dev_priv)
- 
- 	i915_hwmon_unregister(dev_priv);
- 
-+	intel_nvm_fini(dev_priv);
-+
- 	i915_perf_unregister(dev_priv);
- 	i915_pmu_unregister(dev_priv);
- 
-diff --git a/drivers/gpu/drm/i915/i915_drv.h b/drivers/gpu/drm/i915/i915_drv.h
-index 39f6614a0a99..fa7c94430e27 100644
---- a/drivers/gpu/drm/i915/i915_drv.h
-+++ b/drivers/gpu/drm/i915/i915_drv.h
-@@ -67,6 +67,7 @@
- struct drm_i915_clock_gating_funcs;
- struct vlv_s0ix_state;
- struct intel_pxp;
-+struct intel_dg_nvm_dev;
- 
- #define GEM_QUIRK_PIN_SWIZZLED_PAGES	BIT(0)
- 
-@@ -315,6 +316,8 @@ struct drm_i915_private {
- 
- 	struct i915_perf perf;
- 
-+	struct intel_dg_nvm_dev *nvm;
-+
- 	struct i915_hwmon *hwmon;
- 
- 	struct intel_gt *gt[I915_MAX_GT];
-diff --git a/drivers/gpu/drm/i915/i915_reg.h b/drivers/gpu/drm/i915/i915_reg.h
-index 41f4350a7c6c..91c877c5f932 100644
---- a/drivers/gpu/drm/i915/i915_reg.h
-+++ b/drivers/gpu/drm/i915/i915_reg.h
-@@ -323,6 +323,7 @@
- #define DG2_GSC_HECI2_BASE	0x00374000
- #define MTL_GSC_HECI1_BASE	0x00116000
- #define MTL_GSC_HECI2_BASE	0x00117000
-+#define GEN12_GUNIT_NVM_BASE	0x00102040
- 
- #define HECI_H_CSR(base)	_MMIO((base) + 0x4)
- #define   HECI_H_CSR_IE		REG_BIT(0)
-diff --git a/drivers/gpu/drm/i915/intel_nvm.c b/drivers/gpu/drm/i915/intel_nvm.c
-new file mode 100644
-index 000000000000..003c89cbcb88
---- /dev/null
-+++ b/drivers/gpu/drm/i915/intel_nvm.c
-@@ -0,0 +1,95 @@
-+// SPDX-License-Identifier: MIT
++#define NVM_TRIGGER_REG       0x00000000
++#define NVM_VALSIG_REG        0x00000010
++#define NVM_ADDRESS_REG       0x00000040
++#define NVM_REGION_ID_REG     0x00000044
 +/*
-+ * Copyright(c) 2019-2024, Intel Corporation. All rights reserved.
++ * [15:0]-Erase size = 0x0010 4K 0x0080 32K 0x0100 64K
++ * [23:16]-Reserved
++ * [31:24]-Erase MEM RegionID
 + */
++#define NVM_ERASE_REG         0x00000048
++#define NVM_ACCESS_ERROR_REG  0x00000070
++#define NVM_ADDRESS_ERROR_REG 0x00000074
 +
-+#include <linux/intel_dg_nvm_aux.h>
-+#include <linux/irq.h>
-+#include "i915_reg.h"
-+#include "i915_drv.h"
-+#include "intel_nvm.h"
++/* Flash Valid Signature */
++#define NVM_FLVALSIG          0x0FF0A55A
 +
-+#define GEN12_GUNIT_NVM_SIZE 0x80
++#define NVM_MAP_ADDR_MASK     GENMASK(7, 0)
++#define NVM_MAP_ADDR_SHIFT    0x00000004
 +
-+static const struct intel_dg_nvm_region regions[INTEL_DG_NVM_REGIONS] = {
-+	[0] = { .name = "DESCRIPTOR", },
-+	[2] = { .name = "GSC", },
-+	[11] = { .name = "OptionROM", },
-+	[12] = { .name = "DAM", },
-+};
++#define NVM_REGION_ID_DESCRIPTOR  0
++/* Flash Region Base Address */
++#define NVM_FRBA      0x40
++/* Flash Region __n - Flash Descriptor Record */
++#define NVM_FLREG(__n) (NVM_FRBA + ((__n) * 4))
++/*  Flash Map 1 Register */
++#define NVM_FLMAP1_REG  0x18
++#define NVM_FLMSTR4_OFFSET 0x00C
 +
-+static void i915_nvm_release_dev(struct device *dev)
++#define NVM_ACCESS_ERROR_PCIE_MASK 0x7
++
++#define NVM_FREG_BASE_MASK GENMASK(15, 0)
++#define NVM_FREG_ADDR_MASK GENMASK(31, 16)
++#define NVM_FREG_ADDR_SHIFT 12
++#define NVM_FREG_MIN_REGION_SIZE 0xFFF
++
++static inline void idg_nvm_set_region_id(struct intel_dg_nvm *nvm, u8 region)
 +{
++	iowrite32((u32)region, nvm->base + NVM_REGION_ID_REG);
 +}
 +
-+void intel_nvm_init(struct drm_i915_private *i915)
++static inline u32 idg_nvm_error(struct intel_dg_nvm *nvm)
 +{
-+	struct pci_dev *pdev = to_pci_dev(i915->drm.dev);
-+	struct intel_dg_nvm_dev *nvm;
-+	struct auxiliary_device *aux_dev;
++	void __iomem *base = nvm->base;
++
++	u32 reg = ioread32(base + NVM_ACCESS_ERROR_REG) & NVM_ACCESS_ERROR_PCIE_MASK;
++
++	/* reset error bits */
++	if (reg)
++		iowrite32(reg, base + NVM_ACCESS_ERROR_REG);
++
++	return reg;
++}
++
++static inline u32 idg_nvm_read32(struct intel_dg_nvm *nvm, u32 address)
++{
++	void __iomem *base = nvm->base;
++
++	iowrite32(address, base + NVM_ADDRESS_REG);
++
++	return ioread32(base + NVM_TRIGGER_REG);
++}
++
++static int idg_nvm_get_access_map(struct intel_dg_nvm *nvm, u32 *access_map)
++{
++	u32 flmap1;
++	u32 fmba;
++	u32 fmstr4;
++	u32 fmstr4_addr;
++
++	idg_nvm_set_region_id(nvm, NVM_REGION_ID_DESCRIPTOR);
++
++	flmap1 = idg_nvm_read32(nvm, NVM_FLMAP1_REG);
++	if (idg_nvm_error(nvm))
++		return -EIO;
++	/* Get Flash Master Baser Address (FMBA) */
++	fmba = (FIELD_GET(NVM_MAP_ADDR_MASK, flmap1) << NVM_MAP_ADDR_SHIFT);
++	fmstr4_addr = fmba + NVM_FLMSTR4_OFFSET;
++
++	fmstr4 = idg_nvm_read32(nvm, fmstr4_addr);
++	if (idg_nvm_error(nvm))
++		return -EIO;
++
++	*access_map = fmstr4;
++	return 0;
++}
++
++static bool idg_nvm_region_readable(u32 access_map, u8 region)
++{
++	if (region < 12)
++		return access_map & BIT(region + 8); /* [19:8] */
++	else
++		return access_map & BIT(region - 12); /* [3:0] */
++}
++
++static bool idg_nvm_region_writeable(u32 access_map, u8 region)
++{
++	if (region < 12)
++		return access_map & BIT(region + 20); /* [31:20] */
++	else
++		return access_map & BIT(region - 8); /* [7:4] */
++}
++
++static int idg_nvm_is_valid(struct intel_dg_nvm *nvm)
++{
++	u32 is_valid;
++
++	idg_nvm_set_region_id(nvm, NVM_REGION_ID_DESCRIPTOR);
++
++	is_valid = idg_nvm_read32(nvm, NVM_VALSIG_REG);
++	if (idg_nvm_error(nvm))
++		return -EIO;
++
++	if (is_valid != NVM_FLVALSIG)
++		return -ENODEV;
++
++	return 0;
++}
++
++static int intel_dg_nvm_init(struct intel_dg_nvm *nvm, struct device *device)
++{
 +	int ret;
++	unsigned int i, n;
++	u32 access_map = 0;
 +
-+	/* Only the DGFX devices have internal NVM */
-+	if (!IS_DGFX(i915))
-+		return;
++	/* clean error register, previous errors are ignored */
++	idg_nvm_error(nvm);
 +
-+	/* Nvm pointer should be NULL here */
-+	if (WARN_ON(i915->nvm))
-+		return;
-+
-+	i915->nvm = kzalloc(sizeof(*nvm), GFP_KERNEL);
-+	if (!i915->nvm)
-+		return;
-+
-+	nvm = i915->nvm;
-+
-+	nvm->writeable_override = true;
-+	nvm->bar.parent = &pdev->resource[0];
-+	nvm->bar.start = GEN12_GUNIT_NVM_BASE + pdev->resource[0].start;
-+	nvm->bar.end = nvm->bar.start + GEN12_GUNIT_NVM_SIZE - 1;
-+	nvm->bar.flags = IORESOURCE_MEM;
-+	nvm->bar.desc = IORES_DESC_NONE;
-+	nvm->regions = regions;
-+
-+	aux_dev = &nvm->aux_dev;
-+
-+	aux_dev->name = "nvm";
-+	aux_dev->id = (pci_domain_nr(pdev->bus) << 16) |
-+		       PCI_DEVID(pdev->bus->number, pdev->devfn);
-+	aux_dev->dev.parent = &pdev->dev;
-+	aux_dev->dev.release = i915_nvm_release_dev;
-+
-+	ret = auxiliary_device_init(aux_dev);
++	ret = idg_nvm_is_valid(nvm);
 +	if (ret) {
-+		dev_err(&pdev->dev, "i915-nvm aux init failed %d\n", ret);
-+		return;
++		dev_err(device, "The MEM is not valid %d\n", ret);
++		return ret;
 +	}
 +
-+	ret = auxiliary_device_add(aux_dev);
-+	if (ret) {
-+		dev_err(&pdev->dev, "i915-nvm aux add failed %d\n", ret);
-+		auxiliary_device_uninit(aux_dev);
-+		return;
++	if (idg_nvm_get_access_map(nvm, &access_map))
++		return -EIO;
++
++	for (i = 0, n = 0; i < nvm->nregions; i++) {
++		u32 address, base, limit, region;
++		u8 id = nvm->regions[i].id;
++
++		address = NVM_FLREG(id);
++		region = idg_nvm_read32(nvm, address);
++
++		base = FIELD_GET(NVM_FREG_BASE_MASK, region) << NVM_FREG_ADDR_SHIFT;
++		limit = (FIELD_GET(NVM_FREG_ADDR_MASK, region) << NVM_FREG_ADDR_SHIFT) |
++			NVM_FREG_MIN_REGION_SIZE;
++
++		dev_dbg(device, "[%d] %s: region: 0x%08X base: 0x%08x limit: 0x%08x\n",
++			id, nvm->regions[i].name, region, base, limit);
++
++		if (base >= limit || (i > 0 && limit == 0)) {
++			dev_dbg(device, "[%d] %s: disabled\n",
++				id, nvm->regions[i].name);
++			nvm->regions[i].is_readable = 0;
++			continue;
++		}
++
++		if (nvm->size < limit)
++			nvm->size = limit;
++
++		nvm->regions[i].offset = base;
++		nvm->regions[i].size = limit - base + 1;
++		/* No write access to descriptor; mask it out*/
++		nvm->regions[i].is_writable = idg_nvm_region_writeable(access_map, id);
++
++		nvm->regions[i].is_readable = idg_nvm_region_readable(access_map, id);
++		dev_dbg(device, "Registered, %s id=%d offset=%lld size=%lld rd=%d wr=%d\n",
++			nvm->regions[i].name,
++			nvm->regions[i].id,
++			nvm->regions[i].offset,
++			nvm->regions[i].size,
++			nvm->regions[i].is_readable,
++			nvm->regions[i].is_writable);
++
++		if (nvm->regions[i].is_readable)
++			n++;
 +	}
++
++	dev_dbg(device, "Registered %d regions\n", n);
++
++	/* Need to add 1 to the amount of memory
++	 * so it is reported as an even block
++	 */
++	nvm->size += 1;
++
++	return n;
 +}
 +
-+void intel_nvm_fini(struct drm_i915_private *i915)
-+{
-+	struct intel_dg_nvm_dev *nvm = i915->nvm;
-+	struct pci_dev *pdev = to_pci_dev(i915->drm.dev);
+ static void intel_dg_nvm_release(struct kref *kref)
+ {
+ 	struct intel_dg_nvm *nvm = container_of(kref, struct intel_dg_nvm, refcnt);
+@@ -89,6 +281,13 @@ static int intel_dg_mtd_probe(struct auxiliary_device *aux_dev,
+ 		goto err;
+ 	}
+ 
++	ret = intel_dg_nvm_init(nvm, device);
++	if (ret < 0) {
++		dev_err(device, "cannot initialize nvm\n");
++		ret = -ENODEV;
++		goto err;
++	}
 +
-+	/* Only the DGFX devices have internal NVM */
-+	if (!IS_DGFX(i915))
-+		return;
-+
-+	/* Nvm pointer should not be NULL here */
-+	if (WARN_ON(!nvm))
-+		return;
-+
-+	dev_dbg(&pdev->dev, "removing i915-nvm cell\n");
-+
-+	auxiliary_device_delete(&nvm->aux_dev);
-+	auxiliary_device_uninit(&nvm->aux_dev);
-+	kfree(nvm);
-+	i915->nvm = NULL;
-+}
-diff --git a/drivers/gpu/drm/i915/intel_nvm.h b/drivers/gpu/drm/i915/intel_nvm.h
-new file mode 100644
-index 000000000000..7bc3d1114a3f
---- /dev/null
-+++ b/drivers/gpu/drm/i915/intel_nvm.h
-@@ -0,0 +1,15 @@
-+/* SPDX-License-Identifier: MIT */
-+/*
-+ * Copyright(c) 2019-2024 Intel Corporation. All rights reserved.
-+ */
-+
-+#ifndef __INTEL_NVM_H__
-+#define __INTEL_NVM_H__
-+
-+struct drm_i915_private;
-+
-+void intel_nvm_init(struct drm_i915_private *i915);
-+
-+void intel_nvm_fini(struct drm_i915_private *i915);
-+
-+#endif /* __INTEL_NVM_H__ */
+ 	dev_set_drvdata(&aux_dev->dev, nvm);
+ 
+ 	return 0;
 -- 
 2.43.0
 
