@@ -4,49 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9F5C7D0BB48
-	for <intel-gfx@archiver.kernel.org>; Wed, 23 Oct 2024 21:47:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D23A0D0BB4B
+	for <intel-gfx@archiver.kernel.org>; Wed, 23 Oct 2024 21:47:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D243410E880;
-	Wed, 23 Oct 2024 21:47:09 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0416A10E885;
+	Wed, 23 Oct 2024 21:47:11 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="PChdrTGp";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="iugTm9j9";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.7])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D9E7610E86D;
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B1EB510E86E;
  Wed, 23 Oct 2024 21:47:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
  t=1729720027; x=1761256027;
  h=from:to:subject:date:message-id:in-reply-to:references:
  mime-version:content-transfer-encoding;
- bh=og1HfR6CT7zFmb6gUOs0cAAvaJ+3wr8ujrjCe52wPjE=;
- b=PChdrTGpJ8JfinVo/x7qwI5+0oqVgE1h33Oe9vgWNJXb2kVC+Xe9eSji
- F7A/BDxWfk9hl91HOUxic7PGcF7Bstuy7PjoSBbllKQu46r0yVgQ1/kgO
- uF5Yjt8Oc30sVQ2J0X13qVkK20z3WAIE1qt5/OWzOaPQwFfnR+2GF3+z3
- y0K623+gBvoYxicm5UNiMe2PlKMvuj//pfUupEkLK0dwIAlrZhePNSJT4
- lNv75I+RXLwRRur9QkTOMwRte81Y3a4rt62Q7Mh7HldHwR8p6Md8GFvoY
- A4Pi0p/q9wIzRu55/c/8a2nDeAAT5CaUNwpQitvdTxKYPGry8JWpTHFno A==;
-X-CSE-ConnectionGUID: qx/w22zcQFSgCpigrCwYbA==
-X-CSE-MsgGUID: bJlX6VxtTX++jnMHKE3hOQ==
-X-IronPort-AV: E=McAfee;i="6700,10204,11234"; a="54732007"
-X-IronPort-AV: E=Sophos;i="6.11,227,1725346800"; d="scan'208";a="54732007"
+ bh=3vPXdU0VlQ2VBfIfWbAN2Ehl4Fsmhpra1TFXgc/ht4E=;
+ b=iugTm9j9wsvPUOp6j2Z6/hcu0NiA7ssbRACYuy96bhnag5nEgi0nBhvW
+ BmYVE/26xuK+F3vzJmJk19SCkgnBJbDHIKl0OGDAZT/VqIjbtJ9XYMcKe
+ mq+zQKOLCbunprHm/dJ9WdqooFwtP6sCB8MwTzadPWEksEl32stwOB5Xa
+ rbUUta7rGhSiBuUNzMGnLAsJa5pH3IrBeBZ1dszheaR+wqc4w4zB61ggz
+ W2s5gLlViOjeJKR3uFSlg5mM9I6CDX5ttUPn7uYkPZkB/3psu5V9pzLUo
+ FDtgdSw4uPQxMUs6B3tk5USWups9hwkMxTb67SRv3lec2ZgDxl5fuojh5 g==;
+X-CSE-ConnectionGUID: o+tK56KWQ7OP5Vq46cnbyQ==
+X-CSE-MsgGUID: w0j0ZH/LTQy8ctvVTtq+Dg==
+X-IronPort-AV: E=McAfee;i="6700,10204,11234"; a="54732005"
+X-IronPort-AV: E=Sophos;i="6.11,227,1725346800"; d="scan'208";a="54732005"
 Received: from orviesa007.jf.intel.com ([10.64.159.147])
  by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  23 Oct 2024 14:47:06 -0700
-X-CSE-ConnectionGUID: Wi8QA5W9Q76u4Z+8DlFhxA==
-X-CSE-MsgGUID: GBqQBcIZRYW8e1PMSz/EIQ==
+X-CSE-ConnectionGUID: pt6qWDt6R6++P7lrQy3Vpg==
+X-CSE-MsgGUID: xGrB4lB7Td2EKVptxyYS/A==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.11,227,1725346800"; d="scan'208";a="80809807"
+X-IronPort-AV: E=Sophos;i="6.11,227,1725346800"; d="scan'208";a="80809805"
 Received: from cataylo2-desk.jf.intel.com ([10.165.21.140])
  by orviesa007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  23 Oct 2024 14:47:05 -0700
 From: Clint Taylor <clinton.a.taylor@intel.com>
 To: intel-gfx@lists.freedesktop.org,
 	intel-xe@lists.freedesktop.org
-Subject: [PATCH v2 10/12] drm/i915/display/xe3: disable x-tiled framebuffers
-Date: Wed, 23 Oct 2024 14:46:59 -0700
-Message-Id: <20241023214701.963830-11-clinton.a.taylor@intel.com>
+Subject: [PATCH v2 08/12] drm/i915/xe3lpd: Move async flip bit to PLANE_SURF
+ register
+Date: Wed, 23 Oct 2024 14:46:57 -0700
+Message-Id: <20241023214701.963830-9-clinton.a.taylor@intel.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20241023214701.963830-1-clinton.a.taylor@intel.com>
 References: <20241023214701.963830-1-clinton.a.taylor@intel.com>
@@ -67,31 +68,61 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: "Heikkila, Juha-pekka" <juha-pekka.heikkila@intel.com>
+From: Dnyaneshwar Bhadane <dnyaneshwar.bhadane@intel.com>
 
-Xe3 has no more support for x-tile on display.
-
-v2: Include up to display 29 for X-tiled support. (Gustavo)
-Signed-off-by: Heikkila, Juha-pekka <juha-pekka.heikkila@intel.com>
+The async flip moved from PLANE_CTL to PLANE_SURF for Xe3_LPD.
+Bspec: 69853,69878
+Signed-off-by: Dnyaneshwar Bhadane <dnyaneshwar.bhadane@intel.com>
 Signed-off-by: Matt Atwood <matthew.s.atwood@intel.com>
 Signed-off-by: Clint Taylor <Clinton.A.Taylor@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_fb.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/gpu/drm/i915/display/skl_universal_plane.c  | 13 +++++++++----
+ .../gpu/drm/i915/display/skl_universal_plane_regs.h |  1 +
+ 2 files changed, 10 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_fb.c b/drivers/gpu/drm/i915/display/intel_fb.c
-index a7b4cf8b6d50..6a7060889f40 100644
---- a/drivers/gpu/drm/i915/display/intel_fb.c
-+++ b/drivers/gpu/drm/i915/display/intel_fb.c
-@@ -349,7 +349,7 @@ static const struct intel_modifier_desc intel_modifiers[] = {
- 		.plane_caps = INTEL_PLANE_CAP_TILING_Y,
- 	}, {
- 		.modifier = I915_FORMAT_MOD_X_TILED,
--		.display_ver = DISPLAY_VER_ALL,
-+		.display_ver = { 0, 29 },
- 		.plane_caps = INTEL_PLANE_CAP_TILING_X,
- 	}, {
- 		.modifier = DRM_FORMAT_MOD_LINEAR,
+diff --git a/drivers/gpu/drm/i915/display/skl_universal_plane.c b/drivers/gpu/drm/i915/display/skl_universal_plane.c
+index a0a7ed01415a..60ca4f8c4a3c 100644
+--- a/drivers/gpu/drm/i915/display/skl_universal_plane.c
++++ b/drivers/gpu/drm/i915/display/skl_universal_plane.c
+@@ -1567,17 +1567,22 @@ skl_plane_async_flip(struct intel_dsb *dsb,
+ 	struct intel_display *display = to_intel_display(plane->base.dev);
+ 	enum plane_id plane_id = plane->id;
+ 	enum pipe pipe = plane->pipe;
+-	u32 plane_ctl = plane_state->ctl;
++	u32 plane_ctl = plane_state->ctl, plane_surf;
+ 
+ 	plane_ctl |= skl_plane_ctl_crtc(crtc_state);
++	plane_surf = skl_plane_surf(plane_state, 0);
+ 
+-	if (async_flip)
+-		plane_ctl |= PLANE_CTL_ASYNC_FLIP;
++	if (async_flip) {
++		if (DISPLAY_VER(display) >= 30)
++			plane_surf |= PLANE_SURF_ASYNC_UPDATE;
++		else
++			plane_ctl |= PLANE_CTL_ASYNC_FLIP;
++	}
+ 
+ 	intel_de_write_dsb(display, dsb, PLANE_CTL(pipe, plane_id),
+ 			   plane_ctl);
+ 	intel_de_write_dsb(display, dsb, PLANE_SURF(pipe, plane_id),
+-			   skl_plane_surf(plane_state, 0));
++			   plane_surf);
+ }
+ 
+ static bool intel_format_is_p01x(u32 format)
+diff --git a/drivers/gpu/drm/i915/display/skl_universal_plane_regs.h b/drivers/gpu/drm/i915/display/skl_universal_plane_regs.h
+index 4ddcd7d46bbd..ff31a00d511e 100644
+--- a/drivers/gpu/drm/i915/display/skl_universal_plane_regs.h
++++ b/drivers/gpu/drm/i915/display/skl_universal_plane_regs.h
+@@ -159,6 +159,7 @@
+ 							_PLANE_SURF_2_A, _PLANE_SURF_2_B)
+ #define   PLANE_SURF_ADDR_MASK			REG_GENMASK(31, 12)
+ #define   PLANE_SURF_DECRYPT			REG_BIT(2)
++#define   PLANE_SURF_ASYNC_UPDATE		REG_BIT(0)
+ 
+ #define _PLANE_KEYMAX_1_A			0x701a0
+ #define _PLANE_KEYMAX_2_A			0x702a0
 -- 
 2.25.1
 
