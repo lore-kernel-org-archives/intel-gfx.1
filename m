@@ -4,49 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 08603D10388
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 882A0D1038D
 	for <intel-gfx@archiver.kernel.org>; Thu, 24 Oct 2024 22:31:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4E7BE10E9B6;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7AA7310E9B7;
 	Thu, 24 Oct 2024 22:31:38 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="VCJQtjAE";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="R1AdhgSf";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.8])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A0FAB10E3C7;
- Thu, 24 Oct 2024 22:31:34 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 592E210E9AC;
+ Thu, 24 Oct 2024 22:31:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
  t=1729809095; x=1761345095;
  h=from:to:subject:date:message-id:in-reply-to:references:
  mime-version:content-transfer-encoding;
- bh=RYKSABVK/GQLYWJoQjIJ6q3cdUYDc1bvMsvqDXOtkdI=;
- b=VCJQtjAEA3OZ9rF7w5D3aXzI6YN0j9xgm081YBwQ1ATyjrPFP7ntiazE
- wSj40sURnqfNw+xoRx+6rX5nInNIV4yuSSEEV1sXnOTZq7FkJyWH4bDwJ
- lTVJWFIb1nQywnN6P247beHv4iKdpY9coXyeNkKJL7h+okXi8rE13yB8w
- 8PI+w1mv0UxAba0qC+p4KmjsxfzeRVL8ctCzrKoQODnUIOcwG4fPG4Iqy
- X+c0tp8JANIfgGbT6kqPTOLQ/Lg1biWbFmXV7hEBqe2GC68jpQwhY5ucl
- /mnp5Uk/lkm8eIaRGj2hQ1xQYia12m0bNClTcmCB3RQyscyLi3r4GR5Rp w==;
-X-CSE-ConnectionGUID: DGRp5RPSRlW1s3LFo6ASJg==
-X-CSE-MsgGUID: deZxHnT7SpeVsQEx8yMiQg==
-X-IronPort-AV: E=McAfee;i="6700,10204,11235"; a="46950801"
-X-IronPort-AV: E=Sophos;i="6.11,230,1725346800"; d="scan'208";a="46950801"
+ bh=ohFe+L7LULaS+BR/dLeP4YYGJ+d9nxfbO1Y34Vs4NZY=;
+ b=R1AdhgSfzaGXgXrXR+YNhJoQAF6aH0X6GM8aY7ETHQtG5pXwWhJz9Az1
+ JTJrH6QtI9sdv60j84TEYjte+Jne/Zp09nIWE4wOsG3ReVnt/jFmG3iRF
+ z3ii0gH2r0rzCVZPsO31oPbCaE7oz3Ggcmwr9Inw4pravB+ku9LjjDw7+
+ sh94G8vhdwHFvvc0xt2hAtek7tdw4/1uBQ0lhGrkBwajk/jOvxAx918cN
+ nmfV2L7xwGMRHnT88e443P2UkUkNSR5xH7+YSMQ4OEGp+0QLrRjOflvE+
+ FjHrHqVOFcOMurmYlM7VctDx2VjC5H/u4UUywz0erczLB29jY+Uv7u3k3 Q==;
+X-CSE-ConnectionGUID: S9focsxPTvexeAF5hx5xXA==
+X-CSE-MsgGUID: izfgZYv+QhOECF5SLgairg==
+X-IronPort-AV: E=McAfee;i="6700,10204,11235"; a="46950811"
+X-IronPort-AV: E=Sophos;i="6.11,230,1725346800"; d="scan'208";a="46950811"
 Received: from fmviesa008.fm.intel.com ([10.60.135.148])
  by fmvoesa102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 24 Oct 2024 15:31:19 -0700
-X-CSE-ConnectionGUID: 8mVVj3ezSO+6/X2Rx+wudA==
-X-CSE-MsgGUID: w2h9miBATOGgEC6XCOhd8A==
+ 24 Oct 2024 15:31:20 -0700
+X-CSE-ConnectionGUID: gMgNv65OT0auJw+VAuxM/w==
+X-CSE-MsgGUID: RhNsFX4fQv+f4s300Mqu1g==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.11,230,1725346800"; d="scan'208";a="80838664"
+X-IronPort-AV: E=Sophos;i="6.11,230,1725346800"; d="scan'208";a="80838674"
 Received: from cataylo2-desk.jf.intel.com ([10.165.21.140])
  by fmviesa008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 24 Oct 2024 15:31:18 -0700
+ 24 Oct 2024 15:31:20 -0700
 From: Clint Taylor <clinton.a.taylor@intel.com>
 To: intel-gfx@lists.freedesktop.org,
 	intel-xe@lists.freedesktop.org
-Subject: [PATCH v4 02/11] drm/i915/xe3lpd: Disable HDCP Line Rekeying for Xe3
-Date: Thu, 24 Oct 2024 15:31:05 -0700
-Message-Id: <20241024223114.785209-3-clinton.a.taylor@intel.com>
+Subject: [PATCH v4 08/11] drm/i915/xe3: Underrun recovery does not exist post
+ Xe2
+Date: Thu, 24 Oct 2024 15:31:11 -0700
+Message-Id: <20241024223114.785209-9-clinton.a.taylor@intel.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20241024223114.785209-1-clinton.a.taylor@intel.com>
 References: <20241024223114.785209-1-clinton.a.taylor@intel.com>
@@ -67,63 +68,34 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Suraj Kandpal <suraj.kandpal@intel.com>
+From: Ravi Kumar Vodapalli <ravi.kumar.vodapalli@intel.com>
 
-We need to disable HDCP Line Rekeying for Xe3 when we are using an HDMI
-encoder.
+From platforms xe3 Underrun recovery does not exist
 
-v2: add additional definition instead of function, commit message typo
-fix and update.
-v3: restore lost conditional from v2.
-v4: subject line and subject message updated, fix the if ladder order,
-fix the bit definition order.
+v2: improve DISPLAY_VER checking
 
-Signed-off-by: Suraj Kandpal <suraj.kandpal@intel.com>
+BSpec: 68849
+Signed-off-by: Ravi Kumar Vodapalli <ravi.kumar.vodapalli@intel.com>
 Signed-off-by: Matt Atwood <matthew.s.atwood@intel.com>
 Signed-off-by: Clint Taylor <Clinton.A.Taylor@intel.com>
+Reviewed-by: Sai Teja Pottumuttu <sai.teja.pottumuttu@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_hdcp.c | 10 +++++++---
- drivers/gpu/drm/i915/i915_reg.h           |  1 +
- 2 files changed, 8 insertions(+), 3 deletions(-)
+ drivers/gpu/drm/i915/display/intel_display.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_hdcp.c b/drivers/gpu/drm/i915/display/intel_hdcp.c
-index ed6aa87403e2..70dfc9d4d6ac 100644
---- a/drivers/gpu/drm/i915/display/intel_hdcp.c
-+++ b/drivers/gpu/drm/i915/display/intel_hdcp.c
-@@ -43,14 +43,18 @@ intel_hdcp_disable_hdcp_line_rekeying(struct intel_encoder *encoder,
- 		return;
+diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
+index ef1436146325..c904f529d0c5 100644
+--- a/drivers/gpu/drm/i915/display/intel_display.c
++++ b/drivers/gpu/drm/i915/display/intel_display.c
+@@ -861,7 +861,7 @@ static void icl_set_pipe_chicken(const struct intel_crtc_state *crtc_state)
+ 	 */
+ 	if (IS_DG2(dev_priv))
+ 		tmp &= ~UNDERRUN_RECOVERY_ENABLE_DG2;
+-	else if (DISPLAY_VER(dev_priv) >= 13)
++	else if ((DISPLAY_VER(dev_priv) >= 13) && (DISPLAY_VER(dev_priv) < 30))
+ 		tmp |= UNDERRUN_RECOVERY_DISABLE_ADLP;
  
- 	if (DISPLAY_VER(display) >= 14) {
--		if (IS_DISPLAY_VER_STEP(display, IP_VER(14, 0), STEP_D0, STEP_FOREVER))
--			intel_de_rmw(display, MTL_CHICKEN_TRANS(hdcp->cpu_transcoder),
--				     0, HDCP_LINE_REKEY_DISABLE);
-+		if (DISPLAY_VER(display) >= 30)
-+			intel_de_rmw(display,
-+				     TRANS_DDI_FUNC_CTL(display, hdcp->cpu_transcoder),
-+				     0, XE3_TRANS_DDI_HDCP_LINE_REKEY_DISABLE);
- 		else if (IS_DISPLAY_VER_STEP(display, IP_VER(14, 1), STEP_B0, STEP_FOREVER) ||
- 			 IS_DISPLAY_VER_STEP(display, IP_VER(20, 0), STEP_B0, STEP_FOREVER))
- 			intel_de_rmw(display,
- 				     TRANS_DDI_FUNC_CTL(display, hdcp->cpu_transcoder),
- 				     0, TRANS_DDI_HDCP_LINE_REKEY_DISABLE);
-+		else if (IS_DISPLAY_VER_STEP(display, IP_VER(14, 0), STEP_D0, STEP_FOREVER))
-+			intel_de_rmw(display, MTL_CHICKEN_TRANS(hdcp->cpu_transcoder),
-+				     0, HDCP_LINE_REKEY_DISABLE);
- 	}
- }
- 
-diff --git a/drivers/gpu/drm/i915/i915_reg.h b/drivers/gpu/drm/i915/i915_reg.h
-index 89e4381f8baa..8d758947f301 100644
---- a/drivers/gpu/drm/i915/i915_reg.h
-+++ b/drivers/gpu/drm/i915/i915_reg.h
-@@ -3817,6 +3817,7 @@ enum skl_power_gate {
- #define  TRANS_DDI_PVSYNC		(1 << 17)
- #define  TRANS_DDI_PHSYNC		(1 << 16)
- #define  TRANS_DDI_PORT_SYNC_ENABLE	REG_BIT(15)
-+#define  XE3_TRANS_DDI_HDCP_LINE_REKEY_DISABLE	REG_BIT(15)
- #define  TRANS_DDI_EDP_INPUT_MASK	(7 << 12)
- #define  TRANS_DDI_EDP_INPUT_A_ON	(0 << 12)
- #define  TRANS_DDI_EDP_INPUT_A_ONOFF	(4 << 12)
+ 	/* Wa_14010547955:dg2 */
 -- 
 2.25.1
 
