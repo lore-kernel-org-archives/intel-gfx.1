@@ -4,53 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A4A31D1038F
-	for <intel-gfx@archiver.kernel.org>; Thu, 24 Oct 2024 22:31:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0565CD1038D
+	for <intel-gfx@archiver.kernel.org>; Thu, 24 Oct 2024 22:31:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9EEC410E3C7;
+	by gabe.freedesktop.org (Postfix) with ESMTP id AD70910E9AC;
 	Thu, 24 Oct 2024 22:31:35 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="McLUVNVx";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="IeJNytlk";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.8])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DC5FC10E3C7;
- Thu, 24 Oct 2024 22:31:34 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CC36810E3C7;
+ Thu, 24 Oct 2024 22:31:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1729809095; x=1761345095;
- h=from:to:subject:date:message-id:in-reply-to:references:
- mime-version:content-transfer-encoding;
- bh=jYS9tPDiJ/uzUuOnOVkd7OBPN+Q7K31DPQPpciUuCf8=;
- b=McLUVNVx52jjclcOXqry5QG1wkur8lZGPITpVyN5vcZJNrY0AApkw14Y
- 07Xwe2JK4Nag9GxMqKMGJvHNk1Zz6kzTINy8x+p/XcPhglDtHWNZX4dPW
- EW6vaMxVZBMkwPPZjm0aFeQ88/W1/6AYyZb+Y23WDXdXb/NHGGalC/sV2
- qmYzKxnWFPXXbK64mzZHIHoH0ScFHiIe3rj89hbLmK0O+ryiaZzMCvgq+
- CE7PX8EHC74Vstr4qw7xlzUDSZHJJvjhpfCmSmdZ2s8C+9qhsig3cRumk
- /JC31gyuGNkHyv+Tv8KIxvmrudXY5CYL12pQFVlfWVFHKjMP1SQ6Rxq5t A==;
-X-CSE-ConnectionGUID: DoieeoyVQxW7SGB1CWrY1g==
-X-CSE-MsgGUID: 7gEKQW0fRA6hDjR4foFMgQ==
-X-IronPort-AV: E=McAfee;i="6700,10204,11235"; a="46950806"
-X-IronPort-AV: E=Sophos;i="6.11,230,1725346800"; d="scan'208";a="46950806"
+ t=1729809094; x=1761345094;
+ h=from:to:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=KleABjwlSHjQbmvr5Y7FysYvX9oTo3xYbATuR3VCf0k=;
+ b=IeJNytlkoXtGC8d9sATIPIKwAu4sAB5ptPcsOUK0lcHfLz3c89qDshR1
+ 4qejJyKPEyyuC+XQuDLJuSqlWxcsDzW6z4hJWFEipnZk4z3CNDlo3ariZ
+ CgKoGXTwhWkBtLRs2p5MN0XHECUC8dkLRsYXnApPLvGbk38w4js8U3VMf
+ eFd3SaqUurCsukxS0BINOzxA0IKN5aL+ZGbsZ1naOGcRkWfzfl8Bw4VqE
+ DYfVxPHCoTskeCFtMNEUJ2hoU0KZ+MmXcUOGkg5oM5YovACo+sb382HF9
+ rykqolJnvepoHbu4pe3WdEotu1Cc09NWGzrnNUTp1Dom9CW3DRth80uS6 Q==;
+X-CSE-ConnectionGUID: QbtXIz2nQQeP/ZNvViL7oA==
+X-CSE-MsgGUID: 4BYr7gU5TvKS2NHZ1TpK3w==
+X-IronPort-AV: E=McAfee;i="6700,10204,11235"; a="46950799"
+X-IronPort-AV: E=Sophos;i="6.11,230,1725346800"; d="scan'208";a="46950799"
 Received: from fmviesa008.fm.intel.com ([10.60.135.148])
  by fmvoesa102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 24 Oct 2024 15:31:20 -0700
-X-CSE-ConnectionGUID: 4/NxTMSBT5qmyw7ZIeppxA==
-X-CSE-MsgGUID: CFAPw3F5Ru2YXlm5Duj4eQ==
+ 24 Oct 2024 15:31:19 -0700
+X-CSE-ConnectionGUID: mHaqnZE8T/ymG634VhfQZg==
+X-CSE-MsgGUID: /X0SyMJVSJa9Bw/5+I5zIA==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.11,230,1725346800"; d="scan'208";a="80838666"
+X-IronPort-AV: E=Sophos;i="6.11,230,1725346800"; d="scan'208";a="80838659"
 Received: from cataylo2-desk.jf.intel.com ([10.165.21.140])
  by fmviesa008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 24 Oct 2024 15:31:19 -0700
+ 24 Oct 2024 15:31:18 -0700
 From: Clint Taylor <clinton.a.taylor@intel.com>
 To: intel-gfx@lists.freedesktop.org,
 	intel-xe@lists.freedesktop.org
-Subject: [PATCH v4 03/11] drm/i915/xe3lpd: Add check to see if edp over type c
- is allowed
-Date: Thu, 24 Oct 2024 15:31:06 -0700
-Message-Id: <20241024223114.785209-4-clinton.a.taylor@intel.com>
+Subject: [PATCH v4 00/11] drm/i915/xe3lpd: ptl display patches
+Date: Thu, 24 Oct 2024 15:31:03 -0700
+Message-Id: <20241024223114.785209-1-clinton.a.taylor@intel.com>
 X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20241024223114.785209-1-clinton.a.taylor@intel.com>
-References: <20241024223114.785209-1-clinton.a.taylor@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-BeenThere: intel-gfx@lists.freedesktop.org
@@ -68,117 +65,54 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Suraj Kandpal <suraj.kandpal@intel.com>
+Misc fixes from v3
 
-Read PICA register to see if edp over type C is possible and then
-add the appropriate tables for it.
+This series builds on the previous v2, further enabling new features
+for the platform. 1 patch drop at the request of the author. 
 
---v2
--remove bool from intel_encoder have it in runtime_info [Jani]
--initialize the bool in runtime_info init [Jani]
--dont abbreviate the bool [Jani]
+Clint Taylor (1):
+  drm/i915/cx0: Remove bus reset after every c10 transaction
 
---v3
--Remove useless display version check [Jani]
--change the warn on condition [Jani]
--no need for a different function for edp type c check [Jani]
--dont add register in i915_reg [Jani]
+Dnyaneshwar Bhadane (3):
+  drm/i915/ptl: Define IS_PANTHERLAKE macro
+  drm/i915/cx0: Extend C10 check to PTL
+  drm/i915/xe3lpd: Move async flip bit to PLANE_SURF register
 
-Bspec: 68846
-Signed-off-by: Suraj Kandpal <suraj.kandpal@intel.com>
-Signed-off-by: Matt Atwood <matthew.s.atwood@intel.com>
-Signed-off-by: Clint Taylor <clinton.a.taylor@intel.com>
----
- drivers/gpu/drm/i915/display/intel_cx0_phy.c        | 3 +++
- drivers/gpu/drm/i915/display/intel_cx0_phy_regs.h   | 3 +++
- drivers/gpu/drm/i915/display/intel_display_device.c | 5 +++++
- drivers/gpu/drm/i915/display/intel_display_device.h | 1 +
- drivers/gpu/drm/i915/display/intel_dp.c             | 7 ++++---
- 5 files changed, 16 insertions(+), 3 deletions(-)
+Heikkila, Juha-pekka (1):
+  drm/i915/display/xe3: disable x-tiled framebuffers
 
-diff --git a/drivers/gpu/drm/i915/display/intel_cx0_phy.c b/drivers/gpu/drm/i915/display/intel_cx0_phy.c
-index 8bd5a4d1b735..d05daa7a2b03 100644
---- a/drivers/gpu/drm/i915/display/intel_cx0_phy.c
-+++ b/drivers/gpu/drm/i915/display/intel_cx0_phy.c
-@@ -2257,9 +2257,12 @@ intel_c20_pll_tables_get(struct intel_crtc_state *crtc_state,
- 			 struct intel_encoder *encoder)
- {
- 	struct drm_i915_private *i915 = to_i915(encoder->base.dev);
-+	struct intel_display *display = to_intel_display(crtc_state);
- 
- 	if (intel_crtc_has_dp_encoder(crtc_state)) {
- 		if (intel_crtc_has_type(crtc_state, INTEL_OUTPUT_EDP)) {
-+			if (DISPLAY_RUNTIME_INFO(display)->edp_typec_support)
-+				return xe3lpd_c20_dp_edp_tables;
- 			if (DISPLAY_VER_FULL(i915) == IP_VER(14, 1))
- 				return xe2hpd_c20_edp_tables;
- 		}
-diff --git a/drivers/gpu/drm/i915/display/intel_cx0_phy_regs.h b/drivers/gpu/drm/i915/display/intel_cx0_phy_regs.h
-index ab3ae110b68f..e8ebb12155a4 100644
---- a/drivers/gpu/drm/i915/display/intel_cx0_phy_regs.h
-+++ b/drivers/gpu/drm/i915/display/intel_cx0_phy_regs.h
-@@ -363,4 +363,7 @@
- #define HDMI_DIV_MASK		REG_GENMASK16(2, 0)
- #define HDMI_DIV(val)		REG_FIELD_PREP16(HDMI_DIV_MASK, val)
- 
-+#define PICA_PHY_CONFIG_CONTROL		_MMIO(0x16FE68)
-+#define   EDP_ON_TYPEC			REG_BIT(31)
-+
- #endif /* __INTEL_CX0_REG_DEFS_H__ */
-diff --git a/drivers/gpu/drm/i915/display/intel_display_device.c b/drivers/gpu/drm/i915/display/intel_display_device.c
-index aa22189e3853..949838308ec9 100644
---- a/drivers/gpu/drm/i915/display/intel_display_device.c
-+++ b/drivers/gpu/drm/i915/display/intel_display_device.c
-@@ -9,6 +9,7 @@
- 
- #include "i915_drv.h"
- #include "i915_reg.h"
-+#include "intel_cx0_phy_regs.h"
- #include "intel_de.h"
- #include "intel_display.h"
- #include "intel_display_device.h"
-@@ -1685,6 +1686,10 @@ static void __intel_display_device_info_runtime_init(struct drm_i915_private *i9
- 		}
- 	}
- 
-+	if (DISPLAY_VER(i915) >= 30)
-+		display_runtime->edp_typec_support =
-+			intel_de_read(display, PICA_PHY_CONFIG_CONTROL) & EDP_ON_TYPEC;
-+
- 	display_runtime->rawclk_freq = intel_read_rawclk(display);
- 	drm_dbg_kms(&i915->drm, "rawclk rate: %d kHz\n", display_runtime->rawclk_freq);
- 
-diff --git a/drivers/gpu/drm/i915/display/intel_display_device.h b/drivers/gpu/drm/i915/display/intel_display_device.h
-index 071a36b51f79..410f8b33a8a1 100644
---- a/drivers/gpu/drm/i915/display/intel_display_device.h
-+++ b/drivers/gpu/drm/i915/display/intel_display_device.h
-@@ -232,6 +232,7 @@ struct intel_display_runtime_info {
- 	bool has_hdcp;
- 	bool has_dmc;
- 	bool has_dsc;
-+	bool edp_typec_support;
- };
- 
- struct intel_display_device_info {
-diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
-index 7e29619ba040..9f015b530289 100644
---- a/drivers/gpu/drm/i915/display/intel_dp.c
-+++ b/drivers/gpu/drm/i915/display/intel_dp.c
-@@ -6441,10 +6441,11 @@ intel_dp_init_connector(struct intel_digital_port *dig_port,
- 
- 	if (_intel_dp_is_port_edp(dev_priv, intel_encoder->devdata, port)) {
- 		/*
--		 * Currently we don't support eDP on TypeC ports, although in
--		 * theory it could work on TypeC legacy ports.
-+		 * Currently we don't support eDP on TypeC ports for DISPLAY_VER < 30,
-+		 * although in theory it could work on TypeC legacy ports.
- 		 */
--		drm_WARN_ON(dev, intel_encoder_is_tc(intel_encoder));
-+		drm_WARN_ON(dev, intel_encoder_is_tc(intel_encoder) &&
-+			    DISPLAY_VER(dev_priv) < 30);
- 		type = DRM_MODE_CONNECTOR_eDP;
- 		intel_encoder->type = INTEL_OUTPUT_EDP;
- 
+Matt Roper (1):
+  drm/i915/xe3lpd: Update pmdemand programming
+
+Mika Kahola (1):
+  drm/i915/xe3lpd: Power request asserting/deasserting
+
+Ravi Kumar Vodapalli (2):
+  drm/i915/xe3: Underrun recovery does not exist post Xe2
+  drm/i915/xe3lpd: Skip disabling VRR during modeset disable
+
+Suraj Kandpal (2):
+  drm/i915/xe3lpd: Disable HDCP Line Rekeying for Xe3
+  drm/i915/xe3lpd: Add check to see if edp over type c is allowed
+
+ drivers/gpu/drm/i915/display/intel_cx0_phy.c  | 12 +++-
+ .../gpu/drm/i915/display/intel_cx0_phy_regs.h |  3 +
+ drivers/gpu/drm/i915/display/intel_display.c  | 10 +--
+ .../drm/i915/display/intel_display_device.c   |  5 ++
+ .../drm/i915/display/intel_display_device.h   |  1 +
+ drivers/gpu/drm/i915/display/intel_dp.c       |  7 +-
+ drivers/gpu/drm/i915/display/intel_fb.c       |  2 +-
+ drivers/gpu/drm/i915/display/intel_hdcp.c     | 10 ++-
+ drivers/gpu/drm/i915/display/intel_pmdemand.c | 68 +++++++++++++------
+ drivers/gpu/drm/i915/display/intel_pmdemand.h |  4 +-
+ drivers/gpu/drm/i915/display/intel_tc.c       | 40 +++++++++++
+ .../drm/i915/display/skl_universal_plane.c    | 13 ++--
+ .../i915/display/skl_universal_plane_regs.h   |  1 +
+ drivers/gpu/drm/i915/i915_drv.h               |  1 +
+ drivers/gpu/drm/i915/i915_reg.h               |  9 +++
+ .../gpu/drm/xe/compat-i915-headers/i915_drv.h |  1 +
+ 16 files changed, 147 insertions(+), 40 deletions(-)
+
 -- 
 2.25.1
 
