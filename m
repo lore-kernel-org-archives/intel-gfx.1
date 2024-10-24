@@ -4,50 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0565CD1038D
-	for <intel-gfx@archiver.kernel.org>; Thu, 24 Oct 2024 22:31:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0617FD10395
+	for <intel-gfx@archiver.kernel.org>; Thu, 24 Oct 2024 22:31:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AD70910E9AC;
+	by gabe.freedesktop.org (Postfix) with ESMTP id DAB1910E9AE;
 	Thu, 24 Oct 2024 22:31:35 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="IeJNytlk";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="Uy/craPl";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.8])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CC36810E3C7;
- Thu, 24 Oct 2024 22:31:33 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 354C610E9AD;
+ Thu, 24 Oct 2024 22:31:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1729809094; x=1761345094;
- h=from:to:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=KleABjwlSHjQbmvr5Y7FysYvX9oTo3xYbATuR3VCf0k=;
- b=IeJNytlkoXtGC8d9sATIPIKwAu4sAB5ptPcsOUK0lcHfLz3c89qDshR1
- 4qejJyKPEyyuC+XQuDLJuSqlWxcsDzW6z4hJWFEipnZk4z3CNDlo3ariZ
- CgKoGXTwhWkBtLRs2p5MN0XHECUC8dkLRsYXnApPLvGbk38w4js8U3VMf
- eFd3SaqUurCsukxS0BINOzxA0IKN5aL+ZGbsZ1naOGcRkWfzfl8Bw4VqE
- DYfVxPHCoTskeCFtMNEUJ2hoU0KZ+MmXcUOGkg5oM5YovACo+sb382HF9
- rykqolJnvepoHbu4pe3WdEotu1Cc09NWGzrnNUTp1Dom9CW3DRth80uS6 Q==;
-X-CSE-ConnectionGUID: QbtXIz2nQQeP/ZNvViL7oA==
-X-CSE-MsgGUID: 4BYr7gU5TvKS2NHZ1TpK3w==
-X-IronPort-AV: E=McAfee;i="6700,10204,11235"; a="46950799"
-X-IronPort-AV: E=Sophos;i="6.11,230,1725346800"; d="scan'208";a="46950799"
+ t=1729809095; x=1761345095;
+ h=from:to:subject:date:message-id:in-reply-to:references:
+ mime-version:content-transfer-encoding;
+ bh=ot5Sui5uzaMucMBL3gsVp983UMv0eszFGYD1PtcmYLI=;
+ b=Uy/craPla1DfMPOuzDZ73QDdCGsDaV75yBVeu8FoYCB1WhShO2oINXP8
+ I+qQyeIqgn+WpVcg9FfSBXP6wtEwINthJVxdaq3iVdR8/+yWUOX8klUNm
+ VaAt7cWcSKvgqjNqsVod9b7B+AqGvILgMAXh/jwUp++CuY9R31Nj1NYXS
+ /MpsuTWmS9QQGQJDlRvIppeOzUz9QQ7CFFq6C71cDjVF2jG7qSOYucsOC
+ bQHBbgw6gyRLFT4aug+cpFepyTMh3XnOZB/85b3TI7/LZ8TiGDgk3tGLq
+ I7S2iyh3J09UhEhrPLxLCUIxoYmdHmHXlDYTKIoWRom1XpIyZpX/pg/p3 A==;
+X-CSE-ConnectionGUID: FZO+oPfAR5GIphfHJf4QUQ==
+X-CSE-MsgGUID: my1gCd4STbOBK8rNR297Jg==
+X-IronPort-AV: E=McAfee;i="6700,10204,11235"; a="46950813"
+X-IronPort-AV: E=Sophos;i="6.11,230,1725346800"; d="scan'208";a="46950813"
 Received: from fmviesa008.fm.intel.com ([10.60.135.148])
  by fmvoesa102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 24 Oct 2024 15:31:19 -0700
-X-CSE-ConnectionGUID: mHaqnZE8T/ymG634VhfQZg==
-X-CSE-MsgGUID: /X0SyMJVSJa9Bw/5+I5zIA==
+ 24 Oct 2024 15:31:20 -0700
+X-CSE-ConnectionGUID: 8HVKJsOWTF6W1QVTaXiHtQ==
+X-CSE-MsgGUID: VqCgVCl5QQSmz3boSPXU5A==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.11,230,1725346800"; d="scan'208";a="80838659"
+X-IronPort-AV: E=Sophos;i="6.11,230,1725346800"; d="scan'208";a="80838678"
 Received: from cataylo2-desk.jf.intel.com ([10.165.21.140])
  by fmviesa008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 24 Oct 2024 15:31:18 -0700
+ 24 Oct 2024 15:31:20 -0700
 From: Clint Taylor <clinton.a.taylor@intel.com>
 To: intel-gfx@lists.freedesktop.org,
 	intel-xe@lists.freedesktop.org
-Subject: [PATCH v4 00/11] drm/i915/xe3lpd: ptl display patches
-Date: Thu, 24 Oct 2024 15:31:03 -0700
-Message-Id: <20241024223114.785209-1-clinton.a.taylor@intel.com>
+Subject: [PATCH v4 10/11] drm/i915/xe3lpd: Skip disabling VRR during modeset
+ disable
+Date: Thu, 24 Oct 2024 15:31:13 -0700
+Message-Id: <20241024223114.785209-11-clinton.a.taylor@intel.com>
 X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20241024223114.785209-1-clinton.a.taylor@intel.com>
+References: <20241024223114.785209-1-clinton.a.taylor@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-BeenThere: intel-gfx@lists.freedesktop.org
@@ -65,54 +68,38 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Misc fixes from v3
+From: Ravi Kumar Vodapalli <ravi.kumar.vodapalli@intel.com>
 
-This series builds on the previous v2, further enabling new features
-for the platform. 1 patch drop at the request of the author. 
+Spec does not request to disable VRR in the modeset disabling
+sequence for DP and HDMI for xe3_lpd.
 
-Clint Taylor (1):
-  drm/i915/cx0: Remove bus reset after every c10 transaction
+Bspec: 68848
+Signed-off-by: Ravi Kumar Vodapalli <ravi.kumar.vodapalli@intel.com>
+Signed-off-by: Matt Atwood <matthew.s.atwood@intel.com>
+Signed-off-by: Clint Taylor <Clinton.A.Taylor@intel.com>
+---
+ drivers/gpu/drm/i915/display/intel_display.c | 8 +++++---
+ 1 file changed, 5 insertions(+), 3 deletions(-)
 
-Dnyaneshwar Bhadane (3):
-  drm/i915/ptl: Define IS_PANTHERLAKE macro
-  drm/i915/cx0: Extend C10 check to PTL
-  drm/i915/xe3lpd: Move async flip bit to PLANE_SURF register
-
-Heikkila, Juha-pekka (1):
-  drm/i915/display/xe3: disable x-tiled framebuffers
-
-Matt Roper (1):
-  drm/i915/xe3lpd: Update pmdemand programming
-
-Mika Kahola (1):
-  drm/i915/xe3lpd: Power request asserting/deasserting
-
-Ravi Kumar Vodapalli (2):
-  drm/i915/xe3: Underrun recovery does not exist post Xe2
-  drm/i915/xe3lpd: Skip disabling VRR during modeset disable
-
-Suraj Kandpal (2):
-  drm/i915/xe3lpd: Disable HDCP Line Rekeying for Xe3
-  drm/i915/xe3lpd: Add check to see if edp over type c is allowed
-
- drivers/gpu/drm/i915/display/intel_cx0_phy.c  | 12 +++-
- .../gpu/drm/i915/display/intel_cx0_phy_regs.h |  3 +
- drivers/gpu/drm/i915/display/intel_display.c  | 10 +--
- .../drm/i915/display/intel_display_device.c   |  5 ++
- .../drm/i915/display/intel_display_device.h   |  1 +
- drivers/gpu/drm/i915/display/intel_dp.c       |  7 +-
- drivers/gpu/drm/i915/display/intel_fb.c       |  2 +-
- drivers/gpu/drm/i915/display/intel_hdcp.c     | 10 ++-
- drivers/gpu/drm/i915/display/intel_pmdemand.c | 68 +++++++++++++------
- drivers/gpu/drm/i915/display/intel_pmdemand.h |  4 +-
- drivers/gpu/drm/i915/display/intel_tc.c       | 40 +++++++++++
- .../drm/i915/display/skl_universal_plane.c    | 13 ++--
- .../i915/display/skl_universal_plane_regs.h   |  1 +
- drivers/gpu/drm/i915/i915_drv.h               |  1 +
- drivers/gpu/drm/i915/i915_reg.h               |  9 +++
- .../gpu/drm/xe/compat-i915-headers/i915_drv.h |  1 +
- 16 files changed, 147 insertions(+), 40 deletions(-)
-
+diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
+index c904f529d0c5..7a6961432616 100644
+--- a/drivers/gpu/drm/i915/display/intel_display.c
++++ b/drivers/gpu/drm/i915/display/intel_display.c
+@@ -1310,9 +1310,11 @@ static void intel_pre_plane_update(struct intel_atomic_state *state,
+ 		intel_atomic_get_new_crtc_state(state, crtc);
+ 	enum pipe pipe = crtc->pipe;
+ 
+-	if (intel_crtc_vrr_disabling(state, crtc)) {
+-		intel_vrr_disable(old_crtc_state);
+-		intel_crtc_update_active_timings(old_crtc_state, false);
++	if (DISPLAY_VER(dev_priv) < 30) {
++		if (intel_crtc_vrr_disabling(state, crtc)) {
++			intel_vrr_disable(old_crtc_state);
++			intel_crtc_update_active_timings(old_crtc_state, false);
++		}
+ 	}
+ 
+ 	if (audio_disabling(old_crtc_state, new_crtc_state))
 -- 
 2.25.1
 
