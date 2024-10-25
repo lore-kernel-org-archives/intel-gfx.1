@@ -4,55 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B2BEBD1039A
-	for <intel-gfx@archiver.kernel.org>; Fri, 25 Oct 2024 16:02:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 239E2D116FB
+	for <intel-gfx@archiver.kernel.org>; Fri, 25 Oct 2024 16:02:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 59A2110EB12;
+	by gabe.freedesktop.org (Postfix) with ESMTP id BE30310EB13;
 	Fri, 25 Oct 2024 16:02:41 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="elgd0/ri";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="Zj5SfnFO";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.15])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8C8E410EB0F
- for <intel-gfx@lists.freedesktop.org>; Fri, 25 Oct 2024 16:02:35 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D911A10EB0F
+ for <intel-gfx@lists.freedesktop.org>; Fri, 25 Oct 2024 16:02:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1729872155; x=1761408155;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=N2hnF0gqNWle+Xv+USele4xvrjDev63+mWfUhMZY2Go=;
- b=elgd0/riyxOd91ThJv96azwvMuA5cGO1D+PHMvDYKioFM+c8bkPsmHoe
- yuGV0Aop2LzLelb2T7Nfuxgg1DORYDJb0006suEbAbqxkSh1K62HrohVp
- B+//LjRHgcuc7xsCnKqYwfFDqWjf0LVKsxKkjPaj7UK6aWN3sQYEjD+a8
- WMVDsM0krkiCmdS9H2RO1kEIzPySRcoh6lUKvw4f7uqRc5bhJ+mtlgXqp
- cs0B3IWZ0eONPQ97uqk0QApSy8OJDUbgV/Ueo806iOy2XRQNEI17UCBcx
- 87iG3RY2AEC8yqOq9o7oKXLCKFLQ0mnAedjjcSHslzvlimLqRtxw2f4qW Q==;
-X-CSE-ConnectionGUID: SDBTZAQeSqKRVoXwuGy1iQ==
-X-CSE-MsgGUID: ym8OcCsGSwu7g2J43GeW4g==
-X-IronPort-AV: E=McAfee;i="6700,10204,11222"; a="33242398"
-X-IronPort-AV: E=Sophos;i="6.11,199,1725346800"; d="scan'208";a="33242398"
+ t=1729872158; x=1761408158;
+ h=from:to:subject:date:message-id:in-reply-to:references:
+ mime-version:content-transfer-encoding;
+ bh=+tU+hnS3v0kko76tvaq20/XUEF948WIb28DNlkWqP8E=;
+ b=Zj5SfnFOeLR9HPowk7+EVZfKU737zVX0Q8gEfGBaw7oNdaAnaSsOUxm/
+ OZX0B/XwAZwlCBCR/2lJS9rPQnEe/rEjva6YoSDDt1bsp4PHbSLcx865u
+ 12ylSxcPQhmot/GTL7eqzcFsn486GXtnDOW3JGFtugXnGG8YM4QiV5W+F
+ g9BqWBzv0wMq+oIkvuZe8Udo8p0+kGAn8lg+ho5RH1OyV9FpBoDy+72Lk
+ 0m9cJrTMDFmQuUM24JJk3uWd66AxzUFn1kw/BRQUe+qb7Xxek6bR1Y/K5
+ CviTAU72BMvZk2psnaHtOs/FR7V/TZWmmbEeQBhQuKkl79VoKdPBhZtnN g==;
+X-CSE-ConnectionGUID: CVjX7H3GQ1GtbcbPF8lmtA==
+X-CSE-MsgGUID: 9i478rdYQbirsuTyK3owCg==
+X-IronPort-AV: E=McAfee;i="6700,10204,11222"; a="33242406"
+X-IronPort-AV: E=Sophos;i="6.11,199,1725346800"; d="scan'208";a="33242406"
 Received: from orviesa008.jf.intel.com ([10.64.159.148])
  by orvoesa107.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 25 Oct 2024 09:02:35 -0700
-X-CSE-ConnectionGUID: UQVrsGAmSnWJOanfgJee/w==
-X-CSE-MsgGUID: qNzwE5MGR6SKdkN3sdBemg==
+ 25 Oct 2024 09:02:37 -0700
+X-CSE-ConnectionGUID: mf2xTv80R4qpw8hxgRSFZQ==
+X-CSE-MsgGUID: 2Nsm95N4RpSv5cNfnPs+7Q==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.11,232,1725346800"; d="scan'208";a="81783709"
+X-IronPort-AV: E=Sophos;i="6.11,232,1725346800"; d="scan'208";a="81783715"
 Received: from ideak-desk.fi.intel.com ([10.237.72.78])
  by orviesa008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 25 Oct 2024 09:02:34 -0700
+ 25 Oct 2024 09:02:37 -0700
 From: Imre Deak <imre.deak@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Cc: =?UTF-8?q?Ville=20Syrj=C3=A4l=C3=A4?= <ville.syrjala@linux.intel.com>
-Subject: [PATCH v5 6/8] drm/i915/dp: Write the source OUI for eDP before
- detecting sink capabilities
-Date: Fri, 25 Oct 2024 19:02:57 +0300
-Message-ID: <20241025160259.3088727-7-imre.deak@intel.com>
+Subject: [PATCH v5 8/8] drm/i915/dp: Write the source OUI for non-eDP sinks as
+ well
+Date: Fri, 25 Oct 2024 19:02:59 +0300
+Message-ID: <20241025160259.3088727-9-imre.deak@intel.com>
 X-Mailer: git-send-email 2.44.2
 In-Reply-To: <20241025160259.3088727-1-imre.deak@intel.com>
 References: <20241025160259.3088727-1-imre.deak@intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -69,45 +67,41 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-The eDP sink's capabilities, like DSC, may depend on the source OUI
-written to the sink, so ensure the OUI is written before reading out the
-capabilities.
+At least the i-tec USB-C Nano 2x Display Docking Station (containing a
+Synaptics MST branch device) requires the driver to update the source
+OUI DPCD registers to expose its DSC capability. Accordingly update the
+OUI for all sink types (besides eDP where this has been done already).
 
-Reviewed-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
+v2: Rebased on latest patch version.
+
+Closes: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/11776
 Signed-off-by: Imre Deak <imre.deak@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_dp.c | 12 ++++++------
- 1 file changed, 6 insertions(+), 6 deletions(-)
+ drivers/gpu/drm/i915/display/intel_dp.c | 5 ++---
+ 1 file changed, 2 insertions(+), 3 deletions(-)
 
 diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
-index a3bc631d64095..0d6d7dc1e4ccd 100644
+index 916301aa9f6b6..24daf5f973770 100644
 --- a/drivers/gpu/drm/i915/display/intel_dp.c
 +++ b/drivers/gpu/drm/i915/display/intel_dp.c
-@@ -4196,6 +4196,12 @@ intel_edp_init_dpcd(struct intel_dp *intel_dp, struct intel_connector *connector
- 		intel_dp->use_max_params = intel_dp->edp_dpcd[0] < DP_EDP_14;
- 	}
+@@ -3407,9 +3407,6 @@ intel_dp_init_source_oui(struct intel_dp *intel_dp)
+ 	u8 oui[] = { 0x00, 0xaa, 0x01 };
+ 	u8 buf[3] = {};
  
-+	/*
-+	 * If needed, program our source OUI so we can make various Intel-specific AUX services
-+	 * available (such as HDR backlight controls)
-+	 */
-+	intel_dp_init_source_oui(intel_dp);
-+
- 	/*
- 	 * This has to be called after intel_dp->edp_dpcd is filled, PSR checks
- 	 * for SET_POWER_CAPABLE bit in intel_dp->edp_dpcd[1]
-@@ -4208,12 +4214,6 @@ intel_edp_init_dpcd(struct intel_dp *intel_dp, struct intel_connector *connector
- 	/* Read the eDP DSC DPCD registers */
- 	intel_dp_detect_dsc_caps(intel_dp, connector);
- 
--	/*
--	 * If needed, program our source OUI so we can make various Intel-specific AUX services
--	 * available (such as HDR backlight controls)
--	 */
--	intel_dp_init_source_oui(intel_dp);
+-	if (!intel_dp_is_edp(intel_dp))
+-		return;
 -
- 	return true;
- }
+ 	if (READ_ONCE(intel_dp->oui_valid))
+ 		return;
+ 
+@@ -6133,6 +6130,8 @@ intel_dp_hpd_pulse(struct intel_digital_port *dig_port, bool long_hpd)
+ 
+ 	if (long_hpd) {
+ 		intel_dp->reset_link_params = true;
++		intel_dp_invalidate_source_oui(intel_dp);
++
+ 		return IRQ_NONE;
+ 	}
  
 -- 
 2.44.2
