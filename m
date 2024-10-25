@@ -4,50 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 11B70D149FE
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7D233D149F2
 	for <intel-gfx@archiver.kernel.org>; Fri, 25 Oct 2024 20:47:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3924310EB96;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 570F710EB99;
 	Fri, 25 Oct 2024 20:47:50 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="a8AjHRVj";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="kwtuGzF/";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.12])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 96EFB10EB82;
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C518210EB82;
  Fri, 25 Oct 2024 20:47:48 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
  t=1729889269; x=1761425269;
  h=from:to:subject:date:message-id:in-reply-to:references:
  mime-version:content-transfer-encoding;
- bh=8Tm8t2kEZXAvSHGjZDgvrqrf38dXDVKpmO8qby0qQiw=;
- b=a8AjHRVjobCVHGarqObkvOol7CsTDJpalqfqdtd1YtC9rDBqsDBRD/v6
- BAqq8uRujqkybxaBHW82+cIFlHscpRwbKcAUX9sGG1aMRBZrVCx+HOHd/
- d3B49DkxQU4kEl8K55zxgC5ddZMipjuFhxPVJSEnS25sCyuOPLH8iR+CW
- 13kkrAHwHPpZWcvREtI4v2EkzeK6jyHDUEewA9BxaKaQ4xGfbjCbfTiF7
- 8FT18/AexGf1cfWPBSJReMhze9Nluy3u5RKjf2seKgdfvyPnl31VE3/8b
- QPZizgrEU8GgJmRdWEF+g86mbmKwajUDqrPNod57gXI421kMPr4VvQyy9 g==;
-X-CSE-ConnectionGUID: K6ECFT4zTxa+WCstg0WB/g==
-X-CSE-MsgGUID: uKtfiYgnTkahebTaaJSEXw==
-X-IronPort-AV: E=McAfee;i="6700,10204,11236"; a="33484206"
-X-IronPort-AV: E=Sophos;i="6.11,232,1725346800"; d="scan'208";a="33484206"
+ bh=ohFe+L7LULaS+BR/dLeP4YYGJ+d9nxfbO1Y34Vs4NZY=;
+ b=kwtuGzF/CtMH/u48uBmBoIrE6kausLSpOyyORFjF2VtQgYDFWEplrwqB
+ Q4NBwiJTYQ4CjOvLt+q6mxXC8G5RvnCzazve9kXCzbS39nT4VAjLKXZIL
+ DPU/SrA3E0choGznsC5Onsexz+5hMLLGDC1pKEQCJ/K2MEQvqRjHp/Ah5
+ TNteIW+QST+uYZ1CEOzwDvqmaAIkRZwE53k3x8hDWTrWhVTNbh3DJyz9o
+ 1AdkwvJMvHyY39vMPhUtmvVmaAWG63jzu5VOp9oDG5p72b5xp1wpBl4cw
+ qYzjJlxAS9pTHv6cmY7wCHSk2pomvxJ9l8//+bV+qfYX0FARGLZLfaJj7 w==;
+X-CSE-ConnectionGUID: YJbV6tqCRAerD/7CuK0eFA==
+X-CSE-MsgGUID: bA+FS7aTSga6C4LSKI2Opw==
+X-IronPort-AV: E=McAfee;i="6700,10204,11236"; a="33484208"
+X-IronPort-AV: E=Sophos;i="6.11,232,1725346800"; d="scan'208";a="33484208"
 Received: from fmviesa009.fm.intel.com ([10.60.135.149])
  by fmvoesa106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  25 Oct 2024 13:47:48 -0700
-X-CSE-ConnectionGUID: KvNUE8zrQvW8wnqQQBBRSA==
-X-CSE-MsgGUID: bhOZinsaQVKguJIVXmDdug==
+X-CSE-ConnectionGUID: h8mjwlEDRYqT2POlreUYag==
+X-CSE-MsgGUID: A2TtsS6rQuKiqhgE5dSaEA==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.11,232,1725346800"; d="scan'208";a="81057189"
+X-IronPort-AV: E=Sophos;i="6.11,232,1725346800"; d="scan'208";a="81057193"
 Received: from cataylo2-desk.jf.intel.com ([10.165.21.140])
  by fmviesa009-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 25 Oct 2024 13:47:48 -0700
+ 25 Oct 2024 13:47:49 -0700
 From: Clint Taylor <clinton.a.taylor@intel.com>
 To: intel-gfx@lists.freedesktop.org,
 	intel-xe@lists.freedesktop.org
-Subject: [PATCH v5 06/11] drm/i915/cx0: Remove bus reset after every c10
- transaction
-Date: Fri, 25 Oct 2024 13:47:38 -0700
-Message-Id: <20241025204743.211510-7-clinton.a.taylor@intel.com>
+Subject: [PATCH v5 08/11] drm/i915/xe3: Underrun recovery does not exist post
+ Xe2
+Date: Fri, 25 Oct 2024 13:47:40 -0700
+Message-Id: <20241025204743.211510-9-clinton.a.taylor@intel.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20241025204743.211510-1-clinton.a.taylor@intel.com>
 References: <20241025204743.211510-1-clinton.a.taylor@intel.com>
@@ -68,38 +68,34 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-C10 phy timeouts occur on xe3lpd if the c10 bus is reset every
-transaction. Starting with xe3lpd this is bus reset not necessary
+From: Ravi Kumar Vodapalli <ravi.kumar.vodapalli@intel.com>
 
-Signed-off-by: Clint Taylor <clinton.a.taylor@intel.com>
+From platforms xe3 Underrun recovery does not exist
+
+v2: improve DISPLAY_VER checking
+
+BSpec: 68849
+Signed-off-by: Ravi Kumar Vodapalli <ravi.kumar.vodapalli@intel.com>
+Signed-off-by: Matt Atwood <matthew.s.atwood@intel.com>
+Signed-off-by: Clint Taylor <Clinton.A.Taylor@intel.com>
+Reviewed-by: Sai Teja Pottumuttu <sai.teja.pottumuttu@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_cx0_phy.c | 6 ++++--
- 1 file changed, 4 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/i915/display/intel_display.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_cx0_phy.c b/drivers/gpu/drm/i915/display/intel_cx0_phy.c
-index 4d6e1c135bdc..c6e0cbff5201 100644
---- a/drivers/gpu/drm/i915/display/intel_cx0_phy.c
-+++ b/drivers/gpu/drm/i915/display/intel_cx0_phy.c
-@@ -224,7 +224,8 @@ static int __intel_cx0_read_once(struct intel_encoder *encoder,
- 	 * down and let the message bus to end up
- 	 * in a known state
+diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
+index ef1436146325..c904f529d0c5 100644
+--- a/drivers/gpu/drm/i915/display/intel_display.c
++++ b/drivers/gpu/drm/i915/display/intel_display.c
+@@ -861,7 +861,7 @@ static void icl_set_pipe_chicken(const struct intel_crtc_state *crtc_state)
  	 */
--	intel_cx0_bus_reset(encoder, lane);
-+	if (DISPLAY_VER(i915) < 30)
-+		intel_cx0_bus_reset(encoder, lane);
+ 	if (IS_DG2(dev_priv))
+ 		tmp &= ~UNDERRUN_RECOVERY_ENABLE_DG2;
+-	else if (DISPLAY_VER(dev_priv) >= 13)
++	else if ((DISPLAY_VER(dev_priv) >= 13) && (DISPLAY_VER(dev_priv) < 30))
+ 		tmp |= UNDERRUN_RECOVERY_DISABLE_ADLP;
  
- 	return REG_FIELD_GET(XELPDP_PORT_P2M_DATA_MASK, val);
- }
-@@ -313,7 +314,8 @@ static int __intel_cx0_write_once(struct intel_encoder *encoder,
- 	 * down and let the message bus to end up
- 	 * in a known state
- 	 */
--	intel_cx0_bus_reset(encoder, lane);
-+	if (DISPLAY_VER(i915) < 30)
-+		intel_cx0_bus_reset(encoder, lane);
- 
- 	return 0;
- }
+ 	/* Wa_14010547955:dg2 */
 -- 
 2.25.1
 
