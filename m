@@ -4,50 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 28F1ED149F4
-	for <intel-gfx@archiver.kernel.org>; Fri, 25 Oct 2024 20:47:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 22183D149F5
+	for <intel-gfx@archiver.kernel.org>; Fri, 25 Oct 2024 20:47:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EBFE810EB83;
-	Fri, 25 Oct 2024 20:47:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5E3DF10EB87;
+	Fri, 25 Oct 2024 20:47:49 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="eCBYQbUh";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="kz8JYB2z";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.12])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9FE8610EB82;
- Fri, 25 Oct 2024 20:47:47 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 452EA10EB82;
+ Fri, 25 Oct 2024 20:47:48 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
  t=1729889268; x=1761425268;
- h=from:to:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=tkRcnlW16FpVCIV9JGUveHRhOwgZ7yaUCd2g45I7Rhs=;
- b=eCBYQbUh7vgbQtHeBkwpFQLhR9jfLBiwUK9k8ypmnkjmSKmZaGn6axd2
- kYpPdYNBFBrGq2bzsLf/36HIdQpCxfJYv9MTkp2asla6D6X/F8SmtyYpI
- 670u5axd0vz02Kyg7G9k71A46LQJn9bT5zqIMF9FAbVzrG5J53VtZj7GI
- Fs+HHFecftTaXJBRAv5zQqKMUbkRbjc+khmkfIepqIKL/3Mstc1mqbB2W
- X0qxjVZ9ZIVDF0+hSdpasmzF5YZU6w1Q2d7CPwvfXjLFM8fzudEo4fj+e
- TY7KytXP5V7cTOX7AKUCcoh6hQKcFJT3aTNkHCGZiShb4fkUvc5xg22as Q==;
-X-CSE-ConnectionGUID: olVIs5BnRsCCwySUPYaUvA==
-X-CSE-MsgGUID: l1esnDHkSumQhuarw905fw==
-X-IronPort-AV: E=McAfee;i="6700,10204,11236"; a="33484199"
-X-IronPort-AV: E=Sophos;i="6.11,232,1725346800"; d="scan'208";a="33484199"
+ h=from:to:subject:date:message-id:in-reply-to:references:
+ mime-version:content-transfer-encoding;
+ bh=XesO/1o7QrwCKvwdsNPPi4cprCvwoimzFaB8TNf6u0o=;
+ b=kz8JYB2zAGvufebfsnJ5zYPtBPDTCjkrKxV+HA33mR275qobpxCqc6eQ
+ cdADKzN+9E/VJ1jszJf2apCP6icPYo/MTQVLlPQ36zV11GeL/xR5FpgH8
+ HQ40n9hj7kuPzfsyRqp+Fh9loN2WZFn6MeABp4e2hIe3qIPZ93XxwzA3L
+ I3SIkQdAqgbo2/g461MYiyLV+FN0qtTy07Xw4LJtdyGh8Rp0RZ6D4I020
+ 6tp34E38yxz0zJO63usPwurtkyrnPrY610u36e1jBuBNm89pE+Se0u11p
+ sH7Q8+jNcYBnAL60seQD3hry65WO+v8Ppk/JQKEV0tED8mTrzxEOxrYK2 w==;
+X-CSE-ConnectionGUID: QUM/5VaVQ7i1UVwdyEsMJQ==
+X-CSE-MsgGUID: dnQ1eKjCTayapKElrUDnSw==
+X-IronPort-AV: E=McAfee;i="6700,10204,11236"; a="33484204"
+X-IronPort-AV: E=Sophos;i="6.11,232,1725346800"; d="scan'208";a="33484204"
 Received: from fmviesa009.fm.intel.com ([10.60.135.149])
  by fmvoesa106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 25 Oct 2024 13:47:47 -0700
-X-CSE-ConnectionGUID: muQQQFsVTKOgwBa4zZXX3w==
-X-CSE-MsgGUID: BzwsFAZITLO7QxgTlsi2Mw==
+ 25 Oct 2024 13:47:48 -0700
+X-CSE-ConnectionGUID: 94N6VxUcTwCHMNxlBUARwA==
+X-CSE-MsgGUID: Pi3FVDmlT0iyoqYB8omu+w==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.11,232,1725346800"; d="scan'208";a="81057181"
+X-IronPort-AV: E=Sophos;i="6.11,232,1725346800"; d="scan'208";a="81057187"
 Received: from cataylo2-desk.jf.intel.com ([10.165.21.140])
  by fmviesa009-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  25 Oct 2024 13:47:48 -0700
 From: Clint Taylor <clinton.a.taylor@intel.com>
 To: intel-gfx@lists.freedesktop.org,
 	intel-xe@lists.freedesktop.org
-Subject: [PATCH v5 00/11] drm/i915/xe3lpd: ptl display patches
-Date: Fri, 25 Oct 2024 13:47:32 -0700
-Message-Id: <20241025204743.211510-1-clinton.a.taylor@intel.com>
+Subject: [PATCH v5 04/11] drm/i915/ptl: Define IS_PANTHERLAKE macro
+Date: Fri, 25 Oct 2024 13:47:36 -0700
+Message-Id: <20241025204743.211510-5-clinton.a.taylor@intel.com>
 X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20241025204743.211510-1-clinton.a.taylor@intel.com>
+References: <20241025204743.211510-1-clinton.a.taylor@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-BeenThere: intel-gfx@lists.freedesktop.org
@@ -65,56 +67,31 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-This series builds on the previous v4, Review Comments have addressed
-for the first 2 patches in a series. 1 more VRR related patch dropped.
-PTL display enabling patch added. 
+From: Dnyaneshwar Bhadane <dnyaneshwar.bhadane@intel.com>
 
-Clint Taylor (1):
-  drm/i915/cx0: Remove bus reset after every c10 transaction
+Common display code requires IS_PANTHERLAKE macro.
+Define the macro and set 0 as PTL is no longer support for i915.
 
-Dnyaneshwar Bhadane (3):
-  drm/i915/ptl: Define IS_PANTHERLAKE macro
-  drm/i915/cx0: Extend C10 check to PTL
-  drm/i915/xe3lpd: Move async flip bit to PLANE_SURF register
+Signed-off-by: Dnyaneshwar Bhadane <dnyaneshwar.bhadane@intel.com>
+Signed-off-by: Matt Atwood <matthew.s.atwood@intel.com>
+Signed-off-by: Clint Taylor <Clinton.A.Taylor@intel.com>
+Reviewed-by: Matt Roper <matthew.d.roper@intel.com>
+---
+ drivers/gpu/drm/i915/i915_drv.h | 1 +
+ 1 file changed, 1 insertion(+)
 
-Haridhar Kalvala (1):
-  drm/xe/ptl: Enable PTL display
-
-Heikkila, Juha-pekka (1):
-  drm/i915/display/xe3: disable x-tiled framebuffers
-
-Matt Roper (1):
-  drm/i915/xe3lpd: Update pmdemand programming
-
-Mika Kahola (1):
-  drm/i915/xe3lpd: Power request asserting/deasserting
-
-Ravi Kumar Vodapalli (1):
-  drm/i915/xe3: Underrun recovery does not exist post Xe2
-
-Suraj Kandpal (2):
-  drm/i915/xe3lpd: Disable HDCP Line Rekeying for Xe3
-  drm/i915/xe3lpd: Add check to see if edp over type c is allowed
-
- drivers/gpu/drm/i915/display/intel_cx0_phy.c  | 12 ++-
- .../gpu/drm/i915/display/intel_cx0_phy_regs.h |  3 +
- drivers/gpu/drm/i915/display/intel_display.c  |  2 +-
- .../drm/i915/display/intel_display_device.c   |  5 ++
- .../drm/i915/display/intel_display_device.h   |  1 +
- drivers/gpu/drm/i915/display/intel_dp.c       |  7 +-
- drivers/gpu/drm/i915/display/intel_fb.c       |  2 +-
- drivers/gpu/drm/i915/display/intel_hdcp.c     | 11 ++-
- drivers/gpu/drm/i915/display/intel_pmdemand.c | 73 +++++++++++++------
- drivers/gpu/drm/i915/display/intel_pmdemand.h |  4 +-
- drivers/gpu/drm/i915/display/intel_tc.c       | 40 ++++++++++
- .../drm/i915/display/skl_universal_plane.c    | 13 +++-
- .../i915/display/skl_universal_plane_regs.h   |  1 +
- drivers/gpu/drm/i915/i915_drv.h               |  1 +
- drivers/gpu/drm/i915/i915_reg.h               |  9 +++
- .../gpu/drm/xe/compat-i915-headers/i915_drv.h |  1 +
- drivers/gpu/drm/xe/xe_pci.c                   |  2 +-
- 17 files changed, 146 insertions(+), 41 deletions(-)
-
+diff --git a/drivers/gpu/drm/i915/i915_drv.h b/drivers/gpu/drm/i915/i915_drv.h
+index de73b348b8cf..0f19cbd36829 100644
+--- a/drivers/gpu/drm/i915/i915_drv.h
++++ b/drivers/gpu/drm/i915/i915_drv.h
+@@ -536,6 +536,7 @@ IS_SUBPLATFORM(const struct drm_i915_private *i915,
+  */
+ #define IS_LUNARLAKE(i915) (0 && i915)
+ #define IS_BATTLEMAGE(i915)  (0 && i915)
++#define IS_PANTHERLAKE(i915) (0 && i915)
+ 
+ #define IS_ARROWLAKE(i915) \
+ 	IS_SUBPLATFORM(i915, INTEL_METEORLAKE, INTEL_SUBPLATFORM_ARL)
 -- 
 2.25.1
 
