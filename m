@@ -4,56 +4,64 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 89DBFD116F7
-	for <intel-gfx@archiver.kernel.org>; Fri, 25 Oct 2024 06:02:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4F3BED116FE
+	for <intel-gfx@archiver.kernel.org>; Fri, 25 Oct 2024 06:03:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2A37C10E9F7;
-	Fri, 25 Oct 2024 06:02:10 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BC39B10E9F2;
+	Fri, 25 Oct 2024 06:03:54 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="AO4myD6U";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="J45KmdDq";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.16])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 00C8B10E9F2;
- Fri, 25 Oct 2024 06:02:02 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.21])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9ED7E10E9F3;
+ Fri, 25 Oct 2024 06:03:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1729836123; x=1761372123;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=ygLf1qwjCGJnVMN2z4MEIWKbmlDCHscQUfhIZo+LoAw=;
- b=AO4myD6UV4GcXENhN3eJnWXhHpcaBRTUSkJ8KDAZ3rZdu5j0UDqnBqlP
- bOQeQ15/ViT7MTy8u/E/0JasTSB2Dfo2XaGWkmrB6W9dZWUx6/JG0QuGg
- Gc3LRBJOgE5LWnP7IgF7JJ8Vjkf9d/rJxbEY2/XmInTcMHI3eHM3se4y6
- NLUmZOKBUxsw9Inn0lPbLWzvreeSxymdk+gH0CmA7luB6wfhsaFmAzZpp
- hRteCnMOdasfNDIl9RVMnL8GU6ZOGLMs1psiNLDDHI72qiIACTSngGOQL
- 6pE4vvnI5T4Alf0/s+KJZrAuaZSY5VvB2YWDGKWvbk8S/6IZVdRZCRIgX Q==;
-X-CSE-ConnectionGUID: et9/iYI8SWeQgJTyee4Omw==
-X-CSE-MsgGUID: 5cxV82PRQqG/MI/60ZUCeg==
-X-IronPort-AV: E=McAfee;i="6700,10204,11222"; a="29620700"
-X-IronPort-AV: E=Sophos;i="6.11,199,1725346800"; d="scan'208";a="29620700"
-Received: from orviesa009.jf.intel.com ([10.64.159.149])
- by orvoesa108.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 24 Oct 2024 23:02:03 -0700
-X-CSE-ConnectionGUID: vdAklypHQ4Wq98Yu5gXo6g==
-X-CSE-MsgGUID: McwnwT7DRsGp05wtMIttvw==
+ t=1729836233; x=1761372233;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:content-transfer-encoding:in-reply-to;
+ bh=AkVVkARjSxdSmyHPmy1ajU4UyyQGT4kUuLCo9GdsoJs=;
+ b=J45KmdDqSLuksA2LQPDWBIZSf1t/pgK6PLpGnrDu/T2W9l5HFeEFbj4x
+ l7cKtVYXtl0o2EimtfNuZPDc+gNA7FfWmVcPrHgksZiJ1RzsGtujte+wd
+ 56WywbRuj/QFr2Dcp3Y9nKLGZQZynYcYNPfrnSRMsxismuEtYdtLJsz3J
+ n7ot7eFaHofv9+fY9VR4mSG7PALCJQnC2uumQOo1TMW3Hh0byvPylFccc
+ /PtwSPwYwdy0K3ip8wulH1HgHNlmx1wT9XrUICAGmVSM8W7jH2sd7HR6U
+ E7wH6yG1DbepYuR7sxZcDCPkpVSp0zImszVs2s1XYS1HZvVDEh2YKV8ZP w==;
+X-CSE-ConnectionGUID: 3X0a9kQyROWXgrrHixVYzA==
+X-CSE-MsgGUID: lvZBaJkuScu6Xeyb9WH1/w==
+X-IronPort-AV: E=McAfee;i="6700,10204,11222"; a="29435683"
+X-IronPort-AV: E=Sophos;i="6.11,199,1725346800"; d="scan'208";a="29435683"
+Received: from fmviesa008.fm.intel.com ([10.60.135.148])
+ by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 24 Oct 2024 23:03:53 -0700
+X-CSE-ConnectionGUID: X1+pzynwSKK0C/rlDR5g+g==
+X-CSE-MsgGUID: NPcwojJ/RNmkf13XrLOeBw==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.11,231,1725346800"; d="scan'208";a="80734425"
-Received: from unknown (HELO kandpal-X299-UD4-Pro.iind.intel.com)
- ([10.190.239.10])
- by orviesa009.jf.intel.com with ESMTP; 24 Oct 2024 23:02:01 -0700
-From: Suraj Kandpal <suraj.kandpal@intel.com>
-To: intel-xe@lists.freedesktop.org,
-	intel-gfx@lists.freedesktop.org
-Cc: ankit.k.nautiyal@intel.com, matthew.d.roper@intel.com,
- Suraj Kandpal <suraj.kandpal@intel.com>
-Subject: [PATCH 4/5] drm/i915/xe3lpd: Increase max_h max_v for PSR
-Date: Fri, 25 Oct 2024 11:31:35 +0530
-Message-Id: <20241025060136.9884-5-suraj.kandpal@intel.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20241025060136.9884-1-suraj.kandpal@intel.com>
-References: <20241025060136.9884-1-suraj.kandpal@intel.com>
+X-IronPort-AV: E=Sophos;i="6.11,231,1725346800"; d="scan'208";a="80922126"
+Received: from stinkpipe.fi.intel.com (HELO stinkbox) ([10.237.72.74])
+ by fmviesa008.fm.intel.com with SMTP; 24 Oct 2024 23:03:49 -0700
+Received: by stinkbox (sSMTP sendmail emulation);
+ Fri, 25 Oct 2024 09:03:49 +0300
+Date: Fri, 25 Oct 2024 09:03:49 +0300
+From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
+To: "Murthy, Arun R" <arun.r.murthy@intel.com>
+Cc: "intel-xe@lists.freedesktop.org" <intel-xe@lists.freedesktop.org>,
+ "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>,
+ "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>
+Subject: Re: [PATCH] drm/i915/display: plane property for async supported
+ modifiers
+Message-ID: <Zxs0xT1tp9ToPDoo@intel.com>
+References: <20241016053626.2850384-1-arun.r.murthy@intel.com>
+ <Zw-_6yuy139Zmir3@intel.com> <Zw_FgeZFATAk-aMf@intel.com>
+ <Zw_HHn42gYFvjWmP@intel.com>
+ <IA0PR11MB73076CAE9CF2258CF83F8F49BA472@IA0PR11MB7307.namprd11.prod.outlook.com>
+ <IA0PR11MB7307CD2E8E7D15D982662127BA4F2@IA0PR11MB7307.namprd11.prod.outlook.com>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <IA0PR11MB7307CD2E8E7D15D982662127BA4F2@IA0PR11MB7307.namprd11.prod.outlook.com>
+X-Patchwork-Hint: comment
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,32 +77,49 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Spec states that PSR max active is same as max pipe active values.
-Now that each pipe supports 6k resolution increasing max_h and
-max_v for PSR too.
+On Fri, Oct 25, 2024 at 04:28:18AM +0000, Murthy, Arun R wrote:
+> > > Subject: Re: [PATCH] drm/i915/display: plane property for async
+> > > supported modifiers
+> > >
+> > > On Wed, Oct 16, 2024 at 04:54:09PM +0300, Ville Syrjälä wrote:
+> > > > On Wed, Oct 16, 2024 at 04:30:19PM +0300, Ville Syrjälä wrote:
+> > > > > On Wed, Oct 16, 2024 at 11:06:26AM +0530, Arun R Murthy wrote:
+> > > > > > Create a i915 private plane property for sharing the async
+> > > > > > supported modifiers to the user.
+> > > > > > UMD related discussion requesting the same
+> > > > > > https://gitlab.freedesktop.org/mesa/mesa/-/merge_requests/29618#
+> > > > > > no
+> > > > > > te_2487123
+> > > > > >
+> > > > > > Signed-off-by: Arun R Murthy <arun.r.murthy@intel.com>
+> > > > > > ---
+> > > > > >  .../gpu/drm/i915/display/intel_atomic_plane.c |  6 +++
+> > > > > >  .../drm/i915/display/intel_display_types.h    |  4 ++
+> > > > > >  .../drm/i915/display/skl_universal_plane.c    | 49
+> > ++++++++++++++++++-
+> > > > >
+> > > > > This whole thing belongs in the drm core.
+> > > >
+> > > > And I don't even see an actual implementation of anything here.
+> > > > Why did you even post this when it doesn't do anything?
+> > > >
+> > > > Anyways, thinking about how we might actually implement this, we can
+> > > > probably leverage
+> > > > https://patchwork.freedesktop.org/patch/619047/?series=139807&rev=3
+> > >
+> > > Although we should probably pass the format to that as well...
+> > >
+> > The blob points to the struct with elements, modifier and formats.
+> > The main intention of this patch to get the i915 plane private property.
+> > The reason for not having this as drm property is we are the only user for this
+> > and no other vendor has this restriction.
+> > 
+> 
+> Any comments on this?
 
-Signed-off-by: Suraj Kandpal <suraj.kandpal@intel.com>
----
- drivers/gpu/drm/i915/display/intel_psr.c | 6 +++++-
- 1 file changed, 5 insertions(+), 1 deletion(-)
+Seeinag as the patch does nothing so there is nothing to 
+comment beyond what I already said.
 
-diff --git a/drivers/gpu/drm/i915/display/intel_psr.c b/drivers/gpu/drm/i915/display/intel_psr.c
-index c22386a31a63..a358beb39846 100644
---- a/drivers/gpu/drm/i915/display/intel_psr.c
-+++ b/drivers/gpu/drm/i915/display/intel_psr.c
-@@ -1453,7 +1453,11 @@ static bool intel_psr2_config_valid(struct intel_dp *intel_dp,
- 		return false;
- 	}
- 
--	if (DISPLAY_VER(display) >= 20) {
-+	if (DISPLAY_VER(dev_priv) >= 30) {
-+		psr_max_h = 6144;
-+		psr_max_v = 4096;
-+		max_bpp = 30;
-+	} else if (DISPLAY_VER(display) >= 20) {
- 		psr_max_h = 5120;
- 		psr_max_v = 4096;
- 		max_bpp = 30;
 -- 
-2.34.1
-
+Ville Syrjälä
+Intel
