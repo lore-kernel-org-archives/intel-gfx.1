@@ -4,64 +4,58 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 48941D10BE3
-	for <intel-gfx@archiver.kernel.org>; Sat, 26 Oct 2024 06:15:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 45785D10BE3
+	for <intel-gfx@archiver.kernel.org>; Sat, 26 Oct 2024 06:27:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C1D4C10E002;
-	Sat, 26 Oct 2024 06:15:56 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B3FDE10E3FF;
+	Sat, 26 Oct 2024 06:27:09 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="ImrgpjeS";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="gCQ4nC55";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 289EE10E002;
- Sat, 26 Oct 2024 06:15:55 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C38CB10E402
+ for <intel-gfx@lists.freedesktop.org>; Sat, 26 Oct 2024 06:27:08 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1729923355; x=1761459355;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:in-reply-to;
- bh=oEaBYNcJrk/ITQT0R91Vz/7IFUW+pyPrKBWu5iHenPk=;
- b=ImrgpjeSMuRnXfnNbFaYtRjcFVMAQx6lSmuA07bs43IYc7Nn4q8464mA
- fHcEzq5A/YTzxu6pa8+M0qpuG4S5uyQ4ubr7iJigNfWReVOiLH9YmrcBU
- LFCN9kxu3dyPRQxxEBx1hs2ke6T9WpLjv7EmgN5Sx1NcXE8Hfu1BlM1pZ
- m3YRKfBToyUDSO4sUsPb7KbxIDI4RsnUSrITEX+tY40hgpKuZQvnbQ62M
- NgfLk/RiUVJlqk4bbKnVYEm6Viz/wsauqau5UK1vef2scJdmNBZeYdMhK
- 97pS1m/5F12/oV/BpZJQnV9ru36kOEdZxrUucOPcI/ENDmAndLag4ETZy g==;
-X-CSE-ConnectionGUID: Xkl0AU1wSjupMwERAL/w/g==
-X-CSE-MsgGUID: 5BQP5J24RziDhtkprHRLWA==
-X-IronPort-AV: E=McAfee;i="6700,10204,11236"; a="40970222"
-X-IronPort-AV: E=Sophos;i="6.11,234,1725346800"; d="scan'208";a="40970222"
-Received: from fmviesa003.fm.intel.com ([10.60.135.143])
- by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 25 Oct 2024 23:15:54 -0700
-X-CSE-ConnectionGUID: 1iyNi4DHRkuIYByTriMy4A==
-X-CSE-MsgGUID: XsfrFz6cQ5udSfg/LkgG3w==
+ t=1729924029; x=1761460029;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=zeK52cArmpTkxk/NIpqdBV8glIVOguZdhY4Mckk22Qc=;
+ b=gCQ4nC55ZarrApaiWnD0IydV94x0L2k2N1F6Mf/grh3tm0rhrKmh4IvV
+ +yJainbyd2Q5WfOZj9uKR5QySIOSfEKAVUILLrj8PVnnILSNSwTRKbZX7
+ m5L+GYnlOtrF+MygH0yPy+JOfJoBufkyIY3ViN/V7XJr+XHvmqW0Wp43m
+ yuncIiRKjEbkbG5OUeeN6oxhCU2/oRZOoya2kH3FLh5Lo9lFrPU4YY3Rn
+ WIlDJpQI/W4lrwh7u3fyFdOn4sZVo1L3w+K/83MNm7HCsmqMktHRlKbsq
+ f4FcjBHiFRF4qAAV++dgq/Yg0eWgtglNZ4mSF2oGsy5Z1LNpaH2wzkQ6E Q==;
+X-CSE-ConnectionGUID: WtCT2sbHQ2eD241nQ+MMfw==
+X-CSE-MsgGUID: 0zDX8+i+TYOBX8Ylj7TykA==
+X-IronPort-AV: E=McAfee;i="6700,10204,11236"; a="40177200"
+X-IronPort-AV: E=Sophos;i="6.11,234,1725346800"; d="scan'208";a="40177200"
+Received: from orviesa001.jf.intel.com ([10.64.159.141])
+ by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 25 Oct 2024 23:27:08 -0700
+X-CSE-ConnectionGUID: f3MN4rTHRD2m0a+v0bvzMA==
+X-CSE-MsgGUID: DhAd/9I6ToKZeC66srGYKw==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.11,234,1725346800"; d="scan'208";a="85084846"
-Received: from lkp-server01.sh.intel.com (HELO a48cf1aa22e8) ([10.239.97.150])
- by fmviesa003.fm.intel.com with ESMTP; 25 Oct 2024 23:15:50 -0700
-Received: from kbuild by a48cf1aa22e8 with local (Exim 4.96)
- (envelope-from <lkp@intel.com>) id 1t4a5T-000ZLI-28;
- Sat, 26 Oct 2024 06:15:47 +0000
-Date: Sat, 26 Oct 2024 14:15:15 +0800
-From: kernel test robot <lkp@intel.com>
-To: Raag Jadav <raag.jadav@intel.com>, airlied@gmail.com, simona@ffwll.ch,
- lucas.demarchi@intel.com, rodrigo.vivi@intel.com,
- jani.nikula@linux.intel.com, andriy.shevchenko@linux.intel.com,
- lina@asahilina.net, michal.wajdeczko@intel.com, christian.koenig@amd.com
-Cc: oe-kbuild-all@lists.linux.dev, intel-xe@lists.freedesktop.org,
- intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- himal.prasad.ghimiray@intel.com, aravind.iddamsetty@linux.intel.com,
- anshuman.gupta@intel.com, alexander.deucher@amd.com,
- andrealmeid@igalia.com, amd-gfx@lists.freedesktop.org,
- kernel-dev@igalia.com, Raag Jadav <raag.jadav@intel.com>
-Subject: Re: [PATCH v8 1/4] drm: Introduce device wedged event
-Message-ID: <202410261411.F8079SY8-lkp@intel.com>
-References: <20241025084817.144621-2-raag.jadav@intel.com>
+X-IronPort-AV: E=Sophos;i="6.11,234,1725346800"; d="scan'208";a="118586607"
+Received: from ldmartin-desk2.corp.intel.com (HELO ldmartin-desk2.lan)
+ ([10.125.111.191])
+ by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 25 Oct 2024 23:27:08 -0700
+From: Lucas De Marchi <lucas.demarchi@intel.com>
+To: intel-gfx@lists.freedesktop.org
+Cc: Jonathan Cavitt <jonathan.cavitt@intel.com>,
+ Umesh Nerlige Ramappa <umesh.nerlige.ramappa@intel.com>,
+ Lucas De Marchi <lucas.demarchi@intel.com>
+Subject: [PATCH 1/3] drm/xe: Add trace to lrc timestamp update
+Date: Sat, 26 Oct 2024 01:26:56 -0500
+Message-ID: <20241026062658.28060-2-lucas.demarchi@intel.com>
+X-Mailer: git-send-email 2.47.0
+In-Reply-To: <20241026062658.28060-1-lucas.demarchi@intel.com>
+References: <20241026062658.28060-1-lucas.demarchi@intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20241025084817.144621-2-raag.jadav@intel.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,64 +71,123 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Hi Raag,
+Help debugging when LRC timestamp is updated for a exec queue.
 
-kernel test robot noticed the following build errors:
+Signed-off-by: Lucas De Marchi <lucas.demarchi@intel.com>
+---
+ drivers/gpu/drm/xe/Makefile       |  1 +
+ drivers/gpu/drm/xe/xe_lrc.c       |  3 ++
+ drivers/gpu/drm/xe/xe_trace_lrc.c |  9 ++++++
+ drivers/gpu/drm/xe/xe_trace_lrc.h | 52 +++++++++++++++++++++++++++++++
+ 4 files changed, 65 insertions(+)
+ create mode 100644 drivers/gpu/drm/xe/xe_trace_lrc.c
+ create mode 100644 drivers/gpu/drm/xe/xe_trace_lrc.h
 
-[auto build test ERROR on drm-xe/drm-xe-next]
-[also build test ERROR on drm-intel/for-linux-next drm-intel/for-linux-next-fixes drm-tip/drm-tip linus/master v6.12-rc4 next-20241025]
-[If your patch is applied to the wrong git tree, kindly drop us a note.
-And when submitting patch, we suggest to use '--base' as documented in
-https://git-scm.com/docs/git-format-patch#_base_tree_information]
-
-url:    https://github.com/intel-lab-lkp/linux/commits/Raag-Jadav/drm-Introduce-device-wedged-event/20241025-165119
-base:   https://gitlab.freedesktop.org/drm/xe/kernel.git drm-xe-next
-patch link:    https://lore.kernel.org/r/20241025084817.144621-2-raag.jadav%40intel.com
-patch subject: [PATCH v8 1/4] drm: Introduce device wedged event
-config: alpha-allmodconfig (https://download.01.org/0day-ci/archive/20241026/202410261411.F8079SY8-lkp@intel.com/config)
-compiler: alpha-linux-gcc (GCC) 13.3.0
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20241026/202410261411.F8079SY8-lkp@intel.com/reproduce)
-
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202410261411.F8079SY8-lkp@intel.com/
-
-All errors (new ones prefixed by >>):
-
->> drivers/gpu/drm/drm_drv.c:81:10: error: nonconstant array index in initializer
-      81 |         [ffs(DRM_WEDGE_RECOVERY_REBIND) - 1]    = "rebind",
-         |          ^~~
-   drivers/gpu/drm/drm_drv.c:81:10: note: (near initialization for 'drm_wedge_recovery_opts')
-   drivers/gpu/drm/drm_drv.c:82:10: error: nonconstant array index in initializer
-      82 |         [ffs(DRM_WEDGE_RECOVERY_BUS_RESET) - 1] = "bus-reset",
-         |          ^~~
-   drivers/gpu/drm/drm_drv.c:82:10: note: (near initialization for 'drm_wedge_recovery_opts')
-   In file included from drivers/gpu/drm/drm_drv.c:30:
->> drivers/gpu/drm/drm_drv.c:84:51: error: expression in static assertion is not constant
-      84 | static_assert(ARRAY_SIZE(drm_wedge_recovery_opts) == ffs(DRM_WEDGE_RECOVERY_BUS_RESET));
-   include/linux/build_bug.h:78:56: note: in definition of macro '__static_assert'
-      78 | #define __static_assert(expr, msg, ...) _Static_assert(expr, msg)
-         |                                                        ^~~~
-   drivers/gpu/drm/drm_drv.c:84:1: note: in expansion of macro 'static_assert'
-      84 | static_assert(ARRAY_SIZE(drm_wedge_recovery_opts) == ffs(DRM_WEDGE_RECOVERY_BUS_RESET));
-         | ^~~~~~~~~~~~~
-
-
-vim +81 drivers/gpu/drm/drm_drv.c
-
-    75	
-    76	/*
-    77	 * Available recovery methods for wedged device. To be sent along with device
-    78	 * wedged uevent.
-    79	 */
-    80	static const char *const drm_wedge_recovery_opts[] = {
-  > 81		[ffs(DRM_WEDGE_RECOVERY_REBIND) - 1]	= "rebind",
-    82		[ffs(DRM_WEDGE_RECOVERY_BUS_RESET) - 1]	= "bus-reset",
-    83	};
-  > 84	static_assert(ARRAY_SIZE(drm_wedge_recovery_opts) == ffs(DRM_WEDGE_RECOVERY_BUS_RESET));
-    85	
-
+diff --git a/drivers/gpu/drm/xe/Makefile b/drivers/gpu/drm/xe/Makefile
+index bc7a04ce69fd..21d69935c336 100644
+--- a/drivers/gpu/drm/xe/Makefile
++++ b/drivers/gpu/drm/xe/Makefile
+@@ -101,6 +101,7 @@ xe-y += xe_bb.o \
+ 	xe_trace.o \
+ 	xe_trace_bo.o \
+ 	xe_trace_guc.o \
++	xe_trace_lrc.o \
+ 	xe_ttm_sys_mgr.o \
+ 	xe_ttm_stolen_mgr.o \
+ 	xe_ttm_vram_mgr.o \
+diff --git a/drivers/gpu/drm/xe/xe_lrc.c b/drivers/gpu/drm/xe/xe_lrc.c
+index 4f64c7f4e68d..4b65da77c6e0 100644
+--- a/drivers/gpu/drm/xe/xe_lrc.c
++++ b/drivers/gpu/drm/xe/xe_lrc.c
+@@ -25,6 +25,7 @@
+ #include "xe_map.h"
+ #include "xe_memirq.h"
+ #include "xe_sriov.h"
++#include "xe_trace_lrc.h"
+ #include "xe_vm.h"
+ #include "xe_wa.h"
+ 
+@@ -1758,5 +1759,7 @@ u32 xe_lrc_update_timestamp(struct xe_lrc *lrc, u32 *old_ts)
+ 
+ 	lrc->ctx_timestamp = xe_lrc_ctx_timestamp(lrc);
+ 
++	trace_xe_lrc_update_timestamp(lrc, *old_ts);
++
+ 	return lrc->ctx_timestamp;
+ }
+diff --git a/drivers/gpu/drm/xe/xe_trace_lrc.c b/drivers/gpu/drm/xe/xe_trace_lrc.c
+new file mode 100644
+index 000000000000..ab9b7e2970bc
+--- /dev/null
++++ b/drivers/gpu/drm/xe/xe_trace_lrc.c
+@@ -0,0 +1,9 @@
++// SPDX-License-Identifier: GPL-2.0-only
++/*
++ * Copyright © 2024 Intel Corporation
++ */
++
++#ifndef __CHECKER__
++#define CREATE_TRACE_POINTS
++#include "xe_trace_lrc.h"
++#endif
+diff --git a/drivers/gpu/drm/xe/xe_trace_lrc.h b/drivers/gpu/drm/xe/xe_trace_lrc.h
+new file mode 100644
+index 000000000000..5c669a0b2180
+--- /dev/null
++++ b/drivers/gpu/drm/xe/xe_trace_lrc.h
+@@ -0,0 +1,52 @@
++/* SPDX-License-Identifier: GPL-2.0-only */
++/*
++ * Copyright © 2024 Intel Corporation
++ */
++
++#undef TRACE_SYSTEM
++#define TRACE_SYSTEM xe
++
++#if !defined(_XE_TRACE_LRC_H_) || defined(TRACE_HEADER_MULTI_READ)
++#define _XE_TRACE_LRC_H_
++
++#include <linux/tracepoint.h>
++#include <linux/types.h>
++
++#include "xe_gt_types.h"
++#include "xe_lrc.h"
++#include "xe_lrc_types.h"
++
++#define __dev_name_lrc(lrc)	dev_name(gt_to_xe((lrc)->fence_ctx.gt)->drm.dev)
++
++TRACE_EVENT(xe_lrc_update_timestamp,
++	    TP_PROTO(struct xe_lrc *lrc, uint32_t old),
++	    TP_ARGS(lrc, old),
++	    TP_STRUCT__entry(
++		     __field(struct xe_lrc *, lrc)
++		     __field(u32, old)
++		     __field(u32, new)
++		     __string(name, lrc->fence_ctx.name)
++		     __string(device_id, __dev_name_lrc(lrc))
++	    ),
++
++	    TP_fast_assign(
++		   __entry->lrc	= lrc;
++		   __entry->old = old;
++		   __entry->new = lrc->ctx_timestamp;
++		   __assign_str(name);
++		   __assign_str(device_id);
++		   ),
++	    TP_printk("lrc=:%p lrc->name=%s old=%u new=%u device_id:%s",
++		      __entry->lrc, __get_str(name),
++		      __entry->old, __entry->new,
++		      __get_str(device_id))
++);
++
++#endif
++
++/* This part must be outside protection */
++#undef TRACE_INCLUDE_PATH
++#undef TRACE_INCLUDE_FILE
++#define TRACE_INCLUDE_PATH ../../drivers/gpu/drm/xe
++#define TRACE_INCLUDE_FILE xe_trace_lrc
++#include <trace/define_trace.h>
 -- 
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+2.47.0
+
