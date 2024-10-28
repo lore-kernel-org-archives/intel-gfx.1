@@ -4,24 +4,24 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CC258D1359F
-	for <intel-gfx@archiver.kernel.org>; Mon, 28 Oct 2024 12:35:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5D161D1359F
+	for <intel-gfx@archiver.kernel.org>; Mon, 28 Oct 2024 12:35:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8678110E49F;
-	Mon, 28 Oct 2024 12:35:00 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BD62F10E048;
+	Mon, 28 Oct 2024 12:35:04 +0000 (UTC)
 Received: from 2413ebb6fbb6 (emeril.freedesktop.org [131.252.210.167])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CE34410E4AC;
- Mon, 28 Oct 2024 12:34:58 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5035A10E498;
+ Mon, 28 Oct 2024 12:35:00 +0000 (UTC)
 Content-Type: multipart/alternative;
- boundary="===============8816166528924538223=="
+ boundary="===============2594995662757232422=="
 MIME-Version: 1.0
 Subject: =?utf-8?q?=E2=9C=93_Fi=2ECI=2EBAT=3A_success_for_drm/i915/xe2lpd=3A_Update_C?=
  =?utf-8?q?20_HDMI_TMDS_algorithm_to_include_tx=5Fmisc_=28rev2=29?=
 From: Patchwork <patchwork@emeril.freedesktop.org>
 To: "Gustavo Sousa" <gustavo.sousa@intel.com>
 Cc: intel-gfx@lists.freedesktop.org
-Date: Mon, 28 Oct 2024 12:34:58 -0000
-Message-ID: <173011889883.1354456.182192854176683504@2413ebb6fbb6>
+Date: Mon, 28 Oct 2024 12:35:00 -0000
+Message-ID: <173011890032.1354456.3174901320282632811@2413ebb6fbb6>
 X-Patchwork-Hint: ignore
 References: <20241023153352.144146-1-gustavo.sousa@intel.com>
 In-Reply-To: <20241023153352.144146-1-gustavo.sousa@intel.com>
@@ -41,7 +41,7 @@ Reply-To: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
---===============8816166528924538223==
+--===============2594995662757232422==
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
@@ -148,7 +148,7 @@ Build changes
 
 For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_140136v2/index.html
 
---===============8816166528924538223==
+--===============2594995662757232422==
 Content-Type: text/html; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
@@ -255,4 +255,4 @@ Content-Transfer-Encoding: 7bit
 </body>
 </html>
 
---===============8816166528924538223==--
+--===============2594995662757232422==--
