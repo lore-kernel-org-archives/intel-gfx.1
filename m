@@ -4,49 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B08DED3E2BB
-	for <intel-gfx@archiver.kernel.org>; Mon, 28 Oct 2024 19:30:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6DD2CD3E2BF
+	for <intel-gfx@archiver.kernel.org>; Mon, 28 Oct 2024 19:30:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0F0D110E537;
-	Mon, 28 Oct 2024 19:30:27 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C6CD810E53C;
+	Mon, 28 Oct 2024 19:30:33 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="gjLDRRDO";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="T78gpnUs";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.13])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4E2D510E536;
- Mon, 28 Oct 2024 19:30:21 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 046BC10E537;
+ Mon, 28 Oct 2024 19:30:20 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1730143822; x=1761679822;
+ t=1730143821; x=1761679821;
  h=from:to:subject:date:message-id:in-reply-to:references:
  mime-version:content-transfer-encoding;
- bh=43DqmJgU+m9sfObrfw+M8LExqh73gr26cjVASPwlEsw=;
- b=gjLDRRDO35DOe8orJtAKhjuCXVh02QhbHgm+36NMjLImkAaVjVkta6jT
- 8ukO2FsNBgASS90gVxxS/yOtzYUJY1P0RBSF9gX1UYlcifc2TTMK69mC6
- XgPpLWGEpiCX3zWXyIRdi612to6KCLN0/kJZZiFA5Q7Hk7kUXWN+tZ1Yr
- qIIT7LS3thlYWst2h7GW0Dg5yk+8IiZCYujETD+BeT4OMKnhE06L5jNSp
- KFfD8E7QIiaE8kpKoPWm++nnox2Or3DH4CTNHdZkFLvsPYHaHUZ8Q+AD+
- u7v3eWCKQOxXh2WxC9PhygYlOuiGSK3Bh4NEvxVHa2+qiGSofJ+4lLyXE Q==;
-X-CSE-ConnectionGUID: JTig47FHSwuxFhdzVsvZwQ==
-X-CSE-MsgGUID: nAybmhwnR5K9vXLmd89Upg==
-X-IronPort-AV: E=McAfee;i="6700,10204,11222"; a="40855937"
-X-IronPort-AV: E=Sophos;i="6.11,199,1725346800"; d="scan'208";a="40855937"
+ bh=XesO/1o7QrwCKvwdsNPPi4cprCvwoimzFaB8TNf6u0o=;
+ b=T78gpnUsg3Y4xhxQjFbhFmZs46PipzigetpXhzJIgez7L9mNrP71N7Z2
+ v77qHo9CZGfg4jV91ZyUsfT3RqJR0oQQoAFRshPVGUUo1+C/ErX2T8cpf
+ dwoldM3zV8cV31t5NN7zIRWEPmXeEDO7YZhuBFJOJH/AZE5YT/a8t3cBm
+ gFgkXjZi8LnUQ/2o8D1/Qg0ydzyP2i8Y+f7BRwbIFfls/1m8baHTRUIKh
+ U22LFBtx+fBh1vgoSTWrIbtUZ4AWp+whT3nguf9WQlx+I8wGXgtUWMnEw
+ Wso4rBTvqWCA0earOz6sEb0GVSVZmmxm4B4qzozuYQa47OomCPCQg/rgm g==;
+X-CSE-ConnectionGUID: 1YANHifrQv2o5GAG8p5XIw==
+X-CSE-MsgGUID: YO96040hQ622Jwyei2mCXQ==
+X-IronPort-AV: E=McAfee;i="6700,10204,11222"; a="40855932"
+X-IronPort-AV: E=Sophos;i="6.11,199,1725346800"; d="scan'208";a="40855932"
 Received: from fmviesa009.fm.intel.com ([10.60.135.149])
  by orvoesa105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 28 Oct 2024 12:30:21 -0700
-X-CSE-ConnectionGUID: SoogBU8mSHmo2swiST6sjw==
-X-CSE-MsgGUID: JbyX3xpNSHejTXfx6ZO32w==
+ 28 Oct 2024 12:30:20 -0700
+X-CSE-ConnectionGUID: 9z3n3d7OSK6TuzUrUJoUjA==
+X-CSE-MsgGUID: GeGkchOzQg2LpF4OEm9mxQ==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.11,239,1725346800"; d="scan'208";a="81777553"
+X-IronPort-AV: E=Sophos;i="6.11,239,1725346800"; d="scan'208";a="81777544"
 Received: from cataylo2-desk.jf.intel.com ([10.165.21.140])
  by fmviesa009-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 28 Oct 2024 12:30:20 -0700
+ 28 Oct 2024 12:30:19 -0700
 From: Clint Taylor <clinton.a.taylor@intel.com>
 To: intel-gfx@lists.freedesktop.org,
 	intel-xe@lists.freedesktop.org
-Subject: [PATCH v6 8/9] drm/i915/display/xe3: disable x-tiled framebuffers
-Date: Mon, 28 Oct 2024 12:30:14 -0700
-Message-Id: <20241028193015.3241858-9-clinton.a.taylor@intel.com>
+Subject: [PATCH v6 3/9] drm/i915/ptl: Define IS_PANTHERLAKE macro
+Date: Mon, 28 Oct 2024 12:30:09 -0700
+Message-Id: <20241028193015.3241858-4-clinton.a.taylor@intel.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20241028193015.3241858-1-clinton.a.taylor@intel.com>
 References: <20241028193015.3241858-1-clinton.a.taylor@intel.com>
@@ -67,33 +67,31 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: "Heikkila, Juha-pekka" <juha-pekka.heikkila@intel.com>
+From: Dnyaneshwar Bhadane <dnyaneshwar.bhadane@intel.com>
 
-Xe3 has no more support for x-tile on display.
+Common display code requires IS_PANTHERLAKE macro.
+Define the macro and set 0 as PTL is no longer support for i915.
 
-v2: Include up to display 29 for X-tiled support. (Gustavo)
-
-Signed-off-by: Heikkila, Juha-pekka <juha-pekka.heikkila@intel.com>
+Signed-off-by: Dnyaneshwar Bhadane <dnyaneshwar.bhadane@intel.com>
 Signed-off-by: Matt Atwood <matthew.s.atwood@intel.com>
 Signed-off-by: Clint Taylor <Clinton.A.Taylor@intel.com>
-Reviewed-by: Gustavo Sousa <gustavo.sousa@intel.com>
+Reviewed-by: Matt Roper <matthew.d.roper@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_fb.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/gpu/drm/i915/i915_drv.h | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_fb.c b/drivers/gpu/drm/i915/display/intel_fb.c
-index a7b4cf8b6d50..6a7060889f40 100644
---- a/drivers/gpu/drm/i915/display/intel_fb.c
-+++ b/drivers/gpu/drm/i915/display/intel_fb.c
-@@ -349,7 +349,7 @@ static const struct intel_modifier_desc intel_modifiers[] = {
- 		.plane_caps = INTEL_PLANE_CAP_TILING_Y,
- 	}, {
- 		.modifier = I915_FORMAT_MOD_X_TILED,
--		.display_ver = DISPLAY_VER_ALL,
-+		.display_ver = { 0, 29 },
- 		.plane_caps = INTEL_PLANE_CAP_TILING_X,
- 	}, {
- 		.modifier = DRM_FORMAT_MOD_LINEAR,
+diff --git a/drivers/gpu/drm/i915/i915_drv.h b/drivers/gpu/drm/i915/i915_drv.h
+index de73b348b8cf..0f19cbd36829 100644
+--- a/drivers/gpu/drm/i915/i915_drv.h
++++ b/drivers/gpu/drm/i915/i915_drv.h
+@@ -536,6 +536,7 @@ IS_SUBPLATFORM(const struct drm_i915_private *i915,
+  */
+ #define IS_LUNARLAKE(i915) (0 && i915)
+ #define IS_BATTLEMAGE(i915)  (0 && i915)
++#define IS_PANTHERLAKE(i915) (0 && i915)
+ 
+ #define IS_ARROWLAKE(i915) \
+ 	IS_SUBPLATFORM(i915, INTEL_METEORLAKE, INTEL_SUBPLATFORM_ARL)
 -- 
 2.25.1
 
