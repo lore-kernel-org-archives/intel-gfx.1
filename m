@@ -4,49 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C0CF3D3E2BA
-	for <intel-gfx@archiver.kernel.org>; Mon, 28 Oct 2024 19:30:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DBFECD3E2BC
+	for <intel-gfx@archiver.kernel.org>; Mon, 28 Oct 2024 19:30:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2E07110E54B;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 011A210E545;
 	Mon, 28 Oct 2024 19:30:25 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="lg9FLIG+";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="Tzylxg5h";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.13])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6BD8710E537;
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3F75910E53B;
  Mon, 28 Oct 2024 19:30:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
  t=1730143822; x=1761679822;
  h=from:to:subject:date:message-id:in-reply-to:references:
  mime-version:content-transfer-encoding;
- bh=CdkqEWMI4QTOrYFguVyDPnJK1SZEdOE+QmM12M7HK/Y=;
- b=lg9FLIG+DaExeShCf27lU3egvKMErsvkNqBVgX6BMvYshyVgjx9D5J+B
- /OR5rIOfi6lMBNJHrTfDfGqW9Mr6z5Ps4hUFGCa9kUaYhetsHHfKJDWSi
- zLNahIL2aG9gU2+VhD827RJAz3jqn7rUrNZEzDjp0xLcqL9Ck+OkcTyfm
- IQ0t8JvmgP2AjPGKeDOwUV7CtbLHKqIRVgIFd/LBJjHX1H3p9FmvmRmWu
- QTZIS7IV803NHBWo1izpTOQq18zvEb46y5g4wET3f+aMNBL3jDJY/gPRX
- F0wginyPKjBOAvIfP7WeJDMKj9zOVqZfxWy6f0FqgkFMUOdWcSb9a1Rlu Q==;
-X-CSE-ConnectionGUID: sjoF9jgqTuiqiqNGOqOisQ==
-X-CSE-MsgGUID: HoITEsh0Q3OntOu6t1+vqQ==
-X-IronPort-AV: E=McAfee;i="6700,10204,11222"; a="40855938"
-X-IronPort-AV: E=Sophos;i="6.11,199,1725346800"; d="scan'208";a="40855938"
+ bh=ohFe+L7LULaS+BR/dLeP4YYGJ+d9nxfbO1Y34Vs4NZY=;
+ b=Tzylxg5hgzSXJ8tq+CiY1iuc9EReUONUgcGowDKNweYEXhekjIUZ4HzE
+ 9ac3o15lcAaqTP08d2LTTzjaDKhrV02W8f7EQrA23TSPCm14LC+0lLcbG
+ lCUBa+doStcF9mS9GNSMzNZUhkPPVJlOGetom6zVJ4y3rjXMce0sQDirn
+ kWTxrMB5ywYThAGT74bAdIS0/GGcJnWeMf/9i6qFzJF7Pap484gJ4onvC
+ paDRzRlsLRYQDhDCnnPulyV1mmJ1NhlCTxeda1A9OD2Ie9k384CaZngRP
+ rn9QbPxHE8UvFSowhPxluX/KhNR9+oa/3cfODx3/nDWBhm+79MbhOGqO9 Q==;
+X-CSE-ConnectionGUID: n1asafmaREmtlHhwaBVgiA==
+X-CSE-MsgGUID: ruE+pPuwRTaA0QX3Cn2pNg==
+X-IronPort-AV: E=McAfee;i="6700,10204,11222"; a="40855936"
+X-IronPort-AV: E=Sophos;i="6.11,199,1725346800"; d="scan'208";a="40855936"
 Received: from fmviesa009.fm.intel.com ([10.60.135.149])
  by orvoesa105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  28 Oct 2024 12:30:21 -0700
-X-CSE-ConnectionGUID: YvwMjGHdQAKLVXDVZc7o7g==
-X-CSE-MsgGUID: mdC4q9W0Q+6uu95eJfSd4w==
+X-CSE-ConnectionGUID: 8xEFC754Qxaraziuc3Uh7g==
+X-CSE-MsgGUID: i8w93i1rRYSXuIqG9mp+pA==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.11,239,1725346800"; d="scan'208";a="81777555"
+X-IronPort-AV: E=Sophos;i="6.11,239,1725346800"; d="scan'208";a="81777552"
 Received: from cataylo2-desk.jf.intel.com ([10.165.21.140])
  by fmviesa009-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  28 Oct 2024 12:30:20 -0700
 From: Clint Taylor <clinton.a.taylor@intel.com>
 To: intel-gfx@lists.freedesktop.org,
 	intel-xe@lists.freedesktop.org
-Subject: [PATCH v6 9/9] drm/xe/ptl: Enable PTL display
-Date: Mon, 28 Oct 2024 12:30:15 -0700
-Message-Id: <20241028193015.3241858-10-clinton.a.taylor@intel.com>
+Subject: [PATCH v6 7/9] drm/i915/xe3: Underrun recovery does not exist post Xe2
+Date: Mon, 28 Oct 2024 12:30:13 -0700
+Message-Id: <20241028193015.3241858-8-clinton.a.taylor@intel.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20241028193015.3241858-1-clinton.a.taylor@intel.com>
 References: <20241028193015.3241858-1-clinton.a.taylor@intel.com>
@@ -67,33 +67,34 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Haridhar Kalvala <haridhar.kalvala@intel.com>
+From: Ravi Kumar Vodapalli <ravi.kumar.vodapalli@intel.com>
 
-At this point we should have enough support landed to turn on and start
-basic testing of display functionality.
+From platforms xe3 Underrun recovery does not exist
 
-Signed-off-by: Haridhar Kalvala <haridhar.kalvala@intel.com>
+v2: improve DISPLAY_VER checking
+
+BSpec: 68849
+Signed-off-by: Ravi Kumar Vodapalli <ravi.kumar.vodapalli@intel.com>
+Signed-off-by: Matt Atwood <matthew.s.atwood@intel.com>
 Signed-off-by: Clint Taylor <Clinton.A.Taylor@intel.com>
-Acked-by: Jani Saarinen <jani.saarinen@intel.com>
-Tested-by: Jani Saarinen<jani.saarinen@intel.com>
-Reviewed-by: Matt Roper <matthew.d.roper@intel.com>
+Reviewed-by: Sai Teja Pottumuttu <sai.teja.pottumuttu@intel.com>
 ---
- drivers/gpu/drm/xe/xe_pci.c | 2 +-
+ drivers/gpu/drm/i915/display/intel_display.c | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/xe/xe_pci.c b/drivers/gpu/drm/xe/xe_pci.c
-index 4085bb3b6550..6f73a243c24c 100644
---- a/drivers/gpu/drm/xe/xe_pci.c
-+++ b/drivers/gpu/drm/xe/xe_pci.c
-@@ -352,7 +352,7 @@ static const struct xe_device_desc bmg_desc = {
+diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
+index ef1436146325..c904f529d0c5 100644
+--- a/drivers/gpu/drm/i915/display/intel_display.c
++++ b/drivers/gpu/drm/i915/display/intel_display.c
+@@ -861,7 +861,7 @@ static void icl_set_pipe_chicken(const struct intel_crtc_state *crtc_state)
+ 	 */
+ 	if (IS_DG2(dev_priv))
+ 		tmp &= ~UNDERRUN_RECOVERY_ENABLE_DG2;
+-	else if (DISPLAY_VER(dev_priv) >= 13)
++	else if ((DISPLAY_VER(dev_priv) >= 13) && (DISPLAY_VER(dev_priv) < 30))
+ 		tmp |= UNDERRUN_RECOVERY_DISABLE_ADLP;
  
- static const struct xe_device_desc ptl_desc = {
- 	PLATFORM(PANTHERLAKE),
--	.has_display = false,
-+	.has_display = true,
- 	.require_force_probe = true,
- };
- 
+ 	/* Wa_14010547955:dg2 */
 -- 
 2.25.1
 
