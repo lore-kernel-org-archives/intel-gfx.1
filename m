@@ -4,53 +4,56 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6DD2CD3E2BF
-	for <intel-gfx@archiver.kernel.org>; Mon, 28 Oct 2024 19:30:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2AFF5D3E2BF
+	for <intel-gfx@archiver.kernel.org>; Mon, 28 Oct 2024 19:48:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C6CD810E53C;
-	Mon, 28 Oct 2024 19:30:33 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C298B10E550;
+	Mon, 28 Oct 2024 19:48:57 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="T78gpnUs";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="IYDGn5cO";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.13])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 046BC10E537;
- Mon, 28 Oct 2024 19:30:20 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 17BD110E552;
+ Mon, 28 Oct 2024 19:48:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1730143821; x=1761679821;
- h=from:to:subject:date:message-id:in-reply-to:references:
- mime-version:content-transfer-encoding;
- bh=XesO/1o7QrwCKvwdsNPPi4cprCvwoimzFaB8TNf6u0o=;
- b=T78gpnUsg3Y4xhxQjFbhFmZs46PipzigetpXhzJIgez7L9mNrP71N7Z2
- v77qHo9CZGfg4jV91ZyUsfT3RqJR0oQQoAFRshPVGUUo1+C/ErX2T8cpf
- dwoldM3zV8cV31t5NN7zIRWEPmXeEDO7YZhuBFJOJH/AZE5YT/a8t3cBm
- gFgkXjZi8LnUQ/2o8D1/Qg0ydzyP2i8Y+f7BRwbIFfls/1m8baHTRUIKh
- U22LFBtx+fBh1vgoSTWrIbtUZ4AWp+whT3nguf9WQlx+I8wGXgtUWMnEw
- Wso4rBTvqWCA0earOz6sEb0GVSVZmmxm4B4qzozuYQa47OomCPCQg/rgm g==;
-X-CSE-ConnectionGUID: 1YANHifrQv2o5GAG8p5XIw==
-X-CSE-MsgGUID: YO96040hQ622Jwyei2mCXQ==
-X-IronPort-AV: E=McAfee;i="6700,10204,11222"; a="40855932"
-X-IronPort-AV: E=Sophos;i="6.11,199,1725346800"; d="scan'208";a="40855932"
+ t=1730144938; x=1761680938;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=QwtGdw1nsi+zBHDaDuhLnrBrl6I51vLxEekfeHJ0byw=;
+ b=IYDGn5cOFvVnXLlnSuBin3dpUfNGkGBwXGJyCPXsCfxTbI0t/XomdkRY
+ xE+mb1d454XzaMv512rgxlfIo5wB1yP1j/4Bx4/7uV631horP9ih0l6tl
+ ZDv2GFCk6RQ20oicol/6wb9l2Mhf1bfGIppNBkP/ruRDmI1iUpYNdR07A
+ fcCaM1rG9XJ8//yxPahEOQ+0INBdAiOQnOf6sUxJjwd85CBtJup/mrVwt
+ 5odxB4yt0lAsLtUSSvPjbKwOzoDELhnvImPmb1tLtSLgiSLxbi7xQND9p
+ YZ4e1r9C+XW0U4ZkivoMuW8PBFOXie2rRd90ob/T6gLdHuBpLcDn02b9f w==;
+X-CSE-ConnectionGUID: euYVar2KQXydB+BXCU7DTw==
+X-CSE-MsgGUID: FjkkS1AMQSCqNrBAMICZAQ==
+X-IronPort-AV: E=McAfee;i="6700,10204,11222"; a="40857766"
+X-IronPort-AV: E=Sophos;i="6.11,199,1725346800"; d="scan'208";a="40857766"
 Received: from fmviesa009.fm.intel.com ([10.60.135.149])
  by orvoesa105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 28 Oct 2024 12:30:20 -0700
-X-CSE-ConnectionGUID: 9z3n3d7OSK6TuzUrUJoUjA==
-X-CSE-MsgGUID: GeGkchOzQg2LpF4OEm9mxQ==
+ 28 Oct 2024 12:48:57 -0700
+X-CSE-ConnectionGUID: Zt4cW8ztR2+c3p+Xn+2U/A==
+X-CSE-MsgGUID: Y3YDZ3ElQX2BnfPRGi3iLw==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.11,239,1725346800"; d="scan'208";a="81777544"
-Received: from cataylo2-desk.jf.intel.com ([10.165.21.140])
+X-IronPort-AV: E=Sophos;i="6.11,239,1725346800"; d="scan'208";a="81780119"
+Received: from fdefranc-mobl3.ger.corp.intel.com (HELO localhost)
+ ([10.245.246.21])
  by fmviesa009-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 28 Oct 2024 12:30:19 -0700
-From: Clint Taylor <clinton.a.taylor@intel.com>
+ 28 Oct 2024 12:48:54 -0700
+From: Jani Nikula <jani.nikula@intel.com>
 To: intel-gfx@lists.freedesktop.org,
 	intel-xe@lists.freedesktop.org
-Subject: [PATCH v6 3/9] drm/i915/ptl: Define IS_PANTHERLAKE macro
-Date: Mon, 28 Oct 2024 12:30:09 -0700
-Message-Id: <20241028193015.3241858-4-clinton.a.taylor@intel.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20241028193015.3241858-1-clinton.a.taylor@intel.com>
-References: <20241028193015.3241858-1-clinton.a.taylor@intel.com>
+Cc: jani.nikula@intel.com, rodrigo.vivi@intel.com, lucas.demarchi@intel.com,
+ maarten.lankhorst@linux.intel.com
+Subject: [CI RESEND v4 v4 00/16] drm/i915/display: platform identification
+ with display->platform.<platform>
+Date: Mon, 28 Oct 2024 21:48:33 +0200
+Message-Id: <cover.1730144869.git.jani.nikula@intel.com>
+X-Mailer: git-send-email 2.39.5
 MIME-Version: 1.0
+Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
 Content-Transfer-Encoding: 8bit
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -67,31 +70,44 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Dnyaneshwar Bhadane <dnyaneshwar.bhadane@intel.com>
+Just resending [1] because I never got the CI logs for it.
 
-Common display code requires IS_PANTHERLAKE macro.
-Define the macro and set 0 as PTL is no longer support for i915.
+[1] https://lore.kernel.org/r/cover.1729773149.git.jani.nikula@intel.com
 
-Signed-off-by: Dnyaneshwar Bhadane <dnyaneshwar.bhadane@intel.com>
-Signed-off-by: Matt Atwood <matthew.s.atwood@intel.com>
-Signed-off-by: Clint Taylor <Clinton.A.Taylor@intel.com>
-Reviewed-by: Matt Roper <matthew.d.roper@intel.com>
----
- drivers/gpu/drm/i915/i915_drv.h | 1 +
- 1 file changed, 1 insertion(+)
+Jani Nikula (16):
+  drm/i915/display: reindent subplatform initialization
+  drm/i915/display: use a macro to initialize subplatforms
+  drm/i915/display: use a macro to define platform enumerations
+  drm/i915/display: join the platform and subplatform enums
+  drm/i915/display: convert display platforms to lower case
+  drm/i915/display: add display platforms structure with platform
+    members
+  drm/i915/display: add platform member to struct intel_display
+  drm/i915/display: remove the display platform enum as unnecessary
+  drm/i915/display: add platform group for g4x
+  drm/i915/display: add subplatform group for HSW/BDW ULT
+  drm/i915/bios: use display->platform.<platform> instead of
+    IS_<PLATFORM>()
+  drm/i915/pps: use display->platform.<platform> instead of
+    IS_<PLATFORM>()
+  drm/i915/tv: use display->platform.<platform> instead of
+    IS_<PLATFORM>()
+  drm/i915/vga: use display->platform.<platform> instead of
+    IS_<PLATFORM>()
+  drm/i915/vblank: drop unnecessary i915 local variable
+  drm/i915/vblank: use display->platform.<platform> instead of
+    IS_<PLATFORM>()
 
-diff --git a/drivers/gpu/drm/i915/i915_drv.h b/drivers/gpu/drm/i915/i915_drv.h
-index de73b348b8cf..0f19cbd36829 100644
---- a/drivers/gpu/drm/i915/i915_drv.h
-+++ b/drivers/gpu/drm/i915/i915_drv.h
-@@ -536,6 +536,7 @@ IS_SUBPLATFORM(const struct drm_i915_private *i915,
-  */
- #define IS_LUNARLAKE(i915) (0 && i915)
- #define IS_BATTLEMAGE(i915)  (0 && i915)
-+#define IS_PANTHERLAKE(i915) (0 && i915)
- 
- #define IS_ARROWLAKE(i915) \
- 	IS_SUBPLATFORM(i915, INTEL_METEORLAKE, INTEL_SUBPLATFORM_ARL)
+ drivers/gpu/drm/i915/display/intel_bios.c     |  40 +--
+ .../gpu/drm/i915/display/intel_display_core.h |   3 +
+ .../drm/i915/display/intel_display_device.c   | 269 +++++++++++++-----
+ .../drm/i915/display/intel_display_device.h   | 185 ++++++------
+ drivers/gpu/drm/i915/display/intel_pps.c      |  47 ++-
+ drivers/gpu/drm/i915/display/intel_tv.c       |  10 +-
+ drivers/gpu/drm/i915/display/intel_vblank.c   |  11 +-
+ drivers/gpu/drm/i915/display/intel_vga.c      |   4 +-
+ 8 files changed, 340 insertions(+), 229 deletions(-)
+
 -- 
-2.25.1
+2.39.5
 
