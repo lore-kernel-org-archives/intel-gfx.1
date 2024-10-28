@@ -4,50 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8BF7DD3E2BD
-	for <intel-gfx@archiver.kernel.org>; Mon, 28 Oct 2024 19:30:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C0CF3D3E2BA
+	for <intel-gfx@archiver.kernel.org>; Mon, 28 Oct 2024 19:30:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5432E10E557;
-	Mon, 28 Oct 2024 19:30:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2E07110E54B;
+	Mon, 28 Oct 2024 19:30:25 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="X0sbobYe";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="lg9FLIG+";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.13])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2F34B10E53A;
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6BD8710E537;
  Mon, 28 Oct 2024 19:30:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
  t=1730143822; x=1761679822;
  h=from:to:subject:date:message-id:in-reply-to:references:
  mime-version:content-transfer-encoding;
- bh=OlbSmgYFCp6kPY5rHwOvB8io/h5G8sKMV9OU9yIhRMA=;
- b=X0sbobYeG0PSOF1l9ZPn5kjQDC2utbGXutsMKjY05kFARWuJ/LXi3lCt
- G/HxtwXxKaxDWshBK/RCoLXpyaTCEc53srFrth1YscFcyfjChOH6nq1vy
- +fDfjfArCfDZWAdYd8UDfXiwzNDGi7M7zekv8cOVx7pl0bxpTTdt/ZKz9
- thAZSnbNtwGRtKmfzcwL55ySxVd6vFW+3ZNQQoLh9cK8vTofXg5peV8ui
- 9+4tVfQXomHD2gx7bIkxwYOeIq0m03ddIIxSQR6kw++gflkthkYggDB9I
- HcJbrd17dlVz74pErk3Hp/ioO4Cn8rfnqJkJj7vA/TNr9ynPaXlOGHuve A==;
-X-CSE-ConnectionGUID: aeKRSA4gTeGC75GPgBxelQ==
-X-CSE-MsgGUID: nSQRyq1lRXinZUQlY5WYsA==
-X-IronPort-AV: E=McAfee;i="6700,10204,11222"; a="40855935"
-X-IronPort-AV: E=Sophos;i="6.11,199,1725346800"; d="scan'208";a="40855935"
+ bh=CdkqEWMI4QTOrYFguVyDPnJK1SZEdOE+QmM12M7HK/Y=;
+ b=lg9FLIG+DaExeShCf27lU3egvKMErsvkNqBVgX6BMvYshyVgjx9D5J+B
+ /OR5rIOfi6lMBNJHrTfDfGqW9Mr6z5Ps4hUFGCa9kUaYhetsHHfKJDWSi
+ zLNahIL2aG9gU2+VhD827RJAz3jqn7rUrNZEzDjp0xLcqL9Ck+OkcTyfm
+ IQ0t8JvmgP2AjPGKeDOwUV7CtbLHKqIRVgIFd/LBJjHX1H3p9FmvmRmWu
+ QTZIS7IV803NHBWo1izpTOQq18zvEb46y5g4wET3f+aMNBL3jDJY/gPRX
+ F0wginyPKjBOAvIfP7WeJDMKj9zOVqZfxWy6f0FqgkFMUOdWcSb9a1Rlu Q==;
+X-CSE-ConnectionGUID: sjoF9jgqTuiqiqNGOqOisQ==
+X-CSE-MsgGUID: HoITEsh0Q3OntOu6t1+vqQ==
+X-IronPort-AV: E=McAfee;i="6700,10204,11222"; a="40855938"
+X-IronPort-AV: E=Sophos;i="6.11,199,1725346800"; d="scan'208";a="40855938"
 Received: from fmviesa009.fm.intel.com ([10.60.135.149])
  by orvoesa105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  28 Oct 2024 12:30:21 -0700
-X-CSE-ConnectionGUID: QJhSIs1kTseCfdg3pnFhTg==
-X-CSE-MsgGUID: fq1EQHinT06/yMhUw1Gfjg==
+X-CSE-ConnectionGUID: YvwMjGHdQAKLVXDVZc7o7g==
+X-CSE-MsgGUID: mdC4q9W0Q+6uu95eJfSd4w==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.11,239,1725346800"; d="scan'208";a="81777548"
+X-IronPort-AV: E=Sophos;i="6.11,239,1725346800"; d="scan'208";a="81777555"
 Received: from cataylo2-desk.jf.intel.com ([10.165.21.140])
  by fmviesa009-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  28 Oct 2024 12:30:20 -0700
 From: Clint Taylor <clinton.a.taylor@intel.com>
 To: intel-gfx@lists.freedesktop.org,
 	intel-xe@lists.freedesktop.org
-Subject: [PATCH v6 6/9] drm/i915/xe3lpd: Move async flip bit to PLANE_SURF
- register
-Date: Mon, 28 Oct 2024 12:30:12 -0700
-Message-Id: <20241028193015.3241858-7-clinton.a.taylor@intel.com>
+Subject: [PATCH v6 9/9] drm/xe/ptl: Enable PTL display
+Date: Mon, 28 Oct 2024 12:30:15 -0700
+Message-Id: <20241028193015.3241858-10-clinton.a.taylor@intel.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20241028193015.3241858-1-clinton.a.taylor@intel.com>
 References: <20241028193015.3241858-1-clinton.a.taylor@intel.com>
@@ -68,63 +67,33 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Dnyaneshwar Bhadane <dnyaneshwar.bhadane@intel.com>
+From: Haridhar Kalvala <haridhar.kalvala@intel.com>
 
-The async flip moved from PLANE_CTL to PLANE_SURF for Xe3_LPD.
+At this point we should have enough support landed to turn on and start
+basic testing of display functionality.
 
-Bspec: 69853,69878
-Signed-off-by: Dnyaneshwar Bhadane <dnyaneshwar.bhadane@intel.com>
-Signed-off-by: Matt Atwood <matthew.s.atwood@intel.com>
+Signed-off-by: Haridhar Kalvala <haridhar.kalvala@intel.com>
 Signed-off-by: Clint Taylor <Clinton.A.Taylor@intel.com>
-Reviewed-by: Shekhar Chauhan <shekhar.chauhan@intel.com>
+Acked-by: Jani Saarinen <jani.saarinen@intel.com>
+Tested-by: Jani Saarinen<jani.saarinen@intel.com>
+Reviewed-by: Matt Roper <matthew.d.roper@intel.com>
 ---
- drivers/gpu/drm/i915/display/skl_universal_plane.c  | 13 +++++++++----
- .../gpu/drm/i915/display/skl_universal_plane_regs.h |  1 +
- 2 files changed, 10 insertions(+), 4 deletions(-)
+ drivers/gpu/drm/xe/xe_pci.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/i915/display/skl_universal_plane.c b/drivers/gpu/drm/i915/display/skl_universal_plane.c
-index a0a7ed01415a..60ca4f8c4a3c 100644
---- a/drivers/gpu/drm/i915/display/skl_universal_plane.c
-+++ b/drivers/gpu/drm/i915/display/skl_universal_plane.c
-@@ -1567,17 +1567,22 @@ skl_plane_async_flip(struct intel_dsb *dsb,
- 	struct intel_display *display = to_intel_display(plane->base.dev);
- 	enum plane_id plane_id = plane->id;
- 	enum pipe pipe = plane->pipe;
--	u32 plane_ctl = plane_state->ctl;
-+	u32 plane_ctl = plane_state->ctl, plane_surf;
+diff --git a/drivers/gpu/drm/xe/xe_pci.c b/drivers/gpu/drm/xe/xe_pci.c
+index 4085bb3b6550..6f73a243c24c 100644
+--- a/drivers/gpu/drm/xe/xe_pci.c
++++ b/drivers/gpu/drm/xe/xe_pci.c
+@@ -352,7 +352,7 @@ static const struct xe_device_desc bmg_desc = {
  
- 	plane_ctl |= skl_plane_ctl_crtc(crtc_state);
-+	plane_surf = skl_plane_surf(plane_state, 0);
+ static const struct xe_device_desc ptl_desc = {
+ 	PLATFORM(PANTHERLAKE),
+-	.has_display = false,
++	.has_display = true,
+ 	.require_force_probe = true,
+ };
  
--	if (async_flip)
--		plane_ctl |= PLANE_CTL_ASYNC_FLIP;
-+	if (async_flip) {
-+		if (DISPLAY_VER(display) >= 30)
-+			plane_surf |= PLANE_SURF_ASYNC_UPDATE;
-+		else
-+			plane_ctl |= PLANE_CTL_ASYNC_FLIP;
-+	}
- 
- 	intel_de_write_dsb(display, dsb, PLANE_CTL(pipe, plane_id),
- 			   plane_ctl);
- 	intel_de_write_dsb(display, dsb, PLANE_SURF(pipe, plane_id),
--			   skl_plane_surf(plane_state, 0));
-+			   plane_surf);
- }
- 
- static bool intel_format_is_p01x(u32 format)
-diff --git a/drivers/gpu/drm/i915/display/skl_universal_plane_regs.h b/drivers/gpu/drm/i915/display/skl_universal_plane_regs.h
-index 4ddcd7d46bbd..ff31a00d511e 100644
---- a/drivers/gpu/drm/i915/display/skl_universal_plane_regs.h
-+++ b/drivers/gpu/drm/i915/display/skl_universal_plane_regs.h
-@@ -159,6 +159,7 @@
- 							_PLANE_SURF_2_A, _PLANE_SURF_2_B)
- #define   PLANE_SURF_ADDR_MASK			REG_GENMASK(31, 12)
- #define   PLANE_SURF_DECRYPT			REG_BIT(2)
-+#define   PLANE_SURF_ASYNC_UPDATE		REG_BIT(0)
- 
- #define _PLANE_KEYMAX_1_A			0x701a0
- #define _PLANE_KEYMAX_2_A			0x702a0
 -- 
 2.25.1
 
