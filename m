@@ -4,49 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D9722D74944
-	for <intel-gfx@archiver.kernel.org>; Tue, 29 Oct 2024 21:52:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 63F72D74943
+	for <intel-gfx@archiver.kernel.org>; Tue, 29 Oct 2024 21:52:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6E91410E70B;
-	Tue, 29 Oct 2024 21:52:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F20DA10E718;
+	Tue, 29 Oct 2024 21:52:48 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="EgfffRtM";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="MaSWsctH";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E6D3410E715
- for <intel-gfx@lists.freedesktop.org>; Tue, 29 Oct 2024 21:52:42 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 24A8F10E70B
+ for <intel-gfx@lists.freedesktop.org>; Tue, 29 Oct 2024 21:52:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
  t=1730238763; x=1761774763;
  h=from:to:subject:date:message-id:in-reply-to:references:
  mime-version:content-transfer-encoding;
- bh=Jm3PTjSmGGuEITx847OWdIhqc4TmirtDNoMIUZJgT3A=;
- b=EgfffRtMs08mycglEHuYYkHxNYZ9Pu08HL0PcPPKaIug7uhzk7LN6NpS
- 6lBeSlZXD6pOi7uMPcMZfgRaUbe4xqWPwzCK3SfFn2bq90jT6xjQXXgOl
- aTB8UADG2CYlJO7EqY08HqkHr3XoI7gwkjKDWq8zW6okgfQjwiGz0UN8H
- rVwWma1gGdxmPGwAl6GMow7ijQyo6GyKXv1pU0UiSO1kSUMG1Mqxl6a7U
- 4l9Bg+ORkO6NDZRDlrTXyffYL3QgvfKCrCEjRkcjJBfJL9CMIBD3W3TK/
- 3PurgYhj8BXe3zbLO/1qGS6Qm8UKMWrNiqHHjQAzTeTYyBwgPwDO8tr02 A==;
-X-CSE-ConnectionGUID: K9jdPhdVT4mqHsjwjVH69g==
-X-CSE-MsgGUID: i9D7SLJEQYWmJ25oAz/ofw==
-X-IronPort-AV: E=McAfee;i="6700,10204,11240"; a="41275165"
-X-IronPort-AV: E=Sophos;i="6.11,243,1725346800"; d="scan'208";a="41275165"
+ bh=3j1eBNEjRYkM/J4rO2o1oVGFpL79ZreYG3zHKSDoVSg=;
+ b=MaSWsctHZ1gmVV6zC4NgvvrOYm1XyYPI0kgJ+TMYqD3t9t5ZlUQIXIP9
+ TPim06UcLW57jEhuiealYo2v2M27NbtTnGzdTL67/mvNKY7GGq8j0XEc+
+ 3w02aBNXh8BwftO4qIdAXhlk+HpVumG375ehOQ94YC2pkHeMehU/fMY7Y
+ oM/woH48Oraiyl47WuWQLFY0n6tu9D1xc48txZeY/+nHPO/Oo0TBrFK4V
+ 55UwUhRkZNmJHwCc08aJgph/Tp1ldmK8YqjjjuC4Ao3QtzP8o5MUc20YL
+ khwwkwc1m536/5M9GnQXrCChTdkTAxfBkPLe+znOW02/h7Ckg8SwSNOvL A==;
+X-CSE-ConnectionGUID: YcJCvVsQRxG5u1CkXZwvnQ==
+X-CSE-MsgGUID: j7oY4F3eRSqLZjcyuPFFrg==
+X-IronPort-AV: E=McAfee;i="6700,10204,11240"; a="41275181"
+X-IronPort-AV: E=Sophos;i="6.11,243,1725346800"; d="scan'208";a="41275181"
 Received: from fmviesa008.fm.intel.com ([10.60.135.148])
  by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 29 Oct 2024 14:52:37 -0700
-X-CSE-ConnectionGUID: GWN9x4EWRmqbFCTgzCRYKQ==
-X-CSE-MsgGUID: 0spDqbpsTa63y5KTzSLTYA==
+ 29 Oct 2024 14:52:43 -0700
+X-CSE-ConnectionGUID: XQjEU38IROigQehys2vO0A==
+X-CSE-MsgGUID: dUOfEhcSRiu6vSOgPLyZBA==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.11,243,1725346800"; d="scan'208";a="82200243"
+X-IronPort-AV: E=Sophos;i="6.11,243,1725346800"; d="scan'208";a="82200252"
 Received: from stinkpipe.fi.intel.com (HELO stinkbox) ([10.237.72.74])
- by fmviesa008.fm.intel.com with SMTP; 29 Oct 2024 14:52:35 -0700
+ by fmviesa008.fm.intel.com with SMTP; 29 Oct 2024 14:52:41 -0700
 Received: by stinkbox (sSMTP sendmail emulation);
- Tue, 29 Oct 2024 23:52:34 +0200
+ Tue, 29 Oct 2024 23:52:39 +0200
 From: Ville Syrjala <ville.syrjala@linux.intel.com>
 To: intel-gfx@lists.freedesktop.org
-Subject: [PATCH 06/11] drm/i915/cdclk: Extract vlv_dsi_min_cdclk()
-Date: Tue, 29 Oct 2024 23:52:12 +0200
-Message-ID: <20241029215217.3697-7-ville.syrjala@linux.intel.com>
+Subject: [PATCH 08/11] drm/i915/cdclk: Suck the compression_enable check into
+ intel_vdsc_min_cdclk()
+Date: Tue, 29 Oct 2024 23:52:14 +0200
+Message-ID: <20241029215217.3697-9-ville.syrjala@linux.intel.com>
 X-Mailer: git-send-email 2.45.2
 In-Reply-To: <20241029215217.3697-1-ville.syrjala@linux.intel.com>
 References: <20241029215217.3697-1-ville.syrjala@linux.intel.com>
@@ -70,133 +71,39 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 From: Ville Syrjälä <ville.syrjala@linux.intel.com>
 
-Pull the DSI min cdclk calculation into a helper and hide
-it inside vlv_dsi.c in order to keep most DSI related
-details in one place.
+Declutter intel_crtc_compute_min_cdclk() by moving the
+crtc_state->dsc.compression_enable check into
+intel_vdsc_min_cdclk().
 
 Signed-off-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_cdclk.c | 23 ++------------------
- drivers/gpu/drm/i915/display/vlv_dsi.c     | 25 ++++++++++++++++++++++
- drivers/gpu/drm/i915/display/vlv_dsi.h     |  8 +++++++
- 3 files changed, 35 insertions(+), 21 deletions(-)
+ drivers/gpu/drm/i915/display/intel_cdclk.c | 7 ++++---
+ 1 file changed, 4 insertions(+), 3 deletions(-)
 
 diff --git a/drivers/gpu/drm/i915/display/intel_cdclk.c b/drivers/gpu/drm/i915/display/intel_cdclk.c
-index 89d12c521411..e10378744607 100644
+index e10378744607..989607c0b35d 100644
 --- a/drivers/gpu/drm/i915/display/intel_cdclk.c
 +++ b/drivers/gpu/drm/i915/display/intel_cdclk.c
-@@ -46,6 +46,7 @@
- #include "intel_vdsc.h"
- #include "skl_watermark.h"
- #include "skl_watermark_regs.h"
-+#include "vlv_dsi.h"
- #include "vlv_sideband.h"
+@@ -2812,6 +2812,9 @@ static int intel_vdsc_min_cdclk(const struct intel_crtc_state *crtc_state)
+ 	int num_vdsc_instances = intel_dsc_get_num_vdsc_instances(crtc_state);
+ 	int min_cdclk = 0;
  
- /**
-@@ -2849,8 +2850,6 @@ static int intel_vdsc_min_cdclk(const struct intel_crtc_state *crtc_state)
- 
- int intel_crtc_compute_min_cdclk(const struct intel_crtc_state *crtc_state)
- {
--	struct intel_display *display = to_intel_display(crtc_state);
--	struct drm_i915_private *dev_priv = to_i915(display->drm);
- 	int min_cdclk;
- 
- 	if (!crtc_state->hw.enable)
-@@ -2859,25 +2858,7 @@ int intel_crtc_compute_min_cdclk(const struct intel_crtc_state *crtc_state)
- 	min_cdclk = intel_pixel_rate_to_cdclk(crtc_state);
- 	min_cdclk = max(hsw_ips_min_cdclk(crtc_state), min_cdclk);
++	if (!crtc_state->dsc.compression_enable)
++		return 0;
++
+ 	/*
+ 	 * When we decide to use only one VDSC engine, since
+ 	 * each VDSC operates with 1 ppc throughput, pixel clock
+@@ -2860,9 +2863,7 @@ int intel_crtc_compute_min_cdclk(const struct intel_crtc_state *crtc_state)
  	min_cdclk = max(intel_audio_min_cdclk(crtc_state), min_cdclk);
--
--	/*
--	 * On Valleyview some DSI panels lose (v|h)sync when the clock is lower
--	 * than 320000KHz.
--	 */
--	if (intel_crtc_has_type(crtc_state, INTEL_OUTPUT_DSI) &&
--	    IS_VALLEYVIEW(dev_priv))
--		min_cdclk = max(320000, min_cdclk);
--
--	/*
--	 * On Geminilake once the CDCLK gets as low as 79200
--	 * picture gets unstable, despite that values are
--	 * correct for DSI PLL and DE PLL.
--	 */
--	if (intel_crtc_has_type(crtc_state, INTEL_OUTPUT_DSI) &&
--	    IS_GEMINILAKE(dev_priv))
--		min_cdclk = max(158400, min_cdclk);
--
--	/* Account for additional needs from the planes */
-+	min_cdclk = max(vlv_dsi_min_cdclk(crtc_state), min_cdclk);
+ 	min_cdclk = max(vlv_dsi_min_cdclk(crtc_state), min_cdclk);
  	min_cdclk = max(intel_planes_min_cdclk(crtc_state), min_cdclk);
+-
+-	if (crtc_state->dsc.compression_enable)
+-		min_cdclk = max(min_cdclk, intel_vdsc_min_cdclk(crtc_state));
++	min_cdclk = max(min_cdclk, intel_vdsc_min_cdclk(crtc_state));
  
- 	if (crtc_state->dsc.compression_enable)
-diff --git a/drivers/gpu/drm/i915/display/vlv_dsi.c b/drivers/gpu/drm/i915/display/vlv_dsi.c
-index 9383eedee2d4..49a895589150 100644
---- a/drivers/gpu/drm/i915/display/vlv_dsi.c
-+++ b/drivers/gpu/drm/i915/display/vlv_dsi.c
-@@ -1760,6 +1760,31 @@ static void vlv_dphy_param_init(struct intel_dsi *intel_dsi)
- 	intel_dsi_log_params(intel_dsi);
- }
- 
-+int vlv_dsi_min_cdclk(const struct intel_crtc_state *crtc_state)
-+{
-+	struct drm_i915_private *dev_priv = to_i915(crtc_state->uapi.crtc->dev);
-+	int min_cdclk = 0;
-+
-+	/*
-+	 * On Valleyview some DSI panels lose (v|h)sync when the clock is lower
-+	 * than 320000KHz.
-+	 */
-+	if (intel_crtc_has_type(crtc_state, INTEL_OUTPUT_DSI) &&
-+	    IS_VALLEYVIEW(dev_priv))
-+		min_cdclk = max(320000, min_cdclk);
-+
-+	/*
-+	 * On Geminilake once the CDCLK gets as low as 79200
-+	 * picture gets unstable, despite that values are
-+	 * correct for DSI PLL and DE PLL.
-+	 */
-+	if (intel_crtc_has_type(crtc_state, INTEL_OUTPUT_DSI) &&
-+	    IS_GEMINILAKE(dev_priv))
-+		min_cdclk = max(158400, min_cdclk);
-+
-+	return min_cdclk;
-+}
-+
- typedef void (*vlv_dsi_dmi_quirk_func)(struct intel_dsi *intel_dsi);
- 
- /*
-diff --git a/drivers/gpu/drm/i915/display/vlv_dsi.h b/drivers/gpu/drm/i915/display/vlv_dsi.h
-index cf9d7b82f288..5f99059b4c48 100644
---- a/drivers/gpu/drm/i915/display/vlv_dsi.h
-+++ b/drivers/gpu/drm/i915/display/vlv_dsi.h
-@@ -8,13 +8,17 @@
- 
- #include <linux/types.h>
- 
-+#include <drm/drm_mipi_dsi.h>
-+
- enum port;
- struct drm_i915_private;
-+struct intel_crtc_state;
- struct intel_dsi;
- 
- #ifdef I915
- void vlv_dsi_wait_for_fifo_empty(struct intel_dsi *intel_dsi, enum port port);
- enum mipi_dsi_pixel_format pixel_format_from_register_bits(u32 fmt);
-+int vlv_dsi_min_cdclk(const struct intel_crtc_state *crtc_state);
- void vlv_dsi_init(struct drm_i915_private *dev_priv);
- #else
- static inline void vlv_dsi_wait_for_fifo_empty(struct intel_dsi *intel_dsi, enum port port)
-@@ -24,6 +28,10 @@ static inline enum mipi_dsi_pixel_format pixel_format_from_register_bits(u32 fmt
- {
- 	return 0;
- }
-+static inline int vlv_dsi_min_cdclk(const struct intel_crtc_state *crtc_state)
-+{
-+	return 0;
-+}
- static inline void vlv_dsi_init(struct drm_i915_private *dev_priv)
- {
+ 	return min_cdclk;
  }
 -- 
 2.45.2
