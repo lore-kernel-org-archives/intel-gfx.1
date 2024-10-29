@@ -4,61 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A31BCE6B248
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A2CD6E6B245
 	for <intel-gfx@archiver.kernel.org>; Fri,  1 Nov 2024 10:08:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 741E910E97D;
-	Fri,  1 Nov 2024 10:08:09 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F244E10E977;
+	Fri,  1 Nov 2024 10:08:08 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=linutronix.de header.i=@linutronix.de header.b="d9rQyJXk";
-	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="iJYPn13q";
+	dkim=pass (1024-bit key; secure) header.d=paranoici.org header.i=@paranoici.org header.b="QoTo2yv3";
 	dkim-atps=neutral
-Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 588CF10E079
- for <intel-gfx@lists.freedesktop.org>; Thu, 31 Oct 2024 15:15:09 +0000 (UTC)
-From: Nam Cao <namcao@linutronix.de>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
- s=2020; t=1730387708;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=eQ4OaVFfuzEdwAbuzRaqadqXL1D9oVVD1jPEwjjtzBI=;
- b=d9rQyJXk7rC9Ud2vUivz4oheHxCrS0wy8Y4I9K4/MwEyTgoXth2bQ2ofGtKZqPrFrVAIFE
- eBreuX1JVSmQrZD9ZDuooRfa1967UO0NZX1rARt6M96UtckeFmNYJOJm+z722maWukY9tW
- UPi2/iZ6ZLJoyBZ6n38jyfuc1ZfqAxYBWy6j4+X58VvSo8p2cQn9WQuvkg1qwLSg3so5Gv
- j/M3l8Hu5yr+9m2V8UTKPUNuID1rHZGM+AMAlpH4XdrHiXlrrAw6ksktCYwShH6mafxPFX
- ni31Gieao14CLn8aRp24XyT14z+KasjZBV6+OLJclicfvZX2lHjXvYqkHVTdHA==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
- s=2020e; t=1730387708;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=eQ4OaVFfuzEdwAbuzRaqadqXL1D9oVVD1jPEwjjtzBI=;
- b=iJYPn13qrmJTzgAjFo+ik3kN94gVU4BPHiCVoai61h8kObYhmoA/rxwepH/pG8fD5GF6Pb
- nfIKXy/X2Yvou0DQ==
-To: Anna-Maria Behnsen <anna-maria@linutronix.de>,
- Frederic Weisbecker <frederic@kernel.org>,
- Thomas Gleixner <tglx@linutronix.de>,
- Andreas Hindborg <a.hindborg@kernel.org>,
- Alice Ryhl <aliceryhl@google.com>, Miguel Ojeda <ojeda@kernel.org>,
- Kees Cook <kees@kernel.org>, linux-kernel@vger.kernel.org
-Cc: Jani Nikula <jani.nikula@linux.intel.com>, intel-gfx@lists.freedesktop.org,
- Sean Christopherson <seanjc@google.com>,
- Paolo Bonzini <pbonzini@redhat.com>, x86@kernel.org,
- Jakub Kicinski <kuba@kernel.org>, Kalle Valo <kvalo@kernel.org>,
- Jens Axboe <axboe@kernel.dk>, Christian Brauner <brauner@kernel.org>,
- Peter Zijlstra <peterz@infradead.org>, John Stultz <jstultz@google.com>,
- Nam Cao <namcao@linutronix.de>, Oliver Hartkopp <socketcan@hartkopp.net>
-Subject: [RESEND PATCH v2 11/19] futex: Switch to use
- hrtimer_setup_sleeper_on_stack()
-Date: Thu, 31 Oct 2024 16:14:25 +0100
-Message-Id: <d92116a17313dee283ebc959869bea80fbf94cdb.1730386209.git.namcao@linutronix.de>
-In-Reply-To: <cover.1730386209.git.namcao@linutronix.de>
-References: <cover.1730386209.git.namcao@linutronix.de>
-MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
+X-Greylist: delayed 459 seconds by postgrey-1.36 at gabe;
+ Tue, 29 Oct 2024 07:55:50 UTC
+Received: from confino.investici.org (confino.investici.org [93.190.126.19])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3C8B010E5C3
+ for <intel-gfx@lists.freedesktop.org>; Tue, 29 Oct 2024 07:55:50 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=paranoici.org;
+ s=stigmate; t=1730188089;
+ bh=DBH4cM5u0lzF/5WegoayGk30dhb3VKVT7NmVFPEVhYU=;
+ h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+ b=QoTo2yv3zWxRKkyeWLBiK65DyF9DWCwubMzh75xz/VHXR6u6umQrnvhe3+WL500QS
+ pMBf2HaJlBtNC4YUFH+Y523We2MOIlI5BMlTNb5G/3xEYQ7FerU+N4zXlqLiqGODbn
+ fwwu2wd43ceTsPq8RDpyTs/5LA9y0EPJGohVZZEA=
+Received: from mx1.investici.org (unknown [127.0.0.1])
+ by confino.investici.org (Postfix) with ESMTP id 4Xd2Rs0cTxz10vP;
+ Tue, 29 Oct 2024 07:48:09 +0000 (UTC)
+Received: from [93.190.126.19] (mx1.investici.org [93.190.126.19])
+ (Authenticated sender: invernomuto@paranoici.org) by localhost (Postfix) with
+ ESMTPSA id 4Xd2Rs0GY9z10t6; Tue, 29 Oct 2024 07:48:09 +0000 (UTC)
+Received: from frx by crunch with local (Exim 4.98)
+ (envelope-from <invernomuto@paranoici.org>)
+ id 1t5gxU-000000001cC-0Ma5; Tue, 29 Oct 2024 08:48:08 +0100
+Date: Tue, 29 Oct 2024 08:47:51 +0100
+From: Francesco Poli <invernomuto@paranoici.org>
+To: Jani Nikula <jani.nikula@intel.com>
+Cc: imre.deak@intel.com, Intel GFX list <intel-gfx@lists.freedesktop.org>,
+ 1075770@bugs.debian.org
+Subject: Re: [bug report] adlp_tc_phy_connect [i915] floods logs with
+ drm_WARN_ON(tc->mode == TC_PORT_LEGACY) call traces
+Message-Id: <20241029084751.226aeb1245b12036f98ac964@paranoici.org>
+In-Reply-To: <87v80oxzz9.fsf@intel.com>
+References: <20240715203543.63b40a68931fdc45332ba9f8@paranoici.org>
+ <ZqFIKLLcUQrd1IAq@ideak-desk.fi.intel.com>
+ <20240725235929.68dd56625806ac0c8d20a2c8@paranoici.org>
+ <87v80oxzz9.fsf@intel.com>
+X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+Mime-Version: 1.0
+Content-Type: multipart/signed; protocol="application/pgp-signature";
+ micalg="PGP-SHA512";
+ boundary="Signature=_Tue__29_Oct_2024_08_47_51_+0100_cTzXq8Xnl92OrbC_"
 X-Mailman-Approved-At: Fri, 01 Nov 2024 10:08:01 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -75,35 +67,63 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-hrtimer_setup_sleeper_on_stack() replaces hrtimer_init_sleeper_on_stack()
-to keep the naming convention consistent.
+--Signature=_Tue__29_Oct_2024_08_47_51_+0100_cTzXq8Xnl92OrbC_
+Content-Type: text/plain; charset=US-ASCII
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-Convert the usage site over to it. The conversion was done with Coccinelle.
+Control: forwarded -1 https://gitlab.freedesktop.org/drm/i915/kernel/-/issu=
+es/12246
 
-Signed-off-by: Nam Cao <namcao@linutronix.de>
-Cc: Peter Zijlstra <peterz@infradead.org>
----
- kernel/futex/core.c | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
 
-diff --git a/kernel/futex/core.c b/kernel/futex/core.c
-index 136768ae2637..fb7214c7a36f 100644
---- a/kernel/futex/core.c
-+++ b/kernel/futex/core.c
-@@ -140,9 +140,9 @@ futex_setup_timer(ktime_t *time, struct hrtimer_sleeper=
- *timeout,
- 	if (!time)
- 		return NULL;
-=20
--	hrtimer_init_sleeper_on_stack(timeout, (flags & FLAGS_CLOCKRT) ?
--				      CLOCK_REALTIME : CLOCK_MONOTONIC,
--				      HRTIMER_MODE_ABS);
-+	hrtimer_setup_sleeper_on_stack(timeout,
-+				       (flags & FLAGS_CLOCKRT) ? CLOCK_REALTIME : CLOCK_MONOTONIC,
-+				       HRTIMER_MODE_ABS);
- 	/*
- 	 * If range_ns is 0, calling hrtimer_set_expires_range_ns() is
- 	 * effectively the same as calling hrtimer_set_expires().
+On Mon, 29 Jul 2024 13:19:06 +0300 Jani Nikula wrote:
+
+[...]
+> There are a number of reasons why email and mailing lists are really bad
+> for reporting bugs, from our perspective, which is why we've asked
+> people to report bugs to freedesktop.org bug trackers for about a decade
+> now.
+>=20
+> If the right person doesn't have time to resolve the issue right away,
+> it'll likely be forgotten on the mailing list. Attachments aren't
+> welcome on mailing lists, let alone big logs. It's easier to label and
+> reference issues on a bug tracker. It's easier (yes, for us) to manage
+> the issues, and the people working on them, on a bug tracker. And so on.
+
+I filed an issue report on the freedesktop.org tracker (however, there
+have been no replies yet).
+
+I still experience the bug with:
+
+$ uname -srvmo
+Linux 6.11.4-amd64 #1 SMP PREEMPT_DYNAMIC Debian 6.11.4-1 (2024-10-20) x86_=
+64 GNU/Linux
+
+
 --=20
-2.39.5
+ http://www.inventati.org/frx/
+ There's not a second to spare! To the laboratory!
+..................................................... Francesco Poli .
+ GnuPG key fpr =3D=3D CA01 1147 9CD2 EFDF FB82  3925 3E1C 27E1 1F69 BFFE
 
+--Signature=_Tue__29_Oct_2024_08_47_51_+0100_cTzXq8Xnl92OrbC_
+Content-Type: application/pgp-signature
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAEBCgAdFiEEygERR5zS79/7gjklPhwn4R9pv/4FAmcgkycACgkQPhwn4R9p
+v/73qhAAqfq1opLJpsi8N5Zybplb3p6fVnnRbfmlFkAFK4iGsmwpe8ZJrYTJe3P3
+R06TO1LkH9OXs5Nq63q5yezrYnaBbQNh26KfoyVBXVYoCBSXJneAReIE/aWbHD7o
+DvvStIBGnvdOaH1gPcKvt4k2o49MQEvq36gkinFZGiBXCJa1GDjHFXHbZWuqsRju
+AsqMyIKffLbhggIQOBnT2x4JEp4thVNWID0oVUQnDeS2d0tmOIWket8LZkx6C564
+djghjfh0kFKIryqLridY674A+nRdS8rHyn1uqxuaYlGVCIOzlTJWME9g/+RsHdWG
+zsHocTwfXMbe2r5MM1/tL9p3n8syk7tFt5PVcDhRd8pmewTZpwoAsNoMnqpRG/4s
+cmhPJ2du01p8ORdm6ke/4h051SbJualIQvLYWkoRyes3LIvkKmhkb5xJ2vD0VhZg
+zjFvgcLBPXosTxk69FapfekT0pMi9ydRVIx2VdBkAx8VQJ7RHuF6rZsOXnKmMB2o
+9J1Ag7VNUBbxCepB+RiqthlgL8USUUaPUB4ugdlddww1iOGenSNFUs82Ghb+HVyR
+AI6xhfo+KFhsN56GHs/WAqmCcxA1Yz/oBmPWKIYx8UJWeFYaSqOY9U2cY0Ib3Aj/
+KnWDtW68kmIN5ZC5IvnAtXbAtoBOXB6oU6m+k/dvmFvOM35J9Yg=
+=O3TT
+-----END PGP SIGNATURE-----
+
+--Signature=_Tue__29_Oct_2024_08_47_51_+0100_cTzXq8Xnl92OrbC_--
