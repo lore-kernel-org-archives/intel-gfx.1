@@ -4,50 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9DCE6D6B6CD
-	for <intel-gfx@archiver.kernel.org>; Wed, 30 Oct 2024 19:22:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5B52BD6B6CC
+	for <intel-gfx@archiver.kernel.org>; Wed, 30 Oct 2024 19:23:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3063A10E7EA;
-	Wed, 30 Oct 2024 19:22:53 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id ADE8110E7ED;
+	Wed, 30 Oct 2024 19:22:59 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="MfuifTIA";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="jQ+9RZ5t";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.12])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E086410E7E8
- for <intel-gfx@lists.freedesktop.org>; Wed, 30 Oct 2024 19:22:51 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 19E7F10E7E8
+ for <intel-gfx@lists.freedesktop.org>; Wed, 30 Oct 2024 19:22:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
  t=1730316172; x=1761852172;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=TglUPP5ec3NhfzNgMBjKHpOQ3uzEJabrKrmB1k5ByA4=;
- b=MfuifTIA582D8euc1xH6I7/D+abzr9l8GhDPxaTCzmC24i/FlGz21cDJ
- oALKRQfNiapNBJXsfu9SwxUbOiRwa69ileWp8cyxKCR3LM/pV0erUTdCZ
- oEwUtfxG/TQ3efpdVRoIBN20qi6tNbYQKjVNr5M9CA1AbYZsBjkLNQPSo
- eGhZ5kLkh6+WWLd5tVPsVWnGcCDgi9AK90AHc7VkAcTvnswEyRRENYJVn
- zqIZAi7XILSAlZUbqmAm2hrdDk+C1e+p7+dBEXZlQsJANiYXvixRIGK3N
- KGo5crcJTo/a43K49WobzMxrUtPrWdbd8HOrSSwNs0xkRsu+Fn8pMAYNX A==;
-X-CSE-ConnectionGUID: UnCdos9rRuG+FDSBQ5T+xA==
-X-CSE-MsgGUID: Qs1s+KIkQJGKPlVbArawYw==
-X-IronPort-AV: E=McAfee;i="6700,10204,11241"; a="41435006"
-X-IronPort-AV: E=Sophos;i="6.11,245,1725346800"; d="scan'208";a="41435006"
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=whKvvPrCY/6BHR1yNJyNq0UqmTfs3QlGKKVQsQPy2B8=;
+ b=jQ+9RZ5tDaaa0zpVAsfcBdr/VTsip6zyO+GT4S2CqOHjOuCsT5f8lLvC
+ rYTY+y0ePCETNKgFENR02y44drGc9dyWFzGU8Ws9wQTw2Or4yZHKu9ohl
+ Ozz/Ny1P//nSxOUbR8CH6I6WnUqYWqAMC+9BlLi5lDkVFIJUNWhrFWis0
+ At4p6ojLSbFy8VK6j5AYDovpg4V3rhsCL5R/mqFxSE6zpNqeB/5N039KX
+ vZmsGVy8NjKYZLXtvh7lcAXKDHw8ZkOQFR37hcVP61+0Y89UgjVYTfnkk
+ lN42CcxEbBSRcSLkVmsEfBiEh2qrdyf0/ZcXa2GNAjyNo91wzVK4dUd3d g==;
+X-CSE-ConnectionGUID: UeSJTGmsRZKbKuZSzPwSDw==
+X-CSE-MsgGUID: ARUKKrihRgaRrmCetKcfXg==
+X-IronPort-AV: E=McAfee;i="6700,10204,11241"; a="41435013"
+X-IronPort-AV: E=Sophos;i="6.11,245,1725346800"; d="scan'208";a="41435013"
 Received: from fmviesa008.fm.intel.com ([10.60.135.148])
  by orvoesa104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 30 Oct 2024 12:22:41 -0700
-X-CSE-ConnectionGUID: UVwDqaNnTbCyHe9JBAWsjA==
-X-CSE-MsgGUID: mgbMkXFbQk661KluKfpslA==
+ 30 Oct 2024 12:22:45 -0700
+X-CSE-ConnectionGUID: 8VXBGl3jTTiCCJo0WvKbCw==
+X-CSE-MsgGUID: eNumDkY7TLas7PXfEqJaAg==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.11,245,1725346800"; d="scan'208";a="82521941"
+X-IronPort-AV: E=Sophos;i="6.11,245,1725346800"; d="scan'208";a="82521973"
 Received: from ideak-desk.fi.intel.com ([10.237.72.78])
  by fmviesa008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 30 Oct 2024 12:22:40 -0700
+ 30 Oct 2024 12:22:44 -0700
 From: Imre Deak <imre.deak@intel.com>
 To: intel-gfx@lists.freedesktop.org
 Cc: Jani Nikula <jani.nikula@intel.com>
-Subject: [PATCH v2 0/5] drm/dp_mst: Fix DDI function/DP2 config programming
-Date: Wed, 30 Oct 2024 21:23:08 +0200
-Message-ID: <20241030192313.4030617-1-imre.deak@intel.com>
+Subject: [PATCH v2 4/5] drm/i915/adlp+/dp_mst: Align slave transcoder
+ sequences with spec wrt. DP2 config
+Date: Wed, 30 Oct 2024 21:23:12 +0200
+Message-ID: <20241030192313.4030617-5-imre.deak@intel.com>
 X-Mailer: git-send-email 2.44.2
+In-Reply-To: <20241030192313.4030617-1-imre.deak@intel.com>
+References: <20241030192313.4030617-1-imre.deak@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-BeenThere: intel-gfx@lists.freedesktop.org
@@ -65,34 +68,93 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-This is v2 of [1] addressing the review comments as follows:
+On ADLP+ during modeset enabling and disabling, enable and disable the DP2
+configuration for MST slave transcoders as required by the specification.
 
-- Move the DP2 configuration enabling for both master and slave
-  transcoders to intel_ddi_config_transcoder_func() and the disabling
-  for slave transcoders to intel_ddi_disable_transcoder_func().
-  (Patch 4, Jani)
-- Disable the DP2 configuration for master transcoders as well.
-  (Patch 5)
+Update the documentation of intel_ddi_config_transcoder_func() /
+intel_ddi_disable_transcoder_func() based on the above. While at it also
+clarify the programming steps of these functions specific to transcoder
+types.
 
+v2:
+- Enable/disable the DP2 config from
+  intel_ddi_config_transcoder_func()/intel_ddi_disable_transcoder_func().
+  (Jani)
+- Handle all ADLP+ platforms in one patch, instead of doing that
+  separately wrt. PTL.
+
+Bspec: 55424, 54128, 65448, 68849
 Cc: Jani Nikula <jani.nikula@intel.com>
+Signed-off-by: Imre Deak <imre.deak@intel.com>
+---
+ drivers/gpu/drm/i915/display/intel_ddi.c | 20 +++++++++++++-------
+ 1 file changed, 13 insertions(+), 7 deletions(-)
 
-[1] https://lore.kernel.org/all/20241029191215.3889861-1-imre.deak@intel.com
-
-Imre Deak (5):
-  drm/i915/ptl/dp_mst: Fix slave transcoder enabling wrt. DDI function
-  drm/i915/adlp+/dp_mst: Align slave transcoder enabling with spec wrt.
-    DDI function
-  drm/i915/dp_mst: Add a way to disable the DP2 config
-  drm/i915/adlp+/dp_mst: Align slave transcoder sequences with spec wrt.
-    DP2 config
-  drm/i915/adlp+/dp_mst: Align master transcoder disabling with spec
-    wrt. DP2 config
-
- drivers/gpu/drm/i915/display/intel_ddi.c    | 37 +++++++++++++--------
- drivers/gpu/drm/i915/display/intel_ddi.h    |  2 ++
- drivers/gpu/drm/i915/display/intel_dp_mst.c |  3 ++
- 3 files changed, 29 insertions(+), 13 deletions(-)
-
+diff --git a/drivers/gpu/drm/i915/display/intel_ddi.c b/drivers/gpu/drm/i915/display/intel_ddi.c
+index dcd43087fa7ed..d82bc1bf8b68f 100644
+--- a/drivers/gpu/drm/i915/display/intel_ddi.c
++++ b/drivers/gpu/drm/i915/display/intel_ddi.c
+@@ -621,7 +621,8 @@ void intel_ddi_enable_transcoder_func(struct intel_encoder *encoder,
+ 
+ /*
+  * Same as intel_ddi_enable_transcoder_func(), but it does not set the enable
+- * bit.
++ * bit for the DDI function and enables the DP2 configuration. Called for all
++ * transcoder types.
+  */
+ void
+ intel_ddi_config_transcoder_func(struct intel_encoder *encoder,
+@@ -632,12 +633,20 @@ intel_ddi_config_transcoder_func(struct intel_encoder *encoder,
+ 	enum transcoder cpu_transcoder = crtc_state->cpu_transcoder;
+ 	u32 ctl;
+ 
++	intel_ddi_config_transcoder_dp2(crtc_state, true);
++
+ 	ctl = intel_ddi_transcoder_func_reg_val_get(encoder, crtc_state);
+ 	ctl &= ~TRANS_DDI_FUNC_ENABLE;
+ 	intel_de_write(dev_priv, TRANS_DDI_FUNC_CTL(dev_priv, cpu_transcoder),
+ 		       ctl);
+ }
+ 
++/*
++ * Disable the DDI function and port syncing.
++ * For SST, pre-TGL MST, TGL+ MST-slave transcoders: deselect the DDI port,
++ * SST/MST mode and disable the DP2 configuration. For TGL+ MST-master
++ * transcoders these are done later in intel_ddi_post_disable_dp().
++ */
+ void intel_ddi_disable_transcoder_func(const struct intel_crtc_state *crtc_state)
+ {
+ 	struct intel_display *display = to_intel_display(crtc_state);
+@@ -674,6 +683,9 @@ void intel_ddi_disable_transcoder_func(const struct intel_crtc_state *crtc_state
+ 	intel_de_write(dev_priv, TRANS_DDI_FUNC_CTL(dev_priv, cpu_transcoder),
+ 		       ctl);
+ 
++	if (intel_dp_mst_is_slave_trans(crtc_state))
++		intel_ddi_config_transcoder_dp2(crtc_state, false);
++
+ 	if (intel_has_quirk(display, QUIRK_INCREASE_DDI_DISABLED_TIME) &&
+ 	    intel_crtc_has_type(crtc_state, INTEL_OUTPUT_HDMI)) {
+ 		drm_dbg_kms(display->drm, "Quirk Increase DDI disabled time\n");
+@@ -2552,10 +2564,6 @@ static void mtl_ddi_pre_enable_dp(struct intel_atomic_state *state,
+ 
+ 	/*
+ 	 * 6.b If DP v2.0/128b mode - Configure TRANS_DP2_CTL register settings.
+-	 */
+-	intel_ddi_config_transcoder_dp2(crtc_state, true);
+-
+-	/*
+ 	 * 6.c Configure TRANS_DDI_FUNC_CTL DDI Select, DDI Mode Select & MST
+ 	 * Transport Select
+ 	 */
+@@ -2690,8 +2698,6 @@ static void tgl_ddi_pre_enable_dp(struct intel_atomic_state *state,
+ 	 */
+ 	intel_ddi_enable_transcoder_clock(encoder, crtc_state);
+ 
+-	intel_ddi_config_transcoder_dp2(crtc_state, true);
+-
+ 	/*
+ 	 * 7.b Configure TRANS_DDI_FUNC_CTL DDI Select, DDI Mode Select & MST
+ 	 * Transport Select
 -- 
 2.44.2
 
