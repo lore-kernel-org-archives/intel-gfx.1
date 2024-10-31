@@ -4,58 +4,57 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 308DDE68979
-	for <intel-gfx@archiver.kernel.org>; Thu, 31 Oct 2024 11:39:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 06FD9E68955
+	for <intel-gfx@archiver.kernel.org>; Thu, 31 Oct 2024 11:40:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CD24F10E862;
-	Thu, 31 Oct 2024 11:39:13 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8477F10E83A;
+	Thu, 31 Oct 2024 11:40:19 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="M5f72LUx";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="Ypqvo8sN";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.17])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1AE7A10E3F9;
- Thu, 31 Oct 2024 11:39:11 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 05C7F10E83A
+ for <intel-gfx@lists.freedesktop.org>; Thu, 31 Oct 2024 11:40:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1730374751; x=1761910751;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=+3rJatvMFK2sCXkv7kDKAOL2fakZI2A0g4GkRwRleEU=;
- b=M5f72LUxfAY/P299ec/rDBLyijSNFGaNc+9BpRES584hnjzwn4SqIHgS
- 4eoWTxOLe2AlHXVGUOrJVANHldSlUcsSR5e2kSVyimHbZ6TVrgi+lgu2H
- kTuLByeDd5ayybr60YnTjR+nR5TUt0nVF/wrhokDnxvXVxa47tUMsb9fy
- NsqJyGpIKh6pDlk9pnSGtN0qgv6JM2Rx0DyibV5uD512LLatCx7FAqt0J
- e4Zb8LAU68tTZ47QNKCiUFyGB7/Ok+RkArVkr+Ql69JEtauAJ59oXB3zM
- ASPK892VCTx6V055zyItMx2npo/n1CoZ+30Q8CEJ/2K5mEkejZpxnmK2m w==;
-X-CSE-ConnectionGUID: dEw6PCwwQAOptJBzVopVrA==
-X-CSE-MsgGUID: +BOhzKwmTAi1STRgBzfF5A==
-X-IronPort-AV: E=McAfee;i="6700,10204,11241"; a="30000664"
-X-IronPort-AV: E=Sophos;i="6.11,247,1725346800"; d="scan'208";a="30000664"
-Received: from orviesa004.jf.intel.com ([10.64.159.144])
- by fmvoesa111.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 31 Oct 2024 04:39:10 -0700
-X-CSE-ConnectionGUID: VOUOia7TT9Cs26kgODiDow==
-X-CSE-MsgGUID: 9qOMSvkyTy6A45hEj5wQ1w==
+ t=1730374818; x=1761910818;
+ h=date:from:to:cc:subject:message-id:reply-to:references:
+ mime-version:in-reply-to;
+ bh=zm+5X6JuCyELW3cjIn/6nYsrAZB0OIG3nT39x2aB1HA=;
+ b=Ypqvo8sNLIat2frTNs79lC58cfrUbQ3GngAigIYXs+vsP3WtQ5AwZCcC
+ YHwyfwserfMQ/cf68qeHsr85Wj+QYJ3a8NfKIiA4jrxoHS5m+IErAg6Zi
+ ePHbuoi+xLUK3kjAdpaQpcPHJvRtWIe2qTiaM4Gw7BkL5+l8UeU859huu
+ oIEZzp3HWYLlBRDgSIHKQcWpxVe0Ff16Xh+c0khU5onGIF9HI5VDkm8bk
+ BORmancDivaTmfZOE2LDDVBTBWjMJhFu3/TpPsBmowSUDWPGUa17xqmPF
+ KCO2cxBgCjutsR0B7mjvtXS54qR2/e8B+dOaw23nP/kTWzP0dO3qpSmKk g==;
+X-CSE-ConnectionGUID: 4d1GkaR7S7mz04tHjg4dsg==
+X-CSE-MsgGUID: FqnIPWYDSgaxevDbEEUXOw==
+X-IronPort-AV: E=McAfee;i="6700,10204,11241"; a="40682287"
+X-IronPort-AV: E=Sophos;i="6.11,247,1725346800"; d="scan'208";a="40682287"
+Received: from fmviesa008.fm.intel.com ([10.60.135.148])
+ by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 31 Oct 2024 04:40:18 -0700
+X-CSE-ConnectionGUID: 5QRpUAZhTkS25bngZizi6g==
+X-CSE-MsgGUID: xlrB/TTdQM6E0ExTkNHvMg==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.11,247,1725346800"; d="scan'208";a="87744378"
-Received: from sschumil-mobl2.ger.corp.intel.com (HELO localhost)
- ([10.245.246.204])
- by orviesa004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 31 Oct 2024 04:39:08 -0700
-From: Jani Nikula <jani.nikula@intel.com>
-To: intel-gfx@lists.freedesktop.org,
-	intel-xe@lists.freedesktop.org
-Cc: jani.nikula@intel.com
-Subject: [PATCH 6/6] drm/i915/display: drop i915_drv.h include from
- intel_display_trace.h
-Date: Thu, 31 Oct 2024 13:38:36 +0200
-Message-Id: <b80eb74285a1ac42a69ee70e758b4de22eb84797.1730374470.git.jani.nikula@intel.com>
-X-Mailer: git-send-email 2.39.5
-In-Reply-To: <cover.1730374470.git.jani.nikula@intel.com>
-References: <cover.1730374470.git.jani.nikula@intel.com>
+X-IronPort-AV: E=Sophos;i="6.11,247,1725346800"; d="scan'208";a="82724793"
+Received: from ideak-desk.fi.intel.com ([10.237.72.78])
+ by fmviesa008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 31 Oct 2024 04:40:17 -0700
+Date: Thu, 31 Oct 2024 13:40:49 +0200
+From: Imre Deak <imre.deak@intel.com>
+To: Luca Coelho <luca@coelho.fi>
+Cc: intel-gfx@lists.freedesktop.org
+Subject: Re: [PATCH v2 2/5] drm/i915/adlp+/dp_mst: Align slave transcoder
+ enabling with spec wrt. DDI function
+Message-ID: <ZyNswWHJH0b-YrTR@ideak-desk.fi.intel.com>
+References: <20241030192313.4030617-1-imre.deak@intel.com>
+ <20241030192313.4030617-3-imre.deak@intel.com>
+ <29823959a085854bfa6208e078199eb9e6934c50.camel@coelho.fi>
 MIME-Version: 1.0
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <29823959a085854bfa6208e078199eb9e6934c50.camel@coelho.fi>
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,57 +67,67 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: imre.deak@intel.com
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Finish the job of removing implicit dependencies on i915_drv.h via other
-includes in display code. Add a few missing explicit includes.
+On Thu, Oct 31, 2024 at 12:49:22PM +0200, Luca Coelho wrote:
+> On Wed, 2024-10-30 at 21:23 +0200, Imre Deak wrote:
+> > On ADLP+ during modeset enabling configure the DDI function without
+> > enabling it for MST slave transcoders before programming the data and
+> > link M/N values. The DDI function gets enabled separately later in the
+> > transcoder enabling sequence.
+> > 
+> > Align the code with the spec based on the above.
+> > 
+> > v2: Move this patch earlier in the series, addressing the DP2
+> >     config fixes for all ADLP+ platforms later.
+> > 
+> > Bspec: 55424, 54128, 65448, 68849
+> > Signed-off-by: Imre Deak <imre.deak@intel.com>
+> > ---
+> >  drivers/gpu/drm/i915/display/intel_dp_mst.c | 2 +-
+> >  1 file changed, 1 insertion(+), 1 deletion(-)
+> > 
+> > diff --git a/drivers/gpu/drm/i915/display/intel_dp_mst.c b/drivers/gpu/drm/i915/display/intel_dp_mst.c
+> > index 7c16406883594..bf264bd1881b5 100644
+> > --- a/drivers/gpu/drm/i915/display/intel_dp_mst.c
+> > +++ b/drivers/gpu/drm/i915/display/intel_dp_mst.c
+> > @@ -1224,7 +1224,7 @@ static void intel_mst_pre_enable_dp(struct intel_atomic_state *state,
+> >  	if (DISPLAY_VER(dev_priv) < 12 || !first_mst_stream)
+> >  		intel_ddi_enable_transcoder_clock(encoder, pipe_config);
+> >  
+> > -	if (DISPLAY_VER(dev_priv) >= 30 && !first_mst_stream)
+> > +	if (DISPLAY_VER(dev_priv) >= 13 && !first_mst_stream)
+> >  		intel_ddi_config_transcoder_func(encoder, pipe_config);
+> >  
+> >  	intel_dsc_dp_pps_write(&dig_port->base, pipe_config);
+> 
+> You are essentially modifying the first patch in the series here, is it
+> because you want to keep the ADLP+ change separate?
 
-Signed-off-by: Jani Nikula <jani.nikula@intel.com>
----
- drivers/gpu/drm/i915/display/intel_atomic_plane.c  | 1 +
- drivers/gpu/drm/i915/display/intel_crtc.c          | 1 +
- drivers/gpu/drm/i915/display/intel_display_trace.h | 2 +-
- 3 files changed, 3 insertions(+), 1 deletion(-)
+Yes, the first patch clearly fixes an issue on PTL. On other ADLP+
+platforms this (and the follow-up DP2 config changes) is just what bspec
+says to do, the lack of which never having caused a problem. Based on
+all this I wanted to keep the PTL fix separate and first, making it
+easier to revert any of the other changes if they caused a problem
+(turning out that the spec was incorrect).
 
-diff --git a/drivers/gpu/drm/i915/display/intel_atomic_plane.c b/drivers/gpu/drm/i915/display/intel_atomic_plane.c
-index d89630b2d5c1..55894199c856 100644
---- a/drivers/gpu/drm/i915/display/intel_atomic_plane.c
-+++ b/drivers/gpu/drm/i915/display/intel_atomic_plane.c
-@@ -40,6 +40,7 @@
- #include <drm/drm_gem.h>
- #include <drm/drm_gem_atomic_helper.h>
- 
-+#include "i915_drv.h"
- #include "i915_config.h"
- #include "i9xx_plane_regs.h"
- #include "intel_atomic_plane.h"
-diff --git a/drivers/gpu/drm/i915/display/intel_crtc.c b/drivers/gpu/drm/i915/display/intel_crtc.c
-index a2c528d707f4..c910168602d2 100644
---- a/drivers/gpu/drm/i915/display/intel_crtc.c
-+++ b/drivers/gpu/drm/i915/display/intel_crtc.c
-@@ -12,6 +12,7 @@
- #include <drm/drm_vblank.h>
- #include <drm/drm_vblank_work.h>
- 
-+#include "i915_drv.h"
- #include "i915_vgpu.h"
- #include "i9xx_plane.h"
- #include "icl_dsi.h"
-diff --git a/drivers/gpu/drm/i915/display/intel_display_trace.h b/drivers/gpu/drm/i915/display/intel_display_trace.h
-index 9bd8f1e505b0..338b9f7b20b8 100644
---- a/drivers/gpu/drm/i915/display/intel_display_trace.h
-+++ b/drivers/gpu/drm/i915/display/intel_display_trace.h
-@@ -14,8 +14,8 @@
- #include <linux/types.h>
- #include <linux/tracepoint.h>
- 
--#include "i915_drv.h"
- #include "intel_crtc.h"
-+#include "intel_display_core.h"
- #include "intel_display_limits.h"
- #include "intel_display_types.h"
- #include "intel_vblank.h"
--- 
-2.39.5
+> In that case, wouldn't it be better to do this first so the ADLP+
+> change could be more easily backported?
 
+If that would be required - I'd only backport if there was an evidence
+that it fixes things - I'd either backport it along with the first patch
+as a dependency, or just send this one patch separately rebased on the
+stable trees (which would be the first two patches combined).
+
+> IMHO it's better to first fix stuff for older HW that is not correct
+> and then add new changes for new HW on top of that.
+
+Agreed for actual fixes, but in this case the only clear fix is the
+first one, the rest being just alignment with the spec (and as such
+better kept them easy to revert).
+
+> --
+> Cheers,
+> Luca.
