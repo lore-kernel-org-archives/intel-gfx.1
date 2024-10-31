@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0462EE6B247
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 52871E6B249
 	for <intel-gfx@archiver.kernel.org>; Fri,  1 Nov 2024 10:08:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E6DA910E982;
-	Fri,  1 Nov 2024 10:08:09 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0DDBD10E983;
+	Fri,  1 Nov 2024 10:08:10 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=linutronix.de header.i=@linutronix.de header.b="pW+zf7nx";
-	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="OAUdZbzr";
+	dkim=pass (2048-bit key; secure) header.d=linutronix.de header.i=@linutronix.de header.b="OXluRfXX";
+	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="dt2VJX4y";
 	dkim-atps=neutral
 Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7F98610E079
- for <intel-gfx@lists.freedesktop.org>; Thu, 31 Oct 2024 15:15:10 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id ACFCE10E079
+ for <intel-gfx@lists.freedesktop.org>; Thu, 31 Oct 2024 15:15:07 +0000 (UTC)
 From: Nam Cao <namcao@linutronix.de>
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
- s=2020; t=1730387709;
+ s=2020; t=1730387706;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=wSeQQ+/UoF5zygXiJ8vWE36+Ix/J13zBcX6GURu7TTA=;
- b=pW+zf7nxpvKL293ERZvvkwqWdm8sTJU22dfYTvgmDpLaTBAjpODBvgHjspRQUpOxT2Xkk3
- wN7cUjgQB7Wzx+BfHqJpqfqnl3whMltT1B4R6JpdkAklNuv5fISyon0ClgYH1Mm8Datz0t
- OGuLRyqIKoCRXDm1GeLJ1z7j0HvEwG03s3jx320laE9UbmLIQUWvNk73I/RP22Wi8OO9BM
- bT+pgEONX7owIuipx8vPYVfYKLzOgbmi++QBfxZF208RvJjPlmzU05qTcvIbur1HpxU2Z4
- mzaQYDrdNV64NzCpPI4sMWDeEl8tCiO7YirWqaL8DeR60Rrz4hRbQa/pJzrAZw==
+ bh=WU0OQTP8K3HetutHRTwicBx6y0d4IYn/PVSH3V3yCms=;
+ b=OXluRfXXeLt3edtFXLjyirTIAAVAr321b79RwSZ5xO2L6K1wgbB2mhzmJLx0eY2Zkg2pwq
+ SEGQjyPmuA2GPkXOEPTYSnrqeWjkn46s7qTS1Kn8Szcs5GlNi90jddFuYQZqS9AqErvjjt
+ U5Rh0d3eHN6W86mu0F3HC2/1gJ5e9tXcgMUVmyBduzW1BfeuMDOO+t1+KNtJS0H8nSc5Q3
+ fQEQ+cymkgs9afOdBDrFAxlVTpehr7yNxzctx1L3AvLoH58GYGlE/zj4A4hGy1xhWdtV6c
+ E0LFJ0Z/2MUV4MbkjYh+KerclqK8Xt0+SiEzdpp5L5gOUH+Q8URTcC6oqrt3WA==
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
- s=2020e; t=1730387709;
+ s=2020e; t=1730387706;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=wSeQQ+/UoF5zygXiJ8vWE36+Ix/J13zBcX6GURu7TTA=;
- b=OAUdZbzrqi7ivU7nui/YFiCV2Rtbq2Djbjl4fqTRc+FfLabBbIJupRYnsEzp3+vUNCOW58
- ubtuPIlXxGOv9PAw==
+ bh=WU0OQTP8K3HetutHRTwicBx6y0d4IYn/PVSH3V3yCms=;
+ b=dt2VJX4y7Oonm0lgdq0Gv3sFyvfZFvLpYDzXGfuTwJl/aXIr3aTCwH+cYXvOS8sOHvgwjQ
+ mPal+9jnfMbIbCBg==
 To: Anna-Maria Behnsen <anna-maria@linutronix.de>,
  Frederic Weisbecker <frederic@kernel.org>,
  Thomas Gleixner <tglx@linutronix.de>,
@@ -51,10 +51,9 @@ Cc: Jani Nikula <jani.nikula@linux.intel.com>, intel-gfx@lists.freedesktop.org,
  Jens Axboe <axboe@kernel.dk>, Christian Brauner <brauner@kernel.org>,
  Peter Zijlstra <peterz@infradead.org>, John Stultz <jstultz@google.com>,
  Nam Cao <namcao@linutronix.de>, Oliver Hartkopp <socketcan@hartkopp.net>
-Subject: [RESEND PATCH v2 13/19] timers: Switch to use
- hrtimer_setup_sleeper_on_stack()
-Date: Thu, 31 Oct 2024 16:14:27 +0100
-Message-Id: <299c07f0f96af8ab3a7631b47b6ca22b06b20577.1730386209.git.namcao@linutronix.de>
+Subject: [RESEND PATCH v2 09/19] hrtimers: Introduce hrtimer_update_function()
+Date: Thu, 31 Oct 2024 16:14:23 +0100
+Message-Id: <20a937b0ae09ad54b5b6d86eabead7c570f1b72e.1730386209.git.namcao@linutronix.de>
 In-Reply-To: <cover.1730386209.git.namcao@linutronix.de>
 References: <cover.1730386209.git.namcao@linutronix.de>
 MIME-Version: 1.0
@@ -75,58 +74,58 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-hrtimer_setup_sleeper_on_stack() replaces hrtimer_init_sleeper_on_stack()
-to keep the naming convention consistent.
+Some users of hrtimer need to change the callback function after the
+initial setup. They write to hrtimer::function directly.
 
-Convert the usage sites over to it. The conversion was done with
-Coccinelle.
+That's not safe under all circumstances as the write is lockless and a
+concurrent timer expiry might end up using the wrong function pointer.
+
+Introduce hrtimer_update_function(), which also performs runtime checks
+whether it is safe to modify the callback.
+
+This allows to make hrtimer::function private once all users are converted.
 
 Signed-off-by: Nam Cao <namcao@linutronix.de>
 ---
- kernel/time/hrtimer.c       | 5 ++---
- kernel/time/sleep_timeout.c | 2 +-
- 2 files changed, 3 insertions(+), 4 deletions(-)
+ include/linux/hrtimer.h | 22 ++++++++++++++++++++++
+ 1 file changed, 22 insertions(+)
 
-diff --git a/kernel/time/hrtimer.c b/kernel/time/hrtimer.c
-index 1d1f5c03673c..69430467a17d 100644
---- a/kernel/time/hrtimer.c
-+++ b/kernel/time/hrtimer.c
-@@ -2138,8 +2138,7 @@ static long __sched hrtimer_nanosleep_restart(struct =
-restart_block *restart)
- 	struct hrtimer_sleeper t;
- 	int ret;
+diff --git a/include/linux/hrtimer.h b/include/linux/hrtimer.h
+index 48872a2b4071..6e026730e803 100644
+--- a/include/linux/hrtimer.h
++++ b/include/linux/hrtimer.h
+@@ -327,6 +327,28 @@ static inline int hrtimer_callback_running(struct hrti=
+mer *timer)
+ 	return timer->base->running =3D=3D timer;
+ }
 =20
--	hrtimer_init_sleeper_on_stack(&t, restart->nanosleep.clockid,
--				      HRTIMER_MODE_ABS);
-+	hrtimer_setup_sleeper_on_stack(&t, restart->nanosleep.clockid, HRTIMER_MO=
-DE_ABS);
- 	hrtimer_set_expires_tv64(&t.timer, restart->nanosleep.expires);
- 	ret =3D do_nanosleep(&t, HRTIMER_MODE_ABS);
- 	destroy_hrtimer_on_stack(&t.timer);
-@@ -2153,7 +2152,7 @@ long hrtimer_nanosleep(ktime_t rqtp, const enum hrtim=
-er_mode mode,
- 	struct hrtimer_sleeper t;
- 	int ret =3D 0;
-=20
--	hrtimer_init_sleeper_on_stack(&t, clockid, mode);
-+	hrtimer_setup_sleeper_on_stack(&t, clockid, mode);
- 	hrtimer_set_expires_range_ns(&t.timer, rqtp, current->timer_slack_ns);
- 	ret =3D do_nanosleep(&t, mode);
- 	if (ret !=3D -ERESTART_RESTARTBLOCK)
-diff --git a/kernel/time/sleep_timeout.c b/kernel/time/sleep_timeout.c
-index 3054e5232d20..dfe939f6e4ec 100644
---- a/kernel/time/sleep_timeout.c
-+++ b/kernel/time/sleep_timeout.c
-@@ -208,7 +208,7 @@ int __sched schedule_hrtimeout_range_clock(ktime_t *exp=
-ires, u64 delta,
- 		return -EINTR;
- 	}
-=20
--	hrtimer_init_sleeper_on_stack(&t, clock_id, mode);
-+	hrtimer_setup_sleeper_on_stack(&t, clock_id, mode);
- 	hrtimer_set_expires_range_ns(&t.timer, *expires, delta);
- 	hrtimer_sleeper_start_expires(&t, mode);
-=20
++/**
++ * hrtimer_update_function - Update the timer's callback function
++ * @timer:	Timer to update
++ * @function:	New callback function
++ *
++ * Only safe to call if the timer is not enqueued. Can be called in the ca=
+llback function if the
++ * timer is not enqueued at the same time (see the comments above HRTIMER_=
+STATE_ENQUEUED).
++ */
++static inline void hrtimer_update_function(struct hrtimer *timer,
++					   enum hrtimer_restart (*function)(struct hrtimer *))
++{
++	guard(raw_spinlock_irqsave)(&timer->base->cpu_base->lock);
++
++	if (WARN_ON_ONCE(hrtimer_is_queued(timer)))
++		return;
++
++	if (WARN_ON_ONCE(!function))
++		return;
++
++	timer->function =3D function;
++}
++
+ /* Forward a hrtimer so it expires after now: */
+ extern u64
+ hrtimer_forward(struct hrtimer *timer, ktime_t now, ktime_t interval);
 --=20
 2.39.5
 
