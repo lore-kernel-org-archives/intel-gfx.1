@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 90AA4E6B24D
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DFCD2E6B245
 	for <intel-gfx@archiver.kernel.org>; Fri,  1 Nov 2024 10:08:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2B2AF10E987;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2161C10E986;
 	Fri,  1 Nov 2024 10:08:11 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=linutronix.de header.i=@linutronix.de header.b="D/xG8kr+";
-	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="D2pvWG87";
+	dkim=pass (2048-bit key; secure) header.d=linutronix.de header.i=@linutronix.de header.b="g8u0ndCi";
+	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="A9/e7j66";
 	dkim-atps=neutral
 Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4785A10E065
- for <intel-gfx@lists.freedesktop.org>; Thu, 31 Oct 2024 15:15:14 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8051110E065
+ for <intel-gfx@lists.freedesktop.org>; Thu, 31 Oct 2024 15:15:12 +0000 (UTC)
 From: Nam Cao <namcao@linutronix.de>
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
- s=2020; t=1730387713;
+ s=2020; t=1730387711;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=FyamRs/0EaIVuqQPB5WehumUy+LlGp/xnGmtDyoDFVM=;
- b=D/xG8kr+UzsvOcpBfyWcjyng7sjzcG0K9EcKPyWNMvYeG261TZrnXlHKGVEei6kOb1mF9g
- hrf9gXxIuOMPQRKyOSOVUxjL11yKt4rbweVKNokjzjIFnwVrW+5V2Cc/vuOAZ2fL4CTsCZ
- iccJSgXg8Wtx8tp/N4FoCAyHAXDn9cSBwesyyv6Qh0is6BA1IN5r8JG47+fdncBCpv5tHD
- GZtOfPE9YAEKqjwvnlpEVYJp8uihxzJnF3hTylqAqj47IkbIXhyap9W9XpR7hXpPj9b7ak
- gR3um/D30x2wY5n+dA4mfvE6H1WXu7ybo7KKtsESP+2NzirZT49CCRQmUMs5Pg==
+ bh=v4mSJVNkOJadieQpH/ARr3Pt6XdvliVSvqT1hoZVaV8=;
+ b=g8u0ndCiTr3NS8ibsXO+fgCaxmKmXfdKpLn7cGH70fR0ulPkAnX5uz+SJ/eRJTIAGGKGXG
+ gVquDGd0XkGLh2ExQppw8flgrKGeaoOvFJNeA8WMrF+y+2w17/cYK1bI+H8iI2rRl4B+or
+ Mel1GhvFlT0+HzYapwOZUwCvmeUYj3x4/l9CwdVtB479n1veR4ItHSumcuEKyT06tryDIN
+ GyAkczCv5/RQkwp9hezJPsO//rW7Mtd4Ej1gDNFcm94m5PY89liEo1wYcZMF6rXE0kS/sV
+ fJ/PaFhM4vogluNq4no3g2z96E+WBIV9tcQ/8Hg35dSU2hTF8BfvcGmh2iZDHw==
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
- s=2020e; t=1730387713;
+ s=2020e; t=1730387711;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=FyamRs/0EaIVuqQPB5WehumUy+LlGp/xnGmtDyoDFVM=;
- b=D2pvWG87LT2hKQ4zyhtS4dnMNig7h3FvWA2cslB8Pl369L5ZejnCak3vfTJBRhReZzEGAU
- wlIlMFS825QVE4Aw==
+ bh=v4mSJVNkOJadieQpH/ARr3Pt6XdvliVSvqT1hoZVaV8=;
+ b=A9/e7j66uU9LW08O+hdNrkr1AcQGQHKf4ec4M/6OUYdzN06aa0+Q3bDxwFes1yVAYlen2/
+ YKtXm7RpqjUwPDAA==
 To: Anna-Maria Behnsen <anna-maria@linutronix.de>,
  Frederic Weisbecker <frederic@kernel.org>,
  Thomas Gleixner <tglx@linutronix.de>,
@@ -51,9 +51,10 @@ Cc: Jani Nikula <jani.nikula@linux.intel.com>, intel-gfx@lists.freedesktop.org,
  Jens Axboe <axboe@kernel.dk>, Christian Brauner <brauner@kernel.org>,
  Peter Zijlstra <peterz@infradead.org>, John Stultz <jstultz@google.com>,
  Nam Cao <namcao@linutronix.de>, Oliver Hartkopp <socketcan@hartkopp.net>
-Subject: [RESEND PATCH v2 19/19] hrtimers: Delete hrtimer_init_on_stack()
-Date: Thu, 31 Oct 2024 16:14:33 +0100
-Message-Id: <510ce0d2944c4a382ea51e51d03dcfb73ba0f4f7.1730386209.git.namcao@linutronix.de>
+Subject: [RESEND PATCH v2 16/19] sched/idle: Switch to use
+ hrtimer_setup_on_stack()
+Date: Thu, 31 Oct 2024 16:14:30 +0100
+Message-Id: <17f9421fed6061df4ad26a4cc91873d2c078cb0f.1730386209.git.namcao@linutronix.de>
 In-Reply-To: <cover.1730386209.git.namcao@linutronix.de>
 References: <cover.1730386209.git.namcao@linutronix.de>
 MIME-Version: 1.0
@@ -74,60 +75,35 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-hrtimer_init_on_stack() is now unused. Delete it.
+hrtimer_setup_on_stack() takes the callback function pointer as argument
+and initializes the timer completely.
+
+Replace hrtimer_init_on_stack() and the open coded initialization of
+hrtimer::function with the new setup mechanism.
+
+The conversion was done with Coccinelle.
 
 Signed-off-by: Nam Cao <namcao@linutronix.de>
+Cc: Peter Zijlstra <peterz@infradead.org>
 ---
- include/linux/hrtimer.h |  2 --
- kernel/time/hrtimer.c   | 17 -----------------
- 2 files changed, 19 deletions(-)
+ kernel/sched/idle.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/include/linux/hrtimer.h b/include/linux/hrtimer.h
-index 4e4f04b3c0c2..7ef5f7ef31a9 100644
---- a/include/linux/hrtimer.h
-+++ b/include/linux/hrtimer.h
-@@ -230,8 +230,6 @@ extern void hrtimer_init(struct hrtimer *timer, clockid=
-_t which_clock,
- 			 enum hrtimer_mode mode);
- extern void hrtimer_setup(struct hrtimer *timer, enum hrtimer_restart (*fu=
-nction)(struct hrtimer *),
- 			  clockid_t clock_id, enum hrtimer_mode mode);
--extern void hrtimer_init_on_stack(struct hrtimer *timer, clockid_t which_c=
-lock,
--				  enum hrtimer_mode mode);
- extern void hrtimer_setup_on_stack(struct hrtimer *timer,
- 				   enum hrtimer_restart (*function)(struct hrtimer *),
- 				   clockid_t clock_id, enum hrtimer_mode mode);
-diff --git a/kernel/time/hrtimer.c b/kernel/time/hrtimer.c
-index 376b8182b72e..55e9ffbcd49a 100644
---- a/kernel/time/hrtimer.c
-+++ b/kernel/time/hrtimer.c
-@@ -1629,23 +1629,6 @@ void hrtimer_setup(struct hrtimer *timer, enum hrtim=
-er_restart (*function)(struc
- }
- EXPORT_SYMBOL_GPL(hrtimer_setup);
+diff --git a/kernel/sched/idle.c b/kernel/sched/idle.c
+index d2f096bb274c..631e42802925 100644
+--- a/kernel/sched/idle.c
++++ b/kernel/sched/idle.c
+@@ -399,8 +399,8 @@ void play_idle_precise(u64 duration_ns, u64 latency_ns)
+ 	cpuidle_use_deepest_state(latency_ns);
 =20
--/**
-- * hrtimer_init_on_stack - initialize a timer in stack memory
-- * @timer:	The timer to be initialized
-- * @clock_id:	The clock to be used
-- * @mode:       The timer mode
-- *
-- * Similar to hrtimer_init(), except that this one must be used if struct =
-hrtimer is in stack
-- * memory.
-- */
--void hrtimer_init_on_stack(struct hrtimer *timer, clockid_t clock_id,
--			   enum hrtimer_mode mode)
--{
--	debug_init_on_stack(timer, clock_id, mode);
--	__hrtimer_init(timer, clock_id, mode);
--}
--EXPORT_SYMBOL_GPL(hrtimer_init_on_stack);
--
- /**
-  * hrtimer_setup_on_stack - initialize a timer on stack memory
-  * @timer:	The timer to be initialized
+ 	it.done =3D 0;
+-	hrtimer_init_on_stack(&it.timer, CLOCK_MONOTONIC, HRTIMER_MODE_REL_HARD);
+-	it.timer.function =3D idle_inject_timer_fn;
++	hrtimer_setup_on_stack(&it.timer, idle_inject_timer_fn, CLOCK_MONOTONIC,
++			       HRTIMER_MODE_REL_HARD);
+ 	hrtimer_start(&it.timer, ns_to_ktime(duration_ns),
+ 		      HRTIMER_MODE_REL_PINNED_HARD);
+=20
 --=20
 2.39.5
 
