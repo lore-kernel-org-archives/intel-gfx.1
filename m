@@ -4,57 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 06FD9E68955
-	for <intel-gfx@archiver.kernel.org>; Thu, 31 Oct 2024 11:40:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A05A9E68975
+	for <intel-gfx@archiver.kernel.org>; Thu, 31 Oct 2024 11:49:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8477F10E83A;
-	Thu, 31 Oct 2024 11:40:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2F6A810E83C;
+	Thu, 31 Oct 2024 11:49:10 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="Ypqvo8sN";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="LMFx/ArR";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 05C7F10E83A
- for <intel-gfx@lists.freedesktop.org>; Thu, 31 Oct 2024 11:40:17 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.11])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 13E9F10E83C
+ for <intel-gfx@lists.freedesktop.org>; Thu, 31 Oct 2024 11:49:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1730374818; x=1761910818;
- h=date:from:to:cc:subject:message-id:reply-to:references:
- mime-version:in-reply-to;
- bh=zm+5X6JuCyELW3cjIn/6nYsrAZB0OIG3nT39x2aB1HA=;
- b=Ypqvo8sNLIat2frTNs79lC58cfrUbQ3GngAigIYXs+vsP3WtQ5AwZCcC
- YHwyfwserfMQ/cf68qeHsr85Wj+QYJ3a8NfKIiA4jrxoHS5m+IErAg6Zi
- ePHbuoi+xLUK3kjAdpaQpcPHJvRtWIe2qTiaM4Gw7BkL5+l8UeU859huu
- oIEZzp3HWYLlBRDgSIHKQcWpxVe0Ff16Xh+c0khU5onGIF9HI5VDkm8bk
- BORmancDivaTmfZOE2LDDVBTBWjMJhFu3/TpPsBmowSUDWPGUa17xqmPF
- KCO2cxBgCjutsR0B7mjvtXS54qR2/e8B+dOaw23nP/kTWzP0dO3qpSmKk g==;
-X-CSE-ConnectionGUID: 4d1GkaR7S7mz04tHjg4dsg==
-X-CSE-MsgGUID: FqnIPWYDSgaxevDbEEUXOw==
-X-IronPort-AV: E=McAfee;i="6700,10204,11241"; a="40682287"
-X-IronPort-AV: E=Sophos;i="6.11,247,1725346800"; d="scan'208";a="40682287"
-Received: from fmviesa008.fm.intel.com ([10.60.135.148])
- by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 31 Oct 2024 04:40:18 -0700
-X-CSE-ConnectionGUID: 5QRpUAZhTkS25bngZizi6g==
-X-CSE-MsgGUID: xlrB/TTdQM6E0ExTkNHvMg==
+ t=1730375349; x=1761911349;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=hpSj3IMBIwtkpC7kHD+XYl2aPIy0gEPbaxJOGA4CULA=;
+ b=LMFx/ArRT8/8yQHVW+/BiB1228PJXI6YyxyOEE6Ft5ONDTspd2BfRLrr
+ SsnpFdnemTgOMqzstKLexbHmC8n8DxhPiQJx3s6rAoLRaEaIOpyzt2ip3
+ dBIYAv90/EkILIo0fCnE4TI9q1L4hZj4NN6RJ+r7Jrb3+yJ5lJ1Nkq1wN
+ BllFbesck5RbZxMXMGSBsyVOvpnomQvKb2zEAGBLp5e6StR32mcBdlIhF
+ r/j0R0S9BPRqaz4OcpZTvGFiSs2dtFMPkHxFTkOXcpnAR1vrhvfsXj4mz
+ FxGtjB2xog/D/RCWCl96o3I858ZoFfC/h/jTrAhrfVRBByEvrxxY8ygAH Q==;
+X-CSE-ConnectionGUID: q8Bw+fbXTZC1cZf7+3D9EA==
+X-CSE-MsgGUID: cQEGKFnJS2iLg8bvMGmuog==
+X-IronPort-AV: E=McAfee;i="6700,10204,11222"; a="40654013"
+X-IronPort-AV: E=Sophos;i="6.11,199,1725346800"; d="scan'208";a="40654013"
+Received: from fmviesa001.fm.intel.com ([10.60.135.141])
+ by orvoesa103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 31 Oct 2024 04:49:09 -0700
+X-CSE-ConnectionGUID: 7W5Rz+1oReiTJeEWJLBxew==
+X-CSE-MsgGUID: 0p4AMs0uRTqa9uaMxIwaLA==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.11,247,1725346800"; d="scan'208";a="82724793"
-Received: from ideak-desk.fi.intel.com ([10.237.72.78])
- by fmviesa008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 31 Oct 2024 04:40:17 -0700
-Date: Thu, 31 Oct 2024 13:40:49 +0200
-From: Imre Deak <imre.deak@intel.com>
-To: Luca Coelho <luca@coelho.fi>
-Cc: intel-gfx@lists.freedesktop.org
-Subject: Re: [PATCH v2 2/5] drm/i915/adlp+/dp_mst: Align slave transcoder
- enabling with spec wrt. DDI function
-Message-ID: <ZyNswWHJH0b-YrTR@ideak-desk.fi.intel.com>
-References: <20241030192313.4030617-1-imre.deak@intel.com>
- <20241030192313.4030617-3-imre.deak@intel.com>
- <29823959a085854bfa6208e078199eb9e6934c50.camel@coelho.fi>
+X-IronPort-AV: E=Sophos;i="6.11,247,1725346800"; d="scan'208";a="113451917"
+Received: from sorvi2.fi.intel.com ([10.237.72.194])
+ by fmviesa001.fm.intel.com with ESMTP; 31 Oct 2024 04:49:07 -0700
+From: Mika Kahola <mika.kahola@intel.com>
+To: intel-gfx@lists.freedesktop.org
+Cc: raag.jadav@intel.com, gustavo.sousa@intel.com, jani.nikula@linux.intel.com,
+ Mika Kahola <mika.kahola@intel.com>
+Subject: [PATCH v3 0/2] drm/i915/display: Power request asserting/deasserting
+Date: Thu, 31 Oct 2024 13:40:25 +0200
+Message-ID: <20241031114027.225217-1-mika.kahola@intel.com>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <29823959a085854bfa6208e078199eb9e6934c50.camel@coelho.fi>
+Content-Transfer-Encoding: 8bit
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,67 +62,40 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: imre.deak@intel.com
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Thu, Oct 31, 2024 at 12:49:22PM +0200, Luca Coelho wrote:
-> On Wed, 2024-10-30 at 21:23 +0200, Imre Deak wrote:
-> > On ADLP+ during modeset enabling configure the DDI function without
-> > enabling it for MST slave transcoders before programming the data and
-> > link M/N values. The DDI function gets enabled separately later in the
-> > transcoder enabling sequence.
-> > 
-> > Align the code with the spec based on the above.
-> > 
-> > v2: Move this patch earlier in the series, addressing the DP2
-> >     config fixes for all ADLP+ platforms later.
-> > 
-> > Bspec: 55424, 54128, 65448, 68849
-> > Signed-off-by: Imre Deak <imre.deak@intel.com>
-> > ---
-> >  drivers/gpu/drm/i915/display/intel_dp_mst.c | 2 +-
-> >  1 file changed, 1 insertion(+), 1 deletion(-)
-> > 
-> > diff --git a/drivers/gpu/drm/i915/display/intel_dp_mst.c b/drivers/gpu/drm/i915/display/intel_dp_mst.c
-> > index 7c16406883594..bf264bd1881b5 100644
-> > --- a/drivers/gpu/drm/i915/display/intel_dp_mst.c
-> > +++ b/drivers/gpu/drm/i915/display/intel_dp_mst.c
-> > @@ -1224,7 +1224,7 @@ static void intel_mst_pre_enable_dp(struct intel_atomic_state *state,
-> >  	if (DISPLAY_VER(dev_priv) < 12 || !first_mst_stream)
-> >  		intel_ddi_enable_transcoder_clock(encoder, pipe_config);
-> >  
-> > -	if (DISPLAY_VER(dev_priv) >= 30 && !first_mst_stream)
-> > +	if (DISPLAY_VER(dev_priv) >= 13 && !first_mst_stream)
-> >  		intel_ddi_config_transcoder_func(encoder, pipe_config);
-> >  
-> >  	intel_dsc_dp_pps_write(&dig_port->base, pipe_config);
-> 
-> You are essentially modifying the first patch in the series here, is it
-> because you want to keep the ADLP+ change separate?
+There is a HW issue that arises when there are race conditions
+between TCSS entering/exiting TC7 or TC10 states while the
+driver is asserting/deasserting TCSS power request. As a
+workaround, Display driver will implement a mailbox sequence
+to ensure that the TCSS is in TC0 when TCSS power request is
+asserted/deasserted.
 
-Yes, the first patch clearly fixes an issue on PTL. On other ADLP+
-platforms this (and the follow-up DP2 config changes) is just what bspec
-says to do, the lack of which never having caused a problem. Based on
-all this I wanted to keep the PTL fix separate and first, making it
-easier to revert any of the other changes if they caused a problem
-(turning out that the spec was incorrect).
+The sequence is the following
 
-> In that case, wouldn't it be better to do this first so the ADLP+
-> change could be more easily backported?
+1. Read mailbox command status and wait until run/busy bit is
+   clear
+2. Write mailbox data value '1' for power request asserting
+   and '0' for power request deasserting
+3. Write mailbox command run/busy bit and command value with 0x1
+4. Read mailbox command and wait until run/busy bit is clear
+   before continuing power request.
 
-If that would be required - I'd only backport if there was an evidence
-that it fixes things - I'd either backport it along with the first patch
-as a dependency, or just send this one patch separately rebased on the
-stable trees (which would be the first two patches combined).
+while at it, let's start using struct intel_display instead of
+struct drm_i915_private as well.
 
-> IMHO it's better to first fix stuff for older HW that is not correct
-> and then add new changes for new HW on top of that.
+Signed-off-by: Mika Kahola <mika.kahola@intel.com>
 
-Agreed for actual fixes, but in this case the only clear fix is the
-first one, the rest being just alignment with the spec (and as such
-better kept them easy to revert).
+Mika Kahola (2):
+  drm/i915/xe3lpd: Power request asserting/deasserting
+  drm/i915/display: Use struct intel_display instead of struct
+    drm_i915_private
 
-> --
-> Cheers,
-> Luca.
+ .../gpu/drm/i915/display/intel_cx0_phy_regs.h |  8 ++++
+ drivers/gpu/drm/i915/display/intel_tc.c       | 45 +++++++++++++++++--
+ 2 files changed, 49 insertions(+), 4 deletions(-)
+
+-- 
+2.43.0
+
