@@ -4,55 +4,62 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 03710E68975
-	for <intel-gfx@archiver.kernel.org>; Thu, 31 Oct 2024 11:49:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C962CE68955
+	for <intel-gfx@archiver.kernel.org>; Thu, 31 Oct 2024 11:50:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9996910E864;
-	Thu, 31 Oct 2024 11:49:13 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4A9C910E86E;
+	Thu, 31 Oct 2024 11:50:44 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="ePk8PNwo";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="jm0a5bQV";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5C17410E863
- for <intel-gfx@lists.freedesktop.org>; Thu, 31 Oct 2024 11:49:12 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.16])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4A02410E867;
+ Thu, 31 Oct 2024 11:50:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1730375352; x=1761911352;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=9m1Cx1BGC9bNTzo+TTuXCSoBhK39q+TDmKSmj8E4cYI=;
- b=ePk8PNwo8UXTw+7krHdgnKljJNHp/88qj3S99NMm2XJBoF/Js8BbL+r+
- WV+KmX0Unuh7xSFCGj0Fo9kDENxI0MsGiZZGYTNvZj34dksnY2Pq7bFld
- RfsQnBoCQYtk1rtVFwzN011XcECM6l3ZxclAPJMRxpUzZ7C9cdhN8+UQM
- 2S8y1e/o/HtUL1a7lGz3C9fnjHb1f/CFgSMPTy8aVCEDyrRNYduAfJHad
- fGKLWg7fnpv4TCMNwuNh2NdcPH5MwnbVi1qv8ZeyKR/TU1+aS7o9ipxZC
- K2sp+p7AbWbtShLLYl3mvUPJgs7g9H893EyRwmRy5SK9kAEd0m0jfHK2R g==;
-X-CSE-ConnectionGUID: eVpdqswlQXSsNbsVTfXYPw==
-X-CSE-MsgGUID: QsBfSx1WQguDHCgTol7jHw==
-X-IronPort-AV: E=McAfee;i="6700,10204,11222"; a="40654017"
-X-IronPort-AV: E=Sophos;i="6.11,199,1725346800"; d="scan'208";a="40654017"
-Received: from fmviesa001.fm.intel.com ([10.60.135.141])
- by orvoesa103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 31 Oct 2024 04:49:12 -0700
-X-CSE-ConnectionGUID: YX8+rcGSQpack0XK+RwY9A==
-X-CSE-MsgGUID: HNUkVi9oTciey9TpK+QCag==
+ t=1730375442; x=1761911442;
+ h=date:from:to:cc:subject:message-id:mime-version;
+ bh=Ctrbtp+cRdPBYo+Y5mWgrxyd9BgzfYXm5AYPcHjHJnY=;
+ b=jm0a5bQVM2WNASKuEi325ieVopTJtGbfXR53HijN0eSGz3ObvrW3Lh0T
+ 4e9TfYi/wtd4q2k82EJea0oCL/UN73vpp7qpicdqCqM7DiNeWFX9z0ynT
+ LefJRtNnGFVIt0/hpv5TQnlTeAqmU72QTu9sdmaTc7Ra3XCoZvKDFOsE2
+ zQEnGWHIAFAuamxIa6WeYE5xRK/Ko6DCQBQpKlZjSnrrX/6CPQ8uw2cPc
+ uuOMtDHRTM43KzxGhwqa3ZHvZbGvu9wbDen/SIvCUCxQqUJaAO3lW+8Np
+ DB26OIO21R6lZQ/rAERcNAo/RJdtDLM/g3TtrUsygsIEvkFSFGidx5i3o Q==;
+X-CSE-ConnectionGUID: vyHRga3jQ5mx5D7lTFxteQ==
+X-CSE-MsgGUID: clApZPrhT9OA/rUGdWyHiw==
+X-IronPort-AV: E=McAfee;i="6700,10204,11241"; a="17749745"
+X-IronPort-AV: E=Sophos;i="6.11,247,1725346800"; d="scan'208";a="17749745"
+Received: from fmviesa004.fm.intel.com ([10.60.135.144])
+ by fmvoesa110.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 31 Oct 2024 04:50:42 -0700
+X-CSE-ConnectionGUID: RDudHY/eTiGTiMFy2ID+GA==
+X-CSE-MsgGUID: 7VOkQBYiQVi4GHOyhLId+A==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.11,247,1725346800"; d="scan'208";a="113451939"
-Received: from sorvi2.fi.intel.com ([10.237.72.194])
- by fmviesa001.fm.intel.com with ESMTP; 31 Oct 2024 04:49:11 -0700
-From: Mika Kahola <mika.kahola@intel.com>
-To: intel-gfx@lists.freedesktop.org
-Cc: raag.jadav@intel.com, gustavo.sousa@intel.com, jani.nikula@linux.intel.com,
- Mika Kahola <mika.kahola@intel.com>
-Subject: [PATCH v3 2/2] drm/i915/display: Use struct intel_display instead of
- struct drm_i915_private
-Date: Thu, 31 Oct 2024 13:40:27 +0200
-Message-ID: <20241031114027.225217-3-mika.kahola@intel.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20241031114027.225217-1-mika.kahola@intel.com>
-References: <20241031114027.225217-1-mika.kahola@intel.com>
+X-IronPort-AV: E=Sophos;i="6.11,247,1725346800"; d="scan'208";a="87203910"
+Received: from mjarzebo-mobl1.ger.corp.intel.com (HELO fedora)
+ ([10.245.246.206])
+ by fmviesa004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 31 Oct 2024 04:50:37 -0700
+Date: Thu, 31 Oct 2024 12:50:27 +0100
+From: Thomas Hellstrom <thomas.hellstrom@linux.intel.com>
+To: Dave Airlie <airlied@gmail.com>, Simona Vetter <simona.vetter@ffwll.ch>
+Cc: Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Tvrtko Ursulin <tursulin@ursulin.net>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas =?iso-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>,
+ Lucas De Marchi <lucas.demarchi@intel.com>,
+ dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
+ intel-xe@lists.freedesktop.org, dim-tools@lists.freedesktop.org
+Subject: [PULL] drm-xe-next
+Message-ID: <ZyNvA_vZZYR-1eWE@fedora>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,62 +75,212 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Let's start using struct intel_display instead of struct drm_i915_private
-when introducing new code. No functional changes.
+Hi, Dave, Simona
 
-Signed-off-by: Mika Kahola <mika.kahola@intel.com>
----
- drivers/gpu/drm/i915/display/intel_tc.c | 17 +++++++++++------
- 1 file changed, 11 insertions(+), 6 deletions(-)
+This week's drm-xe-next pull request, including also the
+changes that we decided not to pull last week.
 
-diff --git a/drivers/gpu/drm/i915/display/intel_tc.c b/drivers/gpu/drm/i915/display/intel_tc.c
-index dab2ac7ec0dd..bb40d76fc9ec 100644
---- a/drivers/gpu/drm/i915/display/intel_tc.c
-+++ b/drivers/gpu/drm/i915/display/intel_tc.c
-@@ -97,6 +97,11 @@ static struct drm_i915_private *tc_to_i915(struct intel_tc_port *tc)
- 	return to_i915(tc->dig_port->base.base.dev);
- }
- 
-+static struct intel_display *tc_to_intel_display(struct intel_tc_port *tc)
-+{
-+	return to_intel_display(tc->dig_port->base.base.dev);
-+}
-+
- static bool intel_tc_port_in_mode(struct intel_digital_port *dig_port,
- 				  enum tc_port_mode mode)
- {
-@@ -1040,9 +1045,9 @@ static void wa_14020908590(struct intel_display *display,
- 
- static void __xelpdp_tc_phy_enable_tcss_power(struct intel_tc_port *tc, bool enable)
- {
--	struct drm_i915_private *i915 = tc_to_i915(tc);
-+	struct intel_display *display = tc_to_intel_display(tc);
- 	enum port port = tc->dig_port->base.port;
--	i915_reg_t reg = XELPDP_PORT_BUF_CTL1(i915, port);
-+	i915_reg_t reg = XELPDP_PORT_BUF_CTL1(display, port);
- 	u32 val;
- 
- 	assert_tc_cold_blocked(tc);
-@@ -1051,15 +1056,15 @@ static void __xelpdp_tc_phy_enable_tcss_power(struct intel_tc_port *tc, bool ena
- 	 * Gfx driver WA 14020908590 for PTL tcss_rxdetect_clkswb_req/ack
- 	 * handshake violation when pwwreq= 0->1 during TC7/10 entry
- 	 */
--	if (DISPLAY_VER(i915) == 30)
--		wa_14020908590(&i915->display, enable);
-+	if (DISPLAY_VER(display) == 30)
-+		wa_14020908590(display, enable);
- 
--	val = intel_de_read(i915, reg);
-+	val = intel_de_read(display, reg);
- 	if (enable)
- 		val |= XELPDP_TCSS_POWER_REQUEST;
- 	else
- 		val &= ~XELPDP_TCSS_POWER_REQUEST;
--	intel_de_write(i915, reg, val);
-+	intel_de_write(display, reg, val);
- }
- 
- static bool xelpdp_tc_phy_enable_tcss_power(struct intel_tc_port *tc, bool enable)
--- 
-2.43.0
+Note that this PR introduces a run-time warning when flushing
+xe workqueues. That is fixed by the patch
+746ae46c11137ba21f0c0c68f082a9d8c1222c78
+currently present in drm-misc-fixes. So to avoid propagating that
+warning into drm-next, the ideal merge-flow would be:
 
+- drm-misc-fixes -> drm-fixes
+- backmerge drm-fixes->drm-next
+- drm-xe-next->drm-next
+
+But from our POW it's ok to pull as-is, although a backmerge from
+drm-fixes into drm-next containing that patch as soon as possible
+would be desired.
+
+Thanks,
+Thomas
+
+drm-xe-next-2024-10-31:
+UAPI Changes:
+- Define and parse OA sync properties (Ashutosh)
+
+Driver Changes:
+- Add caller info to xe_gt_reset_async (Nirmoy)
+- A large forcewake rework / cleanup (Himal)
+- A g2h response timeout fix (Badal)
+- A PTL workaround (Vinay)
+- Handle unreliable MMIO reads during forcewake (Shuicheng)
+- Ufence user-space access fixes (Nirmoy)
+- Annotate flexible arrays (Matthew Brost)
+- Enable GuC lite restore (Fei)
+- Prevent GuC register capture on VF (Zhanjun)
+- Show VFs VRAM / LMEM provisioning summary over debugfs (Michal)
+- Parallel queues fix on GT reset (Nirmoy)
+- Move reference grabbing to a job's dma-fence (Matt Brost)
+- Mark a number of local workqueues WQ_MEM_RECLAIM (Matt Brost)
+- OA synchronization support (Ashutosh)
+- Capture all available bits of GuC timestamp to GuC log (John)
+- Increase readability of guc_info debugfs (John)
+- Add a mmio barrier before GGTT invalidate (Matt Brost)
+- Don't short-circuit TDR on jobs not started (Matt Brost)
+
+The following changes since commit 2eb460ab9f4bc5b575f52568d17936da0af681d8:
+
+  drm/xe: Enlarge the invalidation timeout from 150 to 500 (2024-10-16 16:11:10 +0100)
+
+are available in the Git repository at:
+
+  https://gitlab.freedesktop.org/drm/xe/kernel.git tags/drm-xe-next-2024-10-31
+
+for you to fetch changes up to 35d25a4a0012e690ef0cc4c5440231176db595cc:
+
+  drm/xe: Don't short circuit TDR on jobs not started (2024-10-30 22:14:06 -0700)
+
+----------------------------------------------------------------
+UAPI Changes:
+- Define and parse OA sync properties (Ashutosh)
+
+Driver Changes:
+- Add caller info to xe_gt_reset_async (Nirmoy)
+- A large forcewake rework / cleanup (Himal)
+- A g2h response timeout fix (Badal)
+- A PTL workaround (Vinay)
+- Handle unreliable MMIO reads during forcewake (Shuicheng)
+- Ufence user-space access fixes (Nirmoy)
+- Annotate flexible arrays (Matthew Brost)
+- Enable GuC lite restore (Fei)
+- Prevent GuC register capture on VF (Zhanjun)
+- Show VFs VRAM / LMEM provisioning summary over debugfs (Michal)
+- Parallel queues fix on GT reset (Nirmoy)
+- Move reference grabbing to a job's dma-fence (Matt Brost)
+- Mark a number of local workqueues WQ_MEM_RECLAIM (Matt Brost)
+- OA synchronization support (Ashutosh)
+- Capture all available bits of GuC timestamp to GuC log (John)
+- Increase readability of guc_info debugfs (John)
+- Add a mmio barrier before GGTT invalidate (Matt Brost)
+- Don't short-circuit TDR on jobs not started (Matt Brost)
+
+----------------------------------------------------------------
+Ashutosh Dixit (8):
+      drm/xe/oa: Separate batch submission from waiting for completion
+      drm/xe/oa/uapi: Define and parse OA sync properties
+      drm/xe/oa: Add input fence dependencies
+      drm/xe/oa: Signal output fences
+      drm/xe/oa: Move functions up so they can be reused for config ioctl
+      drm/xe/oa: Add syncs support to OA config ioctl
+      drm/xe/oa: Allow only certain property changes from config
+      Revert "drm/xe/xe_guc_ads: save/restore OA registers and allowlist regs"
+
+Badal Nilawar (1):
+      drm/xe/guc/ct: Flush g2h worker in case of g2h response timeout
+
+Fei Yang (1):
+      drm/xe: enable lite restore
+
+Himal Prasad Ghimiray (26):
+      drm/xe: Add member initialized_domains to xe_force_wake()
+      drm/xe/forcewake: Change awake_domain datatype
+      drm/xe/forcewake: Add a helper xe_force_wake_ref_has_domain()
+      drm/xe: Error handling in xe_force_wake_get()
+      drm/xe: Modify xe_force_wake_put to handle _get returned mask
+      drm/xe/device: Update handling of xe_force_wake_get return
+      drm/xe/hdcp: Update handling of xe_force_wake_get return
+      drm/xe/gsc: Update handling of xe_force_wake_get return
+      drm/xe/gt: Update handling of xe_force_wake_get return
+      drm/xe/xe_gt_idle: Update handling of xe_force_wake_get return
+      drm/xe/devcoredump: Update handling of xe_force_wake_get return
+      drm/xe/tests/mocs: Update xe_force_wake_get() return handling
+      drm/xe/mocs: Update handling of xe_force_wake_get return
+      drm/xe/xe_drm_client: Update handling of xe_force_wake_get return
+      drm/xe/xe_gt_debugfs: Update handling of xe_force_wake_get return
+      drm/xe/guc: Update handling of xe_force_wake_get return
+      drm/xe/huc: Update handling of xe_force_wake_get return
+      drm/xe/oa: Handle force_wake_get failure in xe_oa_stream_init()
+      drm/xe/pat: Update handling of xe_force_wake_get return
+      drm/xe/gt_tlb_invalidation_ggtt: Update handling of xe_force_wake_get return
+      drm/xe/xe_reg_sr: Update handling of xe_force_wake_get return
+      drm/xe/query: Update handling of xe_force_wake_get return
+      drm/xe/vram: Update handling of xe_force_wake_get return
+      drm/xe: forcewake debugfs open fails on xe_forcewake_get failure
+      drm/xe: Ensure __must_check for xe_force_wake_get() return
+      drm/xe: Change return type to void for xe_force_wake_put
+
+John Harrison (2):
+      drm/xe/guc: Capture all available bits of GuC timestamp
+      drm/xe/guc: Separate full CTB content from guc_info debugfs
+
+Jonathan Cavitt (1):
+      drm/xe/xe_guc_ads: save/restore OA registers and allowlist regs
+
+Matthew Brost (7):
+      drm/xe: Use __counted_by for flexible arrays
+      drm/xe: Take ref to job's fence in arm
+      drm/xe: Mark GGTT work queue with WQ_MEM_RECLAIM
+      drm/xe: Mark G2H work queue with WQ_MEM_RECLAIM
+      drm/xe: Mark GT work queue with WQ_MEM_RECLAIM
+      drm/xe: Add mmio read before GGTT invalidate
+      drm/xe: Don't short circuit TDR on jobs not started
+
+Michal Wajdeczko (1):
+      drm/xe/pf: Show VFs LMEM provisioning summary over debugfs
+
+Nirmoy Das (4):
+      drm/xe: Add caller info to xe_gt_reset_async
+      drm/xe/ufence: Prefetch ufence addr to catch bogus address
+      drm/xe/ufence: Warn if mmget_not_zero() fails
+      drm/xe: Don't restart parallel queues multiple times on GT reset
+
+Shuicheng Lin (1):
+      drm/xe: Handle unreliable MMIO reads during forcewake
+
+Vinay Belgaumkar (1):
+      drm/xe/ptl: Apply Wa_14022866841
+
+Zhanjun Dong (1):
+      drm/xe/guc: Prevent GuC register capture running on VF
+
+ drivers/gpu/drm/xe/abi/guc_klvs_abi.h       |   1 +
+ drivers/gpu/drm/xe/display/xe_hdcp_gsc.c    |   6 +-
+ drivers/gpu/drm/xe/regs/xe_guc_regs.h       |   3 +-
+ drivers/gpu/drm/xe/tests/xe_mocs.c          |  18 +-
+ drivers/gpu/drm/xe/xe_debugfs.c             |  27 +-
+ drivers/gpu/drm/xe/xe_devcoredump.c         |  16 +-
+ drivers/gpu/drm/xe/xe_device.c              |  25 +-
+ drivers/gpu/drm/xe/xe_drm_client.c          |   8 +-
+ drivers/gpu/drm/xe/xe_exec_queue_types.h    |   2 +-
+ drivers/gpu/drm/xe/xe_execlist.c            |   2 +-
+ drivers/gpu/drm/xe/xe_force_wake.c          | 134 ++++--
+ drivers/gpu/drm/xe/xe_force_wake.h          |  23 +-
+ drivers/gpu/drm/xe/xe_force_wake_types.h    |   6 +-
+ drivers/gpu/drm/xe/xe_ggtt.c                |  12 +-
+ drivers/gpu/drm/xe/xe_gsc.c                 |  23 +-
+ drivers/gpu/drm/xe/xe_gsc_proxy.c           |   9 +-
+ drivers/gpu/drm/xe/xe_gt.c                  | 110 +++--
+ drivers/gpu/drm/xe/xe_gt_debugfs.c          |  13 +-
+ drivers/gpu/drm/xe/xe_gt_idle.c             |  26 +-
+ drivers/gpu/drm/xe/xe_gt_sriov_pf_config.c  |  35 ++
+ drivers/gpu/drm/xe/xe_gt_sriov_pf_config.h  |   1 +
+ drivers/gpu/drm/xe/xe_gt_sriov_pf_debugfs.c |   5 +
+ drivers/gpu/drm/xe/xe_gt_tlb_invalidation.c |   5 +-
+ drivers/gpu/drm/xe/xe_guc.c                 |  20 +-
+ drivers/gpu/drm/xe/xe_guc_ads.c             |   5 +
+ drivers/gpu/drm/xe/xe_guc_capture.c         |   8 +-
+ drivers/gpu/drm/xe/xe_guc_ct.c              |  74 +--
+ drivers/gpu/drm/xe/xe_guc_ct.h              |   5 +-
+ drivers/gpu/drm/xe/xe_guc_debugfs.c         |  14 +
+ drivers/gpu/drm/xe/xe_guc_fwif.h            |   1 +
+ drivers/gpu/drm/xe/xe_guc_log.c             |  15 +-
+ drivers/gpu/drm/xe/xe_guc_log_types.h       |   2 +-
+ drivers/gpu/drm/xe/xe_guc_pc.c              |  50 +-
+ drivers/gpu/drm/xe/xe_guc_submit.c          |  47 +-
+ drivers/gpu/drm/xe/xe_huc.c                 |   8 +-
+ drivers/gpu/drm/xe/xe_mocs.c                |  14 +-
+ drivers/gpu/drm/xe/xe_oa.c                  | 678 +++++++++++++++++++---------
+ drivers/gpu/drm/xe/xe_oa_types.h            |  12 +
+ drivers/gpu/drm/xe/xe_pat.c                 |  65 ++-
+ drivers/gpu/drm/xe/xe_query.c               |  10 +-
+ drivers/gpu/drm/xe/xe_reg_sr.c              |  24 +-
+ drivers/gpu/drm/xe/xe_sched_job.c           |   2 +-
+ drivers/gpu/drm/xe/xe_sched_job_types.h     |   3 +-
+ drivers/gpu/drm/xe/xe_sync.c                |   5 +-
+ drivers/gpu/drm/xe/xe_vram.c                |  12 +-
+ drivers/gpu/drm/xe/xe_wa_oob.rules          |   2 +
+ include/uapi/drm/xe_drm.h                   |  17 +
+ 47 files changed, 1074 insertions(+), 529 deletions(-)
