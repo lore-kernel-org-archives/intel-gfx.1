@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F41B4E6B24B
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B1766E6B24C
 	for <intel-gfx@archiver.kernel.org>; Fri,  1 Nov 2024 10:08:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D5BDC10E974;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6C06210E985;
 	Fri,  1 Nov 2024 10:08:10 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=linutronix.de header.i=@linutronix.de header.b="2k27J3wq";
-	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="7QOgfZIu";
+	dkim=pass (2048-bit key; secure) header.d=linutronix.de header.i=@linutronix.de header.b="KMuStyZL";
+	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="JJzshGDZ";
 	dkim-atps=neutral
 Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2777C10E065
- for <intel-gfx@lists.freedesktop.org>; Thu, 31 Oct 2024 15:15:13 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8AEC610E079
+ for <intel-gfx@lists.freedesktop.org>; Thu, 31 Oct 2024 15:15:08 +0000 (UTC)
 From: Nam Cao <namcao@linutronix.de>
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
- s=2020; t=1730387711;
+ s=2020; t=1730387706;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=oYfjK6Ca0PZ7u6hxJjuMYHahvzL9jhDTXWFMtws/RE8=;
- b=2k27J3wqOQVhl9MKvgZskQoH9r0+R/+UdOyqQAvYOzy4xnayx7Hva90FcqfWzTU2Up7+XL
- z+Ae1TUKWy+KKqkHi/Ib2pPvSi5n6kBjw1yeVitMynA1HmNZTLwPHD03vefIBM/+Shmf1v
- oXGClDDPteefEyRPDzjTVrza/dMoqtt/Ikf4qGw+s3vAdV0umJo1HiXB8PbqIDSDEOb5V1
- skO+vI9951uZC/BhBWOrycQD+dRQnBCZvw7rvXTAaTqik/a2q9ct1j6MpopAmCmwj+dVmH
- j0Whw4D4CmjButJ4OV2zy7DJ2kK02sC7p4VYCHwDaK/A9lre1VfnRNX25XdU1A==
+ bh=pgW81mJgAIDJ6I8UWZoazeDmtDlfTTtXbZvn0v+KF3E=;
+ b=KMuStyZLQJ87FD5gpD+CENeqH1MxgSeGxmxX04MwzhkdiAMaUzzwKOrL75g2d5vb9FeI6+
+ 8Q6VQ3jR14bZF4VEJuybCACjr0WEqH0zTIgve6WFfnQFlW0Jfri3+KgvWmdOBPPmYJ4kMb
+ EGZJJBeQ6wgLbLynE39lvyN4HJ8nDilManRnc+ajH9ae7CptIam+vxMsEbK8Qx6WSunw2E
+ VezniRzhuOWl8LHc8S+fJfhQp0eDOR0+Zsd/4+pNTnyepBcmOshe5h1Lixmv8Di1INUSwp
+ Sx9g9F3BbVrzYvi6whsrPITcuW5Aq3Bqos+jOh8cK4RuaIQAeXdnPlbyzPKJWQ==
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
- s=2020e; t=1730387711;
+ s=2020e; t=1730387706;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=oYfjK6Ca0PZ7u6hxJjuMYHahvzL9jhDTXWFMtws/RE8=;
- b=7QOgfZIusMOviCnFOXXtb31+1DxjDGaTQgD2d/m9I/g+V89vz6mSaJXN3c4JIgpGVfKIJ8
- klW9pVtvT4O9KcCw==
+ bh=pgW81mJgAIDJ6I8UWZoazeDmtDlfTTtXbZvn0v+KF3E=;
+ b=JJzshGDZV2BdIrokNMSNAmQdOzpgzIqd8oF1Rv4SZJEYqIrp66dJvhczxlTyvt+t98Ybp2
+ aomNsunmz1ldp4Dg==
 To: Anna-Maria Behnsen <anna-maria@linutronix.de>,
  Frederic Weisbecker <frederic@kernel.org>,
  Thomas Gleixner <tglx@linutronix.de>,
@@ -51,10 +51,10 @@ Cc: Jani Nikula <jani.nikula@linux.intel.com>, intel-gfx@lists.freedesktop.org,
  Jens Axboe <axboe@kernel.dk>, Christian Brauner <brauner@kernel.org>,
  Peter Zijlstra <peterz@infradead.org>, John Stultz <jstultz@google.com>,
  Nam Cao <namcao@linutronix.de>, Oliver Hartkopp <socketcan@hartkopp.net>
-Subject: [RESEND PATCH v2 17/19] io_uring: Switch to use
- hrtimer_setup_on_stack()
-Date: Thu, 31 Oct 2024 16:14:31 +0100
-Message-Id: <f0d4ac32ec4050710a656cee8385fa4427be33aa.1730386209.git.namcao@linutronix.de>
+Subject: [RESEND PATCH v2 10/19] fs/aio: Switch to use
+ hrtimer_setup_sleeper_on_stack()
+Date: Thu, 31 Oct 2024 16:14:24 +0100
+Message-Id: <5f10c259fa43ba2fe774de5b2cedc22f5e9cfd2d.1730386209.git.namcao@linutronix.de>
 In-Reply-To: <cover.1730386209.git.namcao@linutronix.de>
 References: <cover.1730386209.git.namcao@linutronix.de>
 MIME-Version: 1.0
@@ -75,41 +75,31 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-hrtimer_setup_on_stack() takes the callback function pointer as argument
-and initializes the timer completely.
+hrtimer_setup_sleeper_on_stack() replaces hrtimer_init_sleeper_on_stack()
+to keep the naming convention consistent.
 
-Replace hrtimer_init_on_stack() and the open coded initialization of
-hrtimer::function with the new setup mechanism.
+Convert the usage site over to it. The conversion was done with Coccinelle.
 
 Signed-off-by: Nam Cao <namcao@linutronix.de>
-Cc: Jens Axboe <axboe@kernel.dk>
+Cc: Christian Brauner <brauner@kernel.org>
 ---
- io_uring/io_uring.c | 7 ++++---
- 1 file changed, 4 insertions(+), 3 deletions(-)
+ fs/aio.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/io_uring/io_uring.c b/io_uring/io_uring.c
-index feb61d68dca6..0842aa3f60e7 100644
---- a/io_uring/io_uring.c
-+++ b/io_uring/io_uring.c
-@@ -2435,13 +2435,14 @@ static int io_cqring_schedule_timeout(struct io_wai=
-t_queue *iowq,
- {
- 	ktime_t timeout;
+diff --git a/fs/aio.c b/fs/aio.c
+index e8920178b50f..a5d331f29943 100644
+--- a/fs/aio.c
++++ b/fs/aio.c
+@@ -1335,7 +1335,7 @@ static long read_events(struct kioctx *ctx, long min_=
+nr, long nr,
+ 	if (until =3D=3D 0 || ret < 0 || ret >=3D min_nr)
+ 		return ret;
 =20
--	hrtimer_init_on_stack(&iowq->t, clock_id, HRTIMER_MODE_ABS);
- 	if (iowq->min_timeout) {
- 		timeout =3D ktime_add_ns(iowq->min_timeout, start_time);
--		iowq->t.function =3D io_cqring_min_timer_wakeup;
-+		hrtimer_setup_on_stack(&iowq->t, io_cqring_min_timer_wakeup, clock_id,
-+				       HRTIMER_MODE_ABS);
- 	} else {
- 		timeout =3D iowq->timeout;
--		iowq->t.function =3D io_cqring_timer_wakeup;
-+		hrtimer_setup_on_stack(&iowq->t, io_cqring_timer_wakeup, clock_id,
-+				       HRTIMER_MODE_ABS);
- 	}
-=20
- 	hrtimer_set_expires_range_ns(&iowq->t, timeout, 0);
+-	hrtimer_init_sleeper_on_stack(&t, CLOCK_MONOTONIC, HRTIMER_MODE_REL);
++	hrtimer_setup_sleeper_on_stack(&t, CLOCK_MONOTONIC, HRTIMER_MODE_REL);
+ 	if (until !=3D KTIME_MAX) {
+ 		hrtimer_set_expires_range_ns(&t.timer, until, current->timer_slack_ns);
+ 		hrtimer_sleeper_start_expires(&t, HRTIMER_MODE_REL);
 --=20
 2.39.5
 
