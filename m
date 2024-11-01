@@ -4,55 +4,35 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 533A2E6B27C
-	for <intel-gfx@archiver.kernel.org>; Fri,  1 Nov 2024 13:48:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D1E8AE6F060
+	for <intel-gfx@archiver.kernel.org>; Fri,  1 Nov 2024 14:17:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E902A10E9C1;
-	Fri,  1 Nov 2024 13:48:10 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="mfNmRQwa";
-	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.9])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D714010E9C0
- for <intel-gfx@lists.freedesktop.org>; Fri,  1 Nov 2024 13:48:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1730468890; x=1762004890;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=lDCkM0GCjnqN7TF6mXgSEnBsQpg+HX2bOUDmSmD3wtI=;
- b=mfNmRQwaHto4gfHy0N2pCaiNhIRJ2I/nZHVBtsCgNX6eM7bqpcrS7e3B
- s9zUJNK6GDCpTOwVyLwgHWQ2DJ4gQuv7S3K7AQNqTmdZctpKSkH3CL7in
- I8RYGP5ptqePUt8f4+4f71U6jbw7U3vaaNChxitwiiFw+NDs4RTHkaaCq
- c3NFwZcNVxvqiNGP5+OgP/EUD9ha06ApZgmAV4dUil9oHxqCt4CGvTnFa
- ibpRMgF7DlS1hX9oMZBVKHnNwq8gYxOm0F8km2ScCfMFjQpf/PiftoMYY
- WabqhA77pXsU0UH0YAoaREtBRkhVh4Uq0TmhNCA9HJ7At2ZlNu/271WAG g==;
-X-CSE-ConnectionGUID: sMckA2y7RKqb0JgqvpF3fA==
-X-CSE-MsgGUID: BB2efMKpTWGAs8M0qOAjqg==
-X-IronPort-AV: E=McAfee;i="6700,10204,11222"; a="52800116"
-X-IronPort-AV: E=Sophos;i="6.11,199,1725346800"; d="scan'208";a="52800116"
-Received: from orviesa002.jf.intel.com ([10.64.159.142])
- by orvoesa101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 01 Nov 2024 06:48:10 -0700
-X-CSE-ConnectionGUID: 7T9OTc+8R0ybEFW3jaQplg==
-X-CSE-MsgGUID: 640fIhUxTdeY6bynBp+NOg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.11,249,1725346800"; d="scan'208";a="113750926"
-Received: from sorvi2.fi.intel.com ([10.237.72.194])
- by orviesa002.jf.intel.com with ESMTP; 01 Nov 2024 06:48:08 -0700
-From: Mika Kahola <mika.kahola@intel.com>
-To: intel-gfx@lists.freedesktop.org
-Cc: jani.nikula@linux.intel.com, gustavo.sousa@intel.com, raag.jadav@intel.com,
- Mika Kahola <mika.kahola@intel.com>
-Subject: [PATCH v4 2/2] drm/i915/display: Use struct intel_display instead of
- struct drm_i915_private
-Date: Fri,  1 Nov 2024 15:39:24 +0200
-Message-ID: <20241101133924.245817-3-mika.kahola@intel.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20241101133924.245817-1-mika.kahola@intel.com>
-References: <20241101133924.245817-1-mika.kahola@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 609A910E1EE;
+	Fri,  1 Nov 2024 14:17:53 +0000 (UTC)
+Received: from coelho.fi (coelho.fi [88.99.146.29])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 47D6210E1EE;
+ Fri,  1 Nov 2024 14:17:52 +0000 (UTC)
+Received: from 91-155-254-188.elisa-laajakaista.fi ([91.155.254.188]
+ helo=[192.168.100.133])
+ by coelho.fi with esmtpsa (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+ (Exim 4.97) (envelope-from <luca@coelho.fi>)
+ id 1t6sT8-00000001Fa7-1OzP; Fri, 01 Nov 2024 16:17:50 +0200
+Message-ID: <7d67cf10d39068d17a4a348b628b15f69cde264b.camel@coelho.fi>
+From: Luca Coelho <luca@coelho.fi>
+To: Gustavo Sousa <gustavo.sousa@intel.com>,
+ intel-gfx@lists.freedesktop.org, 	intel-xe@lists.freedesktop.org
+Cc: Luca Coelho <luciano.coelho@intel.com>, Rodrigo Vivi
+ <rodrigo.vivi@intel.com>
+Date: Fri, 01 Nov 2024 16:17:40 +0200
+In-Reply-To: <20241021222744.294371-10-gustavo.sousa@intel.com>
+References: <20241021222744.294371-1-gustavo.sousa@intel.com>
+ <20241021222744.294371-10-gustavo.sousa@intel.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.54.1-1 
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Subject: Re: [PATCH 09/13] drm/i915/dmc_wl: Deal with existing references
+ when disabling
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,62 +48,65 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Let's start using struct intel_display instead of struct drm_i915_private
-when introducing new code. No functional changes.
+On Mon, 2024-10-21 at 19:27 -0300, Gustavo Sousa wrote:
+> It is possible that there are active wakelock references at the time we
+> are disabling the DMC wakelock mechanism. We need to deal with that in
+> two ways:
+>=20
+> (A) Implement the missing step from Bspec:
+>=20
+>     The Bspec instructs us to clear any existing wakelock request bit
+>     after disabling the mechanism. That gives a clue that it is okay to
+>     disable while there are locks held and we do not need to wait for
+>     them. However, since the spec is not explicit about it, we need
+>     still to get confirmation with the hardware team. Let's thus
+>     implement the spec and add a TODO note.
+>=20
+> (B) Ensure a consistent driver state:
+>=20
+>     The enable/disable logic would be problematic if the following
+>     sequence of events would happen:
+>=20
+>     1. Function A calls intel_dmc_wl_get();
+>     2. Some function calls intel_dmc_wl_disable();
+>     3. Some function calls intel_dmc_wl_enable();
+>     4. Function A is done and calls intel_dmc_wl_put().
+>=20
+>     At (2), the refcount becomes zero and then (4) causes an invalid
+>     decrement to the refcount. That would cause some issues:
+>=20
+>         - At the time between (3) and (4), function A would think that
+>           the hardware lock is held but it could not be really held
+>           until intel_dmc_wl_get() is called by something else.
+>         - The call made to (4) could cause the refcount to become zero
+>           and consequently the hardware lock to be released while there
+>           could be innocent paths trusting they still have the lock.
+>=20
+>     To fix that, we need to keep the refcount correctly in sync with
+>     intel_dmc_wl_{get,put}() calls and retake the hardware lock when
+>     enabling the DMC wakelock with a non-zero refcount.
+>=20
+>     One missing piece left to be handled here is the following scenario:
+>=20
+>     1. Function A calls intel_dmc_wl_get();
+>     2. Some function calls intel_dmc_wl_disable();
+>     3. Some function calls intel_dmc_wl_enable();
+>     4. Concurrently with (3), function A performs the MMIO in between
+>        setting DMC_WAKELOCK_CFG_ENABLE and asserting the lock with
+>        __intel_dmc_wl_take().
+>=20
+>     I'm mostly sure this would cause issues future display IPs if DMC
+>     trap implementation was completely removed. We need to check with
+>     the hardware team whether it would be safe to assert the hardware
+>     lock before setting DMC_WAKELOCK_CFG_ENABLE to avoid this scenario.
+>     If not, then we would have to deal with that via software
+>     synchronization.
+>=20
+> Signed-off-by: Gustavo Sousa <gustavo.sousa@intel.com>
+> ---
 
-Signed-off-by: Mika Kahola <mika.kahola@intel.com>
----
- drivers/gpu/drm/i915/display/intel_tc.c | 17 +++++++++++------
- 1 file changed, 11 insertions(+), 6 deletions(-)
+Reviewed-by: Luca Coelho <luciano.coelho@intel.com>
 
-diff --git a/drivers/gpu/drm/i915/display/intel_tc.c b/drivers/gpu/drm/i915/display/intel_tc.c
-index e40d55f4c0c4..385c838ee996 100644
---- a/drivers/gpu/drm/i915/display/intel_tc.c
-+++ b/drivers/gpu/drm/i915/display/intel_tc.c
-@@ -97,6 +97,11 @@ static struct drm_i915_private *tc_to_i915(struct intel_tc_port *tc)
- 	return to_i915(tc->dig_port->base.base.dev);
- }
- 
-+static struct intel_display *tc_to_intel_display(struct intel_tc_port *tc)
-+{
-+	return to_intel_display(tc->dig_port->base.base.dev);
-+}
-+
- static bool intel_tc_port_in_mode(struct intel_digital_port *dig_port,
- 				  enum tc_port_mode mode)
- {
-@@ -1039,9 +1044,9 @@ static void wa_14020908590(struct intel_display *display, bool enable)
- 
- static void __xelpdp_tc_phy_enable_tcss_power(struct intel_tc_port *tc, bool enable)
- {
--	struct drm_i915_private *i915 = tc_to_i915(tc);
-+	struct intel_display *display = tc_to_intel_display(tc);
- 	enum port port = tc->dig_port->base.port;
--	i915_reg_t reg = XELPDP_PORT_BUF_CTL1(i915, port);
-+	i915_reg_t reg = XELPDP_PORT_BUF_CTL1(display, port);
- 	u32 val;
- 
- 	assert_tc_cold_blocked(tc);
-@@ -1050,15 +1055,15 @@ static void __xelpdp_tc_phy_enable_tcss_power(struct intel_tc_port *tc, bool ena
- 	 * Gfx driver WA 14020908590 for PTL tcss_rxdetect_clkswb_req/ack
- 	 * handshake violation when pwwreq= 0->1 during TC7/10 entry
- 	 */
--	if (DISPLAY_VER(i915) == 30)
--		wa_14020908590(&i915->display, enable);
-+	if (DISPLAY_VER(display) == 30)
-+		wa_14020908590(display, enable);
- 
--	val = intel_de_read(i915, reg);
-+	val = intel_de_read(display, reg);
- 	if (enable)
- 		val |= XELPDP_TCSS_POWER_REQUEST;
- 	else
- 		val &= ~XELPDP_TCSS_POWER_REQUEST;
--	intel_de_write(i915, reg, val);
-+	intel_de_write(display, reg, val);
- }
- 
- static bool xelpdp_tc_phy_enable_tcss_power(struct intel_tc_port *tc, bool enable)
--- 
-2.43.0
-
+--
+Cheers,
+Luca.
