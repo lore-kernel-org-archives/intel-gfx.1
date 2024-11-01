@@ -4,35 +4,76 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 49670E6B26A
-	for <intel-gfx@archiver.kernel.org>; Fri,  1 Nov 2024 12:58:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8EA02E6B27F
+	for <intel-gfx@archiver.kernel.org>; Fri,  1 Nov 2024 13:43:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9D1BE10E9B6;
-	Fri,  1 Nov 2024 12:58:38 +0000 (UTC)
-Received: from coelho.fi (coelho.fi [88.99.146.29])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7016010E2C0;
- Fri,  1 Nov 2024 12:58:37 +0000 (UTC)
-Received: from 91-155-254-188.elisa-laajakaista.fi ([91.155.254.188]
- helo=[192.168.100.133])
- by coelho.fi with esmtpsa (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
- (Exim 4.97) (envelope-from <luca@coelho.fi>)
- id 1t6rEZ-00000001FUk-1Pfe; Fri, 01 Nov 2024 14:58:35 +0200
-Message-ID: <39ca0bca034ed369700b2ecc1b1a411c824bd3b0.camel@coelho.fi>
-From: Luca Coelho <luca@coelho.fi>
-To: Gustavo Sousa <gustavo.sousa@intel.com>,
- intel-gfx@lists.freedesktop.org, 	intel-xe@lists.freedesktop.org
-Cc: Luca Coelho <luciano.coelho@intel.com>, Rodrigo Vivi
- <rodrigo.vivi@intel.com>
-Date: Fri, 01 Nov 2024 14:58:33 +0200
-In-Reply-To: <20241021222744.294371-9-gustavo.sousa@intel.com>
-References: <20241021222744.294371-1-gustavo.sousa@intel.com>
- <20241021222744.294371-9-gustavo.sousa@intel.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.54.1-1 
+	by gabe.freedesktop.org (Postfix) with ESMTP id 60A9310E9BA;
+	Fri,  1 Nov 2024 13:43:16 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="Z/nvMyET";
+	dkim-atps=neutral
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.17])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B7CBB10E2DF;
+ Fri,  1 Nov 2024 13:43:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1730468595; x=1762004595;
+ h=date:from:to:cc:subject:message-id:reply-to:references:
+ mime-version:in-reply-to;
+ bh=yRwKjhcSgfpvoI02LRXx6jkqVbevSG9nk+9Aecvc8cs=;
+ b=Z/nvMyETKZELXfW8rfoeOjZsCSSmlVZ/LonTorcg7iYuD58tIT0khQ4t
+ Qu96KAhozO9gD9wkKbQEFQx3/gK5TxSeOPXlknQsiFsrbCJbuXe5ckiOH
+ fUPtYC99Cgj572xNlWdyfhV3xX+6kBEHF92PAvtGJl2ezdgi5yD86NrSg
+ ofwAmTiv605P7u9IwP/J9bpRw/c6EENCDk6NTTs7/hB4t9bxRSWnp1D1i
+ Vzw3iCVNg8pTTLIgAdVbxhY7DOnjZQFKfmSgtF938UNArqiOk1Xte0SJ5
+ VTFUAFpVUO7ZV47b8DehILKNFkD0bfc8l7CXw+12JUizNCxkij5f5KRXa w==;
+X-CSE-ConnectionGUID: FU18R+02Q8yc8B2XBFhNpQ==
+X-CSE-MsgGUID: Mrf5O6kWQ0y1ygsqgOY7vA==
+X-IronPort-AV: E=McAfee;i="6700,10204,11243"; a="30119595"
+X-IronPort-AV: E=Sophos;i="6.11,249,1725346800"; d="scan'208";a="30119595"
+Received: from fmviesa005.fm.intel.com ([10.60.135.145])
+ by fmvoesa111.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 01 Nov 2024 06:43:14 -0700
+X-CSE-ConnectionGUID: CtpAB3qsR6W4H/fE6wenmA==
+X-CSE-MsgGUID: WFZ06Jv9TcCfH+msyxeG9g==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.11,249,1725346800"; d="scan'208";a="87506784"
+Received: from ideak-desk.fi.intel.com ([10.237.72.78])
+ by fmviesa005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 01 Nov 2024 06:43:07 -0700
+Date: Fri, 1 Nov 2024 15:43:40 +0200
+From: Imre Deak <imre.deak@intel.com>
+To: Jani Nikula <jani.nikula@linux.intel.com>
+Cc: Abel Vesa <abel.vesa@linaro.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Karol Herbst <kherbst@redhat.com>, Lyude Paul <lyude@redhat.com>,
+ Danilo Krummrich <dakr@redhat.com>, Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Tvrtko Ursulin <tursulin@ursulin.net>, Rob Clark <robdclark@gmail.com>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>,
+ Johan Hovold <johan@kernel.org>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, nouveau@lists.freedesktop.org,
+ intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
+ linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org
+Subject: Re: [PATCH RFC 1/4] drm/dp: Add helper to set LTTPRs in transparent
+ mode
+Message-ID: <ZyTbDELVW5vqFoMS@ideak-desk.fi.intel.com>
+References: <20241031-drm-dp-msm-add-lttpr-transparent-mode-set-v1-0-cafbb9855f40@linaro.org>
+ <20241031-drm-dp-msm-add-lttpr-transparent-mode-set-v1-1-cafbb9855f40@linaro.org>
+ <ZyPxLpykHkO9Xx_R@ideak-desk.fi.intel.com>
+ <87msijjol6.fsf@intel.com>
 MIME-Version: 1.0
-Subject: Re: [PATCH 08/13] drm/i915/dmc_wl: Allow simpler syntax for single
- reg in range tables
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <87msijjol6.fsf@intel.com>
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -45,71 +86,86 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: imre.deak@intel.com
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Mon, 2024-10-21 at 19:27 -0300, Gustavo Sousa wrote:
-> Allow simpler syntax for defining entries for single registers in range
-> tables. That makes them easier to type as well as to read, allowing one
-> to quickly tell whether a range actually refers to a single register or
-> a "true range".
->=20
-> Signed-off-by: Gustavo Sousa <gustavo.sousa@intel.com>
-> ---
->  drivers/gpu/drm/i915/display/intel_dmc_wl.c | 118 ++++++++++----------
->  1 file changed, 60 insertions(+), 58 deletions(-)
->=20
-> diff --git a/drivers/gpu/drm/i915/display/intel_dmc_wl.c b/drivers/gpu/dr=
-m/i915/display/intel_dmc_wl.c
-> index 8bf2f32be859..6992ce654e75 100644
-> --- a/drivers/gpu/drm/i915/display/intel_dmc_wl.c
-> +++ b/drivers/gpu/drm/i915/display/intel_dmc_wl.c
-> @@ -54,82 +54,82 @@ static struct intel_dmc_wl_range lnl_wl_range[] =3D {
->  };
-> =20
->  static struct intel_dmc_wl_range xe3lpd_dc5_dc6_wl_ranges[] =3D {
-> -	{ .start =3D 0x45500, .end =3D 0x45500 }, /* DC_STATE_SEL */
-> +	{ .start =3D 0x45500 }, /* DC_STATE_SEL */
->  	{ .start =3D 0x457a0, .end =3D 0x457b0 }, /* DC*_RESIDENCY_COUNTER */
-> -	{ .start =3D 0x45504, .end =3D 0x45504 }, /* DC_STATE_EN */
-> +	{ .start =3D 0x45504 }, /* DC_STATE_EN */
->  	{ .start =3D 0x45400, .end =3D 0x4540c }, /* PWR_WELL_CTL_* */
-> -	{ .start =3D 0x454f0, .end =3D 0x454f0 }, /* RETENTION_CTRL */
-> +	{ .start =3D 0x454f0 }, /* RETENTION_CTRL */
-> =20
->  	/* DBUF_CTL_* */
-> -	{ .start =3D 0x44300, .end =3D 0x44300 },
-> -	{ .start =3D 0x44304, .end =3D 0x44304 },
-> -	{ .start =3D 0x44f00, .end =3D 0x44f00 },
-> -	{ .start =3D 0x44f04, .end =3D 0x44f04 },
-> -	{ .start =3D 0x44fe8, .end =3D 0x44fe8 },
-> -	{ .start =3D 0x45008, .end =3D 0x45008 },
-> +	{ .start =3D 0x44300 },
-> +	{ .start =3D 0x44304 },
-> +	{ .start =3D 0x44f00 },
-> +	{ .start =3D 0x44f04 },
-> +	{ .start =3D 0x44fe8 },
-> +	{ .start =3D 0x45008 },
-> =20
-> -	{ .start =3D 0x46070, .end =3D 0x46070 }, /* CDCLK_PLL_ENABLE */
-> -	{ .start =3D 0x46000, .end =3D 0x46000 }, /* CDCLK_CTL */
-> -	{ .start =3D 0x46008, .end =3D 0x46008 }, /* CDCLK_SQUASH_CTL */
-> +	{ .start =3D 0x46070 }, /* CDCLK_PLL_ENABLE */
-> +	{ .start =3D 0x46000 }, /* CDCLK_CTL */
-> +	{ .start =3D 0x46008 }, /* CDCLK_SQUASH_CTL */
+On Fri, Nov 01, 2024 at 11:22:13AM +0200, Jani Nikula wrote:
+> On Thu, 31 Oct 2024, Imre Deak <imre.deak@intel.com> wrote:
+> > On Thu, Oct 31, 2024 at 05:12:45PM +0200, Abel Vesa wrote:
+> >> According to the DisplayPort standard, LTTPRs have two operating
+> >> modes:
+> >>  - non-transparent - it replies to DPCD LTTPR field specific AUX
+> >>    requests, while passes through all other AUX requests
+> >>  - transparent - it passes through all AUX requests.
+> >> 
+> >> Switching between this two modes is done by the DPTX by issuing
+> >> an AUX write to the DPCD PHY_REPEATER_MODE register.
+> >> 
+> >> Add a generic helper that allows switching between these modes.
+> >> 
+> >> Signed-off-by: Abel Vesa <abel.vesa@linaro.org>
+> >> ---
+> >>  drivers/gpu/drm/display/drm_dp_helper.c | 17 +++++++++++++++++
+> >>  include/drm/display/drm_dp_helper.h     |  1 +
+> >>  2 files changed, 18 insertions(+)
+> >> 
+> >> diff --git a/drivers/gpu/drm/display/drm_dp_helper.c b/drivers/gpu/drm/display/drm_dp_helper.c
+> >> index 6ee51003de3ce616c3a52653c2f1979ad7658e21..38d612345986ad54b42228902ea718a089d169c4 100644
+> >> --- a/drivers/gpu/drm/display/drm_dp_helper.c
+> >> +++ b/drivers/gpu/drm/display/drm_dp_helper.c
+> >> @@ -2694,6 +2694,23 @@ int drm_dp_lttpr_max_link_rate(const u8 caps[DP_LTTPR_COMMON_CAP_SIZE])
+> >>  }
+> >>  EXPORT_SYMBOL(drm_dp_lttpr_max_link_rate);
+> >>  
+> >> +/**
+> >> + * drm_dp_lttpr_set_transparent_mode - set the LTTPR in transparent mode
+> >> + * @aux: DisplayPort AUX channel
+> >> + * @enable: Enable or disable transparent mode
+> >> + *
+> >> + * Returns 0 on success or a negative error code on failure.
+> >
+> > Should be "Returns 1 on success".
+> 
+> But is that a sensible return value?
 
-Many of these are probably actually ranges.  I'm not a HW guy, but
-these are probably blocks that need the wakelock and it just happens
-that many of those addresses are actually not used, but would need a
-wakelock if they were used?
+It matches what the function returns, but yes, would make more sense to
+fix the return value instead to be 0 in case of success.
 
-IOW, e.g. all these DBUF_CTL registers are probably in the same range
-that needs wakelocks (i.e. 0x44300-0x46fff)? Do we really need to
-define many of these individually?
-
-This is related to the previous patch as well, but I decided to comment
-it here because it becomes clearer.
-
---
-Cheers,
-Luca.
+> >
+> >> + */
+> >> +
+> 
+> Superfluous newline.
+> 
+> >> +int drm_dp_lttpr_set_transparent_mode(struct drm_dp_aux *aux, bool enable)
+> >> +{
+> >> +	u8 val = enable ? DP_PHY_REPEATER_MODE_TRANSPARENT :
+> >> +			  DP_PHY_REPEATER_MODE_NON_TRANSPARENT;
+> >> +
+> >> +	return drm_dp_dpcd_writeb(aux, DP_PHY_REPEATER_MODE, val);
+> >> +}
+> >> +EXPORT_SYMBOL(drm_dp_lttpr_set_transparent_mode);
+> >> +
+> >>  /**
+> >>   * drm_dp_lttpr_max_lane_count - get the maximum lane count supported by all LTTPRs
+> >>   * @caps: LTTPR common capabilities
+> >> diff --git a/include/drm/display/drm_dp_helper.h b/include/drm/display/drm_dp_helper.h
+> >> index 279624833ea9259809428162f4e845654359f8c9..8821ab2d36b0e04d38ccbdddcb703b34de7ed680 100644
+> >> --- a/include/drm/display/drm_dp_helper.h
+> >> +++ b/include/drm/display/drm_dp_helper.h
+> >> @@ -625,6 +625,7 @@ int drm_dp_read_lttpr_phy_caps(struct drm_dp_aux *aux,
+> >>  			       u8 caps[DP_LTTPR_PHY_CAP_SIZE]);
+> >>  int drm_dp_lttpr_count(const u8 cap[DP_LTTPR_COMMON_CAP_SIZE]);
+> >>  int drm_dp_lttpr_max_link_rate(const u8 caps[DP_LTTPR_COMMON_CAP_SIZE]);
+> >> +int drm_dp_lttpr_set_transparent_mode(struct drm_dp_aux *aux, bool enable);
+> >>  int drm_dp_lttpr_max_lane_count(const u8 caps[DP_LTTPR_COMMON_CAP_SIZE]);
+> >>  bool drm_dp_lttpr_voltage_swing_level_3_supported(const u8 caps[DP_LTTPR_PHY_CAP_SIZE]);
+> >>  bool drm_dp_lttpr_pre_emphasis_level_3_supported(const u8 caps[DP_LTTPR_PHY_CAP_SIZE]);
+> >> 
+> >> -- 
+> >> 2.34.1
+> >> 
+> 
+> -- 
+> Jani Nikula, Intel
