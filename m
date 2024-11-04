@@ -4,51 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B452ED111A0
-	for <intel-gfx@archiver.kernel.org>; Mon,  4 Nov 2024 04:00:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A4EAFD111A0
+	for <intel-gfx@archiver.kernel.org>; Mon,  4 Nov 2024 04:08:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 51F5610E368;
-	Mon,  4 Nov 2024 04:00:06 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1C44510E36C;
+	Mon,  4 Nov 2024 04:08:40 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="TJlp2Pbh";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="eSP6zXv3";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.15])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 74D8910E368;
- Mon,  4 Nov 2024 04:00:05 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.14])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A44CF10E36C;
+ Mon,  4 Nov 2024 04:08:38 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1730692805; x=1762228805;
+ t=1730693318; x=1762229318;
  h=from:to:cc:subject:date:message-id:mime-version:
  content-transfer-encoding;
- bh=cScCVLCqXqj8Gs5twdw5y8e++NKcroV3tABhXiRr8hg=;
- b=TJlp2PbhPteRLfhCgwsIFEXJ//gmgqCyqioaIohmxIqSYiY74sG/zkhk
- oJL9lG23OGFd1CTD76BJhS5wkGhyi/OOKjdNY4gI0Cw3ptqYbhDTIoPIu
- nh2tdm1Kt997HSqvy7K5492CrxGhIQis1J1XYXdcSOXSB/kE3F8td+Dy7
- uyF+07EaHwnxIE3RbAbvsBtSRv6PFyS3ChbLLG4RVTSTgdisbpPNurNL7
- Nwo1yhfNz2hfc4LhzaE67VhUjdrJ19VEoEN/gCkHGKPj0EzU0+KMI4OF9
- ek8v2GUPLCe8y0+NOdYxsGS35zFRgaU65w55w3t3CsMDCeoVzkfW8vtz+ Q==;
-X-CSE-ConnectionGUID: OY1dg5NNTxqHBiaEeTW+pA==
-X-CSE-MsgGUID: BGhLPO9BQ8uk186rJrJ4LQ==
-X-IronPort-AV: E=McAfee;i="6700,10204,11222"; a="34072165"
-X-IronPort-AV: E=Sophos;i="6.11,199,1725346800"; d="scan'208";a="34072165"
-Received: from orviesa009.jf.intel.com ([10.64.159.149])
- by orvoesa107.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 03 Nov 2024 20:00:05 -0800
-X-CSE-ConnectionGUID: eVBJbvX5QTWodQrxqoRD4A==
-X-CSE-MsgGUID: seqLmIQCQLiq6CrsNCJLWQ==
+ bh=WWEE1OBIpM2RwjaNWutcyLWaQlyyd2ifDQWPAXn+sV4=;
+ b=eSP6zXv3MxkTBVcS7VIlb9cjc4SgwMvFD1NUJ51s4j4iw8VJGuhf1y70
+ E/HTFQPGcP2InkUURPosYfRch3cNxV36M/RiWrGDd462v8v/nGZR0f+Bb
+ EOR4WrS+5KGpoTkKy/CEoBoEw1ccpay5KeVKm+5DkWtcWk9Sc8WVye1zj
+ 97en7IUjyBv8FWkANCDahvyy3/UcWxa4Or6IxbOSFxTAlNJYLb+m1uNIA
+ aAzVo9sFzafqfCQU/N3EHMW3gdWDspjv6Bjl2wU77i+RpPxjgy/VdXvVs
+ HuuRGfewNGbvdzYuupAMxbM79ugS2d5SadKwAovzcastBNl3eBe0l5M+Y Q==;
+X-CSE-ConnectionGUID: QYO/NUsXRJWcBPAdn3DALg==
+X-CSE-MsgGUID: oQ4bWWzWS3ehRXfFQlllxQ==
+X-IronPort-AV: E=McAfee;i="6700,10204,11245"; a="34165980"
+X-IronPort-AV: E=Sophos;i="6.11,256,1725346800"; d="scan'208";a="34165980"
+Received: from fmviesa008.fm.intel.com ([10.60.135.148])
+ by orvoesa106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 03 Nov 2024 20:08:38 -0800
+X-CSE-ConnectionGUID: dibFRTASSZehYZsdCD09VA==
+X-CSE-MsgGUID: +enRDfVNTMepLyYiZI8D2g==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.11,256,1725346800"; d="scan'208";a="83414667"
-Received: from kandpal-x299-ud4-pro.iind.intel.com ([10.190.239.10])
- by orviesa009.jf.intel.com with ESMTP; 03 Nov 2024 20:00:03 -0800
-From: Suraj Kandpal <suraj.kandpal@intel.com>
+X-IronPort-AV: E=Sophos;i="6.11,256,1725346800"; d="scan'208";a="83636880"
+Received: from srr4-3-linux-106-armuthy.iind.intel.com ([10.190.238.56])
+ by fmviesa008.fm.intel.com with ESMTP; 03 Nov 2024 20:08:36 -0800
+From: Arun R Murthy <arun.r.murthy@intel.com>
 To: intel-xe@lists.freedesktop.org,
 	intel-gfx@lists.freedesktop.org
-Cc: jani.nikula@intel.com, Suraj Kandpal <suraj.kandpal@intel.com>,
- Chaitanya Kumar Borah <chaitanya.kumar.borah@intel.com>
-Subject: [PATCH] drm/i915/hdcp: Fix when the first read and write are retried
-Date: Mon,  4 Nov 2024 09:29:51 +0530
-Message-Id: <20241104035951.517837-1-suraj.kandpal@intel.com>
-X-Mailer: git-send-email 2.34.1
+Cc: Arun R Murthy <arun.r.murthy@intel.com>,
+ Srikanth V NagaVenkata <nagavenkata.srikanth.v@intel.com>,
+ Jani Nikula <jani.nikula@intel.com>
+Subject: [RESEND PATCHv2 1/3] drm/i915/dp: use fsleep instead of usleep_range
+ for LT
+Date: Mon,  4 Nov 2024 09:28:57 +0530
+Message-Id: <20241104035859.3796797-1-arun.r.murthy@intel.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-BeenThere: intel-gfx@lists.freedesktop.org
@@ -66,92 +68,50 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Make sure that the first read/write in hdcp2_authentication_key_exchange
-are only retried when we have either DP/DPMST encoder connected,
-since we do this to give docks and dp encoders some extra time to
-get their HDCP DPCD registers ready only for DP/DPMST encoders as
-this issue is only observed here no need to burden other encoders
-with extra retries as this causes the HDMI connector to have some
-other timing issue and fails HDCP authentication.
+Sleeping for < 10us use udelay, for 10us to 20ms use usleep_range() and
+for > 10ms use msleep. flseep() will call the particular API based on
+the above condition. (Documentation/timers/timers-howto.rst)
+Aux RD Interval value depends on the value read from the dpcd register
+which is updated from the sink device, hence use flseep.
 
---v2
--Add intent of patch [Chaitanya]
--Add reasoning for loop [Jani]
--Make sure we forfiet the 50ms wait for non DP/DPMST encoders.
-
---v3
--Remove the is_dp_encoder check [Jani/Chaitanya]
--Make the commit message more clearer [Jani]
-
-Fixes: 9d5a05f86d2f ("drm/i915/hdcp: Retry first read and writes to downstream")
-Signed-off-by: Suraj Kandpal <suraj.kandpal@intel.com>
-Reviewed-by: Chaitanya Kumar Borah <chaitanya.kumar.borah@intel.com>
+Co-developed-by: Srikanth V NagaVenkata <nagavenkata.srikanth.v@intel.com>
+Signed-off-by: Arun R Murthy <arun.r.murthy@intel.com>
+Reviewed-by: Jani Nikula <jani.nikula@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_hdcp.c | 32 ++++++++++++++---------
- 1 file changed, 20 insertions(+), 12 deletions(-)
+ drivers/gpu/drm/i915/display/intel_dp_link_training.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_hdcp.c b/drivers/gpu/drm/i915/display/intel_hdcp.c
-index f6d42ec6949e..f57e4dba2873 100644
---- a/drivers/gpu/drm/i915/display/intel_hdcp.c
-+++ b/drivers/gpu/drm/i915/display/intel_hdcp.c
-@@ -1503,6 +1503,8 @@ static int hdcp2_deauthenticate_port(struct intel_connector *connector)
- static int hdcp2_authentication_key_exchange(struct intel_connector *connector)
- {
- 	struct intel_display *display = to_intel_display(connector);
-+	struct intel_digital_port *dig_port =
-+		intel_attached_dig_port(connector);
- 	struct intel_hdcp *hdcp = &connector->hdcp;
- 	union {
- 		struct hdcp2_ake_init ake_init;
-@@ -1513,30 +1515,36 @@ static int hdcp2_authentication_key_exchange(struct intel_connector *connector)
- 	} msgs;
- 	const struct intel_hdcp_shim *shim = hdcp->shim;
- 	size_t size;
--	int ret, i;
-+	int ret, i, max_retries;
+diff --git a/drivers/gpu/drm/i915/display/intel_dp_link_training.c b/drivers/gpu/drm/i915/display/intel_dp_link_training.c
+index 397cc4ebae52..f41b69840ad9 100644
+--- a/drivers/gpu/drm/i915/display/intel_dp_link_training.c
++++ b/drivers/gpu/drm/i915/display/intel_dp_link_training.c
+@@ -898,7 +898,7 @@ intel_dp_link_training_clock_recovery(struct intel_dp *intel_dp,
  
- 	/* Init for seq_num */
- 	hdcp->seq_num_v = 0;
- 	hdcp->seq_num_m = 0;
+ 	voltage_tries = 1;
+ 	for (cr_tries = 0; cr_tries < max_cr_tries; ++cr_tries) {
+-		usleep_range(delay_us, 2 * delay_us);
++		fsleep(delay_us);
  
-+	if (intel_encoder_is_dp(&dig_port->base) ||
-+	    intel_encoder_is_mst(&dig_port->base))
-+		max_retries = 10;
-+	else
-+		max_retries = 1;
-+
- 	ret = hdcp2_prepare_ake_init(connector, &msgs.ake_init);
- 	if (ret < 0)
- 		return ret;
+ 		if (drm_dp_dpcd_read_phy_link_status(&intel_dp->aux, dp_phy,
+ 						     link_status) < 0) {
+@@ -1040,7 +1040,7 @@ intel_dp_link_training_channel_equalization(struct intel_dp *intel_dp,
+ 	}
  
- 	/*
- 	 * Retry the first read and write to downstream at least 10 times
--	 * with a 50ms delay if not hdcp2 capable(dock decides to stop advertising
--	 * hdcp2 capability for some reason). The reason being that
--	 * during suspend resume dock usually keeps the HDCP2 registers inaccesible
--	 * causing AUX error. This wouldn't be a big problem if the userspace
--	 * just kept retrying with some delay while it continues to play low
--	 * value content but most userpace applications end up throwing an error
--	 * when it receives one from KMD. This makes sure we give the dock
--	 * and the sink devices to complete its power cycle and then try HDCP
--	 * authentication. The values of 10 and delay of 50ms was decided based
--	 * on multiple trial and errors.
-+	 * with a 50ms delay if not hdcp2 capable for DP/DPMST encoders
-+	 * (dock decides to stop advertising hdcp2 capability for some reason).
-+	 * The reason being that during suspend resume dock usually keeps the
-+	 * HDCP2 registers inaccesible causing AUX error. This wouldn't be a
-+	 * big problem if the userspace just kept retrying with some delay while
-+	 * it continues to play low value content but most userpace applications
-+	 * end up throwing an error when it receives one from KMD. This makes
-+	 * sure we give the dock and the sink devices to complete its power cycle
-+	 * and then try HDCP authentication. The values of 10 and delay of 50ms
-+	 * was decided based on multiple trial and errors.
- 	 */
--	for (i = 0; i < 10; i++) {
-+	for (i = 0; i < max_retries; i++) {
- 		if (!intel_hdcp2_get_capability(connector)) {
- 			msleep(50);
- 			continue;
+ 	for (tries = 0; tries < 5; tries++) {
+-		usleep_range(delay_us, 2 * delay_us);
++		fsleep(delay_us);
+ 
+ 		if (drm_dp_dpcd_read_phy_link_status(&intel_dp->aux, dp_phy,
+ 						     link_status) < 0) {
+@@ -1417,7 +1417,7 @@ intel_dp_128b132b_lane_eq(struct intel_dp *intel_dp,
+ 	deadline = jiffies + msecs_to_jiffies_timeout(400);
+ 
+ 	for (try = 0; try < max_tries; try++) {
+-		usleep_range(delay_us, 2 * delay_us);
++		fsleep(delay_us);
+ 
+ 		/*
+ 		 * The delay may get updated. The transmitter shall read the
 -- 
-2.34.1
+2.25.1
 
