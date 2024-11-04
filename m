@@ -4,51 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 03933D1BDFA
-	for <intel-gfx@archiver.kernel.org>; Mon,  4 Nov 2024 21:35:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BB7EFD111AE
+	for <intel-gfx@archiver.kernel.org>; Mon,  4 Nov 2024 21:41:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3940D10E4E2;
-	Mon,  4 Nov 2024 21:35:37 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 513F610E4F1;
+	Mon,  4 Nov 2024 21:41:06 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="OJUumKW/";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="Zu7ixEtr";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.21])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 76A1210E4DC
- for <intel-gfx@lists.freedesktop.org>; Mon,  4 Nov 2024 21:35:35 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.13])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 24FE910E4ED;
+ Mon,  4 Nov 2024 21:41:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1730756135; x=1762292135;
- h=from:to:subject:date:message-id:in-reply-to:references:
- mime-version:content-transfer-encoding;
- bh=w5SktQyGKbBe8qPKvgzsxLWrebJygdTFb7XRNX/il1k=;
- b=OJUumKW/oskFywznLGz1rYbAK7XsJ9dNf4pWORxOZ/TNJ47W2yUNfBEn
- q1W6f/iL+VG7oxdr2FwFU3e0A17gcLPVfWx3EcplpL2Ya7n0Xt5u996Wc
- 0bSqnKopXJPjoAvmkIlYTR/GSy7h6ycQvrwBg0BIQ1jOGHKAXuUUZMnpf
- c8w6TTG4K+afg8Zl+i1lEhsYV9t2irlwfIyEeU8xhQuEfyTBRyVJpSz7B
- S07fZBPQxGZc2wxtQqw+BWS2Wp6X9aM84jFVT9LsPwYNs+qH2G5StBbg2
- ENgJ0h3eBtgcH443qdy9wQVEiSsZLa55ttAvyoSSGZUVS8OHVIWL+hDjm w==;
-X-CSE-ConnectionGUID: ZlYMYjpURzqR6BW/Hg8GVg==
-X-CSE-MsgGUID: +kU8xSaHStmSv8IDEmpnBQ==
-X-IronPort-AV: E=McAfee;i="6700,10204,11222"; a="30420299"
-X-IronPort-AV: E=Sophos;i="6.11,199,1725346800"; d="scan'208";a="30420299"
-Received: from orviesa002.jf.intel.com ([10.64.159.142])
- by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 04 Nov 2024 13:35:35 -0800
-X-CSE-ConnectionGUID: X4VnAC+/ROeHdASvf/faJA==
-X-CSE-MsgGUID: Nv7U7RFxQGaedfmzcGmlrA==
+ t=1730756465; x=1762292465;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=HsacipRl6oK5Bx9BeK3qF5d/NqJRxft6tYde6WPFSEg=;
+ b=Zu7ixEtrJFbahDmihGOTcP5M5OqJrnft5z4Q5nHfsfN9nh7+ycBFY0bk
+ +QgSZ1ztsMIflBE+YmRBntoOaos3PWFABkIL3VMTgQPG5wKsUm9SABZph
+ GyocruXtmHXQ+XXoEPkw3McB7bkmHM7pq+3SWP3T3WXi/8MhNu5FlhyRe
+ 5+cNXLkPJbZmNumHLl0hukEWyDn29k+xLf8NnErsOY4Nr7X/MvglfFsqe
+ suLjJ/1bgYLrhSwQQQCJQmsxPdknnY1mjqbI+dzujU58bFtcBbkhv6CyA
+ J10EGODuQOYL6tNhM+G4JktrRXTKwHWd+WR5YvpttzgLWJSO0vm4G3Sur g==;
+X-CSE-ConnectionGUID: vZZR2fdVQ2ygocLNU1JbfA==
+X-CSE-MsgGUID: vrD3BfAIQLaZ64HZ7XMpbw==
+X-IronPort-AV: E=McAfee;i="6700,10204,11246"; a="33314202"
+X-IronPort-AV: E=Sophos;i="6.11,258,1725346800"; d="scan'208";a="33314202"
+Received: from orviesa001.jf.intel.com ([10.64.159.141])
+ by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 04 Nov 2024 13:41:05 -0800
+X-CSE-ConnectionGUID: 12EurFWkRpKtiVIgYoOe8g==
+X-CSE-MsgGUID: kgMkARL6Q9GOkl9pYfiXvQ==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.11,258,1725346800"; d="scan'208";a="114562843"
-Received: from lucas-s2600cw.jf.intel.com ([10.165.21.196])
- by orviesa002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 04 Nov 2024 13:35:35 -0800
-From: Lucas De Marchi <lucas.demarchi@intel.com>
-To: intel-gfx@lists.freedesktop.org
-Subject: [PATCH 1/4] drm/i915/pmu: Rename cpuhp_slot to cpuhp_state
-Date: Mon,  4 Nov 2024 13:35:09 -0800
-Message-ID: <20241104213512.2314930-2-lucas.demarchi@intel.com>
-X-Mailer: git-send-email 2.47.0
-In-Reply-To: <20241104213512.2314930-1-lucas.demarchi@intel.com>
-References: <20241104213512.2314930-1-lucas.demarchi@intel.com>
+X-IronPort-AV: E=Sophos;i="6.11,258,1725346800"; d="scan'208";a="121261470"
+Received: from guc-pnp-dev-box-1.fm.intel.com ([10.1.27.7])
+ by orviesa001.jf.intel.com with ESMTP; 04 Nov 2024 13:41:04 -0800
+From: Zhanjun Dong <zhanjun.dong@intel.com>
+To: intel-gfx@lists.freedesktop.org,
+	dri-devel@lists.freedesktop.org
+Cc: Zhanjun Dong <zhanjun.dong@intel.com>,
+ Alan Previn <alan.previn.teres.alexis@intel.com>
+Subject: [PATCH v2] drm/i915/guc: Flush ct receive tasklet during reset
+ preparation
+Date: Mon,  4 Nov 2024 13:41:03 -0800
+Message-Id: <20241104214103.214702-1-zhanjun.dong@intel.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-BeenThere: intel-gfx@lists.freedesktop.org
@@ -66,63 +67,47 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Both the documentation and most of other users call the return of
-cpuhp_setup_state_multi() as "state". Follow that.
+GuC to host communication is interrupt driven, the handling has 3
+parts: interrupt context, tasklet and request queue worker.
+During GuC reset prepare, interrupt is disabled before destroy
+contexts steps start. The IRQ and worker are flushed to finish
+any outstanding in-progress message handling. But, the tasklet
+flush is missing, it might causes 2 race conditions:
+1. Tasklet runs after IRQ flushed, add request to queue after worker
+flush started, causes unexpected G2H message request processing,
+meanwhile, reset prepare code already get the context destroyed.
+This will causes error reported about bad context state.
+(https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/11349 and
+https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/12303)
+2. Tasklet runs after intel_guc_submission_reset_prepare,
+ct_try_receive_message start to run, while intel_uc_reset_prepare
+already finished guc sanitize and set ct->enable to false. This will
+causes warning on incorrect ct->enable state.
+(https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/12439)
 
-Reviewed-by: Matt Roper <matthew.d.roper@intel.com>
-Signed-off-by: Lucas De Marchi <lucas.demarchi@intel.com>
+Add the missing tasklet flush to flush all 3 parts.
+
+Signed-off-by: Zhanjun Dong <zhanjun.dong@intel.com>
+Reviewed-by: Alan Previn <alan.previn.teres.alexis@intel.com>
 ---
- drivers/gpu/drm/i915/i915_pmu.c | 14 +++++++-------
- 1 file changed, 7 insertions(+), 7 deletions(-)
+ drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-diff --git a/drivers/gpu/drm/i915/i915_pmu.c b/drivers/gpu/drm/i915/i915_pmu.c
-index 93fbf53578da2..8706957ddc0a3 100644
---- a/drivers/gpu/drm/i915/i915_pmu.c
-+++ b/drivers/gpu/drm/i915/i915_pmu.c
-@@ -1218,7 +1218,7 @@ static int i915_pmu_cpu_offline(unsigned int cpu, struct hlist_node *node)
- 	return 0;
- }
+diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
+index 9ede6f240d79..353a9167c9a4 100644
+--- a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
++++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
+@@ -1688,6 +1688,10 @@ void intel_guc_submission_reset_prepare(struct intel_guc *guc)
+ 	spin_lock_irq(guc_to_gt(guc)->irq_lock);
+ 	spin_unlock_irq(guc_to_gt(guc)->irq_lock);
  
--static enum cpuhp_state cpuhp_slot = CPUHP_INVALID;
-+static enum cpuhp_state cpuhp_state = CPUHP_INVALID;
- 
- int i915_pmu_init(void)
- {
-@@ -1232,28 +1232,28 @@ int i915_pmu_init(void)
- 		pr_notice("Failed to setup cpuhp state for i915 PMU! (%d)\n",
- 			  ret);
- 	else
--		cpuhp_slot = ret;
-+		cpuhp_state = ret;
- 
- 	return 0;
- }
- 
- void i915_pmu_exit(void)
- {
--	if (cpuhp_slot != CPUHP_INVALID)
--		cpuhp_remove_multi_state(cpuhp_slot);
-+	if (cpuhp_state != CPUHP_INVALID)
-+		cpuhp_remove_multi_state(cpuhp_state);
- }
- 
- static int i915_pmu_register_cpuhp_state(struct i915_pmu *pmu)
- {
--	if (cpuhp_slot == CPUHP_INVALID)
-+	if (cpuhp_state == CPUHP_INVALID)
- 		return -EINVAL;
- 
--	return cpuhp_state_add_instance(cpuhp_slot, &pmu->cpuhp.node);
-+	return cpuhp_state_add_instance(cpuhp_state, &pmu->cpuhp.node);
- }
- 
- static void i915_pmu_unregister_cpuhp_state(struct i915_pmu *pmu)
- {
--	cpuhp_state_remove_instance(cpuhp_slot, &pmu->cpuhp.node);
-+	cpuhp_state_remove_instance(cpuhp_state, &pmu->cpuhp.node);
- }
- 
- void i915_pmu_register(struct drm_i915_private *i915)
++	/* Flush tasklet */
++	tasklet_disable(&guc->ct.receive_tasklet);
++	tasklet_enable(&guc->ct.receive_tasklet);
++
+ 	guc_flush_submissions(guc);
+ 	guc_flush_destroyed_contexts(guc);
+ 	flush_work(&guc->ct.requests.worker);
 -- 
-2.47.0
+2.34.1
 
