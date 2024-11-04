@@ -4,49 +4,77 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 76D9ED1BDC0
-	for <intel-gfx@archiver.kernel.org>; Mon,  4 Nov 2024 16:15:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7EACBD1BDC3
+	for <intel-gfx@archiver.kernel.org>; Mon,  4 Nov 2024 16:15:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D97E010E3E3;
-	Mon,  4 Nov 2024 16:15:39 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 79A8C10E47D;
+	Mon,  4 Nov 2024 16:15:40 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=cyberialabs.net header.i=@cyberialabs.net header.b="XHBjF0U2";
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=purelymail.com header.i=@purelymail.com header.b="iEHwTryQ";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="SjLppf90";
 	dkim-atps=neutral
-Received: from sendmail.purelymail.com (sendmail.purelymail.com
- [34.202.193.197])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4C6E310E064
- for <intel-gfx@lists.freedesktop.org>; Sat,  2 Nov 2024 01:46:19 +0000 (UTC)
-DKIM-Signature: a=rsa-sha256;
- b=XHBjF0U25oHci1aOe5RMyTIJZ6jSAA62N6KiWXUtPUjQJMs9g0eTmzLbYTCrB3tM1qoTpfLCd9hIibcgS2zJpyENiY3bRolIZ6egmMejhPnIg0WLsm3NK9/UoNytl5vuXqQUSKJS57qcB/Ylh++RF6/mFXCkqtieYNWW6zDTPXSfM/XAo7KbRhwcw6ezU1UPqw5i46Jn0BN3yOdJkeYFTX6e9dGyAswFKXN4Vu3nqfhVrx1YbVSkkhq9kYZv6XmNUDRNAa8kcs0d7PUQiLzUzP7VGGLYdCNpQRMBjLByZcJvuHaHAPWrp7JHjJJ4gO9q2qrzzJqOavHIYwXa/6/klQ==;
- s=purelymail3; d=cyberialabs.net; v=1;
- bh=DmlX6wo3RK9EmE1nVgjuz5yzjZTOGWAIY+q6s2XE3DI=;
- h=Received:Date:From:To:Subject; 
-DKIM-Signature: a=rsa-sha256;
- b=iEHwTryQLdMJMLE4v774o/UjWVutrPA0M90AUuJFBanjeOs5N1n54I3N7xsOMBcuo3CgXEorkK4ozB4EVCQ5Xn2nkHPYaBHEwuFyPGjxFhtT1gxzwH0H9LROVWzMeDBjP+pLcA3A+hv3/UpfEYMXa6T+byyjBq6iqk1d1ZLG/nnPdMppKfI76lx6Kn4edDYYlujxmD6PCe9E/26HIrzapr+D2qIKQMDVdxAyOPhIVXSWNIzxjuVCiBjkKnunNtlNQ1BR8pKWmNlSUmqyxbEoS7Ob2CeEpHteDT9jYjc9+4auWGPEqV/kxbWIQdjxVSVjHI+Ei7sYEZlrt3KfcJSIsA==;
- s=purelymail3; d=purelymail.com; v=1;
- bh=DmlX6wo3RK9EmE1nVgjuz5yzjZTOGWAIY+q6s2XE3DI=;
- h=Feedback-ID:Received:Date:From:To:Subject; 
-Feedback-ID: 6229:1532:null:purelymail
-X-Pm-Original-To: intel-gfx@lists.freedesktop.org
-Received: by smtp.purelymail.com (Purelymail SMTP) with ESMTPA id 1216398469; 
- Sat, 02 Nov 2024 01:46:15 +0000 (UTC)
+Received: from mail-ej1-f45.google.com (mail-ej1-f45.google.com
+ [209.85.218.45])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B456010E3DE;
+ Mon,  4 Nov 2024 12:09:59 +0000 (UTC)
+Received: by mail-ej1-f45.google.com with SMTP id
+ a640c23a62f3a-a86e9db75b9so663703766b.1; 
+ Mon, 04 Nov 2024 04:09:59 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1730722198; x=1731326998; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=7aEHlPRrC4NOUdPPFxjLWKRbXGK7QkMpo0vxXSBf3dw=;
+ b=SjLppf90QWRaR4Rxm6MIXpC5yseDBnVL4gttBmhc4Ub3+KnQQHx8bG1cRGQ4Ypc7YL
+ zjpelf4FdhIW/gsnPnfbosLfepRkjXOQzm0gzvvintfUYt7QeM5qXdfRBLCZkU4spQAY
+ RlQ6g13xOKNIn9X5o/9mJEOSc20aNz743e00MhVk0WwE6fY+RCLMI2AeBoPUkAO8PYee
+ 7Nu4C5b44CgMxV3W1njTV60/k8NZUeNSkYGPtLbxAvOCcu7hVvjePK4cLJscS6OI7bJw
+ VuoUhgGWN7vL0uKkbHJ5VDsNrKxPUKwNUVvdyHkpBTWpEm6QG/U2OBb/qXXpTOpC4swn
+ ASFA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1730722198; x=1731326998;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=7aEHlPRrC4NOUdPPFxjLWKRbXGK7QkMpo0vxXSBf3dw=;
+ b=Inr5gZ7Aow7+hU5+UD53PcEsnvPqNkQLRX7XivUdFsUlS/aUPGdIUhYWfLo6MS0h/v
+ /Vs/zOntTPBMssZPMUaQfDFZQIEOK3Rqb9CJO1Q2EdtPq+D6Qh8ltJ4VC8UOQ+2X2wg4
+ +toal+zlvW9iWf5IwR187GfKtf8/R63JIWeBEoTfDG+QUhYS3wVTruFVX2bOS8BbCHDd
+ kZ15sy3fjzVuAinugXeRPSlQ8r5L4vxp5xcqjNefYgVXBWIpQZxTvZ1BqG6Ii7cS2+E7
+ KcI6VWfVxQtlJEHVBwXvTQVCv/EAIrfGxnc+z2w4J4UBnoKBMwe7Ofxh9p+mn0gTF04h
+ S80w==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCX60lUgZBbXo/jBDu1ld4aMd07yFsg7EIcHXfYn5+Rb4BgnetPpa3NFB+o7HKKXlMhStSGTlwUhZ3pH@lists.freedesktop.org,
+ AJvYcCXCGjQpmFhm7KG0M4+uTBRiT5k80GBHbkUiAvSURaUUD+jHWuoNsM5oakqlmwtrOmDs9QxWDRZWJpc=@lists.freedesktop.org,
+ AJvYcCXinCB77ZSGMwLwtuQO4GI4Qrc3pdZyIhUejV3oKIwX81+HkmcHvSHeqR/CulxXjHeTJ/fb3LZ6QvM=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yy0u5bk8PKH9kUBYNgtDQNbN8citeHU99oWNV0ERWdUXkigJI4f
+ Q57wbIsClUsiR8tG/oWxYPSXfDGLpiSqm/WjiKoUmklMzFZneSclrRE97XnegnBr+JPhayblrk/
+ DyVXo4V08FbA5Y7wJuWpe7EKQnP4kLUAE1Ew=
+X-Google-Smtp-Source: AGHT+IEGMIh4+c4YieOvHOR42Mov1UsihiQ3LsJ7TD25F5Pb01l8fHd5tbR8/l7Kzokrt89RSrjZfi57fW5XXOgI0Rs=
+X-Received: by 2002:a17:907:724d:b0:a9a:bbcc:5092 with SMTP id
+ a640c23a62f3a-a9e50978806mr951428566b.39.1730722197690; Mon, 04 Nov 2024
+ 04:09:57 -0800 (PST)
 MIME-Version: 1.0
-Date: Sat, 02 Nov 2024 01:46:15 +0000
-From: Alexander Coffin <alex@cyberialabs.net>
-To: Rodrigo Vivi <rodrigo.vivi@intel.com>
-Cc: intel-gfx@lists.freedesktop.org, Jani Nikula
- <jani.nikula@linux.intel.com>, Joonas Lahtinen
- <joonas.lahtinen@linux.intel.com>
-Subject: Re: i915 potential deadlock
-In-Reply-To: <ZyU1SQjAfUQBgbPF@intel.com>
-References: <50b67f9f-e615-414d-abf5-4ee82e35a353@cyberialabs.net>
- <ZyU1SQjAfUQBgbPF@intel.com>
-User-Agent: Purely Mail via Roundcube/1.6.8
-Message-ID: <ebe1c5bc56eb2e84e791ba5e9bf2c714@purelymail.com>
-X-Sender: alex@cyberialabs.net
-Content-Type: multipart/alternative;
- boundary="=_c76a562ab226270784a59fb23864d94b"
+References: <20241017075725.207384-1-giedriuswork@gmail.com>
+In-Reply-To: <20241017075725.207384-1-giedriuswork@gmail.com>
+From: =?UTF-8?Q?Giedrius_Statkevi=C4=8Dius?= <giedriuswork@gmail.com>
+Date: Mon, 4 Nov 2024 14:09:46 +0200
+Message-ID: <CALt+6nqxMZjuZuOKaj8Cx4dcNZx0n-0F9aa97d-vZoMWeN=bOw@mail.gmail.com>
+Subject: Re: [PATCH v2] drm/i915/lspcon: do not hardcode settle timeout
+To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, 
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, 
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Tvrtko Ursulin <tursulin@ursulin.net>
+Cc: Ankit Nautiyal <ankit.k.nautiyal@intel.com>,
+ dri-devel@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org, intel-gfx@lists.freedesktop.org, 
+ intel-xe@lists.freedesktop.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-Mailman-Approved-At: Mon, 04 Nov 2024 16:15:38 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -63,116 +91,17 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
---=_c76a562ab226270784a59fb23864d94b
-Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset=US-ASCII;
- format=flowed
+Hello,
 
-Hi Rodrigo,
+Kind ping.
 
-> I'm sorry for that. Our list is moderated for non-subscribers because 
-> of the amount of spams we receive daily. But I eventually got to your 
-> msg and allowed it to go through.
 
-I am sorry about sending the email twice in that case. In hindsight, I 
-probably should have subscribed to the list and then sent the email to 
-avoid this issue, but I don't interact with email lists that often so I 
-didn't think of doing that.
-
-> Could you please file a bug in our gitlab?
-
-Of course. https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/12677
-
-> Well, so many things changed from 6.1... Is it possible to test with a 
-> drm-tip kernel and see if it is still reproduced?
-
-Sorry, I mispoke in my last email that 6.1 is the latest LTS release. 
-6.6 is the latest LTS release. 6.1 is the default for Debian though and 
-isn't considered old there, and that is the kernel that I use on my 
-personal desktop, personal laptop, server, and work laptop.
-
-I was hoping that this bug could be debugged (or at least attempted) 
-with a single deadlock report (that has worked well most other times I 
-have reported similar issues to kernel maintainers for other drivers).
-
-If I knew how to recreate this issue I would gladly try out any kernel 
-version for a quick test. Or if you have any things that you 
-specifically want me to test then I would be happy to try a newer kernel 
-version. However, I am not really comfortable daily driving a bleeding 
-edge kernel version on my work laptop as of right now. I may be able to 
-read through the source code to try to understand what could be 
-triggering this issue and then figure out how to use that information to 
-recreate it on a newer version, but as I don't think I have seen the 
-issue since I reported it I'm not sure how likely it is that I stumble 
-upon the issue by chance again. I would feel comfortable daily driving 
-random kernels on my personal laptop, but I use an XPS 9370 for my 
-personal laptop and I believe an XPS 15 9530 at work (if this is helpful 
-information I can double check this and provide more system details) so 
-they aren't the same hardware (I have no idea if the hardware is 
-relevant).
-
-Do you know where I could find information on the versions supported by 
-Intel of the i915 driver? I can't seem to find anything from doing a few 
-minutes of Google searching.
-
-Best wishes,
-
-Alex Coffin
---=_c76a562ab226270784a59fb23864d94b
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/html; charset=UTF-8
-
-<html><head><meta http-equiv=3D"Content-Type" content=3D"text/html; charset=
-=3DUTF-8" /></head><body style=3D'font-size: 10pt; font-family: Helvetica,A=
-rial,sans-serif'>
-<p>Hi Rodrigo,</p>
-<p><br /></p>
-<p>&gt; I'm sorry for that. Our list is moderated for non-subscribers becau=
-se of the amount of spams we receive daily. But I eventually got to your ms=
-g and allowed it to go through.</p>
-<p>I am sorry about sending the email twice in that case. In hindsight, I p=
-robably should have subscribed to the list and then sent the email to avoid=
- this issue, but I don't interact with email lists that often so I didn't t=
-hink of doing that.</p>
-<div id=3D"signature"></div>
-<p><br /></p>
-<p>&gt; Could you please file a bug in our gitlab?<br /><br />Of course. <a=
- href=3D"https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/12677">htt=
-ps://gitlab.freedesktop.org/drm/i915/kernel/-/issues/12677</a></p>
-<p><br /></p>
-<p>&gt; Well, so many things changed from 6.1... Is it possible to test wit=
-h a drm-tip kernel and see if it is still reproduced?</p>
-<p><br /></p>
-<p>Sorry, I mispoke in my last email that 6.1 is the latest LTS release. 6.=
-6 is the latest LTS release. 6.1 is the default for Debian though and isn't=
- considered old there, and that is the kernel that I use on my personal des=
-ktop, personal laptop, server, and work laptop.</p>
-<p><br /></p>
-<p>I was hoping that this bug could be debugged (or at least attempted) wit=
-h a single deadlock report (that has worked well most other times I have re=
-ported similar issues to kernel maintainers for other drivers).</p>
-<p><br /></p>
-<p>If I knew how to recreate this issue I would gladly try out any kernel v=
-ersion for a quick test. Or if you have any things that you specifically wa=
-nt me to test then I would be happy to try a newer kernel version. However,=
- I am not really comfortable daily driving a bleeding edge kernel version o=
-n my work laptop as of right now. I may be able to read through the source =
-code to try to understand what could be triggering this issue and then figu=
-re out how to use that information to recreate it on a newer version, but a=
-s I don't think I have seen the issue since I reported it I'm not sure how =
-likely it is that I stumble upon the issue by chance again. I would feel co=
-mfortable daily driving random kernels on my personal laptop, but I use an =
-XPS 9370 for my personal laptop and I believe an XPS 15 9530 at work (if th=
-is is helpful information I can double check this and provide more system d=
-etails) so they aren't the same hardware (I have no idea if the hardware is=
- relevant).</p>
-<p><br /></p>
-<p>Do you know where I could find information on the versions supported by =
-Intel of the i915 driver? I can't seem to find anything from doing a few mi=
-nutes of Google searching.</p>
-<p><br /></p>
-<p>Best wishes,</p>
-<p>Alex Coffin</p>
-</body></html>
-
---=_c76a562ab226270784a59fb23864d94b--
+On Thu, 17 Oct 2024 at 10:57, Giedrius Statkevi=C4=8Dius
+<giedriuswork@gmail.com> wrote:
+>
+> Avoid hardcoding the LSPCON settle timeout because it takes a longer
+> time on certain chips made by certain vendors. Use the function that
+> already exists to determine the timeout.
+>
+> Reviewed-by: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
+> Signed-off-by: Giedrius Statkevi=C4=8Dius <giedriuswork@gmail.com>
