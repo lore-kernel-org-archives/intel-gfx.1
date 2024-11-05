@@ -4,27 +4,25 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 50481D1269C
-	for <intel-gfx@archiver.kernel.org>; Tue,  5 Nov 2024 12:18:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 76CB4D1269B
+	for <intel-gfx@archiver.kernel.org>; Tue,  5 Nov 2024 12:18:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E566A10E580;
-	Tue,  5 Nov 2024 12:18:43 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 196FB10E585;
+	Tue,  5 Nov 2024 12:18:49 +0000 (UTC)
 Received: from mblankhorst.nl (lankhorst.se [141.105.120.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 872AA10E57B;
- Tue,  5 Nov 2024 12:18:41 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5A9E510E57C;
+ Tue,  5 Nov 2024 12:18:47 +0000 (UTC)
 From: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
 To: intel-xe@lists.freedesktop.org
 Cc: intel-gfx@lists.freedesktop.org,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- =?UTF-8?q?Ville=20Syrj=C3=A4l=C3=A4?= <ville.syrjala@linux.intel.com>,
- Vinod Govindapillai <vinod.govindapillai@intel.com>,
- Lucas De Marchi <lucas.demarchi@intel.com>
-Subject: [PATCH 1/9] drm/xe: Remove double pageflip
-Date: Tue,  5 Nov 2024 13:18:49 +0100
-Message-ID: <20241105121857.17389-1-maarten.lankhorst@linux.intel.com>
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+Subject: [PATCH 4/9] drm/xe: Defer irq init until after xe_display_init_noaccel
+Date: Tue,  5 Nov 2024 13:18:52 +0100
+Message-ID: <20241105121857.17389-4-maarten.lankhorst@linux.intel.com>
 X-Mailer: git-send-email 2.45.2
+In-Reply-To: <20241105121857.17389-1-maarten.lankhorst@linux.intel.com>
+References: <20241105121857.17389-1-maarten.lankhorst@linux.intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -41,45 +39,84 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-This is already handled below by fixup_initial_plane_config.
+Technically, I believe this means that xe_display_init_noirq and
+xe_display_init_noaccel can be merged together now.
 
-Fixes: a8153627520a ("drm/i915: Try to relocate the BIOS fb to the start of ggtt")
-Cc: Ville Syrjälä <ville.syrjala@linux.intel.com>
-Reviewed-by: Vinod Govindapillai <vinod.govindapillai@intel.com>
-Reviewed-by: Lucas De Marchi <lucas.demarchi@intel.com>
 Signed-off-by: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
 ---
- drivers/gpu/drm/xe/display/xe_plane_initial.c | 10 ----------
- 1 file changed, 10 deletions(-)
+ drivers/gpu/drm/xe/xe_device.c | 12 ++++--------
+ drivers/gpu/drm/xe/xe_tile.c   |  7 +++++++
+ 2 files changed, 11 insertions(+), 8 deletions(-)
 
-diff --git a/drivers/gpu/drm/xe/display/xe_plane_initial.c b/drivers/gpu/drm/xe/display/xe_plane_initial.c
-index 8c113463a3d55..668f544a7ac80 100644
---- a/drivers/gpu/drm/xe/display/xe_plane_initial.c
-+++ b/drivers/gpu/drm/xe/display/xe_plane_initial.c
-@@ -194,8 +194,6 @@ intel_find_initial_plane_obj(struct intel_crtc *crtc,
- 		to_intel_plane(crtc->base.primary);
- 	struct intel_plane_state *plane_state =
- 		to_intel_plane_state(plane->base.state);
--	struct intel_crtc_state *crtc_state =
--		to_intel_crtc_state(crtc->base.state);
- 	struct drm_framebuffer *fb;
- 	struct i915_vma *vma;
+diff --git a/drivers/gpu/drm/xe/xe_device.c b/drivers/gpu/drm/xe/xe_device.c
+index cef782f244e1a..b9948b2dc8d1d 100644
+--- a/drivers/gpu/drm/xe/xe_device.c
++++ b/drivers/gpu/drm/xe/xe_device.c
+@@ -41,7 +41,6 @@
+ #include "xe_hw_engine_group.h"
+ #include "xe_hwmon.h"
+ #include "xe_irq.h"
+-#include "xe_memirq.h"
+ #include "xe_mmio.h"
+ #include "xe_module.h"
+ #include "xe_observation.h"
+@@ -673,9 +672,6 @@ int xe_device_probe(struct xe_device *xe)
+ 		err = xe_ggtt_init_early(tile->mem.ggtt);
+ 		if (err)
+ 			return err;
+-		err = xe_memirq_init(&tile->memirq);
+-		if (err)
+-			return err;
+ 	}
  
-@@ -241,14 +239,6 @@ intel_find_initial_plane_obj(struct intel_crtc *crtc,
- 	atomic_or(plane->frontbuffer_bit, &to_intel_frontbuffer(fb)->bits);
+ 	for_each_gt(gt, xe, id) {
+@@ -695,10 +691,6 @@ int xe_device_probe(struct xe_device *xe)
+ 	if (err)
+ 		return err;
  
- 	plane_config->vma = vma;
+-	err = xe_irq_install(xe);
+-	if (err)
+-		goto err;
 -
--	/*
--	 * Flip to the newly created mapping ASAP, so we can re-use the
--	 * first part of GGTT for WOPCM, prevent flickering, and prevent
--	 * the lookup of sysmem scratch pages.
--	 */
--	plane->check_plane(crtc_state, plane_state);
--	plane->async_flip(NULL, plane, crtc_state, plane_state, true);
- 	return;
+ 	err = probe_has_flat_ccs(xe);
+ 	if (err)
+ 		goto err;
+@@ -736,6 +728,10 @@ int xe_device_probe(struct xe_device *xe)
+ 			goto err;
+ 	}
  
- nofb:
++	err = xe_irq_install(xe);
++	if (err)
++		goto err;
++
+ 	for_each_gt(gt, xe, id) {
+ 		last_gt = id;
+ 
+diff --git a/drivers/gpu/drm/xe/xe_tile.c b/drivers/gpu/drm/xe/xe_tile.c
+index 2825553b568f7..d07c1fba793ca 100644
+--- a/drivers/gpu/drm/xe/xe_tile.c
++++ b/drivers/gpu/drm/xe/xe_tile.c
+@@ -10,6 +10,7 @@
+ #include "xe_device.h"
+ #include "xe_ggtt.h"
+ #include "xe_gt.h"
++#include "xe_memirq.h"
+ #include "xe_migrate.h"
+ #include "xe_pcode.h"
+ #include "xe_sa.h"
+@@ -179,6 +180,12 @@ int xe_tile_init_noalloc(struct xe_tile *tile)
+ 
+ int xe_tile_init(struct xe_tile *tile)
+ {
++	int err;
++
++	err = xe_memirq_init(&tile->memirq);
++	if (err)
++		return err;
++
+ 	tile->mem.kernel_bb_pool = xe_sa_bo_manager_init(tile, SZ_1M, 16);
+ 	if (IS_ERR(tile->mem.kernel_bb_pool))
+ 		return PTR_ERR(tile->mem.kernel_bb_pool);
 -- 
 2.45.2
 
