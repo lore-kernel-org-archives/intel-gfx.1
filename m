@@ -4,50 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 89581D59F78
-	for <intel-gfx@archiver.kernel.org>; Wed,  6 Nov 2024 22:04:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B5B94D59F7D
+	for <intel-gfx@archiver.kernel.org>; Wed,  6 Nov 2024 22:04:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 05D1D10E782;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4FC8310E784;
 	Wed,  6 Nov 2024 22:04:15 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="BzNvX2rf";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="JAatSVqH";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.12])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 328A110E0BC
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1079F10E782
  for <intel-gfx@lists.freedesktop.org>; Wed,  6 Nov 2024 22:04:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
  t=1730930654; x=1762466654;
  h=from:to:subject:date:message-id:in-reply-to:references:
  mime-version:content-transfer-encoding;
- bh=rjHTE9LVa8CILlg7Xsh1CGDTaot/RQ4MrRIgeJ47bb4=;
- b=BzNvX2rf/DDl/g6OcUBUGubxym6feytXFsJtyHBBzPLAGcwEL/bdjONc
- 3e5kBoxQkf+6AHKXbniarcOLxWGrjYAjGbBusYe0TgGx9W1jmEWfhV45d
- W81gZKc3rjuKpm6lUQNK3wbSux98Fs1jTTyc/aRN0H+rG2yZ4s1NLx+Ud
- Ho05H+kz6EZ36xW0U53s2DwLJKgnj0Cml+Bjp3V0nCHoI5H4RZmVIkfpD
- k1+U/lqEoqed35tVhiRSNOdCEZUKP6o7ZskXLnrc2p58AfIBNlRlsRUOU
- JRDoGSFqXGEt/O+JATQqr1UetjtjniiXsba7UsVOi3hDnd6RSv6sm9bMy g==;
-X-CSE-ConnectionGUID: 4D40HhCAT1esE2m4VizZZw==
-X-CSE-MsgGUID: J436XOvuRBeP2R/5c4ckIw==
-X-IronPort-AV: E=McAfee;i="6700,10204,11248"; a="42157318"
-X-IronPort-AV: E=Sophos;i="6.11,264,1725346800"; d="scan'208";a="42157318"
+ bh=tu7cwYInbyNms5Y2hHqaDE+XD/Q0WuAOqO1YytzyiUE=;
+ b=JAatSVqHvKjO09/WNCLk5byw+L3T9ymqPdGLbOP/uuqSjCA7XqR4VZal
+ NQYCUEMhmBzpm1OSXkc4WXl63mt6wgUVP32RtAs/ZBSeWJXECmOtdozC0
+ Q5pozO0pdMYK8BwHfCuUciLZe1cvr1fYQZp+dhm5ViHstPcGjOM5496/p
+ Ujc7CXatyHK2pB9qXgZZE2bQhLWmpnjf7hlVt651Cz6zBBRlmc2KPuXGl
+ +lxOlHW325laIW38+XKlWDEWf4BmFN+xJDDKdjoVD7I2nPv4eH0Cwkd1v
+ vrnO8bUp5UpXkCpfNqB2lF1AV3Krfo94WQFe33gLBf/R2yp76R9OUvCV0 g==;
+X-CSE-ConnectionGUID: VB1J9cYORKu+DoeTAkgxhw==
+X-CSE-MsgGUID: qFqSeQk5Rp+s6RvOn6VQ0w==
+X-IronPort-AV: E=McAfee;i="6700,10204,11248"; a="42157320"
+X-IronPort-AV: E=Sophos;i="6.11,264,1725346800"; d="scan'208";a="42157320"
 Received: from fmviesa008.fm.intel.com ([10.60.135.148])
  by orvoesa104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 06 Nov 2024 14:04:08 -0800
-X-CSE-ConnectionGUID: qog8WpCARb23kNUyccI0JQ==
-X-CSE-MsgGUID: h5aKz5WxR26IeYiHHNbO+Q==
+ 06 Nov 2024 14:04:09 -0800
+X-CSE-ConnectionGUID: cWntgSzUT56s5xFPIeb8QA==
+X-CSE-MsgGUID: ZXZRRR+/RWmriehwFBDliA==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.11,264,1725346800"; d="scan'208";a="84879554"
+X-IronPort-AV: E=Sophos;i="6.11,264,1725346800"; d="scan'208";a="84879548"
 Received: from stinkpipe.fi.intel.com (HELO stinkbox) ([10.237.72.74])
- by fmviesa008.fm.intel.com with SMTP; 06 Nov 2024 13:59:12 -0800
+ by fmviesa008.fm.intel.com with SMTP; 06 Nov 2024 13:59:06 -0800
 Received: by stinkbox (sSMTP sendmail emulation);
- Wed, 06 Nov 2024 23:59:10 +0200
+ Wed, 06 Nov 2024 23:59:05 +0200
 From: Ville Syrjala <ville.syrjala@linux.intel.com>
 To: intel-gfx@lists.freedesktop.org
-Subject: [PATCH 4/8] drm/i915/lvds: Use struct intel_pps_delays for LVDS power
- sequencing
-Date: Wed,  6 Nov 2024 23:58:55 +0200
-Message-ID: <20241106215859.25446-5-ville.syrjala@linux.intel.com>
+Subject: [PATCH 2/8] drm/i915/pps: Decouple pps delays from VBT struct
+ definition
+Date: Wed,  6 Nov 2024 23:58:53 +0200
+Message-ID: <20241106215859.25446-3-ville.syrjala@linux.intel.com>
 X-Mailer: git-send-email 2.45.2
 In-Reply-To: <20241106215859.25446-1-ville.syrjala@linux.intel.com>
 References: <20241106215859.25446-1-ville.syrjala@linux.intel.com>
@@ -71,137 +71,238 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 From: Ville Syrjälä <ville.syrjala@linux.intel.com>
 
-Reuse struct intel_pps_delays for the LVDS power
-sequencing delays insteda of hand rolling it all.
-Perhaps in the future we could reuse some of the
-same PPS code for both LVDS and eDP (assuming we
-can decouple the PPS code from intel_dp...).
+We currently lack a proper struct definition for the VBT power
+squecing delays, and instead we use the same struct definition
+(in intel_bios.h) for both the VBT layout and our driver side
+state. Decouple those two things by moving the current struct
+into intel_vbt_defs.h and adding a new one for the driver's use.
 
 Signed-off-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
 ---
- .../drm/i915/display/intel_display_types.h    | 10 ++--
- drivers/gpu/drm/i915/display/intel_lvds.c     | 49 ++++++++++---------
- 2 files changed, 30 insertions(+), 29 deletions(-)
+ drivers/gpu/drm/i915/display/intel_bios.c     | 15 +++++++++++---
+ drivers/gpu/drm/i915/display/intel_bios.h     |  8 --------
+ .../drm/i915/display/intel_display_types.h    | 15 +++++++++++---
+ drivers/gpu/drm/i915/display/intel_dp_aux.c   |  1 -
+ drivers/gpu/drm/i915/display/intel_pps.c      | 20 +++++++++----------
+ drivers/gpu/drm/i915/display/intel_vbt_defs.h |  8 ++++++++
+ 6 files changed, 42 insertions(+), 25 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_display_types.h b/drivers/gpu/drm/i915/display/intel_display_types.h
-index 4af40315b410..961c81681d6f 100644
---- a/drivers/gpu/drm/i915/display/intel_display_types.h
-+++ b/drivers/gpu/drm/i915/display/intel_display_types.h
-@@ -303,11 +303,11 @@ struct intel_panel_bl_funcs {
+diff --git a/drivers/gpu/drm/i915/display/intel_bios.c b/drivers/gpu/drm/i915/display/intel_bios.c
+index a4cdd82c4a75..31398de08e7f 100644
+--- a/drivers/gpu/drm/i915/display/intel_bios.c
++++ b/drivers/gpu/drm/i915/display/intel_bios.c
+@@ -1402,12 +1402,21 @@ parse_power_conservation_features(struct intel_display *display,
+ 					    panel_type);
+ }
  
- /* in 100us units */
- struct intel_pps_delays {
--	u16 power_up;      /* eDP: T1+T3 */
--	u16 backlight_on;  /* eDP: T8 */
--	u16 backlight_off; /* eDP: T9 */
--	u16 power_down;    /* eDP: T10 */
--	u16 power_cycle;   /* eDP: T11+T12 */
-+	u16 power_up;      /* eDP: T1+T3,   LVDS: T1+T2 */
-+	u16 backlight_on;  /* eDP: T8,      LVDS: T5 */
-+	u16 backlight_off; /* eDP: T9,      LVDS: T6/TX */
-+	u16 power_down;    /* eDP: T10,     LVDS: T3 */
-+	u16 power_cycle;   /* eDP: T11+T12, LVDS: T7+T4 */
- };
++static void vbt_edp_to_pps_delays(struct intel_pps_delays *pps,
++				  const struct edp_power_seq *edp_pps)
++{
++	pps->t1_t3 = edp_pps->t1_t3;
++	pps->t8 = edp_pps->t8;
++	pps->t9 = edp_pps->t9;
++	pps->t10 = edp_pps->t10;
++	pps->t11_t12 = edp_pps->t11_t12;
++}
++
+ static void
+ parse_edp(struct intel_display *display,
+ 	  struct intel_panel *panel)
+ {
+ 	const struct bdb_edp *edp;
+-	const struct edp_power_seq *edp_pps;
+ 	const struct edp_fast_link_params *edp_link_params;
+ 	int panel_type = panel->vbt.panel_type;
  
- enum drrs_type {
-diff --git a/drivers/gpu/drm/i915/display/intel_lvds.c b/drivers/gpu/drm/i915/display/intel_lvds.c
-index 6d7637ad980a..6ffd55c17445 100644
---- a/drivers/gpu/drm/i915/display/intel_lvds.c
-+++ b/drivers/gpu/drm/i915/display/intel_lvds.c
-@@ -57,12 +57,7 @@
- 
- /* Private structure for the integrated LVDS support */
- struct intel_lvds_pps {
--	/* 100us units */
--	int t1_t2;
--	int t3;
--	int t4;
--	int t5;
--	int tx;
-+	struct intel_pps_delays delays;
- 
- 	int divider;
- 
-@@ -168,12 +163,12 @@ static void intel_lvds_pps_get_hw_state(struct drm_i915_private *dev_priv,
- 
- 	val = intel_de_read(dev_priv, PP_ON_DELAYS(dev_priv, 0));
- 	pps->port = REG_FIELD_GET(PANEL_PORT_SELECT_MASK, val);
--	pps->t1_t2 = REG_FIELD_GET(PANEL_POWER_UP_DELAY_MASK, val);
--	pps->t5 = REG_FIELD_GET(PANEL_LIGHT_ON_DELAY_MASK, val);
-+	pps->delays.power_up = REG_FIELD_GET(PANEL_POWER_UP_DELAY_MASK, val);
-+	pps->delays.backlight_on = REG_FIELD_GET(PANEL_LIGHT_ON_DELAY_MASK, val);
- 
- 	val = intel_de_read(dev_priv, PP_OFF_DELAYS(dev_priv, 0));
--	pps->t3 = REG_FIELD_GET(PANEL_POWER_DOWN_DELAY_MASK, val);
--	pps->tx = REG_FIELD_GET(PANEL_LIGHT_OFF_DELAY_MASK, val);
-+	pps->delays.power_down = REG_FIELD_GET(PANEL_POWER_DOWN_DELAY_MASK, val);
-+	pps->delays.backlight_off = REG_FIELD_GET(PANEL_LIGHT_OFF_DELAY_MASK, val);
- 
- 	val = intel_de_read(dev_priv, PP_DIVISOR(dev_priv, 0));
- 	pps->divider = REG_FIELD_GET(PP_REFERENCE_DIVIDER_MASK, val);
-@@ -186,25 +181,30 @@ static void intel_lvds_pps_get_hw_state(struct drm_i915_private *dev_priv,
- 	if (val)
- 		val--;
- 	/* Convert from 100ms to 100us units */
--	pps->t4 = val * 1000;
-+	pps->delays.power_cycle = val * 1000;
- 
- 	if (DISPLAY_VER(dev_priv) < 5 &&
--	    pps->t1_t2 == 0 && pps->t5 == 0 && pps->t3 == 0 && pps->tx == 0) {
-+	    pps->delays.power_up == 0 &&
-+	    pps->delays.backlight_on == 0 &&
-+	    pps->delays.power_down == 0 &&
-+	    pps->delays.backlight_off == 0) {
- 		drm_dbg_kms(&dev_priv->drm,
- 			    "Panel power timings uninitialized, "
- 			    "setting defaults\n");
- 		/* Set T2 to 40ms and T5 to 200ms in 100 usec units */
--		pps->t1_t2 = 40 * 10;
--		pps->t5 = 200 * 10;
-+		pps->delays.power_up = 40 * 10;
-+		pps->delays.backlight_on = 200 * 10;
- 		/* Set T3 to 35ms and Tx to 200ms in 100 usec units */
--		pps->t3 = 35 * 10;
--		pps->tx = 200 * 10;
-+		pps->delays.power_down = 35 * 10;
-+		pps->delays.backlight_off = 200 * 10;
+@@ -1428,10 +1437,10 @@ parse_edp(struct intel_display *display,
  	}
  
--	drm_dbg(&dev_priv->drm, "LVDS PPS:t1+t2 %d t3 %d t4 %d t5 %d tx %d "
-+	drm_dbg(&dev_priv->drm, "LVDS PPS:power_up %d power_down %d power_cycle %d backlight_on %d backlight_off %d "
- 		"divider %d port %d powerdown_on_reset %d\n",
--		pps->t1_t2, pps->t3, pps->t4, pps->t5, pps->tx,
--		pps->divider, pps->port, pps->powerdown_on_reset);
-+		pps->delays.power_up, pps->delays.power_down,
-+		pps->delays.power_cycle, pps->delays.backlight_on,
-+		pps->delays.backlight_off, pps->divider,
-+		pps->port, pps->powerdown_on_reset);
+ 	/* Get the eDP sequencing and link info */
+-	edp_pps = &edp->power_seqs[panel_type];
+ 	edp_link_params = &edp->fast_link_params[panel_type];
+ 
+-	panel->vbt.edp.pps = *edp_pps;
++	vbt_edp_to_pps_delays(&panel->vbt.edp.pps,
++			      &edp->power_seqs[panel_type]);
+ 
+ 	if (display->vbt.version >= 224) {
+ 		panel->vbt.edp.rate =
+diff --git a/drivers/gpu/drm/i915/display/intel_bios.h b/drivers/gpu/drm/i915/display/intel_bios.h
+index 8b703f6cfe17..f9841f0498c6 100644
+--- a/drivers/gpu/drm/i915/display/intel_bios.h
++++ b/drivers/gpu/drm/i915/display/intel_bios.h
+@@ -50,14 +50,6 @@ enum intel_backlight_type {
+ 	INTEL_BACKLIGHT_VESA_EDP_AUX_INTERFACE,
+ };
+ 
+-struct edp_power_seq {
+-	u16 t1_t3;
+-	u16 t8;
+-	u16 t9;
+-	u16 t10;
+-	u16 t11_t12;
+-} __packed;
+-
+ /*
+  * MIPI Sequence Block definitions
+  *
+diff --git a/drivers/gpu/drm/i915/display/intel_display_types.h b/drivers/gpu/drm/i915/display/intel_display_types.h
+index d3a1aa7c919f..62cf5d007872 100644
+--- a/drivers/gpu/drm/i915/display/intel_display_types.h
++++ b/drivers/gpu/drm/i915/display/intel_display_types.h
+@@ -301,6 +301,15 @@ struct intel_panel_bl_funcs {
+ 	u32 (*hz_to_pwm)(struct intel_connector *connector, u32 hz);
+ };
+ 
++/* in 100us units */
++struct intel_pps_delays {
++	u16 t1_t3;
++	u16 t8;
++	u16 t9;
++	u16 t10;
++	u16 t11_t12;
++};
++
+ enum drrs_type {
+ 	DRRS_TYPE_NONE,
+ 	DRRS_TYPE_STATIC,
+@@ -328,7 +337,7 @@ struct intel_vbt_panel_data {
+ 		int preemphasis;
+ 		int vswing;
+ 		int bpp;
+-		struct edp_power_seq pps;
++		struct intel_pps_delays pps;
+ 		u8 drrs_msa_timing_delay;
+ 		bool low_vswing;
+ 		bool hobl;
+@@ -1568,8 +1577,8 @@ struct intel_pps {
+ 	 * requiring a reinitialization. Only relevant on BXT+.
+ 	 */
+ 	bool bxt_pps_reset;
+-	struct edp_power_seq pps_delays;
+-	struct edp_power_seq bios_pps_delays;
++	struct intel_pps_delays pps_delays;
++	struct intel_pps_delays bios_pps_delays;
+ };
+ 
+ struct intel_psr {
+diff --git a/drivers/gpu/drm/i915/display/intel_dp_aux.c b/drivers/gpu/drm/i915/display/intel_dp_aux.c
+index 04a7acd7f73c..7daa8a95dc70 100644
+--- a/drivers/gpu/drm/i915/display/intel_dp_aux.c
++++ b/drivers/gpu/drm/i915/display/intel_dp_aux.c
+@@ -6,7 +6,6 @@
+ #include "i915_drv.h"
+ #include "i915_reg.h"
+ #include "i915_trace.h"
+-#include "intel_bios.h"
+ #include "intel_de.h"
+ #include "intel_display_types.h"
+ #include "intel_dp.h"
+diff --git a/drivers/gpu/drm/i915/display/intel_pps.c b/drivers/gpu/drm/i915/display/intel_pps.c
+index 83d65105f32b..c57b9aca5a31 100644
+--- a/drivers/gpu/drm/i915/display/intel_pps.c
++++ b/drivers/gpu/drm/i915/display/intel_pps.c
+@@ -1387,7 +1387,7 @@ static void pps_init_timestamps(struct intel_dp *intel_dp)
  }
  
- static void intel_lvds_pps_init_hw(struct drm_i915_private *dev_priv,
-@@ -221,16 +221,17 @@ static void intel_lvds_pps_init_hw(struct drm_i915_private *dev_priv,
+ static void
+-intel_pps_readout_hw_state(struct intel_dp *intel_dp, struct edp_power_seq *seq)
++intel_pps_readout_hw_state(struct intel_dp *intel_dp, struct intel_pps_delays *seq)
+ {
+ 	struct intel_display *display = to_intel_display(intel_dp);
+ 	u32 pp_on, pp_off, pp_ctl, power_cycle_delay;
+@@ -1426,7 +1426,7 @@ intel_pps_readout_hw_state(struct intel_dp *intel_dp, struct edp_power_seq *seq)
  
- 	intel_de_write(dev_priv, PP_ON_DELAYS(dev_priv, 0),
- 		       REG_FIELD_PREP(PANEL_PORT_SELECT_MASK, pps->port) |
--		       REG_FIELD_PREP(PANEL_POWER_UP_DELAY_MASK, pps->t1_t2) |
--		       REG_FIELD_PREP(PANEL_LIGHT_ON_DELAY_MASK, pps->t5));
-+		       REG_FIELD_PREP(PANEL_POWER_UP_DELAY_MASK, pps->delays.power_up) |
-+		       REG_FIELD_PREP(PANEL_LIGHT_ON_DELAY_MASK, pps->delays.backlight_on));
+ static void
+ intel_pps_dump_state(struct intel_dp *intel_dp, const char *state_name,
+-		     const struct edp_power_seq *seq)
++		     const struct intel_pps_delays *seq)
+ {
+ 	struct intel_display *display = to_intel_display(intel_dp);
  
- 	intel_de_write(dev_priv, PP_OFF_DELAYS(dev_priv, 0),
--		       REG_FIELD_PREP(PANEL_POWER_DOWN_DELAY_MASK, pps->t3) |
--		       REG_FIELD_PREP(PANEL_LIGHT_OFF_DELAY_MASK, pps->tx));
-+		       REG_FIELD_PREP(PANEL_POWER_DOWN_DELAY_MASK, pps->delays.power_down) |
-+		       REG_FIELD_PREP(PANEL_LIGHT_OFF_DELAY_MASK, pps->delays.backlight_off));
+@@ -1440,8 +1440,8 @@ static void
+ intel_pps_verify_state(struct intel_dp *intel_dp)
+ {
+ 	struct intel_display *display = to_intel_display(intel_dp);
+-	struct edp_power_seq hw;
+-	struct edp_power_seq *sw = &intel_dp->pps.pps_delays;
++	struct intel_pps_delays hw;
++	struct intel_pps_delays *sw = &intel_dp->pps.pps_delays;
  
- 	intel_de_write(dev_priv, PP_DIVISOR(dev_priv, 0),
- 		       REG_FIELD_PREP(PP_REFERENCE_DIVIDER_MASK, pps->divider) |
--		       REG_FIELD_PREP(PANEL_POWER_CYCLE_DELAY_MASK, DIV_ROUND_UP(pps->t4, 1000) + 1));
-+		       REG_FIELD_PREP(PANEL_POWER_CYCLE_DELAY_MASK,
-+				      DIV_ROUND_UP(pps->delays.power_cycle, 1000) + 1));
+ 	intel_pps_readout_hw_state(intel_dp, &hw);
+ 
+@@ -1453,14 +1453,14 @@ intel_pps_verify_state(struct intel_dp *intel_dp)
+ 	}
  }
  
- static void intel_pre_enable_lvds(struct intel_atomic_state *state,
+-static bool pps_delays_valid(struct edp_power_seq *delays)
++static bool pps_delays_valid(struct intel_pps_delays *delays)
+ {
+ 	return delays->t1_t3 || delays->t8 || delays->t9 ||
+ 		delays->t10 || delays->t11_t12;
+ }
+ 
+ static void pps_init_delays_bios(struct intel_dp *intel_dp,
+-				 struct edp_power_seq *bios)
++				 struct intel_pps_delays *bios)
+ {
+ 	struct intel_display *display = to_intel_display(intel_dp);
+ 
+@@ -1475,7 +1475,7 @@ static void pps_init_delays_bios(struct intel_dp *intel_dp,
+ }
+ 
+ static void pps_init_delays_vbt(struct intel_dp *intel_dp,
+-				struct edp_power_seq *vbt)
++				struct intel_pps_delays *vbt)
+ {
+ 	struct intel_display *display = to_intel_display(intel_dp);
+ 	struct intel_connector *connector = intel_dp->attached_connector;
+@@ -1501,7 +1501,7 @@ static void pps_init_delays_vbt(struct intel_dp *intel_dp,
+ }
+ 
+ static void pps_init_delays_spec(struct intel_dp *intel_dp,
+-				 struct edp_power_seq *spec)
++				 struct intel_pps_delays *spec)
+ {
+ 	struct intel_display *display = to_intel_display(intel_dp);
+ 
+@@ -1521,7 +1521,7 @@ static void pps_init_delays_spec(struct intel_dp *intel_dp,
+ static void pps_init_delays(struct intel_dp *intel_dp)
+ {
+ 	struct intel_display *display = to_intel_display(intel_dp);
+-	struct edp_power_seq cur, vbt, spec,
++	struct intel_pps_delays cur, vbt, spec,
+ 		*final = &intel_dp->pps.pps_delays;
+ 
+ 	lockdep_assert_held(&display->pps.mutex);
+@@ -1589,7 +1589,7 @@ static void pps_init_registers(struct intel_dp *intel_dp, bool force_disable_vdd
+ 	int div = DISPLAY_RUNTIME_INFO(display)->rawclk_freq / 1000;
+ 	struct pps_registers regs;
+ 	enum port port = dp_to_dig_port(intel_dp)->base.port;
+-	const struct edp_power_seq *seq = &intel_dp->pps.pps_delays;
++	const struct intel_pps_delays *seq = &intel_dp->pps.pps_delays;
+ 
+ 	lockdep_assert_held(&display->pps.mutex);
+ 
+diff --git a/drivers/gpu/drm/i915/display/intel_vbt_defs.h b/drivers/gpu/drm/i915/display/intel_vbt_defs.h
+index 42022756bbd5..e9b809568cd4 100644
+--- a/drivers/gpu/drm/i915/display/intel_vbt_defs.h
++++ b/drivers/gpu/drm/i915/display/intel_vbt_defs.h
+@@ -1014,6 +1014,14 @@ struct bdb_tv_options {
+  * Block 27 - eDP VBT Block
+  */
+ 
++struct edp_power_seq {
++	u16 t1_t3;
++	u16 t8;
++	u16 t9;
++	u16 t10;
++	u16 t11_t12;
++} __packed;
++
+ #define EDP_18BPP	0
+ #define EDP_24BPP	1
+ #define EDP_30BPP	2
 -- 
 2.45.2
 
