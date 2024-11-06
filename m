@@ -4,53 +4,51 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D73F6D59F7D
-	for <intel-gfx@archiver.kernel.org>; Wed,  6 Nov 2024 22:04:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BADC4D59F75
+	for <intel-gfx@archiver.kernel.org>; Wed,  6 Nov 2024 22:09:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DE0D010E79E;
-	Wed,  6 Nov 2024 22:04:20 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5CBAA10E790;
+	Wed,  6 Nov 2024 22:09:10 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="M7plEQO5";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="MGNNDgZL";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.12])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B48E010E782
- for <intel-gfx@lists.freedesktop.org>; Wed,  6 Nov 2024 22:04:14 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.19])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D075010E790
+ for <intel-gfx@lists.freedesktop.org>; Wed,  6 Nov 2024 22:09:08 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1730930655; x=1762466655;
- h=from:to:subject:date:message-id:in-reply-to:references:
- mime-version:content-transfer-encoding;
- bh=8DfbPbKikWrT8gMngMKJiEbun4xPElFxxSc40kq5RZw=;
- b=M7plEQO5WJEOulNJuCOtqMEFHCgWNAnfwq9NuOPvG3BB3xLvimusZgVM
- UvAERbVhCxydx7WskOXAWHHlXh66byv20aA+2ks/qEWXcC3RzC+B6mPPT
- Clm0gfRPpmtKhuEWeJYMeX3NC1fnzksLR3txET8Wl+eJEGzdnw56eo8Cv
- 7NgYF1CecHwzJrv7Uj/r8yFbgWKF6143IVE/X3vsa+/Eqf1fRALyi3vDt
- l0GTPfHkDZS3nccbTlHmuAfHu0Na1CgaT9ciB1xQsdRrQiBp0VASeqC1A
- y6Iyeur56Vy/hG1MNawbut/KyQnVeBsp1bk3pncDsVL1tC1bsVmxpKjLX w==;
-X-CSE-ConnectionGUID: pRgYFMKmReOc2gv+ZJQ7uw==
-X-CSE-MsgGUID: bjcfh9pZQPOvnEy/ZMSpzA==
-X-IronPort-AV: E=McAfee;i="6700,10204,11248"; a="42157321"
-X-IronPort-AV: E=Sophos;i="6.11,264,1725346800"; d="scan'208";a="42157321"
+ t=1730930949; x=1762466949;
+ h=from:to:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=9v5zfH/XoMEP04aAWpm8N5zMcmeHQITZiHmXu5VfWRk=;
+ b=MGNNDgZLmyPCudUBFBqreDp7LTVzZCV+Oq4Gk3GAuQeS0brFJEZOCL3t
+ asLOWaztrFuHrdnHs4Jdwmuctr+OMSoP7I+Rm/eULmI901ncuTVXdvn6I
+ rvOplH+N5RLp63TC1bNFvBrxUbbvZMwaAur2LQExpH07ONdk+k34OzB+f
+ ec/1GREjcO7RB8xGMBDq4GZtWkECt1QKkS2DLwvjE5NXYz9shaWbaEJQz
+ CAfYwGADRf147lwe143iGgS4k/gfX4k8c730REmYdmBUS6c3fpC3e3oWW
+ /+iv8U5ubOX/pA78dp5KJ7yWX73gGUN/kA70CEaTY8593/wtGBbjyc1R4 A==;
+X-CSE-ConnectionGUID: g5yN8mGnT12o8uQ33H03eQ==
+X-CSE-MsgGUID: Y/F6J2J1TTyuJipJmdYz4w==
+X-IronPort-AV: E=McAfee;i="6700,10204,11222"; a="30609607"
+X-IronPort-AV: E=Sophos;i="6.11,199,1725346800"; d="scan'208";a="30609607"
 Received: from fmviesa008.fm.intel.com ([10.60.135.148])
- by orvoesa104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 06 Nov 2024 14:04:09 -0800
-X-CSE-ConnectionGUID: WMODeUmLQSyP8ZnrdIeVjQ==
-X-CSE-MsgGUID: bU/p6WfFQiWlfa31OmXnBA==
+ by orvoesa111.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 06 Nov 2024 14:09:09 -0800
+X-CSE-ConnectionGUID: x9XRv3QbT2OCDE63WHg2RA==
+X-CSE-MsgGUID: /hxnuYLUS4O9OE4UnTRMDg==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.11,264,1725346800"; d="scan'208";a="84879556"
+X-IronPort-AV: E=Sophos;i="6.11,264,1725346800"; d="scan'208";a="84884008"
 Received: from stinkpipe.fi.intel.com (HELO stinkbox) ([10.237.72.74])
- by fmviesa008.fm.intel.com with SMTP; 06 Nov 2024 13:59:15 -0800
+ by fmviesa008.fm.intel.com with SMTP; 06 Nov 2024 14:09:06 -0800
 Received: by stinkbox (sSMTP sendmail emulation);
- Wed, 06 Nov 2024 23:59:13 +0200
+ Thu, 07 Nov 2024 00:09:04 +0200
 From: Ville Syrjala <ville.syrjala@linux.intel.com>
 To: intel-gfx@lists.freedesktop.org
-Subject: [PATCH 5/8] drm/i915/pps: Spell out the eDP spec power sequencing
- delays a bit more clearly
-Date: Wed,  6 Nov 2024 23:58:56 +0200
-Message-ID: <20241106215859.25446-6-ville.syrjala@linux.intel.com>
+Subject: [PATCH] drm/i915/dsi: Stop using pixel_format_from_register_bits() to
+ parse VBT
+Date: Thu,  7 Nov 2024 00:09:04 +0200
+Message-ID: <20241106220904.29523-1-ville.syrjala@linux.intel.com>
 X-Mailer: git-send-email 2.45.2
-In-Reply-To: <20241106215859.25446-1-ville.syrjala@linux.intel.com>
-References: <20241106215859.25446-1-ville.syrjala@linux.intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
@@ -71,35 +69,99 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 From: Ville Syrjälä <ville.syrjala@linux.intel.com>
 
-We determine the "spec" eDP power sequencing delays
-by refercing some max values from the eDP spec. Write
-out each number from the spec explicitly instead
-of precomputing the final number (that's the job of
-the computer). Makes it a bit easier to see what the
-supposed spec defined numbers actually are.
+Introduce a proper VBT->enum mipi_dsi_pixel_format converter
+instead of abusing pixel_format_from_register_bits() (whose
+job is to parse the pixel format from some pre-ICL DSI
+hardware register).
 
 Signed-off-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_pps.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/i915/display/intel_dsi_vbt.c | 20 ++++++++++++++++++--
+ drivers/gpu/drm/i915/display/vlv_dsi.c       |  3 +--
+ drivers/gpu/drm/i915/display/vlv_dsi.h       |  7 -------
+ 3 files changed, 19 insertions(+), 11 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_pps.c b/drivers/gpu/drm/i915/display/intel_pps.c
-index ed52f84d4cf3..6946ba0004eb 100644
---- a/drivers/gpu/drm/i915/display/intel_pps.c
-+++ b/drivers/gpu/drm/i915/display/intel_pps.c
-@@ -1512,11 +1512,11 @@ static void pps_init_delays_spec(struct intel_dp *intel_dp,
+diff --git a/drivers/gpu/drm/i915/display/intel_dsi_vbt.c b/drivers/gpu/drm/i915/display/intel_dsi_vbt.c
+index e8129a720210..b2b78f39cfd3 100644
+--- a/drivers/gpu/drm/i915/display/intel_dsi_vbt.c
++++ b/drivers/gpu/drm/i915/display/intel_dsi_vbt.c
+@@ -745,6 +745,23 @@ void intel_dsi_log_params(struct intel_dsi *intel_dsi)
+ 		    str_enabled_disabled(!(intel_dsi->video_frmt_cfg_bits & DISABLE_VIDEO_BTA)));
+ }
  
- 	/* Upper limits from eDP 1.3 spec. Note that we use the clunky units of
- 	 * our hw here, which are all in 100usec. */
--	spec->power_up = 210 * 10; /* T1+T3 */
-+	spec->power_up = (10 + 200) * 10; /* T1+T3 */
- 	spec->backlight_on = 50 * 10; /* no limit for T8, use T7 instead */
- 	spec->backlight_off = 50 * 10; /* no limit for T9, make it symmetric with T8 */
- 	spec->power_down = 500 * 10; /* T10 */
--	spec->power_cycle = 510 * 10; /* T11+T12 */
-+	spec->power_cycle = (10 + 500) * 10; /* T11+T12 */
++static enum mipi_dsi_pixel_format vbt_to_dsi_pixel_format(unsigned int format)
++{
++	switch (format) {
++	case PIXEL_FORMAT_RGB888:
++		return MIPI_DSI_FMT_RGB888;
++	case PIXEL_FORMAT_RGB666_LOOSELY_PACKED:
++		return MIPI_DSI_FMT_RGB666;
++	case PIXEL_FORMAT_RGB666:
++		return MIPI_DSI_FMT_RGB666_PACKED;
++	case PIXEL_FORMAT_RGB565:
++		return MIPI_DSI_FMT_RGB565;
++	default:
++		MISSING_CASE(format);
++		return MIPI_DSI_FMT_RGB666;
++	}
++}
++
+ bool intel_dsi_vbt_init(struct intel_dsi *intel_dsi, u16 panel_id)
+ {
+ 	struct drm_device *dev = intel_dsi->base.base.dev;
+@@ -762,8 +779,7 @@ bool intel_dsi_vbt_init(struct intel_dsi *intel_dsi, u16 panel_id)
+ 	intel_dsi->clock_stop = mipi_config->enable_clk_stop ? 1 : 0;
+ 	intel_dsi->lane_count = mipi_config->lane_cnt + 1;
+ 	intel_dsi->pixel_format =
+-			pixel_format_from_register_bits(
+-				mipi_config->videomode_color_format << 7);
++		vbt_to_dsi_pixel_format(mipi_config->videomode_color_format);
  
- 	intel_pps_dump_state(intel_dp, "spec", spec);
+ 	intel_dsi->dual_link = mipi_config->dual_link;
+ 	intel_dsi->pixel_overlap = mipi_config->pixel_overlap;
+diff --git a/drivers/gpu/drm/i915/display/vlv_dsi.c b/drivers/gpu/drm/i915/display/vlv_dsi.c
+index 9383eedee2d4..587e98d32053 100644
+--- a/drivers/gpu/drm/i915/display/vlv_dsi.c
++++ b/drivers/gpu/drm/i915/display/vlv_dsi.c
+@@ -67,9 +67,8 @@ static u16 pixels_from_txbyteclkhs(u16 clk_hs, int bpp, int lane_count,
+ 						(bpp * burst_mode_ratio));
+ }
+ 
+-enum mipi_dsi_pixel_format pixel_format_from_register_bits(u32 fmt)
++static enum mipi_dsi_pixel_format pixel_format_from_register_bits(u32 fmt)
+ {
+-	/* It just so happens the VBT matches register contents. */
+ 	switch (fmt) {
+ 	case VID_MODE_FORMAT_RGB888:
+ 		return MIPI_DSI_FMT_RGB888;
+diff --git a/drivers/gpu/drm/i915/display/vlv_dsi.h b/drivers/gpu/drm/i915/display/vlv_dsi.h
+index cf9d7b82f288..a02fd7bd2f2a 100644
+--- a/drivers/gpu/drm/i915/display/vlv_dsi.h
++++ b/drivers/gpu/drm/i915/display/vlv_dsi.h
+@@ -6,24 +6,17 @@
+ #ifndef __VLV_DSI_H__
+ #define __VLV_DSI_H__
+ 
+-#include <linux/types.h>
+-
+ enum port;
+ struct drm_i915_private;
+ struct intel_dsi;
+ 
+ #ifdef I915
+ void vlv_dsi_wait_for_fifo_empty(struct intel_dsi *intel_dsi, enum port port);
+-enum mipi_dsi_pixel_format pixel_format_from_register_bits(u32 fmt);
+ void vlv_dsi_init(struct drm_i915_private *dev_priv);
+ #else
+ static inline void vlv_dsi_wait_for_fifo_empty(struct intel_dsi *intel_dsi, enum port port)
+ {
+ }
+-static inline enum mipi_dsi_pixel_format pixel_format_from_register_bits(u32 fmt)
+-{
+-	return 0;
+-}
+ static inline void vlv_dsi_init(struct drm_i915_private *dev_priv)
+ {
  }
 -- 
 2.45.2
