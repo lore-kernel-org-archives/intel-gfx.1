@@ -4,22 +4,23 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8A432D3E787
-	for <intel-gfx@archiver.kernel.org>; Thu,  7 Nov 2024 10:02:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4D9D3D3E799
+	for <intel-gfx@archiver.kernel.org>; Thu,  7 Nov 2024 10:02:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 16CE110E7EF;
-	Thu,  7 Nov 2024 10:02:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D917B10E7F4;
+	Thu,  7 Nov 2024 10:02:02 +0000 (UTC)
 Received: from mblankhorst.nl (lankhorst.se [141.105.120.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3E3DD10E7E9;
- Thu,  7 Nov 2024 10:01:58 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9E9D710E7F1;
+ Thu,  7 Nov 2024 10:02:01 +0000 (UTC)
 From: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
 To: intel-xe@lists.freedesktop.org
 Cc: intel-gfx@lists.freedesktop.org,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
  Maarten@mblankhorst.nl, Lankhorst@mblankhorst.nl, dev@lankhorst.se
-Subject: [PATCH 5/9] drm/xe/display: Use a single early init call for display
-Date: Thu,  7 Nov 2024 11:01:36 +0100
-Message-ID: <20241107100140.292928-5-maarten.lankhorst@linux.intel.com>
+Subject: [PATCH 8/9] drm/xe: Make it possible to read instance0 MCR registers
+ after xe_gt_mcr_init_early
+Date: Thu,  7 Nov 2024 11:01:39 +0100
+Message-ID: <20241107100140.292928-8-maarten.lankhorst@linux.intel.com>
 X-Mailer: git-send-email 2.45.2
 In-Reply-To: <20241107100140.292928-1-maarten.lankhorst@linux.intel.com>
 References: <20241107100140.292928-1-maarten.lankhorst@linux.intel.com>
@@ -40,192 +41,128 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Instead of 3 different calls, it should be safe to unify to a single
-call now. This makes the init sequence cleaner, and display less
-tangled.
+After mcr_init_early, we need to be able to do VRAM and CCS probing
+without hwconfig probe. Fortunately the relevant registers are all
+instance 0, which fortunately means no dependencies on further initialisation
+is required.
 
 Signed-off-by: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-Link: https://patchwork.freedesktop.org/patch/msgid/20241105121857.17389-5-maarten.lankhorst@linux.intel.com
+Link: https://patchwork.freedesktop.org/patch/msgid/20241105121857.17389-8-maarten.lankhorst@linux.intel.com
 Signed-off-by: Maarten Lankhorst,,, <dev@lankhorst.se>
 ---
- drivers/gpu/drm/xe/display/xe_display.c | 72 +++++++------------------
- drivers/gpu/drm/xe/display/xe_display.h |  8 +--
- drivers/gpu/drm/xe/xe_device.c          | 10 +---
- 3 files changed, 23 insertions(+), 67 deletions(-)
+ drivers/gpu/drm/xe/xe_gt_mcr.c   | 47 ++++++++++++++++++--------------
+ drivers/gpu/drm/xe/xe_gt_types.h |  2 ++
+ 2 files changed, 29 insertions(+), 20 deletions(-)
 
-diff --git a/drivers/gpu/drm/xe/display/xe_display.c b/drivers/gpu/drm/xe/display/xe_display.c
-index b5502f335f531..a9ce4f561e7aa 100644
---- a/drivers/gpu/drm/xe/display/xe_display.c
-+++ b/drivers/gpu/drm/xe/display/xe_display.c
-@@ -100,31 +100,7 @@ int xe_display_create(struct xe_device *xe)
- 	return drmm_add_action_or_reset(&xe->drm, display_destroy, NULL);
+diff --git a/drivers/gpu/drm/xe/xe_gt_mcr.c b/drivers/gpu/drm/xe/xe_gt_mcr.c
+index 5013d674e17da..4b23c96290046 100644
+--- a/drivers/gpu/drm/xe/xe_gt_mcr.c
++++ b/drivers/gpu/drm/xe/xe_gt_mcr.c
+@@ -413,12 +413,6 @@ static void init_steering_sqidi_psmi(struct xe_gt *gt)
+ 	gt->steering[SQIDI_PSMI].instance_target = select & 0x1;
  }
  
--static void xe_display_fini_nommio(struct drm_device *dev, void *dummy)
+-static void init_steering_inst0(struct xe_gt *gt)
 -{
--	struct xe_device *xe = to_xe_device(dev);
--
--	if (!xe->info.probe_display)
--		return;
--
--	intel_power_domains_cleanup(xe);
+-	gt->steering[INSTANCE0].group_target = 0;	/* unused */
+-	gt->steering[INSTANCE0].instance_target = 0;	/* unused */
 -}
 -
--int xe_display_init_nommio(struct xe_device *xe)
--{
--	if (!xe->info.probe_display)
--		return 0;
--
--	/* Fake uncore lock */
--	spin_lock_init(&xe->uncore.lock);
--
--	/* This must be called before any calls to HAS_PCH_* */
--	intel_detect_pch(xe);
--
--	return drmm_add_action_or_reset(&xe->drm, xe_display_fini_nommio, xe);
--}
--
--static void xe_display_fini_noirq(void *arg)
-+static void xe_display_fini_early(void *arg)
+ static const struct {
+ 	const char *name;
+ 	void (*init)(struct xe_gt *gt);
+@@ -429,7 +423,7 @@ static const struct {
+ 	[DSS] =		{ "DSS",	init_steering_dss },
+ 	[OADDRM] =	{ "OADDRM / GPMXMT", init_steering_oaddrm },
+ 	[SQIDI_PSMI] =  { "SQIDI_PSMI", init_steering_sqidi_psmi },
+-	[INSTANCE0] =	{ "INSTANCE 0",	init_steering_inst0 },
++	[INSTANCE0] =	{ "INSTANCE 0",	NULL },
+ 	[IMPLICIT_STEERING] = { "IMPLICIT", NULL },
+ };
+ 
+@@ -439,25 +433,17 @@ static const struct {
+  *
+  * Perform early software only initialization of the MCR lock to allow
+  * the synchronization on accessing the STEER_SEMAPHORE register and
+- * use the xe_gt_mcr_multicast_write() function.
++ * use the xe_gt_mcr_multicast_write() function, plus the minimum
++ * safe MCR registers required for VRAM/CCS probing.
+  */
+ void xe_gt_mcr_init_early(struct xe_gt *gt)
  {
- 	struct xe_device *xe = arg;
- 	struct intel_display *display = &xe->display;
-@@ -132,11 +108,13 @@ static void xe_display_fini_noirq(void *arg)
- 	if (!xe->info.probe_display)
++	struct xe_device *xe = gt_to_xe(gt);
++
+ 	BUILD_BUG_ON(IMPLICIT_STEERING + 1 != NUM_STEERING_TYPES);
+ 	BUILD_BUG_ON(ARRAY_SIZE(xe_steering_types) != NUM_STEERING_TYPES);
+ 
+ 	spin_lock_init(&gt->mcr_lock);
+-}
+-
+-/**
+- * xe_gt_mcr_init - Normal initialization of the MCR support
+- * @gt: GT structure
+- *
+- * Perform normal initialization of the MCR for all usages.
+- */
+-void xe_gt_mcr_init(struct xe_gt *gt)
+-{
+-	struct xe_device *xe = gt_to_xe(gt);
+ 
+ 	if (IS_SRIOV_VF(xe))
  		return;
+@@ -498,10 +484,27 @@ void xe_gt_mcr_init(struct xe_gt *gt)
+ 		}
+ 	}
  
-+	intel_display_driver_remove_nogem(xe);
- 	intel_display_driver_remove_noirq(xe);
- 	intel_opregion_cleanup(display);
-+	intel_power_domains_cleanup(xe);
++	/* Mark instance 0 as initialised, we need this early for VRAM and CCS probe. */
++	gt->steering[INSTANCE0].initialised = true;
++}
++
++/**
++ * xe_gt_mcr_init - Normal initialization of the MCR support
++ * @gt: GT structure
++ *
++ * Perform normal initialization of the MCR for all usages.
++ */
++void xe_gt_mcr_init(struct xe_gt *gt)
++{
++	if (IS_SRIOV_VF(gt_to_xe(gt)))
++		return;
++
+ 	/* Select non-terminated steering target for each type */
+-	for (int i = 0; i < NUM_STEERING_TYPES; i++)
++	for (int i = 0; i < NUM_STEERING_TYPES; i++) {
++		gt->steering[i].initialised = true;
+ 		if (gt->steering[i].ranges && xe_steering_types[i].init)
+ 			xe_steering_types[i].init(gt);
++	}
  }
  
--int xe_display_init_noirq(struct xe_device *xe)
-+int xe_display_init_early(struct xe_device *xe)
- {
- 	struct intel_display *display = &xe->display;
- 	int err;
-@@ -144,6 +122,12 @@ int xe_display_init_noirq(struct xe_device *xe)
- 	if (!xe->info.probe_display)
- 		return 0;
+ /**
+@@ -563,6 +566,10 @@ static bool xe_gt_mcr_get_nonterminated_steering(struct xe_gt *gt,
  
-+	/* Fake uncore lock */
-+	spin_lock_init(&xe->uncore.lock);
+ 		for (int i = 0; gt->steering[type].ranges[i].end > 0; i++) {
+ 			if (xe_mmio_in_range(&gt->mmio, &gt->steering[type].ranges[i], reg)) {
++				drm_WARN(&gt_to_xe(gt)->drm, !gt->steering[type].initialised,
++					 "Uninitialised usage of MCR register %s/%#x\n",
++					 xe_steering_types[type].name, reg.addr);
 +
-+	/* This must be called before any calls to HAS_PCH_* */
-+	intel_detect_pch(xe);
-+
- 	intel_display_driver_early_probe(xe);
+ 				*group = gt->steering[type].group_target;
+ 				*instance = gt->steering[type].instance_target;
+ 				return true;
+diff --git a/drivers/gpu/drm/xe/xe_gt_types.h b/drivers/gpu/drm/xe/xe_gt_types.h
+index a287b98ee70b4..4254665366ffe 100644
+--- a/drivers/gpu/drm/xe/xe_gt_types.h
++++ b/drivers/gpu/drm/xe/xe_gt_types.h
+@@ -375,6 +375,8 @@ struct xe_gt {
+ 		u16 group_target;
+ 		/** @steering.instance_target: instance to steer accesses to */
+ 		u16 instance_target;
++		/** @steering.initialised: Whether this steering range is initialised */
++		bool initialised;
+ 	} steering[NUM_STEERING_TYPES];
  
- 	/* Early display init.. */
-@@ -160,36 +144,20 @@ int xe_display_init_noirq(struct xe_device *xe)
- 	intel_display_device_info_runtime_init(xe);
- 
- 	err = intel_display_driver_probe_noirq(xe);
--	if (err) {
--		intel_opregion_cleanup(display);
--		return err;
--	}
--
--	return devm_add_action_or_reset(xe->drm.dev, xe_display_fini_noirq, xe);
--}
--
--static void xe_display_fini_noaccel(void *arg)
--{
--	struct xe_device *xe = arg;
--
--	if (!xe->info.probe_display)
--		return;
--
--	intel_display_driver_remove_nogem(xe);
--}
--
--int xe_display_init_noaccel(struct xe_device *xe)
--{
--	int err;
--
--	if (!xe->info.probe_display)
--		return 0;
-+	if (err)
-+		goto err_opregion;
- 
- 	err = intel_display_driver_probe_nogem(xe);
- 	if (err)
--		return err;
-+		goto err_noirq;
- 
--	return devm_add_action_or_reset(xe->drm.dev, xe_display_fini_noaccel, xe);
-+	return devm_add_action_or_reset(xe->drm.dev, xe_display_fini_early, xe);
-+err_noirq:
-+	intel_display_driver_remove_noirq(xe);
-+	intel_power_domains_cleanup(xe);
-+err_opregion:
-+	intel_opregion_cleanup(display);
-+	return err;
- }
- 
- int xe_display_init(struct xe_device *xe)
-diff --git a/drivers/gpu/drm/xe/display/xe_display.h b/drivers/gpu/drm/xe/display/xe_display.h
-index 17afa537aee50..255cffa328160 100644
---- a/drivers/gpu/drm/xe/display/xe_display.h
-+++ b/drivers/gpu/drm/xe/display/xe_display.h
-@@ -20,9 +20,7 @@ int xe_display_create(struct xe_device *xe);
- 
- int xe_display_probe(struct xe_device *xe);
- 
--int xe_display_init_nommio(struct xe_device *xe);
--int xe_display_init_noirq(struct xe_device *xe);
--int xe_display_init_noaccel(struct xe_device *xe);
-+int xe_display_init_early(struct xe_device *xe);
- int xe_display_init(struct xe_device *xe);
- void xe_display_fini(struct xe_device *xe);
- 
-@@ -53,9 +51,7 @@ static inline int xe_display_create(struct xe_device *xe) { return 0; }
- 
- static inline int xe_display_probe(struct xe_device *xe) { return 0; }
- 
--static inline int xe_display_init_nommio(struct xe_device *xe) { return 0; }
--static inline int xe_display_init_noirq(struct xe_device *xe) { return 0; }
--static inline int xe_display_init_noaccel(struct xe_device *xe) { return 0; }
-+static inline int xe_display_init_early(struct xe_device *xe) { return 0; }
- static inline int xe_display_init(struct xe_device *xe) { return 0; }
- static inline void xe_display_fini(struct xe_device *xe) {}
- 
-diff --git a/drivers/gpu/drm/xe/xe_device.c b/drivers/gpu/drm/xe/xe_device.c
-index b9948b2dc8d1d..f1147ebeeff31 100644
---- a/drivers/gpu/drm/xe/xe_device.c
-+++ b/drivers/gpu/drm/xe/xe_device.c
-@@ -632,10 +632,6 @@ int xe_device_probe(struct xe_device *xe)
- 		return err;
- 
- 	xe->info.mem_region_mask = 1;
--	err = xe_display_init_nommio(xe);
--	if (err)
--		return err;
--
- 	err = xe_set_dma_info(xe);
- 	if (err)
- 		return err;
-@@ -687,10 +683,6 @@ int xe_device_probe(struct xe_device *xe)
- 	if (err)
- 		return err;
- 
--	err = xe_display_init_noirq(xe);
--	if (err)
--		return err;
--
- 	err = probe_has_flat_ccs(xe);
- 	if (err)
- 		goto err;
-@@ -718,7 +710,7 @@ int xe_device_probe(struct xe_device *xe)
- 	 * This is the reason the first allocation needs to be done
- 	 * inside display.
- 	 */
--	err = xe_display_init_noaccel(xe);
-+	err = xe_display_init_early(xe);
- 	if (err)
- 		goto err;
- 
+ 	/**
 -- 
 2.45.2
 
