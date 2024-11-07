@@ -4,50 +4,78 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5D4B9D3ABD6
-	for <intel-gfx@archiver.kernel.org>; Mon, 11 Nov 2024 17:43:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 066FAD3ABD8
+	for <intel-gfx@archiver.kernel.org>; Mon, 11 Nov 2024 17:43:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8FFBA10E066;
-	Mon, 11 Nov 2024 17:43:55 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 80B7110E4EC;
+	Mon, 11 Nov 2024 17:43:58 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="FVpnHlwX";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="VqScTgeL";
 	dkim-atps=neutral
-Received: from fanzine2.igalia.com (fanzine.igalia.com [178.60.130.6])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 696B810E077;
- Mon, 11 Nov 2024 10:29:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
- References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
- Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
- Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
- List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=1Una/vxZt6iiHlrUyiaIY0BNWaoOC6I2tKxW1QUXfV8=; b=FVpnHlwXxTKD9HXYkn+zQ1iBCJ
- ZTA1dG5iWtHvwi23aLMlL2s9RCVxtPc+QLsBTY8QQhDRk3Utx78rTslRmjiLuLQlHqnIeXYzEsqM6
- VXXX36QecBSa8a/OP9O05P4hWj+YL/pA1YhGdCXiZ4DY9W9bRJAVSv7HMoBitmfmR6AiXCNAkwPtR
- ztR2VCmYQqdtYKdIT1gD7l0lwwOr0ePgS+0Qf2hHrhbsX3krdk8L1/Ws+nNRffUzuZBoPCXPMbNR3
- 2l42kWl993DoW17TO5tSDuH0OEyqhlmkeqy0EJKZfwWCRP+O4k0ejLptg11I0kYoLQbsuveuG2PZW
- 5ppEGViw==;
-Received: from [90.241.98.187] (helo=[192.168.0.101])
- by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
- id 1tARg8-005Mjp-4A; Mon, 11 Nov 2024 11:29:52 +0100
-Message-ID: <3706dc4f-db98-45e0-b870-f10368ab1ab9@igalia.com>
-Date: Mon, 11 Nov 2024 10:29:50 +0000
+Received: from mail-ej1-f47.google.com (mail-ej1-f47.google.com
+ [209.85.218.47])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CA6C610E02B;
+ Thu,  7 Nov 2024 08:21:34 +0000 (UTC)
+Received: by mail-ej1-f47.google.com with SMTP id
+ a640c23a62f3a-a7aa086b077so81878566b.0; 
+ Thu, 07 Nov 2024 00:21:34 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1730967693; x=1731572493; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=5VOR5CG5z5tJAz08GO5kOR/f1vtcXPoi8DLyImsNBw4=;
+ b=VqScTgeL8JxMFGywNHC6z+TuRhmQe+FMfAcgQiWZnn2733UGnhy1PrYsRw7cu7Voyt
+ d9dDHycUSIjgE1ZSdbgulaVWPR4NRxDjbxKn+hLZ/FR5sB5tQPEogJGCK9ZlVamn7TtX
+ qn/BpEcBwTgCymMtALY/6UZ5j+OoTm+FeyBj3Ydo9MZTpbjsq8Zjn3M9CCkwNXBB9ZsH
+ O5e/sQlL5xSa3QKHfNwlscP+er9tiTdGBMFYAu34OM1PSGIGH5Josr974JkB1io/8Wp3
+ hGKE/DCdzI6/bY8O34Xlqll5T3JZdrRs5Z02lA5iKztyYKbsQvHNnNIn1jNWoAD/mFpS
+ RJRw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1730967693; x=1731572493;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=5VOR5CG5z5tJAz08GO5kOR/f1vtcXPoi8DLyImsNBw4=;
+ b=IUzOBQjlE9xm+5P3uAKPdYTGp2UHFrvDZcSXT/XPpK7v8n86hUSZTvTBtofEGuIFA5
+ fbYzrHbqguKSfiqBn3l5GiGjUCK5GJczeZSFcxDWxhae1tbByraV/wmVP7FTr9U8k3Zd
+ iSCGsML8R7OZ5XMAYMP5PNyO1PpuCtpuy7SmUFMsY7/pZ7F1gcGsmpSHzzqwzRbv0pik
+ +lD99Cy16SIz782qelFzrLouIiMNA3JQJ/Fh7SY+lWd8uMkQKD9mzViIpHh64rVrUvgL
+ 7FPTN6uBD3zvlQKI72hjnAEbB/Kgv3IIRXmeo1rodOfZK6ApnQ6BWJqV5crSCmRTtZp0
+ M7CA==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCW+b+WNZCmcbuKIKJ3nAKuU/5RQzEI8hlrX/qaFdrXkN9XPnTo0jDX4IPWGrQnyCN+d440qlPrNX4E=@lists.freedesktop.org,
+ AJvYcCWpTyOouBMUTNmyaKRPmYhTH6TulEmYMrPnpyoCGJ/3ZT6tAREGoGhK/rlsTjF3wplO9M6rwyBP0f8=@lists.freedesktop.org,
+ AJvYcCXi4q90dqeheo0FHR7Cyf2X6zqI3I9r+Kah+p2qoDQiP5eQ56etTk31AeWoyGqEziP0jaKC4uRN2X+Q@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yx5pX2jzdm7BWGwq0OBoRADZGJi81ezZjYYOlQSjsIggv77OYUD
+ plSKV146f51borJFTCyWgHi5g+mWOz2Qbw35aFoRTG+1R5SRohvHu3JQkiCGhBNcTnlxmbCohTl
+ X9P6JlUD0l+d5GOJxX3nkKhnJa28=
+X-Google-Smtp-Source: AGHT+IGzp4ZhM15P5BuZqJNwFlSO7u7lx6xlY6hASCP8GFqOKEug7q8+mJvAPBHNOu1UYfSi3ksydcl56G/UnZhJGfY=
+X-Received: by 2002:a17:907:9622:b0:a99:5234:c56c with SMTP id
+ a640c23a62f3a-a9ee74cae8amr8688466b.33.1730967692918; Thu, 07 Nov 2024
+ 00:21:32 -0800 (PST)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v7 2/4] drm: make drm-active- stats optional
-To: Yunxiang Li <Yunxiang.Li@amd.com>, amd-gfx@lists.freedesktop.org,
- christian.koenig@amd.com
-Cc: Alexander.Deucher@amd.com, dri-devel@lists.freedesktop.org,
- intel-gfx@lists.freedesktop.org, Rob Clark <robdclark@gmail.com>
-References: <20241110154152.592-1-Yunxiang.Li@amd.com>
- <20241110154152.592-3-Yunxiang.Li@amd.com>
-Content-Language: en-GB
-From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-In-Reply-To: <20241110154152.592-3-Yunxiang.Li@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+References: <20241017075725.207384-1-giedriuswork@gmail.com>
+ <CALt+6nqxMZjuZuOKaj8Cx4dcNZx0n-0F9aa97d-vZoMWeN=bOw@mail.gmail.com>
+ <Zyk8dFthM0EA2A_K@intel.com>
+In-Reply-To: <Zyk8dFthM0EA2A_K@intel.com>
+From: =?UTF-8?Q?Giedrius_Statkevi=C4=8Dius?= <giedriuswork@gmail.com>
+Date: Thu, 7 Nov 2024 10:21:21 +0200
+Message-ID: <CALt+6nrS2aRHYCyrba5uBUXsHdPntELdj0MYPbv69PupHBKMtA@mail.gmail.com>
+Subject: Re: [PATCH v2] drm/i915/lspcon: do not hardcode settle timeout
+To: Rodrigo Vivi <rodrigo.vivi@intel.com>
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, 
+ Jani Nikula <jani.nikula@linux.intel.com>, 
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Tvrtko Ursulin <tursulin@ursulin.net>, 
+ Ankit Nautiyal <ankit.k.nautiyal@intel.com>, dri-devel@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org, intel-gfx@lists.freedesktop.org, 
+ intel-xe@lists.freedesktop.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-Mailman-Approved-At: Mon, 11 Nov 2024 17:43:52 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -64,163 +92,24 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
+Hello,
 
-On 10/11/2024 15:41, Yunxiang Li wrote:
-> Make drm-active- optional just like drm-resident- and drm-purgeable-.
+On Mon, 4 Nov 2024 at 23:28, Rodrigo Vivi <rodrigo.vivi@intel.com> wrote:
+>
+> On Mon, Nov 04, 2024 at 02:09:46PM +0200, Giedrius Statkevi=C4=8Dius wrot=
+e:
+> > Hello,
+> >
+> > Kind ping.
+>
+> There was a pipe underun in CI... I honestly don't believe this patch is
+> causing it, but anyway I decided to trigger a retest there before I push =
+this.
+>
+> Thanks for the patch and review.
 
-As Jani has already commented the commit message needs some work.
+I don't see that on my laptop. Resuming sometimes still doesn't work but
+this helps a little from my testing. I will continue the investigation.
 
-> Signed-off-by: Yunxiang Li <Yunxiang.Li@amd.com>
-> CC: dri-devel@lists.freedesktop.org
-> CC: intel-gfx@lists.freedesktop.org
-> CC: amd-gfx@lists.freedesktop.org
-> ---
->   drivers/gpu/drm/amd/amdgpu/amdgpu_fdinfo.c |  1 +
->   drivers/gpu/drm/drm_file.c                 | 13 +++++++------
->   drivers/gpu/drm/i915/i915_drm_client.c     |  1 +
->   drivers/gpu/drm/xe/xe_drm_client.c         |  1 +
->   include/drm/drm_gem.h                      | 14 ++++++++------
->   5 files changed, 18 insertions(+), 12 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_fdinfo.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_fdinfo.c
-> index df2cf5c339255..7717e3e4f05b5 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_fdinfo.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_fdinfo.c
-> @@ -97,6 +97,7 @@ void amdgpu_show_fdinfo(struct drm_printer *p, struct drm_file *file)
->   
->   		drm_print_memory_stats(p,
->   				       &stats[i].drm,
-> +				       DRM_GEM_OBJECT_ACTIVE |
->   				       DRM_GEM_OBJECT_RESIDENT |
->   				       DRM_GEM_OBJECT_PURGEABLE,
->   				       pl_name[i]);
-> diff --git a/drivers/gpu/drm/drm_file.c b/drivers/gpu/drm/drm_file.c
-> index e285fcc28c59c..fd06671054723 100644
-> --- a/drivers/gpu/drm/drm_file.c
-> +++ b/drivers/gpu/drm/drm_file.c
-> @@ -884,7 +884,9 @@ void drm_print_memory_stats(struct drm_printer *p,
->   {
->   	print_size(p, "total", region, stats->private + stats->shared);
->   	print_size(p, "shared", region, stats->shared);
-> -	print_size(p, "active", region, stats->active);
-> +
-> +	if (supported_status & DRM_GEM_OBJECT_ACTIVE)
-> +		print_size(p, "active", region, stats->active);
->   
->   	if (supported_status & DRM_GEM_OBJECT_RESIDENT)
->   		print_size(p, "resident", region, stats->resident);
-> @@ -917,15 +919,13 @@ void drm_show_memory_stats(struct drm_printer *p, struct drm_file *file)
->   
->   		if (obj->funcs && obj->funcs->status) {
->   			s = obj->funcs->status(obj);
-> -			supported_status = DRM_GEM_OBJECT_RESIDENT |
-> -					DRM_GEM_OBJECT_PURGEABLE;
-> +			supported_status |= s;
-
-I think this is correct and I think I've raised that it should be like 
-this when the code was originally added. I only don't remember what was 
-the argument to keep it hardcoded, if there was any. Adding Rob in case 
-he can remember.
-
->   		}
->   
-> -		if (drm_gem_object_is_shared_for_memory_stats(obj)) {
-> +		if (drm_gem_object_is_shared_for_memory_stats(obj))
->   			status.shared += obj->size;
-> -		} else {
-> +		else
->   			status.private += obj->size;
-> -		}
-
-Drive by cleanup, okay.
-
->   
->   		if (s & DRM_GEM_OBJECT_RESIDENT) {
->   			status.resident += add_size;
-> @@ -938,6 +938,7 @@ void drm_show_memory_stats(struct drm_printer *p, struct drm_file *file)
->   
->   		if (!dma_resv_test_signaled(obj->resv, dma_resv_usage_rw(true))) {
->   			status.active += add_size;
-> +			supported_status |= DRM_GEM_OBJECT_ACTIVE;
-
-I wonder what behaviour we should have here if the driver has reported 
-DRM_GEM_OBJECT_ACTIVE via its status vfunc. Like should it be like this:
-
-    if ((s & DRM_GEM_OBJECT_ACTIVE) ||
-        !dma_resv_test_signaled(obj->resv, dma_resv_usage_rw(true))) {
-	  ...
-
-?
-
-So if some driver starts reporting this flag _and_ is still calling 
-drm_show_memory_stats(), it's version of activity tracking is used 
-instead of the the dma_resv based test.
-
->   
->   			/* If still active, don't count as purgeable: */
->   			s &= ~DRM_GEM_OBJECT_PURGEABLE;
-> diff --git a/drivers/gpu/drm/i915/i915_drm_client.c b/drivers/gpu/drm/i915/i915_drm_client.c
-> index f586825054918..168d7375304bc 100644
-> --- a/drivers/gpu/drm/i915/i915_drm_client.c
-> +++ b/drivers/gpu/drm/i915/i915_drm_client.c
-> @@ -102,6 +102,7 @@ static void show_meminfo(struct drm_printer *p, struct drm_file *file)
->   	for_each_memory_region(mr, i915, id)
->   		drm_print_memory_stats(p,
->   				       &stats[id],
-> +				       DRM_GEM_OBJECT_ACTIVE |
->   				       DRM_GEM_OBJECT_RESIDENT |
->   				       DRM_GEM_OBJECT_PURGEABLE,
->   				       mr->uabi_name);
-> diff --git a/drivers/gpu/drm/xe/xe_drm_client.c b/drivers/gpu/drm/xe/xe_drm_client.c
-> index 6a26923fa10e0..54941b4e850c4 100644
-> --- a/drivers/gpu/drm/xe/xe_drm_client.c
-> +++ b/drivers/gpu/drm/xe/xe_drm_client.c
-> @@ -229,6 +229,7 @@ static void show_meminfo(struct drm_printer *p, struct drm_file *file)
->   		if (man) {
->   			drm_print_memory_stats(p,
->   					       &stats[mem_type],
-> +					       DRM_GEM_OBJECT_ACTIVE |
->   					       DRM_GEM_OBJECT_RESIDENT |
->   					       (mem_type != XE_PL_SYSTEM ? 0 :
->   					       DRM_GEM_OBJECT_PURGEABLE),
-> diff --git a/include/drm/drm_gem.h b/include/drm/drm_gem.h
-> index bae4865b2101a..584ffdf5c2542 100644
-> --- a/include/drm/drm_gem.h
-> +++ b/include/drm/drm_gem.h
-> @@ -48,19 +48,21 @@ struct drm_gem_object;
->    * enum drm_gem_object_status - bitmask of object state for fdinfo reporting
->    * @DRM_GEM_OBJECT_RESIDENT: object is resident in memory (ie. not unpinned)
->    * @DRM_GEM_OBJECT_PURGEABLE: object marked as purgeable by userspace
-> + * @DRM_GEM_OBJECT_ACTIVE: object is currently used by an active submission
->    *
->    * Bitmask of status used for fdinfo memory stats, see &drm_gem_object_funcs.status
-> - * and drm_show_fdinfo().  Note that an object can DRM_GEM_OBJECT_PURGEABLE if
-> - * it still active or not resident, in which case drm_show_fdinfo() will not
-> + * and drm_show_fdinfo().  Note that an object can report DRM_GEM_OBJECT_PURGEABLE
-> + * and be active or not resident, in which case drm_show_fdinfo() will not
->    * account for it as purgeable.  So drivers do not need to check if the buffer
-> - * is idle and resident to return this bit.  (Ie. userspace can mark a buffer
-> - * as purgeable even while it is still busy on the GPU.. it does not _actually_
-> - * become puregeable until it becomes idle.  The status gem object func does
-> - * not need to consider this.)
-> + * is idle and resident to return this bit, i.e. userspace can mark a buffer as
-> + * purgeable even while it is still busy on the GPU. It whill not get reported
-
-Good cleanup.
-
-s/whill/will/
-
-> + * in the puregeable stats until it becomes idle.  The status gem object func
-> + * does not need to consider this.
->    */
->   enum drm_gem_object_status {
->   	DRM_GEM_OBJECT_RESIDENT  = BIT(0),
->   	DRM_GEM_OBJECT_PURGEABLE = BIT(1),
-> +	DRM_GEM_OBJECT_ACTIVE = BIT(2),
->   };
->   
->   /**
-
-Regards,
-
-Tvrtko
+Best regards,
+Giedrius
