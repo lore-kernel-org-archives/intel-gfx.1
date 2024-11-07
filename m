@@ -4,49 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 08A54D43375
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F3310D43376
 	for <intel-gfx@archiver.kernel.org>; Thu,  7 Nov 2024 16:11:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8B79210E870;
-	Thu,  7 Nov 2024 16:11:36 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5784A10E13D;
+	Thu,  7 Nov 2024 16:11:38 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="mE4mq0Yf";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="Mtq/y5rh";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DE1EB10E13D
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B460010E329
  for <intel-gfx@lists.freedesktop.org>; Thu,  7 Nov 2024 16:11:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1730995896; x=1762531896;
+ t=1730995895; x=1762531895;
  h=from:to:subject:date:message-id:in-reply-to:references:
  mime-version:content-transfer-encoding;
- bh=p/mR3sIDURgV78e7CDnjPwGxqZbZrJS2b1ik3CHsPl0=;
- b=mE4mq0YfxBG7pY0g0IDyFxuQx7noY4d4WZAj7hRXptvqd5Y9WuowRMrU
- q74Tt6e16weqSYEgoZLRykbIeRJmiUKH5ZnnKhIzjEclYPeu68g8houH2
- tYGOaXB87RlYsLjCDvTMtpA25/0rKpx9EFWXPpno4FRGMNsdFHkJwYMly
- Wzoc9jmyLJQqwAk+l9JYjHAcBhfRC/7ohHsxFWA2I32zYPqYAfp3D/Dqg
- QQihf75x8+bLRdyh3UgualrGgiX9ZEEmiTuvH4wXTRT4teYHa4XIXdc1O
- 08N0dRTLiJ1J9dFkAvaP9n7Yx90JC0AMOtvgKLO4ZoZtQSEf75CEocFAw A==;
-X-CSE-ConnectionGUID: Gbu6tk/GQuygs1Zx9Xk09w==
-X-CSE-MsgGUID: 0O0s5BjoSmusESyzv32l6g==
-X-IronPort-AV: E=McAfee;i="6700,10204,11249"; a="41443032"
-X-IronPort-AV: E=Sophos;i="6.12,135,1728975600"; d="scan'208";a="41443032"
+ bh=49+c2vSwn6DVjzEg7WW5lnWDD8VOxJQMN4AXrFfgEgQ=;
+ b=Mtq/y5rh+9e2MRuHaf6CW/SMMLGgA/M0D4tHv52g5iNvvAk5+hsnOOse
+ t27ERK8+pe/TpuunBjYrKsCB1Q75u7nXzgd0IUDEbRoSa/3nAvSKS6dXI
+ mYcmGiLu0xp/Hpbe0vuV4tqGoJYDsR0s322g9uPh5tzA9QW7JVstkMSUS
+ uSOThOh9PIjCcGCuCQzi09qF7fPhGLP4RHOND0nYrL8CIQbzQaV7j6fWN
+ g6Wrg79zE1LMNMQZ7odLEOsoIj+ph1K8YrGA1WXdAz00/Vm7UPj8948xz
+ rH/dzcY5sDu+IW+StgMxfgTA7LU5xGJ/rFWY7urb0nhwoEQOJIGwxUu2D w==;
+X-CSE-ConnectionGUID: l+qzWUUNQmuGiNFXI9NLjA==
+X-CSE-MsgGUID: 0zwKqx0ETJ+kET+A6T0LmQ==
+X-IronPort-AV: E=McAfee;i="6700,10204,11249"; a="41443012"
+X-IronPort-AV: E=Sophos;i="6.12,135,1728975600"; d="scan'208";a="41443012"
 Received: from fmviesa008.fm.intel.com ([10.60.135.148])
  by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 07 Nov 2024 08:11:31 -0800
-X-CSE-ConnectionGUID: e6jvWepnTI6YgYkvejiX4Q==
-X-CSE-MsgGUID: Qgesr2f+STCXZ+kJ5P9Mfg==
+ 07 Nov 2024 08:11:28 -0800
+X-CSE-ConnectionGUID: TX4SkGoUSyGSUihFfaQAwA==
+X-CSE-MsgGUID: njUAsyacTfSbn445BqORPA==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.12,135,1728975600"; d="scan'208";a="85277842"
+X-IronPort-AV: E=Sophos;i="6.12,135,1728975600"; d="scan'208";a="85277829"
 Received: from stinkpipe.fi.intel.com (HELO stinkbox) ([10.237.72.74])
- by fmviesa008.fm.intel.com with SMTP; 07 Nov 2024 08:11:29 -0800
+ by fmviesa008.fm.intel.com with SMTP; 07 Nov 2024 08:11:26 -0800
 Received: by stinkbox (sSMTP sendmail emulation);
- Thu, 07 Nov 2024 18:11:28 +0200
+ Thu, 07 Nov 2024 18:11:26 +0200
 From: Ville Syrjala <ville.syrjala@linux.intel.com>
 To: intel-gfx@lists.freedesktop.org
-Subject: [PATCH 02/10] drm/i915/crt: Split long line
-Date: Thu,  7 Nov 2024 18:11:15 +0200
-Message-ID: <20241107161123.16269-3-ville.syrjala@linux.intel.com>
+Subject: [PATCH 01/10] drm/i915: Grab intel_display from the encoder to avoid
+ potential oopsies
+Date: Thu,  7 Nov 2024 18:11:14 +0200
+Message-ID: <20241107161123.16269-2-ville.syrjala@linux.intel.com>
 X-Mailer: git-send-email 2.45.2
 In-Reply-To: <20241107161123.16269-1-ville.syrjala@linux.intel.com>
 References: <20241107161123.16269-1-ville.syrjala@linux.intel.com>
@@ -70,28 +71,90 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 From: Ville Syrjälä <ville.syrjala@linux.intel.com>
 
-Split an overly long line in the CRT code.
+Grab the intel_display from 'encoder' rather than 'state'
+in the encoder hooks to avoid the massive footgun that is
+intel_sanitize_encoder(), which passes NULL as the 'state'
+argument to encoder .disable() and .post_disable().
+
+TODO: figure out how to actually fix intel_sanitize_encoder()...
 
 Signed-off-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_crt.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/i915/display/intel_crt.c | 10 +++++-----
+ drivers/gpu/drm/i915/display/intel_tv.c  |  4 ++--
+ 2 files changed, 7 insertions(+), 7 deletions(-)
 
 diff --git a/drivers/gpu/drm/i915/display/intel_crt.c b/drivers/gpu/drm/i915/display/intel_crt.c
-index 1be55bdb48b9..134a4e6a4ac0 100644
+index 74c1983fe07e..1be55bdb48b9 100644
 --- a/drivers/gpu/drm/i915/display/intel_crt.c
 +++ b/drivers/gpu/drm/i915/display/intel_crt.c
-@@ -1047,7 +1047,9 @@ void intel_crt_init(struct intel_display *display)
- 		 * it and see what happens.
- 		 */
- 		intel_de_write(display, adpa_reg,
--			       adpa | ADPA_DAC_ENABLE | ADPA_HSYNC_CNTL_DISABLE | ADPA_VSYNC_CNTL_DISABLE);
-+			       adpa | ADPA_DAC_ENABLE |
-+			       ADPA_HSYNC_CNTL_DISABLE |
-+			       ADPA_VSYNC_CNTL_DISABLE);
- 		if ((intel_de_read(display, adpa_reg) & ADPA_DAC_ENABLE) == 0)
- 			return;
- 		intel_de_write(display, adpa_reg, adpa);
+@@ -244,7 +244,7 @@ static void hsw_disable_crt(struct intel_atomic_state *state,
+ 			    const struct intel_crtc_state *old_crtc_state,
+ 			    const struct drm_connector_state *old_conn_state)
+ {
+-	struct intel_display *display = to_intel_display(state);
++	struct intel_display *display = to_intel_display(encoder);
+ 	struct drm_i915_private *dev_priv = to_i915(encoder->base.dev);
+ 
+ 	drm_WARN_ON(display->drm, !old_crtc_state->has_pch_encoder);
+@@ -257,7 +257,7 @@ static void hsw_post_disable_crt(struct intel_atomic_state *state,
+ 				 const struct intel_crtc_state *old_crtc_state,
+ 				 const struct drm_connector_state *old_conn_state)
+ {
+-	struct intel_display *display = to_intel_display(state);
++	struct intel_display *display = to_intel_display(encoder);
+ 	struct intel_crtc *crtc = to_intel_crtc(old_crtc_state->uapi.crtc);
+ 	struct drm_i915_private *dev_priv = to_i915(encoder->base.dev);
+ 
+@@ -287,7 +287,7 @@ static void hsw_pre_pll_enable_crt(struct intel_atomic_state *state,
+ 				   const struct intel_crtc_state *crtc_state,
+ 				   const struct drm_connector_state *conn_state)
+ {
+-	struct intel_display *display = to_intel_display(state);
++	struct intel_display *display = to_intel_display(encoder);
+ 	struct drm_i915_private *dev_priv = to_i915(encoder->base.dev);
+ 
+ 	drm_WARN_ON(display->drm, !crtc_state->has_pch_encoder);
+@@ -300,7 +300,7 @@ static void hsw_pre_enable_crt(struct intel_atomic_state *state,
+ 			       const struct intel_crtc_state *crtc_state,
+ 			       const struct drm_connector_state *conn_state)
+ {
+-	struct intel_display *display = to_intel_display(state);
++	struct intel_display *display = to_intel_display(encoder);
+ 	struct drm_i915_private *dev_priv = to_i915(encoder->base.dev);
+ 	struct intel_crtc *crtc = to_intel_crtc(crtc_state->uapi.crtc);
+ 	enum pipe pipe = crtc->pipe;
+@@ -319,7 +319,7 @@ static void hsw_enable_crt(struct intel_atomic_state *state,
+ 			   const struct intel_crtc_state *crtc_state,
+ 			   const struct drm_connector_state *conn_state)
+ {
+-	struct intel_display *display = to_intel_display(state);
++	struct intel_display *display = to_intel_display(encoder);
+ 	struct drm_i915_private *dev_priv = to_i915(encoder->base.dev);
+ 	struct intel_crtc *crtc = to_intel_crtc(crtc_state->uapi.crtc);
+ 	enum pipe pipe = crtc->pipe;
+diff --git a/drivers/gpu/drm/i915/display/intel_tv.c b/drivers/gpu/drm/i915/display/intel_tv.c
+index bfd16054ca05..27c530218ee6 100644
+--- a/drivers/gpu/drm/i915/display/intel_tv.c
++++ b/drivers/gpu/drm/i915/display/intel_tv.c
+@@ -929,7 +929,7 @@ intel_enable_tv(struct intel_atomic_state *state,
+ 		const struct intel_crtc_state *pipe_config,
+ 		const struct drm_connector_state *conn_state)
+ {
+-	struct intel_display *display = to_intel_display(state);
++	struct intel_display *display = to_intel_display(encoder);
+ 
+ 	/* Prevents vblank waits from timing out in intel_tv_detect_type() */
+ 	intel_crtc_wait_for_next_vblank(to_intel_crtc(pipe_config->uapi.crtc));
+@@ -943,7 +943,7 @@ intel_disable_tv(struct intel_atomic_state *state,
+ 		 const struct intel_crtc_state *old_crtc_state,
+ 		 const struct drm_connector_state *old_conn_state)
+ {
+-	struct intel_display *display = to_intel_display(state);
++	struct intel_display *display = to_intel_display(encoder);
+ 
+ 	intel_de_rmw(display, TV_CTL, TV_ENC_ENABLE, 0);
+ }
 -- 
 2.45.2
 
