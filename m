@@ -4,22 +4,23 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C0F21D35E5D
-	for <intel-gfx@archiver.kernel.org>; Thu,  7 Nov 2024 10:01:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 61B82D5AE7C
+	for <intel-gfx@archiver.kernel.org>; Thu,  7 Nov 2024 10:02:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6EB0110E7EA;
-	Thu,  7 Nov 2024 10:01:58 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F1A8710E7EE;
+	Thu,  7 Nov 2024 10:02:00 +0000 (UTC)
 Received: from mblankhorst.nl (lankhorst.se [141.105.120.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6CD8810E7E2;
- Thu,  7 Nov 2024 10:01:56 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 48DFC10E7EB;
+ Thu,  7 Nov 2024 10:01:59 +0000 (UTC)
 From: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
 To: intel-xe@lists.freedesktop.org
 Cc: intel-gfx@lists.freedesktop.org,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
  Maarten@mblankhorst.nl, Lankhorst@mblankhorst.nl, dev@lankhorst.se
-Subject: [PATCH 3/9] drm/xe: Move suballocator init to after display init
-Date: Thu,  7 Nov 2024 11:01:34 +0100
-Message-ID: <20241107100140.292928-3-maarten.lankhorst@linux.intel.com>
+Subject: [PATCH 6/9] drm/xe/sriov: Move VF bootstrap and query_config to
+ vf_guc_init
+Date: Thu,  7 Nov 2024 11:01:37 +0100
+Message-ID: <20241107100140.292928-6-maarten.lankhorst@linux.intel.com>
 X-Mailer: git-send-email 2.45.2
 In-Reply-To: <20241107100140.292928-1-maarten.lankhorst@linux.intel.com>
 References: <20241107100140.292928-1-maarten.lankhorst@linux.intel.com>
@@ -40,77 +41,74 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-No allocations should be done before we have had a chance to preserve
-the display fb.
+We want to split up GUC init to an alloc and noalloc part to keep the
+init path the same for VF and !VF as much as possible.
+
+Everything in vf_guc_init should be done as early as possible, otherwise
+VRAM probing becomes impossible.
 
 Signed-off-by: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-Link: https://patchwork.freedesktop.org/patch/msgid/20241105121857.17389-3-maarten.lankhorst@linux.intel.com
+Link: https://patchwork.freedesktop.org/patch/msgid/20241105121857.17389-6-maarten.lankhorst@linux.intel.com
 Signed-off-by: Maarten Lankhorst,,, <dev@lankhorst.se>
 ---
- drivers/gpu/drm/xe/xe_device.c |  6 ++++++
- drivers/gpu/drm/xe/xe_tile.c   | 12 ++++++++----
- drivers/gpu/drm/xe/xe_tile.h   |  1 +
- 3 files changed, 15 insertions(+), 4 deletions(-)
+ drivers/gpu/drm/xe/xe_gt_sriov_vf.c |  1 -
+ drivers/gpu/drm/xe/xe_guc.c         | 17 +++++++++--------
+ 2 files changed, 9 insertions(+), 9 deletions(-)
 
-diff --git a/drivers/gpu/drm/xe/xe_device.c b/drivers/gpu/drm/xe/xe_device.c
-index a0d29d5cb7b70..cef782f244e1a 100644
---- a/drivers/gpu/drm/xe/xe_device.c
-+++ b/drivers/gpu/drm/xe/xe_device.c
-@@ -730,6 +730,12 @@ int xe_device_probe(struct xe_device *xe)
- 	if (err)
- 		goto err;
+diff --git a/drivers/gpu/drm/xe/xe_gt_sriov_vf.c b/drivers/gpu/drm/xe/xe_gt_sriov_vf.c
+index cca5d57328021..997438047a037 100644
+--- a/drivers/gpu/drm/xe/xe_gt_sriov_vf.c
++++ b/drivers/gpu/drm/xe/xe_gt_sriov_vf.c
+@@ -948,7 +948,6 @@ u32 xe_gt_sriov_vf_read32(struct xe_gt *gt, struct xe_reg reg)
+ 	struct vf_runtime_reg *rr;
  
-+	for_each_tile(tile, xe, id) {
-+		err = xe_tile_init(tile);
-+		if (err)
-+			goto err;
-+	}
-+
- 	for_each_gt(gt, xe, id) {
- 		last_gt = id;
+ 	xe_gt_assert(gt, IS_SRIOV_VF(gt_to_xe(gt)));
+-	xe_gt_assert(gt, gt->sriov.vf.pf_version.major);
+ 	xe_gt_assert(gt, !reg.vf);
  
-diff --git a/drivers/gpu/drm/xe/xe_tile.c b/drivers/gpu/drm/xe/xe_tile.c
-index 07cf7cfe4abd5..2825553b568f7 100644
---- a/drivers/gpu/drm/xe/xe_tile.c
-+++ b/drivers/gpu/drm/xe/xe_tile.c
-@@ -170,10 +170,6 @@ int xe_tile_init_noalloc(struct xe_tile *tile)
+ 	if (reg.addr == GMD_ID.addr) {
+diff --git a/drivers/gpu/drm/xe/xe_guc.c b/drivers/gpu/drm/xe/xe_guc.c
+index 7224593c9ce9b..5a050a5379911 100644
+--- a/drivers/gpu/drm/xe/xe_guc.c
++++ b/drivers/gpu/drm/xe/xe_guc.c
+@@ -301,6 +301,7 @@ static int xe_guc_realloc_post_hwconfig(struct xe_guc *guc)
+ 
+ static int vf_guc_init(struct xe_guc *guc)
+ {
++	struct xe_gt *gt = guc_to_gt(guc);
+ 	int err;
+ 
+ 	xe_guc_comm_init_early(guc);
+@@ -313,6 +314,14 @@ static int vf_guc_init(struct xe_guc *guc)
  	if (err)
  		return err;
  
--	tile->mem.kernel_bb_pool = xe_sa_bo_manager_init(tile, SZ_1M, 16);
--	if (IS_ERR(tile->mem.kernel_bb_pool))
--		return PTR_ERR(tile->mem.kernel_bb_pool);
--
- 	xe_wa_apply_tile_workarounds(tile);
- 
- 	err = xe_tile_sysfs_init(tile);
-@@ -181,6 +177,14 @@ int xe_tile_init_noalloc(struct xe_tile *tile)
++	err = xe_gt_sriov_vf_bootstrap(gt);
++	if (err)
++		return err;
++
++	err = xe_gt_sriov_vf_query_config(gt);
++	if (err)
++		return err;
++
  	return 0;
  }
  
-+int xe_tile_init(struct xe_tile *tile)
-+{
-+	tile->mem.kernel_bb_pool = xe_sa_bo_manager_init(tile, SZ_1M, 16);
-+	if (IS_ERR(tile->mem.kernel_bb_pool))
-+		return PTR_ERR(tile->mem.kernel_bb_pool);
-+
-+	return 0;
-+}
- void xe_tile_migrate_wait(struct xe_tile *tile)
- {
- 	xe_migrate_wait(tile->migrate);
-diff --git a/drivers/gpu/drm/xe/xe_tile.h b/drivers/gpu/drm/xe/xe_tile.h
-index 1c9e42ade6b05..eb939316d55b0 100644
---- a/drivers/gpu/drm/xe/xe_tile.h
-+++ b/drivers/gpu/drm/xe/xe_tile.h
-@@ -12,6 +12,7 @@ struct xe_tile;
+@@ -753,14 +762,6 @@ static int vf_guc_min_load_for_hwconfig(struct xe_guc *guc)
+ 	struct xe_gt *gt = guc_to_gt(guc);
+ 	int ret;
  
- int xe_tile_init_early(struct xe_tile *tile, struct xe_device *xe, u8 id);
- int xe_tile_init_noalloc(struct xe_tile *tile);
-+int xe_tile_init(struct xe_tile *tile);
- 
- void xe_tile_migrate_wait(struct xe_tile *tile);
- 
+-	ret = xe_gt_sriov_vf_bootstrap(gt);
+-	if (ret)
+-		return ret;
+-
+-	ret = xe_gt_sriov_vf_query_config(gt);
+-	if (ret)
+-		return ret;
+-
+ 	ret = xe_guc_hwconfig_init(guc);
+ 	if (ret)
+ 		return ret;
 -- 
 2.45.2
 
