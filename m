@@ -4,32 +4,32 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3E88DD43341
-	for <intel-gfx@archiver.kernel.org>; Thu,  7 Nov 2024 11:03:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D9D96D43346
+	for <intel-gfx@archiver.kernel.org>; Thu,  7 Nov 2024 11:04:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E1B0F10E7FD;
-	Thu,  7 Nov 2024 11:03:36 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 606AF10E801;
+	Thu,  7 Nov 2024 11:04:57 +0000 (UTC)
 Received: from coelho.fi (coelho.fi [88.99.146.29])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 34EFF10E7FD
- for <intel-gfx@lists.freedesktop.org>; Thu,  7 Nov 2024 11:03:36 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1916810E801
+ for <intel-gfx@lists.freedesktop.org>; Thu,  7 Nov 2024 11:04:56 +0000 (UTC)
 Received: from 91-155-254-188.elisa-laajakaista.fi ([91.155.254.188]
  helo=[192.168.100.137])
  by coelho.fi with esmtpsa (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
  (Exim 4.97) (envelope-from <luca@coelho.fi>)
- id 1t90IX-00000001WQ2-4BAq; Thu, 07 Nov 2024 13:03:33 +0200
-Message-ID: <94a087257884e8d3d2b650a690c5244488e79861.camel@coelho.fi>
+ id 1t90Jp-00000001WQJ-407w; Thu, 07 Nov 2024 13:04:53 +0200
+Message-ID: <ea71b4b0cba476c0a7fa8583b4f4b70947e92ef3.camel@coelho.fi>
 From: Luca Coelho <luca@coelho.fi>
 To: Ville Syrjala <ville.syrjala@linux.intel.com>, 
  intel-gfx@lists.freedesktop.org
-Date: Thu, 07 Nov 2024 13:03:32 +0200
-In-Reply-To: <20241029211030.13255-7-ville.syrjala@linux.intel.com>
+Date: Thu, 07 Nov 2024 13:04:52 +0200
+In-Reply-To: <20241029211030.13255-8-ville.syrjala@linux.intel.com>
 References: <20241029211030.13255-1-ville.syrjala@linux.intel.com>
- <20241029211030.13255-7-ville.syrjala@linux.intel.com>
+ <20241029211030.13255-8-ville.syrjala@linux.intel.com>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 User-Agent: Evolution 3.54.1-1 
 MIME-Version: 1.0
-Subject: Re: [PATCH 6/9] drm/i915/scaler: Carve up intel_atomic_setup_scalers()
+Subject: Re: [PATCH 7/9] drm/i915/scaler: Move pfit scaler into pfit state
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -48,12 +48,15 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 On Tue, 2024-10-29 at 23:10 +0200, Ville Syrjala wrote:
 > From: Ville Syrj=C3=A4l=C3=A4 <ville.syrjala@linux.intel.com>
 >=20
-> Declutter intel_atomic_setup_scalers() a bit by splitting
-> the crtc scaling/pfit vs. plane scaling cases into their
-> own functions.
+> The plane scaler is stored in the plane state, but the crtc scaler
+> is stored in the scaler_state. That is a bit incosistent as the
+> plane state is the state of the consumer, but scaler_state is more
+> the state of the producer. Move the crtc scaler into the pfit state
+> which is more analogous to the plane state.
 >=20
 > Signed-off-by: Ville Syrj=C3=A4l=C3=A4 <ville.syrjala@linux.intel.com>
 > ---
+>=20
 
 Reviewed-by: Luca Coelho <luciano.coelho@intel.com>
 
