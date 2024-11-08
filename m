@@ -4,58 +4,54 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EFE87D5C0C6
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3DB03D5C0C5
 	for <intel-gfx@archiver.kernel.org>; Fri,  8 Nov 2024 13:03:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6303A10E98F;
-	Fri,  8 Nov 2024 13:03:04 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A830B10E984;
+	Fri,  8 Nov 2024 13:03:03 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="YMoDP9rE";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="gB5yhNHF";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.9])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F1C6410E97C
- for <intel-gfx@lists.freedesktop.org>; Fri,  8 Nov 2024 13:03:01 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.11])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8C10010E97C;
+ Fri,  8 Nov 2024 13:03:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1731070982; x=1762606982;
- h=from:to:subject:in-reply-to:references:date:message-id:
- mime-version:content-transfer-encoding;
- bh=P9XmF5PfjIeuiV6nGfDsQ2aZ3JVfBS+SmKcX/VuNSUw=;
- b=YMoDP9rECnjC8O7A/gZY0sAqjiNedAi6Ib1I2PkQppDXI8ZFQlreuwuK
- 7swusbpBVdCuZr1+ft/vi8WSOBm//jWApjN9wYUzpHAXh2pHCFLRmVkfg
- H+QKi4Ikd5DZpqWsbYbNHKijxHnSEHLoHe/V0oThSwI3BWELWxJVtF7m/
- /UvMGE9AQC7KokCDDAXPR8FeyaW+fg/dUG3V11nJXcYyoS1OV80w8t4la
- 0d40pa7vymNECroG9GD7XkpORv+YJxE5icA9qPebcDCXFBZ/9aBw9NymD
- 3LbJzq312qSqrgiCeDuzBUO+a+tRUlp22/PRFJQ9ETPJ7CXeiVgYC+HQ3 A==;
-X-CSE-ConnectionGUID: /afiLZa0RTOw26rUzVvSug==
-X-CSE-MsgGUID: uF9E5ULuTymwZ9871nGMOA==
-X-IronPort-AV: E=McAfee;i="6700,10204,11222"; a="53513593"
-X-IronPort-AV: E=Sophos;i="6.11,199,1725346800"; d="scan'208";a="53513593"
-Received: from orviesa006.jf.intel.com ([10.64.159.146])
- by orvoesa101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ t=1731070983; x=1762606983;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=FxvNTMT+Q9Qw9Bhg4/VTAoriEYIOerqahKyQyOgo6w4=;
+ b=gB5yhNHFKQxGEkWp4l7PVaVvFHE3vRXeUSuZuUYm3KrduWyqefj3I9NF
+ fFEXDE/lGLvuV0BgAALf/t6ftlt110Xd38WVZ+h4wgkR6qi1xhtye2WRR
+ VGSLnKuAZkw6k1xZGuPAZ5P7BIo5DYV1lYEuAU/BTMvSHfurI4fnJ6GQD
+ qIcmI/zn2ToWI0OUYeUcUMh1+e8g2S15eZmdt+jGnh/s9S6qreLddpQUH
+ gKO9OfpNaVJ1QwMhNvcFHgQ+y06eLGA7ppdDSHSBJZq6z27WPcd28AnKm
+ Mga42t3RxZ8WOacgvFR7KgZNFuXrjmha9Kye5Z7tfAAbhwcjOizqFFkiK A==;
+X-CSE-ConnectionGUID: a9JC86cKQq63RcIITW1kAg==
+X-CSE-MsgGUID: sAHZCr8fSKy/AGzmrU+kAA==
+X-IronPort-AV: E=McAfee;i="6700,10204,11222"; a="41513121"
+X-IronPort-AV: E=Sophos;i="6.11,199,1725346800"; d="scan'208";a="41513121"
+Received: from fmviesa008.fm.intel.com ([10.60.135.148])
+ by orvoesa103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  08 Nov 2024 05:03:02 -0800
-X-CSE-ConnectionGUID: auzEmxcCTietbhki+1Sr+Q==
-X-CSE-MsgGUID: GkFyICvbROOcT8lfpoU1fA==
+X-CSE-ConnectionGUID: 7wEMTAN+RGq4EbjjilUaGg==
+X-CSE-MsgGUID: c6cZJP3YRaW6ij9EWSxqSA==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.12,138,1728975600"; d="scan'208";a="85651464"
-Received: from mjarzebo-mobl1.ger.corp.intel.com (HELO localhost)
- ([10.245.246.252])
- by orviesa006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 08 Nov 2024 05:03:00 -0800
-From: Jani Nikula <jani.nikula@linux.intel.com>
-To: Ville Syrjala <ville.syrjala@linux.intel.com>,
- intel-gfx@lists.freedesktop.org
-Subject: Re: [PATCH 03/10] drm/i915/crt: Drop the unused ADPA_DPMS bit
- definitions
-In-Reply-To: <20241107161123.16269-4-ville.syrjala@linux.intel.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
-References: <20241107161123.16269-1-ville.syrjala@linux.intel.com>
- <20241107161123.16269-4-ville.syrjala@linux.intel.com>
-Date: Fri, 08 Nov 2024 15:02:56 +0200
-Message-ID: <87pln5ev3z.fsf@intel.com>
+X-IronPort-AV: E=Sophos;i="6.12,138,1728975600"; d="scan'208";a="85692462"
+Received: from ldmartin-desk2.corp.intel.com (HELO
+ gjsousa-mobl2.corp.amr.intel.com) ([10.125.110.232])
+ by fmviesa008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 08 Nov 2024 05:02:41 -0800
+From: Gustavo Sousa <gustavo.sousa@intel.com>
+To: intel-gfx@lists.freedesktop.org,
+	intel-xe@lists.freedesktop.org
+Cc: Luca Coelho <luciano.coelho@intel.com>, Jani Nikula <jani.nikula@intel.com>
+Subject: [PATCH v4 00/15] drm/i915/dmc_wl: Fixes and enablement for Xe3_LPD
+Date: Fri,  8 Nov 2024 09:57:05 -0300
+Message-ID: <20241108130218.24125-1-gustavo.sousa@intel.com>
+X-Mailer: git-send-email 2.47.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,44 +67,44 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Thu, 07 Nov 2024, Ville Syrjala <ville.syrjala@linux.intel.com> wrote:
-> From: Ville Syrj=C3=A4l=C3=A4 <ville.syrjala@linux.intel.com>
->
-> The ADPA_DPMS bit definitions aer just an alias for the
+Using the DMC wakelock is the official recommendation for Xe3_LPD. This
+series apply fixes to the current DMC wakelock implementation and
+enables it by default for Xe3_LPD. The series has been tested with a PTL
+machine.
 
-*are
+This is the v4 of the series. The only difference from v3 is that I decided to
+drop patches related to the usage of HAS_DMC() in HAS_DMC_WAKELOCK(), as they
+might need more polishing and will be send as a separate series. I believe we
+don't need to be blocked on those to get this series landed.
 
-> sync disable bits, and unused one at that. Drop the
-> pointless definitions.
+Gustavo Sousa (15):
+  drm/i915/dmc_wl: Use i915_mmio_reg_offset() instead of reg.reg
+  drm/xe: Mimic i915 behavior for non-sleeping MMIO wait
+  drm/i915/dmc_wl: Use non-sleeping variant of MMIO wait
+  drm/i915/dmc_wl: Check for non-zero refcount in release work
+  drm/i915/dmc_wl: Get wakelock when disabling dynamic DC states
+  drm/i915/dmc_wl: Use sentinel item for range tables
+  drm/i915/dmc_wl: Extract intel_dmc_wl_reg_in_range()
+  drm/i915/dmc_wl: Rename lnl_wl_range to powered_off_ranges
+  drm/i915/dmc_wl: Track registers touched by the DMC
+  drm/i915/dmc_wl: Allow simpler syntax for single reg in range tables
+  drm/i915/dmc_wl: Deal with existing references when disabling
+  drm/i915/dmc_wl: Couple enable/disable with dynamic DC states
+  drm/i915/dmc_wl: Add and use HAS_DMC_WAKELOCK()
+  drm/i915/dmc_wl: Sanitize enable_dmc_wl according to hardware support
+  drm/i915/xe3lpd: Use DMC wakelock by default
 
-Pedantic mode, there's some singular/plural asymmetry going on here. :p
+ drivers/gpu/drm/i915/display/intel_de.h       |  10 +
+ .../drm/i915/display/intel_display_device.h   |   1 +
+ .../drm/i915/display/intel_display_params.c   |   6 +-
+ .../drm/i915/display/intel_display_params.h   |   2 +-
+ .../i915/display/intel_display_power_well.c   |  19 +-
+ drivers/gpu/drm/i915/display/intel_dmc.c      |   4 -
+ drivers/gpu/drm/i915/display/intel_dmc_wl.c   | 304 ++++++++++++++----
+ drivers/gpu/drm/i915/display/intel_dmc_wl.h   |  13 +-
+ .../drm/xe/compat-i915-headers/intel_uncore.h |  11 +-
+ 9 files changed, 295 insertions(+), 75 deletions(-)
 
-Reviewed-by: Jani Nikula <jani.nikula@intel.com>
+-- 
+2.47.0
 
->
-> Signed-off-by: Ville Syrj=C3=A4l=C3=A4 <ville.syrjala@linux.intel.com>
-> ---
->  drivers/gpu/drm/i915/i915_reg.h | 5 -----
->  1 file changed, 5 deletions(-)
->
-> diff --git a/drivers/gpu/drm/i915/i915_reg.h b/drivers/gpu/drm/i915/i915_=
-reg.h
-> index c160e087972a..f0757c4491f1 100644
-> --- a/drivers/gpu/drm/i915/i915_reg.h
-> +++ b/drivers/gpu/drm/i915/i915_reg.h
-> @@ -1188,11 +1188,6 @@
->  #define   ADPA_VSYNC_ACTIVE_LOW	0
->  #define   ADPA_HSYNC_ACTIVE_HIGH (1 << 3)
->  #define   ADPA_HSYNC_ACTIVE_LOW	0
-> -#define   ADPA_DPMS_MASK	(~(3 << 10))
-> -#define   ADPA_DPMS_ON		(0 << 10)
-> -#define   ADPA_DPMS_SUSPEND	(1 << 10)
-> -#define   ADPA_DPMS_STANDBY	(2 << 10)
-> -#define   ADPA_DPMS_OFF		(3 << 10)
->=20=20
->  /* Hotplug control (945+ only) */
->  #define PORT_HOTPLUG_EN(dev_priv)		_MMIO(DISPLAY_MMIO_BASE(dev_priv) + 0=
-x61110)
-
---=20
-Jani Nikula, Intel
