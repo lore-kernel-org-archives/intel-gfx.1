@@ -4,51 +4,51 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5D178D2E9C3
-	for <intel-gfx@archiver.kernel.org>; Mon, 11 Nov 2024 09:10:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E67EAD2E9CB
+	for <intel-gfx@archiver.kernel.org>; Mon, 11 Nov 2024 09:10:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 09F1210E450;
-	Mon, 11 Nov 2024 09:10:46 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8187510E44E;
+	Mon, 11 Nov 2024 09:10:47 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="VyjshuBH";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="ehq9sq0X";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.12])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C158710E468;
- Mon, 11 Nov 2024 09:10:44 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6F2B810E44E;
+ Mon, 11 Nov 2024 09:10:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1731316245; x=1762852245;
+ t=1731316247; x=1762852247;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=82x9Y9EKtdy8nwicUC/V3G0QgrAqKVsVokfpdEPZ1Kc=;
- b=VyjshuBHZ7tfXJ3tvVs7s6LDG3BXrOzIe4M1urHPlNdtw4NhV3JzqK1/
- 9mcGtu7qy42otg8q0XhO5UTyBZAlGXthGWhb++095yEeRcRjzLbuiL+/L
- tIWR7DUHN5gnCGeQ7Xhw4huObyBv75G4DRLtQbc5OadrYL6OIMAdFKLG4
- 6RaRcySkfQi6euUV5C6NoRgncUyoZ5XKNZBY5byMRf1pOToNk5vNdZDEZ
- 4JU6qny1abKTIJ77LsYQ1+ja7mi+C433KdccPM2rGkeGUV7bxVHBhZab3
- LyleadVOB/153zSsykNsonRpK5S0ilYKD8ggiStXrCK8tbEY3Fy6huOWo Q==;
-X-CSE-ConnectionGUID: rX+j3CwrQ82jE36rtr3b6w==
-X-CSE-MsgGUID: Kq9rWksWTsW1L2wVF0N+Yg==
-X-IronPort-AV: E=McAfee;i="6700,10204,11252"; a="35052500"
-X-IronPort-AV: E=Sophos;i="6.12,144,1728975600"; d="scan'208";a="35052500"
+ bh=oboRSnq1uqsL2XEgJUbxINb+rRzOzWtQNDTp3fnM/vo=;
+ b=ehq9sq0XuYaaUo0BEqUYOJ8u5Sj+6IH127NJg9KEUFQUm27LHeEyQqE1
+ n3CFBxtuMWbxz1+RW/uQOwQ1us4bawsPAvEOARFRlVAHVqsC9sDSrg51C
+ x+W3QJqEbVKaSFvaIUwSqupQzR2SenzWHgi5+RiQDsic29wAuQZ7zLN19
+ cKMHOfoLV3DCDW6QSK48GuOpqZEFgfJcanNq0gnTg05PE2fWsp8y5WdJX
+ 6hEy0vHaCxnyAg8S5XCa6IbMH+xUdBrL3G8oOJ30tkxvjM6gOIED3V0as
+ S97KTFfuIcCfk/RLlhHo+aC+9C7bsKQlmwNs9t0CwuD9mICo9I9GTTgtk w==;
+X-CSE-ConnectionGUID: eH0ozxt/RBC9JZnajYJkDg==
+X-CSE-MsgGUID: 2f8av6kJQHWdvNrh7gByhw==
+X-IronPort-AV: E=McAfee;i="6700,10204,11252"; a="35052510"
+X-IronPort-AV: E=Sophos;i="6.12,144,1728975600"; d="scan'208";a="35052510"
 Received: from orviesa010.jf.intel.com ([10.64.159.150])
  by fmvoesa106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  11 Nov 2024 01:10:42 -0800
-X-CSE-ConnectionGUID: aGX0mlpDQkeHVSDhT7DiwQ==
-X-CSE-MsgGUID: l0qL29gISSyEBho0yGAhrA==
+X-CSE-ConnectionGUID: ATdzpGvqSZ68smfLHLiNNQ==
+X-CSE-MsgGUID: bbfKtXgrQfqd++2wjY6hOg==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.12,144,1728975600"; d="scan'208";a="86762727"
+X-IronPort-AV: E=Sophos;i="6.12,144,1728975600"; d="scan'208";a="86762756"
 Received: from srr4-3-linux-103-aknautiy.iind.intel.com ([10.223.34.160])
  by orviesa010-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 11 Nov 2024 01:10:34 -0800
+ 11 Nov 2024 01:10:40 -0800
 From: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
 To: intel-gfx@lists.freedesktop.org
 Cc: intel-xe@lists.freedesktop.org, jani.nikula@linux.intel.com,
  ville.syrjala@linux.intel.com, mitulkumar.ajitkumar.golani@intel.com
-Subject: [PATCH 21/23] drm/i915/psr: Allow PSR for fixed refrsh rate with VRR
- TG
-Date: Mon, 11 Nov 2024 14:42:19 +0530
-Message-ID: <20241111091221.2992818-22-ankit.k.nautiyal@intel.com>
+Subject: [PATCH 23/23] drm/i915/display: Use VRR timings for XE2LPD+ in
+ modeset sequence
+Date: Mon, 11 Nov 2024 14:42:21 +0530
+Message-ID: <20241111091221.2992818-24-ankit.k.nautiyal@intel.com>
 X-Mailer: git-send-email 2.45.2
 In-Reply-To: <20241111091221.2992818-1-ankit.k.nautiyal@intel.com>
 References: <20241111091221.2992818-1-ankit.k.nautiyal@intel.com>
@@ -69,31 +69,59 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-At the moment PSR/PSR2 are not supported with variable refresh rate.
-However it can be supported with fixed refresh rate while running with
-VRR timing generator.
-Enable PSR for fixed refresh rate when using the VRR timing generator.
+While enabling pipe currently we use the non vrr timings first and then
+enable the VRR timings later.
+From XE2LPD+ we will always have VRR timing generarator in use, so start
+the transcoder in vrr mode.
 
 Signed-off-by: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_psr.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/i915/display/intel_display.c | 12 ++++++++++--
+ drivers/gpu/drm/i915/display/intel_vblank.c  |  8 +++++---
+ 2 files changed, 15 insertions(+), 5 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_psr.c b/drivers/gpu/drm/i915/display/intel_psr.c
-index bf005daa7bb2..2b200a6fd685 100644
---- a/drivers/gpu/drm/i915/display/intel_psr.c
-+++ b/drivers/gpu/drm/i915/display/intel_psr.c
-@@ -1674,8 +1674,9 @@ void intel_psr_compute_config(struct intel_dp *intel_dp,
+diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
+index a62353948686..6d12a9b620be 100644
+--- a/drivers/gpu/drm/i915/display/intel_display.c
++++ b/drivers/gpu/drm/i915/display/intel_display.c
+@@ -7142,8 +7142,16 @@ static void intel_enable_crtc(struct intel_atomic_state *state,
+ 		const struct intel_crtc_state *pipe_crtc_state =
+ 			intel_atomic_get_new_crtc_state(state, pipe_crtc);
  
- 	/*
- 	 * Currently PSR/PR doesn't work reliably with VRR enabled.
-+	 * Avoid PSR/PR when not in fixed refresh rate mode.
- 	 */
--	if (crtc_state->vrr.tg_enable)
-+	if (crtc_state->vrr.tg_enable && crtc_state->vrr.mode != INTEL_VRRTG_MODE_FIXED_RR)
- 		return;
+-		/* VRR will be enable later, if required */
+-		intel_crtc_update_active_timings(pipe_crtc_state, false);
++		/*
++		 * For XE2LPD+ we are always using VRR TG.
++		 * For previous platforms VRR will be enable later, if required
++		 */
++		if (DISPLAY_VER(dev_priv) >= 20)
++			intel_crtc_update_active_timings(pipe_crtc_state,
++							 pipe_crtc_state->vrr.tg_enable);
++		else
++			intel_crtc_update_active_timings(pipe_crtc_state, false);
++
+ 	}
  
- 	crtc_state->has_panel_replay = _panel_replay_compute_config(intel_dp,
+ 	dev_priv->display.funcs.display->crtc_enable(state, crtc);
+diff --git a/drivers/gpu/drm/i915/display/intel_vblank.c b/drivers/gpu/drm/i915/display/intel_vblank.c
+index a95fb3349eba..ca4a6add6926 100644
+--- a/drivers/gpu/drm/i915/display/intel_vblank.c
++++ b/drivers/gpu/drm/i915/display/intel_vblank.c
+@@ -626,9 +626,11 @@ void intel_vblank_evade_init(const struct intel_crtc_state *old_crtc_state,
+ 	adjusted_mode = &crtc_state->hw.adjusted_mode;
+ 
+ 	if (crtc->mode_flags & I915_MODE_FLAG_VRR) {
+-		/* timing changes should happen with VRR disabled */
+-		drm_WARN_ON(crtc->base.dev, intel_crtc_needs_modeset(new_crtc_state) ||
+-			    new_crtc_state->update_m_n || new_crtc_state->update_lrr);
++		/* Prior to XE2LPD+, timing changes should happen with VRR disabled */
++		if (DISPLAY_VER(display) < 20) {
++			drm_WARN_ON(crtc->base.dev, intel_crtc_needs_modeset(new_crtc_state) ||
++				    new_crtc_state->update_m_n || new_crtc_state->update_lrr);
++		}
+ 
+ 		if (intel_vrr_is_push_sent(crtc_state))
+ 			evade->vblank_start = intel_vrr_vmin_vblank_start(crtc_state);
 -- 
 2.45.2
 
