@@ -4,55 +4,55 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7F6CBD2E9E4
-	for <intel-gfx@archiver.kernel.org>; Mon, 11 Nov 2024 12:36:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DC21AD2E9E5
+	for <intel-gfx@archiver.kernel.org>; Mon, 11 Nov 2024 12:42:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 23D5210E4A3;
-	Mon, 11 Nov 2024 12:36:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 855FF10E4A1;
+	Mon, 11 Nov 2024 12:42:31 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="QI36pvJc";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="ThEVHukz";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.9])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DBC1A10E4A1
- for <intel-gfx@lists.freedesktop.org>; Mon, 11 Nov 2024 12:36:24 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4ADDB10E4A1
+ for <intel-gfx@lists.freedesktop.org>; Mon, 11 Nov 2024 12:42:31 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1731328585; x=1762864585;
+ t=1731328951; x=1762864951;
  h=date:from:to:cc:subject:in-reply-to:message-id:
  references:mime-version;
- bh=dFsezA+CbBintUlhJ4FVVBMePIw94bGnIOxtUgIlvaY=;
- b=QI36pvJc8rRW3Lj8vtVI5vm+oxLGGFs/WwqkwvvQx8plyW2kd3qr5ez5
- AbOjGD0fxJuA2HCXDMVdvAaIMhQSLx7NJzvia/LSWCSu1xaP63Hg6jdst
- niXGuI7nB2AE8iPJpuz5tsn3TJgUABQcyYc5fUtCARHH+bq5pdkOHPwu9
- +V5YRWPsylfYddiglPtREiBToPfVjQN+BKRgjNwHuA6BWMTQPHx1S2vJQ
- U+RAmkOLGXd5SxotrKgT+nvuCwgDwm314u/caLbnnZ7CFotzFH4LOUIvE
- poWetEfiMWtJvaxoPE8Y9UtvyjIomYPhOwR0dui0BQQYuPfb1FKMTA3H+ Q==;
-X-CSE-ConnectionGUID: wfoikLnZSTWu0nsEA3SxWA==
-X-CSE-MsgGUID: EvTt0KFlTyqq1Ofmr3TY3A==
-X-IronPort-AV: E=McAfee;i="6700,10204,11253"; a="41745334"
-X-IronPort-AV: E=Sophos;i="6.12,145,1728975600"; d="scan'208";a="41745334"
-Received: from orviesa006.jf.intel.com ([10.64.159.146])
- by fmvoesa103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 11 Nov 2024 04:36:25 -0800
-X-CSE-ConnectionGUID: TOcc7Jh7Sea/rT0kTJXVJg==
-X-CSE-MsgGUID: gI/HziO4TbOHsdZVBS38tw==
+ bh=h2jJ/sFK8eQmrR9MTzuo7NmB4b5lsa7ym5I0eR2b+h0=;
+ b=ThEVHukz7e8PgSIPr/eskUxo2MCu5yLleoPQg9IE7l67ZnF2KIkTnOHD
+ 6mJHAPqLzQpIPBzi1kKXV9qLKeXtSOjjLkaDTOO8UnAG5ZvmOYdsc5rTr
+ MPiqUwEGvIYsJfrSOZxzESo9GaXxKo5UbIY/i1OdwRbKv5ceRLj71afxR
+ 7CDq5rTg7caJsCJ99BG7i11MOSsnV3I4Ivere8wYHMDhw4fG1imCsRzBN
+ kik2MJjNp+/dtGSP32MgnifXjmi8qcId0EvvuCtOCfEjdqTvqQcp7e+xg
+ g39otBLRc326JAb6piAVMk1Ijkjt25/RICWgsSlMCnDFKpuFyONZqUyZZ w==;
+X-CSE-ConnectionGUID: lfb1qSjdS0OOJwC9wFW07w==
+X-CSE-MsgGUID: rQvOML8PQ7SRH9QMFIx53Q==
+X-IronPort-AV: E=McAfee;i="6700,10204,11253"; a="42516725"
+X-IronPort-AV: E=Sophos;i="6.12,145,1728975600"; d="scan'208";a="42516725"
+Received: from orviesa009.jf.intel.com ([10.64.159.149])
+ by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 11 Nov 2024 04:42:31 -0800
+X-CSE-ConnectionGUID: cu/Ww3kkTre92hXSgd3seA==
+X-CSE-MsgGUID: gmsQd6L0RcWnSpUrWD4RyA==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.12,145,1728975600"; d="scan'208";a="87047623"
+X-IronPort-AV: E=Sophos;i="6.12,145,1728975600"; d="scan'208";a="86870969"
 Received: from eliteleevi.tm.intel.com ([10.237.54.20])
- by orviesa006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 11 Nov 2024 04:36:22 -0800
-Date: Mon, 11 Nov 2024 14:29:54 +0200 (EET)
+ by orviesa009-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 11 Nov 2024 04:42:30 -0800
+Date: Mon, 11 Nov 2024 14:35:59 +0200 (EET)
 From: Kai Vehmanen <kai.vehmanen@linux.intel.com>
 X-X-Sender: kvehmane@eliteleevi.tm.intel.com
 To: Vinod Govindapillai <vinod.govindapillai@intel.com>
 cc: intel-gfx@lists.freedesktop.org, jani.nikula@intel.com, 
  ville.syrjala@intel.com, kai.vehmanen@intel.com, jani.saarinen@intel.com
-Subject: Re: [PATCH 2/9] drm/i915/display: create a common function to check
- validity of ELD
-In-Reply-To: <20241008082327.342020-3-vinod.govindapillai@intel.com>
-Message-ID: <alpine.DEB.2.22.394.2411111429190.14041@eliteleevi.tm.intel.com>
+Subject: Re: [PATCH 8/9] drm/i815/disaply: limit the audio bw check with DP2
+ config
+In-Reply-To: <20241008082327.342020-9-vinod.govindapillai@intel.com>
+Message-ID: <alpine.DEB.2.22.394.2411111432400.14041@eliteleevi.tm.intel.com>
 References: <20241008082327.342020-1-vinod.govindapillai@intel.com>
- <20241008082327.342020-3-vinod.govindapillai@intel.com>
+ <20241008082327.342020-9-vinod.govindapillai@intel.com>
 User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7 02160 Espoo
 MIME-Version: 1.0
@@ -72,14 +72,24 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Hey,
+Hi,
 
 On Tue, 8 Oct 2024, Vinod Govindapillai wrote:
 
-> We would need to check the validity of connector ELD from multiple
-> places in the follow up patches. So create a separate function to
-> check the validity for ELD.
+> Limit the audio bw check with DP2 configurations only
+[...]
+> @@ -3048,7 +3048,8 @@ intel_dp_audio_compute_config(struct intel_encoder *encoder,
+>  {
+>  	pipe_config->has_audio = intel_dp_has_audio(encoder, conn_state);
+>  
+> -	pipe_config->has_audio = pipe_config->has_audio &&
+> +	if (intel_dp_is_uhbr(pipe_config))
+> +		pipe_config->has_audio = pipe_config->has_audio &&
+>  		intel_dp_audio_compute_bw_limits(pipe_config, conn_state);
 
-Reviewed-by: Kai Vehmanen <kai.vehmanen@linux.intel.com>
+title has "drm/i815...".
+
+Other than that, this seems a bit extra, maybe squash this to patch 5 in 
+the series. This fixing code that is added in the series..
 
 Br, Kai
