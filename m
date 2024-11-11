@@ -4,56 +4,58 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BBBE3D2E9C3
-	for <intel-gfx@archiver.kernel.org>; Mon, 11 Nov 2024 09:10:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1AAB6D2E9C8
+	for <intel-gfx@archiver.kernel.org>; Mon, 11 Nov 2024 09:14:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5ACDB10E457;
-	Mon, 11 Nov 2024 09:10:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9FB2210E451;
+	Mon, 11 Nov 2024 09:14:51 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="irwtdXK5";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="Q3/cVIdJ";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.12])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C79A810E44E;
- Mon, 11 Nov 2024 09:10:46 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.12])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 27FC010E029;
+ Mon, 11 Nov 2024 09:14:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1731316247; x=1762852247;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=PGHC0LWeK/uoH+g8xfaPO/gb7o6hPmbj9Xjs2sP5KOA=;
- b=irwtdXK59QTnQ7EvoTWsL4xEWAuEOhJWoRM4fI0uVL2YTB2aK10FVoLl
- V8EOeuV9v6RMTEz0Enna+JFpO342Am5S+1CfFwsQ3FJYa1c9TxTr1ucBe
- VyC0DgX7AN5bIGpQJ1j9IRuBdh3i9RiPlg8UwShDd3Q0Bb4eN3PSa1sr3
- 4Z3mowZDxqktxOdz/q2USxDp7UMVarTP+U5slYHeX7TVeUq22ZzOmE7zB
- +jiagVbGYsXN9q+0I+F1PLjGebUyAmGEIOyhhggZh9iXmGWFBzviHs2E/
- TaWqSCwYLQWoqfadCeJMWlh1o+x5mIK5QHBMxc3Evv8kSb5ohX/65GxNq w==;
-X-CSE-ConnectionGUID: bPZkXAL6QVCgR98ne5ltiA==
-X-CSE-MsgGUID: JzQPENIWSgawQ4gXQsxIpw==
-X-IronPort-AV: E=McAfee;i="6700,10204,11252"; a="35052504"
-X-IronPort-AV: E=Sophos;i="6.12,144,1728975600"; d="scan'208";a="35052504"
-Received: from orviesa010.jf.intel.com ([10.64.159.150])
- by fmvoesa106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 11 Nov 2024 01:10:42 -0800
-X-CSE-ConnectionGUID: yN1kEfGlR929wo6VycsMBQ==
-X-CSE-MsgGUID: NXkwj2eMSdayYzCBafjUXA==
+ t=1731316490; x=1762852490;
+ h=from:to:cc:subject:in-reply-to:references:date:
+ message-id:mime-version;
+ bh=UIRuw292SIU6LLJ3wf1T4iCQODzsjgltpqwhHuMown0=;
+ b=Q3/cVIdJrB9eU6U8C8Xhdwd3UeEZnv+dEG50ySS/T55MWWUarKudd5uV
+ GzjVYLKjPVRHy4a+hrE8lFdyM+nsRGrhA6OGrbD4kdMuvhp6iTBoCQFyR
+ uF0W5P9AAWMlUvmek/eIobtjAsxo//w2dxsWxoYgpcQmU3ON99xSF5nrU
+ vGTvvIsbiQ6LPhrzREYLBbp71/YUejkDeOG3JtvwH+cSmAQvApTcbWaOk
+ 2s/fAM/oOxRTY8JVtHtKInBuPW7zdseiiYj2rGee31XoEBUL0THAyRXMS
+ 3fZQN/ZbLjcBlE1Qc9E2QbwMrTX4kRxNGCLUdr2rt5zxoJTthW55l/1KA w==;
+X-CSE-ConnectionGUID: BqJtLQzOQ8WTvPx0QZOGjw==
+X-CSE-MsgGUID: W086CzfpQvySzIdl4IOuHA==
+X-IronPort-AV: E=McAfee;i="6700,10204,11252"; a="42514776"
+X-IronPort-AV: E=Sophos;i="6.12,144,1728975600"; d="scan'208";a="42514776"
+Received: from fmviesa004.fm.intel.com ([10.60.135.144])
+ by orvoesa104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 11 Nov 2024 01:14:50 -0800
+X-CSE-ConnectionGUID: FKWUEuCuTV6Omn7V6ovriw==
+X-CSE-MsgGUID: T68ltrwsTV2KvaedwUQDCQ==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.12,144,1728975600"; d="scan'208";a="86762740"
-Received: from srr4-3-linux-103-aknautiy.iind.intel.com ([10.223.34.160])
- by orviesa010-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 11 Nov 2024 01:10:38 -0800
-From: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
-To: intel-gfx@lists.freedesktop.org
-Cc: intel-xe@lists.freedesktop.org, jani.nikula@linux.intel.com,
- ville.syrjala@linux.intel.com, mitulkumar.ajitkumar.golani@intel.com
-Subject: [PATCH 22/23] drm/i915/vrr: Always use VRR timing generator for
- XE2LPD+
-Date: Mon, 11 Nov 2024 14:42:20 +0530
-Message-ID: <20241111091221.2992818-23-ankit.k.nautiyal@intel.com>
-X-Mailer: git-send-email 2.45.2
-In-Reply-To: <20241111091221.2992818-1-ankit.k.nautiyal@intel.com>
-References: <20241111091221.2992818-1-ankit.k.nautiyal@intel.com>
+X-IronPort-AV: E=Sophos;i="6.12,144,1728975600"; d="scan'208";a="91576277"
+Received: from carterle-desk.ger.corp.intel.com (HELO localhost)
+ ([10.245.246.75])
+ by fmviesa004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 11 Nov 2024 01:14:47 -0800
+From: Jani Nikula <jani.nikula@linux.intel.com>
+To: Yunxiang Li <Yunxiang.Li@amd.com>, amd-gfx@lists.freedesktop.org,
+ christian.koenig@amd.com, tvrtko.ursulin@igalia.com
+Cc: Alexander.Deucher@amd.com, Yunxiang Li <Yunxiang.Li@amd.com>,
+ dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org
+Subject: Re: [PATCH v7 2/4] drm: make drm-active- stats optional
+In-Reply-To: <20241110154152.592-3-Yunxiang.Li@amd.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
+References: <20241110154152.592-1-Yunxiang.Li@amd.com>
+ <20241110154152.592-3-Yunxiang.Li@amd.com>
+Date: Mon, 11 Nov 2024 11:14:43 +0200
+Message-ID: <87ttcecet8.fsf@intel.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,125 +71,136 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Currently VRR timing generator is used only when VRR is enabled by
-userspace. From XE2LPD+, gradually move away from older timing
-generator and use VRR timing generator for fixed refresh rate also.
+On Sun, 10 Nov 2024, Yunxiang Li <Yunxiang.Li@amd.com> wrote:
+> Make drm-active- optional just like drm-resident- and drm-purgeable-.
 
-In such a case, Flipline Vmin and Vmax all are set to the Vtotal of the
-mode, which effectively makes the VRR timing generator work in
-fixed refresh rate mode.
-The MSA Vtotal is derived from Vmax register.
+Why? What does it mean?
 
-Signed-off-by: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
----
- drivers/gpu/drm/i915/display/intel_vrr.c | 78 +++++++++++++++++++++---
- 1 file changed, 70 insertions(+), 8 deletions(-)
+This is what the commit message should answer.
 
-diff --git a/drivers/gpu/drm/i915/display/intel_vrr.c b/drivers/gpu/drm/i915/display/intel_vrr.c
-index c27886ace0a9..a2798a7ab9dc 100644
---- a/drivers/gpu/drm/i915/display/intel_vrr.c
-+++ b/drivers/gpu/drm/i915/display/intel_vrr.c
-@@ -235,9 +235,27 @@ void intel_vrr_compute_vrr_timings(struct intel_crtc_state *crtc_state, int vmin
- 	crtc_state->mode_flags |= I915_MODE_FLAG_VRR;
- }
- 
--void
--intel_vrr_compute_config(struct intel_crtc_state *crtc_state,
--			 struct drm_connector_state *conn_state)
-+static
-+void intel_vrr_compute_fixed_rr_timings(struct intel_crtc_state *crtc_state)
-+{
-+	/*
-+	 * For fixed refresh rate mode Vmin, Vmax and Flipline all are set to
-+	 * Vtotal value. The sink uses MSA timings for the fixed refresh rate
-+	 * mode. The HW prepares the Vtotal for the MSA from the VMAX register.
-+	 * Since the MSA Vtotal is one-based while Vmax is zero-based we need to
-+	 * take care of this while setting Vmax value.
-+	 */
-+	crtc_state->vrr.vmax = crtc_state->hw.adjusted_mode.vtotal - 1;
-+	crtc_state->vrr.vmin = crtc_state->vrr.vmax;
-+	crtc_state->vrr.flipline = crtc_state->vrr.vmax;
-+	crtc_state->vrr.tg_enable = true;
-+	crtc_state->vrr.mode = INTEL_VRRTG_MODE_FIXED_RR;
-+	crtc_state->mode_flags |= I915_MODE_FLAG_VRR;
-+}
-+
-+static
-+void intel_vrr_compute_xe2lpd_timings(struct intel_crtc_state *crtc_state,
-+				      struct drm_connector_state *conn_state)
- {
- 	struct intel_display *display = to_intel_display(crtc_state);
- 	struct intel_connector *connector =
-@@ -245,13 +263,36 @@ intel_vrr_compute_config(struct intel_crtc_state *crtc_state,
- 	struct intel_dp *intel_dp = intel_attached_dp(connector);
- 	bool is_edp = intel_dp_is_edp(intel_dp);
- 	struct drm_display_mode *adjusted_mode = &crtc_state->hw.adjusted_mode;
--	int vmin, vmax;
-+	int vmin = 0, vmax = 0;
- 
--	if (adjusted_mode->flags & DRM_MODE_FLAG_INTERLACE)
--		return;
-+	if (crtc_state->vrr.in_range) {
-+		if (HAS_LRR(display))
-+			crtc_state->update_lrr = true;
-+
-+		vmin = intel_vrr_compute_vmin(connector, adjusted_mode);
-+		vmax = intel_vrr_compute_vmax(connector, adjusted_mode);
-+	}
-+
-+	if (vmin < vmax && crtc_state->uapi.vrr_enabled)
-+		intel_vrr_compute_vrr_timings(crtc_state, vmin, vmax);
-+	else if (vmin < vmax && is_cmrr_frac_required(crtc_state) && is_edp)
-+		intel_vrr_compute_cmrr_timings(crtc_state);
-+	else
-+		intel_vrr_compute_fixed_rr_timings(crtc_state);
-+}
-+
-+static
-+void intel_vrr_compute_xelpd_timings(struct intel_crtc_state *crtc_state,
-+				     struct drm_connector_state *conn_state)
-+{
-+	struct intel_display *display = to_intel_display(crtc_state);
-+	struct intel_connector *connector =
-+		to_intel_connector(conn_state->connector);
-+	struct intel_dp *intel_dp = intel_attached_dp(connector);
-+	bool is_edp = intel_dp_is_edp(intel_dp);
-+	struct drm_display_mode *adjusted_mode = &crtc_state->hw.adjusted_mode;
-+	int vmin, vmax;
- 
--	crtc_state->vrr.in_range =
--		intel_vrr_is_in_range(connector, drm_mode_vrefresh(adjusted_mode));
- 	if (!crtc_state->vrr.in_range)
- 		return;
- 
-@@ -270,6 +311,27 @@ intel_vrr_compute_config(struct intel_crtc_state *crtc_state,
- 		intel_vrr_compute_cmrr_timings(crtc_state);
- 	else
- 		intel_vrr_prepare_vrr_timings(crtc_state, vmin, vmax);
-+}
-+
-+void
-+intel_vrr_compute_config(struct intel_crtc_state *crtc_state,
-+			 struct drm_connector_state *conn_state)
-+{
-+	struct intel_display *display = to_intel_display(crtc_state);
-+	struct intel_connector *connector =
-+		to_intel_connector(conn_state->connector);
-+	struct drm_display_mode *adjusted_mode = &crtc_state->hw.adjusted_mode;
-+
-+	if (adjusted_mode->flags & DRM_MODE_FLAG_INTERLACE)
-+		return;
-+
-+	crtc_state->vrr.in_range =
-+		intel_vrr_is_in_range(connector, drm_mode_vrefresh(adjusted_mode));
-+
-+	if (DISPLAY_VER(display) >= 20)
-+		intel_vrr_compute_xe2lpd_timings(crtc_state, conn_state);
-+	else
-+		intel_vrr_compute_xelpd_timings(crtc_state, conn_state);
- 
- 	if (HAS_AS_SDP(display)) {
- 		crtc_state->vrr.vsync_start =
+>
+> Signed-off-by: Yunxiang Li <Yunxiang.Li@amd.com>
+> CC: dri-devel@lists.freedesktop.org
+> CC: intel-gfx@lists.freedesktop.org
+> CC: amd-gfx@lists.freedesktop.org
+> ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_fdinfo.c |  1 +
+>  drivers/gpu/drm/drm_file.c                 | 13 +++++++------
+>  drivers/gpu/drm/i915/i915_drm_client.c     |  1 +
+>  drivers/gpu/drm/xe/xe_drm_client.c         |  1 +
+>  include/drm/drm_gem.h                      | 14 ++++++++------
+>  5 files changed, 18 insertions(+), 12 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_fdinfo.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_fdinfo.c
+> index df2cf5c339255..7717e3e4f05b5 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_fdinfo.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_fdinfo.c
+> @@ -97,6 +97,7 @@ void amdgpu_show_fdinfo(struct drm_printer *p, struct drm_file *file)
+>  
+>  		drm_print_memory_stats(p,
+>  				       &stats[i].drm,
+> +				       DRM_GEM_OBJECT_ACTIVE |
+>  				       DRM_GEM_OBJECT_RESIDENT |
+>  				       DRM_GEM_OBJECT_PURGEABLE,
+>  				       pl_name[i]);
+> diff --git a/drivers/gpu/drm/drm_file.c b/drivers/gpu/drm/drm_file.c
+> index e285fcc28c59c..fd06671054723 100644
+> --- a/drivers/gpu/drm/drm_file.c
+> +++ b/drivers/gpu/drm/drm_file.c
+> @@ -884,7 +884,9 @@ void drm_print_memory_stats(struct drm_printer *p,
+>  {
+>  	print_size(p, "total", region, stats->private + stats->shared);
+>  	print_size(p, "shared", region, stats->shared);
+> -	print_size(p, "active", region, stats->active);
+> +
+> +	if (supported_status & DRM_GEM_OBJECT_ACTIVE)
+> +		print_size(p, "active", region, stats->active);
+>  
+>  	if (supported_status & DRM_GEM_OBJECT_RESIDENT)
+>  		print_size(p, "resident", region, stats->resident);
+> @@ -917,15 +919,13 @@ void drm_show_memory_stats(struct drm_printer *p, struct drm_file *file)
+>  
+>  		if (obj->funcs && obj->funcs->status) {
+>  			s = obj->funcs->status(obj);
+> -			supported_status = DRM_GEM_OBJECT_RESIDENT |
+> -					DRM_GEM_OBJECT_PURGEABLE;
+> +			supported_status |= s;
+>  		}
+>  
+> -		if (drm_gem_object_is_shared_for_memory_stats(obj)) {
+> +		if (drm_gem_object_is_shared_for_memory_stats(obj))
+>  			status.shared += obj->size;
+> -		} else {
+> +		else
+>  			status.private += obj->size;
+> -		}
+>  
+>  		if (s & DRM_GEM_OBJECT_RESIDENT) {
+>  			status.resident += add_size;
+> @@ -938,6 +938,7 @@ void drm_show_memory_stats(struct drm_printer *p, struct drm_file *file)
+>  
+>  		if (!dma_resv_test_signaled(obj->resv, dma_resv_usage_rw(true))) {
+>  			status.active += add_size;
+> +			supported_status |= DRM_GEM_OBJECT_ACTIVE;
+>  
+>  			/* If still active, don't count as purgeable: */
+>  			s &= ~DRM_GEM_OBJECT_PURGEABLE;
+> diff --git a/drivers/gpu/drm/i915/i915_drm_client.c b/drivers/gpu/drm/i915/i915_drm_client.c
+> index f586825054918..168d7375304bc 100644
+> --- a/drivers/gpu/drm/i915/i915_drm_client.c
+> +++ b/drivers/gpu/drm/i915/i915_drm_client.c
+> @@ -102,6 +102,7 @@ static void show_meminfo(struct drm_printer *p, struct drm_file *file)
+>  	for_each_memory_region(mr, i915, id)
+>  		drm_print_memory_stats(p,
+>  				       &stats[id],
+> +				       DRM_GEM_OBJECT_ACTIVE |
+>  				       DRM_GEM_OBJECT_RESIDENT |
+>  				       DRM_GEM_OBJECT_PURGEABLE,
+>  				       mr->uabi_name);
+> diff --git a/drivers/gpu/drm/xe/xe_drm_client.c b/drivers/gpu/drm/xe/xe_drm_client.c
+> index 6a26923fa10e0..54941b4e850c4 100644
+> --- a/drivers/gpu/drm/xe/xe_drm_client.c
+> +++ b/drivers/gpu/drm/xe/xe_drm_client.c
+> @@ -229,6 +229,7 @@ static void show_meminfo(struct drm_printer *p, struct drm_file *file)
+>  		if (man) {
+>  			drm_print_memory_stats(p,
+>  					       &stats[mem_type],
+> +					       DRM_GEM_OBJECT_ACTIVE |
+>  					       DRM_GEM_OBJECT_RESIDENT |
+>  					       (mem_type != XE_PL_SYSTEM ? 0 :
+>  					       DRM_GEM_OBJECT_PURGEABLE),
+> diff --git a/include/drm/drm_gem.h b/include/drm/drm_gem.h
+> index bae4865b2101a..584ffdf5c2542 100644
+> --- a/include/drm/drm_gem.h
+> +++ b/include/drm/drm_gem.h
+> @@ -48,19 +48,21 @@ struct drm_gem_object;
+>   * enum drm_gem_object_status - bitmask of object state for fdinfo reporting
+>   * @DRM_GEM_OBJECT_RESIDENT: object is resident in memory (ie. not unpinned)
+>   * @DRM_GEM_OBJECT_PURGEABLE: object marked as purgeable by userspace
+> + * @DRM_GEM_OBJECT_ACTIVE: object is currently used by an active submission
+>   *
+>   * Bitmask of status used for fdinfo memory stats, see &drm_gem_object_funcs.status
+> - * and drm_show_fdinfo().  Note that an object can DRM_GEM_OBJECT_PURGEABLE if
+> - * it still active or not resident, in which case drm_show_fdinfo() will not
+> + * and drm_show_fdinfo().  Note that an object can report DRM_GEM_OBJECT_PURGEABLE
+> + * and be active or not resident, in which case drm_show_fdinfo() will not
+>   * account for it as purgeable.  So drivers do not need to check if the buffer
+> - * is idle and resident to return this bit.  (Ie. userspace can mark a buffer
+> - * as purgeable even while it is still busy on the GPU.. it does not _actually_
+> - * become puregeable until it becomes idle.  The status gem object func does
+> - * not need to consider this.)
+> + * is idle and resident to return this bit, i.e. userspace can mark a buffer as
+> + * purgeable even while it is still busy on the GPU. It whill not get reported
+> + * in the puregeable stats until it becomes idle.  The status gem object func
+> + * does not need to consider this.
+>   */
+>  enum drm_gem_object_status {
+>  	DRM_GEM_OBJECT_RESIDENT  = BIT(0),
+>  	DRM_GEM_OBJECT_PURGEABLE = BIT(1),
+> +	DRM_GEM_OBJECT_ACTIVE = BIT(2),
+>  };
+>  
+>  /**
+
 -- 
-2.45.2
-
+Jani Nikula, Intel
