@@ -4,77 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7527CD3ABD7
-	for <intel-gfx@archiver.kernel.org>; Mon, 11 Nov 2024 17:43:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5D4B9D3ABD6
+	for <intel-gfx@archiver.kernel.org>; Mon, 11 Nov 2024 17:43:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B399F10E4F1;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8FFBA10E066;
 	Mon, 11 Nov 2024 17:43:55 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=oracle.com header.i=@oracle.com header.b="d2TFOJ1B";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="FVpnHlwX";
 	dkim-atps=neutral
-Received: from mx0a-00069f02.pphosted.com (mx0a-00069f02.pphosted.com
- [205.220.165.32])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9194210E06C;
- Mon,  4 Nov 2024 19:10:46 +0000 (UTC)
-Received: from pps.filterd (m0246627.ppops.net [127.0.0.1])
- by mx0b-00069f02.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 4A4IMVM6004434;
- Mon, 4 Nov 2024 19:10:26 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com; h=cc
- :content-transfer-encoding:date:from:message-id:mime-version
- :subject:to; s=corp-2023-11-20; bh=4ZZRS8dHCjLH4dXy/hPA0VAA1ekeT
- 9riEc6CLiyfZrU=; b=d2TFOJ1B0J47+aoYEBQYYGFfDHArARYLoutE9RXCHBgik
- hJw9RH3bLFeYBRR8fx86HMUWvuIecGJmmU2Py48bngEIHm5w38h++PInZFr+bhS8
- WFGCDvp7Q/1DVH0CErjpd0fQC4nVM+7fUTOv9D5TrA1T2zL+Kt5fnV1ssPKeiBPB
- 6ZefiK8H9uYqhUM+VZPv1IQTvVgSCKtuNHV/KU8q/CVjJFLLcnkVf+Lrk6qD4UOl
- J+dE1t2s6C4BjvdDY/mw0I5vRj6u1clyJHp7S5pzMZ3AQ8hewXaILl7VWEdsDgSg
- W+NAAVArFI25WDUIaDrhqI04Src7Errn3JGXJP5NQ==
-Received: from iadpaimrmta02.imrmtpd1.prodappiadaev1.oraclevcn.com
- (iadpaimrmta02.appoci.oracle.com [147.154.18.20])
- by mx0b-00069f02.pphosted.com (PPS) with ESMTPS id 42nanyundg-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Mon, 04 Nov 2024 19:10:26 +0000 (GMT)
-Received: from pps.filterd
- (iadpaimrmta02.imrmtpd1.prodappiadaev1.oraclevcn.com [127.0.0.1])
- by iadpaimrmta02.imrmtpd1.prodappiadaev1.oraclevcn.com (8.18.1.2/8.18.1.2)
- with ESMTP id 4A4Hu8Ma036171; Mon, 4 Nov 2024 19:10:25 GMT
-Received: from pps.reinject (localhost [127.0.0.1])
- by iadpaimrmta02.imrmtpd1.prodappiadaev1.oraclevcn.com (PPS) with ESMTPS id
- 42nahcf29j-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Mon, 04 Nov 2024 19:10:24 +0000
-Received: from iadpaimrmta02.imrmtpd1.prodappiadaev1.oraclevcn.com
- (iadpaimrmta02.imrmtpd1.prodappiadaev1.oraclevcn.com [127.0.0.1])
- by pps.reinject (8.17.1.5/8.17.1.5) with ESMTP id 4A4JAOGu013414;
- Mon, 4 Nov 2024 19:10:24 GMT
-Received: from ca-dev112.us.oracle.com (ca-dev112.us.oracle.com
- [10.129.136.47])
- by iadpaimrmta02.imrmtpd1.prodappiadaev1.oraclevcn.com (PPS) with ESMTP id
- 42nahcf28e-1; Mon, 04 Nov 2024 19:10:24 +0000
-From: Sherry Yang <sherry.yang@oracle.com>
-To: stable@vger.kernel.org, sashal@kernel.org, gregkh@linuxfoundation.org
-Cc: sherry.yang@oracle.com, jani.nikula@linux.intel.com,
- joonas.lahtinen@linux.intel.com, rodrigo.vivi@intel.com,
- airlied@linux.ie, daniel@ffwll.ch, tvrtko.ursulin@intel.com,
- robdclark@chromium.org, chentao@kylinos.cn, chris@chris-wilson.co.uk,
- mika.kuoppala@linux.intel.com, jason@jlekstrand.net,
- aravind.iddamsetty@intel.com, umesh.nerlige.ramappa@intel.com,
- intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
-Subject: [PATCH 5.15.y] drm/i915: Fix potential context UAFs
-Date: Mon,  4 Nov 2024 11:10:21 -0800
-Message-ID: <20241104191021.3334875-1-sherry.yang@oracle.com>
-X-Mailer: git-send-email 2.46.0
+Received: from fanzine2.igalia.com (fanzine.igalia.com [178.60.130.6])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 696B810E077;
+ Mon, 11 Nov 2024 10:29:54 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+ References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
+ Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+ Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
+ List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=1Una/vxZt6iiHlrUyiaIY0BNWaoOC6I2tKxW1QUXfV8=; b=FVpnHlwXxTKD9HXYkn+zQ1iBCJ
+ ZTA1dG5iWtHvwi23aLMlL2s9RCVxtPc+QLsBTY8QQhDRk3Utx78rTslRmjiLuLQlHqnIeXYzEsqM6
+ VXXX36QecBSa8a/OP9O05P4hWj+YL/pA1YhGdCXiZ4DY9W9bRJAVSv7HMoBitmfmR6AiXCNAkwPtR
+ ztR2VCmYQqdtYKdIT1gD7l0lwwOr0ePgS+0Qf2hHrhbsX3krdk8L1/Ws+nNRffUzuZBoPCXPMbNR3
+ 2l42kWl993DoW17TO5tSDuH0OEyqhlmkeqy0EJKZfwWCRP+O4k0ejLptg11I0kYoLQbsuveuG2PZW
+ 5ppEGViw==;
+Received: from [90.241.98.187] (helo=[192.168.0.101])
+ by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
+ id 1tARg8-005Mjp-4A; Mon, 11 Nov 2024 11:29:52 +0100
+Message-ID: <3706dc4f-db98-45e0-b870-f10368ab1ab9@igalia.com>
+Date: Mon, 11 Nov 2024 10:29:50 +0000
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1057,Hydra:6.0.680,FMLib:17.12.62.30
- definitions=2024-11-04_17,2024-11-04_01,2024-09-30_01
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 suspectscore=0
- malwarescore=0
- spamscore=0 mlxlogscore=999 mlxscore=0 phishscore=0 adultscore=0
- bulkscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-2409260000 definitions=main-2411040157
-X-Proofpoint-ORIG-GUID: bYvtKvEXdYGJo-raSa0RreUwVVwTSiDS
-X-Proofpoint-GUID: bYvtKvEXdYGJo-raSa0RreUwVVwTSiDS
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v7 2/4] drm: make drm-active- stats optional
+To: Yunxiang Li <Yunxiang.Li@amd.com>, amd-gfx@lists.freedesktop.org,
+ christian.koenig@amd.com
+Cc: Alexander.Deucher@amd.com, dri-devel@lists.freedesktop.org,
+ intel-gfx@lists.freedesktop.org, Rob Clark <robdclark@gmail.com>
+References: <20241110154152.592-1-Yunxiang.Li@amd.com>
+ <20241110154152.592-3-Yunxiang.Li@amd.com>
+Content-Language: en-GB
+From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+In-Reply-To: <20241110154152.592-3-Yunxiang.Li@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 X-Mailman-Approved-At: Mon, 11 Nov 2024 17:43:52 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -91,95 +64,163 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Rob Clark <robdclark@chromium.org>
 
-commit afce71ff6daa9c0f852df0727fe32c6fb107f0fa upstream.
+On 10/11/2024 15:41, Yunxiang Li wrote:
+> Make drm-active- optional just like drm-resident- and drm-purgeable-.
 
-gem_context_register() makes the context visible to userspace, and which
-point a separate thread can trigger the I915_GEM_CONTEXT_DESTROY ioctl.
-So we need to ensure that nothing uses the ctx ptr after this.  And we
-need to ensure that adding the ctx to the xarray is the *last* thing
-that gem_context_register() does with the ctx pointer.
+As Jani has already commented the commit message needs some work.
 
-Signed-off-by: Rob Clark <robdclark@chromium.org>
-Fixes: eb4dedae920a ("drm/i915/gem: Delay tracking the GEM context until it is registered")
-Fixes: a4c1cdd34e2c ("drm/i915/gem: Delay context creation (v3)")
-Fixes: 49bd54b390c2 ("drm/i915: Track all user contexts per client")
-Cc: <stable@vger.kernel.org> # v5.10+
-Reviewed-by: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
-Reviewed-by: Andi Shyti <andi.shyti@linux.intel.com>
-[tursulin: Stable and fixes tags add/tidy.]
-Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
-Link: https://patchwork.freedesktop.org/patch/msgid/20230103234948.1218393-1-robdclark@gmail.com
-(cherry picked from commit bed4b455cf5374e68879be56971c1da563bcd90c)
-Signed-off-by: Rodrigo Vivi <rodrigo.vivi@intel.com>
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-[Sherry: bp to fix CVE-2023-52913, ignore context conflicts due to
-missing commit 49bd54b390c2 "drm/i915: Track all user contexts per
-client")]
-Signed-off-by: Sherry Yang <sherry.yang@oracle.com>
----
- drivers/gpu/drm/i915/gem/i915_gem_context.c | 24 +++++++++++++++------
- 1 file changed, 18 insertions(+), 6 deletions(-)
+> Signed-off-by: Yunxiang Li <Yunxiang.Li@amd.com>
+> CC: dri-devel@lists.freedesktop.org
+> CC: intel-gfx@lists.freedesktop.org
+> CC: amd-gfx@lists.freedesktop.org
+> ---
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_fdinfo.c |  1 +
+>   drivers/gpu/drm/drm_file.c                 | 13 +++++++------
+>   drivers/gpu/drm/i915/i915_drm_client.c     |  1 +
+>   drivers/gpu/drm/xe/xe_drm_client.c         |  1 +
+>   include/drm/drm_gem.h                      | 14 ++++++++------
+>   5 files changed, 18 insertions(+), 12 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_fdinfo.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_fdinfo.c
+> index df2cf5c339255..7717e3e4f05b5 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_fdinfo.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_fdinfo.c
+> @@ -97,6 +97,7 @@ void amdgpu_show_fdinfo(struct drm_printer *p, struct drm_file *file)
+>   
+>   		drm_print_memory_stats(p,
+>   				       &stats[i].drm,
+> +				       DRM_GEM_OBJECT_ACTIVE |
+>   				       DRM_GEM_OBJECT_RESIDENT |
+>   				       DRM_GEM_OBJECT_PURGEABLE,
+>   				       pl_name[i]);
+> diff --git a/drivers/gpu/drm/drm_file.c b/drivers/gpu/drm/drm_file.c
+> index e285fcc28c59c..fd06671054723 100644
+> --- a/drivers/gpu/drm/drm_file.c
+> +++ b/drivers/gpu/drm/drm_file.c
+> @@ -884,7 +884,9 @@ void drm_print_memory_stats(struct drm_printer *p,
+>   {
+>   	print_size(p, "total", region, stats->private + stats->shared);
+>   	print_size(p, "shared", region, stats->shared);
+> -	print_size(p, "active", region, stats->active);
+> +
+> +	if (supported_status & DRM_GEM_OBJECT_ACTIVE)
+> +		print_size(p, "active", region, stats->active);
+>   
+>   	if (supported_status & DRM_GEM_OBJECT_RESIDENT)
+>   		print_size(p, "resident", region, stats->resident);
+> @@ -917,15 +919,13 @@ void drm_show_memory_stats(struct drm_printer *p, struct drm_file *file)
+>   
+>   		if (obj->funcs && obj->funcs->status) {
+>   			s = obj->funcs->status(obj);
+> -			supported_status = DRM_GEM_OBJECT_RESIDENT |
+> -					DRM_GEM_OBJECT_PURGEABLE;
+> +			supported_status |= s;
 
-diff --git a/drivers/gpu/drm/i915/gem/i915_gem_context.c b/drivers/gpu/drm/i915/gem/i915_gem_context.c
-index 0eb4a0739fa2..0a7c4548b77f 100644
---- a/drivers/gpu/drm/i915/gem/i915_gem_context.c
-+++ b/drivers/gpu/drm/i915/gem/i915_gem_context.c
-@@ -1436,6 +1436,10 @@ void i915_gem_init__contexts(struct drm_i915_private *i915)
- 	init_contexts(&i915->gem.contexts);
- }
- 
-+/*
-+ * Note that this implicitly consumes the ctx reference, by placing
-+ * the ctx in the context_xa.
-+ */
- static void gem_context_register(struct i915_gem_context *ctx,
- 				 struct drm_i915_file_private *fpriv,
- 				 u32 id)
-@@ -1449,13 +1453,13 @@ static void gem_context_register(struct i915_gem_context *ctx,
- 	snprintf(ctx->name, sizeof(ctx->name), "%s[%d]",
- 		 current->comm, pid_nr(ctx->pid));
- 
--	/* And finally expose ourselves to userspace via the idr */
--	old = xa_store(&fpriv->context_xa, id, ctx, GFP_KERNEL);
--	WARN_ON(old);
--
- 	spin_lock(&i915->gem.contexts.lock);
- 	list_add_tail(&ctx->link, &i915->gem.contexts.list);
- 	spin_unlock(&i915->gem.contexts.lock);
-+
-+	/* And finally expose ourselves to userspace via the idr */
-+	old = xa_store(&fpriv->context_xa, id, ctx, GFP_KERNEL);
-+	WARN_ON(old);
- }
- 
- int i915_gem_context_open(struct drm_i915_private *i915,
-@@ -1932,14 +1936,22 @@ finalize_create_context_locked(struct drm_i915_file_private *file_priv,
- 	if (IS_ERR(ctx))
- 		return ctx;
- 
-+	/*
-+	 * One for the xarray and one for the caller.  We need to grab
-+	 * the reference *prior* to making the ctx visble to userspace
-+	 * in gem_context_register(), as at any point after that
-+	 * userspace can try to race us with another thread destroying
-+	 * the context under our feet.
-+	 */
-+	i915_gem_context_get(ctx);
-+
- 	gem_context_register(ctx, file_priv, id);
- 
- 	old = xa_erase(&file_priv->proto_context_xa, id);
- 	GEM_BUG_ON(old != pc);
- 	proto_context_close(pc);
- 
--	/* One for the xarray and one for the caller */
--	return i915_gem_context_get(ctx);
-+	return ctx;
- }
- 
- struct i915_gem_context *
--- 
-2.46.0
+I think this is correct and I think I've raised that it should be like 
+this when the code was originally added. I only don't remember what was 
+the argument to keep it hardcoded, if there was any. Adding Rob in case 
+he can remember.
 
+>   		}
+>   
+> -		if (drm_gem_object_is_shared_for_memory_stats(obj)) {
+> +		if (drm_gem_object_is_shared_for_memory_stats(obj))
+>   			status.shared += obj->size;
+> -		} else {
+> +		else
+>   			status.private += obj->size;
+> -		}
+
+Drive by cleanup, okay.
+
+>   
+>   		if (s & DRM_GEM_OBJECT_RESIDENT) {
+>   			status.resident += add_size;
+> @@ -938,6 +938,7 @@ void drm_show_memory_stats(struct drm_printer *p, struct drm_file *file)
+>   
+>   		if (!dma_resv_test_signaled(obj->resv, dma_resv_usage_rw(true))) {
+>   			status.active += add_size;
+> +			supported_status |= DRM_GEM_OBJECT_ACTIVE;
+
+I wonder what behaviour we should have here if the driver has reported 
+DRM_GEM_OBJECT_ACTIVE via its status vfunc. Like should it be like this:
+
+    if ((s & DRM_GEM_OBJECT_ACTIVE) ||
+        !dma_resv_test_signaled(obj->resv, dma_resv_usage_rw(true))) {
+	  ...
+
+?
+
+So if some driver starts reporting this flag _and_ is still calling 
+drm_show_memory_stats(), it's version of activity tracking is used 
+instead of the the dma_resv based test.
+
+>   
+>   			/* If still active, don't count as purgeable: */
+>   			s &= ~DRM_GEM_OBJECT_PURGEABLE;
+> diff --git a/drivers/gpu/drm/i915/i915_drm_client.c b/drivers/gpu/drm/i915/i915_drm_client.c
+> index f586825054918..168d7375304bc 100644
+> --- a/drivers/gpu/drm/i915/i915_drm_client.c
+> +++ b/drivers/gpu/drm/i915/i915_drm_client.c
+> @@ -102,6 +102,7 @@ static void show_meminfo(struct drm_printer *p, struct drm_file *file)
+>   	for_each_memory_region(mr, i915, id)
+>   		drm_print_memory_stats(p,
+>   				       &stats[id],
+> +				       DRM_GEM_OBJECT_ACTIVE |
+>   				       DRM_GEM_OBJECT_RESIDENT |
+>   				       DRM_GEM_OBJECT_PURGEABLE,
+>   				       mr->uabi_name);
+> diff --git a/drivers/gpu/drm/xe/xe_drm_client.c b/drivers/gpu/drm/xe/xe_drm_client.c
+> index 6a26923fa10e0..54941b4e850c4 100644
+> --- a/drivers/gpu/drm/xe/xe_drm_client.c
+> +++ b/drivers/gpu/drm/xe/xe_drm_client.c
+> @@ -229,6 +229,7 @@ static void show_meminfo(struct drm_printer *p, struct drm_file *file)
+>   		if (man) {
+>   			drm_print_memory_stats(p,
+>   					       &stats[mem_type],
+> +					       DRM_GEM_OBJECT_ACTIVE |
+>   					       DRM_GEM_OBJECT_RESIDENT |
+>   					       (mem_type != XE_PL_SYSTEM ? 0 :
+>   					       DRM_GEM_OBJECT_PURGEABLE),
+> diff --git a/include/drm/drm_gem.h b/include/drm/drm_gem.h
+> index bae4865b2101a..584ffdf5c2542 100644
+> --- a/include/drm/drm_gem.h
+> +++ b/include/drm/drm_gem.h
+> @@ -48,19 +48,21 @@ struct drm_gem_object;
+>    * enum drm_gem_object_status - bitmask of object state for fdinfo reporting
+>    * @DRM_GEM_OBJECT_RESIDENT: object is resident in memory (ie. not unpinned)
+>    * @DRM_GEM_OBJECT_PURGEABLE: object marked as purgeable by userspace
+> + * @DRM_GEM_OBJECT_ACTIVE: object is currently used by an active submission
+>    *
+>    * Bitmask of status used for fdinfo memory stats, see &drm_gem_object_funcs.status
+> - * and drm_show_fdinfo().  Note that an object can DRM_GEM_OBJECT_PURGEABLE if
+> - * it still active or not resident, in which case drm_show_fdinfo() will not
+> + * and drm_show_fdinfo().  Note that an object can report DRM_GEM_OBJECT_PURGEABLE
+> + * and be active or not resident, in which case drm_show_fdinfo() will not
+>    * account for it as purgeable.  So drivers do not need to check if the buffer
+> - * is idle and resident to return this bit.  (Ie. userspace can mark a buffer
+> - * as purgeable even while it is still busy on the GPU.. it does not _actually_
+> - * become puregeable until it becomes idle.  The status gem object func does
+> - * not need to consider this.)
+> + * is idle and resident to return this bit, i.e. userspace can mark a buffer as
+> + * purgeable even while it is still busy on the GPU. It whill not get reported
+
+Good cleanup.
+
+s/whill/will/
+
+> + * in the puregeable stats until it becomes idle.  The status gem object func
+> + * does not need to consider this.
+>    */
+>   enum drm_gem_object_status {
+>   	DRM_GEM_OBJECT_RESIDENT  = BIT(0),
+>   	DRM_GEM_OBJECT_PURGEABLE = BIT(1),
+> +	DRM_GEM_OBJECT_ACTIVE = BIT(2),
+>   };
+>   
+>   /**
+
+Regards,
+
+Tvrtko
