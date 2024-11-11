@@ -4,55 +4,59 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 13EAAD2E9E4
-	for <intel-gfx@archiver.kernel.org>; Mon, 11 Nov 2024 12:33:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7F6CBD2E9E4
+	for <intel-gfx@archiver.kernel.org>; Mon, 11 Nov 2024 12:36:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A645C10E4A0;
-	Mon, 11 Nov 2024 12:33:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 23D5210E4A3;
+	Mon, 11 Nov 2024 12:36:26 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="VdO5KgwQ";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="QI36pvJc";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.12])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AA5B810E49F;
- Mon, 11 Nov 2024 12:33:17 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.9])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DBC1A10E4A1
+ for <intel-gfx@lists.freedesktop.org>; Mon, 11 Nov 2024 12:36:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1731328397; x=1762864397;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=EvXXfbyONgtVlbnex88X2x65RMEVdiknRUUJQ1bVzu4=;
- b=VdO5KgwQ6zzcLVTUfo5RrRJ+01sZYUZUWqN2Mvv9hwMNe3CpWOd8wMVN
- uhHV9V0d/+yBPPh2ZmwENUbUH62I7cLyfDS0/85JG7sqOIP5RyTSjl30s
- NSdY9sFEzj/iLGj4byE7nEBQOko8BkQHw8UO508fgpmhPp9E5ioBRzA5I
- 3e+XP5ip778y+sZwnQp83o0sQsky3cOpBxMDWJ2XOwhHvcfzN0WdwYMug
- d0HG5FEyH1rOuxRSG4QuGYoNTLtDHCEMfAumoNtyAYxT03dFRP73IAf9Z
- MgAyDOsYlnHoZr/Ev3/A+PT2I4UEDvXCYQHvuL0E5GQdZhUkRXJFh2g8y Q==;
-X-CSE-ConnectionGUID: pmx5BDaxT6OKJDCIQL/Xbg==
-X-CSE-MsgGUID: Ql+U/zyJSyGhzvsgSc1LCw==
-X-IronPort-AV: E=McAfee;i="6700,10204,11252"; a="35068052"
-X-IronPort-AV: E=Sophos;i="6.12,145,1728975600"; d="scan'208";a="35068052"
-Received: from fmviesa001.fm.intel.com ([10.60.135.141])
- by fmvoesa106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 11 Nov 2024 04:33:17 -0800
-X-CSE-ConnectionGUID: X0ExlaM1Qu2Nb12J7e1OyQ==
-X-CSE-MsgGUID: +nq+W8LSRzyxtogL8cKo4g==
+ t=1731328585; x=1762864585;
+ h=date:from:to:cc:subject:in-reply-to:message-id:
+ references:mime-version;
+ bh=dFsezA+CbBintUlhJ4FVVBMePIw94bGnIOxtUgIlvaY=;
+ b=QI36pvJc8rRW3Lj8vtVI5vm+oxLGGFs/WwqkwvvQx8plyW2kd3qr5ez5
+ AbOjGD0fxJuA2HCXDMVdvAaIMhQSLx7NJzvia/LSWCSu1xaP63Hg6jdst
+ niXGuI7nB2AE8iPJpuz5tsn3TJgUABQcyYc5fUtCARHH+bq5pdkOHPwu9
+ +V5YRWPsylfYddiglPtREiBToPfVjQN+BKRgjNwHuA6BWMTQPHx1S2vJQ
+ U+RAmkOLGXd5SxotrKgT+nvuCwgDwm314u/caLbnnZ7CFotzFH4LOUIvE
+ poWetEfiMWtJvaxoPE8Y9UtvyjIomYPhOwR0dui0BQQYuPfb1FKMTA3H+ Q==;
+X-CSE-ConnectionGUID: wfoikLnZSTWu0nsEA3SxWA==
+X-CSE-MsgGUID: EvTt0KFlTyqq1Ofmr3TY3A==
+X-IronPort-AV: E=McAfee;i="6700,10204,11253"; a="41745334"
+X-IronPort-AV: E=Sophos;i="6.12,145,1728975600"; d="scan'208";a="41745334"
+Received: from orviesa006.jf.intel.com ([10.64.159.146])
+ by fmvoesa103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 11 Nov 2024 04:36:25 -0800
+X-CSE-ConnectionGUID: TOcc7Jh7Sea/rT0kTJXVJg==
+X-CSE-MsgGUID: gI/HziO4TbOHsdZVBS38tw==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.12,145,1728975600"; d="scan'208";a="117823246"
-Received: from kandpal-x299-ud4-pro.iind.intel.com ([10.190.239.10])
- by fmviesa001.fm.intel.com with ESMTP; 11 Nov 2024 04:33:16 -0800
-From: Suraj Kandpal <suraj.kandpal@intel.com>
-To: intel-xe@lists.freedesktop.org,
-	intel-gfx@lists.freedesktop.org
-Cc: vinod.govindapillai@intel.com,
-	Suraj Kandpal <suraj.kandpal@intel.com>
-Subject: [PATCH 3/3] drm/i915/watermark: Use intel_display for dpkgc code
-Date: Mon, 11 Nov 2024 18:02:59 +0530
-Message-Id: <20241111123259.1072534-3-suraj.kandpal@intel.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20241111123259.1072534-1-suraj.kandpal@intel.com>
-References: <20241111123259.1072534-1-suraj.kandpal@intel.com>
+X-IronPort-AV: E=Sophos;i="6.12,145,1728975600"; d="scan'208";a="87047623"
+Received: from eliteleevi.tm.intel.com ([10.237.54.20])
+ by orviesa006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 11 Nov 2024 04:36:22 -0800
+Date: Mon, 11 Nov 2024 14:29:54 +0200 (EET)
+From: Kai Vehmanen <kai.vehmanen@linux.intel.com>
+X-X-Sender: kvehmane@eliteleevi.tm.intel.com
+To: Vinod Govindapillai <vinod.govindapillai@intel.com>
+cc: intel-gfx@lists.freedesktop.org, jani.nikula@intel.com, 
+ ville.syrjala@intel.com, kai.vehmanen@intel.com, jani.saarinen@intel.com
+Subject: Re: [PATCH 2/9] drm/i915/display: create a common function to check
+ validity of ELD
+In-Reply-To: <20241008082327.342020-3-vinod.govindapillai@intel.com>
+Message-ID: <alpine.DEB.2.22.394.2411111429190.14041@eliteleevi.tm.intel.com>
+References: <20241008082327.342020-1-vinod.govindapillai@intel.com>
+ <20241008082327.342020-3-vinod.govindapillai@intel.com>
+User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
+Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7 02160 Espoo
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=US-ASCII
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,58 +72,14 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Use intel_display for DPKGC code wherever we can. While we are
-at it also use intel_de_rmw instead of intel_uncore_rmw as we
-really don't need the internal uncore_rmw_function.
+Hey,
 
-Signed-off-by: Suraj Kandpal <suraj.kandpal@intel.com>
----
- drivers/gpu/drm/i915/display/skl_watermark.c | 9 +++++----
- 1 file changed, 5 insertions(+), 4 deletions(-)
+On Tue, 8 Oct 2024, Vinod Govindapillai wrote:
 
-diff --git a/drivers/gpu/drm/i915/display/skl_watermark.c b/drivers/gpu/drm/i915/display/skl_watermark.c
-index e061015a89b0..357eb8630ab3 100644
---- a/drivers/gpu/drm/i915/display/skl_watermark.c
-+++ b/drivers/gpu/drm/i915/display/skl_watermark.c
-@@ -2852,18 +2852,19 @@ skl_program_dpkgc_latency(struct drm_i915_private *i915,
- 			  bool enable_dpkgc,
- 			  u32 max_linetime)
- {
-+	struct intel_display *display = to_intel_display(&i915->drm);
- 	u32 adjusted_latency = LNL_PKG_C_LATENCY_MASK;
- 	u32 clear = 0, val = 0;
- 	u32 added_wake_time = 0;
- 
--	if (DISPLAY_VER(i915) < 20)
-+	if (DISPLAY_VER(display) < 20)
- 		return;
- 
- 	if (enable_dpkgc) {
- 		adjusted_latency = skl_watermark_max_latency(i915, 1);
- 
- 		/* Wa_22020299601 */
--		if ((DISPLAY_VER(i915) == 20 || DISPLAY_VER(i915) == 30) &&
-+		if ((DISPLAY_VER(display) == 20 || DISPLAY_VER(display) == 30) &&
- 		    adjusted_latency != 0)
- 			adjusted_latency = max_linetime *
- 				DIV_ROUND_UP(adjusted_latency, max_linetime);
-@@ -2871,14 +2872,14 @@ skl_program_dpkgc_latency(struct drm_i915_private *i915,
- 			adjusted_latency = LNL_PKG_C_LATENCY_MASK;
- 
- 		added_wake_time = DSB_EXE_TIME +
--			i915->display.sagv.block_time_us;
-+			display->sagv.block_time_us;
- 	}
- 
- 	clear |= LNL_ADDED_WAKE_TIME_MASK | LNL_PKG_C_LATENCY_MASK;
- 	val |= REG_FIELD_PREP(LNL_PKG_C_LATENCY_MASK, adjusted_latency);
- 	val |= REG_FIELD_PREP(LNL_ADDED_WAKE_TIME_MASK, added_wake_time);
- 
--	intel_uncore_rmw(&i915->uncore, LNL_PKG_C_LATENCY, clear, val);
-+	intel_de_rmw(display, LNL_PKG_C_LATENCY, clear, val);
- }
- 
- static int
--- 
-2.34.1
+> We would need to check the validity of connector ELD from multiple
+> places in the follow up patches. So create a separate function to
+> check the validity for ELD.
 
+Reviewed-by: Kai Vehmanen <kai.vehmanen@linux.intel.com>
+
+Br, Kai
