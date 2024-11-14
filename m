@@ -4,24 +4,24 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 83726D65C6F
-	for <intel-gfx@archiver.kernel.org>; Thu, 14 Nov 2024 10:50:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 81FF6D65C6C
+	for <intel-gfx@archiver.kernel.org>; Thu, 14 Nov 2024 10:50:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2032F10E07F;
-	Thu, 14 Nov 2024 10:50:42 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 26A6E10E7DA;
+	Thu, 14 Nov 2024 10:50:45 +0000 (UTC)
 Received: from 2413ebb6fbb6 (emeril.freedesktop.org [131.252.210.167])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B2FB810E07F;
- Thu, 14 Nov 2024 10:50:41 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0966910E7D9;
+ Thu, 14 Nov 2024 10:50:44 +0000 (UTC)
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
-Subject: =?utf-8?q?=E2=9C=97_Fi=2ECI=2ECHECKPATCH=3A_warning_for_Introduce_drm_sharpn?=
- =?utf-8?q?ess_property_=28rev5=29?=
+Subject: =?utf-8?q?=E2=9C=97_Fi=2ECI=2ESPARSE=3A_warning_for_Introduce_drm_sharpness_?=
+ =?utf-8?q?property_=28rev5=29?=
 From: Patchwork <patchwork@emeril.freedesktop.org>
 To: "Nemesa Garg" <nemesa.garg@intel.com>
 Cc: intel-gfx@lists.freedesktop.org
-Date: Thu, 14 Nov 2024 10:50:41 -0000
-Message-ID: <173158144172.4035500.3415891387210400545@2413ebb6fbb6>
+Date: Thu, 14 Nov 2024 10:50:44 -0000
+Message-ID: <173158144403.4035500.14211061169977862237@2413ebb6fbb6>
 X-Patchwork-Hint: ignore
 References: <20241114101825.3413688-1-nemesa.garg@intel.com>
 In-Reply-To: <20241114101825.3413688-1-nemesa.garg@intel.com>
@@ -49,21 +49,8 @@ State : warning
 
 == Summary ==
 
-Error: dim checkpatch failed
-c7636dbf1478 drm: Introduce sharpness strength property
-7dd58709d232 drm/i915/display: Compute the scaler filter coefficients
--:36: WARNING:FILE_PATH_CHANGES: added, moved or deleted file(s), does MAINTAINERS need updating?
-#36: 
-new file mode 100644
-
-total: 0 errors, 1 warnings, 0 checks, 226 lines checked
-6b57e70cf471 drm/i915/display: Enable the second scaler for sharpness
--:251: CHECK:MULTIPLE_ASSIGNMENTS: multiple assignments should be avoided
-#251: FILE: drivers/gpu/drm/i915/display/skl_scaler.c:693:
-+	x = y = 0;
-
-total: 0 errors, 0 warnings, 1 checks, 246 lines checked
-786e971d5893 drm/i915/display: Add registers and compute the strength
-de4e1c19b93e drm/i915/display: Load the lut values and enable sharpness
+Error: dim sparse failed
+Sparse version: v0.6.2
+Fast mode used, each commit won't be checked separately.
 
 
