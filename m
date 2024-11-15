@@ -4,34 +4,54 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 59FD1D68BCE
-	for <intel-gfx@archiver.kernel.org>; Fri, 15 Nov 2024 16:33:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B40A1D68BCE
+	for <intel-gfx@archiver.kernel.org>; Fri, 15 Nov 2024 16:41:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EEC0610E8A0;
-	Fri, 15 Nov 2024 16:33:23 +0000 (UTC)
-Received: from nyc.source.kernel.org (nyc.source.kernel.org [147.75.193.91])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7A583882AF;
- Wed, 13 Nov 2024 16:29:43 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by nyc.source.kernel.org (Postfix) with ESMTP id 1E460A40851;
- Wed, 13 Nov 2024 16:27:48 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5815DC4CEC3;
- Wed, 13 Nov 2024 16:29:40 +0000 (UTC)
-Date: Wed, 13 Nov 2024 18:29:34 +0200
-From: Zhi Wang <zhiw@nvidia.com>
-To: Zhenyu Wang <zhenyuw@linux.intel.com>
-Cc: intel-gfx@lists.freedesktop.org, intel-gvt-dev@lists.freedesktop.org,
- Zhi Wang <zhi.wang.linux@gmail.com>, Zhiyuan Lv <zhiyuan.lv@intel.com>,
- James Wu <james.y.wu@intel.com>, Zhenyu Wang <zhenyuw.linux@gmail.com>
-Subject: Re: [PATCH] MAINTAINERS: switch my mail address for GVT driver
-Message-ID: <20241113182934.00001919.zhiw@nvidia.com>
-In-Reply-To: <20241113063700.4460-1-zhenyuw@linux.intel.com>
-References: <20241113063700.4460-1-zhenyuw@linux.intel.com>
-X-Mailer: Claws Mail 4.1.1 (GTK 3.24.34; x86_64-w64-mingw32)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4F19410E035;
+	Fri, 15 Nov 2024 16:41:26 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="nzikUkuj";
+	dkim-atps=neutral
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.18])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C735710E035;
+ Fri, 15 Nov 2024 16:41:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1731688884; x=1763224884;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=d7XDXlN75UpjF5Im7vgkgMLjjrDj2TSSEFhkZe8s+/Y=;
+ b=nzikUkujNh5xPC9YqP2ELLtMD7NMiHNwSVQgCguy7fpbujYeaY9HWmgl
+ xCIR8lKPEO4uADgn9rFrhH9lGaoQ/AfkkL5fY8PFY24d0a9yAjhxaRWzv
+ 59uVvqzQA8dweajSQqjYtmfa8rxb62QhCIb7gMyYUGoCd0XYVO6Gr4Noe
+ 9ExUbohvWYpbQkZX3f971ML/uhDuKjz8uTBDn3AVS2nMxur/WilRq8Gjx
+ eA1WXk+gW52aV8u5+hTIO+MKFsC6r1V5jF4keY81FZ7S/Mqg8Emxs4N2S
+ Sz3WNIWh49z7ao3H/Tun/hee7S1HAK1ZIyg+3+5ZJnJ5bOW46MydliAFa Q==;
+X-CSE-ConnectionGUID: +pTDQ2EOSKSQpFHnqgn/Wg==
+X-CSE-MsgGUID: 2+xjOI7aRQeTdGas5nszjQ==
+X-IronPort-AV: E=McAfee;i="6700,10204,11257"; a="31087072"
+X-IronPort-AV: E=Sophos;i="6.12,157,1728975600"; d="scan'208";a="31087072"
+Received: from fmviesa001.fm.intel.com ([10.60.135.141])
+ by fmvoesa112.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 15 Nov 2024 08:41:24 -0800
+X-CSE-ConnectionGUID: UUxnQnHoQWmzt4otNPxUoA==
+X-CSE-MsgGUID: KmFJZw/5T3qYTgpv/e5ayw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.12,157,1728975600"; d="scan'208";a="119554618"
+Received: from ideak-desk.fi.intel.com ([10.237.72.78])
+ by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 15 Nov 2024 08:41:23 -0800
+From: Imre Deak <imre.deak@intel.com>
+To: intel-gfx@lists.freedesktop.org,
+	dri-devel@lists.freedesktop.org
+Cc: Jani Nikula <jani.nikula@intel.com>
+Subject: [PATCH 1/4] drm/i915/dp_mst: Fix connector initialization in
+ intel_dp_add_mst_connector()
+Date: Fri, 15 Nov 2024 18:41:56 +0200
+Message-ID: <20241115164159.1081675-1-imre.deak@intel.com>
+X-Mailer: git-send-email 2.44.2
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
-X-Mailman-Approved-At: Fri, 15 Nov 2024 16:33:22 +0000
+Content-Transfer-Encoding: 8bit
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -47,34 +67,47 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Wed, 13 Nov 2024 14:37:00 +0800
-Zhenyu Wang <zhenyuw@linux.intel.com> wrote:
+The connector initialization in intel_dp_add_mst_connector() depends on
+the device pointer in connector to be valid, at least by connector
+debug printing. The device pointer is initialized by drm_connector_init(),
+however that function also exposes the connector to in-kernel users,
+which can't be done before the connector is fully initialized. For now
+make sure the device pointer is valid before it's used, until a
+follow-up change moving this to DRM core.
 
-Acked-by: Zhi Wang <zhiwang@kernel.org>
+This issue was revealed by the commit in the Fixes: line below, before
+which the above debug printing checked and handled a NULL device pointer
+gracefully in DRM core.
 
-> I won't be able to use intel account, so this switchs address to my
-> gmail account.
-> 
-> Cc: Zhi Wang <zhi.wang.linux@gmail.com>
-> Cc: Zhiyuan Lv <zhiyuan.lv@intel.com>
-> Cc: James Wu <james.y.wu@intel.com>
-> Cc: Zhenyu Wang <zhenyuw.linux@gmail.com>
-> Signed-off-by: Zhenyu Wang <zhenyuw@linux.intel.com>
-> ---
->  MAINTAINERS | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/MAINTAINERS b/MAINTAINERS
-> index 21fdaa19229a..5170ab32654c 100644
-> --- a/MAINTAINERS
-> +++ b/MAINTAINERS
-> @@ -11423,7 +11423,7 @@ F:	drivers/gpio/gpio-tangier.c
->  F:	drivers/gpio/gpio-tangier.h
->  
->  INTEL GVT-g DRIVERS (Intel GPU Virtualization)
-> -M:	Zhenyu Wang <zhenyuw@linux.intel.com>
-> +M:	Zhenyu Wang <zhenyuw.linux@gmail.com>
->  M:	Zhi Wang <zhi.wang.linux@gmail.com>
->  L:	intel-gvt-dev@lists.freedesktop.org
->  L:	intel-gfx@lists.freedesktop.org
+Cc: Jani Nikula <jani.nikula@intel.com>
+Fixes: 529798bd786a ("drm/i915/mst: convert to struct intel_display")
+Closes: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/12799
+Signed-off-by: Imre Deak <imre.deak@intel.com>
+---
+ drivers/gpu/drm/i915/display/intel_dp_mst.c | 10 ++++++++++
+ 1 file changed, 10 insertions(+)
+
+diff --git a/drivers/gpu/drm/i915/display/intel_dp_mst.c b/drivers/gpu/drm/i915/display/intel_dp_mst.c
+index df7edcfe885b6..f058360a26413 100644
+--- a/drivers/gpu/drm/i915/display/intel_dp_mst.c
++++ b/drivers/gpu/drm/i915/display/intel_dp_mst.c
+@@ -1727,6 +1727,16 @@ static struct drm_connector *intel_dp_add_mst_connector(struct drm_dp_mst_topolo
+ 
+ 	intel_dp_init_modeset_retry_work(intel_connector);
+ 
++	/*
++	 * TODO: The following drm_connector specific initialization belongs
++	 * to DRM core, however it happens atm too late in
++	 * drm_connector_init(). That function will also expose the connector
++	 * to in-kernel users, so it can't be called until the connector is
++	 * sufficiently initialized; init the device pointer used by the
++	 * following DSC setup, until a fix moving this to DRM core.
++	 */
++	intel_connector->base.dev = mgr->dev;
++
+ 	intel_connector->dp.dsc_decompression_aux = drm_dp_mst_dsc_aux_for_port(port);
+ 	intel_dp_mst_read_decompression_port_dsc_caps(intel_dp, intel_connector);
+ 	intel_connector->dp.dsc_hblank_expansion_quirk =
+-- 
+2.44.2
 
