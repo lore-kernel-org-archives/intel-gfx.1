@@ -4,50 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D0E15D68BCF
-	for <intel-gfx@archiver.kernel.org>; Fri, 15 Nov 2024 16:41:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 29EB4D68BCF
+	for <intel-gfx@archiver.kernel.org>; Fri, 15 Nov 2024 16:41:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 549C410E042;
-	Fri, 15 Nov 2024 16:41:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2614710E8A2;
+	Fri, 15 Nov 2024 16:41:29 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="Y5fDJyVf";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="VlWZjcNz";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.18])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8EEF410E035;
- Fri, 15 Nov 2024 16:41:25 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D4BF810E187;
+ Fri, 15 Nov 2024 16:41:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1731688885; x=1763224885;
+ t=1731688888; x=1763224888;
  h=from:to:subject:date:message-id:in-reply-to:references:
  mime-version:content-transfer-encoding;
- bh=kOMzjW7mmlNonT8aZtUFfJH3YO+93F03I2gaGOvnAHU=;
- b=Y5fDJyVfaOB3Ww4vDoa2eJOyXdLolRbKll13S6CDGN91RV/qU4fY3TKX
- VKNjMrO/1vJpWvqMKRhCW5yFXE8gdJ8mPKBoFM+e9BSSWVxci4orglj4p
- hqZVbUdqbTejmPa7+EKsd0S0vs/QjJeo2Nh/FxtYd8E5KgBBRKkDlB53B
- PbGKl/2uowv21JaA5znTMJow6G6MTH8jRziqYXVT8IZVmmOGHzBtlYfGn
- KtWjV4nigcvmAVeh7Z3Hul3ooLHfO2pL9uYyoeFckR2SJExw6WnUK3OvA
- CTeGGSYiyAn3SCr1kjZibC7PRS/RELnrtcqzJQcLM4MQh7DOv9SFOhsVc w==;
-X-CSE-ConnectionGUID: QpY++sa7SqyaURRE6U4ctQ==
-X-CSE-MsgGUID: nRWw+kXrTmWBUyUmMNdU6g==
-X-IronPort-AV: E=McAfee;i="6700,10204,11257"; a="31087075"
-X-IronPort-AV: E=Sophos;i="6.12,157,1728975600"; d="scan'208";a="31087075"
+ bh=1MkKQOlRR6eQEXqw3+vcN6WiR3YDSGfckt5F1GJLyHY=;
+ b=VlWZjcNzfPj+HRW0u6b+9xlLXF/V/S1wpsPkmtqmXv77oaPQwQjlxlNO
+ oheast5a5vzMNpO/zh2BXjte9lL8zAJQgp52QziE8bYht/bzEZCce7O97
+ WGZNkrKCgtSiqONWV+/TRFDpsq5n75QS+3f6OggEFXuXF7lgmnFhjcHBc
+ PbinmNa3gzdMjdWbq2F14xl8aDQv94BptOrE8wKw5DS7mELvRa2bOWPBr
+ BgssFe2rigUujzka5W7Hris73f0A3K6qSsglW4Eap+vtv99dH3941jhRb
+ gWfLdrEFCLbQd1Qa64Ul8RkGj48ZCL9yFn46plPXot5urWwXngm2uk9ii g==;
+X-CSE-ConnectionGUID: /SnVuNkJTSuEAq+kubvdzA==
+X-CSE-MsgGUID: g6WoW4dgTcSzMh3tkJo7Fw==
+X-IronPort-AV: E=McAfee;i="6700,10204,11257"; a="31087079"
+X-IronPort-AV: E=Sophos;i="6.12,157,1728975600"; d="scan'208";a="31087079"
 Received: from fmviesa001.fm.intel.com ([10.60.135.141])
  by fmvoesa112.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 15 Nov 2024 08:41:25 -0800
-X-CSE-ConnectionGUID: w0aL841/S62GU+80clYuPA==
-X-CSE-MsgGUID: W3FRxx+7RfajFenJAqNdqA==
+ 15 Nov 2024 08:41:27 -0800
+X-CSE-ConnectionGUID: KkcCBGWTRPmWbEed8zLxqg==
+X-CSE-MsgGUID: 1dk9/6uhSOWmwUoo+EWm0Q==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.12,157,1728975600"; d="scan'208";a="119554619"
+X-IronPort-AV: E=Sophos;i="6.12,157,1728975600"; d="scan'208";a="119554624"
 Received: from ideak-desk.fi.intel.com ([10.237.72.78])
  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 15 Nov 2024 08:41:24 -0800
+ 15 Nov 2024 08:41:27 -0800
 From: Imre Deak <imre.deak@intel.com>
 To: intel-gfx@lists.freedesktop.org,
 	dri-devel@lists.freedesktop.org
-Subject: [PATCH 2/4] drm/dp: Add a way to init/add a connector in separate
- steps
-Date: Fri, 15 Nov 2024 18:41:57 +0200
-Message-ID: <20241115164159.1081675-2-imre.deak@intel.com>
+Subject: [PATCH 4/4] drm/i915/dp_mst: Fix error handling while adding a
+ connector
+Date: Fri, 15 Nov 2024 18:41:59 +0200
+Message-ID: <20241115164159.1081675-4-imre.deak@intel.com>
 X-Mailer: git-send-email 2.44.2
 In-Reply-To: <20241115164159.1081675-1-imre.deak@intel.com>
 References: <20241115164159.1081675-1-imre.deak@intel.com>
@@ -68,182 +68,61 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Atm when the connector is added to the drm_mode_config::connector_list,
-the connector may not be fully initialized yet. This is not a problem
-for user space, which will see the connector only after it's registered
-later, it could be a problem for in-kernel users looking up connectors
-via the above list.
-
-To resolve the above issue, add a way to separately initialize the DRM
-core specific parts of the connector and add it to the above list. This
-will move adding the connector to the list after the properties on the
-connector have been added, this is ok since these steps don't have a
-dependency.
+After an error during adding an MST connector the MST port and the
+intel_connector object could be leaked, fix this up.
 
 Signed-off-by: Imre Deak <imre.deak@intel.com>
 ---
- drivers/gpu/drm/drm_connector.c | 103 ++++++++++++++++++++++++++------
- include/drm/drm_connector.h     |   5 ++
- 2 files changed, 91 insertions(+), 17 deletions(-)
+ drivers/gpu/drm/i915/display/intel_dp_mst.c | 17 +++++++++--------
+ 1 file changed, 9 insertions(+), 8 deletions(-)
 
-diff --git a/drivers/gpu/drm/drm_connector.c b/drivers/gpu/drm/drm_connector.c
-index fc35f47e2849e..6132a7917b20c 100644
---- a/drivers/gpu/drm/drm_connector.c
-+++ b/drivers/gpu/drm/drm_connector.c
-@@ -218,11 +218,11 @@ void drm_connector_free_work_fn(struct work_struct *work)
- 	}
- }
+diff --git a/drivers/gpu/drm/i915/display/intel_dp_mst.c b/drivers/gpu/drm/i915/display/intel_dp_mst.c
+index d91a1d1fb26f4..70daa9131c92d 100644
+--- a/drivers/gpu/drm/i915/display/intel_dp_mst.c
++++ b/drivers/gpu/drm/i915/display/intel_dp_mst.c
+@@ -1731,11 +1731,8 @@ static struct drm_connector *intel_dp_add_mst_connector(struct drm_dp_mst_topolo
  
--static int __drm_connector_init(struct drm_device *dev,
--				struct drm_connector *connector,
--				const struct drm_connector_funcs *funcs,
--				int connector_type,
--				struct i2c_adapter *ddc)
-+static int __drm_connector_init_core(struct drm_device *dev,
-+				     struct drm_connector *connector,
-+				     const struct drm_connector_funcs *funcs,
-+				     int connector_type,
-+				     struct i2c_adapter *ddc)
- {
- 	struct drm_mode_config *config = &dev->mode_config;
- 	int ret;
-@@ -273,6 +273,7 @@ static int __drm_connector_init(struct drm_device *dev,
- 	/* provide ddc symlink in sysfs */
- 	connector->ddc = ddc;
- 
-+	INIT_LIST_HEAD(&connector->head);
- 	INIT_LIST_HEAD(&connector->global_connector_list_entry);
- 	INIT_LIST_HEAD(&connector->probed_modes);
- 	INIT_LIST_HEAD(&connector->modes);
-@@ -288,14 +289,6 @@ static int __drm_connector_init(struct drm_device *dev,
- 
- 	drm_connector_get_cmdline_mode(connector);
- 
--	/* We should add connectors at the end to avoid upsetting the connector
--	 * index too much.
--	 */
--	spin_lock_irq(&config->connector_list_lock);
--	list_add_tail(&connector->head, &config->connector_list);
--	config->num_connector++;
--	spin_unlock_irq(&config->connector_list_lock);
--
- 	if (connector_type != DRM_MODE_CONNECTOR_VIRTUAL &&
- 	    connector_type != DRM_MODE_CONNECTOR_WRITEBACK)
- 		drm_connector_attach_edid_property(connector);
-@@ -332,6 +325,84 @@ static int __drm_connector_init(struct drm_device *dev,
- 	return ret;
- }
- 
-+/**
-+ * drm_connector_init_core - Initialize the core state of a preallocated connector
-+ * @dev: DRM device
-+ * @connector: the connector to init
-+ * @funcs: callbacks for this connector
-+ * @connector_type: user visible type of the connector
-+ *
-+ * Initialises the core state of preallocated connector. This is
-+ * equivalent to drm_connector_init(), without adding the connector to
-+ * drm_mode_config::connector_list. This call must be followed by calling
-+ * drm_connector_add() during initialization to expose the connector to
-+ * in-kernel users via the above list.
-+ *
-+ * Returns:
-+ * Zero on success, error code on failure.
-+ */
-+int drm_connector_init_core(struct drm_device *dev,
-+			    struct drm_connector *connector,
-+			    const struct drm_connector_funcs *funcs,
-+			    int connector_type)
-+{
-+	if (drm_WARN_ON(dev, !(funcs && funcs->destroy)))
-+		return -EINVAL;
-+
-+	return __drm_connector_init_core(dev, connector, funcs, connector_type, NULL);
-+}
-+EXPORT_SYMBOL(drm_connector_init_core);
-+
-+/**
-+ * drm_connector_add - Add the connector
-+ * @connector: the connector to add
-+ *
-+ * Add the connector to the drm_mode_config::connector_list, exposing the
-+ * connector to in-kernel users. This call must be preceded by a call to
-+ * drm_connector_init_core().
-+ */
-+void drm_connector_add(struct drm_connector *connector)
-+{
-+	struct drm_device *dev = connector->dev;
-+	struct drm_mode_config *config = &dev->mode_config;
-+
-+	spin_lock_irq(&config->connector_list_lock);
-+	list_add_tail(&connector->head, &config->connector_list);
-+	config->num_connector++;
-+	spin_unlock_irq(&config->connector_list_lock);
-+}
-+EXPORT_SYMBOL(drm_connector_add);
-+
-+static void drm_connector_remove(struct drm_connector *connector)
-+{
-+	struct drm_device *dev = connector->dev;
-+
-+	if (list_empty(&connector->head))
-+		return;
-+
-+	spin_lock_irq(&dev->mode_config.connector_list_lock);
-+	list_del_init(&connector->head);
-+	dev->mode_config.num_connector--;
-+	spin_unlock_irq(&dev->mode_config.connector_list_lock);
-+}
-+
-+static int __drm_connector_init(struct drm_device *dev,
-+				struct drm_connector *connector,
-+				const struct drm_connector_funcs *funcs,
-+				int connector_type,
-+				struct i2c_adapter *ddc)
-+{
-+	int ret;
-+
-+	ret = __drm_connector_init_core(dev, connector, funcs, connector_type, ddc);
+ 	ret = drm_connector_init_core(display->drm, connector, &intel_dp_mst_connector_funcs,
+ 				      DRM_MODE_CONNECTOR_DisplayPort);
+-	if (ret) {
+-		drm_dp_mst_put_port_malloc(port);
+-		intel_connector_free(intel_connector);
+-		return NULL;
+-	}
 +	if (ret)
-+		return ret;
-+
-+	drm_connector_add(connector);
-+
-+	return 0;
-+}
-+
- /**
-  * drm_connector_init - Init a preallocated connector
-  * @dev: DRM device
-@@ -659,10 +730,8 @@ void drm_connector_cleanup(struct drm_connector *connector)
- 	connector->name = NULL;
- 	fwnode_handle_put(connector->fwnode);
- 	connector->fwnode = NULL;
--	spin_lock_irq(&dev->mode_config.connector_list_lock);
--	list_del(&connector->head);
--	dev->mode_config.num_connector--;
--	spin_unlock_irq(&dev->mode_config.connector_list_lock);
-+
-+	drm_connector_remove(connector);
++		goto err_put_port;
  
- 	WARN_ON(connector->state && !connector->funcs->atomic_destroy_state);
- 	if (connector->state && connector->funcs->atomic_destroy_state)
-diff --git a/include/drm/drm_connector.h b/include/drm/drm_connector.h
-index e3fa43291f449..8e8d130b40f98 100644
---- a/include/drm/drm_connector.h
-+++ b/include/drm/drm_connector.h
-@@ -2122,6 +2122,11 @@ struct drm_connector {
+ 	intel_connector->dp.dsc_decompression_aux = drm_dp_mst_dsc_aux_for_port(port);
+ 	intel_dp_mst_read_decompression_port_dsc_caps(intel_dp, intel_connector);
+@@ -1750,12 +1747,12 @@ static struct drm_connector *intel_dp_add_mst_connector(struct drm_dp_mst_topolo
  
- #define obj_to_connector(x) container_of(x, struct drm_connector, base)
+ 		ret = drm_connector_attach_encoder(&intel_connector->base, enc);
+ 		if (ret)
+-			goto err;
++			goto err_cleanup_connector;
+ 	}
  
-+int drm_connector_init_core(struct drm_device *dev,
-+			    struct drm_connector *connector,
-+			    const struct drm_connector_funcs *funcs,
-+			    int connector_type);
-+void drm_connector_add(struct drm_connector *connector);
- int drm_connector_init(struct drm_device *dev,
- 		       struct drm_connector *connector,
- 		       const struct drm_connector_funcs *funcs,
+ 	ret = intel_dp_mst_add_properties(intel_dp, connector, pathprop);
+ 	if (ret)
+-		goto err;
++		goto err_cleanup_connector;
+ 
+ 	ret = intel_dp_hdcp_init(dig_port, intel_connector);
+ 	if (ret)
+@@ -1766,8 +1763,12 @@ static struct drm_connector *intel_dp_add_mst_connector(struct drm_dp_mst_topolo
+ 
+ 	return connector;
+ 
+-err:
++err_cleanup_connector:
+ 	drm_connector_cleanup(connector);
++err_put_port:
++	drm_dp_mst_put_port_malloc(port);
++	intel_connector_free(intel_connector);
++
+ 	return NULL;
+ }
+ 
 -- 
 2.44.2
 
