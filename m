@@ -4,53 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A4795D68BC5
-	for <intel-gfx@archiver.kernel.org>; Fri, 15 Nov 2024 14:59:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 839ABD68BC6
+	for <intel-gfx@archiver.kernel.org>; Fri, 15 Nov 2024 16:01:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3BD2010E878;
-	Fri, 15 Nov 2024 14:59:13 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 04DAD10E2D3;
+	Fri, 15 Nov 2024 16:01:30 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="ZXpCHexj";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="Ptv1rnbi";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.16])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1686610E874;
- Fri, 15 Nov 2024 14:59:12 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.20])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DA2CA10E0A3;
+ Fri, 15 Nov 2024 16:01:28 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1731682752; x=1763218752;
+ t=1731686489; x=1763222489;
  h=from:to:cc:subject:date:message-id:mime-version:
  content-transfer-encoding;
- bh=hBOAE2RTjyPmrQRcJkFYy2Lcawech20g3zIxxm8bjhU=;
- b=ZXpCHexjBk5tcJKn0SFx+FFZi0alMKTuZYtz9lgGZ9ixbX8EJf6wPDqd
- F/LAFDUFLHC0s4KFX1oVDG0stjetnR9DHcoUwhk3qFJ+lpDi8zq9dJ6I2
- 5B4/lo1Stb11icNarLgub9GLoIxen0FzMfKe9zj08GhEEosxbfIEgPdeH
- FcdZz3YptOqOOMGvkISAycTKwoororDjTkkfEljvJC4Iz+Jl+f6q6GQAq
- nLyrXswKhLC/uyLUvOBI3K9xQn02hCMq8QpUq4otFAmXPqhnefC/wkm8p
- NCSRJax4hZuyl5IgQFME9wCGihOOYL3zCZ1zpkOis5IFFETSXWyWOaawu Q==;
-X-CSE-ConnectionGUID: YaxIzB87QrKciFksWd0gsQ==
-X-CSE-MsgGUID: ooDgHTysREW4VvCWNtuSIQ==
-X-IronPort-AV: E=McAfee;i="6700,10204,11257"; a="19300265"
-X-IronPort-AV: E=Sophos;i="6.12,157,1728975600"; d="scan'208";a="19300265"
-Received: from fmviesa002.fm.intel.com ([10.60.135.142])
- by fmvoesa110.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 15 Nov 2024 06:59:12 -0800
-X-CSE-ConnectionGUID: J/YgMEQ4StaBn2zUxkK7pQ==
-X-CSE-MsgGUID: LzB8/H00T+KLQXQbg2u+lg==
+ bh=XsTeGkmG9i6S6OiNlnKzy5a/WQ30dIM4QBUohrPHpGQ=;
+ b=Ptv1rnbiofWKMjJOzE1CF+MFsZ96WScwUAP6wKnrU5ayVdq2tbW2OF2w
+ zppokHpdaJyixhsex373RpCR/6BUK1uso33/x4RJIWpSNNe91rzHE3oCi
+ RcUddFW/4pg+58GPJXzVo1n5cTxCf4JVrQBMJfA4jZ2Lw9vV3rnRp1UJi
+ 1fz2hOlZC7qlS1IFYRS+h7fj+SE4l03iX14Pmj0tZ90BZY62dbx3PI/xq
+ mj5DAoRV/G7yYbx7s4LYEzNEMZo69uoi5n7vdYLA+CQ5C6s5wkviHlZXK
+ xvfPH5/Z460zHNVFZlL8LWCAzAV6vKhqmUEsm23cPV8juec8BvQKXkBAu Q==;
+X-CSE-ConnectionGUID: 7slcn0KVTDK6c7rUvJQYIQ==
+X-CSE-MsgGUID: 10xRveSaRhifPy60zeJzHQ==
+X-IronPort-AV: E=McAfee;i="6700,10204,11257"; a="31456777"
+X-IronPort-AV: E=Sophos;i="6.12,157,1728975600"; d="scan'208";a="31456777"
+Received: from orviesa006.jf.intel.com ([10.64.159.146])
+ by orvoesa112.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 15 Nov 2024 08:01:28 -0800
+X-CSE-ConnectionGUID: 5aB7TvDVSGyc6sexrUXG+w==
+X-CSE-MsgGUID: CMJb3B75S46386j9M9U7Lg==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.12,157,1728975600"; d="scan'208";a="111875377"
-Received: from jkrzyszt-mobl2.ger.corp.intel.com (HELO
- jkrzyszt-mobl2.intranet) ([10.245.246.84])
- by fmviesa002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 15 Nov 2024 06:59:10 -0800
-From: Janusz Krzysztofik <janusz.krzysztofik@linux.intel.com>
-To: igt-dev@lists.freedesktop.org
-Cc: intel-gfx@lists.freedesktop.org,
- Kamil Konieczny <kamil.konieczny@linux.intel.com>,
- Janusz Krzysztofik <janusz.krzysztofik@linux.intel.com>
-Subject: [PATCH i-g-t] intel-ci: Blocklist igt@i915_module_load@load
-Date: Fri, 15 Nov 2024 15:58:19 +0100
-Message-ID: <20241115145854.19330-2-janusz.krzysztofik@linux.intel.com>
-X-Mailer: git-send-email 2.47.0
+X-IronPort-AV: E=Sophos;i="6.12,157,1728975600"; d="scan'208";a="88760617"
+Received: from kandpal-x299-ud4-pro.iind.intel.com ([10.190.239.10])
+ by orviesa006.jf.intel.com with ESMTP; 15 Nov 2024 08:01:26 -0800
+From: Suraj Kandpal <suraj.kandpal@intel.com>
+To: intel-xe@lists.freedesktop.org,
+	intel-gfx@lists.freedesktop.org
+Cc: vinod.govindapillai@intel.com, jani.nikula@intel.com,
+ Suraj Kandpal <suraj.kandpal@intel.com>
+Subject: [PATCH 1/6] drm/i915/wm: Initialize max_latency variable to
+ appropriate value
+Date: Fri, 15 Nov 2024 21:31:11 +0530
+Message-Id: <20241115160116.1436521-1-suraj.kandpal@intel.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-BeenThere: intel-gfx@lists.freedesktop.org
@@ -68,41 +67,40 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-This test expects the i915 module not loaded, and it SKIPs if it finds one
-already loaded.  It was intended only for CI BAT runs as the very first
-test executed.  It's not suitable for CI runs with random test selection
-and ordering.
+Initialize max_latency variable to LNL_PKG_C_LATENCY_MASK which helps
+to eliminate the else block and make the whole code a lot cleaner.
+While we are at it group the initialized variable together.
 
-Since omitting it from non-BAT runs doesn't affect coverage, blocklist it
-instead of maintaining as expected SKIP.
-
-Closes: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/6227
-Signed-off-by: Janusz Krzysztofik <janusz.krzysztofik@linux.intel.com>
+Signed-off-by: Suraj Kandpal <suraj.kandpal@intel.com>
 ---
- tests/intel-ci/blacklist.txt | 10 ++++++++++
- 1 file changed, 10 insertions(+)
+ drivers/gpu/drm/i915/display/skl_watermark.c | 6 +-----
+ 1 file changed, 1 insertion(+), 5 deletions(-)
 
-diff --git a/tests/intel-ci/blacklist.txt b/tests/intel-ci/blacklist.txt
-index cfc5491d53..cdbfbcaef9 100644
---- a/tests/intel-ci/blacklist.txt
-+++ b/tests/intel-ci/blacklist.txt
-@@ -4,6 +4,16 @@
- igt@xe.*
+diff --git a/drivers/gpu/drm/i915/display/skl_watermark.c b/drivers/gpu/drm/i915/display/skl_watermark.c
+index 1a4c1fa24820..a49e8915346e 100644
+--- a/drivers/gpu/drm/i915/display/skl_watermark.c
++++ b/drivers/gpu/drm/i915/display/skl_watermark.c
+@@ -2857,9 +2857,8 @@ static int skl_wm_add_affected_planes(struct intel_atomic_state *state,
+ static void
+ skl_program_dpkgc_latency(struct drm_i915_private *i915, bool enable_dpkgc)
+ {
+-	u32 max_latency = 0;
++	u32 max_latency = LNL_PKG_C_LATENCY_MASK, added_wake_time = 0;
+ 	u32 clear = 0, val = 0;
+-	u32 added_wake_time = 0;
  
- igt@meta_test(@.*)?
-+
-+###############################################
-+# Expects the i915 module not loaded, SKIPs if one is loaded.
-+# Intended only for CI BAT runs as the very first test executed.
-+# Not suitable for CI runs with random test selection and ordering.
-+# Omitting it from non-BAT runs doesn't affect coverage, then
-+# let's blocklist it instead of maintainig as expected SKIP.
-+###############################################
-+igt@i915_module_load@load
-+
- ###############################################
- # Handle module reloads with great care!
- #
+ 	if (DISPLAY_VER(i915) < 20)
+ 		return;
+@@ -2870,9 +2869,6 @@ skl_program_dpkgc_latency(struct drm_i915_private *i915, bool enable_dpkgc)
+ 			max_latency = LNL_PKG_C_LATENCY_MASK;
+ 		added_wake_time = DSB_EXE_TIME +
+ 			i915->display.sagv.block_time_us;
+-	} else {
+-		max_latency = LNL_PKG_C_LATENCY_MASK;
+-		added_wake_time = 0;
+ 	}
+ 
+ 	clear |= LNL_ADDED_WAKE_TIME_MASK | LNL_PKG_C_LATENCY_MASK;
 -- 
-2.47.0
+2.34.1
 
