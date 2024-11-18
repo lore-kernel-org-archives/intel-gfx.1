@@ -4,158 +4,55 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E704FD4923C
-	for <intel-gfx@archiver.kernel.org>; Mon, 18 Nov 2024 15:47:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B3808D4923F
+	for <intel-gfx@archiver.kernel.org>; Mon, 18 Nov 2024 15:47:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 81F8910E51B;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9B29310E51C;
 	Mon, 18 Nov 2024 15:47:33 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="tuO13/cM";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="r3tGsDQi";
 	dkim-atps=neutral
-Received: from NAM10-BN7-obe.outbound.protection.outlook.com
- (mail-bn7nam10on2076.outbound.protection.outlook.com [40.107.92.76])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1214510E4EB;
- Mon, 18 Nov 2024 14:42:35 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=gGAW62dn8tfPPEmOWnOVJvesoT/ya7M8Vg6HS/nmk5Va7YJ/jsVrQo13xUWLNEjEdrSyCHf2CnMWllr3HTzjXIkUhMDOlH1oO4+EF01cVG704I/napwQQamhx1ZVIrMbXtljgkt5r2GM2vrm7WYqM6D4TY5dH4TAvldjRyiWayFoHsLI0O0OX7vYmn+aWEA2qotGHqKxinNtW3oJv2iN5jsclRMsQk9LQSSDLJq7sho0JLazqHMXSJeVjzBG4tGwvKnjGY1YS4H7S4gKKJSBSzeQV6MfF7x+Mm5+nuh8lp6qyV1qJDfpAgkQHu26LtEhzzTqZrbyhlHztP526IusgA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=g0ZDChJl0eC44oxCBQR3kV1yM6qA4x50k+IeDimZ+1A=;
- b=T7u4MFBYQsatoYIG3xWaBKE7BWRHV6xzdBq6lrPEv29hKI09iR49O5TG0i4PpiMfWQ0owRGz9Y8moxcfRBPhBcEtqcjoO7ADMsVqYt6WskEsbZIzByq44aE/cMDwSj0bI9LQEeowG0UZArd+mhHNCjrWk9KDfJb2u6M6SdOA7bltnza48SO6IfQx/QJNvgHQouhxzYzZoMNX8r8tEe2fiPbQdTopeJcFwXUGGJw0RABc7OVeXvZS4UikGrMm2sXdlKKY6gu4YBZeWBtGHQ2wcETys+MxExLi3J7tW7Wk+jCENSZdDVWNy6x4uftM48uFvvPADMgR0eN14lon1xwpCQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=g0ZDChJl0eC44oxCBQR3kV1yM6qA4x50k+IeDimZ+1A=;
- b=tuO13/cMbB0ccZz8hEN613Q8ucADBf/Qbn6HKWgToXgMCQRNYNdHSJQuouNBhRf09hLQulokkXDs5C9WBVmhw7BnoetfQpHqu1z5Bnu9iq70GH8vouJHqvRQ9X1/3S8eRssbGEvjjzc/4sxR+DpCBAJ/ItoDuYl29pft3OpnT4Q=
-Received: from SA1PR12MB8599.namprd12.prod.outlook.com (2603:10b6:806:254::7)
- by SN7PR12MB7275.namprd12.prod.outlook.com (2603:10b6:806:2ae::9)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8158.22; Mon, 18 Nov
- 2024 14:42:29 +0000
-Received: from SA1PR12MB8599.namprd12.prod.outlook.com
- ([fe80::25da:4b98:9743:616b]) by SA1PR12MB8599.namprd12.prod.outlook.com
- ([fe80::25da:4b98:9743:616b%5]) with mapi id 15.20.8137.027; Mon, 18 Nov 2024
- 14:42:29 +0000
-From: "Li, Yunxiang (Teddy)" <Yunxiang.Li@amd.com>
-To: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-CC: "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
- "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
-Subject: RE: [PATCH v8 2/5] drm: make drm-active- stats optional
-Thread-Topic: [PATCH v8 2/5] drm: make drm-active- stats optional
-Thread-Index: AQHbN+JU77xFcciAp0KH7mukcyooorK9F84AgAAIPzA=
-Date: Mon, 18 Nov 2024 14:42:29 +0000
-Message-ID: <SA1PR12MB8599CDDA83AB1D37313482DDED272@SA1PR12MB8599.namprd12.prod.outlook.com>
-References: <20241116044452.5925-1-Yunxiang.Li@amd.com>
- <20241116044452.5925-3-Yunxiang.Li@amd.com>
- <e917bc49-11fc-4f6c-b003-8015f53c0caa@igalia.com>
-In-Reply-To: <e917bc49-11fc-4f6c-b003-8015f53c0caa@igalia.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_ActionId=504e957e-6b6a-4a15-8632-411411cdf8b4;
- MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_ContentBits=0;
- MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_Enabled=true;
- MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_Method=Privileged;
- MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_Name=Open Source;
- MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_SetDate=2024-11-18T14:41:19Z;
- MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: SA1PR12MB8599:EE_|SN7PR12MB7275:EE_
-x-ms-office365-filtering-correlation-id: 9f3ff5d1-7a63-4fbd-6d31-08dd07df3a25
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0; ARA:13230040|1800799024|366016|376014|38070700018;
-x-microsoft-antispam-message-info: =?utf-8?B?WWRvclY0L3BMZzRTeDlLaDN6WWZDbEFoR0ZuYTBkSU1CTnVRN3RnQm4zRHZp?=
- =?utf-8?B?ZEpGV3dRSTNoNSs3OXR0Nk5MVmdFLzk0MjRBdWFmRXFBNWNGREFaODlBYjcv?=
- =?utf-8?B?U2ZET1d4M2V5cTRKZWVRN1Vyc1dzT21UMnFQeHZqTDBKdm9ucWltYUwzTUxM?=
- =?utf-8?B?eENUZ2tITVhlU2dCQUI5clJSVUZEcGhnMU9HKyt2UU55MVNCWS96U3B2OFpR?=
- =?utf-8?B?YW5nODlSNERXTHBHOEo2L01vcEhyVVZwMHl1RGxrMW9JY21uZWVZUEo3STNs?=
- =?utf-8?B?ckVUZTlMUUk1eGFOM3VlMUdvRUpnSGZ2UEJtVGhHYUVJUE96a0ZyUWh2ekNm?=
- =?utf-8?B?NVNFUEhLNVVTT0I5NkhXeFFuS29NVGd1WmN6Nk5YUmtla2N5blhOZ2gwWDMy?=
- =?utf-8?B?VUM2QUhFc1VQZTR3QnpiZ3pUMDFDNUlYcXZYZU9EdG5FOUptMkJHcnp4bEht?=
- =?utf-8?B?N0o0TnJwckIwQlE5V3JiMm8rTW1zQTJIekRiUGtYWXg1czhWWVNiUGJLUWJk?=
- =?utf-8?B?a0VaUUlLd1FoRGxwWXE5U2RwemZ3K1ZOamxVdGg0MzRUMlM5QWhCVFVBQk5U?=
- =?utf-8?B?QWdjY0szMUl5YzFIeU9ONGtYdFFEMHM5VFFHcFVHL3FUUzZIcGhhV3NlZTVk?=
- =?utf-8?B?RjB0eXVSbFVHL0dSTHFqdjd1NHA4YmlRcjVTTnJnempPOVI4OEE2TklvampG?=
- =?utf-8?B?Vm1sU3FXWlNlNEUxVzRhcXVncGExTndleWJqS2hDNkgrVUhLTy9jUlVEYVBC?=
- =?utf-8?B?NVZkOFJQMXFGMkNnT1Q1Z0ZIVExTZSt2OEtXSXg1MVJveFhYUWkxY0N0L1pO?=
- =?utf-8?B?RnI1QUVFL25RNC9oL2NKOHhnVjNpYXZxM3NYWW5lb21WNUtTSEd0ZEpyME52?=
- =?utf-8?B?N1lnMmRCN25QR1NPOVNIditHWnIwSi9qK3JCQ0JHaW1GZ3hQaDR6N3BMYUNK?=
- =?utf-8?B?cUJOVEVtbVljZjMwa1ZnT3EwSWUwV0JOYzFZV3lRMTh6WWl5c2YzbmxSdDB5?=
- =?utf-8?B?bW45cFZwbUVjNEErZEtwOVV4Ny9aK0hnbkNuSC9YMXkvQllMdnBZSHZ3OFQ5?=
- =?utf-8?B?SGNIaVF0RFRteTM3Y3NBZ0tpTWRCUXlNV095dExDenl2Vkc2OUtVSW5FdjU5?=
- =?utf-8?B?aUJzbWZQV0FrS0lRazBPWXpidE52RVFQNXhOYmhYWHRIREV3a3AvWTdYY0I0?=
- =?utf-8?B?YzhZc0dSK25WMVhIRW1tZWlEUHM1cWdiYk96bk0zMVJpSkMva2E4T2ZlUnAy?=
- =?utf-8?B?dVZqS3FFczdmOGVYMjd6ZjUxN29Zcm9jVm9TcGkzSU5kUnYzMWdPNHZPZFZY?=
- =?utf-8?B?ZDR3VXN2TnF4dGIxQlI5MlA1Z1RkbEJITWJqWVJmZ2xDL2NPTDhVU2VCSU5C?=
- =?utf-8?B?L2Rrc0VDaHlCVW80T1NwNDBxalE0NVVuWXNtaWNNeVdMS1lyUEFFbjJ4dEND?=
- =?utf-8?B?TGM1UlFzTzZ3Rlh0OHlXdmlQeHRCVjN2MWpLd2lxZ0YzMUxpZmE0ak1OM0ZS?=
- =?utf-8?B?N1pmZUh0UUFJSnM5RmJkTmxZa0lCUEFKc2FQSXlSRWFZamFWNUptVnl6emQy?=
- =?utf-8?B?aDd2ODZqanp6NWc4WW56c0JOLzRLK0IxOWsvbFJVYTVmb3NJRUFGbk45NHJT?=
- =?utf-8?B?QVdCaFZ2TkxhcjliS3AxOWNjT1BZNlY5MGUxOFEvb09zaEE0RG9YeTNXWHMy?=
- =?utf-8?B?WHR4WENUWlU1SVcwNmtTWU5YUnhqd3dxRy9vamJhSmhrL0pVazlJTWxHUXA4?=
- =?utf-8?B?NklPOWp4Rk8rZmROVlg5SFNxNkFuTzlLYTY5emlxbllCUXNrNkJ5WU9zYzZF?=
- =?utf-8?Q?LRcpocIx1nVU1jZ/Pj5zpkOnLlawloX7Qn2eo=3D?=
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:SA1PR12MB8599.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(366016)(376014)(38070700018); DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?utf-8?B?aEg1cEpyc0hBMjROL3RweTRGRDA4dGdBNk5yWWZYS1U0SUVpQytqNm5lT3Vj?=
- =?utf-8?B?aEZISUl1b2svSUs0WGVWUjFtb2wwOGJXUDB1Ri8xSnR3d1JCRmlrbkFqYkQz?=
- =?utf-8?B?WithcjI2TXJ6N1lVa3hsOGMvQXRaNkhsL3M4b2RJc096YjNMV0ZTWHdzZHdH?=
- =?utf-8?B?cFhrblc2OTVQWFhBcVpuM0Npd21BUUlKellROFBnM1M3T1ZBbW1MRzFobHBL?=
- =?utf-8?B?TjU0Q2VWaUZuWDJmeG5KNVpNbmpUSk42SXpOTFZGL25SVmk0ekJlelhLaUd3?=
- =?utf-8?B?K1BtRmkvQlF1VFJFUnRaWW9wUlMyM2k5NTNiakdsV25rc3MzMUJHd0ZDMjVP?=
- =?utf-8?B?eTdMU1JzVk0vSnE5MkVjT25ScnYvU2ZISkg4WFRyNkpWN3p4T204RHJaNmZC?=
- =?utf-8?B?Y25NWjdKVE10djlkaDBua2pEMDlhM3N6SlZDWnFqa2pEWHNQeGZmZjZXUEVH?=
- =?utf-8?B?M2VWRE5EUzdTNUpyVnRMNWdWcXFYRG1adkpWR085bFpUc3ZZMXB1NEVaejNx?=
- =?utf-8?B?aTV4OS95dlpsTzNyZE1FL1hQdmFsME5NaE5KWWJCci9VVGRkNWpBbm1lYkRu?=
- =?utf-8?B?QTRRZytTRjVnZHdhc0xCc3g4bVJaSkg1eGltQkN4SlZERS92ckZFSHlWdDVF?=
- =?utf-8?B?Z0h5d0U1aXJiYlR3YWZKTmNZblJJYmpBRnl3TFBscXZXdmxaMWZJN3pqMDBI?=
- =?utf-8?B?WEJTTU13UkZ1VitWUmhaOXRRMTFOMEJZWlZJY3ppNFI1UVYvRDlTTnBFWlV2?=
- =?utf-8?B?YXJEMmYvSlZHcUo0MHAwK3h2RktsK245c2NIWjZYV2RDN1BWT0x6ZjVlckhu?=
- =?utf-8?B?T3pYNDE4dWQ4RmRmWEh1M283NUhqc2x0SGptc1MrT2s1SS9pb2xPbHV1THZJ?=
- =?utf-8?B?ZENKbGRBaW5zaDJBUUZ0VFBSWDR6WTBYczE2S3NBUmNRSFJlWmVkS1l3UlZv?=
- =?utf-8?B?RUpGM1hJdDEwYnkvdWtrSjlaRnN3ZEVqY0tHMXlLbTBjTUV2NWRzeFpuWU1Z?=
- =?utf-8?B?MWtGdEdyTjhNWE9NSnk4UjhYUW9tL0JhNGhMaXorclo1Tm9PZ3Nkd3Z5RXVo?=
- =?utf-8?B?MVh3VEV5WFVsTnpnZjhLN0I2MzZ1eVRGK2phY2JXc01VU29BUjF0WE1vNWFN?=
- =?utf-8?B?MnRpMHp3Z0hvYUVBalAvZlE2M21lQWpENzZzSms4T1hFeEExd1RCK0JmZ2xu?=
- =?utf-8?B?eTlGMlFmU2xhejkwZE15TlMzWDlQakxTZ2VrOTIxM3ZXcDRmV0VFQk8yN2dO?=
- =?utf-8?B?a0hyNSszZHp5Sk1wbFBGKytWZEc4UlE2VkZyOTBZeDF6YlV3VDArYlNqV084?=
- =?utf-8?B?ZmtDdDM5cXdKdWxuc2Z1T2dva1kxd3ppMFk3LzhNbm1lUmlFblo3dllsUHVW?=
- =?utf-8?B?UmNEaWd4cmU2M1JxRzdxRkdyeEVKdXdiaDNPb0dNdlBvMXlDc29PaHZnRFlZ?=
- =?utf-8?B?dmdvVWJXTUJPQjZGQTRya2E5RFlqZVdrUGMyMDFvMmNQNEh3Tm1WZVdrV3NX?=
- =?utf-8?B?dWtNa2FaYndBaFpxZEZhVkNLZHdWMlVtTXNLMVpMWXE5Ly9FYi9JTWwwVENM?=
- =?utf-8?B?VWhaSzZGMEtCeU9wdldUYTJJaHNlK2wxTnFwSHo2QnFNN2V0dWFoMVY4WnNj?=
- =?utf-8?B?NGVrWWg0UW81cjU3TmVLK2FlbmhSMU1KbTRWTGFFQ0p6RHJyYzNoUUZZWnpF?=
- =?utf-8?B?bWVMZ2xnZXhlazhKOUhXZWs0T1JoWUlMRGRwcXpLblo0RlJTK0lGMGZVRnVX?=
- =?utf-8?B?Z0tOWm9hQVJPMUFDdGtLVktMcWwzNnJ5Lzl0bVdOMXVkdW9WY3dlc0E3Yk5x?=
- =?utf-8?B?UE9ad1pGMnlxTktVUHNMZ0tsTm9sVFpIRHZYMHpJc09CbTBjbWg2WTJTcG4y?=
- =?utf-8?B?L0NaUVVlekVYRnlsMHB0blNEdFhXRm9Oa2tidGlTZmxoOUV3ZGN0aUFVVG54?=
- =?utf-8?B?T0haUTVPUUthb1RiWWIvVXNNU0s3NTdWOXVXRFl5TmVQWjBFNUswNTVRNll3?=
- =?utf-8?B?K2loYVpkWGhpOW1WV2dCNndMVnNnUnU3VWU0R3dhUzg3UTFXbXlKbzBpZ05m?=
- =?utf-8?B?VmR2VTE4NUx2MUh4bEFqZkhpaEJrWkdYQTRPQTZrcUNMRklVUnI3MWJ5V3pE?=
- =?utf-8?Q?bzXo=3D?=
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Received: from fanzine2.igalia.com (fanzine.igalia.com [178.60.130.6])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A0A9010E516;
+ Mon, 18 Nov 2024 15:43:00 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+ References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
+ Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+ Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
+ List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=Gjlj+8pI7iKltGAS+pM3XlLAUwzmQ0mgAsg2XLJWqI0=; b=r3tGsDQiKD84tfrZ+JBVStiWzD
+ ovPWrIFb6THxctS2rpUIu0nwSrH/bAavv/uWOmhNIoTjajbmqx0m6NLbbF+GrJgmwKx8imKAbxZCq
+ 5sTQ8kk9XDmJ7ZxkzlDmIldCc391Qn7BaDWHRoQGMUwVc2RKF6wYW1Rh9HaxFwQcQXGm7X7hve+ZS
+ 3q0/uix0J3HEv6fpCtUHVJDDHA7FAuIIvHGCz2Pe7aIY3ZyixIQ/62uZc4mNmAbyXaeugBovxQkS5
+ hE5BKvQIQVlElo93SZqLdQfgRc470M97f0MMplWw2EuTMuy7DJWNJB3Cabam0gD8Q9Y8OSqgMpi34
+ YNFCNHeQ==;
+Received: from [90.241.98.187] (helo=[192.168.0.101])
+ by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
+ id 1tD3ty-008ZsV-59; Mon, 18 Nov 2024 16:42:58 +0100
+Message-ID: <4ce953a9-f9b1-42c2-8efd-670af35474e3@igalia.com>
+Date: Mon, 18 Nov 2024 15:42:57 +0000
 MIME-Version: 1.0
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: SA1PR12MB8599.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9f3ff5d1-7a63-4fbd-6d31-08dd07df3a25
-X-MS-Exchange-CrossTenant-originalarrivaltime: 18 Nov 2024 14:42:29.0901 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: U+lv5E5wdxXiDh3iBuZjmjP4RX/szwoJK0RtdY2ya8BcmoC3YMGZLiuARw78ZDXeuo8p9mYVSD3dMuOunxsGhA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB7275
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v7 2/4] drm: make drm-active- stats optional
+To: "Li, Yunxiang (Teddy)" <Yunxiang.Li@amd.com>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
+ "Koenig, Christian" <Christian.Koenig@amd.com>
+Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>,
+ "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
+ "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>,
+ Rob Clark <robdclark@gmail.com>
+References: <20241110154152.592-1-Yunxiang.Li@amd.com>
+ <20241110154152.592-3-Yunxiang.Li@amd.com>
+ <3706dc4f-db98-45e0-b870-f10368ab1ab9@igalia.com>
+ <SA1PR12MB8599BD231D856C89DE4207BAED272@SA1PR12MB8599.namprd12.prod.outlook.com>
+Content-Language: en-GB
+From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+In-Reply-To: <SA1PR12MB8599BD231D856C89DE4207BAED272@SA1PR12MB8599.namprd12.prod.outlook.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 X-Mailman-Approved-At: Mon, 18 Nov 2024 15:47:32 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -172,5 +69,204 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-W1B1YmxpY10NCg0KSW5kZWVkIEkgaGF2ZSwgdGhhbmtzIGZvciB0aGUgcmVtaW5kZXINCg0KVGVk
-ZHkNCg==
+
+On 18/11/2024 15:17, Li, Yunxiang (Teddy) wrote:
+> [Public]
+> 
+>> From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+>> Sent: Monday, November 11, 2024 5:30
+>> On 10/11/2024 15:41, Yunxiang Li wrote:
+>>> Make drm-active- optional just like drm-resident- and drm-purgeable-.
+>>
+>> As Jani has already commented the commit message needs some work.
+>>
+>>> Signed-off-by: Yunxiang Li <Yunxiang.Li@amd.com>
+>>> CC: dri-devel@lists.freedesktop.org
+>>> CC: intel-gfx@lists.freedesktop.org
+>>> CC: amd-gfx@lists.freedesktop.org
+>>> ---
+>>>    drivers/gpu/drm/amd/amdgpu/amdgpu_fdinfo.c |  1 +
+>>>    drivers/gpu/drm/drm_file.c                 | 13 +++++++------
+>>>    drivers/gpu/drm/i915/i915_drm_client.c     |  1 +
+>>>    drivers/gpu/drm/xe/xe_drm_client.c         |  1 +
+>>>    include/drm/drm_gem.h                      | 14 ++++++++------
+>>>    5 files changed, 18 insertions(+), 12 deletions(-)
+>>>
+>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_fdinfo.c
+>>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_fdinfo.c
+>>> index df2cf5c339255..7717e3e4f05b5 100644
+>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_fdinfo.c
+>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_fdinfo.c
+>>> @@ -97,6 +97,7 @@ void amdgpu_show_fdinfo(struct drm_printer *p,
+>>> struct drm_file *file)
+>>>
+>>>              drm_print_memory_stats(p,
+>>>                                     &stats[i].drm,
+>>> +                                  DRM_GEM_OBJECT_ACTIVE |
+>>>                                     DRM_GEM_OBJECT_RESIDENT |
+>>>                                     DRM_GEM_OBJECT_PURGEABLE,
+>>>                                     pl_name[i]);
+>>> diff --git a/drivers/gpu/drm/drm_file.c b/drivers/gpu/drm/drm_file.c
+>>> index e285fcc28c59c..fd06671054723 100644
+>>> --- a/drivers/gpu/drm/drm_file.c
+>>> +++ b/drivers/gpu/drm/drm_file.c
+>>> @@ -884,7 +884,9 @@ void drm_print_memory_stats(struct drm_printer *p,
+>>>    {
+>>>      print_size(p, "total", region, stats->private + stats->shared);
+>>>      print_size(p, "shared", region, stats->shared);
+>>> -   print_size(p, "active", region, stats->active);
+>>> +
+>>> +   if (supported_status & DRM_GEM_OBJECT_ACTIVE)
+>>> +           print_size(p, "active", region, stats->active);
+>>>
+>>>      if (supported_status & DRM_GEM_OBJECT_RESIDENT)
+>>>              print_size(p, "resident", region, stats->resident); @@ -917,15
+>>> +919,13 @@ void drm_show_memory_stats(struct drm_printer *p, struct
+>>> drm_file *file)
+>>>
+>>>              if (obj->funcs && obj->funcs->status) {
+>>>                      s = obj->funcs->status(obj);
+>>> -                   supported_status = DRM_GEM_OBJECT_RESIDENT |
+>>> -                                   DRM_GEM_OBJECT_PURGEABLE;
+>>> +                   supported_status |= s;
+>>
+>> I think this is correct and I think I've raised that it should be like this when the code
+>> was originally added. I only don't remember what was the argument to keep it
+>> hardcoded, if there was any. Adding Rob in case he can remember.
+>>
+>>>              }
+>>>
+>>> -           if (drm_gem_object_is_shared_for_memory_stats(obj)) {
+>>> +           if (drm_gem_object_is_shared_for_memory_stats(obj))
+>>>                      status.shared += obj->size;
+>>> -           } else {
+>>> +           else
+>>>                      status.private += obj->size;
+>>> -           }
+>>
+>> Drive by cleanup, okay.
+>>
+>>>
+>>>              if (s & DRM_GEM_OBJECT_RESIDENT) {
+>>>                      status.resident += add_size;
+>>> @@ -938,6 +938,7 @@ void drm_show_memory_stats(struct drm_printer *p,
+>>> struct drm_file *file)
+>>>
+>>>              if (!dma_resv_test_signaled(obj->resv, dma_resv_usage_rw(true))) {
+>>>                      status.active += add_size;
+>>> +                   supported_status |= DRM_GEM_OBJECT_ACTIVE;
+>>
+>> I wonder what behaviour we should have here if the driver has reported
+>> DRM_GEM_OBJECT_ACTIVE via its status vfunc. Like should it be like this:
+>>
+>>      if ((s & DRM_GEM_OBJECT_ACTIVE) ||
+>>          !dma_resv_test_signaled(obj->resv, dma_resv_usage_rw(true))) {
+>>          ...
+>>
+>> ?
+>>
+>> So if some driver starts reporting this flag _and_ is still calling
+>> drm_show_memory_stats(), it's version of activity tracking is used instead of the
+>> the dma_resv based test.
+> 
+> I don't think that is feasible with the current API, because there's no way to differentiate "driver thinks a BO is not active" and "driver does not implement activity tracking". I think it's probably okay to keep it like this until someone wants to do it differently and refactor then.
+
+Ah yes, good point. I actually initially thought the same (that we would 
+need additional "supports active reporting" flag) but then for some 
+reason convinced myself it is possible without it. I agree it works as is.
+
+Regards,
+
+Tvrtko
+
+> 
+> Teddy
+> 
+>>>
+>>>                      /* If still active, don't count as purgeable: */
+>>>                      s &= ~DRM_GEM_OBJECT_PURGEABLE;
+>>> diff --git a/drivers/gpu/drm/i915/i915_drm_client.c
+>>> b/drivers/gpu/drm/i915/i915_drm_client.c
+>>> index f586825054918..168d7375304bc 100644
+>>> --- a/drivers/gpu/drm/i915/i915_drm_client.c
+>>> +++ b/drivers/gpu/drm/i915/i915_drm_client.c
+>>> @@ -102,6 +102,7 @@ static void show_meminfo(struct drm_printer *p, struct
+>> drm_file *file)
+>>>      for_each_memory_region(mr, i915, id)
+>>>              drm_print_memory_stats(p,
+>>>                                     &stats[id],
+>>> +                                  DRM_GEM_OBJECT_ACTIVE |
+>>>                                     DRM_GEM_OBJECT_RESIDENT |
+>>>                                     DRM_GEM_OBJECT_PURGEABLE,
+>>>                                     mr->uabi_name);
+>>> diff --git a/drivers/gpu/drm/xe/xe_drm_client.c
+>>> b/drivers/gpu/drm/xe/xe_drm_client.c
+>>> index 6a26923fa10e0..54941b4e850c4 100644
+>>> --- a/drivers/gpu/drm/xe/xe_drm_client.c
+>>> +++ b/drivers/gpu/drm/xe/xe_drm_client.c
+>>> @@ -229,6 +229,7 @@ static void show_meminfo(struct drm_printer *p, struct
+>> drm_file *file)
+>>>              if (man) {
+>>>                      drm_print_memory_stats(p,
+>>>                                             &stats[mem_type],
+>>> +                                          DRM_GEM_OBJECT_ACTIVE |
+>>>                                             DRM_GEM_OBJECT_RESIDENT |
+>>>                                             (mem_type != XE_PL_SYSTEM ? 0 :
+>>>                                             DRM_GEM_OBJECT_PURGEABLE),
+>> diff --git
+>>> a/include/drm/drm_gem.h b/include/drm/drm_gem.h index
+>>> bae4865b2101a..584ffdf5c2542 100644
+>>> --- a/include/drm/drm_gem.h
+>>> +++ b/include/drm/drm_gem.h
+>>> @@ -48,19 +48,21 @@ struct drm_gem_object;
+>>>     * enum drm_gem_object_status - bitmask of object state for fdinfo reporting
+>>>     * @DRM_GEM_OBJECT_RESIDENT: object is resident in memory (ie. not
+>> unpinned)
+>>>     * @DRM_GEM_OBJECT_PURGEABLE: object marked as purgeable by
+>>> userspace
+>>> + * @DRM_GEM_OBJECT_ACTIVE: object is currently used by an active
+>>> + submission
+>>>     *
+>>>     * Bitmask of status used for fdinfo memory stats, see
+>>> &drm_gem_object_funcs.status
+>>> - * and drm_show_fdinfo().  Note that an object can
+>>> DRM_GEM_OBJECT_PURGEABLE if
+>>> - * it still active or not resident, in which case drm_show_fdinfo()
+>>> will not
+>>> + * and drm_show_fdinfo().  Note that an object can report
+>>> + DRM_GEM_OBJECT_PURGEABLE
+>>> + * and be active or not resident, in which case drm_show_fdinfo()
+>>> + will not
+>>>     * account for it as purgeable.  So drivers do not need to check if
+>>> the buffer
+>>> - * is idle and resident to return this bit.  (Ie. userspace can mark
+>>> a buffer
+>>> - * as purgeable even while it is still busy on the GPU.. it does not
+>>> _actually_
+>>> - * become puregeable until it becomes idle.  The status gem object
+>>> func does
+>>> - * not need to consider this.)
+>>> + * is idle and resident to return this bit, i.e. userspace can mark a
+>>> + buffer as
+>>> + * purgeable even while it is still busy on the GPU. It whill not get
+>>> + reported
+>>
+>> Good cleanup.
+>>
+>> s/whill/will/
+>>
+>>> + * in the puregeable stats until it becomes idle.  The status gem
+>>> + object func
+>>> + * does not need to consider this.
+>>>     */
+>>>    enum drm_gem_object_status {
+>>>      DRM_GEM_OBJECT_RESIDENT  = BIT(0),
+>>>      DRM_GEM_OBJECT_PURGEABLE = BIT(1),
+>>> +   DRM_GEM_OBJECT_ACTIVE = BIT(2),
+>>>    };
+>>>
+>>>    /**
+>>
+>> Regards,
+>>
+>> Tvrtko
