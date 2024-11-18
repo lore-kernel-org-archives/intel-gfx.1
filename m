@@ -4,54 +4,55 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A1A25D60CFC
-	for <intel-gfx@archiver.kernel.org>; Mon, 18 Nov 2024 23:22:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9AABBD60CF8
+	for <intel-gfx@archiver.kernel.org>; Mon, 18 Nov 2024 23:53:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9928810E298;
-	Mon, 18 Nov 2024 23:22:30 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3510010E592;
+	Mon, 18 Nov 2024 23:53:40 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="EyRF0XsE";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="JoSjnaqO";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B6CB010E57B
- for <intel-gfx@lists.freedesktop.org>; Mon, 18 Nov 2024 23:22:28 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.16])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A8A5010E29B;
+ Mon, 18 Nov 2024 23:53:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1731972149; x=1763508149;
- h=from:to:subject:date:message-id:in-reply-to:references:
- mime-version:content-transfer-encoding;
- bh=qLQMAcoRpWiH/i63GGMSNTqZ6H5rMqbvJ4Vfy+ZqAXM=;
- b=EyRF0XsERqkLmiYlCr5f7uUIF+XQqYFUN0IEOVAuD6cGjUbfOosXcBI5
- yfc85gbDU9QdYCyTeUU7fzGMrV2F8po22CITSQzQ76oz7YE4VO5iEeQVj
- WXfEuV3yK5PjuCkR8pbMber6yHRuAPCWWy+47/P58D6H4+UpMYHllrmVy
- bDjzDQBSFPyFQ8pYCa5ZdgEYQCY3p0OFjqvgLSyQZetD2/R1gNdzGFErq
- BZKiD+iRIiiUqOq9Wn7Hnzg/B9iRcCMehD00vSGBF6Elwvv3TiKwYbIFT
- y08HG6xHOiqbu0Dda1GqCfFGUbY/EiiMWfGWfE8ogiUXOcPI5vpV8iVdw g==;
-X-CSE-ConnectionGUID: Xj6Np0GzSSKqdS1IP7/MEw==
-X-CSE-MsgGUID: R8KAdZoLTuq4c1j+5omJVA==
-X-IronPort-AV: E=McAfee;i="6700,10204,11260"; a="42466978"
-X-IronPort-AV: E=Sophos;i="6.12,165,1728975600"; d="scan'208";a="42466978"
-Received: from fmviesa010.fm.intel.com ([10.60.135.150])
- by orvoesa103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 18 Nov 2024 15:22:29 -0800
-X-CSE-ConnectionGUID: rGAPC99KRcWuOdU4VT6leA==
-X-CSE-MsgGUID: h2YTOCYaSZODYE7BoVRA5A==
+ t=1731974018; x=1763510018;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=D68HX6FKgt45xGDTxA9GzaQWJ5JLH9QfO7b6BHX+glE=;
+ b=JoSjnaqOHQQLlghz83OXj42Os276UZ31DBNpmIxucHeccvJpQvrQIygt
+ T3fdalIxENCC1WDJNmPfu0W1qZYouAIMutjtnQv/hgzHeuBE02NeFlc7M
+ exMwUqsxg0NCym/IG0qXYvbwGzna61ruwVZ41IrYDEq9fS7Aa8FpLpbCe
+ 9RpzilaBcu0g3iBze/ARyG00VyPLUM5boAcFtVphtgFfqAASViTfwnlow
+ Pdp+ROpIJ3mYaUZuF1oDBBte9ysdnkhug6DYz3GMwaTrTwUAftL+Hxe8b
+ 4i/Gv8SvnwN8C/TT5cMqb0FNs3jb0hPFbRAnBMT+IZ5B9rcnaT3QXvtOa A==;
+X-CSE-ConnectionGUID: sBT3zerTRNekKH51+1qvnQ==
+X-CSE-MsgGUID: A5oO9/L7RDew6zXTUk09BQ==
+X-IronPort-AV: E=McAfee;i="6700,10204,11260"; a="32090826"
+X-IronPort-AV: E=Sophos;i="6.12,165,1728975600"; d="scan'208";a="32090826"
+Received: from fmviesa004.fm.intel.com ([10.60.135.144])
+ by orvoesa108.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 18 Nov 2024 15:53:38 -0800
+X-CSE-ConnectionGUID: 75VccFOFQZqmUSkir6UioQ==
+X-CSE-MsgGUID: +tR0zeV/Q3WtcQbnKaSJ0A==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.12,165,1728975600"; d="scan'208";a="89777991"
-Received: from dut7231atsm.jf.intel.com ([10.75.202.213])
- by fmviesa010-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 18 Nov 2024 15:22:28 -0800
-From: Umesh Nerlige Ramappa <umesh.nerlige.ramappa@intel.com>
+X-IronPort-AV: E=Sophos;i="6.12,165,1728975600"; d="scan'208";a="94186000"
+Received: from pgcooper-mobl3.ger.corp.intel.com (HELO vgovind2-mobl3..)
+ ([10.245.244.2])
+ by fmviesa004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 18 Nov 2024 15:53:35 -0800
+From: Vinod Govindapillai <vinod.govindapillai@intel.com>
 To: intel-gfx@lists.freedesktop.org,
-	john.c.harrison@intel.com
-Subject: [PATCH 1/3] i915/guc: Reset engine utilization buffer before
- registration
-Date: Mon, 18 Nov 2024 15:22:21 -0800
-Message-Id: <20241118232223.53639-2-umesh.nerlige.ramappa@intel.com>
+	intel-xe@lists.freedesktop.org
+Cc: vinod.govindapillai@intel.com, ville.syrjala@intel.com,
+ jani.saarinen@intel.com
+Subject: [RFC PATCH 0/4] drm/i915/xe3: FBC Dirty rect feature support
+Date: Tue, 19 Nov 2024 01:53:21 +0200
+Message-Id: <20241118235325.353010-1-vinod.govindapillai@intel.com>
 X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20241118232223.53639-1-umesh.nerlige.ramappa@intel.com>
-References: <20241118232223.53639-1-umesh.nerlige.ramappa@intel.com>
 MIME-Version: 1.0
+Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
 Content-Transfer-Encoding: 8bit
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -68,66 +69,27 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On GT reset, we store total busyness counts for all engines and
-re-register the utilization buffer with GuC. At that time we should
-reset the buffer, so that we don't get spurious busyness counts on
-subsequent queries.
+Initial patchset to support dirty rect capability for FBC in Xe3.
+This is the initial design suggestion for the feedback. This
+is for non PSR cases. Seective fetch is not allowed with the
+dirty rectangle feature.
 
-To repro this issue, run igt@perf_pmu@busy-hang followed by
-igt@perf_pmu@most-busy-idle-check-all for a couple iterations.
+More FC use case scenarios might need to be handled - such as
+frontbuffer flush, invalidate and more cases we would need to
+do a full region update etc.
 
-Fixes: 77cdd054dd2c ("drm/i915/pmu: Connect engine busyness stats from GuC to pmu")
-Signed-off-by: Umesh Nerlige Ramappa <umesh.nerlige.ramappa@intel.com>
----
- .../gpu/drm/i915/gt/uc/intel_guc_submission.c | 21 +++++++++++++++++++
- 1 file changed, 21 insertions(+)
+Vinod Govindapillai (4):
+  drm/i915/display: update intel_fbc_atomic_check for dirty_fbc support
+  drm/i915/display: add register definitions for fbc dirty rect support
+  drm/i915/xe3: add dirty rect support for FBC
+  drm/i915/xe3: disable FBC if PSR2 selective fetch is enabled
 
-diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
-index 353a9167c9a4..c71aedcbce43 100644
---- a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
-+++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
-@@ -1243,6 +1243,21 @@ static void __get_engine_usage_record(struct intel_engine_cs *engine,
- 	} while (++i < 6);
- }
- 
-+static void __set_engine_usage_record(struct intel_engine_cs *engine,
-+				      u32 last_in, u32 id, u32 total)
-+{
-+	struct iosys_map rec_map = intel_guc_engine_usage_record_map(engine);
-+
-+#define record_write(map_, field_, val_) \
-+	iosys_map_wr_field(map_, 0, struct guc_engine_usage_record, field_, val_)
-+
-+	record_write(&rec_map, last_switch_in_stamp, last_in);
-+	record_write(&rec_map, current_context_index, id);
-+	record_write(&rec_map, total_runtime, total);
-+
-+#undef record_write
-+}
-+
- static void guc_update_engine_gt_clks(struct intel_engine_cs *engine)
- {
- 	struct intel_engine_guc_stats *stats = &engine->stats.guc;
-@@ -1543,6 +1558,9 @@ static void guc_timestamp_ping(struct work_struct *wrk)
- 
- static int guc_action_enable_usage_stats(struct intel_guc *guc)
- {
-+	struct intel_gt *gt = guc_to_gt(guc);
-+	struct intel_engine_cs *engine;
-+	enum intel_engine_id id;
- 	u32 offset = intel_guc_engine_usage_offset(guc);
- 	u32 action[] = {
- 		INTEL_GUC_ACTION_SET_ENG_UTIL_BUFF,
-@@ -1550,6 +1568,9 @@ static int guc_action_enable_usage_stats(struct intel_guc *guc)
- 		0,
- 	};
- 
-+	for_each_engine(engine, gt, id)
-+		__set_engine_usage_record(engine, 0, 0xffffffff, 0);
-+
- 	return intel_guc_send(guc, action, ARRAY_SIZE(action));
- }
- 
+ drivers/gpu/drm/i915/display/intel_fbc.c      | 145 +++++++++++++++++-
+ drivers/gpu/drm/i915/display/intel_fbc.h      |   3 +
+ drivers/gpu/drm/i915/display/intel_fbc_regs.h |   9 ++
+ .../drm/i915/display/skl_universal_plane.c    |   2 +
+ 4 files changed, 155 insertions(+), 4 deletions(-)
+
 -- 
 2.34.1
 
