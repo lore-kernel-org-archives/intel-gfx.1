@@ -4,50 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6EA34D60CF8
-	for <intel-gfx@archiver.kernel.org>; Mon, 18 Nov 2024 23:22:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E2018D60CFA
+	for <intel-gfx@archiver.kernel.org>; Mon, 18 Nov 2024 23:22:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 011B910E55E;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 08D1610E570;
 	Mon, 18 Nov 2024 23:22:30 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="GfUV6ERl";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="OTNomc1z";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9285A10E29D
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F0D3510E573
  for <intel-gfx@lists.freedesktop.org>; Mon, 18 Nov 2024 23:22:28 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
  t=1731972149; x=1763508149;
- h=from:to:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=73u2jKsAQ+j+IXMoXEkyr8E4Kw+us7Yox/VvVnhu7mM=;
- b=GfUV6ERll6I9+1beGOUbe/EVS2VkGcOep8iWtXttZRm7HZNomW/OkZUO
- fx62OUXEcqGTIyCfROs0xdaVmVRMqtRNI1zNu6mAoyF0ocWQUUkOMtxGz
- 9ub/erPn5UbnXDYIRHm6Y5qhG35xok22nq6gnF5kYY0YaUsWWUG13VeMl
- C7LQAQiEMYustt2+IrLLplCO1uzyyOAWSWvlNR5p5GzAZBkD8GYDxMf0I
- 82lwrWLZz+YJBj+nat3DaJHbUim7+mPdTujnWT/yNO9a5xsjEcIwLgwUB
- KxEKnTBcMySaR07+6dCq8Yx4n3Qrv6Fb8ykktCwPITOPv1CzQFdD0CkDM w==;
-X-CSE-ConnectionGUID: hERIIi+aSnmz6iEr5ETuYQ==
-X-CSE-MsgGUID: WIh3C7t9Qke/u75TqojVqg==
-X-IronPort-AV: E=McAfee;i="6700,10204,11260"; a="42466977"
-X-IronPort-AV: E=Sophos;i="6.12,165,1728975600"; d="scan'208";a="42466977"
+ h=from:to:subject:date:message-id:in-reply-to:references:
+ mime-version:content-transfer-encoding;
+ bh=lNrTZ7Y5syDNHhUS+26FG8TUWZ4sX+4CQGR6/leJmEE=;
+ b=OTNomc1zZVHd9eeSOTCKdqLOU+1U7Myx7i8VEMEfDaFvsQCNJjMcBzPy
+ /6/MspD6Da2HtQxvWMa5q0KXwh4VN//X18BZNnDp7X5opfi47IToYPEEN
+ YmEHTBVRGGWwzDMFo5fBPoef3wUOk9/gwZzIjvCa5Vl74lJ6baO6let4R
+ 5ZlP/abnD2dJnp9qnQOMZVLNDtz/8lDyhuiGlZwGI9WQnc9+caJ6jfqUd
+ uGPaGFcjnTWYb2WoU+lwAjoziPCvzqLxK/jNK/u7wq++UEYRsFkS2AiB7
+ xvpf4lvIkCGUn5f2z00/AEA+l/zFYVgbOp0o9Xz3c2ebFMRIR0EDq6PnS g==;
+X-CSE-ConnectionGUID: 0tI/UYsuSVSedMb2J1EaMA==
+X-CSE-MsgGUID: l9vrTzc5QJKwyv+hpXfJAQ==
+X-IronPort-AV: E=McAfee;i="6700,10204,11260"; a="42466980"
+X-IronPort-AV: E=Sophos;i="6.12,165,1728975600"; d="scan'208";a="42466980"
 Received: from fmviesa010.fm.intel.com ([10.60.135.150])
  by orvoesa103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  18 Nov 2024 15:22:29 -0800
-X-CSE-ConnectionGUID: 2uPCVzbzQwyBJ7pD0NJ23Q==
-X-CSE-MsgGUID: 0D0QcA+bSoaWAjTUoGQbvw==
+X-CSE-ConnectionGUID: 8o2sk5SMQk+4xUhqByW5Og==
+X-CSE-MsgGUID: 3A06Zd0QQhSTc40GDQNIxw==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.12,165,1728975600"; d="scan'208";a="89777988"
+X-IronPort-AV: E=Sophos;i="6.12,165,1728975600"; d="scan'208";a="89777997"
 Received: from dut7231atsm.jf.intel.com ([10.75.202.213])
  by fmviesa010-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 18 Nov 2024 15:22:27 -0800
+ 18 Nov 2024 15:22:28 -0800
 From: Umesh Nerlige Ramappa <umesh.nerlige.ramappa@intel.com>
 To: intel-gfx@lists.freedesktop.org,
 	john.c.harrison@intel.com
-Subject: [PATCH 0/3] Fix some races/bugs in GuC engine busyness 
-Date: Mon, 18 Nov 2024 15:22:20 -0800
-Message-Id: <20241118232223.53639-1-umesh.nerlige.ramappa@intel.com>
+Subject: [PATCH 3/3] i915/guc: Accumulate active runtime on gt reset
+Date: Mon, 18 Nov 2024 15:22:23 -0800
+Message-Id: <20241118232223.53639-4-umesh.nerlige.ramappa@intel.com>
 X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20241118232223.53639-1-umesh.nerlige.ramappa@intel.com>
+References: <20241118232223.53639-1-umesh.nerlige.ramappa@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-BeenThere: intel-gfx@lists.freedesktop.org
@@ -65,24 +67,43 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-A few races and bugs in PMU busyness implementation are resulting in a wide
-range of IGT failures. This series addresses some failures that are easily
-reproduced.
+On gt reset, if a context is running, then accumulate it's active time
+into the busyness counter since there will be no chance for the context
+to switch out and update it's run time.
 
-To repro the issues, we run a couple iterations of igt@perf_pmu@busy-hang
-followed by igt@perf_pmu@most-busy-idle-check-all test.
-
+Fixes: 77cdd054dd2c ("drm/i915/pmu: Connect engine busyness stats from GuC to pmu")
 Signed-off-by: Umesh Nerlige Ramappa <umesh.nerlige.ramappa@intel.com>
+---
+ drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c | 15 ++++++++++++++-
+ 1 file changed, 14 insertions(+), 1 deletion(-)
 
-Umesh Nerlige Ramappa (3):
-  i915/guc: Reset engine utilization buffer before registration
-  i915/guc: Ensure busyness counter increases motonically
-  i915/guc: Accumulate active runtime on gt reset
-
- drivers/gpu/drm/i915/gt/intel_engine_types.h  |  5 +++
- .../gpu/drm/i915/gt/uc/intel_guc_submission.c | 41 ++++++++++++++++++-
- 2 files changed, 44 insertions(+), 2 deletions(-)
-
+diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
+index 56be9f385270..0c204b7f3b2b 100644
+--- a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
++++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
+@@ -1449,8 +1449,21 @@ static void __reset_guc_busyness_stats(struct intel_guc *guc)
+ 
+ 	guc_update_pm_timestamp(guc, &unused);
+ 	for_each_engine(engine, gt, id) {
++		struct intel_engine_guc_stats *stats = &engine->stats.guc;
++
+ 		guc_update_engine_gt_clks(engine);
+-		engine->stats.guc.prev_total = 0;
++
++		if (stats->running) {
++			u64 clk = guc->timestamp.gt_stamp - stats->start_gt_clk;
++
++			/*
++			 * If resetting a running context, accumulate the active
++			 * time as well since there will be no context switch.
++			 */
++			stats->total_gt_clks += clk;
++		}
++		stats->prev_total = 0;
++		stats->running = 0;
+ 	}
+ 
+ 	spin_unlock_irqrestore(&guc->timestamp.lock, flags);
 -- 
 2.34.1
 
