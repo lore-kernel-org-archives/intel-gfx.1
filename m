@@ -4,49 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7E244D6DDFE
-	for <intel-gfx@archiver.kernel.org>; Tue, 19 Nov 2024 10:55:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 287E9D44143
+	for <intel-gfx@archiver.kernel.org>; Tue, 19 Nov 2024 10:55:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6C7E910E622;
-	Tue, 19 Nov 2024 10:55:07 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 973F810E62A;
+	Tue, 19 Nov 2024 10:55:10 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="VwBFZB9D";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="OvkXGbHC";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.13])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D19ED10E622;
- Tue, 19 Nov 2024 10:55:05 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D4D7910E628;
+ Tue, 19 Nov 2024 10:55:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1732013705; x=1763549705;
+ t=1732013709; x=1763549709;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=Wsm/DVtImrWiJDKUQA18Vvy49mDLM2MDojnyM1d9Vf0=;
- b=VwBFZB9DQmEZ1UF+52l7MRLlKaPOrmXXVOhPzu6/48DbPD/cIu6BJBdb
- JS5+9OunvboG7L7ztaXd8mxv+jxl7p37mYENHdgB7Mq89rrFsA6AZHflf
- v3CXiVlp7OzGqnuVm7BRudgq79CBUpPvlYkwCMQfcuqO3+hero0Dd/Nr9
- 9ZgQF7FlZt7Cfd9K9oadMgqPsKbLaWwjqCPEStgdJBHDjdkkssDQtvFZb
- UfO7i8CivgS5wJfel/S93K0qBrWeh5EHiTUmioN3HXhAag2QBGnDqYUaN
- 5fQld/XzOBHQAeb+Qff6dAnQl1xEfkPZyn85Oz8X0NlXzIBBiHK8UoLLq g==;
-X-CSE-ConnectionGUID: g89+x2CWQkSO7x0vuPPg/Q==
-X-CSE-MsgGUID: tA4r9shcQ5WOr1s7UNjbCA==
-X-IronPort-AV: E=McAfee;i="6700,10204,11260"; a="43075355"
-X-IronPort-AV: E=Sophos;i="6.12,165,1728975600"; d="scan'208";a="43075355"
+ bh=ZsfSQkJ1XYfLDPLuK4PT5TQ4TRrQORAnrtfGUK1nP8Y=;
+ b=OvkXGbHC/dzk1TyONiXF9eQJBKVsOd0q6pKpQg7k7PDOLErLlE56OMIl
+ Ll/lcTE2BVdYx/fSOQUZPUxm/9BqBwNm11vsDT5AeiNYiH3x0VICRI/HG
+ I64RZRzwX/V+W6FzmitXbf3Bm88sroZ/8iHo/Uv78il8g59EwoWoPuiH/
+ JfIFFcLYWkkLdQamRXRrR1vAvWNG1n3+CVZCiiRK19GwayInkiujQSQg9
+ MF434SkT47Vt2FvdiNF2PC6NSFLl1fFVZGRs1L5JJv1xleMLLJxP6JzQT
+ Qs1hu54n5V8a4JgE+QQNW9sgYKE9YWnNeTLmClc4fHNGddsS7KfomNLYo A==;
+X-CSE-ConnectionGUID: KGDHGPTmQwKCSCvaystrcw==
+X-CSE-MsgGUID: dVFdr+FxQtqyAwx1A+cE6w==
+X-IronPort-AV: E=McAfee;i="6700,10204,11260"; a="43075363"
+X-IronPort-AV: E=Sophos;i="6.12,165,1728975600"; d="scan'208";a="43075363"
 Received: from fmviesa009.fm.intel.com ([10.60.135.149])
  by orvoesa105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 19 Nov 2024 02:55:05 -0800
-X-CSE-ConnectionGUID: /VbV5oVRRO2CV2NrNLROew==
-X-CSE-MsgGUID: rCL1ay8dSwuVdOTzZ3Kt7w==
+ 19 Nov 2024 02:55:09 -0800
+X-CSE-ConnectionGUID: 9A3hAa/vQiSmqXDFwbgDwA==
+X-CSE-MsgGUID: tqMJL6eDQUO2pYKCPpYGkw==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.12,165,1728975600"; d="scan'208";a="89937438"
+X-IronPort-AV: E=Sophos;i="6.12,165,1728975600"; d="scan'208";a="89937453"
 Received: from srr4-3-linux-106-armuthy.iind.intel.com ([10.190.238.56])
- by fmviesa009.fm.intel.com with ESMTP; 19 Nov 2024 02:55:04 -0800
+ by fmviesa009.fm.intel.com with ESMTP; 19 Nov 2024 02:55:08 -0800
 From: Arun R Murthy <arun.r.murthy@intel.com>
 To: intel-xe@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
  dri-devel@lists.freedesktop.org
 Cc: Arun R Murthy <arun.r.murthy@intel.com>
-Subject: [PATCHv4 4/8] drm/i915/histogram: histogram interrupt handling
-Date: Tue, 19 Nov 2024 16:15:17 +0530
-Message-Id: <20241119104521.575377-5-arun.r.murthy@intel.com>
+Subject: [PATCH 6/8] drm/i915/histogram: histogram delay counter doesnt reset
+Date: Tue, 19 Nov 2024 16:15:19 +0530
+Message-Id: <20241119104521.575377-7-arun.r.murthy@intel.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20241119104521.575377-1-arun.r.murthy@intel.com>
 References: <20241119104521.575377-1-arun.r.murthy@intel.com>
@@ -67,237 +67,71 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Upon enabling histogram an interrupt is trigerred after the generation
-of the statistics. This patch registers the histogram interrupt and
-handles the interrupt.
-
-v2: Added intel_crtc backpointer to intel_histogram struct (Jani)
-    Removed histogram_wq and instead use dev_priv->unodered_eq (Jani)
-v3: Replaced drm_i915_private with intel_display (Suraj)
-    Refactored the histogram read code (Jani)
-v4: Rebased after addressing comments on patch 1
+The delay counter for histogram does not reset and as a result the
+histogram bin never gets updated. Workaround would be to use save and
+restore histogram register.
+Wa: 14014889975
 
 Signed-off-by: Arun R Murthy <arun.r.murthy@intel.com>
 ---
- .../gpu/drm/i915/display/intel_display_irq.c  |  6 +-
- .../gpu/drm/i915/display/intel_histogram.c    | 93 +++++++++++++++++++
- .../gpu/drm/i915/display/intel_histogram.h    |  3 +
- drivers/gpu/drm/i915/i915_reg.h               |  5 +-
- 4 files changed, 104 insertions(+), 3 deletions(-)
+ drivers/gpu/drm/i915/display/intel_histogram.c  | 17 +++++++++++++++++
+ .../gpu/drm/i915/display/intel_histogram_regs.h |  1 +
+ 2 files changed, 18 insertions(+)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_display_irq.c b/drivers/gpu/drm/i915/display/intel_display_irq.c
-index f0d3bdb5fc60..cb60c9db4418 100644
---- a/drivers/gpu/drm/i915/display/intel_display_irq.c
-+++ b/drivers/gpu/drm/i915/display/intel_display_irq.c
-@@ -20,6 +20,7 @@
- #include "intel_fdi_regs.h"
- #include "intel_fifo_underrun.h"
- #include "intel_gmbus.h"
-+#include "intel_histogram.h"
- #include "intel_hotplug_irq.h"
- #include "intel_pipe_crc_regs.h"
- #include "intel_pmdemand.h"
-@@ -1179,6 +1180,9 @@ void gen8_de_irq_handler(struct drm_i915_private *dev_priv, u32 master_ctl)
- 		if (iir & GEN8_PIPE_FIFO_UNDERRUN)
- 			intel_cpu_fifo_underrun_irq_handler(dev_priv, pipe);
- 
-+		if (iir & GEN9_PIPE_HISTOGRAM_EVENT)
-+			intel_histogram_irq_handler(display, pipe);
-+
- 		fault_errors = iir & gen8_de_pipe_fault_mask(dev_priv);
- 		if (fault_errors)
- 			drm_err_ratelimited(&dev_priv->drm,
-@@ -1764,7 +1768,7 @@ void gen8_de_irq_postinstall(struct drm_i915_private *dev_priv)
- 	struct intel_uncore *uncore = &dev_priv->uncore;
- 
- 	u32 de_pipe_masked = gen8_de_pipe_fault_mask(dev_priv) |
--		GEN8_PIPE_CDCLK_CRC_DONE;
-+		GEN8_PIPE_CDCLK_CRC_DONE | GEN9_PIPE_HISTOGRAM_EVENT;
- 	u32 de_pipe_enables;
- 	u32 de_port_masked = gen8_de_port_aux_mask(dev_priv);
- 	u32 de_port_enables;
 diff --git a/drivers/gpu/drm/i915/display/intel_histogram.c b/drivers/gpu/drm/i915/display/intel_histogram.c
-index e751977fc6f7..16f29923ef10 100644
+index cba65f4260cd..fdcc64677e96 100644
 --- a/drivers/gpu/drm/i915/display/intel_histogram.c
 +++ b/drivers/gpu/drm/i915/display/intel_histogram.c
-@@ -18,6 +18,8 @@
- #define HISTOGRAM_GUARDBAND_THRESHOLD_DEFAULT 300    // 3.0% of the pipe's current pixel count.
- #define HISTOGRAM_GUARDBAND_PRECISION_FACTOR 10000   // Precision factor for threshold guardband.
- #define HISTOGRAM_DEFAULT_GUARDBAND_DELAY 0x04
-+#define HISTOGRAM_BIN_READ_RETRY_COUNT 5
-+#define HISTOGRAM_BIN_READ_DELAY 2
+@@ -74,6 +74,11 @@ static void intel_histogram_handle_int_work(struct work_struct *work)
+ 	struct intel_display *display = to_intel_display(intel_crtc);
+ 	char *histogram_event[] = {"HISTOGRAM=1", NULL};
  
- struct intel_histogram {
- 	struct intel_crtc *crtc;
-@@ -27,6 +29,92 @@ struct intel_histogram {
- 	u32 bin_data[HISTOGRAM_BIN_COUNT];
- };
++	/* Wa: 14014889975 */
++	if (IS_DISPLAY_VER(display, 12, 13))
++		intel_de_rmw(display, DPST_CTL(intel_crtc->pipe),
++			     DPST_CTL_RESTORE, 0);
++
+ 	/*
+ 	 * TODO: PSR to be exited while reading the Histogram data
+ 	 * Set DPST_CTL Bin Reg function select to TC
+@@ -94,6 +99,12 @@ static void intel_histogram_handle_int_work(struct work_struct *work)
+ 				"sending HISTOGRAM event failed\n");
+ 	}
  
-+static bool intel_histogram_get_data(struct intel_crtc *intel_crtc)
-+{
-+	struct intel_display *display = to_intel_display(intel_crtc);
-+	struct intel_histogram *histogram = intel_crtc->histogram;
-+	u8 index, retry_count;
-+	u32 dpstbin;
++	/* Wa: 14014889975 */
++	if (IS_DISPLAY_VER(display, 12, 13))
++		/* Write the value read from DPST_CTL to DPST_CTL.Interrupt Delay Counter(bit 23:16) */
++		intel_de_write(display, DPST_CTL(intel_crtc->pipe), intel_de_read(display,
++			       DPST_CTL(intel_crtc->pipe)) | DPST_CTL_RESTORE);
 +
-+	index = 0;
-+	retry_count = 0;
-+
-+	while (index < HISTOGRAM_BIN_COUNT) {
-+		dpstbin = intel_de_read(display, DPST_BIN(intel_crtc->pipe));
-+		if (!(dpstbin & DPST_BIN_BUSY)) {
-+			histogram->bin_data[index] = dpstbin & DPST_BIN_DATA_MASK;
-+			index++;
-+		} else {
-+			/*
-+			 * If DPST_BIN busy bit is set, then set the
-+			 * DPST_CTL bin reg index to 0 and proceed
-+			 * from beginning.
-+			 */
-+			retry_count++;
-+			if (retry_count > HISTOGRAM_BIN_READ_RETRY_COUNT) {
-+				drm_err(display->drm, "Histogram bin read failed with max retry\n");
-+				return false;
-+			}
-+			/* Add a delay before retrying */
-+			fsleep(HISTOGRAM_BIN_READ_DELAY);
-+			index = 0;
-+			intel_de_rmw(display, DPST_CTL(intel_crtc->pipe),
-+				     DPST_CTL_BIN_REG_FUNC_SEL |
-+				     DPST_CTL_BIN_REG_MASK, 0);
-+		}
-+	}
-+	return true;
-+}
-+
-+static void intel_histogram_handle_int_work(struct work_struct *work)
-+{
-+	struct intel_histogram *histogram = container_of(work,
-+		struct intel_histogram, work.work);
-+	struct intel_crtc *intel_crtc = histogram->crtc;
-+	struct intel_display *display = to_intel_display(intel_crtc);
-+	char *histogram_event[] = {"HISTOGRAM=1", NULL};
-+
-+	/*
-+	 * TODO: PSR to be exited while reading the Histogram data
-+	 * Set DPST_CTL Bin Reg function select to TC
-+	 * Set DPST_CTL Bin Register Index to 0
-+	 */
-+	intel_de_rmw(display, DPST_CTL(intel_crtc->pipe),
-+		     DPST_CTL_BIN_REG_FUNC_SEL | DPST_CTL_BIN_REG_MASK, 0);
-+	if (intel_histogram_get_data(intel_crtc)) {
-+		/* Notify user for Histogram rediness */
-+		if (kobject_uevent_env(&display->drm->primary->kdev->kobj,
-+				       KOBJ_CHANGE, histogram_event))
-+			drm_err(display->drm,
-+				"sending HISTOGRAM event failed\n");
-+	}
-+
-+	/* Enable histogram interrupt */
-+	intel_de_rmw(display, DPST_GUARD(intel_crtc->pipe), DPST_GUARD_HIST_INT_EN,
-+		     DPST_GUARD_HIST_INT_EN);
-+
-+	/* Clear histogram interrupt by setting histogram interrupt status bit*/
-+	intel_de_rmw(display, DPST_GUARD(intel_crtc->pipe),
-+		     DPST_GUARD_HIST_EVENT_STATUS, 1);
-+}
-+
-+void intel_histogram_irq_handler(struct intel_display *display, enum pipe pipe)
-+{
-+	struct intel_crtc *intel_crtc =
-+		to_intel_crtc(drm_crtc_from_index(display->drm, pipe));
-+	struct intel_histogram *histogram = intel_crtc->histogram;
-+	struct drm_i915_private *i915 = to_i915(intel_crtc->base.dev);
-+
-+	if (!histogram->enable) {
-+		drm_err(display->drm,
-+			"spurious interrupt, histogram not enabled\n");
-+		return;
-+	}
-+
-+	queue_delayed_work(i915->unordered_wq,
-+			   &histogram->work, 0);
-+}
-+
- int intel_histogram_atomic_check(struct intel_crtc *intel_crtc)
- {
- 	struct intel_histogram *histogram = intel_crtc->histogram;
-@@ -113,6 +201,7 @@ static void intel_histogram_disable(struct intel_crtc *intel_crtc)
- 	intel_de_rmw(display, DPST_CTL(pipe),
- 		     DPST_CTL_IE_HIST_EN, 0);
+ 	/* Enable histogram interrupt */
+ 	intel_de_rmw(display, DPST_GUARD(intel_crtc->pipe), DPST_GUARD_HIST_INT_EN,
+ 		     DPST_GUARD_HIST_INT_EN);
+@@ -240,6 +251,12 @@ int intel_histogram_set_iet_lut(struct intel_crtc *intel_crtc, u32 *data)
+ 		return -EINVAL;
+ 	}
  
-+	cancel_delayed_work(&histogram->work);
- 	histogram->enable = false;
- }
- 
-@@ -174,6 +263,7 @@ void intel_histogram_finish(struct intel_crtc *intel_crtc)
- {
- 	struct intel_histogram *histogram = intel_crtc->histogram;
- 
-+	cancel_delayed_work_sync(&histogram->work);
- 	kfree(histogram);
- }
- 
-@@ -191,5 +281,8 @@ int intel_histogram_init(struct intel_crtc *intel_crtc)
- 	histogram->crtc = intel_crtc;
- 	histogram->can_enable = false;
- 
-+	INIT_DEFERRABLE_WORK(&histogram->work,
-+			     intel_histogram_handle_int_work);
++	/* Wa: 14014889975 */
++	if (IS_DISPLAY_VER(display, 12, 13))
++		/* Write the value read from DPST_CTL to DPST_CTL.Interrupt Delay Counter(bit 23:16) */
++		intel_de_write(display, DPST_CTL(intel_crtc->pipe), intel_de_read(display,
++			       DPST_CTL(intel_crtc->pipe)) | DPST_CTL_RESTORE);
 +
- 	return 0;
- }
-diff --git a/drivers/gpu/drm/i915/display/intel_histogram.h b/drivers/gpu/drm/i915/display/intel_histogram.h
-index 9d66724f9c53..14f2425e3038 100644
---- a/drivers/gpu/drm/i915/display/intel_histogram.h
-+++ b/drivers/gpu/drm/i915/display/intel_histogram.h
-@@ -9,6 +9,8 @@
- #include <linux/types.h>
- 
- struct intel_crtc;
-+struct intel_display;
-+enum pipe;
- 
- #define HISTOGRAM_BIN_COUNT                    32
- #define HISTOGRAM_IET_LENGTH                   33
-@@ -27,6 +29,7 @@ enum intel_global_hist_lut {
- };
- 
- int intel_histogram_atomic_check(struct intel_crtc *intel_crtc);
-+void intel_histogram_irq_handler(struct intel_display *display, enum pipe pipe);
- int intel_histogram_update(struct intel_crtc *intel_crtc, bool enable);
- int intel_histogram_set_iet_lut(struct intel_crtc *intel_crtc, u32 *data);
- int intel_histogram_init(struct intel_crtc *intel_crtc);
-diff --git a/drivers/gpu/drm/i915/i915_reg.h b/drivers/gpu/drm/i915/i915_reg.h
-index 7a35be56b7ef..40a7c6a77bcc 100644
---- a/drivers/gpu/drm/i915/i915_reg.h
-+++ b/drivers/gpu/drm/i915/i915_reg.h
-@@ -1605,7 +1605,7 @@
- #define   PIPE_HOTPLUG_INTERRUPT_ENABLE		(1UL << 26)
- #define   PIPE_VSYNC_INTERRUPT_ENABLE		(1UL << 25)
- #define   PIPE_DISPLAY_LINE_COMPARE_ENABLE	(1UL << 24)
--#define   PIPE_DPST_EVENT_ENABLE		(1UL << 23)
-+#define   PIPE_HISTOGRAM_EVENT_ENABLE		(1UL << 23)
- #define   SPRITE0_FLIP_DONE_INT_EN_VLV		(1UL << 22)
- #define   PIPE_LEGACY_BLC_EVENT_ENABLE		(1UL << 22)
- #define   PIPE_ODD_FIELD_INTERRUPT_ENABLE	(1UL << 21)
-@@ -1628,7 +1628,7 @@
- #define   PIPE_HOTPLUG_INTERRUPT_STATUS		(1UL << 10)
- #define   PIPE_VSYNC_INTERRUPT_STATUS		(1UL << 9)
- #define   PIPE_DISPLAY_LINE_COMPARE_STATUS	(1UL << 8)
--#define   PIPE_DPST_EVENT_STATUS		(1UL << 7)
-+#define   PIPE_HISTOGRAM_EVENT_STATUS		(1UL << 7)
- #define   PIPE_A_PSR_STATUS_VLV			(1UL << 6)
- #define   PIPE_LEGACY_BLC_EVENT_STATUS		(1UL << 6)
- #define   PIPE_ODD_FIELD_INTERRUPT_STATUS	(1UL << 5)
-@@ -2470,6 +2470,7 @@
- #define  GEN12_DSB_1_INT		REG_BIT(14) /* tgl+ */
- #define  GEN12_DSB_0_INT		REG_BIT(13) /* tgl+ */
- #define  GEN12_DSB_INT(dsb_id)		REG_BIT(13 + (dsb_id))
-+#define  GEN9_PIPE_HISTOGRAM_EVENT	REG_BIT(12) /* skl+ */
- #define  GEN9_PIPE_CURSOR_FAULT		REG_BIT(11) /* skl+ */
- #define  GEN9_PIPE_PLANE4_FAULT		REG_BIT(10) /* skl+ */
- #define  GEN8_PIPE_CURSOR_FAULT		REG_BIT(10) /* bdw */
+ 	/*
+ 	 * Set DPST_CTL Bin Reg function select to IE
+ 	 * Set DPST_CTL Bin Register Index to 0
+diff --git a/drivers/gpu/drm/i915/display/intel_histogram_regs.h b/drivers/gpu/drm/i915/display/intel_histogram_regs.h
+index 1252b4f339a6..e50b1448bd40 100644
+--- a/drivers/gpu/drm/i915/display/intel_histogram_regs.h
++++ b/drivers/gpu/drm/i915/display/intel_histogram_regs.h
+@@ -16,6 +16,7 @@
+ #define  DPST_CTL_RESTORE				REG_BIT(28)
+ #define  DPST_CTL_IE_MODI_TABLE_EN			REG_BIT(27)
+ #define  DPST_CTL_HIST_MODE				REG_BIT(24)
++#define  DPST_CTL_GUARDBAND_INTERRUPT_DELAY_CNT		REG_GENMASK(23, 16)
+ #define  DPST_CTL_ENHANCEMENT_MODE_MASK			REG_GENMASK(14, 13)
+ #define  DPST_CTL_EN_MULTIPLICATIVE			REG_FIELD_PREP(DPST_CTL_ENHANCEMENT_MODE_MASK, 2)
+ #define  DPST_CTL_IE_TABLE_VALUE_FORMAT			REG_BIT(15)
 -- 
 2.25.1
 
