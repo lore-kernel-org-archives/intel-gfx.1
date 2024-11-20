@@ -4,51 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1C112D711C0
-	for <intel-gfx@archiver.kernel.org>; Wed, 20 Nov 2024 16:41:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D5419D711C0
+	for <intel-gfx@archiver.kernel.org>; Wed, 20 Nov 2024 16:41:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9FEDC10E18A;
-	Wed, 20 Nov 2024 16:41:40 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6B64410E2D3;
+	Wed, 20 Nov 2024 16:41:52 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="D7pD6Xln";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="IeOlRwtg";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7CCFD10E79E
- for <intel-gfx@lists.freedesktop.org>; Wed, 20 Nov 2024 16:41:37 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id ABFF810E2D3
+ for <intel-gfx@lists.freedesktop.org>; Wed, 20 Nov 2024 16:41:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1732120900; x=1763656900;
+ t=1732120910; x=1763656910;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=Lp1XsOjfEdnhtE95S3d9mElLCXp65ltf+bTb949N1gA=;
- b=D7pD6XlnrxIUgbx/nR/cmU8vYvZ7fCNiKAmK6tAuJPqc8km6ibjs2BaS
- nFU71tyj4iPcVQXJUA5e0/JgJob4EYl4bsECXilqKRxAoHUBvfthwMD1c
- 5ZSFkBvpDUGY5l7SBHGojKTsrKBaib97aijIiPJAQEq8DUrTePfXsLMuN
- 48QqPnlMZ+j8gPEQoh0yaWKKFBAtDBMgvX7w+Zefy+R7FWzwLn/wJms0u
- fEqfkaLwZuW0V2PdalTeAjTjZ474HL4sFcXZeKeBpZdvcYNWs9tQDAlRa
- EJ6js/BVsng35r/iH72ehZhrVRlE5LhqPp7ZmAJECWbyJAEqmR59VzfGx A==;
-X-CSE-ConnectionGUID: N07YYqhqThWlLC22IdBptQ==
-X-CSE-MsgGUID: jznXexN6RT6ymdjECCl+Vw==
-X-IronPort-AV: E=McAfee;i="6700,10204,11262"; a="49620316"
-X-IronPort-AV: E=Sophos;i="6.12,170,1728975600"; d="scan'208";a="49620316"
+ bh=Pv5VFkjekOTioWmyYjl4EJwkl2bztJEYXSf8Si7vUDk=;
+ b=IeOlRwtgHnPyzluqrtsxDhG/XqSaMM0OnrMTG94Hq5DwhC/OELwW70yK
+ Hm9mNBL7JOC+pnuVjLDtzp2taGzWYoaV0EqkopNGAog8El0CCw4J+REGn
+ SKj8YAYogHWkT7irPD0/63FkSpe+SW3Yp+ZR7lRRcCO6+SvhWQY3AtjUa
+ yaeoWMcZv7B2YagSFHF0JcpAfGd7V9E2io8cWfc4he24qVjD0AT1+4ZYR
+ 5ZQTanHhlBzl8v5Mzyg1tWC4MiBeItmgJxVFJ4QJwlHzAq033aI0+ssJr
+ PmuEiVWaVW8smg3E8B4/1v0BHVAD4YdqxGVILhJmk8KnF4OlcB41DlTki A==;
+X-CSE-ConnectionGUID: jn9gGZH6QIGfm2ePIRSkPw==
+X-CSE-MsgGUID: L24FRP2VTDus3ar7nMo2fA==
+X-IronPort-AV: E=McAfee;i="6700,10204,11262"; a="49620353"
+X-IronPort-AV: E=Sophos;i="6.12,170,1728975600"; d="scan'208";a="49620353"
 Received: from fmviesa008.fm.intel.com ([10.60.135.148])
  by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 20 Nov 2024 08:41:31 -0800
-X-CSE-ConnectionGUID: 8Bl7c7onSzio3udjPW59BQ==
-X-CSE-MsgGUID: qMTWedN2SeWFfZUjz6xghg==
+ 20 Nov 2024 08:41:37 -0800
+X-CSE-ConnectionGUID: Wqc3PM6rRZiVBU5dsn4j0A==
+X-CSE-MsgGUID: ytStt/uzT+6mszaEyVhahg==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.12,170,1728975600"; d="scan'208";a="90137166"
+X-IronPort-AV: E=Sophos;i="6.12,170,1728975600"; d="scan'208";a="90137181"
 Received: from stinkpipe.fi.intel.com (HELO stinkbox) ([10.237.72.74])
- by fmviesa008.fm.intel.com with SMTP; 20 Nov 2024 08:41:30 -0800
+ by fmviesa008.fm.intel.com with SMTP; 20 Nov 2024 08:41:35 -0800
 Received: by stinkbox (sSMTP sendmail emulation);
- Wed, 20 Nov 2024 18:41:28 +0200
+ Wed, 20 Nov 2024 18:41:34 +0200
 From: Ville Syrjala <ville.syrjala@linux.intel.com>
 To: intel-gfx@lists.freedesktop.org
-Cc: stable@vger.kernel.org
-Subject: [PATCH 2/4] drm/i915/color: Stop using non-posted DSB writes for
- legacy LUT
-Date: Wed, 20 Nov 2024 18:41:21 +0200
-Message-ID: <20241120164123.12706-3-ville.syrjala@linux.intel.com>
+Cc: Uma Shankar <uma.shankar@intel.com>
+Subject: [PATCH 4/4] drm/i915: Do state check for color management changes
+Date: Wed, 20 Nov 2024 18:41:23 +0200
+Message-ID: <20241120164123.12706-5-ville.syrjala@linux.intel.com>
 X-Mailer: git-send-email 2.45.2
 In-Reply-To: <20241120164123.12706-1-ville.syrjala@linux.intel.com>
 References: <20241120164123.12706-1-ville.syrjala@linux.intel.com>
@@ -72,96 +71,36 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 From: Ville Syrjälä <ville.syrjala@linux.intel.com>
 
-DSB LUT register writes vs. palette anti-collision logic
-appear to interact in interesting ways:
-- posted DSB writes simply vanish into thin air while
-  anti-collision is active
-- non-posted DSB writes actually get blocked by the anti-collision
-  logic, but unfortunately this ends up hogging the bus for
-  long enough that unrelated parallel CPU MMIO accesses start
-  to disappear instead
+In order to validate LUT programming more thoroughly let's
+do a state check for all color management updates as well.
 
-Even though we are updating the LUT during vblank we aren't
-immune to the anti-collision logic because it kicks in brifly
-for pipe prefill (initiated at frame start). The safe time
-window for performing the LUT update is thus between the
-undelayed vblank and frame start. Turns out that with low
-enough CDCLK frequency (DSB execution speed depends on CDCLK)
-we can exceed that.
+Not sure we really want this outside CI. It is rather heavy
+and color management updates could become rather common
+with all the HDR/etc. stuff happening. Maybe we should have
+an extra knob for this that we could enable in CI?
 
-As we are currently using non-posted writes for the legacy LUT
-updates, in which case we can hit the far more severe failure
-mode. The problem is exacerbated by the fact that non-posted
-writes are much slower than posted writes (~4x it seems).
+v2: Skip for initial_commit to avoid FDI dotclock
+    sanity checks/etc. tripping up
 
-To mititage the problem let's switch to using posted DSB
-writes for legacy LUT updates (which will involve using the
-double write approach to avoid other problems with DSB
-vs. legacy LUT writes). Despite writing each register twice
-this will in fact make the legacy LUT update faster when
-compared to the non-posted write approach, making the
-problem less likely to appear. The failure mode is also
-less severe.
-
-This isn't the 100% solution we need though. That will involve
-estimating how long the LUT update will take, and pushing
-frame start and/or delayed vblank forward to guarantee that
-the update will have finished by the time the pipe prefill
-starts...
-
-Cc: stable@vger.kernel.org
-Fixes: 34d8311f4a1c ("drm/i915/dsb: Re-instate DSB for LUT updates")
-Fixes: 25ea3411bd23 ("drm/i915/dsb: Use non-posted register writes for legacy LUT")
-Closes: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/12494
+Reviewed-by: Uma Shankar <uma.shankar@intel.com>
 Signed-off-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_color.c | 30 ++++++++++++++--------
- 1 file changed, 20 insertions(+), 10 deletions(-)
+ drivers/gpu/drm/i915/display/intel_modeset_verify.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_color.c b/drivers/gpu/drm/i915/display/intel_color.c
-index 6ea3d5c58cb1..7cd902bbd244 100644
---- a/drivers/gpu/drm/i915/display/intel_color.c
-+++ b/drivers/gpu/drm/i915/display/intel_color.c
-@@ -1368,19 +1368,29 @@ static void ilk_load_lut_8(const struct intel_crtc_state *crtc_state,
- 	lut = blob->data;
+diff --git a/drivers/gpu/drm/i915/display/intel_modeset_verify.c b/drivers/gpu/drm/i915/display/intel_modeset_verify.c
+index bc70e72ccc2e..f61641d27c4a 100644
+--- a/drivers/gpu/drm/i915/display/intel_modeset_verify.c
++++ b/drivers/gpu/drm/i915/display/intel_modeset_verify.c
+@@ -239,6 +239,8 @@ void intel_modeset_verify_crtc(struct intel_atomic_state *state,
+ 		intel_atomic_get_new_crtc_state(state, crtc);
  
- 	/*
--	 * DSB fails to correctly load the legacy LUT
--	 * unless we either write each entry twice,
--	 * or use non-posted writes
-+	 * DSB fails to correctly load the legacy LUT unless
-+	 * we either write each entry twice when using posted
-+	 * writes, or we use non-posted writes.
-+	 *
-+	 * If palette anti-collision is active during LUT
-+	 * register writes:
-+	 * - posted writes simply get dropped and thus the LUT
-+	 *   contents may not be correctly updated
-+	 * - non-posted writes are blocked and thus the LUT
-+	 *   contents are always correct, but simultaneous CPU
-+	 *   MMIO access will start to fail
-+	 *
-+	 * Choose the lesser of two evils and use posted writes.
-+	 * Using posted writes is also faster, even when having
-+	 * to write each register twice.
- 	 */
--	if (crtc_state->dsb_color_vblank)
--		intel_dsb_nonpost_start(crtc_state->dsb_color_vblank);
--
--	for (i = 0; i < 256; i++)
-+	for (i = 0; i < 256; i++) {
- 		ilk_lut_write(crtc_state, LGC_PALETTE(pipe, i),
- 			      i9xx_lut_8(&lut[i]));
--
--	if (crtc_state->dsb_color_vblank)
--		intel_dsb_nonpost_end(crtc_state->dsb_color_vblank);
-+		if (crtc_state->dsb_color_vblank)
-+			ilk_lut_write(crtc_state, LGC_PALETTE(pipe, i),
-+				      i9xx_lut_8(&lut[i]));
-+	}
- }
+ 	if (!intel_crtc_needs_modeset(new_crtc_state) &&
++	    (!intel_crtc_needs_color_update(new_crtc_state) ||
++	     new_crtc_state->inherited) &&
+ 	    !intel_crtc_needs_fastset(new_crtc_state))
+ 		return;
  
- static void ilk_load_lut_10(const struct intel_crtc_state *crtc_state,
 -- 
 2.45.2
 
