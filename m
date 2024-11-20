@@ -4,50 +4,51 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2209AD63925
-	for <intel-gfx@archiver.kernel.org>; Wed, 20 Nov 2024 10:35:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 07AD2D63923
+	for <intel-gfx@archiver.kernel.org>; Wed, 20 Nov 2024 10:35:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B0A6B10E6F2;
-	Wed, 20 Nov 2024 10:35:30 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B34A710E6E6;
+	Wed, 20 Nov 2024 10:35:34 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="nz65ZCG1";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="hfB469T7";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.18])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D952410E6DB;
- Wed, 20 Nov 2024 10:35:29 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E50D010E6EA;
+ Wed, 20 Nov 2024 10:35:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1732098929; x=1763634929;
+ t=1732098934; x=1763634934;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=UVJ5rRhLssA+ssGPifRnsdyQsJ6+1UzZkhoYv5et26A=;
- b=nz65ZCG1WryQH/kc5ZVDo+loyTkZxcldw0Dj9Br45moQYZeRRXnLdzJD
- 9G6wmc6QyR9owQ6j6Px7NOyZ3VJrBhszpwOCgUhozu3/dXm/n1TYRooUP
- KmEFs/CQYgh3OEEde5hPI4eTRKo1PXBXV3CxAemjsTTuCSFytb7I+PGo4
- mzhWnTXnUzPhgY6Rz3MquAojLh83PSCHVVPptuxACYaQHv8DS5X5UrKL3
- HRXnoMN3V/s4OQ8Gm04opgTodgxj6pRavy8aWOXdO6+NGWZLwwcOLxQXW
- tcBj46kla6LmiCuwm7JTUSj2hAxZHEN+ZkSwhGCcxkiwhogTsmTvK40MM w==;
-X-CSE-ConnectionGUID: FusswsjnQz6bQsjKKb770g==
-X-CSE-MsgGUID: 5kzFxgV9Qd+hSDbRk2do9w==
-X-IronPort-AV: E=McAfee;i="6700,10204,11261"; a="31520051"
-X-IronPort-AV: E=Sophos;i="6.12,169,1728975600"; d="scan'208";a="31520051"
+ bh=QJRmuOoX7ks4vFCpzf+5/OJgVh+mhMv8d9HckHhbv8U=;
+ b=hfB469T786Twarf5OBhbOwqnYlVzzrg7bjgOGx0hs9ZXQvx2/AvSSAfV
+ RQTuM34Eg7RJqvFdkXK60uI9D/ezsvs+hcahlrj3FtIJwIKSyWIYecdpX
+ deUtDSVrVH4O7LfUHiOvjOIqz0yHslMmVZSysn0n5UFrUqULJrnOgXbRp
+ aT+LlZBtoClQyGny5mET2cduiW02dS+OHY8tYT/tb9FLVpOxST6W8Dej1
+ 68YanLTYdcy1aYySIOqvp14MD/+CZJ2DKfow0TCfrGuM4Ua8DOi5znwKX
+ hhx18hmt3yUC+2CarqBtvXeMwuuxZL2UIihucAW1Nx12Jr3+FYuLnmjLr w==;
+X-CSE-ConnectionGUID: Deg2WTSRSCWg2w7cX2D0ww==
+X-CSE-MsgGUID: yCqnzTd1TWSmib4SPJWGmQ==
+X-IronPort-AV: E=McAfee;i="6700,10204,11261"; a="31520053"
+X-IronPort-AV: E=Sophos;i="6.12,169,1728975600"; d="scan'208";a="31520053"
 Received: from fmviesa007.fm.intel.com ([10.60.135.147])
  by fmvoesa112.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 20 Nov 2024 02:35:29 -0800
-X-CSE-ConnectionGUID: 1EBRZb19QtWpoPE/V3p3nQ==
-X-CSE-MsgGUID: MXDjsqJIRuWHkEE3C9s/gQ==
+ 20 Nov 2024 02:35:33 -0800
+X-CSE-ConnectionGUID: LTGUM3F2RBuP1LdAIDb0tQ==
+X-CSE-MsgGUID: Flo4qRndQyKiEQ1FtMwQJw==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.12,169,1728975600"; d="scan'208";a="89674047"
+X-IronPort-AV: E=Sophos;i="6.12,169,1728975600"; d="scan'208";a="89674079"
 Received: from srr4-3-linux-103-aknautiy.iind.intel.com ([10.223.34.160])
  by fmviesa007-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 20 Nov 2024 02:35:28 -0800
+ 20 Nov 2024 02:35:32 -0800
 From: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
 To: intel-gfx@lists.freedesktop.org
 Cc: intel-xe@lists.freedesktop.org, suraj.kandpal@intel.com,
  jani.nikula@linux.intel.com, imre.deak@intel.com
-Subject: [PATCH 02/12] drm/i915/dp: Return early if DSC not supported
-Date: Wed, 20 Nov 2024 16:07:52 +0530
-Message-ID: <20241120103802.134295-3-ankit.k.nautiyal@intel.com>
+Subject: [PATCH 04/12] drm/i915/dp: Remove HAS_DSC macro for
+ intel_dp_dsc_max_src_input_bpc
+Date: Wed, 20 Nov 2024 16:07:54 +0530
+Message-ID: <20241120103802.134295-5-ankit.k.nautiyal@intel.com>
 X-Mailer: git-send-email 2.45.2
 In-Reply-To: <20241120103802.134295-1-ankit.k.nautiyal@intel.com>
 References: <20241120103802.134295-1-ankit.k.nautiyal@intel.com>
@@ -68,38 +69,28 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Check for DSC support before computing link config with DSC.
-For DP MST we are already doing the same.
+DSC support is already checked before the helper
+intel_dp_dsc_max_src_input_bpc is called.
+Remove the check from the helper.
 
 Signed-off-by: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_dp.c | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+ drivers/gpu/drm/i915/display/intel_dp.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
-index db9ddbcdd159..dee15a05e7fd 100644
+index d82e25d0dc5a..dd60ca532ae3 100644
 --- a/drivers/gpu/drm/i915/display/intel_dp.c
 +++ b/drivers/gpu/drm/i915/display/intel_dp.c
-@@ -2378,9 +2378,6 @@ int intel_dp_dsc_compute_config(struct intel_dp *intel_dp,
- 		 intel_dp_supports_fec(intel_dp, connector, pipe_config) &&
- 		 !intel_dp_is_uhbr(pipe_config));
+@@ -2195,7 +2195,7 @@ static
+ u8 intel_dp_dsc_min_src_input_bpc(struct drm_i915_private *i915)
+ {
+ 	/* Min DSC Input BPC for ICL+ is 8 */
+-	return HAS_DSC(i915) ? 8 : 0;
++	return 8;
+ }
  
--	if (!intel_dp_supports_dsc(intel_dp, connector, pipe_config))
--		return -EINVAL;
--
- 	if (!intel_dp_dsc_supports_format(connector, pipe_config->output_format))
- 		return -EINVAL;
- 
-@@ -2643,6 +2640,9 @@ intel_dp_compute_link_config(struct intel_encoder *encoder,
- 			    str_yes_no(ret), str_yes_no(joiner_needs_dsc),
- 			    str_yes_no(intel_dp->force_dsc_en));
- 
-+		if (!intel_dp_supports_dsc(intel_dp, connector, pipe_config))
-+			return -EINVAL;
-+
- 		if (!intel_dp_compute_config_limits(intel_dp, pipe_config,
- 						    respect_downstream_limits,
- 						    true,
+ static
 -- 
 2.45.2
 
