@@ -4,54 +4,27 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5C5CED6ED1B
-	for <intel-gfx@archiver.kernel.org>; Thu, 21 Nov 2024 12:36:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B77D9D6ED21
+	for <intel-gfx@archiver.kernel.org>; Thu, 21 Nov 2024 12:48:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3071D10E928;
-	Thu, 21 Nov 2024 12:35:58 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="hj7zkL/O";
-	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.21])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 94A8C10E923;
- Thu, 21 Nov 2024 12:35:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1732192557; x=1763728557;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=l2cUaZi8Ie81OusqbqDDFeoeLYipHVOLAqo560ZSq/U=;
- b=hj7zkL/OaNDMxtkkQMpNGh+0sswuvd9h5FCROGXIDdswMc04mvZqR99I
- DjuzL4/FoaTenhOTt9+riBvFEvbnzp1tGj/0ZsTOHPS7HZ3Sp3WcoTohh
- PcGapopeWOd32zsZN9oWlTuxBZGhFMK6cTB3cy2TIXQQhxHyg4N98DCyA
- QPD4oXoJGRtnBRA3MSLwSCqeINwpN7Zu9QcnGUCSec9Ku/bybjzEKV8bs
- y6evK/Y43gUXo6VBmrVlWraUUUSIAIbJOcshhxjcL0sAZNvU1kTeV51n/
- RI3ApPxuGLI3XV6sUjDqFak88gxYyDVyaExRZjoHxMr+B1B3RaY/XjcAz g==;
-X-CSE-ConnectionGUID: CpkKNpY7RlqFd2iOpqZRiw==
-X-CSE-MsgGUID: 1hBKVcXJRn2gdx5SvA+bsA==
-X-IronPort-AV: E=McAfee;i="6700,10204,11263"; a="32230357"
-X-IronPort-AV: E=Sophos;i="6.12,172,1728975600"; d="scan'208";a="32230357"
-Received: from orviesa001.jf.intel.com ([10.64.159.141])
- by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 21 Nov 2024 04:35:56 -0800
-X-CSE-ConnectionGUID: 3QZtKnLcSJaadYFe64Ld0A==
-X-CSE-MsgGUID: 0IkGx0YkSomKJOPy8Ikj8A==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.12,172,1728975600"; d="scan'208";a="127766028"
-Received: from srr4-3-linux-106-armuthy.iind.intel.com ([10.190.238.56])
- by orviesa001.jf.intel.com with ESMTP; 21 Nov 2024 04:35:55 -0800
-From: Arun R Murthy <arun.r.murthy@intel.com>
-To: intel-xe@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org
-Cc: Arun R Murthy <arun.r.murthy@intel.com>
-Subject: [PATCH 8/8] drm/i915/histogram: Enable pipe dithering
-Date: Thu, 21 Nov 2024 17:56:03 +0530
-Message-Id: <20241121122603.736267-9-arun.r.murthy@intel.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20241121122603.736267-1-arun.r.murthy@intel.com>
-References: <20241121122603.736267-1-arun.r.murthy@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3F49310E91F;
+	Thu, 21 Nov 2024 12:48:33 +0000 (UTC)
+Received: from b555e5b46a47 (emeril.freedesktop.org [131.252.210.167])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DA9DA10E905;
+ Thu, 21 Nov 2024 12:48:31 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
+Subject: =?utf-8?q?=E2=9C=93_i915=2ECI=2EBAT=3A_success_for_use_hw_support_for_min/in?=
+ =?utf-8?q?terim_ddb_allocation_for_async_flip_=28rev2=29?=
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Vinod Govindapillai" <vinod.govindapillai@intel.com>
+Cc: intel-gfx@lists.freedesktop.org
+Date: Thu, 21 Nov 2024 12:48:31 -0000
+Message-ID: <173219331191.1149889.18192412615938618171@b555e5b46a47>
+X-Patchwork-Hint: ignore
+References: <20241121112726.510220-1-vinod.govindapillai@intel.com>
+In-Reply-To: <20241121112726.510220-1-vinod.govindapillai@intel.com>
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,45 +37,179 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Enable pipe dithering while enabling histogram to overcome some
-atrifacts seen on the screen.
+== Series Details ==
 
-Signed-off-by: Arun R Murthy <arun.r.murthy@intel.com>
----
- drivers/gpu/drm/i915/display/intel_histogram.c | 10 ++++++++++
- 1 file changed, 10 insertions(+)
+Series: use hw support for min/interim ddb allocation for async flip (rev2)
+URL   : https://patchwork.freedesktop.org/series/140926/
+State : success
 
-diff --git a/drivers/gpu/drm/i915/display/intel_histogram.c b/drivers/gpu/drm/i915/display/intel_histogram.c
-index db4bc60be557..531df8a712fa 100644
---- a/drivers/gpu/drm/i915/display/intel_histogram.c
-+++ b/drivers/gpu/drm/i915/display/intel_histogram.c
-@@ -29,6 +29,13 @@ struct intel_histogram {
- 	u32 bin_data[HISTOGRAM_BIN_COUNT];
- };
- 
-+static void intel_histogram_enable_dithering(struct intel_display *display,
-+					     enum pipe pipe)
-+{
-+	intel_de_rmw(display, PIPE_MISC(pipe), PIPE_MISC_DITHER_ENABLE,
-+		     PIPE_MISC_DITHER_ENABLE);
-+}
-+
- static void set_bin_index_0(struct intel_display *display, enum pipe pipe)
- {
- 	if (DISPLAY_VER(display) >= 20)
-@@ -197,6 +204,9 @@ static int intel_histogram_enable(struct intel_crtc *intel_crtc)
- 	if (histogram->enable)
- 		return 0;
- 
-+	/* Pipe Dithering should be enabled with histogram */
-+	intel_histogram_enable_dithering(display, pipe);
-+
- 	 /* enable histogram, clear DPST_BIN reg and select TC function */
- 	if (DISPLAY_VER(display) >= 20)
- 		intel_de_rmw(display, DPST_CTL(pipe),
--- 
-2.25.1
+== Summary ==
 
+CI Bug Log - changes from CI_DRM_15725 -> Patchwork_140926v2
+====================================================
+
+Summary
+-------
+
+  **WARNING**
+
+  Minor unknown changes coming with Patchwork_140926v2 need to be verified
+  manually.
+  
+  If you think the reported changes have nothing to do with the changes
+  introduced in Patchwork_140926v2, please notify your bug team (I915-ci-infra@lists.freedesktop.org) to allow them
+  to document this new failure mode, which will reduce false positives in CI.
+
+  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_140926v2/index.html
+
+Participating hosts (46 -> 45)
+------------------------------
+
+  Missing    (1): fi-snb-2520m 
+
+Possible new issues
+-------------------
+
+  Here are the unknown changes that may have been introduced in Patchwork_140926v2:
+
+### IGT changes ###
+
+#### Warnings ####
+
+  * igt@i915_selftest@live:
+    - bat-arls-5:         [ABORT][1] ([i915#12829]) -> [ABORT][2]
+   [1]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_15725/bat-arls-5/igt@i915_selftest@live.html
+   [2]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_140926v2/bat-arls-5/igt@i915_selftest@live.html
+
+  
+#### Suppressed ####
+
+  The following results come from untrusted machines, tests, or statuses.
+  They do not affect the overall result.
+
+  * igt@i915_selftest@live:
+    - {bat-arls-6}:       [PASS][3] -> [ABORT][4]
+   [3]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_15725/bat-arls-6/igt@i915_selftest@live.html
+   [4]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_140926v2/bat-arls-6/igt@i915_selftest@live.html
+
+  
+Known issues
+------------
+
+  Here are the changes found in Patchwork_140926v2 that come from known issues:
+
+### IGT changes ###
+
+#### Issues hit ####
+
+  * igt@i915_pm_rpm@module-reload:
+    - bat-dg2-11:         [PASS][5] -> [FAIL][6] ([i915#12903])
+   [5]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_15725/bat-dg2-11/igt@i915_pm_rpm@module-reload.html
+   [6]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_140926v2/bat-dg2-11/igt@i915_pm_rpm@module-reload.html
+
+  * igt@i915_selftest@live@gt_mocs:
+    - bat-twl-2:          [PASS][7] -> [ABORT][8] ([i915#12919]) +1 other test abort
+   [7]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_15725/bat-twl-2/igt@i915_selftest@live@gt_mocs.html
+   [8]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_140926v2/bat-twl-2/igt@i915_selftest@live@gt_mocs.html
+
+  
+#### Possible fixes ####
+
+  * igt@dmabuf@all-tests:
+    - bat-apl-1:          [INCOMPLETE][9] ([i915#12904]) -> [PASS][10] +1 other test pass
+   [9]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_15725/bat-apl-1/igt@dmabuf@all-tests.html
+   [10]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_140926v2/bat-apl-1/igt@dmabuf@all-tests.html
+
+  * igt@i915_selftest@live:
+    - {bat-mtlp-9}:       [ABORT][11] ([i915#12829]) -> [PASS][12]
+   [11]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_15725/bat-mtlp-9/igt@i915_selftest@live.html
+   [12]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_140926v2/bat-mtlp-9/igt@i915_selftest@live.html
+
+  * igt@i915_selftest@live@workarounds:
+    - {bat-mtlp-9}:       [ABORT][13] ([i915#12915]) -> [PASS][14]
+   [13]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_15725/bat-mtlp-9/igt@i915_selftest@live@workarounds.html
+   [14]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_140926v2/bat-mtlp-9/igt@i915_selftest@live@workarounds.html
+
+  * igt@kms_pipe_crc_basic@nonblocking-crc-frame-sequence:
+    - bat-dg2-11:         [SKIP][15] ([i915#9197]) -> [PASS][16] +3 other tests pass
+   [15]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_15725/bat-dg2-11/igt@kms_pipe_crc_basic@nonblocking-crc-frame-sequence.html
+   [16]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_140926v2/bat-dg2-11/igt@kms_pipe_crc_basic@nonblocking-crc-frame-sequence.html
+
+  
+#### Warnings ####
+
+  * igt@kms_addfb_basic@addfb25-y-tiled-small-legacy:
+    - bat-dg2-9:          [SKIP][17] ([i915#4212] / [i915#5190]) -> [SKIP][18] ([i915#5190])
+   [17]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_15725/bat-dg2-9/igt@kms_addfb_basic@addfb25-y-tiled-small-legacy.html
+   [18]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_140926v2/bat-dg2-9/igt@kms_addfb_basic@addfb25-y-tiled-small-legacy.html
+    - bat-mtlp-6:         [SKIP][19] ([i915#4212] / [i915#5190] / [i915#9792]) -> [SKIP][20] ([i915#5190] / [i915#9792])
+   [19]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_15725/bat-mtlp-6/igt@kms_addfb_basic@addfb25-y-tiled-small-legacy.html
+   [20]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_140926v2/bat-mtlp-6/igt@kms_addfb_basic@addfb25-y-tiled-small-legacy.html
+    - bat-dg2-11:         [SKIP][21] ([i915#4212] / [i915#5190]) -> [SKIP][22] ([i915#5190])
+   [21]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_15725/bat-dg2-11/igt@kms_addfb_basic@addfb25-y-tiled-small-legacy.html
+   [22]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_140926v2/bat-dg2-11/igt@kms_addfb_basic@addfb25-y-tiled-small-legacy.html
+    - bat-dg2-14:         [SKIP][23] ([i915#4212] / [i915#5190]) -> [SKIP][24] ([i915#5190])
+   [23]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_15725/bat-dg2-14/igt@kms_addfb_basic@addfb25-y-tiled-small-legacy.html
+   [24]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_140926v2/bat-dg2-14/igt@kms_addfb_basic@addfb25-y-tiled-small-legacy.html
+    - bat-mtlp-8:         [SKIP][25] ([i915#4212] / [i915#5190]) -> [SKIP][26] ([i915#5190])
+   [25]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_15725/bat-mtlp-8/igt@kms_addfb_basic@addfb25-y-tiled-small-legacy.html
+   [26]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_140926v2/bat-mtlp-8/igt@kms_addfb_basic@addfb25-y-tiled-small-legacy.html
+    - bat-dg2-8:          [SKIP][27] ([i915#4212] / [i915#5190]) -> [SKIP][28] ([i915#5190])
+   [27]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_15725/bat-dg2-8/igt@kms_addfb_basic@addfb25-y-tiled-small-legacy.html
+   [28]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_140926v2/bat-dg2-8/igt@kms_addfb_basic@addfb25-y-tiled-small-legacy.html
+
+  * igt@kms_addfb_basic@basic-y-tiled-legacy:
+    - bat-dg2-8:          [SKIP][29] ([i915#4212] / [i915#4215] / [i915#5190]) -> [SKIP][30] ([i915#4215] / [i915#5190])
+   [29]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_15725/bat-dg2-8/igt@kms_addfb_basic@basic-y-tiled-legacy.html
+   [30]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_140926v2/bat-dg2-8/igt@kms_addfb_basic@basic-y-tiled-legacy.html
+    - bat-dg1-7:          [SKIP][31] ([i915#4212] / [i915#4215]) -> [SKIP][32] ([i915#4215])
+   [31]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_15725/bat-dg1-7/igt@kms_addfb_basic@basic-y-tiled-legacy.html
+   [32]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_140926v2/bat-dg1-7/igt@kms_addfb_basic@basic-y-tiled-legacy.html
+    - bat-dg2-9:          [SKIP][33] ([i915#4212] / [i915#4215] / [i915#5190]) -> [SKIP][34] ([i915#4215] / [i915#5190])
+   [33]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_15725/bat-dg2-9/igt@kms_addfb_basic@basic-y-tiled-legacy.html
+   [34]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_140926v2/bat-dg2-9/igt@kms_addfb_basic@basic-y-tiled-legacy.html
+    - bat-dg1-6:          [SKIP][35] ([i915#12311] / [i915#4212] / [i915#4215]) -> [SKIP][36] ([i915#12311] / [i915#4215])
+   [35]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_15725/bat-dg1-6/igt@kms_addfb_basic@basic-y-tiled-legacy.html
+   [36]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_140926v2/bat-dg1-6/igt@kms_addfb_basic@basic-y-tiled-legacy.html
+    - bat-dg2-11:         [SKIP][37] ([i915#4212] / [i915#4215] / [i915#5190]) -> [SKIP][38] ([i915#4215] / [i915#5190])
+   [37]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_15725/bat-dg2-11/igt@kms_addfb_basic@basic-y-tiled-legacy.html
+   [38]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_140926v2/bat-dg2-11/igt@kms_addfb_basic@basic-y-tiled-legacy.html
+    - bat-dg2-14:         [SKIP][39] ([i915#4212] / [i915#4215] / [i915#5190]) -> [SKIP][40] ([i915#4215] / [i915#5190])
+   [39]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_15725/bat-dg2-14/igt@kms_addfb_basic@basic-y-tiled-legacy.html
+   [40]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_140926v2/bat-dg2-14/igt@kms_addfb_basic@basic-y-tiled-legacy.html
+
+  
+  {name}: This element is suppressed. This means it is ignored when computing
+          the status of the difference (SUCCESS, WARNING, or FAILURE).
+
+  [i915#12061]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/12061
+  [i915#12311]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/12311
+  [i915#12829]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/12829
+  [i915#12903]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/12903
+  [i915#12904]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/12904
+  [i915#12915]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/12915
+  [i915#12919]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/12919
+  [i915#4212]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/4212
+  [i915#4215]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/4215
+  [i915#5190]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/5190
+  [i915#9197]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/9197
+  [i915#9792]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/9792
+
+
+Build changes
+-------------
+
+  * Linux: CI_DRM_15725 -> Patchwork_140926v2
+
+  CI-20190529: 20190529
+  CI_DRM_15725: e46649e7764a9f6868ccbcba7b8b23b413303380 @ git://anongit.freedesktop.org/gfx-ci/linux
+  IGT_8118: 17707095f1e5d3c30f463b43022f01c0160579b6 @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git
+  Patchwork_140926v2: e46649e7764a9f6868ccbcba7b8b23b413303380 @ git://anongit.freedesktop.org/gfx-ci/linux
+
+== Logs ==
+
+For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_140926v2/index.html
