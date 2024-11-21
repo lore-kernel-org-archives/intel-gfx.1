@@ -4,50 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1370BD6ED1A
-	for <intel-gfx@archiver.kernel.org>; Thu, 21 Nov 2024 12:35:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3AF1BD6ED1B
+	for <intel-gfx@archiver.kernel.org>; Thu, 21 Nov 2024 12:35:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AE1E510E91E;
-	Thu, 21 Nov 2024 12:35:55 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7B51E10E921;
+	Thu, 21 Nov 2024 12:35:56 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="OPjoWiF2";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="bWbnvjGW";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.21])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 15EF810E91E;
- Thu, 21 Nov 2024 12:35:51 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E25D610E920;
+ Thu, 21 Nov 2024 12:35:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1732192551; x=1763728551;
+ t=1732192555; x=1763728555;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=ClquhpGMjhfkhBglmAxL39rDXMiw2UTcgoFOhGMPLbk=;
- b=OPjoWiF2CO4TjkI+ocllr3nBft9sL7BNU96zwylB1jXCbjF/0V+Plfog
- qeFpdDnpdVhUHW6szLNcujupsOa5tZqERpiO1za6AD+cXAThUjwvJ57Fb
- 13zEd6shx/fEsVf9xKQscEcGkUxf19wxwG2I9vAtO8vMOJkNKNRG4/zVB
- e0ZJ40sQDHcAkvHFDZS+sQhh/UcP7V3RdJ1lJ2FNYEVvOeKr+D2njPaWN
- 5tf91kN2dodDVFeV6r03HgA6nN05dIwbxQ+tBD2iyB9ccwPoNEigua6nL
- 14hU0+CM77dS03DFxpNIlTkc0ehZpFtKeF/kplwb6JLMkBhfcR5C6es4y g==;
-X-CSE-ConnectionGUID: n3SCqTuUTvuE6p27X+dJCA==
-X-CSE-MsgGUID: dP2nPZqpSUe9fSiIkF/Sdg==
-X-IronPort-AV: E=McAfee;i="6700,10204,11263"; a="32230332"
-X-IronPort-AV: E=Sophos;i="6.12,172,1728975600"; d="scan'208";a="32230332"
+ bh=38WWoFe+/gmE3IaRzN3MHf2cYe0hS2/SnIF0//G5Mz0=;
+ b=bWbnvjGWg2W1ZEUETyJ/k9tZ4ERKnvp2SqBzfompijsxttcUIsfEgZyr
+ T4kl9g84uPcPo3e5eNlcAvQ+vJwOuOCW2+69X9RSnT+KRHST9pVfBiHLF
+ qEXHLj520wjJlpQc3yj8Yhve7D/qETf3azcHGv9I31k4PVVT3IotzOF8K
+ ZZo/i0apO+BMa5nAdZU1jZy+aSWe8ATkiq4prB5XpmSx0wJjhpao6I7w5
+ w4UVDEXdUmys4Kmy6xraBzXR9C0wGtHTfAfzL88/m8fX4gk4TlVA7RoWO
+ 8aArY/NC8UVkR82L+5X5d1wGzQ3Kb4NwlGhJOLduuNblWz/ldWHNb5UH/ g==;
+X-CSE-ConnectionGUID: hHB/q5+LTxCWDD+SviVQYQ==
+X-CSE-MsgGUID: 9Cua7uN6T3iT+9V2NkkMLQ==
+X-IronPort-AV: E=McAfee;i="6700,10204,11263"; a="32230350"
+X-IronPort-AV: E=Sophos;i="6.12,172,1728975600"; d="scan'208";a="32230350"
 Received: from orviesa001.jf.intel.com ([10.64.159.141])
  by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 21 Nov 2024 04:35:51 -0800
-X-CSE-ConnectionGUID: lZZmo0VyTzamMM7jqloLmQ==
-X-CSE-MsgGUID: RDvc7r3GR5auV2obcWeo+A==
+ 21 Nov 2024 04:35:55 -0800
+X-CSE-ConnectionGUID: f92lrm+cTaGGkwXxKiNBPQ==
+X-CSE-MsgGUID: I82e/p4MTUaVI0ocgBFm4Q==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.12,172,1728975600"; d="scan'208";a="127766002"
+X-IronPort-AV: E=Sophos;i="6.12,172,1728975600"; d="scan'208";a="127766022"
 Received: from srr4-3-linux-106-armuthy.iind.intel.com ([10.190.238.56])
- by orviesa001.jf.intel.com with ESMTP; 21 Nov 2024 04:35:49 -0800
+ by orviesa001.jf.intel.com with ESMTP; 21 Nov 2024 04:35:53 -0800
 From: Arun R Murthy <arun.r.murthy@intel.com>
 To: intel-xe@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
  dri-devel@lists.freedesktop.org
 Cc: Arun R Murthy <arun.r.murthy@intel.com>
-Subject: [PATCHv6 5/8] drm/i915/histogram: Add crtc properties for global
- histogram
-Date: Thu, 21 Nov 2024 17:56:00 +0530
-Message-Id: <20241121122603.736267-6-arun.r.murthy@intel.com>
+Subject: [PATCHv6 7/8] drm/i915/histogram: Histogram changes for Display 20+
+Date: Thu, 21 Nov 2024 17:56:02 +0530
+Message-Id: <20241121122603.736267-8-arun.r.murthy@intel.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20241121122603.736267-1-arun.r.murthy@intel.com>
 References: <20241121122603.736267-1-arun.r.murthy@intel.com>
@@ -68,393 +67,215 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-CRTC properties have been added for enable/disable histogram, reading
-the histogram data and writing the IET data.
-"HISTOGRAM_EN" is the crtc property to enable/disable the global
-histogram and takes a value 0/1 accordingly.
-"Histogram" is a crtc property to read the binary histogram data.
-"Global IET" is a crtc property to write the IET binary LUT data.
+In Display 20+, new registers are added for setting index, reading
+histogram and writing the IET.
 
-v2: Read the histogram blob data before sending uevent (Jani)
-v3: use drm_property_replace_blob_from_id (Vandita)
-    Add substruct for histogram in intel_crtc_state (Jani)
-v4:  Rebased after addressing comments on patch 1
-v5: histogram check with old/new crtc_state (Suraj)
-v6: Rebase
+v2: Removed duplicate code (Jani)
+v3: Moved histogram core changes to earlier patches (Jani/Suraj)
+v4: Rebased after addressing comments on patch 1
+v5: Added the retry logic from patch3 and rebased the patch series
+v6: optimize wite_iet() (Suraj)
 
 Signed-off-by: Arun R Murthy <arun.r.murthy@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_atomic.c   |   5 +
- drivers/gpu/drm/i915/display/intel_crtc.c     | 166 +++++++++++++++++-
- drivers/gpu/drm/i915/display/intel_crtc.h     |   5 +
- drivers/gpu/drm/i915/display/intel_display.c  |  16 ++
- .../drm/i915/display/intel_display_types.h    |  13 ++
- .../gpu/drm/i915/display/intel_histogram.c    |   6 +
- 6 files changed, 210 insertions(+), 1 deletion(-)
+ .../gpu/drm/i915/display/intel_histogram.c    | 105 +++++++++++++-----
+ .../drm/i915/display/intel_histogram_regs.h   |  25 +++++
+ 2 files changed, 103 insertions(+), 27 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_atomic.c b/drivers/gpu/drm/i915/display/intel_atomic.c
-index 03dc54c802d3..a0d64a20b01e 100644
---- a/drivers/gpu/drm/i915/display/intel_atomic.c
-+++ b/drivers/gpu/drm/i915/display/intel_atomic.c
-@@ -246,6 +246,8 @@ intel_crtc_duplicate_state(struct drm_crtc *crtc)
- 
- 	__drm_atomic_helper_crtc_duplicate_state(crtc, &crtc_state->uapi);
- 
-+	if (crtc_state->histogram.global_iet)
-+		drm_property_blob_get(crtc_state->histogram.global_iet);
- 	/* copy color blobs */
- 	if (crtc_state->hw.degamma_lut)
- 		drm_property_blob_get(crtc_state->hw.degamma_lut);
-@@ -278,6 +280,7 @@ intel_crtc_duplicate_state(struct drm_crtc *crtc)
- 	crtc_state->dsb_color_vblank = NULL;
- 	crtc_state->dsb_commit = NULL;
- 	crtc_state->use_dsb = false;
-+	crtc_state->histogram.histogram_enable_changed = false;
- 
- 	return &crtc_state->uapi;
- }
-@@ -314,6 +317,8 @@ intel_crtc_destroy_state(struct drm_crtc *crtc,
- 	drm_WARN_ON(crtc->dev, crtc_state->dsb_color_vblank);
- 	drm_WARN_ON(crtc->dev, crtc_state->dsb_commit);
- 
-+	if (crtc_state->histogram.global_iet)
-+		drm_property_blob_put(crtc_state->histogram.global_iet);
- 	__drm_atomic_helper_crtc_destroy_state(&crtc_state->uapi);
- 	intel_crtc_free_hw_state(crtc_state);
- 	if (crtc_state->dp_tunnel_ref.tunnel)
-diff --git a/drivers/gpu/drm/i915/display/intel_crtc.c b/drivers/gpu/drm/i915/display/intel_crtc.c
-index a2c528d707f4..2ace7a8c20d5 100644
---- a/drivers/gpu/drm/i915/display/intel_crtc.c
-+++ b/drivers/gpu/drm/i915/display/intel_crtc.c
-@@ -11,6 +11,7 @@
- #include <drm/drm_plane.h>
- #include <drm/drm_vblank.h>
- #include <drm/drm_vblank_work.h>
-+#include <drm/drm_atomic_uapi.h>
- 
- #include "i915_vgpu.h"
- #include "i9xx_plane.h"
-@@ -27,6 +28,7 @@
- #include "intel_drrs.h"
- #include "intel_dsi.h"
- #include "intel_fifo_underrun.h"
-+#include "intel_histogram.h"
- #include "intel_pipe_crc.h"
- #include "intel_psr.h"
- #include "intel_sprite.h"
-@@ -210,6 +212,7 @@ static struct intel_crtc *intel_crtc_alloc(void)
- static void intel_crtc_free(struct intel_crtc *crtc)
- {
- 	intel_crtc_destroy_state(&crtc->base, crtc->base.state);
-+	intel_histogram_finish(crtc);
- 	kfree(crtc);
- }
- 
-@@ -229,6 +232,64 @@ static int intel_crtc_late_register(struct drm_crtc *crtc)
- 	return 0;
- }
- 
-+static int intel_crtc_get_property(struct drm_crtc *crtc,
-+				   const struct drm_crtc_state *state,
-+				   struct drm_property *property,
-+				   uint64_t *val)
-+{
-+	const struct intel_crtc_state *intel_crtc_state =
-+		to_intel_crtc_state(state);
-+	struct intel_crtc *intel_crtc = to_intel_crtc(crtc);
-+
-+	if (property == intel_crtc->histogram_en_property) {
-+		*val = intel_crtc_state->histogram.histogram_enable;
-+	} else if (property == intel_crtc->global_iet_property) {
-+		*val = (intel_crtc_state->histogram.global_iet) ?
-+			intel_crtc_state->histogram.global_iet->base.id : 0;
-+	} else if (property == intel_crtc->histogram_property) {
-+		*val = (intel_crtc_state->histogram.histogram) ?
-+			intel_crtc_state->histogram.histogram->base.id : 0;
-+	} else {
-+		drm_err(crtc->dev,
-+			"Unknown property [PROP:%d:%s]\n",
-+			property->base.id, property->name);
-+		return -EINVAL;
-+	}
-+
-+	return 0;
-+}
-+
-+static int intel_crtc_set_property(struct drm_crtc *crtc,
-+				   struct drm_crtc_state *state,
-+				   struct drm_property *property,
-+				   u64 val)
-+{
-+	struct intel_crtc_state *intel_crtc_state =
-+		to_intel_crtc_state(state);
-+	struct intel_crtc *intel_crtc = to_intel_crtc(crtc);
-+	bool replaced = false;
-+
-+	if (property == intel_crtc->histogram_en_property) {
-+		intel_crtc_state->histogram.histogram_enable = val;
-+		return 0;
-+	}
-+
-+	if (property == intel_crtc->global_iet_property) {
-+		drm_property_replace_blob_from_id(crtc->dev,
-+						  &intel_crtc_state->histogram.global_iet,
-+						  val,
-+						  sizeof(uint32_t) * HISTOGRAM_IET_LENGTH,
-+						  -1, &replaced);
-+		if (replaced)
-+			intel_crtc_state->histogram.global_iet_changed = true;
-+		return 0;
-+	}
-+
-+	drm_dbg_atomic(crtc->dev, "Unknown property [PROP:%d:%s]\n",
-+		       property->base.id, property->name);
-+	return -EINVAL;
-+}
-+
- #define INTEL_CRTC_FUNCS \
- 	.set_config = drm_atomic_helper_set_config, \
- 	.destroy = intel_crtc_destroy, \
-@@ -238,7 +299,9 @@ static int intel_crtc_late_register(struct drm_crtc *crtc)
- 	.set_crc_source = intel_crtc_set_crc_source, \
- 	.verify_crc_source = intel_crtc_verify_crc_source, \
- 	.get_crc_sources = intel_crtc_get_crc_sources, \
--	.late_register = intel_crtc_late_register
-+	.late_register = intel_crtc_late_register, \
-+	.atomic_set_property = intel_crtc_set_property, \
-+	.atomic_get_property = intel_crtc_get_property
- 
- static const struct drm_crtc_funcs bdw_crtc_funcs = {
- 	INTEL_CRTC_FUNCS,
-@@ -383,6 +446,10 @@ int intel_crtc_init(struct drm_i915_private *dev_priv, enum pipe pipe)
- 	intel_color_crtc_init(crtc);
- 	intel_drrs_crtc_init(crtc);
- 	intel_crtc_crc_init(crtc);
-+	intel_histogram_init(crtc);
-+
-+	/* Initialize crtc properties */
-+	intel_crtc_add_property(crtc);
- 
- 	cpu_latency_qos_add_request(&crtc->vblank_pm_qos, PM_QOS_DEFAULT_VALUE);
- 
-@@ -737,3 +804,100 @@ void intel_pipe_update_end(struct intel_atomic_state *state,
- out:
- 	intel_psr_unlock(new_crtc_state);
- }
-+
-+static const struct drm_prop_enum_list histogram_enable_names[] = {
-+	{ INTEL_HISTOGRAM_DISABLE, "Disable" },
-+	{ INTEL_HISTOGRAM_ENABLE, "Enable" },
-+};
-+
-+/**
-+ * intel_attach_histogram_en_property() - add property to enable/disable histogram
-+ * @intel_crtc: pointer to the struct intel_crtc on which the global histogram is to
-+ *		be enabled/disabled
-+ *
-+ * "Histogram_Enable" is the crtc propety to enable/disable global histogram
-+ */
-+void intel_attach_histogram_en_property(struct intel_crtc *intel_crtc)
-+{
-+	struct drm_crtc *crtc = &intel_crtc->base;
-+	struct drm_device *dev = crtc->dev;
-+	struct drm_property *prop;
-+
-+	prop = intel_crtc->histogram_en_property;
-+	if (!prop) {
-+		prop = drm_property_create_enum(dev, 0,
-+						"Histogram_Enable",
-+						histogram_enable_names,
-+						ARRAY_SIZE(histogram_enable_names));
-+		if (!prop)
-+			return;
-+
-+		intel_crtc->histogram_en_property = prop;
-+	}
-+
-+	drm_object_attach_property(&crtc->base, prop, 0);
-+}
-+
-+/**
-+ * intel_attach_global_iet_property() - add property to write Image Enhancement data
-+ * @intel_crtc: pointer to the struct intel_crtc on which global histogram is enabled
-+ *
-+ * "Global IET" is the crtc property to write the Image Enhancement LUT binary data
-+ */
-+void intel_attach_global_iet_property(struct intel_crtc *intel_crtc)
-+{
-+	struct drm_crtc *crtc = &intel_crtc->base;
-+	struct drm_device *dev = crtc->dev;
-+	struct drm_property *prop;
-+
-+	prop = intel_crtc->global_iet_property;
-+	if (!prop) {
-+		prop = drm_property_create(dev, DRM_MODE_PROP_BLOB | DRM_MODE_PROP_ATOMIC,
-+					   "Global IET", 0);
-+		if (!prop)
-+			return;
-+
-+		intel_crtc->global_iet_property = prop;
-+	}
-+
-+	drm_object_attach_property(&crtc->base, prop, 0);
-+}
-+
-+/**
-+ * intel_attach_histogram_property() - crtc property to read the histogram.
-+ * @intel_crtc: pointer to the struct intel_crtc on which the global histogram
-+ *		was enabled.
-+ * "Global Histogram" is the crtc property to read the binary histogram data.
-+ */
-+void intel_attach_histogram_property(struct intel_crtc *intel_crtc)
-+{
-+	struct drm_crtc *crtc = &intel_crtc->base;
-+	struct drm_device *dev = crtc->dev;
-+	struct drm_property *prop;
-+	struct drm_property_blob *blob;
-+
-+	prop = intel_crtc->histogram_property;
-+	if (!prop) {
-+		prop = drm_property_create(dev, DRM_MODE_PROP_BLOB |
-+					   DRM_MODE_PROP_ATOMIC |
-+					   DRM_MODE_PROP_IMMUTABLE,
-+					   "Global Histogram", 0);
-+		if (!prop)
-+			return;
-+
-+		intel_crtc->histogram_property = prop;
-+	}
-+	blob = drm_property_create_blob(dev, sizeof(uint32_t) * HISTOGRAM_BIN_COUNT, NULL);
-+	intel_crtc->config->histogram.histogram = blob;
-+
-+	drm_object_attach_property(&crtc->base, prop, blob->base.id);
-+}
-+
-+int intel_crtc_add_property(struct intel_crtc *intel_crtc)
-+{
-+	intel_attach_histogram_en_property(intel_crtc);
-+	intel_attach_histogram_property(intel_crtc);
-+	intel_attach_global_iet_property(intel_crtc);
-+
-+	return 0;
-+}
-diff --git a/drivers/gpu/drm/i915/display/intel_crtc.h b/drivers/gpu/drm/i915/display/intel_crtc.h
-index de54ae1deedf..91c351506a6e 100644
---- a/drivers/gpu/drm/i915/display/intel_crtc.h
-+++ b/drivers/gpu/drm/i915/display/intel_crtc.h
-@@ -59,4 +59,9 @@ void intel_wait_for_vblank_if_active(struct drm_i915_private *i915,
- 				     enum pipe pipe);
- void intel_crtc_wait_for_next_vblank(struct intel_crtc *crtc);
- 
-+int intel_crtc_add_property(struct intel_crtc *intel_crtc);
-+void intel_attach_histogram_en_property(struct intel_crtc *intel_crtc);
-+void intel_attach_global_iet_property(struct intel_crtc *intel_crtc);
-+void intel_attach_histogram_property(struct intel_crtc *intel_crtc);
-+
- #endif
-diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
-index e790a2de5b3d..3ee462b479d4 100644
---- a/drivers/gpu/drm/i915/display/intel_display.c
-+++ b/drivers/gpu/drm/i915/display/intel_display.c
-@@ -93,6 +93,7 @@
- #include "intel_fifo_underrun.h"
- #include "intel_frontbuffer.h"
- #include "intel_hdmi.h"
-+#include "intel_histogram.h"
- #include "intel_hotplug.h"
- #include "intel_link_bw.h"
- #include "intel_lvds.h"
-@@ -4607,6 +4608,9 @@ static int intel_crtc_atomic_check(struct intel_atomic_state *state,
- 	if (ret)
- 		return ret;
- 
-+	if (crtc_state->histogram.histogram_enable_changed)
-+		return intel_histogram_atomic_check(crtc);
-+
- 	return 0;
- }
- 
-@@ -6826,6 +6830,11 @@ int intel_atomic_check(struct drm_device *dev,
- 		if (new_crtc_state->uapi.scaling_filter !=
- 		    old_crtc_state->uapi.scaling_filter)
- 			new_crtc_state->uapi.mode_changed = true;
-+
-+		/* Histogram updates */
-+		if (old_crtc_state->histogram.histogram_enable !=
-+		    new_crtc_state->histogram.histogram_enable)
-+			new_crtc_state->histogram.histogram_enable_changed = true;
- 	}
- 
- 	intel_vrr_check_modeset(state);
-@@ -7892,6 +7901,13 @@ static void intel_atomic_commit_tail(struct intel_atomic_state *state)
- 		 */
- 		old_crtc_state->dsb_color_vblank = fetch_and_zero(&new_crtc_state->dsb_color_vblank);
- 		old_crtc_state->dsb_commit = fetch_and_zero(&new_crtc_state->dsb_commit);
-+
-+		if (new_crtc_state->histogram.histogram_enable_changed)
-+			intel_histogram_update(crtc,
-+					       new_crtc_state->histogram.histogram_enable);
-+		if (new_crtc_state->histogram.global_iet_changed)
-+			intel_histogram_set_iet_lut(crtc,
-+						    (u32 *)new_crtc_state->histogram.global_iet->data);
- 	}
- 
- 	/* Underruns don't always raise interrupts, so check manually */
-diff --git a/drivers/gpu/drm/i915/display/intel_display_types.h b/drivers/gpu/drm/i915/display/intel_display_types.h
-index 351441efd10a..300e90998463 100644
---- a/drivers/gpu/drm/i915/display/intel_display_types.h
-+++ b/drivers/gpu/drm/i915/display/intel_display_types.h
-@@ -1306,6 +1306,15 @@ struct intel_crtc_state {
- 
- 	/* LOBF flag */
- 	bool has_lobf;
-+
-+	/* Histogram data */
-+	struct {
-+		int histogram_enable;
-+		struct drm_property_blob *global_iet;
-+		struct drm_property_blob *histogram;
-+		bool global_iet_changed;
-+		bool histogram_enable_changed;
-+	} histogram;
- };
- 
- enum intel_pipe_crc_source {
-@@ -1415,6 +1424,10 @@ struct intel_crtc {
- 	struct pm_qos_request vblank_pm_qos;
- 
- 	struct intel_histogram *histogram;
-+	/* HISTOGRAM properties */
-+	struct drm_property *histogram_en_property;
-+	struct drm_property *global_iet_property;
-+	struct drm_property *histogram_property;
- 
- #ifdef CONFIG_DEBUG_FS
- 	struct intel_pipe_crc pipe_crc;
 diff --git a/drivers/gpu/drm/i915/display/intel_histogram.c b/drivers/gpu/drm/i915/display/intel_histogram.c
-index 243469c8ea80..9148665747ff 100644
+index a64e778fface..db4bc60be557 100644
 --- a/drivers/gpu/drm/i915/display/intel_histogram.c
 +++ b/drivers/gpu/drm/i915/display/intel_histogram.c
-@@ -68,6 +68,11 @@ static void intel_histogram_handle_int_work(struct work_struct *work)
- 		     DPST_CTL_BIN_REG_FUNC_SEL | DPST_CTL_BIN_REG_MASK, 0);
+@@ -29,6 +29,37 @@ struct intel_histogram {
+ 	u32 bin_data[HISTOGRAM_BIN_COUNT];
+ };
+ 
++static void set_bin_index_0(struct intel_display *display, enum pipe pipe)
++{
++	if (DISPLAY_VER(display) >= 20)
++		intel_de_rmw(display, DPST_IE_INDEX(pipe),
++			     DPST_IE_BIN_INDEX_MASK, DPST_IE_BIN_INDEX(0));
++	else
++		intel_de_rmw(display, DPST_CTL(pipe),
++			     DPST_CTL_BIN_REG_MASK,
++			     DPST_CTL_BIN_REG_CLEAR);
++}
++
++static void write_iet(struct intel_display *display, enum pipe pipe,
++			      u32 *data)
++{
++	int i;
++
++	for (i = 0; i < HISTOGRAM_IET_LENGTH; i++) {
++		if (DISPLAY_VER(display) >= 20)
++			intel_de_rmw(display, DPST_IE_BIN(pipe),
++				     DPST_IE_BIN_DATA_MASK,
++				     DPST_IE_BIN_DATA(data[i]));
++		else
++			intel_de_rmw(display, DPST_BIN(pipe),
++				     DPST_BIN_DATA_MASK,
++				     DPST_BIN_DATA(data[i]));
++
++		drm_dbg_atomic(display->drm, "iet_lut[%d]=%x\n",
++			       i, data[i]);
++	}
++}
++
+ static bool intel_histogram_get_data(struct intel_crtc *intel_crtc)
+ {
+ 	struct intel_display *display = to_intel_display(intel_crtc);
+@@ -36,12 +67,27 @@ static bool intel_histogram_get_data(struct intel_crtc *intel_crtc)
+ 	int index;
+ 	u32 dpstbin;
+ 
++	if (DISPLAY_VER(display) >= 20)
++		intel_de_rmw(display, DPST_HIST_INDEX(intel_crtc->pipe),
++			     DPST_HIST_BIN_INDEX_MASK,
++			     DPST_HIST_BIN_INDEX(0));
++	else
++		intel_de_rmw(display, DPST_CTL(intel_crtc->pipe),
++			     DPST_CTL_BIN_REG_FUNC_SEL | DPST_CTL_BIN_REG_MASK, 0);
++
+ 	for (index = 0; index < ARRAY_SIZE(histogram->bin_data); index++) {
+-		dpstbin = intel_de_read(display, DPST_BIN(intel_crtc->pipe));
++		dpstbin = intel_de_read(display, (DISPLAY_VER(display) >= 20 ?
++					DPST_HIST_BIN(intel_crtc->pipe) :
++					DPST_BIN(intel_crtc->pipe)));
+ 		if (!(dpstbin & DPST_BIN_BUSY)) {
+-			histogram->bin_data[index] = dpstbin & DPST_BIN_DATA_MASK;
+-		} else
++			histogram->bin_data[index] = dpstbin & (DISPLAY_VER(display) >= 20 ?
++								DPST_HIST_BIN_DATA_MASK :
++								DPST_BIN_DATA_MASK);
++		} else {
++			drm_err(display->drm, "Histogram bin busy, retyring\n");
++			fsleep(2);
+ 			return false;
++		}
+ 	}
+ 	return true;
+ }
+@@ -69,8 +115,6 @@ static void intel_histogram_handle_int_work(struct work_struct *work)
+ 	 * Set DPST_CTL Bin Reg function select to TC
+ 	 * Set DPST_CTL Bin Register Index to 0
+ 	 */
+-	intel_de_rmw(display, DPST_CTL(intel_crtc->pipe),
+-		     DPST_CTL_BIN_REG_FUNC_SEL | DPST_CTL_BIN_REG_MASK, 0);
  	for (retry = 0; retry < HISTOGRAM_BIN_READ_RETRY_COUNT; retry++) {
  		if (intel_histogram_get_data(intel_crtc)) {
-+			drm_property_replace_global_blob(display->drm,
-+				&intel_crtc->config->histogram.histogram,
-+				sizeof(histogram->bin_data),
-+				histogram->bin_data, &intel_crtc->base.base,
-+				intel_crtc->histogram_property);
- 			/* Notify user for Histogram rediness */
- 			if (kobject_uevent_env(&display->drm->primary->kdev->kobj,
- 					       KOBJ_CHANGE, histogram_event))
-@@ -194,6 +199,7 @@ static void intel_histogram_disable(struct intel_crtc *intel_crtc)
+ 			drm_property_replace_global_blob(display->drm,
+@@ -153,15 +197,26 @@ static int intel_histogram_enable(struct intel_crtc *intel_crtc)
+ 	if (histogram->enable)
+ 		return 0;
  
- 	cancel_delayed_work(&histogram->work);
- 	histogram->enable = false;
-+	intel_crtc->config->histogram.histogram_enable = false;
+-	 /* enable histogram, clear DPST_CTL bin reg func select to TC */
+-	intel_de_rmw(display, DPST_CTL(pipe),
+-		     DPST_CTL_BIN_REG_FUNC_SEL | DPST_CTL_IE_HIST_EN |
+-		     DPST_CTL_HIST_MODE | DPST_CTL_IE_TABLE_VALUE_FORMAT |
+-		     DPST_CTL_ENHANCEMENT_MODE_MASK | DPST_CTL_IE_MODI_TABLE_EN,
+-		     DPST_CTL_BIN_REG_FUNC_TC | DPST_CTL_IE_HIST_EN |
+-		     DPST_CTL_HIST_MODE_HSV |
+-		     DPST_CTL_IE_TABLE_VALUE_FORMAT_1INT_9FRAC |
+-		     DPST_CTL_EN_MULTIPLICATIVE | DPST_CTL_IE_MODI_TABLE_EN);
++	 /* enable histogram, clear DPST_BIN reg and select TC function */
++	if (DISPLAY_VER(display) >= 20)
++		intel_de_rmw(display, DPST_CTL(pipe),
++			     DPST_CTL_IE_HIST_EN |
++			     DPST_CTL_HIST_MODE,
++			     DPST_CTL_IE_HIST_EN |
++			     DPST_CTL_HIST_MODE_HSV);
++	else
++		 /* enable histogram, clear DPST_BIN reg and select TC function */
++		intel_de_rmw(display, DPST_CTL(pipe),
++			     DPST_CTL_BIN_REG_FUNC_SEL | DPST_CTL_IE_HIST_EN |
++			     DPST_CTL_HIST_MODE |
++			     DPST_CTL_IE_TABLE_VALUE_FORMAT |
++			     DPST_CTL_ENHANCEMENT_MODE_MASK |
++			     DPST_CTL_IE_MODI_TABLE_EN,
++			     DPST_CTL_BIN_REG_FUNC_TC | DPST_CTL_IE_HIST_EN |
++			     DPST_CTL_HIST_MODE_HSV |
++			     DPST_CTL_IE_TABLE_VALUE_FORMAT_1INT_9FRAC |
++			     DPST_CTL_EN_MULTIPLICATIVE |
++			     DPST_CTL_IE_MODI_TABLE_EN);
+ 
+ 	/* Re-Visit: check if wait for one vblank is required */
+ 	drm_crtc_wait_one_vblank(&intel_crtc->base);
+@@ -230,7 +285,6 @@ int intel_histogram_set_iet_lut(struct intel_crtc *intel_crtc, u32 *data)
+ 	struct intel_histogram *histogram = intel_crtc->histogram;
+ 	struct intel_display *display = to_intel_display(intel_crtc);
+ 	int pipe = intel_crtc->pipe;
+-	int i = 0;
+ 
+ 	if (!histogram)
+ 		return -EINVAL;
+@@ -245,22 +299,19 @@ int intel_histogram_set_iet_lut(struct intel_crtc *intel_crtc, u32 *data)
+ 		return -EINVAL;
+ 	}
+ 
+-	/* Set DPST_CTL Bin Reg function select to IE & wait for a vblabk */
+-	intel_de_rmw(display, DPST_CTL(pipe),
+-		     DPST_CTL_BIN_REG_FUNC_SEL, DPST_CTL_BIN_REG_FUNC_IE);
+ 
+-	drm_crtc_wait_one_vblank(&intel_crtc->base);
++	if (DISPLAY_VER(display) < 20) {
++		/* Set DPST_CTL Bin Reg function select to IE & wait for a vblabk */
++		intel_de_rmw(display, DPST_CTL(pipe),
++			     DPST_CTL_BIN_REG_FUNC_SEL,
++			     DPST_CTL_BIN_REG_FUNC_IE);
+ 
+-	 /* Set DPST_CTL Bin Register Index to 0 */
+-	intel_de_rmw(display, DPST_CTL(pipe),
+-		     DPST_CTL_BIN_REG_MASK, DPST_CTL_BIN_REG_CLEAR);
+-
+-	for (i = 0; i < HISTOGRAM_IET_LENGTH; i++) {
+-		intel_de_rmw(display, DPST_BIN(pipe),
+-			     DPST_BIN_DATA_MASK, data[i]);
+-		drm_dbg_atomic(display->drm, "iet_lut[%d]=%x\n", i, data[i]);
++		drm_crtc_wait_one_vblank(&intel_crtc->base);
+ 	}
+ 
++	set_bin_index_0(display, pipe);
++	write_iet(display, pipe, data);
++
+ 	return 0;
  }
  
- int intel_histogram_update(struct intel_crtc *intel_crtc, bool enable)
+diff --git a/drivers/gpu/drm/i915/display/intel_histogram_regs.h b/drivers/gpu/drm/i915/display/intel_histogram_regs.h
+index 213c9f483567..3fbb9c2deaae 100644
+--- a/drivers/gpu/drm/i915/display/intel_histogram_regs.h
++++ b/drivers/gpu/drm/i915/display/intel_histogram_regs.h
+@@ -45,6 +45,31 @@
+ #define _DPST_BIN_B					0x491C4
+ #define DPST_BIN(pipe)					_MMIO_PIPE(pipe, _DPST_BIN_A, _DPST_BIN_B)
+ #define  DPST_BIN_DATA_MASK				REG_GENMASK(23, 0)
++#define  DPST_BIN_DATA(val)				REG_FIELD_PREP(DPST_BIN_DATA_MASK, val)
+ #define  DPST_BIN_BUSY					REG_BIT(31)
+ 
++#define _DPST_HIST_INDEX_A				0x490D8
++#define _DPST_HIST_INDEX_B				0x491D8
++#define DPST_HIST_INDEX(pipe)				_MMIO_PIPE(pipe, _DPST_HIST_INDEX_A, _DPST_HIST_INDEX_B)
++#define  DPST_HIST_BIN_INDEX_MASK			REG_GENMASK(4, 0)
++#define  DPST_HIST_BIN_INDEX(val)			REG_FIELD_PREP(DPST_HIST_BIN_INDEX_MASK, val)
++
++#define _DPST_HIST_BIN_A				0x490C4
++#define _DPST_HIST_BIN_B				0x491C4
++#define DPST_HIST_BIN(pipe)				_MMIO_PIPE(pipe, _DPST_HIST_BIN_A, _DPST_HIST_BIN_B)
++#define  DPST_HIST_BIN_BUSY				REG_BIT(31)
++#define  DPST_HIST_BIN_DATA_MASK				REG_GENMASK(30, 0)
++
++#define _DPST_IE_BIN_A					0x490CC
++#define _DPST_IE_BIN_B					0x491CC
++#define DPST_IE_BIN(pipe)				_MMIO_PIPE(pipe, _DPST_IE_BIN_A, _DPST_IE_BIN_B)
++#define	 DPST_IE_BIN_DATA_MASK				REG_GENMASK(9, 0)
++#define  DPST_IE_BIN_DATA(val)				REG_FIELD_PREP(DPST_IE_BIN_DATA_MASK, val)
++
++#define _DPST_IE_INDEX_A				0x490DC
++#define _DPST_IE_INDEX_B				0x491DC
++#define DPST_IE_INDEX(pipe)				_MMIO_PIPE(pipe, _DPST_IE_INDEX_A, _DPST_IE_INDEX_B)
++#define  DPST_IE_BIN_INDEX_MASK				REG_GENMASK(6, 0)
++#define  DPST_IE_BIN_INDEX(val)				REG_FIELD_PREP(DPST_IE_BIN_INDEX_MASK, val)
++
+ #endif /* __INTEL_HISTOGRAM_REGS_H__ */
 -- 
 2.25.1
 
