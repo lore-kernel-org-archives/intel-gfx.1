@@ -4,45 +4,69 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 33E38D58069
-	for <intel-gfx@archiver.kernel.org>; Mon, 25 Nov 2024 11:58:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F1A37D5806C
+	for <intel-gfx@archiver.kernel.org>; Mon, 25 Nov 2024 11:58:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7A9AA10E16F;
-	Mon, 25 Nov 2024 11:58:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7AF7710E27A;
+	Mon, 25 Nov 2024 11:58:26 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=163.com header.i=@163.com header.b="hl/n0tBo";
+	dkim=pass (2048-bit key; unprotected) header.d=google.com header.i=@google.com header.b="11OyKElO";
 	dkim-atps=neutral
-X-Greylist: delayed 2706 seconds by postgrey-1.36 at gabe;
- Wed, 20 Nov 2024 13:19:08 UTC
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.5])
- by gabe.freedesktop.org (Postfix) with ESMTP id 615FF10E2BC;
- Wed, 20 Nov 2024 13:19:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
- s=s110527; h=From:Subject:Date:Message-ID:MIME-Version; bh=37yF9
- G6eKri9JMrWKD22xa5kGkbLDMghqYrX4j4s5F0=; b=hl/n0tBomqkwCcNr+GqBO
- D6JRTysO7jOZ0YKoDRwTWRNXGygk5Qu/vlw0wYf3AG7CS2Fd434MMWLsGH5UI3b+
- 1sEAdzLLRBlQhNxIvvAM7TSgZSCU3uOTI1XMFY7mkgIvHHdhlrdULU3IC14d/d9S
- ExJSvxd0ogcDUCmPAZFnIo=
-Received: from localhost.localdomain (unknown [183.14.215.87])
- by gzsmtp4 (Coremail) with SMTP id PygvCgCHzJYz1z1nW++6EA--.42732S2;
- Wed, 20 Nov 2024 20:33:55 +0800 (CST)
-From: Zhang He <zhanghe9702@163.com>
-To: rodrigo.vivi@intel.com
-Cc: intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- Zhang He <zhanghe9702@163.com>
-Subject: [PATCH] drm/i915: Fixed an typo in i915_gem_gtt.c
-Date: Wed, 20 Nov 2024 20:32:45 +0800
-Message-ID: <20241120123245.71101-1-zhanghe9702@163.com>
-X-Mailer: git-send-email 2.43.0
+Received: from mail-pl1-f182.google.com (mail-pl1-f182.google.com
+ [209.85.214.182])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DC2CB10E609
+ for <intel-gfx@lists.freedesktop.org>; Mon, 25 Nov 2024 11:24:16 +0000 (UTC)
+Received: by mail-pl1-f182.google.com with SMTP id
+ d9443c01a7336-211f1b2bf2bso220015ad.1
+ for <intel-gfx@lists.freedesktop.org>; Mon, 25 Nov 2024 03:24:16 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=google.com; s=20230601; t=1732533856; x=1733138656;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=/WB5Yd+GaXL/vqtCcIkpWFnAJUBKP7YdRREqRaARM2Y=;
+ b=11OyKElOYAVlfGvZJsEsXM42C1RMQxR3g2EXEuBcl8sJXctMCCi3AEbqMw4A6xctOK
+ xYwVBi4SjvoSGAW61hsdhUVXChK+a0GhcSsLV90Vn5ovZJn7a2j5qchnLhP7cG/V2Wz0
+ d21m9ggwd7DS9wnbC/xZ/vLvNWcJ2acUaf2s8PPh0IHGJa4Y4zVV7juH3TOxy8G7gdf4
+ gOifo2tDU3RDm1pQhJSGnlR4PHnT4DO8/p8jLxPFLFsBcczNMFPzZTB1NfaIuNNvNxkK
+ VXzPMHEbalVLI08x1nCWb3AHaA4r9Y2Dc45gOSZhZVvy/hZwewISo37MDN/MXLYttlyv
+ Ja7A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1732533856; x=1733138656;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=/WB5Yd+GaXL/vqtCcIkpWFnAJUBKP7YdRREqRaARM2Y=;
+ b=unye+dMztMLOTpKBMUaKYigG42oIMKp9wHbBHL90H/zpWWUjs3acF7daqacq4DdhsC
+ TKAgyRbNEwaDV7QQocu3XB0VxkRDMt7s6cxSKPQyBA6pF7Fpx/sU/oTue5GkjlDitLAG
+ ZjfX9VVF58IbOZ0p8ZrFayBR2ek6bhzoWovN016czgSDd6OjTjk40txNA2eEwO1U5/Sc
+ NM6nixs2YYD3Rq8F7pr+6enAKx7KYuf9pxYI9jKxo5/BS+92zdT6sJ/CLm1qDSmCmTOI
+ hphx3EVyD+FIRPhyuwvPAef0+TZo+ckYmORRkVvxgsbmK+TDqgpgFR4MvBlGSuwtQ9w9
+ 7FfQ==
+X-Gm-Message-State: AOJu0Yx+1Kf/Sp89cunBoaP+pXBVm69GrK1s9a3QM+yLKikov19NENTa
+ VSy/4L4qlPuDH3uj6pf6EjboiRdBw5b/TcBiwKoLt9FtY8hKXVUizVgYx6KtFAIZGlIkv0O6egU
+ Z7egoGTPkXY8pMA6Tu6wzA9sEL+Ia/BdbOB8HMgM0k0V1efyNfn9w8Pk=
+X-Gm-Gg: ASbGncuU39qHIack5JDMX51wcgNRVPZWpwiNVlYCcujyRr3p9UawVgds3hnKhA7iMul
+ 0FVXYTV09BEElg7ifMC2gCFBsZxiOXf//HQ==
+X-Google-Smtp-Source: AGHT+IH61qmp3JJnfYF4kV+B4ylIpU3fCRVvWApA1DU8Ho/bNJR2PCL0VBwKRFp1wmx5Y1i3cAVg6PCKty1xcX84lV4=
+X-Received: by 2002:a17:903:144b:b0:20c:e8df:2500 with SMTP id
+ d9443c01a7336-2149dd8c982mr3321425ad.3.1732533856168; Mon, 25 Nov 2024
+ 03:24:16 -0800 (PST)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID: PygvCgCHzJYz1z1nW++6EA--.42732S2
-X-Coremail-Antispam: 1Uf129KBjvdXoW7Wr4xAw4UAF1rWw4DuFyUKFg_yoWDAwcEka
- y7ZryxG3yjyFsY9FZ8Cw4avF9Yyas5ur48Cw18tas3Jr9rAr1DXr97ZryUJr4xGFW5XF1D
- X3WkXF9Iyr9rGjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
- 9fnUUvcSsGvfC2KfnxnUUI43ZEXa7sR_a9a3UUUUU==
-X-Originating-IP: [183.14.215.87]
-X-CM-SenderInfo: x2kd0wlkhzliqs6rljoofrz/1tbiWwSdamc91sYG0gAAs2
+References: <20241125062804.412536-1-vidya.srinivas@intel.com>
+ <20241125062804.412536-2-vidya.srinivas@intel.com>
+In-Reply-To: <20241125062804.412536-2-vidya.srinivas@intel.com>
+From: Brian Geffon <bgeffon@google.com>
+Date: Mon, 25 Nov 2024 20:23:39 +0900
+Message-ID: <CADyq12yoA2=eHNxnNibKvNw6+A81XyAXvq_8KRh+AHeoNfOZFw@mail.gmail.com>
+Subject: Re: [PATCH 2/2] [RFC] drm/i915: Unbind the vma in suspend if it was
+ bound
+To: Vidya Srinivas <vidya.srinivas@intel.com>
+Cc: intel-gfx@lists.freedesktop.org, ville.syrjala@intel.com, 
+ ville.syrjala@linux.intel.com, shawn.c.lee@intel.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-Mailman-Approved-At: Mon, 25 Nov 2024 11:58:23 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -59,27 +83,51 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-in function `i915_gem_gtt_reserve` @node comment,
-i915_vma has no `mode` member, `i915_vma.node` is the correct name
+On Mon, Nov 25, 2024 at 3:51=E2=80=AFPM Vidya Srinivas <vidya.srinivas@inte=
+l.com> wrote:
+>
+> In i915_ggtt_suspend_vm, if the vma was bound, the path
+> to unbind/evict is not hitting during suspend. This is
+> causing issues with DPT where DPT gets shrunk but the
+> framebuffer is still on the DPT's bound list. This
+> causes system reboot in some scenarios of suspend/resume
+> where it tries to rewrite the PTEs via a stale mapping.
+>
+> Signed-off-by: Vidya Srinivas <vidya.srinivas@intel.com>
+> ---
+>  drivers/gpu/drm/i915/gt/intel_ggtt.c | 8 +++-----
+>  1 file changed, 3 insertions(+), 5 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/i915/gt/intel_ggtt.c b/drivers/gpu/drm/i915/=
+gt/intel_ggtt.c
+> index d60a6ca0cae5..8499aa12a787 100644
+> --- a/drivers/gpu/drm/i915/gt/intel_ggtt.c
+> +++ b/drivers/gpu/drm/i915/gt/intel_ggtt.c
+> @@ -157,13 +157,11 @@ void i915_ggtt_suspend_vm(struct i915_address_space=
+ *vm)
+>                         goto retry;
+>                 }
+>
+> -               if (!i915_vma_is_bound(vma, I915_VMA_GLOBAL_BIND)) {
+> +               if (!i915_vma_is_bound(vma, I915_VMA_GLOBAL_BIND))
+>                         i915_vma_wait_for_bind(vma);
+>
+> -                       __i915_vma_evict(vma, false);
+> -                       drm_mm_remove_node(&vma->node);
+> -               }
+> -
+> +               __i915_vma_evict(vma, false);
+> +               drm_mm_remove_node(&vma->node);
+>                 i915_gem_object_unlock(obj);
+>         }
 
-Signed-off-by: Zhang He <zhanghe9702@163.com>
----
- drivers/gpu/drm/i915/i915_gem_gtt.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+I think all you need is in the else path of if
+(!i915_vma_is_bound(vma, I915_VMA_GLOBAL_BIND)) is a call to
+__i915_vma_unbind(vma)
 
-diff --git a/drivers/gpu/drm/i915/i915_gem_gtt.c b/drivers/gpu/drm/i915/i915_gem_gtt.c
-index a9662cc6ed1e..25295eb626dc 100644
---- a/drivers/gpu/drm/i915/i915_gem_gtt.c
-+++ b/drivers/gpu/drm/i915/i915_gem_gtt.c
-@@ -71,7 +71,7 @@ void i915_gem_gtt_finish_pages(struct drm_i915_gem_object *obj,
-  * i915_gem_gtt_reserve - reserve a node in an address_space (GTT)
-  * @vm: the &struct i915_address_space
-  * @ww: An optional struct i915_gem_ww_ctx.
-- * @node: the &struct drm_mm_node (typically i915_vma.mode)
-+ * @node: the &struct drm_mm_node (typically i915_vma.node)
-  * @size: how much space to allocate inside the GTT,
-  *        must be #I915_GTT_PAGE_SIZE aligned
-  * @offset: where to insert inside the GTT,
--- 
-2.43.0
+But we need Ville to confirm this makes sense?
 
+>
+> --
+> 2.34.1
+>
