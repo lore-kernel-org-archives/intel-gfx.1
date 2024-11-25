@@ -4,53 +4,27 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D0552D3B7E1
-	for <intel-gfx@archiver.kernel.org>; Mon, 25 Nov 2024 06:51:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2721BD3B7E1
+	for <intel-gfx@archiver.kernel.org>; Mon, 25 Nov 2024 07:40:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A2CE610E1B5;
-	Mon, 25 Nov 2024 06:51:55 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="PWQSEl42";
-	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 88A4A10E151
- for <intel-gfx@lists.freedesktop.org>; Mon, 25 Nov 2024 06:51:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1732517514; x=1764053514;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=swR7AAk63JIuneNcpRQhFP2DKjIS3sVTZ2Y5r2JLig4=;
- b=PWQSEl42IY2N6wzZBa5NvqxtjjNH6p+hGUUU4Mft0WyrBHMpxn+iER72
- ZdWXPRbiIIZ5BwCbJpoquVX41RfZ7aHhDaX5jYqwatmfQEPMPVOxTxXLF
- /p3oTw7l9jEcYb48WzE1tSjfpjXZL3NhW7zoXbuWatv3aT8Z3FvSRxXbq
- WahsBCfBioTrzbEggiwOMp770GQGoV4CH/5/ghxmEX7/h5Oqfi4YlrZn8
- ZNOmAh/uH1h6QOOLERQJ75BgbiNtVId/OgqkSoUCL6xuslg5CjoYDBm/p
- fYxpEJhGPWyKjxBuNESZar7w+orU1lhOHlAUGhXV4LVz54j0nUEEHHzcM Q==;
-X-CSE-ConnectionGUID: 8pMs91kFR/O4EoNAk51FmA==
-X-CSE-MsgGUID: Emqf9p1DRKG1HrD1k7F0hg==
-X-IronPort-AV: E=McAfee;i="6700,10204,11266"; a="43105888"
-X-IronPort-AV: E=Sophos;i="6.12,182,1728975600"; d="scan'208";a="43105888"
-Received: from fmviesa006.fm.intel.com ([10.60.135.146])
- by orvoesa103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 24 Nov 2024 22:51:51 -0800
-X-CSE-ConnectionGUID: C07ej8KtR0SV9wEJqxBGfA==
-X-CSE-MsgGUID: TddbmPRmRcuBYWpzEaoxhQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.12,182,1728975600"; d="scan'208";a="90802679"
-Received: from vsrini4-xps-8920.iind.intel.com (HELO localhost.localdomain)
- ([10.99.123.50])
- by fmviesa006.fm.intel.com with ESMTP; 24 Nov 2024 22:51:49 -0800
-From: Vidya Srinivas <vidya.srinivas@intel.com>
-To: intel-gfx@lists.freedesktop.org
-Cc: ville.syrjala@intel.com, ville.syrjala@linux.intel.com, bgeffon@google.com,
- shawn.c.lee@intel.com, Vidya Srinivas <vidya.srinivas@intel.com>
-Subject: [PATCH 1/2] Revert "drm/i915/dpt: Make DPT object unshrinkable"
-Date: Mon, 25 Nov 2024 11:58:03 +0530
-Message-Id: <20241125062804.412536-1-vidya.srinivas@intel.com>
-X-Mailer: git-send-email 2.34.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id C83A110E156;
+	Mon, 25 Nov 2024 07:40:42 +0000 (UTC)
+Received: from b555e5b46a47 (emeril.freedesktop.org [131.252.210.167])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E964910E156;
+ Mon, 25 Nov 2024 07:40:40 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
+Subject: =?utf-8?q?=E2=9C=97_Fi=2ECI=2ESPARSE=3A_warning_for_series_starting_with_=5B?=
+ =?utf-8?q?1/2=5D_Revert_=22drm/i915/dpt=3A_Make_DPT_object_unshrinkable=22?=
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Vidya Srinivas" <vidya.srinivas@intel.com>
+Cc: intel-gfx@lists.freedesktop.org
+Date: Mon, 25 Nov 2024 07:40:40 -0000
+Message-ID: <173252044097.2743201.3056976445990460191@b555e5b46a47>
+X-Patchwork-Hint: ignore
+References: <20241125062804.412536-1-vidya.srinivas@intel.com>
+In-Reply-To: <20241125062804.412536-1-vidya.srinivas@intel.com>
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,34 +37,20 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Reason for revert: Restricting the DPT object to not be
-shrunk makes some chromebooks run out of memory and
-causes DMA remap failures.
+== Series Details ==
 
-This reverts commit 43e2b37e2ab660c3565d4cff27922bc70e79c3f1.
-Signed-off-by: Vidya Srinivas <vidya.srinivas@intel.com>
----
- drivers/gpu/drm/i915/gem/i915_gem_object.h | 4 +---
- 1 file changed, 1 insertion(+), 3 deletions(-)
+Series: series starting with [1/2] Revert "drm/i915/dpt: Make DPT object unshrinkable"
+URL   : https://patchwork.freedesktop.org/series/141739/
+State : warning
 
-diff --git a/drivers/gpu/drm/i915/gem/i915_gem_object.h b/drivers/gpu/drm/i915/gem/i915_gem_object.h
-index 3dc61cbd2e11..bb713e096db2 100644
---- a/drivers/gpu/drm/i915/gem/i915_gem_object.h
-+++ b/drivers/gpu/drm/i915/gem/i915_gem_object.h
-@@ -283,9 +283,7 @@ bool i915_gem_object_has_iomem(const struct drm_i915_gem_object *obj);
- static inline bool
- i915_gem_object_is_shrinkable(const struct drm_i915_gem_object *obj)
- {
--	/* TODO: make DPT shrinkable when it has no bound vmas */
--	return i915_gem_object_type_has(obj, I915_GEM_OBJECT_IS_SHRINKABLE) &&
--		!obj->is_dpt;
-+	return i915_gem_object_type_has(obj, I915_GEM_OBJECT_IS_SHRINKABLE);
- }
- 
- static inline bool
--- 
-2.34.1
+== Summary ==
+
+Error: dim sparse failed
+Sparse version: v0.6.2
+Fast mode used, each commit won't be checked separately.
+
 
