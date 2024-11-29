@@ -4,53 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4164BD729EE
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EE61AD729E7
 	for <intel-gfx@archiver.kernel.org>; Fri, 29 Nov 2024 16:40:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D98E810E53C;
-	Fri, 29 Nov 2024 16:40:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 894D110E541;
+	Fri, 29 Nov 2024 16:40:32 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="a9FM1/0s";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="PvkNo6jx";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.18])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2E58D10E533;
- Fri, 29 Nov 2024 16:40:27 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2C07110E539;
+ Fri, 29 Nov 2024 16:40:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1732898427; x=1764434427;
+ t=1732898430; x=1764434430;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=KnI4igaOSsxAu7V+pgHxHN9ELxMvZ5WZhf0ujZ/Q4YA=;
- b=a9FM1/0sWbosLNk9gjl6kB27PzrH2VkdxaPsk1QX29w2LAxLNhuheaF7
- 4kZPomEu1zsoZ+O2Nxfady8EArnxrrgFq60xadavznM8i3mgS92Dopa2i
- 5CEU+PKSV7mN6loZ96Jj1PIG+6Ef2AInFfSjVEIDPXMGnyKUp4i/q71NO
- fnupDU7KEBW389msZrEZrMujD0a5WTHPeb4YTqfFZVrGR7N7zh6EaX7Qh
- 54AQGJe58udzylIGQJ+N1zeNeazdLICgPGcIyyeoENItn0M3aI1fT4KY6
- LV7nKqyTdaSSAjhwcOSt0M+kFuywdumLVFAUGCfoJDKnTlBlquuoLeXSJ Q==;
-X-CSE-ConnectionGUID: /xSL0KNgSa2JUXn6Lbz6EA==
-X-CSE-MsgGUID: O/+NRtAXRYyXP6aNK/vEtA==
-X-IronPort-AV: E=McAfee;i="6700,10204,11271"; a="33291172"
-X-IronPort-AV: E=Sophos;i="6.12,196,1728975600"; d="scan'208";a="33291172"
+ bh=nKrKvg9lKHS/Cxhtp9+NYa7UCrI/cqI0uquD/oLdFGA=;
+ b=PvkNo6jx27LGubk02W43/0OtyD86mK1p4tMvrb9DqM4dWc4RGNbGoQph
+ R+VY7zqn0dSM3D26zyhbU43mqo5lh628VS6mmXef5gU9sM+jrLhXUTdu7
+ p3bWWrXaJOR1wn02TPcV4L29jlZRx0QqwhmpEUkGu20htA8mV4xBURC3m
+ dnzdL4CAZz74e3maDZz45N1/XKcJaEh/tKoFYC7vzyzuKhSUWW6eYlFYk
+ 60fx4QzDTNrmoLqdThI3i55nbf2ZjpOqj+k88L4nZZ1MAnl7Be6VMDjip
+ o11p01bUOwASAIULTE/T6Ab3kTJyWcehmpFOw/ZodgIlRVH4vFWsHX3Ri A==;
+X-CSE-ConnectionGUID: 0CJGZ2f5QBKD0xJLdmDOKA==
+X-CSE-MsgGUID: kke7qyVeRIeKrtVoydGPvg==
+X-IronPort-AV: E=McAfee;i="6700,10204,11271"; a="33291178"
+X-IronPort-AV: E=Sophos;i="6.12,196,1728975600"; d="scan'208";a="33291178"
 Received: from fmviesa005.fm.intel.com ([10.60.135.145])
  by orvoesa110.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 29 Nov 2024 08:40:27 -0800
-X-CSE-ConnectionGUID: 0GvgBnRiSAi4tPK9UvxQCg==
-X-CSE-MsgGUID: LC+/3EybS6e6BfCrEI5rGw==
+ 29 Nov 2024 08:40:30 -0800
+X-CSE-ConnectionGUID: SNPzBBENQum7PwFPiBFIQQ==
+X-CSE-MsgGUID: PTKRZaTMT/ao8C9Zi2wONQ==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.12,196,1728975600"; d="scan'208";a="96956924"
+X-IronPort-AV: E=Sophos;i="6.12,196,1728975600"; d="scan'208";a="96956945"
 Received: from eamartin-mobl1.amr.corp.intel.com (HELO
  gjsousa-mobl2.corp.amr.intel.com) ([10.125.111.90])
  by fmviesa005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 29 Nov 2024 08:40:26 -0800
+ 29 Nov 2024 08:40:29 -0800
 From: Gustavo Sousa <gustavo.sousa@intel.com>
 To: intel-xe@lists.freedesktop.org,
 	intel-gfx@lists.freedesktop.org
 Cc: Luca Coelho <luciano.coelho@intel.com>,
  Rodrigo Vivi <rodrigo.vivi@intel.com>
-Subject: [PATCH v2 1/3] drm/i915/dmc_wl: Extract
- intel_dmc_wl_flush_release_work()
-Date: Fri, 29 Nov 2024 13:37:54 -0300
-Message-ID: <20241129164010.29887-2-gustavo.sousa@intel.com>
+Subject: [PATCH v2 3/3] drm/xe/display: Flush DMC wakelock release work on
+ runtime suspend
+Date: Fri, 29 Nov 2024 13:37:56 -0300
+Message-ID: <20241129164010.29887-4-gustavo.sousa@intel.com>
 X-Mailer: git-send-email 2.47.0
 In-Reply-To: <20241129164010.29887-1-gustavo.sousa@intel.com>
 References: <20241129164010.29887-1-gustavo.sousa@intel.com>
@@ -71,58 +71,57 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-We will need to flush the release work from outside in an upcoming
-change. Let's put that into a public interface and call it
-intel_dmc_wl_flush_release_work().
+We currently are not calling display runtime suspend functions when
+D3cold is not allowed. Because of that, we end up not disabling dynamic
+DC states (and do not go to DC9). With dynamic DC states enabled, we
+will also have DMC wakelock enabled. Since we use a delayed work to
+release the DMC wakelock, the work might get executed a little too late
+(after the PCI device has been put to D3hot) and we get a timeout
+warning ("DMC wakelock release timed out") because the MMIO for
+releasing the wakelock will be invalid after that point.
+
+To fix that, make sure we flush the release work at the end of
+xe_display_pm_runtime_suspend_late(). We can do that unconditionally
+because, if there is no pending work, that turns into a no-op.
 
 Signed-off-by: Gustavo Sousa <gustavo.sousa@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_dmc_wl.c | 12 +++++++++++-
- drivers/gpu/drm/i915/display/intel_dmc_wl.h |  1 +
- 2 files changed, 12 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/xe/display/xe_display.c | 10 ++++++++++
+ 1 file changed, 10 insertions(+)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_dmc_wl.c b/drivers/gpu/drm/i915/display/intel_dmc_wl.c
-index 853d75610489..09075830c12f 100644
---- a/drivers/gpu/drm/i915/display/intel_dmc_wl.c
-+++ b/drivers/gpu/drm/i915/display/intel_dmc_wl.c
-@@ -349,7 +349,7 @@ void intel_dmc_wl_disable(struct intel_display *display)
- 	if (!__intel_dmc_wl_supported(display))
+diff --git a/drivers/gpu/drm/xe/display/xe_display.c b/drivers/gpu/drm/xe/display/xe_display.c
+index 739db5b7b01f..eec91ab1b311 100644
+--- a/drivers/gpu/drm/xe/display/xe_display.c
++++ b/drivers/gpu/drm/xe/display/xe_display.c
+@@ -22,6 +22,7 @@
+ #include "intel_display_irq.h"
+ #include "intel_display_types.h"
+ #include "intel_dmc.h"
++#include "intel_dmc_wl.h"
+ #include "intel_dp.h"
+ #include "intel_encoder.h"
+ #include "intel_fbdev.h"
+@@ -409,11 +410,20 @@ void xe_display_pm_suspend_late(struct xe_device *xe)
+ 
+ void xe_display_pm_runtime_suspend_late(struct xe_device *xe)
+ {
++	struct intel_display *display = &xe->display;
++
+ 	if (!xe->info.probe_display)
  		return;
  
--	flush_delayed_work(&wl->work);
+ 	if (xe->d3cold.allowed)
+ 		xe_display_pm_suspend_late(xe);
++
++	/*
++	 * If xe_display_pm_suspend_late() is not called, it is likely
++	 * that we will be on dynamic DC states with DMC wakelock enabled. We
++	 * need to flush the release work in that case.
++	 */
 +	intel_dmc_wl_flush_release_work(display);
- 
- 	spin_lock_irqsave(&wl->lock, flags);
- 
-@@ -377,6 +377,16 @@ void intel_dmc_wl_disable(struct intel_display *display)
- 	spin_unlock_irqrestore(&wl->lock, flags);
  }
  
-+void intel_dmc_wl_flush_release_work(struct intel_display *display)
-+{
-+	struct intel_dmc_wl *wl = &display->wl;
-+
-+	if (!__intel_dmc_wl_supported(display))
-+		return;
-+
-+	flush_delayed_work(&wl->work);
-+}
-+
- void intel_dmc_wl_get(struct intel_display *display, i915_reg_t reg)
- {
- 	struct intel_dmc_wl *wl = &display->wl;
-diff --git a/drivers/gpu/drm/i915/display/intel_dmc_wl.h b/drivers/gpu/drm/i915/display/intel_dmc_wl.h
-index 147eeb4d8432..5488fbdf29b8 100644
---- a/drivers/gpu/drm/i915/display/intel_dmc_wl.h
-+++ b/drivers/gpu/drm/i915/display/intel_dmc_wl.h
-@@ -32,6 +32,7 @@ struct intel_dmc_wl {
- void intel_dmc_wl_init(struct intel_display *display);
- void intel_dmc_wl_enable(struct intel_display *display, u32 dc_state);
- void intel_dmc_wl_disable(struct intel_display *display);
-+void intel_dmc_wl_flush_release_work(struct intel_display *display);
- void intel_dmc_wl_get(struct intel_display *display, i915_reg_t reg);
- void intel_dmc_wl_put(struct intel_display *display, i915_reg_t reg);
- void intel_dmc_wl_get_noreg(struct intel_display *display);
+ void xe_display_pm_shutdown_late(struct xe_device *xe)
 -- 
 2.47.0
 
