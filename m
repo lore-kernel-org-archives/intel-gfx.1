@@ -4,24 +4,24 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0A572D6EBE2
-	for <intel-gfx@archiver.kernel.org>; Fri, 29 Nov 2024 07:11:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EFB77D6EBE2
+	for <intel-gfx@archiver.kernel.org>; Fri, 29 Nov 2024 07:11:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8ADE010EDC1;
-	Fri, 29 Nov 2024 07:11:27 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8815410EDA9;
+	Fri, 29 Nov 2024 07:11:30 +0000 (UTC)
 Received: from b555e5b46a47 (emeril.freedesktop.org [131.252.210.167])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 34D2710EDBC;
- Fri, 29 Nov 2024 07:11:27 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9BD2310EDA9;
+ Fri, 29 Nov 2024 07:11:29 +0000 (UTC)
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
-Subject: =?utf-8?q?=E2=9C=97_Fi=2ECI=2ECHECKPATCH=3A_warning_for_drm/i915/fb=3A_Deal_?=
- =?utf-8?q?with_Mesa_clear_color_alignment_regression?=
+Subject: =?utf-8?q?=E2=9C=97_Fi=2ECI=2ESPARSE=3A_warning_for_drm/i915/fb=3A_Deal_with?=
+ =?utf-8?q?_Mesa_clear_color_alignment_regression?=
 From: Patchwork <patchwork@emeril.freedesktop.org>
 To: "Ville Syrjala" <ville.syrjala@linux.intel.com>
 Cc: intel-gfx@lists.freedesktop.org
-Date: Fri, 29 Nov 2024 07:11:27 -0000
-Message-ID: <173286428721.195692.7114859107035145306@b555e5b46a47>
+Date: Fri, 29 Nov 2024 07:11:29 -0000
+Message-ID: <173286428963.195692.9613244692321228549@b555e5b46a47>
 X-Patchwork-Hint: ignore
 References: <20241129065014.8363-1-ville.syrjala@linux.intel.com>
 In-Reply-To: <20241129065014.8363-1-ville.syrjala@linux.intel.com>
@@ -49,13 +49,8 @@ State : warning
 
 == Summary ==
 
-Error: dim checkpatch failed
-a1a9f5ac1652 drm/i915/fb: Relax clear color alignment to 64 bytes
--:46: WARNING:MISSING_FIXES_TAG: The commit message has 'stable@', perhaps it also needs a 'Fixes:' tag?
-
-total: 0 errors, 1 warnings, 0 checks, 8 lines checked
-5cd042bbf0d6 drm/i915/fb: Add debug spew for misaligned CC plane
-431ff26d3da2 drm/i915/fb: Check that the clear color fits within the BO
-da40a1d24b60 drm/uapi/fourcc: Document the Intel clear color alignment better
+Error: dim sparse failed
+Sparse version: v0.6.2
+Fast mode used, each commit won't be checked separately.
 
 
