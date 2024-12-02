@@ -4,27 +4,54 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A87F0D4979F
-	for <intel-gfx@archiver.kernel.org>; Mon,  2 Dec 2024 06:52:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A1C1AD10DB4
+	for <intel-gfx@archiver.kernel.org>; Mon,  2 Dec 2024 08:06:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 54E1410E41A;
-	Mon,  2 Dec 2024 06:52:10 +0000 (UTC)
-Received: from b555e5b46a47 (emeril.freedesktop.org [131.252.210.167])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C961B10E41A;
- Mon,  2 Dec 2024 06:52:09 +0000 (UTC)
-Content-Type: text/plain; charset="utf-8"
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3D27710E643;
+	Mon,  2 Dec 2024 08:06:09 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="fqFyweGi";
+	dkim-atps=neutral
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E120410E643
+ for <intel-gfx@lists.freedesktop.org>; Mon,  2 Dec 2024 08:06:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1733126769; x=1764662769;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=V3gbn+dTqEgT8JRX69hn64xhZB5hMmKnZ/qEDcnOL0E=;
+ b=fqFyweGi3rj1xk3UMsX+iPp7igNuWASj31/f9HW7b+LpbvhXSbjVH2Ts
+ Iuw/8To9Ky1Z8n4UpkcEY+fnIwGQoONTq6zeR97TzQf1W+PBCDdggrj/p
+ 82bdinD3PGv3IED3VzB0Xnr/OKmbjOGiNoBSW/RtvbmN2O7Z74OCh/N46
+ F815YejUm4ZYVUDJUEIytlLm3VzuwoPPtG77LGsS/26gWX1IOwwdOB4I3
+ jVUX3t2MJR58UbBTTdHUmg25GuXLuWOuOm+hC4Udn5bd49rE070xXTtR0
+ 8v7UaFK2R2zn4mdAsdIYIIvGp6RAX0eEyzL9Z8UgRVKOk6hqybvL2CZjC w==;
+X-CSE-ConnectionGUID: Vxm85gZVQg6YL19869rpRA==
+X-CSE-MsgGUID: YSWs1cnMR2CKmkMrifV6wg==
+X-IronPort-AV: E=McAfee;i="6700,10204,11273"; a="50694383"
+X-IronPort-AV: E=Sophos;i="6.12,201,1728975600"; d="scan'208";a="50694383"
+Received: from fmviesa008.fm.intel.com ([10.60.135.148])
+ by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 02 Dec 2024 00:06:09 -0800
+X-CSE-ConnectionGUID: Qw0htUmpR5uEsxpslr+5nQ==
+X-CSE-MsgGUID: Tb36BNxiTPGB4tDiILmGZw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.12,201,1728975600"; d="scan'208";a="93212325"
+Received: from srr4-3-linux-101-amanna.iind.intel.com ([10.223.74.76])
+ by fmviesa008.fm.intel.com with ESMTP; 02 Dec 2024 00:06:07 -0800
+From: Animesh Manna <animesh.manna@intel.com>
+To: intel-gfx@lists.freedesktop.org
+Cc: jouni.hogander@intel.com, jeevan.b@intel.com,
+ Animesh Manna <animesh.manna@intel.com>
+Subject: [PATCH 1/2] drm/i915/lobf: Add lobf enablement in post plane update
+Date: Mon,  2 Dec 2024 13:16:13 +0530
+Message-Id: <20241202074615.3601692-2-animesh.manna@intel.com>
+X-Mailer: git-send-email 2.29.0
+In-Reply-To: <20241202074615.3601692-1-animesh.manna@intel.com>
+References: <20241202074615.3601692-1-animesh.manna@intel.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Subject: =?utf-8?q?=E2=9C=97_i915=2ECI=2EBAT=3A_failure_for_drm/i915/hdcp=3A_Change_l?=
- =?utf-8?q?og_level_for_HDMI_HDCP_LIC_check_=28rev3=29?=
-From: Patchwork <patchwork@emeril.freedesktop.org>
-To: "Suraj Kandpal" <suraj.kandpal@intel.com>
-Cc: intel-gfx@lists.freedesktop.org
-Date: Mon, 02 Dec 2024 06:52:09 -0000
-Message-ID: <173312232981.1538326.8134679955982785469@b555e5b46a47>
-X-Patchwork-Hint: ignore
-References: <20241129090530.1814774-1-suraj.kandpal@intel.com>
-In-Reply-To: <20241129090530.1814774-1-suraj.kandpal@intel.com>
+Content-Transfer-Encoding: 8bit
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -37,142 +64,94 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-== Series Details ==
+Enablement of LOBF is added in post plane update whenever
+has_lobf flag is set. As LOBF can be enabled in non-psr
+case as well so adding in post plane update. There is no
+change of configuring alpm with psr path.
 
-Series: drm/i915/hdcp: Change log level for HDMI HDCP LIC check (rev3)
-URL   : https://patchwork.freedesktop.org/series/141867/
-State : failure
+Signed-off-by: Animesh Manna <animesh.manna@intel.com>
+---
+ drivers/gpu/drm/i915/display/intel_alpm.c    | 19 +++++++++++++++++++
+ drivers/gpu/drm/i915/display/intel_alpm.h    |  4 ++++
+ drivers/gpu/drm/i915/display/intel_display.c |  3 +++
+ 3 files changed, 26 insertions(+)
 
-== Summary ==
+diff --git a/drivers/gpu/drm/i915/display/intel_alpm.c b/drivers/gpu/drm/i915/display/intel_alpm.c
+index 55f3ae1e68c9..45865a8d1dd2 100644
+--- a/drivers/gpu/drm/i915/display/intel_alpm.c
++++ b/drivers/gpu/drm/i915/display/intel_alpm.c
+@@ -367,6 +367,25 @@ void intel_alpm_configure(struct intel_dp *intel_dp,
+ 	lnl_alpm_configure(intel_dp, crtc_state);
+ }
+ 
++void intel_alpm_post_plane_update(struct intel_atomic_state *state,
++				  struct intel_crtc *crtc)
++{
++	struct intel_display *display = to_intel_display(state);
++	const struct intel_crtc_state *crtc_state =
++		intel_atomic_get_new_crtc_state(state, crtc);
++	struct intel_encoder *encoder;
++
++	if (!crtc_state->has_lobf)
++		return;
++
++	for_each_intel_dp(display->drm, encoder) {
++		struct intel_dp *intel_dp = enc_to_intel_dp(encoder);
++
++		if (intel_dp_is_edp(intel_dp))
++			intel_alpm_configure(intel_dp, crtc_state);
++	}
++}
++
+ static int i915_edp_lobf_info_show(struct seq_file *m, void *data)
+ {
+ 	struct intel_connector *connector = m->private;
+diff --git a/drivers/gpu/drm/i915/display/intel_alpm.h b/drivers/gpu/drm/i915/display/intel_alpm.h
+index 8c409b10dce6..2f862b0476a8 100644
+--- a/drivers/gpu/drm/i915/display/intel_alpm.h
++++ b/drivers/gpu/drm/i915/display/intel_alpm.h
+@@ -12,6 +12,8 @@ struct intel_dp;
+ struct intel_crtc_state;
+ struct drm_connector_state;
+ struct intel_connector;
++struct intel_atomic_state;
++struct intel_crtc;
+ 
+ void intel_alpm_init_dpcd(struct intel_dp *intel_dp);
+ bool intel_alpm_compute_params(struct intel_dp *intel_dp,
+@@ -21,6 +23,8 @@ void intel_alpm_lobf_compute_config(struct intel_dp *intel_dp,
+ 				    struct drm_connector_state *conn_state);
+ void intel_alpm_configure(struct intel_dp *intel_dp,
+ 			  const struct intel_crtc_state *crtc_state);
++void intel_alpm_post_plane_update(struct intel_atomic_state *state,
++				  struct intel_crtc *crtc);
+ void intel_alpm_lobf_debugfs_add(struct intel_connector *connector);
+ bool intel_alpm_aux_wake_supported(struct intel_dp *intel_dp);
+ bool intel_alpm_aux_less_wake_supported(struct intel_dp *intel_dp);
+diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
+index a0351c97c445..d279029e90f6 100644
+--- a/drivers/gpu/drm/i915/display/intel_display.c
++++ b/drivers/gpu/drm/i915/display/intel_display.c
+@@ -55,6 +55,7 @@
+ #include "i9xx_plane.h"
+ #include "i9xx_plane_regs.h"
+ #include "i9xx_wm.h"
++#include "intel_alpm.h"
+ #include "intel_atomic.h"
+ #include "intel_atomic_plane.h"
+ #include "intel_audio.h"
+@@ -1185,6 +1186,8 @@ static void intel_post_plane_update(struct intel_atomic_state *state,
+ 
+ 	intel_psr_post_plane_update(state, crtc);
+ 
++	intel_alpm_post_plane_update(state, crtc);
++
+ 	intel_frontbuffer_flip(dev_priv, new_crtc_state->fb_bits);
+ 
+ 	if (new_crtc_state->update_wm_post && new_crtc_state->hw.active)
+-- 
+2.29.0
 
-CI Bug Log - changes from CI_DRM_15764 -> Patchwork_141867v3
-====================================================
-
-Summary
--------
-
-  **FAILURE**
-
-  Serious unknown changes coming with Patchwork_141867v3 absolutely need to be
-  verified manually.
-  
-  If you think the reported changes have nothing to do with the changes
-  introduced in Patchwork_141867v3, please notify your bug team (I915-ci-infra@lists.freedesktop.org) to allow them
-  to document this new failure mode, which will reduce false positives in CI.
-
-  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_141867v3/index.html
-
-Participating hosts (46 -> 45)
-------------------------------
-
-  Missing    (1): fi-snb-2520m 
-
-Possible new issues
--------------------
-
-  Here are the unknown changes that may have been introduced in Patchwork_141867v3:
-
-### IGT changes ###
-
-#### Possible regressions ####
-
-  * igt@i915_selftest@live:
-    - fi-pnv-d510:        NOTRUN -> [INCOMPLETE][1] +1 other test incomplete
-   [1]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_141867v3/fi-pnv-d510/igt@i915_selftest@live.html
-
-  
-Known issues
-------------
-
-  Here are the changes found in Patchwork_141867v3 that come from known issues:
-
-### IGT changes ###
-
-#### Issues hit ####
-
-  * igt@i915_pm_rpm@module-reload:
-    - bat-rpls-4:         [PASS][2] -> [FAIL][3] ([i915#12903])
-   [2]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_15764/bat-rpls-4/igt@i915_pm_rpm@module-reload.html
-   [3]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_141867v3/bat-rpls-4/igt@i915_pm_rpm@module-reload.html
-
-  * igt@kms_psr@psr-primary-mmap-gtt:
-    - fi-pnv-d510:        NOTRUN -> [SKIP][4] +31 other tests skip
-   [4]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_141867v3/fi-pnv-d510/igt@kms_psr@psr-primary-mmap-gtt.html
-
-  
-#### Possible fixes ####
-
-  * igt@dmabuf@all-tests:
-    - bat-apl-1:          [INCOMPLETE][5] ([i915#12904]) -> [PASS][6] +1 other test pass
-   [5]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_15764/bat-apl-1/igt@dmabuf@all-tests.html
-   [6]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_141867v3/bat-apl-1/igt@dmabuf@all-tests.html
-
-  * igt@i915_pm_rpm@module-reload:
-    - bat-dg1-7:          [FAIL][7] ([i915#12903]) -> [PASS][8]
-   [7]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_15764/bat-dg1-7/igt@i915_pm_rpm@module-reload.html
-   [8]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_141867v3/bat-dg1-7/igt@i915_pm_rpm@module-reload.html
-
-  * igt@i915_selftest@live:
-    - bat-mtlp-8:         [ABORT][9] ([i915#12061]) -> [PASS][10] +1 other test pass
-   [9]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_15764/bat-mtlp-8/igt@i915_selftest@live.html
-   [10]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_141867v3/bat-mtlp-8/igt@i915_selftest@live.html
-
-  * igt@kms_busy@basic@modeset:
-    - {bat-mtlp-9}:       [DMESG-WARN][11] ([i915#12695]) -> [PASS][12] +4 other tests pass
-   [11]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_15764/bat-mtlp-9/igt@kms_busy@basic@modeset.html
-   [12]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_141867v3/bat-mtlp-9/igt@kms_busy@basic@modeset.html
-
-  * igt@kms_flip@basic-flip-vs-dpms@a-dp1:
-    - bat-apl-1:          [DMESG-WARN][13] ([i915#12921]) -> [PASS][14] +1 other test pass
-   [13]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_15764/bat-apl-1/igt@kms_flip@basic-flip-vs-dpms@a-dp1.html
-   [14]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_141867v3/bat-apl-1/igt@kms_flip@basic-flip-vs-dpms@a-dp1.html
-
-  
-#### Warnings ####
-
-  * igt@gem_exec_gttfill@basic:
-    - fi-pnv-d510:        [ABORT][15] ([i915#13169]) -> [SKIP][16]
-   [15]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_15764/fi-pnv-d510/igt@gem_exec_gttfill@basic.html
-   [16]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_141867v3/fi-pnv-d510/igt@gem_exec_gttfill@basic.html
-
-  
-  {name}: This element is suppressed. This means it is ignored when computing
-          the status of the difference (SUCCESS, WARNING, or FAILURE).
-
-  [i915#10216]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/10216
-  [i915#11681]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/11681
-  [i915#12061]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/12061
-  [i915#12695]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/12695
-  [i915#12903]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/12903
-  [i915#12904]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/12904
-  [i915#12921]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/12921
-  [i915#13169]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/13169
-  [i915#3555]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/3555
-  [i915#3708]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/3708
-  [i915#3840]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/3840
-  [i915#4077]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/4077
-  [i915#4613]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/4613
-  [i915#5274]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/5274
-  [i915#6621]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/6621
-  [i915#8809]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/8809
-  [i915#9159]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/9159
-  [i915#9688]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/9688
-
-
-Build changes
--------------
-
-  * Linux: CI_DRM_15764 -> Patchwork_141867v3
-
-  CI-20190529: 20190529
-  CI_DRM_15764: 9b0aa1ea1d6b35c6eb7e641e5b81b33c297ca4ff @ git://anongit.freedesktop.org/gfx-ci/linux
-  IGT_8132: 7675e070cb74c6808050764367f978f6b74ebc36 @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git
-  Patchwork_141867v3: 9b0aa1ea1d6b35c6eb7e641e5b81b33c297ca4ff @ git://anongit.freedesktop.org/gfx-ci/linux
-
-== Logs ==
-
-For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_141867v3/index.html
