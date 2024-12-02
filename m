@@ -4,45 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 00CB0E6689A
-	for <intel-gfx@archiver.kernel.org>; Tue,  3 Dec 2024 09:56:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B539EE67493
+	for <intel-gfx@archiver.kernel.org>; Tue,  3 Dec 2024 09:56:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3B76E10E9BE;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 429A210E9BF;
 	Tue,  3 Dec 2024 09:56:31 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="rJoAowSx";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="mbv/N+QL";
 	dkim-atps=neutral
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5A22C10E7F4;
+Received: from nyc.source.kernel.org (nyc.source.kernel.org [147.75.193.91])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8F1E010E75D;
  Mon,  2 Dec 2024 17:35:06 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id 4ABB25C5FC0;
- Mon,  2 Dec 2024 17:34:22 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPS id B6AFFC4CEDF;
+ by nyc.source.kernel.org (Postfix) with ESMTP id B8F6BA41081;
+ Mon,  2 Dec 2024 17:33:12 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 7D9C2C4CED1;
  Mon,  2 Dec 2024 17:35:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
  s=k20201202; t=1733160904;
- bh=XFZ/ReIcnrUD50vCJZHFqXxOz1HrqXseDp2bfbIhVEs=;
+ bh=otRfIIpR9ke8jKx0T5rYqZgdrJ75ZS57/Fik5wYJ77g=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
- b=rJoAowSx1LVP7Btyr5lB+8xAdHd7iP7/JAEPrrfN3Xk7muPKGT0/iepah+m+/jhba
- Ar74BLMFdFjoY6XfhjnKewDWfDbbNWm8KYhpPdmtR2c2uI1UoMu+gcUuSlNiVE2y5C
- cLzPppN5gmQTXbxsUODrezXWUbzKIUKreCWfcnGpNv2fMKpniPb2PWEjRBFVycjnqw
- +Px5hGZDoxjmwuxyNrSYJlgdwGWpKd7HSDVJ0o3CXNlMYqxpUOmzvzH4PZ+3tlPI/n
- qt8BcDigGGcCkkUpKS8OkwRHfN7edpW8csZ9LebomUgjbSxuaK0Xl8HZmJN/u+6al8
- HnaEvpg18+ZYQ==
+ b=mbv/N+QLcgtpQR8QD3+Ebo0ZkA7L0mv7KOGi59I1rnrkhoHvWWt1ejgoGG0hn3cQH
+ 7vY0bEpghsh4bdGKfDPWkJgjgE9H1kbPj3okgFTgy7GsQ5nHdE7+BlS4CfYCtp+olK
+ IxHhytNs+RjNxOecYykd2M4jLLUkudPct9tMAWZ31vqh51ucXMeaL2xLFjw4duIFDw
+ maNwAvLXVHp5++7gPZAAkp9asgFSy/lVIQgrV/RYVoGKbVqtKt/DGnAwPQJVU+dLvv
+ OQNeCRsZUu9f3KQ7My3boRoQ7P4tB3aYMYuiHyP2HChG+NdQkCk0tLHRZQHijwMmM6
+ fzSDVM2CqMrSQ==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org
  (localhost.localdomain [127.0.0.1])
- by smtp.lore.kernel.org (Postfix) with ESMTP id A7656D7833E;
+ by smtp.lore.kernel.org (Postfix) with ESMTP id 6DAD4D7833C;
  Mon,  2 Dec 2024 17:35:04 +0000 (UTC)
 From: Vincent Mailhol via B4 Relay
  <devnull+mailhol.vincent.wanadoo.fr@kernel.org>
-Date: Tue, 03 Dec 2024 02:33:30 +0900
-Subject: [PATCH 08/10] drm/i915/reg: replace __is_const_expr() by
- is_const_true() or is_const()
+Date: Tue, 03 Dec 2024 02:33:28 +0900
+Subject: [PATCH 06/10] fortify: replace __is_constexpr() by is_const() in
+ strlen()
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20241203-is_constexpr-refactor-v1-8-4e4cbaecc216@wanadoo.fr>
+Message-Id: <20241203-is_constexpr-refactor-v1-6-4e4cbaecc216@wanadoo.fr>
 References: <20241203-is_constexpr-refactor-v1-0-4e4cbaecc216@wanadoo.fr>
 In-Reply-To: <20241203-is_constexpr-refactor-v1-0-4e4cbaecc216@wanadoo.fr>
 To: Linus Torvalds <torvalds@linux-foundation.org>, 
@@ -69,13 +69,13 @@ Cc: linux-sparse@vger.kernel.org, linux-kernel@vger.kernel.org,
  coresight@lists.linaro.org, linux-arm-kernel@lists.infradead.org, 
  Vincent Mailhol <mailhol.vincent@wanadoo.fr>
 X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=6558;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1072;
  i=mailhol.vincent@wanadoo.fr; h=from:subject:message-id;
- bh=IT41eIS+OIIsRMdNS4yKlf8V72ofU+yIl1OolUa3zxc=;
- b=owGbwMvMwCV2McXO4Xp97WbG02pJDOm+748G+l5SvWBYeEcwf3ZH9lTPGKdm67Bt3/tZLGav/
- 10qOqOto5SFQYyLQVZMkWVZOSe3Qkehd9ihv5Ywc1iZQIYwcHEKwESexjIyLH55gHdrk2cszxbF
- xhXdX74eKihrm/W6N9dCbd7DwkLng4wM65yVF6n33pSYytozo6h2wxde748zo9jPf1NZx+O44VI
- lOwA=
+ bh=jMI6GLWGOq2qwprnzsUGV4xG+9C9iHAQ1IPi4ZG8B0k=;
+ b=owGbwMvMwCV2McXO4Xp97WbG02pJDOm+749+/rqPW6pvpu+W2UzTPlgk/hDbmVItMcnU/8kTl
+ hNartOudJSyMIhxMciKKbIsK+fkVugo9A479NcSZg4rE8gQBi5OAZiIaBsjw/wOdQfrmY9Kw6X+
+ neVT9cwNVGdRL0772611cXrWBz25mQx/RT0nvEo4NlP8lov1Q74UufJwLg3WJUzZSUkaeZNe+69
+ lBQA=
 X-Developer-Key: i=mailhol.vincent@wanadoo.fr; a=openpgp;
  fpr=ED8F700574E67F20E574E8E2AB5FEB886DBB99C2
 X-Endpoint-Received: by B4 Relay for mailhol.vincent@wanadoo.fr/default
@@ -100,152 +100,29 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 From: Vincent Mailhol <mailhol.vincent@wanadoo.fr>
 
-Most of the use of __is_const_expr() in i915_reg_defs.h are just to
-test whether an expression is known to be true. Because those checks
-are all done in a BUILD_BUG_ON_ZERO(), replace those with
-is_const_true().
-
-Replace the few other occurrences of __is_const_expr() with is_const().
+is_const() is a one to one replacement of __is_constexpr(). Do the
+replacement so that __is_constexpr() can be removed.
 
 Signed-off-by: Vincent Mailhol <mailhol.vincent@wanadoo.fr>
 ---
- drivers/gpu/drm/i915/i915_reg_defs.h | 47 +++++++++++++++++-------------------
- 1 file changed, 22 insertions(+), 25 deletions(-)
+ include/linux/fortify-string.h | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/i915_reg_defs.h b/drivers/gpu/drm/i915/i915_reg_defs.h
-index e251bcc0c89f5710125bc70f07851b2cb978c89c..6ed2fb9cf506a3bd6467ba30f9d0e863d62762f3 100644
---- a/drivers/gpu/drm/i915/i915_reg_defs.h
-+++ b/drivers/gpu/drm/i915/i915_reg_defs.h
-@@ -19,8 +19,7 @@
+diff --git a/include/linux/fortify-string.h b/include/linux/fortify-string.h
+index 0d99bf11d260a3482bbe46e35c7553c0ccfb8b94..e3f2f772c5439ef71eb4a904b4ce27956bc69743 100644
+--- a/include/linux/fortify-string.h
++++ b/include/linux/fortify-string.h
+@@ -254,8 +254,8 @@ __FORTIFY_INLINE __kernel_size_t strnlen(const char * const POS p, __kernel_size
+  * Returns number of characters in @p (NOT including the final NUL).
+  *
   */
- #define REG_BIT(__n)							\
- 	((u32)(BIT(__n) +						\
--	       BUILD_BUG_ON_ZERO(__is_constexpr(__n) &&		\
--				 ((__n) < 0 || (__n) > 31))))
-+	       BUILD_BUG_ON_ZERO(is_const_true((__n) < 0 || (__n) > 31))))
- 
- /**
-  * REG_BIT8() - Prepare a u8 bit value
-@@ -32,8 +31,7 @@
-  */
- #define REG_BIT8(__n)                                                   \
- 	((u8)(BIT(__n) +                                                \
--	       BUILD_BUG_ON_ZERO(__is_constexpr(__n) &&         \
--				 ((__n) < 0 || (__n) > 7))))
-+	      BUILD_BUG_ON_ZERO(is_const_true((__n) < 0 || (__n) > 7))))
- 
- /**
-  * REG_GENMASK() - Prepare a continuous u32 bitmask
-@@ -46,9 +44,9 @@
-  */
- #define REG_GENMASK(__high, __low)					\
- 	((u32)(GENMASK(__high, __low) +					\
--	       BUILD_BUG_ON_ZERO(__is_constexpr(__high) &&	\
--				 __is_constexpr(__low) &&		\
--				 ((__low) < 0 || (__high) > 31 || (__low) > (__high)))))
-+	       BUILD_BUG_ON_ZERO(is_const_true((__low) < 0 ||		\
-+					       (__high) > 31 ||		\
-+					       (__low) > (__high)))))
- 
- /**
-  * REG_GENMASK64() - Prepare a continuous u64 bitmask
-@@ -61,9 +59,9 @@
-  */
- #define REG_GENMASK64(__high, __low)					\
- 	((u64)(GENMASK_ULL(__high, __low) +				\
--	       BUILD_BUG_ON_ZERO(__is_constexpr(__high) &&		\
--				 __is_constexpr(__low) &&		\
--				 ((__low) < 0 || (__high) > 63 || (__low) > (__high)))))
-+	       BUILD_BUG_ON_ZERO(is_const_true((__low) < 0 ||		\
-+					       (__high) > 63 ||		\
-+					       (__low) > (__high)))))
- 
- /**
-  * REG_GENMASK8() - Prepare a continuous u8 bitmask
-@@ -76,9 +74,9 @@
-  */
- #define REG_GENMASK8(__high, __low)                                     \
- 	((u8)(GENMASK(__high, __low) +                                  \
--	       BUILD_BUG_ON_ZERO(__is_constexpr(__high) &&      \
--				 __is_constexpr(__low) &&               \
--				 ((__low) < 0 || (__high) > 7 || (__low) > (__high)))))
-+	      BUILD_BUG_ON_ZERO(is_const_true((__low) < 0 ||            \
-+					      (__high) > 7 ||           \
-+					      (__low) > (__high)))))
- 
- /*
-  * Local integer constant expression version of is_power_of_2().
-@@ -97,10 +95,10 @@
-  */
- #define REG_FIELD_PREP(__mask, __val)						\
- 	((u32)((((typeof(__mask))(__val) << __bf_shf(__mask)) & (__mask)) +	\
--	       BUILD_BUG_ON_ZERO(!__is_constexpr(__mask)) +		\
-+	       BUILD_BUG_ON_ZERO(!is_const(__mask)) +				\
- 	       BUILD_BUG_ON_ZERO((__mask) == 0 || (__mask) > U32_MAX) +		\
- 	       BUILD_BUG_ON_ZERO(!IS_POWER_OF_2((__mask) + (1ULL << __bf_shf(__mask)))) + \
--	       BUILD_BUG_ON_ZERO(__builtin_choose_expr(__is_constexpr(__val), (~((__mask) >> __bf_shf(__mask)) & (__val)), 0))))
-+	       BUILD_BUG_ON_ZERO(is_const_true(~((__mask) >> __bf_shf(__mask)) & (__val)))))
- 
- /**
-  * REG_FIELD_PREP8() - Prepare a u8 bitfield value
-@@ -114,10 +112,10 @@
-  */
- #define REG_FIELD_PREP8(__mask, __val)                                          \
- 	((u8)((((typeof(__mask))(__val) << __bf_shf(__mask)) & (__mask)) +      \
--	       BUILD_BUG_ON_ZERO(!__is_constexpr(__mask)) +             \
-+	       BUILD_BUG_ON_ZERO(!is_const(__mask)) +                           \
- 	       BUILD_BUG_ON_ZERO((__mask) == 0 || (__mask) > U8_MAX) +          \
- 	       BUILD_BUG_ON_ZERO(!IS_POWER_OF_2((__mask) + (1ULL << __bf_shf(__mask)))) + \
--	       BUILD_BUG_ON_ZERO(__builtin_choose_expr(__is_constexpr(__val), (~((__mask) >> __bf_shf(__mask)) & (__val)), 0))))
-+	       BUILD_BUG_ON_ZERO(is_const_true(~((__mask) >> __bf_shf(__mask)) & (__val)))))
- 
- /**
-  * REG_FIELD_GET() - Extract a u32 bitfield value
-@@ -154,8 +152,7 @@
-  */
- #define REG_BIT16(__n)                                                   \
- 	((u16)(BIT(__n) +                                                \
--	       BUILD_BUG_ON_ZERO(__is_constexpr(__n) &&         \
--				 ((__n) < 0 || (__n) > 15))))
-+	       BUILD_BUG_ON_ZERO(is_const_true((__n) < 0 || (__n) > 15))))
- 
- /**
-  * REG_GENMASK16() - Prepare a continuous u8 bitmask
-@@ -169,9 +166,9 @@
-  */
- #define REG_GENMASK16(__high, __low)                                     \
- 	((u16)(GENMASK(__high, __low) +                                  \
--	       BUILD_BUG_ON_ZERO(__is_constexpr(__high) &&      \
--				 __is_constexpr(__low) &&               \
--				 ((__low) < 0 || (__high) > 15 || (__low) > (__high)))))
-+	       BUILD_BUG_ON_ZERO(is_const_true((__low) < 0 ||            \
-+					       (__high) > 15 ||          \
-+					       (__low) > (__high)))))
- 
- /**
-  * REG_FIELD_PREP16() - Prepare a u16 bitfield value
-@@ -186,10 +183,10 @@
-  */
- #define REG_FIELD_PREP16(__mask, __val)                                          \
- 	((u16)((((typeof(__mask))(__val) << __bf_shf(__mask)) & (__mask)) +      \
--	       BUILD_BUG_ON_ZERO(!__is_constexpr(__mask)) +             \
-+	       BUILD_BUG_ON_ZERO(!is_const(__mask)) +                            \
- 	       BUILD_BUG_ON_ZERO((__mask) == 0 || (__mask) > U16_MAX) +          \
- 	       BUILD_BUG_ON_ZERO(!IS_POWER_OF_2((__mask) + (1ULL << __bf_shf(__mask)))) + \
--	       BUILD_BUG_ON_ZERO(__builtin_choose_expr(__is_constexpr(__val), (~((__mask) >> __bf_shf(__mask)) & (__val)), 0))))
-+	       BUILD_BUG_ON_ZERO(is_const_true(~((__mask) >> __bf_shf(__mask)) & (__val)))))
- 
- #define __MASKED_FIELD(mask, value) ((mask) << 16 | (value))
- #define _MASKED_FIELD(mask, value) ({					   \
-@@ -237,7 +234,7 @@
-  *	...
-  */
- #define _PICK_EVEN_2RANGES(__index, __c_index, __a, __b, __c, __d)		\
--	(BUILD_BUG_ON_ZERO(!__is_constexpr(__c_index)) +			\
-+	(BUILD_BUG_ON_ZERO(!is_const(__c_index)) +				\
- 	 ((__index) < (__c_index) ? _PICK_EVEN(__index, __a, __b) :		\
- 				   _PICK_EVEN((__index) - (__c_index), __c, __d)))
- 
+-#define strlen(p)							\
+-	__builtin_choose_expr(__is_constexpr(__builtin_strlen(p)),	\
++#define strlen(p)						\
++	__builtin_choose_expr(is_const(__builtin_strlen(p)),	\
+ 		__builtin_strlen(p), __fortify_strlen(p))
+ __FORTIFY_INLINE __diagnose_as(__builtin_strlen, 1)
+ __kernel_size_t __fortify_strlen(const char * const POS p)
 
 -- 
 2.45.2
