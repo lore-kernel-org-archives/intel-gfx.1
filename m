@@ -4,56 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AFEF2E74AC6
-	for <intel-gfx@archiver.kernel.org>; Tue,  3 Dec 2024 16:02:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 88E01E74AC2
+	for <intel-gfx@archiver.kernel.org>; Tue,  3 Dec 2024 16:08:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5B63F10EA92;
-	Tue,  3 Dec 2024 16:02:00 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 36E9F10EA8D;
+	Tue,  3 Dec 2024 16:08:00 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="NXZbP0xk";
+	dkim=pass (1024-bit key; unprotected) header.d=weissschuh.net header.i=@weissschuh.net header.b="ZlfsdpYI";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.14])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 22EDC10EA86;
- Tue,  3 Dec 2024 16:01:57 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1733241717; x=1764777717;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=DcDqu2kMLl3Jhzhpkj09vs1EWHuMxdN9uogwtIKB7fE=;
- b=NXZbP0xk0eDRW7c63C/egow1fn1Tq0nJJNAO0Ofdpv+JioAblYE1jwUa
- ZvVKZenddkCLHN0/MmjeOXLSRCnRex0Y36KcDKYp2p9wf0yxN7yN/Sigm
- dtP02UflwL5msZk3nUXYCODPOvsQfem3XAyEVpgX3XULtOknUgCtzluak
- 3tUTr31NWRMwpRf8Rcbg1SK4iTo4exJUjnJm3xPEUjoeczhcHo6URK6La
- LN+vC0QSCi7rPdDyQL71JO7JOulLq7oNZBxsHHQX+5T73jip16LQW68yj
- BVTxVRPYFhhadrcwoCnp4zUygYMHToV5H/rmexdxLFqamJ4ZQ0eUm8uwn Q==;
-X-CSE-ConnectionGUID: IvhgUaDzQcmmNqW1uHHwVQ==
-X-CSE-MsgGUID: hTSslBQwTfinkp5EwePP+g==
-X-IronPort-AV: E=McAfee;i="6700,10204,11275"; a="37236068"
-X-IronPort-AV: E=Sophos;i="6.12,205,1728975600"; d="scan'208";a="37236068"
-Received: from fmviesa007.fm.intel.com ([10.60.135.147])
- by orvoesa106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 03 Dec 2024 08:01:56 -0800
-X-CSE-ConnectionGUID: +Z7VP3NOS5W6uAgXJQIl5w==
-X-CSE-MsgGUID: OwAjsteiRXKIUg7vWM0GIg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.12,205,1728975600"; d="scan'208";a="93313084"
-Received: from ideak-desk.fi.intel.com ([10.237.72.78])
- by fmviesa007-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 03 Dec 2024 08:01:52 -0800
-From: Imre Deak <imre.deak@intel.com>
-To: intel-gfx@lists.freedesktop.org
-Cc: dri-devel@lists.freedesktop.org,
-	Lyude Paul <lyude@redhat.com>
-Subject: [PATCH 5/7] drm/dp_mst: Ensure mst_primary pointer is valid in
- drm_dp_mst_handle_up_req()
-Date: Tue,  3 Dec 2024 18:02:21 +0200
-Message-ID: <20241203160223.2926014-6-imre.deak@intel.com>
-X-Mailer: git-send-email 2.44.2
-In-Reply-To: <20241203160223.2926014-1-imre.deak@intel.com>
-References: <20241203160223.2926014-1-imre.deak@intel.com>
+Received: from todd.t-8ch.de (todd.t-8ch.de [159.69.126.157])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 653F010E325;
+ Tue,  3 Dec 2024 16:07:58 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=weissschuh.net;
+ s=mail; t=1733242076;
+ bh=/0y7SBDUVxqjtpxm9yML9VoV7Jgb8YxmRVDVpMdr7Rg=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=ZlfsdpYIpCbGFb9Xe9niae1ebWeO2rflwuwZdET77yomETPT9XQ8u5bMa2WtxLThQ
+ zRJcH9Z4dO6yDD5SYA4eZHulPnGbn+H61PhP9CE+D3G5G5QtWhZoTWVF3EAE1sfqWp
+ yfs/HwCisMXUjLlOLYu6Ex058pgSDjcy3Jk07LVo=
+Date: Tue, 3 Dec 2024 17:07:55 +0100
+From: Thomas =?utf-8?Q?Wei=C3=9Fschuh?= <linux@weissschuh.net>
+To: "Borah, Chaitanya Kumar" <chaitanya.kumar.borah@intel.com>
+Cc: "Rafael J. Wysocki" <rafael@kernel.org>, 
+ "Kurmi, Suresh Kumar" <suresh.kumar.kurmi@intel.com>, "Coelho,
+ Luciano" <luciano.coelho@intel.com>, 
+ "Saarinen, Jani" <jani.saarinen@intel.com>, "Nikula,
+ Jani" <jani.nikula@intel.com>, 
+ "De Marchi, Lucas" <lucas.demarchi@intel.com>, 
+ "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>, 
+ "intel-xe@lists.freedesktop.org" <intel-xe@lists.freedesktop.org>,
+ "linux-pm@vger.kernel.org" <linux-pm@vger.kernel.org>, 
+ Sebastian Reichel <sebastian.reichel@collabora.com>
+Subject: Re: Regression on linux-next (next-20241120) and drm-tip
+Message-ID: <886084c8-2f5e-4f89-bd10-e9c2a24b0aea@t-8ch.de>
+References: <SJ1PR11MB6129CCD82CD78D8EE6E27EF4B9362@SJ1PR11MB6129.namprd11.prod.outlook.com>
+ <SJ1PR11MB612965ACA3E84745346F0400B9362@SJ1PR11MB6129.namprd11.prod.outlook.com>
+ <5e405ad4-34d6-4507-978f-3d81d4af2455@t-8ch.de>
+ <CAJZ5v0iXKvaxz-hmW2+qwTcSmtPJ23Hv04CMnmT=qPE0ytNwLg@mail.gmail.com>
+ <56d574c6-6eab-4388-8cb8-70cd615a8941@t-8ch.de>
+ <CAJZ5v0gFwu+6Cm7ORs7+TAc5jzXZRBO1uGcttBTTvK4OqT3Q6g@mail.gmail.com>
+ <2ad31476-3f37-43cb-96cf-379d50d7b799@t-8ch.de>
+ <SJ1PR11MB61295BDE8405A1A5FFC1CB7FB9362@SJ1PR11MB6129.namprd11.prod.outlook.com>
+ <1ed0ba64-4e8d-416a-8718-34e7f045d443@t-8ch.de>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <1ed0ba64-4e8d-416a-8718-34e7f045d443@t-8ch.de>
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,86 +66,176 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-While receiving an MST up request message from one thread in
-drm_dp_mst_handle_up_req(), the MST topology could be removed from
-another thread via drm_dp_mst_topology_mgr_set_mst(false), freeing
-mst_primary and setting drm_dp_mst_topology_mgr::mst_primary to NULL.
-This could lead to a NULL deref/use-after-free of mst_primary in
-drm_dp_mst_handle_up_req().
+On 2024-12-03 16:57:21+0100, Thomas Weißschuh wrote:
+> On 2024-12-03 15:42:23+0000, Borah, Chaitanya Kumar wrote:
+> > 
+> > 
+> > > -----Original Message-----
+> > > From: Thomas Weißschuh <linux@weissschuh.net>
+> > > Sent: Tuesday, December 3, 2024 8:20 PM
+> > > To: Rafael J. Wysocki <rafael@kernel.org>
+> > > Cc: Borah, Chaitanya Kumar <chaitanya.kumar.borah@intel.com>; Kurmi,
+> > > Suresh Kumar <suresh.kumar.kurmi@intel.com>; Coelho, Luciano
+> > > <luciano.coelho@intel.com>; Saarinen, Jani <jani.saarinen@intel.com>;
+> > > Nikula, Jani <jani.nikula@intel.com>; De Marchi, Lucas
+> > > <lucas.demarchi@intel.com>; intel-gfx@lists.freedesktop.org; intel-
+> > > xe@lists.freedesktop.org; linux-pm@vger.kernel.org; Sebastian Reichel
+> > > <sebastian.reichel@collabora.com>
+> > > Subject: Re: Regression on linux-next (next-20241120) and drm-tip
+> > > 
+> > > On 2024-12-03 15:33:21+0100, Rafael J. Wysocki wrote:
+> > > > On Tue, Dec 3, 2024 at 1:04 PM Thomas Weißschuh
+> > > <linux@weissschuh.net> wrote:
+> > > > >
+> > > > > On 2024-12-03 12:54:54+0100, Rafael J. Wysocki wrote:
+> > > > > > On Tue, Dec 3, 2024 at 7:51 AM Thomas Weißschuh
+> > > <linux@weissschuh.net> wrote:
+> > > > > > >
+> > > > > > > (+Cc Sebastian)
+> > > > > > >
+> > > > > > > Hi Chaitanya,
+> > > > > > >
+> > > > > > > On 2024-12-03 05:07:47+0000, Borah, Chaitanya Kumar wrote:
+> > > > > > > > Hope you are doing well. I am Chaitanya from the linux graphics team
+> > > in Intel.
+> > > > > > > >
+> > > > > > > > This mail is regarding a regression we are seeing in our CI runs[1] on
+> > > linux-next repository.
+> > > > > > >
+> > > > > > > Thanks for the report.
+> > > > > > >
+> > > > > > > > Since the version next-20241120 [2], we are seeing the
+> > > > > > > > following regression
+> > > > > > > >
+> > > > > > > > `````````````````````````````````````````````````````````````````````````````````
+> > > > > > > > <4>[   19.990743] Oops: general protection fault, probably for non-
+> > > canonical address 0xb11675ef8d1ccbce: 0000 [#1] PREEMPT SMP NOPTI
+> > > > > > > > <4>[   19.990760] CPU: 21 UID: 110 PID: 867 Comm: prometheus-
+> > > node Not tainted 6.12.0-next-20241120-next-20241120-gac24e26aa08f+
+> > > #1
+> > > > > > > > <4>[   19.990771] Hardware name: Intel Corporation Arrow Lake
+> > > Client Platform/MTL-S UDIMM 2DPC EVCRB, BIOS
+> > > MTLSFWI1.R00.4400.D85.2410100007 10/10/2024
+> > > > > > > > <4>[   19.990782] RIP: 0010:power_supply_get_property+0x3e/0xe0
+> > > > > > > > ``````````````````````````````````````````````````````````````
+> > > > > > > > ``````````````````` Details log can be found in [3].
+> > > > > > > >
+> > > > > > > > After bisecting the tree, the following patch [4] seems to be the first
+> > > "bad"
+> > > > > > > > commit
+> > > > > > > >
+> > > > > > > > ``````````````````````````````````````````````````````````````
+> > > > > > > > ```````````````````````````````````````````
+> > > > > > > > Commit 49000fee9e639f62ba1f965ed2ae4c5ad18d19e2
+> > > > > > > > Author:     Thomas Weißschuh <mailto:linux@weissschuh.net>
+> > > > > > > > AuthorDate: Sat Oct 5 12:05:03 2024 +0200
+> > > > > > > > Commit:     Sebastian Reichel
+> > > <mailto:sebastian.reichel@collabora.com>
+> > > > > > > > CommitDate: Tue Oct 15 22:22:20 2024 +0200
+> > > > > > > >     power: supply: core: add wakeup source inhibit by
+> > > > > > > > power_supply_config
+> > > > > > > > ``````````````````````````````````````````````````````````````
+> > > > > > > > ```````````````````````````````````````````
+> > > > > > > >
+> > > > > > > > This is now seen in our drm-tip runs as well. [5]
+> > > > > > > >
+> > > > > > > > Could you please check why the patch causes this regression and
+> > > provide a fix if necessary?
+> > > > > > >
+> > > > > > > I don't see how this patch can lead to this error.
+> > > > > >
+> > > > > > It looks like the cfg->no_wakeup_source access reaches beyond the
+> > > > > > struct boundary for some reason.
+> > > > >
+> > > > > But the access to this field is only done in __power_supply_register().
+> > > > > The error reports however don't show this function at all, they come
+> > > > > from power_supply_uevent() and power_supply_get_property() by which
+> > > > > time the call to __power_supply_register() is long over.
+> > > > >
+> > > > > FWIW there is an uninitialized 'struct power_supply_config' in
+> > > > > drivers/hid/hid-corsair-void.c. But I highly doubt the test machines
+> > > > > are using that. (I'll send a patch later for it)
+> > > >
+> > > > So the only way I can think about in which the commit in question may
+> > > > lead to the reported issues is that changing the size of struct
+> > > > power_supply_config or its alignment makes an unexpected functional
+> > > > difference somewhere.
+> > > 
+> > > Indeed. I'd really like to see this issue reproduced with KASAN.
+> > > 
+> > > > AFAICS, this commit cannot be reverted by itself, so which commits on
+> > > > top of it need to be reverted in order to revert it cleanly?
+> > > 
+> > > All the other patches from this series:
+> > > https://lore.kernel.org/lkml/20241005-power-supply-no-wakeup-source-v1-
+> > > 0-1d62bf9bcb1d@weissschuh.net/
+> > > 
+> > > Could you point me to the full boot log in the drm-tip CI?
+> > 
+> > Here is the log for drm-tip CI
+> > 
+> > https://intel-gfx-ci.01.org/tree/drm-tip/IGT_8136/bat-arls-5/boot0.txt
+> 
+> Thanks!
+> 
+> > I carried out another bisect and it points to the following commit
+> > 
+> > commit 226ff2e681d006eada59a9693aa1976d4c15a7d4
+> > Author: Heikki Krogerus <heikki.krogerus@linux.intel.com>
+> > Date:   Wed Nov 6 17:06:05 2024 +0200
+> > 
+> >     usb: typec: ucsi: Convert connector specific commands to bitmaps
+> > 
+> >     That allows the fields in those command data structures to
+> >     be easily validated. If an unsupported field is accessed, a
+> >     warning is generated.
+> 
+> Suspicous: The bitmaps introduced in this commit are right before the
+> psy and psy_desc members of 'struct ucsi_connector'.
+> So any out-of-bounds writes into these members would corrupt those
+> fields.
+> A corrupted power_supply_desc would fit both reported stacktraces.
 
-Avoid the above by holding a reference for mst_primary in
-drm_dp_mst_handle_up_req() while it's used.
+struct ucsi_connector {
+	...
 
-Cc: Lyude Paul <lyude@redhat.com>
-Signed-off-by: Imre Deak <imre.deak@intel.com>
----
- drivers/gpu/drm/display/drm_dp_mst_topology.c | 23 ++++++++++++++-----
- 1 file changed, 17 insertions(+), 6 deletions(-)
+        struct typec_capability typec_cap;
 
-diff --git a/drivers/gpu/drm/display/drm_dp_mst_topology.c b/drivers/gpu/drm/display/drm_dp_mst_topology.c
-index 95742d82510a7..df37fde82d27c 100644
---- a/drivers/gpu/drm/display/drm_dp_mst_topology.c
-+++ b/drivers/gpu/drm/display/drm_dp_mst_topology.c
-@@ -4106,9 +4106,10 @@ static void drm_dp_mst_up_req_work(struct work_struct *work)
- static int drm_dp_mst_handle_up_req(struct drm_dp_mst_topology_mgr *mgr)
- {
- 	struct drm_dp_pending_up_req *up_req;
-+	struct drm_dp_mst_branch *mst_primary;
- 
- 	if (!drm_dp_get_one_sb_msg(mgr, true, NULL))
--		goto out;
-+		goto out_clear_reply;
- 
- 	if (!mgr->up_req_recv.have_eomt)
- 		return 0;
-@@ -4126,10 +4127,18 @@ static int drm_dp_mst_handle_up_req(struct drm_dp_mst_topology_mgr *mgr)
- 		drm_dbg_kms(mgr->dev, "Received unknown up req type, ignoring: %x\n",
- 			    up_req->msg.req_type);
- 		kfree(up_req);
--		goto out;
-+		goto out_clear_reply;
- 	}
- 
--	drm_dp_send_up_ack_reply(mgr, mgr->mst_primary, up_req->msg.req_type,
-+	mutex_lock(&mgr->lock);
-+	mst_primary = mgr->mst_primary;
-+	if (!mst_primary || !drm_dp_mst_topology_try_get_mstb(mst_primary)) {
-+		mutex_unlock(&mgr->lock);
-+		goto out_clear_reply;
-+	}
-+	mutex_unlock(&mgr->lock);
-+
-+	drm_dp_send_up_ack_reply(mgr, mst_primary, up_req->msg.req_type,
- 				 false);
- 
- 	if (up_req->msg.req_type == DP_CONNECTION_STATUS_NOTIFY) {
-@@ -4146,13 +4155,13 @@ static int drm_dp_mst_handle_up_req(struct drm_dp_mst_topology_mgr *mgr)
- 			    conn_stat->peer_device_type);
- 
- 		mutex_lock(&mgr->probe_lock);
--		handle_csn = mgr->mst_primary->link_address_sent;
-+		handle_csn = mst_primary->link_address_sent;
- 		mutex_unlock(&mgr->probe_lock);
- 
- 		if (!handle_csn) {
- 			drm_dbg_kms(mgr->dev, "Got CSN before finish topology probing. Skip it.");
- 			kfree(up_req);
--			goto out;
-+			goto out_put_primary;
- 		}
- 	} else if (up_req->msg.req_type == DP_RESOURCE_STATUS_NOTIFY) {
- 		const struct drm_dp_resource_status_notify *res_stat =
-@@ -4169,7 +4178,9 @@ static int drm_dp_mst_handle_up_req(struct drm_dp_mst_topology_mgr *mgr)
- 	mutex_unlock(&mgr->up_req_lock);
- 	queue_work(system_long_wq, &mgr->up_req_work);
- 
--out:
-+out_put_primary:
-+	drm_dp_mst_topology_put_mstb(mst_primary);
-+out_clear_reply:
- 	memset(&mgr->up_req_recv, 0, sizeof(struct drm_dp_sideband_msg_rx));
- 	return 0;
- }
--- 
-2.44.2
+       /* Cached command responses. */
+       DECLARE_BITMAP(cap, UCSI_GET_CONNECTOR_CAPABILITY_SIZE);
+       DECLARE_BITMAP(status, UCSI_GET_CONNECTOR_STATUS_SIZE);
 
+DECLARE_BITMAP() takes the size in number of *bits*
+
+        struct power_supply *psy;
+        struct power_supply_desc psy_desc;
+        u32 rdo;
+
+	...
+}
+
+static int ucsi_get_connector_status(struct ucsi_connector *con, bool conn_ack)
+{
+	u64 command = UCSI_GET_CONNECTOR_STATUS | UCSI_CONNECTOR_NUMBER(con->num);
+	size_t size = min(UCSI_GET_CONNECTOR_STATUS_SIZE, UCSI_MAX_DATA_LENGTH(con->ucsi));
+	int ret;
+
+	ret = ucsi_send_command_common(con->ucsi, command, &con->status, size, conn_ack);
+
+ucsi_send_command_common() takes the size in number of *bytes*.
+This call corrupts psy and psy_desc in con.
+
+	return ret < 0 ? ret : 0;
+}
+
+> 
+> > Reverting it seems to help locally. However, to confirm I have sent out a patch to our "try-bot"
+> > 
+> > https://patchwork.freedesktop.org/series/142049/
+> > 
+> > We can wait for its results.
+> > 
+> > Regards
+> > 
+> > Chaitanya
+> > 
