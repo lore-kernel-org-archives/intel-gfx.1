@@ -4,28 +4,59 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 41EC6D49797
-	for <intel-gfx@archiver.kernel.org>; Tue,  3 Dec 2024 09:26:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4AA8DE6C61A
+	for <intel-gfx@archiver.kernel.org>; Tue,  3 Dec 2024 09:29:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D03B510E9A4;
-	Tue,  3 Dec 2024 09:26:22 +0000 (UTC)
-Received: from b555e5b46a47 (emeril.freedesktop.org [131.252.210.167])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 56CE210E9A4;
- Tue,  3 Dec 2024 09:26:21 +0000 (UTC)
-Content-Type: text/plain; charset="utf-8"
+	by gabe.freedesktop.org (Postfix) with ESMTP id E74F910E99C;
+	Tue,  3 Dec 2024 09:29:03 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="MpxDW1Bj";
+	dkim-atps=neutral
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BA55210E9A9
+ for <intel-gfx@lists.freedesktop.org>; Tue,  3 Dec 2024 09:29:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1733218141;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:
+ content-transfer-encoding:content-transfer-encoding;
+ bh=F2f8WGdinxkKeIjuZL8rVRbdkdX4e9z6nxeN+NAj5Jo=;
+ b=MpxDW1BjktqRKcgUKn0NrWavZx+YX9RnxIPPYQbIE78kgeYw7UXSG9ZD1hKTlCTSGyqG/r
+ s9wAsiVZ4Q9QrELt0mtMU67H+9MFhzqX1jYwdNve3Fyrrpf7a6hO+50B8zFpu1rkhrC5Rw
+ FqVaCCa7Hs2+oCa5LqLhsF2/tNtUh3I=
+Received: from mx-prod-mc-04.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-387-EyGH7FZuNKyc-0mETd87KA-1; Tue,
+ 03 Dec 2024 04:28:58 -0500
+X-MC-Unique: EyGH7FZuNKyc-0mETd87KA-1
+X-Mimecast-MFC-AGG-ID: EyGH7FZuNKyc-0mETd87KA
+Received: from mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com
+ (mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.12])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ (No client certificate requested)
+ by mx-prod-mc-04.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
+ id 9F47C19560A2; Tue,  3 Dec 2024 09:28:56 +0000 (UTC)
+Received: from hydra.redhat.com (unknown [10.39.193.255])
+ by mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP
+ id E05AE1955D45; Tue,  3 Dec 2024 09:28:52 +0000 (UTC)
+From: Jocelyn Falempe <jfalempe@redhat.com>
+To: Jani Nikula <jani.nikula@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Tvrtko Ursulin <tursulin@ursulin.net>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, intel-gfx@lists.freedesktop.org,
+ intel-xe@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+Cc: Jocelyn Falempe <jfalempe@redhat.com>
+Subject: [RFC PATCH v2 0/5] drm/i915: Add drm_panic support
+Date: Tue,  3 Dec 2024 09:50:17 +0100
+Message-ID: <20241203092836.426422-1-jfalempe@redhat.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Subject: =?utf-8?q?=E2=9C=93_i915=2ECI=2EBAT=3A_success_for_series_starting_with_=5B1?=
- =?utf-8?q?/6=5D_drm/i915/wm=3A_Initialize_max=5Flatency_variable_to_appropr?=
- =?utf-8?q?iate_value?=
-From: Patchwork <patchwork@emeril.freedesktop.org>
-To: "Suraj Kandpal" <suraj.kandpal@intel.com>
-Cc: intel-gfx@lists.freedesktop.org
-Date: Tue, 03 Dec 2024 09:26:21 -0000
-Message-ID: <173321798134.1964850.16759787165286165202@b555e5b46a47>
-X-Patchwork-Hint: ignore
-References: <20241203084706.2126189-1-suraj.kandpal@intel.com>
-In-Reply-To: <20241203084706.2126189-1-suraj.kandpal@intel.com>
+Content-Transfer-Encoding: 8bit
+X-Scanned-By: MIMEDefang 3.0 on 10.30.177.12
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -38,114 +69,53 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-== Series Details ==
+This is a first draft of drm_panic support for i915.
 
-Series: series starting with [1/6] drm/i915/wm: Initialize max_latency variable to appropriate value
-URL   : https://patchwork.freedesktop.org/series/142033/
-State : success
+I've tested it on the 3 intel laptops I have at my disposal.
+one Haswell with 128MB of eDRAM, one Cometlake and one Alderlake.
 
-== Summary ==
+I tested panic in both fbdev console and gnome desktop.
 
-CI Bug Log - changes from CI_DRM_15775 -> Patchwork_142033v1
-====================================================
+I still have an issue with Alderlake, and it doesn't work when in gnome desktop.
+If I disable tiling on a framebuffer using DPT, then it displays some other memory location.
+As DPT is enabled only for tiled framebuffer, there might be some hardware limitations?
+I think it can be worked around by drawing the image tiled, (like what I've done on nouveau https://patchwork.freedesktop.org/series/133963/), but maybe there is another way?
 
-Summary
--------
+Best regards,
 
-  **SUCCESS**
+v2:
+ * Add the proper abstractions to build also for Xe.
+ * Fix dim checkpatch issues.
 
-  No regressions found.
+Jocelyn Falempe (5):
+  drm/i915/fbdev: Add intel_fbdev_get_vaddr()
+  drm/i915/display/i9xx: Add a disable_tiling() for i9xx planes
+  drm/i915/display: Add a disable_tiling() for skl planes
+  drm/i915/gem: Add i915_gem_object_panic_map()
+  drm/i915: Add drm_panic support
 
-  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_142033v1/index.html
-
-Participating hosts (42 -> 41)
-------------------------------
-
-  Missing    (1): fi-snb-2520m 
-
-Known issues
-------------
-
-  Here are the changes found in Patchwork_142033v1 that come from known issues:
-
-### IGT changes ###
-
-#### Issues hit ####
-
-  * igt@i915_pm_rpm@module-reload:
-    - bat-rpls-4:         [PASS][1] -> [FAIL][2] ([i915#12903])
-   [1]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_15775/bat-rpls-4/igt@i915_pm_rpm@module-reload.html
-   [2]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_142033v1/bat-rpls-4/igt@i915_pm_rpm@module-reload.html
-    - fi-tgl-1115g4:      [PASS][3] -> [FAIL][4] ([i915#12903])
-   [3]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_15775/fi-tgl-1115g4/igt@i915_pm_rpm@module-reload.html
-   [4]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_142033v1/fi-tgl-1115g4/igt@i915_pm_rpm@module-reload.html
-
-  * igt@kms_flip@basic-plain-flip@a-dp1:
-    - fi-kbl-7567u:       [PASS][5] -> [DMESG-WARN][6] ([i915#12920]) +1 other test dmesg-warn
-   [5]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_15775/fi-kbl-7567u/igt@kms_flip@basic-plain-flip@a-dp1.html
-   [6]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_142033v1/fi-kbl-7567u/igt@kms_flip@basic-plain-flip@a-dp1.html
-
-  * igt@kms_psr@psr-primary-mmap-gtt:
-    - fi-pnv-d510:        NOTRUN -> [SKIP][7] +36 other tests skip
-   [7]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_142033v1/fi-pnv-d510/igt@kms_psr@psr-primary-mmap-gtt.html
-
-  
-#### Possible fixes ####
-
-  * igt@i915_module_load@load:
-    - fi-pnv-d510:        [ABORT][8] ([i915#13203]) -> [PASS][9]
-   [8]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_15775/fi-pnv-d510/igt@i915_module_load@load.html
-   [9]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_142033v1/fi-pnv-d510/igt@i915_module_load@load.html
-
-  * igt@i915_pm_rpm@module-reload:
-    - bat-dg1-7:          [FAIL][10] ([i915#12903]) -> [PASS][11]
-   [10]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_15775/bat-dg1-7/igt@i915_pm_rpm@module-reload.html
-   [11]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_142033v1/bat-dg1-7/igt@i915_pm_rpm@module-reload.html
-
-  * igt@i915_selftest@live:
-    - bat-mtlp-8:         [ABORT][12] ([i915#12061]) -> [PASS][13] +1 other test pass
-   [12]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_15775/bat-mtlp-8/igt@i915_selftest@live.html
-   [13]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_142033v1/bat-mtlp-8/igt@i915_selftest@live.html
-    - bat-adlp-6:         [ABORT][14] ([i915#9413]) -> [PASS][15] +1 other test pass
-   [14]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_15775/bat-adlp-6/igt@i915_selftest@live.html
-   [15]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_142033v1/bat-adlp-6/igt@i915_selftest@live.html
-
-  * igt@i915_selftest@live@workarounds:
-    - bat-arlh-3:         [ABORT][16] ([i915#12061]) -> [PASS][17] +1 other test pass
-   [16]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_15775/bat-arlh-3/igt@i915_selftest@live@workarounds.html
-   [17]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_142033v1/bat-arlh-3/igt@i915_selftest@live@workarounds.html
-
-  * igt@kms_pipe_crc_basic@read-crc-frame-sequence:
-    - bat-dg2-11:         [SKIP][18] ([i915#9197]) -> [PASS][19]
-   [18]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_15775/bat-dg2-11/igt@kms_pipe_crc_basic@read-crc-frame-sequence.html
-   [19]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_142033v1/bat-dg2-11/igt@kms_pipe_crc_basic@read-crc-frame-sequence.html
-
-  
-  {name}: This element is suppressed. This means it is ignored when computing
-          the status of the difference (SUCCESS, WARNING, or FAILURE).
-
-  [i915#12061]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/12061
-  [i915#12903]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/12903
-  [i915#12920]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/12920
-  [i915#13203]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/13203
-  [i915#9197]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/9197
-  [i915#9413]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/9413
+ drivers/gpu/drm/i915/display/i9xx_plane.c     | 23 +++++
+ .../gpu/drm/i915/display/intel_atomic_plane.c | 85 ++++++++++++++++++-
+ drivers/gpu/drm/i915/display/intel_bo.c       | 10 +++
+ drivers/gpu/drm/i915/display/intel_bo.h       |  2 +
+ .../drm/i915/display/intel_display_types.h    |  2 +
+ drivers/gpu/drm/i915/display/intel_fb_pin.c   |  5 ++
+ drivers/gpu/drm/i915/display/intel_fb_pin.h   |  1 +
+ drivers/gpu/drm/i915/display/intel_fbdev.c    |  5 ++
+ drivers/gpu/drm/i915/display/intel_fbdev.h    |  6 ++
+ .../drm/i915/display/skl_universal_plane.c    | 20 +++++
+ drivers/gpu/drm/i915/gem/i915_gem_object.h    |  2 +
+ drivers/gpu/drm/i915/gem/i915_gem_pages.c     | 25 ++++++
+ drivers/gpu/drm/i915/i915_vma.h               |  5 ++
+ drivers/gpu/drm/xe/display/intel_bo.c         | 11 +++
+ drivers/gpu/drm/xe/display/xe_fb_pin.c        |  5 ++
+ 15 files changed, 206 insertions(+), 1 deletion(-)
 
 
-Build changes
--------------
+base-commit: 44cff6c5b0b17a78bc0b30372bcd816cf6dd282a
+-- 
+2.47.1
 
-  * Linux: CI_DRM_15775 -> Patchwork_142033v1
-
-  CI-20190529: 20190529
-  CI_DRM_15775: 4de82d50b8de6a278c1483a7f76ae830c89d1824 @ git://anongit.freedesktop.org/gfx-ci/linux
-  IGT_8134: 027fbf68a00630d7bb8ae200c620296e2bad971d @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git
-  Patchwork_142033v1: 4de82d50b8de6a278c1483a7f76ae830c89d1824 @ git://anongit.freedesktop.org/gfx-ci/linux
-
-== Logs ==
-
-For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_142033v1/index.html
