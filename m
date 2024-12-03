@@ -4,62 +4,57 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B9ECFD49797
-	for <intel-gfx@archiver.kernel.org>; Tue,  3 Dec 2024 09:29:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 83CE1D49797
+	for <intel-gfx@archiver.kernel.org>; Tue,  3 Dec 2024 09:36:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5F8CA10E9AB;
-	Tue,  3 Dec 2024 09:29:22 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2C56110E9B7;
+	Tue,  3 Dec 2024 09:36:47 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="Kgz9Zg5x";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="LAkHShM8";
 	dkim-atps=neutral
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.129.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E8AFC10E9AB
- for <intel-gfx@lists.freedesktop.org>; Tue,  3 Dec 2024 09:29:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1733218161;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=xnIpLUaZjZ89RucMDbcSAI8aEU0VifFxCRWXuWOR5LI=;
- b=Kgz9Zg5xNAunKhX7Q0TrHi3iXojAl69D0bW8DC2n1b2dJXC8pu6FDMQczGnK1RiU3zN2qG
- tCNwp0C/S64QSy4x9Hw/W/b0r/xVWT33Z673ZkXDk5iSQgDT2TMLey2ckkH/0QfluIJYo5
- Y+uzNBKIf7u9wFr6tPum6Oq4rUwAbXk=
-Received: from mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-621-9ri83S1KOnqNWER8SpvSmw-1; Tue,
- 03 Dec 2024 04:29:15 -0500
-X-MC-Unique: 9ri83S1KOnqNWER8SpvSmw-1
-X-Mimecast-MFC-AGG-ID: 9ri83S1KOnqNWER8SpvSmw
-Received: from mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com
- (mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.12])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
- (No client certificate requested)
- by mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
- id 3E2D4195396F; Tue,  3 Dec 2024 09:29:14 +0000 (UTC)
-Received: from hydra.redhat.com (unknown [10.39.193.255])
- by mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP
- id 4C55D19560A3; Tue,  3 Dec 2024 09:29:11 +0000 (UTC)
-From: Jocelyn Falempe <jfalempe@redhat.com>
-To: Jani Nikula <jani.nikula@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Tvrtko Ursulin <tursulin@ursulin.net>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, intel-gfx@lists.freedesktop.org,
- intel-xe@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-Cc: Jocelyn Falempe <jfalempe@redhat.com>
-Subject: [PATCH v2 5/5] drm/i915: Add drm_panic support
-Date: Tue,  3 Dec 2024 09:50:22 +0100
-Message-ID: <20241203092836.426422-6-jfalempe@redhat.com>
-In-Reply-To: <20241203092836.426422-1-jfalempe@redhat.com>
-References: <20241203092836.426422-1-jfalempe@redhat.com>
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0B27510E9B7;
+ Tue,  3 Dec 2024 09:36:46 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by dfw.source.kernel.org (Postfix) with ESMTP id 1FF375C697C;
+ Tue,  3 Dec 2024 09:36:02 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 752C2C4CED6;
+ Tue,  3 Dec 2024 09:36:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1733218604;
+ bh=SVgeimaxMCy/0f2AoMe1mCp1DAEBQJ4X3mcrC+82vu8=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=LAkHShM8v1EaacOOI6JrMuL7F2wP7Yllbl6bdB/wML1YeWiaVxpA0AOI8R7ZFFkcm
+ yVS1h5Z1QOJVAE0hN+nYE/p9qPS2vF7P7aewrv8uvhwGy6uC5IwuxGd2FWnPPs1K/X
+ dneKYnd8VUilyCpVmOngztT1WfsyfEU4c8pDulzvokQ6SWWjfLuTyNifOoNBlC8Y14
+ jez9X05LjYsUl99pLp6iOUISN/MH6oYNdWAY8cGforpbGlOT0fT+B7zcvgOpT5Pe31
+ KrFxOy1dnbBBfW85u2Wu6cxhobf8lCusYMaWnh2sMnXXMQ6haUda2CTRlM2iit9ION
+ Eg+bQSqOS+EQg==
+Date: Tue, 3 Dec 2024 10:36:42 +0100
+From: Maxime Ripard <mripard@kernel.org>
+To: Jani Nikula <jani.nikula@intel.com>
+Cc: Imre Deak <imre.deak@intel.com>, intel-gfx@lists.freedesktop.org, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Thomas Zimmermann <tzimmermann@suse.de>, 
+ Dave Airlie <airlied@redhat.com>, Daniel Vetter <daniel.vetter@ffwll.ch>, 
+ dri-devel@lists.freedesktop.org, Rodrigo Vivi <rodrigo.vivi@intel.com>
+Subject: Re: [PATCH v2 1/4] drm/dp: Add a way to init/add a connector in
+ separate steps
+Message-ID: <20241203-simple-pigeon-of-infinity-babfee@houat>
+References: <20241126161859.1858058-1-imre.deak@intel.com>
+ <20241126161859.1858058-2-imre.deak@intel.com>
+ <Z0nO-bwpbWPVryd6@ideak-desk.fi.intel.com>
+ <20241129-wild-cobra-of-thunder-829d1f@houat>
+ <Z0nn0VzawSCdOCKY@ideak-desk.fi.intel.com>
+ <20241202-real-benevolent-skunk-a9f5e0@houat>
+ <87ldwy5lvb.fsf@intel.com>
+ <20241202-accurate-jolly-hornet-8c2ca0@houat>
+ <87bjxu5btw.fsf@intel.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Scanned-By: MIMEDefang 3.0 on 10.30.177.12
+Content-Type: multipart/signed; micalg=pgp-sha384;
+ protocol="application/pgp-signature"; boundary="335vxtzobacwcmvi"
+Content-Disposition: inline
+In-Reply-To: <87bjxu5btw.fsf@intel.com>
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,150 +70,58 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-This adds drm_panic support for a wide range of Intel GPU. I've
-tested it only on 3 laptops, haswell (with 128MB of eDRAM),
-cometlake and alderlake.
 
- * DPT: if I disable tiling on a framebuffer using DPT, then it
-   displays some other memory location. As DPT is enabled only for
-   tiled framebuffer, there might be some hardware limitations.
- * fbdev: On my haswell laptop, the fbdev framebuffer is configured
-   with tiling enabled, but really it's linear, because fbcon don't
-   know about tiling, and the panic screen is perfect when it's drawn
-   as linear.
+--335vxtzobacwcmvi
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH v2 1/4] drm/dp: Add a way to init/add a connector in
+ separate steps
+MIME-Version: 1.0
 
-Signed-off-by: Jocelyn Falempe <jfalempe@redhat.com>
----
- .../gpu/drm/i915/display/intel_atomic_plane.c | 85 ++++++++++++++++++-
- 1 file changed, 84 insertions(+), 1 deletion(-)
+On Mon, Dec 02, 2024 at 05:44:27PM +0200, Jani Nikula wrote:
+> >> It's super tempting for people to just get their jobs done. If doing
+> >> the right thing adds yet another hurdle, we may see more stuff being
+> >> added in drivers instead of drm core.
+> >
+> > I really enjoy hidden threats.
+>=20
+> None were implied. That's your interpretation of what I honestly think
+> is a plausible outcome.
 
-diff --git a/drivers/gpu/drm/i915/display/intel_atomic_plane.c b/drivers/gpu/drm/i915/display/intel_atomic_plane.c
-index b7e462075ded3..58eb3b4c55fa5 100644
---- a/drivers/gpu/drm/i915/display/intel_atomic_plane.c
-+++ b/drivers/gpu/drm/i915/display/intel_atomic_plane.c
-@@ -33,16 +33,20 @@
- 
- #include <linux/dma-fence-chain.h>
- #include <linux/dma-resv.h>
-+#include <linux/iosys-map.h>
- 
- #include <drm/drm_atomic_helper.h>
- #include <drm/drm_blend.h>
-+#include <drm/drm_cache.h>
- #include <drm/drm_fourcc.h>
- #include <drm/drm_gem.h>
- #include <drm/drm_gem_atomic_helper.h>
-+#include <drm/drm_panic.h>
- 
- #include "i915_config.h"
- #include "i9xx_plane_regs.h"
- #include "intel_atomic_plane.h"
-+#include "intel_bo.h"
- #include "intel_cdclk.h"
- #include "intel_cursor.h"
- #include "intel_display_rps.h"
-@@ -50,6 +54,7 @@
- #include "intel_display_types.h"
- #include "intel_fb.h"
- #include "intel_fb_pin.h"
-+#include "intel_fbdev.h"
- #include "skl_scaler.h"
- #include "skl_watermark.h"
- 
-@@ -1198,14 +1203,92 @@ intel_cleanup_plane_fb(struct drm_plane *plane,
- 	intel_plane_unpin_fb(old_plane_state);
- }
- 
-+/* Only used by drm_panic get_scanout_buffer() and panic_flush(), so it is
-+ * protected by the drm panic spinlock
-+ */
-+static struct iosys_map panic_map;
-+
-+static void intel_panic_flush(struct drm_plane *plane)
-+{
-+	struct intel_plane_state *plane_state = to_intel_plane_state(plane->state);
-+	struct drm_i915_private *dev_priv = to_i915(plane->dev);
-+	struct drm_framebuffer *fb = plane_state->hw.fb;
-+	struct intel_plane *iplane = to_intel_plane(plane);
-+
-+	/* Force a cache flush, otherwise the new pixels won't show up */
-+	drm_clflush_virt_range(panic_map.vaddr, fb->height * fb->pitches[0]);
-+
-+	/* Don't disable tiling if it's the fbdev framebuffer.*/
-+	if (to_intel_framebuffer(fb) == intel_fbdev_framebuffer(dev_priv->display.fbdev.fbdev))
-+		return;
-+
-+	if (fb->modifier && iplane->disable_tiling)
-+		iplane->disable_tiling(iplane);
-+}
-+
-+static int intel_get_scanout_buffer(struct drm_plane *plane,
-+				    struct drm_scanout_buffer *sb)
-+{
-+	struct intel_plane_state *plane_state;
-+	struct drm_gem_object *obj;
-+	struct drm_framebuffer *fb;
-+	struct drm_i915_private *dev_priv = to_i915(plane->dev);
-+	void *ptr;
-+
-+	if (!plane->state || !plane->state->fb || !plane->state->visible)
-+		return -ENODEV;
-+
-+	plane_state = to_intel_plane_state(plane->state);
-+	fb = plane_state->hw.fb;
-+	obj = intel_fb_bo(fb);
-+	if (!obj)
-+		return -ENODEV;
-+
-+	if (to_intel_framebuffer(fb) == intel_fbdev_framebuffer(dev_priv->display.fbdev.fbdev)) {
-+		ptr = intel_fbdev_get_vaddr(dev_priv->display.fbdev.fbdev);
-+	} else {
-+		/* can't disable tiling if DPT is in use */
-+		if (intel_bo_is_tiled(obj) && HAS_DPT(dev_priv))
-+			return -EOPNOTSUPP;
-+
-+		ptr = intel_bo_panic_map(obj);
-+	}
-+
-+	if (!ptr)
-+		return -ENOMEM;
-+
-+	if (intel_bo_has_iomem(obj))
-+		iosys_map_set_vaddr_iomem(&panic_map, ptr);
-+	else
-+		iosys_map_set_vaddr(&panic_map, ptr);
-+
-+	sb->map[0] = panic_map;
-+	sb->width = fb->width;
-+	sb->height = fb->height;
-+	sb->format = fb->format;
-+	sb->pitch[0] = fb->pitches[0];
-+
-+	return 0;
-+}
-+
- static const struct drm_plane_helper_funcs intel_plane_helper_funcs = {
- 	.prepare_fb = intel_prepare_plane_fb,
- 	.cleanup_fb = intel_cleanup_plane_fb,
- };
- 
-+static const struct drm_plane_helper_funcs intel_primary_plane_helper_funcs = {
-+	.prepare_fb = intel_prepare_plane_fb,
-+	.cleanup_fb = intel_cleanup_plane_fb,
-+	.get_scanout_buffer = intel_get_scanout_buffer,
-+	.panic_flush = intel_panic_flush,
-+};
-+
- void intel_plane_helper_add(struct intel_plane *plane)
- {
--	drm_plane_helper_add(&plane->base, &intel_plane_helper_funcs);
-+	if (plane->base.type == DRM_PLANE_TYPE_PRIMARY)
-+		drm_plane_helper_add(&plane->base, &intel_primary_plane_helper_funcs);
-+	else
-+		drm_plane_helper_add(&plane->base, &intel_plane_helper_funcs);
- }
- 
- void intel_plane_init_cursor_vblank_work(struct intel_plane_state *old_plane_state,
--- 
-2.47.1
+I obviously misinterpreted what you were saying then. Sorry for the
+whole tone of that mail.
 
+> I try to push people towards contributing to drm core instead of
+> drivers, and it's not always easy as it is. It's just a guess, but
+> I'll bet the majority of drm contributors have never run kunit tests
+> themselves.
+
+Right, but I don't think it's worth worrying over either. If one stops
+contributing because they are afraid of running one documented command
+that takes a few seconds, they would have done so at any other obstacle.
+We have much bigger barriers of entry, at several levels.
+
+All of them are here for a good reason, and because we have collectively
+judged that the trade-off between adding a barrier and increasing the
+quality of the framework was worth it.
+
+I believe tests are worth it too.
+
+But anyway, it's really not what I had in mind.
+
+Maxime
+
+--335vxtzobacwcmvi
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iJUEABMJAB0WIQTkHFbLp4ejekA/qfgnX84Zoj2+dgUCZ07RJQAKCRAnX84Zoj2+
+dnwxAYDe/IszcN04v4HWortlFKTA1s7i2La9lFd8X6ZIU/KRLpkp6CYZzZdyOlwM
+1FT4QlQBf1zNZuEfheP4sas6up7A5DHcaMaTkoiYrRkR3pUnarv83HpYsj+PFEwh
+j5vmoKYo8w==
+=tMAm
+-----END PGP SIGNATURE-----
+
+--335vxtzobacwcmvi--
