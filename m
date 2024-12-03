@@ -4,51 +4,51 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 74BB6E74AC1
-	for <intel-gfx@archiver.kernel.org>; Tue,  3 Dec 2024 16:02:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 13423E74AC3
+	for <intel-gfx@archiver.kernel.org>; Tue,  3 Dec 2024 16:02:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C8C7C10EA8C;
-	Tue,  3 Dec 2024 16:01:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 182B910EA89;
+	Tue,  3 Dec 2024 16:01:59 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="ZfBb+XyN";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="BlznYMp4";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.14])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3554810EA86;
- Tue,  3 Dec 2024 16:01:56 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A988710EA89;
+ Tue,  3 Dec 2024 16:01:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1733241716; x=1764777716;
+ t=1733241717; x=1764777717;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=pVJrzV+3fT+++tYPAwmhx4Gkj6+Ai35G9THmqwowsrI=;
- b=ZfBb+XyN5CI+Heuc3yod+pMyf4Fxm5KVk3MuQMqVe6l9olTC6mtpdcVG
- 00V5HZNkfB3vFHGaZai/Hzk/hMDQ1NpJ0bU+H41PdVa2wzMP0D2aoa4+Q
- hAJbr2QUgB/vJP1HPHvZQskeHm/HQD8C2RCzLmmcf0PFN0WJ1w4FOROtn
- 62Pcx2qrFvfJrw6u+MVLTm509HYh5hW/57fhnziVOevm0PVhcNYCYqCuH
- nxxf4I0CTwyY14l6OpOTkXhwwVV0Zsi4WSewL4g8fmmGhTYxeFp/ZIzCE
- YsT+DyogAODlnGayIGevRjM4dmcFXl4ZNQCrLL1+ukcd/R+SZiXBZsL0e Q==;
-X-CSE-ConnectionGUID: KAiVvfrRSYOyF2+b3gfRrg==
-X-CSE-MsgGUID: ylSuyLTWT3yDjryntjDYqQ==
-X-IronPort-AV: E=McAfee;i="6700,10204,11275"; a="37236059"
-X-IronPort-AV: E=Sophos;i="6.12,205,1728975600"; d="scan'208";a="37236059"
+ bh=A74KTfY+mEe9gVrvLZ4scN0ny9GIeaQa49dD6JwJEms=;
+ b=BlznYMp4SQ/iuL0mnc/weYbGI0eJ/b8FMImyZ335T3HcRtxnnfJnBsZS
+ HnW66VdxiacSsBExgisnVQgHqGlELl4o1R/xWdA9YmMeuB4sWfv3iM6jC
+ VJ6ebPw2rat7+PIvWqHfCIwZKHC6njs1UF4aN2jHJSSvaZr0B7PNZOQdL
+ JRy2p7hZfD+ly81a9iWPPcC2SYFwUSRfUrtLfG7dXxLzsX2/rNqjj/Uhb
+ Wf7ImPXZ9bgqRceZMPPrA/P7X41nypuXODjA8RTYPqnzLCgZ0NRb9/dc2
+ qtrky6hdUivgMIgzAyDGM7XAbpXSibQwfkTcQkKqxtGI+/SmDJ9RwEc9Z g==;
+X-CSE-ConnectionGUID: iUiAGvh1TCySiz6svo461Q==
+X-CSE-MsgGUID: 4aQkQEZzQoG0xsbd8dWcxA==
+X-IronPort-AV: E=McAfee;i="6700,10204,11275"; a="37236073"
+X-IronPort-AV: E=Sophos;i="6.12,205,1728975600"; d="scan'208";a="37236073"
 Received: from fmviesa007.fm.intel.com ([10.60.135.147])
  by orvoesa106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 03 Dec 2024 08:01:56 -0800
-X-CSE-ConnectionGUID: AzcKO9bcQ9uC5bxzd1m59g==
-X-CSE-MsgGUID: 3JMpsdsgQwOVftWDsoaSbQ==
+ 03 Dec 2024 08:01:57 -0800
+X-CSE-ConnectionGUID: pgyIqJ5wQheNKiVqlCVd3Q==
+X-CSE-MsgGUID: bC7janoNRseTvRALDU7ikA==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.12,205,1728975600"; d="scan'208";a="93313056"
+X-IronPort-AV: E=Sophos;i="6.12,205,1728975600"; d="scan'208";a="93313094"
 Received: from ideak-desk.fi.intel.com ([10.237.72.78])
  by fmviesa007-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 03 Dec 2024 08:01:48 -0800
+ 03 Dec 2024 08:01:53 -0800
 From: Imre Deak <imre.deak@intel.com>
 To: intel-gfx@lists.freedesktop.org
 Cc: dri-devel@lists.freedesktop.org,
 	Lyude Paul <lyude@redhat.com>
-Subject: [PATCH 3/7] drm/dp_mst: Simplify error path in
- drm_dp_mst_handle_down_rep()
-Date: Tue,  3 Dec 2024 18:02:19 +0200
-Message-ID: <20241203160223.2926014-4-imre.deak@intel.com>
+Subject: [PATCH 6/7] drm/dp_mst: Reset message rx state after OOM in
+ drm_dp_mst_handle_up_req()
+Date: Tue,  3 Dec 2024 18:02:22 +0200
+Message-ID: <20241203160223.2926014-7-imre.deak@intel.com>
 X-Mailer: git-send-email 2.44.2
 In-Reply-To: <20241203160223.2926014-1-imre.deak@intel.com>
 References: <20241203160223.2926014-1-imre.deak@intel.com>
@@ -69,43 +69,51 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Simplify the error return path in drm_dp_mst_handle_down_rep(),
-preparing for the next patch.
-
-While at it use reset_msg_rx_state() instead of open-coding it.
+After an out-of-memory error the reception state should be reset, so
+that the next attempt receiving a message doesn't fail (due to getting a
+start-of-message packet, while the reception state has already the
+start-of-message flag set).
 
 Cc: Lyude Paul <lyude@redhat.com>
 Signed-off-by: Imre Deak <imre.deak@intel.com>
 ---
- drivers/gpu/drm/display/drm_dp_mst_topology.c | 7 +------
- 1 file changed, 1 insertion(+), 6 deletions(-)
+ drivers/gpu/drm/display/drm_dp_mst_topology.c | 9 ++++++---
+ 1 file changed, 6 insertions(+), 3 deletions(-)
 
 diff --git a/drivers/gpu/drm/display/drm_dp_mst_topology.c b/drivers/gpu/drm/display/drm_dp_mst_topology.c
-index bcf3a33123be1..6ec8680998d5a 100644
+index df37fde82d27c..d6452a15daf6a 100644
 --- a/drivers/gpu/drm/display/drm_dp_mst_topology.c
 +++ b/drivers/gpu/drm/display/drm_dp_mst_topology.c
-@@ -4013,9 +4013,6 @@ static int drm_dp_mst_handle_down_rep(struct drm_dp_mst_topology_mgr *mgr)
- 			    txmsg->reply.u.nak.nak_data);
- 	}
+@@ -4107,6 +4107,7 @@ static int drm_dp_mst_handle_up_req(struct drm_dp_mst_topology_mgr *mgr)
+ {
+ 	struct drm_dp_pending_up_req *up_req;
+ 	struct drm_dp_mst_branch *mst_primary;
++	int ret = 0;
  
--	memset(msg, 0, sizeof(struct drm_dp_sideband_msg_rx));
--	drm_dp_mst_topology_put_mstb(mstb);
--
- 	mutex_lock(&mgr->qlock);
- 	txmsg->state = DRM_DP_SIDEBAND_TX_RX;
- 	list_del(&txmsg->next);
-@@ -4023,10 +4020,8 @@ static int drm_dp_mst_handle_down_rep(struct drm_dp_mst_topology_mgr *mgr)
+ 	if (!drm_dp_get_one_sb_msg(mgr, true, NULL))
+ 		goto out_clear_reply;
+@@ -4115,8 +4116,10 @@ static int drm_dp_mst_handle_up_req(struct drm_dp_mst_topology_mgr *mgr)
+ 		return 0;
  
- 	wake_up_all(&mgr->tx_waitq);
+ 	up_req = kzalloc(sizeof(*up_req), GFP_KERNEL);
+-	if (!up_req)
+-		return -ENOMEM;
++	if (!up_req) {
++		ret = -ENOMEM;
++		goto out_clear_reply;
++	}
  
--	return 0;
--
+ 	INIT_LIST_HEAD(&up_req->next);
+ 
+@@ -4182,7 +4185,7 @@ static int drm_dp_mst_handle_up_req(struct drm_dp_mst_topology_mgr *mgr)
+ 	drm_dp_mst_topology_put_mstb(mst_primary);
  out_clear_reply:
--	memset(msg, 0, sizeof(struct drm_dp_sideband_msg_rx));
-+	reset_msg_rx_state(msg);
- out:
- 	if (mstb)
- 		drm_dp_mst_topology_put_mstb(mstb);
+ 	memset(&mgr->up_req_recv, 0, sizeof(struct drm_dp_sideband_msg_rx));
+-	return 0;
++	return ret;
+ }
+ 
+ static void update_msg_rx_state(struct drm_dp_mst_topology_mgr *mgr)
 -- 
 2.44.2
 
