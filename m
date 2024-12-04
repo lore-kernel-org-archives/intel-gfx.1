@@ -4,24 +4,24 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C9D38E7716B
-	for <intel-gfx@archiver.kernel.org>; Wed,  4 Dec 2024 15:57:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0E7E6E7716E
+	for <intel-gfx@archiver.kernel.org>; Wed,  4 Dec 2024 15:57:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1412710E4C5;
-	Wed,  4 Dec 2024 15:57:40 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AADB810E4DD;
+	Wed,  4 Dec 2024 15:57:42 +0000 (UTC)
 Received: from b555e5b46a47 (emeril.freedesktop.org [131.252.210.167])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 01DDC10E4C5;
- Wed,  4 Dec 2024 15:57:39 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5023D10E4DD;
+ Wed,  4 Dec 2024 15:57:41 +0000 (UTC)
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
-Subject: =?utf-8?q?=E2=9C=97_Fi=2ECI=2ECHECKPATCH=3A_warning_for_drm=3A_remove_driver?=
- =?utf-8?q?_date?=
+Subject: =?utf-8?q?=E2=9C=97_Fi=2ECI=2ESPARSE=3A_warning_for_drm=3A_remove_driver_dat?=
+ =?utf-8?q?e?=
 From: Patchwork <patchwork@emeril.freedesktop.org>
 To: "Jani Nikula" <jani.nikula@intel.com>
 Cc: intel-gfx@lists.freedesktop.org
-Date: Wed, 04 Dec 2024 15:57:39 -0000
-Message-ID: <173332785900.2548669.5870692286224809756@b555e5b46a47>
+Date: Wed, 04 Dec 2024 15:57:41 -0000
+Message-ID: <173332786132.2553856.8457730473730464908@b555e5b46a47>
 X-Patchwork-Hint: ignore
 References: <cover.1733322525.git.jani.nikula@intel.com>
 In-Reply-To: <cover.1733322525.git.jani.nikula@intel.com>
@@ -49,14 +49,8 @@ State : warning
 
 == Summary ==
 
-Error: dim checkpatch failed
-e086cc1d1a97 drm/xen: remove redundant initialization info print
-de9ba30c5421 accel/ivpu: remove DRIVER_DATE conditional drm_driver init
-824863752588 drm: remove driver date from struct drm_driver and all drivers
--:931: WARNING:OBSOLETE: drivers/gpu/drm/tiny/cirrus-qemu.c is marked as 'obsolete' in the MAINTAINERS hierarchy.  No unnecessary modifications please.
-
--:934: WARNING:OBSOLETE: drivers/gpu/drm/tiny/cirrus-qemu.c is marked as 'obsolete' in the MAINTAINERS hierarchy.  No unnecessary modifications please.
-
-total: 0 errors, 2 warnings, 0 checks, 852 lines checked
+Error: dim sparse failed
+Sparse version: v0.6.2
+Fast mode used, each commit won't be checked separately.
 
 
