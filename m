@@ -4,62 +4,83 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E5F75E77179
-	for <intel-gfx@archiver.kernel.org>; Thu,  5 Dec 2024 17:47:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 99638E7716E
+	for <intel-gfx@archiver.kernel.org>; Thu,  5 Dec 2024 17:47:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3A2C810EF51;
-	Thu,  5 Dec 2024 17:47:41 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 40DBC10EF55;
+	Thu,  5 Dec 2024 17:47:44 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=wanadoo.fr header.i=@wanadoo.fr header.b="nEvKIz15";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=wanadoo.fr header.i=@wanadoo.fr header.b="aVzGogmc";
 	dkim-atps=neutral
-X-Greylist: delayed 538 seconds by postgrey-1.36 at gabe;
- Tue, 03 Dec 2024 11:41:47 UTC
-Received: from out.smtpout.orange.fr (out-14.smtpout.orange.fr [193.252.22.14])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2875910E1A0
- for <intel-gfx@lists.freedesktop.org>; Tue,  3 Dec 2024 11:41:47 +0000 (UTC)
-Received: from localhost.localdomain ([124.33.176.97])
- by smtp.orange.fr with ESMTPA
- id IR8ttkZ74dwuOIR92te4sm; Tue, 03 Dec 2024 12:32:47 +0100
+Received: from out.smtpout.orange.fr (out-13.smtpout.orange.fr [193.252.22.13])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2722F10E3BD
+ for <intel-gfx@lists.freedesktop.org>; Thu,  5 Dec 2024 15:21:53 +0000 (UTC)
+Received: from mail-lj1-f179.google.com ([209.85.208.179])
+ by smtp.orange.fr with ESMTPSA
+ id JDfrt2JeNQ2aZJDfrtOBlz; Thu, 05 Dec 2024 16:21:52 +0100
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=wanadoo.fr;
- s=t20230301; t=1733225567;
- bh=Dj1p7e8kB7p97w73blghpaZTEKWNn+qBBYUUgF4zwb8=;
- h=From:To:Subject:Date:Message-ID:MIME-Version;
- b=nEvKIz156e4S7ID2yC+/Y/Oc1G7rat+mYSNeEV/2EH89cxRvbyK7TJgR2Zxz+fN6x
- RZsd/cV/CBefswZ6/SM/p7fBX/1FzjpepmVftqBTRCMm9W+buVNwKWuex/PJRug7zU
- cLI+kO/ZPX7LbR8cdzX7Ffgud40T0n1k982MhEheHsT7vPr4dXkWonNCxFIwkpIPc3
- /MNr6e5Ak1DMjLKi2EYAwQydgNUTnnWCmzdLVQYnifzm0eRFAadOqOTg0X1QV8LPq6
- 5j1dhkaFuDCeZNSLEVA05ZYuctGLyRlr7y6Q1VVd2KQl/PEBMPpNzwFtGgiu2eHlKb
- izRhj+9i1FUBg==
-X-ME-Helo: localhost.localdomain
+ s=t20230301; t=1733412112;
+ bh=5Sob8jML2a9sfY47l90QZhBAyozcID3U7Li8+UA7roI=;
+ h=MIME-Version:From:Date:Message-ID:Subject:To;
+ b=aVzGogmcTPRdjLpDdU/7wCOIlxa/3k9MfUx9oXxURMDPjn98fuB0PLDwBo5NAqUUU
+ ZCyRgBXKhOh1O1qV3BMRpAN8iX0SOL8sy7M4kmTBCfkEY01ELS6vc+SCyaJ2oTaFJG
+ WY5QTjECwGMTPjnZCaf6e8NMnhANiAArbAsiy7I6tepSRZ9vh5GW4O3M9R5yWzqRI3
+ tuOZ/8tEzxmX9Nu4g0gnT+I9PfENnOe4KxABB2icpuwPl0uP4VG2UjXVmfJk04vrwP
+ 0c1o4j7/O5xytJ5pDDfI3rVf6kTcCCJVQXxcAtrAED3p7DpAAG66pUYEOxoBvx+WNV
+ rZjURcMV9HxiA==
+X-ME-Helo: mail-lj1-f179.google.com
 X-ME-Auth: bWFpbGhvbC52aW5jZW50QHdhbmFkb28uZnI=
-X-ME-Date: Tue, 03 Dec 2024 12:32:47 +0100
-X-ME-IP: 124.33.176.97
-From: Vincent Mailhol <mailhol.vincent@wanadoo.fr>
-To: Andy Whitcroft <apw@canonical.com>,
-	Joe Perches <joe@perches.com>
-Cc: Vincent Mailhol <mailhol.vincent@wanadoo.fr>,
- Dwaipayan Ray <dwaipayanray1@gmail.com>,
- Lukas Bulwahn <lukas.bulwahn@gmail.com>, intel-gfx@lists.freedesktop.org,
- patchwork@emeril.freedesktop.org
-Subject: Re: Fi.CI.CHECKPATCH: warning for compiler.h: refactor
- __is_constexpr() into is_const{, _true, _false}()
-Date: Tue,  3 Dec 2024 20:32:28 +0900
-Message-ID: <20241203113231.728535-2-mailhol.vincent@wanadoo.fr>
-X-Mailer: git-send-email 2.45.2
-In-Reply-To: <173322117407.1968577.8230174613912894876@b555e5b46a47>
-References: <20241203-is_constexpr-refactor-v1-0-4e4cbaecc216@wanadoo.fr>
- <173322117407.1968577.8230174613912894876@b555e5b46a47>
+X-ME-Date: Thu, 05 Dec 2024 16:21:52 +0100
+X-ME-IP: 209.85.208.179
+Received: by mail-lj1-f179.google.com with SMTP id
+ 38308e7fff4ca-3000b64fbe9so9960441fa.1; 
+ Thu, 05 Dec 2024 07:21:51 -0800 (PST)
+X-Forwarded-Encrypted: i=1;
+ AJvYcCUXI25gL/HipuGV6jBvnlPAiYIYaDAHRFC/bymlbJ52mOg3Dz3G7v5AfXKi41u1Q9kapqbvhyR9RnY=@lists.freedesktop.org,
+ AJvYcCX2yD6gBcu5z79Zn7kNmthN403mK9TigF/OK+fiGSgJdHe2j8JP+uYAITjztoBD1XWVq/aqwgSiHE86@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yxg0Zd8FZL2cSxWXHAf9h3IufHeBPFmmpvU4MnLS9PtXmoVoNIT
+ 2RT8LJnkaq8d6/Olk6JMYSA0HtcoKAHmq2hAd0QGJK3DyGzOp2+qRSv8O7NhgihXTfXSEU/saPG
+ FNAm51KaJGi360lWYzV+ng3kgwas=
+X-Google-Smtp-Source: AGHT+IFTPODU6RGdJMXff+75tOD6Nj3x2Mn/gdl5NWtqQnJzhnFZgI0m0ZroaJ8Q+jvxJuILOkW0ziN/Pe9Qt29xALE=
+X-Received: by 2002:a05:6512:32c8:b0:53e:28dd:a9d1 with SMTP id
+ 2adb3069b0e04-53e28ddb7bcmr693951e87.24.1733412111008; Thu, 05 Dec 2024
+ 07:21:51 -0800 (PST)
 MIME-Version: 1.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3000;
- i=mailhol.vincent@wanadoo.fr; h=from:subject;
- bh=3FOU1tKOI0CbVe65mzjG9c/bxGQ6uniX3atIK1gj4Ho=;
- b=owGbwMvMwCV2McXO4Xp97WbG02pJDOl+b/zdp90NyK2brtgsJCLFd0mugW+Giq5W+MzcH9G/V
- vvvNEvuKGVhEONikBVTZFlWzsmt0FHoHXboryXMHFYmkCEMXJwCMJEvyxkZ1peGXyi7JexwoqFt
- Ap/+g+09xyx2PL/y9aqaStmr2u9mRxj+Wd9sDbL7YC3MLMgadeloal+Q1OqTDSESKvlR+319+9Z
- yAQA=
-X-Developer-Key: i=mailhol.vincent@wanadoo.fr; a=openpgp;
- fpr=ED8F700574E67F20E574E8E2AB5FEB886DBB99C2
-Content-Transfer-Encoding: 8bit
+References: <20241203-is_constexpr-refactor-v1-0-4e4cbaecc216@wanadoo.fr>
+ <FBEB24FF-5885-4938-8D1C-9B7BA9071FB9@kernel.org>
+In-Reply-To: <FBEB24FF-5885-4938-8D1C-9B7BA9071FB9@kernel.org>
+From: Vincent Mailhol <mailhol.vincent@wanadoo.fr>
+Date: Fri, 6 Dec 2024 00:21:35 +0900
+X-Gmail-Original-Message-ID: <CAMZ6RqLSiTfTNQrcje06MbSxvM2k16MgqG1YTCufe6j9FhupEw@mail.gmail.com>
+Message-ID: <CAMZ6RqLSiTfTNQrcje06MbSxvM2k16MgqG1YTCufe6j9FhupEw@mail.gmail.com>
+Subject: Re: [PATCH 00/10] compiler.h: refactor __is_constexpr() into
+ is_const{, _true, _false}()
+To: Kees Cook <kees@kernel.org>
+Cc: Vincent Mailhol via B4 Relay
+ <devnull+mailhol.vincent.wanadoo.fr@kernel.org>, 
+ Linus Torvalds <torvalds@linux-foundation.org>,
+ David Laight <David.Laight@aculab.com>, 
+ Luc Van Oostenryck <luc.vanoostenryck@gmail.com>,
+ Nathan Chancellor <nathan@kernel.org>, 
+ Nick Desaulniers <ndesaulniers@google.com>, Bill Wendling <morbo@google.com>, 
+ Justin Stitt <justinstitt@google.com>, Yury Norov <yury.norov@gmail.com>, 
+ Rasmus Villemoes <linux@rasmusvillemoes.dk>,
+ "Gustavo A. R. Silva" <gustavoars@kernel.org>, 
+ Jani Nikula <jani.nikula@linux.intel.com>, 
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, 
+ Tvrtko Ursulin <tursulin@ursulin.net>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>, Suzuki K Poulose <suzuki.poulose@arm.com>, 
+ Mike Leach <mike.leach@linaro.org>, James Clark <james.clark@linaro.org>, 
+ Alexander Shishkin <alexander.shishkin@linux.intel.com>, 
+ Rikard Falkeborn <rikard.falkeborn@gmail.com>, 
+ Martin Uecker <Martin.Uecker@med.uni-goettingen.de>,
+ linux-sparse@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, llvm@lists.linux.dev, 
+ linux-hardening@vger.kernel.org, intel-gfx@lists.freedesktop.org, 
+ dri-devel@lists.freedesktop.org, coresight@lists.linaro.org, 
+ linux-arm-kernel@lists.infradead.org
+Content-Type: text/plain; charset="UTF-8"
 X-Mailman-Approved-At: Thu, 05 Dec 2024 17:47:40 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -76,86 +97,52 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Hi checkpatch maintainers,
-
-On Tue, 03 Dec 2024 at 10:19:34, Patchwork <patchwork@emeril.freedesktop.org> wrote:
-> == Series Details ==
+On Thu. 5 Dec. 2024 at 08:58, Kees Cook <kees@kernel.org> wrote:
+> On December 3, 2024 3:33:22 AM GMT+10:00, Vincent Mailhol via B4 Relay <devnull+mailhol.vincent.wanadoo.fr@kernel.org> wrote:
+> >This series is the spiritual successor of [1] which introduced
+> >const_true(). In [1], following a comment from David Laight, Linus
+> >came with a suggestion to simplify __is_constexpr() and its derived
+> >macros using a _Generic() selection. Because of the total change of
+> >scope, I am starting a new series.
+> >
+> >The goal is to introduce a set of three macros:
+> >
+> >  - is_const(): a one to one replacement of __is_constexpr() in term
+> >    of features but written in a less hacky way thanks to _Generic().
+> >
+> >  - is_const_true(): tells whether or not the argument is a true
+> >    integer constant expression.
+> >
+> >  - is_const_false(): tells whether or not the argument is a false
+> >    integer constant expression.
 >
-> Series: compiler.h: refactor __is_constexpr() into is_const{,_true,_false}()
-> URL   : https://patchwork.freedesktop.org/series/142040/
-> State : warning
+> But why make this change? Is something broken? Does it make builds faster?
 >
-> == Summary ==
+> > 7 files changed, 97 insertions(+), 84 deletions(-)
 >
-> Error: dim checkpatch failed
-> 65c5a73cbdd2 compiler.h: add statically_false()
-> 25d8e6973c58 compiler.h: add is_const() as a replacement of __is_constexpr()
-> -:75: CHECK:SPACING: spaces preferred around that '*' (ctx:WxO)
-> #75: FILE: include/linux/compiler.h:349:
-> +	_Generic(0 ? (void *)(long)(x) : (char *)0, char *: 1, void *: 0)
->  	                                                 ^
->
-> -:75: ERROR:SPACING: spaces required around that ':' (ctx:OxW)
-> #75: FILE: include/linux/compiler.h:349:
-> +	_Generic(0 ? (void *)(long)(x) : (char *)0, char *: 1, void *: 0)
->  	                                                  ^
->
-> -:75: CHECK:SPACING: spaces preferred around that '*' (ctx:WxO)
-> #75: FILE: include/linux/compiler.h:349:
-> +	_Generic(0 ? (void *)(long)(x) : (char *)0, char *: 1, void *: 0)
->  	                                                            ^
->
-> -:75: ERROR:SPACING: spaces required around that ':' (ctx:OxW)
-> #75: FILE: include/linux/compiler.h:349:
-> +	_Generic(0 ? (void *)(long)(x) : (char *)0, char *: 1, void *: 0)
->  	                                                             ^
->
-> -:75: CHECK:CAMELCASE: Avoid CamelCase: <_Generic>
-> #75: FILE: include/linux/compiler.h:349:
-> +	_Generic(0 ? (void *)(long)(x) : (char *)0, char *: 1, void *: 0)
+> It makes the code larger too. I don't see what the benefit is, and given how much time has been spent making sure the existing stuff works correctly, I feel like we should have a clear benefit to replacing it all.
 
-I submitted a patch which contained a _Generic() selection [1] and got
-above checkpatch warnings and errors.
+It makes the "code" larger because patch 3 ("compiler.h: add
+is_const_true() and is_const_false()") adds two new macros with 20
+lines of comments to explain the pros and cons. So the added "code" is
+only comments. If you ignore the comments, you can see that I am
+actually removing a few lines of code.
 
-Before blindly fixing those, I wanted to discuss this with you because
-it looks like a false positive to me.
+As for the clear benefit, sorry, but I have nothing more to offer
+other than code simplification. The reason why a lot of time was spent
+to make __is_constexpr() work correctly is just a testimony of how
+complex the thing is. That alone can be a reason to simplify it, now
+that new tools (_Generic()) are available.
 
-I think that the _Generic() selection should follow the switch case or
-the goto label style, that is to say, no space before the colon.
+Of course, modifying __is_constexpr() is not strictly needed to
+introduce the new is_const_expr(). My previous series:
 
-For example:
+  https://lore.kernel.org/all/20241113172939.747686-4-mailhol.vincent@wanadoo.fr/
 
-  _Generic(foo,
-	   char: 0,
-	   short: 1,
-	   char *: 2,
-	   short *: 3,
-	   default: 4);
-
-instead of:
-
-  _Generic(foo,
-	   char : 0,
-	   short : 1,
-	   char * : 2,
-	   short * : 3,
-	   default : 4);
-
-The fact is that the introduction of _Generic in the kernel is fairly
-recent (can be used since July 2020 following the bump to GCC 4.9 in [2]).
-So I guess that it is just that the _Generic()s where never considered
-in checkpatch.pl.
-
-I would have liked to send a fix, but I am not fluent in perl, so the
-best I have to offer is this report.
-
-Let me know if it is acceptable to ignore those checkpatch errors :)
-
-[1] compiler.h: add is_const() as a replacement of __is_constexpr()
-Link: https://lore.kernel.org/intel-gfx/20241203-is_constexpr-refactor-v1-2-4e4cbaecc216@wanadoo.fr/
-
-[2] commit 6ec4476ac825 ("Raise gcc version requirement to 4.9")
-Link: https://git.kernel.org/torvalds/c/6ec4476ac825
+ did it that way. But I was rightfully pointed out for my macro being
+ugly. Maybe I can suggest that you give a look to the above thread and
+tell me if you still disagree with David and Linus's comments after
+reading it?
 
 
 Yours sincerely,
