@@ -4,54 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B6631E7716C
-	for <intel-gfx@archiver.kernel.org>; Thu,  5 Dec 2024 11:09:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E1D94E77170
+	for <intel-gfx@archiver.kernel.org>; Thu,  5 Dec 2024 11:37:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 45E5110E38E;
-	Thu,  5 Dec 2024 11:09:25 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8DC5610E3B6;
+	Thu,  5 Dec 2024 11:37:02 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="Pw6+BEj7";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="g6xSkfNS";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.8])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 36FC110E38E;
- Thu,  5 Dec 2024 11:09:24 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.19])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C084310E3B6
+ for <intel-gfx@lists.freedesktop.org>; Thu,  5 Dec 2024 11:37:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1733396964; x=1764932964;
- h=from:to:subject:in-reply-to:references:date:message-id:
- mime-version; bh=MIr/pkaDvrA1YiE96XmOz/7jR2d0fIhmmoqKrzF/nkI=;
- b=Pw6+BEj7hLUhWIL8VUKC6oLCu/1FnY6Z3mW8WZI8Y4mHr4o18RJ+uHLk
- uHtf7RQaZ3HC9BvmBK3QCW+C7f9/14Qt8svUG8tgjv4xdcIKZRd6pdINk
- WdOGAAeT1SF5rZ8SMjCKrpi9D1wqDXw7CedU5OSlDnki0nCXSziDX+93o
- IpOInQ0LfoKYLr5lYO2Yzz7OM/oCmv1gTYzrhixyCLlbJaNpOz1VsvCrP
- 99E6kxDniruBPMrSSxlccuCHkzfWUBvSqxaekoEs/mdLMJCgB11/5MOPu
- NGp0oshFtT/3FktfqWXlVuNtRRI8PPBT9ZQJJz9JL27iLOI/8pjiW+nfP g==;
-X-CSE-ConnectionGUID: DBFyteZWRMSWJbc13EVcgw==
-X-CSE-MsgGUID: 5TrA8CVDR9qyTz0YGpeM+Q==
-X-IronPort-AV: E=McAfee;i="6700,10204,11276"; a="51240259"
-X-IronPort-AV: E=Sophos;i="6.12,210,1728975600"; d="scan'208";a="51240259"
-Received: from orviesa002.jf.intel.com ([10.64.159.142])
- by fmvoesa102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 05 Dec 2024 03:09:23 -0800
-X-CSE-ConnectionGUID: rXpyDj1rQc+HUJEX9AE1hw==
-X-CSE-MsgGUID: Majcwft9Q+6NwLFVcddAJw==
+ t=1733398621; x=1764934621;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=HgK2+bsPxJ9oOzk81WLzDaJKEbO2LBFP/qgudkbYFA8=;
+ b=g6xSkfNS0WjrLamFIcWhEy0hzTJEGMzvHIco//uUqxGJbyrP79jzYcxv
+ Vt62QIuVXniikS5xEz2MwWMXY6ZgCAqfD+mRFg5Py3ejLNpw5VsOWK52T
+ 3lVFvXrvzW7RI6pR927YR64OEzsOUdvbH8fyBK7/qmAwBuLkwLGWhs/fY
+ hMQiGHQ72g/UpdlauHn+er3Qw6U9xAlMhYi67CkPZBxtLZSfAIEobwtZW
+ rzr+/k+8C2//z/nhC9UiPzQrYSi5hc0GtkRP1L/FXKFQ4AtwsIGMLNPZv
+ Od3YwMNkkVgm6xbqwpE1Rbxqw+CB+7/yxBaJwe/FiZx4wVYqaGBJFHdqa A==;
+X-CSE-ConnectionGUID: xvADdWlRSum/0vV3MW5ubw==
+X-CSE-MsgGUID: u22ydlNSS2O+nzDBH08O/g==
+X-IronPort-AV: E=McAfee;i="6700,10204,11276"; a="33589189"
+X-IronPort-AV: E=Sophos;i="6.12,210,1728975600"; d="scan'208";a="33589189"
+Received: from orviesa009.jf.intel.com ([10.64.159.149])
+ by orvoesa111.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 05 Dec 2024 03:37:00 -0800
+X-CSE-ConnectionGUID: 2b7LxiJkRUaipf9QyKmQaQ==
+X-CSE-MsgGUID: +MmCCWfqTxyLzoadVVlwGg==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.12,210,1728975600"; d="scan'208";a="124882256"
-Received: from lfiedoro-mobl.ger.corp.intel.com (HELO localhost)
- ([10.245.246.27])
- by orviesa002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 05 Dec 2024 03:09:22 -0800
-From: Jani Nikula <jani.nikula@intel.com>
-To: dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
- intel-xe@lists.freedesktop.org
-Subject: Re: [PATCH v2 0/3] drm: remove driver date
-In-Reply-To: <cover.1733322525.git.jani.nikula@intel.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
-References: <cover.1733322525.git.jani.nikula@intel.com>
-Date: Thu, 05 Dec 2024 13:09:18 +0200
-Message-ID: <87o71q1j4x.fsf@intel.com>
+X-IronPort-AV: E=Sophos;i="6.12,210,1728975600"; d="scan'208";a="93962767"
+Received: from nitin-super-server.iind.intel.com ([10.145.169.70])
+ by orviesa009.jf.intel.com with ESMTP; 05 Dec 2024 03:36:59 -0800
+From: Nitin Gote <nitin.r.gote@intel.com>
+To: intel-gfx@lists.freedesktop.org
+Cc: chris.p.wilson@intel.com,
+	andi.shyti@intel.com,
+	nitin.r.gote@intel.com
+Subject: [PATCH v1 1/1] drm/i915/gt: Increase a time to retry RING_HEAD reset
+Date: Thu,  5 Dec 2024 17:27:36 +0530
+Message-Id: <20241205115736.1420991-1-nitin.r.gote@intel.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Transfer-Encoding: 8bit
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,23 +66,30 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Wed, 04 Dec 2024, Jani Nikula <jani.nikula@intel.com> wrote:
-> Resend, crunched this through more configs enabled to be sure.
->
-> BR,
-> Jani.
->
->
->
-> Jani Nikula (3):
->   drm/xen: remove redundant initialization info print
->   accel/ivpu: remove DRIVER_DATE conditional drm_driver init
->   drm: remove driver date from struct drm_driver and all drivers
+Issue is seen again where engine resets fails because the engine resumes
+from an incorrect RING_HEAD. So, increase a time if at first the
+write doesn't succeed and retry again.
 
-Thanks for the reviews and acks, pushed to drm-misc-next.
+Fixes: 6ef0e3ef2662 ("drm/i915/gt: Retry RING_HEAD reset until it get sticks")
+Closes: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/12806
+Signed-off-by: Nitin Gote <nitin.r.gote@intel.com>
+---
+ drivers/gpu/drm/i915/gt/intel_ring_submission.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-BR,
-Jani.
-
+diff --git a/drivers/gpu/drm/i915/gt/intel_ring_submission.c b/drivers/gpu/drm/i915/gt/intel_ring_submission.c
+index 32f3b52a183a..bc9f28524713 100644
+--- a/drivers/gpu/drm/i915/gt/intel_ring_submission.c
++++ b/drivers/gpu/drm/i915/gt/intel_ring_submission.c
+@@ -231,7 +231,7 @@ static int xcs_resume(struct intel_engine_cs *engine)
+ 	set_pp_dir(engine);
+ 
+ 	/* First wake the ring up to an empty/idle ring */
+-	for ((kt) = ktime_get() + (2 * NSEC_PER_MSEC);
++	for ((kt) = ktime_get() + (50 * NSEC_PER_MSEC);
+ 			ktime_before(ktime_get(), (kt)); cpu_relax()) {
+ 		/*
+ 		 * In case of resets fails because engine resumes from
 -- 
-Jani Nikula, Intel
+2.25.1
+
