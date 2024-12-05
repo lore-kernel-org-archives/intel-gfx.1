@@ -4,81 +4,27 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1EFC3E7716E
-	for <intel-gfx@archiver.kernel.org>; Thu,  5 Dec 2024 19:39:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9C22AE7716E
+	for <intel-gfx@archiver.kernel.org>; Thu,  5 Dec 2024 19:43:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A6BA010EF9D;
-	Thu,  5 Dec 2024 19:39:28 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="AovqSWGK";
-	dkim-atps=neutral
-Received: from mail-lj1-f181.google.com (mail-lj1-f181.google.com
- [209.85.208.181])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DE02B10EF9B
- for <intel-gfx@lists.freedesktop.org>; Thu,  5 Dec 2024 19:39:26 +0000 (UTC)
-Received: by mail-lj1-f181.google.com with SMTP id
- 38308e7fff4ca-2ffd6af012eso13963651fa.2
- for <intel-gfx@lists.freedesktop.org>; Thu, 05 Dec 2024 11:39:26 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1733427565; x=1734032365; darn=lists.freedesktop.org;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=V/JR6tqjUEHZEvMHz1vJRKFUVCynxiJpP8/fbgMYoVQ=;
- b=AovqSWGKpHozLF44SFEo2JIQ5s0auo9GWdU7PPYiFTXEBmwDsVhnvsGqjRqiw4i7rt
- 1xUV3ienL+/EQ+rFsMV+dT96cGH3m0xYX/zKtLbeXkpK9HDYYa9oRwu72A1nVaMg39eY
- nxN4rOf8jCu2/mfG/kuGsR2zIf8h/ZHepTnRknSq0sG6CYopjVjQHd/wJkp5XjTbd+BE
- xy9xrMonGcvG2CDHbHfcluMrXpoS8h7Isszgs9JmPhw/zNArPaQ+MPR78o3u3WGE9ifP
- fnWtYqXPkanE61BJHmEED9Gu9aQJP2AXlU7wS2MUhG+2fg2jMLCLEsWqyxb8IecAG2xD
- TPaA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1733427565; x=1734032365;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=V/JR6tqjUEHZEvMHz1vJRKFUVCynxiJpP8/fbgMYoVQ=;
- b=DaVh7y1tzZYSWSWWX3GaXHyiTOVCs9/0qtd6OIfMI+OSfuU2iDCvFUcMsk3/wgmasB
- q4jz4zbMHqK+0/nsxxA6hL+XMG/KQIThaZXtVXLf8cq74tsCnyqQsnyYKoe/h6WXaf8Q
- mDq9EKokDqRII8b16gVdJWH7FCzgOHIuysHRqW7Aw5CSzW+b+8UjqbeAaLB+wpuyXNPz
- qWL/JxJ5u01CdoOWfnrAaa1AkNcUy5K2KYASHcnvdPCTt3jnllCeNtr658pRAvQSbGFo
- +gIiQs8WCuuume76nj5YFSKsIokEec6moeep6P79uCjgGeGPumXpyYb5wZQkktsM7KGo
- esOQ==
-X-Forwarded-Encrypted: i=1;
- AJvYcCXdIsgq6J/DGe3gcdyirS0qKyAPtCwm41q/OA+FTLaQTfPUapvAQsogxzRI+tQl++GOTRgF5AR8n2g=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yxa0zqJ86tDeg35vXCzJiM24zCdBr06AxePJUTwfKZ8wQohRCKF
- zIDWIybcQqjDK5yfviz62pwVHm9TVW7rBMs18RdEiQuIbMsPXW1/sm0r03KAL6VF8xUmd2odrDN
- /
-X-Gm-Gg: ASbGncvIyr/p8RgAsd/f9S09c3tlc/QInIYspeqpgJJnf/asLZ/xNy0GopOiTNr7bX0
- 4gl5uEsA3UIU2m6AgLkOHzfYIBDDe2+SlXaiurUrHqoq7Joisy2YwM3pewTqR7fWbNt8O71cXM3
- 35KZBRKKxgoSovnpmrZjV++h/61Pl7UgX8NgD3jygHJZAMnwtZZBlYsX+oyTFzIxlqmy50E+kQ5
- dwYtGt+RqJTAIJ8hb+jePIYBNkqE4L65AaeaKSI7CNg0mhfyOl/979gcqmiP4SFat4l08XKorOm
- A0DO/3X3Duc72z0BQjAjW6OOiM3aog==
-X-Google-Smtp-Source: AGHT+IFp4xulhZ02HEDAfcow6EI4I5Rc4PDVSiHBDYKEjN3lJ/as2VygnDosiTN5ElT9z0g8pyhVNg==
-X-Received: by 2002:a2e:8088:0:b0:300:2c32:4c39 with SMTP id
- 38308e7fff4ca-3002fc6445fmr493911fa.32.1733427564979; 
- Thu, 05 Dec 2024 11:39:24 -0800 (PST)
-Received: from eriador.lumag.spb.ru
- (2001-14ba-a0c3-3a00--b8c.rev.dnainternet.fi. [2001:14ba:a0c3:3a00::b8c])
- by smtp.gmail.com with ESMTPSA id
- 38308e7fff4ca-30020dbbd97sm2852951fa.65.2024.12.05.11.39.22
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 05 Dec 2024 11:39:23 -0800 (PST)
-Date: Thu, 5 Dec 2024 21:39:21 +0200
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-To: "Murthy, Arun R" <arun.r.murthy@intel.com>
-Cc: "intel-xe@lists.freedesktop.org" <intel-xe@lists.freedesktop.org>, 
- "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>, 
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>
-Subject: Re: [PATCHv2 01/10] drm/crtc: Add histogram properties
-Message-ID: <fev637ue37cbc5bstvqqvstserp75khqewpof3pc4loshnpghl@vp33ww6i6rdn>
-References: <20241204091456.1785858-1-arun.r.murthy@intel.com>
- <s3gkb36ga2pxmxocrhcjp5pcgbewx4x3joiyrpld3th4r4fvyi@rkpgbu4ekst3>
- <IA0PR11MB7307F22883ACF3AD873C3697BA302@IA0PR11MB7307.namprd11.prod.outlook.com>
- <CAA8EJpp4HjyEL9XSLzXr6tG7+8M2FmZO1S2WrLXmP64J_aKs-w@mail.gmail.com>
- <DM4PR11MB7302BD8409DEC33EF2F1B0BFBA302@DM4PR11MB7302.namprd11.prod.outlook.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 21A1310EF90;
+	Thu,  5 Dec 2024 19:43:19 +0000 (UTC)
+Received: from b555e5b46a47 (emeril.freedesktop.org [131.252.210.167])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 01EF810EF90;
+ Thu,  5 Dec 2024 19:43:17 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <DM4PR11MB7302BD8409DEC33EF2F1B0BFBA302@DM4PR11MB7302.namprd11.prod.outlook.com>
+Content-Transfer-Encoding: 7bit
+Subject: =?utf-8?q?=E2=9C=93_i915=2ECI=2EBAT=3A_success_for_drm/i915/pps=3A_include_p?=
+ =?utf-8?q?anel_power_cycle_delay_in_debugfs?=
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Jani Nikula" <jani.nikula@intel.com>
+Cc: intel-gfx@lists.freedesktop.org
+Date: Thu, 05 Dec 2024 19:43:17 -0000
+Message-ID: <173342779798.3074111.3181990650746687342@b555e5b46a47>
+X-Patchwork-Hint: ignore
+References: <20241205123720.3278727-1-jani.nikula@intel.com>
+In-Reply-To: <20241205123720.3278727-1-jani.nikula@intel.com>
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -91,77 +37,91 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Thu, Dec 05, 2024 at 04:29:55PM +0000, Murthy, Arun R wrote:
-> > > > -----Original Message-----
-> > > > From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-> > > > Sent: Wednesday, December 4, 2024 5:17 PM
-> > > > To: Murthy, Arun R <arun.r.murthy@intel.com>
-> > > > Cc: intel-xe@lists.freedesktop.org; intel-gfx@lists.freedesktop.org;
-> > > > dri- devel@lists.freedesktop.org
-> > > > Subject: Re: [PATCHv2 01/10] drm/crtc: Add histogram properties
-> > > >
-> > > > On Wed, Dec 04, 2024 at 02:44:56PM +0530, Arun R Murthy wrote:
-> > > > > Add variables for histogram drm_property, its corrsponding
-> > > > > crtc_state variables and define the structure pointed by the blob property.
-> > > > > struct drm_histogram defined in include/uapi/drm/drm_mode.h The
-> > > > > blob data pointer will be the address of the struct drm_histogram.
-> > > > > The struct drm_histogram will be used for both reading the
-> > > > > histogram and writing the image enhanced data.
-> > > > > struct drm_histogram {
-> > > > >     u64 data_ptr;
-> > > > >     u32 nr_elements;
-> > > > > }
-> > > > > The element data_ptr holds the address of the histogram statistics
-> > > > > data and 'nr_elements' represents the number of elements pointed
-> > > > > by the pointer held in data_ptr.
-> > > > > The same element data_ptr in teh struct drm_histogram when writing
-> > > > > the image enahnced data from user to KMD holds the address to pixel
-> > factor.
-> > > > >
-> > > > > v2: Added blob description in commit message (Dmitry)
-> > > >
-> > > > No, it is not a proper description. What is the actual data format
-> > > > inside the blob? If I were to implement drm_histogram support for e.g.
-> > > > VKMS, what kind of data should the driver generate? What is the
-> > > > format of the response data from the userspace app? The ABI
-> > > > description should allow an independent but completely compatible
-> > > > implementation to be written from scratch.
-> > > >
-> > > The histogram is generated by the hardware.
-> > > Histogram represents integer which is the pixel count and when it
-> > > comes to the IET(Image Enhancement) to be written back to hardware its
-> > > again an integer, pixel factor.
-> > > Is this the information that you expected to be added or something else?
-> > 
-> > You are defining the interface between the kernel and userspace. The interface
-> > should be defined in a way that allows us (developers) to understand the data,
-> > make a decision whether it fits a generic namespace (which means that other
-> > drivers must be able to implement the same interface), it fits namespace
-> > specific to i915 / Xe (then we will have platform-specific properties for the
-> > feature that might be implemented by other platforms) or it doesn't fit
-> > anything at all.
-> > 
-> Sure will add the above information in the commit message and also in the kernel doc.
-> If there are no other review comments, then I will push the next version of patch implementing your comments.
-> 
-> > So the documentation must contain the specification of the binary data inside
-> > the blobs. An IGT, modetest or some other compositor must be able to parse
-> > the data and generate (some) response without using your library.
-> > 
-> IGT patch can be located at https://patchwork.freedesktop.org/series/135789/ This include test with and without library.
-> The corresponding compositor changes can be located at https://gitlab.gnome.org/GNOME/mutter/-/merge_requests/3873/diffs?commit_id=270808ca7c8be48513553d95b4a47541f5d40206
+== Series Details ==
 
-I know. But that's not a replacement for the documentation. Can I
-implement an alternative implementation without using your library?
+Series: drm/i915/pps: include panel power cycle delay in debugfs
+URL   : https://patchwork.freedesktop.org/series/142174/
+State : success
 
-> 
-> Thanks and Regards,
-> Arun R Murthy
-> --------------------
+== Summary ==
 
--- 
-With best wishes
-Dmitry
+CI Bug Log - changes from CI_DRM_15795 -> Patchwork_142174v1
+====================================================
+
+Summary
+-------
+
+  **SUCCESS**
+
+  No regressions found.
+
+  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_142174v1/index.html
+
+Participating hosts (44 -> 42)
+------------------------------
+
+  Missing    (2): fi-snb-2520m fi-pnv-d510 
+
+Known issues
+------------
+
+  Here are the changes found in Patchwork_142174v1 that come from known issues:
+
+### IGT changes ###
+
+#### Issues hit ####
+
+  * igt@i915_module_load@reload:
+    - bat-twl-1:          [PASS][1] -> [DMESG-WARN][2] ([i915#1982])
+   [1]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_15795/bat-twl-1/igt@i915_module_load@reload.html
+   [2]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_142174v1/bat-twl-1/igt@i915_module_load@reload.html
+
+  * igt@i915_selftest@live@workarounds:
+    - bat-arlh-3:         [PASS][3] -> [ABORT][4] ([i915#12061]) +1 other test abort
+   [3]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_15795/bat-arlh-3/igt@i915_selftest@live@workarounds.html
+   [4]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_142174v1/bat-arlh-3/igt@i915_selftest@live@workarounds.html
+    - bat-arlh-2:         [PASS][5] -> [ABORT][6] ([i915#12061]) +1 other test abort
+   [5]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_15795/bat-arlh-2/igt@i915_selftest@live@workarounds.html
+   [6]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_142174v1/bat-arlh-2/igt@i915_selftest@live@workarounds.html
+
+  
+#### Possible fixes ####
+
+  * igt@i915_pm_rpm@module-reload:
+    - bat-arls-5:         [DMESG-WARN][7] ([i915#4423]) -> [PASS][8] +1 other test pass
+   [7]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_15795/bat-arls-5/igt@i915_pm_rpm@module-reload.html
+   [8]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_142174v1/bat-arls-5/igt@i915_pm_rpm@module-reload.html
+    - bat-rpls-4:         [FAIL][9] ([i915#12903]) -> [PASS][10]
+   [9]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_15795/bat-rpls-4/igt@i915_pm_rpm@module-reload.html
+   [10]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_142174v1/bat-rpls-4/igt@i915_pm_rpm@module-reload.html
+
+  * igt@kms_pipe_crc_basic@nonblocking-crc-frame-sequence:
+    - bat-dg2-11:         [SKIP][11] ([i915#9197]) -> [PASS][12] +3 other tests pass
+   [11]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_15795/bat-dg2-11/igt@kms_pipe_crc_basic@nonblocking-crc-frame-sequence.html
+   [12]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_142174v1/bat-dg2-11/igt@kms_pipe_crc_basic@nonblocking-crc-frame-sequence.html
+
+  
+  [i915#12061]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/12061
+  [i915#12903]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/12903
+  [i915#1982]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/1982
+  [i915#4423]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/4423
+  [i915#9197]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/9197
+
+
+Build changes
+-------------
+
+  * Linux: CI_DRM_15795 -> Patchwork_142174v1
+
+  CI-20190529: 20190529
+  CI_DRM_15795: ab26b8eb1a5191f86d7b778e71a15d34fb4737ce @ git://anongit.freedesktop.org/gfx-ci/linux
+  IGT_8138: 8138
+  Patchwork_142174v1: ab26b8eb1a5191f86d7b778e71a15d34fb4737ce @ git://anongit.freedesktop.org/gfx-ci/linux
+
+== Logs ==
+
+For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_142174v1/index.html
