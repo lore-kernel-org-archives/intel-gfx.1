@@ -4,64 +4,60 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 44029E7717D
-	for <intel-gfx@archiver.kernel.org>; Mon,  9 Dec 2024 13:43:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D6721E77185
+	for <intel-gfx@archiver.kernel.org>; Mon,  9 Dec 2024 13:43:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4F86610E772;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0F60A10E76E;
 	Mon,  9 Dec 2024 13:43:30 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=wanadoo.fr header.i=@wanadoo.fr header.b="JJxE0Bh3";
+	dkim=pass (2048-bit key; unprotected) header.d=wanadoo.fr header.i=@wanadoo.fr header.b="DIQKZN4N";
 	dkim-atps=neutral
-Received: from out.smtpout.orange.fr (out-16.smtpout.orange.fr [193.252.22.16])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5754A10E1AC;
- Sat,  7 Dec 2024 09:22:12 +0000 (UTC)
-Received: from mail-ej1-f53.google.com ([209.85.218.53])
+Received: from out.smtpout.orange.fr (out-11.smtpout.orange.fr [193.252.22.11])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E72C210E1F6;
+ Fri,  6 Dec 2024 23:42:10 +0000 (UTC)
+Received: from mail-ed1-f45.google.com ([209.85.208.45])
  by smtp.orange.fr with ESMTPSA
- id Jr0rtoBX1FYs8Jr0stWfeK; Sat, 07 Dec 2024 10:22:10 +0100
+ id JhxYtSrPmagYUJhxYt272k; Sat, 07 Dec 2024 00:42:08 +0100
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=wanadoo.fr;
- s=t20230301; t=1733563330;
- bh=5FIX3GE2Cphszv8rtvt9crE9ghdCcm+668GDkaRhBU4=;
+ s=t20230301; t=1733528528;
+ bh=y8D8qHkNTgsq/hueRr7hAF5ECQldq13KAVXg/Zr3BLA=;
  h=MIME-Version:From:Date:Message-ID:Subject:To;
- b=JJxE0Bh3YuY/GeL7dxWU68dBkMqzpZZryV60aF3NeHxMEBOVwiqyme5h35r4WpXRG
- IDPFPEKKGqfaYjsl1gEA6SICBCnokqmytgqaN0VxNhqnUevQ2kdiEvVgRCqJu9xC81
- tZXhlDRt4gU9YMgpK+cnXOa6PAbiOeVRPkehlvg4cRzw9Eh6Th1KMqLyTvj4Wt8nzv
- yvffqw/Tqmm3CR1b9eBHXWHE1UXYiTmU5cJ3HC7xfklmmg2mLRwSz62yYANlPz47n6
- DVKwB5rlEkJsSA2fYcC97TRQqqmKrH+gPs7y8oyBwq6rhhU883nxRrc4Kj1GWnww1f
- jfywcH+Z/Vqqw==
-X-ME-Helo: mail-ej1-f53.google.com
+ b=DIQKZN4N1tG5kIETufS6VciJ5rA1lbylGpeGGxllZWRAwIeeqD0VmS7Y9ehLeIVBs
+ ImFgKbWnwl1aTcVcWCjtKFvH8NQ1lFr7UZhx9xtB543JddN+hr2Tvde4S+EBRcqifB
+ hWpoxUvXihD53FwPfq2zFr1BGW2BSiTW8QYeqDDpErRh2Zmw7cUdnytOWElMixEiV5
+ hHZ+cgAnkswvorGk+UNOxES/cYA33MbWLIV7WNeqqAeaCdwXNAINVkTKrGkrBtZf7r
+ JEaUxCNhFd7WLi9rHiuVZlmizuYkemkhswv2SU9pDYiltUuI7EACsYy/owQoeTS53Y
+ NPXv/cz3zDXLQ==
+X-ME-Helo: mail-ed1-f45.google.com
 X-ME-Auth: bWFpbGhvbC52aW5jZW50QHdhbmFkb28uZnI=
-X-ME-Date: Sat, 07 Dec 2024 10:22:10 +0100
-X-ME-IP: 209.85.218.53
-Received: by mail-ej1-f53.google.com with SMTP id
- a640c23a62f3a-aa650ccbe0eso51474566b.2; 
- Sat, 07 Dec 2024 01:22:10 -0800 (PST)
+X-ME-Date: Sat, 07 Dec 2024 00:42:08 +0100
+X-ME-IP: 209.85.208.45
+Received: by mail-ed1-f45.google.com with SMTP id
+ 4fb4d7f45d1cf-5cf6f367f97so3717479a12.0; 
+ Fri, 06 Dec 2024 15:42:08 -0800 (PST)
 X-Forwarded-Encrypted: i=1;
- AJvYcCUmMan0IOt3HXwrj8gz/OCGITiDAMzPRPKQ1ryPAqLnfPb1OuTxAktNTBkM7wB3og3VABIBh5Z5Rt+j@lists.freedesktop.org,
- AJvYcCX5bWxwDPwlVBQDQfHchF62e+5Dn4bIbgjaOi2D8jb7s6A5H18iSJvGoa8W5xv1TILNxER0Oy9mHwY=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxEyIbXLb1Qo8hQuLXpbGSLr9kyHPpIZVN98TBpZjtd1f1HyUxG
- olk5qLEmKxSdASvDyJ2x7phUgecX8L67IYkVumZ2ekI/6Z3a/cSbQ43WCB6HgcI10BZ3emJC77j
- RvvAMDLDm4QFJN3HbpfJJ+Xkp21o=
-X-Google-Smtp-Source: AGHT+IHtHlVyoW+nRFmP2KVhABtFl5ikoWMC68HCGMKZEPnxOyfyDUMalss4BKk3XOGNHnTjXwFKxuaBrlfCMkC7FxE=
-X-Received: by 2002:a17:906:9895:b0:a9a:238a:381d with SMTP id
- a640c23a62f3a-aa63a2c64eamr136036766b.52.1733469982863; Thu, 05 Dec 2024
- 23:26:22 -0800 (PST)
+ AJvYcCU95dgD5pLmWnXlHhGTLAG5oqWaDRpz7LTREkO7AlDVVj9f207E/Xv/k3lGT2ovfATj4dEV+5O8CVQe@lists.freedesktop.org,
+ AJvYcCUqGuU/myvSI2mV652Q5wekaL/RUvnFeQiI6mUcciL18cLmHA3c7swRZh5POAyBZt2KRmwLvXGM7Z8=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yz+ggF95gHBkAMcGhl0cHYEEfyVyIZxOxaknlDjwBOpEMg6OCUP
+ sbXE5ZZheNZnbUypsVTCdr+7u1yRBulrToSl3hkc7Ucqi3pmeQdl+4BKSQoqszDJ0G/rJxCuVs2
+ FpnpSMXs7+QDluNvmyTBYuBeQHDY=
+X-Google-Smtp-Source: AGHT+IFZAC0AEpJ1/mPjmzfGhg/DetDbHXis2ssNehZ0yWdtCmcXanGc2R7Dja3wTy2rdkW6SAY6SvJBqtErDk3coGc=
+X-Received: by 2002:a17:906:3295:b0:aa5:28af:f0e with SMTP id
+ a640c23a62f3a-aa5f7d4edd1mr1018856966b.15.1733413793948; Thu, 05 Dec 2024
+ 07:49:53 -0800 (PST)
 MIME-Version: 1.0
 References: <20241203-is_constexpr-refactor-v1-0-4e4cbaecc216@wanadoo.fr>
- <20241203-is_constexpr-refactor-v1-2-4e4cbaecc216@wanadoo.fr>
- <1d807c7471b9434aa8807e6e86c964ec@AcuMS.aculab.com>
- <CAMZ6RqLJLP+4d8f5gLfBdFeDVgqy23O+Eo8HRgKCthqBjSHaaw@mail.gmail.com>
- <9ef03cebb4dd406885d8fdf79aaef043@AcuMS.aculab.com>
- <abdd7862f136aa676b2d2c324369f4a43ff9909c.camel@gwdg.de>
-In-Reply-To: <abdd7862f136aa676b2d2c324369f4a43ff9909c.camel@gwdg.de>
+ <20241203-is_constexpr-refactor-v1-4-4e4cbaecc216@wanadoo.fr>
+ <dff4cdd543104e3792e4856375f310c1@AcuMS.aculab.com>
+In-Reply-To: <dff4cdd543104e3792e4856375f310c1@AcuMS.aculab.com>
 From: Vincent Mailhol <mailhol.vincent@wanadoo.fr>
-Date: Fri, 6 Dec 2024 16:26:11 +0900
-X-Gmail-Original-Message-ID: <CAMZ6RqKzGiRNMeLsQKRNrxvW_bXB-kEi11udQ82kKX6tGCrqcg@mail.gmail.com>
-Message-ID: <CAMZ6RqKzGiRNMeLsQKRNrxvW_bXB-kEi11udQ82kKX6tGCrqcg@mail.gmail.com>
-Subject: Re: [PATCH 02/10] compiler.h: add is_const() as a replacement of
- __is_constexpr()
-To: uecker@tugraz.at
-Cc: David Laight <David.Laight@aculab.com>,
- Linus Torvalds <torvalds@linux-foundation.org>, 
+Date: Fri, 6 Dec 2024 00:49:43 +0900
+X-Gmail-Original-Message-ID: <CAMZ6RqLsiOF=5FZ=U2MtZ01iBYKZHtfZ5Zi4t3m=L5Oc4EPHGg@mail.gmail.com>
+Message-ID: <CAMZ6RqLsiOF=5FZ=U2MtZ01iBYKZHtfZ5Zi4t3m=L5Oc4EPHGg@mail.gmail.com>
+Subject: Re: [PATCH 04/10] linux/bits.h: simplify GENMASK_INPUT_CHECK() by
+ using is_const_true()
+To: David Laight <David.Laight@aculab.com>
+Cc: Linus Torvalds <torvalds@linux-foundation.org>, 
  Luc Van Oostenryck <luc.vanoostenryck@gmail.com>,
  Nathan Chancellor <nathan@kernel.org>, 
  Nick Desaulniers <ndesaulniers@google.com>, Bill Wendling <morbo@google.com>, 
@@ -76,6 +72,7 @@ Cc: David Laight <David.Laight@aculab.com>,
  Mike Leach <mike.leach@linaro.org>, James Clark <james.clark@linaro.org>, 
  Alexander Shishkin <alexander.shishkin@linux.intel.com>, 
  Rikard Falkeborn <rikard.falkeborn@gmail.com>, 
+ Martin Uecker <Martin.Uecker@med.uni-goettingen.de>, 
  "linux-sparse@vger.kernel.org" <linux-sparse@vger.kernel.org>, 
  "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, 
  "llvm@lists.linux.dev" <llvm@lists.linux.dev>, 
@@ -83,8 +80,7 @@ Cc: David Laight <David.Laight@aculab.com>,
  "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>, 
  "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>, 
  "coresight@lists.linaro.org" <coresight@lists.linaro.org>, 
- "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>,
- Martin Uecker <muecker@gwdg.de>
+ "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>
 Content-Type: text/plain; charset="UTF-8"
 X-Mailman-Approved-At: Mon, 09 Dec 2024 13:43:28 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
@@ -102,38 +98,25 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Fri. 6 Dec. 2024 at 15:40, Martin Uecker <muecker@gwdg.de> wrote:
-> Am Freitag, dem 06.12.2024 um 02:25 +0000 schrieb David Laight:
-> > From: Vincent Mailhol
-> > > Sent: 05 December 2024 15:31
-> > >
-> > > -CC: Martin Uecker <Martin.Uecker@med.uni-goettingen.de>
-> > > +CC: Martin Uecker <muecker@gwdg.de>
-> > > (seems that Martin changed his address)
+On Thu. 5 Dec 2024 at 03:52, David Laight <David.Laight@aculab.com> wrote:
+> From: Vincent Mailhol
+> > Sent: 02 December 2024 17:33
+> >
+> >   __builtin_choose_expr(__is_constexpr((l) > (h)), (l) > (h), 0)
+> >
+> > is equivalent to:
+> >
+> >   is_const_true((l) > (h))
 >
-> My current one is this: uecker@tugraz.at
+> Change it to BUILD_BUG_ON_MSG(statically_true((l) < (h)), "error message")
+>
+> and then fix all the fallout :-)
 
-Ack
+BUILD_BUG_ON_MSG() is not suitable for GENMASK_INPUT_CHECK. We need
+one of the variants that returns zero here.
 
-(...)
-
-> > > > > + *
-> > > > > + * Glory to Martin Uecker <Martin.Uecker@med.uni-goettingen.de>
-> > > >
-> > > > IIRC Martin has agreed in the past that the accreditation can
-> > > > be removed - especially since it refers to the 'sizeof (void)' trick.
-> > >
-> > > I tried to look for such message:
-> > >
-> > >   https://lore.kernel.org/all/?q=f%3A%22martin+uecker%22+__is_constexpr
-> > >
-> > > but couldn't find it. Do you have the link?
-> > >
-> > > @Martin, do you agree that I remove the accreditation?
-
-So, do you agree to have the accreditation removed in compiler.h?
-Personally, I do not mind. I am also OK to remove you from the
-documentation and add you to the CREDITS file if you'd like to.
+But I agree that it is good to have a more meaningful error message
+here. I will use __BUILD_BUG_ON_ZERO_MSG() in v2.
 
 
 Yours sincerely,
