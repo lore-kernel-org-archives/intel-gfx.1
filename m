@@ -4,51 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C3AAAE77170
-	for <intel-gfx@archiver.kernel.org>; Thu,  5 Dec 2024 09:49:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 121BAE7716C
+	for <intel-gfx@archiver.kernel.org>; Thu,  5 Dec 2024 09:49:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 64C9010E38C;
-	Thu,  5 Dec 2024 09:49:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 969FE10E39A;
+	Thu,  5 Dec 2024 09:49:58 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="KTApHbAq";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="mCwRF0XN";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.14])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1292710E38B;
- Thu,  5 Dec 2024 09:49:47 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CB7AA10E39D;
+ Thu,  5 Dec 2024 09:49:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1733392187; x=1764928187;
+ t=1733392197; x=1764928197;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=v0+FabkxUt9Ev8knat/9ZdJcyv0F3U6dWzcSG5Lv0ZE=;
- b=KTApHbAqhy/gyjnqDLguYTVis3KqY0UQuSBFBVN/7VehbzHZkSlwAz9x
- 90/E9hTfkdAMm1+9jQfeMb5nFSHc/bZECM12NDfc2WO8m6/d2ra+uQyrP
- +XtlVzpRXRjIYMrHRpLlxD6P9bP9a43pAYbo32WLADRio3ykEz3f+ysvr
- dgXvr1FUfOGFzypcIcnAdFmlf6Y8cmSwGDEWqrnHvuUoh0vkNjfh+V8D/
- E0+LZg6V/URAC/AjXghPTXwdqzESAZtj62Voq5jp5qNSroZbryj4NsDKC
- BUg3q48PoyYpx55MQPXtmEN7eNucYz/QLnva/g+II6+dva5neYg5SOm6M w==;
-X-CSE-ConnectionGUID: Idn8WlYfRkW62gZiQ8GG0A==
-X-CSE-MsgGUID: elfasFTTQTCtGjXuD4Q70g==
-X-IronPort-AV: E=McAfee;i="6700,10204,11276"; a="33938939"
-X-IronPort-AV: E=Sophos;i="6.12,209,1728975600"; d="scan'208";a="33938939"
+ bh=RjEk9KxpiXq5IqtZQnUTNrg37mvyAwQXbHVk9jk4h4w=;
+ b=mCwRF0XN/myGcv6EoUZNEuap4cUbUwvlc2X80Zw/agLnjWhz+0oE1BUd
+ gWB4Tg2Fak4bmv8gaP7E/49cJXcZcGFbAX61X6AYKBPrfi4kxCk7JM2tw
+ T0eHAaFhaHRrnZYNZ1YHcECObbxF2rlLSxt7Zsmc9NOae+spkfhraI9Jh
+ o2OwU9kmpZq7Tsbh1U0DZMqiGg82Wwmviu8tD62X9AwMFFZOR2bRCTBX9
+ 3oG7Uuh8wJjyoOpa8U235J7gEb2p5WKvmwp8KKXfTZ8S5QTq23NaMm3r3
+ 6fniB4VZJTI2iRAeH94Jt6ir2w5rttSIdLHMvCIk4ZVF+D1WbrVFL0SD0 w==;
+X-CSE-ConnectionGUID: ccRlmoDeRQ29Vw69cB3wxA==
+X-CSE-MsgGUID: UGdKszb4RUKINDFQNo/6Jw==
+X-IronPort-AV: E=McAfee;i="6700,10204,11276"; a="33938958"
+X-IronPort-AV: E=Sophos;i="6.12,209,1728975600"; d="scan'208";a="33938958"
 Received: from orviesa002.jf.intel.com ([10.64.159.142])
  by fmvoesa108.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 05 Dec 2024 01:49:47 -0800
-X-CSE-ConnectionGUID: zAieTZ1RR+S+/6Vd1cgoRA==
-X-CSE-MsgGUID: /zEyLcKfQWqqayoUXNE4DQ==
+ 05 Dec 2024 01:49:57 -0800
+X-CSE-ConnectionGUID: py4z3AyvScKxOHjkxNKHMQ==
+X-CSE-MsgGUID: lG6wRfpIQg6bcPqQa8jLTw==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.12,209,1728975600"; d="scan'208";a="124862172"
+X-IronPort-AV: E=Sophos;i="6.12,209,1728975600"; d="scan'208";a="124862188"
 Received: from lfiedoro-mobl.ger.corp.intel.com (HELO localhost)
  ([10.245.246.27])
  by orviesa002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 05 Dec 2024 01:49:45 -0800
+ 05 Dec 2024 01:49:55 -0800
 From: Jani Nikula <jani.nikula@intel.com>
 To: dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
  intel-xe@lists.freedesktop.org
 Cc: jani.nikula@intel.com
-Subject: [PATCH 1/3] drm/print: add drm_print_hex_dump()
-Date: Thu,  5 Dec 2024 11:49:33 +0200
-Message-Id: <f650fe1ed3e3bb74760426fa7461c3b028d661fb.1733392101.git.jani.nikula@intel.com>
+Subject: [PATCH 3/3] drm/i915/display: use drm_print_hex_dump() for buffer
+ mismatch dumps
+Date: Thu,  5 Dec 2024 11:49:35 +0200
+Message-Id: <a536050b5f9dc2d7de32d29766c98477f58d746c.1733392101.git.jani.nikula@intel.com>
 X-Mailer: git-send-email 2.39.5
 In-Reply-To: <cover.1733392101.git.jani.nikula@intel.com>
 References: <cover.1733392101.git.jani.nikula@intel.com>
@@ -70,60 +71,47 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Add a helper to print a hex dump to a struct drm_printer. There's no
-fancy formatting stuff, just 16 space-separated bytes per line, with an
-optional prefix.
+Use the drm_printer based printer to get the device specific printing of
+the hex dump, and avoid the manual loglevel hacking.
 
 Signed-off-by: Jani Nikula <jani.nikula@intel.com>
 ---
- drivers/gpu/drm/drm_print.c | 23 +++++++++++++++++++++++
- include/drm/drm_print.h     |  2 ++
- 2 files changed, 25 insertions(+)
+ drivers/gpu/drm/i915/display/intel_display.c | 17 ++---------------
+ 1 file changed, 2 insertions(+), 15 deletions(-)
 
-diff --git a/drivers/gpu/drm/drm_print.c b/drivers/gpu/drm/drm_print.c
-index 08cfea04e22b..79517bd4418f 100644
---- a/drivers/gpu/drm/drm_print.c
-+++ b/drivers/gpu/drm/drm_print.c
-@@ -390,3 +390,26 @@ void drm_print_regset32(struct drm_printer *p, struct debugfs_regset32 *regset)
- 	}
- }
- EXPORT_SYMBOL(drm_print_regset32);
-+
-+/**
-+ * drm_print_hex_dump - print a hex dump to a &drm_printer stream
-+ * @p: The &drm_printer
-+ * @prefix: Prefix for each line, may be NULL for no prefix
-+ * @buf: Buffer to dump
-+ * @len: Length of buffer
-+ *
-+ * Print hex dump to &drm_printer, with 16 space-separated hex bytes per line,
-+ * optionally with a prefix on each line. No separator is added after prefix.
-+ */
-+void drm_print_hex_dump(struct drm_printer *p, const char *prefix,
-+			const u8 *buf, size_t len)
-+{
-+	int i;
-+
-+	for (i = 0; i < len; i += 16) {
-+		int bytes_per_line = min(16, len - i);
-+
-+		drm_printf(p, "%s%*ph\n", prefix ?: "", bytes_per_line, buf + i);
-+	}
-+}
-+EXPORT_SYMBOL(drm_print_hex_dump);
-diff --git a/include/drm/drm_print.h b/include/drm/drm_print.h
-index b3906dc04388..f77fe1531cf8 100644
---- a/include/drm/drm_print.h
-+++ b/include/drm/drm_print.h
-@@ -199,6 +199,8 @@ void drm_puts(struct drm_printer *p, const char *str);
- void drm_print_regset32(struct drm_printer *p, struct debugfs_regset32 *regset);
- void drm_print_bits(struct drm_printer *p, unsigned long value,
- 		    const char * const bits[], unsigned int nbits);
-+void drm_print_hex_dump(struct drm_printer *p, const char *prefix,
-+			const u8 *buf, size_t len);
+diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
+index 28c1b372cc95..5419e849450b 100644
+--- a/drivers/gpu/drm/i915/display/intel_display.c
++++ b/drivers/gpu/drm/i915/display/intel_display.c
+@@ -5268,26 +5268,13 @@ pipe_config_buffer_mismatch(struct drm_printer *p, bool fastset,
+ 			    const char *name,
+ 			    const u8 *a, const u8 *b, size_t len)
+ {
+-	const char *loglevel;
+-
+-	if (fastset) {
+-		if (!drm_debug_enabled(DRM_UT_KMS))
+-			return;
+-
+-		loglevel = KERN_DEBUG;
+-	} else {
+-		loglevel = KERN_ERR;
+-	}
+-
+ 	pipe_config_mismatch(p, fastset, crtc, name, "buffer");
  
- __printf(2, 0)
- /**
+ 	/* only dump up to the last difference */
+ 	len = memcmp_diff_len(a, b, len);
+ 
+-	print_hex_dump(loglevel, "expected: ", DUMP_PREFIX_NONE,
+-		       16, 0, a, len, false);
+-	print_hex_dump(loglevel, "found: ", DUMP_PREFIX_NONE,
+-		       16, 0, b, len, false);
++	drm_print_hex_dump(p, "expected: ", a, len);
++	drm_print_hex_dump(p, "found:    ", b, len);
+ }
+ 
+ static void
 -- 
 2.39.5
 
