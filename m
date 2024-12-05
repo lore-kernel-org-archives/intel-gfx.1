@@ -4,56 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 03127E7716C
-	for <intel-gfx@archiver.kernel.org>; Thu,  5 Dec 2024 14:39:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 08744E7716D
+	for <intel-gfx@archiver.kernel.org>; Thu,  5 Dec 2024 14:45:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8D6FB10EE94;
-	Thu,  5 Dec 2024 14:39:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id ADE0C10EE9A;
+	Thu,  5 Dec 2024 14:45:46 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="VwWGRQSx";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="AaNIm/6D";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.14])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EDB9110EE94
- for <intel-gfx@lists.freedesktop.org>; Thu,  5 Dec 2024 14:39:29 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D406510EE9A
+ for <intel-gfx@lists.freedesktop.org>; Thu,  5 Dec 2024 14:45:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1733409570; x=1764945570;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:in-reply-to;
- bh=h6zFrTLaABDrD5S/GWUnwHNFf0mv7xF/zikb/aFP2AE=;
- b=VwWGRQSxvXrnGjroldE93gvBbHt6yeoyb0jVomEd7haElc8GY068e+sy
- FLbmITR727JFO/T+NylUXnfKmnp/kZtDmb6y0L3lXmX2gWvT3UxnIc2rU
- z2lRR5vlzeCeXbGA76V/89iSkk6nWUMSsfGfUadO2mDVbBWqz1qs9pHEW
- K2yimTHFtB43M5tZzDYukQ4Nc58zPREPwRxPkg5AcGptGEFoJD9iDHy7i
- ZkKSI1WMYfqEQg/AZqj6wIwmeAq7BfiOEpbtVK4XFcJh+/hUNVsX34EIV
- vdQEC5sv/8vn3Hx32agTpNgWKiqDj3KOR6Jm16ixBjeJGS4aljAi/fIGg Q==;
-X-CSE-ConnectionGUID: 0X//fUpJS9KDOteTSauDmQ==
-X-CSE-MsgGUID: 8+CIk2UgTzi+XBN6Y2DiCA==
-X-IronPort-AV: E=McAfee;i="6700,10204,11277"; a="33966226"
-X-IronPort-AV: E=Sophos;i="6.12,210,1728975600"; d="scan'208";a="33966226"
-Received: from orviesa005.jf.intel.com ([10.64.159.145])
- by fmvoesa108.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 05 Dec 2024 06:39:29 -0800
-X-CSE-ConnectionGUID: 8ZvNqM1mQByZjLTnlTenNg==
-X-CSE-MsgGUID: 9gpQSb/USs+7yTDbKdC5Kw==
+ t=1733409945; x=1764945945;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=njXIqkdmIg9CZpcrEfPH5PkEH0BdzZOzbCvbLwtFWuI=;
+ b=AaNIm/6DuSY7NIDbL+gzymVAG26/DPWKLLODnMe8zx8dftn5Jhk3SXWN
+ EzupMiMzTn+yG/YYfbTkFeJuwTvPwW+e9GnJVlyHJNsVtoxcPvqRcc88J
+ rhPJX6GevbyCUehrs+MSg1oYN6luC7fKn/ZCfu2f/i/wrKdufOIIlBoij
+ wqHCuGeb7dhg4pF2te5KAH39mo87QP4YOuiCbDuos7wcvPJlWOSs9elKC
+ vdZxecaEzn1ok/k5xsdhkC/wao5Na5W0+c30vrzoTvyrk3L/IFk5g0Ktf
+ g3x2eTs1/zr9XnuIDEF4xv6I7TtEuVKitRW9deRLBu6TZ/UofB1swnAXV w==;
+X-CSE-ConnectionGUID: 0aqLrWa9SRWCrOC92jqcjw==
+X-CSE-MsgGUID: bdG4zgZYS2CN7yUcFZr55A==
+X-IronPort-AV: E=McAfee;i="6700,10204,11277"; a="51139132"
+X-IronPort-AV: E=Sophos;i="6.12,210,1728975600"; d="scan'208";a="51139132"
+Received: from fmviesa002.fm.intel.com ([10.60.135.142])
+ by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 05 Dec 2024 06:45:44 -0800
+X-CSE-ConnectionGUID: Djgv8+8mScOdWhgoljOErA==
+X-CSE-MsgGUID: +HyAeVAwS0iIp/0Ue8VAmA==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.12,210,1728975600"; d="scan'208";a="99074101"
-Received: from mjarzebo-mobl1.ger.corp.intel.com (HELO intel.com)
- ([10.245.246.41])
- by orviesa005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 05 Dec 2024 06:39:27 -0800
-Date: Thu, 5 Dec 2024 15:39:23 +0100
-From: Andi Shyti <andi.shyti@linux.intel.com>
-To: Krzysztof Karas <krzysztof.karas@intel.com>
-Cc: intel-gfx@lists.freedesktop.org, andi.shyti@linux.intel.com
-Subject: Re: [PATCH v5] drm/i915: ensure segment offset never exceeds allowed
- max
-Message-ID: <Z1G7G-p6L5mgqwR5@ashyti-mobl2.lan>
-References: <upbjdavlbcxku63ns4vstp5kgbn2anxwewpmnppszgb67fn66t@tfclfgkqijue>
+X-IronPort-AV: E=Sophos;i="6.12,210,1728975600"; d="scan'208";a="117357041"
+Received: from unknown (HELO localhost) ([10.237.66.160])
+ by fmviesa002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 05 Dec 2024 06:45:43 -0800
+From: Jani Nikula <jani.nikula@intel.com>
+To: intel-gfx@lists.freedesktop.org
+Cc: jani.nikula@intel.com
+Subject: [PATCH 0/5] drm/i915/dsi: add some missing dphy configuration
+Date: Thu,  5 Dec 2024 16:45:34 +0200
+Message-Id: <cover.1733409899.git.jani.nikula@intel.com>
+X-Mailer: git-send-email 2.39.5
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <upbjdavlbcxku63ns4vstp5kgbn2anxwewpmnppszgb67fn66t@tfclfgkqijue>
+Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
+Content-Transfer-Encoding: 8bit
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,53 +66,22 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Hi Krzysztof,
+Untested.
 
-On Mon, Nov 18, 2024 at 12:19:22PM +0000, Krzysztof Karas wrote:
-> Commit 255fc1703e42 ("drm/i915/gem: Calculate object page offset for
-> partial memory mapping") introduced a new offset, which accounts for
-> userspace mapping not starting from the beginning of object's scatterlist.
-> 
-> This works fine for cases where first object pte is larger than the new
-> offset - "r->sgt.curr" counter is set to the offset to match the difference
-> in the number of total pages. However, if object's first pte's size is
-> equal to or smaller than the offset, then information about the offset
-> in userspace is covered up by moving "r->sgt" pointer in remap_sg():
-> 
-> 	r->sgt.curr += PAGE_SIZE;
-> 	if (r->sgt.curr >= r->sgt.max)
-> 		r->sgt = __sgt_iter(__sg_next(r->sgt.sgp), use_dma(r->iobase));
-> 
-> This means that two or more pages from virtual memory are counted for
-> only one page in object's memory, because after moving "r->sgt" pointer
-> "r->sgt.curr" will be 0.
-> 
-> We should account for this mismatch by moving "r->sgt" pointer to the
-> next pte. For that we may use "r.sgt.max", which already holds the max
-> allowed size. This change also eliminates possible confusion, when
-> looking at i915_scatterlist.h and remap_io_sg() code: former has
-> scatterlist pointer definition, which differentiates "s.max" value
-> based on "dma" flag (sg_dma_len() is used only when the flag is
-> enabled), while latter uses sg_dma_len() indiscriminately.
-> 
-> This patch aims to resolve issue:
-> https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/12031
-> 
-> 
-> v3:
->  - instead of checking if r.sgt.curr would exceed allowed max, changed
-> the value in the while loop to be aligned with `dma` value
-> 
-> v4:
->  - remove unnecessary parent relation
-> 
-> v5:
->  - update commit message with explanation about page counting mismatch
->  and link to the issue
-> 
-> Signed-off-by: Krzysztof Karas <krzysztof.karas@intel.com>
+Jani Nikula (5):
+  drm/i915/dsi: fix PIX_FMT_MASK width
+  drm/i915/dsi: convert DSI_TRANS_FUNC_CONF to REG_BIT() and friends
+  drm/i915/dsi: add LP_CLOCK_DURING_LPM bit for DSI_TRANS_FUNC_CONF
+  drm/i915/vbt: define a few more DSI dphy config bits
+  drm/i915/dsi: set a few DSI_TRANS_FUNC_CONF bits according to VBT
 
-thanks for your patch, merged to drm-intel-gt-next.
+ drivers/gpu/drm/i915/display/icl_dsi.c       | 10 +++
+ drivers/gpu/drm/i915/display/icl_dsi_regs.h  | 75 +++++++++-----------
+ drivers/gpu/drm/i915/display/intel_bios.h    |  4 +-
+ drivers/gpu/drm/i915/display/intel_dsi.h     |  2 +
+ drivers/gpu/drm/i915/display/intel_dsi_vbt.c |  2 +
+ 5 files changed, 52 insertions(+), 41 deletions(-)
 
-Thanks,
-Andi
+-- 
+2.39.5
+
