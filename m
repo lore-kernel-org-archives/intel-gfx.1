@@ -4,75 +4,60 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A2933E7717D
-	for <intel-gfx@archiver.kernel.org>; Mon,  9 Dec 2024 13:43:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 80669E77181
+	for <intel-gfx@archiver.kernel.org>; Mon,  9 Dec 2024 13:43:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5372C10E748;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9AD9E10E766;
 	Mon,  9 Dec 2024 13:43:29 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="fkvwqyby";
+	dkim=pass (2048-bit key; unprotected) header.d=wanadoo.fr header.i=@wanadoo.fr header.b="Fr2FylXA";
 	dkim-atps=neutral
-Received: from mail-ej1-f53.google.com (mail-ej1-f53.google.com
- [209.85.218.53])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0ED1010E031;
- Sat,  7 Dec 2024 12:45:19 +0000 (UTC)
-Received: by mail-ej1-f53.google.com with SMTP id
- a640c23a62f3a-a9a0ec0a94fso372288366b.1; 
- Sat, 07 Dec 2024 04:45:18 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1733575517; x=1734180317; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=wGQkzKFSDY9TmwP9AaO3pZHfF41YjBH8/yCe8njtTKs=;
- b=fkvwqybyjvsi1klLDfAd3fvQaUUPyshRVNkGNO5EpanpTKvOrxNvwssMZEpzsfN8gG
- FVm6fjfPz/RPlm6AU5UPY4F+yYOXc3/L4s3VnZM9DE9xO7yWHaqKLqB6ZTz1qFiucScj
- NTZKYWh+p9ntkTLMXc8vScZyOudWitUZm7TDsggJKS6oIcGUN7rJIqPSKy6ZARih9Se2
- JXnvZ1nCrhsQh/i2kDwLbV9fV9k3FKQt1vqOOQI1Zb4yU8Ryw0U7s+Ug+yBJ+819gDYC
- 05xif6FbHU3VzmIEfsr4EEPTrqMXkW4KzqTWuHCkO3ynF3kzgq3NXrgFGpG1kpdNPyFp
- FjJg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1733575517; x=1734180317;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=wGQkzKFSDY9TmwP9AaO3pZHfF41YjBH8/yCe8njtTKs=;
- b=boq9Diq2hUNT5KASpCn1Loh76PexYXPbX/IyyIhihQ1vLhM0dnZjg7fJbppM9tbA8m
- jdmewN3TqjpuLrWIF1/OWNHz1VZlflhLai8MmaMaOVQ11bngCD6OnGvaoqgDseFxW9Ky
- 52LzQiJopSKEM+ihWOpuhNHbeppSmZlTouKWU8/u9mdPU9jaT9VDNcr2hBaznGNQBYcK
- E5R05p1WQamAuFjPYrai15YQZyMW7iQpsAMd1yzM7K75FWbTBuGeyiilMd3PlYE7DyFl
- IL1+3GFvfR4vCwU+sS6SeURXjhyw0UyToUm5W5LfMRu9ztMeM5TK3rrPrSfKRJJqk2fe
- Rjcg==
+Received: from out.smtpout.orange.fr (out-17.smtpout.orange.fr [193.252.22.17])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9CB2F10E2D8;
+ Thu,  5 Dec 2024 21:43:57 +0000 (UTC)
+Received: from mail-ed1-f47.google.com ([209.85.208.47])
+ by smtp.orange.fr with ESMTPSA
+ id JJdbtamvwo2eYJJdbtXBPV; Thu, 05 Dec 2024 22:43:55 +0100
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=wanadoo.fr;
+ s=t20230301; t=1733435035;
+ bh=1FRoHoQWpZzbjWYvjotIUGh9Pf5+Jx2FZlKpO4hH6NM=;
+ h=MIME-Version:From:Date:Message-ID:Subject:To;
+ b=Fr2FylXA9m2UMqFj4uyKZwPTMcy6pn3IB5yA6fnTjtV4RrhdP9Uipdn8mn2RfZgq+
+ bmzbAEOg1RIYbz84u9XDIvMCkkNPoh942LSUzWxqIeVSXs8VLQ7t9E941xZnNxnK8+
+ mck0ZPSdxEaP0SaA0lkz9UDTWNkAMDzOdIJjkQSXl5B+av0sntjJnwK+bEEDWZJf4A
+ rtOQycuZFrV3IABqI0ynxClSA6RXCwntHT2oWo7Lg3yajCXH1pPWt5A/ZmNpc6ycd+
+ qMcpwbtiPTRq/Y57kARZ63Pdqx11WSkaFeOYOW9nJwgqR3vU/r1o40YlWqTv2pb7U2
+ pyLJForVcHKkA==
+X-ME-Helo: mail-ed1-f47.google.com
+X-ME-Auth: bWFpbGhvbC52aW5jZW50QHdhbmFkb28uZnI=
+X-ME-Date: Thu, 05 Dec 2024 22:43:55 +0100
+X-ME-IP: 209.85.208.47
+Received: by mail-ed1-f47.google.com with SMTP id
+ 4fb4d7f45d1cf-5d3ab136815so694529a12.1; 
+ Thu, 05 Dec 2024 13:43:55 -0800 (PST)
 X-Forwarded-Encrypted: i=1;
- AJvYcCUQ//eHYillTtNVpeKW9dr8pbqPdIh2YAAe0gal9U/Iky/gDZGAZm+mRCqeBvWFU7Gi1ifloXt4CBE/@lists.freedesktop.org,
- AJvYcCXeq50f1IzxSDex7McnV9jivM4DbpPAMPlZreGhKSG4X4I7LekpzBuipv5wiwAIUBixMPEhCf3+4Kc=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwhIdAHHplgmEyWBzZtSUWdgpSZViUyVRLJmTj5QZuBBb/RBcRc
- B/Jd8ezYTCh8zZJJEQfqycLEXfgrlYr3sv/x83xYGfNbpTqf6oKYzZQE2zR9vdDkdNPSUqqXpxF
- +ten7xe4ge7+J8exaSF5m1i1vtXc=
-X-Gm-Gg: ASbGnctRlf46YZj7GSt0b1wZge3ureUMOuB3egT7AraMa7pDbzNtxYuNg5PUfIhACrd
- rs+WIDxKXtU6IMXalG2VC3A730yZHVps=
-X-Google-Smtp-Source: AGHT+IFKLT/0vBLq8e4+Q9cBsFCmjYKYarCQPpvMXUHvXes9qzmJwCAEBQoHpEZanqb6oPfHlcskXKrazzFRS2f9zhw=
-X-Received: by 2002:a17:907:9516:b0:aa6:1ee0:c111 with SMTP id
- a640c23a62f3a-aa63a33cbf7mr437084566b.42.1733575517044; Sat, 07 Dec 2024
- 04:45:17 -0800 (PST)
+ AJvYcCWEY93Qb0hKWug3mF+CPzw91SM+hP1M6EGApDkZJlviJ5uQrhRlaw+xqHpK+AjgbpRO79tqCT0haQQ=@lists.freedesktop.org,
+ AJvYcCXQ2Ka0oS/fFGpPr1tNKcPyTMtfN32u2wTp7UZpin455/8O+BKAQUQhefu9PU/Er1HbK4R8Nx7S0cyA@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yzs4wMgL9/qc+bw4HyyAkma2O+CEygLR/eo3YUFl0xwE582T49Q
+ acjffmeo409fpDf/0lZhrUDvBAF784MsD8is4xYNzXgZeExJHbBi+MXl8hdKocC2ybKSKHS9omf
+ foRgoMVmrIGkcLFOyDkVo4MGjO84=
+X-Google-Smtp-Source: AGHT+IFYWIvr/wb1ttWAqU3XdgmdbVRXgljv2wGXYHxZGru+z8zfXAuY4J7uLgYbwqJhFyewdEilCwKv6EaVf4E+2bE=
+X-Received: by 2002:a17:907:270f:b0:a9e:b5d0:e5c with SMTP id
+ a640c23a62f3a-aa5f7f6f2f8mr768523566b.61.1733414207483; Thu, 05 Dec 2024
+ 07:56:47 -0800 (PST)
 MIME-Version: 1.0
 References: <20241203-is_constexpr-refactor-v1-0-4e4cbaecc216@wanadoo.fr>
- <20241203-is_constexpr-refactor-v1-2-4e4cbaecc216@wanadoo.fr>
- <1d807c7471b9434aa8807e6e86c964ec@AcuMS.aculab.com>
- <CAMZ6RqLJLP+4d8f5gLfBdFeDVgqy23O+Eo8HRgKCthqBjSHaaw@mail.gmail.com>
- <9ef03cebb4dd406885d8fdf79aaef043@AcuMS.aculab.com>
- <abdd7862f136aa676b2d2c324369f4a43ff9909c.camel@gwdg.de>
- <CAMZ6RqKzGiRNMeLsQKRNrxvW_bXB-kEi11udQ82kKX6tGCrqcg@mail.gmail.com>
- <9607300dfca5d71ca9570b1e1de0864e524f356b.camel@gwdg.de>
-In-Reply-To: <9607300dfca5d71ca9570b1e1de0864e524f356b.camel@gwdg.de>
-From: Vincent Mailhol <vincent.mailhol@gmail.com>
-Date: Sat, 7 Dec 2024 21:45:05 +0900
-Message-ID: <CAMZ6RqJGqBqvgxzp5yPFY1pk0WkkwEMM34qU-dZ3kXfsnKaqEg@mail.gmail.com>
-Subject: Re: [PATCH 02/10] compiler.h: add is_const() as a replacement of
- __is_constexpr()
-To: Martin Uecker <muecker@gwdg.de>
-Cc: David Laight <David.Laight@aculab.com>,
- Linus Torvalds <torvalds@linux-foundation.org>, 
+ <20241203-is_constexpr-refactor-v1-8-4e4cbaecc216@wanadoo.fr>
+ <6597979088eb4ee7b98cfb99815a402e@AcuMS.aculab.com>
+In-Reply-To: <6597979088eb4ee7b98cfb99815a402e@AcuMS.aculab.com>
+From: Vincent Mailhol <mailhol.vincent@wanadoo.fr>
+Date: Fri, 6 Dec 2024 00:56:35 +0900
+X-Gmail-Original-Message-ID: <CAMZ6Rq+XhOb+yn5A1dHD=qkbB1_FQXMA7_ydBB4nPTSnys3jkA@mail.gmail.com>
+Message-ID: <CAMZ6Rq+XhOb+yn5A1dHD=qkbB1_FQXMA7_ydBB4nPTSnys3jkA@mail.gmail.com>
+Subject: Re: [PATCH 08/10] drm/i915/reg: replace __is_const_expr() by
+ is_const_true() or is_const()
+To: David Laight <David.Laight@aculab.com>
+Cc: Linus Torvalds <torvalds@linux-foundation.org>, 
  Luc Van Oostenryck <luc.vanoostenryck@gmail.com>,
  Nathan Chancellor <nathan@kernel.org>, 
  Nick Desaulniers <ndesaulniers@google.com>, Bill Wendling <morbo@google.com>, 
@@ -87,6 +72,7 @@ Cc: David Laight <David.Laight@aculab.com>,
  Mike Leach <mike.leach@linaro.org>, James Clark <james.clark@linaro.org>, 
  Alexander Shishkin <alexander.shishkin@linux.intel.com>, 
  Rikard Falkeborn <rikard.falkeborn@gmail.com>, 
+ Martin Uecker <Martin.Uecker@med.uni-goettingen.de>, 
  "linux-sparse@vger.kernel.org" <linux-sparse@vger.kernel.org>, 
  "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, 
  "llvm@lists.linux.dev" <llvm@lists.linux.dev>, 
@@ -96,7 +82,6 @@ Cc: David Laight <David.Laight@aculab.com>,
  "coresight@lists.linaro.org" <coresight@lists.linaro.org>, 
  "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 X-Mailman-Approved-At: Mon, 09 Dec 2024 13:43:28 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -113,47 +98,34 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Sat. 7 Dec. 2024 at 17:39, Martin Uecker <muecker@gwdg.de> wrote:
-> Am Freitag, dem 06.12.2024 um 16:26 +0900 schrieb Vincent Mailhol:
-> > > On Fri. 6 Dec. 2024 at 15:40, Martin Uecker <muecker@gwdg.de> wrote:
-> > > > > Am Freitag, dem 06.12.2024 um 02:25 +0000 schrieb David Laight:
-> > > > > > > From: Vincent Mailhol
-> > > > > > > > > Sent: 05 December 2024 15:31
-
-(...)
-
-> > > > > > > > > @Martin, do you agree that I remove the accreditation?
-> > >
-> > > So, do you agree to have the accreditation removed in compiler.h?
-> > > Personally, I do not mind. I am also OK to remove you from the
-> > > documentation and add you to the CREDITS file if you'd like to.
+On Thu. 5 Dec 2024 at 04:00, David Laight <David.Laight@aculab.com> wrote:
+> From: Vincent Mailhol
+> > Sent: 02 December 2024 17:34
+> >
+> > Most of the use of __is_const_expr() in i915_reg_defs.h are just to
+> > test whether an expression is known to be true. Because those checks
+> > are all done in a BUILD_BUG_ON_ZERO(), replace those with
+> > is_const_true().
 >
-> Sorry, I somehow didn't read this part. Please do whatever you think is
-> most appropriate (but please update my email to the new above if it
-> still appears anywhere).
+> Another place that could use statically_true() and BUILD_BUG_ON_MSG().
 
-OK. Then I will remove the accreditation from the  compiler.h
-documentation and instead add an entry in the CREDITS file in a
-separate patch. I think this is the most appropriate way.
+Here also, BUILD_BUG_ON_MSG() is not suitable because it does not
+return a value.
 
-> I find it amazing how much time the Linux kernel community spends
-> revising code to make it work perfectly.
->
-> Still, I am wondering whether some of this time and effort should not
-> be targeted at C compilers and language work to make these macro
-> hacks unnecessary?
+__BUILD_BUG_ON_ZERO_MSG() could be used; but there is less benefit to
+do this at a driver scope. In this i915_reg_defs.h,
+BUILD_BUG_ON_ZERO() is used 20 times. Adding an error message each
+time will just make things ugly.
 
-It seems to me that the long term solution to this problem are the
-constexpr functions.
+If we want more readable error messages here, the solution for me is
+just to redefine BUILD_BUG_ON_ZERO() to print a more meaningful error
+message by default. But this is not the scope of this series. I sent a
+separate patch for this:
 
-But the core issue is that before getting this support in Linux, we
-have to wait for this to be added to the C2Y draft, then implemented
-in the compilers (probably just reusing the C++ constexpr functions)
-and finally wait maybe one more decade for the C2Y support to reach
-the kernel. For reference the kernel supports C11 only from 2022=E2=80=A6 S=
-o
-maybe we will see those in the kernel around 2037? Meanwhile, we have
-to deal with those hacks.
+  https://lore.kernel.org/all/20241205151316.1480255-2-mailhol.vincent@wanadoo.fr/
+
+Concerning statically_true() instead of is_const_true(), let me test,
+and if this works, then I will replace these in v2.
 
 
 Yours sincerely,
