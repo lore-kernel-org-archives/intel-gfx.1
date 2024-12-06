@@ -4,52 +4,76 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 82E3BE7717B
-	for <intel-gfx@archiver.kernel.org>; Fri,  6 Dec 2024 09:25:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 18D78E77173
+	for <intel-gfx@archiver.kernel.org>; Fri,  6 Dec 2024 09:35:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2A09710F033;
-	Fri,  6 Dec 2024 09:25:06 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="FjxhmDRl";
-	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.13])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 50D4710F033
- for <intel-gfx@lists.freedesktop.org>; Fri,  6 Dec 2024 09:25:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1733477105; x=1765013105;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=Ev75U/xnxUlxjcdjUDcsdIMz3cd0ySp0IZYPvgozjeE=;
- b=FjxhmDRlGmTt0MRkY7Wb9drLLAzFGn8ZezT+Eq2X4ghjJ4NJ34ZllisO
- I81hpK50RHCiC3M258qGX7wiP1QG2SPnwEcNzPShsuLHgM/R3uoGFqoXn
- dLq33STjzhCzq0IO0tLJdg6mBxgiZkCOP9AN+fDXNOTH8CWCqJn43gmxJ
- Q7lnXFGarGGX+1fketFlL/DLJVqPI7FXXt3jEhSOuw6973zRxcsIBy2ec
- 5yCcWad20+PwC4KW/UwuT8Cyh/KHgPEoK7XGDzajwopaCk3bP4AVxdC4e
- qUUuhyiHfbG/qrZQfDAhoorKkYywRn09/wKUtFMp8xKAZkj5pl0S61++E g==;
-X-CSE-ConnectionGUID: dbezJlsbSDirmh1McBdrkg==
-X-CSE-MsgGUID: x+glRTmYSn2rHJ0e69LCNQ==
-X-IronPort-AV: E=McAfee;i="6700,10204,11277"; a="44842510"
-X-IronPort-AV: E=Sophos;i="6.12,213,1728975600"; d="scan'208";a="44842510"
-Received: from orviesa010.jf.intel.com ([10.64.159.150])
- by orvoesa105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 06 Dec 2024 01:25:03 -0800
-X-CSE-ConnectionGUID: /do/kGTATASwFRQPceM8Fw==
-X-CSE-MsgGUID: EYJRtGJ7Q1GZB5hgQ8id6Q==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.12,213,1728975600"; d="scan'208";a="94167950"
-Received: from nitin-super-server.iind.intel.com ([10.145.169.70])
- by orviesa010.jf.intel.com with ESMTP; 06 Dec 2024 01:25:01 -0800
-From: Nitin Gote <nitin.r.gote@intel.com>
-To: andi.shyti@intel.com
-Cc: intel-gfx@lists.freedesktop.org, chris.p.wilson@intel.com,
- nitin.r.gote@intel.com
-Subject: [PATCH v2 1/1] drm/i915/gt: Increase a time to retry RING_HEAD reset
-Date: Fri,  6 Dec 2024 15:15:43 +0530
-Message-Id: <20241206094543.1638580-1-nitin.r.gote@intel.com>
-X-Mailer: git-send-email 2.25.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id A536610F060;
+	Fri,  6 Dec 2024 09:35:06 +0000 (UTC)
+Received: from eu-smtp-delivery-151.mimecast.com
+ (eu-smtp-delivery-151.mimecast.com [185.58.86.151])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BD84B10F061
+ for <intel-gfx@lists.freedesktop.org>; Fri,  6 Dec 2024 09:35:04 +0000 (UTC)
+Received: from AcuMS.aculab.com (156.67.243.121 [156.67.243.121]) by
+ relay.mimecast.com with ESMTP with both STARTTLS and AUTH (version=TLSv1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384) id
+ uk-mta-315-JT-U8hVaNj28TFwmYvvp_A-1; Fri, 06 Dec 2024 09:35:01 +0000
+X-MC-Unique: JT-U8hVaNj28TFwmYvvp_A-1
+X-Mimecast-MFC-AGG-ID: JT-U8hVaNj28TFwmYvvp_A
+Received: from AcuMS.Aculab.com (10.202.163.4) by AcuMS.aculab.com
+ (10.202.163.4) with Microsoft SMTP Server (TLS) id 15.0.1497.48; Fri, 6 Dec
+ 2024 09:34:15 +0000
+Received: from AcuMS.Aculab.com ([::1]) by AcuMS.aculab.com ([::1]) with mapi
+ id 15.00.1497.048; Fri, 6 Dec 2024 09:34:15 +0000
+From: David Laight <David.Laight@ACULAB.COM>
+To: 'Vincent Mailhol' <mailhol.vincent@wanadoo.fr>, 'Martin Uecker'
+ <muecker@gwdg.de>
+CC: 'Linus Torvalds' <torvalds@linux-foundation.org>, 'Luc Van Oostenryck'
+ <luc.vanoostenryck@gmail.com>, 'Nathan Chancellor' <nathan@kernel.org>,
+ "'Nick Desaulniers'" <ndesaulniers@google.com>, 'Bill Wendling'
+ <morbo@google.com>, 'Justin Stitt' <justinstitt@google.com>, 'Yury Norov'
+ <yury.norov@gmail.com>, 'Rasmus Villemoes' <linux@rasmusvillemoes.dk>, 'Kees
+ Cook' <kees@kernel.org>, "'Gustavo A. R. Silva'" <gustavoars@kernel.org>,
+ 'Jani Nikula' <jani.nikula@linux.intel.com>, 'Joonas Lahtinen'
+ <joonas.lahtinen@linux.intel.com>, 'Rodrigo Vivi' <rodrigo.vivi@intel.com>,
+ 'Tvrtko Ursulin' <tursulin@ursulin.net>, 'David Airlie' <airlied@gmail.com>,
+ 'Simona Vetter' <simona@ffwll.ch>, 'Suzuki K Poulose'
+ <suzuki.poulose@arm.com>, 'Mike Leach' <mike.leach@linaro.org>, 'James Clark'
+ <james.clark@linaro.org>, 'Alexander Shishkin'
+ <alexander.shishkin@linux.intel.com>, 'Rikard Falkeborn'
+ <rikard.falkeborn@gmail.com>, "'linux-sparse@vger.kernel.org'"
+ <linux-sparse@vger.kernel.org>, "'linux-kernel@vger.kernel.org'"
+ <linux-kernel@vger.kernel.org>, "'llvm@lists.linux.dev'"
+ <llvm@lists.linux.dev>, "'linux-hardening@vger.kernel.org'"
+ <linux-hardening@vger.kernel.org>, "'intel-gfx@lists.freedesktop.org'"
+ <intel-gfx@lists.freedesktop.org>, "'dri-devel@lists.freedesktop.org'"
+ <dri-devel@lists.freedesktop.org>, "'coresight@lists.linaro.org'"
+ <coresight@lists.linaro.org>, "'linux-arm-kernel@lists.infradead.org'"
+ <linux-arm-kernel@lists.infradead.org>
+Subject: RE: [PATCH 02/10] compiler.h: add is_const() as a replacement of
+ __is_constexpr()
+Thread-Topic: [PATCH 02/10] compiler.h: add is_const() as a replacement of
+ __is_constexpr()
+Thread-Index: AQHbROFPJXcuwP9wN0+yRzIQ2cx/pbLWa+gggAFf14CAACMqUIABAFYQ
+Date: Fri, 6 Dec 2024 09:34:15 +0000
+Message-ID: <6576cf10fc424eab874a31714e60474b@AcuMS.aculab.com>
+References: <20241203-is_constexpr-refactor-v1-0-4e4cbaecc216@wanadoo.fr>
+ <20241203-is_constexpr-refactor-v1-2-4e4cbaecc216@wanadoo.fr>
+ <1d807c7471b9434aa8807e6e86c964ec@AcuMS.aculab.com>
+ <CAMZ6RqLJLP+4d8f5gLfBdFeDVgqy23O+Eo8HRgKCthqBjSHaaw@mail.gmail.com>
+ <9ef03cebb4dd406885d8fdf79aaef043@AcuMS.aculab.com>
+In-Reply-To: <9ef03cebb4dd406885d8fdf79aaef043@AcuMS.aculab.com>
+Accept-Language: en-GB, en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-ms-exchange-transport-fromentityheader: Hosted
+x-originating-ip: [10.202.205.107]
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-Mimecast-Spam-Score: 0
+X-Mimecast-MFC-PROC-ID: B-Ac-pNFPKrIHaFGv2fuqHHf_IoqE_DoBGSewnn3Lus_1733477699
+X-Mimecast-Originator: aculab.com
+Content-Language: en-US
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: base64
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,31 +89,47 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Issue seen again where engine resets fails because the engine resumes from
-an incorrect RING_HEAD. HEAD is still not 0 even after writing into it.
-This seems to be timing issue and we experimented different values from 5ms
-to 50ms and found out that 50ms works best based on testing.
-So, if write doesn't succeed at first then retry again.
-
-Closes: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/12806
-Signed-off-by: Nitin Gote <nitin.r.gote@intel.com>
----
- drivers/gpu/drm/i915/gt/intel_ring_submission.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/drivers/gpu/drm/i915/gt/intel_ring_submission.c b/drivers/gpu/drm/i915/gt/intel_ring_submission.c
-index 32f3b52a183a..bc9f28524713 100644
---- a/drivers/gpu/drm/i915/gt/intel_ring_submission.c
-+++ b/drivers/gpu/drm/i915/gt/intel_ring_submission.c
-@@ -231,7 +231,7 @@ static int xcs_resume(struct intel_engine_cs *engine)
- 	set_pp_dir(engine);
- 
- 	/* First wake the ring up to an empty/idle ring */
--	for ((kt) = ktime_get() + (2 * NSEC_PER_MSEC);
-+	for ((kt) = ktime_get() + (50 * NSEC_PER_MSEC);
- 			ktime_before(ktime_get(), (kt)); cpu_relax()) {
- 		/*
- 		 * In case of resets fails because engine resumes from
--- 
-2.25.1
+RnJvbTogRGF2aWQgTGFpZ2h0DQo+IFNlbnQ6IDA2IERlY2VtYmVyIDIwMjQgMDI6MjYNCg0KKG5v
+dyBpdCBpcyBubyBsb25nZXIgMmFtLi4uKQ0KDQpMaW51cyBzdWdnZXN0ZWQgdGhpcyBhIHdoaWxl
+IGJhY2s6DQoNCj4gIGluIGh0dHBzOi8vbG9yZS5rZXJuZWwub3JnL2FsbC9DQUhrLT13aXE9R1VO
+V0p3V2gxQ1JBWWNoVzczVW1PYVNrYUNvdkxhdGZES2V2ZVpjdEFAbWFpbC5nbWFpbC5jb20vDQo+
+IA0KPiAgICAvKg0KPiAgICAgKiBpZmYgJ3gnIGlzIGEgbm9uLXplcm8gY29uc3RhbnQgaW50ZWdl
+ciBleHByZXNzaW9uLA0KPiAgICAgKiB0aGVuICchKHgpJyB3aWxsIGJlIGEgemVybyBjb25zdGFu
+dCBpbnRlZ2VyIGV4cHJlc3Npb24sDQo+ICAgICAqIGFuZCBjYXN0aW5nIHRoYXQgdG8gJ3ZvaWQg
+Kicgd2lsbCByZXN1bHQgaW4gYSBOVUxMIHBvaW50ZXIuDQo+ICAgICAqIE90aGVyd2lzZSBjYXN0
+aW5nIGl0IHRvICd2b2lkIConIHdpbGwgYmUganVzdCBhIHJlZ3VsYXIgJ3ZvaWQgKicuDQo+ICAg
+ICAqDQo+ICAgICAqIFRoZSB0eXBlIG9mICcwID8gTlVMTCA6IChjaGFyICopJyBpcyAnY2hhciAq
+Jw0KPiAgICAgKiBUaGUgdHlwZSBvZiAnMCA/ICh2b2lkICopIDogKGNoYXIgKikgaXMgJ3ZvaWQg
+KicNCj4gICAgICovDQo+ICAgICAjZGVmaW5lIGNvbnN0X3RydWUoeCkgXA0KPiAgICAgICAgIF9H
+ZW5lcmljKDAgPyAodm9pZCAqKSgobG9uZykhKHgpKSA6IChjaGFyICopMCwgY2hhciAqOiAxLCB2
+b2lkICo6IDApDQoNCkJ1dCBzb21lIG9mIHRoZSB0aGluZ3MgYnVpbHQgb24gaXQgaGFzIGlzc3Vl
+cyB3aXRoIGNvbXBpbGVyIHdhcm5pbmdzLg0KSSB0aGluayB0aGVyZSBoYXZlIHNldmVyYWwgdmFy
+aWF0aW9ucyBiZWZvcmUgYW5kIHNpbmNlIHdpdGggc3VidGxlIGRpZmZlcmVuY2VzLg0KUHJvYmFi
+bHkgY29uc3RfemVybygpIGNvbnN0X3RydWUoKSBjb25zdF9mYWxzZSgpIGFuZCBjb25zdF9leHBy
+KCkuDQoNCldoaWxlIHRoZSAnYmFzZScgZGVmaW5lIGlzIHJlYWxseSBjb25zdF96ZXJvKCkgd2l0
+aCBqdXN0IChsb25nKSh4KSB0aGF0DQp3aWxsIG1hc2sgaGlnaCBiaXRzIG9mZiAnbG9uZyBsb25n
+Jy4gDQpBIGNvbnN0X2ZhbHNlKCkgY291bGQgJ2ZpeCcgdGhhdCB1c2luZyAobG9uZykhISh4KSBi
+dXQgZXZlbiAhKHgpIHN0YXJ0cw0KZ2l2aW5nIGNvbXBpbGUgZXJyb3JzLg0KDQpJZiBjYWxsZWQg
+Zm9yIHBvaW50ZXJzIChsb25nKSgoeCkgPT0gMCkgaXMgYWxzbyBwcm9ibGVtYXRpYy4NCihQZXJo
+YXBzIHRoaXMgaXMgbGVzcyBsaWtlbHkgbm93IHRoYXQgbWluL21heCBkb24ndCB1c2UgaXQuKQ0K
+DQpTbyB3ZSBtYXkgZW5kIHVwIHdpdGggKGxvbmcpKCh4KSA/IDAgOiAxKSB3aGljaCByZWFsbHkg
+bWlnaHQgYXMNCndlbGwgYmUgd3JpdHRlbiAoKHgpID8gMEwgOiAxTCkuDQoNClRoZSB1c2UgaXMg
+bGlrZWx5IHRvIGJlIGNvbnN0X3RydWUoeCA+IHkpIHNvIHBlcmhhcHMgdGhlcmUgaXNuJ3QgYQ0K
+cmVhc29uIHRvIGhhdmUgY29uc3RfZmFsc2UoKSBzaW5jZSB0aGUgYm9vbGVhbiBvcGVyYXRvciBj
+YW4gYmUgaW52ZXJ0ZWQuDQoNCmNvbnN0X2V4cHIoKSBoYXMgcmVsaWVkIG9uICcqIDAnIHRvIG1h
+a2UgYWxsIGNvbnN0YW50IGV4cHJlc3Npb25zIHplcm8uDQpCdXQgaXQgaGFzIHRvIGhhbmRsZSBw
+b2ludGVycyAtIHNvIG5lZWRzIGEgY29uZGl0aW9uYWwuDQpTaW5jZSBpdCBpcyBvbmx5IG9uZSBs
+aW5lLCBtYXliZSBqdXN0IHJlcGxpY2F0ZSB0aGUgd2hvbGUgdGhpbmcgYXM6DQoNCiNkZWZpbmUg
+Y29uc3RfdHJ1ZSh4KSBfR2VuZXJpYygwID8gKHZvaWQgKikoKHgpID8gMEwgOiAxTCkgOiAoY2hh
+ciAqKTAsIGNoYXIgKjogMSwgdm9pZCAqOiAwKQ0KI2RlZmluZSBjb25zdF9leHByKHgpIF9HZW5l
+cmljKDAgPyAodm9pZCAqKSgoeCkgPyAwTCA6IDBMKSA6IChjaGFyICopMCwgY2hhciAqOiAxLCB2
+b2lkICo6IDApDQoNCk9yIG1heWJlIChtb3N0bHkgYmVjYXVzZSB0aGUgbGluZXMgYXJlIHNob3J0
+ZXIpOg0KI2RlZmluZSBjb25zdF9OVUxMKHgpIF9HZW5lcmljKDAgPyAoeCkgOiAoY2hhciAqKTAs
+IGNoYXIgKjogMSwgdm9pZCAqOiAwKQ0KI2RlZmluZSBjb25zdF90cnVlKHgpIGNvbnN0X05VTEwo
+KHZvaWQgKikoeCkgPyAwTCA6IDFMKSkNCiNkZWZpbmUgY29uc3RfZXhwcih4KSBjb25zdF9OVUxM
+KCh2b2lkICopKHgpID8gMEwgOiAwTCkpDQoNCk9yIGV2ZW46DQojZGVmaW5lIGNvbnN0X3RydWUo
+eCkgY29uc3RfTlVMTCgoeCkgPyBOVUxMIDogKHZvaWQgKikxTCkpDQojZGVmaW5lIGNvbnN0X2V4
+cHIoeCkgY29uc3RfTlVMTCgoeCkgPyBOVUxMIDogTlVMTCkpDQoNCglEYXZpZA0KDQotDQpSZWdp
+c3RlcmVkIEFkZHJlc3MgTGFrZXNpZGUsIEJyYW1sZXkgUm9hZCwgTW91bnQgRmFybSwgTWlsdG9u
+IEtleW5lcywgTUsxIDFQVCwgVUsNClJlZ2lzdHJhdGlvbiBObzogMTM5NzM4NiAoV2FsZXMpDQo=
 
