@@ -4,53 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F34DBE7718E
-	for <intel-gfx@archiver.kernel.org>; Mon,  9 Dec 2024 13:43:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 69D55E7717D
+	for <intel-gfx@archiver.kernel.org>; Mon,  9 Dec 2024 13:44:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 24F3910E782;
-	Mon,  9 Dec 2024 13:43:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 07AB610E78D;
+	Mon,  9 Dec 2024 13:44:01 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=gwdg.de header.i=@gwdg.de header.b="NxJqX4GH";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=gwdg.de header.i=@gwdg.de header.b="fda2tSvM";
 	dkim-atps=neutral
 Received: from mx-2023-1.gwdg.de (mx-2023-1.gwdg.de [134.76.10.21])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6EC0110E0C5;
- Sat,  7 Dec 2024 15:10:36 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6FF3B10E1DD;
+ Sat,  7 Dec 2024 21:06:12 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=gwdg.de;
  s=2023-rsa; h=MIME-Version:Content-Transfer-Encoding:Content-Type:References:
  In-Reply-To:Date:CC:To:From:Subject:Message-ID:Sender:Reply-To:Content-ID:
  Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
  :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
  List-Post:List-Owner:List-Archive;
- bh=DjAsF8rGOz50pw9dHufxGpGm6fT/5+Pfxa1ngA4zURE=; b=NxJqX4GHTHAkvVvqWRYSblHpNx
- xRORMBuWj52AYsJt7hsl+bNsLSbMJbQftZCU0GGaC/ggwlUkADRTL4RycoNy8UbRQXowZd8XTuKVH
- A6g5k+b2fpGBmaekFaf47URPQJf9agf48U0FbAFTfwKhYvl21khhPJdAHlyLqGrDIWQenvNXnjmDi
- 4DzHK8DSoxEy32pR6/UzxeXJcSQf0Vzjgho5v3bqB8+DU/IHvQ4qUG0xALZPJVKaMmYT5kg/j0wx0
- chjZmLJvxLvtY/Gz1TGkZ8JYqUocH+ZxNnOgZQ69jfYiCxSoRKspMST9B/0ORsfFRfWlsI6yA5Usp
- VmhKOsLQ==;
-Received: from xmailer.gwdg.de ([134.76.10.29]:55546)
+ bh=1er9ita0uF+ZxTC/2Qa8K5Vu+hTMyzU3spem1d6AtRw=; b=fda2tSvMRD3BwYxUoCwB+YEEPo
+ g+VKwjR5vd9U2ZtDlnsITBWsaOKNDt/Q4WX93BbbdZhMPTSrMNV5kOpA3veIHmJH1E8l8U5k5ma8B
+ hlkR5bXEfP4X4KusDw+yLASsDFg1et6G3tN/WP6EsgUMYENyZnqN88qWyhn5l+KrEM/a0eENplXp5
+ +DnmmEgOaa5dzc9R1VrkDR+MbkDhP5TL5wir/kkNdOLOxy2wjFouXqA9Q+FVzPqvAxP7JMJNEqmUm
+ DfhL1RYpA/0+Y0ShTDWyR8h8AKivDfmXpwzmua74AF+S5m+q3S3/QzcS1uxqtY7zGcqmL3aTIauFJ
+ iwEiM+CQ==;
+Received: from xmailer.gwdg.de ([134.76.10.29]:49876)
  by mailer.gwdg.de with esmtp (GWDG Mailer)
- (envelope-from <muecker@gwdg.de>) id 1tJwS1-004NGV-2v;
- Sat, 07 Dec 2024 16:10:33 +0100
+ (envelope-from <muecker@gwdg.de>) id 1tK206-004QAt-21;
+ Sat, 07 Dec 2024 22:06:06 +0100
 Received: from mbx19-fmz-06.um.gwdg.de ([10.108.142.65] helo=email.gwdg.de)
  by mailer.gwdg.de with esmtps (TLS1.2:ECDHE-RSA-AES128-GCM-SHA256:128)
- (GWDG Mailer) (envelope-from <muecker@gwdg.de>) id 1tJwS1-000BiJ-2a;
- Sat, 07 Dec 2024 16:10:33 +0100
+ (GWDG Mailer) (envelope-from <muecker@gwdg.de>) id 1tK206-000BwM-1c;
+ Sat, 07 Dec 2024 22:06:06 +0100
 Received: from [192.168.0.221] (10.250.9.200) by MBX19-FMZ-06.um.gwdg.de
  (10.108.142.65) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.2.1544.14; Sat, 7 Dec
- 2024 16:10:32 +0100
-Message-ID: <b3bd6d4ef485dbb5db4c784f4e42f76adce502dc.camel@gwdg.de>
+ 2024 22:06:04 +0100
+Message-ID: <63f538fceadf4e2ba93cdcaae9fab266e5a000ac.camel@gwdg.de>
 Subject: Re: [PATCH 02/10] compiler.h: add is_const() as a replacement of
  __is_constexpr()
 From: Martin Uecker <muecker@gwdg.de>
-To: Vincent Mailhol <vincent.mailhol@gmail.com>
-CC: David Laight <David.Laight@aculab.com>, Linus Torvalds
- <torvalds@linux-foundation.org>, Luc Van Oostenryck
- <luc.vanoostenryck@gmail.com>, Nathan Chancellor <nathan@kernel.org>, "Nick
- Desaulniers" <ndesaulniers@google.com>, Bill Wendling <morbo@google.com>,
- Justin Stitt <justinstitt@google.com>, Yury Norov <yury.norov@gmail.com>,
- Rasmus Villemoes <linux@rasmusvillemoes.dk>, Kees Cook <kees@kernel.org>,
- "Gustavo A. R. Silva" <gustavoars@kernel.org>, Jani Nikula
+To: David Laight <David.Laight@ACULAB.COM>, Linus Torvalds
+ <torvalds@linux-foundation.org>, Vincent Mailhol <vincent.mailhol@gmail.com>
+CC: "w@1wt.eu" <w@1wt.eu>, Luc Van Oostenryck <luc.vanoostenryck@gmail.com>,
+ Nathan Chancellor <nathan@kernel.org>, Nick Desaulniers
+ <ndesaulniers@google.com>, Bill Wendling <morbo@google.com>, Justin Stitt
+ <justinstitt@google.com>, Yury Norov <yury.norov@gmail.com>, "Rasmus
+ Villemoes" <linux@rasmusvillemoes.dk>, Kees Cook <kees@kernel.org>, "Gustavo
+ A. R. Silva" <gustavoars@kernel.org>, Jani Nikula
  <jani.nikula@linux.intel.com>, Joonas Lahtinen
  <joonas.lahtinen@linux.intel.com>, Rodrigo Vivi <rodrigo.vivi@intel.com>,
  Tvrtko Ursulin <tursulin@ursulin.net>, David Airlie <airlied@gmail.com>,
@@ -66,28 +66,35 @@ CC: David Laight <David.Laight@aculab.com>, Linus Torvalds
  <dri-devel@lists.freedesktop.org>, "coresight@lists.linaro.org"
  <coresight@lists.linaro.org>, "linux-arm-kernel@lists.infradead.org"
  <linux-arm-kernel@lists.infradead.org>
-Date: Sat, 7 Dec 2024 16:10:31 +0100
-In-Reply-To: <CAMZ6RqL+iS6GVsY20=O6GdQakRpp7XdewZJsUbmE5OCsKaHR6Q@mail.gmail.com>
+Date: Sat, 7 Dec 2024 22:06:04 +0100
+In-Reply-To: <20362fe79d494bd59471a9c0f002b2ef@AcuMS.aculab.com>
 References: <20241203-is_constexpr-refactor-v1-0-4e4cbaecc216@wanadoo.fr>
  <20241203-is_constexpr-refactor-v1-2-4e4cbaecc216@wanadoo.fr>
  <1d807c7471b9434aa8807e6e86c964ec@AcuMS.aculab.com>
  <CAMZ6RqLJLP+4d8f5gLfBdFeDVgqy23O+Eo8HRgKCthqBjSHaaw@mail.gmail.com>
  <9ef03cebb4dd406885d8fdf79aaef043@AcuMS.aculab.com>
- <abdd7862f136aa676b2d2c324369f4a43ff9909c.camel@gwdg.de>
- <CAMZ6RqKzGiRNMeLsQKRNrxvW_bXB-kEi11udQ82kKX6tGCrqcg@mail.gmail.com>
- <9607300dfca5d71ca9570b1e1de0864e524f356b.camel@gwdg.de>
- <CAMZ6RqJGqBqvgxzp5yPFY1pk0WkkwEMM34qU-dZ3kXfsnKaqEg@mail.gmail.com>
- <429e7c6713ecc94494d9107e5f5a1f0c8e854f23.camel@gwdg.de>
- <CAMZ6RqL+iS6GVsY20=O6GdQakRpp7XdewZJsUbmE5OCsKaHR6Q@mail.gmail.com>
+ <CAHk-=wjmeU6ahyuwAymqkSpxX-gCNa3Qc70UXjgnxNiC8eiyOw@mail.gmail.com>
+ <CAMZ6Rq+SzTA25XcMZnMnOJcrrq1VZpeT1xceinarqbXgDDo8VA@mail.gmail.com>
+ <CAHk-=wiP8111QZZJNbcDNsYQ_JC-xvwRKr0qV9UdKn3HKK+-4Q@mail.gmail.com>
+ <d23fe8a5dbe84bfeb18097fdef7aa4c4@AcuMS.aculab.com>
+ <CAHk-=win8afdcergvJ6f2=rRrff8giGUW62qmYs9Ae6aw=wcnA@mail.gmail.com>
+ <0f5c07b827c3468c8fa3928a93a98bfa@AcuMS.aculab.com>
+ <e806dd51b1ac4e289131297fbf30fc37@AcuMS.aculab.com>
+ <CAMZ6RqLOR3aCRW_js2agV+VFiHdazb4S2+NdT5G4=WbDKNB8bA@mail.gmail.com>
+ <b1ff4a65594a4d39b2e9b8b44770214e@AcuMS.aculab.com>
+ <CAMZ6RqJFReLJTd-O8s02oQNeB0SPQh3C-Mg+Nif5vMB9gFtQww@mail.gmail.com>
+ <CAHk-=wjpN4GWtnsWQ8XJvf=gBQ3UvBk512xK1S35=nGXA6yTiw@mail.gmail.com>
+ <6b8c9b942ba6e85a3f1e4eef65a9916333502881.camel@gwdg.de>
+ <20362fe79d494bd59471a9c0f002b2ef@AcuMS.aculab.com>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 User-Agent: Evolution 3.46.4-2 
 MIME-Version: 1.0
 X-Originating-IP: [10.250.9.200]
-X-ClientProxiedBy: MBX19-GWD-04.um.gwdg.de (10.108.142.57) To
+X-ClientProxiedBy: MBX19-SUB-07.um.gwdg.de (10.108.142.72) To
  MBX19-FMZ-06.um.gwdg.de (10.108.142.65)
-X-EndpointSecurity-0xde81-EV: v:7.9.17.458, d:out, a:y, w:t, t:9, sv:1733541190,
- ts:1733584233
+X-EndpointSecurity-0xde81-EV: v:7.9.17.458, d:out, a:y, w:t, t:5, sv:1733591783,
+ ts:1733605566
 X-Virus-Scanned: (clean) by clamav
 X-Mailman-Approved-At: Mon, 09 Dec 2024 13:43:28 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
@@ -105,29 +112,33 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Am Samstag, dem 07.12.2024 um 22:50 +0900 schrieb Vincent Mailhol:
-> On Sat. 7 Dec. 2024 =C3=A0 22:19, Martin Uecker <muecker@gwdg.de> wrote:
-> >=20
+Am Samstag, dem 07.12.2024 um 21:00 +0000 schrieb David Laight:
+> From: Martin Uecker
+> > Sent: 07 December 2024 19:52
 ...
 
 >=20
-> I was invited to WG14 this September. For now, I am only lurking. The
-> thing I have in mind right now is to write a paper to allow the use of
-> static_assert() in expressions (i.e. make it return 0 on success).
-> That should be a relatively small change, but would bring a nice
-> quality of life improvement.
+> > There exist proposals along those lines for C2Y.
+> >=20
+> > From a more near-term solution, I wonder if making it possible (or
+> > easier) to return integer constant expressions from statement
+> > expressions and allowing a restricted form of statement expressions
+> > at file scope would help?
 >=20
-> For context, look at this:
->=20
->   https://lore.kernel.org/all/CAHk-=3DwjLSEcZ5LdW+3C+9rtjvNPHZT6zdk0POj67=
-T5k2ZpDbgA@mail.gmail.com/T/#m1ba33a804b4041154b72a1d0333f90ec7204c461
+> It would help a lot if a #define that just used local variables
+> to avoid arguments being re-expanded and for CSE could still
+> generate a constant value.
+> Does need to be a #define - to get token pasting and 'stringify'.
+> Although you would need something for reporting detected errors,
+> and builtin compiler support for const_true() for the detection
+> itself.
 
-What one can do is put it into a structure.
+We are super close:
 
-#define const_assert(x) \
-    (sizeof(struct { _Static_assert(x, ""); }))
+https://godbolt.org/z/Tarq89bha
 
-but yeah, also a hack to work around a limitation of the standard
-feature.
+(if we ignore the grotesque hacks to get there, but this would go
+away if the compiler does it internally)
 
 Martin
+
