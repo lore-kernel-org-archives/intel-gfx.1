@@ -4,84 +4,89 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8D497E77183
-	for <intel-gfx@archiver.kernel.org>; Mon,  9 Dec 2024 13:43:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B4AAFE7718A
+	for <intel-gfx@archiver.kernel.org>; Mon,  9 Dec 2024 13:43:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B7D9D10E78C;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7EA4C10E787;
 	Mon,  9 Dec 2024 13:43:31 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=wanadoo.fr header.i=@wanadoo.fr header.b="Qg3qPC5A";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=gwdg.de header.i=@gwdg.de header.b="e2Qd1tAB";
 	dkim-atps=neutral
-Received: from out.smtpout.orange.fr (out-12.smtpout.orange.fr [193.252.22.12])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C623710E00B;
- Sat,  7 Dec 2024 05:24:07 +0000 (UTC)
-Received: from mail-ej1-f43.google.com ([209.85.218.43])
- by smtp.orange.fr with ESMTPSA
- id JnITtByeUHqNCJnITtpnrv; Sat, 07 Dec 2024 06:24:05 +0100
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=wanadoo.fr;
- s=t20230301; t=1733549046;
- bh=j52yWXL33J+b9C4aQGdxSf0Rg4c/99LnqEiKjLeaVbc=;
- h=MIME-Version:From:Date:Message-ID:Subject:To;
- b=Qg3qPC5A1Sav8bq6eKd4DhOWeuSSdivmLthEvUpcG79u3sbPl0mD2qG6pbOs/giVS
- b8BH+KZA20LelrLqpPSFuOoE5XidpdTKmWUc3AAdRtIh0FTQx9RmipqQtGvrStUr8m
- XWI//kC6cu4uWljHiMewnJT9HqeoLjqq4H8V+dCdiYN0GtnEVk9YNwVJDqA3MYPtBW
- LQXBLy+lgevwdRygigNaCZRFgCWwLW3EYZxIbZ4jpzwiIyLVvATz3K3lTC3pMu/4oi
- rxQ3j/LJxKMOaXRX1qTRqEu0rzkltE0MUVfEKSOXln85G2q17J7mUc6W0p65qUNAIX
- cA1oU7szWaRKQ==
-X-ME-Helo: mail-ej1-f43.google.com
-X-ME-Auth: bWFpbGhvbC52aW5jZW50QHdhbmFkb28uZnI=
-X-ME-Date: Sat, 07 Dec 2024 06:24:06 +0100
-X-ME-IP: 209.85.218.43
-Received: by mail-ej1-f43.google.com with SMTP id
- a640c23a62f3a-a9f1c590ecdso417750966b.1; 
- Fri, 06 Dec 2024 21:24:05 -0800 (PST)
-X-Forwarded-Encrypted: i=1;
- AJvYcCU4VznzyEhAr0sOxpEaoFLE88IxunmgM+kTn+tLqt8ZOJRPxQiexApaYuy2BpLzrcCoAzOi1+BGbnw=@lists.freedesktop.org,
- AJvYcCVa9TgczjurQ4iaU9uijBTzmX1n8blq4D+d5Z25u15rhS8QM7n8WmzoRqXOfgAqHL798dhJ4Pq5d8r7@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyEUqLUEPoNs9vNYIli/bhbKk5Sdr4VRXo4Xle1B9WrVOyvEwzh
- W4s3W1HJG/aNbrVb44wXwQrIlFXkHjSyckCTsTlqrlbUCXptIgUVnUUtlW6KGbSwd0ewQbIJl+M
- 5tnzV3Tu2TAypy2wix/GKs4sVBMA=
-X-Google-Smtp-Source: AGHT+IFPV3ip3SYHkyJAtAl7kySK0yuNHOCaaw0rmFlBgQknleAfhI1fXHmOk07U56ZQY/Lp14i5paMJiLtiZFuprbE=
-X-Received: by 2002:a17:906:2191:b0:aa6:2d5c:29ce with SMTP id
- a640c23a62f3a-aa62d5c2a3bmr190097866b.52.1733413722571; Thu, 05 Dec 2024
- 07:48:42 -0800 (PST)
-MIME-Version: 1.0
+Received: from mx-2023-1.gwdg.de (mx-2023-1.gwdg.de [134.76.10.21])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 032BB10E231;
+ Sat,  7 Dec 2024 13:07:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=gwdg.de;
+ s=2023-rsa; h=MIME-Version:Content-Transfer-Encoding:Content-Type:References:
+ In-Reply-To:Date:CC:To:From:Subject:Message-ID:Sender:Reply-To:Content-ID:
+ Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
+ :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
+ List-Post:List-Owner:List-Archive;
+ bh=/uO1DmifJTy9zLn5kLoz0yWzTcVA7p32pVfQJYIukvo=; b=e2Qd1tABJB3so0uW5yOeFNTh2m
+ bAgdqHapE4ARaSqoPh0wuuYfkFJiN6fzQw25oMXqezvMZhvs8kwWkdhWJqA9wx2m+4uh5kl3iXXWR
+ qD1BX8N+9Bgie0PF2OleNUfi3Pzu330Smp9qtupvT+WFdjA4vpNd3x/Xo+pidd75LM2IrPPoiH1GB
+ j1+KANv8/8ZEscTVeL/Qrri3V1yz1nuRxuKe1Po4Gs3OK6ceQg9+p8OdFsiFDULdOuMsi2j2hC3oZ
+ Kfqzp1Os0LeI/3TSUiX2jy6rjZ0u8HpCdthdsHmWuIN/14fGhDhA8pFyO8Q9kdyTPMQYM4NuQwuzi
+ mi5Ys46A==;
+Received: from xmailer.gwdg.de ([134.76.10.29]:50730)
+ by mailer.gwdg.de with esmtp (GWDG Mailer)
+ (envelope-from <muecker@gwdg.de>) id 1tJuWk-004M5Z-0k;
+ Sat, 07 Dec 2024 14:07:18 +0100
+Received: from mbx19-fmz-06.um.gwdg.de ([10.108.142.65] helo=email.gwdg.de)
+ by mailer.gwdg.de with esmtps (TLS1.2:ECDHE-RSA-AES128-GCM-SHA256:128)
+ (GWDG Mailer) (envelope-from <muecker@gwdg.de>) id 1tJuWk-000UX0-0P;
+ Sat, 07 Dec 2024 14:07:18 +0100
+Received: from [192.168.0.221] (10.250.9.200) by MBX19-FMZ-06.um.gwdg.de
+ (10.108.142.65) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.2.1544.14; Sat, 7 Dec
+ 2024 14:07:16 +0100
+Message-ID: <9a0c041b6143ba07c2b3e524572fccd841f5374b.camel@gwdg.de>
+Subject: Re: [PATCH 02/10] compiler.h: add is_const() as a replacement of
+ __is_constexpr()
+From: Martin Uecker <muecker@gwdg.de>
+To: David Laight <David.Laight@ACULAB.COM>, Vincent Mailhol
+ <mailhol.vincent@wanadoo.fr>
+CC: Linus Torvalds <torvalds@linux-foundation.org>, Luc Van Oostenryck
+ <luc.vanoostenryck@gmail.com>, Nathan Chancellor <nathan@kernel.org>, "Nick
+ Desaulniers" <ndesaulniers@google.com>, Bill Wendling <morbo@google.com>,
+ Justin Stitt <justinstitt@google.com>, Yury Norov <yury.norov@gmail.com>,
+ Rasmus Villemoes <linux@rasmusvillemoes.dk>, Kees Cook <kees@kernel.org>,
+ "Gustavo A. R. Silva" <gustavoars@kernel.org>, Jani Nikula
+ <jani.nikula@linux.intel.com>, Joonas Lahtinen
+ <joonas.lahtinen@linux.intel.com>, Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Tvrtko Ursulin <tursulin@ursulin.net>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Suzuki K Poulose <suzuki.poulose@arm.com>,
+ Mike Leach <mike.leach@linaro.org>, James Clark <james.clark@linaro.org>,
+ Alexander Shishkin <alexander.shishkin@linux.intel.com>, Rikard Falkeborn
+ <rikard.falkeborn@gmail.com>, "linux-sparse@vger.kernel.org"
+ <linux-sparse@vger.kernel.org>, "linux-kernel@vger.kernel.org"
+ <linux-kernel@vger.kernel.org>, "llvm@lists.linux.dev"
+ <llvm@lists.linux.dev>, "linux-hardening@vger.kernel.org"
+ <linux-hardening@vger.kernel.org>, "intel-gfx@lists.freedesktop.org"
+ <intel-gfx@lists.freedesktop.org>, "dri-devel@lists.freedesktop.org"
+ <dri-devel@lists.freedesktop.org>, "coresight@lists.linaro.org"
+ <coresight@lists.linaro.org>, "linux-arm-kernel@lists.infradead.org"
+ <linux-arm-kernel@lists.infradead.org>
+Date: Sat, 7 Dec 2024 14:07:08 +0100
+In-Reply-To: <344b4cf41a474377b3d2cbf6302de703@AcuMS.aculab.com>
 References: <20241203-is_constexpr-refactor-v1-0-4e4cbaecc216@wanadoo.fr>
- <20241203-is_constexpr-refactor-v1-3-4e4cbaecc216@wanadoo.fr>
- <c617483816b54096ba4b30bea595da49@AcuMS.aculab.com>
-In-Reply-To: <c617483816b54096ba4b30bea595da49@AcuMS.aculab.com>
-From: Vincent Mailhol <mailhol.vincent@wanadoo.fr>
-Date: Fri, 6 Dec 2024 00:48:31 +0900
-X-Gmail-Original-Message-ID: <CAMZ6Rq+=-d0_v3Xqj0CpaPbNuzQuv1SouTkc3Ew5vc5Sb_DUng@mail.gmail.com>
-Message-ID: <CAMZ6Rq+=-d0_v3Xqj0CpaPbNuzQuv1SouTkc3Ew5vc5Sb_DUng@mail.gmail.com>
-Subject: Re: [PATCH 03/10] compiler.h: add is_const_true() and is_const_false()
-To: David Laight <David.Laight@aculab.com>
-Cc: Linus Torvalds <torvalds@linux-foundation.org>, 
- Luc Van Oostenryck <luc.vanoostenryck@gmail.com>,
- Nathan Chancellor <nathan@kernel.org>, 
- Nick Desaulniers <ndesaulniers@google.com>, Bill Wendling <morbo@google.com>, 
- Justin Stitt <justinstitt@google.com>, Yury Norov <yury.norov@gmail.com>, 
- Rasmus Villemoes <linux@rasmusvillemoes.dk>, Kees Cook <kees@kernel.org>, 
- "Gustavo A. R. Silva" <gustavoars@kernel.org>,
- Jani Nikula <jani.nikula@linux.intel.com>, 
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, 
- Tvrtko Ursulin <tursulin@ursulin.net>, David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>, Suzuki K Poulose <suzuki.poulose@arm.com>, 
- Mike Leach <mike.leach@linaro.org>, James Clark <james.clark@linaro.org>, 
- Alexander Shishkin <alexander.shishkin@linux.intel.com>, 
- Rikard Falkeborn <rikard.falkeborn@gmail.com>, 
- Martin Uecker <Martin.Uecker@med.uni-goettingen.de>, 
- "linux-sparse@vger.kernel.org" <linux-sparse@vger.kernel.org>, 
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, 
- "llvm@lists.linux.dev" <llvm@lists.linux.dev>, 
- "linux-hardening@vger.kernel.org" <linux-hardening@vger.kernel.org>, 
- "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>, 
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>, 
- "coresight@lists.linaro.org" <coresight@lists.linaro.org>, 
- "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>
+ <20241203-is_constexpr-refactor-v1-2-4e4cbaecc216@wanadoo.fr>
+ <1d807c7471b9434aa8807e6e86c964ec@AcuMS.aculab.com>
+ <CAMZ6RqLJLP+4d8f5gLfBdFeDVgqy23O+Eo8HRgKCthqBjSHaaw@mail.gmail.com>
+ <9ef03cebb4dd406885d8fdf79aaef043@AcuMS.aculab.com>
+ <abdd7862f136aa676b2d2c324369f4a43ff9909c.camel@gwdg.de>
+ <CAMZ6RqKzGiRNMeLsQKRNrxvW_bXB-kEi11udQ82kKX6tGCrqcg@mail.gmail.com>
+ <9607300dfca5d71ca9570b1e1de0864e524f356b.camel@gwdg.de>
+ <344b4cf41a474377b3d2cbf6302de703@AcuMS.aculab.com>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.46.4-2 
+MIME-Version: 1.0
+X-Originating-IP: [10.250.9.200]
+X-ClientProxiedBy: MBX19-FMZ-04.um.gwdg.de (10.108.142.63) To
+ MBX19-FMZ-06.um.gwdg.de (10.108.142.65)
+X-EndpointSecurity-0xde81-EV: v:7.9.17.458, d:out, a:y, w:t, t:5, sv:1733541190,
+ ts:1733576838
+X-Virus-Scanned: (clean) by clamav
 X-Mailman-Approved-At: Mon, 09 Dec 2024 13:43:28 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -98,146 +103,102 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Thu. 5 Dec 2024 at 03:48, David Laight <David.Laight@aculab.com> wrote:
-> From: Vincent Mailhol
-> > Sent: 02 December 2024 17:33
-> >
-> > __builtin_constant_p() is known for not always being able to produce
-> > constant expression [1] which led to the introduction of
-> > __is_constexpr() [2]. Because of its dependency on
-> > __builtin_constant_p(), statically_true() suffers from the same
-> > issues.
+Am Samstag, dem 07.12.2024 um 10:33 +0000 schrieb David Laight:
+> From: Martin Uecker
+> > Sent: 07 December 2024 08:40
+> ...
+> > I find it amazing how much time the Linux kernel community spends
+> > revising code to make it work perfectly.
+> >=20
+> > Still, I am wondering whether some of this time and effort should not
+> > be targeted at C compilers and language work to make these macro
+> > hacks unnecessary?
+>=20
+> I'm probably not alone in thinking that sometimes the compiler writers
+> are doing their hardest to make life hard for people writing low level co=
+de.
+
+GCC and Clang are open-source projects just like the kernel. One can=C2=A0
+go there and contribute.  I am not saying that it is always easy to
+find consensus and there also projects that have other requirements
+than the kernel. But I started to contribute to GCC (with very limited
+time) to address some of my own issues, and I found the community very
+welcoming.
+
+>=20
+> > I already found the original motivation for these macros very questiona=
+ble.
+> > Removing VLAs at the cost having imprecise worst-case bounds strikes
+> > me as fundamentally misguided - at least if security is the motivation.
+>=20
+> VLA basically cannot be allowed because of the very limited stack space.
+> Even the per-frame limits aren't a real solution - they just catch the
+> places that most likely to cause issues. Very deep call chains and any
+> recursion (that isn't tightly bounded) can cause grief.
+
+VLA use *less* stack than a fixed size arrays with fixed bound.
+>=20
+> > So maybe there are other good reasons for this, e.g. bad code
+> > for VLAs or risk of jumping the guard page if the attacker can somehow
+> > influence its size (but for this there is -Wvla-larger-than). But even =
+then,
+> > wouldn't it be a more worthwhile and interesting investment of engineer=
+ing
+> > resources to improving code generation / warnings at the compiler level=
+?
+>=20
+> This is kernel code, any access into a stack guard page is basically
+> unrecoverable for the entire system - a kernel lock/mutex could be held.
 >
-> No, they are testing different things.
+> With a list of (calling_fn, called_fn, stack_offset) it is possible
+> calculate an accurate maximum stack usage.
+> Indirect calls would need to use the (IIRC) FINE_IBT hashes to identify
+> the possible functions (and I'm not sure than has an attribute for a 'see=
+d'
+> so that 'int (*)(void *)' functions can be separated into groups.
+> I've not looked at whether objtool could generate the output - but is has
+> to be easier for the compiler to do it.
+>=20
+> I have done that calculation in the past (parsing a compiler listing file=
+)
+> and basically discovered the system didn't actually have enough memory
+> to allocate 'safe' stacks! The max stack was pretty much always (the
+> equivalent of) printf() inside an error path that never happens.
+> It might be interesting to see how bad linux is (after sorting out
+> how to handle recursive calls - hopefully there won't be too many
+> unexpected ones.
 
-OK, I will remove this paragraph.
+Compiler and ISO C language support to guarantee bounded stack usage
+would indeed be a very interesting feature.
 
-> > For example:
-> >
-> >   void foo(int a)
-> >   {
-> >        /* fail on GCC */
-> >       BUILD_BUG_ON_ZERO(statically_true(a));
-> >
-> >        /* fail on both clang and GCC */
-> >       static char arr[statically_true(a) ? 1 : 2];
-> >   }
-> >
-> > Define a new is_const_true() and is_const_false() pair of macros
-> > which, by making use of __is_const_zero(), always produces a constant
-> > expression.
-> >
-> > Note that is_const_false() can not be directly defined as an alias to
-> > __is_const_zero(). Otherwise, it could yield some false positives on
-> > huge numbers because of a lost of precision when doing the (long) cast
-> > in __is_const_zero(). Example:
-> >
-> >   is_const_false((u128)ULONG_MAX << BITS_PER_LONG)
-> >
-> > Furthermore, using the ! operator like this:
-> >
-> >   #define is_const_true(x) __is_const_zero(!(x))
-> >   #define is_const_false(x) __is_const_zero(!!(x))
-> >
-> > would yield a -Wint-in-bool-context compiler warning if the argument
-> > is not a boolean. Use the =3D=3D and !=3D operators instead.
-> >
-> > It should be noted that statically_true/false() are the only ones
-> > capable of folding tautologic expressions in which at least one on the
-> > operands is not a constant expression. For example:
-> >
-> >   statically_true(true || var)
-> >   statically_true(var =3D=3D var)
-> >   statically_false(var * 0)
-> >   statically_false(var * 8 % 4)
-> >
-> > always evaluate to true, whereas all of these would be false under
-> > is_const_true/false() if var is not a constant expression [3].
-> >
-> > For this reason, usage of const_true/false() should be the exception.
-> > Reflect in the documentation that const_true() is less powerful and
-> > that statically_true() is the overall preferred solution.
-> >
-> > [1] __builtin_constant_p cannot resolve to const when optimizing
-> > Link: https://gcc.gnu.org/bugzilla/show_bug.cgi?id=3D19449
-> >
-> > [2] commit 3c8ba0d61d04 ("kernel.h: Retain constant expression output f=
-or max()/min()")
-> > Link: https://git.kernel.org/torvalds/c/3c8ba0d61d04
-> >
-> > [3] https://godbolt.org/z/E4r7EaxW9
+>=20
+> > Also the fortification of strlen and co seems something which could be
+> > much better solved with annotations and proper compiler support.
+>=20
+> That might be nice, but kernel have to be buildable with relatively
+> old compilers.
 
-D'oh, I used some old versions of the macros in that link. The link
-will be updated to this in v2:
+Yes, but it could make use of it at some point in the future (or
+optionally).
 
-  https://godbolt.org/z/E4r7EaxW9
+> Some things might need language/ABI changes to better handle ptr+size.
+> The ability to return such a pair in registers would probably be useful
+> (without doing horrid games with a union and __int128).
 
-> > Signed-off-by: Vincent Mailhol <mailhol.vincent@wanadoo.fr>
-> > ---
-> >  include/linux/compiler.h | 23 +++++++++++++++++++++++
-> >  1 file changed, 23 insertions(+)
-> >
-> > diff --git a/include/linux/compiler.h b/include/linux/compiler.h
-> > index 30ce06df4153cfdc0fad9bc7bffab9097f8b0450..165aa5b9bc484376087a130=
-a1ac1f3edb50c983d 100644
-> > --- a/include/linux/compiler.h
-> > +++ b/include/linux/compiler.h
-> > @@ -357,6 +357,29 @@ static inline void *offset_to_ptr(const int *off)
-> >   */
-> >  #define is_const(x) __is_const_zero(0 * (x))
-> >
-> > +/*
-> > + * Similar to statically_true() but produces a constant expression
->
-> No.
-> It tests whether a value is a 'constant integer expression' and
-> the result is a 'constant integer expression'.
-> statically_true() checks for the value being a 'compile time constant'.
+ptr + size is something we are looking into.
 
-I still would argue that =E2=80=99constant integer expressions=E2=80=99 and=
- =E2=80=99compile
-time constants=E2=80=99 are *similar*. Not the same, agreed, but not
-drastically different either. I picked the term *similar* for that
-reason.
+You can already do quite a bit by using C99's syntax for variably modified
+types. For example, you would get UBSan trap for the following OOB access:
 
-> Most code really doesn't care, it all got added to min() so that
-> a very few places could do:
->         char foo[min(16, sizeof (type))];
-> without triggering the 'variable length array' warning.
-> But that just bloated everywhere else and (IIRC) Linus replaced
-> them with a MIN() that was just an expression.
+int foo(int n, char (*buf)[n])
+{
+  (*buf)[n] =3D 1;
+}
 
-What about:
+This does not require an ABI change.=20
 
-  Return an integer constant expression while evaluating if the
-  argument is a true (non zero) integer constant expression.
+Martin
 
 
 
-> > + *
-> > + * To be used in conjunction with macros, such as BUILD_BUG_ON_ZERO(),
-> > + * which require their input to be a constant expression and for which
-> > + * statically_true() would otherwise fail.
->
-> Use a different BUILD_BUG macro instead.
-> Look at the current definition of min().
 
-Do you mean BUILD_BUG_ON_MSG()? That one, at the end, relies on the
-error attribute:
-
-  https://gcc.gnu.org/onlinedocs/gcc/Common-Function-Attributes.html#index-=
-error-function-attribute
-
-And the error attribute logic relies on compiler optimization. So
-BUILD_BUG_ON_MSG() is not a valid example here because it does not
-require its argument to be an integer constant expression. It works
-well with other compile time constants.
-
-Another valid example would be _Static_assert() but as a matter of
-fact, it is more common to use __is_constexpr() together with
-BUILD_BUG_ON_ZERO() than it is with _Static_assert(). So I think that
-BUILD_BUG_ON_ZERO() is best here.
-
-
-Yours sincerely,
-Vincent Mailhol
