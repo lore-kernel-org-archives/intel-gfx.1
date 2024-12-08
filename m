@@ -4,48 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0AD78E77182
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 640B9E77183
 	for <intel-gfx@archiver.kernel.org>; Mon,  9 Dec 2024 13:43:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8724E10E774;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 92A4710E778;
 	Mon,  9 Dec 2024 13:43:30 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=gwdg.de header.i=@gwdg.de header.b="CbEoEgJJ";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=gwdg.de header.i=@gwdg.de header.b="NV4r6sre";
 	dkim-atps=neutral
 Received: from mx-2023-1.gwdg.de (mx-2023-1.gwdg.de [134.76.10.21])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 55FFD10E178;
- Sat,  7 Dec 2024 14:59:25 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1D99F10E268;
+ Sun,  8 Dec 2024 09:18:48 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=gwdg.de;
  s=2023-rsa; h=MIME-Version:Content-Transfer-Encoding:Content-Type:References:
  In-Reply-To:Date:CC:To:From:Subject:Message-ID:Sender:Reply-To:Content-ID:
  Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
  :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
  List-Post:List-Owner:List-Archive;
- bh=1ZQZ2P4X11XUh3/AmfJ9LodEYUGwzm9ljaljfQMxpC8=; b=CbEoEgJJWkfk7etBghxPUIW3ao
- jG9EXzXwhGOguUYccsOMcvF/dchUxm9KnfHzR0/ReGu/dSAUXjfNZHDirRMCj2Qkur15yeR4HMXZK
- N3d5J8WClYuymxxW1Rc1oqjST4vSX35BORz1G6VQm5fjwc2ieDt8hVdLRDnEvhnD/RwkTrMo/yJLB
- xZfTOtASEvh3e1Xd4RiprbqJeV3Ki8Q+uQy/1RkxdI7KodAv7UlV7fw7tHfPjt6EFJaoqcPD7pea3
- 9L72aSh4ZzpkLlAMZVXRJ3KPRAVcPAxnw0S/vRb6V41B+ESFwv0puOkZEJsajK9li/HGkAdbVg5R+
- FkP++QEg==;
-Received: from xmailer.gwdg.de ([134.76.10.29]:39687)
+ bh=KwaQAzddSYnu9vcLie6k6ok9qNzm4PTtfMoMlLyy2fg=; b=NV4r6sre7Ok3wo0w1M1IjH9x5v
+ ilQNDn/XPZdX75phM23l8dDuOB1VNLxPMKKvbXXgd2p5V1uHMsRuNlgUvf3AeH+1FHymLdhoiVhYb
+ Ysg5PIEKxMJsc40fxHSui5EdG6IyQ779QS2vQL/KCo23F0ru06QpS7EqMxsnFyRsGJUOxjFPdQrFF
+ dMiLRhK4dzQ+XzC7th2Qi5Cn/nbNKPbxR8YQrAOeUvar7hboo1TVeI0RknC5cICOBS4weA5dqdt5G
+ klU9eXU4tnOo08f48hmQEaTj/tdZySI5WFrnz0HUUZJt7JKdf1ztGZMduj6rbs6dzv6RXPuDvBedP
+ Kjj2AMww==;
+Received: from xmailer.gwdg.de ([134.76.10.29]:43999)
  by mailer.gwdg.de with esmtp (GWDG Mailer)
- (envelope-from <muecker@gwdg.de>) id 1tJwH9-004NAS-1N;
- Sat, 07 Dec 2024 15:59:19 +0100
+ (envelope-from <muecker@gwdg.de>) id 1tKDR4-004WKp-2q;
+ Sun, 08 Dec 2024 10:18:42 +0100
 Received: from mbx19-fmz-06.um.gwdg.de ([10.108.142.65] helo=email.gwdg.de)
  by mailer.gwdg.de with esmtps (TLS1.2:ECDHE-RSA-AES128-GCM-SHA256:128)
- (GWDG Mailer) (envelope-from <muecker@gwdg.de>) id 1tJwH9-000ADM-0y;
- Sat, 07 Dec 2024 15:59:19 +0100
+ (GWDG Mailer) (envelope-from <muecker@gwdg.de>) id 1tKDR4-000HH6-2Q;
+ Sun, 08 Dec 2024 10:18:42 +0100
 Received: from [192.168.0.221] (10.250.9.200) by MBX19-FMZ-06.um.gwdg.de
  (10.108.142.65) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.2.1544.14; Sat, 7 Dec
- 2024 15:59:17 +0100
-Message-ID: <470b5f46d45063fdc21e4e19eac68c18cb42db48.camel@gwdg.de>
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.2.1544.14; Sun, 8 Dec
+ 2024 10:18:41 +0100
+Message-ID: <aeb1c27d320800dcd8375771022e11e8c27b0d1a.camel@gwdg.de>
 Subject: Re: [PATCH 02/10] compiler.h: add is_const() as a replacement of
  __is_constexpr()
 From: Martin Uecker <muecker@gwdg.de>
-To: Vincent Mailhol <vincent.mailhol@gmail.com>
-CC: David Laight <David.Laight@aculab.com>, Linus Torvalds
- <torvalds@linux-foundation.org>, Luc Van Oostenryck
+To: Linus Torvalds <torvalds@linux-foundation.org>
+CC: David Laight <David.Laight@aculab.com>, Vincent Mailhol
+ <mailhol.vincent@wanadoo.fr>, Luc Van Oostenryck
  <luc.vanoostenryck@gmail.com>, Nathan Chancellor <nathan@kernel.org>, "Nick
  Desaulniers" <ndesaulniers@google.com>, Bill Wendling <morbo@google.com>,
  Justin Stitt <justinstitt@google.com>, Yury Norov <yury.norov@gmail.com>,
@@ -66,8 +66,8 @@ CC: David Laight <David.Laight@aculab.com>, Linus Torvalds
  <dri-devel@lists.freedesktop.org>, "coresight@lists.linaro.org"
  <coresight@lists.linaro.org>, "linux-arm-kernel@lists.infradead.org"
  <linux-arm-kernel@lists.infradead.org>
-Date: Sat, 7 Dec 2024 15:59:09 +0100
-In-Reply-To: <CAMZ6RqL+iS6GVsY20=O6GdQakRpp7XdewZJsUbmE5OCsKaHR6Q@mail.gmail.com>
+Date: Sun, 8 Dec 2024 10:18:40 +0100
+In-Reply-To: <CAHk-=wgVGmj+nAju2XuWWD_FZHdeytRW2XX5D-L3MqDuRRciVg@mail.gmail.com>
 References: <20241203-is_constexpr-refactor-v1-0-4e4cbaecc216@wanadoo.fr>
  <20241203-is_constexpr-refactor-v1-2-4e4cbaecc216@wanadoo.fr>
  <1d807c7471b9434aa8807e6e86c964ec@AcuMS.aculab.com>
@@ -76,18 +76,22 @@ References: <20241203-is_constexpr-refactor-v1-0-4e4cbaecc216@wanadoo.fr>
  <abdd7862f136aa676b2d2c324369f4a43ff9909c.camel@gwdg.de>
  <CAMZ6RqKzGiRNMeLsQKRNrxvW_bXB-kEi11udQ82kKX6tGCrqcg@mail.gmail.com>
  <9607300dfca5d71ca9570b1e1de0864e524f356b.camel@gwdg.de>
- <CAMZ6RqJGqBqvgxzp5yPFY1pk0WkkwEMM34qU-dZ3kXfsnKaqEg@mail.gmail.com>
- <429e7c6713ecc94494d9107e5f5a1f0c8e854f23.camel@gwdg.de>
- <CAMZ6RqL+iS6GVsY20=O6GdQakRpp7XdewZJsUbmE5OCsKaHR6Q@mail.gmail.com>
+ <344b4cf41a474377b3d2cbf6302de703@AcuMS.aculab.com>
+ <9a0c041b6143ba07c2b3e524572fccd841f5374b.camel@gwdg.de>
+ <CAHk-=wjpVXEjX16PP=-hi4CgLqEGJ_U-WvKWq+J3C+FW-hSSfg@mail.gmail.com>
+ <0a2996a7c63930b9d9a8d3792358dd9e494e27c1.camel@gwdg.de>
+ <CAHk-=wjsfYYKBYuW8_6yKjdwHih0MMa2GwUJh_LHcuUNFR7-QA@mail.gmail.com>
+ <9d9567dbdaf39688bbd0d240e29dec826a5931ee.camel@gwdg.de>
+ <CAHk-=wgVGmj+nAju2XuWWD_FZHdeytRW2XX5D-L3MqDuRRciVg@mail.gmail.com>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 User-Agent: Evolution 3.46.4-2 
 MIME-Version: 1.0
 X-Originating-IP: [10.250.9.200]
-X-ClientProxiedBy: MBX19-FMZ-04.um.gwdg.de (10.108.142.63) To
+X-ClientProxiedBy: mbx19-gwd-02.um.gwdg.de (10.108.142.51) To
  MBX19-FMZ-06.um.gwdg.de (10.108.142.65)
-X-EndpointSecurity-0xde81-EV: v:7.9.17.458, d:out, a:y, w:t, t:5, sv:1733541190,
- ts:1733583559
+X-EndpointSecurity-0xde81-EV: v:7.9.17.458, d:out, a:y, w:t, t:5, sv:1733619932,
+ ts:1733649522
 X-Virus-Scanned: (clean) by clamav
 X-Mailman-Approved-At: Mon, 09 Dec 2024 13:43:28 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
@@ -105,48 +109,50 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Am Samstag, dem 07.12.2024 um 22:50 +0900 schrieb Vincent Mailhol:
-> On Sat. 7 Dec. 2024 =C3=A0 22:19, Martin Uecker <muecker@gwdg.de> wrote:
-> > Am Samstag, dem 07.12.2024 um 21:45 +0900 schrieb Vincent Mailhol:
-> > > On Sat. 7 Dec. 2024 at 17:39, Martin Uecker <muecker@gwdg.de> wrote:
-> > > > Am Freitag, dem 06.12.2024 um 16:26 +0900 schrieb Vincent Mailhol:
-
-...
-
-
-> > > But the core issue is that before getting this support in Linux, we
-> > > have to wait for this to be added to the C2Y draft, then implemented
-> > > in the compilers (probably just reusing the C++ constexpr functions)
-> > > and finally wait maybe one more decade for the C2Y support to reach
-> > > the kernel. For reference the kernel supports C11 only from 2022=E2=
-=80=A6 So
-> > > maybe we will see those in the kernel around 2037? Meanwhile, we have
-> > > to deal with those hacks.
+Am Samstag, dem 07.12.2024 um 17:58 -0800 schrieb Linus Torvalds:
+> On Sat, 7 Dec 2024 at 15:52, Martin Uecker <muecker@gwdg.de> wrote:
 > >=20
-> > If we do not collaborate on proper solutions, then you might have
-> > to wait much longer.
+> > Can you point me to some horror stories?
 >=20
-> I was invited to WG14 this September.=C2=A0For now, I am only lurking. Th=
-e
-> thing I have in mind right now is to write a paper to allow the use of
-> static_assert() in expressions (i.e. make it return 0 on success).
-> That should be a relatively small change, but would bring a nice
-> quality of life improvement.
+> So the main issues tended to be about various static verification tools.
+>=20
+> Ranging from things like the stackleak plugin for gcc, where handling
+> VLA's and alloca() (which are pretty much the same thing with
+> different syntax) was just very much added complexity, to perhaps
+> overly simplistic tools that literally just check the stack usage by
+> parsing "objdump --disassemble" output and then building up
+> approximate "this is the combined deepest stack" call chain
+> approximations.
+>=20
+> And even in the *basic* infrastructure like gcc itself, VLA's simply
+> made -Wframe-larger-than=3D just simply not work.
+>=20
+> I also have this memory of bad code generation (again, this is 5=3D
+> years ago, so take this with a pinch of salt: dim memories), where gcc
+> wouldn't end up re-using VLA stack slots, so VLA's made the frame
+> bigger for that reason or something like that.
+>=20
+> We explicitly use "-fconserve-stack" to get gcc to reuse spill slots,
+> because gcc has been known to sometimes makes insanely piggish stack
+> frames when it just creates a spill slot for *everything*, even if the
+> spills aren't live at the same time (think big functions with lots of
+> case statements).
+>=20
+> We also had several cases of the VLA's just being silly, when a simple
+> constant-sized allocation just worked fine and didn't generate
+> pointless extra code.
+>=20
+> Pretty much none of the code core actually ever wanted VLA's, so the
+> end result was that we had these bad patterns mainly in random drivers
+> etc. Don't do that.
 
-Excellent, then I was complaining to the wrong person.=20
+Thanks. This confirms that the tooling around VLAs is rather poor.
 
 
 Martin
 
->=20
-> For context, look at this:
->=20
->   https://lore.kernel.org/all/CAHk-=3DwjLSEcZ5LdW+3C+9rtjvNPHZT6zdk0POj67=
-T5k2ZpDbgA@mail.gmail.com/T/#m1ba33a804b4041154b72a1d0333f90ec7204c461
->=20
-> And I will definitely follow the progress of constexpr functions in C2Y.
->=20
->=20
-> Yours sincerely,
-> Vincent Mailhol
+
+
+
+
 
