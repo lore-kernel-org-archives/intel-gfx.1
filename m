@@ -4,92 +4,93 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A1E44E77183
-	for <intel-gfx@archiver.kernel.org>; Thu, 12 Dec 2024 13:11:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 267B6E77184
+	for <intel-gfx@archiver.kernel.org>; Thu, 12 Dec 2024 13:11:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2ED2610EDAD;
-	Thu, 12 Dec 2024 13:11:30 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 80D9010EDB0;
+	Thu, 12 Dec 2024 13:11:34 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="YKJWe3di";
+	dkim=permerror (0-bit key) header.d=sapience.com header.i=@sapience.com header.b="LFTYlwJk";
+	dkim=pass (2048-bit key; secure) header.d=sapience.com header.i=@sapience.com header.b="hbQlnC90";
 	dkim-atps=neutral
-Received: from mail-wr1-f46.google.com (mail-wr1-f46.google.com
- [209.85.221.46])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3BB3B10EB05
- for <intel-gfx@lists.freedesktop.org>; Wed, 11 Dec 2024 10:52:08 +0000 (UTC)
-Received: by mail-wr1-f46.google.com with SMTP id
- ffacd0b85a97d-385e0e224cbso3334091f8f.2
- for <intel-gfx@lists.freedesktop.org>; Wed, 11 Dec 2024 02:52:08 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1733914326; x=1734519126; darn=lists.freedesktop.org;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=XFBLxqgMKAfLfvAfVQrN7MaLGNe6NYPC9fHI64gRBug=;
- b=YKJWe3di8TgknfF/DD9EcvEYFH9CkF9qVfMjQx+Ymf8j+FpDAzAWCxZwJkIt1J2LOi
- GKnhzmZOtF55azJK2xAZrgvpWOPLSVuixOg7rR7iA5K1hxFZQ4OH7cJRoAEVSfE2320x
- M+nYS7C3VobPo8A4CvCpJPEGLkbSBYZkkO77EjAs/ZYc4JOnynUoQQ8mrYsFhPVmq3gA
- AZC/xoWBF9S/eEA1xlTgvOZ6GXJVTwGpxV2sra2ozj1YmUnHXsMHoeV55z5KljaitLIw
- MyyN0luXQz5P00dMYXoYY99eycvqp3fhJj0SD6kqZIKTH2iDSMB/QdH6ScKUazBuv9Zp
- RALg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1733914326; x=1734519126;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=XFBLxqgMKAfLfvAfVQrN7MaLGNe6NYPC9fHI64gRBug=;
- b=MjL0DdIrHleWf+yWfzohX7CE3CBWHeze900IyfFcXCUxkBOIhCkDvRUzCu8LHHzM1a
- qkOWmLrOpzYbIiKKBDhx0dQhJyu3V6q+8Sw/QzXFjQv0iIPCMPmabfrFnhhR7vCiEuVt
- 9jS7kWVK55CaVEFf6VvwxOT0IFFIU1faC+zYIK3qoODAVZlouDBHWUU/6PfZ4Ib4ngXo
- te7ZawSuR1/G0kz8YXoAEZDStf+IbaMUYA30fZjO4jo7LX4hcKGb0z41gnuYuj3ndR6v
- HItq3SEYs1qYCAFGUC4I1PzbDpHK9ny43TexG+pqrZ6hA+3gE6mZS5GRN5zi1YLoYecF
- NLmg==
-X-Forwarded-Encrypted: i=1;
- AJvYcCUG9UL7N42fy32G9ATzrzsScmz9XacJjuXnuiGJkoP+8tq8RfEIWBeHjx9MHk42DAA9CS3/ed8zJqs=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwUE3y57NmqwIUWYY6OunDcUYWkLO9byMLUdZ2HeznTdnnQsnlH
- WcUd6iwZFPN4ugiOhLc5j/RA8lwFSIml1ZP+wiJswsyY/NtFkT1dhIKB/eck9ZM=
-X-Gm-Gg: ASbGncuTejkfxSITxj/uG6PbJgLJ+I7LkflcL6AEXNOatR42CaCyD/iy96Mu8NnPVN9
- ep/dYep7uY3gf4zJvLCECm5PL8dbRbD3isFVQXdAWp8BUc7CWtfFome0DUww5cPMkFCzQuUZOwC
- nP+BeB6i+cB8+G4JXYovm6jClCC06Pv2QNeBamDYiYHm/gHO1tpI95dlTsFnfwHLBT54xwNcRNg
- 5rnlP6AIrjcFKAccMjoxCz1l32jTbRos6WcA4lWCGnxHMjAHiPp
-X-Google-Smtp-Source: AGHT+IFBGgeOIhgT/0xoVrPzs9kikKVwZG8cyzRbTcEIDbZA5WI7Cssaqba8E6bBXazv0oFwTl1XNg==
-X-Received: by 2002:a05:6000:a0b:b0:385:ebea:969d with SMTP id
- ffacd0b85a97d-3864ce55a7fmr1934159f8f.22.1733914326450; 
- Wed, 11 Dec 2024 02:52:06 -0800 (PST)
-Received: from linaro.org ([82.76.168.176]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-387824a4e98sm1006870f8f.34.2024.12.11.02.52.04
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 11 Dec 2024 02:52:05 -0800 (PST)
-Date: Wed, 11 Dec 2024 12:52:03 +0200
-From: Abel Vesa <abel.vesa@linaro.org>
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Karol Herbst <kherbst@redhat.com>, Lyude Paul <lyude@redhat.com>,
- Danilo Krummrich <dakr@redhat.com>,
- Jani Nikula <jani.nikula@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Tvrtko Ursulin <tursulin@ursulin.net>, Rob Clark <robdclark@gmail.com>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>, Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>,
- Johan Hovold <johan@kernel.org>, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, nouveau@lists.freedesktop.org,
- intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
- linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org
-Subject: Re: [PATCH RFC 4/4] drm/msm/dp: Add support for LTTPR handling
-Message-ID: <Z1lu04a4hlvAUQbX@linaro.org>
-References: <20241031-drm-dp-msm-add-lttpr-transparent-mode-set-v1-0-cafbb9855f40@linaro.org>
- <20241031-drm-dp-msm-add-lttpr-transparent-mode-set-v1-4-cafbb9855f40@linaro.org>
- <6lpeexb5menpwrzcnmr367x4lmhvzyovhdybn54mnwk55ieehy@mos4oso67boo>
- <Z1lWgDk6vzbx4ew7@linaro.org>
- <iqt3i5mha44wksx7zqjjccz3od5tavyxygyda2dn2fz2w77n36@gyo3dh6a6j72>
+Received: from s1.sapience.com (s1.sapience.com [72.84.236.66])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1837C10E2CF;
+ Tue, 10 Dec 2024 15:40:54 +0000 (UTC)
+Authentication-Results: dkim-srvy7; dkim=pass (Good ed25519-sha256 
+ signature) header.d=sapience.com header.i=@sapience.com 
+ header.a=ed25519-sha256; dkim=pass (Good 2048 bit rsa-sha256 signature) 
+ header.d=sapience.com header.i=@sapience.com header.a=rsa-sha256
+Received: from srv8.sapience.com (srv8.sapience.com [x.x.x.x])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (secp384r1) server-digest SHA384)
+ (No client certificate requested)
+ by s1.sapience.com (Postfix) with ESMTPS id 24D39480A33;
+ Tue, 10 Dec 2024 10:40:53 -0500 (EST)
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=sapience.com;
+ i=@sapience.com; q=dns/txt; s=dk-ed25519-220413; t=1733845252;
+ h=message-id : subject : from : to : cc : date : in-reply-to :
+ references : content-type : mime-version : from;
+ bh=viGzOwcqwCLVwVxfAG1ol+YDmxSbec8Tk3SBFWFyYpk=;
+ b=LFTYlwJk5MubDFS20GYYlvcmz2anq5djcHHL3+ZoQtKeXEG45UVD7wKR4ryFKqMDwd2FV
+ A9xp9QYXprDidp2DA==
+ARC-Seal: i=1; a=rsa-sha256; d=sapience.com; s=arc6-rsa-220412; t=1733845252; 
+ cv=none;
+ b=MKY8PRs2U9FDBok0/wh5enK2cwbcvNzLJMUUYKZFdtVVZMNmtPidOsrDCJGANMR1+y1yoyi/vYf6HoxBK4DObYU0Y5h264sW72K2rSms/iz26h875hRSTPENC0Dy8xu/fHvG4aCajcGqecaA2VXqyIgXImBM/KWjBaTZ4J/r+mVwHAXqtv2EGor3dYJxy+6NMfmOhGa/eW+3yW4OJLnyd/oPSpzM3f1YWpEUJzLPVEl3ZT6Iw5siyCvkFYlqU1VHDFSKbppQYaDjfz5UGnv+UPUFYnIJ24VjvTvqbeGVcdlATLBF1khu/GyVQAQcKRHlAF9DziYRoHBpocd2wUQAnw==
+ARC-Message-Signature: i=1; a=rsa-sha256; d=sapience.com; s=arc6-rsa-220412;
+ t=1733845252; c=relaxed/simple;
+ bh=xx9OGlyMWA+ZCfEDE/zVSR0WiOZyRnK7g97Awiaf61c=;
+ h=DKIM-Signature:DKIM-Signature:Message-ID:Subject:From:To:Cc:Date:
+ In-Reply-To:References:Autocrypt:Content-Type:User-Agent:
+ MIME-Version;
+ b=or5aALtWSbfta0tfHYn3uO+ntBjh2NOpr587v75Cigw7sb195BNDXTz90/20IIVx1vFX62sakhKQTx8Q9B9Wa9zuOeWSK4IdgukQ+/epu8k8ZqlHyZSUEhCHrR3GlSAJcTuGCiC3CUSwUXWVWFAKtHE8oV75yAL2lZzkDe5fbb7ZWYqW+4qUz3McL7KwlUtPWcd0734hoH3y/q8Yw4+ON1IHHu/WHexf5Q9mHg3FjbOEFmIZMCG9ZaXT78QNjrpmIdz8Un6ycoHNPpRufLM102zFnkGvjkU4BkvoMzU55yKmgE2inPyN56/A3vCKKE6iaeNEbzzctN3LDz8UtPjhDQ==
+ARC-Authentication-Results: i=1; arc-srv8.sapience.com
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sapience.com;
+ i=@sapience.com; q=dns/txt; s=dk-rsa-220413; t=1733845252;
+ h=message-id : subject : from : to : cc : date : in-reply-to :
+ references : content-type : mime-version : from;
+ bh=viGzOwcqwCLVwVxfAG1ol+YDmxSbec8Tk3SBFWFyYpk=;
+ b=hbQlnC90J5pqePwvPC1ZEcTBKYn3/EcftD7z65n+lsikCxvEGhHtlRQVw+1loKiAQagRU
+ 82B/n2q3s5sTiUTmhEWpV+iUv+Y28gMSX/wQ9nnYjntFIfAHk617JG2e0eQtUTqJoDsqbFI
+ TJ08/10/BpcwMCjMtsoPcs3P0V46hdEu7B6z75nIz8Liy4cZpQoHWu1bPLmtkbNdXzBDcC7
+ fRt+QNT6H5NqGwiGsmUSe7NLQkQIauWjBwQDdQ7aYqaQefFDDjVJ65j5T8g4jzvM+/a5Pbp
+ MUtOp2/TMjIoNKqMuh2JwiF0QVFEaFHXPzSs4Ewqce4E2DB/LK53kznGSlmg==
+Received: from lap7.sapience.com (lap7w.sapience.com [x.x.x.x])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange ECDHE (prime256v1) server-signature ECDSA (secp384r1)
+ server-digest SHA384) (No client certificate requested)
+ by srv8.sapience.com (Postfix) with ESMTPS id D57BA280015;
+ Tue, 10 Dec 2024 10:40:52 -0500 (EST)
+Message-ID: <c7c1d564ed3d6612c132f0e5e9f45a18306877e0.camel@sapience.com>
+Subject: Re: Linux 6.12.4 - crash dma_alloc_attrs+0x12b via ipu6
+From: Genes Lists <lists@sapience.com>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Jani Nikula
+ <jani.nikula@linux.intel.com>
+Cc: Sakari Ailus <sakari.ailus@linux.intel.com>,
+ linux-kernel@vger.kernel.org, 	akpm@linux-foundation.org,
+ torvalds@linux-foundation.org, stable@vger.kernel.org, 
+ linux-media@vger.kernel.org, bingbu.cao@intel.com, Rodrigo Vivi	
+ <rodrigo.vivi@intel.com>, Joonas Lahtinen
+ <joonas.lahtinen@linux.intel.com>,  Tvrtko Ursulin <tursulin@ursulin.net>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org, 
+ dri-devel@lists.freedesktop.org
+Date: Tue, 10 Dec 2024 10:40:52 -0500
+In-Reply-To: <2024121001-senator-raffle-a371@gregkh>
+References: <2024120917-vision-outcast-85f2@gregkh>
+ <c0e94be466b367f1a3cfdc3cb7b1a4f47e5953ae.camel@sapience.com>
+ <Z1fqitbWlmELb5pj@kekkonen.localdomain> <87seqvzzg6.fsf@intel.com>
+ <c1805642a6c5da6fef3927c70358c8cb851d2784.camel@sapience.com>
+ <87bjxjzpwn.fsf@intel.com> <2024121001-senator-raffle-a371@gregkh>
+Autocrypt: addr=lists@sapience.com; prefer-encrypt=mutual;
+ keydata=mDMEXSY9GRYJKwYBBAHaRw8BAQdAwzFfmp+m0ldl2vgmbtPC/XN7/k5vscpADq3BmRy5R
+ 7y0LU1haWwgTGlzdHMgKEwwIDIwMTkwNzEwKSA8bGlzdHNAc2FwaWVuY2UuY29tPoiWBBMWCAA+Ah
+ sBBQsJCAcCBhUKCQgLAgQWAgMBAh4BAheAFiEE5YMoUxcbEgQOvOMKc+dlCv6PxQAFAmPJfooFCRl
+ vRHEACgkQc+dlCv6PxQAc/wEA/Dbmg91DOGXll0OW1GKaZQGQDl7fHibMOKRGC6X/emoA+wQR5FIz
+ BnV/PrXbao8LS/h0tSkeXgPsYxrzvfZInIAC
+Content-Type: multipart/signed; micalg="pgp-sha384";
+ protocol="application/pgp-signature"; boundary="=-Xc8d1025CSmc9deeZWxz"
+User-Agent: Evolution 3.54.2 
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <iqt3i5mha44wksx7zqjjccz3od5tavyxygyda2dn2fz2w77n36@gyo3dh6a6j72>
 X-Mailman-Approved-At: Thu, 12 Dec 2024 13:11:29 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -106,133 +107,219 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On 24-12-11 11:55:54, Dmitry Baryshkov wrote:
-> On Wed, Dec 11, 2024 at 11:08:16AM +0200, Abel Vesa wrote:
-> > On 24-10-31 18:54:25, Dmitry Baryshkov wrote:
-> > > On Thu, Oct 31, 2024 at 05:12:48PM +0200, Abel Vesa wrote:
-> > > > Link Training Tunable PHY Repeaters (LTTPRs) are defined in DisplayPort
-> > > > 1.4a specification. As the name suggests, these PHY repeaters are
-> > > > capable of adjusting their output for link training purposes.
-> > > > 
-> > > > The msm DP driver is currently lacking any handling of LTTPRs.
-> > > > This means that if at least one LTTPR is found between DPTX and DPRX,
-> > > > the link training would fail if that LTTPR was not already configured
-> > > > in transparent mode.
-> > > 
-> > > It might be nice to mention what is the transparent mode, especially for
-> > > those who do not have the standard at hand.
-> > 
-> > Sorry for the late reply.
-> > 
-> > Will do in the next version.
-> > 
-> > > 
-> > > > The section 3.6.6.1 from the DisplayPort v2.0 specification mandates
-> > > > that before link training with the LTTPR is started, the DPTX may place
-> > > > the LTTPR in non-transparent mode by first switching to transparent mode
-> > > > and then to non-transparent mode. This operation seems to be needed only
-> > > > on first link training and doesn't need to be done again until device is
-> > > > unplugged.
-> > > > 
-> > > > It has been observed on a few X Elite-based platforms which have
-> > > > such LTTPRs in their board design that the DPTX needs to follow the
-> > > > procedure described above in order for the link training to be successful.
-> > > > 
-> > > > So add support for reading the LTTPR DPCD caps to figure out the number
-> > > > of such LTTPRs first. Then, for platforms (or Type-C dongles) that have
-> > > > at least one such an LTTPR, set its operation mode to transparent mode
-> > > > first and then to non-transparent, just like the mentioned section of
-> > > > the specification mandates.
-> > > > 
-> > > > Signed-off-by: Abel Vesa <abel.vesa@linaro.org>
-> > > > ---
-> > > >  drivers/gpu/drm/msm/dp/dp_display.c | 25 +++++++++++++++++++++++++
-> > > >  1 file changed, 25 insertions(+)
-> > > > 
-> > > > diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp/dp_display.c
-> > > > index f01980b0888a40b719d3958cb96c6341feada077..5d3d318d7b87ce3bf567d8b7435931d8e087f713 100644
-> > > > --- a/drivers/gpu/drm/msm/dp/dp_display.c
-> > > > +++ b/drivers/gpu/drm/msm/dp/dp_display.c
-> > > > @@ -107,6 +107,8 @@ struct dp_display_private {
-> > > >  	struct dp_event event_list[DP_EVENT_Q_MAX];
-> > > >  	spinlock_t event_lock;
-> > > >  
-> > > > +	u8 lttpr_caps[DP_LTTPR_COMMON_CAP_SIZE];
-> > > > +
-> > > >  	bool wide_bus_supported;
-> > > >  
-> > > >  	struct dp_audio *audio;
-> > > > @@ -367,12 +369,35 @@ static int dp_display_send_hpd_notification(struct dp_display_private *dp,
-> > > >  	return 0;
-> > > >  }
-> > > >  
-> > > > +static void dp_display_lttpr_init(struct dp_display_private *dp)
-> > > > +{
-> > > > +	int lttpr_count;
-> > > > +
-> > > > +	if (drm_dp_read_lttpr_common_caps(dp->aux, dp->panel->dpcd,
-> > > > +					  dp->lttpr_caps))
-> > > > +		return;
-> > > > +
-> > > > +	lttpr_count = drm_dp_lttpr_count(dp->lttpr_caps);
-> > > > +
-> > > > +	if (lttpr_count) {
-> > > > +		drm_dp_lttpr_set_transparent_mode(dp->aux, true);
-> > > > +
-> > > > +		if (lttpr_count > 0) {
-> > > > +			if (drm_dp_lttpr_set_transparent_mode(dp->aux, false) != 1)
-> > > > +				drm_dp_lttpr_set_transparent_mode(dp->aux, true);
-> > > > +		}
-> > > > +	}
-> > > > +}
-> > > > +
-> > > >  static int dp_display_process_hpd_high(struct dp_display_private *dp)
-> > > >  {
-> > > >  	struct drm_connector *connector = dp->dp_display.connector;
-> > > >  	const struct drm_display_info *info = &connector->display_info;
-> > > >  	int rc = 0;
-> > > >  
-> > > > +	if (!dp->dp_display.is_edp)
-> > > > +		dp_display_lttpr_init(dp);
-> > > 
-> > > Why is it limited to non-eDP cases only.
-> > 
-> > In case of eDP, I don't think that there will ever by a case that will
-> > need an LTTPR in between the eDP PHY and the actual panel. It just
-> > doesn't make sense.
-> > 
-> > IIUC, the LTTPRs, since are Training Tunnable capable, they help when
-> > the physical link between the PHY and the sink can differ based on
-> > different dongles and cables. This is obviously not applicable to eDP.
-> 
-> I think I just have a different paradigm: if the driver explicitly skips
-> calling a function in some codepath, I assume that the usecase it broken
-> or expected not to work (e.g. I read your patch like: LTTPR is expected
-> not to work in eDP). If you would prefer to keep two separate code
-> paths, please add a comment like 'we don't expect LTTPRs in eDP
-> usecase`.
 
-Fair point. But maybe I should drop the non-eDP condition entirely,
-since the LTTPR count will read 0 and then the new helper (which
-will be called drm_dp_lttpr_init() and will handle the disable->enable->disable
-dance, just like you requested) will bail early if LTTPR count is 0.
+--=-Xc8d1025CSmc9deeZWxz
+Content-Type: multipart/alternative; boundary="=-ATW+YCb9hWsFseu7CJ2a"
 
-That way should be more clean, IMO.
+--=-ATW+YCb9hWsFseu7CJ2a
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-> 
-> > > > +
-> > > >  	rc = dp_panel_read_sink_caps(dp->panel, connector);
-> > > >  	if (rc)
-> > > >  		goto end;
-> > > > 
-> > > > -- 
-> > > > 2.34.1
-> > > > 
-> > > 
-> > > -- 
-> > > With best wishes
-> > > Dmitry
-> 
-> -- 
-> With best wishes
-> Dmitry
+On Tue, 2024-12-10 at 13:37 +0100, Greg Kroah-Hartman wrote:
+> > t's a clue nonetheless.
+>=20
+> 'git bisect' would be nice to run if possible...
+
+Done:
+
+a) One (hopefully) small caveat :
+the very first bisect hit the 6.12.2 bug of missing commit b23decf8ac91
+("sched: Initialize idle tasks only once").
+I applied the commit and continued.
+
+b) Result :
+
+6ac269abab9ca5ae910deb2d3ca54351c3467e99 is the first bad commit
+commit 6ac269abab9ca5ae910deb2d3ca54351c3467e99 (HEAD)
+Author: Bingbu Cao <bingbu.cao@intel.com>
+Date: Wed Oct 16 15:53:01 2024 +0800
+
+media: ipu6: not override the dma_ops of device in driver
+
+[ Upstream commit daabc5c64703432c4a8798421a3588c2c142c51b ]
+
+DMA ops are a helper for architectures and not for drivers to override
+the
+DMA implementation. Driver should not override the DMA implementation.
+
+This patch removes the dma_ops override from auxiliary device and adds
+driver-internal helpers that use the actual DMA mapping APIs.
+
+Fixes: 9163d83573e4 ("media: intel/ipu6: add IPU6 DMA mapping API and
+MMU table")
+Signed-off-by: Bingbu Cao <bingbu.cao@intel.com>
+Reviewed-by: Christoph Hellwig <hch@lst.de>
+[Sakari Ailus: Fix the commit message a little.]
+Signed-off-by: Sakari Ailus <sakari.ailus@linux.intel.com>
+Signed-off-by: Hans Verkuil <hverkuil@xs4all.nl>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+
+drivers/media/pci/intel/ipu6/ipu6-bus.c | 6 --
+drivers/media/pci/intel/ipu6/ipu6-buttress.c | 21 +++++--
+drivers/media/pci/intel/ipu6/ipu6-cpd.c | 18 +++---
+drivers/media/pci/intel/ipu6/ipu6-dma.c | 195
++++++++++++++++++++++++++++++---------------------------------
+drivers/media/pci/intel/ipu6/ipu6-dma.h | 34 ++++++++++-
+drivers/media/pci/intel/ipu6/ipu6-fw-com.c | 14 ++---
+6 files changed, 156 insertions(+), 132 deletions(-)
+
+c) git bisect log
+
+git bisect start
+# status: waiting for both good and bad commits
+# good: [d390303b28dabbb91b2d32016a4f72da478733b9] Linux 6.12.1
+git bisect good d390303b28dabbb91b2d32016a4f72da478733b9
+# status: waiting for bad commit, 1 good commit known
+# bad: [61baee2dc5341c936e7fa7b1ca33c5607868de69] Linux 6.12.4
+git bisect bad 61baee2dc5341c936e7fa7b1ca33c5607868de69
+# bad: [2bc07714dc955a91d2923a440ea02c3cb3376b10] virtiofs: use pages
+instead of pointer for kernel direct IO
+git bisect bad 2bc07714dc955a91d2923a440ea02c3cb3376b10
+# bad: [6f2648838ce1a9f2c432e84e38dec5d38412a551] wifi: wilc1000: Set
+MAC after operation mode
+git bisect bad 6f2648838ce1a9f2c432e84e38dec5d38412a551
+# good: [e20117a105d4174c2daf4d6da17b92d757487e60] media: i2c:
+max96717: clean up on error in max96717_subdev_init()
+git bisect good e20117a105d4174c2daf4d6da17b92d757487e60
+# bad: [74f21be9990a42dc2357bcf87a13e16c6998b90e] drm/vc4: hdmi: Avoid
+hang with debug registers when suspended
+git bisect bad 74f21be9990a42dc2357bcf87a13e16c6998b90e
+# good: [dfdd0e8ff65dfc4183b622c3ffd8d8c5d572ca34] dt-bindings: cache:
+qcom,llcc: Fix X1E80100 reg entries
+git bisect good dfdd0e8ff65dfc4183b622c3ffd8d8c5d572ca34
+# good: [b0cd515202cb31c89d7de46b103a7ff2de9de02b] media: ipu6: Fix DMA
+and physical address debugging messages for 32-bit
+git bisect good b0cd515202cb31c89d7de46b103a7ff2de9de02b
+# bad: [3d48d0fbaaa74a04fb9092780a3f83dc4f3f8160] HID: hyperv:
+streamline driver probe to avoid devres issues
+git bisect bad 3d48d0fbaaa74a04fb9092780a3f83dc4f3f8160
+# bad: [e3692460675bfe07f677711ead09a7a43934aa2f] pwm: Assume a
+disabled PWM to emit a constant inactive output
+git bisect bad e3692460675bfe07f677711ead09a7a43934aa2f
+# bad: [11b0543efe54357b94dccb88dac2099c59358cd4] media: ipu6: remove
+architecture DMA ops dependency in Kconfig
+git bisect bad 11b0543efe54357b94dccb88dac2099c59358cd4
+# bad: [6ac269abab9ca5ae910deb2d3ca54351c3467e99] media: ipu6: not
+override the dma_ops of device in driver
+git bisect bad 6ac269abab9ca5ae910deb2d3ca54351c3467e99
+# first bad commit: [6ac269abab9ca5ae910deb2d3ca54351c3467e99] media:
+ipu6: not override the dma_ops of device in driver
+
+
+
+
+--=20
+Gene
+
+
+--=-ATW+YCb9hWsFseu7CJ2a
+Content-Type: text/html; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
+
+<html><head><style>pre,code,address {
+  margin: 0px;
+}
+h1,h2,h3,h4,h5,h6 {
+  margin-top: 0.2em;
+  margin-bottom: 0.2em;
+}
+ol,ul {
+  margin-top: 0em;
+  margin-bottom: 0em;
+}
+blockquote {
+  margin-top: 0em;
+  margin-bottom: 0em;
+}
+</style></head><body><div>On Tue, 2024-12-10 at 13:37 +0100, Greg Kroah-Har=
+tman wrote:</div><blockquote type=3D"cite" style=3D"margin:0 0 0 .8ex; bord=
+er-left:2px #729fcf solid;padding-left:1ex"><blockquote type=3D"cite" style=
+=3D"margin:0 0 0 .8ex; border-left:2px #729fcf solid;padding-left:1ex"><div=
+>t's a clue nonetheless.<br></div></blockquote><div><br></div><div>'git bis=
+ect' would be nice to run if possible...<br></div></blockquote><div><br></d=
+iv><div>Done:</div><div><br></div><div>a) One (hopefully) small caveat :</d=
+iv><div>  the very first bisect hit the 6.12.2 bug of missing commit b23dec=
+f8ac91</div><div>  ("sched: Initialize idle tasks only once").</div><div>  =
+I applied the commit and continued.</div><div><br></div><div>b) Result :</d=
+iv><div><br></div><div>6ac269abab9ca5ae910deb2d3ca54351c3467e99 is the firs=
+t bad commit</div><div>commit 6ac269abab9ca5ae910deb2d3ca54351c3467e99 (HEA=
+D)</div><div>Author: Bingbu Cao &lt;<a href=3D"mailto:bingbu.cao@intel.com"=
+>bingbu.cao@intel.com</a>&gt;</div><div>Date:   Wed Oct 16 15:53:01 2024 +0=
+800</div><div><br></div><div>    media: ipu6: not override the dma_ops of d=
+evice in driver</div><div><br></div><div>    [ Upstream commit daabc5c64703=
+432c4a8798421a3588c2c142c51b ]</div><div><br></div><div>    DMA ops are a h=
+elper for architectures and not for drivers to override the</div><div>    D=
+MA implementation. Driver should not override the DMA implementation.</div>=
+<div><br></div><div>    This patch removes the dma_ops override from auxili=
+ary device and adds</div><div>    driver-internal helpers that use the actu=
+al DMA mapping APIs.</div><div><br></div><div>    Fixes: 9163d83573e4 ("med=
+ia: intel/ipu6: add IPU6 DMA mapping API and MMU table")</div><div>    Sign=
+ed-off-by: Bingbu Cao &lt;<a href=3D"mailto:bingbu.cao@intel.com">bingbu.ca=
+o@intel.com</a>&gt;</div><div>    Reviewed-by: Christoph Hellwig &lt;<a hre=
+f=3D"mailto:hch@lst.de">hch@lst.de</a>&gt;</div><div>    [Sakari Ailus: Fix=
+ the commit message a little.]</div><div>    Signed-off-by: Sakari Ailus &l=
+t;<a href=3D"mailto:sakari.ailus@linux.intel.com">sakari.ailus@linux.intel.=
+com</a>&gt;</div><div>    Signed-off-by: Hans Verkuil &lt;<a href=3D"mailto=
+:hverkuil@xs4all.nl">hverkuil@xs4all.nl</a>&gt;</div><div>    Signed-off-by=
+: Sasha Levin &lt;<a href=3D"mailto:sashal@kernel.org">sashal@kernel.org</a=
+>&gt;</div><div><br></div><div> drivers/media/pci/intel/ipu6/ipu6-bus.c    =
+  |   6 --</div><div> drivers/media/pci/intel/ipu6/ipu6-buttress.c |  21 ++=
++++--</div><div> drivers/media/pci/intel/ipu6/ipu6-cpd.c      |  18 +++---<=
+/div><div> drivers/media/pci/intel/ipu6/ipu6-dma.c      | 195 +++++++++++++=
+++++++++++++++++---------------------------------</div><div> drivers/media/=
+pci/intel/ipu6/ipu6-dma.h      |  34 ++++++++++-</div><div> drivers/media/p=
+ci/intel/ipu6/ipu6-fw-com.c   |  14 ++---</div><div> 6 files changed, 156 i=
+nsertions(+), 132 deletions(-)</div><div><br></div><div>c) git bisect log</=
+div><div><br></div><div>git bisect start</div><div># status: waiting for bo=
+th good and bad commits</div><div># good: [d390303b28dabbb91b2d32016a4f72da=
+478733b9] Linux 6.12.1</div><div>git bisect good d390303b28dabbb91b2d32016a=
+4f72da478733b9</div><div># status: waiting for bad commit, 1 good commit kn=
+own</div><div># bad: [61baee2dc5341c936e7fa7b1ca33c5607868de69] Linux 6.12.=
+4</div><div>git bisect bad 61baee2dc5341c936e7fa7b1ca33c5607868de69</div><d=
+iv># bad: [2bc07714dc955a91d2923a440ea02c3cb3376b10] virtiofs: use pages in=
+stead of pointer for kernel direct IO</div><div>git bisect bad 2bc07714dc95=
+5a91d2923a440ea02c3cb3376b10</div><div># bad: [6f2648838ce1a9f2c432e84e38de=
+c5d38412a551] wifi: wilc1000: Set MAC after operation mode</div><div>git bi=
+sect bad 6f2648838ce1a9f2c432e84e38dec5d38412a551</div><div># good: [e20117=
+a105d4174c2daf4d6da17b92d757487e60] media: i2c: max96717: clean up on error=
+ in max96717_subdev_init()</div><div>git bisect good e20117a105d4174c2daf4d=
+6da17b92d757487e60</div><div># bad: [74f21be9990a42dc2357bcf87a13e16c6998b9=
+0e] drm/vc4: hdmi: Avoid hang with debug registers when suspended</div><div=
+>git bisect bad 74f21be9990a42dc2357bcf87a13e16c6998b90e</div><div># good: =
+[dfdd0e8ff65dfc4183b622c3ffd8d8c5d572ca34] dt-bindings: cache: qcom,llcc: F=
+ix X1E80100 reg entries</div><div>git bisect good dfdd0e8ff65dfc4183b622c3f=
+fd8d8c5d572ca34</div><div># good: [b0cd515202cb31c89d7de46b103a7ff2de9de02b=
+] media: ipu6: Fix DMA and physical address debugging messages for 32-bit</=
+div><div>git bisect good b0cd515202cb31c89d7de46b103a7ff2de9de02b</div><div=
+># bad: [3d48d0fbaaa74a04fb9092780a3f83dc4f3f8160] HID: hyperv: streamline =
+driver probe to avoid devres issues</div><div>git bisect bad 3d48d0fbaaa74a=
+04fb9092780a3f83dc4f3f8160</div><div># bad: [e3692460675bfe07f677711ead09a7=
+a43934aa2f] pwm: Assume a disabled PWM to emit a constant inactive output</=
+div><div>git bisect bad e3692460675bfe07f677711ead09a7a43934aa2f</div><div>=
+# bad: [11b0543efe54357b94dccb88dac2099c59358cd4] media: ipu6: remove archi=
+tecture DMA ops dependency in Kconfig</div><div>git bisect bad 11b0543efe54=
+357b94dccb88dac2099c59358cd4</div><div># bad: [6ac269abab9ca5ae910deb2d3ca5=
+4351c3467e99] media: ipu6: not override the dma_ops of device in driver</di=
+v><div>git bisect bad 6ac269abab9ca5ae910deb2d3ca54351c3467e99</div><div># =
+first bad commit: [6ac269abab9ca5ae910deb2d3ca54351c3467e99] media: ipu6: n=
+ot override the dma_ops of device in driver</div><div><br></div><div><br></=
+div><blockquote type=3D"cite" style=3D"margin:0 0 0 .8ex; border-left:2px #=
+729fcf solid;padding-left:1ex"></blockquote><div><br></div><div><span><pre>=
+-- <br></pre><div><span style=3D"background-color: inherit;">Gene</span></d=
+iv><div><br></div></span></div></body></html>
+
+--=-ATW+YCb9hWsFseu7CJ2a--
+
+--=-Xc8d1025CSmc9deeZWxz
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYJAB0WIQRByXNdQO2KDRJ2iXo5BdB0L6Ze2wUCZ1hhBAAKCRA5BdB0L6Ze
+20+rAP97KbKEdNUT4x2dEC2CJCla1VPNBrE7XB17L954YKeHFQEA+apfQps2aZhO
+ydg+2W3peknkjwV0D4x6Hjvl13T0Fw4=
+=AmRv
+-----END PGP SIGNATURE-----
+
+--=-Xc8d1025CSmc9deeZWxz--
