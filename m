@@ -4,27 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CA689E77180
-	for <intel-gfx@archiver.kernel.org>; Tue, 10 Dec 2024 12:53:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2C8E4E77180
+	for <intel-gfx@archiver.kernel.org>; Tue, 10 Dec 2024 14:03:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 789D010E8BE;
-	Tue, 10 Dec 2024 12:53:21 +0000 (UTC)
-Received: from b555e5b46a47 (emeril.freedesktop.org [131.252.210.167])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 97D4910E5C3;
- Tue, 10 Dec 2024 12:53:20 +0000 (UTC)
-Content-Type: text/plain; charset="utf-8"
+	by gabe.freedesktop.org (Postfix) with ESMTP id B8C4C10E3AF;
+	Tue, 10 Dec 2024 14:03:05 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="jZOdvt6b";
+	dkim-atps=neutral
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.18])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2EBDC10E3AF
+ for <intel-gfx@lists.freedesktop.org>; Tue, 10 Dec 2024 14:03:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1733839385; x=1765375385;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=59RTjz9II8mYwKK1U6RTFjSYXz3qUvbXaSvhG30bjJo=;
+ b=jZOdvt6bcXDVY9v5XLNnTsP+pOcpouaa4yjbiRxEPMpsnZzRs1v3Th3e
+ 2cPswa5LWbXlenXmoWnubPxYJlQKwBKlKoDXnOeGo65NOuHql7TViDYV0
+ /pOzjr4JYej09s14d8dD2Ywgy8tgCsG3n6eiD8WNJ9lBkoTcSb8XoNmkd
+ VvKWRb9KLAiHaDCIfWRRPTsWfZbbHEu6cBiii/d6y3/77jXTObmhPdZUv
+ PCRsmCCxOi/Xw+xKWUNetLOpra3gUfi6X+ei3OddMB/jpnlMVG/aZ7C0P
+ jfoCD9VU7nVJ9PFUECJEtq5KRiEFb8RLkHiTq8iMPVxfvXnAaGrKwOvf4 g==;
+X-CSE-ConnectionGUID: yaxgB88kRsOsNu+zqHfVqQ==
+X-CSE-MsgGUID: OQne9siTTaasenKUx75Fug==
+X-IronPort-AV: E=McAfee;i="6700,10204,11282"; a="34320055"
+X-IronPort-AV: E=Sophos;i="6.12,222,1728975600"; d="scan'208";a="34320055"
+Received: from orviesa008.jf.intel.com ([10.64.159.148])
+ by orvoesa110.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 10 Dec 2024 06:02:48 -0800
+X-CSE-ConnectionGUID: 8KYJjHjvS3K9LlZ4OfZIOw==
+X-CSE-MsgGUID: sswJcxrmRLq35wmoPkgYHg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.12,222,1728975600"; d="scan'208";a="96234581"
+Received: from linux-x299-aorus-gaming-3-pro.iind.intel.com ([10.223.34.130])
+ by orviesa008-auth.jf.intel.com with
+ ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 10 Dec 2024 06:02:46 -0800
+From: Swati Sharma <swati2.sharma@intel.com>
+To: intel-gfx@lists.freedesktop.org
+Cc: ankit.k.nautiyal@intel.com,
+	Swati Sharma <swati2.sharma@intel.com>
+Subject: [PATCH 0/1] Expose dsc sink max slice count via debugfs
+Date: Tue, 10 Dec 2024 19:35:42 +0530
+Message-Id: <20241210140543.2117692-1-swati2.sharma@intel.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Subject: =?utf-8?q?=E2=9C=93_i915=2ECI=2EBAT=3A_success_for_drm/i915=3A_Add_drm=5Fpan?=
- =?utf-8?q?ic_support_=28rev3=29?=
-From: Patchwork <patchwork@emeril.freedesktop.org>
-To: "Jocelyn Falempe" <jfalempe@redhat.com>
-Cc: intel-gfx@lists.freedesktop.org
-Date: Tue, 10 Dec 2024 12:53:20 -0000
-Message-ID: <173383520061.831037.8320944748985438124@b555e5b46a47>
-X-Patchwork-Hint: ignore
-References: <20241210093505.589893-1-jfalempe@redhat.com>
-In-Reply-To: <20241210093505.589893-1-jfalempe@redhat.com>
+Content-Transfer-Encoding: 8bit
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -37,81 +63,23 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-== Series Details ==
+Expose dsc sink max slice count via i915_dsc_fec_support debugfs.
+This debugfs entry is required in cases, where sink doesn't support
+minimum of 8 slices in case of ultrajoiner and minimum of 4 slices
+in case of big joiner.
 
-Series: drm/i915: Add drm_panic support (rev3)
-URL   : https://patchwork.freedesktop.org/series/141935/
-State : success
+Closes: https://gitlab.freedesktop.org/drm/xe/kernel/-/issues/3387
+Test-with: 20241210135322.2117541-1-swati2.sharma@intel.com
 
-== Summary ==
+Swati Sharma (1):
+  drm/i915/dsc: Expose dsc sink max slice count via debugfs
 
-CI Bug Log - changes from CI_DRM_15812 -> Patchwork_141935v3
-====================================================
+ drivers/gpu/drm/i915/display/intel_display_debugfs.c | 6 ++++++
+ 1 file changed, 6 insertions(+)
 
-Summary
--------
+-- 
+2.25.1
 
-  **SUCCESS**
-
-  No regressions found.
-
-  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_141935v3/index.html
-
-Participating hosts (45 -> 44)
-------------------------------
-
-  Missing    (1): fi-snb-2520m 
-
-Known issues
-------------
-
-  Here are the changes found in Patchwork_141935v3 that come from known issues:
-
-### IGT changes ###
-
-#### Issues hit ####
-
-  * igt@i915_selftest@live:
-    - bat-mtlp-8:         [PASS][1] -> [ABORT][2] ([i915#12061]) +1 other test abort
-   [1]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_15812/bat-mtlp-8/igt@i915_selftest@live.html
-   [2]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_141935v3/bat-mtlp-8/igt@i915_selftest@live.html
-
-  * igt@kms_pipe_crc_basic@read-crc-frame-sequence:
-    - bat-dg2-11:         [PASS][3] -> [SKIP][4] ([i915#9197])
-   [3]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_15812/bat-dg2-11/igt@kms_pipe_crc_basic@read-crc-frame-sequence.html
-   [4]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_141935v3/bat-dg2-11/igt@kms_pipe_crc_basic@read-crc-frame-sequence.html
-
-  
-#### Possible fixes ####
-
-  * igt@i915_pm_rpm@module-reload:
-    - bat-rpls-4:         [FAIL][5] ([i915#12903]) -> [PASS][6]
-   [5]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_15812/bat-rpls-4/igt@i915_pm_rpm@module-reload.html
-   [6]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_141935v3/bat-rpls-4/igt@i915_pm_rpm@module-reload.html
-
-  
-  {name}: This element is suppressed. This means it is ignored when computing
-          the status of the difference (SUCCESS, WARNING, or FAILURE).
-
-  [i915#12061]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/12061
-  [i915#12903]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/12903
-  [i915#9197]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/9197
-
-
-Build changes
--------------
-
-  * Linux: CI_DRM_15812 -> Patchwork_141935v3
-
-  CI-20190529: 20190529
-  CI_DRM_15812: 5f0f6218ae34ea7cb5bde3d29b7b4a79fdea4ab7 @ git://anongit.freedesktop.org/gfx-ci/linux
-  IGT_8146: 4134194b806f286bf0bf47ce02416ca3701b7b34 @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git
-  Patchwork_141935v3: 5f0f6218ae34ea7cb5bde3d29b7b4a79fdea4ab7 @ git://anongit.freedesktop.org/gfx-ci/linux
-
-== Logs ==
-
-For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_141935v3/index.html
