@@ -4,94 +4,90 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B0D2BE77180
-	for <intel-gfx@archiver.kernel.org>; Thu, 12 Dec 2024 13:11:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4F4E5E7717F
+	for <intel-gfx@archiver.kernel.org>; Thu, 12 Dec 2024 13:11:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AD99810E275;
-	Thu, 12 Dec 2024 13:11:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E0F3B10EDAE;
+	Thu, 12 Dec 2024 13:11:33 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=permerror (0-bit key) header.d=sapience.com header.i=@sapience.com header.b="Fl0/100+";
-	dkim=pass (2048-bit key; secure) header.d=sapience.com header.i=@sapience.com header.b="lPIecjtT";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="fUeDpK/O";
 	dkim-atps=neutral
-Received: from s1.sapience.com (s1.sapience.com [72.84.236.66])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8E0C410E3B4;
- Tue, 10 Dec 2024 16:00:08 +0000 (UTC)
-Authentication-Results: dkim-srvy7; dkim=pass (Good ed25519-sha256 
- signature) header.d=sapience.com header.i=@sapience.com 
- header.a=ed25519-sha256; dkim=pass (Good 2048 bit rsa-sha256 signature) 
- header.d=sapience.com header.i=@sapience.com header.a=rsa-sha256
-Received: from srv8.sapience.com (srv8.sapience.com [x.x.x.x])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (secp384r1) server-digest SHA384)
- (No client certificate requested)
- by s1.sapience.com (Postfix) with ESMTPS id DF832480A33;
- Tue, 10 Dec 2024 11:00:07 -0500 (EST)
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=sapience.com;
- i=@sapience.com; q=dns/txt; s=dk-ed25519-220413; t=1733846407;
- h=message-id : subject : from : to : cc : date : in-reply-to :
- references : content-type : mime-version : from;
- bh=VC0zDJV/vYeIP47luRbKu1fuLd+MzJmheU3zkCIZfGE=;
- b=Fl0/100+kzcM3maJThYfKm+VEP1GkfUatTSTBnOsxIGDLoHvinR5Uys4a0grzPHVj6ySL
- 7pbm1CoNlea5MxzDQ==
-ARC-Seal: i=1; a=rsa-sha256; d=sapience.com; s=arc6-rsa-220412; t=1733846407; 
- cv=none;
- b=upZ4kR+RTnfbkL6ggpnBIDmkepDL0aZbgQ3uWYlF6I1MLwn1gyr0lmHu7xUmRv1k9k25jvROJIgkcivQ1N7cP0KaPZ4pfyYMEgqt4MIXIVVA8s6gtiJtK8d6tD3jNT04jj6CuydBxNIhBFUq3Nw1xAObwUGjth5xRS9KGKzkc9V8gbVZDFDQUGjOuwcxwwuEvGaMPH9NthV3J/TMnjloBno0YI2R9aG/6CR6hBrxgRiiUGShaNJdnsrDtoi64+7hgmQIYAYNvaMUZc/nSdQSFgUej7apulzYrta6oYnySFO9mWlS3iKk6u4fa0SX1XZ2uPuJmQBDaZbh7X1K2HA+WQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; d=sapience.com; s=arc6-rsa-220412;
- t=1733846407; c=relaxed/simple;
- bh=VC0zDJV/vYeIP47luRbKu1fuLd+MzJmheU3zkCIZfGE=;
- h=DKIM-Signature:DKIM-Signature:Message-ID:Subject:From:To:Cc:Date:
- In-Reply-To:References:Autocrypt:Content-Type:User-Agent:
- MIME-Version;
- b=VT0I+SEHbkxirBEBmIlGoyWyP5NpoBiWmr8I1YM1oIONNl9J4h0/N/Z+sUIfHVVpCpbYtlcdz+DHUqQF8qhKfR0wKete2aiebOd7GdNceqVU2ChV033pkMi+yN0t40EYH99sg9V/KmhTckumq/m4qpkHdGUCuaXu0liR1zLgKurVxekgOjd9H/hQxxbvhgkT02Nz6WHDKV1mFNdbzRPNZ/PdgHCenHKp8A/e8DfhAv/EsVU6av/SYTQEQmjilBiA9xMQzVmO1p2liyvk4IxvCl1xmiO/O30Gv76LO0qY5/jSSQnnNTWGi7oZVGPpejOonkc0ngAjNnlNIotBom66nw==
-ARC-Authentication-Results: i=1; arc-srv8.sapience.com
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sapience.com;
- i=@sapience.com; q=dns/txt; s=dk-rsa-220413; t=1733846407;
- h=message-id : subject : from : to : cc : date : in-reply-to :
- references : content-type : mime-version : from;
- bh=VC0zDJV/vYeIP47luRbKu1fuLd+MzJmheU3zkCIZfGE=;
- b=lPIecjtTyeiOLl1qc3E8Vz88FpGOYCFlyB98DDNuLzuaRPGIo7fgEE389/mSaEf+0OqkK
- gv/7Dme9sTTkl9APDdnLy7DO/tbHoPEFP8sLxcYbK049eOCe7+4peJ8GShXF3R8i7OOpQkD
- S+v2kfiOndwhD45TDq+nCVgna8Dv7zDxWU8Xoo17BEetU4vJdCPtNC1Bsp45jHgUuBJUFOY
- +s8+Vl7HJLS4BRmMZaQ9UufX1S19emhyiaJzk3CCdzGrW0igkHkSHfvRXo26izQK38100yy
- X/9j89So8bL+quggFXsjJKqF4/dvQRIgV08SWq8sZRECsAmeiJDdcsFuRnAA==
-Received: from lap7.sapience.com (lap7w.sapience.com [x.x.x.x])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange ECDHE (prime256v1) server-signature RSA-PSS (4096 bits))
- (No client certificate requested)
- by srv8.sapience.com (Postfix) with ESMTPS id AFF3E280015;
- Tue, 10 Dec 2024 11:00:07 -0500 (EST)
-Message-ID: <5cf0ddae7351c4e6637ef19c17b98d7505381fd0.camel@sapience.com>
-Subject: Re: Linux 6.12.4 - crash dma_alloc_attrs+0x12b via ipu6
-From: Genes Lists <lists@sapience.com>
-To: Stanislaw Gruszka <stanislaw.gruszka@linux.intel.com>, Greg
- Kroah-Hartman	 <gregkh@linuxfoundation.org>
-Cc: Jani Nikula <jani.nikula@linux.intel.com>, Sakari Ailus	
- <sakari.ailus@linux.intel.com>, linux-kernel@vger.kernel.org, 
- akpm@linux-foundation.org, torvalds@linux-foundation.org,
- stable@vger.kernel.org, 	linux-media@vger.kernel.org, bingbu.cao@intel.com,
- Rodrigo Vivi	 <rodrigo.vivi@intel.com>, Joonas Lahtinen
- <joonas.lahtinen@linux.intel.com>,  Tvrtko Ursulin <tursulin@ursulin.net>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org, 
- dri-devel@lists.freedesktop.org
-Date: Tue, 10 Dec 2024 11:00:06 -0500
-In-Reply-To: <Z1hbyNXUubokloda@linux.intel.com>
-References: <2024120917-vision-outcast-85f2@gregkh>
- <c0e94be466b367f1a3cfdc3cb7b1a4f47e5953ae.camel@sapience.com>
- <Z1fqitbWlmELb5pj@kekkonen.localdomain> <87seqvzzg6.fsf@intel.com>
- <c1805642a6c5da6fef3927c70358c8cb851d2784.camel@sapience.com>
- <87bjxjzpwn.fsf@intel.com> <2024121001-senator-raffle-a371@gregkh>
- <Z1hbyNXUubokloda@linux.intel.com>
-Autocrypt: addr=lists@sapience.com; prefer-encrypt=mutual;
- keydata=mDMEXSY9GRYJKwYBBAHaRw8BAQdAwzFfmp+m0ldl2vgmbtPC/XN7/k5vscpADq3BmRy5R
- 7y0LU1haWwgTGlzdHMgKEwwIDIwMTkwNzEwKSA8bGlzdHNAc2FwaWVuY2UuY29tPoiWBBMWCAA+Ah
- sBBQsJCAcCBhUKCQgLAgQWAgMBAh4BAheAFiEE5YMoUxcbEgQOvOMKc+dlCv6PxQAFAmPJfooFCRl
- vRHEACgkQc+dlCv6PxQAc/wEA/Dbmg91DOGXll0OW1GKaZQGQDl7fHibMOKRGC6X/emoA+wQR5FIz
- BnV/PrXbao8LS/h0tSkeXgPsYxrzvfZInIAC
-Content-Type: multipart/signed; micalg="pgp-sha384";
- protocol="application/pgp-signature"; boundary="=-KexgZLu3kFUuTiVHjkds"
-User-Agent: Evolution 3.54.2 
+Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com
+ [209.85.128.47])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 84D8210EAE0
+ for <intel-gfx@lists.freedesktop.org>; Wed, 11 Dec 2024 09:08:20 +0000 (UTC)
+Received: by mail-wm1-f47.google.com with SMTP id
+ 5b1f17b1804b1-434f80457a4so2362905e9.0
+ for <intel-gfx@lists.freedesktop.org>; Wed, 11 Dec 2024 01:08:20 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1733908099; x=1734512899; darn=lists.freedesktop.org;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=sOc5WY2rc/xEm+sPKHyC8DvQOWTsoRLRqyloQEsY77A=;
+ b=fUeDpK/OqmRQD4Z72A7OVmxQyLV3mrLwv3RaMa/I6uUvZ4Vh95oQyhYKXqA7+MazER
+ 7SqAlkyDnJ7xqeadxGl956LBtbU8EYGy4Rl++S3Bb3bIKi3I2J8iha60dmuDh25b2s4j
+ 9bQ+Ml9ZRKmkiRz59QYqNMqWK9QbyEvv8uaAxikjvSLS+DqrGHNoZBd4ZGysY1I26ccn
+ yAOYMKykG12jb9HziSFyatiYtxzoY2dCxLexjhqF+UZco2ECW/cGhoSvMOxargYuItAf
+ lAJQ1BRjkvk3m+7rWLzwskOHKD/b7rL6uFNfAe7Nn/WAtJmBme8/uAA0uSmXdktCm/dp
+ SpnQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1733908099; x=1734512899;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=sOc5WY2rc/xEm+sPKHyC8DvQOWTsoRLRqyloQEsY77A=;
+ b=YhZmA58KsMCrcLofEXIo6beHgTi2WLTegdFa7NCHSuziAwU4M0mUHkcsFeefFaOV5j
+ 4MGcNPKc7DMpyP7NQwnUor9+fPV+XCM7EScfnqzn3guLSow4M0J9MIuMmXSchQ6BJ2HZ
+ sgPZNseYktLPVzyOZ01YdS9P6rMQQi8C4jm8fMIt9gJnP4Ueso99HH27zFcwPznxOFYv
+ Fv/JyfkOIpKR+R8Rnj+T0x6ipu7Q+/40exku3uDRoEI659EFye8/6mE6T5U0CNoC8OH3
+ gWOxVvTjyfPrJ6z6h+y3qNhqYX3+kanAcAv6coX00VDigUp1nhK5FsSa2a2u1vWi9f5+
+ IJvg==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCX7wgEQvhBaBWS/MCB2SEDbEeSCVqWA4MVpKDADDmlEaB+Z65eJO/O7GkeZM55Fm3akgLH8HEmEal8=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Ywgw4BOco9RfbIColkIIVwUV3cie4W2Jsj0AskogzFvudossGTV
+ 7G0jLIlFWikx4O4D8CicbWgtQaCE+YSFlKLd/WRoaQi12u4tnAHlEIFiHRQWmq4=
+X-Gm-Gg: ASbGncu+4G8KhGf8zrJhn1MuE2ziO1N2Jwh8h0IXe9RB3YlLb8JAuQQzU6VePSHHFJG
+ /Eh0avqX6XLTDCF+GczUsyhh+mLvUSMzOomQnv0om0R5ubJPuCLzipK5L1gPdtsJJuEKBqRR6lG
+ lQyC7ayelrhHNOO0TxRNKgF/RtDzuqgZw6o93jT8brgk57IsjXfT/+TAvR3QgQ2FOnl6rsBhDQS
+ R09cqaDnAVNc13nd8Wh8MFOdahawUFUajAcfbSD7Sv3/84wex9C
+X-Google-Smtp-Source: AGHT+IFWF72VEAOuphKHQ5dyzcCPjXpafd4+8begHjj7RZTqVLd3ZvocSIjkzAv1tDYNowU12sH8Hw==
+X-Received: by 2002:a05:600c:3b11:b0:434:fa73:a906 with SMTP id
+ 5b1f17b1804b1-4361c5c4e21mr11693265e9.4.1733908098781; 
+ Wed, 11 Dec 2024 01:08:18 -0800 (PST)
+Received: from linaro.org ([82.76.168.176]) by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-434da0d2637sm220870775e9.2.2024.12.11.01.08.16
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 11 Dec 2024 01:08:18 -0800 (PST)
+Date: Wed, 11 Dec 2024 11:08:16 +0200
+From: Abel Vesa <abel.vesa@linaro.org>
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Karol Herbst <kherbst@redhat.com>, Lyude Paul <lyude@redhat.com>,
+ Danilo Krummrich <dakr@redhat.com>,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Tvrtko Ursulin <tursulin@ursulin.net>, Rob Clark <robdclark@gmail.com>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>,
+ Johan Hovold <johan@kernel.org>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, nouveau@lists.freedesktop.org,
+ intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
+ linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org
+Subject: Re: [PATCH RFC 4/4] drm/msm/dp: Add support for LTTPR handling
+Message-ID: <Z1lWgDk6vzbx4ew7@linaro.org>
+References: <20241031-drm-dp-msm-add-lttpr-transparent-mode-set-v1-0-cafbb9855f40@linaro.org>
+ <20241031-drm-dp-msm-add-lttpr-transparent-mode-set-v1-4-cafbb9855f40@linaro.org>
+ <6lpeexb5menpwrzcnmr367x4lmhvzyovhdybn54mnwk55ieehy@mos4oso67boo>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <6lpeexb5menpwrzcnmr367x4lmhvzyovhdybn54mnwk55ieehy@mos4oso67boo>
 X-Mailman-Approved-At: Thu, 12 Dec 2024 13:11:29 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -108,51 +104,113 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
+On 24-10-31 18:54:25, Dmitry Baryshkov wrote:
+> On Thu, Oct 31, 2024 at 05:12:48PM +0200, Abel Vesa wrote:
+> > Link Training Tunable PHY Repeaters (LTTPRs) are defined in DisplayPort
+> > 1.4a specification. As the name suggests, these PHY repeaters are
+> > capable of adjusting their output for link training purposes.
+> > 
+> > The msm DP driver is currently lacking any handling of LTTPRs.
+> > This means that if at least one LTTPR is found between DPTX and DPRX,
+> > the link training would fail if that LTTPR was not already configured
+> > in transparent mode.
+> 
+> It might be nice to mention what is the transparent mode, especially for
+> those who do not have the standard at hand.
 
---=-KexgZLu3kFUuTiVHjkds
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Sorry for the late reply.
 
-On Tue, 2024-12-10 at 16:18 +0100, Stanislaw Gruszka wrote:
->=20
-> I've reproduced the issue. It's caused by 6.12.y commit:
->=20
-> commit 6ac269abab9ca5ae910deb2d3ca54351c3467e99
-> Author: Bingbu Cao <bingbu.cao@intel.com>
-> Date:=C2=A0=C2=A0 Wed Oct 16 15:53:01 2024 +0800
->=20
-> =C2=A0=C2=A0=C2=A0 media: ipu6: not override the dma_ops of device in dri=
-ver
+Will do in the next version.
 
-Terrific - I missed your comment as I was heads down doing git bisect
-which lands on same commit as you - so confirmed.
+> 
+> > The section 3.6.6.1 from the DisplayPort v2.0 specification mandates
+> > that before link training with the LTTPR is started, the DPTX may place
+> > the LTTPR in non-transparent mode by first switching to transparent mode
+> > and then to non-transparent mode. This operation seems to be needed only
+> > on first link training and doesn't need to be done again until device is
+> > unplugged.
+> > 
+> > It has been observed on a few X Elite-based platforms which have
+> > such LTTPRs in their board design that the DPTX needs to follow the
+> > procedure described above in order for the link training to be successful.
+> > 
+> > So add support for reading the LTTPR DPCD caps to figure out the number
+> > of such LTTPRs first. Then, for platforms (or Type-C dongles) that have
+> > at least one such an LTTPR, set its operation mode to transparent mode
+> > first and then to non-transparent, just like the mentioned section of
+> > the specification mandates.
+> > 
+> > Signed-off-by: Abel Vesa <abel.vesa@linaro.org>
+> > ---
+> >  drivers/gpu/drm/msm/dp/dp_display.c | 25 +++++++++++++++++++++++++
+> >  1 file changed, 25 insertions(+)
+> > 
+> > diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp/dp_display.c
+> > index f01980b0888a40b719d3958cb96c6341feada077..5d3d318d7b87ce3bf567d8b7435931d8e087f713 100644
+> > --- a/drivers/gpu/drm/msm/dp/dp_display.c
+> > +++ b/drivers/gpu/drm/msm/dp/dp_display.c
+> > @@ -107,6 +107,8 @@ struct dp_display_private {
+> >  	struct dp_event event_list[DP_EVENT_Q_MAX];
+> >  	spinlock_t event_lock;
+> >  
+> > +	u8 lttpr_caps[DP_LTTPR_COMMON_CAP_SIZE];
+> > +
+> >  	bool wide_bus_supported;
+> >  
+> >  	struct dp_audio *audio;
+> > @@ -367,12 +369,35 @@ static int dp_display_send_hpd_notification(struct dp_display_private *dp,
+> >  	return 0;
+> >  }
+> >  
+> > +static void dp_display_lttpr_init(struct dp_display_private *dp)
+> > +{
+> > +	int lttpr_count;
+> > +
+> > +	if (drm_dp_read_lttpr_common_caps(dp->aux, dp->panel->dpcd,
+> > +					  dp->lttpr_caps))
+> > +		return;
+> > +
+> > +	lttpr_count = drm_dp_lttpr_count(dp->lttpr_caps);
+> > +
+> > +	if (lttpr_count) {
+> > +		drm_dp_lttpr_set_transparent_mode(dp->aux, true);
+> > +
+> > +		if (lttpr_count > 0) {
+> > +			if (drm_dp_lttpr_set_transparent_mode(dp->aux, false) != 1)
+> > +				drm_dp_lttpr_set_transparent_mode(dp->aux, true);
+> > +		}
+> > +	}
+> > +}
+> > +
+> >  static int dp_display_process_hpd_high(struct dp_display_private *dp)
+> >  {
+> >  	struct drm_connector *connector = dp->dp_display.connector;
+> >  	const struct drm_display_info *info = &connector->display_info;
+> >  	int rc = 0;
+> >  
+> > +	if (!dp->dp_display.is_edp)
+> > +		dp_display_lttpr_init(dp);
+> 
+> Why is it limited to non-eDP cases only.
 
-> The problem will disappear after applying:
-> https://lore.kernel.org/stable/20241209175416.59433-1-
-> stanislaw.gruszka@linux.intel.com/
-> since the allocation will not longer fail.
->=20
-> But we also need to handle fail case correctly by adding
-> cpu_latency_qos_remove_request() on error path. This requires
-> mainline fix, I'll post it.=20
->=20
+In case of eDP, I don't think that there will ever by a case that will
+need an LTTPR in between the eDP PHY and the actual panel. It just
+doesn't make sense.
 
-Thank you !
+IIUC, the LTTPRs, since are Training Tunnable capable, they help when
+the physical link between the PHY and the sink can differ based on
+different dongles and cables. This is obviously not applicable to eDP.
 
-
-Gene
-
-
---=-KexgZLu3kFUuTiVHjkds
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYJAB0WIQRByXNdQO2KDRJ2iXo5BdB0L6Ze2wUCZ1hlhwAKCRA5BdB0L6Ze
-2w+DAQCDWvL9tK4fnEqz7gYCMfTN4ufZvQ3nBA76uJSS1IsMEAEAh3m6kC4o++L9
-46h0GWeorYm2u+oLNYk9f82mxfq7Vg4=
-=i4nK
------END PGP SIGNATURE-----
-
---=-KexgZLu3kFUuTiVHjkds--
+> 
+> > +
+> >  	rc = dp_panel_read_sink_caps(dp->panel, connector);
+> >  	if (rc)
+> >  		goto end;
+> > 
+> > -- 
+> > 2.34.1
+> > 
+> 
+> -- 
+> With best wishes
+> Dmitry
