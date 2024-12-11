@@ -4,51 +4,51 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 613E2E77184
-	for <intel-gfx@archiver.kernel.org>; Wed, 11 Dec 2024 23:03:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4C74BE77180
+	for <intel-gfx@archiver.kernel.org>; Wed, 11 Dec 2024 23:03:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E82CF10EC5D;
-	Wed, 11 Dec 2024 23:03:08 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DC01510EC69;
+	Wed, 11 Dec 2024 23:03:10 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="HRb+L2A9";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="THLcBzcm";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.17])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BA69810EC5D;
- Wed, 11 Dec 2024 23:03:05 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BE9EC10EC63;
+ Wed, 11 Dec 2024 23:03:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1733958186; x=1765494186;
+ t=1733958190; x=1765494190;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=X32OBeey+SA/a0oyjH31od+vkcQaihdZgJxmS+91FtU=;
- b=HRb+L2A9GwNsWBnoyH9GEhSEnPSRBSXkRAcYo0RhA8rXYVk7gPxG3Swl
- 2gYBR6vqXeIQ/pLdrchhXvFBL1VB/C40p1w1tqR3nepv5F4kGz63GSpCo
- KC2hLCke0JrZ5ly9V6K7bsZVsj65sNpN+3fckJ7uCWnWlv9RX+9vqpTwK
- S5eR7s6fjYB6BsClPsGiwx9v0hcqtjVNp9yAFNxRGE+RoMqwyqQ8Fv0zZ
- 8xWHs1OoWmKc30fQpZjDsS6nom7eiwXviDtRk6FkM84b92TDSPMzSOHSY
- gCWfLS1iBAh0so8P2dEGSSyjzU+Ni4/LGbGh2W3MLQTDHm20zeVJ7y2K3 Q==;
-X-CSE-ConnectionGUID: dncT+SORSb6M5SBYh8mpog==
-X-CSE-MsgGUID: Yh1rC+XiQd6YUIZyu/ykPw==
-X-IronPort-AV: E=McAfee;i="6700,10204,11283"; a="34401510"
-X-IronPort-AV: E=Sophos;i="6.12,226,1728975600"; d="scan'208";a="34401510"
+ bh=55JTnV9Cdst5xCwsFFgXYafPTCuQTDceK7wRLpkppfw=;
+ b=THLcBzcmEEGfkYBbZGkX4/yPW8KvpDK/pTC9ajRiwcqVf0K6hlU2q+dF
+ hAzLJCSKXNQCZuEXh3v4dNP1vMjld8AWKAPPX/fS+GqGJ23Vd8bbzC7NZ
+ UE0COm8VsVozhLlqfMaQJeA/95sPa0/vPJdGJyaH25N2FsqGBlVWCpJ4g
+ T459wrUAc8YZVURo8tRVkp+w2COlRE8SvisIA8CQp444GgcXm4SNeeNdg
+ 36F28S/axRB7moVQGVmwGpF2bkM1b1Aml+hd2PUczmP3Im3dyn4xNiC4c
+ oD0kyLmZS/82/5NFHnsIkh6d7Bd36GVQA6PWKRD0ZHQBRAMFg4l1LhdHY w==;
+X-CSE-ConnectionGUID: JxG9pNYkQsWhMvMxtEogBw==
+X-CSE-MsgGUID: 7JjOHMPmT0KY0LzagKQRJg==
+X-IronPort-AV: E=McAfee;i="6700,10204,11283"; a="34401518"
+X-IronPort-AV: E=Sophos;i="6.12,226,1728975600"; d="scan'208";a="34401518"
 Received: from fmviesa001.fm.intel.com ([10.60.135.141])
  by orvoesa109.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 11 Dec 2024 15:03:06 -0800
-X-CSE-ConnectionGUID: ghoygG1jQPKdXyJ+vhJ5xg==
-X-CSE-MsgGUID: DIvNxjVCREyxxFMCAxWv1A==
+ 11 Dec 2024 15:03:10 -0800
+X-CSE-ConnectionGUID: 4joVMooPRmWcRMh3qQosiQ==
+X-CSE-MsgGUID: rJ9voqCVTL+Oje3j5W6O5A==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.12,224,1728975600"; d="scan'208";a="126962606"
+X-IronPort-AV: E=Sophos;i="6.12,224,1728975600"; d="scan'208";a="126962840"
 Received: from ideak-desk.fi.intel.com ([10.237.72.78])
  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 11 Dec 2024 15:03:03 -0800
+ 11 Dec 2024 15:03:06 -0800
 From: Imre Deak <imre.deak@intel.com>
 To: intel-gfx@lists.freedesktop.org
 Cc: dri-devel@lists.freedesktop.org,
-	Maxime Ripard <mripard@kernel.org>
-Subject: [PATCH v3 09/11] drm/tests: Add tests for
- drm_connector_dynamic_init()/register()
-Date: Thu, 12 Dec 2024 01:03:26 +0200
-Message-ID: <20241211230328.4012496-10-imre.deak@intel.com>
+	Jani Nikula <jani.nikula@intel.com>
+Subject: [PATCH v3 11/11] drm/i915/dp_mst: Use intel_connector vs.
+ drm_connector pointer in intel_dp_mst.c
+Date: Thu, 12 Dec 2024 01:03:28 +0200
+Message-ID: <20241211230328.4012496-12-imre.deak@intel.com>
 X-Mailer: git-send-email 2.44.2
 In-Reply-To: <20241211230328.4012496-1-imre.deak@intel.com>
 References: <20241211230328.4012496-1-imre.deak@intel.com>
@@ -69,504 +69,397 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Add kunit tests for
-drm_connector_dynamic_init()/drm_connector_dynamic_register() added in
-this patchset.
+Follow the canonical way in intel_dp_mst.c, referencing a connector only
+via a struct intel_connector pointer and naming this pointer 'connector'
+instead of 'intel_connector', the only exception being the casting of
+a drm_connector function parameter pointer to intel_connector, calling
+the drm_connector pointer _connector.
 
-Suggested-by: Maxime Ripard <mripard@kernel.org>
+Suggested-by: Jani Nikula <jani.nikula@intel.com>
 Signed-off-by: Imre Deak <imre.deak@intel.com>
 ---
- drivers/gpu/drm/tests/drm_connector_test.c | 463 +++++++++++++++++++++
- 1 file changed, 463 insertions(+)
+ drivers/gpu/drm/i915/display/intel_dp_mst.c | 180 ++++++++++----------
+ 1 file changed, 88 insertions(+), 92 deletions(-)
 
-diff --git a/drivers/gpu/drm/tests/drm_connector_test.c b/drivers/gpu/drm/tests/drm_connector_test.c
-index 6bba97d0be88e..129e813cfd1b0 100644
---- a/drivers/gpu/drm/tests/drm_connector_test.c
-+++ b/drivers/gpu/drm/tests/drm_connector_test.c
-@@ -9,6 +9,7 @@
- #include <drm/drm_connector.h>
- #include <drm/drm_drv.h>
- #include <drm/drm_edid.h>
-+#include <drm/drm_file.h>
- #include <drm/drm_kunit_helpers.h>
- #include <drm/drm_modes.h>
+diff --git a/drivers/gpu/drm/i915/display/intel_dp_mst.c b/drivers/gpu/drm/i915/display/intel_dp_mst.c
+index 99f08e31fd6e0..44cc54a87067a 100644
+--- a/drivers/gpu/drm/i915/display/intel_dp_mst.c
++++ b/drivers/gpu/drm/i915/display/intel_dp_mst.c
+@@ -969,33 +969,32 @@ mst_connector_atomic_topology_check(struct intel_connector *connector,
+ }
  
-@@ -181,6 +182,465 @@ static struct kunit_suite drmm_connector_init_test_suite = {
- 	.test_cases = drmm_connector_init_tests,
+ static int
+-mst_connector_atomic_check(struct drm_connector *connector,
++mst_connector_atomic_check(struct drm_connector *_connector,
+ 			   struct drm_atomic_state *_state)
+ {
+ 	struct intel_atomic_state *state = to_intel_atomic_state(_state);
+-	struct intel_connector *intel_connector =
+-		to_intel_connector(connector);
++	struct intel_connector *connector = to_intel_connector(_connector);
+ 	int ret;
+ 
+-	ret = intel_digital_connector_atomic_check(connector, &state->base);
++	ret = intel_digital_connector_atomic_check(&connector->base, &state->base);
+ 	if (ret)
+ 		return ret;
+ 
+-	ret = mst_connector_atomic_topology_check(intel_connector, state);
++	ret = mst_connector_atomic_topology_check(connector, state);
+ 	if (ret)
+ 		return ret;
+ 
+-	if (intel_connector_needs_modeset(state, connector)) {
++	if (intel_connector_needs_modeset(state, &connector->base)) {
+ 		ret = intel_dp_tunnel_atomic_check_state(state,
+-							 intel_connector->mst_port,
+-							 intel_connector);
++							 connector->mst_port,
++							 connector);
+ 		if (ret)
+ 			return ret;
+ 	}
+ 
+ 	return drm_dp_atomic_release_time_slots(&state->base,
+-						&intel_connector->mst_port->mst_mgr,
+-						intel_connector->port);
++						&connector->mst_port->mst_mgr,
++						connector->port);
+ }
+ 
+ static void mst_stream_disable(struct intel_atomic_state *state,
+@@ -1375,23 +1374,23 @@ static bool mst_stream_initial_fastset_check(struct intel_encoder *encoder,
+ 	return intel_dp_initial_fastset_check(primary_encoder, crtc_state);
+ }
+ 
+-static int mst_connector_get_ddc_modes(struct drm_connector *connector)
++static int mst_connector_get_ddc_modes(struct drm_connector *_connector)
+ {
+-	struct intel_display *display = to_intel_display(connector->dev);
+-	struct intel_connector *intel_connector = to_intel_connector(connector);
+-	struct intel_dp *intel_dp = intel_connector->mst_port;
++	struct intel_connector *connector = to_intel_connector(_connector);
++	struct intel_display *display = to_intel_display(connector->base.dev);
++	struct intel_dp *intel_dp = connector->mst_port;
+ 	const struct drm_edid *drm_edid;
+ 	int ret;
+ 
+-	if (drm_connector_is_unregistered(connector))
+-		return intel_connector_update_modes(connector, NULL);
++	if (drm_connector_is_unregistered(&connector->base))
++		return intel_connector_update_modes(&connector->base, NULL);
+ 
+ 	if (!intel_display_driver_check_access(display))
+-		return drm_edid_connector_add_modes(connector);
++		return drm_edid_connector_add_modes(&connector->base);
+ 
+-	drm_edid = drm_dp_mst_edid_read(connector, &intel_dp->mst_mgr, intel_connector->port);
++	drm_edid = drm_dp_mst_edid_read(&connector->base, &intel_dp->mst_mgr, connector->port);
+ 
+-	ret = intel_connector_update_modes(connector, drm_edid);
++	ret = intel_connector_update_modes(&connector->base, drm_edid);
+ 
+ 	drm_edid_free(drm_edid);
+ 
+@@ -1399,32 +1398,29 @@ static int mst_connector_get_ddc_modes(struct drm_connector *connector)
+ }
+ 
+ static int
+-mst_connector_late_register(struct drm_connector *connector)
++mst_connector_late_register(struct drm_connector *_connector)
+ {
+-	struct intel_connector *intel_connector = to_intel_connector(connector);
++	struct intel_connector *connector = to_intel_connector(_connector);
+ 	int ret;
+ 
+-	ret = drm_dp_mst_connector_late_register(connector,
+-						 intel_connector->port);
++	ret = drm_dp_mst_connector_late_register(&connector->base, connector->port);
+ 	if (ret < 0)
+ 		return ret;
+ 
+-	ret = intel_connector_register(connector);
++	ret = intel_connector_register(&connector->base);
+ 	if (ret < 0)
+-		drm_dp_mst_connector_early_unregister(connector,
+-						      intel_connector->port);
++		drm_dp_mst_connector_early_unregister(&connector->base, connector->port);
+ 
+ 	return ret;
+ }
+ 
+ static void
+-mst_connector_early_unregister(struct drm_connector *connector)
++mst_connector_early_unregister(struct drm_connector *_connector)
+ {
+-	struct intel_connector *intel_connector = to_intel_connector(connector);
++	struct intel_connector *connector = to_intel_connector(_connector);
+ 
+-	intel_connector_unregister(connector);
+-	drm_dp_mst_connector_early_unregister(connector,
+-					      intel_connector->port);
++	intel_connector_unregister(&connector->base);
++	drm_dp_mst_connector_early_unregister(&connector->base, connector->port);
+ }
+ 
+ static const struct drm_connector_funcs mst_connector_funcs = {
+@@ -1438,23 +1434,25 @@ static const struct drm_connector_funcs mst_connector_funcs = {
+ 	.atomic_duplicate_state = intel_digital_connector_duplicate_state,
  };
  
-+static const struct drm_connector_funcs dummy_dynamic_init_funcs = {
-+	.atomic_destroy_state	= drm_atomic_helper_connector_destroy_state,
-+	.atomic_duplicate_state	= drm_atomic_helper_connector_duplicate_state,
-+	.reset			= drm_atomic_helper_connector_reset,
-+	.destroy		= drm_connector_cleanup,
-+};
-+
-+/*
-+ * Test that the initialization of a bog standard dynamic connector works
-+ * as expected and doesn't report any error.
-+ */
-+static void drm_test_drm_connector_dynamic_init(struct kunit *test)
-+{
-+	struct drm_connector_init_priv *priv = test->priv;
-+	struct drm_connector *connector = &priv->connector;
-+	int ret;
-+
-+	ret = drm_connector_dynamic_init(&priv->drm, connector,
-+					 &dummy_dynamic_init_funcs,
-+					 DRM_MODE_CONNECTOR_DisplayPort,
-+					 &priv->ddc);
-+	KUNIT_ASSERT_EQ(test, ret, 0);
-+}
-+
-+static void drm_test_connector_dynamic_init_cleanup(struct kunit *test)
-+{
-+	struct drm_connector_init_priv *priv = test->priv;
-+	struct drm_connector *connector = &priv->connector;
-+
-+	drm_connector_cleanup(connector);
-+}
-+
-+/*
-+ * Test that the initialization of a dynamic connector without a DDC adapter
-+ * doesn't report any error.
-+ */
-+static void drm_test_drm_connector_dynamic_init_null_ddc(struct kunit *test)
-+{
-+	struct drm_connector_init_priv *priv = test->priv;
-+	struct drm_connector *connector = &priv->connector;
-+	int ret;
-+
-+	ret = drm_connector_dynamic_init(&priv->drm, connector,
-+					 &dummy_dynamic_init_funcs,
-+					 DRM_MODE_CONNECTOR_DisplayPort,
-+					 NULL);
-+	KUNIT_ASSERT_EQ(test, ret, 0);
-+}
-+
-+/*
-+ * Test that the initialization of a dynamic connector doesn't add the
-+ * connector to the connector list.
-+ */
-+static void drm_test_drm_connector_dynamic_init_not_added(struct kunit *test)
-+{
-+	struct drm_connector_init_priv *priv = test->priv;
-+	struct drm_connector *connector = &priv->connector;
-+	int ret;
-+
-+	ret = drm_connector_dynamic_init(&priv->drm, connector,
-+					 &dummy_dynamic_init_funcs,
-+					 DRM_MODE_CONNECTOR_DisplayPort,
-+					 &priv->ddc);
-+	KUNIT_ASSERT_EQ(test, ret, 0);
-+	KUNIT_ASSERT_PTR_EQ(test, connector->head.next, &connector->head);
-+}
-+
-+static void test_connector_property(struct kunit *test,
-+				    struct drm_connector *connector,
-+				    const struct drm_property *expected_prop)
-+{
-+	struct drm_property *prop;
-+	uint64_t val;
-+	int ret;
-+
-+	KUNIT_ASSERT_NOT_NULL(test, expected_prop);
-+	prop = drm_mode_obj_find_prop_id(&connector->base, expected_prop->base.id);
-+	KUNIT_ASSERT_PTR_EQ_MSG(test, prop, expected_prop,
-+				"Can't find property %s", expected_prop->name);
-+
-+	ret = drm_object_property_get_default_value(&connector->base, prop, &val);
-+	KUNIT_EXPECT_EQ(test, ret, 0);
-+	KUNIT_EXPECT_EQ(test, val, 0);
-+
-+	/* TODO: Check property value in the connector state. */
-+}
-+
-+/*
-+ * Test that the initialization of a dynamic connector adds all the expected
-+ * properties to it.
-+ */
-+static void drm_test_drm_connector_dynamic_init_properties(struct kunit *test)
-+{
-+	struct drm_connector_init_priv *priv = test->priv;
-+	struct drm_connector *connector = &priv->connector;
-+	struct drm_mode_config *config = &priv->drm.mode_config;
-+	const struct drm_property *props[] = {
-+		config->edid_property,
-+		config->dpms_property,
-+		config->link_status_property,
-+		config->non_desktop_property,
-+		config->tile_property,
-+		config->prop_crtc_id,
-+	};
-+	int ret;
-+	int i;
-+
-+	ret = drm_connector_dynamic_init(&priv->drm, connector,
-+					 &dummy_dynamic_init_funcs,
-+					 DRM_MODE_CONNECTOR_DisplayPort,
-+					 &priv->ddc);
-+	KUNIT_ASSERT_EQ(test, ret, 0);
-+
-+	for (i = 0; i < ARRAY_SIZE(props); i++)
-+		test_connector_property(test, connector, props[i]);
-+}
-+
-+/*
-+ * Test that the initialization of a dynamic connector succeeds for all
-+ * possible connector types.
-+ */
-+static void drm_test_drm_connector_dynamic_init_type_valid(struct kunit *test)
-+{
-+	struct drm_connector_init_priv *priv = test->priv;
-+	struct drm_connector *connector = &priv->connector;
-+	unsigned int connector_type = *(unsigned int *)test->param_value;
-+	int ret;
-+
-+	ret = drm_connector_dynamic_init(&priv->drm, connector,
-+					 &dummy_dynamic_init_funcs,
-+					 connector_type,
-+					 &priv->ddc);
-+	KUNIT_ASSERT_EQ(test, ret, 0);
-+}
-+
-+/*
-+ * Test that the initialization of a dynamic connector sets the expected name
-+ * for it for all possible connector types.
-+ */
-+static void drm_test_drm_connector_dynamic_init_name(struct kunit *test)
-+{
-+	struct drm_connector_init_priv *priv = test->priv;
-+	struct drm_connector *connector = &priv->connector;
-+	unsigned int connector_type = *(unsigned int *)test->param_value;
-+	char expected_name[128];
-+	int ret;
-+
-+	ret = drm_connector_dynamic_init(&priv->drm, connector,
-+					 &dummy_dynamic_init_funcs,
-+					 connector_type,
-+					 &priv->ddc);
-+	KUNIT_ASSERT_EQ(test, ret, 0);
-+
-+	snprintf(expected_name, sizeof(expected_name), "%s-%d",
-+		 drm_get_connector_type_name(connector_type), connector->connector_type_id);
-+	KUNIT_ASSERT_STREQ(test, connector->name, expected_name);
-+}
-+
-+static struct kunit_case drm_connector_dynamic_init_tests[] = {
-+	KUNIT_CASE(drm_test_drm_connector_dynamic_init),
-+	KUNIT_CASE(drm_test_drm_connector_dynamic_init_null_ddc),
-+	KUNIT_CASE(drm_test_drm_connector_dynamic_init_not_added),
-+	KUNIT_CASE(drm_test_drm_connector_dynamic_init_properties),
-+	KUNIT_CASE_PARAM(drm_test_drm_connector_dynamic_init_type_valid,
-+			 drm_connector_init_type_valid_gen_params),
-+	KUNIT_CASE_PARAM(drm_test_drm_connector_dynamic_init_name,
-+			 drm_connector_init_type_valid_gen_params),
-+	{}
-+};
-+
-+static struct kunit_suite drm_connector_dynamic_init_test_suite = {
-+	.name = "drm_connector_dynamic_init",
-+	.init = drm_test_connector_init,
-+	.exit = drm_test_connector_dynamic_init_cleanup,
-+	.test_cases = drm_connector_dynamic_init_tests,
-+};
-+
-+static int drm_test_connector_dynamic_register_early_init(struct kunit *test)
-+{
-+	struct drm_connector_init_priv *priv;
-+	int ret;
-+
-+	ret = drm_test_connector_init(test);
-+	KUNIT_ASSERT_EQ(test, ret, 0);
-+
-+	priv = test->priv;
-+
-+	ret = drm_connector_dynamic_init(&priv->drm, &priv->connector,
-+					 &dummy_dynamic_init_funcs,
-+					 DRM_MODE_CONNECTOR_DisplayPort,
-+					 &priv->ddc);
-+	KUNIT_ASSERT_EQ(test, ret, 0);
-+
-+	return 0;
-+}
-+
-+static void drm_test_connector_dynamic_register_early_cleanup(struct kunit *test)
-+{
-+	struct drm_connector_init_priv *priv = test->priv;
-+	struct drm_connector *connector = &priv->connector;
-+
-+	drm_connector_unregister(connector);
-+	drm_connector_put(connector);
-+}
-+
-+/*
-+ * Test that registration of a dynamic connector adds it to the connector list.
-+ */
-+static void drm_test_drm_connector_dynamic_register_early_on_list(struct kunit *test)
-+{
-+	struct drm_connector_init_priv *priv = test->priv;
-+	struct drm_connector *connector = &priv->connector;
-+	int ret;
-+
-+	KUNIT_ASSERT_TRUE(test, list_empty(&connector->head));
-+
-+	ret = drm_connector_dynamic_register(connector);
-+	KUNIT_ASSERT_EQ(test, ret, 0);
-+
-+	KUNIT_ASSERT_PTR_EQ(test, connector->head.next, &priv->drm.mode_config.connector_list);
-+}
-+
-+/*
-+ * Test that the registration of a dynamic connector before the drm device is
-+ * registered results in deferring the connector's user interface registration.
-+ */
-+static void drm_test_drm_connector_dynamic_register_early_defer(struct kunit *test)
-+{
-+	struct drm_connector_init_priv *priv = test->priv;
-+	struct drm_connector *connector = &priv->connector;
-+	int ret;
-+
-+	ret = drm_connector_dynamic_register(connector);
-+	KUNIT_ASSERT_EQ(test, ret, 0);
-+
-+	KUNIT_ASSERT_EQ(test, connector->registration_state, DRM_CONNECTOR_INITIALIZING);
-+}
-+
-+/*
-+ * Test that the registration of a dynamic connector fails, if this is done before
-+ * the connector is initialized.
-+ */
-+static void drm_test_drm_connector_dynamic_register_early_no_init(struct kunit *test)
-+{
-+	struct drm_connector *connector;
-+	int ret;
-+
-+	connector = kunit_kzalloc(test, sizeof(*connector), GFP_KERNEL); /* auto freed */
-+	KUNIT_ASSERT_NOT_NULL(test, connector);
-+
-+	ret = drm_connector_dynamic_register(connector);
-+	KUNIT_ASSERT_EQ(test, ret, -EINVAL);
-+}
-+
-+/*
-+ * Test that the registration of a dynamic connector before the drm device is
-+ * registered results in deferring adding a mode object for the connector.
-+ */
-+static void drm_test_drm_connector_dynamic_register_early_no_mode_object(struct kunit *test)
-+{
-+	struct drm_connector_init_priv *priv = test->priv;
-+	struct drm_connector *connector = &priv->connector;
-+	struct drm_connector *tmp_connector;
-+	int ret;
-+
-+	ret = drm_connector_dynamic_register(&priv->connector);
-+	KUNIT_ASSERT_EQ(test, ret, 0);
-+
-+	tmp_connector = drm_connector_lookup(connector->dev, NULL, connector->base.id);
-+	KUNIT_ASSERT_NULL(test, tmp_connector);
-+}
-+
-+static struct kunit_case drm_connector_dynamic_register_early_tests[] = {
-+	KUNIT_CASE(drm_test_drm_connector_dynamic_register_early_on_list),
-+	KUNIT_CASE(drm_test_drm_connector_dynamic_register_early_defer),
-+	KUNIT_CASE(drm_test_drm_connector_dynamic_register_early_no_init),
-+	KUNIT_CASE(drm_test_drm_connector_dynamic_register_early_no_mode_object),
-+	{ }
-+};
-+
-+static struct kunit_suite drm_connector_dynamic_register_early_test_suite = {
-+	.name = "drm_connector_dynamic_register_early",
-+	.init = drm_test_connector_dynamic_register_early_init,
-+	.exit = drm_test_connector_dynamic_register_early_cleanup,
-+	.test_cases = drm_connector_dynamic_register_early_tests,
-+};
-+
-+static int drm_test_connector_dynamic_register_init(struct kunit *test)
-+{
-+	struct drm_connector_init_priv *priv;
-+	int ret;
-+
-+	ret = drm_test_connector_dynamic_register_early_init(test);
-+	KUNIT_ASSERT_EQ(test, ret, 0);
-+
-+	priv = test->priv;
-+
-+	ret = drm_dev_register(priv->connector.dev, 0);
-+	KUNIT_ASSERT_EQ(test, ret, 0);
-+
-+	return 0;
-+}
-+
-+static void drm_test_connector_dynamic_register_cleanup(struct kunit *test)
-+{
-+	struct drm_connector_init_priv *priv = test->priv;
-+	struct drm_device *dev = priv->connector.dev;
-+
-+	drm_connector_unregister(&priv->connector);
-+	drm_connector_put(&priv->connector);
-+
-+	drm_dev_unregister(dev);
-+
-+	drm_test_connector_dynamic_register_early_cleanup(test);
-+}
-+
-+static void drm_test_drm_connector_dynamic_register_on_list(struct kunit *test)
-+{
-+	struct drm_connector_init_priv *priv = test->priv;
-+	int ret;
-+
-+	KUNIT_ASSERT_TRUE(test, list_empty(&priv->connector.head));
-+
-+	ret = drm_connector_dynamic_register(&priv->connector);
-+	KUNIT_ASSERT_EQ(test, ret, 0);
-+
-+	KUNIT_ASSERT_PTR_EQ(test, priv->connector.head.next, &priv->drm.mode_config.connector_list);
-+}
-+
-+/*
-+ * Test that the registration of a dynamic connector doesn't get deferred if
-+ * this is done after the drm device is registered.
-+ */
-+static void drm_test_drm_connector_dynamic_register_no_defer(struct kunit *test)
-+{
-+	struct drm_connector_init_priv *priv = test->priv;
-+	int ret;
-+
-+	KUNIT_ASSERT_EQ(test, priv->connector.registration_state, DRM_CONNECTOR_INITIALIZING);
-+
-+	ret = drm_connector_dynamic_register(&priv->connector);
-+	KUNIT_ASSERT_EQ(test, ret, 0);
-+
-+	KUNIT_ASSERT_EQ(test, priv->connector.registration_state, DRM_CONNECTOR_REGISTERED);
-+}
-+
-+/*
-+ * Test that the registration of a dynamic connector fails if this is done after the
-+ * drm device is registered, but before the connector is initialized.
-+ */
-+static void drm_test_drm_connector_dynamic_register_no_init(struct kunit *test)
-+{
-+	struct drm_connector *connector;
-+	int ret;
-+
-+	connector = kunit_kzalloc(test, sizeof(*connector), GFP_KERNEL); /* auto freed */
-+	KUNIT_ASSERT_NOT_NULL(test, connector);
-+
-+	ret = drm_connector_dynamic_register(connector);
-+	KUNIT_ASSERT_EQ(test, ret, -EINVAL);
-+}
-+
-+/*
-+ * Test that the registration of a dynamic connector after the drm device is
-+ * registered adds the mode object for the connector.
-+ */
-+static void drm_test_drm_connector_dynamic_register_mode_object(struct kunit *test)
-+{
-+	struct drm_connector_init_priv *priv = test->priv;
-+	struct drm_connector *connector = &priv->connector;
-+	struct drm_connector *tmp_connector;
-+	int ret;
-+
-+	tmp_connector = drm_connector_lookup(connector->dev, NULL, connector->base.id);
-+	KUNIT_ASSERT_NULL(test, tmp_connector);
-+
-+	ret = drm_connector_dynamic_register(&priv->connector);
-+	KUNIT_ASSERT_EQ(test, ret, 0);
-+
-+	tmp_connector = drm_connector_lookup(connector->dev, NULL, connector->base.id);
-+	KUNIT_ASSERT_PTR_EQ(test, tmp_connector, connector);
-+}
-+
-+/*
-+ * Test that the registration of a dynamic connector after the drm device is
-+ * registered adds the connector to sysfs.
-+ */
-+static void drm_test_drm_connector_dynamic_register_sysfs(struct kunit *test)
-+{
-+	struct drm_connector_init_priv *priv = test->priv;
-+	struct drm_connector *connector = &priv->connector;
-+	int ret;
-+
-+	KUNIT_ASSERT_NULL(test, connector->kdev);
-+
-+	ret = drm_connector_dynamic_register(connector);
-+	KUNIT_ASSERT_EQ(test, ret, 0);
-+
-+	KUNIT_ASSERT_NOT_NULL(test, connector->kdev);
-+}
-+
-+/*
-+ * Test that the registration of a dynamic connector after the drm device is
-+ * registered sets the connector's sysfs name as expected.
-+ */
-+static void drm_test_drm_connector_dynamic_register_sysfs_name(struct kunit *test)
-+{
-+	struct drm_connector_init_priv *priv = test->priv;
-+	struct drm_connector *connector = &priv->connector;
-+	char expected_name[128];
-+	int ret;
-+
-+	ret = drm_connector_dynamic_register(connector);
-+	KUNIT_ASSERT_EQ(test, ret, 0);
-+
-+	snprintf(expected_name, sizeof(expected_name), "card%d-%s",
-+		 connector->dev->primary->index, connector->name);
-+
-+	KUNIT_ASSERT_STREQ(test, dev_name(connector->kdev), expected_name);
-+}
-+
-+/*
-+ * Test that the registration of a dynamic connector after the drm device is
-+ * registered adds the connector to debugfs.
-+ */
-+static void drm_test_drm_connector_dynamic_register_debugfs(struct kunit *test)
-+{
-+	struct drm_connector_init_priv *priv = test->priv;
-+	int ret;
-+
-+	KUNIT_ASSERT_NULL(test, priv->connector.debugfs_entry);
-+
-+	ret = drm_connector_dynamic_register(&priv->connector);
-+	KUNIT_ASSERT_EQ(test, ret, 0);
-+
-+	if (IS_ENABLED(CONFIG_DEBUG_FS))
-+		KUNIT_ASSERT_NOT_NULL(test, priv->connector.debugfs_entry);
-+	else
-+		KUNIT_ASSERT_NULL(test, priv->connector.debugfs_entry);
-+}
-+
-+static struct kunit_case drm_connector_dynamic_register_tests[] = {
-+	KUNIT_CASE(drm_test_drm_connector_dynamic_register_on_list),
-+	KUNIT_CASE(drm_test_drm_connector_dynamic_register_no_defer),
-+	KUNIT_CASE(drm_test_drm_connector_dynamic_register_no_init),
-+	KUNIT_CASE(drm_test_drm_connector_dynamic_register_mode_object),
-+	KUNIT_CASE(drm_test_drm_connector_dynamic_register_sysfs),
-+	KUNIT_CASE(drm_test_drm_connector_dynamic_register_sysfs_name),
-+	KUNIT_CASE(drm_test_drm_connector_dynamic_register_debugfs),
-+	{ }
-+};
-+
-+static struct kunit_suite drm_connector_dynamic_register_test_suite = {
-+	.name = "drm_connector_dynamic_register",
-+	.init = drm_test_connector_dynamic_register_init,
-+	.exit = drm_test_connector_dynamic_register_cleanup,
-+	.test_cases = drm_connector_dynamic_register_tests,
-+};
-+
- /*
-  * Test that the registration of a bog standard connector works as
-  * expected and doesn't report any error.
-@@ -1283,6 +1743,9 @@ static struct kunit_suite drm_hdmi_compute_mode_clock_test_suite = {
- kunit_test_suites(
- 	&drmm_connector_hdmi_init_test_suite,
- 	&drmm_connector_init_test_suite,
-+	&drm_connector_dynamic_init_test_suite,
-+	&drm_connector_dynamic_register_early_test_suite,
-+	&drm_connector_dynamic_register_test_suite,
- 	&drm_connector_attach_broadcast_rgb_property_test_suite,
- 	&drm_get_tv_mode_from_name_test_suite,
- 	&drm_hdmi_compute_mode_clock_test_suite,
+-static int mst_connector_get_modes(struct drm_connector *connector)
++static int mst_connector_get_modes(struct drm_connector *_connector)
+ {
+-	return mst_connector_get_ddc_modes(connector);
++	struct intel_connector *connector = to_intel_connector(_connector);
++
++	return mst_connector_get_ddc_modes(&connector->base);
+ }
+ 
+ static int
+-mst_connector_mode_valid_ctx(struct drm_connector *connector,
++mst_connector_mode_valid_ctx(struct drm_connector *_connector,
+ 			     struct drm_display_mode *mode,
+ 			     struct drm_modeset_acquire_ctx *ctx,
+ 			     enum drm_mode_status *status)
+ {
+-	struct intel_display *display = to_intel_display(connector->dev);
+-	struct drm_i915_private *dev_priv = to_i915(connector->dev);
+-	struct intel_connector *intel_connector = to_intel_connector(connector);
+-	struct intel_dp *intel_dp = intel_connector->mst_port;
++	struct intel_connector *connector = to_intel_connector(_connector);
++	struct intel_display *display = to_intel_display(connector->base.dev);
++	struct drm_i915_private *dev_priv = to_i915(connector->base.dev);
++	struct intel_dp *intel_dp = connector->mst_port;
+ 	struct drm_dp_mst_topology_mgr *mgr = &intel_dp->mst_mgr;
+-	struct drm_dp_mst_port *port = intel_connector->port;
++	struct drm_dp_mst_port *port = connector->port;
+ 	const int min_bpp = 18;
+ 	int max_dotclk = display->cdclk.max_dotclk_freq;
+ 	int max_rate, mode_rate, max_lanes, max_link_clock;
+@@ -1465,7 +1463,7 @@ mst_connector_mode_valid_ctx(struct drm_connector *connector,
+ 	int target_clock = mode->clock;
+ 	int num_joined_pipes;
+ 
+-	if (drm_connector_is_unregistered(connector)) {
++	if (drm_connector_is_unregistered(&connector->base)) {
+ 		*status = MODE_ERROR;
+ 		return 0;
+ 	}
+@@ -1503,7 +1501,7 @@ mst_connector_mode_valid_ctx(struct drm_connector *connector,
+ 	 *   corresponding link capabilities of the sink) in case the
+ 	 *   stream is uncompressed for it by the last branch device.
+ 	 */
+-	num_joined_pipes = intel_dp_num_joined_pipes(intel_dp, intel_connector,
++	num_joined_pipes = intel_dp_num_joined_pipes(intel_dp, connector,
+ 						     mode->hdisplay, target_clock);
+ 	max_dotclk *= num_joined_pipes;
+ 
+@@ -1517,14 +1515,14 @@ mst_connector_mode_valid_ctx(struct drm_connector *connector,
+ 		return 0;
+ 	}
+ 
+-	if (intel_dp_has_dsc(intel_connector)) {
++	if (intel_dp_has_dsc(connector)) {
+ 		/*
+ 		 * TBD pass the connector BPC,
+ 		 * for now U8_MAX so that max BPC on that platform would be picked
+ 		 */
+-		int pipe_bpp = intel_dp_dsc_compute_max_bpp(intel_connector, U8_MAX);
++		int pipe_bpp = intel_dp_dsc_compute_max_bpp(connector, U8_MAX);
+ 
+-		if (drm_dp_sink_supports_fec(intel_connector->dp.fec_capability)) {
++		if (drm_dp_sink_supports_fec(connector->dp.fec_capability)) {
+ 			dsc_max_compressed_bpp =
+ 				intel_dp_dsc_get_max_compressed_bpp(dev_priv,
+ 								    max_link_clock,
+@@ -1535,7 +1533,7 @@ mst_connector_mode_valid_ctx(struct drm_connector *connector,
+ 								    INTEL_OUTPUT_FORMAT_RGB,
+ 								    pipe_bpp, 64);
+ 			dsc_slice_count =
+-				intel_dp_dsc_get_slice_count(intel_connector,
++				intel_dp_dsc_get_slice_count(connector,
+ 							     target_clock,
+ 							     mode->hdisplay,
+ 							     num_joined_pipes);
+@@ -1559,39 +1557,39 @@ mst_connector_mode_valid_ctx(struct drm_connector *connector,
+ }
+ 
+ static struct drm_encoder *
+-mst_connector_atomic_best_encoder(struct drm_connector *connector,
++mst_connector_atomic_best_encoder(struct drm_connector *_connector,
+ 				  struct drm_atomic_state *state)
+ {
+-	struct drm_connector_state *connector_state = drm_atomic_get_new_connector_state(state,
+-											 connector);
+-	struct intel_connector *intel_connector = to_intel_connector(connector);
+-	struct intel_dp *intel_dp = intel_connector->mst_port;
++	struct intel_connector *connector = to_intel_connector(_connector);
++	struct drm_connector_state *connector_state =
++		drm_atomic_get_new_connector_state(state, &connector->base);
++	struct intel_dp *intel_dp = connector->mst_port;
+ 	struct intel_crtc *crtc = to_intel_crtc(connector_state->crtc);
+ 
+ 	return &intel_dp->mst_encoders[crtc->pipe]->base.base;
+ }
+ 
+ static int
+-mst_connector_detect_ctx(struct drm_connector *connector,
++mst_connector_detect_ctx(struct drm_connector *_connector,
+ 			 struct drm_modeset_acquire_ctx *ctx, bool force)
+ {
+-	struct intel_display *display = to_intel_display(connector->dev);
+-	struct intel_connector *intel_connector = to_intel_connector(connector);
+-	struct intel_dp *intel_dp = intel_connector->mst_port;
++	struct intel_connector *connector = to_intel_connector(_connector);
++	struct intel_display *display = to_intel_display(connector->base.dev);
++	struct intel_dp *intel_dp = connector->mst_port;
+ 
+ 	if (!intel_display_device_enabled(display))
+ 		return connector_status_disconnected;
+ 
+-	if (drm_connector_is_unregistered(connector))
++	if (drm_connector_is_unregistered(&connector->base))
+ 		return connector_status_disconnected;
+ 
+ 	if (!intel_display_driver_check_access(display))
+-		return connector->status;
++		return connector->base.status;
+ 
+-	intel_dp_flush_connector_commits(intel_connector);
++	intel_dp_flush_connector_commits(connector);
+ 
+-	return drm_dp_mst_detect_port(connector, ctx, &intel_dp->mst_mgr,
+-				      intel_connector->port);
++	return drm_dp_mst_detect_port(&connector->base, ctx, &intel_dp->mst_mgr,
++				      connector->port);
+ }
+ 
+ static const struct drm_connector_helper_funcs mst_connector_helper_funcs = {
+@@ -1627,29 +1625,30 @@ static bool mst_connector_get_hw_state(struct intel_connector *connector)
+ }
+ 
+ static int mst_topology_add_connector_properties(struct intel_dp *intel_dp,
+-						 struct drm_connector *connector,
++						 struct drm_connector *_connector,
+ 						 const char *pathprop)
+ {
+ 	struct intel_display *display = to_intel_display(intel_dp);
++	struct intel_connector *connector = to_intel_connector(_connector);
+ 
+-	drm_object_attach_property(&connector->base,
++	drm_object_attach_property(&connector->base.base,
+ 				   display->drm->mode_config.path_property, 0);
+-	drm_object_attach_property(&connector->base,
++	drm_object_attach_property(&connector->base.base,
+ 				   display->drm->mode_config.tile_property, 0);
+ 
+-	intel_attach_force_audio_property(connector);
+-	intel_attach_broadcast_rgb_property(connector);
++	intel_attach_force_audio_property(&connector->base);
++	intel_attach_broadcast_rgb_property(&connector->base);
+ 
+ 	/*
+ 	 * Reuse the prop from the SST connector because we're
+ 	 * not allowed to create new props after device registration.
+ 	 */
+-	connector->max_bpc_property =
++	connector->base.max_bpc_property =
+ 		intel_dp->attached_connector->base.max_bpc_property;
+-	if (connector->max_bpc_property)
+-		drm_connector_attach_max_bpc_property(connector, 6, 12);
++	if (connector->base.max_bpc_property)
++		drm_connector_attach_max_bpc_property(&connector->base, 6, 12);
+ 
+-	return drm_connector_set_path_property(connector, pathprop);
++	return drm_connector_set_path_property(&connector->base, pathprop);
+ }
+ 
+ static void
+@@ -1722,62 +1721,59 @@ mst_topology_add_connector(struct drm_dp_mst_topology_mgr *mgr,
+ 	struct intel_dp *intel_dp = container_of(mgr, struct intel_dp, mst_mgr);
+ 	struct intel_display *display = to_intel_display(intel_dp);
+ 	struct intel_digital_port *dig_port = dp_to_dig_port(intel_dp);
+-	struct intel_connector *intel_connector;
+-	struct drm_connector *connector;
++	struct intel_connector *connector;
+ 	enum pipe pipe;
+ 	int ret;
+ 
+-	intel_connector = intel_connector_alloc();
+-	if (!intel_connector)
++	connector = intel_connector_alloc();
++	if (!connector)
+ 		return NULL;
+ 
+-	connector = &intel_connector->base;
+-
+-	intel_connector->get_hw_state = mst_connector_get_hw_state;
+-	intel_connector->sync_state = intel_dp_connector_sync_state;
+-	intel_connector->mst_port = intel_dp;
+-	intel_connector->port = port;
++	connector->get_hw_state = mst_connector_get_hw_state;
++	connector->sync_state = intel_dp_connector_sync_state;
++	connector->mst_port = intel_dp;
++	connector->port = port;
+ 	drm_dp_mst_get_port_malloc(port);
+ 
+-	intel_dp_init_modeset_retry_work(intel_connector);
++	intel_dp_init_modeset_retry_work(connector);
+ 
+-	ret = drm_connector_dynamic_init(display->drm, connector, &mst_connector_funcs,
++	ret = drm_connector_dynamic_init(display->drm, &connector->base, &mst_connector_funcs,
+ 					 DRM_MODE_CONNECTOR_DisplayPort, NULL);
+ 	if (ret)
+ 		goto err_put_port;
+ 
+-	intel_connector->dp.dsc_decompression_aux = drm_dp_mst_dsc_aux_for_port(port);
+-	intel_dp_mst_read_decompression_port_dsc_caps(intel_dp, intel_connector);
+-	intel_connector->dp.dsc_hblank_expansion_quirk =
+-		detect_dsc_hblank_expansion_quirk(intel_connector);
++	connector->dp.dsc_decompression_aux = drm_dp_mst_dsc_aux_for_port(port);
++	intel_dp_mst_read_decompression_port_dsc_caps(intel_dp, connector);
++	connector->dp.dsc_hblank_expansion_quirk =
++		detect_dsc_hblank_expansion_quirk(connector);
+ 
+-	drm_connector_helper_add(connector, &mst_connector_helper_funcs);
++	drm_connector_helper_add(&connector->base, &mst_connector_helper_funcs);
+ 
+ 	for_each_pipe(display, pipe) {
+ 		struct drm_encoder *enc =
+ 			&intel_dp->mst_encoders[pipe]->base.base;
+ 
+-		ret = drm_connector_attach_encoder(&intel_connector->base, enc);
++		ret = drm_connector_attach_encoder(&connector->base, enc);
+ 		if (ret)
+ 			goto err_cleanup_connector;
+ 	}
+ 
+-	ret = mst_topology_add_connector_properties(intel_dp, connector, pathprop);
++	ret = mst_topology_add_connector_properties(intel_dp, &connector->base, pathprop);
+ 	if (ret)
+ 		goto err_cleanup_connector;
+ 
+-	ret = intel_dp_hdcp_init(dig_port, intel_connector);
++	ret = intel_dp_hdcp_init(dig_port, connector);
+ 	if (ret)
+ 		drm_dbg_kms(display->drm, "[%s:%d] HDCP MST init failed, skipping.\n",
+-			    connector->name, connector->base.id);
++			    connector->base.name, connector->base.base.id);
+ 
+-	return connector;
++	return &connector->base;
+ 
+ err_cleanup_connector:
+-	drm_connector_cleanup(connector);
++	drm_connector_cleanup(&connector->base);
+ err_put_port:
+ 	drm_dp_mst_put_port_malloc(port);
+-	intel_connector_free(intel_connector);
++	intel_connector_free(connector);
+ 
+ 	return NULL;
+ }
 -- 
 2.44.2
 
