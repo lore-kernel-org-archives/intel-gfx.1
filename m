@@ -4,84 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4B572E7717D
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7AA17E77180
 	for <intel-gfx@archiver.kernel.org>; Fri, 13 Dec 2024 14:02:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E315410F012;
-	Fri, 13 Dec 2024 14:02:46 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F29EE10F01E;
+	Fri, 13 Dec 2024 14:02:43 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="N9q6gLfV";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="Zw9E7hsA";
 	dkim-atps=neutral
-Received: from mail-pl1-x632.google.com (mail-pl1-x632.google.com
- [IPv6:2607:f8b0:4864:20::632])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C332610E673;
- Fri, 13 Dec 2024 05:47:20 +0000 (UTC)
-Received: by mail-pl1-x632.google.com with SMTP id
- d9443c01a7336-2167141dfa1so12331935ad.1; 
- Thu, 12 Dec 2024 21:47:20 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1734068840; x=1734673640; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=XQpRmGydqcdMOxZRzmLm98GnY2wtgMQ5ZotZeI2M2YQ=;
- b=N9q6gLfVavC1GU2+eutoMhVmrqo+SE0dOsUv7F9/ws+UP6mUtV4i3ctUhi1kuuEALu
- RBKoP5eUBROiDQ39IeupNpIGKbBkCEvjVw4oXon3+7jCG+kvLuH+vKs/kf2v7dd3ecJK
- yD00N96UNWm28N+PBB7w2xwFgPOSnB1eW1Hegaemsql0wHow5Dd7ldXl9GmnglK7nd+R
- B7M5jQ/LQJ0STlXtrhVrinZhtjO4ploPFZPkO9qASztB416PiFY7nA7FW7WxFD8zfWBP
- 3GPhvc+J5xLwZ9J2Jt++mXo0IfTCIBKa9rOtCJpxu0zswXP1NhgLuXNLoUbLOgsdpYjh
- Eayg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1734068840; x=1734673640;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=XQpRmGydqcdMOxZRzmLm98GnY2wtgMQ5ZotZeI2M2YQ=;
- b=cxSTIPUnKLZVg56gKALiaed32yVcoCyXM3V3BemlhPOIblqdQ9icL5cjGdwRgsbb3p
- g9Cjk85KuPlnni+ucBfVJeDXNm8U16GDtrVsapB5VUpjn7qw6/h2/FkNjiIopshiuG7c
- Qay9qBRT7kAZO0yFe+6SgUVg3PMKEAUYgOBwjhjpvNSol964VAR3xIkroyVWLl7mJkdy
- n9DvN+I+F3CGanI+FSFoYyGk8ZLll3/pStWhZpQCD2e1tPaSfPnpTbStZF1vWprnsHIs
- qQDcCsCFJbOooZIjoR5D9br/PXy/Jr62COyZ60RS+zZiWamJ9te3fjGIgNHLtJJ2WqtW
- iSUA==
-X-Forwarded-Encrypted: i=1;
- AJvYcCUrDVCLNoT5fMKFamAMMLvdnzvfeFfaSHSkZHOIIn8MKCYt0dEcFnppElSSd8CAutC1FpkhpDGb5io=@lists.freedesktop.org,
- AJvYcCVY6w+CWG+vllLd/2Mkk/B151yekpaMezTloz4NV72wdS2t/WiCyiUSO43EufLFnUriv8XSCCZVgg==@lists.freedesktop.org,
- AJvYcCWWt79O9naidYazTZOPUK7CUL2uCdOgfruN7fCzIhQYNqp9EPjEGypVP1pa+Niegt+syv6fX1KkpCMt@lists.freedesktop.org,
- AJvYcCWyUbzVEhr0YJ00tl7X4QDsDlB3nMZWfOPXxqdsH4fre08YUWJFwM/+QlbEarHIZ57w0EfceOk+fsg=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxNWx73xPXbujSiq6uWHuWLj2zmD75laaCpSQ9cP8bLQ8+KeKOu
- XzWcGX3AxSjqM4VzetjBwq890qDGOvqLU4jaz+ln4wcAsZ+93Q9y
-X-Gm-Gg: ASbGncsszJnjEmCpcigJS5PU4FbIuJcVJK9bj9mmrwp8zY2H88cNQO9bL64N035BDh2
- 3fJFh0EnwHzNaH0O+c4jaNHm9leqcd2rV1nfthoZjqbfpFRs59YE+oZA1egnyNE/4Dj9LrOjXqO
- IATMBHjBUpmJhQhQva+kEjmgl8hYdNKvDIHXjwzFq5av/paHHeUGZ6HO8Niv00+xkEy+1SwI2uA
- cnycd3lQaVoFBYmg2f5RpbQimKrHi0XZ4ps9Z/waaO8LCavDZL6QkuBTUTq902TUbEMEsUxpect
- 2ixtDRc=
-X-Google-Smtp-Source: AGHT+IGy5lWO5x7q/SCrL+dH9NQnv1Rp0u2NkmqEtY14rjHQEczQdhUClmCmrxdf9miFcIspK1e1uA==
-X-Received: by 2002:a17:902:d506:b0:215:9c06:272a with SMTP id
- d9443c01a7336-2178c872102mr82765085ad.24.1734068840305; 
- Thu, 12 Dec 2024 21:47:20 -0800 (PST)
-Received: from localhost.localdomain ([180.159.118.224])
- by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-216483dd292sm82564985ad.226.2024.12.12.21.47.14
- (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
- Thu, 12 Dec 2024 21:47:19 -0800 (PST)
-From: Yafang Shao <laoar.shao@gmail.com>
-To: torvalds@linux-foundation.org,
-	akpm@linux-foundation.org
-Cc: linux-kernel@vger.kernel.org, linux-security-module@vger.kernel.org,
- x86@kernel.org, linux-snps-arc@lists.infradead.org,
- linux-wireless@vger.kernel.org, intel-gfx@lists.freedesktop.org,
- intel-xe@lists.freedesktop.org, nouveau@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, ocfs2-devel@lists.linux.dev,
- Yafang Shao <laoar.shao@gmail.com>, Kees Cook <kees@kernel.org>,
- Paul Moore <paul@paul-moore.com>, James Morris <jmorris@namei.org>,
- "Serge E. Hallyn" <serge@hallyn.com>
-Subject: [PATCH 5/7] security: Replace get_task_comm() with %pTN
-Date: Fri, 13 Dec 2024 13:46:08 +0800
-Message-Id: <20241213054610.55843-6-laoar.shao@gmail.com>
-X-Mailer: git-send-email 2.37.1 (Apple Git-137.1)
-In-Reply-To: <20241213054610.55843-1-laoar.shao@gmail.com>
-References: <20241213054610.55843-1-laoar.shao@gmail.com>
+Received: from fanzine2.igalia.com (fanzine.igalia.com [178.60.130.6])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B48FE10E647;
+ Thu, 12 Dec 2024 19:09:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Content-Transfer-Encoding:Content-Type:MIME-Version:References:
+ In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Sender:Reply-To:Content-ID:
+ Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
+ :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
+ List-Post:List-Owner:List-Archive;
+ bh=VpELTsB7bIQQvBcg9aNtXqozy4PQPmxVaPVIZ5jVbMI=; b=Zw9E7hsAcTVnooq7GHNVoK0DSN
+ CxL/2FR6+MV/XAgkO6WXNqjTXFHbfaTDcUJ+X7EmZn0WO7wWZ7KKKCu3gKMJAB0Ghx6SUJxCmLjJ7
+ X/MoNdQK0NM2B4kMfrbsxeEUGUemzwoDZEnMHl1eRNcR2KdREHrcu20SZVTGPXgdPjYP5IuBttxFf
+ bAg+1UTxj2klK5Vw/YwfpJLlui5dxz0JX9PafQqeRArwKYk8aTPziwV1mP0VP4O4DZI+Xl2eIIS8S
+ FXGweGXMM+V6WVaXnYRWb3X1ogpb+F3j6UMQqwdYMuc8xbPA/YRvw5kho92DFNrKCiemrUlihLjKo
+ e9TGG7sw==;
+Received: from [179.193.1.214] (helo=localhost.localdomain)
+ by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
+ id 1tLoYt-002MeQ-Bd; Thu, 12 Dec 2024 20:09:23 +0100
+From: =?UTF-8?q?Andr=C3=A9=20Almeida?= <andrealmeid@igalia.com>
+To: Raag Jadav <raag.jadav@intel.com>, airlied@gmail.com, simona@ffwll.ch,
+ lucas.demarchi@intel.com, rodrigo.vivi@intel.com,
+ jani.nikula@linux.intel.com, andriy.shevchenko@linux.intel.com,
+ lina@asahilina.net, michal.wajdeczko@intel.com, christian.koenig@amd.com
+Cc: intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ himal.prasad.ghimiray@intel.com, aravind.iddamsetty@linux.intel.com,
+ anshuman.gupta@intel.com, alexander.deucher@amd.com,
+ andrealmeid@igalia.com, amd-gfx@lists.freedesktop.org,
+ kernel-dev@igalia.com
+Subject: [PATCH 1/1] drm/amdgpu: Use device wedged event
+Date: Thu, 12 Dec 2024 16:09:09 -0300
+Message-ID: <20241212190909.28559-2-andrealmeid@igalia.com>
+X-Mailer: git-send-email 2.47.1
+In-Reply-To: <20241212190909.28559-1-andrealmeid@igalia.com>
+References: <20241212190909.28559-1-andrealmeid@igalia.com>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Fri, 13 Dec 2024 14:02:42 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
@@ -99,43 +67,29 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Since task->comm is guaranteed to be NUL-terminated, we can print it
-directly without the need to copy it into a separate buffer. This
-simplifies the code and avoids unnecessary operations.
+Use DRM's device wedged event to notify userspace that a reset had
+happened. For now, only use `none` method meant for telemetry
+capture.
 
-Signed-off-by: Yafang Shao <laoar.shao@gmail.com>
-Cc: Kees Cook <kees@kernel.org>
-Cc: Paul Moore <paul@paul-moore.com>
-Cc: James Morris <jmorris@namei.org>
-Cc: "Serge E. Hallyn" <serge@hallyn.com>
+Signed-off-by: André Almeida <andrealmeid@igalia.com>
 ---
- security/yama/yama_lsm.c | 6 ++----
- 1 file changed, 2 insertions(+), 4 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
-diff --git a/security/yama/yama_lsm.c b/security/yama/yama_lsm.c
-index e1a5e13ea269..4bdfa51ea6fd 100644
---- a/security/yama/yama_lsm.c
-+++ b/security/yama/yama_lsm.c
-@@ -76,7 +76,6 @@ static void report_access(const char *access, struct task_struct *target,
- 				struct task_struct *agent)
- {
- 	struct access_report_info *info;
--	char agent_comm[sizeof(agent->comm)];
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+index 96316111300a..19e1a5493778 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+@@ -6057,6 +6057,9 @@ int amdgpu_device_gpu_recover(struct amdgpu_device *adev,
+ 		dev_info(adev->dev, "GPU reset end with ret = %d\n", r);
  
- 	assert_spin_locked(&target->alloc_lock); /* for target->comm */
- 
-@@ -85,9 +84,8 @@ static void report_access(const char *access, struct task_struct *target,
- 		 * Imagine angry ranting about procfs here.
- 		 */
- 		pr_notice_ratelimited(
--		    "ptrace %s of \"%s\"[%d] was attempted by \"%s\"[%d]\n",
--		    access, target->comm, target->pid,
--		    get_task_comm(agent_comm, agent), agent->pid);
-+		    "ptrace %s of \"%pTN\"[%d] was attempted by \"%pTN\"[%d]\n",
-+		    access, target, target->pid, agent, agent->pid);
- 		return;
- 	}
+ 	atomic_set(&adev->reset_domain->reset_res, r);
++
++	drm_dev_wedged_event(adev_to_drm(adev), DRM_WEDGE_RECOVERY_NONE);
++
+ 	return r;
+ }
  
 -- 
-2.43.5
+2.47.1
 
