@@ -4,95 +4,27 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 63D14E77183
-	for <intel-gfx@archiver.kernel.org>; Thu, 12 Dec 2024 13:11:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id ADF8DE7717F
+	for <intel-gfx@archiver.kernel.org>; Thu, 12 Dec 2024 13:23:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0CD5B10EDBD;
-	Thu, 12 Dec 2024 13:11:35 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=permerror (0-bit key) header.d=sapience.com header.i=@sapience.com header.b="wD3UMRxD";
-	dkim=pass (2048-bit key; secure) header.d=sapience.com header.i=@sapience.com header.b="BPkmprzB";
-	dkim-atps=neutral
-Received: from s1.sapience.com (s1.sapience.com [72.84.236.66])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 255FD10E930;
- Tue, 10 Dec 2024 16:53:50 +0000 (UTC)
-Authentication-Results: dkim-srvy7; dkim=pass (Good ed25519-sha256 
- signature) header.d=sapience.com header.i=@sapience.com 
- header.a=ed25519-sha256; dkim=pass (Good 2048 bit rsa-sha256 signature) 
- header.d=sapience.com header.i=@sapience.com header.a=rsa-sha256
-Received: from srv8.sapience.com (srv8.sapience.com [x.x.x.x])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (secp384r1) server-digest SHA384)
- (No client certificate requested)
- by s1.sapience.com (Postfix) with ESMTPS id 2D403480525;
- Tue, 10 Dec 2024 11:53:49 -0500 (EST)
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=sapience.com;
- i=@sapience.com; q=dns/txt; s=dk-ed25519-220413; t=1733849628;
- h=message-id : subject : from : to : cc : date : in-reply-to :
- references : content-type : mime-version : from;
- bh=PPV/GHXwYA75Qk+vBJmS5CKvRytPVt2P7mQWbvhA7KA=;
- b=wD3UMRxDuXgwaGrlzzvtlsdAYUd6ZthHn7SPY+6HWtZPuNwRQzCh6+vT6KQv4tzwg3GGo
- uv79hJXIqw7QqvSCQ==
-ARC-Seal: i=1; a=rsa-sha256; d=sapience.com; s=arc6-rsa-220412; t=1733849628; 
- cv=none;
- b=uKYreAe9nlsKlDkyS3y2eEjNHuEKJP2uKchljXhQbQ8PsoDv9xuLCHdyuA9tkQROru8IyBt9xQmrF+B2iadVVjODM8dzIoVymeaDQf9pJkEZjRHer80/NbTPBoYFU9R2pEdMthyKIUnigeeSSFrYRViiVHmzgC/3YKzL5t3jF83vbpdigi6gTOEVWTu5+65xYBs3wLfYompsMR/7bQgYeZdHHVtEdXTiQECRwpwxbFog87a4cNWKt32jLdGCDIuvHqEYoNVdj6RQ6SCDc6Zmer7O92S0EgNN1A9A9XV0hf4jMaTp4BK0lA99FIW8h+v83OgFUHitdWATzqe75yy8Wg==
-ARC-Message-Signature: i=1; a=rsa-sha256; d=sapience.com; s=arc6-rsa-220412;
- t=1733849628; c=relaxed/simple;
- bh=PPV/GHXwYA75Qk+vBJmS5CKvRytPVt2P7mQWbvhA7KA=;
- h=DKIM-Signature:DKIM-Signature:Message-ID:Subject:From:To:Cc:Date:
- In-Reply-To:References:Autocrypt:Content-Type:User-Agent:
- MIME-Version;
- b=ZNDdmjHEFbnQrxn73CA8+FXO1RhRXZ+SVueJS1DfPUqXhVhkWTiMztqTf2w8LyIsCOadkQ9hQ3TSB8GFYA+rwzjSz0qc/ucy02/L7EBI87KdIjDoYXE1b1wMoRTI5SjiI+8xZD79NMXLS4cnws2tQvbfvHVxUGPMYffD/FgwbDYcgEwma0ojy5JuuLaMpOWvmWWCQtvGImPfbJ2GMDVmHu+wGHir1app/knB4Zscnw0Lla3sEkQiS9SGYPB3S7xM1S7iBt+mQIAEEh0nPZ8zPrRxVxRPDf8fI6sUgfG6KIs1QZHsGZcVVRAMQv4K3wGIc8PmKDnqIQ/RZTQs3z4i4A==
-ARC-Authentication-Results: i=1; arc-srv8.sapience.com
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sapience.com;
- i=@sapience.com; q=dns/txt; s=dk-rsa-220413; t=1733849628;
- h=message-id : subject : from : to : cc : date : in-reply-to :
- references : content-type : mime-version : from;
- bh=PPV/GHXwYA75Qk+vBJmS5CKvRytPVt2P7mQWbvhA7KA=;
- b=BPkmprzBZOodw8hR206xK5QG40OfcEf8XX3vi3gw8cmATqc1qUi7rNNtm8f4lgHNVmzsj
- 2UBEwTAYxiMlt4IUVP81fdZkP4C9N5pEcW6eg0kenh/llFU9IDIGZ6naP3sYwkvWyNptipy
- 9+fa1dTFi159z2Sv2qPtHdgtZ4avomBPZ30IIBA4xRwX7y8r7APq7JQIoE4hVgkk2O49vIx
- aJBbHf2JybZpQwmSLYahuoRQXZBSd7sN2seGC4PcheiU/uJT7z8coItuRy3jaE2PQ5hMW5T
- wbjS188+U2AON0y53pIRuGfam7BvGVFJ2X/1lp8dBNQiHfErCBt4ce85gN1A==
-Received: from lap7.sapience.com (lap7w.sapience.com [x.x.x.x])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange ECDHE (prime256v1) server-signature ECDSA (secp384r1)
- server-digest SHA384) (No client certificate requested)
- by srv8.sapience.com (Postfix) with ESMTPS id DAD31280015;
- Tue, 10 Dec 2024 11:53:48 -0500 (EST)
-Message-ID: <d42a3c2b47fbcce8be3c4aa613451ce431c281a8.camel@sapience.com>
-Subject: Re: Linux 6.12.4 - crash dma_alloc_attrs+0x12b via ipu6
-From: Genes Lists <lists@sapience.com>
-To: Stanislaw Gruszka <stanislaw.gruszka@linux.intel.com>, Greg
- Kroah-Hartman	 <gregkh@linuxfoundation.org>
-Cc: Jani Nikula <jani.nikula@linux.intel.com>, Sakari Ailus	
- <sakari.ailus@linux.intel.com>, linux-kernel@vger.kernel.org, 
- akpm@linux-foundation.org, torvalds@linux-foundation.org,
- stable@vger.kernel.org, 	linux-media@vger.kernel.org, bingbu.cao@intel.com,
- Rodrigo Vivi	 <rodrigo.vivi@intel.com>, Joonas Lahtinen
- <joonas.lahtinen@linux.intel.com>,  Tvrtko Ursulin <tursulin@ursulin.net>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org, 
- dri-devel@lists.freedesktop.org
-Date: Tue, 10 Dec 2024 11:53:48 -0500
-In-Reply-To: <Z1hbyNXUubokloda@linux.intel.com>
-References: <2024120917-vision-outcast-85f2@gregkh>
- <c0e94be466b367f1a3cfdc3cb7b1a4f47e5953ae.camel@sapience.com>
- <Z1fqitbWlmELb5pj@kekkonen.localdomain> <87seqvzzg6.fsf@intel.com>
- <c1805642a6c5da6fef3927c70358c8cb851d2784.camel@sapience.com>
- <87bjxjzpwn.fsf@intel.com> <2024121001-senator-raffle-a371@gregkh>
- <Z1hbyNXUubokloda@linux.intel.com>
-Autocrypt: addr=lists@sapience.com; prefer-encrypt=mutual;
- keydata=mDMEXSY9GRYJKwYBBAHaRw8BAQdAwzFfmp+m0ldl2vgmbtPC/XN7/k5vscpADq3BmRy5R
- 7y0LU1haWwgTGlzdHMgKEwwIDIwMTkwNzEwKSA8bGlzdHNAc2FwaWVuY2UuY29tPoiWBBMWCAA+Ah
- sBBQsJCAcCBhUKCQgLAgQWAgMBAh4BAheAFiEE5YMoUxcbEgQOvOMKc+dlCv6PxQAFAmPJfooFCRl
- vRHEACgkQc+dlCv6PxQAc/wEA/Dbmg91DOGXll0OW1GKaZQGQDl7fHibMOKRGC6X/emoA+wQR5FIz
- BnV/PrXbao8LS/h0tSkeXgPsYxrzvfZInIAC
-Content-Type: multipart/signed; micalg="pgp-sha384";
- protocol="application/pgp-signature"; boundary="=-bHGp4P46otAfPh8D5/ik"
-User-Agent: Evolution 3.54.2 
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4DC4E10E227;
+	Thu, 12 Dec 2024 13:23:47 +0000 (UTC)
+Received: from b555e5b46a47 (emeril.freedesktop.org [131.252.210.167])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A570910E227;
+ Thu, 12 Dec 2024 13:23:46 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
-X-Mailman-Approved-At: Thu, 12 Dec 2024 13:11:29 +0000
+Content-Transfer-Encoding: 8bit
+Subject: =?utf-8?q?=E2=9C=97_Fi=2ECI=2EBUILD=3A_failure_for_drm/dp=3A_Rework_LTTPR_tr?=
+ =?utf-8?q?ansparent_mode_handling_and_add_support_to_msm_driver_=28rev2=29?=
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Abel Vesa" <abel.vesa@linaro.org>
+Cc: intel-gfx@lists.freedesktop.org
+Date: Thu, 12 Dec 2024 13:23:46 -0000
+Message-ID: <173400982667.1589450.3105574543602553705@b555e5b46a47>
+X-Patchwork-Hint: ignore
+References: <20241211-drm-dp-msm-add-lttpr-transparent-mode-set-v2-0-d5906ed38b28@linaro.org>
+In-Reply-To: <20241211-drm-dp-msm-add-lttpr-transparent-mode-set-v2-0-d5906ed38b28@linaro.org>
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -105,45 +37,36 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
+== Series Details ==
 
---=-bHGp4P46otAfPh8D5/ik
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Series: drm/dp: Rework LTTPR transparent mode handling and add support to msm driver (rev2)
+URL   : https://patchwork.freedesktop.org/series/140804/
+State : failure
 
-On Tue, 2024-12-10 at 16:18 +0100, Stanislaw Gruszka wrote:
->=20
-> The problem will disappear after applying:
-> https://lore.kernel.org/stable/20241209175416.59433-1-
-> stanislaw.gruszka@linux.intel.com/
-> since the allocation will not longer fail.
->=20
-> ...
-> Regards
-> Stanislaw
+== Summary ==
 
-I confirm that (6.12.4 + above patch) now boots without problems.
+Error: make failed
+  CALL    scripts/checksyscalls.sh
+  DESCEND objtool
+  INSTALL libsubcmd_headers
+  CC [M]  drivers/gpu/drm/i915/display/intel_dp_link_training.o
+drivers/gpu/drm/i915/display/intel_dp_link_training.c: In function ‘intel_dp_init_lttpr_phys’:
+drivers/gpu/drm/i915/display/intel_dp_link_training.c:172:61: error: expected ‘;’ before ‘)’ token
+  172 |         ret = drm_dp_lttpr_init(&intel_dp->aux, lttpr_count));
+      |                                                             ^
+      |                                                             ;
+drivers/gpu/drm/i915/display/intel_dp_link_training.c:172:61: error: expected statement before ‘)’ token
+make[6]: *** [scripts/Makefile.build:194: drivers/gpu/drm/i915/display/intel_dp_link_training.o] Error 1
+make[5]: *** [scripts/Makefile.build:440: drivers/gpu/drm/i915] Error 2
+make[4]: *** [scripts/Makefile.build:440: drivers/gpu/drm] Error 2
+make[3]: *** [scripts/Makefile.build:440: drivers/gpu] Error 2
+make[2]: *** [scripts/Makefile.build:440: drivers] Error 2
+make[1]: *** [/home/kbuild/kernel/Makefile:1989: .] Error 2
+make: *** [Makefile:251: __sub-make] Error 2
+Build failed, no error log produced
 
-Thank you for sorting it out.
 
-
-
---=20
-Gene
-
-
---=-bHGp4P46otAfPh8D5/ik
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYJAB0WIQRByXNdQO2KDRJ2iXo5BdB0L6Ze2wUCZ1hyHAAKCRA5BdB0L6Ze
-22qyAQCiow8EKie6x4WLJm79+9e46CEZ9gd5lJR0bGTh39txpQEAx4xNEdphp9mz
-xnLYva4vWbPImT2BELnv4B97Yw8B6QU=
-=+KY4
------END PGP SIGNATURE-----
-
---=-bHGp4P46otAfPh8D5/ik--
