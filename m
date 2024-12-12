@@ -4,79 +4,54 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 832EBE77183
-	for <intel-gfx@archiver.kernel.org>; Fri, 13 Dec 2024 14:02:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id ED10BE77182
+	for <intel-gfx@archiver.kernel.org>; Fri, 13 Dec 2024 14:02:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2F14710F01C;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 016C210F013;
 	Fri, 13 Dec 2024 14:02:48 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="FM/iQDg7";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="qciiiCWe";
 	dkim-atps=neutral
-Received: from mail-pl1-x636.google.com (mail-pl1-x636.google.com
- [IPv6:2607:f8b0:4864:20::636])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 428E110E074;
- Fri, 13 Dec 2024 05:46:44 +0000 (UTC)
-Received: by mail-pl1-x636.google.com with SMTP id
- d9443c01a7336-2156e078563so10800195ad.2; 
- Thu, 12 Dec 2024 21:46:44 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1734068804; x=1734673604; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=9nDBDHl8OkOEbonP7/O/xeWGAuqOftf+4IMvf+gS1cw=;
- b=FM/iQDg7KC4a/755IIO7QtW7lGZizb9Ij12tusXglECWpyQ9nvOTMHAcDQwxPnjnYo
- eTsmAPsuz79GW2gDJB31OVGRJSLIvIdoV//6LhZKavKhZUdkvG49eXuYeH7FM/LeRfjP
- hpHU4RxyoJvFZIZ5WFJINR8gs5wgEdI874DfumKMva7Hez/g9dQjQvSD0GxM57ZqiRUn
- Ze68Q8GAR8BO+Otz3EB8MyMegI37Yf180KgHlGvecTr7RT6Z/zQ5ifdva8QEAGqA9rxV
- 5k8tF13tb13nM2JEThwqXq215k7y81rAhUluLZI9l+xXAdlzqxQuOL4CGYB6RCQ+9rtm
- R0aw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1734068804; x=1734673604;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=9nDBDHl8OkOEbonP7/O/xeWGAuqOftf+4IMvf+gS1cw=;
- b=mFWDB/eHGMLYTkaKvVKZ60/txoFkAnA43c4hJyKomRRG88tb4QvFogw4OsBvUIi5Vu
- QOA8BiD/ML7hvLNsYYv1y76T6dbHHOGIsgr8EpdSQiUciT9fKaT7iu6CdSdosuYtPkw5
- 7ZsJ9p1VmmQ9jEF20YLao+0dw8dSsHzdBGVWM+PFvLfVH4ZGFOSTwuBPh2FjbEE8/CZH
- 2lsLwyvnIkJbBT/TAQhitGsdmuooeqm5zWKs2hTprneecYU12Y/AULYcgNn9J+wj7emC
- uJ8yJfX211t7igSyOVZyJ0JEVpbKBTaILhPtggFQygO3LlvE+qtzr3K7CBAttlu25Dwi
- bZHg==
-X-Forwarded-Encrypted: i=1;
- AJvYcCVuNV/C7KDZ61vdMumNzJGhNjpMAlyZS/AhlZd4MRE3HobeUI7E6xaybrgbdXf0oeOuAQfTE9O7Q8o=@lists.freedesktop.org,
- AJvYcCWS6LZqKveP7bsekch4g5LppcXizEU5XoTm8x26xqOm74sc+ymQcqpR+ZsPSIK/l9G4O/r2a9TBwEw=@lists.freedesktop.org,
- AJvYcCX1nmu/3KwyscWOAguGfYweWt8GgaEE63J/Mv4yirjKB47QZeYaOYR6633KAxKNpvUJ8FCfecaQFZbl@lists.freedesktop.org,
- AJvYcCXHM+EdtG+QH1Y0pzz6C3N1W4Ht+sgm3K+k+QTFPLB6MDAhZbO6XMyZQIrMA7ohfrnIHiXdwRg/Vw==@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyuXR864N1lZGhEEgmYBdzJda9RMNp1aqTsCT+X4sCmUoEV9qJ5
- mkcfAIkMKDbxUYZyAKXwTTN5LjhLbRkGq+1bDN8+prts/1ZJn/MaLsk0ziHZoGk=
-X-Gm-Gg: ASbGncsKUZK8Aboj2I69p6dCvLNo9vla2jLf07xDz2WOGJ/DMCfLjVFYERktOyE4Vt1
- 1LBpFoIqYz9PoW40OY3QFSQXU63CBL4fUA0xOL4s9NUczjx8krGa34kIlIGEBi9BSVyBFaPVoih
- 2BlZo8F85exj9cvo3MyGc4T9ZAqILbfUCdV85UypY+nX5lRCky69tY/cqE76hth3D9RaLKumHfv
- m0Ct3JNbdWgQGRPvsKjZrRxqhOgspaV4r49ieGReupJvjLjjan/a52yy442Ls55tVTWhxXfL+6R
- hsT2R6s=
-X-Google-Smtp-Source: AGHT+IHVKByQs8aQw9nFW65MyCdke95tovLrIe/teYLFc9u83Eik6guIs9oKZyvf6Ts5Rmy4R5h3SA==
-X-Received: by 2002:a17:902:ccd2:b0:216:26f1:530b with SMTP id
- d9443c01a7336-21892a70579mr20915305ad.51.1734068803702; 
- Thu, 12 Dec 2024 21:46:43 -0800 (PST)
-Received: from localhost.localdomain ([180.159.118.224])
- by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-216483dd292sm82564985ad.226.2024.12.12.21.46.38
- (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
- Thu, 12 Dec 2024 21:46:43 -0800 (PST)
-From: Yafang Shao <laoar.shao@gmail.com>
-To: torvalds@linux-foundation.org,
-	akpm@linux-foundation.org
-Cc: linux-kernel@vger.kernel.org, linux-security-module@vger.kernel.org,
- x86@kernel.org, linux-snps-arc@lists.infradead.org,
- linux-wireless@vger.kernel.org, intel-gfx@lists.freedesktop.org,
- intel-xe@lists.freedesktop.org, nouveau@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, ocfs2-devel@lists.linux.dev,
- Yafang Shao <laoar.shao@gmail.com>
-Subject: [PATCH 0/7] vsprintf: Add %pTN to print Task Name 
-Date: Fri, 13 Dec 2024 13:46:03 +0800
-Message-Id: <20241213054610.55843-1-laoar.shao@gmail.com>
-X-Mailer: git-send-email 2.37.1 (Apple Git-137.1)
+Received: from fanzine2.igalia.com (fanzine.igalia.com [178.60.130.6])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6A3BD10E1E9;
+ Thu, 12 Dec 2024 18:31:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+ References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
+ Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+ Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
+ List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=zUh/YyW/cI4qga3mWzSJPGqn9vM7x5xrmfx3htv+gmM=; b=qciiiCWeSsH1CyvmDpCIANNec1
+ XzMtbePqIRr3MwbVnGAok0CEMvqYOZnt2bE5q24cH0N0usNQ158oeakGf74pFuDEXyweoWPDdm6E6
+ pH1Kw9Z70NVWxcFk/DCF/xjHrHGQeVaAfQAWbzwPWiNKn17qHW1nAft23gXPfVypVDGffbXz6nPx0
+ GxRTi1nKHHiHWH1+1JixpFfNq1d9fLunCqDkIDpAtrvo8DiLw1644ev/SVVhirEWVT7bWkSF42g3S
+ VU+YDx2zsaKIabzkob584HYUFb2J/4JBIrdXLr8f2A7XZ8OY28DCb7SgkN9LsF1Fz/DeWvOJVizRe
+ tZhZaPPA==;
+Received: from [179.193.1.214] (helo=[192.168.15.100])
+ by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
+ id 1tLnxt-002LzM-DL; Thu, 12 Dec 2024 19:31:09 +0100
+Message-ID: <9557db3c-0837-4dfb-ba69-84dbaf13f082@igalia.com>
+Date: Thu, 12 Dec 2024 15:31:01 -0300
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v10 1/4] drm: Introduce device wedged event
+To: Raag Jadav <raag.jadav@intel.com>, airlied@gmail.com, simona@ffwll.ch,
+ lucas.demarchi@intel.com, rodrigo.vivi@intel.com,
+ jani.nikula@linux.intel.com, andriy.shevchenko@linux.intel.com,
+ lina@asahilina.net, michal.wajdeczko@intel.com, christian.koenig@amd.com
+Cc: intel-xe@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, himal.prasad.ghimiray@intel.com,
+ aravind.iddamsetty@linux.intel.com, anshuman.gupta@intel.com,
+ alexander.deucher@amd.com, amd-gfx@lists.freedesktop.org,
+ kernel-dev@igalia.com
+References: <20241128153707.1294347-1-raag.jadav@intel.com>
+ <20241128153707.1294347-2-raag.jadav@intel.com>
+Content-Language: en-US
+From: =?UTF-8?Q?Andr=C3=A9_Almeida?= <andrealmeid@igalia.com>
+In-Reply-To: <20241128153707.1294347-2-raag.jadav@intel.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Fri, 13 Dec 2024 14:02:42 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
@@ -94,45 +69,53 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Since task->comm is guaranteed to be NUL-terminated, it can be printed
-directly. This patch introduces a new vsnprintf format specifier, %pTN, to
-print a task's name. In this specifier, p represents the task pointer, T
-stands for "Task," and N denotes "Name." With this abstraction, users no
-longer need to manually retrieve the task name for printing purposes.
+Hi Raag,
 
-In this patchset, all instances of get_task_comm() used for printing the
-task name have been replaced with the new %pTN specifier. The raw uses of
-'xyz->comm' for printouts will be addressed in a subsequent patch.
+Thank you for your patch.
 
-Suggested-by: Linus Torvalds <torvalds@linux-foundation.org>
-Link: https://lore.kernel.org/bpf/CAHk-=wgqrwFXK-CO8-V4fwUh5ymnUZ=wJnFyufV1dM9rC1t3Lg@mail.gmail.com 
+Em 28/11/2024 12:37, Raag Jadav escreveu:
 
-Yafang Shao (7):
-  vsprintf: Add %pTN to print task name
-  kernel: Replace get_task_comm() with %pTN
-  arch: Replace get_task_comm() with %pTN
-  net: Replace get_task_comm() with %pTN
-  security: Replace get_task_comm() with %pTN
-  drivers: Repace get_task_comm() with %pTN
-  fs: Use %pTN to print task name
+[...]
 
- arch/arc/kernel/unaligned.c                    |  9 ++++-----
- arch/x86/kernel/vm86_32.c                      |  5 ++---
- drivers/accel/habanalabs/common/context.c      |  5 ++---
- .../accel/habanalabs/common/habanalabs_ioctl.c | 15 +++++----------
- .../drm/i915/display/intel_display_driver.c    | 10 ++++------
- drivers/gpu/drm/nouveau/nouveau_chan.c         |  4 +---
- drivers/gpu/drm/nouveau/nouveau_drm.c          |  7 +++----
- drivers/tty/tty_io.c                           |  5 ++---
- fs/ocfs2/cluster/netdebug.c                    |  5 ++---
- kernel/capability.c                            | 12 ++++--------
- kernel/futex/waitwake.c                        |  5 ++---
- lib/vsprintf.c                                 | 18 ++++++++++++++++++
- net/wireless/wext-core.c                       |  6 ++----
- scripts/checkpatch.pl                          |  6 ++++--
- security/yama/yama_lsm.c                       |  6 ++----
- 15 files changed, 57 insertions(+), 61 deletions(-)
+> +int drm_dev_wedged_event(struct drm_device *dev, unsigned long method)
+> +{
+> +	const char *recovery = NULL;
+> +	unsigned int len, opt;
+> +	/* Event string length up to 28+ characters with available methods */
+> +	char event_string[32];
+> +	char *envp[] = { event_string, NULL };
+> +
+> +	len = scnprintf(event_string, sizeof(event_string), "%s", "WEDGED=");
+> +
+> +	for_each_set_bit(opt, &method, BITS_PER_TYPE(method)) {
+> +		recovery = drm_get_wedge_recovery(opt);
+> +		if (drm_WARN(dev, !recovery, "device wedged, invalid recovery method %u\n", opt))
+> +			break;
+> +
+> +		len += scnprintf(event_string + len, sizeof(event_string), "%s,", recovery);
+> +	}
+> +
+> +	if (recovery)
+> +		/* Get rid of trailing comma */
+> +		event_string[len - 1] = '\0';
+> +	else
+> +		/* Caller is unsure about recovery, do the best we can at this point. */
+> +		snprintf(event_string, sizeof(event_string), "%s", "WEDGED=unknown");
+> +
+> +	drm_info(dev, "device wedged, needs recovery\n");
 
--- 
-2.43.5
+As documented in the commit message "No explicit device recovery is 
+expected from the consumer in this case", I think this should be like this:
+
+if (method != DRM_WEDGE_RECOVERY_NONE)
+     drm_info(dev, "device wedged, needs recovery\n");
+
+and maybe a note like this:
+
+else
+     drm_info(dev, "device reseted, but managed to recover\n");
+
+Either way, this patch is:
+
+Reviewed-by: André Almeida <andrealmeid@igalia.com>
 
