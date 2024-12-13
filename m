@@ -4,56 +4,64 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8B3E3E7717D
-	for <intel-gfx@archiver.kernel.org>; Fri, 13 Dec 2024 14:02:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 603ABE77182
+	for <intel-gfx@archiver.kernel.org>; Fri, 13 Dec 2024 14:10:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 96E8B10F02A;
-	Fri, 13 Dec 2024 14:02:55 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CB56210E350;
+	Fri, 13 Dec 2024 14:10:12 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="CBk5+fbc";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="kBzrJd4y";
 	dkim-atps=neutral
-Received: from fanzine2.igalia.com (fanzine.igalia.com [178.60.130.6])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2C74510E64C;
- Thu, 12 Dec 2024 18:50:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
- References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
- Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
- Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
- List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=JAFcxHXTlvHsT25S57LpsY+SoS6Z7yQppFWLsddyh90=; b=CBk5+fbcGtIbhrgXDirSsOB7xn
- LLdZCDl3KhEUsJGYWm49Hc/Omvh1gOI/W5QAnQl43KTUWTg+Kre1S8jc2ojcKZgj9saR6nz2QnDsG
- aDxZhRmrd3Czp4lytsF5EWv09Uk8wN1sWpaN5phYHt0rJS54lazeff5ldKnkncUUJuD6PqE4VNswF
- PHiwuB8Q2Lhf4/+gns8aa4E9Zg9XfOEFCm7eYUhm8JzJeis2gMLrTUUcfjVsEvFgeil/F34DxQ3HD
- AHp/Xfejllx+1fSi7rKXfoyWYOqjil8ELZYc0FBTrHf6r5plgTQuFLljgGW25eOuIyGu/Nwa53Ixz
- Hl4E8iRg==;
-Received: from [179.193.1.214] (helo=[192.168.15.100])
- by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
- id 1tLoGq-002MJu-CG; Thu, 12 Dec 2024 19:50:44 +0100
-Message-ID: <cfb07238-841c-45ca-9a8e-c5aca80ee47c@igalia.com>
-Date: Thu, 12 Dec 2024 15:50:29 -0300
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v10 2/4] drm/doc: Document device wedged event
-To: Raag Jadav <raag.jadav@intel.com>, airlied@gmail.com, simona@ffwll.ch,
- lucas.demarchi@intel.com, rodrigo.vivi@intel.com,
- jani.nikula@linux.intel.com, andriy.shevchenko@linux.intel.com,
- lina@asahilina.net, michal.wajdeczko@intel.com, christian.koenig@amd.com
-Cc: intel-xe@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, himal.prasad.ghimiray@intel.com,
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.15])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EB12910E34E;
+ Fri, 13 Dec 2024 14:10:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1734099011; x=1765635011;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:content-transfer-encoding:in-reply-to;
+ bh=tQUixa7++G0Mm0VJMH3JcQTbZYOq309GMrsay8fjXco=;
+ b=kBzrJd4yEK//ECRFvcb9KA6cqVFvK3q+Vy2sRPC1iohz/gLmll0zmxDz
+ tx3t6Oj749nwSGx3o1DpUjM4OTP7Q/fHQdNgZs7Xbw5mZLC8YttFh/s2I
+ a/C0JeG4PxPyNDFgSF6WspUObK3M9eJbcXQy7bkn1wPG9Su6H4wRD+/+6
+ t7TAGxlV7K4FdyUXmhZijbWPdge0mkhx+JSqMARRhk9FrSIRrazJYJYvA
+ AwuR/+bYfQzdUp6pikQ2VcvfNslGixEn1Mq6YspV7pBdk1E55U8l5GTyg
+ Y9pCNTJqg638I5ORkHb0rQmZibBmGKlgHp+1YClYKtDudRP39AfcSbcOM w==;
+X-CSE-ConnectionGUID: loto/mAFS2SMbHSxvMOO+w==
+X-CSE-MsgGUID: 6vRDobh4SdOla9VQ85fN4w==
+X-IronPort-AV: E=McAfee;i="6700,10204,11285"; a="38229876"
+X-IronPort-AV: E=Sophos;i="6.12,231,1728975600"; d="scan'208";a="38229876"
+Received: from orviesa003.jf.intel.com ([10.64.159.143])
+ by orvoesa107.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 13 Dec 2024 06:10:10 -0800
+X-CSE-ConnectionGUID: qe2FaLtjSh6fv1+BuWSYZg==
+X-CSE-MsgGUID: 6f3UuAjlQ7SEdWTaaT1UvA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.11,199,1725346800"; d="scan'208";a="101631675"
+Received: from ldmartin-desk2.corp.intel.com (HELO ldmartin-desk2)
+ ([10.125.110.169])
+ by ORVIESA003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 13 Dec 2024 06:10:10 -0800
+Date: Fri, 13 Dec 2024 08:10:00 -0600
+From: Lucas De Marchi <lucas.demarchi@intel.com>
+To: =?utf-8?B?QW5kcsOp?= Almeida <andrealmeid@igalia.com>
+Cc: Raag Jadav <raag.jadav@intel.com>, airlied@gmail.com, simona@ffwll.ch, 
+ rodrigo.vivi@intel.com, jani.nikula@linux.intel.com,
+ andriy.shevchenko@linux.intel.com, 
+ lina@asahilina.net, michal.wajdeczko@intel.com, christian.koenig@amd.com, 
+ intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ himal.prasad.ghimiray@intel.com, 
  aravind.iddamsetty@linux.intel.com, anshuman.gupta@intel.com,
- alexander.deucher@amd.com, amd-gfx@lists.freedesktop.org,
- kernel-dev@igalia.com
-References: <20241128153707.1294347-1-raag.jadav@intel.com>
- <20241128153707.1294347-3-raag.jadav@intel.com>
-Content-Language: en-US
-From: =?UTF-8?Q?Andr=C3=A9_Almeida?= <andrealmeid@igalia.com>
-In-Reply-To: <20241128153707.1294347-3-raag.jadav@intel.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+ alexander.deucher@amd.com, 
+ amd-gfx@lists.freedesktop.org, kernel-dev@igalia.com
+Subject: Re: [PATCH 0/1] drm/amdgpu: Use device wedged event
+Message-ID: <yzuvo3rl3tl2dzae3rdp3hvl2f6r3mbrafzljcro7srhtmumy5@vyv6vxp2nqpy>
+References: <20241212190909.28559-1-andrealmeid@igalia.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=iso-8859-1; format=flowed
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Fri, 13 Dec 2024 14:02:42 +0000
+In-Reply-To: <20241212190909.28559-1-andrealmeid@igalia.com>
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,51 +77,35 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
+On Thu, Dec 12, 2024 at 04:09:08PM -0300, AndrÈ Almeida wrote:
+>Raag Jadav is introducing a new DRM API for generating "device wedged events",
+>to notify userspace when the device needs userspace intervention after a GPU
+>reset[1]. I did a simple patch to add support for it for amdgpu for the
+>telemetry aspect of the event. Tested in Steam Deck. This patch requires [1] to
+>be applied.
+>
+>Raag, if you are sending a v11 of your work you can carry this patch as well if
+>you think it makes sense.
 
+great, more users
 
-Em 28/11/2024 12:37, Raag Jadav escreveu:
-> Add documentation for device wedged event in a new 'Device wedging'
-> chapter. The describes basic definitions, prerequisites and consumer
-> expectations along with an example.
-> 
->   v8: Improve documentation (Christian, Rodrigo)
->   v9: Add prerequisites section (Christian)
-> v10: Clarify mmap cleanup and consumer prerequisites (Christian, Aravind)
-> 
-> Signed-off-by: Raag Jadav <raag.jadav@intel.com>
-> Reviewed-by: Christian K√∂nig <christian.koenig@amd.com>
-> ---
->   Documentation/gpu/drm-uapi.rst | 112 ++++++++++++++++++++++++++++++++-
->   1 file changed, 109 insertions(+), 3 deletions(-)
-> 
-> diff --git a/Documentation/gpu/drm-uapi.rst b/Documentation/gpu/drm-uapi.rst
-> index b75cc9a70d1f..da2927cde53d 100644
-> --- a/Documentation/gpu/drm-uapi.rst
-> +++ b/Documentation/gpu/drm-uapi.rst
-> @@ -371,9 +371,115 @@ Reporting causes of resets
+when this started the plan was to merge it through drm-xe since xe was
+the only user. Now we already have 3, so I think it makes sense to go
+through drm-misc... I looked at the possible conflicts in i915 and xe
+and they are minimal.
 
-I think it's a good idea to add a note about "device wedged event" in 
-the section "Device reset > Kernel Mode Driver" since the idea is to 
-explain what should kernel developer add to their kernel drivers to be 
-used when a device resets.
+thanks
+Lucas De Marchi
 
->   
->   Apart from propagating the reset through the stack so apps can recover, it's
->   really useful for driver developers to learn more about what caused the reset in
-> -the first place. DRM devices should make use of devcoredump to store relevant
-> -information about the reset, so this information can be added to user bug
-> -reports.
-> +the first place. For this, drivers can make use of devcoredump to store relevant
-> +information about the reset and send device wedged event without recovery method
-
-and send a device wedged event with recovery method as "none" (as 
-explained in the chapter "Device wedging")
-
-> +(as explained in next chapter) to notify userspace, so this information can be
-> +collected and added to user bug reports.
-> +
-
-With those changes applied:
-
-Reviewed-by: Andr√© Almeida <andrealmeid@igalia.com>
-
+>
+>[1] https://lore.kernel.org/dri-devel/20241128153707.1294347-1-raag.jadav@intel.com/
+>
+>AndrÈ Almeida (1):
+>  drm/amdgpu: Use device wedged event
+>
+> drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 3 +++
+> 1 file changed, 3 insertions(+)
+>
+>-- 
+>2.47.1
+>
