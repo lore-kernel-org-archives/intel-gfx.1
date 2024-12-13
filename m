@@ -4,81 +4,84 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 39FC6E77180
-	for <intel-gfx@archiver.kernel.org>; Fri, 13 Dec 2024 14:02:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F039FE77183
+	for <intel-gfx@archiver.kernel.org>; Fri, 13 Dec 2024 14:02:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BFCC210F022;
-	Fri, 13 Dec 2024 14:02:53 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 61DB110F027;
+	Fri, 13 Dec 2024 14:02:55 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="LA5W3T47";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="a8EbiBrB";
 	dkim-atps=neutral
-Received: from mail-pf1-x430.google.com (mail-pf1-x430.google.com
- [IPv6:2607:f8b0:4864:20::430])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B2E0710EEF6;
- Fri, 13 Dec 2024 05:49:27 +0000 (UTC)
-Received: by mail-pf1-x430.google.com with SMTP id
- d2e1a72fcca58-728f1e66418so1225252b3a.2; 
- Thu, 12 Dec 2024 21:49:27 -0800 (PST)
+Received: from mail-qv1-xf36.google.com (mail-qv1-xf36.google.com
+ [IPv6:2607:f8b0:4864:20::f36])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C742010EF59;
+ Fri, 13 Dec 2024 08:36:47 +0000 (UTC)
+Received: by mail-qv1-xf36.google.com with SMTP id
+ 6a1803df08f44-6d932b5081eso13962796d6.1; 
+ Fri, 13 Dec 2024 00:36:47 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1734068967; x=1734673767; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=m2jUPvsdlfQUhZsdbtI4Ke1sLD5+tvHbQzW9Gl1gyas=;
- b=LA5W3T47PvwIf7VmXGnZPFB39WUEhKo7m2Em+r8J6qf0S0I93mTrVAOLaGapaKH64V
- Pdww8aFHJm+jIK3org0dLcJ86lyic4eVqOtJ761bKG5Wx75KbXpwbkl9ITYsZo4FErcg
- wEov1VhKGY02TQkbxDkBg5gQm0r32u2hlCif/sVMgYn0hIqi1rkKd6FMIrDTuZjqFhFl
- BA5Xl9dcm9QkikNplPXQjsW4/MLSMN6GcygJrhIKlnuPcoTGHr4OGztiYQDb9RRq3WQe
- UXu289hLPU+hQyDdab6ZY5raguxeNZQQrmFCIw7XVs3mW/E0jqQaJoh6EVVsjSAHx4Vh
- LoHg==
+ d=gmail.com; s=20230601; t=1734079007; x=1734683807; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=KRt1MXIvY7wy4Sl3wPWxh5TWbRsTuTxrC9cGCSyNao0=;
+ b=a8EbiBrBSd9y3oIhinswPJT3B01gxGfIrbOH5j6eWKrwBzvsmtpwTJZhKlVvU5PA4P
+ ZScSJ46/D6cOmcIsx21W+6EEnQ9iLN/yhSS9e8dmpTtp7mXu9GwSzfh1OticUNORGnct
+ aRdCoXSmHVLwXH/PdWMFx1M/cTMJbd8HexawB/DDpw6Fxh+O8bS8+47c1gF8BpSuK/n4
+ rqdQYKKxVUuNdAaqquK1FicacOuck7Yh3RWjJlpqc+IdCoTh/Roj/STvzYghnFmWx/YD
+ 7w3P3B3NAz2WMzvnG7bICJTvpMXpF1arknzZ1t6oDrNLRA/p1N0OQmgazt6Qg2lMM2tb
+ j3SA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1734068967; x=1734673767;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=m2jUPvsdlfQUhZsdbtI4Ke1sLD5+tvHbQzW9Gl1gyas=;
- b=XkP/L/JedEfzX5KOsJxsQt1D7wyv6NdIWDZSaVzAX38Wx1ZAaqG7YH4ial1sK8dEZ5
- oXlp77x/1FqqHKYdugp85J5Mcqq5nMNfoKWvNlhWr+55FgNVXOajC/TLZjui+yBeiVsp
- eEAb2Z0BxBYAT/bYyYhIWDabnSS3ZxYynUN2jaGOWfNAa4Rb2S8+hkHL8YLTmMcpm8hi
- XopNBGaM7Whd0fuiCJ9SKmsPbH2zahsz3ubci6P/5e0dB7tjJtTfxStxU7L5d9yELRY5
- 20PMBdYLgzqfSTV9nDt6DMcUk40WS2Sn/OaEek4voIYmz4XnK9XLinSOhliGcVJoavWM
- jxzw==
+ d=1e100.net; s=20230601; t=1734079007; x=1734683807;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=KRt1MXIvY7wy4Sl3wPWxh5TWbRsTuTxrC9cGCSyNao0=;
+ b=KsazMi2WbzY/JEtUF28POjdPeWL1NiyY+u8pfBRL2hRmGo1p5AOtue159Bc2Gocm2M
+ 6nr0GMyuDhsxIryR8f1z+acrlEpUViWK+1EeMcelorfrulqZQHYbWdEvLcFDM401CSuW
+ hm7oRCWgJ7fLBNjRu6bTkdGk8bt/CLGy71yUdqAsstdUU5uT3XK2eeVah/j/yjbedRgS
+ ejXr3hykVfH80K5saM9yk4lg7UNyhM4qLi/Ue5l2RBSaXxn4f78yW0N4PTlo+Orh5axN
+ 47F7G2Ej7LdItZrmy+LzCUMrQd2fPms1AlElZyYFIiA5ABr2BkDwvxbFlOivqCn9E9UU
+ OenQ==
 X-Forwarded-Encrypted: i=1;
- AJvYcCVPtdmGsbYDus5geJXj4hyaK1Jl/fXX1RptTx0hj7ayu0mFFKrzed4OwNW0RZ19r5DSoKfXy9eXW0I=@lists.freedesktop.org,
- AJvYcCVfN45mQASctwiPvmwMuAdZN3Y/hFq3GN+PmOUX0wNEXfCWjvUPGIYdYkYOV4i2ZXqFbEzkIAMjf9b7@lists.freedesktop.org,
- AJvYcCVvTuMRknmT83sk/vF+2N0dL4v7An/BVz0bzO4PRN+Ms/n6uG0Alr9MIKiHzJNu5G8sk1aBQtP1aQ==@lists.freedesktop.org,
- AJvYcCXcCyTitm5nQN2G6N6whO0J+dCqHA3XpQvoPQYaEyh/JzEUkqIuZUsZNZiwg+iQsSG2nVCsjxlYsDU=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yz5QI0Ey7lM1SYcy9g1M6pPdxTIJPBL5opRhAIHocac0gpr4Cx2
- 6qW2OUHmzSlgCt1cfJA6hO9PR0wq+sdy0WhuFbsVRlsGihluDTlY
-X-Gm-Gg: ASbGncsxj/I6srSDlns1syc9CIa6r+Fzw2wJB3PHSAAAl4PjfDaJJYlVTmT7clOyOXi
- Z++v/fbpooShycVHUjN3DRv8bW+bJ93e2ZG82bdoI2W3vWi4b4cqtYfQOj+EeTfepUl2J023Ib4
- 2oZqqneVKZYpcKNIHluyxjSQtZIReHUcSBcTe4jfgUJggDN+dNSYAlo1aGhWPnzvDQbRZCHTJWg
- Uk7AMFXdXjpwG6lD/eIwyGaolqIxicaI07ar8HnaLkPNPACi4sUAoTeOjADjojfVY4crELiCln3
- mqtk8Fk=
-X-Google-Smtp-Source: AGHT+IGsjn2HsD9B470GSaZ7/WuS4a1ciiqbzWwWUR77XR0Zla03DKiQ+x82aV6yWtJ1LuxULtoYsw==
-X-Received: by 2002:a05:6a00:b46:b0:71e:4786:98ee with SMTP id
- d2e1a72fcca58-7290c2702e3mr2257553b3a.21.1734068967116; 
- Thu, 12 Dec 2024 21:49:27 -0800 (PST)
-Received: from localhost.localdomain ([180.159.118.224])
- by smtp.gmail.com with ESMTPSA id
- d2e1a72fcca58-725ee10f928sm8166032b3a.32.2024.12.12.21.49.23
- (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
- Thu, 12 Dec 2024 21:49:26 -0800 (PST)
-From: Yafang Shao <laoar.shao@gmail.com>
-To: torvalds@linux-foundation.org,
-	akpm@linux-foundation.org
-Cc: linux-kernel@vger.kernel.org, linux-security-module@vger.kernel.org,
- x86@kernel.org, linux-snps-arc@lists.infradead.org,
- linux-wireless@vger.kernel.org, intel-gfx@lists.freedesktop.org,
- intel-xe@lists.freedesktop.org, nouveau@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, ocfs2-devel@lists.linux.dev,
- Yafang Shao <laoar.shao@gmail.com>, Mark Fasheh <mark@fasheh.com>,
- Joel Becker <jlbec@evilplan.org>, Joseph Qi <joseph.qi@linux.alibaba.com>
-Subject: [PATCH 7/7] fs: Use %pTN to print task name
-Date: Fri, 13 Dec 2024 13:49:18 +0800
-Message-Id: <20241213054918.56441-1-laoar.shao@gmail.com>
-X-Mailer: git-send-email 2.37.1 (Apple Git-137.1)
+ AJvYcCVBHSWcC7KXFPRppYakyr/2Ue8Im0OmfOJRR1W3Vdf/t7/V6oY8qYxdhNQZgysx912J3zW6cObwvHE=@lists.freedesktop.org,
+ AJvYcCVUbfNKCVM20ujzHpHSKtq/T/X+OFCbChLpwBPt4JAI1gwMO+YI8uI1En9reoY9wF3uCKcPUBr7uQ==@lists.freedesktop.org,
+ AJvYcCXABTM3Yu4gR4ZtDnvYlq9o5vGla9F+2M4bb1GX+u1/oGukclN3q4Lka4dUb8TISbzl4kL4P7ZzGer2@lists.freedesktop.org,
+ AJvYcCXDVK5rj1o5RGVG0y4+xNT2smZBE/9raM94VUoVSvHOXqhSadZBIhdLQwX3kg+ZZb5/cvKmS/XzHsM=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yya9Kci8TLNWrhz25sVKhNDMgbsgVjBkEkaYw8Q0iqZEymMoNdz
+ Vrur+KqbY+CuTBCbhIste/EkKfjSQsDqLr71Q2RNfKic9EHWSKwqKCOVDD6PwH5Xvw5rG+mZNQU
+ u+K4Bg7pOkFHyVOypI4QkLakRpwo=
+X-Gm-Gg: ASbGncuAqbDmKmzqUsjEdGG3pdL6Fkuz7klEVX1sH6VpZlvV86Ab1BHVgTocirCt2zk
+ tGtlBqvvue/3Cq5Ew6qCd7/A43JRzmvNUpasPq7Y=
+X-Google-Smtp-Source: AGHT+IEt1cOWo4VsTmw/6EdhS/KZ00UrsyLMhWiucugMYEeldbYzELrBj4wzlhuYfpJWzQ/nKiHjbqdqIiCiPqivAYk=
+X-Received: by 2002:a05:6214:301e:b0:6cb:ee08:c1e8 with SMTP id
+ 6a1803df08f44-6dc8ca869aamr25025096d6.23.1734079006748; Fri, 13 Dec 2024
+ 00:36:46 -0800 (PST)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20241213054610.55843-1-laoar.shao@gmail.com>
+ <20241213054610.55843-2-laoar.shao@gmail.com>
+ <Z1vq2-V7vB5KhBR9@pathway.suse.cz>
+In-Reply-To: <Z1vq2-V7vB5KhBR9@pathway.suse.cz>
+From: Yafang Shao <laoar.shao@gmail.com>
+Date: Fri, 13 Dec 2024 16:36:10 +0800
+Message-ID: <CALOAHbAD-USZYry6dToxDTM-OO1+Rz0g6XQkCjhzhWDt7g4MGw@mail.gmail.com>
+Subject: Re: [PATCH 1/7] vsprintf: Add %pTN to print task name
+To: Petr Mladek <pmladek@suse.com>,
+ Linus Torvalds <torvalds@linux-foundation.org>
+Cc: akpm@linux-foundation.org, linux-kernel@vger.kernel.org, 
+ linux-security-module@vger.kernel.org, x86@kernel.org, 
+ linux-snps-arc@lists.infradead.org, linux-wireless@vger.kernel.org, 
+ intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org, 
+ nouveau@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
+ ocfs2-devel@lists.linux.dev, Steven Rostedt <rostedt@goodmis.org>, 
+ Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
+ Rasmus Villemoes <linux@rasmusvillemoes.dk>,
+ Sergey Senozhatsky <senozhatsky@chromium.org>, 
+ Andy Whitcroft <apw@canonical.com>, Joe Perches <joe@perches.com>, 
+ Dwaipayan Ray <dwaipayanray1@gmail.com>,
+ Lukas Bulwahn <lukas.bulwahn@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-Mailman-Approved-At: Fri, 13 Dec 2024 14:02:42 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -95,44 +98,46 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Since task->comm is guaranteed to be NUL-terminated, we can print it
-directly without the need to copy it into a separate buffer. This
-simplifies the code and avoids unnecessary operations.
+On Fri, Dec 13, 2024 at 4:05=E2=80=AFPM Petr Mladek <pmladek@suse.com> wrot=
+e:
+>
+> On Fri 2024-12-13 13:46:04, Yafang Shao wrote:
+> > Since the task->comm is guaranteed to be NUL-ternimated, we can print i=
+t
+> > directly. Add a new vsnprintf format specifier "%pTN" to print task com=
+m,
+> > where 'p' represents the task Pointer, 'T' stands for Task, and 'N' den=
+ots
+> > Name. With this abstraction, the user no longer needs to care about
+> > retrieving task name.
+>
+> What is the advantage, please?
 
-Signed-off-by: Yafang Shao <laoar.shao@gmail.com>
-Cc: Mark Fasheh <mark@fasheh.com>
-Cc: Joel Becker <jlbec@evilplan.org>
-Cc: Joseph Qi <joseph.qi@linux.alibaba.com>
----
- fs/ocfs2/cluster/netdebug.c | 5 ++---
- 1 file changed, 2 insertions(+), 3 deletions(-)
+The advantage is that it provides the flexibility to modify the comm
+representation to meet future requirements. For instance, we could
+rename it to "task_name" and increase its size.
 
-diff --git a/fs/ocfs2/cluster/netdebug.c b/fs/ocfs2/cluster/netdebug.c
-index bc27301eab6d..039d99f951ea 100644
---- a/fs/ocfs2/cluster/netdebug.c
-+++ b/fs/ocfs2/cluster/netdebug.c
-@@ -122,11 +122,10 @@ static int nst_seq_show(struct seq_file *seq, void *v)
- 	send = ktime_to_us(ktime_sub(now, nst->st_send_time));
- 	status = ktime_to_us(ktime_sub(now, nst->st_status_time));
- 
--	/* get_task_comm isn't exported.  oh well. */
- 	seq_printf(seq, "%p:\n"
- 		   "  pid:          %lu\n"
- 		   "  tgid:         %lu\n"
--		   "  process name: %s\n"
-+		   "  process name: %pTN\n"
- 		   "  node:         %u\n"
- 		   "  sc:           %p\n"
- 		   "  message id:   %d\n"
-@@ -137,7 +136,7 @@ static int nst_seq_show(struct seq_file *seq, void *v)
- 		   "  wait start:   %lld usecs ago\n",
- 		   nst, (unsigned long)task_pid_nr(nst->st_task),
- 		   (unsigned long)nst->st_task->tgid,
--		   nst->st_task->comm, nst->st_node,
-+		   nst->st_task, nst->st_node,
- 		   nst->st_sc, nst->st_id, nst->st_msg_type,
- 		   nst->st_msg_key,
- 		   (long long)sock,
--- 
-2.43.5
+>
+> Honestly, I believe that the meaning of
+>
+>         printk("%s\n", task->comm);
+>
+> is much more clear than using a cryptic %pXYZ modifier:
+>
+>         printk("%pTN\n", task);
+>
+>
+> The %pXYZ modifiers makes sense only when the formatting of the printed
+> information needs some processing. But this is a plain string.
 
+That makes sense to me.
+
+> IMHO, it is not worth it. In fact, I believe that it is a
+> counter productive.
+
+Linus, what are your thoughts?
+
+
+--
+Regards
+Yafang
