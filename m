@@ -4,52 +4,51 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9A9BCE77182
-	for <intel-gfx@archiver.kernel.org>; Fri, 13 Dec 2024 06:35:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7D6A3E77180
+	for <intel-gfx@archiver.kernel.org>; Fri, 13 Dec 2024 06:35:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 44E4510EF17;
-	Fri, 13 Dec 2024 06:35:53 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EE2B710EF1D;
+	Fri, 13 Dec 2024 06:35:56 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="WNXfTxgm";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="GxhQnchN";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.18])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E084F10EF13;
- Fri, 13 Dec 2024 06:35:48 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 27FE110EF1B;
+ Fri, 13 Dec 2024 06:35:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1734071749; x=1765607749;
+ t=1734071755; x=1765607755;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=gbzQ5hErCOVsameKYcMzOSz5EX9oVn+uuIRLzHdhloI=;
- b=WNXfTxgmkX5ff/Blzl1+EitKCHK0bYE0m8wwreGWzk9I+xgeLX6ZtJ8C
- Rk1DsslMcEwkMLnM6gR5n/V1fAQbuzyL7fvlOnC0AMdyLD0jLlwswQV3D
- ZXY/xPblgcCnJ/oafeHStEJuXr/qtpbPqRwiSuOYAOQC7L042x7n9M/Tn
- vguZ2mJbpK7CE4me4IJLFPgLGX234XQpPSb+M0L5oEc6d+LMLzZGYQGiZ
- UaLAAbnqpAiOMYTWjrScEV39GWaow887O2qEZO5hUgyq5SRVeY8A56MyV
- fgXmdY7Kl9MCrR8V9XiXa0LbXLfOxKZTT+fEUlQjJuYEhuWUPXneDpE+q A==;
-X-CSE-ConnectionGUID: uii0ptWVTi2PHqHzUV8pdg==
-X-CSE-MsgGUID: iKQKYnL8SMGtwWQZJrpkOw==
-X-IronPort-AV: E=McAfee;i="6700,10204,11284"; a="33846840"
-X-IronPort-AV: E=Sophos;i="6.12,230,1728975600"; d="scan'208";a="33846840"
+ bh=1/Pm1lHwU0LUwvYs9EbssI7tALO4e8JJXkqdRlQtZBo=;
+ b=GxhQnchNLX9fat7Pn+K0uLRWHRzaOxKisFO5XeIbu9X9tlclSAHC/4Tx
+ 51TpxJcG8T0P10FPscvtQ9Fuktyhd4aRXLw7v85h2oGeds2cHTp8GjaxZ
+ CbAHt6VZOz6AJPA81zWWC+WXLldTlhuZ6QymBeABvBal6ZeRvNK7BKy9P
+ ND5hl6bO/xYybodRWkTrA/3RpcwxWNt8Mw6gWVoqOoie8EMPp04J+K/TB
+ UKLY2icopqareI+nQ9+iaECVB6C1hRKw78q6NgerrcBVsqo8yuaC8rLuF
+ H9IO5kk9lXb6AhyS6oVbQnhtspa3JN3cv3O7pO+J8ze9rCtTN1e59ZrvX Q==;
+X-CSE-ConnectionGUID: 2t82F/kwRp6zBykwqtLwsQ==
+X-CSE-MsgGUID: lXZx4Ca4QRit9EqXqmMlxQ==
+X-IronPort-AV: E=McAfee;i="6700,10204,11284"; a="33846856"
+X-IronPort-AV: E=Sophos;i="6.12,230,1728975600"; d="scan'208";a="33846856"
 Received: from orviesa010.jf.intel.com ([10.64.159.150])
  by fmvoesa112.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 12 Dec 2024 22:35:48 -0800
-X-CSE-ConnectionGUID: z6t05rEzQ+KPPT54VKJ41A==
-X-CSE-MsgGUID: PVw2OICXRQOCrYy5x4+iDQ==
+ 12 Dec 2024 22:35:55 -0800
+X-CSE-ConnectionGUID: 0f3FHzlqR5G70xHmgic7Cg==
+X-CSE-MsgGUID: y5CvpYpASyCRL244U41iQQ==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.12,224,1728975600"; d="scan'208";a="96307740"
+X-IronPort-AV: E=Sophos;i="6.12,224,1728975600"; d="scan'208";a="96307772"
 Received: from fdefranc-mobl3.ger.corp.intel.com (HELO jhogande-mobl1..)
  ([10.245.245.191])
  by orviesa010-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 12 Dec 2024 22:35:48 -0800
+ 12 Dec 2024 22:35:54 -0800
 From: =?UTF-8?q?Jouni=20H=C3=B6gander?= <jouni.hogander@intel.com>
 To: intel-gfx@lists.freedesktop.org,
 	intel-xe@lists.freedesktop.org
 Cc: =?UTF-8?q?Jouni=20H=C3=B6gander?= <jouni.hogander@intel.com>
-Subject: [PATCH 05/10] drm/i915/psr: Ensure SFF/CFF bits are not written at
- their sample point
-Date: Fri, 13 Dec 2024 08:35:23 +0200
-Message-Id: <20241213063528.2759659-6-jouni.hogander@intel.com>
+Subject: [PATCH 09/10] drm/i915/psr: Remove DSB_SKIP_WAITS_EN chicken bit
+Date: Fri, 13 Dec 2024 08:35:27 +0200
+Message-Id: <20241213063528.2759659-10-jouni.hogander@intel.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20241213063528.2759659-1-jouni.hogander@intel.com>
 References: <20241213063528.2759659-1-jouni.hogander@intel.com>
@@ -72,71 +71,40 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Bspec says this for SFF/CFF:
+We have different approach on how flip is considered being complete. We are
+waiting for vblank on DSB and generate interrupt when it happens and this
+interrupt is considered as indication of completion -> we definitely do not
+want to skip vblank wait.
 
-"Hardware samples this bit on the start of every V. Blank Guardband
-region. For deterministic behavior, Software should ensure it is not
-changing this bit around the sample point."
-
-This can be achieved by using intel_vblank_evade.
+Also not skipping scanline wait shouldn't cause any problems if we are in
+DEEP_SLEEP PIPEDSL register is returning 0 -> evasion does nothing and if
+we are not in DEEP_SLEEP evasion works same way as without PSR.
 
 Signed-off-by: Jouni Högander <jouni.hogander@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_psr.c | 17 +++++++++++++++++
- 1 file changed, 17 insertions(+)
+ drivers/gpu/drm/i915/display/intel_dsb.c | 5 ++---
+ 1 file changed, 2 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_psr.c b/drivers/gpu/drm/i915/display/intel_psr.c
-index c074de6b6c12..8aa2574ba5c9 100644
---- a/drivers/gpu/drm/i915/display/intel_psr.c
-+++ b/drivers/gpu/drm/i915/display/intel_psr.c
-@@ -26,6 +26,7 @@
- #include <drm/drm_atomic_helper.h>
- #include <drm/drm_damage_helper.h>
- #include <drm/drm_debugfs.h>
-+#include <drm/drm_vblank.h>
- 
- #include "i915_drv.h"
- #include "i915_reg.h"
-@@ -44,6 +45,7 @@
- #include "intel_psr.h"
- #include "intel_psr_regs.h"
- #include "intel_snps_phy.h"
-+#include "intel_vblank.h"
- #include "skl_universal_plane.h"
- 
- /**
-@@ -3114,16 +3116,31 @@ static void intel_psr_configure_full_frame_update(struct intel_dp *intel_dp)
+diff --git a/drivers/gpu/drm/i915/display/intel_dsb.c b/drivers/gpu/drm/i915/display/intel_dsb.c
+index e6f8fc743fb4..8b7438032878 100644
+--- a/drivers/gpu/drm/i915/display/intel_dsb.c
++++ b/drivers/gpu/drm/i915/display/intel_dsb.c
+@@ -177,13 +177,12 @@ static u32 dsb_chicken(struct intel_atomic_state *state,
+ 		       struct intel_crtc *crtc)
  {
- 	struct intel_display *display = to_intel_display(intel_dp);
- 	enum transcoder cpu_transcoder = intel_dp->psr.transcoder;
-+	struct intel_crtc *crtc = intel_crtc_for_pipe(display, intel_dp->psr.pipe);
-+	struct intel_crtc_state *crtc_state = to_intel_crtc_state(crtc->base.state);
-+	struct intel_vblank_evade_ctx evade;
- 
- 	if (!intel_dp->psr.psr2_sel_fetch_enabled)
- 		return;
- 
-+	intel_vblank_evade_init(crtc_state, crtc_state, &evade);
-+
-+	drm_crtc_vblank_get(&crtc->base);
-+
-+	local_irq_disable();
-+
-+	intel_vblank_evade(&evade);
-+
-+	drm_crtc_vblank_put(&crtc->base);
-+
- 	intel_de_write(display,
- 		       PSR2_MAN_TRK_CTL(display, cpu_transcoder),
- 		       man_trk_ctl_enable_bit_get(display) |
- 		       man_trk_ctl_partial_frame_bit_get(display) |
- 		       man_trk_ctl_single_full_frame_bit_get(display) |
- 		       man_trk_ctl_continuos_full_frame(display));
-+
-+	local_irq_enable();
+ 	if (pre_commit_is_vrr_active(state, crtc))
+-		return DSB_SKIP_WAITS_EN |
+-			DSB_CTRL_WAIT_SAFE_WINDOW |
++		return DSB_CTRL_WAIT_SAFE_WINDOW |
+ 			DSB_CTRL_NO_WAIT_VBLANK |
+ 			DSB_INST_WAIT_SAFE_WINDOW |
+ 			DSB_INST_NO_WAIT_VBLANK;
+ 	else
+-		return DSB_SKIP_WAITS_EN;
++		return 0;
  }
  
- static void _psr_invalidate_handle(struct intel_dp *intel_dp)
+ static bool assert_dsb_has_room(struct intel_dsb *dsb)
 -- 
 2.34.1
 
