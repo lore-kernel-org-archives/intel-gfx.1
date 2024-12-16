@@ -4,56 +4,56 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D3B31E77180
-	for <intel-gfx@archiver.kernel.org>; Mon, 16 Dec 2024 11:28:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 71088E7717F
+	for <intel-gfx@archiver.kernel.org>; Mon, 16 Dec 2024 11:34:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7B87A10E5B1;
-	Mon, 16 Dec 2024 11:28:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 29FA310E5BF;
+	Mon, 16 Dec 2024 11:34:54 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="hfmAnU0l";
+	dkim=pass (1024-bit key; unprotected) header.d=weissschuh.net header.i=@weissschuh.net header.b="syJzmf0d";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.12])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BBA6810E5AD;
- Mon, 16 Dec 2024 11:28:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1734348492; x=1765884492;
- h=from:to:cc:subject:in-reply-to:references:date:
- message-id:mime-version;
- bh=fiOGslAQUM7uSdNSaYraB7+zf4PgmYdD0EsjP5dCpeM=;
- b=hfmAnU0lwNYwFexYKljbfsCJ+XinN5hkPWXZiVkdm2Z2aV4W+qMGguoX
- Tsgbu2pFkVvUAvRJpKyRYbnN9ypztEYPQ/617QsZB738fX3Zg1cTDpgaV
- zvmrnLph3KBTGi935OsI2/tERQQX1WQWvCtI7GE9Jt0QAHZr/KiuOxI06
- 62kBG92Obuwr8vBm+Tfs1fh32p7K0oCp4gm7U/4gfIWuURGG6lzVsc/Vi
- AiZY/imUu7SsPRTK7xV59aokOgAHkKkp8HQuE6iZ5hGYepayrg2bFQcRe
- W6JAcwuJQGVOvF7zenbEQI+Bj97isY++IETZhogFR5ng9qNb2gWMQ59PW A==;
-X-CSE-ConnectionGUID: ArWa6+8oReqcRj+/WCSA1w==
-X-CSE-MsgGUID: huQSP7jkRmS33AHHPYPOfA==
-X-IronPort-AV: E=McAfee;i="6700,10204,11282"; a="38654715"
-X-IronPort-AV: E=Sophos;i="6.12,224,1728975600"; d="scan'208";a="38654715"
-Received: from orviesa001.jf.intel.com ([10.64.159.141])
- by fmvoesa106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 16 Dec 2024 03:28:12 -0800
-X-CSE-ConnectionGUID: bPngk1DOTSGrY0NDw1Gf6Q==
-X-CSE-MsgGUID: w8Fta0jyTCKxlKEGXQbT4Q==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.12,224,1728975600"; d="scan'208";a="134505362"
-Received: from mjarzebo-mobl1.ger.corp.intel.com (HELO localhost)
- ([10.245.246.245])
- by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 16 Dec 2024 03:28:10 -0800
-From: Jani Nikula <jani.nikula@linux.intel.com>
-To: Jonathan Cavitt <jonathan.cavitt@intel.com>, intel-xe@lists.freedesktop.org
-Cc: jonathan.cavitt@intel.com, saurabhg.gupta@intel.com, alex.zuo@intel.com,
- intel-gfx@lists.freedesktop.org, imre.deak@intel.com
-Subject: Re: [PATCH] drm/i915/display: Do not report timeout on suspend
-In-Reply-To: <20241213231234.81647-1-jonathan.cavitt@intel.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
-References: <20241213231234.81647-1-jonathan.cavitt@intel.com>
-Date: Mon, 16 Dec 2024 13:28:06 +0200
-Message-ID: <87zfkvsw8p.fsf@intel.com>
+Received: from todd.t-8ch.de (todd.t-8ch.de [159.69.126.157])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B3FCF10E5AD;
+ Mon, 16 Dec 2024 11:34:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=weissschuh.net;
+ s=mail; t=1734348890;
+ bh=UcFNLmnvsYaQOHcmZvcmxzeMoweYVAEm2PgsTyadgkI=;
+ h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
+ b=syJzmf0d4MfCocdBz4SdwRhaTCrA7uJxy2KQkCR7vFDUozn+OrKnjr+sCP5846KEM
+ pOb1SZsB+JL7/uyO0moALDM8wWobbJx88Pq57EmLv/sD7CAT4zYI681gHjAcS6phLE
+ 1xB6vfUEiLUnjkBkMiiTLyZs6ozj1ORaZReYlWv0=
+From: =?utf-8?q?Thomas_Wei=C3=9Fschuh?= <linux@weissschuh.net>
+Date: Mon, 16 Dec 2024 12:34:49 +0100
+Subject: [PATCH 3/5] drm/i915: Constify 'struct bin_attribute'
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+Message-Id: <20241216-sysfs-const-bin_attr-drm-v1-3-210f2b36b9bf@weissschuh.net>
+References: <20241216-sysfs-const-bin_attr-drm-v1-0-210f2b36b9bf@weissschuh.net>
+In-Reply-To: <20241216-sysfs-const-bin_attr-drm-v1-0-210f2b36b9bf@weissschuh.net>
+To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Qiang Yu <yuq825@gmail.com>, Jani Nikula <jani.nikula@linux.intel.com>, 
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, 
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, 
+ Tvrtko Ursulin <tursulin@ursulin.net>, 
+ Alex Deucher <alexander.deucher@amd.com>, 
+ =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ Xinhui Pan <Xinhui.Pan@amd.com>, Harry Wentland <harry.wentland@amd.com>, 
+ Leo Li <sunpeng.li@amd.com>, Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ lima@lists.freedesktop.org, intel-gfx@lists.freedesktop.org, 
+ amd-gfx@lists.freedesktop.org, 
+ =?utf-8?q?Thomas_Wei=C3=9Fschuh?= <linux@weissschuh.net>
+X-Mailer: b4 0.14.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1734348889; l=3431;
+ i=linux@weissschuh.net; s=20221212; h=from:subject:message-id;
+ bh=UcFNLmnvsYaQOHcmZvcmxzeMoweYVAEm2PgsTyadgkI=;
+ b=Cf8bG3lKy+H2AAGHpNlU9pJX+g0endqvP6W/4Y7M0B1o4fSNb6WQQ2Ir7gmA0kMgrqUn11+go
+ eYMtY4tn9ibBNp7Y4fsPYQsbC+bjLvJlQU2xTEStr9ySkNZJezQ0n2x
+X-Developer-Key: i=linux@weissschuh.net; a=ed25519;
+ pk=KcycQgFPX2wGR5azS7RhpBqedglOZVgRPfdFSPB1LNw=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,46 +69,94 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Fri, 13 Dec 2024, Jonathan Cavitt <jonathan.cavitt@intel.com> wrote:
-> In intel_dp_aux_wait_done, we call intel_de_wait_custom.  This call has
-> a 10ms timeout before reporting ETIMEDOUT.  However, if the display pm
-> runtime is suspended, then it would be expected for this call to time
-> out.  This may be the case, for example, during an engine reset.
->
-> Do not report ETIMEDOUT here when the pm runtime is suspended.
+The sysfs core now allows instances of 'struct bin_attribute' to be
+moved into read-only memory. Make use of that to protect them against
+accidental or malicious modifications.
 
-No.
+Signed-off-by: Thomas Weißschuh <linux@weissschuh.net>
+---
+ drivers/gpu/drm/i915/i915_gpu_error.c |  8 ++++----
+ drivers/gpu/drm/i915/i915_sysfs.c     | 12 ++++++------
+ 2 files changed, 10 insertions(+), 10 deletions(-)
 
-Please root cause how you hit this. This should not be possible.
-
-intel_dp_aux_xfer() -> intel_display_power_get() -> intel_runtime_pm_get()
-
-We hold this over the duration of aux communications. The patch at hand
-is brushing something more serious under the carpet.
-
-BR,
-Jani.
-
-
->
-> Signed-off-by: Jonathan Cavitt <jonathan.cavitt@intel.com>
-> ---
->  drivers/gpu/drm/i915/display/intel_dp_aux.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
->
-> diff --git a/drivers/gpu/drm/i915/display/intel_dp_aux.c b/drivers/gpu/drm/i915/display/intel_dp_aux.c
-> index 04a7acd7f73c..25c37398f930 100644
-> --- a/drivers/gpu/drm/i915/display/intel_dp_aux.c
-> +++ b/drivers/gpu/drm/i915/display/intel_dp_aux.c
-> @@ -66,7 +66,7 @@ intel_dp_aux_wait_done(struct intel_dp *intel_dp)
->  				   0,
->  				   2, timeout_ms, &status);
->  
-> -	if (ret == -ETIMEDOUT)
-> +	if (ret == -ETIMEDOUT && !pm_runtime_suspended(display->drm->dev))
->  		drm_err(display->drm,
->  			"%s: did not complete or timeout within %ums (status 0x%08x)\n",
->  			intel_dp->aux.name, timeout_ms, status);
+diff --git a/drivers/gpu/drm/i915/i915_gpu_error.c b/drivers/gpu/drm/i915/i915_gpu_error.c
+index 71c0daef19962660086b37fe55ca2d6b01f2bb9a..a4cb4e731bdd72201c91541fb86e827e96214a8b 100644
+--- a/drivers/gpu/drm/i915/i915_gpu_error.c
++++ b/drivers/gpu/drm/i915/i915_gpu_error.c
+@@ -2491,7 +2491,7 @@ void i915_gpu_error_debugfs_register(struct drm_i915_private *i915)
+ }
+ 
+ static ssize_t error_state_read(struct file *filp, struct kobject *kobj,
+-				struct bin_attribute *attr, char *buf,
++				const struct bin_attribute *attr, char *buf,
+ 				loff_t off, size_t count)
+ {
+ 
+@@ -2527,7 +2527,7 @@ static ssize_t error_state_read(struct file *filp, struct kobject *kobj,
+ }
+ 
+ static ssize_t error_state_write(struct file *file, struct kobject *kobj,
+-				 struct bin_attribute *attr, char *buf,
++				 const struct bin_attribute *attr, char *buf,
+ 				 loff_t off, size_t count)
+ {
+ 	struct device *kdev = kobj_to_dev(kobj);
+@@ -2543,8 +2543,8 @@ static const struct bin_attribute error_state_attr = {
+ 	.attr.name = "error",
+ 	.attr.mode = S_IRUSR | S_IWUSR,
+ 	.size = 0,
+-	.read = error_state_read,
+-	.write = error_state_write,
++	.read_new = error_state_read,
++	.write_new = error_state_write,
+ };
+ 
+ void i915_gpu_error_sysfs_setup(struct drm_i915_private *i915)
+diff --git a/drivers/gpu/drm/i915/i915_sysfs.c b/drivers/gpu/drm/i915/i915_sysfs.c
+index 8775beab9cb8438c2e8abb0f9d8104dcba7c0df3..f936e8f1f12942287a5a7d6aa7db6ed3a4c28281 100644
+--- a/drivers/gpu/drm/i915/i915_sysfs.c
++++ b/drivers/gpu/drm/i915/i915_sysfs.c
+@@ -60,7 +60,7 @@ static int l3_access_valid(struct drm_i915_private *i915, loff_t offset)
+ 
+ static ssize_t
+ i915_l3_read(struct file *filp, struct kobject *kobj,
+-	     struct bin_attribute *attr, char *buf,
++	     const struct bin_attribute *attr, char *buf,
+ 	     loff_t offset, size_t count)
+ {
+ 	struct device *kdev = kobj_to_dev(kobj);
+@@ -88,7 +88,7 @@ i915_l3_read(struct file *filp, struct kobject *kobj,
+ 
+ static ssize_t
+ i915_l3_write(struct file *filp, struct kobject *kobj,
+-	      struct bin_attribute *attr, char *buf,
++	      const struct bin_attribute *attr, char *buf,
+ 	      loff_t offset, size_t count)
+ {
+ 	struct device *kdev = kobj_to_dev(kobj);
+@@ -140,8 +140,8 @@ i915_l3_write(struct file *filp, struct kobject *kobj,
+ static const struct bin_attribute dpf_attrs = {
+ 	.attr = {.name = "l3_parity", .mode = (S_IRUSR | S_IWUSR)},
+ 	.size = GEN7_L3LOG_SIZE,
+-	.read = i915_l3_read,
+-	.write = i915_l3_write,
++	.read_new = i915_l3_read,
++	.write_new = i915_l3_write,
+ 	.mmap = NULL,
+ 	.private = (void *)0
+ };
+@@ -149,8 +149,8 @@ static const struct bin_attribute dpf_attrs = {
+ static const struct bin_attribute dpf_attrs_1 = {
+ 	.attr = {.name = "l3_parity_slice_1", .mode = (S_IRUSR | S_IWUSR)},
+ 	.size = GEN7_L3LOG_SIZE,
+-	.read = i915_l3_read,
+-	.write = i915_l3_write,
++	.read_new = i915_l3_read,
++	.write_new = i915_l3_write,
+ 	.mmap = NULL,
+ 	.private = (void *)1
+ };
 
 -- 
-Jani Nikula, Intel
+2.47.1
+
