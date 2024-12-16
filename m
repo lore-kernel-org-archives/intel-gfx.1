@@ -4,56 +4,27 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C6527E77183
-	for <intel-gfx@archiver.kernel.org>; Mon, 16 Dec 2024 11:34:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 364D1E77180
+	for <intel-gfx@archiver.kernel.org>; Mon, 16 Dec 2024 11:38:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 79A3510E5CA;
-	Mon, 16 Dec 2024 11:34:55 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=weissschuh.net header.i=@weissschuh.net header.b="Q8zsUSw4";
-	dkim-atps=neutral
-Received: from todd.t-8ch.de (todd.t-8ch.de [159.69.126.157])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 506DB10E5C1;
- Mon, 16 Dec 2024 11:34:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=weissschuh.net;
- s=mail; t=1734348890;
- bh=zuT+LJN8yyZdjBUYgx4LeWWwlVkL7wdTwqvya297jls=;
- h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=Q8zsUSw45BtgARRdWi3boy4K+6THyxtcF4oUO/jPWdN8pAVOI3rQJkUz2GF14htdS
- EJ2du0p7474uP0KSCM97/l/z1co3lKUSAc74rJf5fgoR6CzcZ1LWTHAsGnO8OtsJ4V
- Ns1bKYa8fvFqN9jvTm/aHo3VwdBTsiFTm1imSxpw=
-From: =?utf-8?q?Thomas_Wei=C3=9Fschuh?= <linux@weissschuh.net>
-Date: Mon, 16 Dec 2024 12:34:50 +0100
-Subject: [PATCH 4/5] drm/amdgpu: Constify 'struct bin_attribute'
-MIME-Version: 1.0
+	by gabe.freedesktop.org (Postfix) with ESMTP id C60B610E5B3;
+	Mon, 16 Dec 2024 11:38:40 +0000 (UTC)
+Received: from b555e5b46a47 (emeril.freedesktop.org [131.252.210.167])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2418410E5B3;
+ Mon, 16 Dec 2024 11:38:39 +0000 (UTC)
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Message-Id: <20241216-sysfs-const-bin_attr-drm-v1-4-210f2b36b9bf@weissschuh.net>
-References: <20241216-sysfs-const-bin_attr-drm-v1-0-210f2b36b9bf@weissschuh.net>
-In-Reply-To: <20241216-sysfs-const-bin_attr-drm-v1-0-210f2b36b9bf@weissschuh.net>
-To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Qiang Yu <yuq825@gmail.com>, Jani Nikula <jani.nikula@linux.intel.com>, 
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, 
- Rodrigo Vivi <rodrigo.vivi@intel.com>, 
- Tvrtko Ursulin <tursulin@ursulin.net>, 
- Alex Deucher <alexander.deucher@amd.com>, 
- =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- Xinhui Pan <Xinhui.Pan@amd.com>, Harry Wentland <harry.wentland@amd.com>, 
- Leo Li <sunpeng.li@amd.com>, Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- lima@lists.freedesktop.org, intel-gfx@lists.freedesktop.org, 
- amd-gfx@lists.freedesktop.org, 
- =?utf-8?q?Thomas_Wei=C3=9Fschuh?= <linux@weissschuh.net>
-X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1734348889; l=5717;
- i=linux@weissschuh.net; s=20221212; h=from:subject:message-id;
- bh=zuT+LJN8yyZdjBUYgx4LeWWwlVkL7wdTwqvya297jls=;
- b=t/e4NpjzaihOxUQhxM9fCFKwdSbBN4HpYBXnVQDcuR8p8/tYTm7wlNTElz/kh4GFe2sa+7MPl
- RfSBcyst2hbDjIWe0ng8erI2054SsD6gVbtFvLfTdtHkotBHapZ8aeM
-X-Developer-Key: i=linux@weissschuh.net; a=ed25519;
- pk=KcycQgFPX2wGR5azS7RhpBqedglOZVgRPfdFSPB1LNw=
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Subject: =?utf-8?q?=E2=9C=93_i915=2ECI=2EBAT=3A_success_for_drm/i915/dp=3A_convert_to?=
+ =?utf-8?q?_struct_intel=5Fdisplay_=28rev4=29?=
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Jani Nikula" <jani.nikula@intel.com>
+Cc: intel-gfx@lists.freedesktop.org
+Date: Mon, 16 Dec 2024 11:38:39 -0000
+Message-ID: <173434911914.3265464.437171374141175878@b555e5b46a47>
+X-Patchwork-Hint: ignore
+References: <cover.1734083244.git.jani.nikula@intel.com>
+In-Reply-To: <cover.1734083244.git.jani.nikula@intel.com>
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,147 +37,134 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-The sysfs core now allows instances of 'struct bin_attribute' to be
-moved into read-only memory. Make use of that to protect them against
-accidental or malicious modifications.
+== Series Details ==
 
-Signed-off-by: Thomas Weißschuh <linux@weissschuh.net>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_device.c |  6 +++---
- drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c    | 14 +++++++-------
- drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c    | 13 ++++++-------
- 3 files changed, 16 insertions(+), 17 deletions(-)
+Series: drm/i915/dp: convert to struct intel_display (rev4)
+URL   : https://patchwork.freedesktop.org/series/141929/
+State : success
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-index d272d95dd5b2f5eb83be279281d55af323f7f508..88459de2cd2e47390d33e5939875c3322b740b4d 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-@@ -223,7 +223,7 @@ static DEVICE_ATTR(pcie_replay_count, 0444,
- 		amdgpu_device_get_pcie_replay_count, NULL);
- 
- static ssize_t amdgpu_sysfs_reg_state_get(struct file *f, struct kobject *kobj,
--					  struct bin_attribute *attr, char *buf,
-+					  const struct bin_attribute *attr, char *buf,
- 					  loff_t ppos, size_t count)
- {
- 	struct device *dev = kobj_to_dev(kobj);
-@@ -259,8 +259,8 @@ static ssize_t amdgpu_sysfs_reg_state_get(struct file *f, struct kobject *kobj,
- 	return bytes_read;
- }
- 
--BIN_ATTR(reg_state, 0444, amdgpu_sysfs_reg_state_get, NULL,
--	 AMDGPU_SYS_REG_STATE_END);
-+static const BIN_ATTR(reg_state, 0444, amdgpu_sysfs_reg_state_get, NULL,
-+		      AMDGPU_SYS_REG_STATE_END);
- 
- int amdgpu_reg_state_sysfs_init(struct amdgpu_device *adev)
- {
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
-index 448f9e742983f3ef0c5fccc18d85f0c2449aa08e..cda25174730a6852bcb6e01aeec858faad172b19 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
-@@ -3969,7 +3969,7 @@ int is_psp_fw_valid(struct psp_bin_desc bin)
- }
- 
- static ssize_t amdgpu_psp_vbflash_write(struct file *filp, struct kobject *kobj,
--					struct bin_attribute *bin_attr,
-+					const struct bin_attribute *bin_attr,
- 					char *buffer, loff_t pos, size_t count)
- {
- 	struct device *dev = kobj_to_dev(kobj);
-@@ -4005,7 +4005,7 @@ static ssize_t amdgpu_psp_vbflash_write(struct file *filp, struct kobject *kobj,
- }
- 
- static ssize_t amdgpu_psp_vbflash_read(struct file *filp, struct kobject *kobj,
--				       struct bin_attribute *bin_attr, char *buffer,
-+				       const struct bin_attribute *bin_attr, char *buffer,
- 				       loff_t pos, size_t count)
- {
- 	struct device *dev = kobj_to_dev(kobj);
-@@ -4057,11 +4057,11 @@ static ssize_t amdgpu_psp_vbflash_read(struct file *filp, struct kobject *kobj,
-  * Writing to this file will stage an IFWI for update. Reading from this file
-  * will trigger the update process.
-  */
--static struct bin_attribute psp_vbflash_bin_attr = {
-+static const struct bin_attribute psp_vbflash_bin_attr = {
- 	.attr = {.name = "psp_vbflash", .mode = 0660},
- 	.size = 0,
--	.write = amdgpu_psp_vbflash_write,
--	.read = amdgpu_psp_vbflash_read,
-+	.write_new = amdgpu_psp_vbflash_write,
-+	.read_new = amdgpu_psp_vbflash_read,
- };
- 
- /**
-@@ -4088,7 +4088,7 @@ static ssize_t amdgpu_psp_vbflash_status(struct device *dev,
- }
- static DEVICE_ATTR(psp_vbflash_status, 0440, amdgpu_psp_vbflash_status, NULL);
- 
--static struct bin_attribute *bin_flash_attrs[] = {
-+static const struct bin_attribute *const bin_flash_attrs[] = {
- 	&psp_vbflash_bin_attr,
- 	NULL
- };
-@@ -4124,7 +4124,7 @@ static umode_t amdgpu_bin_flash_attr_is_visible(struct kobject *kobj,
- 
- const struct attribute_group amdgpu_flash_attr_group = {
- 	.attrs = flash_attrs,
--	.bin_attrs = bin_flash_attrs,
-+	.bin_attrs_new = bin_flash_attrs,
- 	.is_bin_visible = amdgpu_bin_flash_attr_is_visible,
- 	.is_visible = amdgpu_flash_attr_is_visible,
- };
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
-index 4c9fa24dd9726a405935907524ed7bf7862779d1..2991e0967b5bfc848328aaa59ddfb9a8f202bae9 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
-@@ -1732,7 +1732,7 @@ static char *amdgpu_ras_badpage_flags_str(unsigned int flags)
-  */
- 
- static ssize_t amdgpu_ras_sysfs_badpages_read(struct file *f,
--		struct kobject *kobj, struct bin_attribute *attr,
-+		struct kobject *kobj, const struct bin_attribute *attr,
- 		char *buf, loff_t ppos, size_t count)
- {
- 	struct amdgpu_ras *con =
-@@ -2063,8 +2063,8 @@ void amdgpu_ras_debugfs_create_all(struct amdgpu_device *adev)
- /* debugfs end */
- 
- /* ras fs */
--static BIN_ATTR(gpu_vram_bad_pages, S_IRUGO,
--		amdgpu_ras_sysfs_badpages_read, NULL, 0);
-+static const BIN_ATTR(gpu_vram_bad_pages, S_IRUGO,
-+		      amdgpu_ras_sysfs_badpages_read, NULL, 0);
- static DEVICE_ATTR(features, S_IRUGO,
- 		amdgpu_ras_sysfs_features_read, NULL);
- static DEVICE_ATTR(version, 0444,
-@@ -2086,7 +2086,7 @@ static int amdgpu_ras_fs_init(struct amdgpu_device *adev)
- 		&con->event_state_attr.attr,
- 		NULL
- 	};
--	struct bin_attribute *bin_attrs[] = {
-+	const struct bin_attribute *bin_attrs[] = {
- 		NULL,
- 		NULL,
- 	};
-@@ -2112,11 +2112,10 @@ static int amdgpu_ras_fs_init(struct amdgpu_device *adev)
- 
- 	if (amdgpu_bad_page_threshold != 0) {
- 		/* add bad_page_features entry */
--		bin_attr_gpu_vram_bad_pages.private = NULL;
- 		con->badpages_attr = bin_attr_gpu_vram_bad_pages;
-+		sysfs_bin_attr_init(&con->badpages_attr);
- 		bin_attrs[0] = &con->badpages_attr;
--		group.bin_attrs = bin_attrs;
--		sysfs_bin_attr_init(bin_attrs[0]);
-+		group.bin_attrs_new = bin_attrs;
- 	}
- 
- 	r = sysfs_create_group(&adev->dev->kobj, &group);
+== Summary ==
 
--- 
-2.47.1
+CI Bug Log - changes from CI_DRM_15849 -> Patchwork_141929v4
+====================================================
 
+Summary
+-------
+
+  **SUCCESS**
+
+  No regressions found.
+
+  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_141929v4/index.html
+
+Participating hosts (45 -> 44)
+------------------------------
+
+  Missing    (1): fi-snb-2520m 
+
+Known issues
+------------
+
+  Here are the changes found in Patchwork_141929v4 that come from known issues:
+
+### IGT changes ###
+
+#### Issues hit ####
+
+  * igt@dmabuf@all-tests:
+    - fi-pnv-d510:        NOTRUN -> [INCOMPLETE][1] ([i915#12904]) +1 other test incomplete
+   [1]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_141929v4/fi-pnv-d510/igt@dmabuf@all-tests.html
+
+  * igt@i915_pm_rpm@module-reload:
+    - bat-adls-6:         [PASS][2] -> [FAIL][3] ([i915#12903])
+   [2]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_15849/bat-adls-6/igt@i915_pm_rpm@module-reload.html
+   [3]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_141929v4/bat-adls-6/igt@i915_pm_rpm@module-reload.html
+    - bat-apl-1:          [PASS][4] -> [FAIL][5] ([i915#12903])
+   [4]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_15849/bat-apl-1/igt@i915_pm_rpm@module-reload.html
+   [5]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_141929v4/bat-apl-1/igt@i915_pm_rpm@module-reload.html
+
+  * igt@i915_selftest@live@workarounds:
+    - bat-arlh-3:         [PASS][6] -> [ABORT][7] ([i915#12061]) +1 other test abort
+   [6]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_15849/bat-arlh-3/igt@i915_selftest@live@workarounds.html
+   [7]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_141929v4/bat-arlh-3/igt@i915_selftest@live@workarounds.html
+
+  * igt@kms_pipe_crc_basic@nonblocking-crc-frame-sequence:
+    - bat-dg2-11:         [PASS][8] -> [SKIP][9] ([i915#9197]) +3 other tests skip
+   [8]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_15849/bat-dg2-11/igt@kms_pipe_crc_basic@nonblocking-crc-frame-sequence.html
+   [9]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_141929v4/bat-dg2-11/igt@kms_pipe_crc_basic@nonblocking-crc-frame-sequence.html
+
+  * igt@kms_psr@psr-primary-mmap-gtt:
+    - fi-pnv-d510:        NOTRUN -> [SKIP][10] +31 other tests skip
+   [10]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_141929v4/fi-pnv-d510/igt@kms_psr@psr-primary-mmap-gtt.html
+
+  
+#### Possible fixes ####
+
+  * igt@i915_selftest@live:
+    - bat-mtlp-8:         [ABORT][11] ([i915#12061]) -> [PASS][12] +1 other test pass
+   [11]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_15849/bat-mtlp-8/igt@i915_selftest@live.html
+   [12]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_141929v4/bat-mtlp-8/igt@i915_selftest@live.html
+    - bat-twl-1:          [ABORT][13] ([i915#12435] / [i915#12919]) -> [PASS][14]
+   [13]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_15849/bat-twl-1/igt@i915_selftest@live.html
+   [14]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_141929v4/bat-twl-1/igt@i915_selftest@live.html
+
+  * igt@i915_selftest@live@requests:
+    - bat-twl-1:          [ABORT][15] ([i915#12919]) -> [PASS][16]
+   [15]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_15849/bat-twl-1/igt@i915_selftest@live@requests.html
+   [16]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_141929v4/bat-twl-1/igt@i915_selftest@live@requests.html
+
+  * igt@i915_selftest@live@workarounds:
+    - {bat-arls-6}:       [ABORT][17] ([i915#12061]) -> [PASS][18] +1 other test pass
+   [17]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_15849/bat-arls-6/igt@i915_selftest@live@workarounds.html
+   [18]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_141929v4/bat-arls-6/igt@i915_selftest@live@workarounds.html
+
+  * igt@kms_pipe_crc_basic@nonblocking-crc-frame-sequence:
+    - {bat-mtlp-9}:       [FAIL][19] ([i915#13290]) -> [PASS][20]
+   [19]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_15849/bat-mtlp-9/igt@kms_pipe_crc_basic@nonblocking-crc-frame-sequence.html
+   [20]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_141929v4/bat-mtlp-9/igt@kms_pipe_crc_basic@nonblocking-crc-frame-sequence.html
+
+  * igt@kms_pipe_crc_basic@read-crc-frame-sequence:
+    - {bat-mtlp-9}:       [DMESG-WARN][21] ([i915#12695]) -> [PASS][22] +10 other tests pass
+   [21]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_15849/bat-mtlp-9/igt@kms_pipe_crc_basic@read-crc-frame-sequence.html
+   [22]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_141929v4/bat-mtlp-9/igt@kms_pipe_crc_basic@read-crc-frame-sequence.html
+
+  
+#### Warnings ####
+
+  * igt@gem_exec_gttfill@basic:
+    - fi-pnv-d510:        [ABORT][23] ([i915#13169]) -> [SKIP][24]
+   [23]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_15849/fi-pnv-d510/igt@gem_exec_gttfill@basic.html
+   [24]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_141929v4/fi-pnv-d510/igt@gem_exec_gttfill@basic.html
+
+  
+  {name}: This element is suppressed. This means it is ignored when computing
+          the status of the difference (SUCCESS, WARNING, or FAILURE).
+
+  [i915#12061]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/12061
+  [i915#12435]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/12435
+  [i915#12695]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/12695
+  [i915#12903]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/12903
+  [i915#12904]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/12904
+  [i915#12919]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/12919
+  [i915#13169]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/13169
+  [i915#13290]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/13290
+  [i915#9197]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/9197
+
+
+Build changes
+-------------
+
+  * Linux: CI_DRM_15849 -> Patchwork_141929v4
+
+  CI-20190529: 20190529
+  CI_DRM_15849: 46e1a74cb7576e5318856a8c24bd127150687c97 @ git://anongit.freedesktop.org/gfx-ci/linux
+  IGT_8157: 48a70f6795e6d68b9fae275261ae3b09d3401fe1 @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git
+  Patchwork_141929v4: 46e1a74cb7576e5318856a8c24bd127150687c97 @ git://anongit.freedesktop.org/gfx-ci/linux
+
+== Logs ==
+
+For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_141929v4/index.html
