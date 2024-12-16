@@ -4,31 +4,31 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 71088E7717F
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E9CD7E77184
 	for <intel-gfx@archiver.kernel.org>; Mon, 16 Dec 2024 11:34:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 29FA310E5BF;
+	by gabe.freedesktop.org (Postfix) with ESMTP id D844A10E5C8;
 	Mon, 16 Dec 2024 11:34:54 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=weissschuh.net header.i=@weissschuh.net header.b="syJzmf0d";
+	dkim=pass (1024-bit key; unprotected) header.d=weissschuh.net header.i=@weissschuh.net header.b="N5W6GuU5";
 	dkim-atps=neutral
 Received: from todd.t-8ch.de (todd.t-8ch.de [159.69.126.157])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B3FCF10E5AD;
- Mon, 16 Dec 2024 11:34:52 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9BBCD10E5BF;
+ Mon, 16 Dec 2024 11:34:53 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=weissschuh.net;
  s=mail; t=1734348890;
- bh=UcFNLmnvsYaQOHcmZvcmxzeMoweYVAEm2PgsTyadgkI=;
+ bh=1qtbMa2oIpffo9qrfeElmnz139mrppvwu3zsjT10qrM=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=syJzmf0d4MfCocdBz4SdwRhaTCrA7uJxy2KQkCR7vFDUozn+OrKnjr+sCP5846KEM
- pOb1SZsB+JL7/uyO0moALDM8wWobbJx88Pq57EmLv/sD7CAT4zYI681gHjAcS6phLE
- 1xB6vfUEiLUnjkBkMiiTLyZs6ozj1ORaZReYlWv0=
+ b=N5W6GuU506HNT67hwXsBzcHmTOnA3z9T530lNzo6ZAFFjhK4OuxHW/hT28vPUXRUe
+ HxFFqadWxwc4SPCpP6eFLmSoFTcMlA8bB15EBXUpbmR7cdcRtfIUouR+vVKt9Uw2e0
+ Rea2lK1bB6x6zC30dJQ1M2KZpt3Bi2wn3c2giG7g=
 From: =?utf-8?q?Thomas_Wei=C3=9Fschuh?= <linux@weissschuh.net>
-Date: Mon, 16 Dec 2024 12:34:49 +0100
-Subject: [PATCH 3/5] drm/i915: Constify 'struct bin_attribute'
+Date: Mon, 16 Dec 2024 12:34:48 +0100
+Subject: [PATCH 2/5] drm/lima: Constify 'struct bin_attribute'
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Message-Id: <20241216-sysfs-const-bin_attr-drm-v1-3-210f2b36b9bf@weissschuh.net>
+Message-Id: <20241216-sysfs-const-bin_attr-drm-v1-2-210f2b36b9bf@weissschuh.net>
 References: <20241216-sysfs-const-bin_attr-drm-v1-0-210f2b36b9bf@weissschuh.net>
 In-Reply-To: <20241216-sysfs-const-bin_attr-drm-v1-0-210f2b36b9bf@weissschuh.net>
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
@@ -47,11 +47,11 @@ Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
  amd-gfx@lists.freedesktop.org, 
  =?utf-8?q?Thomas_Wei=C3=9Fschuh?= <linux@weissschuh.net>
 X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1734348889; l=3431;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1734348889; l=1710;
  i=linux@weissschuh.net; s=20221212; h=from:subject:message-id;
- bh=UcFNLmnvsYaQOHcmZvcmxzeMoweYVAEm2PgsTyadgkI=;
- b=Cf8bG3lKy+H2AAGHpNlU9pJX+g0endqvP6W/4Y7M0B1o4fSNb6WQQ2Ir7gmA0kMgrqUn11+go
- eYMtY4tn9ibBNp7Y4fsPYQsbC+bjLvJlQU2xTEStr9ySkNZJezQ0n2x
+ bh=1qtbMa2oIpffo9qrfeElmnz139mrppvwu3zsjT10qrM=;
+ b=1WNI1ZkIE8rqLbERLmmdHNShe5o5cZbun/mqENhN73fwlitBkkCVqnSWtvKibM9ZtYm50iZQz
+ jn1nSK2Tek2Du1yWr9Wxx1x0jCnSs6GepiyTnnI7BHf93+3qRL9WWgz
 X-Developer-Key: i=linux@weissschuh.net; a=ed25519;
  pk=KcycQgFPX2wGR5azS7RhpBqedglOZVgRPfdFSPB1LNw=
 X-BeenThere: intel-gfx@lists.freedesktop.org
@@ -75,87 +75,42 @@ accidental or malicious modifications.
 
 Signed-off-by: Thomas Weißschuh <linux@weissschuh.net>
 ---
- drivers/gpu/drm/i915/i915_gpu_error.c |  8 ++++----
- drivers/gpu/drm/i915/i915_sysfs.c     | 12 ++++++------
- 2 files changed, 10 insertions(+), 10 deletions(-)
+ drivers/gpu/drm/lima/lima_drv.c | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/i915_gpu_error.c b/drivers/gpu/drm/i915/i915_gpu_error.c
-index 71c0daef19962660086b37fe55ca2d6b01f2bb9a..a4cb4e731bdd72201c91541fb86e827e96214a8b 100644
---- a/drivers/gpu/drm/i915/i915_gpu_error.c
-+++ b/drivers/gpu/drm/i915/i915_gpu_error.c
-@@ -2491,7 +2491,7 @@ void i915_gpu_error_debugfs_register(struct drm_i915_private *i915)
+diff --git a/drivers/gpu/drm/lima/lima_drv.c b/drivers/gpu/drm/lima/lima_drv.c
+index fb3062c872b317ef27cd321b2638944f8a5dc33a..b969bd3f28968304946c0bb629460e91622d5fbc 100644
+--- a/drivers/gpu/drm/lima/lima_drv.c
++++ b/drivers/gpu/drm/lima/lima_drv.c
+@@ -311,7 +311,7 @@ static bool lima_read_block(struct lima_block_reader *reader,
  }
  
- static ssize_t error_state_read(struct file *filp, struct kobject *kobj,
--				struct bin_attribute *attr, char *buf,
-+				const struct bin_attribute *attr, char *buf,
- 				loff_t off, size_t count)
+ static ssize_t lima_error_state_read(struct file *filp, struct kobject *kobj,
+-				     struct bin_attribute *attr, char *buf,
++				     const struct bin_attribute *attr, char *buf,
+ 				     loff_t off, size_t count)
  {
- 
-@@ -2527,7 +2527,7 @@ static ssize_t error_state_read(struct file *filp, struct kobject *kobj,
+ 	struct device *dev = kobj_to_dev(kobj);
+@@ -337,7 +337,7 @@ static ssize_t lima_error_state_read(struct file *filp, struct kobject *kobj,
  }
  
- static ssize_t error_state_write(struct file *file, struct kobject *kobj,
--				 struct bin_attribute *attr, char *buf,
-+				 const struct bin_attribute *attr, char *buf,
- 				 loff_t off, size_t count)
+ static ssize_t lima_error_state_write(struct file *file, struct kobject *kobj,
+-				      struct bin_attribute *attr, char *buf,
++				      const struct bin_attribute *attr, char *buf,
+ 				      loff_t off, size_t count)
  {
- 	struct device *kdev = kobj_to_dev(kobj);
-@@ -2543,8 +2543,8 @@ static const struct bin_attribute error_state_attr = {
+ 	struct device *dev = kobj_to_dev(kobj);
+@@ -363,8 +363,8 @@ static const struct bin_attribute lima_error_state_attr = {
  	.attr.name = "error",
- 	.attr.mode = S_IRUSR | S_IWUSR,
+ 	.attr.mode = 0600,
  	.size = 0,
--	.read = error_state_read,
--	.write = error_state_write,
-+	.read_new = error_state_read,
-+	.write_new = error_state_write,
+-	.read = lima_error_state_read,
+-	.write = lima_error_state_write,
++	.read_new = lima_error_state_read,
++	.write_new = lima_error_state_write,
  };
  
- void i915_gpu_error_sysfs_setup(struct drm_i915_private *i915)
-diff --git a/drivers/gpu/drm/i915/i915_sysfs.c b/drivers/gpu/drm/i915/i915_sysfs.c
-index 8775beab9cb8438c2e8abb0f9d8104dcba7c0df3..f936e8f1f12942287a5a7d6aa7db6ed3a4c28281 100644
---- a/drivers/gpu/drm/i915/i915_sysfs.c
-+++ b/drivers/gpu/drm/i915/i915_sysfs.c
-@@ -60,7 +60,7 @@ static int l3_access_valid(struct drm_i915_private *i915, loff_t offset)
- 
- static ssize_t
- i915_l3_read(struct file *filp, struct kobject *kobj,
--	     struct bin_attribute *attr, char *buf,
-+	     const struct bin_attribute *attr, char *buf,
- 	     loff_t offset, size_t count)
- {
- 	struct device *kdev = kobj_to_dev(kobj);
-@@ -88,7 +88,7 @@ i915_l3_read(struct file *filp, struct kobject *kobj,
- 
- static ssize_t
- i915_l3_write(struct file *filp, struct kobject *kobj,
--	      struct bin_attribute *attr, char *buf,
-+	      const struct bin_attribute *attr, char *buf,
- 	      loff_t offset, size_t count)
- {
- 	struct device *kdev = kobj_to_dev(kobj);
-@@ -140,8 +140,8 @@ i915_l3_write(struct file *filp, struct kobject *kobj,
- static const struct bin_attribute dpf_attrs = {
- 	.attr = {.name = "l3_parity", .mode = (S_IRUSR | S_IWUSR)},
- 	.size = GEN7_L3LOG_SIZE,
--	.read = i915_l3_read,
--	.write = i915_l3_write,
-+	.read_new = i915_l3_read,
-+	.write_new = i915_l3_write,
- 	.mmap = NULL,
- 	.private = (void *)0
- };
-@@ -149,8 +149,8 @@ static const struct bin_attribute dpf_attrs = {
- static const struct bin_attribute dpf_attrs_1 = {
- 	.attr = {.name = "l3_parity_slice_1", .mode = (S_IRUSR | S_IWUSR)},
- 	.size = GEN7_L3LOG_SIZE,
--	.read = i915_l3_read,
--	.write = i915_l3_write,
-+	.read_new = i915_l3_read,
-+	.write_new = i915_l3_write,
- 	.mmap = NULL,
- 	.private = (void *)1
- };
+ static int lima_pdev_probe(struct platform_device *pdev)
 
 -- 
 2.47.1
