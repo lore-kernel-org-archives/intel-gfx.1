@@ -4,31 +4,31 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7FA64E77180
-	for <intel-gfx@archiver.kernel.org>; Mon, 16 Dec 2024 11:34:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 33932E77186
+	for <intel-gfx@archiver.kernel.org>; Mon, 16 Dec 2024 11:35:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2BA9A10E5C1;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9294D10E5BC;
 	Mon, 16 Dec 2024 11:34:55 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=weissschuh.net header.i=@weissschuh.net header.b="TFLqVQXc";
+	dkim=pass (1024-bit key; unprotected) header.d=weissschuh.net header.i=@weissschuh.net header.b="I1LoHCoq";
 	dkim-atps=neutral
 Received: from todd.t-8ch.de (todd.t-8ch.de [159.69.126.157])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3104710E5C1;
- Mon, 16 Dec 2024 11:34:53 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9CF4210E5C1;
+ Mon, 16 Dec 2024 11:34:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=weissschuh.net;
  s=mail; t=1734348890;
- bh=o2oExs9IS06W2wuTSfy7oT1l8YCPWwQFt6kUrnFUcG0=;
+ bh=y5VdIlFmZrN99wi17sHDS/2XA6J1JYaGxHyZF4VUIi4=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=TFLqVQXcetsLZl4BIY3y/1jcvzpCNw4sozes71NWxTpoeXNFd/FcaFvjWwhhLY2rF
- hUl5+AoaGI+/nwWzjIXSRKwa+gGP/K2UyCwgd9Q9ApO0Bm8tNO0LfO8HVKZ0Er4HqL
- Z3no+vu54umlGSikUT99/vtxnbiDss237I0jhFyY=
+ b=I1LoHCoq945+zGqi2IJw4PxdFgsNnMEsCh+MDvewdAwWOrbvQ6KLSiNTIbLg5yzn1
+ jcN/lq3bd/ulKW8+VJAlilAJWJHswSCyZg3KwsVTXZlMx816S/1SrZ9k6QbcliP1NA
+ lz2vqXg8r3nA+XBY8L+mzkSccVgIdg/yYTKDS9KM=
 From: =?utf-8?q?Thomas_Wei=C3=9Fschuh?= <linux@weissschuh.net>
-Date: Mon, 16 Dec 2024 12:34:47 +0100
-Subject: [PATCH 1/5] drm/sysfs: Constify 'struct bin_attribute'
+Date: Mon, 16 Dec 2024 12:34:51 +0100
+Subject: [PATCH 5/5] drm/amd/display: Constify 'struct bin_attribute'
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Message-Id: <20241216-sysfs-const-bin_attr-drm-v1-1-210f2b36b9bf@weissschuh.net>
+Message-Id: <20241216-sysfs-const-bin_attr-drm-v1-5-210f2b36b9bf@weissschuh.net>
 References: <20241216-sysfs-const-bin_attr-drm-v1-0-210f2b36b9bf@weissschuh.net>
 In-Reply-To: <20241216-sysfs-const-bin_attr-drm-v1-0-210f2b36b9bf@weissschuh.net>
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
@@ -47,11 +47,11 @@ Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
  amd-gfx@lists.freedesktop.org, 
  =?utf-8?q?Thomas_Wei=C3=9Fschuh?= <linux@weissschuh.net>
 X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1734348889; l=1644;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1734348889; l=1989;
  i=linux@weissschuh.net; s=20221212; h=from:subject:message-id;
- bh=o2oExs9IS06W2wuTSfy7oT1l8YCPWwQFt6kUrnFUcG0=;
- b=YDmkkKVCgYlLLAJGaraFPnhIxIZeJCB5izojwBThggOwU+itKqHGgNedKgKWJkRPTYsHnYk+P
- abbCqn4jFHpBwSskuQY+JEl64etJ1fYoE5IJrYarbj6F/tbjMPeoIJF
+ bh=y5VdIlFmZrN99wi17sHDS/2XA6J1JYaGxHyZF4VUIi4=;
+ b=CINJ3HLrSMhMcfUsU7NZIyH1+y1/TzIm0rkb5ETIxXa+H/f3F/O5bIuXKhuLkCFAOgO1NyygM
+ 0FozzyXfHeLAjv++M4Tndb+I24Twp4TVweWBj+rGRLNhapMZs6RYICv
 X-Developer-Key: i=linux@weissschuh.net; a=ed25519;
  pk=KcycQgFPX2wGR5azS7RhpBqedglOZVgRPfdFSPB1LNw=
 X-BeenThere: intel-gfx@lists.freedesktop.org
@@ -75,48 +75,42 @@ accidental or malicious modifications.
 
 Signed-off-by: Thomas Weißschuh <linux@weissschuh.net>
 ---
- drivers/gpu/drm/drm_sysfs.c | 10 +++++-----
- 1 file changed, 5 insertions(+), 5 deletions(-)
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_hdcp.c | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/gpu/drm/drm_sysfs.c b/drivers/gpu/drm/drm_sysfs.c
-index fb3bbb6adcd16f3f325a2ae8e35f41851c00b272..60c1f26edb6fad23153c32a29fd3be02700fc938 100644
---- a/drivers/gpu/drm/drm_sysfs.c
-+++ b/drivers/gpu/drm/drm_sysfs.c
-@@ -261,7 +261,7 @@ static ssize_t enabled_show(struct device *device,
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_hdcp.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_hdcp.c
+index e339c7a8d541c962aa44ae25ad97b864285394b8..e27d077396327bbe25014aec5b978293b1c20dac 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_hdcp.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_hdcp.c
+@@ -614,7 +614,7 @@ static void update_config(void *handle, struct cp_psp_stream_config *config)
+  *	incorrect/corrupted and we should correct our SRM by getting it from PSP
+  */
+ static ssize_t srm_data_write(struct file *filp, struct kobject *kobj,
+-			      struct bin_attribute *bin_attr, char *buffer,
++			      const struct bin_attribute *bin_attr, char *buffer,
+ 			      loff_t pos, size_t count)
+ {
+ 	struct hdcp_workqueue *work;
+@@ -638,7 +638,7 @@ static ssize_t srm_data_write(struct file *filp, struct kobject *kobj,
  }
  
- static ssize_t edid_show(struct file *filp, struct kobject *kobj,
--			 struct bin_attribute *attr, char *buf, loff_t off,
-+			 const struct bin_attribute *attr, char *buf, loff_t off,
- 			 size_t count)
+ static ssize_t srm_data_read(struct file *filp, struct kobject *kobj,
+-			     struct bin_attribute *bin_attr, char *buffer,
++			     const struct bin_attribute *bin_attr, char *buffer,
+ 			     loff_t pos, size_t count)
  {
- 	struct device *connector_dev = kobj_to_dev(kobj);
-@@ -315,21 +315,21 @@ static struct attribute *connector_dev_attrs[] = {
- 	NULL
+ 	struct hdcp_workqueue *work;
+@@ -698,8 +698,8 @@ static ssize_t srm_data_read(struct file *filp, struct kobject *kobj,
+ static const struct bin_attribute data_attr = {
+ 	.attr = {.name = "hdcp_srm", .mode = 0664},
+ 	.size = PSP_HDCP_SRM_FIRST_GEN_MAX_SIZE, /* Limit SRM size */
+-	.write = srm_data_write,
+-	.read = srm_data_read,
++	.write_new = srm_data_write,
++	.read_new = srm_data_read,
  };
  
--static struct bin_attribute edid_attr = {
-+static const struct bin_attribute edid_attr = {
- 	.attr.name = "edid",
- 	.attr.mode = 0444,
- 	.size = 0,
--	.read = edid_show,
-+	.read_new = edid_show,
- };
- 
--static struct bin_attribute *connector_bin_attrs[] = {
-+static const struct bin_attribute *const connector_bin_attrs[] = {
- 	&edid_attr,
- 	NULL
- };
- 
- static const struct attribute_group connector_dev_group = {
- 	.attrs = connector_dev_attrs,
--	.bin_attrs = connector_bin_attrs,
-+	.bin_attrs_new = connector_bin_attrs,
- };
- 
- static const struct attribute_group *connector_dev_groups[] = {
+ struct hdcp_workqueue *hdcp_create_workqueue(struct amdgpu_device *adev,
 
 -- 
 2.47.1
