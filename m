@@ -4,61 +4,69 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D2692E77180
-	for <intel-gfx@archiver.kernel.org>; Mon, 16 Dec 2024 11:38:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 81917E7717F
+	for <intel-gfx@archiver.kernel.org>; Mon, 16 Dec 2024 11:47:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7B55A10E5CE;
-	Mon, 16 Dec 2024 11:38:43 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1B66C10E5C7;
+	Mon, 16 Dec 2024 11:47:48 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="KDzZ1T/f";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="hMacY/PD";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.19])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0B4C010E5C7;
- Mon, 16 Dec 2024 11:38:42 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 263FE10E5C7;
+ Mon, 16 Dec 2024 11:47:47 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1734349122; x=1765885122;
+ t=1734349667; x=1765885667;
  h=from:to:cc:subject:in-reply-to:references:date:
- message-id:mime-version;
- bh=sHyuZOv1oWfGup+bQH8GfQT4GOTfG34XvXmPZTdg+oI=;
- b=KDzZ1T/f7glLXjd4n1smocFiBQ53KSV+WolAZ6168KnDNwkCPfbem79U
- Zbex8nbR4shIVHGMbL/TnZVWuPy2u63xtJ4I+iQUtqITw70uAjzjIy8QV
- 9kO8IVPBG/+qF80RiZy5qnlDFvmn2mab6AguTFaKbqT1jKw+aAuzaXtc5
- gujdioa1eWIeRYVki+FTyQwkqq6MwfA0EJK5HKtkWudwL5AnC0W3DduLk
- ZeczWPaXjJstQY45vHgjsoKKlTvqr5uodZ3336TA+LEPQmiWD3TxxtRyq
- 88tSx5V8Q0LIRKNs3pHc4V5/4ziEkjAYRFHQZoOLCgysIwxX7MQGrQd4U A==;
-X-CSE-ConnectionGUID: nXsyO5v/TK2sMegwm010Bg==
-X-CSE-MsgGUID: 9l9aIA1sREWIpk46RSv66g==
-X-IronPort-AV: E=McAfee;i="6700,10204,11287"; a="34025495"
-X-IronPort-AV: E=Sophos;i="6.12,238,1728975600"; d="scan'208";a="34025495"
-Received: from fmviesa003.fm.intel.com ([10.60.135.143])
- by fmvoesa113.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 16 Dec 2024 03:38:41 -0800
-X-CSE-ConnectionGUID: 1iv1UnjkT8GoOZaP95t2dg==
-X-CSE-MsgGUID: 8xr4cfBbSbGIUW9E75P3rg==
+ message-id:mime-version:content-transfer-encoding;
+ bh=b/jnVnpWxsgsujPLPcohF02Om3SRNnOQCq/3TSfEFrg=;
+ b=hMacY/PDMGImbV80bGQ35VpGevSR6FdkGGwvQKAUZInpLWEkI0hn2d7+
+ Hw58P3UYYk6uN3f98egRzycMF0IGp8rrmDOy28w74PP22tKZ42FwDjIi7
+ 2ib/wt9WfJY+qT+5Q1xp3Ptfk7JnGnD892LhOx9emSRc6hqiuXJ+T22mx
+ 9XF1YAvzrr6siZnzNgwmpXMwTwN1/Xnm0zdmSyzKCpidduVsSB7JXJSFw
+ Ha4FgRHY8W7kfqhLp0ZG6pWhsaIIkDO4ObeOoLzZrVgtMZLMbOSGovx/Z
+ mbXjAQLHrgCX0F5DI424tMZju40jUlYgt1aOIweWXB2rzk/8T3DoECsHx A==;
+X-CSE-ConnectionGUID: 6cJItNuHQ5ycHyLhWvy7xQ==
+X-CSE-MsgGUID: yLFF5jPrQTuBMCNdZ7bMZQ==
+X-IronPort-AV: E=McAfee;i="6700,10204,11287"; a="52144727"
+X-IronPort-AV: E=Sophos;i="6.12,238,1728975600"; d="scan'208";a="52144727"
+Received: from fmviesa004.fm.intel.com ([10.60.135.144])
+ by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 16 Dec 2024 03:47:47 -0800
+X-CSE-ConnectionGUID: ibVkrFHNQ56/atLPvsZSZg==
+X-CSE-MsgGUID: dFEPEd+kTEamIvmrKVQJlA==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.12,224,1728975600"; d="scan'208";a="101326521"
+X-IronPort-AV: E=Sophos;i="6.12,238,1728975600"; d="scan'208";a="102046463"
 Received: from mjarzebo-mobl1.ger.corp.intel.com (HELO localhost)
  ([10.245.246.245])
- by fmviesa003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 16 Dec 2024 03:38:39 -0800
-From: Jani Nikula <jani.nikula@intel.com>
-To: "Kandpal, Suraj" <suraj.kandpal@intel.com>,
- "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>,
- "intel-xe@lists.freedesktop.org" <intel-xe@lists.freedesktop.org>
-Cc: Sergey Senozhatsky <senozhatsky@chromium.org>, Ville Syrjala
- <ville.syrjala@linux.intel.com>
-Subject: RE: [PATCH v3 1/6] drm/i915/ddi: change
- intel_ddi_init_{dp,hdmi}_connector() return type
-In-Reply-To: <SN7PR11MB6750DC00BB9AF4CD5A66EA6BE3382@SN7PR11MB6750.namprd11.prod.outlook.com>
+ by fmviesa004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 16 Dec 2024 03:47:40 -0800
+From: Jani Nikula <jani.nikula@linux.intel.com>
+To: Thomas =?utf-8?Q?Wei=C3=9Fschuh?= <linux@weissschuh.net>, Maarten Lankhorst
+ <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Qiang Yu <yuq825@gmail.com>, Joonas
+ Lahtinen <joonas.lahtinen@linux.intel.com>, Rodrigo Vivi
+ <rodrigo.vivi@intel.com>, Tvrtko Ursulin <tursulin@ursulin.net>, Alex
+ Deucher <alexander.deucher@amd.com>, Christian =?utf-8?Q?K=C3=B6nig?=
+ <christian.koenig@amd.com>, Xinhui Pan <Xinhui.Pan@amd.com>, Harry
+ Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, Rodrigo
+ Siqueira <Rodrigo.Siqueira@amd.com>
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ lima@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org, Thomas =?utf-8?Q?Wei=C3=9Fschuh?=
+ <linux@weissschuh.net>
+Subject: Re: [PATCH 1/5] drm/sysfs: Constify 'struct bin_attribute'
+In-Reply-To: <20241216-sysfs-const-bin_attr-drm-v1-1-210f2b36b9bf@weissschuh.net>
 Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
-References: <cover.1734099220.git.jani.nikula@intel.com>
- <ddd89d5e49a0cd40c18f12567da7fb9605999fcd.1734099220.git.jani.nikula@intel.com>
- <SN7PR11MB6750DC00BB9AF4CD5A66EA6BE3382@SN7PR11MB6750.namprd11.prod.outlook.com>
-Date: Mon, 16 Dec 2024 13:38:36 +0200
-Message-ID: <87ttb3svr7.fsf@intel.com>
+References: <20241216-sysfs-const-bin_attr-drm-v1-0-210f2b36b9bf@weissschuh.net>
+ <20241216-sysfs-const-bin_attr-drm-v1-1-210f2b36b9bf@weissschuh.net>
+Date: Mon, 16 Dec 2024 13:47:37 +0200
+Message-ID: <87r067svc6.fsf@intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,129 +82,59 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Fri, 13 Dec 2024, "Kandpal, Suraj" <suraj.kandpal@intel.com> wrote:
->> -----Original Message-----
->> From: Nikula, Jani <jani.nikula@intel.com>
->> Sent: Friday, December 13, 2024 7:46 PM
->> To: intel-gfx@lists.freedesktop.org; intel-xe@lists.freedesktop.org
->> Cc: Nikula, Jani <jani.nikula@intel.com>; Sergey Senozhatsky
->> <senozhatsky@chromium.org>; Ville Syrjala <ville.syrjala@linux.intel.com>;
->> Kandpal, Suraj <suraj.kandpal@intel.com>
->> Subject: [PATCH v3 1/6] drm/i915/ddi: change
->> intel_ddi_init_{dp,hdmi}_connector() return type
->>
->> The caller doesn't actually need the returned struct intel_connector; it's
->> stored in the ->attached_connector of intel_dp ad intel_hdmi. Switch to
+On Mon, 16 Dec 2024, Thomas Wei=C3=9Fschuh <linux@weissschuh.net> wrote:
+> The sysfs core now allows instances of 'struct bin_attribute' to be
+> moved into read-only memory. Make use of that to protect them against
+> accidental or malicious modifications.
 >
-> Typo : *and
-> Otherwise LGTM,
-> Reviewed-by: Suraj Kandpal <suraj.kandpal@intel.com>
+> Signed-off-by: Thomas Wei=C3=9Fschuh <linux@weissschuh.net>
 
-Thanks, care to look at patch 4 as well, it's changed slightly?
+Reviewed-by: Jani Nikula <jani.nikula@intel.com>
 
-BR,
-Jani.
-
+> ---
+>  drivers/gpu/drm/drm_sysfs.c | 10 +++++-----
+>  1 file changed, 5 insertions(+), 5 deletions(-)
 >
->> returning an int with 0 for success and negative errors codes to be able to
->> indicate success even when we don't have a connector.
->>
->> Signed-off-by: Jani Nikula <jani.nikula@intel.com>
->> ---
->>  drivers/gpu/drm/i915/display/intel_ddi.c | 20 +++++++++-----------
->>  1 file changed, 9 insertions(+), 11 deletions(-)
->>
->> diff --git a/drivers/gpu/drm/i915/display/intel_ddi.c
->> b/drivers/gpu/drm/i915/display/intel_ddi.c
->> index 4f9c50996446..21277cf8afef 100644
->> --- a/drivers/gpu/drm/i915/display/intel_ddi.c
->> +++ b/drivers/gpu/drm/i915/display/intel_ddi.c
->> @@ -4542,8 +4542,7 @@ static const struct drm_encoder_funcs
->> intel_ddi_funcs = {
->>       .late_register = intel_ddi_encoder_late_register,  };
->>
->> -static struct intel_connector *
->> -intel_ddi_init_dp_connector(struct intel_digital_port *dig_port)
->> +static int intel_ddi_init_dp_connector(struct intel_digital_port
->> +*dig_port)
->>  {
->>       struct drm_i915_private *i915 = to_i915(dig_port->base.base.dev);
->>       struct intel_connector *connector;
->> @@ -4551,7 +4550,7 @@ intel_ddi_init_dp_connector(struct
->> intel_digital_port *dig_port)
->>
->>       connector = intel_connector_alloc();
->>       if (!connector)
->> -             return NULL;
->> +             return -ENOMEM;
->>
->>       dig_port->dp.output_reg = DDI_BUF_CTL(port);
->>       if (DISPLAY_VER(i915) >= 14)
->> @@ -4566,7 +4565,7 @@ intel_ddi_init_dp_connector(struct
->> intel_digital_port *dig_port)
->>
->>       if (!intel_dp_init_connector(dig_port, connector)) {
->>               kfree(connector);
->> -             return NULL;
->> +             return -EINVAL;
->>       }
->>
->>       if (dig_port->base.type == INTEL_OUTPUT_EDP) { @@ -4582,7
->> +4581,7 @@ intel_ddi_init_dp_connector(struct intel_digital_port *dig_port)
->>               }
->>       }
->>
->> -     return connector;
->> +     return 0;
->>  }
->>
->>  static int intel_hdmi_reset_link(struct intel_encoder *encoder, @@ -4748,20
->> +4747,19 @@ static bool bdw_digital_port_connected(struct intel_encoder
->> *encoder)
->>       return intel_de_read(dev_priv, GEN8_DE_PORT_ISR) & bit;  }
->>
->> -static struct intel_connector *
->> -intel_ddi_init_hdmi_connector(struct intel_digital_port *dig_port)
->> +static int intel_ddi_init_hdmi_connector(struct intel_digital_port
->> +*dig_port)
->>  {
->>       struct intel_connector *connector;
->>       enum port port = dig_port->base.port;
->>
->>       connector = intel_connector_alloc();
->>       if (!connector)
->> -             return NULL;
->> +             return -ENOMEM;
->>
->>       dig_port->hdmi.hdmi_reg = DDI_BUF_CTL(port);
->>       intel_hdmi_init_connector(dig_port, connector);
->>
->> -     return connector;
->> +     return 0;
->>  }
->>
->>  static bool intel_ddi_a_force_4_lanes(struct intel_digital_port *dig_port) @@
->> -5306,7 +5304,7 @@ void intel_ddi_init(struct intel_display *display,
->>       intel_infoframe_init(dig_port);
->>
->>       if (init_dp) {
->> -             if (!intel_ddi_init_dp_connector(dig_port))
->> +             if (intel_ddi_init_dp_connector(dig_port))
->>                       goto err;
->>
->>               dig_port->hpd_pulse = intel_dp_hpd_pulse; @@ -5320,7
->> +5318,7 @@ void intel_ddi_init(struct intel_display *display,
->>        * but leave it just in case we have some really bad VBTs...
->>        */
->>       if (encoder->type != INTEL_OUTPUT_EDP && init_hdmi) {
->> -             if (!intel_ddi_init_hdmi_connector(dig_port))
->> +             if (intel_ddi_init_hdmi_connector(dig_port))
->>                       goto err;
->>       }
->>
->> --
->> 2.39.5
->
+> diff --git a/drivers/gpu/drm/drm_sysfs.c b/drivers/gpu/drm/drm_sysfs.c
+> index fb3bbb6adcd16f3f325a2ae8e35f41851c00b272..60c1f26edb6fad23153c32a29=
+fd3be02700fc938 100644
+> --- a/drivers/gpu/drm/drm_sysfs.c
+> +++ b/drivers/gpu/drm/drm_sysfs.c
+> @@ -261,7 +261,7 @@ static ssize_t enabled_show(struct device *device,
+>  }
+>=20=20
+>  static ssize_t edid_show(struct file *filp, struct kobject *kobj,
+> -			 struct bin_attribute *attr, char *buf, loff_t off,
+> +			 const struct bin_attribute *attr, char *buf, loff_t off,
+>  			 size_t count)
+>  {
+>  	struct device *connector_dev =3D kobj_to_dev(kobj);
+> @@ -315,21 +315,21 @@ static struct attribute *connector_dev_attrs[] =3D {
+>  	NULL
+>  };
+>=20=20
+> -static struct bin_attribute edid_attr =3D {
+> +static const struct bin_attribute edid_attr =3D {
+>  	.attr.name =3D "edid",
+>  	.attr.mode =3D 0444,
+>  	.size =3D 0,
+> -	.read =3D edid_show,
+> +	.read_new =3D edid_show,
+>  };
+>=20=20
+> -static struct bin_attribute *connector_bin_attrs[] =3D {
+> +static const struct bin_attribute *const connector_bin_attrs[] =3D {
+>  	&edid_attr,
+>  	NULL
+>  };
+>=20=20
+>  static const struct attribute_group connector_dev_group =3D {
+>  	.attrs =3D connector_dev_attrs,
+> -	.bin_attrs =3D connector_bin_attrs,
+> +	.bin_attrs_new =3D connector_bin_attrs,
+>  };
+>=20=20
+>  static const struct attribute_group *connector_dev_groups[] =3D {
 
--- 
+--=20
 Jani Nikula, Intel
