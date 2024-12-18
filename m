@@ -4,63 +4,54 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BA911E77187
-	for <intel-gfx@archiver.kernel.org>; Wed, 18 Dec 2024 14:48:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EC731E7718A
+	for <intel-gfx@archiver.kernel.org>; Wed, 18 Dec 2024 14:56:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5D78D10EBC1;
-	Wed, 18 Dec 2024 14:48:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 86EC110EB4C;
+	Wed, 18 Dec 2024 14:56:06 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="H/XjcuKB";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="B0wVZJsk";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 33F8110EBC1
- for <intel-gfx@lists.freedesktop.org>; Wed, 18 Dec 2024 14:48:13 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.11])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3FFE910E0D4;
+ Wed, 18 Dec 2024 14:56:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1734533293; x=1766069293;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:content-transfer-encoding:in-reply-to;
- bh=dhHVHF3VCXci1HSj+vSfsoaxc8+a/7neB7/OMMkp11s=;
- b=H/XjcuKBhtjqVZRIFsZaOaLT8mwmt2zQ9OcQjSSkpKIx0IKvvqxrGyfv
- uGIy5XNpxvyiFgFC0499FRn6+7pkfazE4T2oB8y/1sh99/GzspYOawfpJ
- JM1UWvXP69DQVQ62bCPIqGRBuLo5mvhnhVfSDJEBuEyfNh7EKO5mh44U0
- dziPyekv7fQ+sd1VXb2kXHxFhuUOJg8jWjqLti0+JajIEW3aDwg4wrTFq
- b8Lz6yebqeLCykQrq1hsXIaBvs6UhlytDkDwTGktVJdlZ7jZYX92Oqcvn
- BUA9iIf/1eXuo2hwfpzaok5AdoNC7VZgU7CtObYn1ABVNoGMHyGGARv41 w==;
-X-CSE-ConnectionGUID: K8y8+DwaQMmzHsYbQCSWaA==
-X-CSE-MsgGUID: ek8awNelTOi++icfLJ54LA==
-X-IronPort-AV: E=McAfee;i="6700,10204,11290"; a="35170083"
-X-IronPort-AV: E=Sophos;i="6.12,244,1728975600"; d="scan'208";a="35170083"
-Received: from orviesa005.jf.intel.com ([10.64.159.145])
- by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 18 Dec 2024 06:48:13 -0800
-X-CSE-ConnectionGUID: z/y/dl2KTRGD/vj5QF6Ksg==
-X-CSE-MsgGUID: T//VTT7STV+/q2E/8zlMXA==
+ t=1734533765; x=1766069765;
+ h=date:from:to:cc:subject:message-id:reply-to:references:
+ mime-version:in-reply-to;
+ bh=b5o+/HzbLGd6LkLqm/v8fM3IyoWvxko15ufr6Jj5iwg=;
+ b=B0wVZJskls4Ca6u8/cqdTv/eW9+yzCf6PkgW/vFScuTLeOAcMgjTALzg
+ 8I4DEvynX8lSIcB4Oy0aWpgvoo9lzso5mUzcO0mds+RI0Px3DznnXRgu6
+ y7CKgwIXtGAZFzbdQqkkn3AFvrpe4+LARbmd5VKCfjdvo24RHrOQZOE8L
+ zhmwVh3sUy5ltTfjfQtHfn+EydFenrEcn6vUNNwBiXPVbv0ahqtlUj0kU
+ 6IRt94mfkux5zUYg1Jgj4tdH2iTR+N1OyODxTA1oP5siougD0+e2Ngs6p
+ M15FGBxlxJ15UJnNcDwPDoeQEfOumeCNwy7JvA2/13lvU/FpqpddYDOvd A==;
+X-CSE-ConnectionGUID: 8TwRj0N5QOmy3MKnmhdOmg==
+X-CSE-MsgGUID: Se6wVzPJQsm3hX5x4Sv+vQ==
+X-IronPort-AV: E=McAfee;i="6700,10204,11290"; a="45501064"
+X-IronPort-AV: E=Sophos;i="6.12,244,1728975600"; d="scan'208";a="45501064"
+Received: from fmviesa007.fm.intel.com ([10.60.135.147])
+ by orvoesa103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 18 Dec 2024 06:56:05 -0800
+X-CSE-ConnectionGUID: vj14ehTrRMCHdA17PFLLYA==
+X-CSE-MsgGUID: jtqFiCKyTuS9+0TrMjWtMw==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.12,224,1728975600"; d="scan'208";a="102886371"
-Received: from mklonows-mobl1.ger.corp.intel.com (HELO intel.com)
- ([10.245.246.114])
- by orviesa005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 18 Dec 2024 06:48:10 -0800
-Date: Wed, 18 Dec 2024 15:48:06 +0100
-From: Andi Shyti <andi.shyti@linux.intel.com>
-To: Matt Roper <matthew.d.roper@intel.com>
-Cc: Andi Shyti <andi.shyti@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Sebastian Brzezinka <sebastian.brzezinka@intel.com>,
- intel-gfx@lists.freedesktop.org, vidya.srinivas@intel.com,
- Ville Syrjala <ville.syrjala@intel.com>
-Subject: Re: [RFC PATCH] i915/gt: Reapply workarounds in case the previous
- attempt failed.
-Message-ID: <Z2LgpnKVp-0fhTlj@ashyti-mobl2.lan>
-References: <aqoql4ri3vpe4larpkz4p6hxy76agq6pmn6gunt5xv56hxdbye@72ilwk7rpiu5>
- <Z1MacMC8XyyyHcqj@intel.com> <Z1r4YJ0TkjIsgoz8@ashyti-mobl2.lan>
- <20241216212751.GZ5725@mdroper-desk1.amr.corp.intel.com>
+X-IronPort-AV: E=Sophos;i="6.12,244,1728975600"; d="scan'208";a="97729884"
+Received: from ideak-desk.fi.intel.com ([10.237.72.78])
+ by fmviesa007-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 18 Dec 2024 06:56:03 -0800
+Date: Wed, 18 Dec 2024 16:56:46 +0200
+From: Imre Deak <imre.deak@intel.com>
+To: Mika Kahola <mika.kahola@intel.com>
+Cc: intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org
+Subject: Re: [PATCH v2] drm/i915/display: UHBR rates for Thunderbolt
+Message-ID: <Z2LirmqeUmqLw17A@ideak-desk.fi.intel.com>
+References: <20241217143440.572308-1-mika.kahola@intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-15
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20241216212751.GZ5725@mdroper-desk1.amr.corp.intel.com>
+In-Reply-To: <20241217143440.572308-1-mika.kahola@intel.com>
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,73 +64,147 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: imre.deak@intel.com
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Hi Matt,
-
-On Mon, Dec 16, 2024 at 01:27:51PM -0800, Matt Roper wrote:
-> On Thu, Dec 12, 2024 at 03:51:12PM +0100, Andi Shyti wrote:
-> > On Fri, Dec 06, 2024 at 10:38:24AM -0500, Rodrigo Vivi wrote:
-> > > On Thu, Dec 05, 2024 at 03:47:35PM +0000, Sebastian Brzezinka wrote:
-> > > > `wa_verify`sporadically detects lost workaround on application; this
-> > > > is unusual behavior since wa are applied at `intel_gt_init_hw` and
-> > > > verified right away by `intel_gt_verify_workarounds`, and  `wa_verify`
-> > > > doesn't fail on initialization as one might suspect would happen.
-> > > > 
-> > > > One approach that may be somewhat beneficial is to reapply workarounds
-> > > > in the event of failure, or even get rid of verify on application,
-> > > > since it's redundant to `intel_gt_verify_workarounds`.
-> > > > 
-> > > > This patch aims to resolve: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/12668
-> > > 
-> > > It should be:
-> > > 
-> > > Closes: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/12668
-> > 
-> > aapart from the formatting issues this was suggested by me. We
-> > have observed some sporadic vailures in applying the specific
-> > workaround added by Ville (now cc'ed to the thread) in commit
-> > 0ddae025ab6c ("drm/i915: Disable compression tricks on JSL").
-> > 
-> > Because it's sporadic, we could give it one more chance and try
-> > to re-apply it.
+On Tue, Dec 17, 2024 at 04:34:40PM +0200, Mika Kahola wrote:
+> tbt-alt mode is missing uhbr rates 10G and 20G. This requires
+> requires pll clock rates 312.5 MHz and 625 MHz to be added,
+> respectively. The uhbr rates are supported only form PTL+
+> platforms.
 > 
-> That sounds like it's just papering over the issue without really
-> figuring out what's truly going on.
+> v2: Add drm_WARN_ON() to check if port clock is not supported by
+>     the platform (Imre)
+>     Combine forward ungate with mask parameter (Imre)
+>     Rename XE3LPDP_* to XE3D_* (Imre)
 
-Independently from your next comments and the implementation, the
-sporadic errors we've seen have an extremely low rate and we
-weren't able to make sense to them or fully test them.
+I highly disagree with the usage of the XE[23]{D,LPD,LPDP} etc. ciphers
+in the driver in general, instead of the human readable MTL, LNL, PTL
+etc., the human readable versions actually serving the intended purpose
+of reminding a reader what exact platform the code they read is about.
 
-We had a short chat with Ville (who implemented the workaround)
-amd he suggested to leave it as it is, while I suggested to give
-it another chance.
+I still don't know and haven't managed to figure out from the spec what
+either XE3LPDP or XE3D is about, looks like this same clock select field
+width is used by other XE3 platforms as well. So imo let's stick with
+the XE3 prefix used already elsewhere in the driver (no need to resend
+the patch just for that). With that:
 
-> Looking at the current implementation, it looks like at least one
-> possible problem is that it was implemented in rcs_engine_wa_init, but
-> the CACHE_MODE_0 register itself is part of the LRC (according to bspec
-> 18907).  So we want to move it to icl_ctx_workarounds_init() instead to
-> make sure it gets recorded in the golden context image.  Our
-> initialization and reset handling for workarounds touching registers in
-> the context are different from those that aren't.
-> BTW, I'm a bit surprised to see us needing to implement this workaround
-> in the kernel at all.  CACHE_MODE_0 is a register that's under userspace
-> control (according to bspec 14181), so we usually expect the userspace
-> drivers to own implementing any workarounds dealing with the registers
-> they control.  Indeed, it looks like Mesa's Iris driver already has an
-> implementation of this workaround in iris_state.c:
+Reviewed-by: Imre Deak <imre.deak@intel.com>
+
+> Signed-off-by: Mika Kahola <mika.kahola@intel.com>
+> ---
+>  drivers/gpu/drm/i915/display/intel_cx0_phy.c  | 39 +++++++++++++++++--
+>  .../gpu/drm/i915/display/intel_cx0_phy_regs.h |  4 ++
+>  2 files changed, 39 insertions(+), 4 deletions(-)
 > 
->    if (devinfo->disable_ccs_repack) {
->       iris_emit_reg(batch, GENX(CACHE_MODE_0), reg) {
->          reg.DisableRepackingforCompression = true;
->          reg.DisableRepackingforCompressionMask = true;
->       }
->    }
+> diff --git a/drivers/gpu/drm/i915/display/intel_cx0_phy.c b/drivers/gpu/drm/i915/display/intel_cx0_phy.c
+> index cc734079c3b8..a8e0450c0378 100644
+> --- a/drivers/gpu/drm/i915/display/intel_cx0_phy.c
+> +++ b/drivers/gpu/drm/i915/display/intel_cx0_phy.c
+> @@ -3070,7 +3070,10 @@ int intel_mtl_tbt_calc_port_clock(struct intel_encoder *encoder)
+>  
+>  	val = intel_de_read(display, XELPDP_PORT_CLOCK_CTL(display, encoder->port));
+>  
+> -	clock = REG_FIELD_GET(XELPDP_DDI_CLOCK_SELECT_MASK, val);
+> +	if (DISPLAY_VER(display) >= 30)
+> +		clock = REG_FIELD_GET(XE3D_DDI_CLOCK_SELECT_MASK, val);
+> +	else
+> +		clock = REG_FIELD_GET(XELPDP_DDI_CLOCK_SELECT_MASK, val);
+>  
+>  	drm_WARN_ON(display->drm, !(val & XELPDP_FORWARD_CLOCK_UNGATE));
+>  	drm_WARN_ON(display->drm, !(val & XELPDP_TBT_CLOCK_REQUEST));
+> @@ -3085,13 +3088,18 @@ int intel_mtl_tbt_calc_port_clock(struct intel_encoder *encoder)
+>  		return 540000;
+>  	case XELPDP_DDI_CLOCK_SELECT_TBT_810:
+>  		return 810000;
+> +	case XELPDP_DDI_CLOCK_SELECT_TBT_312_5:
+> +		return 1000000;
+> +	case XELPDP_DDI_CLOCK_SELECT_TBT_625:
+> +		return 2000000;
+>  	default:
+>  		MISSING_CASE(clock);
+>  		return 162000;
+>  	}
+>  }
+>  
+> -static int intel_mtl_tbt_clock_select(int clock)
+> +static int intel_mtl_tbt_clock_select(struct intel_display *display,
+> +				      int clock)
+>  {
+>  	switch (clock) {
+>  	case 162000:
+> @@ -3102,6 +3110,18 @@ static int intel_mtl_tbt_clock_select(int clock)
+>  		return XELPDP_DDI_CLOCK_SELECT_TBT_540;
+>  	case 810000:
+>  		return XELPDP_DDI_CLOCK_SELECT_TBT_810;
+> +	case 1000000:
+> +		if (DISPLAY_VER(display) < 30) {
+> +			drm_WARN_ON(display->drm, "UHBR10 not supported for the platform\n");
+> +			return XELPDP_DDI_CLOCK_SELECT_TBT_162;
+> +		}
+> +		return XELPDP_DDI_CLOCK_SELECT_TBT_312_5;
+> +	case 2000000:
+> +		if (DISPLAY_VER(display) < 30) {
+> +			drm_WARN_ON(display->drm, "UHBR20 not supported for the platform\n");
+> +			return XELPDP_DDI_CLOCK_SELECT_TBT_162;
+> +		}
+> +		return XELPDP_DDI_CLOCK_SELECT_TBT_625;
+>  	default:
+>  		MISSING_CASE(clock);
+>  		return XELPDP_DDI_CLOCK_SELECT_TBT_162;
+> @@ -3114,15 +3134,26 @@ static void intel_mtl_tbt_pll_enable(struct intel_encoder *encoder,
+>  	struct intel_display *display = to_intel_display(encoder);
+>  	enum phy phy = intel_encoder_to_phy(encoder);
+>  	u32 val = 0;
+> +	u32 mask;
+>  
+>  	/*
+>  	 * 1. Program PORT_CLOCK_CTL REGISTER to configure
+>  	 * clock muxes, gating and SSC
+>  	 */
+> -	val |= XELPDP_DDI_CLOCK_SELECT(intel_mtl_tbt_clock_select(crtc_state->port_clock));
+> +
+> +	if (DISPLAY_VER(display) >= 30) {
+> +		mask = XE3D_DDI_CLOCK_SELECT_MASK;
+> +		val |= XE3D_DDI_CLOCK_SELECT(intel_mtl_tbt_clock_select(display, crtc_state->port_clock));
+> +	} else {
+> +		mask = XELPDP_DDI_CLOCK_SELECT_MASK;
+> +		val |= XELPDP_DDI_CLOCK_SELECT(intel_mtl_tbt_clock_select(display, crtc_state->port_clock));
+> +	}
+> +
+> +	mask |= XELPDP_FORWARD_CLOCK_UNGATE;
+>  	val |= XELPDP_FORWARD_CLOCK_UNGATE;
+> +
+>  	intel_de_rmw(display, XELPDP_PORT_CLOCK_CTL(display, encoder->port),
+> -		     XELPDP_DDI_CLOCK_SELECT_MASK | XELPDP_FORWARD_CLOCK_UNGATE, val);
+> +		     mask, val);
+>  
+>  	/* 2. Read back PORT_CLOCK_CTL REGISTER */
+>  	val = intel_de_read(display, XELPDP_PORT_CLOCK_CTL(display, encoder->port));
+> diff --git a/drivers/gpu/drm/i915/display/intel_cx0_phy_regs.h b/drivers/gpu/drm/i915/display/intel_cx0_phy_regs.h
+> index c685479c9756..bf95ac234b2b 100644
+> --- a/drivers/gpu/drm/i915/display/intel_cx0_phy_regs.h
+> +++ b/drivers/gpu/drm/i915/display/intel_cx0_phy_regs.h
+> @@ -187,7 +187,9 @@
+>  #define   XELPDP_TBT_CLOCK_REQUEST			REG_BIT(19)
+>  #define   XELPDP_TBT_CLOCK_ACK				REG_BIT(18)
+>  #define   XELPDP_DDI_CLOCK_SELECT_MASK			REG_GENMASK(15, 12)
+> +#define   XE3D_DDI_CLOCK_SELECT_MASK			REG_GENMASK(16, 12)
+>  #define   XELPDP_DDI_CLOCK_SELECT(val)			REG_FIELD_PREP(XELPDP_DDI_CLOCK_SELECT_MASK, val)
+> +#define   XE3D_DDI_CLOCK_SELECT(val)			REG_FIELD_PREP(XE3D_DDI_CLOCK_SELECT_MASK, val)
+>  #define   XELPDP_DDI_CLOCK_SELECT_NONE			0x0
+>  #define   XELPDP_DDI_CLOCK_SELECT_MAXPCLK		0x8
+>  #define   XELPDP_DDI_CLOCK_SELECT_DIV18CLK		0x9
+> @@ -195,6 +197,8 @@
+>  #define   XELPDP_DDI_CLOCK_SELECT_TBT_270		0xd
+>  #define   XELPDP_DDI_CLOCK_SELECT_TBT_540		0xe
+>  #define   XELPDP_DDI_CLOCK_SELECT_TBT_810		0xf
+> +#define   XELPDP_DDI_CLOCK_SELECT_TBT_312_5		0x18
+> +#define   XELPDP_DDI_CLOCK_SELECT_TBT_625		0x19
+>  #define   XELPDP_FORWARD_CLOCK_UNGATE			REG_BIT(10)
+>  #define   XELPDP_LANE1_PHY_CLOCK_SELECT			REG_BIT(8)
+>  #define   XELPDP_SSC_ENABLE_PLLA			REG_BIT(1)
+> -- 
+> 2.43.0
 > 
-> and that workaround was added back in mid-2019 so it should be in all
-> recent Mesa releases.
-
-Ville? Any comment here?
-
-Andi
