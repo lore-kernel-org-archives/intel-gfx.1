@@ -4,66 +4,66 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B7CB3E7718A
-	for <intel-gfx@archiver.kernel.org>; Thu, 19 Dec 2024 16:07:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 66755E77184
+	for <intel-gfx@archiver.kernel.org>; Thu, 19 Dec 2024 16:07:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F18B910E33C;
-	Thu, 19 Dec 2024 16:07:25 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0533210ED2E;
+	Thu, 19 Dec 2024 16:07:26 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="VzDIAE9A";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="HZe8BTSZ";
 	dkim-atps=neutral
-Received: from mail-pf1-x431.google.com (mail-pf1-x431.google.com
- [IPv6:2607:f8b0:4864:20::431])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 388D910E47F;
- Thu, 19 Dec 2024 02:35:27 +0000 (UTC)
-Received: by mail-pf1-x431.google.com with SMTP id
- d2e1a72fcca58-728eedfca37so359613b3a.2; 
- Wed, 18 Dec 2024 18:35:27 -0800 (PST)
+Received: from mail-pl1-x62a.google.com (mail-pl1-x62a.google.com
+ [IPv6:2607:f8b0:4864:20::62a])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B661C10E271;
+ Thu, 19 Dec 2024 02:35:06 +0000 (UTC)
+Received: by mail-pl1-x62a.google.com with SMTP id
+ d9443c01a7336-216395e151bso2164065ad.0; 
+ Wed, 18 Dec 2024 18:35:06 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1734575727; x=1735180527; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1734575706; x=1735180506; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=7lFqN6P61Vcxg60EP2migAvtPpkWX8ZEoCx5nNg3/cM=;
- b=VzDIAE9AM5w13wkTq0hop5aWb+GtUpSKo+MzLxG0swgCgwUihSFY2dmtZunTtFgauv
- fz5GBlnCeVGuxsmSVmLMgerJxYV2tinhLnCpfDgMgrYaxcCV3eyf4rXPKKVsR0830YJF
- 91e+JDekMNK5wrBMRYyXIUYN2ZMX00zWul0yqe0gsWxgvQEYYtGWP2vuhI47jT654BD6
- F272Jj2WmHaxxvcNUyEy/8URdqwbsgqjtkny8LE96JgsIejTc2rI+AOH2FriJZ64+/SI
- 5A7CMXvLypHkxdC8HF188KQ5C//rVRk/C+Wg73NLIp0lqN1nwd5MFjIntEbO5NTnZo6T
- rqiA==
+ bh=6yZ75uwrgzXS/KAS9XiI4pfcH/Aa7U+Upt9QqSiD0i8=;
+ b=HZe8BTSZyJ+q9OGkdxCCAQx+r1VJ6B4lUDaoZ2M/B4yhqxskkOvNxU6zAC3W3PMT4h
+ KWyW3LYM8S+LqxSmySPt2PCo3ckrAXW+zfg1Ato2Y7CX3Nrrz8iE/1i9a6TKzHCNgkAM
+ NQV4IoqRTDuVNIAUP0YAOG9XWVcgqXsLg8DWhrDupuHE/3a15y04Y25TZSVMNc1juPrp
+ LCeyeAB8U5HXgmuSU0JQsmZFQjy+AGnJHxNLMIOjhQYmn25RICqpgrbivXW6AJngE/Q5
+ 6Rdo1hyUyog0wx3xMeeRevgmDrHUJvHC2B76D4OCvx1KJYTldxkCR0rekTrNkvpjtaqY
+ yxfA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1734575727; x=1735180527;
+ d=1e100.net; s=20230601; t=1734575706; x=1735180506;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=7lFqN6P61Vcxg60EP2migAvtPpkWX8ZEoCx5nNg3/cM=;
- b=qPEFiUC+OJU7DJVcfpHR4EHY50nv8SBcuJGY8Q8/OZwANMaqfxWA4/VKML7Qg0Qjme
- vkQxVap5Z/TwQVFhNPk/NwSx5BDIrMeu/A3XElBEdiRjXr3XvhuRBdn6w8TesmCv9P8/
- 74yJM8I+Xf05rOKXkxBgdUSWB7iYQ9KjgIsjO9QucHE2ew5BgTQt1cFYcPuS7gIR7X4i
- AY8+kdkQOWJkf+wWuleFfWM8VXoJHIPuv6pYcNjyIBhfwGjNFxBDYYUkWmxgmlV0wyOt
- lrOUkKeus1JsGXx3Ja8MpVLypRehiQQPVVEBvhGTWaXM0zrgD9zjF9UKHITekAxGt4MF
- +AUQ==
+ bh=6yZ75uwrgzXS/KAS9XiI4pfcH/Aa7U+Upt9QqSiD0i8=;
+ b=cVJBrCDp5SBkUoscNKAeMHaMRaj7aLuWV3DeiWLav+vjezszTjRvPUpOAx3YFFmaZ1
+ 226StqDHF6xinC899zkP7R6l3wZPe4xKwdLgZqMXEIvGPr/Vo2xWS29OQ8UsCkTtQZFG
+ Kst8ILvRAxsJVGLM0ubHVJqv7AAAsntEBgZya3Xh1+cXTpNL+DzuU+HHIoJpAxzryHGr
+ eJDmxBlheEoFVsi5XRSm/pA5eyjgD+wdU1F+MCw46ZMCtnUwDFcYduB5FtNTtjgrHBrM
+ iv5hPCtCQAPxrW+ZsqxBxBe590KKiGF6rkXfrsyzG3+CRIzbcVL3QzmuQMLPtbQTC1jH
+ 5CmQ==
 X-Forwarded-Encrypted: i=1;
- AJvYcCU0QoeJIRRcEwWZxVeJCKmAfQlIn0prc6t7OPYMjT+lGVZJgewHru0eGzb6B48hPVWQ7vysChryMJ61@lists.freedesktop.org,
- AJvYcCVYdYzMY/+ayCfm+RJGG4tpH2oDCByNJaHN3h0jhFzIS5puER0S+qFuCmGfOSGEAXe1NL7pYGmfrGs=@lists.freedesktop.org,
- AJvYcCVlDtq/2L6vCO3o4Z9+DD/btQ8r7PYOXiO2plf0Q8dxPKKlhpGyFpyCis0dPtBydyL57UwK2PfHrAk=@lists.freedesktop.org,
- AJvYcCWvA8Xm3J9/mh4Oj+FVcYmA2/V+PHEL5jMvuQeSK42bFOnGQqW30tGtrYCLonrR+oY4sd3tui1YBQ==@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzoCiK8aTiEr+34yl9Y3EIGajdDvUl4JzmUeVoy98w3xd5ajmmQ
- xWZggDQGh7qHnqehaZchP746RxJhaOdKWjQ6uzINITQPqcXAz8VL
-X-Gm-Gg: ASbGnctdFD+1O0fZF2oaxpGDY3DO+nf83pxUHi22uiNLkj2Dv81pSW4C6QBr9NBRkhd
- ERIDTig4KgZejcF90n0eb9VgilxojMATOzvcjy3HJN3LxvXdBU6k/5o3T+YEcljiJdOnUiOzp/T
- USW9A/PCP32idyjyk2KfbuKcgmw+QhdlG9KdZhu4Xb+9AU1C5Kztop859c3Xac0npgroqJd3ArX
- 18g1rwtbuG46sDEKJyjxOcXqFPetsB1UyBkF87Z1LJwqUzVvkR5T46r0jZrU+NhVcyolTYkON22
- reaPyAk=
-X-Google-Smtp-Source: AGHT+IEASYTltYbmKh5ZDA03zBv0Z8CD36/wkPvI28CV3U8CPosE7HG5sfVxRVIBm8iQbfYV7EQNzQ==
-X-Received: by 2002:a05:6a21:788c:b0:1e1:b727:181a with SMTP id
- adf61e73a8af0-1e5c763cc43mr2386992637.24.1734575726666; 
- Wed, 18 Dec 2024 18:35:26 -0800 (PST)
+ AJvYcCVBgPoSAn2KpbigBv3DY4KGBBMY3cBh4DqF9kQ3YCMWCdUiUT4akv96y23TvOtoYG5LnjLJrllxc6g=@lists.freedesktop.org,
+ AJvYcCVRrvozocophIB3uM2gcCkmJLVB60xXhJSTb4/GLTRBz567oSD0HDjas43MdatWuCOdyHm06/eQOZ35@lists.freedesktop.org,
+ AJvYcCW0CxuwCRc1XwfsfZB6w8qu0otKqHN0ulV5+cAU2kE9CLKeRT6VTN82UCQVpjP08i8BA5yfSf02og==@lists.freedesktop.org,
+ AJvYcCXhldZKnKlmJD0Y7TIq5ZlOTcb29dUyPGdvsdW8QgdyoX5z0P4skdYN10vodDT5pkklQKju21iGsBY=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YyXA9GyD3/yxKsp6KZqGIh/sPetBIw79a9YKGKtU8ydT7BI0wdN
+ cIBpXFQulhRv/bO4c6n+onMRyvBWBGFdIPjk44RY1kiwfjf2tWbV
+X-Gm-Gg: ASbGncu+KmTEYn0K1MfqYLN34iq9z+fDiSQNQ4cSeoxGpcmn7zL6Rg8cbCJD08ewNst
+ ZrZcFEBmdUsoZJMyNz6h3ndYxSP9A6NI645H/qn1Hlmu8HqblqRgcmjeJq27AXzfOJ54MZUK+Tm
+ lD4af+Igevk+V5M9ZKF9Mxt5rB101NRw3Qg7lmV/aXFkJBwXyfws6FA1RlKXvQEfCuIW87kPdhH
+ xJjW5CcqJSaaP9FQKjEASi1YRboP4Ur99zoY3EXc53ozrwWtD2mTTOs9Id6ICo0SzKKa3TRG9JB
+ BHpYovQ=
+X-Google-Smtp-Source: AGHT+IHDUXmWYVlYvXYhHIsD36N49JfOorXAToNFZUciCwG5nEYfG9fZ9g2sYrKUGUIeEzsd5pUGJQ==
+X-Received: by 2002:a17:902:f689:b0:215:2d2c:dd0c with SMTP id
+ d9443c01a7336-219da5e3b97mr23433885ad.14.1734575706180; 
+ Wed, 18 Dec 2024 18:35:06 -0800 (PST)
 Received: from localhost.localdomain ([180.159.118.224])
  by smtp.gmail.com with ESMTPSA id
- 41be03b00d2f7-842b821da83sm142163a12.40.2024.12.18.18.35.20
+ 41be03b00d2f7-842b821da83sm142163a12.40.2024.12.18.18.35.01
  (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
- Wed, 18 Dec 2024 18:35:26 -0800 (PST)
+ Wed, 18 Dec 2024 18:35:05 -0800 (PST)
 From: Yafang Shao <laoar.shao@gmail.com>
 To: akpm@linux-foundation.org
 Cc: torvalds@linux-foundation.org, pmladek@suse.com, kvalo@kernel.org,
@@ -73,23 +73,20 @@ Cc: torvalds@linux-foundation.org, pmladek@suse.com, kvalo@kernel.org,
  linux-wireless@vger.kernel.org, intel-gfx@lists.freedesktop.org,
  intel-xe@lists.freedesktop.org, nouveau@lists.freedesktop.org,
  dri-devel@lists.freedesktop.org, ocfs2-devel@lists.linux.dev,
- Yafang Shao <laoar.shao@gmail.com>, Jiri Slaby <jirislaby@kernel.org>,
- Lyude Paul <lyude@redhat.com>, Oded Gabbay <ogabbay@kernel.org>,
- Jani Nikula <jani.nikula@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Tvrtko Ursulin <tursulin@ursulin.net>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Karol Herbst <kherbst@redhat.com>,
- Danilo Krummrich <dakr@redhat.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Subject: [PATCH v2 5/5] drivers: Remove get_task_comm() and print task comm
+ Yafang Shao <laoar.shao@gmail.com>, Serge Hallyn <serge@hallyn.com>,
+ Thomas Gleixner <tglx@linutronix.de>, Ingo Molnar <mingo@redhat.com>,
+ Peter Zijlstra <peterz@infradead.org>, Darren Hart <dvhart@infradead.org>,
+ Davidlohr Bueso <dave@stgolabs.net>,
+ =?UTF-8?q?Andr=C3=A9=20Almeida?= <andrealmeid@igalia.com>
+Subject: [PATCH v2 1/5] kernel: Remove get_task_comm() and print task comm
  directly
-Date: Thu, 19 Dec 2024 10:34:52 +0800
-Message-Id: <20241219023452.69907-6-laoar.shao@gmail.com>
+Date: Thu, 19 Dec 2024 10:34:48 +0800
+Message-Id: <20241219023452.69907-2-laoar.shao@gmail.com>
 X-Mailer: git-send-email 2.37.1 (Apple Git-137.1)
 In-Reply-To: <20241219023452.69907-1-laoar.shao@gmail.com>
 References: <20241219023452.69907-1-laoar.shao@gmail.com>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Thu, 19 Dec 2024 16:07:24 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
@@ -112,177 +109,65 @@ directly without the need to copy it into a separate buffer. This
 simplifies the code and avoids unnecessary operations.
 
 Signed-off-by: Yafang Shao <laoar.shao@gmail.com>
-Reviewed-by: Jiri Slaby <jirislaby@kernel.org> (For tty)
-Reviewed-by: Lyude Paul <lyude@redhat.com> (For nouveau)
-Cc: Oded Gabbay <ogabbay@kernel.org>
-Cc: Jani Nikula <jani.nikula@linux.intel.com>
-Cc: Rodrigo Vivi <rodrigo.vivi@intel.com>
-Cc: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
-Cc: Tvrtko Ursulin <tursulin@ursulin.net>
-Cc: David Airlie <airlied@gmail.com>
-Cc: Simona Vetter <simona@ffwll.ch>
-Cc: Karol Herbst <kherbst@redhat.com>
-Cc: Lyude Paul <lyude@redhat.com>
-Cc: Danilo Krummrich <dakr@redhat.com>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: Jiri Slaby <jirislaby@kernel.org>
+Cc: Serge Hallyn <serge@hallyn.com>
+Cc: Thomas Gleixner <tglx@linutronix.de>
+Cc: Ingo Molnar <mingo@redhat.com>
+Cc: Peter Zijlstra <peterz@infradead.org>
+Cc: Darren Hart <dvhart@infradead.org>
+Cc: Davidlohr Bueso <dave@stgolabs.net>
+Cc: "André Almeida" <andrealmeid@igalia.com>
 ---
- drivers/accel/habanalabs/common/context.c           |  3 +--
- drivers/accel/habanalabs/common/habanalabs_ioctl.c  | 11 +++--------
- drivers/gpu/drm/i915/display/intel_display_driver.c |  6 ++----
- drivers/gpu/drm/nouveau/nouveau_chan.c              |  4 +---
- drivers/gpu/drm/nouveau/nouveau_drm.c               |  5 ++---
- drivers/tty/tty_io.c                                |  3 +--
- 6 files changed, 10 insertions(+), 22 deletions(-)
+ kernel/capability.c     | 8 ++------
+ kernel/futex/waitwake.c | 3 +--
+ 2 files changed, 3 insertions(+), 8 deletions(-)
 
-diff --git a/drivers/accel/habanalabs/common/context.c b/drivers/accel/habanalabs/common/context.c
-index b83141f58319..9f212b17611a 100644
---- a/drivers/accel/habanalabs/common/context.c
-+++ b/drivers/accel/habanalabs/common/context.c
-@@ -199,7 +199,6 @@ int hl_ctx_create(struct hl_device *hdev, struct hl_fpriv *hpriv)
+diff --git a/kernel/capability.c b/kernel/capability.c
+index dac4df77e376..e089d2628c29 100644
+--- a/kernel/capability.c
++++ b/kernel/capability.c
+@@ -38,10 +38,8 @@ __setup("no_file_caps", file_caps_disable);
  
- int hl_ctx_init(struct hl_device *hdev, struct hl_ctx *ctx, bool is_kernel_ctx)
+ static void warn_legacy_capability_use(void)
  {
--	char task_comm[TASK_COMM_LEN];
- 	int rc = 0, i;
- 
- 	ctx->hdev = hdev;
-@@ -272,7 +271,7 @@ int hl_ctx_init(struct hl_device *hdev, struct hl_ctx *ctx, bool is_kernel_ctx)
- 		mutex_init(&ctx->ts_reg_lock);
- 
- 		dev_dbg(hdev->dev, "create user context, comm=\"%s\", asid=%u\n",
--			get_task_comm(task_comm, current), ctx->asid);
-+			current->comm, ctx->asid);
- 	}
- 
- 	return 0;
-diff --git a/drivers/accel/habanalabs/common/habanalabs_ioctl.c b/drivers/accel/habanalabs/common/habanalabs_ioctl.c
-index 1dd6e23172ca..8729a0c57d78 100644
---- a/drivers/accel/habanalabs/common/habanalabs_ioctl.c
-+++ b/drivers/accel/habanalabs/common/habanalabs_ioctl.c
-@@ -1279,13 +1279,10 @@ static long _hl_ioctl(struct hl_fpriv *hpriv, unsigned int cmd, unsigned long ar
- 		retcode = -EFAULT;
- 
- out_err:
--	if (retcode) {
--		char task_comm[TASK_COMM_LEN];
+-	char name[sizeof(current->comm)];
 -
-+	if (retcode)
- 		dev_dbg_ratelimited(dev,
- 				"error in ioctl: pid=%d, comm=\"%s\", cmd=%#010x, nr=%#04x\n",
--				task_pid_nr(current), get_task_comm(task_comm, current), cmd, nr);
--	}
-+				task_pid_nr(current), current->comm, cmd, nr);
+ 	pr_info_once("warning: `%s' uses 32-bit capabilities (legacy support in use)\n",
+-		     get_task_comm(name, current));
++		     current->comm);
+ }
  
- 	if (kdata != stack_kdata)
- 		kfree(kdata);
-@@ -1308,11 +1305,9 @@ long hl_ioctl_control(struct file *filep, unsigned int cmd, unsigned long arg)
- 	if (nr == _IOC_NR(DRM_IOCTL_HL_INFO)) {
- 		ioctl = &hl_ioctls_control[nr - HL_COMMAND_START];
- 	} else {
--		char task_comm[TASK_COMM_LEN];
+ /*
+@@ -62,10 +60,8 @@ static void warn_legacy_capability_use(void)
+ 
+ static void warn_deprecated_v2(void)
+ {
+-	char name[sizeof(current->comm)];
 -
- 		dev_dbg_ratelimited(hdev->dev_ctrl,
- 				"invalid ioctl: pid=%d, comm=\"%s\", cmd=%#010x, nr=%#04x\n",
--				task_pid_nr(current), get_task_comm(task_comm, current), cmd, nr);
-+				task_pid_nr(current), current->comm, cmd, nr);
- 		return -ENOTTY;
- 	}
+ 	pr_info_once("warning: `%s' uses deprecated v2 capabilities in a way that may be insecure\n",
+-		     get_task_comm(name, current));
++		     current->comm);
+ }
  
-diff --git a/drivers/gpu/drm/i915/display/intel_display_driver.c b/drivers/gpu/drm/i915/display/intel_display_driver.c
-index 56b78cf6b854..62596424a9aa 100644
---- a/drivers/gpu/drm/i915/display/intel_display_driver.c
-+++ b/drivers/gpu/drm/i915/display/intel_display_driver.c
-@@ -391,7 +391,6 @@ void intel_display_driver_resume_access(struct drm_i915_private *i915)
-  */
- bool intel_display_driver_check_access(struct drm_i915_private *i915)
- {
--	char comm[TASK_COMM_LEN];
- 	char current_task[TASK_COMM_LEN + 16];
- 	char allowed_task[TASK_COMM_LEN + 16] = "none";
+ /*
+diff --git a/kernel/futex/waitwake.c b/kernel/futex/waitwake.c
+index 3a10375d9521..eb86a7ade06a 100644
+--- a/kernel/futex/waitwake.c
++++ b/kernel/futex/waitwake.c
+@@ -210,13 +210,12 @@ static int futex_atomic_op_inuser(unsigned int encoded_op, u32 __user *uaddr)
  
-@@ -400,12 +399,11 @@ bool intel_display_driver_check_access(struct drm_i915_private *i915)
- 		return true;
- 
- 	snprintf(current_task, sizeof(current_task), "%s[%d]",
--		 get_task_comm(comm, current),
--		 task_pid_vnr(current));
-+		 current->comm, task_pid_vnr(current));
- 
- 	if (i915->display.access.allowed_task)
- 		snprintf(allowed_task, sizeof(allowed_task), "%s[%d]",
--			 get_task_comm(comm, i915->display.access.allowed_task),
-+			 i915->display.access.allowed_task->comm,
- 			 task_pid_vnr(i915->display.access.allowed_task));
- 
- 	drm_dbg_kms(&i915->drm,
-diff --git a/drivers/gpu/drm/nouveau/nouveau_chan.c b/drivers/gpu/drm/nouveau/nouveau_chan.c
-index 2cb2e5675807..cd659b9fd1d9 100644
---- a/drivers/gpu/drm/nouveau/nouveau_chan.c
-+++ b/drivers/gpu/drm/nouveau/nouveau_chan.c
-@@ -279,7 +279,6 @@ nouveau_channel_ctor(struct nouveau_cli *cli, bool priv, u64 runm,
- 	const u64 plength = 0x10000;
- 	const u64 ioffset = plength;
- 	const u64 ilength = 0x02000;
--	char name[TASK_COMM_LEN];
- 	int cid, ret;
- 	u64 size;
- 
-@@ -338,8 +337,7 @@ nouveau_channel_ctor(struct nouveau_cli *cli, bool priv, u64 runm,
- 		chan->userd = &chan->user;
- 	}
- 
--	get_task_comm(name, current);
--	snprintf(args.name, sizeof(args.name), "%s[%d]", name, task_pid_nr(current));
-+	snprintf(args.name, sizeof(args.name), "%s[%d]", current->comm, task_pid_nr(current));
- 
- 	ret = nvif_object_ctor(&device->object, "abi16ChanUser", 0, hosts[cid].oclass,
- 			       &args, sizeof(args), &chan->user);
-diff --git a/drivers/gpu/drm/nouveau/nouveau_drm.c b/drivers/gpu/drm/nouveau/nouveau_drm.c
-index 107f63f08bd9..ea7206484d22 100644
---- a/drivers/gpu/drm/nouveau/nouveau_drm.c
-+++ b/drivers/gpu/drm/nouveau/nouveau_drm.c
-@@ -1159,7 +1159,7 @@ nouveau_drm_open(struct drm_device *dev, struct drm_file *fpriv)
- {
- 	struct nouveau_drm *drm = nouveau_drm(dev);
- 	struct nouveau_cli *cli;
--	char name[32], tmpname[TASK_COMM_LEN];
-+	char name[32];
- 	int ret;
- 
- 	/* need to bring up power immediately if opening device */
-@@ -1169,10 +1169,9 @@ nouveau_drm_open(struct drm_device *dev, struct drm_file *fpriv)
- 		return ret;
- 	}
- 
--	get_task_comm(tmpname, current);
- 	rcu_read_lock();
- 	snprintf(name, sizeof(name), "%s[%d]",
--		 tmpname, pid_nr(rcu_dereference(fpriv->pid)));
-+		 current->comm, pid_nr(rcu_dereference(fpriv->pid)));
- 	rcu_read_unlock();
- 
- 	if (!(cli = kzalloc(sizeof(*cli), GFP_KERNEL))) {
-diff --git a/drivers/tty/tty_io.c b/drivers/tty/tty_io.c
-index 9771072da177..102e31f62f76 100644
---- a/drivers/tty/tty_io.c
-+++ b/drivers/tty/tty_io.c
-@@ -2622,14 +2622,13 @@ static int tty_tiocgicount(struct tty_struct *tty, void __user *arg)
- 
- static int tty_set_serial(struct tty_struct *tty, struct serial_struct *ss)
- {
--	char comm[TASK_COMM_LEN];
- 	int flags;
- 
- 	flags = ss->flags & ASYNC_DEPRECATED;
- 
- 	if (flags)
- 		pr_warn_ratelimited("%s: '%s' is using deprecated serial flags (with no effect): %.8x\n",
--				__func__, get_task_comm(comm, current), flags);
-+				__func__, current->comm, flags);
- 
- 	if (!tty->ops->set_serial)
- 		return -ENOTTY;
+ 	if (encoded_op & (FUTEX_OP_OPARG_SHIFT << 28)) {
+ 		if (oparg < 0 || oparg > 31) {
+-			char comm[sizeof(current->comm)];
+ 			/*
+ 			 * kill this print and return -EINVAL when userspace
+ 			 * is sane again
+ 			 */
+ 			pr_info_ratelimited("futex_wake_op: %s tries to shift op by %d; fix this program\n",
+-					get_task_comm(comm, current), oparg);
++					    current->comm, oparg);
+ 			oparg &= 31;
+ 		}
+ 		oparg = 1 << oparg;
 -- 
 2.43.5
 
