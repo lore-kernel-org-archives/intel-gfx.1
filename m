@@ -4,50 +4,51 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C8F7FE77184
-	for <intel-gfx@archiver.kernel.org>; Thu, 19 Dec 2024 22:14:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 61423E7718D
+	for <intel-gfx@archiver.kernel.org>; Thu, 19 Dec 2024 22:15:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 608D610EDF3;
+	by gabe.freedesktop.org (Postfix) with ESMTP id A188910EDF6;
 	Thu, 19 Dec 2024 22:14:59 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="nFkLZIi2";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="Ysh8AUyE";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.17])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E28D510EDF4;
- Thu, 19 Dec 2024 22:14:55 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7E7A610EDF5;
+ Thu, 19 Dec 2024 22:14:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1734646495; x=1766182495;
+ t=1734646498; x=1766182498;
  h=from:to:subject:date:message-id:in-reply-to:references:
  mime-version:content-transfer-encoding;
- bh=XXjxeer2ISNvfjT//aQPbgIGFg4TfEAwRaGz6XuXRzo=;
- b=nFkLZIi2XQS99xDVSoMZg9K42eh8WYz8yFjXvSkiuuguqW7WoVIeompX
- LlOCrfZXZftOt25wn+0uMgkF/AZzdEP/057nfYrWZfZOvY3FdGZC6cfCb
- C17lhJopfRuSEPYrvNDXFCOXLhm2VLXKDGQbWRQOnZXkuijc/1EbRAM7s
- SghCNUOrVki0JwndubdopMdR6HZmTIzkxVXfacj22gGjMCSuySDMa9669
- q4lojSEkcfEMPqEmxQqjwb4VJDrvJ6JMjUnc//k0QbHh0XR3nMhaej/2I
- OJuYXfoWLgYOYRwjyziNkfiZYNWm2s5dyUqUs2F7blhq/Iviz5htigNJN A==;
-X-CSE-ConnectionGUID: 0ylW8HqdR2mIQkpqhWU3/A==
-X-CSE-MsgGUID: noQK3HL8QBeG6oAq0ziPfQ==
-X-IronPort-AV: E=McAfee;i="6700,10204,11291"; a="35217709"
-X-IronPort-AV: E=Sophos;i="6.12,248,1728975600"; d="scan'208";a="35217709"
+ bh=TVeC1NQjlRTgOg4RZ8TEsTG2cEJIPnEHtWZpZcI3quM=;
+ b=Ysh8AUyE6mIQnfgjFUdnA0lKeOBFd537HaiIr2l/9cIFv1miIGGTVBWX
+ ElfseyFnFxDsesBlIovx88Ol9V9R9o1HjnvE9KLbSp6UxxDbn09m6zBx6
+ mYGfUssrcDvNHq7jxkzn8PJZ4Hc3VSXczWDVeX5CYylwn1Qe2GJc+qNmL
+ 0ku6gC9hcXnsei7JhcTWp8jt8C+Snc5QmZTlkBaiqq+NXqC1DtQbj3y6q
+ 5R+5D0rCLaKd7g5WTFmko1r2gG5twF7rP20o6EubTp6RQMrzeIC3V0zNC
+ fwEjO9FtRuXx4EPMj+EgM7lXVqZwDSeLT5PcILZdjQlbjUlWCMwMxmaGQ Q==;
+X-CSE-ConnectionGUID: C0ckYgiSTKmHWJjSp/pZLw==
+X-CSE-MsgGUID: qUbl7L3ZRrehqlCCYpUPfw==
+X-IronPort-AV: E=McAfee;i="6700,10204,11291"; a="35217718"
+X-IronPort-AV: E=Sophos;i="6.12,248,1728975600"; d="scan'208";a="35217718"
 Received: from fmviesa005.fm.intel.com ([10.60.135.145])
  by orvoesa109.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 19 Dec 2024 14:14:55 -0800
-X-CSE-ConnectionGUID: lFjnDZrMRGSg2+UZR0qNmw==
-X-CSE-MsgGUID: eHt+1WaBTniCF9OUjdtBOQ==
+ 19 Dec 2024 14:14:58 -0800
+X-CSE-ConnectionGUID: VifHxqOhQNeldPGF4YTFiQ==
+X-CSE-MsgGUID: R37b7EN3QEauGtWvyrOGIA==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.12,224,1728975600"; d="scan'208";a="102944123"
+X-IronPort-AV: E=Sophos;i="6.12,224,1728975600"; d="scan'208";a="102944128"
 Received: from bmurrell-mobl.amr.corp.intel.com (HELO
  gjsousa-mobl2.corp.amr.intel.com) ([10.125.108.91])
  by fmviesa005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 19 Dec 2024 14:14:55 -0800
+ 19 Dec 2024 14:14:57 -0800
 From: Gustavo Sousa <gustavo.sousa@intel.com>
 To: intel-xe@lists.freedesktop.org,
 	intel-gfx@lists.freedesktop.org
-Subject: [PATCH 1/4] drm/i915/dmc_wl: Use enum values for enable_dmc_wl
-Date: Thu, 19 Dec 2024 19:14:13 -0300
-Message-ID: <20241219221429.109668-2-gustavo.sousa@intel.com>
+Subject: [PATCH 3/4] drm/i915/dmc_wl: Allow enable_dmc_wl=2 to mean "match any
+ register"
+Date: Thu, 19 Dec 2024 19:14:15 -0300
+Message-ID: <20241219221429.109668-4-gustavo.sousa@intel.com>
 X-Mailer: git-send-email 2.47.1
 In-Reply-To: <20241219221429.109668-1-gustavo.sousa@intel.com>
 References: <20241219221429.109668-1-gustavo.sousa@intel.com>
@@ -68,63 +69,90 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Currently, after sanitization, enable_dmc_wl will behave like a boolean
-parameter (enabled vs disabled). However, in upcoming changes, we will
-allow more values for debugging purposes. For that, let's make the
-sanitized value an enumeration.
+When debugging issues that might be related to the DMC wakelock code, it
+is sometimes useful to compare runs when we match any register offset vs
+the regular case. If issues disappear when we take the wakelock for any
+register, it might indicate that we are missing some offset to be
+tracked. Support matching any register offset with enable_dmc_wl=2.
 
 Signed-off-by: Gustavo Sousa <gustavo.sousa@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_dmc_wl.c | 29 ++++++++++++++++-----
- 1 file changed, 23 insertions(+), 6 deletions(-)
+ .../gpu/drm/i915/display/intel_display_params.c |  2 +-
+ drivers/gpu/drm/i915/display/intel_dmc_wl.c     | 17 ++++++++++++++---
+ 2 files changed, 15 insertions(+), 4 deletions(-)
 
+diff --git a/drivers/gpu/drm/i915/display/intel_display_params.c b/drivers/gpu/drm/i915/display/intel_display_params.c
+index f92e4640a613..f0f388f38fa7 100644
+--- a/drivers/gpu/drm/i915/display/intel_display_params.c
++++ b/drivers/gpu/drm/i915/display/intel_display_params.c
+@@ -130,7 +130,7 @@ intel_display_param_named_unsafe(enable_psr2_sel_fetch, bool, 0400,
+ 
+ intel_display_param_named_unsafe(enable_dmc_wl, int, 0400,
+ 	"Enable DMC wakelock "
+-	"(-1=use per-chip default, 0=disabled, 1=enabled) "
++	"(-1=use per-chip default, 0=disabled, 1=enabled, 2=match any register) "
+ 	"Default: -1");
+ 
+ __maybe_unused
 diff --git a/drivers/gpu/drm/i915/display/intel_dmc_wl.c b/drivers/gpu/drm/i915/display/intel_dmc_wl.c
-index 3ac44151aab5..cff841521ca0 100644
+index 2315c6318b51..22e963da65c6 100644
 --- a/drivers/gpu/drm/i915/display/intel_dmc_wl.c
 +++ b/drivers/gpu/drm/i915/display/intel_dmc_wl.c
-@@ -50,6 +50,15 @@
- #define DMC_WAKELOCK_CTL_TIMEOUT_US 5000
- #define DMC_WAKELOCK_HOLD_TIME 50
+@@ -56,6 +56,7 @@
+ enum {
+ 	ENABLE_DMC_WL_DISABLED,
+ 	ENABLE_DMC_WL_ENABLED,
++	ENABLE_DMC_WL_ANY_REGISTER,
+ 	ENABLE_DMC_WL_MAX,
+ };
  
-+/*
-+ * Possible non-negative values for the enable_dmc_wl param.
-+ */
-+enum {
-+	ENABLE_DMC_WL_DISABLED,
-+	ENABLE_DMC_WL_ENABLED,
-+	ENABLE_DMC_WL_MAX,
-+};
-+
- struct intel_dmc_wl_range {
- 	u32 start;
- 	u32 end;
-@@ -270,12 +279,20 @@ static bool __intel_dmc_wl_supported(struct intel_display *display)
+@@ -239,10 +240,15 @@ static bool intel_dmc_wl_reg_in_range(i915_reg_t reg,
+ 	return false;
+ }
  
- static void intel_dmc_wl_sanitize_param(struct intel_display *display)
+-static bool intel_dmc_wl_check_range(i915_reg_t reg, u32 dc_state)
++static bool intel_dmc_wl_check_range(struct intel_display *display,
++				     i915_reg_t reg,
++				     u32 dc_state)
  {
--	if (!HAS_DMC_WAKELOCK(display))
--		display->params.enable_dmc_wl = 0;
--	else if (display->params.enable_dmc_wl >= 0)
--		display->params.enable_dmc_wl = !!display->params.enable_dmc_wl;
--	else
--		display->params.enable_dmc_wl = DISPLAY_VER(display) >= 30;
-+	if (!HAS_DMC_WAKELOCK(display)) {
-+		display->params.enable_dmc_wl = ENABLE_DMC_WL_DISABLED;
-+	} else if (display->params.enable_dmc_wl < 0) {
-+		if (DISPLAY_VER(display) >= 30)
-+			display->params.enable_dmc_wl = ENABLE_DMC_WL_ENABLED;
-+		else
-+			display->params.enable_dmc_wl = ENABLE_DMC_WL_DISABLED;
-+	} else if (display->params.enable_dmc_wl >= ENABLE_DMC_WL_MAX) {
-+		display->params.enable_dmc_wl = ENABLE_DMC_WL_ENABLED;
-+	}
-+
-+	drm_WARN_ON(display->drm,
-+		    display->params.enable_dmc_wl < 0 ||
-+		    display->params.enable_dmc_wl >= ENABLE_DMC_WL_MAX);
+ 	const struct intel_dmc_wl_range *ranges;
  
- 	drm_dbg_kms(display->drm, "Sanitized enable_dmc_wl value: %d\n",
- 		    display->params.enable_dmc_wl);
++	if (display->params.enable_dmc_wl == ENABLE_DMC_WL_ANY_REGISTER)
++		return true;
++
+ 	/*
+ 	 * Check that the offset is in one of the ranges for which
+ 	 * registers are powered off during DC states.
+@@ -303,6 +309,9 @@ static void intel_dmc_wl_sanitize_param(struct intel_display *display)
+ 	case ENABLE_DMC_WL_ENABLED:
+ 		desc = "enabled";
+ 		break;
++	case ENABLE_DMC_WL_ANY_REGISTER:
++		desc = "match any register";
++		break;
+ 	default:
+ 		desc = "unknown";
+ 		break;
+@@ -429,7 +438,8 @@ void intel_dmc_wl_get(struct intel_display *display, i915_reg_t reg)
+ 
+ 	spin_lock_irqsave(&wl->lock, flags);
+ 
+-	if (i915_mmio_reg_valid(reg) && !intel_dmc_wl_check_range(reg, wl->dc_state))
++	if (i915_mmio_reg_valid(reg) &&
++	    !intel_dmc_wl_check_range(display, reg, wl->dc_state))
+ 		goto out_unlock;
+ 
+ 	if (!wl->enabled) {
+@@ -461,7 +471,8 @@ void intel_dmc_wl_put(struct intel_display *display, i915_reg_t reg)
+ 
+ 	spin_lock_irqsave(&wl->lock, flags);
+ 
+-	if (i915_mmio_reg_valid(reg) && !intel_dmc_wl_check_range(reg, wl->dc_state))
++	if (i915_mmio_reg_valid(reg) &&
++	    !intel_dmc_wl_check_range(display, reg, wl->dc_state))
+ 		goto out_unlock;
+ 
+ 	if (WARN_RATELIMIT(!refcount_read(&wl->refcount),
 -- 
 2.47.1
 
