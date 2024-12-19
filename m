@@ -4,58 +4,32 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AF94FE7718B
-	for <intel-gfx@archiver.kernel.org>; Thu, 19 Dec 2024 16:02:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 30333E7718A
+	for <intel-gfx@archiver.kernel.org>; Thu, 19 Dec 2024 16:07:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 133B210E49F;
-	Thu, 19 Dec 2024 16:02:31 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="fJ4y7sWV";
-	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6CE7010E34D;
- Thu, 19 Dec 2024 16:02:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1734624150; x=1766160150;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:content-transfer-encoding:in-reply-to;
- bh=znzwOkFqKaQemQ0wmhLXyR9+mlQjDxWqSUQwi2JQjgs=;
- b=fJ4y7sWVx/qtnGUDA0NUCY5YAzYSgYTG6WZkmyAFnMhN6dtYuwSZXwAo
- M/fgcdTvZAdT/Vk6CB+F6ila/oYYDyeYzeUCprcdHssJr/1YZqZs0tTUH
- EV3uMXEaKvq3q4xkom7OLNCl4rDKtt5feJojB7P7wfhc6bYmkuDcgrCyU
- qp0ZlYIgZDos/T/gBwZaQR4frzwwH6ymJpalkVU61FlA/xDAOB3tqJX2U
- kgE3Gd2cZqZy2ANQ8RDc+C3cXv0M3sYxy9U2KbdlZlhiAE3jWipdsMQdL
- N3UM0axnBK/xiKZUlhq9lz6RE6MQAX/+0t74a4kjr/ef3oTzMoQtDawQf w==;
-X-CSE-ConnectionGUID: n67S2JPESp+MGIMqFMdBPQ==
-X-CSE-MsgGUID: +VDN+x6GRbuo4e7xk9qajQ==
-X-IronPort-AV: E=McAfee;i="6700,10204,11290"; a="46558645"
-X-IronPort-AV: E=Sophos;i="6.12,248,1728975600"; d="scan'208";a="46558645"
-Received: from fmviesa008.fm.intel.com ([10.60.135.148])
- by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 19 Dec 2024 08:02:29 -0800
-X-CSE-ConnectionGUID: 1KgTKE5gRxSRh2m8PoTUWg==
-X-CSE-MsgGUID: N+nvuuKvSAaWNLgNtHvKYA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.12,248,1728975600"; d="scan'208";a="98437696"
-Received: from stinkpipe.fi.intel.com (HELO stinkbox) ([10.237.72.74])
- by fmviesa008.fm.intel.com with SMTP; 19 Dec 2024 08:02:26 -0800
-Received: by stinkbox (sSMTP sendmail emulation);
- Thu, 19 Dec 2024 18:02:25 +0200
-Date: Thu, 19 Dec 2024 18:02:25 +0200
-From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
-To: Nemesa Garg <nemesa.garg@intel.com>
-Cc: intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org
-Subject: Re: [PATCH 1/2] drm/i915/display: After joiner compute pfit_dst
-Message-ID: <Z2RDkcPdNv5vMJOl@intel.com>
-References: <20241212143329.938202-1-nemesa.garg@intel.com>
- <20241212143329.938202-2-nemesa.garg@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id A8D5310E4A6;
+	Thu, 19 Dec 2024 16:07:25 +0000 (UTC)
+Received: from mx1.emlix.com (mx1.emlix.com [178.63.209.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 803A910E2BB
+ for <intel-gfx@lists.freedesktop.org>; Thu, 19 Dec 2024 10:26:48 +0000 (UTC)
+Received: from mailer.emlix.com (p5098be52.dip0.t-ipconnect.de [80.152.190.82])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mx1.emlix.com (Postfix) with ESMTPS id 0FBCB5FA41;
+ Thu, 19 Dec 2024 11:18:37 +0100 (CET)
+From: Rolf Eike Beer <eb@emlix.com>
+To: Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, Tvrtko Ursulin <tursulin@ursulin.net>
+Cc: intel-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Subject: [PATCH 0/2] annotate i915_gem_object_trylock() as __must_check
+Date: Thu, 19 Dec 2024 11:16:07 +0100
+Message-ID: <7746997.EvYhyI6sBW@devpool47.emlix.com>
+Organization: emlix GmbH
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20241212143329.938202-2-nemesa.garg@intel.com>
-X-Patchwork-Hint: comment
+Content-Type: multipart/signed; boundary="nextPart3849359.kQq0lBPeGt";
+ micalg="pgp-sha256"; protocol="application/pgp-signature"
+X-Mailman-Approved-At: Thu, 19 Dec 2024 16:07:24 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,101 +45,57 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Thu, Dec 12, 2024 at 08:03:28PM +0530, Nemesa Garg wrote:
-> In panel fitter/pipe scaler scenario the pch_pfit configuration
-> currently takes place before accounting for pipe_src width for
-> joiner. This causes issue when pch_pfit and joiner get enabled
-> together.So once pipe src is computed adjust the pfit_dst.
-> It can be done by computing per pipe output area first and then
-> and then find the intersection of above area with pfit_dst and
-> then adjust the coordinates.
-> 
-> Signed-off-by: Nemesa Garg <nemesa.garg@intel.com>
-> ---
->  drivers/gpu/drm/i915/display/intel_display.c | 41 ++++++++++++++++++++
->  1 file changed, 41 insertions(+)
-> 
-> diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
-> index 21319f753a34..7be2ea11b8b0 100644
-> --- a/drivers/gpu/drm/i915/display/intel_display.c
-> +++ b/drivers/gpu/drm/i915/display/intel_display.c
-> @@ -2563,6 +2563,36 @@ static int intel_crtc_compute_pipe_src(struct intel_crtc_state *crtc_state)
->  	return 0;
->  }
->  
-> +/*
-> + * The x-coordinate for Primary should be calculated in such a way
-> + * that it remains consistent whether the pipes are joined or not.
-> + * This means we need to consider the full width of the display even
-> + * when the pipes are joined. The x-coordinate for secondaries is 0
-> + * because it starts at the leftmost point of its own display area,
-> + * ensuring that the framebuffer is centered within Pipe B’s portion
-> + * of the overall display.
-> + */
-> +static int intel_crtc_compute_pfit(struct intel_atomic_state *state,
-> +				   struct intel_crtc_state *crtc_state)
-> +{
-> +	struct drm_display_mode *mode = &crtc_state->hw.pipe_mode;
+--nextPart3849359.kQq0lBPeGt
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"; protected-headers="v1"
+From: Rolf Eike Beer <eb@emlix.com>
+Cc: intel-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Date: Thu, 19 Dec 2024 11:16:07 +0100
+Message-ID: <7746997.EvYhyI6sBW@devpool47.emlix.com>
+Organization: emlix GmbH
+MIME-Version: 1.0
 
-const struct drm_display_mode *pipe_mode = ...
+A while ago I did an attempt to convert some *_trylock*() functions to=20
+__must_check annotation. I have refreshed that and the only new compile err=
+or=20
+I found was in i915/gt/selftest_migrate.c.
 
-> +	struct drm_rect area;
-> +
-> +	if (!crtc_state->pch_pfit.enabled)
-> +		return 0;
-> +
-> +	drm_rect_init(&area, 0, 0,
+Here is what I have come up with as a solution for this. I have not observe=
+d=20
+any actual error about this, so you may prefer an entirely different way.
 
-This needs a proper x offset to match the pipe's positon in
-the overall screen layout (can be determined similarly to
-intel_joiner_adjust_pipe_src(), except using crtc_hdisplay
-as the width instead of the pipe_src width).
+Regards,
 
-> +		      mode->crtc_hdisplay,
-> +		      mode->crtc_vdisplay);
-> +
-> +	if (!drm_rect_intersect(&crtc_state->pch_pfit.dst, &area))
-> +		return -EINVAL;
-> +
-> +	drm_rect_translate(&crtc_state->pch_pfit.dst, -area.x1, -area.y1);
+Eike
+=2D-=20
+Rolf Eike Beer
 
-And this needs to remove the same offset we added originally.
+emlix GmbH
+Headquarters: Berliner Str. 12, 37073 G=C3=B6ttingen, Germany
+Phone +49 (0)551 30664-0, e-mail info@emlix.com
+District Court of G=C3=B6ttingen, Registry Number HR B 3160
+Managing Directors: Heike Jordan, Dr. Uwe Kracke
+VAT ID No. DE 205 198 055
+Office Berlin: Panoramastr. 1, 10178 Berlin, Germany
+Office Bonn: Bachstr. 6, 53115 Bonn, Germany
+http://www.emlix.com
 
-> +
-> +	return 0;
-> +}
-> +
->  static int intel_crtc_compute_pipe_mode(struct intel_crtc_state *crtc_state)
->  {
->  	struct intel_crtc *crtc = to_intel_crtc(crtc_state->uapi.crtc);
-> @@ -2645,6 +2675,10 @@ static int intel_crtc_compute_config(struct intel_atomic_state *state,
->  	if (ret)
->  		return ret;
->  
-> +	ret = intel_crtc_compute_pfit(state, crtc_state);
-> +	if (ret)
-> +		return ret;
-> +
->  	intel_crtc_compute_pixel_rate(crtc_state);
->  
->  	if (crtc_state->has_pch_encoder)
-> @@ -4865,6 +4899,13 @@ copy_joiner_crtc_state_modeset(struct intel_atomic_state *state,
->  		drm_dp_tunnel_ref_get(primary_crtc_state->dp_tunnel_ref.tunnel,
->  				      &secondary_crtc_state->dp_tunnel_ref);
->  
-> +	if (secondary_crtc_state->pch_pfit.enabled) {
-> +		struct drm_rect *dst = &secondary_crtc_state->pch_pfit.dst;
-> +		int y = dst->y1;
-> +
-> +		drm_rect_translate_to(dst, 0, y);
-> +	}
-> +
->  	copy_joiner_crtc_state_nomodeset(state, secondary_crtc);
->  
->  	secondary_crtc_state->uapi.mode_changed = primary_crtc_state->uapi.mode_changed;
-> -- 
-> 2.25.1
+emlix - your embedded Linux partner
+--nextPart3849359.kQq0lBPeGt
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part.
+Content-Transfer-Encoding: 7Bit
 
--- 
-Ville Syrjälä
-Intel
+-----BEGIN PGP SIGNATURE-----
+
+iLMEAAEIAB0WIQQ/Uctzh31xzAxFCLur5FH7Xu2t/AUCZ2PyZwAKCRCr5FH7Xu2t
+/FuRBACBwe7MH/m8FCyJ2vScbYoIXb2qklwrHuyXiNBDw5hoAiF5ohaRvz4vy9sB
+PtJmPOBQTcmODW+lWRWtqtCiqP6LRBqljQ242OoOPTil1fT2PyGU99CSieTCYI9d
+MmhK2aqDmooA1XZTd1/ixw2jbz5nP9IPA9X1OQejbLjYbj5Ttg==
+=dMfn
+-----END PGP SIGNATURE-----
+
+--nextPart3849359.kQq0lBPeGt--
+
+
+
