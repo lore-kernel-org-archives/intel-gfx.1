@@ -4,41 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F3D62E77191
-	for <intel-gfx@archiver.kernel.org>; Fri, 27 Dec 2024 11:37:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 30628E7718F
+	for <intel-gfx@archiver.kernel.org>; Fri, 27 Dec 2024 11:38:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5D5F810E3C1;
-	Fri, 27 Dec 2024 11:37:58 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D37AF10E3B8;
+	Fri, 27 Dec 2024 11:38:00 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="ofE4d0Qs";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="M8ZkaiPt";
 	dkim-atps=neutral
 Received: from fanzine2.igalia.com (fanzine.igalia.com [178.60.130.6])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A184710E3B2
- for <intel-gfx@lists.freedesktop.org>; Fri, 27 Dec 2024 11:37:56 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0AC1310E3C1
+ for <intel-gfx@lists.freedesktop.org>; Fri, 27 Dec 2024 11:37:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
  s=20170329;
- h=Content-Transfer-Encoding:MIME-Version:Message-ID:Date:Subject:
- To:From:Sender:Reply-To:Cc:Content-Type:Content-ID:Content-Description:
- Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:
- In-Reply-To:References:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
+ h=Content-Transfer-Encoding:MIME-Version:References:In-Reply-To:
+ Message-ID:Date:Subject:To:From:Sender:Reply-To:Cc:Content-Type:Content-ID:
+ Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
+ :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
  List-Post:List-Owner:List-Archive;
- bh=AduVVJrA9lIbWg9SIe2KOiwZ3LPQuI2PP5us5oPkxeg=; b=ofE4d0QsR0lBpLZwhMgvq+MnLo
- AAIqnriOjut94phpD+yLYGpdK8H1YuyqVVtf/EROOvY9v1CioIRH88FVcSSjHlyUeKJF+k9qqL9sc
- Zd8bjGWb8PVc6c94YPKCfCmB+QxLaHvyi5NRqcOgk3GtVMqMG01Yu3ZDpflSdHnaU29GeRegL5/UK
- LjzAthCDrZmqU8mAbn5qrq0+B9IWCDNLqzFXd9fwMTZjxVHY8lxaqZ/GkN4+5Q3PBRcloQcQo/nmB
- fbJIqS9ae4+SPVyuXDjakDS/VG6qoZLLki9f1+hn0CnM1DH/buM2QKW8WsOhmrhVvp9hZhvzOuqUq
- ZuTNTKxQ==;
+ bh=cGpiET8V2SEgGZKlBxnY7fyLDHhWkwvfc6UTNuy732w=; b=M8ZkaiPtUsMTyw5soxV3orsdVm
+ doIyFHzc2mJmZPv64rbDnIb2JabpqQY8MxE/SWaTeNXW4dBvSpYYktde7gvfD7T5HVU/jg8DqcSvg
+ KV82IQCKfrj00z5JLHrPvulb54sTv1s9/f+eH1xuKQXIif0bHRGfoMgYHGoKZVvF9gRryRBtMwI7v
+ AozYMJY+0vzGECCPT8OOGOBBKQRDfYGFm4ePyo9K5GnwObT9fPLTMAV1o9X+8RlZEKvguLkfQDwBv
+ iw+DsZVhvLd1/lN3iYo4dK1n/JjfghsvFcNA+DW25WOXK7tucsMj3KOmXUr7+hIJdtgVrrvcR4cXw
+ xF3jRjGg==;
 Received: from [90.241.98.187] (helo=localhost)
  by fanzine2.igalia.com with esmtpsa 
  (Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1tR8fC-008EU6-TQ
- for <intel-gfx@lists.freedesktop.org>; Fri, 27 Dec 2024 12:37:54 +0100
+ id 1tR8fE-008EUF-9h
+ for <intel-gfx@lists.freedesktop.org>; Fri, 27 Dec 2024 12:37:56 +0100
 From: Tvrtko Ursulin <tursulin@igalia.com>
 To: intel-gfx@lists.freedesktop.org
-Subject: [PATCH 1/3] drm/i915: Remove deadcode
-Date: Fri, 27 Dec 2024 11:37:52 +0000
-Message-ID: <20241227113754.25871-1-tursulin@igalia.com>
+Subject: [PATCH 3/3] drm/i915: Remove unused intel_ring_cacheline_align
+Date: Fri, 27 Dec 2024 11:37:54 +0000
+Message-ID: <20241227113754.25871-3-tursulin@igalia.com>
 X-Mailer: git-send-email 2.47.1
+In-Reply-To: <20241227113754.25871-1-tursulin@igalia.com>
+References: <20241227113754.25871-1-tursulin@igalia.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-BeenThere: intel-gfx@lists.freedesktop.org
@@ -58,112 +60,64 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 From: "Dr. David Alan Gilbert" <linux@treblig.org>
 
-i915_active_acquire_for_context() was added in 2020 by
-commit 5d9341370f57 ("drm/i915: Export a preallocate variant of
-i915_active_acquire()") but has never been used.
+The last use of intel_ring_cacheline_align() was removed in 2017 by
+commit afa8ce5b3080 ("drm/i915: Nuke legacy flip queueing code")
 
-The last use of __i915_gem_object_is_lmem() was removed in 2021 by
-commit ff20afc4cee7 ("drm/i915: Update error capture code to avoid using
-the current vma state")
-
-Remove them.
+Remove it.
 
 Signed-off-by: Dr. David Alan Gilbert <linux@treblig.org>
 ---
- drivers/gpu/drm/i915/gem/i915_gem_lmem.c | 23 -----------------------
- drivers/gpu/drm/i915/gem/i915_gem_lmem.h |  2 --
- drivers/gpu/drm/i915/i915_active.c       | 18 ------------------
- drivers/gpu/drm/i915/i915_active.h       |  1 -
- 4 files changed, 44 deletions(-)
+ drivers/gpu/drm/i915/gt/intel_ring.c | 24 ------------------------
+ drivers/gpu/drm/i915/gt/intel_ring.h |  1 -
+ 2 files changed, 25 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gem/i915_gem_lmem.c b/drivers/gpu/drm/i915/gem/i915_gem_lmem.c
-index 3198b64ad7db..388f90784d8a 100644
---- a/drivers/gpu/drm/i915/gem/i915_gem_lmem.c
-+++ b/drivers/gpu/drm/i915/gem/i915_gem_lmem.c
-@@ -52,29 +52,6 @@ bool i915_gem_object_is_lmem(struct drm_i915_gem_object *obj)
- 		      mr->type == INTEL_MEMORY_STOLEN_LOCAL);
+diff --git a/drivers/gpu/drm/i915/gt/intel_ring.c b/drivers/gpu/drm/i915/gt/intel_ring.c
+index 59da4b7bd262..b74d9205c0f5 100644
+--- a/drivers/gpu/drm/i915/gt/intel_ring.c
++++ b/drivers/gpu/drm/i915/gt/intel_ring.c
+@@ -308,30 +308,6 @@ u32 *intel_ring_begin(struct i915_request *rq, unsigned int num_dwords)
+ 	return cs;
  }
  
--/**
-- * __i915_gem_object_is_lmem - Whether the object is resident in
-- * lmem while in the fence signaling critical path.
-- * @obj: The object to check.
-- *
-- * This function is intended to be called from within the fence signaling
-- * path where the fence, or a pin, keeps the object from being migrated. For
-- * example during gpu reset or similar.
-- *
-- * Return: Whether the object is resident in lmem.
-- */
--bool __i915_gem_object_is_lmem(struct drm_i915_gem_object *obj)
+-/* Align the ring tail to a cacheline boundary */
+-int intel_ring_cacheline_align(struct i915_request *rq)
 -{
--	struct intel_memory_region *mr = READ_ONCE(obj->mm.region);
+-	int num_dwords;
+-	void *cs;
 -
--#ifdef CONFIG_LOCKDEP
--	GEM_WARN_ON(dma_resv_test_signaled(obj->base.resv, DMA_RESV_USAGE_BOOKKEEP) &&
--		    i915_gem_object_evictable(obj));
--#endif
--	return mr && (mr->type == INTEL_MEMORY_LOCAL ||
--		      mr->type == INTEL_MEMORY_STOLEN_LOCAL);
+-	num_dwords = (rq->ring->emit & (CACHELINE_BYTES - 1)) / sizeof(u32);
+-	if (num_dwords == 0)
+-		return 0;
+-
+-	num_dwords = CACHELINE_DWORDS - num_dwords;
+-	GEM_BUG_ON(num_dwords & 1);
+-
+-	cs = intel_ring_begin(rq, num_dwords);
+-	if (IS_ERR(cs))
+-		return PTR_ERR(cs);
+-
+-	memset64(cs, (u64)MI_NOOP << 32 | MI_NOOP, num_dwords / 2);
+-	intel_ring_advance(rq, cs + num_dwords);
+-
+-	GEM_BUG_ON(rq->ring->emit & (CACHELINE_BYTES - 1));
+-	return 0;
 -}
 -
- /**
-  * __i915_gem_object_create_lmem_with_ps - Create lmem object and force the
-  * minimum page size for the backing pages.
-diff --git a/drivers/gpu/drm/i915/gem/i915_gem_lmem.h b/drivers/gpu/drm/i915/gem/i915_gem_lmem.h
-index 5a7a14e85c3f..ecd8f1a633a1 100644
---- a/drivers/gpu/drm/i915/gem/i915_gem_lmem.h
-+++ b/drivers/gpu/drm/i915/gem/i915_gem_lmem.h
-@@ -19,8 +19,6 @@ i915_gem_object_lmem_io_map(struct drm_i915_gem_object *obj,
+ #if IS_ENABLED(CONFIG_DRM_I915_SELFTEST)
+ #include "selftest_ring.c"
+ #endif
+diff --git a/drivers/gpu/drm/i915/gt/intel_ring.h b/drivers/gpu/drm/i915/gt/intel_ring.h
+index 1b32dadfb8c3..64b322e25f36 100644
+--- a/drivers/gpu/drm/i915/gt/intel_ring.h
++++ b/drivers/gpu/drm/i915/gt/intel_ring.h
+@@ -16,7 +16,6 @@ struct intel_ring *
+ intel_engine_create_ring(struct intel_engine_cs *engine, int size);
  
- bool i915_gem_object_is_lmem(struct drm_i915_gem_object *obj);
+ u32 *intel_ring_begin(struct i915_request *rq, unsigned int num_dwords);
+-int intel_ring_cacheline_align(struct i915_request *rq);
  
--bool __i915_gem_object_is_lmem(struct drm_i915_gem_object *obj);
--
- struct drm_i915_gem_object *
- i915_gem_object_create_lmem_from_data(struct drm_i915_private *i915,
- 				      const void *data, size_t size);
-diff --git a/drivers/gpu/drm/i915/i915_active.c b/drivers/gpu/drm/i915/i915_active.c
-index 35319228bc51..0dbc4e289300 100644
---- a/drivers/gpu/drm/i915/i915_active.c
-+++ b/drivers/gpu/drm/i915/i915_active.c
-@@ -527,24 +527,6 @@ int i915_active_acquire(struct i915_active *ref)
- 	return err;
- }
+ unsigned int intel_ring_update_space(struct intel_ring *ring);
  
--int i915_active_acquire_for_context(struct i915_active *ref, u64 idx)
--{
--	struct i915_active_fence *active;
--	int err;
--
--	err = i915_active_acquire(ref);
--	if (err)
--		return err;
--
--	active = active_instance(ref, idx);
--	if (!active) {
--		i915_active_release(ref);
--		return -ENOMEM;
--	}
--
--	return 0; /* return with active ref */
--}
--
- void i915_active_release(struct i915_active *ref)
- {
- 	debug_active_assert(ref);
-diff --git a/drivers/gpu/drm/i915/i915_active.h b/drivers/gpu/drm/i915/i915_active.h
-index 77c676ecc263..821f7c21ea9b 100644
---- a/drivers/gpu/drm/i915/i915_active.h
-+++ b/drivers/gpu/drm/i915/i915_active.h
-@@ -186,7 +186,6 @@ int i915_request_await_active(struct i915_request *rq,
- #define I915_ACTIVE_AWAIT_BARRIER BIT(2)
- 
- int i915_active_acquire(struct i915_active *ref);
--int i915_active_acquire_for_context(struct i915_active *ref, u64 idx);
- bool i915_active_acquire_if_busy(struct i915_active *ref);
- 
- void i915_active_release(struct i915_active *ref);
 -- 
 2.47.1
 
