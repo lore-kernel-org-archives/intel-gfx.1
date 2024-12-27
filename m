@@ -4,27 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 17735E7718B
-	for <intel-gfx@archiver.kernel.org>; Fri, 27 Dec 2024 11:37:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6785EE7718B
+	for <intel-gfx@archiver.kernel.org>; Fri, 27 Dec 2024 11:37:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8D42810E3AA;
-	Fri, 27 Dec 2024 11:37:27 +0000 (UTC)
-Received: from b555e5b46a47 (emeril.freedesktop.org [131.252.210.167])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9908E10E3AA;
- Fri, 27 Dec 2024 11:37:26 +0000 (UTC)
-Content-Type: text/plain; charset="utf-8"
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0FEDB10E3C2;
+	Fri, 27 Dec 2024 11:37:58 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="X8tOeP4Z";
+	dkim-atps=neutral
+Received: from fanzine2.igalia.com (fanzine.igalia.com [178.60.130.6])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5164210E3B6
+ for <intel-gfx@lists.freedesktop.org>; Fri, 27 Dec 2024 11:37:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Content-Transfer-Encoding:MIME-Version:References:In-Reply-To:
+ Message-ID:Date:Subject:To:From:Sender:Reply-To:Cc:Content-Type:Content-ID:
+ Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
+ :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
+ List-Post:List-Owner:List-Archive;
+ bh=khruvrtBZOjm1Q396MscA11s7dVcIV/GWd7Wg6z81ic=; b=X8tOeP4Z0L+6spEirQmkD9Xg1R
+ ajBaz+qH2EMX+laadfAqWoAdfDQ7yD46nxQMHSuqTo/MHx2WpykMXR3LqatZwqKntDmdjrm/8YHpv
+ tjGZj8fwkJbqXSweB8bKllNlzmQqVpvJlZt5bgkfGEzDgckFdoxlL5D8QAeDHwrW3ZmsAaNtJEz3z
+ L7UPuOrHu5ryePhMEgoQoH3olFXlDyqetNZK2qP/IlHQRN9oxEcBMGBW2ohiiDXKMCjaH2TTyEVYO
+ 7lcEFoLb3nTFhcZ/7XUJ0uERZERuUgrsiMGjzvFpaW2pJnQ5ShZ968tcWgMi010Ktmu+G7yiFRXko
+ zZWxxerA==;
+Received: from [90.241.98.187] (helo=localhost)
+ by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
+ id 1tR8fD-008EU9-Jj
+ for <intel-gfx@lists.freedesktop.org>; Fri, 27 Dec 2024 12:37:55 +0100
+From: Tvrtko Ursulin <tursulin@igalia.com>
+To: intel-gfx@lists.freedesktop.org
+Subject: [PATCH 2/3] drm/i915: Remove unused intel_huc_suspend
+Date: Fri, 27 Dec 2024 11:37:53 +0000
+Message-ID: <20241227113754.25871-2-tursulin@igalia.com>
+X-Mailer: git-send-email 2.47.1
+In-Reply-To: <20241227113754.25871-1-tursulin@igalia.com>
+References: <20241227113754.25871-1-tursulin@igalia.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Subject: =?utf-8?q?=E2=9C=93_i915=2ECI=2EBAT=3A_success_for_drm/i915/gt=3A_Add_GEM=5F?=
- =?utf-8?q?BUG=5FON_to_ensure_at_least_one_engine_supports_migration?=
-From: Patchwork <patchwork@emeril.freedesktop.org>
-To: apoorva.singh@intel.com
-Cc: intel-gfx@lists.freedesktop.org
-Date: Fri, 27 Dec 2024 11:37:26 -0000
-Message-ID: <173529944660.3822013.9875288326491804861@b555e5b46a47>
-X-Patchwork-Hint: ignore
-References: <20241227111128.1546618-1-apoorva.singh@intel.com>
-In-Reply-To: <20241227111128.1546618-1-apoorva.singh@intel.com>
+Content-Transfer-Encoding: 8bit
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -37,125 +55,60 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-== Series Details ==
+From: "Dr. David Alan Gilbert" <linux@treblig.org>
 
-Series: drm/i915/gt: Add GEM_BUG_ON to ensure at least one engine supports migration
-URL   : https://patchwork.freedesktop.org/series/142984/
-State : success
+intel_huc_suspend() was added in 2022 by
+commit 27536e03271d ("drm/i915/huc: track delayed HuC load with a
+fence")
+but hasn't been used.
 
-== Summary ==
+Remove it.
 
-CI Bug Log - changes from CI_DRM_15892 -> Patchwork_142984v1
-====================================================
+Signed-off-by: Dr. David Alan Gilbert <linux@treblig.org>
+---
+ drivers/gpu/drm/i915/gt/uc/intel_huc.c | 13 -------------
+ drivers/gpu/drm/i915/gt/uc/intel_huc.h |  1 -
+ 2 files changed, 14 deletions(-)
 
-Summary
--------
+diff --git a/drivers/gpu/drm/i915/gt/uc/intel_huc.c b/drivers/gpu/drm/i915/gt/uc/intel_huc.c
+index d7ac31c3254c..b3cbf85c00cb 100644
+--- a/drivers/gpu/drm/i915/gt/uc/intel_huc.c
++++ b/drivers/gpu/drm/i915/gt/uc/intel_huc.c
+@@ -427,19 +427,6 @@ void intel_huc_fini(struct intel_huc *huc)
+ 		intel_uc_fw_fini(&huc->fw);
+ }
+ 
+-void intel_huc_suspend(struct intel_huc *huc)
+-{
+-	if (!intel_uc_fw_is_loadable(&huc->fw))
+-		return;
+-
+-	/*
+-	 * in the unlikely case that we're suspending before the GSC has
+-	 * completed its loading sequence, just stop waiting. We'll restart
+-	 * on resume.
+-	 */
+-	delayed_huc_load_complete(huc);
+-}
+-
+ static const char *auth_mode_string(struct intel_huc *huc,
+ 				    enum intel_huc_authentication_type type)
+ {
+diff --git a/drivers/gpu/drm/i915/gt/uc/intel_huc.h b/drivers/gpu/drm/i915/gt/uc/intel_huc.h
+index ba5cb08e9e7b..d5e441b9e08d 100644
+--- a/drivers/gpu/drm/i915/gt/uc/intel_huc.h
++++ b/drivers/gpu/drm/i915/gt/uc/intel_huc.h
+@@ -57,7 +57,6 @@ int intel_huc_sanitize(struct intel_huc *huc);
+ void intel_huc_init_early(struct intel_huc *huc);
+ int intel_huc_init(struct intel_huc *huc);
+ void intel_huc_fini(struct intel_huc *huc);
+-void intel_huc_suspend(struct intel_huc *huc);
+ int intel_huc_auth(struct intel_huc *huc, enum intel_huc_authentication_type type);
+ int intel_huc_wait_for_auth_complete(struct intel_huc *huc,
+ 				     enum intel_huc_authentication_type type);
+-- 
+2.47.1
 
-  **SUCCESS**
-
-  No regressions found.
-
-  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_142984v1/index.html
-
-Participating hosts (41 -> 39)
-------------------------------
-
-  Missing    (2): bat-twl-1 fi-snb-2520m 
-
-Known issues
-------------
-
-  Here are the changes found in Patchwork_142984v1 that come from known issues:
-
-### IGT changes ###
-
-#### Issues hit ####
-
-  * igt@dmabuf@all-tests:
-    - fi-pnv-d510:        NOTRUN -> [INCOMPLETE][1] ([i915#12904]) +1 other test incomplete
-   [1]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_142984v1/fi-pnv-d510/igt@dmabuf@all-tests.html
-
-  * igt@fbdev@info:
-    - fi-bsw-nick:        NOTRUN -> [SKIP][2] ([i915#1849])
-   [2]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_142984v1/fi-bsw-nick/igt@fbdev@info.html
-
-  * igt@gem_lmem_swapping@parallel-random-engines:
-    - fi-bsw-nick:        NOTRUN -> [SKIP][3] +42 other tests skip
-   [3]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_142984v1/fi-bsw-nick/igt@gem_lmem_swapping@parallel-random-engines.html
-
-  * igt@i915_pm_rpm@module-reload:
-    - bat-dg1-7:          [PASS][4] -> [FAIL][5] ([i915#13401])
-   [4]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_15892/bat-dg1-7/igt@i915_pm_rpm@module-reload.html
-   [5]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_142984v1/bat-dg1-7/igt@i915_pm_rpm@module-reload.html
-    - bat-rpls-4:         [PASS][6] -> [FAIL][7] ([i915#13401])
-   [6]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_15892/bat-rpls-4/igt@i915_pm_rpm@module-reload.html
-   [7]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_142984v1/bat-rpls-4/igt@i915_pm_rpm@module-reload.html
-
-  * igt@i915_selftest@live:
-    - bat-mtlp-8:         [PASS][8] -> [DMESG-FAIL][9] ([i915#13393]) +1 other test dmesg-fail
-   [8]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_15892/bat-mtlp-8/igt@i915_selftest@live.html
-   [9]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_142984v1/bat-mtlp-8/igt@i915_selftest@live.html
-
-  * igt@kms_psr@psr-primary-mmap-gtt:
-    - fi-pnv-d510:        NOTRUN -> [SKIP][10] +31 other tests skip
-   [10]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_142984v1/fi-pnv-d510/igt@kms_psr@psr-primary-mmap-gtt.html
-
-  
-#### Possible fixes ####
-
-  * igt@core_hotunplug@unbind-rebind:
-    - bat-rpls-4:         [DMESG-WARN][11] ([i915#13400]) -> [PASS][12]
-   [11]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_15892/bat-rpls-4/igt@core_hotunplug@unbind-rebind.html
-   [12]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_142984v1/bat-rpls-4/igt@core_hotunplug@unbind-rebind.html
-
-  * igt@i915_selftest@live:
-    - bat-adlp-9:         [ABORT][13] ([i915#13399]) -> [PASS][14] +1 other test pass
-   [13]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_15892/bat-adlp-9/igt@i915_selftest@live.html
-   [14]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_142984v1/bat-adlp-9/igt@i915_selftest@live.html
-
-  * igt@i915_selftest@live@workarounds:
-    - bat-mtlp-6:         [DMESG-FAIL][15] ([i915#13393]) -> [PASS][16] +1 other test pass
-   [15]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_15892/bat-mtlp-6/igt@i915_selftest@live@workarounds.html
-   [16]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_142984v1/bat-mtlp-6/igt@i915_selftest@live@workarounds.html
-    - {bat-arls-6}:       [DMESG-FAIL][17] ([i915#13393]) -> [PASS][18] +1 other test pass
-   [17]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_15892/bat-arls-6/igt@i915_selftest@live@workarounds.html
-   [18]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_142984v1/bat-arls-6/igt@i915_selftest@live@workarounds.html
-
-  
-#### Warnings ####
-
-  * igt@gem_exec_gttfill@basic:
-    - fi-pnv-d510:        [ABORT][19] ([i915#13169]) -> [SKIP][20]
-   [19]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_15892/fi-pnv-d510/igt@gem_exec_gttfill@basic.html
-   [20]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_142984v1/fi-pnv-d510/igt@gem_exec_gttfill@basic.html
-
-  
-  {name}: This element is suppressed. This means it is ignored when computing
-          the status of the difference (SUCCESS, WARNING, or FAILURE).
-
-  [i915#12904]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/12904
-  [i915#13169]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/13169
-  [i915#13393]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/13393
-  [i915#13399]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/13399
-  [i915#13400]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/13400
-  [i915#13401]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/13401
-  [i915#1849]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/1849
-
-
-Build changes
--------------
-
-  * Linux: CI_DRM_15892 -> Patchwork_142984v1
-
-  CI-20190529: 20190529
-  CI_DRM_15892: 08bd590935a5258ffd79355c59adffd72fb2c642 @ git://anongit.freedesktop.org/gfx-ci/linux
-  IGT_8172: 9112581619aa198fa03041d5c7e18e02f42ac00f @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git
-  Patchwork_142984v1: 08bd590935a5258ffd79355c59adffd72fb2c642 @ git://anongit.freedesktop.org/gfx-ci/linux
-
-== Logs ==
-
-For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_142984v1/index.html
