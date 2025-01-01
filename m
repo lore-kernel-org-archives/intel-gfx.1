@@ -4,106 +4,90 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5A5E7E77197
-	for <intel-gfx@archiver.kernel.org>; Tue,  7 Jan 2025 14:52:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8D2A8E77199
+	for <intel-gfx@archiver.kernel.org>; Tue,  7 Jan 2025 14:52:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B427110E6FE;
+	by gabe.freedesktop.org (Postfix) with ESMTP id C384510EAEA;
 	Tue,  7 Jan 2025 14:52:08 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="j2vWPV95";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="UjYDdZQW";
 	dkim-atps=neutral
-Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com
- [209.85.128.50])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D503510E8B1
- for <intel-gfx@lists.freedesktop.org>; Fri,  3 Jan 2025 12:59:52 +0000 (UTC)
-Received: by mail-wm1-f50.google.com with SMTP id
- 5b1f17b1804b1-435f8f29f8aso88834025e9.2
- for <intel-gfx@lists.freedesktop.org>; Fri, 03 Jan 2025 04:59:52 -0800 (PST)
+Received: from mail-lf1-f53.google.com (mail-lf1-f53.google.com
+ [209.85.167.53])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BA72F10E2F6;
+ Wed,  1 Jan 2025 21:25:30 +0000 (UTC)
+Received: by mail-lf1-f53.google.com with SMTP id
+ 2adb3069b0e04-53ff1f7caaeso12142239e87.0; 
+ Wed, 01 Jan 2025 13:25:30 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1735909131; x=1736513931; darn=lists.freedesktop.org;
- h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
- :mime-version:subject:date:from:from:to:cc:subject:date:message-id
- :reply-to; bh=8ja7AsPHVhh/ztffyEqltS3S3NOI8MWwC75cFS3zUfQ=;
- b=j2vWPV95WWCU00IyxNzOWoWD5Pf58RTK6TtxPlL3VnWxNwD2sQMQfotdtVX7Pcbrkz
- 2bSq9JEGV66xsL5uHOakfUAr6fwpFD+DIr3+GTWI2if7LapFBv/1R9btZSJBAnLYC/4j
- RbY8yYHVCL2D57CtMR1dX97rGd/FdtVb+bFwrs0TcC/pBxBkhiuQcp8JqpU/qAc2Tw+Y
- B5yz4KfcxoLa3BwLryxH4PaZI5C7AqFcDLiOhZCZ52bWS1mliTyLpb/cAYvmIefM7uDh
- 6/7Wmw7peuBGt5A2/7gVXdQpyNy9KGhxNq/4O0FQbfu9L6MLW3W8GRareIbg8ovmyhGX
- cWhw==
+ d=gmail.com; s=20230601; t=1735766669; x=1736371469; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:subject:cc:to:from:date:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=+7Gumy85u/RRWfyQv4lGazJpNh7Vrewtak4aVfMceos=;
+ b=UjYDdZQWcmXbmAoL7dROR0drVDaWruLkFHrvJwfPP8kvlMWm6RrEU23Jza4VFjttAV
+ g5E3aTlbkJdALiEjA4WBj2YkCnZ7iytWzxEP26DENzwCqOumUmXCCp7e7TEFWPt8mf4D
+ pjUbmCgfXUD6NwCyOr1VAYIfmEKS5lVW9doWpcd7xxghZ9SULDpHtjB2ZflY234oGGwN
+ LjFFVb7o7Z7iMOhyLrDkXvImEncCtRoxjctp774DR9jrtt1VVmIOD73gv8KzdCghyVEx
+ p9skbV4r7T6jj4TUlO1fxq2bCCNIdCXaPn/7UmfQNGNucdpOBlv1GA6hh4eVyFff3IZw
+ jRgg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1735909131; x=1736513931;
- h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
- :mime-version:subject:date:from:x-gm-message-state:from:to:cc
+ d=1e100.net; s=20230601; t=1735766669; x=1736371469;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:subject:cc:to:from:date:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=8ja7AsPHVhh/ztffyEqltS3S3NOI8MWwC75cFS3zUfQ=;
- b=lidbU2ZBW64HTu9W0Ir+argXYVPWmFX0JiNxeHjdCS378dqEB+KoFBztEbBkJvrgup
- Lwfw2xyYCT6sCmHv8NAyZ7zZH8PQa2aoTSVA3/ekXaOk3YFIWnhvXK6u3RaLMnuTtqup
- LhHlhgm4kntzQMbXc5enYiqaY1IPdXjGzBG/NRG5NmnSXefYByIjPC/tXe8kDcvkiD7N
- k1cfn38Tw/9ezdMJe/RNTwOLRii+TCcS+gpaLd3RInQMXIAqf0R46U0qKJ+Mt+t2sbtU
- z3+V4kkaTTgko/x9jHqVajegWmH79u7SuUYuXBUPrPpGvgMsLVFWn6mnVxIUepVY063X
- II3Q==
+ bh=+7Gumy85u/RRWfyQv4lGazJpNh7Vrewtak4aVfMceos=;
+ b=JUQHXM8A5uHKoJibFM+QTaQwuTrbPQJt9sOLerFj0veg83O+7qsy3AdBdZdM86Akrg
+ F3Uyhccoi6M1Q+5hNKU/TMljGXlFy5BUZVPUJOuzuhxXsLb87uS7ioS3frMedAqIbwlw
+ 4qXqkRXVRq8rLjl+rlXGfkylctoiyOCvh97znRuj72EfXqb0xt75Y/b+/qUVhrBljGV5
+ s/5/DkxQO4rfC0sQvi6pmu1kUsYtflqE5T81YZm/irN0JEDrovOAJ7tAQcLlw9NKJ1qD
+ hSWLWVWscBwxmsBD7SV87bWugHUq+WtnLIUPEFtRJpD2FQ6yXTR6pnkLi3/YV4FM8Slo
+ YKZA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCXIsg7mWw86AYg3ESzYr6tU4TTf/kgbsZf+IP8U/zI+MPtz4ckIDKjFSTTqxnMOod4zvI0TrHzFfXc=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yw02qiIXQjEiE8ooQgSe6ou88brqo4hxYAGFcFI/QOAhJGxWK3m
- u+4/kqDLVxaUIzBBrovVY1LJIcX3kMS9Gc9TlLZ2doml5j3cR01zv5e2CX8iS60=
-X-Gm-Gg: ASbGncuu56WENDEDD3Rpoec39k30hdgNYlgZxS/I23NQuAF8RrEf3bfNrXkfVyf/Ybz
- zo2M1OmrwX8Rnb/lmTcCkGhJ9pZTXj/nPI2xxeYnHqzKA208Jz7byh6YzvVs0QY5QKUNyNPThSm
- v10n8RTjRDNY1PzgJLWWQDWLcRdxeXMSNfdEHdO+S24kC0SJQmIvAWU4kP3DzUCwTJG2f6X00FK
- Xd10gkc45TaWt8pCOMHJLKJ9ndO0Es3TpIhlHoHLHMNZjvA7E5J7Z3k
-X-Google-Smtp-Source: AGHT+IHuqDHnHcd3WF9fZflWdy+Epup29qUDvzgDke+6NvPjnNnt0l09UcQvUzjj7ALc15cgq9nQ7g==
-X-Received: by 2002:a05:6000:186e:b0:386:378c:b7ec with SMTP id
- ffacd0b85a97d-38a22405d3emr42892574f8f.58.1735909131268; 
- Fri, 03 Jan 2025 04:58:51 -0800 (PST)
-Received: from [127.0.1.1] ([86.121.162.10]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-38a1c8acadcsm40225591f8f.105.2025.01.03.04.58.49
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 03 Jan 2025 04:58:50 -0800 (PST)
-From: Abel Vesa <abel.vesa@linaro.org>
-Date: Fri, 03 Jan 2025 14:58:16 +0200
-Subject: [PATCH v3 2/4] drm/nouveau/dp: Use the generic helper to control
- LTTPR transparent mode
+ AJvYcCUsywDdSFNNFpMtnH831fm+qiae+HSBENReNjLfmx4l36IVr5vaQ0zk/Flcz38gJE6VpuFIxyMYqCpC@lists.freedesktop.org,
+ AJvYcCXXpFo3k9Gi6fFqZVbx6HZZBytLO8R6tqH4Sa4EIx9TrXhnIGK0JJLybbMDUAHuhtLMLE69p4GAGvc=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxnZ69F3nQhrzm73MGbZeiAXQTvK/zG5Flxgy9+FpjHxRjBBnn3
+ 6sze44yyIO+P/b4/3cCQJaLX/ydi4g1XEweogsYEFyJhPJBpM8kEuwI/dw==
+X-Gm-Gg: ASbGnctcFVjRGX2MfClYi/boXvsDLyMEOb3qTusBjR0pmXg6ZYL0/r/MMo3PYg0M1hl
+ nRg4FAQRsMeMFOb2ig80EXxq56l8RPHtk9LJwPpFN/lWwvlTJj4g/mkiobPD+DrxvCmgvjaIfz+
+ jhPQXDeAcNug6o7Mn3gbkJCc5RRF5qzbcMu+latuv/gO/dV+aKxIULyeE7ljFRbuxDlvhxP96Eg
+ DqYGFReTExOXaXISaJOk1dIfY4HpjDhe17W7p3kTl7WGFIe0UW5uO2ibwM2SSu9Gzp1/w7FcImq
+ z8LtbFpJtC++gFte+65JK7w=
+X-Google-Smtp-Source: AGHT+IHpviB1MKWJdRoIJLE0uDNAiEn95vSl3N4Qv8YA819soN8pVymV+cXxFS7EpZKTCJgDGapCWQ==
+X-Received: by 2002:a5d:64ad:0:b0:385:decf:52bc with SMTP id
+ ffacd0b85a97d-38a2220088bmr34387189f8f.32.1735766198509; 
+ Wed, 01 Jan 2025 13:16:38 -0800 (PST)
+Received: from dsl-u17-10 (82-69-66-36.dsl.in-addr.zen.co.uk. [82.69.66.36])
+ by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-38a1c89e2dfsm36764411f8f.74.2025.01.01.13.16.37
+ (version=TLS1_2 cipher=ECDHE-ECDSA-CHACHA20-POLY1305 bits=256/256);
+ Wed, 01 Jan 2025 13:16:37 -0800 (PST)
+Date: Wed, 1 Jan 2025 21:16:37 +0000
+From: David Laight <david.laight.linux@gmail.com>
+To: Alexander Usyskin <alexander.usyskin@intel.com>
+Cc: Miquel Raynal <miquel.raynal@bootlin.com>, Richard Weinberger
+ <richard@nod.at>, Vignesh Raghavendra <vigneshr@ti.com>, Lucas De Marchi
+ <lucas.demarchi@intel.com>, Thomas =?UTF-8?B?SGVsbHN0csO2bQ==?=
+ <thomas.hellstrom@linux.intel.com>, Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
+ <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, David Airlie
+ <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Jani Nikula
+ <jani.nikula@linux.intel.com>, Joonas Lahtinen
+ <joonas.lahtinen@linux.intel.com>, Tvrtko Ursulin <tursulin@ursulin.net>,
+ Karthik Poosa <karthik.poosa@intel.com>, Reuven Abliyev
+ <reuven.abliyev@intel.com>, Oren Weil <oren.jer.weil@intel.com>,
+ linux-mtd@lists.infradead.org, dri-devel@lists.freedesktop.org,
+ intel-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v4 06/11] mtd: intel-dg: align 64bit read and write
+Message-ID: <20250101211637.709b65e1@dsl-u17-10>
+In-Reply-To: <20250101164119.000d2bd4@dsl-u17-10>
+References: <20250101153925.865703-1-alexander.usyskin@intel.com>
+ <20250101153925.865703-7-alexander.usyskin@intel.com>
+ <20250101164119.000d2bd4@dsl-u17-10>
+X-Mailer: Claws Mail 3.16.0 (GTK+ 2.24.32; x86_64-pc-linux-gnu)
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 7bit
-Message-Id: <20250103-drm-dp-msm-add-lttpr-transparent-mode-set-v3-2-5c367f4b0763@linaro.org>
-References: <20250103-drm-dp-msm-add-lttpr-transparent-mode-set-v3-0-5c367f4b0763@linaro.org>
-In-Reply-To: <20250103-drm-dp-msm-add-lttpr-transparent-mode-set-v3-0-5c367f4b0763@linaro.org>
-To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Karol Herbst <kherbst@redhat.com>, Lyude Paul <lyude@redhat.com>, 
- Danilo Krummrich <dakr@redhat.com>, 
- Jani Nikula <jani.nikula@linux.intel.com>, 
- Rodrigo Vivi <rodrigo.vivi@intel.com>, 
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, 
- Tvrtko Ursulin <tursulin@ursulin.net>, Rob Clark <robdclark@gmail.com>, 
- Abhinav Kumar <quic_abhinavk@quicinc.com>, 
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Sean Paul <sean@poorly.run>, 
- Marijn Suijten <marijn.suijten@somainline.org>
-Cc: Bjorn Andersson <andersson@kernel.org>, 
- Konrad Dybcio <konradybcio@kernel.org>, Johan Hovold <johan@kernel.org>, 
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- nouveau@lists.freedesktop.org, intel-gfx@lists.freedesktop.org, 
- intel-xe@lists.freedesktop.org, linux-arm-msm@vger.kernel.org, 
- freedreno@lists.freedesktop.org, Abel Vesa <abel.vesa@linaro.org>
-X-Mailer: b4 0.15-dev-dedf8
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1634; i=abel.vesa@linaro.org; 
- h=from:subject:message-id;
- bh=zSpYhtCfdoGV8lx5sZ6QJCKOEoZaxgqNtvMuGie1uZU=; 
- b=owEBbQKS/ZANAwAKARtfRMkAlRVWAcsmYgBnd98By7+7V5W8HMUxlKldGyiQrYwuq4jO5Of1X
- B3VQSkyoXKJAjMEAAEKAB0WIQRO8+4RTnqPKsqn0bgbX0TJAJUVVgUCZ3ffAQAKCRAbX0TJAJUV
- VuApD/4qJrXPMuVFlu1Y3C0w2QBGNOwC8Kd1/O1an/dVPfDmHFzp1BN4X5XeV54FXsFUPl7z/Yv
- CLx7tlv9WL2kvIqM/n93QJkE67uOATYU1pcOPkmnQc8HZ+x5JN2QZgyD3saXpcv2UUEzEMlcxY/
- KeZHgN4TKA7G4LZHG79/0tYd26xSR0HgOOpjD+ltQ8LCD9rF6zY4TAgCy3HgzrbQvBG8c++rQRA
- He8crsrdI25Xh1uXL+YuieNyNP6OwxpYfxbUcJNEbmfK66CDf7vHcbM8uyzR6+dq4DHof8D/VRv
- LL7F5L7VHvN5ysvlCRTuEBRaZ+k41TLkkCW2C2QABpXk/NE1Nc6honOz8l0kOnfxuKK6xqg+tgk
- 5h39FDZEaMvbkcz2JD/Cu6KfhgNiqMeY/UzReYHNDVoK71OdB2ogBcdujH8tCQAhHoE1t06Civ+
- /x4fsT3oyE6IKfInlIDQq0rpK+4F6eDNwHFBJCCp0lIY6XWmTk1ehHrySv6zH3z2MbUJBNZsKQ2
- GKQO9QF7w9OgfciGKtoKNptEilU9MO/yIyih95mVXG97xYdGt1QwZqD+MjLVoihfhl9SiavHziH
- VbIalr2poTpXTXVQZ67PSqmogwtYx5ba2nwdNhrOm9hu8tu2/sXkpgUb5g86pQo3WI98DUoS2ak
- dzODu9EtTIz9otA==
-X-Developer-Key: i=abel.vesa@linaro.org; a=openpgp;
- fpr=6AFF162D57F4223A8770EF5AF7BF214136F41FAE
 X-Mailman-Approved-At: Tue, 07 Jan 2025 14:52:08 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -120,50 +104,36 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-LTTPRs operating modes are defined by the DisplayPort standard and the
-generic framework now provides a helper to switch between them, which
-is handling the explicit disabling of non-transparent mode and its
-disable->enable sequence mentioned in the DP Standard v2.0 section
-3.6.6.1.
+On Wed, 1 Jan 2025 16:41:19 +0000
+David Laight <david.laight.linux@gmail.com> wrote:
 
-So use the new drm generic helper instead as it makes the code a bit
-cleaner.
+> On Wed,  1 Jan 2025 17:39:20 +0200
+> Alexander Usyskin <alexander.usyskin@intel.com> wrote:
+> 
+> > GSC NVM controller HW errors on quad access overlapping 1K border.
+> > Align 64bit read and write to avoid readq/writeq over 1K border.
+> > 
+> > Acked-by: Miquel Raynal <miquel.raynal@bootlin.com>
+> > Signed-off-by: Alexander Usyskin <alexander.usyskin@intel.com>
+> > ---
+> >  drivers/mtd/devices/mtd-intel-dg.c | 35 ++++++++++++++++++++++++++++++
+> >  1 file changed, 35 insertions(+)
+> > 
+> > diff --git a/drivers/mtd/devices/mtd-intel-dg.c b/drivers/mtd/devices/mtd-intel-dg.c
+> > index 76ef7198fff8..230bf444b7fe 100644
+> > --- a/drivers/mtd/devices/mtd-intel-dg.c
+> > +++ b/drivers/mtd/devices/mtd-intel-dg.c
+> > @@ -238,6 +238,24 @@ static ssize_t idg_write(struct intel_dg_nvm *nvm, u8 region,
+> >  		len_s -= to_shift;
+> >  	}
+> >  
+> > +	if (!IS_ALIGNED(to, sizeof(u64)) &&
+> > +	    ((to ^ (to + len_s)) & GENMASK(31, 10))) {  
 
-Reviewed-by: Lyude Paul <lyude@redhat.com>
-Signed-off-by: Abel Vesa <abel.vesa@linaro.org>
----
- drivers/gpu/drm/nouveau/nouveau_dp.c | 17 ++---------------
- 1 file changed, 2 insertions(+), 15 deletions(-)
+That might as well be the easier to understand:
+	if ((to & 7) && (to & 1023) + len_s > 1024)
 
-diff --git a/drivers/gpu/drm/nouveau/nouveau_dp.c b/drivers/gpu/drm/nouveau/nouveau_dp.c
-index bcda0105160f1450df855281e0d932606a5095dd..55691ec44abaa53c84e73358e33df1949bb1e35c 100644
---- a/drivers/gpu/drm/nouveau/nouveau_dp.c
-+++ b/drivers/gpu/drm/nouveau/nouveau_dp.c
-@@ -79,21 +79,8 @@ nouveau_dp_probe_dpcd(struct nouveau_connector *nv_connector,
- 	    !drm_dp_read_lttpr_common_caps(aux, dpcd, outp->dp.lttpr.caps)) {
- 		int nr = drm_dp_lttpr_count(outp->dp.lttpr.caps);
- 
--		if (nr) {
--			drm_dp_dpcd_writeb(aux, DP_PHY_REPEATER_MODE,
--						DP_PHY_REPEATER_MODE_TRANSPARENT);
--
--			if (nr > 0) {
--				ret = drm_dp_dpcd_writeb(aux, DP_PHY_REPEATER_MODE,
--							      DP_PHY_REPEATER_MODE_NON_TRANSPARENT);
--				if (ret != 1) {
--					drm_dp_dpcd_writeb(aux, DP_PHY_REPEATER_MODE,
--								DP_PHY_REPEATER_MODE_TRANSPARENT);
--				} else {
--					outp->dp.lttpr.nr = nr;
--				}
--			}
--		}
-+		if (!drm_dp_lttpr_init(aux, nr))
-+			outp->dp.lttpr.nr = nr;
- 	}
- 
- 	ret = drm_dp_read_dpcd_caps(aux, dpcd);
+Replacing (add, xor, and) with (and, add, cmp) is much the same
+even without the decrement.
 
--- 
-2.34.1
-
+	David
