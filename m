@@ -4,64 +4,27 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5A257E77188
-	for <intel-gfx@archiver.kernel.org>; Thu,  2 Jan 2025 10:41:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 04187E77188
+	for <intel-gfx@archiver.kernel.org>; Thu,  2 Jan 2025 10:43:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 041A010E409;
-	Thu,  2 Jan 2025 10:41:27 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=wanadoo.fr header.i=@wanadoo.fr header.b="swtrZoMG";
-	dkim-atps=neutral
-Received: from smtp.smtpout.orange.fr (smtp-72.smtpout.orange.fr
- [80.12.242.72])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0A0AF10E409
- for <intel-gfx@lists.freedesktop.org>; Thu,  2 Jan 2025 10:41:26 +0000 (UTC)
-Received: from [192.168.1.37] ([90.11.132.44]) by smtp.orange.fr with ESMTPA
- id TIVDtPSJjTjIXTIVGtoUGd; Thu, 02 Jan 2025 11:32:39 +0100
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=wanadoo.fr;
- s=t20230301; t=1735813960;
- bh=oIy4h6myCE9v5NQp61GRyssTTdt9xYDdFfwRLBqJIDw=;
- h=Message-ID:Date:MIME-Version:Subject:To:From;
- b=swtrZoMGepjZWNNAMzAdUpPhr9dMP/Fwu1C5cyI05rm65XfLag7OwPCz6yqWeOyk0
- QlYz9AXoLVNtzhi8M0OqKs4zm5g4eZlJFjPOejgVL4e3CQeSrAmKZue3XQlX3XbgmK
- nRJjEwKYd7n83WhcV7RsIFMQyHp9S2SDoHSKh+tDJ+PZ2j6vM9rgtiIYuG2QGy6AdK
- OrvAL0trVusI+uMq4s6/QuB4Qqh6VTXiLNUHebq9CEDZEHOFfsoBoGn6aMnGdPnjPO
- aHaOUmsTTZGHo0XnGLg382uTD+q8bJuOOziFZeXWlYkWj/c1JuM6clHG32zTSsTw0t
- Dn8lJ4UVRWiYA==
-X-ME-Helo: [192.168.1.37]
-X-ME-Auth: bWFyaW9uLmphaWxsZXRAd2FuYWRvby5mcg==
-X-ME-Date: Thu, 02 Jan 2025 11:32:40 +0100
-X-ME-IP: 90.11.132.44
-Message-ID: <2c89e56d-26e9-4ef6-9da3-4b0121163b30@wanadoo.fr>
-Date: Thu, 2 Jan 2025 11:32:25 +0100
+	by gabe.freedesktop.org (Postfix) with ESMTP id 88F3110E411;
+	Thu,  2 Jan 2025 10:43:01 +0000 (UTC)
+Received: from b555e5b46a47 (emeril.freedesktop.org [131.252.210.167])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 82D7610E411;
+ Thu,  2 Jan 2025 10:43:00 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 02/11] mtd: add driver for intel graphics non-volatile
- memory device
-To: Alexander Usyskin <alexander.usyskin@intel.com>,
- Miquel Raynal <miquel.raynal@bootlin.com>,
- Richard Weinberger <richard@nod.at>, Vignesh Raghavendra <vigneshr@ti.com>,
- Lucas De Marchi <lucas.demarchi@intel.com>,
- =?UTF-8?Q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Tvrtko Ursulin <tursulin@ursulin.net>,
- Karthik Poosa <karthik.poosa@intel.com>
-Cc: Reuven Abliyev <reuven.abliyev@intel.com>,
- Oren Weil <oren.jer.weil@intel.com>, linux-mtd@lists.infradead.org,
- dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Tomas Winkler <tomasw@gmail.com>
-References: <20250101153925.865703-1-alexander.usyskin@intel.com>
- <20250101153925.865703-3-alexander.usyskin@intel.com>
-Content-Language: en-US, fr-FR
-From: Christophe JAILLET <christophe.jaillet@wanadoo.fr>
-In-Reply-To: <20250101153925.865703-3-alexander.usyskin@intel.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
+Subject: =?utf-8?q?=E2=9C=97_Fi=2ECI=2ECHECKPATCH=3A_warning_for_drm/i915/dp=3A_128b/?=
+ =?utf-8?q?132b_uncompressed_SST_=28rev3=29?=
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Jani Nikula" <jani.nikula@intel.com>
+Cc: intel-gfx@lists.freedesktop.org
+Date: Thu, 02 Jan 2025 10:43:00 -0000
+Message-ID: <173581458053.1990809.8914683719369086314@b555e5b46a47>
+X-Patchwork-Hint: ignore
+References: <cover.1734643485.git.jani.nikula@intel.com>
+In-Reply-To: <cover.1734643485.git.jani.nikula@intel.com>
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,120 +37,39 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Le 01/01/2025 à 16:39, Alexander Usyskin a écrit :
-> Add auxiliary driver for intel discrete graphics
-> non-volatile memory device.
-> 
-> CC: Lucas De Marchi <lucas.demarchi@intel.com>
-> Reviewed-by: Rodrigo Vivi <rodrigo.vivi@intel.com>
-> Acked-by: Miquel Raynal <miquel.raynal@bootlin.com>
-> Co-developed-by: Tomas Winkler <tomasw@gmail.com>
-> Signed-off-by: Tomas Winkler <tomasw@gmail.com>
-> Signed-off-by: Alexander Usyskin <alexander.usyskin@intel.com>
+== Series Details ==
 
-...
+Series: drm/i915/dp: 128b/132b uncompressed SST (rev3)
+URL   : https://patchwork.freedesktop.org/series/142547/
+State : warning
 
-> +struct intel_dg_nvm {
-> +	struct kref refcnt;
-> +	void __iomem *base;
-> +	size_t size;
-> +	unsigned int nregions;
-> +	struct {
-> +		const char *name;
-> +		u8 id;
-> +		u64 offset;
-> +		u64 size;
-> +	} regions[];
+== Summary ==
 
-__counted_by(nregions)?
+Error: dim checkpatch failed
+8c415b084cef drm/mst: remove mgr parameter and debug logging from drm_dp_get_vc_payload_bw()
+65dac07c523a drm/i915/mst: drop connector parameter from intel_dp_mst_bw_overhead()
+5c061d877fd8 drm/i915/mst: drop connector parameter from intel_dp_mst_compute_m_n()
+bb57b6d91bc1 drm/i915/mst: change return value of mst_stream_find_vcpi_slots_for_bpp()
+22e78a566711 drm/i915/mst: remove crtc_state->pbn
+4161e0731bd4 drm/i915/mst: split out a helper for figuring out the TU
+637a9bcb889c drm/i915/mst: adapt intel_dp_mtp_tu_compute_config() for 128b/132b SST
+-:87: WARNING:LONG_LINE: line length of 107 exceeds 100 columns
+#87: FILE: drivers/gpu/drm/i915/display/intel_dp_mst.c:280:
++								      true, dsc_slice_count, link_bpp_x16);
 
-> +};
-> +
-> +static void intel_dg_nvm_release(struct kref *kref)
-> +{
-> +	struct intel_dg_nvm *nvm = container_of(kref, struct intel_dg_nvm, refcnt);
-> +	int i;
-> +
-> +	pr_debug("freeing intel_dg nvm\n");
-> +	for (i = 0; i < nvm->nregions; i++)
-> +		kfree(nvm->regions[i].name);
-> +	kfree(nvm);
-> +}
-> +
-> +static int intel_dg_mtd_probe(struct auxiliary_device *aux_dev,
-> +			      const struct auxiliary_device_id *aux_dev_id)
-> +{
-> +	struct intel_dg_nvm_dev *invm = auxiliary_dev_to_intel_dg_nvm_dev(aux_dev);
-> +	struct device *device;
-> +	struct intel_dg_nvm *nvm;
-> +	unsigned int nregions;
-> +	unsigned int i, n;
-> +	size_t size;
-> +	char *name;
-> +	int ret;
-> +
-> +	device = &aux_dev->dev;
-> +
-> +	/* count available regions */
-> +	for (nregions = 0, i = 0; i < INTEL_DG_NVM_REGIONS; i++) {
-> +		if (invm->regions[i].name)
-> +			nregions++;
-> +	}
-> +
-> +	if (!nregions) {
-> +		dev_err(device, "no regions defined\n");
-> +		return -ENODEV;
-> +	}
-> +
-> +	size = sizeof(*nvm) + sizeof(nvm->regions[0]) * nregions;
+total: 0 errors, 1 warnings, 0 checks, 128 lines checked
+8b52ae436c05 drm/i915/ddi: enable 128b/132b TRANS_DDI_FUNC_CTL mode for UHBR SST
+59bb6a8fd137 drm/i915/ddi: 128b/132b SST also needs DP_TP_CTL_MODE_MST
+1a61d7ad72b2 drm/i915/ddi: write payload for 128b/132b SST
+1cf0d2a4e210 drm/i915/ddi: initialize 128b/132b SST DP2 VFREQ registers
+335866dee88f drm/i915/ddi: enable ACT handling for 128b/132b SST
+7dfcad31b374 drm/i915/ddi: start distinguishing 128b/132b SST and MST at state readout
+10cf30f8ec6c drm/i915/ddi: handle 128b/132b SST in intel_ddi_read_func_ctl()
+4334d0e093b0 drm/i915/ddi: disable trancoder port select for 128b/132b SST
+e1d14691b9ef drm/i915/dp: compute config for 128b/132b SST w/o DSC
 
-struct_size()? (and maybe no need for size)
-
-> +	nvm = kzalloc(size, GFP_KERNEL);
-> +	if (!nvm)
-> +		return -ENOMEM;
-> +
-> +	kref_init(&nvm->refcnt);
-> +
-> +	nvm->nregions = nregions;
-> +	for (n = 0, i = 0; i < INTEL_DG_NVM_REGIONS; i++) {
-> +		if (!invm->regions[i].name)
-> +			continue;
-> +
-> +		name = kasprintf(GFP_KERNEL, "%s.%s",
-> +				 dev_name(&aux_dev->dev), invm->regions[i].name);
-> +		if (!name)
-> +			continue;
-> +		nvm->regions[n].name = name;
-> +		nvm->regions[n].id = i;
-> +		n++;
-> +	}
-
-Should we set the exact number of regions, should a kasprintf() fail?
-	nvm->nregions = n;
-This would make __counted_by be more accurate in its check.
-
-> +
-> +	nvm->base = devm_ioremap_resource(device, &invm->bar);
-> +	if (IS_ERR(nvm->base)) {
-> +		dev_err(device, "mmio not mapped\n");
-> +		ret = PTR_ERR(nvm->base);
-> +		goto err;
-> +	}
-> +
-> +	dev_set_drvdata(&aux_dev->dev, nvm);
-> +
-> +	return 0;
-> +
-> +err:
-> +	kref_put(&nvm->refcnt, intel_dg_nvm_release);
-> +	return ret;
-> +}
-
-...
-
-CJ
 
