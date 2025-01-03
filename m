@@ -4,90 +4,106 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8D2A8E77199
-	for <intel-gfx@archiver.kernel.org>; Tue,  7 Jan 2025 14:52:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6BEC2E7719B
+	for <intel-gfx@archiver.kernel.org>; Tue,  7 Jan 2025 14:52:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C384510EAEA;
+	by gabe.freedesktop.org (Postfix) with ESMTP id BD94510EADE;
 	Tue,  7 Jan 2025 14:52:08 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="UjYDdZQW";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="oSOoh18y";
 	dkim-atps=neutral
-Received: from mail-lf1-f53.google.com (mail-lf1-f53.google.com
- [209.85.167.53])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BA72F10E2F6;
- Wed,  1 Jan 2025 21:25:30 +0000 (UTC)
-Received: by mail-lf1-f53.google.com with SMTP id
- 2adb3069b0e04-53ff1f7caaeso12142239e87.0; 
- Wed, 01 Jan 2025 13:25:30 -0800 (PST)
+Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com
+ [209.85.128.41])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E3E0B10E8B5
+ for <intel-gfx@lists.freedesktop.org>; Fri,  3 Jan 2025 12:59:56 +0000 (UTC)
+Received: by mail-wm1-f41.google.com with SMTP id
+ 5b1f17b1804b1-436202dd7f6so138535465e9.0
+ for <intel-gfx@lists.freedesktop.org>; Fri, 03 Jan 2025 04:59:56 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1735766669; x=1736371469; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:subject:cc:to:from:date:from:to:cc:subject:date
- :message-id:reply-to;
- bh=+7Gumy85u/RRWfyQv4lGazJpNh7Vrewtak4aVfMceos=;
- b=UjYDdZQWcmXbmAoL7dROR0drVDaWruLkFHrvJwfPP8kvlMWm6RrEU23Jza4VFjttAV
- g5E3aTlbkJdALiEjA4WBj2YkCnZ7iytWzxEP26DENzwCqOumUmXCCp7e7TEFWPt8mf4D
- pjUbmCgfXUD6NwCyOr1VAYIfmEKS5lVW9doWpcd7xxghZ9SULDpHtjB2ZflY234oGGwN
- LjFFVb7o7Z7iMOhyLrDkXvImEncCtRoxjctp774DR9jrtt1VVmIOD73gv8KzdCghyVEx
- p9skbV4r7T6jj4TUlO1fxq2bCCNIdCXaPn/7UmfQNGNucdpOBlv1GA6hh4eVyFff3IZw
- jRgg==
+ d=linaro.org; s=google; t=1735909135; x=1736513935; darn=lists.freedesktop.org;
+ h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+ :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+ :reply-to; bh=VITqw/dBrN6Eh2YzRoSLvwchdbQ5DNjyYt5nkHrQ30o=;
+ b=oSOoh18yRH74IId4Ncybik6aKH53vHhFRdSPIFgkcyEpwtJ8crtKLCG4U/KMLVSieg
+ MH/2CYcsYw+V3ovF6rCNi+E6mvdoOz4x/FL3TiC92gthe++bezPOXA4qNL/FqK/wK1y8
+ /gQzjG5v0uGthT00ZT4viE7mbpAZGJPYVzgzeD7lFlVBpqzGbWzSsPBDwM9FzQtcw8UB
+ e4e+g0xP0sG5gJDTQSmFmx5KcvJeX39dxI8VKRZetC0Gw2VXCcJmG8WjlcJSsPr5zd49
+ b7UpzRqpxs/yb4FZAESC0S1dW0yN7OZ0dpKtHZJ0H1t4cfcS02UUZLLtlj2ksZ08n24n
+ 79aw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1735766669; x=1736371469;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:subject:cc:to:from:date:x-gm-message-state:from:to:cc
+ d=1e100.net; s=20230601; t=1735909135; x=1736513935;
+ h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+ :mime-version:subject:date:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=+7Gumy85u/RRWfyQv4lGazJpNh7Vrewtak4aVfMceos=;
- b=JUQHXM8A5uHKoJibFM+QTaQwuTrbPQJt9sOLerFj0veg83O+7qsy3AdBdZdM86Akrg
- F3Uyhccoi6M1Q+5hNKU/TMljGXlFy5BUZVPUJOuzuhxXsLb87uS7ioS3frMedAqIbwlw
- 4qXqkRXVRq8rLjl+rlXGfkylctoiyOCvh97znRuj72EfXqb0xt75Y/b+/qUVhrBljGV5
- s/5/DkxQO4rfC0sQvi6pmu1kUsYtflqE5T81YZm/irN0JEDrovOAJ7tAQcLlw9NKJ1qD
- hSWLWVWscBwxmsBD7SV87bWugHUq+WtnLIUPEFtRJpD2FQ6yXTR6pnkLi3/YV4FM8Slo
- YKZA==
+ bh=VITqw/dBrN6Eh2YzRoSLvwchdbQ5DNjyYt5nkHrQ30o=;
+ b=niu43aGnjDhFzCLPxD3YZX7Oq/wHBSEVNrPOhCR0j3bcIHPDDtwdNuddymurcgUold
+ OcayT4ErpKtpCU6Sylkmq7eYlf8Knhu8z7E/u/90ZbzDfdF0i0pKtmAjLeawlyy4lLV/
+ y4Cvn+7rHcghtvAuCSheU0eQMx+sHSLCTRZacHChm4LuDMv3wohwKO6h5Pgioh30J4dW
+ sd4F+4j8cI8tOt5VOO+pppzmij8Pm8npCqjlI9lQdLOk5JruJ700qtfn9IOvPo7+n926
+ wxRO2sGIClVcJ9Ovnt4t4WL+TFHEmtmlZpxUu7cPtxD/dQr3oLOoOsHK7YfdgG9GtDVR
+ gvcA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUsywDdSFNNFpMtnH831fm+qiae+HSBENReNjLfmx4l36IVr5vaQ0zk/Flcz38gJE6VpuFIxyMYqCpC@lists.freedesktop.org,
- AJvYcCXXpFo3k9Gi6fFqZVbx6HZZBytLO8R6tqH4Sa4EIx9TrXhnIGK0JJLybbMDUAHuhtLMLE69p4GAGvc=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxnZ69F3nQhrzm73MGbZeiAXQTvK/zG5Flxgy9+FpjHxRjBBnn3
- 6sze44yyIO+P/b4/3cCQJaLX/ydi4g1XEweogsYEFyJhPJBpM8kEuwI/dw==
-X-Gm-Gg: ASbGnctcFVjRGX2MfClYi/boXvsDLyMEOb3qTusBjR0pmXg6ZYL0/r/MMo3PYg0M1hl
- nRg4FAQRsMeMFOb2ig80EXxq56l8RPHtk9LJwPpFN/lWwvlTJj4g/mkiobPD+DrxvCmgvjaIfz+
- jhPQXDeAcNug6o7Mn3gbkJCc5RRF5qzbcMu+latuv/gO/dV+aKxIULyeE7ljFRbuxDlvhxP96Eg
- DqYGFReTExOXaXISaJOk1dIfY4HpjDhe17W7p3kTl7WGFIe0UW5uO2ibwM2SSu9Gzp1/w7FcImq
- z8LtbFpJtC++gFte+65JK7w=
-X-Google-Smtp-Source: AGHT+IHpviB1MKWJdRoIJLE0uDNAiEn95vSl3N4Qv8YA819soN8pVymV+cXxFS7EpZKTCJgDGapCWQ==
-X-Received: by 2002:a5d:64ad:0:b0:385:decf:52bc with SMTP id
- ffacd0b85a97d-38a2220088bmr34387189f8f.32.1735766198509; 
- Wed, 01 Jan 2025 13:16:38 -0800 (PST)
-Received: from dsl-u17-10 (82-69-66-36.dsl.in-addr.zen.co.uk. [82.69.66.36])
- by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-38a1c89e2dfsm36764411f8f.74.2025.01.01.13.16.37
- (version=TLS1_2 cipher=ECDHE-ECDSA-CHACHA20-POLY1305 bits=256/256);
- Wed, 01 Jan 2025 13:16:37 -0800 (PST)
-Date: Wed, 1 Jan 2025 21:16:37 +0000
-From: David Laight <david.laight.linux@gmail.com>
-To: Alexander Usyskin <alexander.usyskin@intel.com>
-Cc: Miquel Raynal <miquel.raynal@bootlin.com>, Richard Weinberger
- <richard@nod.at>, Vignesh Raghavendra <vigneshr@ti.com>, Lucas De Marchi
- <lucas.demarchi@intel.com>, Thomas =?UTF-8?B?SGVsbHN0csO2bQ==?=
- <thomas.hellstrom@linux.intel.com>, Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
- <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, David Airlie
- <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Jani Nikula
- <jani.nikula@linux.intel.com>, Joonas Lahtinen
- <joonas.lahtinen@linux.intel.com>, Tvrtko Ursulin <tursulin@ursulin.net>,
- Karthik Poosa <karthik.poosa@intel.com>, Reuven Abliyev
- <reuven.abliyev@intel.com>, Oren Weil <oren.jer.weil@intel.com>,
- linux-mtd@lists.infradead.org, dri-devel@lists.freedesktop.org,
- intel-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v4 06/11] mtd: intel-dg: align 64bit read and write
-Message-ID: <20250101211637.709b65e1@dsl-u17-10>
-In-Reply-To: <20250101164119.000d2bd4@dsl-u17-10>
-References: <20250101153925.865703-1-alexander.usyskin@intel.com>
- <20250101153925.865703-7-alexander.usyskin@intel.com>
- <20250101164119.000d2bd4@dsl-u17-10>
-X-Mailer: Claws Mail 3.16.0 (GTK+ 2.24.32; x86_64-pc-linux-gnu)
+ AJvYcCVXCvGOyemj7NBr/LVhzUHbsu8qQ5hXHP4oiscJKrYYT5Vd1498hUNK0zNqUtAeoH2STviONgwmzeI=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yx/d/FK88/krFHLfUWE2S4tb2SdHmIThqwaaz53u6YLJ1/k4+oe
+ TNMqRWq0hGIDrQBr1afGDS1rqv3jx0uNAS0Lu+zhkzN1qrTMuYLNR4Ma7f7g4Ig=
+X-Gm-Gg: ASbGnctajnHiBYUAnqQBjoWnzbFbdVlYX0Y6IUSdIoyDUIddM1TJa01nzuCd9CN/QZ2
+ RTo53wxvPdtGf8lbahdlLp1WLqD9zEzttLwjlLFcvDTrUtUsl3qrPhQIpd9VYUFhtBpcdcb+yI1
+ RkWtrpCl/30OkuVlczikj7o3ZgHYHF4vV8WyCZyB8E8JZ0Rk3yrce1QxghmObASRBvTk8akKNrz
+ KZ37FQtvzencfdcV54LPJtmMMzQWyyepOME+FGnUkV/Yu3t3q0gUseO
+X-Google-Smtp-Source: AGHT+IGUnpXjnchYmTBFtUQ71LNCqNAU5Q0SOmAgi8sEQyivFL6wDbTXzLedPgyb7rzrtBvhgs98IA==
+X-Received: by 2002:a05:600c:468a:b0:436:1b96:7072 with SMTP id
+ 5b1f17b1804b1-4366854c062mr416478835e9.5.1735909135449; 
+ Fri, 03 Jan 2025 04:58:55 -0800 (PST)
+Received: from [127.0.1.1] ([86.121.162.10]) by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-38a1c8acadcsm40225591f8f.105.2025.01.03.04.58.53
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 03 Jan 2025 04:58:55 -0800 (PST)
+From: Abel Vesa <abel.vesa@linaro.org>
+Date: Fri, 03 Jan 2025 14:58:18 +0200
+Subject: [PATCH v3 4/4] drm/msm/dp: Add support for LTTPR handling
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+Message-Id: <20250103-drm-dp-msm-add-lttpr-transparent-mode-set-v3-4-5c367f4b0763@linaro.org>
+References: <20250103-drm-dp-msm-add-lttpr-transparent-mode-set-v3-0-5c367f4b0763@linaro.org>
+In-Reply-To: <20250103-drm-dp-msm-add-lttpr-transparent-mode-set-v3-0-5c367f4b0763@linaro.org>
+To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Karol Herbst <kherbst@redhat.com>, Lyude Paul <lyude@redhat.com>, 
+ Danilo Krummrich <dakr@redhat.com>, 
+ Jani Nikula <jani.nikula@linux.intel.com>, 
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, 
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, 
+ Tvrtko Ursulin <tursulin@ursulin.net>, Rob Clark <robdclark@gmail.com>, 
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, 
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Sean Paul <sean@poorly.run>, 
+ Marijn Suijten <marijn.suijten@somainline.org>
+Cc: Bjorn Andersson <andersson@kernel.org>, 
+ Konrad Dybcio <konradybcio@kernel.org>, Johan Hovold <johan@kernel.org>, 
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ nouveau@lists.freedesktop.org, intel-gfx@lists.freedesktop.org, 
+ intel-xe@lists.freedesktop.org, linux-arm-msm@vger.kernel.org, 
+ freedreno@lists.freedesktop.org, Abel Vesa <abel.vesa@linaro.org>, 
+ Johan Hovold <johan+linaro@kernel.org>
+X-Mailer: b4 0.15-dev-dedf8
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3291; i=abel.vesa@linaro.org; 
+ h=from:subject:message-id;
+ bh=zhRY8lT1G9JeELkZ54ealjEatpcKTP9np6vn+j2kA9w=; 
+ b=owEBbQKS/ZANAwAKARtfRMkAlRVWAcsmYgBnd98D5vjbEpomMQ8dXV6RVZNIUGfQhGggxggBR
+ Qdgu7UHk5eJAjMEAAEKAB0WIQRO8+4RTnqPKsqn0bgbX0TJAJUVVgUCZ3ffAwAKCRAbX0TJAJUV
+ Voh8D/9SfWx0sZ/dkeV5jYSYWRDoRArPfvo/DRVwDxLshqbRTU8todXxZViuaYxdh0+wz1yC/Tl
+ QEgnwoaexcdVCEAq25zErdxGc4DeAW9RvqP/VVsiJug9NL1tl3wpnml4UY6A5JfU7ZB3/JOy9/F
+ /ONMwxpcEqk7hKvuddzOaCg1m/haAPzk+i1foSK1pMOcFttgGGASktqORFxgTLVEfYY8cHB4yxM
+ dvBYkfyMHeH4AHeDxpk08PfpDC7+kdjNESFHUjBbTQXdkT5tEu/AGxWOoyPQ/T84KwG/0izcapT
+ mM2YxbX25qmTlAbYB7G6xo0nZs9IPz1lhpDnv49OF6A0Cji+YOfhvDdQizk4uDXrcS1rwEqNJja
+ O82hu9RoIPEiXDGv3rYeLjA/4mkctvac/eWZv3CKxxxadOQfbX46cqUP5ax+8tvgzsY4GDpQ97M
+ o0ZNmdt1dc09tsGlamOHx4vapCTX3qSXt9Oj8w0HWezaWJW0MHuDfoH+tZpHYbYZ5+J4i2DExJK
+ 6igXX5ziVN/sJVwhFYPYRdVp0T3ZkUkCpBTJRBAG/+6uS4hffPzIh+wWpkfNmHMhAatBd10ifQo
+ SovAsasDDp0M8XgZ6QSM4qpqr2Z6a0qO6NY0DuXvyC5loIDA2uFCsYWFvBQe8y3+YQAOqdaq5ma
+ Xl+1+4xOfJyy7zw==
+X-Developer-Key: i=abel.vesa@linaro.org; a=openpgp;
+ fpr=6AFF162D57F4223A8770EF5AF7BF214136F41FAE
 X-Mailman-Approved-At: Tue, 07 Jan 2025 14:52:08 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -104,36 +120,89 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Wed, 1 Jan 2025 16:41:19 +0000
-David Laight <david.laight.linux@gmail.com> wrote:
+Link Training Tunable PHY Repeaters (LTTPRs) are defined in DisplayPort
+1.4a specification. As the name suggests, these PHY repeaters are
+capable of adjusting their output for link training purposes.
 
-> On Wed,  1 Jan 2025 17:39:20 +0200
-> Alexander Usyskin <alexander.usyskin@intel.com> wrote:
-> 
-> > GSC NVM controller HW errors on quad access overlapping 1K border.
-> > Align 64bit read and write to avoid readq/writeq over 1K border.
-> > 
-> > Acked-by: Miquel Raynal <miquel.raynal@bootlin.com>
-> > Signed-off-by: Alexander Usyskin <alexander.usyskin@intel.com>
-> > ---
-> >  drivers/mtd/devices/mtd-intel-dg.c | 35 ++++++++++++++++++++++++++++++
-> >  1 file changed, 35 insertions(+)
-> > 
-> > diff --git a/drivers/mtd/devices/mtd-intel-dg.c b/drivers/mtd/devices/mtd-intel-dg.c
-> > index 76ef7198fff8..230bf444b7fe 100644
-> > --- a/drivers/mtd/devices/mtd-intel-dg.c
-> > +++ b/drivers/mtd/devices/mtd-intel-dg.c
-> > @@ -238,6 +238,24 @@ static ssize_t idg_write(struct intel_dg_nvm *nvm, u8 region,
-> >  		len_s -= to_shift;
-> >  	}
-> >  
-> > +	if (!IS_ALIGNED(to, sizeof(u64)) &&
-> > +	    ((to ^ (to + len_s)) & GENMASK(31, 10))) {  
+According to the DisplayPort standard, LTTPRs have two operating
+modes:
+ - non-transparent - it replies to DPCD LTTPR field specific AUX
+   requests, while passes through all other AUX requests
+ - transparent - it passes through all AUX requests.
 
-That might as well be the easier to understand:
-	if ((to & 7) && (to & 1023) + len_s > 1024)
+Switching between this two modes is done by the DPTX by issuing
+an AUX write to the DPCD PHY_REPEATER_MODE register.
 
-Replacing (add, xor, and) with (and, add, cmp) is much the same
-even without the decrement.
+The msm DP driver is currently lacking any handling of LTTPRs.
+This means that if at least one LTTPR is found between DPTX and DPRX,
+the link training would fail if that LTTPR was not already configured
+in transparent mode.
 
-	David
+The section 3.6.6.1 from the DisplayPort v2.0 specification mandates
+that before link training with the LTTPR is started, the DPTX may place
+the LTTPR in non-transparent mode by first switching to transparent mode
+and then to non-transparent mode. This operation seems to be needed only
+on first link training and doesn't need to be done again until device is
+unplugged.
+
+It has been observed on a few X Elite-based platforms which have
+such LTTPRs in their board design that the DPTX needs to follow the
+procedure described above in order for the link training to be successful.
+
+So add support for reading the LTTPR DPCD caps to figure out the number
+of such LTTPRs first. Then, for platforms (or Type-C dongles) that have
+at least one such an LTTPR, set its operation mode to transparent mode
+first and then to non-transparent, just like the mentioned section of
+the specification mandates.
+
+Tested-by: Johan Hovold <johan+linaro@kernel.org>
+Signed-off-by: Abel Vesa <abel.vesa@linaro.org>
+---
+ drivers/gpu/drm/msm/dp/dp_display.c | 17 +++++++++++++++++
+ 1 file changed, 17 insertions(+)
+
+diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp/dp_display.c
+index aff51bb973ebe0835c96420d16547ebae0c6c0f2..6ea8245284ab5b6068bfba64f01a960838f577b2 100644
+--- a/drivers/gpu/drm/msm/dp/dp_display.c
++++ b/drivers/gpu/drm/msm/dp/dp_display.c
+@@ -107,6 +107,8 @@ struct msm_dp_display_private {
+ 	struct msm_dp_event event_list[DP_EVENT_Q_MAX];
+ 	spinlock_t event_lock;
+ 
++	u8 lttpr_caps[DP_LTTPR_COMMON_CAP_SIZE];
++
+ 	bool wide_bus_supported;
+ 
+ 	struct msm_dp_audio *audio;
+@@ -367,12 +369,27 @@ static int msm_dp_display_send_hpd_notification(struct msm_dp_display_private *d
+ 	return 0;
+ }
+ 
++static void msm_dp_display_lttpr_init(struct msm_dp_display_private *dp)
++{
++	int rc;
++
++	if (drm_dp_read_lttpr_common_caps(dp->aux, dp->panel->dpcd,
++					  dp->lttpr_caps))
++		return;
++
++	rc = drm_dp_lttpr_init(dp->aux, drm_dp_lttpr_count(dp->lttpr_caps));
++	if (rc)
++		DRM_ERROR("failed to set LTTPRs transparency mode, rc=%d\n", rc);
++}
++
+ static int msm_dp_display_process_hpd_high(struct msm_dp_display_private *dp)
+ {
+ 	struct drm_connector *connector = dp->msm_dp_display.connector;
+ 	const struct drm_display_info *info = &connector->display_info;
+ 	int rc = 0;
+ 
++	msm_dp_display_lttpr_init(dp);
++
+ 	rc = msm_dp_panel_read_sink_caps(dp->panel, connector);
+ 	if (rc)
+ 		goto end;
+
+-- 
+2.34.1
+
