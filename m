@@ -4,57 +4,27 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0E113E77198
-	for <intel-gfx@archiver.kernel.org>; Fri,  3 Jan 2025 06:11:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9CB31E77188
+	for <intel-gfx@archiver.kernel.org>; Fri,  3 Jan 2025 07:01:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 93A6810E7FB;
-	Fri,  3 Jan 2025 06:11:35 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="O5iiGEIT";
-	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.13])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 20C9A10E288;
- Fri,  3 Jan 2025 06:11:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1735884694; x=1767420694;
- h=from:date:subject:mime-version:content-transfer-encoding:
- message-id:to:cc;
- bh=MtfEGt6dj+l5V1FE0XIc+jSnXyW4lho3d8vohBPD/S0=;
- b=O5iiGEITR1vAUjpgZ/KNOIcjyqQMdXdOZ2Syp6qSxfpf/FxR9NLWukhr
- iHJDEYq7XVuC1kzzkSc43bPxuktCjyS3V87F3h1LzY8MXUPWexoxMJsuf
- x8z/HiAUpbMIEHANx7NZDLYvLwqBJVHBmaao4tt3GoWm0J0VmQEUYAlYf
- dKDSZQxbYhecJk1Yiml/bOQ4MhPO1BL4FlRDxUfygcaDKdL6SYzctR8Gi
- Rbt6xL6KT+Rf1AXT3tsQR0x3r/vFs+dO7dPQ88iQVvVR7VnfwtwYavVWH
- J5BqSHEQrm9LldbZxzrBYW+NnNfZqs/NOzVfH/9EXTlssd/7IvN160G+l g==;
-X-CSE-ConnectionGUID: 8M10Re0fQ/SedpUscEMXlw==
-X-CSE-MsgGUID: A7wfyIuNSJyQeux2p/rzRQ==
-X-IronPort-AV: E=McAfee;i="6700,10204,11303"; a="38958347"
-X-IronPort-AV: E=Sophos;i="6.12,286,1728975600"; d="scan'208";a="38958347"
-Received: from orviesa005.jf.intel.com ([10.64.159.145])
- by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 02 Jan 2025 22:11:34 -0800
-X-CSE-ConnectionGUID: hYTUqLr5Q3GXidkgvUK8ww==
-X-CSE-MsgGUID: OHZdi0+UTfSVi0oXn6pIvg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.12,224,1728975600"; d="scan'208";a="106762689"
-Received: from srr4-3-linux-106-armuthy.iind.intel.com ([10.190.238.56])
- by orviesa005.jf.intel.com with ESMTP; 02 Jan 2025 22:11:32 -0800
-From: Arun R Murthy <arun.r.murthy@intel.com>
-Date: Fri, 03 Jan 2025 11:26:37 +0530
-Subject: [PATCH v6] drm/i915/dp: Guarantee a minimum HBlank time
-MIME-Version: 1.0
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1898E10E80B;
+	Fri,  3 Jan 2025 07:01:53 +0000 (UTC)
+Received: from b555e5b46a47 (emeril.freedesktop.org [131.252.210.167])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2BAC410E80B;
+ Fri,  3 Jan 2025 07:01:52 +0000 (UTC)
 Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
-Message-Id: <20250103-hblank-v6-1-c2f749181fc6@intel.com>
-X-B4-Tracking: v=1; b=H4sIABR8d2cC/2WOQQqDMBREr1KybiRJjcaueo/iIsZvE6pJ+VGpi
- HdvFAqFzu7BzGNWEgEdRHI9rQRhdtEFn6A4n4ix2j+AujYxEUxIxtmF2qbX/klNW0KpTAO8VCS
- VXwidex+ie524wzDQ0SLo7zznKawSBVMZF1XOGeVU4+QzzIYJR7vcnB+hz0wYdqN1cQy4HM9mu
- Xv/TswyKURRaVXmynSy+THU27Z9AOucjdDeAAAA
-X-Change-ID: 20250103-hblank-cd7e78cbe178
-To: intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org
-Cc: suraj.kandpal@intel.com, Arun R Murthy <arun.r.murthy@intel.com>
-X-Mailer: b4 0.15-dev
+Subject: =?utf-8?q?=E2=9C=97_i915=2ECI=2EBAT=3A_failure_for_Clean_and_Optimise_mtl=5F?=
+ =?utf-8?q?ddi=5Fprepare=5Flink=5Fretrain?=
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Kandpal, Suraj" <suraj.kandpal@intel.com>
+Cc: intel-gfx@lists.freedesktop.org
+Date: Fri, 03 Jan 2025 07:01:52 -0000
+Message-ID: <173588771217.2465075.8377251572982598796@b555e5b46a47>
+X-Patchwork-Hint: ignore
+References: <20250103051705.145161-1-suraj.kandpal@intel.com>
+In-Reply-To: <20250103051705.145161-1-suraj.kandpal@intel.com>
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,142 +37,107 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Mandate a minimum Hblank symbol cycle count between BS and BE in 8b/10b
-MST and 128b/132b mode.
+== Series Details ==
 
-v2: Affine calculation/updation of min HBlank to dp_mst (Jani)
-v3: moved min_hblank from struct intel_dp to intel_crtc_state (Jani)
-v4: use max/min functions, change intel_xx *intel_xx to intel_xx *xx
-    (Jani)
-    Limit hblank to 511 and accommodate BS/BE in calculated value
-    (Srikanth)
-v5: Some spelling corrections (Suraj)
-v6: Removed DP2.1 in comment as this is applicable for both DP2.1 and
-    DP1.4 (Suraj)
+Series: Clean and Optimise mtl_ddi_prepare_link_retrain
+URL   : https://patchwork.freedesktop.org/series/143080/
+State : failure
 
-Spec: DP2.1a
-Signed-off-by: Arun R Murthy <arun.r.murthy@intel.com>
-Reviewed-by: Suraj Kandpal <suraj.kandpal@intel.com>
----
-Changes in v6:
-- EDITME: describe what is new in this series revision.
-- EDITME: use bulletpoints and terse descriptions.
-- Link to v5: https://lore.kernel.org/r/20250103-hblank-v5-1-269a8748cf5b@intel.com
----
- .../gpu/drm/i915/display/intel_crtc_state_dump.c   |  1 +
- drivers/gpu/drm/i915/display/intel_display_types.h |  1 +
- drivers/gpu/drm/i915/display/intel_dp_mst.c        | 35 ++++++++++++++++++++++
- drivers/gpu/drm/i915/i915_reg.h                    |  4 +++
- 4 files changed, 41 insertions(+)
+== Summary ==
 
-diff --git a/drivers/gpu/drm/i915/display/intel_crtc_state_dump.c b/drivers/gpu/drm/i915/display/intel_crtc_state_dump.c
-index 1faef60be4728cd80a0a6b0151797ceda5c443ce..0e7e0b7803d9865177d6f68e8afdef94a91d9697 100644
---- a/drivers/gpu/drm/i915/display/intel_crtc_state_dump.c
-+++ b/drivers/gpu/drm/i915/display/intel_crtc_state_dump.c
-@@ -248,6 +248,7 @@ void intel_crtc_state_dump(const struct intel_crtc_state *pipe_config,
- 			   str_enabled_disabled(pipe_config->has_sel_update),
- 			   str_enabled_disabled(pipe_config->has_panel_replay),
- 			   str_enabled_disabled(pipe_config->enable_psr2_sel_fetch));
-+		drm_printf(&p, "minimum HBlank: %d\n", pipe_config->min_hblank);
- 	}
- 
- 	drm_printf(&p, "framestart delay: %d, MSA timing delay: %d\n",
-diff --git a/drivers/gpu/drm/i915/display/intel_display_types.h b/drivers/gpu/drm/i915/display/intel_display_types.h
-index eb9dd1125a4a09511936b81219e7f38fae106dfd..96467be97ae64aa40e985d0272016860b666c119 100644
---- a/drivers/gpu/drm/i915/display/intel_display_types.h
-+++ b/drivers/gpu/drm/i915/display/intel_display_types.h
-@@ -1095,6 +1095,7 @@ struct intel_crtc_state {
- 
- 	int max_link_bpp_x16;	/* in 1/16 bpp units */
- 	int pipe_bpp;		/* in 1 bpp units */
-+	int min_hblank;
- 	struct intel_link_m_n dp_m_n;
- 
- 	/* m2_n2 for eDP downclock */
-diff --git a/drivers/gpu/drm/i915/display/intel_dp_mst.c b/drivers/gpu/drm/i915/display/intel_dp_mst.c
-index fffd199999e02eb66ea478ff872f72b277bd3970..bd561c08d945fcafa65af9254a71cd66f17923d2 100644
---- a/drivers/gpu/drm/i915/display/intel_dp_mst.c
-+++ b/drivers/gpu/drm/i915/display/intel_dp_mst.c
-@@ -211,6 +211,35 @@ static int intel_dp_mst_dsc_get_slice_count(const struct intel_connector *connec
- 					    num_joined_pipes);
- }
- 
-+static void intel_dp_mst_compute_min_hblank(struct intel_crtc_state *crtc_state,
-+					    struct intel_connector *connector,
-+					    int bpp_x16)
-+{
-+	struct intel_encoder *encoder = connector->encoder;
-+	struct intel_display *display = to_intel_display(encoder);
-+	const struct drm_display_mode *adjusted_mode =
-+					&crtc_state->hw.adjusted_mode;
-+	int symbol_size = intel_dp_is_uhbr(crtc_state) ? 32 : 8;
-+	int hblank;
-+
-+	if (DISPLAY_VER(display) < 20)
-+		return;
-+
-+	/* Calculate min Hblank Link Layer Symbol Cycle Count for 8b/10b MST & 128b/132b */
-+	hblank = DIV_ROUND_UP((DIV_ROUND_UP(adjusted_mode->htotal - adjusted_mode->hdisplay, 4) * bpp_x16), symbol_size);
-+
-+	/* bit 8:0 minimum hblank symbol cylce count, i.e maximum value would be 511 */
-+	hblank = min(511, hblank);
-+
-+	/* Software needs to adjust the BS/BE framing control from the calculated value */
-+	hblank = hblank - 2;
-+
-+	if (intel_dp_is_uhbr(crtc_state))
-+		crtc_state->min_hblank = max(hblank, 5);
-+	else
-+		crtc_state->min_hblank = max(hblank, 3);
-+}
-+
- static int mst_stream_find_vcpi_slots_for_bpp(struct intel_dp *intel_dp,
- 					      struct intel_crtc_state *crtc_state,
- 					      int max_bpp, int min_bpp,
-@@ -284,6 +313,8 @@ static int mst_stream_find_vcpi_slots_for_bpp(struct intel_dp *intel_dp,
- 		remote_bw_overhead = intel_dp_mst_bw_overhead(crtc_state, connector,
- 							      true, dsc_slice_count, link_bpp_x16);
- 
-+		intel_dp_mst_compute_min_hblank(crtc_state, connector, link_bpp_x16);
-+
- 		intel_dp_mst_compute_m_n(crtc_state, connector,
- 					 local_bw_overhead,
- 					 link_bpp_x16,
-@@ -1267,6 +1298,10 @@ static void mst_stream_enable(struct intel_atomic_state *state,
- 			       TRANS_DP2_VFREQ_PIXEL_CLOCK(crtc_clock_hz & 0xffffff));
- 	}
- 
-+	if (DISPLAY_VER(display) >= 20)
-+		intel_de_write(display, DP_MIN_HBLANK_CTL(trans),
-+			       pipe_config->min_hblank);
-+
- 	enable_bs_jitter_was(pipe_config);
- 
- 	intel_ddi_enable_transcoder_func(encoder, pipe_config);
-diff --git a/drivers/gpu/drm/i915/i915_reg.h b/drivers/gpu/drm/i915/i915_reg.h
-index 765e6c0528fb0b5a894395b77a5edbf0b0c80009..7bd783931199e2e5c7e15358bb4d2c904f28176a 100644
---- a/drivers/gpu/drm/i915/i915_reg.h
-+++ b/drivers/gpu/drm/i915/i915_reg.h
-@@ -3197,6 +3197,10 @@
- #define _TRANS_DP2_VFREQLOW_D			0x630a8
- #define TRANS_DP2_VFREQLOW(trans)		_MMIO_TRANS(trans, _TRANS_DP2_VFREQLOW_A, _TRANS_DP2_VFREQLOW_B)
- 
-+#define _DP_MIN_HBLANK_CTL_A			0x600ac
-+#define _DP_MIN_HBLANK_CTL_B			0x610ac
-+#define DP_MIN_HBLANK_CTL(trans)		_MMIO_TRANS(trans, _DP_MIN_HBLANK_CTL_A, _DP_MIN_HBLANK_CTL_B)
-+
- /* SNB eDP training params */
- /* SNB A-stepping */
- #define  EDP_LINK_TRAIN_400MV_0DB_SNB_A		(0x38 << 22)
+CI Bug Log - changes from CI_DRM_15896 -> Patchwork_143080v1
+====================================================
 
----
-base-commit: 048d83e7f9dae81c058d31c371634c1c317b3013
-change-id: 20250103-hblank-cd7e78cbe178
+Summary
+-------
 
-Best regards,
--- 
-Arun R Murthy <arun.r.murthy@intel.com>
+  **FAILURE**
 
+  Serious unknown changes coming with Patchwork_143080v1 absolutely need to be
+  verified manually.
+  
+  If you think the reported changes have nothing to do with the changes
+  introduced in Patchwork_143080v1, please notify your bug team (I915-ci-infra@lists.freedesktop.org) to allow them
+  to document this new failure mode, which will reduce false positives in CI.
+
+  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_143080v1/index.html
+
+Participating hosts (40 -> 39)
+------------------------------
+
+  Missing    (1): fi-snb-2520m 
+
+Possible new issues
+-------------------
+
+  Here are the unknown changes that may have been introduced in Patchwork_143080v1:
+
+### IGT changes ###
+
+#### Possible regressions ####
+
+  * igt@i915_pm_rpm@module-reload:
+    - bat-dg2-11:         [PASS][1] -> [FAIL][2]
+   [1]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_15896/bat-dg2-11/igt@i915_pm_rpm@module-reload.html
+   [2]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_143080v1/bat-dg2-11/igt@i915_pm_rpm@module-reload.html
+
+  
+Known issues
+------------
+
+  Here are the changes found in Patchwork_143080v1 that come from known issues:
+
+### IGT changes ###
+
+#### Issues hit ####
+
+  * igt@i915_pm_rpm@module-reload:
+    - bat-adls-6:         [PASS][3] -> [FAIL][4] ([i915#13401])
+   [3]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_15896/bat-adls-6/igt@i915_pm_rpm@module-reload.html
+   [4]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_143080v1/bat-adls-6/igt@i915_pm_rpm@module-reload.html
+
+  * igt@kms_pipe_crc_basic@nonblocking-crc-frame-sequence:
+    - bat-dg2-11:         [PASS][5] -> [SKIP][6] ([i915#9197]) +3 other tests skip
+   [5]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_15896/bat-dg2-11/igt@kms_pipe_crc_basic@nonblocking-crc-frame-sequence.html
+   [6]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_143080v1/bat-dg2-11/igt@kms_pipe_crc_basic@nonblocking-crc-frame-sequence.html
+
+  
+#### Possible fixes ####
+
+  * igt@i915_selftest@live:
+    - bat-mtlp-8:         [DMESG-FAIL][7] ([i915#13393]) -> [PASS][8] +1 other test pass
+   [7]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_15896/bat-mtlp-8/igt@i915_selftest@live.html
+   [8]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_143080v1/bat-mtlp-8/igt@i915_selftest@live.html
+
+  * igt@kms_flip@basic-flip-vs-wf_vblank:
+    - {bat-mtlp-9}:       [FAIL][9] ([i915#11989]) -> [PASS][10] +1 other test pass
+   [9]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_15896/bat-mtlp-9/igt@kms_flip@basic-flip-vs-wf_vblank.html
+   [10]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_143080v1/bat-mtlp-9/igt@kms_flip@basic-flip-vs-wf_vblank.html
+
+  
+  {name}: This element is suppressed. This means it is ignored when computing
+          the status of the difference (SUCCESS, WARNING, or FAILURE).
+
+  [i915#11989]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/11989
+  [i915#13393]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/13393
+  [i915#13401]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/13401
+  [i915#9197]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/9197
+
+
+Build changes
+-------------
+
+  * Linux: CI_DRM_15896 -> Patchwork_143080v1
+
+  CI-20190529: 20190529
+  CI_DRM_15896: 048d83e7f9dae81c058d31c371634c1c317b3013 @ git://anongit.freedesktop.org/gfx-ci/linux
+  IGT_8174: d2004b0623dbccd08502525849b4eef881aa199e @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git
+  Patchwork_143080v1: 048d83e7f9dae81c058d31c371634c1c317b3013 @ git://anongit.freedesktop.org/gfx-ci/linux
+
+== Logs ==
+
+For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_143080v1/index.html
