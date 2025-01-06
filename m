@@ -4,48 +4,93 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 67CF1E77197
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9B384E77199
 	for <intel-gfx@archiver.kernel.org>; Tue,  7 Jan 2025 14:52:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0176310EAF3;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2B1BE10EAFB;
 	Tue,  7 Jan 2025 14:52:32 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=treblig.org header.i=@treblig.org header.b="TtTEDDmD";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="YVf4+uD+";
 	dkim-atps=neutral
-Received: from mx.treblig.org (mx.treblig.org [46.235.229.95])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 96D0910E3BD;
- Fri, 27 Dec 2024 12:13:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=treblig.org
- ; s=bytemarkmx;
- h=Content-Type:MIME-Version:Message-ID:Subject:From:Date:From
- :Subject; bh=ZeXiOOa/Ig8uiJ1Pf1p0S0D8bGnjqjpwo29tIbFkBcI=; b=TtTEDDmDRxwf/pda
- wV2nsweAf9/qjsHOjST+Irf8fFeC87XJ9XhuuKpyJZtGmCtX2FOtl2mKkL/LNCsiB63wpb9nbmwCL
- NrcuZ3WnhWo6e9qIP9g0tvFY372gonJBb03O7SxG/cxQvhtLoAzlFTKzIbn5h978SqKhzF2BouW+L
- rpRRFjwM3OzKGucKsN315h3Zcf0MRh4SBtD6KyfBIhdnTtWLt92cipLEXqhlsHQQrRjqqgj+0egLz
- eJYoNr6d4j/mL1fAkAyp4iYYzwjRZMa51OtXkZ0ilYO/HlWTHDqN7zrQhmiKVz2hutvOkSFmmQoOf
- chdtsFAUqvgjTk0PeQ==;
-Received: from dg by mx.treblig.org with local (Exim 4.96)
- (envelope-from <dg@treblig.org>) id 1tR9BG-007OU3-1z;
- Fri, 27 Dec 2024 12:11:02 +0000
-Date: Fri, 27 Dec 2024 12:11:02 +0000
-From: "Dr. David Alan Gilbert" <linux@treblig.org>
-To: Tvrtko Ursulin <tursulin@ursulin.net>
-Cc: jani.nikula@linux.intel.com, joonas.lahtinen@linux.intel.com,
- rodrigo.vivi@intel.com, intel-gfx@lists.freedesktop.org,
- airlied@gmail.com, simona@ffwll.ch, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] drm/i915: Remove deadcode
-Message-ID: <Z26ZVsh1ftEgdfbA@gallifrey>
-References: <20241222174751.222975-1-linux@treblig.org>
- <add92c9e-a5d1-4dc7-91fb-0eacd93b5a49@ursulin.net>
+Received: from mail-ej1-f46.google.com (mail-ej1-f46.google.com
+ [209.85.218.46])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2EADC10E646
+ for <intel-gfx@lists.freedesktop.org>; Mon,  6 Jan 2025 12:54:54 +0000 (UTC)
+Received: by mail-ej1-f46.google.com with SMTP id
+ a640c23a62f3a-aa6a618981eso297224766b.3
+ for <intel-gfx@lists.freedesktop.org>; Mon, 06 Jan 2025 04:54:54 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1736168033; x=1736772833; darn=lists.freedesktop.org;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=M2cI20yQvFh0oTzvXey8G3cCYkJTkl8Kp3cskcOiadM=;
+ b=YVf4+uD+HLpab1dWvz6rR2i09BACmKGZiD66YOF8K3Nlb47OGCQs+xjxCNWAByMBaC
+ Tpa5HjlcknN9qUTCiWVl3E1mc2ORsnQ+0lcFBMCU2X7uK2E6/KPEEijsTBzPK/u4Y8+l
+ WbaAhp5CZ/bnMC+uTO6myCph5JQiNot87wRUrKZ3a6j9vxpP538chfq1OJY56kbCrloz
+ I0CwyG5qVuDE6pfwzhIA4aJWxzBqvo18mnYw/tefhwhTz5SOebcaW9z2Gt8NPrTnSkv9
+ HvKPXIUJkOm9yfnmPqAnX0KHlI7KXK3NM62O6FG51Ozdx27xMQR/CVablF2lfqCvEt+e
+ S+vw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1736168033; x=1736772833;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=M2cI20yQvFh0oTzvXey8G3cCYkJTkl8Kp3cskcOiadM=;
+ b=kPA5TZSHSTZTUSXeGm1LbBrvDweRkIgOHr1+T3fWylF3P/vk11h28mbxT9YhhWDK98
+ CL1FkwVtFOcsVmA+Qsw9Ie/dBKiaPdCYUtuB2hUS8bjcv32cLSe5zMU92fqiPB+n07bk
+ FRKJ5x5MyVhq850t893E9+7HbNNnOapoBn8383viN/4JJCS0Sb7OR6IU3TgVPd9cxfDS
+ 6BQGugMe2IPYsXKuuj0HBnEe59UryjCYnKWDQQY49fKnskwnS+73fQ3O2dY+r255GF5S
+ pOeDirOELm0IuqCqj7H4+oEMiszU0lukP1kBM6HvsTvtUkKwVWQfGTELiutz5RcyRpCU
+ xFng==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCUfwWeT+TrMuvgeDOm6fSlWy4EffRVLi5x3MSxEq81VHvPUFlZ+h+94Tgp38boqiE3A1johb4NRpiE=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxHeTFuV5V1m+c5GcwkJqZ3bLSBcpjwkuu0nPttMlVYOObUZ0LM
+ 00zRac91x1qmyS9O7Hpm5gri0jlluKxDMegcW5mD61NMq5k9bALffuE1sZr6Lf4a6rEHPBiQq6T
+ V
+X-Gm-Gg: ASbGncsY0koPY2OU8sbkYOaHCvibdkl17iHutMUlJowkqJs9i6cI18VHQL11pt2VbA0
+ G/MnogU25Wy8Oh2GWiojqvm+sp4Fs9Ymcpy9ctASbvWSKvL+DwVent2NdLkVppyJBZWRHT2UPil
+ FtUFOU+k5d1waaXd3jSBdkzc9XXEG8LFTTacDfA37TI8QNSX61ZO+KM4pMMbdQkSKzYEon+uiy1
+ BrmziJXns3urbdmTcwYZJ5ZNDfwJP2ZhCUiuwHl0EKITThzXzP95Pc=
+X-Google-Smtp-Source: AGHT+IGPXXCGpVVL8gkklF9ZQV+if58UuE9ZivrnPJUbIt2RzTzppNgGN6AJ5opvpHjGWhdKOASxmQ==
+X-Received: by 2002:a05:6000:4b07:b0:385:fa20:658b with SMTP id
+ ffacd0b85a97d-38a221f6135mr46513894f8f.24.1736167552118; 
+ Mon, 06 Jan 2025 04:45:52 -0800 (PST)
+Received: from linaro.org ([86.121.162.10]) by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-43656b4274csm603466965e9.38.2025.01.06.04.45.49
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 06 Jan 2025 04:45:51 -0800 (PST)
+Date: Mon, 6 Jan 2025 14:45:48 +0200
+From: Abel Vesa <abel.vesa@linaro.org>
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Karol Herbst <kherbst@redhat.com>, Lyude Paul <lyude@redhat.com>,
+ Danilo Krummrich <dakr@redhat.com>,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Tvrtko Ursulin <tursulin@ursulin.net>, Rob Clark <robdclark@gmail.com>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>,
+ Johan Hovold <johan@kernel.org>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, nouveau@lists.freedesktop.org,
+ intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
+ linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
+ Imre Deak <imre.deak@intel.com>
+Subject: Re: [PATCH v3 3/4] drm/i915/dp: Use the generic helper to control
+ LTTPR transparent mode
+Message-ID: <Z3vQfIIDDgnFJsDn@linaro.org>
+References: <20250103-drm-dp-msm-add-lttpr-transparent-mode-set-v3-0-5c367f4b0763@linaro.org>
+ <20250103-drm-dp-msm-add-lttpr-transparent-mode-set-v3-3-5c367f4b0763@linaro.org>
+ <3p3wgzhtptjexplxrluod6sk36xeltpoh4hxg2yagssw7nh7hj@ikc4rssp6zej>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <add92c9e-a5d1-4dc7-91fb-0eacd93b5a49@ursulin.net>
-X-Chocolate: 70 percent or better cocoa solids preferably
-X-Operating-System: Linux/6.1.0-21-amd64 (x86_64)
-X-Uptime: 12:10:29 up 232 days, 23:24,  1 user,  load average: 0.00, 0.01, 0.00
-User-Agent: Mutt/2.2.12 (2023-09-09)
+In-Reply-To: <3p3wgzhtptjexplxrluod6sk36xeltpoh4hxg2yagssw7nh7hj@ikc4rssp6zej>
 X-Mailman-Approved-At: Tue, 07 Jan 2025 14:52:08 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -62,136 +107,93 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-* Tvrtko Ursulin (tursulin@ursulin.net) wrote:
-> 
-> Hi,
-> 
-> On 22/12/2024 17:47, linux@treblig.org wrote:
-> > From: "Dr. David Alan Gilbert" <linux@treblig.org>
+On 25-01-03 20:09:42, Dmitry Baryshkov wrote:
+> On Fri, Jan 03, 2025 at 02:58:17PM +0200, Abel Vesa wrote:
+> > LTTPRs operating modes are defined by the DisplayPort standard and the
+> > generic framework now provides a helper to switch between them, which
+> > is handling the explicit disabling of non-transparent mode and its
+> > disable->enable sequence mentioned in the DP Standard v2.0 section
+> > 3.6.6.1.
 > > 
-> > i915_active_acquire_for_context() was added in 2020 by
-> > commit 5d9341370f57 ("drm/i915: Export a preallocate variant of
-> > i915_active_acquire()") but has never been used.
+> > So use the new drm generic helper instead as it makes the code a bit
+> > cleaner.
 > > 
-> > The last use of __i915_gem_object_is_lmem() was removed in 2021 by
-> > commit ff20afc4cee7 ("drm/i915: Update error capture code to avoid using
-> > the current vma state")
-> > 
-> > Remove them.
-> 
-> I plan to apply this and your other two dead code removal patches.
-
-Thanks!
-
-> I needed
-> to re-send to the mailing list first so they get picked up by the CI before
-> I can do that (I guess you are not subscribed to intel-gfx).
-
-Right, I'm not subscribed.
-
-> It should
-> happen in a day or two. Thanks for the cleanup!
-
-Thanks again,
-
-Dave
-
-> 
-> Regards,
-> 
-> Tvrtko
-> > Signed-off-by: Dr. David Alan Gilbert <linux@treblig.org>
+> > Acked-by: Imre Deak <imre.deak@intel.com>
+> > Signed-off-by: Abel Vesa <abel.vesa@linaro.org>
 > > ---
-> >   drivers/gpu/drm/i915/gem/i915_gem_lmem.c | 23 -----------------------
-> >   drivers/gpu/drm/i915/gem/i915_gem_lmem.h |  2 --
-> >   drivers/gpu/drm/i915/i915_active.c       | 18 ------------------
-> >   drivers/gpu/drm/i915/i915_active.h       |  1 -
-> >   4 files changed, 44 deletions(-)
+> >  .../gpu/drm/i915/display/intel_dp_link_training.c  | 24 +++++-----------------
+> >  1 file changed, 5 insertions(+), 19 deletions(-)
 > > 
-> > diff --git a/drivers/gpu/drm/i915/gem/i915_gem_lmem.c b/drivers/gpu/drm/i915/gem/i915_gem_lmem.c
-> > index 3198b64ad7db..388f90784d8a 100644
-> > --- a/drivers/gpu/drm/i915/gem/i915_gem_lmem.c
-> > +++ b/drivers/gpu/drm/i915/gem/i915_gem_lmem.c
-> > @@ -52,29 +52,6 @@ bool i915_gem_object_is_lmem(struct drm_i915_gem_object *obj)
-> >   		      mr->type == INTEL_MEMORY_STOLEN_LOCAL);
-> >   }
-> > -/**
-> > - * __i915_gem_object_is_lmem - Whether the object is resident in
-> > - * lmem while in the fence signaling critical path.
-> > - * @obj: The object to check.
-> > - *
-> > - * This function is intended to be called from within the fence signaling
-> > - * path where the fence, or a pin, keeps the object from being migrated. For
-> > - * example during gpu reset or similar.
-> > - *
-> > - * Return: Whether the object is resident in lmem.
-> > - */
-> > -bool __i915_gem_object_is_lmem(struct drm_i915_gem_object *obj)
-> > -{
-> > -	struct intel_memory_region *mr = READ_ONCE(obj->mm.region);
+> > diff --git a/drivers/gpu/drm/i915/display/intel_dp_link_training.c b/drivers/gpu/drm/i915/display/intel_dp_link_training.c
+> > index 8b1977cfec503c70f07af716ee2c00e7605c6adf..c5bad311edf7b9a5cebb633b9e9692bae397f9ed 100644
+> > --- a/drivers/gpu/drm/i915/display/intel_dp_link_training.c
+> > +++ b/drivers/gpu/drm/i915/display/intel_dp_link_training.c
+> > @@ -119,9 +119,6 @@ intel_dp_set_lttpr_transparent_mode(struct intel_dp *intel_dp, bool enable)
+> >  	u8 val = enable ? DP_PHY_REPEATER_MODE_TRANSPARENT :
+> >  			  DP_PHY_REPEATER_MODE_NON_TRANSPARENT;
+> >  
+> > -	if (drm_dp_dpcd_write(&intel_dp->aux, DP_PHY_REPEATER_MODE, &val, 1) != 1)
+> > -		return false;
 > > -
-> > -#ifdef CONFIG_LOCKDEP
-> > -	GEM_WARN_ON(dma_resv_test_signaled(obj->base.resv, DMA_RESV_USAGE_BOOKKEEP) &&
-> > -		    i915_gem_object_evictable(obj));
-> > -#endif
-> > -	return mr && (mr->type == INTEL_MEMORY_LOCAL ||
-> > -		      mr->type == INTEL_MEMORY_STOLEN_LOCAL);
-> > -}
+> >  	intel_dp->lttpr_common_caps[DP_PHY_REPEATER_MODE -
+> >  				    DP_LT_TUNABLE_PHY_REPEATER_FIELD_DATA_STRUCTURE_REV] = val;
+> >  
+> > @@ -146,6 +143,7 @@ static bool intel_dp_lttpr_transparent_mode_enabled(struct intel_dp *intel_dp)
+> >  static int intel_dp_init_lttpr_phys(struct intel_dp *intel_dp, const u8 dpcd[DP_RECEIVER_CAP_SIZE])
+> >  {
+> >  	int lttpr_count;
+> > +	int ret;
+> >  
+> >  	if (!intel_dp_read_lttpr_common_caps(intel_dp, dpcd))
+> >  		return 0;
+> > @@ -172,22 +170,8 @@ static int intel_dp_init_lttpr_phys(struct intel_dp *intel_dp, const u8 dpcd[DP_
+> >  		return lttpr_count;
+> >  	}
+> >  
+> > -	/*
+> > -	 * See DP Standard v2.0 3.6.6.1. about the explicit disabling of
+> > -	 * non-transparent mode and the disable->enable non-transparent mode
+> > -	 * sequence.
+> > -	 */
+> > -	intel_dp_set_lttpr_transparent_mode(intel_dp, true);
 > > -
-> >   /**
-> >    * __i915_gem_object_create_lmem_with_ps - Create lmem object and force the
-> >    * minimum page size for the backing pages.
-> > diff --git a/drivers/gpu/drm/i915/gem/i915_gem_lmem.h b/drivers/gpu/drm/i915/gem/i915_gem_lmem.h
-> > index 5a7a14e85c3f..ecd8f1a633a1 100644
-> > --- a/drivers/gpu/drm/i915/gem/i915_gem_lmem.h
-> > +++ b/drivers/gpu/drm/i915/gem/i915_gem_lmem.h
-> > @@ -19,8 +19,6 @@ i915_gem_object_lmem_io_map(struct drm_i915_gem_object *obj,
-> >   bool i915_gem_object_is_lmem(struct drm_i915_gem_object *obj);
-> > -bool __i915_gem_object_is_lmem(struct drm_i915_gem_object *obj);
+> > -	/*
+> > -	 * In case of unsupported number of LTTPRs or failing to switch to
+> > -	 * non-transparent mode fall-back to transparent link training mode,
+> > -	 * still taking into account any LTTPR common lane- rate/count limits.
+> > -	 */
+> > -	if (lttpr_count < 0)
+> > -		goto out_reset_lttpr_count;
 > > -
-> >   struct drm_i915_gem_object *
-> >   i915_gem_object_create_lmem_from_data(struct drm_i915_private *i915,
-> >   				      const void *data, size_t size);
-> > diff --git a/drivers/gpu/drm/i915/i915_active.c b/drivers/gpu/drm/i915/i915_active.c
-> > index 35319228bc51..0dbc4e289300 100644
-> > --- a/drivers/gpu/drm/i915/i915_active.c
-> > +++ b/drivers/gpu/drm/i915/i915_active.c
-> > @@ -527,24 +527,6 @@ int i915_active_acquire(struct i915_active *ref)
-> >   	return err;
-> >   }
-> > -int i915_active_acquire_for_context(struct i915_active *ref, u64 idx)
-> > -{
-> > -	struct i915_active_fence *active;
-> > -	int err;
-> > -
-> > -	err = i915_active_acquire(ref);
-> > -	if (err)
-> > -		return err;
-> > -
-> > -	active = active_instance(ref, idx);
-> > -	if (!active) {
-> > -		i915_active_release(ref);
-> > -		return -ENOMEM;
-> > -	}
-> > -
-> > -	return 0; /* return with active ref */
-> > -}
-> > -
-> >   void i915_active_release(struct i915_active *ref)
-> >   {
-> >   	debug_active_assert(ref);
-> > diff --git a/drivers/gpu/drm/i915/i915_active.h b/drivers/gpu/drm/i915/i915_active.h
-> > index 77c676ecc263..821f7c21ea9b 100644
-> > --- a/drivers/gpu/drm/i915/i915_active.h
-> > +++ b/drivers/gpu/drm/i915/i915_active.h
-> > @@ -186,7 +186,6 @@ int i915_request_await_active(struct i915_request *rq,
-> >   #define I915_ACTIVE_AWAIT_BARRIER BIT(2)
-> >   int i915_active_acquire(struct i915_active *ref);
-> > -int i915_active_acquire_for_context(struct i915_active *ref, u64 idx);
-> >   bool i915_active_acquire_if_busy(struct i915_active *ref);
-> >   void i915_active_release(struct i915_active *ref);
--- 
- -----Open up your eyes, open up your mind, open up your code -------   
-/ Dr. David Alan Gilbert    |       Running GNU/Linux       | Happy  \ 
-\        dave @ treblig.org |                               | In Hex /
- \ _________________________|_____ http://www.treblig.org   |_______/
+> > -	if (!intel_dp_set_lttpr_transparent_mode(intel_dp, false)) {
+> > +	ret = drm_dp_lttpr_init(&intel_dp->aux, lttpr_count);
+> > +	if (ret) {
+> >  		lt_dbg(intel_dp, DP_PHY_DPRX,
+> >  		       "Switching to LTTPR non-transparent LT mode failed, fall-back to transparent mode\n");
+> >  
+> > @@ -196,6 +180,8 @@ static int intel_dp_init_lttpr_phys(struct intel_dp *intel_dp, const u8 dpcd[DP_
+> >  		goto out_reset_lttpr_count;
+> >  	}
+> >  
+> > +	intel_dp_set_lttpr_transparent_mode(intel_dp, false);
+> > +
+> 
+> I think the code now misses a way to update intel_dp->lttpr_common_caps
+> in a transparent-mode case:
+> intel_dp_set_lttpr_transparent_mode(intel_dp, true).
+
+It is being called if the drm_dp_lttpr_init() returns a non-zero value,
+but that is not part of the diff here.
+
+> 
+> >  	return lttpr_count;
+> >  
+> >  out_reset_lttpr_count:
+> > 
+> > -- 
+> > 2.34.1
+> > 
+> 
+> -- 
+> With best wishes
+> Dmitry
