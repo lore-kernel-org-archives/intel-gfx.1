@@ -4,46 +4,56 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4A3E1E77197
-	for <intel-gfx@archiver.kernel.org>; Tue,  7 Jan 2025 14:52:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EEC52E77198
+	for <intel-gfx@archiver.kernel.org>; Tue,  7 Jan 2025 15:02:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E2D7210E704;
-	Tue,  7 Jan 2025 14:52:37 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9820A10E71D;
+	Tue,  7 Jan 2025 15:02:26 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=treblig.org header.i=@treblig.org header.b="rbBQq3hs";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="m3vVFpOe";
 	dkim-atps=neutral
-Received: from mx.treblig.org (mx.treblig.org [46.235.229.95])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 32ABF10E051;
- Wed, 25 Dec 2024 17:52:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=treblig.org
- ; s=bytemarkmx;
- h=MIME-Version:Message-ID:Date:Subject:From:Content-Type:From
- :Subject; bh=dfvfLNjykdYWKlzXMF+mOHOTts53mx0nlkDrwH+6+HA=; b=rbBQq3hs2FBsKA+n
- Kq92jd4hcIyvSxzIuQER0jgz4/GyR+7yvDeFpruR+gVLNK52ybbgCznpZTAHYuO49UNCcVK8sAnXI
- c3+XR0dn1c3yv7oUUEf+AfVDoNSgWxtOj29idEt18TlhQBskPtTegq1zfqfZXiBJ1D4//L/bs43BV
- 3/jQd+OgJuj0sf6PjFr+4+0tKJpLXDwaNHqsurvKhAuUsi0y8GxoNWamF43At9zGkwOYh8//zXfM4
- 65V7lNITRGy/gxxy9HHTk9sstVvygsd7y1VCgypDQW/u05S5QZemwiDyvnrxY5Nbz4wjbQi/TRRL6
- qxyLr5Fw/EwyrXWQLA==;
-Received: from localhost ([127.0.0.1] helo=dalek.home.treblig.org)
- by mx.treblig.org with esmtp (Exim 4.96)
- (envelope-from <linux@treblig.org>) id 1tQVWN-0078Iy-1u;
- Wed, 25 Dec 2024 17:50:11 +0000
-From: linux@treblig.org
-To: tglx@linutronix.de, mingo@redhat.com, bp@alien8.de,
- dave.hansen@linux.intel.com, jani.nikula@linux.intel.com,
- joonas.lahtinen@linux.intel.com, rodrigo.vivi@intel.com,
- tursulin@ursulin.net
-Cc: x86@kernel.org, airlied@gmail.com, simona@ffwll.ch,
- intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, "Dr. David Alan Gilbert" <linux@treblig.org>
-Subject: [PATCH] x86/platform/iosf_mbi: Remove unused
- iosf_mbi_unregister_pmic_bus_access_notifier
-Date: Wed, 25 Dec 2024 17:50:10 +0000
-Message-ID: <20241225175010.91783-1-linux@treblig.org>
-X-Mailer: git-send-email 2.47.1
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.9])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6D05510E71C;
+ Tue,  7 Jan 2025 15:02:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1736262145; x=1767798145;
+ h=date:from:to:cc:subject:message-id:reply-to:references:
+ mime-version:in-reply-to;
+ bh=o5mwZVd0jQGZmNi+mRM/KK8FNyYO7N41z3X3B6zDUHo=;
+ b=m3vVFpOe1ySoOVzk7BzqfRMBzhdY9iyUVj1IAwMngimS6gWYKQlWzesI
+ k6dxN3tEWrW5etuxXiMv0T1ZGOjYN2HktoHPMj2SSaLZK2HNCfjrKmO2w
+ stpGkP+aZ8zFCOnFbq8f+lruMWLAs3FuH1jtFI/gIu2yYt56p7swB6/Jx
+ Rgkr6Nw4ZjaQp+8Nyut7M8WP/lQnE2xwZkS2szk6tlaKu41ylE5wG0gXq
+ cMEdTIjHuxSlC+VuP8oW/1pC84TWeIJPGZdhLgJJitwgEYWmRKmhFJ1ev
+ /Ah3KPumom1iF7q5DrxHipbmdB0/vPSoiSyCywNEueRdcEa64juaqPZwo A==;
+X-CSE-ConnectionGUID: 9N6L9k5LTWSoku9Rzt8p8A==
+X-CSE-MsgGUID: 6ALa0LAKRO6dJexu7qh6+Q==
+X-IronPort-AV: E=McAfee;i="6700,10204,11308"; a="47116656"
+X-IronPort-AV: E=Sophos;i="6.12,295,1728975600"; d="scan'208";a="47116656"
+Received: from fmviesa004.fm.intel.com ([10.60.135.144])
+ by fmvoesa103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 07 Jan 2025 07:02:02 -0800
+X-CSE-ConnectionGUID: 5TPxyme3QnmHGFztYt7+Xg==
+X-CSE-MsgGUID: PtTFsUGUTfiIgvP4sjvYnw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.12,295,1728975600"; d="scan'208";a="107670477"
+Received: from ideak-desk.fi.intel.com ([10.237.72.78])
+ by fmviesa004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 07 Jan 2025 07:01:55 -0800
+Date: Tue, 7 Jan 2025 17:02:47 +0200
+From: Imre Deak <imre.deak@intel.com>
+To: Suraj Kandpal <suraj.kandpal@intel.com>
+Cc: intel-xe@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
+ ankit.k.nautiyal@intel.com, uma.shankar@intel.com
+Subject: Re: [PATCH 1/2] drm/i915/cx0: Fix SSC enablement in PORT_CLOCK_CTL
+Message-ID: <Z31CF9QeIe7erRqE@ideak-desk.fi.intel.com>
+References: <20250106040821.251114-1-suraj.kandpal@intel.com>
+ <20250106040821.251114-2-suraj.kandpal@intel.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Tue, 07 Jan 2025 14:52:08 +0000
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20250106040821.251114-2-suraj.kandpal@intel.com>
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,86 +66,39 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: imre.deak@intel.com
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: "Dr. David Alan Gilbert" <linux@treblig.org>
+On Mon, Jan 06, 2025 at 09:38:20AM +0530, Suraj Kandpal wrote:
+> SSC for PLL_A is enabled for UHBR10 or UHBR20 regardless of the
+> need for SSC. This means the ssc_enabled variable had no say
+> to determine enablement of SSC on PLL A.
 
-The last use of iosf_mbi_unregister_pmic_bus_access_notifier() was
-removed in 2017 by
-commit a5266db4d314 ("drm/i915: Acquire PUNIT->PMIC bus for
-intel_uncore_forcewake_reset()")
+I don't see the above in the spec. It suggests that SSC should be
+enabled on PLL A for MFD, but in any case SSC can only be enabled
+if the sink supports SSC, as indicated by dpll_hw_state.cx0pll.ssc_enabled.
 
-Remove it.
-
-Note the '_unlocked' version is still used.
-
-Signed-off-by: Dr. David Alan Gilbert <linux@treblig.org>
----
- arch/x86/include/asm/iosf_mbi.h      |  7 -------
- arch/x86/platform/intel/iosf_mbi.c   | 13 -------------
- drivers/gpu/drm/i915/i915_iosf_mbi.h |  6 ------
- 3 files changed, 26 deletions(-)
-
-diff --git a/arch/x86/include/asm/iosf_mbi.h b/arch/x86/include/asm/iosf_mbi.h
-index af7541c11821..8ace6559d399 100644
---- a/arch/x86/include/asm/iosf_mbi.h
-+++ b/arch/x86/include/asm/iosf_mbi.h
-@@ -167,13 +167,6 @@ void iosf_mbi_unblock_punit_i2c_access(void);
-  */
- int iosf_mbi_register_pmic_bus_access_notifier(struct notifier_block *nb);
- 
--/**
-- * iosf_mbi_register_pmic_bus_access_notifier - Unregister PMIC bus notifier
-- *
-- * @nb: notifier_block to unregister
-- */
--int iosf_mbi_unregister_pmic_bus_access_notifier(struct notifier_block *nb);
--
- /**
-  * iosf_mbi_unregister_pmic_bus_access_notifier_unlocked - Unregister PMIC bus
-  *                                                         notifier, unlocked
-diff --git a/arch/x86/platform/intel/iosf_mbi.c b/arch/x86/platform/intel/iosf_mbi.c
-index c81cea208c2c..40ae94db20d8 100644
---- a/arch/x86/platform/intel/iosf_mbi.c
-+++ b/arch/x86/platform/intel/iosf_mbi.c
-@@ -422,19 +422,6 @@ int iosf_mbi_unregister_pmic_bus_access_notifier_unlocked(
- }
- EXPORT_SYMBOL(iosf_mbi_unregister_pmic_bus_access_notifier_unlocked);
- 
--int iosf_mbi_unregister_pmic_bus_access_notifier(struct notifier_block *nb)
--{
--	int ret;
--
--	/* Wait for the bus to go inactive before unregistering */
--	iosf_mbi_punit_acquire();
--	ret = iosf_mbi_unregister_pmic_bus_access_notifier_unlocked(nb);
--	iosf_mbi_punit_release();
--
--	return ret;
--}
--EXPORT_SYMBOL(iosf_mbi_unregister_pmic_bus_access_notifier);
--
- void iosf_mbi_assert_punit_acquired(void)
- {
- 	WARN_ON(iosf_mbi_pmic_punit_access_count == 0);
-diff --git a/drivers/gpu/drm/i915/i915_iosf_mbi.h b/drivers/gpu/drm/i915/i915_iosf_mbi.h
-index 8f81b7603d37..317075d0da4e 100644
---- a/drivers/gpu/drm/i915/i915_iosf_mbi.h
-+++ b/drivers/gpu/drm/i915/i915_iosf_mbi.h
-@@ -31,12 +31,6 @@ iosf_mbi_unregister_pmic_bus_access_notifier_unlocked(struct notifier_block *nb)
- {
- 	return 0;
- }
--
--static inline
--int iosf_mbi_unregister_pmic_bus_access_notifier(struct notifier_block *nb)
--{
--	return 0;
--}
- #endif
- 
- #endif /* __I915_IOSF_MBI_H__ */
--- 
-2.47.1
-
+> Bspec: 64568, 74165, 74489, 74491
+> Fixes: 237e7be0bf57 ("drm/i915/mtl: For DP2.0 10G and 20G rates use MPLLA")
+> Signed-off-by: Suraj Kandpal <suraj.kandpal@intel.com>
+> ---
+>  drivers/gpu/drm/i915/display/intel_cx0_phy.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/drivers/gpu/drm/i915/display/intel_cx0_phy.c b/drivers/gpu/drm/i915/display/intel_cx0_phy.c
+> index e768dc6a15b3..3fd959a2773c 100644
+> --- a/drivers/gpu/drm/i915/display/intel_cx0_phy.c
+> +++ b/drivers/gpu/drm/i915/display/intel_cx0_phy.c
+> @@ -2747,7 +2747,7 @@ static void intel_program_port_clock_ctl(struct intel_encoder *encoder,
+>  	/* TODO: HDMI FRL */
+>  	/* DP2.0 10G and 20G rates enable MPLLA*/
+>  	if (crtc_state->port_clock == 1000000 || crtc_state->port_clock == 2000000)
+> -		val |= crtc_state->dpll_hw_state.cx0pll.ssc_enabled ? XELPDP_SSC_ENABLE_PLLA : 0;
+> +		val |= XELPDP_SSC_ENABLE_PLLA;
+>  	else
+>  		val |= crtc_state->dpll_hw_state.cx0pll.ssc_enabled ? XELPDP_SSC_ENABLE_PLLB : 0;
+>  
+> -- 
+> 2.34.1
+> 
