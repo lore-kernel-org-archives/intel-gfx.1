@@ -4,50 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8AA86E77188
-	for <intel-gfx@archiver.kernel.org>; Wed,  8 Jan 2025 12:39:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 05B4AE77188
+	for <intel-gfx@archiver.kernel.org>; Wed,  8 Jan 2025 12:39:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 32C5A10E8AB;
-	Wed,  8 Jan 2025 12:39:10 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9A60410E894;
+	Wed,  8 Jan 2025 12:39:21 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="OlbAybOO";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="YlbpGIoa";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.18])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8433210EB71;
- Wed,  8 Jan 2025 12:39:08 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E3BE710E894;
+ Wed,  8 Jan 2025 12:39:20 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1736339948; x=1767875948;
+ t=1736339961; x=1767875961;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=VmTSz5jwbOmyVnPiDjTNCLWrVqercSccYQhlAccuFhQ=;
- b=OlbAybOOH56nNifE0Jdk9CQ9zmd58QGsJFwcUq4RUIGBjCPTuyM8d670
- cPW/VDBRxedtyt8VfVWfEzs0hI81We3bFZvJxW+lfxc2mSOpeRXKcvlqJ
- WL2wBaoy5Da8pZfWLgkU5U0HBfeDkG9gbcmD569mUOpt9P4/W0WtkaCjP
- 5wbmH/u6o/cwajXaIIEsx6Oqrpa5Dr++tB0sRc2WlxQBermqVUFD/O2/u
- AjuvfuguaA45qHT1Em10RoiLTHSYsM2nEk4xBMrLZMwlqnBxNH9HZ4s7V
- CB3WGIrBY90ObiwoWnUTa9J5j0tdgtAWFunOBHVTqDt90ENei8IUQBYhM Q==;
-X-CSE-ConnectionGUID: h7hHXBuXQTyI1cFn+sVXrg==
-X-CSE-MsgGUID: eS4MBk2+QqiRPmQodce4Tw==
-X-IronPort-AV: E=McAfee;i="6700,10204,11309"; a="35855371"
-X-IronPort-AV: E=Sophos;i="6.12,298,1728975600"; d="scan'208";a="35855371"
+ bh=he07DjH+vg2eiymKM8MN9UBeJpZcDVoZlPjSrAQywo4=;
+ b=YlbpGIoaCbsr8f6z3i/6gjrSZz4xGe5fWNWQV+SBio6onLGcTyTe5jtp
+ t+mlSviIWXRRO/XUDHv8j7NapgsB/4aXNsIg14osiVWgaoeRayzVvSYxw
+ fAhyYj8telsx7v2qO0aZ54DB0PDx7yHxVvWQecaUMCERFwJQ0UJ7pTiAl
+ BPt53biY03ennP4gFtkVz9UBSim4i/TdXvVd1msbptAxaPf2VpRXqbA1N
+ RTGlKp1/H+YMkRjkYu1SWfPWe+GPsnrTzn7WwPfivYOuYWLOxrsBt0urO
+ W82Fmc3+A6LuuoJ32nJ1nqXk+QGjoJRLnxaAlFQnlgyD84xRnaBJYDvIv A==;
+X-CSE-ConnectionGUID: UlgjbwUNSee3jIo01tdJNg==
+X-CSE-MsgGUID: Mg0aBfuSQ1acQm8m88NWmg==
+X-IronPort-AV: E=McAfee;i="6700,10204,11309"; a="35855387"
+X-IronPort-AV: E=Sophos;i="6.12,298,1728975600"; d="scan'208";a="35855387"
 Received: from fmviesa006.fm.intel.com ([10.60.135.146])
  by fmvoesa112.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 08 Jan 2025 04:39:08 -0800
-X-CSE-ConnectionGUID: jZpfSN2cScyOgCEBZ5aojw==
-X-CSE-MsgGUID: 2zNT3NUHSIKty/vzqxkaWg==
+ 08 Jan 2025 04:39:14 -0800
+X-CSE-ConnectionGUID: MpqAny94RAaoQHQjAUMwdA==
+X-CSE-MsgGUID: epLouHk/QmOyt5nCIsooOw==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.12,298,1728975600"; d="scan'208";a="102886102"
+X-IronPort-AV: E=Sophos;i="6.12,298,1728975600"; d="scan'208";a="102886146"
 Received: from mgolanimitul-x299-ud4-pro.iind.intel.com ([10.190.239.114])
- by fmviesa006.fm.intel.com with ESMTP; 08 Jan 2025 04:39:06 -0800
+ by fmviesa006.fm.intel.com with ESMTP; 08 Jan 2025 04:39:12 -0800
 From: Mitul Golani <mitulkumar.ajitkumar.golani@intel.com>
 To: intel-gfx@lists.freedesktop.org,
 	intel-xe@lists.freedesktop.org
 Cc: ankit.k.nautiyal@intel.com, jani.nikula@intel.com, ville.syrjala@intel.com
-Subject: [PATCH v4 4/7] drm/i915/scaler: Compute scaling factors for pipe
- scaler
-Date: Wed,  8 Jan 2025 18:05:38 +0530
-Message-ID: <20250108123541.2101643-5-mitulkumar.ajitkumar.golani@intel.com>
+Subject: [PATCH v4 7/7] drm/i915/dsc: Check if vblank is sufficient for dsc
+ prefill
+Date: Wed,  8 Jan 2025 18:05:41 +0530
+Message-ID: <20250108123541.2101643-8-mitulkumar.ajitkumar.golani@intel.com>
 X-Mailer: git-send-email 2.46.0
 In-Reply-To: <20250108123541.2101643-1-mitulkumar.ajitkumar.golani@intel.com>
 References: <20250108123541.2101643-1-mitulkumar.ajitkumar.golani@intel.com>
@@ -68,94 +68,81 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Compute scaling factors and scaler user for pipe scaler if
-particular scaler user is pipe scaler.
+Check if vblank is sufficient for dsc prefill latency.
 
 --v2:
-- Update typo 'plane scaling' to 'pipe scaling'. [Ankit]
-- Remove FIXME tag which was added to check for pipe scaling
-factors as well. [Ankit]
-- Should be common hscale, vscale instead of local one to
-avoid garbage overwritten.
-- Typo in commit message 'perticular' to 'particular'.
+- Consider chroma downscaling factor in latency calculation. [Ankit]
+- Replace with appropriate function name.
 
 --v3:
-- Separate out max_scaling information. [Ankit]
-- Use max_hscale and max_vscale info instead of INT_MAX. [Ankit]
+- Remove FIXME tag.[Ankit]
+- Replace Ycbcr444 to Ycbcr420.[Anit]
+- Correct precision. [Ankit]
+- Use some local valiables like linetime_factor and latency to
+adjust precision.
+- Declare latency to 0 initially to avoid returning any garbage values.
+- Account for second scaler downscaling factor as well. [Ankit]
 
 Signed-off-by: Mitul Golani <mitulkumar.ajitkumar.golani@intel.com>
 ---
- drivers/gpu/drm/i915/display/skl_scaler.c | 36 ++++++++++++++++++-----
- 1 file changed, 29 insertions(+), 7 deletions(-)
+ drivers/gpu/drm/i915/display/skl_watermark.c | 37 ++++++++++++++++++++
+ 1 file changed, 37 insertions(+)
 
-diff --git a/drivers/gpu/drm/i915/display/skl_scaler.c b/drivers/gpu/drm/i915/display/skl_scaler.c
-index 19ab7b38c64e..e0aeacaa6b56 100644
---- a/drivers/gpu/drm/i915/display/skl_scaler.c
-+++ b/drivers/gpu/drm/i915/display/skl_scaler.c
-@@ -351,6 +351,7 @@ static int intel_atomic_setup_scaler(struct intel_crtc_state *crtc_state,
- 					&crtc_state->scaler_state;
- 	struct drm_i915_private *dev_priv = to_i915(crtc->base.dev);
- 	u32 mode;
-+	int hscale, vscale, max_vscale, max_hscale;
+diff --git a/drivers/gpu/drm/i915/display/skl_watermark.c b/drivers/gpu/drm/i915/display/skl_watermark.c
+index fe91854e456c..d275ec687748 100644
+--- a/drivers/gpu/drm/i915/display/skl_watermark.c
++++ b/drivers/gpu/drm/i915/display/skl_watermark.c
+@@ -2292,6 +2292,42 @@ static int icl_build_plane_wm(struct intel_crtc_state *crtc_state,
+ 	return 0;
+ }
  
- 	if (*scaler_id < 0)
- 		*scaler_id = intel_allocate_scaler(scaler_state, crtc);
-@@ -399,15 +400,10 @@ static int intel_atomic_setup_scaler(struct intel_crtc_state *crtc_state,
- 		mode = SKL_PS_SCALER_MODE_DYN;
- 	}
- 
--	/*
--	 * FIXME: we should also check the scaler factors for pfit, so
--	 * this shouldn't be tied directly to planes.
--	 */
- 	if (plane_state && plane_state->hw.fb) {
- 		const struct drm_framebuffer *fb = plane_state->hw.fb;
- 		const struct drm_rect *src = &plane_state->uapi.src;
- 		const struct drm_rect *dst = &plane_state->uapi.dst;
--		int hscale, vscale, max_vscale, max_hscale;
- 
- 		calculate_max_scale(crtc,
- 				    intel_format_info_is_yuv_semiplanar(fb->format, fb->modifier),
-@@ -431,11 +427,37 @@ static int intel_atomic_setup_scaler(struct intel_crtc_state *crtc_state,
- 
- 			return -EINVAL;
- 		}
++static int
++dsc_prefill_latency(const struct intel_crtc_state *crtc_state)
++{
++	const struct intel_crtc_scaler_state *scaler_state =
++						&crtc_state->scaler_state;
++	int latency = 0;
++	int count = hweight32(scaler_state->scaler_users);
++	long long hscale_k[2] = {1, 1};
++	long long vscale_k[2] = {1, 1};
++
++	if (!crtc_state->dsc.compression_enable)
++		return latency;
++
++	for (int i = 0; i < count; i++) {
++		hscale_k[i] = mul_u32_u32(scaler_state->scalers[i].hscale, 1000) >> 16;
++		vscale_k[i] = mul_u32_u32(scaler_state->scalers[i].vscale, 1000) >> 16;
 +	}
 +
-+	if (crtc_state->pch_pfit.enabled) {
-+		struct drm_rect src;
++	if (count) {
++		int chroma_downscaling_factor =
++			crtc_state->output_format == INTEL_OUTPUT_FORMAT_YCBCR420 ? 2 : 1;
++		long long total_scaling_factor;
++		int linetime_factor = DIV_ROUND_UP(15 * crtc_state->linetime, 10);
 +
-+		drm_rect_init(&src, 0, 0,
-+			      drm_rect_width(&crtc_state->pipe_src) << 16,
-+			      drm_rect_height(&crtc_state->pipe_src) << 16);
++		total_scaling_factor  = DIV_ROUND_UP_ULL(hscale_k[0] * vscale_k[0], 1000000);
 +
-+		calculate_max_scale(crtc, 0, *scaler_id,
-+				    &max_hscale, &max_vscale);
++		if (count > 1)
++			total_scaling_factor *= DIV_ROUND_UP_ULL(hscale_k[1] * vscale_k[1],
++								 1000000);
 +
-+		hscale = drm_rect_calc_hscale(&src, &crtc_state->pch_pfit.dst,
-+					      0, max_hscale);
-+		vscale = drm_rect_calc_vscale(&src, &crtc_state->pch_pfit.dst,
-+					      0, max_vscale);
- 
--		scaler_state->scalers[*scaler_id].hscale = hscale;
--		scaler_state->scalers[*scaler_id].vscale = vscale;
-+		if (hscale < 0 || vscale < 0) {
-+			drm_dbg_kms(display->drm,
-+				    "Scaler %d doesn't support required pipe scaling\n",
-+				    *scaler_id);
-+			drm_rect_debug_print("src: ", &src, true);
-+			drm_rect_debug_print("dst: ", &crtc_state->pch_pfit.dst, false);
++		latency = total_scaling_factor * linetime_factor * chroma_downscaling_factor;
++	}
 +
-+			return -EINVAL;
-+		}
- 	}
- 
-+	scaler_state->scalers[*scaler_id].hscale = hscale;
-+	scaler_state->scalers[*scaler_id].vscale = vscale;
++	return latency;
++}
 +
- 	drm_dbg_kms(display->drm, "Attached scaler id %u.%u to %s:%d\n",
- 		    crtc->pipe, *scaler_id, name, idx);
- 	scaler_state->scalers[*scaler_id].mode = mode;
+ static int
+ scaler_prefill_latency(const struct intel_crtc_state *crtc_state)
+ {
+@@ -2333,6 +2369,7 @@ skl_is_vblank_too_short(const struct intel_crtc_state *crtc_state,
+ 	return crtc_state->framestart_delay +
+ 		intel_usecs_to_scanlines(adjusted_mode, latency) +
+ 		scaler_prefill_latency(crtc_state) +
++		dsc_prefill_latency(crtc_state) +
+ 		wm0_lines >
+ 		adjusted_mode->crtc_vtotal - adjusted_mode->crtc_vblank_start;
+ }
 -- 
 2.46.0
 
