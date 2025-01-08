@@ -4,27 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9A86FE77188
-	for <intel-gfx@archiver.kernel.org>; Wed,  8 Jan 2025 12:38:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AF1F2E7719A
+	for <intel-gfx@archiver.kernel.org>; Wed,  8 Jan 2025 12:39:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3AC2010E0A5;
-	Wed,  8 Jan 2025 12:38:43 +0000 (UTC)
-Received: from b555e5b46a47 (emeril.freedesktop.org [131.252.210.167])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7953010E0A5;
- Wed,  8 Jan 2025 12:38:41 +0000 (UTC)
-Content-Type: text/plain; charset="utf-8"
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5F8F710E29A;
+	Wed,  8 Jan 2025 12:39:03 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="hn+7b8G3";
+	dkim-atps=neutral
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.18])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8308B10E894;
+ Wed,  8 Jan 2025 12:39:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1736339941; x=1767875941;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=LUmm23xPt96o7bd+dFs1Vi1T88gpbF8iJgmgrKarYV0=;
+ b=hn+7b8G3vMRuBD6fJevYozrYk3GistHxWQW74jfFx0K2T32wl0UoHAIA
+ Epj09ZRC3AYFyH2ewVRJDb4qW86f8Xxqgtg2fRjANvDDzitWaxiK0GvNL
+ AQNAMzhiR8e9KXqGCoe51GSpEdv12DXPFlgVSTIHKYhKfgJ2G/19SB9Xn
+ I2P823s/QEEA3BIJDKFcOOqe+ibZbTH0/KIQmDrSPawvDEnX1LDp6k4nS
+ 6TuH1OyLFIfXqZ6CNNqsqQhWe5GquQqbQw4L8prnJBDYzmto7PDKvG5x2
+ 1ptlBQE9vVEBlQwZkVeA9gVD5XJ8L5qBm5w74yYNp38nnA6nPdFv1Gvuf w==;
+X-CSE-ConnectionGUID: Vx/h5WfCQquJzGOWwI2WqA==
+X-CSE-MsgGUID: NnyZ0Ga/SHersAm2BtTmGQ==
+X-IronPort-AV: E=McAfee;i="6700,10204,11309"; a="35855347"
+X-IronPort-AV: E=Sophos;i="6.12,298,1728975600"; d="scan'208";a="35855347"
+Received: from fmviesa006.fm.intel.com ([10.60.135.146])
+ by fmvoesa112.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 08 Jan 2025 04:39:01 -0800
+X-CSE-ConnectionGUID: RZYhnjI/RfaAld4qqv8oJQ==
+X-CSE-MsgGUID: ybCkGPTqTWeGKfJJryPbxw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.12,298,1728975600"; d="scan'208";a="102886083"
+Received: from mgolanimitul-x299-ud4-pro.iind.intel.com ([10.190.239.114])
+ by fmviesa006.fm.intel.com with ESMTP; 08 Jan 2025 04:38:58 -0800
+From: Mitul Golani <mitulkumar.ajitkumar.golani@intel.com>
+To: intel-gfx@lists.freedesktop.org,
+	intel-xe@lists.freedesktop.org
+Cc: ankit.k.nautiyal@intel.com, jani.nikula@intel.com, ville.syrjala@intel.com
+Subject: [PATCH v4 0/7] Check Scaler and DSC Prefill Latency Against Vblank
+Date: Wed,  8 Jan 2025 18:05:34 +0530
+Message-ID: <20250108123541.2101643-1-mitulkumar.ajitkumar.golani@intel.com>
+X-Mailer: git-send-email 2.46.0
 MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Subject: =?utf-8?q?=E2=9C=97_Fi=2ECI=2ECHECKPATCH=3A_warning_for_drm/i915=3A_Add_VM?=
- =?utf-8?q?=5FDONTEXPAND_to_exported_buffers?=
-From: Patchwork <patchwork@emeril.freedesktop.org>
-To: "Jacek Lawrynowicz" <jacek.lawrynowicz@linux.intel.com>
-Cc: intel-gfx@lists.freedesktop.org
-Date: Wed, 08 Jan 2025 12:38:41 -0000
-Message-ID: <173633992148.1290559.3532096716397250420@b555e5b46a47>
-X-Patchwork-Hint: ignore
-References: <20250108105346.240103-1-jacek.lawrynowicz@linux.intel.com>
-In-Reply-To: <20250108105346.240103-1-jacek.lawrynowicz@linux.intel.com>
+Content-Transfer-Encoding: 8bit
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -37,22 +62,30 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-== Series Details ==
+Compute and check if dsc and scaler prefill latency is sufficient with
+respect to vblank.
 
-Series: drm/i915: Add VM_DONTEXPAND to exported buffers
-URL   : https://patchwork.freedesktop.org/series/143237/
-State : warning
+Previous Revision Reference:
+https://patchwork.freedesktop.org/series/141203/
+https://patchwork.freedesktop.org/series/142745/
 
-== Summary ==
+Mitul Golani (7):
+  drm/i915/scaler: Add and compute scaling factors
+  drm/i915/scaler: Use crtc_state to setup plane or pipe scaler
+  drm/i915/scaler: Refactor max_scale computation
+  drm/i915/scaler: Compute scaling factors for pipe scaler
+  drm/i915/scaler: Limit pipe scaler downscaling factors for YUV420
+  drm/i915/scaler: Check if vblank is sufficient for scaler
+  drm/i915/dsc: Check if vblank is sufficient for dsc prefill
 
-Error: dim checkpatch failed
-f720c3aac1d7 drm/i915: Add VM_DONTEXPAND to exported buffers
--:75: WARNING:MISSING_FIXES_TAG: The commit message has 'Call Trace:', perhaps it also needs a 'Fixes:' tag?
+ .../drm/i915/display/intel_display_types.h    |   2 +
+ drivers/gpu/drm/i915/display/skl_scaler.c     | 116 ++++++++++++------
+ drivers/gpu/drm/i915/display/skl_watermark.c  |  68 ++++++++++
+ 3 files changed, 149 insertions(+), 37 deletions(-)
 
-total: 0 errors, 1 warnings, 0 checks, 7 lines checked
-
+-- 
+2.46.0
 
