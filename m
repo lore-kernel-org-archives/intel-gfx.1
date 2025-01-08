@@ -4,57 +4,193 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1272CE77188
-	for <intel-gfx@archiver.kernel.org>; Wed,  8 Jan 2025 14:05:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 74862E77188
+	for <intel-gfx@archiver.kernel.org>; Wed,  8 Jan 2025 14:07:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CA89710EBC3;
-	Wed,  8 Jan 2025 14:05:10 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1F62310E8A5;
+	Wed,  8 Jan 2025 14:07:40 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="Uq35uQY5";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="bMtpp16K";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DC10D10E8BC;
- Wed,  8 Jan 2025 14:05:09 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3592D10E8A5;
+ Wed,  8 Jan 2025 14:07:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1736345109; x=1767881109;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=S+t4Isa5fcksEcuBguZi/3eY5422ph4OVemYUmVi0fI=;
- b=Uq35uQY5GugQHjXCtVAZTsbqltIphjYSRh+M3v5CnBl8UXzZ+Tijk8ij
- zhW/0J9OFgHF1FTDJoQqzMyqdpXhtB1NdFkD2PzKMzugoWt/OOcKcv802
- jYRyaBvgsJQWyokQhEyxyeQ/d82pbCGBgZ/Pwoma64MMbpmT4/bTXFIGQ
- ACBIc6V+dw+OM2vX2C50fMXTHuVqJIL+u5j+MHp3Ba0BJfKNJ1Go/+ZWv
- XPAHBzsXqIChvNHoNINO/o2/NC9LokrJ8doqspUbyp+VtSgEkzbJnIn/8
- ex93zXWD/TL816R03fyapF+4LtE7QeMOoYq5FHB6Pl/2FvwLCuQkkUw2v A==;
-X-CSE-ConnectionGUID: yMdP8fRnSni7latcGBVezg==
-X-CSE-MsgGUID: frx7aKCoSce3ITHArMPPdA==
-X-IronPort-AV: E=McAfee;i="6700,10204,11309"; a="47146089"
-X-IronPort-AV: E=Sophos;i="6.12,298,1728975600"; d="scan'208";a="47146089"
+ t=1736345259; x=1767881259;
+ h=from:to:cc:subject:date:message-id:references:
+ in-reply-to:content-id:content-transfer-encoding: mime-version;
+ bh=HAuHo9wsJn0brLLgGpDE46DED+4TSTa2g4b5gWkdUX8=;
+ b=bMtpp16KfIk4h+QzEKefO6duA9oGDqEIHjqMe6pnDuIVof7EFstBSZ27
+ yDhZevnmMiA2KANxk1/5a2+q92kMsUp+NJ6aJD8CDTFCzvCrb1qG0EBwO
+ ZGFR0JgT/UBIm87xibinsg3kToGI4+kQDvnpr9fawWWMh7Px6Wr8+Yi72
+ c24uHoejhM+nJ/GHqvN6s7fl8h7GzCsae0fIJO5+YEqoAVXneFi4gahOv
+ ABIauVZx4Z8dEXXhc4kn4j7QjBd8xDE1ccSJ3Eu3FGqDWKHmyyzwV0Smg
+ uLiGYTvc9L+NJ7KDWS0PgIhrfuagwWwKKVz1x++jVndfwUYpQ8oRYkoEY A==;
+X-CSE-ConnectionGUID: E+guYUszRc6/iaE0JBXYDQ==
+X-CSE-MsgGUID: 8u3+/oTeRJGS3ZHKJL8mtQ==
+X-IronPort-AV: E=McAfee;i="6700,10204,11309"; a="47146605"
+X-IronPort-AV: E=Sophos;i="6.12,298,1728975600"; d="scan'208";a="47146605"
 Received: from orviesa003.jf.intel.com ([10.64.159.143])
  by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 08 Jan 2025 06:04:31 -0800
-X-CSE-ConnectionGUID: qRj//EhnR2ekBsqffYAhhw==
-X-CSE-MsgGUID: 1CRZ2avkQbufYjKcFJh6xw==
+ 08 Jan 2025 06:07:38 -0800
+X-CSE-ConnectionGUID: v64lanVuRZ+L2g9d/urqBg==
+X-CSE-MsgGUID: gRoLeaA5RK+S/J2hg4EFDQ==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.11,199,1725346800"; d="scan'208";a="108154038"
-Received: from klitkey1-mobl1.ger.corp.intel.com (HELO localhost)
- ([10.245.246.152])
- by ORVIESA003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 08 Jan 2025 06:04:30 -0800
-From: Jani Nikula <jani.nikula@intel.com>
-To: intel-gfx@lists.freedesktop.org,
-	intel-xe@lists.freedesktop.org
-Cc: jani.nikula@intel.com
-Subject: [PATCH 2/3] drm/i915/audio: convert LPE audio to struct intel_display
-Date: Wed,  8 Jan 2025 16:04:14 +0200
-Message-Id: <f04dd028cd8869cdfb9ab9eb6aceed8ff8e7ddcd.1736345025.git.jani.nikula@intel.com>
-X-Mailer: git-send-email 2.39.5
-In-Reply-To: <cover.1736345025.git.jani.nikula@intel.com>
-References: <cover.1736345025.git.jani.nikula@intel.com>
+X-IronPort-AV: E=Sophos;i="6.11,199,1725346800"; d="scan'208";a="108155959"
+Received: from orsmsx601.amr.corp.intel.com ([10.22.229.14])
+ by orviesa003.jf.intel.com with ESMTP/TLS/AES256-GCM-SHA384;
+ 08 Jan 2025 06:07:39 -0800
+Received: from orsmsx603.amr.corp.intel.com (10.22.229.16) by
+ ORSMSX601.amr.corp.intel.com (10.22.229.14) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2507.44; Wed, 8 Jan 2025 06:07:38 -0800
+Received: from orsedg603.ED.cps.intel.com (10.7.248.4) by
+ orsmsx603.amr.corp.intel.com (10.22.229.16) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2507.44 via Frontend Transport; Wed, 8 Jan 2025 06:07:38 -0800
+Received: from NAM12-MW2-obe.outbound.protection.outlook.com (104.47.66.45) by
+ edgegateway.intel.com (134.134.137.100) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.1.2507.44; Wed, 8 Jan 2025 06:07:37 -0800
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=gt9PlPwAZTb4vFj244grU0k1i8Me8t7ZPGcbY+8tOXxo0ulP6CzPWcx0CMbC38yUJZZkp393DLnVD1jAgb/G9pK0Gg1R46F5NKpHveEz9oNQ+qEjw7Lq+wG+2E2hZWsO8I2xDK9XmTlmJ0DuZCTrhKqe/ycjfwoCOz3snVuJCjA43SdXwvvW+POglM73i13sf8ACNuWaMXobSWsMxUtyLResNiywScm/3hiI+Qy6Rgbt7LeyVlkMH0OHmgs2jygYLjqpy6RQtzvACz8EroI6qVS+YF+4IjH3I5vQM32GShwJ0/Hz1XYLGdZkbJU6EGjNdbOe1dnLeNPmOieFCqRxCA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=HAuHo9wsJn0brLLgGpDE46DED+4TSTa2g4b5gWkdUX8=;
+ b=Gsr5lYZZRMiSAIM2Lrb/IQOcmMEH7ScYIOLM7+lL796rW1LKNZL51pO+c04XJK/VJmNkM5/gVu9UojAqRo0kIDeXmUjmX4a5sMqTv1V/lBSF83BSkm8YmfAUdaMpgkQPREXwk8Dn6PmJD4T2sqA+mKQGFCNA0an1qq0RDVMZSxuK/pYStY72SWGKAP2mYpF7+N/jN4u/BeE1VF4ZxX1AuXj0GuobNTm6/DM8tFKS1SLmn5AYvSFXu9fVK99WHikCkjeGY0Pv+3o8ELd7gQCRUyZqANTzmwE9ORfjWN+dPorP1+EC+9V3Wx0F8jJP457uxjMIV4u8kT7ZXY/p2pUdtQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Received: from DM4PR11MB6019.namprd11.prod.outlook.com (2603:10b6:8:60::5) by
+ CO1PR11MB5060.namprd11.prod.outlook.com (2603:10b6:303:93::5) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.8335.10; Wed, 8 Jan 2025 14:07:35 +0000
+Received: from DM4PR11MB6019.namprd11.prod.outlook.com
+ ([fe80::fc1:e80f:134c:5ed2]) by DM4PR11MB6019.namprd11.prod.outlook.com
+ ([fe80::fc1:e80f:134c:5ed2%7]) with mapi id 15.20.8335.010; Wed, 8 Jan 2025
+ 14:07:35 +0000
+From: "Hogander, Jouni" <jouni.hogander@intel.com>
+To: "intel-xe@lists.freedesktop.org" <intel-xe@lists.freedesktop.org>, "Manna, 
+ Animesh" <animesh.manna@intel.com>, "intel-gfx@lists.freedesktop.org"
+ <intel-gfx@lists.freedesktop.org>
+CC: "Nikula, Jani" <jani.nikula@intel.com>, "B, Jeevan" <jeevan.b@intel.com>
+Subject: Re: [PATCH v3 5/6] drm/i915/lobf: Check for sink error and disable
+ LOBF
+Thread-Topic: [PATCH v3 5/6] drm/i915/lobf: Check for sink error and disable
+ LOBF
+Thread-Index: AQHbX/SSvNn1P5pvw06A/g3wYD1LhbMM7WmA
+Date: Wed, 8 Jan 2025 14:07:34 +0000
+Message-ID: <abac0c98f5435ba2ac7e70c7a0bf4247ec225630.camel@intel.com>
+References: <20250106041516.924101-1-animesh.manna@intel.com>
+ <20250106041516.924101-6-animesh.manna@intel.com>
+In-Reply-To: <20250106041516.924101-6-animesh.manna@intel.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: DM4PR11MB6019:EE_|CO1PR11MB5060:EE_
+x-ms-office365-filtering-correlation-id: b653cb07-3b75-428d-8a87-08dd2fedcd0f
+x-ld-processed: 46c98d88-e344-4ed4-8496-4ed7712e255d,ExtAddr
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+ ARA:13230040|366016|10070799003|376014|1800799024|38070700018; 
+x-microsoft-antispam-message-info: =?utf-8?B?SDZqbHExYitNOHMrTEhDcjJLZ1lTelNHVlpaS2RETWZMalY0Z3RPN0RvWTQ4?=
+ =?utf-8?B?aTdLRUVYN0tyVmRUay9iL3YyODhCSWZFbDVNb1NvSU1jQ2tRK2xEUTM2OXhj?=
+ =?utf-8?B?dS8zNVc5S2R6Mi8xbi9KMWRTV3hUVkFyQ3R3anczNXh6OW13cWIyQnVMaTI5?=
+ =?utf-8?B?eFdHZWRSMG5YUnRUTkFldksySGRKS0JUT0F6U0VhTGwrSHpMbURSN0JZMzJ2?=
+ =?utf-8?B?bGt1VDA5TmNFQ0V1UFBPNE5ocXd4VTd3Qm1mMCtvTVk5M296LzYwNDVqeFMx?=
+ =?utf-8?B?QThteHh2NW12WXFITm1lcWl4eWlEaXVMTmR1a1FjVlpIb1lJVnBlYjB2TEQw?=
+ =?utf-8?B?SThGTEFkdFFFRXF4QS84VFp4aGIwK04xVGlrOXk1bmJDMVNMYWNYcExZQllj?=
+ =?utf-8?B?M3J6d3JMWEF6cS8vUzVNcjJidmtQaE9Sd2t0MVZSNUNueHdERDBEWTFFR0tJ?=
+ =?utf-8?B?QVJraEk4ZmlJT2JuUWdJSkZSTjFyZEwzMGFpQ2E2SDJlYTJJTThZY3laSUhK?=
+ =?utf-8?B?UDROa21mZEgxMUxnMFpSV3BvYlJXOGdZVXRQS2hvZlRnL09vemdpUWNZc3gw?=
+ =?utf-8?B?aWZCWTBET3VNQnVpaDc2U3RFTkRXbjB3WjBvSm45TTBLUlZzekE1UDVFRklI?=
+ =?utf-8?B?Zjh6MEM1SGVJdko4b0FvZkIxRWQ1bURlKy9qMlhYbFBsTkNoOUhhdjdIZkZn?=
+ =?utf-8?B?aDVHN2NrYndROTMydkM0bXhGb0NVdkJXamhzVWdlM2R2QTRNcFpkN05oenBL?=
+ =?utf-8?B?Qjc1MTNTYmNBMFhSR2hqaG5uL1NtSWxKZTVKVzVFVFhOSEJhY3F3RjBoZXNW?=
+ =?utf-8?B?SHJpRGJ3ZHkwUW5hTm85Sk5uV3Z4ZVFBNlh0ZllWOGM4S0pqUTdqRG9iTDZ3?=
+ =?utf-8?B?NmZiUmpMNTQvcG5Ea3FuNTVHSy9HNElQQ09xUUpTQVdQOXZBWFg2eEFvSVdZ?=
+ =?utf-8?B?dXJvRzRCNzVQNHBwbC85RTdTd0Y5U0prSU9sWHV4WjhUK3JVNi8vcm1pOEM3?=
+ =?utf-8?B?VVB0djVlUjB4Q3JhOFdVRXhZOW1CUkNyWTdIV2wreldsTnROWjkwRFEzeVNI?=
+ =?utf-8?B?U09LNG4zdHNHL0pmMHZna3ZYWDkwb3VCNHlzU243Nk1Sbkt3VWh4UGVBWGgx?=
+ =?utf-8?B?Yi9JWHdpdTZwZy85c20wUWQ5MmhEOVpPTGtWSXYzQmkyWmYvbWI3WTM1RFdu?=
+ =?utf-8?B?MkoyU2c5aEJIMGRyb0FSSklJVjN1cnh4ZEpHWHJFNEdxQ1hKbElWM0tERnhP?=
+ =?utf-8?B?YlhNeUhYTnQ2ZTFNbDZRVzd6MXlDaWZGQUJVUXNCRjZmZFZuSmlZMDBJbDh3?=
+ =?utf-8?B?N3dUd0xWRm9iaUx6SjErZXdRNkxKOTVzTDRrcHVXWXFzbmRKc3RqMWV2bVJE?=
+ =?utf-8?B?NG9SRkNnZGdPMXYyQ3BqeVhNR2dKNTNHbTdNYTlKbHl6NVVHelBlcnJsaXh1?=
+ =?utf-8?B?MmNSSGtOU21QZm1ZVlRuaGU3S0dnT0U1Y2h4UU1PV2hSRTNOdVEyMEhLam9z?=
+ =?utf-8?B?RHNsQWE4aG14bDFQV3hUZjNud29wUG5yVkJ4MEpUYzAwL0VQTThpQWVsYmov?=
+ =?utf-8?B?Q2FWY2pyNHRMaFpiY2hGNnZwNEY3MmZXTXB0RWY4Mkc5ZnZBeXpMeDdLZDlB?=
+ =?utf-8?B?V3pSRG9JMkJHVDRCTVk1TkpsUUFpWkJidkkxRVJ4b2cxcElWS1VlUVFRSXJX?=
+ =?utf-8?B?L3RQRXZBTFdtWDVmeWpITkVXRXEyMVJiOHdiK1IyZFhZYmNWamM0NEtOZnVY?=
+ =?utf-8?B?UnhFUEczb3JtQVRpMEZ6ZjZpWTdhak9YcGVERVdpRS9EOFlkTTdiZ1lUOWFF?=
+ =?utf-8?B?b2VBV1AydnZ2VnJJajdLV245QjByMHNRb0RFcHp2Z0o0cmljK0ROQ0VuY1BW?=
+ =?utf-8?B?QnJmNTVscnhONzQ0WmJUZVFyUzU3bVYyL1BESGVjeDFWRHJ5M0NyaUFVMFU0?=
+ =?utf-8?Q?cv+/aZgJgGomccSydm+QVPmmmbrfHrl4?=
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DM4PR11MB6019.namprd11.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(10070799003)(376014)(1800799024)(38070700018); DIR:OUT;
+ SFP:1101; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?utf-8?B?N3hJbGFBNkxBV2RhU2ZBRE5aTEFRY29rL1NPUEZtTHpxbXp5MUdjTjl4by9F?=
+ =?utf-8?B?RWNLUGVzMDVlUWY2a0EyUlZyU05HNGE1VXlqZTV6eWZ1WjRKTG1rRHlsYjRj?=
+ =?utf-8?B?Vzg4LytZNTVUZ1J2cFJWZEhQcjNXN0xpZmpsQjBrNmdWQUZyNXBUK1R2ZW1R?=
+ =?utf-8?B?OTA4Y3JNYW4yNXkxSEwwekJRUFNreXhDQUp4anAxeEFmRXo3VlEwV3d3Z3Nh?=
+ =?utf-8?B?WDlXSSs5Y21mN1F1bXRlK0s2NUFpNDNjQ3hNdjl1bzlmWVlmd1NxMkJxSHRq?=
+ =?utf-8?B?ajJiRkpKVjdQbDJ5a2dLVEh4TjY2eGVhNUR5ajBNR2RqTTRVcW9IanZqMWlZ?=
+ =?utf-8?B?bGY0VFVpNVFDSFRjYTR4V3diSUpzZlRubGhHdWRjd3lXK1hBYzRVTjd0V2xM?=
+ =?utf-8?B?aG53MysyVzNtUEgwZG4wVDVrMk1HSjBZNCt1QlZJSmxxczRrOWtzRUJJOGVO?=
+ =?utf-8?B?T1B0R0JvTzBpdU5iUTBRV1dGbUllekx4TFlGUC9UaS9hVVhlMkJwRTEyaTF2?=
+ =?utf-8?B?VkV5a3JjZjNXcDBwamtmT0pSREhJOTh6dkRVdW04VWRxWkNFOFdMRWhzeG8z?=
+ =?utf-8?B?Wkk5K0JNc3RGUEtDVTA0RklqKzNRY0RRTHlqMHQvQWs5bElpa0xXQ0w1TFJW?=
+ =?utf-8?B?c2tlUEJMMy9CUlJ4ckFaV2gxODVKQm94T1hlYVdoWFlPMlFZa04yNGxCcU1i?=
+ =?utf-8?B?MHlmdSs2SUhnZm82aExxMGdEaW1QWDhNVFZzeTNtckxsR0tzWUxlc0RjajhY?=
+ =?utf-8?B?TXl4Z2ZmOHNUNENjNFN3VU1CWHBCZ3NpYktTbzc4bjl0a3BDZEpyRkhENnlD?=
+ =?utf-8?B?blpXQVhJTTJZUXBVQmNuekJFNE8wOW1BN1MvUzBHY1o0TmhxZkNPTHBzcS9x?=
+ =?utf-8?B?RGF3cGMxZVh4ZHZ5Vyt1ZFdPc05sQVgyeVFtQTdSSTNXZ2xIL3BCUm5XdjRq?=
+ =?utf-8?B?Qm5VWklyRkNOcC9xWHlLZ2ZiWlNUWGhRaDZyZmF2S1ZpSnNRd2hBNmFiaExI?=
+ =?utf-8?B?TjJvKzZYcUZkRHBoR0w1bzdHY2RHMlZrRzkxbTNSM05mUzNMZk9wL29kZ09J?=
+ =?utf-8?B?K2V2bWFDT2psWkEzdkVqRmZERDgzbm9MWWQ3V2xHZVhsTlkrMUJBdVhrRGJp?=
+ =?utf-8?B?NU16WVpyelJhaHVlN2pSTFUrcm05OWFDY21kL0h5QWFvaUhZVERMNkJHM2pC?=
+ =?utf-8?B?UVpiS2Juc1NnZUNYT0FxT0VJQUxzcVlsQ2Eza05wd1BFMXVROXJaNUJveUt2?=
+ =?utf-8?B?Tk1DYmp1N3Q1RUdVREVPdXpGMldVSjd2SnY5eEVYVmZMaDdFdlI4UWRRb3BB?=
+ =?utf-8?B?R2dRYlBlUHVRTWJ2aVNQZTk5TDB5N2lSUTVIbmhFLzNKZ0lNbFlvejlaQXpk?=
+ =?utf-8?B?R1NnMlBGU0FjOVhVL09UWmdoU3laRklUNURPT0c3UjA3THFHYjhheTZ0VUFq?=
+ =?utf-8?B?QThIalh0dGErWE9GMC93TEs2ZkJaWnhLZGdZeVBOOCtmOFFmRjZpeFlzZUlB?=
+ =?utf-8?B?K05PaG1BWDUrbGFmRGZlWmluUzNSZmlYT1M4L0dFN3hsVGVXVUltZ1ZJYnJ1?=
+ =?utf-8?B?RXF5UDA5VklaRG1iaTN2TlVDZTc4d1k0RFJFM0E4UkloL08rdjhwUGtrVFB5?=
+ =?utf-8?B?LzJWNktGdm10amVaY2pURlFLR2J2c0d5Y1NPTjl6aTBzcXI1bkxqVVBWSWJ5?=
+ =?utf-8?B?d1VWdGNTTXUwYzk5RmRSVDVkRjI4UjZ3NkZ0azZEZzJnWXVINU5xOGdWalB6?=
+ =?utf-8?B?L3pPVlFNRWw5aTBLVFkwWG9aYmxSSkZsZzN4NHMrVGxqRWhGWnltOFJGMnRh?=
+ =?utf-8?B?eFUwZXBTT0IwWjA3a0cxR3hKUlE1U0ZobnBWeS9kdWhndUdVTHFrWmxtUW9B?=
+ =?utf-8?B?N2s0NzFlMGZ6TERaUGV5ZU4vb3BrOGt3a3hFV2pxeHMySzhabmtPTjJDUjJY?=
+ =?utf-8?B?Ty9MNHlhTU9LM3o3RWoveUd1c1Z0Q3hYenNXb0FzK3Q4TkgzYkRuMEF6T0VX?=
+ =?utf-8?B?M0pQOVlJMURnbjUyU0NqTExWcW5lT0JJd3VacGY2SU9COTdSdFZ3V1lySXJT?=
+ =?utf-8?B?dzVJbmRMK0szN0s5bkY5UFZWYXRleFdoNFVQejA3YU1WZzBGZjBTRHdJVGtn?=
+ =?utf-8?B?OTVONWtxK0tnYUdIV1cxYS9DL0xSOThIOUdNTHVOK0N1QjdGb1Y0Nk95bmRR?=
+ =?utf-8?B?M01qVE94RUJwN29ENTUzRmQ5VXNrcGtidjEvZjh1M1hpUGgvSnNIcVNSMnNO?=
+ =?utf-8?B?NVIxZm9QREhNQTJPQmhpYjF0bVhBPT0=?=
+Content-Type: text/plain; charset="utf-8"
+Content-ID: <2450B849D0A65743A71E75FC31FACEB3@namprd11.prod.outlook.com>
+Content-Transfer-Encoding: base64
 MIME-Version: 1.0
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
-Content-Transfer-Encoding: 8bit
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: DM4PR11MB6019.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: b653cb07-3b75-428d-8a87-08dd2fedcd0f
+X-MS-Exchange-CrossTenant-originalarrivaltime: 08 Jan 2025 14:07:35.0048 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: hKOmOc9GCO6sT+1pD8Zi2l7Iz9voaDIfIXF4+V/gOKTXjdbHTxiEXtKmO8jEZord2pqU/ZpFK0l9xcPSo5oynwz/7J4MM1BmN5eL1dBWRQw=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CO1PR11MB5060
+X-OriginatorOrg: intel.com
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,481 +206,81 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Going forward, struct intel_display will be the main display device
-structure. Convert intel_lpe_audio.[ch] to it. Do some minor checkpatch
-fixes while at it.
-
-TODO: Not sure if irq_set_chip_data(irq, dev_priv); is used.
-
-Signed-off-by: Jani Nikula <jani.nikula@intel.com>
----
- drivers/gpu/drm/i915/display/intel_audio.c    |  14 +--
- .../gpu/drm/i915/display/intel_lpe_audio.c    | 118 +++++++++---------
- .../gpu/drm/i915/display/intel_lpe_audio.h    |  18 +--
- drivers/gpu/drm/i915/i915_irq.c               |   6 +-
- 4 files changed, 77 insertions(+), 79 deletions(-)
-
-diff --git a/drivers/gpu/drm/i915/display/intel_audio.c b/drivers/gpu/drm/i915/display/intel_audio.c
-index 8c26e0e7c2cd..241e5d3904dc 100644
---- a/drivers/gpu/drm/i915/display/intel_audio.c
-+++ b/drivers/gpu/drm/i915/display/intel_audio.c
-@@ -732,7 +732,6 @@ void intel_audio_codec_enable(struct intel_encoder *encoder,
- 			      const struct drm_connector_state *conn_state)
- {
- 	struct intel_display *display = to_intel_display(encoder);
--	struct drm_i915_private *i915 = to_i915(encoder->base.dev);
- 	struct i915_audio_component *acomp = display->audio.component;
- 	struct intel_crtc *crtc = to_intel_crtc(crtc_state->uapi.crtc);
- 	struct intel_connector *connector = to_intel_connector(conn_state->connector);
-@@ -774,7 +773,7 @@ void intel_audio_codec_enable(struct intel_encoder *encoder,
- 						      (int)port, (int)cpu_transcoder);
- 	}
- 
--	intel_lpe_audio_notify(i915, cpu_transcoder, port, crtc_state->eld,
-+	intel_lpe_audio_notify(display, cpu_transcoder, port, crtc_state->eld,
- 			       crtc_state->port_clock,
- 			       intel_crtc_has_dp_encoder(crtc_state));
- }
-@@ -793,7 +792,6 @@ void intel_audio_codec_disable(struct intel_encoder *encoder,
- 			       const struct drm_connector_state *old_conn_state)
- {
- 	struct intel_display *display = to_intel_display(encoder);
--	struct drm_i915_private *i915 = to_i915(encoder->base.dev);
- 	struct i915_audio_component *acomp = display->audio.component;
- 	struct intel_crtc *crtc = to_intel_crtc(old_crtc_state->uapi.crtc);
- 	struct intel_connector *connector = to_intel_connector(old_conn_state->connector);
-@@ -833,7 +831,7 @@ void intel_audio_codec_disable(struct intel_encoder *encoder,
- 						      (int)port, (int)cpu_transcoder);
- 	}
- 
--	intel_lpe_audio_notify(i915, cpu_transcoder, port, NULL, 0, false);
-+	intel_lpe_audio_notify(display, cpu_transcoder, port, NULL, 0, false);
- }
- 
- static void intel_acomp_get_config(struct intel_encoder *encoder,
-@@ -1399,9 +1397,7 @@ static void i915_audio_component_cleanup(struct intel_display *display)
-  */
- void intel_audio_init(struct intel_display *display)
- {
--	struct drm_i915_private *i915 = to_i915(display->drm);
--
--	if (intel_lpe_audio_init(i915) < 0)
-+	if (intel_lpe_audio_init(display) < 0)
- 		i915_audio_component_init(display);
- }
- 
-@@ -1417,10 +1413,8 @@ void intel_audio_register(struct intel_display *display)
-  */
- void intel_audio_deinit(struct intel_display *display)
- {
--	struct drm_i915_private *i915 = to_i915(display->drm);
--
- 	if (display->audio.lpe.platdev)
--		intel_lpe_audio_teardown(i915);
-+		intel_lpe_audio_teardown(display);
- 	else
- 		i915_audio_component_cleanup(display);
- }
-diff --git a/drivers/gpu/drm/i915/display/intel_lpe_audio.c b/drivers/gpu/drm/i915/display/intel_lpe_audio.c
-index f11626176fe2..59551c8414c2 100644
---- a/drivers/gpu/drm/i915/display/intel_lpe_audio.c
-+++ b/drivers/gpu/drm/i915/display/intel_lpe_audio.c
-@@ -77,12 +77,12 @@
- #include "intel_lpe_audio.h"
- #include "intel_pci_config.h"
- 
--#define HAS_LPE_AUDIO(dev_priv) ((dev_priv)->display.audio.lpe.platdev != NULL)
-+#define HAS_LPE_AUDIO(display) ((display)->audio.lpe.platdev)
- 
- static struct platform_device *
--lpe_audio_platdev_create(struct drm_i915_private *dev_priv)
-+lpe_audio_platdev_create(struct intel_display *display)
- {
--	struct pci_dev *pdev = to_pci_dev(dev_priv->drm.dev);
-+	struct pci_dev *pdev = to_pci_dev(display->drm->dev);
- 	struct platform_device_info pinfo = {};
- 	struct resource *rsc;
- 	struct platform_device *platdev;
-@@ -98,7 +98,8 @@ lpe_audio_platdev_create(struct drm_i915_private *dev_priv)
- 		return ERR_PTR(-ENOMEM);
- 	}
- 
--	rsc[0].start    = rsc[0].end = dev_priv->display.audio.lpe.irq;
-+	rsc[0].start    = display->audio.lpe.irq;
-+	rsc[0].end      = display->audio.lpe.irq;
- 	rsc[0].flags    = IORESOURCE_IRQ;
- 	rsc[0].name     = "hdmi-lpe-audio-irq";
- 
-@@ -109,7 +110,7 @@ lpe_audio_platdev_create(struct drm_i915_private *dev_priv)
- 	rsc[1].flags    = IORESOURCE_MEM;
- 	rsc[1].name     = "hdmi-lpe-audio-mmio";
- 
--	pinfo.parent = dev_priv->drm.dev;
-+	pinfo.parent = display->drm->dev;
- 	pinfo.name = "hdmi-lpe-audio";
- 	pinfo.id = -1;
- 	pinfo.res = rsc;
-@@ -118,8 +119,8 @@ lpe_audio_platdev_create(struct drm_i915_private *dev_priv)
- 	pinfo.size_data = sizeof(*pdata);
- 	pinfo.dma_mask = DMA_BIT_MASK(32);
- 
--	pdata->num_pipes = INTEL_NUM_PIPES(dev_priv);
--	pdata->num_ports = IS_CHERRYVIEW(dev_priv) ? 3 : 2; /* B,C,D or B,C */
-+	pdata->num_pipes = INTEL_NUM_PIPES(display);
-+	pdata->num_ports = display->platform.cherryview ? 3 : 2; /* B,C,D or B,C */
- 	pdata->port[0].pipe = -1;
- 	pdata->port[1].pipe = -1;
- 	pdata->port[2].pipe = -1;
-@@ -130,7 +131,7 @@ lpe_audio_platdev_create(struct drm_i915_private *dev_priv)
- 	kfree(pdata);
- 
- 	if (IS_ERR(platdev)) {
--		drm_err(&dev_priv->drm,
-+		drm_err(display->drm,
- 			"Failed to allocate LPE audio platform device\n");
- 		return platdev;
- 	}
-@@ -140,7 +141,7 @@ lpe_audio_platdev_create(struct drm_i915_private *dev_priv)
- 	return platdev;
- }
- 
--static void lpe_audio_platdev_destroy(struct drm_i915_private *dev_priv)
-+static void lpe_audio_platdev_destroy(struct intel_display *display)
- {
- 	/* XXX Note that platform_device_register_full() allocates a dma_mask
- 	 * and never frees it. We can't free it here as we cannot guarantee
-@@ -150,7 +151,7 @@ static void lpe_audio_platdev_destroy(struct drm_i915_private *dev_priv)
- 	 * than us fiddle with its internals.
- 	 */
- 
--	platform_device_unregister(dev_priv->display.audio.lpe.platdev);
-+	platform_device_unregister(display->audio.lpe.platdev);
- }
- 
- static void lpe_audio_irq_unmask(struct irq_data *d)
-@@ -167,11 +168,12 @@ static struct irq_chip lpe_audio_irqchip = {
- 	.irq_unmask = lpe_audio_irq_unmask,
- };
- 
--static int lpe_audio_irq_init(struct drm_i915_private *dev_priv)
-+static int lpe_audio_irq_init(struct intel_display *display)
- {
--	int irq = dev_priv->display.audio.lpe.irq;
-+	struct drm_i915_private *dev_priv = to_i915(display->drm);
-+	int irq = display->audio.lpe.irq;
- 
--	drm_WARN_ON(&dev_priv->drm, !intel_irqs_enabled(dev_priv));
-+	drm_WARN_ON(display->drm, !intel_irqs_enabled(dev_priv));
- 	irq_set_chip_and_handler_name(irq,
- 				&lpe_audio_irqchip,
- 				handle_simple_irq,
-@@ -180,11 +182,11 @@ static int lpe_audio_irq_init(struct drm_i915_private *dev_priv)
- 	return irq_set_chip_data(irq, dev_priv);
- }
- 
--static bool lpe_audio_detect(struct drm_i915_private *dev_priv)
-+static bool lpe_audio_detect(struct intel_display *display)
- {
- 	int lpe_present = false;
- 
--	if (IS_VALLEYVIEW(dev_priv) || IS_CHERRYVIEW(dev_priv)) {
-+	if (display->platform.valleyview || display->platform.cherryview) {
- 		static const struct pci_device_id atom_hdaudio_ids[] = {
- 			/* Baytrail */
- 			{PCI_DEVICE(PCI_VENDOR_ID_INTEL, 0x0f04)},
-@@ -194,7 +196,7 @@ static bool lpe_audio_detect(struct drm_i915_private *dev_priv)
- 		};
- 
- 		if (!pci_dev_present(atom_hdaudio_ids)) {
--			drm_info(&dev_priv->drm,
-+			drm_info(display->drm,
- 				 "HDaudio controller not detected, using LPE audio instead\n");
- 			lpe_present = true;
- 		}
-@@ -202,34 +204,34 @@ static bool lpe_audio_detect(struct drm_i915_private *dev_priv)
- 	return lpe_present;
- }
- 
--static int lpe_audio_setup(struct drm_i915_private *dev_priv)
-+static int lpe_audio_setup(struct intel_display *display)
- {
- 	int ret;
- 
--	dev_priv->display.audio.lpe.irq = irq_alloc_desc(0);
--	if (dev_priv->display.audio.lpe.irq < 0) {
--		drm_err(&dev_priv->drm, "Failed to allocate IRQ desc: %d\n",
--			dev_priv->display.audio.lpe.irq);
--		ret = dev_priv->display.audio.lpe.irq;
-+	display->audio.lpe.irq = irq_alloc_desc(0);
-+	if (display->audio.lpe.irq < 0) {
-+		drm_err(display->drm, "Failed to allocate IRQ desc: %d\n",
-+			display->audio.lpe.irq);
-+		ret = display->audio.lpe.irq;
- 		goto err;
- 	}
- 
--	drm_dbg(&dev_priv->drm, "irq = %d\n", dev_priv->display.audio.lpe.irq);
-+	drm_dbg(display->drm, "irq = %d\n", display->audio.lpe.irq);
- 
--	ret = lpe_audio_irq_init(dev_priv);
-+	ret = lpe_audio_irq_init(display);
- 
- 	if (ret) {
--		drm_err(&dev_priv->drm,
-+		drm_err(display->drm,
- 			"Failed to initialize irqchip for lpe audio: %d\n",
- 			ret);
- 		goto err_free_irq;
- 	}
- 
--	dev_priv->display.audio.lpe.platdev = lpe_audio_platdev_create(dev_priv);
-+	display->audio.lpe.platdev = lpe_audio_platdev_create(display);
- 
--	if (IS_ERR(dev_priv->display.audio.lpe.platdev)) {
--		ret = PTR_ERR(dev_priv->display.audio.lpe.platdev);
--		drm_err(&dev_priv->drm,
-+	if (IS_ERR(display->audio.lpe.platdev)) {
-+		ret = PTR_ERR(display->audio.lpe.platdev);
-+		drm_err(display->drm,
- 			"Failed to create lpe audio platform device: %d\n",
- 			ret);
- 		goto err_free_irq;
-@@ -238,54 +240,54 @@ static int lpe_audio_setup(struct drm_i915_private *dev_priv)
- 	/* enable chicken bit; at least this is required for Dell Wyse 3040
- 	 * with DP outputs (but only sometimes by some reason!)
- 	 */
--	intel_de_write(dev_priv, VLV_AUD_CHICKEN_BIT_REG,
-+	intel_de_write(display, VLV_AUD_CHICKEN_BIT_REG,
- 		       VLV_CHICKEN_BIT_DBG_ENABLE);
- 
- 	return 0;
- err_free_irq:
--	irq_free_desc(dev_priv->display.audio.lpe.irq);
-+	irq_free_desc(display->audio.lpe.irq);
- err:
--	dev_priv->display.audio.lpe.irq = -1;
--	dev_priv->display.audio.lpe.platdev = NULL;
-+	display->audio.lpe.irq = -1;
-+	display->audio.lpe.platdev = NULL;
- 	return ret;
- }
- 
- /**
-  * intel_lpe_audio_irq_handler() - forwards the LPE audio irq
-- * @dev_priv: the i915 drm device private data
-+ * @display: display device
-  *
-  * the LPE Audio irq is forwarded to the irq handler registered by LPE audio
-  * driver.
-  */
--void intel_lpe_audio_irq_handler(struct drm_i915_private *dev_priv)
-+void intel_lpe_audio_irq_handler(struct intel_display *display)
- {
- 	int ret;
- 
--	if (!HAS_LPE_AUDIO(dev_priv))
-+	if (!HAS_LPE_AUDIO(display))
- 		return;
- 
--	ret = generic_handle_irq(dev_priv->display.audio.lpe.irq);
-+	ret = generic_handle_irq(display->audio.lpe.irq);
- 	if (ret)
--		drm_err_ratelimited(&dev_priv->drm,
-+		drm_err_ratelimited(display->drm,
- 				    "error handling LPE audio irq: %d\n", ret);
- }
- 
- /**
-  * intel_lpe_audio_init() - detect and setup the bridge between HDMI LPE Audio
-  * driver and i915
-- * @dev_priv: the i915 drm device private data
-+ * @display: display device
-  *
-  * Return: 0 if successful. non-zero if detection or
-  * llocation/initialization fails
-  */
--int intel_lpe_audio_init(struct drm_i915_private *dev_priv)
-+int intel_lpe_audio_init(struct intel_display *display)
- {
- 	int ret = -ENODEV;
- 
--	if (lpe_audio_detect(dev_priv)) {
--		ret = lpe_audio_setup(dev_priv);
-+	if (lpe_audio_detect(display)) {
-+		ret = lpe_audio_setup(display);
- 		if (ret < 0)
--			drm_err(&dev_priv->drm,
-+			drm_err(display->drm,
- 				"failed to setup LPE Audio bridge\n");
- 	}
- 	return ret;
-@@ -294,27 +296,27 @@ int intel_lpe_audio_init(struct drm_i915_private *dev_priv)
- /**
-  * intel_lpe_audio_teardown() - destroy the bridge between HDMI LPE
-  * audio driver and i915
-- * @dev_priv: the i915 drm device private data
-+ * @display: display device
-  *
-  * release all the resources for LPE audio <-> i915 bridge.
-  */
--void intel_lpe_audio_teardown(struct drm_i915_private *dev_priv)
-+void intel_lpe_audio_teardown(struct intel_display *display)
- {
--	if (!HAS_LPE_AUDIO(dev_priv))
-+	if (!HAS_LPE_AUDIO(display))
- 		return;
- 
--	lpe_audio_platdev_destroy(dev_priv);
-+	lpe_audio_platdev_destroy(display);
- 
--	irq_free_desc(dev_priv->display.audio.lpe.irq);
-+	irq_free_desc(display->audio.lpe.irq);
- 
--	dev_priv->display.audio.lpe.irq = -1;
--	dev_priv->display.audio.lpe.platdev = NULL;
-+	display->audio.lpe.irq = -1;
-+	display->audio.lpe.platdev = NULL;
- }
- 
- /**
-  * intel_lpe_audio_notify() - notify lpe audio event
-  * audio driver and i915
-- * @dev_priv: the i915 drm device private data
-+ * @display: display device
-  * @cpu_transcoder: CPU transcoder
-  * @port: port
-  * @eld : ELD data
-@@ -323,7 +325,7 @@ void intel_lpe_audio_teardown(struct drm_i915_private *dev_priv)
-  *
-  * Notify lpe audio driver of eld change.
-  */
--void intel_lpe_audio_notify(struct drm_i915_private *dev_priv,
-+void intel_lpe_audio_notify(struct intel_display *display,
- 			    enum transcoder cpu_transcoder, enum port port,
- 			    const void *eld, int ls_clock, bool dp_output)
- {
-@@ -332,15 +334,15 @@ void intel_lpe_audio_notify(struct drm_i915_private *dev_priv,
- 	struct intel_hdmi_lpe_audio_port_pdata *ppdata;
- 	u32 audio_enable;
- 
--	if (!HAS_LPE_AUDIO(dev_priv))
-+	if (!HAS_LPE_AUDIO(display))
- 		return;
- 
--	pdata = dev_get_platdata(&dev_priv->display.audio.lpe.platdev->dev);
-+	pdata = dev_get_platdata(&display->audio.lpe.platdev->dev);
- 	ppdata = &pdata->port[port - PORT_B];
- 
- 	spin_lock_irqsave(&pdata->lpe_audio_slock, irqflags);
- 
--	audio_enable = intel_de_read(dev_priv, VLV_AUD_PORT_EN_DBG(port));
-+	audio_enable = intel_de_read(display, VLV_AUD_PORT_EN_DBG(port));
- 
- 	if (eld != NULL) {
- 		memcpy(ppdata->eld, eld, HDMI_MAX_ELD_BYTES);
-@@ -349,7 +351,7 @@ void intel_lpe_audio_notify(struct drm_i915_private *dev_priv,
- 		ppdata->dp_output = dp_output;
- 
- 		/* Unmute the amp for both DP and HDMI */
--		intel_de_write(dev_priv, VLV_AUD_PORT_EN_DBG(port),
-+		intel_de_write(display, VLV_AUD_PORT_EN_DBG(port),
- 			       audio_enable & ~VLV_AMP_MUTE);
- 	} else {
- 		memset(ppdata->eld, 0, HDMI_MAX_ELD_BYTES);
-@@ -358,12 +360,12 @@ void intel_lpe_audio_notify(struct drm_i915_private *dev_priv,
- 		ppdata->dp_output = false;
- 
- 		/* Mute the amp for both DP and HDMI */
--		intel_de_write(dev_priv, VLV_AUD_PORT_EN_DBG(port),
-+		intel_de_write(display, VLV_AUD_PORT_EN_DBG(port),
- 			       audio_enable | VLV_AMP_MUTE);
- 	}
- 
- 	if (pdata->notify_audio_lpe)
--		pdata->notify_audio_lpe(dev_priv->display.audio.lpe.platdev, port - PORT_B);
-+		pdata->notify_audio_lpe(display->audio.lpe.platdev, port - PORT_B);
- 
- 	spin_unlock_irqrestore(&pdata->lpe_audio_slock, irqflags);
- }
-diff --git a/drivers/gpu/drm/i915/display/intel_lpe_audio.h b/drivers/gpu/drm/i915/display/intel_lpe_audio.h
-index 2c5fcb6e1fd0..5234e11fd662 100644
---- a/drivers/gpu/drm/i915/display/intel_lpe_audio.h
-+++ b/drivers/gpu/drm/i915/display/intel_lpe_audio.h
-@@ -10,27 +10,27 @@
- 
- enum port;
- enum transcoder;
--struct drm_i915_private;
-+struct intel_display;
- 
- #ifdef I915
--int  intel_lpe_audio_init(struct drm_i915_private *dev_priv);
--void intel_lpe_audio_teardown(struct drm_i915_private *dev_priv);
--void intel_lpe_audio_irq_handler(struct drm_i915_private *dev_priv);
--void intel_lpe_audio_notify(struct drm_i915_private *dev_priv,
-+int  intel_lpe_audio_init(struct intel_display *display);
-+void intel_lpe_audio_teardown(struct intel_display *display);
-+void intel_lpe_audio_irq_handler(struct intel_display *display);
-+void intel_lpe_audio_notify(struct intel_display *display,
- 			    enum transcoder cpu_transcoder, enum port port,
- 			    const void *eld, int ls_clock, bool dp_output);
- #else
--static inline int intel_lpe_audio_init(struct drm_i915_private *dev_priv)
-+static inline int intel_lpe_audio_init(struct intel_display *display)
- {
- 	return -ENODEV;
- }
--static inline void intel_lpe_audio_teardown(struct drm_i915_private *dev_priv)
-+static inline void intel_lpe_audio_teardown(struct intel_display *display)
- {
- }
--static inline void intel_lpe_audio_irq_handler(struct drm_i915_private *dev_priv)
-+static inline void intel_lpe_audio_irq_handler(struct intel_display *display)
- {
- }
--static inline void intel_lpe_audio_notify(struct drm_i915_private *dev_priv,
-+static inline void intel_lpe_audio_notify(struct intel_display *display,
- 					  enum transcoder cpu_transcoder, enum port port,
- 					  const void *eld, int ls_clock, bool dp_output)
- {
-diff --git a/drivers/gpu/drm/i915/i915_irq.c b/drivers/gpu/drm/i915/i915_irq.c
-index 7920ad9585ae..202eb1b6ae54 100644
---- a/drivers/gpu/drm/i915/i915_irq.c
-+++ b/drivers/gpu/drm/i915/i915_irq.c
-@@ -207,6 +207,7 @@ static void ivb_parity_work(struct work_struct *work)
- static irqreturn_t valleyview_irq_handler(int irq, void *arg)
- {
- 	struct drm_i915_private *dev_priv = arg;
-+	struct intel_display *display = &dev_priv->display;
- 	irqreturn_t ret = IRQ_NONE;
- 
- 	if (!intel_irqs_enabled(dev_priv))
-@@ -260,7 +261,7 @@ static irqreturn_t valleyview_irq_handler(int irq, void *arg)
- 
- 		if (iir & (I915_LPE_PIPE_A_INTERRUPT |
- 			   I915_LPE_PIPE_B_INTERRUPT))
--			intel_lpe_audio_irq_handler(dev_priv);
-+			intel_lpe_audio_irq_handler(display);
- 
- 		/*
- 		 * VLV_IIR is single buffered, and reflects the level
-@@ -293,6 +294,7 @@ static irqreturn_t valleyview_irq_handler(int irq, void *arg)
- static irqreturn_t cherryview_irq_handler(int irq, void *arg)
- {
- 	struct drm_i915_private *dev_priv = arg;
-+	struct intel_display *display = &dev_priv->display;
- 	irqreturn_t ret = IRQ_NONE;
- 
- 	if (!intel_irqs_enabled(dev_priv))
-@@ -343,7 +345,7 @@ static irqreturn_t cherryview_irq_handler(int irq, void *arg)
- 		if (iir & (I915_LPE_PIPE_A_INTERRUPT |
- 			   I915_LPE_PIPE_B_INTERRUPT |
- 			   I915_LPE_PIPE_C_INTERRUPT))
--			intel_lpe_audio_irq_handler(dev_priv);
-+			intel_lpe_audio_irq_handler(display);
- 
- 		/*
- 		 * VLV_IIR is single buffered, and reflects the level
--- 
-2.39.5
-
+T24gTW9uLCAyMDI1LTAxLTA2IGF0IDA5OjQ1ICswNTMwLCBBbmltZXNoIE1hbm5hIHdyb3RlOg0K
+PiBEaXNhYmxlIExPQkYvQUxQTSBmb3IgYW55IGVycm9uZW91cyBjb25kaXRpb24gZnJvbSBzaW5r
+IHNpZGUuDQo+IA0KPiBTaWduZWQtb2ZmLWJ5OiBBbmltZXNoIE1hbm5hIDxhbmltZXNoLm1hbm5h
+QGludGVsLmNvbT4NCj4gLS0tDQo+IMKgZHJpdmVycy9ncHUvZHJtL2k5MTUvZGlzcGxheS9pbnRl
+bF9hbHBtLmPCoMKgwqDCoCB8IDM4DQo+ICsrKysrKysrKysrKysrKysrKysNCj4gwqBkcml2ZXJz
+L2dwdS9kcm0vaTkxNS9kaXNwbGF5L2ludGVsX2FscG0uaMKgwqDCoMKgIHzCoCAxICsNCj4gwqAu
+Li4vZHJtL2k5MTUvZGlzcGxheS9pbnRlbF9kaXNwbGF5X3R5cGVzLmjCoMKgwqAgfMKgIDEgKw0K
+PiDCoGRyaXZlcnMvZ3B1L2RybS9pOTE1L2Rpc3BsYXkvaW50ZWxfZHAuY8KgwqDCoMKgwqDCoCB8
+wqAgMiArDQo+IMKgNCBmaWxlcyBjaGFuZ2VkLCA0MiBpbnNlcnRpb25zKCspDQo+IA0KPiBkaWZm
+IC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2k5MTUvZGlzcGxheS9pbnRlbF9hbHBtLmMNCj4gYi9k
+cml2ZXJzL2dwdS9kcm0vaTkxNS9kaXNwbGF5L2ludGVsX2FscG0uYw0KPiBpbmRleCAxY2MwZTVl
+ZDNmNzQuLmFiOThiNDhlYzQ3ZSAxMDA2NDQNCj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2k5MTUv
+ZGlzcGxheS9pbnRlbF9hbHBtLmMNCj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2k5MTUvZGlzcGxh
+eS9pbnRlbF9hbHBtLmMNCj4gQEAgLTM4OCw2ICszODgsNyBAQCB2b2lkIGludGVsX2FscG1fY29u
+ZmlndXJlKHN0cnVjdCBpbnRlbF9kcA0KPiAqaW50ZWxfZHAsDQo+IMKgCQkJwqAgY29uc3Qgc3Ry
+dWN0IGludGVsX2NydGNfc3RhdGUgKmNydGNfc3RhdGUpDQo+IMKgew0KPiDCoAlsbmxfYWxwbV9j
+b25maWd1cmUoaW50ZWxfZHAsIGNydGNfc3RhdGUpOw0KPiArCWludGVsX2RwLT5hbHBtX3BhcmFt
+ZXRlcnMudHJhbnNjb2RlciA9IGNydGNfc3RhdGUtDQo+ID5jcHVfdHJhbnNjb2RlcjsNCj4gwqB9
+DQo+IMKgDQo+IMKgdm9pZCBpbnRlbF9hbHBtX3Bvc3RfcGxhbmVfdXBkYXRlKHN0cnVjdCBpbnRl
+bF9hdG9taWNfc3RhdGUgKnN0YXRlLA0KPiBAQCAtNTExLDMgKzUxMiw0MCBAQCB2b2lkIGludGVs
+X2FscG1fbG9iZl9kZWJ1Z2ZzX2FkZChzdHJ1Y3QNCj4gaW50ZWxfY29ubmVjdG9yICpjb25uZWN0
+b3IpDQo+IMKgCWRlYnVnZnNfY3JlYXRlX2ZpbGUoImk5MTVfZWRwX2xvYmZfaW5mbyIsIDA0NDQs
+IHJvb3QsDQo+IMKgCQkJwqDCoMKgIGNvbm5lY3RvciwgJmk5MTVfZWRwX2xvYmZfaW5mb19mb3Bz
+KTsNCj4gwqB9DQo+ICsNCj4gK3ZvaWQgaW50ZWxfYWxwbV9zaG9ydF9wdWxzZShzdHJ1Y3QgaW50
+ZWxfZHAgKmludGVsX2RwKQ0KPiArew0KPiArCXN0cnVjdCBpbnRlbF9kaXNwbGF5ICpkaXNwbGF5
+ID0gdG9faW50ZWxfZGlzcGxheShpbnRlbF9kcCk7DQo+ICsJc3RydWN0IGRybV9kcF9hdXggKmF1
+eCA9ICZpbnRlbF9kcC0+YXV4Ow0KPiArCWVudW0gdHJhbnNjb2RlciBjcHVfdHJhbnNjb2RlciA9
+IGludGVsX2RwLQ0KPiA+YWxwbV9wYXJhbWV0ZXJzLnRyYW5zY29kZXI7DQo+ICsJdTggdmFsOw0K
+PiArCWludCByOw0KPiArDQo+ICsJaWYgKERJU1BMQVlfVkVSKGRpc3BsYXkpIDwgMjApDQo+ICsJ
+CXJldHVybjsNCj4gKw0KPiArCWlmICghKGludGVsX2RlX3JlYWQoZGlzcGxheSwgQUxQTV9DVEwo
+ZGlzcGxheSwNCj4gY3B1X3RyYW5zY29kZXIpKSAmIEFMUE1fQ1RMX0xPQkZfRU5BQkxFKSkNCj4g
+KwkJcmV0dXJuOw0KPiArDQo+ICsJciA9IGRybV9kcF9kcGNkX3JlYWRiKGF1eCwgRFBfUkVDRUlW
+RVJfQUxQTV9TVEFUVVMsICZ2YWwpOw0KPiArCWlmIChyICE9IDEpIHsNCj4gKwkJZHJtX2Vycihk
+aXNwbGF5LT5kcm0sICJFcnJvciByZWFkaW5nIEFMUE0NCj4gc3RhdHVzXG4iKTsNCj4gKwkJcmV0
+dXJuOw0KPiArCX0NCj4gKw0KPiArCWlmICh2YWwgJiBEUF9BTFBNX0xPQ0tfVElNRU9VVF9FUlJP
+Uikgew0KPiArCQlpbnRlbF9kZV9ybXcoZGlzcGxheSwgQUxQTV9DVEwoZGlzcGxheSwNCj4gY3B1
+X3RyYW5zY29kZXIpLA0KPiArCQkJwqDCoMKgwqAgQUxQTV9DVExfQUxQTV9FTkFCTEUgfA0KPiBB
+TFBNX0NUTF9MT0JGX0VOQUJMRSB8DQo+ICsJCQnCoMKgwqDCoCBBTFBNX0NUTF9BTFBNX0FVWF9M
+RVNTX0VOQUJMRSwgMCk7DQo+ICsNCj4gKwkJaW50ZWxfZGVfcm13KGRpc3BsYXksDQo+ICsJCQnC
+oMKgwqDCoCBQT1JUX0FMUE1fQ1RMKGNwdV90cmFuc2NvZGVyKSwNCj4gKwkJCcKgwqDCoMKgIFBP
+UlRfQUxQTV9DVExfQUxQTV9BVVhfTEVTU19FTkFCTEUsIDApOw0KPiArDQo+ICsJCWRybV9kYmdf
+a21zKGRpc3BsYXktPmRybSwNCj4gKwkJCcKgwqDCoCAiQUxQTSBsb2NrIHRpbWVvdXQgZXJyb3Is
+IGRpc2FibGluZw0KPiBMT0JGXG4iKTsNCj4gKw0KPiArCQkvKiBDbGVhcmluZyBlcnJvciAqLw0K
+PiArCQlkcm1fZHBfZHBjZF93cml0ZWIoYXV4LCBEUF9SRUNFSVZFUl9BTFBNX1NUQVRVUywNCj4g
+dmFsKTsNCj4gKwl9DQo+ICt9DQoNCkkgdGhpbmsgd2Ugc2hvdWxkIGNlbnRyYWxpemUgdGhpcy4g
+RWl0aGVyIGludG8gaW50ZWxfcHNyLmMgb3IgaGVyZS4gSQ0KdGhpbmsgeW91IHNob3VsZCBoYXZl
+IGxvY2tpbmcgZm9yIGFjY2Vzc2luZyBBTFBNX0NUTCByZWdpc3Rlci4gU2hvdWxkDQp3ZSBoYXZl
+IGFsc28gb3duIGZsYWcgdGVsbGluZyBhbHBtX2NvbXB1dGVfY29uZmlnIHRoYXQgd2UgZG9uJ3Qg
+d2FudCB0bw0KdXNlIExPQkY/DQoNCkJSLA0KDQpKb3VuaSBIw7ZnYW5kZXINCg0KPiBkaWZmIC0t
+Z2l0IGEvZHJpdmVycy9ncHUvZHJtL2k5MTUvZGlzcGxheS9pbnRlbF9hbHBtLmgNCj4gYi9kcml2
+ZXJzL2dwdS9kcm0vaTkxNS9kaXNwbGF5L2ludGVsX2FscG0uaA0KPiBpbmRleCA0ODVlNTExNjI5
+ZmIuLjk2ZDRjOTAzZjNlYSAxMDA2NDQNCj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2k5MTUvZGlz
+cGxheS9pbnRlbF9hbHBtLmgNCj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2k5MTUvZGlzcGxheS9p
+bnRlbF9hbHBtLmgNCj4gQEAgLTI5LDQgKzI5LDUgQEAgdm9pZCBpbnRlbF9hbHBtX3Bvc3RfcGxh
+bmVfdXBkYXRlKHN0cnVjdA0KPiBpbnRlbF9hdG9taWNfc3RhdGUgKnN0YXRlLA0KPiDCoHZvaWQg
+aW50ZWxfYWxwbV9sb2JmX2RlYnVnZnNfYWRkKHN0cnVjdCBpbnRlbF9jb25uZWN0b3IgKmNvbm5l
+Y3Rvcik7DQo+IMKgYm9vbCBpbnRlbF9hbHBtX2F1eF93YWtlX3N1cHBvcnRlZChzdHJ1Y3QgaW50
+ZWxfZHAgKmludGVsX2RwKTsNCj4gwqBib29sIGludGVsX2FscG1fYXV4X2xlc3Nfd2FrZV9zdXBw
+b3J0ZWQoc3RydWN0IGludGVsX2RwICppbnRlbF9kcCk7DQo+ICt2b2lkIGludGVsX2FscG1fc2hv
+cnRfcHVsc2Uoc3RydWN0IGludGVsX2RwICppbnRlbF9kcCk7DQo+IMKgI2VuZGlmDQo+IGRpZmYg
+LS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vaTkxNS9kaXNwbGF5L2ludGVsX2Rpc3BsYXlfdHlwZXMu
+aA0KPiBiL2RyaXZlcnMvZ3B1L2RybS9pOTE1L2Rpc3BsYXkvaW50ZWxfZGlzcGxheV90eXBlcy5o
+DQo+IGluZGV4IDM3ZjA2MWFjYjIwNC4uNjM2YWY0YzRlOTRkIDEwMDY0NA0KPiAtLS0gYS9kcml2
+ZXJzL2dwdS9kcm0vaTkxNS9kaXNwbGF5L2ludGVsX2Rpc3BsYXlfdHlwZXMuaA0KPiArKysgYi9k
+cml2ZXJzL2dwdS9kcm0vaTkxNS9kaXNwbGF5L2ludGVsX2Rpc3BsYXlfdHlwZXMuaA0KPiBAQCAt
+MTgwNiw2ICsxODA2LDcgQEAgc3RydWN0IGludGVsX2RwIHsNCj4gwqAjZGVmaW5lIEk5MTVfTE9C
+Rl9ERUJVR19ESVNBQkxFCQkJMHgwMQ0KPiDCoCNkZWZpbmUgSTkxNV9MT0JGX0RFQlVHX0ZPUkNF
+X0VOCQkweDAyDQo+IMKgCQlib29sIGxvYmZfZGVidWc7DQo+ICsJCWVudW0gdHJhbnNjb2RlciB0
+cmFuc2NvZGVyOw0KPiDCoAl9IGFscG1fcGFyYW1ldGVyczsNCj4gwqANCj4gwqAJdTggYWxwbV9k
+cGNkOw0KPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2k5MTUvZGlzcGxheS9pbnRlbF9k
+cC5jDQo+IGIvZHJpdmVycy9ncHUvZHJtL2k5MTUvZGlzcGxheS9pbnRlbF9kcC5jDQo+IGluZGV4
+IDBkNzRhZGFlMmVjOS4uNDBmMjc2MGQ4YWFhIDEwMDY0NA0KPiAtLS0gYS9kcml2ZXJzL2dwdS9k
+cm0vaTkxNS9kaXNwbGF5L2ludGVsX2RwLmMNCj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2k5MTUv
+ZGlzcGxheS9pbnRlbF9kcC5jDQo+IEBAIC01MzYzLDYgKzUzNjMsOCBAQCBpbnRlbF9kcF9zaG9y
+dF9wdWxzZShzdHJ1Y3QgaW50ZWxfZHAgKmludGVsX2RwKQ0KPiDCoA0KPiDCoAlpbnRlbF9wc3Jf
+c2hvcnRfcHVsc2UoaW50ZWxfZHApOw0KPiDCoA0KPiArCWludGVsX2FscG1fc2hvcnRfcHVsc2Uo
+aW50ZWxfZHApOw0KPiArDQo+IMKgCWlmIChpbnRlbF9kcF90ZXN0X3Nob3J0X3B1bHNlKGludGVs
+X2RwKSkNCj4gwqAJCXJlcHJvYmVfbmVlZGVkID0gdHJ1ZTsNCj4gwqANCg0K
