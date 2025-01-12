@@ -4,79 +4,73 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 72192E7719D
-	for <intel-gfx@archiver.kernel.org>; Sun, 12 Jan 2025 10:36:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 586E4E7719F
+	for <intel-gfx@archiver.kernel.org>; Sun, 12 Jan 2025 22:09:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 06CE310E2FC;
-	Sun, 12 Jan 2025 10:36:52 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D851210E322;
+	Sun, 12 Jan 2025 22:09:05 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="JRaeevjZ";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="AOYAo/R9";
 	dkim-atps=neutral
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.129.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2A3C510E2FC
- for <intel-gfx@lists.freedesktop.org>; Sun, 12 Jan 2025 10:36:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1736678208;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=sjZIf+MqzlX40O8hdTacUc+jXg2UIC0x4trWd6422To=;
- b=JRaeevjZ96oHjJQ1+zlJLKv3PPjA6x4TtwGlVB6Z5mmYMrjQse/nVDRGC38ugLjgwvtMcY
- IL/GrFzptogbiZYIn6bgXf9Q0KtEiDos66j3/Vd+y7nMYvy1aYMLdO15a0bKkMD3+6uPEw
- sH5apmamWA3dNIUA7cIrBCLBBRMCGRs=
-Received: from mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-543-0DSN8VPiNBSr_DA-YHIeIA-1; Sun,
- 12 Jan 2025 05:36:43 -0500
-X-MC-Unique: 0DSN8VPiNBSr_DA-YHIeIA-1
-X-Mimecast-MFC-AGG-ID: 0DSN8VPiNBSr_DA-YHIeIA
-Received: from mx-prod-int-02.mail-002.prod.us-west-2.aws.redhat.com
- (mx-prod-int-02.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.15])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
- (No client certificate requested)
- by mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
- id A2F3A19560BB; Sun, 12 Jan 2025 10:36:36 +0000 (UTC)
-Received: from localhost (unknown [10.72.113.4])
- by mx-prod-int-02.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
- id 5808B195608A; Sun, 12 Jan 2025 10:36:31 +0000 (UTC)
-Date: Sun, 12 Jan 2025 18:36:27 +0800
-From: Baoquan He <bhe@redhat.com>
-To: Joel Granados <joel.granados@kernel.org>
-Cc: Thomas =?iso-8859-1?Q?Wei=DFschuh?= <linux@weissschuh.net>,
- Kees Cook <kees@kernel.org>, Luis Chamberlain <mcgrof@kernel.org>,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- linuxppc-dev@lists.ozlabs.org, linux-riscv@lists.infradead.org,
- linux-s390@vger.kernel.org, linux-crypto@vger.kernel.org,
- openipmi-developer@lists.sourceforge.net,
- intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- intel-xe@lists.freedesktop.org, linux-hyperv@vger.kernel.org,
- linux-rdma@vger.kernel.org, linux-raid@vger.kernel.org,
- linux-scsi@vger.kernel.org, linux-serial@vger.kernel.org,
- xen-devel@lists.xenproject.org, linux-aio@kvack.org,
- linux-fsdevel@vger.kernel.org, netfs@lists.linux.dev,
- codalist@coda.cs.cmu.edu, linux-mm@kvack.org,
- linux-nfs@vger.kernel.org, ocfs2-devel@lists.linux.dev,
- fsverity@lists.linux.dev, linux-xfs@vger.kernel.org,
- io-uring@vger.kernel.org, bpf@vger.kernel.org,
- kexec@lists.infradead.org, linux-trace-kernel@vger.kernel.org,
- linux-hardening@vger.kernel.org, apparmor@lists.ubuntu.com,
- linux-security-module@vger.kernel.org, keyrings@vger.kernel.org,
- Song Liu <song@kernel.org>,
- "Steven Rostedt (Google)" <rostedt@goodmis.org>,
- "Martin K. Petersen" <martin.petersen@oracle.com>,
- "Darrick J. Wong" <djwong@kernel.org>, Jani Nikula <jani.nikula@intel.com>,
- Corey Minyard <cminyard@mvista.com>
-Subject: Re: [PATCH v2] treewide: const qualify ctl_tables where applicable
-Message-ID: <Z4ObK5hkQ7qjWgbf@MiWiFi-R3L-srv>
-References: <20250110-jag-ctl_table_const-v2-1-0000e1663144@kernel.org>
+Received: from mail-pl1-x631.google.com (mail-pl1-x631.google.com
+ [IPv6:2607:f8b0:4864:20::631])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D387310E21C;
+ Sun, 12 Jan 2025 22:09:03 +0000 (UTC)
+Received: by mail-pl1-x631.google.com with SMTP id
+ d9443c01a7336-216728b1836so62102675ad.0; 
+ Sun, 12 Jan 2025 14:09:03 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1736719743; x=1737324543; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=tgq8qwHzvaaLiSf7YyHcpp/r05dJEd2SrR1MLyfoMBs=;
+ b=AOYAo/R9vYNpGPoyAvpAg0qo/X3mrnslXl3khKjCeFSU1hL6VbhM5PXN7ZRuDPsILr
+ 9ESeHB9R6RczaTiyqxvhbjVoxdx0LPEpIUbSGzP9zk5q9NdP8jyav8f+LmgsNMGVWVr4
+ U36xZDIuU0Ak0tfKEmCsPgFYqEx6iXaSq1g3bD9afjimlOIBJ2WsbmTXmfxThK4Jvhfa
+ ys3sRpd4aAA65BCsOt8AnIllilDSnKfilBSJ7WyX1/Juh7OW9UblQ3iz/xDoa1wJV45a
+ Q+uIDGcg6uxRytl4+Dpu73CenZZSfyGwxlfGv7S44hia4j9dCn5VUo71kXpEk63gcC+5
+ 1FvQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1736719743; x=1737324543;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=tgq8qwHzvaaLiSf7YyHcpp/r05dJEd2SrR1MLyfoMBs=;
+ b=oiKXTPB9Y4bRwEu1dkAPjjO7smqLVE8HNip63eYiE1ZHqLC1mTaTPANU2SzO/0E/Ds
+ Ry06aIF2X6WSOr+x+wTNCNWlEm7QhwoujKbl37QSJ+tH4uUpju61WU2PUA2G4CuMYCLF
+ kWrrjiSgj3njCrmiwfGu89OXJ+Ln9VgIrooR9+eMXRIXelEeGK78Ap2g6xnPpBLJ43/K
+ vpdAD+IU0MpE1vM1pMp1nqOU3wbndULHPtEJRaA7utl1XDpJrdkUJskwN2pIOq/DrHT0
+ CR+adPO/tabSW2VU6vUI9rwt4gFPYiI9sn01l00EihlYlgsQo2bXuXc1NCscEmvA7gWX
+ h9yg==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCV2ML60zmzL2BM+f0mfpEFpdczGaJzu6AkBsM4LhdIF9TdWNhvYaxkeWVfzS0Rzo4t6syb2+YTGIw==@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzK3Ksja0huMJzlpsLIxzOyY6PBveC3iD1li4r63uCwiLIGoFqb
+ tM93mVoNDQfOyw0V8t9irjn+BG7nzuWSG1kzxLFx9YsX0Ym7cYNHsjT4Wq+c
+X-Gm-Gg: ASbGncsVP7vrflqySumwOer82P3HmmqiliALu33X/iXK5ajQnjW791WiiJlBywqrM9z
+ JyS/mizfUsEbCcIR3arjH/wZaxHNCFHe5wBZGe5K4JIyvdOHhDZPh9k3r2WLCmh/LwJ8ZQzqC2I
+ 2qBTZhpAFZe5Z5lgLTd34jvbuFYzIDpFocUrPOXe82lEssOkrmGk505CyO2DEHcWC1FedgzZvO7
+ m8YI0LDbjzBEyBi4rFssFisUBgufAMdhbjdD5l0XGLG2UFRdEHHkw7Ncm9CSpY=
+X-Google-Smtp-Source: AGHT+IEUDwhSrIZC4t5kjEgqpnWqb/2YxTIzuol+JY5eNMcl8UE/wOxL0tELiq4jVopXfEAHcq2Z/w==
+X-Received: by 2002:a17:902:cf0e:b0:216:7c33:8994 with SMTP id
+ d9443c01a7336-21a84002cf3mr302813385ad.53.1736719742858; 
+ Sun, 12 Jan 2025 14:09:02 -0800 (PST)
+Received: from localhost ([192.55.55.46]) by smtp.gmail.com with ESMTPSA id
+ d9443c01a7336-21a9f10dddfsm43006545ad.23.2025.01.12.14.09.01
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sun, 12 Jan 2025 14:09:02 -0800 (PST)
+From: Juha-Pekka Heikkila <juhapekka.heikkila@gmail.com>
+To: intel-gfx@lists.freedesktop.org,
+	intel-xe@lists.freedesktop.org
+Cc: Juha-Pekka Heikkila <juhapekka.heikkila@gmail.com>
+Subject: [PATCH 2/2] drm/xe/display: Move dpt allocation to helper
+Date: Mon, 13 Jan 2025 00:13:44 +0200
+Message-ID: <20250112221344.644836-2-juhapekka.heikkila@gmail.com>
+X-Mailer: git-send-email 2.45.2
+In-Reply-To: <20250112221344.644836-1-juhapekka.heikkila@gmail.com>
+References: <20250112221344.644836-1-juhapekka.heikkila@gmail.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20250110-jag-ctl_table_const-v2-1-0000e1663144@kernel.org>
-X-Scanned-By: MIMEDefang 3.0 on 10.30.177.15
+Content-Transfer-Encoding: 8bit
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -92,24 +86,100 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On 01/10/25 at 03:16pm, Joel Granados wrote:
-...snip...
-> diff --git a/kernel/kexec_core.c b/kernel/kexec_core.c
-> index c0caa14880c3..71b0809e06d6 100644
-> --- a/kernel/kexec_core.c
-> +++ b/kernel/kexec_core.c
-> @@ -925,7 +925,7 @@ static int kexec_limit_handler(const struct ctl_table *table, int write,
->  	return proc_dointvec(&tmp, write, buffer, lenp, ppos);
->  }
->  
-> -static struct ctl_table kexec_core_sysctls[] = {
-> +static const struct ctl_table kexec_core_sysctls[] = {
->  	{
->  		.procname	= "kexec_load_disabled",
->  		.data		= &kexec_load_disabled,
+Simplify __xe_pin_fb_vma_dpt() by moving dpt allocation into helper.
+This also fixes bug where dpt could have been allocated from system
+memory when on dgfx.
 
-For the kexec/kdump part,
+Signed-off-by: Juha-Pekka Heikkila <juhapekka.heikkila@gmail.com>
+---
+ drivers/gpu/drm/xe/display/xe_fb_pin.c | 67 +++++++++++++++++---------
+ 1 file changed, 43 insertions(+), 24 deletions(-)
 
-Acked-by: Baoquan He <bhe@redhat.com>
-......
+diff --git a/drivers/gpu/drm/xe/display/xe_fb_pin.c b/drivers/gpu/drm/xe/display/xe_fb_pin.c
+index 9cc7bd97d4a4..cddfda1743f4 100644
+--- a/drivers/gpu/drm/xe/display/xe_fb_pin.c
++++ b/drivers/gpu/drm/xe/display/xe_fb_pin.c
+@@ -62,6 +62,47 @@ static void write_dpt(struct xe_bo *bo, struct iosys_map *map, u32 *dpt_ofs,
+ 	*dpt_ofs = ALIGN(*dpt_ofs, 4096);
+ }
+ 
++static struct xe_bo *xe_alloc_dpt_bo(struct xe_device *xe,
++				     struct xe_tile *tile0, u64 size,
++				     u64 physical_alignment)
++{
++	struct xe_bo *dpt;
++
++	/*
++	 * If DGFX: try VRAM0 only
++	 */
++	if (IS_DGFX(xe)) {
++		dpt = xe_bo_create_pin_map_at_aligned(xe, tile0, NULL,
++						      size, ~0ull,
++						      ttm_bo_type_kernel,
++						      XE_BO_FLAG_VRAM0 |
++						      XE_BO_FLAG_GGTT |
++						      XE_BO_FLAG_PAGETABLE,
++						      physical_alignment);
++	} else {
++		/*
++		 * For IGFX: first try STOLEN. on fail try SYSTEM.
++		 */
++		dpt = xe_bo_create_pin_map_at_aligned(xe, tile0, NULL,
++						      size, ~0ull,
++						      ttm_bo_type_kernel,
++						      XE_BO_FLAG_STOLEN |
++						      XE_BO_FLAG_GGTT |
++						      XE_BO_FLAG_PAGETABLE,
++						      physical_alignment);
++		if (IS_ERR(dpt)) {
++			dpt = xe_bo_create_pin_map_at_aligned(xe, tile0, NULL,
++							      size, ~0ull,
++							      ttm_bo_type_kernel,
++							      XE_BO_FLAG_SYSTEM |
++							      XE_BO_FLAG_GGTT |
++							      XE_BO_FLAG_PAGETABLE,
++							      physical_alignment);
++		}
++	}
++	return dpt;
++}
++
+ static int __xe_pin_fb_vma_dpt(const struct intel_framebuffer *fb,
+ 			       const struct i915_gtt_view *view,
+ 			       struct i915_vma *vma,
+@@ -98,30 +139,8 @@ static int __xe_pin_fb_vma_dpt(const struct intel_framebuffer *fb,
+ 		plane_count = ARRAY_SIZE(view->rotated.plane);
+ 	}
+ 
+-	if (IS_DGFX(xe))
+-		dpt = xe_bo_create_pin_map_at_aligned(xe, tile0, NULL,
+-						      dpt_size, ~0ull,
+-						      ttm_bo_type_kernel,
+-						      XE_BO_FLAG_VRAM0 |
+-						      XE_BO_FLAG_GGTT |
+-						      XE_BO_FLAG_PAGETABLE,
+-						      physical_alignment);
+-	else
+-		dpt = xe_bo_create_pin_map_at_aligned(xe, tile0, NULL,
+-						      dpt_size,  ~0ull,
+-						      ttm_bo_type_kernel,
+-						      XE_BO_FLAG_STOLEN |
+-						      XE_BO_FLAG_GGTT |
+-						      XE_BO_FLAG_PAGETABLE,
+-						      physical_alignment);
+-	if (IS_ERR(dpt))
+-		dpt = xe_bo_create_pin_map_at_aligned(xe, tile0, NULL,
+-						      dpt_size,  ~0ull,
+-						      ttm_bo_type_kernel,
+-						      XE_BO_FLAG_SYSTEM |
+-						      XE_BO_FLAG_GGTT |
+-						      XE_BO_FLAG_PAGETABLE,
+-						      physical_alignment);
++	dpt = xe_alloc_dpt_bo(xe, tile0, dpt_size, physical_alignment);
++
+ 	if (IS_ERR(dpt))
+ 		return PTR_ERR(dpt);
+ 
+-- 
+2.45.2
 
