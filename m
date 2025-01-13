@@ -4,55 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 744D7C02184
-	for <intel-gfx@archiver.kernel.org>; Mon, 13 Jan 2025 17:40:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A6FACC02180
+	for <intel-gfx@archiver.kernel.org>; Mon, 13 Jan 2025 18:21:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2096F10E75D;
-	Mon, 13 Jan 2025 17:40:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 48DA110E786;
+	Mon, 13 Jan 2025 18:21:45 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="L83J2Wtz";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="IkIh2W8E";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.20])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 17DE910E75D;
- Mon, 13 Jan 2025 17:40:11 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.14])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9766A10E794
+ for <intel-gfx@lists.freedesktop.org>; Mon, 13 Jan 2025 18:21:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1736790011; x=1768326011;
- h=date:from:to:cc:subject:message-id:reply-to:references:
- mime-version:in-reply-to;
- bh=8jsW2RNvA0Wkm/cebRcBXtCgOqFneQBv6jbuZZZ8C1s=;
- b=L83J2WtzTJTdCWxclypPIF4Ew1yDCVtyudfKY4JvvYOBbcZB/+YLofGz
- MvC1cjQqRpio6M+zzzl97XMh1s9yUWKH2bO04GJmM06YGsxBVac3dOkcF
- xvVXe1Z7a4ZOq32PS6V40Y+SpxPsFez95l/8NheTKr5n6eStXtNgeZewr
- 6YSV6WlI1Y1YqGRbPvn+NgUiz42iDlDGT89M+5i1WT1OjagzWPPUevkpr
- 1I9v8jOYDVVLRvmimFAgy6lHUkRuuEUPX95Pi/3u+6SI/QDDs6pF09Pxn
- 5qjwWOOw6hiWNDyShax1DIwH6ouPJlEsGB3l4jEXSy7pXl8z2cjSAncwe g==;
-X-CSE-ConnectionGUID: bStuKbk3SpKD7PvlIVuSug==
-X-CSE-MsgGUID: AH7KDOHJSl+1LzrVLicSgA==
-X-IronPort-AV: E=McAfee;i="6700,10204,11314"; a="36753265"
-X-IronPort-AV: E=Sophos;i="6.12,310,1728975600"; d="scan'208";a="36753265"
-Received: from orviesa010.jf.intel.com ([10.64.159.150])
- by orvoesa112.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 13 Jan 2025 09:40:11 -0800
-X-CSE-ConnectionGUID: qLmUnOcNTPCy0QOWH0uGzw==
-X-CSE-MsgGUID: nhgU9t9ZQG6kqzuAnxfBAw==
+ t=1736792503; x=1768328503;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=jG6YNBQBBIoQV/DIiTVhQGZvoiTHoUXBLKeFAOodK58=;
+ b=IkIh2W8EbNuUxHtXsneSrdM8Jl/m6psF3Tegoc3bkq4DpX/cR2/HUQoc
+ wkMvNkABp8USdsuUfZZE6o0VeewMbVn5ibAy+pLc6tFzugylg5GX3rQhb
+ rqNk73p79lcdgUbiBsgrYCwmSSfQCvlMS8+m5lqNxvSWpaw3e8nEAcP5v
+ 9UcZLjm997SSyV3NbWn6dmcDLWakJXKrdqGP8dqXPfvq2cCCGzpaAXqvr
+ +vCF/fwOUauo9Fxid2L9BjGGMrALgM+7hQBWHSQkthq/MKJQGJEbyGlxj
+ Hm50g/9DMRlnKUYwlWfRI/H2oAyTcG4URzASY7oKE1B8hZ2U+2tHyFdcH w==;
+X-CSE-ConnectionGUID: 82NFkKOOTUKstYwq7nXKQg==
+X-CSE-MsgGUID: vdw0xb/CSa2ezJysqU1kSg==
+X-IronPort-AV: E=McAfee;i="6700,10204,11314"; a="37298999"
+X-IronPort-AV: E=Sophos;i="6.12,310,1728975600"; d="scan'208";a="37298999"
+Received: from fmviesa010.fm.intel.com ([10.60.135.150])
+ by fmvoesa108.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 13 Jan 2025 10:21:43 -0800
+X-CSE-ConnectionGUID: 5U+VP1BPRlK0nssdaZa5Jw==
+X-CSE-MsgGUID: RTx6/x8YQ9Gvw9PIhYs5dw==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.12,224,1728975600"; d="scan'208";a="104418580"
-Received: from ideak-desk.fi.intel.com ([10.237.72.78])
- by orviesa010-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 13 Jan 2025 09:40:10 -0800
-Date: Mon, 13 Jan 2025 19:40:59 +0200
-From: Imre Deak <imre.deak@intel.com>
-To: Jani Nikula <jani.nikula@linux.intel.com>
-Cc: intel-xe@lists.freedesktop.org, intel-gfx@lists.freedesktop.org
-Subject: Re: [PATCH] drm/xe/dp: Enable DP tunneling
-Message-ID: <Z4VQK2mRtmeT_t6I@ideak-desk.fi.intel.com>
-References: <20250113154832.1004369-1-imre.deak@intel.com>
- <87cygqis8l.fsf@intel.com>
+X-IronPort-AV: E=Sophos;i="6.12,310,1728975600"; d="scan'208";a="105078467"
+Received: from nitin-super-server.iind.intel.com ([10.145.169.70])
+ by fmviesa010.fm.intel.com with ESMTP; 13 Jan 2025 10:21:41 -0800
+From: Nitin Gote <nitin.r.gote@intel.com>
+To: andi.shyti@intel.com, jani.nikula@linux.intel.com,
+ intel-gfx@lists.freedesktop.org
+Cc: nitin.r.gote@intel.com
+Subject: [PATCH v3 0/8] Fix all typos in i915
+Date: Tue, 14 Jan 2025 00:13:10 +0530
+Message-Id: <20250113184318.2549653-1-nitin.r.gote@intel.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <87cygqis8l.fsf@intel.com>
+Content-Transfer-Encoding: 8bit
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,98 +62,146 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: imre.deak@intel.com
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Mon, Jan 13, 2025 at 06:38:34PM +0200, Jani Nikula wrote:
-> On Mon, 13 Jan 2025, Imre Deak <imre.deak@intel.com> wrote:
-> > Enable the DP tunneling functionality in the xe driver.
-> >
-> > Signed-off-by: Imre Deak <imre.deak@intel.com>
-> > ---
-> >  drivers/gpu/drm/i915/display/intel_dp_tunnel.h |  5 +++--
-> >  drivers/gpu/drm/xe/Kconfig                     | 14 ++++++++++++++
-> >  drivers/gpu/drm/xe/Makefile                    |  3 +++
-> >  3 files changed, 20 insertions(+), 2 deletions(-)
-> >
-> > diff --git a/drivers/gpu/drm/i915/display/intel_dp_tunnel.h b/drivers/gpu/drm/i915/display/intel_dp_tunnel.h
-> > index e9314cf25a193..7a91b4945eb8d 100644
-> > --- a/drivers/gpu/drm/i915/display/intel_dp_tunnel.h
-> > +++ b/drivers/gpu/drm/i915/display/intel_dp_tunnel.h
-> > @@ -20,7 +20,8 @@ struct intel_dp;
-> >  struct intel_encoder;
-> >  struct intel_link_bw_limits;
-> >  
-> > -#if IS_ENABLED(CONFIG_DRM_I915_DP_TUNNEL) && defined(I915)
-> > +#if (defined(CONFIG_DRM_I915_DP_TUNNEL) && defined(I915)) || \
-> > +	(defined(CONFIG_DRM_XE_DP_TUNNEL) && !defined(I915))
-> 
-> Please retain IS_ENABLED for checking kconfig symbols.
+Fix all typos in i915 reported by codespell tool.
 
-Ok, missed that, will change it.
+v2: Fix the commenting style and grammer mistakes
+    in comment.
 
-> >  int intel_dp_tunnel_detect(struct intel_dp *intel_dp, struct drm_modeset_acquire_ctx *ctx);
-> >  void intel_dp_tunnel_disconnect(struct intel_dp *intel_dp);
-> > @@ -127,6 +128,6 @@ intel_dp_tunnel_mgr_init(struct intel_display *display)
-> >  
-> >  static inline void intel_dp_tunnel_mgr_cleanup(struct intel_display *display) {}
-> >  
-> > -#endif /* CONFIG_DRM_I915_DP_TUNNEL */
-> > +#endif /* CONFIG_DRM_I915_DP_TUNNEL || CONFIG_DRM_XE_DP_TUNNEL */
-> >  
-> >  #endif /* __INTEL_DP_TUNNEL_H__ */
-> > diff --git a/drivers/gpu/drm/xe/Kconfig b/drivers/gpu/drm/xe/Kconfig
-> > index b51a2bde73e29..50cf80df51900 100644
-> > --- a/drivers/gpu/drm/xe/Kconfig
-> > +++ b/drivers/gpu/drm/xe/Kconfig
-> > @@ -59,6 +59,20 @@ config DRM_XE_DISPLAY
-> >  	help
-> >  	  Disable this option only if you want to compile out display support.
-> >  
-> > +config DRM_XE_DP_TUNNEL
-> > +	bool "Enable DP tunnel support"
-> > +	depends on DRM_XE
-> > +	depends on USB4
-> > +	select DRM_DISPLAY_DP_TUNNEL
-> > +	default y
-> > +	help
-> > +	  Choose this option to detect DP tunnels and enable the Bandwidth
-> > +	  Allocation mode for such tunnels. This allows using the maximum
-> > +	  resolution allowed by the link BW on all displays sharing the
-> > +	  link BW, for instance on a Thunderbolt link.
-> > +
-> > +	  If in doubt say "Y".
-> > +
-> 
-> I'm sort of wondering why we have this (and the i915 one) as
-> user-selectable config options at all. Is it ever reasonable for the
-> user to disable this if USB4 is enabled?
+v3: Rebase and resolve the conflicts.
 
-On platforms that don't support DP tunneling, while supporting other
-USB4 functionality (or for systems w/o any TypeC/DP connectors) it would
-make sense to disable this option.
+Nitin Gote (8):
+  drm/i915/gt: fix typos in i915/gt files.
+  drm/i915/gvt: fix typos in i915/gvt files
+  drm/i915/gem: fix typos in i915/gem files
+  drm/i915/pxp: fix typos in i915/pxp files
+  drm/i915/selftests: fix typos in i915/selftests files
+  drm/i915/soc: fix typos in i915/soc files
+  drm/i915/display: fix typos in i915/display files
+  drm/i915: fix typos in drm/i915 files
 
-> BR,
-> Jani.
-> 
-> 
-> >  config DRM_XE_FORCE_PROBE
-> >  	string "Force probe xe for selected Intel hardware IDs"
-> >  	depends on DRM_XE
-> > diff --git a/drivers/gpu/drm/xe/Makefile b/drivers/gpu/drm/xe/Makefile
-> > index 5c97ad6ed7385..81f63258a7e19 100644
-> > --- a/drivers/gpu/drm/xe/Makefile
-> > +++ b/drivers/gpu/drm/xe/Makefile
-> > @@ -301,6 +301,9 @@ ifeq ($(CONFIG_DEBUG_FS),y)
-> >  		i915-display/intel_pipe_crc.o
-> >  endif
-> >  
-> > +xe-$(CONFIG_DRM_XE_DP_TUNNEL) += \
-> > +	i915-display/intel_dp_tunnel.o
-> > +
-> >  obj-$(CONFIG_DRM_XE) += xe.o
-> >  obj-$(CONFIG_DRM_XE_KUNIT_TEST) += tests/
-> 
-> -- 
-> Jani Nikula, Intel
+ drivers/gpu/drm/i915/display/dvo_ns2501.c     |  2 +-
+ drivers/gpu/drm/i915/display/i9xx_wm.c        |  6 +--
+ drivers/gpu/drm/i915/display/icl_dsi.c        |  4 +-
+ drivers/gpu/drm/i915/display/intel_audio.c    |  4 +-
+ drivers/gpu/drm/i915/display/intel_cdclk.c    |  2 +-
+ drivers/gpu/drm/i915/display/intel_color.c    |  2 +-
+ drivers/gpu/drm/i915/display/intel_crt.c      |  2 +-
+ drivers/gpu/drm/i915/display/intel_crtc.c     |  2 +-
+ drivers/gpu/drm/i915/display/intel_cursor.c   |  2 +-
+ drivers/gpu/drm/i915/display/intel_ddi.c      |  4 +-
+ drivers/gpu/drm/i915/display/intel_display.c  |  8 ++--
+ .../drm/i915/display/intel_display_debugfs.c  |  2 +-
+ .../drm/i915/display/intel_display_power.c    |  4 +-
+ .../i915/display/intel_display_power_well.h   |  4 +-
+ .../drm/i915/display/intel_display_types.h    |  4 +-
+ drivers/gpu/drm/i915/display/intel_dp.c       |  2 +-
+ .../drm/i915/display/intel_dp_link_training.c |  4 +-
+ drivers/gpu/drm/i915/display/intel_dp_mst.c   |  4 +-
+ drivers/gpu/drm/i915/display/intel_dp_test.c  |  4 +-
+ .../gpu/drm/i915/display/intel_dp_tunnel.c    |  2 +-
+ drivers/gpu/drm/i915/display/intel_dpio_phy.c |  2 +-
+ drivers/gpu/drm/i915/display/intel_dpll_mgr.c |  2 +-
+ drivers/gpu/drm/i915/display/intel_dpll_mgr.h |  2 +-
+ drivers/gpu/drm/i915/display/intel_dsb.c      |  2 +-
+ drivers/gpu/drm/i915/display/intel_dsi_vbt.c  |  2 +-
+ drivers/gpu/drm/i915/display/intel_dvo_dev.h  |  2 +-
+ drivers/gpu/drm/i915/display/intel_fdi.c      |  2 +-
+ .../drm/i915/display/intel_fifo_underrun.c    |  2 +-
+ .../gpu/drm/i915/display/intel_frontbuffer.c  |  2 +-
+ drivers/gpu/drm/i915/display/intel_hdcp.c     |  8 ++--
+ drivers/gpu/drm/i915/display/intel_hotplug.c  |  6 +--
+ .../gpu/drm/i915/display/intel_hotplug_irq.c  |  2 +-
+ drivers/gpu/drm/i915/display/intel_link_bw.c  |  2 +-
+ drivers/gpu/drm/i915/display/intel_overlay.c  | 19 +++++---
+ drivers/gpu/drm/i915/display/intel_pmdemand.c |  2 +-
+ drivers/gpu/drm/i915/display/intel_pps.c      |  2 +-
+ drivers/gpu/drm/i915/display/intel_psr.c      |  8 ++--
+ drivers/gpu/drm/i915/display/intel_sdvo.c     |  4 +-
+ .../gpu/drm/i915/display/intel_sdvo_regs.h    |  2 +-
+ drivers/gpu/drm/i915/display/intel_snps_phy.c |  2 +-
+ drivers/gpu/drm/i915/display/intel_vblank.c   |  2 +-
+ drivers/gpu/drm/i915/display/intel_vdsc.c     |  2 +-
+ drivers/gpu/drm/i915/display/skl_scaler.c     | 48 +++++++++----------
+ .../drm/i915/display/skl_universal_plane.c    |  4 +-
+ drivers/gpu/drm/i915/display/skl_watermark.c  |  4 +-
+ drivers/gpu/drm/i915/display/vlv_dsi.c        |  2 +-
+ drivers/gpu/drm/i915/display/vlv_dsi_pll.c    |  2 +-
+ drivers/gpu/drm/i915/gem/i915_gem_context.c   |  6 +--
+ .../gpu/drm/i915/gem/i915_gem_context_types.h |  4 +-
+ drivers/gpu/drm/i915/gem/i915_gem_domain.c    |  2 +-
+ .../gpu/drm/i915/gem/i915_gem_execbuffer.c    |  4 +-
+ drivers/gpu/drm/i915/gem/i915_gem_region.c    |  2 +-
+ drivers/gpu/drm/i915/gem/i915_gem_shrinker.c  |  4 +-
+ drivers/gpu/drm/i915/gem/i915_gem_tiling.c    |  2 +-
+ drivers/gpu/drm/i915/gem/i915_gem_ttm.c       |  2 +-
+ drivers/gpu/drm/i915/gem/i915_gem_ttm_move.c  |  2 +-
+ .../gpu/drm/i915/gem/selftests/huge_pages.c   |  2 +-
+ .../drm/i915/gem/selftests/i915_gem_mman.c    |  2 +-
+ drivers/gpu/drm/i915/gt/gen2_engine_cs.c      |  2 +-
+ drivers/gpu/drm/i915/gt/intel_engine_cs.c     |  8 ++--
+ drivers/gpu/drm/i915/gt/intel_engine_types.h  |  4 +-
+ drivers/gpu/drm/i915/gt/intel_gt_irq.c        |  2 +-
+ drivers/gpu/drm/i915/gt/intel_gt_mcr.c        |  2 +-
+ drivers/gpu/drm/i915/gt/intel_migrate.c       |  4 +-
+ drivers/gpu/drm/i915/gt/intel_mocs.c          |  2 +-
+ drivers/gpu/drm/i915/gt/intel_reset.c         |  2 +-
+ .../gpu/drm/i915/gt/intel_ring_submission.c   |  2 +-
+ drivers/gpu/drm/i915/gt/intel_rps_types.h     |  4 +-
+ drivers/gpu/drm/i915/gt/intel_sa_media.c      |  2 +-
+ drivers/gpu/drm/i915/gt/intel_sseu.c          |  2 +-
+ drivers/gpu/drm/i915/gt/intel_workarounds.c   |  2 +-
+ drivers/gpu/drm/i915/gt/selftest_execlists.c  |  2 +-
+ drivers/gpu/drm/i915/gt/selftest_hangcheck.c  |  2 +-
+ drivers/gpu/drm/i915/gt/selftest_lrc.c        |  2 +-
+ drivers/gpu/drm/i915/gt/selftest_rc6.c        |  2 +-
+ drivers/gpu/drm/i915/gt/selftest_rps.c        |  2 +-
+ drivers/gpu/drm/i915/gt/shaders/README        |  6 +--
+ .../drm/i915/gt/shaders/clear_kernel/hsw.asm  |  2 +-
+ .../drm/i915/gt/shaders/clear_kernel/ivb.asm  |  2 +-
+ drivers/gpu/drm/i915/gt/uc/guc_capture_fwif.h |  4 +-
+ drivers/gpu/drm/i915/gt/uc/intel_guc.c        |  2 +-
+ drivers/gpu/drm/i915/gt/uc/intel_guc.h        |  2 +-
+ drivers/gpu/drm/i915/gt/uc/intel_guc_fwif.h   |  2 +-
+ .../gpu/drm/i915/gt/uc/intel_guc_submission.c |  4 +-
+ drivers/gpu/drm/i915/gt/uc/intel_uc.c         |  2 +-
+ .../drm/i915/gt/uc/selftest_guc_hangcheck.c   |  2 +-
+ drivers/gpu/drm/i915/gvt/cmd_parser.c         |  4 +-
+ drivers/gpu/drm/i915/gvt/dmabuf.c             |  2 +-
+ drivers/gpu/drm/i915/gvt/edid.c               |  2 +-
+ drivers/gpu/drm/i915/gvt/gtt.c                |  2 +-
+ drivers/gpu/drm/i915/gvt/gvt.h                |  8 ++--
+ drivers/gpu/drm/i915/gvt/handlers.c           |  6 +--
+ drivers/gpu/drm/i915/gvt/kvmgt.c              |  2 +-
+ drivers/gpu/drm/i915/gvt/mmio_context.c       |  6 +--
+ drivers/gpu/drm/i915/gvt/scheduler.c          |  6 +--
+ drivers/gpu/drm/i915/gvt/vgpu.c               |  6 +--
+ drivers/gpu/drm/i915/i915_driver.c            |  2 +-
+ drivers/gpu/drm/i915/i915_gem.c               |  2 +-
+ drivers/gpu/drm/i915/i915_irq.c               |  2 +-
+ drivers/gpu/drm/i915/i915_module.c            |  2 +-
+ drivers/gpu/drm/i915/i915_perf.c              | 10 ++--
+ drivers/gpu/drm/i915/i915_pmu.h               |  2 +-
+ drivers/gpu/drm/i915/i915_reg.h               |  4 +-
+ drivers/gpu/drm/i915/i915_request.c           |  2 +-
+ drivers/gpu/drm/i915/i915_request.h           |  4 +-
+ drivers/gpu/drm/i915/i915_vma.c               |  8 ++--
+ drivers/gpu/drm/i915/intel_clock_gating.c     |  2 +-
+ drivers/gpu/drm/i915/intel_gvt.c              |  2 +-
+ drivers/gpu/drm/i915/intel_gvt_mmio_table.c   |  2 +-
+ drivers/gpu/drm/i915/intel_runtime_pm.c       |  2 +-
+ drivers/gpu/drm/i915/intel_runtime_pm.h       |  2 +-
+ drivers/gpu/drm/i915/intel_uncore.c           |  2 +-
+ .../drm/i915/pxp/intel_pxp_cmd_interface_43.h |  2 +-
+ drivers/gpu/drm/i915/pxp/intel_pxp_types.h    |  2 +-
+ drivers/gpu/drm/i915/selftests/i915_gem.c     |  2 +-
+ drivers/gpu/drm/i915/selftests/i915_gem_gtt.c | 21 ++++----
+ drivers/gpu/drm/i915/selftests/i915_vma.c     | 15 ++++--
+ drivers/gpu/drm/i915/soc/intel_pch.c          |  2 +-
+ 118 files changed, 236 insertions(+), 217 deletions(-)
+
+-- 
+2.25.1
+
