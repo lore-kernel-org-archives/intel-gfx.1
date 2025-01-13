@@ -4,54 +4,156 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 21BE4C02180
-	for <intel-gfx@archiver.kernel.org>; Mon, 13 Jan 2025 10:03:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 599B9C02180
+	for <intel-gfx@archiver.kernel.org>; Mon, 13 Jan 2025 10:05:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C08AA10E63E;
-	Mon, 13 Jan 2025 10:03:39 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0813210E60C;
+	Mon, 13 Jan 2025 10:05:12 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="MF5VFawm";
+	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="WhCyaomM";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.19])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 31B5F10E621
- for <intel-gfx@lists.freedesktop.org>; Mon, 13 Jan 2025 10:03:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1736762618; x=1768298618;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=6osJiNit9ihpGjYv9Sy+xk5hvlb7N7hKLiZqwgVkWZM=;
- b=MF5VFawmOc6ualTxtAXWRxVpFYT4/vGv/V5PXJCPjgtKruN15RQI+BNX
- JzYf54GLXEj/rKZ+qMWbSYyAMTsXy2FZYoKd8uHVI3REflFlMh2QlgEX/
- 7ahxXkeGxnJTW+CrSb9I7m/Ca679W3QdOgQ65YZdmschYTrFArweDwQqX
- mH9x0J8Sn+vq9y6WA/POOEekvZYNkdqfgkL6A0UWyMZOB4cdnsXf1W9wT
- mv6teal20yKFw6ccY+zjrvQgYKAh0C0DtUXC4RMUN6m72qq0iVLiHn4eW
- Gw8c84GlHthQPOdOX+va5Ia/48u7Ly/Mv1p9r/mSaU7xxJ3h4CtiobWSF w==;
-X-CSE-ConnectionGUID: hBQb+KXETpyqZ/eMpmM8Og==
-X-CSE-MsgGUID: Tb00JixPQbi7iB9q4/43zg==
-X-IronPort-AV: E=McAfee;i="6700,10204,11313"; a="36227130"
-X-IronPort-AV: E=Sophos;i="6.12,310,1728975600"; d="scan'208";a="36227130"
-Received: from fmviesa006.fm.intel.com ([10.60.135.146])
- by fmvoesa113.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 13 Jan 2025 02:03:38 -0800
-X-CSE-ConnectionGUID: hkKSUFZSTG2VvT3RikijBQ==
-X-CSE-MsgGUID: e6uL0KBeSH6btvaQyqTWfA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.12,310,1728975600"; d="scan'208";a="104242973"
-Received: from nitin-super-server.iind.intel.com ([10.145.169.70])
- by fmviesa006.fm.intel.com with ESMTP; 13 Jan 2025 02:03:36 -0800
-From: Nitin Gote <nitin.r.gote@intel.com>
-To: andi.shyti@intel.com, jani.nikula@linux.intel.com,
- intel-gfx@lists.freedesktop.org
-Cc: nitin.r.gote@intel.com
-Subject: [PATCH v2 8/8] drm/i915: fix typos in drm/i915 files
-Date: Mon, 13 Jan 2025 15:54:21 +0530
-Message-Id: <20250113102421.2431727-9-nitin.r.gote@intel.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20250113102421.2431727-1-nitin.r.gote@intel.com>
-References: <20250113102421.2431727-1-nitin.r.gote@intel.com>
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6FF0B10E5FB
+ for <intel-gfx@lists.freedesktop.org>; Mon, 13 Jan 2025 10:05:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1736762706;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=tqlGH0WJSlurme1zn1N6v9nfa84gI5V9R3GMq4xXSkQ=;
+ b=WhCyaomMIb7Ox6FXEgmFwmo7AhEcmwaQhsR4ENBXgV5Mw3EW5QX0Bg3JU7KC50j7QEEyLB
+ qOVNEj2EwdVqf7HCv/WMQT10tnFSaTM3Ey5l02fPCOA8COj2u4muuUvkBxEqesRYkRj6rz
+ lZeCw3Eyzt2l3T5p8EuAwIPxqk/S6os=
+Received: from mail-wm1-f69.google.com (mail-wm1-f69.google.com
+ [209.85.128.69]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-418-zjobY40yNEG3ZBWwmw9Ewg-1; Mon, 13 Jan 2025 05:05:04 -0500
+X-MC-Unique: zjobY40yNEG3ZBWwmw9Ewg-1
+X-Mimecast-MFC-AGG-ID: zjobY40yNEG3ZBWwmw9Ewg
+Received: by mail-wm1-f69.google.com with SMTP id
+ 5b1f17b1804b1-4361b090d23so21782345e9.0
+ for <intel-gfx@lists.freedesktop.org>; Mon, 13 Jan 2025 02:05:04 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1736762703; x=1737367503;
+ h=content-transfer-encoding:in-reply-to:organization:autocrypt
+ :content-language:from:references:cc:to:subject:user-agent
+ :mime-version:date:message-id:x-gm-message-state:from:to:cc:subject
+ :date:message-id:reply-to;
+ bh=tqlGH0WJSlurme1zn1N6v9nfa84gI5V9R3GMq4xXSkQ=;
+ b=W4FCJmQqjpn/4wVNsu8rq2tAn8CBF7Nqh1K3Qo1bEbZkqjcZoFHKLcYTRopDMp+4vX
+ 31LAtsLEUMDW+Ne0wOmEiWNoOjiAYwCXPPC0I4DNU4RecjBOl9LnuSaBHWDPdeKM4EgU
+ 66UvwNpjtvt2jCweqfj+5gXTLQN7ZowAKkj93aOYZ1rfScFf/lcswxXbnrC1F6HW8vgA
+ 7LJ/lrWgNWSGD5TTbX7bu6E7En5DU5dWW0DePZexHJ7XJuH1sXYWnPRy8owfvnnFHcWe
+ iS7fOTumisiPG8Bo6wE9q4drGA6F+e3EN9mGmdd5fKFGikG2qWWgL9Moe6aB6Hh26yuu
+ vZTg==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCVwjmB95N67RKdB7lWLEvZzqyAvf32yVwqzwVsiwVFv4nGCLrdPzOLXMhlrHpVZnw9NoT7GAMuNkY0=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzMzxrgeqJb7UMUlF2YK1xBObsH1i46b5zCbygY7NqEspsKYE1U
+ uhRu+4hBc9LBPld2sV8KvU7sIiOCztNnlQ6RT+xfZhlt4CXKWHDjm8GEda7K7WbkoLC/wc14SmZ
+ oZ2IxAzUtlj1Bjgqx+E3MDLlBG+YaOjaR0y1lsvYKhF+t7BgH+ZyHSNduk9mODVjilg==
+X-Gm-Gg: ASbGncsO8kq92oDYVspAAE+PglmRa43DoYwO+azjMi0pWFxXZwbi8FHPi/OacIeQSwP
+ 1OZQmtmra8xMB44WcZwxMMfa56Wy7ZA/PuL/tnFRlNtEbZyPZpy0YfPDGHw+wIxepcep2n5Nc8M
+ fmqiJbeSemL/pHDksa3GiRYgAuDqW/h/uECBwHb8ZJwiOnRdSOM/qqxMQeM2AfIR/RBDFqQBOEA
+ LP00dbdtbq37fNkY95WhPo0kfcs9gziCOwjkik3w9843V+tvG6gu/lDYCag6KBiavMsbPTGXk++
+ CQg0vUo8YDQp/0Q=
+X-Received: by 2002:a05:600c:22d2:b0:436:faeb:2a1b with SMTP id
+ 5b1f17b1804b1-436faeb2d09mr30386995e9.13.1736762703470; 
+ Mon, 13 Jan 2025 02:05:03 -0800 (PST)
+X-Google-Smtp-Source: AGHT+IE0aNAex+BzxZzwM8YZW3HltVlLq497uDU4rUq0a34Ju0KztI/By/B9P/v7VZYnLDaAsf0gmQ==
+X-Received: by 2002:a05:600c:22d2:b0:436:faeb:2a1b with SMTP id
+ 5b1f17b1804b1-436faeb2d09mr30386665e9.13.1736762703138; 
+ Mon, 13 Jan 2025 02:05:03 -0800 (PST)
+Received: from ?IPV6:2a09:80c0:192:0:5dac:bf3d:c41:c3e7?
+ ([2a09:80c0:192:0:5dac:bf3d:c41:c3e7])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-436e2da7768sm175358515e9.5.2025.01.13.02.05.00
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 13 Jan 2025 02:05:02 -0800 (PST)
+Message-ID: <3bacc488-5db9-4aa8-9322-ffd9c26bbbb6@redhat.com>
+Date: Mon, 13 Jan 2025 11:05:00 +0100
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/8] drm/i915/gem: Convert __shmem_writeback() to folios
+To: "Kirill A. Shutemov" <kirill.shutemov@linux.intel.com>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jens Axboe <axboe@kernel.dk>
+Cc: "Jason A. Donenfeld" <Jason@zx2c4.com>,
+ Andi Shyti <andi.shyti@linux.intel.com>,
+ Chengming Zhou <chengming.zhou@linux.dev>,
+ Christian Brauner <brauner@kernel.org>,
+ Christophe Leroy <christophe.leroy@csgroup.eu>,
+ Dan Carpenter <dan.carpenter@linaro.org>, David Airlie <airlied@gmail.com>,
+ Hao Ge <gehao@kylinos.cn>, Jani Nikula <jani.nikula@linux.intel.com>,
+ Johannes Weiner <hannes@cmpxchg.org>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Josef Bacik <josef@toxicpanda.com>, Masami Hiramatsu <mhiramat@kernel.org>,
+ Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+ Miklos Szeredi <miklos@szeredi.hu>, Nhat Pham <nphamcs@gmail.com>,
+ Oscar Salvador <osalvador@suse.de>, Ran Xiaokai <ran.xiaokai@zte.com.cn>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, Simona Vetter <simona@ffwll.ch>,
+ Steven Rostedt <rostedt@goodmis.org>, Tvrtko Ursulin <tursulin@ursulin.net>,
+ Vlastimil Babka <vbabka@suse.cz>, Yosry Ahmed <yosryahmed@google.com>,
+ Yu Zhao <yuzhao@google.com>, intel-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ linux-fsdevel@vger.kernel.org, linux-mm@kvack.org,
+ linux-trace-kernel@vger.kernel.org
+References: <20250113093453.1932083-1-kirill.shutemov@linux.intel.com>
+ <20250113093453.1932083-2-kirill.shutemov@linux.intel.com>
+From: David Hildenbrand <david@redhat.com>
+Autocrypt: addr=david@redhat.com; keydata=
+ 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
+ WNyWQQ==
+Organization: Red Hat
+In-Reply-To: <20250113093453.1932083-2-kirill.shutemov@linux.intel.com>
+X-Mimecast-Spam-Score: 0
+X-Mimecast-MFC-PROC-ID: 2hT8xi6k_acFaS0mIucVDyDhupSRxxygy-eb45IIVFM_1736762703
+X-Mimecast-Originator: redhat.com
+Content-Language: en-US
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,304 +169,18 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Fix all typos in files under drm/i915 reported by codespell tool.
+On 13.01.25 10:34, Kirill A. Shutemov wrote:
+> Use folios instead of pages.
+> 
+> This is preparation for removing PG_reclaim.
+> 
+> Signed-off-by: Kirill A. Shutemov <kirill.shutemov@linux.intel.com>
+> ---
 
-v2: Fix commenting style <Andi>
+Acked-by: David Hildenbrand <david@redhat.com>
 
-Signed-off-by: Nitin Gote <nitin.r.gote@intel.com>
----
- drivers/gpu/drm/i915/i915_driver.c          |  2 +-
- drivers/gpu/drm/i915/i915_gem.c             |  2 +-
- drivers/gpu/drm/i915/i915_irq.c             |  2 +-
- drivers/gpu/drm/i915/i915_module.c          |  2 +-
- drivers/gpu/drm/i915/i915_perf.c            | 10 ++++++----
- drivers/gpu/drm/i915/i915_pmu.h             |  2 +-
- drivers/gpu/drm/i915/i915_reg.h             |  4 ++--
- drivers/gpu/drm/i915/i915_request.c         |  2 +-
- drivers/gpu/drm/i915/i915_request.h         |  4 ++--
- drivers/gpu/drm/i915/i915_vma.c             |  8 ++++----
- drivers/gpu/drm/i915/intel_clock_gating.c   |  2 +-
- drivers/gpu/drm/i915/intel_gvt.c            |  2 +-
- drivers/gpu/drm/i915/intel_gvt_mmio_table.c |  2 +-
- drivers/gpu/drm/i915/intel_runtime_pm.c     |  2 +-
- drivers/gpu/drm/i915/intel_runtime_pm.h     |  2 +-
- drivers/gpu/drm/i915/intel_uncore.c         |  2 +-
- 16 files changed, 26 insertions(+), 24 deletions(-)
-
-diff --git a/drivers/gpu/drm/i915/i915_driver.c b/drivers/gpu/drm/i915/i915_driver.c
-index c2ae37d6b94d..91a7748f4492 100644
---- a/drivers/gpu/drm/i915/i915_driver.c
-+++ b/drivers/gpu/drm/i915/i915_driver.c
-@@ -1130,7 +1130,7 @@ static int i915_drm_suspend_late(struct drm_device *dev, bool hibernation)
- 	 * leave the device in D0 on those platforms and hope the BIOS will
- 	 * power down the device properly. The issue was seen on multiple old
- 	 * GENs with different BIOS vendors, so having an explicit blacklist
--	 * is inpractical; apply the workaround on everything pre GEN6. The
-+	 * is impractical; apply the workaround on everything pre GEN6. The
- 	 * platforms where the issue was seen:
- 	 * Lenovo Thinkpad X301, X61s, X60, T60, X41
- 	 * Fujitsu FSC S7110
-diff --git a/drivers/gpu/drm/i915/i915_gem.c b/drivers/gpu/drm/i915/i915_gem.c
-index 070ab6546987..686ed33c1a8b 100644
---- a/drivers/gpu/drm/i915/i915_gem.c
-+++ b/drivers/gpu/drm/i915/i915_gem.c
-@@ -1146,7 +1146,7 @@ int i915_gem_init(struct drm_i915_private *dev_priv)
- 	int ret;
- 
- 	/*
--	 * In the proccess of replacing cache_level with pat_index a tricky
-+	 * In the process of replacing cache_level with pat_index a tricky
- 	 * dependency is created on the definition of the enum i915_cache_level.
- 	 * in case this enum is changed, PTE encode would be broken.
- 	 * Add a WARNING here. And remove when we completely quit using this
-diff --git a/drivers/gpu/drm/i915/i915_irq.c b/drivers/gpu/drm/i915/i915_irq.c
-index 7920ad9585ae..bc4b92edcb9f 100644
---- a/drivers/gpu/drm/i915/i915_irq.c
-+++ b/drivers/gpu/drm/i915/i915_irq.c
-@@ -1231,7 +1231,7 @@ int intel_irq_install(struct drm_i915_private *dev_priv)
- }
- 
- /**
-- * intel_irq_uninstall - finilizes all irq handling
-+ * intel_irq_uninstall - finalizes all irq handling
-  * @dev_priv: i915 device instance
-  *
-  * This stops interrupt and hotplug handling and unregisters and frees all
-diff --git a/drivers/gpu/drm/i915/i915_module.c b/drivers/gpu/drm/i915/i915_module.c
-index 7ed6d70389af..2f88970cc0a9 100644
---- a/drivers/gpu/drm/i915/i915_module.c
-+++ b/drivers/gpu/drm/i915/i915_module.c
-@@ -24,7 +24,7 @@ static int i915_check_nomodeset(void)
- 	bool use_kms = true;
- 
- 	/*
--	 * Enable KMS by default, unless explicitly overriden by
-+	 * Enable KMS by default, unless explicitly overridden by
- 	 * either the i915.modeset parameter or by the
- 	 * nomodeset boot option.
- 	 */
-diff --git a/drivers/gpu/drm/i915/i915_perf.c b/drivers/gpu/drm/i915/i915_perf.c
-index 2406cda75b7b..cea24ad657d7 100644
---- a/drivers/gpu/drm/i915/i915_perf.c
-+++ b/drivers/gpu/drm/i915/i915_perf.c
-@@ -570,7 +570,7 @@ static bool oa_buffer_check_unlocked(struct i915_perf_stream *stream)
- 	tail = hw_tail;
- 
- 	/* Walk the stream backward until we find a report with report
--	 * id and timestmap not at 0. Since the circular buffer pointers
-+	 * id and timestamp not at 0. Since the circular buffer pointers
- 	 * progress by increments of 64 bytes and that reports can be up
- 	 * to 256 bytes long, we can't tell whether a report has fully
- 	 * landed in memory before the report id and timestamp of the
-@@ -3849,7 +3849,7 @@ i915_perf_open_ioctl_locked(struct i915_perf *perf,
- 	}
- 
- 	/*
--	 * Asking for SSEU configuration is a priviliged operation.
-+	 * Asking for SSEU configuration is a privileged operation.
- 	 */
- 	if (props->has_sseu)
- 		privileged_op = true;
-@@ -4478,14 +4478,16 @@ static bool gen12_is_valid_mux_addr(struct i915_perf *perf, u32 addr)
- 
- static u32 mask_reg_value(u32 reg, u32 val)
- {
--	/* HALF_SLICE_CHICKEN2 is programmed with a the
-+	/*
-+	 * HALF_SLICE_CHICKEN2 is programmed with a the
- 	 * WaDisableSTUnitPowerOptimization workaround. Make sure the value
- 	 * programmed by userspace doesn't change this.
- 	 */
- 	if (REG_EQUAL(reg, HALF_SLICE_CHICKEN2))
- 		val = val & ~_MASKED_BIT_ENABLE(GEN8_ST_PO_DISABLE);
- 
--	/* WAIT_FOR_RC6_EXIT has only one bit fullfilling the function
-+	/*
-+	 * WAIT_FOR_RC6_EXIT has only one bit fulfilling the function
- 	 * indicated by its name and a bunch of selection fields used by OA
- 	 * configs.
- 	 */
-diff --git a/drivers/gpu/drm/i915/i915_pmu.h b/drivers/gpu/drm/i915/i915_pmu.h
-index 8e66d63d0c9f..0ec78c2b4f20 100644
---- a/drivers/gpu/drm/i915/i915_pmu.h
-+++ b/drivers/gpu/drm/i915/i915_pmu.h
-@@ -103,7 +103,7 @@ struct i915_pmu {
- 	/**
- 	 * @timer_last:
- 	 *
--	 * Timestmap of the previous timer invocation.
-+	 * Timestamp of the previous timer invocation.
- 	 */
- 	ktime_t timer_last;
- 
-diff --git a/drivers/gpu/drm/i915/i915_reg.h b/drivers/gpu/drm/i915/i915_reg.h
-index 765e6c0528fb..902d7ad61021 100644
---- a/drivers/gpu/drm/i915/i915_reg.h
-+++ b/drivers/gpu/drm/i915/i915_reg.h
-@@ -84,7 +84,7 @@
-  * Try to name registers according to the specs. If the register name changes in
-  * the specs from platform to another, stick to the original name.
-  *
-- * Try to re-use existing register macro definitions. Only add new macros for
-+ * Try to reuse existing register macro definitions. Only add new macros for
-  * new register offsets, or when the register contents have changed enough to
-  * warrant a full redefinition.
-  *
-@@ -492,7 +492,7 @@
- #define MBUS_ABOX_BT_CREDIT_POOL1_MASK	(0x1F << 0)
- #define MBUS_ABOX_BT_CREDIT_POOL1(x)	((x) << 0)
- 
--/* Make render/texture TLB fetches lower priorty than associated data
-+/* Make render/texture TLB fetches lower priority than associated data
-  *   fetches. This is not turned on by default
-  */
- #define   MI_ARB_RENDER_TLB_LOW_PRIORITY	(1 << 15)
-diff --git a/drivers/gpu/drm/i915/i915_request.c b/drivers/gpu/drm/i915/i915_request.c
-index 8f62cfa23fb7..f8c584ce3295 100644
---- a/drivers/gpu/drm/i915/i915_request.c
-+++ b/drivers/gpu/drm/i915/i915_request.c
-@@ -473,7 +473,7 @@ static bool __request_in_flight(const struct i915_request *signal)
- 	 * to avoid tearing.]
- 	 *
- 	 * Note that the read of *execlists->active may race with the promotion
--	 * of execlists->pending[] to execlists->inflight[], overwritting
-+	 * of execlists->pending[] to execlists->inflight[], overwriting
- 	 * the value at *execlists->active. This is fine. The promotion implies
- 	 * that we received an ACK from the HW, and so the context is not
- 	 * stuck -- if we do not see ourselves in *active, the inflight status
-diff --git a/drivers/gpu/drm/i915/i915_request.h b/drivers/gpu/drm/i915/i915_request.h
-index 0ac55b2e4223..5f7e8138ec14 100644
---- a/drivers/gpu/drm/i915/i915_request.h
-+++ b/drivers/gpu/drm/i915/i915_request.h
-@@ -161,7 +161,7 @@ enum {
- 	 * parent-child relationship (parallel submission, multi-lrc) that
- 	 * hit an error while generating requests in the execbuf IOCTL.
- 	 * Indicates this request should be skipped as another request in
--	 * submission / relationship encoutered an error.
-+	 * submission / relationship encountered an error.
- 	 */
- 	I915_FENCE_FLAG_SKIP_PARALLEL,
- 
-@@ -187,7 +187,7 @@ enum {
-  * RCU lookup of it that may race against reallocation of the struct
-  * from the slab freelist. We intentionally do not zero the structure on
-  * allocation so that the lookup can use the dangling pointers (and is
-- * cogniscent that those pointers may be wrong). Instead, everything that
-+ * cognisant that those pointers may be wrong). Instead, everything that
-  * needs to be initialised must be done so explicitly.
-  *
-  * The requests are reference counted.
-diff --git a/drivers/gpu/drm/i915/i915_vma.c b/drivers/gpu/drm/i915/i915_vma.c
-index 776f8cc51b2f..61b49007ecd4 100644
---- a/drivers/gpu/drm/i915/i915_vma.c
-+++ b/drivers/gpu/drm/i915/i915_vma.c
-@@ -778,8 +778,8 @@ bool i915_gem_valid_gtt_space(struct i915_vma *vma, unsigned long color)
-  * @flags: mask of PIN_* flags to use
-  *
-  * First we try to allocate some free space that meets the requirements for
-- * the VMA. Failiing that, if the flags permit, it will evict an old VMA,
-- * preferrably the oldest idle entry to make room for the new VMA.
-+ * the VMA. Failing that, if the flags permit, it will evict an old VMA,
-+ * preferably the oldest idle entry to make room for the new VMA.
-  *
-  * Returns:
-  * 0 on success, negative error code otherwise.
-@@ -877,7 +877,7 @@ i915_vma_insert(struct i915_vma *vma, struct i915_gem_ww_ctx *ww,
- 		 * objects which need to be tightly packed into the low 32bits.
- 		 *
- 		 * Note that we assume that GGTT are limited to 4GiB for the
--		 * forseeable future. See also i915_ggtt_offset().
-+		 * foreseeable future. See also i915_ggtt_offset().
- 		 */
- 		if (upper_32_bits(end - 1) &&
- 		    vma->page_sizes.sg > I915_GTT_PAGE_SIZE &&
-@@ -1001,7 +1001,7 @@ rotate_pages(struct drm_i915_gem_object *obj, unsigned int offset,
- 
- 		/*
- 		 * The DE ignores the PTEs for the padding tiles, the sg entry
--		 * here is just a conenience to indicate how many padding PTEs
-+		 * here is just a convenience to indicate how many padding PTEs
- 		 * to insert at this spot.
- 		 */
- 		sg_set_page(sg, NULL, left, 0);
-diff --git a/drivers/gpu/drm/i915/intel_clock_gating.c b/drivers/gpu/drm/i915/intel_clock_gating.c
-index f76642886569..387b26400169 100644
---- a/drivers/gpu/drm/i915/intel_clock_gating.c
-+++ b/drivers/gpu/drm/i915/intel_clock_gating.c
-@@ -682,7 +682,7 @@ static void i85x_init_clock_gating(struct drm_i915_private *i915)
- 	 * Have FBC ignore 3D activity since we use software
- 	 * render tracking, and otherwise a pure 3D workload
- 	 * (even if it just renders a single frame and then does
--	 * abosultely nothing) would not allow FBC to recompress
-+	 * absolutely nothing) would not allow FBC to recompress
- 	 * until a 2D blit occurs.
- 	 */
- 	intel_uncore_write(&i915->uncore, SCPD0,
-diff --git a/drivers/gpu/drm/i915/intel_gvt.c b/drivers/gpu/drm/i915/intel_gvt.c
-index a5383a2bc64b..dae9dce7d1b3 100644
---- a/drivers/gpu/drm/i915/intel_gvt.c
-+++ b/drivers/gpu/drm/i915/intel_gvt.c
-@@ -265,7 +265,7 @@ void intel_gvt_driver_remove(struct drm_i915_private *dev_priv)
- }
- 
- /**
-- * intel_gvt_resume - GVT resume routine wapper
-+ * intel_gvt_resume - GVT resume routine wrapper
-  *
-  * @dev_priv: drm i915 private *
-  *
-diff --git a/drivers/gpu/drm/i915/intel_gvt_mmio_table.c b/drivers/gpu/drm/i915/intel_gvt_mmio_table.c
-index ee1cd2126f97..04076316e139 100644
---- a/drivers/gpu/drm/i915/intel_gvt_mmio_table.c
-+++ b/drivers/gpu/drm/i915/intel_gvt_mmio_table.c
-@@ -1260,7 +1260,7 @@ static int iterate_bxt_mmio(struct intel_gvt_mmio_table_iter *iter)
- 
- /**
-  * intel_gvt_iterate_mmio_table - Iterate the GVT MMIO table
-- * @iter: the interator
-+ * @iter: the iterator
-  *
-  * This function is called for iterating the GVT MMIO table when i915 is
-  * taking the snapshot of the HW and GVT is building MMIO tracking table.
-diff --git a/drivers/gpu/drm/i915/intel_runtime_pm.c b/drivers/gpu/drm/i915/intel_runtime_pm.c
-index 1a47ecfd3fd8..8d9f4c410546 100644
---- a/drivers/gpu/drm/i915/intel_runtime_pm.c
-+++ b/drivers/gpu/drm/i915/intel_runtime_pm.c
-@@ -375,7 +375,7 @@ void intel_runtime_pm_enable(struct intel_runtime_pm *rpm)
- 	 * leave the device suspended skipping the driver's suspend handlers
- 	 * if the device was already runtime suspended. This is needed due to
- 	 * the difference in our runtime and system suspend sequence and
--	 * becaue the HDA driver may require us to enable the audio power
-+	 * because the HDA driver may require us to enable the audio power
- 	 * domain during system suspend.
- 	 */
- 	dev_pm_set_driver_flags(kdev, DPM_FLAG_NO_DIRECT_COMPLETE);
-diff --git a/drivers/gpu/drm/i915/intel_runtime_pm.h b/drivers/gpu/drm/i915/intel_runtime_pm.h
-index e22669d61e95..7428bd8fa67f 100644
---- a/drivers/gpu/drm/i915/intel_runtime_pm.h
-+++ b/drivers/gpu/drm/i915/intel_runtime_pm.h
-@@ -31,7 +31,7 @@ struct drm_printer;
-  * it can be changed with the standard runtime PM files from sysfs.
-  *
-  * The irqs_disabled variable becomes true exactly after we disable the IRQs and
-- * goes back to false exactly before we reenable the IRQs. We use this variable
-+ * goes back to false exactly before we re-enable the IRQs. We use this variable
-  * to check if someone is trying to enable/disable IRQs while they're supposed
-  * to be disabled. This shouldn't happen and we'll print some error messages in
-  * case it happens.
-diff --git a/drivers/gpu/drm/i915/intel_uncore.c b/drivers/gpu/drm/i915/intel_uncore.c
-index eed4937c3ff3..04ef628e208b 100644
---- a/drivers/gpu/drm/i915/intel_uncore.c
-+++ b/drivers/gpu/drm/i915/intel_uncore.c
-@@ -2477,7 +2477,7 @@ static int sanity_check_mmio_access(struct intel_uncore *uncore)
- 
- 	/*
- 	 * Sanitycheck that MMIO access to the device is working properly.  If
--	 * the CPU is unable to communcate with a PCI device, BAR reads will
-+	 * the CPU is unable to communicate with a PCI device, BAR reads will
- 	 * return 0xFFFFFFFF.  Let's make sure the device isn't in this state
- 	 * before we start trying to access registers.
- 	 *
 -- 
-2.25.1
+Cheers,
+
+David / dhildenb
 
