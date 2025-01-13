@@ -4,24 +4,24 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 58F49C02184
-	for <intel-gfx@archiver.kernel.org>; Mon, 13 Jan 2025 19:36:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AD973C02180
+	for <intel-gfx@archiver.kernel.org>; Mon, 13 Jan 2025 19:36:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F3F1610E105;
-	Mon, 13 Jan 2025 19:36:40 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 564A610E02E;
+	Mon, 13 Jan 2025 19:36:53 +0000 (UTC)
 Received: from b555e5b46a47 (emeril.freedesktop.org [131.252.210.167])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C69FD10E1ED;
- Mon, 13 Jan 2025 19:36:39 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C658210E02E;
+ Mon, 13 Jan 2025 19:36:52 +0000 (UTC)
 Content-Type: multipart/alternative;
- boundary="===============3388047079981112921=="
+ boundary="===============1014309913878899143=="
 MIME-Version: 1.0
 Subject: =?utf-8?q?=E2=9C=97_i915=2ECI=2EBAT=3A_failure_for_drm/xe/dp=3A_Enable_DP_tu?=
  =?utf-8?q?nneling?=
 From: Patchwork <patchwork@emeril.freedesktop.org>
 To: "Imre Deak" <imre.deak@intel.com>
 Cc: intel-gfx@lists.freedesktop.org
-Date: Mon, 13 Jan 2025 19:36:39 -0000
-Message-ID: <173679699979.3341431.11657240392870164498@b555e5b46a47>
+Date: Mon, 13 Jan 2025 19:36:52 -0000
+Message-ID: <173679701273.3341437.18211769543940764361@b555e5b46a47>
 X-Patchwork-Hint: ignore
 References: <20250113154832.1004369-1-imre.deak@intel.com>
 In-Reply-To: <20250113154832.1004369-1-imre.deak@intel.com>
@@ -41,7 +41,7 @@ Reply-To: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
---===============3388047079981112921==
+--===============1014309913878899143==
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
@@ -141,7 +141,7 @@ Build changes
 
 For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_143466v1/index.html
 
---===============3388047079981112921==
+--===============1014309913878899143==
 Content-Type: text/html; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
@@ -233,4 +233,4 @@ Content-Transfer-Encoding: 7bit
 </body>
 </html>
 
---===============3388047079981112921==--
+--===============1014309913878899143==--
