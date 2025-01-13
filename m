@@ -4,57 +4,27 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F09B1C02186
-	for <intel-gfx@archiver.kernel.org>; Mon, 13 Jan 2025 20:43:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2D348C02183
+	for <intel-gfx@archiver.kernel.org>; Mon, 13 Jan 2025 20:47:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 90EBD10E326;
-	Mon, 13 Jan 2025 20:43:48 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="SBNONzoN";
-	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.8])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A6D8510E128;
- Mon, 13 Jan 2025 20:43:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1736801027; x=1768337027;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=1aNW9dl2Cx1XFSdVYQQ5P6dstjKtO/FnrLkGiAjX6q4=;
- b=SBNONzoNwn6xli93A1fPKC+gr47OsUdaqpAKI4fT+JMSRkR24W/HCTbJ
- T0n0ckjJAhdNR/pqEdS/KiF3c6bDOK7CyoukeD7oUN5JLmSWvLeFOaxiu
- Ph4ZEhCeFaKMuAUKNtc13/MVcg1AC8A8EIHVpFYEXoUHsf6Ek4hrUVyTX
- LBDMcJnF+sev9+suQjzoecQWkd3qCC5odjzbAbb+pR7RwD8nLQKLkf4aY
- YYjrBUC/UHozD9Hk/wQnnBOYxiAzgML8glI0+EY2HL31XTBSAUg6ucqCj
- 1YzwnVDLhArsvJx0sTFT0CT0lxTkT3MBBLGETtxS/wiEfbjVQa5RXQeGq A==;
-X-CSE-ConnectionGUID: 110QVcdEQti038OQwIPSCA==
-X-CSE-MsgGUID: lIt0wsArSny0iAoO8z+eGw==
-X-IronPort-AV: E=McAfee;i="6700,10204,11314"; a="54627160"
-X-IronPort-AV: E=Sophos;i="6.12,312,1728975600"; d="scan'208";a="54627160"
-Received: from orviesa002.jf.intel.com ([10.64.159.142])
- by fmvoesa102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 13 Jan 2025 12:43:46 -0800
-X-CSE-ConnectionGUID: N91XrItyRKmlCSX5aECIPw==
-X-CSE-MsgGUID: 6pBOcIhfRh26MGTG3Vilkg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.12,312,1728975600"; d="scan'208";a="135417679"
-Received: from ldmartin-desk2.corp.intel.com (HELO
- gjsousa-mobl2.corp.amr.intel.com) ([10.125.108.25])
- by orviesa002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 13 Jan 2025 12:43:44 -0800
-From: Gustavo Sousa <gustavo.sousa@intel.com>
-To: intel-gfx@lists.freedesktop.org,
-	intel-xe@lists.freedesktop.org
-Cc: Jani Nikula <jani.nikula@intel.com>,
- =?UTF-8?q?Jouni=20H=C3=B6gander?= <jouni.hogander@intel.com>
-Subject: [PATCH v2 2/3] drm/i915/display: Wrap IRQ-specific uncore functions
-Date: Mon, 13 Jan 2025 17:38:57 -0300
-Message-ID: <20250113204306.112266-3-gustavo.sousa@intel.com>
-X-Mailer: git-send-email 2.48.0
-In-Reply-To: <20250113204306.112266-1-gustavo.sousa@intel.com>
-References: <20250113204306.112266-1-gustavo.sousa@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id C4CAB10E11F;
+	Mon, 13 Jan 2025 20:47:32 +0000 (UTC)
+Received: from b555e5b46a47 (emeril.freedesktop.org [131.252.210.167])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BB25810E11F;
+ Mon, 13 Jan 2025 20:47:31 +0000 (UTC)
+Content-Type: multipart/alternative;
+ boundary="===============2905947978382813503=="
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Subject: =?utf-8?q?=E2=9C=93_i915=2ECI=2EBAT=3A_success_for_drm/i915/pmu=3A_Remove_i9?=
+ =?utf-8?q?15=5Fpmu=5Fevent=5Fevent=5Fidx=28=29?=
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Lucas De Marchi" <lucas.demarchi@intel.com>
+Cc: intel-gfx@lists.freedesktop.org
+Date: Mon, 13 Jan 2025 20:47:31 -0000
+Message-ID: <173680125175.3341446.9108295940222739344@b555e5b46a47>
+X-Patchwork-Hint: ignore
+References: <20250113183329.3138138-1-lucas.demarchi@intel.com>
+In-Reply-To: <20250113183329.3138138-1-lucas.demarchi@intel.com>
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,338 +37,194 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-The current display IRQ code calls some IRQ-specific helpers that use
-intel_uncore_*() MMIO functions instead of the display-specific ones.
-Wrap those helpers to ensure that the proper display-specific hooks
-(currently only DMC wakelock handling) are called.
+--===============2905947978382813503==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
 
-v2:
- - Move functions to intel_display_irq.c instead of having them in
-   intel_de.h. (Jani)
+== Series Details ==
 
-Cc: Jani Nikula <jani.nikula@intel.com>
-Signed-off-by: Gustavo Sousa <gustavo.sousa@intel.com>
----
- .../gpu/drm/i915/display/intel_display_irq.c  | 128 ++++++++++++------
- 1 file changed, 83 insertions(+), 45 deletions(-)
+Series: drm/i915/pmu: Remove i915_pmu_event_event_idx()
+URL   : https://patchwork.freedesktop.org/series/143476/
+State : success
 
-diff --git a/drivers/gpu/drm/i915/display/intel_display_irq.c b/drivers/gpu/drm/i915/display/intel_display_irq.c
-index 9662368a651d..d9734fcd0d45 100644
---- a/drivers/gpu/drm/i915/display/intel_display_irq.c
-+++ b/drivers/gpu/drm/i915/display/intel_display_irq.c
-@@ -15,6 +15,7 @@
- #include "intel_display_irq.h"
- #include "intel_display_trace.h"
- #include "intel_display_types.h"
-+#include "intel_dmc_wl.h"
- #include "intel_dp_aux.h"
- #include "intel_dsb.h"
- #include "intel_fdi_regs.h"
-@@ -25,6 +26,46 @@
- #include "intel_pmdemand.h"
- #include "intel_psr.h"
- #include "intel_psr_regs.h"
-+#include "intel_uncore.h"
-+
-+static void
-+intel_display_irq_regs_init(struct intel_display *display, struct i915_irq_regs regs,
-+			    u32 imr_val, u32 ier_val)
-+{
-+	intel_dmc_wl_get(display, regs.imr);
-+	intel_dmc_wl_get(display, regs.ier);
-+	intel_dmc_wl_get(display, regs.iir);
-+
-+	gen2_irq_init(to_intel_uncore(display->drm), regs, imr_val, ier_val);
-+
-+	intel_dmc_wl_put(display, regs.iir);
-+	intel_dmc_wl_put(display, regs.ier);
-+	intel_dmc_wl_put(display, regs.imr);
-+}
-+
-+static void
-+intel_display_irq_regs_reset(struct intel_display *display, struct i915_irq_regs regs)
-+{
-+	intel_dmc_wl_get(display, regs.imr);
-+	intel_dmc_wl_get(display, regs.ier);
-+	intel_dmc_wl_get(display, regs.iir);
-+
-+	gen2_irq_reset(to_intel_uncore(display->drm), regs);
-+
-+	intel_dmc_wl_put(display, regs.iir);
-+	intel_dmc_wl_put(display, regs.ier);
-+	intel_dmc_wl_put(display, regs.imr);
-+}
-+
-+static void
-+intel_display_irq_regs_assert_irr_is_zero(struct intel_display *display, i915_reg_t reg)
-+{
-+	intel_dmc_wl_get(display, reg);
-+
-+	gen2_assert_iir_is_zero(to_intel_uncore(display->drm), reg);
-+
-+	intel_dmc_wl_put(display, reg);
-+}
- 
- static void
- intel_handle_vblank(struct drm_i915_private *dev_priv, enum pipe pipe)
-@@ -1498,7 +1539,6 @@ void bdw_disable_vblank(struct drm_crtc *_crtc)
- static void _vlv_display_irq_reset(struct drm_i915_private *dev_priv)
- {
- 	struct intel_display *display = &dev_priv->display;
--	struct intel_uncore *uncore = &dev_priv->uncore;
- 
- 	if (IS_CHERRYVIEW(dev_priv))
- 		intel_de_write(display, DPINVGTT, DPINVGTT_STATUS_MASK_CHV);
-@@ -1510,7 +1550,7 @@ static void _vlv_display_irq_reset(struct drm_i915_private *dev_priv)
- 
- 	i9xx_pipestat_irq_reset(dev_priv);
- 
--	gen2_irq_reset(uncore, VLV_IRQ_REGS);
-+	intel_display_irq_regs_reset(display, VLV_IRQ_REGS);
- 	dev_priv->irq_mask = ~0u;
- }
- 
-@@ -1534,8 +1574,7 @@ void i9xx_display_irq_reset(struct drm_i915_private *i915)
- 
- void vlv_display_irq_postinstall(struct drm_i915_private *dev_priv)
- {
--	struct intel_uncore *uncore = &dev_priv->uncore;
--
-+	struct intel_display *display = &dev_priv->display;
- 	u32 pipestat_mask;
- 	u32 enable_mask;
- 	enum pipe pipe;
-@@ -1563,13 +1602,12 @@ void vlv_display_irq_postinstall(struct drm_i915_private *dev_priv)
- 
- 	dev_priv->irq_mask = ~enable_mask;
- 
--	gen2_irq_init(uncore, VLV_IRQ_REGS, dev_priv->irq_mask, enable_mask);
-+	intel_display_irq_regs_init(display, VLV_IRQ_REGS, dev_priv->irq_mask, enable_mask);
- }
- 
- void gen8_display_irq_reset(struct drm_i915_private *dev_priv)
- {
- 	struct intel_display *display = &dev_priv->display;
--	struct intel_uncore *uncore = &dev_priv->uncore;
- 	enum pipe pipe;
- 
- 	if (!HAS_DISPLAY(dev_priv))
-@@ -1581,16 +1619,15 @@ void gen8_display_irq_reset(struct drm_i915_private *dev_priv)
- 	for_each_pipe(dev_priv, pipe)
- 		if (intel_display_power_is_enabled(dev_priv,
- 						   POWER_DOMAIN_PIPE(pipe)))
--			gen2_irq_reset(uncore, GEN8_DE_PIPE_IRQ_REGS(pipe));
-+			intel_display_irq_regs_reset(display, GEN8_DE_PIPE_IRQ_REGS(pipe));
- 
--	gen2_irq_reset(uncore, GEN8_DE_PORT_IRQ_REGS);
--	gen2_irq_reset(uncore, GEN8_DE_MISC_IRQ_REGS);
-+	intel_display_irq_regs_reset(display, GEN8_DE_PORT_IRQ_REGS);
-+	intel_display_irq_regs_reset(display, GEN8_DE_MISC_IRQ_REGS);
- }
- 
- void gen11_display_irq_reset(struct drm_i915_private *dev_priv)
- {
- 	struct intel_display *display = &dev_priv->display;
--	struct intel_uncore *uncore = &dev_priv->uncore;
- 	enum pipe pipe;
- 	u32 trans_mask = BIT(TRANSCODER_A) | BIT(TRANSCODER_B) |
- 		BIT(TRANSCODER_C) | BIT(TRANSCODER_D);
-@@ -1625,24 +1662,24 @@ void gen11_display_irq_reset(struct drm_i915_private *dev_priv)
- 	for_each_pipe(dev_priv, pipe)
- 		if (intel_display_power_is_enabled(dev_priv,
- 						   POWER_DOMAIN_PIPE(pipe)))
--			gen2_irq_reset(uncore, GEN8_DE_PIPE_IRQ_REGS(pipe));
-+			intel_display_irq_regs_reset(display, GEN8_DE_PIPE_IRQ_REGS(pipe));
- 
--	gen2_irq_reset(uncore, GEN8_DE_PORT_IRQ_REGS);
--	gen2_irq_reset(uncore, GEN8_DE_MISC_IRQ_REGS);
-+	intel_display_irq_regs_reset(display, GEN8_DE_PORT_IRQ_REGS);
-+	intel_display_irq_regs_reset(display, GEN8_DE_MISC_IRQ_REGS);
- 
- 	if (DISPLAY_VER(dev_priv) >= 14)
--		gen2_irq_reset(uncore, PICAINTERRUPT_IRQ_REGS);
-+		intel_display_irq_regs_reset(display, PICAINTERRUPT_IRQ_REGS);
- 	else
--		gen2_irq_reset(uncore, GEN11_DE_HPD_IRQ_REGS);
-+		intel_display_irq_regs_reset(display, GEN11_DE_HPD_IRQ_REGS);
- 
- 	if (INTEL_PCH_TYPE(dev_priv) >= PCH_ICP)
--		gen2_irq_reset(uncore, SDE_IRQ_REGS);
-+		intel_display_irq_regs_reset(display, SDE_IRQ_REGS);
- }
- 
- void gen8_irq_power_well_post_enable(struct drm_i915_private *dev_priv,
- 				     u8 pipe_mask)
- {
--	struct intel_uncore *uncore = &dev_priv->uncore;
-+	struct intel_display *display = &dev_priv->display;
- 	u32 extra_ier = GEN8_PIPE_VBLANK | GEN8_PIPE_FIFO_UNDERRUN |
- 		gen8_de_pipe_flip_done_mask(dev_priv);
- 	enum pipe pipe;
-@@ -1655,9 +1692,9 @@ void gen8_irq_power_well_post_enable(struct drm_i915_private *dev_priv,
- 	}
- 
- 	for_each_pipe_masked(dev_priv, pipe, pipe_mask)
--		gen2_irq_init(uncore, GEN8_DE_PIPE_IRQ_REGS(pipe),
--			      dev_priv->display.irq.de_irq_mask[pipe],
--			      ~dev_priv->display.irq.de_irq_mask[pipe] | extra_ier);
-+		intel_display_irq_regs_init(display, GEN8_DE_PIPE_IRQ_REGS(pipe),
-+					    dev_priv->display.irq.de_irq_mask[pipe],
-+					    ~dev_priv->display.irq.de_irq_mask[pipe] | extra_ier);
- 
- 	spin_unlock_irq(&dev_priv->irq_lock);
- }
-@@ -1665,7 +1702,7 @@ void gen8_irq_power_well_post_enable(struct drm_i915_private *dev_priv,
- void gen8_irq_power_well_pre_disable(struct drm_i915_private *dev_priv,
- 				     u8 pipe_mask)
- {
--	struct intel_uncore *uncore = &dev_priv->uncore;
-+	struct intel_display *display = &dev_priv->display;
- 	enum pipe pipe;
- 
- 	spin_lock_irq(&dev_priv->irq_lock);
-@@ -1676,7 +1713,7 @@ void gen8_irq_power_well_pre_disable(struct drm_i915_private *dev_priv,
- 	}
- 
- 	for_each_pipe_masked(dev_priv, pipe, pipe_mask)
--		gen2_irq_reset(uncore, GEN8_DE_PIPE_IRQ_REGS(pipe));
-+		intel_display_irq_regs_reset(display, GEN8_DE_PIPE_IRQ_REGS(pipe));
- 
- 	spin_unlock_irq(&dev_priv->irq_lock);
- 
-@@ -1697,7 +1734,7 @@ void gen8_irq_power_well_pre_disable(struct drm_i915_private *dev_priv,
-  */
- static void ibx_irq_postinstall(struct drm_i915_private *dev_priv)
- {
--	struct intel_uncore *uncore = &dev_priv->uncore;
-+	struct intel_display *display = &dev_priv->display;
- 	u32 mask;
- 
- 	if (HAS_PCH_NOP(dev_priv))
-@@ -1710,7 +1747,7 @@ static void ibx_irq_postinstall(struct drm_i915_private *dev_priv)
- 	else
- 		mask = SDE_GMBUS_CPT;
- 
--	gen2_irq_init(uncore, SDE_IRQ_REGS, ~mask, 0xffffffff);
-+	intel_display_irq_regs_init(display, SDE_IRQ_REGS, ~mask, 0xffffffff);
- }
- 
- void valleyview_enable_display_irqs(struct drm_i915_private *dev_priv)
-@@ -1743,7 +1780,7 @@ void valleyview_disable_display_irqs(struct drm_i915_private *dev_priv)
- 
- void ilk_de_irq_postinstall(struct drm_i915_private *i915)
- {
--	struct intel_uncore *uncore = &i915->uncore;
-+	struct intel_display *display = &i915->display;
- 	u32 display_mask, extra_mask;
- 
- 	if (DISPLAY_VER(i915) >= 7) {
-@@ -1767,7 +1804,7 @@ void ilk_de_irq_postinstall(struct drm_i915_private *i915)
- 	}
- 
- 	if (IS_HASWELL(i915)) {
--		gen2_assert_iir_is_zero(uncore, EDP_PSR_IIR);
-+		intel_display_irq_regs_assert_irr_is_zero(display, EDP_PSR_IIR);
- 		display_mask |= DE_EDP_PSR_INT_HSW;
- 	}
- 
-@@ -1778,8 +1815,8 @@ void ilk_de_irq_postinstall(struct drm_i915_private *i915)
- 
- 	ibx_irq_postinstall(i915);
- 
--	gen2_irq_init(uncore, DE_IRQ_REGS, i915->irq_mask,
--		      display_mask | extra_mask);
-+	intel_display_irq_regs_init(display, DE_IRQ_REGS, i915->irq_mask,
-+				    display_mask | extra_mask);
- }
- 
- static void mtp_irq_postinstall(struct drm_i915_private *i915);
-@@ -1788,7 +1825,6 @@ static void icp_irq_postinstall(struct drm_i915_private *i915);
- void gen8_de_irq_postinstall(struct drm_i915_private *dev_priv)
- {
- 	struct intel_display *display = &dev_priv->display;
--	struct intel_uncore *uncore = &dev_priv->uncore;
- 
- 	u32 de_pipe_masked = gen8_de_pipe_fault_mask(dev_priv) |
- 		GEN8_PIPE_CDCLK_CRC_DONE;
-@@ -1854,11 +1890,11 @@ void gen8_de_irq_postinstall(struct drm_i915_private *dev_priv)
- 			if (!intel_display_power_is_enabled(dev_priv, domain))
- 				continue;
- 
--			gen2_assert_iir_is_zero(uncore,
--						TRANS_PSR_IIR(dev_priv, trans));
-+			intel_display_irq_regs_assert_irr_is_zero(display,
-+								  TRANS_PSR_IIR(dev_priv, trans));
- 		}
- 	} else {
--		gen2_assert_iir_is_zero(uncore, EDP_PSR_IIR);
-+		intel_display_irq_regs_assert_irr_is_zero(display, EDP_PSR_IIR);
- 	}
- 
- 	for_each_pipe(dev_priv, pipe) {
-@@ -1866,44 +1902,46 @@ void gen8_de_irq_postinstall(struct drm_i915_private *dev_priv)
- 
- 		if (intel_display_power_is_enabled(dev_priv,
- 						   POWER_DOMAIN_PIPE(pipe)))
--			gen2_irq_init(uncore, GEN8_DE_PIPE_IRQ_REGS(pipe),
--				      dev_priv->display.irq.de_irq_mask[pipe],
--				      de_pipe_enables);
-+			intel_display_irq_regs_init(display, GEN8_DE_PIPE_IRQ_REGS(pipe),
-+						    dev_priv->display.irq.de_irq_mask[pipe],
-+						    de_pipe_enables);
- 	}
- 
--	gen2_irq_init(uncore, GEN8_DE_PORT_IRQ_REGS, ~de_port_masked, de_port_enables);
--	gen2_irq_init(uncore, GEN8_DE_MISC_IRQ_REGS, ~de_misc_masked, de_misc_masked);
-+	intel_display_irq_regs_init(display, GEN8_DE_PORT_IRQ_REGS, ~de_port_masked,
-+				    de_port_enables);
-+	intel_display_irq_regs_init(display, GEN8_DE_MISC_IRQ_REGS, ~de_misc_masked,
-+				    de_misc_masked);
- 
- 	if (IS_DISPLAY_VER(dev_priv, 11, 13)) {
- 		u32 de_hpd_masked = 0;
- 		u32 de_hpd_enables = GEN11_DE_TC_HOTPLUG_MASK |
- 				     GEN11_DE_TBT_HOTPLUG_MASK;
- 
--		gen2_irq_init(uncore, GEN11_DE_HPD_IRQ_REGS, ~de_hpd_masked,
--			      de_hpd_enables);
-+		intel_display_irq_regs_init(display, GEN11_DE_HPD_IRQ_REGS, ~de_hpd_masked,
-+					    de_hpd_enables);
- 	}
- }
- 
- static void mtp_irq_postinstall(struct drm_i915_private *i915)
- {
--	struct intel_uncore *uncore = &i915->uncore;
-+	struct intel_display *display = &i915->display;
- 	u32 sde_mask = SDE_GMBUS_ICP | SDE_PICAINTERRUPT;
- 	u32 de_hpd_mask = XELPDP_AUX_TC_MASK;
- 	u32 de_hpd_enables = de_hpd_mask | XELPDP_DP_ALT_HOTPLUG_MASK |
- 			     XELPDP_TBT_HOTPLUG_MASK;
- 
--	gen2_irq_init(uncore, PICAINTERRUPT_IRQ_REGS, ~de_hpd_mask,
--		      de_hpd_enables);
-+	intel_display_irq_regs_init(display, PICAINTERRUPT_IRQ_REGS, ~de_hpd_mask,
-+				    de_hpd_enables);
- 
--	gen2_irq_init(uncore, SDE_IRQ_REGS, ~sde_mask, 0xffffffff);
-+	intel_display_irq_regs_init(display, SDE_IRQ_REGS, ~sde_mask, 0xffffffff);
- }
- 
- static void icp_irq_postinstall(struct drm_i915_private *dev_priv)
- {
--	struct intel_uncore *uncore = &dev_priv->uncore;
-+	struct intel_display *display = &dev_priv->display;
- 	u32 mask = SDE_GMBUS_ICP;
- 
--	gen2_irq_init(uncore, SDE_IRQ_REGS, ~mask, 0xffffffff);
-+	intel_display_irq_regs_init(display, SDE_IRQ_REGS, ~mask, 0xffffffff);
- }
- 
- void gen11_de_irq_postinstall(struct drm_i915_private *dev_priv)
--- 
-2.48.0
+== Summary ==
 
+CI Bug Log - changes from CI_DRM_15948 -> Patchwork_143476v1
+====================================================
+
+Summary
+-------
+
+  **SUCCESS**
+
+  No regressions found.
+
+  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_143476v1/index.html
+
+Participating hosts (44 -> 43)
+------------------------------
+
+  Missing    (1): fi-snb-2520m 
+
+Known issues
+------------
+
+  Here are the changes found in Patchwork_143476v1 that come from known issues:
+
+### IGT changes ###
+
+#### Issues hit ####
+
+  * igt@dmabuf@all-tests:
+    - bat-apl-1:          [PASS][1] -> [INCOMPLETE][2] ([i915#12904]) +1 other test incomplete
+   [1]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_15948/bat-apl-1/igt@dmabuf@all-tests.html
+   [2]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_143476v1/bat-apl-1/igt@dmabuf@all-tests.html
+
+  * igt@i915_module_load@load:
+    - fi-pnv-d510:        [PASS][3] -> [ABORT][4] ([i915#13203])
+   [3]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_15948/fi-pnv-d510/igt@i915_module_load@load.html
+   [4]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_143476v1/fi-pnv-d510/igt@i915_module_load@load.html
+
+  * igt@i915_pm_rpm@module-reload:
+    - bat-adls-6:         [PASS][5] -> [FAIL][6] ([i915#13401])
+   [5]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_15948/bat-adls-6/igt@i915_pm_rpm@module-reload.html
+   [6]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_143476v1/bat-adls-6/igt@i915_pm_rpm@module-reload.html
+
+  * igt@i915_selftest@live:
+    - bat-mtlp-8:         [PASS][7] -> [DMESG-FAIL][8] ([i915#13393]) +1 other test dmesg-fail
+   [7]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_15948/bat-mtlp-8/igt@i915_selftest@live.html
+   [8]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_143476v1/bat-mtlp-8/igt@i915_selftest@live.html
+    - bat-arlh-3:         [PASS][9] -> [DMESG-FAIL][10] ([i915#12435] / [i915#13393])
+   [9]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_15948/bat-arlh-3/igt@i915_selftest@live.html
+   [10]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_143476v1/bat-arlh-3/igt@i915_selftest@live.html
+
+  * igt@i915_selftest@live@workarounds:
+    - bat-arlh-3:         [PASS][11] -> [DMESG-FAIL][12] ([i915#13393])
+   [11]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_15948/bat-arlh-3/igt@i915_selftest@live@workarounds.html
+   [12]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_143476v1/bat-arlh-3/igt@i915_selftest@live@workarounds.html
+
+  * igt@kms_pipe_crc_basic@nonblocking-crc-frame-sequence:
+    - bat-dg2-11:         [PASS][13] -> [SKIP][14] ([i915#9197]) +2 other tests skip
+   [13]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_15948/bat-dg2-11/igt@kms_pipe_crc_basic@nonblocking-crc-frame-sequence.html
+   [14]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_143476v1/bat-dg2-11/igt@kms_pipe_crc_basic@nonblocking-crc-frame-sequence.html
+
+  
+  [i915#12435]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/12435
+  [i915#12904]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/12904
+  [i915#13203]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/13203
+  [i915#13393]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/13393
+  [i915#13401]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/13401
+  [i915#9197]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/9197
+
+
+Build changes
+-------------
+
+  * Linux: CI_DRM_15948 -> Patchwork_143476v1
+
+  CI-20190529: 20190529
+  CI_DRM_15948: 20058aae3e619821197cd32b736893f1d7917ba3 @ git://anongit.freedesktop.org/gfx-ci/linux
+  IGT_8188: ef0abf7f39a7ef0ecf2f08c62b90b852c435c755 @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git
+  Patchwork_143476v1: 20058aae3e619821197cd32b736893f1d7917ba3 @ git://anongit.freedesktop.org/gfx-ci/linux
+
+== Logs ==
+
+For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_143476v1/index.html
+
+--===============2905947978382813503==
+Content-Type: text/html; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <title>Project List - Patchwork</title>
+  <style id="css-table-select" type="text/css">
+   td { padding: 2pt; }
+  </style>
+</head>
+<body>
+
+
+<b>Patch Details</b>
+<table>
+<tr><td><b>Series:</b></td><td>drm/i915/pmu: Remove i915_pmu_event_event_idx()</td></tr>
+<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/143476/">https://patchwork.freedesktop.org/series/143476/</a></td></tr>
+<tr><td><b>State:</b></td><td>success</td></tr>
+
+    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_143476v1/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_143476v1/index.html</a></td></tr>
+
+</table>
+
+
+    <h1>CI Bug Log - changes from CI_DRM_15948 -&gt; Patchwork_143476v1</h1>
+<h2>Summary</h2>
+<p><strong>SUCCESS</strong></p>
+<p>No regressions found.</p>
+<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_143476v1/index.html</p>
+<h2>Participating hosts (44 -&gt; 43)</h2>
+<p>Missing    (1): fi-snb-2520m </p>
+<h2>Known issues</h2>
+<p>Here are the changes found in Patchwork_143476v1 that come from known issues:</p>
+<h3>IGT changes</h3>
+<h4>Issues hit</h4>
+<ul>
+<li>
+<p>igt@dmabuf@all-tests:</p>
+<ul>
+<li>bat-apl-1:          <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_15948/bat-apl-1/igt@dmabuf@all-tests.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_143476v1/bat-apl-1/igt@dmabuf@all-tests.html">INCOMPLETE</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/12904">i915#12904</a>) +1 other test incomplete</li>
+</ul>
+</li>
+<li>
+<p>igt@i915_module_load@load:</p>
+<ul>
+<li>fi-pnv-d510:        <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_15948/fi-pnv-d510/igt@i915_module_load@load.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_143476v1/fi-pnv-d510/igt@i915_module_load@load.html">ABORT</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/13203">i915#13203</a>)</li>
+</ul>
+</li>
+<li>
+<p>igt@i915_pm_rpm@module-reload:</p>
+<ul>
+<li>bat-adls-6:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_15948/bat-adls-6/igt@i915_pm_rpm@module-reload.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_143476v1/bat-adls-6/igt@i915_pm_rpm@module-reload.html">FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/13401">i915#13401</a>)</li>
+</ul>
+</li>
+<li>
+<p>igt@i915_selftest@live:</p>
+<ul>
+<li>bat-mtlp-8:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_15948/bat-mtlp-8/igt@i915_selftest@live.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_143476v1/bat-mtlp-8/igt@i915_selftest@live.html">DMESG-FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/13393">i915#13393</a>) +1 other test dmesg-fail</li>
+<li>bat-arlh-3:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_15948/bat-arlh-3/igt@i915_selftest@live.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_143476v1/bat-arlh-3/igt@i915_selftest@live.html">DMESG-FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/12435">i915#12435</a> / <a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/13393">i915#13393</a>)</li>
+</ul>
+</li>
+<li>
+<p>igt@i915_selftest@live@workarounds:</p>
+<ul>
+<li>bat-arlh-3:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_15948/bat-arlh-3/igt@i915_selftest@live@workarounds.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_143476v1/bat-arlh-3/igt@i915_selftest@live@workarounds.html">DMESG-FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/13393">i915#13393</a>)</li>
+</ul>
+</li>
+<li>
+<p>igt@kms_pipe_crc_basic@nonblocking-crc-frame-sequence:</p>
+<ul>
+<li>bat-dg2-11:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_15948/bat-dg2-11/igt@kms_pipe_crc_basic@nonblocking-crc-frame-sequence.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_143476v1/bat-dg2-11/igt@kms_pipe_crc_basic@nonblocking-crc-frame-sequence.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/9197">i915#9197</a>) +2 other tests skip</li>
+</ul>
+</li>
+</ul>
+<h2>Build changes</h2>
+<ul>
+<li>Linux: CI_DRM_15948 -&gt; Patchwork_143476v1</li>
+</ul>
+<p>CI-20190529: 20190529<br />
+  CI_DRM_15948: 20058aae3e619821197cd32b736893f1d7917ba3 @ git://anongit.freedesktop.org/gfx-ci/linux<br />
+  IGT_8188: ef0abf7f39a7ef0ecf2f08c62b90b852c435c755 @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git<br />
+  Patchwork_143476v1: 20058aae3e619821197cd32b736893f1d7917ba3 @ git://anongit.freedesktop.org/gfx-ci/linux</p>
+
+</body>
+</html>
+
+--===============2905947978382813503==--
