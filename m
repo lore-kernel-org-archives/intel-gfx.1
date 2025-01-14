@@ -4,24 +4,24 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 48609E77188
-	for <intel-gfx@archiver.kernel.org>; Tue, 14 Jan 2025 14:22:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3D73DC02183
+	for <intel-gfx@archiver.kernel.org>; Tue, 14 Jan 2025 14:22:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CC1C610E354;
-	Tue, 14 Jan 2025 14:22:39 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D681B10E356;
+	Tue, 14 Jan 2025 14:22:42 +0000 (UTC)
 Received: from b555e5b46a47 (emeril.freedesktop.org [131.252.210.167])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 09F3910E354;
- Tue, 14 Jan 2025 14:22:39 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6FAF610E356;
+ Tue, 14 Jan 2025 14:22:41 +0000 (UTC)
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
-Subject: =?utf-8?q?=E2=9C=97_Fi=2ECI=2ECHECKPATCH=3A_warning_for_drm/i915/cmtg=3A_Dis?=
- =?utf-8?q?able_the_CMTG_=28rev6=29?=
+Subject: =?utf-8?q?=E2=9C=97_Fi=2ECI=2ESPARSE=3A_warning_for_drm/i915/cmtg=3A_Disable?=
+ =?utf-8?q?_the_CMTG_=28rev6=29?=
 From: Patchwork <patchwork@emeril.freedesktop.org>
 To: "Gustavo Sousa" <gustavo.sousa@intel.com>
 Cc: intel-gfx@lists.freedesktop.org
-Date: Tue, 14 Jan 2025 14:22:39 -0000
-Message-ID: <173686455903.3620156.8133009055349461433@b555e5b46a47>
+Date: Tue, 14 Jan 2025 14:22:41 -0000
+Message-ID: <173686456145.3620156.3435435494921204169@b555e5b46a47>
 X-Patchwork-Hint: ignore
 References: <20250113204815.114019-1-gustavo.sousa@intel.com>
 In-Reply-To: <20250113204815.114019-1-gustavo.sousa@intel.com>
@@ -49,20 +49,8 @@ State : warning
 
 == Summary ==
 
-Error: dim checkpatch failed
-b5214cac2798 drm/i915/cmtg: Disable the CMTG
--:64: WARNING:FILE_PATH_CHANGES: added, moved or deleted file(s), does MAINTAINERS need updating?
-#64: 
-new file mode 100644
-
--:182: WARNING:LONG_LINE: line length of 109 exceeds 100 columns
-#182: FILE: drivers/gpu/drm/i915/display/intel_cmtg.c:114:
-+		    intel_cmtg_has_cmtg_b(display) ? str_enabled_disabled(cmtg_state->cmtg_b_enable) : "n/a",
-
--:393: CHECK:MACRO_ARG_REUSE: Macro argument reuse '__display' - possible side-effects?
-#393: FILE: drivers/gpu/drm/i915/display/intel_display_device.h:148:
-+#define HAS_CMTG(__display)		(!(__display)->platform.dg2 && DISPLAY_VER(__display) >= 13)
-
-total: 0 errors, 2 warnings, 1 checks, 415 lines checked
+Error: dim sparse failed
+Sparse version: v0.6.2
+Fast mode used, each commit won't be checked separately.
 
 
