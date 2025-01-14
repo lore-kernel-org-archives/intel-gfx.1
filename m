@@ -4,74 +4,92 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A90B1C02188
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 20241C02183
 	for <intel-gfx@archiver.kernel.org>; Wed, 15 Jan 2025 17:33:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 853A310E78E;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3F97310E787;
 	Wed, 15 Jan 2025 17:33:50 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=google.com header.i=@google.com header.b="VlLOEJJe";
+	dkim=pass (2048-bit key; unprotected) header.d=google.com header.i=@google.com header.b="FopKS7t7";
 	dkim-atps=neutral
-Received: from mail-qt1-f182.google.com (mail-qt1-f182.google.com
- [209.85.160.182])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 86EBE10E736
- for <intel-gfx@lists.freedesktop.org>; Wed, 15 Jan 2025 15:48:36 +0000 (UTC)
-Received: by mail-qt1-f182.google.com with SMTP id
- d75a77b69052e-4678cd314b6so65088551cf.3
- for <intel-gfx@lists.freedesktop.org>; Wed, 15 Jan 2025 07:48:36 -0800 (PST)
+Received: from mail-qk1-x733.google.com (mail-qk1-x733.google.com
+ [IPv6:2607:f8b0:4864:20::733])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 79B3110E3F7
+ for <intel-gfx@lists.freedesktop.org>; Tue, 14 Jan 2025 17:02:30 +0000 (UTC)
+Received: by mail-qk1-x733.google.com with SMTP id
+ af79cd13be357-7b6f19a6c04so510799185a.0
+ for <intel-gfx@lists.freedesktop.org>; Tue, 14 Jan 2025 09:02:30 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=google.com; s=20230601; t=1736956056; x=1737560856;
+ d=google.com; s=20230601; t=1736874149; x=1737478949;
  darn=lists.freedesktop.org; 
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=I/jr6KBLHNTX9a5zOtlZSAW+n3vs5Rh17Yo7aqrlbhI=;
- b=VlLOEJJeSvpxqTmnRE34mu0cFbKatbv7jIr4x39IclXPWXBmvRgFOxNHFzbn70iWD2
- uLFn45Wh1tc7u5kW4vF6+1YUBBif4dHTWnYlqFjeOKwk5IyMUv5ADHRGsVlkaEWYw1cw
- 0wopDWhHXR586oIECVusfqgo6rf3pFSVFkIBXilf+fV3+s3s4SHgW04Jk7LJr85I13uD
- qEOvJ0ULaI3G9BexmBw5B4nXMLdqTHirtjhkdabWy46WYT80lQOnIMaObMcu3oEqvgH9
- JFef5HyvG4SpDafQ+7cJ3t9Rpg4r7NbYsUcOZzS5jwDfeO093FHGhWJh1lE+1ivHSk4c
- WZHg==
+ bh=5pwRPv3AC50iLCk2Zf2oVFdf10HsOLZLViQlkbWzupw=;
+ b=FopKS7t7YhIYYUWyqptnWzGTXQVPWirZhvjBC11mfNSxtk50baQu7s1vWWSD1W95Rc
+ +gW1NYQqxd0MCboHvAwvTq5F/ODHvIoOHtFKiEzVfvZ+4r28N8ctQS2jukviCOWdvJJF
+ Old2sFOr1pnCo/uqMRQgOX9TYKob135PmHJupB7UfBo6frjZ6VWMGd48CtheZ8eaN+y1
+ TcSuK48C78aY9XRf6g1ndLjMHs8GmJ1S6mbmPxDtsoFLI1ri2ooZ9DX+us2nwnnh9IA1
+ DzzYxMVCwH2PuXQ4wQK09OZkdum6q6HcGBSxK9zpRQX11+MHFEUJFl6pV4P4m89QkKA4
+ Wbwg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1736956056; x=1737560856;
+ d=1e100.net; s=20230601; t=1736874149; x=1737478949;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=I/jr6KBLHNTX9a5zOtlZSAW+n3vs5Rh17Yo7aqrlbhI=;
- b=SG9sohlm7yNNJ91bnH9x5cetm8QMQgx8NV256YdZCiFVnUImIigUIGMcK68UWtLtz3
- djMqq3HnHVaSVJAnANze36r0hMspIPchFmnVrbzi5j6LoHXObb7579Bb2ZJ55jixK2o9
- j1w6311TnGrKusHw51igGG5PmJ805UilwBi8X+gszQNQkSNgC3psizJjgOM1Ve2ZGJcr
- UUfbh86/VFUrzQLuA0ojr+1PAuFyhnWjFwGMWHvcC2okyE65FbVe8RO/Lcnfmpw6jMqg
- X3+gn3DPDDckHs7YUYA5CHU8fgA3Ik6ZA7zkJ5OggGtQl5/0IKbzx6Ft6AC6dcm4fg0/
- 9BCA==
+ bh=5pwRPv3AC50iLCk2Zf2oVFdf10HsOLZLViQlkbWzupw=;
+ b=nh+TiQhH0jhNGjfCSuQqMM9VyOPB5HE1JMuGSwCacNC5i0CryxdHl+aY8DJ4P/Dl21
+ Ym4xCpdp3L4kxr1vNheID2OhJ5YURimpxE+NYrPiN02+d+Jc0UdAm19oU1ncj9qGIlWZ
+ rjWei0WwGvm41P7SfBIHpMQlyDppBxrixPyfsht9hFfX9Jex8smVzGSxpmZBH14+BySx
+ uxge5bXol5BR/6JD/eO4FaJXxA0lNxLZ97rbWWrTEet0s7qDZ0RplTpGhN8KUKGdOhq0
+ DgBjSxdSwiMMpHs7WDk2QOTbAwGhz45NM/5lihj/9bIraEZKzSIkXSl+vT9bGJOlm80U
+ yc7g==
 X-Forwarded-Encrypted: i=1;
- AJvYcCXG9jDnMfXqLD//Fn482QrvlaSzBkrTQhMZzAeHQITvEuSmE+6g8GmLt7GLOEz5ef7HhCyzxhVSObQ=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yxe5m/ZCu9tVBJrNSlCT/QevCe8BeoTFkclvdDkI+K0/X7WsGDL
- TQg4nMKRKcglw2CUOh6XZRhtCKyfco+I+wOXUlfXI5hIGqK6Gf+W8x9SkGcxg5sZyPr+y4TOk6c
- wZglCj0prd82shLm2M4bhHdm+3/bi3ul2dM32
-X-Gm-Gg: ASbGncsSKLxbaAsZlXa29s95s0OIcf074pnbxYOHdGHuXlnD3kO8mJCTODZFTqfZRYW
- 4iVWW3iP9hBx137WbgEPuBtdMFFQxqn8F1HHMtg+LyxgGObbTLi956jkqne9WIVBKmbTu3gQ=
-X-Google-Smtp-Source: AGHT+IEF5CwAQomz3z3LH/vZ9FSFCgUWfRJMnul51Jr50q1PvNBGuzqUvdKZoOWXXlUqRF8fC77GCzWZc712CcnUFak=
-X-Received: by 2002:ac8:7d43:0:b0:46c:86d8:fb7 with SMTP id
- d75a77b69052e-46c86d81111mr375797091cf.34.1736956055548; Wed, 15 Jan 2025
- 07:47:35 -0800 (PST)
+ AJvYcCWRSC6HBGejPLn8UH2oSj6dKr8PdUqlVSUZxQOpvN8j1iOQrCm3Mr7LL91rxznApDucgApYWjq4lLI=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwwerzdMSrhyjzSPJ4lm0JxZE3/8/RazCqP4p35Gb9WJFQmGJty
+ hXm8pkBGL+35+ba3FUng87remr5+khl4b4idWeaV38kKmof6OV/WFt4ngq3E0I1n9k2JFaNOQ6a
+ Ay8VGoWjy/OyyA4HOTTnFKvR3lL8P4jqKOXuN
+X-Gm-Gg: ASbGncuUta2Rf9+k0EM738schSXczAEBrBdPCnWCLlDnkIcvC97WG/HNOpSvmBHlMN2
+ 6iQofRpTCefp0YfGJtwbDmpbV3gpRGzUHUFRiQg84he84plYwADRdZ6tcWZKTK5l7nnGsI1M=
+X-Google-Smtp-Source: AGHT+IEmCebGY2XiXiMSHiPH6lyzErlM2sxmSzBWB4EBYHNDzzHKKbPlbhF+bpXyENdSkK3zvR6V00VYB1KaeeKmh74=
+X-Received: by 2002:a05:620a:244d:b0:7b7:142d:53b8 with SMTP id
+ af79cd13be357-7bcd97c97e1mr4649151185a.53.1736874149139; Tue, 14 Jan 2025
+ 09:02:29 -0800 (PST)
 MIME-Version: 1.0
-References: <20250114190709.1.Ia17111747d0450169dbe902e5d7ef25912a9338e@changeid>
- <87a5bsh27o.fsf@intel.com>
-In-Reply-To: <87a5bsh27o.fsf@intel.com>
-From: Jonathan Denose <jdenose@google.com>
-Date: Wed, 15 Jan 2025 09:47:24 -0600
-X-Gm-Features: AbW1kvaecP3PP2esGnv9CK3Rxi1Sub0FNVZqrE1NDM9-dHv3kjfpc7HrkxwE8rM
-Message-ID: <CAMCVhVOagmBOj5UOr_HdohPApSAuprsObBm107X0q_1UfvSU_w@mail.gmail.com>
-Subject: Re: [PATCH] drm/i915/display: Add skip link check quirk
-To: Jani Nikula <jani.nikula@linux.intel.com>,
- LKML <linux-kernel@vger.kernel.org>
-Cc: rodrigo.vivi@intel.com, intel-gfx@lists.freedesktop.org, 
- David Airlie <airlied@gmail.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, 
- Simona Vetter <simona@ffwll.ch>, Tvrtko Ursulin <tursulin@ursulin.net>,
- dri-devel@lists.freedesktop.org, 
- intel-xe@lists.freedesktop.org, imre.deak@intel.com
+References: <20250113093453.1932083-1-kirill.shutemov@linux.intel.com>
+ <20250113093453.1932083-9-kirill.shutemov@linux.intel.com>
+ <Z4UxK_bsFD7TtL1l@casper.infradead.org>
+ <vpy2hikqvw3qrncjdlxp6uonpmbueoulhqipdkac7tav4t7m2s@3ebncdtepyv6>
+In-Reply-To: <vpy2hikqvw3qrncjdlxp6uonpmbueoulhqipdkac7tav4t7m2s@3ebncdtepyv6>
+From: Yu Zhao <yuzhao@google.com>
+Date: Tue, 14 Jan 2025 10:01:52 -0700
+X-Gm-Features: AbW1kvYQkyXZbUdcH1QNEYpQQw7S18-Qu-i6iGpqw5vVBDdyuuTWt_dBq2WlT1M
+Message-ID: <CAOUHufY+BViSYS14tfN8EOhuE05KneG2syHhVCyFPppkmDH=aQ@mail.gmail.com>
+Subject: Re: [PATCH 8/8] mm: Remove PG_reclaim
+To: "Kirill A. Shutemov" <kirill.shutemov@linux.intel.com>
+Cc: Matthew Wilcox <willy@infradead.org>,
+ Andrew Morton <akpm@linux-foundation.org>, 
+ Jens Axboe <axboe@kernel.dk>, "Jason A. Donenfeld" <Jason@zx2c4.com>, 
+ Andi Shyti <andi.shyti@linux.intel.com>,
+ Chengming Zhou <chengming.zhou@linux.dev>, 
+ Christian Brauner <brauner@kernel.org>,
+ Christophe Leroy <christophe.leroy@csgroup.eu>, 
+ Dan Carpenter <dan.carpenter@linaro.org>, David Airlie <airlied@gmail.com>, 
+ David Hildenbrand <david@redhat.com>, Hao Ge <gehao@kylinos.cn>, 
+ Jani Nikula <jani.nikula@linux.intel.com>, Johannes Weiner <hannes@cmpxchg.org>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Josef Bacik <josef@toxicpanda.com>, 
+ Masami Hiramatsu <mhiramat@kernel.org>,
+ Mathieu Desnoyers <mathieu.desnoyers@efficios.com>, 
+ Miklos Szeredi <miklos@szeredi.hu>, Nhat Pham <nphamcs@gmail.com>, 
+ Oscar Salvador <osalvador@suse.de>, Ran Xiaokai <ran.xiaokai@zte.com.cn>, 
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, Simona Vetter <simona@ffwll.ch>, 
+ Steven Rostedt <rostedt@goodmis.org>, Tvrtko Ursulin <tursulin@ursulin.net>, 
+ Vlastimil Babka <vbabka@suse.cz>, Yosry Ahmed <yosryahmed@google.com>,
+ intel-gfx@lists.freedesktop.org, 
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ linux-fsdevel@vger.kernel.org, linux-mm@kvack.org, 
+ linux-trace-kernel@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-Mailman-Approved-At: Wed, 15 Jan 2025 17:33:45 +0000
@@ -90,122 +108,71 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Jan 15, 2025 at 3:10=E2=80=AFAM Jani Nikula <jani.nikula@linux.inte=
-l.com> wrote:
+On Tue, Jan 14, 2025 at 1:30=E2=80=AFAM Kirill A. Shutemov
+<kirill.shutemov@linux.intel.com> wrote:
 >
-> On Tue, 14 Jan 2025, Jonathan Denose <jdenose@google.com> wrote:
-> > The display on the Advantech UTC124G3PWWW0E-ES worked fine until commit
-> > "drm/i915/dp: Recheck link state after modeset" was introduced. After
-> > this commit the display flickers intermittently as the driver code
-> > initiates the delayed link recheck in an infinite loop.
+> On Mon, Jan 13, 2025 at 03:28:43PM +0000, Matthew Wilcox wrote:
+> > On Mon, Jan 13, 2025 at 11:34:53AM +0200, Kirill A. Shutemov wrote:
+> > > diff --git a/mm/migrate.c b/mm/migrate.c
+> > > index caadbe393aa2..beba72da5e33 100644
+> > > --- a/mm/migrate.c
+> > > +++ b/mm/migrate.c
+> > > @@ -686,6 +686,8 @@ void folio_migrate_flags(struct folio *newfolio, =
+struct folio *folio)
+> > >             folio_set_young(newfolio);
+> > >     if (folio_test_idle(folio))
+> > >             folio_set_idle(newfolio);
+> > > +   if (folio_test_readahead(folio))
+> > > +           folio_set_readahead(newfolio);
+> > >
+> > >     folio_migrate_refs(newfolio, folio);
+> > >     /*
 > >
-> > To resolve this issue for the Advantech device, add a quirk to skip ove=
-r
-> > the delayed link recheck.
+> > Not a problem with this patch ... but aren't we missing a
+> > test_dropbehind / set_dropbehind pair in this function?  Or are we
+> > prohibited from migrating a folio with the dropbehind flag set
+> > somewhere?
 >
-> It would be better to try to get at the root cause first, instead of
-> blindly skipping required parts. The code's complicated enough without
-> quirks, and removing them afterwards is very difficult.
+> Hm. Good catch.
 >
-> Please file a bug according to [1], and attach full dmesg with debugs
-> enabled.
+> We might want to drop clean dropbehind pages instead migrating them.
+>
+> But I am not sure about dirty ones. With slow backing storage it might be
+> better for the system to migrate them instead of keeping them in the old
+> place for potentially long time.
+>
+> Any opinions?
+>
+> > > +++ b/mm/swap.c
+> > > @@ -221,22 +221,6 @@ static void lru_move_tail(struct lruvec *lruvec,=
+ struct folio *folio)
+> > >     __count_vm_events(PGROTATED, folio_nr_pages(folio));
+> > >  }
+> > >
+> > > -/*
+> > > - * Writeback is about to end against a folio which has been marked f=
+or
+> > > - * immediate reclaim.  If it still appears to be reclaimable, move i=
+t
+> > > - * to the tail of the inactive list.
+> > > - *
+> > > - * folio_rotate_reclaimable() must disable IRQs, to prevent nasty ra=
+ces.
+> > > - */
+> > > -void folio_rotate_reclaimable(struct folio *folio)
+> > > -{
+> > > -   if (folio_test_locked(folio) || folio_test_dirty(folio) ||
+> > > -       folio_test_unevictable(folio))
+> > > -           return;
+> > > -
+> > > -   folio_batch_add_and_move(folio, lru_move_tail, true);
+> > > -}
+> >
+> > I think this is the last caller of lru_move_tail(), which means we can
+> > get rid of fbatches->lru_move_tail and the local_lock that protects it.
+> > Or did I miss something?
+>
+> I see lru_move_tail() being used by lru_add_drain_cpu().
 
-I filed a bug with the full dmesg a few weeks ago:
-https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/13344
-
-> Cc: Imre
->
-> BR,
-> Jani.
->
->
->
-> [1] https://drm.pages.freedesktop.org/intel-docs/how-to-file-i915-bugs.ht=
-ml
->
->
->
-> >
-> > Signed-off-by: Jonathan Denose <jdenose@google.com>
-> > ---
-> >
-> >  drivers/gpu/drm/i915/display/intel_dp_link_training.c | 4 +++-
-> >  drivers/gpu/drm/i915/display/intel_quirks.c           | 8 ++++++++
-> >  drivers/gpu/drm/i915/display/intel_quirks.h           | 1 +
-> >  3 files changed, 12 insertions(+), 1 deletion(-)
-> >
-> > diff --git a/drivers/gpu/drm/i915/display/intel_dp_link_training.c b/dr=
-ivers/gpu/drm/i915/display/intel_dp_link_training.c
-> > index 397cc4ebae526..7804ad38b00cd 100644
-> > --- a/drivers/gpu/drm/i915/display/intel_dp_link_training.c
-> > +++ b/drivers/gpu/drm/i915/display/intel_dp_link_training.c
-> > @@ -32,6 +32,7 @@
-> >  #include "intel_encoder.h"
-> >  #include "intel_hotplug.h"
-> >  #include "intel_panel.h"
-> > +#include "intel_quirks.h"
-> >
-> >  #define LT_MSG_PREFIX                        "[CONNECTOR:%d:%s][ENCODE=
-R:%d:%s][%s] "
-> >  #define LT_MSG_ARGS(_intel_dp, _dp_phy)      (_intel_dp)->attached_con=
-nector->base.base.id, \
-> > @@ -1622,7 +1623,8 @@ void intel_dp_start_link_train(struct intel_atomi=
-c_state *state,
-> >               lt_dbg(intel_dp, DP_PHY_DPRX, "Forcing link training fail=
-ure\n");
-> >       } else if (passed) {
-> >               intel_dp->link.seq_train_failures =3D 0;
-> > -             intel_encoder_link_check_queue_work(encoder, 2000);
-> > +             if (!intel_has_quirk(display, QUIRK_SKIP_LINK_CHECK))
-> > +                     intel_encoder_link_check_queue_work(encoder, 2000=
-);
-> >               return;
-> >       }
-> >
-> > diff --git a/drivers/gpu/drm/i915/display/intel_quirks.c b/drivers/gpu/=
-drm/i915/display/intel_quirks.c
-> > index 28f497ae785bb..d472a5f21f8b9 100644
-> > --- a/drivers/gpu/drm/i915/display/intel_quirks.c
-> > +++ b/drivers/gpu/drm/i915/display/intel_quirks.c
-> > @@ -78,6 +78,12 @@ static void quirk_fw_sync_len(struct intel_dp *intel=
-_dp)
-> >       drm_info(display->drm, "Applying Fast Wake sync pulse count quirk=
-\n");
-> >  }
-> >
-> > +static void quirk_skip_link_check(struct intel_display *display)
-> > +{
-> > +     intel_set_quirk(display, QUIRK_SKIP_LINK_CHECK);
-> > +     drm_info(display->drm, "Applying skip link check quirk\n");
-> > +}
-> > +
-> >  struct intel_quirk {
-> >       int device;
-> >       int subsystem_vendor;
-> > @@ -229,6 +235,8 @@ static struct intel_quirk intel_quirks[] =3D {
-> >       { 0x3184, 0x1019, 0xa94d, quirk_increase_ddi_disabled_time },
-> >       /* HP Notebook - 14-r206nv */
-> >       { 0x0f31, 0x103c, 0x220f, quirk_invert_brightness },
-> > +     /* Advantech UTC124G3PWWW0E-ES */
-> > +     {0x5a85, 0x8086, 0x2212, quirk_skip_link_check},
-> >  };
-> >
-> >  static const struct intel_dpcd_quirk intel_dpcd_quirks[] =3D {
-> > diff --git a/drivers/gpu/drm/i915/display/intel_quirks.h b/drivers/gpu/=
-drm/i915/display/intel_quirks.h
-> > index cafdebda75354..9e8f2816a4fba 100644
-> > --- a/drivers/gpu/drm/i915/display/intel_quirks.h
-> > +++ b/drivers/gpu/drm/i915/display/intel_quirks.h
-> > @@ -20,6 +20,7 @@ enum intel_quirk_id {
-> >       QUIRK_LVDS_SSC_DISABLE,
-> >       QUIRK_NO_PPS_BACKLIGHT_POWER_HOOK,
-> >       QUIRK_FW_SYNC_LEN,
-> > +     QUIRK_SKIP_LINK_CHECK,
-> >  };
-> >
-> >  void intel_init_quirks(struct intel_display *display);
->
-> --
-> Jani Nikula, Intel
---=20
-Jonathan
+That can be deleted too, since you've already removed the producer to
+fbatches->lru_move_tail.
