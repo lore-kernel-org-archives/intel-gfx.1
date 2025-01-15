@@ -4,68 +4,67 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DC09DC02183
-	for <intel-gfx@archiver.kernel.org>; Thu, 16 Jan 2025 13:57:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 80F22C02183
+	for <intel-gfx@archiver.kernel.org>; Thu, 16 Jan 2025 14:09:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8A43E10E07E;
-	Thu, 16 Jan 2025 13:57:49 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=google.com header.i=@google.com header.b="SiiEz26W";
-	dkim-atps=neutral
-Received: from mail-qk1-f201.google.com (mail-qk1-f201.google.com
- [209.85.222.201])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 54D3610E07E
- for <intel-gfx@lists.freedesktop.org>; Thu, 16 Jan 2025 13:57:48 +0000 (UTC)
-Received: by mail-qk1-f201.google.com with SMTP id
- af79cd13be357-7bcf01691b7so178340485a.1
- for <intel-gfx@lists.freedesktop.org>; Thu, 16 Jan 2025 05:57:48 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=google.com; s=20230601; t=1737035807; x=1737640607;
- darn=lists.freedesktop.org; 
- h=cc:to:from:subject:message-id:mime-version:date:from:to:cc:subject
- :date:message-id:reply-to;
- bh=Afmzcj7YvLn6GXyrbKyUaoeIfkKGSsahsDNZPlhAdRk=;
- b=SiiEz26Wo12prJk1eZRDTMMpJkQgrHRm9YcxuyThUsIXBkHmMeU2JZHyKwyFW9kT82
- 5QPtYEsqi6QwUYdtd7vOLPw2+yGVG39XwpP9WKWCbMumb6vnd0Eho7SzpFuFEpulfwnS
- qbKV+yiVP3xO3z/4oeENs/6zh8BaqfOumdhugSoJgPStzTDhi3q/1YWIqM+SBBJJoZ/t
- 2SpdHda29dTynXvpBuEm6xXVIQCzzMYWapa6ZnOrjAy0moOVKOmzQXc0DAy2ZYbg9mpS
- yEPMa0yrLsQSMoSksYYaZDA2RgAzuMPpXXaqZ873NNoVq8T/sZkppzA9yFzKjvx4wAqg
- 8x6w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1737035807; x=1737640607;
- h=cc:to:from:subject:message-id:mime-version:date:x-gm-message-state
- :from:to:cc:subject:date:message-id:reply-to;
- bh=Afmzcj7YvLn6GXyrbKyUaoeIfkKGSsahsDNZPlhAdRk=;
- b=ah4vRu03S52A6Mmd47PvosAk+l967ZzG73SzTwgSpS+E5EW4aOqjsG9L9sjERNPOGM
- her3BukJ7eQTu5NcbiP6eDx3YxACepSHdki9houuR7CDYmcVvKqhRsRGhUgxUGh0YS3I
- QcB6q/aGW43l7sMvpdcRioFp4dnk83PMkm/dA5a4djIao29NPhcTjT2iPK01GxIIlBik
- WWuByOXGOTzM4HGPgLB3PCOSh+Fc5Ux5prgSe9Qlt8yuz5DFkqRADHVAcTF26cGoJ7eh
- h0x+T4um55sP2bc0At6zKmvWZcYqGPU7huYgZZ4XcFEDFkoe253NV+5dre3q4HTDRZBl
- YTVg==
-X-Gm-Message-State: AOJu0Yz5YSXFOFwMlsNUpdISNR45YUv+OpadZ9NeNtVj2rw+wmBaOIuA
- sYAoiQ0V4qQSw/6IF+8USTolnjhKQhXBdxcRLERgfFxwn4Z6WDgYofm1W2iGV7cNFSRp7jaGA68
- LJqryqW179N7AfkI+I88kVqvGQcRJ6iI3SqLM03czHRUenjktK038vOojmfz0otdNmoZcIqLnBU
- 2CntzpQ91FcEN72/h5OAq/eM7lqZ+ztSTIxRynB9X+UPo/pBhhvA==
-X-Google-Smtp-Source: AGHT+IF3gKnK89tbVwHbUDUwD1lEN0/kaHGYmsaSOGreDcBut40sY3iWcjgUhYRrT2wdvYDMwQDTtKijor7j
-X-Received: from qkbbn9.prod.google.com ([2002:a05:620a:2ac9:b0:7b6:e6cf:180e])
- (user=bgeffon job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:620a:40c1:b0:7b6:db05:143c
- with SMTP id af79cd13be357-7bcd9759e7fmr5322280485a.45.1737035807417; Thu, 16
- Jan 2025 05:56:47 -0800 (PST)
-Date: Thu, 16 Jan 2025 08:56:36 -0500
-Mime-Version: 1.0
-X-Mailer: git-send-email 2.48.0.rc2.279.g1de40edade-goog
-Message-ID: <20250116135636.410164-1-bgeffon@google.com>
-Subject: [PATCH] drm/i915: Fix page cleanup on DMA remap failure
-From: Brian Geffon <bgeffon@google.com>
-To: intel-gfx@lists.freedesktop.org
-Cc: chris.p.wilson@intel.com, jani.saarinen@intel.com, tomasz.mistat@intel.com,
- vidya.srinivas@intel.com, ville.syrjala@linux.intel.com, 
- jani.nikula@linux.intel.com, linux-kernel@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, 
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Brian Geffon <bgeffon@google.com>, Tomasz Figa <tfiga@google.com>
-Content-Type: text/plain; charset="UTF-8"
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2640310E96C;
+	Thu, 16 Jan 2025 14:09:00 +0000 (UTC)
+X-Greylist: delayed 321 seconds by postgrey-1.36 at gabe;
+ Wed, 15 Jan 2025 22:36:03 UTC
+Received: from lithops.sigma-star.at (mailout.nod.at [116.203.167.152])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8FD7310E130;
+ Wed, 15 Jan 2025 22:36:03 +0000 (UTC)
+Received: from localhost (localhost [127.0.0.1])
+ by lithops.sigma-star.at (Postfix) with ESMTP id 366172A7F6C;
+ Wed, 15 Jan 2025 23:30:39 +0100 (CET)
+Received: from lithops.sigma-star.at ([127.0.0.1])
+ by localhost (lithops.sigma-star.at [127.0.0.1]) (amavisd-new, port 10032)
+ with ESMTP id xJ8tDHd-QsCG; Wed, 15 Jan 2025 23:30:38 +0100 (CET)
+Received: from localhost (localhost [127.0.0.1])
+ by lithops.sigma-star.at (Postfix) with ESMTP id A192C2A7F73;
+ Wed, 15 Jan 2025 23:30:38 +0100 (CET)
+Received: from lithops.sigma-star.at ([127.0.0.1])
+ by localhost (lithops.sigma-star.at [127.0.0.1]) (amavisd-new, port 10026)
+ with ESMTP id VX5lZQl7DxbL; Wed, 15 Jan 2025 23:30:38 +0100 (CET)
+Received: from lithops.sigma-star.at (lithops.sigma-star.at [195.201.40.130])
+ by lithops.sigma-star.at (Postfix) with ESMTP id 6BDAE2A7F6C;
+ Wed, 15 Jan 2025 23:30:38 +0100 (CET)
+Date: Wed, 15 Jan 2025 23:30:38 +0100 (CET)
+From: Richard Weinberger <richard@nod.at>
+To: Alexander Usyskin <alexander.usyskin@intel.com>
+Cc: Miquel Raynal <miquel.raynal@bootlin.com>, 
+ Vignesh Raghavendra <vigneshr@ti.com>, 
+ Lucas De Marchi <lucas.demarchi@intel.com>, 
+ Thomas =?utf-8?Q?Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>, 
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Jani Nikula <jani.nikula@linux.intel.com>, 
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, 
+ Tvrtko Ursulin <tursulin@ursulin.net>, 
+ Karthik Poosa <karthik.poosa@intel.com>, 
+ Reuven Abliyev <reuven.abliyev@intel.com>, 
+ Oren Weil <oren.jer.weil@intel.com>, 
+ linux-mtd <linux-mtd@lists.infradead.org>, 
+ DRI mailing list <dri-devel@lists.freedesktop.org>, 
+ intel-gfx <intel-gfx@lists.freedesktop.org>, 
+ linux-kernel <linux-kernel@vger.kernel.org>
+Message-ID: <78709125.231818577.1736980238251.JavaMail.zimbra@nod.at>
+In-Reply-To: <20250101153925.865703-2-alexander.usyskin@intel.com>
+References: <20250101153925.865703-1-alexander.usyskin@intel.com>
+ <20250101153925.865703-2-alexander.usyskin@intel.com>
+Subject: Re: [PATCH v4 01/11] mtd: core: always create master device
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+X-Originating-IP: [195.201.40.130]
+X-Mailer: Zimbra 8.8.12_GA_3807 (ZimbraWebClient - FF133
+ (Linux)/8.8.12_GA_3809)
+Thread-Topic: core: always create master device
+Thread-Index: C6s+HB4y1QOCkRTVyeRkXaeBPdTLsQ==
+X-Mailman-Approved-At: Thu, 16 Jan 2025 14:08:59 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -81,82 +80,48 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-When converting to folios the cleanup path of shmem_get_pages() was
-missed. When a DMA remap fails and the max segment size is greater than
-PAGE_SIZE it will attempt to retry the remap with a PAGE_SIZEd segment
-size. The cleanup code isn't properly using the folio apis and as a
-result isn't handling compound pages correctly.
+Alexander,
 
-Link: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/13487
-Fixes: 0b62af28f249 ("i915: convert shmem_sg_free_table() to use a folio_batch")
-Signed-off-by: Brian Geffon <bgeffon@google.com>
-Suggested-by: Tomasz Figa <tfiga@google.com>
----
- drivers/gpu/drm/i915/gem/i915_gem_shmem.c | 13 +++++--------
- 1 file changed, 5 insertions(+), 8 deletions(-)
+----- Urspr=C3=BCngliche Mail -----
+> Von: "Alexander Usyskin" <alexander.usyskin@intel.com>
+> Create master device without partition when
+> CONFIG_MTD_PARTITIONED_MASTER flag is unset.
+>=20
+> This streamlines device tree and allows to anchor
+> runtime power management on master device in all cases.
 
-diff --git a/drivers/gpu/drm/i915/gem/i915_gem_shmem.c b/drivers/gpu/drm/i915/gem/i915_gem_shmem.c
-index fe69f2c8527d..02ddab5bf5c0 100644
---- a/drivers/gpu/drm/i915/gem/i915_gem_shmem.c
-+++ b/drivers/gpu/drm/i915/gem/i915_gem_shmem.c
-@@ -37,8 +37,6 @@ void shmem_sg_free_table(struct sg_table *st, struct address_space *mapping,
- 	struct folio *last = NULL;
- 	struct page *page;
- 
--	mapping_clear_unevictable(mapping);
--
- 	folio_batch_init(&fbatch);
- 	for_each_sgt_page(page, sgt_iter, st) {
- 		struct folio *folio = page_folio(page);
-@@ -180,10 +178,10 @@ int shmem_sg_alloc_table(struct drm_i915_private *i915, struct sg_table *st,
- 	return 0;
- err_sg:
- 	sg_mark_end(sg);
-+	mapping_clear_unevictable(mapping);
- 	if (sg != st->sgl) {
- 		shmem_sg_free_table(st, mapping, false, false);
- 	} else {
--		mapping_clear_unevictable(mapping);
- 		sg_free_table(st);
- 	}
- 
-@@ -209,8 +207,6 @@ static int shmem_get_pages(struct drm_i915_gem_object *obj)
- 	struct address_space *mapping = obj->base.filp->f_mapping;
- 	unsigned int max_segment = i915_sg_segment_size(i915->drm.dev);
- 	struct sg_table *st;
--	struct sgt_iter sgt_iter;
--	struct page *page;
- 	int ret;
- 
- 	/*
-@@ -239,9 +235,8 @@ static int shmem_get_pages(struct drm_i915_gem_object *obj)
- 		 * for PAGE_SIZE chunks instead may be helpful.
- 		 */
- 		if (max_segment > PAGE_SIZE) {
--			for_each_sgt_page(page, sgt_iter, st)
--				put_page(page);
--			sg_free_table(st);
-+			/* Leave the mapping unevictable while we retry */
-+			shmem_sg_free_table(st, mapping, false, false);
- 			kfree(st);
- 
- 			max_segment = PAGE_SIZE;
-@@ -265,6 +260,7 @@ static int shmem_get_pages(struct drm_i915_gem_object *obj)
- 	return 0;
- 
- err_pages:
-+	mapping_clear_unevictable(mapping);
- 	shmem_sg_free_table(st, mapping, false, false);
- 	/*
- 	 * shmemfs first checks if there is enough memory to allocate the page
-@@ -402,6 +398,7 @@ void i915_gem_object_put_pages_shmem(struct drm_i915_gem_object *obj, struct sg_
- 	if (i915_gem_object_needs_bit17_swizzle(obj))
- 		i915_gem_object_save_bit_17_swizzle(obj, pages);
- 
-+	mapping_clear_unevictable(file_inode(obj->base.filp)->i_mapping);
- 	shmem_sg_free_table(pages, file_inode(obj->base.filp)->i_mapping,
- 			    obj->mm.dirty, obj->mm.madv == I915_MADV_WILLNEED);
- 	kfree(pages);
--- 
-2.48.0.rc2.279.g1de40edade-goog
+Please explain in more detail why this is needed.
+If this change makes the overall situation better and breaks
+no userspace, I'm happy. :-)
 
+From skimming over the patch I think the mtd_master device completely
+useless for userspace, right?
+
+> int add_mtd_device(struct mtd_info *mtd)
+> {
+> =09struct device_node *np =3D mtd_get_of_node(mtd);
+> =09struct mtd_info *master =3D mtd_get_master(mtd);
+> =09struct mtd_notifier *not;
+> +=09bool partitioned =3D true;
+> =09int i, error, ofidx;
+>=20
+> =09/*
+> @@ -655,6 +678,11 @@ int add_mtd_device(struct mtd_info *mtd)
+> =09if (WARN_ONCE(mtd->dev.type, "MTD already registered\n"))
+> =09=09return -EEXIST;
+>=20
+> +=09if ((master =3D=3D mtd) && !IS_ENABLED(CONFIG_MTD_PARTITIONED_MASTER)=
+) {
+> +=09=09partitioned =3D false;
+> +=09=09pr_debug("mtd: unpartitioned master %s\n", mtd->name);
+> +=09}
+
+So, when CONFIG_MTD_PARTITIONED_MASTER is not set and a driver like MTDRAM
+does mtd_device_register(mtd, NULL, 0) we end up here with partitioned =3D =
+false,
+and allocate just a master device but no real mtd because with zero
+parts the mtd_device_parse_register() function will not call add_mtd_device=
+(). :-(
+
+Thanks,
+//richard
