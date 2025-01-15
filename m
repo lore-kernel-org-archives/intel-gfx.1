@@ -4,76 +4,80 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8F1BAC02183
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D68E0C02180
 	for <intel-gfx@archiver.kernel.org>; Wed, 15 Jan 2025 17:33:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2C50810E114;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 69F5410E119;
 	Wed, 15 Jan 2025 17:33:47 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=google.com header.i=@google.com header.b="mkMacR7f";
+	dkim=pass (2048-bit key; unprotected) header.d=google.com header.i=@google.com header.b="aIWyknF1";
 	dkim-atps=neutral
-Received: from mail-qv1-f42.google.com (mail-qv1-f42.google.com
- [209.85.219.42])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A3DDF10E198
- for <intel-gfx@lists.freedesktop.org>; Mon, 13 Jan 2025 16:12:22 +0000 (UTC)
-Received: by mail-qv1-f42.google.com with SMTP id
- 6a1803df08f44-6d8f99cb0d9so32515376d6.0
- for <intel-gfx@lists.freedesktop.org>; Mon, 13 Jan 2025 08:12:22 -0800 (PST)
+Received: from mail-vs1-xe34.google.com (mail-vs1-xe34.google.com
+ [IPv6:2607:f8b0:4864:20::e34])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1B3EB10E4B7
+ for <intel-gfx@lists.freedesktop.org>; Wed, 15 Jan 2025 04:28:43 +0000 (UTC)
+Received: by mail-vs1-xe34.google.com with SMTP id
+ ada2fe7eead31-4afe4f1ce18so1988295137.3
+ for <intel-gfx@lists.freedesktop.org>; Tue, 14 Jan 2025 20:28:42 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=google.com; s=20230601; t=1736784682; x=1737389482;
+ d=google.com; s=20230601; t=1736915322; x=1737520122;
  darn=lists.freedesktop.org; 
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=0nln6xuSTTaoMOsjO/bzAdYR40fjFobKxVXqk79yIRg=;
- b=mkMacR7fGD+ZuPdJfJhk+6Np65ffwqly4ZKEWFHbZ3Z2lY1cR+Y0OXlNkaSHO1XMTR
- 9tJDIWSOq4D8z1mVgyCnkKEtSHz+aVg54ipcqygsCOKRVIpT+AJu/xDE/8gVivh8+10+
- x5aJnlU2b2kNm2Ls5ezn4Hs0m0m3X999n9Mx4zq1MG6+B167zw39jRxGKUUBPB90FyWE
- XH7Mqb8HvDW1Zjx8IA4/4mcSe2jmVO0RDOcBtNTo6tvnnCoxJ71XyiWiXMU3LSI67ej6
- rTogxDMXOtU91VN2EMeZtA+jEMANolS5/fcn05VIIvdqN8mZfvJ/4YxPrG2AzawfC5M+
- Lcqw==
+ bh=SiaIVXIhhM1sp+r10z/vJyY+tzDQMN+pj3uAuSz6ZII=;
+ b=aIWyknF1MpbwJm8vMsCSpHf82cZMGD/SDkoW1QdrnArBa8AVIKVjQTpSTYeU+v7gYr
+ j+/LaCBHSKAFApUkoRvJx/E+p/ylwztrbNbutoP4x5oqaE+KU/llO6LpgyyD3h8ldS89
+ PG/xQG3zI3TKFlvXTOsfx7szxermAvD1fDwZtyznSRBKi57IUuxa0WxAbE+HJk3ficUJ
+ 1RJo+6ntundNcq65FerBDwyRmrjn2tF4zYioQLoWJwFDYDC5u36jHoLRzrcUrm8xRCAE
+ 6p7rVrtBASqr7FjcNY71iePKzmSUJnm2n2eCRUaZxNQnPR3uZcoxtddi/q/mbfFPJECB
+ XAVw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1736784682; x=1737389482;
+ d=1e100.net; s=20230601; t=1736915322; x=1737520122;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=0nln6xuSTTaoMOsjO/bzAdYR40fjFobKxVXqk79yIRg=;
- b=gjnH5rKXqIS17xCCHTYhTqbNKqsX7ISuPy7/MF/jHJdxk7uFeGURCa9fiZvFdMNy5e
- Dxkxex0gAN9BUC5DjRm2JY29Lqq8t/38KiBtPR6F0eVPHxzPQW+iq0W0U8pzL9XHWFot
- XcXL7PkkMB5ysAIp+zsknRUkLbFxxNraNQRxf49fFeQV8SLMbvdR/PpuZuGf6ybKw+fw
- JCEj2Z3COIm9GkFVyfSj1lVZEbb8+Ka4+vTe/3iw0EacwKWuv69qUfNNjVypzLB054Av
- SF+2n+po46R0nbaiuRB+7zXdN2dkBgpv6Lg44aVuayID/7c/nZOGwIZeYiUfksHwJ4ua
- MZMg==
+ bh=SiaIVXIhhM1sp+r10z/vJyY+tzDQMN+pj3uAuSz6ZII=;
+ b=MBNkyqmUvCA0epYmEj3be3JZkzcTtu/5Zzus48/PlQYKsAWnUS1nZeIxZkRQSyqAw3
+ kaU1OlleJlKxqgQlExczcAvCqdG02ijk425ANJUM7r4CCP3J07JJJ7SJwBpYk3nCjmHA
+ cn9URs+7JmZPDHLrwKq11B4280l2kLz62vfjAJFqBJMhoMpG01bRgq8XsRxcIncKqfcJ
+ MmgR44gQ3Q4HvxKY78on2PlPSNGCV2uJ/uhqjlQ5aycGBySDnL1rI+xpXm3JVCiXgNs1
+ m4v32fga6nHwoTtn8IE+WK/Xz3ErYPVC4bQhNz1Svm0NQGyuHbQaBTTFLbJnojIHuiTK
+ JNtg==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUl+T33SMnMlXxbeksVbeZ4Hon9pVpsfRvLIVKuTqf5cLRb6VE0nhOzBa0tI1a42UAxQlxf9iHzMRE=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yz1/Nktzn4NM3iu5nWKgDsl4rZ7Ii81ms926VuoZaGnZDad3kbN
- BReaJwau+HeDpceQqMJogyxzAcaSqQ5BdlOD0Zzw9qCEeJnxniwC/DfAiPXiPfRTj+pXUr7pKXg
- T49DxsotC4L/7u4+dTy8Qxvr6pvIX2e9L530U
-X-Gm-Gg: ASbGnctLiFbdReLG+jO4zI4fTfJ7HKCktiLMucAI9O0DPQNmpLZe2oEZ6VtWbEgARso
- i1nZMol4bzz55qHQWWC3ch3io1KRGpnmrg9w=
-X-Google-Smtp-Source: AGHT+IEZHimf0erqHl9P9hdsVm///MN8stQzn+Oj7UFKcLM1rFbaFHquGnXMlUQnxJqTuDGwgck+ox3NI5bhvjgf1ZE=
-X-Received: by 2002:ad4:5ca5:0:b0:6d4:25c4:e77d with SMTP id
- 6a1803df08f44-6df9b2ddad5mr358474696d6.34.1736784681463; Mon, 13 Jan 2025
- 08:11:21 -0800 (PST)
+ AJvYcCXz3SPjcq89yObiwZ3aS3Usx2gT88gjzcQE15dDwtWge8D6eXsVDrOiqwuTZ9W0p/Q3Z0Zkt3YWa8E=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yx5z1R+PQd93D3KLaeNQlVXNvFqa2ujnGAcEsK9UgLLKm12Saeo
+ ApOOGzMjNyXBketvb4gk9DEZy/reVKDiard0rD0WKQVm3wWRXp+19dqzyM/pBG1++H12hU9gOQj
+ DlUHpU1WoYbbl2PKNRbx9F7TWrJq8pVSTFs6l
+X-Gm-Gg: ASbGncvf4Y4qmvHQHtk3Cieze9mDi1vYGjtMyVxZES9aubiJP9mpPy6GXIhLlJR9rLB
+ E5q9WyWyxrP0DLuzvp3aO9nL+UHcsFy7WA5Zt+Qx9O4iK1a8XsaATwE29a/kVR3KNWxgr6aA=
+X-Google-Smtp-Source: AGHT+IH/FRwv1gjMQVdrZyTpxRo/2P7ZfMOmxND6HntPtKv8PRHbhPpC3eKReWiv2QbmErnwLgBIFI50EeMrfGttcP0=
+X-Received: by 2002:a05:6102:370f:b0:4b3:c658:2a36 with SMTP id
+ ada2fe7eead31-4b3d0f8f840mr23231900137.8.1736915321756; Tue, 14 Jan 2025
+ 20:28:41 -0800 (PST)
 MIME-Version: 1.0
 References: <20250113093453.1932083-1-kirill.shutemov@linux.intel.com>
- <20250113093453.1932083-4-kirill.shutemov@linux.intel.com>
-In-Reply-To: <20250113093453.1932083-4-kirill.shutemov@linux.intel.com>
-From: Yosry Ahmed <yosryahmed@google.com>
-Date: Mon, 13 Jan 2025 08:10:45 -0800
-X-Gm-Features: AbW1kvYVFjw-APVc_AtsFocTeHs3A7WI3FQm934n3hdXUG8p6Ploc_paz3DXv-A
-Message-ID: <CAJD7tkYfh=K1FV2NPFD5P0+Td66PtoMRHAkAcwUJcRwYDKLZjQ@mail.gmail.com>
-Subject: Re: [PATCH 3/8] mm/zswap: Use PG_dropbehind instead of PG_reclaim
-To: "Kirill A. Shutemov" <kirill.shutemov@linux.intel.com>
-Cc: Andrew Morton <akpm@linux-foundation.org>, 
- "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jens Axboe <axboe@kernel.dk>, 
- "Jason A. Donenfeld" <Jason@zx2c4.com>, Andi Shyti <andi.shyti@linux.intel.com>,
- Chengming Zhou <chengming.zhou@linux.dev>,
- Christian Brauner <brauner@kernel.org>, 
- Christophe Leroy <christophe.leroy@csgroup.eu>,
- Dan Carpenter <dan.carpenter@linaro.org>, 
- David Airlie <airlied@gmail.com>, David Hildenbrand <david@redhat.com>,
- Hao Ge <gehao@kylinos.cn>, 
+ <20250113093453.1932083-5-kirill.shutemov@linux.intel.com>
+ <CAJD7tkYH8KO8NLJY564PRAmW-mtMfDCMTECGKyYyVAf+JtTcRA@mail.gmail.com>
+ <sct6vvupd4cp6xt66nn6sfs7w3srpx6zcxxsn6rz5qo4tz3la6@btdqsbicmrto>
+ <CAJD7tkZwgKRc2kbY9WutC8meOV+CpQSpxKSpkUorEneJJuX9og@mail.gmail.com>
+In-Reply-To: <CAJD7tkZwgKRc2kbY9WutC8meOV+CpQSpxKSpkUorEneJJuX9og@mail.gmail.com>
+From: Yu Zhao <yuzhao@google.com>
+Date: Tue, 14 Jan 2025 21:28:05 -0700
+X-Gm-Features: AbW1kvaBboGLsqdjopVloMA7j9dnfG52vbiddOAszVwHNFJf23o0CFxEnOZVFVU
+Message-ID: <CAOUHufYFKZ=agWpS3mFHyDjXs_Tq7VhM=qBayL0FtJis=W0+Tg@mail.gmail.com>
+Subject: Re: [PATCH 4/8] mm/swap: Use PG_dropbehind instead of PG_reclaim
+To: Yosry Ahmed <yosryahmed@google.com>
+Cc: "Kirill A. Shutemov" <kirill.shutemov@linux.intel.com>, 
+ Andrew Morton <akpm@linux-foundation.org>,
+ "Matthew Wilcox (Oracle)" <willy@infradead.org>, 
+ Jens Axboe <axboe@kernel.dk>, "Jason A. Donenfeld" <Jason@zx2c4.com>, 
+ Andi Shyti <andi.shyti@linux.intel.com>,
+ Chengming Zhou <chengming.zhou@linux.dev>, 
+ Christian Brauner <brauner@kernel.org>,
+ Christophe Leroy <christophe.leroy@csgroup.eu>, 
+ Dan Carpenter <dan.carpenter@linaro.org>, David Airlie <airlied@gmail.com>, 
+ David Hildenbrand <david@redhat.com>, Hao Ge <gehao@kylinos.cn>, 
  Jani Nikula <jani.nikula@linux.intel.com>, Johannes Weiner <hannes@cmpxchg.org>,
  Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
  Josef Bacik <josef@toxicpanda.com>, 
@@ -83,8 +87,7 @@ Cc: Andrew Morton <akpm@linux-foundation.org>,
  Oscar Salvador <osalvador@suse.de>, Ran Xiaokai <ran.xiaokai@zte.com.cn>, 
  Rodrigo Vivi <rodrigo.vivi@intel.com>, Simona Vetter <simona@ffwll.ch>, 
  Steven Rostedt <rostedt@goodmis.org>, Tvrtko Ursulin <tursulin@ursulin.net>, 
- Vlastimil Babka <vbabka@suse.cz>, Yu Zhao <yuzhao@google.com>,
- intel-gfx@lists.freedesktop.org, 
+ Vlastimil Babka <vbabka@suse.cz>, intel-gfx@lists.freedesktop.org, 
  dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
  linux-fsdevel@vger.kernel.org, linux-mm@kvack.org, 
  linux-trace-kernel@vger.kernel.org
@@ -106,41 +109,126 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Mon, Jan 13, 2025 at 1:35=E2=80=AFAM Kirill A. Shutemov
-<kirill.shutemov@linux.intel.com> wrote:
+On Tue, Jan 14, 2025 at 11:03=E2=80=AFAM Yosry Ahmed <yosryahmed@google.com=
+> wrote:
 >
-> The recently introduced PG_dropbehind allows for freeing folios
-> immediately after writeback. Unlike PG_reclaim, it does not need vmscan
-> to be involved to get the folio freed.
+> On Tue, Jan 14, 2025 at 12:12=E2=80=AFAM Kirill A. Shutemov
+> <kirill.shutemov@linux.intel.com> wrote:
+> >
+> > On Mon, Jan 13, 2025 at 08:17:20AM -0800, Yosry Ahmed wrote:
+> > > On Mon, Jan 13, 2025 at 1:35=E2=80=AFAM Kirill A. Shutemov
+> > > <kirill.shutemov@linux.intel.com> wrote:
+> > > >
+> > > > The recently introduced PG_dropbehind allows for freeing folios
+> > > > immediately after writeback. Unlike PG_reclaim, it does not need vm=
+scan
+> > > > to be involved to get the folio freed.
+> > > >
+> > > > Instead of using folio_set_reclaim(), use folio_set_dropbehind() in
+> > > > lru_deactivate_file().
+> > > >
+> > > > Signed-off-by: Kirill A. Shutemov <kirill.shutemov@linux.intel.com>
+> > > > ---
+> > > >  mm/swap.c | 8 +-------
+> > > >  1 file changed, 1 insertion(+), 7 deletions(-)
+> > > >
+> > > > diff --git a/mm/swap.c b/mm/swap.c
+> > > > index fc8281ef4241..4eb33b4804a8 100644
+> > > > --- a/mm/swap.c
+> > > > +++ b/mm/swap.c
+> > > > @@ -562,14 +562,8 @@ static void lru_deactivate_file(struct lruvec =
+*lruvec, struct folio *folio)
+> > > >         folio_clear_referenced(folio);
+> > > >
+> > > >         if (folio_test_writeback(folio) || folio_test_dirty(folio))=
+ {
+> > > > -               /*
+> > > > -                * Setting the reclaim flag could race with
+> > > > -                * folio_end_writeback() and confuse readahead.  Bu=
+t the
+> > > > -                * race window is _really_ small and  it's not a cr=
+itical
+> > > > -                * problem.
+> > > > -                */
+> > > >                 lruvec_add_folio(lruvec, folio);
+> > > > -               folio_set_reclaim(folio);
+> > > > +               folio_set_dropbehind(folio);
+> > > >         } else {
+> > > >                 /*
+> > > >                  * The folio's writeback ended while it was in the =
+batch.
+> > >
+> > > Now there's a difference in behavior here depending on whether or not
+> > > the folio is under writeback (or will be written back soon). If it is=
+,
+> > > we set PG_dropbehind to get it freed right after, but if writeback ha=
+s
+> > > already ended we put it on the tail of the LRU to be freed later.
+> > >
+> > > It's a bit counterintuitive to me that folios with pending writeback
+> > > get freed faster than folios that completed their writeback already.
+> > > Am I missing something?
+> >
+> > Yeah, it is strange.
+> >
+> > I think we can drop the writeback/dirty check. Set PG_dropbehind and pu=
+t
+> > the page on the tail of LRU unconditionally. The check was required to
+> > avoid confusion with PG_readahead.
+> >
+> > Comment above the function is not valid anymore.
 >
-> Instead of using folio_set_reclaim(), use folio_set_dropbehind() in
-> zswap_writeback_entry().
+> My read is that we don't put dirty/writeback folios at the tail of the
+> LRU because they cannot be freed immediately and we want to give them
+> time to be written back before reclaim reaches them. So I don't think
+> we want to change that and always put the pages at the tail.
 >
-> Signed-off-by: Kirill A. Shutemov <kirill.shutemov@linux.intel.com>
+> >
+> > But the folio that is still dirty under writeback will be freed faster =
+as
+> > we get rid of the folio just after writeback is done while clean page c=
+an
+> > dangle on LRU for a while.
+>
+> Yeah if we reuse PG_dropbehind then we cannot avoid
+> folio_end_writeback() freeing the folio faster than clean ones.
+>
+> >
+> > I don't think we have any convenient place to free clean dropbehind pag=
+e
+> > other than shrink_folio_list(). Or do we?
+>
+> Not sure tbh. FWIW I am not saying it's necessarily a bad thing to
+> free dirty/writeback folios before clean ones when deactivated, it's
+> just strange and a behavioral change from today that I wanted to point
+> out. Perhaps that's the best we can do for now.
+>
+> >
+> > Looking at shrink_folio_list(), I think we need to bypass page demotion
+> > for PG_dropbehind pages.
 
-Acked-by: Yosry Ahmed <yosryahmed@google.com>
+I agree with Yosry. I don't think lru_deactivate_file() is still
+needed -- it was needed only because when truncation fails to free a
+dirty/writeback folio, page reclaim can do that quickly. For other
+conditions that mapping_evict_folio() returns 0, there isn't much page
+reclaim can do, and those conditions are not deactivate_file_folio()
+and lru_deactivate_file()'s intentions. So the following should be
+enough, and it's a lot cleaner :
 
-> ---
->  mm/zswap.c | 4 ++--
->  1 file changed, 2 insertions(+), 2 deletions(-)
->
-> diff --git a/mm/zswap.c b/mm/zswap.c
-> index 167ae641379f..c20bad0b0978 100644
-> --- a/mm/zswap.c
-> +++ b/mm/zswap.c
-> @@ -1096,8 +1096,8 @@ static int zswap_writeback_entry(struct zswap_entry=
- *entry,
->         /* folio is up to date */
->         folio_mark_uptodate(folio);
->
-> -       /* move it to the tail of the inactive list after end_writeback *=
-/
-> -       folio_set_reclaim(folio);
-> +       /* free the folio after writeback */
-> +       folio_set_dropbehind(folio);
->
->         /* start writeback */
->         __swap_writepage(folio, &wbc);
-> --
-> 2.45.2
->
+diff --git a/mm/truncate.c b/mm/truncate.c
+index e2e115adfbc5..12d2aa608517 100644
+--- a/mm/truncate.c
++++ b/mm/truncate.c
+@@ -486,7 +486,7 @@ unsigned long mapping_try_invalidate(struct
+address_space *mapping,
+                         * of interest and try to speed up its reclaim.
+                         */
+                        if (!ret) {
+-                               deactivate_file_folio(folio);
++                               folio_set_dropbehind(folio)
+                                /* Likely in the lru cache of a remote CPU =
+*/
+                                if (nr_failed)
+                                        (*nr_failed)++;
+
+Then we can drop deactivate_file_folio() and lru_deactivate_file().
