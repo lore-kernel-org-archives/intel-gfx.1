@@ -4,74 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7251AE77188
-	for <intel-gfx@archiver.kernel.org>; Thu, 16 Jan 2025 07:28:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 97281C02180
+	for <intel-gfx@archiver.kernel.org>; Thu, 16 Jan 2025 07:39:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1A7DD10E8CD;
-	Thu, 16 Jan 2025 07:28:03 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 20C8C10E0F0;
+	Thu, 16 Jan 2025 07:39:48 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="r19vIFAC";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="CtH4j4qd";
 	dkim-atps=neutral
-Received: from mail-yb1-f180.google.com (mail-yb1-f180.google.com
- [209.85.219.180])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 655D710E8CE
- for <intel-gfx@lists.freedesktop.org>; Thu, 16 Jan 2025 07:28:02 +0000 (UTC)
-Received: by mail-yb1-f180.google.com with SMTP id
- 3f1490d57ef6-e53537d8feeso980608276.0
- for <intel-gfx@lists.freedesktop.org>; Wed, 15 Jan 2025 23:28:02 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1737012421; x=1737617221; darn=lists.freedesktop.org;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=23JnYRpCbBV23N39s16FccVsN4HNHdf+HO6VU1JPv7k=;
- b=r19vIFACsWMxmAGcg4mug0V+v6ZAiwgBjtUr6a+I/2wiIhWnHTkssherkT1x02X2Dl
- 6DzCtyv/m2r2Dr6EPaNa6rXMRCl4i9POJFa/ATITL/eRbAuEz/osJY+OPELuhOQP74AR
- HBEdU9r4r9t2HBV/RrmxKcP27NY9lNI38K9MSD2DDI7G1AFLuFF0TdG8XN2e32ukPQSD
- G3cZrhBUua0LZVnnCsrrJ4PpGDTMrNWaWmovvS6CsarS+m/bquLGCzqq4MvD9wQifEKY
- bj8GpcSTaTDjxwMB0m+oPQl0KaOHo+hLcdeUjSvRh9ZggJiJPD1u+GbScZ8k+KQiWx3w
- ihpw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1737012421; x=1737617221;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=23JnYRpCbBV23N39s16FccVsN4HNHdf+HO6VU1JPv7k=;
- b=O/FJzdRywgU0nOWwuOmZXA6CqmDeKtGfexqE5WqBvxl8agfRGl27Kk9sieoO8+QSab
- Pmphdin7cCemgMPmNLKU2jLm+QJLuezl4O00gjoLVXosQStcWQ1CIBC7XCclk+lZs+6a
- LLaR5p0XfddgHyYxNIGukrr+hTkkBPcjCEvI9iV1EK9iF93qAiuhk+F4GVQ9KCEvJPcQ
- FuUXH23gfvc3sENBxmG6HZXHyVWvI9MFSz/jN5qJeAamxIS3I52EFKsTDvaRqkSbuERc
- y3FVg9ZH+RRTW8cr2XtySAC5cEmlXWXNqd05LlSD0rmK4kzrE0WdV+j/5P3CkWW6pjvy
- brtQ==
-X-Forwarded-Encrypted: i=1;
- AJvYcCVLkGNhBy3YETz8V/EJ98BzUoelkSwORrJ6ioTL2ROC4ODYU0c8uMCj5isCFVFpCvYHWb6Or35gN0Y=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxjFsLp9E91U0iRCNUVnASYBVDCalrZPR1sBPVMccMa8UFfY62h
- +j7haikIuQ3JJnmdRrCeSiTkAM6oBIX73lQ0a9NvI/0eYQ0AFBS0mGXv2HYmTxmgJBh/TudOWh7
- j4p2FG8Q8dvez1se0eGbGOKME1+m3AtQo+lQIzg==
-X-Gm-Gg: ASbGncsMn718uh1i6jLVEdbcz6/jxz4tYIsvXGai/xKQe1xhUB0Pr6xZ00QkWRBcZak
- g2OcH2/l9IHzrzDPnAv6R8em0RoW9a8IdqrenJU1f+fCE0V9qDW41
-X-Google-Smtp-Source: AGHT+IHQ+qxV5BbgMIThXfCCGgqDGgcL7sB4lY/0l3wgCGZ7dg/DHlTQAZzzrZBqXeHZR237kIVVD3QaCUX5/f9Yw+g=
-X-Received: by 2002:a05:690c:9687:b0:6f6:ccf8:614a with SMTP id
- 00721157ae682-6f6ccf86218mr46318587b3.17.1737012421588; Wed, 15 Jan 2025
- 23:27:01 -0800 (PST)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.13])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 828B010E912
+ for <intel-gfx@lists.freedesktop.org>; Thu, 16 Jan 2025 07:39:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1737013185; x=1768549185;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=nLqPyIdlt2XlofwOknV35bid7LkbJDnZhoBggoix10U=;
+ b=CtH4j4qdP95DXUFxOPOPXsgHkAD/9ifWNLWz0UJwZIglg5OfahDmryeJ
+ vtnUHfMpXpVxfvUGYV37BO+r8Y+87upN3aUhAkR0foIJlx6C1dq8YHRlM
+ oLAUXetcf1SezAoO2w1JNR8eAv3rKq69l/TxCskcyQ5jaMz7NANznVUqX
+ xhKwLSdG9/Zsl/YKTADp+bE8WyTYhe2wgz2ExnzsGR5MhHwgIwFNYpRCL
+ 7Db+Vs0WyY6VWYzgKgeoJ3E81PZj17SWT5fk0Fpforz2uc3bWwkShaTog
+ H3U/hR+INMGog+IEpUJ4JnDBUGcpOAxTyIZGO5cR+PHMx6NPhgoCbEF/I A==;
+X-CSE-ConnectionGUID: fN4IMXWLRc2pwjFqqSu8QA==
+X-CSE-MsgGUID: AwBF31jMRGyOm7PKHsytmg==
+X-IronPort-AV: E=McAfee;i="6700,10204,11316"; a="40197411"
+X-IronPort-AV: E=Sophos;i="6.13,208,1732608000"; d="scan'208";a="40197411"
+Received: from orviesa002.jf.intel.com ([10.64.159.142])
+ by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 15 Jan 2025 23:39:45 -0800
+X-CSE-ConnectionGUID: xo5jp5btTUW2CUtwNXxA9A==
+X-CSE-MsgGUID: pNUXQQhYQeyAfGUWU+IswA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.13,208,1732608000"; d="scan'208";a="136243645"
+Received: from haridhar-ms-7d25.iind.intel.com ([10.190.238.61])
+ by orviesa002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 15 Jan 2025 23:39:43 -0800
+From: Ranu Maurya <ranu.maurya@intel.com>
+To: intel-gfx@lists.freedesktop.org
+Cc: sai.teja.pottumuttu@intel.com, balasubramani.vivekanandan@intel.com,
+ ranu.maurya@intel.com
+Subject: [PATCH v2] drm/i915: Add Wa_22010465259 in its respective WA list
+Date: Thu, 16 Jan 2025 13:08:28 +0530
+Message-Id: <20250116073828.2431313-1-ranu.maurya@intel.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-References: <20250110-dpst-v7-0-605cb0271162@intel.com>
- <20250110-dpst-v7-2-605cb0271162@intel.com>
- <i6j3zi5tlnyk2eonmpa5h5qitwgzs2nuzrvsasde3dci6a4ngl@qhbtsjbhq6xr>
- <IA0PR11MB73075A89DAA5BF7D783125EEBA1A2@IA0PR11MB7307.namprd11.prod.outlook.com>
-In-Reply-To: <IA0PR11MB73075A89DAA5BF7D783125EEBA1A2@IA0PR11MB7307.namprd11.prod.outlook.com>
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Date: Thu, 16 Jan 2025 09:26:50 +0200
-X-Gm-Features: AbW1kvbKvQiACvA6KZB6HujLWaObXj3LewwLzU1hf6Lqx_12bXcUlXssKsNLIWE
-Message-ID: <CAA8EJprDgcyZTgz9QX0X51sC=F6ogXsMkDLfbSypH1kSm5hJzg@mail.gmail.com>
-Subject: Re: [PATCH v7 02/14] drm: Define ImageEnhancemenT LUT structures
- exposed to user
-To: "Murthy, Arun R" <arun.r.murthy@intel.com>
-Cc: "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>, 
- "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>, 
- "intel-xe@lists.freedesktop.org" <intel-xe@lists.freedesktop.org>, "Kandpal,
- Suraj" <suraj.kandpal@intel.com>, "Shankar, Uma" <uma.shankar@intel.com>, 
- "Bhattacharjee, Susanta" <susanta.bhattacharjee@intel.com>
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -87,200 +66,43 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Thu, 16 Jan 2025 at 09:08, Murthy, Arun R <arun.r.murthy@intel.com> wrote:
->
-> > On Fri, Jan 10, 2025 at 01:15:30AM +0530, Arun R Murthy wrote:
-> > > ImageEnhancemenT(IET) hardware interpolates the LUT value to generate
-> > > the enhanced output image. LUT takes an input value, outputs a new
-> > > value based on the data within the LUT. 1D LUT can remap individual
-> > > input values to new output values based on the LUT sample. LUT can be
-> > > interpolated by the hardware by multiple modes Ex: Direct Lookup LUT,
-> > > Multiplicative LUT etc The list of supported mode by hardware along
-> > > with the format(exponent
-> > > mantissa) is exposed to user by the iet_lut_caps property. Maximum
-> > > format being 8.24 i.e 8 exponent and 24 mantissa.
-> > > For illustration a hardware supporting 1.9 format denotes this as
-> > > 0x10001FF. In order to know the exponent do a bitwise AND with
-> > > 0xF000000. The LUT value to be provided by user would be a 10bit value
-> > > with 1 bit integer and 9 bit fractional value.
-> > >
-> > > Multiple formats can be supported, hence pointer is used over here.
-> > > User can then provide the LUT with any one of the supported modes in
-> > > any of the supported formats.
-> > > The entries in the LUT can vary depending on the hardware capability
-> > > with max being 255. This will also be exposed as iet_lut_caps so user
-> > > can generate a LUT with the specified entries.
-> > >
-> > > Signed-off-by: Arun R Murthy <arun.r.murthy@intel.com>
-> > > ---
-> > >  include/uapi/drm/drm_mode.h | 50
-> > > +++++++++++++++++++++++++++++++++++++++++++++
-> > >  1 file changed, 50 insertions(+)
-> > >
-> > > diff --git a/include/uapi/drm/drm_mode.h b/include/uapi/drm/drm_mode.h
-> > > index
-> > >
-> > 7a7039381142bb5dba269bdaec42c18be34e2d05..056c2efef1589848034afc00
-> > 89f1
-> > > 838c2547bcf8 100644
-> > > --- a/include/uapi/drm/drm_mode.h
-> > > +++ b/include/uapi/drm/drm_mode.h
-> > > @@ -1367,6 +1367,17 @@ struct drm_mode_closefb {
-> > >   */
-> > >  #define DRM_MODE_HISTOGRAM_HSV_MAX_RGB                     (1 <<
-> > 0)
-> > >
-> > > +/* LUT values are points on exponential graph with x axis and y-axis
-> > > +y=f(x) */
-> >
-> > Huh?
-> >
-> This f(x) can be the algorithm defined  by the user space algorithm to generate the lookup
-> table. Generation of the LUT value is left to the user space algorithm.
-> When this LUT table is passed to the hardware its just signifies how hardware should
-> use this table to get the LUT value. In this mode it's a direct lookup table.
+Add Wa_22010465259 which points to an existing WA, but
+was missing from the comment list. While at it, update
+the other WAs and their applicable platforms as well.
 
-Your documentation should be describing what is expected from the
-userspace. What is y, x and f(x)? How is it being used?
+Signed-off-by: Ranu Maurya <ranu.maurya@intel.com>
+---
+ drivers/gpu/drm/i915/gt/intel_workarounds.c | 13 +++++++------
+ 1 file changed, 7 insertions(+), 6 deletions(-)
 
->
-> > > +#define DRM_MODE_IET_LOOKUP_LUT                            (1 <<
-> > 0)
-> >
-> > Again, what is the reason for a shift? Can these values be OR'd?
-> >
-> Yes can be OR'd values as well.
-> Let me know if this has to be changed?
-> Just chose bitwise shift to denote the multiple modes.
-
-What does it mean if drm_iet_1dlut_sample.iet_mode contains OR of two values?
-
->
-> > > +/*
-> > > + * LUT values, points on negative exponential graph with x-axis and
-> > > +y-axis
-> > > + * Y = y/x so upon multiplying x, y is obtained, hence
-> > > +multiplicative. The
-> >
-> > Can't parse this sentence.
-> >
-> We need x and y points in the exponential graph.
-> For retrieving the value Y on the graph the value passed by the user is in the format y/x
-> In order to get the Y points on the graph the value has to be multiplied by x.
-> This is a floating point value when compared with an integer value with the direct
-> lookup mode.
-
-Again, what are x and y? Bin indices? Pixel counts? Number of CPUs in
-the current generation?
-
->
->
-> > > + * format of LUT can at max be 8.24(8integer 24 fractional)
-> > > + represented by
-> > > + * u32. Depending on the hardware capability and exponent mantissa
-> > > + can be
-> > > + * chosen.
-> >
-> > What does that mean? How is it choosen?
-> >
-> The max value that these kind of 1DLUT can be is 8.24
-
-Why?
-
-> Hardware design can choose anything within this range. This depends
-> on the accuracy required by hardware keeping in mind the hardware cost for
-> implementation.
-> Just a precision for 32bit value.
->
-> > > + */
-> > > +#define DRM_MODE_IET_MULTIPLICATIVE                        (1 << 1)
-> > > +
-> > >  /**
-> > >   * struct drm_histogram_caps
-> > >   *
-> > > @@ -1414,6 +1425,45 @@ struct drm_histogram {
-> > >     __u32 nr_elements;
-> > >  };
-> > >
-> > > +/**
-> > > + * struct drm_iet_caps
-> > > + *
-> > > + * @iet_mode: pixel factor enhancement modes defined in the above
-> > > +macros
-> > > + * @iet_sample_format: holds the address of an array of u32 LUT sample
-> > formats
-> > > + *                depending on the hardware capability. Max being 8.24
-> > > + *                Doing a bitwise AND will get the present sample.
-> > > + *                Ex: for 1 integer 9 fraction AND with 0x10001FF
-> >
-> > ?? Can hardware support 16.16? 32.0?
-> >
-> No, for a 1D LUT maximum floating number can be 8.24
-
-Why? Is it a limitation of the Intel hardware or just a random API choice?
-
-> Hence hardware will have to adhere to anything within this range.
->
-> > > + * @nr_iet_sample_formats: number of iet_sample_formsts supported by
-> > the
-> > > + *                    hardware
-> > > + * @nr_iet_lut_entries: number of LUT entries  */ struct drm_iet_caps
-> > > +{
-> > > +   __u8 iet_mode;
-> > > +   u64 iet_sample_format;
-> > > +   __u32 nr_iet_sample_formats;
-> > > +   __u32 nr_iet_lut_entries;
-> > > +};
-> > > +
-> > > +/**
-> > > + * struct drm_iet_1dlut_sample
-> >
-> > Is it supposed to be used with DRM_MODE_IET_MULTIPLICATIVE only? Or is it
-> > supposed to be used with DRM_MODE_IET_LOOKUP_LUT? In the latter case
-> > what should be the iet_format value?
-> >
-> The struct iet_1dlut_sample will be used for all the IET modes i.e direct lookup and
-> multiplicative.
-> The element iet_sample_format will not be applicable for direct lookup. This will be
-> used for multiplicative and the value what it can hold for multiplicative is mentioned
-> in the above description.
-> I missed adding this info in the description, will add it in the next version.
-
-And some other formats will also require additional data. This
-multi-format structure sounds bad from my POV.
-
->
-> > > + * @iet_mode: image enhancement mode, this will also convey the channel.
-> > > + * @iet_format: LUT exponent and mantissa format, max being 8.24
-> > > + * @data_ptr: pointer to the array of values which is of type u32.
-> > > + *       1 channel: 10 bit corrected value and remaining bits are reserved.
-> > > + *       multi channel: pointer to struct drm_color_lut
-> > > + * @nr_elements: number of entries pointed by the data @data_ptr
-> > > + * @reserved: reserved for future use
-> > > + * @reserved1: reserved for future use  */ struct
-> > > +drm_iet_1dlut_sample {
-> > > +   __u8 iet_mode;
-> > > +   __u32 iet_format;
-> > > +   __u64 data_ptr;
-> > > +   __u32 nr_elements;
-> > > +   __u32 reserved;
-> > > +   __u32 reserved1;
-> > > +};
-> > > +
-> > >  #if defined(__cplusplus)
-> > >  }
-> > >  #endif
-> > >
-> > > --
-> > > 2.25.1
-> > >
-> >
-> Thanks and Regards,
-> Arun R Murthy
-> --------------------
-
-
-
+diff --git a/drivers/gpu/drm/i915/gt/intel_workarounds.c b/drivers/gpu/drm/i915/gt/intel_workarounds.c
+index 570c91878189..4cf4fa1f1a92 100644
+--- a/drivers/gpu/drm/i915/gt/intel_workarounds.c
++++ b/drivers/gpu/drm/i915/gt/intel_workarounds.c
+@@ -691,16 +691,17 @@ static void gen12_ctx_workarounds_init(struct intel_engine_cs *engine,
+ 	struct drm_i915_private *i915 = engine->i915;
+ 
+ 	/*
+-	 * Wa_1409142259:tgl,dg1,adl-p
++	 * Wa_1409142259:tgl,dg1,adl-p,adl-n
+ 	 * Wa_1409347922:tgl,dg1,adl-p
+ 	 * Wa_1409252684:tgl,dg1,adl-p
+ 	 * Wa_1409217633:tgl,dg1,adl-p
+ 	 * Wa_1409207793:tgl,dg1,adl-p
+-	 * Wa_1409178076:tgl,dg1,adl-p
+-	 * Wa_1408979724:tgl,dg1,adl-p
+-	 * Wa_14010443199:tgl,rkl,dg1,adl-p
+-	 * Wa_14010698770:tgl,rkl,dg1,adl-s,adl-p
+-	 * Wa_1409342910:tgl,rkl,dg1,adl-s,adl-p
++	 * Wa_1409178076:tgl,dg1,adl-p,adl-n
++	 * Wa_1408979724:tgl,dg1,adl-p,adl-n
++	 * Wa_14010443199:tgl,rkl,dg1,dg2,adl-p,adl-n
++	 * Wa_14010698770:tgl,rkl,dg1,dg2,adl-s,adl-p,adl-n
++	 * Wa_1409342910:tgl,rkl,dg1,adl-s,adl-p,adl-n
++	 * Wa_22010465259:tgl,rkl,dg1,adl-s,adl-p,adl-n
+ 	 */
+ 	wa_masked_en(wal, GEN11_COMMON_SLICE_CHICKEN3,
+ 		     GEN12_DISABLE_CPS_AWARE_COLOR_PIPE);
 -- 
-With best wishes
-Dmitry
+2.25.1
+
