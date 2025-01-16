@@ -4,53 +4,27 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 05D89C02187
-	for <intel-gfx@archiver.kernel.org>; Thu, 16 Jan 2025 10:05:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D8B01C02183
+	for <intel-gfx@archiver.kernel.org>; Thu, 16 Jan 2025 10:22:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9BDCE10E924;
-	Thu, 16 Jan 2025 10:05:38 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="VWzz7H2b";
-	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.12])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 22C5110E929;
- Thu, 16 Jan 2025 10:05:36 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1737021936; x=1768557936;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=GSZs3f1TK0H7I2GHxtCVH4mC6qc1waZwcj++Ih4tnvc=;
- b=VWzz7H2bivkDRo/upHuTpJVCwrNzOKqLoIj3YRbeZ9K5blcQJG6b0GZu
- u6idrzq9RZzjgaAmsW4dfTkw10Y+6yUPuQ2uBK3SI5CA1TQVjl4nNByxs
- LL/fI/kaRBzTvGQ8UJtzAwTUY+IlsaEI/xm4b6Chorea59+MGdN28r/oB
- uSfGKyBv7DRmUcz2ZVFcQOWxIQ5eLdPSqRxq+01SW7CceNEGtif8B4gtf
- zW5ldEjCinoQARSUpsVh2uOTWKHO9cN7eyXRq96GWHuAfe6gAhH968Ejq
- E9jWwXnjvS258LwiCB96YBwVzB+Jdh208kUYPQ9W5vceMBsZirVgGEB4Z A==;
-X-CSE-ConnectionGUID: TtKiKipWSFq37Bn5kWZ2aQ==
-X-CSE-MsgGUID: 8vE5ZUajR8GOWEx3ylnF5Q==
-X-IronPort-AV: E=McAfee;i="6700,10204,11316"; a="41334878"
-X-IronPort-AV: E=Sophos;i="6.13,209,1732608000"; d="scan'208";a="41334878"
-Received: from fmviesa004.fm.intel.com ([10.60.135.144])
- by fmvoesa106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 16 Jan 2025 02:05:36 -0800
-X-CSE-ConnectionGUID: 6mAMG/OpRIeI1seuLLWJDA==
-X-CSE-MsgGUID: +3y4PeTqRsKveP3WBFYw3w==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.13,209,1732608000"; d="scan'208";a="110412880"
-Received: from srr4-3-linux-103-aknautiy.iind.intel.com ([10.223.34.160])
- by fmviesa004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 16 Jan 2025 02:05:34 -0800
-From: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
-To: intel-gfx@lists.freedesktop.org
-Cc: intel-xe@lists.freedesktop.org
-Subject: [PATCH] drm/i915/dp: Correct max compressed bpp bounds by using link
- bpp
-Date: Thu, 16 Jan 2025 15:24:16 +0530
-Message-ID: <20250116095416.68325-1-ankit.k.nautiyal@intel.com>
-X-Mailer: git-send-email 2.45.2
+	by gabe.freedesktop.org (Postfix) with ESMTP id 826C710E938;
+	Thu, 16 Jan 2025 10:22:35 +0000 (UTC)
+Received: from b555e5b46a47 (emeril.freedesktop.org [131.252.210.167])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B9AC110E93B;
+ Thu, 16 Jan 2025 10:22:33 +0000 (UTC)
+Content-Type: multipart/alternative;
+ boundary="===============6834853805389399316=="
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Subject: =?utf-8?q?=E2=9C=97_i915=2ECI=2EBAT=3A_failure_for_drm/i915/display=3A_HDMI_?=
+ =?utf-8?q?C10_PLL_entry_for_265250_MHz_=28rev2=29?=
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Clint Taylor" <clinton.a.taylor@intel.com>
+Cc: intel-gfx@lists.freedesktop.org
+Date: Thu, 16 Jan 2025 10:22:33 -0000
+Message-ID: <173702295375.218583.14744548075129076155@b555e5b46a47>
+X-Patchwork-Hint: ignore
+References: <20250115230859.2410966-1-clinton.a.taylor@intel.com>
+In-Reply-To: <20250115230859.2410966-1-clinton.a.taylor@intel.com>
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,59 +37,224 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-While setting the bounds for compressed bpp we ensure that the
-compressed bpp is less than the pipe bpp.
+--===============6834853805389399316==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
 
-This gives an issue with 420 output format where effective link bpp is
-half that of the pipe bpp. Therefore instead of pipe bpp use link bpp to
-set the bounds for the compressed bpp.
+== Series Details ==
 
-Signed-off-by: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
----
- drivers/gpu/drm/i915/display/intel_dp.c | 10 ++++++++--
- 1 file changed, 8 insertions(+), 2 deletions(-)
+Series: drm/i915/display: HDMI C10 PLL entry for 265250 MHz (rev2)
+URL   : https://patchwork.freedesktop.org/series/143577/
+State : failure
 
-diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
-index 1ad25c37f3c2..47fcfbcb893b 100644
---- a/drivers/gpu/drm/i915/display/intel_dp.c
-+++ b/drivers/gpu/drm/i915/display/intel_dp.c
-@@ -2068,9 +2068,12 @@ icl_dsc_compute_link_config(struct intel_dp *intel_dp,
- 			    int timeslots)
- {
- 	int i, ret;
-+	int link_bpp;
-+
-+	link_bpp = intel_dp_output_bpp(pipe_config->output_format, pipe_bpp);
- 
- 	/* Compressed BPP should be less than the Input DSC bpp */
--	dsc_max_bpp = min(dsc_max_bpp, pipe_bpp - 1);
-+	dsc_max_bpp = min(dsc_max_bpp, link_bpp - 1);
- 
- 	for (i = 0; i < ARRAY_SIZE(valid_dsc_bpp); i++) {
- 		if (valid_dsc_bpp[i] < dsc_min_bpp)
-@@ -2113,6 +2116,7 @@ xelpd_dsc_compute_link_config(struct intel_dp *intel_dp,
- 	u8 bppx16_incr = drm_dp_dsc_sink_bpp_incr(connector->dp.dsc_dpcd);
- 	u16 compressed_bppx16;
- 	u8 bppx16_step;
-+	int link_bpp;
- 	int ret;
- 
- 	if (DISPLAY_VER(display) < 14 || bppx16_incr <= 1)
-@@ -2120,8 +2124,10 @@ xelpd_dsc_compute_link_config(struct intel_dp *intel_dp,
- 	else
- 		bppx16_step = 16 / bppx16_incr;
- 
-+	link_bpp = intel_dp_output_bpp(pipe_config->output_format, pipe_bpp);
-+
- 	/* Compressed BPP should be less than the Input DSC bpp */
--	dsc_max_bpp = min(dsc_max_bpp << 4, (pipe_bpp << 4) - bppx16_step);
-+	dsc_max_bpp = min(dsc_max_bpp << 4, (link_bpp << 4) - bppx16_step);
- 	dsc_min_bpp = dsc_min_bpp << 4;
- 
- 	for (compressed_bppx16 = dsc_max_bpp;
--- 
-2.45.2
+== Summary ==
 
+CI Bug Log - changes from CI_DRM_15964 -> Patchwork_143577v2
+====================================================
+
+Summary
+-------
+
+  **FAILURE**
+
+  Serious unknown changes coming with Patchwork_143577v2 absolutely need to be
+  verified manually.
+  
+  If you think the reported changes have nothing to do with the changes
+  introduced in Patchwork_143577v2, please notify your bug team (I915-ci-infra@lists.freedesktop.org) to allow them
+  to document this new failure mode, which will reduce false positives in CI.
+
+  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_143577v2/index.html
+
+Participating hosts (42 -> 41)
+------------------------------
+
+  Additional (1): fi-blb-e6850 
+  Missing    (2): fi-snb-2520m fi-pnv-d510 
+
+Possible new issues
+-------------------
+
+  Here are the unknown changes that may have been introduced in Patchwork_143577v2:
+
+### IGT changes ###
+
+#### Possible regressions ####
+
+  * igt@gem_exec_fence@basic-await:
+    - bat-twl-1:          [PASS][1] -> [FAIL][2] +1 other test fail
+   [1]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_15964/bat-twl-1/igt@gem_exec_fence@basic-await.html
+   [2]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_143577v2/bat-twl-1/igt@gem_exec_fence@basic-await.html
+
+  * igt@kms_pipe_crc_basic@read-crc-frame-sequence:
+    - fi-kbl-7567u:       [PASS][3] -> [DMESG-WARN][4] +3 other tests dmesg-warn
+   [3]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_15964/fi-kbl-7567u/igt@kms_pipe_crc_basic@read-crc-frame-sequence.html
+   [4]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_143577v2/fi-kbl-7567u/igt@kms_pipe_crc_basic@read-crc-frame-sequence.html
+
+  
+Known issues
+------------
+
+  Here are the changes found in Patchwork_143577v2 that come from known issues:
+
+### IGT changes ###
+
+#### Issues hit ####
+
+  * igt@i915_pm_rpm@module-reload:
+    - fi-blb-e6850:       NOTRUN -> [SKIP][5] +33 other tests skip
+   [5]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_143577v2/fi-blb-e6850/igt@i915_pm_rpm@module-reload.html
+    - bat-rpls-4:         [PASS][6] -> [FAIL][7] ([i915#13401])
+   [6]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_15964/bat-rpls-4/igt@i915_pm_rpm@module-reload.html
+   [7]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_143577v2/bat-rpls-4/igt@i915_pm_rpm@module-reload.html
+
+  * igt@kms_pipe_crc_basic@nonblocking-crc-frame-sequence:
+    - bat-dg2-11:         [PASS][8] -> [SKIP][9] ([i915#9197]) +3 other tests skip
+   [8]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_15964/bat-dg2-11/igt@kms_pipe_crc_basic@nonblocking-crc-frame-sequence.html
+   [9]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_143577v2/bat-dg2-11/igt@kms_pipe_crc_basic@nonblocking-crc-frame-sequence.html
+
+  
+#### Possible fixes ####
+
+  * igt@i915_selftest@live:
+    - bat-apl-1:          [DMESG-FAIL][10] ([i915#12435]) -> [PASS][11] +1 other test pass
+   [10]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_15964/bat-apl-1/igt@i915_selftest@live.html
+   [11]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_143577v2/bat-apl-1/igt@i915_selftest@live.html
+
+  * igt@i915_selftest@live@workarounds:
+    - bat-arls-5:         [DMESG-FAIL][12] ([i915#13393]) -> [PASS][13] +1 other test pass
+   [12]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_15964/bat-arls-5/igt@i915_selftest@live@workarounds.html
+   [13]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_143577v2/bat-arls-5/igt@i915_selftest@live@workarounds.html
+
+  
+  [i915#12435]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/12435
+  [i915#13393]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/13393
+  [i915#13401]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/13401
+  [i915#9197]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/9197
+
+
+Build changes
+-------------
+
+  * Linux: CI_DRM_15964 -> Patchwork_143577v2
+
+  CI-20190529: 20190529
+  CI_DRM_15964: 4cea1f90028925afcf1a0f8a0ef301f90349688c @ git://anongit.freedesktop.org/gfx-ci/linux
+  IGT_8192: a3b85ce819b99284bef57aafc7d44f50a62e097f @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git
+  Patchwork_143577v2: 4cea1f90028925afcf1a0f8a0ef301f90349688c @ git://anongit.freedesktop.org/gfx-ci/linux
+
+== Logs ==
+
+For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_143577v2/index.html
+
+--===============6834853805389399316==
+Content-Type: text/html; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <title>Project List - Patchwork</title>
+  <style id="css-table-select" type="text/css">
+   td { padding: 2pt; }
+  </style>
+</head>
+<body>
+
+
+<b>Patch Details</b>
+<table>
+<tr><td><b>Series:</b></td><td>drm/i915/display: HDMI C10 PLL entry for 265250 MHz (rev2)</td></tr>
+<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/143577/">https://patchwork.freedesktop.org/series/143577/</a></td></tr>
+<tr><td><b>State:</b></td><td>failure</td></tr>
+
+    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_143577v2/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_143577v2/index.html</a></td></tr>
+
+</table>
+
+
+    <h1>CI Bug Log - changes from CI_DRM_15964 -&gt; Patchwork_143577v2</h1>
+<h2>Summary</h2>
+<p><strong>FAILURE</strong></p>
+<p>Serious unknown changes coming with Patchwork_143577v2 absolutely need to be<br />
+  verified manually.</p>
+<p>If you think the reported changes have nothing to do with the changes<br />
+  introduced in Patchwork_143577v2, please notify your bug team (I915-ci-infra@lists.freedesktop.org) to allow them<br />
+  to document this new failure mode, which will reduce false positives in CI.</p>
+<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_143577v2/index.html</p>
+<h2>Participating hosts (42 -&gt; 41)</h2>
+<p>Additional (1): fi-blb-e6850 <br />
+  Missing    (2): fi-snb-2520m fi-pnv-d510 </p>
+<h2>Possible new issues</h2>
+<p>Here are the unknown changes that may have been introduced in Patchwork_143577v2:</p>
+<h3>IGT changes</h3>
+<h4>Possible regressions</h4>
+<ul>
+<li>
+<p>igt@gem_exec_fence@basic-await:</p>
+<ul>
+<li>bat-twl-1:          <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_15964/bat-twl-1/igt@gem_exec_fence@basic-await.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_143577v2/bat-twl-1/igt@gem_exec_fence@basic-await.html">FAIL</a> +1 other test fail</li>
+</ul>
+</li>
+<li>
+<p>igt@kms_pipe_crc_basic@read-crc-frame-sequence:</p>
+<ul>
+<li>fi-kbl-7567u:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_15964/fi-kbl-7567u/igt@kms_pipe_crc_basic@read-crc-frame-sequence.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_143577v2/fi-kbl-7567u/igt@kms_pipe_crc_basic@read-crc-frame-sequence.html">DMESG-WARN</a> +3 other tests dmesg-warn</li>
+</ul>
+</li>
+</ul>
+<h2>Known issues</h2>
+<p>Here are the changes found in Patchwork_143577v2 that come from known issues:</p>
+<h3>IGT changes</h3>
+<h4>Issues hit</h4>
+<ul>
+<li>
+<p>igt@i915_pm_rpm@module-reload:</p>
+<ul>
+<li>fi-blb-e6850:       NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_143577v2/fi-blb-e6850/igt@i915_pm_rpm@module-reload.html">SKIP</a> +33 other tests skip</li>
+<li>bat-rpls-4:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_15964/bat-rpls-4/igt@i915_pm_rpm@module-reload.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_143577v2/bat-rpls-4/igt@i915_pm_rpm@module-reload.html">FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/13401">i915#13401</a>)</li>
+</ul>
+</li>
+<li>
+<p>igt@kms_pipe_crc_basic@nonblocking-crc-frame-sequence:</p>
+<ul>
+<li>bat-dg2-11:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_15964/bat-dg2-11/igt@kms_pipe_crc_basic@nonblocking-crc-frame-sequence.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_143577v2/bat-dg2-11/igt@kms_pipe_crc_basic@nonblocking-crc-frame-sequence.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/9197">i915#9197</a>) +3 other tests skip</li>
+</ul>
+</li>
+</ul>
+<h4>Possible fixes</h4>
+<ul>
+<li>
+<p>igt@i915_selftest@live:</p>
+<ul>
+<li>bat-apl-1:          <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_15964/bat-apl-1/igt@i915_selftest@live.html">DMESG-FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/12435">i915#12435</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_143577v2/bat-apl-1/igt@i915_selftest@live.html">PASS</a> +1 other test pass</li>
+</ul>
+</li>
+<li>
+<p>igt@i915_selftest@live@workarounds:</p>
+<ul>
+<li>bat-arls-5:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_15964/bat-arls-5/igt@i915_selftest@live@workarounds.html">DMESG-FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/13393">i915#13393</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_143577v2/bat-arls-5/igt@i915_selftest@live@workarounds.html">PASS</a> +1 other test pass</li>
+</ul>
+</li>
+</ul>
+<h2>Build changes</h2>
+<ul>
+<li>Linux: CI_DRM_15964 -&gt; Patchwork_143577v2</li>
+</ul>
+<p>CI-20190529: 20190529<br />
+  CI_DRM_15964: 4cea1f90028925afcf1a0f8a0ef301f90349688c @ git://anongit.freedesktop.org/gfx-ci/linux<br />
+  IGT_8192: a3b85ce819b99284bef57aafc7d44f50a62e097f @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git<br />
+  Patchwork_143577v2: 4cea1f90028925afcf1a0f8a0ef301f90349688c @ git://anongit.freedesktop.org/gfx-ci/linux</p>
+
+</body>
+</html>
+
+--===============6834853805389399316==--
