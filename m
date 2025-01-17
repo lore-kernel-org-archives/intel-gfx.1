@@ -4,96 +4,66 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D42DEC0218C
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 97573C02182
 	for <intel-gfx@archiver.kernel.org>; Tue, 21 Jan 2025 13:31:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 70BA910E591;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 42C2E10E588;
 	Tue, 21 Jan 2025 13:31:29 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="NkDdpuhH";
-	dkim-atps=neutral
-Received: from mail-wm1-x336.google.com (mail-wm1-x336.google.com
- [IPv6:2a00:1450:4864:20::336])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 20B6010E050;
- Mon, 20 Jan 2025 11:15:56 +0000 (UTC)
-Received: by mail-wm1-x336.google.com with SMTP id
- 5b1f17b1804b1-4364a37a1d7so43046845e9.3; 
- Mon, 20 Jan 2025 03:15:56 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1737371754; x=1737976554; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:subject:cc:to:from:date:from:to:cc:subject:date
- :message-id:reply-to;
- bh=Grk9J6/b9VBuQn2GFV1dMGR5fuj1yzKJkHNAQSI0qz8=;
- b=NkDdpuhH83HJiCvOa9U0dzgJ9HRhJpHKXnoyQ5wL9tAu9RKL7+5c5puIbIcKzISvAp
- 2ffVxJSc8m9446krYUdph8WPl8RJgstsewthELH4lBgnXin3FXfIo9Hv1/NGe6PePjr/
- kyqix9yZ7kQb/Sp7Q1xfLMhTk1on+5WLZ0P50F39EQwOeMkL5wvIyfvbdHHiZ1B3+yHM
- w1/WlGj3QzIBGa0rGB1Fywdj/gJFnzZCop3seldBEcPVWrcoXevRgebIAYqXVp2jbRlt
- jfvYosQPVI4/MDy3K5Fdj6H99FpLkx2m7o2VvPJ+N4i3gVcBdmqETIdMZgPCxFjLtSjJ
- oVHw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1737371754; x=1737976554;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:subject:cc:to:from:date:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=Grk9J6/b9VBuQn2GFV1dMGR5fuj1yzKJkHNAQSI0qz8=;
- b=rpp5QktoiM+5qPhCL8ozEi15d4YK+kH1qZvPLyjFldHQHzMu2o+V4cEHIf7+3rJicM
- 7Bia8M0kPKjaK7GVZu5fjUXbybMb74vsRJvUt8ESvaZo90IKnBRE62hh493IdCkOkHQA
- DfcRlhLNa3sGX6EPt0E7CwBRE4Vrc7k91HTgg+iABxz5YvE61Otv/3GAeo3ofLmTnmT4
- 2ryUWgh6RHHdCRrjr8Pt69p9ApnPpubjxK31f5TxS4AzszsnWwKZv12XXc0NsY4V7V/U
- yLPbtPFv58Q2pPo+huIIP0Dg4AplBxq3jGkDXD1eYMZVNLNpX4Jh/j1t+qpPYrsGaDQY
- vtLw==
-X-Forwarded-Encrypted: i=1;
- AJvYcCVqmyY7o52T4bBtT2N6dLTcR6HK5e1B3lYJ9bjn8o3A2xSxvnH4cpBK8hYVmyeqsFmDdu9PSBk6PUs=@lists.freedesktop.org,
- AJvYcCW7yKejYz3ggyLAy4O/sIZohaEpjjjsdBEvDtkGL13O2/mB4gLNzpO4hoNEDMntqzjxSdfv5D1RDdk=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxrDk7gak+kiacwWHnW+jE7bSlMc+lOvly5wXPGg0DHA/Hc03SY
- QrJpTDy+Db6jXjDkkLH9oOROuSceBqSjhpc9PDGBt0m8fhzP13fRqF+0qQ==
-X-Gm-Gg: ASbGncs9ckZXD1FNfVDTOkl3oR2PLK1R8VHpO8UE7xX4rG17BRGFIvEIFOsJM3rabap
- Bt0Jl9aNJLCCApJVaHoSuExxv0q3yQ7c++h8ncc2hITWD92mQSmVRhCQ7IaSGb5qpAHhoQE3zxr
- XtJxh/Iyu08PVCLi77NZKa48hNat5QWFtfGGf3vAhEeVSjyY9ljdVyWtr1fvZnebq23GjpPnq8A
- 8o67JKacEomxRAw/ojbtj/bElgkxrDkhNE/Y8ERV8G4fVYcWSkkyldeBON0TV5JLHqdHAHHI5Mw
- KktIZdeU9rO+ouzmI3IeAvUV8/lSdUHV
-X-Google-Smtp-Source: AGHT+IFbr5mR//NKB/G8R+Pcmr8O/z0UAE/kTlXY81rkDpzp5l4T8SB64QRh8jdEVqTvLMPJctdhdw==
-X-Received: by 2002:a05:600c:a45:b0:436:faeb:2a0b with SMTP id
- 5b1f17b1804b1-438913e32bemr123863535e9.15.1737371752518; 
- Mon, 20 Jan 2025 03:15:52 -0800 (PST)
-Received: from pumpkin (82-69-66-36.dsl.in-addr.zen.co.uk. [82.69.66.36])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-43890413053sm136694905e9.10.2025.01.20.03.15.51
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 20 Jan 2025 03:15:52 -0800 (PST)
-Date: Mon, 20 Jan 2025 11:15:51 +0000
-From: David Laight <david.laight.linux@gmail.com>
-To: Jani Nikula <jani.nikula@linux.intel.com>
-Cc: Guenter Roeck <linux@roeck-us.net>, Linus Torvalds
- <torvalds@linux-foundation.org>, David Laight <David.Laight@aculab.com>,
- Arnd Bergmann <arnd@kernel.org>, "linux-kernel@vger.kernel.org"
- <linux-kernel@vger.kernel.org>, Jens Axboe <axboe@kernel.dk>, Matthew
- Wilcox <willy@infradead.org>, Christoph Hellwig <hch@infradead.org>, Andrew
- Morton <akpm@linux-foundation.org>, Andy Shevchenko
- <andriy.shevchenko@linux.intel.com>, Dan Carpenter
- <dan.carpenter@linaro.org>, "Jason A . Donenfeld" <Jason@zx2c4.com>,
- "pedro.falcato@gmail.com" <pedro.falcato@gmail.com>, Mateusz Guzik
- <mjguzik@gmail.com>, "linux-mm@kvack.org" <linux-mm@kvack.org>, Lorenzo
- Stoakes <lorenzo.stoakes@oracle.com>, intel-xe@lists.freedesktop.org,
- intel-gfx@lists.freedesktop.org, David Airlie <airlied@gmail.com>, Simona
- Vetter <simona@ffwll.ch>, Rodrigo Vivi <rodrigo.vivi@intel.com>
-Subject: Re: Buiild error in i915/xe
-Message-ID: <20250120111551.435176c4@pumpkin>
-In-Reply-To: <87ed0xrcb8.fsf@intel.com>
-References: <c50365d214e04f9ba256d417c8bebbc0@AcuMS.aculab.com>
- <34d53778977747f19cce2abb287bb3e6@AcuMS.aculab.com>
- <ce600782-1012-47e3-ba3d-41c5a4b7a7b7@roeck-us.net>
- <20250118170959.3aa56f4d@pumpkin>
- <29ef57a1-e4dd-4d5d-8726-f1f79c698b66@roeck-us.net>
- <CAHk-=whAxUvW-APU42yWfCKHF5NhPLoTida9Jo=A9ZGGgjb18Q@mail.gmail.com>
- <20250118221123.5bb65e64@pumpkin>
- <f3939490-0f55-410f-81fe-0e9f03874546@roeck-us.net>
- <20250119090935.7c690f85@pumpkin> <87ed0xrcb8.fsf@intel.com>
-X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; arm-unknown-linux-gnueabihf)
+Received: from lithops.sigma-star.at (mailout.nod.at [116.203.167.152])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0198810E081;
+ Fri, 17 Jan 2025 22:27:18 +0000 (UTC)
+Received: from localhost (localhost [127.0.0.1])
+ by lithops.sigma-star.at (Postfix) with ESMTP id 0DFA02BA969;
+ Fri, 17 Jan 2025 23:27:17 +0100 (CET)
+Received: from lithops.sigma-star.at ([127.0.0.1])
+ by localhost (lithops.sigma-star.at [127.0.0.1]) (amavisd-new, port 10032)
+ with ESMTP id PKRyMU3k07_p; Fri, 17 Jan 2025 23:27:16 +0100 (CET)
+Received: from localhost (localhost [127.0.0.1])
+ by lithops.sigma-star.at (Postfix) with ESMTP id 9F2942BA97A;
+ Fri, 17 Jan 2025 23:27:16 +0100 (CET)
+Received: from lithops.sigma-star.at ([127.0.0.1])
+ by localhost (lithops.sigma-star.at [127.0.0.1]) (amavisd-new, port 10026)
+ with ESMTP id w4ahg7LEgjAo; Fri, 17 Jan 2025 23:27:16 +0100 (CET)
+Received: from lithops.sigma-star.at (lithops.sigma-star.at [195.201.40.130])
+ by lithops.sigma-star.at (Postfix) with ESMTP id 67B8E2BA969;
+ Fri, 17 Jan 2025 23:27:16 +0100 (CET)
+Date: Fri, 17 Jan 2025 23:27:16 +0100 (CET)
+From: Richard Weinberger <richard@nod.at>
+To: Alexander Usyskin <alexander.usyskin@intel.com>
+Cc: Miquel Raynal <miquel.raynal@bootlin.com>, 
+ Vignesh Raghavendra <vigneshr@ti.com>, 
+ Lucas De Marchi <lucas.demarchi@intel.com>, 
+ Thomas =?utf-8?Q?Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>, 
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Jani Nikula <jani.nikula@linux.intel.com>, 
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, 
+ Tvrtko Ursulin <tursulin@ursulin.net>, 
+ Karthik Poosa <karthik.poosa@intel.com>, 
+ Reuven Abliyev <reuven.abliyev@intel.com>, 
+ Oren Weil <oren.jer.weil@intel.com>, 
+ linux-mtd <linux-mtd@lists.infradead.org>, 
+ DRI mailing list <dri-devel@lists.freedesktop.org>, 
+ intel-gfx <intel-gfx@lists.freedesktop.org>, 
+ linux-kernel <linux-kernel@vger.kernel.org>
+Message-ID: <677101004.241399779.1737152836282.JavaMail.zimbra@nod.at>
+In-Reply-To: <CY5PR11MB63660C230457299E1201C38FED1A2@CY5PR11MB6366.namprd11.prod.outlook.com>
+References: <20250101153925.865703-1-alexander.usyskin@intel.com>
+ <20250101153925.865703-2-alexander.usyskin@intel.com>
+ <78709125.231818577.1736980238251.JavaMail.zimbra@nod.at>
+ <CY5PR11MB63660C230457299E1201C38FED1A2@CY5PR11MB6366.namprd11.prod.outlook.com>
+Subject: Re: [PATCH v4 01/11] mtd: core: always create master device
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+X-Originating-IP: [195.201.40.130]
+X-Mailer: Zimbra 8.8.12_GA_3807 (ZimbraWebClient - FF133
+ (Linux)/8.8.12_GA_3809)
+Thread-Topic: core: always create master device
+Thread-Index: AQHbXGTq3Ynz/rfH2UqisY27+I2b+LMYgWoAgACDNgDMz5OtTg==
 X-Mailman-Approved-At: Tue, 21 Jan 2025 13:31:29 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -110,90 +80,29 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Mon, 20 Jan 2025 12:48:11 +0200
-Jani Nikula <jani.nikula@linux.intel.com> wrote:
+----- Urspr=C3=BCngliche Mail -----
+>> > This streamlines device tree and allows to anchor
+>> > runtime power management on master device in all cases.
+>>=20
+>> Please explain in more detail why this is needed.
+>> If this change makes the overall situation better and breaks
+>> no userspace, I'm happy. :-)
+>>=20
+>=20
+> The rest of the series is a driver that need runtime power management.
+> Absence of the master device breaks power management logic,
+> as kernel automatically propagates state from children to parent.
+> I initially hooked runtime_pm on chip auxiliary device, but this is a hac=
+k,
+> not a solution.
 
-> On Sun, 19 Jan 2025, David Laight <david.laight.linux@gmail.com> wrote:
-> > On Sat, 18 Jan 2025 14:58:48 -0800
-> > Guenter Roeck <linux@roeck-us.net> wrote:
-> >  
-> >> On 1/18/25 14:11, David Laight wrote:  
-> >> > On Sat, 18 Jan 2025 13:21:39 -0800
-> >> > Linus Torvalds <torvalds@linux-foundation.org> wrote:
-> >> >     
-> >> >> On Sat, 18 Jan 2025 at 09:49, Guenter Roeck <linux@roeck-us.net> wrote:    
-> >> >>>
-> >> >>> No idea why the compiler would know that the values are invalid.    
-> >> >>
-> >> >> It's not that the compiler knows tat they are invalid, but I bet what
-> >> >> happens is in scale() (and possibly other places that do similar
-> >> >> checks), which does this:
-> >> >>
-> >> >>          WARN_ON(source_min > source_max);
-> >> >>          ...
-> >> >>          source_val = clamp(source_val, source_min, source_max);
-> >> >>
-> >> >> and the compiler notices that the ordering comparison in the first
-> >> >> WARN_ON() is the same as the one in clamp(), so it basically converts
-> >> >> the logic to
-> >> >>
-> >> >>          if (source_min > source_max) {
-> >> >>                  WARN(..);
-> >> >>                  /* Do the clamp() knowing that source_min > source_max */
-> >> >>                  source_val = clamp(source_val, source_min, source_max);
-> >> >>          } else {
-> >> >>                  /* Do the clamp knowing that source_min <= source_max */
-> >> >>                  source_val = clamp(source_val, source_min, source_max);
-> >> >>          }
-> >> >>
-> >> >> (obviously I dropped the other WARN_ON in the conversion, it wasn't
-> >> >> relevant for this case).
-> >> >>
-> >> >> And now that first clamp() case is done with source_min > source_max,
-> >> >> and it triggers that build error because that's invalid.
-> >> >>
-> >> >> So the condition is not statically true in the *source* code, but in
-> >> >> the "I have moved code around to combine tests" case it now *is*
-> >> >> statically true as far as the compiler is concerned.    
-> >> > 
-> >> > Well spotted :-)
-> >> > 
-> >> > One option would be to move the WARN_ON() below the clamp() and
-> >> > add an OPTIMISER_HIDE_VAR(source_max) between them.
-> >> > 
-> >> > Or do something more sensible than the WARN().
-> >> > Perhaps return target_min on any such errors?
-> >> >     
-> >> 
-> >> This helps:
-> >> 
-> >> -       WARN_ON(source_min > source_max);
-> >> -       WARN_ON(target_min > target_max);
-> >> -
-> >>          /* defensive */
-> >>          source_val = clamp(source_val, source_min, source_max);
-> >> 
-> >> +       WARN_ON(source_min > source_max);
-> >> +       WARN_ON(target_min > target_max);  
-> >
-> > That is a 'quick fix' ...
-> >
-> > Much better would be to replace the WARN() with (say):
-> > 	if (target_min >= target_max)
-> > 		return target_min;
-> > 	if (source_min >= source_max)
-> > 		return target_min + (target_max - target_min)/2;
-> > So that the return values are actually in range (in as much as one is defined).
-> > Note that the >= cpmparisons also remove a divide by zero.  
-> 
-> I want the loud and early warnings for clear bugs instead of
-> "gracefully" silencing the errors only to be found through debugging
-> user reports.
+So, the problem is that mtd partitions don't have a common parent/master li=
+ke
+we have for generic disks?
+Please give more details.
+We have already a non-optimal situation in mtd and I want to fully understa=
+nd
+the requirements to get it this time right.
 
-A user isn't going to notice a WARN() - not until you tell them to look for it.
-In any case even if you output a message you really want to return a 'sane'
-value, who knows what effect a very out of range value is going to have.
-
-	David
-
-
+Thanks,
+//richard
