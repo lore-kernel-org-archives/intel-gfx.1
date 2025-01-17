@@ -4,51 +4,51 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7F8C2C02188
-	for <intel-gfx@archiver.kernel.org>; Fri, 17 Jan 2025 05:18:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 942C9C02183
+	for <intel-gfx@archiver.kernel.org>; Fri, 17 Jan 2025 05:49:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1097310EA4E;
-	Fri, 17 Jan 2025 05:18:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C543710EA54;
+	Fri, 17 Jan 2025 05:49:53 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="k+YzsuDz";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="AL+7GgM4";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 32C2010EA4E;
- Fri, 17 Jan 2025 05:18:31 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.12])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 082AB10E132;
+ Fri, 17 Jan 2025 05:49:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1737091111; x=1768627111;
+ t=1737092992; x=1768628992;
  h=from:to:cc:subject:date:message-id:mime-version:
  content-transfer-encoding;
- bh=ytAgTvNOX7ouxRU6hzJATf6e5YrhIiozfA2CT0SfFG8=;
- b=k+YzsuDzoBQx+EyRTOmJfJiAe0cmiVdbm9XMYK2BzcvYVm8BlrvxoMVd
- SxUG3GaMDDnePaDr8t+RHBUv4fnpz8b1joF8cCWma5ELh9IAfOp0MSsnQ
- jVEyQo558oL+XgKFDKf3PdyrCMKpI7t5S+VLlUijsyNjHzUxo+SeMvR0A
- eqX83ZuOUpVF2VT5JIaK5L46j1RQtkkkp8uN69pkB62B649s/04kFIiZG
- oZl0zQHJ96kWuRTgeX0hjwZoI2z2r8Vdhgu7vdFr0DDzmuwaQklgC1o3H
- GyQMRD+tF/jhytjZr0HzgPrkC9kK0nhfQZ3ijmeC3aHaMjeKGwpmllOTm g==;
-X-CSE-ConnectionGUID: l6QislPcQ0uIKNq0+5vYPw==
-X-CSE-MsgGUID: AV78Vi5HRV2wrdgiI++T6Q==
-X-IronPort-AV: E=McAfee;i="6700,10204,11314"; a="48930097"
-X-IronPort-AV: E=Sophos;i="6.12,310,1728975600"; d="scan'208";a="48930097"
-Received: from orviesa010.jf.intel.com ([10.64.159.150])
- by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 16 Jan 2025 21:18:31 -0800
-X-CSE-ConnectionGUID: R+QqfdAcT66MXq/28hg0Ug==
-X-CSE-MsgGUID: BMURu18OT1qx7tsp4DsHMA==
+ bh=eqkc6TVqrQTlH+LQ6XNPudzYtAZ0iF78FOuAPA4q46k=;
+ b=AL+7GgM4tg4c4vo7ErtWgPE/CAF5c7evqGeD8dY5C3L4I7R4RIniw8KK
+ U/uq/MBugiawlsXvQ4EnJ8Rg7/dAYb1Xr48JgqJkopwfsAwL4gT6L8sbK
+ CRAvNFMyYH5G2yVeInmUPO8e7xOJmahtqdBAQTVkGxyrNHv2FHgcVrowR
+ akx02PAVsZYLoM777GAaCB9zL7ypDJ7aVEoaLA0QxAQ3h1c6iR5kMBHD8
+ RbSXBmQ0+CQ7NdeDaUFhcpbT/MBkFgeJ6Ni+hLUAzXZI12oTU2UEhy1BM
+ S/wR3Yw3hQqrzOZrMNs41bBNVtUW85WxB3KGkgr4KfTLz831UYnUu1jhS A==;
+X-CSE-ConnectionGUID: hIAbOCOCQQaJztugFqKk1w==
+X-CSE-MsgGUID: VBsOmdt7TtC/qyB6U3okew==
+X-IronPort-AV: E=McAfee;i="6700,10204,11317"; a="48910435"
+X-IronPort-AV: E=Sophos;i="6.13,211,1732608000"; d="scan'208";a="48910435"
+Received: from orviesa002.jf.intel.com ([10.64.159.142])
+ by orvoesa104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 16 Jan 2025 21:49:51 -0800
+X-CSE-ConnectionGUID: E6dOhcURTmak8WRYCXlJhQ==
+X-CSE-MsgGUID: BXb+jpOwQZiE1WVGDh10qA==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.12,224,1728975600"; d="scan'208";a="105546910"
-Received: from srr4-3-linux-103-aknautiy.iind.intel.com ([10.223.34.160])
- by orviesa010-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 16 Jan 2025 21:18:29 -0800
-From: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
-To: intel-gfx@lists.freedesktop.org
-Cc: intel-xe@lists.freedesktop.org
-Subject: [PATCH v2] drm/i915/dp: Correct max compressed bpp bounds by using
- link bpp
-Date: Fri, 17 Jan 2025 10:37:13 +0530
-Message-ID: <20250117050713.152012-1-ankit.k.nautiyal@intel.com>
-X-Mailer: git-send-email 2.45.2
+X-IronPort-AV: E=Sophos;i="6.13,211,1732608000"; d="scan'208";a="136560350"
+Received: from kandpal-x299-ud4-pro.iind.intel.com ([10.190.239.10])
+ by orviesa002.jf.intel.com with ESMTP; 16 Jan 2025 21:49:50 -0800
+From: Suraj Kandpal <suraj.kandpal@intel.com>
+To: intel-xe@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org
+Cc: arun.r.murthy@intel.com,
+	Suraj Kandpal <suraj.kandpal@intel.com>
+Subject: [PATCH 0/2] Extended Wake Timeout 
+Date: Fri, 17 Jan 2025 11:18:48 +0530
+Message-Id: <20250117054850.1189650-1-suraj.kandpal@intel.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-BeenThere: intel-gfx@lists.freedesktop.org
@@ -66,55 +66,26 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-While setting the bounds for compressed bpp, we ensure that the
-compressed bpp is less than the pipe bpp.
+Retimers in H/w usually takes 30 to 40ms to wake up all the devices. To
+get this we use the Extended Wake Time feature in which the sink device
+tells us the minimum amount of time it requires to wake up and we need
+to do a write to grant this request else we need to wake up within 1ms
+of low power state exit.
+DP source  device shall keep retying  the AUX tansaction upto the
+extended timeout  that is being granted for LTTPRs from the sink device
 
-This causes an issue with the 420 output format, where the effective
-link bpp (or output bpp) is half that of the pipe bpp. Therefore instead
-of using pipe bpp, use the output bpp to set the bounds for the
-compressed bpp.
+Signed-off-by: Suraj Kandpal <suraj.kandpal@intel.com>
 
-v2: Use identifier output_bpp instead of link_bpp (Imre)
+Suraj Kandpal (2):
+  drm/dp: Add the DPCD register required for Extended wake timeout
+  drm/i915/lttpr: Enable Extended Wake Timeout
 
-Signed-off-by: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
-Reviewed-by: Imre Deak <imre.deak@intel.com>
----
- drivers/gpu/drm/i915/display/intel_dp.c | 6 ++++--
- 1 file changed, 4 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/i915/display/intel_ddi.c      |  2 +
+ .../drm/i915/display/intel_dp_link_training.c | 49 +++++++++++++++++++
+ .../drm/i915/display/intel_dp_link_training.h |  1 +
+ include/drm/display/drm_dp.h                  | 14 ++++++
+ 4 files changed, 66 insertions(+)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
-index 1ad25c37f3c2..f390216824cd 100644
---- a/drivers/gpu/drm/i915/display/intel_dp.c
-+++ b/drivers/gpu/drm/i915/display/intel_dp.c
-@@ -2068,9 +2068,10 @@ icl_dsc_compute_link_config(struct intel_dp *intel_dp,
- 			    int timeslots)
- {
- 	int i, ret;
-+	int output_bpp = intel_dp_output_bpp(pipe_config->output_format, pipe_bpp);
- 
- 	/* Compressed BPP should be less than the Input DSC bpp */
--	dsc_max_bpp = min(dsc_max_bpp, pipe_bpp - 1);
-+	dsc_max_bpp = min(dsc_max_bpp, output_bpp - 1);
- 
- 	for (i = 0; i < ARRAY_SIZE(valid_dsc_bpp); i++) {
- 		if (valid_dsc_bpp[i] < dsc_min_bpp)
-@@ -2111,6 +2112,7 @@ xelpd_dsc_compute_link_config(struct intel_dp *intel_dp,
- {
- 	struct intel_display *display = to_intel_display(intel_dp);
- 	u8 bppx16_incr = drm_dp_dsc_sink_bpp_incr(connector->dp.dsc_dpcd);
-+	int output_bpp = intel_dp_output_bpp(pipe_config->output_format, pipe_bpp);
- 	u16 compressed_bppx16;
- 	u8 bppx16_step;
- 	int ret;
-@@ -2121,7 +2123,7 @@ xelpd_dsc_compute_link_config(struct intel_dp *intel_dp,
- 		bppx16_step = 16 / bppx16_incr;
- 
- 	/* Compressed BPP should be less than the Input DSC bpp */
--	dsc_max_bpp = min(dsc_max_bpp << 4, (pipe_bpp << 4) - bppx16_step);
-+	dsc_max_bpp = min(dsc_max_bpp << 4, (output_bpp << 4) - bppx16_step);
- 	dsc_min_bpp = dsc_min_bpp << 4;
- 
- 	for (compressed_bppx16 = dsc_max_bpp;
 -- 
-2.45.2
+2.34.1
 
