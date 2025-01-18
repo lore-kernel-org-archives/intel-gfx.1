@@ -4,77 +4,92 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4A0F7C0218C
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AB681C02191
 	for <intel-gfx@archiver.kernel.org>; Tue, 21 Jan 2025 13:31:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5B89D10E5B2;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7D25C10E5B5;
 	Tue, 21 Jan 2025 13:31:30 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="bF2rdaqw";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="YmYvspxM";
 	dkim-atps=neutral
-Received: from mail-pl1-f181.google.com (mail-pl1-f181.google.com
- [209.85.214.181])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BFF8C10E227;
- Thu, 16 Jan 2025 19:37:02 +0000 (UTC)
-Received: by mail-pl1-f181.google.com with SMTP id
- d9443c01a7336-2164b662090so24851505ad.1; 
- Thu, 16 Jan 2025 11:37:02 -0800 (PST)
+Received: from mail-vk1-f181.google.com (mail-vk1-f181.google.com
+ [209.85.221.181])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 173B310E272;
+ Sat, 18 Jan 2025 23:25:15 +0000 (UTC)
+Received: by mail-vk1-f181.google.com with SMTP id
+ 71dfb90a1353d-51cee9d5013so1858296e0c.3; 
+ Sat, 18 Jan 2025 15:25:15 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1737056162; x=1737660962; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=G4wAbBZBj0+zOetxiX42LWCqugc0wnUTNgzvXQ7kF3w=;
- b=bF2rdaqwXApmso2K1kCe2FQYaaq8aYDzydZvhAfZO7Xn4nMF0orxxsTHqCb9ix6KHy
- GQeh/jCBYi3VoaJZzcBoISTfSIRVUpSqWpXZfgL16q1gKGkLGGa0JVibRUGxRpRpVgJX
- MBC+GFB8RVL7qkx/pdSEzrjUkS3Iiw/H5dM3FJbEL0w8rtRcu/o/HrsBcRmeScxv+7JP
- YD4dtJyoXwPRK2MhvV62j5iGhfR0dF2ktObmHTxm25AWjsw7CXVHX3AVhvv0AXd0mpJf
- 8qJe/0VzAnZsM40ComrXA5GeYhGxkfb2MTGMl+GsGmzeS+uXfcLm4uKuICXx3oS2iND+
- yaSw==
+ d=gmail.com; s=20230601; t=1737242654; x=1737847454; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=AuL/bSx8ptsRxql5Ml0//8eBSWYzvMu7bIFAYAxZe2k=;
+ b=YmYvspxMbVDhr8NZAAQhWr3Xatz/2fbs/whE+seD8BPrDeZ42V7VpsemwPtuHjyyab
+ V3ZGegkhSkmCXZ2gdhiCe+7UH5AD/tTlHgmS4R6thSRoacyJco6jFTPgKWMLlSeX0r2N
+ l0te10X7YwIfG1tUUeMSAEsZ85OD9ZMMMcz7mNOK5KmwBkTdPKlf5JdCIbXuTjd3gAxa
+ 8bkwVbakLmYdL4ZDc+SBSNRbc4ctIC8+Hwxi3PY5Gnu3u8QbULFiKYyxIg2KnR+cnWg6
+ +I5ZP6JfSpBJ81wqoz4MEyTVLJkRJ0w2qzf5J+QkcFeqpgpeIkKq9gXwyAG8l6B12YMW
+ 9AKw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1737056162; x=1737660962;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=G4wAbBZBj0+zOetxiX42LWCqugc0wnUTNgzvXQ7kF3w=;
- b=N3pbxZ016PWFO088EnyuZwTPuZzmlRwg5aOPBc+iLI+HZ2Q5azcK8q68fRxgP9DbKA
- pP61AztoCYX+6zrI0xEwkzJ6Qx8/bptJgP3CKiZQkaZSBROXscdToX/P/P6Ov5am5AMZ
- yd2Lxq9oQf699jajKf82zApO/MnJTJWz5g+Mx+CVSe3wzY8D3bvFDPaJBRR6Cvahxazs
- sB4hxJJA0YPcC7RywJxw8uh/OC3z7GqSp/J5YAmZrVjUdsM7XP+c+KGiewf+3eEpE9Xk
- Ud6DBzOY4IRGZIxhNPIT7SqUt4348xLjVGJqdhzgTRjKwsjruB12KvUV4P74RKuUFQUN
- jdWQ==
+ d=1e100.net; s=20230601; t=1737242654; x=1737847454;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=AuL/bSx8ptsRxql5Ml0//8eBSWYzvMu7bIFAYAxZe2k=;
+ b=RsnvlW2N9ny2+nuLbdG6lqyeu2msWbyXPTfcXyWhB2qTwPIJZip34Jc26obMWG+9xW
+ MXuUBu0Ka3i1Avnv04mHeCqae45FMI51Rcb+rBFqPwyy5bMePuICUIxyc4JQNCdW5CHq
+ s6UPupsIXar7g8kjrsJvMDWDXhpPiNEMWFfleY7BOVpVC1Vy/kYmTgMZ+EUSkdstgsyF
+ bs/zgId8zuXdZHwYOvgEVhsiTFnOTmAE2WDQvNCLiGxTV884HDIXVLIWR8BSrilL6DMp
+ GYHK4rRqtMgEIsWJAabKX2xKNGOjFUKV/q0VPLdhYItkAg7Wh3b2YL/R6jZtx6+Nhil1
+ ctfw==
 X-Forwarded-Encrypted: i=1;
- AJvYcCW+lgh75NAQuwBqRSI7nH6SAGhQPRPPva/qu1xFu9MQz077ZRh9uPD5bGq1hLZES5/Exos1Mlcqnbg=@lists.freedesktop.org,
- AJvYcCWuv1R63tqElhhSzX6wXY1et5L9gd5T/MVFz/qHGWJQi/h6l4P2ydTkfX54uz4qBBmPjRLnWrpCOBHn@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwnjZD2hCgXfy7S+DwF8xrimyv3riKPegsHw5d+EBKoh4607hQ8
- 53cKggg65qKqzgeZ00zvk7AZUPgq4qM5X2V80P9R4EZ+7OtscNfS
-X-Gm-Gg: ASbGncv+vyhbZJooYad9aVklHBwxfMU4WgtEKQWiMUijrqtwi3l8iIFFlVycwIQs/Oi
- O6cIXdCJbl1MO8wF0dZjBHadHcJDcjvzGfYV6CcGNpn45p67IS9PdgBHr5NvZ6RarlABAniqAtZ
- Oe6NtvPgy6LsVjWPj3aB49EjH8qsYQIQxFRYPlBvWb4U6WUNQp0wlIxtnD8pXpHxWZCjtgsiY1n
- IpXCbc0QzAGW0B95+xYS92H2qR+YB/kwuiVf1w5q9Ev+3VOyeSTLw==
-X-Google-Smtp-Source: AGHT+IHOks7Ljvfrn/txdOGnk7iIRaBRwVXW8ePCTztJtOA5ASCttWU7RdhY4xhczGSz52UqQcsNDw==
-X-Received: by 2002:a17:90b:248b:b0:2f6:dcc9:38e0 with SMTP id
- 98e67ed59e1d1-2f6dcc93935mr33225257a91.0.1737056162343; 
- Thu, 16 Jan 2025 11:36:02 -0800 (PST)
-Received: from s2lab02.. ([114.70.9.226]) by smtp.gmail.com with ESMTPSA id
- 98e67ed59e1d1-2f72c1511b2sm3993897a91.3.2025.01.16.11.35.59
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 16 Jan 2025 11:36:02 -0800 (PST)
-From: Ingyu Jang <ingyujang25@gmail.com>
-To: Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Tvrtko Ursulin <tursulin@ursulin.net>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>
-Cc: Ingyu Jang <ingyujang25@gmail.com>, intel-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: [PATCH] drm/i915/gt: Handle INTEL_WAKEREF_DEF return value in
- gen8_ggtt_bind_get_ce
-Date: Fri, 17 Jan 2025 04:35:28 +0900
-Message-Id: <20250116193528.2297487-1-ingyujang25@gmail.com>
-X-Mailer: git-send-email 2.34.1
+ AJvYcCUIQRFzG2yfTL2EEeIZzgfKd+JKPMyaBxdvd67zw0uAKOwoQhlJ3htdvf5nA0CiV2C26DGN+XSh7rs=@lists.freedesktop.org,
+ AJvYcCXIsXEGXdJI6y+d5hrvW9EJbYlp5GyoMDcPzw0MpN2QCevpzJ8xs2LVNYnjziGZOMRCHqvAXt+BZng=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YyFcCA+K1v+vJj6dqQD0TbgzCvsdr0TWGiL5qPQFNP2g5Bz2hH0
+ T7BhuFJYG3Kr5pAHuMew9S5NXYUVVG6N0RWL8hnGaS6xSJbhSSO7WzRd2IgdkFUt+xVBPwFf2ni
+ GrQMp2TuQBdPMC8yLdVLMEHT4ko0=
+X-Gm-Gg: ASbGncuNGnPzVUGTHHAnQeDuOeTZojIIHJZbm2IWks6sgxrZet7P6LyxopA1+XBHg2j
+ UlGtpF/Uc37rnUN0yTKO6Po4ryy5skQcgV+qtyuyZlLAIh0SfHoVeZ9FMQ7kpiW8wxjgugDcrh9
+ Dy48VEdGY=
+X-Google-Smtp-Source: AGHT+IGhUloFKAv9LZNOCI/d5mT1IzBvuv8q5hIiCRviycJPURqn9WSwcvxpAAu1yomiy0mMgFeNXWwl7H44GCmBFIY=
+X-Received: by 2002:a05:6122:8c29:b0:517:4fca:86df with SMTP id
+ 71dfb90a1353d-51d5b2cd9bbmr6499030e0c.6.1737242653989; Sat, 18 Jan 2025
+ 15:24:13 -0800 (PST)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Tue, 21 Jan 2025 13:31:28 +0000
+References: <c50365d214e04f9ba256d417c8bebbc0@AcuMS.aculab.com>
+ <34d53778977747f19cce2abb287bb3e6@AcuMS.aculab.com>
+ <ce600782-1012-47e3-ba3d-41c5a4b7a7b7@roeck-us.net>
+ <20250118170959.3aa56f4d@pumpkin>
+ <29ef57a1-e4dd-4d5d-8726-f1f79c698b66@roeck-us.net>
+ <CAHk-=whAxUvW-APU42yWfCKHF5NhPLoTida9Jo=A9ZGGgjb18Q@mail.gmail.com>
+ <20250118221123.5bb65e64@pumpkin>
+In-Reply-To: <20250118221123.5bb65e64@pumpkin>
+From: Pedro Falcato <pedro.falcato@gmail.com>
+Date: Sat, 18 Jan 2025 23:24:02 +0000
+X-Gm-Features: AbW1kvZisPYR_zlWxqaH7SWrBM7VtVF5VdfTBkkqCGN2xKJArU5nZl9_sRPN57g
+Message-ID: <CAKbZUD3smtH8YA5jZgg42UP1tHVfSQvVLTfgNuAoKfFsVEXRxg@mail.gmail.com>
+Subject: Re: Buiild error in i915/xe (was: [PATCH next 4/7] minmax.h: Use
+ BUILD_BUG_ON_MSG() for the lo < hi test in clamp())
+To: David Laight <david.laight.linux@gmail.com>
+Cc: Linus Torvalds <torvalds@linux-foundation.org>,
+ Guenter Roeck <linux@roeck-us.net>, 
+ David Laight <David.Laight@aculab.com>, Arnd Bergmann <arnd@kernel.org>, 
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ Jens Axboe <axboe@kernel.dk>, 
+ Matthew Wilcox <willy@infradead.org>, Christoph Hellwig <hch@infradead.org>, 
+ Andrew Morton <akpm@linux-foundation.org>, 
+ Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
+ Dan Carpenter <dan.carpenter@linaro.org>,
+ "Jason A . Donenfeld" <Jason@zx2c4.com>, 
+ Mateusz Guzik <mjguzik@gmail.com>, "linux-mm@kvack.org" <linux-mm@kvack.org>, 
+ Lorenzo Stoakes <lorenzo.stoakes@oracle.com>, intel-xe@lists.freedesktop.org, 
+ intel-gfx@lists.freedesktop.org, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>, Jani Nikula <jani.nikula@linux.intel.com>, 
+ Rodrigo Vivi <rodrigo.vivi@intel.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+X-Mailman-Approved-At: Tue, 21 Jan 2025 13:31:29 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -90,38 +105,64 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-The function 'gen8_ggtt_bind_get_ce' previously did not handle the case
-where 'intel_gt_pm_get_if_awake()' returns 'INTEL_WAKEREF_DEF'.
-This value is returned when the 'intel_ref_tracker_alloc()' call within
-'intel_gt_pm_get_if_awake()' fails to allocate due
-to memory pressure or other constraints.
+On Sat, Jan 18, 2025 at 10:11=E2=80=AFPM David Laight
+<david.laight.linux@gmail.com> wrote:
+>
+> On Sat, 18 Jan 2025 13:21:39 -0800
+> Linus Torvalds <torvalds@linux-foundation.org> wrote:
+>
+> > On Sat, 18 Jan 2025 at 09:49, Guenter Roeck <linux@roeck-us.net> wrote:
+> > >
+> > > No idea why the compiler would know that the values are invalid.
+> >
+> > It's not that the compiler knows tat they are invalid, but I bet what
+> > happens is in scale() (and possibly other places that do similar
+> > checks), which does this:
+> >
+> >         WARN_ON(source_min > source_max);
+> >         ...
+> >         source_val =3D clamp(source_val, source_min, source_max);
+> >
+> > and the compiler notices that the ordering comparison in the first
+> > WARN_ON() is the same as the one in clamp(), so it basically converts
+> > the logic to
+> >
+> >         if (source_min > source_max) {
+> >                 WARN(..);
+> >                 /* Do the clamp() knowing that source_min > source_max =
+*/
+> >                 source_val =3D clamp(source_val, source_min, source_max=
+);
+> >         } else {
+> >                 /* Do the clamp knowing that source_min <=3D source_max=
+ */
+> >                 source_val =3D clamp(source_val, source_min, source_max=
+);
+> >         }
+> >
+> > (obviously I dropped the other WARN_ON in the conversion, it wasn't
+> > relevant for this case).
+> >
+> > And now that first clamp() case is done with source_min > source_max,
+> > and it triggers that build error because that's invalid.
+> >
+> > So the condition is not statically true in the *source* code, but in
+> > the "I have moved code around to combine tests" case it now *is*
+> > statically true as far as the compiler is concerned.
+>
+> Well spotted :-)
+>
+> One option would be to move the WARN_ON() below the clamp() and
+> add an OPTIMISER_HIDE_VAR(source_max) between them.
+>
+> Or do something more sensible than the WARN().
 
-'intel_ref_tracker_alloc()' uses 'ref_tracker_alloc()' with the
-'GFP_NOWAIT' flag, which can return 'NULL' if allocation fails.
-In this case, the function explicitly returns 'INTEL_WAKEREF_DEF'.
+Given the awful problems we've found with these macros (clamp, min,
+max, etc), maybe the best option is to not play these awful games in
+general?
 
-This patch adds a check for 'INTEL_WAKEREF_DEF' in
-'gen8_ggtt_bind_get_ce' to ensure that such errors are properly handled.
-If 'INTEL_WAKEREF_DEF' is returned, the function returns 'NULL' .
+These macros seem footgunned to hell just as a way to try to
+compensate for C's lack of language features.
 
-Signed-off-by: Ingyu Jang <ingyujang25@gmail.com>
----
- drivers/gpu/drm/i915/gt/intel_ggtt.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/drivers/gpu/drm/i915/gt/intel_ggtt.c b/drivers/gpu/drm/i915/gt/intel_ggtt.c
-index d60a6ca0cae5..8d22d8f2243d 100644
---- a/drivers/gpu/drm/i915/gt/intel_ggtt.c
-+++ b/drivers/gpu/drm/i915/gt/intel_ggtt.c
-@@ -311,7 +311,7 @@ static struct intel_context *gen8_ggtt_bind_get_ce(struct i915_ggtt *ggtt, intel
- 	 * doing rpm_resume().
- 	 */
- 	*wakeref = intel_gt_pm_get_if_awake(gt);
--	if (!*wakeref)
-+	if (!*wakeref || *wakeref == INTEL_WAKEREF_DEF)
- 		return NULL;
- 
- 	intel_engine_pm_get(ce->engine);
--- 
-2.34.1
-
+--=20
+Pedro
