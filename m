@@ -4,60 +4,94 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4B256C0218B
-	for <intel-gfx@archiver.kernel.org>; Tue, 21 Jan 2025 13:31:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E538CC0218F
+	for <intel-gfx@archiver.kernel.org>; Tue, 21 Jan 2025 13:31:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7D55010E598;
-	Tue, 21 Jan 2025 13:31:29 +0000 (UTC)
-X-Greylist: delayed 303 seconds by postgrey-1.36 at gabe;
- Mon, 20 Jan 2025 05:44:52 UTC
-Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A45C810E2CF
- for <intel-gfx@lists.freedesktop.org>; Mon, 20 Jan 2025 05:44:52 +0000 (UTC)
-X-UUID: f178a3ded6f011efa216b1d71e6e1362-20250120
-X-CTIC-Tags: HR_CC_COUNT, HR_CC_DOMAIN_COUNT, HR_CC_NAME, HR_CC_NO_NAME,
- HR_CTE_8B
- HR_CTT_MISS, HR_DATE_H, HR_DATE_WKD, HR_DATE_ZONE, HR_FROM_NAME
- HR_SJ_DIGIT_LEN, HR_SJ_LANG, HR_SJ_LEN, HR_SJ_LETTER, HR_SJ_NOR_SYM
- HR_SJ_PHRASE, HR_SJ_PHRASE_LEN, HR_SJ_WS, HR_TO_COUNT, HR_TO_DOMAIN_COUNT
- HR_TO_NO_NAME, IP_TRUSTED, SRC_TRUSTED, DN_TRUSTED, SA_TRUSTED
- SA_EXISTED, SN_TRUSTED, SN_EXISTED, SPF_NOPASS, DKIM_NOPASS
- DMARC_NOPASS, CIE_BAD, CIE_GOOD, CIE_GOOD_SPF, GTI_FG_BS
- GTI_RG_INFO, GTI_C_BU, AMN_T1, AMN_GOOD, AMN_C_TI
- AMN_C_BU, ABX_MISS_RDNS
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.1.45, REQID:05dce0e1-7210-4056-a315-bc1d4548aab4, IP:10,
- URL:0,TC:0,Content:29,EDM:0,RT:0,SF:-11,FILE:0,BULK:0,RULE:Release_Ham,ACT
- ION:release,TS:28
-X-CID-INFO: VERSION:1.1.45, REQID:05dce0e1-7210-4056-a315-bc1d4548aab4, IP:10,
- UR
- L:0,TC:0,Content:29,EDM:0,RT:0,SF:-11,FILE:0,BULK:0,RULE:Release_Ham,ACTIO
- N:release,TS:28
-X-CID-META: VersionHash:6493067, CLOUDID:93a1a6a1ecc4074b73631bfe20313523,
- BulkI
- D:250120133942QQM5FX4G,BulkQuantity:0,Recheck:0,SF:17|19|25|38|44|66|78|10
- 2,TC:nil,Content:4|50,EDM:-3,IP:-2,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil,B
- EC:nil,COL:0,OSI:0,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
-X-CID-BVR: 0,NGT
-X-CID-BAS: 0,NGT,0,_
-X-CID-FACTOR: TF_CID_SPAM_FSD,TF_CID_SPAM_FSI,TF_CID_SPAM_SNR,TF_CID_SPAM_FAS
-X-UUID: f178a3ded6f011efa216b1d71e6e1362-20250120
-X-User: yaolu@kylinos.cn
-Received: from localhost.localdomain [(116.128.244.169)] by mailgw.kylinos.cn
- (envelope-from <yaolu@kylinos.cn>) (Generic MTA)
- with ESMTP id 1630771417; Mon, 20 Jan 2025 13:39:40 +0800
-From: Lu Yao <yaolu@kylinos.cn>
-To: jani.nikula@linux.intel.com, rodrigo.vivi@intel.com,
- joonas.lahtinen@linux.intel.com, tursulin@ursulin.net
-Cc: intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Lu Yao <yaolu@kylinos.cn>
-Subject: [PATCH] drm/i915: Handle null 'fb' in
- 'intel_plane_atomic_check_with_state'
-Date: Mon, 20 Jan 2025 13:39:08 +0800
-Message-Id: <20250120053908.94339-1-yaolu@kylinos.cn>
-X-Mailer: git-send-email 2.25.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0463010E5AD;
+	Tue, 21 Jan 2025 13:31:30 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="ScFBL/WY";
+	dkim-atps=neutral
+Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com
+ [209.85.128.41])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 851BF10E32E;
+ Sat, 18 Jan 2025 22:12:27 +0000 (UTC)
+Received: by mail-wm1-f41.google.com with SMTP id
+ 5b1f17b1804b1-4362bae4d7dso22191935e9.1; 
+ Sat, 18 Jan 2025 14:12:27 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1737238286; x=1737843086; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:subject:cc:to:from:date:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=wDLMXoR1qmk4Dz/P9/9AXOD8JfOCMxUMePEkYwFYoZc=;
+ b=ScFBL/WYxmvcHLkbflsfMflHYL8CXCTM0SeNFXhoDwmHWmsaMahbLujUSS7sy2jVYp
+ ccMvwDtlf225tZ2mVAfIpEm+43Q5ILTO/uBSbdz/f1Cq9c1Btp4he+P1mR59QAUsPnuS
+ MgSDubm90N/yBTEzd2AnXCEWnjmhg3xsIrJzzaJEqUKt75c4NfatGmS85+vOYKt2ArW1
+ k8LLYuyMzovLre1CSR8YLc1oR7VEIzTovKInH26wgj689oAg2rx1/BMFvcOnDFtO/gHi
+ GY2D1K2mCkpARZVzz5qUrwxPdydXT83NNKD0tflRndJnrVXAuje8h8zC68feYttv/Sxl
+ dQlQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1737238286; x=1737843086;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:subject:cc:to:from:date:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=wDLMXoR1qmk4Dz/P9/9AXOD8JfOCMxUMePEkYwFYoZc=;
+ b=g8CtpOPpsGE7oYwKDurXhAKslVWec04GPryL8D9NLEEwlTj8sfghfHNiNbSdKO/hUm
+ okoSnhQD22kbmkfNI96o0YEuSA8sclpc6K09SVNnTVB/iNqqlm63WMPoSzvRuczRMfZn
+ QCWYmS2ZqoVR6JIcZT8YoUrFsMyjqioOBJKNbfzahKhy7p2x7eted0ujwDjqKgsQbS3t
+ L2bDKslLbiL7awXFJhwQg+/ziyMXYVXPC7SSdor+VSc8iq4qui3PbCnOavX7RcY5wnG7
+ W3Q2KqAsSCbFB6NMiWq+OvIAjdVPoJyj2ANaFf+Hr03PdlU2VDyRTwrnCGt2DfVzSMs3
+ 63jw==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCUr2E2BMJrUoCIl4UyLMHICKecortU0oTekn/fchTVnQeBl0Xl3bTErNH9MJ0BYkNtYThAyxPtPfO4=@lists.freedesktop.org,
+ AJvYcCVbP2c4xCn4H7X6/ram1hKzYuTK3pSz4b32mvoZjIgNbsopFx3jWW+jrLRpfWW+XrEDxISp8f/a+o8=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwC/cCie3oybcStKwPzT6YGpiFh3BndFhNJVTJM5tkiqXP0SD4y
+ q85wD35d3EmPBb8R07YkYFJx6Sii5FDV4mzDFRdXmFS/niFCqs2n
+X-Gm-Gg: ASbGncsnP2fv5hQdOrJPoAW9txTRpiKijRqe71ajRaefgNJemXbtmtqKNumYdrURlbE
+ 6qqsPuQsjr47NzzlKA4U61AvrR8nr4NnJ72GUZuuSXtw3UYZaT4Ffk/Wt5LMapzejILw/sEIgCs
+ 3w4Ec16ftkN0I2kn+f1QLhvoO2QZ/v3FRHTL3KSW2UD3wudLe5hkz0EzT2N6ecQPrlvkfyJlKOj
+ Rrq6Qn5SWjnqoERwwKrU741CFJeOJF/iOobzhkE27jfNzvVplDyVWNJRyxkeLx6h4ZHb7kw0J2o
+ +khAMW3ercfUjLgoxWKm/c/QnhtZrXD1
+X-Google-Smtp-Source: AGHT+IHnaJuHfUIiy/0045g/Wc2s71so4/jbOpY91Aw6dJkpE4hulhRnISFfjzqdOCP3e8RPnZ7zng==
+X-Received: by 2002:a05:600c:1907:b0:434:effb:9f8a with SMTP id
+ 5b1f17b1804b1-438913ef2c5mr77403735e9.15.1737238285738; 
+ Sat, 18 Jan 2025 14:11:25 -0800 (PST)
+Received: from pumpkin (82-69-66-36.dsl.in-addr.zen.co.uk. [82.69.66.36])
+ by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-38bf3215066sm6248539f8f.11.2025.01.18.14.11.24
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sat, 18 Jan 2025 14:11:25 -0800 (PST)
+Date: Sat, 18 Jan 2025 22:11:23 +0000
+From: David Laight <david.laight.linux@gmail.com>
+To: Linus Torvalds <torvalds@linux-foundation.org>
+Cc: Guenter Roeck <linux@roeck-us.net>, David Laight
+ <David.Laight@aculab.com>, Arnd Bergmann <arnd@kernel.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, Jens Axboe
+ <axboe@kernel.dk>, Matthew Wilcox <willy@infradead.org>, Christoph Hellwig
+ <hch@infradead.org>, Andrew Morton <akpm@linux-foundation.org>, Andy
+ Shevchenko <andriy.shevchenko@linux.intel.com>, Dan Carpenter
+ <dan.carpenter@linaro.org>, "Jason A . Donenfeld" <Jason@zx2c4.com>,
+ "pedro.falcato@gmail.com" <pedro.falcato@gmail.com>, Mateusz Guzik
+ <mjguzik@gmail.com>, "linux-mm@kvack.org" <linux-mm@kvack.org>, Lorenzo
+ Stoakes <lorenzo.stoakes@oracle.com>, intel-xe@lists.freedesktop.org,
+ intel-gfx@lists.freedesktop.org, David Airlie <airlied@gmail.com>, Simona
+ Vetter <simona@ffwll.ch>, Jani Nikula <jani.nikula@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>
+Subject: Re: Buiild error in i915/xe (was: [PATCH next 4/7] minmax.h: Use
+ BUILD_BUG_ON_MSG() for the lo < hi test in clamp())
+Message-ID: <20250118221123.5bb65e64@pumpkin>
+In-Reply-To: <CAHk-=whAxUvW-APU42yWfCKHF5NhPLoTida9Jo=A9ZGGgjb18Q@mail.gmail.com>
+References: <c50365d214e04f9ba256d417c8bebbc0@AcuMS.aculab.com>
+ <34d53778977747f19cce2abb287bb3e6@AcuMS.aculab.com>
+ <ce600782-1012-47e3-ba3d-41c5a4b7a7b7@roeck-us.net>
+ <20250118170959.3aa56f4d@pumpkin>
+ <29ef57a1-e4dd-4d5d-8726-f1f79c698b66@roeck-us.net>
+ <CAHk-=whAxUvW-APU42yWfCKHF5NhPLoTida9Jo=A9ZGGgjb18Q@mail.gmail.com>
+X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; arm-unknown-linux-gnueabihf)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 X-Mailman-Approved-At: Tue, 21 Jan 2025 13:31:29 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -74,40 +108,55 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Add null pointer check before use fb.
-Reported by smatch.
+On Sat, 18 Jan 2025 13:21:39 -0800
+Linus Torvalds <torvalds@linux-foundation.org> wrote:
 
-Signed-off-by: Lu Yao <yaolu@kylinos.cn>
----
- drivers/gpu/drm/i915/display/intel_atomic_plane.c | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+> On Sat, 18 Jan 2025 at 09:49, Guenter Roeck <linux@roeck-us.net> wrote:
+> >
+> > No idea why the compiler would know that the values are invalid.  
+> 
+> It's not that the compiler knows tat they are invalid, but I bet what
+> happens is in scale() (and possibly other places that do similar
+> checks), which does this:
+> 
+>         WARN_ON(source_min > source_max);
+>         ...
+>         source_val = clamp(source_val, source_min, source_max);
+> 
+> and the compiler notices that the ordering comparison in the first
+> WARN_ON() is the same as the one in clamp(), so it basically converts
+> the logic to
+> 
+>         if (source_min > source_max) {
+>                 WARN(..);
+>                 /* Do the clamp() knowing that source_min > source_max */
+>                 source_val = clamp(source_val, source_min, source_max);
+>         } else {
+>                 /* Do the clamp knowing that source_min <= source_max */
+>                 source_val = clamp(source_val, source_min, source_max);
+>         }
+> 
+> (obviously I dropped the other WARN_ON in the conversion, it wasn't
+> relevant for this case).
+> 
+> And now that first clamp() case is done with source_min > source_max,
+> and it triggers that build error because that's invalid.
+> 
+> So the condition is not statically true in the *source* code, but in
+> the "I have moved code around to combine tests" case it now *is*
+> statically true as far as the compiler is concerned.
 
-diff --git a/drivers/gpu/drm/i915/display/intel_atomic_plane.c b/drivers/gpu/drm/i915/display/intel_atomic_plane.c
-index d89630b2d5c1..20bfa9589ee7 100644
---- a/drivers/gpu/drm/i915/display/intel_atomic_plane.c
-+++ b/drivers/gpu/drm/i915/display/intel_atomic_plane.c
-@@ -640,18 +640,18 @@ int intel_plane_atomic_check_with_state(const struct intel_crtc_state *old_crtc_
- 	    intel_plane_is_scaled(new_plane_state))
- 		new_crtc_state->scaled_planes |= BIT(plane->id);
- 
--	if (new_plane_state->uapi.visible &&
-+	if (fb && new_plane_state->uapi.visible &&
- 	    intel_format_info_is_yuv_semiplanar(fb->format, fb->modifier))
- 		new_crtc_state->nv12_planes |= BIT(plane->id);
- 
--	if (new_plane_state->uapi.visible &&
-+	if (fb && new_plane_state->uapi.visible &&
- 	    fb->format->format == DRM_FORMAT_C8)
- 		new_crtc_state->c8_planes |= BIT(plane->id);
- 
- 	if (new_plane_state->uapi.visible || old_plane_state->uapi.visible)
- 		new_crtc_state->update_planes |= BIT(plane->id);
- 
--	if (new_plane_state->uapi.visible &&
-+	if (fb && new_plane_state->uapi.visible &&
- 	    intel_format_info_is_yuv_semiplanar(fb->format, fb->modifier)) {
- 		new_crtc_state->data_rate_y[plane->id] =
- 			intel_plane_data_rate(new_crtc_state, new_plane_state, 0);
--- 
-2.25.1
+Well spotted :-)
+
+One option would be to move the WARN_ON() below the clamp() and
+add an OPTIMISER_HIDE_VAR(source_max) between them.
+
+Or do something more sensible than the WARN().
+Perhaps return target_min on any such errors?
+
+	David
+
+> 
+>               Linus
+> 
 
