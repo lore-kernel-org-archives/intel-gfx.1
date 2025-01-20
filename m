@@ -4,75 +4,27 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CC492C02185
-	for <intel-gfx@archiver.kernel.org>; Mon, 20 Jan 2025 09:43:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BC54AC02185
+	for <intel-gfx@archiver.kernel.org>; Mon, 20 Jan 2025 09:56:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5502710E381;
-	Mon, 20 Jan 2025 09:43:31 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=aosc.io header.i=@aosc.io header.b="CWkZ8HS4";
-	dkim-atps=neutral
-X-Greylist: delayed 433 seconds by postgrey-1.36 at gabe;
- Mon, 20 Jan 2025 09:43:29 UTC
-Received: from relay-us1.mymailcheap.com (relay-us1.mymailcheap.com
- [51.81.35.219])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 883EC89E9E
- for <intel-gfx@lists.freedesktop.org>; Mon, 20 Jan 2025 09:43:29 +0000 (UTC)
-Received: from relay5.mymailcheap.com (relay5.mymailcheap.com
- [159.100.248.207])
- by relay-us1.mymailcheap.com (Postfix) with ESMTPS id 2A00A200E7
- for <intel-gfx@lists.freedesktop.org>; Mon, 20 Jan 2025 09:36:15 +0000 (UTC)
-Received: from relay1.mymailcheap.com (relay1.mymailcheap.com
- [144.217.248.100])
- by relay5.mymailcheap.com (Postfix) with ESMTPS id 0DC82260F7
- for <intel-gfx@lists.freedesktop.org>; Mon, 20 Jan 2025 09:36:12 +0000 (UTC)
-Received: from nf2.mymailcheap.com (nf2.mymailcheap.com [54.39.180.165])
- by relay1.mymailcheap.com (Postfix) with ESMTPS id DC8E23E97C;
- Mon, 20 Jan 2025 09:36:09 +0000 (UTC)
-Received: from mail20.mymailcheap.com (mail20.mymailcheap.com [51.83.111.147])
- by nf2.mymailcheap.com (Postfix) with ESMTPSA id 2E0DD40017;
- Mon, 20 Jan 2025 09:36:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=aosc.io; s=default;
- t=1737365768; bh=ieKrh6OQJd6ELMFlWAlciQ7yBgfIPxSLBQZvstolxPc=;
- h=From:To:Cc:Subject:Date:From;
- b=CWkZ8HS40z/YZhFt67rMl9giSNCT9a61sRBFTPBTsfV+hd5cHoPDSPA+CNyieHKxh
- /pWirK2+qDYU5IDUyz9pTnmSsggoy44tVm2XK2WF6F9Uc3zPEX8sJeWToftGPXCemc
- f028l3xwXfT65XQoDI68ZiiDW36dIAPweDlg9zTs=
-Received: from localhost.localdomain (unknown [103.152.35.21])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
- (No client certificate requested)
- by mail20.mymailcheap.com (Postfix) with ESMTPSA id 51FD040564;
- Mon, 20 Jan 2025 09:36:01 +0000 (UTC)
-From: Mingcong Bai <jeffbai@aosc.io>
-To: baolu.lu@linux.intel.com
-Cc: intel-gfx@lists.freedesktop.org, kexybiscuit@aosc.io,
- Mingcong Bai <jeffbai@aosc.io>, Wenhao Sun <weiguangtwk@outlook.com>,
- David Woodhouse <dwmw2@infradead.org>, Joerg Roedel <joro@8bytes.org>,
- Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>,
- iommu@lists.linux.dev, linux-kernel@vger.kernel.org
-Subject: [RFC PATCH RESEND] iommu: intel: apply quirk_iommu_igfx for 8086:0044
- (QM57/QS57)
-Date: Mon, 20 Jan 2025 17:35:39 +0800
-Message-ID: <20250120093540.512825-1-jeffbai@aosc.io>
-X-Mailer: git-send-email 2.48.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id 43EC710E383;
+	Mon, 20 Jan 2025 09:56:54 +0000 (UTC)
+Received: from b555e5b46a47 (emeril.freedesktop.org [131.252.210.167])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A33F510E383;
+ Mon, 20 Jan 2025 09:56:52 +0000 (UTC)
+Content-Type: multipart/alternative;
+ boundary="===============4599009491415528152=="
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Rspamd-Queue-Id: 2E0DD40017
-X-Rspamd-Server: nf2.mymailcheap.com
-X-Spamd-Result: default: False [1.40 / 10.00]; MID_CONTAINS_FROM(1.00)[];
- R_MISSING_CHARSET(0.50)[]; MIME_GOOD(-0.10)[text/plain];
- RCVD_COUNT_ONE(0.00)[1]; RCVD_VIA_SMTP_AUTH(0.00)[];
- MIME_TRACE(0.00)[0:+]; ARC_NA(0.00)[];
- ASN(0.00)[asn:16276, ipnet:51.83.0.0/16, country:FR];
- RCPT_COUNT_SEVEN(0.00)[11];
- SPFBL_URIBL_EMAIL_FAIL(0.00)[weiguangtwk.outlook.com:server
- fail,jeffbai.aosc.io:server fail]; 
- FREEMAIL_CC(0.00)[lists.freedesktop.org,aosc.io,outlook.com,infradead.org,8bytes.org,kernel.org,arm.com,lists.linux.dev,vger.kernel.org];
- FROM_HAS_DN(0.00)[]; TO_DN_SOME(0.00)[];
- FROM_EQ_ENVFROM(0.00)[]; TO_MATCH_ENVRCPT_SOME(0.00)[];
- FREEMAIL_ENVRCPT(0.00)[outlook.com]; RCVD_TLS_ALL(0.00)[]
-X-Rspamd-Action: no action
+Subject: =?utf-8?q?=E2=9C=93_i915=2ECI=2EBAT=3A_success_for_Fix_all_typos_in_i915_=28?=
+ =?utf-8?q?rev6=29?=
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Nitin Gote" <nitin.r.gote@intel.com>
+Cc: intel-gfx@lists.freedesktop.org
+Date: Mon, 20 Jan 2025 09:56:52 -0000
+Message-ID: <173736701266.2052710.8723887291824216740@b555e5b46a47>
+X-Patchwork-Hint: ignore
+References: <20250120081517.3237326-1-nitin.r.gote@intel.com>
+In-Reply-To: <20250120081517.3237326-1-nitin.r.gote@intel.com>
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -85,101 +37,255 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-(I'm not very confident about the approach of this patch but I failed to
-find a better way to address the issue I have on hand, so please consider
-this patch as an RFC...)
+--===============4599009491415528152==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
 
-On the Lenovo ThinkPad X201, when Intel VT-d is enabled in the BIOS, the
-kernel boots with errors related to DMAR, the graphical interface appeared
-quite choppy, and the system resets erratically within a minute after it
-booted:
+== Series Details ==
 
-DMAR: DRHD: handling fault status reg 3
-DMAR: [DMA Write NO_PASID] Request device [00:02.0] fault addr 0xb97ff000
-[fault reason 0x05] PTE Write access is not set
+Series: Fix all typos in i915 (rev6)
+URL   : https://patchwork.freedesktop.org/series/143146/
+State : success
 
-Upon comparing boot logs with VT-d on/off, I found that the Intel Calpella
-quirk (`quirk_calpella_no_shadow_gtt()') correctly applied the igfx IOMMU
-disable/quirk correctly:
+== Summary ==
 
-pci 0000:00:00.0: DMAR: BIOS has allocated no shadow GTT; disabling IOMMU
-for graphics
+CI Bug Log - changes from CI_DRM_15983 -> Patchwork_143146v6
+====================================================
 
-Whereas with VT-d on, it went into the "else" branch, which then
-triggered the DMAR handling fault above:
+Summary
+-------
 
-... else if (!disable_igfx_iommu) {
-	/* we have to ensure the gfx device is idle before we flush */
-	pci_info(dev, "Disabling batched IOTLB flush on Ironlake\n");
-	iommu_set_dma_strict();
-}
+  **SUCCESS**
 
-Now, this is not exactly scientific, but moving 0x0044 to quirk_iommu_igfx
-seems to have fixed the aforementioned issue. Running a few `git blame'
-runs on the function, I have found that the quirk was originally
-introduced as a fix specific to ThinkPad X201:
+  No regressions found.
 
-commit 9eecabcb9a92 ("intel-iommu: Abort IOMMU setup for igfx if BIOS gave
-no shadow GTT space")
+  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_143146v6/index.html
 
-Which was later revised twice to the "else" branch we saw above:
+Participating hosts (41 -> 40)
+------------------------------
 
-- 2011: commit 6fbcfb3e467a ("intel-iommu: Workaround IOTLB hang on
-  Ironlake GPU")
-- 2024: commit ba00196ca41c ("iommu/vt-d: Decouple igfx_off from graphic
-  identity mapping")
+  Missing    (1): fi-elk-e7500 
 
-I'm uncertain whether further testings on this particular laptops were
-done in 2011 and (honestly I'm not sure) 2024, but I would be happy to do
-some distro-specific testing if that's what would be required to verify
-this patch.
+Possible new issues
+-------------------
 
-P.S., I also see IDs 0x0040, 0x0062, and 0x006a listed under the same
-`quirk_calpella_no_shadow_gtt()' quirk, but I'm not sure how similar these
-chipsets are (if they share the same issue with VT-d or even, indeed, if
-this issue is specific to a bug in the Lenovo BIOS). With regards to
-0x0062, it seems to be a Centrino wireless card, but not a chipset?
+  Here are the unknown changes that may have been introduced in Patchwork_143146v6:
 
-I have also listed a couple (distro and kernel) bug reports below as
-references (some of them are from 7-8 years ago!), as they seem to be
-similar issue found on different Westmere/Ironlake, Haswell, and Broadwell
-hardware setups.
+### IGT changes ###
 
-Link: https://bugzilla.kernel.org/show_bug.cgi?id=197029
-Link: https://groups.google.com/g/qubes-users/c/4NP4goUds2c?pli=1
-Link: https://bugs.archlinux.org/task/65362
-Link: https://bbs.archlinux.org/viewtopic.php?id=230323
-Reported-by: Wenhao Sun <weiguangtwk@outlook.com>
-Signed-off-by: Mingcong Bai <jeffbai@aosc.io>
----
- drivers/iommu/intel/iommu.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+#### Suppressed ####
 
-diff --git a/drivers/iommu/intel/iommu.c b/drivers/iommu/intel/iommu.c
-index 79e0da9eb626..f737fc9e70a7 100644
---- a/drivers/iommu/intel/iommu.c
-+++ b/drivers/iommu/intel/iommu.c
-@@ -4513,6 +4513,9 @@ DECLARE_PCI_FIXUP_HEADER(PCI_VENDOR_ID_INTEL, 0x2e30, quirk_iommu_igfx);
- DECLARE_PCI_FIXUP_HEADER(PCI_VENDOR_ID_INTEL, 0x2e40, quirk_iommu_igfx);
- DECLARE_PCI_FIXUP_HEADER(PCI_VENDOR_ID_INTEL, 0x2e90, quirk_iommu_igfx);
- 
-+/* QM57/QS57 integrated gfx malfunctions with dmar */
-+DECLARE_PCI_FIXUP_HEADER(PCI_VENDOR_ID_INTEL, 0x0044, quirk_iommu_igfx);
-+
- /* Broadwell igfx malfunctions with dmar */
- DECLARE_PCI_FIXUP_HEADER(PCI_VENDOR_ID_INTEL, 0x1606, quirk_iommu_igfx);
- DECLARE_PCI_FIXUP_HEADER(PCI_VENDOR_ID_INTEL, 0x160B, quirk_iommu_igfx);
-@@ -4590,7 +4593,6 @@ static void quirk_calpella_no_shadow_gtt(struct pci_dev *dev)
- 	}
- }
- DECLARE_PCI_FIXUP_HEADER(PCI_VENDOR_ID_INTEL, 0x0040, quirk_calpella_no_shadow_gtt);
--DECLARE_PCI_FIXUP_HEADER(PCI_VENDOR_ID_INTEL, 0x0044, quirk_calpella_no_shadow_gtt);
- DECLARE_PCI_FIXUP_HEADER(PCI_VENDOR_ID_INTEL, 0x0062, quirk_calpella_no_shadow_gtt);
- DECLARE_PCI_FIXUP_HEADER(PCI_VENDOR_ID_INTEL, 0x006a, quirk_calpella_no_shadow_gtt);
- 
--- 
-2.48.1
+  The following results come from untrusted machines, tests, or statuses.
+  They do not affect the overall result.
 
+  * igt@core_hotunplug@unbind-rebind:
+    - {bat-mtlp-9}:       [PASS][1] -> [INCOMPLETE][2]
+   [1]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_15983/bat-mtlp-9/igt@core_hotunplug@unbind-rebind.html
+   [2]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_143146v6/bat-mtlp-9/igt@core_hotunplug@unbind-rebind.html
+
+  
+Known issues
+------------
+
+  Here are the changes found in Patchwork_143146v6 that come from known issues:
+
+### IGT changes ###
+
+#### Issues hit ####
+
+  * igt@debugfs_test@basic-hwmon:
+    - fi-pnv-d510:        NOTRUN -> [SKIP][3] +3 other tests skip
+   [3]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_143146v6/fi-pnv-d510/igt@debugfs_test@basic-hwmon.html
+
+  * igt@gem_exec_gttfill@basic:
+    - fi-pnv-d510:        NOTRUN -> [ABORT][4] ([i915#13169])
+   [4]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_143146v6/fi-pnv-d510/igt@gem_exec_gttfill@basic.html
+
+  * igt@i915_selftest@live:
+    - bat-arlh-3:         [PASS][5] -> [DMESG-FAIL][6] ([i915#12061] / [i915#12435])
+   [5]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_15983/bat-arlh-3/igt@i915_selftest@live.html
+   [6]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_143146v6/bat-arlh-3/igt@i915_selftest@live.html
+
+  * igt@i915_selftest@live@workarounds:
+    - bat-arlh-3:         [PASS][7] -> [DMESG-FAIL][8] ([i915#12061])
+   [7]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_15983/bat-arlh-3/igt@i915_selftest@live@workarounds.html
+   [8]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_143146v6/bat-arlh-3/igt@i915_selftest@live@workarounds.html
+    - bat-mtlp-6:         [PASS][9] -> [DMESG-FAIL][10] ([i915#12061]) +1 other test dmesg-fail
+   [9]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_15983/bat-mtlp-6/igt@i915_selftest@live@workarounds.html
+   [10]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_143146v6/bat-mtlp-6/igt@i915_selftest@live@workarounds.html
+
+  * igt@kms_pipe_crc_basic@nonblocking-crc-frame-sequence:
+    - bat-dg2-11:         [PASS][11] -> [SKIP][12] ([i915#9197]) +3 other tests skip
+   [11]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_15983/bat-dg2-11/igt@kms_pipe_crc_basic@nonblocking-crc-frame-sequence.html
+   [12]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_143146v6/bat-dg2-11/igt@kms_pipe_crc_basic@nonblocking-crc-frame-sequence.html
+
+  
+#### Possible fixes ####
+
+  * igt@i915_module_load@load:
+    - fi-pnv-d510:        [ABORT][13] ([i915#13203]) -> [PASS][14]
+   [13]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_15983/fi-pnv-d510/igt@i915_module_load@load.html
+   [14]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_143146v6/fi-pnv-d510/igt@i915_module_load@load.html
+
+  * igt@i915_selftest@live:
+    - bat-adlp-6:         [INCOMPLETE][15] ([i915#9413]) -> [PASS][16] +1 other test pass
+   [15]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_15983/bat-adlp-6/igt@i915_selftest@live.html
+   [16]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_143146v6/bat-adlp-6/igt@i915_selftest@live.html
+
+  * igt@i915_selftest@live@workarounds:
+    - bat-arlh-2:         [DMESG-FAIL][17] ([i915#12061]) -> [PASS][18] +1 other test pass
+   [17]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_15983/bat-arlh-2/igt@i915_selftest@live@workarounds.html
+   [18]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_143146v6/bat-arlh-2/igt@i915_selftest@live@workarounds.html
+
+  
+  {name}: This element is suppressed. This means it is ignored when computing
+          the status of the difference (SUCCESS, WARNING, or FAILURE).
+
+  [i915#12061]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/12061
+  [i915#12435]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/12435
+  [i915#13169]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/13169
+  [i915#13203]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/13203
+  [i915#9197]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/9197
+  [i915#9413]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/9413
+
+
+Build changes
+-------------
+
+  * Linux: CI_DRM_15983 -> Patchwork_143146v6
+
+  CI-20190529: 20190529
+  CI_DRM_15983: 4d9c78b35c395ed49796502224f3a421b0ce65ef @ git://anongit.freedesktop.org/gfx-ci/linux
+  IGT_8198: 1d1ae626601119d249b530547b9e226c6a684144 @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git
+  Patchwork_143146v6: 4d9c78b35c395ed49796502224f3a421b0ce65ef @ git://anongit.freedesktop.org/gfx-ci/linux
+
+== Logs ==
+
+For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_143146v6/index.html
+
+--===============4599009491415528152==
+Content-Type: text/html; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <title>Project List - Patchwork</title>
+  <style id="css-table-select" type="text/css">
+   td { padding: 2pt; }
+  </style>
+</head>
+<body>
+
+
+<b>Patch Details</b>
+<table>
+<tr><td><b>Series:</b></td><td>Fix all typos in i915 (rev6)</td></tr>
+<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/143146/">https://patchwork.freedesktop.org/series/143146/</a></td></tr>
+<tr><td><b>State:</b></td><td>success</td></tr>
+
+    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_143146v6/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_143146v6/index.html</a></td></tr>
+
+</table>
+
+
+    <h1>CI Bug Log - changes from CI_DRM_15983 -&gt; Patchwork_143146v6</h1>
+<h2>Summary</h2>
+<p><strong>SUCCESS</strong></p>
+<p>No regressions found.</p>
+<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_143146v6/index.html</p>
+<h2>Participating hosts (41 -&gt; 40)</h2>
+<p>Missing    (1): fi-elk-e7500 </p>
+<h2>Possible new issues</h2>
+<p>Here are the unknown changes that may have been introduced in Patchwork_143146v6:</p>
+<h3>IGT changes</h3>
+<h4>Suppressed</h4>
+<p>The following results come from untrusted machines, tests, or statuses.<br />
+  They do not affect the overall result.</p>
+<ul>
+<li>igt@core_hotunplug@unbind-rebind:<ul>
+<li>{bat-mtlp-9}:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_15983/bat-mtlp-9/igt@core_hotunplug@unbind-rebind.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_143146v6/bat-mtlp-9/igt@core_hotunplug@unbind-rebind.html">INCOMPLETE</a></li>
+</ul>
+</li>
+</ul>
+<h2>Known issues</h2>
+<p>Here are the changes found in Patchwork_143146v6 that come from known issues:</p>
+<h3>IGT changes</h3>
+<h4>Issues hit</h4>
+<ul>
+<li>
+<p>igt@debugfs_test@basic-hwmon:</p>
+<ul>
+<li>fi-pnv-d510:        NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_143146v6/fi-pnv-d510/igt@debugfs_test@basic-hwmon.html">SKIP</a> +3 other tests skip</li>
+</ul>
+</li>
+<li>
+<p>igt@gem_exec_gttfill@basic:</p>
+<ul>
+<li>fi-pnv-d510:        NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_143146v6/fi-pnv-d510/igt@gem_exec_gttfill@basic.html">ABORT</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/13169">i915#13169</a>)</li>
+</ul>
+</li>
+<li>
+<p>igt@i915_selftest@live:</p>
+<ul>
+<li>bat-arlh-3:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_15983/bat-arlh-3/igt@i915_selftest@live.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_143146v6/bat-arlh-3/igt@i915_selftest@live.html">DMESG-FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/12061">i915#12061</a> / <a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/12435">i915#12435</a>)</li>
+</ul>
+</li>
+<li>
+<p>igt@i915_selftest@live@workarounds:</p>
+<ul>
+<li>bat-arlh-3:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_15983/bat-arlh-3/igt@i915_selftest@live@workarounds.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_143146v6/bat-arlh-3/igt@i915_selftest@live@workarounds.html">DMESG-FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/12061">i915#12061</a>)</li>
+<li>bat-mtlp-6:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_15983/bat-mtlp-6/igt@i915_selftest@live@workarounds.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_143146v6/bat-mtlp-6/igt@i915_selftest@live@workarounds.html">DMESG-FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/12061">i915#12061</a>) +1 other test dmesg-fail</li>
+</ul>
+</li>
+<li>
+<p>igt@kms_pipe_crc_basic@nonblocking-crc-frame-sequence:</p>
+<ul>
+<li>bat-dg2-11:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_15983/bat-dg2-11/igt@kms_pipe_crc_basic@nonblocking-crc-frame-sequence.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_143146v6/bat-dg2-11/igt@kms_pipe_crc_basic@nonblocking-crc-frame-sequence.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/9197">i915#9197</a>) +3 other tests skip</li>
+</ul>
+</li>
+</ul>
+<h4>Possible fixes</h4>
+<ul>
+<li>
+<p>igt@i915_module_load@load:</p>
+<ul>
+<li>fi-pnv-d510:        <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_15983/fi-pnv-d510/igt@i915_module_load@load.html">ABORT</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/13203">i915#13203</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_143146v6/fi-pnv-d510/igt@i915_module_load@load.html">PASS</a></li>
+</ul>
+</li>
+<li>
+<p>igt@i915_selftest@live:</p>
+<ul>
+<li>bat-adlp-6:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_15983/bat-adlp-6/igt@i915_selftest@live.html">INCOMPLETE</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/9413">i915#9413</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_143146v6/bat-adlp-6/igt@i915_selftest@live.html">PASS</a> +1 other test pass</li>
+</ul>
+</li>
+<li>
+<p>igt@i915_selftest@live@workarounds:</p>
+<ul>
+<li>bat-arlh-2:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_15983/bat-arlh-2/igt@i915_selftest@live@workarounds.html">DMESG-FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/12061">i915#12061</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_143146v6/bat-arlh-2/igt@i915_selftest@live@workarounds.html">PASS</a> +1 other test pass</li>
+</ul>
+</li>
+</ul>
+<p>{name}: This element is suppressed. This means it is ignored when computing<br />
+          the status of the difference (SUCCESS, WARNING, or FAILURE).</p>
+<h2>Build changes</h2>
+<ul>
+<li>Linux: CI_DRM_15983 -&gt; Patchwork_143146v6</li>
+</ul>
+<p>CI-20190529: 20190529<br />
+  CI_DRM_15983: 4d9c78b35c395ed49796502224f3a421b0ce65ef @ git://anongit.freedesktop.org/gfx-ci/linux<br />
+  IGT_8198: 1d1ae626601119d249b530547b9e226c6a684144 @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git<br />
+  Patchwork_143146v6: 4d9c78b35c395ed49796502224f3a421b0ce65ef @ git://anongit.freedesktop.org/gfx-ci/linux</p>
+
+</body>
+</html>
+
+--===============4599009491415528152==--
