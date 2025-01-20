@@ -4,27 +4,97 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2BD82C02182
-	for <intel-gfx@archiver.kernel.org>; Tue, 21 Jan 2025 12:39:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D42DEC0218C
+	for <intel-gfx@archiver.kernel.org>; Tue, 21 Jan 2025 13:31:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C543D10E064;
-	Tue, 21 Jan 2025 12:39:39 +0000 (UTC)
-Received: from b555e5b46a47 (emeril.freedesktop.org [131.252.210.167])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 84E1710E064;
- Tue, 21 Jan 2025 12:39:38 +0000 (UTC)
-Content-Type: multipart/alternative;
- boundary="===============4598477054183858551=="
+	by gabe.freedesktop.org (Postfix) with ESMTP id 70BA910E591;
+	Tue, 21 Jan 2025 13:31:29 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="NkDdpuhH";
+	dkim-atps=neutral
+Received: from mail-wm1-x336.google.com (mail-wm1-x336.google.com
+ [IPv6:2a00:1450:4864:20::336])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 20B6010E050;
+ Mon, 20 Jan 2025 11:15:56 +0000 (UTC)
+Received: by mail-wm1-x336.google.com with SMTP id
+ 5b1f17b1804b1-4364a37a1d7so43046845e9.3; 
+ Mon, 20 Jan 2025 03:15:56 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1737371754; x=1737976554; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:subject:cc:to:from:date:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=Grk9J6/b9VBuQn2GFV1dMGR5fuj1yzKJkHNAQSI0qz8=;
+ b=NkDdpuhH83HJiCvOa9U0dzgJ9HRhJpHKXnoyQ5wL9tAu9RKL7+5c5puIbIcKzISvAp
+ 2ffVxJSc8m9446krYUdph8WPl8RJgstsewthELH4lBgnXin3FXfIo9Hv1/NGe6PePjr/
+ kyqix9yZ7kQb/Sp7Q1xfLMhTk1on+5WLZ0P50F39EQwOeMkL5wvIyfvbdHHiZ1B3+yHM
+ w1/WlGj3QzIBGa0rGB1Fywdj/gJFnzZCop3seldBEcPVWrcoXevRgebIAYqXVp2jbRlt
+ jfvYosQPVI4/MDy3K5Fdj6H99FpLkx2m7o2VvPJ+N4i3gVcBdmqETIdMZgPCxFjLtSjJ
+ oVHw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1737371754; x=1737976554;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:subject:cc:to:from:date:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=Grk9J6/b9VBuQn2GFV1dMGR5fuj1yzKJkHNAQSI0qz8=;
+ b=rpp5QktoiM+5qPhCL8ozEi15d4YK+kH1qZvPLyjFldHQHzMu2o+V4cEHIf7+3rJicM
+ 7Bia8M0kPKjaK7GVZu5fjUXbybMb74vsRJvUt8ESvaZo90IKnBRE62hh493IdCkOkHQA
+ DfcRlhLNa3sGX6EPt0E7CwBRE4Vrc7k91HTgg+iABxz5YvE61Otv/3GAeo3ofLmTnmT4
+ 2ryUWgh6RHHdCRrjr8Pt69p9ApnPpubjxK31f5TxS4AzszsnWwKZv12XXc0NsY4V7V/U
+ yLPbtPFv58Q2pPo+huIIP0Dg4AplBxq3jGkDXD1eYMZVNLNpX4Jh/j1t+qpPYrsGaDQY
+ vtLw==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCVqmyY7o52T4bBtT2N6dLTcR6HK5e1B3lYJ9bjn8o3A2xSxvnH4cpBK8hYVmyeqsFmDdu9PSBk6PUs=@lists.freedesktop.org,
+ AJvYcCW7yKejYz3ggyLAy4O/sIZohaEpjjjsdBEvDtkGL13O2/mB4gLNzpO4hoNEDMntqzjxSdfv5D1RDdk=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxrDk7gak+kiacwWHnW+jE7bSlMc+lOvly5wXPGg0DHA/Hc03SY
+ QrJpTDy+Db6jXjDkkLH9oOROuSceBqSjhpc9PDGBt0m8fhzP13fRqF+0qQ==
+X-Gm-Gg: ASbGncs9ckZXD1FNfVDTOkl3oR2PLK1R8VHpO8UE7xX4rG17BRGFIvEIFOsJM3rabap
+ Bt0Jl9aNJLCCApJVaHoSuExxv0q3yQ7c++h8ncc2hITWD92mQSmVRhCQ7IaSGb5qpAHhoQE3zxr
+ XtJxh/Iyu08PVCLi77NZKa48hNat5QWFtfGGf3vAhEeVSjyY9ljdVyWtr1fvZnebq23GjpPnq8A
+ 8o67JKacEomxRAw/ojbtj/bElgkxrDkhNE/Y8ERV8G4fVYcWSkkyldeBON0TV5JLHqdHAHHI5Mw
+ KktIZdeU9rO+ouzmI3IeAvUV8/lSdUHV
+X-Google-Smtp-Source: AGHT+IFbr5mR//NKB/G8R+Pcmr8O/z0UAE/kTlXY81rkDpzp5l4T8SB64QRh8jdEVqTvLMPJctdhdw==
+X-Received: by 2002:a05:600c:a45:b0:436:faeb:2a0b with SMTP id
+ 5b1f17b1804b1-438913e32bemr123863535e9.15.1737371752518; 
+ Mon, 20 Jan 2025 03:15:52 -0800 (PST)
+Received: from pumpkin (82-69-66-36.dsl.in-addr.zen.co.uk. [82.69.66.36])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-43890413053sm136694905e9.10.2025.01.20.03.15.51
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 20 Jan 2025 03:15:52 -0800 (PST)
+Date: Mon, 20 Jan 2025 11:15:51 +0000
+From: David Laight <david.laight.linux@gmail.com>
+To: Jani Nikula <jani.nikula@linux.intel.com>
+Cc: Guenter Roeck <linux@roeck-us.net>, Linus Torvalds
+ <torvalds@linux-foundation.org>, David Laight <David.Laight@aculab.com>,
+ Arnd Bergmann <arnd@kernel.org>, "linux-kernel@vger.kernel.org"
+ <linux-kernel@vger.kernel.org>, Jens Axboe <axboe@kernel.dk>, Matthew
+ Wilcox <willy@infradead.org>, Christoph Hellwig <hch@infradead.org>, Andrew
+ Morton <akpm@linux-foundation.org>, Andy Shevchenko
+ <andriy.shevchenko@linux.intel.com>, Dan Carpenter
+ <dan.carpenter@linaro.org>, "Jason A . Donenfeld" <Jason@zx2c4.com>,
+ "pedro.falcato@gmail.com" <pedro.falcato@gmail.com>, Mateusz Guzik
+ <mjguzik@gmail.com>, "linux-mm@kvack.org" <linux-mm@kvack.org>, Lorenzo
+ Stoakes <lorenzo.stoakes@oracle.com>, intel-xe@lists.freedesktop.org,
+ intel-gfx@lists.freedesktop.org, David Airlie <airlied@gmail.com>, Simona
+ Vetter <simona@ffwll.ch>, Rodrigo Vivi <rodrigo.vivi@intel.com>
+Subject: Re: Buiild error in i915/xe
+Message-ID: <20250120111551.435176c4@pumpkin>
+In-Reply-To: <87ed0xrcb8.fsf@intel.com>
+References: <c50365d214e04f9ba256d417c8bebbc0@AcuMS.aculab.com>
+ <34d53778977747f19cce2abb287bb3e6@AcuMS.aculab.com>
+ <ce600782-1012-47e3-ba3d-41c5a4b7a7b7@roeck-us.net>
+ <20250118170959.3aa56f4d@pumpkin>
+ <29ef57a1-e4dd-4d5d-8726-f1f79c698b66@roeck-us.net>
+ <CAHk-=whAxUvW-APU42yWfCKHF5NhPLoTida9Jo=A9ZGGgjb18Q@mail.gmail.com>
+ <20250118221123.5bb65e64@pumpkin>
+ <f3939490-0f55-410f-81fe-0e9f03874546@roeck-us.net>
+ <20250119090935.7c690f85@pumpkin> <87ed0xrcb8.fsf@intel.com>
+X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; arm-unknown-linux-gnueabihf)
 MIME-Version: 1.0
-Subject: =?utf-8?q?=E2=9C=93_i915=2ECI=2EBAT=3A_success_for_drm/i915/dp=3A_Correct_ma?=
- =?utf-8?q?x_compressed_bpp_bounds_by_using_link_bpp_=28rev2=29?=
-From: Patchwork <patchwork@emeril.freedesktop.org>
-To: "Nautiyal, Ankit K" <ankit.k.nautiyal@intel.com>
-Cc: intel-gfx@lists.freedesktop.org
-Date: Tue, 21 Jan 2025 12:39:38 -0000
-Message-ID: <173746317853.2595557.5000996768116103123@b555e5b46a47>
-X-Patchwork-Hint: ignore
-References: <20250117050713.152012-1-ankit.k.nautiyal@intel.com>
-In-Reply-To: <20250117050713.152012-1-ankit.k.nautiyal@intel.com>
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
+X-Mailman-Approved-At: Tue, 21 Jan 2025 13:31:29 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -37,195 +107,93 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
---===============4598477054183858551==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
+On Mon, 20 Jan 2025 12:48:11 +0200
+Jani Nikula <jani.nikula@linux.intel.com> wrote:
 
-== Series Details ==
+> On Sun, 19 Jan 2025, David Laight <david.laight.linux@gmail.com> wrote:
+> > On Sat, 18 Jan 2025 14:58:48 -0800
+> > Guenter Roeck <linux@roeck-us.net> wrote:
+> >  
+> >> On 1/18/25 14:11, David Laight wrote:  
+> >> > On Sat, 18 Jan 2025 13:21:39 -0800
+> >> > Linus Torvalds <torvalds@linux-foundation.org> wrote:
+> >> >     
+> >> >> On Sat, 18 Jan 2025 at 09:49, Guenter Roeck <linux@roeck-us.net> wrote:    
+> >> >>>
+> >> >>> No idea why the compiler would know that the values are invalid.    
+> >> >>
+> >> >> It's not that the compiler knows tat they are invalid, but I bet what
+> >> >> happens is in scale() (and possibly other places that do similar
+> >> >> checks), which does this:
+> >> >>
+> >> >>          WARN_ON(source_min > source_max);
+> >> >>          ...
+> >> >>          source_val = clamp(source_val, source_min, source_max);
+> >> >>
+> >> >> and the compiler notices that the ordering comparison in the first
+> >> >> WARN_ON() is the same as the one in clamp(), so it basically converts
+> >> >> the logic to
+> >> >>
+> >> >>          if (source_min > source_max) {
+> >> >>                  WARN(..);
+> >> >>                  /* Do the clamp() knowing that source_min > source_max */
+> >> >>                  source_val = clamp(source_val, source_min, source_max);
+> >> >>          } else {
+> >> >>                  /* Do the clamp knowing that source_min <= source_max */
+> >> >>                  source_val = clamp(source_val, source_min, source_max);
+> >> >>          }
+> >> >>
+> >> >> (obviously I dropped the other WARN_ON in the conversion, it wasn't
+> >> >> relevant for this case).
+> >> >>
+> >> >> And now that first clamp() case is done with source_min > source_max,
+> >> >> and it triggers that build error because that's invalid.
+> >> >>
+> >> >> So the condition is not statically true in the *source* code, but in
+> >> >> the "I have moved code around to combine tests" case it now *is*
+> >> >> statically true as far as the compiler is concerned.    
+> >> > 
+> >> > Well spotted :-)
+> >> > 
+> >> > One option would be to move the WARN_ON() below the clamp() and
+> >> > add an OPTIMISER_HIDE_VAR(source_max) between them.
+> >> > 
+> >> > Or do something more sensible than the WARN().
+> >> > Perhaps return target_min on any such errors?
+> >> >     
+> >> 
+> >> This helps:
+> >> 
+> >> -       WARN_ON(source_min > source_max);
+> >> -       WARN_ON(target_min > target_max);
+> >> -
+> >>          /* defensive */
+> >>          source_val = clamp(source_val, source_min, source_max);
+> >> 
+> >> +       WARN_ON(source_min > source_max);
+> >> +       WARN_ON(target_min > target_max);  
+> >
+> > That is a 'quick fix' ...
+> >
+> > Much better would be to replace the WARN() with (say):
+> > 	if (target_min >= target_max)
+> > 		return target_min;
+> > 	if (source_min >= source_max)
+> > 		return target_min + (target_max - target_min)/2;
+> > So that the return values are actually in range (in as much as one is defined).
+> > Note that the >= cpmparisons also remove a divide by zero.  
+> 
+> I want the loud and early warnings for clear bugs instead of
+> "gracefully" silencing the errors only to be found through debugging
+> user reports.
 
-Series: drm/i915/dp: Correct max compressed bpp bounds by using link bpp (rev2)
-URL   : https://patchwork.freedesktop.org/series/143597/
-State : success
+A user isn't going to notice a WARN() - not until you tell them to look for it.
+In any case even if you output a message you really want to return a 'sane'
+value, who knows what effect a very out of range value is going to have.
 
-== Summary ==
-
-CI Bug Log - changes from CI_DRM_15972 -> Patchwork_143597v2
-====================================================
-
-Summary
--------
-
-  **SUCCESS**
-
-  No regressions found.
-
-  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_143597v2/index.html
-
-Participating hosts (41 -> 41)
-------------------------------
-
-  Additional (1): fi-pnv-d510 
-  Missing    (1): fi-snb-2520m 
-
-Known issues
-------------
-
-  Here are the changes found in Patchwork_143597v2 that come from known issues:
-
-### IGT changes ###
-
-#### Issues hit ####
-
-  * igt@i915_module_load@load:
-    - fi-pnv-d510:        NOTRUN -> [ABORT][1] ([i915#13203])
-   [1]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_143597v2/fi-pnv-d510/igt@i915_module_load@load.html
-
-  * igt@i915_pm_rpm@module-reload:
-    - bat-apl-1:          [PASS][2] -> [FAIL][3] ([i915#13401])
-   [2]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_15972/bat-apl-1/igt@i915_pm_rpm@module-reload.html
-   [3]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_143597v2/bat-apl-1/igt@i915_pm_rpm@module-reload.html
-
-  * igt@i915_selftest@live@workarounds:
-    - bat-arls-5:         [PASS][4] -> [DMESG-FAIL][5] ([i915#12061]) +1 other test dmesg-fail
-   [4]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_15972/bat-arls-5/igt@i915_selftest@live@workarounds.html
-   [5]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_143597v2/bat-arls-5/igt@i915_selftest@live@workarounds.html
-
-  * igt@kms_pipe_crc_basic@nonblocking-crc-frame-sequence:
-    - bat-dg2-11:         [PASS][6] -> [SKIP][7] ([i915#9197]) +2 other tests skip
-   [6]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_15972/bat-dg2-11/igt@kms_pipe_crc_basic@nonblocking-crc-frame-sequence.html
-   [7]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_143597v2/bat-dg2-11/igt@kms_pipe_crc_basic@nonblocking-crc-frame-sequence.html
-
-  
-#### Possible fixes ####
-
-  * igt@i915_selftest@live@workarounds:
-    - bat-arlh-3:         [DMESG-FAIL][8] ([i915#12061]) -> [PASS][9] +1 other test pass
-   [8]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_15972/bat-arlh-3/igt@i915_selftest@live@workarounds.html
-   [9]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_143597v2/bat-arlh-3/igt@i915_selftest@live@workarounds.html
-    - bat-mtlp-6:         [DMESG-FAIL][10] ([i915#12061]) -> [PASS][11] +1 other test pass
-   [10]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_15972/bat-mtlp-6/igt@i915_selftest@live@workarounds.html
-   [11]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_143597v2/bat-mtlp-6/igt@i915_selftest@live@workarounds.html
-    - {bat-mtlp-9}:       [DMESG-FAIL][12] ([i915#12061]) -> [PASS][13]
-   [12]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_15972/bat-mtlp-9/igt@i915_selftest@live@workarounds.html
-   [13]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_143597v2/bat-mtlp-9/igt@i915_selftest@live@workarounds.html
-
-  
-  {name}: This element is suppressed. This means it is ignored when computing
-          the status of the difference (SUCCESS, WARNING, or FAILURE).
-
-  [i915#12061]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/12061
-  [i915#13203]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/13203
-  [i915#13401]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/13401
-  [i915#9197]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/9197
-
-
-Build changes
--------------
-
-  * Linux: CI_DRM_15972 -> Patchwork_143597v2
-
-  CI-20190529: 20190529
-  CI_DRM_15972: d8c883b9b7702b39eb913a72fd7158ad9a6ea11f @ git://anongit.freedesktop.org/gfx-ci/linux
-  IGT_8195: 8195
-  Patchwork_143597v2: d8c883b9b7702b39eb913a72fd7158ad9a6ea11f @ git://anongit.freedesktop.org/gfx-ci/linux
-
-== Logs ==
-
-For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_143597v2/index.html
-
---===============4598477054183858551==
-Content-Type: text/html; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
+	David
 
 
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
- <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-  <title>Project List - Patchwork</title>
-  <style id="css-table-select" type="text/css">
-   td { padding: 2pt; }
-  </style>
-</head>
-<body>
-
-
-<b>Patch Details</b>
-<table>
-<tr><td><b>Series:</b></td><td>drm/i915/dp: Correct max compressed bpp bounds by using link bpp (rev2)</td></tr>
-<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/143597/">https://patchwork.freedesktop.org/series/143597/</a></td></tr>
-<tr><td><b>State:</b></td><td>success</td></tr>
-
-    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_143597v2/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_143597v2/index.html</a></td></tr>
-
-</table>
-
-
-    <h1>CI Bug Log - changes from CI_DRM_15972 -&gt; Patchwork_143597v2</h1>
-<h2>Summary</h2>
-<p><strong>SUCCESS</strong></p>
-<p>No regressions found.</p>
-<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_143597v2/index.html</p>
-<h2>Participating hosts (41 -&gt; 41)</h2>
-<p>Additional (1): fi-pnv-d510 <br />
-  Missing    (1): fi-snb-2520m </p>
-<h2>Known issues</h2>
-<p>Here are the changes found in Patchwork_143597v2 that come from known issues:</p>
-<h3>IGT changes</h3>
-<h4>Issues hit</h4>
-<ul>
-<li>
-<p>igt@i915_module_load@load:</p>
-<ul>
-<li>fi-pnv-d510:        NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_143597v2/fi-pnv-d510/igt@i915_module_load@load.html">ABORT</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/13203">i915#13203</a>)</li>
-</ul>
-</li>
-<li>
-<p>igt@i915_pm_rpm@module-reload:</p>
-<ul>
-<li>bat-apl-1:          <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_15972/bat-apl-1/igt@i915_pm_rpm@module-reload.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_143597v2/bat-apl-1/igt@i915_pm_rpm@module-reload.html">FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/13401">i915#13401</a>)</li>
-</ul>
-</li>
-<li>
-<p>igt@i915_selftest@live@workarounds:</p>
-<ul>
-<li>bat-arls-5:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_15972/bat-arls-5/igt@i915_selftest@live@workarounds.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_143597v2/bat-arls-5/igt@i915_selftest@live@workarounds.html">DMESG-FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/12061">i915#12061</a>) +1 other test dmesg-fail</li>
-</ul>
-</li>
-<li>
-<p>igt@kms_pipe_crc_basic@nonblocking-crc-frame-sequence:</p>
-<ul>
-<li>bat-dg2-11:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_15972/bat-dg2-11/igt@kms_pipe_crc_basic@nonblocking-crc-frame-sequence.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_143597v2/bat-dg2-11/igt@kms_pipe_crc_basic@nonblocking-crc-frame-sequence.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/9197">i915#9197</a>) +2 other tests skip</li>
-</ul>
-</li>
-</ul>
-<h4>Possible fixes</h4>
-<ul>
-<li>igt@i915_selftest@live@workarounds:<ul>
-<li>bat-arlh-3:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_15972/bat-arlh-3/igt@i915_selftest@live@workarounds.html">DMESG-FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/12061">i915#12061</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_143597v2/bat-arlh-3/igt@i915_selftest@live@workarounds.html">PASS</a> +1 other test pass</li>
-<li>bat-mtlp-6:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_15972/bat-mtlp-6/igt@i915_selftest@live@workarounds.html">DMESG-FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/12061">i915#12061</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_143597v2/bat-mtlp-6/igt@i915_selftest@live@workarounds.html">PASS</a> +1 other test pass</li>
-<li>{bat-mtlp-9}:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_15972/bat-mtlp-9/igt@i915_selftest@live@workarounds.html">DMESG-FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/12061">i915#12061</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_143597v2/bat-mtlp-9/igt@i915_selftest@live@workarounds.html">PASS</a></li>
-</ul>
-</li>
-</ul>
-<p>{name}: This element is suppressed. This means it is ignored when computing<br />
-          the status of the difference (SUCCESS, WARNING, or FAILURE).</p>
-<h2>Build changes</h2>
-<ul>
-<li>Linux: CI_DRM_15972 -&gt; Patchwork_143597v2</li>
-</ul>
-<p>CI-20190529: 20190529<br />
-  CI_DRM_15972: d8c883b9b7702b39eb913a72fd7158ad9a6ea11f @ git://anongit.freedesktop.org/gfx-ci/linux<br />
-  IGT_8195: 8195<br />
-  Patchwork_143597v2: d8c883b9b7702b39eb913a72fd7158ad9a6ea11f @ git://anongit.freedesktop.org/gfx-ci/linux</p>
-
-</body>
-</html>
-
---===============4598477054183858551==--
