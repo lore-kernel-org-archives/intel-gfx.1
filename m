@@ -4,94 +4,66 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1085BC0218D
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 741EFC02192
 	for <intel-gfx@archiver.kernel.org>; Tue, 21 Jan 2025 13:31:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B86B710E5BA;
+	by gabe.freedesktop.org (Postfix) with ESMTP id D028D10E5BF;
 	Tue, 21 Jan 2025 13:31:30 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="g1aGaTWp";
+	dkim=pass (2048-bit key; secure) header.d=kde.org header.i=@kde.org header.b="V4vpkKHa";
 	dkim-atps=neutral
-Received: from mail-wm1-x32b.google.com (mail-wm1-x32b.google.com
- [IPv6:2a00:1450:4864:20::32b])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7627610E02A;
- Sat, 18 Jan 2025 18:09:20 +0000 (UTC)
-Received: by mail-wm1-x32b.google.com with SMTP id
- 5b1f17b1804b1-435f8f29f8aso21383235e9.2; 
- Sat, 18 Jan 2025 10:09:20 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1737223759; x=1737828559; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:subject:cc:to:from:date:from:to:cc:subject:date
- :message-id:reply-to;
- bh=4BA/IJCpYsGVXt7I5m+H4A9gd0VSnYvzZ/4qWQWWRxQ=;
- b=g1aGaTWpm6PNonyDxNUttf/yv7ef4iQ4KG/VZ02Ac9SUIlgRNQL4u/VbCTChYjz/bH
- 1SXL9t1ztw46wrWpltVXaGWB3mZ6/M4J6GBK7lE9Eu65IK8xLGXMdTuEMTMTT/2MjkQ1
- 5cNStHap+5/PkFu5UhWbpGwvG0n223VSkVc/UAXDMDucNRfH9/F1DymbymUPaO9Uh0iW
- uct7pn5wxQWzfkDWW6trj8tFqMpqN+Sy4KxFfwEM798YoMqtTgzQV/81Bh8R+oJEEubb
- Qj9DM7OWdW4c52N5Y+o+r3AUJu4h0fKbZr99dzwlb7jgD0JI/HyUBMg+j33uK3omhqUs
- 0l7w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1737223759; x=1737828559;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:subject:cc:to:from:date:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=4BA/IJCpYsGVXt7I5m+H4A9gd0VSnYvzZ/4qWQWWRxQ=;
- b=fo+nIdjoDkoE0lhyvSYokLfmppsHw1Ejb9UN1IaEpvUNG6sA+WVRk5cNIB/YXP4hI0
- dygr5UVPHDNpPzo9NCoWeFaPDHx9z64eGzcQ2MV6nOlmfYuQJh2ZL2Icr9hL4bUJr1Om
- RhWsgioAlg91+1ZrmEZA9GJKOD97mL8W64RhJRgxLtOTA/7aJT8LcLK356GCdhXvCrDM
- wgukT8IaQewTpDkL47/LsiOKVU+hVwzL6fVn8++VFMEY4Plk+7ohuuyP8haX1o110cTE
- RRIvS5rW8NBimNM7fw6SzGJsBdeo6dxEzYanMx87megAKIt+2/WVu5XAE/1zuRUXHlGl
- J60w==
+Received: from letterbox.kde.org (letterbox.kde.org [46.43.1.242])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DE67410E031;
+ Tue, 21 Jan 2025 01:15:08 +0000 (UTC)
+Received: from mail-ej1-f54.google.com (mail-ej1-f54.google.com
+ [209.85.218.54]) (Authenticated sender: zamundaaa)
+ by letterbox.kde.org (Postfix) with ESMTPSA id C6B4932415B;
+ Tue, 21 Jan 2025 01:15:07 +0000 (GMT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kde.org; s=users;
+ t=1737422107; bh=hM2fgf0olfRkEwK6dyP6s2sEQFyODgPiSs8QRRD7534=;
+ h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
+ b=V4vpkKHaKnd/oT3woE4w9DgLXF4+huS+pPTtoaJN8WKYhvFvJNO/hOKpFb5qf+Mcq
+ B9mZ/JBkX0lvoa14cb6y8pu7cAKpKgb6/xIBVGwR7eg9TYVBY0tyxWO3mdw8Xehi6n
+ oBbqZD9x+KsJhBHhf2XNfU2U52vLsKind42IraqoJ1axkivBuxXkMvvSXETZIXB6R9
+ Xmpe6yP2hUO+GzfFxUmVhjW1DS96UXqEC7whcQP+60tekUELi7bl6KjGGYjtzBXe7F
+ kwXQPnR7w1DTscc7pfYOxG0/gYE9XbTl3NhRp2j0biPhIzoiUE4lhclCZZCxrDgVLm
+ A7jr0ZpSnPB3w==
+Received: by mail-ej1-f54.google.com with SMTP id
+ a640c23a62f3a-aaf57c2e0beso1020153366b.3; 
+ Mon, 20 Jan 2025 17:15:07 -0800 (PST)
 X-Forwarded-Encrypted: i=1;
- AJvYcCUFG8QyjKGiDEUk2KIGAdBAk7a5p/2BtGz1eQmT93b3d1rvrzTNnPfCyRBXk4Ge0PZ3pCoS5VGfp10=@lists.freedesktop.org,
- AJvYcCUg87xtkhHItksSdTNQN+hfDjB1u+AaBgvGF7NLDamHj4rBXrT0w3+CBeeEehqDhKc7O4i3GE5/f80=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyK73XPdt4sDQaaSFxCiaFS8lKC/aqV0UXWvM9Wy9W39q/avqyh
- 2FkPxNuiNiseMO0fW5Z+u0JB1UcNxZJ7Olv45MflFsRUaMeGDghw
-X-Gm-Gg: ASbGnctU/nr4n/So9ZoKj5FnND6CCUIEy2SpgIgF+jBFCiAM3/CCcGpPFXw9+r5GU4e
- xTWVnC2U4QgbciJsmamHQP4aAy7SNujIQ0W9yNhh2cbWDeoXvj1tI19A73i+NQXxyTAMYhdGR/o
- slvnrUfzEnByOYXwKhir9rIMhwbAVUyC88gE6eF3baZBvuYgrE9/f61h0H3glxCYY+A4h+tI6zm
- KEoUGgfZIwGffoVmiextmQlw4KUwmIfWQlLPSheiMR5DzRiYQIAqGQCPzXce3N+i9pn7kSnJyg9
- RsmKH5G5rjM/Cby+/Ko+reyAPoGfNUkV
-X-Google-Smtp-Source: AGHT+IHVwNkjw3fCrBEKyLXBvBiUL2k60KcVoV9cy6dZqzV7+/qO4ENIlaaFUStajLUdjSOHJHd/GA==
-X-Received: by 2002:a05:600c:4e4f:b0:434:f767:68ea with SMTP id
- 5b1f17b1804b1-438913bf92cmr81103605e9.5.1737223758584; 
- Sat, 18 Jan 2025 10:09:18 -0800 (PST)
-Received: from pumpkin (82-69-66-36.dsl.in-addr.zen.co.uk. [82.69.66.36])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4389040854bsm77741645e9.7.2025.01.18.10.09.17
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 18 Jan 2025 10:09:17 -0800 (PST)
-Date: Sat, 18 Jan 2025 18:09:16 +0000
-From: David Laight <david.laight.linux@gmail.com>
-To: Guenter Roeck <linux@roeck-us.net>
-Cc: David Laight <David.Laight@aculab.com>, Linus Torvalds
- <torvalds@linux-foundation.org>, 'Arnd Bergmann' <arnd@kernel.org>,
- "'linux-kernel@vger.kernel.org'" <linux-kernel@vger.kernel.org>, 'Jens
- Axboe' <axboe@kernel.dk>, 'Matthew Wilcox' <willy@infradead.org>,
- 'Christoph Hellwig' <hch@infradead.org>, 'Andrew Morton'
- <akpm@linux-foundation.org>, 'Andy Shevchenko'
- <andriy.shevchenko@linux.intel.com>, 'Dan Carpenter'
- <dan.carpenter@linaro.org>, "'Jason A . Donenfeld'" <Jason@zx2c4.com>,
- "'pedro.falcato@gmail.com'" <pedro.falcato@gmail.com>, 'Mateusz Guzik'
- <mjguzik@gmail.com>, "'linux-mm@kvack.org'" <linux-mm@kvack.org>, 'Lorenzo
- Stoakes' <lorenzo.stoakes@oracle.com>, intel-xe@lists.freedesktop.org,
- intel-gfx@lists.freedesktop.org, David Airlie <airlied@gmail.com>, Simona
- Vetter <simona@ffwll.ch>, Jani Nikula <jani.nikula@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>
-Subject: Re: Buiild error in i915/xe (was: [PATCH next 4/7] minmax.h: Use
- BUILD_BUG_ON_MSG() for the lo < hi test in clamp())
-Message-ID: <20250118180916.433bb73c@pumpkin>
-In-Reply-To: <29ef57a1-e4dd-4d5d-8726-f1f79c698b66@roeck-us.net>
-References: <c50365d214e04f9ba256d417c8bebbc0@AcuMS.aculab.com>
- <34d53778977747f19cce2abb287bb3e6@AcuMS.aculab.com>
- <ce600782-1012-47e3-ba3d-41c5a4b7a7b7@roeck-us.net>
- <20250118170959.3aa56f4d@pumpkin>
- <29ef57a1-e4dd-4d5d-8726-f1f79c698b66@roeck-us.net>
-X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; arm-unknown-linux-gnueabihf)
+ AJvYcCUtv1kVJLbF95mJXkJCGAbY9YNVr69h3r0EPXCAe5SND+CJSKtn2twd6cSrJ+iaqQOfmABsI5/RV4q+@lists.freedesktop.org,
+ AJvYcCWCGMDnLHQJyXzpjV4JpnDih2/KsOEYkhaqB9fwAjVCnnpvqy4tGw1OcuRavJKyPOBXlwzYLSnD@lists.freedesktop.org,
+ AJvYcCWchc8o6dPqD42Pf7h006gaS9e3iF/9m/ztpqsi3CWuLn5JDCH7zp7yW7MqNG7MOLXNehbYxqJPuw7E@lists.freedesktop.org,
+ AJvYcCXaZa7ERIWFgyIkvVYRve0725RvdK37Mga6DAlEgw9gaHB/QD1o5SuT33xHaI0nIgGMEFJF0cPJJ1Y=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzKt67vdd14gmvfRjGzhgKQUJhdEJIyS3GIPfDyJr4O9QW6Ncw3
+ /nQ9D2KohDL2S64RtViPicfIw6JS6fmvoEcR5FJ3LalWOLjntbuBpHwAMaKr3mqkDOo+AwAf2Eb
+ dT3C2BWIZYaMsb2UMf1pGw5B9NQo=
+X-Google-Smtp-Source: AGHT+IHMrdZmZYN6AneS0M7yk0oJgsGbOhYYMwHUnQJVRQueCtdy9Lh5FdsaXzAZ1DBLPn5H6+vQ6quf6I5I7PDV7ek=
+X-Received: by 2002:a17:907:1c19:b0:aa6:acd6:b30d with SMTP id
+ a640c23a62f3a-ab38b4c63f2mr1366856566b.48.1737422107129; Mon, 20 Jan 2025
+ 17:15:07 -0800 (PST)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+References: <20241128153707.1294347-1-raag.jadav@intel.com>
+ <20241128153707.1294347-3-raag.jadav@intel.com>
+In-Reply-To: <20241128153707.1294347-3-raag.jadav@intel.com>
+From: Xaver Hugl <xaver.hugl@kde.org>
+Date: Tue, 21 Jan 2025 02:14:56 +0100
+X-Gmail-Original-Message-ID: <CAFZQkGy3R0TMY5CARPQZF70fdKGLX8GQjV_YQAHzEXsiuNHj+w@mail.gmail.com>
+X-Gm-Features: AbW1kvYyDEzcmVwbdo9c6XA4vihWY2IEO2N6qS2J1gV67gtMuD21gh51qrRQ3Dk
+Message-ID: <CAFZQkGy3R0TMY5CARPQZF70fdKGLX8GQjV_YQAHzEXsiuNHj+w@mail.gmail.com>
+Subject: Re: [PATCH v10 2/4] drm/doc: Document device wedged event
+To: Raag Jadav <raag.jadav@intel.com>
+Cc: airlied@gmail.com, simona@ffwll.ch, lucas.demarchi@intel.com, 
+ rodrigo.vivi@intel.com, jani.nikula@linux.intel.com, 
+ andriy.shevchenko@linux.intel.com, lina@asahilina.net, 
+ michal.wajdeczko@intel.com, christian.koenig@amd.com, 
+ intel-xe@lists.freedesktop.org, intel-gfx@lists.freedesktop.org, 
+ dri-devel@lists.freedesktop.org, himal.prasad.ghimiray@intel.com, 
+ aravind.iddamsetty@linux.intel.com, anshuman.gupta@intel.com, 
+ alexander.deucher@amd.com, andrealmeid@igalia.com, 
+ amd-gfx@lists.freedesktop.org, kernel-dev@igalia.com
+Content-Type: text/plain; charset="UTF-8"
 X-Mailman-Approved-At: Tue, 21 Jan 2025 13:31:29 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -108,91 +80,17 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Sat, 18 Jan 2025 09:49:21 -0800
-Guenter Roeck <linux@roeck-us.net> wrote:
+> +It is the responsibility of the consumer to make sure that the device or
+> +its resources are not in use by any process before attempting recovery.
+I'm not convinced this is actually doable in practice, outside of
+killing all apps that aren't the one trying to recover the GPU.
+Is this just about not crashing those processes if they don't handle
+GPU hotunplugs well, about leaks, or something else?
 
-> On Sat, Jan 18, 2025 at 05:09:59PM +0000, David Laight wrote:
-> > On Sat, 18 Jan 2025 08:13:06 -0800
-> > Guenter Roeck <linux@roeck-us.net> wrote:
-> >   
-> > > Hi,
-> > > 
-> > > On Mon, Nov 18, 2024 at 07:13:31PM +0000, David Laight wrote:  
-> > > > Use BUILD_BUG_ON_MSG(statically_true(ulo > uhi), ...) for the sanity
-> > > > check of the bounds in clamp().
-> > > > Gives better error coverage and one less expansion of the arguments.
-> > > > 
-> > > > Signed-off-by: David Laight <david.laight@aculab.com>    
-> > > 
-> > > This patch triggers a build error when trying to build parisc:allmodconfig.
-> > > See error message and bisect log below.
-> > > 
-> > > I don't think there is anything wrong with the patch. The underlying
-> > > problem seems to be that parisc:allmodconfig enables CONFIG_DRM_XE which
-> > > tries to build the affected file even though CONFIG_DRM_I915 is not
-> > > enabled/supported on parisc.  
-> > 
-> > This has appeared before.
-> > Any idea which inlined copy of scale() is causing the problem.
-> > On the face of it they all look ok.
-> > 
-> > If you can reproduce it maybe try commenting out some of the calls.
-> >   
-> 
-> See diff below. All three changes are needed.
-> No idea why the compiler would know that the values are invalid.
-
-Maybe it isn't even an inlining issue.
-Perhaps that compiler just doesn't like the function ?
-What happens without the 'static' (and an extra prototype)?
-
-	David
-
-> 
-> Guenter
-> 
-> ---
-> diff --git a/drivers/gpu/drm/i915/display/intel_backlight.c b/drivers/gpu/drm/i915/display/intel_backlight.c
-> index fc1e517e074a..3b2c8bdfcf8d 100644
-> --- a/drivers/gpu/drm/i915/display/intel_backlight.c
-> +++ b/drivers/gpu/drm/i915/display/intel_backlight.c
-> @@ -76,10 +76,14 @@ static u32 clamp_user_to_hw(struct intel_connector *connector,
->  static u32 scale_hw_to_user(struct intel_connector *connector,
->  			    u32 hw_level, u32 user_max)
->  {
-> +#if 0
->  	struct intel_panel *panel = &connector->panel;
->  
->  	return scale(hw_level, panel->backlight.min, panel->backlight.max,
->  		     0, user_max);
-> +#else
-> +	return 0;
-> +#endif
->  }
->  
->  u32 intel_backlight_invert_pwm_level(struct intel_connector *connector, u32 val)
-> @@ -119,8 +123,10 @@ u32 intel_backlight_level_to_pwm(struct intel_connector *connector, u32 val)
->  	drm_WARN_ON_ONCE(&i915->drm,
->  			 panel->backlight.max == 0 || panel->backlight.pwm_level_max == 0);
->  
-> +#if 0
->  	val = scale(val, panel->backlight.min, panel->backlight.max,
->  		    panel->backlight.pwm_level_min, panel->backlight.pwm_level_max);
-> +#endif
->  
->  	return intel_backlight_invert_pwm_level(connector, val);
->  }
-> @@ -138,8 +144,12 @@ u32 intel_backlight_level_from_pwm(struct intel_connector *connector, u32 val)
->  	     intel_has_quirk(display, QUIRK_INVERT_BRIGHTNESS)))
->  		val = panel->backlight.pwm_level_max - (val - panel->backlight.pwm_level_min);
->  
-> +#if 0
->  	return scale(val, panel->backlight.pwm_level_min, panel->backlight.pwm_level_max,
->  		     panel->backlight.min, panel->backlight.max);
-> +#else
-> +	return 0;
-> +#endif
->  }
->  
->  static u32 lpt_get_backlight(struct intel_connector *connector, enum pipe unused)
-
+> +With IOCTLs blocked and device already 'wedged', all device memory should
+> +be unmapped and file descriptors should be closed to prevent leaks.
+Afaiu from a userspace POV, a rebind is just like a GPU hotunplug +
+hotplug with matching "remove" and "add" udev events. As long as the
+application cleans up resources related to the device when it receives
+the event, there should be no leaks with a normal hotunplug... Is this
+different enough that we can't have the same expectations?
