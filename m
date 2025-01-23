@@ -4,63 +4,56 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4C5ADC0218B
-	for <intel-gfx@archiver.kernel.org>; Thu, 23 Jan 2025 08:24:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 663DAC02182
+	for <intel-gfx@archiver.kernel.org>; Thu, 23 Jan 2025 09:41:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E06D610E1DC;
-	Thu, 23 Jan 2025 08:24:16 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0716410E7A6;
+	Thu, 23 Jan 2025 09:41:52 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="jUI2ty2+";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="GSTntjkS";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DA06110E1DC;
- Thu, 23 Jan 2025 08:24:15 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.18])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 40D0B10E164;
+ Thu, 23 Jan 2025 09:41:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1737620656; x=1769156656;
+ t=1737625310; x=1769161310;
  h=from:to:cc:subject:in-reply-to:references:date:
  message-id:mime-version;
- bh=GGP2ai4GYm2zNzeIOLLH+0ZN/Orn8SGA6+VFokn/B2c=;
- b=jUI2ty2+fmba3RAghohY5Ps20bBXo04ilfhl9CQgo2xiVIfJ2kiNHkwd
- 5fqr8H0rQuJHW/L6TH+JqCA8eb+qAREedMxxG7lxPa0x0Hct/YhdPPXUZ
- ibmBybhGY+c73LWvVMYlm1p3u5vkxqgrbQS2eJBT2XZ6r8rMIGwDr9n6U
- jq2ijX9PkegbQiAqJpXTT8VTUCyVyUy9vkSPpcmdQUM/3uJGu7uoL6WMF
- b4wKeu9kuF0JgT4YYQ/Q7MJSjAsWIYCE9WShXdF8B6te4ZW0wfLcZYFJY
- cYWlc6qodPQmSJyrwOd557ouqXIbivk7LkEnVRw2qccXBYnI1kCXJOoT1 g==;
-X-CSE-ConnectionGUID: tYwoAg8UTXGBAcvm/z3qKg==
-X-CSE-MsgGUID: ADOMwF0TTTy23K7c+QOkyw==
-X-IronPort-AV: E=McAfee;i="6700,10204,11323"; a="48605978"
-X-IronPort-AV: E=Sophos;i="6.13,227,1732608000"; d="scan'208";a="48605978"
-Received: from orviesa006.jf.intel.com ([10.64.159.146])
- by orvoesa103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 Jan 2025 00:24:16 -0800
-X-CSE-ConnectionGUID: XbGgefMOQ4m+sKxc946+Yw==
-X-CSE-MsgGUID: fuiIE3ppQLWpHvLt7QwPbw==
+ bh=8o3XwouJaVxr8i1Fn1WmhSqn8CsB/ycHHa+M4kLJaC0=;
+ b=GSTntjkS8a1MUG3ut4ZDi2FtI9q8Lr0ig8G4FVExdYkg1LTdNhHY5L2G
+ X+LAZQnndx8CaYiIkPD1/JL9VINILRVEMLCiAQqug3zxVn/Q05dA6vlfU
+ Tcsrg3CYmHXpQwGL6x1gYi1ABSnypRyq3FOGlm1I7bFGe0d9o563YUYa6
+ GR7M2cUhCbOd3QYxopLUizf9utrQa4maj+OmdX/UNoB96v5npxBAo/m4c
+ svW6yhZ7umTBKwxe4XbqteVJO3WCw0BJUbD7pTgZeVegyFNji/m18w1kg
+ IH8x5fa3KtUpL7+1VDxOFiEcZiTM2yLUROT0pckwBBqqWiqlm/th3SpdS g==;
+X-CSE-ConnectionGUID: efDfMyvBQnGrNztqvbDVYw==
+X-CSE-MsgGUID: ZGNeF5ERRMiM6vJisNiYIA==
+X-IronPort-AV: E=McAfee;i="6700,10204,11323"; a="37374230"
+X-IronPort-AV: E=Sophos;i="6.13,228,1732608000"; d="scan'208";a="37374230"
+Received: from fmviesa005.fm.intel.com ([10.60.135.145])
+ by fmvoesa112.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 23 Jan 2025 01:41:49 -0800
+X-CSE-ConnectionGUID: so+0SxacQJuJ6Be0i+uivQ==
+X-CSE-MsgGUID: SJ1w2X40T8OM9J4kYWJ3Eg==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.13,227,1732608000"; d="scan'208";a="107389461"
+X-IronPort-AV: E=Sophos;i="6.12,224,1728975600"; d="scan'208";a="112057575"
 Received: from bergbenj-mobl1.ger.corp.intel.com (HELO localhost)
  ([10.245.246.98])
- by orviesa006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 Jan 2025 00:24:12 -0800
-From: Jani Nikula <jani.nikula@linux.intel.com>
-To: Stephen Rothwell <sfr@canb.auug.org.au>, Andrew Morton
- <akpm@linux-foundation.org>
-Cc: Dave Airlie <airlied@redhat.com>, Simona Vetter
- <simona.vetter@ffwll.ch>, Joonas
- Lahtinen <joonas.lahtinen@linux.intel.com>, Rodrigo Vivi
- <rodrigo.vivi@intel.com>, Intel Graphics
- <intel-gfx@lists.freedesktop.org>, DRI <dri-devel@lists.freedesktop.org>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>, Linux Next
- Mailing List <linux-next@vger.kernel.org>, Yafang Shao
- <laoar.shao@gmail.com>
-Subject: Re: linux-next: manual merge of the drm-intel tree with the mm tree
-In-Reply-To: <20250123103553.32f41759@canb.auug.org.au>
+ by fmviesa005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 23 Jan 2025 01:41:47 -0800
+From: Jani Nikula <jani.nikula@intel.com>
+To: Suraj Kandpal <suraj.kandpal@intel.com>, intel-xe@lists.freedesktop.org,
+ intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
+Cc: dmitry.baryshkov@linaro.org, arun.r.murthy@intel.com, Suraj Kandpal
+ <suraj.kandpal@intel.com>
+Subject: Re: [PATCH 3/3] drm/i915/lttpr: Enable Extended Wake Timeout
+In-Reply-To: <20250122053358.1545039-4-suraj.kandpal@intel.com>
 Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
-References: <20250106130348.73a5fae6@canb.auug.org.au>
- <20250108121650.09a8e828@canb.auug.org.au>
- <20250123103553.32f41759@canb.auug.org.au>
-Date: Thu, 23 Jan 2025 10:24:09 +0200
-Message-ID: <877c6mndjq.fsf@intel.com>
+References: <20250122053358.1545039-1-suraj.kandpal@intel.com>
+ <20250122053358.1545039-4-suraj.kandpal@intel.com>
+Date: Thu, 23 Jan 2025 11:41:44 +0200
+Message-ID: <871pwtooiv.fsf@intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain
 X-BeenThere: intel-gfx@lists.freedesktop.org
@@ -78,85 +71,80 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Thu, 23 Jan 2025, Stephen Rothwell <sfr@canb.auug.org.au> wrote:
-> Hi all,
+On Wed, 22 Jan 2025, Suraj Kandpal <suraj.kandpal@intel.com> wrote:
+> Usually retimers take around 30 to 40ms to exit all devices from
+> sleep state. Extended wake timeout mechanism helps to give
+> that additional time.
 >
-> On Wed, 8 Jan 2025 12:16:50 +1100 Stephen Rothwell <sfr@canb.auug.org.au> wrote:
->>
->> On Mon, 6 Jan 2025 13:03:48 +1100 Stephen Rothwell <sfr@canb.auug.org.au> wrote:
->> >
->> > Today's linux-next merge of the drm-intel tree got a conflict in:
->> > 
->> >   drivers/gpu/drm/i915/display/intel_display_driver.c
->> > 
->> > between commit:
->> > 
->> >   4fc0cee83590 ("drivers: remove get_task_comm() and print task comm directly")
->> > 
->> > from the mm-nonmm-unstable branch of the mm tree and commit:
->> > 
->> >   f5d38d4fa884 ("drm/i915/display: convert intel_display_driver.[ch] to struct intel_display")
->> > 
->> > from the drm-intel tree.
->> > 
->> > I fixed it up (see below) and can carry the fix as necessary. This
->> > is now fixed as far as linux-next is concerned, but any non trivial
->> > conflicts should be mentioned to your upstream maintainer when your tree
->> > is submitted for merging.  You may also want to consider cooperating
->> > with the maintainer of the conflicting tree to minimise any particularly
->> > complex conflicts.
->> > 
->> > -- 
->> > Cheers,
->> > Stephen Rothwell
->> > 
->> > diff --cc drivers/gpu/drm/i915/display/intel_display_driver.c
->> > index 62596424a9aa,497b4a1f045f..000000000000
->> > --- a/drivers/gpu/drm/i915/display/intel_display_driver.c
->> > +++ b/drivers/gpu/drm/i915/display/intel_display_driver.c
->> > @@@ -389,8 -397,9 +397,8 @@@ void intel_display_driver_resume_access
->> >    * Returns %true if the current thread has display HW access, %false
->> >    * otherwise.
->> >    */
->> > - bool intel_display_driver_check_access(struct drm_i915_private *i915)
->> > + bool intel_display_driver_check_access(struct intel_display *display)
->> >   {
->> >  -	char comm[TASK_COMM_LEN];
->> >   	char current_task[TASK_COMM_LEN + 16];
->> >   	char allowed_task[TASK_COMM_LEN + 16] = "none";
->> >   
->> > @@@ -399,14 -408,15 +407,14 @@@
->> >   		return true;
->> >   
->> >   	snprintf(current_task, sizeof(current_task), "%s[%d]",
->> >  -		 get_task_comm(comm, current),
->> >  -		 task_pid_vnr(current));
->> >  +		 current->comm, task_pid_vnr(current));
->> >   
->> > - 	if (i915->display.access.allowed_task)
->> > + 	if (display->access.allowed_task)
->> >   		snprintf(allowed_task, sizeof(allowed_task), "%s[%d]",
->> > - 			 i915->display.access.allowed_task->comm,
->> > - 			 task_pid_vnr(i915->display.access.allowed_task));
->> >  -			 get_task_comm(comm, display->access.allowed_task),
->> > ++			 display->access.allowed_task->comm,
->> > + 			 task_pid_vnr(display->access.allowed_task));
->> >   
->> > - 	drm_dbg_kms(&i915->drm,
->> > + 	drm_dbg_kms(display->drm,
->> >   		    "Reject display access from task %s (allowed to %s)\n",
->> >   		    current_task, allowed_task);
->> >     
->> 
->> This is now a conflict between the drm tree and the mm-nonmm-unstable
->> branch of the mm tree.
+> --v2
+> -Grant the requested time only if greater than 1ms [Arun/Jani]
+> -Reframe commit message [Arun]
 >
-> And now a conflict between Linus' tree and the mm-nonmm-stable tree.
+> --v3
+> -Move the function to drm_core [Dmitry/Jani]
+>
+> Spec: DP v2.1 Section 3.6.12.3
+> Signed-off-by: Suraj Kandpal <suraj.kandpal@intel.com>
+> Reviewed-by: Arun R Murthy <arun.r.murthy@intel.com>
 
-Will be taken care of with backmerges after -rc1.
+Acked-by: Jani Nikula <jani.nikula@intel.com>
 
-BR,
-Jani.
+for merging this via drm-misc-next along with the rest of the series.
+
+
+> ---
+>  drivers/gpu/drm/i915/display/intel_ddi.c              | 4 ++++
+>  drivers/gpu/drm/i915/display/intel_dp_link_training.c | 2 +-
+>  drivers/gpu/drm/i915/display/intel_dp_link_training.h | 1 +
+>  3 files changed, 6 insertions(+), 1 deletion(-)
+>
+> diff --git a/drivers/gpu/drm/i915/display/intel_ddi.c b/drivers/gpu/drm/i915/display/intel_ddi.c
+> index 3693b36b9336..3b29a1b90fa6 100644
+> --- a/drivers/gpu/drm/i915/display/intel_ddi.c
+> +++ b/drivers/gpu/drm/i915/display/intel_ddi.c
+> @@ -2594,6 +2594,7 @@ static void mtl_ddi_pre_enable_dp(struct intel_atomic_state *state,
+>  {
+>  	struct intel_dp *intel_dp = enc_to_intel_dp(encoder);
+>  	bool is_mst = intel_crtc_has_type(crtc_state, INTEL_OUTPUT_DP_MST);
+> +	bool transparent_mode;
+>  	int ret;
+>  
+>  	intel_dp_set_link_params(intel_dp,
+> @@ -2645,6 +2646,9 @@ static void mtl_ddi_pre_enable_dp(struct intel_atomic_state *state,
+>  	if (!is_mst)
+>  		intel_dp_set_power(intel_dp, DP_SET_POWER_D0);
+>  
+> +	transparent_mode = intel_dp_lttpr_transparent_mode_enabled(intel_dp);
+> +	drm_dp_lttpr_wake_timeout_setup(&intel_dp->aux, transparent_mode);
+> +
+>  	intel_dp_configure_protocol_converter(intel_dp, crtc_state);
+>  	if (!is_mst)
+>  		intel_dp_sink_enable_decompression(state,
+> diff --git a/drivers/gpu/drm/i915/display/intel_dp_link_training.c b/drivers/gpu/drm/i915/display/intel_dp_link_training.c
+> index 8b1977cfec50..c0f8473e7223 100644
+> --- a/drivers/gpu/drm/i915/display/intel_dp_link_training.c
+> +++ b/drivers/gpu/drm/i915/display/intel_dp_link_training.c
+> @@ -128,7 +128,7 @@ intel_dp_set_lttpr_transparent_mode(struct intel_dp *intel_dp, bool enable)
+>  	return true;
+>  }
+>  
+> -static bool intel_dp_lttpr_transparent_mode_enabled(struct intel_dp *intel_dp)
+> +bool intel_dp_lttpr_transparent_mode_enabled(struct intel_dp *intel_dp)
+>  {
+>  	return intel_dp->lttpr_common_caps[DP_PHY_REPEATER_MODE -
+>  					   DP_LT_TUNABLE_PHY_REPEATER_FIELD_DATA_STRUCTURE_REV] ==
+> diff --git a/drivers/gpu/drm/i915/display/intel_dp_link_training.h b/drivers/gpu/drm/i915/display/intel_dp_link_training.h
+> index 2066b9146762..46614124569f 100644
+> --- a/drivers/gpu/drm/i915/display/intel_dp_link_training.h
+> +++ b/drivers/gpu/drm/i915/display/intel_dp_link_training.h
+> @@ -15,6 +15,7 @@ struct intel_dp;
+>  
+>  int intel_dp_read_dprx_caps(struct intel_dp *intel_dp, u8 dpcd[DP_RECEIVER_CAP_SIZE]);
+>  int intel_dp_init_lttpr_and_dprx_caps(struct intel_dp *intel_dp);
+> +bool intel_dp_lttpr_transparent_mode_enabled(struct intel_dp *intel_dp);
+>  
+>  void intel_dp_link_training_set_mode(struct intel_dp *intel_dp,
+>  				     int link_rate, bool is_vrr);
 
 -- 
 Jani Nikula, Intel
