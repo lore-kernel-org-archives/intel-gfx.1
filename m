@@ -4,50 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4C1BCC02192
-	for <intel-gfx@archiver.kernel.org>; Fri, 24 Jan 2025 15:12:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F3140C0218D
+	for <intel-gfx@archiver.kernel.org>; Fri, 24 Jan 2025 15:12:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DF43610E9BB;
-	Fri, 24 Jan 2025 15:12:25 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9245D10E9B6;
+	Fri, 24 Jan 2025 15:12:28 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="W08Pbz+L";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="S+x4rAIg";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.17])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3397710E9B3;
- Fri, 24 Jan 2025 15:12:17 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B757510E9BC;
+ Fri, 24 Jan 2025 15:12:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1737731537; x=1769267537;
+ t=1737731547; x=1769267547;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=FIarnSyR5u2LuHjE6gCrwJ3NDemyblHJobQQwh+igCA=;
- b=W08Pbz+LT9NnRxcGV+LNzB4GGF1oNX6z+g5ecAPypliZ6nfBEsfRmqnr
- Jb8pZokoOtatqIw/kVV9ZrTzHRCqo6V2x+2eEu7GmyzKxKPryzGX85WK1
- 09Ci8iBcM1mytD28OfTHqS1lR7nnwz7kiTLblPJOCKKwpoFHoIW726pHF
- axB+DbJAeZuTQcB/Deu/pMWOBkVhoAgdG6j4QApq6SFrMFLiZ/rvGqmeF
- QN5Zacj5GT1WV2iGeUAsi+/CQRSad202j7zORa3S1K6s49rtU8QF1e9kY
- ZJBuWULHHsojoiQGIqRFnmSSeU7ZAZGj/tQk/3SQ4RiBXDpjKCV+xkPvh g==;
-X-CSE-ConnectionGUID: 6sGDIYLXQwqq7RJTJNKRnQ==
-X-CSE-MsgGUID: sGTAQE3dTMOodoGEYJ7jEQ==
-X-IronPort-AV: E=McAfee;i="6700,10204,11325"; a="38177419"
-X-IronPort-AV: E=Sophos;i="6.13,231,1732608000"; d="scan'208";a="38177419"
+ bh=+32ndMfgDLVx3xjDUAb0Smf2Vpuz8UFlvcGOSfxqNyU=;
+ b=S+x4rAIgJ+x4mM9a7A4MhD//TIRW/RxfgxwOysQWafeaakxwBPo5kmfB
+ s19VoZLkXxGFnzG1oC4PYrM1iNqQmzKFubEQfmqSCwlZOWRkUo27gxFDC
+ rR4zz+oCf0/9uPBr84FRqqEW5SDa009I6hCYwJ/MC7GRdCCR9tQkQ9xD3
+ W/wmyagBSzUzN41VBIYeDqriY1SXzUwOFRQenu77ohyfHZfRsGtPDPOcr
+ szn0FzII8QXFM0SrsXHfqoAYsX2Yws8hXTuXGBvep23wR+wdrnlkmEGdB
+ eJaaSDu5X8Ca4P3Lep8+M3IVfrzvDZqDpHxEDPsCVNZpZ2loWejD6aeDv g==;
+X-CSE-ConnectionGUID: hcCJ7dG/Q3KmaSFSAvxOsQ==
+X-CSE-MsgGUID: 577j71wdSIO5wi8YNxPO/A==
+X-IronPort-AV: E=McAfee;i="6700,10204,11325"; a="38177436"
+X-IronPort-AV: E=Sophos;i="6.13,231,1732608000"; d="scan'208";a="38177436"
 Received: from orviesa007.jf.intel.com ([10.64.159.147])
  by fmvoesa111.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 24 Jan 2025 07:12:17 -0800
-X-CSE-ConnectionGUID: 2ati9raHSKSMf0WWaT4P+Q==
-X-CSE-MsgGUID: fPu2bLvgQ6iikMa1o4oCYg==
+ 24 Jan 2025 07:12:27 -0800
+X-CSE-ConnectionGUID: JJSNnISfRHKDW5HVBkWVgg==
+X-CSE-MsgGUID: i6JgeKl3TMej2/2YhERP+w==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.12,224,1728975600"; d="scan'208";a="108221346"
+X-IronPort-AV: E=Sophos;i="6.12,224,1728975600"; d="scan'208";a="108221432"
 Received: from srr4-3-linux-103-aknautiy.iind.intel.com ([10.223.34.160])
  by orviesa007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 24 Jan 2025 07:12:15 -0800
+ 24 Jan 2025 07:12:25 -0800
 From: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
 To: intel-gfx@lists.freedesktop.org
 Cc: intel-xe@lists.freedesktop.org, jani.nikula@linux.intel.com,
  ville.syrjala@linux.intel.com, mitulkumar.ajitkumar.golani@intel.com
-Subject: [PATCH 18/35] drm/i915/dp: Avoid vrr compute config for HDMI sink
-Date: Fri, 24 Jan 2025 20:30:03 +0530
-Message-ID: <20250124150020.2271747-19-ankit.k.nautiyal@intel.com>
+Subject: [PATCH 22/35] drm/i915/vrr: Disable CMRR
+Date: Fri, 24 Jan 2025 20:30:07 +0530
+Message-ID: <20250124150020.2271747-23-ankit.k.nautiyal@intel.com>
 X-Mailer: git-send-email 2.45.2
 In-Reply-To: <20250124150020.2271747-1-ankit.k.nautiyal@intel.com>
 References: <20250124150020.2271747-1-ankit.k.nautiyal@intel.com>
@@ -68,33 +68,43 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Currently we do not support VRR with HDMI so skip vrr compute
-config step for DP with HDMI sink.
+Switching between variable and fixed timings is possible as for that we
+just need to flip between VRR timings. However for CMRR along with the
+timings, few other bits also need to be changed on the fly, which might
+cause issues. So disable CMRR for now, till we have variable and fixed
+timings sorted out.
+
+Since CMRR is disabled, the check for intel_vrr_is_enabled can be
+simplified to have just the INTEL_VRRTG_MODE_VRR.
 
 Signed-off-by: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_dp.c | 8 +++++++-
- 1 file changed, 7 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/i915/display/intel_vrr.c | 5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
-index c25e363ac5b2..853f68eec291 100644
---- a/drivers/gpu/drm/i915/display/intel_dp.c
-+++ b/drivers/gpu/drm/i915/display/intel_dp.c
-@@ -3208,7 +3208,13 @@ intel_dp_compute_config(struct intel_encoder *encoder,
- 	if (pipe_config->splitter.enable)
- 		pipe_config->dp_m_n.data_m *= pipe_config->splitter.link_count;
+diff --git a/drivers/gpu/drm/i915/display/intel_vrr.c b/drivers/gpu/drm/i915/display/intel_vrr.c
+index 34e44cd52353..42e661acdf32 100644
+--- a/drivers/gpu/drm/i915/display/intel_vrr.c
++++ b/drivers/gpu/drm/i915/display/intel_vrr.c
+@@ -182,7 +182,8 @@ is_cmrr_frac_required(struct intel_crtc_state *crtc_state)
+ 	int calculated_refresh_k, actual_refresh_k, pixel_clock_per_line;
+ 	struct drm_display_mode *adjusted_mode = &crtc_state->hw.adjusted_mode;
  
--	intel_vrr_compute_config(pipe_config, conn_state);
-+	/*
-+	 * VRR via PCON is currently unsupported.
-+	 * TODO: Add support for VRR for DP HDMI2.1 PCON.
-+	 */
-+	if (!intel_dp_has_hdmi_sink(intel_dp))
-+		intel_vrr_compute_config(pipe_config, conn_state);
-+
- 	intel_dp_compute_as_sdp(intel_dp, pipe_config);
- 	intel_psr_compute_config(intel_dp, pipe_config, conn_state);
- 	intel_alpm_lobf_compute_config(intel_dp, pipe_config, conn_state);
+-	if (!HAS_CMRR(display))
++	/* Avoid CMRR for now till we have VRR with fixed timings working */
++	if (!HAS_CMRR(display) || true)
+ 		return false;
+ 
+ 	actual_refresh_k =
+@@ -294,7 +295,7 @@ int intel_vrr_compute_vmax(struct intel_connector *connector,
+ 
+ bool intel_vrrtg_is_enabled(const struct intel_crtc_state *crtc_state)
+ {
+-	return crtc_state->vrr.mode != INTEL_VRRTG_MODE_NONE;
++	return crtc_state->vrr.mode == INTEL_VRRTG_MODE_VRR;
+ }
+ 
+ void
 -- 
 2.45.2
 
