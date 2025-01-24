@@ -4,51 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 64EC7C02181
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BF2EBC0218B
 	for <intel-gfx@archiver.kernel.org>; Fri, 24 Jan 2025 15:12:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F3BFC10E9C9;
-	Fri, 24 Jan 2025 15:12:55 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5C0C310E9C7;
+	Fri, 24 Jan 2025 15:12:56 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="Udz1B1us";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="F9H46RvP";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.17])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EEBF210E9BD;
- Fri, 24 Jan 2025 15:12:47 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 268EC10E9C9;
+ Fri, 24 Jan 2025 15:12:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1737731568; x=1769267568;
+ t=1737731575; x=1769267575;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=Jc9sQKIQsZz90WUwDE5HbwdPfPdAnklRQ3RB8MSYFT4=;
- b=Udz1B1usTrbV7/BZ5uMNoweWLGHT+TLqqSwmTaAMe0RpCxWHD/ixs3aF
- n52nhTxjG8HMn9OiVYhOD5qChd7lVs/btci+C0UocpfOpmd2NASxdQswA
- 5yJhvBXiFQAu9gIu8ew8a3Gfb+y+zcmPu80aVIn+cCaylG8LHrvTbQLKr
- rgwsF2hzyb32GitDbWcVFT7WW/PAQ9juDUwD+jPN1zZNf0V73mDw0qtUh
- Sw2jjP3weucZPc/RNCAI56GutHqlxJYOnW15yymsTCKpG/Qh5pUYRTtyK
- +r089DGEIjFb4Uqk9tNDAXUzCahB2TahrR7A/9ly57z8hjagFX1IjauKl w==;
-X-CSE-ConnectionGUID: OVfGw9v8RFKJwltShBgtCg==
-X-CSE-MsgGUID: UQ+Gkc8ZQUmLX6oeS/8J5A==
-X-IronPort-AV: E=McAfee;i="6700,10204,11325"; a="38177501"
-X-IronPort-AV: E=Sophos;i="6.13,231,1732608000"; d="scan'208";a="38177501"
+ bh=2cYYnicTdciIo85Nh7zZ/wEWvveej25oxmKc09kpzc8=;
+ b=F9H46RvP+xD2MZWv6Cu/OH8tZjeKQiO/yhnXqHt9TiWS3bdXLNFWbUGi
+ UL6QOMC7czu//dNpU0vjdCnanOT9wmpuR1mFYSoVhi/vX/HPw9ZueHEsa
+ wU9b4tysxltSH+3SN73kmuV4rH90zfn+IWIG8/aAJ/c7T1X6tsJW+tMnw
+ zdHHBJTgamP9beFzBBnecJY/r2fXpmwEVcAhXpP97WitAhWt9vYfwboQX
+ shf3D4T4Qnpv4yM92xH7cxQWf4ypkISVGP1YYhJhbhy6qLJibe/IVac8H
+ xtiFv2tD2Z1Br9kfqNkM4SZOYshrmP8y3JgivXAFqsf5OpltVcpzLKdao w==;
+X-CSE-ConnectionGUID: vVpDMN9kT0ew8Ir9uQj4Pw==
+X-CSE-MsgGUID: 6YWodQZaTzmOeM/B3qCZMA==
+X-IronPort-AV: E=McAfee;i="6700,10204,11325"; a="38177516"
+X-IronPort-AV: E=Sophos;i="6.13,231,1732608000"; d="scan'208";a="38177516"
 Received: from orviesa007.jf.intel.com ([10.64.159.147])
  by fmvoesa111.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 24 Jan 2025 07:12:48 -0800
-X-CSE-ConnectionGUID: Ib8k4YeySdS9nsYzqFBObg==
-X-CSE-MsgGUID: jVcbatJ2SD+Y43GjLpBX1Q==
+ 24 Jan 2025 07:12:55 -0800
+X-CSE-ConnectionGUID: PUWqcmfRSD6sQcpQBWJIgg==
+X-CSE-MsgGUID: gVK8SWweTNSDGBWfmD4tvg==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.12,224,1728975600"; d="scan'208";a="108221640"
+X-IronPort-AV: E=Sophos;i="6.12,224,1728975600"; d="scan'208";a="108221689"
 Received: from srr4-3-linux-103-aknautiy.iind.intel.com ([10.223.34.160])
  by orviesa007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 24 Jan 2025 07:12:46 -0800
+ 24 Jan 2025 07:12:53 -0800
 From: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
 To: intel-gfx@lists.freedesktop.org
 Cc: intel-xe@lists.freedesktop.org, jani.nikula@linux.intel.com,
  ville.syrjala@linux.intel.com, mitulkumar.ajitkumar.golani@intel.com
-Subject: [PATCH 31/35] drm/i915/vrr: Always set vrr vmax/vmin/flipline in
- vrr_{enable/disable}
-Date: Fri, 24 Jan 2025 20:30:16 +0530
-Message-ID: <20250124150020.2271747-32-ankit.k.nautiyal@intel.com>
+Subject: [PATCH 34/35] drm/i915/vrr: Always use VRR timing generator for MTL+
+Date: Fri, 24 Jan 2025 20:30:19 +0530
+Message-ID: <20250124150020.2271747-35-ankit.k.nautiyal@intel.com>
 X-Mailer: git-send-email 2.45.2
 In-Reply-To: <20250124150020.2271747-1-ankit.k.nautiyal@intel.com>
 References: <20250124150020.2271747-1-ankit.k.nautiyal@intel.com>
@@ -69,145 +68,56 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-To work seamlessly between variable and fixed timings,
-intel_vrr_{enable,disable}() should just flip between the fixed and
-variable timings in vmin/flipline/vmax.
+Currently VRR timing generator is used only when VRR is enabled by
+userspace. From MTL+, gradually move away from older timing
+generator and use VRR timing generator for fixed refresh rate also.
 
-The idea is to just do this for all the platforms, regardless of whether
-we also toggle the VRR_CTL enable bit there.
-
-For platforms for which vrr timing generator is always set, VRR_CTL
-enable bit does not need to toggle, so modify the vrr_{enable/disable}
-for this.
+In such a case, Flipline Vmin and Vmax all are set to the Vtotal of the
+mode, which effectively makes the VRR timing generator work in
+fixed refresh rate mode.
+The MSA Vtotal is derived from Vmax register.
 
 Signed-off-by: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_display.c |  5 ++-
- drivers/gpu/drm/i915/display/intel_vrr.c     | 44 ++++++++++++--------
- drivers/gpu/drm/i915/display/intel_vrr.h     |  4 +-
- 3 files changed, 31 insertions(+), 22 deletions(-)
+ drivers/gpu/drm/i915/display/intel_vrr.c | 15 +++++++++++----
+ 1 file changed, 11 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
-index 7bdd41158a93..a0d6360f4cda 100644
---- a/drivers/gpu/drm/i915/display/intel_display.c
-+++ b/drivers/gpu/drm/i915/display/intel_display.c
-@@ -1310,7 +1310,7 @@ static void intel_pre_plane_update(struct intel_atomic_state *state,
- 	intel_psr_pre_plane_update(state, crtc);
- 
- 	if (intel_crtc_vrr_disabling(state, crtc)) {
--		intel_vrr_disable(old_crtc_state);
-+		intel_vrr_disable(old_crtc_state, false);
- 		intel_crtc_update_active_timings(old_crtc_state, false);
- 	}
- 
-@@ -1751,6 +1751,7 @@ static void hsw_configure_cpu_transcoder(const struct intel_crtc_state *crtc_sta
- {
- 	struct intel_crtc *crtc = to_intel_crtc(crtc_state->uapi.crtc);
- 	struct drm_i915_private *dev_priv = to_i915(crtc->base.dev);
-+	struct intel_display *display = to_intel_display(crtc_state);
- 	enum transcoder cpu_transcoder = crtc_state->cpu_transcoder;
- 
- 	if (crtc_state->has_pch_encoder) {
-@@ -7161,7 +7162,7 @@ static void commit_pipe_post_planes(struct intel_atomic_state *state,
- 		skl_detach_scalers(new_crtc_state);
- 
- 	if (intel_crtc_vrr_enabling(state, crtc))
--		intel_vrr_enable(new_crtc_state);
-+		intel_vrr_enable(new_crtc_state, false);
- }
- 
- static void intel_enable_crtc(struct intel_atomic_state *state,
 diff --git a/drivers/gpu/drm/i915/display/intel_vrr.c b/drivers/gpu/drm/i915/display/intel_vrr.c
-index ccc40867c10a..10a9bcb8daae 100644
+index b6d45f4ccf53..d357733f24d4 100644
 --- a/drivers/gpu/drm/i915/display/intel_vrr.c
 +++ b/drivers/gpu/drm/i915/display/intel_vrr.c
-@@ -496,7 +496,7 @@ bool intel_vrr_is_push_sent(const struct intel_crtc_state *crtc_state)
- 	return intel_de_read(display, TRANS_PUSH(display, cpu_transcoder)) & TRANS_PUSH_SEND;
+@@ -235,6 +235,14 @@ void intel_vrr_prepare_fixed_timings(struct intel_crtc_state *crtc_state, int vm
+ 	crtc_state->vrr.flipline = crtc_state->vrr.vmax;
  }
  
--void intel_vrr_enable(const struct intel_crtc_state *crtc_state)
-+void intel_vrr_enable(const struct intel_crtc_state *crtc_state, bool always_use_vrr_tg)
- {
- 	struct intel_display *display = to_intel_display(crtc_state);
- 	enum transcoder cpu_transcoder = crtc_state->cpu_transcoder;
-@@ -507,21 +507,25 @@ void intel_vrr_enable(const struct intel_crtc_state *crtc_state)
- 	if (!intel_vrrtg_is_enabled(crtc_state))
- 		return;
- 
--	if (intel_vrr_use_push(crtc_state))
--		intel_de_write(display, TRANS_PUSH(display, cpu_transcoder),
--			       TRANS_PUSH_EN);
-+	intel_vrr_set_transcoder_timings(crtc_state);
- 
--	if (crtc_state->vrr.mode == INTEL_VRRTG_MODE_CMRR) {
--		intel_de_write(display, TRANS_VRR_CTL(display, cpu_transcoder),
--			       VRR_CTL_VRR_ENABLE | VRR_CTL_CMRR_ENABLE |
--			       trans_vrr_ctl(crtc_state));
--	} else {
--		intel_de_write(display, TRANS_VRR_CTL(display, cpu_transcoder),
--			       VRR_CTL_VRR_ENABLE | trans_vrr_ctl(crtc_state));
-+	if (!always_use_vrr_tg) {
-+		if (intel_vrr_use_push(crtc_state))
-+			intel_de_write(display, TRANS_PUSH(display, cpu_transcoder),
-+				       TRANS_PUSH_EN);
++static
++void intel_vrr_compute_fixed_rr_timings(struct intel_crtc_state *crtc_state, int vmin)
++{
++	intel_vrr_prepare_fixed_timings(crtc_state, vmin);
++	crtc_state->vrr.mode = INTEL_VRRTG_MODE_FIXED_RR;
++	crtc_state->mode_flags |= I915_MODE_FLAG_VRR;
++}
 +
-+		if (crtc_state->vrr.mode == INTEL_VRRTG_MODE_CMRR) {
-+			intel_de_write(display, TRANS_VRR_CTL(display, cpu_transcoder),
-+				       VRR_CTL_VRR_ENABLE | VRR_CTL_CMRR_ENABLE |
-+				       trans_vrr_ctl(crtc_state));
-+		} else {
-+			intel_de_write(display, TRANS_VRR_CTL(display, cpu_transcoder),
-+				       VRR_CTL_VRR_ENABLE | trans_vrr_ctl(crtc_state));
-+		}
- 	}
- }
- 
--void intel_vrr_disable(const struct intel_crtc_state *old_crtc_state)
-+void intel_vrr_disable(const struct intel_crtc_state *old_crtc_state, bool always_use_vrr_tg)
+ static
+ void intel_vrr_prepare_vrr_timings(struct intel_crtc_state *crtc_state, int vmin, int vmax)
  {
- 	struct intel_display *display = to_intel_display(old_crtc_state);
- 	enum transcoder cpu_transcoder = old_crtc_state->cpu_transcoder;
-@@ -532,12 +536,16 @@ void intel_vrr_disable(const struct intel_crtc_state *old_crtc_state)
- 	if (!intel_vrrtg_is_enabled(old_crtc_state))
- 		return;
+@@ -352,13 +360,12 @@ intel_vrr_compute_config(struct intel_crtc_state *crtc_state,
  
--	intel_de_write(display, TRANS_VRR_CTL(display, cpu_transcoder),
--		       trans_vrr_ctl(old_crtc_state));
--	intel_de_wait_for_clear(display,
--				TRANS_VRR_STATUS(display, cpu_transcoder),
--				VRR_STATUS_VRR_EN_LIVE, 1000);
--	intel_de_write(display, TRANS_PUSH(display, cpu_transcoder), 0);
-+	if (!always_use_vrr_tg) {
-+		intel_de_write(display, TRANS_VRR_CTL(display, cpu_transcoder),
-+			       trans_vrr_ctl(old_crtc_state));
-+		intel_de_wait_for_clear(display,
-+					TRANS_VRR_STATUS(display, cpu_transcoder),
-+					VRR_STATUS_VRR_EN_LIVE, 1000);
-+		intel_de_write(display, TRANS_PUSH(display, cpu_transcoder), 0);
-+	}
-+
-+	intel_vrr_set_transcoder_timings(old_crtc_state);
- }
+ 	vmin = intel_vrr_compute_vmin(crtc_state);
  
- void intel_vrr_get_config(struct intel_crtc_state *crtc_state)
-diff --git a/drivers/gpu/drm/i915/display/intel_vrr.h b/drivers/gpu/drm/i915/display/intel_vrr.h
-index 8d53aab3590d..da6a86cee0e8 100644
---- a/drivers/gpu/drm/i915/display/intel_vrr.h
-+++ b/drivers/gpu/drm/i915/display/intel_vrr.h
-@@ -22,11 +22,11 @@ void intel_vrr_compute_config(struct intel_crtc_state *crtc_state,
- 			      struct drm_connector_state *conn_state);
- void intel_vrr_compute_config_late(struct intel_crtc_state *crtc_state);
- void intel_vrr_set_transcoder_timings(const struct intel_crtc_state *crtc_state);
--void intel_vrr_enable(const struct intel_crtc_state *crtc_state);
-+void intel_vrr_enable(const struct intel_crtc_state *crtc_state, bool always_use_vrr_tg);
- void intel_vrr_send_push(struct intel_dsb *dsb,
- 			 const struct intel_crtc_state *crtc_state);
- bool intel_vrr_is_push_sent(const struct intel_crtc_state *crtc_state);
--void intel_vrr_disable(const struct intel_crtc_state *old_crtc_state);
-+void intel_vrr_disable(const struct intel_crtc_state *old_crtc_state, bool always_use_vrr_tg);
- void intel_vrr_get_config(struct intel_crtc_state *crtc_state);
- int intel_vrr_vmax_vtotal(const struct intel_crtc_state *crtc_state);
- int intel_vrr_vmin_vtotal(const struct intel_crtc_state *crtc_state);
+-	if (vmin >= vmax)
+-		return;
+-
+-	if (crtc_state->uapi.vrr_enabled)
++	if (crtc_state->uapi.vrr_enabled && vmin < vmax)
+ 		intel_vrr_compute_vrr_timings(crtc_state, vmin, vmax);
+ 	else if (is_cmrr_frac_required(crtc_state) && is_edp)
+ 		intel_vrr_compute_cmrr_timings(crtc_state);
++	else if (intel_vrr_always_use_vrr_tg(display))
++		intel_vrr_compute_fixed_rr_timings(crtc_state, vmin);
+ 	else
+ 		intel_vrr_prepare_fixed_timings(crtc_state, vmin);
+ 
 -- 
 2.45.2
 
