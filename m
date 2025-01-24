@@ -4,55 +4,82 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 18966C02181
-	for <intel-gfx@archiver.kernel.org>; Fri, 24 Jan 2025 10:09:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0E572C0218C
+	for <intel-gfx@archiver.kernel.org>; Fri, 24 Jan 2025 10:42:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B122010E945;
-	Fri, 24 Jan 2025 10:09:27 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 841E610E820;
+	Fri, 24 Jan 2025 10:42:05 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=163.com header.i=@163.com header.b="YF/UJtRU";
+	dkim=pass (1024-bit key; secure) header.d=ffwll.ch header.i=@ffwll.ch header.b="gEAQmToE";
 	dkim-atps=neutral
-X-Greylist: delayed 937 seconds by postgrey-1.36 at gabe;
- Fri, 24 Jan 2025 10:09:25 UTC
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.2])
- by gabe.freedesktop.org (Postfix) with ESMTP id EDBC910E945
- for <intel-gfx@lists.freedesktop.org>; Fri, 24 Jan 2025 10:09:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
- s=s110527; h=Date:From:Subject:Content-Type:MIME-Version:
- Message-ID; bh=hs5L4OGygStQe7OHoNkefT/tMFgW51GwAYzbcK2ttsE=; b=Y
- F/UJtRU4x54Wka25W8F3b+ZnQt3yz+C2b+iiZd1v0ySkf81lRi0p7vYoQFWUzD5H
- Zu7XAsap66cBnuDUDC0NCpx4jv2oMg1K3AyHu2dmPi5sY5Lfp6Se1yTQiJW2CJAF
- wCOkr1d+tNPcjD1QqvLTEnV06Oc3gEBLEMCX3Pkw+k=
-Received: from andyshrk$163.com ( [58.22.7.114] ) by
- ajax-webmail-wmsvr-40-141 (Coremail) ; Fri, 24 Jan 2025 17:53:39 +0800
- (CST)
-X-Originating-IP: [58.22.7.114]
-Date: Fri, 24 Jan 2025 17:53:39 +0800 (CST)
-From: "Andy Yan" <andyshrk@163.com>
-To: "Jani Nikula" <jani.nikula@intel.com>
-Cc: dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
- "Sandy Huang" <hjc@rock-chips.com>,
- =?UTF-8?Q?Heiko_St=C3=BCbner?= <heiko@sntech.de>,
- "Andy Yan" <andy.yan@rock-chips.com>, linux-arm-kernel@lists.infradead.org,
- linux-rockchip@lists.infradead.org,
- "Cristian Ciocaltea" <cristian.ciocaltea@collabora.com>
-Subject: Re:[PATCH 2/5] drm/rockchip: stop passing non struct drm_device to
- drm_err() and friends
-X-Priority: 3
-X-Mailer: Coremail Webmail Server Version XT5.0.14 build 20240801(9da12a7b)
- Copyright (c) 2002-2025 www.mailtech.cn 163com
-In-Reply-To: <f42da4c9943a2f2a9de4272b7849e72236d4c3f9.1737644530.git.jani.nikula@intel.com>
-References: <cover.1737644530.git.jani.nikula@intel.com>
- <f42da4c9943a2f2a9de4272b7849e72236d4c3f9.1737644530.git.jani.nikula@intel.com>
-X-NTES-SC: AL_Qu2YBfuavUwq7yaZbekfmkcVgOw9UcO5v/Qk3oZXOJF8jCrr+CUnVkFMJFbsweeONhCLrheYTj1O48h1bZN6b5MbiaK7Zc1eE4ijTZUsQjP0ag==
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset=UTF-8
+Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com
+ [209.85.128.42])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DA67610E85E
+ for <intel-gfx@lists.freedesktop.org>; Fri, 24 Jan 2025 10:42:04 +0000 (UTC)
+Received: by mail-wm1-f42.google.com with SMTP id
+ 5b1f17b1804b1-4361f65ca01so19922225e9.1
+ for <intel-gfx@lists.freedesktop.org>; Fri, 24 Jan 2025 02:42:04 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=ffwll.ch; s=google; t=1737715323; x=1738320123; darn=lists.freedesktop.org; 
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=LEMkBFBGAz91UL682z8DEvmvnG+YVr2nxf2Sty5wrA0=;
+ b=gEAQmToE4dDtbs+Bth1Gmmdv/JXfL+8wZVt+DcjCMmcGc7USPX7FtIEYlhzIW+U20g
+ OuTNCbWJ8jaRpZ/GjE77Z7TYzLxGbbzeCoJ8mC7/JgBW3gq9PIWs+2wRCfcNS9tNYbhr
+ OhcdNp1DteZuGbMmZeV9fM6vBH/vNxNjw3/nM=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1737715323; x=1738320123;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=LEMkBFBGAz91UL682z8DEvmvnG+YVr2nxf2Sty5wrA0=;
+ b=PolCLssQN3zW1vK6Bkg8xX1+t0BRakU48fpy/xv5E8ZobysOvGT3QuIY5Go/Zh5vHs
+ 3Yr7Cn9tPZIli/hV1utxtDWi3zACC2gYybFjvMmtesQFyRDCgIfbjmCsPKTLu8ncbEzz
+ yv5cUQlvWWYsxd3uk/e3+R56MA1SoVy46d+FMZw2lCfrR3/LIatO+oZtjXVvGrhlpDU1
+ XWSJHnSpBhH8sgnp7yIlMMXTEI8bklEvFzexeMMsPVrBicAQnoBS3ex/26Ee7b3rsv8i
+ gIp6ooCyGqI/CwpuX30kscygbHU4QT7cq7z2nR1RuuZg3GiGjatZ/7WZblBGa5oqEPhp
+ o1hA==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCWz1FdpawYy5m2/ikQQpAW1XPUjtcUhpXDuuPma1SonpLR4atzlo9CFw4gu7efxTh1IQParNJE/Md8=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YyLlmjChCOSSmzNzQAZ+HuV7RXNbG0ihdise4MEWQ+t9xmzOyy3
+ AE5xbavKWajt2qBm18/jE75lWycRDZUkBIzMf+ohyn9stX4wAak0NpXvRy8mdf4=
+X-Gm-Gg: ASbGncuwi4TneHg8ctntPxEOB0LP5lOg+dLyjn1oer039PCtle24/J3MI14UtZCNrkK
+ 32xjc/tdAwgJbtNx6lMLa5G3mkv0QivqV/+ZM9ghUBJoMPZlGjmEfdzCHG28ATWKLbOrCDu1+d2
+ U2du3kPeFJlBC1fiTvocT/BseYSyc1OsEOEirYyNNekbHdqvF47k1265NQ9joUhf9gKQ9OG50EY
+ aJ8KJ5SWY5Ur86+Pa3GCpuJprSY3yPoYIlAT+nLFurpN6cpUe2or8R506cvrO6bbt7os2QC3M6q
+ sfq96q9C47jLQZ20
+X-Google-Smtp-Source: AGHT+IGxcHQ073OHTXbA6LCWZq/bLG2+an6Uq8KVDF9rDOXyu5Vz6d0xoM/4cy2CJ9cwqh7al1imcQ==
+X-Received: by 2002:a05:600c:1986:b0:434:feb1:adbb with SMTP id
+ 5b1f17b1804b1-4389143a662mr281418685e9.31.1737715322947; 
+ Fri, 24 Jan 2025 02:42:02 -0800 (PST)
+Received: from phenom.ffwll.local ([2a02:168:57f4:0:5485:d4b2:c087:b497])
+ by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-38c2a188915sm2268564f8f.41.2025.01.24.02.42.01
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 24 Jan 2025 02:42:02 -0800 (PST)
+Date: Fri, 24 Jan 2025 11:42:00 +0100
+From: Simona Vetter <simona.vetter@ffwll.ch>
+To: Thomas Zimmermann <tzimmermann@suse.de>
+Cc: Dave Airlie <airlied@gmail.com>, Simona Vetter <simona.vetter@ffwll.ch>,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Tvrtko Ursulin <tursulin@ursulin.net>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas =?iso-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>,
+ Oded Gabbay <ogabbay@kernel.org>,
+ Lucas De Marchi <lucas.demarchi@intel.com>,
+ dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
+ intel-xe@lists.freedesktop.org, dim-tools@lists.freedesktop.org
+Subject: Re: [PULL] drm-misc-fixes
+Message-ID: <Z5NueDr3MeL9biwd@phenom.ffwll.local>
+References: <20250124082932.GA13715@linux.fritz.box>
 MIME-Version: 1.0
-Message-ID: <2c0a76c3.618c.19497bb4329.Coremail.andyshrk@163.com>
-X-Coremail-Locale: zh_CN
-X-CM-TRANSID: jSgvCgD3n_UjY5NnLTFeAA--.22777W
-X-CM-SenderInfo: 5dqg52xkunqiywtou0bp/1tbiqQLeXmeTWhlxLwAEsG
-X-Coremail-Antispam: 1U5529EdanIXcx71UUUUU7vcSsGvfC2KfnxnUU==
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20250124082932.GA13715@linux.fritz.box>
+X-Operating-System: Linux phenom 6.12.3-amd64 
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,122 +95,85 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Ckhp77yMCgpBdCAyMDI1LTAxLTIzIDIzOjA5OjA5LCAiSmFuaSBOaWt1bGEiIDxqYW5pLm5pa3Vs
-YUBpbnRlbC5jb20+IHdyb3RlOgo+VGhlIGV4cGVjdGF0aW9uIGlzIHRoYXQgdGhlIHN0cnVjdCBk
-cm1fZGV2aWNlIGJhc2VkIGxvZ2dpbmcgaGVscGVycyBnZXQKPnBhc3NlZCBhbiBhY3R1YWwgc3Ry
-dWN0IGRybV9kZXZpY2UgcG9pbnRlciByYXRoZXIgdGhhbiBzb21lIHJhbmRvbQo+c3RydWN0IHBv
-aW50ZXIgd2hlcmUgeW91IGNhbiBkZXJlZmVyZW5jZSB0aGUgLT5kZXYgbWVtYmVyLgo+Cj5Db252
-ZXJ0IGRybV9lcnIoaGRtaSwgLi4uKSB0byBkZXZfZXJyKGhkbWktPmRldiwgLi4uKS4gVGhpcyBt
-YXRjaGVzCj5jdXJyZW50IHVzYWdlLCBidXQgZHJvcHMgIltkcm1dICpFUlJPUioiIHByZWZpeCBm
-cm9tIGxvZ2dpbmcuCgpGcmFua2x5LCBJIHByZWZlciB0aGUgb3JpZ2luYWwgdmVyc2lvbiBvZiB0
-aGUgbG9nLgpJdCBpcyBhIHBsYXRmb3JtIGRyaXZlciwgc28gaXQgc2hvdWxkIHVzZSBpdHMgb3du
-IGRldmljZS4KSXQgaXMgYSBkcml2ZXIgdGhhdCB3b3JrcyBpbiBkcm0gc3Vic3lzdGVtLCBzbyBp
-dCdzIGJldHRlciB0byB1c2UgIltkcm1dICpFUlJPUioiIHByZWZpeCB3aGVuIGxvZ2dpbmcKCj4K
-PlNpZ25lZC1vZmYtYnk6IEphbmkgTmlrdWxhIDxqYW5pLm5pa3VsYUBpbnRlbC5jb20+Cj4KPi0t
-LQo+Cj5Mb29rcyBsaWtlIGl0J3MgcG9zc2libGUgdG8gaHVudCBkb3duIHRoZSBzdHJ1Y3QgZHJt
-X2RldmljZSBpbiBtb3N0IG9mCj50aGVzZSBjYXNlcywgaWYgdGhhdCdzIGRlc2lyZWQuIFRoaXMg
-d2FzIHRoZSBzaW1wbGVzdCBjaGFuZ2UuCj4KPkNjOiBTYW5keSBIdWFuZyA8aGpjQHJvY2stY2hp
-cHMuY29tPgo+Q2M6ICJIZWlrbyBTdMO8Ym5lciIgPGhlaWtvQHNudGVjaC5kZT4KPkNjOiBBbmR5
-IFlhbiA8YW5keS55YW5Acm9jay1jaGlwcy5jb20+Cj5DYzogZHJpLWRldmVsQGxpc3RzLmZyZWVk
-ZXNrdG9wLm9yZwo+Q2M6IGxpbnV4LWFybS1rZXJuZWxAbGlzdHMuaW5mcmFkZWFkLm9yZwo+Q2M6
-IGxpbnV4LXJvY2tjaGlwQGxpc3RzLmluZnJhZGVhZC5vcmcKPi0tLQo+IGRyaXZlcnMvZ3B1L2Ry
-bS9yb2NrY2hpcC9kd19oZG1pLXJvY2tjaGlwLmMgICAgfCAxNiArKysrKysrKy0tLS0tLS0tCj4g
-ZHJpdmVycy9ncHUvZHJtL3JvY2tjaGlwL2R3X2hkbWlfcXAtcm9ja2NoaXAuYyB8IDE2ICsrKysr
-KysrLS0tLS0tLS0KPiAyIGZpbGVzIGNoYW5nZWQsIDE2IGluc2VydGlvbnMoKyksIDE2IGRlbGV0
-aW9ucygtKQo+Cj5kaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL3JvY2tjaGlwL2R3X2hkbWkt
-cm9ja2NoaXAuYyBiL2RyaXZlcnMvZ3B1L2RybS9yb2NrY2hpcC9kd19oZG1pLXJvY2tjaGlwLmMK
-PmluZGV4IGU3YTY2NjljNDZiMC4uZjczN2U3ZDQ2ZTY2IDEwMDY0NAo+LS0tIGEvZHJpdmVycy9n
-cHUvZHJtL3JvY2tjaGlwL2R3X2hkbWktcm9ja2NoaXAuYwo+KysrIGIvZHJpdmVycy9ncHUvZHJt
-L3JvY2tjaGlwL2R3X2hkbWktcm9ja2NoaXAuYwo+QEAgLTIwMyw3ICsyMDMsNyBAQCBzdGF0aWMg
-aW50IHJvY2tjaGlwX2hkbWlfcGFyc2VfZHQoc3RydWN0IHJvY2tjaGlwX2hkbWkgKmhkbWkpCj4g
-Cj4gCWhkbWktPnJlZ21hcCA9IHN5c2Nvbl9yZWdtYXBfbG9va3VwX2J5X3BoYW5kbGUobnAsICJy
-b2NrY2hpcCxncmYiKTsKPiAJaWYgKElTX0VSUihoZG1pLT5yZWdtYXApKSB7Cj4tCQlkcm1fZXJy
-KGhkbWksICJVbmFibGUgdG8gZ2V0IHJvY2tjaGlwLGdyZlxuIik7Cj4rCQlkZXZfZXJyKGhkbWkt
-PmRldiwgIlVuYWJsZSB0byBnZXQgcm9ja2NoaXAsZ3JmXG4iKTsKPiAJCXJldHVybiBQVFJfRVJS
-KGhkbWktPnJlZ21hcCk7Cj4gCX0KPiAKPkBAIC0yMTQsNyArMjE0LDcgQEAgc3RhdGljIGludCBy
-b2NrY2hpcF9oZG1pX3BhcnNlX2R0KHN0cnVjdCByb2NrY2hpcF9oZG1pICpoZG1pKQo+IAlpZiAo
-SVNfRVJSKGhkbWktPnJlZl9jbGspKSB7Cj4gCQlyZXQgPSBQVFJfRVJSKGhkbWktPnJlZl9jbGsp
-Owo+IAkJaWYgKHJldCAhPSAtRVBST0JFX0RFRkVSKQo+LQkJCWRybV9lcnIoaGRtaSwgImZhaWxl
-ZCB0byBnZXQgcmVmZXJlbmNlIGNsb2NrXG4iKTsKPisJCQlkZXZfZXJyKGhkbWktPmRldiwgImZh
-aWxlZCB0byBnZXQgcmVmZXJlbmNlIGNsb2NrXG4iKTsKPiAJCXJldHVybiByZXQ7Cj4gCX0KPiAK
-PkBAIC0yMjIsNyArMjIyLDcgQEAgc3RhdGljIGludCByb2NrY2hpcF9oZG1pX3BhcnNlX2R0KHN0
-cnVjdCByb2NrY2hpcF9oZG1pICpoZG1pKQo+IAlpZiAoSVNfRVJSKGhkbWktPmdyZl9jbGspKSB7
-Cj4gCQlyZXQgPSBQVFJfRVJSKGhkbWktPmdyZl9jbGspOwo+IAkJaWYgKHJldCAhPSAtRVBST0JF
-X0RFRkVSKQo+LQkJCWRybV9lcnIoaGRtaSwgImZhaWxlZCB0byBnZXQgZ3JmIGNsb2NrXG4iKTsK
-PisJCQlkZXZfZXJyKGhkbWktPmRldiwgImZhaWxlZCB0byBnZXQgZ3JmIGNsb2NrXG4iKTsKPiAJ
-CXJldHVybiByZXQ7Cj4gCX0KPiAKPkBAIC0zMDIsMTYgKzMwMiwxNiBAQCBzdGF0aWMgdm9pZCBk
-d19oZG1pX3JvY2tjaGlwX2VuY29kZXJfZW5hYmxlKHN0cnVjdCBkcm1fZW5jb2RlciAqZW5jb2Rl
-cikKPiAKPiAJcmV0ID0gY2xrX3ByZXBhcmVfZW5hYmxlKGhkbWktPmdyZl9jbGspOwo+IAlpZiAo
-cmV0IDwgMCkgewo+LQkJZHJtX2VycihoZG1pLCAiZmFpbGVkIHRvIGVuYWJsZSBncmZjbGsgJWRc
-biIsIHJldCk7Cj4rCQlkZXZfZXJyKGhkbWktPmRldiwgImZhaWxlZCB0byBlbmFibGUgZ3JmY2xr
-ICVkXG4iLCByZXQpOwo+IAkJcmV0dXJuOwo+IAl9Cj4gCj4gCXJldCA9IHJlZ21hcF93cml0ZSho
-ZG1pLT5yZWdtYXAsIGhkbWktPmNoaXBfZGF0YS0+bGNkc2VsX2dyZl9yZWcsIHZhbCk7Cj4gCWlm
-IChyZXQgIT0gMCkKPi0JCWRybV9lcnIoaGRtaSwgIkNvdWxkIG5vdCB3cml0ZSB0byBHUkY6ICVk
-XG4iLCByZXQpOwo+KwkJZGV2X2VycihoZG1pLT5kZXYsICJDb3VsZCBub3Qgd3JpdGUgdG8gR1JG
-OiAlZFxuIiwgcmV0KTsKPiAKPiAJY2xrX2Rpc2FibGVfdW5wcmVwYXJlKGhkbWktPmdyZl9jbGsp
-Owo+LQlkcm1fZGJnKGhkbWksICJ2b3AgJXMgb3V0cHV0IHRvIGhkbWlcbiIsIHJldCA/ICJMSVQi
-IDogIkJJRyIpOwo+KwlkZXZfZGJnKGhkbWktPmRldiwgInZvcCAlcyBvdXRwdXQgdG8gaGRtaVxu
-IiwgcmV0ID8gIkxJVCIgOiAiQklHIik7Cj4gfQo+IAo+IHN0YXRpYyBpbnQKPkBAIC01NzQsNyAr
-NTc0LDcgQEAgc3RhdGljIGludCBkd19oZG1pX3JvY2tjaGlwX2JpbmQoc3RydWN0IGRldmljZSAq
-ZGV2LCBzdHJ1Y3QgZGV2aWNlICptYXN0ZXIsCj4gCXJldCA9IHJvY2tjaGlwX2hkbWlfcGFyc2Vf
-ZHQoaGRtaSk7Cj4gCWlmIChyZXQpIHsKPiAJCWlmIChyZXQgIT0gLUVQUk9CRV9ERUZFUikKPi0J
-CQlkcm1fZXJyKGhkbWksICJVbmFibGUgdG8gcGFyc2UgT0YgZGF0YVxuIik7Cj4rCQkJZGV2X2Vy
-cihoZG1pLT5kZXYsICJVbmFibGUgdG8gcGFyc2UgT0YgZGF0YVxuIik7Cj4gCQlyZXR1cm4gcmV0
-Owo+IAl9Cj4gCj5AQCAtNTgyLDcgKzU4Miw3IEBAIHN0YXRpYyBpbnQgZHdfaGRtaV9yb2NrY2hp
-cF9iaW5kKHN0cnVjdCBkZXZpY2UgKmRldiwgc3RydWN0IGRldmljZSAqbWFzdGVyLAo+IAlpZiAo
-SVNfRVJSKGhkbWktPnBoeSkpIHsKPiAJCXJldCA9IFBUUl9FUlIoaGRtaS0+cGh5KTsKPiAJCWlm
-IChyZXQgIT0gLUVQUk9CRV9ERUZFUikKPi0JCQlkcm1fZXJyKGhkbWksICJmYWlsZWQgdG8gZ2V0
-IHBoeVxuIik7Cj4rCQkJZGV2X2VycihoZG1pLT5kZXYsICJmYWlsZWQgdG8gZ2V0IHBoeVxuIik7
-Cj4gCQlyZXR1cm4gcmV0Owo+IAl9Cj4gCj5kaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL3Jv
-Y2tjaGlwL2R3X2hkbWlfcXAtcm9ja2NoaXAuYyBiL2RyaXZlcnMvZ3B1L2RybS9yb2NrY2hpcC9k
-d19oZG1pX3FwLXJvY2tjaGlwLmMKPmluZGV4IGY0MTE1MWQ0OWZjYS4uM2QxZGRkYjM0NjAzIDEw
-MDY0NAo+LS0tIGEvZHJpdmVycy9ncHUvZHJtL3JvY2tjaGlwL2R3X2hkbWlfcXAtcm9ja2NoaXAu
-Ywo+KysrIGIvZHJpdmVycy9ncHUvZHJtL3JvY2tjaGlwL2R3X2hkbWlfcXAtcm9ja2NoaXAuYwo+
-QEAgLTI0Miw3ICsyNDIsNyBAQCBzdGF0aWMgdm9pZCBkd19oZG1pX3FwX3JrMzU4OF9ocGRfd29y
-ayhzdHJ1Y3Qgd29ya19zdHJ1Y3QgKndvcmspCj4gCWlmIChkcm0pIHsKPiAJCWNoYW5nZWQgPSBk
-cm1faGVscGVyX2hwZF9pcnFfZXZlbnQoZHJtKTsKPiAJCWlmIChjaGFuZ2VkKQo+LQkJCWRybV9k
-YmcoaGRtaSwgImNvbm5lY3RvciBzdGF0dXMgY2hhbmdlZFxuIik7Cj4rCQkJZGV2X2RiZyhoZG1p
-LT5kZXYsICJjb25uZWN0b3Igc3RhdHVzIGNoYW5nZWRcbiIpOwo+IAl9Cj4gfQo+IAo+QEAgLTQ3
-Miw3ICs0NzIsNyBAQCBzdGF0aWMgaW50IGR3X2hkbWlfcXBfcm9ja2NoaXBfYmluZChzdHJ1Y3Qg
-ZGV2aWNlICpkZXYsIHN0cnVjdCBkZXZpY2UgKm1hc3RlciwKPiAJCX0KPiAJfQo+IAlpZiAoaGRt
-aS0+cG9ydF9pZCA8IDApIHsKPi0JCWRybV9lcnIoaGRtaSwgIkZhaWxlZCB0byBtYXRjaCBIRE1J
-IHBvcnQgSURcbiIpOwo+KwkJZGV2X2VycihoZG1pLT5kZXYsICJGYWlsZWQgdG8gbWF0Y2ggSERN
-SSBwb3J0IElEXG4iKTsKPiAJCXJldHVybiBoZG1pLT5wb3J0X2lkOwo+IAl9Cj4gCj5AQCAtNDk2
-LDIwICs0OTYsMjAgQEAgc3RhdGljIGludCBkd19oZG1pX3FwX3JvY2tjaGlwX2JpbmQoc3RydWN0
-IGRldmljZSAqZGV2LCBzdHJ1Y3QgZGV2aWNlICptYXN0ZXIsCj4gCWhkbWktPnJlZ21hcCA9IHN5
-c2Nvbl9yZWdtYXBfbG9va3VwX2J5X3BoYW5kbGUoZGV2LT5vZl9ub2RlLAo+IAkJCQkJCSAgICAg
-ICAicm9ja2NoaXAsZ3JmIik7Cj4gCWlmIChJU19FUlIoaGRtaS0+cmVnbWFwKSkgewo+LQkJZHJt
-X2VycihoZG1pLCAiVW5hYmxlIHRvIGdldCByb2NrY2hpcCxncmZcbiIpOwo+KwkJZGV2X2Vyciho
-ZG1pLT5kZXYsICJVbmFibGUgdG8gZ2V0IHJvY2tjaGlwLGdyZlxuIik7Cj4gCQlyZXR1cm4gUFRS
-X0VSUihoZG1pLT5yZWdtYXApOwo+IAl9Cj4gCj4gCWhkbWktPnZvX3JlZ21hcCA9IHN5c2Nvbl9y
-ZWdtYXBfbG9va3VwX2J5X3BoYW5kbGUoZGV2LT5vZl9ub2RlLAo+IAkJCQkJCQkgICJyb2NrY2hp
-cCx2by1ncmYiKTsKPiAJaWYgKElTX0VSUihoZG1pLT52b19yZWdtYXApKSB7Cj4tCQlkcm1fZXJy
-KGhkbWksICJVbmFibGUgdG8gZ2V0IHJvY2tjaGlwLHZvLWdyZlxuIik7Cj4rCQlkZXZfZXJyKGhk
-bWktPmRldiwgIlVuYWJsZSB0byBnZXQgcm9ja2NoaXAsdm8tZ3JmXG4iKTsKPiAJCXJldHVybiBQ
-VFJfRVJSKGhkbWktPnZvX3JlZ21hcCk7Cj4gCX0KPiAKPiAJcmV0ID0gZGV2bV9jbGtfYnVsa19n
-ZXRfYWxsX2VuYWJsZWQoaGRtaS0+ZGV2LCAmY2xrcyk7Cj4gCWlmIChyZXQgPCAwKSB7Cj4tCQlk
-cm1fZXJyKGhkbWksICJGYWlsZWQgdG8gZ2V0IGNsb2NrczogJWRcbiIsIHJldCk7Cj4rCQlkZXZf
-ZXJyKGhkbWktPmRldiwgIkZhaWxlZCB0byBnZXQgY2xvY2tzOiAlZFxuIiwgcmV0KTsKPiAJCXJl
-dHVybiByZXQ7Cj4gCX0KPiAKPkBAIC01MTcsNyArNTE3LDcgQEAgc3RhdGljIGludCBkd19oZG1p
-X3FwX3JvY2tjaGlwX2JpbmQoc3RydWN0IGRldmljZSAqZGV2LCBzdHJ1Y3QgZGV2aWNlICptYXN0
-ZXIsCj4gCQkJCQkJICAgIEdQSU9EX09VVF9ISUdIKTsKPiAJaWYgKElTX0VSUihoZG1pLT5lbmFi
-bGVfZ3BpbykpIHsKPiAJCXJldCA9IFBUUl9FUlIoaGRtaS0+ZW5hYmxlX2dwaW8pOwo+LQkJZHJt
-X2VycihoZG1pLCAiRmFpbGVkIHRvIHJlcXVlc3QgZW5hYmxlIEdQSU86ICVkXG4iLCByZXQpOwo+
-KwkJZGV2X2VycihoZG1pLT5kZXYsICJGYWlsZWQgdG8gcmVxdWVzdCBlbmFibGUgR1BJTzogJWRc
-biIsIHJldCk7Cj4gCQlyZXR1cm4gcmV0Owo+IAl9Cj4gCj5AQCAtNTI1LDcgKzUyNSw3IEBAIHN0
-YXRpYyBpbnQgZHdfaGRtaV9xcF9yb2NrY2hpcF9iaW5kKHN0cnVjdCBkZXZpY2UgKmRldiwgc3Ry
-dWN0IGRldmljZSAqbWFzdGVyLAo+IAlpZiAoSVNfRVJSKGhkbWktPnBoeSkpIHsKPiAJCXJldCA9
-IFBUUl9FUlIoaGRtaS0+cGh5KTsKPiAJCWlmIChyZXQgIT0gLUVQUk9CRV9ERUZFUikKPi0JCQlk
-cm1fZXJyKGhkbWksICJmYWlsZWQgdG8gZ2V0IHBoeTogJWRcbiIsIHJldCk7Cj4rCQkJZGV2X2Vy
-cihoZG1pLT5kZXYsICJmYWlsZWQgdG8gZ2V0IHBoeTogJWRcbiIsIHJldCk7Cj4gCQlyZXR1cm4g
-cmV0Owo+IAl9Cj4gCj5AQCAtNTY0LDcgKzU2NCw3IEBAIHN0YXRpYyBpbnQgZHdfaGRtaV9xcF9y
-b2NrY2hpcF9iaW5kKHN0cnVjdCBkZXZpY2UgKmRldiwgc3RydWN0IGRldmljZSAqbWFzdGVyLAo+
-IAljb25uZWN0b3IgPSBkcm1fYnJpZGdlX2Nvbm5lY3Rvcl9pbml0KGRybSwgZW5jb2Rlcik7Cj4g
-CWlmIChJU19FUlIoY29ubmVjdG9yKSkgewo+IAkJcmV0ID0gUFRSX0VSUihjb25uZWN0b3IpOwo+
-LQkJZHJtX2VycihoZG1pLCAiZmFpbGVkIHRvIGluaXQgYnJpZGdlIGNvbm5lY3RvcjogJWRcbiIs
-IHJldCk7Cj4rCQlkZXZfZXJyKGhkbWktPmRldiwgImZhaWxlZCB0byBpbml0IGJyaWRnZSBjb25u
-ZWN0b3I6ICVkXG4iLCByZXQpOwo+IAkJcmV0dXJuIHJldDsKPiAJfQo+IAo+LS0gCj4yLjM5LjUK
-Pgo+Cj5fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwo+TGlu
-dXgtcm9ja2NoaXAgbWFpbGluZyBsaXN0Cj5MaW51eC1yb2NrY2hpcEBsaXN0cy5pbmZyYWRlYWQu
-b3JnCj5odHRwOi8vbGlzdHMuaW5mcmFkZWFkLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2xpbnV4LXJv
-Y2tjaGlwCg==
+On Fri, Jan 24, 2025 at 09:29:32AM +0100, Thomas Zimmermann wrote:
+> Hi Dave, Sima,
+> 
+> here's the weekly PR for drm-misc-fixes.
+> 
+> Best regards
+> Thomas
+> 
+> drm-misc-fixes-2025-01-24:
+> Short summary of fixes pull:
+> 
+> bochs:
+> - Fix double-free on driver removal
+> 
+> client:
+> - Improve support for tile-based modes
+> - Fix fbdev Kconfig select rules
+> 
+> xlnx:
+> - zynqmp_dp: Add locking to DP-bridge enable helper
+> The following changes since commit ef84aee151bd6c2c9223c8b430cae21d57b5e1c1:
+> 
+>   drm/bridge: ite-it6263: Prevent error pointer dereference in probe() (2025-01-15 11:27:08 +0800)
+> 
+> are available in the Git repository at:
+> 
+>   https://gitlab.freedesktop.org/drm/misc/kernel.git tags/drm-misc-fixes-2025-01-24
+
+Pulled, thanks a lot.
+-Sima
+
+> 
+> for you to fetch changes up to 0a1ee19d46b71691c5acdf234bb6105913bd9add:
+> 
+>   drm: zynqmp_dp: Unlock on error in zynqmp_dp_bridge_atomic_enable() (2025-01-24 09:26:45 +0200)
+> 
+> ----------------------------------------------------------------
+> Short summary of fixes pull:
+> 
+> bochs:
+> - Fix double-free on driver removal
+> 
+> client:
+> - Improve support for tile-based modes
+> - Fix fbdev Kconfig select rules
+> 
+> xlnx:
+> - zynqmp_dp: Add locking to DP-bridge enable helper
+> 
+> ----------------------------------------------------------------
+> Arnd Bergmann (1):
+>       drm: select DRM_KMS_HELPER from DRM_GEM_SHMEM_HELPER
+> 
+> Dan Carpenter (1):
+>       drm: zynqmp_dp: Unlock on error in zynqmp_dp_bridge_atomic_enable()
+> 
+> Maarten Lankhorst (2):
+>       drm/modeset: Handle tiled displays in pan_display_atomic.
+>       drm/client: Handle tiled displays better
+> 
+> Thomas Zimmermann (1):
+>       drm/bochs: Do not put DRM device in PCI remove callback
+> 
+>  drivers/gpu/drm/Kconfig              |  3 +++
+>  drivers/gpu/drm/drm_client_modeset.c |  9 +++++++++
+>  drivers/gpu/drm/drm_fb_helper.c      | 14 ++++++++------
+>  drivers/gpu/drm/tiny/bochs.c         |  1 -
+>  drivers/gpu/drm/xlnx/zynqmp_dp.c     |  3 +--
+>  5 files changed, 21 insertions(+), 9 deletions(-)
+> 
+> -- 
+> Thomas Zimmermann
+> Graphics Driver Developer
+> SUSE Software Solutions Germany GmbH
+> Frankenstrasse 146, 90461 Nuernberg, Germany
+> GF: Ivo Totev, Andrew Myers, Andrew McDonald, Boudien Moerman
+> HRB 36809 (AG Nuernberg)
+
+-- 
+Simona Vetter
+Software Engineer, Intel Corporation
+http://blog.ffwll.ch
