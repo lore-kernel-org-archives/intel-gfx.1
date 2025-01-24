@@ -4,50 +4,51 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0B5DEC0218D
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 23FB1C0218C
 	for <intel-gfx@archiver.kernel.org>; Fri, 24 Jan 2025 15:12:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9B3B910E04C;
+	by gabe.freedesktop.org (Postfix) with ESMTP id A884810E9C6;
 	Fri, 24 Jan 2025 15:12:54 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="HKpWIAuz";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="at7lTdUH";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.17])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 97F6310E9BE;
- Fri, 24 Jan 2025 15:12:45 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B753110E9C6;
+ Fri, 24 Jan 2025 15:12:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1737731566; x=1769267566;
+ t=1737731573; x=1769267573;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=YAZ5mRe20nSsrgkqxweZf6y9/Q7COU3jJoEtSlc3LLw=;
- b=HKpWIAuzZuRlYCzMXa5/wWYg09ZaEGePbZejH1Tp9YxmUUEabs6AObIe
- RbhJKlTWNfPAfsDCZYv0q3uowTmJNkfFI0hzVohhYFolgG6XRa0zNw2sJ
- auhrqSSaSydcVwgtTtaEp+ig39yg+2cRYNU7AsAKlcPRp2k+cluSZpgza
- BXe+DCr/VhMx6xnUAtyNhmZRwYpV6hDRkRwo4liWUT96KIPO9KOQC1jIh
- qqySO8yQwbQUmVVWmHPJNX38Zln5vLss07z2TPdpOky9IBh6tsUunsW8f
- P1BDZNjukCGprMV6I6gnWATDEH4XMuviIeHfIce6tiLQ7zkOU2/NxExgi A==;
-X-CSE-ConnectionGUID: vgl0CTGyTnCGB2ppIGJe1Q==
-X-CSE-MsgGUID: Xl/bF9kgR16ZTe1hYgPdgw==
-X-IronPort-AV: E=McAfee;i="6700,10204,11325"; a="38177496"
-X-IronPort-AV: E=Sophos;i="6.13,231,1732608000"; d="scan'208";a="38177496"
+ bh=n0x2fRu0deBppJL49JyZSL90HO4qMU8+w3+lvo2Rqic=;
+ b=at7lTdUHMShzqiA4dwLd4D3kwaUMq63WmfvgTxY3sWQALeq6/WVZP+W9
+ hnYoGFQq1CMIYaxhIA/rhKuhFKWe1MmA49yT5lhPNTHyO/ElfmXh07ZAF
+ pma7Cnoxs6GLPVCtUFkHnApkO9F+Bf9Tsl4feEG6fcmU8OI7SzJK5YwU/
+ YvZkmMD3/LHmBW0vFJ/7TPuvA2ttDG/dVn+b7ckYmEzipNuvrLeJGIDKg
+ v0W32qzAFCNaOoVI7e2ipkRrJq7HQKC5l5EtZCSqWh6tFWoP2t2TmV4YD
+ vGld9D/ueBxBGM3jsr/D2p51bXim4kIuydKwbPh4gtSY1CvZBjcBgAHjt A==;
+X-CSE-ConnectionGUID: n/nUQGpuRG68F0UTxS7AGQ==
+X-CSE-MsgGUID: TDao8KTBQ0W6Au+CJ+Jicg==
+X-IronPort-AV: E=McAfee;i="6700,10204,11325"; a="38177512"
+X-IronPort-AV: E=Sophos;i="6.13,231,1732608000"; d="scan'208";a="38177512"
 Received: from orviesa007.jf.intel.com ([10.64.159.147])
  by fmvoesa111.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 24 Jan 2025 07:12:45 -0800
-X-CSE-ConnectionGUID: bbcj+4kcRC2r4cUT9kAslw==
-X-CSE-MsgGUID: uIsHP6gcTX+9DWnS5M4mMQ==
+ 24 Jan 2025 07:12:53 -0800
+X-CSE-ConnectionGUID: C1ZRQ1sZSTSdGpgKjcxmQg==
+X-CSE-MsgGUID: oIh5Lk+QSUiLY+//xtt1Rg==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.12,224,1728975600"; d="scan'208";a="108221629"
+X-IronPort-AV: E=Sophos;i="6.12,224,1728975600"; d="scan'208";a="108221673"
 Received: from srr4-3-linux-103-aknautiy.iind.intel.com ([10.223.34.160])
  by orviesa007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 24 Jan 2025 07:12:43 -0800
+ 24 Jan 2025 07:12:51 -0800
 From: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
 To: intel-gfx@lists.freedesktop.org
 Cc: intel-xe@lists.freedesktop.org, jani.nikula@linux.intel.com,
  ville.syrjala@linux.intel.com, mitulkumar.ajitkumar.golani@intel.com
-Subject: [PATCH 30/35] drm/i915/vrr: Handle joiner with vrr
-Date: Fri, 24 Jan 2025 20:30:15 +0530
-Message-ID: <20250124150020.2271747-31-ankit.k.nautiyal@intel.com>
+Subject: [PATCH 33/35] drm/i915/vrr: Refactor condition for computing vmax and
+ LRR
+Date: Fri, 24 Jan 2025 20:30:18 +0530
+Message-ID: <20250124150020.2271747-34-ankit.k.nautiyal@intel.com>
 X-Mailer: git-send-email 2.45.2
 In-Reply-To: <20250124150020.2271747-1-ankit.k.nautiyal@intel.com>
 References: <20250124150020.2271747-1-ankit.k.nautiyal@intel.com>
@@ -68,72 +69,52 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Do not program transcoder registers for VRR for the secondary pipe of
-the joiner. Remove check to skip VRR for joiner case.
+LRR and Vmax can be computed only if VRR is supported and vrr.in_range
+is set. Currently we proceed with vrr timings only for VRR supporting
+panels and return otherwise. For using VRR TG with fix timings, need to
+continue even for panels that do not support VRR.
+
+To achieve this, refactor the condition for computing vmax and
+update_lrr so that we can continue for fixed timings for panels that do
+not support VRR.
 
 Signed-off-by: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_vrr.c | 19 ++++++++++++-------
- 1 file changed, 12 insertions(+), 7 deletions(-)
+ drivers/gpu/drm/i915/display/intel_vrr.c | 12 ++++++------
+ 1 file changed, 6 insertions(+), 6 deletions(-)
 
 diff --git a/drivers/gpu/drm/i915/display/intel_vrr.c b/drivers/gpu/drm/i915/display/intel_vrr.c
-index 7e9b60ce3fc4..ccc40867c10a 100644
+index 5d0db6277715..b6d45f4ccf53 100644
 --- a/drivers/gpu/drm/i915/display/intel_vrr.c
 +++ b/drivers/gpu/drm/i915/display/intel_vrr.c
-@@ -333,13 +333,6 @@ intel_vrr_compute_config(struct intel_crtc_state *crtc_state,
+@@ -336,21 +336,21 @@ intel_vrr_compute_config(struct intel_crtc_state *crtc_state,
+ 	struct intel_dp *intel_dp = intel_attached_dp(connector);
+ 	bool is_edp = intel_dp_is_edp(intel_dp);
  	struct drm_display_mode *adjusted_mode = &crtc_state->hw.adjusted_mode;
- 	int vmin, vmax;
+-	int vmin, vmax;
++	int vmin = 0, vmax = 0;
  
--	/*
--	 * FIXME all joined pipes share the same transcoder.
--	 * Need to account for that during VRR toggle/push/etc.
--	 */
--	if (crtc_state->joiner_pipes)
--		return;
--
  	if (adjusted_mode->flags & DRM_MODE_FLAG_INTERLACE)
  		return;
  
-@@ -419,6 +412,9 @@ void intel_vrr_set_transcoder_timings(const struct intel_crtc_state *crtc_state)
- 	struct intel_display *display = to_intel_display(crtc_state);
- 	enum transcoder cpu_transcoder = crtc_state->cpu_transcoder;
+ 	crtc_state->vrr.in_range =
+ 		intel_vrr_is_in_range(connector, drm_mode_vrefresh(adjusted_mode));
+-	if (!crtc_state->vrr.in_range)
+-		return;
  
-+	if (intel_crtc_is_joiner_secondary(crtc_state))
-+		return;
-+
- 	/*
- 	 * This bit seems to have two meanings depending on the platform:
- 	 * TGL: generate VRR "safe window" for DSB vblank waits
-@@ -472,6 +468,9 @@ void intel_vrr_send_push(struct intel_dsb *dsb,
- 	struct intel_display *display = to_intel_display(crtc_state);
- 	enum transcoder cpu_transcoder = crtc_state->cpu_transcoder;
+-	if (HAS_LRR(display))
+-		crtc_state->update_lrr = true;
++	if (crtc_state->vrr.in_range) {
++		if (HAS_LRR(display))
++			crtc_state->update_lrr = true;
++		vmax = intel_vrr_compute_vmax(connector, adjusted_mode);
++	}
  
-+	if (intel_crtc_is_joiner_secondary(crtc_state))
-+		return;
-+
- 	if (!intel_vrr_use_push(crtc_state))
+ 	vmin = intel_vrr_compute_vmin(crtc_state);
+-	vmax = intel_vrr_compute_vmax(connector, adjusted_mode);
+ 
+ 	if (vmin >= vmax)
  		return;
- 
-@@ -502,6 +501,9 @@ void intel_vrr_enable(const struct intel_crtc_state *crtc_state)
- 	struct intel_display *display = to_intel_display(crtc_state);
- 	enum transcoder cpu_transcoder = crtc_state->cpu_transcoder;
- 
-+	if (intel_crtc_is_joiner_secondary(crtc_state))
-+		return;
-+
- 	if (!intel_vrrtg_is_enabled(crtc_state))
- 		return;
- 
-@@ -524,6 +526,9 @@ void intel_vrr_disable(const struct intel_crtc_state *old_crtc_state)
- 	struct intel_display *display = to_intel_display(old_crtc_state);
- 	enum transcoder cpu_transcoder = old_crtc_state->cpu_transcoder;
- 
-+	if (intel_crtc_is_joiner_secondary(old_crtc_state))
-+		return;
-+
- 	if (!intel_vrrtg_is_enabled(old_crtc_state))
- 		return;
- 
 -- 
 2.45.2
 
