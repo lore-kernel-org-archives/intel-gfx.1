@@ -4,179 +4,56 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 322A5C0218B
-	for <intel-gfx@archiver.kernel.org>; Fri, 24 Jan 2025 17:27:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7FF89C02181
+	for <intel-gfx@archiver.kernel.org>; Fri, 24 Jan 2025 17:40:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B02A110E9B8;
-	Fri, 24 Jan 2025 17:27:33 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 069FD10E9E1;
+	Fri, 24 Jan 2025 17:40:14 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="MUp0ivqE";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="EKDnCQ9B";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.12])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 99CBD10E9B8
- for <intel-gfx@lists.freedesktop.org>; Fri, 24 Jan 2025 17:27:32 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.18])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EB38010E9E1;
+ Fri, 24 Jan 2025 17:40:12 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1737739653; x=1769275653;
- h=date:from:to:subject:message-id:references:
- content-transfer-encoding:in-reply-to:mime-version;
- bh=PK9MGNenT+08aHGh1jinAhgbsjYTIGYB8xURvqLfM/M=;
- b=MUp0ivqEURp8Z+sdCC6Q+mGPDjCCAERSg5zJswfelW1it/r0M4MRG0To
- BSJIRT58wkWBzaL/LPwB1Cwv3zZU7IuqbhlByT/fXOMeUQ6zv9JfjKgzB
- Ph1T8cEUX5CLo4zYqYkAXTmc2xGSpuwVDIZx9kNQ5RotJqT+mI/AyQcgq
- tVQXsonoBVOdbSMHVaEbvHGbZSIQENcy34UOFetFrUNfW+wlEDyAA4TWl
- uATSMH+TwETU0MhH2DkLoy4tq8Cwl9BQZtwdNxiblVAFAKiV1wuGUgW7M
- PMzKW8BPa6FAkn2tVHxsG5KdDjm9HSzlfzvsSAiSBfvCkb25nOZaPkPWx A==;
-X-CSE-ConnectionGUID: blZYRazzSmej2OXrSVU3Qw==
-X-CSE-MsgGUID: j3Hjpip2QBijmvMpIlRrMQ==
-X-IronPort-AV: E=McAfee;i="6700,10204,11325"; a="49678494"
-X-IronPort-AV: E=Sophos;i="6.13,231,1732608000"; d="scan'208";a="49678494"
-Received: from fmviesa005.fm.intel.com ([10.60.135.145])
- by orvoesa104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 24 Jan 2025 09:27:33 -0800
-X-CSE-ConnectionGUID: TmDguZrQTsGCWV2q+QFJiQ==
-X-CSE-MsgGUID: kv5hYuBmRxyhr5qPEaC8tQ==
+ t=1737740413; x=1769276413;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=/Y31omtpgRaNRuQewzET0YJLwPJvxFeaSgLJl0oHqgM=;
+ b=EKDnCQ9B0i0GFCPnqvkJchWq3wYn82um8tVRcs4QQ1jfXlE2dLQN4scV
+ S7k9sX1dL9jysIDJGFzi6pU28ygUy5ZjTJZy4j/IJ6dQ84Fq7qlxCNKKu
+ BLhek6FChGi+6aEy4pC20sds35kvYLTjjYYQ5ZFDYfbt95fEHtgHv9HXm
+ nM5Wm3pJ8dFLvvxdbk4zUa1GQAlF+dkgOJ45lUtEnFcdySA6aCV43aAxh
+ 7QW6hPxU7c+Mq3nLKfXbgdsNjCE+cszRg2wh8N2GdXaZDEXDZ5s09yuOs
+ LidGWCyj+IDb10v+VjcreSRiwY/Z44a+Zt4rYhchUbGOaEegSH5q4X+MB Q==;
+X-CSE-ConnectionGUID: 7DN1y0KEQ1K0aRUg8D23Ww==
+X-CSE-MsgGUID: AIVSCGV2TgODFsHRTSFznQ==
+X-IronPort-AV: E=McAfee;i="6700,10204,11314"; a="38383510"
+X-IronPort-AV: E=Sophos;i="6.12,310,1728975600"; d="scan'208";a="38383510"
+Received: from orviesa003.jf.intel.com ([10.64.159.143])
+ by orvoesa110.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 24 Jan 2025 09:40:13 -0800
+X-CSE-ConnectionGUID: 3GROvH60Rh+9SGcQL3qPqA==
+X-CSE-MsgGUID: jhUvZMNaS6uxDjEr/XPxjA==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.12,224,1728975600"; d="scan'208";a="112452012"
-Received: from orsmsx601.amr.corp.intel.com ([10.22.229.14])
- by fmviesa005.fm.intel.com with ESMTP/TLS/AES256-GCM-SHA384;
- 24 Jan 2025 09:27:32 -0800
-Received: from orsmsx603.amr.corp.intel.com (10.22.229.16) by
- ORSMSX601.amr.corp.intel.com (10.22.229.14) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.44; Fri, 24 Jan 2025 09:27:31 -0800
-Received: from orsedg603.ED.cps.intel.com (10.7.248.4) by
- orsmsx603.amr.corp.intel.com (10.22.229.16) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.44 via Frontend Transport; Fri, 24 Jan 2025 09:27:31 -0800
-Received: from NAM11-DM6-obe.outbound.protection.outlook.com (104.47.57.174)
- by edgegateway.intel.com (134.134.137.100) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.1.2507.44; Fri, 24 Jan 2025 09:27:31 -0800
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=SH+ijTNhZlhs4U2knap8pepBDsRV3Uq1VXlImyVeXYW7JfeoyNWInVi0EyfXMyTMfA6v1LUkogtrNVGXV4fgHfhZyh/iU4rIunyUCDO8uxMDpJsaweI8pmxGrp5A6PZJbm01wQdEY4zAwmmWp9Y5ps8wBmep74yx4oSMndiD6vJzxVxC/R1ZwKe97DpveI5KSEksRMBeR3rZUs7LecCHMDvoFrHwKCSutvWHqHjAtOw00X0GHqeroB0uxJTYiZbtts9/kzAR22B1i+N7soqYSngiXGUliGTGRMQmlc24Pki7CpoXxhY/LQmzx1eETjPaV36hgUrNSUW7ILRKgxwqBQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=EPaSVLIEFvAWgS+Mofn4vpa5E1nNB5SKJjB3Yn+Wdic=;
- b=CCaCBxnH3uFuaYYy2yRFd0sRUDfmyEU/x+ZBUMo4cCmzB6BpUuIdV/Wk17HjozU0I4dRVsarOA53ppvSD7SbjAXIN87YEsHsbKiRFxzgBqNYu0DDIaQjzz5x3ldRy+afR2Tux/yjDboSNsX7NxWVr/Nf0Aq8kl5qg2L8TfxFEo059Dga1YnF4ZSmJnqx/NjhyVGSVMk7oYu08kf3Z660jvEegwPL4oAEXlqhRWQd770b7+Z/MgZTzH7jyn9CaN5l7XxKMXPOJEkP2EQmHlEOEec776arkeroU2lR2KIEibHqTpu83epqZO4t/6n8rjU+9CfDj6kYByHETZp3r3GnSA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-Received: from DS0PR11MB7408.namprd11.prod.outlook.com (2603:10b6:8:136::15)
- by PH7PR11MB6451.namprd11.prod.outlook.com (2603:10b6:510:1f4::16) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8377.17; Fri, 24 Jan
- 2025 17:26:58 +0000
-Received: from DS0PR11MB7408.namprd11.prod.outlook.com
- ([fe80::6387:4b73:8906:7543]) by DS0PR11MB7408.namprd11.prod.outlook.com
- ([fe80::6387:4b73:8906:7543%3]) with mapi id 15.20.8377.009; Fri, 24 Jan 2025
- 17:26:58 +0000
-Date: Fri, 24 Jan 2025 09:26:56 -0800
-From: Umesh Nerlige Ramappa <umesh.nerlige.ramappa@intel.com>
-To: <intel-gfx@lists.freedesktop.org>
-Subject: Re: =?utf-8?B?4pyXIGk5MTUuQ0kuRnVsbA==?= =?utf-8?Q?=3A?= failure for
- drm/i915/pmu: Fix zero delta busyness issue
-Message-ID: <Z5PNYIi6ibwZ0maD@orsosgc001>
-References: <20250123193839.2394694-1-umesh.nerlige.ramappa@intel.com>
- <173772274086.4019113.17655047510512762644@b555e5b46a47>
-Content-Type: text/plain; charset="utf-8"; format=flowed
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <173772274086.4019113.17655047510512762644@b555e5b46a47>
-X-ClientProxiedBy: MW4PR03CA0016.namprd03.prod.outlook.com
- (2603:10b6:303:8f::21) To DS0PR11MB7408.namprd11.prod.outlook.com
- (2603:10b6:8:136::15)
+X-IronPort-AV: E=Sophos;i="6.11,199,1725346800"; d="scan'208";a="112763884"
+Received: from rchatre-mobl4.amr.corp.intel.com (HELO
+ gjsousa-mobl2.corp.amr.intel.com) ([10.125.111.30])
+ by ORVIESA003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 24 Jan 2025 09:40:11 -0800
+From: Gustavo Sousa <gustavo.sousa@intel.com>
+To: intel-gfx@lists.freedesktop.org,
+	intel-xe@lists.freedesktop.org
+Cc: =?UTF-8?q?Ville=20Syrj=C3=A4l=C3=A4?= <ville.syrjala@linux.intel.com>,
+ Jani Nikula <jani.nikula@intel.com>
+Subject: [PATCH v8] drm/i915/cmtg: Disable the CMTG
+Date: Fri, 24 Jan 2025 14:38:14 -0300
+Message-ID: <20250124173956.46534-1-gustavo.sousa@intel.com>
+X-Mailer: git-send-email 2.48.1
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS0PR11MB7408:EE_|PH7PR11MB6451:EE_
-X-MS-Office365-Filtering-Correlation-Id: 807362d0-97e7-410b-e353-08dd3c9c4e49
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|1800799024|366016|376014;
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?UUFCT24rUEZ5VVhQRFkyVmJkUlJ5RVB2b2M0ZmtlUW13RWVJOW9XMG5DRjRC?=
- =?utf-8?B?L2RJOFJPTkF2bDdlbWRnMmxIWDUxTlpVQjhXcjJZSFJyd1pKVTFEQjB3a0x1?=
- =?utf-8?B?UWpuT1QrdkxoM0dRTEZFQW5maTQzOU5PYThGdDlTbEhlWG5VWjBCOUNuNUhh?=
- =?utf-8?B?ZUo3RTVuVEs1TkkyMlhxZFFsSzlNY2N4YTJBbHoxMmxRY2ZDd2kwekY0SkZn?=
- =?utf-8?B?NEYxMDBJdUJ4V2c3Uldad2RzeTA2L1hHem14Q1dnNjlsS3BVWDczZzJKQ3Vo?=
- =?utf-8?B?bjBLcS9YZ3diYkRNdFF0QW1ZT0paWkJKRjM5dXpUdllDZGlJWnJLcHd6TmJz?=
- =?utf-8?B?d3JnMEpQc1pYYTJYcDVPVnhKcUlZWm9lOEc0eHpUTlhGNTFkSm1La2ltZDFS?=
- =?utf-8?B?bDZlOWxwRWg1VE1zTnFmYm1EQ250c3VHYlJyeW9jTGtoOHdobjl4cWRnd1Fu?=
- =?utf-8?B?eWFHM2xtcGROR1Zac002NFdOL0E5Q3dEVEtrSU05MVNtalVGdG1iVGlZTHd6?=
- =?utf-8?B?b2FvQjE1bEdMeDdjM2gxNDFINU4zeXRsdDdyeTRKSS84TktSN2cwVGpvZkt1?=
- =?utf-8?B?eUY1V05IRHZOSm1TdGdUbDhVRmV6blMvYTJ4L1h4RlNQem1xOW5RNWFsMVQv?=
- =?utf-8?B?Y0h6OHBPZjhXRkFiQ3k0a01Sc3hzNXNUSWwrbldQMEtqREI2UzA0MkJCRXQv?=
- =?utf-8?B?WXhUUDVwTVdNaEVFSmZXY01Cbm9OWlZldWtPTXJRd2FhTmw4OHdTTFFSZnNn?=
- =?utf-8?B?Q0JKbXdBaXRZYmNNM0tYbVZlMEdLTzh1N3FnaElnRzBEa2djWjJpUUl4T1Jx?=
- =?utf-8?B?OTFyZ2dYSXVsS2dKUHJMdTJ4ZExxdXlRVjdZcjM2dFN2L2VJRTZxVGVEZDIv?=
- =?utf-8?B?YjZ4UTRyWitBNTdvWG91aXpBWHEzV09SV1VHZ3dLZVV1bk44WFM1NDdEajRJ?=
- =?utf-8?B?OXJTL3FqcFFmR2ZsYnBJOTh3emdzbTc0K0lOZSs2WnBueUdTcWJMY0JhWmJv?=
- =?utf-8?B?clVzQ3ZsYno5WEtoWFYwazh1SkFrYllqb0s1UCticWxRc1hpZmt3QjJZWXJr?=
- =?utf-8?B?WUVpRTR2WFY2TWprejBOb3h5QXNsamRtbHVaWmF0d0ZVdXFqSmUzanlRSW5S?=
- =?utf-8?B?cGphM0RFWDYvUXo4Yzc5c0t5bGxrMUNGWlpLUTh1UWhRRTBFRTdGbFJuTHkz?=
- =?utf-8?B?OEt2TTdteEJxRFRERVI0alZPM2prMVVaYi9RaDc5SzZaR05aTVBHNC9BcU9N?=
- =?utf-8?B?cVIwNE15NWpSc0o4bVVDaC9ONzl5WVJnRXpYTE5aS1p3N0oxZkRNckVRelQ3?=
- =?utf-8?B?SUlwVmN0cWdrSlY5MFhEY1NiWXQ1bEx0VklKUCtGMDdiOGF3UTJkL3VDWkJQ?=
- =?utf-8?B?UUh6UjVSbGFoclJaSVNGUWo5MmlBbCtyVVg1T3QvdGZlV3phd3hyLzN4RDZs?=
- =?utf-8?B?U0FaNG1wUTh3Vk5DeWFZNDBoZlZRZFlGU2lZWGtqQ3p2Q3JqSFJJd3pNSHds?=
- =?utf-8?B?VXMrNE90aUR0a2x0SFYxQVB4bmIyRDlKN3RtcE9ZNkVFWkh2eEhJSytiWkZN?=
- =?utf-8?B?SkpSUEVCaENaQnd4dUI4RVR2elI4Zm9ZWmZlOVpWNnMyL0VQL1VsaHcwcURX?=
- =?utf-8?B?TUNSQytCZnU5YzV5VUlVSVQ3TmVsYzlzNHorZ2tOWGt1Uzllakdra1lTNDBz?=
- =?utf-8?B?dS9SNHFIcndzUktBQlVJT2lTY0VLZUpoTkVDeW9hZWNLR1BhME4wM3RpK1Zw?=
- =?utf-8?Q?Avd6QQk9jsb1A/VPvSHVhN1lFQR4D7UsQFzd3pt?=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DS0PR11MB7408.namprd11.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(366016)(376014); DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?VktnLzMzRFpvZ096WkJmOW5sZzFja1JYSlJWNTJVRlh2ckJ3TTF6YTNJRjg3?=
- =?utf-8?B?MWI2WlBLeGl0TExnQk9HRk1GSFA1R3B2ZmIyRGlqeVh0ZC9PaU9YVTRxczNR?=
- =?utf-8?B?b2htZ2JFbzNnMjFDenhkRk9ERTU4K2xKSEh4bHZKWWFXVFNzVll4cXpFSFhM?=
- =?utf-8?B?bGd2UkkzSm40MDQyKzNCY3VvNEJ1Z09pZTROMWVrOVVHS3hucjI5WEMxOHUz?=
- =?utf-8?B?TXR4TFBMdVRvTUZuU2V6NHZYUGhVZithSFBJQWJTYVBBd3Q2aXl0Mkpka0kw?=
- =?utf-8?B?NGJjOTdEZ1oxNlA0WmlJM0plS3lHUGFJWHJPdVpYZDc0enptYTNQVEE3T0ZB?=
- =?utf-8?B?aGVxd3o4RkJCNFptMHY5MEtPVXIwN2M4bDd0dzJYbmV2dmM0K3VQS0VzNW9C?=
- =?utf-8?B?djMzNk01Tnh6QnV0RHFwakxxSDJudVRmUjVWaTJURnV6WlUzMFFDUnhjOHlw?=
- =?utf-8?B?RnJ3WTZobTV3QWJIWVBGR0JxbmUwSENZN0lGRk1XWHE2aWEzbFVCTVBoQVNi?=
- =?utf-8?B?TVVYVStjRHM5Y0loeGVDWWpLSElNQXZaVFdmcUs3S01lR0hhSU9SaVcxc2dz?=
- =?utf-8?B?VjNmMU1VUkJ6NW11Tjh1bzFEbGxzaE9sdC9pQXQvbURIRkV3cmI4eEpjcFhy?=
- =?utf-8?B?THJENUlFcTdxRUVLMkczRFZYNXZaSnNZRGlGMWFmclVMYTEyR1JZNGNvOHVH?=
- =?utf-8?B?RXdIQURKYU55aGNQemRCMkp0T2hnRWQxTndvcklVRTBsVkkyT2JvbFJSYkNG?=
- =?utf-8?B?ZVVoSC8xaS9ObzZyRm96OGFYSmtZT1ZzQy9RaCtIUnd5aDVvZFVwa1AxWi92?=
- =?utf-8?B?UU1KRGVQenprVjdTRXEyS0ljS1VhZjNydXBNdklwN0tSaklpenJSczhQazcx?=
- =?utf-8?B?OE9nT1U2aWU1ZWFkQ29RT0h6NjlOMnJmYjVzYzRwbVc4T0gyM3MrYjNmM0lM?=
- =?utf-8?B?NmJDdCtaUmwzYXg0ZFliVkFvenBQb3hDVmpnRFdsMTJzU0d6eE11ZXNGd3Ro?=
- =?utf-8?B?dnRLUjZhekN0QjlWcTk1ay9TaUVBWlJpc3VnNEVrUm90Vksrc1RXUjc2cEYz?=
- =?utf-8?B?MVduaWxRenJyclVtVExDcjhKVFRGcm51VTBwb2I1dEFGL0xobGl2WE9KS1pF?=
- =?utf-8?B?TXVFaHZQdGNlbUEzd1Y1Y3dyZExsWjBiWTlTQ09SRXdlTzh5WXZIUWo1eFdy?=
- =?utf-8?B?WW8rRDVlU2ZqVFJnRE5mdGgvQkVhRW9WbnJ5Tnh3OExTOFhJRmJaWDBrVWox?=
- =?utf-8?B?WGJOelY4aUJHbm5GNHdXQkltSmlZcHRDT29IR0hpZ1c3SCtmWk5QeGExRDVL?=
- =?utf-8?B?bzZVblhvM1h1dlRCU1c1Sk5Cd2daZHJjNFhYb1pUTEwyZ2xReDhmQ0RmUlJa?=
- =?utf-8?B?Q3RxRlNiamRhbmthMXZYTUdIL2JMOTB5WGVxd0YrbFJSQTFqS3RITFdpVy9r?=
- =?utf-8?B?SzAxMDY3RmlnZWlwVmtRc3Y3K21pZmwzQ3BvNVhaeXpUVnpJaCtZckpGUDdV?=
- =?utf-8?B?SExaeTBZWnFyNndiWVpKdzkxeEpRdFF3bXhvU0JmejZTTC93aE5aazlxTWtW?=
- =?utf-8?B?cE0vcWY5cEtsZ2E1Y09uTi9vQ2pWcDdvR01XLzUvdlhQSXpvVFVzSkNXaGlj?=
- =?utf-8?B?dXkyRXdXb3BWUWRncWRrenIzRFh2OWRob1RLTm9YRjczaTlJY1g2ZmxGRHND?=
- =?utf-8?B?QThXMFVrSm1qSXozZFZaMFpDOXNyYzNUZHVXNmwzU2VmcFQ2Q1FsSUk2WkdZ?=
- =?utf-8?B?eXV2U0tqVEI4QnpDbCtXaUIwMlJTQTJncEJjbEwydzJRSzlwZlBzQWkxWFRF?=
- =?utf-8?B?NzNvVDhtK2JON2xyS3Jsb3pTT2dYbitkOHg3VVl2MnNpSnlYUm1uODAyUHVm?=
- =?utf-8?B?N0h1TDhZemJ3TnZKWXBINW1pZGFQOWU1WVhyUkhrK3lkSWZGYjJWM3BJby9h?=
- =?utf-8?B?T2s4ZXJJYVViU2NObVBTaG8yZFVEZGMwQ3lyTjVTd05YaTdBOWJkUE1YYXUx?=
- =?utf-8?B?S2pIWjZUZkZSWlBjZXhLR2h0U2pCTXVUSDAwL2VKRWRXbVc3MDVsL2Z4b0dw?=
- =?utf-8?B?U3ErbGlpT3luV2RxblpOVnR6aXZ1MmlMWmljYUdRTTRqVkZVTGU5eVI4RndN?=
- =?utf-8?B?YzlERzNsQlN1NUlicFpqUGtIcnlScTdKZXdEcmhwOWh4VHFtM0Z4VFNBZDEx?=
- =?utf-8?Q?Y3PW8RaKMXVzaQz6NaPKzzE=3D?=
-X-MS-Exchange-CrossTenant-Network-Message-Id: 807362d0-97e7-410b-e353-08dd3c9c4e49
-X-MS-Exchange-CrossTenant-AuthSource: DS0PR11MB7408.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Jan 2025 17:26:58.4091 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: yfDPY4Jqtfau8aogTZQG/WYemGVWA+z0R+3NZ2DXVo/s/vEYXwiq69goKkYRD27Zwt93ie57jyJ+xli5yWxjJ1flHamg0w04kJDyBB5PyRg=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR11MB6451
-X-OriginatorOrg: intel.com
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -192,52 +69,395 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Fri, Jan 24, 2025 at 12:45:40PM +0000, Patchwork wrote:
->   Patch Details
->
->Series:  drm/i915/pmu: Fix zero delta busyness issue
->URL:     [1]https://patchwork.freedesktop.org/series/143900/
->State:   failure
->Details: [2]https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_143900v1/index.html
->
->     CI Bug Log - changes from CI_DRM_16011_full -> Patchwork_143900v1_full
->
->Summary
->
->   FAILURE
->
->   Serious unknown changes coming with Patchwork_143900v1_full absolutely
->   need to be
->   verified manually.
->
->   If you think the reported changes have nothing to do with the changes
->   introduced in Patchwork_143900v1_full, please notify your bug team
->   (I915-ci-infra@lists.freedesktop.org) to allow them
->   to document this new failure mode, which will reduce false positives in
->   CI.
->
->Participating hosts (11 -> 12)
->
->   Additional (1): pig-kbl-iris
->
->Possible new issues
->
->   Here are the unknown changes that may have been introduced in
->   Patchwork_143900v1_full:
->
->  IGT changes
->
->    Possible regressions
->
->     * igt@gem_eio@in-flight-internal-immediate:
->
->          * shard-mtlp: [3]PASS -> [4]ABORT
->
->     * igt@gem_workarounds@suspend-resume-context:
->
->          * shard-dg1: [5]PASS -> [6]ABORT
->
+The CMTG is a timing generator that runs in parallel with transcoders
+timing generators and can be used as a reference for synchronization.
 
-These don't appear to be related to this series.
+We have observed that we are inheriting from GOP a display configuration
+with the CMTG enabled. Because our driver doesn't currently implement
+any CMTG sequences, the CMTG ends up still enabled after our driver
+takes over.
 
-Umesh
+We need to make sure that the CMTG is not enabled if we are not going to
+use it. For that, let's add a partial implementation in our driver that
+only cares about disabling the CMTG if it was found enabled during
+initial hardware readout. In the future, we can also implement sequences
+for using the CMTG if that becomes a needed feature.
+
+For now, we only deal with cases when it is possible to disable the CMTG
+without requiring a modeset. For earlier display versions, we simply
+skip if we find the CMTG enabled and we can't disable it without a
+proper modeset. In the future, we need to properly handle that case.
+
+v2:
+ - DG2 does not have the CMTG. Update HAS_CMTG() accordingly.
+ - Update logic to force disabling of CMTG only for initial commit.
+v3:
+ - Add missing changes for v2 that were staged but not committed.
+v4:
+ - Avoid if/else duplication in intel_cmtg_dump_state() by using "n/a"
+   for CMTG B enabled/disabled string for platforms without it. (Jani)
+ - Prefer intel_cmtg_readout_hw_state() over intel_cmtg_readout_state().
+   (Jani)
+ - Use display struct instead of i915 as first parameter for
+   TRANS_DDI_FUNC_CTL2(). (Jani)
+ - Fewer continuation lines in variable declaration/initialization for
+   better readability. (Jani)
+ - Coding style improvements. (Jani)
+ - Use drm_dbg_kms() instead of drm_info() for logging the disabling
+   of the CMTG.
+ - Make struct intel_cmtg_state entirely private to intel_cmtg.c.
+v5:
+ - Do the disable sequence as part of the sanitization step after
+   hardware readout instead of initial modeset commit. (Jani)
+ - Adapt to commit 15133582465f ("drm/i915/display: convert global state
+   to struct intel_display") by using a display struct instead of i915
+   as argument for intel_atomic_global_obj_init().
+v6:
+ - Do not track CMTG state as a global state. (Ville)
+ - Simplify the driver logic by only disabling the CMTG only on cases
+   when a modeset is not required. (Ville)
+v7:
+ - Remove the call to drm_WARN_ON() when checking
+   intel_cmtg_disable_requires_modeset() and use a FIXME in the comment
+   instead.
+ - Remove the !HAS_CMTG() guard from intel_cmtg_get_config(), which is
+   static and its caller is already protected by that same condition.
+ - Also take the opportunity to put some Bspec references in the commit
+   trailers section.
+v8:
+ - Use HAS_TRANSCODER() instead of intel_crtc_for_pipe(). (Ville)
+ - Ensure transcoder power well is enabled before reading
+   TRANS_DDI_FUNC_CTL2. (Ville)
+
+Bspec: 68915, 49262
+Cc: Jani Nikula <jani.nikula@intel.com>
+Reviewed-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
+Signed-off-by: Gustavo Sousa <gustavo.sousa@intel.com>
+---
+ drivers/gpu/drm/i915/Makefile                 |   1 +
+ drivers/gpu/drm/i915/display/intel_cmtg.c     | 190 ++++++++++++++++++
+ drivers/gpu/drm/i915/display/intel_cmtg.h     |  13 ++
+ .../gpu/drm/i915/display/intel_cmtg_regs.h    |  21 ++
+ .../drm/i915/display/intel_display_device.h   |   1 +
+ .../drm/i915/display/intel_modeset_setup.c    |   3 +
+ drivers/gpu/drm/i915/i915_reg.h               |   1 +
+ drivers/gpu/drm/xe/Makefile                   |   1 +
+ 8 files changed, 231 insertions(+)
+ create mode 100644 drivers/gpu/drm/i915/display/intel_cmtg.c
+ create mode 100644 drivers/gpu/drm/i915/display/intel_cmtg.h
+ create mode 100644 drivers/gpu/drm/i915/display/intel_cmtg_regs.h
+
+diff --git a/drivers/gpu/drm/i915/Makefile b/drivers/gpu/drm/i915/Makefile
+index 4caa8e30bc98..ed05b131ed3a 100644
+--- a/drivers/gpu/drm/i915/Makefile
++++ b/drivers/gpu/drm/i915/Makefile
+@@ -231,6 +231,7 @@ i915-y += \
+ 	display/intel_bo.o \
+ 	display/intel_bw.o \
+ 	display/intel_cdclk.o \
++	display/intel_cmtg.o \
+ 	display/intel_color.o \
+ 	display/intel_combo_phy.o \
+ 	display/intel_connector.o \
+diff --git a/drivers/gpu/drm/i915/display/intel_cmtg.c b/drivers/gpu/drm/i915/display/intel_cmtg.c
+new file mode 100644
+index 000000000000..6b6fb82009f5
+--- /dev/null
++++ b/drivers/gpu/drm/i915/display/intel_cmtg.c
+@@ -0,0 +1,190 @@
++// SPDX-License-Identifier: MIT
++/*
++ * Copyright (C) 2025 Intel Corporation
++ */
++
++#include <linux/string_choices.h>
++#include <linux/types.h>
++
++#include <drm/drm_device.h>
++#include <drm/drm_print.h>
++
++#include "i915_drv.h"
++#include "i915_reg.h"
++#include "intel_crtc.h"
++#include "intel_cmtg.h"
++#include "intel_cmtg_regs.h"
++#include "intel_de.h"
++#include "intel_display_device.h"
++#include "intel_display_power.h"
++
++/**
++ * DOC: Common Primary Timing Generator (CMTG)
++ *
++ * The CMTG is a timing generator that runs in parallel to transcoders timing
++ * generators (TG) to provide a synchronization mechanism where CMTG acts as
++ * primary and transcoders TGs act as secondary to the CMTG. The CMTG outputs
++ * its TG start and frame sync signals to the transcoders that are configured
++ * as secondary, which use those signals to synchronize their own timing with
++ * the CMTG's.
++ *
++ * The CMTG can be used only with eDP or MIPI command mode and supports the
++ * following use cases:
++ *
++ * - Dual eDP: The CMTG can be used to keep two eDP TGs in sync when on a
++ *   dual eDP configuration (with or without PSR/PSR2 enabled).
++ *
++ * - Single eDP as secondary: It is also possible to use a single eDP
++ *   configuration with the transcoder TG as secondary to the CMTG. That would
++ *   allow a flow that would not require a modeset on the existing eDP when a
++ *   new eDP is added for a dual eDP configuration with CMTG.
++ *
++ * - DC6v: In DC6v, the transcoder might be off but the CMTG keeps running to
++ *   maintain frame timings. When exiting DC6v, the transcoder TG then is
++ *   synced back the CMTG.
++ *
++ * Currently, the driver does not use the CMTG, but we need to make sure that
++ * we disable it in case we inherit a display configuration with it enabled.
++ */
++
++/*
++ * We describe here only the minimum data required to allow us to properly
++ * disable the CMTG if necessary.
++ */
++struct intel_cmtg_config {
++	bool cmtg_a_enable;
++	/*
++	 * Xe2_LPD adds a second CMTG that can be used for dual eDP async mode.
++	 */
++	bool cmtg_b_enable;
++	bool trans_a_secondary;
++	bool trans_b_secondary;
++};
++
++static bool intel_cmtg_has_cmtg_b(struct intel_display *display)
++{
++	return DISPLAY_VER(display) >= 20;
++}
++
++static bool intel_cmtg_has_clock_sel(struct intel_display *display)
++{
++	return DISPLAY_VER(display) >= 14;
++}
++
++static void intel_cmtg_dump_config(struct intel_display *display,
++				   struct intel_cmtg_config *cmtg_config)
++{
++	drm_dbg_kms(display->drm,
++		    "CMTG readout: CMTG A: %s, CMTG B: %s, Transcoder A secondary: %s, Transcoder B secondary: %s\n",
++		    str_enabled_disabled(cmtg_config->cmtg_a_enable),
++		    intel_cmtg_has_cmtg_b(display) ? str_enabled_disabled(cmtg_config->cmtg_b_enable) : "n/a",
++		    str_yes_no(cmtg_config->trans_a_secondary),
++		    str_yes_no(cmtg_config->trans_b_secondary));
++}
++
++static bool intel_cmtg_transcoder_is_secondary(struct intel_display *display,
++					       enum transcoder trans)
++{
++	struct drm_i915_private *i915 = to_i915(display->drm);
++	enum intel_display_power_domain power_domain;
++	intel_wakeref_t wakeref;
++	u32 val = 0;
++
++	if (!HAS_TRANSCODER(display, trans))
++		return false;
++
++	power_domain = POWER_DOMAIN_TRANSCODER(trans);
++
++	with_intel_display_power_if_enabled(i915, power_domain, wakeref)
++		val = intel_de_read(display, TRANS_DDI_FUNC_CTL2(display, trans));
++
++	return val & CMTG_SECONDARY_MODE;
++}
++
++static void intel_cmtg_get_config(struct intel_display *display,
++				  struct intel_cmtg_config *cmtg_config)
++{
++	u32 val;
++
++	val = intel_de_read(display, TRANS_CMTG_CTL_A);
++	cmtg_config->cmtg_a_enable = val & CMTG_ENABLE;
++
++	if (intel_cmtg_has_cmtg_b(display)) {
++		val = intel_de_read(display, TRANS_CMTG_CTL_B);
++		cmtg_config->cmtg_b_enable = val & CMTG_ENABLE;
++	}
++
++	cmtg_config->trans_a_secondary = intel_cmtg_transcoder_is_secondary(display, TRANSCODER_A);
++	cmtg_config->trans_b_secondary = intel_cmtg_transcoder_is_secondary(display, TRANSCODER_B);
++}
++
++static bool intel_cmtg_disable_requires_modeset(struct intel_display *display,
++						struct intel_cmtg_config *cmtg_config)
++{
++	if (DISPLAY_VER(display) >= 20)
++		return false;
++
++	return cmtg_config->trans_a_secondary || cmtg_config->trans_b_secondary;
++}
++
++static void intel_cmtg_disable(struct intel_display *display,
++			       struct intel_cmtg_config *cmtg_config)
++{
++	u32 clk_sel_clr = 0;
++	u32 clk_sel_set = 0;
++
++	if (cmtg_config->trans_a_secondary)
++		intel_de_rmw(display, TRANS_DDI_FUNC_CTL2(display, TRANSCODER_A),
++			     CMTG_SECONDARY_MODE, 0);
++
++	if (cmtg_config->trans_b_secondary)
++		intel_de_rmw(display, TRANS_DDI_FUNC_CTL2(display, TRANSCODER_B),
++			     CMTG_SECONDARY_MODE, 0);
++
++	if (cmtg_config->cmtg_a_enable) {
++		drm_dbg_kms(display->drm, "Disabling CMTG A\n");
++		intel_de_rmw(display, TRANS_CMTG_CTL_A, CMTG_ENABLE, 0);
++		clk_sel_clr |= CMTG_CLK_SEL_A_MASK;
++		clk_sel_set |= CMTG_CLK_SEL_A_DISABLED;
++	}
++
++	if (cmtg_config->cmtg_b_enable) {
++		drm_dbg_kms(display->drm, "Disabling CMTG B\n");
++		intel_de_rmw(display, TRANS_CMTG_CTL_B, CMTG_ENABLE, 0);
++		clk_sel_clr |= CMTG_CLK_SEL_B_MASK;
++		clk_sel_set |= CMTG_CLK_SEL_B_DISABLED;
++	}
++
++	if (intel_cmtg_has_clock_sel(display) && clk_sel_clr)
++		intel_de_rmw(display, CMTG_CLK_SEL, clk_sel_clr, clk_sel_set);
++}
++
++/*
++ * Read out CMTG configuration and, on platforms that allow disabling it without
++ * a modeset, do it.
++ *
++ * This function must be called before any port PLL is disabled in the general
++ * sanitization process, because we need whatever port PLL that is providing the
++ * clock for CMTG to be on before accessing CMTG registers.
++ */
++void intel_cmtg_sanitize(struct intel_display *display)
++{
++	struct intel_cmtg_config cmtg_config = {};
++
++	if (!HAS_CMTG(display))
++		return;
++
++	intel_cmtg_get_config(display, &cmtg_config);
++	intel_cmtg_dump_config(display, &cmtg_config);
++
++	/*
++	 * FIXME: The driver is not prepared to handle cases where a modeset is
++	 * required for disabling the CMTG: we need a proper way of tracking
++	 * CMTG state and do the right syncronization with respect to triggering
++	 * the modeset as part of the disable sequence.
++	 */
++	if (intel_cmtg_disable_requires_modeset(display, &cmtg_config))
++		return;
++
++	intel_cmtg_disable(display, &cmtg_config);
++}
+diff --git a/drivers/gpu/drm/i915/display/intel_cmtg.h b/drivers/gpu/drm/i915/display/intel_cmtg.h
+new file mode 100644
+index 000000000000..ba62199adaa2
+--- /dev/null
++++ b/drivers/gpu/drm/i915/display/intel_cmtg.h
+@@ -0,0 +1,13 @@
++/* SPDX-License-Identifier: MIT */
++/*
++ * Copyright (C) 2025 Intel Corporation
++ */
++
++#ifndef __INTEL_CMTG_H__
++#define __INTEL_CMTG_H__
++
++struct intel_display;
++
++void intel_cmtg_sanitize(struct intel_display *display);
++
++#endif /* __INTEL_CMTG_H__ */
+diff --git a/drivers/gpu/drm/i915/display/intel_cmtg_regs.h b/drivers/gpu/drm/i915/display/intel_cmtg_regs.h
+new file mode 100644
+index 000000000000..668e41d65e86
+--- /dev/null
++++ b/drivers/gpu/drm/i915/display/intel_cmtg_regs.h
+@@ -0,0 +1,21 @@
++/* SPDX-License-Identifier: MIT */
++/*
++ * Copyright (C) 2025 Intel Corporation
++ */
++
++#ifndef __INTEL_CMTG_REGS_H__
++#define __INTEL_CMTG_REGS_H__
++
++#include "i915_reg_defs.h"
++
++#define CMTG_CLK_SEL			_MMIO(0x46160)
++#define CMTG_CLK_SEL_A_MASK		REG_GENMASK(31, 29)
++#define CMTG_CLK_SEL_A_DISABLED		REG_FIELD_PREP(CMTG_CLK_SEL_A_MASK, 0)
++#define CMTG_CLK_SEL_B_MASK		REG_GENMASK(15, 13)
++#define CMTG_CLK_SEL_B_DISABLED		REG_FIELD_PREP(CMTG_CLK_SEL_B_MASK, 0)
++
++#define TRANS_CMTG_CTL_A		_MMIO(0x6fa88)
++#define TRANS_CMTG_CTL_B		_MMIO(0x6fb88)
++#define  CMTG_ENABLE			REG_BIT(31)
++
++#endif /* __INTEL_CMTG_REGS_H__ */
+diff --git a/drivers/gpu/drm/i915/display/intel_display_device.h b/drivers/gpu/drm/i915/display/intel_display_device.h
+index a7b5ce69cf17..fc33791f02b9 100644
+--- a/drivers/gpu/drm/i915/display/intel_display_device.h
++++ b/drivers/gpu/drm/i915/display/intel_display_device.h
+@@ -146,6 +146,7 @@ struct intel_display_platforms {
+ #define HAS_BIGJOINER(__display)	(DISPLAY_VER(__display) >= 11 && HAS_DSC(__display))
+ #define HAS_CDCLK_CRAWL(__display)	(DISPLAY_INFO(__display)->has_cdclk_crawl)
+ #define HAS_CDCLK_SQUASH(__display)	(DISPLAY_INFO(__display)->has_cdclk_squash)
++#define HAS_CMTG(__display)		(!(__display)->platform.dg2 && DISPLAY_VER(__display) >= 13)
+ #define HAS_CUR_FBC(__display)		(!HAS_GMCH(__display) && IS_DISPLAY_VER(__display, 7, 13))
+ #define HAS_D12_PLANE_MINIMIZATION(__display)	((__display)->platform.rocketlake || (__display)->platform.alderlake_s)
+ #define HAS_DBUF_OVERLAP_DETECTION(__display)	(DISPLAY_RUNTIME_INFO(__display)->has_dbuf_overlap_detection)
+diff --git a/drivers/gpu/drm/i915/display/intel_modeset_setup.c b/drivers/gpu/drm/i915/display/intel_modeset_setup.c
+index 9a2bea19f17b..10cdfdad82e4 100644
+--- a/drivers/gpu/drm/i915/display/intel_modeset_setup.c
++++ b/drivers/gpu/drm/i915/display/intel_modeset_setup.c
+@@ -15,6 +15,7 @@
+ #include "i9xx_wm.h"
+ #include "intel_atomic.h"
+ #include "intel_bw.h"
++#include "intel_cmtg.h"
+ #include "intel_color.h"
+ #include "intel_crtc.h"
+ #include "intel_crtc_state_dump.h"
+@@ -978,6 +979,8 @@ void intel_modeset_setup_hw_state(struct drm_i915_private *i915,
+ 
+ 	intel_pch_sanitize(i915);
+ 
++	intel_cmtg_sanitize(display);
++
+ 	/*
+ 	 * intel_sanitize_plane_mapping() may need to do vblank
+ 	 * waits, so we need vblank interrupts restored beforehand.
+diff --git a/drivers/gpu/drm/i915/i915_reg.h b/drivers/gpu/drm/i915/i915_reg.h
+index b9e2aa1c6f8a..03da51b03fb9 100644
+--- a/drivers/gpu/drm/i915/i915_reg.h
++++ b/drivers/gpu/drm/i915/i915_reg.h
+@@ -3566,6 +3566,7 @@ enum skl_power_gate {
+ #define _TRANS_DDI_FUNC_CTL2_DSI1	0x6bc04
+ #define TRANS_DDI_FUNC_CTL2(dev_priv, tran)	_MMIO_TRANS2(dev_priv, tran, _TRANS_DDI_FUNC_CTL2_A)
+ #define  PORT_SYNC_MODE_ENABLE			REG_BIT(4)
++#define  CMTG_SECONDARY_MODE			REG_BIT(3)
+ #define  PORT_SYNC_MODE_MASTER_SELECT_MASK	REG_GENMASK(2, 0)
+ #define  PORT_SYNC_MODE_MASTER_SELECT(x)	REG_FIELD_PREP(PORT_SYNC_MODE_MASTER_SELECT_MASK, (x))
+ 
+diff --git a/drivers/gpu/drm/xe/Makefile b/drivers/gpu/drm/xe/Makefile
+index 80ab87cfeecb..88dd08e36b02 100644
+--- a/drivers/gpu/drm/xe/Makefile
++++ b/drivers/gpu/drm/xe/Makefile
+@@ -200,6 +200,7 @@ xe-$(CONFIG_DRM_XE_DISPLAY) += \
+ 	i915-display/intel_bios.o \
+ 	i915-display/intel_bw.o \
+ 	i915-display/intel_cdclk.o \
++	i915-display/intel_cmtg.o \
+ 	i915-display/intel_color.o \
+ 	i915-display/intel_combo_phy.o \
+ 	i915-display/intel_connector.o \
+-- 
+2.48.1
+
