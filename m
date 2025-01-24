@@ -4,51 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 707C0C0218D
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D65D2C0218F
 	for <intel-gfx@archiver.kernel.org>; Fri, 24 Jan 2025 15:12:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F24A510E9BA;
-	Fri, 24 Jan 2025 15:12:41 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2E2A910E9B4;
+	Fri, 24 Jan 2025 15:12:42 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="XjhEgM3H";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="Jok1GRaR";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.17])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DB28D10E9B4;
- Fri, 24 Jan 2025 15:12:40 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7247B10E9BD;
+ Fri, 24 Jan 2025 15:12:31 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1737731561; x=1769267561;
+ t=1737731552; x=1769267552;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=ykAZy3KuQU6cVOzZ02SVaVbR4d+WPPVMnrE05yV/rPo=;
- b=XjhEgM3HRPgsxlaaXCUVSLqfLenUGgO7mmltNoEmOQXeQe8JanYzhEl2
- 5LY6EY0V99HKfU8HlO3q4p5s4VNpy6fbCeFlKZEz6pORqFYWYZw4YAzRH
- vNnllFA/ji70LmOzrlJS5JAyRLyaULD0ZdcbZu/gqC5+KgQeJbgm4zWlm
- e9jLzC104pgWZBuBuBLLDbxBfzTDWecP9KZhKZZh05I5LCFPbtSumQFZw
- CzZpknekAHiSWJxJJPKZIZdRzznwfR4vyOx8bxaUuTd1PhOwafS9OqrqE
- 8PQvECtbm3h3KcIkoXV3UONRuJj6bs9ytqVif4tdf6Jw8gyWIBow9Tme8 A==;
-X-CSE-ConnectionGUID: Tal04F3/QvCiDrGDtg3mBQ==
-X-CSE-MsgGUID: pXaBtEy8TIuPlIkxjuUDow==
-X-IronPort-AV: E=McAfee;i="6700,10204,11325"; a="38177476"
-X-IronPort-AV: E=Sophos;i="6.13,231,1732608000"; d="scan'208";a="38177476"
+ bh=2uvLK8+O/MCAd66EN0QnOp4sFjnTcqvtFkPNT32Og7s=;
+ b=Jok1GRaRw5jsi+patBhJWGb/KrwNRlc8vS8anuzXbKSrQhvJXP0x1c/J
+ nZTy900H4ctg7443oyDIw/Sz6JrOuYRBAWxhoJL0LdVAVEjBByEcJVgbC
+ ly8a+vsniOCY4Mvgegv+53t7hFJ8++G2qAJdQDd/1RUckvTZGGCYnqCJz
+ W33mh0uoWgmfPcLwE6iG53MliNrw8Ksd4xi8EQwZt8WOTJfHEfZm6X7vb
+ dRu7N0n7aTSAjnU9SI6ugqPEhn9S7zJCPLRyUUFeCuk1OSYguAbmBHXtq
+ uj6+QSqGc7RI3jmaMip2QhR4r3a2PC3P+TMF8Qty09BRCtUUd3FQnaKlw A==;
+X-CSE-ConnectionGUID: RhHnmmY5SgirgARucashYQ==
+X-CSE-MsgGUID: a6GvRQ1ARQK3tClLj6hseA==
+X-IronPort-AV: E=McAfee;i="6700,10204,11325"; a="38177449"
+X-IronPort-AV: E=Sophos;i="6.13,231,1732608000"; d="scan'208";a="38177449"
 Received: from orviesa007.jf.intel.com ([10.64.159.147])
  by fmvoesa111.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 24 Jan 2025 07:12:41 -0800
-X-CSE-ConnectionGUID: cG+L+6plQzSdMIxkJOlGeg==
-X-CSE-MsgGUID: BqaxpyxtSEuGpQ82PZOSJQ==
+ 24 Jan 2025 07:12:31 -0800
+X-CSE-ConnectionGUID: Xwv7xwehRpqAGjVMyTiYSg==
+X-CSE-MsgGUID: 4UpXtTFDSzm5QY1XwJMPxQ==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.12,224,1728975600"; d="scan'208";a="108221599"
+X-IronPort-AV: E=Sophos;i="6.12,224,1728975600"; d="scan'208";a="108221513"
 Received: from srr4-3-linux-103-aknautiy.iind.intel.com ([10.223.34.160])
  by orviesa007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 24 Jan 2025 07:12:39 -0800
+ 24 Jan 2025 07:12:29 -0800
 From: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
 To: intel-gfx@lists.freedesktop.org
 Cc: intel-xe@lists.freedesktop.org, jani.nikula@linux.intel.com,
  ville.syrjala@linux.intel.com, mitulkumar.ajitkumar.golani@intel.com
-Subject: [PATCH 28/35] drm/i915/psr: Allow PSR for fixed refrsh rate with VRR
- TG
-Date: Fri, 24 Jan 2025 20:30:13 +0530
-Message-ID: <20250124150020.2271747-29-ankit.k.nautiyal@intel.com>
+Subject: [PATCH 24/35] drm/i915/vrr: Adjust Vtotal for MSA for fixed timings
+Date: Fri, 24 Jan 2025 20:30:09 +0530
+Message-ID: <20250124150020.2271747-25-ankit.k.nautiyal@intel.com>
 X-Mailer: git-send-email 2.45.2
 In-Reply-To: <20250124150020.2271747-1-ankit.k.nautiyal@intel.com>
 References: <20250124150020.2271747-1-ankit.k.nautiyal@intel.com>
@@ -69,32 +68,49 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-At the moment PSR/PSR2 are not supported with variable refresh rate.
-However it can be supported with fixed refresh rate while running with
-VRR timing generator.
-Enable PSR for fixed refresh rate when using the VRR timing generator.
+DP sink uses MSA timings for the fixed refresh rate mode.
+For using VRR timing generator for fixed refresh rate mode, the HW prepares
+the Vtotal for the MSA from the VMAX register. Since the MSA Vtotal is
+one-based while Vmax is zero-based we need to take care of this while
+setting Vtotal value for the fixed refresh rate mode.
 
 Signed-off-by: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_psr.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/i915/display/intel_vrr.c | 14 +++++++++++++-
+ 1 file changed, 13 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_psr.c b/drivers/gpu/drm/i915/display/intel_psr.c
-index dcbdcdea8a0e..d7abf730134f 100644
---- a/drivers/gpu/drm/i915/display/intel_psr.c
-+++ b/drivers/gpu/drm/i915/display/intel_psr.c
-@@ -1688,9 +1688,9 @@ void intel_psr_compute_config(struct intel_dp *intel_dp,
- 	}
+diff --git a/drivers/gpu/drm/i915/display/intel_vrr.c b/drivers/gpu/drm/i915/display/intel_vrr.c
+index f485c3e35d68..5a1b0d61c483 100644
+--- a/drivers/gpu/drm/i915/display/intel_vrr.c
++++ b/drivers/gpu/drm/i915/display/intel_vrr.c
+@@ -264,6 +264,18 @@ void intel_vrr_compute_vrr_timings(struct intel_crtc_state *crtc_state, int vmin
+ 	crtc_state->mode_flags |= I915_MODE_FLAG_VRR;
+ }
  
- 	/*
--	 * Currently PSR/PR doesn't work reliably with VRR enabled.
-+	 * Avoid PSR/PR when not in fixed refresh rate mode.
++static
++int adjust_vtotal_for_msa(int vtotal)
++{
++	/*
++	 * DP sink uses MSA timings for the fixed refresh rate mode.
++	 * The HW prepares the Vtotal for the MSA from the VMAX register.
++	 * Since the MSA Vtotal is one-based while Vmax is zero-based we need to
++	 * take care of this while setting Vtotal value.
++	 */
++	return vtotal - 1;
++}
++
+ static
+ int intel_vrr_compute_vmin(struct intel_crtc_state *crtc_state)
+ {
+@@ -274,7 +286,7 @@ int intel_vrr_compute_vmin(struct intel_crtc_state *crtc_state)
+ 	 * For this set the vmin as crtc_vtotal. With this we never need to
+ 	 * change anything to do with the guardband.
  	 */
--	if (intel_vrrtg_is_enabled(crtc_state))
-+	if (intel_vrrtg_is_enabled(crtc_state) && crtc_state->vrr.mode != INTEL_VRRTG_MODE_FIXED_RR)
- 		return;
+-	return crtc_state->hw.adjusted_mode.crtc_vtotal;
++	return adjust_vtotal_for_msa(crtc_state->hw.adjusted_mode.crtc_vtotal);
+ }
  
- 	crtc_state->has_panel_replay = _panel_replay_compute_config(intel_dp,
+ static
 -- 
 2.45.2
 
