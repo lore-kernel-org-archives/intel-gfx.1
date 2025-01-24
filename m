@@ -4,50 +4,51 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D63B7C0218B
-	for <intel-gfx@archiver.kernel.org>; Fri, 24 Jan 2025 15:12:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BA4E9C0218E
+	for <intel-gfx@archiver.kernel.org>; Fri, 24 Jan 2025 15:12:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6D8E710E9B1;
-	Fri, 24 Jan 2025 15:12:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6040010E998;
+	Fri, 24 Jan 2025 15:12:04 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="nUbOZaUg";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="GPj0Txmu";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.17])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EBCC610E9AB;
- Fri, 24 Jan 2025 15:11:57 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A7C4D10E9A8;
+ Fri, 24 Jan 2025 15:12:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1737731518; x=1769267518;
+ t=1737731523; x=1769267523;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=c3Y1ZoamZn2f60cCmyYviksUtnojsO2pAvzhS1bPAPo=;
- b=nUbOZaUg+JdtXRxeR3/xU1SXXTLfwRVgT+Wsl3p+27+Pr7FKSlcRkJhb
- iBiPg6Hxt6kX0kgYpK48Dh4wu13fv/zJXmHKBSwX6wwxziYNaTi0ztFQ/
- mgr3Ji7LPmvNcxuoYzEBo1BeSt+g41dyckh8cbCbX9JMqEPygDH5ondU7
- g/rXhQGD8TfW811hwDZ2sXVqJDmq8eCAQFcpenpI9xKbE1mNZswOtbnbi
- TX4DJUauldrQGoQ5bF1Op9doMugaQVf3XvYF/xiJ0KamgFFxGwXK4pi7e
- 7iMx9dXbcH7eUNgpJ5lvWrsZZLlmelwiVfKsJLOPtywzgwwA6SI3lPn79 g==;
-X-CSE-ConnectionGUID: YRWzrpXfQmu8r23Xdl0eXA==
-X-CSE-MsgGUID: +CYPBlUxRA+MHEjqJulrCw==
-X-IronPort-AV: E=McAfee;i="6700,10204,11325"; a="38177397"
-X-IronPort-AV: E=Sophos;i="6.13,231,1732608000"; d="scan'208";a="38177397"
+ bh=wk6gNev03fsFiKR1+23Oo534rn7+VIH/44Tuz8S2mL8=;
+ b=GPj0TxmuBVix+nsjz7tNObUieKwgb2YglSFIcjPh6fyylkZY1DC8A2yk
+ Y58PxtyhLVAm3WEfV/bTjkVwWSGJaYd345Lncio/qWF7BOkQHPVDqD0d1
+ Ee5dPC0+u7+liEoOeUepijIFqs9gEnaMSNGNKLKCX7vVa58yAqqisMddz
+ rx3fFWCBBaEBm2sfUmfrGjqlb0F7jlsVdoXiH9otwH+unU+qW1UTCM2JH
+ ACOFmxz4NujZTwP8syBx4g1hLyDEIF5vW9SWJPNprY4yrwPpzQIKFvcNw
+ tM+pCBluSDMHfv/9hwfJeb0FWSGPqWFUnzcfius8yWXkuSzXeMBTZH14e g==;
+X-CSE-ConnectionGUID: Kz7DAlj2TxuuG4rjUO5WXg==
+X-CSE-MsgGUID: Tx+QfjkKTgex77RyqlRWpg==
+X-IronPort-AV: E=McAfee;i="6700,10204,11325"; a="38177401"
+X-IronPort-AV: E=Sophos;i="6.13,231,1732608000"; d="scan'208";a="38177401"
 Received: from orviesa007.jf.intel.com ([10.64.159.147])
  by fmvoesa111.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 24 Jan 2025 07:11:58 -0800
-X-CSE-ConnectionGUID: HzMvut2ET76wtkfRxXJ5qQ==
-X-CSE-MsgGUID: 6EupJbn1QhKAlhNyqChBjg==
+ 24 Jan 2025 07:12:03 -0800
+X-CSE-ConnectionGUID: jgSNDicASCSnNs6xPONJLg==
+X-CSE-MsgGUID: yHtR1hAnTgS1mjLF64lNtw==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.12,224,1728975600"; d="scan'208";a="108221235"
+X-IronPort-AV: E=Sophos;i="6.12,224,1728975600"; d="scan'208";a="108221248"
 Received: from srr4-3-linux-103-aknautiy.iind.intel.com ([10.223.34.160])
  by orviesa007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 24 Jan 2025 07:11:56 -0800
+ 24 Jan 2025 07:12:00 -0800
 From: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
 To: intel-gfx@lists.freedesktop.org
 Cc: intel-xe@lists.freedesktop.org, jani.nikula@linux.intel.com,
  ville.syrjala@linux.intel.com, mitulkumar.ajitkumar.golani@intel.com
-Subject: [PATCH 10/35] drm/i915/vrr: Make helpers for cmrr and vrr timings
-Date: Fri, 24 Jan 2025 20:29:55 +0530
-Message-ID: <20250124150020.2271747-11-ankit.k.nautiyal@intel.com>
+Subject: [PATCH 12/35] drm/i915/vrr: Simplify CMRR Enable Check in
+ intel_vrr_get_config
+Date: Fri, 24 Jan 2025 20:29:57 +0530
+Message-ID: <20250124150020.2271747-13-ankit.k.nautiyal@intel.com>
 X-Mailer: git-send-email 2.45.2
 In-Reply-To: <20250124150020.2271747-1-ankit.k.nautiyal@intel.com>
 References: <20250124150020.2271747-1-ankit.k.nautiyal@intel.com>
@@ -68,76 +69,32 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Separate out functions for computing cmrr and vrr timings.
+Combine the CMRR capability and enable check into a single condition.
+Set crtc_state->cmrr.enable directly within the combined condition.
+This will make way to absorb cmrr members in vrr struct.
 
 Signed-off-by: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_vrr.c | 45 +++++++++++++++---------
- 1 file changed, 28 insertions(+), 17 deletions(-)
+ drivers/gpu/drm/i915/display/intel_vrr.c | 5 ++---
+ 1 file changed, 2 insertions(+), 3 deletions(-)
 
 diff --git a/drivers/gpu/drm/i915/display/intel_vrr.c b/drivers/gpu/drm/i915/display/intel_vrr.c
-index a6d8751b6719..7e69e30b2076 100644
+index 90fd6fe58fce..48893351273c 100644
 --- a/drivers/gpu/drm/i915/display/intel_vrr.c
 +++ b/drivers/gpu/drm/i915/display/intel_vrr.c
-@@ -239,6 +239,30 @@ void intel_vrr_prepare_vrr_timings(struct intel_crtc_state *crtc_state, int vmin
- 	crtc_state->vrr.vmin -= intel_vrr_flipline_offset(display);
- }
+@@ -511,10 +511,9 @@ void intel_vrr_get_config(struct intel_crtc_state *crtc_state)
+ 				      TRANS_VRR_CTL(display, cpu_transcoder));
  
-+static
-+void intel_vrr_compute_cmrr_timings(struct intel_crtc_state *crtc_state)
-+{
-+	crtc_state->vrr.enable = true;
-+	crtc_state->cmrr.enable = true;
-+	/*
-+	 * TODO: Compute precise target refresh rate to determine
-+	 * if video_mode_required should be true. Currently set to
-+	 * false due to uncertainty about the precise target
-+	 * refresh Rate.
-+	 */
-+	crtc_state->vrr.vmax = cmrr_get_vtotal(crtc_state, false);
-+	crtc_state->vrr.vmin = crtc_state->vrr.vmax;
-+	crtc_state->vrr.flipline = crtc_state->vrr.vmin;
-+	crtc_state->mode_flags |= I915_MODE_FLAG_VRR;
-+}
-+
-+static
-+void intel_vrr_compute_vrr_timings(struct intel_crtc_state *crtc_state)
-+{
-+	crtc_state->vrr.enable = true;
-+	crtc_state->mode_flags |= I915_MODE_FLAG_VRR;
-+}
-+
- static
- int intel_vrr_compute_vmin(struct intel_connector *connector,
- 			   struct drm_display_mode *adjusted_mode)
-@@ -306,23 +330,10 @@ intel_vrr_compute_config(struct intel_crtc_state *crtc_state,
+ 	crtc_state->vrr.enable = trans_vrr_ctl & VRR_CTL_VRR_ENABLE;
+-	if (HAS_CMRR(display))
+-		crtc_state->cmrr.enable = (trans_vrr_ctl & VRR_CTL_CMRR_ENABLE);
  
- 	intel_vrr_prepare_vrr_timings(crtc_state, vmin, vmax);
- 
--	if (crtc_state->uapi.vrr_enabled) {
--		crtc_state->vrr.enable = true;
--		crtc_state->mode_flags |= I915_MODE_FLAG_VRR;
--	} else if (is_cmrr_frac_required(crtc_state) && is_edp) {
--		crtc_state->vrr.enable = true;
--		crtc_state->cmrr.enable = true;
--		/*
--		 * TODO: Compute precise target refresh rate to determine
--		 * if video_mode_required should be true. Currently set to
--		 * false due to uncertainty about the precise target
--		 * refresh Rate.
--		 */
--		crtc_state->vrr.vmax = cmrr_get_vtotal(crtc_state, false);
--		crtc_state->vrr.vmin = crtc_state->vrr.vmax;
--		crtc_state->vrr.flipline = crtc_state->vrr.vmin;
--		crtc_state->mode_flags |= I915_MODE_FLAG_VRR;
--	}
-+	if (crtc_state->uapi.vrr_enabled)
-+		intel_vrr_compute_vrr_timings(crtc_state);
-+	else if (is_cmrr_frac_required(crtc_state) && is_edp)
-+		intel_vrr_compute_cmrr_timings(crtc_state);
- 
- 	if (HAS_AS_SDP(display)) {
- 		crtc_state->vrr.vsync_start =
+-	if (crtc_state->cmrr.enable) {
++	if (HAS_CMRR(display) && trans_vrr_ctl & VRR_CTL_CMRR_ENABLE) {
++		crtc_state->cmrr.enable = true;
+ 		crtc_state->cmrr.cmrr_n =
+ 			intel_de_read64_2x32(display, TRANS_CMRR_N_LO(display, cpu_transcoder),
+ 					     TRANS_CMRR_N_HI(display, cpu_transcoder));
 -- 
 2.45.2
 
