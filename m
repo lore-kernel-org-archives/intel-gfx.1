@@ -4,52 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CA8D3C02181
-	for <intel-gfx@archiver.kernel.org>; Fri, 24 Jan 2025 10:57:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 97241C02181
+	for <intel-gfx@archiver.kernel.org>; Fri, 24 Jan 2025 10:57:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6CE4910E948;
-	Fri, 24 Jan 2025 10:57:06 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4411510E428;
+	Fri, 24 Jan 2025 10:57:15 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="MYFLDeRe";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="PkjY/WF4";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8A6D410E959;
- Fri, 24 Jan 2025 10:57:04 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 081B510E947;
+ Fri, 24 Jan 2025 10:57:12 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1737716225; x=1769252225;
+ t=1737716232; x=1769252232;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=foD52U1cVz8tk/kRGB7Axf/fxYLAjxjvIRNb2jY/Fy8=;
- b=MYFLDeRerI0NIt9AMebPA4py+BtfMcBeeY5cNfKXPY5kG97p2WQeJOch
- Dx8Xeoat4lW/nX0t6IxV8MTY7S3Ff8NomMDVfzUStmIj0LcczX44bvJ4k
- osLvy/EjLOg+2kXYKCjbrux/JOgmrH7ra15szV7V9m190l2TTHO8WwnM7
- VdZtsnHy2N0nP+3ZRBvwacvBbRABM/fta9q14Vxqp3OLGYqv/IDQ4fN/j
- Pq6mdGIoNgce8YFyUGKi/J7ZLRupTN/cVauHP/MD6nL4n+cMhgseU7epP
- ujzryQ3wCdAxpP2qMHj8cXJ3WuHH9yppLqj4xiZ//kp22bnajPtYDjNFS w==;
-X-CSE-ConnectionGUID: WEYXU0trR5WIGK7yOjeeuw==
-X-CSE-MsgGUID: WZTPIyuWT7aXJEy1D61AmA==
-X-IronPort-AV: E=McAfee;i="6700,10204,11325"; a="55660097"
-X-IronPort-AV: E=Sophos;i="6.13,231,1732608000"; d="scan'208";a="55660097"
+ bh=DoS0BCU4yr/28UvnssS7qrM8Vdsh3Q2GufwpeLsqQf0=;
+ b=PkjY/WF42betmsR1vvXGsCyNg0xs97HpudcI1D+znkCtQhTZAH9fXnwI
+ CgedrP6uRYJaKDhlNSiHurixoGy3dr1Iln+uC8ApY/rYO8ny9gq6vjlJv
+ EbGONJsHD6vIX8uq+KuFEcw2z+KYRI5xDhq/w+P/127cVMhKCNWF0yxHi
+ HG3VcRA66YIv4k3RFUnATjMXoim9Nr8Lqh6D7wIBLSQcWVMN2TEs3BdJB
+ k6Vr8o6ZPQogC4cGbFqR7jwktZnyJit3a9GHpW0rowNoHAksxVixteuxZ
+ nvrLkk6k9Rrzuy13QsYzL2cxF9ovtYsaCS3vmidLx+DnF+OZHn/CY5cHr A==;
+X-CSE-ConnectionGUID: cSgBxg3RRf+yH5azqEHpXA==
+X-CSE-MsgGUID: u/9EPvFNS8ODRniPIs2f4Q==
+X-IronPort-AV: E=McAfee;i="6700,10204,11325"; a="55660109"
+X-IronPort-AV: E=Sophos;i="6.13,231,1732608000"; d="scan'208";a="55660109"
 Received: from fmviesa008.fm.intel.com ([10.60.135.148])
  by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 24 Jan 2025 02:57:04 -0800
-X-CSE-ConnectionGUID: PUT76XHRT8yaXpiyM6c51A==
-X-CSE-MsgGUID: 6NO8/a+qTAiL6afqCIA4bA==
+ 24 Jan 2025 02:57:12 -0800
+X-CSE-ConnectionGUID: c/eql0+aQ52r8ZyyMs0Tsw==
+X-CSE-MsgGUID: NAxGme7yRCq7AK2Aqomz4A==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.13,231,1732608000"; d="scan'208";a="107864278"
+X-IronPort-AV: E=Sophos;i="6.13,231,1732608000"; d="scan'208";a="107864310"
 Received: from smoticic-mobl1.ger.corp.intel.com (HELO jhogande-mobl1..)
  ([10.245.245.138])
  by fmviesa008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 24 Jan 2025 02:57:02 -0800
+ 24 Jan 2025 02:57:10 -0800
 From: =?UTF-8?q?Jouni=20H=C3=B6gander?= <jouni.hogander@intel.com>
 To: intel-gfx@lists.freedesktop.org,
 	intel-xe@lists.freedesktop.org
 Cc: animesh.manna@intel.com, ville.syrjala@intel.com,
  =?UTF-8?q?Jouni=20H=C3=B6gander?= <jouni.hogander@intel.com>
-Subject: [PATCH v4 09/13] drm/i915/display: Don't use DSB if psr mode changing
-Date: Fri, 24 Jan 2025 12:56:20 +0200
-Message-ID: <20250124105625.822459-10-jouni.hogander@intel.com>
+Subject: [PATCH v4 13/13] drm/i915/psr: Allow DSB usage when PSR is enabled
+Date: Fri, 24 Jan 2025 12:56:24 +0200
+Message-ID: <20250124105625.822459-14-jouni.hogander@intel.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20250124105625.822459-1-jouni.hogander@intel.com>
 References: <20250124105625.822459-1-jouni.hogander@intel.com>
@@ -72,29 +72,28 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Changing PSR mode using DSB is not implemented. Do not use DSB when PSR
-mode is changing.
+Now as we have correct PSR2_MAN_TRK_CTL handling in place we can allow DSB
+usage also when PSR is enabled for LunarLake onwards.
 
 Signed-off-by: Jouni Högander <jouni.hogander@intel.com>
 Reviewed-by: Animesh Manna <animesh.manna@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_display.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/i915/display/intel_display.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
-index 3ac1cc9ac08a8..a189aa437d972 100644
+index cd7e960bd29f1..08743e85382ee 100644
 --- a/drivers/gpu/drm/i915/display/intel_display.c
 +++ b/drivers/gpu/drm/i915/display/intel_display.c
-@@ -7682,7 +7682,8 @@ static void intel_atomic_dsb_finish(struct intel_atomic_state *state,
+@@ -7679,7 +7679,7 @@ static void intel_atomic_dsb_finish(struct intel_atomic_state *state,
+ 		new_crtc_state->update_planes &&
+ 		!new_crtc_state->vrr.enable &&
+ 		!new_crtc_state->do_async_flip &&
+-		!new_crtc_state->has_psr &&
++		(DISPLAY_VER(display) >= 20 || !new_crtc_state->has_psr) &&
  		!new_crtc_state->scaler_state.scaler_users &&
  		!old_crtc_state->scaler_state.scaler_users &&
  		!intel_crtc_needs_modeset(new_crtc_state) &&
--		!intel_crtc_needs_fastset(new_crtc_state);
-+		!intel_crtc_needs_fastset(new_crtc_state) &&
-+		!intel_psr_is_psr_mode_changing(old_crtc_state, new_crtc_state);
- 
- 	if (!new_crtc_state->use_dsb && !new_crtc_state->dsb_color_vblank)
- 		return;
 -- 
 2.43.0
 
