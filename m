@@ -4,50 +4,51 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 97243C02181
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F3168C0218E
 	for <intel-gfx@archiver.kernel.org>; Fri, 24 Jan 2025 15:12:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2C22910E9B5;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3E20E10E9B7;
 	Fri, 24 Jan 2025 15:12:25 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="lJ3WK5ml";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="CAHflhnV";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.17])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CF8C810E9A3;
- Fri, 24 Jan 2025 15:12:14 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 57E8410E9B5;
+ Fri, 24 Jan 2025 15:12:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1737731535; x=1769267535;
+ t=1737731544; x=1769267544;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=db7uUJPXJVoamB7x/rV2bkX0HFiU59kzs1BvP33kWhg=;
- b=lJ3WK5ml66vSEM1bWRv55MXfqpAqZUatiejO74mPubivTMqNrB4CDy4j
- 1zQP6lpQ0IzhEihQUySP7fF1F/4unCjK9pdVplJXonmjKaJgA5Ac/IW5P
- rJREjbcad3TczvZcPKDo4g4GwMbO14KAXSILMcBsFYk/LjsDUJB3LPEr7
- 1N1k6z2VAAy17+jMt+i2ZtnGguVPueThN1EzunPhVI5nFwl4s+nuscjUK
- sO/O2gfYK1QJbzuA2s+lJbRln1KLQQp59z4rN/FVmUHRGUOoeKw84WS18
- TjhJrWwGfx+vTcMgYBRhe42MLHOiPS51NV4pt7K6DxEVkYe0r1BrKvBjI g==;
-X-CSE-ConnectionGUID: glofmMd2TXm2qiXKVmGyZA==
-X-CSE-MsgGUID: cpirWiJYQ/CvO3yxwVacgw==
-X-IronPort-AV: E=McAfee;i="6700,10204,11325"; a="38177416"
-X-IronPort-AV: E=Sophos;i="6.13,231,1732608000"; d="scan'208";a="38177416"
+ bh=ZOPE+I2ARSKr47iPWhMKyxe++PYRrFRj6vjpN4AfGyY=;
+ b=CAHflhnVlFNWhEOPUHrBsA4jse1pjagumxGngrOLCY/8bn6yERDIay4E
+ dQTTf6CAnmJK1Dpp1DaJUmwN0IyVwWO1c332YGd7e9b5Do4TI9bAqbMUy
+ kpCRgC1lPoawrNdUpIyRCqSFBrFe0O5NTchK7pWYcUbiiaGETxro2wq1X
+ +LfESt3VXk/jyZeKzfWozQ5VeoFo5qO5RD267520XefB6SpvaiwOEwStH
+ D9bcT/Xn3S6ZLst2A8+f8D4jGeGfG533zIvr9sRtjMD6f/ZBDLqXoRoit
+ hflTq9B43X4uz5jjdPirYi76lvKLcc4kej+ThbjJcTxpJ1hjTCt7ElKVN g==;
+X-CSE-ConnectionGUID: pVv2L74xT3WenPd3Jpdb/A==
+X-CSE-MsgGUID: 4IFde7jZSKKtXf9y1v5zhg==
+X-IronPort-AV: E=McAfee;i="6700,10204,11325"; a="38177430"
+X-IronPort-AV: E=Sophos;i="6.13,231,1732608000"; d="scan'208";a="38177430"
 Received: from orviesa007.jf.intel.com ([10.64.159.147])
  by fmvoesa111.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 24 Jan 2025 07:12:15 -0800
-X-CSE-ConnectionGUID: y5ctJpitRf6bW++8WkjziA==
-X-CSE-MsgGUID: Fm539E83TcK0su5Wg6gNqQ==
+ 24 Jan 2025 07:12:24 -0800
+X-CSE-ConnectionGUID: 7mE0mpXnTZOZ2r95IqMtcA==
+X-CSE-MsgGUID: gCAh1R8BQi+2K20DafOZzA==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.12,224,1728975600"; d="scan'208";a="108221330"
+X-IronPort-AV: E=Sophos;i="6.12,224,1728975600"; d="scan'208";a="108221405"
 Received: from srr4-3-linux-103-aknautiy.iind.intel.com ([10.223.34.160])
  by orviesa007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 24 Jan 2025 07:12:13 -0800
+ 24 Jan 2025 07:12:22 -0800
 From: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
 To: intel-gfx@lists.freedesktop.org
 Cc: intel-xe@lists.freedesktop.org, jani.nikula@linux.intel.com,
  ville.syrjala@linux.intel.com, mitulkumar.ajitkumar.golani@intel.com
-Subject: [PATCH 17/35] drm/i915/display: Add vrr mode to crtc_state dump
-Date: Fri, 24 Jan 2025 20:30:02 +0530
-Message-ID: <20250124150020.2271747-18-ankit.k.nautiyal@intel.com>
+Subject: [PATCH 21/35] drm/i915/display: Enable MSA Ignore Timing PAR only
+ when in not fixed_rr mode
+Date: Fri, 24 Jan 2025 20:30:06 +0530
+Message-ID: <20250124150020.2271747-22-ankit.k.nautiyal@intel.com>
 X-Mailer: git-send-email 2.45.2
 In-Reply-To: <20250124150020.2271747-1-ankit.k.nautiyal@intel.com>
 References: <20250124150020.2271747-1-ankit.k.nautiyal@intel.com>
@@ -68,49 +69,53 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Print Vrr mode along with other vrr members in crtc_state dump.
+MSA Ignore Timing PAR enable is set in the DP sink when we enable variable
+refresh rate. When using VRR timing generator for fixed refresh rate
+we do not want to ignore the mode timings, as the refresh rate is still
+fixed. Modify the checks to enable MSA Ignore Timing PAR only when not
+in fixed_rr mode.
+
+v2: Initialize enable_msa_timing_par_ignore to false.
 
 Signed-off-by: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
 ---
- .../drm/i915/display/intel_crtc_state_dump.c    | 17 ++++++++++++++++-
- 1 file changed, 16 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/i915/display/intel_ddi.c              | 2 +-
+ drivers/gpu/drm/i915/display/intel_dp_link_training.c | 8 +++++++-
+ 2 files changed, 8 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_crtc_state_dump.c b/drivers/gpu/drm/i915/display/intel_crtc_state_dump.c
-index 34d200a17ba6..7b8247af4897 100644
---- a/drivers/gpu/drm/i915/display/intel_crtc_state_dump.c
-+++ b/drivers/gpu/drm/i915/display/intel_crtc_state_dump.c
-@@ -172,6 +172,20 @@ vlv_dump_csc(struct drm_printer *p, const char *name,
- 			   csc->coeff[3 * i + 2]);
+diff --git a/drivers/gpu/drm/i915/display/intel_ddi.c b/drivers/gpu/drm/i915/display/intel_ddi.c
+index d48a3108f363..dac953b2af31 100644
+--- a/drivers/gpu/drm/i915/display/intel_ddi.c
++++ b/drivers/gpu/drm/i915/display/intel_ddi.c
+@@ -2281,7 +2281,7 @@ static void intel_dp_sink_set_msa_timing_par_ignore_state(struct intel_dp *intel
+ {
+ 	struct intel_display *display = to_intel_display(intel_dp);
+ 
+-	if (!intel_vrrtg_is_enabled(crtc_state))
++	if (!intel_vrrtg_is_enabled(crtc_state) || crtc_state->vrr.flipline == crtc_state->vrr.vmax)
+ 		return;
+ 
+ 	if (drm_dp_dpcd_writeb(&intel_dp->aux, DP_DOWNSPREAD_CTRL,
+diff --git a/drivers/gpu/drm/i915/display/intel_dp_link_training.c b/drivers/gpu/drm/i915/display/intel_dp_link_training.c
+index 9cb22baafeeb..b8063807fd34 100644
+--- a/drivers/gpu/drm/i915/display/intel_dp_link_training.c
++++ b/drivers/gpu/drm/i915/display/intel_dp_link_training.c
+@@ -724,8 +724,14 @@ void intel_dp_link_training_set_mode(struct intel_dp *intel_dp, int link_rate, b
+ static void intel_dp_update_downspread_ctrl(struct intel_dp *intel_dp,
+ 					    const struct intel_crtc_state *crtc_state)
+ {
++	bool enable_msa_timing_par_ignore = false;
++
++	/* Enable MSA TIMING PAR IGNORE only in non fixed_rr mode */
++	if (crtc_state->vrr.flipline && crtc_state->vrr.flipline != crtc_state->vrr.vmax)
++		enable_msa_timing_par_ignore = true;
++
+ 	intel_dp_link_training_set_mode(intel_dp,
+-					crtc_state->port_clock, crtc_state->vrr.flipline);
++					crtc_state->port_clock, enable_msa_timing_par_ignore);
  }
  
-+static const char * const vrrtg_mode_str[] = {
-+	[INTEL_VRRTG_MODE_NONE] = "none",
-+	[INTEL_VRRTG_MODE_VRR] = "vrr",
-+	[INTEL_VRRTG_MODE_CMRR] = "cmrr",
-+};
-+
-+static const char *intel_vrrtg_mode_name(enum intel_vrrtg_mode mode)
-+{
-+	if (mode >= ARRAY_SIZE(vrrtg_mode_str))
-+		return "invalid";
-+
-+	return vrrtg_mode_str[mode];
-+}
-+
- void intel_crtc_state_dump(const struct intel_crtc_state *pipe_config,
- 			   struct intel_atomic_state *state,
- 			   const char *context)
-@@ -292,8 +306,9 @@ void intel_crtc_state_dump(const struct intel_crtc_state *pipe_config,
- 		   pipe_config->hw.adjusted_mode.crtc_vdisplay,
- 		   pipe_config->framestart_delay, pipe_config->msa_timing_delay);
- 
--	drm_printf(&p, "vrr: %s, vmin: %d, vmax: %d, flipline: %d, pipeline full: %d, guardband: %d\n",
-+	drm_printf(&p, "vrr: %s mode: %s, vmin: %d, vmax: %d, flipline: %d, pipeline full: %d, guardband: %d\n",
- 		   str_yes_no(intel_vrrtg_is_enabled(pipe_config)),
-+		   intel_vrrtg_mode_name(pipe_config->vrr.mode),
- 		   pipe_config->vrr.vmin, pipe_config->vrr.vmax, pipe_config->vrr.flipline,
- 		   pipe_config->vrr.pipeline_full, pipe_config->vrr.guardband);
- 
+ void intel_dp_link_training_set_bw(struct intel_dp *intel_dp,
 -- 
 2.45.2
 
