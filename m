@@ -4,24 +4,24 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D2DFDC02181
-	for <intel-gfx@archiver.kernel.org>; Fri, 24 Jan 2025 12:54:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2818FC02181
+	for <intel-gfx@archiver.kernel.org>; Fri, 24 Jan 2025 12:54:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 737FB10E06F;
-	Fri, 24 Jan 2025 12:54:05 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BB5B010E0C1;
+	Fri, 24 Jan 2025 12:54:08 +0000 (UTC)
 Received: from b555e5b46a47 (emeril.freedesktop.org [131.252.210.167])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 769B110E06F;
- Fri, 24 Jan 2025 12:54:04 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4447910E967;
+ Fri, 24 Jan 2025 12:54:07 +0000 (UTC)
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
-Subject: =?utf-8?q?=E2=9C=97_Fi=2ECI=2EBUILD=3A_warning_for_Enable_Aux_based_Nits_bri?=
- =?utf-8?q?ghtness_control_for_eDP?=
+Subject: =?utf-8?q?=E2=9C=97_Fi=2ECI=2ECHECKPATCH=3A_warning_for_Enable_Aux_based_Nit?=
+ =?utf-8?q?s_brightness_control_for_eDP?=
 From: Patchwork <patchwork@emeril.freedesktop.org>
 To: "Kandpal, Suraj" <suraj.kandpal@intel.com>
 Cc: intel-gfx@lists.freedesktop.org
-Date: Fri, 24 Jan 2025 12:54:04 -0000
-Message-ID: <173772324448.4032717.8241106075518570918@b555e5b46a47>
+Date: Fri, 24 Jan 2025 12:54:07 -0000
+Message-ID: <173772324727.4032718.15748476987230697000@b555e5b46a47>
 X-Patchwork-Hint: ignore
 References: <20250124054631.1796456-1-suraj.kandpal@intel.com>
 In-Reply-To: <20250124054631.1796456-1-suraj.kandpal@intel.com>
