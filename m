@@ -4,66 +4,66 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 344ABC02196
-	for <intel-gfx@archiver.kernel.org>; Sun, 26 Jan 2025 16:39:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 94C3FC0218E
+	for <intel-gfx@archiver.kernel.org>; Sun, 26 Jan 2025 16:39:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1574A10E43E;
-	Sun, 26 Jan 2025 16:39:37 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7BBEC10E437;
+	Sun, 26 Jan 2025 16:39:36 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="LjSiLj65";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="kB0oSXq1";
 	dkim-atps=neutral
-Received: from mail-io1-f54.google.com (mail-io1-f54.google.com
- [209.85.166.54])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9DC2B10EA71;
- Sat, 25 Jan 2025 06:47:13 +0000 (UTC)
-Received: by mail-io1-f54.google.com with SMTP id
- ca18e2360f4ac-84a012f7232so114027139f.0; 
- Fri, 24 Jan 2025 22:47:13 -0800 (PST)
+Received: from mail-io1-f45.google.com (mail-io1-f45.google.com
+ [209.85.166.45])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4DAFF10E2BC;
+ Sat, 25 Jan 2025 06:46:48 +0000 (UTC)
+Received: by mail-io1-f45.google.com with SMTP id
+ ca18e2360f4ac-844e161a957so209605339f.0; 
+ Fri, 24 Jan 2025 22:46:48 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1737787633; x=1738392433; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1737787607; x=1738392407; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=8Fcd0CbpeqTSAr2MUddHNYquZXYxsn4RsHtjuNfIUxs=;
- b=LjSiLj65Dg7/U6MYyJAJ0+ooVa2fL6R75m+v8DprKj/9mVaDf2kpJ/wPvKyL+2MaVi
- uJyI47UsNUXFYa8pitIqniVyawBpgGai634+o4hsxAJuEkNlnAi3aJsqpryhgh7ICmgg
- loxmvlaBhyMrQavCoYhZWlnpqk+dFilwLvkd9IkCOxsKVXvLLn17Wwo2QGs7eZQ5L7m9
- hjc3kcK71jC8BwAK8F1Cpvh3CEok9pJPwEkdsLh3SrlCneb0MPE3iwo4FaGQ8s0geTCL
- 57aZirZ0thWcLKN/9PQPUGAD1oRq9bDRI478oYftHy6tPOtyN7g/ZxNFQ6zeKtB0iZqs
- JgaA==
+ bh=uX3l/iQikxAaQX2/QdRkr7TBe7St6PLnbGyQCN0qCdQ=;
+ b=kB0oSXq1prfPbDNAieLUy6u5if7dZPGQHhW96Wc3b0ujf7R60yXqX3ZNzuMbYAJZ3S
+ i/h58n++7pAYgIOOkwD7vVWx2NUuqmkcEenxn5sjyU3dpsDz9SSURAQ0/EezVbQRGZ83
+ JVdcz+I9a6fXhJBrh8inIV7BKrIhtCl04oX4dcmgmWeMC7Xck+NBRGoICKtTlVGLoCjH
+ OzP9cLor3/Yf68m0ozQCRxwgCmKGnRwFkgI/8LCej9mP9dsra6VFbkmZd3paa+TyAbJq
+ DZBGp76fPDG5gk2a6xqsS84rKWnW2HUXeQ8VWBEvPWoS9IyQIiJX/3lImqsxxVueiD7e
+ tN1w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1737787633; x=1738392433;
+ d=1e100.net; s=20230601; t=1737787607; x=1738392407;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=8Fcd0CbpeqTSAr2MUddHNYquZXYxsn4RsHtjuNfIUxs=;
- b=rSrkPIuGw2PGN0GY8Nv3AGygova5SvMDWLiVrTfhai9iSJaqGfsXAVHhiA4O0pUGwn
- I4/+CwSql+ZlKV8hBV0m2Q7pFUCT7McOyDFYD3gGxW6FyfrVbUBBGJzMyTYDWNz+CHeZ
- kkIlRwYNtGLezC0/hoStWLEbHRyRsx3P2zpu53C4EFENHNtIJ3Feoudd8+I4+EIgb+5A
- g3pQ9S+VOahVEgYYVkhTgcZLO2d9BhIPyo4QstBeqTHx6vGjdDTfMziNF4DS4YYTMZ1y
- OlrlaV+yCWF83KoTN5CW5C8zpJnnTE8AbhtiqLtDsG15HyTBdMbXD33F8Ql5aQlmBD2G
- ntNQ==
+ bh=uX3l/iQikxAaQX2/QdRkr7TBe7St6PLnbGyQCN0qCdQ=;
+ b=GIGm4ij/mj6u0sdtG2OMu+th+7yrnyHf5FH4wPSXqyXc8RJkZ067vxEs/TibiEJ3U/
+ Mybq9e+sUZdJz8G2mO0viXkH8umDAXQFl+RRaf27Y0JSpdxeKwifwBmx5s5PdSHpocJ8
+ rSOy0oOmqpbJdGDSF+ZNXO3/PAk0Bvh92mpk6sgjVYzRbv/kD66TZiN3AJmJ6XKgO4oS
+ 2CKKJpuXXlzpi0tw5hR7LE1GDaVzoN1wZ4nayb37YB6e/L8naJDCES7qNRkZgO3qXhfp
+ oWVkRbw8UJayDTbhil0JWeMuXOtIqwhRDcLU+w4ulDUieLI+5QVeFCyaz/ViQR5vCO08
+ YO4A==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUNpI/5EDIrn0RbA+TApdheJSjJF3nyTPzeYakhOWkE96DQkf1pxlpyv2T//SS+Bw2N2x+bNOAxWApp@lists.freedesktop.org,
- AJvYcCXuEjP1zYoMHfKBFNbuiqYi1Bq48fVKvWbMA6KzeVv4GQ60P5JT9dXUlCnXs744uqiXwno4qGjMix3K@lists.freedesktop.org,
- AJvYcCXwS725zbC/6B4P0XOx+Q5XEivat/pFWbl0YDk+IzucwnANqe0k8iBQsG4wVeyyCF+NTtcbYK6v3XfhA0/M8g==@lists.freedesktop.org,
- AJvYcCXycvmmk1/ZzbFLvw8bs6NCuXKOvJwi5k2nCTrLBm8nSg6u/y2Fbk1jqfkkdCERjzxaOJ/OoibL@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yx90x+r7N9z0EZ8+E7DoQD/j7XPNV7loIO2Y365jOMnmJFYly/W
- 0U7B2x0tfswAjLO+xYZY9nx8TiWLdWXz3QZ42aoyOe5ZewNMO//G
-X-Gm-Gg: ASbGncvu1dL+5Mz+0FFeWDgt+TxF7Rs+9tZQY0X0u/SCJb+sJ1iL4FlvXB2+TQut9wx
- iCs/ZKt2ZydcRj2j6fE3hZp12oHxXPc+2OPb/CJ+nPuKKEkVoAXw1OeSs6FJhaWyXW1b1u8z+ps
- QK/RHBfOYZyWFdUyTYOvzjIEfIZ1Qe/AI6g2OzDB3NAgx3TGKJrfY5ELxa2MhexePITrOSoUci/
- /cF22+amxVkYH+6eYGBlRLrqeJ7w3GuoZtVHxK0lEtkfZAR90+TQkRNTwjLyu6t+4t1LQ0eonZi
- YRetGuE5j9JSdP2NEdMUwkTybXy1BAiWm86pNQ==
-X-Google-Smtp-Source: AGHT+IFCwNCwKk2LjU+VISPtmf45oXrUgrMIIcfvyXFuFTikBwGEdBXb11cx99j0mRG19lRHebe9QQ==
-X-Received: by 2002:a05:6602:751c:b0:84a:5201:570a with SMTP id
- ca18e2360f4ac-8520bd814a2mr784672939f.4.1737787632909; 
- Fri, 24 Jan 2025 22:47:12 -0800 (PST)
+ AJvYcCU0FkZyhyrtL3YKPOQgNrq5CWwY/ZZBj2Cdw7csuUMR/5gBTnAuiE6e2xyi3fYoV01N6hI49w4AloybNhiHIA==@lists.freedesktop.org,
+ AJvYcCV8rrw+hN+T39U40T3KDAftHRYq9HV7Wp1w8+aQmT1rAz8jfdiP0c9QBbXKgcdzJqj7KCNx40F3td1w@lists.freedesktop.org,
+ AJvYcCWcaLi9/Po6KrWOG04KFqOCw27n+FGy1iiZpCQAqhu+/Tksq5I7t5czchH1kv7qDVKKjNwvwU3w5Jer@lists.freedesktop.org,
+ AJvYcCXVAYcs8GTWrU6Hd13VV3m/+sVXWE6YJ3ajjrBbdxgWrdjG3XKsXsmU/Oe7YehQb0lu2aYMKjRu@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yw6sGtpKbjdQqPBLautTmtJMVCW6XdeiJ7S5hlqar57aPraigRA
+ CYXNPSHqxAnnQv2C4nN4a6szlxgz1fSxG5o1y7tALFiCRtci7NsC
+X-Gm-Gg: ASbGncv4IC+y3Szhe94/K9RSaNbOROPFqVBspapFVsWaQFICDuRildnXXJUcE+v2lP3
+ cETatx+XNr0JNALCYHq6nyiBgHAwyEJY1H6SZSZWOP/O9jzmV2tt0prGTNk9WjuDn/VCZl5SQZ1
+ JBzhNfJUVITyexnTuhQZWmkMqAiRrjeKtguc2p+KhRkiZMQw69k9GAY5thHf2W/uk3E9B1TIaFi
+ 3qmYt73H4eV+JD8Lw7n0TMqOBSgxfn2Z3CWlJ7c9SKudbHYyb2rul9TpWMYBVrbZtfeTX7oCEwg
+ Kbh2olm/S52Law8Q/vOH6fW0j6yXgMCdUj7BcA==
+X-Google-Smtp-Source: AGHT+IERZTxhAZxFSe1csHMGwCl8KwsmPfchqC0NaFpULXt8261DlITQ09T7azGi9+ykPl9fw06Y+w==
+X-Received: by 2002:a05:6e02:1d9c:b0:3cf:bb11:a3a4 with SMTP id
+ e9e14a558f8ab-3cfbb11a52bmr102830845ab.15.1737787607309; 
+ Fri, 24 Jan 2025 22:46:47 -0800 (PST)
 Received: from gandalf.. (c-67-165-245-5.hsd1.co.comcast.net. [67.165.245.5])
  by smtp.googlemail.com with ESMTPSA id
- 8926c6da1cb9f-4ec1da476fesm1174144173.58.2025.01.24.22.47.12
+ 8926c6da1cb9f-4ec1da476fesm1174144173.58.2025.01.24.22.46.46
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 24 Jan 2025 22:47:12 -0800 (PST)
+ Fri, 24 Jan 2025 22:46:46 -0800 (PST)
 From: Jim Cromie <jim.cromie@gmail.com>
 To: linux-kernel@vger.kernel.org, jbaron@akamai.com,
  gregkh@linuxfoundation.org, ukaszb@chromium.org
@@ -72,15 +72,15 @@ Cc: intel-gfx-trybot@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
  intel-gfx@lists.freedesktop.org, daniel.vetter@ffwll.ch,
  tvrtko.ursulin@linux.intel.com, jani.nikula@intel.com,
  ville.syrjala@linux.intel.com, Jim Cromie <jim.cromie@gmail.com>
-Subject: [PATCH 33/63] selftests-dyndbg: test_percent_splitting
-Date: Fri, 24 Jan 2025 23:45:47 -0700
-Message-ID: <20250125064619.8305-34-jim.cromie@gmail.com>
+Subject: [PATCH 10/63] dyndbg: silence debugs with no-change updates
+Date: Fri, 24 Jan 2025 23:45:24 -0700
+Message-ID: <20250125064619.8305-11-jim.cromie@gmail.com>
 X-Mailer: git-send-email 2.48.1
 In-Reply-To: <20250125064619.8305-1-jim.cromie@gmail.com>
 References: <20250125064619.8305-1-jim.cromie@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Sun, 26 Jan 2025 16:39:35 +0000
+X-Mailman-Approved-At: Sun, 26 Jan 2025 16:39:34 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -96,50 +96,53 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-This does basic testing of classmaps using '%' separated
-multi-queries.  It modprobes test_dynamic_debug with several classes
-enabled, and counts to verify that the expected sites show the
-enablement in the control file.
+In ddebug_apply_class_bitmap(), check for actual changes to the bits
+before announcing them, to declutter logs.
+
+no functional change.
 
 Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
 ---
- .../dynamic_debug/dyndbg_selftest.sh          | 20 +++++++++++++++++++
- 1 file changed, 20 insertions(+)
+ lib/dynamic_debug.c | 12 +++++++-----
+ 1 file changed, 7 insertions(+), 5 deletions(-)
 
-diff --git a/tools/testing/selftests/dynamic_debug/dyndbg_selftest.sh b/tools/testing/selftests/dynamic_debug/dyndbg_selftest.sh
-index 368d10a691a0..c97c9391d0f4 100755
---- a/tools/testing/selftests/dynamic_debug/dyndbg_selftest.sh
-+++ b/tools/testing/selftests/dynamic_debug/dyndbg_selftest.sh
-@@ -256,9 +256,29 @@ function comma_terminator_tests {
-     ddcmd =_
+diff --git a/lib/dynamic_debug.c b/lib/dynamic_debug.c
+index 1b2fb6502e61..c27965180a49 100644
+--- a/lib/dynamic_debug.c
++++ b/lib/dynamic_debug.c
+@@ -595,7 +595,7 @@ static int ddebug_exec_queries(char *query, const char *modname)
+ 	return nfound;
  }
  
-+function test_percent_splitting {
-+    echo -e "${GREEN}# TEST_PERCENT_SPLITTING - multi-command splitting on % ${NC}"
-+    ifrmmod test_dynamic_debug_submod
-+    ifrmmod test_dynamic_debug
-+    ddcmd =_
-+    modprobe test_dynamic_debug dyndbg=class,D2_CORE,+pf%class,D2_KMS,+pt%class,D2_ATOMIC,+pm
-+    check_match_ct =pf 1
-+    check_match_ct =pt 1
-+    check_match_ct =pm 1
-+    check_match_ct test_dynamic_debug 23 -r
-+    # add flags to those callsites
-+    ddcmd class,D2_CORE,+mf%class,D2_KMS,+lt%class,D2_ATOMIC,+ml
-+    check_match_ct =pmf 1
-+    check_match_ct =plt 1
-+    check_match_ct =pml 1
-+    check_match_ct test_dynamic_debug 23 -r
-+    ifrmmod test_dynamic_debug
-+}
-+
- tests_list=(
-     basic_tests
-     comma_terminator_tests
-+    test_percent_splitting
- )
+-/* apply a new bitmap to the sys-knob's current bit-state */
++/* apply a new class-param setting */
+ static int ddebug_apply_class_bitmap(const struct ddebug_class_param *dcp,
+ 				     unsigned long *new_bits, unsigned long *old_bits,
+ 				     const char *query_modname)
+@@ -606,8 +606,9 @@ static int ddebug_apply_class_bitmap(const struct ddebug_class_param *dcp,
+ 	int matches = 0;
+ 	int bi, ct;
  
- # Run tests
+-	v2pr_info("apply bitmap: 0x%lx to: 0x%lx for %s\n", *new_bits, *old_bits,
+-		  query_modname ?: "");
++	if (*new_bits != *old_bits)
++		v2pr_info("apply bitmap: 0x%lx to: 0x%lx for %s\n", *new_bits,
++			  *old_bits, query_modname ?: "'*'");
+ 
+ 	for (bi = 0; bi < map->length; bi++) {
+ 		if (test_bit(bi, new_bits) == test_bit(bi, old_bits))
+@@ -622,8 +623,9 @@ static int ddebug_apply_class_bitmap(const struct ddebug_class_param *dcp,
+ 		v2pr_info("bit_%d: %d matches on class: %s -> 0x%lx\n", bi,
+ 			  ct, map->class_names[bi], *new_bits);
+ 	}
+-	v2pr_info("applied bitmap: 0x%lx to: 0x%lx for %s\n", *new_bits, *old_bits,
+-		  query_modname ?: "");
++	if (*new_bits != *old_bits)
++		v2pr_info("applied bitmap: 0x%lx to: 0x%lx for %s\n", *new_bits,
++			  *old_bits, query_modname ?: "'*'");
+ 
+ 	return matches;
+ }
 -- 
 2.48.1
 
