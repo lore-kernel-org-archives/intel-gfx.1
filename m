@@ -4,66 +4,66 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 23B45C02191
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E4BC9C0218D
 	for <intel-gfx@archiver.kernel.org>; Sun, 26 Jan 2025 16:39:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 23F6A10E42F;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 29B1810E431;
 	Sun, 26 Jan 2025 16:39:36 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="JRmRxTf8";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="G9TPH228";
 	dkim-atps=neutral
-Received: from mail-il1-f176.google.com (mail-il1-f176.google.com
- [209.85.166.176])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0FB5F10E296;
- Sat, 25 Jan 2025 06:46:47 +0000 (UTC)
-Received: by mail-il1-f176.google.com with SMTP id
- e9e14a558f8ab-3ce6b289e43so25367665ab.3; 
- Fri, 24 Jan 2025 22:46:47 -0800 (PST)
+Received: from mail-io1-f46.google.com (mail-io1-f46.google.com
+ [209.85.166.46])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B05E310E2B7;
+ Sat, 25 Jan 2025 06:47:00 +0000 (UTC)
+Received: by mail-io1-f46.google.com with SMTP id
+ ca18e2360f4ac-844ce6d0716so215097339f.1; 
+ Fri, 24 Jan 2025 22:47:00 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1737787606; x=1738392406; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1737787620; x=1738392420; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=crImgp1y7IRXSUD7oHrqvuelp6vlR0pAkEGBI4jI/u4=;
- b=JRmRxTf8ubcfT7LdPcGRXpCOOM55TrWT9p3fOeBjMXqJEVgODp/fxYbS+4EbCUnQUw
- +ZlZJImJ4gDXN+tdFPWdn0Uz8xScIXwu3Gl3gbrVK0twjhFpQu8OxHBpwe0dWosBwxEb
- GvGmpTB2qoOATck2al+7X2NSCw5zq7dmIc4s8LTCML09BIM+0mePWxvnm/O85HfQN9+L
- mwaWEgwJDQQmxRA5xKn0BpBoEK8+Z7u1S1kwCDoFGQW/T/LIxytUqmKSOIKys4L+kaeo
- 83r7HXsei6oYGWUSnuQRemdToN7Q6xaQUONC4Q0sm3zfmDzKoPZrdc8dHe1fi8iXwVVl
- tA/g==
+ bh=Ytfh/zV61l1ce+ov8of55te3rHqgM7GRb4D7c2dE0nI=;
+ b=G9TPH228vaXdnfNIIEdXeYEog6UmsHREX4HYtxdjbOEEJwS1nIBvQz+mCKMPPi0jov
+ uCrkzQ7KkROYAtufVT6QvyyO14Z0sJtYCkJeP+Xo0vEN9eeQ0TdK78mln5RO5GnZ7vlm
+ SZWXCXlXBBTNqBAEvfGPLa5uC952jWldB+jaexzruZVRAIIHaoaB7PSFhP8reWmOV1/u
+ AqItrUTsRxIPUzLs3Jfts4dyovdPR4Po9lmo/QCo7lAJTa5dMKPzOeUvgsgmWn16k7xO
+ jPTMCbnHu91y7hoLE91tLymixpXK/8WuU2Onh0GtHV/VQ3IQQ42lkFJBC5KiwzZ8Drkq
+ h/cA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1737787606; x=1738392406;
+ d=1e100.net; s=20230601; t=1737787620; x=1738392420;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=crImgp1y7IRXSUD7oHrqvuelp6vlR0pAkEGBI4jI/u4=;
- b=KeTLlOCeNW4JHrcjjc4oWLS5K0TWDbOcQj8Cv7pJYS7QeqQ/7s41+B6VHFTSngbQAv
- 21QIqstOEWXN/5QyxHBU7gJkz/WIKvxoVLQ/X94F2YONyYPXRjns/WSOE/tWFCN/PhHJ
- 6KeyVGeAb9+/mg/UF4eKWZQdBx/pcRpyrYJ+QSQnaIV0IiaoW2Izq1N5mNIwwNA6v6Ir
- /fST/Ll0JYYrMDStYoHSyZ3v8IvojUKkEFbMvWW1ziDSKXda7W/OE1h4/lpwtUr/Fg8l
- U1aokGWXEDbjMajx3wPmSxM87iM+NDtbRsx1lZsEKQQHT/cFtKRuS+pAL1yKLxUsh+9C
- bNfQ==
+ bh=Ytfh/zV61l1ce+ov8of55te3rHqgM7GRb4D7c2dE0nI=;
+ b=VXzCwQ8A2jirv6MA8NgSW5QQn6cmdjS//LOqf6I7+BD5f4QujBDvfiENrltLRkOSt4
+ j5H2mY2dVi12eWbbWP79aJuIqWY2rPKco91GOEuopqGlvEELtWw9I2KvWEqmVfKs+LoV
+ /UPw2zUsULd6Y4Bi5GEap7ICK6sJb0c0qnxWtg7M/ceOWHihqrRS+jzNl2LEf990Yvxt
+ BW7Ub7IjBTYYgp+bSAVZGkWAgs3/nslgp0Dtok9llwU3PIcAlYJ/0ZT+PuoXZ+JntfJi
+ /TTDjKh8CALU/47ljh7JJuEy40DMjuFGNMU2uEYmdZue0TGnsHRkJBv+xCvIjqq6TfgO
+ 9FKg==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUZeAg8nug+yl6t0WJqP9KUson63ni+IPV2eARsN7kqD7W76/VK2rX7SwpbFNpZNzpcfIVBhmAwNLmd@lists.freedesktop.org,
- AJvYcCUveWsmfAythns4qHPUG9E3AdZ9OVeie6PaQQkCRXEPNS8x7csTq5ZOC0OgrHn5vpnq1AJhxezB@lists.freedesktop.org,
- AJvYcCWIsA7niLMMeeB+un1q2eBBSkrmEwRLrUGqFPVRDaIaPR58epAhb+yKKioFumE4F5ATuQMvFcVXCplM@lists.freedesktop.org,
- AJvYcCX6Lzh7roIlTGuur7/xCtMGUJrIxh39rSxOpmm9o7WOeJrZ3sTq1YgS3dn4QCzod+jNAiMiGpnUYDeEiNgZ+Q==@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yxteruy3tR2pMy2sqf3qxrufeYEASG2gP3naSRkEYqnQA71Gh13
- mCCetWn5XhHxT+d+7uTqF3B2JNerP7IJSbfIgKByOsNxRClyTSZh
-X-Gm-Gg: ASbGnctdNJt+/YvKm2g4S59e2kAypElEUoCxxZUGQP4SDk4xITrw88emmrn6OFIVtrC
- yS2E1J48JBslwyQbzYuTDonUxeLSSW1MUUeZXj7E/z/q6BJJ6ZkehDEue9QKwm6iV58eYKwFOC7
- mbamrrnOdITSNC6CiCsyxaz07LAae/djDSqoYtHIEsy1xZUbbD/uhnZL8GAoYJe9PgkCSitoaPt
- h4Pmcbr4+Ir0Awf9EUpcDc0GWJPEjW8SM7PpWDBj/WJrcG15cpqGw/HwaQi0v6lSNL+vQfWglyT
- MYX9qRBTANnWV80qLdD/JtfXOLZ/kqRo1Yu+kg==
-X-Google-Smtp-Source: AGHT+IEjjwWoWaC2eqRVAIRwzEKW3d0rVEFuGJkXw2+P/hMoxb83M7t9s2BDslJJbs0hJxkgZgzZdQ==
-X-Received: by 2002:a05:6e02:fc5:b0:3cf:c558:3594 with SMTP id
- e9e14a558f8ab-3cfc558384emr50346105ab.2.1737787606321; 
- Fri, 24 Jan 2025 22:46:46 -0800 (PST)
+ AJvYcCUQA5wn/SmnA7+FhtBjDyBd3MWXLyBJCHLWTK+Ntexr2qx8VFsSJX96zv/162MI1NUxSFjRbBdVYScv@lists.freedesktop.org,
+ AJvYcCUjgdqzG/ijvXQ6RNa6w+OqGZ72LTpNC1+90iEj5NraLGTRlwOhofvPupBcgLaHbvIKToOp967i@lists.freedesktop.org,
+ AJvYcCVCcyp6hnKEVntBfXFpcM9xPnIuLRNNLOayBGEQmWWh+u/f7/5FKfWegACno1bQ25/Tiw5K1PVd9UxeWrxJHQ==@lists.freedesktop.org,
+ AJvYcCVYgRwcjCKv8NQZi9odkKvLSXX6PYWDlrfcIJyG5YeyT1goJionK8JDsWnAL4iFg/rKmuR5E9LCNWHD@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzdEO/zAuQawljketVMSW3B7WSa2fGzKrjSVCr417HxPjJIhSGt
+ hajxWsOD4IpLWVHrNgvAQSdQnEd9K21Mb7Ax4dXcAX1lFgP9Mx76
+X-Gm-Gg: ASbGnctzM4Ab5noB6w/jxcEJCOIkka8sDfhLABEQQYNz1y3uhCAXL54GuTfS170/oCi
+ NwXg2YR1OuH1f6lVmj/kmPfj1He3GX+i2v/Nc97sw5Gv1p/bfc3rKrz2n1U4YNPAx6DbFhMf10I
+ l8H0xVwzWYbB3lCGTi1UKi1LXlq85aKZo1NAQd+QvHeq+SzEOp8UkSNIvkALYyFj4wAa/ySWY+/
+ RiFMMopbR8w/uInfz2Q1Q23pDFYIIxIJGScvUxydNnTyEMYOb7hEGU2exZbHGcDOLoWRJ2gNyUE
+ ccUj9WJrRDvemVHifAK0WOjjWqZgz5dN1dxhYw==
+X-Google-Smtp-Source: AGHT+IHZ0rdC7Vd9cUI1tPpIx5JlT8FFJWJY2x9dHWb5lEPIqHartZYwqQohH5tAwYTKxuzcgozcpw==
+X-Received: by 2002:a05:6602:26c5:b0:83b:5221:2a87 with SMTP id
+ ca18e2360f4ac-851b616986dmr3118385239f.3.1737787619986; 
+ Fri, 24 Jan 2025 22:46:59 -0800 (PST)
 Received: from gandalf.. (c-67-165-245-5.hsd1.co.comcast.net. [67.165.245.5])
  by smtp.googlemail.com with ESMTPSA id
- 8926c6da1cb9f-4ec1da476fesm1174144173.58.2025.01.24.22.46.45
+ 8926c6da1cb9f-4ec1da476fesm1174144173.58.2025.01.24.22.46.58
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 24 Jan 2025 22:46:45 -0800 (PST)
+ Fri, 24 Jan 2025 22:46:59 -0800 (PST)
 From: Jim Cromie <jim.cromie@gmail.com>
 To: linux-kernel@vger.kernel.org, jbaron@akamai.com,
  gregkh@linuxfoundation.org, ukaszb@chromium.org
@@ -72,15 +72,15 @@ Cc: intel-gfx-trybot@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
  intel-gfx@lists.freedesktop.org, daniel.vetter@ffwll.ch,
  tvrtko.ursulin@linux.intel.com, jani.nikula@intel.com,
  ville.syrjala@linux.intel.com, Jim Cromie <jim.cromie@gmail.com>
-Subject: [PATCH 09/63] dyndbg: reduce verbose/debug clutter
-Date: Fri, 24 Jan 2025 23:45:23 -0700
-Message-ID: <20250125064619.8305-10-jim.cromie@gmail.com>
+Subject: [PATCH 21/63] dyndbg: allow ddebug_add_module to fail
+Date: Fri, 24 Jan 2025 23:45:35 -0700
+Message-ID: <20250125064619.8305-22-jim.cromie@gmail.com>
 X-Mailer: git-send-email 2.48.1
 In-Reply-To: <20250125064619.8305-1-jim.cromie@gmail.com>
 References: <20250125064619.8305-1-jim.cromie@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Sun, 26 Jan 2025 16:39:34 +0000
+X-Mailman-Approved-At: Sun, 26 Jan 2025 16:39:35 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -96,101 +96,137 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-currently, for verbose=3, these are logged (blank lines for clarity):
+To prep for failing modprobe on classid conflicts, upgrade the
+call-chain around ddebug_add_module(), in 2 ways:
 
- dyndbg: query 0: "class DRM_UT_CORE +p" mod:*
- dyndbg: split into words: "class" "DRM_UT_CORE" "+p"
+1. in ddebug_add_module() add local reserved_ids to accumulate
+reservations, pass it by ref to ddebug_attach_{,user_}module_classes()
+so they can examine the reservations as they work.
 
- dyndbg: op='+'
- dyndbg: flags=0x1
- dyndbg: *flagsp=0x1 *maskp=0xffffffff
+2. return int from both ddebug_attach_{,user_}module_classes(), up to
+ddebug_add_module(), then to ddebug_module_notify().
 
- dyndbg: parsed: func="" file="" module="" format="" lineno=0-0 class=...
- dyndbg: no matches for query
- dyndbg: no-match: func="" file="" module="" format="" lineno=0-0 class=...
- dyndbg: processed 1 queries, with 0 matches, 0 errs
+No conflicts are currently detected or returned.
 
-That is excessive, so this patch:
- - shrinks 3 lines of 2nd stanza to single line
- - drops 1st 2 lines of 3rd stanza
-   3rd line is like 1st, with result, not procedure.
-   2nd line is just status, retold in 4th, with more info.
-
-New output:
-
- dyndbg: query 0: "class DRM_UT_CORE +p" mod:*
- dyndbg: split into words: "class" "DRM_UT_CORE" "+p"
- dyndbg: op='+' flags=0x1 *flagsp=0x1 *maskp=0xffffffff
- dyndbg: no-match: func="" file="" module="" format="" lineno=0-0 class=...
- dyndbg: processed 1 queries, with 0 matches, 0 errs
-
-no functional change.
+TBD: This is updated further by hoisting the reservation-check, which
+obsoletes part of 2, creating churn, maybe squash it away.
 
 Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
 ---
- lib/dynamic_debug.c | 14 +++-----------
- 1 file changed, 3 insertions(+), 11 deletions(-)
+ lib/dynamic_debug.c | 40 +++++++++++++++++++++++++++++-----------
+ 1 file changed, 29 insertions(+), 11 deletions(-)
 
 diff --git a/lib/dynamic_debug.c b/lib/dynamic_debug.c
-index 9adcb9fa7110..1b2fb6502e61 100644
+index 16c9b752822b..0ef243e30663 100644
 --- a/lib/dynamic_debug.c
 +++ b/lib/dynamic_debug.c
-@@ -266,9 +266,6 @@ static int ddebug_change(const struct ddebug_query *query,
- 	}
- 	mutex_unlock(&ddebug_lock);
- 
--	if (!nfound && verbose)
--		pr_info("no matches for query\n");
--
- 	return nfound;
- }
- 
-@@ -501,7 +498,6 @@ static int ddebug_parse_flags(const char *str, struct flag_settings *modifiers)
- 		pr_err("bad flag-op %c, at start of %s\n", *str, str);
- 		return -EINVAL;
- 	}
--	v3pr_info("op='%c'\n", op);
- 
- 	for (; *str ; ++str) {
- 		for (i = ARRAY_SIZE(opt_array) - 1; i >= 0; i--) {
-@@ -515,7 +511,6 @@ static int ddebug_parse_flags(const char *str, struct flag_settings *modifiers)
- 			return -EINVAL;
+@@ -1216,8 +1216,9 @@ static void ddebug_apply_params(const struct ddebug_class_map *cm, const char *m
+  * modular classmap vector/section.  Save the start and length of the
+  * subrange at its edges.
+  */
+-static void ddebug_attach_module_classes(struct ddebug_table *dt,
+-					 const struct _ddebug_info *di)
++static int ddebug_attach_module_classes(struct ddebug_table *dt,
++					const struct _ddebug_info *di,
++					u64 *reserved_ids)
+ {
+ 	struct ddebug_class_map *cm;
+ 	int i, nc = 0;
+@@ -1230,13 +1231,14 @@ static void ddebug_attach_module_classes(struct ddebug_table *dt,
  		}
  	}
--	v3pr_info("flags=0x%x\n", modifiers->flags);
+ 	if (!nc)
+-		return;
++		return 0;
  
- 	/* calculate final flags, mask based upon op */
- 	switch (op) {
-@@ -531,7 +526,7 @@ static int ddebug_parse_flags(const char *str, struct flag_settings *modifiers)
- 		modifiers->flags = 0;
- 		break;
+ 	vpr_info("module:%s attached %d classes\n", dt->mod_name, nc);
+ 	dt->info.maps.len = nc;
+ 
+ 	for_subvec(i, cm, &dt->info, maps)
+ 		ddebug_apply_params(cm, cm->mod_name);
++	return 0;
+ }
+ 
+ /*
+@@ -1244,8 +1246,9 @@ static void ddebug_attach_module_classes(struct ddebug_table *dt,
+  * means a query against the dt/module, which means it must be on the
+  * list to be seen by ddebug_change.
+  */
+-static void ddebug_attach_user_module_classes(struct ddebug_table *dt,
+-					      const struct _ddebug_info *di)
++static int ddebug_attach_user_module_classes(struct ddebug_table *dt,
++					      const struct _ddebug_info *di,
++					      u64 *reserved_ids)
+ {
+ 	struct ddebug_class_user *cli;
+ 	int i, nc = 0;
+@@ -1266,7 +1269,7 @@ static void ddebug_attach_user_module_classes(struct ddebug_table *dt,
+ 		}
  	}
--	v3pr_info("*flagsp=0x%x *maskp=0x%x\n", modifiers->flags, modifiers->mask);
-+	v3pr_info("op='%c' flags=0x%x maskp=0x%x\n", op, modifiers->flags, modifiers->mask);
+ 	if (!nc)
+-		return;
++		return 0;
  
+ 	dt->info.users.len = nc;
+ 
+@@ -1275,6 +1278,7 @@ static void ddebug_attach_user_module_classes(struct ddebug_table *dt,
+ 		ddebug_apply_params(cli->map, cli->mod_name);
+ 
+ 	vpr_dt_info(dt, "attach-client-module: ");
++	return 0;
+ }
+ 
+ /*
+@@ -1284,6 +1288,8 @@ static void ddebug_attach_user_module_classes(struct ddebug_table *dt,
+ static int ddebug_add_module(struct _ddebug_info *di, const char *modname)
+ {
+ 	struct ddebug_table *dt;
++	u64 reserved_ids = 0;
++	int rc;
+ 
+ 	if (!di->descs.len)
+ 		return 0;
+@@ -1306,16 +1312,23 @@ static int ddebug_add_module(struct _ddebug_info *di, const char *modname)
+ 
+ 	INIT_LIST_HEAD(&dt->link);
+ 
+-	if (di->maps.len)
+-		ddebug_attach_module_classes(dt, di);
+-
++	if (di->maps.len) {
++		rc = ddebug_attach_module_classes(dt, di, &reserved_ids);
++		if (rc) {
++			kfree(dt);
++			return rc;
++		}
++	}
+ 	mutex_lock(&ddebug_lock);
+ 	list_add_tail(&dt->link, &ddebug_tables);
+ 	mutex_unlock(&ddebug_lock);
+ 
+-	if (di->users.len)
+-		ddebug_attach_user_module_classes(dt, di);
+ 
++	if (di->users.len) {
++		rc = ddebug_attach_user_module_classes(dt, di, &reserved_ids);
++		if (rc)
++			return rc;
++	}
+ 	vpr_info("%3u debug prints in module %s\n", di->descs.len, modname);
  	return 0;
  }
-@@ -541,7 +536,7 @@ static int ddebug_exec_query(char *query_string, const char *modname)
- 	struct flag_settings modifiers = {};
- 	struct ddebug_query query = {};
- #define MAXWORDS 9
--	int nwords, nfound;
-+	int nwords;
- 	char *words[MAXWORDS];
- 
- 	nwords = ddebug_tokenize(query_string, words, MAXWORDS);
-@@ -559,10 +554,7 @@ static int ddebug_exec_query(char *query_string, const char *modname)
- 		return -EINVAL;
- 	}
- 	/* actually go and implement the change */
--	nfound = ddebug_change(&query, &modifiers);
--	vpr_info_dq(&query, nfound ? "applied" : "no-match");
--
--	return nfound;
-+	return ddebug_change(&query, &modifiers);
- }
- 
- /* handle multiple queries in query string, continue on error, return
+@@ -1400,6 +1413,11 @@ static int ddebug_module_notify(struct notifier_block *self, unsigned long val,
+ 	switch (val) {
+ 	case MODULE_STATE_COMING:
+ 		ret = ddebug_add_module(&mod->dyndbg_info, mod->name);
++		if (ret == -EINVAL) {
++			pr_err("conflicting dyndbg-classmap reservations\n");
++			ddebug_remove_module(mod->name);
++			break;
++		}
+ 		if (ret)
+ 			WARN(1, "Failed to allocate memory: dyndbg may not work properly.\n");
+ 		break;
 -- 
 2.48.1
 
