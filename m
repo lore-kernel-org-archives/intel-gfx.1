@@ -4,66 +4,66 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 40A16C0218D
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7B85FC02191
 	for <intel-gfx@archiver.kernel.org>; Sun, 26 Jan 2025 16:39:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 30DDD10E447;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 429D210E448;
 	Sun, 26 Jan 2025 16:39:57 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="LNW2IsSk";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Y+3x+eGk";
 	dkim-atps=neutral
-Received: from mail-io1-f45.google.com (mail-io1-f45.google.com
- [209.85.166.45])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BC63510E29F;
- Sat, 25 Jan 2025 06:46:44 +0000 (UTC)
-Received: by mail-io1-f45.google.com with SMTP id
- ca18e2360f4ac-844e9b83aaaso218487739f.3; 
- Fri, 24 Jan 2025 22:46:44 -0800 (PST)
+Received: from mail-io1-f46.google.com (mail-io1-f46.google.com
+ [209.85.166.46])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3F2B010E296;
+ Sat, 25 Jan 2025 06:46:40 +0000 (UTC)
+Received: by mail-io1-f46.google.com with SMTP id
+ ca18e2360f4ac-84cdacbc3dbso225254239f.2; 
+ Fri, 24 Jan 2025 22:46:40 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1737787604; x=1738392404; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1737787599; x=1738392399; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=gfV6PeTEsI0VgSdAZwuy1u+rsYeivbmD+1moBtyYi7s=;
- b=LNW2IsSka163NZ/dipNHU9RqzXkeoRaWgBwPaOjWbCxnQQkHnYgLxOy/jQUQFDGaRN
- ExZ5ywF6ZHQTe1SZqh1fK80suSXrIe3dL9CymjRbYmIjnOJ6QNH0e06KySAKB6EUqUv2
- WzDUfJwWzVB/ZI49UMzQn24jyA6NC1slBlySQ65RpQlnOi+bLbkay8iJlIKsxvVFHrTf
- ROP3OmkqL/1VNgXjl+NJcJ5afhg2p8a5EtTYIg5b/eiedBSFc8dP/uzvzR4PH7z9lXw9
- JwipoMTCW1Rp8VLkD45sueS4HJUAvqtBM9ac/RiFe7kTq+xYFqFQylBbtaKswayHs1gj
- J37g==
+ bh=lC0bEfQkqUFUX2DEnhyRE7tZ3eJxkUlfRX/DOTIhCKw=;
+ b=Y+3x+eGkp99FB/yz0zHWN+OkQXswDhWBl552D1lpxGTFQaGWjb6nt4VjKLKjDlNMXg
+ o33kggs79qn0ziLDhkssS2J5yJ/TYSeEJA+R8UFiqOpu8I3//k7HeK0X1Sz5FwvXTfPW
+ pnDt9Bu08fLq8CT/3VB9NoIUbCN9kgw1m5W67iJ1Abp/cdt9IC1rAl9Cw48xr/xPvoR/
+ 9/aRorSlAMkDUS8ExL3tGZk1uVT+SWCc71p1RekJvqimIsXnIzfJ4FOS0WYAAmbDfeqm
+ pg9ginR/MQaNG5paYET6MniXvMXE3j8s/Vurw0cY56sZkzClLxEX7PIxd6TayUugG79H
+ pdxg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1737787604; x=1738392404;
+ d=1e100.net; s=20230601; t=1737787599; x=1738392399;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=gfV6PeTEsI0VgSdAZwuy1u+rsYeivbmD+1moBtyYi7s=;
- b=RhFS1p4d43vgiGfkTO5Hjzybw8rGTu59bFRSvEc2KArij2RWtu2h3GHFqomWRmOaXk
- m8wO7VXr6SPVTQX/ZBaQQ0zcYzIZOc17hvfJwtulrx7SJmiFNN0+NrXswrpSrcsCkVav
- pQ+suVQLVQoUJQhb35NpkzCBbocHx1GuU0r8xf9UuibrGV7pPvZIyBXUSsuiG3W+vLaz
- i1U7Mq2wO881uGw8URlbnY/nZjiSDTcMAQF5BM0FIMt52NQCNoJ+/ysRX1+NQGkwP7kO
- jf1gK+NSVP32ZeqDR2aWvyPsGH3qiC98atqjTCurMTyRpGqQnzOZIfOG7fRJwMfG8JxY
- Vn1A==
+ bh=lC0bEfQkqUFUX2DEnhyRE7tZ3eJxkUlfRX/DOTIhCKw=;
+ b=qS4MBDRoWHc57juyNqiF2PJ58P7U0DliSVKNDPNByD8gPLbi/CJbYKCJcYu9sIkHTL
+ CoEJHp190cJ4p2HhxEokBiSWn8p1unf2LS0pcJOsV7c6QbjS1FlLtC9DAyP2lbUigoND
+ CCaVb6EkjOgSWZWUz9rT1Yjz2tpgSfSiu6JZRvHM1JcbWYyOAV7xcSrWJpg7+eo+D2cO
+ bCr2LCtMntsuTicqDJaZxAsxhT4C6JZ+0YQlPFvhfv8ARyLT7awImHIU7uOL9WcA62y8
+ aldJam7H3hWs1shdxO+RZaQfGqzM5tyKjcQAUWKu98rfKOuOmEugPflevXX6Msm+5lQ3
+ +Y+g==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUD9Zcs7c/WPEr2GgxsKYzaZa891QT6yK3nS7hgeqroT36+k7+6HOhhjwCorlWqFlsOLHwZDRZQ@lists.freedesktop.org,
- AJvYcCUgS2xbQtWBzoQBSF6r8dWtCpAJjrFoE5ODFyrBmKCd/90bw5WnpaTsfGR4r3ztr2PSVob/TzFNW+xYBx6ajw==@lists.freedesktop.org,
- AJvYcCUohtrzYKqN0IYEiODzWiJhK30ptwFIwVt0T5gBZrvC9lxta6jYymfauZEtMxuHd4V8p8eoJj8I9tMH@lists.freedesktop.org,
- AJvYcCXtF2pyuyTaeTgyneeA5QplVq0Bb/8FSZkNYFfRdgONPIye9VWMf1Wu6wDzfAsZUJY105zFsaiaovzx@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yzj4fSoz7qkGkO+m8uJghSTOnLlSU5Elwlh9ikYJOwOVeki/if6
- CBLa3TRcvR0RWr8Niqn4AlsYuI3ZekksPHpmXuF05UMsqEfVZSnv
-X-Gm-Gg: ASbGncvJFft2WefHdvw3fuw5kqN8+PJ0v+TwmZ/VuBM6TKxzHqky3ZyuM/eRFcaomi4
- CiWCOwDpttH8pAT+f1NMh+OX35Y/Sb3tJAFGB8saQY8YgWMcbkDyXMHIZqrKsOEs9rORrqDuioZ
- Zccti+8Usvbju1vrlZe23sOSZwvdAM/taC/e+7/wVHn59sEBg+AvYIU1Lajuizfvb+VndJUW78H
- mtK52Cv9KEHNh0PKhw5oXF+vSvYhUY/L+uru0/6MrYplIFWEub7UmJQ6bkcLT736NUCmTQ045NC
- QHvktBtB5yOJ2rR1yc6gLA5BV9n10DnC3ppj9T+kAhvgk2cu
-X-Google-Smtp-Source: AGHT+IGNmawZ5H7p5nSdLzECedgsD/gX3TGGq70Fq+Pnwp8P7+wi2jDLWawGYzx5t0CkZCBiLMpQ1g==
-X-Received: by 2002:a05:6602:6c06:b0:84f:5634:8a1b with SMTP id
- ca18e2360f4ac-851b619f8f4mr2827044139f.2.1737787603950; 
- Fri, 24 Jan 2025 22:46:43 -0800 (PST)
+ AJvYcCU8f+1a9UjHqCl37kNQ9XjKlN+tlE0wweGlzQCgMGG33DUpAE5STFRH9r1rXc1x/fKl0h2+LWypVs+a@lists.freedesktop.org,
+ AJvYcCUPVB9PaCg8INSWkVCYVl/1K4Ikx5Q5T7ELfTpn38aPyiYDli/syvjcy+XAjSSohaf2v7NG+vbWqp+FNcccSw==@lists.freedesktop.org,
+ AJvYcCVVWTFhsVUf2VibROhsYKAK9Tr++4WPgZ/WXoredXPJJUtFvpbpjNwZUkjY72IZx2TFJe5lB2f9gyEC@lists.freedesktop.org,
+ AJvYcCWdMpm3eZqwoQyuXwc+kWalexW2+3d5Wed2a/xhZlwAyJYb9tONru6Yu8DSaQ6sBjqqn/Wi0AZp@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzkhcVOyTDLwhAjs/rm83u4c4TECrDsnecNDethp+HGtT8d9myO
+ 3jafQQqZbYFLIuRP0xUkqlcI6E+4vrEC2h4lshxMkIYNi9RBCD0e
+X-Gm-Gg: ASbGncukvLxO3MaNAe31Ur0r5JrITnaP0WTA7FrHMivU3vNtY5Tdas7z67ZJPMxNEp8
+ IUPOfCxDjLyx1gIC5peddOlU2l5TKTuBYpfRbHI1SDS2qVOs0v9COtsrgcCbyKcSzEL2NSbnYZT
+ X2c4UEaqrSngCDb6jJCFgx3/wJbAcyaD0+HTZN3Y6ES/QQ0TMFmzoseXjqsYS4a3wW2r3WHtJdu
+ 7qFP43iHbPZ0fy2BxYnhQBh6uylBPclyuPNCsxnRVyIHV7hxiNZ+ZSM8s48hIrSI96/aJvOwJGV
+ p706E1Ro13p00cz8V3yKnZUKGciIzuBrm0TUGA==
+X-Google-Smtp-Source: AGHT+IGCJkMDi6QJz04QzrJP+6InsJu9u2vONXpHhIfvz9GYsm9WZO74SuyY8vqfLEAfr6A647uPAQ==
+X-Received: by 2002:a05:6602:488d:b0:849:a2bb:ffdd with SMTP id
+ ca18e2360f4ac-851b618abd4mr3617977939f.4.1737787599462; 
+ Fri, 24 Jan 2025 22:46:39 -0800 (PST)
 Received: from gandalf.. (c-67-165-245-5.hsd1.co.comcast.net. [67.165.245.5])
  by smtp.googlemail.com with ESMTPSA id
- 8926c6da1cb9f-4ec1da476fesm1174144173.58.2025.01.24.22.46.43
+ 8926c6da1cb9f-4ec1da476fesm1174144173.58.2025.01.24.22.46.38
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 24 Jan 2025 22:46:43 -0800 (PST)
+ Fri, 24 Jan 2025 22:46:39 -0800 (PST)
 From: Jim Cromie <jim.cromie@gmail.com>
 To: linux-kernel@vger.kernel.org, jbaron@akamai.com,
  gregkh@linuxfoundation.org, ukaszb@chromium.org
@@ -72,10 +72,9 @@ Cc: intel-gfx-trybot@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
  intel-gfx@lists.freedesktop.org, daniel.vetter@ffwll.ch,
  tvrtko.ursulin@linux.intel.com, jani.nikula@intel.com,
  ville.syrjala@linux.intel.com, Jim Cromie <jim.cromie@gmail.com>
-Subject: [PATCH 07/63] dyndbg: split param_set_dyndbg_classes to _module &
- wrapper fns
-Date: Fri, 24 Jan 2025 23:45:21 -0700
-Message-ID: <20250125064619.8305-8-jim.cromie@gmail.com>
+Subject: [PATCH 03/63] dyndbg: reword "class unknown," to "class:_UNKNOWN_"
+Date: Fri, 24 Jan 2025 23:45:17 -0700
+Message-ID: <20250125064619.8305-4-jim.cromie@gmail.com>
 X-Mailer: git-send-email 2.48.1
 In-Reply-To: <20250125064619.8305-1-jim.cromie@gmail.com>
 References: <20250125064619.8305-1-jim.cromie@gmail.com>
@@ -97,89 +96,37 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Split api-fn: param_set_dyndbg_classes(), adding modname param and
-passing NULL in from api-fn.
+When a dyndbg classname is unknown to a kernel module (as before
+previous patch), the callsite is un-addressable via >control queries.
 
-The new arg allows caller to specify that only one module is affected
-by a prdbgs update.  This selectivity will be used later to narrow the
-scope of changes made.
+The control-file displays this condition as "class unknown,"
+currently.  That spelling is sub-optimal/too-generic, so change it to
+"class:_UNKNOWN_" to loudly announce the erroneous situation, and to
+make it exceedingly greppable.
 
-no functional change.
+NB: pr_debugs are only alterable via >control, and to protect class'd
+debug's from unintended alteration, "class name" must be given to
+change them.  Classmaps map known classes to reserved .class_ids (the
+1..64 val range per module).
 
 Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
 ---
- lib/dynamic_debug.c | 37 ++++++++++++++++++++++---------------
- 1 file changed, 22 insertions(+), 15 deletions(-)
+ lib/dynamic_debug.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/lib/dynamic_debug.c b/lib/dynamic_debug.c
-index 8adb81e75a16..9adcb9fa7110 100644
+index 5a007952f7f2..147540c57154 100644
 --- a/lib/dynamic_debug.c
 +++ b/lib/dynamic_debug.c
-@@ -711,18 +711,9 @@ static int param_set_dyndbg_classnames(const char *instr, const struct kernel_pa
- 	return 0;
- }
+@@ -1154,7 +1154,7 @@ static int ddebug_proc_show(struct seq_file *m, void *p)
+ 		if (class)
+ 			seq_printf(m, " class:%s", class);
+ 		else
+-			seq_printf(m, " class unknown, _id:%d", dp->class_id);
++			seq_printf(m, " class:_UNKNOWN_ _id:%d", dp->class_id);
+ 	}
+ 	seq_putc(m, '\n');
  
--/**
-- * param_set_dyndbg_classes - class FOO >control
-- * @instr: string echo>d to sysfs, input depends on map_type
-- * @kp:    kp->arg has state: bits/lvl, map, map_type
-- *
-- * Enable/disable prdbgs by their class, as given in the arguments to
-- * DECLARE_DYNDBG_CLASSMAP.  For LEVEL map-types, enforce relative
-- * levels by bitpos.
-- *
-- * Returns: 0 or <0 if error.
-- */
--int param_set_dyndbg_classes(const char *instr, const struct kernel_param *kp)
-+static int param_set_dyndbg_module_classes(const char *instr,
-+					   const struct kernel_param *kp,
-+					   const char *modnm)
- {
- 	const struct ddebug_class_param *dcp = kp->arg;
- 	const struct ddebug_class_map *map = dcp->map;
-@@ -759,8 +750,8 @@ int param_set_dyndbg_classes(const char *instr, const struct kernel_param *kp)
- 				KP_NAME(kp), inrep, CLASSMAP_BITMASK(map->length));
- 			inrep &= CLASSMAP_BITMASK(map->length);
- 		}
--		v2pr_info("bits:%lx > %s\n", inrep, KP_NAME(kp));
--		totct += ddebug_apply_class_bitmap(dcp, &inrep, dcp->bits, NULL);
-+		v2pr_info("bits:0x%lx > %s.%s\n", inrep, modnm ?: "*", KP_NAME(kp));
-+		totct += ddebug_apply_class_bitmap(dcp, &inrep, dcp->bits, modnm);
- 		*dcp->bits = inrep;
- 		break;
- 	case DD_CLASS_TYPE_LEVEL_NUM:
-@@ -773,7 +764,7 @@ int param_set_dyndbg_classes(const char *instr, const struct kernel_param *kp)
- 		old_bits = CLASSMAP_BITMASK(*dcp->lvl);
- 		new_bits = CLASSMAP_BITMASK(inrep);
- 		v2pr_info("lvl:%ld bits:0x%lx > %s\n", inrep, new_bits, KP_NAME(kp));
--		totct += ddebug_apply_class_bitmap(dcp, &new_bits, &old_bits, NULL);
-+		totct += ddebug_apply_class_bitmap(dcp, &new_bits, &old_bits, modnm);
- 		*dcp->lvl = inrep;
- 		break;
- 	default:
-@@ -782,6 +773,22 @@ int param_set_dyndbg_classes(const char *instr, const struct kernel_param *kp)
- 	vpr_info("%s: total matches: %d\n", KP_NAME(kp), totct);
- 	return 0;
- }
-+
-+/**
-+ * param_set_dyndbg_classes - class FOO >control
-+ * @instr: string echo>d to sysfs, input depends on map_type
-+ * @kp:    kp->arg has state: bits/lvl, map, map_type
-+ *
-+ * Enable/disable prdbgs by their class, as given in the arguments to
-+ * DECLARE_DYNDBG_CLASSMAP.  For LEVEL map-types, enforce relative
-+ * levels by bitpos.
-+ *
-+ * Returns: 0 or <0 if error.
-+ */
-+int param_set_dyndbg_classes(const char *instr, const struct kernel_param *kp)
-+{
-+	return param_set_dyndbg_module_classes(instr, kp, NULL);
-+}
- EXPORT_SYMBOL(param_set_dyndbg_classes);
- 
- /**
 -- 
 2.48.1
 
