@@ -4,66 +4,66 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 256D5C0218E
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 144B7C02181
 	for <intel-gfx@archiver.kernel.org>; Sun, 26 Jan 2025 16:39:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A8DF910E446;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 99B9810E442;
 	Sun, 26 Jan 2025 16:39:56 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="BEeArEZn";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="JrQ42gN3";
 	dkim-atps=neutral
-Received: from mail-il1-f175.google.com (mail-il1-f175.google.com
- [209.85.166.175])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A94B110E120;
- Sat, 25 Jan 2025 06:46:53 +0000 (UTC)
-Received: by mail-il1-f175.google.com with SMTP id
- e9e14a558f8ab-3a8146a8ddaso7563675ab.1; 
- Fri, 24 Jan 2025 22:46:53 -0800 (PST)
+Received: from mail-il1-f173.google.com (mail-il1-f173.google.com
+ [209.85.166.173])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A8E0410EA62;
+ Sat, 25 Jan 2025 06:47:11 +0000 (UTC)
+Received: by mail-il1-f173.google.com with SMTP id
+ e9e14a558f8ab-3ce8a6bc715so21102055ab.2; 
+ Fri, 24 Jan 2025 22:47:11 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1737787613; x=1738392413; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1737787631; x=1738392431; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=NIDfNAZd/Jw4pBIb/8+H7rZ6KNLM9vcRA8qjI/u0xH0=;
- b=BEeArEZnhlzqbiouSjWmZxZI/9Z9h1Xmzn4Qol9LgET0xOvtAlQaLBoSim8tlwyeU9
- DnhwZQr22MPvNA9O7ML3EQjUjTNEbwZ4j/DbTrV980X7NJWPmbdmp13gzaFI4Fwphuiz
- C26ejwMrGtxQ9JoBrkcY6xqPQ6GG/al86CxwEAqPRa3maIXETjOzYSj7MpQc0+iY7Y55
- lRIIYT0y33wH6eip/XY9vfRFrDiVaAZRfkA0pH2V0zagpl15o4orRJdOEyjePe2JAHYx
- vJvGMwEU5Z/jdbW5u0ATqttweeQ99EN7rYrp4hgyg2//poSm/fTtQ+FpppW8SZRvXJOT
- vT4w==
+ bh=419xiuPVMG3qbwGo3tkCVXoWQ5CudHQx226Ckf7XZpg=;
+ b=JrQ42gN3gvjYK9jhjejDBuELxQVxrmeIv3+4HmwIZawKD3Im9YFqv0rc6zWu5/4oNQ
+ B+MdA38OubyxnhWXc8lUxWY5qpILa+fngqndZ1+Xv+N/7ifSgfkT6CN7iVsWz5q4Dj28
+ QMpimptEyhKM/VuHc1B8dKvlD4x2YBMRCmCfbp8vLjRbqm0XcIjar0KLtxOgdhhcvNku
+ ZIBTyUI5VQuJonE+zXnC9I8g9hYHqWE97ceIAsIBzTI3EKPjenrwapk3RCSfQa1xYAH4
+ Q090qY2/IMD0BtTD7eQ704gith9JPMupxq7yXfNjx/VKuWKtNqVK/5VJhOF2NiKcQV4y
+ 4Lvg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1737787613; x=1738392413;
+ d=1e100.net; s=20230601; t=1737787631; x=1738392431;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=NIDfNAZd/Jw4pBIb/8+H7rZ6KNLM9vcRA8qjI/u0xH0=;
- b=xJOcjiCLXZI/JhwD4XDiAhHjJZPrzBt71UoOAcSF4xRzZPo3AjtfKwOEu79OW0F1KU
- 5fjlOqVAxPASjz2tmqNlFVtjxD3N0+YI7h4Tp84v8N47xxw0C05UuuqjZUA/tmGprMx5
- OJgdE163V9ZpYhLZi1d/ajH7gc6ywJYdPd7ouU9t4A2f52Jdi0K8YHcuBDJsdhD0sv7w
- Rq4b9AIU02kOXaoqplig53GChhZRBXvEOsxuNp+JlsCEVrni4vpHIcu8Li0AaitiXWzv
- V2bK9xS5d3kyGVXA6RJ7Qo8ULZP4dOtaqVNZ7Z+anq5PbcqDJ4BSlPBb/NLQNh4rqjik
- FlLw==
+ bh=419xiuPVMG3qbwGo3tkCVXoWQ5CudHQx226Ckf7XZpg=;
+ b=cxRRr7SBwJOG7r3KnkN1eVDLSAZ149AkN6H9BQH4EDXUWae15L3I0z88ebAQ4iyNNf
+ Wk4TbIHl4/JqKwQOzIa/DVbjSwHzVCtqCnNzwtnWn83qo1ccaV5p9xVOp0zJgGcxhFxp
+ O6BpvDNfJaV1DL3/z7Vcfq03zoaFGsk1VWp+r+qOLu0jmGuusGo8zsuBwghm2/P+q1gE
+ 0oAiXb6On60vEmOypn6JB1guX++88NvvyhW+Nl1ZU6DizYz0U7NqrhDHdNn/TQQqpUBE
+ rRycF5PfgTape9WncFtiJ2CHc/aYiqtbE8QOxOuI8zAQ1kJH81mXRjit1Kbg4SMw0100
+ F8aQ==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUvbOczE7eDmLW/Y4ftAWP0n5DitDDTATfbVjPTH8gU87A08XD3vSZEUmeidUfMK+NKfs+3VRX0lAhR@lists.freedesktop.org,
- AJvYcCW4x9VYgXfgrGjmsHwTfVZNoLh8n80PJczdHhpbl3nY2cc2WNl/xAn77szAkdqNlcVlGThEa7Ea@lists.freedesktop.org,
- AJvYcCWGC3UbrGzyaLbp559ARvB1PVgqk94xxmi9HhzEy5DaZpJP6rqdQ6watMzfN97d5A0wsuQyfPMp/i7INWbmjw==@lists.freedesktop.org,
- AJvYcCXvZZD0raBjGKTQUKDns/ZcNc11dAS03pqJPrc3n4HEC7VcSChb/tn9RTQmtsTq3L09sn+es881eCXW@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yx7Y6W7N3zIrqkJxHJMZcjG4lX44213fLhlw+jpBqWq1XOV+NaT
- LNlEZp688P5afD4wJJLgU8ROI27j4wM6+MfGcTvXN4Jy/xAXBQxn
-X-Gm-Gg: ASbGncsYPQIOvSWFDqHI++X0m8y6zmYgXDnysK0v+deGhdJUeWks8VDhaMpSXybcqVh
- cjEd87er5TBozXCisyH7vBIGYJdi6uVcAZtUvP5dzBOUKBTS7U5/hQOC4nEvikrNjjfZt9Q1trn
- D+1y/9nRhrfGtlJMY/4qlc6vjh/I9O9JOnTDU3kfzPFmtlcymEsWjpJnpCUdo6Si/zARJJis1c3
- +g1ZsA0nrl0bBU093vhH/VNtc1Xr1GLUsYPeYs3WRvBbeaFYwLaLWmcqXN3g/PtSyCd6l/nVzaG
- O0vzGdXfr+R7xR72BW/URXG9J5nRNplz+SamjQ==
-X-Google-Smtp-Source: AGHT+IFnBc5L69q2w2UCaGc8rKGCQ73xwiQltSLOxSH0uqSvy0LUY+8SurgBk2ydmGJTEx6YzSwjXA==
-X-Received: by 2002:a05:6602:2b8a:b0:844:bd90:d45c with SMTP id
- ca18e2360f4ac-851b65227a0mr2635707139f.13.1737787612867; 
- Fri, 24 Jan 2025 22:46:52 -0800 (PST)
+ AJvYcCUHfMdRWA3C+TiX5SLpWhI24Bkn3qSo/dfu5WGxWoWRhkNgsdWkghUCcvDnwrNxLO5F/z+bK4LTGT6xVYtWfg==@lists.freedesktop.org,
+ AJvYcCUV3ykRcuCfYMpb+7liWkZf+L0iI1/Nb2atIL6WFVKwIGRQZU5Xkrfbj6z9BqA4B8pp9ur6ClJ0W0w4@lists.freedesktop.org,
+ AJvYcCWWYdCY9dBmSt+GhVEPiB9XjYKuo8V+CtNf1XPpqJ7WbB2ibPDJ/QMm0APTamEjKGlHwqRc9jj+@lists.freedesktop.org,
+ AJvYcCX4hSaw4MvzJnY94aSqNmEwvo/sC5NoGowWy7I4iEzhDw6VD5LG9R4yg5fw3SmWUHBmnQeAF8BOWFuM@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yw+IDBdZDG/vntF8+BVJED9/7ZUYaunvh6wWbjv2nO7Zz1DQmPN
+ H9VPyxNIRUeZKV8qp4a1Kcvg7OOlpZ70R5a4WOOnNkieopJNR8LE
+X-Gm-Gg: ASbGncsSUcJbqIhs+Na5DAV1+eDaXiNFRS7k4DJCZysfjZwy26aSF9IDhQPMQWCTtYj
+ ebMPbIJdiPRodGbZGtmAAXgbHNm4/Yj3WnkwBuUPI4kD+aUvy1mkiVvJlfrsujbNp4amPkuRUVu
+ iYEmUM2TSV0vTg3SrtmnMqbH+i/ahjlWbxW9EiYNDm9FlpmGkzFx8CGXIw0R+1ZFv7NgvpMHgQM
+ I3RNy4uWsVvmTdxfh1YD7qts2G+iNSetlkfIq7xkp1aTg/Ygnk65ICvAOxStvrxy7Cot4Ahe4RR
+ uIK3Mq+e58Dhfq8Y9GM5iZSX8V+OvClNhelnOFwwZDQACj55
+X-Google-Smtp-Source: AGHT+IEdolY48jcy1d5GbnNNp6uwMS0tCY3zAQsNey2Tb/bKtSSTu+VxIC9kGp83MyjaHTPxuWcnsA==
+X-Received: by 2002:a05:6e02:1aa3:b0:3cf:cc8d:48aa with SMTP id
+ e9e14a558f8ab-3cfcc8d4b85mr45317065ab.21.1737787631024; 
+ Fri, 24 Jan 2025 22:47:11 -0800 (PST)
 Received: from gandalf.. (c-67-165-245-5.hsd1.co.comcast.net. [67.165.245.5])
  by smtp.googlemail.com with ESMTPSA id
- 8926c6da1cb9f-4ec1da476fesm1174144173.58.2025.01.24.22.46.51
+ 8926c6da1cb9f-4ec1da476fesm1174144173.58.2025.01.24.22.47.10
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 24 Jan 2025 22:46:52 -0800 (PST)
+ Fri, 24 Jan 2025 22:47:10 -0800 (PST)
 From: Jim Cromie <jim.cromie@gmail.com>
 To: linux-kernel@vger.kernel.org, jbaron@akamai.com,
  gregkh@linuxfoundation.org, ukaszb@chromium.org
@@ -71,20 +71,16 @@ Cc: intel-gfx-trybot@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
  amd-gfx@lists.freedesktop.org, intel-gvt-dev@lists.freedesktop.org,
  intel-gfx@lists.freedesktop.org, daniel.vetter@ffwll.ch,
  tvrtko.ursulin@linux.intel.com, jani.nikula@intel.com,
- ville.syrjala@linux.intel.com, Jim Cromie <jim.cromie@gmail.com>,
- Andy Whitcroft <apw@canonical.com>, Joe Perches <joe@perches.com>,
- Dwaipayan Ray <dwaipayanray1@gmail.com>,
- Lukas Bulwahn <lukas.bulwahn@gmail.com>
-Subject: [PATCH 15/63] checkpatch: add an exception to the do-while wrapper
- advice
-Date: Fri, 24 Jan 2025 23:45:29 -0700
-Message-ID: <20250125064619.8305-16-jim.cromie@gmail.com>
+ ville.syrjala@linux.intel.com, Jim Cromie <jim.cromie@gmail.com>
+Subject: [PATCH 31/63] selftests-dyndbg: add comma_terminator_tests
+Date: Fri, 24 Jan 2025 23:45:45 -0700
+Message-ID: <20250125064619.8305-32-jim.cromie@gmail.com>
 X-Mailer: git-send-email 2.48.1
 In-Reply-To: <20250125064619.8305-1-jim.cromie@gmail.com>
 References: <20250125064619.8305-1-jim.cromie@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Sun, 26 Jan 2025 16:39:34 +0000
+X-Mailman-Approved-At: Sun, 26 Jan 2025 16:39:35 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -100,32 +96,60 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Several new DYNDBG_CLASSMAP_* macros (added in following commits)
-expand to multi-statement declarations, like module_param_named does.
-They are invoked in file-scope, not in function scope, and cannot be
-wrapped by a do-while, so add an exception by name for them.
+New fn validates parsing and effect of queries using combinations of
+commas and spaces to delimit the tokens.
 
-cc: Andy Whitcroft <apw@canonical.com>
-cc: Joe Perches <joe@perches.com>
-cc: Dwaipayan Ray <dwaipayanray1@gmail.com>
-cc: Lukas Bulwahn <lukas.bulwahn@gmail.com>
+It manipulates pr-debugs in builtin module/params, so might have deps
+I havent foreseen on odd configurations.
+
 Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
 ---
- scripts/checkpatch.pl | 1 +
- 1 file changed, 1 insertion(+)
+- skip comma tests if no builtins
+---
+ .../dynamic_debug/dyndbg_selftest.sh          | 21 ++++++++++++++++++-
+ 1 file changed, 20 insertions(+), 1 deletion(-)
 
-diff --git a/scripts/checkpatch.pl b/scripts/checkpatch.pl
-index 9eed3683ad76..4a93b2ede8cd 100755
---- a/scripts/checkpatch.pl
-+++ b/scripts/checkpatch.pl
-@@ -5963,6 +5963,7 @@ sub process {
- 				MODULE_PARM_DESC|
- 				DECLARE_PER_CPU|
- 				DEFINE_PER_CPU|
-+				DYNDBG_CLASSMAP|
- 				__typeof__\(|
- 				union|
- 				struct|
+diff --git a/tools/testing/selftests/dynamic_debug/dyndbg_selftest.sh b/tools/testing/selftests/dynamic_debug/dyndbg_selftest.sh
+index 68a9046405f2..368d10a691a0 100755
+--- a/tools/testing/selftests/dynamic_debug/dyndbg_selftest.sh
++++ b/tools/testing/selftests/dynamic_debug/dyndbg_selftest.sh
+@@ -216,7 +216,7 @@ function check_err_msg() {
+ function basic_tests {
+     echo -e "${GREEN}# BASIC_TESTS ${NC}"
+     if [ $LACK_DD_BUILTIN -eq 1 ]; then
+-	echo "SKIP"
++	echo "SKIP - test requires params, which is a builtin module"
+ 	return
+     fi
+     ddcmd =_ # zero everything
+@@ -238,8 +238,27 @@ EOF
+     ddcmd =_
+ }
+ 
++function comma_terminator_tests {
++    echo -e "${GREEN}# COMMA_TERMINATOR_TESTS ${NC}"
++    if [ $LACK_DD_BUILTIN -eq 1 ]; then
++	echo "SKIP - test requires params, which is a builtin module"
++	return
++    fi
++    # try combos of spaces & commas
++    check_match_ct '\[params\]' 4 -r
++    ddcmd module,params,=_		# commas as spaces
++    ddcmd module,params,+mpf		# turn on module's pr-debugs
++    check_match_ct =pmf 4
++    ddcmd ,module ,, ,  params, -p
++    check_match_ct =mf 4
++    ddcmd " , module ,,, ,  params, -m"	#
++    check_match_ct =f 4
++    ddcmd =_
++}
++
+ tests_list=(
+     basic_tests
++    comma_terminator_tests
+ )
+ 
+ # Run tests
 -- 
 2.48.1
 
