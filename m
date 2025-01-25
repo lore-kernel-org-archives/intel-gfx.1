@@ -4,66 +4,66 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 144B7C02181
-	for <intel-gfx@archiver.kernel.org>; Sun, 26 Jan 2025 16:39:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 40A16C0218D
+	for <intel-gfx@archiver.kernel.org>; Sun, 26 Jan 2025 16:39:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 99B9810E442;
-	Sun, 26 Jan 2025 16:39:56 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 30DDD10E447;
+	Sun, 26 Jan 2025 16:39:57 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="JrQ42gN3";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="LNW2IsSk";
 	dkim-atps=neutral
-Received: from mail-il1-f173.google.com (mail-il1-f173.google.com
- [209.85.166.173])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A8E0410EA62;
- Sat, 25 Jan 2025 06:47:11 +0000 (UTC)
-Received: by mail-il1-f173.google.com with SMTP id
- e9e14a558f8ab-3ce8a6bc715so21102055ab.2; 
- Fri, 24 Jan 2025 22:47:11 -0800 (PST)
+Received: from mail-io1-f45.google.com (mail-io1-f45.google.com
+ [209.85.166.45])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BC63510E29F;
+ Sat, 25 Jan 2025 06:46:44 +0000 (UTC)
+Received: by mail-io1-f45.google.com with SMTP id
+ ca18e2360f4ac-844e9b83aaaso218487739f.3; 
+ Fri, 24 Jan 2025 22:46:44 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1737787631; x=1738392431; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1737787604; x=1738392404; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=419xiuPVMG3qbwGo3tkCVXoWQ5CudHQx226Ckf7XZpg=;
- b=JrQ42gN3gvjYK9jhjejDBuELxQVxrmeIv3+4HmwIZawKD3Im9YFqv0rc6zWu5/4oNQ
- B+MdA38OubyxnhWXc8lUxWY5qpILa+fngqndZ1+Xv+N/7ifSgfkT6CN7iVsWz5q4Dj28
- QMpimptEyhKM/VuHc1B8dKvlD4x2YBMRCmCfbp8vLjRbqm0XcIjar0KLtxOgdhhcvNku
- ZIBTyUI5VQuJonE+zXnC9I8g9hYHqWE97ceIAsIBzTI3EKPjenrwapk3RCSfQa1xYAH4
- Q090qY2/IMD0BtTD7eQ704gith9JPMupxq7yXfNjx/VKuWKtNqVK/5VJhOF2NiKcQV4y
- 4Lvg==
+ bh=gfV6PeTEsI0VgSdAZwuy1u+rsYeivbmD+1moBtyYi7s=;
+ b=LNW2IsSka163NZ/dipNHU9RqzXkeoRaWgBwPaOjWbCxnQQkHnYgLxOy/jQUQFDGaRN
+ ExZ5ywF6ZHQTe1SZqh1fK80suSXrIe3dL9CymjRbYmIjnOJ6QNH0e06KySAKB6EUqUv2
+ WzDUfJwWzVB/ZI49UMzQn24jyA6NC1slBlySQ65RpQlnOi+bLbkay8iJlIKsxvVFHrTf
+ ROP3OmkqL/1VNgXjl+NJcJ5afhg2p8a5EtTYIg5b/eiedBSFc8dP/uzvzR4PH7z9lXw9
+ JwipoMTCW1Rp8VLkD45sueS4HJUAvqtBM9ac/RiFe7kTq+xYFqFQylBbtaKswayHs1gj
+ J37g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1737787631; x=1738392431;
+ d=1e100.net; s=20230601; t=1737787604; x=1738392404;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=419xiuPVMG3qbwGo3tkCVXoWQ5CudHQx226Ckf7XZpg=;
- b=cxRRr7SBwJOG7r3KnkN1eVDLSAZ149AkN6H9BQH4EDXUWae15L3I0z88ebAQ4iyNNf
- Wk4TbIHl4/JqKwQOzIa/DVbjSwHzVCtqCnNzwtnWn83qo1ccaV5p9xVOp0zJgGcxhFxp
- O6BpvDNfJaV1DL3/z7Vcfq03zoaFGsk1VWp+r+qOLu0jmGuusGo8zsuBwghm2/P+q1gE
- 0oAiXb6On60vEmOypn6JB1guX++88NvvyhW+Nl1ZU6DizYz0U7NqrhDHdNn/TQQqpUBE
- rRycF5PfgTape9WncFtiJ2CHc/aYiqtbE8QOxOuI8zAQ1kJH81mXRjit1Kbg4SMw0100
- F8aQ==
+ bh=gfV6PeTEsI0VgSdAZwuy1u+rsYeivbmD+1moBtyYi7s=;
+ b=RhFS1p4d43vgiGfkTO5Hjzybw8rGTu59bFRSvEc2KArij2RWtu2h3GHFqomWRmOaXk
+ m8wO7VXr6SPVTQX/ZBaQQ0zcYzIZOc17hvfJwtulrx7SJmiFNN0+NrXswrpSrcsCkVav
+ pQ+suVQLVQoUJQhb35NpkzCBbocHx1GuU0r8xf9UuibrGV7pPvZIyBXUSsuiG3W+vLaz
+ i1U7Mq2wO881uGw8URlbnY/nZjiSDTcMAQF5BM0FIMt52NQCNoJ+/ysRX1+NQGkwP7kO
+ jf1gK+NSVP32ZeqDR2aWvyPsGH3qiC98atqjTCurMTyRpGqQnzOZIfOG7fRJwMfG8JxY
+ Vn1A==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUHfMdRWA3C+TiX5SLpWhI24Bkn3qSo/dfu5WGxWoWRhkNgsdWkghUCcvDnwrNxLO5F/z+bK4LTGT6xVYtWfg==@lists.freedesktop.org,
- AJvYcCUV3ykRcuCfYMpb+7liWkZf+L0iI1/Nb2atIL6WFVKwIGRQZU5Xkrfbj6z9BqA4B8pp9ur6ClJ0W0w4@lists.freedesktop.org,
- AJvYcCWWYdCY9dBmSt+GhVEPiB9XjYKuo8V+CtNf1XPpqJ7WbB2ibPDJ/QMm0APTamEjKGlHwqRc9jj+@lists.freedesktop.org,
- AJvYcCX4hSaw4MvzJnY94aSqNmEwvo/sC5NoGowWy7I4iEzhDw6VD5LG9R4yg5fw3SmWUHBmnQeAF8BOWFuM@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yw+IDBdZDG/vntF8+BVJED9/7ZUYaunvh6wWbjv2nO7Zz1DQmPN
- H9VPyxNIRUeZKV8qp4a1Kcvg7OOlpZ70R5a4WOOnNkieopJNR8LE
-X-Gm-Gg: ASbGncsSUcJbqIhs+Na5DAV1+eDaXiNFRS7k4DJCZysfjZwy26aSF9IDhQPMQWCTtYj
- ebMPbIJdiPRodGbZGtmAAXgbHNm4/Yj3WnkwBuUPI4kD+aUvy1mkiVvJlfrsujbNp4amPkuRUVu
- iYEmUM2TSV0vTg3SrtmnMqbH+i/ahjlWbxW9EiYNDm9FlpmGkzFx8CGXIw0R+1ZFv7NgvpMHgQM
- I3RNy4uWsVvmTdxfh1YD7qts2G+iNSetlkfIq7xkp1aTg/Ygnk65ICvAOxStvrxy7Cot4Ahe4RR
- uIK3Mq+e58Dhfq8Y9GM5iZSX8V+OvClNhelnOFwwZDQACj55
-X-Google-Smtp-Source: AGHT+IEdolY48jcy1d5GbnNNp6uwMS0tCY3zAQsNey2Tb/bKtSSTu+VxIC9kGp83MyjaHTPxuWcnsA==
-X-Received: by 2002:a05:6e02:1aa3:b0:3cf:cc8d:48aa with SMTP id
- e9e14a558f8ab-3cfcc8d4b85mr45317065ab.21.1737787631024; 
- Fri, 24 Jan 2025 22:47:11 -0800 (PST)
+ AJvYcCUD9Zcs7c/WPEr2GgxsKYzaZa891QT6yK3nS7hgeqroT36+k7+6HOhhjwCorlWqFlsOLHwZDRZQ@lists.freedesktop.org,
+ AJvYcCUgS2xbQtWBzoQBSF6r8dWtCpAJjrFoE5ODFyrBmKCd/90bw5WnpaTsfGR4r3ztr2PSVob/TzFNW+xYBx6ajw==@lists.freedesktop.org,
+ AJvYcCUohtrzYKqN0IYEiODzWiJhK30ptwFIwVt0T5gBZrvC9lxta6jYymfauZEtMxuHd4V8p8eoJj8I9tMH@lists.freedesktop.org,
+ AJvYcCXtF2pyuyTaeTgyneeA5QplVq0Bb/8FSZkNYFfRdgONPIye9VWMf1Wu6wDzfAsZUJY105zFsaiaovzx@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yzj4fSoz7qkGkO+m8uJghSTOnLlSU5Elwlh9ikYJOwOVeki/if6
+ CBLa3TRcvR0RWr8Niqn4AlsYuI3ZekksPHpmXuF05UMsqEfVZSnv
+X-Gm-Gg: ASbGncvJFft2WefHdvw3fuw5kqN8+PJ0v+TwmZ/VuBM6TKxzHqky3ZyuM/eRFcaomi4
+ CiWCOwDpttH8pAT+f1NMh+OX35Y/Sb3tJAFGB8saQY8YgWMcbkDyXMHIZqrKsOEs9rORrqDuioZ
+ Zccti+8Usvbju1vrlZe23sOSZwvdAM/taC/e+7/wVHn59sEBg+AvYIU1Lajuizfvb+VndJUW78H
+ mtK52Cv9KEHNh0PKhw5oXF+vSvYhUY/L+uru0/6MrYplIFWEub7UmJQ6bkcLT736NUCmTQ045NC
+ QHvktBtB5yOJ2rR1yc6gLA5BV9n10DnC3ppj9T+kAhvgk2cu
+X-Google-Smtp-Source: AGHT+IGNmawZ5H7p5nSdLzECedgsD/gX3TGGq70Fq+Pnwp8P7+wi2jDLWawGYzx5t0CkZCBiLMpQ1g==
+X-Received: by 2002:a05:6602:6c06:b0:84f:5634:8a1b with SMTP id
+ ca18e2360f4ac-851b619f8f4mr2827044139f.2.1737787603950; 
+ Fri, 24 Jan 2025 22:46:43 -0800 (PST)
 Received: from gandalf.. (c-67-165-245-5.hsd1.co.comcast.net. [67.165.245.5])
  by smtp.googlemail.com with ESMTPSA id
- 8926c6da1cb9f-4ec1da476fesm1174144173.58.2025.01.24.22.47.10
+ 8926c6da1cb9f-4ec1da476fesm1174144173.58.2025.01.24.22.46.43
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 24 Jan 2025 22:47:10 -0800 (PST)
+ Fri, 24 Jan 2025 22:46:43 -0800 (PST)
 From: Jim Cromie <jim.cromie@gmail.com>
 To: linux-kernel@vger.kernel.org, jbaron@akamai.com,
  gregkh@linuxfoundation.org, ukaszb@chromium.org
@@ -72,15 +72,16 @@ Cc: intel-gfx-trybot@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
  intel-gfx@lists.freedesktop.org, daniel.vetter@ffwll.ch,
  tvrtko.ursulin@linux.intel.com, jani.nikula@intel.com,
  ville.syrjala@linux.intel.com, Jim Cromie <jim.cromie@gmail.com>
-Subject: [PATCH 31/63] selftests-dyndbg: add comma_terminator_tests
-Date: Fri, 24 Jan 2025 23:45:45 -0700
-Message-ID: <20250125064619.8305-32-jim.cromie@gmail.com>
+Subject: [PATCH 07/63] dyndbg: split param_set_dyndbg_classes to _module &
+ wrapper fns
+Date: Fri, 24 Jan 2025 23:45:21 -0700
+Message-ID: <20250125064619.8305-8-jim.cromie@gmail.com>
 X-Mailer: git-send-email 2.48.1
 In-Reply-To: <20250125064619.8305-1-jim.cromie@gmail.com>
 References: <20250125064619.8305-1-jim.cromie@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Sun, 26 Jan 2025 16:39:35 +0000
+X-Mailman-Approved-At: Sun, 26 Jan 2025 16:39:34 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -96,60 +97,89 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-New fn validates parsing and effect of queries using combinations of
-commas and spaces to delimit the tokens.
+Split api-fn: param_set_dyndbg_classes(), adding modname param and
+passing NULL in from api-fn.
 
-It manipulates pr-debugs in builtin module/params, so might have deps
-I havent foreseen on odd configurations.
+The new arg allows caller to specify that only one module is affected
+by a prdbgs update.  This selectivity will be used later to narrow the
+scope of changes made.
+
+no functional change.
 
 Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
 ---
-- skip comma tests if no builtins
----
- .../dynamic_debug/dyndbg_selftest.sh          | 21 ++++++++++++++++++-
- 1 file changed, 20 insertions(+), 1 deletion(-)
+ lib/dynamic_debug.c | 37 ++++++++++++++++++++++---------------
+ 1 file changed, 22 insertions(+), 15 deletions(-)
 
-diff --git a/tools/testing/selftests/dynamic_debug/dyndbg_selftest.sh b/tools/testing/selftests/dynamic_debug/dyndbg_selftest.sh
-index 68a9046405f2..368d10a691a0 100755
---- a/tools/testing/selftests/dynamic_debug/dyndbg_selftest.sh
-+++ b/tools/testing/selftests/dynamic_debug/dyndbg_selftest.sh
-@@ -216,7 +216,7 @@ function check_err_msg() {
- function basic_tests {
-     echo -e "${GREEN}# BASIC_TESTS ${NC}"
-     if [ $LACK_DD_BUILTIN -eq 1 ]; then
--	echo "SKIP"
-+	echo "SKIP - test requires params, which is a builtin module"
- 	return
-     fi
-     ddcmd =_ # zero everything
-@@ -238,8 +238,27 @@ EOF
-     ddcmd =_
+diff --git a/lib/dynamic_debug.c b/lib/dynamic_debug.c
+index 8adb81e75a16..9adcb9fa7110 100644
+--- a/lib/dynamic_debug.c
++++ b/lib/dynamic_debug.c
+@@ -711,18 +711,9 @@ static int param_set_dyndbg_classnames(const char *instr, const struct kernel_pa
+ 	return 0;
  }
  
-+function comma_terminator_tests {
-+    echo -e "${GREEN}# COMMA_TERMINATOR_TESTS ${NC}"
-+    if [ $LACK_DD_BUILTIN -eq 1 ]; then
-+	echo "SKIP - test requires params, which is a builtin module"
-+	return
-+    fi
-+    # try combos of spaces & commas
-+    check_match_ct '\[params\]' 4 -r
-+    ddcmd module,params,=_		# commas as spaces
-+    ddcmd module,params,+mpf		# turn on module's pr-debugs
-+    check_match_ct =pmf 4
-+    ddcmd ,module ,, ,  params, -p
-+    check_match_ct =mf 4
-+    ddcmd " , module ,,, ,  params, -m"	#
-+    check_match_ct =f 4
-+    ddcmd =_
-+}
+-/**
+- * param_set_dyndbg_classes - class FOO >control
+- * @instr: string echo>d to sysfs, input depends on map_type
+- * @kp:    kp->arg has state: bits/lvl, map, map_type
+- *
+- * Enable/disable prdbgs by their class, as given in the arguments to
+- * DECLARE_DYNDBG_CLASSMAP.  For LEVEL map-types, enforce relative
+- * levels by bitpos.
+- *
+- * Returns: 0 or <0 if error.
+- */
+-int param_set_dyndbg_classes(const char *instr, const struct kernel_param *kp)
++static int param_set_dyndbg_module_classes(const char *instr,
++					   const struct kernel_param *kp,
++					   const char *modnm)
+ {
+ 	const struct ddebug_class_param *dcp = kp->arg;
+ 	const struct ddebug_class_map *map = dcp->map;
+@@ -759,8 +750,8 @@ int param_set_dyndbg_classes(const char *instr, const struct kernel_param *kp)
+ 				KP_NAME(kp), inrep, CLASSMAP_BITMASK(map->length));
+ 			inrep &= CLASSMAP_BITMASK(map->length);
+ 		}
+-		v2pr_info("bits:%lx > %s\n", inrep, KP_NAME(kp));
+-		totct += ddebug_apply_class_bitmap(dcp, &inrep, dcp->bits, NULL);
++		v2pr_info("bits:0x%lx > %s.%s\n", inrep, modnm ?: "*", KP_NAME(kp));
++		totct += ddebug_apply_class_bitmap(dcp, &inrep, dcp->bits, modnm);
+ 		*dcp->bits = inrep;
+ 		break;
+ 	case DD_CLASS_TYPE_LEVEL_NUM:
+@@ -773,7 +764,7 @@ int param_set_dyndbg_classes(const char *instr, const struct kernel_param *kp)
+ 		old_bits = CLASSMAP_BITMASK(*dcp->lvl);
+ 		new_bits = CLASSMAP_BITMASK(inrep);
+ 		v2pr_info("lvl:%ld bits:0x%lx > %s\n", inrep, new_bits, KP_NAME(kp));
+-		totct += ddebug_apply_class_bitmap(dcp, &new_bits, &old_bits, NULL);
++		totct += ddebug_apply_class_bitmap(dcp, &new_bits, &old_bits, modnm);
+ 		*dcp->lvl = inrep;
+ 		break;
+ 	default:
+@@ -782,6 +773,22 @@ int param_set_dyndbg_classes(const char *instr, const struct kernel_param *kp)
+ 	vpr_info("%s: total matches: %d\n", KP_NAME(kp), totct);
+ 	return 0;
+ }
 +
- tests_list=(
-     basic_tests
-+    comma_terminator_tests
- )
++/**
++ * param_set_dyndbg_classes - class FOO >control
++ * @instr: string echo>d to sysfs, input depends on map_type
++ * @kp:    kp->arg has state: bits/lvl, map, map_type
++ *
++ * Enable/disable prdbgs by their class, as given in the arguments to
++ * DECLARE_DYNDBG_CLASSMAP.  For LEVEL map-types, enforce relative
++ * levels by bitpos.
++ *
++ * Returns: 0 or <0 if error.
++ */
++int param_set_dyndbg_classes(const char *instr, const struct kernel_param *kp)
++{
++	return param_set_dyndbg_module_classes(instr, kp, NULL);
++}
+ EXPORT_SYMBOL(param_set_dyndbg_classes);
  
- # Run tests
+ /**
 -- 
 2.48.1
 
