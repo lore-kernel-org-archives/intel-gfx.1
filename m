@@ -4,66 +4,66 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0D087C02181
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9E18DC02194
 	for <intel-gfx@archiver.kernel.org>; Sun, 26 Jan 2025 16:40:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9CE5210E44C;
+	by gabe.freedesktop.org (Postfix) with ESMTP id E7F6C10E454;
 	Sun, 26 Jan 2025 16:39:57 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="UNfKCgwP";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="krRQRkCs";
 	dkim-atps=neutral
-Received: from mail-il1-f179.google.com (mail-il1-f179.google.com
- [209.85.166.179])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A210110EA84;
- Sat, 25 Jan 2025 06:47:33 +0000 (UTC)
-Received: by mail-il1-f179.google.com with SMTP id
- e9e14a558f8ab-3cfc8772469so5194985ab.3; 
- Fri, 24 Jan 2025 22:47:33 -0800 (PST)
+Received: from mail-il1-f175.google.com (mail-il1-f175.google.com
+ [209.85.166.175])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9408510EA91;
+ Sat, 25 Jan 2025 06:47:42 +0000 (UTC)
+Received: by mail-il1-f175.google.com with SMTP id
+ e9e14a558f8ab-3cfb0ed6ef8so11168705ab.0; 
+ Fri, 24 Jan 2025 22:47:42 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1737787653; x=1738392453; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1737787662; x=1738392462; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=QXJvwkX5dMWwVOOB9k5iDyJ+DvIudVbZ+A9Ut3PgCsY=;
- b=UNfKCgwPKXyK2QDToDx0l/NJSkPysCUOl9zFLyGmYQVOegdFJabWysP7IIcSdbm81W
- ZuglG3mR7ND0EJCcQgKLdtxFYPh2wnppZhtE8/EIhN6IFXuqKgDJFiqzr6Pi4OvzyFIW
- dQRhAATbCY0xdVvC+kRZWUSl41aT/wS+yCaRK5vCSraw2KiNLTd1cqor0igw1ragVaZA
- oEt6o7MJzg5THkmI9pgP9Z/JWZlZUqnCb0lrBYRsbrXWRvrfkncP5sWHUhkoCEX+WFUI
- aWqx2kyuF3W8Wp5eLSV0RNyXlVoNcFamnOUQ9lcv9R9mAlCcwXb8q3BsjH9mO7VJ07HD
- BNMg==
+ bh=p0Zd3BfiY3W2vF0LG5AZgUdYISO6p26vGoDy33af8qg=;
+ b=krRQRkCsav9BdavOZwbxi73yUJ411sO61C4YyC8p3WXBAFji+j867HjaPGO78D4ykj
+ HU7Zm4APK7M4upgAuZ6oibkGzVpUJHvEj4fh7qJydtaNvLbbsJxrFq4gVxeMK7CSNbJc
+ fZnPwiGa83gTa+MEFuT+VR7sc08VVq+GKVXDYLEpho46sM6wOo51gUFrD96iQ0hS3z6A
+ HVVascFsEAB9/5MyLmrcK3olqOgt16leXPJ4OZtJRm43dtWzHtLQEEBZobclrE9ZC9ol
+ 1lJ1PU0wLqL6wLUeEhTVg7OyStUwv0VlIr0XnJ5bjsrLEhPnPaUPmoN8eZJnWWaQXwo/
+ RlLg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1737787653; x=1738392453;
+ d=1e100.net; s=20230601; t=1737787662; x=1738392462;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=QXJvwkX5dMWwVOOB9k5iDyJ+DvIudVbZ+A9Ut3PgCsY=;
- b=X7uGxIIM31TjpQapHxFImfanNeCV9leIUAORQaAh/w0vk6B4khEMvnrJRaqq1FfSja
- 1mvVkPocyhV2uKlp5cFVFlhyYxbsiySyzD2phFAuGNfQDJ6Crq2gOz61Iyh5lbnmG6P8
- kRBISXMnB259nv2Ao/b1vbO0luFz1ONilwDnKHhpf4/6h6nYfCta48esFgRjlOeTnspq
- s5iViHLTSF3Yt2jZqrwFqU2azm+nV1T3JiIW6LYqDJdkdazsvf5NIUCy6Hy7llFi2v6G
- LWt00w0vnOtxAvHlvX+TV2fE3JS6qxfHUPU06zPqJYdc8Le2hZ0F7nJhPXynQegzI4xY
- bOfw==
+ bh=p0Zd3BfiY3W2vF0LG5AZgUdYISO6p26vGoDy33af8qg=;
+ b=BuX43gQZm0QoGwca1WhXoTPuuU7Yf2kodZvhSxAupVcsdZ/jQcw7Oiwwwy7VOy859y
+ y2H/ZrXtP+I35+R3gCpAQ9GCM6w+3mcmyLuoUdYkkJFBOlomsN0v1nGwXrNMJYOSnRys
+ NUPkXvtEQsOJc6L67A9Ske09kbkpnrV46N97YIVycWjl4+K8PemVvj7OH2FUiUX4dZF8
+ a2zU9IEPT8O52q2C+XM1eqHKo+gSDeSdIeq3rspRVpYFsjrFnJT9DHllwPxxOeP0OkxZ
+ DePJXe5uExWJQ0h92mleRD1MSrfpvd+Lr0Jcpfd4l2Uv6naDDhEOlXWAHMFPr3VbdiXd
+ OtzQ==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUG4E1ZIzXnjB0V1X9flF2PzSOY3PPR+2JZPE2xymZqTfpanrY3eYxSuugEmZk4SCl0hybH+OSsuVgz1cq4yQ==@lists.freedesktop.org,
- AJvYcCUq+MNKkzERFR4Y3dEZwiY1JmzMcJz5R3HiS3YeX2iFLCed3VnV4kJR4KnYQ2qYgCyFptvoyAK0eub+@lists.freedesktop.org,
- AJvYcCWmJLwJuMaIhZ5J77E4mkQoWswhFR7WJ8NG3/F5sKpWk1Afdeq5zHlQptTxht+UcxYiGHTIYL+pGDyr@lists.freedesktop.org,
- AJvYcCXPhaOHC/Px/66ZtF5lqkgG5kdXg1MCQCpcAPlHARMg65XtjMVTACp1PFSA/FcP14svOyDYAT/b@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwPR4obvCVyIRdG0rWLUtUAUr94Nozkeb4PMqFKz/XPjHcmX6JI
- lisftU2+cKLvbC7SbR9O4pPos8tg8LJ5vNh6fhmn0EHe8KNl3Yf+
-X-Gm-Gg: ASbGncsFKuNHjey82RT8rTl4rh1AzAaseU/I9sQ0FG8siri7uR5qbMlR2tdBKPO8EPy
- zZ+aoWIdhZNRYEuLaZOjNk5cOBj9Gaj2i3pysCLXKz+q8nEFRooTphmcQc0rErWWYzig3tzgi51
- lY9y5AsZpnFl9cD6cS1sbmfgqxZ2nFmqYpH9Ny89cFeQPUsT9HpcRUKI5/4DBQOW7B/zKd9hvc0
- wo5hxj5PeNxg+A/aUuTs+9bCNDZ5c8RL1SdakBzupEyHYFH3ct4+YG5wtqDQiS/C8yDLD5DKrhG
- dNco6F8cUqnkk2i6VtU+5U9g9bN08z3TQ4oYTA==
-X-Google-Smtp-Source: AGHT+IFR8c5S4HlnxAhhQQrNs6VgmiPrwR9vlqdXV98OhQbNPjVEjH4OwoZZHaDBKr7qyvOeA3I8Dw==
-X-Received: by 2002:a05:6602:4881:b0:84f:537d:b097 with SMTP id
- ca18e2360f4ac-851b62b5a35mr2857317739f.12.1737787652958; 
- Fri, 24 Jan 2025 22:47:32 -0800 (PST)
+ AJvYcCUG0KUtqFEm04AVmlIHnCd2beU2xxZdJ4DJlEdjY+EZCUsEuS6uWd9wxKUZtpBPytKCJllAw4AMOCkw@lists.freedesktop.org,
+ AJvYcCUdu6ae0oc7G8/PyvfjLqCD6ecUy2N/qBZ1fmmXaY+VuaAXZSzc6JPx6TLQvMrIjYISDdRxkqUV@lists.freedesktop.org,
+ AJvYcCVDI/OadU8ZrD1QA9gCeGUS+R81x9S770QaQ6WujXbhIa9lwg806UZuzbjT71BiihJuPxGmvvjSwmfU@lists.freedesktop.org,
+ AJvYcCWv42mJueOWdYiZAjNqiCzLw3mHwkOLoTbBwd00rAHtI/qip1jZ0fQGdRbTDWi4oF8RrhpK7LbDyREJNTXpAQ==@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yzk54zjyJkYDKMU2wUl4AHSCszGYQ0E0/61QD1Kvej7b0r2onEQ
+ aUh6prt7kmN2bV6jZ+p4ZgrcBka96qMVQBY1j9ZN0LgKKw1sbNJy
+X-Gm-Gg: ASbGnctcc1EGeNSD3F78nVE2eirNMxu02aYg/8dnEZZHqYKszLwefAooGTiymt9V0co
+ SMLdi9M6ll6PSNWaMSU4Sjq3KOCyW8dLBm4EhBBNN2U23QOtp4ocgzSyFTyz8hG0LTDA6MlPv4n
+ OdsDYLljR3wy5KuvO4B/9s1DEVuQm+0tXZYquJcaJjL4nWdN4GMOgg6OduSf4xtz2G+65SNK7Ku
+ dsb3ksNxw9PwxocwcF6dV24SAKdW+tskYau0g0q8TEGUTBuJRYde/rAo1D5PGm+1dmnGexX3C0S
+ 2PGGqWu2w10YcYbqM3QevUBTwuJwEPEJu3BzUw==
+X-Google-Smtp-Source: AGHT+IF1zMmq3tsjDiYaBlPDj34+isgHT03SW+yXHV8H8+MqeBVAiaiWzp3yJjk7UYIGJ79lbI6G2A==
+X-Received: by 2002:a92:d4c9:0:b0:3cf:b059:9dd9 with SMTP id
+ e9e14a558f8ab-3cfc7a564ccmr37732475ab.9.1737787661907; 
+ Fri, 24 Jan 2025 22:47:41 -0800 (PST)
 Received: from gandalf.. (c-67-165-245-5.hsd1.co.comcast.net. [67.165.245.5])
  by smtp.googlemail.com with ESMTPSA id
- 8926c6da1cb9f-4ec1da476fesm1174144173.58.2025.01.24.22.47.31
+ 8926c6da1cb9f-4ec1da476fesm1174144173.58.2025.01.24.22.47.41
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 24 Jan 2025 22:47:32 -0800 (PST)
+ Fri, 24 Jan 2025 22:47:41 -0800 (PST)
 From: Jim Cromie <jim.cromie@gmail.com>
 To: linux-kernel@vger.kernel.org, jbaron@akamai.com,
  gregkh@linuxfoundation.org, ukaszb@chromium.org
@@ -72,9 +72,9 @@ Cc: intel-gfx-trybot@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
  intel-gfx@lists.freedesktop.org, daniel.vetter@ffwll.ch,
  tvrtko.ursulin@linux.intel.com, jani.nikula@intel.com,
  ville.syrjala@linux.intel.com, Jim Cromie <jim.cromie@gmail.com>
-Subject: [PATCH 52/63] drm-dyndbg: add DRM_CLASSMAP_USE to bochs
-Date: Fri, 24 Jan 2025 23:46:06 -0700
-Message-ID: <20250125064619.8305-53-jim.cromie@gmail.com>
+Subject: [PATCH 61/63] drm-dyndbg: add DRM_CLASSMAP_USE to the qxl driver
+Date: Fri, 24 Jan 2025 23:46:15 -0700
+Message-ID: <20250125064619.8305-62-jim.cromie@gmail.com>
 X-Mailer: git-send-email 2.48.1
 In-Reply-To: <20250125064619.8305-1-jim.cromie@gmail.com>
 References: <20250125064619.8305-1-jim.cromie@gmail.com>
@@ -96,27 +96,27 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-tiny/bochs has 5 DRM_UT_* debugs, make them controllable when
-CONFIG_DRM_USE_DYNAMIC_DEBUG=y by telling dyndbg that the module has
-class'd debugs.
+The qxl driver has a number of DRM_UT_* debugs, make them
+controllable when CONFIG_DRM_USE_DYNAMIC_DEBUG=y by telling dyndbg
+that the module uses them.
 
 Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
 ---
- drivers/gpu/drm/tiny/bochs.c | 2 ++
+ drivers/gpu/drm/qxl/qxl_drv.c | 2 ++
  1 file changed, 2 insertions(+)
 
-diff --git a/drivers/gpu/drm/tiny/bochs.c b/drivers/gpu/drm/tiny/bochs.c
-index 6f91ff1dbf7e..d29541aa82ab 100644
---- a/drivers/gpu/drm/tiny/bochs.c
-+++ b/drivers/gpu/drm/tiny/bochs.c
-@@ -59,6 +59,8 @@ static int bochs_modeset = -1;
- static int defx = 1024;
- static int defy = 768;
+diff --git a/drivers/gpu/drm/qxl/qxl_drv.c b/drivers/gpu/drm/qxl/qxl_drv.c
+index 21f752644242..4b72ad1ac72e 100644
+--- a/drivers/gpu/drm/qxl/qxl_drv.c
++++ b/drivers/gpu/drm/qxl/qxl_drv.c
+@@ -66,6 +66,8 @@ module_param_named(modeset, qxl_modeset, int, 0400);
+ MODULE_PARM_DESC(num_heads, "Number of virtual crtcs to expose (default 4)");
+ module_param_named(num_heads, qxl_num_crtc, int, 0400);
  
 +DRM_CLASSMAP_USE(drm_debug_classes);
 +
- module_param_named(modeset, bochs_modeset, int, 0444);
- MODULE_PARM_DESC(modeset, "enable/disable kernel modesetting");
+ static struct drm_driver qxl_driver;
+ static struct pci_driver qxl_pci_driver;
  
 -- 
 2.48.1
