@@ -4,66 +4,66 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5CBDAC02196
-	for <intel-gfx@archiver.kernel.org>; Sun, 26 Jan 2025 16:40:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5DE2DC0218F
+	for <intel-gfx@archiver.kernel.org>; Sun, 26 Jan 2025 16:40:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B15F010E46F;
-	Sun, 26 Jan 2025 16:39:59 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AF9FE10E47E;
+	Sun, 26 Jan 2025 16:40:00 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="lCLJulp9";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="mqYXlZDN";
 	dkim-atps=neutral
-Received: from mail-io1-f44.google.com (mail-io1-f44.google.com
- [209.85.166.44])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B7D8C10EA68;
- Sat, 25 Jan 2025 06:47:12 +0000 (UTC)
-Received: by mail-io1-f44.google.com with SMTP id
- ca18e2360f4ac-84cdacbc373so84591439f.1; 
- Fri, 24 Jan 2025 22:47:12 -0800 (PST)
+Received: from mail-io1-f54.google.com (mail-io1-f54.google.com
+ [209.85.166.54])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B17BD10EA91;
+ Sat, 25 Jan 2025 06:47:41 +0000 (UTC)
+Received: by mail-io1-f54.google.com with SMTP id
+ ca18e2360f4ac-844e7bc6d84so90840639f.0; 
+ Fri, 24 Jan 2025 22:47:41 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1737787632; x=1738392432; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1737787661; x=1738392461; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=kn9t7zpPYa6nVFkxjXtk64MWrHKDx8bG5odGszaJqIA=;
- b=lCLJulp9q9ssJra8v7tdQGNQmyNBKqeBkpN6NGRqjuHcebN5GB9aL3fGymlMeg5JnX
- /CdLn01m4x0gbNLQzOusHlHZzBg5r0+Qu4IWAk28qui6vYBX5eaUckBYFpfYoU0vuFZ+
- zfwQS2vsYQ4HLFHP2pQKbydoL6G53Kc8DerCn/iJjaUhPc+iPqcMR7wpdNp5C3g2k4Hc
- 1eNJmel76fPY41frEezCRaL6J4PGVxTaPvQkGmuQ8Xu3HVO3AmWj5V0Z8owEJ3jm+/r/
- 6rq8fEzJyI1HV1dGZmKVkQjSpLekhkS6D3MGLVqkoaLnhhzJDyR8gJ/M0nFdbpRm5AwV
- H1Kg==
+ bh=+bbcbstf8Ee+MxLJpu3h+uVTQLGeXiuyn2e5gcDq12M=;
+ b=mqYXlZDNkxZkbFrliGYdz8huc7eGiwedEee7Ldsl+NHrkzEYJ2lQLluPE1C99pN6NS
+ Jsqnfu5xasBrsduCUwawr/BYmaOssCuSfgRfxbxeB/vPMvCvFI6RtfwjxYUCPxMr/b+9
+ 7Y6tzE/qf0ge58ExqyhhChjuywOELMHcewmS74+KPncDJ0HABeXRMwgY2x8MLaOeeey1
+ p8G5dEGrkkbh3dw0PBw/uxddhp4g62sy1/DbsIL67JdHAOjfTrKYoJ1sq3toMZeL7qoa
+ Gp+N5SOqWDDDv5K2ngOjctMWKbn260pVidCEX+rKjSfS5abCU/7aLQj87c4eyDWERqsD
+ C0hg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1737787632; x=1738392432;
+ d=1e100.net; s=20230601; t=1737787661; x=1738392461;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=kn9t7zpPYa6nVFkxjXtk64MWrHKDx8bG5odGszaJqIA=;
- b=FYxsyZHNuZKM7ShWCYTdVXMCXxbmrVKrS/UuzNtkS9Xt4ae+jD6vCMVtim20iN6ZmC
- qBxSuRKdQOBsiCiRXnLMn09iZs6/RGT2GT9OXjuqYhK82a2TIkgld81p/8I+8Q9Y2gnP
- LsC2REAQ/jt5lCMuKB281zR1J0Mymsj3Okf+8VwYzFC1O3fpdw0z9Pkw6ExrxHWZcJL1
- wl404yGkfhfocCjt2p6fEyZP3yljLqdJjecE646+qcv2F0WXNq5OygJ/7mAzzh0eyR/0
- 5XbNf6WcuwAYwmvmTTHD5XNl+90wye3duGnyBrsS7TcZXDGrXMeW1UXz8ZOOIYPCM0GT
- iGfg==
+ bh=+bbcbstf8Ee+MxLJpu3h+uVTQLGeXiuyn2e5gcDq12M=;
+ b=ScftDLik+mvZhty044UJpawDYcd5JEAg3m+hTVUPjIGn4rlG0hSdD7l78YI1C8ce3Y
+ zAYd3mZf/jtp+RSFxKq7ZsY/T/YnisAe5U8VQSoFE6LdKBGlk/dLYRpZC38TX0KGFa9z
+ 7XFAPzx7G367Lhh0VnMtLvFgLQZkHQTzyF5N361a2HB/A5BuRWwQ1H57GwSF2u63EXaA
+ /jiurvHnsJxGM91eQFwfMmBxOKQO8NEHt3FLKQRnUFZ8cL4JSOef49/fusEobajd2gJk
+ uV3AzOMDw6be3VHStHD1SMMGzP4HE5pL1HyX5ev+2f9cFkrP/7lQ4mhzrSuS3um1W9Ru
+ 6Ppg==
 X-Forwarded-Encrypted: i=1;
- AJvYcCWy6su4ymiBUjPYOlqlyijyV56q6chT0XYLpoqBGZLM+kNlgDj9HeCvvFmjGYvcCSrAn2PsO6WEtfc1MX2+vQ==@lists.freedesktop.org,
- AJvYcCX/EjIGq+dFMbHbkVFlRDusP8gWk7E2IWqPu0DRFpGBuEXoHp6ucB0eu96Isyg4GD74e/eb2CYpLBUO@lists.freedesktop.org,
- AJvYcCX2zUmsxcsvo5UrklM+H8538ZkkSwHxomAATSH4oRk1BpjWkJsyLSJlbcShnroYS8mIY21HI1hgsY3P@lists.freedesktop.org,
- AJvYcCXchvKH1CZI5IpM/3L/njHRAMba/IDHsSXmrpFpWSgL+oRQsZ5xIWdGrSa7Ew8kksGcze38i0l+@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyiGGtKxM+XQWj4QJlA6aDJNhBVp8K4wmu5C1ILvgsvi5AR/D9c
- /DJCo/wWMar4Ha/xWCAlVodJ+EEUBy9onsobiDQaO7U3jZw8duTD
-X-Gm-Gg: ASbGncs/qi0CSZzReaKIDZ6coPR/9xxBCeDjJXD+BXf9lo+nbik7UCtbbqPrNTl6z0E
- Bx5/aV+mUv6LL8/bxElZPyP2QYvkVX1zTBc87c29dui8G8XIGyMcyybzRsIC30tqqY7htRV/3ym
- j0iFikGELyB8Ov3OmucxQpweAPqcVABrys1/Q/dN9TZeRKiEO03U0zJab9n6TquFeyd1z+1GENA
- CmrvSRrlX0pAaHDNX9WNjfpRuZ7NNktTGybNm329TN+gjymaDF82eXzlHA7naGFnvC3mXzh6JVL
- OLVX/e+WHwA+5PCjmFo0ShEAYNluZi7rebbRUg==
-X-Google-Smtp-Source: AGHT+IGbYt0eBv6uLTOumt0YrUKOyuE08ZMm9674V/UqKTNiWTiUDNTl45IgSuA0rftCQLWNy6OU9A==
-X-Received: by 2002:a92:cda5:0:b0:3ce:6758:2500 with SMTP id
- e9e14a558f8ab-3cf74418e88mr205433465ab.13.1737787631964; 
- Fri, 24 Jan 2025 22:47:11 -0800 (PST)
+ AJvYcCVISG5baV9Ze+u29rc1pNvGmlK6x5eUW6uOOTFsq16F2lUzb/leXXYm9sZk4FTIifrjMdIPGnz4ivY0Eovxzw==@lists.freedesktop.org,
+ AJvYcCVXZruiyMQL7tzDfMaI5dgsozHLAk0rFF1/Otxq4aHZDk/eR5H08kHFR9bkAbluQV2XelY6BKFR@lists.freedesktop.org,
+ AJvYcCW20k+gkD7TuaeuCGVrnkujnqd0OESYMMoYHyC/d78+j963zpI0v4eccyXj58NuPX+i5TKlq8yqDVAc@lists.freedesktop.org,
+ AJvYcCXX14DJokAkrL9cT0g8WAYkxsNynoSwjvytwazDNHuIFwOewDjTSxQojtJcHchZku0qPREqv5P5pWNL@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxRuTubFRgFtK1d+PW5FFFq8oW1EyIYCHuaGxs+5z+A0rdV4IuM
+ p3d69uVdowTYwxR+mdU8nj7ltVvV/WbOHZCpXgfZ9mpgRqQRGaqi
+X-Gm-Gg: ASbGnctKX8oh6lKafeGpiMqQoLAykj5n7ADG9HXSCDoUqYd3CuLUthF1lAJOX/1MBAh
+ CjvLOSe8UwfoaElBoIxZxEv9OzSQZCLY8mDy56jMC9VxSrq/tonpnE1Pf6gjmobZXx/SE8MK9NM
+ +skju9U+MuTfwio73Jj+UTPo6jFYjKH/G8IrkVPYjgJ78+avpG8NpoWRSZTc1JAL13yHmnu3Fry
+ TypIp++lUA4TARQtfuryaMDEXoDVdpR6G4j1f+kUxkOjCph52APP9GtFxOWVqpQBglgd3nQ2aty
+ LKNmXBGd55vi1gNkZ12nla6eUIDCZU6ZwOrGfg==
+X-Google-Smtp-Source: AGHT+IEYJEfd8pDXzuBkvGlPdRY1WjVugZUcIO5koXeqdz2TVEIoZMex7iC8QoXTB4/lAL5ptLR8YA==
+X-Received: by 2002:a5d:9649:0:b0:841:9225:1f56 with SMTP id
+ ca18e2360f4ac-8521e32b3camr488498839f.3.1737787661025; 
+ Fri, 24 Jan 2025 22:47:41 -0800 (PST)
 Received: from gandalf.. (c-67-165-245-5.hsd1.co.comcast.net. [67.165.245.5])
  by smtp.googlemail.com with ESMTPSA id
- 8926c6da1cb9f-4ec1da476fesm1174144173.58.2025.01.24.22.47.11
+ 8926c6da1cb9f-4ec1da476fesm1174144173.58.2025.01.24.22.47.40
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 24 Jan 2025 22:47:11 -0800 (PST)
+ Fri, 24 Jan 2025 22:47:40 -0800 (PST)
 From: Jim Cromie <jim.cromie@gmail.com>
 To: linux-kernel@vger.kernel.org, jbaron@akamai.com,
  gregkh@linuxfoundation.org, ukaszb@chromium.org
@@ -72,9 +72,9 @@ Cc: intel-gfx-trybot@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
  intel-gfx@lists.freedesktop.org, daniel.vetter@ffwll.ch,
  tvrtko.ursulin@linux.intel.com, jani.nikula@intel.com,
  ville.syrjala@linux.intel.com, Jim Cromie <jim.cromie@gmail.com>
-Subject: [PATCH 32/63] dyndbg: split multi-query strings with %
-Date: Fri, 24 Jan 2025 23:45:46 -0700
-Message-ID: <20250125064619.8305-33-jim.cromie@gmail.com>
+Subject: [PATCH 60/63] drm-dyndbg: add DRM_CLASSMAP_USE to the gud driver
+Date: Fri, 24 Jan 2025 23:46:14 -0700
+Message-ID: <20250125064619.8305-61-jim.cromie@gmail.com>
 X-Mailer: git-send-email 2.48.1
 In-Reply-To: <20250125064619.8305-1-jim.cromie@gmail.com>
 References: <20250125064619.8305-1-jim.cromie@gmail.com>
@@ -96,68 +96,28 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Since commit
-85f7f6c0edb8 ("dynamic_debug: process multiple debug-queries on a line")
-
-Multi-query commands have been allowed:
-
-  modprobe drm dyndbg="class DRM_UT_CORE +p; class DRM_UT_KMS +p"
-  modprobe drm dyndbg=<<EOX
-     class DRM_UT_CORE +p
-     class DRM_UT_KMS +p
-  EOX
-
-More recently, the need for quoting was avoided by treating a comma
-like a space/token-terminator:
-
-  modprobe drm dyndbg=class,DRM_UT_CORE,+p\;class,DRM_UT_KMS,+p
-
-That works, but it needs the escaped semicolon, which is a shell
-special-char (one of the bash control operators), so it is brittle
-when passed in/down/around scripts.  In particular, it fails when
-passed to vng (virtme-ng).
-
-So this patch adds '%' to the existing ';' and '\n' multi-command
-separators, which is more shell-friendly, so you can more fully avoid
-quoting and escaping hassles.
-
-NOTE: it does break format matching on '%' patterns:
-
-bash-5.2# ddcmd 'format "find-me: %foo" +p'
-[  203.900581] dyndbg: read 26 bytes from userspace
-[  203.900883] dyndbg: query 0: "format "find-me: " mod:*
-[  203.901118] dyndbg: unclosed quote: find-me:
-[  203.901355] dyndbg: tokenize failed
-[  203.901529] dyndbg: query 1: "foo" +p" mod:*
-[  203.901957] dyndbg: split into words: "foo"" "+p"
-[  203.902243] dyndbg: op='+' flags=0x1 maskp=0xffffffff
-[  203.902458] dyndbg: expecting pairs of match-spec <value>
-[  203.902703] dyndbg: query parse failed
-[  203.902871] dyndbg: processed 2 queries, with 0 matches, 2 errs
-bash: echo: write error: Invalid argument
-
-The '%' splits the input into 2 queries, and both fail.  Given the
-limited utility of matching against the working parts of a format
-string "foo: %d bar %s", nothing is actually lost here.
+The gud driver has a number of DRM_UT_* debugs, make them
+controllable when CONFIG_DRM_USE_DYNAMIC_DEBUG=y by telling dyndbg
+that the module uses them.
 
 Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
 ---
- lib/dynamic_debug.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/gpu/drm/gud/gud_drv.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/lib/dynamic_debug.c b/lib/dynamic_debug.c
-index 56e09e878f80..68b5a77c2d79 100644
---- a/lib/dynamic_debug.c
-+++ b/lib/dynamic_debug.c
-@@ -599,7 +599,7 @@ static int ddebug_exec_queries(char *query, const char *modname)
- 	int i, errs = 0, exitcode = 0, rc, nfound = 0;
+diff --git a/drivers/gpu/drm/gud/gud_drv.c b/drivers/gpu/drm/gud/gud_drv.c
+index 09ccdc1dc1a2..20b526c39392 100644
+--- a/drivers/gpu/drm/gud/gud_drv.c
++++ b/drivers/gpu/drm/gud/gud_drv.c
+@@ -32,6 +32,8 @@
  
- 	for (i = 0; query; query = split) {
--		split = strpbrk(query, ";\n");
-+		split = strpbrk(query, "%;\n");
- 		if (split)
- 			*split++ = '\0';
+ #include "gud_internal.h"
  
++DRM_CLASSMAP_USE(drm_debug_classes);
++
+ /* Only used internally */
+ static const struct drm_format_info gud_drm_format_r1 = {
+ 	.format = GUD_DRM_FORMAT_R1,
 -- 
 2.48.1
 
