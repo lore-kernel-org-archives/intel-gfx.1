@@ -4,86 +4,83 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0BD3AC02181
-	for <intel-gfx@archiver.kernel.org>; Sun, 26 Jan 2025 15:55:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E4F3BC0218E
+	for <intel-gfx@archiver.kernel.org>; Sun, 26 Jan 2025 16:39:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 321CE10E05D;
-	Sun, 26 Jan 2025 15:55:18 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2086F10E24A;
+	Sun, 26 Jan 2025 16:39:36 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=ibm.com header.i=@ibm.com header.b="p18vDsCi";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="KdyBJdRx";
 	dkim-atps=neutral
-Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
- [148.163.158.5])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8356010E05D;
- Sun, 26 Jan 2025 15:55:17 +0000 (UTC)
-Received: from pps.filterd (m0356516.ppops.net [127.0.0.1])
- by mx0a-001b2d01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 50QFe5OT025921;
- Sun, 26 Jan 2025 15:55:14 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
- :content-type:date:from:in-reply-to:message-id:mime-version
- :references:subject:to; s=pp1; bh=0ExQz2LGkzGQ4zgyv7oTbKecX70H/y
- grKaGz4l2lz18=; b=p18vDsCiopjSKUwVGTopaeu6/RgrvpRBfugPpfEV81fyYw
- F+BMARTFwhlrnCQ0hxIkOhdpF0JRGxMGsNRo4DkjgG0nrGw0oiPmw0b8IhRCxSvl
- SKztuwD+0B8ZRlSO3XbznrtfwdUUcUuvcw+KEN1+XDw4f9RKGEzrgByhlGVTUTXL
- UwrgSmFDXaK+WxIwAL0YS5NnehOv0XXX3n/QaJGXW35few3MzUmCaz3p3JOxJutV
- TkHUpRikTh9Q/birv7SQGSyq2aMxd8sXkR7chR9j1fn/RWmWAHqdlVChVVkx71dl
- mpaiJ72RMY+Qd21y23N1Vnt3WeRIolFHljs37MSw==
-Received: from ppma13.dal12v.mail.ibm.com
- (dd.9e.1632.ip4.static.sl-reverse.com [50.22.158.221])
- by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 44dqvt01k1-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Sun, 26 Jan 2025 15:55:14 +0000 (GMT)
-Received: from pps.filterd (ppma13.dal12v.mail.ibm.com [127.0.0.1])
- by ppma13.dal12v.mail.ibm.com (8.18.1.2/8.18.1.2) with ESMTP id 50QCwEF7022538;
- Sun, 26 Jan 2025 15:55:13 GMT
-Received: from smtprelay06.fra02v.mail.ibm.com ([9.218.2.230])
- by ppma13.dal12v.mail.ibm.com (PPS) with ESMTPS id 44dcgja93x-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Sun, 26 Jan 2025 15:55:13 +0000
-Received: from smtpav01.fra02v.mail.ibm.com (smtpav01.fra02v.mail.ibm.com
- [10.20.54.100])
- by smtprelay06.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- 50QFtCr123200010
- (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Sun, 26 Jan 2025 15:55:12 GMT
-Received: from smtpav01.fra02v.mail.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id E756120090;
- Sun, 26 Jan 2025 15:55:01 +0000 (GMT)
-Received: from smtpav01.fra02v.mail.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id C6B442008E;
- Sun, 26 Jan 2025 15:55:01 +0000 (GMT)
-Received: from tuxmaker.boeblingen.de.ibm.com (unknown [9.152.85.9])
- by smtpav01.fra02v.mail.ibm.com (Postfix) with ESMTPS;
- Sun, 26 Jan 2025 15:55:01 +0000 (GMT)
-Date: Sun, 26 Jan 2025 16:54:55 +0100
-From: Alexander Gordeev <agordeev@linux.ibm.com>
-To: Al Viro <viro@zeniv.linux.org.uk>
-Cc: "Borah, Chaitanya Kumar" <chaitanya.kumar.borah@intel.com>,
- "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>,
- "intel-xe@lists.freedesktop.org" <intel-xe@lists.freedesktop.org>,
- "Kurmi, Suresh Kumar" <suresh.kumar.kurmi@intel.com>,
- "Saarinen, Jani" <jani.saarinen@intel.com>,
- "linux-fsdevel@vger.kernel.org" <linux-fsdevel@vger.kernel.org>
-Subject: Re: Regression on linux-next (next-20250120)
-Message-ID: <Z5Zazwd0nto-v-RS@tuxmaker.boeblingen.de.ibm.com>
-References: <SJ1PR11MB6129D7DA59A733AD38E081E3B9E02@SJ1PR11MB6129.namprd11.prod.outlook.com>
- <20250123181853.GC1977892@ZenIV>
+Received: from mail-il1-f173.google.com (mail-il1-f173.google.com
+ [209.85.166.173])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5B15A10E29C;
+ Sat, 25 Jan 2025 06:46:51 +0000 (UTC)
+Received: by mail-il1-f173.google.com with SMTP id
+ e9e14a558f8ab-3a8146a8ddaso7563635ab.1; 
+ Fri, 24 Jan 2025 22:46:51 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1737787610; x=1738392410; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=JhnbP0DWcHpdehvzPtVKNEphMptFcEvIUAWn1R09L9s=;
+ b=KdyBJdRxMcLAhi1jtTKe+kehlFDyMSlKFiFpbeHp4aFtfltuiiVp6U1XLROJWF65Ps
+ AfRuaopmadtUv2ZZlEkWMYJ5aHzgFTzkrhtpQQj9lae/Sw8O/Qb3xXb3F7Fy4JgwBLkc
+ Z8yo+918eoJDf8Tihb2KOO3S0rCUYVNOq2n2svAOmy7me+AHwc3J1uPZdeYjCILY1uqo
+ 2zkxyJ+d/KfehusYrOpA7Tf9ZEMEJ8XIVmz9YYnfQtdQdPEjMLiII9kk3PU7rMbN2qoN
+ 1Sn0j8B5Mv44RjpiBpYIBY2OonoBuzno5yZhIFtmXAQ2+brPHthNyPZ9TQA47vtN5Niw
+ fepg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1737787610; x=1738392410;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=JhnbP0DWcHpdehvzPtVKNEphMptFcEvIUAWn1R09L9s=;
+ b=JOV7hBDqkZEdBWgGUV8AfZEQPWZqN3HUv0CnOzG/5gOJmfyAfKptU3xPLa62b6a/7+
+ bFSivPNuM+Hk9uRHmU54oUJ6RmwS5lRIrTgbiPA8UQ9Qal3hpEFtDtEJIpF4eYvHPBxR
+ C56iL1/NXE848Tcfh9AcLXUF0WdvJHKwijBzw0e95e0s7bliOy8RoSwVgtD0gbNdWyGx
+ Kbwl7y53+CQzsJVqzY5WCSmdLYyTjxqbLtNqWYEPYyKlkrI9QSJnX921GfX1is2NPKuq
+ JNU7j3GxdPdew3B1ThWXO4qYf4jwQHdwFJMX+urpi3n+cZ83lOldR0l0odKsWV+m85is
+ TU4Q==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCU00K4YNh4f/4HovadOznaPmHb5nHewuDbDOvqNneGpzzp3jPeqyAV+tTUVTUu81i+GEA4XagyvIu2u@lists.freedesktop.org,
+ AJvYcCWRi4FWYiAPYWcuYe52oi+Ya2QDkkYOjEx4AWN6L9DB6r1jokHIpOURdDFaeULZzZN5s1V65wFx@lists.freedesktop.org,
+ AJvYcCWhe0t7mD0bpUE7AgseUFuxk7PDiVeWHgNN1K+0PQIp+OzBKvBIUZiVkP/uqdUaPbq0zwfBZPYPawPLUqBRQQ==@lists.freedesktop.org,
+ AJvYcCWuYjVw26nCDsVT+Q9h2VKoCOLo9oAk1qulrenE4g+Ec9+JJUAWtXgru/H9hzUJ5cCxYG3JaqdoJRK6@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YyWQCrRWHXIEj5lY50kGwzucnx2Ak0R/QJlZ8MAIY2sMuT3ULO6
+ r0Sd0d7XQPjqBQEQi6MetxyytztKI9GqQY2aQVWvvGhRvuZo6F7B
+X-Gm-Gg: ASbGncsocf8Yi8QS7O4bphjKCsaZNgi1OU3D3NWP08rFkK3Ma0H+8LGtTT0f7bb/xSE
+ viWUw/9/bwRsPMH4lrsa+D2xmDnh+w8FEFwjZViTy5kG4nvDGKgJZVEd6segz/3lFGYR9huyAcm
+ CgaciEKTMhVmCEZrtf8uon8wNcxEZQSkP9a8VF+/w3m8MH9/DckbbCCmhtdf1ma+JfhmwYAgXtL
+ +Wp84jeBafiKaftCf7raCiKumSbD1BVxN9TIlBahmn3fPPtt2AnyTO1sN4ZEaXou11eArod0CZI
+ ZN+ge5Dj7i34z4mFtLswfpBAjfJBilfRTEP5BjYwBCgvPl/u
+X-Google-Smtp-Source: AGHT+IEjwcFP/08iV5u7smlEOAHtcy4vLQNSUwAcIBZCKkDwG3GOx0o4FLASRAUuvVLtd3Cgpon0RA==
+X-Received: by 2002:a05:6e02:170e:b0:3cf:bbd4:8aef with SMTP id
+ e9e14a558f8ab-3cfbbd48bc6mr91708935ab.19.1737787610590; 
+ Fri, 24 Jan 2025 22:46:50 -0800 (PST)
+Received: from gandalf.. (c-67-165-245-5.hsd1.co.comcast.net. [67.165.245.5])
+ by smtp.googlemail.com with ESMTPSA id
+ 8926c6da1cb9f-4ec1da476fesm1174144173.58.2025.01.24.22.46.49
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 24 Jan 2025 22:46:50 -0800 (PST)
+From: Jim Cromie <jim.cromie@gmail.com>
+To: linux-kernel@vger.kernel.org, jbaron@akamai.com,
+ gregkh@linuxfoundation.org, ukaszb@chromium.org
+Cc: intel-gfx-trybot@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org, intel-gvt-dev@lists.freedesktop.org,
+ intel-gfx@lists.freedesktop.org, daniel.vetter@ffwll.ch,
+ tvrtko.ursulin@linux.intel.com, jani.nikula@intel.com,
+ ville.syrjala@linux.intel.com, Jim Cromie <jim.cromie@gmail.com>
+Subject: [PATCH 13/63] dyndbg: reduce verbose=3 messages in ddebug_add_module
+Date: Fri, 24 Jan 2025 23:45:27 -0700
+Message-ID: <20250125064619.8305-14-jim.cromie@gmail.com>
+X-Mailer: git-send-email 2.48.1
+In-Reply-To: <20250125064619.8305-1-jim.cromie@gmail.com>
+References: <20250125064619.8305-1-jim.cromie@gmail.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20250123181853.GC1977892@ZenIV>
-X-TM-AS-GCONF: 00
-X-Proofpoint-ORIG-GUID: J8jsyB_zQXgvmfCIN9qlOQBZY2rDRS7-
-X-Proofpoint-GUID: J8jsyB_zQXgvmfCIN9qlOQBZY2rDRS7-
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1057,Hydra:6.0.680,FMLib:17.12.68.34
- definitions=2025-01-26_06,2025-01-23_01,2024-11-22_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- mlxscore=0 lowpriorityscore=0
- adultscore=0 bulkscore=0 phishscore=0 impostorscore=0 spamscore=0
- clxscore=1011 malwarescore=0 mlxlogscore=999 priorityscore=1501
- suspectscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.19.0-2411120000 definitions=main-2501260125
+Content-Transfer-Encoding: 8bit
+X-Mailman-Approved-At: Sun, 26 Jan 2025 16:39:34 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -99,58 +96,36 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Thu, Jan 23, 2025 at 06:18:53PM +0000, Al Viro wrote:
+When modprobing a module, dyndbg currently logs/says "add-module", and
+then "skipping" if the module has no prdbgs.  Instead just check 1st
+and return quietly.
 
-Hi Al,
+no functional change
 
-> On Thu, Jan 23, 2025 at 03:41:08PM +0000, Borah, Chaitanya Kumar wrote:
-> > Hello Al,
-> > 
-> > Hope you are doing well. I am Chaitanya from the linux graphics team in Intel.
-> > 
-> > This mail is regarding a regression we are seeing in our CI runs[1] on linux-next repository.
-> > 
-> > Since the version next-20250120 [2], we are seeing the following regression
-> 
-> Ugh...  To narrow the things down, could you see if replacing
->                 fsd = kmalloc(sizeof(*fsd), GFP_KERNEL);
-> with
->                 fsd = kzalloc(sizeof(*fsd), GFP_KERNEL);
-> in fs/debugfs/file.c:__debugfs_file_get() affects the test?
+Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
+---
+ lib/dynamic_debug.c | 7 +++----
+ 1 file changed, 3 insertions(+), 4 deletions(-)
 
-This change fixes lots of the below failures in our CI. FWIW:
+diff --git a/lib/dynamic_debug.c b/lib/dynamic_debug.c
+index fc9bf5d80aa9..6bac5703dd41 100644
+--- a/lib/dynamic_debug.c
++++ b/lib/dynamic_debug.c
+@@ -1245,11 +1245,10 @@ static int ddebug_add_module(struct _ddebug_info *di, const char *modname)
+ {
+ 	struct ddebug_table *dt;
+ 
+-	v3pr_info("add-module: %s.%d sites\n", modname, di->num_descs);
+-	if (!di->num_descs) {
+-		v3pr_info(" skip %s\n", modname);
++	if (!di->num_descs)
+ 		return 0;
+-	}
++
++	v3pr_info("add-module: %s %d sites\n", modname, di->num_descs);
+ 
+ 	dt = kzalloc(sizeof(*dt), GFP_KERNEL);
+ 	if (dt == NULL) {
+-- 
+2.48.1
 
-Tested-by: Alexander Gordeev <agordeev@linux.ibm.com>
-
-Unable to handle kernel pointer dereference in virtual kernel address space
-Failing address: 0000000000000000 TEID: 0000000000000000
-Fault in primary space mode while using kernel ASCE.
-AS:0000000243668007 R3:00000003fee58007 S:00000003fee57801 P:000000000000013d
-Oops: 0004 ilc:1 [#1] SMP
-Modules linked in: binfmt_misc mlx5_ib ib_uverbs ib_core dm_service_time nft_fib_inet nft_fib_ipv4 nft_fib_ipv6 nft_fib nft_reject_inet nf_reject_ipv4 nf_reject_ipv6 nft_reject nft_ct nft_chain_nat nf_nat nf_conntrack nf_defrag_ipv6 nf_defrag_ipv4 ip_set nf_tables mlx5_core pkey_pckmo uvdevice s390_trng rng_core eadm_sch vfio_ccw mdev vfio_iommu_type1 vfio sch_fq_codel drm i2c_core loop dm_multipath drm_panel_orientation_quirks configfs nfnetlink lcs ctcm fsm zfcp scsi_transport_fc hmac_s390 ghash_s390 prng chacha_s390 libchacha aes_s390 des_s390 libdes sha3_512_s390 sha3_256_s390 sha512_s390 sha256_s390 sha1_s390 sha_common scsi_dh_rdac scsi_dh_emc scsi_dh_alua pkey autofs4 ecdsa_generic ecc
-CPU: 3 UID: 0 PID: 19223 Comm: dump2tar Not tainted 6.14.0-20250123.rc0.git129.853d1f41ba73.300.fc41.s390x+next #1
-Hardware name: IBM 9175 ME1 701 (LPAR)
-Krnl PSW : 0704e00180000000 0000000000000000 (0x0)
-           R:0 T:1 IO:1 EX:1 Key:0 M:1 W:0 P:0 AS:3 CC:2 PM:0 RI:0 EA:3
-Krnl GPRS: 0000000000000003 0000029253f7f100 00000000a9fa0600 000003ff84472010
-           0000000000080000 00000212db803e68 00000212db803e68 0000000000080000
-           00000000cf33c6c0 00000000be6d6a00 00000000a9fa0600 0000000000000000
-           000003ff909acfa0 000003ff84472010 00000292d425da96 00000212db803c98
-Krnl Code:>0000000000000000: 0000            illegal
-           0000000000000002: 0000            illegal
-           0000000000000004: 0000            illegal
-           0000000000000006: 0000            illegal
-           0000000000000008: 0000            illegal
-           000000000000000a: 0000            illegal
-           000000000000000c: 0000            illegal
-           000000000000000e: 0000            illegal
-Call Trace:
- [<0000000000000000>] 0x0
-([<000001e12d421b6a>] full_proxy_read+0x4a/0xc0)
- [<000001e12d18ac16>] vfs_read+0x96/0x340
- [<000001e12d18b7b8>] ksys_read+0x78/0x100
- [<000001e12cdbf9d6>] do_syscall.constprop.0+0x116/0x140
- [<000001e12dba3ff4>] __do_syscall+0xd4/0x1c0
- [<000001e12dbaf404>] system_call+0x74/0x98
-
- Thanks!
