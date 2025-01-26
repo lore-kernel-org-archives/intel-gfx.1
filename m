@@ -4,85 +4,27 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C4584C0218E
-	for <intel-gfx@archiver.kernel.org>; Sun, 26 Jan 2025 16:41:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 58F2EC02181
+	for <intel-gfx@archiver.kernel.org>; Sun, 26 Jan 2025 18:22:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5E2DA10E46D;
-	Sun, 26 Jan 2025 16:41:00 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="S6NldZpF";
-	dkim-atps=neutral
-Received: from mail-io1-f48.google.com (mail-io1-f48.google.com
- [209.85.166.48])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 70DA010EA64;
- Sat, 25 Jan 2025 06:47:07 +0000 (UTC)
-Received: by mail-io1-f48.google.com with SMTP id
- ca18e2360f4ac-851c4ee2a37so198190739f.3; 
- Fri, 24 Jan 2025 22:47:07 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1737787627; x=1738392427; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=ZUFY1/p4cwMapYCElPuw4n+JFAz595e4pdu5x+kllYo=;
- b=S6NldZpFhmT55EHkGhUIG6Y/MCE9Wkb8fcq28t9djO6gpwTWP4wNb7l9shAGRLamhw
- Bx/OGhZFQHHTPY8H7ufFSvlq7InOvSaY5/3GIrt2HL2Ihp/jjbZS10VrUV//7uQl4azb
- uIJSoN7jWpwvssrMQb7qcvyRkXC6awLPPusVNaaMDN+4dFfQ7tad+ibagwtIPA2koz2t
- b49ugQ0BuHOBHcUHs3rn23H7c8klrrfoODw3mex4iXLZfpKqTGth5iVohpXIjCA3H/RH
- dLqfS1I11gkSx/2Yb0YQIRCJ/tMk+2SGBiX3YnSf4ZI4bpxKDZFInkZToRBK+bB36df8
- TdCw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1737787627; x=1738392427;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=ZUFY1/p4cwMapYCElPuw4n+JFAz595e4pdu5x+kllYo=;
- b=BYtjgyN33EXworOHY5tDJlRWqN5b7cRSrPke4NkYncNQfuC52+M5xhnKy4bMQJ4zos
- K+96VVJLlwRSmH2L8jyrpNsEXXYugxOu3BAjONqEhrzdV8JiIDhWhelZ1JYyzYD+JrA1
- fWXD67AKDBR9ahOKe9blYUbaugJ7+nIHvZeH7xE+BHKd3wEwVuvJgADeUsWqSdUJ00D7
- 0qZf2qUl2LtvN5TmhOd0tR+U7KF5205BQZCsV3xmg+imq1/mOHaN6rmhPZg2Y92BfxCp
- C2aJbHeqQf0f7Y/4S7K1rMhlPluK7XF+UB/RwrSpHGAtMpoSQ6ih/9NeQ+VihbLHMYwR
- 0HcQ==
-X-Forwarded-Encrypted: i=1;
- AJvYcCVM2tC/NV4cAd2CkRf2eM2qNXwBUcaN50mOcd20VhKXx7/teImVgI7Lim+ZO7y+PKrw28P7mGN0@lists.freedesktop.org,
- AJvYcCW0dUmhfvSn2n/lmOZn2gKS9izEpIY9n7iglDuzPfoE5XX1OPTWOetfwgHrPLwcnz8aHU7mHIF/yK4u@lists.freedesktop.org,
- AJvYcCWTH3CyJVUzy7yl8VfzyMmZ+VYD0/Vp7PQZ8jZDjxeLO//Aea/KjnWMYI8PP6dBssgVKNxbEj1OCBsxpVIoJA==@lists.freedesktop.org,
- AJvYcCXNOaZBDZlKPQpyFBjDtUCpZm0B6xs0nDicX3Hr/seds7snCnrqbQ6qJCrUv53wt4m7VBOh8CmDvlr+@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxA7RrFDTJQPBAcYbrkvCJ0FhGqm4xzu70UYPPKBTQeHAs4KetM
- /xshBEO2hmhfscW+iI3ldbLzLsVTFQhepoFSsqyQTk4VsNvgFAT3
-X-Gm-Gg: ASbGnculnSNyQ4/9H/QPHcnMGgKDabvOmoBeqcvBPTyrVE/6Wly/gcAIkR2/cyAnrgB
- 4j/iOU1VrOL2Z66d2Cb7F2fvgXlyXP8WIH/wpWCupaUIPA9PTULzn6CmSTlKhzy+C9VcKQrEPHM
- XSP1uGbguRQBjbMA8Z62YBMkpYFjxRRV+Q0lR5MMYOltwE96N39fsa/H9WMmNAOwmmtMBFxxjYr
- O1RPo90SccUyRzADWXTINSiKdvToWkEkfvz1S+gZZ84eYRtqFs819keUGzmZfzr5CmU+U0wkLJj
- wVK21NxbpWcT8g0KdsgEgtBrlaLNlcba7j9m4A==
-X-Google-Smtp-Source: AGHT+IFNi6k74yWo8JFoUX0FA2mOzPOZaMw9sxfyiZBj57HkmJfOHCUtm05G1Ba+XY1KZ2w6PJRKAA==
-X-Received: by 2002:a05:6602:26c5:b0:83b:5221:2a87 with SMTP id
- ca18e2360f4ac-851b616986dmr3118410539f.3.1737787626594; 
- Fri, 24 Jan 2025 22:47:06 -0800 (PST)
-Received: from gandalf.. (c-67-165-245-5.hsd1.co.comcast.net. [67.165.245.5])
- by smtp.googlemail.com with ESMTPSA id
- 8926c6da1cb9f-4ec1da476fesm1174144173.58.2025.01.24.22.47.05
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 24 Jan 2025 22:47:06 -0800 (PST)
-From: Jim Cromie <jim.cromie@gmail.com>
-To: linux-kernel@vger.kernel.org, jbaron@akamai.com,
- gregkh@linuxfoundation.org, ukaszb@chromium.org
-Cc: intel-gfx-trybot@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- amd-gfx@lists.freedesktop.org, intel-gvt-dev@lists.freedesktop.org,
- intel-gfx@lists.freedesktop.org, daniel.vetter@ffwll.ch,
- tvrtko.ursulin@linux.intel.com, jani.nikula@intel.com,
- ville.syrjala@linux.intel.com, Jim Cromie <jim.cromie@gmail.com>
-Subject: [PATCH 27/63] selftests-dyndbg: add
- tools/testing/selftests/dynamic_debug/*
-Date: Fri, 24 Jan 2025 23:45:41 -0700
-Message-ID: <20250125064619.8305-28-jim.cromie@gmail.com>
-X-Mailer: git-send-email 2.48.1
-In-Reply-To: <20250125064619.8305-1-jim.cromie@gmail.com>
-References: <20250125064619.8305-1-jim.cromie@gmail.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9E73A10E1D1;
+	Sun, 26 Jan 2025 18:22:20 +0000 (UTC)
+Received: from b555e5b46a47 (emeril.freedesktop.org [131.252.210.167])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1829B10E19C;
+ Sun, 26 Jan 2025 18:22:20 +0000 (UTC)
+Content-Type: multipart/alternative;
+ boundary="===============5104704007100497233=="
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Sun, 26 Jan 2025 16:39:35 +0000
+Subject: =?utf-8?q?=E2=9C=93_i915=2ECI=2EBAT=3A_success_for_drm/i915=3A_Remove_unused?=
+ =?utf-8?q?_live=5Fcontext=5Ffor=5Fengine?=
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: linux@treblig.org
+Cc: intel-gfx@lists.freedesktop.org
+Date: Sun, 26 Jan 2025 18:22:20 -0000
+Message-ID: <173791574007.976754.3239391437519542803@b555e5b46a47>
+X-Patchwork-Hint: ignore
+References: <20250125003846.228514-1-linux@treblig.org>
+In-Reply-To: <20250125003846.228514-1-linux@treblig.org>
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -95,413 +37,392 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Add a selftest script for dynamic-debug.  The config requires
-CONFIG_TEST_DYNAMIC_DEBUG=m (and CONFIG_TEST_DYNAMIC_DEBUG_SUBMOD=m),
-which tacitly requires either CONFIG_DYNAMIC_DEBUG=y or
-CONFIG_DYNAMIC_DEBUG_CORE=y
+--===============5104704007100497233==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
 
-ATM this has just basic_tests(), which modifies pr_debug flags in
-module params, which to handle boot args/options, must be a builtin.
+== Series Details ==
 
-This is backported from another feature branch; the support-fns (thx
-Lukas) have unused features at the moment, they'll get used shortly.
+Series: drm/i915: Remove unused live_context_for_engine
+URL   : https://patchwork.freedesktop.org/series/143971/
+State : success
 
-The script enables simple virtme-ng testing:
+== Summary ==
 
-  $> vng V=1 -- ./tools/testing/selftests/dynamic_debug/dyndbg_selftest.sh
+CI Bug Log - changes from CI_DRM_16023 -> Patchwork_143971v1
+====================================================
 
-virtme: waiting for virtiofsd to start
-virtme: use 'microvm' QEMU architecture
-...
-[    4.136168] virtme-init: Setting hostname to v6.8-32-g30d431000676...
-[    4.240874] virtme-init: starting script
-...
-[    4.474435] virtme-init: script returned {0}
-Powering off.
-[    4.529318] ACPI: PM: Preparing to enter system sleep state S5
-[    4.529991] kvm: exiting hardware virtualization
-[    4.530428] reboot: Power down
+Summary
+-------
 
-And add dynamic_debug to TARGETS, so `make run_tests` sees it properly
+  **SUCCESS**
 
-for the impatient, set TARGETS explicitly:
+  No regressions found.
 
-bash-5.2# make TARGETS=dynamic_debug run_tests
-make[1]: ...
-TAP version 13
-1..1
-[   35.552922] dyndbg: read 3 bytes from userspace
-[   35.553099] dyndbg: query 0: "=_" mod:*
-[   35.553544] dyndbg: processed 1 queries, with 1778 matches, 0 errs
-...
+  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_143971v1/index.html
 
-Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
-Co-developed-by: Łukasz Bartosik <ukaszb@chromium.org>
-Signed-off-by: Łukasz Bartosik <ukaszb@chromium.org>
----
+Participating hosts (36 -> 35)
+------------------------------
 
-- check KCONFIG_CONFIG to avoid silly fails
+  Additional (1): bat-dg2-9 
+  Missing    (2): fi-glk-j4005 fi-snb-2520m 
 
-Several tests are dependent upon config choices. Lets avoid failing
-where that is noise.
+Known issues
+------------
 
-The KCONFIG_CONFIG var exists to convey the config-file around.  If
-the var names a file, read it and extract the relevant CONFIG items,
-and use them to skip the dependent tests, thus avoiding the fails that
-would follow, and the disruption to whatever CI is running these
-selftests.
+  Here are the changes found in Patchwork_143971v1 that come from known issues:
 
-If the envar doesn't name a config-file, ".config" is assumed.
+### IGT changes ###
 
-CONFIG_DYNAMIC_DEBUG=y:
+#### Issues hit ####
 
-basic-tests() and comma-terminator-tests() test for the presence of
-the builtin pr_debugs in module/main.c, which I deemed stable and
-therefore safe to count.  That said, the test fails if only
-CONFIG_DYNAMIC_DEBUG_CORE=y is set.  It could be rewritten to test
-against test-dynamic-debug.ko, but that just trades one config
-dependence for another.
+  * igt@dmabuf@all-tests@dma_fence_chain:
+    - fi-bsw-nick:        [PASS][1] -> [INCOMPLETE][2] ([i915#12904]) +1 other test incomplete
+   [1]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_16023/fi-bsw-nick/igt@dmabuf@all-tests@dma_fence_chain.html
+   [2]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_143971v1/fi-bsw-nick/igt@dmabuf@all-tests@dma_fence_chain.html
 
-CONFIG_TEST_DYNAMIC_DEBUG=m
+  * igt@gem_mmap@basic:
+    - bat-dg2-9:          NOTRUN -> [SKIP][3] ([i915#4083])
+   [3]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_143971v1/bat-dg2-9/igt@gem_mmap@basic.html
 
-As written, test_percent_splitting() modprobes test_dynamic_debug,
-enables several classes, and count them.  It could be re-written to
-work for the builtin module also, but builtin test modules are not a
-common or desirable build/config.
+  * igt@gem_mmap_gtt@basic:
+    - bat-dg2-9:          NOTRUN -> [SKIP][4] ([i915#4077]) +2 other tests skip
+   [4]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_143971v1/bat-dg2-9/igt@gem_mmap_gtt@basic.html
 
-CONFIG_TEST_DYNAMIC_DEBUG=m && CONFIG_TEST_DYNAMIC_DEBUG_SUBMOD=m
+  * igt@gem_render_tiled_blits@basic:
+    - bat-dg2-9:          NOTRUN -> [SKIP][5] ([i915#4079]) +1 other test skip
+   [5]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_143971v1/bat-dg2-9/igt@gem_render_tiled_blits@basic.html
 
-test_mod_submod() recaps the bug found in DRM-CI where drivers werent
-enabled by drm.debug=<bits>.  It modprobes both test_dynamic_debug &
-test_dynamic_debug_submod, so it depends on a loadable modules config.
+  * igt@i915_pm_rpm@module-reload:
+    - bat-adls-6:         [PASS][6] -> [FAIL][7] ([i915#13401])
+   [6]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_16023/bat-adls-6/igt@i915_pm_rpm@module-reload.html
+   [7]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_143971v1/bat-adls-6/igt@i915_pm_rpm@module-reload.html
+    - fi-tgl-1115g4:      [PASS][8] -> [FAIL][9] ([i915#13401])
+   [8]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_16023/fi-tgl-1115g4/igt@i915_pm_rpm@module-reload.html
+   [9]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_143971v1/fi-tgl-1115g4/igt@i915_pm_rpm@module-reload.html
 
-It could be rewritten to work in a builtin parent config; DRM=y is
-common enough to be pertinent, but testing that config also wouldn't
-really test anything more fully than all-loadable modules, since they
-default together.
----
- MAINTAINERS                                   |   1 +
- tools/testing/selftests/Makefile              |   1 +
- .../testing/selftests/dynamic_debug/Makefile  |   9 +
- tools/testing/selftests/dynamic_debug/config  |   2 +
- .../dynamic_debug/dyndbg_selftest.sh          | 256 ++++++++++++++++++
- 5 files changed, 269 insertions(+)
- create mode 100644 tools/testing/selftests/dynamic_debug/Makefile
- create mode 100644 tools/testing/selftests/dynamic_debug/config
- create mode 100755 tools/testing/selftests/dynamic_debug/dyndbg_selftest.sh
+  * igt@i915_pm_rps@basic-api:
+    - bat-dg2-9:          NOTRUN -> [SKIP][10] ([i915#11681] / [i915#6621])
+   [10]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_143971v1/bat-dg2-9/igt@i915_pm_rps@basic-api.html
 
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 38afccb3b71e..b707421229e3 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -8042,6 +8042,7 @@ S:	Maintained
- F:	include/linux/dynamic_debug.h
- F:	lib/dynamic_debug.c
- F:	lib/test_dynamic_debug*.c
-+F:	tools/testing/selftests/dynamic_debug/*
- 
- DYNAMIC INTERRUPT MODERATION
- M:	Tal Gilboa <talgi@nvidia.com>
-diff --git a/tools/testing/selftests/Makefile b/tools/testing/selftests/Makefile
-index 2401e973c359..e632f3fc97ac 100644
---- a/tools/testing/selftests/Makefile
-+++ b/tools/testing/selftests/Makefile
-@@ -25,6 +25,7 @@ TARGETS += drivers/net/team
- TARGETS += drivers/net/virtio_net
- TARGETS += drivers/platform/x86/intel/ifs
- TARGETS += dt
-+TARGETS += dynamic_debug
- TARGETS += efivarfs
- TARGETS += exec
- TARGETS += fchmodat2
-diff --git a/tools/testing/selftests/dynamic_debug/Makefile b/tools/testing/selftests/dynamic_debug/Makefile
-new file mode 100644
-index 000000000000..6d06fa7f1040
---- /dev/null
-+++ b/tools/testing/selftests/dynamic_debug/Makefile
-@@ -0,0 +1,9 @@
-+# SPDX-License-Identifier: GPL-2.0-only
-+# borrowed from Makefile for user memory selftests
-+
-+# No binaries, but make sure arg-less "make" doesn't trigger "run_tests"
-+all:
-+
-+TEST_PROGS := dyndbg_selftest.sh
-+
-+include ../lib.mk
-diff --git a/tools/testing/selftests/dynamic_debug/config b/tools/testing/selftests/dynamic_debug/config
-new file mode 100644
-index 000000000000..d080da571ac0
---- /dev/null
-+++ b/tools/testing/selftests/dynamic_debug/config
-@@ -0,0 +1,2 @@
-+CONFIG_TEST_DYNAMIC_DEBUG=m
-+CONFIG_TEST_DYNAMIC_DEBUG_SUBMOD=m
-diff --git a/tools/testing/selftests/dynamic_debug/dyndbg_selftest.sh b/tools/testing/selftests/dynamic_debug/dyndbg_selftest.sh
-new file mode 100755
-index 000000000000..68a9046405f2
---- /dev/null
-+++ b/tools/testing/selftests/dynamic_debug/dyndbg_selftest.sh
-@@ -0,0 +1,256 @@
-+#!/bin/bash
-+# SPDX-License-Identifier: GPL-2.0-only
-+
-+V=${V:=0}  # invoke as V=1 $0  for global verbose
-+RED="\033[0;31m"
-+GREEN="\033[0;32m"
-+YELLOW="\033[0;33m"
-+BLUE="\033[0;34m"
-+MAGENTA="\033[0;35m"
-+CYAN="\033[0;36m"
-+NC="\033[0;0m"
-+error_msg=""
-+
-+[ -e /proc/dynamic_debug/control ] || {
-+    echo -e "${RED}: this test requires CONFIG_DYNAMIC_DEBUG=y ${NC}"
-+    exit 0 # nothing to test here, no good reason to fail.
-+}
-+
-+# need info to avoid failures due to untestable configs
-+
-+[ -f "$KCONFIG_CONFIG" ] || KCONFIG_CONFIG=".config"
-+if [ -f "$KCONFIG_CONFIG" ]; then
-+    echo "# consulting KCONFIG_CONFIG: $KCONFIG_CONFIG"
-+    grep -q "CONFIG_DYNAMIC_DEBUG=y" $KCONFIG_CONFIG ; LACK_DD_BUILTIN=$?
-+    grep -q "CONFIG_TEST_DYNAMIC_DEBUG=m" $KCONFIG_CONFIG ; LACK_TMOD=$?
-+    grep -q "CONFIG_TEST_DYNAMIC_DEBUG_SUBMOD=m" $KCONFIG_CONFIG ; LACK_TMOD_SUBMOD=$?
-+    if [ $V -eq 1 ]; then
-+	echo LACK_DD_BUILTIN: $LACK_DD_BUILTIN
-+	echo LACK_TMOD: $LACK_TMOD
-+	echo LACK_TMOD_SUBMOD: $LACK_TMOD_SUBMOD
-+    fi
-+else
-+    LACK_DD_BUILTIN=0
-+    LACK_TMOD=0
-+    LACK_TMOD_SUBMOD=0
-+fi
-+
-+function vx () {
-+    echo $1 > /sys/module/dynamic_debug/parameters/verbose
-+}
-+
-+function ddgrep () {
-+    grep $1 /proc/dynamic_debug/control
-+}
-+
-+function doprints () {
-+    cat /sys/module/test_dynamic_debug/parameters/do_prints
-+}
-+
-+function ddcmd () {
-+    exp_exit_code=0
-+    num_args=$#
-+    if [ "${@:$#}" = "pass" ]; then
-+	num_args=$#-1
-+    elif [ "${@:$#}" = "fail" ]; then
-+        num_args=$#-1
-+	exp_exit_code=1
-+    fi
-+    args=${@:1:$num_args}
-+    output=$((echo "$args" > /proc/dynamic_debug/control) 2>&1)
-+    exit_code=$?
-+    error_msg=$(echo $output | cut -d ":" -f 5 | sed -e 's/^[[:space:]]*//')
-+    handle_exit_code $BASH_LINENO $FUNCNAME $exit_code $exp_exit_code
-+}
-+
-+function handle_exit_code() {
-+    local exp_exit_code=0
-+    [ $# == 4 ] && exp_exit_code=$4
-+    if [ $3 -ne $exp_exit_code ]; then
-+        echo -e "${RED}: $BASH_SOURCE:$1 $2() expected to exit with code $exp_exit_code"
-+	[ $3 == 1 ] && echo "Error: '$error_msg'"
-+        exit
-+    fi
-+}
-+
-+# $1 - pattern to match, pattern in $1 is enclosed by spaces for a match ""\s$1\s"
-+# $2 - number of times the pattern passed in $1 is expected to match
-+# $3 - optional can be set either to "-r" or "-v"
-+#       "-r" means relaxed matching in this case pattern provided in $1 is passed
-+#       as is without enclosing it with spaces
-+#       "-v" prints matching lines
-+# $4 - optional when $3 is set to "-r" then $4 can be used to pass "-v"
-+function check_match_ct {
-+    pattern="\s$1\s"
-+    exp_cnt=0
-+
-+    [ "$3" == "-r" ] && pattern="$1"
-+    let cnt=$(ddgrep "$pattern" | wc -l)
-+    if [ $V -eq 1 ] || [ "$3" == "-v" ] || [ "$4" == "-v" ]; then
-+        echo -ne "${BLUE}" && ddgrep $pattern && echo -ne "${NC}"
-+    fi
-+    [ $# -gt 1 ] && exp_cnt=$2
-+    if [ $cnt -ne $exp_cnt ]; then
-+        echo -e "${RED}: $BASH_SOURCE:$BASH_LINENO check failed expected $exp_cnt on $1, got $cnt"
-+        exit
-+    else
-+        echo ": $cnt matches on $1"
-+    fi
-+}
-+
-+# $1 - trace instance name
-+# #2 - if > 0 then directory is expected to exist, if <= 0 then otherwise
-+# $3 - "-v" for verbose
-+function check_trace_instance_dir {
-+    if [ -e /sys/kernel/tracing/instances/$1 ]; then
-+        if [ "$3" == "-v" ] ; then
-+            echo "ls -l /sys/kernel/tracing/instances/$1: "
-+            ls -l /sys/kernel/tracing/instances/$1
-+        fi
-+	if [ $2 -le 0 ]; then
-+            echo -e "${RED}: $BASH_SOURCE:$BASH_LINENO error trace instance \
-+		    '/sys/kernel/tracing/instances/$1' does exist"
-+	    exit
-+	fi
-+    else
-+	if [ $2 -gt 0 ]; then
-+            echo -e "${RED}: $BASH_SOURCE:$BASH_LINENO error trace instance \
-+		    '/sys/kernel/tracing/instances/$1' does not exist"
-+	    exit
-+        fi
-+    fi
-+}
-+
-+function tmark {
-+    echo $* > /sys/kernel/tracing/trace_marker
-+}
-+
-+# $1 - trace instance name
-+# $2 - line number
-+# $3 - if > 0 then the instance is expected to be opened, otherwise
-+# the instance is expected to be closed
-+function check_trace_instance {
-+    output=$(tail -n9 /proc/dynamic_debug/control | grep ": Opened trace instances" \
-+	    | xargs -n1 | grep $1)
-+    if [ "$output" != $1 ] && [ $3 -gt 0 ]; then
-+        echo -e "${RED}: $BASH_SOURCE:$2 trace instance $1 is not opened"
-+        exit
-+    fi
-+    if [ "$output" == $1 ] && [ $3 -le 0 ]; then
-+        echo -e "${RED}: $BASH_SOURCE:$2 trace instance $1 is not closed"
-+        exit
-+    fi
-+}
-+
-+function is_trace_instance_opened {
-+    check_trace_instance $1 $BASH_LINENO 1
-+}
-+
-+function is_trace_instance_closed {
-+    check_trace_instance $1 $BASH_LINENO 0
-+}
-+
-+# $1 - trace instance directory to delete
-+# $2 - if > 0 then directory is expected to be deleted successfully, if <= 0 then otherwise
-+function del_trace_instance_dir() {
-+    exp_exit_code=1
-+    [ $2 -gt 0 ] && exp_exit_code=0
-+    output=$((rmdir /sys/kernel/debug/tracing/instances/$1) 2>&1)
-+    exit_code=$?
-+    error_msg=$(echo $output | cut -d ":" -f 3 | sed -e 's/^[[:space:]]*//')
-+    handle_exit_code $BASH_LINENO $FUNCNAME $exit_code $exp_exit_code
-+}
-+
-+function error_log_ref {
-+    # to show what I got
-+    : echo "# error-log-ref: $1"
-+    : echo cat \$2
-+}
-+
-+function ifrmmod {
-+    lsmod | grep $1 2>&1>/dev/null && rmmod $1
-+}
-+
-+# $1 - text to search for
-+function search_trace() {
-+    search_trace_name 0 1 $1
-+}
-+
-+# $1 - trace instance name, 0 for global event trace
-+# $2 - line number counting from the bottom
-+# $3 - text to search for
-+function search_trace_name() {
-+	if [ "$1" = "0" ]; then
-+	    buf=$(cat /sys/kernel/debug/tracing/trace)
-+	    line=$(tail -$2 /sys/kernel/debug/tracing/trace | head -1 | sed -e 's/^[[:space:]]*//')
-+	else
-+	    buf=$(cat /sys/kernel/debug/tracing/instances/$1/trace)
-+	    line=$(tail -$2 /sys/kernel/debug/tracing/instances/$1/trace | head -1 | \
-+		   sed -e 's/^[[:space:]]*//')
-+	fi
-+	if [ $2 = 0 ]; then
-+	    # whole-buf check
-+	    output=$(echo $buf | grep "$3")
-+	else
-+	    output=$(echo $line | grep "$3")
-+	fi
-+	if [ "$output" = "" ]; then
-+            echo -e "${RED}: $BASH_SOURCE:$BASH_LINENO search for '$3' failed \
-+		    in line '$line' or '$buf'"
-+	    exit
-+	fi
-+	if [ $V = 1 ]; then
-+	    echo -e "${MAGENTA}: search_trace_name in $1 found: \n$output \nin:${BLUE} $buf ${NC}"
-+        fi
-+}
-+
-+# $1 - error message to check
-+function check_err_msg() {
-+    if [ "$error_msg" != "$1" ]; then
-+        echo -e "${RED}: $BASH_SOURCE:$BASH_LINENO error message '$error_msg' \
-+		does not match with '$1'"
-+        exit
-+    fi
-+}
-+
-+function basic_tests {
-+    echo -e "${GREEN}# BASIC_TESTS ${NC}"
-+    if [ $LACK_DD_BUILTIN -eq 1 ]; then
-+	echo "SKIP"
-+	return
-+    fi
-+    ddcmd =_ # zero everything
-+    check_match_ct =p 0
-+
-+    # module params are builtin to handle boot args
-+    check_match_ct '\[params\]' 4 -r
-+    ddcmd module params +mpf
-+    check_match_ct =pmf 4
-+
-+    # multi-cmd input, newline separated, with embedded comments
-+    cat <<"EOF" > /proc/dynamic_debug/control
-+      module params =_				# clear params
-+      module params +mf				# set flags
-+      module params func parse_args +sl		# other flags
-+EOF
-+    check_match_ct =mf 3
-+    check_match_ct =mfsl 1
-+    ddcmd =_
-+}
-+
-+tests_list=(
-+    basic_tests
-+)
-+
-+# Run tests
-+
-+ifrmmod test_dynamic_debug_submod
-+ifrmmod test_dynamic_debug
-+
-+for test in "${tests_list[@]}"
-+do
-+    $test
-+    echo ""
-+done
-+echo -en "${GREEN}# Done on: "
-+date
--- 
-2.48.1
+  * igt@i915_selftest@live:
+    - bat-mtlp-8:         [PASS][11] -> [DMESG-FAIL][12] ([i915#12061]) +1 other test dmesg-fail
+   [11]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_16023/bat-mtlp-8/igt@i915_selftest@live.html
+   [12]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_143971v1/bat-mtlp-8/igt@i915_selftest@live.html
+    - bat-arlh-3:         [PASS][13] -> [DMESG-FAIL][14] ([i915#12061] / [i915#12435])
+   [13]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_16023/bat-arlh-3/igt@i915_selftest@live.html
+   [14]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_143971v1/bat-arlh-3/igt@i915_selftest@live.html
 
+  * igt@i915_selftest@live@workarounds:
+    - bat-arlh-3:         [PASS][15] -> [DMESG-FAIL][16] ([i915#12061])
+   [15]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_16023/bat-arlh-3/igt@i915_selftest@live@workarounds.html
+   [16]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_143971v1/bat-arlh-3/igt@i915_selftest@live@workarounds.html
+    - bat-adlp-9:         [PASS][17] -> [ABORT][18] ([i915#13399]) +1 other test abort
+   [17]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_16023/bat-adlp-9/igt@i915_selftest@live@workarounds.html
+   [18]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_143971v1/bat-adlp-9/igt@i915_selftest@live@workarounds.html
+
+  * igt@kms_addfb_basic@addfb25-y-tiled-small-legacy:
+    - bat-dg2-9:          NOTRUN -> [SKIP][19] ([i915#5190])
+   [19]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_143971v1/bat-dg2-9/igt@kms_addfb_basic@addfb25-y-tiled-small-legacy.html
+
+  * igt@kms_addfb_basic@basic-y-tiled-legacy:
+    - bat-dg2-9:          NOTRUN -> [SKIP][20] ([i915#4215] / [i915#5190])
+   [20]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_143971v1/bat-dg2-9/igt@kms_addfb_basic@basic-y-tiled-legacy.html
+
+  * igt@kms_addfb_basic@framebuffer-vs-set-tiling:
+    - bat-dg2-9:          NOTRUN -> [SKIP][21] ([i915#4212]) +7 other tests skip
+   [21]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_143971v1/bat-dg2-9/igt@kms_addfb_basic@framebuffer-vs-set-tiling.html
+
+  * igt@kms_cursor_legacy@basic-busy-flip-before-cursor-legacy:
+    - bat-dg2-9:          NOTRUN -> [SKIP][22] ([i915#4103] / [i915#4213]) +1 other test skip
+   [22]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_143971v1/bat-dg2-9/igt@kms_cursor_legacy@basic-busy-flip-before-cursor-legacy.html
+
+  * igt@kms_force_connector_basic@force-load-detect:
+    - bat-dg2-9:          NOTRUN -> [SKIP][23]
+   [23]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_143971v1/bat-dg2-9/igt@kms_force_connector_basic@force-load-detect.html
+
+  * igt@kms_pipe_crc_basic@nonblocking-crc-frame-sequence:
+    - bat-dg2-11:         [PASS][24] -> [SKIP][25] ([i915#9197]) +3 other tests skip
+   [24]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_16023/bat-dg2-11/igt@kms_pipe_crc_basic@nonblocking-crc-frame-sequence.html
+   [25]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_143971v1/bat-dg2-11/igt@kms_pipe_crc_basic@nonblocking-crc-frame-sequence.html
+
+  * igt@kms_pm_backlight@basic-brightness:
+    - bat-dg2-9:          NOTRUN -> [SKIP][26] ([i915#5354])
+   [26]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_143971v1/bat-dg2-9/igt@kms_pm_backlight@basic-brightness.html
+
+  * igt@kms_psr@psr-sprite-plane-onoff:
+    - bat-dg2-9:          NOTRUN -> [SKIP][27] ([i915#1072] / [i915#9732]) +3 other tests skip
+   [27]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_143971v1/bat-dg2-9/igt@kms_psr@psr-sprite-plane-onoff.html
+
+  * igt@kms_setmode@basic-clone-single-crtc:
+    - bat-dg2-9:          NOTRUN -> [SKIP][28] ([i915#3555])
+   [28]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_143971v1/bat-dg2-9/igt@kms_setmode@basic-clone-single-crtc.html
+
+  * igt@prime_vgem@basic-fence-flip:
+    - bat-dg2-9:          NOTRUN -> [SKIP][29] ([i915#3708])
+   [29]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_143971v1/bat-dg2-9/igt@prime_vgem@basic-fence-flip.html
+
+  * igt@prime_vgem@basic-fence-mmap:
+    - bat-dg2-9:          NOTRUN -> [SKIP][30] ([i915#3708] / [i915#4077]) +1 other test skip
+   [30]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_143971v1/bat-dg2-9/igt@prime_vgem@basic-fence-mmap.html
+
+  * igt@prime_vgem@basic-write:
+    - bat-dg2-9:          NOTRUN -> [SKIP][31] ([i915#3291] / [i915#3708]) +2 other tests skip
+   [31]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_143971v1/bat-dg2-9/igt@prime_vgem@basic-write.html
+
+  
+#### Possible fixes ####
+
+  * igt@dmabuf@all-tests:
+    - bat-apl-1:          [INCOMPLETE][32] ([i915#12904]) -> [PASS][33] +1 other test pass
+   [32]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_16023/bat-apl-1/igt@dmabuf@all-tests.html
+   [33]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_143971v1/bat-apl-1/igt@dmabuf@all-tests.html
+
+  * igt@i915_selftest@live@workarounds:
+    - {bat-mtlp-9}:       [DMESG-FAIL][34] ([i915#12061]) -> [PASS][35]
+   [34]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_16023/bat-mtlp-9/igt@i915_selftest@live@workarounds.html
+   [35]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_143971v1/bat-mtlp-9/igt@i915_selftest@live@workarounds.html
+
+  
+  {name}: This element is suppressed. This means it is ignored when computing
+          the status of the difference (SUCCESS, WARNING, or FAILURE).
+
+  [i915#1072]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/1072
+  [i915#11681]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/11681
+  [i915#12061]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/12061
+  [i915#12435]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/12435
+  [i915#12904]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/12904
+  [i915#13399]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/13399
+  [i915#13401]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/13401
+  [i915#3291]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/3291
+  [i915#3555]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/3555
+  [i915#3708]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/3708
+  [i915#4077]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/4077
+  [i915#4079]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/4079
+  [i915#4083]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/4083
+  [i915#4103]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/4103
+  [i915#4212]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/4212
+  [i915#4213]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/4213
+  [i915#4215]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/4215
+  [i915#5190]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/5190
+  [i915#5354]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/5354
+  [i915#6621]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/6621
+  [i915#9197]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/9197
+  [i915#9732]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/9732
+
+
+Build changes
+-------------
+
+  * Linux: CI_DRM_16023 -> Patchwork_143971v1
+
+  CI-20190529: 20190529
+  CI_DRM_16023: 006a892140827b356eb4ad5a5e9b947477791ba8 @ git://anongit.freedesktop.org/gfx-ci/linux
+  IGT_8209: 07ec14a8b00849e82a6ee7aff433c8f564787bf0 @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git
+  Patchwork_143971v1: 006a892140827b356eb4ad5a5e9b947477791ba8 @ git://anongit.freedesktop.org/gfx-ci/linux
+
+== Logs ==
+
+For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_143971v1/index.html
+
+--===============5104704007100497233==
+Content-Type: text/html; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <title>Project List - Patchwork</title>
+  <style id="css-table-select" type="text/css">
+   td { padding: 2pt; }
+  </style>
+</head>
+<body>
+
+
+<b>Patch Details</b>
+<table>
+<tr><td><b>Series:</b></td><td>drm/i915: Remove unused live_context_for_engine</td></tr>
+<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/143971/">https://patchwork.freedesktop.org/series/143971/</a></td></tr>
+<tr><td><b>State:</b></td><td>success</td></tr>
+
+    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_143971v1/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_143971v1/index.html</a></td></tr>
+
+</table>
+
+
+    <h1>CI Bug Log - changes from CI_DRM_16023 -&gt; Patchwork_143971v1</h1>
+<h2>Summary</h2>
+<p><strong>SUCCESS</strong></p>
+<p>No regressions found.</p>
+<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_143971v1/index.html</p>
+<h2>Participating hosts (36 -&gt; 35)</h2>
+<p>Additional (1): bat-dg2-9 <br />
+  Missing    (2): fi-glk-j4005 fi-snb-2520m </p>
+<h2>Known issues</h2>
+<p>Here are the changes found in Patchwork_143971v1 that come from known issues:</p>
+<h3>IGT changes</h3>
+<h4>Issues hit</h4>
+<ul>
+<li>
+<p>igt@dmabuf@all-tests@dma_fence_chain:</p>
+<ul>
+<li>fi-bsw-nick:        <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_16023/fi-bsw-nick/igt@dmabuf@all-tests@dma_fence_chain.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_143971v1/fi-bsw-nick/igt@dmabuf@all-tests@dma_fence_chain.html">INCOMPLETE</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/12904">i915#12904</a>) +1 other test incomplete</li>
+</ul>
+</li>
+<li>
+<p>igt@gem_mmap@basic:</p>
+<ul>
+<li>bat-dg2-9:          NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_143971v1/bat-dg2-9/igt@gem_mmap@basic.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/4083">i915#4083</a>)</li>
+</ul>
+</li>
+<li>
+<p>igt@gem_mmap_gtt@basic:</p>
+<ul>
+<li>bat-dg2-9:          NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_143971v1/bat-dg2-9/igt@gem_mmap_gtt@basic.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/4077">i915#4077</a>) +2 other tests skip</li>
+</ul>
+</li>
+<li>
+<p>igt@gem_render_tiled_blits@basic:</p>
+<ul>
+<li>bat-dg2-9:          NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_143971v1/bat-dg2-9/igt@gem_render_tiled_blits@basic.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/4079">i915#4079</a>) +1 other test skip</li>
+</ul>
+</li>
+<li>
+<p>igt@i915_pm_rpm@module-reload:</p>
+<ul>
+<li>bat-adls-6:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_16023/bat-adls-6/igt@i915_pm_rpm@module-reload.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_143971v1/bat-adls-6/igt@i915_pm_rpm@module-reload.html">FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/13401">i915#13401</a>)</li>
+<li>fi-tgl-1115g4:      <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_16023/fi-tgl-1115g4/igt@i915_pm_rpm@module-reload.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_143971v1/fi-tgl-1115g4/igt@i915_pm_rpm@module-reload.html">FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/13401">i915#13401</a>)</li>
+</ul>
+</li>
+<li>
+<p>igt@i915_pm_rps@basic-api:</p>
+<ul>
+<li>bat-dg2-9:          NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_143971v1/bat-dg2-9/igt@i915_pm_rps@basic-api.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/11681">i915#11681</a> / <a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/6621">i915#6621</a>)</li>
+</ul>
+</li>
+<li>
+<p>igt@i915_selftest@live:</p>
+<ul>
+<li>bat-mtlp-8:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_16023/bat-mtlp-8/igt@i915_selftest@live.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_143971v1/bat-mtlp-8/igt@i915_selftest@live.html">DMESG-FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/12061">i915#12061</a>) +1 other test dmesg-fail</li>
+<li>bat-arlh-3:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_16023/bat-arlh-3/igt@i915_selftest@live.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_143971v1/bat-arlh-3/igt@i915_selftest@live.html">DMESG-FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/12061">i915#12061</a> / <a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/12435">i915#12435</a>)</li>
+</ul>
+</li>
+<li>
+<p>igt@i915_selftest@live@workarounds:</p>
+<ul>
+<li>bat-arlh-3:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_16023/bat-arlh-3/igt@i915_selftest@live@workarounds.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_143971v1/bat-arlh-3/igt@i915_selftest@live@workarounds.html">DMESG-FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/12061">i915#12061</a>)</li>
+<li>bat-adlp-9:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_16023/bat-adlp-9/igt@i915_selftest@live@workarounds.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_143971v1/bat-adlp-9/igt@i915_selftest@live@workarounds.html">ABORT</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/13399">i915#13399</a>) +1 other test abort</li>
+</ul>
+</li>
+<li>
+<p>igt@kms_addfb_basic@addfb25-y-tiled-small-legacy:</p>
+<ul>
+<li>bat-dg2-9:          NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_143971v1/bat-dg2-9/igt@kms_addfb_basic@addfb25-y-tiled-small-legacy.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/5190">i915#5190</a>)</li>
+</ul>
+</li>
+<li>
+<p>igt@kms_addfb_basic@basic-y-tiled-legacy:</p>
+<ul>
+<li>bat-dg2-9:          NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_143971v1/bat-dg2-9/igt@kms_addfb_basic@basic-y-tiled-legacy.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/4215">i915#4215</a> / <a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/5190">i915#5190</a>)</li>
+</ul>
+</li>
+<li>
+<p>igt@kms_addfb_basic@framebuffer-vs-set-tiling:</p>
+<ul>
+<li>bat-dg2-9:          NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_143971v1/bat-dg2-9/igt@kms_addfb_basic@framebuffer-vs-set-tiling.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/4212">i915#4212</a>) +7 other tests skip</li>
+</ul>
+</li>
+<li>
+<p>igt@kms_cursor_legacy@basic-busy-flip-before-cursor-legacy:</p>
+<ul>
+<li>bat-dg2-9:          NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_143971v1/bat-dg2-9/igt@kms_cursor_legacy@basic-busy-flip-before-cursor-legacy.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/4103">i915#4103</a> / <a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/4213">i915#4213</a>) +1 other test skip</li>
+</ul>
+</li>
+<li>
+<p>igt@kms_force_connector_basic@force-load-detect:</p>
+<ul>
+<li>bat-dg2-9:          NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_143971v1/bat-dg2-9/igt@kms_force_connector_basic@force-load-detect.html">SKIP</a></li>
+</ul>
+</li>
+<li>
+<p>igt@kms_pipe_crc_basic@nonblocking-crc-frame-sequence:</p>
+<ul>
+<li>bat-dg2-11:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_16023/bat-dg2-11/igt@kms_pipe_crc_basic@nonblocking-crc-frame-sequence.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_143971v1/bat-dg2-11/igt@kms_pipe_crc_basic@nonblocking-crc-frame-sequence.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/9197">i915#9197</a>) +3 other tests skip</li>
+</ul>
+</li>
+<li>
+<p>igt@kms_pm_backlight@basic-brightness:</p>
+<ul>
+<li>bat-dg2-9:          NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_143971v1/bat-dg2-9/igt@kms_pm_backlight@basic-brightness.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/5354">i915#5354</a>)</li>
+</ul>
+</li>
+<li>
+<p>igt@kms_psr@psr-sprite-plane-onoff:</p>
+<ul>
+<li>bat-dg2-9:          NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_143971v1/bat-dg2-9/igt@kms_psr@psr-sprite-plane-onoff.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/1072">i915#1072</a> / <a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/9732">i915#9732</a>) +3 other tests skip</li>
+</ul>
+</li>
+<li>
+<p>igt@kms_setmode@basic-clone-single-crtc:</p>
+<ul>
+<li>bat-dg2-9:          NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_143971v1/bat-dg2-9/igt@kms_setmode@basic-clone-single-crtc.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/3555">i915#3555</a>)</li>
+</ul>
+</li>
+<li>
+<p>igt@prime_vgem@basic-fence-flip:</p>
+<ul>
+<li>bat-dg2-9:          NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_143971v1/bat-dg2-9/igt@prime_vgem@basic-fence-flip.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/3708">i915#3708</a>)</li>
+</ul>
+</li>
+<li>
+<p>igt@prime_vgem@basic-fence-mmap:</p>
+<ul>
+<li>bat-dg2-9:          NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_143971v1/bat-dg2-9/igt@prime_vgem@basic-fence-mmap.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/3708">i915#3708</a> / <a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/4077">i915#4077</a>) +1 other test skip</li>
+</ul>
+</li>
+<li>
+<p>igt@prime_vgem@basic-write:</p>
+<ul>
+<li>bat-dg2-9:          NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_143971v1/bat-dg2-9/igt@prime_vgem@basic-write.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/3291">i915#3291</a> / <a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/3708">i915#3708</a>) +2 other tests skip</li>
+</ul>
+</li>
+</ul>
+<h4>Possible fixes</h4>
+<ul>
+<li>
+<p>igt@dmabuf@all-tests:</p>
+<ul>
+<li>bat-apl-1:          <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_16023/bat-apl-1/igt@dmabuf@all-tests.html">INCOMPLETE</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/12904">i915#12904</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_143971v1/bat-apl-1/igt@dmabuf@all-tests.html">PASS</a> +1 other test pass</li>
+</ul>
+</li>
+<li>
+<p>igt@i915_selftest@live@workarounds:</p>
+<ul>
+<li>{bat-mtlp-9}:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_16023/bat-mtlp-9/igt@i915_selftest@live@workarounds.html">DMESG-FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/12061">i915#12061</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_143971v1/bat-mtlp-9/igt@i915_selftest@live@workarounds.html">PASS</a></li>
+</ul>
+</li>
+</ul>
+<p>{name}: This element is suppressed. This means it is ignored when computing<br />
+          the status of the difference (SUCCESS, WARNING, or FAILURE).</p>
+<h2>Build changes</h2>
+<ul>
+<li>Linux: CI_DRM_16023 -&gt; Patchwork_143971v1</li>
+</ul>
+<p>CI-20190529: 20190529<br />
+  CI_DRM_16023: 006a892140827b356eb4ad5a5e9b947477791ba8 @ git://anongit.freedesktop.org/gfx-ci/linux<br />
+  IGT_8209: 07ec14a8b00849e82a6ee7aff433c8f564787bf0 @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git<br />
+  Patchwork_143971v1: 006a892140827b356eb4ad5a5e9b947477791ba8 @ git://anongit.freedesktop.org/gfx-ci/linux</p>
+
+</body>
+</html>
+
+--===============5104704007100497233==--
