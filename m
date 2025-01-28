@@ -4,174 +4,56 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 105EBC02190
-	for <intel-gfx@archiver.kernel.org>; Tue, 28 Jan 2025 16:01:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D6C5CC02194
+	for <intel-gfx@archiver.kernel.org>; Tue, 28 Jan 2025 16:05:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B26C810E6A0;
-	Tue, 28 Jan 2025 16:01:38 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 662ED10E6AC;
+	Tue, 28 Jan 2025 16:05:59 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="QQkkF1Mr";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="V9EoaXnT";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.19])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D3AFF10E69C;
- Tue, 28 Jan 2025 16:01:36 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9399910E6AA;
+ Tue, 28 Jan 2025 16:05:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1738080097; x=1769616097;
- h=from:to:cc:subject:date:message-id:references:
- in-reply-to:content-transfer-encoding:mime-version;
- bh=xuyzzEZtM3doMCQjgYAxVKS8mWglBxQRJlC52S+4+Wo=;
- b=QQkkF1MrukMtD34gNkQ3uwWg1KJsi663ZejsarNPNEm840efq326e9Mm
- Tyd8nDn7kiTfo5aHRijWuN3kGW8sJWpMZPcAKP6bFZyapHcAjBmoLfvoc
- QDdXrhl9zDQ7cuBBur6HnQM8MUpHqE2x/0TYB6WcO2XJeHYjqjvR2Lcld
- WO1kJtyHPxsM5EbkRLhmw6NiBaA8VP6qgXyiwYj5ZgpsJE9byl05EfxH+
- JdHV+66tP/x8jI0ZOpqqgDf02zeyChLmrclKqha1AZVJHis93C8RbevKu
- ZoKg+dq6IANekD/31msdiQjN8nf3kR2R9Nc2xFxKB52I5+dyHMGw2+g4Z w==;
-X-CSE-ConnectionGUID: iaXtEcOuTOqiBZ6xKYAG7A==
-X-CSE-MsgGUID: ueGM3DslSw+OlrX49Ch/WA==
-X-IronPort-AV: E=McAfee;i="6700,10204,11329"; a="37768697"
-X-IronPort-AV: E=Sophos;i="6.13,241,1732608000"; d="scan'208";a="37768697"
-Received: from fmviesa004.fm.intel.com ([10.60.135.144])
- by fmvoesa113.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 28 Jan 2025 08:01:36 -0800
-X-CSE-ConnectionGUID: wF8d20LKTXOvV/z1OXAgtw==
-X-CSE-MsgGUID: 9oak+Ay6SM+UMFYDq6xMgA==
+ t=1738080359; x=1769616359;
+ h=from:date:subject:mime-version:content-transfer-encoding:
+ message-id:references:in-reply-to:to:cc;
+ bh=bDgT4VIxg/jIp6PmRyFC4l9u0NF6je1nknLzt8juq/g=;
+ b=V9EoaXnT91huA6E584nb9B/8GaIHjIVwGTv90MsMctIRA2fVb9WTFLHF
+ W9vQYlsPoMJViUEdNC7sBj6+BZo1nXUVK3R7nqdR1Hkx5nYnQvjIQ83EN
+ DfdZFCSKGeToizu50SuXV0fhM9XJThg2CHiejQiPnexk7TO+Y44za2vPh
+ quLJRR/sN3C+eDrjyDq3SlKOw8n1i8S0d/480KWfL8k4ol515J5yqx2OP
+ dixz9TunU5GRFfOW5gAuxLYEEFQjK7VDlJXXY33e0O5/2jHhcvZBF8Rhf
+ 0GS2vcrXB0EDj1UeI85vQVp4gd4N1gU5DGFephFj4pnBClk33fLijWqlw g==;
+X-CSE-ConnectionGUID: TWFBjtEoQGSLcg3IsjIsBw==
+X-CSE-MsgGUID: c/6mjQwcSNWRO89Ej+k6IQ==
+X-IronPort-AV: E=McAfee;i="6700,10204,11329"; a="38744996"
+X-IronPort-AV: E=Sophos;i="6.13,241,1732608000"; d="scan'208";a="38744996"
+Received: from orviesa001.jf.intel.com ([10.64.159.141])
+ by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 28 Jan 2025 08:05:58 -0800
+X-CSE-ConnectionGUID: NBcLSwP0S5OaxNJp9KQRTA==
+X-CSE-MsgGUID: ZwmX8mAHSKWysi0r6ngizg==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.13,241,1732608000"; d="scan'208";a="113772351"
-Received: from orsmsx601.amr.corp.intel.com ([10.22.229.14])
- by fmviesa004.fm.intel.com with ESMTP/TLS/AES256-GCM-SHA384;
- 28 Jan 2025 08:01:19 -0800
-Received: from orsmsx603.amr.corp.intel.com (10.22.229.16) by
- ORSMSX601.amr.corp.intel.com (10.22.229.14) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.44; Tue, 28 Jan 2025 08:01:18 -0800
-Received: from orsedg603.ED.cps.intel.com (10.7.248.4) by
- orsmsx603.amr.corp.intel.com (10.22.229.16) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.44 via Frontend Transport; Tue, 28 Jan 2025 08:01:18 -0800
-Received: from NAM11-BN8-obe.outbound.protection.outlook.com (104.47.58.177)
- by edgegateway.intel.com (134.134.137.100) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.1.2507.44; Tue, 28 Jan 2025 08:01:14 -0800
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=rB4oeww21sOqHnBblVxVH9+PVodVoeej6rvBgXqcea4UFD+R65B/+xeUd3VpvWa+aSLknz9H10BeKUxx6Iinx5/KLMGJ25P18/w7uvPZTIkZIARsJy0YokVS0YUxBqDD5hty6yzQLmeGKJ5bFWnFUaloKY3GHFyKK1adZyJW1ohivyNGFcxDEolgK5A97SFGvEIhq0OxSoS6sENqtjcI3vFnwknT5QK8xP8oCIYb5e8sp0SBNFiybMgagwaq5naGHRptz1tTijwO5ghY1Uq9l98jz8qJNpDD23l7G6H7vmVPPkTkDimu/lJ/Iy7Kru/oYpQOLqWrrrs8LcPdYKFB4A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=VHD92BZr1tyTNz6bWwVYg4YUhNPsw94C8C288izBTQE=;
- b=cNbxLzC3wTZqzxu1abLKTP0NGv+7jLtTPQribaGC55DdnTo7miwW8M7lPPY5wodNFMUWsls/kpkvJHGuGYU+WWS7sye+h7+WdhDYJWujIW/0cN2S/4/qIZBtOv/zqk+pI+HtuTe/BAkxoV+drcPGAhuHHoyQP+BYdDLIX0kxxORo67tP4zgb0jHexDKtPIj8s8TgiQyPc2WZrcFq/xQRVusL4ISqYjEM6vU/SBryaw5EdySJwys4L7pNu70GI337z5qsYwzYaqamQE4ZCPvlGFEz2GFGEtGOuJ5DNtOrjFpfESiFsYoLswdCLZeWgjUQQf6pLnPJkzScaq/d0N0VOg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Received: from SJ1PR11MB6129.namprd11.prod.outlook.com (2603:10b6:a03:488::12)
- by PH7PR11MB6772.namprd11.prod.outlook.com (2603:10b6:510:1b6::21)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8377.22; Tue, 28 Jan
- 2025 16:00:58 +0000
-Received: from SJ1PR11MB6129.namprd11.prod.outlook.com
- ([fe80::21c3:4b36:8cc5:b525]) by SJ1PR11MB6129.namprd11.prod.outlook.com
- ([fe80::21c3:4b36:8cc5:b525%3]) with mapi id 15.20.8377.021; Tue, 28 Jan 2025
- 16:00:58 +0000
-From: "Borah, Chaitanya Kumar" <chaitanya.kumar.borah@intel.com>
-To: Al Viro <viro@zeniv.linux.org.uk>, Greg Kroah-Hartman
- <gregkh@linuxfoundation.org>
-CC: "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>,
- "intel-xe@lists.freedesktop.org" <intel-xe@lists.freedesktop.org>, "Kurmi,
- Suresh Kumar" <suresh.kumar.kurmi@intel.com>, "Saarinen, Jani"
- <jani.saarinen@intel.com>, "linux-fsdevel@vger.kernel.org"
- <linux-fsdevel@vger.kernel.org>, Alexander Gordeev <agordeev@linux.ibm.com>
-Subject: RE: Regression on linux-next (next-20250120)
-Thread-Topic: Regression on linux-next (next-20250120)
-Thread-Index: Adttq6oN2zvxaQC4Q86QyAJ6tLuOCQAF5fmAAJHYpoAAG5FWAABJCcig
-Date: Tue, 28 Jan 2025 16:00:58 +0000
-Message-ID: <SJ1PR11MB6129954089EA5288ED6D963EB9EF2@SJ1PR11MB6129.namprd11.prod.outlook.com>
-References: <SJ1PR11MB6129D7DA59A733AD38E081E3B9E02@SJ1PR11MB6129.namprd11.prod.outlook.com>
- <20250123181853.GC1977892@ZenIV>
- <Z5Zazwd0nto-v-RS@tuxmaker.boeblingen.de.ibm.com>
- <20250127050416.GE1977892@ZenIV>
-In-Reply-To: <20250127050416.GE1977892@ZenIV>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: SJ1PR11MB6129:EE_|PH7PR11MB6772:EE_
-x-ms-office365-filtering-correlation-id: 38175606-9e55-4cd8-065a-08dd3fb4f47b
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0; ARA:13230040|366016|1800799024|376014|38070700018;
-x-microsoft-antispam-message-info: =?us-ascii?Q?ilAVDBJl2JnL9i6/8q5MQVSU0wvUD14fQ5i/huy6gNzYv2Dnzbi1xfLLZvAO?=
- =?us-ascii?Q?McUKoU1BqElhKiBXF3wXHSwv5FokKf2HJNwO7kajTxPqB3rT7vPj/X0GqYE8?=
- =?us-ascii?Q?sPnInK0I1sRpfGkwOL3iP51kC+5qZOjsYOrdzW6DedtQWs0uQjguZSSqJQB9?=
- =?us-ascii?Q?MQ4HJp14tQgjJIjGU9xlrf/rV6KP8Pab/oi5/q/Cdir6x/NnFKWCRZQ0nVmH?=
- =?us-ascii?Q?mAuWK5BmJXVdLXT9+CqHDR0uUbS3XC3bsxZJt1Fgn+PfK/FJm9VbBqITImOk?=
- =?us-ascii?Q?zDB3r6BDipL3KPx9Hi2EBsrUvt6LXoVlVzR4XAEEw/+amlgyn186oTENpIa+?=
- =?us-ascii?Q?YEevHCqm6t5nQdTyZUOxdY4QyuwXMgTUWr48v0Wn/lyu0ZU3tp1N7CZUq1RT?=
- =?us-ascii?Q?CawrZu80OkPamQAjh+502ClqaO00PiduVvdKFxcI9O42aH0CkX3C6eUVPt8f?=
- =?us-ascii?Q?iyzbBn60foA0liDcEkOJ2SNni5AeiL0o6pxKlCslYo3DSCZy2H+WzaDHbjXo?=
- =?us-ascii?Q?E3mZLFrhIdePf9hkWZC1tCXDxrCtf1qxks7kZcOEaWWjiIUY1SmIBEFfuhP6?=
- =?us-ascii?Q?1EQ0SUrHuYSEdpEmdmnWk4Loes4SQHOaWIV+aN58EOqjKGNpwdrva+MZdvKZ?=
- =?us-ascii?Q?A96Vw8WL3QeB/VLwOpX9KbPJjatbLYW/1tL818IeEqLVUZbzbAIzr/ofxpLj?=
- =?us-ascii?Q?1c4QCTKZHBhHi3P824xH2FtuizIuHIdgQd0Yj3uqC17zqX51WryOyfr4zWGx?=
- =?us-ascii?Q?AfQBX+RiQ2f2oWh+fEp6NybB3SBLtpZnCXtwATh/AfKgjZxTRkmKxX4u7OqL?=
- =?us-ascii?Q?Pv4pbJTAt13TZ8eOh7jAxlGuU6CRRf1ptD9FerXnyWed2QrQHLVgLnuiy/MP?=
- =?us-ascii?Q?i7BTLugU555CRD1pADdYB286jmekln8zwx3ABj08HfX8DvC9L7kN4JqIvhAL?=
- =?us-ascii?Q?PfjtrWup/0gRxzQ3ESmV3Bux8Emq/kffpbp+vnAcLrjMmQYDMNucbv+gDVBi?=
- =?us-ascii?Q?2Z054ioj8FddcKVLbmVsSbHJqnZ/wWshuex5ro+M1hSR9PKTqFokMVDuuajX?=
- =?us-ascii?Q?UMD834cZt1V2ov4XFXzHcirhvjzhF/p+IZjy3Tk6ry8CsQTAfdURa9IMfUc/?=
- =?us-ascii?Q?p4PnpQYk3m8FqxHCIvlJijso/cQqG8hKWmWRY363S+A/CGDJxho1JrvCc927?=
- =?us-ascii?Q?GnjT4XvAiHoAgyBdPlqbNKPTabRdArcHeIHenJx2lvJpRRnYe5mUgU/ifxfh?=
- =?us-ascii?Q?uXiWWxqHle2rCRnMkPg/sI3jXUzeQOSI+feLJbEW6pyo/xzupcdo5TsAHfLf?=
- =?us-ascii?Q?gWEFHcu7gE5kkzvaStuG6CRVI2p3TgpaVvYE+dyF6p5kSK0p+oitdXdxZhNR?=
- =?us-ascii?Q?31YMszGsSdupc/CYhm43rdcPY2O5Xq53Nk9N/BQ1ihOIDkOPgLaAnvAN1bSG?=
- =?us-ascii?Q?hy3b1up307YkeFVWrQ2BL1DwJBhgMTfZ?=
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:SJ1PR11MB6129.namprd11.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(1800799024)(376014)(38070700018); DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?rPoPTR4uEAqpWlDctNTxZvicaGTP8ow+Et3XxajAUIbnZGAEsY6nlAJJAMuo?=
- =?us-ascii?Q?VIF4GSEcKpHC5o0ql+xh+rDIux7BYrE/dqaSximX4W+GgHHd+5EdERPxbLUH?=
- =?us-ascii?Q?+VL5X3V54gCLdtiOEy26aGaiZb2F3wfCqGKPFbh6W7kuVYBbkYmCdEY8bFXu?=
- =?us-ascii?Q?6A7bL3Ibr/7/GzhUYZ3n6hIR6UedhzDdOucJBr7SUlW+0+ZFkrdAJATHx+SL?=
- =?us-ascii?Q?LPXAoXMUiaEcGKhHFhIbWG6Mta1fStKS6MiuKxFosjdQJabvu0o2qVah7BjC?=
- =?us-ascii?Q?aCM+wwX3otMi/wqCTsQUWZ0SYLElmGfBzsXWV/Fbx77Q7Wu2QFnxD0YLg88D?=
- =?us-ascii?Q?rUHnynQlOr2RL+7dfe1ljNyGisF8YYdQFwfJVnHsnRJuuJvyAsdqfN3anwMm?=
- =?us-ascii?Q?SwYLz9rDIcQaiXJ/3MSX56oe/Z8zdUTsCRYridBTzdK64s1l4uBiQUiy8RJ+?=
- =?us-ascii?Q?Vh8HrMvCmgq002eNHejZXAlcDe5zaB4RT4tcT+rwJTDIw8ZYCf4Tetgq0yoo?=
- =?us-ascii?Q?/rF6eQaRpvg/WbyOY83bDvYe7JSq0GoINGc6R2KBIW9+vU50vH6xbLmIEtbm?=
- =?us-ascii?Q?pBmsqPbsBcQXnbuYcEKUMTM+KuTntVYUz/EAqtVoyj3gS0Q4ts5JSzLPZ8pJ?=
- =?us-ascii?Q?yIuaXOHZykY+qfCiVLyJ588Nsj2WxGgV1pF1ZRJzUW63/e07qyRlmNbUWKoN?=
- =?us-ascii?Q?yddU5KEgXnJA6FTuWn0GPyJX44q+ZgMleBrNHiIF+uQ9WM1sTWiwnJpfYqcN?=
- =?us-ascii?Q?LN3w87XWOd3LSI5ShKPWemert0qUxX+5geRf2lLa6MAKj8VNo9AgijVfhuCU?=
- =?us-ascii?Q?cq4jbCTX27T/vvKtnrqpTPATwWxUpCzjRcTdD2LKz2CZv1JzevaejeJPk1NA?=
- =?us-ascii?Q?leMvinxJ+mDS/dzbqoua0virjEIUZNaMI/IvjpfmOHkmBC3+NrlKwCae2vzZ?=
- =?us-ascii?Q?ChKkIyYOQFfY+mOxXmtb6hRbAliW31qiMoh2GBHUywfPzt/RqbmUbM1x2mb7?=
- =?us-ascii?Q?384FqdmIaGLJU17Hf3rCQ2R/GtwLCk/88i/o4xpi/mEzxAdtlw4X/wt2X96b?=
- =?us-ascii?Q?/ooeiNdiEg7a34f90XQx7bf1ym88dYkj6jYVPMDSuFuzVIqbUYmerbvVLiW8?=
- =?us-ascii?Q?nDICLsXas8ynvJcpS+8DMRHbsmKAk82iCAhMWDwaS1i2/MoKxscXEhHnv6uU?=
- =?us-ascii?Q?MhrZ6wyRfn1IwggN2Yq01grOQQC/4FepM25XapZMt9AbXRK1qyRWGcs2Muyh?=
- =?us-ascii?Q?GRqiBwPqJsulzX3ZlyKtnUZjtPYSEJLkNlDa76Qyn0JCr/btqLxTnSG7R9h4?=
- =?us-ascii?Q?B+O0RNM2FWAtUBF4thV1eqZvSV1NbvH6TqjBIdQiGFcWdwpaQiXQ/Z4Bo8dg?=
- =?us-ascii?Q?SiEtkaF7PhWD90wQpfNA1Ze4neDI2xmobDN/aHBKplar4l2BLRHC1bJAqs1v?=
- =?us-ascii?Q?KmIM+JbZPyzk0f7iebfvIxNmiQKZIZvhWe8wGWGyFoUSeMF5KEaVXFRhmoY5?=
- =?us-ascii?Q?6vXrQVX7h87kXdNzBCd802hjbkZ+6AOeqctQYPECfOJmVSY/gtKL/NpqnKbH?=
- =?us-ascii?Q?03jdLe8zQuw+dWqZJZYN1ozMJVGskVCTIC2K5YblvzWcnx0hn6g5GvcsFtDs?=
- =?us-ascii?Q?3w=3D=3D?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+X-IronPort-AV: E=Sophos;i="6.12,224,1728975600"; d="scan'208";a="145976880"
+Received: from srr4-3-linux-106-armuthy.iind.intel.com ([10.190.238.56])
+ by orviesa001.jf.intel.com with ESMTP; 28 Jan 2025 08:05:56 -0800
+From: Arun R Murthy <arun.r.murthy@intel.com>
+Date: Tue, 28 Jan 2025 21:21:07 +0530
+Subject: [PATCH v8 01/14] drm: Define histogram structures exposed to user
 MIME-Version: 1.0
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: SJ1PR11MB6129.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 38175606-9e55-4cd8-065a-08dd3fb4f47b
-X-MS-Exchange-CrossTenant-originalarrivaltime: 28 Jan 2025 16:00:58.4432 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: 6n3aUFlbeL3PHmx5qWbN8I2sOI6CwDdK/oDyp6UwZuV0YInToxgyBdDjF8viXTfW+qy3Br5jVpcn9uUEIESM2BPyZ+zF/lWyijNaxZOB0xE=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR11MB6772
-X-OriginatorOrg: intel.com
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20250128-dpst-v8-1-871b94d777f8@intel.com>
+References: <20250128-dpst-v8-0-871b94d777f8@intel.com>
+In-Reply-To: <20250128-dpst-v8-0-871b94d777f8@intel.com>
+To: intel-xe@lists.freedesktop.org, intel-gfx@lists.freedesktop.org, 
+ dri-devel@lists.freedesktop.org
+Cc: suraj.kandpal@intel.com, dmitry.baryshkov@linaro.org, 
+ Arun R Murthy <arun.r.murthy@intel.com>
+X-Mailer: b4 0.15-dev
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -187,106 +69,118 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Hello Al,
+Display Histogram is an array of bins and can be generated in many ways
+referred to as modes.
+Ex: HSV max(RGB), Wighted RGB etc.
 
-> -----Original Message-----
-> From: Al Viro <viro@ftp.linux.org.uk> On Behalf Of Al Viro
-> Sent: Monday, January 27, 2025 10:34 AM
-> To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-> Cc: Borah, Chaitanya Kumar <chaitanya.kumar.borah@intel.com>; intel-
-> gfx@lists.freedesktop.org; intel-xe@lists.freedesktop.org; Kurmi, Suresh
-> Kumar <suresh.kumar.kurmi@intel.com>; Saarinen, Jani
-> <jani.saarinen@intel.com>; linux-fsdevel@vger.kernel.org; Alexander Gorde=
-ev
-> <agordeev@linux.ibm.com>
-> Subject: Re: Regression on linux-next (next-20250120)
->=20
-> On Sun, Jan 26, 2025 at 04:54:55PM +0100, Alexander Gordeev wrote:
->=20
-> > > > Since the version next-20250120 [2], we are seeing the following
-> > > > regression
-> > >
-> > > Ugh...  To narrow the things down, could you see if replacing
-> > >                 fsd =3D kmalloc(sizeof(*fsd), GFP_KERNEL); with
-> > >                 fsd =3D kzalloc(sizeof(*fsd), GFP_KERNEL); in
-> > > fs/debugfs/file.c:__debugfs_file_get() affects the test?
-> >
-> > This change fixes lots of the below failures in our CI. FWIW:
-> >
-> > Tested-by: Alexander Gordeev <agordeev@linux.ibm.com>
->=20
-> The real fix follows:
->=20
-> [PATCH] Fix the missing initializations in __debugfs_file_get()
->=20
-> both method table pointers in debugfs_fsdata need to be initialized,
-> obviously...
->=20
-> Fixes: 41a0ecc0997c "debugfs: get rid of dynamically allocation proxy_ops=
-"
-> Fucked-up-by: Al Viro <viro@zeniv.linux.org.uk>
-> Signed-off-by: Al Viro <viro@zeniv.linux.org.uk>
-> ---
-> diff --git a/fs/debugfs/file.c b/fs/debugfs/file.c index
-> e33cc77699cd..212cd8128e1f 100644
-> --- a/fs/debugfs/file.c
-> +++ b/fs/debugfs/file.c
-> @@ -111,6 +111,7 @@ static int __debugfs_file_get(struct dentry *dentry,
-> enum dbgfs_get_mode mode)
->  				fsd->methods |=3D HAS_READ;
->  			if (ops->write)
->  				fsd->methods |=3D HAS_WRITE;
-> +			fsd->real_fops =3D NULL;
->  		} else {
->  			const struct file_operations *ops;
->  			ops =3D fsd->real_fops =3D DEBUGFS_I(inode)->real_fops;
-> @@ -124,6 +125,7 @@ static int __debugfs_file_get(struct dentry *dentry,
-> enum dbgfs_get_mode mode)
->  				fsd->methods |=3D HAS_IOCTL;
->  			if (ops->poll)
->  				fsd->methods |=3D HAS_POLL;
-> +			fsd->short_fops =3D NULL;
->  		}
->  		refcount_set(&fsd->active_users, 1);
->  		init_completion(&fsd->active_users_drained);
+Understanding the histogram data format(Ex: HSV max(RGB))
+Histogram is just the pixel count.
+For a maximum resolution of 10k (10240 x 4320 = 44236800)
+25 bits should be sufficient to represent this along with a buffer of 7
+bits(future use) u32 is being considered.
+max(RGB) can be 255 i.e 0xFF 8 bit, considering the most significant 5
+bits, hence 32 bins.
+Below mentioned algorithm illustrates the histogram generation in
+hardware.
 
+hist[32] = {0};
+for (i = 0; i < resolution; i++) {
+	bin = max(RGB[i]);
+	bin = bin >> 3;	/* consider the most significant bits */
+	hist[bin]++;
+}
+If the entire image is Red color then max(255,0,0) is 255 so the pixel
+count of each pixels will be placed in the last bin. Hence except
+hist[31] all other bins will have a value zero.
+Generated histogram in this case would be hist[32] = {0,0,....44236800}
 
-Unfortunately this change does not help us. I think it is the methods membe=
-r that causes the problem. So the following change solves the problem for u=
-s.
+Description of the structures, properties defined are documented in the
+header file include/uapi/drm/drm_mode.h
 
+v8: Added doc for HDR planes, removed reserved variables (Dmitry)
 
---- a/fs/debugfs/file.c
-+++ b/fs/debugfs/file.c
-@@ -102,6 +102,8 @@ static int __debugfs_file_get(struct dentry *dentry, en=
-um dbgfs_get_mode mode)
-                if (!fsd)
-                        return -ENOMEM;
+Signed-off-by: Arun R Murthy <arun.r.murthy@intel.com>
+---
+ include/uapi/drm/drm_mode.h | 65 +++++++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 65 insertions(+)
 
-+               fsd->methods =3D 0;
+diff --git a/include/uapi/drm/drm_mode.h b/include/uapi/drm/drm_mode.h
+index c082810c08a8b234ef2672ecf54fc8c05ddc2bd3..b8b7b18843ae7224263a9c61b20ac6cbf5df69e9 100644
+--- a/include/uapi/drm/drm_mode.h
++++ b/include/uapi/drm/drm_mode.h
+@@ -1355,6 +1355,71 @@ struct drm_mode_closefb {
+ 	__u32 pad;
+ };
+ 
++/**
++ * enum drm_mode_histogram
++ *
++ * @DRM_MODE_HISTOGRAM_HSV_MAX_RGB:
++ * Maximum resolution at present 10k, 10240x4320 = 44236800
++ * can be denoted in 25bits. With an additional 7 bits in buffer each bin
++ * can be a u32 value.
++ * For SDL, Maximum value of max(RGB) is 255, so max 255 bins.
++ * If the most significant 5 bits are considered, then bins = 2^5
++ * will be 32 bins.
++ * For HDR, maximum value of max(RGB) is 65535, so max 65535 bins.
++ * For illustration consider a full RED image of 10k resolution considering all
++ * 8 bits histogram would look like hist[255] = {0,0,....44236800} with SDR
++ * plane similarly with HDR the same would look like hist[65535] =
++ * {0,0,0,....44236800}
++ */
++enum drm_mode_histogram {
++	DRM_MODE_HISTOGRAM_HSV_MAX_RGB = 0x01,
++};
 +
-                if (mode =3D=3D DBGFS_GET_SHORT) {
-                        const struct debugfs_short_fops *ops;
-                        ops =3D fsd->short_fops =3D DEBUGFS_I(inode)->short=
-_fops;
++/**
++ * struct drm_histogram_caps
++ *
++ * @histogram_mode: histogram generation modes, defined in the
++ *		    enum drm_mode_histogram
++ * @bins_count: number of bins for a chosen histogram mode. For illustration
++ *		refer the above defined histogram mode.
++ */
++struct drm_histogram_caps {
++	__u32 histogram_mode;
++	__u32 bins_count;
++};
++
++/**
++ * struct drm_histogram_config
++ *
++ * @hist_mode_data: address to the histogram mode specific data if any
++ * @nr_hist_mode_data: number of elements pointed by the address in
++ *		       hist_mode_data
++ * @hist_mode: histogram mode(HSV max(RGB), RGB, LUMA etc)
++ * @enable: flag to enable/disable histogram
++ */
++struct drm_histogram_config {
++	__u64 hist_mode_data;
++	__u32 nr_hist_mode_data;
++	enum drm_mode_histogram hist_mode;
++	bool enable;
++};
++
++/**
++ * struct drm_histogram
++ *
++ * @config: histogram configuration data pointed by struct drm_histogram_config
++ * @data_ptr: pointer to the array of histogram.
++ *	      Histogram is an array of bins. Data format for each bin depends
++ *	      on the histogram mode. Refer to the above histogram modes for
++ *	      more information.
++ * @nr_elements: number of bins in the histogram.
++ */
++struct drm_histogram {
++	struct drm_histogram_config config;
++	__u64 data_ptr;
++	__u32 nr_elements;
++};
++
+ #if defined(__cplusplus)
+ }
+ #endif
 
-My guess is, since methods have some junk value in it, we are trying to cal=
-l a read function for a debugfs entry for which it doesn't exist. That lead=
-s to the failure.
+-- 
+2.25.1
 
-<4>[   34.240163] Call Trace:
-<4>[   34.240164]  <TASK>
-<4>[   34.240165]  ? show_regs+0x6c/0x80
-<4>[   34.240169]  ? __die+0x24/0x80
-<4>[   34.240171]  ? page_fault_oops+0x175/0x5d0
-<4>[   34.240176]  ? do_user_addr_fault+0x4c6/0x9d0
-<4>[   34.240179]  ? exc_page_fault+0x8a/0x300
-<4>[   34.240182]  ? asm_exc_page_fault+0x27/0x30
-<4>[   34.240187]  *full_proxy_read*+0x6b/0xb0
-<4>[   34.240191]  vfs_read+0xf9/0x390
-
-My take would be to stick with the kzalloc like you suggested.
-
-Regards
-
-Chaitanya
