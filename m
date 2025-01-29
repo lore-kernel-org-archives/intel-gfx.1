@@ -4,50 +4,51 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F0CCBC02196
-	for <intel-gfx@archiver.kernel.org>; Wed, 29 Jan 2025 20:01:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5E0B3C02197
+	for <intel-gfx@archiver.kernel.org>; Wed, 29 Jan 2025 20:02:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 69AC610E8B5;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6A36F10E8B6;
 	Wed, 29 Jan 2025 20:01:59 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="jM18nmL0";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="AblBYmKE";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.14])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 625B010E88F;
- Wed, 29 Jan 2025 20:01:53 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CD11110E8B0;
+ Wed, 29 Jan 2025 20:01:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1738180913; x=1769716913;
+ t=1738180918; x=1769716918;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=ObVtlcP77zvVBys9uz+fP1lD2I0L1wlTwiNmrducPeo=;
- b=jM18nmL0QhIA5oZX25mbJGT9mmHcjX5Ok33cN/pYz5xnMmw9QvszPdi8
- xAHSs73eZorLKb18ix20D6NnVnXuJK3U8plTy8m8fjzFeLnPAsnMx+JZ9
- 3YWyc2qC5CNvlpESGrL1y/ZGAS4GYLfTvZXQ1RXw+5cRrtffO61mmz9hQ
- v+FoIo3ZKn4pC6oCEh60efUgfSBIvdB3XCuC5wVQvZRPiA54yIJVf3OSz
- ODeCaNUJ1uJpssgyabrl67cM37MNHCq8DGAWhhgGed30vU6D2DYxLqOUQ
- agAzdKweRMSqSMzIQCH+cNU4r40b5qcT6klUwBhlKqlAOTTxyyJnNajMi g==;
-X-CSE-ConnectionGUID: KpqoZpccQ3aHz7EKv4eLxQ==
-X-CSE-MsgGUID: ThfncO7PSmqWfPY5S1WbEQ==
-X-IronPort-AV: E=McAfee;i="6700,10204,11330"; a="38977717"
-X-IronPort-AV: E=Sophos;i="6.13,244,1732608000"; d="scan'208";a="38977717"
+ bh=/4IkloCPDRaUl8pM1jxtTxWUIphdBunBdXuUrf8vfLE=;
+ b=AblBYmKEV7ofrsdeoRzwP06YuFsvheUoX5aXvHXWDxzrjHvYQvWt1yrC
+ 1czVqUAp6GPggFHKXkBM05s1NgmHJXau2SuxEzxPxsVQJazpi1Zv3kWCw
+ XXL9xVKDlvLvHGipWvWzejDWbW7Xvq+QZ4tlzT8UAc9SMXMNe4GiwH1Zi
+ mr7DPP9Vm5aMGj9Rf/vYEI7JKom0PfeaPQlkIqN0/qRmthuici007uNz7
+ dPSD29guzFzq4A/UnGqcPoluNysNBN7OlEuVL0gawcCdPTsYWMCMy4itx
+ oEdGzNYzrayS3PjweQpppXsN5/tdmA+f4evWG+zIAs+om2Gv16Lk7P5AC w==;
+X-CSE-ConnectionGUID: MxLwZftCQaCk3ViDwGxqZw==
+X-CSE-MsgGUID: CVwxAQkoTia82Y2vj77yQw==
+X-IronPort-AV: E=McAfee;i="6700,10204,11330"; a="38977760"
+X-IronPort-AV: E=Sophos;i="6.13,244,1732608000"; d="scan'208";a="38977760"
 Received: from fmviesa005.fm.intel.com ([10.60.135.145])
  by fmvoesa108.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 29 Jan 2025 12:01:39 -0800
-X-CSE-ConnectionGUID: FQ7UrJdPRkCyq2eSHLB7zA==
-X-CSE-MsgGUID: 2tQLq5LkRKalXzwyL+SbyA==
+ 29 Jan 2025 12:01:45 -0800
+X-CSE-ConnectionGUID: CeivIZLDTZyffgs58qAxVA==
+X-CSE-MsgGUID: h1sKaDyBQNid28DWXLgbaA==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.12,224,1728975600"; d="scan'208";a="113750909"
+X-IronPort-AV: E=Sophos;i="6.12,224,1728975600"; d="scan'208";a="113750920"
 Received: from ideak-desk.fi.intel.com ([10.237.72.78])
  by fmviesa005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 29 Jan 2025 12:01:37 -0800
+ 29 Jan 2025 12:01:44 -0800
 From: Imre Deak <imre.deak@intel.com>
 To: intel-gfx@lists.freedesktop.org,
 	intel-xe@lists.freedesktop.org
 Cc: Imre Deak <imre.deak@gmail.com>
-Subject: [PATCH 11/17] drm/i915/ddi: Sanitize DDI_BUF_CTL register definitions
-Date: Wed, 29 Jan 2025 22:02:15 +0200
-Message-ID: <20250129200221.2508101-12-imre.deak@intel.com>
+Subject: [PATCH 16/17] drm/i915/ddi: Move platform/encoder checks within
+ adlp_tbt_to_dp_alt_switch_wa()
+Date: Wed, 29 Jan 2025 22:02:20 +0200
+Message-ID: <20250129200221.2508101-17-imre.deak@intel.com>
 X-Mailer: git-send-email 2.44.2
 In-Reply-To: <20250129200221.2508101-1-imre.deak@intel.com>
 References: <20250129200221.2508101-1-imre.deak@intel.com>
@@ -70,58 +71,48 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 From: Imre Deak <imre.deak@gmail.com>
 
-Align the DDI_BUF_CTL register flag definitions with how this is done
-elsewhere.
+The prefix of adlp_tbt_to_dp_alt_switch_wa() function name shows already
+what is the relevant platform and encoder type/mode, so the
+corresponding checks are a detail that can be hidden in the
+function, do so.
 
 Signed-off-by: Imre Deak <imre.deak@gmail.com>
 ---
- drivers/gpu/drm/i915/i915_reg.h | 22 ++++++++++++----------
- 1 file changed, 12 insertions(+), 10 deletions(-)
+ drivers/gpu/drm/i915/display/intel_ddi.c | 10 +++++++---
+ 1 file changed, 7 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/i915_reg.h b/drivers/gpu/drm/i915/i915_reg.h
-index 7fe4e71fc08ec..5cee6a96270af 100644
---- a/drivers/gpu/drm/i915/i915_reg.h
-+++ b/drivers/gpu/drm/i915/i915_reg.h
-@@ -3621,27 +3621,29 @@ enum skl_power_gate {
- #define _DDI_BUF_CTL_B				0x64100
- /* Known as DDI_CTL_DE in MTL+ */
- #define DDI_BUF_CTL(port) _MMIO_PORT(port, _DDI_BUF_CTL_A, _DDI_BUF_CTL_B)
--#define  DDI_BUF_CTL_ENABLE			(1 << 31)
-+#define  DDI_BUF_CTL_ENABLE			REG_BIT(31)
- #define  XE2LPD_DDI_BUF_D2D_LINK_ENABLE		REG_BIT(29)
- #define  XE2LPD_DDI_BUF_D2D_LINK_STATE		REG_BIT(28)
--#define  DDI_BUF_TRANS_SELECT(n)	((n) << 24)
--#define  DDI_BUF_EMP_MASK			(0xf << 24)
--#define  DDI_BUF_PHY_LINK_RATE(r)		((r) << 20)
-+#define  DDI_BUF_EMP_MASK			REG_GENMASK(27, 24)
-+#define  DDI_BUF_TRANS_SELECT(n)		REG_FIELD_PREP(DDI_BUF_EMP_MASK, n)
-+#define  DDI_BUF_PHY_LINK_RATE_MASK		REG_GENMASK(23, 20)
-+#define  DDI_BUF_PHY_LINK_RATE(r)		REG_FIELD_PREP(DDI_BUF_PHY_LINK_RATE_MASK, r)
- #define  DDI_BUF_PORT_DATA_MASK			REG_GENMASK(19, 18)
- #define  DDI_BUF_PORT_DATA_10BIT		REG_FIELD_PREP(DDI_BUF_PORT_DATA_MASK, 0)
- #define  DDI_BUF_PORT_DATA_20BIT		REG_FIELD_PREP(DDI_BUF_PORT_DATA_MASK, 1)
- #define  DDI_BUF_PORT_DATA_40BIT		REG_FIELD_PREP(DDI_BUF_PORT_DATA_MASK, 2)
--#define  DDI_BUF_PORT_REVERSAL			(1 << 16)
-+#define  DDI_BUF_PORT_REVERSAL			REG_BIT(16)
- #define  DDI_BUF_LANE_STAGGER_DELAY_MASK	REG_GENMASK(15, 8)
- #define  DDI_BUF_LANE_STAGGER_DELAY(symbols)	REG_FIELD_PREP(DDI_BUF_LANE_STAGGER_DELAY_MASK, \
- 							       symbols)
--#define  DDI_BUF_IS_IDLE			(1 << 7)
-+#define  DDI_BUF_IS_IDLE			REG_BIT(7)
- #define  DDI_BUF_CTL_TC_PHY_OWNERSHIP		REG_BIT(6)
--#define  DDI_A_4_LANES				(1 << 4)
--#define  DDI_PORT_WIDTH(width)			(((width) == 3 ? 4 : ((width) - 1)) << 1)
--#define  DDI_PORT_WIDTH_MASK			(7 << 1)
-+#define  DDI_A_4_LANES				REG_BIT(4)
-+#define  DDI_PORT_WIDTH_MASK			REG_GENMASK(3, 1)
-+#define  DDI_PORT_WIDTH(width)			REG_FIELD_PREP(DDI_PORT_WIDTH_MASK, \
-+							       (width) == 3 ? 4 : (width) - 1)
- #define  DDI_PORT_WIDTH_SHIFT			1
--#define  DDI_INIT_DISPLAY_DETECTED		(1 << 0)
-+#define  DDI_INIT_DISPLAY_DETECTED		REG_BIT(0)
+diff --git a/drivers/gpu/drm/i915/display/intel_ddi.c b/drivers/gpu/drm/i915/display/intel_ddi.c
+index 431db1e6b6f07..a2d82a4c4aa77 100644
+--- a/drivers/gpu/drm/i915/display/intel_ddi.c
++++ b/drivers/gpu/drm/i915/display/intel_ddi.c
+@@ -3699,10 +3699,16 @@ intel_ddi_pre_pll_enable(struct intel_atomic_state *state,
  
- /* DDI Buffer Translations */
- #define _DDI_BUF_TRANS_A		0x64E00
+ static void adlp_tbt_to_dp_alt_switch_wa(struct intel_encoder *encoder)
+ {
++	struct intel_display *display = to_intel_display(encoder);
+ 	struct drm_i915_private *i915 = to_i915(encoder->base.dev);
++	struct intel_digital_port *dig_port = enc_to_dig_port(encoder);
+ 	enum tc_port tc_port = intel_encoder_to_tc(encoder);
+ 	int ln;
+ 
++	if (!display->platform.alderlake_p ||
++	    (!intel_tc_port_in_dp_alt_mode(dig_port) && !intel_tc_port_in_legacy_mode(dig_port)))
++		return;
++
+ 	for (ln = 0; ln < 2; ln++)
+ 		intel_dkl_phy_rmw(i915, DKL_PCS_DW5(tc_port, ln), DKL_PCS_DW5_CORE_SOFTRESET, 0);
+ }
+@@ -3777,9 +3783,7 @@ static void intel_ddi_prepare_link_retrain(struct intel_dp *intel_dp,
+ 	intel_de_write(dev_priv, dp_tp_ctl_reg(encoder, crtc_state), dp_tp_ctl);
+ 	intel_de_posting_read(dev_priv, dp_tp_ctl_reg(encoder, crtc_state));
+ 
+-	if (IS_ALDERLAKE_P(dev_priv) &&
+-	    (intel_tc_port_in_dp_alt_mode(dig_port) || intel_tc_port_in_legacy_mode(dig_port)))
+-		adlp_tbt_to_dp_alt_switch_wa(encoder);
++	adlp_tbt_to_dp_alt_switch_wa(encoder);
+ 
+ 	intel_enable_ddi_buf(encoder, intel_dp->DP);
+ 	intel_dp->DP |= DDI_BUF_CTL_ENABLE;
 -- 
 2.44.2
 
