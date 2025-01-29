@@ -4,56 +4,27 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0C1AFC02193
-	for <intel-gfx@archiver.kernel.org>; Wed, 29 Jan 2025 14:54:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 07E80C0218D
+	for <intel-gfx@archiver.kernel.org>; Wed, 29 Jan 2025 15:19:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9247D10E837;
-	Wed, 29 Jan 2025 14:54:39 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="AL45Vqsr";
-	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.9])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E8FC010E832;
- Wed, 29 Jan 2025 14:54:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1738162478; x=1769698478;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=wrnx96VMLPKgRLx098IhvFYjtNFQea2FXNzvmQdmQls=;
- b=AL45Vqsr6kRJee5FBO8GVTvtkoaKz0Z4YcJsyFtEpyFP5UWusbcfxdNv
- OIIdtpAUArU4xwdcTj6AGAz+H6ZhZqZ8VDTRmxhRj/ZOIV+RJw2b+dNqV
- TizZxAf9qvKPC8PMSt0lerRcsu8HrHN/JId+6GtYB+COSPbEuJvuC1tLh
- TAeXvnfwS11EzB9yvEHRmO4UT9CfJdL6z39vWgRM1Dupho8kWhiAmkNNk
- 0lOUa4NvgHgVL4KNTh5F5Ly0VJpfsegMvNH0Bl5ULglkhAkFJ420TDmKh
- NnDV4RBFUji6OEjZ39FUEH6SL0vrJj+QM4SEX71M+YF/ZuDMaouA8g0// A==;
-X-CSE-ConnectionGUID: 392/kq6FQfCGw5MM49gQ6Q==
-X-CSE-MsgGUID: jX8J/r7NS/qxLgOpBfie1A==
-X-IronPort-AV: E=McAfee;i="6700,10204,11330"; a="61149213"
-X-IronPort-AV: E=Sophos;i="6.13,243,1732608000"; d="scan'208";a="61149213"
-Received: from orviesa010.jf.intel.com ([10.64.159.150])
- by orvoesa101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 29 Jan 2025 06:46:46 -0800
-X-CSE-ConnectionGUID: Vx3SkyYVTCG+DFqbz7EM7A==
-X-CSE-MsgGUID: i+eQ9FsYQfWIIVidgbe88A==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.12,224,1728975600"; d="scan'208";a="108913862"
-Received: from kniemiec-mobl1.ger.corp.intel.com (HELO localhost)
- ([10.245.246.235])
- by orviesa010-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 29 Jan 2025 06:46:44 -0800
-From: Jani Nikula <jani.nikula@intel.com>
-To: intel-gfx@lists.freedesktop.org,
-	intel-xe@lists.freedesktop.org
-Cc: jani.nikula@intel.com,
-	imre.deak@intel.com
-Subject: [PATCH 0/6] drm/i915: DP and DP MST cleanups
-Date: Wed, 29 Jan 2025 16:46:32 +0200
-Message-Id: <cover.1738161945.git.jani.nikula@intel.com>
-X-Mailer: git-send-email 2.39.5
+	by gabe.freedesktop.org (Postfix) with ESMTP id A6A2610E816;
+	Wed, 29 Jan 2025 15:19:38 +0000 (UTC)
+Received: from b555e5b46a47 (emeril.freedesktop.org [131.252.210.167])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A0EA210E816;
+ Wed, 29 Jan 2025 15:19:37 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
+Subject: =?utf-8?q?=E2=9C=97_Fi=2ECI=2ECHECKPATCH=3A_warning_for_drm/i915/display=3A_?=
+ =?utf-8?q?Allow_display_PHYs_to_reset_power_state?=
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Mika Kahola" <mika.kahola@intel.com>
+Cc: intel-gfx@lists.freedesktop.org
+Date: Wed, 29 Jan 2025 15:19:37 -0000
+Message-ID: <173816397765.2457158.1649401998623210683@b555e5b46a47>
+X-Patchwork-Hint: ignore
+References: <20250129130105.198817-1-mika.kahola@intel.com>
+In-Reply-To: <20250129130105.198817-1-mika.kahola@intel.com>
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,26 +37,56 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Just some cleanup prep work to make future changes easier to manage.
+== Series Details ==
 
-Jani Nikula (6):
-  drm/i915/dp: constify struct link_config_limits pointers
-  drm/i915/dp: change the order of intel_dp_mtp_tu_compute_config()
-    params
-  drm/i915/mst: change where lane_count and port_clock are set
-  drm/i915/mst: handle mst pbn_div in intel_dp_mtp_tu_compute_config()
-  drm/i915/mst: remove unnecessary mst_stream_find_vcpi_slots_for_bpp()
-  drm/i915/mst: use min_array() and max_array() instead of hand-rolling
+Series: drm/i915/display: Allow display PHYs to reset power state
+URL   : https://patchwork.freedesktop.org/series/144102/
+State : warning
 
- drivers/gpu/drm/i915/display/intel_dp.c     | 20 ++---
- drivers/gpu/drm/i915/display/intel_dp.h     |  2 +-
- drivers/gpu/drm/i915/display/intel_dp_mst.c | 86 ++++++++-------------
- drivers/gpu/drm/i915/display/intel_dp_mst.h |  3 +-
- 4 files changed, 44 insertions(+), 67 deletions(-)
+== Summary ==
 
--- 
-2.39.5
+Error: dim checkpatch failed
+74a393b566c5 drm/i915/display: Drop crtc_state from C10/C20 pll programming
+-:53: WARNING:LONG_LINE: line length of 122 exceeds 100 columns
+#53: FILE: drivers/gpu/drm/i915/display/intel_cx0_phy.c:2053:
++					      const struct intel_c10pll_state * const *tables, int port_clock, bool is_dp,
+
+-:94: WARNING:LONG_LINE: line length of 111 exceeds 100 columns
+#94: FILE: drivers/gpu/drm/i915/display/intel_cx0_phy.c:2083:
++						 crtc_state->port_clock, intel_crtc_has_dp_encoder(crtc_state),
+
+-:248: WARNING:LONG_LINE: line length of 117 exceeds 100 columns
+#248: FILE: drivers/gpu/drm/i915/display/intel_cx0_phy.c:3092:
++			      intel_crtc_has_dp_encoder(crtc_state), crtc_state->port_clock, crtc_state->lane_count);
+
+-:250: CHECK:BRACES: Blank lines aren't necessary before a close brace '}'
+#250: FILE: drivers/gpu/drm/i915/display/intel_cx0_phy.c:3094:
++
++}
+
+total: 0 errors, 3 warnings, 1 checks, 225 lines checked
+04f9a9dc3240 drm/i915/display: Allow display PHYs to reset power state
+-:12: WARNING:COMMIT_LOG_LONG_LINE: Prefer a maximum 75 chars per line (possible unwrapped commit description?)
+#12: 
+1. Follow the PLL Enable Sequence, using any valid frequency such as DP 1.62 GHz.
+
+-:52: WARNING:LONG_LINE: line length of 111 exceeds 100 columns
+#52: FILE: drivers/gpu/drm/i915/display/intel_cx0_phy.c:3587:
++			if (REG_FIELD_GET(XELPDP_DDI_CLOCK_SELECT_MASK, val) == XELPDP_DDI_CLOCK_SELECT_NONE) {
+
+-:55: WARNING:LONG_LINE: line length of 126 exceeds 100 columns
+#55: FILE: drivers/gpu/drm/i915/display/intel_cx0_phy.c:3590:
++				intel_c10pll_calc_state_from_table(encoder, mtl_c10_edp_tables, port_clock, true, &pll_state);
+
+-:55: WARNING:LINE_SPACING: Missing a blank line after declarations
+#55: FILE: drivers/gpu/drm/i915/display/intel_cx0_phy.c:3590:
++				int port_clock = 162000;
++				intel_c10pll_calc_state_from_table(encoder, mtl_c10_edp_tables, port_clock, true, &pll_state);
+
+total: 0 errors, 4 warnings, 0 checks, 72 lines checked
+
 
