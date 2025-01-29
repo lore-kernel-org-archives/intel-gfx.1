@@ -4,51 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 729DFC0218D
-	for <intel-gfx@archiver.kernel.org>; Wed, 29 Jan 2025 20:01:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F394DC0218D
+	for <intel-gfx@archiver.kernel.org>; Wed, 29 Jan 2025 20:01:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 82BDE10E890;
-	Wed, 29 Jan 2025 20:01:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9826510E88D;
+	Wed, 29 Jan 2025 20:01:38 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="dcRqgKr4";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="PHDM3yAt";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.14])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CEA0910E890;
- Wed, 29 Jan 2025 20:01:30 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4C9F310E8AB;
+ Wed, 29 Jan 2025 20:01:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1738180891; x=1769716891;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=Ep9c9SvN1zYennt8PzN+Ybem+V84SwyP9yHgwqQNjMQ=;
- b=dcRqgKr4w4EpeUz1WCULswut+bcsOg/PswYQMsElC2hh6y+DrKcAtjBw
- QROu/9ExKNEhICVgggPLx2WrlOWF9jhibZV+QYsJnNmLkpwfl0O5Tdvy4
- j2oDQKGwTNjdngYGBfKGm5xaKZBfq/GrMOAxi7qJl4VjrE7CkdqYpNKLr
- XEspdoXpQVyTHH0H19kWHQtNCsrmVqAxCOCJ4JtC+tdpKH/tzckmipSy9
- 2pewLsS1+Wph+50wSdj2/zgrwr0TraBj+d4SFCjOrg1c1Am0mKSAe2mtL
- tD5hYlMkBLrRVFLGMVRLNL6OvwCkEU56bAy5rFvFGIg5iYuXAcw+GXx/e w==;
-X-CSE-ConnectionGUID: mv0fwx54TkqUu7z6OVIQAA==
-X-CSE-MsgGUID: jZhvMplPSgybyir+BphRxA==
-X-IronPort-AV: E=McAfee;i="6700,10204,11330"; a="38977684"
-X-IronPort-AV: E=Sophos;i="6.13,244,1732608000"; d="scan'208";a="38977684"
+ t=1738180895; x=1769716895;
+ h=from:to:subject:date:message-id:in-reply-to:references:
+ mime-version:content-transfer-encoding;
+ bh=n/jg7Tj7Lcm1bv6dY2Ga5gc67VzgU7PFl5/ml6vRdx4=;
+ b=PHDM3yAtRpVSFY01RA9LZ4P+CMZnXP9UhPm6pGHd899UVoVoE1pTF5H9
+ 8s3mJtXgV2CYKtnU77eNNslYUGTXJ53vElMxZqNfakPOCtzscIINhvwuE
+ 44Z+zXx++/J01T6EkN6DHM5Bd7XjBHLmuPuIoXktHz0/B4RSvpA4164w0
+ 3OxMEyosJEjyiP+b44tykOLBteNNrOanVB8+qjesUa0MDi9c6nFrwWOy2
+ UxTh/mJGvvCnVGIli+QX7q0nRoeRfHj30KEiTeQX7r+YZBB5RY2V2/uG3
+ 0e+20J9DFESIuZNshRmgJE9JI/Qu9AU8wepZ847foy4hqFcwrOCxKVNw7 A==;
+X-CSE-ConnectionGUID: un7et0tURjmuOTfNxw12GA==
+X-CSE-MsgGUID: m9q4wTNMTNqy1syIzKa4WQ==
+X-IronPort-AV: E=McAfee;i="6700,10204,11330"; a="38977700"
+X-IronPort-AV: E=Sophos;i="6.13,244,1732608000"; d="scan'208";a="38977700"
 Received: from fmviesa005.fm.intel.com ([10.60.135.145])
  by fmvoesa108.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 29 Jan 2025 12:01:31 -0800
-X-CSE-ConnectionGUID: hlNtDbzbTACeNNPjmTV87A==
-X-CSE-MsgGUID: ojqeDRJOSPeimiObyEwruQ==
+ 29 Jan 2025 12:01:35 -0800
+X-CSE-ConnectionGUID: trIAeGuzSnq+fft7SVW8ZQ==
+X-CSE-MsgGUID: SZKrV0K6SjiaNY0nyjlqqA==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.12,224,1728975600"; d="scan'208";a="113750895"
+X-IronPort-AV: E=Sophos;i="6.12,224,1728975600"; d="scan'208";a="113750904"
 Received: from ideak-desk.fi.intel.com ([10.237.72.78])
  by fmviesa005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 29 Jan 2025 12:01:29 -0800
+ 29 Jan 2025 12:01:34 -0800
 From: Imre Deak <imre.deak@intel.com>
 To: intel-gfx@lists.freedesktop.org,
 	intel-xe@lists.freedesktop.org
-Cc: Imre Deak <imre.deak@gmail.com>
-Subject: [PATCH 04/17] drm/i915/ddi: Set missing TC DP PHY lane stagger delay
- in DDI_BUF_CTL
-Date: Wed, 29 Jan 2025 22:02:08 +0200
-Message-ID: <20250129200221.2508101-5-imre.deak@intel.com>
+Subject: [PATCH 08/17] drm/i915/ddi: Move platform checks within
+ mtl_ddi_enable/disable_d2d_link()
+Date: Wed, 29 Jan 2025 22:02:12 +0200
+Message-ID: <20250129200221.2508101-9-imre.deak@intel.com>
 X-Mailer: git-send-email 2.44.2
 In-Reply-To: <20250129200221.2508101-1-imre.deak@intel.com>
 References: <20250129200221.2508101-1-imre.deak@intel.com>
@@ -69,71 +68,49 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Imre Deak <imre.deak@gmail.com>
+The prefix of the mtl_ddi_enable_d2d() / mtl_ddi_disable_d2d_link()
+names show already what are the relevant platforms, so the corresponding
+platform check is a detail that can be hidden in the functions, do so.
 
-Add the missing PHY lane stagger delay programming for ICL-ADL
-platforms on TypeC DP outputs.
-
-Bspec: 7534, 49533
-Signed-off-by: Imre Deak <imre.deak@gmail.com>
+Signed-off-by: Imre Deak <imre.deak@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_ddi.c | 18 ++++++++++++++++++
- drivers/gpu/drm/i915/i915_reg.h          |  3 +++
- 2 files changed, 21 insertions(+)
+ drivers/gpu/drm/i915/display/intel_ddi.c | 9 +++++++--
+ 1 file changed, 7 insertions(+), 2 deletions(-)
 
 diff --git a/drivers/gpu/drm/i915/display/intel_ddi.c b/drivers/gpu/drm/i915/display/intel_ddi.c
-index 76e8296cb134b..6192c0d3c87a5 100644
+index d040558b5d029..07188606a0177 100644
 --- a/drivers/gpu/drm/i915/display/intel_ddi.c
 +++ b/drivers/gpu/drm/i915/display/intel_ddi.c
-@@ -328,9 +328,21 @@ static u32 ddi_buf_phy_link_rate(int port_clock)
- 	}
- }
+@@ -2545,6 +2545,9 @@ mtl_ddi_enable_d2d(struct intel_encoder *encoder)
+ 	i915_reg_t reg;
+ 	u32 set_bits, wait_bits;
  
-+static int dp_phy_lane_stagger_delay(int port_clock)
-+{
-+	/*
-+	 * Return the number of link symbols per 100 ns:
-+	 * port_clock (10 kHz) -> bits    / 100 us
-+	 * / symbol_size       -> symbols / 100 us
-+	 * / 1000              -> symbols / 100 ns
-+	 */
-+	return DIV_ROUND_UP(port_clock, intel_dp_link_symbol_size(port_clock) * 1000);
-+}
++	if (DISPLAY_VER(dev_priv) < 14)
++		return;
 +
- static void intel_ddi_init_dp_buf_reg(struct intel_encoder *encoder,
- 				      const struct intel_crtc_state *crtc_state)
- {
-+	struct intel_display *display = to_intel_display(encoder);
- 	struct drm_i915_private *i915 = to_i915(encoder->base.dev);
- 	struct intel_dp *intel_dp = enc_to_intel_dp(encoder);
- 	struct intel_digital_port *dig_port = enc_to_dig_port(encoder);
-@@ -356,6 +368,12 @@ static void intel_ddi_init_dp_buf_reg(struct intel_encoder *encoder,
- 		if (!intel_tc_port_in_tbt_alt_mode(dig_port))
- 			intel_dp->DP |= DDI_BUF_CTL_TC_PHY_OWNERSHIP;
- 	}
-+
-+	if (IS_DISPLAY_VER(display, 11, 13) && intel_encoder_is_tc(encoder)) {
-+		int delay = dp_phy_lane_stagger_delay(crtc_state->port_clock);
-+
-+		intel_dp->DP |= DDI_BUF_LANE_STAGGER_DELAY(delay);
-+	}
- }
+ 	if (DISPLAY_VER(dev_priv) >= 20) {
+ 		reg = DDI_BUF_CTL(port);
+ 		set_bits = XE2LPD_DDI_BUF_D2D_LINK_ENABLE;
+@@ -3035,6 +3038,9 @@ mtl_ddi_disable_d2d_link(struct intel_encoder *encoder)
+ 	i915_reg_t reg;
+ 	u32 clr_bits, wait_bits;
  
- static int icl_calc_tbt_pll_link(struct drm_i915_private *dev_priv,
-diff --git a/drivers/gpu/drm/i915/i915_reg.h b/drivers/gpu/drm/i915/i915_reg.h
-index 04e47d0a8ab92..7fe4e71fc08ec 100644
---- a/drivers/gpu/drm/i915/i915_reg.h
-+++ b/drivers/gpu/drm/i915/i915_reg.h
-@@ -3632,6 +3632,9 @@ enum skl_power_gate {
- #define  DDI_BUF_PORT_DATA_20BIT		REG_FIELD_PREP(DDI_BUF_PORT_DATA_MASK, 1)
- #define  DDI_BUF_PORT_DATA_40BIT		REG_FIELD_PREP(DDI_BUF_PORT_DATA_MASK, 2)
- #define  DDI_BUF_PORT_REVERSAL			(1 << 16)
-+#define  DDI_BUF_LANE_STAGGER_DELAY_MASK	REG_GENMASK(15, 8)
-+#define  DDI_BUF_LANE_STAGGER_DELAY(symbols)	REG_FIELD_PREP(DDI_BUF_LANE_STAGGER_DELAY_MASK, \
-+							       symbols)
- #define  DDI_BUF_IS_IDLE			(1 << 7)
- #define  DDI_BUF_CTL_TC_PHY_OWNERSHIP		REG_BIT(6)
- #define  DDI_A_4_LANES				(1 << 4)
++	if (DISPLAY_VER(dev_priv) < 14)
++		return;
++
+ 	if (DISPLAY_VER(dev_priv) >= 20) {
+ 		reg = DDI_BUF_CTL(port);
+ 		clr_bits = XE2LPD_DDI_BUF_D2D_LINK_ENABLE;
+@@ -3411,8 +3417,7 @@ static void intel_ddi_enable_hdmi(struct intel_atomic_state *state,
+ 		hsw_prepare_hdmi_ddi_buffers(encoder, crtc_state);
+ 
+ 	/* e. Enable D2D Link for C10/C20 Phy */
+-	if (DISPLAY_VER(dev_priv) >= 14)
+-		mtl_ddi_enable_d2d(encoder);
++	mtl_ddi_enable_d2d(encoder);
+ 
+ 	encoder->set_signal_levels(encoder, crtc_state);
+ 
 -- 
 2.44.2
 
