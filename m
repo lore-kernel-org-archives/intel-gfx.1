@@ -4,82 +4,79 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A3640C02193
-	for <intel-gfx@archiver.kernel.org>; Wed, 29 Jan 2025 08:44:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 64CB1C0218D
+	for <intel-gfx@archiver.kernel.org>; Wed, 29 Jan 2025 08:49:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4528D10E411;
-	Wed, 29 Jan 2025 08:44:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F263810E76C;
+	Wed, 29 Jan 2025 08:49:19 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=ursulin-net.20230601.gappssmtp.com header.i=@ursulin-net.20230601.gappssmtp.com header.b="X3X6Pw9w";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="D+6QRneb";
 	dkim-atps=neutral
-Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com
- [209.85.128.47])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D5FA710E40E
- for <intel-gfx@lists.freedesktop.org>; Wed, 29 Jan 2025 08:44:10 +0000 (UTC)
-Received: by mail-wm1-f47.google.com with SMTP id
- 5b1f17b1804b1-435f8f29f8aso46594985e9.2
- for <intel-gfx@lists.freedesktop.org>; Wed, 29 Jan 2025 00:44:10 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=ursulin-net.20230601.gappssmtp.com; s=20230601; t=1738140249; x=1738745049;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=LQ7UQFc0W24PUIHdo7OrS6QM+0vcBB9sQvwA8ufJ07I=;
- b=X3X6Pw9wdwPHLqumh4jvgCpXGr0YZQAGK0Tk9daNnacqQnsQbzgsrVUmKgg6nn4lKj
- PV3bjehVFZeZ1RivsvB+nhrjRkQuv7+edNnxrLr50jZERynPsoAtvaXP0YLVpKdviaSx
- 9Qq1UKNeJDFaqBEjFQAX1X3ixkLO7NUqBU0tc+sf/QB2bwPL12+Qd38ZWPG0q8qu5Oyt
- JrDuJ0ld0pWLrvr3ZpnDpvdSUkkcuQzCrf5oqyuzXqxjJ4fXSEI/vjJTRZn12Ouebo/x
- QhTAFHfyI6g9wTSqjWeEi7LRwg0I/0HG4I6W9YPK0s4k4r2BIT8dRbc7s3Jt48d1QAs+
- ptLg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1738140249; x=1738745049;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=LQ7UQFc0W24PUIHdo7OrS6QM+0vcBB9sQvwA8ufJ07I=;
- b=Po8gofHZpH7I9oW1Kj57ZQenGZMLhvDsMvFwQ6YjTP0E8WKsK3lRvBAwoE9wJRWjuL
- zS7DoSXMcG5VAzSNRh1DpXLDQACiIRLRzl/cUUpg8wk4pTYslNx+655LnQ3u/SJ0V1VC
- FfCs0TV1mewExrJ0p7mrRt4r/WMRbH9ebaSE3aV9meO3imkOCU0EgwczrVir6ivJRPdT
- EbhxfXK/arGEvuFOkTjbDLu01zWY7knR7BMKb7VnsrkwwIXtdBWPxJzOeUFxPftRnCh1
- S2vPuQSGlH9RLLRcG8UqZZF1EYZVjrmXQgIoopbDPmpUZBNrgsJx6vOuTICUtz8KURGK
- rbeA==
-X-Forwarded-Encrypted: i=1;
- AJvYcCU5QTc+beXDfdlEOKFmtRtEoz8/vDv7xkhyoTRqHdygNYHIclV0c7/jBr6A0vGm6U43omkjlwxO1hM=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwSvg0TxA2Cn3BpqBJmvV+179QQRlO4KubPSAjQtDOTygGhcIfp
- tIM+jAbsmTGNTL58HgcJSn8tCtEZMr0rfA47yLBo1OcF73uKXX5GXekCKDA7hwg=
-X-Gm-Gg: ASbGnct+4IXE2Pe7gSxXg1vOsd+U9C3pfm6jEL1hcD5Aa7TngdA/kROzB0tU9O35mCm
- B7c6/kl9XoCXa05ORWGIXs4DyEn3bCWDr6rPVlMBSUiSaiYII2jAVtOx8u8vTn6O8JxNzst75fh
- +IdShrh91ovl5b+6AcO3claugjlVzo8UqpuM7o17BxIB8nAZKIOG3ljwMyxcCa17vK6oFbgJqVY
- y4w0dHVPMAEX6wPrtrrTzxuHWFjvLeR2bqMdS3AYVnwm6iuGceHrj64DU/GgGcrk1ubzzHcYhxW
- EaSSv9RUx2oUjMBIq2WWpEY2BhfKH1s=
-X-Google-Smtp-Source: AGHT+IEBUc1AFI04kLkOWVHYK0u+8wdNlFR9LHspIVFaCsbs4hRxd3Wttd9cC2GJBb+7SrD3BwveTQ==
-X-Received: by 2002:a05:6000:4008:b0:386:459e:655d with SMTP id
- ffacd0b85a97d-38c51952173mr1758736f8f.20.1738140249095; 
- Wed, 29 Jan 2025 00:44:09 -0800 (PST)
-Received: from [192.168.0.101] ([90.241.98.187])
- by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-38c2a1bb0c9sm16551520f8f.78.2025.01.29.00.44.08
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 29 Jan 2025 00:44:08 -0800 (PST)
-Message-ID: <71c2213c-4445-4285-aab8-6d7ad6f5a723@ursulin.net>
-Date: Wed, 29 Jan 2025 08:44:07 +0000
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5122B10E769;
+ Wed, 29 Jan 2025 08:49:19 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by dfw.source.kernel.org (Postfix) with ESMTP id 631165C027D;
+ Wed, 29 Jan 2025 08:48:38 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AAFA1C4CED3;
+ Wed, 29 Jan 2025 08:49:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1738140558;
+ bh=bkecGghn49Q0kcBr4/Q4RAYEqTU2lzStxg+kMBkUviM=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=D+6QRnebTmdCsTn/fBIyawZ8F2h5FOi1VkBceKjrJE9gQqYhsE4MpI+DUnmOyvn9r
+ jy2STn2XFJrPEPFrh+vO/ZWYbctxdvY6UR3Ry6YZK+y8a1MhcK6ynlBs1p1BMMkJ1P
+ w6gLTDQPv35AYJJgnh4TzBlS6e9ascDPFne+p1YDjEpGVHG5PR2AxRH9J1o9Q9BPKi
+ anvTB+Oa86UvplOCcaBDT4qhHCCSJO/P11ip4o+2DBjUNcnkNIz/KxsEnezLq+wofc
+ pmlKCTkKHhEdUE5jBQ13DTAnVV4ZlV/QW5dr1RzqeBZB57C+fkYnuuFh6jqnxMpijz
+ QxNX1fm0X2YKQ==
+Date: Wed, 29 Jan 2025 09:49:13 +0100
+From: Joel Granados <joel.granados@kernel.org>
+To: Paul Moore <paul@paul-moore.com>
+Cc: Matthew Wilcox <willy@infradead.org>, 
+ Jani Nikula <jani.nikula@intel.com>, Ard Biesheuvel <ardb@kernel.org>, 
+ Alexander Gordeev <agordeev@linux.ibm.com>,
+ Thomas =?utf-8?Q?Wei=C3=9Fschuh?= <linux@weissschuh.net>, 
+ Kees Cook <kees@kernel.org>, Luis Chamberlain <mcgrof@kernel.org>, 
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ linuxppc-dev@lists.ozlabs.org, 
+ linux-riscv@lists.infradead.org, linux-s390@vger.kernel.org,
+ linux-crypto@vger.kernel.org, 
+ openipmi-developer@lists.sourceforge.net, intel-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, 
+ intel-xe@lists.freedesktop.org, linux-hyperv@vger.kernel.org,
+ linux-rdma@vger.kernel.org, 
+ linux-raid@vger.kernel.org, linux-scsi@vger.kernel.org,
+ linux-serial@vger.kernel.org, 
+ xen-devel@lists.xenproject.org, linux-aio@kvack.org,
+ linux-fsdevel@vger.kernel.org, 
+ netfs@lists.linux.dev, codalist@coda.cs.cmu.edu, linux-mm@kvack.org, 
+ linux-nfs@vger.kernel.org, ocfs2-devel@lists.linux.dev,
+ fsverity@lists.linux.dev, 
+ linux-xfs@vger.kernel.org, io-uring@vger.kernel.org, bpf@vger.kernel.org, 
+ kexec@lists.infradead.org, linux-trace-kernel@vger.kernel.org, 
+ linux-hardening@vger.kernel.org, apparmor@lists.ubuntu.com,
+ linux-security-module@vger.kernel.org, 
+ keyrings@vger.kernel.org, Song Liu <song@kernel.org>, 
+ "Steven Rostedt (Google)" <rostedt@goodmis.org>,
+ "Martin K. Petersen" <martin.petersen@oracle.com>, 
+ "Darrick J. Wong" <djwong@kernel.org>, Corey Minyard <cminyard@mvista.com>
+Subject: Re: Re: Re: Re: Re: [PATCH v2] treewide: const qualify ctl_tables
+ where applicable
+Message-ID: <umk5gfo7iq7krppvqsal57hlzds26bdqd3g7kccjzuudjikdws@k2oknd6zx6g7>
+References: <20250110-jag-ctl_table_const-v2-1-0000e1663144@kernel.org>
+ <Z4+jwDBrZNRgu85S@li-008a6a4c-3549-11b2-a85c-c5cc2836eea2.ibm.com>
+ <nslqrapp4v3rknjgtfk4cg64ha7rewrrg24aslo2e5jmxfwce5@t4chrpuk632k>
+ <CAMj1kXEZPe8zk7s67SADK9wVH3cfBup-sAZSC6_pJyng9QT7aw@mail.gmail.com>
+ <f4lfo2fb7ajogucsvisfd5sg2avykavmkizr6ycsllcrco4mo3@qt2zx4zp57zh>
+ <87jzag9ugx.fsf@intel.com> <Z5epb86xkHQ3BLhp@casper.infradead.org>
+ <u2fwibsnbfvulxj6adigla6geiafh2vuve4hcyo4vmeytwjl7p@oz6xonrq5225>
+ <CAHC9VhQnB_bsQaezBfAcA0bE7Zoc99QXrvO1qjpHA-J8+_doYg@mail.gmail.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/i915/display: Disable AuxCCS framebuffers if built
- for Xe
-To: =?UTF-8?Q?Juha-Pekka_Heikkil=C3=A4?= <juhapekka.heikkila@gmail.com>
-Cc: Jani Nikula <jani.nikula@linux.intel.com>,
- intel-xe@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
- "Souza, Jose" <jose.souza@intel.com>
-References: <20240228140225.858145-1-juhapekka.heikkila@gmail.com>
- <875xy01vd8.fsf@intel.com> <72a58a16-d7aa-4b85-bd67-40cd87366b0b@ursulin.net>
- <CAJ=qYWRZZd4FmYXxqaT5hm5RqOQsNow4UbG=fdQFr_odSGUrEQ@mail.gmail.com>
-Content-Language: en-GB
-From: Tvrtko Ursulin <tursulin@ursulin.net>
-In-Reply-To: <CAJ=qYWRZZd4FmYXxqaT5hm5RqOQsNow4UbG=fdQFr_odSGUrEQ@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <CAHC9VhQnB_bsQaezBfAcA0bE7Zoc99QXrvO1qjpHA-J8+_doYg@mail.gmail.com>
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -95,61 +92,43 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-
-On 28/01/2025 15:55, Juha-Pekka Heikkilä wrote:
-> On Tue, Jan 28, 2025 at 3:08 PM Tvrtko Ursulin <tursulin@ursulin.net> wrote:
->>
->>
->> Hi,
->>
->> On 05/03/2024 16:44, Jani Nikula wrote:
->>> On Wed, 28 Feb 2024, Juha-Pekka Heikkila <juhapekka.heikkila@gmail.com> wrote:
->>>> AuxCCS framebuffers don't work on Xe driver hence disable them
->>>> from plane capabilities until they are fixed. FlatCCS framebuffers
->>>> work and they are left enabled. CCS is left untouched for i915
->>>> driver.
->>
->> I couldn't find the answer in the below linked issue or in the thread -
->> is it known what exactly is missing/broken to make this work and are
->> there any plans to do it? Or perhaps not if gen12lp is not intended to
->> be supported?
+On Tue, Jan 28, 2025 at 10:43:10AM -0500, Paul Moore wrote:
+> On Tue, Jan 28, 2025 at 6:22 AM Joel Granados <joel.granados@kernel.org> wrote:
+> > On Mon, Jan 27, 2025 at 03:42:39PM +0000, Matthew Wilcox wrote:
+> > > On Mon, Jan 27, 2025 at 04:55:58PM +0200, Jani Nikula wrote:
+> > > > You could have static const within functions too. You get the rodata
+> > > > protection and function local scope, best of both worlds?
+> > >
+> > > timer_active is on the stack, so it can't be static const.
+> > >
+> > > Does this really need to be cc'd to such a wide distribution list?
+> > That is a very good question. I removed 160 people from the original
+> > e-mail and left the ones that where previously involved with this patch
+> > and left all the lists for good measure. But it seems I can reduce it
+> > even more.
+> >
+> > How about this: For these treewide efforts I just leave the people that
+> > are/were involved in the series and add two lists: linux-kernel and
+> > linux-hardening.
+> >
+> > Unless someone screams, I'll try this out on my next treewide.
 > 
-> As far as I know devices with AuxCCS are not intended to be supported.
-> 
-> As for this patch, from display point of view these would work the same
-> as before, just put compressed fb on screen and enable decompression
-> but I figure there are parts missing from gem side to support AuxCCS.
+> I'm not screaming about it :) but anything that touches the LSM,
+I'll consider it as a scream :) So I'll keep my previous approach of
+leaving only personal mails that are involved, but leaving all the lists
+that b4 suggests.
 
-Right, I can dig in and try to figure out what are those missing GEM 
-bits but I was hoping someone might know straight away to save me that 
-initial digging around.
+> SELinux, or audit code (or matches the regex in MAINTAINERS) I would
+> prefer to see on the associated mailing list.
 
-Regards,
+General comment sent to the void:
+It is tricky to know exactly who wants to be informed of all this and
+who thinks its useless. I think that if we want more focus it should
+come from automated tools like b4. Maybe some string in MAINTAINERS
+stating that the list should not be used in cases of tree-wide commits?
 
-Tvrtko
+Best
 
->>>> Closes: https://gitlab.freedesktop.org/drm/xe/kernel/-/issues/933
->>>> Signed-off-by: Juha-Pekka Heikkila <juhapekka.heikkila@gmail.com>
->>>
->>> Acked-by: Jani Nikula <jani.nikula@intel.com>
->>>
->>>
->>>> ---
->>>>    drivers/gpu/drm/i915/display/skl_universal_plane.c | 3 +++
->>>>    1 file changed, 3 insertions(+)
->>>>
->>>> diff --git a/drivers/gpu/drm/i915/display/skl_universal_plane.c b/drivers/gpu/drm/i915/display/skl_universal_plane.c
->>>> index e941e2e4fd14..860574d04f88 100644
->>>> --- a/drivers/gpu/drm/i915/display/skl_universal_plane.c
->>>> +++ b/drivers/gpu/drm/i915/display/skl_universal_plane.c
->>>> @@ -2295,6 +2295,9 @@ static u8 skl_get_plane_caps(struct drm_i915_private *i915,
->>>>       if (HAS_4TILE(i915))
->>>>               caps |= INTEL_PLANE_CAP_TILING_4;
->>>>
->>>> +    if (!IS_ENABLED(I915) && !HAS_FLAT_CCS(i915))
->>>> +            return caps;
->>>> +
->>>>       if (skl_plane_has_rc_ccs(i915, pipe, plane_id)) {
->>>>               caps |= INTEL_PLANE_CAP_CCS_RC;
->>>>               if (DISPLAY_VER(i915) >= 12)
->>>
+-- 
+
+Joel Granados
