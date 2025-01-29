@@ -4,50 +4,51 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0EBA7C02195
-	for <intel-gfx@archiver.kernel.org>; Wed, 29 Jan 2025 20:01:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AFD36C0218D
+	for <intel-gfx@archiver.kernel.org>; Wed, 29 Jan 2025 20:01:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 17D5110E8AE;
-	Wed, 29 Jan 2025 20:01:39 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5FD9710E8AA;
+	Wed, 29 Jan 2025 20:01:57 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="PAjANBZL";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="aNSc6ANv";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.14])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 29ED810E8A1;
- Wed, 29 Jan 2025 20:01:34 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0D72A10E8A0;
+ Wed, 29 Jan 2025 20:01:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1738180894; x=1769716894;
- h=from:to:subject:date:message-id:in-reply-to:references:
- mime-version:content-transfer-encoding;
- bh=+mKPTN5yadMwqOkTPFu3lSf1uoRoLPQt8a9QWjtE02o=;
- b=PAjANBZLnZeO22LG218cGPyG+ZDg0NP7W4AUiBnAE5p5ic4YuuRJ0192
- 23B+gI7iMUOPkJlYPIOmhMUFUqOCqqMZdJlCxMXLA3+Dgom7tw6+FIt5u
- sTwM8WdKJZco15lD98AcDt0panzP5v4W5NwPtjcMej2nWAooH55s52mIC
- TjM4qcMFI6hXSTt3TeAoELociIJSMNfglhK77zCqF90hv/8zjcdHdaMHs
- K0KhlAwr5bwRznMONgJJh0SAag4ibp79G7a9vWs0V1QuydvFJ/LpU5UCY
- WUdXCswiaTIVnlGfi7gS1jE/B0rgioXUxJ1GiR5caCasUl2cg3liBBelG w==;
-X-CSE-ConnectionGUID: A8z4wQtoRQmAjfUP+oXRdQ==
-X-CSE-MsgGUID: OVCRYk9xT8OXGTgC4mmzxw==
-X-IronPort-AV: E=McAfee;i="6700,10204,11330"; a="38977696"
-X-IronPort-AV: E=Sophos;i="6.13,244,1732608000"; d="scan'208";a="38977696"
+ t=1738180915; x=1769716915;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=Zq/Hvqy9mbbOFlZmCBp5Gw0viyiw0NBU53mQ3siYh88=;
+ b=aNSc6ANvGVinoK4WPtfgEk276B3dBRovZG8BpGjpu9It1Vi+tQY8qZsD
+ aLwI4eghW1W3lLRm3NwdDb31YkobNmn5/sOo1fPF/sD+YfrjEjlvTIlom
+ nAcnBrx3qjv5iXgmWrLJA2WiGb3Zs9z0k/MqIVr6eUYRe1tUMgrw8lFui
+ cPHTwCtv+8EkFBUDwKc3zNauVJgFR7lrV1ydny4jkUMqmFsRX0trsIMGc
+ 2OmMmYxrCntS259tYKxmDiJrrfFop0koS2gK8DNZED6ScPCtIcmkRAYB+
+ DJFAi3iQd5igamm2JGYtbyqOegWWeyDA6SVd5EDbbcIbiRUsRjakPGNTv Q==;
+X-CSE-ConnectionGUID: 6RWJX1BuQ1+KbISliDfHCQ==
+X-CSE-MsgGUID: PMH0lc+BSj6edhfy5vEGjg==
+X-IronPort-AV: E=McAfee;i="6700,10204,11330"; a="38977729"
+X-IronPort-AV: E=Sophos;i="6.13,244,1732608000"; d="scan'208";a="38977729"
 Received: from fmviesa005.fm.intel.com ([10.60.135.145])
  by fmvoesa108.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 29 Jan 2025 12:01:34 -0800
-X-CSE-ConnectionGUID: 5O7R26cvTqmKPE6R9YZP1A==
-X-CSE-MsgGUID: nr872NHATL+FDHB6AIhadQ==
+ 29 Jan 2025 12:01:40 -0800
+X-CSE-ConnectionGUID: xP4UFoCaTIGX9hbMfUqbIg==
+X-CSE-MsgGUID: eQjnG+A4SWmTeoVVMea2pQ==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.12,224,1728975600"; d="scan'208";a="113750902"
+X-IronPort-AV: E=Sophos;i="6.12,224,1728975600"; d="scan'208";a="113750911"
 Received: from ideak-desk.fi.intel.com ([10.237.72.78])
  by fmviesa005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 29 Jan 2025 12:01:33 -0800
+ 29 Jan 2025 12:01:39 -0800
 From: Imre Deak <imre.deak@intel.com>
 To: intel-gfx@lists.freedesktop.org,
 	intel-xe@lists.freedesktop.org
-Subject: [PATCH 07/17] drm/i915/ddi: Simplify waiting for a port to idle via
- DDI_BUF_CTL
-Date: Wed, 29 Jan 2025 22:02:11 +0200
-Message-ID: <20250129200221.2508101-8-imre.deak@intel.com>
+Cc: Imre Deak <imre.deak@gmail.com>
+Subject: [PATCH 12/17] drm/i915/ddi: Configure/enable a port in DDI_BUF_CTL
+ via read-modify-write
+Date: Wed, 29 Jan 2025 22:02:16 +0200
+Message-ID: <20250129200221.2508101-13-imre.deak@intel.com>
 X-Mailer: git-send-email 2.44.2
 In-Reply-To: <20250129200221.2508101-1-imre.deak@intel.com>
 References: <20250129200221.2508101-1-imre.deak@intel.com>
@@ -68,134 +69,75 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-When waiting for a port to idle, there is no point in distinguishing the
-platform specific timeouts, instead of just using the maximum timeout.
-Simplify things accordingly, describing the Bspec platform specific
-timeouts in code comments.
+From: Imre Deak <imre.deak@gmail.com>
 
-Signed-off-by: Imre Deak <imre.deak@intel.com>
+The various flags in DDI_BUF_CTL must be programmed at different places
+during a modeset. The expected value of the register at any moment is
+cached in the intel_dp::DP variable and the whole register is written
+using this variable. A simpler way would be not maintaining the cached
+value of the register at all and update only specific fields in the
+register via read-modify-write. Some places - like D2D link enabling or
+the port disabling - use RMW already.
+
+Based on the above update the register via RMW during the port
+configuration / enabling as well. After all the places updating
+DDI_BUF_CTL are changed - probably the voltage-swing/pre-emphasis level
+setting is the only one remaining - tracking the register value in
+intel_dp:DP could be removed.
+
+Signed-off-by: Imre Deak <imre.deak@gmail.com>
 ---
- drivers/gpu/drm/i915/display/intel_ddi.c | 78 +++++++++++-------------
- 1 file changed, 36 insertions(+), 42 deletions(-)
+ drivers/gpu/drm/i915/display/intel_ddi.c | 23 ++++++++++++++++++++++-
+ 1 file changed, 22 insertions(+), 1 deletion(-)
 
 diff --git a/drivers/gpu/drm/i915/display/intel_ddi.c b/drivers/gpu/drm/i915/display/intel_ddi.c
-index 24c56d2aa5f31..d040558b5d029 100644
+index ddb182550ad0f..64c42505f2ad6 100644
 --- a/drivers/gpu/drm/i915/display/intel_ddi.c
 +++ b/drivers/gpu/drm/i915/display/intel_ddi.c
-@@ -177,69 +177,63 @@ static void hsw_prepare_hdmi_ddi_buffers(struct intel_encoder *encoder,
- 		       trans->entries[level].hsw.trans2);
- }
+@@ -359,6 +359,10 @@ static void intel_ddi_init_dp_buf_reg(struct intel_encoder *encoder,
  
--static void mtl_wait_ddi_buf_idle(struct drm_i915_private *i915, enum port port)
-+static i915_reg_t intel_ddi_buf_status_reg(struct intel_display *display, enum port port)
- {
--	int ret;
-+	struct drm_i915_private *i915 = to_i915(display->drm);
- 
--	/* FIXME: find out why Bspec's 100us timeout is too short */
--	ret = wait_for_us((intel_de_read(i915, XELPDP_PORT_BUF_CTL1(i915, port)) &
--			   XELPDP_PORT_BUF_PHY_IDLE), 10000);
--	if (ret)
--		drm_err(&i915->drm, "Timeout waiting for DDI BUF %c to get idle\n",
--			port_name(port));
-+	if (DISPLAY_VER(display) >= 14)
-+		return XELPDP_PORT_BUF_CTL1(i915, port);
-+	else
-+		return DDI_BUF_CTL(port);
- }
- 
- void intel_wait_ddi_buf_idle(struct drm_i915_private *dev_priv,
- 			     enum port port)
- {
--	if (IS_BROXTON(dev_priv)) {
-+	struct intel_display *display = &dev_priv->display;
-+
-+	/*
-+	 * Bspec's platform specific timeouts:
-+	 * MTL+   : 100 us
-+	 * BXT    : fixed 16 us
-+	 * HSW-ADL: 8 us
-+	 *
-+	 * FIXME: MTL requires 10 ms based on tests, find out why 100 us is too short
-+	 */
-+	if (display->platform.broxton) {
- 		udelay(16);
- 		return;
+ 	if (IS_ALDERLAKE_P(i915) && intel_encoder_is_tc(encoder)) {
+ 		intel_dp->DP |= ddi_buf_phy_link_rate(crtc_state->port_clock);
++		/*
++		 * TODO: remove the following once DDI_BUF_CTL is updated via
++		 * an RMW everywhere.
++		 */
+ 		if (!intel_tc_port_in_tbt_alt_mode(dig_port))
+ 			intel_dp->DP |= DDI_BUF_CTL_TC_PHY_OWNERSHIP;
  	}
- 
--	if (wait_for_us((intel_de_read(dev_priv, DDI_BUF_CTL(port)) &
--			 DDI_BUF_IS_IDLE), 8))
--		drm_err(&dev_priv->drm, "Timeout waiting for DDI BUF %c to get idle\n",
-+	static_assert(DDI_BUF_IS_IDLE == XELPDP_PORT_BUF_PHY_IDLE);
-+	if (intel_de_wait_for_set(display, intel_ddi_buf_status_reg(display, port),
-+				  DDI_BUF_IS_IDLE, 10))
-+		drm_err(display->drm, "Timeout waiting for DDI BUF %c to get idle\n",
- 			port_name(port));
+@@ -370,6 +374,22 @@ static void intel_ddi_init_dp_buf_reg(struct intel_encoder *encoder,
+ 	}
  }
  
- static void intel_wait_ddi_buf_active(struct intel_encoder *encoder)
- {
--	struct drm_i915_private *dev_priv = to_i915(encoder->base.dev);
++static u32 intel_ddi_buf_ctl_config_mask(struct intel_encoder *encoder)
++{
 +	struct intel_display *display = to_intel_display(encoder);
++	u32 mask = DDI_BUF_PORT_REVERSAL | DDI_A_4_LANES |
++		   DDI_PORT_WIDTH_MASK;
++
++	if (DISPLAY_VER(display) >= 14)
++		mask |= DDI_BUF_PORT_DATA_MASK;
++	if (display->platform.alderlake_p)
++		mask |= DDI_BUF_PHY_LINK_RATE_MASK;
++	if (IS_DISPLAY_VER(display, 11, 13))
++		mask |= DDI_BUF_LANE_STAGGER_DELAY_MASK;
++
++	return mask;
++}
++
+ static int icl_calc_tbt_pll_link(struct drm_i915_private *dev_priv,
+ 				 enum port port)
+ {
+@@ -3062,7 +3082,8 @@ static void intel_enable_ddi_buf(struct intel_encoder *encoder, u32 buf_ctl)
+ 	struct intel_display *display = to_intel_display(encoder);
  	enum port port = encoder->port;
--	int timeout_us;
--	int ret;
  
--	/* Wait > 518 usecs for DDI_BUF_CTL to be non idle */
--	if (DISPLAY_VER(dev_priv) < 10) {
-+	/*
-+	 * Bspec's platform specific timeouts:
-+	 * MTL+             : 10000 us
-+	 * DG2              : 1200 us
-+	 * TGL-ADL combo PHY: 1000 us
-+	 * TGL-ADL TypeC PHY: 3000 us
-+	 * HSW-ICL          : fixed 518 us
-+	 */
-+	if (DISPLAY_VER(display) < 10) {
- 		usleep_range(518, 1000);
- 		return;
- 	}
+-	intel_de_write(display, DDI_BUF_CTL(port), buf_ctl | DDI_BUF_CTL_ENABLE);
++	intel_de_rmw(display, DDI_BUF_CTL(port),
++		     intel_ddi_buf_ctl_config_mask(encoder), buf_ctl | DDI_BUF_CTL_ENABLE);
+ 	intel_de_posting_read(display, DDI_BUF_CTL(port));
  
--	if (DISPLAY_VER(dev_priv) >= 14) {
--		timeout_us = 10000;
--	} else if (IS_DG2(dev_priv)) {
--		timeout_us = 1200;
--	} else if (DISPLAY_VER(dev_priv) >= 12) {
--		if (intel_encoder_is_tc(encoder))
--			timeout_us = 3000;
--		else
--			timeout_us = 1000;
--	} else {
--		timeout_us = 500;
--	}
--
--	if (DISPLAY_VER(dev_priv) >= 14)
--		ret = _wait_for(!(intel_de_read(dev_priv,
--						XELPDP_PORT_BUF_CTL1(dev_priv, port)) &
--				  XELPDP_PORT_BUF_PHY_IDLE),
--				timeout_us, 10, 10);
--	else
--		ret = _wait_for(!(intel_de_read(dev_priv, DDI_BUF_CTL(port)) & DDI_BUF_IS_IDLE),
--				timeout_us, 10, 10);
--
--	if (ret)
--		drm_err(&dev_priv->drm, "Timeout waiting for DDI BUF %c to get active\n",
-+	static_assert(DDI_BUF_IS_IDLE == XELPDP_PORT_BUF_PHY_IDLE);
-+	if (intel_de_wait_for_clear(display, intel_ddi_buf_status_reg(display, port),
-+				    DDI_BUF_IS_IDLE, 10))
-+		drm_err(display->drm, "Timeout waiting for DDI BUF %c to get active\n",
- 			port_name(port));
- }
- 
-@@ -3067,7 +3061,7 @@ static void mtl_disable_ddi_buf(struct intel_encoder *encoder,
- 	intel_de_rmw(dev_priv, DDI_BUF_CTL(port), DDI_BUF_CTL_ENABLE, 0);
- 
- 	/* 3.c Poll for PORT_BUF_CTL Idle Status == 1, timeout after 100us */
--	mtl_wait_ddi_buf_idle(dev_priv, port);
-+	intel_wait_ddi_buf_idle(dev_priv, port);
- 
- 	/* 3.d Disable D2D Link */
- 	mtl_ddi_disable_d2d_link(encoder);
+ 	intel_wait_ddi_buf_active(encoder);
 -- 
 2.44.2
 
