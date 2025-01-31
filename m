@@ -4,24 +4,24 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 67A4AC0218F
-	for <intel-gfx@archiver.kernel.org>; Fri, 31 Jan 2025 15:20:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 71CB0C02194
+	for <intel-gfx@archiver.kernel.org>; Fri, 31 Jan 2025 15:20:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DF3DC10E1F2;
-	Fri, 31 Jan 2025 15:20:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1812010E388;
+	Fri, 31 Jan 2025 15:20:32 +0000 (UTC)
 Received: from b555e5b46a47 (emeril.freedesktop.org [131.252.210.167])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9321E10E388;
- Fri, 31 Jan 2025 15:20:28 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EE9D910E388;
+ Fri, 31 Jan 2025 15:20:30 +0000 (UTC)
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: =?utf-8?q?=E2=9C=97_Fi=2ECI=2ECHECKPATCH=3A_warning_for_series_starting_with?=
- =?utf-8?q?_=5B1/2=5D_drm/ttm=3A_test_private_resv_obj_on_release/destroy?=
+Content-Transfer-Encoding: 7bit
+Subject: =?utf-8?q?=E2=9C=97_Fi=2ECI=2ESPARSE=3A_warning_for_series_starting_with_=5B?=
+ =?utf-8?q?1/2=5D_drm/ttm=3A_test_private_resv_obj_on_release/destroy?=
 From: Patchwork <patchwork@emeril.freedesktop.org>
 To: =?utf-8?q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>
 Cc: intel-gfx@lists.freedesktop.org
-Date: Fri, 31 Jan 2025 15:20:28 -0000
-Message-ID: <173833682859.3242316.15822403587003263512@b555e5b46a47>
+Date: Fri, 31 Jan 2025 15:20:30 -0000
+Message-ID: <173833683097.3242316.8989083715473302486@b555e5b46a47>
 X-Patchwork-Hint: ignore
 References: <20250131143052.1728-1-christian.koenig@amd.com>
 In-Reply-To: <20250131143052.1728-1-christian.koenig@amd.com>
@@ -49,22 +49,8 @@ State : warning
 
 == Summary ==
 
-Error: dim checkpatch failed
-881ca3736e5b drm/ttm: test private resv obj on release/destroy
--:16: WARNING:BAD_SIGN_OFF: 'Reviewed-and-tested-by:' is the preferred signature form
-#16: 
-Reviewed-and-Tested-by: James Zhu <James.Zhu@amd.com>
-
--:40: WARNING:FROM_SIGN_OFF_MISMATCH: From:/Signed-off-by: email address mismatch: 'From: "Christian König" <ckoenig.leichtzumerken@gmail.com>' != 'Signed-off-by: Christian König <christian.koenig@amd.com>'
-
-total: 0 errors, 2 warnings, 0 checks, 16 lines checked
-886728005994 drm/amdgpu: remove all KFD fences from the BO on release
--:15: WARNING:BAD_SIGN_OFF: 'Reviewed-and-tested-by:' is the preferred signature form
-#15: 
-Reviewed-and-Tested-by: James Zhu <James.Zhu@amd.com>
-
--:164: WARNING:FROM_SIGN_OFF_MISMATCH: From:/Signed-off-by: email address mismatch: 'From: "Christian König" <ckoenig.leichtzumerken@gmail.com>' != 'Signed-off-by: Christian König <christian.koenig@amd.com>'
-
-total: 0 errors, 2 warnings, 0 checks, 131 lines checked
+Error: dim sparse failed
+Sparse version: v0.6.2
+Fast mode used, each commit won't be checked separately.
 
 
