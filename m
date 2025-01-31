@@ -4,56 +4,71 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9DAA9C0218F
-	for <intel-gfx@archiver.kernel.org>; Fri, 31 Jan 2025 14:29:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BE834C0218F
+	for <intel-gfx@archiver.kernel.org>; Fri, 31 Jan 2025 14:30:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4238810E099;
-	Fri, 31 Jan 2025 14:29:58 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 627EC10EACF;
+	Fri, 31 Jan 2025 14:30:56 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="AgdWCUeE";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="AEs+cgq0";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.9])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 50AD510E1E4;
- Fri, 31 Jan 2025 14:29:57 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1738333797; x=1769869797;
- h=date:from:to:cc:subject:message-id:reply-to:references:
- mime-version:in-reply-to;
- bh=JBe0eSyL8Rny9MBZnt5PYEV/V27I9WEM0Z7ng4yRgpM=;
- b=AgdWCUeEFm7w0yqjoatklSMxZRgD7+R6V4+LVZF3/UddFHmxQ5H07te2
- natiPsc36cRIZO1Qi2ZCBX3R3toeL+nuMMFCpUXT/YZgSCcHL8v7Jq04X
- fO74cEMdk9aeNOGh9tr3OuBoIetuvGyMPlIhjKet3vuGZhu5CLYe+/qnt
- +8ODzhdmCHVe8NxsO6b2iD2qB6xUMvXrXCbwER+fBdWo9a1aAsWNrskwz
- kzCCaEXT0a85w8uScFOu8V00iq7PWnHLXu8yyH6GNWZrI4H+43dR/PXlq
- B2vEzJifBSuXGrikRCVs74p4j+fJ8t4mv6JmcUk7bg6AuxeY/LS+5XxqE g==;
-X-CSE-ConnectionGUID: 1Q24YPxbSbWQeNTeqwFG7g==
-X-CSE-MsgGUID: esZKIhMpQC6PRH/ACZtYvw==
-X-IronPort-AV: E=McAfee;i="6700,10204,11332"; a="49562820"
-X-IronPort-AV: E=Sophos;i="6.13,248,1732608000"; d="scan'208";a="49562820"
-Received: from orviesa010.jf.intel.com ([10.64.159.150])
- by fmvoesa103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 31 Jan 2025 06:29:57 -0800
-X-CSE-ConnectionGUID: GvGs1PTnQPmP3GUp+uqXeg==
-X-CSE-MsgGUID: p8mORE3rT9qFPYajxeo45Q==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.12,224,1728975600"; d="scan'208";a="109497110"
-Received: from ideak-desk.fi.intel.com ([10.237.72.78])
- by orviesa010-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 31 Jan 2025 06:29:55 -0800
-Date: Fri, 31 Jan 2025 16:30:52 +0200
-From: Imre Deak <imre.deak@intel.com>
-To: Jani Nikula <jani.nikula@intel.com>
-Cc: intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org
-Subject: Re: [PATCH 06/14] drm/i915/dp: Change icl_dsc_compute_link_config()
- DSC BPP iteration
-Message-ID: <Z5zenCccYrAT45eY@ideak-desk.fi.intel.com>
-References: <cover.1738327620.git.jani.nikula@intel.com>
- <bc1972391041a3ba84b3f68b9c0605ae142611e0.1738327620.git.jani.nikula@intel.com>
+Received: from mail-wr1-f51.google.com (mail-wr1-f51.google.com
+ [209.85.221.51])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0881E10EAD4
+ for <intel-gfx@lists.freedesktop.org>; Fri, 31 Jan 2025 14:30:56 +0000 (UTC)
+Received: by mail-wr1-f51.google.com with SMTP id
+ ffacd0b85a97d-38a8b35e168so1291964f8f.1
+ for <intel-gfx@lists.freedesktop.org>; Fri, 31 Jan 2025 06:30:55 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1738333854; x=1738938654; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:to
+ :from:from:to:cc:subject:date:message-id:reply-to;
+ bh=iBi1hiohGC+S+6e9vvblu5N0UyEjwuMx/7IqUm0gw70=;
+ b=AEs+cgq0d8gVsFwUpmNeOnKJ7rDp1V/0YnnJ8oU54yT36v3haM/gK2VZagqSy/jHkv
+ FlOYZHe2ZgjTh9zWTLJUFvelQ8VB/Qa/x4CWX/c7X+Vu5IxPJTmcY66B5NieqRxSpwvM
+ eR+ynrX3JSMPat86cTVy85wZpzinn+1/4RoskCEvFxS7xjVtUdBmRZgj7kz3yksy8Ihj
+ SdHQ6ARrq7PslY5uO2FStsWhNwF17Rd6lelhadQ724B9qNvL9HAWl/9mWgPFqGWtFYEw
+ RzFNA5tI4laxIVpoDKo1HSMXeEch80Rb7xVS5HTb5FSvZ68Ac5/46yR0AWPAh9/acbQa
+ iytQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1738333854; x=1738938654;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:to
+ :from:x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=iBi1hiohGC+S+6e9vvblu5N0UyEjwuMx/7IqUm0gw70=;
+ b=k3dP1Lur8bBTiQb3pciIgaTtgicVoaKJoayPc8gb6TI3T/50WcQge2+I3tnFqCWJ7j
+ eUcN+pc6lAq7g8DvaEEXj6XX6Wa1QDiygGam75eMGrxxVLJdfGpTt4T07sYEjVTXie77
+ hv9e6uUE3KY2fsBSA+/EKiJvbS/gNMfqFGfX4pSGY9rNfS4riPuHJuCHCUFPUNEdxWAg
+ qbzBBUJp+UVRl/tA3y0U0PJAkP5JD65zLMxLDZMTGNFDCoEqvwFDuE9Lb3+iPot6BMvh
+ UOvEPzRWeyi+andNcGoaA2pDRaZWOcDxifmgSU90eCjpMUMU1J2OFbBXxpMskg+GS8sJ
+ 1tpg==
+X-Gm-Message-State: AOJu0YzvsFZI5GXin3yjVJN+02pgrfFkA+/ALqegBRB0AuepbQiuNDMD
+ ZLvBpruzIPmzScHe3J2PXwNVQ4zjbog0HNTjgQpxDyXVcnUC7FmMAXynbMjN
+X-Gm-Gg: ASbGncs0mgXME8+fPMzoa91j/Y8VoT4Ho0ZAWt92yieGWszlvNdXHCFJCvh2W5mKrG2
+ zKw+3huBnmNw09hnk841+cOFcTYjDN4+ADHB1Yl+D3zFXLQ66CDTQdKJnQ6XAAGq0TzoosAHOTd
+ 6H14YyCem4+QvCgmzxzcNdOT5+APn+YuzruQoELT0HATlItf6VZMEFjwrbZr/S6Sjv/y/fyFZrI
+ 5dUr5zskBwgVyPlCWuVyUr60G3DOosm6BviiGUia65lVBIPdy0iA4age+MAxCHXfN99fJ3jfUyx
+ 1JdiusYsTPDb1Zaak1h4BLSGBe9L
+X-Google-Smtp-Source: AGHT+IHVxsdeu7pedpuIFsuBqncfNHwunPEAMR8CbWLMEfop08+N3dLswGT8WuBt8dy3yc/9OrNauQ==
+X-Received: by 2002:a05:6000:1569:b0:38b:ee01:ae2 with SMTP id
+ ffacd0b85a97d-38c60f17f86mr2706067f8f.10.1738333854216; 
+ Fri, 31 Jan 2025 06:30:54 -0800 (PST)
+Received: from able.fritz.box ([2a00:e180:14ea:9e00:b99f:ba95:78e6:9a32])
+ by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-38c5c102e19sm4891382f8f.36.2025.01.31.06.30.53
+ for <intel-gfx@lists.freedesktop.org>
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 31 Jan 2025 06:30:53 -0800 (PST)
+From: "=?UTF-8?q?Christian=20K=C3=B6nig?=" <ckoenig.leichtzumerken@gmail.com>
+X-Google-Original-From: =?UTF-8?q?Christian=20K=C3=B6nig?=
+ <christian.koenig@amd.com>
+To: intel-gfx@lists.freedesktop.org
+Subject: Trivial patch to run through CI
+Date: Fri, 31 Jan 2025 15:30:50 +0100
+Message-Id: <20250131143052.1728-1-christian.koenig@amd.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <bc1972391041a3ba84b3f68b9c0605ae142611e0.1738327620.git.jani.nikula@intel.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,83 +81,12 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: imre.deak@intel.com
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Fri, Jan 31, 2025 at 02:49:59PM +0200, Jani Nikula wrote:
-> Instead of iterating the valid BPP array directly, switch to the same
-> approach as xelpd_dsc_compute_link_config(), with a separate function to
-> check if the DSC BPP is valid. This prepares us for unifying the
-> platform specific functions.
-> 
-> Signed-off-by: Jani Nikula <jani.nikula@intel.com>
+One trivial TTM patch which fixes a bug for AMDKFD. As far as I can see
+shouldn't have any effect on i915 nor XE, but better save than sorry.
 
-Reviewed-by: Imre Deak <imre.deak@intel.com>
+Christian.
 
-> ---
->  drivers/gpu/drm/i915/display/intel_dp.c | 33 +++++++++++++++++++------
->  1 file changed, 26 insertions(+), 7 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
-> index 4e7b3dd4067c..ac67f2d2f86a 100644
-> --- a/drivers/gpu/drm/i915/display/intel_dp.c
-> +++ b/drivers/gpu/drm/i915/display/intel_dp.c
-> @@ -2069,6 +2069,26 @@ static int intel_dp_dsc_bpp_step_x16(const struct intel_connector *connector)
->  	return 16 / incr;
->  }
->  
-> +/* Note: This is not universally usable! */
-> +static bool intel_dp_dsc_valid_bpp(struct intel_dp *intel_dp, int bpp_x16)
-> +{
-> +	struct intel_display *display = to_intel_display(intel_dp);
-> +	int i;
-> +
-> +	if (DISPLAY_VER(display) >= 13)
-> +		return true;
-> +
-> +	if (fxp_q4_to_frac(bpp_x16))
-> +		return false;
-> +
-> +	for (i = 0; i < ARRAY_SIZE(valid_dsc_bpp); i++) {
-> +		if (fxp_q4_to_int(bpp_x16) == valid_dsc_bpp[i])
-> +			return true;
-> +	}
-> +
-> +	return false;
-> +}
-> +
->  /*
->   * From a list of valid compressed bpps try different compressed bpp and find a
->   * suitable link configuration that can support it.
-> @@ -2082,21 +2102,20 @@ icl_dsc_compute_link_config(struct intel_dp *intel_dp,
->  			    int bpp_step_x16,
->  			    int timeslots)
->  {
-> -	int i, ret;
-> +	int bpp_x16;
-> +	int ret;
->  
-> -	for (i = ARRAY_SIZE(valid_dsc_bpp) - 1; i >= 0; i--) {
-> -		if (valid_dsc_bpp[i] < fxp_q4_to_int(min_bpp_x16) ||
-> -		    valid_dsc_bpp[i] > fxp_q4_to_int(max_bpp_x16))
-> +	for (bpp_x16 = max_bpp_x16; bpp_x16 >= min_bpp_x16; bpp_x16 -= bpp_step_x16) {
-> +		if (!intel_dp_dsc_valid_bpp(intel_dp, bpp_x16))
->  			continue;
->  
->  		ret = dsc_compute_link_config(intel_dp,
->  					      pipe_config,
->  					      limits,
-> -					      valid_dsc_bpp[i] << 4,
-> +					      bpp_x16,
->  					      timeslots);
->  		if (ret == 0) {
-> -			pipe_config->dsc.compressed_bpp_x16 =
-> -				fxp_q4_from_int(valid_dsc_bpp[i]);
-> +			pipe_config->dsc.compressed_bpp_x16 = bpp_x16;
->  			return 0;
->  		}
->  	}
-> -- 
-> 2.39.5
-> 
+
