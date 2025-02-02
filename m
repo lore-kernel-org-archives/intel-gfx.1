@@ -4,80 +4,63 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2AA6AC0218F
-	for <intel-gfx@archiver.kernel.org>; Sun,  2 Feb 2025 22:15:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D403BC0218F
+	for <intel-gfx@archiver.kernel.org>; Sun,  2 Feb 2025 22:57:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DD35710E334;
-	Sun,  2 Feb 2025 22:15:00 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 737C010E025;
+	Sun,  2 Feb 2025 22:57:11 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="a8WVQxCC";
+	dkim=pass (2048-bit key; unprotected) header.d=wanadoo.fr header.i=@wanadoo.fr header.b="dIc9Mpnt";
 	dkim-atps=neutral
-Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com
- [209.85.128.51])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2D45A10E32B;
- Sun,  2 Feb 2025 22:14:59 +0000 (UTC)
-Received: by mail-wm1-f51.google.com with SMTP id
- 5b1f17b1804b1-43675b1155bso44383045e9.2; 
- Sun, 02 Feb 2025 14:14:59 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1738534497; x=1739139297; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=/d+6kPbWsXoeRB2D7/hAE4JuKSelsZt/eO8TnxXuCpk=;
- b=a8WVQxCCoYILBVYdwO8S1CL3aP2R72u+KEweUCl1iyjCrxW8EXI6Ne2yEYIKyX/GUR
- Jw1uD/aaVT5nDaKYQGPTtztdv3efP+pEZrjTAFqCzxKve3bxHMqJzA0b7/UDpaIGIBQk
- wx5gbzJCXVcfWMKOifo/wwaDeMq3M5Nv+YCIst+b1cqC3SDS6OTCh3VmaGlPe2Ps6ydD
- E3aiTuSBAuTfpkUAeDiIlk+0AoXo1btL8HMGHpx3v9AbYJvbQm+aFO7BOHLHptECpOa4
- dBUM2bf61hQviKIHs7UW/RGIiDPYt/GHCd1KlwI9UTPk3P6nCFqZ57FHgAw4OV0/pPyq
- SWxQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1738534497; x=1739139297;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=/d+6kPbWsXoeRB2D7/hAE4JuKSelsZt/eO8TnxXuCpk=;
- b=HkwEI2J6HsW5OeTumd7qi9xyOskegeaUrK9UnDQ3xHaae95K/DiVC0pWB8mBohk4Qd
- UBjAWB/rRFMyXFUkiVTXDEY7YQlH53TD4fTkGKaDmi+ipdhJRSFp7XMOTCtDLXjdFHuu
- JqQ0d1KQzE1te7FKO0uZMNGOpQxOzGRpo1gdGnD4OdSDPvxanIpMBc695ztoX5EZSMnE
- NE0GUAea+ykGzN5nSvV48fytlALi2XqmZQB0kSiiyti+2b2lf0S6KKIvip9yB7alGEJt
- NrRVg0w9IoovuYpstqczJhZK/iCkLZa7varmYw6p7Sk28819NhPdSxPK/YpQISiRKurz
- ZByQ==
-X-Forwarded-Encrypted: i=1;
- AJvYcCVNx4Sr6Vu1gL7PLKARerHdlQgbi8oDfwfFmVcr94Z7yHB0k1Ul22JgbgEml1jmkGdOFYFlJrJ7zBuT@lists.freedesktop.org,
- AJvYcCXTC5jZsdSeHDbdJWEdX5x/jM6hrMSTL0+LdldeYWwrQ9LyQp7zE6J9edT7Ld+9eHdAFX0BtIbOoYA=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YypJH/S3gFC8ioIHKXfHj+vW0HhqWDp/vdamYc+njzIPgNNfjK6
- wtvr0fkyny5huPJigPokRNjo6aZnG6qdZnp554FqXrNinfTykg6g
-X-Gm-Gg: ASbGnctEVTNIJbjt4Nc3V4XlBjYH7FJdEWALAdHfecbDCbihtF85sq23+ircQ+csGYA
- kggJKRAGQcnJjsYAs6keqTLqmEk49NSYPrD0dRNVQSQxIla8xJ8iuRP51nekWcpn0lfA3vxy5ye
- gW3NFQ2dGh5l8ZRyneZmmKqiLgZYNHPRbo24eeTX+A6SG1MSIaVSTlCJVcfHV5R2mma9D31/btP
- dT7OvcWmmCVCcJlARL6KeHeMIKyVsUiZxt0j70iQF/CT//A359phy9gm6gqXE2r2Qd4CzpRRchR
- 4kdWIzk3EbSNvFQo
-X-Google-Smtp-Source: AGHT+IHplxqjgEP0dFwLXvJfrL/A1CbJGFKEyQ9oY6WjTEsVIqOplrcFOwDsR1meWL5D4TeYkh8bkg==
-X-Received: by 2002:a05:600c:3306:b0:435:294:f1c8 with SMTP id
- 5b1f17b1804b1-438e018288dmr124323665e9.28.1738534496966; 
- Sun, 02 Feb 2025 14:14:56 -0800 (PST)
-Received: from localhost ([194.120.133.72])
- by smtp.gmail.com with UTF8SMTPSA id
- ffacd0b85a97d-38c5c1b51e1sm10974566f8f.77.2025.02.02.14.14.56
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 02 Feb 2025 14:14:56 -0800 (PST)
-From: Colin Ian King <colin.i.king@gmail.com>
-To: Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Tvrtko Ursulin <tursulin@ursulin.net>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, intel-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org
-Cc: kernel-janitors@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH][next] drm/i915/selftest: Fix spelling mistake "ofset" ->
- "offset"
-Date: Sun,  2 Feb 2025 22:14:31 +0000
-Message-ID: <20250202221431.199802-1-colin.i.king@gmail.com>
-X-Mailer: git-send-email 2.47.2
+X-Greylist: delayed 548 seconds by postgrey-1.36 at gabe;
+ Sun, 02 Feb 2025 10:49:55 UTC
+Received: from out.smtpout.orange.fr (out-14.smtpout.orange.fr [193.252.22.14])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 715E010E05E;
+ Sun,  2 Feb 2025 10:49:55 +0000 (UTC)
+Received: from [172.16.82.72] ([124.33.176.97]) by smtp.orange.fr with ESMTPA
+ id eXP2tVMex6yOueXP7tWCnE; Sun, 02 Feb 2025 11:40:45 +0100
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=wanadoo.fr;
+ s=t20230301; t=1738492845;
+ bh=lnYvLulxE9IhcSF1/3Dn61cRsmTg1esYKzlS2Lt+4ig=;
+ h=Message-ID:Date:MIME-Version:Subject:To:From;
+ b=dIc9MpntZBYxGiq4TvJgbaSmtTXm9DRh3tE2Xj4rvYGH+qo53tyh9KJxKcsXkSIOa
+ jJS+m9Gg2etvT5yaiREjTckVDMNd+P8nEG+YuU0YwtCrsWzO9j+u3+gtcJEZJ9uuin
+ GCyU/H5oFew7MOijn2IHC/6suN861s9+RYFaryN0v54Dyhv3M/EaHYlx1Gt3CYFbKf
+ ytfoilxHMaCOhUfZkQ3ZcirDM/rUsmKsMbAr5m+1tk+Eod39sIphkZIn/H4utqtN88
+ Bi+jjVcuU/QGgKmBO6w40SbOkR5Wx8BXxE97QnxI7wEY5Urq1si7oSipUDySYR/jqF
+ FF5De6LG/3YpA==
+X-ME-Helo: [172.16.82.72]
+X-ME-Auth: bWFpbGhvbC52aW5jZW50QHdhbmFkb28uZnI=
+X-ME-Date: Sun, 02 Feb 2025 11:40:45 +0100
+X-ME-IP: 124.33.176.97
+Message-ID: <38f88be1-1d28-4dbf-b123-d9956f3b49df@wanadoo.fr>
+Date: Sun, 2 Feb 2025 19:40:35 +0900
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 0/3] Fixed-type GENMASK/BIT
+To: Lucas De Marchi <lucas.demarchi@intel.com>,
+ Yury Norov <yury.norov@gmail.com>
+Cc: linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+ Jani Nikula <jani.nikula@linux.intel.com>, intel-xe@lists.freedesktop.org,
+ intel-gfx@lists.freedesktop.org
+References: <20240208074521.577076-1-lucas.demarchi@intel.com>
+Content-Language: en-US
+From: Vincent Mailhol <mailhol.vincent@wanadoo.fr>
+Autocrypt: addr=mailhol.vincent@wanadoo.fr; keydata=
+ xjMEZluomRYJKwYBBAHaRw8BAQdAf+/PnQvy9LCWNSJLbhc+AOUsR2cNVonvxhDk/KcW7FvN
+ LFZpbmNlbnQgTWFpbGhvbCA8bWFpbGhvbC52aW5jZW50QHdhbmFkb28uZnI+wrIEExYKAFoC
+ GwMFCQp/CJcFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4AWIQTtj3AFdOZ/IOV06OKrX+uI
+ bbuZwgUCZx41XhgYaGtwczovL2tleXMub3BlbnBncC5vcmcACgkQq1/riG27mcIYiwEAkgKK
+ BJ+ANKwhTAAvL1XeApQ+2NNNEwFWzipVAGvTRigA+wUeyB3UQwZrwb7jsQuBXxhk3lL45HF5
+ 8+y4bQCUCqYGzjgEZx4y8xIKKwYBBAGXVQEFAQEHQJrbYZzu0JG5w8gxE6EtQe6LmxKMqP6E
+ yR33sA+BR9pLAwEIB8J+BBgWCgAmFiEE7Y9wBXTmfyDldOjiq1/riG27mcIFAmceMvMCGwwF
+ CQPCZwAACgkQq1/riG27mcJU7QEA+LmpFhfQ1aij/L8VzsZwr/S44HCzcz5+jkxnVVQ5LZ4B
+ ANOCpYEY+CYrld5XZvM8h2EntNnzxHHuhjfDOQ3MAkEK
+In-Reply-To: <20240208074521.577076-1-lucas.demarchi@intel.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+X-Mailman-Approved-At: Sun, 02 Feb 2025 22:57:10 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -93,26 +76,30 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-There is a spelling mistake in an error message. Fix it.
+Hi Lucas and Yury,
 
-Signed-off-by: Colin Ian King <colin.i.king@gmail.com>
----
- drivers/gpu/drm/i915/selftests/i915_gem_gtt.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+On 08/02/2024 at 16:45, Lucas De Marchi wrote:
+> ove the implementation of REG_GENMASK/REG_BIT to a more appropriate
+> place to be shared by i915, xe and possibly other parts of the kernel.
+> 
+> For now this re-defines the old macros. In future we may start using the
+> new macros directly, but that's a more intrusive search-and-replace.
+> 
+> Changes from v2:
+> 
+> 	- Document both in commit message and code about the strict type
+> 	  checking and give examples how it´d break with invalid params.
+> 
+> v1: https://lore.kernel.org/intel-xe/20230509051403.2748545-1-lucas.demarchi@intel.com/
+> v2: https://lore.kernel.org/intel-xe/20240124050205.3646390-1-lucas.demarchi@intel.com
 
-diff --git a/drivers/gpu/drm/i915/selftests/i915_gem_gtt.c b/drivers/gpu/drm/i915/selftests/i915_gem_gtt.c
-index 5c397a2df70e..3eff0894c26c 100644
---- a/drivers/gpu/drm/i915/selftests/i915_gem_gtt.c
-+++ b/drivers/gpu/drm/i915/selftests/i915_gem_gtt.c
-@@ -964,7 +964,7 @@ static int __shrink_hole(struct i915_address_space *vm,
- 			break;
- 
- 		if (igt_timeout(end_time,
--				"%s timed out at ofset %llx [%llx - %llx]\n",
-+				"%s timed out at offset %llx [%llx - %llx]\n",
- 				__func__, addr, hole_start, hole_end)) {
- 			err = -EINTR;
- 			break;
--- 
-2.47.2
+What is the status on this series? I read it and I think this is great.
+So I am a bit sad to see it stalled for nearly one year.
+
+With the -next development windows opening very soon, wouldn't it be a
+good idea to revive this topic?
+
+
+Yours sincerely,
+Vincent Mailhol
 
