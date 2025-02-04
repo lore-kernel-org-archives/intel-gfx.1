@@ -4,14 +4,14 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 07355C02196
-	for <intel-gfx@archiver.kernel.org>; Tue,  4 Feb 2025 12:48:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 636D4C02197
+	for <intel-gfx@archiver.kernel.org>; Tue,  4 Feb 2025 12:48:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2096B10E612;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8673810E615;
 	Tue,  4 Feb 2025 12:48:43 +0000 (UTC)
 Received: from mblankhorst.nl (lankhorst.se [141.105.120.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BFED810E60C;
- Tue,  4 Feb 2025 12:48:40 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6551610E610;
+ Tue,  4 Feb 2025 12:48:42 +0000 (UTC)
 From: Maarten Lankhorst <dev@lankhorst.se>
 To: intel-gfx@lists.freedesktop.org
 Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
@@ -19,9 +19,9 @@ Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
  David Lechner <dlechner@baylibre.com>,
  Peter Zijlstra <peterz@infradead.org>, Will Deacon <will@kernel.org>,
  Waiman Long <longman@redhat.com>, Boqun Feng <boqun.feng@gmail.com>
-Subject: [PATCH 3/8] drm/xe: Add scoped guards for xe_force_wake
-Date: Tue,  4 Feb 2025 13:49:04 +0100
-Message-ID: <20250204124909.158315-4-dev@lankhorst.se>
+Subject: [PATCH 5/8] drm/xe/coredump: Use guard helpers for xe_force_wake.
+Date: Tue,  4 Feb 2025 13:49:06 +0100
+Message-ID: <20250204124909.158315-6-dev@lankhorst.se>
 X-Mailer: git-send-email 2.47.1
 In-Reply-To: <20250204124909.158315-1-dev@lankhorst.se>
 References: <20250204124909.158315-1-dev@lankhorst.se>
@@ -42,111 +42,81 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Instead of finding bugs where we may or may not release force_wake, I've
-decided to be inspired by the spinlock guards, and use the same ones to
-do xe_force_wake handling.
-
-Examples are added as documentation in xe_force_wake.c
-
-Signed-off-by: Maarten Lankhorst <dev@lankhorst.se>
 ---
- drivers/gpu/drm/xe/xe_force_wake.c | 51 ++++++++++++++++++++++++++++++
- drivers/gpu/drm/xe/xe_force_wake.h | 15 +++++++++
- 2 files changed, 66 insertions(+)
+ drivers/gpu/drm/xe/xe_devcoredump.c | 36 ++++++++++++++---------------
+ 1 file changed, 17 insertions(+), 19 deletions(-)
 
-diff --git a/drivers/gpu/drm/xe/xe_force_wake.c b/drivers/gpu/drm/xe/xe_force_wake.c
-index 4f6784e5abf88..805c19f6de9e7 100644
---- a/drivers/gpu/drm/xe/xe_force_wake.c
-+++ b/drivers/gpu/drm/xe/xe_force_wake.c
-@@ -16,6 +16,57 @@
+diff --git a/drivers/gpu/drm/xe/xe_devcoredump.c b/drivers/gpu/drm/xe/xe_devcoredump.c
+index 39fe485d20858..afe229fba8a9c 100644
+--- a/drivers/gpu/drm/xe/xe_devcoredump.c
++++ b/drivers/gpu/drm/xe/xe_devcoredump.c
+@@ -233,7 +233,6 @@ static void xe_devcoredump_deferred_snap_work(struct work_struct *work)
+ 	struct xe_devcoredump_snapshot *ss = container_of(work, typeof(*ss), work);
+ 	struct xe_devcoredump *coredump = container_of(ss, typeof(*coredump), snapshot);
+ 	struct xe_device *xe = coredump_to_xe(coredump);
+-	unsigned int fw_ref;
  
- #define XE_FORCE_WAKE_ACK_TIMEOUT_MS	50
+ 	/*
+ 	 * NB: Despite passing a GFP_ flags parameter here, more allocations are done
+@@ -247,12 +246,13 @@ static void xe_devcoredump_deferred_snap_work(struct work_struct *work)
+ 	xe_pm_runtime_get(xe);
  
-+/**
-+ * DOC: Force wake handling
-+ *
-+ * Traditionally, the force wake handling has been done using the error prone
-+ * set of calls:
-+ *
-+ * int func(struct xe_force_wake *fw)
-+ * {
-+ * 	unsigned int fw_ref = xe_force_wake_get(fw, XE_FORCEWAKE_ALL);
-+ * 	if (!fw_ref)
-+ * 		return -ETIMEDOUT;
-+ *
-+ * 	err = do_something();
-+ *
-+ * 	xe_force_wake_put(fw, fw_ref);
-+ * 	return err;
-+ * }
-+ *
-+ * A new, failure-safe approach is by using the scoped helpers,
-+ * which changes the function to this:
-+ *
-+ * int func(struct xe_force_wake *fw)
-+ * {
-+ * 	scoped_cond_guard(xe_force_wake_get, return -ETIMEDOUT, fw, XE_FORCEWAKE_ALL) {
-+ * 		return do_something();
-+ * 	}
-+ * }
-+ *
-+ * For completeness, the following options also work:
-+ * void func(struct xe_force_wake *fw)
-+ * {
-+ * 	scoped_guard(xe_force_wake_get, fw, XE_FORCEWAKE_ALL) {
-+ * 		do_something_only_if_fw_acquired();
-+ * 	}
-+ * }
-+ *
-+ * You can use xe_force_wake instead of force_wake_get, if the code
-+ * must run but errors acquiring ignored:
-+ * void func(struct xe_force_wake *fw)
-+ * {
-+ * 	scoped_guard(xe_force_wake, fw, XE_FORCEWAKE_ALL) {
-+ * 		always_do_something_maybe_fw();
-+ * 	}
-+ *
-+ * 	do_something_no_fw();
-+ *
-+ * 	guard(xe_force_wake)(fw, XE_FORCEWAKE_ALL);
-+ * 	always_do_something_maybe_fw();
-+ * }
-+ */
+ 	/* keep going if fw fails as we still want to save the memory and SW data */
+-	fw_ref = xe_force_wake_get(gt_to_fw(ss->gt), XE_FORCEWAKE_ALL);
+-	if (!xe_force_wake_ref_has_domain(fw_ref, XE_FORCEWAKE_ALL))
+-		xe_gt_info(ss->gt, "failed to get forcewake for coredump capture\n");
+-	xe_vm_snapshot_capture_delayed(ss->vm);
+-	xe_guc_exec_queue_snapshot_capture_delayed(ss->ge);
+-	xe_force_wake_put(gt_to_fw(ss->gt), fw_ref);
++	scoped_guard(xe_force_wake, gt_to_fw(ss->gt), XE_FORCEWAKE_ALL) {
++		if (!xe_force_wake_scope_has_domain(XE_FORCEWAKE_ALL))
++			xe_gt_info(ss->gt, "failed to get forcewake for coredump capture\n");
 +
- static const char *str_wake_sleep(bool wake)
- {
- 	return wake ? "wake" : "sleep";
-diff --git a/drivers/gpu/drm/xe/xe_force_wake.h b/drivers/gpu/drm/xe/xe_force_wake.h
-index 0e3e84bfa51c3..0fb1baae0a3a3 100644
---- a/drivers/gpu/drm/xe/xe_force_wake.h
-+++ b/drivers/gpu/drm/xe/xe_force_wake.h
-@@ -9,6 +9,8 @@
- #include "xe_assert.h"
- #include "xe_force_wake_types.h"
++		xe_vm_snapshot_capture_delayed(ss->vm);
++		xe_guc_exec_queue_snapshot_capture_delayed(ss->ge);
++	}
  
-+#include <linux/cleanup.h>
+ 	xe_pm_runtime_put(xe);
+ 
+@@ -277,7 +277,6 @@ static void devcoredump_snapshot(struct xe_devcoredump *coredump,
+ 	u32 width_mask = (0x1 << q->width) - 1;
+ 	const char *process_name = "no process";
+ 
+-	unsigned int fw_ref;
+ 	bool cookie;
+ 	int i;
+ 
+@@ -305,20 +304,19 @@ static void devcoredump_snapshot(struct xe_devcoredump *coredump,
+ 	}
+ 
+ 	/* keep going if fw fails as we still want to save the memory and SW data */
+-	fw_ref = xe_force_wake_get(gt_to_fw(q->gt), XE_FORCEWAKE_ALL);
+-
+-	ss->guc.log = xe_guc_log_snapshot_capture(&guc->log, true);
+-	ss->guc.ct = xe_guc_ct_snapshot_capture(&guc->ct);
+-	ss->ge = xe_guc_exec_queue_snapshot_capture(q);
+-	if (job)
+-		ss->job = xe_sched_job_snapshot_capture(job);
+-	ss->vm = xe_vm_snapshot_capture(q->vm);
+-
+-	xe_engine_snapshot_capture_for_queue(q);
++	scoped_guard(xe_force_wake, gt_to_fw(ss->gt), XE_FORCEWAKE_ALL) {
++		ss->guc.log = xe_guc_log_snapshot_capture(&guc->log, true);
++		ss->guc.ct = xe_guc_ct_snapshot_capture(&guc->ct);
++		ss->ge = xe_guc_exec_queue_snapshot_capture(q);
++		if (job)
++			ss->job = xe_sched_job_snapshot_capture(job);
++		ss->vm = xe_vm_snapshot_capture(q->vm);
 +
- struct xe_gt;
++		xe_engine_snapshot_capture_for_queue(q);
++	}
  
- void xe_force_wake_init_gt(struct xe_gt *gt,
-@@ -61,4 +63,17 @@ xe_force_wake_ref_has_domain(unsigned int fw_ref, enum xe_force_wake_domains dom
- 	return fw_ref & domain;
+ 	queue_work(system_unbound_wq, &ss->work);
+ 
+-	xe_force_wake_put(gt_to_fw(q->gt), fw_ref);
+ 	dma_fence_end_signalling(cookie);
  }
  
-+DEFINE_LOCK_GUARD_1(xe_force_wake, struct xe_force_wake,
-+		    _T->fw_ref = xe_force_wake_get(_T->lock, domain),
-+		    xe_force_wake_put(_T->lock, _T->fw_ref),
-+		    unsigned int fw_ref, enum xe_force_wake_domains domain);
-+
-+DEFINE_LOCK_GUARD_1_COND(xe_force_wake, _get,
-+			 _T->fw_ref = xe_force_wake_get_all(_T->lock, domain),
-+			 enum xe_force_wake_domains domain);
-+
-+/* Only useful for guard xe_force_wake, guard xe_force_wake_get gets all or nothing */
-+#define xe_force_wake_scope_has_domain(domain) \
-+	(xe_force_wake_ref_has_domain(scope.fw_ref, domain))
-+
- #endif
 -- 
 2.47.1
 
