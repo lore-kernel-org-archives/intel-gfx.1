@@ -4,55 +4,54 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C6925C02198
-	for <intel-gfx@archiver.kernel.org>; Tue,  4 Feb 2025 11:18:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C9E25C02198
+	for <intel-gfx@archiver.kernel.org>; Tue,  4 Feb 2025 11:25:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6D86810E5F3;
-	Tue,  4 Feb 2025 11:18:08 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6686C10E5F5;
+	Tue,  4 Feb 2025 11:25:28 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="ApWV5CgD";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="i1OZChLd";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.20])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B448B10E09A;
- Tue,  4 Feb 2025 11:14:35 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.11])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9A77310E5F5;
+ Tue,  4 Feb 2025 11:25:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1738667676; x=1770203676;
+ t=1738668326; x=1770204326;
  h=from:to:cc:subject:in-reply-to:references:date:
  message-id:mime-version:content-transfer-encoding;
- bh=qoH6UCB4p3/uIwGpMKAkeCONASI/glkTQ5cXVb4il0o=;
- b=ApWV5CgDtt8QvLO040FU3q1myqhLuHkDreHfIUZSw7+oOLFwXZpaOQK/
- NjQ3ELpj5+rkv5r4rRDX/D//gIXj3yEgvpKuFAFCfWsbKO7P2wMX2aYJr
- 9elww7XEEU8jrpDXOYUajazkMmGh0EfPFxavI0GTZnvEVDBLedU3DSvWs
- zSiSImNqQ+sJXa0jhbuUiN/Ege8foBCfdhA4Wx91T7+1I8K/M2qUBzyfB
- sB4yzNg+5aPl2J9EWorTAbIJP5A4ZbjdyVGFTN4Ow/bratKlXOhimj7Xd
- yLKn1gUelrTNTdwAXv0IpfrQO5ULujbU2Zyra5jCI7s/W/XRDBxIXKdmv Q==;
-X-CSE-ConnectionGUID: au7/UcQ/T6qtUGvaXs1c0w==
-X-CSE-MsgGUID: 0e2jLtJwSi6suoZFUM0GSQ==
-X-IronPort-AV: E=McAfee;i="6700,10204,11335"; a="38891477"
-X-IronPort-AV: E=Sophos;i="6.13,258,1732608000"; d="scan'208";a="38891477"
-Received: from orviesa003.jf.intel.com ([10.64.159.143])
- by orvoesa112.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 04 Feb 2025 03:14:36 -0800
-X-CSE-ConnectionGUID: +N/ZpQY7RMG8wLwmayM7BQ==
-X-CSE-MsgGUID: cCUww8HJTnCaFI/2Vy2aRg==
+ bh=n9JD9VszPaiHemIj7pCO4WV3BloOkJjFGVruvdPzQ80=;
+ b=i1OZChLdQ1C2QVoJuG2tbkjWOBhMEIu1mNCQKp8S29UBUW2qHLneqfGn
+ MY4y7JLJnZNb+r2zqJYq28ArNo9Y2pyXeN4HYdpmS1nQdyFZmOIBz3e8f
+ 5XUS8/JKqqepxb57nGBqIkP8ktDIYLUTMFIHcfJWOp90f9WadNlNguKQG
+ io78Si6r4xhhEC+NSVjvBXhXeduXxxrDxO1G5Xrpdd6ImykWyA/QN11NF
+ 0X8xlcjHIyAX0KeaAa4C9xfsyrnWMt7xuBK3x13a3ffm9Z/eaOyZnQDzA
+ rZqBANjwe7Gpeb8wmonDD9gvIdIiRr6tO8wthPgRtxogTyQ9q9X+Q+erQ g==;
+X-CSE-ConnectionGUID: pOATXAxWQfayPTTw1morWg==
+X-CSE-MsgGUID: IGiRUIxbTJ2A69tfdzji1Q==
+X-IronPort-AV: E=McAfee;i="6700,10204,11335"; a="49446587"
+X-IronPort-AV: E=Sophos;i="6.13,258,1732608000"; d="scan'208";a="49446587"
+Received: from orviesa008.jf.intel.com ([10.64.159.148])
+ by orvoesa103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 04 Feb 2025 03:25:26 -0800
+X-CSE-ConnectionGUID: 1YaNnMGZQuKGccowoujNfg==
+X-CSE-MsgGUID: Ltf4wZnbQTqk7o6O/PMGFA==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.11,199,1725346800"; d="scan'208";a="115561019"
+X-IronPort-AV: E=Sophos;i="6.12,224,1728975600"; d="scan'208";a="111425165"
 Received: from dprybysh-mobl.ger.corp.intel.com (HELO localhost)
  ([10.245.246.139])
- by ORVIESA003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 04 Feb 2025 03:14:34 -0800
+ by orviesa008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 04 Feb 2025 03:25:25 -0800
 From: Jani Nikula <jani.nikula@linux.intel.com>
 To: Ville Syrjala <ville.syrjala@linux.intel.com>,
  intel-gfx@lists.freedesktop.org
 Cc: intel-xe@lists.freedesktop.org
-Subject: Re: [PATCH 00/11] drm/i915: intel_display conversions and some
- debug improvements
-In-Reply-To: <20250124163040.8886-1-ville.syrjala@linux.intel.com>
+Subject: Re: [PATCH 0/5] drm/i915: Improve the display VT-d workarounds
+In-Reply-To: <20250122151755.6928-1-ville.syrjala@linux.intel.com>
 Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
-References: <20250124163040.8886-1-ville.syrjala@linux.intel.com>
-Date: Tue, 04 Feb 2025 13:14:30 +0200
-Message-ID: <87v7tq55d5.fsf@intel.com>
+References: <20250122151755.6928-1-ville.syrjala@linux.intel.com>
+Date: Tue, 04 Feb 2025 13:25:22 +0200
+Message-ID: <87pljy54v1.fsf@intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
@@ -71,82 +70,45 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Fri, 24 Jan 2025, Ville Syrjala <ville.syrjala@linux.intel.com> wrote:
+On Wed, 22 Jan 2025, Ville Syrjala <ville.syrjala@linux.intel.com> wrote:
 > From: Ville Syrj=C3=A4l=C3=A4 <ville.syrjala@linux.intel.com>
 >
-> Convert a bunch of stuff over to struct intel_display, and
-> finish off with a few debug print improvements.
+> Try to make the display VT-d workarounds more robust.
 
-Good stuff. Series is
+Okay, so I didn't hunt all the details in bspec, and I'm not sure if
+anyone's going to, so I'm just going to trust you. Everything else
+checks out and makes sense.
+
+Series is
 
 Reviewed-by: Jani Nikula <jani.nikula@intel.com>
 
 
-> Ville Syrj=C3=A4l=C3=A4 (11):
->   drm/i915: Decouple i915_gem_dumb_create() from the display a bit
->   drm/i915: Decouple intel_fb_bo.h interfaces from driver specific types
->   drm/i915: Convert intel_crtc.c to struct intel_display
->   drm/i915: Convert intel_fb.c to struct intel_display
->   drm/i915: Convert intel_display_power_{get,put}*() to intel_display
->   drm/i915: Convert i9xx_plane.c to struct intel_display
->   drm/i915: Finish intel_sprite.c struct intel_display conversion
->   drm/i915: Convert intel_cursor.c to struct intel_display
->   drm/i915: Convert skl_univeral_plane.c to struct intel_display
->   drm/i915: Use DRM_RECT_FMT & co. for plane debugs
->   drm/i915: Pimp plane debugs
+
 >
->  drivers/gpu/drm/i915/display/g4x_dp.c         |   9 +-
->  drivers/gpu/drm/i915/display/g4x_hdmi.c       |   8 +-
->  drivers/gpu/drm/i915/display/i9xx_plane.c     | 262 +++++------
->  drivers/gpu/drm/i915/display/i9xx_plane.h     |   6 +-
->  drivers/gpu/drm/i915/display/icl_dsi.c        |  11 +-
->  .../gpu/drm/i915/display/intel_atomic_plane.c |  24 +-
->  drivers/gpu/drm/i915/display/intel_audio.c    |   9 +-
->  drivers/gpu/drm/i915/display/intel_cdclk.c    |   8 +-
->  drivers/gpu/drm/i915/display/intel_crt.c      |  16 +-
->  drivers/gpu/drm/i915/display/intel_crtc.c     |  65 +--
->  drivers/gpu/drm/i915/display/intel_crtc.h     |   7 +-
->  drivers/gpu/drm/i915/display/intel_cursor.c   | 174 ++++----
->  drivers/gpu/drm/i915/display/intel_cursor.h   |   4 +-
->  drivers/gpu/drm/i915/display/intel_cx0_phy.c  |  13 +-
->  drivers/gpu/drm/i915/display/intel_ddi.c      |  63 +--
->  drivers/gpu/drm/i915/display/intel_display.c  |  74 +--
->  drivers/gpu/drm/i915/display/intel_display.h  |   2 +-
->  .../drm/i915/display/intel_display_debugfs.c  |   5 +-
->  .../drm/i915/display/intel_display_driver.c   |   2 +-
->  .../gpu/drm/i915/display/intel_display_irq.c  |  10 +-
->  .../drm/i915/display/intel_display_power.c    |  85 ++--
->  .../drm/i915/display/intel_display_power.h    |  54 +--
->  drivers/gpu/drm/i915/display/intel_dmc.c      |   7 +-
->  drivers/gpu/drm/i915/display/intel_dp.c       |   7 +-
->  drivers/gpu/drm/i915/display/intel_dp_aux.c   |   5 +-
->  drivers/gpu/drm/i915/display/intel_dpll_mgr.c |  55 ++-
->  drivers/gpu/drm/i915/display/intel_fb.c       | 249 ++++++-----
->  drivers/gpu/drm/i915/display/intel_fb.h       |  11 +-
->  drivers/gpu/drm/i915/display/intel_fb_bo.c    |  18 +-
->  drivers/gpu/drm/i915/display/intel_fb_bo.h    |   8 +-
->  drivers/gpu/drm/i915/display/intel_gmbus.c    |  10 +-
->  drivers/gpu/drm/i915/display/intel_hdmi.c     |  10 +-
->  drivers/gpu/drm/i915/display/intel_hotplug.c  |   5 +-
->  drivers/gpu/drm/i915/display/intel_lvds.c     |   5 +-
->  .../drm/i915/display/intel_modeset_setup.c    |   6 +-
->  drivers/gpu/drm/i915/display/intel_pipe_crc.c |   5 +-
->  drivers/gpu/drm/i915/display/intel_pps.c      |  18 +-
->  drivers/gpu/drm/i915/display/intel_sdvo.c     |   3 +-
->  drivers/gpu/drm/i915/display/intel_sprite.c   | 110 ++---
->  drivers/gpu/drm/i915/display/intel_sprite.h   |   6 +-
->  drivers/gpu/drm/i915/display/intel_tc.c       |  78 ++--
->   drivers/gpu/drm/i915/display/intel_vdsc.c     |   5 +-
->  drivers/gpu/drm/i915/display/intel_vga.c      |   5 +-
->  drivers/gpu/drm/i915/display/skl_scaler.c     |  13 +-
->  .../drm/i915/display/skl_universal_plane.c    | 422 +++++++++---------
->  .../drm/i915/display/skl_universal_plane.h    |   8 +-
->  drivers/gpu/drm/i915/display/skl_watermark.c  |   5 +-
->  drivers/gpu/drm/i915/display/vlv_dsi.c        |   4 +-
->  drivers/gpu/drm/i915/gem/i915_gem_create.c    |   2 +-
->  drivers/gpu/drm/i915/gt/intel_gt_pm.c         |   6 +-
->  drivers/gpu/drm/xe/display/intel_fb_bo.c      |   7 +-
->  51 files changed, 1019 insertions(+), 985 deletions(-)
+> Ville Syrj=C3=A4l=C3=A4 (5):
+>   drm/i915: Move VT-d alignment into plane->min_alignment()
+>   drm/i915: Use more optimal VTd alignment for planes
+>   drm/i915: Calculate the VT-d guard size in the display code
+>   drm/i915: Use per-plane VT-d guard numbers
+>   drm/i915/fbdev: Use fb->normal_view.gtt
+>
+>  drivers/gpu/drm/i915/display/i9xx_plane.c     | 15 ++++++
+>  drivers/gpu/drm/i915/display/intel_cursor.c   |  8 ++++
+>  .../drm/i915/display/intel_display_types.h    |  2 +
+>  drivers/gpu/drm/i915/display/intel_fb.c       | 48 +++++++++++++++++++
+>  drivers/gpu/drm/i915/display/intel_fb.h       |  3 ++
+>  drivers/gpu/drm/i915/display/intel_fb_pin.c   | 20 ++++----
+>  drivers/gpu/drm/i915/display/intel_fb_pin.h   |  1 +
+>  drivers/gpu/drm/i915/display/intel_fbdev.c    |  7 ++-
+>  drivers/gpu/drm/i915/display/intel_overlay.c  |  2 +-
+>  drivers/gpu/drm/i915/display/intel_sprite.c   | 15 ++++++
+>  .../drm/i915/display/skl_universal_plane.c    |  7 +++
+>  drivers/gpu/drm/i915/gem/i915_gem_domain.c    | 15 ++----
+>  drivers/gpu/drm/i915/gem/i915_gem_object.h    |  2 +-
+>  drivers/gpu/drm/xe/display/xe_fb_pin.c        |  1 +
+>  drivers/gpu/drm/xe/display/xe_plane_initial.c |  2 +-
+>  15 files changed, 120 insertions(+), 28 deletions(-)
 
 --=20
 Jani Nikula, Intel
