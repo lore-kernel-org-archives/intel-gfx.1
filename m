@@ -4,57 +4,56 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 68E02C02197
-	for <intel-gfx@archiver.kernel.org>; Tue,  4 Feb 2025 10:25:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DEE5CC02197
+	for <intel-gfx@archiver.kernel.org>; Tue,  4 Feb 2025 11:05:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0252C10E5E8;
-	Tue,  4 Feb 2025 10:25:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8229610E5EC;
+	Tue,  4 Feb 2025 11:05:59 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="VyBDdjn6";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="Xyc5fhuW";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.21])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 67D5510E5DA;
- Tue,  4 Feb 2025 10:25:15 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 95DD610E5EE;
+ Tue,  4 Feb 2025 11:04:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1738664715; x=1770200715;
- h=from:to:cc:subject:in-reply-to:references:date:
- message-id:mime-version;
- bh=iraCl1MGLqjIIMmacCYk9cfTa3JGGrtUt4os4uoBciI=;
- b=VyBDdjn6+ibe/nYJRaxv2a7VZMkRaHZr4TGiFpPx7BpHyBklPa2PUCG2
- KRrBAB+obW51lCcxhfB/1IhgMrsfXE9cCCLFzRpUPvUe+bn+4oP7Vi2/g
- EltNRZgXWdO5S2b9yskK8b5pEUH7LqkNeI1qF472DR2aDb4X3XfonQ9iD
- 3sLvON2WCdBMQc6A8hz9BxdwIY+ChHOVcbAg/L04XAI+49OGYHNlUVr2t
- tybwP33RSPaE43vk4bMwTrs4XLLzAH2fAt+tP2qOIWDD5x04Mb/a3buWZ
- V8MJpZTcq67qWfqvLVBr0H2jddUKuXDDB0GQPw2a40/qcphRVWg7DQ4YM g==;
-X-CSE-ConnectionGUID: Cq6GzmEGTBCyhAIGnLGbNQ==
-X-CSE-MsgGUID: 1AzWRXCfQZ2JKCnYJxd8VA==
-X-IronPort-AV: E=McAfee;i="6700,10204,11335"; a="39083555"
-X-IronPort-AV: E=Sophos;i="6.13,258,1732608000"; d="scan'208";a="39083555"
-Received: from orviesa003.jf.intel.com ([10.64.159.143])
- by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 04 Feb 2025 02:25:15 -0800
-X-CSE-ConnectionGUID: XwgXqlenQSy7auvsOSW97Q==
-X-CSE-MsgGUID: 2/j4F7zDTCi+22fYtphNLA==
+ t=1738667057; x=1770203057;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=/6iiA15ZABxOqMXh6bep5De8K1oIKuYUUfIcPVKvWVU=;
+ b=Xyc5fhuWkclwIXvT8xUdcI0rkjCp/BdtfcBvdMc4iSPlhO54Flyijbk7
+ 1d1gsOdUvpFQ6C6/iozDcOEw/UKt6zf95M8BVr9teswAs3YRfzDJdhefr
+ wVJ2YTBYfew1W358I3Mosg7yR1E+dBhlrsS0Jab0r2aFkVYaKTpd3udI3
+ tRauLCH4lS/kambo86sHp9z5hccMbHloc7C9WA3vjog9nn3G2CR1Ld0hJ
+ 17adpb6sOs9wJzF+S4pgFX+LRxdKyqkt4EJ6ibNNPkrPCjidsb254Lpei
+ yIltdebvfUKOLx40OhuKj/f14Dht5hloh/jwn5lNI4/7XNKkN+5jjbMUq Q==;
+X-CSE-ConnectionGUID: ZbqE2xhkSMKfgHIXmRVAIw==
+X-CSE-MsgGUID: UIW8ZioxTdqDN60a828SOw==
+X-IronPort-AV: E=McAfee;i="6700,10204,11335"; a="49802623"
+X-IronPort-AV: E=Sophos;i="6.13,258,1732608000"; d="scan'208";a="49802623"
+Received: from orviesa006.jf.intel.com ([10.64.159.146])
+ by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 04 Feb 2025 03:04:17 -0800
+X-CSE-ConnectionGUID: WOfEJLKxRkCF9HWWtmWiKQ==
+X-CSE-MsgGUID: 09jZnW4wTfetOYBX23DwHw==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.11,199,1725346800"; d="scan'208";a="115550625"
-Received: from dprybysh-mobl.ger.corp.intel.com (HELO localhost)
- ([10.245.246.139])
- by ORVIESA003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 04 Feb 2025 02:25:12 -0800
-From: Jani Nikula <jani.nikula@intel.com>
-To: Arun R Murthy <arun.r.murthy@intel.com>,
- intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org
-Cc: Arun R Murthy <arun.r.murthy@intel.com>, Suraj Kandpal
- <suraj.kandpal@intel.com>
-Subject: Re: [PATCH v9] drm/i915/dp: Guarantee a minimum HBlank time
-In-Reply-To: <20250122-hblank-v9-1-90afda006685@intel.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
-References: <20250122-hblank-v9-1-90afda006685@intel.com>
-Date: Tue, 04 Feb 2025 12:25:09 +0200
-Message-ID: <8734gu6m7u.fsf@intel.com>
+X-IronPort-AV: E=Sophos;i="6.13,258,1732608000"; d="scan'208";a="110553279"
+Received: from unknown (HELO sorvi2.fi.intel.com) ([10.237.72.194])
+ by orviesa006.jf.intel.com with ESMTP; 04 Feb 2025 03:04:15 -0800
+From: Mika Kahola <mika.kahola@intel.com>
+To: intel-gfx@lists.freedesktop.org,
+	intel-xe@lists.freedesktop.org
+Cc: imre.deak@intel.com, jani.nikula@linux.intel.com,
+ Mika Kahola <mika.kahola@intel.com>
+Subject: [PATCH v2 2/2] drm/i915/display: Allow display PHYs to reset power
+ state
+Date: Tue,  4 Feb 2025 12:53:58 +0200
+Message-ID: <20250204105358.284687-3-mika.kahola@intel.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20250204105358.284687-1-mika.kahola@intel.com>
+References: <20250204105358.284687-1-mika.kahola@intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Transfer-Encoding: 8bit
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,201 +69,133 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Wed, 22 Jan 2025, Arun R Murthy <arun.r.murthy@intel.com> wrote:
-> Mandate a minimum Hblank symbol cycle count between BlankingStart and
-> BlankingEnd in 8b/10b MST and 128b/132b mode.
+The dedicated display PHYs reset to a power state that blocks S0ix,
+increasing idle system power. After a system reset (cold boot,
+S3/4/5, warm reset) if a dedicated PHY is not being brought up
+shortly, use these steps to move the PHY to the lowest power state
+to save power.
 
-Mixed feelings. We're at v9. The patch has Reviewed-by. I'm asked to
-ack. There's nothing incorrect with what's here as far as I can see.
+1. Follow the PLL Enable Sequence, using any valid frequency such as DP 1.62 GHz.
+   This brings lanes out of reset and enables the PLL to allow powerdown to be moved
+   to the Disable state.
+2. Follow PLL Disable Sequence. This moves powerdown to the Disable state and disables the PLL.
 
-But there's something missing, and it's described right there in the
-first sentence of the commit message, as well as in bspec.
+v2: Rename WA function to more descriptive (Jani)
+    For PTL, only port A needs this wa
+    Add helpers to check presence of C10 phy and pll enabling (Imre)
 
-I don't know.
+Signed-off-by: Mika Kahola <mika.kahola@intel.com>
+---
+ drivers/gpu/drm/i915/display/intel_cx0_phy.c  | 45 +++++++++++++++++++
+ drivers/gpu/drm/i915/display/intel_cx0_phy.h  |  1 +
+ .../drm/i915/display/intel_display_reset.c    |  2 +
+ drivers/gpu/drm/i915/display/intel_dpll_mgr.c |  2 +
+ 4 files changed, 50 insertions(+)
 
-Acked-by: Jani Nikula <jani.nikula@intel.com>
-
-But please follow up with the missing pieces. Yes, please figure out
-what it is.
-
-
-BR,
-Jani.
-
-
->
-> v2: Affine calculation/updation of min HBlank to dp_mst (Jani)
-> v3: moved min_hblank from struct intel_dp to intel_crtc_state (Jani)
-> v4: use max/min functions, change intel_xx *intel_xx to intel_xx *xx
->     (Jani)
->     Limit hblank to 511 and accommodate BS/BE in calculated value
->     (Srikanth)
-> v5: Some spelling corrections (Suraj)
-> v6: Removed DP2.1 in comment as this is applicable for both DP2.1 and
->     DP1.4 (Suraj)
-> v7: crtc_state holds the logical values and the register value
->     computation is moved to mst_enable() (Jani)
-> v8: Limit max hblank to 0x10, disable min_hblank on mst_disable (Jani)
->
-> Bspec: 74379
-> Signed-off-by: Arun R Murthy <arun.r.murthy@intel.com>
-> Reviewed-by: Suraj Kandpal <suraj.kandpal@intel.com>
-> ---
-> Changes in v9:
-> - EDITME: describe what is new in this series revision.
-> - EDITME: use bulletpoints and terse descriptions.
-> - Link to v8: https://lore.kernel.org/r/20250121-hblank-v8-1-b05752f4aa5a@intel.com
-> ---
->  .../gpu/drm/i915/display/intel_crtc_state_dump.c   |  1 +
->  drivers/gpu/drm/i915/display/intel_display_types.h |  1 +
->  drivers/gpu/drm/i915/display/intel_dp_mst.c        | 53 +++++++++++++++++++++-
->  drivers/gpu/drm/i915/i915_reg.h                    |  4 ++
->  4 files changed, 58 insertions(+), 1 deletion(-)
->
-> diff --git a/drivers/gpu/drm/i915/display/intel_crtc_state_dump.c b/drivers/gpu/drm/i915/display/intel_crtc_state_dump.c
-> index 1fbaa67e2fea77279f120bfb9755a2642550046c..07c671741513f7f263b7b233ffec71998745fd0f 100644
-> --- a/drivers/gpu/drm/i915/display/intel_crtc_state_dump.c
-> +++ b/drivers/gpu/drm/i915/display/intel_crtc_state_dump.c
-> @@ -249,6 +249,7 @@ void intel_crtc_state_dump(const struct intel_crtc_state *pipe_config,
->  			   str_enabled_disabled(pipe_config->has_sel_update),
->  			   str_enabled_disabled(pipe_config->has_panel_replay),
->  			   str_enabled_disabled(pipe_config->enable_psr2_sel_fetch));
-> +		drm_printf(&p, "minimum HBlank: %d\n", pipe_config->min_hblank);
->  	}
->  
->  	drm_printf(&p, "audio: %i, infoframes: %i, infoframes enabled: 0x%x\n",
-> diff --git a/drivers/gpu/drm/i915/display/intel_display_types.h b/drivers/gpu/drm/i915/display/intel_display_types.h
-> index 8271e50e36447a6c97a93ca0d0b83327ff6ee461..f525e266c0232e8c29ba3f84d2c81612f78e894b 100644
-> --- a/drivers/gpu/drm/i915/display/intel_display_types.h
-> +++ b/drivers/gpu/drm/i915/display/intel_display_types.h
-> @@ -1095,6 +1095,7 @@ struct intel_crtc_state {
->  
->  	int max_link_bpp_x16;	/* in 1/16 bpp units */
->  	int pipe_bpp;		/* in 1 bpp units */
-> +	int min_hblank;
->  	struct intel_link_m_n dp_m_n;
->  
->  	/* m2_n2 for eDP downclock */
-> diff --git a/drivers/gpu/drm/i915/display/intel_dp_mst.c b/drivers/gpu/drm/i915/display/intel_dp_mst.c
-> index 227bd2783e64105dc8dd521b99e7d04ce2e577cc..6b827f569f64634c36b031760589e0d2d01f5bb1 100644
-> --- a/drivers/gpu/drm/i915/display/intel_dp_mst.c
-> +++ b/drivers/gpu/drm/i915/display/intel_dp_mst.c
-> @@ -209,6 +209,28 @@ static int intel_dp_mst_dsc_get_slice_count(const struct intel_connector *connec
->  					    num_joined_pipes);
->  }
->  
-> +static void intel_dp_mst_compute_min_hblank(struct intel_crtc_state *crtc_state,
-> +					    struct intel_connector *connector,
-> +					    int bpp_x16)
-> +{
-> +	struct intel_encoder *encoder = connector->encoder;
-> +	struct intel_display *display = to_intel_display(encoder);
-> +	const struct drm_display_mode *adjusted_mode =
-> +					&crtc_state->hw.adjusted_mode;
-> +	int symbol_size = intel_dp_is_uhbr(crtc_state) ? 32 : 8;
-> +	int hblank;
-> +
-> +	if (DISPLAY_VER(display) < 20)
-> +		return;
-> +
-> +	/* Calculate min Hblank Link Layer Symbol Cycle Count for 8b/10b MST & 128b/132b */
-> +	hblank = DIV_ROUND_UP((DIV_ROUND_UP
-> +			       (adjusted_mode->htotal - adjusted_mode->hdisplay, 4) * bpp_x16),
-> +			      symbol_size);
-> +
-> +	crtc_state->min_hblank = hblank;
-> +}
-> +
->  int intel_dp_mtp_tu_compute_config(struct intel_dp *intel_dp,
->  				   struct intel_crtc_state *crtc_state,
->  				   int max_bpp, int min_bpp,
-> @@ -266,6 +288,9 @@ int intel_dp_mtp_tu_compute_config(struct intel_dp *intel_dp,
->  
->  		local_bw_overhead = intel_dp_mst_bw_overhead(crtc_state,
->  							     false, dsc_slice_count, link_bpp_x16);
-> +
-> +		intel_dp_mst_compute_min_hblank(crtc_state, connector, link_bpp_x16);
-> +
->  		intel_dp_mst_compute_m_n(crtc_state,
->  					 local_bw_overhead,
->  					 link_bpp_x16,
-> @@ -982,6 +1007,7 @@ static void mst_stream_disable(struct intel_atomic_state *state,
->  	struct intel_dp *intel_dp = to_primary_dp(encoder);
->  	struct intel_connector *connector =
->  		to_intel_connector(old_conn_state->connector);
-> +	enum transcoder trans = old_crtc_state->cpu_transcoder;
->  
->  	drm_dbg_kms(display->drm, "active links %d\n",
->  		    intel_dp->active_mst_links);
-> @@ -992,6 +1018,8 @@ static void mst_stream_disable(struct intel_atomic_state *state,
->  	intel_hdcp_disable(intel_mst->connector);
->  
->  	intel_dp_sink_disable_decompression(state, connector, old_crtc_state);
-> +
-> +	intel_de_write(display, DP_MIN_HBLANK_CTL(trans), 0x00);
->  }
->  
->  static void mst_stream_post_disable(struct intel_atomic_state *state,
-> @@ -1265,7 +1293,7 @@ static void mst_stream_enable(struct intel_atomic_state *state,
->  	enum transcoder trans = pipe_config->cpu_transcoder;
->  	bool first_mst_stream = intel_dp->active_mst_links == 1;
->  	struct intel_crtc *pipe_crtc;
-> -	int ret, i;
-> +	int ret, i, min_hblank;
->  
->  	drm_WARN_ON(display->drm, pipe_config->has_pch_encoder);
->  
-> @@ -1280,6 +1308,29 @@ static void mst_stream_enable(struct intel_atomic_state *state,
->  			       TRANS_DP2_VFREQ_PIXEL_CLOCK(crtc_clock_hz & 0xffffff));
->  	}
->  
-> +	if (DISPLAY_VER(display) >= 20) {
-> +		/*
-> +		 * adjust the BlankingStart/BlankingEnd framing control from
-> +		 * the calculated value
-> +		 */
-> +		min_hblank = pipe_config->min_hblank - 2;
-> +
-> +		/* Maximum value to be programmed is limited to 0x10 */
-> +		min_hblank = min(0x10, min_hblank);
-> +
-> +		/*
-> +		 * Minimum hblank accepted for 128b/132b would be 5 and for
-> +		 * 8b/10b would be 3 symbol count
-> +		 */
-> +		if (intel_dp_is_uhbr(pipe_config))
-> +			min_hblank = max(min_hblank, 5);
-> +		else
-> +			min_hblank = max(min_hblank, 3);
-> +
-> +		intel_de_write(display, DP_MIN_HBLANK_CTL(trans),
-> +			       min_hblank);
-> +	}
-> +
->  	enable_bs_jitter_was(pipe_config);
->  
->  	intel_ddi_enable_transcoder_func(encoder, pipe_config);
-> diff --git a/drivers/gpu/drm/i915/i915_reg.h b/drivers/gpu/drm/i915/i915_reg.h
-> index 765e6c0528fb0b5a894395b77a5edbf0b0c80009..7bd783931199e2e5c7e15358bb4d2c904f28176a 100644
-> --- a/drivers/gpu/drm/i915/i915_reg.h
-> +++ b/drivers/gpu/drm/i915/i915_reg.h
-> @@ -3197,6 +3197,10 @@
->  #define _TRANS_DP2_VFREQLOW_D			0x630a8
->  #define TRANS_DP2_VFREQLOW(trans)		_MMIO_TRANS(trans, _TRANS_DP2_VFREQLOW_A, _TRANS_DP2_VFREQLOW_B)
->  
-> +#define _DP_MIN_HBLANK_CTL_A			0x600ac
-> +#define _DP_MIN_HBLANK_CTL_B			0x610ac
-> +#define DP_MIN_HBLANK_CTL(trans)		_MMIO_TRANS(trans, _DP_MIN_HBLANK_CTL_A, _DP_MIN_HBLANK_CTL_B)
-> +
->  /* SNB eDP training params */
->  /* SNB A-stepping */
->  #define  EDP_LINK_TRAIN_400MV_0DB_SNB_A		(0x38 << 22)
->
-> ---
-> base-commit: a15d2a84505eed8dbb58911147e44752734f3a88
-> change-id: 20250121-hblank-ad8ce892eb3a
->
-> Best regards,
-
+diff --git a/drivers/gpu/drm/i915/display/intel_cx0_phy.c b/drivers/gpu/drm/i915/display/intel_cx0_phy.c
+index bffe3d4bbe8b..bd33ebb8c71e 100644
+--- a/drivers/gpu/drm/i915/display/intel_cx0_phy.c
++++ b/drivers/gpu/drm/i915/display/intel_cx0_phy.c
+@@ -3559,3 +3559,48 @@ void intel_cx0pll_state_verify(struct intel_atomic_state *state,
+ 	else
+ 		intel_c20pll_state_verify(new_crtc_state, crtc, encoder, &mpll_hw_state.c20);
+ }
++
++static bool intel_cx0_pll_is_enabled(struct intel_display *display, enum port port)
++{
++	u32 val = intel_de_read(display, XELPDP_PORT_CLOCK_CTL(display, port));
++
++	if (REG_FIELD_GET(XELPDP_DDI_CLOCK_SELECT_MASK, val) == XELPDP_DDI_CLOCK_SELECT_NONE)
++		return false;
++
++	return true;
++}
++/*
++ * WA 14022081154
++ * The dedicated display PHYs reset to a power state that blocks S0ix, increasing idle
++ * system power. After a system reset (cold boot, S3/4/5, warm reset) if a dedicated
++ * PHY is not being brought up shortly, use these steps to move the PHY to the lowest
++ * power state to save power. For PTL the workaround is needed only for port A. Port B
++ * is not connected.
++ *
++ * 1. Follow the PLL Enable Sequence, using any valid frequency such as DP 1.62 GHz.
++ *    This brings lanes out of reset and enables the PLL to allow powerdown to be moved
++ *    to the Disable state.
++ * 2. Follow PLL Disable Sequence. This moves powerdown to the Disable state and disables the PLL.
++ */
++void ptl_power_save_wa(struct intel_display *display)
++{
++	struct intel_encoder *encoder;
++
++	if (DISPLAY_VER(display) != 30)
++		return;
++
++	for_each_intel_encoder(display->drm, encoder) {
++		struct intel_cx0pll_state pll_state = {};
++		int port_clock = 162000;
++
++		if (!intel_encoder_is_c10phy(encoder))
++			continue;
++
++		if (intel_cx0_pll_is_enabled(display, encoder->port))
++			continue;
++
++		intel_c10pll_calc_state_from_table(encoder, mtl_c10_edp_tables, port_clock, true, &pll_state);
++		__intel_cx0pll_enable(encoder, &pll_state, true, port_clock, 4);
++		intel_cx0pll_disable(encoder);
++	}
++}
+diff --git a/drivers/gpu/drm/i915/display/intel_cx0_phy.h b/drivers/gpu/drm/i915/display/intel_cx0_phy.h
+index 573fa7d3e88f..06346e4c5079 100644
+--- a/drivers/gpu/drm/i915/display/intel_cx0_phy.h
++++ b/drivers/gpu/drm/i915/display/intel_cx0_phy.h
+@@ -42,5 +42,6 @@ bool intel_cx0pll_compare_hw_state(const struct intel_cx0pll_state *a,
+ void intel_cx0_phy_set_signal_levels(struct intel_encoder *encoder,
+ 				     const struct intel_crtc_state *crtc_state);
+ int intel_mtl_tbt_calc_port_clock(struct intel_encoder *encoder);
++void ptl_power_save_wa(struct intel_display *display);
+ 
+ #endif /* __INTEL_CX0_PHY_H__ */
+diff --git a/drivers/gpu/drm/i915/display/intel_display_reset.c b/drivers/gpu/drm/i915/display/intel_display_reset.c
+index 093b386c95e8..b75827ff9c7e 100644
+--- a/drivers/gpu/drm/i915/display/intel_display_reset.c
++++ b/drivers/gpu/drm/i915/display/intel_display_reset.c
+@@ -7,6 +7,7 @@
+ 
+ #include "i915_drv.h"
+ #include "intel_clock_gating.h"
++#include "intel_cx0_phy.h"
+ #include "intel_display_driver.h"
+ #include "intel_display_reset.h"
+ #include "intel_display_types.h"
+@@ -116,6 +117,7 @@ void intel_display_reset_finish(struct drm_i915_private *i915)
+ 		intel_pps_unlock_regs_wa(display);
+ 		intel_display_driver_init_hw(display);
+ 		intel_clock_gating_init(i915);
++		ptl_power_save_wa(display);
+ 		intel_hpd_init(i915);
+ 
+ 		ret = __intel_display_driver_resume(display, state, ctx);
+diff --git a/drivers/gpu/drm/i915/display/intel_dpll_mgr.c b/drivers/gpu/drm/i915/display/intel_dpll_mgr.c
+index b8fa04d3cd5c..24893d2f79e3 100644
+--- a/drivers/gpu/drm/i915/display/intel_dpll_mgr.c
++++ b/drivers/gpu/drm/i915/display/intel_dpll_mgr.c
+@@ -27,6 +27,7 @@
+ #include "bxt_dpio_phy_regs.h"
+ #include "i915_drv.h"
+ #include "i915_reg.h"
++#include "intel_cx0_phy.h"
+ #include "intel_de.h"
+ #include "intel_display_types.h"
+ #include "intel_dkl_phy.h"
+@@ -4552,6 +4553,7 @@ static void sanitize_dpll_state(struct drm_i915_private *i915,
+ 		return;
+ 
+ 	adlp_cmtg_clock_gating_wa(i915, pll);
++	ptl_power_save_wa(&i915->display);
+ 
+ 	if (pll->active_mask)
+ 		return;
 -- 
-Jani Nikula, Intel
+2.43.0
+
