@@ -4,56 +4,54 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3DE06C02193
-	for <intel-gfx@archiver.kernel.org>; Tue,  4 Feb 2025 15:49:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DBB6BC02193
+	for <intel-gfx@archiver.kernel.org>; Tue,  4 Feb 2025 15:51:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DE6D410E6A3;
-	Tue,  4 Feb 2025 15:49:33 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3C26C10E6C5;
+	Tue,  4 Feb 2025 15:51:47 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="LmNX11ZT";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="iPDF7vjz";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.9])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4EEBF10E6A3;
- Tue,  4 Feb 2025 15:49:33 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.13])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CF9DC10E6B2;
+ Tue,  4 Feb 2025 15:51:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1738684174; x=1770220174;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=aEQ5RKTqZfnTzsEV4qipgcgMgE+JYcQGwuP5Twkf8Bs=;
- b=LmNX11ZTR9ZQN51uC7iDLcWqOUXvguvzbyH7PvUXa+/gtdLlhr2ZWPWC
- tgC4p1Msu9eSjzON21JQrqh5U8yCTYzvPua3iZf+Wu/yqHsVd7GSLp1SV
- MjELqCfE1K0Fnl5ALfY6ui1LDbJ7CNQLLE8xPJb9ti3FmUxOH+WnSMxuo
- 09EJD1sLndT9aIYHstjxaQlzONhD2PZXx7cZQfnr5MDkiRRdq3beEqNox
- Fs2ZFknGwI9APdx7NLN8SaL1RTag7dK+a4vf7rf2x+XhVAaYummDhq3xT
- F4b4VClBznhFEVy6KM8VLk7Q7s/wUK1ihFH8GqlR9yJHxztXhT368j4GK g==;
-X-CSE-ConnectionGUID: 9545Hf4rQxKax8iJWYoQ4A==
-X-CSE-MsgGUID: whgOLevAST2GnJGrWGy4JA==
-X-IronPort-AV: E=McAfee;i="6700,10204,11336"; a="49869643"
-X-IronPort-AV: E=Sophos;i="6.13,258,1732608000"; d="scan'208";a="49869643"
-Received: from orviesa008.jf.intel.com ([10.64.159.148])
- by fmvoesa103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 04 Feb 2025 07:49:33 -0800
-X-CSE-ConnectionGUID: jVRJOgVkSa6nGx35FIprRA==
-X-CSE-MsgGUID: qkg2yFjpS7yWLgSLXcGVMA==
+ t=1738684297; x=1770220297;
+ h=date:from:to:cc:subject:message-id:reply-to:references:
+ mime-version:in-reply-to;
+ bh=AnWL/P9Tmwu/sUqluqIBDVE7cDTyEJGZjofXpy5edJc=;
+ b=iPDF7vjzl1RFxo7vLnfW4tfw74cBo+/93xtfNeWGO8Gr1D+O7179aUor
+ bRRhXRYxOXVMbUngMEuAalCgk/Wh/QLp1cIJ9swkFdT/zTT2Z68mIp1bL
+ LPibW7MZRyNikCOuV1nT9Min9w2T+UCSlrhv60QauP8bZgKnWLbiaMA2h
+ TpBYeNdj9WHt4XWa3tjPn0ZDIFD3XHwXF2jc/w1hXdcEUaPPcyvE9dV4B
+ a4vNMLKPgrpx5z5Klucbw/hB6F6yiWP4Ba3UyIwBRC9TK+hRPmOKs4dLP
+ WGeop38XR8Svk9MGxj28cF28q/upW7cFDj79jNPbb7lCP/Ahj0V4sbGCR w==;
+X-CSE-ConnectionGUID: sFmZx4dqRx6CFakS+CWfzg==
+X-CSE-MsgGUID: Bk1+cYshQeCd1cLzBAltKw==
+X-IronPort-AV: E=McAfee;i="6700,10204,11336"; a="42055800"
+X-IronPort-AV: E=Sophos;i="6.13,258,1732608000"; d="scan'208";a="42055800"
+Received: from orviesa006.jf.intel.com ([10.64.159.146])
+ by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 04 Feb 2025 07:51:36 -0800
+X-CSE-ConnectionGUID: 2HDsapLnS2eGdWsIyF4rXw==
+X-CSE-MsgGUID: QgUFyM5aRCC4gcd2R6NyYg==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.12,224,1728975600"; d="scan'208";a="111480465"
-Received: from dprybysh-mobl.ger.corp.intel.com (HELO localhost)
- ([10.245.246.139])
- by orviesa008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 04 Feb 2025 07:49:30 -0800
-From: Jani Nikula <jani.nikula@intel.com>
-To: intel-gfx@lists.freedesktop.org,
-	intel-xe@lists.freedesktop.org
-Cc: jani.nikula@intel.com,
-	Imre Deak <imre.deak@intel.com>
-Subject: [PATCH] drm/i915/dp: Fix potential infinite loop in 128b/132b SST
-Date: Tue,  4 Feb 2025 17:49:25 +0200
-Message-Id: <20250204154925.3001781-1-jani.nikula@intel.com>
-X-Mailer: git-send-email 2.39.5
+X-IronPort-AV: E=Sophos;i="6.13,258,1732608000"; d="scan'208";a="110618509"
+Received: from ideak-desk.fi.intel.com ([10.237.72.78])
+ by orviesa006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 04 Feb 2025 07:51:35 -0800
+Date: Tue, 4 Feb 2025 17:52:32 +0200
+From: Imre Deak <imre.deak@intel.com>
+To: Jani Nikula <jani.nikula@intel.com>
+Cc: intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org
+Subject: Re: [PATCH] drm/i915/dp: Fix potential infinite loop in 128b/132b SST
+Message-ID: <Z6I3wAio4_7UbiWG@ideak-desk.fi.intel.com>
+References: <20250204154925.3001781-1-jani.nikula@intel.com>
 MIME-Version: 1.0
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20250204154925.3001781-1-jani.nikula@intel.com>
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,40 +64,44 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: imre.deak@intel.com
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Passing 0 as the step only works when there are other reasons to break
-out of the BPP loop in intel_dp_mtp_tu_compute_config(). Otherwise, an
-infinite loop might occur. Fix it by explicitly checking for 0 step.
+On Tue, Feb 04, 2025 at 05:49:25PM +0200, Jani Nikula wrote:
+> Passing 0 as the step only works when there are other reasons to break
+> out of the BPP loop in intel_dp_mtp_tu_compute_config(). Otherwise, an
+> infinite loop might occur. Fix it by explicitly checking for 0 step.
+> 
+> Fixes: ef0a0757bbea ("drm/i915/dp: compute config for 128b/132b SST w/o DSC")
+> Reported-by: Imre Deak <imre.deak@intel.com>
+> Closes: https://lore.kernel.org/r/Z6I0knh2Kt5T0JrT@ideak-desk.fi.intel.com
+> Signed-off-by: Jani Nikula <jani.nikula@intel.com>
 
-Fixes: ef0a0757bbea ("drm/i915/dp: compute config for 128b/132b SST w/o DSC")
-Reported-by: Imre Deak <imre.deak@intel.com>
-Closes: https://lore.kernel.org/r/Z6I0knh2Kt5T0JrT@ideak-desk.fi.intel.com
-Signed-off-by: Jani Nikula <jani.nikula@intel.com>
+Reviewed-by: Imre Deak <imre.deak@intel.com>
 
----
-
-Note: This needs a backport with (!step) for -rc1.
----
- drivers/gpu/drm/i915/display/intel_dp_mst.c | 4 ++++
- 1 file changed, 4 insertions(+)
-
-diff --git a/drivers/gpu/drm/i915/display/intel_dp_mst.c b/drivers/gpu/drm/i915/display/intel_dp_mst.c
-index 95abc6ea85eb..1587be5cd0a7 100644
---- a/drivers/gpu/drm/i915/display/intel_dp_mst.c
-+++ b/drivers/gpu/drm/i915/display/intel_dp_mst.c
-@@ -353,6 +353,10 @@ int intel_dp_mtp_tu_compute_config(struct intel_dp *intel_dp,
- 
- 			break;
- 		}
-+
-+		/* Allow using zero step to indicate one try */
-+		if (!bpp_step_x16)
-+			break;
- 	}
- 
- 	if (slots < 0) {
--- 
-2.39.5
-
+> ---
+> 
+> Note: This needs a backport with (!step) for -rc1.
+> ---
+>  drivers/gpu/drm/i915/display/intel_dp_mst.c | 4 ++++
+>  1 file changed, 4 insertions(+)
+> 
+> diff --git a/drivers/gpu/drm/i915/display/intel_dp_mst.c b/drivers/gpu/drm/i915/display/intel_dp_mst.c
+> index 95abc6ea85eb..1587be5cd0a7 100644
+> --- a/drivers/gpu/drm/i915/display/intel_dp_mst.c
+> +++ b/drivers/gpu/drm/i915/display/intel_dp_mst.c
+> @@ -353,6 +353,10 @@ int intel_dp_mtp_tu_compute_config(struct intel_dp *intel_dp,
+>  
+>  			break;
+>  		}
+> +
+> +		/* Allow using zero step to indicate one try */
+> +		if (!bpp_step_x16)
+> +			break;
+>  	}
+>  
+>  	if (slots < 0) {
+> -- 
+> 2.39.5
+> 
