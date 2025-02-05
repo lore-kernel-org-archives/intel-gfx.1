@@ -4,57 +4,73 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 68F2BC02192
-	for <intel-gfx@archiver.kernel.org>; Wed,  5 Feb 2025 10:42:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1FC14C02192
+	for <intel-gfx@archiver.kernel.org>; Wed,  5 Feb 2025 10:51:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 14E8E10E774;
-	Wed,  5 Feb 2025 10:42:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id ABD4510E770;
+	Wed,  5 Feb 2025 10:51:34 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="HGOnGFvk";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="qQyFq5EQ";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.18])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8239C10E77A;
- Wed,  5 Feb 2025 10:42:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1738752123; x=1770288123;
- h=from:date:subject:mime-version:content-transfer-encoding:
- message-id:references:in-reply-to:to:cc;
- bh=EKl1rSYaknFywSLfxXXlGO+DIZIj85omve2lwtZwFEI=;
- b=HGOnGFvkqhQdpRW8YXVDUydP07YVKQ47GN4qQgcsT+6NZqQ9sgNoJGaq
- ODZWkwfZ/eMSMFKysMlfG+47g57rSKVgbvtdWpE/eUn9nlzaGGe0q+ZYX
- nsmSouiXMfdu/ABDcHiP3ShqZLSMBTFIIKzt9Xm4G/Mxcoht4KCT8XgkO
- y6TRdyP8RrHSTkm/VuXFdC/7sjHsy2VRojWB3Rfpc/JEN8Z/1aLLtFC5v
- Kh6n3x/QBSg2CgmkftesFrPWVs0MrbWO05XY3Z0KQEKGh/bn3eNpIySFb
- YoB9vCJ+KY4qjSeRCjNB1YM/LfWH9Di+lrTuwPxENphn81HYRLoWp+qR3 w==;
-X-CSE-ConnectionGUID: hYMQmeELQ9C5UCcZaf0QWA==
-X-CSE-MsgGUID: RpZ4BT7uRGWiZakEt5Kw/Q==
-X-IronPort-AV: E=McAfee;i="6700,10204,11336"; a="38544820"
-X-IronPort-AV: E=Sophos;i="6.13,261,1732608000"; d="scan'208";a="38544820"
-Received: from fmviesa003.fm.intel.com ([10.60.135.143])
- by fmvoesa112.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 05 Feb 2025 02:42:03 -0800
-X-CSE-ConnectionGUID: aryJZ6MmRB+Ub/rEUFxGPw==
-X-CSE-MsgGUID: rYj/DU3JSvmwSdiEyGw30w==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.12,224,1728975600"; d="scan'208";a="114938031"
-Received: from srr4-3-linux-106-armuthy.iind.intel.com ([10.190.238.56])
- by fmviesa003.fm.intel.com with ESMTP; 05 Feb 2025 02:42:02 -0800
-From: Arun R Murthy <arun.r.murthy@intel.com>
-Date: Wed, 05 Feb 2025 15:57:19 +0530
-Subject: [PATCH v4 3/3] drm/i915/display: Add i915 hook for
- format_mod_supported_async
+Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com
+ [209.85.128.47])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 339C010E770
+ for <intel-gfx@lists.freedesktop.org>; Wed,  5 Feb 2025 10:49:42 +0000 (UTC)
+Received: by mail-wm1-f47.google.com with SMTP id
+ 5b1f17b1804b1-436281c8a38so46623915e9.3
+ for <intel-gfx@lists.freedesktop.org>; Wed, 05 Feb 2025 02:49:42 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1738752580; x=1739357380; darn=lists.freedesktop.org;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=94BD5iI+yWzM76aL9CNZROMdgLt+6AsjoeKjE7TI6QY=;
+ b=qQyFq5EQgB+hZZloZs0VdVInOCl8hTEjyuMeJVT4/FlUaDUBMbV3muXvh5RiME5H9K
+ pf8Nv3puQucMWtXsIt2CLjJKKPgEoSR0LFOmn1SkNF2YDdGt+4XxElL561zPmvfROGCu
+ yNu6yfA24uC/C6jLMsQSiVJvmD9NTnk0+tZvFvEp2MJee7Nl72oY4ZPaS4SoniwVu9So
+ QqYSYw4VGgFnlB0T7kp+kJp6DAHd7ztyLY2OasCZQ8eyoh+rFHUpbdwxllgcpPyfcfF3
+ 7UvtNQZ4HxvqNOWtl7WBqpkJvJcm5Ol83S7O2NWyUs334H/0kPQMVBx/LJiRY5b5+T7j
+ dnvQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1738752580; x=1739357380;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=94BD5iI+yWzM76aL9CNZROMdgLt+6AsjoeKjE7TI6QY=;
+ b=R/FBX/2R3OUL/k6m10JfzbEa7HpYA3eULc22LJmacF4C8ofZMJdsMrdsp9SCQ4ZzVm
+ 6H5ARhHRxIOqJBtKoiupjJWTqejUTSDWWQ7uRxuCfeZduK03iWk9dCCsaeROlODC1vdy
+ D70JWUlVH3dGOJWZkivxHiYIS34KXBZEJ1q+YzywEel04rBGwHtyllWpNuwdMk3NQrqj
+ kmB8xfEHHfPTbS/JRWWKPn8O19ht1/OeRlfaWjUeTxkuuOgt4jJgK3+wQ3KXW+Puty3E
+ JUTz1stilVWeZ0+ST09HdjJNIzeo8HXoGNodHVLOPGdy5WhosCKP/zjjHyxQ0rsNxjy/
+ zeAw==
+X-Gm-Message-State: AOJu0Ywg38NfPoqzbuuABlr3yLU965yvfxwBofVznJCTcQAlYv1V0ZPy
+ Odf+ux3KODH39ExJtdY8e2k2wPrM4FaNExDGYREPiX1AJGEOQpkSdPSBhH/pIuk=
+X-Gm-Gg: ASbGnctvUloKmx1eKIUC6vRlu7zQxNn+F2Kp1VhfKwYSotNPAw3f2zSQyyv8HqAFbnw
+ OIla2QTLFX5erkn4UQOv865/R5ztR8PXD9x6iu74l68mq9ltaLKHVNWDw1fKee5/mezXf0guL+f
+ jRjc+34BI9dpyqb7wOHKC279Utc3UOp0Y+dIshZlQqQ0020CwW9XuLGpGMOP+9n3DymHU+yj2TS
+ r7T7c3/Z3evkQyYxvjLRikwxxhLgy6koMaZM9dd54sO72hqK3k8YErXAt0KOT9ZIsHFh/tePLoQ
+ zbpJPdk4QnB2MNwTAIxa
+X-Google-Smtp-Source: AGHT+IFF2k60IjeyTH2kEiK1YFUiTtSBUfazPnEGnPzHX1XMt0v2IqhXTQePyo6//XkYSMCC1KB8RA==
+X-Received: by 2002:a05:600c:3b93:b0:435:192:63ca with SMTP id
+ 5b1f17b1804b1-4390d590682mr13888985e9.21.1738752580561; 
+ Wed, 05 Feb 2025 02:49:40 -0800 (PST)
+Received: from localhost ([196.207.164.177])
+ by smtp.gmail.com with UTF8SMTPSA id
+ ffacd0b85a97d-38c5c1cf896sm18944543f8f.94.2025.02.05.02.49.39
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 05 Feb 2025 02:49:40 -0800 (PST)
+Date: Wed, 5 Feb 2025 13:49:37 +0300
+From: Dan Carpenter <dan.carpenter@linaro.org>
+To: "Nautiyal, Ankit K" <ankit.k.nautiyal@intel.com>
+Cc: intel-gfx@lists.freedesktop.org
+Subject: Re: [bug report] drm/i915/dp: Get optimal link config to have best
+ compressed bpp
+Message-ID: <9a7d7064-3b79-4bcb-964a-cad317ab136d@stanley.mountain>
+References: <6d13f0d4-9644-40eb-a0f4-71691ae93697@stanley.mountain>
+ <6f03eacf-1f00-445d-b85c-296b9872347f@intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20250205-asyn-v4-3-9a5b018e359b@intel.com>
-References: <20250205-asyn-v4-0-9a5b018e359b@intel.com>
-In-Reply-To: <20250205-asyn-v4-0-9a5b018e359b@intel.com>
-To: dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org, 
- intel-xe@lists.freedesktop.org
-Cc: chaitanya.kumar.borah@intel.com, ville.syrjala@intel.com, 
- Arun R Murthy <arun.r.murthy@intel.com>
-X-Mailer: b4 0.15-dev
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <6f03eacf-1f00-445d-b85c-296b9872347f@intel.com>
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,99 +86,15 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Hook up the newly added plane function pointer
-format_mod_supported_async to populate the modifiers/formats supported
-by asynchronous flips.
+On Wed, Feb 05, 2025 at 04:09:00PM +0530, Nautiyal, Ankit K wrote:
+> If DSC is not used, intel_dp_dsc_compute_pipe_bpp_limits() does not get
+> called, and the clamping to 24 bpp does not occur.
+> 
+> I hope this clarifies the distinction and the logic behind the clamping.
+> 
 
-Signed-off-by: Arun R Murthy <arun.r.murthy@intel.com>
----
- drivers/gpu/drm/i915/display/skl_universal_plane.c | 56 ++++++++++++++++------
- 1 file changed, 41 insertions(+), 15 deletions(-)
+Yes, thanks!
 
-diff --git a/drivers/gpu/drm/i915/display/skl_universal_plane.c b/drivers/gpu/drm/i915/display/skl_universal_plane.c
-index ba5db553c374259f8f3246c1408b55d32c8794e5..96d53b22715cf397483acbdb23b4dd60d6cbb604 100644
---- a/drivers/gpu/drm/i915/display/skl_universal_plane.c
-+++ b/drivers/gpu/drm/i915/display/skl_universal_plane.c
-@@ -511,6 +511,33 @@ skl_plane_max_stride(struct intel_plane *plane,
- 				modifier, rotation,
- 				max_pixels, max_bytes);
- }
-+static bool intel_plane_async_formats(struct intel_plane *plane, uint32_t format)
-+{
-+	switch (format) {
-+	case DRM_FORMAT_RGB565:
-+	case DRM_FORMAT_XRGB8888:
-+	case DRM_FORMAT_XBGR8888:
-+	case DRM_FORMAT_ARGB8888:
-+	case DRM_FORMAT_ABGR8888:
-+	case DRM_FORMAT_XRGB2101010:
-+	case DRM_FORMAT_XBGR2101010:
-+	case DRM_FORMAT_XRGB16161616F:
-+	case DRM_FORMAT_XBGR16161616F:
-+		return true;
-+	default:
-+		return false;
-+	}
-+}
-+
-+static bool intel_plane_format_mod_supported_async(struct drm_plane *plane,
-+						   uint32_t format,
-+						   uint64_t modifier)
-+{
-+	if (intel_plane_can_async_flip(to_intel_plane(plane), modifier))
-+		return false;
-+
-+	return intel_plane_async_formats(to_intel_plane(plane), format);
-+}
- 
- static bool tgl_plane_can_async_flip(u64 modifier)
- {
-@@ -2559,30 +2586,29 @@ static bool tgl_plane_format_mod_supported(struct drm_plane *_plane,
- 	}
- }
- 
-+#define INTEL_PLANE_FUNCS \
-+	.update_plane = drm_atomic_helper_update_plane, \
-+	.disable_plane = drm_atomic_helper_disable_plane, \
-+	.destroy = intel_plane_destroy, \
-+	.atomic_duplicate_state = intel_plane_duplicate_state, \
-+	.atomic_destroy_state = intel_plane_destroy_state, \
-+	.format_mod_supported_async = intel_plane_format_mod_supported_async
-+
- static const struct drm_plane_funcs skl_plane_funcs = {
--	.update_plane = drm_atomic_helper_update_plane,
--	.disable_plane = drm_atomic_helper_disable_plane,
--	.destroy = intel_plane_destroy,
--	.atomic_duplicate_state = intel_plane_duplicate_state,
--	.atomic_destroy_state = intel_plane_destroy_state,
-+	INTEL_PLANE_FUNCS,
-+
- 	.format_mod_supported = skl_plane_format_mod_supported,
- };
- 
- static const struct drm_plane_funcs icl_plane_funcs = {
--	.update_plane = drm_atomic_helper_update_plane,
--	.disable_plane = drm_atomic_helper_disable_plane,
--	.destroy = intel_plane_destroy,
--	.atomic_duplicate_state = intel_plane_duplicate_state,
--	.atomic_destroy_state = intel_plane_destroy_state,
-+	INTEL_PLANE_FUNCS,
-+
- 	.format_mod_supported = icl_plane_format_mod_supported,
- };
- 
- static const struct drm_plane_funcs tgl_plane_funcs = {
--	.update_plane = drm_atomic_helper_update_plane,
--	.disable_plane = drm_atomic_helper_disable_plane,
--	.destroy = intel_plane_destroy,
--	.atomic_duplicate_state = intel_plane_duplicate_state,
--	.atomic_destroy_state = intel_plane_destroy_state,
-+	INTEL_PLANE_FUNCS,
-+
- 	.format_mod_supported = tgl_plane_format_mod_supported,
- };
- 
-
--- 
-2.25.1
+regards,
+dan carpenter
 
