@@ -4,55 +4,186 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 758B6C02197
-	for <intel-gfx@archiver.kernel.org>; Wed,  5 Feb 2025 02:17:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3238DC02192
+	for <intel-gfx@archiver.kernel.org>; Wed,  5 Feb 2025 03:42:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3993710E719;
-	Wed,  5 Feb 2025 02:16:59 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 80A5210E72F;
+	Wed,  5 Feb 2025 03:42:45 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="l6FsRy84";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="j9KUcblg";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.19])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 98A4E10E717;
- Wed,  5 Feb 2025 02:14:44 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.11])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BDA4F10E72F
+ for <intel-gfx@lists.freedesktop.org>; Wed,  5 Feb 2025 03:42:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1738721685; x=1770257685;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=h8nfBdK4jDVlj5/P4Urcm2UDsBbRbcl/QXUU9PYiiVs=;
- b=l6FsRy84UWorWjQTai3Gt+glRjrd4hyBVvGRxx8+Qxg4rq9ZGobgJ9j/
- KFEm3O/9bSje0CVUyWaPL/phGPfM2+7Sgi3VTTGiefKK0qCwf/YT8P8Hh
- 29wnTPOx3pJiAUg5Tgt60qMvqmk+uHJ6xwPQcK9lE3/9K6CqRxRHAniA6
- J4bDzPZ4cK+S+3VAgeE0AKGkqaadIAP37UYSRoRY/r7tMoj2Ogh6lvrYo
- /K/7gSFCRtXSG/Mh7bdxoJMRYN/uoVnQX2HMlcmVqMIKmHwaeOk0q2fZd
- X4spZwt8ZlHw9K7kx41p/ErO9zcsRBqxr6JR+QC3j2aqYhwdTWURtj5tL w==;
-X-CSE-ConnectionGUID: gxXJtTdNSIeQZR11J8XT5w==
-X-CSE-MsgGUID: WQCaP8I2TzSSJyW48z4QoQ==
-X-IronPort-AV: E=McAfee;i="6700,10204,11336"; a="39160212"
-X-IronPort-AV: E=Sophos;i="6.13,260,1732608000"; d="scan'208";a="39160212"
-Received: from orviesa008.jf.intel.com ([10.64.159.148])
- by orvoesa111.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 04 Feb 2025 18:14:45 -0800
-X-CSE-ConnectionGUID: VAVxJaopQxGNFq/us286cA==
-X-CSE-MsgGUID: CH68mxamQAu1RQLbEcFHYA==
+ t=1738726964; x=1770262964;
+ h=from:to:subject:date:message-id:references:in-reply-to:
+ mime-version; bh=QYBxOyFBGdahDx6uiZmSuvNq/mreFetGwzRcm7x3nuc=;
+ b=j9KUcblgTsOAqDkGsnLvSq0D/jPx8+CGt8r5U11A8frCYWYNLp76cR0V
+ 4LibUoEtHhdHC88b0IZ+wz/DGdonGFDk9Ak8kb2essxtFEd0JJBiuxC7l
+ R5RdZH5+Z+ipDNkOon8M6C+CkCb17xP9dtsOgLBiqaqjm3a4pLxE4ZNI4
+ vyHdP6cFgwT+yG1kSGiwEdQsi/Q5q7FhKMDbiR5dVKZJf8UIo1Wll7WX8
+ PKOpc7D58imYJg1qnxfdOlvuWo2awjaXhD53kLSs6qs3ajjR+w5DVx+dd
+ fi+inDVmLWUG3kTgdzdBvBW4zwhIdoi97FB4S1eiYq3aUNGpG6uT4wVT4 w==;
+X-CSE-ConnectionGUID: GHp7OFfTRAS3I5FOlvne8Q==
+X-CSE-MsgGUID: X0kkCn+GTAaCjuM31KJqOg==
+X-IronPort-AV: E=McAfee;i="6700,10204,11336"; a="49531486"
+X-IronPort-AV: E=Sophos;i="6.13,260,1732608000"; d="scan'208,217";a="49531486"
+Received: from orviesa006.jf.intel.com ([10.64.159.146])
+ by orvoesa103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 04 Feb 2025 19:42:43 -0800
+X-CSE-ConnectionGUID: 2gSBrgb4SfCskf8RlsoiMw==
+X-CSE-MsgGUID: QK9NPxO7SxOII2WGccxMWw==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.12,224,1728975600"; d="scan'208";a="111643370"
-Received: from vbelgaum-ubuntu.fm.intel.com ([10.1.39.141])
- by orviesa008.jf.intel.com with ESMTP; 04 Feb 2025 18:14:44 -0800
-From: Vinay Belgaumkar <vinay.belgaumkar@intel.com>
-To: intel-gfx@lists.freedesktop.org,
-	igt-dev@lists.freedesktop.org
-Cc: Vinay Belgaumkar <vinay.belgaumkar@intel.com>
-Subject: [PATCH i-g-t v8 1/3] lib/igt_core: Add tolerance and measured_usleep
- utils
-Date: Tue,  4 Feb 2025 18:10:54 -0800
-Message-Id: <20250205021056.1539902-2-vinay.belgaumkar@intel.com>
-X-Mailer: git-send-email 2.38.1
-In-Reply-To: <20250205021056.1539902-1-vinay.belgaumkar@intel.com>
-References: <20250205021056.1539902-1-vinay.belgaumkar@intel.com>
+X-IronPort-AV: E=Sophos;i="6.13,260,1732608000"; 
+ d="scan'208,217";a="110761142"
+Received: from orsmsx601.amr.corp.intel.com ([10.22.229.14])
+ by orviesa006.jf.intel.com with ESMTP/TLS/AES256-GCM-SHA384;
+ 04 Feb 2025 19:42:43 -0800
+Received: from orsmsx601.amr.corp.intel.com (10.22.229.14) by
+ ORSMSX601.amr.corp.intel.com (10.22.229.14) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2507.44; Tue, 4 Feb 2025 19:42:38 -0800
+Received: from ORSEDG601.ED.cps.intel.com (10.7.248.6) by
+ orsmsx601.amr.corp.intel.com (10.22.229.14) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2507.44 via Frontend Transport; Tue, 4 Feb 2025 19:42:38 -0800
+Received: from NAM12-DM6-obe.outbound.protection.outlook.com (104.47.59.171)
+ by edgegateway.intel.com (134.134.137.102) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.1.2507.44; Tue, 4 Feb 2025 19:42:38 -0800
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=AOr/D5iHMQgWO/PLLoOJDWDmrR3fq3e8XKrR1VaRIMagTbe7si4fo3Z4MLUxsa02foQr2tm3mA+i++cgn/fNCWvEPJ/qbqtetxZzB6n9GX8zgsPndknFbPaaC9Rz3N08Bm342/SaLxj6R4ArWZjZfCsmuhiS6tcQnpgrhbbfSzZO/Y6Ew7sPrvxRVyjB+ydV4XYXnb8E2vim3mWFmH2BTmXU2Mtcdxa9ddeH4RFp2e1YBj+PMIbjuVmziaSzRcZSemRUCLzlCEAoZXA82f/XfwkV+aHVrHvuIbI612jkAe2nWMqgHMig+o+Vqhv/0kdshQSvSpHJ2y9CYZPuPLLjGg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=QYBxOyFBGdahDx6uiZmSuvNq/mreFetGwzRcm7x3nuc=;
+ b=mtBjaAg5lVi7CRjkD5JAYkyBWCPfBwPiqA8UJLDZyHDueu3mquLuscghwDrwAavYh0OLUmQ6mvAufS4gOcfzFWqjJ77ciuAkzGRKRQMUtILixCBucEBTpCqIrx941YzKMgLkHnEST+ghjCEc0uWa4woD3EuqpkeaD8IGewEyvvoKuI977EHaKWh1ZEuNycrAKmGfMjnqauuHH7xQhnNtImlY1tw5dZ7rgPbtVDo94uJA/83GwPooNF7NnL+VP6EousiYIw3J+tbpB7pADl+YpxjgNksBb6mXfwTDcDQaSJ0xxAWz7bGphY2NvQUGimynN0pJcRY9Bofjb+nm5zFX6w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Received: from IA1PR11MB6348.namprd11.prod.outlook.com (2603:10b6:208:3af::16)
+ by PH0PR11MB7613.namprd11.prod.outlook.com (2603:10b6:510:285::18)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8398.26; Wed, 5 Feb
+ 2025 03:42:35 +0000
+Received: from IA1PR11MB6348.namprd11.prod.outlook.com
+ ([fe80::4db5:b0d9:b6b3:bb52]) by IA1PR11MB6348.namprd11.prod.outlook.com
+ ([fe80::4db5:b0d9:b6b3:bb52%3]) with mapi id 15.20.8398.021; Wed, 5 Feb 2025
+ 03:42:35 +0000
+From: "Golani, Mitulkumar Ajitkumar" <mitulkumar.ajitkumar.golani@intel.com>
+To: "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>
+Subject: =?utf-8?B?UkU6IOKclyBpOTE1LkNJLkJBVDogZmFpbHVyZSBmb3IgQ29tcHV0ZSBhc19z?=
+ =?utf-8?Q?dp_when_vrr_is_enabled_(rev2)?=
+Thread-Topic: =?utf-8?B?4pyXIGk5MTUuQ0kuQkFUOiBmYWlsdXJlIGZvciBDb21wdXRlIGFzX3NkcCB3?=
+ =?utf-8?Q?hen_vrr_is_enabled_(rev2)?=
+Thread-Index: AQHbdyTr6vCGgD0/k0+rAa6oAHMWw7M4EYig
+Date: Wed, 5 Feb 2025 03:42:35 +0000
+Message-ID: <IA1PR11MB634874E22E907CAE41D7FFFBB2F72@IA1PR11MB6348.namprd11.prod.outlook.com>
+References: <20250204130638.2800372-1-mitulkumar.ajitkumar.golani@intel.com>
+ <173868782103.971550.11166166635790552806@b555e5b46a47>
+In-Reply-To: <173868782103.971550.11166166635790552806@b555e5b46a47>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: IA1PR11MB6348:EE_|PH0PR11MB7613:EE_
+x-ms-office365-filtering-correlation-id: 7f2fe507-f7af-49a3-af2d-08dd459720e4
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+ ARA:13230040|376014|366016|1800799024|38070700018|13003099007|7053199007|8096899003;
+x-microsoft-antispam-message-info: =?utf-8?B?eENVcU04Q2JFSTJNclJUS0cyc2pGSzlyeTRlVXFqbXlHNTd1d3diMGtFL1NB?=
+ =?utf-8?B?bjNKbGFNcTFaZDZGdXBPdXVIK3NPenY1VG15bG4rNSs5Q2kzN25mckVST2ZS?=
+ =?utf-8?B?M3NaN1JZeE95anFOV2dtNEpROWNrVkVLZSt1bktvbWkxWkRXRHlLSGpJbVU4?=
+ =?utf-8?B?NnlOZDFSVW5ody9iL1k4OUdONC9uT2NVTHpHWXhDYlhBbmNIc0x0aGpnRXNt?=
+ =?utf-8?B?Q0dYT0RXSEkzRG1Uend6TG1EVDYxQWZ6RktRRHI4bENxMWEzUHlrbWIrbkVK?=
+ =?utf-8?B?NFFyQjRUS0NLYnpvaE9qb2dmZmFMakx3L29ubEs4WGNWL1J0QmtMeFlTeDFF?=
+ =?utf-8?B?a1dkS0V6UTZHODBOTXhLTklDWGJ2ZjlGYUQ1OHpIT01JOTF0QkdjOGw1ODUx?=
+ =?utf-8?B?YlduMWRXdXlEWjdLcHI3R1hBT2Y0cVhFT0tmTHNsdEMzdGhOZVZtMWk1ejdq?=
+ =?utf-8?B?Y1dUTjk3OGF3VnJjSXU5akNIcFhYdngwdmpybXVsVVJkMDc3YlFlUzEwUTRR?=
+ =?utf-8?B?TjlFb2JMdzlIY0tuV25wWk5lUndDUUszRWtuR3ZwK0JHNnFqSlNoOTlzZnJO?=
+ =?utf-8?B?YklBSnUvdkNMWlhPMEI4SmI1UURILzIvejdSUVpuQU5PTHNxbjBYQlVnSUhl?=
+ =?utf-8?B?bnlIWCtjSDZwdGxZUmpQWjZkS1FyQW5GeGZ2TWdrV0FlNWJtTmNTbkczT0pP?=
+ =?utf-8?B?Q0poUW1JT0RkQjZ0Q09QVDVDZFYwSUQvcUR6TkxXanB4YzlrRWpyeGJlYWM3?=
+ =?utf-8?B?eHZDWnFaTXZnMHJQdmVxU25YUVV4aW00SlhEUkJsNFozK0o4dGdaVWE3NTJz?=
+ =?utf-8?B?VEo1dXNyWlVGTWpZQStxUVh3K3RPVVhiYllhZzdHWnhGbVVaRTE5d1k1K1Y3?=
+ =?utf-8?B?SWp6K0s3UFZUcU9PbWlVdFB6dVM5N1RSVFZJRlZTZ3g3VnoyalNyQnh2S01j?=
+ =?utf-8?B?SjhEWVlEcC9rU21jU2tYZUV0aEtBVGhtL1hRbkJDSnVwdHJqSHkvaU5NMktK?=
+ =?utf-8?B?cDVucHhzVXB2c2diQytqSEVNelJSTnozc2xwbU5uckFaUi8wUWZoU2ZVNmVO?=
+ =?utf-8?B?OTRqQWdJc0FFOG9DaGpiTDRqU3RqWFRpNmxWcWFpcDlDQThzd1Z5QVVsd1Y5?=
+ =?utf-8?B?cDJIdVhvblZ3Y1Zja09PVXlUekM1dUF6MnQ1ZFRhb2JBQlpYVlhjZmZKWktu?=
+ =?utf-8?B?MWpjb1drZUd4cm5WRmJXamZDNTV3am1nS1FyRmFlellBckJQWWtwQjlEMUlF?=
+ =?utf-8?B?VG1VMUI5NzVveE9OYjNWRG1IcUZuODJKTS93MzYyNUxWRlg2TUxvd0llRmo1?=
+ =?utf-8?B?SU52b2V1dlNJOHQvMVhyVGVGK0ZIcWpmTDMrWFFaOWhZZGhNZTltdnFqbkpM?=
+ =?utf-8?B?WjVFM1lGZERSMFZzK3dVbk44bDNSYW9NZzVXMVlqcStyWVQ4eWIxZklQV1Ji?=
+ =?utf-8?B?N0J3WkxsaWVWU2syUzJNREdJRkZTNW8vZEtaTUN1RVpBL3c1MnMreThyb0cr?=
+ =?utf-8?B?UFJiaFRudDk1L1AvU002S01YUzdPcXJVL1BpV1BRMGdhNHgxNVQyalNIbVpK?=
+ =?utf-8?B?MTRZUEU5QjlSVzhUelc4RHo1NEpIZjJSdmRUWTNQSW0rRitsSWE5QW54UWtQ?=
+ =?utf-8?B?UnZoZFRyWWpJRk1ib2FINWFXVDFlMWRxcG0zWWJubVdxdG5TRG1XSlRneW52?=
+ =?utf-8?B?eUFOamtPNzNZK0FEUDkycnJDTHEzRkgzaHMxc0FQeXphZnlWbUdYemtZU1VT?=
+ =?utf-8?B?Q1F2OUdPWU1EclZkakNrMnprZ2NzVnVUcXdKVW81QVhhMU1FM3Jab1pwdGFJ?=
+ =?utf-8?B?akk0UU1vd1lyTnZpMVlqSXRGN1h5UW5xWWhVUHp0bDNIL0pZRkxyRWZycExm?=
+ =?utf-8?B?UFdBaE9RUWQyZUZza0NYWmJxN1FzZnp2UXQ0TTJNaWtId1E9PQ==?=
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:IA1PR11MB6348.namprd11.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(376014)(366016)(1800799024)(38070700018)(13003099007)(7053199007)(8096899003);
+ DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?utf-8?B?bXJCSnR3d2gwWm0wbTJaWlBuMkdsdEExOWNucFY2aDBBWTRwMVlKdFpRSCtR?=
+ =?utf-8?B?b0VPYWMwamJzdVcvLzRweXY3TFFuSFd6cFZwUGVtbUlxQ00wSDMxWVRCTmxL?=
+ =?utf-8?B?THdJNElGZmErYWhQQTY1TVZnS3NwNUpFaDFMWGRtUVdaeUVRdDl4MG1oMXlh?=
+ =?utf-8?B?bUFxU0FNR05XSFM3WTVXYlJXbXlIUTlXYTIrWGt2c3hFdHhHR0s1M0FCbGNN?=
+ =?utf-8?B?TG9VMFkrWDlNSzVkQWZMSzJrNnpvbWZCSi8xbi9RczhYOVVleUpoK00zbVhY?=
+ =?utf-8?B?ajN1SWhQbVIxc3dtdFhIWXh4VGpGWmFPNXNKQ25COFl5aDlGSVYxZ3gzR0pn?=
+ =?utf-8?B?UEttekwrMFRVUmlETmpnWHBGd09TeG5nK1FUOTc4dVNTdndDaCt0MHZRNXFG?=
+ =?utf-8?B?Y3c5SjdET2w3dDJ1b0w0RHVuUEpVRUZ6MklNenRkYitoZE90LzI0Q3AwWHlo?=
+ =?utf-8?B?aDczdWtTOHQwOUpjSzcweUxNelc5NHhoVFpQZjg1OCtPcHh6S3ZvOTlsTzZI?=
+ =?utf-8?B?YWVxZlhnZEhwbThTNHdQdE9ySXZIMEx0M1NzdjNIWGJiV0ZDRXFpc01WT2h4?=
+ =?utf-8?B?Q21zZmNPMm5yaVV4eFF1UEJDckk3eHk2UG9pQjErVHpsVVhCMlJ4NUNXNHBr?=
+ =?utf-8?B?Wi94bStJbGc0eDlIUmZoYUJsSnNSUUdKcnFPSGRuZi9VRGJFMVZiKzVWdTMv?=
+ =?utf-8?B?NEgzb2NacGIxQ2NiSUNHaW9hRk93MnV4MnpiMDlnSmhEZng0UHV0dU8rem5U?=
+ =?utf-8?B?Q3lSTE1nZUlDSUtNQ2NaUGpjRFlSNTJJbzNjWkYraXpqcTBvdTRLVzZmRTFJ?=
+ =?utf-8?B?SlFQbXErS1M4WUlvVEJTbXY3K3dPMnJja3FhZEJzb2RKZDlGSTkrMStnbEJD?=
+ =?utf-8?B?eHhNSnF3WDc3WGdSemlDcUtHbmQwODZrMXh5YS9yVkVpYTIzaGRFY2ZuZjdN?=
+ =?utf-8?B?NDdSRm9KM25RdzIySHlzUCtFa1Q4TnBOQkVpLzdVZXVoTStuSHhjOEZHQ0JK?=
+ =?utf-8?B?L2ZVWVJXcEpGaVZ2dlNGM3FGNy9rdHF2MXNuK244R21pQ3VPRWhrYTZpOGJM?=
+ =?utf-8?B?YkFDaElKU0tucVVja1pyM3poanhCTUF0am5ENjhzVDNYekNwaUtCWWdyMzlH?=
+ =?utf-8?B?cGRZRy9qcGxaWXZFdEFKbDBiVU9IclRpV3l1OEU3RFNQVStBR2FNb1ByOXRK?=
+ =?utf-8?B?bEx5Ti9QNFlETHdPbGhKRCtmQ2FZOWY1VGxTaDRSUCtZZ2dNYjJEL1ZZRjV1?=
+ =?utf-8?B?cE9pSGRrZXlqTXdmdjVkb3EzR09QVlA4N25tbDVlaHBtcENkc1c0NFF2cHhL?=
+ =?utf-8?B?c2FyYmZid2lJUTNjZVhYUjZIL3hCNFE5QTNhTnF1bmhETVVmRWFlNzErZzI1?=
+ =?utf-8?B?Wi9JVVFnM3lBR29lQnlza1Y1b0NkZVg4N2s4SjhQSEhDNzdEWDRTbE5PcTJK?=
+ =?utf-8?B?Wlc1YUhBMXpDR2dhbEs1ZXZJNE5VdVkrZUlFUVNxTEROcklsNjkvRGoxSjU1?=
+ =?utf-8?B?MEpmYXR2UlVTRmovQnIyd1ozNGlTS3k4MU43WG83ZEVBWnRQdG4xT0ZneGpt?=
+ =?utf-8?B?SnE2TW82WWdxSSt1aHU0b1VCcURHMlVxT1dzK1loVmNXTkw2WXo0Q3hURWZ6?=
+ =?utf-8?B?ajhESlZvdDZ4UFl4aGk5WExDTllTYVM2Z1NRMFpHbzBzNEtRcDYyK0NQWFJx?=
+ =?utf-8?B?TDdscjhveXhWSUVmWjczZHJ1eU1xSlJkZzgvNUh0dHp0RzZCSDh6NWpQSW91?=
+ =?utf-8?B?Vzl5ekhMMGZyY0U1TG4zbHRhd0JKWjV4OHZnZHZ2dG55UEE4b3o0eWd1QXNa?=
+ =?utf-8?B?QkFCODVvZ0VUNlRQWWVGL205WWJ3eG01VHZ2dE9TRENwU2RqT2s3WXVncXFO?=
+ =?utf-8?B?emlpZElpMCs3THVLb2oxaXZTLzdlMGZLZFlLcko2TGhOa0F1TVU5a1prM016?=
+ =?utf-8?B?MHk4TnFpdDF6NFR6YlREY3FsUTltc1B2SmJMZnJWRUV3dkVod0k4YmJqYjAr?=
+ =?utf-8?B?NTk2TmpJbVpVN3NoR1hkK2Y2UzJ0TXJ4QnNpamFlRVFIaVhZNlZQcEFLMDlZ?=
+ =?utf-8?B?aXB0b1FML281RTBSNGo4WDhia0ZrbTJONUdSbDVucnhHWFU0c0N2NDNScmd6?=
+ =?utf-8?B?ZGIyQkltb2FxRFNtZjgxWHpWN3g1V0EzS3IrK25EaEJmajFRTDd5NDBkdXVj?=
+ =?utf-8?Q?BH+F7K2VZdfUhss4Km8U6Zw=3D?=
+Content-Type: multipart/alternative;
+ boundary="_000_IA1PR11MB634874E22E907CAE41D7FFFBB2F72IA1PR11MB6348namp_"
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: IA1PR11MB6348.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 7f2fe507-f7af-49a3-af2d-08dd459720e4
+X-MS-Exchange-CrossTenant-originalarrivaltime: 05 Feb 2025 03:42:35.0520 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: ERHILjiOWcxicNox1BPk/IAtyJp33KM59e+40k+XnN9LANFEFGZ4sLL/QkUvw6JKABjO2karEnNNbXt6yyybB1PXf1cv4Dszdn8DiJEY6WqpEYBiA/fGECW1F3Syhh4+
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR11MB7613
+X-OriginatorOrg: intel.com
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,772 +199,474 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Add these redundant utils to core lib. Also fix the bug in
-measured_usleep, it was returning nsec slept not usec.
+--_000_IA1PR11MB634874E22E907CAE41D7FFFBB2F72IA1PR11MB6348namp_
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 
-v2: Updated perf_pmu and some failing tests. They were expecting
-nanosec instead of usec.
+SXNzdWVzIHJlcG9ydGVkIG9uIEJBVCBpcyBub3QgcmVsYXRlZCB0byBhbnkgY2hhbmdlcyBtYWRl
+IHRvIHBhdGNoIHNlcmllcy4NCg0KUGxlYXNlIGhlbHAgdG8gcmUtcmVwb3J0DQoNClJlZ2FyZHMs
+DQpNaXR1bA0KDQpGcm9tOiBQYXRjaHdvcmsgPHBhdGNod29ya0BlbWVyaWwuZnJlZWRlc2t0b3Au
+b3JnPg0KU2VudDogMDQgRmVicnVhcnkgMjAyNSAyMjoyMA0KVG86IEdvbGFuaSwgTWl0dWxrdW1h
+ciBBaml0a3VtYXIgPG1pdHVsa3VtYXIuYWppdGt1bWFyLmdvbGFuaUBpbnRlbC5jb20+DQpDYzog
+aW50ZWwtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZw0KU3ViamVjdDog4pyXIGk5MTUuQ0kuQkFU
+OiBmYWlsdXJlIGZvciBDb21wdXRlIGFzX3NkcCB3aGVuIHZyciBpcyBlbmFibGVkIChyZXYyKQ0K
+DQpQYXRjaCBEZXRhaWxzDQpTZXJpZXM6DQpDb21wdXRlIGFzX3NkcCB3aGVuIHZyciBpcyBlbmFi
+bGVkIChyZXYyKQ0KVVJMOg0KaHR0cHM6Ly9wYXRjaHdvcmsuZnJlZWRlc2t0b3Aub3JnL3Nlcmll
+cy8xNDQyNjgvDQpTdGF0ZToNCmZhaWx1cmUNCkRldGFpbHM6DQpodHRwczovL2ludGVsLWdmeC1j
+aS4wMS5vcmcvdHJlZS9kcm0tdGlwL1BhdGNod29ya18xNDQyNjh2Mi9pbmRleC5odG1sDQpDSSBC
+dWcgTG9nIC0gY2hhbmdlcyBmcm9tIENJX0RSTV8xNjA2MyAtPiBQYXRjaHdvcmtfMTQ0MjY4djIN
+ClN1bW1hcnkNCg0KRkFJTFVSRQ0KDQpTZXJpb3VzIHVua25vd24gY2hhbmdlcyBjb21pbmcgd2l0
+aCBQYXRjaHdvcmtfMTQ0MjY4djIgYWJzb2x1dGVseSBuZWVkIHRvIGJlDQp2ZXJpZmllZCBtYW51
+YWxseS4NCg0KSWYgeW91IHRoaW5rIHRoZSByZXBvcnRlZCBjaGFuZ2VzIGhhdmUgbm90aGluZyB0
+byBkbyB3aXRoIHRoZSBjaGFuZ2VzDQppbnRyb2R1Y2VkIGluIFBhdGNod29ya18xNDQyNjh2Miwg
+cGxlYXNlIG5vdGlmeSB5b3VyIGJ1ZyB0ZWFtIChJOTE1LWNpLWluZnJhQGxpc3RzLmZyZWVkZXNr
+dG9wLm9yZzxtYWlsdG86STkxNS1jaS1pbmZyYUBsaXN0cy5mcmVlZGVza3RvcC5vcmc+KSB0byBh
+bGxvdyB0aGVtDQp0byBkb2N1bWVudCB0aGlzIG5ldyBmYWlsdXJlIG1vZGUsIHdoaWNoIHdpbGwg
+cmVkdWNlIGZhbHNlIHBvc2l0aXZlcyBpbiBDSS4NCg0KRXh0ZXJuYWwgVVJMOiBodHRwczovL2lu
+dGVsLWdmeC1jaS4wMS5vcmcvdHJlZS9kcm0tdGlwL1BhdGNod29ya18xNDQyNjh2Mi9pbmRleC5o
+dG1sDQoNClBhcnRpY2lwYXRpbmcgaG9zdHMgKDQzIC0+IDQxKQ0KDQpNaXNzaW5nICgyKTogZmkt
+c25iLTI1MjBtIGZpLXBudi1kNTEwDQoNClBvc3NpYmxlIG5ldyBpc3N1ZXMNCg0KSGVyZSBhcmUg
+dGhlIHVua25vd24gY2hhbmdlcyB0aGF0IG1heSBoYXZlIGJlZW4gaW50cm9kdWNlZCBpbiBQYXRj
+aHdvcmtfMTQ0MjY4djI6DQoNCklHVCBjaGFuZ2VzDQpQb3NzaWJsZSByZWdyZXNzaW9ucw0KDQog
+ICogICBpZ3RAaTkxNV9zZWxmdGVzdEBsaXZlQHJlc2V0Og0KDQogICAgICogICBiYXQtdHdsLTI6
+IE5PVFJVTiAtPiBBQk9SVDxodHRwczovL2ludGVsLWdmeC1jaS4wMS5vcmcvdHJlZS9kcm0tdGlw
+L1BhdGNod29ya18xNDQyNjh2Mi9iYXQtdHdsLTIvaWd0QGk5MTVfc2VsZnRlc3RAbGl2ZUByZXNl
+dC5odG1sPg0KDQpLbm93biBpc3N1ZXMNCg0KSGVyZSBhcmUgdGhlIGNoYW5nZXMgZm91bmQgaW4g
+UGF0Y2h3b3JrXzE0NDI2OHYyIHRoYXQgY29tZSBmcm9tIGtub3duIGlzc3VlczoNCg0KSUdUIGNo
+YW5nZXMNCklzc3VlcyBoaXQNCg0KICAqICAgaWd0QGk5MTVfc2VsZnRlc3RAbGl2ZToNCg0KICAg
+ICAqICAgYmF0LXR3bC0xOiBOT1RSVU4gLT4gQUJPUlQ8aHR0cHM6Ly9pbnRlbC1nZngtY2kuMDEu
+b3JnL3RyZWUvZHJtLXRpcC9QYXRjaHdvcmtfMTQ0MjY4djIvYmF0LXR3bC0xL2lndEBpOTE1X3Nl
+bGZ0ZXN0QGxpdmUuaHRtbD4gKGk5MTUjMTI5MTk8aHR0cHM6Ly9naXRsYWIuZnJlZWRlc2t0b3Au
+b3JnL2RybS9pOTE1L2tlcm5lbC8tL2lzc3Vlcy8xMjkxOT4gLyBpOTE1IzEzNTAzPGh0dHBzOi8v
+Z2l0bGFiLmZyZWVkZXNrdG9wLm9yZy9kcm0vaTkxNS9rZXJuZWwvLS9pc3N1ZXMvMTM1MDM+KQ0K
+ICAgICAqICAgYmF0LXR3bC0yOiBOT1RSVU4gLT4gQUJPUlQ8aHR0cHM6Ly9pbnRlbC1nZngtY2ku
+MDEub3JnL3RyZWUvZHJtLXRpcC9QYXRjaHdvcmtfMTQ0MjY4djIvYmF0LXR3bC0yL2lndEBpOTE1
+X3NlbGZ0ZXN0QGxpdmUuaHRtbD4gKGk5MTUjMTI0MzU8aHR0cHM6Ly9naXRsYWIuZnJlZWRlc2t0
+b3Aub3JnL2RybS9pOTE1L2tlcm5lbC8tL2lzc3Vlcy8xMjQzNT4gLyBpOTE1IzEyOTE5PGh0dHBz
+Oi8vZ2l0bGFiLmZyZWVkZXNrdG9wLm9yZy9kcm0vaTkxNS9rZXJuZWwvLS9pc3N1ZXMvMTI5MTk+
+KQ0KDQogICogICBpZ3RAaTkxNV9zZWxmdGVzdEBsaXZlQGd0X2hlYXJ0YmVhdDoNCg0KICAgICAq
+ICAgYmF0LXR3bC0xOiBQQVNTPGh0dHBzOi8vaW50ZWwtZ2Z4LWNpLjAxLm9yZy90cmVlL2RybS10
+aXAvQ0lfRFJNXzE2MDYzL2JhdC10d2wtMS9pZ3RAaTkxNV9zZWxmdGVzdEBsaXZlQGd0X2hlYXJ0
+YmVhdC5odG1sPiAtPiBBQk9SVDxodHRwczovL2ludGVsLWdmeC1jaS4wMS5vcmcvdHJlZS9kcm0t
+dGlwL1BhdGNod29ya18xNDQyNjh2Mi9iYXQtdHdsLTEvaWd0QGk5MTVfc2VsZnRlc3RAbGl2ZUBn
+dF9oZWFydGJlYXQuaHRtbD4gKGk5MTUjMTI5MTk8aHR0cHM6Ly9naXRsYWIuZnJlZWRlc2t0b3Au
+b3JnL2RybS9pOTE1L2tlcm5lbC8tL2lzc3Vlcy8xMjkxOT4pDQoNCiAgKiAgIGlndEBrbXNfcGlw
+ZV9jcmNfYmFzaWNAbm9uYmxvY2tpbmctY3JjLWZyYW1lLXNlcXVlbmNlOg0KDQogICAgICogICBi
+YXQtZGcyLTExOiBQQVNTPGh0dHBzOi8vaW50ZWwtZ2Z4LWNpLjAxLm9yZy90cmVlL2RybS10aXAv
+Q0lfRFJNXzE2MDYzL2JhdC1kZzItMTEvaWd0QGttc19waXBlX2NyY19iYXNpY0Bub25ibG9ja2lu
+Zy1jcmMtZnJhbWUtc2VxdWVuY2UuaHRtbD4gLT4gU0tJUDxodHRwczovL2ludGVsLWdmeC1jaS4w
+MS5vcmcvdHJlZS9kcm0tdGlwL1BhdGNod29ya18xNDQyNjh2Mi9iYXQtZGcyLTExL2lndEBrbXNf
+cGlwZV9jcmNfYmFzaWNAbm9uYmxvY2tpbmctY3JjLWZyYW1lLXNlcXVlbmNlLmh0bWw+IChpOTE1
+IzkxOTc8aHR0cHM6Ly9naXRsYWIuZnJlZWRlc2t0b3Aub3JnL2RybS9pOTE1L2tlcm5lbC8tL2lz
+c3Vlcy85MTk3PikgKzMgb3RoZXIgdGVzdHMgc2tpcA0KDQpQb3NzaWJsZSBmaXhlcw0KDQogICog
+ICBpZ3RAZG1hYnVmQGFsbC10ZXN0czoNCg0KICAgICAqICAgYmF0LWFwbC0xOiBJTkNPTVBMRVRF
+PGh0dHBzOi8vaW50ZWwtZ2Z4LWNpLjAxLm9yZy90cmVlL2RybS10aXAvQ0lfRFJNXzE2MDYzL2Jh
+dC1hcGwtMS9pZ3RAZG1hYnVmQGFsbC10ZXN0cy5odG1sPiAoaTkxNSMxMjkwNDxodHRwczovL2dp
+dGxhYi5mcmVlZGVza3RvcC5vcmcvZHJtL2k5MTUva2VybmVsLy0vaXNzdWVzLzEyOTA0PikgLT4g
+UEFTUzxodHRwczovL2ludGVsLWdmeC1jaS4wMS5vcmcvdHJlZS9kcm0tdGlwL1BhdGNod29ya18x
+NDQyNjh2Mi9iYXQtYXBsLTEvaWd0QGRtYWJ1ZkBhbGwtdGVzdHMuaHRtbD4gKzEgb3RoZXIgdGVz
+dCBwYXNzDQoNCiAgKiAgIGlndEBpOTE1X3NlbGZ0ZXN0QGxpdmVAd29ya2Fyb3VuZHM6DQoNCiAg
+ICAgKiAgIGJhdC1hcmxzLTU6IERNRVNHLUZBSUw8aHR0cHM6Ly9pbnRlbC1nZngtY2kuMDEub3Jn
+L3RyZWUvZHJtLXRpcC9DSV9EUk1fMTYwNjMvYmF0LWFybHMtNS9pZ3RAaTkxNV9zZWxmdGVzdEBs
+aXZlQHdvcmthcm91bmRzLmh0bWw+IChpOTE1IzEyMDYxPGh0dHBzOi8vZ2l0bGFiLmZyZWVkZXNr
+dG9wLm9yZy9kcm0vaTkxNS9rZXJuZWwvLS9pc3N1ZXMvMTIwNjE+KSAtPiBQQVNTPGh0dHBzOi8v
+aW50ZWwtZ2Z4LWNpLjAxLm9yZy90cmVlL2RybS10aXAvUGF0Y2h3b3JrXzE0NDI2OHYyL2JhdC1h
+cmxzLTUvaWd0QGk5MTVfc2VsZnRlc3RAbGl2ZUB3b3JrYXJvdW5kcy5odG1sPiArMSBvdGhlciB0
+ZXN0IHBhc3MNCiAgICAgKiAgIHtiYXQtbXRscC05fTogRE1FU0ctRkFJTDxodHRwczovL2ludGVs
+LWdmeC1jaS4wMS5vcmcvdHJlZS9kcm0tdGlwL0NJX0RSTV8xNjA2My9iYXQtbXRscC05L2lndEBp
+OTE1X3NlbGZ0ZXN0QGxpdmVAd29ya2Fyb3VuZHMuaHRtbD4gKGk5MTUjMTIwNjE8aHR0cHM6Ly9n
+aXRsYWIuZnJlZWRlc2t0b3Aub3JnL2RybS9pOTE1L2tlcm5lbC8tL2lzc3Vlcy8xMjA2MT4pIC0+
+IFBBU1M8aHR0cHM6Ly9pbnRlbC1nZngtY2kuMDEub3JnL3RyZWUvZHJtLXRpcC9QYXRjaHdvcmtf
+MTQ0MjY4djIvYmF0LW10bHAtOS9pZ3RAaTkxNV9zZWxmdGVzdEBsaXZlQHdvcmthcm91bmRzLmh0
+bWw+ICsxIG90aGVyIHRlc3QgcGFzcw0KDQp7bmFtZX06IFRoaXMgZWxlbWVudCBpcyBzdXBwcmVz
+c2VkLiBUaGlzIG1lYW5zIGl0IGlzIGlnbm9yZWQgd2hlbiBjb21wdXRpbmcNCnRoZSBzdGF0dXMg
+b2YgdGhlIGRpZmZlcmVuY2UgKFNVQ0NFU1MsIFdBUk5JTkcsIG9yIEZBSUxVUkUpLg0KDQpCdWls
+ZCBjaGFuZ2VzDQoNCiAgKiAgIExpbnV4OiBDSV9EUk1fMTYwNjMgLT4gUGF0Y2h3b3JrXzE0NDI2
+OHYyDQoNCkNJLTIwMTkwNTI5OiAyMDE5MDUyOQ0KQ0lfRFJNXzE2MDYzOiAzNGYxMTNlOWZlZjU0
+NjEzNGU0MDJlNzY1N2ZjNDdlOTJmYmE1OWRjIEAgZ2l0Oi8vYW5vbmdpdC5mcmVlZGVza3RvcC5v
+cmcvZ2Z4LWNpL2xpbnV4DQpJR1RfODIyMzogY2NmZTA0Mjc4N2IwODJjMDY0MDJmZjlhZjI1N2Y4
+MzM4YjhlZGQ1ZSBAIGh0dHBzOi8vZ2l0bGFiLmZyZWVkZXNrdG9wLm9yZy9kcm0vaWd0LWdwdS10
+b29scy5naXQNClBhdGNod29ya18xNDQyNjh2MjogMzRmMTEzZTlmZWY1NDYxMzRlNDAyZTc2NTdm
+YzQ3ZTkyZmJhNTlkYyBAIGdpdDovL2Fub25naXQuZnJlZWRlc2t0b3Aub3JnL2dmeC1jaS9saW51
+eA0K
 
-Signed-off-by: Vinay Belgaumkar <vinay.belgaumkar@intel.com>
----
- lib/igt_core.c                         | 20 +++++++
- lib/igt_core.h                         | 20 +++++++
- tests/intel/drm_fdinfo.c               | 68 ++++++---------------
- tests/intel/gem_exec_nop.c             |  6 --
- tests/intel/gem_spin_batch.c           |  6 --
- tests/intel/i915_pm_rc6_residency.c    | 42 +++----------
- tests/intel/perf_pmu.c                 | 81 ++++++++------------------
- tests/intel/sysfs_heartbeat_interval.c | 19 +-----
- tests/intel/xe_pm_residency.c          | 29 +--------
- 9 files changed, 94 insertions(+), 197 deletions(-)
+--_000_IA1PR11MB634874E22E907CAE41D7FFFBB2F72IA1PR11MB6348namp_
+Content-Type: text/html; charset="utf-8"
+Content-Transfer-Encoding: base64
 
-diff --git a/lib/igt_core.c b/lib/igt_core.c
-index 407f7b551..b95db1b25 100644
---- a/lib/igt_core.c
-+++ b/lib/igt_core.c
-@@ -3553,3 +3553,23 @@ void igt_emit_ignore_dmesg_regex(const char *ignore_dmesg_regex)
- 	g_regex_unref(re);
- 	igt_kmsg(KMSG_INFO "%s%s\n", mark_ignore_dmesg, ignore_dmesg_regex);
- }
-+
-+/**
-+ * @igt_measured_usleep: Helper to model accurate sleep time for tests
-+ * @usec: usec to sleep
-+ * Return: usec slept
-+ */
-+unsigned int igt_measured_usleep(unsigned int usec)
-+{
-+	struct timespec ts = { };
-+	unsigned int slept_usec;
-+
-+	slept_usec = igt_nsec_elapsed(&ts) / NSEC_PER_USEC;
-+	igt_assert(slept_usec == 0);
-+	do {
-+		usleep(usec - slept_usec);
-+		slept_usec = igt_nsec_elapsed(&ts) / NSEC_PER_USEC;
-+	} while (slept_usec < usec);
-+
-+	return igt_nsec_elapsed(&ts) / NSEC_PER_USEC;
-+}
-diff --git a/lib/igt_core.h b/lib/igt_core.h
-index f0ba1a381..0f2af950b 100644
---- a/lib/igt_core.h
-+++ b/lib/igt_core.h
-@@ -1524,9 +1524,11 @@ void igt_kmsg(const char *format, ...);
- #if __WORDSIZE == 64
- #define MSEC_PER_SEC (1000ul)
- #define USEC_PER_MSEC (1000ul)
-+#define NSEC_PER_USEC (1000ul)
- #else
- #define MSEC_PER_SEC (1000ull)
- #define USEC_PER_MSEC (1000ull)
-+#define NSEC_PER_USEC (1000ull)
- #endif
- 
- #define USEC_PER_SEC (1000u * MSEC_PER_SEC)
-@@ -1536,6 +1538,23 @@ void igt_kmsg(const char *format, ...);
- 
- #define for_if(expr__) if (!(expr__)) {} else
- 
-+#define __assert_within_epsilon(x, ref, tol_up, tol_down, debug_data) \
-+	igt_assert_f((double)(x) <= (1.0 + (tol_up)) * (double)(ref) && \
-+		     (double)(x) >= (1.0 - (tol_down)) * (double)(ref), \
-+		     "'%s' != '%s' (%f not within +%.1f%%/-%.1f%% tolerance of %f)\n%s\n",\
-+		     #x, #ref, (double)(x), \
-+		     (tol_up) * 100.0, (tol_down) * 100.0, \
-+		     (double)(ref), debug_data)
-+
-+#define assert_within_epsilon(x, ref, tolerance) \
-+	__assert_within_epsilon(x, ref, tolerance, tolerance, "\0")
-+
-+#define assert_within_epsilon_up_down(x, ref, tol_up, tol_down) \
-+	__assert_within_epsilon(x, ref, tol_up, tol_down, "\0")
-+
-+#define assert_within_epsilon_debug(x, ref, tolerance, debug_data) \
-+	__assert_within_epsilon(x, ref, tolerance, tolerance, debug_data)
-+
- /**
-  * igt_pci_system_init:
-  * IGT wrapper around pci_system_init()
-@@ -1578,4 +1597,5 @@ void igt_pci_system_cleanup(void);
- 
- void igt_emit_ignore_dmesg_regex(const char *ignore_dmesg_regex);
- 
-+unsigned int igt_measured_usleep(unsigned int usec);
- #endif /* IGT_CORE_H */
-diff --git a/tests/intel/drm_fdinfo.c b/tests/intel/drm_fdinfo.c
-index b66ac9e1b..3c1f0a739 100644
---- a/tests/intel/drm_fdinfo.c
-+++ b/tests/intel/drm_fdinfo.c
-@@ -106,23 +106,6 @@ static const char *engine_map[] = {
- 	"compute",
- };
- 
--#define __assert_within_epsilon(x, ref, tol_up, tol_down) \
--	do { \
--		igt_assert_f((double)(x) <= (1.0 + (tol_up)) * (double)(ref) && \
--			     (double)(x) >= (1.0 - (tol_down)) * (double)(ref), \
--			     "'%s' != '%s' (%f not within +%.1f%%/-%.1f%% tolerance of %f)\n",\
--			     #x, #ref, (double)(x), \
--			     (tol_up) * 100.0, (tol_down) * 100.0, \
--			     (double)(ref)); \
--		igt_debug("%f within +%.1f%%/-%.1f%% tolerance of %f\n",\
--			  (double)(x), \
--			  (tol_up) * 100.0, (tol_down) * 100.0, \
--			  (double)(ref)); \
--	} while (0)
--
--#define assert_within_epsilon(x, ref, tolerance) \
--	__assert_within_epsilon(x, ref, tolerance, tolerance)
--
- static void basics(int i915, unsigned int num_classes)
- {
- 	struct drm_client_fdinfo info = { };
-@@ -137,26 +120,6 @@ static void basics(int i915, unsigned int num_classes)
- 	igt_assert_eq(info.num_engines, num_classes);
- }
- 
--/*
-- * Helper for cases where we assert on time spent sleeping (directly or
-- * indirectly), so make it more robust by ensuring the system sleep time
-- * is within test tolerance to start with.
-- */
--static unsigned int measured_usleep(unsigned int usec)
--{
--	struct timespec ts = { };
--	unsigned int slept;
--
--	slept = igt_nsec_elapsed(&ts);
--	igt_assert(slept == 0);
--	do {
--		usleep(usec - slept);
--		slept = igt_nsec_elapsed(&ts) / 1000;
--	} while (slept < usec);
--
--	return igt_nsec_elapsed(&ts);
--}
--
- #define TEST_BUSY (1)
- #define FLAG_SYNC (2)
- #define TEST_TRAILING_IDLE (4)
-@@ -239,7 +202,7 @@ single(int gem_fd, const intel_ctx_t *ctx,
- 		spin = NULL;
- 
- 	val = read_engine_time(gem_fd, e->class);
--	slept = measured_usleep(batch_duration_ns / 1000);
-+	slept = igt_measured_usleep(batch_duration_ns / 1000) * NSEC_PER_USEC;
- 	if (flags & TEST_TRAILING_IDLE)
- 		end_spin(spin_fd, spin, flags);
- 	val = read_engine_time(gem_fd, e->class) - val;
-@@ -258,7 +221,7 @@ single(int gem_fd, const intel_ctx_t *ctx,
- 		igt_assert(!gem_bo_busy(spin_fd, spin->handle));
- 
- 		val = read_engine_time(gem_fd, e->class);
--		slept = measured_usleep(batch_duration_ns / 1000);
-+		slept = igt_measured_usleep(batch_duration_ns / 1000) * NSEC_PER_USEC;
- 		val = read_engine_time(gem_fd, e->class) - val;
- 
- 		assert_within_epsilon(slept - val, slept, tolerance);
-@@ -320,7 +283,7 @@ busy_check_all(int gem_fd, const intel_ctx_t *ctx,
- 	spin = igt_sync_spin(gem_fd, ahnd, ctx, e);
- 
- 	read_engine_time_all(gem_fd, tval[0]);
--	slept = measured_usleep(batch_duration_ns / 1000);
-+	slept = igt_measured_usleep(batch_duration_ns / 1000) * NSEC_PER_USEC;
- 	if (flags & TEST_TRAILING_IDLE)
- 		end_spin(gem_fd, spin, flags);
- 	read_engine_time_all(gem_fd, tval[1]);
-@@ -335,7 +298,8 @@ busy_check_all(int gem_fd, const intel_ctx_t *ctx,
- 	log_busy(num_classes, val);
- 
- 	for (i = 0; i < num_classes; i++)
--		assert_within_epsilon(i == e->class ? val[i] : slept - val[i], slept, tolerance);
-+		assert_within_epsilon(i == e->class ? val[i] : slept - val[i],
-+				      slept, tolerance);
- 
- 	gem_quiescent_gpu(gem_fd);
- }
-@@ -395,7 +359,7 @@ most_busy_check_all(int gem_fd, const intel_ctx_t *ctx,
- 	usleep(__igt_sync_spin_wait(gem_fd, spin) * num_engines / 1e3);
- 
- 	read_engine_time_all(gem_fd, tval[0]);
--	slept = measured_usleep(batch_duration_ns / 1000);
-+	slept = igt_measured_usleep(batch_duration_ns / 1000) * NSEC_PER_USEC;
- 	if (flags & TEST_TRAILING_IDLE)
- 		end_spin(gem_fd, spin, flags);
- 	read_engine_time_all(gem_fd, tval[1]);
-@@ -412,7 +376,8 @@ most_busy_check_all(int gem_fd, const intel_ctx_t *ctx,
- 	for (i = 0; i < num_classes; i++) {
- 		double target = slept * busy_class[i] ?: slept;
- 
--		assert_within_epsilon(busy_class[i] ? val[i] : slept - val[i], target, tolerance);
-+		assert_within_epsilon(busy_class[i] ? val[i] : slept - val[i],
-+				      target, tolerance);
- 	}
- 	gem_quiescent_gpu(gem_fd);
- }
-@@ -450,7 +415,7 @@ all_busy_check_all(int gem_fd, const intel_ctx_t *ctx,
- 	usleep(__igt_sync_spin_wait(gem_fd, spin) * num_engines / 1e3);
- 
- 	read_engine_time_all(gem_fd, tval[0]);
--	slept = measured_usleep(batch_duration_ns / 1000);
-+	slept = igt_measured_usleep(batch_duration_ns / 1000) * NSEC_PER_USEC;
- 	if (flags & TEST_TRAILING_IDLE)
- 		end_spin(gem_fd, spin, flags);
- 	read_engine_time_all(gem_fd, tval[1]);
-@@ -467,7 +432,8 @@ all_busy_check_all(int gem_fd, const intel_ctx_t *ctx,
- 	for (i = 0; i < num_classes; i++) {
- 		double target = slept * busy_class[i] ?: slept;
- 
--		assert_within_epsilon(busy_class[i] ? val[i] : slept - val[i], target, tolerance);
-+		assert_within_epsilon(busy_class[i] ? val[i] : slept - val[i],
-+				      target, tolerance);
- 	}
- 	gem_quiescent_gpu(gem_fd);
- }
-@@ -596,7 +562,7 @@ virtual(int i915, const intel_ctx_cfg_t *base_cfg, unsigned int flags)
- 				spin = NULL;
- 
- 			val = read_engine_time(i915, class);
--			slept = measured_usleep(batch_duration_ns / 1000);
-+			slept = igt_measured_usleep(batch_duration_ns / 1000) * NSEC_PER_USEC;
- 			if (flags & TEST_TRAILING_IDLE)
- 				end_spin(i915, spin, flags);
- 			val = read_engine_time(i915, class) - val;
-@@ -615,8 +581,8 @@ virtual(int i915, const intel_ctx_cfg_t *base_cfg, unsigned int flags)
- 				igt_assert(!gem_bo_busy(i915, spin->handle));
- 
- 				val = read_engine_time(i915, class);
--				slept = measured_usleep(batch_duration_ns /
--							1000);
-+				slept = igt_measured_usleep(batch_duration_ns /
-+							1000) * NSEC_PER_USEC;
- 				val = read_engine_time(i915, class) - val;
- 
- 				assert_within_epsilon(slept - val, slept, tolerance);
-@@ -705,7 +671,7 @@ virtual_all(int i915, const intel_ctx_cfg_t *base_cfg, unsigned int flags)
- 		usleep(__igt_sync_spin_wait(i915, spin) * count / 1e3);
- 
- 		val = read_engine_time(i915, class);
--		slept = measured_usleep(batch_duration_ns / 1000);
-+		slept = igt_measured_usleep(batch_duration_ns / 1000) * NSEC_PER_USEC;
- 		if (flags & TEST_TRAILING_IDLE)
- 			end_spin(i915, spin, flags);
- 		val = read_engine_time(i915, class) - val;
-@@ -723,8 +689,8 @@ virtual_all(int i915, const intel_ctx_cfg_t *base_cfg, unsigned int flags)
- 			igt_assert(!gem_bo_busy(i915, spin->handle));
- 
- 			val = read_engine_time(i915, class);
--			slept = measured_usleep(batch_duration_ns /
--						1000);
-+			slept = igt_measured_usleep(batch_duration_ns /
-+						1000) * NSEC_PER_USEC;
- 			val = read_engine_time(i915, class) - val;
- 
- 			assert_within_epsilon(slept - val, slept, tolerance);
-diff --git a/tests/intel/gem_exec_nop.c b/tests/intel/gem_exec_nop.c
-index 652f8deff..74593c085 100644
---- a/tests/intel/gem_exec_nop.c
-+++ b/tests/intel/gem_exec_nop.c
-@@ -434,12 +434,6 @@ stable_nop_on_ring(int fd, uint32_t handle, const intel_ctx_t *ctx,
- 	return n;
- }
- 
--#define assert_within_epsilon(x, ref, tolerance) \
--        igt_assert_f((x) <= (1.0 + tolerance) * ref && \
--                     (x) >= (1.0 - tolerance) * ref, \
--                     "'%s' != '%s' (%f not within %f%% tolerance of %f)\n",\
--                     #x, #ref, x, tolerance * 100.0, ref)
--
- static void headless(int fd, uint32_t handle, const intel_ctx_t *ctx,
- 		     const struct intel_execution_engine2 *e)
- {
-diff --git a/tests/intel/gem_spin_batch.c b/tests/intel/gem_spin_batch.c
-index 85408a4c0..dee892411 100644
---- a/tests/intel/gem_spin_batch.c
-+++ b/tests/intel/gem_spin_batch.c
-@@ -51,12 +51,6 @@
- 
- #define MAX_ERROR 5 /* % */
- 
--#define assert_within_epsilon(x, ref, tolerance) \
--	igt_assert_f(100 * x <= (100 + tolerance) * ref && \
--		     100 * x >= (100 - tolerance) * ref, \
--		     "'%s' != '%s' (%lld not within %d%% tolerance of %lld)\n",\
--		     #x, #ref, (long long)x, tolerance, (long long)ref)
--
- static void spin(int fd, const intel_ctx_t *ctx_id,
- 		 unsigned int engine,
- 		 unsigned int flags,
-diff --git a/tests/intel/i915_pm_rc6_residency.c b/tests/intel/i915_pm_rc6_residency.c
-index 7942d46d3..c9128481d 100644
---- a/tests/intel/i915_pm_rc6_residency.c
-+++ b/tests/intel/i915_pm_rc6_residency.c
-@@ -234,17 +234,6 @@ static uint64_t pmu_read_single(int fd)
- 	return __pmu_read_single(fd, NULL);
- }
- 
--#define __assert_within_epsilon(x, ref, tol_up, tol_down, debug_data) \
--	igt_assert_f((double)(x) <= (1.0 + (tol_up)) * (double)(ref) && \
--		     (double)(x) >= (1.0 - (tol_down)) * (double)(ref), \
--		     "'%s' != '%s' (%f not within +%.1f%%/-%.1f%% tolerance of %f)\n %s\n",\
--		     #x, #ref, (double)(x), \
--		     (tol_up) * 100.0, (tol_down) * 100.0, \
--		     (double)(ref), debug_data)
--
--#define assert_within_epsilon(x, ref, tolerance, debug_data) \
--	__assert_within_epsilon(x, ref, tolerance, tolerance, debug_data)
--
- static char *get_drpc(int i915, int gt_id)
- {
- 	int gt_dir;
-@@ -275,21 +264,6 @@ static bool __pmu_wait_for_rc6(int fd)
- 	return false;
- }
- 
--static unsigned int measured_usleep(unsigned int usec)
--{
--	struct timespec ts = { };
--	unsigned int slept;
--
--	slept = igt_nsec_elapsed(&ts);
--	igt_assert(slept == 0);
--	do {
--		usleep(usec - slept);
--		slept = igt_nsec_elapsed(&ts) / 1000;
--	} while (slept < usec);
--
--	return igt_nsec_elapsed(&ts);
--}
--
- static uint32_t batch_create(int fd)
- {
- 	const uint32_t bbe = MI_BATCH_BUFFER_END;
-@@ -416,7 +390,7 @@ static void rc6_idle(int i915, uint32_t ctx_id, uint64_t flags, unsigned int gt)
- 	/* While idle check full RC6. */
- 	igt_power_get_energy(&gpu, &sample[0]);
- 	rc6 = -__pmu_read_single(fd, &ts[0]);
--	slept = measured_usleep(duration_ns / 1000);
-+	slept = igt_measured_usleep(duration_ns / 1000) * NSEC_PER_USEC;
- 	rc6 += __pmu_read_single(fd, &ts[1]);
- 	igt_debug("slept=%lu perf=%"PRIu64", rc6=%"PRIu64"\n",
- 		  slept, ts[1] - ts[0], rc6);
-@@ -431,7 +405,7 @@ static void rc6_idle(int i915, uint32_t ctx_id, uint64_t flags, unsigned int gt)
- 	}
- 	drpc = get_drpc(i915, gt);
- 
--	assert_within_epsilon(rc6, ts[1] - ts[0], 5, drpc);
-+	assert_within_epsilon_debug(rc6, ts[1] - ts[0], 5, drpc);
- 
- 	done = mmap(0, 4096, PROT_WRITE, MAP_SHARED | MAP_ANON, -1, 0);
- 
-@@ -443,7 +417,7 @@ static void rc6_idle(int i915, uint32_t ctx_id, uint64_t flags, unsigned int gt)
- 		igt_power_get_energy(&gpu, &sample[0]);
- 		cycles = -READ_ONCE(done[1]);
- 		rc6 = -__pmu_read_single(fd, &ts[0]);
--		slept = measured_usleep(duration_ns / 1000);
-+		slept = igt_measured_usleep(duration_ns / 1000) * NSEC_PER_USEC;
- 		rc6 += __pmu_read_single(fd, &ts[1]);
- 		cycles += READ_ONCE(done[1]);
- 		igt_debug("%s: slept=%lu perf=%"PRIu64", cycles=%lu, rc6=%"PRIu64"\n",
-@@ -469,7 +443,7 @@ static void rc6_idle(int i915, uint32_t ctx_id, uint64_t flags, unsigned int gt)
- 		/* While very nearly idle, expect full RC6 */
- 		drpc = get_drpc(i915, gt);
- 
--		assert_within_epsilon(rc6, ts[1] - ts[0], tolerance, drpc);
-+		assert_within_epsilon_debug(rc6, ts[1] - ts[0], tolerance, drpc);
- 
- 		free(drpc);
- 		drpc = NULL;
-@@ -512,7 +486,7 @@ static void rc6_fence(int i915, unsigned int gt)
- 	/* While idle check full RC6. */
- 	igt_power_get_energy(&gpu, &sample[0]);
- 	rc6 = -__pmu_read_single(fd, &ts[0]);
--	slept = measured_usleep(duration_ns / 1000);
-+	slept = igt_measured_usleep(duration_ns / 1000) * NSEC_PER_USEC;
- 	rc6 += __pmu_read_single(fd, &ts[1]);
- 	igt_debug("slept=%lu perf=%"PRIu64", rc6=%"PRIu64"\n",
- 		  slept, ts[1] - ts[0], rc6);
-@@ -527,7 +501,7 @@ static void rc6_fence(int i915, unsigned int gt)
- 	}
- 	drpc = get_drpc(i915, gt);
- 
--	assert_within_epsilon(rc6, ts[1] - ts[0], 5, drpc);
-+	assert_within_epsilon_debug(rc6, ts[1] - ts[0], 5, drpc);
- 
- 	/* Submit but delay execution, we should be idle and conserving power */
- 	ctx = intel_ctx_create_for_gt(i915, gt);
-@@ -549,7 +523,7 @@ static void rc6_fence(int i915, unsigned int gt)
- 
- 		igt_power_get_energy(&gpu, &sample[0]);
- 		rc6 = -__pmu_read_single(fd, &ts[0]);
--		slept = measured_usleep(duration_ns / 1000);
-+		slept = igt_measured_usleep(duration_ns / 1000) * NSEC_PER_USEC;
- 		rc6 += __pmu_read_single(fd, &ts[1]);
- 		igt_debug("%s: slept=%lu perf=%"PRIu64", rc6=%"PRIu64"\n",
- 			  e->name, slept, ts[1] - ts[0], rc6);
-@@ -570,7 +544,7 @@ static void rc6_fence(int i915, unsigned int gt)
- 
- 		drpc = get_drpc(i915, gt);
- 
--		assert_within_epsilon(rc6, ts[1] - ts[0], tolerance, drpc);
-+		assert_within_epsilon_debug(rc6, ts[1] - ts[0], tolerance, drpc);
- 		gem_quiescent_gpu(i915);
- 
- 		free(drpc);
-diff --git a/tests/intel/perf_pmu.c b/tests/intel/perf_pmu.c
-index 5d0467c02..c6ccd9ccb 100644
---- a/tests/intel/perf_pmu.c
-+++ b/tests/intel/perf_pmu.c
-@@ -284,39 +284,6 @@ static uint64_t pmu_read_multi(int fd, unsigned int num, uint64_t *val)
- 	return buf[1];
- }
- 
--#define __assert_within_epsilon(x, ref, tol_up, tol_down, debug_data) \
--	igt_assert_f((double)(x) <= (1.0 + (tol_up)) * (double)(ref) && \
--		     (double)(x) >= (1.0 - (tol_down)) * (double)(ref), \
--		     "'%s' != '%s' (%f not within +%.1f%%/-%.1f%% tolerance of %f)\n%s\n",\
--		     #x, #ref, (double)(x), \
--		     (tol_up) * 100.0, (tol_down) * 100.0, \
--		     (double)(ref), debug_data)
--
--#define assert_within_epsilon(x, ref, tolerance) \
--	__assert_within_epsilon(x, ref, tolerance, tolerance, no_debug_data)
--
--#define assert_within_epsilon_debug(x, ref, tolerance, debug_data) \
--	__assert_within_epsilon(x, ref, tolerance, tolerance, debug_data)
--/*
-- * Helper for cases where we assert on time spent sleeping (directly or
-- * indirectly), so make it more robust by ensuring the system sleep time
-- * is within test tolerance to start with.
-- */
--static unsigned int measured_usleep(unsigned int usec)
--{
--	struct timespec ts = { };
--	unsigned int slept;
--
--	slept = igt_nsec_elapsed(&ts);
--	igt_assert(slept == 0);
--	do {
--		usleep(usec - slept);
--		slept = igt_nsec_elapsed(&ts) / 1000;
--	} while (slept < usec);
--
--	return igt_nsec_elapsed(&ts);
--}
--
- #define TEST_BUSY (1)
- #define FLAG_SYNC (2)
- #define TEST_TRAILING_IDLE (4)
-@@ -377,7 +344,7 @@ single(int gem_fd, const intel_ctx_t *ctx,
- 		spin = NULL;
- 
- 	val = pmu_read_single(fd);
--	slept = measured_usleep(batch_duration_ns / 1000);
-+	slept = igt_measured_usleep(batch_duration_ns / 1000) * NSEC_PER_USEC;
- 	if (flags & TEST_TRAILING_IDLE)
- 		end_spin(gem_fd, spin, flags);
- 	val = pmu_read_single(fd) - val;
-@@ -395,7 +362,7 @@ single(int gem_fd, const intel_ctx_t *ctx,
- 		igt_assert(!gem_bo_busy(gem_fd, spin->handle));
- 
- 		val = pmu_read_single(fd);
--		slept = measured_usleep(batch_duration_ns / 1000);
-+		slept = igt_measured_usleep(batch_duration_ns / 1000) * NSEC_PER_USEC;
- 		val = pmu_read_single(fd) - val;
- 
- 		assert_within_epsilon(val, 0, tolerance);
-@@ -429,7 +396,7 @@ busy_start(int gem_fd, const intel_ctx_t *ctx,
- 	fd = open_pmu(gem_fd, I915_PMU_ENGINE_BUSY(e->class, e->instance));
- 
- 	val = __pmu_read_single(fd, &ts[0]);
--	slept = measured_usleep(batch_duration_ns / 1000);
-+	slept = igt_measured_usleep(batch_duration_ns / 1000) * NSEC_PER_USEC;
- 	val = __pmu_read_single(fd, &ts[1]) - val;
- 	igt_debug("slept=%lu perf=%"PRIu64"\n", slept, ts[1] - ts[0]);
- 
-@@ -485,7 +452,7 @@ busy_double_start(int gem_fd, const intel_ctx_t *ctx,
- 	fd = open_pmu(gem_fd, I915_PMU_ENGINE_BUSY(e->class, e->instance));
- 
- 	val = __pmu_read_single(fd, &ts[0]);
--	slept = measured_usleep(batch_duration_ns / 1000);
-+	slept = igt_measured_usleep(batch_duration_ns / 1000) * NSEC_PER_USEC;
- 	val = __pmu_read_single(fd, &ts[1]) - val;
- 	igt_debug("slept=%lu perf=%"PRIu64"\n", slept, ts[1] - ts[0]);
- 
-@@ -565,7 +532,7 @@ busy_check_all(int gem_fd, const intel_ctx_t *ctx,
- 
- 	spin = igt_sync_spin(gem_fd, ahnd, ctx, e);
- 	pmu_read_multi(fd[0], num_engines, tval[0]);
--	slept = measured_usleep(batch_duration_ns / 1000);
-+	slept = igt_measured_usleep(batch_duration_ns / 1000) * NSEC_PER_USEC;
- 	if (flags & TEST_TRAILING_IDLE)
- 		end_spin(gem_fd, spin, flags);
- 	pmu_read_multi(fd[0], num_engines, tval[1]);
-@@ -640,7 +607,7 @@ most_busy_check_all(int gem_fd, const intel_ctx_t *ctx,
- 	usleep(__igt_sync_spin_wait(gem_fd, spin) * num_engines / 1e3);
- 
- 	pmu_read_multi(fd[0], num_engines, tval[0]);
--	slept = measured_usleep(batch_duration_ns / 1000);
-+	slept = igt_measured_usleep(batch_duration_ns / 1000) * NSEC_PER_USEC;
- 	if (flags & TEST_TRAILING_IDLE)
- 		end_spin(gem_fd, spin, flags);
- 	pmu_read_multi(fd[0], num_engines, tval[1]);
-@@ -698,7 +665,7 @@ all_busy_check_all(int gem_fd, const intel_ctx_t *ctx,
- 	usleep(__igt_sync_spin_wait(gem_fd, spin) * num_engines / 1e3);
- 
- 	pmu_read_multi(fd[0], num_engines, tval[0]);
--	slept = measured_usleep(batch_duration_ns / 1000);
-+	slept = igt_measured_usleep(batch_duration_ns / 1000) * NSEC_PER_USEC;
- 	if (flags & TEST_TRAILING_IDLE)
- 		end_spin(gem_fd, spin, flags);
- 	pmu_read_multi(fd[0], num_engines, tval[1]);
-@@ -741,7 +708,7 @@ no_sema(int gem_fd, const intel_ctx_t *ctx,
- 		spin = NULL;
- 
- 	pmu_read_multi(fd[0], 2, val[0]);
--	measured_usleep(batch_duration_ns / 1000);
-+	igt_measured_usleep(batch_duration_ns / 1000);
- 	if (flags & TEST_TRAILING_IDLE)
- 		end_spin(gem_fd, spin, flags);
- 	pmu_read_multi(fd[0], 2, val[1]);
-@@ -854,7 +821,7 @@ sema_wait(int gem_fd, const intel_ctx_t *ctx,
- 		     "sampling failed to start withing 10ms\n");
- 
- 	val[0] = __pmu_read_single(fd, &ts[0]);
--	slept = measured_usleep(batch_duration_ns / 1000);
-+	slept = igt_measured_usleep(batch_duration_ns / 1000) * NSEC_PER_USEC;
- 	if (flags & TEST_TRAILING_IDLE)
- 		obj_ptr[0] = 1;
- 	val[1] = __pmu_read_single(fd, &ts[1]);
-@@ -975,11 +942,11 @@ __sema_busy(int gem_fd, uint64_t ahnd, int pmu, const intel_ctx_t *ctx,
- 
- 	total = pmu_read_multi(pmu, 2, start);
- 
--	sema = measured_usleep(batch_duration_ns * sema_pct / 100 / 1000);
-+	sema = igt_measured_usleep(batch_duration_ns * sema_pct / 100 / 1000);
- 	*map = 2; __sync_synchronize();
--	busy = measured_usleep(batch_duration_ns * (busy_pct - sema_pct) / 100 / 1000);
-+	busy = igt_measured_usleep(batch_duration_ns * (busy_pct - sema_pct) / 100 / 1000);
- 	igt_spin_end(spin);
--	measured_usleep(batch_duration_ns * (100 - busy_pct) / 100 / 1000);
-+	igt_measured_usleep(batch_duration_ns * (100 - busy_pct) / 100 / 1000);
- 
- 	total = pmu_read_multi(pmu, 2, val) - total;
- 	igt_spin_free(gem_fd, spin);
-@@ -1044,7 +1011,7 @@ static void test_awake(int i915, const intel_ctx_t *ctx)
- 		igt_spin_new(i915, .ahnd = ahnd, .ctx = ctx, .engine = e->flags);
- 
- 		val = pmu_read_single(fd);
--		slept = measured_usleep(batch_duration_ns / 1000);
-+		slept = igt_measured_usleep(batch_duration_ns / 1000) * NSEC_PER_USEC;
- 		val = pmu_read_single(fd) - val;
- 
- 		gem_quiescent_gpu(i915);
-@@ -1056,7 +1023,7 @@ static void test_awake(int i915, const intel_ctx_t *ctx)
- 		igt_spin_new(i915, .ahnd = ahnd, .ctx = ctx, .engine = e->flags);
- 
- 	val = pmu_read_single(fd);
--	slept = measured_usleep(batch_duration_ns / 1000);
-+	slept = igt_measured_usleep(batch_duration_ns / 1000) * NSEC_PER_USEC;
- 	val = pmu_read_single(fd) - val;
- 
- 	gem_quiescent_gpu(i915);
-@@ -1297,13 +1264,13 @@ multi_client(int gem_fd, const intel_ctx_t *ctx,
- 	spin = igt_sync_spin(gem_fd, ahnd, ctx, e);
- 
- 	val[0] = val[1] = __pmu_read_single(fd[0], &ts[0]);
--	slept[1] = measured_usleep(batch_duration_ns / 1000);
-+	slept[1] = igt_measured_usleep(batch_duration_ns / 1000) * NSEC_PER_USEC;
- 	val[1] = __pmu_read_single(fd[1], &ts[1]) - val[1];
- 	perf_slept[1] = ts[1] - ts[0];
- 	igt_debug("slept=%lu perf=%"PRIu64"\n", slept[1], perf_slept[1]);
- 	close(fd[1]);
- 
--	slept[0] = measured_usleep(batch_duration_ns / 1000) + slept[1];
-+	slept[0] = (igt_measured_usleep(batch_duration_ns / 1000) * NSEC_PER_USEC) + slept[1];
- 	val[0] = __pmu_read_single(fd[0], &ts[1]) - val[0];
- 	perf_slept[0] = ts[1] - ts[0];
- 	igt_debug("slept=%lu perf=%"PRIu64"\n", slept[0], perf_slept[0]);
-@@ -1710,7 +1677,7 @@ test_frequency(int gem_fd, unsigned int gt)
- 	spin = spin_sync_gt(gem_fd, ahnd, gt, &ctx);
- 
- 	slept = pmu_read_multi(fd[0], 2, start);
--	measured_usleep(batch_duration_ns / 1000);
-+	igt_measured_usleep(batch_duration_ns / 1000);
- 	slept = pmu_read_multi(fd[0], 2, val) - slept;
- 
- 	min[0] = 1e9*(val[0] - start[0]) / slept;
-@@ -1740,7 +1707,7 @@ test_frequency(int gem_fd, unsigned int gt)
- 	spin = spin_sync_gt(gem_fd, ahnd, gt, &ctx);
- 
- 	slept = pmu_read_multi(fd[0], 2, start);
--	measured_usleep(batch_duration_ns / 1000);
-+	igt_measured_usleep(batch_duration_ns / 1000);
- 	slept = pmu_read_multi(fd[0], 2, val) - slept;
- 
- 	max[0] = 1e9*(val[0] - start[0]) / slept;
-@@ -1772,7 +1739,7 @@ test_frequency(int gem_fd, unsigned int gt)
- 	 * On thermally throttled devices we cannot be sure maximum frequency
- 	 * can be reached so use larger tolerance downards.
- 	 */
--	__assert_within_epsilon(max[0], max_freq, tolerance, 0.15f, no_debug_data);
-+	assert_within_epsilon_up_down(max[0], max_freq, tolerance, 0.15f);
- }
- 
- static void
-@@ -1795,10 +1762,10 @@ test_frequency_idle(int gem_fd, unsigned int gt)
- 	fd[1] = open_group(gem_fd, __I915_PMU_ACTUAL_FREQUENCY(gt), fd[0]);
- 
- 	gem_quiescent_gpu(gem_fd); /* Be idle! */
--	measured_usleep(2000); /* Wait for timers to cease */
-+	igt_measured_usleep(2000); /* Wait for timers to cease */
- 
- 	slept = pmu_read_multi(fd[0], 2, start);
--	measured_usleep(batch_duration_ns / 1000);
-+	igt_measured_usleep(batch_duration_ns / 1000);
- 	slept = pmu_read_multi(fd[0], 2, val) - slept;
- 
- 	close(fd[0]);
-@@ -1922,7 +1889,7 @@ test_rc6(int gem_fd, unsigned int gt, unsigned int num_gt, unsigned int flags)
- 
- 	/* While idle check full RC6. */
- 	ts[0] = pmu_read_multi(fd[0], pmus, prev);
--	slept = measured_usleep(duration_ns / 1000);
-+	slept = igt_measured_usleep(duration_ns / 1000) * NSEC_PER_USEC;
- 	ts[1] = pmu_read_multi(fd[0], pmus, idle);
- 
- 	for (gt_ = 0; gt_ < pmus; gt_++) {
-@@ -1962,7 +1929,7 @@ test_rc6(int gem_fd, unsigned int gt, unsigned int num_gt, unsigned int flags)
- 		      "failed to enter c6 \n%s\n", drpc = get_drpc(gem_fd, test_idx));
- 
- 	ts[0] = pmu_read_multi(fd[0], pmus, prev);
--	slept = measured_usleep(duration_ns / 1000);
-+	slept = igt_measured_usleep(duration_ns / 1000) * NSEC_PER_USEC;
- 	ts[1] = pmu_read_multi(fd[0], pmus, idle);
- 
- 	for (gt_ = 0; gt_ < pmus; gt_++) {
-@@ -1987,7 +1954,7 @@ test_rc6(int gem_fd, unsigned int gt, unsigned int num_gt, unsigned int flags)
- 	usleep(1e3); /* wait for the rc6 cycle counter to stop ticking */
- 
- 	ts[0] = pmu_read_multi(fd[0], pmus, prev);
--	slept = measured_usleep(duration_ns / 1000);
-+	slept = igt_measured_usleep(duration_ns / 1000) * NSEC_PER_USEC;
- 	ts[1] = pmu_read_multi(fd[0], pmus, busy);
- 
- 	for (gt_ = 0; gt_ < num_gt; gt_++) {
-diff --git a/tests/intel/sysfs_heartbeat_interval.c b/tests/intel/sysfs_heartbeat_interval.c
-index 486a1514d..b4ca4769f 100644
---- a/tests/intel/sysfs_heartbeat_interval.c
-+++ b/tests/intel/sysfs_heartbeat_interval.c
-@@ -307,21 +307,6 @@ static void test_nopreempt(int i915, int engine)
- 	set_heartbeat(engine, saved);
- }
- 
--static unsigned int measured_usleep(unsigned int usec)
--{
--	struct timespec ts = { };
--	unsigned int slept;
--
--	slept = igt_nsec_elapsed(&ts);
--	igt_assert(slept == 0);
--	do {
--		usleep(usec - slept);
--		slept = igt_nsec_elapsed(&ts) / 1000;
--	} while (slept < usec);
--
--	return igt_nsec_elapsed(&ts);
--}
--
- static void client(int i915, int engine, int *ctl, int duration, int expect)
- {
- 	unsigned int class, inst;
-@@ -352,7 +337,7 @@ static void client(int i915, int engine, int *ctl, int duration, int expect)
- 			continue;
- 		}
- 
--		elapsed = measured_usleep(duration * 1000);
-+		elapsed = igt_measured_usleep(duration * 1000);
- 		igt_spin_end(spin);
- 
- 		sync_fence_wait(spin->out_fence, -1);
-@@ -361,7 +346,7 @@ static void client(int i915, int engine, int *ctl, int duration, int expect)
- 
- 		igt_assert_f(sync_fence_status(spin->out_fence) == expect,
- 			     "%s client: elapsed: %.3fms, expected %d, got %d\n",
--			     expect < 0 ? "Bad" : "Good", elapsed * 1e-6,
-+			     expect < 0 ? "Bad" : "Good", elapsed * 1e-3,
- 			     expect, sync_fence_status(spin->out_fence));
- 		igt_spin_free(i915, spin);
- 		count++;
-diff --git a/tests/intel/xe_pm_residency.c b/tests/intel/xe_pm_residency.c
-index f9e96d608..3432077cc 100644
---- a/tests/intel/xe_pm_residency.c
-+++ b/tests/intel/xe_pm_residency.c
-@@ -32,14 +32,6 @@
- const double tolerance = 0.1;
- int fw_handle = -1;
- 
--#define assert_within_epsilon(x, ref, tol) \
--	igt_assert_f((double)(x) <= (1.0 + (tol)) * (double)(ref) && \
--		     (double)(x) >= (1.0 - (tol)) * (double)(ref), \
--		     "'%s' != '%s' (%f not within +%.1f%%/-%.1f%% tolerance of %f)\n",\
--		     #x, #ref, (double)(x), \
--		     (tol) * 100.0, (tol) * 100.0, \
--		     (double)(ref))
--
- enum test_type {
- 	TEST_S2IDLE,
- 	TEST_IDLE,
-@@ -177,21 +169,6 @@ static void exec_load(int fd, struct drm_xe_engine_class_instance *hwe, unsigned
- 	xe_vm_destroy(fd, vm);
- }
- 
--static unsigned int measured_usleep(unsigned int usec)
--{
--	struct timespec ts = { };
--	unsigned int slept;
--
--	slept = igt_nsec_elapsed(&ts);
--	igt_assert(slept == 0);
--	do {
--		usleep(usec - slept);
--		slept = igt_nsec_elapsed(&ts) / 1000;
--	} while (slept < usec);
--
--	return igt_nsec_elapsed(&ts) / 1000;
--}
--
- static unsigned long read_idle_residency(int fd, int gt)
- {
- 	unsigned long residency = 0;
-@@ -224,7 +201,7 @@ static void test_idle_residency(int fd, int gt, enum test_type flag)
- 
- 	if (flag == TEST_IDLE) {
- 		residency_start = read_idle_residency(fd, gt);
--		elapsed_ms = measured_usleep(SLEEP_DURATION * USEC_PER_SEC) / 1000;
-+		elapsed_ms = igt_measured_usleep(SLEEP_DURATION * USEC_PER_SEC) / 1000;
- 		residency_end = read_idle_residency(fd, gt);
- 	}
- 
-@@ -260,7 +237,7 @@ static void idle_residency_on_exec(int fd, struct drm_xe_engine_class_instance *
- 
- 	start = READ_ONCE(done[1]);
- 	residency_start = read_idle_residency(fd, hwe->gt_id);
--	elapsed_ms = measured_usleep(SLEEP_DURATION * USEC_PER_SEC) / 1000;
-+	elapsed_ms = igt_measured_usleep(SLEEP_DURATION * USEC_PER_SEC) / 1000;
- 	residency_end = read_idle_residency(fd, hwe->gt_id);
- 	end = READ_ONCE(done[1]);
- 	*done = 1;
-@@ -281,7 +258,7 @@ static void measure_power(struct igt_power *gpu, double *power)
- 	struct power_sample power_sample[2];
- 
- 	igt_power_get_energy(gpu, &power_sample[0]);
--	measured_usleep(SLEEP_DURATION * USEC_PER_SEC);
-+	igt_measured_usleep(SLEEP_DURATION * USEC_PER_SEC);
- 	igt_power_get_energy(gpu, &power_sample[1]);
- 	*power = igt_power_get_mW(gpu, &power_sample[0], &power_sample[1]);
- }
--- 
-2.38.1
+PGh0bWwgeG1sbnM6dj0idXJuOnNjaGVtYXMtbWljcm9zb2Z0LWNvbTp2bWwiIHhtbG5zOm89InVy
+bjpzY2hlbWFzLW1pY3Jvc29mdC1jb206b2ZmaWNlOm9mZmljZSIgeG1sbnM6dz0idXJuOnNjaGVt
+YXMtbWljcm9zb2Z0LWNvbTpvZmZpY2U6d29yZCIgeG1sbnM6bT0iaHR0cDovL3NjaGVtYXMubWlj
+cm9zb2Z0LmNvbS9vZmZpY2UvMjAwNC8xMi9vbW1sIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcv
+VFIvUkVDLWh0bWw0MCI+DQo8aGVhZD4NCjxtZXRhIGh0dHAtZXF1aXY9IkNvbnRlbnQtVHlwZSIg
+Y29udGVudD0idGV4dC9odG1sOyBjaGFyc2V0PXV0Zi04Ij4NCjxtZXRhIG5hbWU9IkdlbmVyYXRv
+ciIgY29udGVudD0iTWljcm9zb2Z0IFdvcmQgMTUgKGZpbHRlcmVkIG1lZGl1bSkiPg0KPHRpdGxl
+PlByb2plY3QgTGlzdCAtIFBhdGNod29yazwvdGl0bGU+DQo8c3R5bGU+PCEtLQ0KLyogRm9udCBE
+ZWZpbml0aW9ucyAqLw0KQGZvbnQtZmFjZQ0KCXtmb250LWZhbWlseTpXaW5nZGluZ3M7DQoJcGFu
+b3NlLTE6NSAwIDAgMCAwIDAgMCAwIDAgMDt9DQpAZm9udC1mYWNlDQoJe2ZvbnQtZmFtaWx5OiJD
+YW1icmlhIE1hdGgiOw0KCXBhbm9zZS0xOjIgNCA1IDMgNSA0IDYgMyAyIDQ7fQ0KQGZvbnQtZmFj
+ZQ0KCXtmb250LWZhbWlseTpDYWxpYnJpOw0KCXBhbm9zZS0xOjIgMTUgNSAyIDIgMiA0IDMgMiA0
+O30NCkBmb250LWZhY2UNCgl7Zm9udC1mYW1pbHk6QXB0b3M7fQ0KQGZvbnQtZmFjZQ0KCXtmb250
+LWZhbWlseToiU2Vnb2UgVUkgU3ltYm9sIjsNCglwYW5vc2UtMToyIDExIDUgMiA0IDIgNCAyIDIg
+Mzt9DQovKiBTdHlsZSBEZWZpbml0aW9ucyAqLw0KcC5Nc29Ob3JtYWwsIGxpLk1zb05vcm1hbCwg
+ZGl2Lk1zb05vcm1hbA0KCXttYXJnaW46MGNtOw0KCWZvbnQtc2l6ZToxMi4wcHQ7DQoJZm9udC1m
+YW1pbHk6IkFwdG9zIixzYW5zLXNlcmlmO30NCmgxDQoJe21zby1zdHlsZS1wcmlvcml0eTo5Ow0K
+CW1zby1zdHlsZS1saW5rOiJIZWFkaW5nIDEgQ2hhciI7DQoJbXNvLW1hcmdpbi10b3AtYWx0OmF1
+dG87DQoJbWFyZ2luLXJpZ2h0OjBjbTsNCgltc28tbWFyZ2luLWJvdHRvbS1hbHQ6YXV0bzsNCglt
+YXJnaW4tbGVmdDowY207DQoJZm9udC1zaXplOjI0LjBwdDsNCglmb250LWZhbWlseToiQXB0b3Mi
+LHNhbnMtc2VyaWY7DQoJZm9udC13ZWlnaHQ6Ym9sZDt9DQpoMg0KCXttc28tc3R5bGUtcHJpb3Jp
+dHk6OTsNCgltc28tc3R5bGUtbGluazoiSGVhZGluZyAyIENoYXIiOw0KCW1zby1tYXJnaW4tdG9w
+LWFsdDphdXRvOw0KCW1hcmdpbi1yaWdodDowY207DQoJbXNvLW1hcmdpbi1ib3R0b20tYWx0OmF1
+dG87DQoJbWFyZ2luLWxlZnQ6MGNtOw0KCWZvbnQtc2l6ZToxOC4wcHQ7DQoJZm9udC1mYW1pbHk6
+IkFwdG9zIixzYW5zLXNlcmlmOw0KCWZvbnQtd2VpZ2h0OmJvbGQ7fQ0KaDMNCgl7bXNvLXN0eWxl
+LXByaW9yaXR5Ojk7DQoJbXNvLXN0eWxlLWxpbms6IkhlYWRpbmcgMyBDaGFyIjsNCgltc28tbWFy
+Z2luLXRvcC1hbHQ6YXV0bzsNCgltYXJnaW4tcmlnaHQ6MGNtOw0KCW1zby1tYXJnaW4tYm90dG9t
+LWFsdDphdXRvOw0KCW1hcmdpbi1sZWZ0OjBjbTsNCglmb250LXNpemU6MTMuNXB0Ow0KCWZvbnQt
+ZmFtaWx5OiJBcHRvcyIsc2Fucy1zZXJpZjsNCglmb250LXdlaWdodDpib2xkO30NCmg0DQoJe21z
+by1zdHlsZS1wcmlvcml0eTo5Ow0KCW1zby1zdHlsZS1saW5rOiJIZWFkaW5nIDQgQ2hhciI7DQoJ
+bXNvLW1hcmdpbi10b3AtYWx0OmF1dG87DQoJbWFyZ2luLXJpZ2h0OjBjbTsNCgltc28tbWFyZ2lu
+LWJvdHRvbS1hbHQ6YXV0bzsNCgltYXJnaW4tbGVmdDowY207DQoJZm9udC1zaXplOjEyLjBwdDsN
+Cglmb250LWZhbWlseToiQXB0b3MiLHNhbnMtc2VyaWY7DQoJZm9udC13ZWlnaHQ6Ym9sZDt9DQph
+OmxpbmssIHNwYW4uTXNvSHlwZXJsaW5rDQoJe21zby1zdHlsZS1wcmlvcml0eTo5OTsNCgljb2xv
+cjpibHVlOw0KCXRleHQtZGVjb3JhdGlvbjp1bmRlcmxpbmU7fQ0Kc3Bhbi5IZWFkaW5nMUNoYXIN
+Cgl7bXNvLXN0eWxlLW5hbWU6IkhlYWRpbmcgMSBDaGFyIjsNCgltc28tc3R5bGUtcHJpb3JpdHk6
+OTsNCgltc28tc3R5bGUtbGluazoiSGVhZGluZyAxIjsNCglmb250LWZhbWlseToiQXB0b3MgRGlz
+cGxheSIsc2Fucy1zZXJpZjsNCgljb2xvcjojMEY0NzYxO30NCnNwYW4uSGVhZGluZzJDaGFyDQoJ
+e21zby1zdHlsZS1uYW1lOiJIZWFkaW5nIDIgQ2hhciI7DQoJbXNvLXN0eWxlLXByaW9yaXR5Ojk7
+DQoJbXNvLXN0eWxlLWxpbms6IkhlYWRpbmcgMiI7DQoJZm9udC1mYW1pbHk6IkFwdG9zIERpc3Bs
+YXkiLHNhbnMtc2VyaWY7DQoJY29sb3I6IzBGNDc2MTt9DQpzcGFuLkhlYWRpbmczQ2hhcg0KCXtt
+c28tc3R5bGUtbmFtZToiSGVhZGluZyAzIENoYXIiOw0KCW1zby1zdHlsZS1wcmlvcml0eTo5Ow0K
+CW1zby1zdHlsZS1saW5rOiJIZWFkaW5nIDMiOw0KCWZvbnQtZmFtaWx5OiJBcHRvcyIsc2Fucy1z
+ZXJpZjsNCgljb2xvcjojMEY0NzYxO30NCnNwYW4uSGVhZGluZzRDaGFyDQoJe21zby1zdHlsZS1u
+YW1lOiJIZWFkaW5nIDQgQ2hhciI7DQoJbXNvLXN0eWxlLXByaW9yaXR5Ojk7DQoJbXNvLXN0eWxl
+LWxpbms6IkhlYWRpbmcgNCI7DQoJZm9udC1mYW1pbHk6IkFwdG9zIixzYW5zLXNlcmlmOw0KCWNv
+bG9yOiMwRjQ3NjE7DQoJZm9udC1zdHlsZTppdGFsaWM7fQ0Kc3Bhbi5FbWFpbFN0eWxlMjUNCgl7
+bXNvLXN0eWxlLXR5cGU6cGVyc29uYWwtcmVwbHk7DQoJZm9udC1mYW1pbHk6IkFwdG9zIixzYW5z
+LXNlcmlmOw0KCWNvbG9yOndpbmRvd3RleHQ7fQ0KLk1zb0NocERlZmF1bHQNCgl7bXNvLXN0eWxl
+LXR5cGU6ZXhwb3J0LW9ubHk7DQoJZm9udC1zaXplOjEwLjBwdDsNCgltc28tbGlnYXR1cmVzOm5v
+bmU7fQ0KQHBhZ2UgV29yZFNlY3Rpb24xDQoJe3NpemU6NjEyLjBwdCA3OTIuMHB0Ow0KCW1hcmdp
+bjo3Mi4wcHQgNzIuMHB0IDcyLjBwdCA3Mi4wcHQ7fQ0KZGl2LldvcmRTZWN0aW9uMQ0KCXtwYWdl
+OldvcmRTZWN0aW9uMTt9DQovKiBMaXN0IERlZmluaXRpb25zICovDQpAbGlzdCBsMA0KCXttc28t
+bGlzdC1pZDo3MzcyMTUzOTI7DQoJbXNvLWxpc3QtdGVtcGxhdGUtaWRzOjIwODc2NDM4Njg7fQ0K
+QGxpc3QgbDA6bGV2ZWwxDQoJe21zby1sZXZlbC1udW1iZXItZm9ybWF0OmJ1bGxldDsNCgltc28t
+bGV2ZWwtdGV4dDrvgrc7DQoJbXNvLWxldmVsLXRhYi1zdG9wOjM2LjBwdDsNCgltc28tbGV2ZWwt
+bnVtYmVyLXBvc2l0aW9uOmxlZnQ7DQoJdGV4dC1pbmRlbnQ6LTE4LjBwdDsNCgltc28tYW5zaS1m
+b250LXNpemU6MTAuMHB0Ow0KCWZvbnQtZmFtaWx5OlN5bWJvbDt9DQpAbGlzdCBsMDpsZXZlbDIN
+Cgl7bXNvLWxldmVsLW51bWJlci1mb3JtYXQ6YnVsbGV0Ow0KCW1zby1sZXZlbC10ZXh0Om87DQoJ
+bXNvLWxldmVsLXRhYi1zdG9wOjcyLjBwdDsNCgltc28tbGV2ZWwtbnVtYmVyLXBvc2l0aW9uOmxl
+ZnQ7DQoJdGV4dC1pbmRlbnQ6LTE4LjBwdDsNCgltc28tYW5zaS1mb250LXNpemU6MTAuMHB0Ow0K
+CWZvbnQtZmFtaWx5OiJDb3VyaWVyIE5ldyI7DQoJbXNvLWJpZGktZm9udC1mYW1pbHk6IlRpbWVz
+IE5ldyBSb21hbiI7fQ0KQGxpc3QgbDA6bGV2ZWwzDQoJe21zby1sZXZlbC1udW1iZXItZm9ybWF0
+OmJ1bGxldDsNCgltc28tbGV2ZWwtdGV4dDrvgqc7DQoJbXNvLWxldmVsLXRhYi1zdG9wOjEwOC4w
+cHQ7DQoJbXNvLWxldmVsLW51bWJlci1wb3NpdGlvbjpsZWZ0Ow0KCXRleHQtaW5kZW50Oi0xOC4w
+cHQ7DQoJbXNvLWFuc2ktZm9udC1zaXplOjEwLjBwdDsNCglmb250LWZhbWlseTpXaW5nZGluZ3M7
+fQ0KQGxpc3QgbDA6bGV2ZWw0DQoJe21zby1sZXZlbC1udW1iZXItZm9ybWF0OmJ1bGxldDsNCglt
+c28tbGV2ZWwtdGV4dDrvgqc7DQoJbXNvLWxldmVsLXRhYi1zdG9wOjE0NC4wcHQ7DQoJbXNvLWxl
+dmVsLW51bWJlci1wb3NpdGlvbjpsZWZ0Ow0KCXRleHQtaW5kZW50Oi0xOC4wcHQ7DQoJbXNvLWFu
+c2ktZm9udC1zaXplOjEwLjBwdDsNCglmb250LWZhbWlseTpXaW5nZGluZ3M7fQ0KQGxpc3QgbDA6
+bGV2ZWw1DQoJe21zby1sZXZlbC1udW1iZXItZm9ybWF0OmJ1bGxldDsNCgltc28tbGV2ZWwtdGV4
+dDrvgqc7DQoJbXNvLWxldmVsLXRhYi1zdG9wOjE4MC4wcHQ7DQoJbXNvLWxldmVsLW51bWJlci1w
+b3NpdGlvbjpsZWZ0Ow0KCXRleHQtaW5kZW50Oi0xOC4wcHQ7DQoJbXNvLWFuc2ktZm9udC1zaXpl
+OjEwLjBwdDsNCglmb250LWZhbWlseTpXaW5nZGluZ3M7fQ0KQGxpc3QgbDA6bGV2ZWw2DQoJe21z
+by1sZXZlbC1udW1iZXItZm9ybWF0OmJ1bGxldDsNCgltc28tbGV2ZWwtdGV4dDrvgqc7DQoJbXNv
+LWxldmVsLXRhYi1zdG9wOjIxNi4wcHQ7DQoJbXNvLWxldmVsLW51bWJlci1wb3NpdGlvbjpsZWZ0
+Ow0KCXRleHQtaW5kZW50Oi0xOC4wcHQ7DQoJbXNvLWFuc2ktZm9udC1zaXplOjEwLjBwdDsNCglm
+b250LWZhbWlseTpXaW5nZGluZ3M7fQ0KQGxpc3QgbDA6bGV2ZWw3DQoJe21zby1sZXZlbC1udW1i
+ZXItZm9ybWF0OmJ1bGxldDsNCgltc28tbGV2ZWwtdGV4dDrvgqc7DQoJbXNvLWxldmVsLXRhYi1z
+dG9wOjI1Mi4wcHQ7DQoJbXNvLWxldmVsLW51bWJlci1wb3NpdGlvbjpsZWZ0Ow0KCXRleHQtaW5k
+ZW50Oi0xOC4wcHQ7DQoJbXNvLWFuc2ktZm9udC1zaXplOjEwLjBwdDsNCglmb250LWZhbWlseTpX
+aW5nZGluZ3M7fQ0KQGxpc3QgbDA6bGV2ZWw4DQoJe21zby1sZXZlbC1udW1iZXItZm9ybWF0OmJ1
+bGxldDsNCgltc28tbGV2ZWwtdGV4dDrvgqc7DQoJbXNvLWxldmVsLXRhYi1zdG9wOjI4OC4wcHQ7
+DQoJbXNvLWxldmVsLW51bWJlci1wb3NpdGlvbjpsZWZ0Ow0KCXRleHQtaW5kZW50Oi0xOC4wcHQ7
+DQoJbXNvLWFuc2ktZm9udC1zaXplOjEwLjBwdDsNCglmb250LWZhbWlseTpXaW5nZGluZ3M7fQ0K
+QGxpc3QgbDA6bGV2ZWw5DQoJe21zby1sZXZlbC1udW1iZXItZm9ybWF0OmJ1bGxldDsNCgltc28t
+bGV2ZWwtdGV4dDrvgqc7DQoJbXNvLWxldmVsLXRhYi1zdG9wOjMyNC4wcHQ7DQoJbXNvLWxldmVs
+LW51bWJlci1wb3NpdGlvbjpsZWZ0Ow0KCXRleHQtaW5kZW50Oi0xOC4wcHQ7DQoJbXNvLWFuc2kt
+Zm9udC1zaXplOjEwLjBwdDsNCglmb250LWZhbWlseTpXaW5nZGluZ3M7fQ0KQGxpc3QgbDENCgl7
+bXNvLWxpc3QtaWQ6ODE3MDY4Mjc1Ow0KCW1zby1saXN0LXRlbXBsYXRlLWlkczotMTI5ODc0Mzg2
+MDt9DQpAbGlzdCBsMTpsZXZlbDENCgl7bXNvLWxldmVsLW51bWJlci1mb3JtYXQ6YnVsbGV0Ow0K
+CW1zby1sZXZlbC10ZXh0Ou+CtzsNCgltc28tbGV2ZWwtdGFiLXN0b3A6MzYuMHB0Ow0KCW1zby1s
+ZXZlbC1udW1iZXItcG9zaXRpb246bGVmdDsNCgl0ZXh0LWluZGVudDotMTguMHB0Ow0KCW1zby1h
+bnNpLWZvbnQtc2l6ZToxMC4wcHQ7DQoJZm9udC1mYW1pbHk6U3ltYm9sO30NCkBsaXN0IGwxOmxl
+dmVsMg0KCXttc28tbGV2ZWwtbnVtYmVyLWZvcm1hdDpidWxsZXQ7DQoJbXNvLWxldmVsLXRleHQ6
+bzsNCgltc28tbGV2ZWwtdGFiLXN0b3A6NzIuMHB0Ow0KCW1zby1sZXZlbC1udW1iZXItcG9zaXRp
+b246bGVmdDsNCgl0ZXh0LWluZGVudDotMTguMHB0Ow0KCW1zby1hbnNpLWZvbnQtc2l6ZToxMC4w
+cHQ7DQoJZm9udC1mYW1pbHk6IkNvdXJpZXIgTmV3IjsNCgltc28tYmlkaS1mb250LWZhbWlseToi
+VGltZXMgTmV3IFJvbWFuIjt9DQpAbGlzdCBsMTpsZXZlbDMNCgl7bXNvLWxldmVsLW51bWJlci1m
+b3JtYXQ6YnVsbGV0Ow0KCW1zby1sZXZlbC10ZXh0Ou+CpzsNCgltc28tbGV2ZWwtdGFiLXN0b3A6
+MTA4LjBwdDsNCgltc28tbGV2ZWwtbnVtYmVyLXBvc2l0aW9uOmxlZnQ7DQoJdGV4dC1pbmRlbnQ6
+LTE4LjBwdDsNCgltc28tYW5zaS1mb250LXNpemU6MTAuMHB0Ow0KCWZvbnQtZmFtaWx5Oldpbmdk
+aW5nczt9DQpAbGlzdCBsMTpsZXZlbDQNCgl7bXNvLWxldmVsLW51bWJlci1mb3JtYXQ6YnVsbGV0
+Ow0KCW1zby1sZXZlbC10ZXh0Ou+CpzsNCgltc28tbGV2ZWwtdGFiLXN0b3A6MTQ0LjBwdDsNCglt
+c28tbGV2ZWwtbnVtYmVyLXBvc2l0aW9uOmxlZnQ7DQoJdGV4dC1pbmRlbnQ6LTE4LjBwdDsNCglt
+c28tYW5zaS1mb250LXNpemU6MTAuMHB0Ow0KCWZvbnQtZmFtaWx5OldpbmdkaW5nczt9DQpAbGlz
+dCBsMTpsZXZlbDUNCgl7bXNvLWxldmVsLW51bWJlci1mb3JtYXQ6YnVsbGV0Ow0KCW1zby1sZXZl
+bC10ZXh0Ou+CpzsNCgltc28tbGV2ZWwtdGFiLXN0b3A6MTgwLjBwdDsNCgltc28tbGV2ZWwtbnVt
+YmVyLXBvc2l0aW9uOmxlZnQ7DQoJdGV4dC1pbmRlbnQ6LTE4LjBwdDsNCgltc28tYW5zaS1mb250
+LXNpemU6MTAuMHB0Ow0KCWZvbnQtZmFtaWx5OldpbmdkaW5nczt9DQpAbGlzdCBsMTpsZXZlbDYN
+Cgl7bXNvLWxldmVsLW51bWJlci1mb3JtYXQ6YnVsbGV0Ow0KCW1zby1sZXZlbC10ZXh0Ou+CpzsN
+Cgltc28tbGV2ZWwtdGFiLXN0b3A6MjE2LjBwdDsNCgltc28tbGV2ZWwtbnVtYmVyLXBvc2l0aW9u
+OmxlZnQ7DQoJdGV4dC1pbmRlbnQ6LTE4LjBwdDsNCgltc28tYW5zaS1mb250LXNpemU6MTAuMHB0
+Ow0KCWZvbnQtZmFtaWx5OldpbmdkaW5nczt9DQpAbGlzdCBsMTpsZXZlbDcNCgl7bXNvLWxldmVs
+LW51bWJlci1mb3JtYXQ6YnVsbGV0Ow0KCW1zby1sZXZlbC10ZXh0Ou+CpzsNCgltc28tbGV2ZWwt
+dGFiLXN0b3A6MjUyLjBwdDsNCgltc28tbGV2ZWwtbnVtYmVyLXBvc2l0aW9uOmxlZnQ7DQoJdGV4
+dC1pbmRlbnQ6LTE4LjBwdDsNCgltc28tYW5zaS1mb250LXNpemU6MTAuMHB0Ow0KCWZvbnQtZmFt
+aWx5OldpbmdkaW5nczt9DQpAbGlzdCBsMTpsZXZlbDgNCgl7bXNvLWxldmVsLW51bWJlci1mb3Jt
+YXQ6YnVsbGV0Ow0KCW1zby1sZXZlbC10ZXh0Ou+CpzsNCgltc28tbGV2ZWwtdGFiLXN0b3A6Mjg4
+LjBwdDsNCgltc28tbGV2ZWwtbnVtYmVyLXBvc2l0aW9uOmxlZnQ7DQoJdGV4dC1pbmRlbnQ6LTE4
+LjBwdDsNCgltc28tYW5zaS1mb250LXNpemU6MTAuMHB0Ow0KCWZvbnQtZmFtaWx5OldpbmdkaW5n
+czt9DQpAbGlzdCBsMTpsZXZlbDkNCgl7bXNvLWxldmVsLW51bWJlci1mb3JtYXQ6YnVsbGV0Ow0K
+CW1zby1sZXZlbC10ZXh0Ou+CpzsNCgltc28tbGV2ZWwtdGFiLXN0b3A6MzI0LjBwdDsNCgltc28t
+bGV2ZWwtbnVtYmVyLXBvc2l0aW9uOmxlZnQ7DQoJdGV4dC1pbmRlbnQ6LTE4LjBwdDsNCgltc28t
+YW5zaS1mb250LXNpemU6MTAuMHB0Ow0KCWZvbnQtZmFtaWx5OldpbmdkaW5nczt9DQpAbGlzdCBs
+Mg0KCXttc28tbGlzdC1pZDo4NjY2MDI1MTM7DQoJbXNvLWxpc3QtdGVtcGxhdGUtaWRzOjE5MjEz
+MDMwMDQ7fQ0KQGxpc3QgbDI6bGV2ZWwxDQoJe21zby1sZXZlbC1udW1iZXItZm9ybWF0OmJ1bGxl
+dDsNCgltc28tbGV2ZWwtdGV4dDrvgrc7DQoJbXNvLWxldmVsLXRhYi1zdG9wOjM2LjBwdDsNCglt
+c28tbGV2ZWwtbnVtYmVyLXBvc2l0aW9uOmxlZnQ7DQoJdGV4dC1pbmRlbnQ6LTE4LjBwdDsNCglt
+c28tYW5zaS1mb250LXNpemU6MTAuMHB0Ow0KCWZvbnQtZmFtaWx5OlN5bWJvbDt9DQpAbGlzdCBs
+MjpsZXZlbDINCgl7bXNvLWxldmVsLW51bWJlci1mb3JtYXQ6YnVsbGV0Ow0KCW1zby1sZXZlbC10
+ZXh0Om87DQoJbXNvLWxldmVsLXRhYi1zdG9wOjcyLjBwdDsNCgltc28tbGV2ZWwtbnVtYmVyLXBv
+c2l0aW9uOmxlZnQ7DQoJdGV4dC1pbmRlbnQ6LTE4LjBwdDsNCgltc28tYW5zaS1mb250LXNpemU6
+MTAuMHB0Ow0KCWZvbnQtZmFtaWx5OiJDb3VyaWVyIE5ldyI7DQoJbXNvLWJpZGktZm9udC1mYW1p
+bHk6IlRpbWVzIE5ldyBSb21hbiI7fQ0KQGxpc3QgbDI6bGV2ZWwzDQoJe21zby1sZXZlbC1udW1i
+ZXItZm9ybWF0OmJ1bGxldDsNCgltc28tbGV2ZWwtdGV4dDrvgqc7DQoJbXNvLWxldmVsLXRhYi1z
+dG9wOjEwOC4wcHQ7DQoJbXNvLWxldmVsLW51bWJlci1wb3NpdGlvbjpsZWZ0Ow0KCXRleHQtaW5k
+ZW50Oi0xOC4wcHQ7DQoJbXNvLWFuc2ktZm9udC1zaXplOjEwLjBwdDsNCglmb250LWZhbWlseTpX
+aW5nZGluZ3M7fQ0KQGxpc3QgbDI6bGV2ZWw0DQoJe21zby1sZXZlbC1udW1iZXItZm9ybWF0OmJ1
+bGxldDsNCgltc28tbGV2ZWwtdGV4dDrvgqc7DQoJbXNvLWxldmVsLXRhYi1zdG9wOjE0NC4wcHQ7
+DQoJbXNvLWxldmVsLW51bWJlci1wb3NpdGlvbjpsZWZ0Ow0KCXRleHQtaW5kZW50Oi0xOC4wcHQ7
+DQoJbXNvLWFuc2ktZm9udC1zaXplOjEwLjBwdDsNCglmb250LWZhbWlseTpXaW5nZGluZ3M7fQ0K
+QGxpc3QgbDI6bGV2ZWw1DQoJe21zby1sZXZlbC1udW1iZXItZm9ybWF0OmJ1bGxldDsNCgltc28t
+bGV2ZWwtdGV4dDrvgqc7DQoJbXNvLWxldmVsLXRhYi1zdG9wOjE4MC4wcHQ7DQoJbXNvLWxldmVs
+LW51bWJlci1wb3NpdGlvbjpsZWZ0Ow0KCXRleHQtaW5kZW50Oi0xOC4wcHQ7DQoJbXNvLWFuc2kt
+Zm9udC1zaXplOjEwLjBwdDsNCglmb250LWZhbWlseTpXaW5nZGluZ3M7fQ0KQGxpc3QgbDI6bGV2
+ZWw2DQoJe21zby1sZXZlbC1udW1iZXItZm9ybWF0OmJ1bGxldDsNCgltc28tbGV2ZWwtdGV4dDrv
+gqc7DQoJbXNvLWxldmVsLXRhYi1zdG9wOjIxNi4wcHQ7DQoJbXNvLWxldmVsLW51bWJlci1wb3Np
+dGlvbjpsZWZ0Ow0KCXRleHQtaW5kZW50Oi0xOC4wcHQ7DQoJbXNvLWFuc2ktZm9udC1zaXplOjEw
+LjBwdDsNCglmb250LWZhbWlseTpXaW5nZGluZ3M7fQ0KQGxpc3QgbDI6bGV2ZWw3DQoJe21zby1s
+ZXZlbC1udW1iZXItZm9ybWF0OmJ1bGxldDsNCgltc28tbGV2ZWwtdGV4dDrvgqc7DQoJbXNvLWxl
+dmVsLXRhYi1zdG9wOjI1Mi4wcHQ7DQoJbXNvLWxldmVsLW51bWJlci1wb3NpdGlvbjpsZWZ0Ow0K
+CXRleHQtaW5kZW50Oi0xOC4wcHQ7DQoJbXNvLWFuc2ktZm9udC1zaXplOjEwLjBwdDsNCglmb250
+LWZhbWlseTpXaW5nZGluZ3M7fQ0KQGxpc3QgbDI6bGV2ZWw4DQoJe21zby1sZXZlbC1udW1iZXIt
+Zm9ybWF0OmJ1bGxldDsNCgltc28tbGV2ZWwtdGV4dDrvgqc7DQoJbXNvLWxldmVsLXRhYi1zdG9w
+OjI4OC4wcHQ7DQoJbXNvLWxldmVsLW51bWJlci1wb3NpdGlvbjpsZWZ0Ow0KCXRleHQtaW5kZW50
+Oi0xOC4wcHQ7DQoJbXNvLWFuc2ktZm9udC1zaXplOjEwLjBwdDsNCglmb250LWZhbWlseTpXaW5n
+ZGluZ3M7fQ0KQGxpc3QgbDI6bGV2ZWw5DQoJe21zby1sZXZlbC1udW1iZXItZm9ybWF0OmJ1bGxl
+dDsNCgltc28tbGV2ZWwtdGV4dDrvgqc7DQoJbXNvLWxldmVsLXRhYi1zdG9wOjMyNC4wcHQ7DQoJ
+bXNvLWxldmVsLW51bWJlci1wb3NpdGlvbjpsZWZ0Ow0KCXRleHQtaW5kZW50Oi0xOC4wcHQ7DQoJ
+bXNvLWFuc2ktZm9udC1zaXplOjEwLjBwdDsNCglmb250LWZhbWlseTpXaW5nZGluZ3M7fQ0KQGxp
+c3QgbDMNCgl7bXNvLWxpc3QtaWQ6MTU2MDYzMjI5NjsNCgltc28tbGlzdC10ZW1wbGF0ZS1pZHM6
+MTQyNzI1NDE0MDt9DQpAbGlzdCBsMzpsZXZlbDENCgl7bXNvLWxldmVsLW51bWJlci1mb3JtYXQ6
+YnVsbGV0Ow0KCW1zby1sZXZlbC10ZXh0Ou+CtzsNCgltc28tbGV2ZWwtdGFiLXN0b3A6MzYuMHB0
+Ow0KCW1zby1sZXZlbC1udW1iZXItcG9zaXRpb246bGVmdDsNCgl0ZXh0LWluZGVudDotMTguMHB0
+Ow0KCW1zby1hbnNpLWZvbnQtc2l6ZToxMC4wcHQ7DQoJZm9udC1mYW1pbHk6U3ltYm9sO30NCkBs
+aXN0IGwzOmxldmVsMg0KCXttc28tbGV2ZWwtbnVtYmVyLWZvcm1hdDpidWxsZXQ7DQoJbXNvLWxl
+dmVsLXRleHQ6bzsNCgltc28tbGV2ZWwtdGFiLXN0b3A6NzIuMHB0Ow0KCW1zby1sZXZlbC1udW1i
+ZXItcG9zaXRpb246bGVmdDsNCgl0ZXh0LWluZGVudDotMTguMHB0Ow0KCW1zby1hbnNpLWZvbnQt
+c2l6ZToxMC4wcHQ7DQoJZm9udC1mYW1pbHk6IkNvdXJpZXIgTmV3IjsNCgltc28tYmlkaS1mb250
+LWZhbWlseToiVGltZXMgTmV3IFJvbWFuIjt9DQpAbGlzdCBsMzpsZXZlbDMNCgl7bXNvLWxldmVs
+LW51bWJlci1mb3JtYXQ6YnVsbGV0Ow0KCW1zby1sZXZlbC10ZXh0Ou+CpzsNCgltc28tbGV2ZWwt
+dGFiLXN0b3A6MTA4LjBwdDsNCgltc28tbGV2ZWwtbnVtYmVyLXBvc2l0aW9uOmxlZnQ7DQoJdGV4
+dC1pbmRlbnQ6LTE4LjBwdDsNCgltc28tYW5zaS1mb250LXNpemU6MTAuMHB0Ow0KCWZvbnQtZmFt
+aWx5OldpbmdkaW5nczt9DQpAbGlzdCBsMzpsZXZlbDQNCgl7bXNvLWxldmVsLW51bWJlci1mb3Jt
+YXQ6YnVsbGV0Ow0KCW1zby1sZXZlbC10ZXh0Ou+CpzsNCgltc28tbGV2ZWwtdGFiLXN0b3A6MTQ0
+LjBwdDsNCgltc28tbGV2ZWwtbnVtYmVyLXBvc2l0aW9uOmxlZnQ7DQoJdGV4dC1pbmRlbnQ6LTE4
+LjBwdDsNCgltc28tYW5zaS1mb250LXNpemU6MTAuMHB0Ow0KCWZvbnQtZmFtaWx5OldpbmdkaW5n
+czt9DQpAbGlzdCBsMzpsZXZlbDUNCgl7bXNvLWxldmVsLW51bWJlci1mb3JtYXQ6YnVsbGV0Ow0K
+CW1zby1sZXZlbC10ZXh0Ou+CpzsNCgltc28tbGV2ZWwtdGFiLXN0b3A6MTgwLjBwdDsNCgltc28t
+bGV2ZWwtbnVtYmVyLXBvc2l0aW9uOmxlZnQ7DQoJdGV4dC1pbmRlbnQ6LTE4LjBwdDsNCgltc28t
+YW5zaS1mb250LXNpemU6MTAuMHB0Ow0KCWZvbnQtZmFtaWx5OldpbmdkaW5nczt9DQpAbGlzdCBs
+MzpsZXZlbDYNCgl7bXNvLWxldmVsLW51bWJlci1mb3JtYXQ6YnVsbGV0Ow0KCW1zby1sZXZlbC10
+ZXh0Ou+CpzsNCgltc28tbGV2ZWwtdGFiLXN0b3A6MjE2LjBwdDsNCgltc28tbGV2ZWwtbnVtYmVy
+LXBvc2l0aW9uOmxlZnQ7DQoJdGV4dC1pbmRlbnQ6LTE4LjBwdDsNCgltc28tYW5zaS1mb250LXNp
+emU6MTAuMHB0Ow0KCWZvbnQtZmFtaWx5OldpbmdkaW5nczt9DQpAbGlzdCBsMzpsZXZlbDcNCgl7
+bXNvLWxldmVsLW51bWJlci1mb3JtYXQ6YnVsbGV0Ow0KCW1zby1sZXZlbC10ZXh0Ou+CpzsNCglt
+c28tbGV2ZWwtdGFiLXN0b3A6MjUyLjBwdDsNCgltc28tbGV2ZWwtbnVtYmVyLXBvc2l0aW9uOmxl
+ZnQ7DQoJdGV4dC1pbmRlbnQ6LTE4LjBwdDsNCgltc28tYW5zaS1mb250LXNpemU6MTAuMHB0Ow0K
+CWZvbnQtZmFtaWx5OldpbmdkaW5nczt9DQpAbGlzdCBsMzpsZXZlbDgNCgl7bXNvLWxldmVsLW51
+bWJlci1mb3JtYXQ6YnVsbGV0Ow0KCW1zby1sZXZlbC10ZXh0Ou+CpzsNCgltc28tbGV2ZWwtdGFi
+LXN0b3A6Mjg4LjBwdDsNCgltc28tbGV2ZWwtbnVtYmVyLXBvc2l0aW9uOmxlZnQ7DQoJdGV4dC1p
+bmRlbnQ6LTE4LjBwdDsNCgltc28tYW5zaS1mb250LXNpemU6MTAuMHB0Ow0KCWZvbnQtZmFtaWx5
+OldpbmdkaW5nczt9DQpAbGlzdCBsMzpsZXZlbDkNCgl7bXNvLWxldmVsLW51bWJlci1mb3JtYXQ6
+YnVsbGV0Ow0KCW1zby1sZXZlbC10ZXh0Ou+CpzsNCgltc28tbGV2ZWwtdGFiLXN0b3A6MzI0LjBw
+dDsNCgltc28tbGV2ZWwtbnVtYmVyLXBvc2l0aW9uOmxlZnQ7DQoJdGV4dC1pbmRlbnQ6LTE4LjBw
+dDsNCgltc28tYW5zaS1mb250LXNpemU6MTAuMHB0Ow0KCWZvbnQtZmFtaWx5OldpbmdkaW5nczt9
+DQpvbA0KCXttYXJnaW4tYm90dG9tOjBjbTt9DQp1bA0KCXttYXJnaW4tYm90dG9tOjBjbTt9DQot
+LT48L3N0eWxlPjwhLS1baWYgZ3RlIG1zbyA5XT48eG1sPg0KPG86c2hhcGVkZWZhdWx0cyB2OmV4
+dD0iZWRpdCIgc3BpZG1heD0iMTAyNiIgLz4NCjwveG1sPjwhW2VuZGlmXS0tPjwhLS1baWYgZ3Rl
+IG1zbyA5XT48eG1sPg0KPG86c2hhcGVsYXlvdXQgdjpleHQ9ImVkaXQiPg0KPG86aWRtYXAgdjpl
+eHQ9ImVkaXQiIGRhdGE9IjEiIC8+DQo8L286c2hhcGVsYXlvdXQ+PC94bWw+PCFbZW5kaWZdLS0+
+DQo8L2hlYWQ+DQo8Ym9keSBsYW5nPSJFTi1JTiIgbGluaz0iYmx1ZSIgdmxpbms9InB1cnBsZSIg
+c3R5bGU9IndvcmQtd3JhcDpicmVhay13b3JkIj4NCjxkaXYgY2xhc3M9IldvcmRTZWN0aW9uMSI+
+DQo8cCBjbGFzcz0iTXNvTm9ybWFsIj48c3BhbiBzdHlsZT0iZm9udC1zaXplOjExLjBwdDttc28t
+ZmFyZWFzdC1sYW5ndWFnZTpFTi1VUyI+SXNzdWVzIHJlcG9ydGVkIG9uIEJBVCBpcyBub3QgcmVs
+YXRlZCB0byBhbnkgY2hhbmdlcyBtYWRlIHRvIHBhdGNoIHNlcmllcy4NCjxicj4NCjxicj4NClBs
+ZWFzZSBoZWxwIHRvIHJlLXJlcG9ydDxicj4NCjxicj4NClJlZ2FyZHMsPGJyPg0KTWl0dWw8bzpw
+PjwvbzpwPjwvc3Bhbj48L3A+DQo8cCBjbGFzcz0iTXNvTm9ybWFsIj48c3BhbiBzdHlsZT0iZm9u
+dC1zaXplOjExLjBwdDttc28tZmFyZWFzdC1sYW5ndWFnZTpFTi1VUyI+PG86cD4mbmJzcDs8L286
+cD48L3NwYW4+PC9wPg0KPGRpdiBzdHlsZT0iYm9yZGVyOm5vbmU7Ym9yZGVyLWxlZnQ6c29saWQg
+Ymx1ZSAxLjVwdDtwYWRkaW5nOjBjbSAwY20gMGNtIDQuMHB0Ij4NCjxkaXY+DQo8ZGl2IHN0eWxl
+PSJib3JkZXI6bm9uZTtib3JkZXItdG9wOnNvbGlkICNFMUUxRTEgMS4wcHQ7cGFkZGluZzozLjBw
+dCAwY20gMGNtIDBjbSI+DQo8cCBjbGFzcz0iTXNvTm9ybWFsIj48Yj48c3BhbiBsYW5nPSJFTi1V
+UyIgc3R5bGU9ImZvbnQtc2l6ZToxMS4wcHQ7Zm9udC1mYW1pbHk6JnF1b3Q7Q2FsaWJyaSZxdW90
+OyxzYW5zLXNlcmlmIj5Gcm9tOjwvc3Bhbj48L2I+PHNwYW4gbGFuZz0iRU4tVVMiIHN0eWxlPSJm
+b250LXNpemU6MTEuMHB0O2ZvbnQtZmFtaWx5OiZxdW90O0NhbGlicmkmcXVvdDssc2Fucy1zZXJp
+ZiI+IFBhdGNod29yayAmbHQ7cGF0Y2h3b3JrQGVtZXJpbC5mcmVlZGVza3RvcC5vcmcmZ3Q7DQo8
+YnI+DQo8Yj5TZW50OjwvYj4gMDQgRmVicnVhcnkgMjAyNSAyMjoyMDxicj4NCjxiPlRvOjwvYj4g
+R29sYW5pLCBNaXR1bGt1bWFyIEFqaXRrdW1hciAmbHQ7bWl0dWxrdW1hci5haml0a3VtYXIuZ29s
+YW5pQGludGVsLmNvbSZndDs8YnI+DQo8Yj5DYzo8L2I+IGludGVsLWdmeEBsaXN0cy5mcmVlZGVz
+a3RvcC5vcmc8YnI+DQo8Yj5TdWJqZWN0OjwvYj4gPC9zcGFuPjxzcGFuIGxhbmc9IkVOLVVTIiBz
+dHlsZT0iZm9udC1zaXplOjExLjBwdDtmb250LWZhbWlseTomcXVvdDtTZWdvZSBVSSBTeW1ib2wm
+cXVvdDssc2Fucy1zZXJpZiI+4pyXPC9zcGFuPjxzcGFuIGxhbmc9IkVOLVVTIiBzdHlsZT0iZm9u
+dC1zaXplOjExLjBwdDtmb250LWZhbWlseTomcXVvdDtDYWxpYnJpJnF1b3Q7LHNhbnMtc2VyaWYi
+PiBpOTE1LkNJLkJBVDogZmFpbHVyZSBmb3IgQ29tcHV0ZSBhc19zZHAgd2hlbiB2cnIgaXMgZW5h
+YmxlZCAocmV2Mik8bzpwPjwvbzpwPjwvc3Bhbj48L3A+DQo8L2Rpdj4NCjwvZGl2Pg0KPHAgY2xh
+c3M9Ik1zb05vcm1hbCI+PG86cD4mbmJzcDs8L286cD48L3A+DQo8cCBjbGFzcz0iTXNvTm9ybWFs
+Ij48Yj5QYXRjaCBEZXRhaWxzPC9iPiA8bzpwPjwvbzpwPjwvcD4NCjx0YWJsZSBjbGFzcz0iTXNv
+Tm9ybWFsVGFibGUiIGJvcmRlcj0iMCIgY2VsbHBhZGRpbmc9IjAiPg0KPHRib2R5Pg0KPHRyPg0K
+PHRkIHN0eWxlPSJwYWRkaW5nOjIuMHB0IDIuMHB0IDIuMHB0IDIuMHB0Ij4NCjxwIGNsYXNzPSJN
+c29Ob3JtYWwiPjxiPlNlcmllczo8L2I+PG86cD48L286cD48L3A+DQo8L3RkPg0KPHRkIHN0eWxl
+PSJwYWRkaW5nOjIuMHB0IDIuMHB0IDIuMHB0IDIuMHB0Ij4NCjxwIGNsYXNzPSJNc29Ob3JtYWwi
+PkNvbXB1dGUgYXNfc2RwIHdoZW4gdnJyIGlzIGVuYWJsZWQgKHJldjIpPG86cD48L286cD48L3A+
+DQo8L3RkPg0KPC90cj4NCjx0cj4NCjx0ZCBzdHlsZT0icGFkZGluZzoyLjBwdCAyLjBwdCAyLjBw
+dCAyLjBwdCI+DQo8cCBjbGFzcz0iTXNvTm9ybWFsIj48Yj5VUkw6PC9iPjxvOnA+PC9vOnA+PC9w
+Pg0KPC90ZD4NCjx0ZCBzdHlsZT0icGFkZGluZzoyLjBwdCAyLjBwdCAyLjBwdCAyLjBwdCI+DQo8
+cCBjbGFzcz0iTXNvTm9ybWFsIj48YSBocmVmPSJodHRwczovL3BhdGNod29yay5mcmVlZGVza3Rv
+cC5vcmcvc2VyaWVzLzE0NDI2OC8iPmh0dHBzOi8vcGF0Y2h3b3JrLmZyZWVkZXNrdG9wLm9yZy9z
+ZXJpZXMvMTQ0MjY4LzwvYT48bzpwPjwvbzpwPjwvcD4NCjwvdGQ+DQo8L3RyPg0KPHRyPg0KPHRk
+IHN0eWxlPSJwYWRkaW5nOjIuMHB0IDIuMHB0IDIuMHB0IDIuMHB0Ij4NCjxwIGNsYXNzPSJNc29O
+b3JtYWwiPjxiPlN0YXRlOjwvYj48bzpwPjwvbzpwPjwvcD4NCjwvdGQ+DQo8dGQgc3R5bGU9InBh
+ZGRpbmc6Mi4wcHQgMi4wcHQgMi4wcHQgMi4wcHQiPg0KPHAgY2xhc3M9Ik1zb05vcm1hbCI+ZmFp
+bHVyZTxvOnA+PC9vOnA+PC9wPg0KPC90ZD4NCjwvdHI+DQo8dHI+DQo8dGQgc3R5bGU9InBhZGRp
+bmc6Mi4wcHQgMi4wcHQgMi4wcHQgMi4wcHQiPg0KPHAgY2xhc3M9Ik1zb05vcm1hbCI+PGI+RGV0
+YWlsczo8L2I+PG86cD48L286cD48L3A+DQo8L3RkPg0KPHRkIHN0eWxlPSJwYWRkaW5nOjIuMHB0
+IDIuMHB0IDIuMHB0IDIuMHB0Ij4NCjxwIGNsYXNzPSJNc29Ob3JtYWwiPjxhIGhyZWY9Imh0dHBz
+Oi8vaW50ZWwtZ2Z4LWNpLjAxLm9yZy90cmVlL2RybS10aXAvUGF0Y2h3b3JrXzE0NDI2OHYyL2lu
+ZGV4Lmh0bWwiPmh0dHBzOi8vaW50ZWwtZ2Z4LWNpLjAxLm9yZy90cmVlL2RybS10aXAvUGF0Y2h3
+b3JrXzE0NDI2OHYyL2luZGV4Lmh0bWw8L2E+PG86cD48L286cD48L3A+DQo8L3RkPg0KPC90cj4N
+CjwvdGJvZHk+DQo8L3RhYmxlPg0KPGgxPkNJIEJ1ZyBMb2cgLSBjaGFuZ2VzIGZyb20gQ0lfRFJN
+XzE2MDYzIC0mZ3Q7IFBhdGNod29ya18xNDQyNjh2MjxvOnA+PC9vOnA+PC9oMT4NCjxoMj5TdW1t
+YXJ5PG86cD48L286cD48L2gyPg0KPHA+PHN0cm9uZz48c3BhbiBzdHlsZT0iZm9udC1mYW1pbHk6
+JnF1b3Q7QXB0b3MmcXVvdDssc2Fucy1zZXJpZiI+RkFJTFVSRTwvc3Bhbj48L3N0cm9uZz48bzpw
+PjwvbzpwPjwvcD4NCjxwPlNlcmlvdXMgdW5rbm93biBjaGFuZ2VzIGNvbWluZyB3aXRoIFBhdGNo
+d29ya18xNDQyNjh2MiBhYnNvbHV0ZWx5IG5lZWQgdG8gYmU8YnI+DQp2ZXJpZmllZCBtYW51YWxs
+eS48bzpwPjwvbzpwPjwvcD4NCjxwPklmIHlvdSB0aGluayB0aGUgcmVwb3J0ZWQgY2hhbmdlcyBo
+YXZlIG5vdGhpbmcgdG8gZG8gd2l0aCB0aGUgY2hhbmdlczxicj4NCmludHJvZHVjZWQgaW4gUGF0
+Y2h3b3JrXzE0NDI2OHYyLCBwbGVhc2Ugbm90aWZ5IHlvdXIgYnVnIHRlYW0gKDxhIGhyZWY9Im1h
+aWx0bzpJOTE1LWNpLWluZnJhQGxpc3RzLmZyZWVkZXNrdG9wLm9yZyI+STkxNS1jaS1pbmZyYUBs
+aXN0cy5mcmVlZGVza3RvcC5vcmc8L2E+KSB0byBhbGxvdyB0aGVtPGJyPg0KdG8gZG9jdW1lbnQg
+dGhpcyBuZXcgZmFpbHVyZSBtb2RlLCB3aGljaCB3aWxsIHJlZHVjZSBmYWxzZSBwb3NpdGl2ZXMg
+aW4gQ0kuPG86cD48L286cD48L3A+DQo8cD5FeHRlcm5hbCBVUkw6IDxhIGhyZWY9Imh0dHBzOi8v
+aW50ZWwtZ2Z4LWNpLjAxLm9yZy90cmVlL2RybS10aXAvUGF0Y2h3b3JrXzE0NDI2OHYyL2luZGV4
+Lmh0bWwiPg0KaHR0cHM6Ly9pbnRlbC1nZngtY2kuMDEub3JnL3RyZWUvZHJtLXRpcC9QYXRjaHdv
+cmtfMTQ0MjY4djIvaW5kZXguaHRtbDwvYT48bzpwPjwvbzpwPjwvcD4NCjxoMj5QYXJ0aWNpcGF0
+aW5nIGhvc3RzICg0MyAtJmd0OyA0MSk8bzpwPjwvbzpwPjwvaDI+DQo8cD5NaXNzaW5nICgyKTog
+Zmktc25iLTI1MjBtIGZpLXBudi1kNTEwIDxvOnA+PC9vOnA+PC9wPg0KPGgyPlBvc3NpYmxlIG5l
+dyBpc3N1ZXM8bzpwPjwvbzpwPjwvaDI+DQo8cD5IZXJlIGFyZSB0aGUgdW5rbm93biBjaGFuZ2Vz
+IHRoYXQgbWF5IGhhdmUgYmVlbiBpbnRyb2R1Y2VkIGluIFBhdGNod29ya18xNDQyNjh2Mjo8bzpw
+PjwvbzpwPjwvcD4NCjxoMz5JR1QgY2hhbmdlczxvOnA+PC9vOnA+PC9oMz4NCjxoND5Qb3NzaWJs
+ZSByZWdyZXNzaW9uczxvOnA+PC9vOnA+PC9oND4NCjx1bCB0eXBlPSJkaXNjIj4NCjxsaSBjbGFz
+cz0iTXNvTm9ybWFsIiBzdHlsZT0ibXNvLW1hcmdpbi10b3AtYWx0OmF1dG87bXNvLW1hcmdpbi1i
+b3R0b20tYWx0OmF1dG87bXNvLWxpc3Q6bDAgbGV2ZWwxIGxmbzEiPg0KaWd0QGk5MTVfc2VsZnRl
+c3RAbGl2ZUByZXNldDo8bzpwPjwvbzpwPjwvbGk+PC91bD4NCjx1bCB0eXBlPSJkaXNjIj4NCjx1
+bCB0eXBlPSJjaXJjbGUiPg0KPGxpIGNsYXNzPSJNc29Ob3JtYWwiIHN0eWxlPSJtc28tbWFyZ2lu
+LXRvcC1hbHQ6YXV0bzttc28tbWFyZ2luLWJvdHRvbS1hbHQ6YXV0bzttc28tbGlzdDpsMCBsZXZl
+bDIgbGZvMSI+DQpiYXQtdHdsLTI6IE5PVFJVTiAtJmd0OyA8YSBocmVmPSJodHRwczovL2ludGVs
+LWdmeC1jaS4wMS5vcmcvdHJlZS9kcm0tdGlwL1BhdGNod29ya18xNDQyNjh2Mi9iYXQtdHdsLTIv
+aWd0QGk5MTVfc2VsZnRlc3RAbGl2ZUByZXNldC5odG1sIj4NCkFCT1JUPC9hPjxvOnA+PC9vOnA+
+PC9saT48L3VsPg0KPC91bD4NCjxoMj5Lbm93biBpc3N1ZXM8bzpwPjwvbzpwPjwvaDI+DQo8cD5I
+ZXJlIGFyZSB0aGUgY2hhbmdlcyBmb3VuZCBpbiBQYXRjaHdvcmtfMTQ0MjY4djIgdGhhdCBjb21l
+IGZyb20ga25vd24gaXNzdWVzOjxvOnA+PC9vOnA+PC9wPg0KPGgzPklHVCBjaGFuZ2VzPG86cD48
+L286cD48L2gzPg0KPGg0Pklzc3VlcyBoaXQ8bzpwPjwvbzpwPjwvaDQ+DQo8dWwgdHlwZT0iZGlz
+YyI+DQo8bGkgc3R5bGU9Im1zby1saXN0OmwyIGxldmVsMSBsZm8yIj5pZ3RAaTkxNV9zZWxmdGVz
+dEBsaXZlOjxvOnA+PC9vOnA+PC9saT48L3VsPg0KPHVsIHR5cGU9ImRpc2MiPg0KPHVsIHR5cGU9
+ImNpcmNsZSI+DQo8bGkgY2xhc3M9Ik1zb05vcm1hbCIgc3R5bGU9Im1zby1tYXJnaW4tdG9wLWFs
+dDphdXRvO21zby1tYXJnaW4tYm90dG9tLWFsdDphdXRvO21zby1saXN0OmwyIGxldmVsMiBsZm8y
+Ij4NCmJhdC10d2wtMTogTk9UUlVOIC0mZ3Q7IDxhIGhyZWY9Imh0dHBzOi8vaW50ZWwtZ2Z4LWNp
+LjAxLm9yZy90cmVlL2RybS10aXAvUGF0Y2h3b3JrXzE0NDI2OHYyL2JhdC10d2wtMS9pZ3RAaTkx
+NV9zZWxmdGVzdEBsaXZlLmh0bWwiPg0KQUJPUlQ8L2E+ICg8YSBocmVmPSJodHRwczovL2dpdGxh
+Yi5mcmVlZGVza3RvcC5vcmcvZHJtL2k5MTUva2VybmVsLy0vaXNzdWVzLzEyOTE5Ij5pOTE1IzEy
+OTE5PC9hPiAvDQo8YSBocmVmPSJodHRwczovL2dpdGxhYi5mcmVlZGVza3RvcC5vcmcvZHJtL2k5
+MTUva2VybmVsLy0vaXNzdWVzLzEzNTAzIj5pOTE1IzEzNTAzPC9hPik8bzpwPjwvbzpwPjwvbGk+
+PGxpIGNsYXNzPSJNc29Ob3JtYWwiIHN0eWxlPSJtc28tbWFyZ2luLXRvcC1hbHQ6YXV0bzttc28t
+bWFyZ2luLWJvdHRvbS1hbHQ6YXV0bzttc28tbGlzdDpsMiBsZXZlbDIgbGZvMiI+DQpiYXQtdHds
+LTI6IE5PVFJVTiAtJmd0OyA8YSBocmVmPSJodHRwczovL2ludGVsLWdmeC1jaS4wMS5vcmcvdHJl
+ZS9kcm0tdGlwL1BhdGNod29ya18xNDQyNjh2Mi9iYXQtdHdsLTIvaWd0QGk5MTVfc2VsZnRlc3RA
+bGl2ZS5odG1sIj4NCkFCT1JUPC9hPiAoPGEgaHJlZj0iaHR0cHM6Ly9naXRsYWIuZnJlZWRlc2t0
+b3Aub3JnL2RybS9pOTE1L2tlcm5lbC8tL2lzc3Vlcy8xMjQzNSI+aTkxNSMxMjQzNTwvYT4gLw0K
+PGEgaHJlZj0iaHR0cHM6Ly9naXRsYWIuZnJlZWRlc2t0b3Aub3JnL2RybS9pOTE1L2tlcm5lbC8t
+L2lzc3Vlcy8xMjkxOSI+aTkxNSMxMjkxOTwvYT4pPG86cD48L286cD48L2xpPjwvdWw+DQo8L3Vs
+Pg0KPHVsIHR5cGU9ImRpc2MiPg0KPGxpIHN0eWxlPSJtc28tbGlzdDpsMiBsZXZlbDEgbGZvMiI+
+aWd0QGk5MTVfc2VsZnRlc3RAbGl2ZUBndF9oZWFydGJlYXQ6PG86cD48L286cD48L2xpPjwvdWw+
+DQo8dWwgdHlwZT0iZGlzYyI+DQo8dWwgdHlwZT0iY2lyY2xlIj4NCjxsaSBjbGFzcz0iTXNvTm9y
+bWFsIiBzdHlsZT0ibXNvLW1hcmdpbi10b3AtYWx0OmF1dG87bXNvLW1hcmdpbi1ib3R0b20tYWx0
+OmF1dG87bXNvLWxpc3Q6bDIgbGV2ZWwyIGxmbzIiPg0KYmF0LXR3bC0xOiA8YSBocmVmPSJodHRw
+czovL2ludGVsLWdmeC1jaS4wMS5vcmcvdHJlZS9kcm0tdGlwL0NJX0RSTV8xNjA2My9iYXQtdHds
+LTEvaWd0QGk5MTVfc2VsZnRlc3RAbGl2ZUBndF9oZWFydGJlYXQuaHRtbCI+DQpQQVNTPC9hPiAt
+Jmd0OyA8YSBocmVmPSJodHRwczovL2ludGVsLWdmeC1jaS4wMS5vcmcvdHJlZS9kcm0tdGlwL1Bh
+dGNod29ya18xNDQyNjh2Mi9iYXQtdHdsLTEvaWd0QGk5MTVfc2VsZnRlc3RAbGl2ZUBndF9oZWFy
+dGJlYXQuaHRtbCI+DQpBQk9SVDwvYT4gKDxhIGhyZWY9Imh0dHBzOi8vZ2l0bGFiLmZyZWVkZXNr
+dG9wLm9yZy9kcm0vaTkxNS9rZXJuZWwvLS9pc3N1ZXMvMTI5MTkiPmk5MTUjMTI5MTk8L2E+KTxv
+OnA+PC9vOnA+PC9saT48L3VsPg0KPC91bD4NCjx1bCB0eXBlPSJkaXNjIj4NCjxsaSBzdHlsZT0i
+bXNvLWxpc3Q6bDIgbGV2ZWwxIGxmbzIiPmlndEBrbXNfcGlwZV9jcmNfYmFzaWNAbm9uYmxvY2tp
+bmctY3JjLWZyYW1lLXNlcXVlbmNlOjxvOnA+PC9vOnA+PC9saT48L3VsPg0KPHVsIHR5cGU9ImRp
+c2MiPg0KPHVsIHR5cGU9ImNpcmNsZSI+DQo8bGkgY2xhc3M9Ik1zb05vcm1hbCIgc3R5bGU9Im1z
+by1tYXJnaW4tdG9wLWFsdDphdXRvO21zby1tYXJnaW4tYm90dG9tLWFsdDphdXRvO21zby1saXN0
+OmwyIGxldmVsMiBsZm8yIj4NCmJhdC1kZzItMTE6IDxhIGhyZWY9Imh0dHBzOi8vaW50ZWwtZ2Z4
+LWNpLjAxLm9yZy90cmVlL2RybS10aXAvQ0lfRFJNXzE2MDYzL2JhdC1kZzItMTEvaWd0QGttc19w
+aXBlX2NyY19iYXNpY0Bub25ibG9ja2luZy1jcmMtZnJhbWUtc2VxdWVuY2UuaHRtbCI+DQpQQVNT
+PC9hPiAtJmd0OyA8YSBocmVmPSJodHRwczovL2ludGVsLWdmeC1jaS4wMS5vcmcvdHJlZS9kcm0t
+dGlwL1BhdGNod29ya18xNDQyNjh2Mi9iYXQtZGcyLTExL2lndEBrbXNfcGlwZV9jcmNfYmFzaWNA
+bm9uYmxvY2tpbmctY3JjLWZyYW1lLXNlcXVlbmNlLmh0bWwiPg0KU0tJUDwvYT4gKDxhIGhyZWY9
+Imh0dHBzOi8vZ2l0bGFiLmZyZWVkZXNrdG9wLm9yZy9kcm0vaTkxNS9rZXJuZWwvLS9pc3N1ZXMv
+OTE5NyI+aTkxNSM5MTk3PC9hPikgKzMgb3RoZXIgdGVzdHMgc2tpcDxvOnA+PC9vOnA+PC9saT48
+L3VsPg0KPC91bD4NCjxoND5Qb3NzaWJsZSBmaXhlczxvOnA+PC9vOnA+PC9oND4NCjx1bCB0eXBl
+PSJkaXNjIj4NCjxsaSBzdHlsZT0ibXNvLWxpc3Q6bDEgbGV2ZWwxIGxmbzMiPmlndEBkbWFidWZA
+YWxsLXRlc3RzOjxvOnA+PC9vOnA+PC9saT48L3VsPg0KPHVsIHR5cGU9ImRpc2MiPg0KPHVsIHR5
+cGU9ImNpcmNsZSI+DQo8bGkgY2xhc3M9Ik1zb05vcm1hbCIgc3R5bGU9Im1zby1tYXJnaW4tdG9w
+LWFsdDphdXRvO21zby1tYXJnaW4tYm90dG9tLWFsdDphdXRvO21zby1saXN0OmwxIGxldmVsMiBs
+Zm8zIj4NCmJhdC1hcGwtMTogPGEgaHJlZj0iaHR0cHM6Ly9pbnRlbC1nZngtY2kuMDEub3JnL3Ry
+ZWUvZHJtLXRpcC9DSV9EUk1fMTYwNjMvYmF0LWFwbC0xL2lndEBkbWFidWZAYWxsLXRlc3RzLmh0
+bWwiPg0KSU5DT01QTEVURTwvYT4gKDxhIGhyZWY9Imh0dHBzOi8vZ2l0bGFiLmZyZWVkZXNrdG9w
+Lm9yZy9kcm0vaTkxNS9rZXJuZWwvLS9pc3N1ZXMvMTI5MDQiPmk5MTUjMTI5MDQ8L2E+KSAtJmd0
+Ow0KPGEgaHJlZj0iaHR0cHM6Ly9pbnRlbC1nZngtY2kuMDEub3JnL3RyZWUvZHJtLXRpcC9QYXRj
+aHdvcmtfMTQ0MjY4djIvYmF0LWFwbC0xL2lndEBkbWFidWZAYWxsLXRlc3RzLmh0bWwiPg0KUEFT
+UzwvYT4gKzEgb3RoZXIgdGVzdCBwYXNzPG86cD48L286cD48L2xpPjwvdWw+DQo8L3VsPg0KPHVs
+IHR5cGU9ImRpc2MiPg0KPGxpIHN0eWxlPSJtc28tbGlzdDpsMSBsZXZlbDEgbGZvMyI+aWd0QGk5
+MTVfc2VsZnRlc3RAbGl2ZUB3b3JrYXJvdW5kczo8bzpwPjwvbzpwPjwvbGk+PC91bD4NCjx1bCB0
+eXBlPSJkaXNjIj4NCjx1bCB0eXBlPSJjaXJjbGUiPg0KPGxpIGNsYXNzPSJNc29Ob3JtYWwiIHN0
+eWxlPSJtc28tbWFyZ2luLXRvcC1hbHQ6YXV0bzttc28tbWFyZ2luLWJvdHRvbS1hbHQ6YXV0bztt
+c28tbGlzdDpsMSBsZXZlbDIgbGZvMyI+DQpiYXQtYXJscy01OiA8YSBocmVmPSJodHRwczovL2lu
+dGVsLWdmeC1jaS4wMS5vcmcvdHJlZS9kcm0tdGlwL0NJX0RSTV8xNjA2My9iYXQtYXJscy01L2ln
+dEBpOTE1X3NlbGZ0ZXN0QGxpdmVAd29ya2Fyb3VuZHMuaHRtbCI+DQpETUVTRy1GQUlMPC9hPiAo
+PGEgaHJlZj0iaHR0cHM6Ly9naXRsYWIuZnJlZWRlc2t0b3Aub3JnL2RybS9pOTE1L2tlcm5lbC8t
+L2lzc3Vlcy8xMjA2MSI+aTkxNSMxMjA2MTwvYT4pIC0mZ3Q7DQo8YSBocmVmPSJodHRwczovL2lu
+dGVsLWdmeC1jaS4wMS5vcmcvdHJlZS9kcm0tdGlwL1BhdGNod29ya18xNDQyNjh2Mi9iYXQtYXJs
+cy01L2lndEBpOTE1X3NlbGZ0ZXN0QGxpdmVAd29ya2Fyb3VuZHMuaHRtbCI+DQpQQVNTPC9hPiAr
+MSBvdGhlciB0ZXN0IHBhc3M8bzpwPjwvbzpwPjwvbGk+PGxpIGNsYXNzPSJNc29Ob3JtYWwiIHN0
+eWxlPSJtc28tbWFyZ2luLXRvcC1hbHQ6YXV0bzttc28tbWFyZ2luLWJvdHRvbS1hbHQ6YXV0bztt
+c28tbGlzdDpsMSBsZXZlbDIgbGZvMyI+DQp7YmF0LW10bHAtOX06IDxhIGhyZWY9Imh0dHBzOi8v
+aW50ZWwtZ2Z4LWNpLjAxLm9yZy90cmVlL2RybS10aXAvQ0lfRFJNXzE2MDYzL2JhdC1tdGxwLTkv
+aWd0QGk5MTVfc2VsZnRlc3RAbGl2ZUB3b3JrYXJvdW5kcy5odG1sIj4NCkRNRVNHLUZBSUw8L2E+
+ICg8YSBocmVmPSJodHRwczovL2dpdGxhYi5mcmVlZGVza3RvcC5vcmcvZHJtL2k5MTUva2VybmVs
+Ly0vaXNzdWVzLzEyMDYxIj5pOTE1IzEyMDYxPC9hPikgLSZndDsNCjxhIGhyZWY9Imh0dHBzOi8v
+aW50ZWwtZ2Z4LWNpLjAxLm9yZy90cmVlL2RybS10aXAvUGF0Y2h3b3JrXzE0NDI2OHYyL2JhdC1t
+dGxwLTkvaWd0QGk5MTVfc2VsZnRlc3RAbGl2ZUB3b3JrYXJvdW5kcy5odG1sIj4NClBBU1M8L2E+
+ICsxIG90aGVyIHRlc3QgcGFzczxvOnA+PC9vOnA+PC9saT48L3VsPg0KPC91bD4NCjxwPntuYW1l
+fTogVGhpcyBlbGVtZW50IGlzIHN1cHByZXNzZWQuIFRoaXMgbWVhbnMgaXQgaXMgaWdub3JlZCB3
+aGVuIGNvbXB1dGluZzxicj4NCnRoZSBzdGF0dXMgb2YgdGhlIGRpZmZlcmVuY2UgKFNVQ0NFU1Ms
+IFdBUk5JTkcsIG9yIEZBSUxVUkUpLjxvOnA+PC9vOnA+PC9wPg0KPGgyPkJ1aWxkIGNoYW5nZXM8
+bzpwPjwvbzpwPjwvaDI+DQo8dWwgdHlwZT0iZGlzYyI+DQo8bGkgY2xhc3M9Ik1zb05vcm1hbCIg
+c3R5bGU9Im1zby1tYXJnaW4tdG9wLWFsdDphdXRvO21zby1tYXJnaW4tYm90dG9tLWFsdDphdXRv
+O21zby1saXN0OmwzIGxldmVsMSBsZm80Ij4NCkxpbnV4OiBDSV9EUk1fMTYwNjMgLSZndDsgUGF0
+Y2h3b3JrXzE0NDI2OHYyPG86cD48L286cD48L2xpPjwvdWw+DQo8cD5DSS0yMDE5MDUyOTogMjAx
+OTA1Mjk8YnI+DQpDSV9EUk1fMTYwNjM6IDM0ZjExM2U5ZmVmNTQ2MTM0ZTQwMmU3NjU3ZmM0N2U5
+MmZiYTU5ZGMgQCBnaXQ6Ly9hbm9uZ2l0LmZyZWVkZXNrdG9wLm9yZy9nZngtY2kvbGludXg8YnI+
+DQpJR1RfODIyMzogY2NmZTA0Mjc4N2IwODJjMDY0MDJmZjlhZjI1N2Y4MzM4YjhlZGQ1ZSBAIDxh
+IGhyZWY9Imh0dHBzOi8vZ2l0bGFiLmZyZWVkZXNrdG9wLm9yZy9kcm0vaWd0LWdwdS10b29scy5n
+aXQiPg0KaHR0cHM6Ly9naXRsYWIuZnJlZWRlc2t0b3Aub3JnL2RybS9pZ3QtZ3B1LXRvb2xzLmdp
+dDwvYT48YnI+DQpQYXRjaHdvcmtfMTQ0MjY4djI6IDM0ZjExM2U5ZmVmNTQ2MTM0ZTQwMmU3NjU3
+ZmM0N2U5MmZiYTU5ZGMgQCBnaXQ6Ly9hbm9uZ2l0LmZyZWVkZXNrdG9wLm9yZy9nZngtY2kvbGlu
+dXg8bzpwPjwvbzpwPjwvcD4NCjwvZGl2Pg0KPC9kaXY+DQo8L2JvZHk+DQo8L2h0bWw+DQo=
 
+--_000_IA1PR11MB634874E22E907CAE41D7FFFBB2F72IA1PR11MB6348namp_--
