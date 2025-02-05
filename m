@@ -4,52 +4,56 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 790C2C02193
-	for <intel-gfx@archiver.kernel.org>; Wed,  5 Feb 2025 02:14:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 99164C02196
+	for <intel-gfx@archiver.kernel.org>; Wed,  5 Feb 2025 02:14:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 121F310E16B;
-	Wed,  5 Feb 2025 02:14:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1998810E717;
+	Wed,  5 Feb 2025 02:14:48 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="WZFevTzj";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="JVDS5zsx";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.19])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5790A10E16B;
- Wed,  5 Feb 2025 02:14:43 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id ED55310E717;
+ Wed,  5 Feb 2025 02:14:45 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1738721684; x=1770257684;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=X1EKzpsexUqZffgpd8pvKg+5784SUUve8WlwcVLeRqI=;
- b=WZFevTzjhV4GAExpPbwXBK55/x+2NNW8sa/MtsfUp1I/oGIMOQrO8J7m
- Y5pfXgRgwAjyWYeu9ZjJPrzR1TRoNFWVEIMT+qBnW+Xk4Rhb/UzPVHYiL
- QXjrw4Qa7xx6mvsrVO1SdJGIPMWHhtkjARMd8mEgX/JcooOIFjikP0gCX
- IO15oH4NK+Gtq4SkkHAYulE1XZkMgGWR7EA7sMzsEwgBTZ5YTQ1wiQGXl
- xWF4B9s/cDWYfqXw7r8NcGnsnzO76aNlgZvhmS8Ibwg9EzQEgZB4WfQke
- /qw3p2xleWgB9nq32G7RiF0f5qx9QD1yQUinrm4pB067TpgMATYkxm7jH A==;
-X-CSE-ConnectionGUID: 8Pwgn3ZdSMCXZSmC0ZXmAA==
-X-CSE-MsgGUID: p049OeTSTnGmG7UcKgSNkA==
-X-IronPort-AV: E=McAfee;i="6700,10204,11336"; a="39160211"
-X-IronPort-AV: E=Sophos;i="6.13,260,1732608000"; d="scan'208";a="39160211"
+ t=1738721687; x=1770257687;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=FoSNgFRNk5PoDLBSNQWdJxR3lfwq8QNqI9on/kD4VMY=;
+ b=JVDS5zsxfsVGQkoiWM+ZN3wkVQW6vT9mMIQF6mt6qnlkTTwDtbfGi9jP
+ QjG2otKxwJPhV22v7TPannWW6yI711ijH4snThOQO7sNk8My93I39O5Cw
+ ZwPeGnkNuYgWYt0+Z8m6hbv7zgPBRRFdlUdQEVkS5hkbjtsRAEnQTkTJ9
+ S5ffV41jWFy0QMFpKxMOP+KwUuTktFBZpO5NFgBq6Qd23k9estB0hxVFx
+ JjGPje9bSpiwYTTl0vTlCGfRTZXO3eEJtMqH0cpFNvDYtRVIvl2OqfXWs
+ NhNBRE1fBqe3yqGymnVK309jOk4zMYgv9uHIZQ/vlvQBHEtQznSpbSNrm g==;
+X-CSE-ConnectionGUID: zmAfBMoXTOuHa4Ap3ILnqQ==
+X-CSE-MsgGUID: nzNuk+s0QhucEGcjqbtENA==
+X-IronPort-AV: E=McAfee;i="6700,10204,11336"; a="39160213"
+X-IronPort-AV: E=Sophos;i="6.13,260,1732608000"; d="scan'208";a="39160213"
 Received: from orviesa008.jf.intel.com ([10.64.159.148])
  by orvoesa111.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 04 Feb 2025 18:14:44 -0800
-X-CSE-ConnectionGUID: Vxws4Lj1Q3+FQFNeSvm8gw==
-X-CSE-MsgGUID: dNyDnWwgTC6nH4/9dwJlgQ==
+ 04 Feb 2025 18:14:46 -0800
+X-CSE-ConnectionGUID: HE9YAGcpTyGO2GswKWaoow==
+X-CSE-MsgGUID: M3cU7HapTU+qcM8CZSVcYw==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.12,224,1728975600"; d="scan'208";a="111643364"
+X-IronPort-AV: E=Sophos;i="6.12,224,1728975600"; d="scan'208";a="111643374"
 Received: from vbelgaum-ubuntu.fm.intel.com ([10.1.39.141])
- by orviesa008.jf.intel.com with ESMTP; 04 Feb 2025 18:14:43 -0800
+ by orviesa008.jf.intel.com with ESMTP; 04 Feb 2025 18:14:46 -0800
 From: Vinay Belgaumkar <vinay.belgaumkar@intel.com>
 To: intel-gfx@lists.freedesktop.org,
 	igt-dev@lists.freedesktop.org
 Cc: Vinay Belgaumkar <vinay.belgaumkar@intel.com>,
- Riana Tauro <riana.tauro@intel.com>, Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Lucas De Marchi <lucas.demarchi@intel.com>
-Subject: [PATCH i-g-t v8 0/3] tests/intel/xe_pmu: Add PMU tests
-Date: Tue,  4 Feb 2025 18:10:53 -0800
-Message-Id: <20250205021056.1539902-1-vinay.belgaumkar@intel.com>
+ Riana Tauro <riana.tauro@intel.com>,
+ Lucas De Marchi <lucas.demarchi@intel.com>,
+ Kamil Konieczny <kamil.konieczny@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>
+Subject: [PATCH i-g-t v8 2/3] lib/igt_perf: Add utils to extract PMU event info
+Date: Tue,  4 Feb 2025 18:10:55 -0800
+Message-Id: <20250205021056.1539902-3-vinay.belgaumkar@intel.com>
 X-Mailer: git-send-email 2.38.1
+In-Reply-To: <20250205021056.1539902-1-vinay.belgaumkar@intel.com>
+References: <20250205021056.1539902-1-vinay.belgaumkar@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-BeenThere: intel-gfx@lists.freedesktop.org
@@ -67,34 +71,115 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Add utils and gt-c6 tests that utilize PMU counters.
+Functions to parse event ID and GT bit shift for PMU events.
+
+v2: Review comments (Riana)
+v3: Review comments (Lucas)
 
 Cc: Riana Tauro <riana.tauro@intel.com>
-Cc: Rodrigo Vivi <rodrigo.vivi@intel.com>
 Cc: Lucas De Marchi <lucas.demarchi@intel.com>
+Cc: Kamil Konieczny <kamil.konieczny@linux.intel.com>
+Cc: Rodrigo Vivi <rodrigo.vivi@intel.com>
+Reviewed-by: Riana Tauro <riana.tauro@intel.com>
 Signed-off-by: Vinay Belgaumkar <vinay.belgaumkar@intel.com>
+---
+ lib/igt_perf.c | 70 ++++++++++++++++++++++++++++++++++++++++++++++++++
+ lib/igt_perf.h |  2 ++
+ 2 files changed, 72 insertions(+)
 
-Vinay Belgaumkar (3):
-  lib/igt_core: Add tolerance and measured_usleep utils
-  lib/igt_perf: Add utils to extract PMU event info
-  tests/xe/pmu: Add pmu tests for gt-c6
-
- lib/igt_core.c                         |  20 ++++
- lib/igt_core.h                         |  20 ++++
- lib/igt_perf.c                         |  70 ++++++++++++
- lib/igt_perf.h                         |   2 +
- tests/intel/drm_fdinfo.c               |  68 +++---------
- tests/intel/gem_exec_nop.c             |   6 --
- tests/intel/gem_spin_batch.c           |   6 --
- tests/intel/i915_pm_rc6_residency.c    |  42 ++------
- tests/intel/perf_pmu.c                 |  81 +++++---------
- tests/intel/sysfs_heartbeat_interval.c |  19 +---
- tests/intel/xe_pm_residency.c          |  29 +----
- tests/intel/xe_pmu.c                   | 142 +++++++++++++++++++++++++
- tests/meson.build                      |   1 +
- 13 files changed, 309 insertions(+), 197 deletions(-)
- create mode 100644 tests/intel/xe_pmu.c
-
+diff --git a/lib/igt_perf.c b/lib/igt_perf.c
+index 3866c6d77..f021fc3ec 100644
+--- a/lib/igt_perf.c
++++ b/lib/igt_perf.c
+@@ -92,6 +92,76 @@ const char *xe_perf_device(int xe, char *buf, int buflen)
+ 	return buf;
+ }
+ 
++/**
++ * perf_event_format: Returns the start/end positions of an event format param
++ * @device: PMU device
++ * @param: Parameter for which you need the format start/end bits
++ * Returns: 0 on success or negative error code
++ */
++int perf_event_format(const char *device, const char *param, uint32_t *start, uint32_t *end)
++{
++	char buf[NAME_MAX];
++	ssize_t bytes;
++	int ret;
++	int fd;
++
++	snprintf(buf, sizeof(buf),
++		 "/sys/bus/event_source/devices/%s/format/%s",
++		 device, param);
++
++	fd = open(buf, O_RDONLY | O_CLOEXEC);
++	if (fd < 0)
++		return -EINVAL;
++
++	bytes = read(fd, buf, sizeof(buf) - 1);
++	close(fd);
++	if (bytes < 1)
++		return -EINVAL;
++
++	buf[bytes] = '\0';
++	ret = sscanf(buf, "config:%u-%u", start, end);
++	if (ret != 2)
++		return -EINVAL;
++
++	return ret;
++}
++
++/**
++ * perf_event_config:
++ * @device: Device string in driver:pci format
++ * @event: The event name
++ * @config: Pointer to the config
++ * Returns: 0 for success, negative value on error
++ */
++int perf_event_config(const char *device, const char *event, uint64_t *config)
++{
++	char buf[NAME_MAX];
++	ssize_t bytes;
++	int ret;
++	int fd;
++
++	snprintf(buf, sizeof(buf),
++		 "/sys/bus/event_source/devices/%s/events/%s",
++		 device,
++		 event);
++
++	fd = open(buf, O_RDONLY);
++	if (fd < 0)
++		return -EINVAL;
++
++	bytes = read(fd, buf, sizeof(buf) - 1);
++	close(fd);
++	if (bytes < 1)
++		return ret;
++
++	buf[bytes] = '\0';
++	ret = sscanf(buf, "event=0x%lx", config);
++	if (ret != 1)
++		return -EINVAL;
++
++	return 0;
++}
++
+ uint64_t xe_perf_type_id(int xe)
+ {
+ 	char buf[80];
+diff --git a/lib/igt_perf.h b/lib/igt_perf.h
+index 3d9ba2917..69f7a3d74 100644
+--- a/lib/igt_perf.h
++++ b/lib/igt_perf.h
+@@ -71,5 +71,7 @@ int perf_i915_open(int i915, uint64_t config);
+ int perf_i915_open_group(int i915, uint64_t config, int group);
+ 
+ int perf_xe_open(int xe, uint64_t config);
++int perf_event_config(const char *device, const char *event, uint64_t *config);
++int perf_event_format(const char *device, const char *param, uint32_t *start, uint32_t *end);
+ 
+ #endif /* I915_PERF_H */
 -- 
 2.38.1
 
