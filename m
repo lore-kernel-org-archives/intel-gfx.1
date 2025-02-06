@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 51C0BC02194
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A2296C0219B
 	for <intel-gfx@archiver.kernel.org>; Thu,  6 Feb 2025 18:11:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E24D010E8F1;
-	Thu,  6 Feb 2025 18:11:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 32F8810E8F6;
+	Thu,  6 Feb 2025 18:11:32 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="ja+gsOXu";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="hQjw32Tx";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.9])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8FE4D10E0C6;
- Thu,  6 Feb 2025 18:10:04 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E964110E8F6;
+ Thu,  6 Feb 2025 18:10:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1738865405; x=1770401405;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=fQWxra/jdCshDpjB4xobaSRnCl4dQOzGwzO6m1AhH/Y=;
- b=ja+gsOXu7dXQkNtTM+Srj0Y4MNaSIirBBCKlQ8l+4AfM+ge6V1XwxlwS
- 1Xv6B83jQbWSoIGnQ2kaAFfdii8cGxMo5OLlFFj6Yz76g+YyitQOKIegO
- A0WMqsjYCZ+9ontFG98oG1NgT2uFeVXOaaZKOoq26dYb/kV3Dn8DgRnHb
- aPg796UZTZHkgVjJS1e2xB7TaexlsAEeczvB1Xa7I3JZ2HTTovOx4rIku
- 2bAuzYKk83QHGVHZ3Ns1UqTWmS3egG8ppHGEpx9lS/WhZ9lAkEiACo3Rk
- hXyhAxb8tV06eeCKyR7JT//nPlJ3uzP29BuHeVBt/s65Se2NhhwlZwN6F A==;
-X-CSE-ConnectionGUID: AWdfF+CgTESvtR5fnhDXYw==
-X-CSE-MsgGUID: zDsPmlcAR12U5wpjVLoaew==
-X-IronPort-AV: E=McAfee;i="6700,10204,11336"; a="61965286"
-X-IronPort-AV: E=Sophos;i="6.13,264,1732608000"; d="scan'208";a="61965286"
+ t=1738865412; x=1770401412;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=7PMBIvNWvtgiLxcwJPkuicu6E83kkxxMIdHz14vqq9M=;
+ b=hQjw32TxWqm1rGJgcvZbMjdRVlRzhtUyw3w2c34VoSWcchmONFo9lZoG
+ VMRgHRQTB6EUYWfaP1X6Y8192dK7WJaHfAS4CJVFa8BFuq9WefSBKbeyx
+ 05Cxox1vq0abvL/G0xCGoh7QOWadAkymIDqe8ECSyxFd0Y7osj+P8jENd
+ cf8nI3HQ/sAtXnO7tj3rbUm+AUgdp4FZZSre9H0RbVBFg30lyvQH4C6+h
+ O/G4LBiqLUpAdcwrsf7At0/BNYrpBvqqvFF16xL/jE0bJiY3LYKXL3FvE
+ R9MtbkW/uOZM4dGRRXBPjfSgaeJzQou/bTZVqGmq9n3taN+SrkGqXUsBm g==;
+X-CSE-ConnectionGUID: CoLHZoaoTqaopQiuzX6V0w==
+X-CSE-MsgGUID: b1QHIkj2Qwmfv2zlnJV0RA==
+X-IronPort-AV: E=McAfee;i="6700,10204,11336"; a="61965301"
+X-IronPort-AV: E=Sophos;i="6.13,264,1732608000"; d="scan'208";a="61965301"
 Received: from fmviesa009.fm.intel.com ([10.60.135.149])
  by orvoesa101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 06 Feb 2025 10:10:04 -0800
-X-CSE-ConnectionGUID: vO6ZCQLSQ9GJQvEp5MUfHA==
-X-CSE-MsgGUID: WPuwtlmFQnmV244TCS/5nQ==
+ 06 Feb 2025 10:10:12 -0800
+X-CSE-ConnectionGUID: NuRdCKfpR5+ak10Vei6Q+A==
+X-CSE-MsgGUID: ytkFN/KYQZ6SBN+XV98gmA==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.13,264,1732608000"; d="scan'208";a="111889296"
+X-IronPort-AV: E=Sophos;i="6.13,264,1732608000"; d="scan'208";a="111889323"
 Received: from jkrzyszt-mobl2.ger.corp.intel.com ([10.245.246.55])
  by fmviesa009-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 06 Feb 2025 10:10:01 -0800
+ 06 Feb 2025 10:10:09 -0800
 From: Janusz Krzysztofik <janusz.krzysztofik@linux.intel.com>
 To: intel-gfx@lists.freedesktop.org
 Cc: dri-devel@lists.freedesktop.org, Jani Nikula <jani.nikula@linux.intel.com>,
@@ -50,11 +50,13 @@ Cc: dri-devel@lists.freedesktop.org, Jani Nikula <jani.nikula@linux.intel.com>,
  Lucas De Marchi <lucas.demarchi@intel.com>,
  Chris Wilson <chris.p.wilson@linux.intel.com>,
  Janusz Krzysztofik <janusz.krzysztofik@linux.intel.com>
-Subject: [PATCH 0/3] drm/i915: Fix harmfull driver register/unregister
- assymetry
-Date: Thu,  6 Feb 2025 19:07:38 +0100
-Message-ID: <20250206180927.2237256-5-janusz.krzysztofik@linux.intel.com>
+Subject: [PATCH 3/3] drm/i915: Fix device sysfs teardown tried even if not set
+ up
+Date: Thu,  6 Feb 2025 19:07:41 +0100
+Message-ID: <20250206180927.2237256-8-janusz.krzysztofik@linux.intel.com>
 X-Mailer: git-send-email 2.47.1
+In-Reply-To: <20250206180927.2237256-5-janusz.krzysztofik@linux.intel.com>
+References: <20250206180927.2237256-5-janusz.krzysztofik@linux.intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-BeenThere: intel-gfx@lists.freedesktop.org
@@ -79,26 +81,56 @@ executes reverts for all those steps.  For that to work correctly, those
 revert functions must be resistant to being called even on uninitialized
 objects, or we must not skip their initialization.
 
-Three cases have been identified and fixes proposed.  Call traces are
-taken from CI results of igt@i915_driver_load@reload-with-fault-injection
-execution, reported to several separate Gitlab issues (links provided).
+If device sysfs setup is skipped then its teardown counterpart,
+unconditionally called when unregistering the driver, fails and emits
+a warning that taints the kernel:
 
-Immediate return was introduced to i915_driver_register() by commit
-ec3e00b4ee27 ("drm/i915: stop registering if drm_dev_register() fails"),
-however, quite a few things have changed since then.  That's why I haven't
-mentioned it in a Fixes: tag to avoid it being picked up by stable, which
-I haven't tested.
+<3> [525.823143] i915 0000:00:02.0: [drm] *ERROR* Failed to register driver for userspace access!
+...
+<4> [526.441186] ------------[ cut here ]------------
+<4> [526.441191] kernfs: can not remove 'error', no directory
+<4> [526.441211] WARNING: CPU: 1 PID: 3440 at fs/kernfs/dir.c:1684 kernfs_remove_by_name_ns+0xbc/0xc0
+...
+<4> [526.441536] RIP: 0010:kernfs_remove_by_name_ns+0xbc/0xc0
+...
+<4> [526.441578] Call Trace:
+<4> [526.441581]  <TASK>
+...
+<4> [526.441686]  sysfs_remove_bin_file+0x17/0x30
+<4> [526.441691]  i915_gpu_error_sysfs_teardown+0x1d/0x30 [i915]
+<4> [526.442226]  i915_teardown_sysfs+0x1c/0x60 [i915]
+<4> [526.442369]  i915_driver_remove+0x9d/0x140 [i915]
+<4> [526.442473]  i915_pci_remove+0x1e/0x40 [i915]
+...
 
-Janusz Krzysztofik (3):
-  drm/i915: Fix PM reference not released if device register fails
-  drm/i915: Fix GT sysfs unregister tried even if not registered
-  drm/i915: Fix device sysfs teardown tried even if not set up
+Since restoring symmetry by setting up the device sysfs even after a
+failure is not possible due to missing dependencies, teach the teardown
+counterpart to handle all components of the never set up device sysfs
+gently.
 
- drivers/gpu/drm/i915/gt/intel_gt_sysfs.c | 3 +++
- drivers/gpu/drm/i915/i915_driver.c       | 6 ++++--
- drivers/gpu/drm/i915/i915_sysfs.c        | 3 +++
- 3 files changed, 10 insertions(+), 2 deletions(-)
+Link: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/9820
+Link: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/10131
+Link: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/10887
+Link: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/12817
+Signed-off-by: Janusz Krzysztofik <janusz.krzysztofik@linux.intel.com>
+---
+ drivers/gpu/drm/i915/i915_sysfs.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
+diff --git a/drivers/gpu/drm/i915/i915_sysfs.c b/drivers/gpu/drm/i915/i915_sysfs.c
+index 8775beab9cb84..9758a7ca27fd2 100644
+--- a/drivers/gpu/drm/i915/i915_sysfs.c
++++ b/drivers/gpu/drm/i915/i915_sysfs.c
+@@ -189,6 +189,9 @@ void i915_teardown_sysfs(struct drm_i915_private *dev_priv)
+ {
+ 	struct device *kdev = dev_priv->drm.primary->kdev;
+ 
++	if (!dev_priv->sysfs_gt)
++		return;
++
+ 	i915_gpu_error_sysfs_teardown(dev_priv);
+ 
+ 	device_remove_bin_file(kdev, &dpf_attrs_1);
 -- 
 2.47.1
 
