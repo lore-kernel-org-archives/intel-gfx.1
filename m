@@ -4,53 +4,28 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1DA4AC02199
-	for <intel-gfx@archiver.kernel.org>; Thu,  6 Feb 2025 19:22:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B6D97C02199
+	for <intel-gfx@archiver.kernel.org>; Thu,  6 Feb 2025 19:49:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A9CCD10E925;
-	Thu,  6 Feb 2025 19:22:16 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="iPfeVZj5";
-	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.21])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4562710E155;
- Thu,  6 Feb 2025 19:21:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1738869717; x=1770405717;
- h=from:to:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=M+EU3nRQQwirKSiRb1jT9zBIQHZ7VpGTwoEx20TgYJA=;
- b=iPfeVZj5lIr3c/DBWz5J/V2LFLcRMT9tLacRHTVHgVi9pWazhXiXIEor
- VyD5BTL2waPD2ZQmYF3mE96wIaxKweNXj9jRL5SiZycWOdXQgh1g+OOyO
- b1Xub9zzBYYS1dyCGeVfQQpWEJaD7wB/9vhlpHdECp4mhZU86KOUVxDcI
- Yv1Rll3UkIUotsYpO6SBJrXcfBqNaRd5nmyzeLix3cJ8A3+GZmKDfumoD
- QwsYN8QbWrm4MPTbGLZ2weKuasBTnn65rgBnBEauo1iKD+kr3i6gsZrX/
- oCRVD6u93Y5cK+TIFlrZjF8gj3ncCL3Zvhraa3OsLsdXguYYj/yIuDBCi A==;
-X-CSE-ConnectionGUID: r2SyK4Y6Qzq04e59dNza7A==
-X-CSE-MsgGUID: BScVcuteTrGRN+wV3F6J0g==
-X-IronPort-AV: E=McAfee;i="6700,10204,11336"; a="39398810"
-X-IronPort-AV: E=Sophos;i="6.13,265,1732608000"; d="scan'208";a="39398810"
-Received: from fmviesa008.fm.intel.com ([10.60.135.148])
- by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 06 Feb 2025 11:21:57 -0800
-X-CSE-ConnectionGUID: XMqxEqnFTOGIOQTDrG1TqA==
-X-CSE-MsgGUID: do14L89ZQg+i7l9mCTg50w==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.13,265,1732608000"; d="scan'208";a="111502490"
-Received: from lstrano-mobl6.amr.corp.intel.com (HELO
- gjsousa-mobl2.corp.amr.intel.com) ([10.125.111.1])
- by fmviesa008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 06 Feb 2025 11:21:56 -0800
-From: Gustavo Sousa <gustavo.sousa@intel.com>
-To: intel-gfx@lists.freedesktop.org,
-	intel-xe@lists.freedesktop.org
-Subject: [PATCH 0/3] drm/i915/xe3lpd: Update bandwidth parameters
-Date: Thu,  6 Feb 2025 16:21:27 -0300
-Message-ID: <20250206192148.53610-1-gustavo.sousa@intel.com>
-X-Mailer: git-send-email 2.48.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4A61210E935;
+	Thu,  6 Feb 2025 19:49:55 +0000 (UTC)
+Received: from b555e5b46a47 (emeril.freedesktop.org [131.252.210.167])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 902AF10E935;
+ Thu,  6 Feb 2025 19:49:54 +0000 (UTC)
+Content-Type: multipart/alternative;
+ boundary="===============6794505404245346744=="
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Subject: =?utf-8?q?=E2=9C=93_i915=2ECI=2EFull=3A_success_for_drm/i915/dp=5Fmst=3A_Fix?=
+ =?utf-8?q?_getting_display_pointer_in_intel=5Fdp=5Fmst=5Fcompute=5Fmin=5Fhb?=
+ =?utf-8?q?lank=28=29_=28rev2=29?=
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Imre Deak" <imre.deak@intel.com>
+Cc: intel-gfx@lists.freedesktop.org
+Date: Thu, 06 Feb 2025 19:49:54 -0000
+Message-ID: <173887139458.2209020.5775203833213243207@b555e5b46a47>
+X-Patchwork-Hint: ignore
+References: <20250205232855.3017421-1-imre.deak@intel.com>
+In-Reply-To: <20250205232855.3017421-1-imre.deak@intel.com>
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,25 +38,108 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Bandwidth parameters for Xe3_LPD have been updated with respect to
-previous display releases. Encode them into xe3lpd_sa_info and use that
-new struct.
+--===============6794505404245346744==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
 
-Since we are touching intel_bw.c, also take the opportunity to make it
-use display-specific platform checkers, which is what patches #1 and #2
-are about.
+== Series Details ==
 
-Gustavo Sousa (3):
-  drm/i915/display: Use display variable in intel_bw.c
-  drm/i915/display: Use display-specific platform checks in intel_bw.c
-  drm/i915/xe3lpd: Update bandwidth parameters
+Series: drm/i915/dp_mst: Fix getting display pointer in intel_dp_mst_compute_min_hblank() (rev2)
+URL   : https://patchwork.freedesktop.org/series/144387/
+State : success
 
- drivers/gpu/drm/i915/display/intel_bw.c | 192 ++++++++++++++----------
- 1 file changed, 112 insertions(+), 80 deletions(-)
+== Summary ==
 
--- 
-2.48.1
+CI Bug Log - changes from CI_DRM_16076_full -> Patchwork_144387v2_full
+====================================================
 
+Summary
+-------
+
+  **SUCCESS**
+
+  No regressions found.
+
+  
+
+Participating hosts (12 -> 12)
+------------------------------
+
+  No changes in participating hosts
+
+
+Changes
+-------
+
+  No changes found
+
+
+Build changes
+-------------
+
+  * Linux: CI_DRM_16076 -> Patchwork_144387v2
+
+  CI_DRM_16076: 7a632b6798b6a05b63725249e3209afea13ea499 @ git://anongit.freedesktop.org/gfx-ci/linux
+  IGT_8224: c659b986ba648584d36b3cfece897bc84a33dcbb @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git
+  Patchwork_144387v2: 7a632b6798b6a05b63725249e3209afea13ea499 @ git://anongit.freedesktop.org/gfx-ci/linux
+  piglit_4509: fdc5a4ca11124ab8413c7988896eec4c97336694 @ git://anongit.freedesktop.org/piglit
+
+== Logs ==
+
+For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_144387v2/index.html
+
+--===============6794505404245346744==
+Content-Type: text/html; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <title>Project List - Patchwork</title>
+  <style id="css-table-select" type="text/css">
+   td { padding: 2pt; }
+  </style>
+</head>
+<body>
+
+
+<b>Patch Details</b>
+<table>
+<tr><td><b>Series:</b></td><td>drm/i915/dp_mst: Fix getting display pointer in intel_dp_mst_compute_min_hblank() (rev2)</td></tr>
+<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/144387/">https://patchwork.freedesktop.org/series/144387/</a></td></tr>
+<tr><td><b>State:</b></td><td>success</td></tr>
+
+    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_144387v2/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_144387v2/index.html</a></td></tr>
+
+</table>
+
+
+    <h1>CI Bug Log - changes from CI_DRM_16076_full -&gt; Patchwork_144387v2_full</h1>
+<h2>Summary</h2>
+<p><strong>SUCCESS</strong></p>
+<p>No regressions found.</p>
+<h2>Participating hosts (12 -&gt; 12)</h2>
+<p>No changes in participating hosts</p>
+<h2>Changes</h2>
+<p>No changes found</p>
+<h2>Build changes</h2>
+<ul>
+<li>Linux: CI_DRM_16076 -&gt; Patchwork_144387v2</li>
+</ul>
+<p>CI_DRM_16076: 7a632b6798b6a05b63725249e3209afea13ea499 @ git://anongit.freedesktop.org/gfx-ci/linux<br />
+  IGT_8224: c659b986ba648584d36b3cfece897bc84a33dcbb @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git<br />
+  Patchwork_144387v2: 7a632b6798b6a05b63725249e3209afea13ea499 @ git://anongit.freedesktop.org/gfx-ci/linux<br />
+  piglit_4509: fdc5a4ca11124ab8413c7988896eec4c97336694 @ git://anongit.freedesktop.org/piglit</p>
+
+</body>
+</html>
+
+--===============6794505404245346744==--
