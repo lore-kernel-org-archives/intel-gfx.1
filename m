@@ -4,54 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2DE2DC02198
-	for <intel-gfx@archiver.kernel.org>; Thu,  6 Feb 2025 06:33:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6EF81C02196
+	for <intel-gfx@archiver.kernel.org>; Thu,  6 Feb 2025 06:33:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C3A2A10E42F;
-	Thu,  6 Feb 2025 06:33:15 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1231910E431;
+	Thu,  6 Feb 2025 06:33:19 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="QrnP3Dpw";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="JUG1jEKw";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.16])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B084110E42E;
- Thu,  6 Feb 2025 06:33:14 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7D2BB10E136;
+ Thu,  6 Feb 2025 06:33:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1738823594; x=1770359594;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=gtxDKMeP0R4aywy8S4ng84XE21QXblABMqMejDOfZ1A=;
- b=QrnP3Dpw7M+NjEvGDJj0mxlwoYm6Gsj6D/VwGFPGSRVjGGQHtOsjfIMZ
- JO7u1kjfqtLOHrzvYagsdLtBLaKkXbNGOw+PK6MzUCUEty96jSpMzg9Xp
- RLhd8OAgjBtsGa6zg1VUJd01XNlJ8ZHwFif+m1J385KWk7LxtIx2Hwapr
- Armnt3WJ7q86Tzd8UGfGCFdk2iKQnQrhnzXB1aKwBAgYv/1cNZgIgYVkr
- ea1VKwws3ZcKoCfl3uZdMbNrWpO2vBgsfrbf7FCNFERbLU2f+VUzTV890
- AkDsOOzhAxJ5Qb+T9z1AnK26foaMkS5FVrpnXqZYKDi+H8puIE3mbIFgW g==;
-X-CSE-ConnectionGUID: gtVHvevtT+KVNCjFEiECjw==
-X-CSE-MsgGUID: Pm9Fl+6mQjqF9tZIiwe8LQ==
-X-IronPort-AV: E=McAfee;i="6700,10204,11336"; a="27014221"
-X-IronPort-AV: E=Sophos;i="6.13,263,1732608000"; d="scan'208";a="27014221"
+ t=1738823587; x=1770359587;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=z/tcEItx/8U2jLnMZW8qmtfuipLNS08+6BEcmukOSQQ=;
+ b=JUG1jEKw5F7893avLIbzKyx24We81S8oLWlZkZlHPnGVolRLdack154J
+ euKFwUk2UjGHvGLVjIRenXJ9FHyOoQCBVqbHXRr/q4Cijn/3y8fJGpsb+
+ 7+uWDE4u3zpSO6+HSeuuHk8WbFMUGl+NsSMrm/Zu7dweSA0qVW8UjoL+U
+ ja+zEojHyzv+8TBM+mNZKCfSuwYD8xSekBnTvuhSA+Ay55cDUTffwvwJ4
+ GkELtY5P3I8agmcN90cinVB4NBK57AX0aDeVW1HZO7VXSWHEsqvG/g2rJ
+ ZMu3Ta3X8pKYs8GhOLFnXEHBU7ulcHmxG4VvEFLXPLPF1PHoh1uawYv04 w==;
+X-CSE-ConnectionGUID: LqBtl+hOTYGwLyL0ygsN4Q==
+X-CSE-MsgGUID: hBBQ0jJUSdqnGedbFJlWMA==
+X-IronPort-AV: E=McAfee;i="6700,10204,11336"; a="27014210"
+X-IronPort-AV: E=Sophos;i="6.13,263,1732608000"; d="scan'208,223";a="27014210"
 Received: from orviesa008.jf.intel.com ([10.64.159.148])
  by fmvoesa110.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 05 Feb 2025 22:33:14 -0800
-X-CSE-ConnectionGUID: NiUCrVDaTqKOMV+jKNGoZg==
-X-CSE-MsgGUID: 0se1rxQTSDi3pjiI75ywgA==
+ 05 Feb 2025 22:33:06 -0800
+X-CSE-ConnectionGUID: TA4VGN7ORHaWbKUkoypzlw==
+X-CSE-MsgGUID: uEdrty4jSDeuFkfOzJPEUg==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.12,224,1728975600"; d="scan'208";a="112013694"
+X-IronPort-AV: E=Sophos;i="6.12,224,1728975600"; 
+ d="scan'208,223";a="112013657"
 Received: from kandpal-x299-ud4-pro.iind.intel.com ([10.190.239.10])
- by orviesa008.jf.intel.com with ESMTP; 05 Feb 2025 22:33:13 -0800
+ by orviesa008.jf.intel.com with ESMTP; 05 Feb 2025 22:33:05 -0800
 From: Suraj Kandpal <suraj.kandpal@intel.com>
 To: intel-xe@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
  dri-devel@lists.freedesktop.org
 Cc: uma.shankar@intel.com, arun.r.murthy@intel.com, ben.kao@intel.com,
  Suraj Kandpal <suraj.kandpal@intel.com>
-Subject: [PATCH 3/8] drm/i915/backlight: Use proper interface based on eDP
- version
-Date: Thu,  6 Feb 2025 12:02:48 +0530
-Message-Id: <20250206063253.2827017-4-suraj.kandpal@intel.com>
+Subject: [PATCH 0/8] Enable Aux based Nits brightness control for eDP
+Date: Thu,  6 Feb 2025 12:02:45 +0530
+Message-Id: <20250206063253.2827017-1-suraj.kandpal@intel.com>
 X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20250206063253.2827017-1-suraj.kandpal@intel.com>
-References: <20250206063253.2827017-1-suraj.kandpal@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-BeenThere: intel-gfx@lists.freedesktop.org
@@ -69,49 +67,29 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-eDP is supposed to use VESA interface when using revision 1.5 and above,
-use Intel interface for backlight control otherwise. Add check to
-use correct interface.
+From eDP 1.5 we are supposed to use the VESA pathways to control
+brightness. But still did not have the Nits brightness control coded
+in. This series enables NITS based backlight control over AUX using
+VESA pathways.
 
+Closes: https://gitlab.freedesktop.org/drm/xe/kernel/-/issues/3669
 Signed-off-by: Suraj Kandpal <suraj.kandpal@intel.com>
-Tested-by: Ben Kao <ben.kao@intel.com>
----
- drivers/gpu/drm/i915/display/intel_dp_aux_backlight.c | 8 +++++++-
- 1 file changed, 7 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_dp_aux_backlight.c b/drivers/gpu/drm/i915/display/intel_dp_aux_backlight.c
-index c846ef4acf5b..09e82f24d030 100644
---- a/drivers/gpu/drm/i915/display/intel_dp_aux_backlight.c
-+++ b/drivers/gpu/drm/i915/display/intel_dp_aux_backlight.c
-@@ -604,6 +604,7 @@ static const struct intel_panel_bl_funcs intel_dp_vesa_bl_funcs = {
- int intel_dp_aux_init_backlight_funcs(struct intel_connector *connector)
- {
- 	struct intel_display *display = to_intel_display(connector);
-+	struct intel_dp *intel_dp = intel_attached_dp(connector);
- 	struct drm_device *dev = connector->base.dev;
- 	struct intel_panel *panel = &connector->panel;
- 	bool try_intel_interface = false, try_vesa_interface = false;
-@@ -640,6 +641,10 @@ int intel_dp_aux_init_backlight_funcs(struct intel_connector *connector)
- 		break;
- 	}
- 
-+	/* For eDP 1.5 and above we are supposed to use VESA interface for brightness control */
-+	if (intel_dp->edp_dpcd[0] >= DP_EDP_15)
-+		try_vesa_interface = true;
-+
- 	/*
- 	 * Since Intel has their own backlight control interface, the majority of machines out there
- 	 * using DPCD backlight controls with Intel GPUs will be using this interface as opposed to
-@@ -653,7 +658,8 @@ int intel_dp_aux_init_backlight_funcs(struct intel_connector *connector)
- 	 * backlight interface at all. This means that the only sensible way for us to detect both
- 	 * interfaces is to probe for Intel's first, and VESA's second.
- 	 */
--	if (try_intel_interface && intel_dp_aux_supports_hdr_backlight(connector)) {
-+	if (try_intel_interface && intel_dp_aux_supports_hdr_backlight(connector) &&
-+	    intel_dp->edp_dpcd[0] <= DP_EDP_14b) {
- 		drm_dbg_kms(dev, "[CONNECTOR:%d:%s] Using Intel proprietary eDP backlight controls\n",
- 			    connector->base.base.id, connector->base.name);
- 		panel->backlight.funcs = &intel_dp_hdr_bl_funcs;
+Suraj Kandpal (8):
+  drm/dp: Add eDP 1.5 bit definition
+  drm/dp: Increase eDP display control capability size
+  drm/i915/backlight: Use proper interface based on eDP version
+  drm/i915/backlight: Check Luminance based brightness control for VESA
+  drm/i915/backlight: Modify function to get VESA brightness in Nits
+  drm/i915/backlight: Add function to change brightness in nits for VESA
+  drm/i915/backlight: Setup nits based luminance via VESA
+  drm/i915/backlight: Enable nits based luminance
+
+ .../drm/i915/display/intel_display_types.h    |   1 +
+ .../drm/i915/display/intel_dp_aux_backlight.c | 181 ++++++++++++++----
+ include/drm/display/drm_dp.h                  |   3 +-
+ 3 files changed, 143 insertions(+), 42 deletions(-)
+
 -- 
 2.34.1
 
