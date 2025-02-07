@@ -4,47 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 867C3C021A3
-	for <intel-gfx@archiver.kernel.org>; Mon, 10 Feb 2025 15:23:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C36F0C0219B
+	for <intel-gfx@archiver.kernel.org>; Mon, 10 Feb 2025 15:23:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7DEA410E592;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5291510E58F;
 	Mon, 10 Feb 2025 15:23:42 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=radix.lt header.i=povilas@radix.lt header.b="aJGBTUOw";
+	dkim=pass (1024-bit key; unprotected) header.d=radix.lt header.i=povilas@radix.lt header.b="FL7Hjydb";
 	dkim-atps=neutral
+X-Greylist: delayed 902 seconds by postgrey-1.36 at gabe;
+ Fri, 07 Feb 2025 19:12:47 UTC
 Received: from sender4-op-o11.zoho.com (sender4-op-o11.zoho.com
  [136.143.188.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6077710EBB5
- for <intel-gfx@lists.freedesktop.org>; Fri,  7 Feb 2025 22:24:34 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1738967071; cv=none; 
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 495AC10E1BC
+ for <intel-gfx@lists.freedesktop.org>; Fri,  7 Feb 2025 19:12:47 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1738954662; cv=none; 
  d=zohomail.com; s=zohoarc; 
- b=bUIeYxOQbvKX1AGhabYWLmqrGEkotd4IhzAgTshU7Ylb0tQWn3TqqBEjxO75mudjvbx03y9kcRkxn13w+P/Xjw3wSa/K6buoP24ae4yrQL3Sb0xzheppXM6AS151RY/rRBcxw4D3aQui7fgvY7+4JhfHFWFaPlaIjijAywTQoQE=
+ b=gn8UEtBvI+BwMpjclDnIhH8zRIDpK69eMZ50/vdhc7/EoFrf2gJExaHo0Xd4Q2ZBJXdOauP4nJxHyF+4qkkQCPqJjgAtCfEkVupVxsfQLl401c85EZ2if6wn1c4haFq8tKEikufbs7HIiTfxJz5xdvyCnzxjmMDwR74LuVOqbII=
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1738967071;
+ s=zohoarc; t=1738954662;
  h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=iKDlp0bgCgb8f+zAiYin88hU74kvH/vqffirN03PypA=; 
- b=STtUdN9+P3KBSvHsxbp36ZfwgzdtelVqtVSRKBfjDWF+DO/giZ3qvuFpNt+Znm+CYTI7UrX7mLSi/uOA18LI+nZYb3y4NgrD8jdCSHDJCqNrqKCwDLFONXHNr5W3o6iXQgiqEPAPaAOEiXGX1u04UmuF6fu123+wf5+MMblbylI=
+ bh=sk1rtrOiFofCElnIdsNJnSAo1dCOKZ1GVC9KZKSVlQM=; 
+ b=bfr0fMr8K3QPuNDyZLxWFE9eNlVnXWwkhyCWgfIAjM1BTDziAHr/JIen4/mFyk3XjwzUuki2S9BojxoYErl2qnHyMhAzJOWHX4BXzv9xe4KOR5uukwAsKkxQPbvw8f01oegFRR0GP5awlOMWHQetK13CovsXh6+5pCH4Loi87OY=
 ARC-Authentication-Results: i=1; mx.zohomail.com; dkim=pass  header.i=radix.lt;
  spf=pass  smtp.mailfrom=povilas@radix.lt;
  dmarc=pass header.from=<povilas@radix.lt>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1738967071; 
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1738954662; 
  s=zoho; d=radix.lt; i=povilas@radix.lt;
  h=Message-ID:Date:Date:MIME-Version:From:From:To:To:Subject:Subject:Cc:Cc:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
- bh=iKDlp0bgCgb8f+zAiYin88hU74kvH/vqffirN03PypA=;
- b=aJGBTUOwJxlIh0pHor6bxnxxkHw+zcKnwMaQA3oYwpdl998og2uLAUErboCDtJON
- QufZEH5UxYCdc2GHOwFzFxrPociDBqnB6oyiNKgLfNRa1oYYnv9aQiv+0MjFNowmWZd
- xrCC2p2/mmwDoxGKJRY3KIgKPWSpWQAPG1gKL3O4=
-Received: by mx.zohomail.com with SMTPS id 1738967068447485.78762200729204;
- Fri, 7 Feb 2025 14:24:28 -0800 (PST)
-Message-ID: <77434761-e627-4a82-8482-34e6cce79349@radix.lt>
-Date: Sat, 8 Feb 2025 00:24:26 +0200
+ bh=sk1rtrOiFofCElnIdsNJnSAo1dCOKZ1GVC9KZKSVlQM=;
+ b=FL7Hjydbd9fs8+v8X0s+t8yyLbpyuv427+PyUuV96WL8onid8tsxO5OkW4FghbTR
+ AAvp1Neb6wikPYEikiPFNrUVeIeMlHH3Zv8LWc8ylkTr3GoDW3wnWUKGPDPee2LFcLQ
+ gMebuP9wc/XK07Db7DbFhKqJ6eKgaavKWAQTY5+4=
+Received: by mx.zohomail.com with SMTPS id 1738954658493587.2057579888636;
+ Fri, 7 Feb 2025 10:57:38 -0800 (PST)
+Message-ID: <1e5b5275-d194-4af0-8927-f5b93416a407@radix.lt>
+Date: Fri, 7 Feb 2025 20:57:34 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Content-Language: en-US
 From: Povilas Kanapickas <povilas@radix.lt>
-To: intel-gfx@lists.freedesktop.org
-Subject: [PATCH xf86-video-intel] meson: Add dependency on xv
-Cc: =?UTF-8?B?VmlsbGUgU3lyasOkbMOk?= <ville.syrjala@linux.intel.com>
+Content-Language: en-US
+To: "xorg-devel@lists.x.org" <xorg-devel@lists.x.org>,
+ intel-gfx@lists.freedesktop.org
+Subject: xf86-video-intel is broken and with MRs disables we can't fix it
+Cc: ville.syrjala@linux.intel.com, chris@chris-wilson.co.uk
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 X-ZohoMailClient: External
@@ -64,50 +67,31 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Symbols such as XvCreateImage, XvPutImage, XvGetPortAttribute come from
-libXv.so. Linking to this dependency directly fixes build errors on
-Debian Bookworm against xserver 21.1.
----
- meson.build                      | 1 +
- src/legacy/i810/xvmc/meson.build | 1 +
- xvmc/meson.build                 | 1 +
- 3 files changed, 3 insertions(+)
+Hi,
 
-diff --git a/meson.build b/meson.build
-index 227ca2eb..553902bb 100644
---- a/meson.build
-+++ b/meson.build
-@@ -157,6 +157,7 @@ endif
- 
- with_xvmc = get_option('xvmc')
- if with_xvmc
-+  dependency('xv', required : true)
-   dependency('xvmc', required : true)
-   dependency('dri2proto', required : true)
-   dependency('x11', required : true)
-diff --git a/src/legacy/i810/xvmc/meson.build b/src/legacy/i810/xvmc/meson.build
-index cd05f3ef..3505f15b 100644
---- a/src/legacy/i810/xvmc/meson.build
-+++ b/src/legacy/i810/xvmc/meson.build
-@@ -4,6 +4,7 @@ shared_library('I810XvMC',
- 	       sources : 'I810XvMC.c',
- 	       dependencies : [
- 		 dependency('x11', required : true),
-+		 dependency('xv', required : true),
- 		 dependency('xvmc', required : true),
- 		 dependency('xorg-server', required : true),
- 		 dependency('libdrm', required : true),
-diff --git a/xvmc/meson.build b/xvmc/meson.build
-index 0ecc51e5..eeba2b66 100644
---- a/xvmc/meson.build
-+++ b/xvmc/meson.build
-@@ -14,6 +14,7 @@ shared_library('IntelXvMC',
- 	       dependencies : [
- 		 dependency('threads', required : true),
- 		 dependency('x11', required : true),
-+		 dependency('xv', required : true),
- 		 dependency('xvmc', required : true),
- 		 dependency('xorg-server', required : true),
- 		 dependency('x11-xcb', required : true),
--- 
-2.39.5
+xf86-video-intel driver is currently cannot be compiled with released
+versions of X server. Simple reproduction steps: create Debian Bookworm
+container, download module sources and all required dependencies and try
+to build.
+
+Debian Bookworm is pretty much the least exciting configuration
+possible. And the fact that xf86-video-intel cannot be compiled there is
+not good.
+
+For almost any other driver this is not a problem, because it is
+possible to create a merge request on gitlab.freedesktop.org. Eventually
+simple maintenance and build-related merge requests are merged. However
+in the case of Intel driver, merge requests are disabled and the
+recommended way to submit patches is via intel-gfx@lists.freedesktop.org
+mailing list. Unfortunately, patches submitted so far are ignored there.
+
+Given that the last commit to xf86-video-intel was 22 months ago, I
+suspect there's little interest from Intel to spend time maintaining the
+project.
+
+What do you think about opening up merge requests on the repository so
+that at least the driver can be brought back to compilable state? Does
+anyone have other ideas how the current situation could be resolved?
+
+Regards,
+Povilas
