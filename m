@@ -4,51 +4,51 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E0EF3C02196
-	for <intel-gfx@archiver.kernel.org>; Fri,  7 Feb 2025 10:19:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 48BF7C0219B
+	for <intel-gfx@archiver.kernel.org>; Fri,  7 Feb 2025 10:19:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8D04610EA9B;
+	by gabe.freedesktop.org (Postfix) with ESMTP id E395110EA9D;
 	Fri,  7 Feb 2025 10:19:15 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="BLHMvfdD";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="n9w7P6BF";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.18])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 97EC610EA97;
- Fri,  7 Feb 2025 10:18:00 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3DA3F10EA97;
+ Fri,  7 Feb 2025 10:17:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1738923480; x=1770459480;
+ t=1738923470; x=1770459470;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=1G8CQ2ivujioarBB6/qU4fYI4DFPOis2WMHAfuEhgxE=;
- b=BLHMvfdDqHJ7eEH5zTRuFcDUjTKFPyW0ROnx0+y43VlMSj7kE6kA9C0F
- w+kdjMu9VtZI5XPfyJCECZ8qcfcjq6d16BbCnjHKy/7dVjMRrjcz1q18f
- cQmGObqJbI9WTK7R7BUOVWhsqda+fT4x1i2p8L9yekEHDT79OjwZS0FSx
- kmLjX4kPLc+IZI5I9HPhCUwuLMaIRcR0g8DxpIfIbe5BTgX3w1A4+bZLh
- JtydLEyxn3mDaXDgcyfTbOfy+I+uyHWg158WBUuY7+fiQN+0G0kUVVo3A
- ufOmGbCRtyds6+k4XGlfCOiaYeP2Qqx8NFCU4F1fAxF8r9TxHtG9yhmJQ w==;
-X-CSE-ConnectionGUID: CzkEbm+aSO2RDfAtXWtX1g==
-X-CSE-MsgGUID: JhgirSeZRzKn1wzK6VtMlQ==
-X-IronPort-AV: E=McAfee;i="6700,10204,11314"; a="39674943"
-X-IronPort-AV: E=Sophos;i="6.12,310,1728975600"; d="scan'208";a="39674943"
+ bh=qnwV7myQ+RZZo3jWcxVKL6EYTri/P1XDHzta8lvjqrY=;
+ b=n9w7P6BFKuj9kWLmM6vfr0L8xlDG05ETqRkzSa3l19oA7xce2adiBLdl
+ ZRKPkCK4I2S0yVMP2vItUX9HW4HQnMwX2EYBYeayauUv9aDKbeXsS653c
+ /P5IBqaQkdOw4EowfrjgCaKjRGIDFtocuj+uR57c8rao21U5fwHnDs472
+ UInvnGQc5NyF8dDtsra1gimm/wnPn4l4518Xl8K9QFipmhS0bQjAeiDOr
+ PaKo2d02wH2dc+9CzXIMgQqPbLyUIq0j7Pz6p9/uaYvATHhnyMpI/NIJI
+ /SkeV+q6gFfnCvUG5IotPJ3lphwY0wBI4uLocDVN0I3nzRL1vZ7WzfphY Q==;
+X-CSE-ConnectionGUID: r8OJDgK7QXuOP0wjYNfMfA==
+X-CSE-MsgGUID: wvChVY3fRyS6sKJkHlmSqg==
+X-IronPort-AV: E=McAfee;i="6700,10204,11314"; a="39674926"
+X-IronPort-AV: E=Sophos;i="6.12,310,1728975600"; d="scan'208";a="39674926"
 Received: from orviesa005.jf.intel.com ([10.64.159.145])
  by orvoesa110.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 07 Feb 2025 02:18:00 -0800
-X-CSE-ConnectionGUID: pr82/QIvRziaZrPQc7Ps9w==
-X-CSE-MsgGUID: UYqdDwovT/WnkHjz7XBumg==
+ 07 Feb 2025 02:17:50 -0800
+X-CSE-ConnectionGUID: SvfP0AEPSyiVRUxIuEoPqg==
+X-CSE-MsgGUID: tRvTAOcbQmCtBIjnAOh2mg==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.12,224,1728975600"; d="scan'208";a="116686107"
+X-IronPort-AV: E=Sophos;i="6.12,224,1728975600"; d="scan'208";a="116686092"
 Received: from dprybysh-mobl.ger.corp.intel.com (HELO localhost)
  ([10.245.246.122])
  by orviesa005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 07 Feb 2025 02:17:59 -0800
+ 07 Feb 2025 02:17:49 -0800
 From: Jani Nikula <jani.nikula@intel.com>
 To: intel-gfx@lists.freedesktop.org,
 	intel-xe@lists.freedesktop.org
 Cc: jani.nikula@intel.com
-Subject: [PATCH 3/3] drm/i915/pch: Remove unused i915->pch_id
-Date: Fri,  7 Feb 2025 12:17:38 +0200
-Message-Id: <fac1c59800128e8f398e83d718a3a5dc235d0526.1738923308.git.jani.nikula@intel.com>
+Subject: [PATCH 1/3] drm/i915/pch: Make LPT LP a dedicated PCH type
+Date: Fri,  7 Feb 2025 12:17:36 +0200
+Message-Id: <777b63f50b10fba1d768af25870e81b33267bdc8.1738923308.git.jani.nikula@intel.com>
 X-Mailer: git-send-email 2.39.5
 In-Reply-To: <cover.1738923308.git.jani.nikula@intel.com>
 References: <cover.1738923308.git.jani.nikula@intel.com>
@@ -70,71 +70,102 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-With the PCH checks based on PCH types instead of IDs, the i915->pch_id
-member has become unused. Remove it.
+Add PCH type PCH_LPT_LP and rename PCH_LPT to PCH_LPT_H for
+consistency. Keep the existing HAS_PCH_LPT*() macros, but express them
+in terms of the PCH types instead of looking at the device IDs
+directly. This makes the PCH checks independent of the PCH device IDs.
 
 Signed-off-by: Jani Nikula <jani.nikula@intel.com>
 ---
- drivers/gpu/drm/i915/i915_drv.h      | 1 -
- drivers/gpu/drm/i915/soc/intel_pch.c | 4 ----
- drivers/gpu/drm/xe/xe_device_types.h | 1 -
- 3 files changed, 6 deletions(-)
+ drivers/gpu/drm/i915/display/intel_backlight.c |  2 +-
+ drivers/gpu/drm/i915/soc/intel_pch.c           |  8 ++++----
+ drivers/gpu/drm/i915/soc/intel_pch.h           | 14 ++++++--------
+ 3 files changed, 11 insertions(+), 13 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/i915_drv.h b/drivers/gpu/drm/i915/i915_drv.h
-index b96b8de12756..ffc346379cc2 100644
---- a/drivers/gpu/drm/i915/i915_drv.h
-+++ b/drivers/gpu/drm/i915/i915_drv.h
-@@ -274,7 +274,6 @@ struct drm_i915_private {
- 
- 	/* PCH chipset type */
- 	enum intel_pch pch_type;
--	unsigned short pch_id;
- 
- 	unsigned long gem_quirks;
- 
+diff --git a/drivers/gpu/drm/i915/display/intel_backlight.c b/drivers/gpu/drm/i915/display/intel_backlight.c
+index 477b21af71a4..178dc6c8de80 100644
+--- a/drivers/gpu/drm/i915/display/intel_backlight.c
++++ b/drivers/gpu/drm/i915/display/intel_backlight.c
+@@ -1829,7 +1829,7 @@ void intel_backlight_init_funcs(struct intel_panel *panel)
+ 		panel->backlight.pwm_funcs = &bxt_pwm_funcs;
+ 	} else if (INTEL_PCH_TYPE(i915) >= PCH_CNP) {
+ 		panel->backlight.pwm_funcs = &cnp_pwm_funcs;
+-	} else if (INTEL_PCH_TYPE(i915) >= PCH_LPT) {
++	} else if (INTEL_PCH_TYPE(i915) >= PCH_LPT_H) {
+ 		if (HAS_PCH_LPT(i915))
+ 			panel->backlight.pwm_funcs = &lpt_pwm_funcs;
+ 		else
 diff --git a/drivers/gpu/drm/i915/soc/intel_pch.c b/drivers/gpu/drm/i915/soc/intel_pch.c
-index fa03b5068a19..82dc7fbd1a3e 100644
+index 9f7c9dbc178e..0370ccb6943c 100644
 --- a/drivers/gpu/drm/i915/soc/intel_pch.c
 +++ b/drivers/gpu/drm/i915/soc/intel_pch.c
-@@ -286,13 +286,11 @@ void intel_detect_pch(struct drm_i915_private *dev_priv)
- 		pch_type = intel_pch_type(dev_priv, id);
- 		if (pch_type != PCH_NONE) {
- 			dev_priv->pch_type = pch_type;
--			dev_priv->pch_id = id;
- 			break;
- 		} else if (intel_is_virt_pch(id, pch->subsystem_vendor,
- 					     pch->subsystem_device)) {
- 			intel_virt_detect_pch(dev_priv, &id, &pch_type);
- 			dev_priv->pch_type = pch_type;
--			dev_priv->pch_id = id;
- 			break;
- 		}
- 	}
-@@ -305,12 +303,10 @@ void intel_detect_pch(struct drm_i915_private *dev_priv)
- 		drm_dbg_kms(&dev_priv->drm,
- 			    "Display disabled, reverting to NOP PCH\n");
- 		dev_priv->pch_type = PCH_NOP;
--		dev_priv->pch_id = 0;
- 	} else if (!pch) {
- 		if (i915_run_as_guest() && HAS_DISPLAY(dev_priv)) {
- 			intel_virt_detect_pch(dev_priv, &id, &pch_type);
- 			dev_priv->pch_type = pch_type;
--			dev_priv->pch_id = id;
- 		} else {
- 			drm_dbg_kms(&dev_priv->drm, "No PCH found.\n");
- 		}
-diff --git a/drivers/gpu/drm/xe/xe_device_types.h b/drivers/gpu/drm/xe/xe_device_types.h
-index c0e886bac183..c71b15897f74 100644
---- a/drivers/gpu/drm/xe/xe_device_types.h
-+++ b/drivers/gpu/drm/xe/xe_device_types.h
-@@ -547,7 +547,6 @@ struct xe_device {
- 	 */
- 	struct intel_display display;
- 	enum intel_pch pch_type;
--	u16 pch_id;
- 
- 	struct dram_info {
- 		bool wm_lv_0_adjust_needed;
+@@ -33,14 +33,14 @@ intel_pch_type(const struct drm_i915_private *dev_priv, unsigned short id)
+ 			    !IS_HASWELL(dev_priv) && !IS_BROADWELL(dev_priv));
+ 		drm_WARN_ON(&dev_priv->drm,
+ 			    IS_HASWELL_ULT(dev_priv) || IS_BROADWELL_ULT(dev_priv));
+-		return PCH_LPT;
++		return PCH_LPT_H;
+ 	case INTEL_PCH_LPT_LP_DEVICE_ID_TYPE:
+ 		drm_dbg_kms(&dev_priv->drm, "Found LynxPoint LP PCH\n");
+ 		drm_WARN_ON(&dev_priv->drm,
+ 			    !IS_HASWELL(dev_priv) && !IS_BROADWELL(dev_priv));
+ 		drm_WARN_ON(&dev_priv->drm,
+ 			    !IS_HASWELL_ULT(dev_priv) && !IS_BROADWELL_ULT(dev_priv));
+-		return PCH_LPT;
++		return PCH_LPT_LP;
+ 	case INTEL_PCH_WPT_DEVICE_ID_TYPE:
+ 		drm_dbg_kms(&dev_priv->drm, "Found WildcatPoint PCH\n");
+ 		drm_WARN_ON(&dev_priv->drm,
+@@ -48,7 +48,7 @@ intel_pch_type(const struct drm_i915_private *dev_priv, unsigned short id)
+ 		drm_WARN_ON(&dev_priv->drm,
+ 			    IS_HASWELL_ULT(dev_priv) || IS_BROADWELL_ULT(dev_priv));
+ 		/* WPT is LPT compatible */
+-		return PCH_LPT;
++		return PCH_LPT_H;
+ 	case INTEL_PCH_WPT_LP_DEVICE_ID_TYPE:
+ 		drm_dbg_kms(&dev_priv->drm, "Found WildcatPoint LP PCH\n");
+ 		drm_WARN_ON(&dev_priv->drm,
+@@ -56,7 +56,7 @@ intel_pch_type(const struct drm_i915_private *dev_priv, unsigned short id)
+ 		drm_WARN_ON(&dev_priv->drm,
+ 			    !IS_HASWELL_ULT(dev_priv) && !IS_BROADWELL_ULT(dev_priv));
+ 		/* WPT is LPT compatible */
+-		return PCH_LPT;
++		return PCH_LPT_LP;
+ 	case INTEL_PCH_SPT_DEVICE_ID_TYPE:
+ 		drm_dbg_kms(&dev_priv->drm, "Found SunrisePoint PCH\n");
+ 		drm_WARN_ON(&dev_priv->drm,
+diff --git a/drivers/gpu/drm/i915/soc/intel_pch.h b/drivers/gpu/drm/i915/soc/intel_pch.h
+index 89e89ede265d..bc926df14c45 100644
+--- a/drivers/gpu/drm/i915/soc/intel_pch.h
++++ b/drivers/gpu/drm/i915/soc/intel_pch.h
+@@ -19,7 +19,8 @@ enum intel_pch {
+ 	PCH_NONE = 0,	/* No PCH present */
+ 	PCH_IBX,	/* Ibexpeak PCH */
+ 	PCH_CPT,	/* Cougarpoint/Pantherpoint PCH */
+-	PCH_LPT,	/* Lynxpoint/Wildcatpoint PCH */
++	PCH_LPT_H,	/* Lynxpoint/Wildcatpoint H PCH */
++	PCH_LPT_LP,	/* Lynxpoint/Wildcatpoint LP PCH */
+ 	PCH_SPT,        /* Sunrisepoint/Kaby Lake PCH */
+ 	PCH_CNP,        /* Cannon/Comet Lake PCH */
+ 	PCH_ICP,	/* Ice Lake/Jasper Lake PCH */
+@@ -72,13 +73,10 @@ enum intel_pch {
+ #define HAS_PCH_ICP(dev_priv)			(INTEL_PCH_TYPE(dev_priv) == PCH_ICP)
+ #define HAS_PCH_CNP(dev_priv)			(INTEL_PCH_TYPE(dev_priv) == PCH_CNP)
+ #define HAS_PCH_SPT(dev_priv)			(INTEL_PCH_TYPE(dev_priv) == PCH_SPT)
+-#define HAS_PCH_LPT(dev_priv)			(INTEL_PCH_TYPE(dev_priv) == PCH_LPT)
+-#define HAS_PCH_LPT_LP(dev_priv) \
+-	(INTEL_PCH_ID(dev_priv) == INTEL_PCH_LPT_LP_DEVICE_ID_TYPE || \
+-	 INTEL_PCH_ID(dev_priv) == INTEL_PCH_WPT_LP_DEVICE_ID_TYPE)
+-#define HAS_PCH_LPT_H(dev_priv) \
+-	(INTEL_PCH_ID(dev_priv) == INTEL_PCH_LPT_DEVICE_ID_TYPE || \
+-	 INTEL_PCH_ID(dev_priv) == INTEL_PCH_WPT_DEVICE_ID_TYPE)
++#define HAS_PCH_LPT_H(dev_priv)			(INTEL_PCH_TYPE(dev_priv) == PCH_LPT_H)
++#define HAS_PCH_LPT_LP(dev_priv)		(INTEL_PCH_TYPE(dev_priv) == PCH_LPT_LP)
++#define HAS_PCH_LPT(dev_priv)			(INTEL_PCH_TYPE(dev_priv) == PCH_LPT_H || \
++						 INTEL_PCH_TYPE(dev_priv) == PCH_LPT_LP)
+ #define HAS_PCH_CPT(dev_priv)			(INTEL_PCH_TYPE(dev_priv) == PCH_CPT)
+ #define HAS_PCH_IBX(dev_priv)			(INTEL_PCH_TYPE(dev_priv) == PCH_IBX)
+ #define HAS_PCH_NOP(dev_priv)			(INTEL_PCH_TYPE(dev_priv) == PCH_NOP)
 -- 
 2.39.5
 
