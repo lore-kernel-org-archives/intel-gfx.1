@@ -4,51 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 74325C0219D
-	for <intel-gfx@archiver.kernel.org>; Fri,  7 Feb 2025 22:41:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AA40CC021A0
+	for <intel-gfx@archiver.kernel.org>; Fri,  7 Feb 2025 22:41:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0922910E2DA;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0EC0D10EBBD;
 	Fri,  7 Feb 2025 22:41:02 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="Dxi2d+Ws";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="mysZSI/l";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.20])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6CDB110EBB5;
- Fri,  7 Feb 2025 22:32:02 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3E6A010EBB7;
+ Fri,  7 Feb 2025 22:32:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1738967522; x=1770503522;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=VAOps/6wsQysi7VB9A+HE9nbNaA/QM+MSCiK8TVJuEE=;
- b=Dxi2d+WsD82VtmLnLm/GyVkyTcMVJahT9FHWsNMC26CwIwaoBoZKyh/I
- M+RLw/D02QEEOpvKDSBFlog2RtkikeLDIEG+bBNCm4ajY0NAQ2ABaVu8i
- m8bPZyxL3CnKQsfzowMN3RwieH0dGLC2NSDxPDcYPv5WWNmjp3F/TcP0x
- GaRZ3myi0KKF+YZLCbDmI1XuBAZn85tEV1StfoOVrL0dXq76hlqSqxkC+
- PdpLdmAbFr+TgfzHWmeqrR2mIm79eRfeoQ6kvlWY9Om55dhlOWDuP3uFA
- sSn4DNQpYZrF0Xa19Xw755FbxUEK9fuKwGcWny1zlynk0vh+zatg4+SWG Q==;
-X-CSE-ConnectionGUID: yo4kt/m1SR+EbCcmrnfX2Q==
-X-CSE-MsgGUID: g4aieoXdQGG1he45YjI6Pw==
-X-IronPort-AV: E=McAfee;i="6700,10204,11338"; a="39313387"
-X-IronPort-AV: E=Sophos;i="6.13,268,1732608000"; d="scan'208";a="39313387"
+ t=1738967531; x=1770503531;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=rCR70x35t9u4TUJihRyUiWzkX1087HffuOo97SMskkQ=;
+ b=mysZSI/lCx0ZMrvZpLY3t4p+1o9pleEMCfatyfGQJL5UT1CdTz+VJlqw
+ HZDGqm3xEVVMBw3/FOl9j+6bCTgieSOlF5U6XPGhyUdM7nshtQEdztrr4
+ Ctui66UzFEBzP4u+omnaFfyzwzux95VYUKIoqUNhteG1JoL8LkWhvo6Gu
+ 1cPwA4Pd6Uvmoc+FAkJFUiBuvTbHzOkDyKEjPR1RlMtGOnrh/hGYJZq5s
+ G57hoD4H3cvUIpetHCrhVCkpV5lSEfMxJupDGyxDFN+ASWn2zNWs7vzB4
+ 4MbSA+pjhbyRKEBJze/D/hLKKdsfm74LSrr4xfza92PoudERzYLwwJnP3 w==;
+X-CSE-ConnectionGUID: RMrRvZUtTomlIqPLoFzZxQ==
+X-CSE-MsgGUID: fQXee6ixRf+M9ZMluw4AGg==
+X-IronPort-AV: E=McAfee;i="6700,10204,11338"; a="39313394"
+X-IronPort-AV: E=Sophos;i="6.13,268,1732608000"; d="scan'208";a="39313394"
 Received: from fmviesa008.fm.intel.com ([10.60.135.148])
  by orvoesa112.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 07 Feb 2025 14:32:02 -0800
-X-CSE-ConnectionGUID: RzLDLpC5Q+y1oVEMgUWRmw==
-X-CSE-MsgGUID: CtGVKooRRjqbnb7G8YCTIw==
+ 07 Feb 2025 14:32:11 -0800
+X-CSE-ConnectionGUID: BwTXa+WJQxu4HeyAA081Sw==
+X-CSE-MsgGUID: BhqBGan0SVaZk4m+6i6VqQ==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.13,268,1732608000"; d="scan'208";a="111857399"
+X-IronPort-AV: E=Sophos;i="6.13,268,1732608000"; d="scan'208";a="111857428"
 Received: from stinkpipe.fi.intel.com (HELO stinkbox) ([10.237.72.74])
- by fmviesa008.fm.intel.com with SMTP; 07 Feb 2025 14:32:00 -0800
+ by fmviesa008.fm.intel.com with SMTP; 07 Feb 2025 14:32:09 -0800
 Received: by stinkbox (sSMTP sendmail emulation);
- Sat, 08 Feb 2025 00:31:59 +0200
+ Sat, 08 Feb 2025 00:32:08 +0200
 From: Ville Syrjala <ville.syrjala@linux.intel.com>
 To: intel-gfx@lists.freedesktop.org
 Cc: intel-xe@lists.freedesktop.org
-Subject: [PATCH v2 0/8] drm/i915/vrr: Fix DSB+VRR usage for PTL+
-Date: Sat,  8 Feb 2025 00:31:51 +0200
-Message-ID: <20250207223159.14132-1-ville.syrjala@linux.intel.com>
+Subject: [PATCH v2 3/8] drm/i915/vrr: Account for TRANS_PUSH delay
+Date: Sat,  8 Feb 2025 00:31:54 +0200
+Message-ID: <20250207223159.14132-4-ville.syrjala@linux.intel.com>
 X-Mailer: git-send-email 2.45.3
+In-Reply-To: <20250207223159.14132-1-ville.syrjala@linux.intel.com>
+References: <20250207223159.14132-1-ville.syrjala@linux.intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
@@ -69,40 +71,38 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 From: Ville Syrjälä <ville.syrjala@linux.intel.com>
 
-Apparently PTL (or I suppose it could have already happened
-in either MTL or LNL, didn't have either one to check) changes
-the way the VRR hardwre works by ending the safe window as
-soon as the push send is triggered. Reorder our DSB programming
-sequence to account for that, and try to make sure we catch any
-vblank evasion fails that could cause problems with the new
-order.
+When we send a push during vblank the TRANS_PUSH write happens
+at some point during a scanline, and the hardware picks it up
+on the next scanline. Thus there is up to one extra scanline
+of delay between the TRANS_PUSH write and the delayed vblank
+triggering. Account for that during intel_dsb_wait_vblank_delay()
+so that we are guaranteed to be past the delayed vblank before
+we trigger the completion interrupt for the commit.
 
-v2: Fix up the issues with wiating for the vblank delay
-    so we can make do with a single check of the push bit.
-    Also do the check for the mmio path.
-    Avoid legacy cursor updates making a mess of things.
-    Decode the DSB errors.
+Signed-off-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
+---
+ drivers/gpu/drm/i915/display/intel_dsb.c | 8 +++++++-
+ 1 file changed, 7 insertions(+), 1 deletion(-)
 
-Ville Syrjälä (8):
-  drm/i915/dsb: Move the +1 usec adjustment into dsb_wait_usec()
-  drm/i915/vrr: Don't send push for legacy cursor updates
-  drm/i915/vrr: Account for TRANS_PUSH delay
-  drm/i915/dsb: Compute use_dsb earlier
-  drm/i915/dsb: Introduce intel_dsb_poll()
-  drm/i915/vrr: Reorder the DSB "wait for safe window" vs. TRANS_PUSH
-  drm/i915/vrr: Check that the push send bit is clear after delayed
-    vblank
-  drm/i915/dsb: Decode DSB error interrupts
-
- drivers/gpu/drm/i915/display/intel_color.c   |  9 +++-
- drivers/gpu/drm/i915/display/intel_crtc.c    |  3 +-
- drivers/gpu/drm/i915/display/intel_display.c | 31 +++++++------
- drivers/gpu/drm/i915/display/intel_dsb.c     | 47 +++++++++++++++++---
- drivers/gpu/drm/i915/display/intel_dsb.h     |  3 ++
- drivers/gpu/drm/i915/display/intel_vrr.c     | 31 +++++++++++++
- drivers/gpu/drm/i915/display/intel_vrr.h     |  2 +
- 7 files changed, 101 insertions(+), 25 deletions(-)
-
+diff --git a/drivers/gpu/drm/i915/display/intel_dsb.c b/drivers/gpu/drm/i915/display/intel_dsb.c
+index f8bd6fad0c87..01e3bd385cac 100644
+--- a/drivers/gpu/drm/i915/display/intel_dsb.c
++++ b/drivers/gpu/drm/i915/display/intel_dsb.c
+@@ -116,7 +116,13 @@ static int dsb_vblank_delay(struct intel_atomic_state *state,
+ 		intel_pre_commit_crtc_state(state, crtc);
+ 
+ 	if (pre_commit_is_vrr_active(state, crtc))
+-		return intel_vrr_vblank_delay(crtc_state);
++		/*
++		 * When the push is sent during vblank it will trigger
++		 * on the next scanline, hence we have up to one extra
++		 * scanline until the delayed vblank occurs after
++		 * TRANS_PUSH has been written.
++		 */
++		return intel_vrr_vblank_delay(crtc_state) + 1;
+ 	else
+ 		return intel_mode_vblank_delay(&crtc_state->hw.adjusted_mode);
+ }
 -- 
 2.45.3
 
