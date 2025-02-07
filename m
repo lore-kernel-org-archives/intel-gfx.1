@@ -4,73 +4,54 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D38B4C02198
-	for <intel-gfx@archiver.kernel.org>; Mon, 10 Feb 2025 15:23:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9CD87C0219E
+	for <intel-gfx@archiver.kernel.org>; Mon, 10 Feb 2025 15:23:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7537210E1D6;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 75E3B10E204;
 	Mon, 10 Feb 2025 15:23:41 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="UIdgOBez";
+	dkim=pass (1024-bit key; unprotected) header.d=radix.lt header.i=povilas@radix.lt header.b="beNI0oTq";
 	dkim-atps=neutral
-Received: from mail-wr1-f50.google.com (mail-wr1-f50.google.com
- [209.85.221.50])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 74B9210E545
- for <intel-gfx@lists.freedesktop.org>; Mon, 10 Feb 2025 13:36:49 +0000 (UTC)
-Received: by mail-wr1-f50.google.com with SMTP id
- ffacd0b85a97d-38dd91c313bso834800f8f.3
- for <intel-gfx@lists.freedesktop.org>; Mon, 10 Feb 2025 05:36:49 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1739194608; x=1739799408; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=223MxAxNXztbp67ZxJdOt7tmG0A7uxSl64PKr7bnTT8=;
- b=UIdgOBezC5+VmWT21JngM6tVXAX22hVSNJfG9/6i0xOQoJhXQpTZVvJRysyohO1frW
- SshTPt0+Q1PZ5qcmeuB2j98pKCGEz4/a4RIpWrE9ECfKL+HugbpVfZEXRGlrocFRPjFL
- x3251o2SaRjKo8y/vEFAL9gazuJoC0K0H5nqjpc8uQutJXCgRf+6c6G70YUf5xt9Ei3U
- 4QB4jjNxxAksGRC2HoeOoM899+py0rq6BRHzgBVqpWEYnc8N8g0+Adg+oFTUZh641cSB
- oqiC8o24Xdxa3MD3qanpatWNrOfr80B28QuV7glTSaSa50WIBOvn2tHVxDpmFEre4+Cr
- 7htw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1739194608; x=1739799408;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=223MxAxNXztbp67ZxJdOt7tmG0A7uxSl64PKr7bnTT8=;
- b=U4p1r632FiiIjWJNbKBAmne6s0ZdAUkYyhIX43rIjXRtj8FUoSE/0KgKD+9qaIo8Il
- 8O3VGJDldvmlB5Gv/gHvR06Qha5yT25AFLX4YfsPeh8DmMINl7n4qN+iUs09pw/p2v/Z
- 65qeBv7SeSFzlCxWHeOm1U0bMlR092JIanvYhpJ9Dq2+CrKIV1ZFmaCgIxWAnSDwGO1L
- 30S9OqFGnkjHRqfotSzFiXv12bffbuM7dysfuRMm28fFvXRZeOePd3v8A4WJnwLzb4nI
- vQUJIm2Ja8Dz3ND5juGEvZpY/Z2iEkE+HxdVw2d88NOKYqyvOxYAmpp4V9IBSWuVa+G5
- AM7w==
-X-Gm-Message-State: AOJu0YzU7OwE70bGkSJikx/05t8AQOOnTeJAiHS8CeJv1ORjiQ2h36Yz
- Cf2v9zDVOAg08my3rBwTxjhmk4tRwmbrESGB1lmRLRaVEvaO0Ea1
-X-Gm-Gg: ASbGncs4IfAfRXTndEIbkO5zkO5umjLofxxDjHo5ljCa8Ywla1piSrAQwJ0t0cFYRHV
- aQrzfhXMuMr+RSnOk4NYWWEhu4wROcjes7/9m0sNFfr/4vj31RFDpEiV/WdPlFjR87QzoPMosUO
- MhKw1W6ftCrqAJyQzQyShIrdHtN1p3RT2uH2B5OlDNBf5uRo6/K0ycwuF5Va2kyQctuIRYsVmVX
- bXQp3F1kfZFzLOZx2M5bCYdZwQK85qyEWeNCpAoGq6rtGL6fY4fk9hWXQET12Bhhi+WBOu0uPq+
- GmexX9NLmuzPVl9el13XaLclZRvpVEQTxS3hnkETgmvNnnQ1qKazdn2ZJTQ/CNOCYf3Y6nHkdJc
- vFYFzSJhcS7oL1uU=
-X-Google-Smtp-Source: AGHT+IF+EQhLe8h5irMRb0V2F2mpADb4UbCqz7ZIeTUohTSxgMsPVxH017EN4mAXu3VNPEgdy5ZhvQ==
-X-Received: by 2002:adf:f10f:0:b0:38d:bd41:2f8b with SMTP id
- ffacd0b85a97d-38dc959e1a7mr8545211f8f.44.1739194607354; 
- Mon, 10 Feb 2025 05:36:47 -0800 (PST)
-Received: from legolas.fritz.box
- (p200300d0af0cd2008ab2e79e9971853b.dip0.t-ipconnect.de.
- [2003:d0:af0c:d200:8ab2:e79e:9971:853b])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-439452533ecsm18136765e9.0.2025.02.10.05.36.46
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 10 Feb 2025 05:36:46 -0800 (PST)
-From: Markus Theil <theil.markus@gmail.com>
-To: linux-kernel@vger.kernel.org
-Cc: intel-gfx@lists.freedesktop.org, netdev@vger.kernel.org, Jason@zx2c4.com,
- tytso@mit.edu, Markus Theil <theil.markus@gmail.com>
-Subject: [PATCH] prandom: remove next_pseudo_random32
-Date: Mon, 10 Feb 2025 14:35:56 +0100
-Message-ID: <20250210133556.66431-1-theil.markus@gmail.com>
-X-Mailer: git-send-email 2.47.2
+Received: from sender4-op-o12.zoho.com (sender4-op-o12.zoho.com
+ [136.143.188.12])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CBE5B10EBB3
+ for <intel-gfx@lists.freedesktop.org>; Fri,  7 Feb 2025 21:56:52 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1738965409; cv=none; 
+ d=zohomail.com; s=zohoarc; 
+ b=NBph5k5d8AhwgzDq4Be2ttsPhtUAyJLoO3608hPsHP0xQk1Twe6Zyoz+2610eVCF+a09dzQY4g2aWaFrWk1XiyaE67/hF0e9naQ2jjdw7/3kVVL53oYCOPV7ZhHNl3PtTL2AHA8MGyUvrMoDnPvdpDjfDyurhQWZSCen0sVtyVg=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
+ s=zohoarc; t=1738965409;
+ h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To;
+ bh=mcPxDdCEElA9opueKy8lSbAdmMu2tRBg3JP0RqltOB8=; 
+ b=fzDrdjOLQWDf928lVXtz+gvUzLbRohEQ3U7a0avjxH5cbrhd5fzprsuA+ouDJ7kNj0NJ8yRJA5dIfO9a77TmnlPbSIgeLCEu+GbFYu9q8v2hyG+HwO0Zpg+svBN+GvcCthyjD0vt749ueXLAmxHWBv1pC0rWxhbXdMC3JcYazoM=
+ARC-Authentication-Results: i=1; mx.zohomail.com; dkim=pass  header.i=radix.lt;
+ spf=pass  smtp.mailfrom=povilas@radix.lt;
+ dmarc=pass header.from=<povilas@radix.lt>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1738965409; 
+ s=zoho; d=radix.lt; i=povilas@radix.lt;
+ h=Message-ID:Date:Date:MIME-Version:Subject:Subject:To:To:Cc:Cc:References:From:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
+ bh=mcPxDdCEElA9opueKy8lSbAdmMu2tRBg3JP0RqltOB8=;
+ b=beNI0oTq28xOVXj94+eRgSr5Bsb/DXCeFx6uZrW6nI9KpwiO1bds0a4nUoCgqfa4
+ ciyCG4Dtx4tigufg4/4cCwWhTr//Gz7eNzJ/Hpuw8Icj5s9PhVNAZ0FIvY4AneCWWI/
+ fWxqNXatKE7ndFAfEDdwzoor00y/zMpo90IDYh08=
+Received: by mx.zohomail.com with SMTPS id 1738965406175449.02207042471514;
+ Fri, 7 Feb 2025 13:56:46 -0800 (PST)
+Message-ID: <c4cc1514-3b32-460e-a98b-53a42feeb41c@radix.lt>
+Date: Fri, 7 Feb 2025 23:56:43 +0200
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: xf86-video-intel is broken and with MRs disables we can't fix it
+To: =?UTF-8?B?VmlsbGUgU3lyasOkbMOk?= <ville.syrjala@linux.intel.com>
+Cc: "xorg-devel@lists.x.org" <xorg-devel@lists.x.org>,
+ intel-gfx@lists.freedesktop.org, chris@chris-wilson.co.uk
+References: <1e5b5275-d194-4af0-8927-f5b93416a407@radix.lt>
+ <Z6Z6My8FcaLaLPu0@intel.com>
+From: Povilas Kanapickas <povilas@radix.lt>
+Content-Language: en-US
+In-Reply-To: <Z6Z6My8FcaLaLPu0@intel.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+X-ZohoMailClient: External
 X-Mailman-Approved-At: Mon, 10 Feb 2025 15:23:40 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -87,89 +68,74 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-next_pseudo_random32 implements a LCG with known bad
-statistical properties and is only used in two pieces
-of testing code. Remove and convert users to the remaining
-single PRNG interface in prandom/random32.
+Hi Ville,
 
-This removes another option of using an insecure PRNG.
+Thanks for quick response.
 
-This is a preliminary patch for further prandom cleanup:
-- In another upcoming patch, I'd like to add more warnings,
-  that prandom must not be used for cryptographic purposes.
-- Replace the LFSR113 generator with Xoshiro256++, which is
-  known to have better statistical properties and does not
-  need warmup, when seeded properly.
+Turns out due to multiple factors leading to my confusion most parts of
+the email are plainly wrong. Apologies for going to public mailing list
+without more research and discussion.
 
-Signed-off-by: Markus Theil <theil.markus@gmail.com>
----
- drivers/gpu/drm/i915/selftests/i915_gem.c        | 7 ++++---
- drivers/media/test-drivers/vivid/vivid-vid-cap.c | 4 +++-
- include/linux/prandom.h                          | 6 ------
- 3 files changed, 7 insertions(+), 10 deletions(-)
+On 2025-02-07 23:25, Ville Syrjälä wrote:
+> On Fri, Feb 07, 2025 at 08:57:34PM +0200, Povilas Kanapickas wrote:
+>> Hi,
+>>
+>> xf86-video-intel driver is currently cannot be compiled with released
+>> versions of X server. Simple reproduction steps: create Debian Bookworm
+>> container, download module sources and all required dependencies and try
+>> to build.
+> 
+> Builds fine on my Gentoo boxes here. What are the actual issues
+> you are seeing?
 
-diff --git a/drivers/gpu/drm/i915/selftests/i915_gem.c b/drivers/gpu/drm/i915/selftests/i915_gem.c
-index 0727492576be..14efa6edd9e6 100644
---- a/drivers/gpu/drm/i915/selftests/i915_gem.c
-+++ b/drivers/gpu/drm/i915/selftests/i915_gem.c
-@@ -45,13 +45,15 @@ static void trash_stolen(struct drm_i915_private *i915)
- 	struct i915_ggtt *ggtt = to_gt(i915)->ggtt;
- 	const u64 slot = ggtt->error_capture.start;
- 	const resource_size_t size = resource_size(&i915->dsm.stolen);
-+	struct rnd_state prng;
- 	unsigned long page;
--	u32 prng = 0x12345678;
- 
- 	/* XXX: fsck. needs some more thought... */
- 	if (!i915_ggtt_has_aperture(ggtt))
- 		return;
- 
-+	prandom_seed_state(&prng, 0x12345678);
-+
- 	for (page = 0; page < size; page += PAGE_SIZE) {
- 		const dma_addr_t dma = i915->dsm.stolen.start + page;
- 		u32 __iomem *s;
-@@ -64,8 +66,7 @@ static void trash_stolen(struct drm_i915_private *i915)
- 
- 		s = io_mapping_map_atomic_wc(&ggtt->iomap, slot);
- 		for (x = 0; x < PAGE_SIZE / sizeof(u32); x++) {
--			prng = next_pseudo_random32(prng);
--			iowrite32(prng, &s[x]);
-+			iowrite32(prandom_u32_state(&prng), &s[x]);
- 		}
- 		io_mapping_unmap_atomic(s);
- 	}
-diff --git a/drivers/media/test-drivers/vivid/vivid-vid-cap.c b/drivers/media/test-drivers/vivid/vivid-vid-cap.c
-index b166d90177c6..166372d5f927 100644
---- a/drivers/media/test-drivers/vivid/vivid-vid-cap.c
-+++ b/drivers/media/test-drivers/vivid/vivid-vid-cap.c
-@@ -300,8 +300,10 @@ void vivid_update_quality(struct vivid_dev *dev)
- 	 */
- 	freq_modulus = (dev->tv_freq - 676 /* (43.25-1) * 16 */) % (6 * 16);
- 	if (freq_modulus > 2 * 16) {
-+		struct rnd_state prng;
-+		prandom_seed_state(&prng, dev->tv_freq ^ 0x55);
- 		tpg_s_quality(&dev->tpg, TPG_QUAL_NOISE,
--			next_pseudo_random32(dev->tv_freq ^ 0x55) & 0x3f);
-+			prandom_u32_state(&prng) & 0x3f);
- 		return;
- 	}
- 	if (freq_modulus < 12 /*0.75 * 16*/ || freq_modulus > 20 /*1.25 * 16*/)
-diff --git a/include/linux/prandom.h b/include/linux/prandom.h
-index f2ed5b72b3d6..ff7dcc3fa105 100644
---- a/include/linux/prandom.h
-+++ b/include/linux/prandom.h
-@@ -47,10 +47,4 @@ static inline void prandom_seed_state(struct rnd_state *state, u64 seed)
- 	state->s4 = __seed(i, 128U);
- }
- 
--/* Pseudo random number generator from numerical recipes. */
--static inline u32 next_pseudo_random32(u32 seed)
--{
--	return seed * 1664525 + 1013904223;
--}
--
- #endif
--- 
-2.47.2
+Linking failure on meson due to missing XvGetPortAttribute, and failure
+to even start building on autotools. I think since you're responding I
+will simply submit patches your preferred way.
 
+>>
+>> Debian Bookworm is pretty much the least exciting configuration
+>> possible. And the fact that xf86-video-intel cannot be compiled there is
+>> not good.
+>>
+>> For almost any other driver this is not a problem, because it is
+>> possible to create a merge request on gitlab.freedesktop.org. Eventually
+>> simple maintenance and build-related merge requests are merged. However
+>> in the case of Intel driver, merge requests are disabled and the
+>> recommended way to submit patches is via intel-gfx@lists.freedesktop.org
+>> mailing list. Unfortunately, patches submitted so far are ignored there.
+> 
+> I've not seen any patches on the list. Care to point them out?
+
+The patches are on February 2024, but I must admit I didn't double check
+on the list and there in fact are your review responses to these. The
+submitter simply didn't follow through.
+
+>>
+>> Given that the last commit to xf86-video-intel was 22 months ago, I
+>> suspect there's little interest from Intel to spend time maintaining the
+>> project.
+> 
+> You must be looking at some stale repo. My last commit was 
+> commit ce811e78882d9f31636351dfe65351f4ded52c74
+> Author:     Ville Syrjälä <ville.syrjala@linux.intel.com>
+> AuthorDate: Sat Mar 18 15:45:44 2023 +0200
+> Commit:     Ville Syrjälä <ville.syrjala@linux.intel.com>
+> CommitDate: Tue May 7 00:32:24 2024 +0300
+
+Sorry, I looked into author date only :-(
+
+>>
+>> What do you think about opening up merge requests on the repository so
+>> that at least the driver can be brought back to compilable state? Does
+>> anyone have other ideas how the current situation could be resolved?
+> 
+> I wouldn't want to deal with mrs for any high volume stuff, but
+> since this only gets the occasional fix I guess it could work.
+
+Thanks. I think that it doesn't make sense to change anything since the
+premise of my email was wrong.
+
+Sorry for wasting time.
+
+Regards,
+Povilas
