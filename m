@@ -4,51 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E0CB6C0219D
-	for <intel-gfx@archiver.kernel.org>; Fri,  7 Feb 2025 22:34:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3DE7DC021A0
+	for <intel-gfx@archiver.kernel.org>; Fri,  7 Feb 2025 22:34:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8652010E07F;
+	by gabe.freedesktop.org (Postfix) with ESMTP id CB33310E0DB;
 	Fri,  7 Feb 2025 22:34:28 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="egFDbnRz";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="Qi5IwQTk";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.20])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 351D510EBB5;
- Fri,  7 Feb 2025 22:32:05 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A901010EBB7;
+ Fri,  7 Feb 2025 22:32:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1738967525; x=1770503525;
+ t=1738967537; x=1770503537;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=G3N2aomj3u4LY8OYi5XSbWS2TnTroo52D5J5TjF/Gt4=;
- b=egFDbnRzQNTOzks5/lkuqueJ3sYY7BB+4udZblejek98u4gTvIUUYy2r
- n9R8MQw2lJtOKnTpjpjLtH3PEiZiuqYooJEbOlfqa8Mp67YziZru/8IIT
- bFmqtZPmDhPGLfkJLSdvMWdXV0gBASAUMriRefp2iXFxVZ23xINxrH6iU
- OWFZYFFMyEqO8VIXksV/y4EC3Ld6Xg4cXktDJOQ4E3JZ2skimHl7e8esa
- VhEo8ZVCRUgCaitGJ7UigrNDWcvXr9STHYHvHPMSp3NGOXF3KYOFxN9r/
- 02v/Intm6GiPjZCD88D+Q3NBHufloRLxIiLKriain1j3YNAsu3iuGZH1W A==;
-X-CSE-ConnectionGUID: qLmvRRfjQgWWpnrMmVakMw==
-X-CSE-MsgGUID: PpXOeQ6bRJmY407enM4fjw==
-X-IronPort-AV: E=McAfee;i="6700,10204,11338"; a="39313389"
-X-IronPort-AV: E=Sophos;i="6.13,268,1732608000"; d="scan'208";a="39313389"
+ bh=+nxSU7lG7VZB8Wz5lymR6Lj0oBCKLuce+LRAK8iwh+Q=;
+ b=Qi5IwQTkAWCAQgZMCJaFILXulm8LzWAiOk/0NGNH2E/nfn5W0dxM/yxu
+ 5x9UBB6rt5AeKi0RYbY/kQ2EO30iL7h8kng+GjbSqixte3rM70whWUim6
+ GRjuOp/1xk2acsS5po54uH7uKEf0xNDHp+9yEYmlo0dQO3Fj1L7/OanUw
+ yDQkEOub4E/OzR5lObtIane0fFbHfiO/9hKOnhy/POUyXVubQSblOfwVG
+ evqyjWc6rFzlzrYt2lJcIIQeS1j8i+TOErYZZ64fVP3zNoVRyZU0by37t
+ s6YfxzSZCl7dt2PvksRmFDQjyi5pgFg/PYOP+m5lpTSWOS0Fp3o9cjssL g==;
+X-CSE-ConnectionGUID: koJlxPVjR9yxK4CVqYDLdQ==
+X-CSE-MsgGUID: HAadJvsKSayKnPyhLzCdyA==
+X-IronPort-AV: E=McAfee;i="6700,10204,11338"; a="39313400"
+X-IronPort-AV: E=Sophos;i="6.13,268,1732608000"; d="scan'208";a="39313400"
 Received: from fmviesa008.fm.intel.com ([10.60.135.148])
  by orvoesa112.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 07 Feb 2025 14:32:05 -0800
-X-CSE-ConnectionGUID: BOZwU7SjSsKgoImBJAjcIg==
-X-CSE-MsgGUID: lGTaA89sTfO+Azy7HjbrIQ==
+ 07 Feb 2025 14:32:17 -0800
+X-CSE-ConnectionGUID: 2RMxBjxcTfq9iJH+nQYYCA==
+X-CSE-MsgGUID: 4Xjm4fXDTZKVrA981C1CIQ==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.13,268,1732608000"; d="scan'208";a="111857412"
+X-IronPort-AV: E=Sophos;i="6.13,268,1732608000"; d="scan'208";a="111857454"
 Received: from stinkpipe.fi.intel.com (HELO stinkbox) ([10.237.72.74])
- by fmviesa008.fm.intel.com with SMTP; 07 Feb 2025 14:32:03 -0800
+ by fmviesa008.fm.intel.com with SMTP; 07 Feb 2025 14:32:15 -0800
 Received: by stinkbox (sSMTP sendmail emulation);
- Sat, 08 Feb 2025 00:32:02 +0200
+ Sat, 08 Feb 2025 00:32:14 +0200
 From: Ville Syrjala <ville.syrjala@linux.intel.com>
 To: intel-gfx@lists.freedesktop.org
-Cc: intel-xe@lists.freedesktop.org
-Subject: [PATCH v2 1/8] drm/i915/dsb: Move the +1 usec adjustment into
- dsb_wait_usec()
-Date: Sat,  8 Feb 2025 00:31:52 +0200
-Message-ID: <20250207223159.14132-2-ville.syrjala@linux.intel.com>
+Cc: intel-xe@lists.freedesktop.org, Ankit Nautiyal <ankit.k.nautiyal@intel.com>
+Subject: [PATCH v2 5/8] drm/i915/dsb: Introduce intel_dsb_poll()
+Date: Sat,  8 Feb 2025 00:31:56 +0200
+Message-ID: <20250207223159.14132-6-ville.syrjala@linux.intel.com>
 X-Mailer: git-send-email 2.45.3
 In-Reply-To: <20250207223159.14132-1-ville.syrjala@linux.intel.com>
 References: <20250207223159.14132-1-ville.syrjala@linux.intel.com>
@@ -72,44 +71,62 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 From: Ville Syrjälä <ville.syrjala@linux.intel.com>
 
-The "wait usec" DSB command doesn't quite seem to able to
-guarantee that it always waits at least the specified
-amount of usecs. Some of that could be just because it
-supposedly just does some kind of dumb timestamp comparison
-internally. But I also see cases where two hardware timestamps
-sampled on each side of the "wait usec" command come out one
-less than expected. So it looks like we always need at least a
-+1 to guarantee that we never wait less than specified. Always
-apply that adjustment in dsb_wait_usec().
+Add a function for emitting a DSB poll instruction. We'll allow
+the caller to specify the poll parameters.
 
+v2: s/wait/wait_us/ (Ankit)
+
+Reviewed-by: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
 Signed-off-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_dsb.c | 5 +++--
- 1 file changed, 3 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/i915/display/intel_dsb.c | 19 +++++++++++++++++++
+ drivers/gpu/drm/i915/display/intel_dsb.h |  3 +++
+ 2 files changed, 22 insertions(+)
 
 diff --git a/drivers/gpu/drm/i915/display/intel_dsb.c b/drivers/gpu/drm/i915/display/intel_dsb.c
-index 2f2812c23972..f8bd6fad0c87 100644
+index 01e3bd385cac..aba57ddfbb92 100644
 --- a/drivers/gpu/drm/i915/display/intel_dsb.c
 +++ b/drivers/gpu/drm/i915/display/intel_dsb.c
-@@ -369,7 +369,8 @@ void intel_dsb_interrupt(struct intel_dsb *dsb)
+@@ -459,6 +459,25 @@ void intel_dsb_wait_scanline_out(struct intel_atomic_state *state,
+ 			   start, end);
+ }
  
- void intel_dsb_wait_usec(struct intel_dsb *dsb, int count)
++void intel_dsb_poll(struct intel_dsb *dsb,
++		    i915_reg_t reg, u32 mask, u32 val,
++		    int wait_us, int count)
++{
++	struct intel_crtc *crtc = dsb->crtc;
++	enum pipe pipe = crtc->pipe;
++
++	intel_dsb_reg_write(dsb, DSB_POLLMASK(pipe, dsb->id), mask);
++	intel_dsb_reg_write(dsb, DSB_POLLFUNC(pipe, dsb->id),
++			    DSB_POLL_ENABLE |
++			    DSB_POLL_WAIT(wait_us) | DSB_POLL_COUNT(count));
++
++	intel_dsb_noop(dsb, 5);
++
++	intel_dsb_emit(dsb, val,
++		       (DSB_OPCODE_POLL << DSB_OPCODE_SHIFT) |
++		       i915_mmio_reg_offset(reg));
++}
++
+ static void intel_dsb_align_tail(struct intel_dsb *dsb)
  {
--	intel_dsb_emit(dsb, count,
-+	/* +1 to make sure we never wait less time than asked for */
-+	intel_dsb_emit(dsb, count + 1,
- 		       DSB_OPCODE_WAIT_USEC << DSB_OPCODE_SHIFT);
- }
- 
-@@ -622,7 +623,7 @@ void intel_dsb_wait_vblank_delay(struct intel_atomic_state *state,
- 	const struct intel_crtc_state *crtc_state =
- 		intel_pre_commit_crtc_state(state, crtc);
- 	int usecs = intel_scanlines_to_usecs(&crtc_state->hw.adjusted_mode,
--					     dsb_vblank_delay(state, crtc)) + 1;
-+					     dsb_vblank_delay(state, crtc));
- 
- 	intel_dsb_wait_usec(dsb, usecs);
- }
+ 	u32 aligned_tail, tail;
+diff --git a/drivers/gpu/drm/i915/display/intel_dsb.h b/drivers/gpu/drm/i915/display/intel_dsb.h
+index da6df07a3c83..e843c52bf97c 100644
+--- a/drivers/gpu/drm/i915/display/intel_dsb.h
++++ b/drivers/gpu/drm/i915/display/intel_dsb.h
+@@ -54,6 +54,9 @@ void intel_dsb_wait_scanline_out(struct intel_atomic_state *state,
+ 				 int lower, int upper);
+ void intel_dsb_vblank_evade(struct intel_atomic_state *state,
+ 			    struct intel_dsb *dsb);
++void intel_dsb_poll(struct intel_dsb *dsb,
++		    i915_reg_t reg, u32 mask, u32 val,
++		    int wait_us, int count);
+ void intel_dsb_chain(struct intel_atomic_state *state,
+ 		     struct intel_dsb *dsb,
+ 		     struct intel_dsb *chained_dsb,
 -- 
 2.45.3
 
