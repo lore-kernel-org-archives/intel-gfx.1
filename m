@@ -4,54 +4,51 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 64D12C0219D
-	for <intel-gfx@archiver.kernel.org>; Fri,  7 Feb 2025 22:38:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 74325C0219D
+	for <intel-gfx@archiver.kernel.org>; Fri,  7 Feb 2025 22:41:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 091FE10E2B0;
-	Fri,  7 Feb 2025 22:38:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0922910E2DA;
+	Fri,  7 Feb 2025 22:41:02 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="VZkhV3U5";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="Dxi2d+Ws";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.20])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1D26610E105;
- Fri,  7 Feb 2025 22:32:24 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6CDB110EBB5;
+ Fri,  7 Feb 2025 22:32:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1738967544; x=1770503544;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=4Jt7S/FbKA5sVIGnik+UgqMrrLLettjNoZdrhX3FnpU=;
- b=VZkhV3U5i13KaBQGnL8tfSQ7+KRzvBHKO35pJp06u+xRFCczU69srpEl
- /BM1qErr4sW90XuRwPopUHWVS/jmLSPlpNSnWnWJUe3eN7VSftCgVvuog
- jsws/GQ2r6A+53WYVnAYwXBW5jBrgD2K5oKfD1d+5jod01XrecQOwqH5O
- 9lz370CbPfqSr3VuL5tMmD31fQB7wnYAA/h6XsScvEW2bLfHw9kOOQxkC
- BCeyPSuJy9DZXu4ZR3vRllfjItremMkGaXFjVC7vwPKFyZ4QPl2A7AC6S
- G5iWjYx/O7AKLiKJtQw38z0ozAEhKgSFSeohedQAMVVENmkR3N5XUFL1U w==;
-X-CSE-ConnectionGUID: MMKP+EgmSVO+b/NtUXPyyA==
-X-CSE-MsgGUID: 7r5jEQJ0Q6iz0lbtty7nnA==
-X-IronPort-AV: E=McAfee;i="6700,10204,11338"; a="39313403"
-X-IronPort-AV: E=Sophos;i="6.13,268,1732608000"; d="scan'208";a="39313403"
+ t=1738967522; x=1770503522;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=VAOps/6wsQysi7VB9A+HE9nbNaA/QM+MSCiK8TVJuEE=;
+ b=Dxi2d+WsD82VtmLnLm/GyVkyTcMVJahT9FHWsNMC26CwIwaoBoZKyh/I
+ M+RLw/D02QEEOpvKDSBFlog2RtkikeLDIEG+bBNCm4ajY0NAQ2ABaVu8i
+ m8bPZyxL3CnKQsfzowMN3RwieH0dGLC2NSDxPDcYPv5WWNmjp3F/TcP0x
+ GaRZ3myi0KKF+YZLCbDmI1XuBAZn85tEV1StfoOVrL0dXq76hlqSqxkC+
+ PdpLdmAbFr+TgfzHWmeqrR2mIm79eRfeoQ6kvlWY9Om55dhlOWDuP3uFA
+ sSn4DNQpYZrF0Xa19Xw755FbxUEK9fuKwGcWny1zlynk0vh+zatg4+SWG Q==;
+X-CSE-ConnectionGUID: yo4kt/m1SR+EbCcmrnfX2Q==
+X-CSE-MsgGUID: g4aieoXdQGG1he45YjI6Pw==
+X-IronPort-AV: E=McAfee;i="6700,10204,11338"; a="39313387"
+X-IronPort-AV: E=Sophos;i="6.13,268,1732608000"; d="scan'208";a="39313387"
 Received: from fmviesa008.fm.intel.com ([10.60.135.148])
  by orvoesa112.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 07 Feb 2025 14:32:24 -0800
-X-CSE-ConnectionGUID: FFt+vg4NQImeyWWymVpU7Q==
-X-CSE-MsgGUID: 1ZqRjX74TyWrQl/7kQaJ5g==
+ 07 Feb 2025 14:32:02 -0800
+X-CSE-ConnectionGUID: RzLDLpC5Q+y1oVEMgUWRmw==
+X-CSE-MsgGUID: CtGVKooRRjqbnb7G8YCTIw==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.13,268,1732608000"; d="scan'208";a="111857481"
+X-IronPort-AV: E=Sophos;i="6.13,268,1732608000"; d="scan'208";a="111857399"
 Received: from stinkpipe.fi.intel.com (HELO stinkbox) ([10.237.72.74])
- by fmviesa008.fm.intel.com with SMTP; 07 Feb 2025 14:32:21 -0800
+ by fmviesa008.fm.intel.com with SMTP; 07 Feb 2025 14:32:00 -0800
 Received: by stinkbox (sSMTP sendmail emulation);
- Sat, 08 Feb 2025 00:32:20 +0200
+ Sat, 08 Feb 2025 00:31:59 +0200
 From: Ville Syrjala <ville.syrjala@linux.intel.com>
 To: intel-gfx@lists.freedesktop.org
-Cc: intel-xe@lists.freedesktop.org, Ankit Nautiyal <ankit.k.nautiyal@intel.com>
-Subject: [PATCH v2 7/8] drm/i915/vrr: Check that the push send bit is clear
- after delayed vblank
-Date: Sat,  8 Feb 2025 00:31:58 +0200
-Message-ID: <20250207223159.14132-8-ville.syrjala@linux.intel.com>
+Cc: intel-xe@lists.freedesktop.org
+Subject: [PATCH v2 0/8] drm/i915/vrr: Fix DSB+VRR usage for PTL+
+Date: Sat,  8 Feb 2025 00:31:51 +0200
+Message-ID: <20250207223159.14132-1-ville.syrjala@linux.intel.com>
 X-Mailer: git-send-email 2.45.3
-In-Reply-To: <20250207223159.14132-1-ville.syrjala@linux.intel.com>
-References: <20250207223159.14132-1-ville.syrjala@linux.intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
@@ -72,130 +69,40 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 From: Ville Syrjälä <ville.syrjala@linux.intel.com>
 
-Since we don't do mailbox updates the push send bit
-should alwyas clear by the time the delay vblank fires
-and the flip completes. Check for that to make sure we
-haven't screwed up the sequencing/vblank evasion/etc.
+Apparently PTL (or I suppose it could have already happened
+in either MTL or LNL, didn't have either one to check) changes
+the way the VRR hardwre works by ending the safe window as
+soon as the push send is triggered. Reorder our DSB programming
+sequence to account for that, and try to make sure we catch any
+vblank evasion fails that could cause problems with the new
+order.
 
-On the DSB path we should be able to guarantee this
-since we don't have to deal with any scheduler latencies
-and whatnot. I suppose unexpected DMA/memory latencies
-might be the only thing that might trip us up here.
+v2: Fix up the issues with wiating for the vblank delay
+    so we can make do with a single check of the push bit.
+    Also do the check for the mmio path.
+    Avoid legacy cursor updates making a mess of things.
+    Decode the DSB errors.
 
-For the MMIO path we do always have a non-zero chance
-that vblank evasion fails (since we can't really guarantee
-anything about the scheduling behaviour). That could trip
-up this check, but that seems fine since we already print
-errors for other types of vblank evasion failures.
+Ville Syrjälä (8):
+  drm/i915/dsb: Move the +1 usec adjustment into dsb_wait_usec()
+  drm/i915/vrr: Don't send push for legacy cursor updates
+  drm/i915/vrr: Account for TRANS_PUSH delay
+  drm/i915/dsb: Compute use_dsb earlier
+  drm/i915/dsb: Introduce intel_dsb_poll()
+  drm/i915/vrr: Reorder the DSB "wait for safe window" vs. TRANS_PUSH
+  drm/i915/vrr: Check that the push send bit is clear after delayed
+    vblank
+  drm/i915/dsb: Decode DSB error interrupts
 
-Should the CPU vblank evasion actually fail, then the push
-send bit can still be set when the next commit happens. But
-both the DSB and MMIO paths should handle that situation
-gracefully.
+ drivers/gpu/drm/i915/display/intel_color.c   |  9 +++-
+ drivers/gpu/drm/i915/display/intel_crtc.c    |  3 +-
+ drivers/gpu/drm/i915/display/intel_display.c | 31 +++++++------
+ drivers/gpu/drm/i915/display/intel_dsb.c     | 47 +++++++++++++++++---
+ drivers/gpu/drm/i915/display/intel_dsb.h     |  3 ++
+ drivers/gpu/drm/i915/display/intel_vrr.c     | 31 +++++++++++++
+ drivers/gpu/drm/i915/display/intel_vrr.h     |  2 +
+ 7 files changed, 101 insertions(+), 25 deletions(-)
 
-v2: Only check once instead of polling for two scanlines
-    since we should now be guaranteed to be past the
-    delayed vblank.
-    Also check in the MMIO path for good measure
-
-Reviewed-by: Ankit Nautiyal <ankit.k.nautiyal@intel.com> #v1
-Signed-off-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
----
- drivers/gpu/drm/i915/display/intel_color.c   |  1 +
- drivers/gpu/drm/i915/display/intel_display.c |  4 +++
- drivers/gpu/drm/i915/display/intel_vrr.c     | 31 ++++++++++++++++++++
- drivers/gpu/drm/i915/display/intel_vrr.h     |  2 ++
- 4 files changed, 38 insertions(+)
-
-diff --git a/drivers/gpu/drm/i915/display/intel_color.c b/drivers/gpu/drm/i915/display/intel_color.c
-index 4d8f6509cac4..cfe14162231d 100644
---- a/drivers/gpu/drm/i915/display/intel_color.c
-+++ b/drivers/gpu/drm/i915/display/intel_color.c
-@@ -1991,6 +1991,7 @@ void intel_color_prepare_commit(struct intel_atomic_state *state,
- 	if (crtc_state->use_dsb) {
- 		intel_vrr_send_push(crtc_state->dsb_color_vblank, crtc_state);
- 		intel_dsb_wait_vblank_delay(state, crtc_state->dsb_color_vblank);
-+		intel_vrr_check_push_sent(crtc_state->dsb_color_vblank, crtc_state);
- 		intel_dsb_interrupt(crtc_state->dsb_color_vblank);
- 	}
- 
-diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
-index 0790b2a4583e..34434071a415 100644
---- a/drivers/gpu/drm/i915/display/intel_display.c
-+++ b/drivers/gpu/drm/i915/display/intel_display.c
-@@ -7737,6 +7737,7 @@ static void intel_atomic_dsb_finish(struct intel_atomic_state *state,
- 
- 			intel_vrr_send_push(new_crtc_state->dsb_commit, new_crtc_state);
- 			intel_dsb_wait_vblank_delay(state, new_crtc_state->dsb_commit);
-+			intel_vrr_check_push_sent(new_crtc_state->dsb_commit, new_crtc_state);
- 			intel_dsb_interrupt(new_crtc_state->dsb_commit);
- 		}
- 	}
-@@ -7886,6 +7887,9 @@ static void intel_atomic_commit_tail(struct intel_atomic_state *state)
- 			intel_crtc_disable_flip_done(state, crtc);
- 
- 		intel_atomic_dsb_wait_commit(new_crtc_state);
-+
-+		if (!state->base.legacy_cursor_update && !new_crtc_state->use_dsb)
-+			intel_vrr_check_push_sent(NULL, new_crtc_state);
- 	}
- 
- 	/*
-diff --git a/drivers/gpu/drm/i915/display/intel_vrr.c b/drivers/gpu/drm/i915/display/intel_vrr.c
-index adb51609d0a3..e939b13bf0e1 100644
---- a/drivers/gpu/drm/i915/display/intel_vrr.c
-+++ b/drivers/gpu/drm/i915/display/intel_vrr.c
-@@ -416,6 +416,37 @@ void intel_vrr_send_push(struct intel_dsb *dsb,
- 		intel_dsb_nonpost_end(dsb);
- }
- 
-+void intel_vrr_check_push_sent(struct intel_dsb *dsb,
-+			       const struct intel_crtc_state *crtc_state)
-+{
-+	struct intel_display *display = to_intel_display(crtc_state);
-+	struct intel_crtc *crtc = to_intel_crtc(crtc_state->uapi.crtc);
-+	enum transcoder cpu_transcoder = crtc_state->cpu_transcoder;
-+
-+	/*
-+	 * Make sure the push send bit has cleared. This should
-+	 * already be the case as long as the caller makes sure
-+	 * this is called after the delayed vblank has occurred.
-+	 */
-+	if (dsb) {
-+		int wait_us, count;
-+
-+		wait_us = 2;
-+		count = 1;
-+
-+		/*
-+		 * If the bit hasn't cleared the DSB will
-+		 * raise the poll error interrupt.
-+		 */
-+		intel_dsb_poll(dsb, TRANS_PUSH(display, cpu_transcoder),
-+			       TRANS_PUSH_SEND, 0, wait_us, count);
-+	} else {
-+		if (intel_vrr_is_push_sent(crtc_state))
-+			drm_err(display->drm, "[CRTC:%d:%s] VRR push send still pending\n",
-+				crtc->base.base.id, crtc->base.name);
-+	}
-+}
-+
- bool intel_vrr_is_push_sent(const struct intel_crtc_state *crtc_state)
- {
- 	struct intel_display *display = to_intel_display(crtc_state);
-diff --git a/drivers/gpu/drm/i915/display/intel_vrr.h b/drivers/gpu/drm/i915/display/intel_vrr.h
-index 899cbf40f880..514822577e8a 100644
---- a/drivers/gpu/drm/i915/display/intel_vrr.h
-+++ b/drivers/gpu/drm/i915/display/intel_vrr.h
-@@ -25,6 +25,8 @@ void intel_vrr_set_transcoder_timings(const struct intel_crtc_state *crtc_state)
- void intel_vrr_enable(const struct intel_crtc_state *crtc_state);
- void intel_vrr_send_push(struct intel_dsb *dsb,
- 			 const struct intel_crtc_state *crtc_state);
-+void intel_vrr_check_push_sent(struct intel_dsb *dsb,
-+			       const struct intel_crtc_state *crtc_state);
- bool intel_vrr_is_push_sent(const struct intel_crtc_state *crtc_state);
- void intel_vrr_disable(const struct intel_crtc_state *old_crtc_state);
- void intel_vrr_get_config(struct intel_crtc_state *crtc_state);
 -- 
 2.45.3
 
