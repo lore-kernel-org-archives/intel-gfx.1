@@ -4,51 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0B2D6C0219D
-	for <intel-gfx@archiver.kernel.org>; Fri,  7 Feb 2025 21:54:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0483BC021A0
+	for <intel-gfx@archiver.kernel.org>; Fri,  7 Feb 2025 21:54:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3691910E22A;
-	Fri,  7 Feb 2025 21:54:47 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 47F0C10E332;
+	Fri,  7 Feb 2025 21:54:49 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="oJ+FHMaz";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="SvYJ2GR2";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.16])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 707FB10E143;
- Fri,  7 Feb 2025 21:54:18 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7D15C10E143;
+ Fri,  7 Feb 2025 21:54:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1738965259; x=1770501259;
+ t=1738965256; x=1770501256;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=gnN/dqvkd38aSewVvmVQpjU4mH7/pHlU3T0W5Fu0P5k=;
- b=oJ+FHMaz3VzZoawqtg5pUtd2ARQe93QUfmyzySKP1R+1cwnyUJYY705P
- HR0FmmjkHn3yIY33/1xqwAeaGQs70Nzw6IuFm0y8QKuEkQ0/y3FBqRajJ
- YV3KRFczOQfjBu7+tuSgZOwU4l9mXGMNEIjIk7Q03KGTQbkUX9ZjbU0Au
- 2U2WVVUgdJ8ANlyy2ke0TdRR70mhwUn45DLnVXlX58WII+8tY8AOuYVjz
- A/1OW64psC562RrKui1+mHfq98zbpP54SdEb7Z1G+LzW6tgUW3hAAPfIC
- C2fhGRJP9xWjIknh1CFzc890FAPAJJbrevisDCNlwvLO0TAsyBOzT12d3 Q==;
-X-CSE-ConnectionGUID: a/AMGsdsQQGhsvkLqDkb6g==
-X-CSE-MsgGUID: NaPlgN5bTECUfcPz1ViwNg==
-X-IronPort-AV: E=McAfee;i="6700,10204,11338"; a="39745992"
-X-IronPort-AV: E=Sophos;i="6.13,268,1732608000"; d="scan'208";a="39745992"
+ bh=TqUMTmzfEm/PeH+Au1QbItA0agM1UFJ21xwmXN6vAq8=;
+ b=SvYJ2GR2uQyrKdRSTFQrB9KDUoO+okm9etttpP5tFfgmTAPSkktqaep5
+ EuE5nKSMGoow1LO+YoACZCPAxYKceNdZewfQdL5sNSJfFkPa2SiNHI1DX
+ uzZ2eEWJKZ13PzVvwlzyb4DCERpmMhyuo6wjj2Keg1tdduXBrE/uKRuAJ
+ J84STAY54xk0g5ZHfb6sBO8O+zVJLJxy4HzhnVTt1oBbCdJsYqQaJN2fx
+ xisTrOC63Xk0OlqniJFfwyTkdqz/zbnFyOoJRUiDByRsb1O4bbWg/n+Bu
+ tE41/iIRaY7WTU+8eFaAOkbZ0hQ6Lqhx+SW93VPJ7MbyungnBeeVkYVKG A==;
+X-CSE-ConnectionGUID: EOzN7US2Qsqm4JiqyWJ32g==
+X-CSE-MsgGUID: c84TdoAKRT21iCbXkzgtLA==
+X-IronPort-AV: E=McAfee;i="6700,10204,11338"; a="39745989"
+X-IronPort-AV: E=Sophos;i="6.13,268,1732608000"; d="scan'208";a="39745989"
 Received: from fmviesa008.fm.intel.com ([10.60.135.148])
  by orvoesa108.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 07 Feb 2025 13:54:19 -0800
-X-CSE-ConnectionGUID: +NQvYhSVR42sUcPESnrhqQ==
-X-CSE-MsgGUID: D0Ssor2ET829LJc0vfkrhw==
+ 07 Feb 2025 13:54:16 -0800
+X-CSE-ConnectionGUID: ucpQBYXKQW+k4UgM24KtsQ==
+X-CSE-MsgGUID: uRbXBfaoRFidhX0Qfiw6mg==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.13,268,1732608000"; d="scan'208";a="111851047"
+X-IronPort-AV: E=Sophos;i="6.13,268,1732608000"; d="scan'208";a="111851041"
 Received: from stinkpipe.fi.intel.com (HELO stinkbox) ([10.237.72.74])
- by fmviesa008.fm.intel.com with SMTP; 07 Feb 2025 13:54:16 -0800
+ by fmviesa008.fm.intel.com with SMTP; 07 Feb 2025 13:54:13 -0800
 Received: by stinkbox (sSMTP sendmail emulation);
- Fri, 07 Feb 2025 23:54:15 +0200
+ Fri, 07 Feb 2025 23:54:12 +0200
 From: Ville Syrjala <ville.syrjala@linux.intel.com>
 To: intel-gfx@lists.freedesktop.org
 Cc: intel-xe@lists.freedesktop.org
-Subject: [PATCH 3/3] drm/i915: Replace the HAS_DDI() in
- intel_crtc_scanline_offset() with specific platform checks
-Date: Fri,  7 Feb 2025 23:54:06 +0200
-Message-ID: <20250207215406.19348-4-ville.syrjala@linux.intel.com>
+Subject: [PATCH 2/3] drm/i915: Reverse the scanline_offset if ladder
+Date: Fri,  7 Feb 2025 23:54:05 +0200
+Message-ID: <20250207215406.19348-3-ville.syrjala@linux.intel.com>
 X-Mailer: git-send-email 2.45.3
 In-Reply-To: <20250207215406.19348-1-ville.syrjala@linux.intel.com>
 References: <20250207215406.19348-1-ville.syrjala@linux.intel.com>
@@ -72,35 +71,35 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 From: Ville Syrjälä <ville.syrjala@linux.intel.com>
 
-The HDMI vs. not scanline offset stuff no longer applies to the
-latest platforms, so using HAS_DDI() is a bit confusing. Replace
-with a more specific set of conditions.
-
-Also let's just deal with the platform types in the if ladder
-itself, and handle the HDMI vs. not within the specific branch
-for those platforms.
+Make intel_crtc_scanline_offset() a bit less confusing by
+fully reordering the if ladder to use the new->old platform
+order.
 
 Signed-off-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_vblank.c | 5 +++--
- 1 file changed, 3 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/i915/display/intel_vblank.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
 diff --git a/drivers/gpu/drm/i915/display/intel_vblank.c b/drivers/gpu/drm/i915/display/intel_vblank.c
-index dd928d890e3a..139fa5deba80 100644
+index 7b240ce681a0..dd928d890e3a 100644
 --- a/drivers/gpu/drm/i915/display/intel_vblank.c
 +++ b/drivers/gpu/drm/i915/display/intel_vblank.c
-@@ -224,8 +224,9 @@ int intel_crtc_scanline_offset(const struct intel_crtc_state *crtc_state)
+@@ -224,12 +224,12 @@ int intel_crtc_scanline_offset(const struct intel_crtc_state *crtc_state)
  	 */
  	if (DISPLAY_VER(display) >= 20 || display->platform.battlemage)
  		return 1;
--	else if (HAS_DDI(display) && intel_crtc_has_type(crtc_state, INTEL_OUTPUT_HDMI))
--		return 2;
-+	else if (DISPLAY_VER(display) >= 9 ||
-+		 display->platform.broadwell || display->platform.haswell)
-+		return intel_crtc_has_type(crtc_state, INTEL_OUTPUT_HDMI) ? 2 : 1;
- 	else if (DISPLAY_VER(display) >= 3)
+-	else if (DISPLAY_VER(display) == 2)
+-		return -1;
+ 	else if (HAS_DDI(display) && intel_crtc_has_type(crtc_state, INTEL_OUTPUT_HDMI))
+ 		return 2;
+-	else
++	else if (DISPLAY_VER(display) >= 3)
  		return 1;
- 	else
++	else
++		return -1;
+ }
+ 
+ /*
 -- 
 2.45.3
 
