@@ -4,54 +4,54 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E780FC0219B
-	for <intel-gfx@archiver.kernel.org>; Mon, 10 Feb 2025 19:01:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AA220C0219E
+	for <intel-gfx@archiver.kernel.org>; Mon, 10 Feb 2025 19:36:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 88A9810E5F0;
-	Mon, 10 Feb 2025 19:01:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 418A210E5FC;
+	Mon, 10 Feb 2025 19:36:07 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=radix.lt header.i=povilas@radix.lt header.b="hws91n6t";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="l2IF0t8G";
 	dkim-atps=neutral
-Received: from sender4-op-o12.zoho.com (sender4-op-o12.zoho.com
- [136.143.188.12])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 036B310E5F0
- for <intel-gfx@lists.freedesktop.org>; Mon, 10 Feb 2025 19:01:17 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1739214070; cv=none; 
- d=zohomail.com; s=zohoarc; 
- b=TNqwmybNnca1PGC+W7ufczWfJGknb/oNcbKY8SpULw1F+72Lj3bqzIBtCoD8G6AMlOEb5GlfWIil3Rw2SH27KRIY9q1MGZyrOG+2RFILP5jUGBrIQJIZg+zEoGwb5kFq9acIXHnwjekpS/UFmUdqV2sbBfnOd3EWG1yOK1HCuQk=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1739214070;
- h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=DjlOHQTO9Nr74/tDj6vj2gj6NhcTNkg5phR++WJbW1k=; 
- b=KGD03tJRTM9iAWdNmB33sk62kZ4kXus53bOpfvRegblR9u+CRhgq0NnAQHFaoGx9b9+g+JayvdbffsBvaIRXcaoX7KheU8qoFTsulI10TNarMNmajdS/w2MCiB9Z65+3M8LS3nlzA0BlpGvKLghLMIIyq2cmMNiu4QPw/84PaeE=
-ARC-Authentication-Results: i=1; mx.zohomail.com; dkim=pass  header.i=radix.lt;
- spf=pass  smtp.mailfrom=povilas@radix.lt;
- dmarc=pass header.from=<povilas@radix.lt>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1739214070; 
- s=zoho; d=radix.lt; i=povilas@radix.lt;
- h=Message-ID:Date:Date:MIME-Version:Subject:Subject:To:To:Cc:Cc:References:From:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
- bh=DjlOHQTO9Nr74/tDj6vj2gj6NhcTNkg5phR++WJbW1k=;
- b=hws91n6tEq0gPpZWDcg1MPKAcp+kaLe0M2KijJX0QMRjIvdlCn0/IIsaCgM5qyfP
- xZo+CiCCTIzJdd4I6r77UdJG5rRV5v4x7J5fw/xPtm/T2oJWIxUDu6H7cLCeO7ASXYU
- ce/at3WDmStp7Dx1X+BaApNZB4wcwo1lGmaVAFrw=
-Received: by mx.zohomail.com with SMTPS id 1739214067635709.4981167660923;
- Mon, 10 Feb 2025 11:01:07 -0800 (PST)
-Message-ID: <29c8c18e-b4d1-4df8-83c2-7ddfa0dff303@radix.lt>
-Date: Mon, 10 Feb 2025 21:01:03 +0200
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.8])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2464E10E5FC
+ for <intel-gfx@lists.freedesktop.org>; Mon, 10 Feb 2025 19:36:06 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1739216166; x=1770752166;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=Zy1LzemIc/dXNGm35lj965P+nEkhtJzlcMWq2o9o9K8=;
+ b=l2IF0t8GuuVPp2DFYkEJG6ibGPXl0No+WVLGZF2nMXThuXm+rGUKn99H
+ 1AFOgOw6lTMNC3HovpWuUP0rkTCc8+4SlTAwKcxtdZL4KKXKXFJyULjUF
+ dAV/unG1jmhq8RnpJdF9VbHiqhbDa4a6Hc5Nt2UQW73ELcwwRJO6JBkDU
+ F54+bSGAckWziwNpiYqQi3e1RjlPtPeSEC8xVZUDdN/l7TNnjKusDnWZd
+ bIVeIbwWVg0BW22sTh1gBk+bmzs+YgrU2CGNZGS/IYcvfsIrClyZ0PXIT
+ LluBuypiu4sOIK8yR9TNwiv5unauw3NOgx48lVZluVcu6L14EcUVB18RO Q==;
+X-CSE-ConnectionGUID: gWk5yNBvTLWt/VbTPix9GQ==
+X-CSE-MsgGUID: dIL6y203R16iDNEBcHUQtA==
+X-IronPort-AV: E=McAfee;i="6700,10204,11341"; a="57353546"
+X-IronPort-AV: E=Sophos;i="6.13,275,1732608000"; d="scan'208";a="57353546"
+Received: from fmviesa003.fm.intel.com ([10.60.135.143])
+ by fmvoesa102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 10 Feb 2025 11:35:46 -0800
+X-CSE-ConnectionGUID: wudiCZkBS/aFUJ9HR7wqvA==
+X-CSE-MsgGUID: VxrhzPBjQruQvjYj49ZKaw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.12,224,1728975600"; d="scan'208";a="116369743"
+Received: from dut4086lnl.fm.intel.com ([10.105.10.81])
+ by fmviesa003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 10 Feb 2025 11:35:45 -0800
+From: Jonathan Cavitt <jonathan.cavitt@intel.com>
+To: intel-gfx@lists.freedesktop.org
+Cc: saurabhg.gupta@intel.com, alex.zuo@intel.com, jonathan.cavitt@intel.com,
+ niranjana.vishwanathapura@intel.com, ayaz.siddiqui@intel.com,
+ tomasz.mistat@intel.com
+Subject: [PATCH] drm/xe: Add per-engine pagefault and reset counts
+Date: Mon, 10 Feb 2025 19:35:44 +0000
+Message-ID: <20250210193545.96003-1-jonathan.cavitt@intel.com>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: xf86-video-intel is broken and with MRs disables we can't fix it
-To: =?UTF-8?B?VmlsbGUgU3lyasOkbMOk?= <ville.syrjala@linux.intel.com>
-Cc: "xorg-devel@lists.x.org" <xorg-devel@lists.x.org>,
- intel-gfx@lists.freedesktop.org, chris@chris-wilson.co.uk
-References: <1e5b5275-d194-4af0-8927-f5b93416a407@radix.lt>
- <Z6Z6My8FcaLaLPu0@intel.com>
-From: Povilas Kanapickas <povilas@radix.lt>
-Content-Language: en-US
-In-Reply-To: <Z6Z6My8FcaLaLPu0@intel.com>
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-ZohoMailClient: External
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,55 +67,101 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On 2025-02-07 23:25, Ville Syrjälä wrote:
-> On Fri, Feb 07, 2025 at 08:57:34PM +0200, Povilas Kanapickas wrote:
->> Hi,
->>
->> xf86-video-intel driver is currently cannot be compiled with released
->> versions of X server. Simple reproduction steps: create Debian Bookworm
->> container, download module sources and all required dependencies and try
->> to build.
-> 
-> Builds fine on my Gentoo boxes here. What are the actual issues
-> you are seeing?
+Add counters to all engines that count the number of pagefaults and
+engine resets that have been triggered on them.  Report these values
+during an engine reset.
 
-For the record, the build failure was some weird missing autotools
-dependency causing a weird error. Redoing the test after `apt build-dep
-xserver-xorg-video-intel` fixed the problem. Again, sorry for the wrong
-email.
+Signed-off-by: Jonathan Cavitt <jonathan.cavitt@intel.com>
+CC: Tomasz Mistat <tomasz.mistat@intel.com>
+CC: Ayaz A Siddiqui <ayaz.siddiqui@intel.com>
+CC: Niranjana Vishwanathapura <niranjana.vishwanathapura@intel.com>
+---
+ drivers/gpu/drm/xe/xe_gt_pagefault.c    | 6 ++++++
+ drivers/gpu/drm/xe/xe_guc_submit.c      | 9 +++++++--
+ drivers/gpu/drm/xe/xe_hw_engine.c       | 3 +++
+ drivers/gpu/drm/xe/xe_hw_engine_types.h | 4 ++++
+ 4 files changed, 20 insertions(+), 2 deletions(-)
 
->>
->> Debian Bookworm is pretty much the least exciting configuration
->> possible. And the fact that xf86-video-intel cannot be compiled there is
->> not good.
->>
->> For almost any other driver this is not a problem, because it is
->> possible to create a merge request on gitlab.freedesktop.org. Eventually
->> simple maintenance and build-related merge requests are merged. However
->> in the case of Intel driver, merge requests are disabled and the
->> recommended way to submit patches is via intel-gfx@lists.freedesktop.org
->> mailing list. Unfortunately, patches submitted so far are ignored there.
-> 
-> I've not seen any patches on the list. Care to point them out?
-> 
->>
->> Given that the last commit to xf86-video-intel was 22 months ago, I
->> suspect there's little interest from Intel to spend time maintaining the
->> project.
-> 
-> You must be looking at some stale repo. My last commit was 
-> commit ce811e78882d9f31636351dfe65351f4ded52c74
-> Author:     Ville Syrjälä <ville.syrjala@linux.intel.com>
-> AuthorDate: Sat Mar 18 15:45:44 2023 +0200
-> Commit:     Ville Syrjälä <ville.syrjala@linux.intel.com>
-> CommitDate: Tue May 7 00:32:24 2024 +0300
-> 
->>
->> What do you think about opening up merge requests on the repository so
->> that at least the driver can be brought back to compilable state? Does
->> anyone have other ideas how the current situation could be resolved?
-> 
-> I wouldn't want to deal with mrs for any high volume stuff, but
-> since this only gets the occasional fix I guess it could work.
-> 
+diff --git a/drivers/gpu/drm/xe/xe_gt_pagefault.c b/drivers/gpu/drm/xe/xe_gt_pagefault.c
+index 46701ca11ce0..04e973b20019 100644
+--- a/drivers/gpu/drm/xe/xe_gt_pagefault.c
++++ b/drivers/gpu/drm/xe/xe_gt_pagefault.c
+@@ -130,6 +130,7 @@ static int handle_vma_pagefault(struct xe_gt *gt, struct pagefault *pf,
+ {
+ 	struct xe_vm *vm = xe_vma_vm(vma);
+ 	struct xe_tile *tile = gt_to_tile(gt);
++	struct xe_hw_engine *hwe = NULL;
+ 	struct drm_exec exec;
+ 	struct dma_fence *fence;
+ 	ktime_t end = 0;
+@@ -140,6 +141,11 @@ static int handle_vma_pagefault(struct xe_gt *gt, struct pagefault *pf,
+ 	xe_gt_stats_incr(gt, XE_GT_STATS_ID_VMA_PAGEFAULT_BYTES, xe_vma_size(vma));
+ 
+ 	trace_xe_vma_pagefault(vma);
++
++	hwe = xe_gt_hw_engine(gt, pf->engine_class, pf->engine_instance, false);
++	if (hwe)
++		atomic_inc(&hwe->pagefault_count);
++
+ 	atomic = access_is_atomic(pf->access_type);
+ 
+ 	/* Check if VMA is valid */
+diff --git a/drivers/gpu/drm/xe/xe_guc_submit.c b/drivers/gpu/drm/xe/xe_guc_submit.c
+index 913c74d6e2ae..6f5d74340319 100644
+--- a/drivers/gpu/drm/xe/xe_guc_submit.c
++++ b/drivers/gpu/drm/xe/xe_guc_submit.c
+@@ -1972,6 +1972,7 @@ int xe_guc_exec_queue_reset_handler(struct xe_guc *guc, u32 *msg, u32 len)
+ {
+ 	struct xe_gt *gt = guc_to_gt(guc);
+ 	struct xe_exec_queue *q;
++	struct xe_hw_engine *hwe;
+ 	u32 guc_id;
+ 
+ 	if (unlikely(len < 1))
+@@ -1983,8 +1984,12 @@ int xe_guc_exec_queue_reset_handler(struct xe_guc *guc, u32 *msg, u32 len)
+ 	if (unlikely(!q))
+ 		return -EPROTO;
+ 
+-	xe_gt_info(gt, "Engine reset: engine_class=%s, logical_mask: 0x%x, guc_id=%d",
+-		   xe_hw_engine_class_to_str(q->class), q->logical_mask, guc_id);
++	hwe = q->hwe;
++	atomic_inc(&hwe->reset_count);
++
++	xe_gt_info(gt, "Engine reset: engine_class=%s, logical_mask: 0x%x, guc_id=%d, pagefault_count=%u, reset_count=%u",
++		   xe_hw_engine_class_to_str(q->class), q->logical_mask, guc_id,
++		   atomic_read(&hwe->pagefault_count), atomic_read(&hwe->reset_count));
+ 
+ 	trace_xe_exec_queue_reset(q);
+ 
+diff --git a/drivers/gpu/drm/xe/xe_hw_engine.c b/drivers/gpu/drm/xe/xe_hw_engine.c
+index fc447751fe78..0be6c38fe2a4 100644
+--- a/drivers/gpu/drm/xe/xe_hw_engine.c
++++ b/drivers/gpu/drm/xe/xe_hw_engine.c
+@@ -516,6 +516,9 @@ static void hw_engine_init_early(struct xe_gt *gt, struct xe_hw_engine *hwe,
+ 	hwe->fence_irq = &gt->fence_irq[info->class];
+ 	hwe->engine_id = id;
+ 
++	atomic_set(&hwe->pagefault_count, 0);
++	atomic_set(&hwe->reset_count, 0);
++
+ 	hwe->eclass = &gt->eclass[hwe->class];
+ 	if (!hwe->eclass->sched_props.job_timeout_ms) {
+ 		hwe->eclass->sched_props.job_timeout_ms = 5 * 1000;
+diff --git a/drivers/gpu/drm/xe/xe_hw_engine_types.h b/drivers/gpu/drm/xe/xe_hw_engine_types.h
+index e4191a7a2c31..635dc3da6523 100644
+--- a/drivers/gpu/drm/xe/xe_hw_engine_types.h
++++ b/drivers/gpu/drm/xe/xe_hw_engine_types.h
+@@ -150,6 +150,10 @@ struct xe_hw_engine {
+ 	struct xe_oa_unit *oa_unit;
+ 	/** @hw_engine_group: the group of hw engines this one belongs to */
+ 	struct xe_hw_engine_group *hw_engine_group;
++	/** @pagefault_count: number of pagefaults associated with this engine */
++	atomic_t pagefault_count;
++	/** @reset_count: number of engine resets associated with this engine */
++	atomic_t reset_count;
+ };
+ 
+ enum xe_hw_engine_snapshot_source_id {
+-- 
+2.43.0
 
