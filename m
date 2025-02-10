@@ -4,27 +4,27 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 97D53C0219E
-	for <intel-gfx@archiver.kernel.org>; Mon, 10 Feb 2025 14:47:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 302E9C02198
+	for <intel-gfx@archiver.kernel.org>; Mon, 10 Feb 2025 15:16:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BA53710E57C;
-	Mon, 10 Feb 2025 14:47:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B040510E209;
+	Mon, 10 Feb 2025 15:16:00 +0000 (UTC)
 Received: from b555e5b46a47 (emeril.freedesktop.org [131.252.210.167])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 395F310E588;
- Mon, 10 Feb 2025 14:47:17 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3834010E099;
+ Mon, 10 Feb 2025 15:16:00 +0000 (UTC)
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
-Subject: =?utf-8?q?=E2=9C=97_Fi=2ECI=2ESPARSE=3A_warning_for_drm=5Fi915=5Fprivate_to_?=
- =?utf-8?q?intel=5Fdisplay_cleanup?=
+Subject: =?utf-8?q?=E2=9C=97_Fi=2ECI=2ECHECKPATCH=3A_warning_for_drm/xe/display=3A_Fi?=
+ =?utf-8?q?x_fbdev_GGTT_mapping_handling=2E?=
 From: Patchwork <patchwork@emeril.freedesktop.org>
-To: "Suraj Kandpal" <suraj.kandpal@intel.com>
+To: "Maarten Lankhorst" <dev@lankhorst.se>
 Cc: intel-gfx@lists.freedesktop.org
-Date: Mon, 10 Feb 2025 14:47:17 -0000
-Message-ID: <173919883723.352309.11646585951079030925@b555e5b46a47>
+Date: Mon, 10 Feb 2025 15:16:00 -0000
+Message-ID: <173920056022.355814.15823076379700263042@b555e5b46a47>
 X-Patchwork-Hint: ignore
-References: <20250210123950.3476620-1-suraj.kandpal@intel.com>
-In-Reply-To: <20250210123950.3476620-1-suraj.kandpal@intel.com>
+References: <20250210133355.1023238-1-dev@lankhorst.se>
+In-Reply-To: <20250210133355.1023238-1-dev@lankhorst.se>
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -43,14 +43,18 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 == Series Details ==
 
-Series: drm_i915_private to intel_display cleanup
-URL   : https://patchwork.freedesktop.org/series/144588/
+Series: drm/xe/display: Fix fbdev GGTT mapping handling.
+URL   : https://patchwork.freedesktop.org/series/144603/
 State : warning
 
 == Summary ==
 
-Error: dim sparse failed
-Sparse version: v0.6.2
-Fast mode used, each commit won't be checked separately.
+Error: dim checkpatch failed
+ab9554d7aba7 drm/xe/display: Fix fbdev GGTT mapping handling.
+-:85: WARNING:FILE_PATH_CHANGES: added, moved or deleted file(s), does MAINTAINERS need updating?
+#85: 
+new file mode 100644
+
+total: 0 errors, 1 warnings, 0 checks, 69 lines checked
 
 
