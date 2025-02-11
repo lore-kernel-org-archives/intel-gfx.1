@@ -4,50 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 92598C021AF
-	for <intel-gfx@archiver.kernel.org>; Tue, 11 Feb 2025 10:49:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4C319C0219D
+	for <intel-gfx@archiver.kernel.org>; Tue, 11 Feb 2025 10:49:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 06CAD10E65C;
-	Tue, 11 Feb 2025 10:49:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B03A210E653;
+	Tue, 11 Feb 2025 10:49:21 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="NBAk3aBh";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="UuRiLsEG";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B973A10E65C;
- Tue, 11 Feb 2025 10:49:27 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 95A5710E653;
+ Tue, 11 Feb 2025 10:49:20 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1739270968; x=1770806968;
+ t=1739270960; x=1770806960;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=TeSfjCcdN4FElXzKtYtXQsyblEzoSljKL2cYbKFkgxQ=;
- b=NBAk3aBh3/QIfIRuEEsXZtq75yI8uxNX5X7wTu3Yd8YV+264zBkoaJHO
- 9pjGQ+3XRwmu8sXnbemug5RwrW//MKyEGgPNa9p0qdEHzALLge19PxePy
- JsHeU4b7u7Fti6MbkJ28ipZaeOxs2yauQ99QVN3DRYTo0xZ3Ap9qR7sjm
- rid3dXhOFc9mOMjo68jWGm5+O2+XuKAKdcyxf4E02Ei03a3F5ocb3P4b3
- Ohjeob0SzVk+29WsSUv/3ke2ZUyzhy1eJBPHwirdouw+RERzpvafgSSvW
- QAPeLeswNmOH3w8IyoHKhZxmzvVW9rdgKSKWu5P1Rqlcunabd23STiua8 A==;
-X-CSE-ConnectionGUID: 7WAxds0HQzeUE9x5vOvU2w==
-X-CSE-MsgGUID: mU8PNdLOQvKvIbjAfXNkKQ==
-X-IronPort-AV: E=McAfee;i="6700,10204,11341"; a="57293214"
-X-IronPort-AV: E=Sophos;i="6.13,277,1732608000"; d="scan'208";a="57293214"
+ bh=bGkMpoEVOganp+/yEGJ83hUpXiLRQxr0Z+GL/fMn7JU=;
+ b=UuRiLsEGjOFkoS8UxyTWyBmCBJmWaFVd0L446QJZotwYHv2rnEyy/UUV
+ 5zIFodvcIGhNzXAg07NNxrFMPWYpTTi0IXsVfYZc47ItUNSl757TJ64ka
+ Wea2ovw8zaWU9SlEPZunPtX2G3NCuq18rrQ3rff5q9psxipoz2ydLQFPY
+ aYSvVWOlS6F9rNDVVgqGGGTRyQp+SXqhA5iKN+J/ZDNVsW+Wd0EECpEKi
+ Pt1vttPx6qcLqa636k9xwLbEurgUGSpZm5RdoXtKtOImS4jGJ7nLXfUpF
+ LTRBa0nfN99rBLdc3lsWCavnmzELPDeYz9XbZkXAGDKUuO9dZLpM2STHI Q==;
+X-CSE-ConnectionGUID: FPIzSTdSSBOSUjWhJ7dSqg==
+X-CSE-MsgGUID: ouYA5uGORtmemMO+lYbQVA==
+X-IronPort-AV: E=McAfee;i="6700,10204,11341"; a="57293198"
+X-IronPort-AV: E=Sophos;i="6.13,277,1732608000"; d="scan'208";a="57293198"
 Received: from fmviesa010.fm.intel.com ([10.60.135.150])
  by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 11 Feb 2025 02:49:27 -0800
-X-CSE-ConnectionGUID: HSfRCvc2T9iHgX61FFx/Qw==
-X-CSE-MsgGUID: xWrxoZMsSGOKk5cz2Yl0dQ==
+ 11 Feb 2025 02:49:20 -0800
+X-CSE-ConnectionGUID: t8IgDCb2SbG4IvaHMiaegQ==
+X-CSE-MsgGUID: RXAXv/FLS1yIffN+mAl5SA==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.13,277,1732608000"; d="scan'208";a="112991475"
+X-IronPort-AV: E=Sophos;i="6.13,277,1732608000"; d="scan'208";a="112991415"
 Received: from kandpal-x299-ud4-pro.iind.intel.com ([10.190.239.10])
- by fmviesa010.fm.intel.com with ESMTP; 11 Feb 2025 02:49:25 -0800
+ by fmviesa010.fm.intel.com with ESMTP; 11 Feb 2025 02:49:18 -0800
 From: Suraj Kandpal <suraj.kandpal@intel.com>
 To: intel-xe@lists.freedesktop.org,
 	intel-gfx@lists.freedesktop.org
 Cc: ankit.k.nautiyal@intel.com, jani.nikula@intel.com,
  Suraj Kandpal <suraj.kandpal@intel.com>
-Subject: [PATCH 9/9] drm/i915/dpll: Replace all other leftover drm_i915_private
-Date: Tue, 11 Feb 2025 16:18:57 +0530
-Message-Id: <20250211104857.3501566-10-suraj.kandpal@intel.com>
+Subject: [PATCH 6/9] drm/i915/dpll: Use intel_display for asserting pll
+Date: Tue, 11 Feb 2025 16:18:54 +0530
+Message-Id: <20250211104857.3501566-7-suraj.kandpal@intel.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20250211104857.3501566-1-suraj.kandpal@intel.com>
 References: <20250211104857.3501566-1-suraj.kandpal@intel.com>
@@ -68,339 +68,441 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Replace all other left over drm_i915_private with intel_display
-in dpll_mgr.c.
+Use intel_display instead of drm_i915_private to assert pll enabled
+and disabled and the corresponding changes needed to make that happen.
 
 Signed-off-by: Suraj Kandpal <suraj.kandpal@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_dpll_mgr.c | 99 +++++++++----------
- 1 file changed, 48 insertions(+), 51 deletions(-)
+ drivers/gpu/drm/i915/display/intel_display.c  | 22 +++++++++----------
+ .../i915/display/intel_display_power_well.c   | 10 ++++-----
+ drivers/gpu/drm/i915/display/intel_dpll.c     | 11 +++++-----
+ drivers/gpu/drm/i915/display/intel_dpll.h     |  5 +++--
+ drivers/gpu/drm/i915/display/intel_dpll_mgr.c |  9 +++-----
+ drivers/gpu/drm/i915/display/intel_dpll_mgr.h |  2 +-
+ drivers/gpu/drm/i915/display/intel_fdi.c      | 16 ++++++--------
+ drivers/gpu/drm/i915/display/intel_fdi.h      |  7 +++---
+ drivers/gpu/drm/i915/display/intel_lvds.c     |  7 +++---
+ .../gpu/drm/i915/display/intel_pch_display.c  |  2 +-
+ drivers/gpu/drm/i915/display/vlv_dsi_pll.c    | 12 +++++-----
+ drivers/gpu/drm/i915/display/vlv_dsi_pll.h    | 10 +++++----
+ 12 files changed, 55 insertions(+), 58 deletions(-)
 
+diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
+index 5f4b1d8eed3e..64a139676524 100644
+--- a/drivers/gpu/drm/i915/display/intel_display.c
++++ b/drivers/gpu/drm/i915/display/intel_display.c
+@@ -518,7 +518,7 @@ void intel_enable_transcoder(const struct intel_crtc_state *new_crtc_state)
+ 	enum pipe pipe = crtc->pipe;
+ 	u32 val;
+ 
+-	drm_dbg_kms(&dev_priv->drm, "enabling pipe %c\n", pipe_name(pipe));
++	drm_dbg_kms(display->drm, "enabling pipe %c\n", pipe_name(pipe));
+ 
+ 	assert_planes_disabled(crtc);
+ 
+@@ -529,15 +529,15 @@ void intel_enable_transcoder(const struct intel_crtc_state *new_crtc_state)
+ 	 */
+ 	if (HAS_GMCH(dev_priv)) {
+ 		if (intel_crtc_has_type(new_crtc_state, INTEL_OUTPUT_DSI))
+-			assert_dsi_pll_enabled(dev_priv);
++			assert_dsi_pll_enabled(display);
+ 		else
+-			assert_pll_enabled(dev_priv, pipe);
++			assert_pll_enabled(display, pipe);
+ 	} else {
+ 		if (new_crtc_state->has_pch_encoder) {
+ 			/* if driving the PCH, we need FDI enabled */
+-			assert_fdi_rx_pll_enabled(dev_priv,
++			assert_fdi_rx_pll_enabled(display,
+ 						  intel_crtc_pch_transcoder(crtc));
+-			assert_fdi_tx_pll_enabled(dev_priv,
++			assert_fdi_tx_pll_enabled(display,
+ 						  (enum pipe) cpu_transcoder);
+ 		}
+ 		/* FIXME: assert CPU port conditions for SNB+ */
+@@ -545,21 +545,21 @@ void intel_enable_transcoder(const struct intel_crtc_state *new_crtc_state)
+ 
+ 	/* Wa_22012358565:adl-p */
+ 	if (DISPLAY_VER(dev_priv) == 13)
+-		intel_de_rmw(dev_priv, PIPE_ARB_CTL(dev_priv, pipe),
++		intel_de_rmw(display, PIPE_ARB_CTL(display, pipe),
+ 			     0, PIPE_ARB_USE_PROG_SLOTS);
+ 
+ 	if (DISPLAY_VER(dev_priv) >= 14) {
+ 		u32 clear = DP_DSC_INSERT_SF_AT_EOL_WA;
+ 		u32 set = 0;
+ 
+-		if (DISPLAY_VER(dev_priv) == 14)
++		if (DISPLAY_VER(display) == 14)
+ 			set |= DP_FEC_BS_JITTER_WA;
+ 
+ 		intel_de_rmw(display, CHICKEN_TRANS(display, cpu_transcoder),
+ 			     clear, set);
+ 	}
+ 
+-	val = intel_de_read(dev_priv, TRANSCONF(dev_priv, cpu_transcoder));
++	val = intel_de_read(display, TRANSCONF(display, cpu_transcoder));
+ 	if (val & TRANSCONF_ENABLE) {
+ 		/* we keep both pipes enabled on 830 */
+ 		drm_WARN_ON(&dev_priv->drm, !IS_I830(dev_priv));
+@@ -567,16 +567,16 @@ void intel_enable_transcoder(const struct intel_crtc_state *new_crtc_state)
+ 	}
+ 
+ 	/* Wa_1409098942:adlp+ */
+-	if (DISPLAY_VER(dev_priv) >= 13 &&
++	if (DISPLAY_VER(display) >= 13 &&
+ 	    new_crtc_state->dsc.compression_enable) {
+ 		val &= ~TRANSCONF_PIXEL_COUNT_SCALING_MASK;
+ 		val |= REG_FIELD_PREP(TRANSCONF_PIXEL_COUNT_SCALING_MASK,
+ 				      TRANSCONF_PIXEL_COUNT_SCALING_X4);
+ 	}
+ 
+-	intel_de_write(dev_priv, TRANSCONF(dev_priv, cpu_transcoder),
++	intel_de_write(display, TRANSCONF(display, cpu_transcoder),
+ 		       val | TRANSCONF_ENABLE);
+-	intel_de_posting_read(dev_priv, TRANSCONF(dev_priv, cpu_transcoder));
++	intel_de_posting_read(display, TRANSCONF(display, cpu_transcoder));
+ 
+ 	/*
+ 	 * Until the pipe starts PIPEDSL reads will return a stale value,
+diff --git a/drivers/gpu/drm/i915/display/intel_display_power_well.c b/drivers/gpu/drm/i915/display/intel_display_power_well.c
+index a31d1678dfc0..c2db076fd344 100644
+--- a/drivers/gpu/drm/i915/display/intel_display_power_well.c
++++ b/drivers/gpu/drm/i915/display/intel_display_power_well.c
+@@ -1313,11 +1313,10 @@ static void vlv_dpio_cmn_power_well_enable(struct intel_display *display,
+ static void vlv_dpio_cmn_power_well_disable(struct intel_display *display,
+ 					    struct i915_power_well *power_well)
+ {
+-	struct drm_i915_private *dev_priv = to_i915(display->drm);
+ 	enum pipe pipe;
+ 
+ 	for_each_pipe(display, pipe)
+-		assert_pll_disabled(dev_priv, pipe);
++		assert_pll_disabled(display, pipe);
+ 
+ 	/* Assert common reset */
+ 	intel_de_rmw(display, DPIO_CTL, DPIO_CMNRST, 0);
+@@ -1499,7 +1498,6 @@ static void chv_dpio_cmn_power_well_enable(struct intel_display *display,
+ static void chv_dpio_cmn_power_well_disable(struct intel_display *display,
+ 					    struct i915_power_well *power_well)
+ {
+-	struct drm_i915_private *dev_priv = to_i915(display->drm);
+ 	enum i915_power_well_id id = i915_power_well_instance(power_well)->id;
+ 	enum dpio_phy phy;
+ 
+@@ -1509,11 +1507,11 @@ static void chv_dpio_cmn_power_well_disable(struct intel_display *display,
+ 
+ 	if (id == VLV_DISP_PW_DPIO_CMN_BC) {
+ 		phy = DPIO_PHY0;
+-		assert_pll_disabled(dev_priv, PIPE_A);
+-		assert_pll_disabled(dev_priv, PIPE_B);
++		assert_pll_disabled(display, PIPE_A);
++		assert_pll_disabled(display, PIPE_B);
+ 	} else {
+ 		phy = DPIO_PHY1;
+-		assert_pll_disabled(dev_priv, PIPE_C);
++		assert_pll_disabled(display, PIPE_C);
+ 	}
+ 
+ 	display->power.chv_phy_control &= ~PHY_COM_LANE_RESET_DEASSERT(phy);
+diff --git a/drivers/gpu/drm/i915/display/intel_dpll.c b/drivers/gpu/drm/i915/display/intel_dpll.c
+index 3256b1293f7f..cc19cd51ab4d 100644
+--- a/drivers/gpu/drm/i915/display/intel_dpll.c
++++ b/drivers/gpu/drm/i915/display/intel_dpll.c
+@@ -2329,10 +2329,9 @@ void vlv_force_pll_off(struct drm_i915_private *dev_priv, enum pipe pipe)
+ }
+ 
+ /* Only for pre-ILK configs */
+-static void assert_pll(struct drm_i915_private *dev_priv,
++static void assert_pll(struct intel_display *display,
+ 		       enum pipe pipe, bool state)
+ {
+-	struct intel_display *display = &dev_priv->display;
+ 	bool cur_state;
+ 
+ 	cur_state = intel_de_read(display, DPLL(display, pipe)) & DPLL_VCO_ENABLE;
+@@ -2341,12 +2340,12 @@ static void assert_pll(struct drm_i915_private *dev_priv,
+ 				 str_on_off(state), str_on_off(cur_state));
+ }
+ 
+-void assert_pll_enabled(struct drm_i915_private *i915, enum pipe pipe)
++void assert_pll_enabled(struct intel_display *display, enum pipe pipe)
+ {
+-	assert_pll(i915, pipe, true);
++	assert_pll(display, pipe, true);
+ }
+ 
+-void assert_pll_disabled(struct drm_i915_private *i915, enum pipe pipe)
++void assert_pll_disabled(struct intel_display *display, enum pipe pipe)
+ {
+-	assert_pll(i915, pipe, false);
++	assert_pll(display, pipe, false);
+ }
+diff --git a/drivers/gpu/drm/i915/display/intel_dpll.h b/drivers/gpu/drm/i915/display/intel_dpll.h
+index a86a79408af0..21d06cbd2ce7 100644
+--- a/drivers/gpu/drm/i915/display/intel_dpll.h
++++ b/drivers/gpu/drm/i915/display/intel_dpll.h
+@@ -13,6 +13,7 @@ struct drm_i915_private;
+ struct intel_atomic_state;
+ struct intel_crtc;
+ struct intel_crtc_state;
++struct intel_display;
+ struct intel_dpll_hw_state;
+ enum pipe;
+ 
+@@ -46,7 +47,7 @@ void i9xx_crtc_clock_get(struct intel_crtc_state *crtc_state);
+ void vlv_crtc_clock_get(struct intel_crtc_state *crtc_state);
+ void chv_crtc_clock_get(struct intel_crtc_state *crtc_state);
+ 
+-void assert_pll_enabled(struct drm_i915_private *i915, enum pipe pipe);
+-void assert_pll_disabled(struct drm_i915_private *i915, enum pipe pipe);
++void assert_pll_enabled(struct intel_display *display, enum pipe pipe);
++void assert_pll_disabled(struct intel_display *display, enum pipe pipe);
+ 
+ #endif
 diff --git a/drivers/gpu/drm/i915/display/intel_dpll_mgr.c b/drivers/gpu/drm/i915/display/intel_dpll_mgr.c
-index 26b6b9372fa3..96abb7e295a2 100644
+index 9976ac6322d1..104054a6df56 100644
 --- a/drivers/gpu/drm/i915/display/intel_dpll_mgr.c
 +++ b/drivers/gpu/drm/i915/display/intel_dpll_mgr.c
-@@ -117,11 +117,10 @@ struct intel_dpll_mgr {
- };
- 
- static void
--intel_atomic_duplicate_dpll_state(struct drm_i915_private *i915,
-+intel_atomic_duplicate_dpll_state(struct intel_display *display,
- 				  struct intel_shared_dpll_state *shared_dpll)
- {
- 	struct intel_shared_dpll *pll;
--	struct intel_display *display = to_intel_display(&i915->drm);
- 	int i;
- 
- 	/* Copy shared dpll state */
-@@ -139,7 +138,7 @@ intel_atomic_get_shared_dpll_state(struct drm_atomic_state *s)
- 	if (!state->dpll_set) {
- 		state->dpll_set = true;
- 
--		intel_atomic_duplicate_dpll_state(to_i915(s->dev),
-+		intel_atomic_duplicate_dpll_state(to_intel_display(state),
- 						  state->shared_dpll);
- 	}
- 
-@@ -420,13 +419,13 @@ intel_reference_shared_dpll_crtc(const struct intel_crtc *crtc,
- 				 const struct intel_shared_dpll *pll,
- 				 struct intel_shared_dpll_state *shared_dpll_state)
- {
--	struct drm_i915_private *i915 = to_i915(crtc->base.dev);
-+	struct intel_display *display = to_intel_display(crtc);
- 
--	drm_WARN_ON(&i915->drm, (shared_dpll_state->pipe_mask & BIT(crtc->pipe)) != 0);
-+	drm_WARN_ON(display->drm, (shared_dpll_state->pipe_mask & BIT(crtc->pipe)) != 0);
- 
- 	shared_dpll_state->pipe_mask |= BIT(crtc->pipe);
- 
--	drm_dbg_kms(&i915->drm, "[CRTC:%d:%s] reserving %s\n",
-+	drm_dbg_kms(display->drm, "[CRTC:%d:%s] reserving %s\n",
- 		    crtc->base.base.id, crtc->base.name, pll->info->name);
+@@ -171,11 +171,10 @@ intel_get_shared_dpll_by_id(struct intel_display *display,
  }
  
-@@ -459,13 +458,13 @@ intel_unreference_shared_dpll_crtc(const struct intel_crtc *crtc,
- 				   const struct intel_shared_dpll *pll,
- 				   struct intel_shared_dpll_state *shared_dpll_state)
- {
--	struct drm_i915_private *i915 = to_i915(crtc->base.dev);
-+	struct intel_display *display = to_intel_display(crtc);
- 
--	drm_WARN_ON(&i915->drm, (shared_dpll_state->pipe_mask & BIT(crtc->pipe)) == 0);
-+	drm_WARN_ON(display->drm, (shared_dpll_state->pipe_mask & BIT(crtc->pipe)) == 0);
- 
- 	shared_dpll_state->pipe_mask &= ~BIT(crtc->pipe);
- 
--	drm_dbg_kms(&i915->drm, "[CRTC:%d:%s] releasing %s\n",
-+	drm_dbg_kms(display->drm, "[CRTC:%d:%s] releasing %s\n",
- 		    crtc->base.base.id, crtc->base.name, pll->info->name);
- }
- 
-@@ -545,9 +544,8 @@ static bool ibx_pch_dpll_get_hw_state(struct intel_display *display,
- 	return val & DPLL_VCO_ENABLE;
- }
- 
--static void ibx_assert_pch_refclk_enabled(struct drm_i915_private *i915)
-+static void ibx_assert_pch_refclk_enabled(struct intel_display *display)
+ /* For ILK+ */
+-void assert_shared_dpll(struct drm_i915_private *i915,
++void assert_shared_dpll(struct intel_display *display,
+ 			struct intel_shared_dpll *pll,
+ 			bool state)
  {
 -	struct intel_display *display = &i915->display;
- 	u32 val;
- 	bool enabled;
+ 	bool cur_state;
+ 	struct intel_dpll_hw_state hw_state;
  
-@@ -562,12 +560,11 @@ static void ibx_pch_dpll_enable(struct intel_display *display,
- 				struct intel_shared_dpll *pll,
- 				const struct intel_dpll_hw_state *dpll_hw_state)
+@@ -256,7 +255,6 @@ void intel_enable_shared_dpll(const struct intel_crtc_state *crtc_state)
  {
--	struct drm_i915_private *i915 = to_i915(display->drm);
- 	const struct i9xx_dpll_hw_state *hw_state = &dpll_hw_state->i9xx;
- 	const enum intel_dpll_id id = pll->info->id;
- 
- 	/* PCH refclock must be enabled first */
--	ibx_assert_pch_refclk_enabled(i915);
-+	ibx_assert_pch_refclk_enabled(display);
- 
- 	intel_de_write(display, PCH_FP0(id), hw_state->fp0);
- 	intel_de_write(display, PCH_FP1(id), hw_state->fp1);
-@@ -1074,7 +1071,7 @@ hsw_ddi_wrpll_get_dpll(struct intel_atomic_state *state,
- static int
- hsw_ddi_lcpll_compute_dpll(struct intel_crtc_state *crtc_state)
- {
--	struct drm_i915_private *i915 = to_i915(crtc_state->uapi.crtc->dev);
-+	struct intel_display *display = to_intel_display(crtc_state);
- 	int clock = crtc_state->port_clock;
- 
- 	switch (clock / 2) {
-@@ -1083,7 +1080,7 @@ hsw_ddi_lcpll_compute_dpll(struct intel_crtc_state *crtc_state)
- 	case 270000:
- 		return 0;
- 	default:
--		drm_dbg_kms(&i915->drm, "Invalid clock for DP: %d\n",
-+		drm_dbg_kms(display->drm, "Invalid clock for DP: %d\n",
- 			    clock);
- 		return -EINVAL;
- 	}
-@@ -2255,7 +2252,7 @@ static int
- bxt_ddi_hdmi_pll_dividers(struct intel_crtc_state *crtc_state,
- 			  struct dpll *clk_div)
- {
--	struct drm_i915_private *i915 = to_i915(crtc_state->uapi.crtc->dev);
-+	struct intel_display *display = to_intel_display(crtc_state);
- 
- 	/* Calculate HDMI div */
- 	/*
-@@ -2265,7 +2262,7 @@ bxt_ddi_hdmi_pll_dividers(struct intel_crtc_state *crtc_state,
- 	if (!bxt_find_best_dpll(crtc_state, clk_div))
- 		return -EINVAL;
- 
--	drm_WARN_ON(&i915->drm, clk_div->m1 != 2);
-+	drm_WARN_ON(display->drm, clk_div->m1 != 2);
- 
- 	return 0;
- }
-@@ -2273,7 +2270,7 @@ bxt_ddi_hdmi_pll_dividers(struct intel_crtc_state *crtc_state,
- static void bxt_ddi_dp_pll_dividers(struct intel_crtc_state *crtc_state,
- 				    struct dpll *clk_div)
- {
--	struct drm_i915_private *i915 = to_i915(crtc_state->uapi.crtc->dev);
-+	struct intel_display *display = to_intel_display(crtc_state);
- 	int i;
- 
- 	*clk_div = bxt_dp_clk_val[0];
-@@ -2284,16 +2281,16 @@ static void bxt_ddi_dp_pll_dividers(struct intel_crtc_state *crtc_state,
- 		}
- 	}
- 
--	chv_calc_dpll_params(i915->display.dpll.ref_clks.nssc, clk_div);
-+	chv_calc_dpll_params(display->dpll.ref_clks.nssc, clk_div);
- 
--	drm_WARN_ON(&i915->drm, clk_div->vco == 0 ||
-+	drm_WARN_ON(display->drm, clk_div->vco == 0 ||
- 		    clk_div->dot != crtc_state->port_clock);
- }
- 
- static int bxt_ddi_set_dpll_hw_state(struct intel_crtc_state *crtc_state,
- 				     const struct dpll *clk_div)
- {
--	struct drm_i915_private *i915 = to_i915(crtc_state->uapi.crtc->dev);
-+	struct intel_display *display = to_intel_display(crtc_state);
- 	struct bxt_dpll_hw_state *hw_state = &crtc_state->dpll_hw_state.bxt;
- 	int clock = crtc_state->port_clock;
- 	int vco = clk_div->vco;
-@@ -2317,7 +2314,7 @@ static int bxt_ddi_set_dpll_hw_state(struct intel_crtc_state *crtc_state,
- 		gain_ctl = 1;
- 		targ_cnt = 9;
- 	} else {
--		drm_err(&i915->drm, "Invalid VCO\n");
-+		drm_err(display->drm, "Invalid VCO\n");
- 		return -EINVAL;
- 	}
- 
-@@ -2700,9 +2697,9 @@ static const struct skl_wrpll_params tgl_tbt_pll_24MHz_values = {
- static int icl_calc_dp_combo_pll(struct intel_crtc_state *crtc_state,
- 				 struct skl_wrpll_params *pll_params)
- {
--	struct drm_i915_private *i915 = to_i915(crtc_state->uapi.crtc->dev);
-+	struct intel_display *display = to_intel_display(crtc_state);
- 	const struct icl_combo_pll_params *params =
--		i915->display.dpll.ref_clks.nssc == 24000 ?
-+		display->dpll.ref_clks.nssc == 24000 ?
- 		icl_dp_combo_pll_24MHz_values :
- 		icl_dp_combo_pll_19_2MHz_values;
- 	int clock = crtc_state->port_clock;
-@@ -2722,12 +2719,12 @@ static int icl_calc_dp_combo_pll(struct intel_crtc_state *crtc_state,
- static int icl_calc_tbt_pll(struct intel_crtc_state *crtc_state,
- 			    struct skl_wrpll_params *pll_params)
- {
--	struct drm_i915_private *i915 = to_i915(crtc_state->uapi.crtc->dev);
-+	struct intel_display *display = to_intel_display(crtc_state);
- 
--	if (DISPLAY_VER(i915) >= 12) {
--		switch (i915->display.dpll.ref_clks.nssc) {
-+	if (DISPLAY_VER(display) >= 12) {
-+		switch (display->dpll.ref_clks.nssc) {
- 		default:
--			MISSING_CASE(i915->display.dpll.ref_clks.nssc);
-+			MISSING_CASE(display->dpll.ref_clks.nssc);
- 			fallthrough;
- 		case 19200:
- 		case 38400:
-@@ -2738,9 +2735,9 @@ static int icl_calc_tbt_pll(struct intel_crtc_state *crtc_state,
- 			break;
- 		}
- 	} else {
--		switch (i915->display.dpll.ref_clks.nssc) {
-+		switch (display->dpll.ref_clks.nssc) {
- 		default:
--			MISSING_CASE(i915->display.dpll.ref_clks.nssc);
-+			MISSING_CASE(display->dpll.ref_clks.nssc);
- 			fallthrough;
- 		case 19200:
- 		case 38400:
-@@ -2998,9 +2995,9 @@ static int icl_mg_pll_find_divisors(int clock_khz, bool is_dp, bool use_ssc,
- static int icl_calc_mg_pll_state(struct intel_crtc_state *crtc_state,
- 				 struct intel_dpll_hw_state *dpll_hw_state)
- {
--	struct drm_i915_private *i915 = to_i915(crtc_state->uapi.crtc->dev);
-+	struct intel_display *display = to_intel_display(crtc_state);
- 	struct icl_dpll_hw_state *hw_state = &dpll_hw_state->icl;
--	int refclk_khz = i915->display.dpll.ref_clks.nssc;
-+	int refclk_khz = display->dpll.ref_clks.nssc;
- 	int clock = crtc_state->port_clock;
- 	u32 dco_khz, m1div, m2div_int, m2div_rem, m2div_frac;
- 	u32 iref_ndiv, iref_trim, iref_pulse_w;
-@@ -3010,7 +3007,7 @@ static int icl_calc_mg_pll_state(struct intel_crtc_state *crtc_state,
- 	u64 tmp;
- 	bool use_ssc = false;
- 	bool is_dp = !intel_crtc_has_type(crtc_state, INTEL_OUTPUT_HDMI);
--	bool is_dkl = DISPLAY_VER(i915) >= 12;
-+	bool is_dkl = DISPLAY_VER(display) >= 12;
- 	int ret;
- 
- 	ret = icl_mg_pll_find_divisors(clock, is_dp, use_ssc, &dco_khz,
-@@ -3108,8 +3105,8 @@ static int icl_calc_mg_pll_state(struct intel_crtc_state *crtc_state,
- 					 DKL_PLL_DIV0_PROP_COEFF(prop_coeff) |
- 					 DKL_PLL_DIV0_FBPREDIV(m1div) |
- 					 DKL_PLL_DIV0_FBDIV_INT(m2div_int);
--		if (i915->display.vbt.override_afc_startup) {
--			u8 val = i915->display.vbt.override_afc_startup_val;
-+		if (display->vbt.override_afc_startup) {
-+			u8 val = display->vbt.override_afc_startup_val;
- 
- 			hw_state->mg_pll_div0 |= DKL_PLL_DIV0_AFC_STARTUP(val);
- 		}
-@@ -3347,7 +3344,6 @@ static int icl_get_combo_phy_dpll(struct intel_atomic_state *state,
- 				  struct intel_encoder *encoder)
- {
- 	struct intel_display *display = to_intel_display(crtc);
+ 	struct intel_display *display = to_intel_display(crtc_state);
+ 	struct intel_crtc *crtc = to_intel_crtc(crtc_state->uapi.crtc);
 -	struct drm_i915_private *i915 = to_i915(crtc->base.dev);
- 	struct intel_crtc_state *crtc_state =
- 		intel_atomic_get_new_crtc_state(state, crtc);
- 	struct icl_port_dpll *port_dpll =
-@@ -3355,13 +3351,13 @@ static int icl_get_combo_phy_dpll(struct intel_atomic_state *state,
- 	enum port port = encoder->port;
- 	unsigned long dpll_mask;
+ 	struct intel_shared_dpll *pll = crtc_state->shared_dpll;
+ 	unsigned int pipe_mask = BIT(crtc->pipe);
+ 	unsigned int old_mask;
+@@ -280,7 +278,7 @@ void intel_enable_shared_dpll(const struct intel_crtc_state *crtc_state)
  
--	if (IS_ALDERLAKE_S(i915)) {
-+	if (display->platform.alderlake_s) {
- 		dpll_mask =
- 			BIT(DPLL_ID_DG1_DPLL3) |
- 			BIT(DPLL_ID_DG1_DPLL2) |
- 			BIT(DPLL_ID_ICL_DPLL1) |
- 			BIT(DPLL_ID_ICL_DPLL0);
--	} else if (IS_DG1(i915)) {
-+	} else if (display->platform.dg1) {
- 		if (port == PORT_D || port == PORT_E) {
- 			dpll_mask =
- 				BIT(DPLL_ID_DG1_DPLL2) |
-@@ -3371,12 +3367,13 @@ static int icl_get_combo_phy_dpll(struct intel_atomic_state *state,
- 				BIT(DPLL_ID_DG1_DPLL0) |
- 				BIT(DPLL_ID_DG1_DPLL1);
- 		}
--	} else if (IS_ROCKETLAKE(i915)) {
-+	} else if (display->platform.rocketlake) {
- 		dpll_mask =
- 			BIT(DPLL_ID_EHL_DPLL4) |
- 			BIT(DPLL_ID_ICL_DPLL1) |
- 			BIT(DPLL_ID_ICL_DPLL0);
--	} else if ((IS_JASPERLAKE(i915) || IS_ELKHARTLAKE(i915)) &&
-+	} else if ((display->platform.jasperlake ||
-+		    display->platform.elkhartlake) &&
- 		   port != PORT_A) {
- 		dpll_mask =
- 			BIT(DPLL_ID_EHL_DPLL4) |
-@@ -4381,10 +4378,10 @@ int intel_compute_shared_dplls(struct intel_atomic_state *state,
- 			       struct intel_crtc *crtc,
- 			       struct intel_encoder *encoder)
+ 	if (old_mask) {
+ 		drm_WARN_ON(display->drm, !pll->on);
+-		assert_shared_dpll_enabled(i915, pll);
++		assert_shared_dpll_enabled(display, pll);
+ 		goto out;
+ 	}
+ 	drm_WARN_ON(display->drm, pll->on);
+@@ -303,7 +301,6 @@ void intel_disable_shared_dpll(const struct intel_crtc_state *crtc_state)
  {
--	struct drm_i915_private *i915 = to_i915(state->base.dev);
--	const struct intel_dpll_mgr *dpll_mgr = i915->display.dpll.mgr;
-+	struct intel_display *display = to_intel_display(state);
-+	const struct intel_dpll_mgr *dpll_mgr = display->dpll.mgr;
+ 	struct intel_display *display = to_intel_display(crtc_state);
+ 	struct intel_crtc *crtc = to_intel_crtc(crtc_state->uapi.crtc);
+-	struct drm_i915_private *i915 = to_i915(crtc->base.dev);
+ 	struct intel_shared_dpll *pll = crtc_state->shared_dpll;
+ 	unsigned int pipe_mask = BIT(crtc->pipe);
  
--	if (drm_WARN_ON(&i915->drm, !dpll_mgr))
-+	if (drm_WARN_ON(display->drm, !dpll_mgr))
- 		return -EINVAL;
+@@ -325,7 +322,7 @@ void intel_disable_shared_dpll(const struct intel_crtc_state *crtc_state)
+ 		    pll->info->name, pll->active_mask, pll->on,
+ 		    crtc->base.base.id, crtc->base.name);
  
- 	return dpll_mgr->compute_dplls(state, crtc, encoder);
-@@ -4414,10 +4411,10 @@ int intel_reserve_shared_dplls(struct intel_atomic_state *state,
- 			       struct intel_crtc *crtc,
- 			       struct intel_encoder *encoder)
+-	assert_shared_dpll_enabled(i915, pll);
++	assert_shared_dpll_enabled(display, pll);
+ 	drm_WARN_ON(display->drm, !pll->on);
+ 
+ 	pll->active_mask &= ~pipe_mask;
+diff --git a/drivers/gpu/drm/i915/display/intel_dpll_mgr.h b/drivers/gpu/drm/i915/display/intel_dpll_mgr.h
+index ebd0ed79d2b5..b6f2cbce13e4 100644
+--- a/drivers/gpu/drm/i915/display/intel_dpll_mgr.h
++++ b/drivers/gpu/drm/i915/display/intel_dpll_mgr.h
+@@ -392,7 +392,7 @@ struct intel_shared_dpll {
+ struct intel_shared_dpll *
+ intel_get_shared_dpll_by_id(struct intel_display *display,
+ 			    enum intel_dpll_id id);
+-void assert_shared_dpll(struct drm_i915_private *i915,
++void assert_shared_dpll(struct intel_display *display,
+ 			struct intel_shared_dpll *pll,
+ 			bool state);
+ #define assert_shared_dpll_enabled(d, p) assert_shared_dpll(d, p, true)
+diff --git a/drivers/gpu/drm/i915/display/intel_fdi.c b/drivers/gpu/drm/i915/display/intel_fdi.c
+index 3e8d6d8af780..9ebe80bfaab6 100644
+--- a/drivers/gpu/drm/i915/display/intel_fdi.c
++++ b/drivers/gpu/drm/i915/display/intel_fdi.c
+@@ -80,14 +80,13 @@ void assert_fdi_rx_disabled(struct drm_i915_private *i915, enum pipe pipe)
+ 	assert_fdi_rx(i915, pipe, false);
+ }
+ 
+-void assert_fdi_tx_pll_enabled(struct drm_i915_private *i915,
++void assert_fdi_tx_pll_enabled(struct intel_display *display,
+ 			       enum pipe pipe)
  {
--	struct drm_i915_private *i915 = to_i915(state->base.dev);
--	const struct intel_dpll_mgr *dpll_mgr = i915->display.dpll.mgr;
-+	struct intel_display *display = to_intel_display(state);
-+	const struct intel_dpll_mgr *dpll_mgr = display->dpll.mgr;
+-	struct intel_display *display = &i915->display;
+ 	bool cur_state;
  
--	if (drm_WARN_ON(&i915->drm, !dpll_mgr))
-+	if (drm_WARN_ON(display->drm, !dpll_mgr))
- 		return -EINVAL;
- 
- 	return dpll_mgr->get_dplls(state, crtc, encoder);
-@@ -4437,8 +4434,8 @@ int intel_reserve_shared_dplls(struct intel_atomic_state *state,
- void intel_release_shared_dplls(struct intel_atomic_state *state,
- 				struct intel_crtc *crtc)
- {
--	struct drm_i915_private *i915 = to_i915(state->base.dev);
--	const struct intel_dpll_mgr *dpll_mgr = i915->display.dpll.mgr;
-+	struct intel_display *display = to_intel_display(state);
-+	const struct intel_dpll_mgr *dpll_mgr = display->dpll.mgr;
- 
- 	/*
- 	 * FIXME: this function is called for every platform having a
-@@ -4466,10 +4463,10 @@ void intel_update_active_dpll(struct intel_atomic_state *state,
- 			      struct intel_crtc *crtc,
- 			      struct intel_encoder *encoder)
- {
--	struct drm_i915_private *i915 = to_i915(encoder->base.dev);
--	const struct intel_dpll_mgr *dpll_mgr = i915->display.dpll.mgr;
-+	struct intel_display *display = to_intel_display(encoder);
-+	const struct intel_dpll_mgr *dpll_mgr = display->dpll.mgr;
- 
--	if (drm_WARN_ON(&i915->drm, !dpll_mgr))
-+	if (drm_WARN_ON(display->drm, !dpll_mgr))
+ 	/* ILK FDI PLL is always enabled */
+-	if (IS_IRONLAKE(i915))
++	if (display->platform.ironlake)
  		return;
  
- 	dpll_mgr->update_active_dpll(state, crtc, encoder);
+ 	/* On Haswell, DDI ports are responsible for the FDI PLL setup */
+@@ -99,10 +98,9 @@ void assert_fdi_tx_pll_enabled(struct drm_i915_private *i915,
+ 				 "FDI TX PLL assertion failure, should be active but is disabled\n");
+ }
+ 
+-static void assert_fdi_rx_pll(struct drm_i915_private *i915,
++static void assert_fdi_rx_pll(struct intel_display *display,
+ 			      enum pipe pipe, bool state)
+ {
+-	struct intel_display *display = &i915->display;
+ 	bool cur_state;
+ 
+ 	cur_state = intel_de_read(display, FDI_RX_CTL(pipe)) & FDI_RX_PLL_ENABLE;
+@@ -111,14 +109,14 @@ static void assert_fdi_rx_pll(struct drm_i915_private *i915,
+ 				 str_on_off(state), str_on_off(cur_state));
+ }
+ 
+-void assert_fdi_rx_pll_enabled(struct drm_i915_private *i915, enum pipe pipe)
++void assert_fdi_rx_pll_enabled(struct intel_display *display, enum pipe pipe)
+ {
+-	assert_fdi_rx_pll(i915, pipe, true);
++	assert_fdi_rx_pll(display, pipe, true);
+ }
+ 
+-void assert_fdi_rx_pll_disabled(struct drm_i915_private *i915, enum pipe pipe)
++void assert_fdi_rx_pll_disabled(struct intel_display *display, enum pipe pipe)
+ {
+-	assert_fdi_rx_pll(i915, pipe, false);
++	assert_fdi_rx_pll(display, pipe, false);
+ }
+ 
+ void intel_fdi_link_train(struct intel_crtc *crtc,
+diff --git a/drivers/gpu/drm/i915/display/intel_fdi.h b/drivers/gpu/drm/i915/display/intel_fdi.h
+index 477ff0136934..b5be09efb36f 100644
+--- a/drivers/gpu/drm/i915/display/intel_fdi.h
++++ b/drivers/gpu/drm/i915/display/intel_fdi.h
+@@ -13,6 +13,7 @@ struct drm_i915_private;
+ struct intel_atomic_state;
+ struct intel_crtc;
+ struct intel_crtc_state;
++struct intel_display;
+ struct intel_encoder;
+ struct intel_link_bw_limits;
+ 
+@@ -41,8 +42,8 @@ void assert_fdi_tx_enabled(struct drm_i915_private *i915, enum pipe pipe);
+ void assert_fdi_tx_disabled(struct drm_i915_private *i915, enum pipe pipe);
+ void assert_fdi_rx_enabled(struct drm_i915_private *i915, enum pipe pipe);
+ void assert_fdi_rx_disabled(struct drm_i915_private *i915, enum pipe pipe);
+-void assert_fdi_tx_pll_enabled(struct drm_i915_private *i915, enum pipe pipe);
+-void assert_fdi_rx_pll_enabled(struct drm_i915_private *i915, enum pipe pipe);
+-void assert_fdi_rx_pll_disabled(struct drm_i915_private *i915, enum pipe pipe);
++void assert_fdi_tx_pll_enabled(struct intel_display *display, enum pipe pipe);
++void assert_fdi_rx_pll_enabled(struct intel_display *display, enum pipe pipe);
++void assert_fdi_rx_pll_disabled(struct intel_display *display, enum pipe pipe);
+ 
+ #endif
+diff --git a/drivers/gpu/drm/i915/display/intel_lvds.c b/drivers/gpu/drm/i915/display/intel_lvds.c
+index e86b3a86db82..6b05db2c10ba 100644
+--- a/drivers/gpu/drm/i915/display/intel_lvds.c
++++ b/drivers/gpu/drm/i915/display/intel_lvds.c
+@@ -240,6 +240,7 @@ static void intel_pre_enable_lvds(struct intel_atomic_state *state,
+ 				  const struct intel_crtc_state *crtc_state,
+ 				  const struct drm_connector_state *conn_state)
+ {
++	struct intel_display *display = to_intel_display(state);
+ 	struct intel_lvds_encoder *lvds_encoder = to_lvds_encoder(encoder);
+ 	struct drm_i915_private *i915 = to_i915(encoder->base.dev);
+ 	struct intel_crtc *crtc = to_intel_crtc(crtc_state->uapi.crtc);
+@@ -248,10 +249,10 @@ static void intel_pre_enable_lvds(struct intel_atomic_state *state,
+ 	u32 temp;
+ 
+ 	if (HAS_PCH_SPLIT(i915)) {
+-		assert_fdi_rx_pll_disabled(i915, pipe);
+-		assert_shared_dpll_disabled(i915, crtc_state->shared_dpll);
++		assert_fdi_rx_pll_disabled(display, pipe);
++		assert_shared_dpll_disabled(display, crtc_state->shared_dpll);
+ 	} else {
+-		assert_pll_disabled(i915, pipe);
++		assert_pll_disabled(display, pipe);
+ 	}
+ 
+ 	intel_lvds_pps_init_hw(i915, &lvds_encoder->init_pps);
+diff --git a/drivers/gpu/drm/i915/display/intel_pch_display.c b/drivers/gpu/drm/i915/display/intel_pch_display.c
+index e874a577b7d1..75ff5592312f 100644
+--- a/drivers/gpu/drm/i915/display/intel_pch_display.c
++++ b/drivers/gpu/drm/i915/display/intel_pch_display.c
+@@ -256,7 +256,7 @@ static void ilk_enable_pch_transcoder(const struct intel_crtc_state *crtc_state)
+ 	u32 val, pipeconf_val;
+ 
+ 	/* Make sure PCH DPLL is enabled */
+-	assert_shared_dpll_enabled(dev_priv, crtc_state->shared_dpll);
++	assert_shared_dpll_enabled(display, crtc_state->shared_dpll);
+ 
+ 	/* FDI must be feeding us bits for PCH ports */
+ 	assert_fdi_tx_enabled(dev_priv, pipe);
+diff --git a/drivers/gpu/drm/i915/display/vlv_dsi_pll.c b/drivers/gpu/drm/i915/display/vlv_dsi_pll.c
+index ac69eaece0fd..2ed47e7d1051 100644
+--- a/drivers/gpu/drm/i915/display/vlv_dsi_pll.c
++++ b/drivers/gpu/drm/i915/display/vlv_dsi_pll.c
+@@ -590,9 +590,9 @@ void bxt_dsi_reset_clocks(struct intel_encoder *encoder, enum port port)
+ 	intel_de_write(display, MIPI_EOT_DISABLE(display, port), CLOCKSTOP);
+ }
+ 
+-static void assert_dsi_pll(struct drm_i915_private *i915, bool state)
++static void assert_dsi_pll(struct intel_display *display, bool state)
+ {
+-	struct intel_display *display = &i915->display;
++	struct drm_i915_private *i915 = to_i915(display->drm);
+ 	bool cur_state;
+ 
+ 	vlv_cck_get(i915);
+@@ -604,12 +604,12 @@ static void assert_dsi_pll(struct drm_i915_private *i915, bool state)
+ 				 str_on_off(state), str_on_off(cur_state));
+ }
+ 
+-void assert_dsi_pll_enabled(struct drm_i915_private *i915)
++void assert_dsi_pll_enabled(struct intel_display *display)
+ {
+-	assert_dsi_pll(i915, true);
++	assert_dsi_pll(display, true);
+ }
+ 
+-void assert_dsi_pll_disabled(struct drm_i915_private *i915)
++void assert_dsi_pll_disabled(struct intel_display *display)
+ {
+-	assert_dsi_pll(i915, false);
++	assert_dsi_pll(display, false);
+ }
+diff --git a/drivers/gpu/drm/i915/display/vlv_dsi_pll.h b/drivers/gpu/drm/i915/display/vlv_dsi_pll.h
+index fbe5113dbeb9..a032cc2a2524 100644
+--- a/drivers/gpu/drm/i915/display/vlv_dsi_pll.h
++++ b/drivers/gpu/drm/i915/display/vlv_dsi_pll.h
+@@ -11,6 +11,7 @@
+ enum port;
+ struct drm_i915_private;
+ struct intel_crtc_state;
++struct intel_display;
+ struct intel_encoder;
+ 
+ int vlv_dsi_pll_compute(struct intel_encoder *encoder,
+@@ -33,13 +34,14 @@ u32 bxt_dsi_get_pclk(struct intel_encoder *encoder,
+ void bxt_dsi_reset_clocks(struct intel_encoder *encoder, enum port port);
+ 
+ #ifdef I915
+-void assert_dsi_pll_enabled(struct drm_i915_private *i915);
+-void assert_dsi_pll_disabled(struct drm_i915_private *i915);
++void assert_dsi_pll_enabled(struct intel_display *display);
++void assert_dsi_pll_disabled(struct intel_display *display);
+ #else
+-static inline void assert_dsi_pll_enabled(struct drm_i915_private *i915)
++static inline void assert_dsi_pll_enabled(struct intel_display *display)
+ {
+ }
+-static inline void assert_dsi_pll_disabled(struct drm_i915_private *i915)
++
++static inline void assert_dsi_pll_disabled(struct intel_display *display)
+ {
+ }
+ #endif
 -- 
 2.34.1
 
