@@ -4,51 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3E854C0219D
-	for <intel-gfx@archiver.kernel.org>; Tue, 11 Feb 2025 10:49:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3B9ECC021A5
+	for <intel-gfx@archiver.kernel.org>; Tue, 11 Feb 2025 10:49:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A319910E650;
-	Tue, 11 Feb 2025 10:49:06 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B72F010E654;
+	Tue, 11 Feb 2025 10:49:11 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="EbqbPlzM";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="j4Cr5tv7";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3369110E64F;
- Tue, 11 Feb 2025 10:49:05 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C8D3010E657;
+ Tue, 11 Feb 2025 10:49:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1739270945; x=1770806945;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=LPERHKTcMy+nFSkY01tU3WSC499SapKk0WzEgzQwN7k=;
- b=EbqbPlzMnfU6LKAbr6lH4rtQVaNKtloomzATtD0Dkza/t0NEcWe9DYui
- RO5YV6Rl2odN/4CnjXYbzPOZ3W8rQrX8NiOdJbP1HYIF+iotOcSXHWV1q
- jXfi1iSlFjzVQR+lFOyvyd+1ATN0FIgNjy9TfSJiImci0fJm7H8Y0idqy
- KSG0sQFx/yyJPI6bri+uUs1gTE4RudtJJalqvQDKmzuebl+IS+eOJqTpo
- 6zIsK1fYKDb5cOfrBrWna0+4sbvriwK0dYrxcTvx1mwD5eYN1eH0StHby
- 9TR4g+6zscHb+Cn84ed5LyScIb/XqPeOa6xaP7//tta0+guFgsKwMjRpk w==;
-X-CSE-ConnectionGUID: Rj0k/LdXRmS8BsHXxuIs7A==
-X-CSE-MsgGUID: GEldeIN+SSyY5chV8VN2LA==
-X-IronPort-AV: E=McAfee;i="6700,10204,11341"; a="57293162"
-X-IronPort-AV: E=Sophos;i="6.13,277,1732608000"; d="scan'208";a="57293162"
+ t=1739270950; x=1770806950;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=fg8cEgFYisPkNSqaF/Hm/1HPlMrARB7/MXIuC7WiI3A=;
+ b=j4Cr5tv7teQ6zgVcBUS4a/vVtMiiyqL69w7cYngwRRLc1fYri4+OFT0y
+ HzF7sP/ijpFbHX9kR0o7mTtyK73lqU9Xc1ADaqyRn9EAAZZCp/g3rFBNT
+ AHI7+m13KA4M13ABYDQgpLkqcP47bperTB+0yYphtByCWtqjNIgKv47Ll
+ ScRyZ2osMu66mEI7dCEYbeLiXKp5lKDoa/FaoEgNwd+0cFWkBDrtA0A6r
+ PwW7BohWaJVfuXvySrzBxtS4IadS1TaO3Dg4tC7MYUSXf6u+JhTK7OQKz
+ JA7BCganiXyKsB/6pAx2g+kEA3kONwtd56bnFkYJA1AlToV2nQ2VskjO/ A==;
+X-CSE-ConnectionGUID: 1s0tc8iDQlim2m/3ct4xHQ==
+X-CSE-MsgGUID: bOpNt/jNQ166aA8ogyTpow==
+X-IronPort-AV: E=McAfee;i="6700,10204,11341"; a="57293169"
+X-IronPort-AV: E=Sophos;i="6.13,277,1732608000"; d="scan'208";a="57293169"
 Received: from fmviesa010.fm.intel.com ([10.60.135.150])
  by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 11 Feb 2025 02:49:05 -0800
-X-CSE-ConnectionGUID: ZGchKaidSsyTYzDM/1JY2Q==
-X-CSE-MsgGUID: +t4+LeQIQH+JD5I/EHfxiQ==
+ 11 Feb 2025 02:49:09 -0800
+X-CSE-ConnectionGUID: frpDke5ZRuSbYfVOKOxurA==
+X-CSE-MsgGUID: aZ5B9FP4SW6woRfmAokBFg==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.13,277,1732608000"; d="scan'208";a="112991318"
+X-IronPort-AV: E=Sophos;i="6.13,277,1732608000"; d="scan'208";a="112991346"
 Received: from kandpal-x299-ud4-pro.iind.intel.com ([10.190.239.10])
- by fmviesa010.fm.intel.com with ESMTP; 11 Feb 2025 02:49:03 -0800
+ by fmviesa010.fm.intel.com with ESMTP; 11 Feb 2025 02:49:08 -0800
 From: Suraj Kandpal <suraj.kandpal@intel.com>
 To: intel-xe@lists.freedesktop.org,
 	intel-gfx@lists.freedesktop.org
 Cc: ankit.k.nautiyal@intel.com, jani.nikula@intel.com,
  Suraj Kandpal <suraj.kandpal@intel.com>
-Subject: [PATCH 0/9] drm_i915_private to intel_display cleanup
-Date: Tue, 11 Feb 2025 16:18:48 +0530
-Message-Id: <20250211104857.3501566-1-suraj.kandpal@intel.com>
+Subject: [PATCH 2/9] drm/i915/display_debug_fs: Prefer using display->platform
+Date: Tue, 11 Feb 2025 16:18:50 +0530
+Message-Id: <20250211104857.3501566-3-suraj.kandpal@intel.com>
 X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20250211104857.3501566-1-suraj.kandpal@intel.com>
+References: <20250211104857.3501566-1-suraj.kandpal@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-BeenThere: intel-gfx@lists.freedesktop.org
@@ -66,52 +68,37 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-This series started as a cleanup to convert as many drm_i915_private
-to intel_display in intel_display_debug_fs but overflowed and ended up
-cleaning intel_dpll_mgr.c part of the code too and some other places
-calling these functions. This series also replaces IS_PLATFORM()
-with display->platform.xx to reduce drm_i915_private usage.
-Some stuff that kept me from removing i915_private altogether were
-PCH checks.
-
---v2
--Rebase
+Prefer using display->platform.xx instead of IS_PLATFORM() checks
 
 Signed-off-by: Suraj Kandpal <suraj.kandpal@intel.com>
+---
+ drivers/gpu/drm/i915/display/intel_display_debugfs.c | 10 +++++-----
+ 1 file changed, 5 insertions(+), 5 deletions(-)
 
-Suraj Kandpal (9):
-  drm/i915/display_debug_fs: Use intel_display wherever possible
-  drm/i915/display_debug_fs: Prefer using display->platform
-  drm/i915/dpll: Change param to intel_display in for_each_shared_dpll
-  drm/i915/dpll: Use intel_display for dpll dump and compare hw state
-  drm/i915/dpll: Use intel_display possible in shared_dpll_mgr hooks
-  drm/i915/dpll: Use intel_display for asserting pll
-  drm/i915/dpll: Use intel_display for update_refclk hook
-  drm/i915/dpll: Accept intel_display as argument for shared_dpll_init
-  drm/i915/dpll: Replace all other leftover drm_i915_private
-
- .../drm/i915/display/intel_crtc_state_dump.c  |    3 +-
- drivers/gpu/drm/i915/display/intel_ddi.c      |  130 +--
- drivers/gpu/drm/i915/display/intel_display.c  |   30 +-
- .../drm/i915/display/intel_display_debugfs.c  |  173 +--
- .../drm/i915/display/intel_display_driver.c   |    4 +-
- .../i915/display/intel_display_power_well.c   |   13 +-
- drivers/gpu/drm/i915/display/intel_dkl_phy.c  |   54 +-
- drivers/gpu/drm/i915/display/intel_dkl_phy.h  |    9 +-
- drivers/gpu/drm/i915/display/intel_dpll.c     |   11 +-
- drivers/gpu/drm/i915/display/intel_dpll.h     |    5 +-
- drivers/gpu/drm/i915/display/intel_dpll_mgr.c | 1011 ++++++++---------
- drivers/gpu/drm/i915/display/intel_dpll_mgr.h |   27 +-
- drivers/gpu/drm/i915/display/intel_fdi.c      |   16 +-
- drivers/gpu/drm/i915/display/intel_fdi.h      |    7 +-
- drivers/gpu/drm/i915/display/intel_lvds.c     |    7 +-
- .../drm/i915/display/intel_modeset_setup.c    |    4 +-
- .../gpu/drm/i915/display/intel_pch_display.c  |   45 +-
- .../gpu/drm/i915/display/intel_pch_refclk.c   |   36 +-
- drivers/gpu/drm/i915/display/vlv_dsi_pll.c    |   12 +-
- drivers/gpu/drm/i915/display/vlv_dsi_pll.h    |   10 +-
- 20 files changed, 799 insertions(+), 808 deletions(-)
-
+diff --git a/drivers/gpu/drm/i915/display/intel_display_debugfs.c b/drivers/gpu/drm/i915/display/intel_display_debugfs.c
+index d85924caa26e..991c1726f522 100644
+--- a/drivers/gpu/drm/i915/display/intel_display_debugfs.c
++++ b/drivers/gpu/drm/i915/display/intel_display_debugfs.c
+@@ -96,14 +96,14 @@ static int i915_sr_status(struct seq_file *m, void *unused)
+ 		/* no global SR status; inspect per-plane WM */;
+ 	else if (HAS_PCH_SPLIT(dev_priv))
+ 		sr_enabled = intel_de_read(display, WM1_LP_ILK) & WM_LP_ENABLE;
+-	else if (IS_I965GM(dev_priv) || IS_G4X(dev_priv) ||
+-		 IS_I945G(dev_priv) || IS_I945GM(dev_priv))
++	else if (display->platform.i965gm || display->platform.g4x ||
++		 display->platform.i945g || display->platform.i945gm)
+ 		sr_enabled = intel_de_read(display, FW_BLC_SELF) & FW_BLC_SELF_EN;
+-	else if (IS_I915GM(dev_priv))
++	else if (display->platform.i915gm)
+ 		sr_enabled = intel_de_read(display, INSTPM) & INSTPM_SELF_EN;
+-	else if (IS_PINEVIEW(dev_priv))
++	else if (display->platform.pineview)
+ 		sr_enabled = intel_de_read(display, DSPFW3(dev_priv)) & PINEVIEW_SELF_REFRESH_EN;
+-	else if (IS_VALLEYVIEW(dev_priv) || IS_CHERRYVIEW(dev_priv))
++	else if (display->platform.valleyview || display->platform.cherryview)
+ 		sr_enabled = intel_de_read(display, FW_BLC_SELF_VLV) & FW_CSPWRDWNEN;
+ 
+ 	intel_display_power_put(display, POWER_DOMAIN_INIT, wakeref);
 -- 
 2.34.1
 
