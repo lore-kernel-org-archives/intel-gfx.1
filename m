@@ -4,57 +4,27 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 90DB2C021A0
-	for <intel-gfx@archiver.kernel.org>; Wed, 12 Feb 2025 17:43:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 50A24C021A0
+	for <intel-gfx@archiver.kernel.org>; Wed, 12 Feb 2025 17:50:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3284C10E949;
-	Wed, 12 Feb 2025 17:43:50 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="BGT3OrDG";
-	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.16])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B57F910E93E;
- Wed, 12 Feb 2025 17:43:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1739382227; x=1770918227;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=VTVaCHXXcWNBK+rc5wG5//Zqd4Y/KK+Z5sqxoM/ndy4=;
- b=BGT3OrDGUBYioyMZbglKTOXNXDb03VNmK8Dh5GFy4PwMAPHFBrYp6PnF
- Ujm4qZVTSZ5KFu+Cwzg06KWSYRbfOEHtv8a4k6Z6nq/fgoR5LWgWWbYpV
- suoUp9QexQx4IsiYg993zQH9gittWRihTkULRRiJk8KbKVL86Fw0NSKQn
- SSqg4UboPKdmgSW5a7C3llBTdjUnRVIzGJtKxInpYB/Ry5nhDiuecbdFO
- ikvYBCqjU/krlg9JHdzGme3JFWORofGV2yETsLOP/+X5DKrr3zAdTPqLE
- lnAjfeY/84PJ1KuFYdr0kb3XBUiVlcBHW5Im48z/8V6cNK/wHnorVrxsE g==;
-X-CSE-ConnectionGUID: 89jPFHhLQ0CKJPVTYT0pCA==
-X-CSE-MsgGUID: sQbX5nryQAy959ams+DNyw==
-X-IronPort-AV: E=McAfee;i="6700,10204,11343"; a="40180085"
-X-IronPort-AV: E=Sophos;i="6.13,280,1732608000"; d="scan'208";a="40180085"
-Received: from orviesa001.jf.intel.com ([10.64.159.141])
- by orvoesa108.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 12 Feb 2025 09:43:47 -0800
-X-CSE-ConnectionGUID: 8gAJrZwGS+Obe/HTSAN5DQ==
-X-CSE-MsgGUID: zMFqG6qsROetHHQ60/O+Mw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.12,224,1728975600"; d="scan'208";a="150069139"
-Received: from dnelso2-mobl.amr.corp.intel.com (HELO
- gjsousa-mobl2.corp.amr.intel.com) ([10.125.108.97])
- by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 12 Feb 2025 09:43:46 -0800
-From: Gustavo Sousa <gustavo.sousa@intel.com>
-To: intel-gfx@lists.freedesktop.org,
-	intel-xe@lists.freedesktop.org
-Cc: Jani Nikula <jani.nikula@intel.com>
-Subject: [PATCH v2 1/2] drm/i915/display: Use explicit cast in
- POWER_DOMAIN_*() macros
-Date: Wed, 12 Feb 2025 14:43:16 -0300
-Message-ID: <20250212174333.371681-2-gustavo.sousa@intel.com>
-X-Mailer: git-send-email 2.48.1
-In-Reply-To: <20250212174333.371681-1-gustavo.sousa@intel.com>
-References: <20250212174333.371681-1-gustavo.sousa@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id D5CF510E945;
+	Wed, 12 Feb 2025 17:50:52 +0000 (UTC)
+Received: from b555e5b46a47 (emeril.freedesktop.org [131.252.210.167])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 84FE910E945;
+ Wed, 12 Feb 2025 17:50:51 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
+Subject: =?utf-8?q?=E2=9C=97_Fi=2ECI=2ESPARSE=3A_warning_for_Improve_type-safety_on_P?=
+ =?utf-8?q?OWER=5FDOMAIN=5F*=28=29_macros?=
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Gustavo Sousa" <gustavo.sousa@intel.com>
+Cc: intel-gfx@lists.freedesktop.org
+Date: Wed, 12 Feb 2025 17:50:51 -0000
+Message-ID: <173938265153.1368368.457437966512893916@b555e5b46a47>
+X-Patchwork-Hint: ignore
+References: <20250212132658.323640-1-gustavo.sousa@intel.com>
+In-Reply-To: <20250212132658.323640-1-gustavo.sousa@intel.com>
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,41 +37,20 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Let the compiler know that we are intetionally using a different enum
-type to perform arithmetic with enum intel_display_power_domain in the
-POWER_DOMAIN_*(). Do that by explicitly casting the macro argument to
-int.
+== Series Details ==
 
-Reported-by: kernel test robot <lkp@intel.com>
-Closes: https://lore.kernel.org/oe-kbuild-all/202502120809.XfmcqkBD-lkp@intel.com/
-Signed-off-by: Gustavo Sousa <gustavo.sousa@intel.com>
----
- drivers/gpu/drm/i915/display/intel_display_power.h | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+Series: Improve type-safety on POWER_DOMAIN_*() macros
+URL   : https://patchwork.freedesktop.org/series/144726/
+State : warning
 
-diff --git a/drivers/gpu/drm/i915/display/intel_display_power.h b/drivers/gpu/drm/i915/display/intel_display_power.h
-index a3a5c1be8bab..3caa3f517a32 100644
---- a/drivers/gpu/drm/i915/display/intel_display_power.h
-+++ b/drivers/gpu/drm/i915/display/intel_display_power.h
-@@ -117,12 +117,12 @@ enum intel_display_power_domain {
- 	POWER_DOMAIN_INVALID = POWER_DOMAIN_NUM,
- };
- 
--#define POWER_DOMAIN_PIPE(pipe) ((pipe) + POWER_DOMAIN_PIPE_A)
-+#define POWER_DOMAIN_PIPE(pipe) ((int)(pipe) + POWER_DOMAIN_PIPE_A)
- #define POWER_DOMAIN_PIPE_PANEL_FITTER(pipe) \
--		((pipe) + POWER_DOMAIN_PIPE_PANEL_FITTER_A)
-+		((int)(pipe) + POWER_DOMAIN_PIPE_PANEL_FITTER_A)
- #define POWER_DOMAIN_TRANSCODER(tran) \
- 	((tran) == TRANSCODER_EDP ? POWER_DOMAIN_TRANSCODER_EDP : \
--	 (tran) + POWER_DOMAIN_TRANSCODER_A)
-+	 (int)(tran) + POWER_DOMAIN_TRANSCODER_A)
- 
- struct intel_power_domain_mask {
- 	DECLARE_BITMAP(bits, POWER_DOMAIN_NUM);
--- 
-2.48.1
+== Summary ==
+
+Error: dim sparse failed
+Sparse version: v0.6.2
+Fast mode used, each commit won't be checked separately.
+
 
