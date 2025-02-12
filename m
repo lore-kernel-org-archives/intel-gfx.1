@@ -4,53 +4,59 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 52255C02198
-	for <intel-gfx@archiver.kernel.org>; Wed, 12 Feb 2025 16:17:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C62D1C021A5
+	for <intel-gfx@archiver.kernel.org>; Wed, 12 Feb 2025 16:33:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DAA3B89496;
-	Wed, 12 Feb 2025 16:17:53 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 56AEB10E902;
+	Wed, 12 Feb 2025 16:33:14 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="mItAcNv8";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="VZwp6Ziw";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 187EB89496;
- Wed, 12 Feb 2025 16:17:53 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.21])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1D2A610E911;
+ Wed, 12 Feb 2025 16:33:12 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1739377073; x=1770913073;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=XpJV35U97FhYK+AL8Yda+oOzRCN0Xjo9cKENv+kQkaA=;
- b=mItAcNv8mb3XVnqF/ax5sTlzG38N6j6qc1dfvx3ZY9YpcnhdPGm8NUwA
- P1nEkb/JIRdNHE1DxG599AA0wq9D50YIBAQOEJkt79yn8unyYPzwOl/sB
- pFV4OEGYPH/+2ibU34NC7sNCeNus0alKvwlxOmghDouofHt8Yw2czYI0M
- nYp07kBbaeUEnr0McgX1gbYAluTe++ur+N5JXwmZPuGEN1SB2flvXi8YK
- PJ2vdJoVuLOiugKOj4VSUVmrJ2Wejc7Up3NTkMQCNe+gH8A+njfmX2muX
- TYLfPMH/tB/KGLFKaGs72EtEHazoK6oh1OjDtEuuDFUxh7qptuuxWCiPK Q==;
-X-CSE-ConnectionGUID: qWsGiV6FTq23qmOfR2nzzg==
-X-CSE-MsgGUID: NuSsCd0OTFyis4O+onsxlg==
-X-IronPort-AV: E=McAfee;i="6700,10204,11343"; a="57447435"
-X-IronPort-AV: E=Sophos;i="6.13,280,1732608000"; d="scan'208";a="57447435"
-Received: from orviesa002.jf.intel.com ([10.64.159.142])
- by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 12 Feb 2025 08:17:53 -0800
-X-CSE-ConnectionGUID: fL9VmUs1TwKdaDdQMd+ncw==
-X-CSE-MsgGUID: LzubKaaIS+aLtDS0Qa40/A==
+ t=1739377992; x=1770913992;
+ h=from:subject:date:message-id:mime-version:
+ content-transfer-encoding:to:cc;
+ bh=y46kQ50ST/OUYZVBcUp+u+Zt0KU+XVnp8YPNlOuj3DY=;
+ b=VZwp6ZiwVnNfuUxQpmnTH9VYf+fECU3F8cAEkWue/h1YJOgeu0Gfwu94
+ msZdtKcdERWYW4tcrT0B4S94Zyzy6bWNx9BwpRoTj8qBpXlik7E9FcAJF
+ GwbaZ1ewkyJwdj/b1SaZiKAccZ5sOH95zpcB0ID0gPgJ2ujK0rTKJm3UF
+ Rl/ATHYKmrl79KHLbxDQDp34VCXMLdfa3lyo8Njw59UDPn0G8PB1Azbvd
+ fIf7v2QAnZdMGn04YRp+QKAqHHg082qNwHBn2WhgLjLkqVHr7v2gkf6Sq
+ m30Kv+dc2SkYSIKq0XYH03CHso4XNxNiiU+P6yAioZrGOo7eeh1wG6BO1 A==;
+X-CSE-ConnectionGUID: BQewvbKeRa2Rv1UKkktMyg==
+X-CSE-MsgGUID: oTm30idwQ5OKcmmPWrm03A==
+X-IronPort-AV: E=McAfee;i="6700,10204,11343"; a="39969121"
+X-IronPort-AV: E=Sophos;i="6.13,280,1732608000"; d="scan'208";a="39969121"
+Received: from fmviesa003.fm.intel.com ([10.60.135.143])
+ by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 12 Feb 2025 08:33:12 -0800
+X-CSE-ConnectionGUID: 7cQA7FguQhGkNINcMZoZZw==
+X-CSE-MsgGUID: nTLJ3+NoR1WR7VP3Fzhxww==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.13,280,1732608000"; d="scan'208";a="143710438"
-Received: from ideak-desk.fi.intel.com ([10.237.72.78])
- by orviesa002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 12 Feb 2025 08:17:51 -0800
-From: Imre Deak <imre.deak@intel.com>
-To: intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org
-Cc: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
-Subject: [PATCH] drm: Fix DSC BPP increment decoding
-Date: Wed, 12 Feb 2025 18:18:51 +0200
-Message-ID: <20250212161851.4007005-1-imre.deak@intel.com>
-X-Mailer: git-send-email 2.44.2
+X-IronPort-AV: E=Sophos;i="6.12,224,1728975600"; d="scan'208";a="116989290"
+Received: from srr4-3-linux-106-armuthy.iind.intel.com ([10.190.238.56])
+ by fmviesa003.fm.intel.com with ESMTP; 12 Feb 2025 08:33:09 -0800
+From: Arun R Murthy <arun.r.murthy@intel.com>
+Subject: [PATCH v5 0/3] Expose modifiers/formats supported by async flips
+Date: Wed, 12 Feb 2025 21:48:21 +0530
+Message-Id: <20250212-asyn-v5-0-dc182281dca3@intel.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAM3JrGcC/02OzQqDMBAGX0Vy7spGE3966nsUDzGNTaDGslGpi
+ O/eqBR6nGW/YVYWDDkT2DVZGZnZBTf4CPKSMG2Vfxpwj8gsw0wixwxUWDy0XVmUOcaL1iy+vsl
+ 07nNo7k3kjoYeRktG/caCc15hKXMuU1EUiDVwUDT5lNJ+otEuN+dH80r10O9G68I40HJ0zWL3n
+ gkZyjNhFoBQK9kir0wu6/Zv32zb9gWsv/qA2gAAAA==
+X-Change-ID: 20250102-asyn-bf76730501cc
+To: dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org, 
+ intel-xe@lists.freedesktop.org
+Cc: chaitanya.kumar.borah@intel.com, ville.syrjala@intel.com, 
+ Arun R Murthy <arun.r.murthy@intel.com>
+X-Mailer: b4 0.15-dev
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,45 +72,89 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Starting with DPCD version 2.0 bits 6:3 of the DP_DSC_BITS_PER_PIXEL_INC
-DPCD register contains the NativeYCbCr422_MAX_bpp_DELTA field, which can
-be non-zero as opposed to earlier DPCD versions, hence decoding the
-bit_per_pixel increment value at bits 2:0 in the same register requires
-applying a mask, do so.
+All of the formats/modifiers supported by the plane during synchronous
+flips are nor supported by asynchronous flips. The formats/modifiers
+exposed to user by IN_FORMATS exposes all formats/modifiers supported by
+plane and this list varies for async flips. If the async flip supported
+formats/modifiers are exposed to the user, user based on this list can
+take decision to proceed or not and avoid flip failures during async
+flips.
+Discussion around this can be located @
+https://gitlab.freedesktop.org/mesa/mesa/-/merge_requests/29618#note_2487123
+Userspace implementation for IN_FORMARTS_ASYNC under review @
+https://gitlab.gnome.org/GNOME/mutter/-/merge_requests/4063
 
-Cc: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
-Fixes: 0c2287c96521 ("drm/display/dp: Add helper function to get DSC bpp precision")
-Signed-off-by: Imre Deak <imre.deak@intel.com>
+TODO: Upon merge of the patch related to async flip
+https://patchwork.freedesktop.org/patch/626849/?series=139807&rev=6
+the patch 5 in this series will have to make use of the new function
+pointer can_async_flip().
+
+v3: Add new plane->funcs format_mod_supported_async (Ville)
+v4: reuse the existing can_async_flip in i915 (Ville)
+    pass format_mod_supported/async as parameter to create_in_formats
+    function & leave the modifiers/formats in drm_format_modifer_blob
+    untouched (Ville)
+
+Arun R Murthy (3):
+  drm/plane: Add new plane property IN_FORMATS_ASYNC
+  drm/plane: Expose function to create format/modifier blob
+  drm/i915/display: Populate list of async supported formats/modifiers
+
+ drivers/gpu/drm/drm_mode_config.c             |  7 +++
+ drivers/gpu/drm/drm_plane.c                   | 50 ++++++++++++------
+ .../drm/i915/display/skl_universal_plane.c    | 51 +++++++++++++++++++
+ include/drm/drm_mode_config.h                 |  6 +++
+ include/drm/drm_plane.h                       |  4 ++
+ 5 files changed, 103 insertions(+), 15 deletions(-)
+
+--
+2.25.1
+
 ---
- drivers/gpu/drm/display/drm_dp_helper.c | 2 +-
- include/drm/display/drm_dp.h            | 1 +
- 2 files changed, 2 insertions(+), 1 deletion(-)
+Arun R Murthy (5):
+      drm/plane: Add new plane property IN_FORMATS_ASYNC
+      drm/plane: Expose function to create format/modifier blob
+      drm/plane: Function to check async supported modifier/format
+      drm/i915/display: Populate list of async supported formats/modifiers
+      drm/i915/display: Add function for format_mod_supported_async
 
-diff --git a/drivers/gpu/drm/display/drm_dp_helper.c b/drivers/gpu/drm/display/drm_dp_helper.c
-index c488d160a3c1f..f5c596234729d 100644
---- a/drivers/gpu/drm/display/drm_dp_helper.c
-+++ b/drivers/gpu/drm/display/drm_dp_helper.c
-@@ -2602,7 +2602,7 @@ u8 drm_dp_dsc_sink_bpp_incr(const u8 dsc_dpcd[DP_DSC_RECEIVER_CAP_SIZE])
- {
- 	u8 bpp_increment_dpcd = dsc_dpcd[DP_DSC_BITS_PER_PIXEL_INC - DP_DSC_SUPPORT];
- 
--	switch (bpp_increment_dpcd) {
-+	switch (bpp_increment_dpcd & DP_DSC_BITS_PER_PIXEL_MASK) {
- 	case DP_DSC_BITS_PER_PIXEL_1_16:
- 		return 16;
- 	case DP_DSC_BITS_PER_PIXEL_1_8:
-diff --git a/include/drm/display/drm_dp.h b/include/drm/display/drm_dp.h
-index 784a32bfbad8f..c413ef68f9a30 100644
---- a/include/drm/display/drm_dp.h
-+++ b/include/drm/display/drm_dp.h
-@@ -359,6 +359,7 @@
- # define DP_DSC_BITS_PER_PIXEL_1_4          0x2
- # define DP_DSC_BITS_PER_PIXEL_1_2          0x3
- # define DP_DSC_BITS_PER_PIXEL_1_1          0x4
-+# define DP_DSC_BITS_PER_PIXEL_MASK         0x7
- 
- #define DP_PSR_SUPPORT                      0x070   /* XXX 1.2? */
- # define DP_PSR_IS_SUPPORTED                1
+ drivers/gpu/drm/drm_mode_config.c                  |   7 ++
+ drivers/gpu/drm/drm_plane.c                        |  72 +++++++++----
+ drivers/gpu/drm/i915/display/skl_universal_plane.c | 113 ++++++++++++++++++---
+ include/drm/drm_mode_config.h                      |   6 ++
+ include/drm/drm_plane.h                            |  24 +++++
+ 5 files changed, 188 insertions(+), 34 deletions(-)
+---
+base-commit: 08bd590935a5258ffd79355c59adffd72fb2c642
+change-id: 20250102-asyn-bf76730501cc
+
+Best regards,
+--
+Arun R Murthy <arun.r.murthy@intel.com>
+
+---
+Changes in v5:
+- EDITME: describe what is new in this series revision.
+- EDITME: use bulletpoints and terse descriptions.
+- Link to v4: https://lore.kernel.org/r/20250205-asyn-v4-0-9a5b018e359b@intel.com
+
+---
+Arun R Murthy (3):
+      drm/plane: Add new plane property IN_FORMATS_ASYNC
+      drm/plane: modify create_in_formats to accommodate async
+      drm/i915/display: Add i915 hook for format_mod_supported_async
+
+ drivers/gpu/drm/drm_mode_config.c                  |  7 +++
+ drivers/gpu/drm/drm_plane.c                        | 51 +++++++++++++++-----
+ drivers/gpu/drm/i915/display/skl_universal_plane.c | 56 ++++++++++++++++------
+ include/drm/drm_mode_config.h                      |  6 +++
+ include/drm/drm_plane.h                            | 17 +++++++
+ 5 files changed, 110 insertions(+), 27 deletions(-)
+---
+base-commit: a19d8731db07e41101ed00b9d86ac8868df2a763
+change-id: 20250102-asyn-bf76730501cc
+
+Best regards,
 -- 
-2.44.2
+Arun R Murthy <arun.r.murthy@intel.com>
 
