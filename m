@@ -4,24 +4,24 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3E0B1C021A0
-	for <intel-gfx@archiver.kernel.org>; Wed, 12 Feb 2025 14:48:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2AA47C021A4
+	for <intel-gfx@archiver.kernel.org>; Wed, 12 Feb 2025 14:48:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AD2A110E8CC;
-	Wed, 12 Feb 2025 14:48:52 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 952D710E8CB;
+	Wed, 12 Feb 2025 14:48:54 +0000 (UTC)
 Received: from b555e5b46a47 (emeril.freedesktop.org [131.252.210.167])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 47D3610E8CC;
- Wed, 12 Feb 2025 14:48:51 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AD59110E8CB;
+ Wed, 12 Feb 2025 14:48:53 +0000 (UTC)
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
-Subject: =?utf-8?q?=E2=9C=97_Fi=2ECI=2ECHECKPATCH=3A_warning_for_drm/i915/fbc=3A_FBC_?=
- =?utf-8?q?Dirty_rect_feature_support?=
+Subject: =?utf-8?q?=E2=9C=97_Fi=2ECI=2ESPARSE=3A_warning_for_drm/i915/fbc=3A_FBC_Dirt?=
+ =?utf-8?q?y_rect_feature_support?=
 From: Patchwork <patchwork@emeril.freedesktop.org>
 To: "Govindapillai, Vinod" <vinod.govindapillai@intel.com>
 Cc: intel-gfx@lists.freedesktop.org
-Date: Wed, 12 Feb 2025 14:48:51 -0000
-Message-ID: <173937173128.1324331.12008267910586772028@b555e5b46a47>
+Date: Wed, 12 Feb 2025 14:48:53 -0000
+Message-ID: <173937173370.1324331.4740280748561320227@b555e5b46a47>
 X-Patchwork-Hint: ignore
 References: <20250212131420.60026-1-vinod.govindapillai@intel.com>
 In-Reply-To: <20250212131420.60026-1-vinod.govindapillai@intel.com>
@@ -49,18 +49,8 @@ State : warning
 
 == Summary ==
 
-Error: dim checkpatch failed
-3b7a996cf496 drm/damage-helper: add const qualifier in drm_atomic_helper_damage_merged()
-120e635f7d8f drm/i915/xe3: update and store the plane damage clips
-6b19a0c96f27 drm/i915/xe3: add register definitions for fbc dirty rect support
--:24: WARNING:LONG_LINE: line length of 101 exceeds 100 columns
-#24: FILE: drivers/gpu/drm/i915/display/intel_fbc_regs.h:107:
-+#define   FBC_DIRTY_RECT_START_LINE(val)	REG_FIELD_PREP(FBC_DIRTY_RECT_START_LINE_MASK, (val))
-
-total: 0 errors, 1 warnings, 0 checks, 15 lines checked
-58bf723c08c6 drm/i915/xe3: introduce HAS_FBC_DIRTY_RECT() for FBC dirty rect support
-d8137d341234 drm/i915/xe3: avoid calling fbc activate if fbc is active
-b056a7ceaa2b drm/i915/xe3: dirty rect support for FBC
-fb8b2fcdfc08 drm/i915/xe3: disable FBC if PSR2 selective fetch is enabled
+Error: dim sparse failed
+Sparse version: v0.6.2
+Fast mode used, each commit won't be checked separately.
 
 
