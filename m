@@ -4,78 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 97B69C021A7
-	for <intel-gfx@archiver.kernel.org>; Wed, 12 Feb 2025 14:10:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D6FFEC021A4
+	for <intel-gfx@archiver.kernel.org>; Wed, 12 Feb 2025 14:10:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0670C10E8BA;
-	Wed, 12 Feb 2025 14:10:15 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="czHmWN0t";
-	dkim-atps=neutral
-Received: from mail-ed1-f54.google.com (mail-ed1-f54.google.com
- [209.85.208.54])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2797610E194
- for <intel-gfx@lists.freedesktop.org>; Tue, 11 Feb 2025 06:34:20 +0000 (UTC)
-Received: by mail-ed1-f54.google.com with SMTP id
- 4fb4d7f45d1cf-5de5a8a96abso4880000a12.3
- for <intel-gfx@lists.freedesktop.org>; Mon, 10 Feb 2025 22:34:20 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1739255658; x=1739860458; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=oQlwrL1wOOlUYQ3HVkX2Tc4R5TyGKexreWomFPK3P/Y=;
- b=czHmWN0tLU43N/DQXrfSFoI+krVXCy2u9RisbLGXoigJTMXFkHu5onqmGHIw/hrR5C
- Q/kYdWvvnZuoyB5/E18iRnYAT07qDyhBOsV08MNAPty9WN2svzCer3GqF2h1xwURqd0f
- 1d+51oISUagvRNoMZIc/0D0WmfbOt7gdXEYzNGUjegBxcsFzygMi13q0RbOejiuBkksd
- m0RzZSlgC0Sc8psUBg0puvz+SqC8Za9M5FNR76GRQroB0QMcOMjRYmnIwW9MNPcRyJFA
- zcFc4Gjc4dn5yivvLMrVZn4KMS3Z6x/G1g/trSuZZgCmyeUXMCYlu6rkKHfmKw43zk8X
- CGEQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1739255658; x=1739860458;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=oQlwrL1wOOlUYQ3HVkX2Tc4R5TyGKexreWomFPK3P/Y=;
- b=a0wYNnvH1Pwr+tknWhSAa7mq1fP6UoY8PwlISOqcCvkBOt5t0+IeuRpVV6QOGhve9n
- kdzcWJzTaDDzRkU3uS7Yue5Vr9mXjstEAHiqwEy2XpqK6DA/ZZY+RUTM+559fnrnD5zd
- WLMEGTDxI0nnMkhv+v2+fnnVJFhHETZOAehK2vNQ6QsVlpwpj62QuNWQR9tdgDcMYyUl
- ImBKIV8o4I+cD4+Sa3hMqcX/dZPMAld1aqmA2eMTAe0iYkTvlCgM6/SBJRJYBBjLFMM2
- jV2XyijxVG8eWYU3dVSs8KqKeAUWdGQMHMG0n3Sd2VxMWLi0tBfyobH6MB/GATDBqjyB
- 54Iw==
-X-Gm-Message-State: AOJu0YyuiJ1IF6WM2ZDb3PvJFh7FrwXDVMYtytiiDL9yHohrVB0XRASJ
- pUhrlZOrWfLAksk1TUTSm2o97pJDUpr8L7vv+nkue6ut86U6upeR
-X-Gm-Gg: ASbGncv0ZMZWcUZuOe/BgRRjeSOx22f3djJlTo4B62ZNyScPeQ4ZVNw9hXEpR4PaKIK
- urG25TYAO+Aj6IdMOuAYSohJm+itK+jQxZKMKEKV4RT1uERDUEeLM+MIFoEp7HlSbb3KnpNotXt
- npSXHZnbz1fnrpmnoe8S+6/9DXl3K7C2ry14B7PFqb56Ahq5TdLNIGy412cxAMgbS4/SA5lZLek
- 0gWW8TgAwrVyF8htZXtb3o4G0WM66f6sVwwTfKe5wNn+swGQfuTCnB+3pYxgW+3XdfwMnb8Js+e
- n3O4AcepVvMn6jKs14Ps9Umlf5WDa0z0U4AQlJvqZ4UO4i+30vXYH+wsOPiRG+UdCL2/SV+3854
- 6vjfhuLgae49ugAw=
-X-Google-Smtp-Source: AGHT+IFSPB5VMDpn4O68C4Tn6MoteErC5LVqv/fR36wtc5VsAKcH0UgEvTej9OJbBiYLW9OPxxMEdw==
-X-Received: by 2002:a05:6402:a00e:b0:5de:39fd:b309 with SMTP id
- 4fb4d7f45d1cf-5de44fe9488mr41766347a12.4.1739255658307; 
- Mon, 10 Feb 2025 22:34:18 -0800 (PST)
-Received: from legolas.fritz.box
- (p200300d0af0cd200603313d7beea72d6.dip0.t-ipconnect.de.
- [2003:d0:af0c:d200:6033:13d7:beea:72d6])
- by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-ab7c62c464dsm300440466b.28.2025.02.10.22.34.16
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 10 Feb 2025 22:34:17 -0800 (PST)
-From: Markus Theil <theil.markus@gmail.com>
-To: linux-kernel@vger.kernel.org,
-	andi.shyti@linux.intel.com
-Cc: intel-gfx@lists.freedesktop.org, netdev@vger.kernel.org, Jason@zx2c4.com,
- tytso@mit.edu, Markus Theil <theil.markus@gmail.com>
-Subject: [PATCH v2 3/3] prandom: remove next_pseudo_random32
-Date: Tue, 11 Feb 2025 07:33:32 +0100
-Message-ID: <20250211063332.16542-4-theil.markus@gmail.com>
-X-Mailer: git-send-email 2.47.2
-In-Reply-To: <20250211063332.16542-1-theil.markus@gmail.com>
-References: <CAHmME9oqvWp_Nd1Gwgyw52qy8wxztMyCpNsjByH=VnRaXqczww@mail.gmail.com>
- <20250211063332.16542-1-theil.markus@gmail.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3D93A10E8B6;
+	Wed, 12 Feb 2025 14:10:14 +0000 (UTC)
+X-Greylist: delayed 345 seconds by postgrey-1.36 at gabe;
+ Wed, 12 Feb 2025 08:03:43 UTC
+Received: from cstnet.cn (smtp84.cstnet.cn [159.226.251.84])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 132E510E7ED
+ for <intel-gfx@lists.freedesktop.org>; Wed, 12 Feb 2025 08:03:42 +0000 (UTC)
+Received: from localhost.localdomain (unknown [124.16.141.245])
+ by APP-05 (Coremail) with SMTP id zQCowABXX6N+VKxnCLBmDA--.44042S2;
+ Wed, 12 Feb 2025 15:57:52 +0800 (CST)
+From: Wentao Liang <vulab@iscas.ac.cn>
+To: jani.nikula@linux.intel.com, joonas.lahtinen@linux.intel.com,
+ rodrigo.vivi@intel.com, tursulin@ursulin.net, airlied@gmail.com,
+ simona@ffwll.ch
+Cc: intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, Wentao Liang <vulab@iscas.ac.cn>,
+ stable@vger.kernel.org
+Subject: [PATCH] drm/i915: Check drm_syncobj_fence_get return value in
+ eb_fences_add
+Date: Wed, 12 Feb 2025 15:57:35 +0800
+Message-ID: <20250212075736.922-1-vulab@iscas.ac.cn>
+X-Mailer: git-send-email 2.42.0.windows.2
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-CM-TRANSID: zQCowABXX6N+VKxnCLBmDA--.44042S2
+X-Coremail-Antispam: 1UD129KBjvJXoW7KryrArWrCrWkKw1kAry7ZFb_yoW8Gr1Upa
+ 1fKFyjyrs0yw40q3Z7Ar1YyFy3C3WxK3WfKw4qywn5uw4YyF1qqryFvrWjqFyUArs3K347
+ Jr1qkFWSvryUArUanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+ 9KBjDU0xBIdaVrnRJUUU9j14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+ rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
+ 1l84ACjcxK6xIIjxv20xvE14v26r1I6r4UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4j
+ 6F4UM28EF7xvwVC2z280aVAFwI0_GcCE3s1l84ACjcxK6I8E87Iv6xkF7I0E14v26rxl6s
+ 0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xII
+ jxv20xvE14v26r1j6r18McIj6I8E87Iv67AKxVW8JVWxJwAm72CE4IkC6x0Yz7v_Jr0_Gr
+ 1lF7xvr2IYc2Ij64vIr41lF7I21c0EjII2zVCS5cI20VAGYxC7M4IIrI8v6xkF7I0E8cxa
+ n2IY04v7MxkF7I0En4kS14v26r1q6r43MxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4
+ AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE
+ 17CEb7AF67AKxVWUtVW8ZwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMI
+ IF0xvE2Ix0cI8IcVCY1x0267AKxVW8JVWxJwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4l
+ IxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxVW8JVW8JrUvcSsGvf
+ C2KfnxnUUI43ZEXa7VUb8hL5UUUUU==
+X-Originating-IP: [124.16.141.245]
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiCQ8LA2esUh4H3AAAsS
 X-Mailman-Approved-At: Wed, 12 Feb 2025 14:10:13 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -92,34 +66,39 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-next_pseudo_random32 implements a LCG with known bad statistical
-properties and was only used in two pieces of testing code.
+The function drm_syncobj_fence_get() may return NULL if the syncobj
+has no fence. In eb_fences_add(), this return value is not checked,
+leading to a potential NULL pointer dereference in
+i915_request_await_dma_fence().
 
-After the users are converted to prandom as part of this series,
-remove the LCG here.
+This patch adds a check for the return value of drm_syncobj_fence_get
+and returns an error if it is NULL, preventing the NULL pointer
+dereference.
 
-This removes another option of using an insecure PRNG.
-
-Signed-off-by: Markus Theil <theil.markus@gmail.com>
+Fixes: 544460c33821 ("drm/i915: Multi-BB execbuf")
+Cc: stable@vger.kernel.org # 5.16+
+Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
 ---
- include/linux/prandom.h | 6 ------
- 1 file changed, 6 deletions(-)
+ drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c | 6 ++++++
+ 1 file changed, 6 insertions(+)
 
-diff --git a/include/linux/prandom.h b/include/linux/prandom.h
-index f2ed5b72b3d6..ff7dcc3fa105 100644
---- a/include/linux/prandom.h
-+++ b/include/linux/prandom.h
-@@ -47,10 +47,4 @@ static inline void prandom_seed_state(struct rnd_state *state, u64 seed)
- 	state->s4 = __seed(i, 128U);
- }
+diff --git a/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c b/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c
+index f151640c1d13..7da65535feb9 100644
+--- a/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c
++++ b/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c
+@@ -3252,6 +3252,12 @@ eb_fences_add(struct i915_execbuffer *eb, struct i915_request *rq,
+ 		struct dma_fence *fence;
  
--/* Pseudo random number generator from numerical recipes. */
--static inline u32 next_pseudo_random32(u32 seed)
--{
--	return seed * 1664525 + 1013904223;
--}
--
- #endif
+ 		fence = drm_syncobj_fence_get(eb->gem_context->syncobj);
++		if (!fence) {
++			drm_dbg(&eb->i915->drm,
++				"Syncobj handle has no fence\n");
++			return ERR_PTR(-EINVAL);
++		}
++
+ 		err = i915_request_await_dma_fence(rq, fence);
+ 		dma_fence_put(fence);
+ 		if (err)
 -- 
-2.47.2
+2.42.0.windows.2
 
