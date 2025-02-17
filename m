@@ -4,51 +4,54 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B735BC021AA
-	for <intel-gfx@archiver.kernel.org>; Mon, 17 Feb 2025 22:37:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 027ADC021AA
+	for <intel-gfx@archiver.kernel.org>; Mon, 17 Feb 2025 22:37:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 54C8110E452;
-	Mon, 17 Feb 2025 22:37:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A257110E5F8;
+	Mon, 17 Feb 2025 22:37:34 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="cVRgcEAx";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="ewEpHls4";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.15])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 137A110E1F1;
- Mon, 17 Feb 2025 22:37:29 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9B73710E5F4;
+ Mon, 17 Feb 2025 22:37:31 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1739831849; x=1771367849;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=Kt0gBV4gxRT+GeDk3QHlFL4G1jIP1nmmHxPYZ9dXKOs=;
- b=cVRgcEAxaam0WbuiryTYFA/QJjmZ9yWDz0qnH1SsAmcROf98AayBXArB
- Ctsc1BtGU/B1wxr23wqAQAdFCRKbhLf+2AuYWoOVKF5iVZoqgStPnmJsH
- tjmPyyCKoqs200Yth6ZOSFsN5KPtaebK9WyuzHvQWw1SHcKWZej8zOVeb
- U4jTawLqg9Gwi48U6kQ0RYbGgLYgiuCPx7bqqN5akMmExb5C6wDAaMjN3
- /0Pj6HUHxhk+m2SgxiXgzuDkQ9CDNzmsrE599h1TFwRW62ej0/Fj9ZY8F
- JDDUMdK0Y2+y2qb5IY4V8H4Nnie7M0W3vFnQ/0mVHZkw2HpcAOVeYYgex w==;
-X-CSE-ConnectionGUID: KKgZchj6ReWP8raopAaegQ==
-X-CSE-MsgGUID: u2Ma/G32TTyABRWCgwrd9g==
-X-IronPort-AV: E=McAfee;i="6700,10204,11348"; a="44171137"
-X-IronPort-AV: E=Sophos;i="6.13,294,1732608000"; d="scan'208";a="44171137"
+ t=1739831852; x=1771367852;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=+qqf4MokL2mM+hbu2u2ztwqSa9ICZE7XMBOg4nJ+6Jw=;
+ b=ewEpHls4TLUHNhqhjjxbJeZhXB4N9a4LN517xrkXtj6thA6Ehm7U/Onf
+ Dn1pFMvCJ9XeYkZBv9RDwLZ9JNSLZw+Vk8dvvIIFcgVINma5PuHzq6e+i
+ 4mhjG3A/p84kkYf0ONdLiNjaSoB3jqI4ZMWjvT9m1UvzYe8DZTdWp/Msx
+ 7EuF/jgsHJ7ZXaqHT9v8nAeAkv6oMAl/RQhYvdzysd/lmR79FmJYeqHs9
+ fA+QlKRTwyDSPfbj2h4XBOtZvOp4HguCr2M+I6BFplG23/fnKgy8SI5dk
+ 5NEZZbxqPcALtQIubz/kurVXAlOGZSj4SjaNy8cwI3kLWwjnOaT6ntgL+ Q==;
+X-CSE-ConnectionGUID: KfxQ6lTRQ7WsOKEupY6uWA==
+X-CSE-MsgGUID: VU0N5YOSQpSLFoefnQE6Ig==
+X-IronPort-AV: E=McAfee;i="6700,10204,11348"; a="44171149"
+X-IronPort-AV: E=Sophos;i="6.13,294,1732608000"; d="scan'208";a="44171149"
 Received: from fmviesa009.fm.intel.com ([10.60.135.149])
  by orvoesa107.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 17 Feb 2025 14:37:29 -0800
-X-CSE-ConnectionGUID: nsxTfy2XTLqfXvDQ3+O5rQ==
-X-CSE-MsgGUID: J5nsuD3qT7KFeEb5IQ60gw==
+ 17 Feb 2025 14:37:31 -0800
+X-CSE-ConnectionGUID: 9JEQedLGRbKjfupuHwMZ6g==
+X-CSE-MsgGUID: 73tOt+z4S0ydvLh6uDe3Ig==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.13,294,1732608000"; d="scan'208";a="114872567"
+X-IronPort-AV: E=Sophos;i="6.13,294,1732608000"; d="scan'208";a="114872588"
 Received: from ideak-desk.fi.intel.com ([10.237.72.78])
  by fmviesa009-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 17 Feb 2025 14:37:27 -0800
+ 17 Feb 2025 14:37:30 -0800
 From: Imre Deak <imre.deak@intel.com>
 To: intel-gfx@lists.freedesktop.org,
 	intel-xe@lists.freedesktop.org
 Cc: Jani Nikula <jani.nikula@intel.com>
-Subject: [PATCH 0/2] drm/i915/dp: Fix 128b/132b modeset issues
-Date: Tue, 18 Feb 2025 00:38:26 +0200
-Message-ID: <20250217223828.1166093-1-imre.deak@intel.com>
+Subject: [PATCH 2/2] drm/i915/dp: Fix disabling the transcoder function in
+ 128b/132b mode
+Date: Tue, 18 Feb 2025 00:38:28 +0200
+Message-ID: <20250217223828.1166093-3-imre.deak@intel.com>
 X-Mailer: git-send-email 2.44.2
+In-Reply-To: <20250217223828.1166093-1-imre.deak@intel.com>
+References: <20250217223828.1166093-1-imre.deak@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-BeenThere: intel-gfx@lists.freedesktop.org
@@ -66,20 +69,52 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-This patchset fixes an issue during the error handling of a 128b/132b
-mode link training failure and fixes the transcoder function disabling
-sequence in 128b/132b SST mode.
+During disabling the transcoder in DP 128b/132b mode (both in case of an
+MST master transcoder and in case of SST) the transcoder function must
+be first disabled without changing any other field in the register (in
+particular leaving the DDI port and mode select fields unchanged) and
+clearing the DDI port and mode select fields separately, later during
+the disabling sequences. Fix the sequence accordingly.
 
+Bspec: 54128, 65448, 68849
 Cc: Jani Nikula <jani.nikula@intel.com>
+Fixes: 79a6734cd56e ("drm/i915/ddi: disable trancoder port select for 128b/132b SST")
+Signed-off-by: Imre Deak <imre.deak@intel.com>
+---
+ drivers/gpu/drm/i915/display/intel_ddi.c | 6 ++----
+ 1 file changed, 2 insertions(+), 4 deletions(-)
 
-Imre Deak (2):
-  drm/i915/dp: Fix error handling during 128b/132b link training
-  drm/i915/dp: Fix disabling the transcoder function in 128b/132b mode
-
- drivers/gpu/drm/i915/display/intel_ddi.c          |  6 ++----
- .../gpu/drm/i915/display/intel_dp_link_training.c | 15 ++++++++++++++-
- 2 files changed, 16 insertions(+), 5 deletions(-)
-
+diff --git a/drivers/gpu/drm/i915/display/intel_ddi.c b/drivers/gpu/drm/i915/display/intel_ddi.c
+index 5082f38b0a02e..7937f4de66cb4 100644
+--- a/drivers/gpu/drm/i915/display/intel_ddi.c
++++ b/drivers/gpu/drm/i915/display/intel_ddi.c
+@@ -681,7 +681,6 @@ void intel_ddi_disable_transcoder_func(const struct intel_crtc_state *crtc_state
+ 	struct intel_crtc *crtc = to_intel_crtc(crtc_state->uapi.crtc);
+ 	struct drm_i915_private *dev_priv = to_i915(crtc->base.dev);
+ 	enum transcoder cpu_transcoder = crtc_state->cpu_transcoder;
+-	bool is_mst = intel_crtc_has_type(crtc_state, INTEL_OUTPUT_DP_MST);
+ 	u32 ctl;
+ 
+ 	if (DISPLAY_VER(dev_priv) >= 11)
+@@ -701,8 +700,7 @@ void intel_ddi_disable_transcoder_func(const struct intel_crtc_state *crtc_state
+ 			 TRANS_DDI_PORT_SYNC_MASTER_SELECT_MASK);
+ 
+ 	if (DISPLAY_VER(dev_priv) >= 12) {
+-		if (!intel_dp_mst_is_master_trans(crtc_state) ||
+-		    (!is_mst && intel_dp_is_uhbr(crtc_state))) {
++		if (!intel_dp_mst_is_master_trans(crtc_state)) {
+ 			ctl &= ~(TGL_TRANS_DDI_PORT_MASK |
+ 				 TRANS_DDI_MODE_SELECT_MASK);
+ 		}
+@@ -3138,7 +3136,7 @@ static void intel_ddi_post_disable_dp(struct intel_atomic_state *state,
+ 	intel_dp_set_power(intel_dp, DP_SET_POWER_D3);
+ 
+ 	if (DISPLAY_VER(dev_priv) >= 12) {
+-		if (is_mst) {
++		if (is_mst || intel_dp_is_uhbr(old_crtc_state)) {
+ 			enum transcoder cpu_transcoder = old_crtc_state->cpu_transcoder;
+ 
+ 			intel_de_rmw(dev_priv,
 -- 
 2.44.2
 
