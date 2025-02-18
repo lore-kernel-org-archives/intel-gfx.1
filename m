@@ -4,57 +4,54 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 16193C02198
-	for <intel-gfx@archiver.kernel.org>; Tue, 18 Feb 2025 09:17:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D12E6C021AD
+	for <intel-gfx@archiver.kernel.org>; Tue, 18 Feb 2025 10:10:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AC86310E64A;
-	Tue, 18 Feb 2025 09:17:55 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 75A7310E644;
+	Tue, 18 Feb 2025 10:10:38 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="XJrV/qdg";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="OdEXV8ar";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.9])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7C0E910E643;
- Tue, 18 Feb 2025 09:17:47 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.13])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B919D10E33F;
+ Tue, 18 Feb 2025 10:10:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1739870267; x=1771406267;
- h=from:date:subject:mime-version:content-transfer-encoding:
- message-id:references:in-reply-to:to:cc;
- bh=A2zS+yfR5avl/+r6Dk9rX25feUyDYRcNJsojQIdcsUY=;
- b=XJrV/qdg4G8LISpsxc4ka0/Zr7Z6Yx1e+0N1bswe77ZTLfJfK5LeB3ID
- MD7VPO0l3sT4jjenHm2omWH+wk1niKncFRGPo8V00MmVUypx7WPGDMW+W
- sBCWBV5QN3AB8plESdK6CWYUSEH/XTt8X2NFbu9W+ZSywF1utbZctfKHp
- LW9FNJUZ1iLz4HOjmqbhDfFWpOY02WDT/RML+SuBzh+zSUS3MxjB0j5Ba
- 0DmzbSB8nkIZy5pe26WB4YTet9x3JU4tUsAflcDYiVHgTnQ4PezJMGlzB
- 1p06vxLOduCD8HE/vouhuMXAibZRoc2FFyXnSW7DQ6y6p9qUDYsETPATx Q==;
-X-CSE-ConnectionGUID: fvwN+3jwQfeDBkmaAjz9DQ==
-X-CSE-MsgGUID: 8uabLjCwTv67aZE8WtardQ==
-X-IronPort-AV: E=McAfee;i="6700,10204,11348"; a="51198274"
-X-IronPort-AV: E=Sophos;i="6.13,295,1732608000"; d="scan'208";a="51198274"
-Received: from orviesa001.jf.intel.com ([10.64.159.141])
- by fmvoesa103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 18 Feb 2025 01:17:47 -0800
-X-CSE-ConnectionGUID: wInGtYlkQO6ODXxKRZE7uA==
-X-CSE-MsgGUID: 3Ldi3qOHShqP577F43ttKA==
+ t=1739873437; x=1771409437;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=NiOuNp+EzlEhn8Kw78Ed3fzCLalqBcgd5/zKstbwdW4=;
+ b=OdEXV8arMmxgIoHFFHr4p2QGwNMN60/xRCpnL1r6SkYhf1BFjqByyKQ/
+ 5NjgfTg8h3/Dox2e+wnV34IEsyKUpe6gzsz2T5eJ8lsKhl4paG6By6MOy
+ ec9p69ItFVojpoCM+N59JHZTh1EHhFVg9IqvtSEso7siomiDSgOoMMwwf
+ JwgGzTPfdgy2CZ/ReSZlN8ibVWDnIlN/vTgqMgMSFuDVvjRft07J5cZz2
+ +rAPmBfDXADcGnI5D+PGhCRfzStJb/Fc9ciQDZZ1WZJoG5b6NRfNL17/7
+ 61efISBueWLuWUiOG6Puv1X8NWTg+v49X02YH2Z8tKxEw1aErKHTNAOrC w==;
+X-CSE-ConnectionGUID: r68G/WqJSKS/tRgkq5OIsA==
+X-CSE-MsgGUID: OKqKIKEnQK+kyngv9q3qDg==
+X-IronPort-AV: E=McAfee;i="6700,10204,11348"; a="51546327"
+X-IronPort-AV: E=Sophos;i="6.13,295,1732608000"; d="scan'208";a="51546327"
+Received: from orviesa004.jf.intel.com ([10.64.159.144])
+ by orvoesa105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 18 Feb 2025 02:10:36 -0800
+X-CSE-ConnectionGUID: duj6rA2VQGC61w9GOVrf9Q==
+X-CSE-MsgGUID: pd+uw1zcShiZ18AK4sYR3Q==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.12,224,1728975600"; d="scan'208";a="151534697"
-Received: from srr4-3-linux-106-armuthy.iind.intel.com ([10.190.238.56])
- by orviesa001.jf.intel.com with ESMTP; 18 Feb 2025 01:17:45 -0800
-From: Arun R Murthy <arun.r.murthy@intel.com>
-Date: Tue, 18 Feb 2025 14:32:48 +0530
-Subject: [PATCH v5 2/3] drm/plane: modify create_in_formats to accommodate
- async
+X-IronPort-AV: E=Sophos;i="6.13,295,1732608000"; d="scan'208";a="119343785"
+Received: from unknown (HELO sorvi2.fi.intel.com) ([10.237.72.194])
+ by orviesa004.jf.intel.com with ESMTP; 18 Feb 2025 02:10:35 -0800
+From: Mika Kahola <mika.kahola@intel.com>
+To: intel-gfx@lists.freedesktop.org,
+	intel-xe@lists.freedesktop.org
+Cc: imre.deak@intel.com, jani.nikula@linux.intel.com,
+ Mika Kahola <mika.kahola@intel.com>
+Subject: [PATCH v5 0/2] drm/i915/display: Allow display PHYs to reset power
+ state
+Date: Tue, 18 Feb 2025 12:00:17 +0200
+Message-ID: <20250218100019.740556-1-mika.kahola@intel.com>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20250218-asyn-v5-2-7ac5ac4abd4a@intel.com>
-References: <20250218-asyn-v5-0-7ac5ac4abd4a@intel.com>
-In-Reply-To: <20250218-asyn-v5-0-7ac5ac4abd4a@intel.com>
-To: dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org, 
- intel-xe@lists.freedesktop.org
-Cc: chaitanya.kumar.borah@intel.com, Arun R Murthy <arun.r.murthy@intel.com>, 
- Naveen Kumar <naveen1.kumar@intel.com>
-X-Mailer: b4 0.15-dev
+Content-Transfer-Encoding: 8bit
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,105 +67,42 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-create_in_formats creates the list of supported format/modifiers for
-synchronous flips, modify the same function so as to take the
-format_mod_supported as argument and create list of format/modifier for
-async as well.
+The dedicated display PHYs reset to a power state that blocks S0ix,
+increasing idle system power. After a system reset (cold boot,
+S3/4/5, warm reset) if a dedicated PHY is not being brought up
+shortly, use these steps to move the PHY to the lowest power state
+to save power.
 
-v5: create_in_formats can return -ve value in failure case, correct the
-if condition to check the creation of blob <Chaitanya>
-Dont add the modifier for which none of the formats is not supported.
-v6: Remove the code for masking the unsupported modifiers as UMD can
-leave with it. (Naveen/Chaitanya)
+1. Follow the PLL Enable Sequence, using any valid frequency such as
+   DP 1.62 GHz. This brings lanes out of reset and enables the PLL to
+   allow powerdown to be moved to the Disable state.
+2. Follow PLL Disable Sequence. This moves powerdown to the Disable
+   state and disables the PLL.
 
-Signed-off-by: Arun R Murthy <arun.r.murthy@intel.com>
-Tested-by: Naveen Kumar <naveen1.kumar@intel.com>
----
- drivers/gpu/drm/drm_plane.c | 41 +++++++++++++++++++++++++++++------------
- 1 file changed, 29 insertions(+), 12 deletions(-)
+Before doing this, let's refactor the pll enabling in such a way that
+the crtc_state structure is no longer needed.
 
-diff --git a/drivers/gpu/drm/drm_plane.c b/drivers/gpu/drm/drm_plane.c
-index fe181c1002171acc68d3054c2d178f9b9f501fe2..a27ea45f3c12f5c3ff9532e9c0e3ae0897a02501 100644
---- a/drivers/gpu/drm/drm_plane.c
-+++ b/drivers/gpu/drm/drm_plane.c
-@@ -193,9 +193,12 @@ modifiers_ptr(struct drm_format_modifier_blob *blob)
- 	return (struct drm_format_modifier *)(((char *)blob) + blob->modifiers_offset);
- }
- 
--static int create_in_format_blob(struct drm_device *dev, struct drm_plane *plane)
-+static int create_in_format_blob(struct drm_device *dev, struct drm_plane *plane,
-+				 bool (*format_mod_supported)
-+						(struct drm_plane *plane,
-+						 uint32_t format,
-+						 uint64_t modifier))
- {
--	const struct drm_mode_config *config = &dev->mode_config;
- 	struct drm_property_blob *blob;
- 	struct drm_format_modifier *mod;
- 	size_t blob_size, formats_size, modifiers_size;
-@@ -237,10 +240,10 @@ static int create_in_format_blob(struct drm_device *dev, struct drm_plane *plane
- 	mod = modifiers_ptr(blob_data);
- 	for (i = 0; i < plane->modifier_count; i++) {
- 		for (j = 0; j < plane->format_count; j++) {
--			if (!plane->funcs->format_mod_supported ||
--			    plane->funcs->format_mod_supported(plane,
--							       plane->format_types[j],
--							       plane->modifiers[i])) {
-+			if (!format_mod_supported || format_mod_supported
-+							(plane,
-+							 plane->format_types[j],
-+							 plane->modifiers[i])) {
- 				mod->formats |= 1ULL << j;
- 			}
- 		}
-@@ -251,10 +254,7 @@ static int create_in_format_blob(struct drm_device *dev, struct drm_plane *plane
- 		mod++;
- 	}
- 
--	drm_object_attach_property(&plane->base, config->modifiers_property,
--				   blob->base.id);
--
--	return 0;
-+	return blob->base.id;
- }
- 
- /**
-@@ -371,6 +371,7 @@ static int __drm_universal_plane_init(struct drm_device *dev,
- 	};
- 	unsigned int format_modifier_count = 0;
- 	int ret;
-+	int blob_id;
- 
- 	/* plane index is used with 32bit bitmasks */
- 	if (WARN_ON(config->num_total_plane >= 32))
-@@ -477,8 +478,24 @@ static int __drm_universal_plane_init(struct drm_device *dev,
- 		drm_plane_create_hotspot_properties(plane);
- 	}
- 
--	if (format_modifier_count)
--		create_in_format_blob(dev, plane);
-+	if (format_modifier_count) {
-+		blob_id = create_in_format_blob(dev, plane,
-+						plane->funcs->format_mod_supported);
-+		if (blob_id > 0)
-+			drm_object_attach_property(&plane->base,
-+						   config->modifiers_property,
-+						   blob_id);
-+	}
-+
-+	if (plane->funcs->format_mod_supported_async) {
-+		blob_id = create_in_format_blob(dev, plane,
-+						plane->funcs->format_mod_supported_async);
-+		if (blob_id > 0)
-+			drm_object_attach_property(&plane->base,
-+						   config->async_modifiers_property,
-+						   blob_id);
-+	}
-+
- 
- 	return 0;
- }
+v2: reword commit messages (Jani)
+    rename wa naming (Jani)
+    add helper functions (Imre)
+    use C10 only for the wa on PTL
+v3: Rename wa function (Imre)
+    Check return value of C10 pll tables readout (Imre)
+    Use PLL request to check pll enabling (Imre)
+v4: checpatch fixes and cleanups
+v5: Add check for intel_encoder_is_dig_port() and
+    add debug message when applying wa (Imre)
+
+Mika Kahola (2):
+  drm/i915/display: Drop crtc_state from C10/C20 pll programming
+  drm/i915/display: Allow display PHYs to reset power state
+
+ drivers/gpu/drm/i915/display/intel_cx0_phy.c  | 192 ++++++++++++------
+ drivers/gpu/drm/i915/display/intel_cx0_phy.h  |   1 +
+ .../drm/i915/display/intel_display_reset.c    |   2 +
+ drivers/gpu/drm/i915/display/intel_dpll_mgr.c |   3 +
+ 4 files changed, 141 insertions(+), 57 deletions(-)
 
 -- 
-2.25.1
+2.43.0
 
