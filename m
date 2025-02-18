@@ -4,50 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6A9CEC021AD
-	for <intel-gfx@archiver.kernel.org>; Tue, 18 Feb 2025 21:19:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1B221C021AA
+	for <intel-gfx@archiver.kernel.org>; Tue, 18 Feb 2025 21:19:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 930B910E76A;
-	Tue, 18 Feb 2025 21:19:45 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AD47B10E76C;
+	Tue, 18 Feb 2025 21:19:51 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="TioN+sjt";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="dTbzCy7A";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.18])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CCE6810E775
- for <intel-gfx@lists.freedesktop.org>; Tue, 18 Feb 2025 21:19:41 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E96FE10E76C
+ for <intel-gfx@lists.freedesktop.org>; Tue, 18 Feb 2025 21:19:45 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1739913582; x=1771449582;
+ t=1739913586; x=1771449586;
  h=from:to:subject:date:message-id:in-reply-to:references:
  mime-version:content-transfer-encoding;
- bh=u1IF2/CoN6t/m0RCUwONv72UWnPqSnVGMWM8ox3sywU=;
- b=TioN+sjtUYx81IuP+ijAu5llptrW2MDQ5Ijtkc1KToSb8j4Ej7tsbJVy
- E/vzbUpkkVEWPaLUgpsAOcbLIIvyiMO5BcGGQAcG2Yh2uJsfpEVhGleua
- AUuqqIpt0FGFpXpfqVEAG3qs+e6Pd+TwNqWCZ6UrSd7lenWtgDNtluKaa
- ozGBMEjde6o4nqkaOwe5c5Bciq/Q1QCh8liasyB4XmqJ3WNHUzw47zFQW
- TFxkS5H9u2ZiVkAo7ZfmqH7A0SjtLEf219o/qKap4BJttIarD+d9PCTvI
- emdRreOFrxpkYj99XPNb/ZfSLa/hdrX+d3umFrd9tlKvzjqpufNl6V3JE g==;
-X-CSE-ConnectionGUID: 4N8fEGWhRLezeMS5YPHyXA==
-X-CSE-MsgGUID: PStSKfa3RxC1XSR9AX8A3w==
-X-IronPort-AV: E=McAfee;i="6700,10204,11348"; a="39862268"
-X-IronPort-AV: E=Sophos;i="6.13,296,1732608000"; d="scan'208";a="39862268"
+ bh=EM+TfjEJsJHVHlhcNB6w5cYiVl/VowBtQmqe7YFirws=;
+ b=dTbzCy7AhGwIqs9qbTIiG4QgXul2ryHcRS7MAEQ+GLEtVR96kjTGRZiW
+ iQRghSDfbacAfLb+TNySVtil6Vf5jE2/izLArxUcl4knjJQ0hzHu52/cW
+ QwTeaxfveDbrpGH2mR72gUlRWypRMqjgJ/ov9NLE+/+ospXF/lRPf/5+J
+ RPbcrOd9JfUFHWlsjxew+dNBGrfwvQ0rzcg72RvlhirKe8j5GGA5qxSXl
+ AKCciV5DrOzzkPpKaSK8VxpM620Z/VAJ6neVu2YFEEDecJJmoM3nZ+FeI
+ KWoeZ3yMGzOQAM7TXIiWLMsyrePwFFEKlqXY5IdSL94aXIhjMdyHbZCgE Q==;
+X-CSE-ConnectionGUID: rBnO13UnQw+18OPRGpVR5g==
+X-CSE-MsgGUID: EbNNSDczSsS8MHy+HVz/ZQ==
+X-IronPort-AV: E=McAfee;i="6700,10204,11348"; a="39862289"
+X-IronPort-AV: E=Sophos;i="6.13,296,1732608000"; d="scan'208";a="39862289"
 Received: from fmviesa008.fm.intel.com ([10.60.135.148])
  by fmvoesa112.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 18 Feb 2025 13:19:35 -0800
-X-CSE-ConnectionGUID: 1l739JYSTDepqYo4OQ2LPg==
-X-CSE-MsgGUID: 2d3xCGP8RPK/pbZ78cNnVg==
+ 18 Feb 2025 13:19:45 -0800
+X-CSE-ConnectionGUID: MOi3yF62Tm2wltgtJlmk/A==
+X-CSE-MsgGUID: 8cWAjqoORZqKKYikejCONw==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.13,296,1732608000"; d="scan'208";a="114693389"
+X-IronPort-AV: E=Sophos;i="6.13,296,1732608000"; d="scan'208";a="114693432"
 Received: from stinkpipe.fi.intel.com (HELO stinkbox) ([10.237.72.74])
- by fmviesa008.fm.intel.com with SMTP; 18 Feb 2025 13:19:27 -0800
+ by fmviesa008.fm.intel.com with SMTP; 18 Feb 2025 13:19:41 -0800
 Received: by stinkbox (sSMTP sendmail emulation);
- Tue, 18 Feb 2025 23:19:26 +0200
+ Tue, 18 Feb 2025 23:19:40 +0200
 From: Ville Syrjala <ville.syrjala@linux.intel.com>
 To: intel-gfx@lists.freedesktop.org
-Subject: [PATCH 03/19] drm/i915: Don't clobber crtc_state->cpu_transcoder for
- inactive crtcs
-Date: Tue, 18 Feb 2025 23:18:57 +0200
-Message-ID: <20250218211913.27867-4-ville.syrjala@linux.intel.com>
+Subject: [PATCH 07/19] drm/i915: clean up pipe's ddb usage in
+ intel_crtc_disable_noatomic()
+Date: Tue, 18 Feb 2025 23:19:01 +0200
+Message-ID: <20250218211913.27867-8-ville.syrjala@linux.intel.com>
 X-Mailer: git-send-email 2.45.3
 In-Reply-To: <20250218211913.27867-1-ville.syrjala@linux.intel.com>
 References: <20250218211913.27867-1-ville.syrjala@linux.intel.com>
@@ -71,88 +71,44 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 From: Ville Syrjälä <ville.syrjala@linux.intel.com>
 
-Inactive crtcs are supposed to have their crtc_state completely
-cleared. Currently we are clobbering crtc_state->cpu_transcoder
-before determining whether it's actually enabled or not. Don't
-do that.
+Update the ddb tracking information when we disable a pipe
+during sanitization. Avoids leaving stale junk in the states.
 
-I want to rework the inherited flag handling for inactive crtcs
-a bit, and having a bogus cpu_transcoder in the crtc state can
-then cause confusing fastset mismatches even when the crtc never
-changes state during the commit.
+Currently this doesn't do anything as we haven't read out this
+state yet when we do the sanitization, but that will change soon.
 
 Signed-off-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_display.c | 28 +++++++++-----------
- 1 file changed, 13 insertions(+), 15 deletions(-)
+ drivers/gpu/drm/i915/display/skl_watermark.c | 9 +++++++++
+ 1 file changed, 9 insertions(+)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
-index 8ee8c1df075a..75b184c933e7 100644
---- a/drivers/gpu/drm/i915/display/intel_display.c
-+++ b/drivers/gpu/drm/i915/display/intel_display.c
-@@ -3109,25 +3109,24 @@ static bool i9xx_get_pipe_config(struct intel_crtc *crtc,
+diff --git a/drivers/gpu/drm/i915/display/skl_watermark.c b/drivers/gpu/drm/i915/display/skl_watermark.c
+index 4930e52322d3..9584d4da13d0 100644
+--- a/drivers/gpu/drm/i915/display/skl_watermark.c
++++ b/drivers/gpu/drm/i915/display/skl_watermark.c
+@@ -3848,6 +3848,8 @@ static void skl_wm_get_hw_state_and_sanitize(struct drm_i915_private *i915)
+ void skl_wm_crtc_disable_noatomic(struct intel_crtc *crtc)
+ {
  	struct intel_display *display = to_intel_display(crtc);
- 	struct drm_i915_private *dev_priv = to_i915(crtc->base.dev);
- 	enum intel_display_power_domain power_domain;
-+	enum transcoder cpu_transcoder = (enum transcoder)crtc->pipe;
- 	intel_wakeref_t wakeref;
-+	bool ret = false;
- 	u32 tmp;
--	bool ret;
++	struct intel_crtc_state *crtc_state =
++		to_intel_crtc_state(crtc->base.state);
+ 	struct intel_dbuf_state *dbuf_state =
+ 		to_intel_dbuf_state(display->dbuf.obj.state);
+ 	enum pipe pipe = crtc->pipe;
+@@ -3856,6 +3858,13 @@ void skl_wm_crtc_disable_noatomic(struct intel_crtc *crtc)
+ 		return;
  
- 	power_domain = POWER_DOMAIN_PIPE(crtc->pipe);
- 	wakeref = intel_display_power_get_if_enabled(display, power_domain);
- 	if (!wakeref)
- 		return false;
- 
-+	tmp = intel_de_read(dev_priv, TRANSCONF(dev_priv, cpu_transcoder));
-+	if (!(tmp & TRANSCONF_ENABLE))
-+		goto out;
+ 	dbuf_state->active_pipes &= ~BIT(pipe);
 +
-+	pipe_config->cpu_transcoder = cpu_transcoder;
++	dbuf_state->weight[pipe] = 0;
++	dbuf_state->slices[pipe] = 0;
 +
- 	pipe_config->output_format = INTEL_OUTPUT_FORMAT_RGB;
- 	pipe_config->sink_format = pipe_config->output_format;
--	pipe_config->cpu_transcoder = (enum transcoder) crtc->pipe;
--
--	ret = false;
--
--	tmp = intel_de_read(dev_priv,
--			    TRANSCONF(dev_priv, pipe_config->cpu_transcoder));
--	if (!(tmp & TRANSCONF_ENABLE))
--		goto out;
- 
- 	if (IS_G4X(dev_priv) || IS_VALLEYVIEW(dev_priv) ||
- 	    IS_CHERRYVIEW(dev_priv)) {
-@@ -3492,23 +3491,22 @@ static bool ilk_get_pipe_config(struct intel_crtc *crtc,
- 	struct drm_device *dev = crtc->base.dev;
- 	struct drm_i915_private *dev_priv = to_i915(dev);
- 	enum intel_display_power_domain power_domain;
-+	enum transcoder cpu_transcoder = (enum transcoder)crtc->pipe;
- 	intel_wakeref_t wakeref;
-+	bool ret = false;
- 	u32 tmp;
--	bool ret;
- 
- 	power_domain = POWER_DOMAIN_PIPE(crtc->pipe);
- 	wakeref = intel_display_power_get_if_enabled(display, power_domain);
- 	if (!wakeref)
- 		return false;
- 
--	pipe_config->cpu_transcoder = (enum transcoder) crtc->pipe;
--
--	ret = false;
--	tmp = intel_de_read(dev_priv,
--			    TRANSCONF(dev_priv, pipe_config->cpu_transcoder));
-+	tmp = intel_de_read(dev_priv, TRANSCONF(dev_priv, cpu_transcoder));
- 	if (!(tmp & TRANSCONF_ENABLE))
- 		goto out;
- 
-+	pipe_config->cpu_transcoder = cpu_transcoder;
++	memset(&dbuf_state->ddb[pipe], 0, sizeof(dbuf_state->ddb[pipe]));
 +
- 	switch (tmp & TRANSCONF_BPC_MASK) {
- 	case TRANSCONF_BPC_6:
- 		pipe_config->pipe_bpp = 18;
++	memset(&crtc_state->wm.skl.ddb, 0, sizeof(crtc_state->wm.skl.ddb));
+ }
+ 
+ void intel_wm_state_verify(struct intel_atomic_state *state,
 -- 
 2.45.3
 
