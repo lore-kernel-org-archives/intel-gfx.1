@@ -4,60 +4,27 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CAB2CC021B1
-	for <intel-gfx@archiver.kernel.org>; Wed, 19 Feb 2025 19:40:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 87FECC021B0
+	for <intel-gfx@archiver.kernel.org>; Wed, 19 Feb 2025 21:46:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 53B4A10E877;
-	Wed, 19 Feb 2025 19:40:30 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="e2o2Yljq";
-	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.14])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CE3A310E877;
- Wed, 19 Feb 2025 19:40:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1739994030; x=1771530030;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:content-transfer-encoding:in-reply-to;
- bh=sVzFNbaz7eQ7oOHVi1ZQMQwFe1TH8TLEFZfys0vY3mQ=;
- b=e2o2YljqTEAcoEo+YoXdT98XFCyd/sYfb5kB1UtnwaAvVWgd78+pxB5/
- a+XvV4iwVsp9O7JG0C+pCXgPrkVJoYMXvozsB6UQg5P9HL26Owt2SGz13
- 8nT46wFoUQuhS0KocWibUjJG+X9AK70GcHCIMtM7Y6+wm7gQh8GxGoV7m
- z+hz2CdeUlMy52NpUS1qmn5PaFUtajG129TB1jiMdn6CpCncGFhxM7oDP
- cmntKUjxl/O/oTTqBCiYMPsVSlJETxxi+CIoUPojqTGdYq7i3/DKqEYg3
- IlluSLZ3YofW4LJHOcWv0fP8L3bGLxYEsJwWKLHuW85Q8sdn5/sdPcqhv g==;
-X-CSE-ConnectionGUID: cmS/g/BpRuOxatQyo2MA2w==
-X-CSE-MsgGUID: 3IVW0IYfRweCmlzn70s/9A==
-X-IronPort-AV: E=McAfee;i="6700,10204,11350"; a="44519902"
-X-IronPort-AV: E=Sophos;i="6.13,299,1732608000"; d="scan'208";a="44519902"
-Received: from fmviesa008.fm.intel.com ([10.60.135.148])
- by orvoesa106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 19 Feb 2025 11:40:08 -0800
-X-CSE-ConnectionGUID: 2faPgLclSo+7h1kAXw/exA==
-X-CSE-MsgGUID: 1/i6z9e7RsSjxw+fiieymA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.13,299,1732608000"; d="scan'208";a="115011632"
-Received: from stinkpipe.fi.intel.com (HELO stinkbox) ([10.237.72.74])
- by fmviesa008.fm.intel.com with SMTP; 19 Feb 2025 10:54:38 -0800
-Received: by stinkbox (sSMTP sendmail emulation);
- Wed, 19 Feb 2025 20:54:26 +0200
-Date: Wed, 19 Feb 2025 20:54:26 +0200
-From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
-To: Arun R Murthy <arun.r.murthy@intel.com>
-Cc: dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
- intel-xe@lists.freedesktop.org, chaitanya.kumar.borah@intel.com,
- Naveen Kumar <naveen1.kumar@intel.com>
-Subject: Re: [PATCH v6 1/3] drm/plane: Add new plane property IN_FORMATS_ASYNC
-Message-ID: <Z7Yo4jYqmEtTEgsK@intel.com>
-References: <20250219-asyn-v6-0-b959e6becb3c@intel.com>
- <20250219-asyn-v6-1-b959e6becb3c@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1A6AE10E8A1;
+	Wed, 19 Feb 2025 21:46:23 +0000 (UTC)
+Received: from b555e5b46a47 (emeril.freedesktop.org [131.252.210.167])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2154A10E8A1;
+ Wed, 19 Feb 2025 21:46:22 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20250219-asyn-v6-1-b959e6becb3c@intel.com>
-X-Patchwork-Hint: comment
+Content-Transfer-Encoding: 7bit
+Subject: =?utf-8?q?=E2=9C=97_Fi=2ECI=2ECHECKPATCH=3A_warning_for_drm/i915=3A_Fix_harm?=
+ =?utf-8?q?full_driver_register/unregister_assymetry_=28rev3=29?=
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Janusz Krzysztofik" <janusz.krzysztofik@linux.intel.com>
+Cc: intel-gfx@lists.freedesktop.org
+Date: Wed, 19 Feb 2025 21:46:22 -0000
+Message-ID: <174000158213.4158496.8199683937089550806@b555e5b46a47>
+X-Patchwork-Hint: ignore
+References: <20250219183807.713776-2-janusz.krzysztofik@linux.intel.com>
+In-Reply-To: <20250219183807.713776-2-janusz.krzysztofik@linux.intel.com>
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,124 +37,26 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Feb 19, 2025 at 02:47:23PM +0530, Arun R Murthy wrote:
-> There exists a property IN_FORMATS which exposes the plane supported
-> modifiers/formats to the user. In some platforms when asynchronous flip
-> are used all of modifiers/formats mentioned in IN_FORMATS are not
-> supported. This patch adds a new plane property IN_FORMATS_ASYNC to
-> expose the async flip supported modifiers/formats so that user can use
-> this information ahead and do flip with unsupported
-> formats/modifiers. This will save flip failures.
-> Add a new function pointer similar to format_mod_supported specifically
-> for asynchronous flip.
-> 
-> v2: Remove async variable from drm_plane (Ville)
-> v3: Add new function pointer for async (Ville)
-> v5: Typo corrected in commit message & some correction in the kernel
-> documentation. (Chaitanya)
-> 
-> Signed-off-by: Arun R Murthy <arun.r.murthy@intel.com>
-> Reviewed-by: Chaitanya Kumar Borah <chaitanya.kumar.borah@intel.com>
-> Tested-by: Naveen Kumar <naveen1.kumar@intel.com>
-> ---
->  drivers/gpu/drm/drm_mode_config.c |  7 +++++++
->  drivers/gpu/drm/drm_plane.c       |  8 ++++++++
->  include/drm/drm_mode_config.h     |  6 ++++++
->  include/drm/drm_plane.h           | 17 +++++++++++++++++
->  4 files changed, 38 insertions(+)
-> 
-> diff --git a/drivers/gpu/drm/drm_mode_config.c b/drivers/gpu/drm/drm_mode_config.c
-> index 8642a2fb25a90116dab975aa0ab6b51deafb4b96..dbbef20753f834a85ae9ded748cff2b3f0e85043 100644
-> --- a/drivers/gpu/drm/drm_mode_config.c
-> +++ b/drivers/gpu/drm/drm_mode_config.c
-> @@ -388,6 +388,13 @@ static int drm_mode_create_standard_properties(struct drm_device *dev)
->  		return -ENOMEM;
->  	dev->mode_config.size_hints_property = prop;
->  
-> +	prop = drm_property_create(dev,
-> +				   DRM_MODE_PROP_IMMUTABLE | DRM_MODE_PROP_BLOB,
-> +				   "IN_FORMATS_ASYNC", 0);
-> +	if (!prop)
-> +		return -ENOMEM;
-> +	dev->mode_config.async_modifiers_property = prop;
+== Series Details ==
 
-Please put it next to the other blob.
+Series: drm/i915: Fix harmfull driver register/unregister assymetry (rev3)
+URL   : https://patchwork.freedesktop.org/series/144436/
+State : warning
 
-> +
->  	return 0;
->  }
->  
-> diff --git a/drivers/gpu/drm/drm_plane.c b/drivers/gpu/drm/drm_plane.c
-> index a28b22fdd7a41aca82d097d42237851da9a0a79b..fe181c1002171acc68d3054c2d178f9b9f501fe2 100644
-> --- a/drivers/gpu/drm/drm_plane.c
-> +++ b/drivers/gpu/drm/drm_plane.c
-> @@ -141,6 +141,14 @@
->   *     various bugs in this area with inconsistencies between the capability
->   *     flag and per-plane properties.
->   *
-> + * IN_FORMATS_ASYNC:
-> + *     Blob property which contains the set of buffer format and modifier
-> + *     pairs supported by this plane for asynchronous flips. The blob is a struct
-> + *     drm_format_modifier_blob. Userspace cannot change this property. This is an
-> + *     optional property and if not present then user should expect a failure in
-> + *     atomic ioctl when the modifier/format is not supported by that plane under
-> + *     asynchronous flip.
-> + *
->   * SIZE_HINTS:
->   *     Blob property which contains the set of recommended plane size
->   *     which can used for simple "cursor like" use cases (eg. no scaling).
-> diff --git a/include/drm/drm_mode_config.h b/include/drm/drm_mode_config.h
-> index 271765e2e9f2da62aaf0d258828ef4196e14822e..0c116d6dfd277262b1a4c0f097fce2d719f43844 100644
-> --- a/include/drm/drm_mode_config.h
-> +++ b/include/drm/drm_mode_config.h
-> @@ -936,6 +936,12 @@ struct drm_mode_config {
->  	 */
->  	struct drm_property *modifiers_property;
->  
-> +	/**
-> +	 * @async_modifiers_property: Plane property to list support modifier/format
-> +	 * combination for asynchronous flips.
-> +	 */
-> +	struct drm_property *async_modifiers_property;
-> +
->  	/**
->  	 * @size_hints_property: Plane SIZE_HINTS property.
->  	 */
-> diff --git a/include/drm/drm_plane.h b/include/drm/drm_plane.h
-> index dd718c62ac31bf16606f3ee9f025a5b171cd1e67..4393a0e9edf91ccfd78ef62b168b9313187c1a81 100644
-> --- a/include/drm/drm_plane.h
-> +++ b/include/drm/drm_plane.h
-> @@ -549,6 +549,23 @@ struct drm_plane_funcs {
->  	 */
->  	bool (*format_mod_supported)(struct drm_plane *plane, uint32_t format,
->  				     uint64_t modifier);
-> +	/**
-> +	 * @format_mod_supported_async:
-> +	 *
-> +	 * This optional hook is used for the DRM to determine if for
-> +	 * asynchronous flip the given format/modifier combination is valid for
-> +	 * the plane. This allows the DRM to generate the correct format
-> +	 * bitmask (which formats apply to which modifier), and to validate
-> +	 * modifiers at atomic_check time.
-> +	 *
-> +	 * Returns:
-> +	 *
-> +	 * True if the given modifier is valid for that format on the plane.
-> +	 * False otherwise.
-> +	 */
-> +	bool (*format_mod_supported_async)(struct drm_plane *plane,
-> +					   uint32_t format, uint64_t modifier);
-> +
->  };
->  
->  /**
-> 
-> -- 
-> 2.25.1
+== Summary ==
 
--- 
-Ville Syrjälä
-Intel
+Error: dim checkpatch failed
+5b808e0ffe66 drm/i915: Fix harmfull driver register/unregister assymetry
+-:14: WARNING:COMMIT_LOG_LONG_LINE: Prefer a maximum 75 chars per line (possible unwrapped commit description?)
+#14: 
+<3> [525.823143] i915 0000:00:02.0: [drm] *ERROR* Failed to register driver for
+
+-:172: WARNING:MISSING_FIXES_TAG: The commit message has 'Call Trace:', perhaps it also needs a 'Fixes:' tag?
+
+total: 0 errors, 2 warnings, 0 checks, 47 lines checked
+
+
