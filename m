@@ -4,58 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 093DFC021AA
-	for <intel-gfx@archiver.kernel.org>; Wed, 19 Feb 2025 16:57:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 57F3FC021AA
+	for <intel-gfx@archiver.kernel.org>; Wed, 19 Feb 2025 17:06:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8B64110E347;
-	Wed, 19 Feb 2025 16:57:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E3E6C10E351;
+	Wed, 19 Feb 2025 17:06:34 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="MkqJzfvE";
+	dkim=pass (1024-bit key; unprotected) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b="NJS0yQ/r";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.14])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DAC8310E347
- for <intel-gfx@lists.freedesktop.org>; Wed, 19 Feb 2025 16:57:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1739984251; x=1771520251;
- h=from:to:cc:subject:in-reply-to:references:date:
- message-id:mime-version;
- bh=/RYeSUSGRGchsepBdcQqu8et1hGNk8FxiXGS71+UAZA=;
- b=MkqJzfvEOLKvJyQWxf8IjDgFe4zxUlbiCIHsgOG3kymLvrAP7fTdWuYe
- qMIMXPixhac/7YRyrA1Uir0dr4P/6B03F3EaM43M3Ua9DNXKoeruUYfRO
- IHrLe00Fd7K9c/Zp14/M6y3ZXZET9Aq6QFw8tHGKNYeZy6qscoGryotPQ
- 075KMQVjGmrqoUiZfDtebD/djsDiwv9FWg8wBUvekfMFkCUGSuqG3c520
- kuxqO3g8MkkNxvDoGojNYbVu99vv32Kro1Bjt8tQWbrBC35SMM+k5l2Ce
- U9+x4fg0T/3k/arC+1V4nzkhX8IcJWDDLGAo13CmnOALoOsrN6RhABOfF Q==;
-X-CSE-ConnectionGUID: QKN7XpOpRJOF3Lojijvsag==
-X-CSE-MsgGUID: k/HEdOnOSea+1BnWiBt4UA==
-X-IronPort-AV: E=McAfee;i="6700,10204,11350"; a="40992057"
-X-IronPort-AV: E=Sophos;i="6.13,299,1732608000"; d="scan'208";a="40992057"
-Received: from fmviesa008.fm.intel.com ([10.60.135.148])
- by fmvoesa108.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 19 Feb 2025 08:57:31 -0800
-X-CSE-ConnectionGUID: XU75GCUIRWCQ782BpbIjAQ==
-X-CSE-MsgGUID: yI7xEztvTXy6hYySMtNJ6A==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.13,299,1732608000"; d="scan'208";a="114966854"
-Received: from dprybysh-mobl.ger.corp.intel.com (HELO localhost)
- ([10.245.246.160])
- by fmviesa008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 19 Feb 2025 08:28:00 -0800
-From: Jani Nikula <jani.nikula@intel.com>
-To: imre.deak@intel.com, Rodrigo Vivi <rodrigo.vivi@intel.com>
-Cc: intel-gfx@lists.freedesktop.org
-Subject: Re: =?utf-8?Q?=E2=9C=97?= i915.CI.Full: failure for drm/i915/dp:
- Fix 128b/132b modeset issues
-In-Reply-To: <Z7Xa3z7wdI_b7Fa0@ideak-desk.fi.intel.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
-References: <20250217223828.1166093-1-imre.deak@intel.com>
- <173985337661.3442418.13852246095833779014@b555e5b46a47>
- <Z7Xa3z7wdI_b7Fa0@ideak-desk.fi.intel.com>
-Date: Wed, 19 Feb 2025 18:27:44 +0200
-Message-ID: <87tt8pnblr.fsf@intel.com>
+Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 8664310E34F;
+ Wed, 19 Feb 2025 17:06:33 +0000 (UTC)
+Received: from hm-sls2 (unknown [142.114.216.132])
+ by linux.microsoft.com (Postfix) with ESMTPSA id C4DC22043DE3;
+ Wed, 19 Feb 2025 09:06:32 -0800 (PST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com C4DC22043DE3
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
+ s=default; t=1739984793;
+ bh=T0SF2vhw1Q2Z6TUUz8hq+4hhSBf5ohEFbobVnAl9p2Y=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=NJS0yQ/rwqgyQ5KrCIqo6LhROYKfhiHmOwNAHrtxLRclcpI7HPyBCkx9o1gjUSNHa
+ z4XxIeGPlZoOu63S93mKnR4YBYYltf7p/TXHm6Za5VcudcHLT7SJxKwnG3K8bsIoTq
+ YS68Y7qfzdaMSfhaT5aCAhRb5gy7+fDQxK4c74tA=
+Date: Wed, 19 Feb 2025 12:06:20 -0500
+From: Hamza Mahfooz <hamzamahfooz@linux.microsoft.com>
+To: Ville Syrjala <ville.syrjala@linux.intel.com>
+Cc: dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org
+Subject: Re: [PATCH] drm/atomic: Filter out redundant DPMS calls
+Message-ID: <Z7YPjEOgLJGsAt2d@hm-sls2>
+References: <20250219160239.17502-1-ville.syrjala@linux.intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20250219160239.17502-1-ville.syrjala@linux.intel.com>
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,22 +53,42 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Wed, 19 Feb 2025, Imre Deak <imre.deak@intel.com> wrote:
-> Thanks for the ack/review, patchset pushed to drm-intel-fixes, adding
-> the bspec references to patch 1.
+On Wed, Feb 19, 2025 at 06:02:39PM +0200, Ville Syrjala wrote:
+> From: Ville Syrjälä <ville.syrjala@linux.intel.com>
+> 
+> Video players (eg. mpv) do periodic XResetScreenSaver() calls to
+> keep the screen on while the video playing. The modesetting ddx
+> plumbs these straight through into the kernel as DPMS setproperty
+> ioctls, without any filtering whatsoever. When implemented via
+> atomic these end up as full commits on the crtc, which leads to a
+> dropped frame every time XResetScreenSaver() is called.
+> 
+> Let's just filter out redundant DPMS property changes in the
+> kernel to avoid this issue.
 
-Uh, so you did, but committers aren't supposed to apply patches directly
-to drm-intel-fixes, only drm-intel-next. Maintainers cherry-pick to
-fixes.
+Do you know if this has any impact on the DPMS timeout (as set by
+DPMSSetTimeouts())?
 
-Rodrigo's maintaining fixes now. Would it be the simplest to just remove
-the commits from fixes, apply to drm-intel-next instead, and then
-cherry-pick?
-
-
-BR,
-Jani.
-
-
--- 
-Jani Nikula, Intel
+> 
+> Signed-off-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
+> ---
+>  drivers/gpu/drm/drm_atomic_uapi.c | 4 ++++
+>  1 file changed, 4 insertions(+)
+> 
+> diff --git a/drivers/gpu/drm/drm_atomic_uapi.c b/drivers/gpu/drm/drm_atomic_uapi.c
+> index 2765ba90ad8f..c2726af6698e 100644
+> --- a/drivers/gpu/drm/drm_atomic_uapi.c
+> +++ b/drivers/gpu/drm/drm_atomic_uapi.c
+> @@ -957,6 +957,10 @@ int drm_atomic_connector_commit_dpms(struct drm_atomic_state *state,
+>  
+>  	if (mode != DRM_MODE_DPMS_ON)
+>  		mode = DRM_MODE_DPMS_OFF;
+> +
+> +	if (connector->dpms == mode)
+> +		goto out;
+> +
+>  	connector->dpms = mode;
+>  
+>  	crtc = connector->state->crtc;
+> -- 
+> 2.45.3
