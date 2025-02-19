@@ -4,61 +4,62 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2BC11C021B0
-	for <intel-gfx@archiver.kernel.org>; Wed, 19 Feb 2025 18:38:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DE39DC021AA
+	for <intel-gfx@archiver.kernel.org>; Wed, 19 Feb 2025 19:09:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E648010E34C;
-	Wed, 19 Feb 2025 18:38:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9CD2610E360;
+	Wed, 19 Feb 2025 19:09:11 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="Eh3XlaWf";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="d75VmJtC";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.18])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9CF5110E04B;
- Wed, 19 Feb 2025 18:38:24 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.12])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E89B410E05B;
+ Wed, 19 Feb 2025 19:09:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1739990304; x=1771526304;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=/Ab4W9HhQ4J8/sVsEn3pOQCHhHNFSaB01HRXCpZrWuw=;
- b=Eh3XlaWfB6La14ouEXcm57rcW82UGywNCGiWgjL0okXq5j0zSRoSUGz6
- MfkiLc1nlwQELC53ARUZvNYaJyKeBYHW4b9oSQqmW0VcoDwHFO3vA+32s
- fvhirTcbjVE4EecfBsf/IRQJHEJ8fSeFKDnrJVP/kSvJhKoRX5bhsxP9R
- 82NIVgZuH8Mr5adtTreeNJtcjcfdNYFeGi28SaoN2+uhdQ1jnJSiUrgJw
- ePnoCWwWqimQnsz8ngqQp+fToygaSJgy9t9rZ7VE3BRhjJaPJ1AVcuFKS
- YFSPjvWH7qMN5LE2aD+gkLdh/weyNZC56aTvJJYIXSm9NP2SlLNuf211c g==;
-X-CSE-ConnectionGUID: P2yDkZ/5ThiWMau3XbG5tw==
-X-CSE-MsgGUID: mVW54nzCQDix6hYWJmiG4A==
-X-IronPort-AV: E=McAfee;i="6700,10204,11350"; a="39975439"
-X-IronPort-AV: E=Sophos;i="6.13,299,1732608000"; d="scan'208";a="39975439"
-Received: from fmviesa006.fm.intel.com ([10.60.135.146])
- by fmvoesa112.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 19 Feb 2025 10:38:23 -0800
-X-CSE-ConnectionGUID: ebOWXqleRH28TLlPYSeA5A==
-X-CSE-MsgGUID: 2nJGSFCIRIaoCsiTwarcIg==
+ t=1739992150; x=1771528150;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:content-transfer-encoding:in-reply-to;
+ bh=kNqcSh7BzpqpUal3hMylCom0ekgFe32NLAJkgkBadn0=;
+ b=d75VmJtCDo9k+Up/UNwIVNGn14oH5G6BdtYvyDjaQPRr0lZNQqcOWU8u
+ hLq3f7JjlDsAm6TUW1qvjdVIrhB7JfEoQziaBFsQseYwVOxW6j0hBjOsy
+ i+taE23USxk3BaTGrWT92eu0WdMsQ7qmGYFgOYKSNAMmWb9ZR/OL1OklN
+ O5OFEQFIKVTjAsy4j6RxpZ+gAtNa92PpMMdKTAJs3HIw0j87aWjOBcmZK
+ X5LhlainCDhl1/IkIVfhfemzZla8vG0lp7bBFAr8dhsuMMhf932fYcq4p
+ S0dooWddQtYhj3R3FymaVMUVzI9lNB67CV/Betue/a4s18N+RHYY+wt8w g==;
+X-CSE-ConnectionGUID: Yl2cAGhOQaO2iNleYvEcTg==
+X-CSE-MsgGUID: v6Rrvc7TRbSnS2VDTH1rpg==
+X-IronPort-AV: E=McAfee;i="6700,10204,11350"; a="52154308"
+X-IronPort-AV: E=Sophos;i="6.13,299,1732608000"; d="scan'208";a="52154308"
+Received: from orviesa005.jf.intel.com ([10.64.159.145])
+ by orvoesa104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 19 Feb 2025 11:09:08 -0800
+X-CSE-ConnectionGUID: XGjvoGL0QU+wuF2i7K+86Q==
+X-CSE-MsgGUID: /Ft0+EDFQ4SaYlKZ9i30fw==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.13,299,1732608000"; d="scan'208";a="114628936"
-Received: from jkrzyszt-mobl2.ger.corp.intel.com (HELO
- jkrzyszt-mobl2.intranet) ([10.245.246.132])
- by fmviesa006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 19 Feb 2025 10:38:21 -0800
-From: Janusz Krzysztofik <janusz.krzysztofik@linux.intel.com>
-To: intel-gfx@lists.freedesktop.org,
-	Andi Shyti <andi.shyti@linux.intel.com>
-Cc: dri-devel@lists.freedesktop.org, Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Tvrtko Ursulin <tursulin@ursulin.net>,
- Chris Wilson <chris.p.wilson@linux.intel.com>,
- Lucas De Marchi <lucas.demarchi@intel.com>,
- Alan Previn <alan.previn.teres.alexis@intel.com>,
- Janusz Krzysztofik <janusz.krzysztofik@linux.intel.com>
-Subject: [PATCH v2] drm/i915: Fix harmfull driver register/unregister assymetry
-Date: Wed, 19 Feb 2025 19:37:50 +0100
-Message-ID: <20250219183807.713776-2-janusz.krzysztofik@linux.intel.com>
-X-Mailer: git-send-email 2.48.1
+X-IronPort-AV: E=Sophos;i="6.12,224,1728975600"; d="scan'208";a="120014613"
+Received: from stinkpipe.fi.intel.com (HELO stinkbox) ([10.237.72.74])
+ by orviesa005.jf.intel.com with SMTP; 19 Feb 2025 11:08:47 -0800
+Received: by stinkbox (sSMTP sendmail emulation);
+ Wed, 19 Feb 2025 21:08:40 +0200
+Date: Wed, 19 Feb 2025 21:08:40 +0200
+From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
+To: Arun R Murthy <arun.r.murthy@intel.com>
+Cc: dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
+ intel-xe@lists.freedesktop.org, chaitanya.kumar.borah@intel.com,
+ Sebastian Brzezinka <sebastian.brzezinka@intel.com>,
+ Naveen Kumar <naveen1.kumar@intel.com>
+Subject: Re: [PATCH v6 3/3] drm/i915/display: Add i915 hook for
+ format_mod_supported_async
+Message-ID: <Z7YrTqoW2gWaguut@intel.com>
+References: <20250219-asyn-v6-0-b959e6becb3c@intel.com>
+ <20250219-asyn-v6-3-b959e6becb3c@intel.com>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <20250219-asyn-v6-3-b959e6becb3c@intel.com>
+X-Patchwork-Hint: comment
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,177 +75,133 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Starting with commit ec3e00b4ee27 ("drm/i915: stop registering if
-drm_dev_register() fails"), we return immediately from
-i915_driver_register() if drm_dev_register() fails, skipping remaining
-registration steps.  However, the _unregister() counterpart called at
-device remove knows nothing about that skip and executes reverts of all
-those steps.  As a consequence, a number of kernel warnings that taint the
-kernel are triggered:
+On Wed, Feb 19, 2025 at 02:47:25PM +0530, Arun R Murthy wrote:
+> Hook up the newly added plane function pointer
+> format_mod_supported_async to populate the modifiers/formats supported
+> by asynchronous flips.
+> 
+> v5: Correct the if condition for modifier support check (Chaitanya)
+> v6: Replace uint32_t/uint64_t with u32/u64 (Jani)
+> 
+> Signed-off-by: Arun R Murthy <arun.r.murthy@intel.com>
+> Reviewed-by: Chaitanya Kumar Borah <chaitanya.kumar.borah@intel.com>
+> Reviewed-by: Sebastian Brzezinka <sebastian.brzezinka@intel.com>
+> Tested-by: Naveen Kumar <naveen1.kumar@intel.com>
+> ---
+>  drivers/gpu/drm/i915/display/skl_universal_plane.c | 56 ++++++++++++++++------
+>  1 file changed, 41 insertions(+), 15 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/i915/display/skl_universal_plane.c b/drivers/gpu/drm/i915/display/skl_universal_plane.c
+> index cd9762947f1de227a3abbcd61b7c7b0c9848e439..f8baeb012f5e2423204f3f5ad7ce466666e04def 100644
+> --- a/drivers/gpu/drm/i915/display/skl_universal_plane.c
+> +++ b/drivers/gpu/drm/i915/display/skl_universal_plane.c
+> @@ -509,6 +509,33 @@ skl_plane_max_stride(struct intel_plane *plane,
+>  				modifier, rotation,
+>  				max_pixels, max_bytes);
+>  }
+> +static bool intel_plane_async_formats(struct intel_plane *plane, u32 format)
+> +{
+> +	switch (format) {
+> +	case DRM_FORMAT_RGB565:
+> +	case DRM_FORMAT_XRGB8888:
+> +	case DRM_FORMAT_XBGR8888:
+> +	case DRM_FORMAT_ARGB8888:
+> +	case DRM_FORMAT_ABGR8888:
+> +	case DRM_FORMAT_XRGB2101010:
+> +	case DRM_FORMAT_XBGR2101010:
+> +	case DRM_FORMAT_XRGB16161616F:
+> +	case DRM_FORMAT_XBGR16161616F:
+> +		return true;
+> +	default:
+> +		return false;
+> +	}
+> +}
 
-<3> [525.823143] i915 0000:00:02.0: [drm] *ERROR* Failed to register driver for
-userspace access!
-...
-<4> [525.831069] ------------[ cut here ]------------
-<4> [525.831071] i915 0000:00:02.0: [drm] drm_WARN_ON(power_domains->init_wakere
-f)
-<4> [525.831095] WARNING: CPU: 6 PID: 3440 at drivers/gpu/drm/i915/display/intel
-_display_power.c:2074 intel_power_domains_disable+0xc2/0xd0 [i915]
-...
-<4> [525.831328] CPU: 6 UID: 0 PID: 3440 Comm: i915_module_loa Tainted: G     U
-            6.14.0-rc1-CI_DRM_16076-g7a632b6798b6+ #1
-...
-<4> [525.831334] RIP: 0010:intel_power_domains_disable+0xc2/0xd0 [i915]
-...
-<4> [525.831483] Call Trace:
-<4> [525.831484]  <TASK>
-...
-<4> [525.831943]  i915_driver_remove+0x4b/0x140 [i915]
-<4> [525.832028]  i915_pci_remove+0x1e/0x40 [i915]
-<4> [525.832099]  pci_device_remove+0x3e/0xb0
-<4> [525.832103]  device_remove+0x40/0x80
-<4> [525.832107]  device_release_driver_internal+0x215/0x280
-...
-<4> [525.947666] ------------[ cut here ]------------
-<4> [525.947669] kobject: '(null)' (ffff88814f62a218): is not initialized, yet kobject_put() is being called.
-<4> [525.947707] WARNING: CPU: 6 PID: 3440 at lib/kobject.c:734 kobject_put+0xe4/0x200
-...
-<4> [525.947875] RIP: 0010:kobject_put+0xe4/0x200
-...
-<4> [525.947909] Call Trace:
-<4> [525.947911]  <TASK>
-...
-<4> [525.947963]  intel_gt_sysfs_unregister+0x25/0x40 [i915]
-<4> [525.948133]  intel_gt_driver_unregister+0x14/0x80 [i915]
-<4> [525.948291]  i915_driver_remove+0x6c/0x140 [i915]
-<4> [525.948411]  i915_pci_remove+0x1e/0x40 [i915]
-...
-<4> [526.441186] ------------[ cut here ]------------
-<4> [526.441191] kernfs: can not remove 'error', no directory
-<4> [526.441211] WARNING: CPU: 1 PID: 3440 at fs/kernfs/dir.c:1684 kernfs_remove_by_name_ns+0xbc/0xc0
-...
-<4> [526.441536] RIP: 0010:kernfs_remove_by_name_ns+0xbc/0xc0
-...
-<4> [526.441578] Call Trace:
-<4> [526.441581]  <TASK>
-...
-<4> [526.441686]  sysfs_remove_bin_file+0x17/0x30
-<4> [526.441691]  i915_gpu_error_sysfs_teardown+0x1d/0x30 [i915]
-<4> [526.442226]  i915_teardown_sysfs+0x1c/0x60 [i915]
-<4> [526.442369]  i915_driver_remove+0x9d/0x140 [i915]
-<4> [526.442473]  i915_pci_remove+0x1e/0x40 [i915]
-...
-<4> [526.685700] ------------[ cut here ]------------
-<4> [526.685706] i915 0000:00:02.0: [drm] i915 raw-wakerefs=1 wakelocks=1 on cle
-anup
-<4> [526.685734] WARNING: CPU: 1 PID: 3440 at drivers/gpu/drm/i915/intel_runtime
-_pm.c:443 intel_runtime_pm_driver_release+0x75/0x90 [i915]
-...
-<4> [526.686090] RIP: 0010:intel_runtime_pm_driver_release+0x75/0x90 [i915]
-...
-<4> [526.686294] Call Trace:
-<4> [526.686296]  <TASK>
-...
-<4> [526.687025]  i915_driver_release+0x7e/0xb0 [i915]
-<4> [526.687243]  drm_dev_put.part.0+0x47/0x90
-<4> [526.687250]  devm_drm_dev_init_release+0x13/0x30
-<4> [526.687255]  devm_action_release+0x12/0x30
-<4> [526.687261]  release_nodes+0x3a/0x120
-<4> [526.687268]  devres_release_all+0x97/0xe0
-<4> [526.687277]  device_unbind_cleanup+0x12/0x80
-<4> [526.687282]  device_release_driver_internal+0x23a/0x280
-...
+Why? And anyway, this sort of stuff belongs in a separate patch.
 
-Introduce a flag that indicates device registration status, raise it on
-device registration success.  When that flag is found not set while
-unregistering the driver, jump over reverts of registration steps omitted
-on device registration failure.
+> +
+> +static bool intel_plane_format_mod_supported_async(struct drm_plane *plane,
+> +						   u32 format,
+> +						   u64 modifier)
+> +{
+> +	if (!intel_plane_can_async_flip(to_intel_plane(plane), modifier))
+> +		return false;
+> +
+> +	return intel_plane_async_formats(to_intel_plane(plane), format);
 
-To make it possible, move i915_pmu_unregister(), a counterpart of
-i915_pmu_unregister() that is called unconditionally before registering
-the device, down so it is not skipped in any case.  Also, move
-intel_pxp_fini(), that apparently needs to be called on driver remove
-whether the device was registered successfully or not, down right below
-the jump target (though it doesn't look like a step that belongs to driver
-unregistration, but that's beyond the scope of this patch).
+To preserve the current behavior we want something like:
 
-v2: Check in _unregister whether the drm_dev_register has succeeded and
-    skip some of the _unregister() steps. (Andi)
+1. move the planar format check from
+   intel_async_flip_check_hw() into
+   intel_plane_can_async_flip().
 
-Closes: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/12817
-Link: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/9820
-Link: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/10047
-Link: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/10131
-Link: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/10887
-Cc: Chris Wilson <chris.p.wilson@linux.intel.com>
-Cc: Lucas De Marchi <lucas.demarchi@intel.com>
-Cc: Alan Previn <alan.previn.teres.alexis@intel.com>
-Cc: Andi Shyti <andi.shyti@linux.intel.com>
-Signed-off-by: Janusz Krzysztofik <janusz.krzysztofik@linux.intel.com>
----
- drivers/gpu/drm/i915/i915_driver.c | 13 ++++++++++---
- drivers/gpu/drm/i915/i915_drv.h    |  2 ++
- 2 files changed, 12 insertions(+), 3 deletions(-)
+2. implemnt intel_plane_format_mod_supported_async()
+   as
+{
+	if (!plane->format_mod_supported())
+		return false;
+	
+	return intel_plane_can_async_flip();
+}
 
-diff --git a/drivers/gpu/drm/i915/i915_driver.c b/drivers/gpu/drm/i915/i915_driver.c
-index 91a7748f44926..d3b30c3690bbe 100644
---- a/drivers/gpu/drm/i915/i915_driver.c
-+++ b/drivers/gpu/drm/i915/i915_driver.c
-@@ -639,6 +639,8 @@ static void i915_driver_register(struct drm_i915_private *dev_priv)
- 		return;
- 	}
- 
-+	dev_priv->registered = true;
-+
- 	i915_debugfs_register(dev_priv);
- 	i915_setup_sysfs(dev_priv);
- 
-@@ -673,6 +675,9 @@ static void i915_driver_unregister(struct drm_i915_private *dev_priv)
- 	struct intel_gt *gt;
- 	unsigned int i;
- 
-+	if (!dev_priv->registered)
-+		goto not_registered;
-+
- 	i915_switcheroo_unregister(dev_priv);
- 
- 	intel_unregister_dsm_handler();
-@@ -682,17 +687,19 @@ static void i915_driver_unregister(struct drm_i915_private *dev_priv)
- 
- 	intel_display_driver_unregister(display);
- 
--	intel_pxp_fini(dev_priv);
--
- 	for_each_gt(gt, dev_priv, i)
- 		intel_gt_driver_unregister(gt);
- 
- 	i915_hwmon_unregister(dev_priv);
- 
- 	i915_perf_unregister(dev_priv);
--	i915_pmu_unregister(dev_priv);
- 
- 	i915_teardown_sysfs(dev_priv);
-+
-+not_registered:
-+	intel_pxp_fini(dev_priv);
-+	i915_pmu_unregister(dev_priv);
-+
- 	drm_dev_unplug(&dev_priv->drm);
- 
- 	i915_gem_driver_unregister(dev_priv);
-diff --git a/drivers/gpu/drm/i915/i915_drv.h b/drivers/gpu/drm/i915/i915_drv.h
-index ffc346379cc2c..27a23b1eb9de0 100644
---- a/drivers/gpu/drm/i915/i915_drv.h
-+++ b/drivers/gpu/drm/i915/i915_drv.h
-@@ -347,6 +347,8 @@ struct drm_i915_private {
- 	/* The TTM device structure. */
- 	struct ttm_device bdev;
- 
-+	bool registered;
-+
- 	I915_SELFTEST_DECLARE(struct i915_selftest_stash selftest;)
- 
- 	/*
+Also all this generic should be put into intel_atomic_plane.c.
+
+>  
+>  static bool tgl_plane_can_async_flip(u64 modifier)
+>  {
+> @@ -2616,30 +2643,29 @@ static bool tgl_plane_format_mod_supported(struct drm_plane *_plane,
+>  	}
+>  }
+>  
+> +#define INTEL_PLANE_FUNCS \
+> +	.update_plane = drm_atomic_helper_update_plane, \
+> +	.disable_plane = drm_atomic_helper_disable_plane, \
+> +	.destroy = intel_plane_destroy, \
+> +	.atomic_duplicate_state = intel_plane_duplicate_state, \
+> +	.atomic_destroy_state = intel_plane_destroy_state, \
+> +	.format_mod_supported_async = intel_plane_format_mod_supported_async
+
+This looks unrelated and just adds extra noise to the patch.
+Also you are failing to hook this up for pre-skl planes.
+
+> +
+>  static const struct drm_plane_funcs skl_plane_funcs = {
+> -	.update_plane = drm_atomic_helper_update_plane,
+> -	.disable_plane = drm_atomic_helper_disable_plane,
+> -	.destroy = intel_plane_destroy,
+> -	.atomic_duplicate_state = intel_plane_duplicate_state,
+> -	.atomic_destroy_state = intel_plane_destroy_state,
+> +	INTEL_PLANE_FUNCS,
+> +
+>  	.format_mod_supported = skl_plane_format_mod_supported,
+>  };
+>  
+>  static const struct drm_plane_funcs icl_plane_funcs = {
+> -	.update_plane = drm_atomic_helper_update_plane,
+> -	.disable_plane = drm_atomic_helper_disable_plane,
+> -	.destroy = intel_plane_destroy,
+> -	.atomic_duplicate_state = intel_plane_duplicate_state,
+> -	.atomic_destroy_state = intel_plane_destroy_state,
+> +	INTEL_PLANE_FUNCS,
+> +
+>  	.format_mod_supported = icl_plane_format_mod_supported,
+>  };
+>  
+>  static const struct drm_plane_funcs tgl_plane_funcs = {
+> -	.update_plane = drm_atomic_helper_update_plane,
+> -	.disable_plane = drm_atomic_helper_disable_plane,
+> -	.destroy = intel_plane_destroy,
+> -	.atomic_duplicate_state = intel_plane_duplicate_state,
+> -	.atomic_destroy_state = intel_plane_destroy_state,
+> +	INTEL_PLANE_FUNCS,
+> +
+>  	.format_mod_supported = tgl_plane_format_mod_supported,
+>  };
+>  
+> 
+> -- 
+> 2.25.1
+
 -- 
-2.48.1
-
+Ville Syrjälä
+Intel
