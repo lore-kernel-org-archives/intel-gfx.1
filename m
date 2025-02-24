@@ -4,50 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6C140C19778
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BEECCC021BE
 	for <intel-gfx@archiver.kernel.org>; Mon, 24 Feb 2025 13:43:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 40D1D10E508;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 473D910E50A;
 	Mon, 24 Feb 2025 13:42:16 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="X19vHkzD";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="YoZjpFJe";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.16])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E2BAE10E13C;
- Mon, 24 Feb 2025 06:29:41 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E820610E13C;
+ Mon, 24 Feb 2025 06:29:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1740378581; x=1771914581;
+ t=1740378595; x=1771914595;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=yj/ufBg2K2s/F79FX4LfBa7uvkQvj4Hnd+y7c2VTdaQ=;
- b=X19vHkzDlV7qM1ojiEHlXNxt7mXR3fYBg3pl/bmwSwPgZuHTVoBGujG1
- jiQnS4H5yVgNmdjCUifRgBmgBkHd8b/MYBYSGnptzSQCpz1RmYCYcd9Ni
- rTd7Iyb3Y2NVljLMfhW0vMbp5zu4YJNbnKR9R8Ugpcqlsy62Q5/lpaHJl
- JBy6XvNTkq25L1CxLtnYRvgtYdJLAKLMYwtmHo7QvJva6NH5tNC1ULRay
- y20X8w4zEhYiu2/0bxZm6qQlsNZi6o2GYN0jqMm7VtgBXdalvuZNnhD5S
- GMX3OtUokiY7bcLjv2ZwVSU9e7PpDmSehobu1jp+io/5GdhvGrF1N33Ag g==;
-X-CSE-ConnectionGUID: uQ8t8EXTSriI19oVRSSMjw==
-X-CSE-MsgGUID: Dh+nQ5EhSCOiWJ/emLUA5w==
-X-IronPort-AV: E=McAfee;i="6700,10204,11354"; a="28719654"
-X-IronPort-AV: E=Sophos;i="6.13,309,1732608000"; d="scan'208";a="28719654"
+ bh=8lZuLBLUAJeR7s9dxFH5OsYgiW9BX5aCUFeJxRi9CQc=;
+ b=YoZjpFJej5vPuUOsDc/8fJHCBBRv6tpLVqcsCapltWfE/aAZuWjnOd61
+ uy/8t6M4+bQpOlapHxmHW834xvOxtRtQCg/DnfvnV+xtKMT1GM8StIKfB
+ tqvpSt304Glnr3oa5gdQFOGL3ARMcTwJlohky8CuS7eeLpIVAL3dAMMza
+ 6xz+vdFWluar3ZdwmcYAxQvL8GYlQFkbssDWG298PglPFH9MZcz8HI9b7
+ vFTkN1UkaLQgnx769RRzW+pH7zO8cbP6FDD62t5Ol6P1Yfm2g8UiUh9yz
+ C8ISka0lB6VsXrXjZ1Mu3HmwgMEgt3c4BCf+IExqm14Wwj/yjtUHDh5sU Q==;
+X-CSE-ConnectionGUID: rvlrlO+8S9SEKZSL4+VwPA==
+X-CSE-MsgGUID: z3lllSUMSWSov+KIBxHHLQ==
+X-IronPort-AV: E=McAfee;i="6700,10204,11354"; a="28719677"
+X-IronPort-AV: E=Sophos;i="6.13,309,1732608000"; d="scan'208";a="28719677"
 Received: from fmviesa003.fm.intel.com ([10.60.135.143])
  by fmvoesa110.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 Feb 2025 22:29:41 -0800
-X-CSE-ConnectionGUID: KyLIPM5qTle+93ke1xtgXQ==
-X-CSE-MsgGUID: bhVlszrETxeq3/zv7+bOqg==
+ 23 Feb 2025 22:29:54 -0800
+X-CSE-ConnectionGUID: ENDfu23GTzqctRBwlXfzug==
+X-CSE-MsgGUID: s9Ot22nvTSKkgHEsu735qg==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.12,224,1728975600"; d="scan'208";a="120076502"
+X-IronPort-AV: E=Sophos;i="6.12,224,1728975600"; d="scan'208";a="120076558"
 Received: from srr4-3-linux-103-aknautiy.iind.intel.com ([10.223.34.160])
  by fmviesa003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 Feb 2025 22:29:41 -0800
+ 23 Feb 2025 22:29:54 -0800
 From: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
 To: intel-gfx@lists.freedesktop.org
 Cc: intel-xe@lists.freedesktop.org, jani.nikula@linux.intel.com,
  ville.syrjala@linux.intel.com, mitulkumar.ajitkumar.golani@intel.com
-Subject: [PATCH 06/20] drm/i915/vrr: Use crtc_vtotal for vmin
-Date: Mon, 24 Feb 2025 11:47:03 +0530
-Message-ID: <20250224061717.1095226-7-ankit.k.nautiyal@intel.com>
+Subject: [PATCH 11/20] drm/i915/display: Disable PSR before disabling VRR
+Date: Mon, 24 Feb 2025 11:47:08 +0530
+Message-ID: <20250224061717.1095226-12-ankit.k.nautiyal@intel.com>
 X-Mailer: git-send-email 2.45.2
 In-Reply-To: <20250224061717.1095226-1-ankit.k.nautiyal@intel.com>
 References: <20250224061717.1095226-1-ankit.k.nautiyal@intel.com>
@@ -68,64 +68,35 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-To have fixed refresh rate with VRR timing generator the
-guardband/pipeline full can't be programmed on the fly. So we need to
-ensure that the values satisfy both the fixed and variable refresh
-rates.
-
-Since we compute these value based on vmin, lets set the vmin to
-crtc_vtotal for both fixed and variable timings instead of using the
-current refresh rate based approach. This way the guardband remains
-sufficient for both cases.
-
-v2: Avoid using vblank delay while computing vtotal, as this comes into
-the picture later. (Ville)
+As per bspec 49268: Disable PSR before disabling VRR.
 
 Signed-off-by: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_vrr.c | 21 ++++++++++-----------
- 1 file changed, 10 insertions(+), 11 deletions(-)
+ drivers/gpu/drm/i915/display/intel_display.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_vrr.c b/drivers/gpu/drm/i915/display/intel_vrr.c
-index 4d7f29be55b8..b6120ff1a87c 100644
---- a/drivers/gpu/drm/i915/display/intel_vrr.c
-+++ b/drivers/gpu/drm/i915/display/intel_vrr.c
-@@ -247,17 +247,16 @@ void intel_vrr_compute_vrr_timings(struct intel_crtc_state *crtc_state)
- }
+diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
+index 065fdf6dbb88..0db84af1063a 100644
+--- a/drivers/gpu/drm/i915/display/intel_display.c
++++ b/drivers/gpu/drm/i915/display/intel_display.c
+@@ -1202,6 +1202,8 @@ static void intel_pre_plane_update(struct intel_atomic_state *state,
+ 		intel_atomic_get_new_crtc_state(state, crtc);
+ 	enum pipe pipe = crtc->pipe;
  
- static
--int intel_vrr_compute_vmin(struct intel_connector *connector,
--			   struct drm_display_mode *adjusted_mode)
-+int intel_vrr_compute_vmin(struct intel_crtc_state *crtc_state)
- {
--	int vmin;
--	const struct drm_display_info *info = &connector->base.display_info;
++	intel_psr_pre_plane_update(state, crtc);
++
+ 	if (intel_crtc_vrr_disabling(state, crtc)) {
+ 		intel_vrr_disable(old_crtc_state);
+ 		intel_crtc_update_active_timings(old_crtc_state, false);
+@@ -1212,8 +1214,6 @@ static void intel_pre_plane_update(struct intel_atomic_state *state,
+ 
+ 	intel_drrs_deactivate(old_crtc_state);
+ 
+-	intel_psr_pre_plane_update(state, crtc);
 -
--	vmin = DIV_ROUND_UP(adjusted_mode->crtc_clock * 1000,
--			    adjusted_mode->crtc_htotal * info->monitor_range.max_vfreq);
--	vmin = max_t(int, vmin, adjusted_mode->crtc_vtotal);
--
--	return vmin;
-+	/*
-+	 * To make fixed rr and vrr work seamless the guardband/pipeline full
-+	 * should be set such that it satisfies both the fixed and variable
-+	 * timings.
-+	 * For this set the vmin as crtc_vtotal. With this we never need to
-+	 * change anything to do with the guardband.
-+	 */
-+	return crtc_state->hw.adjusted_mode.crtc_vtotal;
- }
+ 	if (hsw_ips_pre_update(state, crtc))
+ 		intel_crtc_wait_for_next_vblank(crtc);
  
- static
-@@ -305,7 +304,7 @@ intel_vrr_compute_config(struct intel_crtc_state *crtc_state,
- 	if (HAS_LRR(display))
- 		crtc_state->update_lrr = true;
- 
--	vmin = intel_vrr_compute_vmin(connector, adjusted_mode);
-+	vmin = intel_vrr_compute_vmin(crtc_state);
- 	vmax = intel_vrr_compute_vmax(connector, adjusted_mode);
- 
- 	if (vmin >= vmax)
 -- 
 2.45.2
 
