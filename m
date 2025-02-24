@@ -4,179 +4,114 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F1078C021BB
-	for <intel-gfx@archiver.kernel.org>; Mon, 24 Feb 2025 14:13:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7BEFEC021A4
+	for <intel-gfx@archiver.kernel.org>; Mon, 24 Feb 2025 15:17:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 97A0B10E3BE;
-	Mon, 24 Feb 2025 14:13:34 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EC31110E2BC;
+	Mon, 24 Feb 2025 15:17:23 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="UVJE1KGi";
+	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="Q2LORdUD";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.18])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 16F0910E3BE;
- Mon, 24 Feb 2025 14:13:33 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1740406413; x=1771942413;
- h=date:from:to:subject:message-id:references:in-reply-to:
- mime-version; bh=tNaTVWif0XrBgXVHJJUf+SRljnt26SNqxwyTJ7JL9AA=;
- b=UVJE1KGiQBsNJ+f1PJALMZQ8B+SuHhwWaBMywAy7UW76s9jsJQPbXJTF
- PUs+JgT6KLFVP2oh/uBxinRRTA0Bzda/Y3C5x/yKtHWmv1W49FKqgAYEX
- Rn6bp1eezfx6Yvl+wSdYmrI0PzE7ssjrgCqHwUv12LZItiY7dvKECFnKR
- AFcTtReH8zgepMOBoQiNZi5BNkb8mza3oR2JwnN8bP3BEoVgy3nYtFR+K
- H8C4r6dm5cLNXgmGJdb25YMTLXteI8Tc1NqoAPTmQQYOptgFy/WMUDeqa
- EPfU5B8JNhE+RkUwVob6M8bLfZvKfN8qiVcT6OzcZyBIMPE0TTS5ZSuR+ g==;
-X-CSE-ConnectionGUID: gYdkPe0mQoiY1yQHRrNMRQ==
-X-CSE-MsgGUID: OSP5jesRRzyN1itwEpiBag==
-X-IronPort-AV: E=McAfee;i="6700,10204,11314"; a="41370556"
-X-IronPort-AV: E=Sophos;i="6.12,310,1728975600"; d="scan'208";a="41370556"
-Received: from fmviesa008.fm.intel.com ([10.60.135.148])
- by orvoesa110.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 24 Feb 2025 06:13:19 -0800
-X-CSE-ConnectionGUID: 4cRjymVZTq2Y2D/ZBNoMaw==
-X-CSE-MsgGUID: OBTQeY7KR/qNVY5yaoVqqg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.13,309,1732608000"; d="scan'208";a="116274130"
-Received: from orsmsx902.amr.corp.intel.com ([10.22.229.24])
- by fmviesa008.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 24 Feb 2025 06:13:19 -0800
-Received: from ORSMSX902.amr.corp.intel.com (10.22.229.24) by
- ORSMSX902.amr.corp.intel.com (10.22.229.24) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1544.14; Mon, 24 Feb 2025 06:13:18 -0800
-Received: from ORSEDG602.ED.cps.intel.com (10.7.248.7) by
- ORSMSX902.amr.corp.intel.com (10.22.229.24) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1544.14 via Frontend Transport; Mon, 24 Feb 2025 06:13:18 -0800
-Received: from NAM02-SN1-obe.outbound.protection.outlook.com (104.47.57.46) by
- edgegateway.intel.com (134.134.137.103) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.1.2507.44; Mon, 24 Feb 2025 06:13:18 -0800
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=cIF2SxCSn4nD2Ev2U6xuL8aTS9UVOgKSaDgd+s/fcWeTJahcDRIhR72g4mAv7Lw5RZiIUPFp0jhSXI/nydT/kTT1ufMHZXkdk8WXFH6zJqPpX6voXrt06JWqcGDEO8e3idoj455ugNhNXYh5t29dPsm3n/5sFTYYrcCqt5hrwPNCbQRTcXqwjalwjAonZSVNWQv9y3afZtHTNFB6qFOMDvakANuyxom0Ug7kLni7h8HKc00dGuo0U2mOkXYtUFPHyAQXpMqmZqjWNNqC4VpSzx3DACTObo4ZZTAsYBfT6yVaTuhJClNHn/Ag0tvY66ZGYFkh6tRjdfhtbbQmEs8f+g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=wGhmfiFcBkZ38cyIM1z4rlOrDVHRswoooZvaG9p6da4=;
- b=M3U4RRpzkZ18kV1eImrr7rP/hKgxYLTiHVL/5Ixx1bC71+iBFIcXSxjhOgemJzn5lzCPCZHXgB1BcMgVuDooz4hBZsAFPJ8sl+l2ucRQI6FIgeqRwxDJbHo04PGQgzAhlFyWtCFgrnowB7Z3b7QEm0pwRc0GIm1HANc0k6RIeyU8MXQYzZe7KywGuC9xynD64pTicDfKjKk4YA5XMh7qbGdajPIJRWcoVLo2kYEp1kecjqdIu2KB5oOHtMGWXbT1kgxLlO6N7v2vEsbdgBz5WGicjNUreXDNxypL1n7tkc3PiROaKJlTRZYcAWWqa5ZOryvWd26ViF9yndKcRbKo4w==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-Received: from PH8PR11MB6974.namprd11.prod.outlook.com (2603:10b6:510:225::16)
- by MW4PR11MB5776.namprd11.prod.outlook.com (2603:10b6:303:183::9)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8466.20; Mon, 24 Feb
- 2025 14:13:15 +0000
-Received: from PH8PR11MB6974.namprd11.prod.outlook.com
- ([fe80::c0b4:f63a:9c33:ec4a]) by PH8PR11MB6974.namprd11.prod.outlook.com
- ([fe80::c0b4:f63a:9c33:ec4a%4]) with mapi id 15.20.8466.016; Mon, 24 Feb 2025
- 14:13:14 +0000
-Date: Mon, 24 Feb 2025 19:43:08 +0530
-From: "Vivekanandan, Balasubramani" <balasubramani.vivekanandan@intel.com>
-To: Matt Roper <matthew.d.roper@intel.com>, <intel-gfx@lists.freedesktop.org>, 
- <intel-xe@lists.freedesktop.org>
-Subject: Re: [PATCH 3/4] drm/xe: Drop usage of TIMESTAMP_OVERRIDE
-Message-ID: <Z7x-dFvANs689sOV@bvivekan-mobl1>
-References: <20250221003843.443559-6-matthew.d.roper@intel.com>
- <20250221003843.443559-9-matthew.d.roper@intel.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Disposition: inline
-In-Reply-To: <20250221003843.443559-9-matthew.d.roper@intel.com>
-X-ClientProxiedBy: MA0PR01CA0029.INDPRD01.PROD.OUTLOOK.COM
- (2603:1096:a01:b8::11) To PH8PR11MB6974.namprd11.prod.outlook.com
- (2603:10b6:510:225::16)
+X-Greylist: delayed 1254 seconds by postgrey-1.36 at gabe;
+ Mon, 24 Feb 2025 15:17:22 UTC
+Received: from mslow3.mail.gandi.net (mslow3.mail.gandi.net [217.70.178.249])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0B60310E1D5
+ for <intel-gfx@lists.freedesktop.org>; Mon, 24 Feb 2025 15:17:21 +0000 (UTC)
+Received: from relay9-d.mail.gandi.net (relay9-d.mail.gandi.net
+ [IPv6:2001:4b98:dc4:8::229])
+ by mslow3.mail.gandi.net (Postfix) with ESMTP id 9501458364C
+ for <intel-gfx@lists.freedesktop.org>; Mon, 24 Feb 2025 14:48:20 +0000 (UTC)
+Received: by mail.gandi.net (Postfix) with ESMTPSA id 8A230442B2;
+ Mon, 24 Feb 2025 14:47:50 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=gm1;
+ t=1740408490;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=WvnvUxTc5AQaskJINeTmL3gncfKgdBsvPvsCNQOV7qs=;
+ b=Q2LORdUD5tDm5eeAOWJ40SHFnvB+Eige1cCbnwZEEki9558eeomxRJKDhDTFOeaBUVoX7q
+ 72KS/Bb73OzGmGjmbNncuVdPLlAGBcuRJ3dE+YVS4uJn2S+pln5UG7vglFkRz6jhI0YJ2C
+ 3v76jFBTPHUhsXwN65FETkOLdIHNssRXwrXjz5j7VlqbMC/Fm7HGujkZlIK8uuzPRDMNMr
+ Ejuq+fPzupxrnVDS8Cj58QbveUdu/ZlYZbD9N/fzd19pXylBPnhSbJLlxeEOnnkAZc/DaG
+ TbJwWIrf11GPhxzWVYCACykoERN1td9OWy/mDsMo53Muc48il43af/d7NWXEBw==
+Message-ID: <13348e9c-5690-4f5a-9086-5cc5540fa1db@bootlin.com>
+Date: Mon, 24 Feb 2025 15:47:49 +0100
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH8PR11MB6974:EE_|MW4PR11MB5776:EE_
-X-MS-Office365-Filtering-Correlation-Id: da1bef82-8b53-420e-8d3c-08dd54dd60ca
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|366016|1800799024|376014;
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?WmZ1aWY2cGxQUThqeGJUSzBNUHlwRHVXcm5sVXNOSXA4aDZDZWZ3a2piVHJN?=
- =?utf-8?B?WTFXTnNvcFFkYVZkMEFLS0V2ekNTbk9PM0FiWEQyUXdncDNNeHFsVHhkVDVR?=
- =?utf-8?B?N2tpVDZtSGtpenZibkJmRW1FK2ZES3g3cHc0eEZGS09YWHdxQkhLa000cVlq?=
- =?utf-8?B?ckRpSDlQdXRnL0YxQmp6QU9yZDBybHhBbkZkK0tjNjI5dzBlNms0czcwR3pz?=
- =?utf-8?B?Yy9ualFlTmFFYS8zaGhvNElwQWhNaW1RMVd1cVN2NC9LTGdmaWRXSk83eEZM?=
- =?utf-8?B?SjloTFl2WitzTmJIS2FKekVxVmw3VVRHMzRiTDlRU1RrK25VTzd5UnB1ZzJz?=
- =?utf-8?B?aXRQYnNOVkVhWnpOTFlvdU9mY3R3N041TS9SemVXcDQ3NUZ2bVAzWWVmYmRl?=
- =?utf-8?B?U0IwSTYwNFJkVUEyRXdVMGwwZUoxNzdHZlVVaU82ZzgwelpBSkNFVnFjRkFh?=
- =?utf-8?B?VGtVZ0krb0c0ejd5QmNnd1pyeUVuNkhUMVk1T1ZkMWl6MTFjZ0RzZS8rNXJi?=
- =?utf-8?B?QTd3a0YxcHVQbXhiL0ZOWTZhTHBsZEMvNDhoQW5taDF2L0wzWmdXS3lkQ1RJ?=
- =?utf-8?B?c1Y5RVNSUDFyU0RRZkFRNnlkSnF3YUIzRDNxemJBelQwVmF4UVVsOWQ0dVBi?=
- =?utf-8?B?aTZLdVlZWDA5UHRiWTNoUjdXK3FSVE1sYStWbDd6K1lQdytPTnplS0xTUmxo?=
- =?utf-8?B?Zm1tOHNsVzlvWmJLR0tCcDhMMXU0SDBoRWozNldxK0orMzJFeFFhcDMwYSta?=
- =?utf-8?B?RGdyeVd4WEdub25yNWtIa1J2SjN4UC9pdnFWRytNekVqeGlFSFlUelVWSnp5?=
- =?utf-8?B?OHluQ2JJNFdrOEh5OTRPQjEvakJtYmxQSWlpUXlZOGwzSzdZTVo3TW5VTllG?=
- =?utf-8?B?ZnNlZzdSMXZuUXZHTTg0NmZZWXN0eGE5K3FHRGx3ZVNKNlJ5YVNaNDkyak9D?=
- =?utf-8?B?WkJLMUU4dnpRd0ZLckhtbmpPZzU0WGk3b25pT1IzM1ZGYmpraGxLKzlBa29N?=
- =?utf-8?B?cDZ0Qy9jcGd6Szg1dG9laEpIUS9aTGNaNCtIMS9SZHNZY1QrTDBNRVhEcE02?=
- =?utf-8?B?MmEvVG1DTnhwbGd0alNvZ3ZuRHZob3Y1YTdQTjRBazRzYnU0M2tYcVhya3o3?=
- =?utf-8?B?NDJzL1h0dXdkcEloakg3TnZoYlpVZzFEUVVKOGRiR3hUSlNLTDJqMHZpQjJR?=
- =?utf-8?B?bUxUWWN4SWZBa3oxWWtTNVFCaHpNUHhOMy94ZzM5NXR2UlRkWkpjNTBrZW42?=
- =?utf-8?B?aE5uem44RDhGNmF6MGZvTGcyWEtnL0R3Wi9Kc0VRWlZzdmhJOGpZcXd5S1N4?=
- =?utf-8?B?S1pxSWtZSzZZdmFmSzNHQXVzZzJFcnZTVEpQTFRHRjBtM0hLaGdLb2hvNjVw?=
- =?utf-8?B?K01TZXdVMzJlTktBUjBqc29BVTBSa0Y3a3pTR1RuWGlYYmk1c20xUHBtNnpj?=
- =?utf-8?B?SkEvVHgrWTBDall3RkZYUnNTa0ZnYWMza2pWVXdwVkVyeUZIbGx3dzk4QXoy?=
- =?utf-8?B?clZ6NUVpOW9FL2NvT2l4OWRRRUppNzZjK1Z2Q001TTQzZUNXOWtRaElzOFZX?=
- =?utf-8?B?SG9tMk9GS2Q4eGFYdm0rblFLV25HN2M3dTU5WFBQcnREWVZMamQwN0hFSzdm?=
- =?utf-8?B?REhrUWF5eVU0OEhFU0RYR3lFclI3NVpHcW9qajJ6Zlc3eThIbDY2VDJ5bGtl?=
- =?utf-8?B?Ly9CQWpYa3hTY1J6V2pPN0tLRklyR0NmNUJUZklhbFRpdFdHbTg0dWJYeDNL?=
- =?utf-8?B?Vk5USlo1dWo1WmNsbGloaXNuaWlCSVJ2eURCVjFXQmtKazhPZ2wyNjVhTVc3?=
- =?utf-8?B?empRdFhsN0tkRlZpc3FmajhHRXNyeUtxOExWRmhkWm5hMTFQRC8yMldWVkxy?=
- =?utf-8?Q?8IUMhfmrXKEhG?=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH8PR11MB6974.namprd11.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(1800799024)(376014); DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?ZVBTRE1md0ZOcXp6bjRkQlpkb01rK29sMERCeGxPY1BxWFdpWDJtWHFLeEtp?=
- =?utf-8?B?YlRFcUFvQXNsalpWWGdvQjFUc0lwRGxaMlA5QVI4bWhnQ3Z1cm5raVdERGtI?=
- =?utf-8?B?R0JMWXlNRUJCb2VDdU1VVXh2dmFHR0poaVdPMFd3UXpDVXVMSXVocmtvMms2?=
- =?utf-8?B?dlh6djFHcFhRdFVJM1pHUXkxUkxYMSttVXpSVWxwOWJlV0I5b3BQK1FLbVU4?=
- =?utf-8?B?SEhYeXJBSmRDbHlWR0Z4MHFkUVFBZmpJYjk5ajBJa0V3SllaUHRBU3RlRWNs?=
- =?utf-8?B?bXdjRzBEdWZ2ZnFyMytSUG5rTEd0eCt5cDRvUlFkbFFUbnpjazNtRlNmNDdT?=
- =?utf-8?B?cU1VMVYvYklDdDh1S2ZOaXFmRHZzTFQvMEFwMjNMUDlIRlJwZHlOV2tFV3Ni?=
- =?utf-8?B?aWFqZE5tMHVJUU0zelVhQ2RXUGJ4dXoyNDRSNjYrNTNzMm12VWRaazVCYkIy?=
- =?utf-8?B?TDZXb3k0dUZlMWtDMmJJUkpvOUR6ZFQ4TnVUbmd0K0kycVBla0xXeWJoaEMz?=
- =?utf-8?B?N0Z3TitFaG1keGw3cXV5QXg4UmlPZ2V0aWFmMXFKYXRya0JyWWxkUTgxY0Z5?=
- =?utf-8?B?SDlRYWFsdWQ3aXBKWkJzMUlST2k3SHlXV2MxR0lmU2FDakxOc0xLdktmV3VE?=
- =?utf-8?B?UXdFMktHYnJNZmd4MjFjUlpKdmNFL0ZpZXZOY1VDaTRkN20zelBQMjY1RDVt?=
- =?utf-8?B?ZVR6ZTRHSlkxeVMvZ3VKL2xwM1NHTVprTyt2bStXNFJaSzU3SGpMNktsMjZp?=
- =?utf-8?B?UmN0QXhCemlSNTlFVlZUbUtIRlZHYTl1TzJWVTZiNG9iZDc0YmxEd204bStL?=
- =?utf-8?B?eUZlVU02M2p1a3kxdzM4V014Q0JGYko5YlhqLzFGNUllMkg2citWNlZSSzFS?=
- =?utf-8?B?ODNiNGt5UDUrektDZ0toZUQ5MStPaWhqdG5RTnA3bVhOTDhKZTRUY3M0SVVi?=
- =?utf-8?B?MVRIS3AxRVpuak1RTjJQb1F4TTF0QW12eW5WNGtnY1N0OHpITHlFVisvZWtv?=
- =?utf-8?B?bmYra0lzcnpCbmpyL09ZVU5qeEYwRldvNEVKcjNOQUt2WXdiS2ZBczNmNkZH?=
- =?utf-8?B?djRxYlp0SEhaZlpHcVlLWUt2anhCZGFQaXVwcjI2d3hydmtxajR6b01sOE5D?=
- =?utf-8?B?NzR0aURCZnJpb1lPNXNrUWdPREl4bng1NUUwNHdma2VQbFA3QXh3OG9kSFRM?=
- =?utf-8?B?ZnFHKy84UnJ1TUs0WlhnV1prb3dhVzg3cHVZb3J1cThNWFRIcDFHR1VyQjhw?=
- =?utf-8?B?TGJGUDlZNUFLR2RkWVNQNC9Ud1NYdUxsaENIWnVYcTlyMFZUZ3lOVWNOZzZZ?=
- =?utf-8?B?ZVJsT3JBSHk2d1RIb200aXZISU01VHcwTG5WVGplMlR3cU1rK3k2NGZndEJ6?=
- =?utf-8?B?eXZETU8rT1JrZTFYRWlReFpHMnV3RWtIeVhtbHorZncrM0gwbVdkd1FnK0ha?=
- =?utf-8?B?T2RCcFZOT21vM3E1TWpsRkNVbm1IZy9HS2dMWDk2bUl3QlBsZXhJRW9rdTUz?=
- =?utf-8?B?SVdNYTRpZnpBY3YxZHlPRlJVS3NjK0ZUSkFvT0ZKY2x2SzJlUlZEZkJLczNz?=
- =?utf-8?B?VkxwSUJJQTJJU1ljcERKbkN1Vi9tM29DbnRMRGR0SkZEUFRKNWpjVmtFNTEw?=
- =?utf-8?B?SWd3cy80TWhkSTJ2c29lbmtNYkF4UmRUamJ4UVNWdHZWSXRvR0gycjVXSVZi?=
- =?utf-8?B?VGtqN29nZ1dXYitab2YzMVBhSFFQQnBCVktwcHROVkFCZXhzYjFpaElnU2ln?=
- =?utf-8?B?cjkxcXVod0hESnp1ODRsNkhDZ0cvSEFxdVlBeGN3NlNqM3QvMG1BUzBxSUFo?=
- =?utf-8?B?cEJDazk4RVZtMDRnMWVSNWZuRHFrRWNHQjgyWDdXaFdDUWZnOXh2OUhpUUtR?=
- =?utf-8?B?SktFdkMvSk0yNEFsM3lHMWhONGZKUFFzUkd6UlQxMmRkSGVTdU8vZ3FJQnVJ?=
- =?utf-8?B?YWwySStyNk5BZFBjd0NFUWowdlJvYnl4cVZmQW9VZ21IYXZ6UTNGMHFVK3Vq?=
- =?utf-8?B?aHNzTmh4ZE9XWlB6RnhJSDFXTkR3YkZYOGt1SVNIbHRuYWkwSG1LYjlENHNK?=
- =?utf-8?B?a2FoSWUvMWRFZ1JkNy9jSll5Z3doa2hvdFQxNENnL3ZJMjFQbW1qamRCZzJE?=
- =?utf-8?B?VlNOa2Ryc3EyZE1lQ1lneHNCSlNoamRiTDBCRVBXdTNNUzd6b1dFOUJSL1N3?=
- =?utf-8?Q?UQzZPnR1BPDSxRViyd23gro=3D?=
-X-MS-Exchange-CrossTenant-Network-Message-Id: da1bef82-8b53-420e-8d3c-08dd54dd60ca
-X-MS-Exchange-CrossTenant-AuthSource: PH8PR11MB6974.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Feb 2025 14:13:14.8342 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: Ey2fOxacGS5MXtxEvcoBToTEpDMtXr1NUzLhXai7fkWZZttttiWLDrH6CWkl99nY/tpOspAjYLHRQTDBTCw1X6YNKbkDYBuHjDZfOmYcBq1kkgvs5jM5AdnPIVzUSK3s
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR11MB5776
-X-OriginatorOrg: intel.com
+User-Agent: Mozilla Thunderbird
+From: Louis Chauvet <louis.chauvet@bootlin.com>
+Subject: Re: [PATCH 2/5] drm/rockchip: stop passing non struct drm_device to
+ drm_err() and friends
+To: Jani Nikula <jani.nikula@intel.com>, dri-devel@lists.freedesktop.org
+Cc: intel-gfx@lists.freedesktop.org, Sandy Huang <hjc@rock-chips.com>,
+ =?UTF-8?Q?Heiko_St=C3=BCbner?= <heiko@sntech.de>,
+ Andy Yan <andy.yan@rock-chips.com>, linux-arm-kernel@lists.infradead.org,
+ linux-rockchip@lists.infradead.org
+References: <cover.1737644530.git.jani.nikula@intel.com>
+ <f42da4c9943a2f2a9de4272b7849e72236d4c3f9.1737644530.git.jani.nikula@intel.com>
+Content-Language: en-US
+Autocrypt: addr=louis.chauvet@bootlin.com; keydata=
+ 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
+In-Reply-To: <f42da4c9943a2f2a9de4272b7849e72236d4c3f9.1737644530.git.jani.nikula@intel.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-GND-State: clean
+X-GND-Score: -100
+X-GND-Cause: gggruggvucftvghtrhhoucdtuddrgeefvddrtddtgdejledtiecutefuodetggdotefrodftvfcurfhrohhfihhlvgemucfitefpfffkpdcuggftfghnshhusghstghrihgsvgenuceurghilhhouhhtmecufedtudenucesvcftvggtihhpihgvnhhtshculddquddttddmnecujfgurhepkfffgggfhffuvfevfhgjtgfgsehtkeertddtvdejnecuhfhrohhmpefnohhuihhsucevhhgruhhvvghtuceolhhouhhishdrtghhrghuvhgvthessghoohhtlhhinhdrtghomheqnecuggftrfgrthhtvghrnhepteffhfdtiefgheffudeuvdekfefgvdduudfgffetteffvdetfffgjeevudfggfffnecuffhomhgrihhnpegsohhothhlihhnrdgtohhmnecukfhppedvtddtudemkeeiudemgedugedtmegtkeeitdemheguiedumeeifeefleemieeirgeimegvtdejheenucevlhhushhtvghrufhiiigvpedtnecurfgrrhgrmhepihhnvghtpedvtddtudemkeeiudemgedugedtmegtkeeitdemheguiedumeeifeefleemieeirgeimegvtdejhedphhgvlhhopeglkffrggeimedvtddtudemkeeiudemgedugedtmegtkeeitdemheguiedumeeifeefleemieeirgeimegvtdejhegnpdhmrghilhhfrhhomheplhhouhhishdrtghhrghuvhgvthessghoohhtlhhinhdrtghomhdpnhgspghrtghpthhtohepkedprhgtphhtthhopehjrghnihdrnhhikhhulhgrsehinhhtvghlrdgtohhmpdhrtghpthhtohepughrihdquggvvhgvl
+ heslhhishhtshdrfhhrvggvuggvshhkthhophdrohhrghdprhgtphhtthhopehinhhtvghlqdhgfhigsehlihhsthhsrdhfrhgvvgguvghskhhtohhprdhorhhgpdhrtghpthhtohephhhjtgesrhhotghkqdgthhhiphhsrdgtohhmpdhrtghpthhtohephhgvihhkohesshhnthgvtghhrdguvgdprhgtphhtthhopegrnhguhidrhigrnhesrhhotghkqdgthhhiphhsrdgtohhmpdhrtghpthhtoheplhhinhhugidqrghrmhdqkhgvrhhnvghlsehlihhsthhsrdhinhhfrhgruggvrggurdhorhhgpdhrtghpthhtoheplhhinhhugidqrhhotghktghhihhpsehlihhsthhsrdhinhhfrhgruggvrggurdhorhhg
+X-GND-Sasl: louis.chauvet@bootlin.com
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -192,143 +127,182 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On 20.02.2025 16:38, Matt Roper wrote:
-> On pre-Xe2 platforms, one of the approaches to initialize the GT command
-> streamer frequency is to use the display reference clock.  That's no
-> longer relevant from Xe2 onward (i.e., all of the platforms where Xe is
-> officially supported).  Furthermore, use of TIMESTAMP_OVERRIDE to obtain
-> the display reference clock is unnecessarily roundabout; the display
-> driver already has a more reliable approach to obtain this value.  Let's
-> use the display driver's existing logic to determine the proper display
-> reference clock in the rare cases where the hardware indicates we should
-> do this.
+
+
+Le 23/01/2025 à 16:09, Jani Nikula a écrit :
+> The expectation is that the struct drm_device based logging helpers get
+> passed an actual struct drm_device pointer rather than some random
+> struct pointer where you can dereference the ->dev member.
 > 
-> The one problem that arises here is if the Xe driver is run on an
-> unsupported platform (i.e., pre-Xe2), CONFIG_DRM_XE_DISPLAY disabled
-> (meaning we're not expecting to touch display hardware at all), and the
-> platform has the rare CTC_MODE[1] setting indicating that display
-> reference clock should be used as the GT CS refclk.  If all of these
-> conditions are true, the hardcoded 38.4 MHz value will still be correct
-> for DG2 and MTL platforms, but there's a chance that we might not have
-> the right value on the older Xe_LP platforms if we're trying not to
-> touch the display hardware at all.
+> Convert drm_err(hdmi, ...) to dev_err(hdmi->dev, ...). This matches
+> current usage, but drops "[drm] *ERROR*" prefix from logging.
 > 
-> Bspec: 62395
-> Signed-off-by: Matt Roper <matthew.d.roper@intel.com>
+> Signed-off-by: Jani Nikula <jani.nikula@intel.com>
 
-Add my RB after addressing the warning from kernel test robot.
-
-Reviewed-by: Balasubramani Vivekanandan <balasubramani.vivekanandan@intel.com>
-
-Regards,
-Bala
+Reviewed-by: Louis Chauvet <louis.chauvet@bootlin.com>
 
 > ---
->  drivers/gpu/drm/xe/display/xe_display.c |  6 ++++++
->  drivers/gpu/drm/xe/display/xe_display.h |  4 ++++
->  drivers/gpu/drm/xe/xe_gt_clock.c        | 28 ++++++++-----------------
->  3 files changed, 19 insertions(+), 19 deletions(-)
 > 
-> diff --git a/drivers/gpu/drm/xe/display/xe_display.c b/drivers/gpu/drm/xe/display/xe_display.c
-> index 02a413a07382..e35d58079f0d 100644
-> --- a/drivers/gpu/drm/xe/display/xe_display.c
-> +++ b/drivers/gpu/drm/xe/display/xe_display.c
-> @@ -17,6 +17,7 @@
->  #include "intel_acpi.h"
->  #include "intel_audio.h"
->  #include "intel_bw.h"
-> +#include "intel_cdclk.h"
->  #include "intel_display.h"
->  #include "intel_display_driver.h"
->  #include "intel_display_irq.h"
-> @@ -548,3 +549,8 @@ int xe_display_probe(struct xe_device *xe)
->  	unset_display_features(xe);
->  	return 0;
->  }
-> +
-> +u32 xe_display_get_refclk(struct xe_device *xe)
-> +{
-> +	return intel_display_get_refclk(&xe->display);
-> +}
-> diff --git a/drivers/gpu/drm/xe/display/xe_display.h b/drivers/gpu/drm/xe/display/xe_display.h
-> index 685dc74402fb..b918f5d6b53a 100644
-> --- a/drivers/gpu/drm/xe/display/xe_display.h
-> +++ b/drivers/gpu/drm/xe/display/xe_display.h
-> @@ -41,6 +41,8 @@ void xe_display_pm_runtime_suspend(struct xe_device *xe);
->  void xe_display_pm_runtime_suspend_late(struct xe_device *xe);
->  void xe_display_pm_runtime_resume(struct xe_device *xe);
->  
-> +u32 xe_display_get_refclk(struct xe_device *xe);
-> +
->  #else
->  
->  static inline int xe_display_driver_probe_defer(struct pci_dev *pdev) { return 0; }
-> @@ -72,5 +74,7 @@ static inline void xe_display_pm_runtime_suspend(struct xe_device *xe) {}
->  static inline void xe_display_pm_runtime_suspend_late(struct xe_device *xe) {}
->  static inline void xe_display_pm_runtime_resume(struct xe_device *xe) {}
->  
-> +static u32 xe_display_get_refclk(struct xe_device *xe) { return 38400; }
-> +
->  #endif /* CONFIG_DRM_XE_DISPLAY */
->  #endif /* _XE_DISPLAY_H_ */
-> diff --git a/drivers/gpu/drm/xe/xe_gt_clock.c b/drivers/gpu/drm/xe/xe_gt_clock.c
-> index cc2ae159298e..b61f944a7b03 100644
-> --- a/drivers/gpu/drm/xe/xe_gt_clock.c
-> +++ b/drivers/gpu/drm/xe/xe_gt_clock.c
-> @@ -7,6 +7,7 @@
->  
->  #include "xe_gt_clock.h"
->  
-> +#include "display/xe_display.h"
->  #include "regs/xe_gt_regs.h"
->  #include "regs/xe_regs.h"
->  #include "xe_assert.h"
-> @@ -15,22 +16,6 @@
->  #include "xe_macros.h"
->  #include "xe_mmio.h"
->  
-> -static u32 read_reference_ts_freq(struct xe_gt *gt)
-> -{
-> -	u32 ts_override = xe_mmio_read32(&gt->mmio, TIMESTAMP_OVERRIDE);
-> -	u32 base_freq, frac_freq;
-> -
-> -	base_freq = REG_FIELD_GET(TIMESTAMP_OVERRIDE_US_COUNTER_DIVIDER_MASK,
-> -				  ts_override) + 1;
-> -	base_freq *= 1000000;
-> -
-> -	frac_freq = REG_FIELD_GET(TIMESTAMP_OVERRIDE_US_COUNTER_DENOMINATOR_MASK,
-> -				  ts_override);
-> -	frac_freq = 1000000 / (frac_freq + 1);
-> -
-> -	return base_freq + frac_freq;
-> -}
-> -
->  static u32 get_crystal_clock_freq(u32 rpm_config_reg)
->  {
->  	const u32 f19_2_mhz = 19200000;
-> @@ -57,14 +42,19 @@ static u32 get_crystal_clock_freq(u32 rpm_config_reg)
->  
->  int xe_gt_clock_init(struct xe_gt *gt)
->  {
-> +	struct xe_device *xe = gt_to_xe(gt);
->  	u32 ctc_reg = xe_mmio_read32(&gt->mmio, CTC_MODE);
->  	u32 freq = 0;
->  
->  	/* Assuming gen11+ so assert this assumption is correct */
-> -	xe_gt_assert(gt, GRAPHICS_VER(gt_to_xe(gt)) >= 11);
-> +	xe_gt_assert(gt, GRAPHICS_VER(xe) >= 11);
->  
-> -	if (ctc_reg & CTC_SOURCE_DIVIDE_LOGIC) {
-> -		freq = read_reference_ts_freq(gt);
-> +	/*
-> +	 * Use of the display reference clock to determine GT CS frequency
-> +	 * is only relevant to pre-Xe2 platforms.
-> +	 */
-> +	if (GRAPHICS_VER(xe) < 20 && ctc_reg & CTC_SOURCE_DIVIDE_LOGIC) {
-> +		freq = xe_display_get_refclk(xe);
->  	} else {
->  		u32 c0 = xe_mmio_read32(&gt->mmio, RPM_CONFIG0);
->  
-> -- 
-> 2.48.1
+> Looks like it's possible to hunt down the struct drm_device in most of
+> these cases, if that's desired. This was the simplest change.
 > 
+> Cc: Sandy Huang <hjc@rock-chips.com>
+> Cc: "Heiko Stübner" <heiko@sntech.de>
+> Cc: Andy Yan <andy.yan@rock-chips.com>
+> Cc: dri-devel@lists.freedesktop.org
+> Cc: linux-arm-kernel@lists.infradead.org
+> Cc: linux-rockchip@lists.infradead.org
+> ---
+>   drivers/gpu/drm/rockchip/dw_hdmi-rockchip.c    | 16 ++++++++--------
+>   drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c | 16 ++++++++--------
+>   2 files changed, 16 insertions(+), 16 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/rockchip/dw_hdmi-rockchip.c b/drivers/gpu/drm/rockchip/dw_hdmi-rockchip.c
+> index e7a6669c46b0..f737e7d46e66 100644
+> --- a/drivers/gpu/drm/rockchip/dw_hdmi-rockchip.c
+> +++ b/drivers/gpu/drm/rockchip/dw_hdmi-rockchip.c
+> @@ -203,7 +203,7 @@ static int rockchip_hdmi_parse_dt(struct rockchip_hdmi *hdmi)
+>   
+>   	hdmi->regmap = syscon_regmap_lookup_by_phandle(np, "rockchip,grf");
+>   	if (IS_ERR(hdmi->regmap)) {
+> -		drm_err(hdmi, "Unable to get rockchip,grf\n");
+> +		dev_err(hdmi->dev, "Unable to get rockchip,grf\n");
+>   		return PTR_ERR(hdmi->regmap);
+>   	}
+>   
+> @@ -214,7 +214,7 @@ static int rockchip_hdmi_parse_dt(struct rockchip_hdmi *hdmi)
+>   	if (IS_ERR(hdmi->ref_clk)) {
+>   		ret = PTR_ERR(hdmi->ref_clk);
+>   		if (ret != -EPROBE_DEFER)
+> -			drm_err(hdmi, "failed to get reference clock\n");
+> +			dev_err(hdmi->dev, "failed to get reference clock\n");
+>   		return ret;
+>   	}
+>   
+> @@ -222,7 +222,7 @@ static int rockchip_hdmi_parse_dt(struct rockchip_hdmi *hdmi)
+>   	if (IS_ERR(hdmi->grf_clk)) {
+>   		ret = PTR_ERR(hdmi->grf_clk);
+>   		if (ret != -EPROBE_DEFER)
+> -			drm_err(hdmi, "failed to get grf clock\n");
+> +			dev_err(hdmi->dev, "failed to get grf clock\n");
+>   		return ret;
+>   	}
+>   
+> @@ -302,16 +302,16 @@ static void dw_hdmi_rockchip_encoder_enable(struct drm_encoder *encoder)
+>   
+>   	ret = clk_prepare_enable(hdmi->grf_clk);
+>   	if (ret < 0) {
+> -		drm_err(hdmi, "failed to enable grfclk %d\n", ret);
+> +		dev_err(hdmi->dev, "failed to enable grfclk %d\n", ret);
+>   		return;
+>   	}
+>   
+>   	ret = regmap_write(hdmi->regmap, hdmi->chip_data->lcdsel_grf_reg, val);
+>   	if (ret != 0)
+> -		drm_err(hdmi, "Could not write to GRF: %d\n", ret);
+> +		dev_err(hdmi->dev, "Could not write to GRF: %d\n", ret);
+>   
+>   	clk_disable_unprepare(hdmi->grf_clk);
+> -	drm_dbg(hdmi, "vop %s output to hdmi\n", ret ? "LIT" : "BIG");
+> +	dev_dbg(hdmi->dev, "vop %s output to hdmi\n", ret ? "LIT" : "BIG");
+>   }
+>   
+>   static int
+> @@ -574,7 +574,7 @@ static int dw_hdmi_rockchip_bind(struct device *dev, struct device *master,
+>   	ret = rockchip_hdmi_parse_dt(hdmi);
+>   	if (ret) {
+>   		if (ret != -EPROBE_DEFER)
+> -			drm_err(hdmi, "Unable to parse OF data\n");
+> +			dev_err(hdmi->dev, "Unable to parse OF data\n");
+>   		return ret;
+>   	}
+>   
+> @@ -582,7 +582,7 @@ static int dw_hdmi_rockchip_bind(struct device *dev, struct device *master,
+>   	if (IS_ERR(hdmi->phy)) {
+>   		ret = PTR_ERR(hdmi->phy);
+>   		if (ret != -EPROBE_DEFER)
+> -			drm_err(hdmi, "failed to get phy\n");
+> +			dev_err(hdmi->dev, "failed to get phy\n");
+>   		return ret;
+>   	}
+>   
+> diff --git a/drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c b/drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c
+> index f41151d49fca..3d1dddb34603 100644
+> --- a/drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c
+> +++ b/drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c
+> @@ -242,7 +242,7 @@ static void dw_hdmi_qp_rk3588_hpd_work(struct work_struct *work)
+>   	if (drm) {
+>   		changed = drm_helper_hpd_irq_event(drm);
+>   		if (changed)
+> -			drm_dbg(hdmi, "connector status changed\n");
+> +			dev_dbg(hdmi->dev, "connector status changed\n");
+>   	}
+>   }
+>   
+> @@ -472,7 +472,7 @@ static int dw_hdmi_qp_rockchip_bind(struct device *dev, struct device *master,
+>   		}
+>   	}
+>   	if (hdmi->port_id < 0) {
+> -		drm_err(hdmi, "Failed to match HDMI port ID\n");
+> +		dev_err(hdmi->dev, "Failed to match HDMI port ID\n");
+>   		return hdmi->port_id;
+>   	}
+>   
+> @@ -496,20 +496,20 @@ static int dw_hdmi_qp_rockchip_bind(struct device *dev, struct device *master,
+>   	hdmi->regmap = syscon_regmap_lookup_by_phandle(dev->of_node,
+>   						       "rockchip,grf");
+>   	if (IS_ERR(hdmi->regmap)) {
+> -		drm_err(hdmi, "Unable to get rockchip,grf\n");
+> +		dev_err(hdmi->dev, "Unable to get rockchip,grf\n");
+>   		return PTR_ERR(hdmi->regmap);
+>   	}
+>   
+>   	hdmi->vo_regmap = syscon_regmap_lookup_by_phandle(dev->of_node,
+>   							  "rockchip,vo-grf");
+>   	if (IS_ERR(hdmi->vo_regmap)) {
+> -		drm_err(hdmi, "Unable to get rockchip,vo-grf\n");
+> +		dev_err(hdmi->dev, "Unable to get rockchip,vo-grf\n");
+>   		return PTR_ERR(hdmi->vo_regmap);
+>   	}
+>   
+>   	ret = devm_clk_bulk_get_all_enabled(hdmi->dev, &clks);
+>   	if (ret < 0) {
+> -		drm_err(hdmi, "Failed to get clocks: %d\n", ret);
+> +		dev_err(hdmi->dev, "Failed to get clocks: %d\n", ret);
+>   		return ret;
+>   	}
+>   
+> @@ -517,7 +517,7 @@ static int dw_hdmi_qp_rockchip_bind(struct device *dev, struct device *master,
+>   						    GPIOD_OUT_HIGH);
+>   	if (IS_ERR(hdmi->enable_gpio)) {
+>   		ret = PTR_ERR(hdmi->enable_gpio);
+> -		drm_err(hdmi, "Failed to request enable GPIO: %d\n", ret);
+> +		dev_err(hdmi->dev, "Failed to request enable GPIO: %d\n", ret);
+>   		return ret;
+>   	}
+>   
+> @@ -525,7 +525,7 @@ static int dw_hdmi_qp_rockchip_bind(struct device *dev, struct device *master,
+>   	if (IS_ERR(hdmi->phy)) {
+>   		ret = PTR_ERR(hdmi->phy);
+>   		if (ret != -EPROBE_DEFER)
+> -			drm_err(hdmi, "failed to get phy: %d\n", ret);
+> +			dev_err(hdmi->dev, "failed to get phy: %d\n", ret);
+>   		return ret;
+>   	}
+>   
+> @@ -564,7 +564,7 @@ static int dw_hdmi_qp_rockchip_bind(struct device *dev, struct device *master,
+>   	connector = drm_bridge_connector_init(drm, encoder);
+>   	if (IS_ERR(connector)) {
+>   		ret = PTR_ERR(connector);
+> -		drm_err(hdmi, "failed to init bridge connector: %d\n", ret);
+> +		dev_err(hdmi->dev, "failed to init bridge connector: %d\n", ret);
+>   		return ret;
+>   	}
+>   
+
+-- 
+Louis Chauvet, Bootlin
+Embedded Linux and Kernel engineering
+https://bootlin.com
+
+
