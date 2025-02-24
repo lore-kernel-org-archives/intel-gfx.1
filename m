@@ -4,50 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 814EEC021BC
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F2325C021BD
 	for <intel-gfx@archiver.kernel.org>; Mon, 24 Feb 2025 13:44:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AD8B110E50F;
+	by gabe.freedesktop.org (Postfix) with ESMTP id BC4E710E510;
 	Mon, 24 Feb 2025 13:42:16 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="UGPHBUpu";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="IFRYuvcB";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.16])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5BC5410E13C;
- Mon, 24 Feb 2025 06:30:11 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E4B8C10E13C;
+ Mon, 24 Feb 2025 06:29:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1740378611; x=1771914611;
+ t=1740378578; x=1771914578;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=sUxPGsVo0yiZwj0KqFYeIw+a9P7WePNohhCRj8uDtKk=;
- b=UGPHBUpuIoPEXdAJ/YYAZnw5s1e0DsgPplsQ8QtmcEFYRvfEDU1xwryC
- iWonVjRIzaswnjSSF4veIOOAP4/1haIlg7wyBfUJVX0+kG0hQQO1HFXBe
- ncZLHzGkb/5xlQ8vLQoh2+HBG0SjGEj9XPZQA/Pp8MZhLYgEVU9ubRDeF
- bhHfx7Dt1Vl9ubp/OHmqdNJE/89XTPiNH8u5sKzYdPai51SefDpd6GLEb
- zwg4a4N2cylxDJ/0sBrolOLkdFVNzdvLy780+oLKA8fdhae5UMw/+b5mN
- 7ON4dFv172QdYZw8qiSLqlWKA/OekZ5s0HyqDKK7jT9IbTxUdBwDbrstW Q==;
-X-CSE-ConnectionGUID: GFK0Ah8/TdWsnzeDozNjqQ==
-X-CSE-MsgGUID: UGNCvvR6ReySIn7n/cVciA==
-X-IronPort-AV: E=McAfee;i="6700,10204,11354"; a="28719713"
-X-IronPort-AV: E=Sophos;i="6.13,309,1732608000"; d="scan'208";a="28719713"
+ bh=OR1fNJ/2FSPDfyrpx8uFRA4Gb6MpClNXZ7TRI3F/hJI=;
+ b=IFRYuvcBNioCmc5g7Jawpgtp4tNqBcRTU+E1ixPlc0oaX/iy1AT8QBgZ
+ HXzMqZCGYZUZR6RW4Vp8Md0rh8bkQNR/yW5eRQ0kY6tGBzJ9v60hBlaLq
+ W+85P7Qxd2bukYpCw6cBf1NzL/7kxv7MsfHmqtkGfUkgXGi19QKBxoD+d
+ HqI/uYu0LeyQgkACAoKScnnrF1cHfaIW2uBD5Wc9X0WPat2nbSJrqEdGC
+ z5bUrZJg4zmGYgg5ycICsy8O86iOPkpBmBkbGiz9xpfm9Lp5/VSJ0Fvqe
+ J4w8eCJ0LbRvYXmx5FQ3BkUzgyx0sSNhbQrkfc8obpGcDmv5QqlIbUe5I A==;
+X-CSE-ConnectionGUID: Nt11tU4WQXmqYr51qs+tFw==
+X-CSE-MsgGUID: 2sTb9M5gSMWsoWwA5PisNQ==
+X-IronPort-AV: E=McAfee;i="6700,10204,11354"; a="28719649"
+X-IronPort-AV: E=Sophos;i="6.13,309,1732608000"; d="scan'208";a="28719649"
 Received: from fmviesa003.fm.intel.com ([10.60.135.143])
  by fmvoesa110.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 Feb 2025 22:30:11 -0800
-X-CSE-ConnectionGUID: rQtFTQORSZiH11+1Ja6cQQ==
-X-CSE-MsgGUID: Xse6vpYCRl2QT18S+xAxgw==
+ 23 Feb 2025 22:29:37 -0800
+X-CSE-ConnectionGUID: jyE+K+x6TeCQPiG8M3r72A==
+X-CSE-MsgGUID: 1CqiRt7jSeyX+EVp68QALw==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.12,224,1728975600"; d="scan'208";a="120076635"
+X-IronPort-AV: E=Sophos;i="6.12,224,1728975600"; d="scan'208";a="120076483"
 Received: from srr4-3-linux-103-aknautiy.iind.intel.com ([10.223.34.160])
  by fmviesa003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 Feb 2025 22:30:11 -0800
+ 23 Feb 2025 22:29:37 -0800
 From: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
 To: intel-gfx@lists.freedesktop.org
 Cc: intel-xe@lists.freedesktop.org, jani.nikula@linux.intel.com,
  ville.syrjala@linux.intel.com, mitulkumar.ajitkumar.golani@intel.com
-Subject: [PATCH 19/20] drm/i915/vrr: Always use VRR timing generator for MTL+
-Date: Mon, 24 Feb 2025 11:47:16 +0530
-Message-ID: <20250224061717.1095226-20-ankit.k.nautiyal@intel.com>
+Subject: [PATCH 04/20] drm/i915/vrr: Disable CMRR
+Date: Mon, 24 Feb 2025 11:47:01 +0530
+Message-ID: <20250224061717.1095226-5-ankit.k.nautiyal@intel.com>
 X-Mailer: git-send-email 2.45.2
 In-Reply-To: <20250224061717.1095226-1-ankit.k.nautiyal@intel.com>
 References: <20250224061717.1095226-1-ankit.k.nautiyal@intel.com>
@@ -68,31 +68,31 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Currently VRR timing generator is used only when VRR is enabled by
-userspace for sinks that support VRR. From MTL+ gradually move away from
-the older timing generator and use VRR timing generator for both variable
-and fixed timings.
+Switching between variable and fixed timings is possible as for that we
+just need to flip between VRR timings. However for CMRR along with the
+timings, few other bits also need to be changed on the fly, which might
+cause issues. So disable CMRR for now, till we have variable and fixed
+timings sorted out.
 
 Signed-off-by: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_vrr.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/i915/display/intel_vrr.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
 diff --git a/drivers/gpu/drm/i915/display/intel_vrr.c b/drivers/gpu/drm/i915/display/intel_vrr.c
-index 975fed9930c1..b16d277e78c5 100644
+index 008a9c3e152d..0ee7fb0362ce 100644
 --- a/drivers/gpu/drm/i915/display/intel_vrr.c
 +++ b/drivers/gpu/drm/i915/display/intel_vrr.c
-@@ -543,7 +543,9 @@ bool intel_vrr_always_use_vrr_tg(struct intel_display *display)
- 	if (!HAS_VRR(display))
+@@ -182,7 +182,8 @@ is_cmrr_frac_required(struct intel_crtc_state *crtc_state)
+ 	int calculated_refresh_k, actual_refresh_k, pixel_clock_per_line;
+ 	struct drm_display_mode *adjusted_mode = &crtc_state->hw.adjusted_mode;
+ 
+-	if (!HAS_CMRR(display))
++	/* Avoid CMRR for now till we have VRR with fixed timings working */
++	if (!HAS_CMRR(display) || true)
  		return false;
  
--	/* #TODO return true for platforms supporting fixed_rr */
-+	if (DISPLAY_VER(display) >= 14)
-+		return true;
-+
- 	return false;
- }
- 
+ 	actual_refresh_k =
 -- 
 2.45.2
 
