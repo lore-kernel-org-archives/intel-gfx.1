@@ -4,57 +4,56 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0FAB1C021A4
-	for <intel-gfx@archiver.kernel.org>; Mon, 24 Feb 2025 13:44:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BA2A3C021BE
+	for <intel-gfx@archiver.kernel.org>; Mon, 24 Feb 2025 13:44:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4596610E531;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8C4ED10E535;
 	Mon, 24 Feb 2025 13:42:19 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="d5pIUE23";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="aJipzwpB";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.9])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1E0F789F35;
- Mon, 24 Feb 2025 09:14:04 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.16])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E159B10E13C;
+ Mon, 24 Feb 2025 06:29:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1740388445; x=1771924445;
- h=from:to:cc:subject:in-reply-to:references:date:
- message-id:mime-version;
- bh=8nqkTPo40v4sfiDwW+3JGWWXLwWiP21pDbBjKDn3cOA=;
- b=d5pIUE232PSJwHYk02vzyWA4yh6F3Se2C6YOfyIm7JM9yKP/YZTjD4w7
- KgjLjvukj3NsW+MEoa5Yc7lpDb2o6ZD5rB61megRQoGFHfn2u3iDHrFoC
- CuDcCGKFi8O5qJvBiRf05IqFVu1m1rhxSTv9c+4aT7eKeTVS6QU3UmqfC
- NBKW1ffgJmDeixgGXmqP/rLJ8FwC3q7XgWV8wBESTBXE2n4ZE11aVj2OA
- z/SolpyPhuUI5RneQ4N3Y+hOsncCbqc8OqIGWA17RFr+lH2wSOu1BVtGB
- mYZzo305UG7snI3WBAWCDalkPTLKSZlLKpWRQSxJvl2LpGxAEga8dMqA8 g==;
-X-CSE-ConnectionGUID: 1xkm/rnsTcGYLEhiVEIWyg==
-X-CSE-MsgGUID: cJq3h06ASEe4d7XKf+nGDQ==
-X-IronPort-AV: E=McAfee;i="6700,10204,11354"; a="63603210"
-X-IronPort-AV: E=Sophos;i="6.13,309,1732608000"; d="scan'208";a="63603210"
-Received: from fmviesa004.fm.intel.com ([10.60.135.144])
- by orvoesa101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 24 Feb 2025 01:14:04 -0800
-X-CSE-ConnectionGUID: Hp6+tUu4QoCfPgkM5kHM/g==
-X-CSE-MsgGUID: N0OXaPx/RJSR7JJfrlLuVw==
+ t=1740378573; x=1771914573;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=vRlK2gf+MKc71W+WrbPva6t+K2F2TiN0cUA7l4H08FQ=;
+ b=aJipzwpBJPysUrjWan6QyZ8gebBGjCmT46jR2OADQPrhUeYq6yVrsJ+d
+ 0fBwPwLGznv/jOjm1OS4sPn3WCXjaNUX3H9WkFvyEmdx51kWiGZw46i7l
+ o7l6MymI5kxkETqOm7JmNpu8DL0gFqok8jxsWppB0mB8FzdD2MWfZVqSg
+ DGGfhf8ucHIDQrr2wAkrvvJrK8aEEict48yTdSannoFPcC2FghB7Tde7S
+ K6AWvG7fxWQ1hCeZZbKa09wu8c4FLlxpnBYR7sdb5alXNs2eqTzS+P8X9
+ UUuBvgBE+njOfeB6iVS1BZdCD4KpFyyUYsvfTAujHNemPuuhRsY6L8Idp g==;
+X-CSE-ConnectionGUID: t5deeXZnTUCw7UFO3KZiPQ==
+X-CSE-MsgGUID: iP0VqaYCSDmHLui7FU9PHQ==
+X-IronPort-AV: E=McAfee;i="6700,10204,11354"; a="28719639"
+X-IronPort-AV: E=Sophos;i="6.13,309,1732608000"; d="scan'208";a="28719639"
+Received: from fmviesa003.fm.intel.com ([10.60.135.143])
+ by fmvoesa110.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 23 Feb 2025 22:29:33 -0800
+X-CSE-ConnectionGUID: WObmhwRdR5+dyY+46G981A==
+X-CSE-MsgGUID: tXqy8Qk4TEiZE50Sbu5GJQ==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.13,309,1732608000"; d="scan'208";a="121094576"
-Received: from mwiniars-desk2.ger.corp.intel.com (HELO localhost)
- ([10.245.246.133])
- by fmviesa004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 24 Feb 2025 01:14:01 -0800
-From: Jani Nikula <jani.nikula@linux.intel.com>
-To: Matt Roper <matthew.d.roper@intel.com>, intel-gfx@lists.freedesktop.org,
- intel-xe@lists.freedesktop.org
-Cc: matthew.d.roper@intel.com
-Subject: Re: [PATCH 1/4] drm/i915/display: Make refclk fetching logic reusable
-In-Reply-To: <20250221003843.443559-7-matthew.d.roper@intel.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
-References: <20250221003843.443559-6-matthew.d.roper@intel.com>
- <20250221003843.443559-7-matthew.d.roper@intel.com>
-Date: Mon, 24 Feb 2025 11:13:58 +0200
-Message-ID: <87ikoz902x.fsf@intel.com>
+X-IronPort-AV: E=Sophos;i="6.12,224,1728975600"; d="scan'208";a="120076455"
+Received: from srr4-3-linux-103-aknautiy.iind.intel.com ([10.223.34.160])
+ by fmviesa003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 23 Feb 2025 22:29:33 -0800
+From: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
+To: intel-gfx@lists.freedesktop.org
+Cc: intel-xe@lists.freedesktop.org, jani.nikula@linux.intel.com,
+ ville.syrjala@linux.intel.com, mitulkumar.ajitkumar.golani@intel.com
+Subject: [PATCH 02/20] drm/i915:vrr: Separate out functions to compute vmin
+ and vmax
+Date: Mon, 24 Feb 2025 11:46:59 +0530
+Message-ID: <20250224061717.1095226-3-ankit.k.nautiyal@intel.com>
+X-Mailer: git-send-email 2.45.2
+In-Reply-To: <20250224061717.1095226-1-ankit.k.nautiyal@intel.com>
+References: <20250224061717.1095226-1-ankit.k.nautiyal@intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Transfer-Encoding: 8bit
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,125 +69,77 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Thu, 20 Feb 2025, Matt Roper <matthew.d.roper@intel.com> wrote:
-> There's cdclk-specific code to obtain the display reference clock,
-> either by reading a strap register, or by using a platform-specific
-> hardcoded value.  There's at least one other place in our drivers that
-> potentially needs this clock frequency, so refactor the logic to make it
-> more generally usable.
->
-> While we're at it, change the fallback frequency we assume if the strap
-> readout gives us something unrecognizable to 38.4MHz for platforms with
-> display version 14 and above.  38.4MHz seems to be the sole frequency
-> that's actually been used in recent history (since MTL), so this is
-> probably the safest guess to make going forward.
+Make helpers to compute vmin and vmax.
 
-Refactoring and functional changes should be kept separate.
+Signed-off-by: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
+---
+ drivers/gpu/drm/i915/display/intel_vrr.c | 39 +++++++++++++++++++-----
+ 1 file changed, 31 insertions(+), 8 deletions(-)
 
->
-> Signed-off-by: Matt Roper <matthew.d.roper@intel.com>
-> ---
->  drivers/gpu/drm/i915/display/intel_cdclk.c | 44 +++++++++++++---------
->  drivers/gpu/drm/i915/display/intel_cdclk.h |  1 +
->  2 files changed, 28 insertions(+), 17 deletions(-)
->
-> diff --git a/drivers/gpu/drm/i915/display/intel_cdclk.c b/drivers/gpu/drm/i915/display/intel_cdclk.c
-> index c6cfc57a0346..57b01f8a7be8 100644
-> --- a/drivers/gpu/drm/i915/display/intel_cdclk.c
-> +++ b/drivers/gpu/drm/i915/display/intel_cdclk.c
-> @@ -1636,38 +1636,48 @@ static u8 xe3lpd_calc_voltage_level(int cdclk)
->  	return 0;
->  }
->  
-> -static void icl_readout_refclk(struct intel_display *display,
-> -			       struct intel_cdclk_config *cdclk_config)
-> +static u32 icl_readout_refclk(struct intel_display *display)
-
-Wondering about the use of u32 for this. The cdclk_config->ref member is
-unsigned int.
-
->  {
->  	u32 dssm = intel_de_read(display, SKL_DSSM) & ICL_DSSM_CDCLK_PLL_REFCLK_MASK;
->  
->  	switch (dssm) {
-> -	default:
-> -		MISSING_CASE(dssm);
-> -		fallthrough;
->  	case ICL_DSSM_CDCLK_PLL_REFCLK_24MHz:
-> -		cdclk_config->ref = 24000;
-> -		break;
-> +		return 24000;
->  	case ICL_DSSM_CDCLK_PLL_REFCLK_19_2MHz:
-> -		cdclk_config->ref = 19200;
-> -		break;
-> +		return 19200;
->  	case ICL_DSSM_CDCLK_PLL_REFCLK_38_4MHz:
-> -		cdclk_config->ref = 38400;
-> -		break;
-> +		return 38400;
-> +	default:
-> +		MISSING_CASE(dssm);
-> +		return DISPLAY_VER(display) >= 14 ? 38400 : 24000;
->  	}
->  }
->  
-> +/**
-> + * intel_display_get_refclk - Returns the display reference clock
-> + * @display: display instance
-> + *
-> + * Returns the display reference clock in KHz.  The display reference clock
-> + * is defined by the SoC; on some platforms the proper value should be read
-> + * from a hardware strap register, while on others there's only a single
-> + * possible value.
-> + */
-
-The comment is useful in general, but I don't think there's any need to
-make it a kernel-doc comment.
-
-> +u32 intel_display_get_refclk(struct intel_display *display)
-
-The file's intel_cdclk.c, the name should be intel_cdclk_<something>.
-
-
-BR,
-Jani.
-
-> +{
-> +	if (display->platform.dg2)
-> +		return 38400;
-> +	else if (DISPLAY_VER(display) >= 11)
-> +		return icl_readout_refclk(display);
-> +	else
-> +		return 19200;
-> +}
-> +
->  static void bxt_de_pll_readout(struct intel_display *display,
->  			       struct intel_cdclk_config *cdclk_config)
->  {
->  	u32 val, ratio;
->  
-> -	if (display->platform.dg2)
-> -		cdclk_config->ref = 38400;
-> -	else if (DISPLAY_VER(display) >= 11)
-> -		icl_readout_refclk(display, cdclk_config);
-> -	else
-> -		cdclk_config->ref = 19200;
-> +	cdclk_config->ref = intel_display_get_refclk(display);
->  
->  	val = intel_de_read(display, BXT_DE_PLL_ENABLE);
->  	if ((val & BXT_DE_PLL_PLL_ENABLE) == 0 ||
-> diff --git a/drivers/gpu/drm/i915/display/intel_cdclk.h b/drivers/gpu/drm/i915/display/intel_cdclk.h
-> index 6b0e7a41eba3..3cfbe1f2b6b5 100644
-> --- a/drivers/gpu/drm/i915/display/intel_cdclk.h
-> +++ b/drivers/gpu/drm/i915/display/intel_cdclk.h
-> @@ -65,6 +65,7 @@ void intel_init_cdclk_hooks(struct intel_display *display);
->  void intel_update_max_cdclk(struct intel_display *display);
->  void intel_update_cdclk(struct intel_display *display);
->  u32 intel_read_rawclk(struct intel_display *display);
-> +u32 intel_display_get_refclk(struct intel_display *display);
->  bool intel_cdclk_clock_changed(const struct intel_cdclk_config *a,
->  			       const struct intel_cdclk_config *b);
->  int intel_mdclk_cdclk_ratio(struct intel_display *display,
-
+diff --git a/drivers/gpu/drm/i915/display/intel_vrr.c b/drivers/gpu/drm/i915/display/intel_vrr.c
+index 106bfaf6649b..a435b8d5b631 100644
+--- a/drivers/gpu/drm/i915/display/intel_vrr.c
++++ b/drivers/gpu/drm/i915/display/intel_vrr.c
+@@ -222,6 +222,35 @@ cmrr_get_vtotal(struct intel_crtc_state *crtc_state, bool video_mode_required)
+ 	return vtotal;
+ }
+ 
++static
++int intel_vrr_compute_vmin(struct intel_connector *connector,
++			   struct drm_display_mode *adjusted_mode)
++{
++	int vmin;
++	const struct drm_display_info *info = &connector->base.display_info;
++
++	vmin = DIV_ROUND_UP(adjusted_mode->crtc_clock * 1000,
++			    adjusted_mode->crtc_htotal * info->monitor_range.max_vfreq);
++	vmin = max_t(int, vmin, adjusted_mode->crtc_vtotal);
++
++	return vmin;
++}
++
++static
++int intel_vrr_compute_vmax(struct intel_connector *connector,
++			   struct drm_display_mode *adjusted_mode)
++{
++	int vmax;
++	const struct drm_display_info *info = &connector->base.display_info;
++
++	vmax = adjusted_mode->crtc_clock * 1000 /
++		(adjusted_mode->crtc_htotal * info->monitor_range.min_vfreq);
++
++	vmax = max_t(int, vmax, adjusted_mode->crtc_vtotal);
++
++	return vmax;
++}
++
+ void
+ intel_vrr_compute_config(struct intel_crtc_state *crtc_state,
+ 			 struct drm_connector_state *conn_state)
+@@ -232,7 +261,6 @@ intel_vrr_compute_config(struct intel_crtc_state *crtc_state,
+ 	struct intel_dp *intel_dp = intel_attached_dp(connector);
+ 	bool is_edp = intel_dp_is_edp(intel_dp);
+ 	struct drm_display_mode *adjusted_mode = &crtc_state->hw.adjusted_mode;
+-	const struct drm_display_info *info = &connector->base.display_info;
+ 	int vmin, vmax;
+ 
+ 	/*
+@@ -253,13 +281,8 @@ intel_vrr_compute_config(struct intel_crtc_state *crtc_state,
+ 	if (HAS_LRR(display))
+ 		crtc_state->update_lrr = true;
+ 
+-	vmin = DIV_ROUND_UP(adjusted_mode->crtc_clock * 1000,
+-			    adjusted_mode->crtc_htotal * info->monitor_range.max_vfreq);
+-	vmax = adjusted_mode->crtc_clock * 1000 /
+-		(adjusted_mode->crtc_htotal * info->monitor_range.min_vfreq);
+-
+-	vmin = max_t(int, vmin, adjusted_mode->crtc_vtotal);
+-	vmax = max_t(int, vmax, adjusted_mode->crtc_vtotal);
++	vmin = intel_vrr_compute_vmin(connector, adjusted_mode);
++	vmax = intel_vrr_compute_vmax(connector, adjusted_mode);
+ 
+ 	if (vmin >= vmax)
+ 		return;
 -- 
-Jani Nikula, Intel
+2.45.2
+
