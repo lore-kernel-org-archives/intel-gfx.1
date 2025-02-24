@@ -4,51 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7BEFEC021A4
-	for <intel-gfx@archiver.kernel.org>; Mon, 24 Feb 2025 15:17:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 87E3BC021BB
+	for <intel-gfx@archiver.kernel.org>; Mon, 24 Feb 2025 15:20:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EC31110E2BC;
-	Mon, 24 Feb 2025 15:17:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2796E10E2CA;
+	Mon, 24 Feb 2025 15:20:15 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="Q2LORdUD";
+	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="XykCKSk7";
 	dkim-atps=neutral
-X-Greylist: delayed 1254 seconds by postgrey-1.36 at gabe;
- Mon, 24 Feb 2025 15:17:22 UTC
 Received: from mslow3.mail.gandi.net (mslow3.mail.gandi.net [217.70.178.249])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0B60310E1D5
- for <intel-gfx@lists.freedesktop.org>; Mon, 24 Feb 2025 15:17:21 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9FBC710E2CA
+ for <intel-gfx@lists.freedesktop.org>; Mon, 24 Feb 2025 15:20:09 +0000 (UTC)
 Received: from relay9-d.mail.gandi.net (relay9-d.mail.gandi.net
- [IPv6:2001:4b98:dc4:8::229])
- by mslow3.mail.gandi.net (Postfix) with ESMTP id 9501458364C
- for <intel-gfx@lists.freedesktop.org>; Mon, 24 Feb 2025 14:48:20 +0000 (UTC)
-Received: by mail.gandi.net (Postfix) with ESMTPSA id 8A230442B2;
- Mon, 24 Feb 2025 14:47:50 +0000 (UTC)
+ [217.70.183.199])
+ by mslow3.mail.gandi.net (Postfix) with ESMTP id 4BB7B583731
+ for <intel-gfx@lists.freedesktop.org>; Mon, 24 Feb 2025 14:48:40 +0000 (UTC)
+Received: by mail.gandi.net (Postfix) with ESMTPSA id 6AADE44281;
+ Mon, 24 Feb 2025 14:48:38 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=gm1;
- t=1740408490;
+ t=1740408518;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=WvnvUxTc5AQaskJINeTmL3gncfKgdBsvPvsCNQOV7qs=;
- b=Q2LORdUD5tDm5eeAOWJ40SHFnvB+Eige1cCbnwZEEki9558eeomxRJKDhDTFOeaBUVoX7q
- 72KS/Bb73OzGmGjmbNncuVdPLlAGBcuRJ3dE+YVS4uJn2S+pln5UG7vglFkRz6jhI0YJ2C
- 3v76jFBTPHUhsXwN65FETkOLdIHNssRXwrXjz5j7VlqbMC/Fm7HGujkZlIK8uuzPRDMNMr
- Ejuq+fPzupxrnVDS8Cj58QbveUdu/ZlYZbD9N/fzd19pXylBPnhSbJLlxeEOnnkAZc/DaG
- TbJwWIrf11GPhxzWVYCACykoERN1td9OWy/mDsMo53Muc48il43af/d7NWXEBw==
-Message-ID: <13348e9c-5690-4f5a-9086-5cc5540fa1db@bootlin.com>
-Date: Mon, 24 Feb 2025 15:47:49 +0100
+ bh=VEu+apYGnOwICjaNbh6W9XYrg2WdikujEa9NsWxIwdA=;
+ b=XykCKSk7GsyjIsGNSPZG4n25oh6Til8w7kpm+zbLLGKh3wfkW+DSQIGMD4frv6XTQW5W2W
+ Z7XlAZG029HyHzFme8EQjcPyW1EoZXWEiaCe2KDcpny6EUuCzqeHLpU7tze+APujxnL70P
+ OmjBRkIV+8cU+XUzW+xiS+Wcds5wmMiLbMP/RgDhsirJK5oS1KKW9okexKhMqBQsnKttZK
+ 7BIs+o4fkP9N5nkVwdWhVvHbfLcwgqpY1wpeIWhdBIHpN/w8xqEZ12vgH0SdbCo4FWTaJk
+ xL9UNFp0lsQy2Q1z73tMxlDJbNWR1sh4OdV2ZrwTadvoOAWGfPL0Otzr4bbS+g==
+Message-ID: <6cf7d81e-9069-4632-96f3-daccc033bfc9@bootlin.com>
+Date: Mon, 24 Feb 2025 15:48:37 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 From: Louis Chauvet <louis.chauvet@bootlin.com>
-Subject: Re: [PATCH 2/5] drm/rockchip: stop passing non struct drm_device to
- drm_err() and friends
+Subject: Re: [PATCH 5/5] drm/print: require struct drm_device for drm_err()
+ and friends
 To: Jani Nikula <jani.nikula@intel.com>, dri-devel@lists.freedesktop.org
-Cc: intel-gfx@lists.freedesktop.org, Sandy Huang <hjc@rock-chips.com>,
- =?UTF-8?Q?Heiko_St=C3=BCbner?= <heiko@sntech.de>,
- Andy Yan <andy.yan@rock-chips.com>, linux-arm-kernel@lists.infradead.org,
- linux-rockchip@lists.infradead.org
+Cc: intel-gfx@lists.freedesktop.org
 References: <cover.1737644530.git.jani.nikula@intel.com>
- <f42da4c9943a2f2a9de4272b7849e72236d4c3f9.1737644530.git.jani.nikula@intel.com>
+ <dfe6e774883e6ef93cfaa2b6fe92b804061ab9d9.1737644530.git.jani.nikula@intel.com>
 Content-Language: en-US
 Autocrypt: addr=louis.chauvet@bootlin.com; keydata=
  xsFNBGCG5KEBEAD1yQ5C7eS4rxD0Wj7JRYZ07UhWTbBpbSjHjYJQWx/qupQdzzxe6sdrxYSY
@@ -104,13 +99,13 @@ Autocrypt: addr=louis.chauvet@bootlin.com; keydata=
  PdjUMWb5Ld21PSyCrtGc/hTKwxMoHsOZPy6UB8YJ5omZdsavcjKMrDpybguOfxUmGYs2H3MJ
  ghIUQMMOe0267uQcmMNDPRueGWTLXcuyz0Tpe62Whekc3gNMl0JrNz6Gty8OBb/ETijfSHPE
  qGHYuyAZJo9A/IazHuJ+4n+gm4kQl1WLfxoRMzYHCA==
-In-Reply-To: <f42da4c9943a2f2a9de4272b7849e72236d4c3f9.1737644530.git.jani.nikula@intel.com>
+In-Reply-To: <dfe6e774883e6ef93cfaa2b6fe92b804061ab9d9.1737644530.git.jani.nikula@intel.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 X-GND-State: clean
 X-GND-Score: -100
-X-GND-Cause: gggruggvucftvghtrhhoucdtuddrgeefvddrtddtgdejledtiecutefuodetggdotefrodftvfcurfhrohhfihhlvgemucfitefpfffkpdcuggftfghnshhusghstghrihgsvgenuceurghilhhouhhtmecufedtudenucesvcftvggtihhpihgvnhhtshculddquddttddmnecujfgurhepkfffgggfhffuvfevfhgjtgfgsehtkeertddtvdejnecuhfhrohhmpefnohhuihhsucevhhgruhhvvghtuceolhhouhhishdrtghhrghuvhgvthessghoohhtlhhinhdrtghomheqnecuggftrfgrthhtvghrnhepteffhfdtiefgheffudeuvdekfefgvdduudfgffetteffvdetfffgjeevudfggfffnecuffhomhgrihhnpegsohhothhlihhnrdgtohhmnecukfhppedvtddtudemkeeiudemgedugedtmegtkeeitdemheguiedumeeifeefleemieeirgeimegvtdejheenucevlhhushhtvghrufhiiigvpedtnecurfgrrhgrmhepihhnvghtpedvtddtudemkeeiudemgedugedtmegtkeeitdemheguiedumeeifeefleemieeirgeimegvtdejhedphhgvlhhopeglkffrggeimedvtddtudemkeeiudemgedugedtmegtkeeitdemheguiedumeeifeefleemieeirgeimegvtdejhegnpdhmrghilhhfrhhomheplhhouhhishdrtghhrghuvhgvthessghoohhtlhhinhdrtghomhdpnhgspghrtghpthhtohepkedprhgtphhtthhopehjrghnihdrnhhikhhulhgrsehinhhtvghlrdgtohhmpdhrtghpthhtohepughrihdquggvvhgvl
- heslhhishhtshdrfhhrvggvuggvshhkthhophdrohhrghdprhgtphhtthhopehinhhtvghlqdhgfhigsehlihhsthhsrdhfrhgvvgguvghskhhtohhprdhorhhgpdhrtghpthhtohephhhjtgesrhhotghkqdgthhhiphhsrdgtohhmpdhrtghpthhtohephhgvihhkohesshhnthgvtghhrdguvgdprhgtphhtthhopegrnhguhidrhigrnhesrhhotghkqdgthhhiphhsrdgtohhmpdhrtghpthhtoheplhhinhhugidqrghrmhdqkhgvrhhnvghlsehlihhsthhsrdhinhhfrhgruggvrggurdhorhhgpdhrtghpthhtoheplhhinhhugidqrhhotghktghhihhpsehlihhsthhsrdhinhhfrhgruggvrggurdhorhhg
+X-GND-Cause: gggruggvucftvghtrhhoucdtuddrgeefvddrtddtgdejledtiecutefuodetggdotefrodftvfcurfhrohhfihhlvgemucfitefpfffkpdcuggftfghnshhusghstghrihgsvgenuceurghilhhouhhtmecufedtudenucesvcftvggtihhpihgvnhhtshculddquddttddmnecujfgurhepkfffgggfhffuvfevfhgjtgfgsehtkeertddtvdejnecuhfhrohhmpefnohhuihhsucevhhgruhhvvghtuceolhhouhhishdrtghhrghuvhgvthessghoohhtlhhinhdrtghomheqnecuggftrfgrthhtvghrnhepteffhfdtiefgheffudeuvdekfefgvdduudfgffetteffvdetfffgjeevudfggfffnecuffhomhgrihhnpegsohhothhlihhnrdgtohhmnecukfhppedvtddtudemkeeiudemgedugedtmegtkeeitdemheguiedumeeifeefleemieeirgeimegvtdejheenucevlhhushhtvghrufhiiigvpedunecurfgrrhgrmhepihhnvghtpedvtddtudemkeeiudemgedugedtmegtkeeitdemheguiedumeeifeefleemieeirgeimegvtdejhedphhgvlhhopeglkffrggeimedvtddtudemkeeiudemgedugedtmegtkeeitdemheguiedumeeifeefleemieeirgeimegvtdejhegnpdhmrghilhhfrhhomheplhhouhhishdrtghhrghuvhgvthessghoohhtlhhinhdrtghomhdpnhgspghrtghpthhtohepfedprhgtphhtthhopehjrghnihdrnhhikhhulhgrsehinhhtvghlrdgtohhmpdhrtghpthhtohepughrihdquggvvhgvl
+ heslhhishhtshdrfhhrvggvuggvshhkthhophdrohhrghdprhgtphhtthhopehinhhtvghlqdhgfhigsehlihhsthhsrdhfrhgvvgguvghskhhtohhprdhorhhg
 X-GND-Sasl: louis.chauvet@bootlin.com
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -134,171 +129,108 @@ Le 23/01/2025 à 16:09, Jani Nikula a écrit :
 > passed an actual struct drm_device pointer rather than some random
 > struct pointer where you can dereference the ->dev member.
 > 
-> Convert drm_err(hdmi, ...) to dev_err(hdmi->dev, ...). This matches
-> current usage, but drops "[drm] *ERROR*" prefix from logging.
+> Add a static inline helper to convert struct drm_device to struct
+> device, with the main benefit being the type checking of the macro
+> argument.
+> 
+> As a side effect, this also reduces macro argument double references.
 > 
 > Signed-off-by: Jani Nikula <jani.nikula@intel.com>
 
 Reviewed-by: Louis Chauvet <louis.chauvet@bootlin.com>
 
 > ---
+>   include/drm/drm_print.h | 41 +++++++++++++++++++++++------------------
+>   1 file changed, 23 insertions(+), 18 deletions(-)
 > 
-> Looks like it's possible to hunt down the struct drm_device in most of
-> these cases, if that's desired. This was the simplest change.
-> 
-> Cc: Sandy Huang <hjc@rock-chips.com>
-> Cc: "Heiko Stübner" <heiko@sntech.de>
-> Cc: Andy Yan <andy.yan@rock-chips.com>
-> Cc: dri-devel@lists.freedesktop.org
-> Cc: linux-arm-kernel@lists.infradead.org
-> Cc: linux-rockchip@lists.infradead.org
-> ---
->   drivers/gpu/drm/rockchip/dw_hdmi-rockchip.c    | 16 ++++++++--------
->   drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c | 16 ++++++++--------
->   2 files changed, 16 insertions(+), 16 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/rockchip/dw_hdmi-rockchip.c b/drivers/gpu/drm/rockchip/dw_hdmi-rockchip.c
-> index e7a6669c46b0..f737e7d46e66 100644
-> --- a/drivers/gpu/drm/rockchip/dw_hdmi-rockchip.c
-> +++ b/drivers/gpu/drm/rockchip/dw_hdmi-rockchip.c
-> @@ -203,7 +203,7 @@ static int rockchip_hdmi_parse_dt(struct rockchip_hdmi *hdmi)
+> diff --git a/include/drm/drm_print.h b/include/drm/drm_print.h
+> index 9732f514566d..f31eba1c7cab 100644
+> --- a/include/drm/drm_print.h
+> +++ b/include/drm/drm_print.h
+> @@ -584,9 +584,15 @@ void __drm_dev_dbg(struct _ddebug *desc, const struct device *dev,
+>    * Prefer drm_device based logging over device or prink based logging.
+>    */
 >   
->   	hdmi->regmap = syscon_regmap_lookup_by_phandle(np, "rockchip,grf");
->   	if (IS_ERR(hdmi->regmap)) {
-> -		drm_err(hdmi, "Unable to get rockchip,grf\n");
-> +		dev_err(hdmi->dev, "Unable to get rockchip,grf\n");
->   		return PTR_ERR(hdmi->regmap);
->   	}
+> +/* Helper to enforce struct drm_device type */
+> +static inline struct device *__drm_to_dev(const struct drm_device *drm)
+> +{
+> +	return drm ? drm->dev : NULL;
+> +}
+> +
+>   /* Helper for struct drm_device based logging. */
+>   #define __drm_printk(drm, level, type, fmt, ...)			\
+> -	dev_##level##type((drm) ? (drm)->dev : NULL, "[drm] " fmt, ##__VA_ARGS__)
+> +	dev_##level##type(__drm_to_dev(drm), "[drm] " fmt, ##__VA_ARGS__)
 >   
-> @@ -214,7 +214,7 @@ static int rockchip_hdmi_parse_dt(struct rockchip_hdmi *hdmi)
->   	if (IS_ERR(hdmi->ref_clk)) {
->   		ret = PTR_ERR(hdmi->ref_clk);
->   		if (ret != -EPROBE_DEFER)
-> -			drm_err(hdmi, "failed to get reference clock\n");
-> +			dev_err(hdmi->dev, "failed to get reference clock\n");
->   		return ret;
->   	}
 >   
-> @@ -222,7 +222,7 @@ static int rockchip_hdmi_parse_dt(struct rockchip_hdmi *hdmi)
->   	if (IS_ERR(hdmi->grf_clk)) {
->   		ret = PTR_ERR(hdmi->grf_clk);
->   		if (ret != -EPROBE_DEFER)
-> -			drm_err(hdmi, "failed to get grf clock\n");
-> +			dev_err(hdmi->dev, "failed to get grf clock\n");
->   		return ret;
->   	}
+>   #define drm_info(drm, fmt, ...)					\
+> @@ -620,25 +626,25 @@ void __drm_dev_dbg(struct _ddebug *desc, const struct device *dev,
 >   
-> @@ -302,16 +302,16 @@ static void dw_hdmi_rockchip_encoder_enable(struct drm_encoder *encoder)
 >   
->   	ret = clk_prepare_enable(hdmi->grf_clk);
->   	if (ret < 0) {
-> -		drm_err(hdmi, "failed to enable grfclk %d\n", ret);
-> +		dev_err(hdmi->dev, "failed to enable grfclk %d\n", ret);
->   		return;
->   	}
+>   #define drm_dbg_core(drm, fmt, ...)					\
+> -	drm_dev_dbg((drm) ? (drm)->dev : NULL, DRM_UT_CORE, fmt, ##__VA_ARGS__)
+> -#define drm_dbg_driver(drm, fmt, ...)						\
+> -	drm_dev_dbg((drm) ? (drm)->dev : NULL, DRM_UT_DRIVER, fmt, ##__VA_ARGS__)
+> +	drm_dev_dbg(__drm_to_dev(drm), DRM_UT_CORE, fmt, ##__VA_ARGS__)
+> +#define drm_dbg_driver(drm, fmt, ...)					\
+> +	drm_dev_dbg(__drm_to_dev(drm), DRM_UT_DRIVER, fmt, ##__VA_ARGS__)
+>   #define drm_dbg_kms(drm, fmt, ...)					\
+> -	drm_dev_dbg((drm) ? (drm)->dev : NULL, DRM_UT_KMS, fmt, ##__VA_ARGS__)
+> +	drm_dev_dbg(__drm_to_dev(drm), DRM_UT_KMS, fmt, ##__VA_ARGS__)
+>   #define drm_dbg_prime(drm, fmt, ...)					\
+> -	drm_dev_dbg((drm) ? (drm)->dev : NULL, DRM_UT_PRIME, fmt, ##__VA_ARGS__)
+> +	drm_dev_dbg(__drm_to_dev(drm), DRM_UT_PRIME, fmt, ##__VA_ARGS__)
+>   #define drm_dbg_atomic(drm, fmt, ...)					\
+> -	drm_dev_dbg((drm) ? (drm)->dev : NULL, DRM_UT_ATOMIC, fmt, ##__VA_ARGS__)
+> +	drm_dev_dbg(__drm_to_dev(drm), DRM_UT_ATOMIC, fmt, ##__VA_ARGS__)
+>   #define drm_dbg_vbl(drm, fmt, ...)					\
+> -	drm_dev_dbg((drm) ? (drm)->dev : NULL, DRM_UT_VBL, fmt, ##__VA_ARGS__)
+> +	drm_dev_dbg(__drm_to_dev(drm), DRM_UT_VBL, fmt, ##__VA_ARGS__)
+>   #define drm_dbg_state(drm, fmt, ...)					\
+> -	drm_dev_dbg((drm) ? (drm)->dev : NULL, DRM_UT_STATE, fmt, ##__VA_ARGS__)
+> +	drm_dev_dbg(__drm_to_dev(drm), DRM_UT_STATE, fmt, ##__VA_ARGS__)
+>   #define drm_dbg_lease(drm, fmt, ...)					\
+> -	drm_dev_dbg((drm) ? (drm)->dev : NULL, DRM_UT_LEASE, fmt, ##__VA_ARGS__)
+> +	drm_dev_dbg(__drm_to_dev(drm), DRM_UT_LEASE, fmt, ##__VA_ARGS__)
+>   #define drm_dbg_dp(drm, fmt, ...)					\
+> -	drm_dev_dbg((drm) ? (drm)->dev : NULL, DRM_UT_DP, fmt, ##__VA_ARGS__)
+> +	drm_dev_dbg(__drm_to_dev(drm), DRM_UT_DP, fmt, ##__VA_ARGS__)
+>   #define drm_dbg_drmres(drm, fmt, ...)					\
+> -	drm_dev_dbg((drm) ? (drm)->dev : NULL, DRM_UT_DRMRES, fmt, ##__VA_ARGS__)
+> +	drm_dev_dbg(__drm_to_dev(drm), DRM_UT_DRMRES, fmt, ##__VA_ARGS__)
 >   
->   	ret = regmap_write(hdmi->regmap, hdmi->chip_data->lcdsel_grf_reg, val);
->   	if (ret != 0)
-> -		drm_err(hdmi, "Could not write to GRF: %d\n", ret);
-> +		dev_err(hdmi->dev, "Could not write to GRF: %d\n", ret);
+>   #define drm_dbg(drm, fmt, ...)	drm_dbg_driver(drm, fmt, ##__VA_ARGS__)
 >   
->   	clk_disable_unprepare(hdmi->grf_clk);
-> -	drm_dbg(hdmi, "vop %s output to hdmi\n", ret ? "LIT" : "BIG");
-> +	dev_dbg(hdmi->dev, "vop %s output to hdmi\n", ret ? "LIT" : "BIG");
->   }
+> @@ -727,10 +733,9 @@ void __drm_err(const char *format, ...);
+>   #define __DRM_DEFINE_DBG_RATELIMITED(category, drm, fmt, ...)					\
+>   ({												\
+>   	static DEFINE_RATELIMIT_STATE(rs_, DEFAULT_RATELIMIT_INTERVAL, DEFAULT_RATELIMIT_BURST);\
+> -	const struct drm_device *drm_ = (drm);							\
+>   												\
+>   	if (drm_debug_enabled(DRM_UT_ ## category) && __ratelimit(&rs_))			\
+> -		drm_dev_printk(drm_ ? drm_->dev : NULL, KERN_DEBUG, fmt, ## __VA_ARGS__);	\
+> +		drm_dev_printk(__drm_to_dev(drm), KERN_DEBUG, fmt, ## __VA_ARGS__);		\
+>   })
 >   
->   static int
-> @@ -574,7 +574,7 @@ static int dw_hdmi_rockchip_bind(struct device *dev, struct device *master,
->   	ret = rockchip_hdmi_parse_dt(hdmi);
->   	if (ret) {
->   		if (ret != -EPROBE_DEFER)
-> -			drm_err(hdmi, "Unable to parse OF data\n");
-> +			dev_err(hdmi->dev, "Unable to parse OF data\n");
->   		return ret;
->   	}
+>   #define drm_dbg_ratelimited(drm, fmt, ...) \
+> @@ -752,13 +757,13 @@ void __drm_err(const char *format, ...);
+>   /* Helper for struct drm_device based WARNs */
+>   #define drm_WARN(drm, condition, format, arg...)			\
+>   	WARN(condition, "%s %s: [drm] " format,				\
+> -			dev_driver_string((drm)->dev),			\
+> -			dev_name((drm)->dev), ## arg)
+> +			dev_driver_string(__drm_to_dev(drm)),		\
+> +			dev_name(__drm_to_dev(drm)), ## arg)
 >   
-> @@ -582,7 +582,7 @@ static int dw_hdmi_rockchip_bind(struct device *dev, struct device *master,
->   	if (IS_ERR(hdmi->phy)) {
->   		ret = PTR_ERR(hdmi->phy);
->   		if (ret != -EPROBE_DEFER)
-> -			drm_err(hdmi, "failed to get phy\n");
-> +			dev_err(hdmi->dev, "failed to get phy\n");
->   		return ret;
->   	}
+>   #define drm_WARN_ONCE(drm, condition, format, arg...)			\
+>   	WARN_ONCE(condition, "%s %s: [drm] " format,			\
+> -			dev_driver_string((drm)->dev),			\
+> -			dev_name((drm)->dev), ## arg)
+> +			dev_driver_string(__drm_to_dev(drm)),		\
+> +			dev_name(__drm_to_dev(drm)), ## arg)
 >   
-> diff --git a/drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c b/drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c
-> index f41151d49fca..3d1dddb34603 100644
-> --- a/drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c
-> +++ b/drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c
-> @@ -242,7 +242,7 @@ static void dw_hdmi_qp_rk3588_hpd_work(struct work_struct *work)
->   	if (drm) {
->   		changed = drm_helper_hpd_irq_event(drm);
->   		if (changed)
-> -			drm_dbg(hdmi, "connector status changed\n");
-> +			dev_dbg(hdmi->dev, "connector status changed\n");
->   	}
->   }
->   
-> @@ -472,7 +472,7 @@ static int dw_hdmi_qp_rockchip_bind(struct device *dev, struct device *master,
->   		}
->   	}
->   	if (hdmi->port_id < 0) {
-> -		drm_err(hdmi, "Failed to match HDMI port ID\n");
-> +		dev_err(hdmi->dev, "Failed to match HDMI port ID\n");
->   		return hdmi->port_id;
->   	}
->   
-> @@ -496,20 +496,20 @@ static int dw_hdmi_qp_rockchip_bind(struct device *dev, struct device *master,
->   	hdmi->regmap = syscon_regmap_lookup_by_phandle(dev->of_node,
->   						       "rockchip,grf");
->   	if (IS_ERR(hdmi->regmap)) {
-> -		drm_err(hdmi, "Unable to get rockchip,grf\n");
-> +		dev_err(hdmi->dev, "Unable to get rockchip,grf\n");
->   		return PTR_ERR(hdmi->regmap);
->   	}
->   
->   	hdmi->vo_regmap = syscon_regmap_lookup_by_phandle(dev->of_node,
->   							  "rockchip,vo-grf");
->   	if (IS_ERR(hdmi->vo_regmap)) {
-> -		drm_err(hdmi, "Unable to get rockchip,vo-grf\n");
-> +		dev_err(hdmi->dev, "Unable to get rockchip,vo-grf\n");
->   		return PTR_ERR(hdmi->vo_regmap);
->   	}
->   
->   	ret = devm_clk_bulk_get_all_enabled(hdmi->dev, &clks);
->   	if (ret < 0) {
-> -		drm_err(hdmi, "Failed to get clocks: %d\n", ret);
-> +		dev_err(hdmi->dev, "Failed to get clocks: %d\n", ret);
->   		return ret;
->   	}
->   
-> @@ -517,7 +517,7 @@ static int dw_hdmi_qp_rockchip_bind(struct device *dev, struct device *master,
->   						    GPIOD_OUT_HIGH);
->   	if (IS_ERR(hdmi->enable_gpio)) {
->   		ret = PTR_ERR(hdmi->enable_gpio);
-> -		drm_err(hdmi, "Failed to request enable GPIO: %d\n", ret);
-> +		dev_err(hdmi->dev, "Failed to request enable GPIO: %d\n", ret);
->   		return ret;
->   	}
->   
-> @@ -525,7 +525,7 @@ static int dw_hdmi_qp_rockchip_bind(struct device *dev, struct device *master,
->   	if (IS_ERR(hdmi->phy)) {
->   		ret = PTR_ERR(hdmi->phy);
->   		if (ret != -EPROBE_DEFER)
-> -			drm_err(hdmi, "failed to get phy: %d\n", ret);
-> +			dev_err(hdmi->dev, "failed to get phy: %d\n", ret);
->   		return ret;
->   	}
->   
-> @@ -564,7 +564,7 @@ static int dw_hdmi_qp_rockchip_bind(struct device *dev, struct device *master,
->   	connector = drm_bridge_connector_init(drm, encoder);
->   	if (IS_ERR(connector)) {
->   		ret = PTR_ERR(connector);
-> -		drm_err(hdmi, "failed to init bridge connector: %d\n", ret);
-> +		dev_err(hdmi->dev, "failed to init bridge connector: %d\n", ret);
->   		return ret;
->   	}
->   
+>   #define drm_WARN_ON(drm, x)						\
+>   	drm_WARN((drm), (x), "%s",					\
 
 -- 
 Louis Chauvet, Bootlin
