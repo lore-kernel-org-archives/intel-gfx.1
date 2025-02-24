@@ -4,60 +4,55 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 67404C021A4
-	for <intel-gfx@archiver.kernel.org>; Mon, 24 Feb 2025 15:59:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id ACBC0C021BC
+	for <intel-gfx@archiver.kernel.org>; Mon, 24 Feb 2025 16:05:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EB89710E451;
-	Mon, 24 Feb 2025 15:59:04 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 52DC510E32F;
+	Mon, 24 Feb 2025 16:05:34 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amazon.com header.i=@amazon.com header.b="fR4Mqg3f";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="EeT7W+cz";
 	dkim-atps=neutral
-Received: from smtp-fw-80007.amazon.com (smtp-fw-80007.amazon.com
- [99.78.197.218])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8F6AE10E16F;
- Mon, 24 Feb 2025 08:58:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=amazon.com; i=@amazon.com; q=dns/txt; s=amazon201209;
- t=1740387489; x=1771923489;
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.20])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 31E3110E22E;
+ Mon, 24 Feb 2025 16:05:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1740413133; x=1771949133;
  h=from:to:cc:subject:date:message-id:mime-version:
  content-transfer-encoding;
- bh=TehgUXQTMnMUl0FPqBaCA7g/l7jdHTIvAWt3UMFKf+8=;
- b=fR4Mqg3fOOEwW4VkmVMkNlWrTWuDnNsc09pO0OnEjRClqq4SNQJ/teOy
- a/342l+Hv/ijLe77WjHMeabDT7HNJZv07q6AW4TuIJWrQTNTokWdpn1fY
- 8OzDJmYoOL75akW0VIsR4iLcGoJy8kqRXc11ThYd8Qw9AdAjU6z/YmEqx Y=;
-X-IronPort-AV: E=Sophos;i="6.13,311,1732579200"; d="scan'208";a="380138562"
-Received: from pdx4-co-svc-p1-lb2-vlan2.amazon.com (HELO
- smtpout.prod.us-west-2.prod.farcaster.email.amazon.dev) ([10.25.36.210])
- by smtp-border-fw-80007.pdx80.corp.amazon.com with
- ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 24 Feb 2025 08:58:06 +0000
-Received: from EX19MTAUWC001.ant.amazon.com [10.0.21.151:25615]
- by smtpin.naws.us-west-2.prod.farcaster.email.amazon.dev [10.0.48.97:2525]
- with esmtp (Farcaster)
- id f1c2068b-ea59-453d-a8cd-3532fa8c50c3; Mon, 24 Feb 2025 08:58:05 +0000 (UTC)
-X-Farcaster-Flow-ID: f1c2068b-ea59-453d-a8cd-3532fa8c50c3
-Received: from EX19D002AND002.ant.amazon.com (10.37.240.241) by
- EX19MTAUWC001.ant.amazon.com (10.250.64.174) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.1544.14;
- Mon, 24 Feb 2025 08:58:02 +0000
-Received: from HND-5CG1082HRX.ant.amazon.com (10.37.244.7) by
- EX19D002AND002.ant.amazon.com (10.37.240.241) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.1544.14;
- Mon, 24 Feb 2025 08:57:59 +0000
-From: Yuichiro Tsuji <yuichtsu@amazon.com>
-To: <intel-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>
-CC: David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Yuichiro Tsuji <yuichtsu@amazon.com>
-Subject: [PATCH] drm/i915/gt/uc: Fix typo in a comment
-Date: Mon, 24 Feb 2025 17:56:37 +0900
-Message-ID: <20250224085638.3500-2-yuichtsu@amazon.com>
-X-Mailer: git-send-email 2.43.5
+ bh=hLJ+JBq38jHjW1dQoLK/rCPIG0OEgkaq7D404Wgt+RU=;
+ b=EeT7W+czLFbRXxR4qQlV1lBjyFP3ewes2nnXq84V8zLojkBtjNoZsgOy
+ Q8+0FKVtZQW3Vidqt9ggJVamxhVzlLq8jiL9tTp7OfkWUZ/OiSu92uZb4
+ G2FaoqAlgRuvZXySUfVjmNlXtzQqJf9tvZuWpkv5xnJSnJqkGh9f/tvKk
+ U+C0QoL/59Pz73Avevta8OF3iMnjOQUVAkCyK5IuGzoTVuqAPgf4dW2ah
+ y0vQQ09HDQULxmgPyl3c9K8H1347Zvq4OIWk0cjoHX/3Wlxgq/V7e2MmZ
+ ToXdqbjIKqPrziMKNLahWUMmJhx5duES1VNrH0qFHXdEq3YGf1E8ODi1T g==;
+X-CSE-ConnectionGUID: edIiQSyYRguOjgMUC+6zUA==
+X-CSE-MsgGUID: nrCPM2DtQXuWHIDfop/1ZQ==
+X-IronPort-AV: E=McAfee;i="6700,10204,11355"; a="40882963"
+X-IronPort-AV: E=Sophos;i="6.13,312,1732608000"; d="scan'208";a="40882963"
+Received: from orviesa005.jf.intel.com ([10.64.159.145])
+ by orvoesa112.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 24 Feb 2025 08:00:56 -0800
+X-CSE-ConnectionGUID: tKbNn1xLTuSDcdHVxGJM6Q==
+X-CSE-MsgGUID: 15QKNr3kQ5yt3HxEVUtKBQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.12,224,1728975600"; d="scan'208";a="121356321"
+Received: from mwiniars-desk2.ger.corp.intel.com (HELO localhost)
+ ([10.245.246.133])
+ by orviesa005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 24 Feb 2025 08:00:54 -0800
+From: Jani Nikula <jani.nikula@intel.com>
+To: intel-gfx@lists.freedesktop.org,
+	intel-xe@lists.freedesktop.org
+Cc: jani.nikula@intel.com
+Subject: [PATCH 0/2] drm/i915: reduce display dependencies on core
+Date: Mon, 24 Feb 2025 18:00:47 +0200
+Message-Id: <cover.1740412806.git.jani.nikula@intel.com>
+X-Mailer: git-send-email 2.39.5
 MIME-Version: 1.0
+Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.37.244.7]
-X-ClientProxiedBy: EX19D043UWC001.ant.amazon.com (10.13.139.202) To
- EX19D002AND002.ant.amazon.com (10.37.240.241)
-X-Mailman-Approved-At: Mon, 24 Feb 2025 15:59:03 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,28 +68,37 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Fix typo in a comment.
+Some shuffling to reduce dependencies on i915 headers.
 
-explaination -> explanation
+Jani Nikula (2):
+  drm/i915: relocate intel_plane_ggtt_offset() to intel_atomic_plane.c
+  drm/i915: split out i915_gtt_view_types.h from i915_vma_types.h
 
-Signed-off-by: Yuichiro Tsuji <yuichtsu@amazon.com>
----
- drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/gpu/drm/i915/display/intel_acpi.c     |  2 +
+ .../gpu/drm/i915/display/intel_atomic_plane.c |  8 +-
+ .../gpu/drm/i915/display/intel_atomic_plane.h |  2 +
+ .../i915/display/intel_display_power_map.c    |  2 +
+ .../drm/i915/display/intel_display_types.h    |  9 +--
+ .../drm/i915/display/intel_dp_aux_backlight.c |  2 +
+ .../drm/i915/display/intel_dp_link_training.c |  1 +
+ drivers/gpu/drm/i915/display/intel_dp_test.c  |  2 +
+ .../gpu/drm/i915/display/intel_dp_tunnel.c    |  1 +
+ drivers/gpu/drm/i915/display/intel_fbdev.c    |  2 +
+ .../gpu/drm/i915/display/intel_frontbuffer.c  |  1 +
+ drivers/gpu/drm/i915/display/intel_link_bw.c  |  1 +
+ drivers/gpu/drm/i915/display/intel_panel.c    |  1 +
+ drivers/gpu/drm/i915/display/intel_pfit.c     |  2 +
+ drivers/gpu/drm/i915/display/intel_quirks.c   |  2 +
+ drivers/gpu/drm/i915/i915_gtt_view_types.h    | 59 +++++++++++++++
+ drivers/gpu/drm/i915/i915_vma_types.h         | 52 +------------
+ .../compat-i915-headers/i915_gtt_view_types.h |  7 ++
+ .../xe/compat-i915-headers/i915_vma_types.h   | 74 -------------------
+ drivers/gpu/drm/xe/display/xe_fb_pin.c        |  1 +
+ 20 files changed, 99 insertions(+), 132 deletions(-)
+ create mode 100644 drivers/gpu/drm/i915/i915_gtt_view_types.h
+ create mode 100644 drivers/gpu/drm/xe/compat-i915-headers/i915_gtt_view_types.h
+ delete mode 100644 drivers/gpu/drm/xe/compat-i915-headers/i915_vma_types.h
 
-diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
-index 3fce5c000144..c381e0e092ee 100644
---- a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
-+++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
-@@ -3011,7 +3011,7 @@ static int __guc_context_pin(struct intel_context *ce,
- 
- 	/*
- 	 * GuC context gets pinned in guc_request_alloc. See that function for
--	 * explaination of why.
-+	 * explanation of why.
- 	 */
- 
- 	return lrc_pin(ce, engine, vaddr);
 -- 
-2.43.5
+2.39.5
 
