@@ -4,55 +4,58 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id ABE69C021A4
-	for <intel-gfx@archiver.kernel.org>; Mon, 24 Feb 2025 13:44:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8C0F7C021A6
+	for <intel-gfx@archiver.kernel.org>; Mon, 24 Feb 2025 13:44:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EDBEA10E558;
+	by gabe.freedesktop.org (Postfix) with ESMTP id CD3AA10E553;
 	Mon, 24 Feb 2025 13:42:20 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="ktxvPe6a";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="Fp2VbFT7";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.16])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CF91810E16F;
- Mon, 24 Feb 2025 08:31:13 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.14])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 58A9C10E120
+ for <intel-gfx@lists.freedesktop.org>; Mon, 24 Feb 2025 10:09:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1740385874; x=1771921874;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=UlkRCrN9IheONt4pYGPJHfBHAYUBqH9VFTpklJkAb7c=;
- b=ktxvPe6asSDQg3JU/NVwIHWQPAUtEsIGJbOKyOc15Q2JgD502f2w/7pp
- sbC2xLeNQvSQOAib3ALxHAB16hV91KCn3K0bKIySa6XYsOncZDTP/3ByJ
- CxAS3jxh6244U7HFdwTCVfJnLGHwbc36sKs9r8yu+x+xuO0W0uVNZDs75
- qewqsv+HQltX0jKgqK1GsShOryAwMVLewYvWlCJb6lcS55H+drtFk6xdi
- AhAOrGoOqRLjLcWiGXC7wps/yaP8nVVBC5s8VO0jLNhptMdPuFp2XK7Uu
- /r3xtokbLiu222t4Qoi0VvWC00vGVmqmCZeSKFcETBr19qfirXzhn0DIH A==;
-X-CSE-ConnectionGUID: iPv+K4gnRTiWioYamHnrlw==
-X-CSE-MsgGUID: Od/NKM/OQI6DwzD1RYHTZg==
-X-IronPort-AV: E=McAfee;i="6700,10204,11354"; a="41250289"
-X-IronPort-AV: E=Sophos;i="6.13,309,1732608000"; d="scan'208";a="41250289"
-Received: from fmviesa009.fm.intel.com ([10.60.135.149])
- by orvoesa108.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 24 Feb 2025 00:31:14 -0800
-X-CSE-ConnectionGUID: 91NGtzrGQZ+z7wz1NcLQyw==
-X-CSE-MsgGUID: IpnHmNEDTjmXJpd0hjkGPQ==
+ t=1740391757; x=1771927757;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:content-transfer-encoding:in-reply-to;
+ bh=lDDPm9AQm8LMl+UvBy2x22aVQ9jAg17HPggJx5gQhAM=;
+ b=Fp2VbFT7HqN+4VWSuIRomO2lwpbKN3h0ogTp8iqTd8LdaC7UwP+Ppr03
+ KsbRdazITmtl7b9HbGMIcrrpkkNZTMquVkbrxDaH8l6IMhZH/TqMjExmv
+ E/fo9DNHvbheqDYLF7PsZgirtdjOiFBhvNUHtbL5rbdg4lU0YAtgo9tij
+ dKoYJoZg2k8hhgZ+ajSXaAGQC/5dPUVYDaIA4c9oE40OLBMegohEltseS
+ Wt3sTUXq5ve+aeLETGioQlmUHW63pQveGTHpgpTMTU86Qv/xhM6snGQXm
+ XCG7qA267GJMRyXn3//+74WSod4tj9EcgjksCx2gZRxMj4Zjnmy4xqX31 Q==;
+X-CSE-ConnectionGUID: IKOUbPAKRkGUYAde+8z3Fw==
+X-CSE-MsgGUID: kmwcmJE1QFiSfR0ZaMpgsA==
+X-IronPort-AV: E=McAfee;i="6700,10204,11354"; a="41401893"
+X-IronPort-AV: E=Sophos;i="6.13,309,1732608000"; d="scan'208";a="41401893"
+Received: from fmviesa003.fm.intel.com ([10.60.135.143])
+ by fmvoesa108.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 24 Feb 2025 02:09:17 -0800
+X-CSE-ConnectionGUID: 4oCA3OaVQi29MLWkIxBFhQ==
+X-CSE-MsgGUID: rp/NOhYxSNyAOQnvFBGoWQ==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.13,309,1732608000"; d="scan'208";a="116630834"
-Received: from srr4-3-linux-101-amanna.iind.intel.com ([10.223.74.76])
- by fmviesa009.fm.intel.com with ESMTP; 24 Feb 2025 00:31:12 -0800
-From: Animesh Manna <animesh.manna@intel.com>
-To: intel-gfx@lists.freedesktop.org,
-	intel-xe@lists.freedesktop.org
-Cc: jouni.hogander@intel.com, jani.nikula@intel.com, jeevan.b@intel.com,
- Animesh Manna <animesh.manna@intel.com>
-Subject: [PATCH v4 8/8] drm/i915/lobf: Add debug print for LOBF
-Date: Mon, 24 Feb 2025 13:38:47 +0530
-Message-Id: <20250224080847.326350-9-animesh.manna@intel.com>
-X-Mailer: git-send-email 2.29.0
-In-Reply-To: <20250224080847.326350-1-animesh.manna@intel.com>
-References: <20250224080847.326350-1-animesh.manna@intel.com>
+X-IronPort-AV: E=Sophos;i="6.12,224,1728975600"; d="scan'208";a="120140895"
+Received: from vpanait-mobl.ger.corp.intel.com (HELO intel.com)
+ ([10.245.246.159])
+ by fmviesa003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 24 Feb 2025 02:09:13 -0800
+Date: Mon, 24 Feb 2025 11:09:10 +0100
+From: Andi Shyti <andi.shyti@linux.intel.com>
+To: Ville Syrjala <ville.syrjala@linux.intel.com>
+Cc: intel-gfx@lists.freedesktop.org
+Subject: Re: [PATCH 07/12] drm/i915: Use REG_BIT() & co. for CHV EU/slice
+ fuse bits
+Message-ID: <Z7xFRn3VVx3bWTaH@ashyti-mobl2.lan>
+References: <20250211231941.22769-1-ville.syrjala@linux.intel.com>
+ <20250211231941.22769-8-ville.syrjala@linux.intel.com>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=iso-8859-15
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <20250211231941.22769-8-ville.syrjala@linux.intel.com>
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,31 +71,17 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Lobf is enabled part of ALPM configuration and if has_lobf
-is set to true respective bit for LOBF will be set. Add debug
-print while setting the bitfield of LOBF.
+Hi Ville,
 
-Signed-off-by: Animesh Manna <animesh.manna@intel.com>
----
- drivers/gpu/drm/i915/display/intel_alpm.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+On Wed, Feb 12, 2025 at 01:19:35AM +0200, Ville Syrjala wrote:
+> From: Ville Syrjälä <ville.syrjala@linux.intel.com>
+> 
+> Convert the CHV EU/slice fuse bits to the modern REG_BIT()/etc.
+> style.
+> 
+> Signed-off-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
 
-diff --git a/drivers/gpu/drm/i915/display/intel_alpm.c b/drivers/gpu/drm/i915/display/intel_alpm.c
-index 5f8c1ec5e21c..cbcee0599e9d 100644
---- a/drivers/gpu/drm/i915/display/intel_alpm.c
-+++ b/drivers/gpu/drm/i915/display/intel_alpm.c
-@@ -385,8 +385,10 @@ static void lnl_alpm_configure(struct intel_dp *intel_dp,
- 			ALPM_CTL_EXTENDED_FAST_WAKE_TIME(intel_dp->alpm_parameters.fast_wake_lines);
- 	}
- 
--	if (crtc_state->has_lobf)
-+	if (crtc_state->has_lobf) {
- 		alpm_ctl |= ALPM_CTL_LOBF_ENABLE;
-+		drm_dbg_kms(display->drm, "Link off between frames (LOBF) enabled\n");
-+	}
- 
- 	alpm_ctl |= ALPM_CTL_ALPM_ENTRY_CHECK(intel_dp->alpm_parameters.check_entry_lines);
- 
--- 
-2.29.0
+Reviewed-by: Andi Shyti <andi.shyti@linux.intel.com>
 
+Thanks,
+Andi
