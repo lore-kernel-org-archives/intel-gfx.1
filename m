@@ -4,53 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 00A08C021BC
-	for <intel-gfx@archiver.kernel.org>; Mon, 24 Feb 2025 13:44:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id ABE69C021A4
+	for <intel-gfx@archiver.kernel.org>; Mon, 24 Feb 2025 13:44:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 78F1010E54E;
+	by gabe.freedesktop.org (Postfix) with ESMTP id EDBEA10E558;
 	Mon, 24 Feb 2025 13:42:20 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="gJCLYXeT";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="ktxvPe6a";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.16])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1230310E14D;
- Mon, 24 Feb 2025 06:29:59 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.16])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CF91810E16F;
+ Mon, 24 Feb 2025 08:31:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1740378599; x=1771914599;
+ t=1740385874; x=1771921874;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=Y7LpkCA//CeuJue6gMfrElkC7zuOKaWVZ17r2ZY6wwY=;
- b=gJCLYXeT8KAv5mhJApUtO/8A2FAmVRofIo4uIc1ZDXwV2ro4EX4W2W0S
- 619zq3AhMzQL3dqPPgFSRaJkPgMv826X6JJS8NlGA7swh2F26nuTQmNgf
- rLIH2qM39S5R73gspf/nDUfwgUnchDM9qXBnTkFOTeG8RZJeJKAO7w+aQ
- 7rg+a9bC3Y9aCu2p1X+5iw0lHJVRY+xk4znaLrPQ7dbDSERasJE4ENqtF
- GAp648B6mmGblfN0HHglDrALHehTZMnLZ7S7Z4i5uMl3fPj1581eVGZds
- 3fcpY/cAQHpVwKh2uJdJUk9IcIe5H4iRh0Dc3oanUmDOot+RHvAa8thqX A==;
-X-CSE-ConnectionGUID: KYbrHHv0RoumiipmoAGX5A==
-X-CSE-MsgGUID: DgmeDJb2R2yoeokuKd17eg==
-X-IronPort-AV: E=McAfee;i="6700,10204,11354"; a="28719683"
-X-IronPort-AV: E=Sophos;i="6.13,309,1732608000"; d="scan'208";a="28719683"
-Received: from fmviesa003.fm.intel.com ([10.60.135.143])
- by fmvoesa110.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 Feb 2025 22:29:58 -0800
-X-CSE-ConnectionGUID: CaA9IGYwSmO+1683kzU0jw==
-X-CSE-MsgGUID: 2gzPeNnrSB6UgJtaOCOl/Q==
+ bh=UlkRCrN9IheONt4pYGPJHfBHAYUBqH9VFTpklJkAb7c=;
+ b=ktxvPe6asSDQg3JU/NVwIHWQPAUtEsIGJbOKyOc15Q2JgD502f2w/7pp
+ sbC2xLeNQvSQOAib3ALxHAB16hV91KCn3K0bKIySa6XYsOncZDTP/3ByJ
+ CxAS3jxh6244U7HFdwTCVfJnLGHwbc36sKs9r8yu+x+xuO0W0uVNZDs75
+ qewqsv+HQltX0jKgqK1GsShOryAwMVLewYvWlCJb6lcS55H+drtFk6xdi
+ AhAOrGoOqRLjLcWiGXC7wps/yaP8nVVBC5s8VO0jLNhptMdPuFp2XK7Uu
+ /r3xtokbLiu222t4Qoi0VvWC00vGVmqmCZeSKFcETBr19qfirXzhn0DIH A==;
+X-CSE-ConnectionGUID: iPv+K4gnRTiWioYamHnrlw==
+X-CSE-MsgGUID: Od/NKM/OQI6DwzD1RYHTZg==
+X-IronPort-AV: E=McAfee;i="6700,10204,11354"; a="41250289"
+X-IronPort-AV: E=Sophos;i="6.13,309,1732608000"; d="scan'208";a="41250289"
+Received: from fmviesa009.fm.intel.com ([10.60.135.149])
+ by orvoesa108.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 24 Feb 2025 00:31:14 -0800
+X-CSE-ConnectionGUID: 91NGtzrGQZ+z7wz1NcLQyw==
+X-CSE-MsgGUID: IpnHmNEDTjmXJpd0hjkGPQ==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.12,224,1728975600"; d="scan'208";a="120076572"
-Received: from srr4-3-linux-103-aknautiy.iind.intel.com ([10.223.34.160])
- by fmviesa003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 Feb 2025 22:29:58 -0800
-From: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
-To: intel-gfx@lists.freedesktop.org
-Cc: intel-xe@lists.freedesktop.org, jani.nikula@linux.intel.com,
- ville.syrjala@linux.intel.com, mitulkumar.ajitkumar.golani@intel.com
-Subject: [PATCH 13/20] drm/i915/vrr: Handle joiner with vrr
-Date: Mon, 24 Feb 2025 11:47:10 +0530
-Message-ID: <20250224061717.1095226-14-ankit.k.nautiyal@intel.com>
-X-Mailer: git-send-email 2.45.2
-In-Reply-To: <20250224061717.1095226-1-ankit.k.nautiyal@intel.com>
-References: <20250224061717.1095226-1-ankit.k.nautiyal@intel.com>
+X-IronPort-AV: E=Sophos;i="6.13,309,1732608000"; d="scan'208";a="116630834"
+Received: from srr4-3-linux-101-amanna.iind.intel.com ([10.223.74.76])
+ by fmviesa009.fm.intel.com with ESMTP; 24 Feb 2025 00:31:12 -0800
+From: Animesh Manna <animesh.manna@intel.com>
+To: intel-gfx@lists.freedesktop.org,
+	intel-xe@lists.freedesktop.org
+Cc: jouni.hogander@intel.com, jani.nikula@intel.com, jeevan.b@intel.com,
+ Animesh Manna <animesh.manna@intel.com>
+Subject: [PATCH v4 8/8] drm/i915/lobf: Add debug print for LOBF
+Date: Mon, 24 Feb 2025 13:38:47 +0530
+Message-Id: <20250224080847.326350-9-animesh.manna@intel.com>
+X-Mailer: git-send-email 2.29.0
+In-Reply-To: <20250224080847.326350-1-animesh.manna@intel.com>
+References: <20250224080847.326350-1-animesh.manna@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-BeenThere: intel-gfx@lists.freedesktop.org
@@ -68,72 +68,31 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Do not program transcoder registers for VRR for the secondary pipe of
-the joiner. Remove check to skip VRR for joiner case.
+Lobf is enabled part of ALPM configuration and if has_lobf
+is set to true respective bit for LOBF will be set. Add debug
+print while setting the bitfield of LOBF.
 
-Signed-off-by: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
+Signed-off-by: Animesh Manna <animesh.manna@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_vrr.c | 19 ++++++++++++-------
- 1 file changed, 12 insertions(+), 7 deletions(-)
+ drivers/gpu/drm/i915/display/intel_alpm.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_vrr.c b/drivers/gpu/drm/i915/display/intel_vrr.c
-index 45efcb57c77a..30fcd1e66a12 100644
---- a/drivers/gpu/drm/i915/display/intel_vrr.c
-+++ b/drivers/gpu/drm/i915/display/intel_vrr.c
-@@ -345,13 +345,6 @@ intel_vrr_compute_config(struct intel_crtc_state *crtc_state,
- 	struct drm_display_mode *adjusted_mode = &crtc_state->hw.adjusted_mode;
- 	int vmin, vmax;
+diff --git a/drivers/gpu/drm/i915/display/intel_alpm.c b/drivers/gpu/drm/i915/display/intel_alpm.c
+index 5f8c1ec5e21c..cbcee0599e9d 100644
+--- a/drivers/gpu/drm/i915/display/intel_alpm.c
++++ b/drivers/gpu/drm/i915/display/intel_alpm.c
+@@ -385,8 +385,10 @@ static void lnl_alpm_configure(struct intel_dp *intel_dp,
+ 			ALPM_CTL_EXTENDED_FAST_WAKE_TIME(intel_dp->alpm_parameters.fast_wake_lines);
+ 	}
  
--	/*
--	 * FIXME all joined pipes share the same transcoder.
--	 * Need to account for that during VRR toggle/push/etc.
--	 */
--	if (crtc_state->joiner_pipes)
--		return;
--
- 	if (adjusted_mode->flags & DRM_MODE_FLAG_INTERLACE)
- 		return;
+-	if (crtc_state->has_lobf)
++	if (crtc_state->has_lobf) {
+ 		alpm_ctl |= ALPM_CTL_LOBF_ENABLE;
++		drm_dbg_kms(display->drm, "Link off between frames (LOBF) enabled\n");
++	}
  
-@@ -443,6 +436,9 @@ void intel_vrr_set_transcoder_timings(const struct intel_crtc_state *crtc_state)
- 	struct intel_display *display = to_intel_display(crtc_state);
- 	enum transcoder cpu_transcoder = crtc_state->cpu_transcoder;
+ 	alpm_ctl |= ALPM_CTL_ALPM_ENTRY_CHECK(intel_dp->alpm_parameters.check_entry_lines);
  
-+	if (intel_crtc_is_joiner_secondary(crtc_state))
-+		return;
-+
- 	/*
- 	 * This bit seems to have two meanings depending on the platform:
- 	 * TGL: generate VRR "safe window" for DSB vblank waits
-@@ -494,6 +490,9 @@ void intel_vrr_send_push(struct intel_dsb *dsb,
- 	if (!crtc_state->vrr.enable)
- 		return;
- 
-+	if (intel_crtc_is_joiner_secondary(crtc_state))
-+		return;
-+
- 	if (dsb)
- 		intel_dsb_nonpost_start(dsb);
- 
-@@ -558,6 +557,9 @@ void intel_vrr_enable(const struct intel_crtc_state *crtc_state)
- 	if (!crtc_state->vrr.enable)
- 		return;
- 
-+	if (intel_crtc_is_joiner_secondary(crtc_state))
-+		return;
-+
- 	intel_de_write(display, TRANS_VRR_VMIN(display, cpu_transcoder),
- 		       crtc_state->vrr.vmin - 1);
- 	intel_de_write(display, TRANS_VRR_VMAX(display, cpu_transcoder),
-@@ -586,6 +588,9 @@ void intel_vrr_disable(const struct intel_crtc_state *old_crtc_state)
- 	if (!old_crtc_state->vrr.enable)
- 		return;
- 
-+	if (intel_crtc_is_joiner_secondary(old_crtc_state))
-+		return;
-+
- 	intel_de_write(display, TRANS_VRR_CTL(display, cpu_transcoder),
- 		       trans_vrr_ctl(old_crtc_state));
- 	intel_de_wait_for_clear(display,
 -- 
-2.45.2
+2.29.0
 
