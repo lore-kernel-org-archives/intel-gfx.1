@@ -4,52 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7ED9AC021BB
-	for <intel-gfx@archiver.kernel.org>; Mon, 24 Feb 2025 13:44:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 66C32C021A6
+	for <intel-gfx@archiver.kernel.org>; Mon, 24 Feb 2025 13:44:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 491FF10E532;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 22CFC10E441;
 	Mon, 24 Feb 2025 13:42:19 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="KNmGvMjN";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="hUR/qXZd";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.12])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F030610E12A
- for <intel-gfx@lists.freedesktop.org>; Mon, 24 Feb 2025 06:07:42 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.16])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CCD6810E13C;
+ Mon, 24 Feb 2025 06:29:31 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1740377263; x=1771913263;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=6VHWhiEegxCt35w1KI6QrVoasDkZYefpvDND8yT0Rcs=;
- b=KNmGvMjN6hyMM1Iqev+apD/ZsBrYSOnab0JS6TqHbQbjymlJlj6arpsp
- L/7M/1qdvrAVTwCx1gbj7eFzD3AGhZG7DLX1VSVDm5vokG3F2Uo2ZJ6Zm
- BbQOiJBixve5Xb6+6LH3UOgpVCFYxjhZ/EroAOrYsyDuNGom/7Wku91pT
- ssqZdtagjme2W7U3CPB8jNPZsyfMawso7IiG7hAgjM1bGCoblEAG3ZIgu
- IVDYjWzzaRm+7kSYbQNUyom8XE9doY1BA9FOX9Hz14FByR2jBH0K2pxqV
- /BSvxKgXbJ3BVP+EW+J5bjjhaDiWY7GH9ieIsfAEN66n6wDLAwvJLi6sM w==;
-X-CSE-ConnectionGUID: +Otm2bqiT8qwzF7bOBaEHg==
-X-CSE-MsgGUID: QNaEyvrnTWGdivEB7YYX7w==
-X-IronPort-AV: E=McAfee;i="6700,10204,11354"; a="52521421"
-X-IronPort-AV: E=Sophos;i="6.13,309,1732608000"; d="scan'208";a="52521421"
-Received: from orviesa001.jf.intel.com ([10.64.159.141])
- by orvoesa104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 Feb 2025 22:07:43 -0800
-X-CSE-ConnectionGUID: 2H5IfyUaSeSRRZjhYbowTg==
-X-CSE-MsgGUID: Adovw+aKR/yo/hSLFjvYcw==
+ t=1740378571; x=1771914571;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=laEDbm9/x9wmxq0hXEMV1vil8qcnHTnbLGCqENpA8jA=;
+ b=hUR/qXZd8SlMkPRSI2QgESpFEE9rHBelalNbzuK2bC2wjlixjXk0qp34
+ gnhc7AUe46K6MRaVT5rFNGhKINrcxh0AtjJaC/qfpWdTSnjkRta6JxcZm
+ d821HGFSJknVsr9IbmJluiWNU8If9dBZR0IN452iZhnHp61+sKQMBtgEl
+ m4Jz9ky/cfuGYxxOBDJft35KQBxn0QhfkrG8KkKyIlwkBZFkVWV7Wrkxu
+ 3jhxwraxqjFY7KmAGrZHQEus0gf54dtUiOK4V3KvqinnZx5VKZRGdJX1K
+ q76yYBGCXGIustWPnINxLid2Mkq7K5pPj8lhd2h7GJCCaffYNrZRCRe+k Q==;
+X-CSE-ConnectionGUID: mBzaGD0zRQyHGmHSPfLJvg==
+X-CSE-MsgGUID: ZPo6vBZ+SqKC9jTsbdDFXw==
+X-IronPort-AV: E=McAfee;i="6700,10204,11354"; a="28719636"
+X-IronPort-AV: E=Sophos;i="6.13,309,1732608000"; d="scan'208";a="28719636"
+Received: from fmviesa003.fm.intel.com ([10.60.135.143])
+ by fmvoesa110.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 23 Feb 2025 22:29:31 -0800
+X-CSE-ConnectionGUID: XM2bMvCISe+IaYi1ebgIUw==
+X-CSE-MsgGUID: UoKjTPwlS5CB5fHlgakpPA==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.12,224,1728975600"; d="scan'208";a="153158582"
-Received: from unknown (HELO nitin-Super-Server.iind.intel.com)
- ([10.190.238.72])
- by orviesa001.jf.intel.com with ESMTP; 23 Feb 2025 22:07:41 -0800
-From: Nitin Gote <nitin.r.gote@intel.com>
+X-IronPort-AV: E=Sophos;i="6.12,224,1728975600"; d="scan'208";a="120076440"
+Received: from srr4-3-linux-103-aknautiy.iind.intel.com ([10.223.34.160])
+ by fmviesa003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 23 Feb 2025 22:29:31 -0800
+From: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Cc: chris.p.wilson@intel.com,
-	andi.shyti@intel.com,
-	nitin.r.gote@intel.com
-Subject: [PATCH] drm/i915/gt: Add a delay to let engine resumes correctly
-Date: Mon, 24 Feb 2025 12:01:04 +0530
-Message-Id: <20250224063104.308242-1-nitin.r.gote@intel.com>
-X-Mailer: git-send-email 2.25.1
+Cc: intel-xe@lists.freedesktop.org, jani.nikula@linux.intel.com,
+ ville.syrjala@linux.intel.com, mitulkumar.ajitkumar.golani@intel.com
+Subject: [PATCH 01/20] drm/i915/vrr: Remove unwanted comment
+Date: Mon, 24 Feb 2025 11:46:58 +0530
+Message-ID: <20250224061717.1095226-2-ankit.k.nautiyal@intel.com>
+X-Mailer: git-send-email 2.45.2
+In-Reply-To: <20250224061717.1095226-1-ankit.k.nautiyal@intel.com>
+References: <20250224061717.1095226-1-ankit.k.nautiyal@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-BeenThere: intel-gfx@lists.freedesktop.org
@@ -67,38 +68,30 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Sometimes engine reset fails because the engine resumes from an
-incorrect RING_HEAD. Engine head failed to set to zero even after
-writing into it. This is a timing issue and we experimented
-different values and found out that 20ms delay works best based
-on testing.
+The comment about fixed average vtotal is incorrect.
+Remove it.
 
-So, add a 20ms delay to let engine resumes from correct RING_HEAD.
-
-Closes: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/13650
-Signed-off-by: Nitin Gote <nitin.r.gote@intel.com>
+Signed-off-by: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
 ---
- drivers/gpu/drm/i915/gt/intel_ring_submission.c | 7 +++++++
- 1 file changed, 7 insertions(+)
+ drivers/gpu/drm/i915/display/intel_vrr.c | 5 -----
+ 1 file changed, 5 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gt/intel_ring_submission.c b/drivers/gpu/drm/i915/gt/intel_ring_submission.c
-index 6e9977b2d180..5576f000e965 100644
---- a/drivers/gpu/drm/i915/gt/intel_ring_submission.c
-+++ b/drivers/gpu/drm/i915/gt/intel_ring_submission.c
-@@ -365,6 +365,13 @@ static void reset_prepare(struct intel_engine_cs *engine)
- 			     ENGINE_READ_FW(engine, RING_HEAD),
- 			     ENGINE_READ_FW(engine, RING_TAIL),
- 			     ENGINE_READ_FW(engine, RING_START));
-+		/*
-+		 * Sometimes engine head failed to set to zero even after writing into it.
-+		 * Use 20ms delay to let engine resumes from correct RING_HEAD.
-+		 * Experimented different values and determined that 20ms works best
-+		 * based on testing.
-+		 */
-+		mdelay(20);
- 		if (!stop_ring(engine)) {
- 			drm_err(&engine->i915->drm,
- 				"failed to set %s head to zero "
+diff --git a/drivers/gpu/drm/i915/display/intel_vrr.c b/drivers/gpu/drm/i915/display/intel_vrr.c
+index cac49319026d..106bfaf6649b 100644
+--- a/drivers/gpu/drm/i915/display/intel_vrr.c
++++ b/drivers/gpu/drm/i915/display/intel_vrr.c
+@@ -276,11 +276,6 @@ intel_vrr_compute_config(struct intel_crtc_state *crtc_state,
+ 	 */
+ 	crtc_state->vrr.vmin -= intel_vrr_flipline_offset(display);
+ 
+-	/*
+-	 * When panel is VRR capable and userspace has
+-	 * not enabled adaptive sync mode then Fixed Average
+-	 * Vtotal mode should be enabled.
+-	 */
+ 	if (crtc_state->uapi.vrr_enabled) {
+ 		crtc_state->vrr.enable = true;
+ 		crtc_state->mode_flags |= I915_MODE_FLAG_VRR;
 -- 
-2.25.1
+2.45.2
 
