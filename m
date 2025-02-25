@@ -4,51 +4,54 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B00E4C18E7C
-	for <intel-gfx@archiver.kernel.org>; Tue, 25 Feb 2025 16:49:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 82073C021B2
+	for <intel-gfx@archiver.kernel.org>; Tue, 25 Feb 2025 16:49:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0988810E75A;
-	Tue, 25 Feb 2025 16:49:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2789510E75C;
+	Tue, 25 Feb 2025 16:49:30 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="WHzWMMBc";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="VZ6ws6XF";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BC15B10E74A;
- Tue, 25 Feb 2025 16:49:20 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6B6FE10E75B;
+ Tue, 25 Feb 2025 16:49:28 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1740502163; x=1772038163;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=hfd5y+F0j18hVzroA4hpYHm/6T4aiRY9W7ksg2gA9Jo=;
- b=WHzWMMBcZ+yheg53cZDqYerzYQXCxKev5FhM1ggKqLLwkrYL7li3wO7u
- flbZUquJmbv+M60wChxLsLgfgNf3cF6Lvqewczl0y1TVl0Xf6yuXh4SGK
- zmKDc1q2l2UM1XTYzvC1zzS8/xSqjJISTWN0LFYKmDVTuKiFFlSJeoowH
- jVmZfY+cw2czgRbY7I7uiCQ+WL7HitXgePXnCGYtDwBV8I+pbU/XKEmhU
- 3s4BPo9ScAarzKui+eQpEa9DM6AsXZQAXVQz+ZJRA2/LvOScXuTdojeCv
- Z3Hy/Y2LI2sAV8OdHPiObM8+qBP7vbofE3btt0Mu2K93K5F4XlTcZTfl4 A==;
-X-CSE-ConnectionGUID: S0Rl6KtFQtK/CbcmWP6zGg==
-X-CSE-MsgGUID: T3sTboUsRLGn3jh6cm61lQ==
-X-IronPort-AV: E=McAfee;i="6700,10204,11356"; a="41454367"
-X-IronPort-AV: E=Sophos;i="6.13,314,1732608000"; d="scan'208";a="41454367"
+ t=1740502168; x=1772038168;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=iR4LHRCOvvp9vC1divI1kMcyXtTJbgE3bez3UVFZ27Q=;
+ b=VZ6ws6XF91bjRbRV61L8cpX7HgZZUWG26mypqVCbLY6Pq21aRfe/YWYq
+ 6rc6cBHT5KZ7Hcz02FFc8PLsBzm4vaLtWawlU/bW4RPu+D4SNF1ZVPJBL
+ LQYsl7SqaYDvgnsuPF1sWFDWfa+5ccxxRVEYFkGoP/whKW+Zi7AvLeYfA
+ xO5Eut64ZU1xfclObTp3M+O9vxdVxJJeY0MLxlxaJylqZhxdZoFSGh+fA
+ SQ9ORXTcjFV3DPejerOfJn9+GnJ2Grp7+UXEdUhXFr6OEwDKhSeeBYPYP
+ QbgTL/7FjZ8hKYWe0fz15kR3aYugreMwXeseY7sm9fnGTw2nutycOFWS5 Q==;
+X-CSE-ConnectionGUID: h4eVc74GQQOngn58vBi8gg==
+X-CSE-MsgGUID: WI+mqJKCRF+5b9KEFYtNFA==
+X-IronPort-AV: E=McAfee;i="6700,10204,11356"; a="41454402"
+X-IronPort-AV: E=Sophos;i="6.13,314,1732608000"; d="scan'208";a="41454402"
 Received: from orviesa007.jf.intel.com ([10.64.159.147])
  by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 25 Feb 2025 08:49:19 -0800
-X-CSE-ConnectionGUID: ir7sFncTQCSXKFQoDvo3Qw==
-X-CSE-MsgGUID: hWThATkaTHax+MoQ0UP4hg==
+ 25 Feb 2025 08:49:28 -0800
+X-CSE-ConnectionGUID: vG8pktO2Q5av/XTfyAT8Sg==
+X-CSE-MsgGUID: pA0xCxeSRX2MX0dK44yF9g==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.12,224,1728975600"; d="scan'208";a="116930127"
+X-IronPort-AV: E=Sophos;i="6.12,224,1728975600"; d="scan'208";a="116930160"
 Received: from monicael-mobl3 (HELO localhost) ([10.245.246.246])
  by orviesa007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 25 Feb 2025 08:49:17 -0800
+ 25 Feb 2025 08:49:26 -0800
 From: Jani Nikula <jani.nikula@intel.com>
 To: intel-gfx@lists.freedesktop.org,
 	intel-xe@lists.freedesktop.org
 Cc: jani.nikula@intel.com
-Subject: [PATCH 00/12] drm/i915: struct intel_display conversions, part 2434235
-Date: Tue, 25 Feb 2025 18:49:01 +0200
-Message-Id: <cover.1740502116.git.jani.nikula@intel.com>
+Subject: [PATCH 02/12] drm/i915/debugfs: continue display debugfs struct
+ intel_display conversion
+Date: Tue, 25 Feb 2025 18:49:03 +0200
+Message-Id: <e1262dc019d42ed0e294606fc875427bda336cb9.1740502116.git.jani.nikula@intel.com>
 X-Mailer: git-send-email 2.39.5
+In-Reply-To: <cover.1740502116.git.jani.nikula@intel.com>
+References: <cover.1740502116.git.jani.nikula@intel.com>
 MIME-Version: 1.0
 Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
 Content-Transfer-Encoding: 8bit
@@ -67,64 +70,154 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-More of the same.
+Nudge intel_display_debugfs.[ch] conversion to struct intel_display
+forward.
 
-Jani Nikula (12):
-  drm/i915/display: remove leftover struct drm_i915_private forward
-    declarations
-  drm/i915/debugfs: continue display debugfs struct intel_display
-    conversion
-  drm/i915/tdf: convert intel_tdf.[ch] to struct intel_display
-  drm/i915/snps: convert intel_snps_phy.[ch] to struct intel_display
-  drm/i915/dkl: convert intel_dkl_phy.[ch] to struct intel_display
-  drm/i915/drrs: convert intel_drrs.[ch] to struct intel_display
-  drm/i915/display: convert the M/N functions to struct intel_display
-  drm/i915/dpt: convert intel_dpt.[ch] interfaces to struct
-    intel_display
-  drm/i915/fbc: convert intel_fbc.[ch] to struct intel_display
-  drm/i915/rps: convert intel_display_rps.[ch] to struct intel_display
-  drm/i915/ddi: convert intel_wait_ddi_buf_idle() to struct
-    intel_display
-  drm/i915/fdi: convert intel_fdi.[ch] to struct intel_display
+Signed-off-by: Jani Nikula <jani.nikula@intel.com>
+---
+ .../drm/i915/display/intel_display_debugfs.c  | 26 +++++++------------
+ .../drm/i915/display/intel_display_debugfs.h  |  6 ++---
+ .../drm/i915/display/intel_display_driver.c   |  2 +-
+ 3 files changed, 13 insertions(+), 21 deletions(-)
 
- drivers/gpu/drm/i915/display/intel_atomic.h   |   1 -
- .../gpu/drm/i915/display/intel_atomic_plane.c |   8 +-
- drivers/gpu/drm/i915/display/intel_ddi.c      |  11 +-
- drivers/gpu/drm/i915/display/intel_ddi.h      |   4 +-
- .../drm/i915/display/intel_ddi_buf_trans.h    |   1 -
- drivers/gpu/drm/i915/display/intel_display.c  | 102 ++--
- drivers/gpu/drm/i915/display/intel_display.h  |   8 +-
- .../drm/i915/display/intel_display_debugfs.c  |  26 +-
- .../drm/i915/display/intel_display_debugfs.h  |   6 +-
- .../drm/i915/display/intel_display_driver.c   |   8 +-
- .../drm/i915/display/intel_display_power.c    |   2 +-
- .../gpu/drm/i915/display/intel_display_rps.c  |   4 +-
- .../gpu/drm/i915/display/intel_display_rps.h  |   4 +-
- drivers/gpu/drm/i915/display/intel_dkl_phy.c  |   8 +-
- drivers/gpu/drm/i915/display/intel_dkl_phy.h  |   3 +-
- drivers/gpu/drm/i915/display/intel_dp.c       |   7 +-
- drivers/gpu/drm/i915/display/intel_dpt.c      |  24 +-
- drivers/gpu/drm/i915/display/intel_dpt.h      |   7 +-
- drivers/gpu/drm/i915/display/intel_drrs.c     |  45 +-
- drivers/gpu/drm/i915/display/intel_drrs.h     |  10 +-
- drivers/gpu/drm/i915/display/intel_fbc.c      | 113 ++---
- drivers/gpu/drm/i915/display/intel_fbc.h      |   6 +-
- drivers/gpu/drm/i915/display/intel_fdi.c      | 464 +++++++++---------
- drivers/gpu/drm/i915/display/intel_fdi.h      |  16 +-
- .../gpu/drm/i915/display/intel_frontbuffer.c  |  11 +-
- drivers/gpu/drm/i915/display/intel_hdmi.h     |   1 -
- .../drm/i915/display/intel_modeset_verify.c   |   3 +-
- drivers/gpu/drm/i915/display/intel_overlay.h  |   1 -
- .../gpu/drm/i915/display/intel_pch_display.c  |  35 +-
- drivers/gpu/drm/i915/display/intel_pipe_crc.h |   1 -
- drivers/gpu/drm/i915/display/intel_snps_phy.c |  75 ++-
- drivers/gpu/drm/i915/display/intel_snps_phy.h |   6 +-
- drivers/gpu/drm/i915/display/intel_tdf.h      |   6 +-
- drivers/gpu/drm/i915/i915_driver.c            |   4 +-
- drivers/gpu/drm/xe/display/xe_display_rps.c   |   2 +-
- drivers/gpu/drm/xe/display/xe_tdf.c           |   6 +-
- 36 files changed, 493 insertions(+), 546 deletions(-)
-
+diff --git a/drivers/gpu/drm/i915/display/intel_display_debugfs.c b/drivers/gpu/drm/i915/display/intel_display_debugfs.c
+index 9de7e512c0ab..7ee90cd8ed2d 100644
+--- a/drivers/gpu/drm/i915/display/intel_display_debugfs.c
++++ b/drivers/gpu/drm/i915/display/intel_display_debugfs.c
+@@ -49,11 +49,6 @@ static struct intel_display *node_to_intel_display(struct drm_info_node *node)
+ 	return to_intel_display(node->minor->dev);
+ }
+ 
+-static inline struct drm_i915_private *node_to_i915(struct drm_info_node *node)
+-{
+-	return to_i915(node->minor->dev);
+-}
+-
+ static int intel_display_caps(struct seq_file *m, void *data)
+ {
+ 	struct intel_display *display = node_to_intel_display(m->private);
+@@ -85,8 +80,8 @@ static int i915_frontbuffer_tracking(struct seq_file *m, void *unused)
+ 
+ static int i915_sr_status(struct seq_file *m, void *unused)
+ {
+-	struct drm_i915_private *dev_priv = node_to_i915(m->private);
+ 	struct intel_display *display = node_to_intel_display(m->private);
++	struct drm_i915_private *dev_priv = to_i915(display->drm);
+ 	intel_wakeref_t wakeref;
+ 	bool sr_enabled = false;
+ 
+@@ -102,7 +97,7 @@ static int i915_sr_status(struct seq_file *m, void *unused)
+ 	else if (display->platform.i915gm)
+ 		sr_enabled = intel_de_read(display, INSTPM) & INSTPM_SELF_EN;
+ 	else if (display->platform.pineview)
+-		sr_enabled = intel_de_read(display, DSPFW3(dev_priv)) & PINEVIEW_SELF_REFRESH_EN;
++		sr_enabled = intel_de_read(display, DSPFW3(display)) & PINEVIEW_SELF_REFRESH_EN;
+ 	else if (display->platform.valleyview || display->platform.cherryview)
+ 		sr_enabled = intel_de_read(display, FW_BLC_SELF_VLV) & FW_CSPWRDWNEN;
+ 
+@@ -157,8 +152,7 @@ static int i915_gem_framebuffer_info(struct seq_file *m, void *data)
+ 
+ static int i915_power_domain_info(struct seq_file *m, void *unused)
+ {
+-	struct drm_i915_private *i915 = node_to_i915(m->private);
+-	struct intel_display *display = &i915->display;
++	struct intel_display *display = node_to_intel_display(m->private);
+ 
+ 	intel_display_power_debug(display, m);
+ 
+@@ -588,7 +582,7 @@ static void intel_crtc_info(struct seq_file *m, struct intel_crtc *crtc)
+ static int i915_display_info(struct seq_file *m, void *unused)
+ {
+ 	struct intel_display *display = node_to_intel_display(m->private);
+-	struct drm_i915_private *dev_priv = node_to_i915(m->private);
++	struct drm_i915_private *dev_priv = to_i915(display->drm);
+ 	struct intel_crtc *crtc;
+ 	struct drm_connector *connector;
+ 	struct drm_connector_list_iter conn_iter;
+@@ -713,14 +707,13 @@ intel_lpsp_power_well_enabled(struct intel_display *display,
+ static int i915_lpsp_status(struct seq_file *m, void *unused)
+ {
+ 	struct intel_display *display = node_to_intel_display(m->private);
+-	struct drm_i915_private *i915 = node_to_i915(m->private);
+ 	bool lpsp_enabled = false;
+ 
+ 	if (DISPLAY_VER(display) >= 13 || IS_DISPLAY_VER(display, 9, 10)) {
+ 		lpsp_enabled = !intel_lpsp_power_well_enabled(display, SKL_DISP_PW_2);
+ 	} else if (IS_DISPLAY_VER(display, 11, 12)) {
+ 		lpsp_enabled = !intel_lpsp_power_well_enabled(display, ICL_DISP_PW_3);
+-	} else if (IS_HASWELL(i915) || IS_BROADWELL(i915)) {
++	} else if (display->platform.haswell || display->platform.broadwell) {
+ 		lpsp_enabled = !intel_lpsp_power_well_enabled(display, HSW_DISP_PW_GLOBAL);
+ 	} else {
+ 		seq_puts(m, "LPSP: not supported\n");
+@@ -836,10 +829,10 @@ static const struct drm_info_list intel_display_debugfs_list[] = {
+ 	{"i915_lpsp_status", i915_lpsp_status, 0},
+ };
+ 
+-void intel_display_debugfs_register(struct drm_i915_private *i915)
++void intel_display_debugfs_register(struct intel_display *display)
+ {
+-	struct intel_display *display = &i915->display;
+-	struct drm_minor *minor = i915->drm.primary;
++	struct drm_i915_private *i915 = to_i915(display->drm);
++	struct drm_minor *minor = display->drm->primary;
+ 
+ 	debugfs_create_file("i915_fifo_underrun_reset", 0644, minor->debugfs_root,
+ 			    display, &i915_fifo_underrun_reset_ops);
+@@ -865,7 +858,6 @@ static int i915_lpsp_capability_show(struct seq_file *m, void *data)
+ 	struct intel_connector *connector = m->private;
+ 	struct intel_display *display = to_intel_display(connector);
+ 	struct intel_encoder *encoder = intel_attached_encoder(connector);
+-	struct drm_i915_private *i915 = to_i915(connector->base.dev);
+ 	int connector_type = connector->base.connector_type;
+ 	bool lpsp_capable = false;
+ 
+@@ -892,7 +884,7 @@ static int i915_lpsp_capability_show(struct seq_file *m, void *data)
+ 				(connector_type == DRM_MODE_CONNECTOR_DSI ||
+ 				 connector_type == DRM_MODE_CONNECTOR_eDP ||
+ 				 connector_type == DRM_MODE_CONNECTOR_DisplayPort));
+-	else if (IS_HASWELL(i915) || IS_BROADWELL(i915))
++	else if (display->platform.haswell || display->platform.broadwell)
+ 		lpsp_capable = connector_type == DRM_MODE_CONNECTOR_eDP;
+ 
+ 	seq_printf(m, "LPSP: %s\n", lpsp_capable ? "capable" : "incapable");
+diff --git a/drivers/gpu/drm/i915/display/intel_display_debugfs.h b/drivers/gpu/drm/i915/display/intel_display_debugfs.h
+index e1f479b7acd1..82af2f608111 100644
+--- a/drivers/gpu/drm/i915/display/intel_display_debugfs.h
++++ b/drivers/gpu/drm/i915/display/intel_display_debugfs.h
+@@ -6,16 +6,16 @@
+ #ifndef __INTEL_DISPLAY_DEBUGFS_H__
+ #define __INTEL_DISPLAY_DEBUGFS_H__
+ 
+-struct drm_i915_private;
+ struct intel_connector;
+ struct intel_crtc;
++struct intel_display;
+ 
+ #ifdef CONFIG_DEBUG_FS
+-void intel_display_debugfs_register(struct drm_i915_private *i915);
++void intel_display_debugfs_register(struct intel_display *display);
+ void intel_connector_debugfs_add(struct intel_connector *connector);
+ void intel_crtc_debugfs_add(struct intel_crtc *crtc);
+ #else
+-static inline void intel_display_debugfs_register(struct drm_i915_private *i915) {}
++static inline void intel_display_debugfs_register(struct intel_display *display) {}
+ static inline void intel_connector_debugfs_add(struct intel_connector *connector) {}
+ static inline void intel_crtc_debugfs_add(struct intel_crtc *crtc) {}
+ #endif
+diff --git a/drivers/gpu/drm/i915/display/intel_display_driver.c b/drivers/gpu/drm/i915/display/intel_display_driver.c
+index b72b07329fbf..aa394f574575 100644
+--- a/drivers/gpu/drm/i915/display/intel_display_driver.c
++++ b/drivers/gpu/drm/i915/display/intel_display_driver.c
+@@ -550,7 +550,7 @@ void intel_display_driver_register(struct intel_display *display)
+ 
+ 	intel_audio_register(display);
+ 
+-	intel_display_debugfs_register(i915);
++	intel_display_debugfs_register(display);
+ 
+ 	/*
+ 	 * We need to coordinate the hotplugs with the asynchronous
 -- 
 2.39.5
 
