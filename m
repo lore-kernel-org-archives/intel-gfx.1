@@ -4,50 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B1BB0C19F32
-	for <intel-gfx@archiver.kernel.org>; Wed, 26 Feb 2025 17:18:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C7F10C282C4
+	for <intel-gfx@archiver.kernel.org>; Wed, 26 Feb 2025 17:18:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4861110E974;
-	Wed, 26 Feb 2025 17:18:34 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EDF1A10E97C;
+	Wed, 26 Feb 2025 17:18:32 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="g42iK0gJ";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="SyBo/Ffo";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.19])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E04CB10E96C;
- Wed, 26 Feb 2025 17:18:28 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A157B10E96F;
+ Wed, 26 Feb 2025 17:18:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1740590309; x=1772126309;
+ t=1740590310; x=1772126310;
  h=from:to:subject:date:message-id:in-reply-to:references:
  mime-version:content-transfer-encoding;
- bh=KH7kSTwItxcZLXJECtDqdcDrWcKwGmRzCgYdXzvQNt8=;
- b=g42iK0gJQMC1+RWDNRRmA+uBlf7WfTawxCWy9qpb4nam4evm4rUEHB/M
- Q4cmry/eJJPQCPwvVwLCx+oamvhPatAdFuP1IqUV6vWGy4tSWALUBjJw9
- NlLPJ9WD4uPlKAMpaUy/EJsal8JvKhLrbjHWa3SUrDEB62QcSEqjcwZAx
- m6jBO/jf7c1WWbO8PCQJwtDaE95JBfXDpkUrg4Jh7u0lV4LSlO6f76gBp
- rdq7oflh0fH9oRZlUlbs8jwU/lg/3uu/OH5qbKXplxC9L0LSaZff1gnuf
- gDDi0sotVYbhk1fkpdSAhTkC3Ut3qbnGZgw6B7X6uKeR3XwDHMDcmQjhp w==;
-X-CSE-ConnectionGUID: qAt9ySKkTmqCi9CkyzfnvQ==
-X-CSE-MsgGUID: aayy4spUTse1oMvVnnXblg==
-X-IronPort-AV: E=McAfee;i="6700,10204,11357"; a="40628466"
-X-IronPort-AV: E=Sophos;i="6.13,317,1732608000"; d="scan'208";a="40628466"
+ bh=rYP85rnRXx60XHyQ+lN2Iq0Q6/4ZZWj09sdW6r0YdqA=;
+ b=SyBo/Ffo2qmGh22RnkdaO+H6syRatwWx+0rJugheLuavqHe7dsEl2UkC
+ x1b8krcj9xwqFte3D4FpEnXrla/bWiUzDxvEyyf2gNkslYKEQQDQebWpn
+ 2xm1NPiVPUV9iNHhPYRIvdMDhZB128KoHPyWjSL2uHqYRsnZ1qPRITH8V
+ lccXC69W5bPU9SrJG4FElxSANAwCqymmqqxic934+ikGuiWnsK4LhG+DH
+ FINVPS2wbjr057eJlJV2ac7d6fR9WSJ4Vo9etEhD0HO+91FcmE+z7idZY
+ qV5p5Lreg0iWng6bXUXUfQ+o7OypEw4ugvlaL/Z0GUHmptQ1ipqfqOUhw Q==;
+X-CSE-ConnectionGUID: nwYu5cIPRumvXzbl0SbfDw==
+X-CSE-MsgGUID: I6tclqa9Tje98lTsAnyfbg==
+X-IronPort-AV: E=McAfee;i="6700,10204,11357"; a="40628477"
+X-IronPort-AV: E=Sophos;i="6.13,317,1732608000"; d="scan'208";a="40628477"
 Received: from fmviesa005.fm.intel.com ([10.60.135.145])
  by fmvoesa113.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 26 Feb 2025 09:18:24 -0800
-X-CSE-ConnectionGUID: IPYwiHpARpGAu7uF+6kpiQ==
-X-CSE-MsgGUID: gKa/yOqJR9iN7nxgINJL9A==
+ 26 Feb 2025 09:18:28 -0800
+X-CSE-ConnectionGUID: nkoaC/7mRXGlspJMZj7C/Q==
+X-CSE-MsgGUID: U7SbiyMqRIe+YS6EX9kGew==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.13,317,1732608000"; d="scan'208";a="121371279"
+X-IronPort-AV: E=Sophos;i="6.13,317,1732608000"; d="scan'208";a="121371358"
 Received: from ideak-desk.fi.intel.com ([10.237.72.78])
  by fmviesa005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 26 Feb 2025 09:18:23 -0800
+ 26 Feb 2025 09:18:27 -0800
 From: Imre Deak <imre.deak@intel.com>
 To: intel-gfx@lists.freedesktop.org,
 	intel-xe@lists.freedesktop.org
-Subject: [PATCH v3 1/5] drm/i915/hpd: Let an HPD pin be in the disabled state
- when handling missed IRQs
-Date: Wed, 26 Feb 2025 19:19:19 +0200
-Message-ID: <20250226171924.2646997-2-imre.deak@intel.com>
+Subject: [PATCH v3 4/5] drm/i915/dp: Queue a link check after link training is
+ complete
+Date: Wed, 26 Feb 2025 19:19:22 +0200
+Message-ID: <20250226171924.2646997-5-imre.deak@intel.com>
 X-Mailer: git-send-email 2.44.2
 In-Reply-To: <20250226171924.2646997-1-imre.deak@intel.com>
 References: <20250226171924.2646997-1-imre.deak@intel.com>
@@ -68,40 +68,67 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-After suspending and resuming the detection on connectors, HPD IRQs that
-arrived while the detection was suspended, are handled by scheduling the
-intel_hotplug::hotplug work for them. All HPD pins must be at this point
-in either the HPD_ENABLED (set for all pins during driver loading/system
-resuming) or HPD_MARK_DISABLED (set by IRQ storm detection) state: the
-HPD_DISABLED state for a pin can be set only from the HPD_MARK_DISABLED
-state by the hotplug work after a storm detection (enabling polling on
-the given pin/connector), however the hotplug work won't be scheduled
-while the detection is suspended.
+After link training - both in case of a passing and failing LT result -
+a work is scheduled to check the link state. This check should take
+place after the link training is completed by disabling the link
+training pattern and setting intel_dp::link_trained=true. Atm, the work
+is scheduled before these steps, which may result in checking the link
+state too early (and thus not retraining the link as expected).
 
-A follow-up change will add support for blocking the HPD IRQ handling
-on a given HPD pin (without disabling the IRQ generation on it), after
-which it becomes possible to see a pin in the HPD_DISABLED state when
-unblocking the IRQ handling (since the blocking could've happened for an
-already disabled pin). Adjust queue_work_for_missed_irqs() accordingly,
-so that this function can be reused for unblocking the IRQ handling.
+Fix the above by scheduling the link check work after link training is
+complete.
 
 Signed-off-by: Imre Deak <imre.deak@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_hotplug.c | 1 +
- 1 file changed, 1 insertion(+)
+ .../gpu/drm/i915/display/intel_dp_link_training.c   | 13 +++++++++----
+ 1 file changed, 9 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_hotplug.c b/drivers/gpu/drm/i915/display/intel_hotplug.c
-index 00d7b1ccf1900..ab8e71c4b0f86 100644
---- a/drivers/gpu/drm/i915/display/intel_hotplug.c
-+++ b/drivers/gpu/drm/i915/display/intel_hotplug.c
-@@ -980,6 +980,7 @@ static void queue_work_for_missed_irqs(struct drm_i915_private *i915)
- 		case HPD_MARK_DISABLED:
- 			queue_work = true;
- 			break;
-+		case HPD_DISABLED:
- 		case HPD_ENABLED:
- 			break;
- 		default:
+diff --git a/drivers/gpu/drm/i915/display/intel_dp_link_training.c b/drivers/gpu/drm/i915/display/intel_dp_link_training.c
+index ce0601a4f0e20..3316a830e18d1 100644
+--- a/drivers/gpu/drm/i915/display/intel_dp_link_training.c
++++ b/drivers/gpu/drm/i915/display/intel_dp_link_training.c
+@@ -1109,6 +1109,7 @@ intel_dp_128b132b_intra_hop(struct intel_dp *intel_dp,
+ void intel_dp_stop_link_train(struct intel_dp *intel_dp,
+ 			      const struct intel_crtc_state *crtc_state)
+ {
++	struct intel_display *display = to_intel_display(intel_dp);
+ 	struct intel_encoder *encoder = &dp_to_dig_port(intel_dp)->base;
+ 
+ 	intel_dp->link_trained = true;
+@@ -1123,6 +1124,13 @@ void intel_dp_stop_link_train(struct intel_dp *intel_dp,
+ 	}
+ 
+ 	intel_hpd_unblock(encoder);
++
++	if (!display->hotplug.ignore_long_hpd &&
++	    intel_dp->link.seq_train_failures < 2) {
++		int delay_ms = intel_dp->link.seq_train_failures ? 0 : 2000;
++
++		intel_encoder_link_check_queue_work(encoder, delay_ms);
++	}
+ }
+ 
+ static bool
+@@ -1627,7 +1635,6 @@ void intel_dp_start_link_train(struct intel_atomic_state *state,
+ 		lt_dbg(intel_dp, DP_PHY_DPRX, "Forcing link training failure\n");
+ 	} else if (passed) {
+ 		intel_dp->link.seq_train_failures = 0;
+-		intel_encoder_link_check_queue_work(encoder, 2000);
+ 		return;
+ 	}
+ 
+@@ -1650,10 +1657,8 @@ void intel_dp_start_link_train(struct intel_atomic_state *state,
+ 		return;
+ 	}
+ 
+-	if (intel_dp->link.seq_train_failures < 2) {
+-		intel_encoder_link_check_queue_work(encoder, 0);
++	if (intel_dp->link.seq_train_failures < 2)
+ 		return;
+-	}
+ 
+ 	if (intel_dp_schedule_fallback_link_training(state, intel_dp, crtc_state))
+ 		return;
 -- 
 2.44.2
 
