@@ -4,24 +4,24 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C7167C021B8
-	for <intel-gfx@archiver.kernel.org>; Wed, 26 Feb 2025 21:18:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 43E03C021B8
+	for <intel-gfx@archiver.kernel.org>; Wed, 26 Feb 2025 21:18:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7170B10E2E3;
-	Wed, 26 Feb 2025 21:18:55 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D934510E2E6;
+	Wed, 26 Feb 2025 21:18:58 +0000 (UTC)
 Received: from b555e5b46a47 (emeril.freedesktop.org [131.252.210.167])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7DE1510E2E3;
- Wed, 26 Feb 2025 21:18:54 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E00A610E2E6;
+ Wed, 26 Feb 2025 21:18:56 +0000 (UTC)
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
-Subject: =?utf-8?q?=E2=9C=97_Fi=2ECI=2ECHECKPATCH=3A_warning_for_drm/i915/mst=3A_upda?=
- =?utf-8?q?te_max_stream_count_to_match_number_of_pipes?=
+Subject: =?utf-8?q?=E2=9C=97_Fi=2ECI=2ESPARSE=3A_warning_for_drm/i915/mst=3A_update_m?=
+ =?utf-8?q?ax_stream_count_to_match_number_of_pipes?=
 From: Patchwork <patchwork@emeril.freedesktop.org>
 To: "Jani Nikula" <jani.nikula@intel.com>
 Cc: intel-gfx@lists.freedesktop.org
-Date: Wed, 26 Feb 2025 21:18:54 -0000
-Message-ID: <174060473451.2463910.9282302743232172314@b555e5b46a47>
+Date: Wed, 26 Feb 2025 21:18:56 -0000
+Message-ID: <174060473691.2463910.483373747676331788@b555e5b46a47>
 X-Patchwork-Hint: ignore
 References: <20250226135626.1956012-1-jani.nikula@intel.com>
 In-Reply-To: <20250226135626.1956012-1-jani.nikula@intel.com>
@@ -49,10 +49,6 @@ State : warning
 
 == Summary ==
 
-Error: dim checkpatch failed
-3fc3ba8a3cd9 drm/i915/mst: update max stream count to match number of pipes
--:35: WARNING:MISSING_FIXES_TAG: The commit message has 'stable@', perhaps it also needs a 'Fixes:' tag?
-
-total: 0 errors, 1 warnings, 0 checks, 9 lines checked
+Error: patch https://patchwork.freedesktop.org/api/1.0/series/145490/revisions/1/mbox/ not found
 
 
