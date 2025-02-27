@@ -4,150 +4,170 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A573DC19F32
-	for <intel-gfx@archiver.kernel.org>; Thu, 27 Feb 2025 14:11:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BF6F6C1B0FF
+	for <intel-gfx@archiver.kernel.org>; Thu, 27 Feb 2025 16:04:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2CCE810EB1B;
-	Thu, 27 Feb 2025 14:11:49 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4E9BF10EB30;
+	Thu, 27 Feb 2025 16:04:33 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="f8MOLIcl";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="btnda4jT";
 	dkim-atps=neutral
-Received: from NAM10-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam10on2043.outbound.protection.outlook.com [40.107.93.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E204D10EB10;
- Thu, 27 Feb 2025 14:11:47 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.17])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 56ACC10EB28;
+ Thu, 27 Feb 2025 16:04:32 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1740672273; x=1772208273;
+ h=from:to:subject:date:message-id:references:in-reply-to:
+ content-transfer-encoding:mime-version;
+ bh=iCWCTSF7VY2dfQQIdYcliAnRZd5N02FddjsRkOeR/Fc=;
+ b=btnda4jTxBW9OOssmxiVTN6MjgQkDwKCwqj6D+QAEpdKPC9JwHi2uq2r
+ JHesAK6Wdid0JP7vQlZknSU5tVkd7gAiuLwXBC76ft/85uZ2qhHrs1dOt
+ apiH1NBHHsurBY6zKwXqSFtCziW+tJwPHFTObJ2vV9qfd/lioDDMWFOI6
+ k2AXQSwEYuvaC1KEjbD1EoKa9LQTdC4E1u0SzXQuux12IVGJkT3TIrtPY
+ tQU4Kj2x7+vNfOzR+AuMe3LHcROO5UkfBsggQkcbV3sml0DjkD5Z8OFGo
+ GPawAExtRKRpvd5EjKeHu2QEftTWoZTxeQpRQXqzjrYLBjww6a6qwrdDk w==;
+X-CSE-ConnectionGUID: EX0YJmYpRamAZVtQXLUQJA==
+X-CSE-MsgGUID: ThC3Jv4kT1GRll7hLZOSUw==
+X-IronPort-AV: E=McAfee;i="6700,10204,11358"; a="41594411"
+X-IronPort-AV: E=Sophos;i="6.13,320,1732608000"; d="scan'208";a="41594411"
+Received: from fmviesa006.fm.intel.com ([10.60.135.146])
+ by orvoesa109.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 27 Feb 2025 08:04:30 -0800
+X-CSE-ConnectionGUID: yYP/O58OQWitqXPcAiGYVQ==
+X-CSE-MsgGUID: +DIjDa9nTAO/OvEwz+BT/A==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.13,320,1732608000"; d="scan'208";a="116871769"
+Received: from orsmsx603.amr.corp.intel.com ([10.22.229.16])
+ by fmviesa006.fm.intel.com with ESMTP/TLS/AES256-GCM-SHA384;
+ 27 Feb 2025 08:04:30 -0800
+Received: from ORSMSX903.amr.corp.intel.com (10.22.229.25) by
+ ORSMSX603.amr.corp.intel.com (10.22.229.16) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2507.44; Thu, 27 Feb 2025 08:04:26 -0800
+Received: from orsedg603.ED.cps.intel.com (10.7.248.4) by
+ ORSMSX903.amr.corp.intel.com (10.22.229.25) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.1544.14 via Frontend Transport; Thu, 27 Feb 2025 08:04:26 -0800
+Received: from NAM04-BN8-obe.outbound.protection.outlook.com (104.47.74.41) by
+ edgegateway.intel.com (134.134.137.100) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.1.2507.44; Thu, 27 Feb 2025 08:04:15 -0800
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=v9/feadt6XhCw69tQ7UbD20OQ9744G0WlwOtQF0Eq4GWyCy2MHAQXxIOPn1GJZnC6xARTKPgTm+DoqUWJEgWQxxpgkCZ/vYrp6IilJkTjoUDH7TLIlWmMjk2uqsRp4B6BG7BHxXln4qVcNjXL96mOj5D0T4IaIOzjXcLHWOb2IT/65ILGfh1+PWvFGlqT/WZZ76drLsRzPaNnODXPR0+XZ1Ru7zjHanPeO6So+Sj0TPhbllr1lugTOfmjJGtg48eLL9eOTmp+uITAjNKKy5G3CX918wdIMuosu4s+BbdNdUYKNFhRr7EKrwdwq5yTHk9gvLNoehYm9FwlFwFanxFDg==
+ b=Fk0sfeqMK9bOh86Q3bYaRw/zJFc9AhkMq2JsmDqLYTzM/4qwbY2L7nPF9k9Bt/4feH4rxVpJKwK6XaKZFINHEXGx4N16aeWuvCxfX1sNojRsz49UaOAMs8VkNSvtCw8fmOnIoI1rwAykoN9Z79VhI8S/XTgx+JIJCnyC78uIFlq3TfR+PUBmZLsti8wFZjX5mVhy+TpXIcZdSOBZwpecv0VPIFHSWlAzfTF2f1nvqWifuAdNLsHFqlEvJLEChlMsUtflV8VEQeD04hwlTrmzxvu9X4old9UBP/YogJ4bhYrBbhGwxidbb1E2qPxfcOIK84dA9bk7eXY2Kd5Jg65kog==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=6NUV1hR0XainCcwEiXbyQP9gSmrUhALUAPtof3yHvic=;
- b=esa9DKCmykD0cZRdC3P44+l2qanhC2CFHX9pkysDFUQINeCsoZnVj+H4pbIHgXZwTIHEhO3PB27oYlMtYTdNQhMGXbRstEG4Jy70x/kSZ+ffkk/bcpvblikziKPACdeCqrOcCnf+FZZmox69yaSCqU/E2T4Y8DjtIoeZKfYPIgsJ3oYnrP+iB0l4x9Ugq38WRx7qsda9ARZcqlq5lLLZ9T3tMFlz/SdfSrf6559Gh+gRhn8mrmkg1LT6qoQ94LmShrnArUJb80CkfXo2ERR9W8pa13kAaJQffONj8IWQq7Cwbcdf0xpQbK0IZ7p9Mwke5R/++3/yMiDc0hwiCrka7g==
+ bh=UAdPgLBlKrsWYvk+mA3TDrtIjw/P0EN8qqNoKMEiUuU=;
+ b=OiF5lglPubX9nrvDEdZQEM9Bv+QoOEyLMyGHUWeQPj2KmCbubOsWny6d22Wy3o4YshzymxWHmUGhDA1vDubWSgjCA5M9iYAgweRqj3JWQ2oYtPqsKpsTrtIwCpOcnlx9Ugk6ro3Z7coOsJZ1wfPdTK9qvs2Kh/xWO2YRhMZvXiNiV4PGRbl7v6j52dI5vXWe71sle8xCY7DTs9tKun3bkC64RiKXBw+TYvkEyuoYE77VD/0j4Hvv3xyZp8pkcagmr8lvfGYUYko5QcASvgFbF65hkqfesVebDLsj1ATXydZSeaIjLHuYteZbRReYRHoWijE92qY08Df3Rx0pJIPFMw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=6NUV1hR0XainCcwEiXbyQP9gSmrUhALUAPtof3yHvic=;
- b=f8MOLIclAIvCYvbQkPNbODk2umCnCdB8YWKbTa8OOPOaWMLe7wjc0BASwpQJLZckpblaO5W9fmpS0aWUK4z3OJgNX2edd25m+DbaWMAX/Bn757io2cg6vOYviOS49y6jgimkWvQTkuio+274x5rS0Hi6xwssCuQJbusukF2pUwo=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by PH8PR12MB7376.namprd12.prod.outlook.com (2603:10b6:510:214::12)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8466.19; Thu, 27 Feb
- 2025 14:11:44 +0000
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::46fb:96f2:7667:7ca5]) by PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::46fb:96f2:7667:7ca5%5]) with mapi id 15.20.8466.016; Thu, 27 Feb 2025
- 14:11:44 +0000
-Message-ID: <76445047-a5e8-4590-8e61-5570bd051b13@amd.com>
-Date: Thu, 27 Feb 2025 15:11:39 +0100
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] dma-buf: Take a breath during dma-fence-chain subtests
-To: Andi Shyti <andi.shyti@linux.intel.com>,
- Nitin Gote <nitin.r.gote@intel.com>
-Cc: intel-gfx@lists.freedesktop.org, chris.p.wilson@intel.com,
- Sumit Semwal <sumit.semwal@linaro.org>, linux-media@vger.kernel.org,
- dri-devel@lists.freedesktop.org
-References: <20250226155534.1099538-1-nitin.r.gote@intel.com>
- <Z8Bf9HRqOg7B3W79@ashyti-mobl2.lan>
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Received: from SN7PR11MB6750.namprd11.prod.outlook.com (2603:10b6:806:266::21)
+ by DS0PR11MB8720.namprd11.prod.outlook.com (2603:10b6:8:1aa::17) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8489.18; Thu, 27 Feb
+ 2025 16:03:57 +0000
+Received: from SN7PR11MB6750.namprd11.prod.outlook.com
+ ([fe80::9570:169d:a0d5:527]) by SN7PR11MB6750.namprd11.prod.outlook.com
+ ([fe80::9570:169d:a0d5:527%3]) with mapi id 15.20.8466.016; Thu, 27 Feb 2025
+ 16:03:57 +0000
+From: "Kandpal, Suraj" <suraj.kandpal@intel.com>
+To: "Nikula, Jani" <jani.nikula@intel.com>, "intel-xe@lists.freedesktop.org"
+ <intel-xe@lists.freedesktop.org>, "intel-gfx@lists.freedesktop.org"
+ <intel-gfx@lists.freedesktop.org>
+Subject: RE: [PATCH] drm/i915/vdsc: intel_display conversions
+Thread-Topic: [PATCH] drm/i915/vdsc: intel_display conversions
+Thread-Index: AQHbiQn1OhpvjtXdgE2Zdvo1N9HlMbNbEPqAgAA9YlA=
+Date: Thu, 27 Feb 2025 16:03:57 +0000
+Message-ID: <SN7PR11MB6750ADE79EE5378C1745D6FBE3CD2@SN7PR11MB6750.namprd11.prod.outlook.com>
+References: <20250227112240.278827-1-suraj.kandpal@intel.com>
+ <87o6yn37lk.fsf@intel.com>
+In-Reply-To: <87o6yn37lk.fsf@intel.com>
+Accept-Language: en-US
 Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <Z8Bf9HRqOg7B3W79@ashyti-mobl2.lan>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: LO4P265CA0182.GBRP265.PROD.OUTLOOK.COM
- (2603:10a6:600:311::12) To PH7PR12MB5685.namprd12.prod.outlook.com
- (2603:10b6:510:13c::22)
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: SN7PR11MB6750:EE_|DS0PR11MB8720:EE_
+x-ms-office365-filtering-correlation-id: fb79efb0-a9af-4259-fde9-08dd5748579e
+x-ld-processed: 46c98d88-e344-4ed4-8496-4ed7712e255d,ExtAddr
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+ ARA:13230040|366016|1800799024|376014|38070700018|7053199007; 
+x-microsoft-antispam-message-info: =?us-ascii?Q?dVZ6CJsREV9rIoESH2eA2OB98Hc0knMxwsmzfiMvS+RxKb1eOoqJZXdJhLjf?=
+ =?us-ascii?Q?L6/F6eNA+d+RQxhkHwn9/vgRwCLdosFveGqmSsol5c7Kbf/ES2nJo2o5dt9E?=
+ =?us-ascii?Q?BVqRQpZ1OG1PTDkhoIrGwen1IfQ4docQSPUZNqFzh6066GfE7UQWIL4hKY+2?=
+ =?us-ascii?Q?hdJzdtEH/Jp4wDfP/WPgHSx1vwsbuoGBfQVpVORB5OydOF5nr9HYFcjoPbhH?=
+ =?us-ascii?Q?45qkTJMRvUqkLT7GxqgubjeonMDcq215yDKzzmVtYF0NLIfhdvunz1a87psU?=
+ =?us-ascii?Q?yb7pJiGm88JPV4MzX1EmqEo7OsL6C+BjHakrYpsZEtZYFdI1NCSjMFOS/d+Q?=
+ =?us-ascii?Q?AFDDy9RkD8wol/LQomhV3TwKdReRKI+tpDiKB8jPKELD5NLkNqeLGct0Qlsf?=
+ =?us-ascii?Q?cs/UPFd6eIQOkfb2b1asLmyAkxJtie+QThSxSz61lFRMcTM6DQGbJuAB8o3S?=
+ =?us-ascii?Q?u+mKgkvKl/xDpJQEg9tXzETAv49UDAXH6L4aUCZlze4xxj3vJH8X8GQSY5HR?=
+ =?us-ascii?Q?n1e5gXi3E+jcapNMS4+8LXB4ThtEWxDFtrn9LHNJE1c0RlFnQFnYqMT3DCi0?=
+ =?us-ascii?Q?zUtS8+zzDQEB4zqud/TO1anSR0CtMgfq1i9cU/PD57htec3LThblXAfyDNgd?=
+ =?us-ascii?Q?RctGNJuf60ddOUu3vu09Wj3KTB6swUiXVC8lNf9BRSxfeEbrhvHl7ENSfnui?=
+ =?us-ascii?Q?GM89cCS/LaLK6Fr81nQ9C7d+2+scS7gOqHMH1YO/1heWAfeqhmWLMsJcJ4zA?=
+ =?us-ascii?Q?X9baHHWMKEaO6BFGIc2fZFBOLxJufCqoXA2BHykoOz0CX/ENKb+61Z/8Z+re?=
+ =?us-ascii?Q?ZrdyUv1N5bfarH8u66dj4UJhlnxDV2sQRHpZGNXPO5424iRgJZJQfJgSeTq/?=
+ =?us-ascii?Q?9WtETizahCpDYExjDk2UvDRkRayBhZINWrGHLcY+F4ZkJE76ofvE9fFR5Ek4?=
+ =?us-ascii?Q?95FiyFPSiWrOUQuPW+driy/9mtgl3UWkrePmHwDWCZW3bDY8d44AtTA4mswG?=
+ =?us-ascii?Q?MmGUKsXT+4kT4lUZX802GfJO55hLsrR4kGBcKzFGkBmgPNh2RHLec/pJgblS?=
+ =?us-ascii?Q?AJq3lTncxubG4u5ZJRGksSfg5RyJ67Cbd3FAuDtGFOpTQsMF4PC9+DCuxNuc?=
+ =?us-ascii?Q?i6SKLUe0GjBsezHux0XAcl2Weer/5vQQ4VaNQ80ZliQMZwWNxqBuwaEa9SJO?=
+ =?us-ascii?Q?1HsG9YFyEVgsfDoL99mE1+2FBn12cohsL60yLzOx2lTecLDK8T+O63LxIbTx?=
+ =?us-ascii?Q?yz59tefbxC/EVzdT/5NyrxM5j+VZiA7SmYc7jRWVNoEdSlftNYiFgtnC5FG8?=
+ =?us-ascii?Q?Z0uITw9wIbYdsxyUR3dy1VlOxrpFF54LabZnIAVHZm27lNOe+8mfUZvG3jTs?=
+ =?us-ascii?Q?Cp2I++kskc9JL45uyVHGkS4igp+p1AmtqzFdSGHLELvszIcdu8S4YcW/A7fr?=
+ =?us-ascii?Q?P9MtD2YDbz4xk51W+4cYSmkl4RtrQZEf?=
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:SN7PR11MB6750.namprd11.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(1800799024)(376014)(38070700018)(7053199007); DIR:OUT;
+ SFP:1101; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?85fz/281o2FSn3Ug+d3o+F2rbEr9MEpqxahgwNgpPqZgc9wNRHYeUOkg6RPL?=
+ =?us-ascii?Q?iHf1TGV+PVxqBFbdPkZs79zXk7dUJhOV0IO2jHLyAB7SmtE99DVsmam7qlVQ?=
+ =?us-ascii?Q?pn+0spa/r9z4d/ZZ8naglbCEVhai1IiB/Uo8x415VANqm86LbapbRP/OOD0q?=
+ =?us-ascii?Q?tYTviyKJzdQVaq/Tx7QDgAjINxmppAHO4R0Pwl0AULW6zMsWYO1790ev6G32?=
+ =?us-ascii?Q?mOhNvE/hF2SuELJ9AWfqHiHLndQ4/T1Yxd+Wl5Ie9wAWMQukyOMTetq3zUzq?=
+ =?us-ascii?Q?EMaeRzVW5lCpT5SA/FitcD4u5QkUW6l3u8oSRQbEbZLNOvLuwLy+bp7T0kCS?=
+ =?us-ascii?Q?+0BrO0eq6TOtjEUwdoBK1Lgudmf7zpaKC7B3oVD605uB9QcoWIupa0rF5GBH?=
+ =?us-ascii?Q?B458+4QcGWzDSTHZQsC7HtNmA1jmz1KhfxDGM0VJNOsVj3TyKDQtkb3FGqa+?=
+ =?us-ascii?Q?hWl4jlcZMsMdPq8s+KWtpM4U/X8P9mLOOmUwH6HtFTwFXRgj6AimHTHXgHHn?=
+ =?us-ascii?Q?TmB4l4TzDqD29pmVEpRAUWaDlaxBkjEKfYvvFguAVidsA9mh5dqdrKZB3mDb?=
+ =?us-ascii?Q?3Ub6nMLCgQxMw7SIoIlKVFyAH1+DMFJQ8x8Bw3riMaSx2v93FcbY32ht84ve?=
+ =?us-ascii?Q?2ixP1SN/8sRaDFHpOx8UGiodTbV6kHnnxqdq9ecl1ZaPScpJhEdESuwq2C7R?=
+ =?us-ascii?Q?CRFdOpoBLvvhUDJ6k26R7sw6tNhBCplMTw9TgOWa6oc9UIAQD8B9IvhLgXpz?=
+ =?us-ascii?Q?14Vu7/BuaHp+VytzW9vazhrHfVA4VMZBzcqwxJeqd3y3DOPgLk8x43sf7wf+?=
+ =?us-ascii?Q?uSCAf7bOJQDlFSDPbgsF+0vKfYI3+xwso9fxUn+O+CuwYjY3q2ft5B6cmUgy?=
+ =?us-ascii?Q?yFXB8gK98vAhX/UXKV0XUiWlmOZgLBukMljJbhZ/mIJG851cYKqA4u8Rfkds?=
+ =?us-ascii?Q?0/SDqcIk+5PAJeVdPZDOfNpgFn+mpLPXSpKKq2wL/NcgnWpWlzdoCGVzchaS?=
+ =?us-ascii?Q?+dBVvEJS+BoeR/07Lom7omzD/QVS6kEOHul5H81r3EQZjJGRZ2oCfvHHfJcF?=
+ =?us-ascii?Q?8D97qRsPjbCRgr2vluWmr9DBaAGEYmINHSPPxWEf4YXCY2c79vcTKIF3Y3JX?=
+ =?us-ascii?Q?94yp+bloiUEyc68OccVKCoZfioIRdTsbmq+HMNoOQhPZveaSCs9CgvNgJs43?=
+ =?us-ascii?Q?3IA7nSFFXQ14tCEr5Bju6ulLzDadJkN0LQnkB0W0aOHxncqQxPLvwtxZPjkA?=
+ =?us-ascii?Q?33qn9DPJpEzTPgzU3qL+cLAuuKb0plzApW9c9T3Pwp7y7rBLg156TzTjNJVI?=
+ =?us-ascii?Q?VlR50WwwbBUFlE/rrI9fRoRSh+zczkidYJbEb4qMpary5rNg/xuZ8HoQfpBr?=
+ =?us-ascii?Q?IFjB59RUQ/o+D2BV3QS7sIdp+ky9HHiH1oNC+k9ss9DTOR97jo1s8fn+OFpE?=
+ =?us-ascii?Q?fiB8c/72b0S9NurKNUbgqJKFJUMjtW34+0nvZp8w2zDqOWVtzJcjnD6CsEiU?=
+ =?us-ascii?Q?VO3+0bTbevqAyQEZKXR5/hgRD6whPVxD8MTAkk2T/6/nQmvIx/HPPEKejTqV?=
+ =?us-ascii?Q?ZW8a+3rakg9KzBRfdvEemj/JRT9v0tjwGuQJV6V0?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|PH8PR12MB7376:EE_
-X-MS-Office365-Filtering-Correlation-Id: 091b2efe-b0b1-40b2-9dba-08dd5738aa79
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|376014|366016|1800799024;
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?K3h6KzZZVmlUdll1alJNWStsTmRIMDJucXY4cHVzbkk0RHJnNEZoQnRXVUtR?=
- =?utf-8?B?QUdVQSt3VUZpT3lNdW1CcXl3bTgxcVR0VDJVdnZPTmtXWlBFVXpLZGRQUlZR?=
- =?utf-8?B?V3JwT1piZ0lWMUd3WVN3RXl5Uk9yL3lnTW0vNVpxUXVTV2lPOElGUUZBbEV3?=
- =?utf-8?B?aUU0Tzlxb0U5d2VaT0k5NjJWMnNJNEJTQWVDZU5FbUQyTmJwWkUvVG5ZbVpK?=
- =?utf-8?B?ZmhVTXpld3NTSkNYMXMvZHoxeDBoRGwwK3pzc3d5NXY5YjAwTlF3Z0ZiUjdt?=
- =?utf-8?B?dEt2Y0EwdG1QTXVJQXBTQ3EwTC9CU1FnQXY4T0Z1Vi82VnpnenUyWitjUnhN?=
- =?utf-8?B?K3JETU9ieUo5U3V2VFBNVmlUaCtROStrS1V1emdEc2FvR21zRGlYZG9ocWZs?=
- =?utf-8?B?bW9TdDdVbWV2ZTN0UjUvZ1Y2RCs0Zm91KzcrelZxQjhaaGQ2WE5vZlhYamVa?=
- =?utf-8?B?WTRuNERxb01xY2IvUnl6cmsveHdMS3ZVMFB3U01SSEtUQWVEYWQxMEl2SXAv?=
- =?utf-8?B?SEsrWDVFNG9CTFJSM3VsOGNqa003QnVuSXN6cTRhNHM1c04zT1M2OGYzYjg1?=
- =?utf-8?B?ZndDS1A1ZTNrSklXL3ZvaEwybW1nSzNEK2xucDgzZGZnMTkrMVg5R05GV2sy?=
- =?utf-8?B?c2hYak9COWZEdThvMkd5RW1KZ1pzZzVidkJvT0wvVVJIOFpYUTc1ZkR1TFJy?=
- =?utf-8?B?YmgyUlU3K3VvR0prdW44YkVBQU5Ya0NkUUg5NWJxYWhiV1E2aWFuZ3J2VTdq?=
- =?utf-8?B?NDhHVjVvTXZKL2tTZHlSQWtlbGppbDJHYWtaamFWQ3VEd3JtNnh2cERlKzJu?=
- =?utf-8?B?WnJvSm5EY1dGa3Q1QXUvU0dyMjR1ZnVZTjNIdU5KNmpaWUVvZ1RpOTRtSWhw?=
- =?utf-8?B?Ym11aDVkaFZ1Tlg4L1ZxTnZLWHp4WTlCbElDdXJWd0lwdVJnZjRSZ3FqQ0wz?=
- =?utf-8?B?dXAxM2luWWY4OWVGOERHNXlFU2JvczRIdkY5NjRpeDJmeEJwVURhWWphaExT?=
- =?utf-8?B?L0wzOFV1T0NRU21rajMxYmFWOGxGMEwyTFR1VCsvcVVSaFl4NEVJVHFMbkJX?=
- =?utf-8?B?NUp2Sk9CZ25CSEZYYmprOHpKcnZybjAycVl4eldCQkdXRjdCMEZDeFh6OHhE?=
- =?utf-8?B?cnpoZU8zbDAxbWEvTUI3WmNYVVlzem9vTzdLUENXOHNVRUl2NWNtZnVyR1Jh?=
- =?utf-8?B?eHpYUmZYREdNZ1FmbEVXSHJSU1IvWlFyVnBrRmZ3UVZjMlowSmlCR0R1enNN?=
- =?utf-8?B?dkhkTThvWmxsU1VBSGlnNmttNUgvQ3pFdkw0ZGNsSzcrSkx2aGRoS2xnYUdX?=
- =?utf-8?B?RW0xRGxCQTVTZkkwTmpaakVEbi9wVVdqN0ZKZGNGSjU4ZEVjWENyVEIvMVVC?=
- =?utf-8?B?cklZS2VGZjFOeEZMT0wxSkorbUprV3JtS0haU0Z2U3ZUUWc4L1NyK3ZRVm9l?=
- =?utf-8?B?b0oxTTJIQ0g2dnM1Z0FxRHVXTDRsc2V4RC9WZVlkZlpMZmdyQzZaY2EzQjZy?=
- =?utf-8?B?eGFqNXc0Z0I1c2huVEU0TzFFQUg3RjJMdEREOWhrK0tMR0pIR1I0WjJxWTYz?=
- =?utf-8?B?RU9FSEVJOEVId01COUZHUlpsWldFbEYvTmtzbk8rRkltUFRDSnV4ekJpZ3FI?=
- =?utf-8?B?ZUkwYm96MmhmaFlLb3R1OVJuQnJkWGd0c1BaWWZPVjB4ZWtjWlBTS3lqdWdG?=
- =?utf-8?B?NnE3c3Z5SWFEUndFdmwxbEE2WG91RXJmZ3RNQVRLbkZVSGlzUHFiYTMwelFX?=
- =?utf-8?B?RlRrb1djcTE2YTdOVDY1anVrMElMcGt6ZFZnTVNrSWdQbmVmT3dKMGZqWjdi?=
- =?utf-8?B?Ky9lNkw1Y3poSDkvRWZEQT09?=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(366016)(1800799024); DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?ckQ1SWkrNVBTMFEwTjdHVzcwdGtwQ0VPdnE5Tm1ENUFsWldsVXZYQ25GWnk5?=
- =?utf-8?B?ZS8zYUFybUlYNlpzY1lrVDN5aHVmMi9OeVMvUkFJNVN0UWNMRUlldzdvV2N2?=
- =?utf-8?B?VTdaZUxzMEUxNFFMUjFDZDhZb0RLMFAwdEJGS3VpTnY3SW9rMmhta1ZnN1ow?=
- =?utf-8?B?R1c0WGlZYjkzRVJzaGpUYm9USm00aDZxRVRKL2JkNHBhdGoyQ1ZRdGNDVXpu?=
- =?utf-8?B?cHZxS1ZZVmxUQ3RTMWl1aFAvOVpGRXc2QmRZZzBIQWtuUEU1d0ZtVjNxUUdV?=
- =?utf-8?B?WWZOTHlEZ1lTTkZPSWNKSFAwczYwTDNLK1RZK1FvWi9vUzdlQ3pIdW8rdzE5?=
- =?utf-8?B?SVNnWEpTYWhjY1Nod2Qwei82ci9JTXA0dVRNa0ZrbElNb1cwc0NIbWNGUVAv?=
- =?utf-8?B?bXdJU0Z6ZXJ3c2h5eS9vRnVCTURUUXZCZ1VML2NjOWYvRE1jUGg4bzErOHQz?=
- =?utf-8?B?S0pPaDVzb3hTZlhIczBwZHdJcnB1c0Z2QTZqUzJOKythV0dTb09kNThNK1Rt?=
- =?utf-8?B?UDVMR3RCcytLTHNZWG0vM1Fsb1RWVGsySi9vaGUvTEJFN3cwVGxZTHNMYmsr?=
- =?utf-8?B?ci96YlYwbytsRGEydzRTOEw2RFJXREFKZTQzTlZuTWx5L1Iwb2VHT0c5UjVW?=
- =?utf-8?B?QVJXWjdES2pRdzhWNjBKQnlFVm5sVEFaVHpsbDRrSEZxcVBJMVdhY3dYQU9i?=
- =?utf-8?B?ZlJiZzd1NGNNVld1SU9jMER5cmJ1akJFNUVDd0RBRFRDYmdDK25QVnBlNGN3?=
- =?utf-8?B?Z0trWnJYNDJ2bXZIV3E0d3puN2x0elJqa21neXJkUzJmME5OZXc5QUhvRjBF?=
- =?utf-8?B?K1JOclE4eXJUbHRtT0x2U0tLdnpBVFJFRUVUSzhJM2pLejBSQUVhdUorZ3FH?=
- =?utf-8?B?YUNTTjE1ZkdkZGlYMGxlb1YwM0RrNXpUQW5LbXNxR3ZIN002bDRUbXZrdVFV?=
- =?utf-8?B?M25EWHRra3F2K0w2d3cxZzlVL3ZiNGhaTjBiSEx0MWc2UnhpU0w2azhIcnc3?=
- =?utf-8?B?VExVejg2a2NQUUpZa01JRkhvUjdEZkZKWGgvRVA4VXZIYnowbENhaWhuelhl?=
- =?utf-8?B?WG1MT3Z6OWdtUitZU2xtdUdtZUVYWjNwYTR1KzNQMTE4NnRWaU1PNjhIcnpB?=
- =?utf-8?B?YmtueGxXazFxTEx0UXVrOHhuM1drcUdVNWlLNStuSTUrd0I1Nk1lUG1RdGtQ?=
- =?utf-8?B?Sy9yNWdqNVA3Y3NScXhRb0J2WVZ5ZzF3dFFFbllyVThoT3E1K3ZXbTRzTUpo?=
- =?utf-8?B?TDdrenQ3Mm54a2JlVWtsOHY0VjVlZ1hnSkJvVHhScUk0UUtBRUFnTjVocGxZ?=
- =?utf-8?B?ZkJWTzFnckF5WE5TTDliRUFLUGhObGVNOWpUQjJjc2ZYMCtuRUh1NU9jM3Mv?=
- =?utf-8?B?dXZaclNNNTZEWFQ5SjlSSUtDSFN3UVhncm0wcytYbU11UDg4akwyd243d2Er?=
- =?utf-8?B?M2IxNTdGL0JLY1lObktqVXlkeWVQL0xybjNhU0twWHRTbkQyaWxIYkh3R0Z1?=
- =?utf-8?B?cXFNYnlRd0RPNkdBVTFBY1FYYm9iVTZxTWY3eEpIbk5oZ0NlSWNNbDlVODNz?=
- =?utf-8?B?cnl0UFhKK0JoRHg5NE52RURURHBmd05WS3pMaVk5N3FuMlFwS1M5UnYycFR0?=
- =?utf-8?B?RWxGVDg1YjVqQnh6Y1VsVUxUTmVHQUEyWUxLb2tkSDY4dE9kTTNndklrdEh3?=
- =?utf-8?B?dXp5d2dJYks1WmgxM1k2Y09GWXFKak5yTkFWUm1aQlNsam5McG9rOEpoSkth?=
- =?utf-8?B?bGVOeUdmc0xYM3AreUcwM3IxTFFNYWREWFdvUzVZaGR0aHFKQnhoa1ltcThi?=
- =?utf-8?B?U3F4d04yYkNBa0VSM0NkTXp1bWhmbXg2ZXpzOWFXNllSbzZZYWtCNTdrckxT?=
- =?utf-8?B?VWhZdXViTUNKcUhUUGQ0ZFBxcXJIV2RScVpvY09odC9HQWMyaEN6TWJEUUt6?=
- =?utf-8?B?MmFxbFZrVHpDZEowTzRnNVREYUF5eWhDb0dkRzBUT0Y1QTM5TmxqK3RzQlQy?=
- =?utf-8?B?bG50MHNhZXhIRTlYZXR3QUdmazB3QVJSRkljRU1TY0FEQkRqSGF4dHJmMmhO?=
- =?utf-8?B?UTJ0cXVKTEpZSUp0bi9ETklvZVdmTGdSUFBkZmdXSElDMTBnRUM0OVZKajdZ?=
- =?utf-8?Q?aMMQ=3D?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 091b2efe-b0b1-40b2-9dba-08dd5738aa79
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Feb 2025 14:11:44.8313 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 7frCywHZglwsuj4SZzf6y+N7i+zk/VaGTVuoB16lvIIyeyYVZxEvOwng2yXf0AY1
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH8PR12MB7376
+X-MS-Exchange-CrossTenant-AuthSource: SN7PR11MB6750.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: fb79efb0-a9af-4259-fde9-08dd5748579e
+X-MS-Exchange-CrossTenant-originalarrivaltime: 27 Feb 2025 16:03:57.5345 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: +XGavi8xDQaAhwavfeCSVuOSOF67Ub+Yrls0wccyHF219GaWFXYQoWhWszOE7GkQqVq9O454E0alOJ6udPtZ8A==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR11MB8720
+X-OriginatorOrg: intel.com
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -163,193 +183,631 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Am 27.02.25 um 13:52 schrieb Andi Shyti:
-> Hi Nitin,
->
-> On Wed, Feb 26, 2025 at 09:25:34PM +0530, Nitin Gote wrote:
->> Give the scheduler a chance to breath by calling cond_resched()
->> as some of the loops may take some time on old machines (like apl/bsw/pnv),
->> and so catch the attention of the watchdogs.
->>
->> Closes: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/12904
->> Signed-off-by: Nitin Gote <nitin.r.gote@intel.com>
-> This patch goes beyond the intel-gfx domain so that you need to
-> add some people in Cc. By running checkpatch, you should add:
->
-> Sumit Semwal <sumit.semwal@linaro.org> (maintainer:DMA BUFFER SHARING FRAMEWORK)
-> "Christian König" <christian.koenig@amd.com> (maintainer:DMA BUFFER SHARING FRAMEWORK)
-> linux-media@vger.kernel.org (open list:DMA BUFFER SHARING FRAMEWORK)
-> dri-devel@lists.freedesktop.org (open list:DMA BUFFER SHARING FRAMEWORK)
->
-> I added them now, but you might still be asked to resend.
->
-> Said that, at a first glance, I don't have anything against this
-> patch.
 
-There has been some push to deprecate cond_resched() cause it is almost always not appropriate.
 
-Saying that if I'm not completely mistaken that here is also not 100% correct usage.
+> -----Original Message-----
+> From: Nikula, Jani <jani.nikula@intel.com>
+> Sent: Thursday, February 27, 2025 5:47 PM
+> To: Kandpal, Suraj <suraj.kandpal@intel.com>; intel-xe@lists.freedesktop.=
+org;
+> intel-gfx@lists.freedesktop.org
+> Cc: Kandpal, Suraj <suraj.kandpal@intel.com>
+> Subject: Re: [PATCH] drm/i915/vdsc: intel_display conversions
+>=20
+> On Thu, 27 Feb 2025, Suraj Kandpal <suraj.kandpal@intel.com> wrote:
+> > intel_display conversions for vdsc in an effort to move away from
+> > drm_i915_private.
+> > While at it use display->platform.xx.
+>=20
+> Please update with
+>=20
+> -#include "i915_drv.h"
+> +#include "i915_utils.h"
+>=20
+> and you get
+>=20
+> Reviewed-by: Jani Nikula <jani.nikula@intel.com>
 
-Question is why is the test taking 26 (busy?) seconds to complete? That sounds really long even for a very old CPU.
-
-Do we maybe have an udelay() here which should have been an usleep() or similar?
+Thanks for the reviews pushed to drm-intel-next with the above mentioned ch=
+anges
 
 Regards,
-Christian.
+Suraj Kandpal
 
->
-> Andi
->
->> ---
->> Hi,
->>
->> For reviewer reference, adding here watchdog issue seen on old machines
->> during dma-fence-chain subtests testing. This log is retrieved from device
->> pstore log while testing dam-buf@all-tests:
->>
->> dma-buf: Running dma_fence_chain
->> Panic#1 Part7
->> <6> sizeof(dma_fence_chain)=184
->> <6> dma-buf: Running dma_fence_chain/sanitycheck
->> <6> dma-buf: Running dma_fence_chain/find_seqno
->> <6> dma-buf: Running dma_fence_chain/find_signaled
->> <6> dma-buf: Running dma_fence_chain/find_out_of_order
->> <6> dma-buf: Running dma_fence_chain/find_gap
->> <6> dma-buf: Running dma_fence_chain/find_race
->> <6> Completed 4095 cycles
->> <6> dma-buf: Running dma_fence_chain/signal_forward
->> <6> dma-buf: Running dma_fence_chain/signal_backward
->> <6> dma-buf: Running dma_fence_chain/wait_forward
->> <6> dma-buf: Running dma_fence_chain/wait_backward
->> <0> watchdog: BUG: soft lockup - CPU#2 stuck for 26s! [dmabuf:2263]
->> Panic#1 Part6
->> <4> irq event stamp: 415735
->> <4> hardirqs last  enabled at (415734): [<ffffffff813d3a1b>] handle_softirqs+0xab/0x4d0
->> <4> hardirqs last disabled at (415735): [<ffffffff827c7e31>] sysvec_apic_timer_interrupt+0x11/0xc0
->> <4> softirqs last  enabled at (415728): [<ffffffff813d3f8f>] __irq_exit_rcu+0x13f/0x160
->> <4> softirqs last disabled at (415733): [<ffffffff813d3f8f>] __irq_exit_rcu+0x13f/0x160
->> <4> CPU: 2 UID: 0 PID: 2263 Comm: dmabuf Not tainted 6.14.0-rc2-drm-next_483-g7b91683e7de7+ #1
->> <4> Hardware name: Intel corporation NUC6CAYS/NUC6CAYB, BIOS AYAPLCEL.86A.0056.2018.0926.1100 09/26/2018
->> <4> RIP: 0010:handle_softirqs+0xb1/0x4d0
->> <4> RSP: 0018:ffffc90000154f60 EFLAGS: 00000246
->> <4> RAX: 0000000000000000 RBX: 0000000000000001 RCX: 0000000000000000
->> <4> RDX: 0000000000000000 RSI: 0000000000000000 RDI: 0000000000000000
->> <4> RBP: ffffc90000154fb8 R08: 0000000000000000 R09: 0000000000000000
->> <4> R10: 0000000000000000 R11: 0000000000000000 R12: 000000000000000a
->> <4> R13: 0000000000000200 R14: 0000000000000200 R15: 0000000000400100
->> <4> FS:  000077521c5cd940(0000) GS:ffff888277900000(0000) knlGS:0000000000000000
->> Panic#1 Part5
->> <4> CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
->> <4> CR2: 00005dbfee8c00c4 CR3: 0000000133d38000 CR4: 00000000003526f0
->> <4> Call Trace:
->> <4>  <IRQ>
->> <4>  ? show_regs+0x6c/0x80
->> <4>  ? watchdog_timer_fn+0x247/0x2d0
->> <4>  ? __pfx_watchdog_timer_fn+0x10/0x10
->> <4>  ? __hrtimer_run_queues+0x1d0/0x420
->> <4>  ? hrtimer_interrupt+0x116/0x290
->> <4>  ? __sysvec_apic_timer_interrupt+0x70/0x1e0
->> <4>  ? sysvec_apic_timer_interrupt+0x47/0xc0
->> <4>  ? asm_sysvec_apic_timer_interrupt+0x1b/0x20
->> <4>  ? handle_softirqs+0xb1/0x4d0
->> <4>  __irq_exit_rcu+0x13f/0x160
->> <4>  irq_exit_rcu+0xe/0x20
->> <4>  sysvec_irq_work+0xa0/0xc0
->> <4>  </IRQ>
->> <4>  <TASK>
->> <4>  asm_sysvec_irq_work+0x1b/0x20
->> <4> RIP: 0010:_raw_spin_unlock_irqrestore+0x57/0x80
->> <4> RSP: 0018:ffffc9000292b8f0 EFLAGS: 00000246
->> <4> RAX: 0000000000000000 RBX: ffff88810f235480 RCX: 0000000000000000
->> <4> RDX: 0000000000000000 RSI: 0000000000000000 RDI: 0000000000000000
->> <4> RBP: ffffc9000292b900 R08: 0000000000000000 R09: 0000000000000000
->> <4> R10: 0000000000000000 R11: 0000000000000000 R12: 0000000000000246
->> <4> R13: 0000000000000000 R14: 0000000000000246 R15: 000000000003828c
->> Panic#1 Part4
->> <4> dma_fence_signal+0x49/0xb0
->> <4> wait_backward+0xf8/0x140 [dmabuf_selftests]
->> <4> __subtests+0x75/0x1f0 [dmabuf_selftests]
->> <4> dma_fence_chain+0x94/0xe0 [dmabuf_selftests]
->> <4> st_init+0x6a/0xff0 [dmabuf_selftests]
->> <4> ? __pfx_st_init+0x10/0x10 [dmabuf_selftests]
->> <4> do_one_initcall+0x79/0x400
->> <4> do_init_module+0x97/0x2a0
->> <4> load_module+0x2c23/0x2f60
->> <4> init_module_from_file+0x97/0xe0
->> <4> ? init_module_from_file+0x97/0xe0
->> <4> idempotent_init_module+0x134/0x350
->> <4> __x64_sys_finit_module+0x77/0x100
->> <4> x64_sys_call+0x1f37/0x2650
->> <4> do_syscall_64+0x91/0x180
->> <4> ? trace_hardirqs_off+0x5d/0xe0
->> <4> ? syscall_exit_to_user_mode+0x95/0x260
->> <4> ? do_syscall_64+0x9d/0x180
->> <4> ? do_syscall_64+0x9d/0x180
->> <4> ? irqentry_exit+0x77/0xb0
->> <4> ? sysvec_apic_timer_interrupt+0x57/0xc0
->> <4> entry_SYSCALL_64_after_hwframe+0x76/0x7e
->> <4> RIP: 0033:0x77521e72725d
->>
->>
->>  drivers/dma-buf/st-dma-fence-chain.c | 14 +++++++++++---
->>  1 file changed, 11 insertions(+), 3 deletions(-)
->>
->> diff --git a/drivers/dma-buf/st-dma-fence-chain.c b/drivers/dma-buf/st-dma-fence-chain.c
->> index ed4b323886e4..328a66ed59e5 100644
->> --- a/drivers/dma-buf/st-dma-fence-chain.c
->> +++ b/drivers/dma-buf/st-dma-fence-chain.c
->> @@ -505,6 +505,7 @@ static int signal_forward(void *arg)
->>  
->>  	for (i = 0; i < fc.chain_length; i++) {
->>  		dma_fence_signal(fc.fences[i]);
->> +		cond_resched();
->>  
->>  		if (!dma_fence_is_signaled(fc.chains[i])) {
->>  			pr_err("chain[%d] not signaled!\n", i);
->> @@ -537,6 +538,7 @@ static int signal_backward(void *arg)
->>  
->>  	for (i = fc.chain_length; i--; ) {
->>  		dma_fence_signal(fc.fences[i]);
->> +		cond_resched();
->>  
->>  		if (i > 0 && dma_fence_is_signaled(fc.chains[i])) {
->>  			pr_err("chain[%d] is signaled!\n", i);
->> @@ -587,8 +589,10 @@ static int wait_forward(void *arg)
->>  	get_task_struct(tsk);
->>  	yield_to(tsk, true);
->>  
->> -	for (i = 0; i < fc.chain_length; i++)
->> +	for (i = 0; i < fc.chain_length; i++) {
->>  		dma_fence_signal(fc.fences[i]);
->> +		cond_resched();
->> +	}
->>  
->>  	err = kthread_stop_put(tsk);
->>  
->> @@ -616,8 +620,10 @@ static int wait_backward(void *arg)
->>  	get_task_struct(tsk);
->>  	yield_to(tsk, true);
->>  
->> -	for (i = fc.chain_length; i--; )
->> +	for (i = fc.chain_length; i--; ) {
->>  		dma_fence_signal(fc.fences[i]);
->> +		cond_resched();
->> +	}
->>  
->>  	err = kthread_stop_put(tsk);
->>  
->> @@ -663,8 +669,10 @@ static int wait_random(void *arg)
->>  	get_task_struct(tsk);
->>  	yield_to(tsk, true);
->>  
->> -	for (i = 0; i < fc.chain_length; i++)
->> +	for (i = 0; i < fc.chain_length; i++) {
->>  		dma_fence_signal(fc.fences[i]);
->> +		cond_resched();
->> +	}
->>  
->>  	err = kthread_stop_put(tsk);
->>  
->> -- 
->> 2.25.1
-
+>=20
+>=20
+> BR,
+> Jani.
+>=20
+>=20
+>=20
+> >
+> > Signed-off-by: Suraj Kandpal <suraj.kandpal@intel.com>
+> > ---
+> >  drivers/gpu/drm/i915/display/intel_vdsc.c | 180
+> > +++++++++++-----------
+> >  1 file changed, 87 insertions(+), 93 deletions(-)
+> >
+> > diff --git a/drivers/gpu/drm/i915/display/intel_vdsc.c
+> > b/drivers/gpu/drm/i915/display/intel_vdsc.c
+> > index 6e7151346382..35d558ca98db 100644
+> > --- a/drivers/gpu/drm/i915/display/intel_vdsc.c
+> > +++ b/drivers/gpu/drm/i915/display/intel_vdsc.c
+> > @@ -22,14 +22,13 @@
+> >
+> >  bool intel_dsc_source_support(const struct intel_crtc_state
+> > *crtc_state)  {
+> > -	const struct intel_crtc *crtc =3D to_intel_crtc(crtc_state->uapi.crtc=
+);
+> > -	struct drm_i915_private *i915 =3D to_i915(crtc->base.dev);
+> > +	struct intel_display *display =3D to_intel_display(crtc_state);
+> >  	enum transcoder cpu_transcoder =3D crtc_state->cpu_transcoder;
+> >
+> > -	if (!HAS_DSC(i915))
+> > +	if (!HAS_DSC(display))
+> >  		return false;
+> >
+> > -	if (DISPLAY_VER(i915) =3D=3D 11 && cpu_transcoder =3D=3D TRANSCODER_A=
+)
+> > +	if (DISPLAY_VER(display) =3D=3D 11 && cpu_transcoder =3D=3D TRANSCODE=
+R_A)
+> >  		return false;
+> >
+> >  	return true;
+> > @@ -37,9 +36,9 @@ bool intel_dsc_source_support(const struct
+> > intel_crtc_state *crtc_state)
+> >
+> >  static bool is_pipe_dsc(struct intel_crtc *crtc, enum transcoder
+> > cpu_transcoder)  {
+> > -	struct drm_i915_private *i915 =3D to_i915(crtc->base.dev);
+> > +	struct intel_display *display =3D to_intel_display(crtc);
+> >
+> > -	if (DISPLAY_VER(i915) >=3D 12)
+> > +	if (DISPLAY_VER(display) >=3D 12)
+> >  		return true;
+> >
+> >  	if (cpu_transcoder =3D=3D TRANSCODER_EDP || @@ -48,7 +47,7 @@ static
+> > bool is_pipe_dsc(struct intel_crtc *crtc, enum transcoder cpu_transcode=
+r)
+> >  		return false;
+> >
+> >  	/* There's no pipe A DSC engine on ICL */
+> > -	drm_WARN_ON(&i915->drm, crtc->pipe =3D=3D PIPE_A);
+> > +	drm_WARN_ON(display->drm, crtc->pipe =3D=3D PIPE_A);
+> >
+> >  	return true;
+> >  }
+> > @@ -262,8 +261,7 @@ static int intel_dsc_slice_dimensions_valid(struct
+> > intel_crtc_state *pipe_config
+> >
+> >  int intel_dsc_compute_params(struct intel_crtc_state *pipe_config)  {
+> > -	struct intel_crtc *crtc =3D to_intel_crtc(pipe_config->uapi.crtc);
+> > -	struct drm_i915_private *dev_priv =3D to_i915(crtc->base.dev);
+> > +	struct intel_display *display =3D to_intel_display(pipe_config);
+> >  	struct drm_dsc_config *vdsc_cfg =3D &pipe_config->dsc.config;
+> >  	u16 compressed_bpp =3D fxp_q4_to_int(pipe_config-
+> >dsc.compressed_bpp_x16);
+> >  	int err;
+> > @@ -276,7 +274,7 @@ int intel_dsc_compute_params(struct intel_crtc_stat=
+e
+> *pipe_config)
+> >  	err =3D intel_dsc_slice_dimensions_valid(pipe_config, vdsc_cfg);
+> >
+> >  	if (err) {
+> > -		drm_dbg_kms(&dev_priv->drm, "Slice dimension
+> requirements not met\n");
+> > +		drm_dbg_kms(display->drm, "Slice dimension requirements
+> not
+> > +met\n");
+> >  		return err;
+> >  	}
+> >
+> > @@ -287,7 +285,7 @@ int intel_dsc_compute_params(struct intel_crtc_stat=
+e
+> *pipe_config)
+> >  	vdsc_cfg->convert_rgb =3D pipe_config->output_format !=3D
+> INTEL_OUTPUT_FORMAT_YCBCR420 &&
+> >  				pipe_config->output_format !=3D
+> INTEL_OUTPUT_FORMAT_YCBCR444;
+> >
+> > -	if (DISPLAY_VER(dev_priv) >=3D 14 &&
+> > +	if (DISPLAY_VER(display) >=3D 14 &&
+> >  	    pipe_config->output_format =3D=3D
+> INTEL_OUTPUT_FORMAT_YCBCR420)
+> >  		vdsc_cfg->native_420 =3D true;
+> >  	/* We do not support YcBCr422 as of now */ @@ -308,7 +306,7 @@ int
+> > intel_dsc_compute_params(struct intel_crtc_state *pipe_config)
+> >  	vdsc_cfg->bits_per_component =3D pipe_config->pipe_bpp / 3;
+> >
+> >  	if (vdsc_cfg->bits_per_component < 8) {
+> > -		drm_dbg_kms(&dev_priv->drm, "DSC bpc requirements not
+> met bpc: %d\n",
+> > +		drm_dbg_kms(display->drm, "DSC bpc requirements not met
+> bpc: %d\n",
+> >  			    vdsc_cfg->bits_per_component);
+> >  		return -EINVAL;
+> >  	}
+> > @@ -320,7 +318,7 @@ int intel_dsc_compute_params(struct intel_crtc_stat=
+e
+> *pipe_config)
+> >  	 * upto uncompressed bpp-1, hence add calculations for all the rc
+> >  	 * parameters
+> >  	 */
+> > -	if (DISPLAY_VER(dev_priv) >=3D 13) {
+> > +	if (DISPLAY_VER(display) >=3D 13) {
+> >  		calculate_rc_params(vdsc_cfg);
+> >  	} else {
+> >  		if ((compressed_bpp =3D=3D 8 ||
+> > @@ -356,7 +354,7 @@ int intel_dsc_compute_params(struct
+> > intel_crtc_state *pipe_config)  enum intel_display_power_domain
+> > intel_dsc_power_domain(struct intel_crtc *crtc, enum transcoder
+> > cpu_transcoder)  {
+> > -	struct drm_i915_private *i915 =3D to_i915(crtc->base.dev);
+> > +	struct intel_display *display =3D to_intel_display(crtc);
+> >  	enum pipe pipe =3D crtc->pipe;
+> >
+> >  	/*
+> > @@ -370,7 +368,8 @@ intel_dsc_power_domain(struct intel_crtc *crtc,
+> enum transcoder cpu_transcoder)
+> >  	 * the pipe in use. Hence another reference on the pipe power domain
+> >  	 * will suffice. (Except no VDSC/joining on ICL pipe A.)
+> >  	 */
+> > -	if (DISPLAY_VER(i915) =3D=3D 12 && !IS_ROCKETLAKE(i915) && pipe =3D=
+=3D
+> PIPE_A)
+> > +	if (DISPLAY_VER(display) =3D=3D 12 && !display->platform.rocketlake &=
+&
+> > +	    pipe =3D=3D PIPE_A)
+> >  		return POWER_DOMAIN_TRANSCODER_VDSC_PW2;
+> >  	else if (is_pipe_dsc(crtc, cpu_transcoder))
+> >  		return POWER_DOMAIN_PIPE(pipe);
+> > @@ -416,26 +415,25 @@ static void intel_dsc_get_pps_reg(const struct
+> > intel_crtc_state *crtc_state, int  static void intel_dsc_pps_write(cons=
+t struct
+> intel_crtc_state *crtc_state,
+> >  				int pps, u32 pps_val)
+> >  {
+> > -	struct intel_crtc *crtc =3D to_intel_crtc(crtc_state->uapi.crtc);
+> > -	struct drm_i915_private *i915 =3D to_i915(crtc->base.dev);
+> > +	struct intel_display *display =3D to_intel_display(crtc_state);
+> >  	i915_reg_t dsc_reg[3];
+> >  	int i, vdsc_per_pipe, dsc_reg_num;
+> >
+> >  	vdsc_per_pipe =3D intel_dsc_get_vdsc_per_pipe(crtc_state);
+> >  	dsc_reg_num =3D min_t(int, ARRAY_SIZE(dsc_reg), vdsc_per_pipe);
+> >
+> > -	drm_WARN_ON_ONCE(&i915->drm, dsc_reg_num < vdsc_per_pipe);
+> > +	drm_WARN_ON_ONCE(display->drm, dsc_reg_num < vdsc_per_pipe);
+> >
+> >  	intel_dsc_get_pps_reg(crtc_state, pps, dsc_reg, dsc_reg_num);
+> >
+> >  	for (i =3D 0; i < dsc_reg_num; i++)
+> > -		intel_de_write(i915, dsc_reg[i], pps_val);
+> > +		intel_de_write(display, dsc_reg[i], pps_val);
+> >  }
+> >
+> >  static void intel_dsc_pps_configure(const struct intel_crtc_state
+> > *crtc_state)  {
+> > +	struct intel_display *display =3D to_intel_display(crtc_state);
+> >  	struct intel_crtc *crtc =3D to_intel_crtc(crtc_state->uapi.crtc);
+> > -	struct drm_i915_private *dev_priv =3D to_i915(crtc->base.dev);
+> >  	const struct drm_dsc_config *vdsc_cfg =3D &crtc_state->dsc.config;
+> >  	enum transcoder cpu_transcoder =3D crtc_state->cpu_transcoder;
+> >  	enum pipe pipe =3D crtc->pipe;
+> > @@ -529,7 +527,7 @@ static void intel_dsc_pps_configure(const struct
+> intel_crtc_state *crtc_state)
+> >  					      vdsc_cfg->slice_height);
+> >  	intel_dsc_pps_write(crtc_state, 16, pps_val);
+> >
+> > -	if (DISPLAY_VER(dev_priv) >=3D 14) {
+> > +	if (DISPLAY_VER(display) >=3D 14) {
+> >  		/* PPS 17 */
+> >  		pps_val =3D DSC_PPS17_SL_BPG_OFFSET(vdsc_cfg-
+> >second_line_bpg_offset);
+> >  		intel_dsc_pps_write(crtc_state, 17, pps_val); @@ -547,44
+> +545,44 @@
+> > static void intel_dsc_pps_configure(const struct intel_crtc_state *crtc=
+_state)
+> >  			(u32)(vdsc_cfg->rc_buf_thresh[i] <<
+> >  			      BITS_PER_BYTE * (i % 4));
+> >  	if (!is_pipe_dsc(crtc, cpu_transcoder)) {
+> > -		intel_de_write(dev_priv, DSCA_RC_BUF_THRESH_0,
+> > +		intel_de_write(display, DSCA_RC_BUF_THRESH_0,
+> >  			       rc_buf_thresh_dword[0]);
+> > -		intel_de_write(dev_priv, DSCA_RC_BUF_THRESH_0_UDW,
+> > +		intel_de_write(display, DSCA_RC_BUF_THRESH_0_UDW,
+> >  			       rc_buf_thresh_dword[1]);
+> > -		intel_de_write(dev_priv, DSCA_RC_BUF_THRESH_1,
+> > +		intel_de_write(display, DSCA_RC_BUF_THRESH_1,
+> >  			       rc_buf_thresh_dword[2]);
+> > -		intel_de_write(dev_priv, DSCA_RC_BUF_THRESH_1_UDW,
+> > +		intel_de_write(display, DSCA_RC_BUF_THRESH_1_UDW,
+> >  			       rc_buf_thresh_dword[3]);
+> >  		if (vdsc_instances_per_pipe > 1) {
+> > -			intel_de_write(dev_priv, DSCC_RC_BUF_THRESH_0,
+> > +			intel_de_write(display, DSCC_RC_BUF_THRESH_0,
+> >  				       rc_buf_thresh_dword[0]);
+> > -			intel_de_write(dev_priv,
+> DSCC_RC_BUF_THRESH_0_UDW,
+> > +			intel_de_write(display,
+> DSCC_RC_BUF_THRESH_0_UDW,
+> >  				       rc_buf_thresh_dword[1]);
+> > -			intel_de_write(dev_priv, DSCC_RC_BUF_THRESH_1,
+> > +			intel_de_write(display, DSCC_RC_BUF_THRESH_1,
+> >  				       rc_buf_thresh_dword[2]);
+> > -			intel_de_write(dev_priv,
+> DSCC_RC_BUF_THRESH_1_UDW,
+> > +			intel_de_write(display,
+> DSCC_RC_BUF_THRESH_1_UDW,
+> >  				       rc_buf_thresh_dword[3]);
+> >  		}
+> >  	} else {
+> > -		intel_de_write(dev_priv, ICL_DSC0_RC_BUF_THRESH_0(pipe),
+> > +		intel_de_write(display, ICL_DSC0_RC_BUF_THRESH_0(pipe),
+> >  			       rc_buf_thresh_dword[0]);
+> > -		intel_de_write(dev_priv,
+> ICL_DSC0_RC_BUF_THRESH_0_UDW(pipe),
+> > +		intel_de_write(display,
+> ICL_DSC0_RC_BUF_THRESH_0_UDW(pipe),
+> >  			       rc_buf_thresh_dword[1]);
+> > -		intel_de_write(dev_priv, ICL_DSC0_RC_BUF_THRESH_1(pipe),
+> > +		intel_de_write(display, ICL_DSC0_RC_BUF_THRESH_1(pipe),
+> >  			       rc_buf_thresh_dword[2]);
+> > -		intel_de_write(dev_priv,
+> ICL_DSC0_RC_BUF_THRESH_1_UDW(pipe),
+> > +		intel_de_write(display,
+> ICL_DSC0_RC_BUF_THRESH_1_UDW(pipe),
+> >  			       rc_buf_thresh_dword[3]);
+> >  		if (vdsc_instances_per_pipe > 1) {
+> > -			intel_de_write(dev_priv,
+> > +			intel_de_write(display,
+> >  				       ICL_DSC1_RC_BUF_THRESH_0(pipe),
+> >  				       rc_buf_thresh_dword[0]);
+> > -			intel_de_write(dev_priv,
+> > +			intel_de_write(display,
+> >  				       ICL_DSC1_RC_BUF_THRESH_0_UDW(pipe),
+> >  				       rc_buf_thresh_dword[1]);
+> > -			intel_de_write(dev_priv,
+> > +			intel_de_write(display,
+> >  				       ICL_DSC1_RC_BUF_THRESH_1(pipe),
+> >  				       rc_buf_thresh_dword[2]);
+> > -			intel_de_write(dev_priv,
+> > +			intel_de_write(display,
+> >  				       ICL_DSC1_RC_BUF_THRESH_1_UDW(pipe),
+> >  				       rc_buf_thresh_dword[3]);
+> >  		}
+> > @@ -601,88 +599,88 @@ static void intel_dsc_pps_configure(const struct
+> intel_crtc_state *crtc_state)
+> >  			       (vdsc_cfg->rc_range_params[i].range_min_qp <<
+> >  				RC_MIN_QP_SHIFT)) << 16 * (i % 2));
+> >  	if (!is_pipe_dsc(crtc, cpu_transcoder)) {
+> > -		intel_de_write(dev_priv, DSCA_RC_RANGE_PARAMETERS_0,
+> > +		intel_de_write(display, DSCA_RC_RANGE_PARAMETERS_0,
+> >  			       rc_range_params_dword[0]);
+> > -		intel_de_write(dev_priv,
+> DSCA_RC_RANGE_PARAMETERS_0_UDW,
+> > +		intel_de_write(display,
+> DSCA_RC_RANGE_PARAMETERS_0_UDW,
+> >  			       rc_range_params_dword[1]);
+> > -		intel_de_write(dev_priv, DSCA_RC_RANGE_PARAMETERS_1,
+> > +		intel_de_write(display, DSCA_RC_RANGE_PARAMETERS_1,
+> >  			       rc_range_params_dword[2]);
+> > -		intel_de_write(dev_priv,
+> DSCA_RC_RANGE_PARAMETERS_1_UDW,
+> > +		intel_de_write(display,
+> DSCA_RC_RANGE_PARAMETERS_1_UDW,
+> >  			       rc_range_params_dword[3]);
+> > -		intel_de_write(dev_priv, DSCA_RC_RANGE_PARAMETERS_2,
+> > +		intel_de_write(display, DSCA_RC_RANGE_PARAMETERS_2,
+> >  			       rc_range_params_dword[4]);
+> > -		intel_de_write(dev_priv,
+> DSCA_RC_RANGE_PARAMETERS_2_UDW,
+> > +		intel_de_write(display,
+> DSCA_RC_RANGE_PARAMETERS_2_UDW,
+> >  			       rc_range_params_dword[5]);
+> > -		intel_de_write(dev_priv, DSCA_RC_RANGE_PARAMETERS_3,
+> > +		intel_de_write(display, DSCA_RC_RANGE_PARAMETERS_3,
+> >  			       rc_range_params_dword[6]);
+> > -		intel_de_write(dev_priv,
+> DSCA_RC_RANGE_PARAMETERS_3_UDW,
+> > +		intel_de_write(display,
+> DSCA_RC_RANGE_PARAMETERS_3_UDW,
+> >  			       rc_range_params_dword[7]);
+> >  		if (vdsc_instances_per_pipe > 1) {
+> > -			intel_de_write(dev_priv,
+> DSCC_RC_RANGE_PARAMETERS_0,
+> > +			intel_de_write(display,
+> DSCC_RC_RANGE_PARAMETERS_0,
+> >  				       rc_range_params_dword[0]);
+> > -			intel_de_write(dev_priv,
+> > +			intel_de_write(display,
+> >  				       DSCC_RC_RANGE_PARAMETERS_0_UDW,
+> >  				       rc_range_params_dword[1]);
+> > -			intel_de_write(dev_priv,
+> DSCC_RC_RANGE_PARAMETERS_1,
+> > +			intel_de_write(display,
+> DSCC_RC_RANGE_PARAMETERS_1,
+> >  				       rc_range_params_dword[2]);
+> > -			intel_de_write(dev_priv,
+> > +			intel_de_write(display,
+> >  				       DSCC_RC_RANGE_PARAMETERS_1_UDW,
+> >  				       rc_range_params_dword[3]);
+> > -			intel_de_write(dev_priv,
+> DSCC_RC_RANGE_PARAMETERS_2,
+> > +			intel_de_write(display,
+> DSCC_RC_RANGE_PARAMETERS_2,
+> >  				       rc_range_params_dword[4]);
+> > -			intel_de_write(dev_priv,
+> > +			intel_de_write(display,
+> >  				       DSCC_RC_RANGE_PARAMETERS_2_UDW,
+> >  				       rc_range_params_dword[5]);
+> > -			intel_de_write(dev_priv,
+> DSCC_RC_RANGE_PARAMETERS_3,
+> > +			intel_de_write(display,
+> DSCC_RC_RANGE_PARAMETERS_3,
+> >  				       rc_range_params_dword[6]);
+> > -			intel_de_write(dev_priv,
+> > +			intel_de_write(display,
+> >  				       DSCC_RC_RANGE_PARAMETERS_3_UDW,
+> >  				       rc_range_params_dword[7]);
+> >  		}
+> >  	} else {
+> > -		intel_de_write(dev_priv,
+> ICL_DSC0_RC_RANGE_PARAMETERS_0(pipe),
+> > +		intel_de_write(display,
+> ICL_DSC0_RC_RANGE_PARAMETERS_0(pipe),
+> >  			       rc_range_params_dword[0]);
+> > -		intel_de_write(dev_priv,
+> > +		intel_de_write(display,
+> >
+> ICL_DSC0_RC_RANGE_PARAMETERS_0_UDW(pipe),
+> >  			       rc_range_params_dword[1]);
+> > -		intel_de_write(dev_priv,
+> ICL_DSC0_RC_RANGE_PARAMETERS_1(pipe),
+> > +		intel_de_write(display,
+> ICL_DSC0_RC_RANGE_PARAMETERS_1(pipe),
+> >  			       rc_range_params_dword[2]);
+> > -		intel_de_write(dev_priv,
+> > +		intel_de_write(display,
+> >
+> ICL_DSC0_RC_RANGE_PARAMETERS_1_UDW(pipe),
+> >  			       rc_range_params_dword[3]);
+> > -		intel_de_write(dev_priv,
+> ICL_DSC0_RC_RANGE_PARAMETERS_2(pipe),
+> > +		intel_de_write(display,
+> ICL_DSC0_RC_RANGE_PARAMETERS_2(pipe),
+> >  			       rc_range_params_dword[4]);
+> > -		intel_de_write(dev_priv,
+> > +		intel_de_write(display,
+> >
+> ICL_DSC0_RC_RANGE_PARAMETERS_2_UDW(pipe),
+> >  			       rc_range_params_dword[5]);
+> > -		intel_de_write(dev_priv,
+> ICL_DSC0_RC_RANGE_PARAMETERS_3(pipe),
+> > +		intel_de_write(display,
+> ICL_DSC0_RC_RANGE_PARAMETERS_3(pipe),
+> >  			       rc_range_params_dword[6]);
+> > -		intel_de_write(dev_priv,
+> > +		intel_de_write(display,
+> >
+> ICL_DSC0_RC_RANGE_PARAMETERS_3_UDW(pipe),
+> >  			       rc_range_params_dword[7]);
+> >  		if (vdsc_instances_per_pipe > 1) {
+> > -			intel_de_write(dev_priv,
+> > +			intel_de_write(display,
+> >
+> ICL_DSC1_RC_RANGE_PARAMETERS_0(pipe),
+> >  				       rc_range_params_dword[0]);
+> > -			intel_de_write(dev_priv,
+> > +			intel_de_write(display,
+> >
+> ICL_DSC1_RC_RANGE_PARAMETERS_0_UDW(pipe),
+> >  				       rc_range_params_dword[1]);
+> > -			intel_de_write(dev_priv,
+> > +			intel_de_write(display,
+> >
+> ICL_DSC1_RC_RANGE_PARAMETERS_1(pipe),
+> >  				       rc_range_params_dword[2]);
+> > -			intel_de_write(dev_priv,
+> > +			intel_de_write(display,
+> >
+> ICL_DSC1_RC_RANGE_PARAMETERS_1_UDW(pipe),
+> >  				       rc_range_params_dword[3]);
+> > -			intel_de_write(dev_priv,
+> > +			intel_de_write(display,
+> >
+> ICL_DSC1_RC_RANGE_PARAMETERS_2(pipe),
+> >  				       rc_range_params_dword[4]);
+> > -			intel_de_write(dev_priv,
+> > +			intel_de_write(display,
+> >
+> ICL_DSC1_RC_RANGE_PARAMETERS_2_UDW(pipe),
+> >  				       rc_range_params_dword[5]);
+> > -			intel_de_write(dev_priv,
+> > +			intel_de_write(display,
+> >
+> ICL_DSC1_RC_RANGE_PARAMETERS_3(pipe),
+> >  				       rc_range_params_dword[6]);
+> > -			intel_de_write(dev_priv,
+> > +			intel_de_write(display,
+> >
+> ICL_DSC1_RC_RANGE_PARAMETERS_3_UDW(pipe),
+> >  				       rc_range_params_dword[7]);
+> >  		}
+> > @@ -746,8 +744,8 @@ static i915_reg_t dss_ctl2_reg(struct intel_crtc
+> > *crtc, enum transcoder cpu_tran
+> >
+> >  void intel_uncompressed_joiner_enable(const struct intel_crtc_state
+> > *crtc_state)  {
+> > +	struct intel_display *display =3D to_intel_display(crtc_state);
+> >  	struct intel_crtc *crtc =3D to_intel_crtc(crtc_state->uapi.crtc);
+> > -	struct drm_i915_private *dev_priv =3D to_i915(crtc->base.dev);
+> >  	u32 dss_ctl1_val =3D 0;
+> >
+> >  	if (crtc_state->joiner_pipes && !crtc_state->dsc.compression_enable)
+> > { @@ -756,14 +754,15 @@ void intel_uncompressed_joiner_enable(const
+> struct intel_crtc_state *crtc_state)
+> >  		else
+> >  			dss_ctl1_val |=3D UNCOMPRESSED_JOINER_PRIMARY;
+> >
+> > -		intel_de_write(dev_priv, dss_ctl1_reg(crtc, crtc_state-
+> >cpu_transcoder), dss_ctl1_val);
+> > +		intel_de_write(display, dss_ctl1_reg(crtc, crtc_state-
+> >cpu_transcoder),
+> > +			       dss_ctl1_val);
+> >  	}
+> >  }
+> >
+> >  void intel_dsc_enable(const struct intel_crtc_state *crtc_state)  {
+> > +	struct intel_display *display =3D to_intel_display(crtc_state);
+> >  	struct intel_crtc *crtc =3D to_intel_crtc(crtc_state->uapi.crtc);
+> > -	struct drm_i915_private *dev_priv =3D to_i915(crtc->base.dev);
+> >  	u32 dss_ctl1_val =3D 0;
+> >  	u32 dss_ctl2_val =3D 0;
+> >  	int vdsc_instances_per_pipe =3D
+> > intel_dsc_get_vdsc_per_pipe(crtc_state);
+> > @@ -796,28 +795,27 @@ void intel_dsc_enable(const struct intel_crtc_sta=
+te
+> *crtc_state)
+> >  		if (intel_crtc_is_bigjoiner_primary(crtc_state))
+> >  			dss_ctl1_val |=3D PRIMARY_BIG_JOINER_ENABLE;
+> >  	}
+> > -	intel_de_write(dev_priv, dss_ctl1_reg(crtc, crtc_state-
+> >cpu_transcoder), dss_ctl1_val);
+> > -	intel_de_write(dev_priv, dss_ctl2_reg(crtc, crtc_state-
+> >cpu_transcoder), dss_ctl2_val);
+> > +	intel_de_write(display, dss_ctl1_reg(crtc, crtc_state->cpu_transcoder=
+),
+> dss_ctl1_val);
+> > +	intel_de_write(display, dss_ctl2_reg(crtc,
+> > +crtc_state->cpu_transcoder), dss_ctl2_val);
+> >  }
+> >
+> >  void intel_dsc_disable(const struct intel_crtc_state *old_crtc_state)
+> > {
+> > +	struct intel_display *display =3D to_intel_display(old_crtc_state);
+> >  	struct intel_crtc *crtc =3D to_intel_crtc(old_crtc_state->uapi.crtc);
+> > -	struct drm_i915_private *dev_priv =3D to_i915(crtc->base.dev);
+> >
+> >  	/* Disable only if either of them is enabled */
+> >  	if (old_crtc_state->dsc.compression_enable ||
+> >  	    old_crtc_state->joiner_pipes) {
+> > -		intel_de_write(dev_priv, dss_ctl1_reg(crtc, old_crtc_state-
+> >cpu_transcoder), 0);
+> > -		intel_de_write(dev_priv, dss_ctl2_reg(crtc, old_crtc_state-
+> >cpu_transcoder), 0);
+> > +		intel_de_write(display, dss_ctl1_reg(crtc, old_crtc_state-
+> >cpu_transcoder), 0);
+> > +		intel_de_write(display, dss_ctl2_reg(crtc,
+> > +old_crtc_state->cpu_transcoder), 0);
+> >  	}
+> >  }
+> >
+> >  static u32 intel_dsc_pps_read(struct intel_crtc_state *crtc_state, int=
+ pps,
+> >  			      bool *all_equal)
+> >  {
+> > -	struct intel_crtc *crtc =3D to_intel_crtc(crtc_state->uapi.crtc);
+> > -	struct drm_i915_private *i915 =3D to_i915(crtc->base.dev);
+> > +	struct intel_display *display =3D to_intel_display(crtc_state);
+> >  	i915_reg_t dsc_reg[3];
+> >  	int i, vdsc_per_pipe, dsc_reg_num;
+> >  	u32 val;
+> > @@ -825,16 +823,16 @@ static u32 intel_dsc_pps_read(struct
+> intel_crtc_state *crtc_state, int pps,
+> >  	vdsc_per_pipe =3D intel_dsc_get_vdsc_per_pipe(crtc_state);
+> >  	dsc_reg_num =3D min_t(int, ARRAY_SIZE(dsc_reg), vdsc_per_pipe);
+> >
+> > -	drm_WARN_ON_ONCE(&i915->drm, dsc_reg_num < vdsc_per_pipe);
+> > +	drm_WARN_ON_ONCE(display->drm, dsc_reg_num < vdsc_per_pipe);
+> >
+> >  	intel_dsc_get_pps_reg(crtc_state, pps, dsc_reg, dsc_reg_num);
+> >
+> >  	*all_equal =3D true;
+> >
+> > -	val =3D intel_de_read(i915, dsc_reg[0]);
+> > +	val =3D intel_de_read(display, dsc_reg[0]);
+> >
+> >  	for (i =3D 1; i < dsc_reg_num; i++) {
+> > -		if (intel_de_read(i915, dsc_reg[i]) !=3D val) {
+> > +		if (intel_de_read(display, dsc_reg[i]) !=3D val) {
+> >  			*all_equal =3D false;
+> >  			break;
+> >  		}
+> > @@ -845,22 +843,20 @@ static u32 intel_dsc_pps_read(struct
+> > intel_crtc_state *crtc_state, int pps,
+> >
+> >  static u32 intel_dsc_pps_read_and_verify(struct intel_crtc_state
+> > *crtc_state, int pps)  {
+> > -	struct intel_crtc *crtc =3D to_intel_crtc(crtc_state->uapi.crtc);
+> > -	struct drm_i915_private *i915 =3D to_i915(crtc->base.dev);
+> > +	struct intel_display *display =3D to_intel_display(crtc_state);
+> >  	u32 val;
+> >  	bool all_equal;
+> >
+> >  	val =3D intel_dsc_pps_read(crtc_state, pps, &all_equal);
+> > -	drm_WARN_ON(&i915->drm, !all_equal);
+> > +	drm_WARN_ON(display->drm, !all_equal);
+> >
+> >  	return val;
+> >  }
+> >
+> >  static void intel_dsc_get_pps_config(struct intel_crtc_state
+> > *crtc_state)  {
+> > +	struct intel_display *display =3D to_intel_display(crtc_state);
+> >  	struct drm_dsc_config *vdsc_cfg =3D &crtc_state->dsc.config;
+> > -	struct intel_crtc *crtc =3D to_intel_crtc(crtc_state->uapi.crtc);
+> > -	struct drm_i915_private *i915 =3D to_i915(crtc->base.dev);
+> >  	int num_vdsc_instances =3D
+> intel_dsc_get_num_vdsc_instances(crtc_state);
+> >  	u32 pps_temp;
+> >
+> > @@ -946,7 +942,7 @@ static void intel_dsc_get_pps_config(struct
+> > intel_crtc_state *crtc_state)
+> >
+> >  	vdsc_cfg->slice_chunk_size =3D
+> > REG_FIELD_GET(DSC_PPS16_SLICE_CHUNK_SIZE_MASK, pps_temp);
+> >
+> > -	if (DISPLAY_VER(i915) >=3D 14) {
+> > +	if (DISPLAY_VER(display) >=3D 14) {
+> >  		/* PPS 17 */
+> >  		pps_temp =3D intel_dsc_pps_read_and_verify(crtc_state, 17);
+> >
+> > @@ -964,7 +960,6 @@ void intel_dsc_get_config(struct intel_crtc_state
+> > *crtc_state)  {
+> >  	struct intel_display *display =3D to_intel_display(crtc_state);
+> >  	struct intel_crtc *crtc =3D to_intel_crtc(crtc_state->uapi.crtc);
+> > -	struct drm_i915_private *dev_priv =3D to_i915(crtc->base.dev);
+> >  	enum transcoder cpu_transcoder =3D crtc_state->cpu_transcoder;
+> >  	enum intel_display_power_domain power_domain;
+> >  	intel_wakeref_t wakeref;
+> > @@ -979,8 +974,8 @@ void intel_dsc_get_config(struct intel_crtc_state
+> *crtc_state)
+> >  	if (!wakeref)
+> >  		return;
+> >
+> > -	dss_ctl1 =3D intel_de_read(dev_priv, dss_ctl1_reg(crtc, cpu_transcode=
+r));
+> > -	dss_ctl2 =3D intel_de_read(dev_priv, dss_ctl2_reg(crtc, cpu_transcode=
+r));
+> > +	dss_ctl1 =3D intel_de_read(display, dss_ctl1_reg(crtc, cpu_transcoder=
+));
+> > +	dss_ctl2 =3D intel_de_read(display, dss_ctl2_reg(crtc,
+> > +cpu_transcoder));
+> >
+> >  	crtc_state->dsc.compression_enable =3D dss_ctl2 & VDSC0_ENABLE;
+> >  	if (!crtc_state->dsc.compression_enable)
+> > @@ -1020,8 +1015,7 @@ void intel_vdsc_state_dump(struct drm_printer
+> > *p, int indent,
+> >
+> >  int intel_vdsc_min_cdclk(const struct intel_crtc_state *crtc_state)
+> > {
+> > -	struct intel_crtc *crtc =3D to_intel_crtc(crtc_state->uapi.crtc);
+> > -	struct intel_display *display =3D to_intel_display(crtc);
+> > +	struct intel_display *display =3D to_intel_display(crtc_state);
+> >  	int num_vdsc_instances =3D
+> intel_dsc_get_num_vdsc_instances(crtc_state);
+> >  	int min_cdclk;
+>=20
+> --
+> Jani Nikula, Intel
