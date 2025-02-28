@@ -4,57 +4,58 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E1CD7C19776
-	for <intel-gfx@archiver.kernel.org>; Fri, 28 Feb 2025 09:49:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3341EC19776
+	for <intel-gfx@archiver.kernel.org>; Fri, 28 Feb 2025 10:07:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8CA7A10EC48;
-	Fri, 28 Feb 2025 09:49:58 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B9A6810E03A;
+	Fri, 28 Feb 2025 10:07:02 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="n7qzmQF5";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="PaTfIMWb";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.8])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2990D10EC35;
- Fri, 28 Feb 2025 09:49:57 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F0D7710E03A
+ for <intel-gfx@lists.freedesktop.org>; Fri, 28 Feb 2025 10:06:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1740736197; x=1772272197;
- h=date:from:to:cc:subject:in-reply-to:message-id:
- references:mime-version;
- bh=C6pPncxQq6VWOcBlGf+UNeTXUh0W9iZGeSLeSppvz5k=;
- b=n7qzmQF5bfUlR7pvmYCNteLoQxFUyIbnm4oJb3kZ8ff070biSfZLriqQ
- MI7GO/wTASb6NDTjfZdxx3rarZlj5tPPhEQ8uakBySiqLEeW8Fovb21Ei
- fbQr061vydD5oYEkCbtkf7DOxJnP5t0drfnVF8lTLwnWaenTp8F9IFty6
- uMvne/7MphJlq9VTr6PQB0VRqwN/PvncrzzM9AeXYez6tfdbPhx6EAs0X
- omYudZyQeuFp6vBMstbjqXKxIoJNl/DDFng8alLJ2BkTVSa/IKNWBis4I
- 9c8Xy1u8lxGWmLiFzJO/TQrIZw3hDd9NTXjmQSHozUSU1u6zhQJ1W6ekH A==;
-X-CSE-ConnectionGUID: BoKHzRP3Tge/VeeoJM9wIw==
-X-CSE-MsgGUID: LX9VutazTpmY3BJjH8PlZA==
-X-IronPort-AV: E=McAfee;i="6700,10204,11358"; a="59197191"
-X-IronPort-AV: E=Sophos;i="6.13,322,1732608000"; d="scan'208";a="59197191"
-Received: from fmviesa007.fm.intel.com ([10.60.135.147])
+ t=1740737218; x=1772273218;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=k7OLsk+2EwUDVs+opZD5zSdlSrGgLDRF6etXslgKq/g=;
+ b=PaTfIMWbA3rVmxm4kD78+EmFFpKdI3RegXYUK3nyrAGTdpf586iMZNpF
+ qEksLZi77ZvNVTmysDwdU08jtJg9zhKMzim8A9UoxoS5cYE243q/Gt0of
+ 81l2yEnzqx/IszQ5VEDbxZWVWDefk1Hxk1f5Ij9U3dWvqay4PzmlgK0qZ
+ GF2yEZe4v4OUD9t0SYHUUmghPnFkOtNtc4HISEKktfmJ57OciKEa2gE71
+ rT66z2+3sjAFH8lJMqN5Pqbq3OzZV881KLuik4eUsiMHceMqXXQ6ebyuG
+ dVoq/WSvzRBCzxDFzSdIOPiXUQDpaX/zC0IQubtx+1WP5/Qj2fca5t5Oo w==;
+X-CSE-ConnectionGUID: qYuzA+L9SkKFZh34bRUR1Q==
+X-CSE-MsgGUID: 7yK8pzEEQBO1NQD4zRLCvg==
+X-IronPort-AV: E=McAfee;i="6700,10204,11358"; a="59198441"
+X-IronPort-AV: E=Sophos;i="6.13,322,1732608000"; d="scan'208";a="59198441"
+Received: from orviesa008.jf.intel.com ([10.64.159.148])
  by fmvoesa102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 28 Feb 2025 01:49:56 -0800
-X-CSE-ConnectionGUID: hgAyYVA8SwyJcnbaXHqKbQ==
-X-CSE-MsgGUID: Co+++8kbQaaShY9QjnidQg==
+ 28 Feb 2025 02:06:54 -0800
+X-CSE-ConnectionGUID: Wb7aV7PiS3SbhZIMPHFamA==
+X-CSE-MsgGUID: rQI0q2+jQvmOe3Z+XGqwtg==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.13,322,1732608000"; d="scan'208";a="117269255"
-Received: from eliteleevi.tm.intel.com ([10.237.54.20])
- by fmviesa007-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 28 Feb 2025 01:49:56 -0800
-Date: Fri, 28 Feb 2025 11:40:51 +0200 (EET)
-From: Kai Vehmanen <kai.vehmanen@linux.intel.com>
-X-X-Sender: kvehmane@eliteleevi.tm.intel.com
-To: Gustavo Sousa <gustavo.sousa@intel.com>
-cc: intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org, 
- Kai Vehmanen <kai.vehmanen@linux.intel.com>
-Subject: Re: [PATCH] drm/i915/xe3lpd: Map POWER_DOMAIN_AUDIO_PLAYBACK to DC_off
-In-Reply-To: <20250227-xe3lpd-power-domain-audio-playback-v1-1-5765f21da977@intel.com>
-Message-ID: <alpine.DEB.2.22.394.2502281138120.14041@eliteleevi.tm.intel.com>
-References: <20250227-xe3lpd-power-domain-audio-playback-v1-1-5765f21da977@intel.com>
-User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7 02160 Espoo
+X-IronPort-AV: E=Sophos;i="6.12,224,1728975600"; d="scan'208";a="118219145"
+Received: from jkrzyszt-mobl2.ger.corp.intel.com ([10.245.246.27])
+ by orviesa008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 28 Feb 2025 02:06:53 -0800
+From: Janusz Krzysztofik <janusz.krzysztofik@linux.intel.com>
+To: Mikolaj Wasiak <mikolaj.wasiak@intel.com>
+Cc: intel-gfx@lists.freedesktop.org
+Subject: Re: [PATCH] i915/selftest/igt_mmap: let mmap tests run in kthread
+Date: Fri, 28 Feb 2025 11:06:50 +0100
+Message-ID: <2049735.PIDvDuAF1L@jkrzyszt-mobl2.ger.corp.intel.com>
+Organization: Intel Technology Poland sp. z o.o. - ul. Slowackiego 173,
+ 80-298 Gdansk - KRS 101882 - NIP 957-07-52-316
+In-Reply-To: <2x5mflmsnr2uw4hpximytd6czfia4k7o2gfebyf34ovvb2mgxt@2vqna56iatm5>
+References: <mqzn3acyfarzlst3tt3mh5r4bvz4ntjkz5a66pip7qmm6hslb2@qc7g7j7q4z3y>
+ <6774543.4vTCxPXJkl@jkrzyszt-mobl2.ger.corp.intel.com>
+ <2x5mflmsnr2uw4hpximytd6czfia4k7o2gfebyf34ovvb2mgxt@2vqna56iatm5>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,30 +71,61 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Hi,
+On Friday, 28 February 2025 08:49:21 CET Mikolaj Wasiak wrote:
+> Hi Janusz,
+>=20
+> > I agree with both Andi and Krzysztof comments.
+> >=20
+> > If the issue is tracked in our bug tracker then please provide a link t=
+o its=20
+> > record in a Link: or even Closes: tag.  Do you have call traces on hand=
+? =20
+> > Probably yes, so please consider adding a concise excerpt to your descr=
+iption.
+> >=20
+> > While looking for similar cases, I've found commit 51104c19d857 ("kunit=
+: test:=20
+> > Add vm_mmap() allocation resource manager") that seems to have resolved=
+ a=20
+> > similar issue for then newly added kunit tests accessing current->mm.  =
+Maybe=20
+> > the approach used there is worth of reusing it for i915 selftests.
+> >=20
+> > Thanks,
+> > Janusz
+>=20
+> Here is related bug
+> Link: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/13679
+>=20
+> I've seen commit you found. It sadly uses symbols that aren't exported
+> outside of mm module and kunit tests=20
 
-On Thu, 27 Feb 2025, Gustavo Sousa wrote:
+Well, strictly speaking, those core symbols were also not available to kuni=
+t,=20
+and that patch exported them to kunit namespace.  While i915 selftests are =
+not=20
+kunit, they are still in-kernel tests, then maybe it would be acceptable to=
+=20
+import the kunit namespace as needed to our selftests and use those symbols=
+=20
+for the same purpose as intended.  CI already runs kunit tests, then builds=
+=20
+the kernels with CONFIG_KUNIT=3Dy.  The code of i915 selftest that will dep=
+end=20
+on those symbols may then just check for CONFIG_KUNIT defined and be skippe=
+d=20
+if not.
 
-> In Xe3_LPD, display audio has the core audio logic located in PG0 and
-> per-transcoder logic in the same power well that provides power for the
-> transcoder [1].
-[...]
-> Since intel_audio_component_get_power() uses
-> POWER_DOMAIN_AUDIO_PLAYBACK, make sure to map that power domain to
-> DC_off power well, so that we disable dynamic DC states (which includes
-> DC6) while the audio driver needs display audio power.
-[...]
-> +++ b/drivers/gpu/drm/i915/display/intel_display_power_map.c
-> @@ -1694,6 +1694,7 @@ I915_DECL_PW_DOMAINS(xe3lpd_pwdoms_dc_off,
->  	XE3LPD_PW_C_POWER_DOMAINS,
->  	XE3LPD_PW_D_POWER_DOMAINS,
->  	POWER_DOMAIN_AUDIO_MMIO,
-> +	POWER_DOMAIN_AUDIO_PLAYBACK,
->  	POWER_DOMAIN_INIT);
+Thanks,
+Janusz
 
-ack, this looks good and covers audio expectations for 
-drm_audio_component.h usage:
 
-Reviewed-by: Kai Vehmanen <kai.vehmanen@linux.intel.com>
+> and so I can't replicate it in our
+> selftest.
+>=20
+> Miko=C5=82aj
+>=20
 
-Br, Kai
+
+
+
