@@ -4,71 +4,70 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C29D1C282DE
-	for <intel-gfx@archiver.kernel.org>; Tue,  4 Mar 2025 16:02:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AB3B0C282D9
+	for <intel-gfx@archiver.kernel.org>; Tue,  4 Mar 2025 16:02:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AF64F10E62D;
+	by gabe.freedesktop.org (Postfix) with ESMTP id EC6BC10E634;
 	Tue,  4 Mar 2025 16:02:08 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=metux.net header.i=info@metux.net header.b="b91wZVmU";
+	dkim=pass (2048-bit key; unprotected) header.d=metux.net header.i=info@metux.net header.b="WYyVxY83";
 	dkim-atps=neutral
-Received: from mout.kundenserver.de (mout.kundenserver.de [212.227.126.134])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 71CBB10E2C0
- for <intel-gfx@lists.freedesktop.org>; Tue,  4 Mar 2025 16:02:04 +0000 (UTC)
+Received: from mout.kundenserver.de (mout.kundenserver.de [212.227.126.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 86AE310E62D
+ for <intel-gfx@lists.freedesktop.org>; Tue,  4 Mar 2025 16:02:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=metux.net;
- s=s1-ionos; t=1741104122; x=1741708922; i=info@metux.net;
- bh=PjiZJyuEuf8/ACqZBkxdQvi+n60spUFhl+lBEZXmhCM=;
+ s=s1-ionos; t=1741104124; x=1741708924; i=info@metux.net;
+ bh=8QTGXW4VwzyIsVibbSOgqJsT00gZ4wI+37H98Gk1UZw=;
  h=X-UI-Sender-Class:From:To:Cc:Subject:Date:Message-Id:In-Reply-To:
  References:MIME-Version:Content-Transfer-Encoding:cc:
  content-transfer-encoding:content-type:date:from:message-id:
  mime-version:reply-to:subject:to;
- b=b91wZVmUERXd+Hzv7lMVpHlBkeLxUcG404hbjfvJBmd32ybhCa2yKhb/lRHHo9We
- Q2etmcW/HfVyibWQ/lI1sOBRjTpRbl/l8hdMsdVixPfhJbxBTd7+ijgSoCsw3PMlL
- qBTm98cMxu0CXBDdIf/qS8V4Bey6fsbI4E+9FeqvHGKVORiUmYjvuOM919+fd906K
- v3wTicnsGd25fk2DsBvIPsjXSfladWuJIoT68/8bKIdOwWzsrsZbEwWapcd7ry9kl
- FjI5zI9tcWRseCtiJ0wU3/MiR3BpQJh3GX9PImG0lp6XmtsJCx01c5fMR7dCCaFZj
- rpls54BC+Kwkpjf37Q==
+ b=WYyVxY83KQ7bD8Dw3wzctw2R2Wu+WgOQTxHSzFiMs0KsjsgOuLSTS6ctf/q09gVT
+ uX5PFwLSoOkPKNkCa8kMoUxvq3HPIY59bmySezlNtGxgdqNTDED/izFallwmSxwZ2
+ uDOwTOCjJP3t9KapjbWks1vcvTUfFTJqUB3hfI8xY2OHyjIolUZqyiGC30Z+AcNEV
+ D2Ytwr0kmkQoisDFNXrzsTOKetE5rwN3NQzrYjXrv9F1h4xggeADdSIQbCaH0zc5F
+ t5s5vZXKsD6Vi8+JjRBX69w8iDY9kwV535LufP0GGw5d52KSHMQNxT/eR+Ur+WPZi
+ tFsBdZud+qilMhznyw==
 X-UI-Sender-Class: 55c96926-9e95-11ee-ae09-1f7a4046a0f6
 Received: from x1.localdomain ([77.7.107.91]) by mrelayeu.kundenserver.de
  (mreue010 [212.227.15.167]) with ESMTPSA (Nemesis) id
- 1MeTkC-1tFKvr3T4m-00lBNV; Tue, 04 Mar 2025 16:56:31 +0100
+ 1M9nlN-1tsXZQ1FK9-00FxMi; Tue, 04 Mar 2025 16:56:29 +0100
 From: "Enrico Weigelt, metux IT consult" <info@metux.net>
 To: intel-gfx@lists.freedesktop.org
 Cc: ville.syrjala@linux.intel.com
-Subject: [PATCH 07/16] gitlab CI: add pipeline for building against various
- Xserver releases
-Date: Tue,  4 Mar 2025 16:58:00 +0100
-Message-Id: <20250304155809.30399-8-info@metux.net>
+Subject: [PATCH 01/16] meson.build: fix missing Xv dependencies
+Date: Tue,  4 Mar 2025 16:57:54 +0100
+Message-Id: <20250304155809.30399-2-info@metux.net>
 X-Mailer: git-send-email 2.39.5
 In-Reply-To: <20250304155809.30399-1-info@metux.net>
 References: <20250304155809.30399-1-info@metux.net>
 MIME-Version: 1.0
 Content-Transfer-Encoding: quoted-printable
-X-Provags-ID: V03:K1:TdEdbqVrplfGBW2ExiZbIV6nibLdWxeA90zDJG+Eiwu+qd68uLW
- cVFUSKMfX1We82bCsC5pxVAWWTTmvWUtS82Fv+TfBcbA1bHzzjERbYhfbzzveVzy1PjDxIT
- y3rIEnl4hfSvhBpD3nCnRMJwX+A0if8b7qoEj/1ZHlIushYF8HLr3UshC+/WXilZ7RsnAoU
- fsPf9IgH7ZFAOD7IOqucw==
-UI-OutboundReport: notjunk:1;M01:P0:HxDi+LRa/Vw=;W2ky/h4Ic6Mslozhq7YsM2Ou3OI
- hToAK6AsbTyVfd/da4JhgUZPn6vfktYSdkFSn093D6SVLLg2X3ymE+NQvZ2pzQnkySLhDdPV7
- yiADgkJvYysgwDCuWOxv2UQW88WjAjor1i/G7gCiQQcoKQTVrAq/6X+bEiXw4nTqCyUU9h89Q
- r1sAGq6EfoCZTMxo4XqnWaj4OJlgWUtK/jY9NaGcOl0mD5J8HGBhNLziD34EDivYpBAqulIzT
- 2cFA33waoJ5fZmDLk1UxD1v5kGpw18nU6C49jJX0YQtGzK9LE5hUGqIMZ7sylNEiS0X05Et37
- ybFsQ4v78xyxzMthj7lpybOyc8irMWwVRZUstJ+87Q1Gm9DiF78kZexifj9j7iQiMQRmV9PEg
- YVrMa/O7TQra/kFMWdDRKarFDbPBDRgKwHEwuozN0vn9w85nGhzAJrk6hOPqUBv5sPtB6p0Py
- TH+EtvBauksVHY77hOAmjKjlsJhnK+njUaD117fjY+BlCIedsh58lQ60BjWfnPBhO+OORLQ57
- 3l7RPqzlpMTT6WqRfkVLJSiuF4E8apYzigaw6WUToKK2ZUQD+A4LvgK4lWXkav3hImdfUNBL3
- G/gX8avjSyKfQACkqYM0j3q0T2HNwYr2T4y53Cf9jnhVoce9qVfEisdbVi98N/0VW0qaf824n
- 24GTJzUrXcnSy268+iMX16jJplDwgQUPJgxjkNzT0kLJ/+jItFPcL5oDWo0HgPZPu4ZZEhtik
- Rdn2+5OYJb5kqFXVaDMe3ovs4MukHEJqXNGZlq6idKhtfJbSKZ1SxYceyBEPoq2hcVLZwYFp7
- 28ngLZjyCbgtIg+8BA/F6JT1NshTx1at4R0/14zr67B08YCbDCEOl3wFR8siK2kwE09WMy1pv
- tJBaoi9TnN3zy57tvZ1qC/9wTJnMPFMthEIJS98CDvIJc5gZ3C51wCws744ujFLamNZ5wu9Fj
- O7krLR7CqdMzMQhLHmUiLredZkicL399vNg7oLMY+cpmbLfxVMCSHCn0aE23SoPEiFdtKIwvv
- Qt4IbVQhvc6r5vezoIABvepB53EibYU/K2zdafnZc8IxJh2WQNOufgpOyRgVhiyIgYXV56Wgy
- JWd/mKlpaN0ixR3X/kUtYPmejtbcxNGSWFEu5rKfoyf44j87rklw+/GwGXDWAQe89usG8sxVf
- j8IKCL1VfPteDf4j3fMrTht3pBIG5se4E9B89Cze5rpFaYOaY3DQ7FSS0DHUokjamc/iQRp/M
- Q6tDoB7PoYane/eJNyc8pgSgbLFKndbL+EUapm+qYMA0mL1McZbG2MyYqzSJKRA8V4UN3dYmn
- bXOLmLH5FhBO8OXlgRuetsniMrouTT5xTfIlQtBSzZ+XgcHfZO2cPDtbP2Az2u5J2aAFOoaqo
- mjZN8ACFlm43y2hg==
+X-Provags-ID: V03:K1:uPOpZYd4fqt0+lxgDCkloGPIi7/lzUf0m69GCCu6AWzJBobtjDm
+ gRDo5c7MbOova/S8Cwwgt12RE3qxe+77A0H63EMyL1Iu0benRXg840HmpTZRk4CR86DkqHH
+ 41Mb+ukq3ib8g1MWCkdroRRB6PeyK9zUtVxYAK9dVu9tUdtI27FDAemBDvJx+8uGuJKh8Rk
+ 3mEilKdzIsGV9cSv1j6Hw==
+UI-OutboundReport: notjunk:1;M01:P0:Db2DT/SAc8A=;oHPqakQHWywHMe9iQPxeWW5yTzM
+ UvwPgvrBUcYEOfxtjHFSa8EoKDL75Xx6CdTWNliXTN1nTHzIq3JMdC+mD2tu0K4GNfKdJYX3l
+ 2CmO0CFX+d2vXUrv44BW6YWBP4n+Zp7E6cYSG8tr4XjY2iU5k5nRoAYDWPu+r0EFnkuk0f/ge
+ 49tZqFi8n6XkHhnlFiCGZ/bKJPhK7oc1XfG6DaQyu4GshRP6AySm9jKua1secUXXEUPW3COig
+ Ex2zZVo2ZHO3slD0uiIqMRDIlVVZJYfQmh5PThwwVoArkDKKtfQ9kYdFveoJA0z6zxbiQrcJ8
+ HcG5PV3C4oblvfF48W2wsBiVo3jisQsC/qhNO1vwgAYXF9KlmQJL47tfw6P3qioHNP7PsuUpY
+ DvNzOLSXquwgEm0+f43EhUYFTxNMBGHS2jPJlgHFOpRvjiPOPcSOvrgwW5YEV+NCpmvzB/tju
+ Pkpf6Y1K2cEY1FPrlw2shk5TPSKAiHH4tGSFxj0+E1ODVsWMz+RH/xh+RTFJxzTaSlg11bQ9e
+ LZwhLQQq8EA4dQLY3sEh7aj8ous7HZNIeA2zBoeAPRGArTzT/b5DxoNAQKUHwobc3rNtQCQJ5
+ DP+7Dx3UqGkE3UAKhwoeW7Gvc1Z+JkeYg5MBaoaZ1S/mFREUGGVQMdget7pYGm4ajaIswTEoT
+ 0Ku1xnEXztjUPzLqK4xE6zmDgZ2M2iJG31YYUKCn5kolzvSoShU2b4h1zK5YyGZIxNVYJh5rg
+ 1u5OYD+kGP1r8r97T+Efpq9UrzPUvDeueYOZhyMCoCWCrweHq8UpPKijkVoEtiEAJMRcH5G6i
+ s+7VImD5aQajNkJRYbHlH3oa1evA82GqfGg693ci7a87tN+k/lhlyksg4//W+R3HdFl4eiE06
+ /K0vlpuOB39n3jeHwdXq0QyyuEo3sUaA28kggqrMXBwAlXx/9SRyGGspX3vtGxLZg3buoMmFq
+ CogC/Cgj+mpYlTVuXT3f3b1MdiBCWJXekPvQQxFug0GzLmqAhCXONNgrftu9xeccHJk5Gkajw
+ XQjEuG36JG3UkPT1UuZC/Nf7mV9TGzkdlNc3JmN0vzIe0hyEsRNII08LGK8jrIe5LSrRLClEY
+ Jxztd6EAkc4GiHuS2hbSEtV47GYnkC0BTyLfbEDen5tghyzsaJoshheKmSY5WlxzxhONjDhMy
+ VZEqI3OmXCkc0MklMB8SPWc6Qnq+VR2ksGAogO/T3+0lGh6daeClxh6qyajEeFQkcdsokMpPx
+ /xk0T3JohjQWL5AQTcAobMMi+1TnSxOeY79QAQ3q4fPApN7bYdzVWnXk8r1/CPYhN9lxUx2AL
+ luCdtsgOFGX74EH4a0j0Yp77cfueo9JREN2OFs9ZY4kvlQzKItSmOORzQ3spw/RZkHEfNJzZ4
+ U7FPkXduGYLUG8qA==
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -84,27 +83,60 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Adding a gitlab pipeline building this driver against Xserver major releas=
-es
-since 1.18, including current master branch, on Debian as well as FreeBSD.
+libXv needs be be explicitly linked, otherwise getting error:
+
+  FAILED: xvmc/libIntelXvMC.so.1.0.0
+  cc  -o xvmc/libIntelXvMC.so.1.0.0 xvmc/libIntelXvMC.so.1.0.0.p/intel_xvm=
+c.c.o xvmc/libIntelXvMC.so.1.0.0.p/intel_xvmc_dump.c.o xvmc/libIntelXvMC.s=
+o.1.0.0.p/i915_xvmc.c.o xvmc/libIntelXvMC.so.1.0.0.p/i965_xvmc.c.o xvmc/li=
+bIntelXvMC.so.1.0.0.p/xvmc_vld.c.o xvmc/libIntelXvMC.so.1.0.0.p/intel_batc=
+hbuffer.c.o -Wl,--as-needed -Wl,--no-undefined -shared -fPIC -Wl,--start-g=
+roup -Wl,-soname,libIntelXvMC.so.1 -pthread /usr/lib/x86_64-linux-gnu/libX=
+11.so /usr/lib/x86_64-linux-gnu/libXvMC.so /usr/lib/x86_64-linux-gnu/libX1=
+1-xcb.so /usr/lib/x86_64-linux-gnu/libxcb.so /usr/lib/x86_64-linux-gnu/lib=
+xcb-util.so /usr/lib/x86_64-linux-gnu/libxcb-dri2.so /usr/lib/x86_64-linux=
+-gnu/libdrm_intel.so /usr/lib/x86_64-linux-gnu/libdrm.so -Wl,--end-group
+  /usr/bin/ld: xvmc/libIntelXvMC.so.1.0.0.p/intel_xvmc.c.o: in function `X=
+vMCCreateSurface':
+  /home/nekrad/src/xorg/drivers/xf86-video-intel/_build/../xvmc/intel_xvmc=
+.c:432: undefined reference to `XvCreateImage'
+  /usr/bin/ld: xvmc/libIntelXvMC.so.1.0.0.p/intel_xvmc.c.o: in function `X=
+vMCPutSurface':
+  /home/nekrad/src/xorg/drivers/xf86-video-intel/_build/../xvmc/intel_xvmc=
+.c:666: undefined reference to `XvPutImage'
+  collect2: error: ld returned 1 exit status
 
 Signed-off-by: Enrico Weigelt, metux IT consult <info@metux.net>
 =2D--
- .gitlab-ci.yml | 5 +++++
- 1 file changed, 5 insertions(+)
- create mode 100644 .gitlab-ci.yml
+ src/legacy/i810/xvmc/meson.build | 1 +
+ xvmc/meson.build                 | 1 +
+ 2 files changed, 2 insertions(+)
 
-diff --git a/.gitlab-ci.yml b/.gitlab-ci.yml
-new file mode 100644
-index 00000000..5521ff67
-=2D-- /dev/null
-+++ b/.gitlab-ci.yml
-@@ -0,0 +1,5 @@
-+variables:
-+    FDO_UPSTREAM_REPO:  'xorg/driver/xf86-video-intel'
-+
-+include:
-+    - local:    '.gitlab-ci/common/xorg-driver.yml'
+diff --git a/src/legacy/i810/xvmc/meson.build b/src/legacy/i810/xvmc/meson=
+.build
+index cd05f3ef..3505f15b 100644
+=2D-- a/src/legacy/i810/xvmc/meson.build
++++ b/src/legacy/i810/xvmc/meson.build
+@@ -4,6 +4,7 @@ shared_library('I810XvMC',
+ 	       sources : 'I810XvMC.c',
+ 	       dependencies : [
+ 		 dependency('x11', required : true),
++		 dependency('xv', required : true),
+ 		 dependency('xvmc', required : true),
+ 		 dependency('xorg-server', required : true),
+ 		 dependency('libdrm', required : true),
+diff --git a/xvmc/meson.build b/xvmc/meson.build
+index 0ecc51e5..eeba2b66 100644
+=2D-- a/xvmc/meson.build
++++ b/xvmc/meson.build
+@@ -14,6 +14,7 @@ shared_library('IntelXvMC',
+ 	       dependencies : [
+ 		 dependency('threads', required : true),
+ 		 dependency('x11', required : true),
++		 dependency('xv', required : true),
+ 		 dependency('xvmc', required : true),
+ 		 dependency('xorg-server', required : true),
+ 		 dependency('x11-xcb', required : true),
 =2D-
 2.39.5
 
