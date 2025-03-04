@@ -4,70 +4,70 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 16DBDC021B8
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 814A0C282E3
 	for <intel-gfx@archiver.kernel.org>; Tue,  4 Mar 2025 16:02:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0302F10E636;
-	Tue,  4 Mar 2025 16:02:09 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B5DE910E63F;
+	Tue,  4 Mar 2025 16:02:11 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=metux.net header.i=info@metux.net header.b="in2+HS7J";
+	dkim=pass (2048-bit key; unprotected) header.d=metux.net header.i=info@metux.net header.b="U9Ub4MK7";
 	dkim-atps=neutral
-Received: from mout.kundenserver.de (mout.kundenserver.de [212.227.126.135])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 97AD510E62B
- for <intel-gfx@lists.freedesktop.org>; Tue,  4 Mar 2025 16:02:02 +0000 (UTC)
+Received: from mout.kundenserver.de (mout.kundenserver.de [212.227.126.187])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F366010E635
+ for <intel-gfx@lists.freedesktop.org>; Tue,  4 Mar 2025 16:02:08 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=metux.net;
- s=s1-ionos; t=1741104121; x=1741708921; i=info@metux.net;
- bh=ApA7vI6COL6QV4EMo+Qj4+q5vFtaYc53bzyF2bYZ4y0=;
+ s=s1-ionos; t=1741104127; x=1741708927; i=info@metux.net;
+ bh=0/4LYSFXCHRlnccxC4lB3FyQtQOmkvqt50MAkhbGm0E=;
  h=X-UI-Sender-Class:From:To:Cc:Subject:Date:Message-Id:In-Reply-To:
  References:MIME-Version:Content-Transfer-Encoding:cc:
  content-transfer-encoding:content-type:date:from:message-id:
  mime-version:reply-to:subject:to;
- b=in2+HS7JpEryZjAEk7K6efH8XqicXwK4e0hw2tjGhZsnG369PB4uKrDmgLseuYMF
- U0XSANqPVYKyCTKKrzWqVCMj7bs16o+BkqamTxWB//ICgyqXYUBagTsDKbhESGAUM
- c1lISZY7VHFggo1xnh8Hg9RjfMqLeZHBezgvU7/sCo0ZbrrDyjhT+nb/mIg+vyqve
- 0/BUftAH13kTc2z3p3wD8gGEmZOheAqutgliSS7Wuyc//LxvMKU1Kml3JyU6z/ppB
- nASFHEd5fUG8CsXwLBqa1uOAyziulm/5WPBPVfcOPWYn+S0ST4EiQ7LQjTEjxAqvR
- LwnS7GjWUqOAm0xq5Q==
+ b=U9Ub4MK7CaoKdW/oUsSFooVFLOqewRUjNrkYNrJQ8h/+CHWigfKZr28fAYQfzLP+
+ gZTHfOJt8fw8SwMhXnHn8zOoASgi3FuuPlNaK5RNL/7qeif/EVsFi+4J9f6K01Que
+ HnRQwwtitsnfLxZ5zjrZwEhVD3n66le3oA3BnKFS7xPw00BB/L/doUrl5Y1/PrpEA
+ C+tI9Mx4QCdEAo2SeU/7h9kXlnpTvgt7Q3k8ZxpyNoozV2JG8TtiUvC//9ufjdde1
+ z7tcQ8yA6we+pmka29AQttwUFxXYiEHaRgM3GQnxombGzK88H80xP4LHMY2yOXkT4
+ 0iyk7V2Q3BXwsMpqXg==
 X-UI-Sender-Class: 55c96926-9e95-11ee-ae09-1f7a4046a0f6
 Received: from x1.localdomain ([77.7.107.91]) by mrelayeu.kundenserver.de
  (mreue010 [212.227.15.167]) with ESMTPSA (Nemesis) id
- 1MYNaE-1tkaor23MY-00Pfyl; Tue, 04 Mar 2025 16:56:35 +0100
+ 1M9FX5-1trzL71iMR-00FP8Q; Tue, 04 Mar 2025 16:56:30 +0100
 From: "Enrico Weigelt, metux IT consult" <info@metux.net>
 To: intel-gfx@lists.freedesktop.org
 Cc: ville.syrjala@linux.intel.com
-Subject: [PATCH 14/16] Define __container_of only if not defined yet.
-Date: Tue,  4 Mar 2025 16:58:07 +0100
-Message-Id: <20250304155809.30399-15-info@metux.net>
+Subject: [PATCH 04/16] backlight: use system() instead of System()
+Date: Tue,  4 Mar 2025 16:57:57 +0100
+Message-Id: <20250304155809.30399-5-info@metux.net>
 X-Mailer: git-send-email 2.39.5
 In-Reply-To: <20250304155809.30399-1-info@metux.net>
 References: <20250304155809.30399-1-info@metux.net>
 MIME-Version: 1.0
 Content-Transfer-Encoding: quoted-printable
-X-Provags-ID: V03:K1:udiS9uvVqlZ1qMy+HIRZLMe1HfdDLTU+kb4XBaDTruZONHAryer
- ay/xU286Z5d/DjsfVXsv8ZKWHRtsD/8Jw7rkQeoiqd7Zgx1FEnafgIhRDlChXmp5NzAp7FB
- /iXrd6D6apDFyT9dy1bPk8lGJsgKRhfaXDi5rlDjFZ1zIBAcylajV9Ryq+lA4cjxG01Gq4w
- FA15U5DMdKSOeD7ZKUPCQ==
-UI-OutboundReport: notjunk:1;M01:P0:RATZoGLiV2o=;UHOLUdC7y6GoIeCcc+mDpmvsXTv
- PHJyxL31wY76ZdVwmfaiSbu7dmgUImVc3nWXyt4bqD4JJfSysCqPSUGFPGnW4R0QFgzDYl3Mn
- UJS5CMDPv6yWzlgsWNp8TTNkpSqIz8JKhQ4mSqBp/BHMTPlzVxqAQNy8baJBeiOyQ2qtykidv
- 5dympoOXIsfPZgkjpCBQ8u3867Hk79s12VElbKa2jUNsBS0LCVsvO9/sx+hoJVWoSvLubhu1I
- q8SzdRxVi19C0RhmiHA2k4vx9gqDWY+TJitP8hBrYv+LpqH1WbVom6IAgaF/rZREne/YsJnly
- 3zwbzind8Dd5IlJJ6xEINBLUMr302NdZvnrdD+L7ES6Nu4hrO6yJgFAkcE5YqmQZfVuIFYExG
- aNhTlV/GIlHbsCX79IcQynnm/R5DoOFaZLEihXky999DxcoBXfe5tOQKeWMQ9oJ+UnNpRdwIU
- X3bLlWOAwCmdC6Bb5FTf3ab9MuWA2Bny/e/eq1x8hs0AhzV168mtsZyg/IEdmgFOkhNC85Naa
- bYKccKXnzSr8wxG/DMv7mhWUMsnPLXc3vyOxPTn0UcYjzXFnMT0j2amw1hfdc2y5udVnaCt6e
- ihOxbEM5/TuxvUDDLofvHATobvGoTC0bPeFJVs5qQvfJyvIrJ3wu1WyoXMW9LRuDTjMwTkxHs
- h2AbQylJUKRVfl2THU286sEjokCAX3r3w3s7dkIziEmjBu+JqMkFocPuu7hwqAD0i2ZE8HJ0O
- tdNL4fTkLUpKhJZ56CRoLz27919YI8RVtk+CeI1WgU6S2+UxNB+kPBCcclFk39tJOalEExITE
- Byhh0Vxx803P21G+0Admh4icdgdDM3z1QbwmCGA4hJqQQpWDvDb6oHZ44LdInv+1qOwhZBlF7
- M+vAYxkAe5ix1mvcRAEWvglRw2g3Qa5l+hps2IZkXsBgx4XycgFmEYwOxHPVnrdPZFyV7+q57
- n7DADo9v4ReEFZ1vxMwLnKGgfNGxDGUV9V2X888D2WAKccRJK5linzRxwIakO4dclg3Kho3yJ
- xXY1xYkNNy2Ql3v6WVuzv9M6uct0inwi4wcrIqgITDw4ew98TcR8O8SA5UhKzxjvi6D0TPGYn
- FWqXRpma82uGTR890x1ht4uAAs69A1Ywi8liC3/C2SH2mJsxcAPngtibO/dv86NTv7F/wD1dq
- 7mAiQH4+4yGrjzONQvqJdIIZXwcEXozLvRS0RKzb7Lt11D4aZESGBb8eNcgNx9z8fgsJlKcgQ
- U2Hhp6EK+KHrZHGZexRekaQySgBRoEeL1O0kL2ihRrZKyIrpjV6gZgrr65geTQ7L6KAkFx4lW
- 8/UdlGhgDrYMNNUJppmlBfmCoh0TWdEcRAczdWA+NGS2GmSqipXM4eNHbRIQqv08RO8p1H0LP
- Slz0KemGhWW2ipyA==
+X-Provags-ID: V03:K1:Td6rlONSHKN9KP1eePV3X2xMgQ2etcWabfqOaNx5331LdmikD4L
+ f0hEpDjLrpVMuoAktjMn5r7aECoyuVDkq0KnCKXDfk7kP+Lc1jbIyZ5x/M95fxQQ9F6dAIE
+ /eNx3DPDhPS3C5ivav73M4bYNV5eJks6AUpsaUhlGvQoZng8b2ILMCwSZEwo726+hvVSFO5
+ gaGFEVCk7PNZgSztgwL6A==
+UI-OutboundReport: notjunk:1;M01:P0:VXdWaoM6jq8=;ndnr6rv09JLsumfvqy3wA8O2fNE
+ BwOiiBJHKx9OjhLHcDmT7MuNKOzp2ayPZZGF8x2F4vlAYDdTQJmnz9NbGH722CBTo/B74i/zh
+ LaP5EkFr7VbzXcfPr/kkmIrJo4mN0A3uZ5oOGKgA1Lu4COYgCy1a8kmUNgF18V1KzciLQt3iX
+ 0qYjvxmDa5YT2B6xHrDkI3SA0pcAjECjKvO6td+DWEUKikN/MHv6UK1841lkK9KpbXPku3da1
+ iBNDEHN6ej8kdu2P8lktpR8CWu7ho1bpYor2tDfguLIW6KJXWR/egyK1LR5nBTIXVvcXnynff
+ 2oj9ChACq7C9MStHlIwwp1NecsHISyFvTaK+4QfkX/ZY6LWXfGJhsaWPFucHgSMeYJ6Ds0q5R
+ EMeDlHcC2hI3snzTe4Bhezu2Yq7XV9s+iaIUP6XVBV5s2OPjw7mjfHr5e8Q6CljNRb+LbxX5u
+ tIeIpNz+05NG+0Dd2o5HBuE9YE+B4g/nQoVRJLH2oXIegIxo6jirCQFSoLQJkbiaMa93JcEvF
+ /QYVm9QbAtGfyvEDzUp2dV+PNdOCapBAzAh0UacY5Hdib0X0PsXzTgWmyD1tOHclXmV1TraxZ
+ r1d6GJY5IZDUMD0kyr42kyLO4n1hWO3zxsOCDF454+6gVGPZWrRNiZ+RDiXyWyfJJF4b5zU2+
+ 0Ku2yI72RGumtQTyhnFgpYtyGb8S1FWdi0XGaQJ6x328U8Sj+WG9cI5+soAC9mjyA1zf5QLv5
+ IrU5sV2rvgqG07hl10kOwLrZhbVc2qUzMtLhWLO8M+voHA9S66C5za2wZxnjPkTwzgzD/6mlw
+ NRKdYnyEuJ9/M902iEKW/WmFlX7UjjUyuc/ZBFURpHe+pe2/LolGMxyzMnkHVUgmiZ1bHGvvH
+ I3SJ3iUx793IAZJWPZuM9WGm3oQVpyiQeQ2AkiuYV1J1o73VU1st9MYj5wspGsvMiku9XVIVu
+ dipoZFjXiIxMm38L7Lni1/SByWGflhMuER71fZ13JR7Ci1xgiiXsyE2QtKWxsBrQx4mSmAYaq
+ JxC2I4ax7wcUXQWjdRS5ZAfW/REpodfySddKx1Z4iyGobdvSgJlhBVUsMe7oRh8kilERH8xe4
+ 3FJWIIcCwWzcYP2v4UH029VogtXNuA38xol/wt7UgJ98LXGDpsN6xSvZCqHrEj0AeRDLgEWFJ
+ 1irhvoSFk1WjKXvW+HZuZviDsMicd6WZI3A+KPwFYJU+ER60yFiuVoApeBLacZV6J5z5JRJgj
+ 2UAGLA7sU9h7cFmvJQ3dz89RsD2uydshJBbaNK1spzuuAYl01dgy8B6GzPVwVH3cnT7/ZSSeA
+ u/Fl1x57dvivfdtEmNrLmWiNFBvk9QbZHWwXbUs5LPtCmKWd3VPdJkaqnrl19XXH5SS5r9hBX
+ fuznQaE9oHZrsAvw==
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -83,64 +83,40 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Silence warnings.
+The Xserver's System() function is a special wrapper for calling a program
+(xkbcomp) as an unprivileged user, when the Xserver is running as suid-roo=
+t.
+(which today only needed on a few platforms, eg. Solaris). Therefore it's
+not suited for being called by arbitrary drivers.
+
+In this specific context it doesn't even much sense, since it's just used
+for checking whether pkexec command is present at all (and just should be
+used), while the actual exec'ing of the helper is done directly by fork()
+and exec() syscalls.
+
+Thus we can safely use standard system() call instead - clearing the road
+for dropping System() from Xserver's public/driver API.
 
 Signed-off-by: Enrico Weigelt, metux IT consult <info@metux.net>
 =2D--
- benchmarks/dri3-swap.c | 2 ++
- src/intel_list.h       | 3 +++
- test/present-speed.c   | 2 ++
- 3 files changed, 7 insertions(+)
+ src/backlight.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/benchmarks/dri3-swap.c b/benchmarks/dri3-swap.c
-index 4dd423b3..fa8ec34e 100644
-=2D-- a/benchmarks/dri3-swap.c
-+++ b/benchmarks/dri3-swap.c
-@@ -110,8 +110,10 @@ list_move(struct list *list, struct list *head)
- 	}
- }
+diff --git a/src/backlight.c b/src/backlight.c
+index fcbb279f..f416f2a4 100644
+=2D-- a/src/backlight.c
++++ b/src/backlight.c
+@@ -366,7 +366,7 @@ static int __backlight_helper_init(struct backlight *b=
+, char *iface)
+ 		return 0;
 
-+#ifndef __container_of
- #define __container_of(ptr, sample, member)				\
-     (void *)((char *)(ptr) - ((char *)&(sample)->member - (char *)(sample=
-)))
-+#endif
+ 	if ((st.st_mode & (S_IFREG | S_ISUID | S_IXUSR)) !=3D (S_IFREG | S_ISUID=
+ | S_IXUSR)) {
+-		if (System("pkexec --version"))
++		if (system("pkexec --version"))
+ 			return 0;
 
- #define list_for_each_entry(pos, head, member)				\
-     for (pos =3D __container_of((head)->next, pos, member);		\
-diff --git a/src/intel_list.h b/src/intel_list.h
-index c8a3187a..f0fe7af9 100644
-=2D-- a/src/intel_list.h
-+++ b/src/intel_list.h
-@@ -305,8 +305,11 @@ list_is_empty(const struct list *head)
- #define list_last_entry(ptr, type, member) \
-     list_entry((ptr)->prev, type, member)
-
-+#ifndef __container_of
- #define __container_of(ptr, sample, member)				\
-     (void *)((char *)(ptr) - ((char *)&(sample)->member - (char *)(sample=
-)))
-+#endif
-+
- /**
-  * Loop through the list given by head and set pos to struct in the list.
-  *
-diff --git a/test/present-speed.c b/test/present-speed.c
-index eccde931..7765aa94 100644
-=2D-- a/test/present-speed.c
-+++ b/test/present-speed.c
-@@ -108,8 +108,10 @@ list_move(struct list *list, struct list *head)
- 	}
- }
-
-+#ifndef __container_of
- #define __container_of(ptr, sample, member)				\
-     (void *)((char *)(ptr) - ((char *)&(sample)->member - (char *)(sample=
-)))
-+#endif
-
- #define list_for_each_entry(pos, head, member)				\
-     for (pos =3D __container_of((head)->next, pos, member);		\
+ 		use_pkexec =3D 1;
 =2D-
 2.39.5
 
