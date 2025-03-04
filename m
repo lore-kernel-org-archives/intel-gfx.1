@@ -4,70 +4,70 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AB3B0C282D9
-	for <intel-gfx@archiver.kernel.org>; Tue,  4 Mar 2025 16:02:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 16DBDC021B8
+	for <intel-gfx@archiver.kernel.org>; Tue,  4 Mar 2025 16:02:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EC6BC10E634;
-	Tue,  4 Mar 2025 16:02:08 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0302F10E636;
+	Tue,  4 Mar 2025 16:02:09 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=metux.net header.i=info@metux.net header.b="WYyVxY83";
+	dkim=pass (2048-bit key; unprotected) header.d=metux.net header.i=info@metux.net header.b="in2+HS7J";
 	dkim-atps=neutral
-Received: from mout.kundenserver.de (mout.kundenserver.de [212.227.126.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 86AE310E62D
- for <intel-gfx@lists.freedesktop.org>; Tue,  4 Mar 2025 16:02:06 +0000 (UTC)
+Received: from mout.kundenserver.de (mout.kundenserver.de [212.227.126.135])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 97AD510E62B
+ for <intel-gfx@lists.freedesktop.org>; Tue,  4 Mar 2025 16:02:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=metux.net;
- s=s1-ionos; t=1741104124; x=1741708924; i=info@metux.net;
- bh=8QTGXW4VwzyIsVibbSOgqJsT00gZ4wI+37H98Gk1UZw=;
+ s=s1-ionos; t=1741104121; x=1741708921; i=info@metux.net;
+ bh=ApA7vI6COL6QV4EMo+Qj4+q5vFtaYc53bzyF2bYZ4y0=;
  h=X-UI-Sender-Class:From:To:Cc:Subject:Date:Message-Id:In-Reply-To:
  References:MIME-Version:Content-Transfer-Encoding:cc:
  content-transfer-encoding:content-type:date:from:message-id:
  mime-version:reply-to:subject:to;
- b=WYyVxY83KQ7bD8Dw3wzctw2R2Wu+WgOQTxHSzFiMs0KsjsgOuLSTS6ctf/q09gVT
- uX5PFwLSoOkPKNkCa8kMoUxvq3HPIY59bmySezlNtGxgdqNTDED/izFallwmSxwZ2
- uDOwTOCjJP3t9KapjbWks1vcvTUfFTJqUB3hfI8xY2OHyjIolUZqyiGC30Z+AcNEV
- D2Ytwr0kmkQoisDFNXrzsTOKetE5rwN3NQzrYjXrv9F1h4xggeADdSIQbCaH0zc5F
- t5s5vZXKsD6Vi8+JjRBX69w8iDY9kwV535LufP0GGw5d52KSHMQNxT/eR+Ur+WPZi
- tFsBdZud+qilMhznyw==
+ b=in2+HS7JpEryZjAEk7K6efH8XqicXwK4e0hw2tjGhZsnG369PB4uKrDmgLseuYMF
+ U0XSANqPVYKyCTKKrzWqVCMj7bs16o+BkqamTxWB//ICgyqXYUBagTsDKbhESGAUM
+ c1lISZY7VHFggo1xnh8Hg9RjfMqLeZHBezgvU7/sCo0ZbrrDyjhT+nb/mIg+vyqve
+ 0/BUftAH13kTc2z3p3wD8gGEmZOheAqutgliSS7Wuyc//LxvMKU1Kml3JyU6z/ppB
+ nASFHEd5fUG8CsXwLBqa1uOAyziulm/5WPBPVfcOPWYn+S0ST4EiQ7LQjTEjxAqvR
+ LwnS7GjWUqOAm0xq5Q==
 X-UI-Sender-Class: 55c96926-9e95-11ee-ae09-1f7a4046a0f6
 Received: from x1.localdomain ([77.7.107.91]) by mrelayeu.kundenserver.de
  (mreue010 [212.227.15.167]) with ESMTPSA (Nemesis) id
- 1M9nlN-1tsXZQ1FK9-00FxMi; Tue, 04 Mar 2025 16:56:29 +0100
+ 1MYNaE-1tkaor23MY-00Pfyl; Tue, 04 Mar 2025 16:56:35 +0100
 From: "Enrico Weigelt, metux IT consult" <info@metux.net>
 To: intel-gfx@lists.freedesktop.org
 Cc: ville.syrjala@linux.intel.com
-Subject: [PATCH 01/16] meson.build: fix missing Xv dependencies
-Date: Tue,  4 Mar 2025 16:57:54 +0100
-Message-Id: <20250304155809.30399-2-info@metux.net>
+Subject: [PATCH 14/16] Define __container_of only if not defined yet.
+Date: Tue,  4 Mar 2025 16:58:07 +0100
+Message-Id: <20250304155809.30399-15-info@metux.net>
 X-Mailer: git-send-email 2.39.5
 In-Reply-To: <20250304155809.30399-1-info@metux.net>
 References: <20250304155809.30399-1-info@metux.net>
 MIME-Version: 1.0
 Content-Transfer-Encoding: quoted-printable
-X-Provags-ID: V03:K1:uPOpZYd4fqt0+lxgDCkloGPIi7/lzUf0m69GCCu6AWzJBobtjDm
- gRDo5c7MbOova/S8Cwwgt12RE3qxe+77A0H63EMyL1Iu0benRXg840HmpTZRk4CR86DkqHH
- 41Mb+ukq3ib8g1MWCkdroRRB6PeyK9zUtVxYAK9dVu9tUdtI27FDAemBDvJx+8uGuJKh8Rk
- 3mEilKdzIsGV9cSv1j6Hw==
-UI-OutboundReport: notjunk:1;M01:P0:Db2DT/SAc8A=;oHPqakQHWywHMe9iQPxeWW5yTzM
- UvwPgvrBUcYEOfxtjHFSa8EoKDL75Xx6CdTWNliXTN1nTHzIq3JMdC+mD2tu0K4GNfKdJYX3l
- 2CmO0CFX+d2vXUrv44BW6YWBP4n+Zp7E6cYSG8tr4XjY2iU5k5nRoAYDWPu+r0EFnkuk0f/ge
- 49tZqFi8n6XkHhnlFiCGZ/bKJPhK7oc1XfG6DaQyu4GshRP6AySm9jKua1secUXXEUPW3COig
- Ex2zZVo2ZHO3slD0uiIqMRDIlVVZJYfQmh5PThwwVoArkDKKtfQ9kYdFveoJA0z6zxbiQrcJ8
- HcG5PV3C4oblvfF48W2wsBiVo3jisQsC/qhNO1vwgAYXF9KlmQJL47tfw6P3qioHNP7PsuUpY
- DvNzOLSXquwgEm0+f43EhUYFTxNMBGHS2jPJlgHFOpRvjiPOPcSOvrgwW5YEV+NCpmvzB/tju
- Pkpf6Y1K2cEY1FPrlw2shk5TPSKAiHH4tGSFxj0+E1ODVsWMz+RH/xh+RTFJxzTaSlg11bQ9e
- LZwhLQQq8EA4dQLY3sEh7aj8ous7HZNIeA2zBoeAPRGArTzT/b5DxoNAQKUHwobc3rNtQCQJ5
- DP+7Dx3UqGkE3UAKhwoeW7Gvc1Z+JkeYg5MBaoaZ1S/mFREUGGVQMdget7pYGm4ajaIswTEoT
- 0Ku1xnEXztjUPzLqK4xE6zmDgZ2M2iJG31YYUKCn5kolzvSoShU2b4h1zK5YyGZIxNVYJh5rg
- 1u5OYD+kGP1r8r97T+Efpq9UrzPUvDeueYOZhyMCoCWCrweHq8UpPKijkVoEtiEAJMRcH5G6i
- s+7VImD5aQajNkJRYbHlH3oa1evA82GqfGg693ci7a87tN+k/lhlyksg4//W+R3HdFl4eiE06
- /K0vlpuOB39n3jeHwdXq0QyyuEo3sUaA28kggqrMXBwAlXx/9SRyGGspX3vtGxLZg3buoMmFq
- CogC/Cgj+mpYlTVuXT3f3b1MdiBCWJXekPvQQxFug0GzLmqAhCXONNgrftu9xeccHJk5Gkajw
- XQjEuG36JG3UkPT1UuZC/Nf7mV9TGzkdlNc3JmN0vzIe0hyEsRNII08LGK8jrIe5LSrRLClEY
- Jxztd6EAkc4GiHuS2hbSEtV47GYnkC0BTyLfbEDen5tghyzsaJoshheKmSY5WlxzxhONjDhMy
- VZEqI3OmXCkc0MklMB8SPWc6Qnq+VR2ksGAogO/T3+0lGh6daeClxh6qyajEeFQkcdsokMpPx
- /xk0T3JohjQWL5AQTcAobMMi+1TnSxOeY79QAQ3q4fPApN7bYdzVWnXk8r1/CPYhN9lxUx2AL
- luCdtsgOFGX74EH4a0j0Yp77cfueo9JREN2OFs9ZY4kvlQzKItSmOORzQ3spw/RZkHEfNJzZ4
- U7FPkXduGYLUG8qA==
+X-Provags-ID: V03:K1:udiS9uvVqlZ1qMy+HIRZLMe1HfdDLTU+kb4XBaDTruZONHAryer
+ ay/xU286Z5d/DjsfVXsv8ZKWHRtsD/8Jw7rkQeoiqd7Zgx1FEnafgIhRDlChXmp5NzAp7FB
+ /iXrd6D6apDFyT9dy1bPk8lGJsgKRhfaXDi5rlDjFZ1zIBAcylajV9Ryq+lA4cjxG01Gq4w
+ FA15U5DMdKSOeD7ZKUPCQ==
+UI-OutboundReport: notjunk:1;M01:P0:RATZoGLiV2o=;UHOLUdC7y6GoIeCcc+mDpmvsXTv
+ PHJyxL31wY76ZdVwmfaiSbu7dmgUImVc3nWXyt4bqD4JJfSysCqPSUGFPGnW4R0QFgzDYl3Mn
+ UJS5CMDPv6yWzlgsWNp8TTNkpSqIz8JKhQ4mSqBp/BHMTPlzVxqAQNy8baJBeiOyQ2qtykidv
+ 5dympoOXIsfPZgkjpCBQ8u3867Hk79s12VElbKa2jUNsBS0LCVsvO9/sx+hoJVWoSvLubhu1I
+ q8SzdRxVi19C0RhmiHA2k4vx9gqDWY+TJitP8hBrYv+LpqH1WbVom6IAgaF/rZREne/YsJnly
+ 3zwbzind8Dd5IlJJ6xEINBLUMr302NdZvnrdD+L7ES6Nu4hrO6yJgFAkcE5YqmQZfVuIFYExG
+ aNhTlV/GIlHbsCX79IcQynnm/R5DoOFaZLEihXky999DxcoBXfe5tOQKeWMQ9oJ+UnNpRdwIU
+ X3bLlWOAwCmdC6Bb5FTf3ab9MuWA2Bny/e/eq1x8hs0AhzV168mtsZyg/IEdmgFOkhNC85Naa
+ bYKccKXnzSr8wxG/DMv7mhWUMsnPLXc3vyOxPTn0UcYjzXFnMT0j2amw1hfdc2y5udVnaCt6e
+ ihOxbEM5/TuxvUDDLofvHATobvGoTC0bPeFJVs5qQvfJyvIrJ3wu1WyoXMW9LRuDTjMwTkxHs
+ h2AbQylJUKRVfl2THU286sEjokCAX3r3w3s7dkIziEmjBu+JqMkFocPuu7hwqAD0i2ZE8HJ0O
+ tdNL4fTkLUpKhJZ56CRoLz27919YI8RVtk+CeI1WgU6S2+UxNB+kPBCcclFk39tJOalEExITE
+ Byhh0Vxx803P21G+0Admh4icdgdDM3z1QbwmCGA4hJqQQpWDvDb6oHZ44LdInv+1qOwhZBlF7
+ M+vAYxkAe5ix1mvcRAEWvglRw2g3Qa5l+hps2IZkXsBgx4XycgFmEYwOxHPVnrdPZFyV7+q57
+ n7DADo9v4ReEFZ1vxMwLnKGgfNGxDGUV9V2X888D2WAKccRJK5linzRxwIakO4dclg3Kho3yJ
+ xXY1xYkNNy2Ql3v6WVuzv9M6uct0inwi4wcrIqgITDw4ew98TcR8O8SA5UhKzxjvi6D0TPGYn
+ FWqXRpma82uGTR890x1ht4uAAs69A1Ywi8liC3/C2SH2mJsxcAPngtibO/dv86NTv7F/wD1dq
+ 7mAiQH4+4yGrjzONQvqJdIIZXwcEXozLvRS0RKzb7Lt11D4aZESGBb8eNcgNx9z8fgsJlKcgQ
+ U2Hhp6EK+KHrZHGZexRekaQySgBRoEeL1O0kL2ihRrZKyIrpjV6gZgrr65geTQ7L6KAkFx4lW
+ 8/UdlGhgDrYMNNUJppmlBfmCoh0TWdEcRAczdWA+NGS2GmSqipXM4eNHbRIQqv08RO8p1H0LP
+ Slz0KemGhWW2ipyA==
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -83,60 +83,64 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-libXv needs be be explicitly linked, otherwise getting error:
-
-  FAILED: xvmc/libIntelXvMC.so.1.0.0
-  cc  -o xvmc/libIntelXvMC.so.1.0.0 xvmc/libIntelXvMC.so.1.0.0.p/intel_xvm=
-c.c.o xvmc/libIntelXvMC.so.1.0.0.p/intel_xvmc_dump.c.o xvmc/libIntelXvMC.s=
-o.1.0.0.p/i915_xvmc.c.o xvmc/libIntelXvMC.so.1.0.0.p/i965_xvmc.c.o xvmc/li=
-bIntelXvMC.so.1.0.0.p/xvmc_vld.c.o xvmc/libIntelXvMC.so.1.0.0.p/intel_batc=
-hbuffer.c.o -Wl,--as-needed -Wl,--no-undefined -shared -fPIC -Wl,--start-g=
-roup -Wl,-soname,libIntelXvMC.so.1 -pthread /usr/lib/x86_64-linux-gnu/libX=
-11.so /usr/lib/x86_64-linux-gnu/libXvMC.so /usr/lib/x86_64-linux-gnu/libX1=
-1-xcb.so /usr/lib/x86_64-linux-gnu/libxcb.so /usr/lib/x86_64-linux-gnu/lib=
-xcb-util.so /usr/lib/x86_64-linux-gnu/libxcb-dri2.so /usr/lib/x86_64-linux=
--gnu/libdrm_intel.so /usr/lib/x86_64-linux-gnu/libdrm.so -Wl,--end-group
-  /usr/bin/ld: xvmc/libIntelXvMC.so.1.0.0.p/intel_xvmc.c.o: in function `X=
-vMCCreateSurface':
-  /home/nekrad/src/xorg/drivers/xf86-video-intel/_build/../xvmc/intel_xvmc=
-.c:432: undefined reference to `XvCreateImage'
-  /usr/bin/ld: xvmc/libIntelXvMC.so.1.0.0.p/intel_xvmc.c.o: in function `X=
-vMCPutSurface':
-  /home/nekrad/src/xorg/drivers/xf86-video-intel/_build/../xvmc/intel_xvmc=
-.c:666: undefined reference to `XvPutImage'
-  collect2: error: ld returned 1 exit status
+Silence warnings.
 
 Signed-off-by: Enrico Weigelt, metux IT consult <info@metux.net>
 =2D--
- src/legacy/i810/xvmc/meson.build | 1 +
- xvmc/meson.build                 | 1 +
- 2 files changed, 2 insertions(+)
+ benchmarks/dri3-swap.c | 2 ++
+ src/intel_list.h       | 3 +++
+ test/present-speed.c   | 2 ++
+ 3 files changed, 7 insertions(+)
 
-diff --git a/src/legacy/i810/xvmc/meson.build b/src/legacy/i810/xvmc/meson=
-.build
-index cd05f3ef..3505f15b 100644
-=2D-- a/src/legacy/i810/xvmc/meson.build
-+++ b/src/legacy/i810/xvmc/meson.build
-@@ -4,6 +4,7 @@ shared_library('I810XvMC',
- 	       sources : 'I810XvMC.c',
- 	       dependencies : [
- 		 dependency('x11', required : true),
-+		 dependency('xv', required : true),
- 		 dependency('xvmc', required : true),
- 		 dependency('xorg-server', required : true),
- 		 dependency('libdrm', required : true),
-diff --git a/xvmc/meson.build b/xvmc/meson.build
-index 0ecc51e5..eeba2b66 100644
-=2D-- a/xvmc/meson.build
-+++ b/xvmc/meson.build
-@@ -14,6 +14,7 @@ shared_library('IntelXvMC',
- 	       dependencies : [
- 		 dependency('threads', required : true),
- 		 dependency('x11', required : true),
-+		 dependency('xv', required : true),
- 		 dependency('xvmc', required : true),
- 		 dependency('xorg-server', required : true),
- 		 dependency('x11-xcb', required : true),
+diff --git a/benchmarks/dri3-swap.c b/benchmarks/dri3-swap.c
+index 4dd423b3..fa8ec34e 100644
+=2D-- a/benchmarks/dri3-swap.c
++++ b/benchmarks/dri3-swap.c
+@@ -110,8 +110,10 @@ list_move(struct list *list, struct list *head)
+ 	}
+ }
+
++#ifndef __container_of
+ #define __container_of(ptr, sample, member)				\
+     (void *)((char *)(ptr) - ((char *)&(sample)->member - (char *)(sample=
+)))
++#endif
+
+ #define list_for_each_entry(pos, head, member)				\
+     for (pos =3D __container_of((head)->next, pos, member);		\
+diff --git a/src/intel_list.h b/src/intel_list.h
+index c8a3187a..f0fe7af9 100644
+=2D-- a/src/intel_list.h
++++ b/src/intel_list.h
+@@ -305,8 +305,11 @@ list_is_empty(const struct list *head)
+ #define list_last_entry(ptr, type, member) \
+     list_entry((ptr)->prev, type, member)
+
++#ifndef __container_of
+ #define __container_of(ptr, sample, member)				\
+     (void *)((char *)(ptr) - ((char *)&(sample)->member - (char *)(sample=
+)))
++#endif
++
+ /**
+  * Loop through the list given by head and set pos to struct in the list.
+  *
+diff --git a/test/present-speed.c b/test/present-speed.c
+index eccde931..7765aa94 100644
+=2D-- a/test/present-speed.c
++++ b/test/present-speed.c
+@@ -108,8 +108,10 @@ list_move(struct list *list, struct list *head)
+ 	}
+ }
+
++#ifndef __container_of
+ #define __container_of(ptr, sample, member)				\
+     (void *)((char *)(ptr) - ((char *)&(sample)->member - (char *)(sample=
+)))
++#endif
+
+ #define list_for_each_entry(pos, head, member)				\
+     for (pos =3D __container_of((head)->next, pos, member);		\
 =2D-
 2.39.5
 
