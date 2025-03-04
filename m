@@ -4,71 +4,70 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2E086C282DE
-	for <intel-gfx@archiver.kernel.org>; Tue,  4 Mar 2025 16:02:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B0E73C021B8
+	for <intel-gfx@archiver.kernel.org>; Tue,  4 Mar 2025 16:02:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A8E8810E640;
-	Tue,  4 Mar 2025 16:02:13 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4235210E638;
+	Tue,  4 Mar 2025 16:02:15 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=metux.net header.i=info@metux.net header.b="rZBAm30o";
+	dkim=pass (2048-bit key; unprotected) header.d=metux.net header.i=info@metux.net header.b="dI4OXNu8";
 	dkim-atps=neutral
-Received: from mout.kundenserver.de (mout.kundenserver.de [212.227.126.130])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0EEBA10E62D
- for <intel-gfx@lists.freedesktop.org>; Tue,  4 Mar 2025 16:02:07 +0000 (UTC)
+Received: from mout.kundenserver.de (mout.kundenserver.de [212.227.126.133])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F0A7510E62E
+ for <intel-gfx@lists.freedesktop.org>; Tue,  4 Mar 2025 16:02:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=metux.net;
- s=s1-ionos; t=1741104126; x=1741708926; i=info@metux.net;
- bh=nb2RJHdrTPEX8LgXovvHO6bnzkmbFSVoGcisLUP+Vjk=;
+ s=s1-ionos; t=1741104125; x=1741708925; i=info@metux.net;
+ bh=bR0IXSNJZLIIcGsMXk8jAPZ/JnE7101SkcIprGe6n14=;
  h=X-UI-Sender-Class:From:To:Cc:Subject:Date:Message-Id:In-Reply-To:
  References:MIME-Version:Content-Transfer-Encoding:cc:
  content-transfer-encoding:content-type:date:from:message-id:
  mime-version:reply-to:subject:to;
- b=rZBAm30o0iyKd1t0BTa3ZsTBnh4X9QfmT+3jCxdCJ3ULDuu9yBqDpcS+RXp4s8U9
- aPV+o3h14XUxfLKGySvRJZ7UQe3i2VOiIpBve3Xb6C4xWcJgYawa/CaMRqEOJSphw
- qbwrOIqFvvuH/buH6zVNHxtM2t2kCbg567mXnOvC7JRSc2xjSBFi31FOlUtBsalrU
- WHAdEhZvC8oCd16NtpNk8ELxp60S+AmrygQEYYtbUHZWj6zw08MQ8ZgRwKwXK9x8w
- ++RozV5VP4iVkFP++HOoFYo7scdBa90K7VIqYgEfeseln1usPGuPwOBPD6j9wdxmA
- AsKpQirsik+NSUQSUg==
+ b=dI4OXNu848uUe6UqfD7+yBhE0Z+kxm0toN80BAx6ACqd30SWMpg4jio8tJoOOwI8
+ 1+swDI/tsr3BdyafJdpfb2qcx0e8iZ3QBChimGvx4AAgKMIidYhdzkls3Xe55hptn
+ k7TmNFjADGUEjcSMvxpEdpBCSk813RHZp1RqEGsKjvu1KOKuVq4t6d0CCnMiB82SG
+ hCfm9/ATT2Ls1tRbvWl8EDM+4s1MDNL/bUTFfSdPncmOtVIrvxqT1R1/nsE21MmbC
+ EGVj3Fd/K7OkSZwgFD1EXt3NGRlYn+2QMPWZ/JjPBaeNTvCa3ziZSTzeCjrofgOAs
+ 3CqnDoSUSpVsEZrFsw==
 X-UI-Sender-Class: 55c96926-9e95-11ee-ae09-1f7a4046a0f6
 Received: from x1.localdomain ([77.7.107.91]) by mrelayeu.kundenserver.de
  (mreue010 [212.227.15.167]) with ESMTPSA (Nemesis) id
- 1MLiPA-1tXxmS1CbY-00Ubvl; Tue, 04 Mar 2025 16:56:32 +0100
+ 1Mv3Ds-1syu0o2Ywy-013wgL; Tue, 04 Mar 2025 16:56:35 +0100
 From: "Enrico Weigelt, metux IT consult" <info@metux.net>
 To: intel-gfx@lists.freedesktop.org
 Cc: ville.syrjala@linux.intel.com
-Subject: [PATCH 08/16] stop using obsolete xf86BlockSIGIO() and
- xf86UnblockSIGIO()
-Date: Tue,  4 Mar 2025 16:58:01 +0100
-Message-Id: <20250304155809.30399-9-info@metux.net>
+Subject: [PATCH 13/16] meson.build: increase required version
+Date: Tue,  4 Mar 2025 16:58:06 +0100
+Message-Id: <20250304155809.30399-14-info@metux.net>
 X-Mailer: git-send-email 2.39.5
 In-Reply-To: <20250304155809.30399-1-info@metux.net>
 References: <20250304155809.30399-1-info@metux.net>
 MIME-Version: 1.0
 Content-Transfer-Encoding: quoted-printable
-X-Provags-ID: V03:K1:ZcqVmi8V5dnfLC3aRy270i3Wh90HR4/hiIHXVdjujM+KbUoOxXC
- vGJc1M7GHEKHClu7WDuIWxga/Wtiz+Bz5QS3RWVAcUECEmZEEBBjwKWlHMYkEbDgiHa4XBx
- BiXV7Zp8h2MJpu/YAqzUNxpcz24CILohU/vAMD7Y1TvDxN6eloKvegYluhdOgtwU7Fei85+
- Rmqrkqjrv9ZC2uEQ67rhg==
-UI-OutboundReport: notjunk:1;M01:P0:iHorvyMW6BM=;H/f9Q+5bwDyJvG/2R+MyxJutVYx
- 7W55gMY1QrAe51KjX0lhtijE4rxHuEr7bse2N1AJ52QCN1d/5D0QG9U5V5DlplnNBtaQJQZfZ
- W6iqXQ0SxsvzXYnNKZqk2oIVaTnGwIsazE0CKinXI3Vf9BqSXnWmVXjTIGe8JyCnN3FEz1klD
- Yh7SRl3A1FIuVeITPy3kAFsKW30WLst7Jr/g+rbCBbF3w3tt0pFNT2+3v1uNpCkZ8WxBgN/bM
- 3kkfSBzhyQmTTwt8K2mcPtiMqzm6/SY64SYj+YBVkvM1+Rxop+/Np/ZtOw+bRgflkPGhBLn2j
- Xi3ZWJJl5K+uelG8RC6MyYeZeiAFCT6rCgVeC7obLc+kqCh8B1maTBdWYkKGN8vQ/lulf3V9X
- CLrxrTAYuuCxcKW25dZo73OuJIOmxkTCu0IlKOXohsP2os9qkQe9ghRKTVy5tUUTh9yJYWIhr
- OaLya0woVicGQnkuiEW6HSlzRbIIoT7F7sOdqp5EAaXYGYSHs2iXyIXCuvvlj6aiP9epCl4z/
- jnADGtn+YQW+m3QzBOooCfKVeMN1gd7bY63JPFL/vA8wdrsRwe/SEMhLxGdo5ndl1IS3vhLQ3
- +LwSyaEdqCpCmGTyawcH8YuL5MHio/6/L8LP7W+T/4WJHoThYisSznuArx7UmnqhxWr8jna7R
- NUkr5ajrzwe9AjJv3wCzSvh/ejHNKpQnEnrg+//iVLLB1I1gquHsaPWsZB3of7xp0w0MW3Ltc
- Fhjx8c93U9kk0YKq03fpbwqiQqzGNUQGWFIWLb/N016O5bCqlO/XOBYhL8VuIOSfutlQp+663
- g5gg627fbHgJMyh+BSxazljDQVU+DUMTwwUy3//WX5T+P/CgdEnbPgtDzxlTvbgKu9s5zLI1A
- IRBIvHZMaaPVat6EF2H8AFVg9LwK4NuJnagEiCPJx0/PdYdevNnFC83PzdNr9hQceVEXBN820
- pLs44tEbjQ5ouwV4o7k45U7cxYMWYo5URUQimqSD6yMGEAJ3AY0PHE04l1kHziv8wPNJjcJCz
- /OdT7NaBOwdj9b/L3FQEWfoX9QjZfvIzjIA2/GxU2/U6zLLIESOhTX7o1CFl3HZ/IlxRMWtOy
- B5OT0LXkSojNNBG66+9ePKuBsX7jC/2jaRAvYCvKidX524UJhAraVxM/4LoLdeSqgZW1GLHx4
- vhlosV8bmkGlwq28ZnyTQJGIaSikGfYsDe0xFQAnSaHT9PjdJ+h+29JEil3AWcql/Vao87L19
- lqxa8ndpDOOD4EaMBR7HwEmi7rOxe5BzNbAXVtRvlt1zyxxfbe3i2s2TP/xXMrL+8QwOzKa0e
- 5+poYLdxZBgZ3d+QfNhXBtF5Smg7DVn7/D79AWWq/wV1RIKPZMJi4akTn1J67p1BTq47piL7V
- 2Wkl5AADjzxPVQvw==
+X-Provags-ID: V03:K1:EAwotnE58s/21inW9dALDZc+4Mt7EzeDQlqz5AF4+XW4cqHhJqQ
+ LfohZKRLXB9kK7kp/UCvEths38vHnoMkD6Ad6KM2QLGt7AQKgFd8kBEGdPOWcQGxA4ItUL7
+ LkgUlUzNQPRTFhnffmqpC3hJOR2kLEz0B3ldZZ38ZGwbSYVbygAL2a8G4NsQBZE5adiUXGQ
+ 6Dc/oJGrRzs4kRtOJoJ6g==
+UI-OutboundReport: notjunk:1;M01:P0:GIrHQXfUh7w=;JI0EsI4IA32VmoTHCzLAgsl078C
+ TseTEl+/fiTN/jpIRB1BVn6Ba9O6QkukgipQy4bziuUKrXZdx8HXUrlhY+wVzagF3xT7+9OzO
+ RxQc1FFN38KqgRhBKia4vQJRB+s3m+Jt+fhmSi0eZSmnWw9KcWSGGUwWaljRXbQRv4q7oFhUC
+ itcuQOB/4cSA8Qg0ZhtyNMhZ1zXChYdNGwJvKNhGN9gHT02LwsmKN4oGFz6/5yNYlgo1zoBlU
+ QpaP8AerBsxV6Er7B8cH667EJ1yhTsKiX2cOfL2Coz8HP20m0ecG0i0pQvLymDHc5mhOnpnjx
+ Jw7Jj6fs4JHLZzRqmyjeos5ic1U7uRF72D3F9B5h3eiIN4PG8wozikf+59eS0Hle3mN/j5/LB
+ iYWD3YsxVq+kUlESKjRfxUqQwazAQe3SXx/xNZYlkGvuy4yx0ek525PlP4lFKh+0T0+xeudlg
+ UAjI7II+yGTaFa6yVEpAxT6VP08AGL2p2pvn8gsWbIx1wafxM711z+iaZ3fLWq6FdjNkfLXQE
+ arXzUFl8nUv0DPrvx+FqsjPCqhXSifkR1AH9Dp6A52w71EY7SZET71nOshcJ1d0lzI3OMm/Yx
+ /qT00ve9GEgpSPRBzJrZXH6ZnZDlgB8O88j/ApAGLm2EIP01kGfMs8juTLmXokAmEoh6m7/rg
+ pGl9KW8Lzs3w31p4UVtsaJLZ7u9wC3H+CBtTFWQn3g9aun217SdQLIrf5T791DLB5izHnMl/9
+ anvnsPcUg7wUDjI9+AZ2aYRL1Ddzlu80+tGKOFTuhuMipSSA+ELzBnJ9JPMUOhZ+ddZq7pnzr
+ coa37ai4kiokeu2txC7VPhuTME2ezlkJHRsHVY7YAotR5n7bxIF6cw8XdQxoXfovUKJw0WvQ0
+ BgGqezYom/54l7GFFtrKdFKp1hQuj5vHBQAURNiwC5NQocwQeRn2FmeX7ueb9FPxcFxWJ7mBb
+ EktEQ2f7FFVJCCx7SRPWH5vWSUAt4bwnjUlx6mvK5okZxGQxRJWEaIR2IwhYUU8rCEpp8Y9al
+ a0RoONFwxtfsL3b6kaWukuB79hcXyp7wROPxdJt0selek+4M+q34oodaICXPlt2hSkDJXJK5D
+ yUcDQThxuBFQdQULYrzXVhnK9RoYXADHsAqH52WkMzHdnxJ9CG5StbRR4VMeujTiqXmE7O2Av
+ dcvPdu4uAbLqLSeGZ/ZVBU2Ty9FytMNF1ol2ycA8SrIsUC+H88ARzccOKwWA+QQ6jxNJRv2fg
+ Fy/WG1bZGAGUXOsrU7gApSbgTLesfXB7gQ/JGRdTazG74afCp/w0QYu8rLzBIXtZ78ly/bVB0
+ 7dS9j1IA6nBPx7EqyzP/ykjplpVGzKwVDw5TaDb23gUs7MQa/0JTkb3v/gnpCXaaaU7Z6D8D/
+ wS5smnjGmXa6cxcw==
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -84,53 +83,29 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-These are just wrappers for calling input_lock()/input_unlock() and marked
-deprecated for quite a while now.
+tools/meson.build:45: WARNING: Project targets '>0.40.0' but uses feature =
+introduced in '0.41.0': capture arg in configure_file.
+377tools/meson.build:45: WARNING: Project targets '>0.40.0' but uses featu=
+re introduced in '0.50.0': install arg in configure_file.
 
 Signed-off-by: Enrico Weigelt, metux IT consult <info@metux.net>
 =2D--
- src/sna/sna_display.c  | 5 +++--
- src/uxa/intel_driver.c | 4 ++--
- 2 files changed, 5 insertions(+), 4 deletions(-)
+ meson.build | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/src/sna/sna_display.c b/src/sna/sna_display.c
-index d33a88af..d4adf34f 100644
-=2D-- a/src/sna/sna_display.c
-+++ b/src/sna/sna_display.c
-@@ -1161,11 +1161,12 @@ static inline void sigio_unblock(int was_blocked)
- #include <xf86_OSproc.h>
- static inline int sigio_block(void)
- {
--	return xf86BlockSIGIO();
-+	input_lock();
-+	return 0;
- }
- static inline void sigio_unblock(int was_blocked)
- {
--	xf86UnblockSIGIO(was_blocked);
-+	input_unlock();
- }
- #endif
+diff --git a/meson.build b/meson.build
+index 227ca2eb..fa861401 100644
+=2D-- a/meson.build
++++ b/meson.build
+@@ -5,7 +5,7 @@ project('xf86-video-intel', 'c',
+ 	  'c_std=3Dgnu99',
+ 	],
+ 	license : 'MIT',
+-	meson_version : '>0.40.0')
++	meson_version : '>=3D0.50.0')
 
-diff --git a/src/uxa/intel_driver.c b/src/uxa/intel_driver.c
-index 9c3fe85f..79105b89 100644
-=2D-- a/src/uxa/intel_driver.c
-+++ b/src/uxa/intel_driver.c
-@@ -641,10 +641,10 @@ redisplay_dirty(ScreenPtr screen, PixmapDirtyUpdateP=
-tr dirty)
-         intel_flush(intel);
- 	if (!intel->has_prime_vmap_flush) {
- 		drm_intel_bo *bo =3D intel_uxa_get_pixmap_bo(PixmapDirtyPrimary(dirty))=
-;
--		was_blocked =3D xf86BlockSIGIO();
-+		input_lock();
- 		drm_intel_bo_map(bo, FALSE);
- 		drm_intel_bo_unmap(bo);
--		xf86UnblockSIGIO(was_blocked);
-+		input_unlock();
- 	}
+ config =3D configuration_data()
 
- 	DamageRegionProcessPending(&PixmapDirtyDst(dirty)->drawable);
 =2D-
 2.39.5
 
