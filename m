@@ -4,76 +4,74 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C9B97C19F32
-	for <intel-gfx@archiver.kernel.org>; Fri,  7 Mar 2025 13:58:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CCD06C28B23
+	for <intel-gfx@archiver.kernel.org>; Fri,  7 Mar 2025 13:58:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0B8CE10EB8E;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4F08A10EB7D;
 	Fri,  7 Mar 2025 13:57:56 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Ua5JdOyE";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="ORmSVe8L";
 	dkim-atps=neutral
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 517D910EABE;
- Fri,  7 Mar 2025 04:35:37 +0000 (UTC)
+Received: from nyc.source.kernel.org (nyc.source.kernel.org [147.75.193.91])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2D7FB10E2A3;
+ Wed,  5 Mar 2025 13:01:05 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id D61685C5BA4;
- Fri,  7 Mar 2025 04:33:19 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BBA3AC4CEE3;
- Fri,  7 Mar 2025 04:35:29 +0000 (UTC)
+ by nyc.source.kernel.org (Postfix) with ESMTP id 22008A44EF0;
+ Wed,  5 Mar 2025 12:55:33 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 6522FC4CEEC;
+ Wed,  5 Mar 2025 13:01:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1741322136;
- bh=6ZCI/e7lhl23csgrc+82Crw3tN/S2yWqUimyde72NNU=;
- h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=Ua5JdOyETpgwg+IUOUY+l2lXkds2uhihN5IaIOLmaVucymJyUT3nMbswUyEoJrHVt
- I6EUYCD2Xa1hUuGd1Mlwo8lMxsNqqS6O9SI8RyhzXRLzvrSmBZ39t6ErL680vlOOK3
- yx0kel68LjYyHYD8VUN8G9VLfR5ydmLld3x8IjLj2syh4xRiVxO67I/5SxZu5kU/jS
- 41QW57w1PNLk/MAk7M9YQkltwfsGrTzda9m4pnbVR9HLZZu6JcO+zUvJqZ6/WLc6UP
- Ic2RmdmLg1vq1t/o+mrEideekC2BMY4vkYExGY+O9NTqagb/ElV4mZphQ/iO7/H1Eg
- zjzEEJGj7mzSQ==
-From: Dmitry Baryshkov <lumag@kernel.org>
-Date: Fri, 07 Mar 2025 06:34:48 +0200
-Subject: [PATCH RFC v3 6/7] drm/display: dp-mst-topology: use new DCPD
- access helpers
+ s=k20201202; t=1741179663;
+ bh=sg/JYTKwpy/LiLXDO/LiieI5R+JANZCMl/3ZAHkza+E=;
+ h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
+ b=ORmSVe8LPafMf2l4zSmixJdvDBBShlbDYuRr73U+517dS1a6SMRpgVaxxi4/9Wx2n
+ o9NvOQ2dePhLeuEXKrHq/2dJVMp+JGgakwTnEz9s2n5YNwxvE606UJLMyl55XtApKv
+ RlULL0A8qvCLBygyxeSMlNePK7N8gCexzgpfORFCq51D71SNPonpeG4yh49EDQnttf
+ p5/Z22UlD1TH/KbROM8TWYEC1AKkThxsfwPsgLpYjjDCD+QJM6LCoPXmt22ifBEuPC
+ K/HloWJxnlFJ+j6JlafqtSS5SZsetPyvpZgnXmBfVdDDWLDBx5WjlL+FHoSpKvDN4Z
+ Oa9OK5qK1xGdw==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org
+ (localhost.localdomain [127.0.0.1])
+ by smtp.lore.kernel.org (Postfix) with ESMTP id 59FA7C19F32;
+ Wed,  5 Mar 2025 13:01:03 +0000 (UTC)
+From: Vincent Mailhol via B4 Relay
+ <devnull+mailhol.vincent.wanadoo.fr@kernel.org>
+Date: Wed, 05 Mar 2025 22:00:15 +0900
+Subject: [PATCH v4 3/8] bits: introduce fixed-type genmasks
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20250307-drm-rework-dpcd-access-v3-6-9044a3a868ee@linaro.org>
-References: <20250307-drm-rework-dpcd-access-v3-0-9044a3a868ee@linaro.org>
-In-Reply-To: <20250307-drm-rework-dpcd-access-v3-0-9044a3a868ee@linaro.org>
-To: Lyude Paul <lyude@redhat.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>, 
- Sean Paul <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>, 
+Message-Id: <20250305-fixed-type-genmasks-v4-3-1873dcdf6723@wanadoo.fr>
+References: <20250305-fixed-type-genmasks-v4-0-1873dcdf6723@wanadoo.fr>
+In-Reply-To: <20250305-fixed-type-genmasks-v4-0-1873dcdf6723@wanadoo.fr>
+To: Yury Norov <yury.norov@gmail.com>, 
+ Lucas De Marchi <lucas.demarchi@intel.com>, 
+ Rasmus Villemoes <linux@rasmusvillemoes.dk>, 
  Jani Nikula <jani.nikula@linux.intel.com>, 
- Alex Deucher <alexander.deucher@amd.com>, 
- =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- Andrzej Hajda <andrzej.hajda@intel.com>, 
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
- Xinliang Liu <xinliang.liu@linaro.org>, Tian Tao <tiantao6@hisilicon.com>, 
- Xinwei Kong <kong.kongxinwei@hisilicon.com>, 
- Sumit Semwal <sumit.semwal@linaro.org>, 
- Yongqin Liu <yongqin.liu@linaro.org>, John Stultz <jstultz@google.com>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org, 
- intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org, 
- amd-gfx@lists.freedesktop.org, Jani Nikula <jani.nikula@intel.com>
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, 
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, 
+ Tvrtko Ursulin <tursulin@ursulin.net>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>, Andrew Morton <akpm@linux-foundation.org>
+Cc: linux-kernel@vger.kernel.org, intel-gfx@lists.freedesktop.org, 
+ dri-devel@lists.freedesktop.org, Andi Shyti <andi.shyti@linux.intel.com>, 
+ David Laight <David.Laight@ACULAB.COM>, 
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, 
+ Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
+ Jani Nikula <jani.nikula@intel.com>, 
+ Vincent Mailhol <mailhol.vincent@wanadoo.fr>
 X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=8924;
- i=dmitry.baryshkov@linaro.org; h=from:subject:message-id;
- bh=HHjW0O7WQSBAANLkv3PxOaSuiPNntikvFuh8IL45sr0=;
- b=owEBbQGS/pANAwAKAYs8ij4CKSjVAcsmYgBnyndm3sYdJ7WCw1+Wpi7cA+3dycvahDl1/2a/x
- Yo2dv9N8rWJATMEAAEKAB0WIQRMcISVXLJjVvC4lX+LPIo+Aiko1QUCZ8p3ZgAKCRCLPIo+Aiko
- 1feTB/4wdyVQJmKRVYYMN2pQCxTR2NF0GH6BpxtYFXbQiou/RJHxNo+hJbQyt2j/dARYdhcbbDb
- aoABfLiFPoqUUHbxdilkgAvVrUfkxZWzefQI23vgZ9Xdxdf/O+dQwvlZPgGIzBHzvN8ydWvogLr
- NhWmLG4WhwX1fKglt/y+VUtaU3EJ0cv6OGdqQM3cptpELIT/MlYNZSheUMDOPvMrQ17bjo1vO+g
- Hq4nepIhovxmXMw3XXcZW7ZyCc8DHNHufdPbCoRzV/vXpiKh5FgiN//LgVzT68KuOKYENx272hi
- voloB8XrbLdm3tDKKRWi8inkflDPjAqVJd8RYCn/7sOtTWMH
-X-Developer-Key: i=dmitry.baryshkov@linaro.org; a=openpgp;
- fpr=8F88381DD5C873E4AE487DA5199BF1243632046A
+X-Developer-Signature: v=1; a=openpgp-sha256; l=4515;
+ i=mailhol.vincent@wanadoo.fr; h=from:subject:message-id;
+ bh=mtX+7K6RlQPvgXcR1fwXiZPp9ranIvAEaE9ZvCHecUI=;
+ b=owGbwMvMwCV2McXO4Xp97WbG02pJDOknvP5ahtzRvXgrs6h/e6VV2Kkbbg7p2754dU2Q35BdZ
+ T9xC2dgRykLgxgXg6yYIsuyck5uhY5C77BDfy1h5rAygQxh4OIUgImYFTP8T47i2LHtF4/7o0vz
+ L/rIvTthmFubIiP1NLiRM6KskqlVj5Hhp2jQhYxrB4wu/ymMieo8ecn4hBHLjx8pU89t/lr15og
+ SBwA=
+X-Developer-Key: i=mailhol.vincent@wanadoo.fr; a=openpgp;
+ fpr=ED8F700574E67F20E574E8E2AB5FEB886DBB99C2
+X-Endpoint-Received: by B4 Relay for mailhol.vincent@wanadoo.fr/default
+ with auth_id=291
+X-Original-From: Vincent Mailhol <mailhol.vincent@wanadoo.fr>
 X-Mailman-Approved-At: Fri, 07 Mar 2025 13:57:54 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -87,251 +85,124 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: mailhol.vincent@wanadoo.fr
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+From: Yury Norov <yury.norov@gmail.com>
 
-Switch drm_dp_mst_topology.c to use new set of DPCD read / write helpers.
+Add __GENMASK_t() which generalizes __GENMASK() to support different
+types, and implement fixed-types versions of GENMASK() based on it.
+The fixed-type version allows more strict checks to the min/max values
+accepted, which is useful for defining registers like implemented by
+i915 and xe drivers with their REG_GENMASK*() macros.
 
-Reviewed-by: Lyude Paul <lyude@redhat.com>
+The strict checks rely on shift-count-overflow compiler check to fail
+the build if a number outside of the range allowed is passed.
+Example:
+
+	#define FOO_MASK GENMASK_U32(33, 4)
+
+will generate a warning like:
+
+	../include/linux/bits.h:41:31: error: left shift count >= width of type [-Werror=shift-count-overflow]
+	   41 |          (((t)~0ULL - ((t)(1) << (l)) + 1) & \
+	      |                               ^~
+
+Signed-off-by: Yury Norov <yury.norov@gmail.com>
+Signed-off-by: Lucas De Marchi <lucas.demarchi@intel.com>
 Acked-by: Jani Nikula <jani.nikula@intel.com>
-Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Signed-off-by: Vincent Mailhol <mailhol.vincent@wanadoo.fr>
 ---
- drivers/gpu/drm/display/drm_dp_mst_topology.c | 105 +++++++++++++-------------
- 1 file changed, 51 insertions(+), 54 deletions(-)
+Changelog:
 
-diff --git a/drivers/gpu/drm/display/drm_dp_mst_topology.c b/drivers/gpu/drm/display/drm_dp_mst_topology.c
-index 8b68bb3fbffb04dfcbd910fd0fd78b998440d6e8..e8716e73480bdf6abbef71897d1632f69a7b8a47 100644
---- a/drivers/gpu/drm/display/drm_dp_mst_topology.c
-+++ b/drivers/gpu/drm/display/drm_dp_mst_topology.c
-@@ -2201,15 +2201,12 @@ static int drm_dp_check_mstb_guid(struct drm_dp_mst_branch *mstb, guid_t *guid)
- 						     mstb->port_parent,
- 						     DP_GUID, sizeof(buf), buf);
- 		} else {
--			ret = drm_dp_dpcd_write(mstb->mgr->aux,
--						DP_GUID, buf, sizeof(buf));
-+			ret = drm_dp_dpcd_write_data(mstb->mgr->aux,
-+						     DP_GUID, buf, sizeof(buf));
- 		}
- 	}
+  v3 -> v4:
+
+    - The v3 is one year old. Meanwhile people started using
+      __GENMASK() directly. So instead of generalizing __GENMASK() to
+      support different types, add a new GENMASK_t().
+
+    - replace ~0ULL by ~_ULL(0). Otherwise, __GENMASK_t() would fail
+      in asm code.
+
+    - Make GENMASK_U8() and GENMASK_U16() return an unsigned int. In
+      v3, due to the integer promotion rules, these were returning a
+      signed integer. By casting these to unsigned int, at least the
+      signedness is kept.
+---
+ include/linux/bitops.h |  1 -
+ include/linux/bits.h   | 33 +++++++++++++++++++++++++++++----
+ 2 files changed, 29 insertions(+), 5 deletions(-)
+
+diff --git a/include/linux/bitops.h b/include/linux/bitops.h
+index c1cb53cf2f0f8662ed3e324578f74330e63f935d..9be2d50da09a417966b3d11c84092bb2f4cd0bef 100644
+--- a/include/linux/bitops.h
++++ b/include/linux/bitops.h
+@@ -8,7 +8,6 @@
  
--	if (ret < 16 && ret > 0)
--		return -EPROTO;
--
--	return ret == 16 ? 0 : ret;
-+	return ret;
- }
+ #include <uapi/linux/kernel.h>
  
- static void build_mst_prop_path(const struct drm_dp_mst_branch *mstb,
-@@ -2744,14 +2741,13 @@ static int drm_dp_send_sideband_msg(struct drm_dp_mst_topology_mgr *mgr,
- 	do {
- 		tosend = min3(mgr->max_dpcd_transaction_bytes, 16, total);
+-#define BITS_PER_TYPE(type)	(sizeof(type) * BITS_PER_BYTE)
+ #define BITS_TO_LONGS(nr)	__KERNEL_DIV_ROUND_UP(nr, BITS_PER_TYPE(long))
+ #define BITS_TO_U64(nr)		__KERNEL_DIV_ROUND_UP(nr, BITS_PER_TYPE(u64))
+ #define BITS_TO_U32(nr)		__KERNEL_DIV_ROUND_UP(nr, BITS_PER_TYPE(u32))
+diff --git a/include/linux/bits.h b/include/linux/bits.h
+index 5f68980a1b98d771426872c74d7b5c0f79e5e802..f202e46d2f4b7899c16d975120f3fa3ae41556ae 100644
+--- a/include/linux/bits.h
++++ b/include/linux/bits.h
+@@ -12,6 +12,7 @@
+ #define BIT_ULL_MASK(nr)	(ULL(1) << ((nr) % BITS_PER_LONG_LONG))
+ #define BIT_ULL_WORD(nr)	((nr) / BITS_PER_LONG_LONG)
+ #define BITS_PER_BYTE		8
++#define BITS_PER_TYPE(type)	(sizeof(type) * BITS_PER_BYTE)
  
--		ret = drm_dp_dpcd_write(mgr->aux, regbase + offset,
--					&msg[offset],
--					tosend);
--		if (ret != tosend) {
--			if (ret == -EIO && retries < 5) {
--				retries++;
--				goto retry;
--			}
-+		ret = drm_dp_dpcd_write_data(mgr->aux, regbase + offset,
-+					     &msg[offset],
-+					     tosend);
-+		if (ret == -EIO && retries < 5) {
-+			retries++;
-+			goto retry;
-+		} else if (ret < 0) {
- 			drm_dbg_kms(mgr->dev, "failed to dpcd write %d %d\n", tosend, ret);
+ /*
+  * Create a contiguous bitmask starting at bit position @l and ending at
+@@ -25,14 +26,38 @@
  
- 			return -EIO;
-@@ -3624,7 +3620,7 @@ enum drm_dp_mst_mode drm_dp_read_mst_cap(struct drm_dp_aux *aux,
- 	if (dpcd[DP_DPCD_REV] < DP_DPCD_REV_12)
- 		return DRM_DP_SST;
+ #define GENMASK_INPUT_CHECK(h, l) BUILD_BUG_ON_ZERO(const_true((l) > (h)))
  
--	if (drm_dp_dpcd_readb(aux, DP_MSTM_CAP, &mstm_cap) != 1)
-+	if (drm_dp_dpcd_read_byte(aux, DP_MSTM_CAP, &mstm_cap) < 0)
- 		return DRM_DP_SST;
+-#define GENMASK(h, l) \
+-	(GENMASK_INPUT_CHECK(h, l) + __GENMASK(h, l))
+-#define GENMASK_ULL(h, l) \
+-	(GENMASK_INPUT_CHECK(h, l) + __GENMASK_ULL(h, l))
++/*
++ * Generate a mask for the specified type @t. Additional checks are made to
++ * guarantee the value returned fits in that type, relying on
++ * shift-count-overflow compiler check to detect incompatible arguments.
++ * For example, all these create build errors or warnings:
++ *
++ * - GENMASK(15, 20): wrong argument order
++ * - GENMASK(72, 15): doesn't fit unsigned long
++ * - GENMASK_U32(33, 15): doesn't fit in a u32
++ */
++#define GENMASK_t(t, h, l)				\
++	(GENMASK_INPUT_CHECK(h, l) +			\
++	 (((t)~ULL(0) - ((t)1 << (l)) + 1) &		\
++	  ((t)~ULL(0) >> (BITS_PER_TYPE(t) - 1 - (h)))))
++
++#define GENMASK(h, l) GENMASK_t(unsigned long,  h, l)
++#define GENMASK_ULL(h, l) GENMASK_t(unsigned long long, h, l)
  
- 	if (mstm_cap & DP_MST_CAP)
-@@ -3679,10 +3675,10 @@ int drm_dp_mst_topology_mgr_set_mst(struct drm_dp_mst_topology_mgr *mgr, bool ms
- 		mgr->mst_primary = mstb;
- 		drm_dp_mst_topology_get_mstb(mgr->mst_primary);
- 
--		ret = drm_dp_dpcd_writeb(mgr->aux, DP_MSTM_CTRL,
--					 DP_MST_EN |
--					 DP_UP_REQ_EN |
--					 DP_UPSTREAM_IS_SRC);
-+		ret = drm_dp_dpcd_write_byte(mgr->aux, DP_MSTM_CTRL,
-+					     DP_MST_EN |
-+					     DP_UP_REQ_EN |
-+					     DP_UPSTREAM_IS_SRC);
- 		if (ret < 0)
- 			goto out_unlock;
- 
-@@ -3697,7 +3693,7 @@ int drm_dp_mst_topology_mgr_set_mst(struct drm_dp_mst_topology_mgr *mgr, bool ms
- 		mstb = mgr->mst_primary;
- 		mgr->mst_primary = NULL;
- 		/* this can fail if the device is gone */
--		drm_dp_dpcd_writeb(mgr->aux, DP_MSTM_CTRL, 0);
-+		drm_dp_dpcd_write_byte(mgr->aux, DP_MSTM_CTRL, 0);
- 		ret = 0;
- 		mgr->payload_id_table_cleared = false;
- 
-@@ -3763,8 +3759,8 @@ EXPORT_SYMBOL(drm_dp_mst_topology_queue_probe);
- void drm_dp_mst_topology_mgr_suspend(struct drm_dp_mst_topology_mgr *mgr)
- {
- 	mutex_lock(&mgr->lock);
--	drm_dp_dpcd_writeb(mgr->aux, DP_MSTM_CTRL,
--			   DP_MST_EN | DP_UPSTREAM_IS_SRC);
-+	drm_dp_dpcd_write_byte(mgr->aux, DP_MSTM_CTRL,
-+			       DP_MST_EN | DP_UPSTREAM_IS_SRC);
- 	mutex_unlock(&mgr->lock);
- 	flush_work(&mgr->up_req_work);
- 	flush_work(&mgr->work);
-@@ -3813,18 +3809,18 @@ int drm_dp_mst_topology_mgr_resume(struct drm_dp_mst_topology_mgr *mgr,
- 		goto out_fail;
- 	}
- 
--	ret = drm_dp_dpcd_writeb(mgr->aux, DP_MSTM_CTRL,
--				 DP_MST_EN |
--				 DP_UP_REQ_EN |
--				 DP_UPSTREAM_IS_SRC);
-+	ret = drm_dp_dpcd_write_byte(mgr->aux, DP_MSTM_CTRL,
-+				     DP_MST_EN |
-+				     DP_UP_REQ_EN |
-+				     DP_UPSTREAM_IS_SRC);
- 	if (ret < 0) {
- 		drm_dbg_kms(mgr->dev, "mst write failed - undocked during suspend?\n");
- 		goto out_fail;
- 	}
- 
- 	/* Some hubs forget their guids after they resume */
--	ret = drm_dp_dpcd_read(mgr->aux, DP_GUID, buf, sizeof(buf));
--	if (ret != sizeof(buf)) {
-+	ret = drm_dp_dpcd_read_data(mgr->aux, DP_GUID, buf, sizeof(buf));
-+	if (ret < 0) {
- 		drm_dbg_kms(mgr->dev, "dpcd read failed - undocked during suspend?\n");
- 		goto out_fail;
- 	}
-@@ -3883,8 +3879,8 @@ drm_dp_get_one_sb_msg(struct drm_dp_mst_topology_mgr *mgr, bool up,
- 		*mstb = NULL;
- 
- 	len = min(mgr->max_dpcd_transaction_bytes, 16);
--	ret = drm_dp_dpcd_read(mgr->aux, basereg, replyblock, len);
--	if (ret != len) {
-+	ret = drm_dp_dpcd_read_data(mgr->aux, basereg, replyblock, len);
-+	if (ret < 0) {
- 		drm_dbg_kms(mgr->dev, "failed to read DPCD down rep %d %d\n", len, ret);
- 		return false;
- 	}
-@@ -3922,9 +3918,9 @@ drm_dp_get_one_sb_msg(struct drm_dp_mst_topology_mgr *mgr, bool up,
- 	curreply = len;
- 	while (replylen > 0) {
- 		len = min3(replylen, mgr->max_dpcd_transaction_bytes, 16);
--		ret = drm_dp_dpcd_read(mgr->aux, basereg + curreply,
--				    replyblock, len);
--		if (ret != len) {
-+		ret = drm_dp_dpcd_read_data(mgr->aux, basereg + curreply,
-+					    replyblock, len);
-+		if (ret < 0) {
- 			drm_dbg_kms(mgr->dev, "failed to read a chunk (len %d, ret %d)\n",
- 				    len, ret);
- 			return false;
-@@ -4873,9 +4869,9 @@ static bool dump_dp_payload_table(struct drm_dp_mst_topology_mgr *mgr,
- 	int i;
- 
- 	for (i = 0; i < DP_PAYLOAD_TABLE_SIZE; i += 16) {
--		if (drm_dp_dpcd_read(mgr->aux,
--				     DP_PAYLOAD_TABLE_UPDATE_STATUS + i,
--				     &buf[i], 16) != 16)
-+		if (drm_dp_dpcd_read_data(mgr->aux,
-+					  DP_PAYLOAD_TABLE_UPDATE_STATUS + i,
-+					  &buf[i], 16) < 0)
- 			return false;
- 	}
- 	return true;
-@@ -4964,23 +4960,24 @@ void drm_dp_mst_dump_topology(struct seq_file *m,
- 		}
- 		seq_printf(m, "dpcd: %*ph\n", DP_RECEIVER_CAP_SIZE, buf);
- 
--		ret = drm_dp_dpcd_read(mgr->aux, DP_FAUX_CAP, buf, 2);
--		if (ret != 2) {
-+		ret = drm_dp_dpcd_read_data(mgr->aux, DP_FAUX_CAP, buf, 2);
-+		if (ret < 0) {
- 			seq_printf(m, "faux/mst read failed\n");
- 			goto out;
- 		}
- 		seq_printf(m, "faux/mst: %*ph\n", 2, buf);
- 
--		ret = drm_dp_dpcd_read(mgr->aux, DP_MSTM_CTRL, buf, 1);
--		if (ret != 1) {
-+		ret = drm_dp_dpcd_read_data(mgr->aux, DP_MSTM_CTRL, buf, 1);
-+		if (ret < 0) {
- 			seq_printf(m, "mst ctrl read failed\n");
- 			goto out;
- 		}
- 		seq_printf(m, "mst ctrl: %*ph\n", 1, buf);
- 
- 		/* dump the standard OUI branch header */
--		ret = drm_dp_dpcd_read(mgr->aux, DP_BRANCH_OUI, buf, DP_BRANCH_OUI_HEADER_SIZE);
--		if (ret != DP_BRANCH_OUI_HEADER_SIZE) {
-+		ret = drm_dp_dpcd_read_data(mgr->aux, DP_BRANCH_OUI, buf,
-+					    DP_BRANCH_OUI_HEADER_SIZE);
-+		if (ret < 0) {
- 			seq_printf(m, "branch oui read failed\n");
- 			goto out;
- 		}
-@@ -6104,14 +6101,14 @@ struct drm_dp_aux *drm_dp_mst_dsc_aux_for_port(struct drm_dp_mst_port *port)
- 
- 	/* DP-to-DP peer device */
- 	if (drm_dp_mst_is_virtual_dpcd(immediate_upstream_port)) {
--		if (drm_dp_dpcd_read(&port->aux,
--				     DP_DSC_SUPPORT, &endpoint_dsc, 1) != 1)
-+		if (drm_dp_dpcd_read_data(&port->aux,
-+					  DP_DSC_SUPPORT, &endpoint_dsc, 1) < 0)
- 			return NULL;
--		if (drm_dp_dpcd_read(&port->aux,
--				     DP_FEC_CAPABILITY, &endpoint_fec, 1) != 1)
-+		if (drm_dp_dpcd_read_data(&port->aux,
-+					  DP_FEC_CAPABILITY, &endpoint_fec, 1) < 0)
- 			return NULL;
--		if (drm_dp_dpcd_read(&immediate_upstream_port->aux,
--				     DP_DSC_SUPPORT, &upstream_dsc, 1) != 1)
-+		if (drm_dp_dpcd_read_data(&immediate_upstream_port->aux,
-+					  DP_DSC_SUPPORT, &upstream_dsc, 1) < 0)
- 			return NULL;
- 
- 		/* Enpoint decompression with DP-to-DP peer device */
-@@ -6149,8 +6146,8 @@ struct drm_dp_aux *drm_dp_mst_dsc_aux_for_port(struct drm_dp_mst_port *port)
- 	if (drm_dp_has_quirk(&desc, DP_DPCD_QUIRK_DSC_WITHOUT_VIRTUAL_DPCD)) {
- 		u8 dpcd_ext[DP_RECEIVER_CAP_SIZE];
- 
--		if (drm_dp_dpcd_read(immediate_upstream_aux,
--				     DP_DSC_SUPPORT, &upstream_dsc, 1) != 1)
-+		if (drm_dp_dpcd_read_data(immediate_upstream_aux,
-+					  DP_DSC_SUPPORT, &upstream_dsc, 1) < 0)
- 			return NULL;
- 
- 		if (!(upstream_dsc & DP_DSC_DECOMPRESSION_IS_SUPPORTED))
-@@ -6172,11 +6169,11 @@ struct drm_dp_aux *drm_dp_mst_dsc_aux_for_port(struct drm_dp_mst_port *port)
- 	 * therefore the endpoint needs to be
- 	 * both DSC and FEC capable.
- 	 */
--	if (drm_dp_dpcd_read(&port->aux,
--	   DP_DSC_SUPPORT, &endpoint_dsc, 1) != 1)
-+	if (drm_dp_dpcd_read_data(&port->aux,
-+				  DP_DSC_SUPPORT, &endpoint_dsc, 1) < 0)
- 		return NULL;
--	if (drm_dp_dpcd_read(&port->aux,
--	   DP_FEC_CAPABILITY, &endpoint_fec, 1) != 1)
-+	if (drm_dp_dpcd_read_data(&port->aux,
-+				  DP_FEC_CAPABILITY, &endpoint_fec, 1) < 0)
- 		return NULL;
- 	if ((endpoint_dsc & DP_DSC_DECOMPRESSION_IS_SUPPORTED) &&
- 	   (endpoint_fec & DP_FEC_CAPABLE))
+ /*
+  * Missing asm support
+  *
++ * __GENMASK_U*() depends on BITS_PER_TYPE() which would not work in the asm
++ * code as BITS_PER_TYPE() relies on sizeof(), something not available in
++ * asm. Nethertheless, the concept of fixed width integers is a C thing which
++ * does not apply to assembly code.
++ */
++#define GENMASK_U8(h, l) ((unsigned int)GENMASK_t(u8,  h, l))
++#define GENMASK_U16(h, l) ((unsigned int)GENMASK_t(u16, h, l))
++#define GENMASK_U32(h, l) GENMASK_t(u32, h, l)
++#define GENMASK_U64(h, l) GENMASK_t(u64, h, l)
++
++/*
+  * __GENMASK_U128() depends on _BIT128() which would not work
+  * in the asm code, as it shifts an 'unsigned __int128' data
+  * type instead of direct representation of 128 bit constants
 
 -- 
-2.39.5
+2.45.3
+
 
