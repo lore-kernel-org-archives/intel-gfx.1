@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7DB18C282E5
-	for <intel-gfx@archiver.kernel.org>; Wed,  5 Mar 2025 19:12:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 076CAC28B25
+	for <intel-gfx@archiver.kernel.org>; Wed,  5 Mar 2025 19:12:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0153D89CAC;
-	Wed,  5 Mar 2025 19:12:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7FBB589E47;
+	Wed,  5 Mar 2025 19:12:37 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="I2FdmGyD";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="Ru2QB7GV";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.12])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8961C89CB3;
- Wed,  5 Mar 2025 19:12:33 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 28EBC89E2A;
+ Wed,  5 Mar 2025 19:12:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1741201953; x=1772737953;
+ t=1741201956; x=1772737956;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=0mFBtAcqmJJti0U04z7ZkL9DY6nvUjHAUrPJJl73xe0=;
- b=I2FdmGyDtYJWFlY4l30y0Pm619jcu4U1yqM9hh6zRVs01Cl2WyTWIM8s
- lI+KTXGjqzUZWTTzYRlsV/ukyL2ZVkmJVDsEgS742EaL23JzX3awYU0Op
- gUPS34BJYE1/1z64pupBuqDGnBPqIZP7OIrS8Q6rWXEgf3R88xTQOb1BE
- RB6F1IpuIUiJtoeh1ulkuPkclwIlSr+Mf9fspBAEp8sWVjaukkLx67anM
- d1UD8jdRVm+UEGx5WrIV9tYB2KvPlOsGYuXYy7Tx6axP0cFdbrg2GrQ4y
- 9IEGOzOWKca/aHcXUeJTC9i7ws+lzEJ3BXeP9xr92DGeC0VBvr/hopWYl Q==;
-X-CSE-ConnectionGUID: qDiXCtvsQdyndINKGC/ClA==
-X-CSE-MsgGUID: iOb8O2k5TYan7M3JUnH1Bg==
-X-IronPort-AV: E=McAfee;i="6700,10204,11363"; a="46110888"
-X-IronPort-AV: E=Sophos;i="6.14,224,1736841600"; d="scan'208";a="46110888"
+ bh=vkvnXL4bg4NjI5RXmjIIctMdmRH3UwfvRzkvPK0G34A=;
+ b=Ru2QB7GV/6tJ4asqyIA+E5Y4c+FqIUMgPuUqfizHYGWFKbzSrWDTIziQ
+ GaucA2ImX6P3AtkRHwOfeKctEoAVLUDnlk+a43woSIhLWebN0ZhLY9CMs
+ DNV2UNNjPaqiQ4qduPC3d7tQ2cY0g6RoJCLtkwNDGlf2mnOjrPGxpI1C7
+ yBFdY8v/ReRepRtcA/pMHe82RZCInn/esuh+PQAKg/L+3oddg8gnYWWKR
+ xWvbZd3LU8u9eJ6VNBBIfLaON/3m55hx/JMg4IUc9M96JTLXfs1koIzjr
+ mSizIAvs1yU7sWAyJq3Yhd1jCIpTWkzP0Gy6UQ5meHJokyNXA4OIxC2Zd g==;
+X-CSE-ConnectionGUID: W2PkQdBTRt6jW3p4NSqbaw==
+X-CSE-MsgGUID: XXURyJTBRNeKXhydwzwnDg==
+X-IronPort-AV: E=McAfee;i="6700,10204,11363"; a="46110895"
+X-IronPort-AV: E=Sophos;i="6.14,224,1736841600"; d="scan'208";a="46110895"
 Received: from orviesa006.jf.intel.com ([10.64.159.146])
  by fmvoesa106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 05 Mar 2025 11:12:33 -0800
-X-CSE-ConnectionGUID: UPtdUfhAR8mCg0Yutwww1A==
-X-CSE-MsgGUID: Z5dUwSzJTtOFd8EIyb/svA==
+ 05 Mar 2025 11:12:36 -0800
+X-CSE-ConnectionGUID: FRCZmq1bSCO3Dka4VcPj4g==
+X-CSE-MsgGUID: DFC6uqEzSRCODvSS6/FFKw==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.14,224,1736841600"; d="scan'208";a="118803028"
+X-IronPort-AV: E=Sophos;i="6.14,224,1736841600"; d="scan'208";a="118803083"
 Received: from jkrzyszt-mobl2.ger.corp.intel.com ([10.245.246.58])
  by orviesa006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 05 Mar 2025 11:12:24 -0800
+ 05 Mar 2025 11:12:33 -0800
 From: Janusz Krzysztofik <janusz.krzysztofik@linux.intel.com>
 To: intel-gfx@lists.freedesktop.org, Jani Nikula <jani.nikula@linux.intel.com>,
  Andi Shyti <andi.shyti@linux.intel.com>
@@ -54,9 +54,9 @@ Cc: dri-devel@lists.freedesktop.org,
  Ashutosh Dixit <ashutosh.dixit@intel.com>,
  Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>,
  Janusz Krzysztofik <janusz.krzysztofik@linux.intel.com>
-Subject: [PATCH v3 2/4] drm/i915: Omit unnecessary driver unregister steps
-Date: Wed,  5 Mar 2025 20:11:11 +0100
-Message-ID: <20250305191152.164615-8-janusz.krzysztofik@linux.intel.com>
+Subject: [PATCH v3 4/4] drm/i915: Group not skipped unregister steps
+Date: Wed,  5 Mar 2025 20:11:13 +0100
+Message-ID: <20250305191152.164615-10-janusz.krzysztofik@linux.intel.com>
 X-Mailer: git-send-email 2.48.1
 In-Reply-To: <20250305191152.164615-6-janusz.krzysztofik@linux.intel.com>
 References: <20250305191152.164615-6-janusz.krzysztofik@linux.intel.com>
@@ -77,134 +77,68 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Now that we have a flag that indicates device registration status, when
-unregistering the driver, jump over reverts of driver registration steps
-that were not called due to device registration failure.
+Further simplification of i915_driver_unregister() requires moving of two
+steps, intel_pxp_fini() and intel_gt_driver_unregister(), down, e.g.,
+right behind drm_dev_unplug().  Local testing hasn't revealed any issues
+with that move, so go for it.
 
-Unfortunately, not all steps of i915_driver_unregister() are limited only
-to reverting changes introduced by their corresponding steps of
-i915_driver_register(), and some are called out of order (not in reverse
-order of what was called / skipped during driver registration.
-
-One example is intel_gt_driver_unregister() called for each GT.  For clean
-driver removal, a step of that function -- intel_gsc_uc_flush_work() --
-occurred required even if intel_gt_driver_register() was not called due to
-device registration failure.  That call was added to
-intel_gt_driver_unregister() with commit b09f9670b13038 ("drm/i915/gsc:
-flush the GSC worker before wedging on unload").
-
-Another exception is intel_pxp_fini().  It seems to be a counterpart of
-intel_pxp_init(), called directly from i915_driver_probe(), rather than of
-intel_pxp_debugfs_register().  However, it still needs to be called before
-intel_gt_driver_unregister()->intel_gsc_uc_flush_work() for clean driver
-removal.  The call to intel_pxp_fini() was added to
-i915_driver_unregister() with commit f67986b0119c04 ("drm/i915/pxp:
-Promote pxp subsystem to top-level of i915").
-
-Also, drm_dev_unplug() must be called even if drm_dev_register() failed.
-It not only does more than drm_dev_unregister() but also, some of its
-initial steps might have been called and not unwound even if an error then
-occurred, so they must be reverted on driver unregister.
-
-Last, i915_pmu_unregister(), a counterpart of i915_pmu_register() always
-called from i915_driver_register(), must be called unconditionally from
-i915_driver_register().  However, since it is called a few steps before
-drm_dev_unplug(), it also requires special handling.  BTW, its placement
-within i915_driver_unregister() hasn't changes since the immediate return
-from i915_driver_register() on device registration failure was introduced.
-
-To avoid unexpected side effects, execution order of unregister steps is
-strictly preserved, which potentially makes the code changes sub-optimal.
-That will be addressed in follow-up patches.
-
-v3: Don't limit the scope to fixing a subset of what needs to be handled
-    properly (hwmon? gt? debugfs?). (Andi)
-v2: Check in _unregister whether the drm_dev_register has succeeded and
-    skip some of the _unregister() steps. (Andi)
+Former placement of intel_gt_driver_unregister() within
+i915_driver_unregister() originated from commit 42014f69bb235f ("drm/i915:
+Hook up GT power management") while its content has grown significantly
+since its introduction.  Placement of intel_pxp_fini() originated from
+commit f67986b0119c04 ("drm/i915/pxp: Promote pxp subsystem to top-level
+of i915").
 
 Cc: Lucas De Marchi <lucas.demarchi@intel.com>
 Cc: Chris Wilson <chris.p.wilson@linux.intel.com>
-Cc: Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>
-Cc: Alan Previn <alan.previn.teres.alexis@intel.com>
 Cc: Andi Shyti <andi.shyti@linux.intel.com>
+Cc: Alan Previn <alan.previn.teres.alexis@intel.com>
 Signed-off-by: Janusz Krzysztofik <janusz.krzysztofik@linux.intel.com>
 ---
- drivers/gpu/drm/i915/gt/intel_gt.c |  9 +++++++--
- drivers/gpu/drm/i915/i915_driver.c | 17 +++++++++++++----
- 2 files changed, 20 insertions(+), 6 deletions(-)
+ drivers/gpu/drm/i915/i915_driver.c | 16 ++++++----------
+ 1 file changed, 6 insertions(+), 10 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gt/intel_gt.c b/drivers/gpu/drm/i915/gt/intel_gt.c
-index 77eb9305a1ff8..17e2ccd8b1a92 100644
---- a/drivers/gpu/drm/i915/gt/intel_gt.c
-+++ b/drivers/gpu/drm/i915/gt/intel_gt.c
-@@ -783,8 +783,10 @@ void intel_gt_driver_unregister(struct intel_gt *gt)
- {
- 	intel_wakeref_t wakeref;
- 
--	if (gt->i915->do_unregister)
--		intel_gt_sysfs_unregister(gt);
-+	if (!gt->i915->do_unregister)
-+		goto not_registered;
-+
-+	intel_gt_sysfs_unregister(gt);
- 	intel_rps_driver_unregister(&gt->rps);
- 	intel_gsc_fini(&gt->gsc);
- 
-@@ -809,7 +811,10 @@ void intel_gt_driver_unregister(struct intel_gt *gt)
- 	 * will likely already be idle in the great majority of non-selftest
- 	 * scenarios.
- 	 */
-+not_registered:
- 	intel_gsc_uc_flush_work(&gt->uc.gsc);
-+	if (!gt->i915->do_unregister)
-+		return;
- 
- 	/*
- 	 * Upon unregistering the device to prevent any new users, cancel
 diff --git a/drivers/gpu/drm/i915/i915_driver.c b/drivers/gpu/drm/i915/i915_driver.c
-index 2caaeeab1f0f6..d865e90f54704 100644
+index 7980bb880c7dc..0a07de2a7734b 100644
 --- a/drivers/gpu/drm/i915/i915_driver.c
 +++ b/drivers/gpu/drm/i915/i915_driver.c
-@@ -672,26 +672,35 @@ static void i915_driver_unregister(struct drm_i915_private *dev_priv)
- 	struct intel_gt *gt;
+@@ -673,7 +673,7 @@ static void i915_driver_unregister(struct drm_i915_private *dev_priv)
  	unsigned int i;
  
-+	if (!dev_priv->do_unregister)
-+		goto do_pxp_gt;
-+
+ 	if (!dev_priv->do_unregister)
+-		goto do_pxp_gt;
++		goto do_unplug;
+ 
  	i915_switcheroo_unregister(dev_priv);
  
- 	intel_runtime_pm_disable(&dev_priv->runtime_pm);
--	if (dev_priv->do_unregister)
--		intel_power_domains_disable(display);
-+	intel_power_domains_disable(display);
+@@ -682,15 +682,6 @@ static void i915_driver_unregister(struct drm_i915_private *dev_priv)
  
  	intel_display_driver_unregister(display);
  
-+do_pxp_gt:
- 	intel_pxp_fini(dev_priv);
- 
- 	for_each_gt(gt, dev_priv, i)
- 		intel_gt_driver_unregister(gt);
- 
-+	if (!dev_priv->do_unregister)
-+		goto do_pmu;
-+
+-do_pxp_gt:
+-	intel_pxp_fini(dev_priv);
+-
+-	for_each_gt(gt, dev_priv, i)
+-		intel_gt_driver_unregister(gt);
+-
+-	if (!dev_priv->do_unregister)
+-		goto do_unplug;
+-
  	i915_hwmon_unregister(dev_priv);
  
  	i915_perf_unregister(dev_priv);
-+do_pmu:
- 	i915_pmu_unregister(dev_priv);
-+	if (!dev_priv->do_unregister)
-+		goto do_unplug;
- 
--	if (dev_priv->do_unregister)
--		i915_teardown_sysfs(dev_priv);
-+	i915_teardown_sysfs(dev_priv);
-+do_unplug:
+@@ -699,6 +690,11 @@ static void i915_driver_unregister(struct drm_i915_private *dev_priv)
+ do_unplug:
  	drm_dev_unplug(&dev_priv->drm);
  
++	intel_pxp_fini(dev_priv);
++
++	for_each_gt(gt, dev_priv, i)
++		intel_gt_driver_unregister(gt);
++
+ 	i915_pmu_unregister(dev_priv);
  	i915_gem_driver_unregister(dev_priv);
+ }
 -- 
 2.48.1
 
