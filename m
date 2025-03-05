@@ -4,71 +4,74 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C7F97C28B25
-	for <intel-gfx@archiver.kernel.org>; Fri,  7 Mar 2025 13:58:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C6A0AC35FF1
+	for <intel-gfx@archiver.kernel.org>; Fri,  7 Mar 2025 13:58:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3532F10EB9C;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 39BE010EB9E;
 	Fri,  7 Mar 2025 13:58:00 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=wanadoo.fr header.i=@wanadoo.fr header.b="N4mfkdbA";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="XxzqLr58";
 	dkim-atps=neutral
-Received: from out.smtpout.orange.fr (out-13.smtpout.orange.fr [193.252.22.13])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7A8A610E7FA;
- Wed,  5 Mar 2025 16:10:01 +0000 (UTC)
-Received: from [172.16.82.72] ([124.33.176.97]) by smtp.orange.fr with ESMTPA
- id prJbtTSCG63luprJgtW8On; Wed, 05 Mar 2025 17:09:58 +0100
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=wanadoo.fr;
- s=t20230301; t=1741190998;
- bh=LTODso3brupSi75LN9uPUwVb2HT7RIhBdq3edv94tdo=;
- h=Message-ID:Date:MIME-Version:Subject:To:From;
- b=N4mfkdbAtJy+mCNmLhDTAuUHv+MDNbHXuyqOBrVje9lFDIziAi9MrRApsAtV+dvKD
- ZKQY4dH0JyH/yPrz2GTdgZFNdzIkC3bgguZofcw8lmWrt92kS0L2vSMh4g3MIK60na
- FTuFiFzl05NTipThGQFMte6V8ABRFrNafM73qfF8vpQr/F7oObAcUDxGfubyiEoZdF
- He7IkhSmMVC19kKy5Ztg8xbxG3HmUjgkt1JQZbeGwujPNXmmHN0ozBf0G3brSfN4Eb
- 0PGT6grJ5i+RZufkP7B64mLothI4/wo5IzomQkAWUq+pOfoExhgb/RH6n9EhLQu3Yr
- cxM4Y9+7caunw==
-X-ME-Helo: [172.16.82.72]
-X-ME-Auth: bWFpbGhvbC52aW5jZW50QHdhbmFkb28uZnI=
-X-ME-Date: Wed, 05 Mar 2025 17:09:58 +0100
-X-ME-IP: 124.33.176.97
-Message-ID: <a4195c42-7912-40c6-8b46-a718843c4a1d@wanadoo.fr>
-Date: Thu, 6 Mar 2025 01:09:46 +0900
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7CB8510E298;
+ Wed,  5 Mar 2025 13:01:04 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by dfw.source.kernel.org (Postfix) with ESMTP id 1C7455C68DA;
+ Wed,  5 Mar 2025 12:58:47 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 8C4F3C4CEEE;
+ Wed,  5 Mar 2025 13:01:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1741179663;
+ bh=zVRBkiNnKY1oxgHnmLcEOYlN5+kCDAsRhghCSQ4quZM=;
+ h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
+ b=XxzqLr58k4swhKj5cMTU28U5qF79OEikjION7X1axRFdytpVYAzdg5Dk9UjaSZKrr
+ W6v6AmDAUsWFnDgfI6oCIKj0XN61ft4HourTV46Nqhg0pyiP8FvcZb6IwRSO8WC0+z
+ I/aqRJ+E2Eca9QxrqpSE33gT3giZ5e9U+JG/o2HK3/m1k7Qa5T2qjqKma0Vm9cUSTS
+ t6ksr/RCyxGpge3kTyuJ7mAu3GvhXxWCvmYpYC+R/2E+lCFdtZdRAiy9Y/8kKnbjJg
+ aBoJZ+vV1aFyBAP3JKAeVNhLwebA8srQORTD4IaQlRkJcROX19fkPsUYSuaowkJgDU
+ XCW5o6GX2fxxQ==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org
+ (localhost.localdomain [127.0.0.1])
+ by smtp.lore.kernel.org (Postfix) with ESMTP id 8129CC19F32;
+ Wed,  5 Mar 2025 13:01:03 +0000 (UTC)
+From: Vincent Mailhol via B4 Relay
+ <devnull+mailhol.vincent.wanadoo.fr@kernel.org>
+Date: Wed, 05 Mar 2025 22:00:17 +0900
+Subject: [PATCH v4 5/8] drm/i915: Convert REG_GENMASK* to fixed-width GENMASK_*
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 1/8] bits: fix typo 'unsigned __init128' -> 'unsigned
- __int128'
-To: Yury Norov <yury.norov@gmail.com>,
- Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-Cc: Lucas De Marchi <lucas.demarchi@intel.com>,
- Rasmus Villemoes <linux@rasmusvillemoes.dk>,
- Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, Tvrtko Ursulin
- <tursulin@ursulin.net>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Andrew Morton <akpm@linux-foundation.org>,
- linux-kernel@vger.kernel.org, intel-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, Andi Shyti <andi.shyti@linux.intel.com>,
- David Laight <David.Laight@aculab.com>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-References: <20250305-fixed-type-genmasks-v4-0-1873dcdf6723@wanadoo.fr>
- <20250305-fixed-type-genmasks-v4-1-1873dcdf6723@wanadoo.fr>
- <Z8hf_MNL3MeoXW5O@thinkpad> <Z8hhXHporoJ6Y39X@smile.fi.intel.com>
- <Z8hh6BZgD3lmyBKp@thinkpad>
-Content-Language: en-US
-From: Vincent Mailhol <mailhol.vincent@wanadoo.fr>
-Autocrypt: addr=mailhol.vincent@wanadoo.fr; keydata=
- xjMEZluomRYJKwYBBAHaRw8BAQdAf+/PnQvy9LCWNSJLbhc+AOUsR2cNVonvxhDk/KcW7FvN
- LFZpbmNlbnQgTWFpbGhvbCA8bWFpbGhvbC52aW5jZW50QHdhbmFkb28uZnI+wrIEExYKAFoC
- GwMFCQp/CJcFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4AWIQTtj3AFdOZ/IOV06OKrX+uI
- bbuZwgUCZx41XhgYaGtwczovL2tleXMub3BlbnBncC5vcmcACgkQq1/riG27mcIYiwEAkgKK
- BJ+ANKwhTAAvL1XeApQ+2NNNEwFWzipVAGvTRigA+wUeyB3UQwZrwb7jsQuBXxhk3lL45HF5
- 8+y4bQCUCqYGzjgEZx4y8xIKKwYBBAGXVQEFAQEHQJrbYZzu0JG5w8gxE6EtQe6LmxKMqP6E
- yR33sA+BR9pLAwEIB8J+BBgWCgAmFiEE7Y9wBXTmfyDldOjiq1/riG27mcIFAmceMvMCGwwF
- CQPCZwAACgkQq1/riG27mcJU7QEA+LmpFhfQ1aij/L8VzsZwr/S44HCzcz5+jkxnVVQ5LZ4B
- ANOCpYEY+CYrld5XZvM8h2EntNnzxHHuhjfDOQ3MAkEK
-In-Reply-To: <Z8hh6BZgD3lmyBKp@thinkpad>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+Message-Id: <20250305-fixed-type-genmasks-v4-5-1873dcdf6723@wanadoo.fr>
+References: <20250305-fixed-type-genmasks-v4-0-1873dcdf6723@wanadoo.fr>
+In-Reply-To: <20250305-fixed-type-genmasks-v4-0-1873dcdf6723@wanadoo.fr>
+To: Yury Norov <yury.norov@gmail.com>, 
+ Lucas De Marchi <lucas.demarchi@intel.com>, 
+ Rasmus Villemoes <linux@rasmusvillemoes.dk>, 
+ Jani Nikula <jani.nikula@linux.intel.com>, 
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, 
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, 
+ Tvrtko Ursulin <tursulin@ursulin.net>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>, Andrew Morton <akpm@linux-foundation.org>
+Cc: linux-kernel@vger.kernel.org, intel-gfx@lists.freedesktop.org, 
+ dri-devel@lists.freedesktop.org, Andi Shyti <andi.shyti@linux.intel.com>, 
+ David Laight <David.Laight@ACULAB.COM>, 
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, 
+ Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
+ Jani Nikula <jani.nikula@intel.com>, 
+ Vincent Mailhol <mailhol.vincent@wanadoo.fr>
+X-Mailer: b4 0.14.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=5314;
+ i=mailhol.vincent@wanadoo.fr; h=from:subject:message-id;
+ bh=A+bBG6IBW7JTCmvQTTxkWHwwLoDBr8tLykq65oERCs4=;
+ b=owGbwMvMwCV2McXO4Xp97WbG02pJDOknvJnN2NZzCQttsXb3yp27Nnr+qy0MBZu0/HtYpGoK3
+ OLWxTl1lLIwiHExyIopsiwr5+RW6Cj0Djv01xJmDisTyBAGLk4BmMikLoZ/xj17ki5MV7E1XTRl
+ 986NQa05vxfcmd5tsuqLds4prd8ekxn+2YlX9os3JO1k6L3Bd3ttn+GK5ivWG44e6+5uehLpe34
+ JJwA=
+X-Developer-Key: i=mailhol.vincent@wanadoo.fr; a=openpgp;
+ fpr=ED8F700574E67F20E574E8E2AB5FEB886DBB99C2
+X-Endpoint-Received: by B4 Relay for mailhol.vincent@wanadoo.fr/default
+ with auth_id=291
+X-Original-From: Vincent Mailhol <mailhol.vincent@wanadoo.fr>
 X-Mailman-Approved-At: Fri, 07 Mar 2025 13:57:54 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -82,33 +85,161 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: mailhol.vincent@wanadoo.fr
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On 05/03/2025 at 23:38, Yury Norov wrote:
-> On Wed, Mar 05, 2025 at 04:36:12PM +0200, Andy Shevchenko wrote:
->> On Wed, Mar 05, 2025 at 09:30:20AM -0500, Yury Norov wrote:
->>> On Wed, Mar 05, 2025 at 10:00:13PM +0900, Vincent Mailhol via B4 Relay wrote:
->>>> From: Vincent Mailhol <mailhol.vincent@wanadoo.fr>
->>>>
->>>> "int" was misspelled as "init" in GENMASK_U128() comments. Fix the typo.
->>>
->>> Thanks for respinning the series. I'll take this fix in bitmap-for-next, so
->>> if you need v2, you'll not have to bear this thing too.
->>
->> Before doing that, please read my comment first.
-> 
-> Already did. Yes, you're right.
-> 
-> Vincent, can you send the fix separately, so I'll move it in the
-> upcoming merge window?
+From: Lucas De Marchi <lucas.demarchi@intel.com>
 
-Here it is:
-https://lore.kernel.org/all/20250305-fix_init128_typo-v1-1-cbe5b8e54e7d@wanadoo.fr/
+Now that include/linux/bits.h implements fixed-width GENMASK_*, use them
+to implement the i915/xe specific macros. Converting each driver to use
+the generic macros are left for later, when/if other driver-specific
+macros are also generalized.
 
-As requested, I will exclude this from the v5.
+Signed-off-by: Lucas De Marchi <lucas.demarchi@intel.com>
+Acked-by: Jani Nikula <jani.nikula@intel.com>
+Signed-off-by: Vincent Mailhol <mailhol.vincent@wanadoo.fr>
+---
+Changelog:
 
+  v3 -> v4:
 
-Yours sincerely,
-Vincent Mailhol
+    - Remove the prefixes in macro parameters,
+      e.g. 'REG_GENMASK(__high, __low)' -> 'REG_GENMASK(high, low)'
+---
+ drivers/gpu/drm/i915/i915_reg_defs.h | 108 ++++-------------------------------
+ 1 file changed, 11 insertions(+), 97 deletions(-)
+
+diff --git a/drivers/gpu/drm/i915/i915_reg_defs.h b/drivers/gpu/drm/i915/i915_reg_defs.h
+index e251bcc0c89f5710125bc70f07851b2cb978c89c..39e5ed9511174b8757b9201bff735fa362651b34 100644
+--- a/drivers/gpu/drm/i915/i915_reg_defs.h
++++ b/drivers/gpu/drm/i915/i915_reg_defs.h
+@@ -9,76 +9,19 @@
+ #include <linux/bitfield.h>
+ #include <linux/bits.h>
+ 
+-/**
+- * REG_BIT() - Prepare a u32 bit value
+- * @__n: 0-based bit number
+- *
+- * Local wrapper for BIT() to force u32, with compile time checks.
+- *
+- * @return: Value with bit @__n set.
+- */
+-#define REG_BIT(__n)							\
+-	((u32)(BIT(__n) +						\
+-	       BUILD_BUG_ON_ZERO(__is_constexpr(__n) &&		\
+-				 ((__n) < 0 || (__n) > 31))))
+-
+-/**
+- * REG_BIT8() - Prepare a u8 bit value
+- * @__n: 0-based bit number
+- *
+- * Local wrapper for BIT() to force u8, with compile time checks.
+- *
+- * @return: Value with bit @__n set.
+- */
+-#define REG_BIT8(__n)                                                   \
+-	((u8)(BIT(__n) +                                                \
+-	       BUILD_BUG_ON_ZERO(__is_constexpr(__n) &&         \
+-				 ((__n) < 0 || (__n) > 7))))
+-
+-/**
+- * REG_GENMASK() - Prepare a continuous u32 bitmask
+- * @__high: 0-based high bit
+- * @__low: 0-based low bit
+- *
+- * Local wrapper for GENMASK() to force u32, with compile time checks.
+- *
+- * @return: Continuous bitmask from @__high to @__low, inclusive.
+- */
+-#define REG_GENMASK(__high, __low)					\
+-	((u32)(GENMASK(__high, __low) +					\
+-	       BUILD_BUG_ON_ZERO(__is_constexpr(__high) &&	\
+-				 __is_constexpr(__low) &&		\
+-				 ((__low) < 0 || (__high) > 31 || (__low) > (__high)))))
+-
+-/**
+- * REG_GENMASK64() - Prepare a continuous u64 bitmask
+- * @__high: 0-based high bit
+- * @__low: 0-based low bit
+- *
+- * Local wrapper for GENMASK_ULL() to force u64, with compile time checks.
+- *
+- * @return: Continuous bitmask from @__high to @__low, inclusive.
++/*
++ * Wrappers over the generic BIT_* and GENMASK_* implementations,
++ * for compatibility reasons with previous implementation
+  */
+-#define REG_GENMASK64(__high, __low)					\
+-	((u64)(GENMASK_ULL(__high, __low) +				\
+-	       BUILD_BUG_ON_ZERO(__is_constexpr(__high) &&		\
+-				 __is_constexpr(__low) &&		\
+-				 ((__low) < 0 || (__high) > 63 || (__low) > (__high)))))
++#define REG_GENMASK(high, low)		GENMASK_U32(high, low)
++#define REG_GENMASK64(high, low)	GENMASK_U64(high, low)
++#define REG_GENMASK16(high, low)	GENMASK_U16(high, low)
++#define REG_GENMASK8(high, low)		GENMASK_U8(high, low)
+ 
+-/**
+- * REG_GENMASK8() - Prepare a continuous u8 bitmask
+- * @__high: 0-based high bit
+- * @__low: 0-based low bit
+- *
+- * Local wrapper for GENMASK() to force u8, with compile time checks.
+- *
+- * @return: Continuous bitmask from @__high to @__low, inclusive.
+- */
+-#define REG_GENMASK8(__high, __low)                                     \
+-	((u8)(GENMASK(__high, __low) +                                  \
+-	       BUILD_BUG_ON_ZERO(__is_constexpr(__high) &&      \
+-				 __is_constexpr(__low) &&               \
+-				 ((__low) < 0 || (__high) > 7 || (__low) > (__high)))))
++#define REG_BIT(n)			BIT_U32(n)
++#define REG_BIT64(n)			BIT_U64(n)
++#define REG_BIT16(n)			BIT_U16(n)
++#define REG_BIT8(n)			BIT_U8(n)
+ 
+ /*
+  * Local integer constant expression version of is_power_of_2().
+@@ -143,35 +86,6 @@
+  */
+ #define REG_FIELD_GET64(__mask, __val)	((u64)FIELD_GET(__mask, __val))
+ 
+-/**
+- * REG_BIT16() - Prepare a u16 bit value
+- * @__n: 0-based bit number
+- *
+- * Local wrapper for BIT() to force u16, with compile time
+- * checks.
+- *
+- * @return: Value with bit @__n set.
+- */
+-#define REG_BIT16(__n)                                                   \
+-	((u16)(BIT(__n) +                                                \
+-	       BUILD_BUG_ON_ZERO(__is_constexpr(__n) &&         \
+-				 ((__n) < 0 || (__n) > 15))))
+-
+-/**
+- * REG_GENMASK16() - Prepare a continuous u8 bitmask
+- * @__high: 0-based high bit
+- * @__low: 0-based low bit
+- *
+- * Local wrapper for GENMASK() to force u16, with compile time
+- * checks.
+- *
+- * @return: Continuous bitmask from @__high to @__low, inclusive.
+- */
+-#define REG_GENMASK16(__high, __low)                                     \
+-	((u16)(GENMASK(__high, __low) +                                  \
+-	       BUILD_BUG_ON_ZERO(__is_constexpr(__high) &&      \
+-				 __is_constexpr(__low) &&               \
+-				 ((__low) < 0 || (__high) > 15 || (__low) > (__high)))))
+ 
+ /**
+  * REG_FIELD_PREP16() - Prepare a u16 bitfield value
+
+-- 
+2.45.3
+
 
