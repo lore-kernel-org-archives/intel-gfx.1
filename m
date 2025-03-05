@@ -4,53 +4,57 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3B92FC021B8
-	for <intel-gfx@archiver.kernel.org>; Tue,  4 Mar 2025 20:00:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 65083C19F32
+	for <intel-gfx@archiver.kernel.org>; Wed,  5 Mar 2025 13:32:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DF73110E090;
-	Tue,  4 Mar 2025 20:00:38 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1608E10E298;
+	Wed,  5 Mar 2025 13:32:41 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="QRGeb8Bb";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="Tg733Wuq";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.15])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B029710E090
- for <intel-gfx@freedesktop.org>; Tue,  4 Mar 2025 20:00:37 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.7])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E297489A1E
+ for <intel-gfx@freedesktop.org>; Wed,  5 Mar 2025 13:32:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1741118438; x=1772654438;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=1BNdIDjETlM+F8k5PGqwg8DmfvJXnsU8Mz9PtVgSG8g=;
- b=QRGeb8Bbg/BRe6I+PenWrfL2TUynD7586TKatEb1/YVgKxVI8Z0NWJJX
- qLgDhVoELVND1gQZDZS6D9tCi7kcxQuWzRIdgyfQwfmPiWmc+1wJQ48+W
- Kfs1vVJJttKv8Za5Fxq6u71zSfYfhaDN9Nufa+hV9uP7Q9OncuRxYdFIU
- hRufx9n/KCI6DMzngiQAuzvkELlFAiSdgDaIZD9Sv4574XH4wxFu/uOzg
- 8hUmhBAT4kT6GuWfb4f5jpmlivJ1Ikd9esMeIT4eaczrXEO8EuLIPIyrn
- szQHOyMq9KLWtcFIcoG3CT/Xs6pkwYFq7l4YMVocoK8jlUT4WMQFzbV8S g==;
-X-CSE-ConnectionGUID: hsa+p4vdSm2LgldBR/u5RA==
-X-CSE-MsgGUID: Tx49xTw4QX6NV/QvLH67BQ==
-X-IronPort-AV: E=McAfee;i="6700,10204,11363"; a="45708515"
-X-IronPort-AV: E=Sophos;i="6.14,220,1736841600"; d="scan'208";a="45708515"
-Received: from fmviesa009.fm.intel.com ([10.60.135.149])
- by orvoesa107.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 04 Mar 2025 12:00:37 -0800
-X-CSE-ConnectionGUID: cMkwdbR2R16dGoHRSy9ajg==
-X-CSE-MsgGUID: ybZDakRcSJi6q+r2PW6rDg==
+ t=1741181560; x=1772717560;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:content-transfer-encoding:in-reply-to;
+ bh=8wnYlg7ls6vkbtWs2+lbsge+esz865cJjcLAftuKCgM=;
+ b=Tg733WuqZJjtVTVAF2PbzH3o+NgD52CMpuKhdoY2k3C52ILE2A9a2A9j
+ FK0ZFoeYpT5YIdu9GEbKLDrjmvHR3+bFzO28otC2h+R9Q3X8RdpNm0zv5
+ Eg3q00+W04dwHp5NzLPGe8zTYaXoq+CuUQAKPiGAu4D0CIz1FTJdheq1b
+ oL9lD/skylK9SkSCMwn6dUW8UUqrclkrdhUVDVeM3TxkryPp6QvdwRSdI
+ bkGAxE4tRNpNWpRpoT5OqmDTfTKkGWM1xZyFMqoeZWuTn+DIugJpuhFIV
+ NN2aFfGHSJBrXyU3NlfRc1ZvZu4ZrVq662FhASpO9ZoNDD2m3NwJf++Im Q==;
+X-CSE-ConnectionGUID: fpP+4aP6ST6vsSLCHWGEPA==
+X-CSE-MsgGUID: KaVWucMdQb6JeRJuVM5eZA==
+X-IronPort-AV: E=McAfee;i="6700,10204,11363"; a="67512504"
+X-IronPort-AV: E=Sophos;i="6.14,223,1736841600"; d="scan'208";a="67512504"
+Received: from orviesa005.jf.intel.com ([10.64.159.145])
+ by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 05 Mar 2025 05:32:40 -0800
+X-CSE-ConnectionGUID: uyIby9wpRliRWhHfh0nm2Q==
+X-CSE-MsgGUID: Ebnm+liyT1S8OgjQCW8Jdg==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.14,220,1736841600"; d="scan'208";a="119159899"
-Received: from msatwood-mobl.jf.intel.com ([10.24.12.180])
- by fmviesa009-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 04 Mar 2025 12:00:36 -0800
-From: Matt Atwood <matthew.s.atwood@intel.com>
-To: intel-gfx@freedesktop.org
-Cc: suraj.kandpal@intel.com,
-	Matt Atwood <matthew.s.atwood@intel.com>
-Subject: [PATCH] drm/i915/xe3lpd: Prune modes for YUV420
-Date: Tue,  4 Mar 2025 12:00:31 -0800
-Message-ID: <20250304200032.68292-1-matthew.s.atwood@intel.com>
-X-Mailer: git-send-email 2.45.0
+X-IronPort-AV: E=Sophos;i="6.12,224,1728975600"; d="scan'208";a="123889476"
+Received: from stinkpipe.fi.intel.com (HELO stinkbox) ([10.237.72.74])
+ by orviesa005.jf.intel.com with SMTP; 05 Mar 2025 05:32:37 -0800
+Received: by stinkbox (sSMTP sendmail emulation);
+ Wed, 05 Mar 2025 15:32:36 +0200
+Date: Wed, 5 Mar 2025 15:32:36 +0200
+From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
+To: Matt Atwood <matthew.s.atwood@intel.com>
+Cc: intel-gfx@freedesktop.org, suraj.kandpal@intel.com
+Subject: Re: [PATCH] drm/i915/xe3lpd: Prune modes for YUV420
+Message-ID: <Z8hSdBQvBMMosSIR@intel.com>
+References: <20250304200032.68292-1-matthew.s.atwood@intel.com>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <20250304200032.68292-1-matthew.s.atwood@intel.com>
+X-Patchwork-Hint: comment
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,56 +70,66 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Suraj Kandpal <suraj.kandpal@intel.com>
+On Tue, Mar 04, 2025 at 12:00:31PM -0800, Matt Atwood wrote:
+> From: Suraj Kandpal <suraj.kandpal@intel.com>
+> 
+> We only support resolution upto 4k for single pipe when using
+> YUV420 format so we prune these modes and restrict the plane size
+> at src.
+> 
+> Signed-off-by: Suraj Kandpal <suraj.kandpal@intel.com>
+> Signed-off-by: Matt Atwood <matthew.s.atwood@intel.com>
+> ---
+>  drivers/gpu/drm/i915/display/intel_dp.c | 11 +++++++++--
+>  1 file changed, 9 insertions(+), 2 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
+> index 205ec315b413..8bccc6e0b5b3 100644
+> --- a/drivers/gpu/drm/i915/display/intel_dp.c
+> +++ b/drivers/gpu/drm/i915/display/intel_dp.c
+> @@ -1396,6 +1396,7 @@ intel_dp_mode_valid(struct drm_connector *_connector,
+>  	struct intel_display *display = to_intel_display(_connector->dev);
+>  	struct intel_connector *connector = to_intel_connector(_connector);
+>  	struct intel_dp *intel_dp = intel_attached_dp(connector);
+> +	enum intel_output_format sink_format;
+>  	const struct drm_display_mode *fixed_mode;
+>  	int target_clock = mode->clock;
+>  	int max_rate, mode_rate, max_lanes, max_link_clock;
+> @@ -1429,6 +1430,13 @@ intel_dp_mode_valid(struct drm_connector *_connector,
+>  						     mode->hdisplay, target_clock);
+>  	max_dotclk *= num_joined_pipes;
+>  
+> +	sink_format = intel_dp_sink_format(connector, mode);
+> +	if (num_joined_pipes == 1) {
+> +		if (sink_format == INTEL_OUTPUT_FORMAT_YCBCR420 &&
 
-We only support resolution upto 4k for single pipe when using
-YUV420 format so we prune these modes and restrict the plane size
-at src.
+sink_format is irrelevant. output_format is what matters.
 
-Signed-off-by: Suraj Kandpal <suraj.kandpal@intel.com>
-Signed-off-by: Matt Atwood <matthew.s.atwood@intel.com>
----
- drivers/gpu/drm/i915/display/intel_dp.c | 11 +++++++++--
- 1 file changed, 9 insertions(+), 2 deletions(-)
+> +		    mode->hdisplay > 4096)
+> +			return MODE_NO_420;
+> +	}
 
-diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
-index 205ec315b413..8bccc6e0b5b3 100644
---- a/drivers/gpu/drm/i915/display/intel_dp.c
-+++ b/drivers/gpu/drm/i915/display/intel_dp.c
-@@ -1396,6 +1396,7 @@ intel_dp_mode_valid(struct drm_connector *_connector,
- 	struct intel_display *display = to_intel_display(_connector->dev);
- 	struct intel_connector *connector = to_intel_connector(_connector);
- 	struct intel_dp *intel_dp = intel_attached_dp(connector);
-+	enum intel_output_format sink_format;
- 	const struct drm_display_mode *fixed_mode;
- 	int target_clock = mode->clock;
- 	int max_rate, mode_rate, max_lanes, max_link_clock;
-@@ -1429,6 +1430,13 @@ intel_dp_mode_valid(struct drm_connector *_connector,
- 						     mode->hdisplay, target_clock);
- 	max_dotclk *= num_joined_pipes;
- 
-+	sink_format = intel_dp_sink_format(connector, mode);
-+	if (num_joined_pipes == 1) {
-+		if (sink_format == INTEL_OUTPUT_FORMAT_YCBCR420 &&
-+		    mode->hdisplay > 4096)
-+			return MODE_NO_420;
-+	}
-+
- 	if (target_clock > max_dotclk)
- 		return MODE_CLOCK_HIGH;
- 
-@@ -1444,10 +1452,9 @@ intel_dp_mode_valid(struct drm_connector *_connector,
- 					   intel_dp_mode_min_output_bpp(connector, mode));
- 
- 	if (intel_dp_has_dsc(connector)) {
--		enum intel_output_format sink_format, output_format;
-+		enum intel_output_format output_format;
- 		int pipe_bpp;
- 
--		sink_format = intel_dp_sink_format(connector, mode);
- 		output_format = intel_dp_output_format(connector, sink_format);
- 		/*
- 		 * TBD pass the connector BPC,
+Which hardware limit are you actully trying to handle here?
+
+> +
+>  	if (target_clock > max_dotclk)
+>  		return MODE_CLOCK_HIGH;
+>  
+> @@ -1444,10 +1452,9 @@ intel_dp_mode_valid(struct drm_connector *_connector,
+>  					   intel_dp_mode_min_output_bpp(connector, mode));
+>  
+>  	if (intel_dp_has_dsc(connector)) {
+> -		enum intel_output_format sink_format, output_format;
+> +		enum intel_output_format output_format;
+>  		int pipe_bpp;
+>  
+> -		sink_format = intel_dp_sink_format(connector, mode);
+>  		output_format = intel_dp_output_format(connector, sink_format);
+>  		/*
+>  		 * TBD pass the connector BPC,
+> -- 
+> 2.45.0
+
 -- 
-2.45.0
-
+Ville Syrjälä
+Intel
