@@ -4,38 +4,38 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0C143C28B25
-	for <intel-gfx@archiver.kernel.org>; Fri,  7 Mar 2025 13:58:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B3A58C28B27
+	for <intel-gfx@archiver.kernel.org>; Fri,  7 Mar 2025 13:58:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8C96810EB6A;
-	Fri,  7 Mar 2025 13:57:55 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 01CD910EB8C;
+	Fri,  7 Mar 2025 13:57:56 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=wanadoo.fr header.i=@wanadoo.fr header.b="bjPvyDUY";
+	dkim=pass (2048-bit key; unprotected) header.d=wanadoo.fr header.i=@wanadoo.fr header.b="N12n9sYK";
 	dkim-atps=neutral
-Received: from out.smtpout.orange.fr (out-18.smtpout.orange.fr [193.252.22.18])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 989DA89453;
- Wed,  5 Mar 2025 14:38:36 +0000 (UTC)
+Received: from out.smtpout.orange.fr (out-12.smtpout.orange.fr [193.252.22.12])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7238A10E817;
+ Wed,  5 Mar 2025 17:17:34 +0000 (UTC)
 Received: from [172.16.82.72] ([124.33.176.97]) by smtp.orange.fr with ESMTPA
- id ppt6tfHU4ZnsCpptAt1SYw; Wed, 05 Mar 2025 15:38:31 +0100
+ id psMxtJc0ArlYrpsN1tsZVO; Wed, 05 Mar 2025 18:17:32 +0100
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=wanadoo.fr;
- s=t20230301; t=1741185511;
- bh=x2nOvp4g9bFkC6yO0erJTirmhqJkuNeb1P2mmnB3KBU=;
+ s=t20230301; t=1741195052;
+ bh=mjKe+ryvw34j4ffHLP7uzkbmqMNR5Softa/w5p2heeM=;
  h=Message-ID:Date:MIME-Version:Subject:To:From;
- b=bjPvyDUY/se9o2pP5tDIAusnInJWDOy2mekPDHUS2KEuKRirH8+ox56wpA7stYCZm
- q7zvgNyuZoD7HrITpnkgeb2cNkK6D/ZqZIVn51eUzcHzogKXHfC9rBiMLLjlePztYs
- d30DhKqINbc5L4WesBGZ7dTFU85s0rR71bHEsdXSx2w2RLE/n4W1fHytRneWE2f1sk
- Vb72sLOrjdEAN6oyNRbclQhdGWhm8F1zLFBEMh7TBAyzkHwUSUruR9VrqdvevxKeZH
- 9NaMNDoOt9uhcD6chvo45UKxehoMCYCITu5lIaZhZfuj7lgokCRjLK8h8HoTyRLugb
- ye339IYmVQ4/w==
+ b=N12n9sYK2XIy4AYRo4rRhIwr7fT5AxTN7msq3Aa/Puc4i5eGtI5VqdUd571MJ2Rok
+ Bw1jd+GZgxVoRYcSEIhIiKYzoeTJVuOpHjqTP1J1Ks8OD+CpPMWJ7Kqc354mmcOoAc
+ Bx/0vzUcS3zi4rwzji5ULu5KS4DIkpsf1q7SwDTLBkHTvCeYwvQbymkdhldUZj6d/o
+ y+WI5YV1t2qCsElAqFsSKbekM/RhApTwKMPbvIWrZdw+3zKW+DeFl/jN2C/psOxBmd
+ 7XzifnbrXUq+xwoSIbcw0OTn6crTlcUFnGUzDzE5jGPlcpjZuqyuHu+y1XR18noflQ
+ bsof5v0HxwwqA==
 X-ME-Helo: [172.16.82.72]
 X-ME-Auth: bWFpbGhvbC52aW5jZW50QHdhbmFkb28uZnI=
-X-ME-Date: Wed, 05 Mar 2025 15:38:31 +0100
+X-ME-Date: Wed, 05 Mar 2025 18:17:32 +0100
 X-ME-IP: 124.33.176.97
-Message-ID: <9f0215c4-62e5-4dfa-8dac-732682600c8c@wanadoo.fr>
-Date: Wed, 5 Mar 2025 23:38:19 +0900
+Message-ID: <824dc1d1-14f0-433e-aa3f-679527b87077@wanadoo.fr>
+Date: Thu, 6 Mar 2025 02:17:18 +0900
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 3/8] bits: introduce fixed-type genmasks
+Subject: Re: [PATCH v4 4/8] bits: introduce fixed-type BIT
 To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
 Cc: Yury Norov <yury.norov@gmail.com>,
  Lucas De Marchi <lucas.demarchi@intel.com>,
@@ -51,8 +51,10 @@ Cc: Yury Norov <yury.norov@gmail.com>,
  Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
  Jani Nikula <jani.nikula@intel.com>
 References: <20250305-fixed-type-genmasks-v4-0-1873dcdf6723@wanadoo.fr>
- <20250305-fixed-type-genmasks-v4-3-1873dcdf6723@wanadoo.fr>
- <Z8hf7pN84-64LWPv@smile.fi.intel.com>
+ <20250305-fixed-type-genmasks-v4-4-1873dcdf6723@wanadoo.fr>
+ <Z8hgqOB5Ym-GGykS@smile.fi.intel.com>
+ <d7f3150d-0167-44be-90b2-17f8a050687c@wanadoo.fr>
+ <Z8hyNXVZxLzhEzNy@smile.fi.intel.com>
 Content-Language: en-US
 From: Vincent Mailhol <mailhol.vincent@wanadoo.fr>
 Autocrypt: addr=mailhol.vincent@wanadoo.fr; keydata=
@@ -65,9 +67,9 @@ Autocrypt: addr=mailhol.vincent@wanadoo.fr; keydata=
  yR33sA+BR9pLAwEIB8J+BBgWCgAmFiEE7Y9wBXTmfyDldOjiq1/riG27mcIFAmceMvMCGwwF
  CQPCZwAACgkQq1/riG27mcJU7QEA+LmpFhfQ1aij/L8VzsZwr/S44HCzcz5+jkxnVVQ5LZ4B
  ANOCpYEY+CYrld5XZvM8h2EntNnzxHHuhjfDOQ3MAkEK
-In-Reply-To: <Z8hf7pN84-64LWPv@smile.fi.intel.com>
+In-Reply-To: <Z8hyNXVZxLzhEzNy@smile.fi.intel.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Fri, 07 Mar 2025 13:57:54 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -84,56 +86,94 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On 05/03/2025 at 23:30, Andy Shevchenko wrote:
-> On Wed, Mar 05, 2025 at 10:00:15PM +0900, Vincent Mailhol via B4 Relay wrote:
->> From: Yury Norov <yury.norov@gmail.com>
->>
->> Add __GENMASK_t() which generalizes __GENMASK() to support different
-> 
-> Is it with double underscore? I do not see it.
-
-This is my mistake. In an earlier draft, it was __GENMASK_t(),
-meanwhile, I dropped the __ prefix but forget to update the patch
-description.
-
-> _t is used for typedef simple types. It's unfortunate to have it
-> in such a macro.
-
-Ack.
-
-> Perhaps T or TYPE will suffice. Or perhaps we want
-> __GENMASK_Uxx() here?
-
-If no objection, I have a preference for GENMASK_TYPE().
-
->> types, and implement fixed-types versions of GENMASK() based on it.
->> The fixed-type version allows more strict checks to the min/max values
->> accepted, which is useful for defining registers like implemented by
->> i915 and xe drivers with their REG_GENMASK*() macros.
->>
->> The strict checks rely on shift-count-overflow compiler check to fail
->> the build if a number outside of the range allowed is passed.
->> Example:
->>
->> 	#define FOO_MASK GENMASK_U32(33, 4)
->>
->> will generate a warning like:
->>
->> 	../include/linux/bits.h:41:31: error: left shift count >= width of type [-Werror=shift-count-overflow]
->> 	   41 |          (((t)~0ULL - ((t)(1) << (l)) + 1) & \
->> 	      |                               ^~
+On 06/03/2025 at 00:48, Andy Shevchenko wrote:
+> On Wed, Mar 05, 2025 at 11:48:10PM +0900, Vincent Mailhol wrote:
+>> On 05/03/2025 at 23:33, Andy Shevchenko wrote:
+>>> On Wed, Mar 05, 2025 at 10:00:16PM +0900, Vincent Mailhol via B4 Relay wrote:
 > 
 > ...
 > 
->> + * __GENMASK_U*() depends on BITS_PER_TYPE() which would not work in the asm
+>>>> +#define BIT_U8(b) (BIT_INPUT_CHECK(u8, b) + (unsigned int)BIT(b))
+>>>> +#define BIT_U16(b) (BIT_INPUT_CHECK(u16, b) + (unsigned int)BIT(b))
+>>>
+>>> Why not u8 and u16? This inconsistency needs to be well justified.
+>>
+>> Because of the C integer promotion rules, if casted to u8 or u16, the
+>> expression will immediately become a signed integer as soon as it is get
+>> used. For example, if casted to u8
+>>
+>>   BIT_U8(0) + BIT_U8(1)
+>>
+>> would be a signed integer. And that may surprise people.
 > 
-> Where are the double underscore variants? I see it only for U128.
+> Yes, but wouldn't be better to put it more explicitly like
+> 
+> #define BIT_U8(b)	(BIT_INPUT_CHECK(u8, b) + (u8)BIT(b) + 0 + UL(0)) // + ULL(0) ?
 
-Same as above. The description is incorrect. I will fix this in v5.
+OK, the final result would be unsigned. But, I do not follow how this is
+more explicit.
 
->> + * code as BITS_PER_TYPE() relies on sizeof(), something not available in
->> + * asm. Nethertheless, the concept of fixed width integers is a C thing which
->> + * does not apply to assembly code.
+Also, why doing:
+
+  (u8)BIT(b) + 0 + UL(0)
+
+and not just:
+
+  (u8)BIT(b) + UL(0)
+
+?
+
+What is that intermediary '+ 0' for?
+
+I am sorry, but I am having a hard time understanding how casting to u8
+and then doing an addition with an unsigned long is more explicit than
+directly doing a cast to the desired type.
+
+As I mentioned in my answer to Yuri, I have a slight preference for the
+unsigned int cast, but I am OK to go back to the u8/u16 cast as it was
+in v3.
+
+However, I really do not see how that '+ 0 + UL(0)' would be an improvement.
+
+> Also, BIT_Uxx() gives different type at the end, shouldn't they all be promoted
+> to unsigned long long at the end? Probably it won't work in real assembly.
+> Can you add test cases which are written in assembly? (Yes, I understand that it will
+> be architecture dependent, but still.)
+
+No. I purposely guarded the definition of the BIT_Uxx() by a
+
+  #if !defined(__ASSEMBLY__)
+
+so that these are never visible in assembly. I actually put a comment to
+explain why the GENMASK_U*() are not available in assembly. I can copy
+paste the same comment to explain why why BIT_U*() are not made
+available either:
+
+  /*
+   * Missing asm support
+   *
+   * BIT_U*() depends on BITS_PER_TYPE() which would not work in the asm
+   * code as BITS_PER_TYPE() relies on sizeof(), something not available
+   * in asm.  Nethertheless, the concept of fixed width integers is a C
+   * thing which does not apply to assembly code.
+   */
+
+I really believe that it would be a mistake to make the GENMASK_U*() or
+the BIT_U*() available to assembly.
+
+>> David also pointed this in the v3:
+>>
+>> https://lore.kernel.org/intel-xe/d42dc197a15649e69d459362849a37f2@AcuMS.aculab.com/
+>>
+>> and I agree with his comment.
+>>
+>> I explained this in the changelog below the --- cutter, but it is
+>> probably better to make the explanation more visible. I will add a
+>> comment in the code to explain this.
+>>
+>>>> +#define BIT_U32(b) (BIT_INPUT_CHECK(u32, b) + (u32)BIT(b))
+>>>> +#define BIT_U64(b) (BIT_INPUT_CHECK(u64, b) + (u64)BIT_ULL(b))
+> 
 
 Yours sincerely,
 Vincent Mailhol
