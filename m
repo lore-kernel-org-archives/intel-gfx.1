@@ -4,41 +4,41 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 60FD5C28B2E
-	for <intel-gfx@archiver.kernel.org>; Fri,  7 Mar 2025 13:58:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 136E0C28B2F
+	for <intel-gfx@archiver.kernel.org>; Fri,  7 Mar 2025 13:58:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 35BC610EB9A;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0920010EB99;
 	Fri,  7 Mar 2025 13:57:57 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=wanadoo.fr header.i=@wanadoo.fr header.b="Z6FfQSYH";
+	dkim=pass (2048-bit key; unprotected) header.d=wanadoo.fr header.i=@wanadoo.fr header.b="oQcqbkBE";
 	dkim-atps=neutral
-Received: from out.smtpout.orange.fr (out-17.smtpout.orange.fr [193.252.22.17])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 765BD10EA30;
- Thu,  6 Mar 2025 17:10:43 +0000 (UTC)
+Received: from out.smtpout.orange.fr (out-14.smtpout.orange.fr [193.252.22.14])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4ED6210E769;
+ Wed,  5 Mar 2025 14:48:24 +0000 (UTC)
 Received: from [172.16.82.72] ([124.33.176.97]) by smtp.orange.fr with ESMTPA
- id qEjstfRGtQBhYqEjytwcmv; Thu, 06 Mar 2025 18:10:42 +0100
+ id pq2dtPvcTgWbapq2htQk0O; Wed, 05 Mar 2025 15:48:22 +0100
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=wanadoo.fr;
- s=t20230301; t=1741281042;
- bh=AcXvdcwkshwhiYBYbISTdU+fXgHvnVIWLoGFLaK/LSY=;
+ s=t20230301; t=1741186102;
+ bh=3RcUUtJiVQIxZzOfKMrWa4tzRtxjWdXUh2HCxF6cfvM=;
  h=Message-ID:Date:MIME-Version:Subject:To:From;
- b=Z6FfQSYHH1Ol08L7ET9tSXK7Mo2lZdrbvwMt4TCu04RDpe1dOq/w+TOzlQRT7/MZa
- bC5IUve/j4baW3dFxfr0gWJqCFLqGmfwkgN9roksYbWqz2h67lDcu9IZeO4xJuTRdG
- uSybdgWW2hHmJT1j81A7IgRe4RwP9liz+KGUTrTDv73eDTpLwfUfGW8Q1Y7aFCFcRV
- kU5a9EsxhrKDlTeS+NZHwHvqM9Rh+YoYUHo32P9bEO0T2URNiYraQF0lrRoFRq/Nay
- CPSDCe4uJfBJbyCMtcEj+8oljeFN/nhj2uWepsE/uM+WDp9FC/wBiOsfbUUXLgzgGj
- Wo4Pmh8fVkxSw==
+ b=oQcqbkBEl+UgQi3Rr0ez6Ckv1SOIbEYh7API3Jf6hBUllX0xuBTJh6r8Cf9qGqd/u
+ aS8Fbd2QKZImx/ILnJHSjpW3GuB9NAG/OfXXiNisriLhgcsNFE/4IRvuOjTL94XsAZ
+ luNP+vlrQkN2DrSL2CD+alqysspVK2wC7QsaBEjY932I+CplGBHlr3218gx6GpEwya
+ ilVUXKiOtsSoZ5cCeoH+VNzVZ5hJoo9ej6TMpHJoo9UVvvax9m4YrR8cgpD+8HHFBk
+ FU6JChb2VY1Gc1e5vaf0op62DUYeL/yFOeG0gtOy4sQ7mlcq99zjgBTB60KkzqZKO+
+ SKXWpnYX6mUnA==
 X-ME-Helo: [172.16.82.72]
 X-ME-Auth: bWFpbGhvbC52aW5jZW50QHdhbmFkb28uZnI=
-X-ME-Date: Thu, 06 Mar 2025 18:10:42 +0100
+X-ME-Date: Wed, 05 Mar 2025 15:48:22 +0100
 X-ME-IP: 124.33.176.97
-Message-ID: <f15eac8c-567c-4ae5-bf9b-bb3964c83846@wanadoo.fr>
-Date: Fri, 7 Mar 2025 02:10:28 +0900
+Message-ID: <d7f3150d-0167-44be-90b2-17f8a050687c@wanadoo.fr>
+Date: Wed, 5 Mar 2025 23:48:10 +0900
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 1/7] bits: split the definition of the asm and non-asm
- GENMASK()
-To: Lucas De Marchi <lucas.demarchi@intel.com>
+Subject: Re: [PATCH v4 4/8] bits: introduce fixed-type BIT
+To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
 Cc: Yury Norov <yury.norov@gmail.com>,
+ Lucas De Marchi <lucas.demarchi@intel.com>,
  Rasmus Villemoes <linux@rasmusvillemoes.dk>,
  Jani Nikula <jani.nikula@linux.intel.com>,
  Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
@@ -49,10 +49,10 @@ Cc: Yury Norov <yury.norov@gmail.com>,
  dri-devel@lists.freedesktop.org, Andi Shyti <andi.shyti@linux.intel.com>,
  David Laight <David.Laight@aculab.com>,
  Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-References: <20250306-fixed-type-genmasks-v5-0-b443e9dcba63@wanadoo.fr>
- <20250306-fixed-type-genmasks-v5-1-b443e9dcba63@wanadoo.fr>
- <fao7tp2y66f7nuep4nl6kz5zenfpzswp3hwqiw325uitgu6u6u@7dipwr3vjui7>
+ Jani Nikula <jani.nikula@intel.com>
+References: <20250305-fixed-type-genmasks-v4-0-1873dcdf6723@wanadoo.fr>
+ <20250305-fixed-type-genmasks-v4-4-1873dcdf6723@wanadoo.fr>
+ <Z8hgqOB5Ym-GGykS@smile.fi.intel.com>
 Content-Language: en-US
 From: Vincent Mailhol <mailhol.vincent@wanadoo.fr>
 Autocrypt: addr=mailhol.vincent@wanadoo.fr; keydata=
@@ -65,7 +65,7 @@ Autocrypt: addr=mailhol.vincent@wanadoo.fr; keydata=
  yR33sA+BR9pLAwEIB8J+BBgWCgAmFiEE7Y9wBXTmfyDldOjiq1/riG27mcIFAmceMvMCGwwF
  CQPCZwAACgkQq1/riG27mcJU7QEA+LmpFhfQ1aij/L8VzsZwr/S44HCzcz5+jkxnVVQ5LZ4B
  ANOCpYEY+CYrld5XZvM8h2EntNnzxHHuhjfDOQ3MAkEK
-In-Reply-To: <fao7tp2y66f7nuep4nl6kz5zenfpzswp3hwqiw325uitgu6u6u@7dipwr3vjui7>
+In-Reply-To: <Z8hgqOB5Ym-GGykS@smile.fi.intel.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Fri, 07 Mar 2025 13:57:54 +0000
@@ -84,35 +84,66 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On 06/03/2025 at 23:34, Lucas De Marchi wrote:
-> On Thu, Mar 06, 2025 at 08:29:52PM +0900, Vincent Mailhol via B4 Relay
-> wrote:
-
-(...)
-
-> it seems we now have 1 inconsistency that we comment why
-> GENMASK_U128() is not available in asm, but we don't comment why
-> GENMASK_INPUT_CHECK() is not available there. Maybe move this comment on
-> top of GENMASK_INPUT_CHECK().
-
-I will restore the comment in v6 and put it next to the asm definition,
-c.f. my reply to Andy.
-
-> Anyway,
+On 05/03/2025 at 23:33, Andy Shevchenko wrote:
+> On Wed, Mar 05, 2025 at 10:00:16PM +0900, Vincent Mailhol via B4 Relay wrote:
+>> From: Lucas De Marchi <lucas.demarchi@intel.com>
+>>
+>> Implement fixed-type BIT to help drivers add stricter checks, like was
 > 
->     Reviewed-by: Lucas De Marchi <lucas.demarchi@intel.com>
+> Here and in the Subject I would use BIT_Uxx().
+> 
+>> done for GENMASK().
+> 
+> ...
+> 
+>> +/*
+>> + * Fixed-type variants of BIT(), with additional checks like GENMASK_t(). The
+> 
+> GENMASK_t() is not a well named macro.
 
-Is this only valid for the first patch or for the full series? If this
-is for the full series, would you mind replying to the cover letter with
-your review tag?
+Ack. I will rename to GENMASK_TYPE().
 
-> thanks for picking up this series.
+>> + * following examples generate compiler warnings due to shift-count-overflow:
+>> + *
+>> + * - BIT_U8(8)
+>> + * - BIT_U32(-1)
+>> + * - BIT_U32(40)
+>> + */
+>> +#define BIT_INPUT_CHECK(type, b) \
+>> +	BUILD_BUG_ON_ZERO(const_true((b) >= BITS_PER_TYPE(type)))
+>> +
+>> +#define BIT_U8(b) (BIT_INPUT_CHECK(u8, b) + (unsigned int)BIT(b))
+>> +#define BIT_U16(b) (BIT_INPUT_CHECK(u16, b) + (unsigned int)BIT(b))
+> 
+> Why not u8 and u16? This inconsistency needs to be well justified.
 
-You are welcome!
+Because of the C integer promotion rules, if casted to u8 or u16, the
+expression will immediately become a signed integer as soon as it is get
+used. For example, if casted to u8
 
-> Lucas De Marchi
+  BIT_U8(0) + BIT_U8(1)
 
-(...)
+would be a signed integer. And that may surprise people.
+
+David also pointed this in the v3:
+
+https://lore.kernel.org/intel-xe/d42dc197a15649e69d459362849a37f2@AcuMS.aculab.com/
+
+and I agree with his comment.
+
+I explained this in the changelog below the --- cutter, but it is
+probably better to make the explanation more visible. I will add a
+comment in the code to explain this.
+
+>> +#define BIT_U32(b) (BIT_INPUT_CHECK(u32, b) + (u32)BIT(b))
+>> +#define BIT_U64(b) (BIT_INPUT_CHECK(u64, b) + (u64)BIT_ULL(b))
+> 
+> Can you also use a TAB between the parentheses for better readability?
+> E.g.,
+> 
+> #define BIT_U64(b)r	(BIT_INPUT_CHECK(u64, b) + (u64)BIT_ULL(b))
+
+Sure. I prefer it with space, but no strong opinion. I will put tab in v5.
 
 Yours sincerely,
 Vincent Mailhol
