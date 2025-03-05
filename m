@@ -4,40 +4,39 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 656BBC28B23
-	for <intel-gfx@archiver.kernel.org>; Fri,  7 Mar 2025 13:58:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0C143C28B25
+	for <intel-gfx@archiver.kernel.org>; Fri,  7 Mar 2025 13:58:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C482210EB8A;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8C96810EB6A;
 	Fri,  7 Mar 2025 13:57:55 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=wanadoo.fr header.i=@wanadoo.fr header.b="dOcysyH6";
+	dkim=pass (2048-bit key; unprotected) header.d=wanadoo.fr header.i=@wanadoo.fr header.b="bjPvyDUY";
 	dkim-atps=neutral
-Received: from out.smtpout.orange.fr (out-13.smtpout.orange.fr [193.252.22.13])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 72AF710E0A3;
- Fri,  7 Mar 2025 09:58:24 +0000 (UTC)
+Received: from out.smtpout.orange.fr (out-18.smtpout.orange.fr [193.252.22.18])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 989DA89453;
+ Wed,  5 Mar 2025 14:38:36 +0000 (UTC)
 Received: from [172.16.82.72] ([124.33.176.97]) by smtp.orange.fr with ESMTPA
- id qUT3ttclTLArrqUT8tnDZY; Fri, 07 Mar 2025 10:58:21 +0100
+ id ppt6tfHU4ZnsCpptAt1SYw; Wed, 05 Mar 2025 15:38:31 +0100
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=wanadoo.fr;
- s=t20230301; t=1741341501;
- bh=ec/4FFnWtkVOGJAjE0F14PO+sOMtcZNESadfGxpFl20=;
+ s=t20230301; t=1741185511;
+ bh=x2nOvp4g9bFkC6yO0erJTirmhqJkuNeb1P2mmnB3KBU=;
  h=Message-ID:Date:MIME-Version:Subject:To:From;
- b=dOcysyH6tA0paeZ31fP7jP/1Ol4ph/8eOVEiBrFVPt9RtkZ5khevSysUNVRYlq0IM
- 0Deeb0gvMgy5zUhy0+JhJbDrwVWiPhipvWUH1ZsTF06Ba70D0qJAJlAwU8frJOVwxW
- dFeyqA0XT6le15Zf8Uh4LcfCMfBFaQbxzQbKSSKE/h+gJdwo4ZKdzFWkz05CuQgk9Y
- sL9pusjhNhsldKs4V6yD4NWlY8P20IKAEob+fKQvY1K3blNC1rwhNCZpVVDxTuX1mE
- 2xJHTqrYKJdb8L4ec7a4DTEjH1/BiaL1f4b8rqRQAUfxssX2LKr6M1j7x61ZX5R1UL
- JVx+35nAvYemw==
+ b=bjPvyDUY/se9o2pP5tDIAusnInJWDOy2mekPDHUS2KEuKRirH8+ox56wpA7stYCZm
+ q7zvgNyuZoD7HrITpnkgeb2cNkK6D/ZqZIVn51eUzcHzogKXHfC9rBiMLLjlePztYs
+ d30DhKqINbc5L4WesBGZ7dTFU85s0rR71bHEsdXSx2w2RLE/n4W1fHytRneWE2f1sk
+ Vb72sLOrjdEAN6oyNRbclQhdGWhm8F1zLFBEMh7TBAyzkHwUSUruR9VrqdvevxKeZH
+ 9NaMNDoOt9uhcD6chvo45UKxehoMCYCITu5lIaZhZfuj7lgokCRjLK8h8HoTyRLugb
+ ye339IYmVQ4/w==
 X-ME-Helo: [172.16.82.72]
 X-ME-Auth: bWFpbGhvbC52aW5jZW50QHdhbmFkb28uZnI=
-X-ME-Date: Fri, 07 Mar 2025 10:58:21 +0100
+X-ME-Date: Wed, 05 Mar 2025 15:38:31 +0100
 X-ME-IP: 124.33.176.97
-Message-ID: <bdce7d99-7f02-4667-acda-9ffc62c92af2@wanadoo.fr>
-Date: Fri, 7 Mar 2025 18:58:08 +0900
+Message-ID: <9f0215c4-62e5-4dfa-8dac-732682600c8c@wanadoo.fr>
+Date: Wed, 5 Mar 2025 23:38:19 +0900
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 1/7] bits: split the definition of the asm and non-asm
- GENMASK()
-To: David Laight <david.laight.linux@gmail.com>
+Subject: Re: [PATCH v4 3/8] bits: introduce fixed-type genmasks
+To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
 Cc: Yury Norov <yury.norov@gmail.com>,
  Lucas De Marchi <lucas.demarchi@intel.com>,
  Rasmus Villemoes <linux@rasmusvillemoes.dk>,
@@ -48,12 +47,12 @@ Cc: Yury Norov <yury.norov@gmail.com>,
  Simona Vetter <simona@ffwll.ch>, Andrew Morton <akpm@linux-foundation.org>,
  linux-kernel@vger.kernel.org, intel-gfx@lists.freedesktop.org,
  dri-devel@lists.freedesktop.org, Andi Shyti <andi.shyti@linux.intel.com>,
- David Laight <David.Laight@ACULAB.COM>,
+ David Laight <David.Laight@aculab.com>,
  Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-References: <20250306-fixed-type-genmasks-v5-0-b443e9dcba63@wanadoo.fr>
- <20250306-fixed-type-genmasks-v5-1-b443e9dcba63@wanadoo.fr>
- <20250306192331.2701a029@pumpkin>
+ Jani Nikula <jani.nikula@intel.com>
+References: <20250305-fixed-type-genmasks-v4-0-1873dcdf6723@wanadoo.fr>
+ <20250305-fixed-type-genmasks-v4-3-1873dcdf6723@wanadoo.fr>
+ <Z8hf7pN84-64LWPv@smile.fi.intel.com>
 Content-Language: en-US
 From: Vincent Mailhol <mailhol.vincent@wanadoo.fr>
 Autocrypt: addr=mailhol.vincent@wanadoo.fr; keydata=
@@ -66,9 +65,9 @@ Autocrypt: addr=mailhol.vincent@wanadoo.fr; keydata=
  yR33sA+BR9pLAwEIB8J+BBgWCgAmFiEE7Y9wBXTmfyDldOjiq1/riG27mcIFAmceMvMCGwwF
  CQPCZwAACgkQq1/riG27mcJU7QEA+LmpFhfQ1aij/L8VzsZwr/S44HCzcz5+jkxnVVQ5LZ4B
  ANOCpYEY+CYrld5XZvM8h2EntNnzxHHuhjfDOQ3MAkEK
-In-Reply-To: <20250306192331.2701a029@pumpkin>
+In-Reply-To: <Z8hf7pN84-64LWPv@smile.fi.intel.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 X-Mailman-Approved-At: Fri, 07 Mar 2025 13:57:54 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -85,77 +84,56 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On 07/03/2025 at 04:23, David Laight wrote:
-> On Thu, 06 Mar 2025 20:29:52 +0900
-> Vincent Mailhol via B4 Relay <devnull+mailhol.vincent.wanadoo.fr@kernel.org> wrote:
+On 05/03/2025 at 23:30, Andy Shevchenko wrote:
+> On Wed, Mar 05, 2025 at 10:00:15PM +0900, Vincent Mailhol via B4 Relay wrote:
+>> From: Yury Norov <yury.norov@gmail.com>
+>>
+>> Add __GENMASK_t() which generalizes __GENMASK() to support different
 > 
->> From: Vincent Mailhol <mailhol.vincent@wanadoo.fr>
+> Is it with double underscore? I do not see it.
+
+This is my mistake. In an earlier draft, it was __GENMASK_t(),
+meanwhile, I dropped the __ prefix but forget to update the patch
+description.
+
+> _t is used for typedef simple types. It's unfortunate to have it
+> in such a macro.
+
+Ack.
+
+> Perhaps T or TYPE will suffice. Or perhaps we want
+> __GENMASK_Uxx() here?
+
+If no objection, I have a preference for GENMASK_TYPE().
+
+>> types, and implement fixed-types versions of GENMASK() based on it.
+>> The fixed-type version allows more strict checks to the min/max values
+>> accepted, which is useful for defining registers like implemented by
+>> i915 and xe drivers with their REG_GENMASK*() macros.
 >>
->> In an upcoming change, GENMASK() and its friends will indirectly
->> depend on sizeof() which is not available in asm.
+>> The strict checks rely on shift-count-overflow compiler check to fail
+>> the build if a number outside of the range allowed is passed.
+>> Example:
 >>
->> Instead of adding further complexity to __GENMASK() to make it work
->> for both asm and non asm, just split the definition of the two
->> variants.
+>> 	#define FOO_MASK GENMASK_U32(33, 4)
+>>
+>> will generate a warning like:
+>>
+>> 	../include/linux/bits.h:41:31: error: left shift count >= width of type [-Werror=shift-count-overflow]
+>> 	   41 |          (((t)~0ULL - ((t)(1) << (l)) + 1) & \
+>> 	      |                               ^~
+> 
 > ...
->> +#else /* defined(__ASSEMBLY__) */
->> +
->> +#define GENMASK(h, l)		__GENMASK(h, l)
->> +#define GENMASK_ULL(h, l)	__GENMASK_ULL(h, l)
 > 
-> What do those actually expand to now?
-> As I've said a few times both UL(0) and ULL(0) are just (0) for __ASSEMBLY__
-> so the expansions of __GENMASK() and __GENMASK_ULL() contained the
-> same numeric constants.
-
-Indeed, in asm, the UL(0) and ULL(0) expands to the same thing: 0.
-
-But the two macros still expand to something different on 32 bits
-architectures:
-
-  * __GENMASK:
-
-      (((~(0)) << (l)) & (~(0) >> (32 - 1 - (h))))
-
-  * __GENMASK_ULL:
-
-      (((~(0)) << (l)) & (~(0) >> (64 - 1 - (h))))
-
-On 64 bits architecture these are the same.
-
-> This means they should be generating the same values.
-> I don't know the correct 'sizeof (int_type)' for the shift right of ~0.
-> My suspicion is that a 32bit assembler used 32bit signed integers and a
-> 64bit one 64bit signed integers (but a 32bit asm on a 64bit host might
-> be 64bit).
-> So the asm versions need to avoid the right shift and only do left shifts.
+>> + * __GENMASK_U*() depends on BITS_PER_TYPE() which would not work in the asm
 > 
-> Which probably means they need to be enirely separate from the C versions.
-> And then the C ones can have all the ULL() removed.
+> Where are the double underscore variants? I see it only for U128.
 
-In this v5, I already have the ULL() removed from the non-uapi C
-version. And we are left with two distinct variants:
+Same as above. The description is incorrect. I will fix this in v5.
 
-  - the uapi C & asm
-  - the non-uapi C (including fix width)
-
-For the uapi ones, I do not think we can modify it without a risk of
-breaking some random userland. At least, this is not a risk I will take.
-And if we have to keep the __GENMASK() and __GENMASK_ULL(), then I would
-rather just reuse these for the asm variant instead of splitting further
-more and finding ourselves with three variants:
-
-  - the uapi C
-  - the asm
-  - the non-uapi C (including fix width)
-
-If __GENMASK() and __GENMASK_ULL() were not in the uapi, I would have
-agreed with you.
-
-If you believe that the risk of modifying the uapi GENMASK*() is low
-enough, then you can submit a patch. But I will definitely not touch
-these myself.
-
+>> + * code as BITS_PER_TYPE() relies on sizeof(), something not available in
+>> + * asm. Nethertheless, the concept of fixed width integers is a C thing which
+>> + * does not apply to assembly code.
 
 Yours sincerely,
 Vincent Mailhol
