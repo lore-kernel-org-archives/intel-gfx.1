@@ -4,87 +4,71 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7458EC282DE
-	for <intel-gfx@archiver.kernel.org>; Fri,  7 Mar 2025 13:58:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C7F97C28B25
+	for <intel-gfx@archiver.kernel.org>; Fri,  7 Mar 2025 13:58:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A53AA10EBA0;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3532F10EB9C;
 	Fri,  7 Mar 2025 13:58:00 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="IzZMGzKK";
+	dkim=pass (2048-bit key; unprotected) header.d=wanadoo.fr header.i=@wanadoo.fr header.b="N4mfkdbA";
 	dkim-atps=neutral
-Received: from mail-pj1-f46.google.com (mail-pj1-f46.google.com
- [209.85.216.46])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1D7CC89453;
- Wed,  5 Mar 2025 14:38:36 +0000 (UTC)
-Received: by mail-pj1-f46.google.com with SMTP id
- 98e67ed59e1d1-2fe98d173daso11083236a91.1; 
- Wed, 05 Mar 2025 06:38:36 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1741185515; x=1741790315; darn=lists.freedesktop.org;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=bHAZgZUTDFwSbGDNSh6zOBEYSG38f9voYXlfP6pI9Oc=;
- b=IzZMGzKK4cBGDQoN7sqz1Z6iPUEbDIdA0ZtBGsxNIdCConh/7ZR43Pej1rWTaf4rpE
- f2BRlBHxhfDSJQpeUSJiBvZFUYC5X6gIwGTL4Ou0s1+MivjOD8M9nJo4y4ONCpxUxCqk
- zt8IqJdvxdW1tTjZRbdpOOMQ0T7E45Oztcvc6MloeTXgMRigXJS0pBTEQheGqJLFDuBe
- pXMItGO9pN4Msz0UvZZWBWRfR61x6uVJiRFTf0i2R3zZg1sAb7vo5o8j0AyW1RKeVCJ9
- OVf0CH0brzxQpQM2fsASvCgyNJC8v0mpp270ZJGI4ezgYFRVkP/dao7ecnWY/4dF8QaT
- NLFw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1741185515; x=1741790315;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=bHAZgZUTDFwSbGDNSh6zOBEYSG38f9voYXlfP6pI9Oc=;
- b=X/L06wfw6NKzwG8KW79rhkktNC4iqLnd2Kg+U1PQA9aRa9572w4OpV/9fEoDbv/66a
- cRMQB/qM4f56yhPuMYR7KwjEkrxeCpHs1jVlxLRBrCHQvaL/9D5ReoHNI9re1Z/TsDKn
- umlfGQcHMPm5ba0eaXi48dPe4md+8nscoETjrbnxOOjgYUfl0CcfqANWQNRr9EpYOxMz
- t3wK5RSSD35S6XZm9iONbJBjnquBbGu1h9Xl90GRZsZy8s8qgmzCsTpO9q4RDJl8SYaP
- lH3zKcV8xLKdYksFFNqBGxpwqOnyVj3uqWJHrcCjGjFQI8sZuPjnZwx6K9yzHv1FYSDS
- 8v4A==
-X-Forwarded-Encrypted: i=1;
- AJvYcCU9B19ncAYqBCQ3WkIYCvKpu4kx3aT/dKDTx70U81YApBuoG0T4xqb5RfmyIjHWkqL+bpdZdCD9Q+Qy@lists.freedesktop.org,
- AJvYcCVOe2WlrM6axClC2RyT+eS/d5BOgowXqPHwkPFaF4yleO3LTbDmxcy7f+iGTCbQEdDHn28kymS6sWo=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yy5CDRPg6KsuSLx/0xK0B3QAE6Qr3ySazDibio1hdJeQiqIUis3
- I6lNFqYBYMElbFY0OJYvM1scV4v0Pkgez7lnGQ5IXby2scUnpCQF
-X-Gm-Gg: ASbGnctsff8Za3hlVIQ9JsJKvLXVr7QDvK5mbU35IXQqgNsLyvWWDgWvboS7NR9VAn8
- iSDzr1/6++qge6DaaWuZgaT9+hLC5ltnPfYFhpxgFp7t80L29wT4nzEXV/uvzAcl8AmqCOuqO0w
- ivT3pmf5qofzEx3uEuWTdBaiiLuhYlAXUCYJyt3y2XSnlrryNZBsuyKw5wR4sstP52Abokf9FWH
- 2QusTpKpK6+aPA2l+QshJDQSK3qLIZDEpzZbNerCpcAkU1WDAOHKPrm/okr2fgPmHkD29/6jEi3
- 7UE+0BYdFJN6urk8619Jokit3itE6uZOazRCjywnqgSR
-X-Google-Smtp-Source: AGHT+IFsZODIVTdy4Yu9YdJ48Ff3wL9QVGH26zYvwfX2f1Hy2D8uL4un//uW6Hr678bpVZApdOSPXw==
-X-Received: by 2002:a05:6a21:329f:b0:1f3:3e91:fac0 with SMTP id
- adf61e73a8af0-1f3494b6b33mr5017332637.11.1741185515467; 
- Wed, 05 Mar 2025 06:38:35 -0800 (PST)
-Received: from localhost ([216.228.125.131]) by smtp.gmail.com with ESMTPSA id
- 41be03b00d2f7-aee7dec49f1sm12031704a12.58.2025.03.05.06.38.34
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 05 Mar 2025 06:38:34 -0800 (PST)
-Date: Wed, 5 Mar 2025 09:38:32 -0500
-From: Yury Norov <yury.norov@gmail.com>
-To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-Cc: mailhol.vincent@wanadoo.fr, Lucas De Marchi <lucas.demarchi@intel.com>,
+Received: from out.smtpout.orange.fr (out-13.smtpout.orange.fr [193.252.22.13])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7A8A610E7FA;
+ Wed,  5 Mar 2025 16:10:01 +0000 (UTC)
+Received: from [172.16.82.72] ([124.33.176.97]) by smtp.orange.fr with ESMTPA
+ id prJbtTSCG63luprJgtW8On; Wed, 05 Mar 2025 17:09:58 +0100
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=wanadoo.fr;
+ s=t20230301; t=1741190998;
+ bh=LTODso3brupSi75LN9uPUwVb2HT7RIhBdq3edv94tdo=;
+ h=Message-ID:Date:MIME-Version:Subject:To:From;
+ b=N4mfkdbAtJy+mCNmLhDTAuUHv+MDNbHXuyqOBrVje9lFDIziAi9MrRApsAtV+dvKD
+ ZKQY4dH0JyH/yPrz2GTdgZFNdzIkC3bgguZofcw8lmWrt92kS0L2vSMh4g3MIK60na
+ FTuFiFzl05NTipThGQFMte6V8ABRFrNafM73qfF8vpQr/F7oObAcUDxGfubyiEoZdF
+ He7IkhSmMVC19kKy5Ztg8xbxG3HmUjgkt1JQZbeGwujPNXmmHN0ozBf0G3brSfN4Eb
+ 0PGT6grJ5i+RZufkP7B64mLothI4/wo5IzomQkAWUq+pOfoExhgb/RH6n9EhLQu3Yr
+ cxM4Y9+7caunw==
+X-ME-Helo: [172.16.82.72]
+X-ME-Auth: bWFpbGhvbC52aW5jZW50QHdhbmFkb28uZnI=
+X-ME-Date: Wed, 05 Mar 2025 17:09:58 +0100
+X-ME-IP: 124.33.176.97
+Message-ID: <a4195c42-7912-40c6-8b46-a718843c4a1d@wanadoo.fr>
+Date: Thu, 6 Mar 2025 01:09:46 +0900
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 1/8] bits: fix typo 'unsigned __init128' -> 'unsigned
+ __int128'
+To: Yury Norov <yury.norov@gmail.com>,
+ Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+Cc: Lucas De Marchi <lucas.demarchi@intel.com>,
  Rasmus Villemoes <linux@rasmusvillemoes.dk>,
  Jani Nikula <jani.nikula@linux.intel.com>,
  Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Tvrtko Ursulin <tursulin@ursulin.net>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Andrew Morton <akpm@linux-foundation.org>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, Tvrtko Ursulin
+ <tursulin@ursulin.net>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Andrew Morton <akpm@linux-foundation.org>,
  linux-kernel@vger.kernel.org, intel-gfx@lists.freedesktop.org,
  dri-devel@lists.freedesktop.org, Andi Shyti <andi.shyti@linux.intel.com>,
  David Laight <David.Laight@aculab.com>,
  Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Subject: Re: [PATCH v4 1/8] bits: fix typo 'unsigned __init128' -> 'unsigned
- __int128'
-Message-ID: <Z8hh6BZgD3lmyBKp@thinkpad>
 References: <20250305-fixed-type-genmasks-v4-0-1873dcdf6723@wanadoo.fr>
  <20250305-fixed-type-genmasks-v4-1-1873dcdf6723@wanadoo.fr>
  <Z8hf_MNL3MeoXW5O@thinkpad> <Z8hhXHporoJ6Y39X@smile.fi.intel.com>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <Z8hhXHporoJ6Y39X@smile.fi.intel.com>
+ <Z8hh6BZgD3lmyBKp@thinkpad>
+Content-Language: en-US
+From: Vincent Mailhol <mailhol.vincent@wanadoo.fr>
+Autocrypt: addr=mailhol.vincent@wanadoo.fr; keydata=
+ xjMEZluomRYJKwYBBAHaRw8BAQdAf+/PnQvy9LCWNSJLbhc+AOUsR2cNVonvxhDk/KcW7FvN
+ LFZpbmNlbnQgTWFpbGhvbCA8bWFpbGhvbC52aW5jZW50QHdhbmFkb28uZnI+wrIEExYKAFoC
+ GwMFCQp/CJcFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4AWIQTtj3AFdOZ/IOV06OKrX+uI
+ bbuZwgUCZx41XhgYaGtwczovL2tleXMub3BlbnBncC5vcmcACgkQq1/riG27mcIYiwEAkgKK
+ BJ+ANKwhTAAvL1XeApQ+2NNNEwFWzipVAGvTRigA+wUeyB3UQwZrwb7jsQuBXxhk3lL45HF5
+ 8+y4bQCUCqYGzjgEZx4y8xIKKwYBBAGXVQEFAQEHQJrbYZzu0JG5w8gxE6EtQe6LmxKMqP6E
+ yR33sA+BR9pLAwEIB8J+BBgWCgAmFiEE7Y9wBXTmfyDldOjiq1/riG27mcIFAmceMvMCGwwF
+ CQPCZwAACgkQq1/riG27mcJU7QEA+LmpFhfQ1aij/L8VzsZwr/S44HCzcz5+jkxnVVQ5LZ4B
+ ANOCpYEY+CYrld5XZvM8h2EntNnzxHHuhjfDOQ3MAkEK
+In-Reply-To: <Z8hh6BZgD3lmyBKp@thinkpad>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 X-Mailman-Approved-At: Fri, 07 Mar 2025 13:57:54 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -101,19 +85,30 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Mar 05, 2025 at 04:36:12PM +0200, Andy Shevchenko wrote:
-> On Wed, Mar 05, 2025 at 09:30:20AM -0500, Yury Norov wrote:
-> > On Wed, Mar 05, 2025 at 10:00:13PM +0900, Vincent Mailhol via B4 Relay wrote:
-> > > From: Vincent Mailhol <mailhol.vincent@wanadoo.fr>
-> > > 
-> > > "int" was misspelled as "init" in GENMASK_U128() comments. Fix the typo.
-> > 
-> > Thanks for respinning the series. I'll take this fix in bitmap-for-next, so
-> > if you need v2, you'll not have to bear this thing too.
+On 05/03/2025 at 23:38, Yury Norov wrote:
+> On Wed, Mar 05, 2025 at 04:36:12PM +0200, Andy Shevchenko wrote:
+>> On Wed, Mar 05, 2025 at 09:30:20AM -0500, Yury Norov wrote:
+>>> On Wed, Mar 05, 2025 at 10:00:13PM +0900, Vincent Mailhol via B4 Relay wrote:
+>>>> From: Vincent Mailhol <mailhol.vincent@wanadoo.fr>
+>>>>
+>>>> "int" was misspelled as "init" in GENMASK_U128() comments. Fix the typo.
+>>>
+>>> Thanks for respinning the series. I'll take this fix in bitmap-for-next, so
+>>> if you need v2, you'll not have to bear this thing too.
+>>
+>> Before doing that, please read my comment first.
 > 
-> Before doing that, please read my comment first.
+> Already did. Yes, you're right.
+> 
+> Vincent, can you send the fix separately, so I'll move it in the
+> upcoming merge window?
 
-Already did. Yes, you're right.
+Here it is:
+https://lore.kernel.org/all/20250305-fix_init128_typo-v1-1-cbe5b8e54e7d@wanadoo.fr/
 
-Vincent, can you send the fix separately, so I'll move it in the
-upcoming merge window?
+As requested, I will exclude this from the v5.
+
+
+Yours sincerely,
+Vincent Mailhol
+
