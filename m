@@ -4,91 +4,87 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1EF16C19F32
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7458EC282DE
 	for <intel-gfx@archiver.kernel.org>; Fri,  7 Mar 2025 13:58:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 33C3510EB86;
+	by gabe.freedesktop.org (Postfix) with ESMTP id A53AA10EBA0;
 	Fri,  7 Mar 2025 13:58:00 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Gd6ot5mL";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="IzZMGzKK";
 	dkim-atps=neutral
-Received: from mail-wr1-f45.google.com (mail-wr1-f45.google.com
- [209.85.221.45])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0BAAA8826D;
- Fri,  7 Mar 2025 13:27:48 +0000 (UTC)
-Received: by mail-wr1-f45.google.com with SMTP id
- ffacd0b85a97d-390e3b3d3f4so953379f8f.2; 
- Fri, 07 Mar 2025 05:27:47 -0800 (PST)
+Received: from mail-pj1-f46.google.com (mail-pj1-f46.google.com
+ [209.85.216.46])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1D7CC89453;
+ Wed,  5 Mar 2025 14:38:36 +0000 (UTC)
+Received: by mail-pj1-f46.google.com with SMTP id
+ 98e67ed59e1d1-2fe98d173daso11083236a91.1; 
+ Wed, 05 Mar 2025 06:38:36 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1741354066; x=1741958866; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:subject:cc:to:from:date:from:to:cc:subject:date
- :message-id:reply-to;
- bh=85pEC8KCcI89C4WR+hGbDu9vRGoE5Gebzb+PlByP0LU=;
- b=Gd6ot5mLYp9ZYF33Ury7FcLxMZeNWq5gKw5C6A/gMw5VA7XTxA9gPhdsTJu7i0CuUx
- wh2mOf8uig9oLNK1R4bkIbbawO5fUWhHKpRoJGwkAcig4nGq+Ccv7tz8PjLeZsE1xcSW
- Tqn6zf3WHdOx5AzOhB1yH6um9kGWCFUZFde36SDThWpOlW4zY8lI4+06DkVRMfdMh4Md
- gjp9X6dxH70f/ggIoA/IPbkJ8s9Aj5zv3ha1tvrlm3ErPxv7K0KAH9H1kOYDfr7C+Qx5
- nYAhTNzCuQrtohWQl7bqM0LSBvxaxy9npz1bQCh4PEbgJtzKzmifBy7rte2vXeIQHSsC
- ivWg==
+ d=gmail.com; s=20230601; t=1741185515; x=1741790315; darn=lists.freedesktop.org;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=bHAZgZUTDFwSbGDNSh6zOBEYSG38f9voYXlfP6pI9Oc=;
+ b=IzZMGzKK4cBGDQoN7sqz1Z6iPUEbDIdA0ZtBGsxNIdCConh/7ZR43Pej1rWTaf4rpE
+ f2BRlBHxhfDSJQpeUSJiBvZFUYC5X6gIwGTL4Ou0s1+MivjOD8M9nJo4y4ONCpxUxCqk
+ zt8IqJdvxdW1tTjZRbdpOOMQ0T7E45Oztcvc6MloeTXgMRigXJS0pBTEQheGqJLFDuBe
+ pXMItGO9pN4Msz0UvZZWBWRfR61x6uVJiRFTf0i2R3zZg1sAb7vo5o8j0AyW1RKeVCJ9
+ OVf0CH0brzxQpQM2fsASvCgyNJC8v0mpp270ZJGI4ezgYFRVkP/dao7ecnWY/4dF8QaT
+ NLFw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1741354066; x=1741958866;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:subject:cc:to:from:date:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=85pEC8KCcI89C4WR+hGbDu9vRGoE5Gebzb+PlByP0LU=;
- b=eSfjKwYe51QdypegSlt57+HzWw+DBVDwNTaw4zR3NoNW79lJMnuyGk776VROc/LXRF
- 9sbwIYfAgKsgPVLqbWU0wrN/QZpq1o0xpJflQxQCCSoyVH87hP8pr7tNeMmULM6VjMPC
- r3J6pwynAXv2jpV4/VvRkN9KmnS+A0tra3qCUTpBGQtq0TXMVEmf9OE2fg3sXKHgxXXG
- n3BFUEJHOiU7Gul+RPBM+5D+5wHKx5a1unFaVB0OTnVIhovJcMA6qZHf6H1uYCfBHJ38
- H3gwWBwhxcjGm28qqL6UY0W0C0d1NK3MUhxim1rmsAUoAbYF9h5VDTcCo+yUK8BPL0ZO
- cn0A==
+ d=1e100.net; s=20230601; t=1741185515; x=1741790315;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=bHAZgZUTDFwSbGDNSh6zOBEYSG38f9voYXlfP6pI9Oc=;
+ b=X/L06wfw6NKzwG8KW79rhkktNC4iqLnd2Kg+U1PQA9aRa9572w4OpV/9fEoDbv/66a
+ cRMQB/qM4f56yhPuMYR7KwjEkrxeCpHs1jVlxLRBrCHQvaL/9D5ReoHNI9re1Z/TsDKn
+ umlfGQcHMPm5ba0eaXi48dPe4md+8nscoETjrbnxOOjgYUfl0CcfqANWQNRr9EpYOxMz
+ t3wK5RSSD35S6XZm9iONbJBjnquBbGu1h9Xl90GRZsZy8s8qgmzCsTpO9q4RDJl8SYaP
+ lH3zKcV8xLKdYksFFNqBGxpwqOnyVj3uqWJHrcCjGjFQI8sZuPjnZwx6K9yzHv1FYSDS
+ 8v4A==
 X-Forwarded-Encrypted: i=1;
- AJvYcCWpKaCDWF7lbMl5bCTdXYcW+EQjaWZmgAMEPPenYOkjr5wOHUapd4txe2Q5jEFursk8HpkxHNkiAbg+@lists.freedesktop.org,
- AJvYcCXyOA6abWZJnu1871h9vYUDeSjKD7RoAM8Dn1RONLFgHuxM68AGswh0LFxTVyh0B8qHAY4aYsAI6hk=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzCbjlvMEMruNbbpXEAY0MkOZkyEarXIHWy9mN3BYTH0qemcq+f
- wteFAlRZ1I/pUdyQLl4DyTHylapGvwU23MG7VpC9F2Oex9l2W/7t
-X-Gm-Gg: ASbGncv/N4jpjfXIXDzcTHZ/P2lbdDd31uQTm3kcuQUZ9D/JKPxJmqkGirB5mlINFO4
- 1IBlxJww4plEuDQyN00Y167ySxleAnW8oulHqB2nhh4ERlHAQckcrUS49hmgLcQfMM+fsD9k5lP
- L/PR8Wu+gaHGlnKAJPMtPKXo8IS5libIhXwGufMX/A0MOfNGbkiM2SgA/AxDbDpVz9En2DK+6MX
- uZ1oFIBeBHzBGmmwUK7wpcVtpTE33fx8gC+QMfffIS4VEZroGKkaxvQRqM76HF6uOaihA1ky0/8
- ZJh2I6d8IjXnRGDBNrGCP6YXtDJ4+3e8y7d0MhYEOlHl9mb220SCT4v35RTlAP/nOOsm2+ux7Vi
- P12aWRRg=
-X-Google-Smtp-Source: AGHT+IFrmws0QRJibrAQb0TzahsD1hhkLY5E++lh2fAWSvEQc4XtAQW0XxSrln4LJs/Uja5JO15rng==
-X-Received: by 2002:a05:6000:4103:b0:391:3988:1c7c with SMTP id
- ffacd0b85a97d-39139881e97mr198214f8f.24.1741354066257; 
- Fri, 07 Mar 2025 05:27:46 -0800 (PST)
-Received: from pumpkin (82-69-66-36.dsl.in-addr.zen.co.uk. [82.69.66.36])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-43bd4352fa3sm80977135e9.30.2025.03.07.05.27.45
+ AJvYcCU9B19ncAYqBCQ3WkIYCvKpu4kx3aT/dKDTx70U81YApBuoG0T4xqb5RfmyIjHWkqL+bpdZdCD9Q+Qy@lists.freedesktop.org,
+ AJvYcCVOe2WlrM6axClC2RyT+eS/d5BOgowXqPHwkPFaF4yleO3LTbDmxcy7f+iGTCbQEdDHn28kymS6sWo=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yy5CDRPg6KsuSLx/0xK0B3QAE6Qr3ySazDibio1hdJeQiqIUis3
+ I6lNFqYBYMElbFY0OJYvM1scV4v0Pkgez7lnGQ5IXby2scUnpCQF
+X-Gm-Gg: ASbGnctsff8Za3hlVIQ9JsJKvLXVr7QDvK5mbU35IXQqgNsLyvWWDgWvboS7NR9VAn8
+ iSDzr1/6++qge6DaaWuZgaT9+hLC5ltnPfYFhpxgFp7t80L29wT4nzEXV/uvzAcl8AmqCOuqO0w
+ ivT3pmf5qofzEx3uEuWTdBaiiLuhYlAXUCYJyt3y2XSnlrryNZBsuyKw5wR4sstP52Abokf9FWH
+ 2QusTpKpK6+aPA2l+QshJDQSK3qLIZDEpzZbNerCpcAkU1WDAOHKPrm/okr2fgPmHkD29/6jEi3
+ 7UE+0BYdFJN6urk8619Jokit3itE6uZOazRCjywnqgSR
+X-Google-Smtp-Source: AGHT+IFsZODIVTdy4Yu9YdJ48Ff3wL9QVGH26zYvwfX2f1Hy2D8uL4un//uW6Hr678bpVZApdOSPXw==
+X-Received: by 2002:a05:6a21:329f:b0:1f3:3e91:fac0 with SMTP id
+ adf61e73a8af0-1f3494b6b33mr5017332637.11.1741185515467; 
+ Wed, 05 Mar 2025 06:38:35 -0800 (PST)
+Received: from localhost ([216.228.125.131]) by smtp.gmail.com with ESMTPSA id
+ 41be03b00d2f7-aee7dec49f1sm12031704a12.58.2025.03.05.06.38.34
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 07 Mar 2025 05:27:45 -0800 (PST)
-Date: Fri, 7 Mar 2025 13:27:42 +0000
-From: David Laight <david.laight.linux@gmail.com>
-To: Vincent Mailhol <mailhol.vincent@wanadoo.fr>
-Cc: Yury Norov <yury.norov@gmail.com>, Lucas De Marchi
- <lucas.demarchi@intel.com>, Rasmus Villemoes <linux@rasmusvillemoes.dk>,
- Jani Nikula <jani.nikula@linux.intel.com>, Joonas Lahtinen
- <joonas.lahtinen@linux.intel.com>, Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Tvrtko Ursulin <tursulin@ursulin.net>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Andrew Morton <akpm@linux-foundation.org>,
+ Wed, 05 Mar 2025 06:38:34 -0800 (PST)
+Date: Wed, 5 Mar 2025 09:38:32 -0500
+From: Yury Norov <yury.norov@gmail.com>
+To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+Cc: mailhol.vincent@wanadoo.fr, Lucas De Marchi <lucas.demarchi@intel.com>,
+ Rasmus Villemoes <linux@rasmusvillemoes.dk>,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Tvrtko Ursulin <tursulin@ursulin.net>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Andrew Morton <akpm@linux-foundation.org>,
  linux-kernel@vger.kernel.org, intel-gfx@lists.freedesktop.org,
  dri-devel@lists.freedesktop.org, Andi Shyti <andi.shyti@linux.intel.com>,
- David Laight <David.Laight@ACULAB.COM>, Dmitry Baryshkov
- <dmitry.baryshkov@linaro.org>, Andy Shevchenko
- <andriy.shevchenko@linux.intel.com>
-Subject: Re: [PATCH v5 1/7] bits: split the definition of the asm and
- non-asm GENMASK()
-Message-ID: <20250307132742.150a3a77@pumpkin>
-In-Reply-To: <bdce7d99-7f02-4667-acda-9ffc62c92af2@wanadoo.fr>
-References: <20250306-fixed-type-genmasks-v5-0-b443e9dcba63@wanadoo.fr>
- <20250306-fixed-type-genmasks-v5-1-b443e9dcba63@wanadoo.fr>
- <20250306192331.2701a029@pumpkin>
- <bdce7d99-7f02-4667-acda-9ffc62c92af2@wanadoo.fr>
-X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; arm-unknown-linux-gnueabihf)
+ David Laight <David.Laight@aculab.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Subject: Re: [PATCH v4 1/8] bits: fix typo 'unsigned __init128' -> 'unsigned
+ __int128'
+Message-ID: <Z8hh6BZgD3lmyBKp@thinkpad>
+References: <20250305-fixed-type-genmasks-v4-0-1873dcdf6723@wanadoo.fr>
+ <20250305-fixed-type-genmasks-v4-1-1873dcdf6723@wanadoo.fr>
+ <Z8hf_MNL3MeoXW5O@thinkpad> <Z8hhXHporoJ6Y39X@smile.fi.intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <Z8hhXHporoJ6Y39X@smile.fi.intel.com>
 X-Mailman-Approved-At: Fri, 07 Mar 2025 13:57:54 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -105,99 +101,19 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Fri, 7 Mar 2025 18:58:08 +0900
-Vincent Mailhol <mailhol.vincent@wanadoo.fr> wrote:
+On Wed, Mar 05, 2025 at 04:36:12PM +0200, Andy Shevchenko wrote:
+> On Wed, Mar 05, 2025 at 09:30:20AM -0500, Yury Norov wrote:
+> > On Wed, Mar 05, 2025 at 10:00:13PM +0900, Vincent Mailhol via B4 Relay wrote:
+> > > From: Vincent Mailhol <mailhol.vincent@wanadoo.fr>
+> > > 
+> > > "int" was misspelled as "init" in GENMASK_U128() comments. Fix the typo.
+> > 
+> > Thanks for respinning the series. I'll take this fix in bitmap-for-next, so
+> > if you need v2, you'll not have to bear this thing too.
+> 
+> Before doing that, please read my comment first.
 
-> On 07/03/2025 at 04:23, David Laight wrote:
-> > On Thu, 06 Mar 2025 20:29:52 +0900
-> > Vincent Mailhol via B4 Relay <devnull+mailhol.vincent.wanadoo.fr@kernel=
-.org> wrote:
-> >  =20
-> >> From: Vincent Mailhol <mailhol.vincent@wanadoo.fr>
-> >>
-> >> In an upcoming change, GENMASK() and its friends will indirectly
-> >> depend on sizeof() which is not available in asm.
-> >>
-> >> Instead of adding further complexity to __GENMASK() to make it work
-> >> for both asm and non asm, just split the definition of the two
-> >> variants. =20
-> > ... =20
-> >> +#else /* defined(__ASSEMBLY__) */
-> >> +
-> >> +#define GENMASK(h, l)		__GENMASK(h, l)
-> >> +#define GENMASK_ULL(h, l)	__GENMASK_ULL(h, l) =20
-> >=20
-> > What do those actually expand to now?
-> > As I've said a few times both UL(0) and ULL(0) are just (0) for __ASSEM=
-BLY__
-> > so the expansions of __GENMASK() and __GENMASK_ULL() contained the
-> > same numeric constants. =20
->=20
-> Indeed, in asm, the UL(0) and ULL(0) expands to the same thing: 0.
->=20
-> But the two macros still expand to something different on 32 bits
-> architectures:
->=20
->   * __GENMASK:
->=20
->       (((~(0)) << (l)) & (~(0) >> (32 - 1 - (h))))
->=20
->   * __GENMASK_ULL:
->=20
->       (((~(0)) << (l)) & (~(0) >> (64 - 1 - (h))))
->=20
-> On 64 bits architecture these are the same.
+Already did. Yes, you're right.
 
-If the assembler is naive and uses the cpu shift instruction for the >>
-then a lot of cpu (including all x86 since the 286) mask off the high bits.
-So __GENMASK_ULL() may well generate the expected pattern - provided it
-is 32bits wide.
-
->=20
-> > This means they should be generating the same values.
-> > I don't know the correct 'sizeof (int_type)' for the shift right of ~0.
-> > My suspicion is that a 32bit assembler used 32bit signed integers and a
-> > 64bit one 64bit signed integers (but a 32bit asm on a 64bit host might
-> > be 64bit).
-> > So the asm versions need to avoid the right shift and only do left shif=
-ts.
-> >=20
-> > Which probably means they need to be enirely separate from the C versio=
-ns.
-> > And then the C ones can have all the ULL() removed. =20
->=20
-> In this v5, I already have the ULL() removed from the non-uapi C
-> version. And we are left with two distinct variants:
->=20
->   - the uapi C & asm
->   - the non-uapi C (including fix width)
->=20
-> For the uapi ones, I do not think we can modify it without a risk of
-> breaking some random userland. At least, this is not a risk I=C2=A0will t=
-ake.
-> And if we have to keep the __GENMASK() and __GENMASK_ULL(), then I would
-> rather just reuse these for the asm variant instead of splitting further
-> more and finding ourselves with three variants:
->=20
->   - the uapi C
->   - the asm
->   - the non-uapi C (including fix width)
->=20
-> If __GENMASK() and __GENMASK_ULL() were not in the uapi, I would have
-> agreed with you.
->=20
-> If you believe that the risk of modifying the uapi GENMASK*() is low
-> enough, then you can submit a patch. But I will definitely not touch
-> these myself.
-
-I don't think you'll break userspace by stopping the uapi .h working
-for asm files (with __ASSEMBLER__ defined).
-
-But someone else might have a different opinion.
-
->=20
->=20
-> Yours sincerely,
-> Vincent Mailhol
->=20
-
+Vincent, can you send the fix separately, so I'll move it in the
+upcoming merge window?
