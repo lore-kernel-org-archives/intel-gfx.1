@@ -4,74 +4,69 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 50BFEC28B25
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1CAA7C282DE
 	for <intel-gfx@archiver.kernel.org>; Fri,  7 Mar 2025 13:58:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9BFB010EB7B;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7E58510EB78;
 	Fri,  7 Mar 2025 13:58:22 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="ZtoVQAom";
+	dkim=pass (2048-bit key; unprotected) header.d=wanadoo.fr header.i=@wanadoo.fr header.b="A0rzXYL6";
 	dkim-atps=neutral
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B1EDC10E944;
- Thu,  6 Mar 2025 11:31:11 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id D91E65C5620;
- Thu,  6 Mar 2025 11:28:50 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 1FAA4C4CEEB;
- Thu,  6 Mar 2025 11:31:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1741260667;
- bh=Icsf5mwdszxckwhH0w5L/002CVczlNt3EFhEPGNLsiE=;
- h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
- b=ZtoVQAomgaertC2eD5j/CgQORDHI0fpJW6SHEoYDv6oSbIiWaQn1qA6nvFrYonu+K
- 92ZlFCU3TEoIsSAClS8kBaNxh6xdrHcm9QZkYuEze4EOpZA6y0yMnTliB/D4Gqzz7t
- NMwGrtTwi1Sx1IADx2LONpYTPNVXCi2dgYlPi8TOCd6ONx9ZikSfwsSnovQFtjK3uG
- 4f60du3Hh3XL93mkqSOcrX558ibre7ZHXRrg5S3O1sq3Qet9fPScd+qaDLe5oYpPgN
- ElVj2Si06oDKtV1Eeuh9uHwynFFRyi26o6i0YBamVVzxCICzIDfIx3jZ8tP2ugPiRJ
- SmyMicDm4f1Cw==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org
- (localhost.localdomain [127.0.0.1])
- by smtp.lore.kernel.org (Postfix) with ESMTP id 16E1AC282D1;
- Thu,  6 Mar 2025 11:31:07 +0000 (UTC)
-From: Vincent Mailhol via B4 Relay
- <devnull+mailhol.vincent.wanadoo.fr@kernel.org>
-Date: Thu, 06 Mar 2025 20:29:52 +0900
-Subject: [PATCH v5 1/7] bits: split the definition of the asm and non-asm
- GENMASK()
+Received: from out.smtpout.orange.fr (out-18.smtpout.orange.fr [193.252.22.18])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DF96C10E9D3;
+ Thu,  6 Mar 2025 14:57:10 +0000 (UTC)
+Received: from [172.16.82.72] ([124.33.176.97]) by smtp.orange.fr with ESMTPA
+ id qCectS0xXfuZZqCeht9SE6; Thu, 06 Mar 2025 15:57:06 +0100
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=wanadoo.fr;
+ s=t20230301; t=1741273026;
+ bh=IApVMtvhjjP+ynu8qaqYMeHBWOrmsHhRBAhBqDTMITc=;
+ h=Message-ID:Date:MIME-Version:Subject:To:From;
+ b=A0rzXYL688yLcQtnNV/Xch+ap1kY4osfMKwIBOGou3ooRn6PSSXwvXKQf5+dPpT3F
+ J5xB/DPmofS4uEZh7v6XufjsSpI3u9pHPOphsgCONylcCBo9zlfTryY3MJjAdTFYTw
+ GBtkeKCpApzQqzWcB1i9K3T9FaltKARpTS2pHng+7CTGwtpyEVZ3lqcUhEQ4QCWR5v
+ 91wW5uaSNKA2h9boasBgQqpY5/30tc4fTsKaYIaxjkXSi1ohjShpNlx4+vksJBh14L
+ 2GnWEve1JZ6jKdecGCfIi+QHzfkwvboan5WmuAZFXYXkjcD05gd5xZUGgauPdUA4d8
+ +rBDaBJWJYapA==
+X-ME-Helo: [172.16.82.72]
+X-ME-Auth: bWFpbGhvbC52aW5jZW50QHdhbmFkb28uZnI=
+X-ME-Date: Thu, 06 Mar 2025 15:57:06 +0100
+X-ME-IP: 124.33.176.97
+Message-ID: <34c42bf9-a9e6-41db-9efb-a32bb253b4d2@wanadoo.fr>
+Date: Thu, 6 Mar 2025 23:56:54 +0900
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20250306-fixed-type-genmasks-v5-1-b443e9dcba63@wanadoo.fr>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v5 0/7] bits: Fixed-type GENMASK()/BIT()
+To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+Cc: Yury Norov <yury.norov@gmail.com>,
+ Lucas De Marchi <lucas.demarchi@intel.com>,
+ Rasmus Villemoes <linux@rasmusvillemoes.dk>,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, Tvrtko Ursulin
+ <tursulin@ursulin.net>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Andrew Morton <akpm@linux-foundation.org>,
+ linux-kernel@vger.kernel.org, intel-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, Andi Shyti <andi.shyti@linux.intel.com>,
+ David Laight <David.Laight@aculab.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Jani Nikula <jani.nikula@intel.com>
 References: <20250306-fixed-type-genmasks-v5-0-b443e9dcba63@wanadoo.fr>
-In-Reply-To: <20250306-fixed-type-genmasks-v5-0-b443e9dcba63@wanadoo.fr>
-To: Yury Norov <yury.norov@gmail.com>, 
- Lucas De Marchi <lucas.demarchi@intel.com>, 
- Rasmus Villemoes <linux@rasmusvillemoes.dk>, 
- Jani Nikula <jani.nikula@linux.intel.com>, 
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, 
- Rodrigo Vivi <rodrigo.vivi@intel.com>, 
- Tvrtko Ursulin <tursulin@ursulin.net>, David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>, Andrew Morton <akpm@linux-foundation.org>
-Cc: linux-kernel@vger.kernel.org, intel-gfx@lists.freedesktop.org, 
- dri-devel@lists.freedesktop.org, Andi Shyti <andi.shyti@linux.intel.com>, 
- David Laight <David.Laight@ACULAB.COM>, 
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, 
- Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
- Vincent Mailhol <mailhol.vincent@wanadoo.fr>
-X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1855;
- i=mailhol.vincent@wanadoo.fr; h=from:subject:message-id;
- bh=dJfvjZxC8SCVRVjYV16O3WdcDhHgqH5OViLGYTkkouk=;
- b=owGbwMvMwCV2McXO4Xp97WbG02pJDOkn21PYfefvEdA3yhG+9Jq79IzZW82JNUeNNe8m24S6c
- YgvryvsKGVhEONikBVTZFlWzsmt0FHoHXboryXMHFYmkCEMXJwCMBGFIkaGR30Lt08Xuyu9/cIV
- F4W3IRM6uNKsebJvcss/WLAufYMLIyNDp3eijYz85ushG4vF4pZMLfyz4EQK49VnS25OFEqIs65
- mAgA=
-X-Developer-Key: i=mailhol.vincent@wanadoo.fr; a=openpgp;
- fpr=ED8F700574E67F20E574E8E2AB5FEB886DBB99C2
-X-Endpoint-Received: by B4 Relay for mailhol.vincent@wanadoo.fr/default
- with auth_id=291
-X-Original-From: Vincent Mailhol <mailhol.vincent@wanadoo.fr>
+ <Z8mc8t_OJzUGFjH-@smile.fi.intel.com>
+Content-Language: en-US
+From: Vincent Mailhol <mailhol.vincent@wanadoo.fr>
+Autocrypt: addr=mailhol.vincent@wanadoo.fr; keydata=
+ xjMEZluomRYJKwYBBAHaRw8BAQdAf+/PnQvy9LCWNSJLbhc+AOUsR2cNVonvxhDk/KcW7FvN
+ LFZpbmNlbnQgTWFpbGhvbCA8bWFpbGhvbC52aW5jZW50QHdhbmFkb28uZnI+wrIEExYKAFoC
+ GwMFCQp/CJcFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4AWIQTtj3AFdOZ/IOV06OKrX+uI
+ bbuZwgUCZx41XhgYaGtwczovL2tleXMub3BlbnBncC5vcmcACgkQq1/riG27mcIYiwEAkgKK
+ BJ+ANKwhTAAvL1XeApQ+2NNNEwFWzipVAGvTRigA+wUeyB3UQwZrwb7jsQuBXxhk3lL45HF5
+ 8+y4bQCUCqYGzjgEZx4y8xIKKwYBBAGXVQEFAQEHQJrbYZzu0JG5w8gxE6EtQe6LmxKMqP6E
+ yR33sA+BR9pLAwEIB8J+BBgWCgAmFiEE7Y9wBXTmfyDldOjiq1/riG27mcIFAmceMvMCGwwF
+ CQPCZwAACgkQq1/riG27mcJU7QEA+LmpFhfQ1aij/L8VzsZwr/S44HCzcz5+jkxnVVQ5LZ4B
+ ANOCpYEY+CYrld5XZvM8h2EntNnzxHHuhjfDOQ3MAkEK
+In-Reply-To: <Z8mc8t_OJzUGFjH-@smile.fi.intel.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Fri, 07 Mar 2025 13:57:54 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -85,81 +80,88 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: mailhol.vincent@wanadoo.fr
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Vincent Mailhol <mailhol.vincent@wanadoo.fr>
+On 06/03/2025 at 22:02, Andy Shevchenko wrote:
+> On Thu, Mar 06, 2025 at 08:29:51PM +0900, Vincent Mailhol via B4 Relay wrote:
+>> Introduce some fixed width variant of the GENMASK() and the BIT()
+>> macros in bits.h. Note that the main goal is not to get the correct
+>> type, but rather to enforce more checks at compile time. For example:
+>>
+>>   GENMASK_U16(16, 0)
+>>
+>> will raise a build bug.
+>>
+>> This series is a continuation of:
+>>
+>>   https://lore.kernel.org/intel-xe/20240208074521.577076-1-lucas.demarchi@intel.com
+>>
+>> from Lucas De Marchi. Above series is one year old. I really think
+>> that this was a good idea and I do not want this series to die. So I
+>> am volunteering to revive it.
+>>
+>> Meanwhile, many changes occurred in bits.h. The most significant
+>> change is that __GENMASK() was moved to the uapi headers.
+>>
+>> In v4 an onward, I introduce one big change: split the definition of
+>> the asm and non-asm GENMASK(). I think this is controversial.
+>> Especially, Yury commented that he did not want such split. So I
+>> initially implemented a first draft in which both the asm and non-asm
+>> version would rely on the same helper macro, i.e. adding this:
+>>
+>>   #define __GENMASK_t(t, w, h, l)			\
+> 
+> I thought we agreed on renaming...
+> 
+>>   	(((t)~_ULL(0) - ((t)1 << (l)) + 1) &		\
+>>   	 ((t)~_ULL(0) >> (w - 1 - (h))))
+>>     
+>> to uapi/bits.h. And then, the different GENMASK()s would look like
+>> this:
+>>
+>>   #define __GENMASK(h, l) __GENMASK_t(unsigned long, __BITS_PER_LONG, h, l)
+> 
+> Ditto.
 
-In an upcoming change, GENMASK() and its friends will indirectly
-depend on sizeof() which is not available in asm.
+I forgot to update the cover letter, my bad…
 
-Instead of adding further complexity to __GENMASK() to make it work
-for both asm and non asm, just split the definition of the two
-variants.
+>> and so on.
+>>     
+>> I implemented it, and the final result looks quite ugly. Not only do
+>> we need to manually provide the width each time, the biggest concern
+>> is that adding this to the uapi is asking for trouble. Who knows how
+>> people are going to use this? And once it is in the uapi, there is
+>> virtually no way back.
+>>
+>> Finally, I do not think it makes sense to expose the fixed width
+>> variants to the asm. The fixed width integers type are a C
+>> concept. For asm, the long and long long variants seems sufficient.
+>>
+>> And so, after implementing both, the asm and non-asm split seems way
+>> more clean and I think this is the best compromise. Let me know what
+>> you think :)
+>>
+>> As requested, here are the bloat-o-meter stats:
+>>
+>>   $ ./scripts/bloat-o-meter vmlinux_before.o vmlinux_after.o 
+>>   add/remove: 0/0 grow/shrink: 4/2 up/down: 5/-4 (1)
+>>   Function                                     old     new   delta
+>>   intel_psr_invalidate                         666     668      +2
+>>   mst_stream_compute_config                   1652    1653      +1
+>>   intel_psr_flush                              977     978      +1
+>>   intel_dp_compute_link_config                1327    1328      +1
+>>   cfg80211_inform_bss_data                    5109    5108      -1
+>>   intel_drrs_activate                          379     376      -3
+>>   Total: Before=22723481, After=22723482, chg +0.00%
+>>
+>> (done with GCC 12.4.1 on a defconfig)
+> 
+> What defconfig? x86_64_defconfig?
 
-Signed-off-by: Vincent Mailhol <mailhol.vincent@wanadoo.fr>
----
-Changelog:
+Yes, x86_64 defconfig.
 
-  v4 -> v5:
 
-    - Use tab indentations instead of single space to separate the
-      macro name from its body.
-
-  v3 -> v4:
-
-    - New patch in the series
----
- include/linux/bits.h | 18 +++++++++---------
- 1 file changed, 9 insertions(+), 9 deletions(-)
-
-diff --git a/include/linux/bits.h b/include/linux/bits.h
-index 14fd0ca9a6cd17339dd2f69e449558312a8a001b..4819cbe7bd48fbae796fc6005c9f92b1c93a034c 100644
---- a/include/linux/bits.h
-+++ b/include/linux/bits.h
-@@ -19,23 +19,17 @@
-  * GENMASK_ULL(39, 21) gives us the 64bit vector 0x000000ffffe00000.
-  */
- #if !defined(__ASSEMBLY__)
-+
- #include <linux/build_bug.h>
- #include <linux/compiler.h>
-+
- #define GENMASK_INPUT_CHECK(h, l) BUILD_BUG_ON_ZERO(const_true((l) > (h)))
--#else
--/*
-- * BUILD_BUG_ON_ZERO is not available in h files included from asm files,
-- * disable the input check if that is the case.
-- */
--#define GENMASK_INPUT_CHECK(h, l) 0
--#endif
- 
- #define GENMASK(h, l) \
- 	(GENMASK_INPUT_CHECK(h, l) + __GENMASK(h, l))
- #define GENMASK_ULL(h, l) \
- 	(GENMASK_INPUT_CHECK(h, l) + __GENMASK_ULL(h, l))
- 
--#if !defined(__ASSEMBLY__)
- /*
-  * Missing asm support
-  *
-@@ -48,6 +42,12 @@
-  */
- #define GENMASK_U128(h, l) \
- 	(GENMASK_INPUT_CHECK(h, l) + __GENMASK_U128(h, l))
--#endif
-+
-+#else /* defined(__ASSEMBLY__) */
-+
-+#define GENMASK(h, l)		__GENMASK(h, l)
-+#define GENMASK_ULL(h, l)	__GENMASK_ULL(h, l)
-+
-+#endif /* !defined(__ASSEMBLY__) */
- 
- #endif	/* __LINUX_BITS_H */
-
--- 
-2.45.3
-
+Yours sincerely,
+Vincent Mailhol
 
