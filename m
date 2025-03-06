@@ -4,75 +4,75 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E2010C282DE
-	for <intel-gfx@archiver.kernel.org>; Fri,  7 Mar 2025 13:58:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 45096C28B25
+	for <intel-gfx@archiver.kernel.org>; Fri,  7 Mar 2025 13:58:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4578E10EB77;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6695210EBAE;
 	Fri,  7 Mar 2025 13:58:27 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="ldKGQrHC";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="pQzloN7R";
 	dkim-atps=neutral
-Received: from nyc.source.kernel.org (nyc.source.kernel.org [147.75.193.91])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9F21410EAC2;
- Fri,  7 Mar 2025 04:35:44 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5553810E944;
+ Thu,  6 Mar 2025 11:31:12 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by nyc.source.kernel.org (Postfix) with ESMTP id 1E0E8A454AD;
- Fri,  7 Mar 2025 04:30:13 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C5266C4CEE9;
- Fri,  7 Mar 2025 04:35:36 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTP id 13F025C5629;
+ Thu,  6 Mar 2025 11:28:51 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 54FCEC4CEF1;
+ Thu,  6 Mar 2025 11:31:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1741322143;
- bh=KL01593/zSX4Xb5hwQBCHJDAckIJ37QdEuF5jXeWgJ8=;
- h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=ldKGQrHCCCBRKwxBBjQ7/sdDNo9UDRM9Wuk4aXL/VrX1QWc9XvIPKvuRu7T8kyCAz
- VsuiJ5Z/QO4QUG/SxMtNtVWspKFytYNeOOUuseFIIcKEjLRPpkwu52F1VYFZlqa56m
- OrYLW5UImkUOXbsCO4SoHXaXpWBZ9OzryLoqdNdE+5/ML0dQ1BAAlLBKviO/tTJaYR
- jxqjGGtrSgSehHdEfSUiUSvgH3PfvLnDO3FB5BZes2EDMGY5bNbdLJQyfuXQyGoUI8
- d6ANHFMxFlgYXjydA/YWUMQ8WjMow2EBF7RizBcdJkbLLh/+Y9cpyOs5M4b5Hd16iH
- z1UHTNk19h3Dw==
-From: Dmitry Baryshkov <lumag@kernel.org>
-Date: Fri, 07 Mar 2025 06:34:49 +0200
-Subject: [PATCH RFC v3 7/7] drm/display: dp-tunnel: use new DCPD access helpers
+ s=k20201202; t=1741260667;
+ bh=pDmrzDU20/2O05q82pXiNPKQkEOP+Qzt7hv6/3Ro+HM=;
+ h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
+ b=pQzloN7R01qzZ/7kV3qHQk/soXZjavz24fKLTN8yvmE1rbXB2yb0UMmht02P93gNQ
+ spWbz4i8XIp8hGodtBGXmyUXYBtBfpPBraLAYaslEC76dRwDaVoYlDTXfmUjT3wl/p
+ tKC/NbazRkSdBVPO6yMxPu7GwnunfXMPX0uFrDbmIyvP5IeT1/acxh9aOYRyASm0kH
+ MsqbrmloKr0oGMgHziDDvva66Y+vPHBgF/od38/YrtEGVFADYp5Sk0euI538HiFbCB
+ lkoPD5TimmDJAR5SVkdZ6bqHe0eY2nUi3Uayag6LsHJC4kT8vGIaSreWEizjew7kl/
+ icA2E/oUNHK8A==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org
+ (localhost.localdomain [127.0.0.1])
+ by smtp.lore.kernel.org (Postfix) with ESMTP id 4C6C4C282EC;
+ Thu,  6 Mar 2025 11:31:07 +0000 (UTC)
+From: Vincent Mailhol via B4 Relay
+ <devnull+mailhol.vincent.wanadoo.fr@kernel.org>
+Date: Thu, 06 Mar 2025 20:29:55 +0900
+Subject: [PATCH v5 4/7] drm/i915: Convert REG_GENMASK*() to fixed-width
+ GENMASK_U*()
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20250307-drm-rework-dpcd-access-v3-7-9044a3a868ee@linaro.org>
-References: <20250307-drm-rework-dpcd-access-v3-0-9044a3a868ee@linaro.org>
-In-Reply-To: <20250307-drm-rework-dpcd-access-v3-0-9044a3a868ee@linaro.org>
-To: Lyude Paul <lyude@redhat.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>, 
- Sean Paul <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>, 
+Message-Id: <20250306-fixed-type-genmasks-v5-4-b443e9dcba63@wanadoo.fr>
+References: <20250306-fixed-type-genmasks-v5-0-b443e9dcba63@wanadoo.fr>
+In-Reply-To: <20250306-fixed-type-genmasks-v5-0-b443e9dcba63@wanadoo.fr>
+To: Yury Norov <yury.norov@gmail.com>, 
+ Lucas De Marchi <lucas.demarchi@intel.com>, 
+ Rasmus Villemoes <linux@rasmusvillemoes.dk>, 
  Jani Nikula <jani.nikula@linux.intel.com>, 
- Alex Deucher <alexander.deucher@amd.com>, 
- =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- Andrzej Hajda <andrzej.hajda@intel.com>, 
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
- Xinliang Liu <xinliang.liu@linaro.org>, Tian Tao <tiantao6@hisilicon.com>, 
- Xinwei Kong <kong.kongxinwei@hisilicon.com>, 
- Sumit Semwal <sumit.semwal@linaro.org>, 
- Yongqin Liu <yongqin.liu@linaro.org>, John Stultz <jstultz@google.com>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org, 
- intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org, 
- amd-gfx@lists.freedesktop.org, Jani Nikula <jani.nikula@intel.com>
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, 
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, 
+ Tvrtko Ursulin <tursulin@ursulin.net>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>, Andrew Morton <akpm@linux-foundation.org>
+Cc: linux-kernel@vger.kernel.org, intel-gfx@lists.freedesktop.org, 
+ dri-devel@lists.freedesktop.org, Andi Shyti <andi.shyti@linux.intel.com>, 
+ David Laight <David.Laight@ACULAB.COM>, 
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, 
+ Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
+ Jani Nikula <jani.nikula@intel.com>, 
+ Vincent Mailhol <mailhol.vincent@wanadoo.fr>
 X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=4082;
- i=dmitry.baryshkov@linaro.org; h=from:subject:message-id;
- bh=AezDpTs9i2rYRC6AeDwZvqAV87zlWZZG2GdTd51PPFs=;
- b=owEBbQGS/pANAwAKAYs8ij4CKSjVAcsmYgBnyndm4YmJ13M13g50Hz9Sq+c+qDBc7tzhUsJZc
- 26viUPY20iJATMEAAEKAB0WIQRMcISVXLJjVvC4lX+LPIo+Aiko1QUCZ8p3ZgAKCRCLPIo+Aiko
- 1X8sB/4888qcKk/8zGB7aMpCxYduTg4THzLpcYD8TWj2W/90FyWWaqO73ENLrgFchxmmyfbNS8a
- uDYKawkLTsjbg4Hf0lxnxHrxmcerpAVcQeOZO1haVm1oU2Uoytx/uWdHsaDk5Y8thUE6X67vXjl
- G+bTSCZk7ALEbOVQYznsizRJchJw5FrA9YoosnZARbCDWrcSLHrcWs1lgiKBFDw/FbgWSqB2jb7
- pqstTbcI6TmS3kiK0BjHUVuaVqtuwFf0lhzfJF0ECNE3rAeSFHqjo4lF8WI6n7iA1OXyZAOof+P
- mKnSCpQbwrKULU5PBolPo0HltA8pk1y+F5Gx/VcSbMJAyDI/
-X-Developer-Key: i=dmitry.baryshkov@linaro.org; a=openpgp;
- fpr=8F88381DD5C873E4AE487DA5199BF1243632046A
+X-Developer-Signature: v=1; a=openpgp-sha256; l=5436;
+ i=mailhol.vincent@wanadoo.fr; h=from:subject:message-id;
+ bh=aRv3WLMg0/dkoqaHRape7ppQLtc8oZBcS1sIh8+3EdA=;
+ b=owGbwMvMwCV2McXO4Xp97WbG02pJDOkn23Nf/rjy5+mf0ISc8jVpGcK3Z/daf+l/peRn6fjsr
+ n7Seo3AjlIWBjEuBlkxRZZl5ZzcCh2F3mGH/lrCzGFlAhnCwMUpABP5O4Hhn8mFU0neVWmGugV6
+ u82fTPa5teXd7QcLVu+buTjqk/TrAheGf3qWj41FPfqKrqysOFfa7+R2ceV1h/19Xz7s4rx0Q94
+ ogB0A
+X-Developer-Key: i=mailhol.vincent@wanadoo.fr; a=openpgp;
+ fpr=ED8F700574E67F20E574E8E2AB5FEB886DBB99C2
+X-Endpoint-Received: by B4 Relay for mailhol.vincent@wanadoo.fr/default
+ with auth_id=291
+X-Original-From: Vincent Mailhol <mailhol.vincent@wanadoo.fr>
 X-Mailman-Approved-At: Fri, 07 Mar 2025 13:57:54 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -86,113 +86,166 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: mailhol.vincent@wanadoo.fr
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+From: Lucas De Marchi <lucas.demarchi@intel.com>
 
-Switch drm_dp_tunnel.c to use new set of DPCD read / write helpers.
+Now that include/linux/bits.h implements fixed-width GENMASK_U*(), use
+them to implement the i915/xe specific macros. Converting each driver
+to use the generic macros are left for later, when/if other
+driver-specific macros are also generalized.
 
-Reviewed-by: Lyude Paul <lyude@redhat.com>
+Signed-off-by: Lucas De Marchi <lucas.demarchi@intel.com>
 Acked-by: Jani Nikula <jani.nikula@intel.com>
-Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Signed-off-by: Vincent Mailhol <mailhol.vincent@wanadoo.fr>
 ---
- drivers/gpu/drm/display/drm_dp_tunnel.c | 20 ++++++++++----------
- 1 file changed, 10 insertions(+), 10 deletions(-)
+Changelog:
 
-diff --git a/drivers/gpu/drm/display/drm_dp_tunnel.c b/drivers/gpu/drm/display/drm_dp_tunnel.c
-index 90fe07a89260e21e78f2db7f57a90602be921a11..076edf1610480275c62395334ab0536befa42f15 100644
---- a/drivers/gpu/drm/display/drm_dp_tunnel.c
-+++ b/drivers/gpu/drm/display/drm_dp_tunnel.c
-@@ -222,7 +222,7 @@ static int read_tunnel_regs(struct drm_dp_aux *aux, struct drm_dp_tunnel_regs *r
- 	while ((len = next_reg_area(&offset))) {
- 		int address = DP_TUNNELING_BASE + offset;
+  v4 -> v5:
+
+    - Add braket to macro names in patch description,
+      e.g. 'REG_GENMASK*' -> 'REG_GENMASK*()'
+
+  v3 -> v4:
+
+    - Remove the prefixes in macro parameters,
+      e.g. 'REG_GENMASK(__high, __low)' -> 'REG_GENMASK(high, low)'
+---
+ drivers/gpu/drm/i915/i915_reg_defs.h | 108 ++++-------------------------------
+ 1 file changed, 11 insertions(+), 97 deletions(-)
+
+diff --git a/drivers/gpu/drm/i915/i915_reg_defs.h b/drivers/gpu/drm/i915/i915_reg_defs.h
+index e251bcc0c89f5710125bc70f07851b2cb978c89c..39e5ed9511174b8757b9201bff735fa362651b34 100644
+--- a/drivers/gpu/drm/i915/i915_reg_defs.h
++++ b/drivers/gpu/drm/i915/i915_reg_defs.h
+@@ -9,76 +9,19 @@
+ #include <linux/bitfield.h>
+ #include <linux/bits.h>
  
--		if (drm_dp_dpcd_read(aux, address, tunnel_reg_ptr(regs, address), len) < 0)
-+		if (drm_dp_dpcd_read_data(aux, address, tunnel_reg_ptr(regs, address), len) < 0)
- 			return -EIO;
+-/**
+- * REG_BIT() - Prepare a u32 bit value
+- * @__n: 0-based bit number
+- *
+- * Local wrapper for BIT() to force u32, with compile time checks.
+- *
+- * @return: Value with bit @__n set.
+- */
+-#define REG_BIT(__n)							\
+-	((u32)(BIT(__n) +						\
+-	       BUILD_BUG_ON_ZERO(__is_constexpr(__n) &&		\
+-				 ((__n) < 0 || (__n) > 31))))
+-
+-/**
+- * REG_BIT8() - Prepare a u8 bit value
+- * @__n: 0-based bit number
+- *
+- * Local wrapper for BIT() to force u8, with compile time checks.
+- *
+- * @return: Value with bit @__n set.
+- */
+-#define REG_BIT8(__n)                                                   \
+-	((u8)(BIT(__n) +                                                \
+-	       BUILD_BUG_ON_ZERO(__is_constexpr(__n) &&         \
+-				 ((__n) < 0 || (__n) > 7))))
+-
+-/**
+- * REG_GENMASK() - Prepare a continuous u32 bitmask
+- * @__high: 0-based high bit
+- * @__low: 0-based low bit
+- *
+- * Local wrapper for GENMASK() to force u32, with compile time checks.
+- *
+- * @return: Continuous bitmask from @__high to @__low, inclusive.
+- */
+-#define REG_GENMASK(__high, __low)					\
+-	((u32)(GENMASK(__high, __low) +					\
+-	       BUILD_BUG_ON_ZERO(__is_constexpr(__high) &&	\
+-				 __is_constexpr(__low) &&		\
+-				 ((__low) < 0 || (__high) > 31 || (__low) > (__high)))))
+-
+-/**
+- * REG_GENMASK64() - Prepare a continuous u64 bitmask
+- * @__high: 0-based high bit
+- * @__low: 0-based low bit
+- *
+- * Local wrapper for GENMASK_ULL() to force u64, with compile time checks.
+- *
+- * @return: Continuous bitmask from @__high to @__low, inclusive.
++/*
++ * Wrappers over the generic BIT_* and GENMASK_* implementations,
++ * for compatibility reasons with previous implementation
+  */
+-#define REG_GENMASK64(__high, __low)					\
+-	((u64)(GENMASK_ULL(__high, __low) +				\
+-	       BUILD_BUG_ON_ZERO(__is_constexpr(__high) &&		\
+-				 __is_constexpr(__low) &&		\
+-				 ((__low) < 0 || (__high) > 63 || (__low) > (__high)))))
++#define REG_GENMASK(high, low)		GENMASK_U32(high, low)
++#define REG_GENMASK64(high, low)	GENMASK_U64(high, low)
++#define REG_GENMASK16(high, low)	GENMASK_U16(high, low)
++#define REG_GENMASK8(high, low)		GENMASK_U8(high, low)
  
- 		offset += len;
-@@ -913,7 +913,7 @@ static int set_bw_alloc_mode(struct drm_dp_tunnel *tunnel, bool enable)
- 	u8 mask = DP_DISPLAY_DRIVER_BW_ALLOCATION_MODE_ENABLE | DP_UNMASK_BW_ALLOCATION_IRQ;
- 	u8 val;
+-/**
+- * REG_GENMASK8() - Prepare a continuous u8 bitmask
+- * @__high: 0-based high bit
+- * @__low: 0-based low bit
+- *
+- * Local wrapper for GENMASK() to force u8, with compile time checks.
+- *
+- * @return: Continuous bitmask from @__high to @__low, inclusive.
+- */
+-#define REG_GENMASK8(__high, __low)                                     \
+-	((u8)(GENMASK(__high, __low) +                                  \
+-	       BUILD_BUG_ON_ZERO(__is_constexpr(__high) &&      \
+-				 __is_constexpr(__low) &&               \
+-				 ((__low) < 0 || (__high) > 7 || (__low) > (__high)))))
++#define REG_BIT(n)			BIT_U32(n)
++#define REG_BIT64(n)			BIT_U64(n)
++#define REG_BIT16(n)			BIT_U16(n)
++#define REG_BIT8(n)			BIT_U8(n)
  
--	if (drm_dp_dpcd_readb(tunnel->aux, DP_DPTX_BW_ALLOCATION_MODE_CONTROL, &val) < 0)
-+	if (drm_dp_dpcd_read_byte(tunnel->aux, DP_DPTX_BW_ALLOCATION_MODE_CONTROL, &val) < 0)
- 		goto out_err;
+ /*
+  * Local integer constant expression version of is_power_of_2().
+@@ -143,35 +86,6 @@
+  */
+ #define REG_FIELD_GET64(__mask, __val)	((u64)FIELD_GET(__mask, __val))
  
- 	if (enable)
-@@ -921,7 +921,7 @@ static int set_bw_alloc_mode(struct drm_dp_tunnel *tunnel, bool enable)
- 	else
- 		val &= ~mask;
+-/**
+- * REG_BIT16() - Prepare a u16 bit value
+- * @__n: 0-based bit number
+- *
+- * Local wrapper for BIT() to force u16, with compile time
+- * checks.
+- *
+- * @return: Value with bit @__n set.
+- */
+-#define REG_BIT16(__n)                                                   \
+-	((u16)(BIT(__n) +                                                \
+-	       BUILD_BUG_ON_ZERO(__is_constexpr(__n) &&         \
+-				 ((__n) < 0 || (__n) > 15))))
+-
+-/**
+- * REG_GENMASK16() - Prepare a continuous u8 bitmask
+- * @__high: 0-based high bit
+- * @__low: 0-based low bit
+- *
+- * Local wrapper for GENMASK() to force u16, with compile time
+- * checks.
+- *
+- * @return: Continuous bitmask from @__high to @__low, inclusive.
+- */
+-#define REG_GENMASK16(__high, __low)                                     \
+-	((u16)(GENMASK(__high, __low) +                                  \
+-	       BUILD_BUG_ON_ZERO(__is_constexpr(__high) &&      \
+-				 __is_constexpr(__low) &&               \
+-				 ((__low) < 0 || (__high) > 15 || (__low) > (__high)))))
  
--	if (drm_dp_dpcd_writeb(tunnel->aux, DP_DPTX_BW_ALLOCATION_MODE_CONTROL, val) < 0)
-+	if (drm_dp_dpcd_write_byte(tunnel->aux, DP_DPTX_BW_ALLOCATION_MODE_CONTROL, val) < 0)
- 		goto out_err;
- 
- 	tunnel->bw_alloc_enabled = enable;
-@@ -1039,7 +1039,7 @@ static int clear_bw_req_state(struct drm_dp_aux *aux)
- {
- 	u8 bw_req_mask = DP_BW_REQUEST_SUCCEEDED | DP_BW_REQUEST_FAILED;
- 
--	if (drm_dp_dpcd_writeb(aux, DP_TUNNELING_STATUS, bw_req_mask) < 0)
-+	if (drm_dp_dpcd_write_byte(aux, DP_TUNNELING_STATUS, bw_req_mask) < 0)
- 		return -EIO;
- 
- 	return 0;
-@@ -1052,7 +1052,7 @@ static int bw_req_complete(struct drm_dp_aux *aux, bool *status_changed)
- 	u8 val;
- 	int err;
- 
--	if (drm_dp_dpcd_readb(aux, DP_TUNNELING_STATUS, &val) < 0)
-+	if (drm_dp_dpcd_read_byte(aux, DP_TUNNELING_STATUS, &val) < 0)
- 		return -EIO;
- 
- 	*status_changed = val & status_change_mask;
-@@ -1095,7 +1095,7 @@ static int allocate_tunnel_bw(struct drm_dp_tunnel *tunnel, int bw)
- 	if (err)
- 		goto out;
- 
--	if (drm_dp_dpcd_writeb(tunnel->aux, DP_REQUEST_BW, request_bw) < 0) {
-+	if (drm_dp_dpcd_write_byte(tunnel->aux, DP_REQUEST_BW, request_bw) < 0) {
- 		err = -EIO;
- 		goto out;
- 	}
-@@ -1196,13 +1196,13 @@ static int check_and_clear_status_change(struct drm_dp_tunnel *tunnel)
- 	u8 mask = DP_BW_ALLOCATION_CAPABILITY_CHANGED | DP_ESTIMATED_BW_CHANGED;
- 	u8 val;
- 
--	if (drm_dp_dpcd_readb(tunnel->aux, DP_TUNNELING_STATUS, &val) < 0)
-+	if (drm_dp_dpcd_read_byte(tunnel->aux, DP_TUNNELING_STATUS, &val) < 0)
- 		goto out_err;
- 
- 	val &= mask;
- 
- 	if (val) {
--		if (drm_dp_dpcd_writeb(tunnel->aux, DP_TUNNELING_STATUS, val) < 0)
-+		if (drm_dp_dpcd_write_byte(tunnel->aux, DP_TUNNELING_STATUS, val) < 0)
- 			goto out_err;
- 
- 		return 1;
-@@ -1215,7 +1215,7 @@ static int check_and_clear_status_change(struct drm_dp_tunnel *tunnel)
- 	 * Check for estimated BW changes explicitly to account for lost
- 	 * BW change notifications.
- 	 */
--	if (drm_dp_dpcd_readb(tunnel->aux, DP_ESTIMATED_BW, &val) < 0)
-+	if (drm_dp_dpcd_read_byte(tunnel->aux, DP_ESTIMATED_BW, &val) < 0)
- 		goto out_err;
- 
- 	if (val * tunnel->bw_granularity != tunnel->estimated_bw)
-@@ -1300,7 +1300,7 @@ int drm_dp_tunnel_handle_irq(struct drm_dp_tunnel_mgr *mgr, struct drm_dp_aux *a
- {
- 	u8 val;
- 
--	if (drm_dp_dpcd_readb(aux, DP_TUNNELING_STATUS, &val) < 0)
-+	if (drm_dp_dpcd_read_byte(aux, DP_TUNNELING_STATUS, &val) < 0)
- 		return -EIO;
- 
- 	if (val & (DP_BW_REQUEST_SUCCEEDED | DP_BW_REQUEST_FAILED))
+ /**
+  * REG_FIELD_PREP16() - Prepare a u16 bitfield value
 
 -- 
-2.39.5
+2.45.3
+
 
