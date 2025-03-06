@@ -4,49 +4,70 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5CF94C2BA1B
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B8BB3C35FF0
 	for <intel-gfx@archiver.kernel.org>; Fri,  7 Mar 2025 13:58:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EB2CA10EB8B;
-	Fri,  7 Mar 2025 13:57:55 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3881A10EB9D;
+	Fri,  7 Mar 2025 13:58:00 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="lU5rMSu6";
+	dkim=pass (2048-bit key; unprotected) header.d=wanadoo.fr header.i=@wanadoo.fr header.b="QqBDPvgZ";
 	dkim-atps=neutral
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EA11B10E9FF;
- Thu,  6 Mar 2025 16:44:31 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id 59DCF5C58DF;
- Thu,  6 Mar 2025 16:42:14 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D33BCC4CEE0;
- Thu,  6 Mar 2025 16:44:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
- s=korg; t=1741279471;
- bh=Wng5H8fUyX0zmymCbJHtpqhlGMVgqBVQyqJrLsrQqPI=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=lU5rMSu6LcD6/n9uR3jReYniIhIn3KBk/xKq66dxPNZ/10dcE+0q9MC1DSKia3Chk
- tW8yv5zcZyETYSzaJQyLfUD0FMFhHxaPvrHNZY/okOnTM7nPqH0lWxJzBekPhDTaSP
- vnTE7gJ6XaKtAo68CdAUGN2FUi/PrtFL8EtugzCY=
-Date: Thu, 6 Mar 2025 11:44:29 -0500
-From: Konstantin Ryabitsev <konstantin@linuxfoundation.org>
-To: Jani Nikula <jani.nikula@linux.intel.com>
-Cc: "Knop, Ryszard" <ryszard.knop@intel.com>, 
- "intel-xe@lists.freedesktop.org" <intel-xe@lists.freedesktop.org>, 
- "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>,
- "rk@dragonic.eu" <rk@dragonic.eu>, 
- "De Marchi, Lucas" <lucas.demarchi@intel.com>,
- "daniel@fooishbar.org" <daniel@fooishbar.org>, Sima Vetter <sima@ffwll.ch>
-Subject: Re: Discussion: Moving away from Patchwork for Intel i915/Xe CI
-Message-ID: <20250306-guillemot-of-nonstop-honeydew-aed30a@lemur>
-References: <814f9bcb9c7ee22af45bd5278255af247c6664fa.camel@intel.com>
- <871pvbxt40.fsf@intel.com>
- <20250305-nonchalant-fresh-stoat-61ea0a@lemur>
- <87frjqwidc.fsf@intel.com>
+Received: from out.smtpout.orange.fr (out-17.smtpout.orange.fr [193.252.22.17])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 496FA10EA0E;
+ Thu,  6 Mar 2025 16:08:16 +0000 (UTC)
+Received: from [172.16.82.72] ([124.33.176.97]) by smtp.orange.fr with ESMTPA
+ id qDlStMikP0ogTqDlWtO2V5; Thu, 06 Mar 2025 17:08:13 +0100
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=wanadoo.fr;
+ s=t20230301; t=1741277293;
+ bh=ntx+3nq4V7yi7gEdsBrCg2/MKlVb0jJAsXsOG3Q1Q6Q=;
+ h=Message-ID:Date:MIME-Version:Subject:To:From;
+ b=QqBDPvgZfeQKlj94cL0sLp7HN6qdX0lxzBcAuLquQCqlcZScYqlaxcOpgUIPpFgUp
+ k41xxGMRz/ZRLYlQG5bJ6sU0X6XJHLEOZ98LRRRU31fF8VUg/9C336KQynoG4qFxv1
+ 39WxtLBfHS91vmpl1YNkx/t60jrmEZF3S95ER+TVUxAW+awdR4Gs8cfRQuE59JhRDD
+ k18bdAgpV4QKuNpnBhGwZtPIqiiUsOjf2KWJ/pYROamSIVakkdfIHvA7Z40W/T0hkF
+ yFeyFGDl7y9fvuijVn0o2ZoAz+EGXm+Apie5YeJzg25q1xVNPATfvLbFNnkCy5CRdy
+ 2zUn3aft7Bztw==
+X-ME-Helo: [172.16.82.72]
+X-ME-Auth: bWFpbGhvbC52aW5jZW50QHdhbmFkb28uZnI=
+X-ME-Date: Thu, 06 Mar 2025 17:08:13 +0100
+X-ME-IP: 124.33.176.97
+Message-ID: <1c081c07-2833-4fa9-96fb-88a7295d2c14@wanadoo.fr>
+Date: Fri, 7 Mar 2025 01:08:01 +0900
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v5 2/7] bits: introduce fixed-type genmasks
+To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+Cc: Yury Norov <yury.norov@gmail.com>,
+ Lucas De Marchi <lucas.demarchi@intel.com>,
+ Rasmus Villemoes <linux@rasmusvillemoes.dk>,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, Tvrtko Ursulin
+ <tursulin@ursulin.net>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Andrew Morton <akpm@linux-foundation.org>,
+ linux-kernel@vger.kernel.org, intel-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, Andi Shyti <andi.shyti@linux.intel.com>,
+ David Laight <David.Laight@aculab.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Jani Nikula <jani.nikula@intel.com>
+References: <20250306-fixed-type-genmasks-v5-0-b443e9dcba63@wanadoo.fr>
+ <20250306-fixed-type-genmasks-v5-2-b443e9dcba63@wanadoo.fr>
+ <Z8meY7NS65_d14og@smile.fi.intel.com>
+Content-Language: en-US
+From: Vincent Mailhol <mailhol.vincent@wanadoo.fr>
+Autocrypt: addr=mailhol.vincent@wanadoo.fr; keydata=
+ xjMEZluomRYJKwYBBAHaRw8BAQdAf+/PnQvy9LCWNSJLbhc+AOUsR2cNVonvxhDk/KcW7FvN
+ LFZpbmNlbnQgTWFpbGhvbCA8bWFpbGhvbC52aW5jZW50QHdhbmFkb28uZnI+wrIEExYKAFoC
+ GwMFCQp/CJcFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4AWIQTtj3AFdOZ/IOV06OKrX+uI
+ bbuZwgUCZx41XhgYaGtwczovL2tleXMub3BlbnBncC5vcmcACgkQq1/riG27mcIYiwEAkgKK
+ BJ+ANKwhTAAvL1XeApQ+2NNNEwFWzipVAGvTRigA+wUeyB3UQwZrwb7jsQuBXxhk3lL45HF5
+ 8+y4bQCUCqYGzjgEZx4y8xIKKwYBBAGXVQEFAQEHQJrbYZzu0JG5w8gxE6EtQe6LmxKMqP6E
+ yR33sA+BR9pLAwEIB8J+BBgWCgAmFiEE7Y9wBXTmfyDldOjiq1/riG27mcIFAmceMvMCGwwF
+ CQPCZwAACgkQq1/riG27mcJU7QEA+LmpFhfQ1aij/L8VzsZwr/S44HCzcz5+jkxnVVQ5LZ4B
+ ANOCpYEY+CYrld5XZvM8h2EntNnzxHHuhjfDOQ3MAkEK
+In-Reply-To: <Z8meY7NS65_d14og@smile.fi.intel.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <87frjqwidc.fsf@intel.com>
 X-Mailman-Approved-At: Fri, 07 Mar 2025 13:57:54 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -63,33 +84,54 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Thu, Mar 06, 2025 at 12:42:07PM +0200, Jani Nikula wrote:
-> Side note, I often pipe messages from my MUA (notmuch-emacs) to b4, as
-> it nicely parses the mails and picks up the message-id from
-> there. Overall it works great. However, b4 seems to err on the side of
-> writing color codes to pipes, and I get this as output:
+On 06/03/2025 à 22:08, Andy Shevchenko wrote:
+> On Thu, Mar 06, 2025 at 08:29:53PM +0900, Vincent Mailhol via B4 Relay wrote:
+>> From: Yury Norov <yury.norov@gmail.com>
+>>
+>> Add GENMASK_TYPE() which generalizes __GENMASK() to support different
+>> types, and implement fixed-types versions of GENMASK() based on it.
+>> The fixed-type version allows more strict checks to the min/max values
+>> accepted, which is useful for defining registers like implemented by
+>> i915 and xe drivers with their REG_GENMASK*() macros.
+>>
+>> The strict checks rely on shift-count-overflow compiler check to fail
+>> the build if a number outside of the range allowed is passed.
+>> Example:
+>>
+>>   #define FOO_MASK GENMASK_U32(33, 4)
+>>
+>> will generate a warning like:
+>>
+>>   include/linux/bits.h:51:27: error: right shift count >= width of type [-Werror=shift-count-overflow]
+>>      51 |               type_max(t) >> (BITS_PER_TYPE(t) - 1 - (h)))))
+>>         |                           ^~
 > 
-> ---
->   [32m✓[0m [PATCH v5->v6 1/6] drm/i915/hpd: Track HPD pins instead of ports for HPD pulse events
->     + Reviewed-by: Jani Nikula <jani.nikula@intel.com> ([32m✓[0m DKIM/intel.com)
->   [32m✓[0m [PATCH v5->v6 2/6] drm/i915/hpd: Let an HPD pin be in the disabled state when handling missed IRQs
->     + Reviewed-by: Jani Nikula <jani.nikula@intel.com> ([32m✓[0m DKIM/intel.com)
->   [32m✓[0m [PATCH     v6 3/6] drm/i915/hpd: Add support for blocking the IRQ handling on an HPD pin
->   [32m✓[0m [PATCH v5->v6 4/6] drm/i915/dp: Fix link training interrupted by a short HPD pulse
->     + Reviewed-by: Jani Nikula <jani.nikula@intel.com> ([32m✓[0m DKIM/intel.com)
->   [32m✓[0m [PATCH     v6 5/6] drm/i915/dp: Queue a link check after link training is complete
->   [32m✓[0m [PATCH v5->v6 6/6] drm/i915/crt: Use intel_hpd_block/unblock() instead of intel_hpd_disable/enable()
->   ---
->   [32m✓[0m Signed: DKIM/intel.com
-> ---
-> 
-> I haven't had the time to dig into b4 source on this, but it would be
-> great if it could automatically detect whether sending colors is the
-> right thing to do or not. Basically only emit color codes to interactive
-> terminals, unless forced also for pipes.
+> Code LGTM
 
-Yes, it should do that automatically. Please send a bug report to
-tools@kernel.org and I'll work an automated switch to "simple" attestation
-marks when we don't have a terminal.
+Does this mean I get your Reviewed-by tag? Or will you wait the v6 to
+formally give it?
 
--K
+> but just to be sure: you prepared your series using histogram
+> diff algo, right?
+
+No, I never used the histogram diff. My git config is extremely boring.
+Mostly vanilla.
+
+I remember that Linus even commented on this:
+
+https://lore.kernel.org/all/CAHk-=wiUxm-NZ1si8dXWVTTJ9n3c+1SRTC0V+Lk7hOE4bDVwJQ@mail.gmail.com/
+
+But he made it clear this was *not* a requirement, so I just left the
+diff algorithm to the default. Or did I miss any communication that
+contributors should now use histogram diff?
+
+Regardless, I do not mind activating it. I just did a:
+
+  git config diff.algorithm histogram
+
+The v6 will have histogram diffs.
+
+
+Yours sincerely,
+Vincent Mailhol
+
