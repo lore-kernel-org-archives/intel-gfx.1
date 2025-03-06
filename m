@@ -4,91 +4,73 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CE3DAC2BA1B
-	for <intel-gfx@archiver.kernel.org>; Fri,  7 Mar 2025 13:58:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3975AC28B28
+	for <intel-gfx@archiver.kernel.org>; Fri,  7 Mar 2025 13:58:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1496A10EB7C;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8A16710EBA1;
 	Fri,  7 Mar 2025 13:58:02 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="hIBbJeOA";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="na24+4iw";
 	dkim-atps=neutral
-Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com
- [209.85.128.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F071D10E81F;
- Wed,  5 Mar 2025 21:13:47 +0000 (UTC)
-Received: by mail-wm1-f41.google.com with SMTP id
- 5b1f17b1804b1-43bc63876f1so30843845e9.3; 
- Wed, 05 Mar 2025 13:13:47 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1741209226; x=1741814026; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:subject:cc:to:from:date:from:to:cc:subject:date
- :message-id:reply-to;
- bh=mBRrY/yBfxvuLgMlXhSkD7HMQ9Yj7k44KHWuqIjXDEE=;
- b=hIBbJeOAafkMHfM/6L4lkqKB1+qHOkrceEZxH5m0vM0bs2H3MGy7njkifjBZj6wcCa
- UcFXgHb7FOJL47hidLfb9jdGMiCnyvy8nJSmsAyqlCR2ILegYn/TkXYdLWVEPalDEJdR
- vZXaYWyAJAm+rcV+11F+4da+4CWFuBmvpXBjVUSUTiEA4tUef1jR6fg/Rz+B8JuTBE0M
- SPh/t+FuTII9bK2l76fBMD32CIHTorLC5dO6LFioWbIIxxjbnxnngfL4LUTqW/F4vmOH
- p5ffNXtKPUf6bF6OeJkjX/L9Ylm3jw/7UAXVG0uWrPPEm+3AOl+hSfRCsXUZB2ruCMci
- qRQg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1741209226; x=1741814026;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:subject:cc:to:from:date:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=mBRrY/yBfxvuLgMlXhSkD7HMQ9Yj7k44KHWuqIjXDEE=;
- b=U3EIbdLI5r5q64+aN7hhR+QpNgxii4n+IakSPUex7OHLK5Qz54uu8LGL7lXYHu/eei
- S+eYW1fU/Ddqo+xSqhlcz7+X9Jx53F9UnzD4g2tA1rFJSwnGsjvTaQm36sBhPeKzICTV
- XAaVKRKOeU28QlzlUNW2/0JUrgm4Jks9crOIOqmFHVltzCbFIQn2tkapMoOt10n34yA3
- Xu0dK2d4fI+12PCf36LQrzBv2fYU7tlr+L6NlQMKXkLCHjbr7QrKsyRwSgUooOOi7Chd
- 7o6lSIssv3XIj88XIuOHbXLN+4NE/5tvmc70RVoUJaGCUQOv4dDvWohmcMpKD0En8Bag
- 9gFQ==
-X-Forwarded-Encrypted: i=1;
- AJvYcCU8XazACZgXTTtjnYXJLuNtW9NoTV+yuMdYGor3cWfdHUWexglvZXtQBXrEufO/rrSXDgFzhCmOVog=@lists.freedesktop.org,
- AJvYcCVJUo2cqO0uwYWIPQ3y4yoBsZTI8L5TrRUAx5WHIMamfVL02TIoEKSJvM8/J3FyYYa6i7eRbm09eoP8@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yxe9/smk1XFf64Z6C9ltrReGLXoTooP22DlXz8ZSUaN4drCeOrV
- eZSjF6awiTWxgrnpaiQWbymnuVU761bOHRhJMgnJvP0U7GcxeyhG
-X-Gm-Gg: ASbGncv2INf+vJ9n7LPCo9cgyVMxGMUWdehTKyoBsLysBcr2OOiY/yyMzb8EoOlnF9H
- yeTR+gnYY+IFKg0Y44gyYFN9TjXdrkz0qYu02lkzg8x8Qt1PJhCakEXbGLFcbCV+E0q/oQd9yQ1
- s/Lf2Gy2gO6PxNgZ64W+1oKseW8xVduYFw61j9p3B8u9XfvPvTWQyfKn/M+yET/B2T8fD8nZqvb
- udTLx6DBcGPEKO3r8hPDA8BYH89CkwhGCE7k71NN7giqxOujJbqjkiIQlWK5aF2nxtMPEHqRXrt
- 1O57+j0IjFCha28HAwNew4dU6mjWh94sz9xDYLU+IAzc70zocROKyzDgsErd/CxwzB6iEaTl4jW
- nTXyL/Yc=
-X-Google-Smtp-Source: AGHT+IHVQz7StEb3E7vwY+wN9yjtbQ30ziK4JQuHk7WcBp+0Xfw+qMA37Ery803rfsIYjDm2WSDeiQ==
-X-Received: by 2002:a05:600c:198f:b0:43a:b0b5:b0 with SMTP id
- 5b1f17b1804b1-43bd293ef18mr37803035e9.4.1741209226004; 
- Wed, 05 Mar 2025 13:13:46 -0800 (PST)
-Received: from pumpkin (82-69-66-36.dsl.in-addr.zen.co.uk. [82.69.66.36])
- by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-390e47a6a9fsm22432775f8f.36.2025.03.05.13.13.45
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 05 Mar 2025 13:13:45 -0800 (PST)
-Date: Wed, 5 Mar 2025 21:13:44 +0000
-From: David Laight <david.laight.linux@gmail.com>
-To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-Cc: Vincent Mailhol <mailhol.vincent@wanadoo.fr>, Yury Norov
- <yury.norov@gmail.com>, Lucas De Marchi <lucas.demarchi@intel.com>, Rasmus
- Villemoes <linux@rasmusvillemoes.dk>, Jani Nikula
- <jani.nikula@linux.intel.com>, Joonas Lahtinen
- <joonas.lahtinen@linux.intel.com>, Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Tvrtko Ursulin <tursulin@ursulin.net>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Andrew Morton <akpm@linux-foundation.org>,
- linux-kernel@vger.kernel.org, intel-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, Andi Shyti <andi.shyti@linux.intel.com>,
- David Laight <David.Laight@aculab.com>, Dmitry Baryshkov
- <dmitry.baryshkov@linaro.org>, Jani Nikula <jani.nikula@intel.com>
-Subject: Re: [PATCH v4 4/8] bits: introduce fixed-type BIT
-Message-ID: <20250305211344.0c7c3782@pumpkin>
-In-Reply-To: <Z8hyNXVZxLzhEzNy@smile.fi.intel.com>
-References: <20250305-fixed-type-genmasks-v4-0-1873dcdf6723@wanadoo.fr>
- <20250305-fixed-type-genmasks-v4-4-1873dcdf6723@wanadoo.fr>
- <Z8hgqOB5Ym-GGykS@smile.fi.intel.com>
- <d7f3150d-0167-44be-90b2-17f8a050687c@wanadoo.fr>
- <Z8hyNXVZxLzhEzNy@smile.fi.intel.com>
-X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; arm-unknown-linux-gnueabihf)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B607210E945;
+ Thu,  6 Mar 2025 11:31:11 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by dfw.source.kernel.org (Postfix) with ESMTP id 121D25C5625;
+ Thu,  6 Mar 2025 11:28:51 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 75AD6C4CEF2;
+ Thu,  6 Mar 2025 11:31:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1741260667;
+ bh=1eenmwUznpXpLxtCJHjJ9cE369ZzivA0n55tr3Vvsro=;
+ h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
+ b=na24+4iw4ShKrXCURAfwMe8EXg5VLe+DlxFhIcG1g5tl3qPcY2PCKlGeh+2cf7FTZ
+ xepkB8drAYWOmcYfpFTQG8q1xxyKxnMwzwQ9qyJnDqnL5bdN5Myiu7rgQT4rPyoJxV
+ KRQRcJJal1CV2RwfpaoWcOyMlgDv0qviZwVi32z8/pP9pbPKQIKZpI/QlYqH91i39U
+ Ut6yeP0xFV1ICncs3DhAhwWtQWYnvb7wRpi96ijAkwuolGa7VFLOHSDW3ieHnuFOYj
+ 5nIuzvp5036tLAi7cq684GBGRXJPWacGBnaItpUNoySFodNEvAkxOuoqlcFActyh6z
+ rqFyzbFkDzf0w==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org
+ (localhost.localdomain [127.0.0.1])
+ by smtp.lore.kernel.org (Postfix) with ESMTP id 6D4FFC282EC;
+ Thu,  6 Mar 2025 11:31:07 +0000 (UTC)
+From: Vincent Mailhol via B4 Relay
+ <devnull+mailhol.vincent.wanadoo.fr@kernel.org>
+Date: Thu, 06 Mar 2025 20:29:57 +0900
+Subject: [PATCH v5 6/7] test_bits: add tests for GENMASK_U*()
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+Message-Id: <20250306-fixed-type-genmasks-v5-6-b443e9dcba63@wanadoo.fr>
+References: <20250306-fixed-type-genmasks-v5-0-b443e9dcba63@wanadoo.fr>
+In-Reply-To: <20250306-fixed-type-genmasks-v5-0-b443e9dcba63@wanadoo.fr>
+To: Yury Norov <yury.norov@gmail.com>, 
+ Lucas De Marchi <lucas.demarchi@intel.com>, 
+ Rasmus Villemoes <linux@rasmusvillemoes.dk>, 
+ Jani Nikula <jani.nikula@linux.intel.com>, 
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, 
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, 
+ Tvrtko Ursulin <tursulin@ursulin.net>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>, Andrew Morton <akpm@linux-foundation.org>
+Cc: linux-kernel@vger.kernel.org, intel-gfx@lists.freedesktop.org, 
+ dri-devel@lists.freedesktop.org, Andi Shyti <andi.shyti@linux.intel.com>, 
+ David Laight <David.Laight@ACULAB.COM>, 
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, 
+ Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
+ Vincent Mailhol <mailhol.vincent@wanadoo.fr>
+X-Mailer: b4 0.14.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2231;
+ i=mailhol.vincent@wanadoo.fr; h=from:subject:message-id;
+ bh=1TWDnZuK4H6aZXY1mDhIfDoxCABP+2rzCCCoYFZzW3c=;
+ b=owGbwMvMwCV2McXO4Xp97WbG02pJDOkn24tfHts45ZydRU3ZwfPRKzjfrH2zc5VWccrCbTcP8
+ h62u/9XtKOUhUGMi0FWTJFlWTknt0JHoXfYob+WMHNYmUCGMHBxCsBEMiUYGXYdf5+38IuJbOXq
+ cgO3xxn5O7dl5E15d9V64XnlXZNUVpkwMpzwWawu8vF+7ZPSDKmvXxfqsmicj6+4pZ+epHfI1Z2
+ jjAcA
+X-Developer-Key: i=mailhol.vincent@wanadoo.fr; a=openpgp;
+ fpr=ED8F700574E67F20E574E8E2AB5FEB886DBB99C2
+X-Endpoint-Received: by B4 Relay for mailhol.vincent@wanadoo.fr/default
+ with auth_id=291
+X-Original-From: Vincent Mailhol <mailhol.vincent@wanadoo.fr>
 X-Mailman-Approved-At: Fri, 07 Mar 2025 13:57:54 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -102,77 +84,85 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: mailhol.vincent@wanadoo.fr
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Wed, 5 Mar 2025 17:48:05 +0200
-Andy Shevchenko <andriy.shevchenko@linux.intel.com> wrote:
+From: Lucas De Marchi <lucas.demarchi@intel.com>
 
-> On Wed, Mar 05, 2025 at 11:48:10PM +0900, Vincent Mailhol wrote:
-> > On 05/03/2025 at 23:33, Andy Shevchenko wrote:  
-> > > On Wed, Mar 05, 2025 at 10:00:16PM +0900, Vincent Mailhol via B4 Relay wrote:  
-> 
-> ...
-> 
-> > >> +#define BIT_U8(b) (BIT_INPUT_CHECK(u8, b) + (unsigned int)BIT(b))
-> > >> +#define BIT_U16(b) (BIT_INPUT_CHECK(u16, b) + (unsigned int)BIT(b))
+Add some additional tests in lib/test_bits.c to cover the
+expected/non-expected values of the fixed-type GENMASK_U*() macros.
 
-Why even pretend you are checking against a type - just use 8 or 16.
+Also check that the result value matches the expected type. Since
+those are known at build time, use static_assert() instead of normal
+kunit tests.
 
-> > > 
-> > > Why not u8 and u16? This inconsistency needs to be well justified.
+Signed-off-by: Lucas De Marchi <lucas.demarchi@intel.com>
+Signed-off-by: Vincent Mailhol <mailhol.vincent@wanadoo.fr>
+---
+Changelog:
 
-What is the type of BIT(b) ?
-it really ought to be unsigned int (so always 32bit), but I bet it
-is unsigned long (possibly historically because someone was worried
-int might be 16 bits!)
+  v4 -> v5:
 
-> > 
-> > Because of the C integer promotion rules, if casted to u8 or u16, the
-> > expression will immediately become a signed integer as soon as it is get
-> > used. For example, if casted to u8
-> > 
-> >   BIT_U8(0) + BIT_U8(1)
-> > 
-> > would be a signed integer. And that may surprise people.
+    - Revert v4 change. GENMASK_U8()/GENMASK_U16() are now back to
+      u8/u16.
 
-They always get 'surprised' by that.
-I found some 'dayjob' code that was doing (byte_var << 1) >> 1 in order
-to get the high bit discarded.
-Been like that for best part of 30 years...
-I wasn't scared to fix it :-)
+  v3 -> v4:
 
-> Yes, but wouldn't be better to put it more explicitly like
-> 
-> #define BIT_U8(b)	(BIT_INPUT_CHECK(u8, b) + (u8)BIT(b) + 0 + UL(0)) // + ULL(0) ?
+    - Adjust the type of GENMASK_U8()/GENMASK_U16() from u8/u16 to
+      unsigned int.
 
-I don't think you should force it to 'unsigned long'.
-On 64bit a comparison against a 32bit 'signed int' will sign-extend the
-value before making it unsigned.
-While that shouldn't matter here, someone might copy it.
-You just want to ensure that all the values are 'unsigned int', trying
-to return u8 or u16 isn't worth the effort.
+    - Reorder the tests to match the order in which the macros are
+      declared in bits.h.
+---
+ lib/test_bits.c | 19 +++++++++++++++++++
+ 1 file changed, 19 insertions(+)
 
-When I was doing min_unsigned() I did ((x) + 0u + 0ul + 0ull) to ensure
-that values would always be zero extended.
-But I was doing the same to both sides of the expression - and the compiler
-optimises away all the 'known 0' extension to 64bits.
+diff --git a/lib/test_bits.c b/lib/test_bits.c
+index dc93ded9fdb201e0d44b3c1cd71e233fd62258a5..91968227687bb11b7d1361b153c27eb851c6c1c2 100644
+--- a/lib/test_bits.c
++++ b/lib/test_bits.c
+@@ -5,7 +5,16 @@
+ 
+ #include <kunit/test.h>
+ #include <linux/bits.h>
++#include <linux/types.h>
+ 
++#define assert_type(t, x) _Generic(x, t: x, default: 0)
++
++static_assert(assert_type(unsigned long, GENMASK(31, 0)) == U32_MAX);
++static_assert(assert_type(unsigned long long, GENMASK_ULL(63, 0)) == U64_MAX);
++static_assert(assert_type(u8, GENMASK_U8(7, 0)) == U8_MAX);
++static_assert(assert_type(u16, GENMASK_U16(15, 0)) == U16_MAX);
++static_assert(assert_type(u32, GENMASK_U32(31, 0)) == U32_MAX);
++static_assert(assert_type(u64, GENMASK_U64(63, 0)) == U64_MAX);
+ 
+ static void __genmask_test(struct kunit *test)
+ {
+@@ -30,11 +39,21 @@ static void genmask_test(struct kunit *test)
+ 	KUNIT_EXPECT_EQ(test, 6ul, GENMASK(2, 1));
+ 	KUNIT_EXPECT_EQ(test, 0xFFFFFFFFul, GENMASK(31, 0));
+ 
++	KUNIT_EXPECT_EQ(test, 1u, GENMASK_U8(0, 0));
++	KUNIT_EXPECT_EQ(test, 3u, GENMASK_U16(1, 0));
++	KUNIT_EXPECT_EQ(test, 0x10000, GENMASK_U32(16, 16));
++
+ #ifdef TEST_GENMASK_FAILURES
+ 	/* these should fail compilation */
+ 	GENMASK(0, 1);
+ 	GENMASK(0, 10);
+ 	GENMASK(9, 10);
++
++	GENMASK_U32(0, 31);
++	GENMASK_U64(64, 0);
++	GENMASK_U32(32, 0);
++	GENMASK_U16(16, 0);
++	GENMASK_U8(8, 0);
+ #endif
+ 
+ 
 
-> Also, BIT_Uxx() gives different type at the end, shouldn't they all be promoted
-> to unsigned long long at the end? Probably it won't work in real assembly.
-> Can you add test cases which are written in assembly? (Yes, I understand that it will
-> be architecture dependent, but still.)
+-- 
+2.45.3
 
-There is no point doing multiple versions for asm files.
-The reason UL(x) and ULL(x) exist is because the assembler just has integers.
-Both expand to (x).
-There might not even be a distinction between signed and unsigned.
-I'm not sure you can assume that a shift right won't replicate the sign bit.
-Since the expression can only be valid for constants, something simple
-like ((2 << (hi)) - (1 << (lo)) really is the best you are going to get
-for GENMASK().
 
-So just define a completely different version for asm any nuke the UL() etc
-for readability.
-
-	David
