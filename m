@@ -4,38 +4,38 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C3C0DC28B26
-	for <intel-gfx@archiver.kernel.org>; Fri,  7 Mar 2025 13:58:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 57DAEC28B30
+	for <intel-gfx@archiver.kernel.org>; Fri,  7 Mar 2025 13:58:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8775810EB92;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 89B3810EB93;
 	Fri,  7 Mar 2025 13:57:56 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=wanadoo.fr header.i=@wanadoo.fr header.b="d8X9p5/l";
+	dkim=pass (2048-bit key; unprotected) header.d=wanadoo.fr header.i=@wanadoo.fr header.b="WiFKufXs";
 	dkim-atps=neutral
-Received: from out.smtpout.orange.fr (out-15.smtpout.orange.fr [193.252.22.15])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5766A10E920;
- Thu,  6 Mar 2025 09:22:53 +0000 (UTC)
+Received: from out.smtpout.orange.fr (out-17.smtpout.orange.fr [193.252.22.17])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6DC5110EA0A;
+ Thu,  6 Mar 2025 16:08:20 +0000 (UTC)
 Received: from [172.16.82.72] ([124.33.176.97]) by smtp.orange.fr with ESMTPA
- id q7R4tKmaLiRGyq7R8t84Vt; Thu, 06 Mar 2025 10:22:46 +0100
+ id qDlStMikP0ogTqDlftO2fs; Thu, 06 Mar 2025 17:08:20 +0100
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=wanadoo.fr;
- s=t20230301; t=1741252966;
- bh=q2o/LWxWZ/FiWcwTOy3Kk+fZSYKZjgmVPty3JZX4kG4=;
+ s=t20230301; t=1741277300;
+ bh=uGTIrVl9lBU8APAWKpcHUHguIxwD0cUIqzO9NpuCA9I=;
  h=Message-ID:Date:MIME-Version:Subject:To:From;
- b=d8X9p5/lK/eLI2uTC2go9WHejeyDbcJjIh9pZd3ERhYgmAyCwKXsSz1KJ8m6vJJ4Y
- NC935iRLnvmJoaxXEMMRaeosvywCQ4vzMqWcCYX3OYmN/+VI50rO1Snbo+1iu9SyIE
- q1q+n2otbZF4YVs+jb+9Ee9Y1ft+fOeSIWxgvFFuSqcL3ahSk3iFQy6bwGNsKNU0sC
- Vn8gYxrUxjxXoFgh0rRfF0lpYa8E9dRWa6S0BI+W9scA+sueA9yOYwvM/D/PG6wRI2
- bWiS23SyxIpzd7OOwU+P//gxdSfxNN55BuZIUTGd9Da8Ykn0DkhYlKCYRgAioFTC0g
- 1P2n8SParFWEQ==
+ b=WiFKufXslWpe8Su6MzkgZj/f0j05oabHMLX4jrXOmX36bhPnZ02Wu+8QlXPhNvnFr
+ OYgBA1Z2f00apfEeoSqtVxS6cAYRKYhaLOh2A/ndwwooQY6WcY0IMjDI5U8W871PDn
+ ZWW+FhLixYxLN6zTaiSmDt0cKxio4xK1rLs2/xQqZvE8HDf1Z3FFbHhN6wJIGde7TF
+ 7t+m2MqTQO1UVZbi9x0SmlvVIZ2zQVOaBiVQJwPsSU+P/bCAbl3jzfWB0RJb7+Widf
+ g0+TjI7zmxhK5gTN0Mnq+HrJ9xEKhF+lDhErVKkOAc4LbJ0Hw7iG62thiVtro+mpuF
+ pKeEIVkUIJ6aQ==
 X-ME-Helo: [172.16.82.72]
 X-ME-Auth: bWFpbGhvbC52aW5jZW50QHdhbmFkb28uZnI=
-X-ME-Date: Thu, 06 Mar 2025 10:22:46 +0100
+X-ME-Date: Thu, 06 Mar 2025 17:08:20 +0100
 X-ME-IP: 124.33.176.97
-Message-ID: <7063c8b4-5869-457d-91b1-3185d9e1181e@wanadoo.fr>
-Date: Thu, 6 Mar 2025 18:22:33 +0900
+Message-ID: <722e147b-fdd1-4098-8d60-48c83e36a7f7@wanadoo.fr>
+Date: Fri, 7 Mar 2025 01:08:15 +0900
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 3/8] bits: introduce fixed-type genmasks
+Subject: Re: [PATCH v5 7/7] test_bits: add tests for BIT_U*()
 To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
 Cc: Yury Norov <yury.norov@gmail.com>,
  Lucas De Marchi <lucas.demarchi@intel.com>,
@@ -48,12 +48,10 @@ Cc: Yury Norov <yury.norov@gmail.com>,
  linux-kernel@vger.kernel.org, intel-gfx@lists.freedesktop.org,
  dri-devel@lists.freedesktop.org, Andi Shyti <andi.shyti@linux.intel.com>,
  David Laight <David.Laight@aculab.com>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Jani Nikula <jani.nikula@intel.com>
-References: <20250305-fixed-type-genmasks-v4-0-1873dcdf6723@wanadoo.fr>
- <20250305-fixed-type-genmasks-v4-3-1873dcdf6723@wanadoo.fr>
- <Z8hx9AaUX_GvYq_A@thinkpad> <8301ecbc-d035-4257-9b04-c6ef9be4ce32@wanadoo.fr>
- <Z8ipvnURG_iejzSX@smile.fi.intel.com>
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+References: <20250306-fixed-type-genmasks-v5-0-b443e9dcba63@wanadoo.fr>
+ <20250306-fixed-type-genmasks-v5-7-b443e9dcba63@wanadoo.fr>
+ <Z8mfAQGUvm3z86kE@smile.fi.intel.com>
 Content-Language: en-US
 From: Vincent Mailhol <mailhol.vincent@wanadoo.fr>
 Autocrypt: addr=mailhol.vincent@wanadoo.fr; keydata=
@@ -66,9 +64,9 @@ Autocrypt: addr=mailhol.vincent@wanadoo.fr; keydata=
  yR33sA+BR9pLAwEIB8J+BBgWCgAmFiEE7Y9wBXTmfyDldOjiq1/riG27mcIFAmceMvMCGwwF
  CQPCZwAACgkQq1/riG27mcJU7QEA+LmpFhfQ1aij/L8VzsZwr/S44HCzcz5+jkxnVVQ5LZ4B
  ANOCpYEY+CYrld5XZvM8h2EntNnzxHHuhjfDOQ3MAkEK
-In-Reply-To: <Z8ipvnURG_iejzSX@smile.fi.intel.com>
+In-Reply-To: <Z8mfAQGUvm3z86kE@smile.fi.intel.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Fri, 07 Mar 2025 13:57:54 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -85,41 +83,63 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On 06/03/2025 at 04:45, Andy Shevchenko wrote:
->>> But GENMASK_U128() becomes a special case now.
->>> The 128-bit GENMASK is unsued, but it's exported in uapi. Is there any
->>> simple way to end up with a common implementation for all fixed-type
->>> GENMASKs?
+On 06/03/2025 at 22:11, Andy Shevchenko wrote:
+> On Thu, Mar 06, 2025 at 08:29:58PM +0900, Vincent Mailhol via B4 Relay wrote:
+>> From: Vincent Mailhol <mailhol.vincent@wanadoo.fr>
 >>
->> What bothers me is that the 128 bit types are not something available on
->> all architectures, c.f. the CONFIG_ARCH_SUPPORTS_INT128. So, I would
->> need a U128() equivalent to the ULL() but which does not break on
->> architectures which do not support 128 bits integers.
->>
->> This is where I am stuck. If someone can guide me on how to write a
->> robust U128() macro, then I think the common implementation could be
->> feasible.
+>> Add some additional tests in lib/test_bits.c to cover the expected
+>> results of the fixed type BIT_U*() macros.
 > 
-> I think we may leave that U128 stuff alone for now.
+> Still would be good to have a small assembly test case for GENMASK*() as they
+> went split and it will be a good regression test in case somebody decides to
+> unify both without much thinking..
 
-I found the solution! The trick is to use type_max() from overflow.h.
+Let me confirm that I correctly understood your ask. Would something
+like this meet your expectations?
 
-With this, GENMASK_TYPE() becomes:
+diff --git a/lib/test_bits.c b/lib/test_bits.c
+index 72984fae7b81..869b291587e6 100644
+--- a/lib/test_bits.c
++++ b/lib/test_bits.c
+@@ -136,6 +136,29 @@ static void genmask_input_check_test(struct kunit
+*test)
+ 	KUNIT_EXPECT_EQ(test, 0, GENMASK_INPUT_CHECK(127, 0));
+ }
 
-  #define GENMASK_TYPE(t, h, l)					\
-  	((t)(GENMASK_INPUT_CHECK(h, l) +			\
-  	     (type_max(t) << (l) &				\
-  	      type_max(t) >> (BITS_PER_TYPE(t) - 1 - (h)))))
++#undef __LINUX_BITS_H
++#undef GENMASK
++#undef GENMASK_ULL
++#define __ASSEMBLY__
++#include <linux/bits.h>
++static void asm_genmask_test(struct kunit *test)
++{
++	KUNIT_EXPECT_EQ(test, 1ul, GENMASK(0, 0));
++	KUNIT_EXPECT_EQ(test, 3ul, GENMASK(1, 0));
++	KUNIT_EXPECT_EQ(test, 6ul, GENMASK(2, 1));
++	KUNIT_EXPECT_EQ(test, 0xFFFFFFFFul, GENMASK(31, 0));
++}
++
++static void asm_genmask_ull_test(struct kunit *test)
++{
++	KUNIT_EXPECT_EQ(test, 1ull, GENMASK_ULL(0, 0));
++	KUNIT_EXPECT_EQ(test, 3ull, GENMASK_ULL(1, 0));
++	KUNIT_EXPECT_EQ(test, 0x000000ffffe00000ull, GENMASK_ULL(39, 21));
++	KUNIT_EXPECT_EQ(test, 0xffffffffffffffffull, GENMASK_ULL(63, 0));
++}
++#undef __ASSEMBLY__
++#undef GENMASK
++#undef GENMASK_ULL
 
-and works with all the GENMASK variants, including the U128 one! The
-unit tests under lib/test_bits.c are all green.
-
-Of course, this does *not* work in assembly. But as explained before,
-GENMASK_TYPE() is guarded by a #if !defined(__ASSEMBLY__), so all good!
-
-The question raised by Yury on whether or not we should keep
-__GENMASK_U128() in the uapi still remains. And in full honesty, I will
-not touch that one. This is not in the scope of this series.
+ static struct kunit_case bits_test_cases[] = {
+        KUNIT_CASE(__genmask_test),
+@@ -144,6 +167,8 @@ static struct kunit_case bits_test_cases[] = {
+ 	KUNIT_CASE(genmask_ull_test),
+ 	KUNIT_CASE(genmask_u128_test),
+ 	KUNIT_CASE(genmask_input_check_test),
++	KUNIT_CASE(asm_genmask_test),
++	KUNIT_CASE(asm_genmask_ull_test),
+ 	{}
+ };
 
 
 Yours sincerely,
