@@ -4,24 +4,24 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6AD3DC282D1
-	for <intel-gfx@archiver.kernel.org>; Thu,  6 Mar 2025 12:57:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 17AEFC282D1
+	for <intel-gfx@archiver.kernel.org>; Thu,  6 Mar 2025 12:57:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 02B8810E13B;
-	Thu,  6 Mar 2025 12:57:49 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AA26C10E18E;
+	Thu,  6 Mar 2025 12:57:53 +0000 (UTC)
 Received: from 64e06c682a23 (emeril.freedesktop.org [131.252.210.167])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8EA7910E0C0;
- Thu,  6 Mar 2025 12:57:47 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 18F9D10E18E;
+ Thu,  6 Mar 2025 12:57:52 +0000 (UTC)
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
-Subject: =?utf-8?q?=E2=9C=97_Fi=2ECI=2EBUILD=3A_warning_for_drm/xe/compat=3A_cleanup_?=
- =?utf-8?q?=28rev2=29?=
+Subject: =?utf-8?q?=E2=9C=97_Fi=2ECI=2ECHECKPATCH=3A_warning_for_drm/xe/compat=3A_cle?=
+ =?utf-8?q?anup_=28rev2=29?=
 From: Patchwork <patchwork@emeril.freedesktop.org>
 To: "Jani Nikula" <jani.nikula@intel.com>
 Cc: intel-gfx@lists.freedesktop.org
-Date: Thu, 06 Mar 2025 12:57:47 -0000
-Message-ID: <174126586756.67458.12805388380309589543@64e06c682a23>
+Date: Thu, 06 Mar 2025 12:57:52 -0000
+Message-ID: <174126587210.67447.5700550884775265517@64e06c682a23>
 X-Patchwork-Hint: ignore
 References: <cover.1741192597.git.jani.nikula@intel.com>
 In-Reply-To: <cover.1741192597.git.jani.nikula@intel.com>
