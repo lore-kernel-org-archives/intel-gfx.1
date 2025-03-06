@@ -4,70 +4,73 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D90A9C28B27
-	for <intel-gfx@archiver.kernel.org>; Fri,  7 Mar 2025 13:58:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id ABA05C28B2E
+	for <intel-gfx@archiver.kernel.org>; Fri,  7 Mar 2025 13:58:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6E75410EBB0;
+	by gabe.freedesktop.org (Postfix) with ESMTP id C255710EBB5;
 	Fri,  7 Mar 2025 13:58:27 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=wanadoo.fr header.i=@wanadoo.fr header.b="mt8RZlBl";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="J6Z/LqDY";
 	dkim-atps=neutral
-Received: from out.smtpout.orange.fr (out-15.smtpout.orange.fr [193.252.22.15])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 94BE210E9F2;
- Thu,  6 Mar 2025 15:07:59 +0000 (UTC)
-Received: from [172.16.82.72] ([124.33.176.97]) by smtp.orange.fr with ESMTPA
- id qCp8tfVrzYqvfqCpCtQNCR; Thu, 06 Mar 2025 16:07:57 +0100
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=wanadoo.fr;
- s=t20230301; t=1741273677;
- bh=AtOARcm7etY/CYGaI1Zh2dF1obFKsR0z+sX6jBAouw8=;
- h=Message-ID:Date:MIME-Version:Subject:To:From;
- b=mt8RZlBlKrrvCMNSwkYDS+KCzpYJJxQZSrDmvOkGDkNdM4kTJbuY9R7tCqh45ziVk
- uNJMpGecfHrF1CywkDRiAzWtB7jZOpEem/Lckaerkc2fgA0wuys+A1kBXjmAJACHoW
- MK+NCg+/qpx2inKG+ihiI0G1aNlzsv58fjH79YOG7B6YiR3PusbtPHHVUeCxWjB4VE
- Qh3aRjjFaSUwBeHxj4fuB3hEC3Jwx0EgieImUpvshjwotUsZ/fnh0NZwmVRa6sWJMX
- RYby6COMUSG6BZ4sR1ltucLokXCb/KBKcUoh0oumyRFS4i18Q/G8o2S9YjueL6260H
- MIlr+gkolPdVA==
-X-ME-Helo: [172.16.82.72]
-X-ME-Auth: bWFpbGhvbC52aW5jZW50QHdhbmFkb28uZnI=
-X-ME-Date: Thu, 06 Mar 2025 16:07:57 +0100
-X-ME-IP: 124.33.176.97
-Message-ID: <84abfaef-0fb9-4fd4-a657-0cc80eb1de0f@wanadoo.fr>
-Date: Fri, 7 Mar 2025 00:07:45 +0900
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 554F210E942;
+ Thu,  6 Mar 2025 11:31:12 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by dfw.source.kernel.org (Postfix) with ESMTP id 13BD65C5627;
+ Thu,  6 Mar 2025 11:28:51 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 8B4FCC4CEF4;
+ Thu,  6 Mar 2025 11:31:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1741260667;
+ bh=nswRbJg0534axjb88dgcnucQYVhi1rNjBxDjWoz+4sg=;
+ h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
+ b=J6Z/LqDYN1zcrETwYMJoohVrou0m7VbhYwy09KG8AvYcgjT5n3PFlZbGOUgkDSSb4
+ fkDzkrnWeMy5EyiLPma6ETmgdMmoB66RMWNNINCc8CEePoc2tTLMF0rL8ZaZsJqv8V
+ Pqsaa3rLxMZR8lRuzklVIU/H4eNZDOMb36zU9fdPfkxtd2RD2WYiZMIMsDo3s9Vszd
+ knYZyno8fGDo/2j2ZKjYN23DfDheOp3jE4crSzMAEurp8wypFOYXZ5iWRpWt8pxS9H
+ G/uRiRQOT4jNHDXnq4pvq02d2bmIOTCVVzRhMnDbSPd+89S+hwdvgGzd85LOSOBIx+
+ 4GRf+/mm9zI9g==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org
+ (localhost.localdomain [127.0.0.1])
+ by smtp.lore.kernel.org (Postfix) with ESMTP id 8142FC282D1;
+ Thu,  6 Mar 2025 11:31:07 +0000 (UTC)
+From: Vincent Mailhol via B4 Relay
+ <devnull+mailhol.vincent.wanadoo.fr@kernel.org>
+Date: Thu, 06 Mar 2025 20:29:58 +0900
+Subject: [PATCH v5 7/7] test_bits: add tests for BIT_U*()
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 1/7] bits: split the definition of the asm and non-asm
- GENMASK()
-To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-Cc: Yury Norov <yury.norov@gmail.com>,
- Lucas De Marchi <lucas.demarchi@intel.com>,
- Rasmus Villemoes <linux@rasmusvillemoes.dk>,
- Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, Tvrtko Ursulin
- <tursulin@ursulin.net>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Andrew Morton <akpm@linux-foundation.org>,
- linux-kernel@vger.kernel.org, intel-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, Andi Shyti <andi.shyti@linux.intel.com>,
- David Laight <David.Laight@aculab.com>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-References: <20250306-fixed-type-genmasks-v5-0-b443e9dcba63@wanadoo.fr>
- <20250306-fixed-type-genmasks-v5-1-b443e9dcba63@wanadoo.fr>
- <Z8mdk3z7t42CWfmZ@smile.fi.intel.com>
-Content-Language: en-US
-From: Vincent Mailhol <mailhol.vincent@wanadoo.fr>
-Autocrypt: addr=mailhol.vincent@wanadoo.fr; keydata=
- xjMEZluomRYJKwYBBAHaRw8BAQdAf+/PnQvy9LCWNSJLbhc+AOUsR2cNVonvxhDk/KcW7FvN
- LFZpbmNlbnQgTWFpbGhvbCA8bWFpbGhvbC52aW5jZW50QHdhbmFkb28uZnI+wrIEExYKAFoC
- GwMFCQp/CJcFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4AWIQTtj3AFdOZ/IOV06OKrX+uI
- bbuZwgUCZx41XhgYaGtwczovL2tleXMub3BlbnBncC5vcmcACgkQq1/riG27mcIYiwEAkgKK
- BJ+ANKwhTAAvL1XeApQ+2NNNEwFWzipVAGvTRigA+wUeyB3UQwZrwb7jsQuBXxhk3lL45HF5
- 8+y4bQCUCqYGzjgEZx4y8xIKKwYBBAGXVQEFAQEHQJrbYZzu0JG5w8gxE6EtQe6LmxKMqP6E
- yR33sA+BR9pLAwEIB8J+BBgWCgAmFiEE7Y9wBXTmfyDldOjiq1/riG27mcIFAmceMvMCGwwF
- CQPCZwAACgkQq1/riG27mcJU7QEA+LmpFhfQ1aij/L8VzsZwr/S44HCzcz5+jkxnVVQ5LZ4B
- ANOCpYEY+CYrld5XZvM8h2EntNnzxHHuhjfDOQ3MAkEK
-In-Reply-To: <Z8mdk3z7t42CWfmZ@smile.fi.intel.com>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+Message-Id: <20250306-fixed-type-genmasks-v5-7-b443e9dcba63@wanadoo.fr>
+References: <20250306-fixed-type-genmasks-v5-0-b443e9dcba63@wanadoo.fr>
+In-Reply-To: <20250306-fixed-type-genmasks-v5-0-b443e9dcba63@wanadoo.fr>
+To: Yury Norov <yury.norov@gmail.com>, 
+ Lucas De Marchi <lucas.demarchi@intel.com>, 
+ Rasmus Villemoes <linux@rasmusvillemoes.dk>, 
+ Jani Nikula <jani.nikula@linux.intel.com>, 
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, 
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, 
+ Tvrtko Ursulin <tursulin@ursulin.net>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>, Andrew Morton <akpm@linux-foundation.org>
+Cc: linux-kernel@vger.kernel.org, intel-gfx@lists.freedesktop.org, 
+ dri-devel@lists.freedesktop.org, Andi Shyti <andi.shyti@linux.intel.com>, 
+ David Laight <David.Laight@ACULAB.COM>, 
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, 
+ Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
+ Vincent Mailhol <mailhol.vincent@wanadoo.fr>
+X-Mailer: b4 0.14.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1339;
+ i=mailhol.vincent@wanadoo.fr; h=from:subject:message-id;
+ bh=asAoSxIsd+6NgC+TDV5wEh4nM1LYuph2VqJY5OZYYVA=;
+ b=owGbwMvMwCV2McXO4Xp97WbG02pJDOkn28uit0fOchL91THp8/2pV/2ZatYHPC/pu5WoLLzuq
+ OS5RrXZHaUsDGJcDLJiiizLyjm5FToKvcMO/bWEmcPKBDKEgYtTACZiEsvwV9Lq43bev36PTq/U
+ 28S76/Gz+Uf49G+sKPm5gDdLReyIUSrD/6T3j8zWV5iXfJwUN/2L1OH+B9t1fn1z3v9/13sNT/n
+ Ms5wA
+X-Developer-Key: i=mailhol.vincent@wanadoo.fr; a=openpgp;
+ fpr=ED8F700574E67F20E574E8E2AB5FEB886DBB99C2
+X-Endpoint-Received: by B4 Relay for mailhol.vincent@wanadoo.fr/default
+ with auth_id=291
+X-Original-From: Vincent Mailhol <mailhol.vincent@wanadoo.fr>
 X-Mailman-Approved-At: Fri, 07 Mar 2025 13:57:54 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -81,56 +84,53 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: mailhol.vincent@wanadoo.fr
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On 06/03/2025 at 22:05, Andy Shevchenko wrote:
-> On Thu, Mar 06, 2025 at 08:29:52PM +0900, Vincent Mailhol via B4 Relay wrote:
->> From: Vincent Mailhol <mailhol.vincent@wanadoo.fr>
->>
->> In an upcoming change, GENMASK() and its friends will indirectly
->> depend on sizeof() which is not available in asm.
->>
->> Instead of adding further complexity to __GENMASK() to make it work
->> for both asm and non asm, just split the definition of the two
->> variants.
-> 
-> ...
-> 
->> -/*
->> - * BUILD_BUG_ON_ZERO is not available in h files included from asm files,
->> - * disable the input check if that is the case.
->> - */
-> 
-> I believe this comment is still valid...
-> 
->> +#else /* defined(__ASSEMBLY__) */
-> 
-> 
-> ...here.
-> 
-> Otherwise justify its removal in the commit message.
+From: Vincent Mailhol <mailhol.vincent@wanadoo.fr>
 
-OK. I will restore the comment in v6, but will move it to the #else
-branch, like this:
+Add some additional tests in lib/test_bits.c to cover the expected
+results of the fixed type BIT_U*() macros.
 
-  #else /* defined(__ASSEMBLY__) */
+Signed-off-by: Vincent Mailhol <mailhol.vincent@wanadoo.fr>
+---
+Changelog
 
-  /*
-   * BUILD_BUG_ON_ZERO is not available in h files included from asm
-   * files, so no input checks in assembly.
-   */
-  #define GENMASK(h, l)		__GENMASK(h, l)
-  #define GENMASK_ULL(h, l)	__GENMASK_ULL(h, l)
+  v4 -> v5:
 
-  #endif /* !defined(__ASSEMBLY__) */
+    - BIT_U8()/BIT_U16() are now back to u8/u16.
 
->> +#define GENMASK(h, l)		__GENMASK(h, l)
->> +#define GENMASK_ULL(h, l)	__GENMASK_ULL(h, l)
->> +
->> +#endif /* !defined(__ASSEMBLY__) */
-> 
+  v3 -> v4:
 
-Yours sincerely,
-Vincent Mailhol
+    - New patch.
+---
+ lib/test_bits.c | 10 ++++++++++
+ 1 file changed, 10 insertions(+)
+
+diff --git a/lib/test_bits.c b/lib/test_bits.c
+index 91968227687bb11b7d1361b153c27eb851c6c1c2..72984fae7b815031bb6eb2892c772ffcc409cf78 100644
+--- a/lib/test_bits.c
++++ b/lib/test_bits.c
+@@ -9,6 +9,16 @@
+ 
+ #define assert_type(t, x) _Generic(x, t: x, default: 0)
+ 
++static_assert(assert_type(u8, BIT_U8(0)) == 1u);
++static_assert(assert_type(u16, BIT_U16(0)) == 1u);
++static_assert(assert_type(u32, BIT_U32(0)) == 1u);
++static_assert(assert_type(u64, BIT_U64(0)) == 1ull);
++
++static_assert(assert_type(u8, BIT_U8(7)) == 0x80u);
++static_assert(assert_type(u16, BIT_U16(15)) == 0x8000u);
++static_assert(assert_type(u32, BIT_U32(31)) == 0x80000000u);
++static_assert(assert_type(u64, BIT_U64(63)) == 0x8000000000000000ull);
++
+ static_assert(assert_type(unsigned long, GENMASK(31, 0)) == U32_MAX);
+ static_assert(assert_type(unsigned long long, GENMASK_ULL(63, 0)) == U64_MAX);
+ static_assert(assert_type(u8, GENMASK_U8(7, 0)) == U8_MAX);
+
+-- 
+2.45.3
+
 
