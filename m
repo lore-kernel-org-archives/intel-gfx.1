@@ -4,27 +4,54 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1EAC4C282D1
-	for <intel-gfx@archiver.kernel.org>; Thu,  6 Mar 2025 13:22:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 178CDC28B23
+	for <intel-gfx@archiver.kernel.org>; Thu,  6 Mar 2025 13:23:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B669710E95F;
-	Thu,  6 Mar 2025 13:22:38 +0000 (UTC)
-Received: from 64e06c682a23 (emeril.freedesktop.org [131.252.210.167])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 98E7310E95F;
- Thu,  6 Mar 2025 13:22:37 +0000 (UTC)
-Content-Type: multipart/alternative;
- boundary="===============2665513819144372135=="
+	by gabe.freedesktop.org (Postfix) with ESMTP id A03DE10E96E;
+	Thu,  6 Mar 2025 13:23:05 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="KVvtD0wv";
+	dkim-atps=neutral
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.18])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A9BBD10E970;
+ Thu,  6 Mar 2025 13:23:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1741267384; x=1772803384;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=oNb43u1aGxjzaqVS2wC6yh6Uh2dX5UnlvcVYrcHc5pI=;
+ b=KVvtD0wv4Fe6OrDLZYMY6QtxekORtmi1tCnlLq+rdmD6ew8LsV+M7pWX
+ HojnIyiY7fSHTTZ0Cw5/dG+CviUmNF9r+eQBgE+CxMB6Wj4Bt6K5K8dXt
+ pe/BP1Y8Y4CrKNfmGnd77NtZKzF3Wmp10gBtJ85Ls5y0UyOV5a/j/mx4v
+ 0mxqLFyvpPLf0llaTzZcvSF6S56XaUZIowodGVc/h2ZbBMfu5Igolugpb
+ jPKoJ3Twh8/wpr6ckyZt/D8/yYOQq9hm4YNV6wW8blVMOARjQrcEWN7zp
+ N8eGh7nMWRBeCywBVI3M//DH7V1K2HyPdaCw/lc8oVVkn0r5vvYIvbkvj g==;
+X-CSE-ConnectionGUID: gbV4dPNASkmbK6LxAMPQcA==
+X-CSE-MsgGUID: S94qMcvAT7aC5gjQFQroqg==
+X-IronPort-AV: E=McAfee;i="6700,10204,11365"; a="41524592"
+X-IronPort-AV: E=Sophos;i="6.14,226,1736841600"; d="scan'208";a="41524592"
+Received: from fmviesa002.fm.intel.com ([10.60.135.142])
+ by fmvoesa112.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 06 Mar 2025 05:23:03 -0800
+X-CSE-ConnectionGUID: SWOIDv+3TZCKcLnr546YVw==
+X-CSE-MsgGUID: avVznsAWRAeUu78+vEi4Ew==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.14,226,1736841600"; d="scan'208";a="142243097"
+Received: from srr4-3-linux-103-aknautiy.iind.intel.com ([10.223.34.160])
+ by fmviesa002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 06 Mar 2025 05:23:01 -0800
+From: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
+To: intel-gfx@lists.freedesktop.org
+Cc: intel-xe@lists.freedesktop.org, jani.nikula@linux.intel.com,
+ ville.syrjala@linux.intel.com, mitulkumar.ajitkumar.golani@intel.com
+Subject: [PATCH 00/21] Use VRR timing generator for fixed refresh rate modes
+Date: Thu,  6 Mar 2025 18:40:39 +0530
+Message-ID: <20250306131100.3989503-1-ankit.k.nautiyal@intel.com>
+X-Mailer: git-send-email 2.45.2
 MIME-Version: 1.0
-Subject: =?utf-8?q?=E2=9C=93_i915=2ECI=2EBAT=3A_success_for_drm/xe/compat=3A_cleanup_?=
- =?utf-8?q?=28rev2=29?=
-From: Patchwork <patchwork@emeril.freedesktop.org>
-To: "Jani Nikula" <jani.nikula@intel.com>
-Cc: intel-gfx@lists.freedesktop.org
-Date: Thu, 06 Mar 2025 13:22:37 -0000
-Message-ID: <174126735762.67459.6166190799565532501@64e06c682a23>
-X-Patchwork-Hint: ignore
-References: <cover.1741192597.git.jani.nikula@intel.com>
-In-Reply-To: <cover.1741192597.git.jani.nikula@intel.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -37,230 +64,140 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
---===============2665513819144372135==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
+Even though the VRR timing generator (TG) is primarily used for
+variable refresh rates, it can be used for fixed refresh rates as
+well. For a fixed refresh rate the Flip Line and Vmax must be equal
+(TRANS_VRR_FLIPLINE = TRANS_VRR_VMAX). Beyond that, there are some
+dependencies between the VRR timings and the legacy timing generator
+registers.
 
-== Series Details ==
+This series is an attempt to use VRR TG for fixed refresh rate.
+For platforms XE2LPD+, always go with VRR timing generator for both fixed and
+variable refresh rate cases.
 
-Series: drm/xe/compat: cleanup (rev2)
-URL   : https://patchwork.freedesktop.org/series/145854/
-State : success
+Rev2:
+-Added support from MTL+ and for HDMI too.
+-Changed VRR VSYNC programming which is required for HDMI.
+-Modified vrr compute config for bigjoiner case. (Still to be tested).
 
-== Summary ==
+Rev3:
+-Start support from XE2LPD+ as MTL needs a WA to have PSR +VRR (fixed
+refresh rate)
+-Add changes to enable PSR with VRR with fixed refresh rate.
 
-CI Bug Log - changes from CI_DRM_16234 -> Patchwork_145854v2
-====================================================
+Rev4:
+-Addressed review comments from Mitul and rebased.
 
-Summary
--------
+Rev5:
+-Avoid MSA Ignore PAR timing enable bit for fixed refresh rate
+with VRR TG.
+-Skip VRR compute config for HDMI connected via DP-HDMI2.1 PCON.
+-Print fixed_rr along with other VRR parameters in crtc state dump.
+-Rebase
 
-  **SUCCESS**
+Rev6:
+-Refactor VRR code to have distinct modes in which VRR timing generator
+can be used: VRR, FIXED_RR, CMRR.
+-Bring the cmmr attributes in vrr struct.
+-Remove condition flipline > vmin for LNL.
+-Account for vmax being 0 based while MSA vtotal being 1 based.
 
-  No regressions found.
+Rev7:
+I have added patches from series for AS SDP fixes [1] , as without panels
+that support AS SDP gives a lot of issues.
+There were major changes in design as discussed in last version [2].
+Below are the change logs:
 
-  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_145854v2/index.html
+-Change the design to compute vrr state based on actual uapi.vrr.enable
+knob. So when that knob is disabled we always compute vmin=flipline=vmax.
+-Always set vmin=crtc_vtotal instead of the using the current refresh rate
+based approach. This helps to have the same guardband while switching
+between fixed and variable timings.
+-Disable CMRR for now to reduce complexity while changing timings on the
+fly.
+-Change the state computation and add vmin/vmax/flipline reprogramming
+to vrr_{enable,disable}()
+-Introduce the fixed refresh mode from MTL instead of LNL.
 
-Participating hosts (44 -> 43)
-------------------------------
+[1] https://patchwork.freedesktop.org/series/137035/
+[2] https://patchwork.kernel.org/project/intel-gfx/cover/20241111091221.2992818-1-ankit.k.nautiyal@intel.com/
 
-  Missing    (1): fi-snb-2520m 
+Rev8:
+-Addressed review comments from Ville.
+-Refactored few patches.
+-Dropped patches:
+1. "drm/i915/vrr: Adjust Vtotal for MSA for fixed timing"
+2. "drm/i915/vrr: Avoid sending PUSH when VRR TG is used with Fixed
+refresh rate"
 
-Known issues
-------------
+Rev9:
+-Fixed issue seen on BAT bugs.
 
-  Here are the changes found in Patchwork_145854v2 that come from known issues:
+Rev10:
+-Drop patch for avoiding VRR for DP with HDMI panel.
+-Address comments from Ville.
+-Add VRR compute config for DP MST.
+-Add HAS_VRR() checks and compute fixed timing for all VRR supporting
+platforms.
+-Move guardband and pipeline_full checks
+out from the pure !fastset block in intel_pipe_config_compare().
 
-### IGT changes ###
+Rev11:
+-Addressed comments from Ville.
+-Added only fixed_rr for Joiner.
+-Use vrr_possible() before setting fixed timings and before setting
+trans_vrr_ctl.
+-Split patch to remove vrr.guardband/pipeline_full from !fastset block.
+-Add patch to avoid writing into Vtotal.Vtotal bits when always using
+VRRTG.
 
-#### Issues hit ####
+Rev12:
+-Address comments from Ville.
+-Change sequence of Disable VRR.
+-Enable Push before VRR Enable.
+-Clear Push after VRR Disable.
+-Drop patch to remove Vtotal.vtotal bits.
 
-  * igt@fbdev@info:
-    - fi-kbl-8809g:       NOTRUN -> [SKIP][1] ([i915#1849])
-   [1]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_145854v2/fi-kbl-8809g/igt@fbdev@info.html
+Ankit Nautiyal (21):
+  drm/i915/vrr: Remove unwanted comment
+  drm/i915:vrr: Separate out functions to compute vmin and vmax
+  drm/i915/vrr: Make helpers for cmrr and vrr timings
+  drm/i915/vrr: Disable CMRR
+  drm/i915/vrr: Track vrr.enable only for variable timing
+  drm/i915/vrr: Use crtc_vtotal for vmin
+  drm/i915/vrr: Prepare for fixed refresh rate timings
+  drm/i915/display: Enable MSA Ignore Timing PAR only when in not
+    fixed_rr mode
+  drm/i915/hdmi: Use VRR Timing generator for HDMI for fixed_rr
+  drm/i915/dp_mst: Use VRR Timing generator for DP MST for fixed_rr
+  drm/i915/display: Disable PSR before disabling VRR
+  drm/i915/display: Move intel_psr_post_plane_update() at the later
+  drm/i915/vrr: Refactor condition for computing vmax and LRR
+  drm/i915/vrr: Always set vrr vmax/vmin/flipline in
+    vrr_{enable/disable}
+  drm/i915/display: Use fixed_rr timings in modeset sequence
+  drm/i915/vrr: Use fixed timings for platforms that support VRR
+  drm/i915/display: Move vrr.guardband/pipeline_full out of !fastset
+    block
+  drm/i915/display: Use fixed rr timings in
+    intel_set_transcoder_timings_lrr()
+  drm/i915/vrr: Allow fixed_rr with pipe joiner
+  drm/i915/vrr: Always use VRR timing generator for MTL+
+  drm/i915/display: Add fixed_rr to crtc_state dump
 
-  * igt@gem_huc_copy@huc-copy:
-    - fi-kbl-8809g:       NOTRUN -> [SKIP][2] ([i915#2190])
-   [2]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_145854v2/fi-kbl-8809g/igt@gem_huc_copy@huc-copy.html
+ .../drm/i915/display/intel_crtc_state_dump.c  |   3 +-
+ drivers/gpu/drm/i915/display/intel_ddi.c      |   5 +
+ drivers/gpu/drm/i915/display/intel_display.c  |  18 +-
+ .../drm/i915/display/intel_dp_link_training.c |  15 +-
+ drivers/gpu/drm/i915/display/intel_dp_mst.c   |   7 +
+ drivers/gpu/drm/i915/display/intel_hdmi.c     |   3 +
+ drivers/gpu/drm/i915/display/intel_vrr.c      | 313 ++++++++++++++----
+ drivers/gpu/drm/i915/display/intel_vrr.h      |   4 +
+ 8 files changed, 292 insertions(+), 76 deletions(-)
 
-  * igt@gem_lmem_swapping@parallel-random-engines:
-    - fi-kbl-8809g:       NOTRUN -> [SKIP][3] ([i915#4613]) +3 other tests skip
-   [3]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_145854v2/fi-kbl-8809g/igt@gem_lmem_swapping@parallel-random-engines.html
+-- 
+2.45.2
 
-  * igt@i915_pm_rpm@module-reload:
-    - bat-dg2-11:         [PASS][4] -> [FAIL][5] ([i915#13633])
-   [4]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_16234/bat-dg2-11/igt@i915_pm_rpm@module-reload.html
-   [5]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_145854v2/bat-dg2-11/igt@i915_pm_rpm@module-reload.html
-
-  * igt@i915_selftest@live:
-    - bat-arlh-2:         [PASS][6] -> [DMESG-FAIL][7] ([i915#12061] / [i915#12435])
-   [6]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_16234/bat-arlh-2/igt@i915_selftest@live.html
-   [7]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_145854v2/bat-arlh-2/igt@i915_selftest@live.html
-
-  * igt@i915_selftest@live@workarounds:
-    - bat-arlh-2:         [PASS][8] -> [DMESG-FAIL][9] ([i915#12061])
-   [8]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_16234/bat-arlh-2/igt@i915_selftest@live@workarounds.html
-   [9]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_145854v2/bat-arlh-2/igt@i915_selftest@live@workarounds.html
-    - bat-adlp-6:         [PASS][10] -> [ABORT][11] ([i915#9413]) +1 other test abort
-   [10]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_16234/bat-adlp-6/igt@i915_selftest@live@workarounds.html
-   [11]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_145854v2/bat-adlp-6/igt@i915_selftest@live@workarounds.html
-
-  * igt@kms_dsc@dsc-basic:
-    - fi-kbl-8809g:       NOTRUN -> [SKIP][12] +34 other tests skip
-   [12]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_145854v2/fi-kbl-8809g/igt@kms_dsc@dsc-basic.html
-
-  * igt@kms_pipe_crc_basic@nonblocking-crc-frame-sequence:
-    - bat-dg2-11:         [PASS][13] -> [SKIP][14] ([i915#9197]) +3 other tests skip
-   [13]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_16234/bat-dg2-11/igt@kms_pipe_crc_basic@nonblocking-crc-frame-sequence.html
-   [14]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_145854v2/bat-dg2-11/igt@kms_pipe_crc_basic@nonblocking-crc-frame-sequence.html
-
-  
-#### Possible fixes ####
-
-  * igt@i915_selftest@live:
-    - fi-glk-j4005:       [INCOMPLETE][15] ([i915#12445]) -> [PASS][16] +1 other test pass
-   [15]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_16234/fi-glk-j4005/igt@i915_selftest@live.html
-   [16]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_145854v2/fi-glk-j4005/igt@i915_selftest@live.html
-
-  
-  [i915#12061]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/12061
-  [i915#12435]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/12435
-  [i915#12445]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/12445
-  [i915#13633]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/13633
-  [i915#1849]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/1849
-  [i915#2190]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/2190
-  [i915#4613]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/4613
-  [i915#9197]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/9197
-  [i915#9413]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/9413
-
-
-Build changes
--------------
-
-  * Linux: CI_DRM_16234 -> Patchwork_145854v2
-
-  CI-20190529: 20190529
-  CI_DRM_16234: f2e11e8d7c76352a82d73307e16a8d8d662e05b4 @ git://anongit.freedesktop.org/gfx-ci/linux
-  IGT_8262: 8262
-  Patchwork_145854v2: f2e11e8d7c76352a82d73307e16a8d8d662e05b4 @ git://anongit.freedesktop.org/gfx-ci/linux
-
-== Logs ==
-
-For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_145854v2/index.html
-
---===============2665513819144372135==
-Content-Type: text/html; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-
-
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
- <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-  <title>Project List - Patchwork</title>
-  <style id="css-table-select" type="text/css">
-   td { padding: 2pt; }
-  </style>
-</head>
-<body>
-
-
-<b>Patch Details</b>
-<table>
-<tr><td><b>Series:</b></td><td>drm/xe/compat: cleanup (rev2)</td></tr>
-<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/145854/">https://patchwork.freedesktop.org/series/145854/</a></td></tr>
-<tr><td><b>State:</b></td><td>success</td></tr>
-
-    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_145854v2/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_145854v2/index.html</a></td></tr>
-
-</table>
-
-
-    <h1>CI Bug Log - changes from CI_DRM_16234 -&gt; Patchwork_145854v2</h1>
-<h2>Summary</h2>
-<p><strong>SUCCESS</strong></p>
-<p>No regressions found.</p>
-<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_145854v2/index.html</p>
-<h2>Participating hosts (44 -&gt; 43)</h2>
-<p>Missing    (1): fi-snb-2520m </p>
-<h2>Known issues</h2>
-<p>Here are the changes found in Patchwork_145854v2 that come from known issues:</p>
-<h3>IGT changes</h3>
-<h4>Issues hit</h4>
-<ul>
-<li>
-<p>igt@fbdev@info:</p>
-<ul>
-<li>fi-kbl-8809g:       NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_145854v2/fi-kbl-8809g/igt@fbdev@info.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/1849">i915#1849</a>)</li>
-</ul>
-</li>
-<li>
-<p>igt@gem_huc_copy@huc-copy:</p>
-<ul>
-<li>fi-kbl-8809g:       NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_145854v2/fi-kbl-8809g/igt@gem_huc_copy@huc-copy.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/2190">i915#2190</a>)</li>
-</ul>
-</li>
-<li>
-<p>igt@gem_lmem_swapping@parallel-random-engines:</p>
-<ul>
-<li>fi-kbl-8809g:       NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_145854v2/fi-kbl-8809g/igt@gem_lmem_swapping@parallel-random-engines.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/4613">i915#4613</a>) +3 other tests skip</li>
-</ul>
-</li>
-<li>
-<p>igt@i915_pm_rpm@module-reload:</p>
-<ul>
-<li>bat-dg2-11:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_16234/bat-dg2-11/igt@i915_pm_rpm@module-reload.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_145854v2/bat-dg2-11/igt@i915_pm_rpm@module-reload.html">FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/13633">i915#13633</a>)</li>
-</ul>
-</li>
-<li>
-<p>igt@i915_selftest@live:</p>
-<ul>
-<li>bat-arlh-2:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_16234/bat-arlh-2/igt@i915_selftest@live.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_145854v2/bat-arlh-2/igt@i915_selftest@live.html">DMESG-FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/12061">i915#12061</a> / <a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/12435">i915#12435</a>)</li>
-</ul>
-</li>
-<li>
-<p>igt@i915_selftest@live@workarounds:</p>
-<ul>
-<li>bat-arlh-2:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_16234/bat-arlh-2/igt@i915_selftest@live@workarounds.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_145854v2/bat-arlh-2/igt@i915_selftest@live@workarounds.html">DMESG-FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/12061">i915#12061</a>)</li>
-<li>bat-adlp-6:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_16234/bat-adlp-6/igt@i915_selftest@live@workarounds.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_145854v2/bat-adlp-6/igt@i915_selftest@live@workarounds.html">ABORT</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/9413">i915#9413</a>) +1 other test abort</li>
-</ul>
-</li>
-<li>
-<p>igt@kms_dsc@dsc-basic:</p>
-<ul>
-<li>fi-kbl-8809g:       NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_145854v2/fi-kbl-8809g/igt@kms_dsc@dsc-basic.html">SKIP</a> +34 other tests skip</li>
-</ul>
-</li>
-<li>
-<p>igt@kms_pipe_crc_basic@nonblocking-crc-frame-sequence:</p>
-<ul>
-<li>bat-dg2-11:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_16234/bat-dg2-11/igt@kms_pipe_crc_basic@nonblocking-crc-frame-sequence.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_145854v2/bat-dg2-11/igt@kms_pipe_crc_basic@nonblocking-crc-frame-sequence.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/9197">i915#9197</a>) +3 other tests skip</li>
-</ul>
-</li>
-</ul>
-<h4>Possible fixes</h4>
-<ul>
-<li>igt@i915_selftest@live:<ul>
-<li>fi-glk-j4005:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_16234/fi-glk-j4005/igt@i915_selftest@live.html">INCOMPLETE</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/12445">i915#12445</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_145854v2/fi-glk-j4005/igt@i915_selftest@live.html">PASS</a> +1 other test pass</li>
-</ul>
-</li>
-</ul>
-<h2>Build changes</h2>
-<ul>
-<li>Linux: CI_DRM_16234 -&gt; Patchwork_145854v2</li>
-</ul>
-<p>CI-20190529: 20190529<br />
-  CI_DRM_16234: f2e11e8d7c76352a82d73307e16a8d8d662e05b4 @ git://anongit.freedesktop.org/gfx-ci/linux<br />
-  IGT_8262: 8262<br />
-  Patchwork_145854v2: f2e11e8d7c76352a82d73307e16a8d8d662e05b4 @ git://anongit.freedesktop.org/gfx-ci/linux</p>
-
-</body>
-</html>
-
---===============2665513819144372135==--
