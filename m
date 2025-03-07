@@ -4,61 +4,71 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1598CC19F32
-	for <intel-gfx@archiver.kernel.org>; Fri,  7 Mar 2025 12:50:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 18954C282DE
+	for <intel-gfx@archiver.kernel.org>; Fri,  7 Mar 2025 13:07:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 662CC10E2CF;
-	Fri,  7 Mar 2025 12:50:55 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8C45D10EB3B;
+	Fri,  7 Mar 2025 13:07:03 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="S5ZUqn3+";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="AirKXWf7";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.7])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2519C10E2BC;
- Fri,  7 Mar 2025 12:50:52 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.15])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C48DD10EB3B;
+ Fri,  7 Mar 2025 13:07:01 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1741351852; x=1772887852;
+ t=1741352822; x=1772888822;
  h=date:from:to:cc:subject:message-id:references:
  mime-version:content-transfer-encoding:in-reply-to;
- bh=THE0bv8Xcez7gTTyruw0NMWrXar3ElO29Q5TfvP9t/s=;
- b=S5ZUqn3+j0OmM3tEoArGqbv1lDwcFeMAI4ShcRCvvuUUiwgCQYSKY7KB
- OiFJ1LkOonwnkv+9TDQPNqxBUlJ0rdEzjSsIEonS6CtSRw6EvhF6rZPvw
- 9OUShl6daI7ijbk8+eN4UHQDF0NXgsfFfOp8EXzBDCX7UwMufhu5APi5E
- ZFyT5Xt5y6qrYAXtjcEcmte75ErILOAFEx8mkxjSrNoBJ1ig4NQbaA6E2
- 0NGlkLVVy4OtSqj5N4UWpgv+9HVlFPVJ3V7RR1yusGPgFXYMNYzlJrWT3
- 4qo1hBgFtB3POYqXiNlEK12ELiPM6Iu4rvrJ3E8fLTndnSn87+0pj8Q64 A==;
-X-CSE-ConnectionGUID: 2pWX/uMoQnSzWveE6yvLew==
-X-CSE-MsgGUID: PqdVx1/tQVKp5oemi+cyEQ==
-X-IronPort-AV: E=McAfee;i="6700,10204,11365"; a="67771269"
-X-IronPort-AV: E=Sophos;i="6.14,229,1736841600"; d="scan'208";a="67771269"
+ bh=kLRWS7k4CvqTScB9jU2Bpv4c7d2JR42hMFVv/BOlSz4=;
+ b=AirKXWf7z3XkjaTyiSskKXuxUUom2CjgXKXkbOjKnceclFs4ewHWnhXt
+ EixZZ81jdYCm7NbvDuB3n67o8X2E/io/eKhWw2YHOch5eiQnCITXaqmKk
+ 7c5MzdgMkhAlcKTvWJd1f58/Ec1wXUr7Vl1qTPbXT61uEUpoZqZPCLOeY
+ rD970nqw5rJbPqcUE+EZOvGnHFWZSLhZMKHQ91K1k5gKPpDmOSl7AXh9K
+ 4EKytceN65f/WKSbzcJrzM6eUIQdsZygW1vbXq0MkT8QjaAmopgEjPkao
+ hcdW9k82n22m/Y8vwGr3iVlzjUiWZlOMjNaucjEZpKUT9Bnh9rfdtr/Yy g==;
+X-CSE-ConnectionGUID: 7RVJGiytR8KToaYmAlQUsg==
+X-CSE-MsgGUID: Pq0/GVyYTwemjyefY5jlFw==
+X-IronPort-AV: E=McAfee;i="6700,10204,11365"; a="46055954"
+X-IronPort-AV: E=Sophos;i="6.14,229,1736841600"; d="scan'208";a="46055954"
 Received: from orviesa005.jf.intel.com ([10.64.159.145])
- by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 07 Mar 2025 04:50:49 -0800
-X-CSE-ConnectionGUID: ITB/WGFiQ7yAHE25V7zYKw==
-X-CSE-MsgGUID: QM/9rrgrRZ2Gefmd+ajkjA==
+ by orvoesa107.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 07 Mar 2025 05:06:58 -0800
+X-CSE-ConnectionGUID: AaKfWBqMSKafFN6pek7vsQ==
+X-CSE-MsgGUID: VQUQgz9NTVKSFnC/dVrS6A==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.12,224,1728975600"; d="scan'208";a="124541700"
+X-IronPort-AV: E=Sophos;i="6.12,224,1728975600"; d="scan'208";a="124544111"
 Received: from stinkpipe.fi.intel.com (HELO stinkbox) ([10.237.72.74])
- by orviesa005.jf.intel.com with SMTP; 07 Mar 2025 04:50:47 -0800
+ by orviesa005.jf.intel.com with SMTP; 07 Mar 2025 05:06:55 -0800
 Received: by stinkbox (sSMTP sendmail emulation);
- Fri, 07 Mar 2025 14:50:46 +0200
-Date: Fri, 7 Mar 2025 14:50:46 +0200
+ Fri, 07 Mar 2025 15:06:53 +0200
+Date: Fri, 7 Mar 2025 15:06:53 +0200
 From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
-To: "Nautiyal, Ankit K" <ankit.k.nautiyal@intel.com>
-Cc: intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
- jani.nikula@linux.intel.com, mitulkumar.ajitkumar.golani@intel.com
-Subject: Re: [PATCH 15/21] drm/i915/display: Use fixed_rr timings in modeset
- sequence
-Message-ID: <Z8rrpvnqE4Lcc4hb@intel.com>
-References: <20250306131100.3989503-1-ankit.k.nautiyal@intel.com>
- <20250306131100.3989503-16-ankit.k.nautiyal@intel.com>
- <Z8nRZPU6__OTBWHe@intel.com>
- <9d1d55c7-199b-47a6-913e-d221d7cf2853@intel.com>
+To: "Kahola, Mika" <mika.kahola@intel.com>
+Cc: "Kandpal, Suraj" <suraj.kandpal@intel.com>,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ "intel-xe@lists.freedesktop.org" <intel-xe@lists.freedesktop.org>,
+ "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>,
+ "Syrjala, Ville" <ville.syrjala@intel.com>,
+ "Nautiyal, Ankit K" <ankit.k.nautiyal@intel.com>,
+ "Shankar, Uma" <uma.shankar@intel.com>
+Subject: Re: [PATCH 05/11] drm/i915/dpll: Move away from using shared dpll
+Message-ID: <Z8rvbWvug7TxVqaj@intel.com>
+References: <20250225080927.157437-6-suraj.kandpal@intel.com>
+ <8734g276o6.fsf@intel.com>
+ <SN7PR11MB67507C9052363FC4E8E34450E3C32@SN7PR11MB6750.namprd11.prod.outlook.com>
+ <SN7PR11MB6750A509052EF04B959BA7C1E3C32@SN7PR11MB6750.namprd11.prod.outlook.com>
+ <87ldtu59fb.fsf@intel.com>
+ <SN7PR11MB67505D632A7CCE485E8FB81FE3CD2@SN7PR11MB6750.namprd11.prod.outlook.com>
+ <Z8HHsZbQWxr04C9k@intel.com>
+ <SN7PR11MB6750E346CE1E741FE225D52CE3CC2@SN7PR11MB6750.namprd11.prod.outlook.com>
+ <Z8Wl1KbPnzUfN3z3@intel.com>
+ <MW4PR11MB7054AAB47E26AEFE4A0AEF4FEFD52@MW4PR11MB7054.namprd11.prod.outlook.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=iso-8859-1
 Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <9d1d55c7-199b-47a6-913e-d221d7cf2853@intel.com>
+In-Reply-To: <MW4PR11MB7054AAB47E26AEFE4A0AEF4FEFD52@MW4PR11MB7054.namprd11.prod.outlook.com>
 X-Patchwork-Hint: comment
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -75,174 +85,233 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Fri, Mar 07, 2025 at 05:33:46PM +0530, Nautiyal, Ankit K wrote:
+On Fri, Mar 07, 2025 at 12:02:09PM +0000, Kahola, Mika wrote:
+> > -----Original Message-----
+> > From: Ville Syrjälä <ville.syrjala@linux.intel.com>
+> > Sent: Monday, 3 March 2025 14.52
+> > To: Kandpal, Suraj <suraj.kandpal@intel.com>
+> > Cc: Jani Nikula <jani.nikula@linux.intel.com>; intel-xe@lists.freedesktop.org;
+> > intel-gfx@lists.freedesktop.org; Syrjala, Ville <ville.syrjala@intel.com>; Nautiyal,
+> > Ankit K <ankit.k.nautiyal@intel.com>; Shankar, Uma <uma.shankar@intel.com>;
+> > Kahola, Mika <mika.kahola@intel.com>
+> > Subject: Re: [PATCH 05/11] drm/i915/dpll: Move away from using shared dpll
+> > 
+> > On Fri, Feb 28, 2025 at 03:31:39PM +0000, Kandpal, Suraj wrote:
+> > >
+> > >
+> > > > -----Original Message-----
+> > > > From: Ville Syrjälä <ville.syrjala@linux.intel.com>
+> > > > Sent: Friday, February 28, 2025 7:57 PM
+> > > > To: Kandpal, Suraj <suraj.kandpal@intel.com>
+> > > > Cc: Jani Nikula <jani.nikula@linux.intel.com>;
+> > > > intel-xe@lists.freedesktop.org; intel-gfx@lists.freedesktop.org;
+> > > > Syrjala, Ville <ville.syrjala@intel.com>; Nautiyal, Ankit K
+> > > > <ankit.k.nautiyal@intel.com>; Shankar, Uma <uma.shankar@intel.com>;
+> > > > Kahola, Mika <mika.kahola@intel.com>
+> > > > Subject: Re: [PATCH 05/11] drm/i915/dpll: Move away from using
+> > > > shared dpll
+> > > >
+> > > > On Thu, Feb 27, 2025 at 10:18:31AM +0000, Kandpal, Suraj wrote:
+> > > > >
+> > > > >
+> > > > > > -----Original Message-----
+> > > > > > From: Jani Nikula <jani.nikula@linux.intel.com>
+> > > > > > Sent: Tuesday, February 25, 2025 9:00 PM
+> > > > > > To: Kandpal, Suraj <suraj.kandpal@intel.com>;
+> > > > > > intel-xe@lists.freedesktop.org; intel-gfx@lists.freedesktop.org;
+> > > > > > Syrjala, Ville <ville.syrjala@intel.com>
+> > > > > > Cc: Nautiyal, Ankit K <ankit.k.nautiyal@intel.com>; Shankar, Uma
+> > > > > > <uma.shankar@intel.com>; Kahola, Mika <mika.kahola@intel.com>
+> > > > > > Subject: RE: [PATCH 05/11] drm/i915/dpll: Move away from using
+> > > > > > shared dpll
+> > > > > >
+> > > > > > On Tue, 25 Feb 2025, "Kandpal, Suraj" <suraj.kandpal@intel.com> wrote:
+> > > > > > >> -----Original Message-----
+> > > > > > >> From: Kandpal, Suraj
+> > > > > > >> Sent: Tuesday, February 25, 2025 2:25 PM
+> > > > > > >> To: Jani Nikula <jani.nikula@linux.intel.com>;
+> > > > > > >> intel-xe@lists.freedesktop.org;
+> > > > > > >> intel-gfx@lists.freedesktop.org
+> > > > > > >> Cc: Nautiyal, Ankit K <ankit.k.nautiyal@intel.com>; Shankar,
+> > > > > > >> Uma <uma.shankar@intel.com>; Kahola, Mika
+> > > > > > >> <mika.kahola@intel.com>
+> > > > > > >> Subject: RE: [PATCH 05/11] drm/i915/dpll: Move away from
+> > > > > > >> using shared dpll
+> > > > > > >>
+> > > > > > >>
+> > > > > > >>
+> > > > > > >> > -----Original Message-----
+> > > > > > >> > From: Jani Nikula <jani.nikula@linux.intel.com>
+> > > > > > >> > Sent: Tuesday, February 25, 2025 2:17 PM
+> > > > > > >> > To: Kandpal, Suraj <suraj.kandpal@intel.com>;
+> > > > > > >> > intel-xe@lists.freedesktop.org;
+> > > > > > >> > intel-gfx@lists.freedesktop.org
+> > > > > > >> > Cc: Nautiyal, Ankit K <ankit.k.nautiyal@intel.com>;
+> > > > > > >> > Shankar, Uma <uma.shankar@intel.com>; Kahola, Mika
+> > > > > > >> > <mika.kahola@intel.com>; Kandpal, Suraj
+> > > > > > >> > <suraj.kandpal@intel.com>
+> > > > > > >> > Subject: Re: [PATCH 05/11] drm/i915/dpll: Move away from
+> > > > > > >> > using shared dpll
+> > > > > > >> >
+> > > > > > >> > On Tue, 25 Feb 2025, Suraj Kandpal <suraj.kandpal@intel.com>
+> > wrote:
+> > > > > > >> > > Rename functions to move away from using shared dpll in
+> > > > > > >> > > the dpll framework as much as possible since dpll may not
+> > > > > > >> > > always be
+> > > > shared.
+> > > > > > >> > >
+> > > > > > >> > > Signed-off-by: Suraj Kandpal <suraj.kandpal@intel.com>
+> > > > > > >> >
+> > > > > > >> > ...
+> > > > > > >> >
+> > > > > > >> > > diff --git
+> > > > > > >> > > a/drivers/gpu/drm/i915/display/intel_dpll_mgr.h
+> > > > > > >> > > b/drivers/gpu/drm/i915/display/intel_dpll_mgr.h
+> > > > > > >> > > index 6edd103eda55..ef66aca5da1d 100644
+> > > > > > >> > > --- a/drivers/gpu/drm/i915/display/intel_dpll_mgr.h
+> > > > > > >> > > +++ b/drivers/gpu/drm/i915/display/intel_dpll_mgr.h
+> > > > > > >> > > @@ -387,24 +387,24 @@ struct intel_global_dpll {  #define
+> > > > > > >> > > SKL_DPLL2
+> > > > > > >> > > 2 #define SKL_DPLL3 3
+> > > > > > >> > >
+> > > > > > >> > > -/* shared dpll functions */
+> > > > > > >> > > +/* global dpll functions */
+> > > > > > >> > >  struct intel_global_dpll *
+> > > > > > >> > > -intel_get_shared_dpll_by_id(struct intel_display
+> > > > > > >> > > *display,
+> > > > > > >> > > +intel_get_global_dpll_by_id(struct intel_display
+> > > > > > >> > > +*display,
+> > > > > > >> > >  			    enum intel_dpll_id id); -void
+> > > > > > >> > > assert_shared_dpll(struct intel_display *display,
+> > > > > > >> > > +void assert_global_dpll(struct intel_display *display,
+> > > > > > >> > >  			struct intel_global_dpll *pll,
+> > > > > > >> > >  			bool state);
+> > > > > > >> > > -#define assert_shared_dpll_enabled(d, p)
+> > > > > > >> > > assert_shared_dpll(d, p,
+> > > > > > >> > > true) -#define assert_shared_dpll_disabled(d, p)
+> > > > > > >> > > assert_shared_dpll(d, p, false) -int
+> > > > > > >> > > intel_compute_shared_dplls(struct intel_atomic_state
+> > > > > > >> > > *state,
+> > > > > > >> > > +#define assert_global_dpll_enabled(d, p)
+> > > > > > >> > > +assert_global_dpll(d, p,
+> > > > > > >> > > +true) #define assert_global_dpll_disabled(d, p)
+> > > > > > >> > > +assert_global_dpll(d, p, false) int
+> > > > > > >> > > +intel_compute_global_dplls(struct intel_atomic_state
+> > > > > > >> > > +*state,
+> > > > > > >> > >  			       struct intel_crtc *crtc,
+> > > > > > >> > >  			       struct intel_encoder *encoder); -int
+> > > > > > >> > > intel_reserve_shared_dplls(struct intel_atomic_state
+> > > > > > >> > > *state,
+> > > > > > >> > > +int intel_reserve_global_dplls(struct intel_atomic_state
+> > > > > > >> > > +*state,
+> > > > > > >> > >  			       struct intel_crtc *crtc,
+> > > > > > >> > >  			       struct intel_encoder *encoder); -void
+> > > > > > >> > > intel_release_shared_dplls(struct intel_atomic_state
+> > > > > > >> > > *state,
+> > > > > > >> > > +void intel_release_global_dplls(struct
+> > > > > > >> > > +intel_atomic_state *state,
+> > > > > > >> > >  				struct intel_crtc *crtc); -void
+> > > > > > >> > > intel_unreference_shared_dpll_crtc(const struct
+> > > > > > >> > > intel_crtc *crtc,
+> > > > > > >> > > +void intel_unreference_global_dpll_crtc(const struct
+> > > > > > >> > > +intel_crtc *crtc,
+> > > > > > >> > >  					const struct intel_global_dpll
+> > > > *pll,
+> > > > > > >> > >  					struct intel_dpll_state
+> > > > > > >> > *shared_dpll_state);  void
+> > > > > > >> > > icl_set_active_port_dpll(struct intel_crtc_state
+> > > > > > >> > > *crtc_state, @@
+> > > > > > >> > > -418,10 +418,10 @@ int intel_dpll_get_freq(struct
+> > > > > > >> > > intel_display *display,  bool
+> > > > > > >> > > intel_dpll_get_hw_state(struct
+> > > > intel_display *display,
+> > > > > > >> > >  			     struct intel_global_dpll *pll,
+> > > > > > >> > >  			     struct intel_dpll_hw_state *dpll_hw_state);
+> > > > -void
+> > > > > > >> > > intel_enable_shared_dpll(const struct intel_crtc_state
+> > > > > > >> > > *crtc_state); -void intel_disable_shared_dpll(const
+> > > > > > >> > > struct intel_crtc_state *crtc_state); -void
+> > > > > > >> > > intel_shared_dpll_swap_state(struct
+> > > > > > >> > > intel_atomic_state *state); -void
+> > > > > > >> > > intel_shared_dpll_init(struct intel_display *display);
+> > > > > > >> > > +void intel_enable_global_dpll(const struct
+> > > > > > >> > > +intel_crtc_state *crtc_state); void
+> > > > > > >> > > +intel_disable_global_dpll(const struct intel_crtc_state
+> > > > > > >> > > +*crtc_state); void intel_dpll_swap_state(struct
+> > > > > > >> > > +intel_atomic_state *state); void
+> > > > > > >> > > +intel_global_dpll_init(struct intel_display *display);
+> > > > > > >> > >  void intel_dpll_update_ref_clks(struct intel_display
+> > > > > > >> > > *display); void intel_dpll_readout_hw_state(struct
+> > > > > > >> > > intel_display *display); void
+> > > > > > >> > > intel_dpll_sanitize_state(struct intel_display *display);
+> > > > > > >> > > @@
+> > > > > > >> > > -437,6
+> > > > > > >> > > +437,6 @@ bool intel_dpll_is_combophy(enum intel_dpll_id
+> > > > > > >> > > +id);
+> > > > > > >> > >
+> > > > > > >> > >  void intel_dpll_state_verify(struct intel_atomic_state *state,
+> > > > > > >> > >  			     struct intel_crtc *crtc); -void
+> > > > > > >> > > intel_shared_dpll_verify_disabled(struct
+> > > > > > >> > > intel_atomic_state *state);
+> > > > > > >> > > +void intel_global_dpll_verify_disabled(struct
+> > > > > > >> > > +intel_atomic_state *state);
+> > > > > > >> > >
+> > > > > > >> > >  #endif /* _INTEL_DPLL_MGR_H_ */
+> > > > > > >> >
+> > > > > > >> > If you're renaming almost everything anyway, I'd appreciate
+> > > > > > >> > moving towards naming functions according to the file name,
+> > > > > > >> > i.e. functions in intel_foo.[ch] would be named intel_foo_*().
+> > > > > > >> >
+> > > > > > >> > The dpll mgr is notoriously bad in this regard. I'm also
+> > > > > > >> > open to renaming the entire file, intel_dpll_mgr.[ch] isn't all that
+> > great.
+> > > > > > >> >
+> > > > > > >> > I'm not sure if the term "global" (instead of "shared") was
+> > > > > > >> > very well justified in patch 3. Maybe all of these should
+> > > > > > >> > be thought out together for the
+> > > > > > >> naming.
+> > > > > > >> >
+> > > > > > >>
+> > > > > > >> I agree with the renaming I would have very much have to keep
+> > > > > > >> the naming simple something like Intel_dpll_func but that exits !
+> > > > > > >> intel_dpll_mgr_funcs but intel_dpll_mgr already has some
+> > > > > > >> hooks defined
+> > > > > > inside It.
+> > > > > > >> I chose global since that way we will be able to represent
+> > > > > > >> both PLL using shared PHY and PLL with individual PHY.
+> > > > > > >> Also renaming intel_dpll_mgr.[ch] we have a intel_dpll.[ch]
+> > > > > > >> making it a problem What if we renamed the file to
+> > > > > > >> intel_global_dpll.[ch]
+> > > > > > >
+> > > > > > > Jani what do you think of this ?
+> > > > > >
+> > > > > > I think Ville probably has opinions on this. Cc'd.
+> > > > >
+> > > > > Hi Ville,
+> > > > > Any thoughts ?
+> > > >
+> > > > IMO it should just be intel_dpll_*. We want all PLLs to provide the
+> > > > same uniform interface for enable/disble/readout/state_dump/etc.
+> > > > Whether the PLL is shared/global or not isn't interesting outside
+> > > > the actual modeset sequence and PLL selection logic.
+> > >
+> > > But that still leaves us with the question what would be the most
+> > > appropriate way to do away with the
+> > > Intel_shared_dpll_* naming what does it become if not
+> > > intel_global_dpll_* (since intel_dpll wouldn't be a Straightforward answer to
+> > this) intel_dpll_global ?
+> > 
+> > What do you mean intel_dpll_* isn't a straightforward answer?
+> > It is the right answer.
 > 
-> On 3/6/2025 10:16 PM, Ville Syrjälä wrote:
-> > On Thu, Mar 06, 2025 at 06:40:54PM +0530, Ankit Nautiyal wrote:
-> >> During modeset enable sequence, program the fixed timings, and turn on the
-> >> VRR Timing Generator (VRR TG) for platforms that always use VRR TG.
-> >>
-> >> For this intel_vrr_set_transcoder now always programs fixed timings.
-> >> Later if vrr timings are required, vrr_enable() will switch
-> >> to the real VRR timings.
-> >>
-> >> For platforms that will always use VRR TG, the VRR_CTL Enable bit is set
-> >> and reset in the transcoder enable/disable path.
-> >>
-> >> v2: Update intel_vrr_set_transcoder_timings for fixed_rr.
-> >> v3: Update intel_set_transcoder_timings_lrr for fixed_rr. (Ville)
-> >> v4: Have separate functions to enable/disable VRR CTL
-> >> v5:
-> >> -For platforms that do not always have VRRTG on, do write bits other
-> >> than enable bit and also use write the TRANS_VRR_PUSH register. (Ville)
-> >> -Avoid writing trans_ctl_vrr if !vrr_possible().
-> >> v6:
-> >> -Disable VRR just before intel_ddi_disable_transcoder_func(). (Ville)
-> >> -Correct the sequence of configuring PUSH and VRR Enable/Disable. (Ville)
-> >>
-> >> Signed-off-by: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
-> >> ---
-> >>   drivers/gpu/drm/i915/display/intel_ddi.c    |  5 ++
-> >>   drivers/gpu/drm/i915/display/intel_dp_mst.c |  4 ++
-> >>   drivers/gpu/drm/i915/display/intel_vrr.c    | 63 ++++++++++++++++-----
-> >>   drivers/gpu/drm/i915/display/intel_vrr.h    |  2 +
-> >>   4 files changed, 60 insertions(+), 14 deletions(-)
-> >>
-> >> diff --git a/drivers/gpu/drm/i915/display/intel_ddi.c b/drivers/gpu/drm/i915/display/intel_ddi.c
-> >> index 676c1826f15c..6d89a87b3419 100644
-> >> --- a/drivers/gpu/drm/i915/display/intel_ddi.c
-> >> +++ b/drivers/gpu/drm/i915/display/intel_ddi.c
-> >> @@ -78,6 +78,7 @@
-> >>   #include "intel_tc.h"
-> >>   #include "intel_vdsc.h"
-> >>   #include "intel_vdsc_regs.h"
-> >> +#include "intel_vrr.h"
-> >>   #include "skl_scaler.h"
-> >>   #include "skl_universal_plane.h"
-> >>   
-> >> @@ -3248,6 +3249,8 @@ static void intel_ddi_post_disable_hdmi_or_sst(struct intel_atomic_state *state,
-> >>   		drm_dp_dpcd_poll_act_handled(&intel_dp->aux, 0);
-> >>   	}
-> >>   
-> >> +	intel_vrr_transcoder_disable(old_crtc_state);
-> >> +
-> >>   	intel_ddi_disable_transcoder_func(old_crtc_state);
-> >>   
-> >>   	for_each_pipe_crtc_modeset_disable(display, pipe_crtc, old_crtc_state, i) {
-> >> @@ -3521,6 +3524,8 @@ static void intel_ddi_enable(struct intel_atomic_state *state,
-> >>   
-> >>   	intel_ddi_enable_transcoder_func(encoder, crtc_state);
-> >>   
-> >> +	intel_vrr_transcoder_enable(crtc_state);
-> >> +
-> >>   	/* Enable/Disable DP2.0 SDP split config before transcoder */
-> >>   	intel_audio_sdp_split_update(crtc_state);
-> >>   
-> >> diff --git a/drivers/gpu/drm/i915/display/intel_dp_mst.c b/drivers/gpu/drm/i915/display/intel_dp_mst.c
-> >> index bd47cf127b4c..d2988b9a6e7b 100644
-> >> --- a/drivers/gpu/drm/i915/display/intel_dp_mst.c
-> >> +++ b/drivers/gpu/drm/i915/display/intel_dp_mst.c
-> >> @@ -1065,6 +1065,8 @@ static void mst_stream_post_disable(struct intel_atomic_state *state,
-> >>   	drm_dp_remove_payload_part2(&intel_dp->mst.mgr, new_mst_state,
-> >>   				    old_payload, new_payload);
-> >>   
-> >> +	intel_vrr_transcoder_disable(old_crtc_state);
-> >> +
-> >>   	intel_ddi_disable_transcoder_func(old_crtc_state);
-> >>   
-> >>   	for_each_pipe_crtc_modeset_disable(display, pipe_crtc, old_crtc_state, i) {
-> >> @@ -1326,6 +1328,8 @@ static void mst_stream_enable(struct intel_atomic_state *state,
-> >>   
-> >>   	intel_ddi_enable_transcoder_func(encoder, pipe_config);
-> >>   
-> >> +	intel_vrr_transcoder_enable(pipe_config);
-> >> +
-> >>   	intel_ddi_clear_act_sent(encoder, pipe_config);
-> >>   
-> >>   	intel_de_rmw(display, TRANS_DDI_FUNC_CTL(display, trans), 0,
-> >> diff --git a/drivers/gpu/drm/i915/display/intel_vrr.c b/drivers/gpu/drm/i915/display/intel_vrr.c
-> >> index f523a48e6186..d7580b6e4e37 100644
-> >> --- a/drivers/gpu/drm/i915/display/intel_vrr.c
-> >> +++ b/drivers/gpu/drm/i915/display/intel_vrr.c
-> >> @@ -460,12 +460,6 @@ void intel_vrr_set_transcoder_timings(const struct intel_crtc_state *crtc_state)
-> >>   		intel_de_rmw(display, CHICKEN_TRANS(display, cpu_transcoder),
-> >>   			     0, PIPE_VBLANK_WITH_DELAY);
-> >>   
-> >> -	if (!intel_vrr_possible(crtc_state)) {
-> >> -		intel_de_write(display,
-> >> -			       TRANS_VRR_CTL(display, cpu_transcoder), 0);
-> >> -		return;
-> >> -	}
-> >> -
-> >>   	if (crtc_state->cmrr.enable) {
-> >>   		intel_de_write(display, TRANS_CMRR_M_HI(display, cpu_transcoder),
-> >>   			       upper_32_bits(crtc_state->cmrr.cmrr_m));
-> >> @@ -477,14 +471,7 @@ void intel_vrr_set_transcoder_timings(const struct intel_crtc_state *crtc_state)
-> >>   			       lower_32_bits(crtc_state->cmrr.cmrr_n));
-> >>   	}
-> >>   
-> >> -	intel_de_write(display, TRANS_VRR_VMIN(display, cpu_transcoder),
-> >> -		       crtc_state->vrr.vmin - 1);
-> >> -	intel_de_write(display, TRANS_VRR_VMAX(display, cpu_transcoder),
-> >> -		       crtc_state->vrr.vmax - 1);
-> >> -	intel_de_write(display, TRANS_VRR_CTL(display, cpu_transcoder),
-> >> -		       trans_vrr_ctl(crtc_state));
-> >> -	intel_de_write(display, TRANS_VRR_FLIPLINE(display, cpu_transcoder),
-> >> -		       crtc_state->vrr.flipline - 1);
-> >> +	intel_vrr_set_fixed_rr_timings(crtc_state);
-> >>   
-> >>   	if (HAS_AS_SDP(display))
-> >>   		intel_de_write(display,
-> >> @@ -618,6 +605,54 @@ void intel_vrr_disable(const struct intel_crtc_state *old_crtc_state)
-> >>   	intel_vrr_set_fixed_rr_timings(old_crtc_state);
-> >>   }
-> >>   
-> >> +void intel_vrr_transcoder_enable(const struct intel_crtc_state *crtc_state)
-> >> +{
-> >> +	struct intel_display *display = to_intel_display(crtc_state);
-> >> +	enum transcoder cpu_transcoder = crtc_state->cpu_transcoder;
-> >> +
-> >> +	if (!HAS_VRR(display))
-> >> +		return;
-> >> +
-> >> +	if (!intel_vrr_possible(crtc_state))
-> >> +		return;
-> >> +
-> >> +	if (!intel_vrr_always_use_vrr_tg(display)) {
-> >> +		intel_de_write(display, TRANS_VRR_CTL(display, cpu_transcoder),
-> >> +			       trans_vrr_ctl(crtc_state));
-> >> +		return;
-> >> +	}
-> >> +
-> >> +	intel_de_write(display, TRANS_PUSH(display, cpu_transcoder),
-> >> +		       TRANS_PUSH_EN);
-> >> +
-> >> +	intel_de_write(display, TRANS_VRR_CTL(display, cpu_transcoder),
-> >> +		       VRR_CTL_VRR_ENABLE | trans_vrr_ctl(crtc_state));
-> >> +}
-> >> +
-> >> +void intel_vrr_transcoder_disable(const struct intel_crtc_state *crtc_state)
-> >> +{
-> >> +	struct intel_display *display = to_intel_display(crtc_state);
-> >> +	enum transcoder cpu_transcoder = crtc_state->cpu_transcoder;
-> >> +
-> >> +	if (!HAS_VRR(display))
-> >> +		return;
-> >> +
-> >> +	if (!intel_vrr_possible(crtc_state))
-> >> +		return;
-> >> +
-> >> +	if (!intel_vrr_always_use_vrr_tg(display)) {
-> >> +		intel_de_write(display, TRANS_VRR_CTL(display, cpu_transcoder),
-> >> +			       trans_vrr_ctl(crtc_state));
-> > IMO we should write 0 here too.
-> 
-> There is one problem. If we do not write trans_vrr_ctl but crtc_state 
-> has flipline, vmin, vmax all set to some value, then we get mismatch in 
-> vrr_get_config.
+> About this naming convention, we have defined (intel_display_core.h) structure for intel_dpll which contains structures for intel_shared_dpll and intel_dpll_mgr. Wouldn't renaming intel_shared_dpll to intel_dpll cause a conflict with already existing intel_dpll structure? Or should we keep the intel_shared_dpll structure intact and rename intel_shared_dpll_* simply intel_dpll_*?
 
-This is intel_vrr_transcoder_disable(). Nothing is expected to be
-configured for disabled transcoders.
+I think just rename the current intel_dpll to something more
+appropriate.
+
+Or just forget about naming for now and move ahead with the
+actual work. We've been doing fine with the _shared_dpll name
+up to now, so clearly it's not *that* important what it's called.
 
 -- 
 Ville Syrjälä
