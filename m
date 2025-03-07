@@ -4,74 +4,76 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 90EAFC28B23
-	for <intel-gfx@archiver.kernel.org>; Fri,  7 Mar 2025 13:57:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AB6B5C282DE
+	for <intel-gfx@archiver.kernel.org>; Fri,  7 Mar 2025 13:57:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4356B10EB7F;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6CBE610EB85;
 	Fri,  7 Mar 2025 13:57:55 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="sFkaI+1w";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="QZy5jppA";
 	dkim-atps=neutral
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 55A4410E945;
- Thu,  6 Mar 2025 11:31:12 +0000 (UTC)
+Received: from nyc.source.kernel.org (nyc.source.kernel.org [147.75.193.91])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9E99B10EAC4;
+ Fri,  7 Mar 2025 04:35:30 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id 217D25C562A;
- Thu,  6 Mar 2025 11:28:51 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 6762FC4CEF0;
- Thu,  6 Mar 2025 11:31:07 +0000 (UTC)
+ by nyc.source.kernel.org (Postfix) with ESMTP id 09BE2A45481;
+ Fri,  7 Mar 2025 04:29:59 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A6E1FC4CED1;
+ Fri,  7 Mar 2025 04:35:22 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1741260667;
- bh=JScz0TMKAGSf8jK8FVCMAWHGLNQQuW9+1Mg0FeL7qBY=;
- h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
- b=sFkaI+1w2EcYJKPVl99w8WW9YASl8+GXSifRMXa4dRXIELseOPmiJHDMeoFPSr0Rf
- 5UEJMgf7sBi7tQvkGltMLhSTtPNF6eWQHdB+0QGe09lOmLbxJTgkgQiDUckSp+u1FE
- IITcM7MRD9Mc5VtHCXfp2rhFTNFztxlAgDV12F5PhdYW3enGXAGI5dYZhyitJzo1CK
- 86Mos14UGKdzHsW9DzV7nOBFWEschhOrmCeyzDsgLGqfu841jCy1S9VP8pvSHADRMx
- kf7oS/RKNPxs0g0HbumordWqaOA9drXg6zKKKOlsin5BjF1lsck41GEWWQQLfaV+tA
- bt0LVBsZ2BtfA==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org
- (localhost.localdomain [127.0.0.1])
- by smtp.lore.kernel.org (Postfix) with ESMTP id 5C4CBC282D1;
- Thu,  6 Mar 2025 11:31:07 +0000 (UTC)
-From: Vincent Mailhol via B4 Relay
- <devnull+mailhol.vincent.wanadoo.fr@kernel.org>
-Date: Thu, 06 Mar 2025 20:29:56 +0900
-Subject: [PATCH v5 5/7] test_bits: add tests for __GENMASK() and
- __GENMASK_ULL()
+ s=k20201202; t=1741322129;
+ bh=86F5pdRlv88khWZ04dZw/iDU5RbACl7IwpCgSIsUn6A=;
+ h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
+ b=QZy5jppAPDmYf4xafrY2FIn+8fZdAPYHgX3OHgM4IPH5fpapSF7VmPqF4rbhXOMg2
+ SuljeUSLbPD4M7sPXuVDiAWXcZDG/iHe+UrBG3NHMK6D4Ozbkfcliobp1uLanrbiao
+ rGNSdhdWl2y1qXucE21JAZLElnZ7kFyzWk4eI8GIdsPVKCGF6NlSye/lBF+vk3Wo3t
+ vktiQIvrlr0J1pl73mFLzWA9hn+YR8D/v0XpMRepuQtOk7MhgMHAdwbBSy08J3LCfR
+ E4KEyxZvolxrivu3uEc29YsIgX5LT3M4V5+Oe1nFH0UuuSh8nOClPPx/vOfPo1BBtS
+ /K8zQfd2Q953Q==
+From: Dmitry Baryshkov <lumag@kernel.org>
+Date: Fri, 07 Mar 2025 06:34:47 +0200
+Subject: [PATCH RFC v3 5/7] drm/display: dp-cec: use new DCPD access
+ helpers
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20250306-fixed-type-genmasks-v5-5-b443e9dcba63@wanadoo.fr>
-References: <20250306-fixed-type-genmasks-v5-0-b443e9dcba63@wanadoo.fr>
-In-Reply-To: <20250306-fixed-type-genmasks-v5-0-b443e9dcba63@wanadoo.fr>
-To: Yury Norov <yury.norov@gmail.com>, 
- Lucas De Marchi <lucas.demarchi@intel.com>, 
- Rasmus Villemoes <linux@rasmusvillemoes.dk>, 
+Message-Id: <20250307-drm-rework-dpcd-access-v3-5-9044a3a868ee@linaro.org>
+References: <20250307-drm-rework-dpcd-access-v3-0-9044a3a868ee@linaro.org>
+In-Reply-To: <20250307-drm-rework-dpcd-access-v3-0-9044a3a868ee@linaro.org>
+To: Lyude Paul <lyude@redhat.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>, 
+ Sean Paul <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>, 
  Jani Nikula <jani.nikula@linux.intel.com>, 
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, 
- Rodrigo Vivi <rodrigo.vivi@intel.com>, 
- Tvrtko Ursulin <tursulin@ursulin.net>, David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>, Andrew Morton <akpm@linux-foundation.org>
-Cc: linux-kernel@vger.kernel.org, intel-gfx@lists.freedesktop.org, 
- dri-devel@lists.freedesktop.org, Andi Shyti <andi.shyti@linux.intel.com>, 
- David Laight <David.Laight@ACULAB.COM>, 
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, 
- Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
- Vincent Mailhol <mailhol.vincent@wanadoo.fr>
+ Alex Deucher <alexander.deucher@amd.com>, 
+ =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ Andrzej Hajda <andrzej.hajda@intel.com>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
+ Xinliang Liu <xinliang.liu@linaro.org>, Tian Tao <tiantao6@hisilicon.com>, 
+ Xinwei Kong <kong.kongxinwei@hisilicon.com>, 
+ Sumit Semwal <sumit.semwal@linaro.org>, 
+ Yongqin Liu <yongqin.liu@linaro.org>, John Stultz <jstultz@google.com>
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org, 
+ intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org, 
+ amd-gfx@lists.freedesktop.org, Jani Nikula <jani.nikula@intel.com>
 X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1556;
- i=mailhol.vincent@wanadoo.fr; h=from:subject:message-id;
- bh=lN5M+jT7BPUL1L2f+TXlK22h8uB9+ou65Ns8DPPWhbE=;
- b=owGbwMvMwCV2McXO4Xp97WbG02pJDOkn2wuKWgILYv0TgmSDHq5d2ROlIS1iW8G85Oysze+5B
- KzCJhd0lLIwiHExyIopsiwr5+RW6Cj0Djv01xJmDisTyBAGLk4BmMi8KIZ/RkZCkUkHex50vdS/
- pHHvhtL7pw1z7v0NYtjD58rOPjNmD8M/6+e7+Lb8+c587ubvXZG2K3tslPunN87pybGe6f9b6P1
- vTgA=
-X-Developer-Key: i=mailhol.vincent@wanadoo.fr; a=openpgp;
- fpr=ED8F700574E67F20E574E8E2AB5FEB886DBB99C2
-X-Endpoint-Received: by B4 Relay for mailhol.vincent@wanadoo.fr/default
- with auth_id=291
-X-Original-From: Vincent Mailhol <mailhol.vincent@wanadoo.fr>
+X-Developer-Signature: v=1; a=openpgp-sha256; l=5086;
+ i=dmitry.baryshkov@linaro.org; h=from:subject:message-id;
+ bh=d/g0s+1RbkEZsu0cFrspMKQl16Oh0pnUASV91YvLy1M=;
+ b=owEBbQGS/pANAwAKAYs8ij4CKSjVAcsmYgBnyndmRLlndyW4oZgFj1l1qw5GJtas1Ojxfota7
+ xvMR8hfZgmJATMEAAEKAB0WIQRMcISVXLJjVvC4lX+LPIo+Aiko1QUCZ8p3ZgAKCRCLPIo+Aiko
+ 1f2bCACcgvrvnp6g+NKF9KtJJfav7WqL1FsWi57sDdOewZMVV62fFoqoyTvCtFAB9cffzUoT1m9
+ SNWUYMHEi3c43PA+yB36HxjMcwZTU5+yIQWXvl3I3I4tXUezTnKVOlUAF1ffe60CoiZi3kV9JBr
+ 3/ya4ChlCPgJbpFm9A8HiHyvKhFYaFZTxWv+leqIrrg8qey/kxhSyGu1UiQjtV+0uthP1WkJueu
+ wBpZ0tVZBZy8O8Y1ZA4HwvSrgibKnoU/RkZkEUoE8u99zrUhgmJKeIwKDNa/9hH03xeHNpntvAP
+ c4cW/OdXWgzpJxLLl664ADlQrTs6lu88CHmWtI19Nl1AK4CK
+X-Developer-Key: i=dmitry.baryshkov@linaro.org; a=openpgp;
+ fpr=8F88381DD5C873E4AE487DA5199BF1243632046A
 X-Mailman-Approved-At: Fri, 07 Mar 2025 13:57:54 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -85,59 +87,143 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: mailhol.vincent@wanadoo.fr
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Vincent Mailhol <mailhol.vincent@wanadoo.fr>
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 
-The definitions of GENMASK() and GENMASK_ULL() do not depend any more
-on __GENMASK() and __GENMASK_ULL(). Duplicate the existing unit tests
-so that __GENMASK{,ULL}() is still covered.
+Switch drm_dp_cec.c to use new set of DPCD read / write helpers.
 
-Signed-off-by: Vincent Mailhol <mailhol.vincent@wanadoo.fr>
+Reviewed-by: Lyude Paul <lyude@redhat.com>
+Acked-by: Jani Nikula <jani.nikula@intel.com>
+Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 ---
- lib/test_bits.c | 18 ++++++++++++++++++
- 1 file changed, 18 insertions(+)
+ drivers/gpu/drm/display/drm_dp_cec.c | 37 ++++++++++++++++++------------------
+ 1 file changed, 18 insertions(+), 19 deletions(-)
 
-diff --git a/lib/test_bits.c b/lib/test_bits.c
-index c7b38d91e1f16d42b7ca92e62fbd6c19b37e76a0..dc93ded9fdb201e0d44b3c1cd71e233fd62258a5 100644
---- a/lib/test_bits.c
-+++ b/lib/test_bits.c
-@@ -7,6 +7,22 @@
- #include <linux/bits.h>
+diff --git a/drivers/gpu/drm/display/drm_dp_cec.c b/drivers/gpu/drm/display/drm_dp_cec.c
+index 56a4965e518cc237c992a2e31b9f6de05c14766a..ed31471bd0e28826254ecedac48c5c126729d470 100644
+--- a/drivers/gpu/drm/display/drm_dp_cec.c
++++ b/drivers/gpu/drm/display/drm_dp_cec.c
+@@ -96,7 +96,7 @@ static int drm_dp_cec_adap_enable(struct cec_adapter *adap, bool enable)
+ 	u32 val = enable ? DP_CEC_TUNNELING_ENABLE : 0;
+ 	ssize_t err = 0;
  
+-	err = drm_dp_dpcd_writeb(aux, DP_CEC_TUNNELING_CONTROL, val);
++	err = drm_dp_dpcd_write_byte(aux, DP_CEC_TUNNELING_CONTROL, val);
+ 	return (enable && err < 0) ? err : 0;
+ }
  
-+static void __genmask_test(struct kunit *test)
-+{
-+	KUNIT_EXPECT_EQ(test, 1ul, __GENMASK(0, 0));
-+	KUNIT_EXPECT_EQ(test, 3ul, __GENMASK(1, 0));
-+	KUNIT_EXPECT_EQ(test, 6ul, __GENMASK(2, 1));
-+	KUNIT_EXPECT_EQ(test, 0xFFFFFFFFul, __GENMASK(31, 0));
-+}
-+
-+static void __genmask_ull_test(struct kunit *test)
-+{
-+	KUNIT_EXPECT_EQ(test, 1ull, __GENMASK_ULL(0, 0));
-+	KUNIT_EXPECT_EQ(test, 3ull, __GENMASK_ULL(1, 0));
-+	KUNIT_EXPECT_EQ(test, 0x000000ffffe00000ull, __GENMASK_ULL(39, 21));
-+	KUNIT_EXPECT_EQ(test, 0xffffffffffffffffull, __GENMASK_ULL(63, 0));
-+}
-+
- static void genmask_test(struct kunit *test)
+@@ -112,7 +112,7 @@ static int drm_dp_cec_adap_log_addr(struct cec_adapter *adap, u8 addr)
+ 		la_mask |= adap->log_addrs.log_addr_mask | (1 << addr);
+ 	mask[0] = la_mask & 0xff;
+ 	mask[1] = la_mask >> 8;
+-	err = drm_dp_dpcd_write(aux, DP_CEC_LOGICAL_ADDRESS_MASK, mask, 2);
++	err = drm_dp_dpcd_write_data(aux, DP_CEC_LOGICAL_ADDRESS_MASK, mask, 2);
+ 	return (addr != CEC_LOG_ADDR_INVALID && err < 0) ? err : 0;
+ }
+ 
+@@ -123,15 +123,14 @@ static int drm_dp_cec_adap_transmit(struct cec_adapter *adap, u8 attempts,
+ 	unsigned int retries = min(5, attempts - 1);
+ 	ssize_t err;
+ 
+-	err = drm_dp_dpcd_write(aux, DP_CEC_TX_MESSAGE_BUFFER,
+-				msg->msg, msg->len);
++	err = drm_dp_dpcd_write_data(aux, DP_CEC_TX_MESSAGE_BUFFER,
++				     msg->msg, msg->len);
+ 	if (err < 0)
+ 		return err;
+ 
+-	err = drm_dp_dpcd_writeb(aux, DP_CEC_TX_MESSAGE_INFO,
+-				 (msg->len - 1) | (retries << 4) |
+-				 DP_CEC_TX_MESSAGE_SEND);
+-	return err < 0 ? err : 0;
++	return drm_dp_dpcd_write_byte(aux, DP_CEC_TX_MESSAGE_INFO,
++				      (msg->len - 1) | (retries << 4) |
++				      DP_CEC_TX_MESSAGE_SEND);
+ }
+ 
+ static int drm_dp_cec_adap_monitor_all_enable(struct cec_adapter *adap,
+@@ -144,13 +143,13 @@ static int drm_dp_cec_adap_monitor_all_enable(struct cec_adapter *adap,
+ 	if (!(adap->capabilities & CEC_CAP_MONITOR_ALL))
+ 		return 0;
+ 
+-	err = drm_dp_dpcd_readb(aux, DP_CEC_TUNNELING_CONTROL, &val);
+-	if (err >= 0) {
++	err = drm_dp_dpcd_read_byte(aux, DP_CEC_TUNNELING_CONTROL, &val);
++	if (!err) {
+ 		if (enable)
+ 			val |= DP_CEC_SNOOPING_ENABLE;
+ 		else
+ 			val &= ~DP_CEC_SNOOPING_ENABLE;
+-		err = drm_dp_dpcd_writeb(aux, DP_CEC_TUNNELING_CONTROL, val);
++		err = drm_dp_dpcd_write_byte(aux, DP_CEC_TUNNELING_CONTROL, val);
+ 	}
+ 	return (enable && err < 0) ? err : 0;
+ }
+@@ -194,7 +193,7 @@ static int drm_dp_cec_received(struct drm_dp_aux *aux)
+ 	u8 rx_msg_info;
+ 	ssize_t err;
+ 
+-	err = drm_dp_dpcd_readb(aux, DP_CEC_RX_MESSAGE_INFO, &rx_msg_info);
++	err = drm_dp_dpcd_read_byte(aux, DP_CEC_RX_MESSAGE_INFO, &rx_msg_info);
+ 	if (err < 0)
+ 		return err;
+ 
+@@ -202,7 +201,7 @@ static int drm_dp_cec_received(struct drm_dp_aux *aux)
+ 		return 0;
+ 
+ 	msg.len = (rx_msg_info & DP_CEC_RX_MESSAGE_LEN_MASK) + 1;
+-	err = drm_dp_dpcd_read(aux, DP_CEC_RX_MESSAGE_BUFFER, msg.msg, msg.len);
++	err = drm_dp_dpcd_read_data(aux, DP_CEC_RX_MESSAGE_BUFFER, msg.msg, msg.len);
+ 	if (err < 0)
+ 		return err;
+ 
+@@ -215,7 +214,7 @@ static void drm_dp_cec_handle_irq(struct drm_dp_aux *aux)
+ 	struct cec_adapter *adap = aux->cec.adap;
+ 	u8 flags;
+ 
+-	if (drm_dp_dpcd_readb(aux, DP_CEC_TUNNELING_IRQ_FLAGS, &flags) < 0)
++	if (drm_dp_dpcd_read_byte(aux, DP_CEC_TUNNELING_IRQ_FLAGS, &flags) < 0)
+ 		return;
+ 
+ 	if (flags & DP_CEC_RX_MESSAGE_INFO_VALID)
+@@ -230,7 +229,7 @@ static void drm_dp_cec_handle_irq(struct drm_dp_aux *aux)
+ 		 (DP_CEC_TX_ADDRESS_NACK_ERROR | DP_CEC_TX_DATA_NACK_ERROR))
+ 		cec_transmit_attempt_done(adap, CEC_TX_STATUS_NACK |
+ 						CEC_TX_STATUS_MAX_RETRIES);
+-	drm_dp_dpcd_writeb(aux, DP_CEC_TUNNELING_IRQ_FLAGS, flags);
++	drm_dp_dpcd_write_byte(aux, DP_CEC_TUNNELING_IRQ_FLAGS, flags);
+ }
+ 
+ /**
+@@ -253,13 +252,13 @@ void drm_dp_cec_irq(struct drm_dp_aux *aux)
+ 	if (!aux->cec.adap)
+ 		goto unlock;
+ 
+-	ret = drm_dp_dpcd_readb(aux, DP_DEVICE_SERVICE_IRQ_VECTOR_ESI1,
+-				&cec_irq);
++	ret = drm_dp_dpcd_read_byte(aux, DP_DEVICE_SERVICE_IRQ_VECTOR_ESI1,
++				    &cec_irq);
+ 	if (ret < 0 || !(cec_irq & DP_CEC_IRQ))
+ 		goto unlock;
+ 
+ 	drm_dp_cec_handle_irq(aux);
+-	drm_dp_dpcd_writeb(aux, DP_DEVICE_SERVICE_IRQ_VECTOR_ESI1, DP_CEC_IRQ);
++	drm_dp_dpcd_write_byte(aux, DP_DEVICE_SERVICE_IRQ_VECTOR_ESI1, DP_CEC_IRQ);
+ unlock:
+ 	mutex_unlock(&aux->cec.lock);
+ }
+@@ -269,7 +268,7 @@ static bool drm_dp_cec_cap(struct drm_dp_aux *aux, u8 *cec_cap)
  {
- 	KUNIT_EXPECT_EQ(test, 1ul, GENMASK(0, 0));
-@@ -93,6 +109,8 @@ static void genmask_input_check_test(struct kunit *test)
+ 	u8 cap = 0;
  
- 
- static struct kunit_case bits_test_cases[] = {
-+	KUNIT_CASE(__genmask_test),
-+	KUNIT_CASE(__genmask_ull_test),
- 	KUNIT_CASE(genmask_test),
- 	KUNIT_CASE(genmask_ull_test),
- 	KUNIT_CASE(genmask_u128_test),
+-	if (drm_dp_dpcd_readb(aux, DP_CEC_TUNNELING_CAPABILITY, &cap) != 1 ||
++	if (drm_dp_dpcd_read_byte(aux, DP_CEC_TUNNELING_CAPABILITY, &cap) < 0 ||
+ 	    !(cap & DP_CEC_TUNNELING_CAPABLE))
+ 		return false;
+ 	if (cec_cap)
 
 -- 
-2.45.3
-
+2.39.5
 
