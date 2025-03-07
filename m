@@ -4,36 +4,36 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 113F9C19F32
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 50A4CC28B25
 	for <intel-gfx@archiver.kernel.org>; Fri,  7 Mar 2025 13:54:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9B31010EB63;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9B2D510EB62;
 	Fri,  7 Mar 2025 13:54:25 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; secure) header.d=infradead.org header.i=@infradead.org header.b="bCVkhALH";
+	dkim=fail reason="signature verification failed" (2048-bit key; secure) header.d=infradead.org header.i=@infradead.org header.b="K0rUlg3+";
 	dkim-atps=neutral
 Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2EF9B10EB71
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2C08E10EB6F
  for <intel-gfx@lists.freedesktop.org>; Fri,  7 Mar 2025 13:54:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=infradead.org; s=casper.20170209; h=Content-Transfer-Encoding:MIME-Version:
  References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Sender:Reply-To:
  Content-Type:Content-ID:Content-Description;
- bh=HxorfBgE1Uv1byaGENr7pDp1WuWnctNAqk3G3c3CU84=; b=bCVkhALHyYVYY1ZRHBnGCe1QqL
- 8t9wy2R3quPKYY4KBJyKMDggEYqBMvyCoNB8ICvghWixxhaz2jHMV6kVsIBsS+bOqoviiM8jrxF93
- KK7250g/MVmbkejykejPIZUR7m1LWlifvA2DGHN9yI6tQfjMfPBUXmF/5ACR0oDEtKoUqUhDtY5EP
- qLR1PHgla+HM0OaedXb5zEhjTMpfsPsUkAk/EYR0zSWDnyo9UaJNpVmVJeHbpksEvmq8VwlSllVEm
- FPc66REQWUxZNFcxxaKY7WUBtHPkb9W77w4/IYg+4Xb6ET1gl7Tnsyb1P0/KRqSHbLzl4c8QG/TFQ
- dVrqbC0A==;
+ bh=gYAlq/IZDrN3gAui/tjJNHWS0bZWyHE15MvZlcNIc7w=; b=K0rUlg3+uTjZX3ud/LW+9LOept
+ eIWClltyGb551+sTtSjHCSZEBJNGkuChoXa74eq4oYYIuEdEAfgeArfvO3oklLkFCn/EYC7h2mCqI
+ E75wHlKErYegjFzgWWReHWhUTQqWQ2FhM1ffcbZgz4t1t3Z7Tnu3hFNPX72K23UrXm1Oyka/m4Ymu
+ vOjmwRLhefSEPrfeUv0U9xEZLAmnegRAjGVleZzIUtp00VM2cT/JnPGqEZzXEAyA3nCx5In+W7si8
+ K4V51BwGYhJgz2F/Pbnsyc3xyQ0uwSUWzyVps7NBtGXl7vNBcGZ79Mfg4Lgzs6lW8WsUWx55917/c
+ pqF/8D4w==;
 Received: from willy by casper.infradead.org with local (Exim 4.98 #2 (Red Hat
- Linux)) id 1tqY9Y-0000000CXGh-2pLo; Fri, 07 Mar 2025 13:54:16 +0000
+ Linux)) id 1tqY9X-0000000CXFt-2gHs; Fri, 07 Mar 2025 13:54:15 +0000
 From: "Matthew Wilcox (Oracle)" <willy@infradead.org>
 To: linux-fsdevel@vger.kernel.org
 Cc: "Matthew Wilcox (Oracle)" <willy@infradead.org>, linux-mm@kvack.org,
  intel-gfx@lists.freedesktop.org
-Subject: [PATCH 09/11] i915: Use writeback_iter()
-Date: Fri,  7 Mar 2025 13:54:09 +0000
-Message-ID: <20250307135414.2987755-10-willy@infradead.org>
+Subject: [PATCH 02/11] f2fs: Remove f2fs_write_data_page()
+Date: Fri,  7 Mar 2025 13:54:02 +0000
+Message-ID: <20250307135414.2987755-3-willy@infradead.org>
 X-Mailer: git-send-email 2.48.1
 In-Reply-To: <20250307135414.2987755-1-willy@infradead.org>
 References: <20250307135414.2987755-1-willy@infradead.org>
@@ -54,62 +54,56 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Convert from an inefficient loop to the standard writeback iterator.
+Mappings which implement writepages should not implement writepage
+as it can only harm writeback patterns.
 
 Signed-off-by: Matthew Wilcox (Oracle) <willy@infradead.org>
 ---
- drivers/gpu/drm/i915/gem/i915_gem_shmem.c | 32 ++++++-----------------
- 1 file changed, 8 insertions(+), 24 deletions(-)
+ fs/f2fs/data.c | 24 ------------------------
+ 1 file changed, 24 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gem/i915_gem_shmem.c b/drivers/gpu/drm/i915/gem/i915_gem_shmem.c
-index ae3343c81a64..5e784db9f315 100644
---- a/drivers/gpu/drm/i915/gem/i915_gem_shmem.c
-+++ b/drivers/gpu/drm/i915/gem/i915_gem_shmem.c
-@@ -305,36 +305,20 @@ void __shmem_writeback(size_t size, struct address_space *mapping)
- 		.range_end = LLONG_MAX,
- 		.for_reclaim = 1,
- 	};
--	unsigned long i;
-+	struct folio *folio = NULL;
-+	int error = 0;
- 
- 	/*
- 	 * Leave mmapings intact (GTT will have been revoked on unbinding,
--	 * leaving only CPU mmapings around) and add those pages to the LRU
-+	 * leaving only CPU mmapings around) and add those folios to the LRU
- 	 * instead of invoking writeback so they are aged and paged out
- 	 * as normal.
- 	 */
--
--	/* Begin writeback on each dirty page */
--	for (i = 0; i < size >> PAGE_SHIFT; i++) {
--		struct page *page;
--
--		page = find_lock_page(mapping, i);
--		if (!page)
--			continue;
--
--		if (!page_mapped(page) && clear_page_dirty_for_io(page)) {
--			int ret;
--
--			SetPageReclaim(page);
--			ret = mapping->a_ops->writepage(page, &wbc);
--			if (!PageWriteback(page))
--				ClearPageReclaim(page);
--			if (!ret)
--				goto put;
--		}
--		unlock_page(page);
--put:
--		put_page(page);
-+	while ((folio = writeback_iter(mapping, &wbc, folio, &error))) {
-+		if (folio_mapped(folio))
-+			folio_redirty_for_writepage(&wbc, folio);
-+		else
-+			error = shmem_writeout(folio, &wbc);
- 	}
+diff --git a/fs/f2fs/data.c b/fs/f2fs/data.c
+index a80d5ef9acbb..cdd63e8ad42e 100644
+--- a/fs/f2fs/data.c
++++ b/fs/f2fs/data.c
+@@ -2935,29 +2935,6 @@ int f2fs_write_single_data_page(struct folio *folio, int *submitted,
+ 	return err;
  }
  
+-static int f2fs_write_data_page(struct page *page,
+-					struct writeback_control *wbc)
+-{
+-	struct folio *folio = page_folio(page);
+-#ifdef CONFIG_F2FS_FS_COMPRESSION
+-	struct inode *inode = folio->mapping->host;
+-
+-	if (unlikely(f2fs_cp_error(F2FS_I_SB(inode))))
+-		goto out;
+-
+-	if (f2fs_compressed_file(inode)) {
+-		if (f2fs_is_compressed_cluster(inode, folio->index)) {
+-			folio_redirty_for_writepage(wbc, folio);
+-			return AOP_WRITEPAGE_ACTIVATE;
+-		}
+-	}
+-out:
+-#endif
+-
+-	return f2fs_write_single_data_page(folio, NULL, NULL, NULL,
+-						wbc, FS_DATA_IO, 0, true);
+-}
+-
+ /*
+  * This function was copied from write_cache_pages from mm/page-writeback.c.
+  * The major change is making write step of cold data page separately from
+@@ -4111,7 +4088,6 @@ static void f2fs_swap_deactivate(struct file *file)
+ const struct address_space_operations f2fs_dblock_aops = {
+ 	.read_folio	= f2fs_read_data_folio,
+ 	.readahead	= f2fs_readahead,
+-	.writepage	= f2fs_write_data_page,
+ 	.writepages	= f2fs_write_data_pages,
+ 	.write_begin	= f2fs_write_begin,
+ 	.write_end	= f2fs_write_end,
 -- 
 2.47.2
 
