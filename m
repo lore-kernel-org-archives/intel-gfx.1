@@ -4,74 +4,75 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2D182C28B27
-	for <intel-gfx@archiver.kernel.org>; Fri,  7 Mar 2025 13:58:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 16FA7C28B2E
+	for <intel-gfx@archiver.kernel.org>; Fri,  7 Mar 2025 13:58:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D7D7D10EBA8;
+	by gabe.freedesktop.org (Postfix) with ESMTP id B160A10EBA2;
 	Fri,  7 Mar 2025 13:58:00 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="IjgW0rzb";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="kbBv0Wez";
 	dkim-atps=neutral
 Received: from nyc.source.kernel.org (nyc.source.kernel.org [147.75.193.91])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B404010E2A3;
- Wed,  5 Mar 2025 13:01:04 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EFBF410E304;
+ Fri,  7 Mar 2025 04:35:04 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by nyc.source.kernel.org (Postfix) with ESMTP id 21FC3A44EE4;
- Wed,  5 Mar 2025 12:55:33 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 512E4C4CEE2;
- Wed,  5 Mar 2025 13:01:03 +0000 (UTC)
+ by nyc.source.kernel.org (Postfix) with ESMTP id 9F7DAA45443;
+ Fri,  7 Mar 2025 04:29:30 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4CA82C4CEE7;
+ Fri,  7 Mar 2025 04:34:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1741179663;
- bh=n0fFRuhHRihK5Ss638hxm2XFfikVwOkjc/8x8iOccTc=;
- h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
- b=IjgW0rzb5cvCxl1tLdS+qKkQLO/qXnvdlQx+Lv9OO552fJ2gh4PKIrdvcJN54CnMw
- YmCMkoOmK2fgD07M3Vxn5HmVwKNfdoGT/v4nbgxGvZMWY/MH9v72ml8Bpk+N/t8kaA
- TuD59TA/hYVO71E4QHP39Uu5FN2c7GY4WiOeZOUUny2QbXz4gn4Qo0Eh8gesFuGgtn
- rF3/DMBjB0Kz9krKFHLOtAN/Sauw28kv34gbHcWGm0HEYzN5deKMwNtdMmpbGTCTcD
- SpJoStOy75jV0PfF3pdxTPsINgt+lI3L0KnG6xp5UVqZxYDZihGWBATx42KCyz1OTI
- zchO5t+OHUZpw==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org
- (localhost.localdomain [127.0.0.1])
- by smtp.lore.kernel.org (Postfix) with ESMTP id 43068C28B23;
- Wed,  5 Mar 2025 13:01:03 +0000 (UTC)
-From: Vincent Mailhol via B4 Relay
- <devnull+mailhol.vincent.wanadoo.fr@kernel.org>
-Date: Wed, 05 Mar 2025 22:00:14 +0900
-Subject: [PATCH v4 2/8] bits: split the definition of the asm and non-asm
- GENMASK()
+ s=k20201202; t=1741322100;
+ bh=eOTV044WYhocRx1vXkpraElTyG3Fqa9oEKLRf65avo8=;
+ h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
+ b=kbBv0Wez8COiRkm4MKqKGM+B9CMdvf6w2xB6CCt79bTj2qE4PdtCoyOtslleQvw9J
+ Tf8bkIsng/MGnib3O741wH+yTt+1cEhUgH56C5VRvlABiMkBK+6yrkJAIiQDhFpmLY
+ tBluPkg4/TYUg83NYvvFfmyXAjnsRicuS7Rt/TpM7TtSVQrQr9XJmHBAjwpeDSdqiE
+ qEhqe3u4xPnzk8wmElvd9/kg8q1jIoRsIHM/tIxBYZjPuIdqoVPwaFOWi2n+ub4UbW
+ h84gvqs85+4Jj+YWbZ1PQ3tmHFmxo8WdFb4LCwk7wfOOTH6mvvFBd9rkyrnnyMthmC
+ xqCGfJJijZ3NQ==
+From: Dmitry Baryshkov <lumag@kernel.org>
+Date: Fri, 07 Mar 2025 06:34:43 +0200
+Subject: [PATCH RFC v3 1/7] drm/display: dp: implement new access helpers
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20250305-fixed-type-genmasks-v4-2-1873dcdf6723@wanadoo.fr>
-References: <20250305-fixed-type-genmasks-v4-0-1873dcdf6723@wanadoo.fr>
-In-Reply-To: <20250305-fixed-type-genmasks-v4-0-1873dcdf6723@wanadoo.fr>
-To: Yury Norov <yury.norov@gmail.com>, 
- Lucas De Marchi <lucas.demarchi@intel.com>, 
- Rasmus Villemoes <linux@rasmusvillemoes.dk>, 
+Message-Id: <20250307-drm-rework-dpcd-access-v3-1-9044a3a868ee@linaro.org>
+References: <20250307-drm-rework-dpcd-access-v3-0-9044a3a868ee@linaro.org>
+In-Reply-To: <20250307-drm-rework-dpcd-access-v3-0-9044a3a868ee@linaro.org>
+To: Lyude Paul <lyude@redhat.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>, 
+ Sean Paul <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>, 
  Jani Nikula <jani.nikula@linux.intel.com>, 
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, 
- Rodrigo Vivi <rodrigo.vivi@intel.com>, 
- Tvrtko Ursulin <tursulin@ursulin.net>, David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>, Andrew Morton <akpm@linux-foundation.org>
-Cc: linux-kernel@vger.kernel.org, intel-gfx@lists.freedesktop.org, 
- dri-devel@lists.freedesktop.org, Andi Shyti <andi.shyti@linux.intel.com>, 
- David Laight <David.Laight@ACULAB.COM>, 
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, 
- Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
- Vincent Mailhol <mailhol.vincent@wanadoo.fr>
+ Alex Deucher <alexander.deucher@amd.com>, 
+ =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ Andrzej Hajda <andrzej.hajda@intel.com>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
+ Xinliang Liu <xinliang.liu@linaro.org>, Tian Tao <tiantao6@hisilicon.com>, 
+ Xinwei Kong <kong.kongxinwei@hisilicon.com>, 
+ Sumit Semwal <sumit.semwal@linaro.org>, 
+ Yongqin Liu <yongqin.liu@linaro.org>, John Stultz <jstultz@google.com>
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org, 
+ intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org, 
+ amd-gfx@lists.freedesktop.org, Jani Nikula <jani.nikula@intel.com>
 X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1671;
- i=mailhol.vincent@wanadoo.fr; h=from:subject:message-id;
- bh=8ZMKzF5zIF0GZ21khxd7rKfGPQljVe1hrWQ81ny4PLk=;
- b=owGbwMvMwCV2McXO4Xp97WbG02pJDOknvH7tb7504iaTa5t6js2mbJeOxt0P2+Kbk6eFaRjss
- yx7kWzZUcrCIMbFICumyLKsnJNboaPQO+zQX0uYOaxMIEMYuDgFYCLyVxgZWuuCGgWa1gZ3TeNR
- WzuH0euLw4YvTRoWUQ1HzmXavF3rxfCH99SUuc7xTD8DZ91rPDxZ5KeFSa1LqOinr/qGa+wKU6s
- ZAA==
-X-Developer-Key: i=mailhol.vincent@wanadoo.fr; a=openpgp;
- fpr=ED8F700574E67F20E574E8E2AB5FEB886DBB99C2
-X-Endpoint-Received: by B4 Relay for mailhol.vincent@wanadoo.fr/default
- with auth_id=291
-X-Original-From: Vincent Mailhol <mailhol.vincent@wanadoo.fr>
+X-Developer-Signature: v=1; a=openpgp-sha256; l=6662;
+ i=dmitry.baryshkov@linaro.org; h=from:subject:message-id;
+ bh=SmZu1bk63rEb0BXZXya3Ueg7NpPOC5KqOlIN1CXFX+4=;
+ b=owEBbQGS/pANAwAKAYs8ij4CKSjVAcsmYgBnyndlpmM7SwYZ9oezAZbVfAnEvPMSol8yIr3yL
+ cjm9tXBuZSJATMEAAEKAB0WIQRMcISVXLJjVvC4lX+LPIo+Aiko1QUCZ8p3ZQAKCRCLPIo+Aiko
+ 1XwuB/94oyKTlhatl5m82hLLyvzpc7YCxkMcpwIBqCye2l9AEF2N7CcaS13LLQqV72VPqizPqkV
+ Y76HuqAJ90v42eB3x/As32QFw2dcPobj+smP+OArSoN1pzgty2qvUK6wPaiRoY0px6MrzGUzLR8
+ X2pVePwcouuQpYsLN3cTjtnw6xAe2ChT4S5TiaoK+50m4z0Hf6EX8lVbGByY/l2F2zQFUOTr0Gs
+ ZI7JejT0cBOpQPeZegZqy+O7ic7mXXoLAtb0hjRHhUpVUdp4JEBruO1g4TzwaCuqX89uXmELSHV
+ 2+ptEU1JzbibIyR9bSUj04CvQ1H1SVVOef0tcYQYHNCuAx0j
+X-Developer-Key: i=dmitry.baryshkov@linaro.org; a=openpgp;
+ fpr=8F88381DD5C873E4AE487DA5199BF1243632046A
 X-Mailman-Approved-At: Fri, 07 Mar 2025 13:57:54 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -85,70 +86,175 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: mailhol.vincent@wanadoo.fr
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Vincent Mailhol <mailhol.vincent@wanadoo.fr>
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 
-In an upcoming change, GENMASK() and its friends will indirectly
-depend on sizeof() which is not available in asm.
+Existing DPCD access functions return an error code or the number of
+bytes being read / write in case of partial access. However a lot of
+drivers either (incorrectly) ignore partial access or mishandle error
+codes. In other cases this results in a boilerplate code which compares
+returned value with the size.
 
-Instead of adding further complexity to __GENMASK() to make it work
-for both asm and non asm, just split the definition of the two
-variants.
+Implement new set of DPCD access helpers, which ignore partial access,
+always return 0 or an error code.
 
-Signed-off-by: Vincent Mailhol <mailhol.vincent@wanadoo.fr>
+Suggested-by: Jani Nikula <jani.nikula@linux.intel.com>
+Acked-by: Jani Nikula <jani.nikula@intel.com>
+Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 ---
- include/linux/bits.h | 18 +++++++++---------
- 1 file changed, 9 insertions(+), 9 deletions(-)
+ drivers/gpu/drm/display/drm_dp_helper.c |  4 ++
+ include/drm/display/drm_dp_helper.h     | 92 ++++++++++++++++++++++++++++++++-
+ 2 files changed, 94 insertions(+), 2 deletions(-)
 
-diff --git a/include/linux/bits.h b/include/linux/bits.h
-index 14fd0ca9a6cd17339dd2f69e449558312a8a001b..5f68980a1b98d771426872c74d7b5c0f79e5e802 100644
---- a/include/linux/bits.h
-+++ b/include/linux/bits.h
-@@ -19,23 +19,17 @@
-  * GENMASK_ULL(39, 21) gives us the 64bit vector 0x000000ffffe00000.
+diff --git a/drivers/gpu/drm/display/drm_dp_helper.c b/drivers/gpu/drm/display/drm_dp_helper.c
+index dbce1c3f49691fc687fee2404b723c73d533f23d..e43a8f4a252dae22eeaae1f4ca94da064303033d 100644
+--- a/drivers/gpu/drm/display/drm_dp_helper.c
++++ b/drivers/gpu/drm/display/drm_dp_helper.c
+@@ -704,6 +704,8 @@ EXPORT_SYMBOL(drm_dp_dpcd_set_powered);
+  * function returns -EPROTO. Errors from the underlying AUX channel transfer
+  * function, with the exception of -EBUSY (which causes the transaction to
+  * be retried), are propagated to the caller.
++ *
++ * In most of the cases you want to use drm_dp_dpcd_read_data() instead.
   */
- #if !defined(__ASSEMBLY__)
-+
- #include <linux/build_bug.h>
- #include <linux/compiler.h>
-+
- #define GENMASK_INPUT_CHECK(h, l) BUILD_BUG_ON_ZERO(const_true((l) > (h)))
--#else
--/*
-- * BUILD_BUG_ON_ZERO is not available in h files included from asm files,
-- * disable the input check if that is the case.
-- */
--#define GENMASK_INPUT_CHECK(h, l) 0
--#endif
+ ssize_t drm_dp_dpcd_read(struct drm_dp_aux *aux, unsigned int offset,
+ 			 void *buffer, size_t size)
+@@ -752,6 +754,8 @@ EXPORT_SYMBOL(drm_dp_dpcd_read);
+  * function returns -EPROTO. Errors from the underlying AUX channel transfer
+  * function, with the exception of -EBUSY (which causes the transaction to
+  * be retried), are propagated to the caller.
++ *
++ * In most of the cases you want to use drm_dp_dpcd_write_data() instead.
+  */
+ ssize_t drm_dp_dpcd_write(struct drm_dp_aux *aux, unsigned int offset,
+ 			  void *buffer, size_t size)
+diff --git a/include/drm/display/drm_dp_helper.h b/include/drm/display/drm_dp_helper.h
+index 5ae4241959f24e2c1fb581d7c7d770485d603099..c5be44d72c9a04474f6c795e03bf02bf08f5eaef 100644
+--- a/include/drm/display/drm_dp_helper.h
++++ b/include/drm/display/drm_dp_helper.h
+@@ -527,6 +527,64 @@ ssize_t drm_dp_dpcd_read(struct drm_dp_aux *aux, unsigned int offset,
+ ssize_t drm_dp_dpcd_write(struct drm_dp_aux *aux, unsigned int offset,
+ 			  void *buffer, size_t size);
  
- #define GENMASK(h, l) \
- 	(GENMASK_INPUT_CHECK(h, l) + __GENMASK(h, l))
- #define GENMASK_ULL(h, l) \
- 	(GENMASK_INPUT_CHECK(h, l) + __GENMASK_ULL(h, l))
- 
--#if !defined(__ASSEMBLY__)
- /*
-  * Missing asm support
++/**
++ * drm_dp_dpcd_read_data() - read a series of bytes from the DPCD
++ * @aux: DisplayPort AUX channel (SST or MST)
++ * @offset: address of the (first) register to read
++ * @buffer: buffer to store the register values
++ * @size: number of bytes in @buffer
++ *
++ * Returns zero (0) on success, or a negative error
++ * code on failure. -EIO is returned if the request was NAKed by the sink or
++ * if the retry count was exceeded. If not all bytes were transferred, this
++ * function returns -EPROTO. Errors from the underlying AUX channel transfer
++ * function, with the exception of -EBUSY (which causes the transaction to
++ * be retried), are propagated to the caller.
++ */
++static inline int drm_dp_dpcd_read_data(struct drm_dp_aux *aux,
++					unsigned int offset,
++					void *buffer, size_t size)
++{
++	int ret;
++
++	ret = drm_dp_dpcd_read(aux, offset, buffer, size);
++	if (ret < 0)
++		return ret;
++	if (ret < size)
++		return -EPROTO;
++
++	return 0;
++}
++
++/**
++ * drm_dp_dpcd_write_data() - write a series of bytes to the DPCD
++ * @aux: DisplayPort AUX channel (SST or MST)
++ * @offset: address of the (first) register to write
++ * @buffer: buffer containing the values to write
++ * @size: number of bytes in @buffer
++ *
++ * Returns zero (0) on success, or a negative error
++ * code on failure. -EIO is returned if the request was NAKed by the sink or
++ * if the retry count was exceeded. If not all bytes were transferred, this
++ * function returns -EPROTO. Errors from the underlying AUX channel transfer
++ * function, with the exception of -EBUSY (which causes the transaction to
++ * be retried), are propagated to the caller.
++ */
++static inline int drm_dp_dpcd_write_data(struct drm_dp_aux *aux,
++					 unsigned int offset,
++					 void *buffer, size_t size)
++{
++	int ret;
++
++	ret = drm_dp_dpcd_write(aux, offset, buffer, size);
++	if (ret < 0)
++		return ret;
++	if (ret < size)
++		return -EPROTO;
++
++	return 0;
++}
++
+ /**
+  * drm_dp_dpcd_readb() - read a single byte from the DPCD
+  * @aux: DisplayPort AUX channel
+@@ -534,7 +592,8 @@ ssize_t drm_dp_dpcd_write(struct drm_dp_aux *aux, unsigned int offset,
+  * @valuep: location where the value of the register will be stored
   *
-@@ -48,6 +42,12 @@
+  * Returns the number of bytes transferred (1) on success, or a negative
+- * error code on failure.
++ * error code on failure. In most of the cases you should be using
++ * drm_dp_dpcd_read_byte() instead
   */
- #define GENMASK_U128(h, l) \
- 	(GENMASK_INPUT_CHECK(h, l) + __GENMASK_U128(h, l))
--#endif
-+
-+#else /* defined(__ASSEMBLY__) */
-+
-+#define GENMASK(h, l) __GENMASK(h, l)
-+#define GENMASK_ULL(h, l) __GENMASK_ULL(h, l)
-+
-+#endif /* !defined(__ASSEMBLY__) */
+ static inline ssize_t drm_dp_dpcd_readb(struct drm_dp_aux *aux,
+ 					unsigned int offset, u8 *valuep)
+@@ -549,7 +608,8 @@ static inline ssize_t drm_dp_dpcd_readb(struct drm_dp_aux *aux,
+  * @value: value to write to the register
+  *
+  * Returns the number of bytes transferred (1) on success, or a negative
+- * error code on failure.
++ * error code on failure. In most of the cases you should be using
++ * drm_dp_dpcd_write_byte() instead
+  */
+ static inline ssize_t drm_dp_dpcd_writeb(struct drm_dp_aux *aux,
+ 					 unsigned int offset, u8 value)
+@@ -557,6 +617,34 @@ static inline ssize_t drm_dp_dpcd_writeb(struct drm_dp_aux *aux,
+ 	return drm_dp_dpcd_write(aux, offset, &value, 1);
+ }
  
- #endif	/* __LINUX_BITS_H */
++/**
++ * drm_dp_dpcd_read_byte() - read a single byte from the DPCD
++ * @aux: DisplayPort AUX channel
++ * @offset: address of the register to read
++ * @valuep: location where the value of the register will be stored
++ *
++ * Returns zero (0) on success, or a negative error code on failure.
++ */
++static inline int drm_dp_dpcd_read_byte(struct drm_dp_aux *aux,
++					unsigned int offset, u8 *valuep)
++{
++	return drm_dp_dpcd_read_data(aux, offset, valuep, 1);
++}
++
++/**
++ * drm_dp_dpcd_write_byte() - write a single byte to the DPCD
++ * @aux: DisplayPort AUX channel
++ * @offset: address of the register to write
++ * @value: value to write to the register
++ *
++ * Returns zero (0) on success, or a negative error code on failure.
++ */
++static inline int drm_dp_dpcd_write_byte(struct drm_dp_aux *aux,
++					 unsigned int offset, u8 value)
++{
++	return drm_dp_dpcd_write_data(aux, offset, &value, 1);
++}
++
+ int drm_dp_read_dpcd_caps(struct drm_dp_aux *aux,
+ 			  u8 dpcd[DP_RECEIVER_CAP_SIZE]);
+ 
 
 -- 
-2.45.3
-
+2.39.5
 
