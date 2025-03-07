@@ -4,36 +4,36 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 50A4CC28B25
-	for <intel-gfx@archiver.kernel.org>; Fri,  7 Mar 2025 13:54:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9EDC9C28B26
+	for <intel-gfx@archiver.kernel.org>; Fri,  7 Mar 2025 13:54:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9B2D510EB62;
+	by gabe.freedesktop.org (Postfix) with ESMTP id B06C810EB6B;
 	Fri,  7 Mar 2025 13:54:25 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; secure) header.d=infradead.org header.i=@infradead.org header.b="K0rUlg3+";
+	dkim=fail reason="signature verification failed" (2048-bit key; secure) header.d=infradead.org header.i=@infradead.org header.b="AiRyjb9p";
 	dkim-atps=neutral
 Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2C08E10EB6F
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3F83F10EB7B
  for <intel-gfx@lists.freedesktop.org>; Fri,  7 Mar 2025 13:54:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=infradead.org; s=casper.20170209; h=Content-Transfer-Encoding:MIME-Version:
  References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Sender:Reply-To:
  Content-Type:Content-ID:Content-Description;
- bh=gYAlq/IZDrN3gAui/tjJNHWS0bZWyHE15MvZlcNIc7w=; b=K0rUlg3+uTjZX3ud/LW+9LOept
- eIWClltyGb551+sTtSjHCSZEBJNGkuChoXa74eq4oYYIuEdEAfgeArfvO3oklLkFCn/EYC7h2mCqI
- E75wHlKErYegjFzgWWReHWhUTQqWQ2FhM1ffcbZgz4t1t3Z7Tnu3hFNPX72K23UrXm1Oyka/m4Ymu
- vOjmwRLhefSEPrfeUv0U9xEZLAmnegRAjGVleZzIUtp00VM2cT/JnPGqEZzXEAyA3nCx5In+W7si8
- K4V51BwGYhJgz2F/Pbnsyc3xyQ0uwSUWzyVps7NBtGXl7vNBcGZ79Mfg4Lgzs6lW8WsUWx55917/c
- pqF/8D4w==;
+ bh=MofhovjlADQCQPqeYMIVdQLieQlnl0tttbSu0oh4ZYs=; b=AiRyjb9pnJivKUulf3/TkIqiUa
+ 7bhUXqQ56kgH5be5/6hPtgs3OfvkXoqoxzjwP6dDK1dCxb8eB+fgx4Si+OXoXbWx/4QXbPkcf2f8H
+ Tx5q9E1QnRnNoJzPSNY/L6g0oQta0BR7vhffZTsRhpB93XUAkEOKHR0z5mH+o6gXbRpVJdaWM4Uo9
+ 5UUVoisF5QVZ5H8bexl780zg4hPo3PCV+RPFrP9zQf2Hk34Mi7a9GHfCGByUnfGbeU/WpgTVjsbcW
+ MvndBuaq0WiuOxnS0t0xcPqBydhg6nU8rOrVyZMSsSxwtvudPIMEXontGuVzP4owwFrlrBVWrTH/l
+ x4M1cLcA==;
 Received: from willy by casper.infradead.org with local (Exim 4.98 #2 (Red Hat
- Linux)) id 1tqY9X-0000000CXFt-2gHs; Fri, 07 Mar 2025 13:54:15 +0000
+ Linux)) id 1tqY9Y-0000000CXGF-0qyX; Fri, 07 Mar 2025 13:54:16 +0000
 From: "Matthew Wilcox (Oracle)" <willy@infradead.org>
 To: linux-fsdevel@vger.kernel.org
 Cc: "Matthew Wilcox (Oracle)" <willy@infradead.org>, linux-mm@kvack.org,
  intel-gfx@lists.freedesktop.org
-Subject: [PATCH 02/11] f2fs: Remove f2fs_write_data_page()
-Date: Fri,  7 Mar 2025 13:54:02 +0000
-Message-ID: <20250307135414.2987755-3-willy@infradead.org>
+Subject: [PATCH 05/11] vboxsf: Convert to writepages
+Date: Fri,  7 Mar 2025 13:54:05 +0000
+Message-ID: <20250307135414.2987755-6-willy@infradead.org>
 X-Mailer: git-send-email 2.48.1
 In-Reply-To: <20250307135414.2987755-1-willy@infradead.org>
 References: <20250307135414.2987755-1-willy@infradead.org>
@@ -54,56 +54,98 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Mappings which implement writepages should not implement writepage
-as it can only harm writeback patterns.
+If we add a migrate_folio operation, we can convert the writepage
+operation to writepages.  Further, this lets us optimise by using
+the same write handle for multiple folios.  The large folio support here
+is illusory; we would need to kmap each page in turn for proper support.
+But we do remove a few hidden calls to compound_head().
 
 Signed-off-by: Matthew Wilcox (Oracle) <willy@infradead.org>
 ---
- fs/f2fs/data.c | 24 ------------------------
- 1 file changed, 24 deletions(-)
+ fs/vboxsf/file.c | 47 +++++++++++++++++++++++++----------------------
+ 1 file changed, 25 insertions(+), 22 deletions(-)
 
-diff --git a/fs/f2fs/data.c b/fs/f2fs/data.c
-index a80d5ef9acbb..cdd63e8ad42e 100644
---- a/fs/f2fs/data.c
-+++ b/fs/f2fs/data.c
-@@ -2935,29 +2935,6 @@ int f2fs_write_single_data_page(struct folio *folio, int *submitted,
- 	return err;
+diff --git a/fs/vboxsf/file.c b/fs/vboxsf/file.c
+index b780deb81b02..b492794f8e9a 100644
+--- a/fs/vboxsf/file.c
++++ b/fs/vboxsf/file.c
+@@ -262,40 +262,42 @@ static struct vboxsf_handle *vboxsf_get_write_handle(struct vboxsf_inode *sf_i)
+ 	return sf_handle;
  }
  
--static int f2fs_write_data_page(struct page *page,
--					struct writeback_control *wbc)
--{
--	struct folio *folio = page_folio(page);
--#ifdef CONFIG_F2FS_FS_COMPRESSION
--	struct inode *inode = folio->mapping->host;
+-static int vboxsf_writepage(struct page *page, struct writeback_control *wbc)
++static int vboxsf_writepages(struct address_space *mapping,
++		struct writeback_control *wbc)
+ {
+-	struct inode *inode = page->mapping->host;
++	struct inode *inode = mapping->host;
++	struct folio *folio = NULL;
+ 	struct vboxsf_inode *sf_i = VBOXSF_I(inode);
+ 	struct vboxsf_handle *sf_handle;
+-	loff_t off = page_offset(page);
+ 	loff_t size = i_size_read(inode);
+-	u32 nwrite = PAGE_SIZE;
+-	u8 *buf;
+-	int err;
 -
--	if (unlikely(f2fs_cp_error(F2FS_I_SB(inode))))
--		goto out;
--
--	if (f2fs_compressed_file(inode)) {
--		if (f2fs_is_compressed_cluster(inode, folio->index)) {
--			folio_redirty_for_writepage(wbc, folio);
--			return AOP_WRITEPAGE_ACTIVATE;
--		}
--	}
--out:
--#endif
--
--	return f2fs_write_single_data_page(folio, NULL, NULL, NULL,
--						wbc, FS_DATA_IO, 0, true);
--}
--
- /*
-  * This function was copied from write_cache_pages from mm/page-writeback.c.
-  * The major change is making write step of cold data page separately from
-@@ -4111,7 +4088,6 @@ static void f2fs_swap_deactivate(struct file *file)
- const struct address_space_operations f2fs_dblock_aops = {
- 	.read_folio	= f2fs_read_data_folio,
- 	.readahead	= f2fs_readahead,
--	.writepage	= f2fs_write_data_page,
- 	.writepages	= f2fs_write_data_pages,
- 	.write_begin	= f2fs_write_begin,
- 	.write_end	= f2fs_write_end,
+-	if (off + PAGE_SIZE > size)
+-		nwrite = size & ~PAGE_MASK;
++	int error;
+ 
+ 	sf_handle = vboxsf_get_write_handle(sf_i);
+ 	if (!sf_handle)
+ 		return -EBADF;
+ 
+-	buf = kmap(page);
+-	err = vboxsf_write(sf_handle->root, sf_handle->handle,
+-			   off, &nwrite, buf);
+-	kunmap(page);
++	while ((folio = writeback_iter(mapping, wbc, folio, &error))) {
++		loff_t off = folio_pos(folio);
++		u32 nwrite = folio_size(folio);
++		u8 *buf;
+ 
+-	kref_put(&sf_handle->refcount, vboxsf_handle_release);
++		if (nwrite > size - off)
++			nwrite = size - off;
+ 
+-	if (err == 0) {
+-		/* mtime changed */
+-		sf_i->force_restat = 1;
+-	} else {
+-		ClearPageUptodate(page);
++		buf = kmap_local_folio(folio, 0);
++		error = vboxsf_write(sf_handle->root, sf_handle->handle,
++				off, &nwrite, buf);
++		kunmap_local(buf);
++
++		folio_unlock(folio);
+ 	}
+ 
+-	unlock_page(page);
+-	return err;
++	kref_put(&sf_handle->refcount, vboxsf_handle_release);
++
++	/* mtime changed */
++	if (error == 0)
++		sf_i->force_restat = 1;
++	return error;
+ }
+ 
+ static int vboxsf_write_end(struct file *file, struct address_space *mapping,
+@@ -347,10 +349,11 @@ static int vboxsf_write_end(struct file *file, struct address_space *mapping,
+  */
+ const struct address_space_operations vboxsf_reg_aops = {
+ 	.read_folio = vboxsf_read_folio,
+-	.writepage = vboxsf_writepage,
++	.writepages = vboxsf_writepages,
+ 	.dirty_folio = filemap_dirty_folio,
+ 	.write_begin = simple_write_begin,
+ 	.write_end = vboxsf_write_end,
++	.migrate_folio = filemap_migrate_folio,
+ };
+ 
+ static const char *vboxsf_get_link(struct dentry *dentry, struct inode *inode,
 -- 
 2.47.2
 
