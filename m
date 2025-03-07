@@ -4,37 +4,39 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 63A74C28B26
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C310AC28B2F
 	for <intel-gfx@archiver.kernel.org>; Fri,  7 Mar 2025 13:54:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3DD2210EB71;
+	by gabe.freedesktop.org (Postfix) with ESMTP id B3B9110EB73;
 	Fri,  7 Mar 2025 13:54:26 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; secure) header.d=infradead.org header.i=@infradead.org header.b="P2q4tSdD";
+	dkim=fail reason="signature verification failed" (2048-bit key; secure) header.d=infradead.org header.i=@infradead.org header.b="XZn6/qRR";
 	dkim-atps=neutral
 Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2B9EB10EB68
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2F04310EB73
  for <intel-gfx@lists.freedesktop.org>; Fri,  7 Mar 2025 13:54:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=infradead.org; s=casper.20170209; h=Content-Transfer-Encoding:MIME-Version:
- Message-ID:Date:Subject:Cc:To:From:Sender:Reply-To:Content-Type:Content-ID:
- Content-Description:In-Reply-To:References;
- bh=+taT2QSuxL8BkaKw5rATlyAdw/O8TmblfYyY8TlzKtQ=; b=P2q4tSdDk1vTyS4yQ8UtnlEgiT
- rTSbqcb1hggXVwczLfNokNr5lTyrPEmcEg9r2Fiddr8Ss/ztL1ISAkKwd3Xp1h1AdltBA8yHGj0zq
- fAN0Aafq6BV5Vzl0gPlbyi25y20AX4pC76CprIgFG86Uo0cmkBkdXFm0Du0za+Tvhkb6/RPJ3uDXo
- LtkaIPnCP5Q8dWNheEuAj2hBm+3seeDOOjbHCSXry/3tcU9f/goxuo4P7bpoQ5glrzpezR87yhSwN
- 3RxFVJGiIlAO3KufL58simBwsjQ9qquBDzYKK5vbatEuLXrmO5uy8zipnmf78uNCrh7kCDzmgrsFg
- cGvenHsA==;
+ References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Sender:Reply-To:
+ Content-Type:Content-ID:Content-Description;
+ bh=/z5i0Mk9Cv2/sY4L3FZ7BIchCOXs9aYcNdg4XHBiico=; b=XZn6/qRRlZuA8W/65iLtP+DmJA
+ 0a6R3g2imvgF9NFcjTV1wjItQb+Gm+iOmA3lKwb4uzXzpnGk1s+xHDW1io4ZlfX02BHlNf6G97ThN
+ u2X2fj2Fs/PyNipIEfklLIt1qS6Yvysi39dBIgGZs19uBqdkje0otPp8X6WgmP4CQcUcfk3S/55aI
+ T69BjppGgpcnsa2I1E5z1bACCLuqc1dYu/JT0Ao97YkukJGpxyiE6WN8iCl0IVdAD/ikqUSAgUX6q
+ JHN4JQhhgTuWrUFBmcQinFwhgbp7J+0zmTpBe8abLU2VrxruKpPU3fThzjwCY8FxIcJckOvoQy44X
+ nq+E4ZlA==;
 Received: from willy by casper.infradead.org with local (Exim 4.98 #2 (Red Hat
- Linux)) id 1tqY9X-0000000CXFp-1xdu; Fri, 07 Mar 2025 13:54:15 +0000
+ Linux)) id 1tqY9Y-0000000CXGT-1pj8; Fri, 07 Mar 2025 13:54:16 +0000
 From: "Matthew Wilcox (Oracle)" <willy@infradead.org>
 To: linux-fsdevel@vger.kernel.org
 Cc: "Matthew Wilcox (Oracle)" <willy@infradead.org>, linux-mm@kvack.org,
  intel-gfx@lists.freedesktop.org
-Subject: [PATCH 00/11] Remove aops->writepage
-Date: Fri,  7 Mar 2025 13:54:00 +0000
-Message-ID: <20250307135414.2987755-1-willy@infradead.org>
+Subject: [PATCH 07/11] writeback: Remove writeback_use_writepage()
+Date: Fri,  7 Mar 2025 13:54:07 +0000
+Message-ID: <20250307135414.2987755-8-willy@infradead.org>
 X-Mailer: git-send-email 2.48.1
+In-Reply-To: <20250307135414.2987755-1-willy@infradead.org>
+References: <20250307135414.2987755-1-willy@infradead.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-BeenThere: intel-gfx@lists.freedesktop.org
@@ -52,62 +54,63 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-I was preparing for LSFMM and noticed that actually we're almost done
-with the writepage conversion.  This patchset finishes it off.
-Something changed in my test environment and now it crashes before
-even starting a run, so this is only build tested.
+The ->writepage operation is going away.  Remove this alternative to
+calling ->writepages.
 
-The first five patches (f2fs and vboxsf) are uninteresting.  I'll try
-and get those into linux-next for the imminent merge window.  I think
-the migrate and writeback patches are good, but maybe I've missed
-something.  Then we come to i915 needing to tell shmem to do writeout,
-so I added a module-accessible function to do that.  I also removed
-the setting/clearing of reclaim, which would be easy to bring back if
-it's really needed.  Patch 10 is probably the exciting one where
-pageout() calls swap or shmem directly.  And then patch 11 really just
-removes the op itself and the documentation for it.  I may have
-over-trimmed here, but some of the documentation was so out of date it
-was hard to tell what was worth preserving.
+Signed-off-by: Matthew Wilcox (Oracle) <willy@infradead.org>
+---
+ mm/page-writeback.c | 28 ++--------------------------
+ 1 file changed, 2 insertions(+), 26 deletions(-)
 
-Anyway, let's see what the bots make of this.  This is against
-next-20250307.
-
-Matthew Wilcox (Oracle) (11):
-  f2fs: Remove check for ->writepage
-  f2fs: Remove f2fs_write_data_page()
-  f2fs: Remove f2fs_write_meta_page()
-  f2fs: Remove f2fs_write_node_page()
-  vboxsf: Convert to writepages
-  migrate: Remove call to ->writepage
-  writeback: Remove writeback_use_writepage()
-  shmem: Add shmem_writeout()
-  i915: Use writeback_iter()
-  mm: Remove swap_writepage() and shmem_writepage()
-  fs: Remove aops->writepage
-
- Documentation/admin-guide/cgroup-v2.rst   |  2 +-
- Documentation/filesystems/fscrypt.rst     |  2 +-
- Documentation/filesystems/locking.rst     | 54 +--------------------
- Documentation/filesystems/vfs.rst         | 39 ++++------------
- block/blk-wbt.c                           |  2 +-
- drivers/gpu/drm/i915/gem/i915_gem_shmem.c | 32 ++++---------
- fs/buffer.c                               |  4 +-
- fs/f2fs/checkpoint.c                      |  7 ---
- fs/f2fs/data.c                            | 28 -----------
- fs/f2fs/node.c                            |  8 ----
- fs/vboxsf/file.c                          | 47 ++++++++++---------
- include/linux/fs.h                        |  1 -
- include/linux/shmem_fs.h                  |  7 +--
- mm/migrate.c                              | 57 ++---------------------
- mm/page-writeback.c                       | 28 +----------
- mm/page_io.c                              |  3 +-
- mm/shmem.c                                | 33 ++++++-------
- mm/swap.h                                 |  4 +-
- mm/swap_state.c                           |  1 -
- mm/swapfile.c                             |  2 +-
- mm/vmscan.c                               | 29 ++++++------
- 21 files changed, 93 insertions(+), 297 deletions(-)
-
+diff --git a/mm/page-writeback.c b/mm/page-writeback.c
+index 18456ddd463b..3cf7ae45be58 100644
+--- a/mm/page-writeback.c
++++ b/mm/page-writeback.c
+@@ -2621,27 +2621,6 @@ int write_cache_pages(struct address_space *mapping,
+ }
+ EXPORT_SYMBOL(write_cache_pages);
+ 
+-static int writeback_use_writepage(struct address_space *mapping,
+-		struct writeback_control *wbc)
+-{
+-	struct folio *folio = NULL;
+-	struct blk_plug plug;
+-	int err;
+-
+-	blk_start_plug(&plug);
+-	while ((folio = writeback_iter(mapping, wbc, folio, &err))) {
+-		err = mapping->a_ops->writepage(&folio->page, wbc);
+-		if (err == AOP_WRITEPAGE_ACTIVATE) {
+-			folio_unlock(folio);
+-			err = 0;
+-		}
+-		mapping_set_error(mapping, err);
+-	}
+-	blk_finish_plug(&plug);
+-
+-	return err;
+-}
+-
+ int do_writepages(struct address_space *mapping, struct writeback_control *wbc)
+ {
+ 	int ret;
+@@ -2652,14 +2631,11 @@ int do_writepages(struct address_space *mapping, struct writeback_control *wbc)
+ 	wb = inode_to_wb_wbc(mapping->host, wbc);
+ 	wb_bandwidth_estimate_start(wb);
+ 	while (1) {
+-		if (mapping->a_ops->writepages) {
++		if (mapping->a_ops->writepages)
+ 			ret = mapping->a_ops->writepages(mapping, wbc);
+-		} else if (mapping->a_ops->writepage) {
+-			ret = writeback_use_writepage(mapping, wbc);
+-		} else {
++		else
+ 			/* deal with chardevs and other special files */
+ 			ret = 0;
+-		}
+ 		if (ret != -ENOMEM || wbc->sync_mode != WB_SYNC_ALL)
+ 			break;
+ 
 -- 
 2.47.2
 
