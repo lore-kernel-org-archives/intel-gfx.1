@@ -4,36 +4,36 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9EDC9C28B26
-	for <intel-gfx@archiver.kernel.org>; Fri,  7 Mar 2025 13:54:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6F10DC282DE
+	for <intel-gfx@archiver.kernel.org>; Fri,  7 Mar 2025 13:54:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B06C810EB6B;
+	by gabe.freedesktop.org (Postfix) with ESMTP id B05CC10EB68;
 	Fri,  7 Mar 2025 13:54:25 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; secure) header.d=infradead.org header.i=@infradead.org header.b="AiRyjb9p";
+	dkim=fail reason="signature verification failed" (2048-bit key; secure) header.d=infradead.org header.i=@infradead.org header.b="bKfpkTCm";
 	dkim-atps=neutral
 Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3F83F10EB7B
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2FE7410EB75
  for <intel-gfx@lists.freedesktop.org>; Fri,  7 Mar 2025 13:54:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=infradead.org; s=casper.20170209; h=Content-Transfer-Encoding:MIME-Version:
  References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Sender:Reply-To:
  Content-Type:Content-ID:Content-Description;
- bh=MofhovjlADQCQPqeYMIVdQLieQlnl0tttbSu0oh4ZYs=; b=AiRyjb9pnJivKUulf3/TkIqiUa
- 7bhUXqQ56kgH5be5/6hPtgs3OfvkXoqoxzjwP6dDK1dCxb8eB+fgx4Si+OXoXbWx/4QXbPkcf2f8H
- Tx5q9E1QnRnNoJzPSNY/L6g0oQta0BR7vhffZTsRhpB93XUAkEOKHR0z5mH+o6gXbRpVJdaWM4Uo9
- 5UUVoisF5QVZ5H8bexl780zg4hPo3PCV+RPFrP9zQf2Hk34Mi7a9GHfCGByUnfGbeU/WpgTVjsbcW
- MvndBuaq0WiuOxnS0t0xcPqBydhg6nU8rOrVyZMSsSxwtvudPIMEXontGuVzP4owwFrlrBVWrTH/l
- x4M1cLcA==;
+ bh=MCnjYQ2acBJQekNMxLqjVlaD6rzjLtTKGq0ILj29RFk=; b=bKfpkTCmPxeSbXcJ7VM2ipo40+
+ XhaUhwgXUh45osKdAPlOYImlO/cUXTUKj1rso0Nxr5kg3xJMtFI7iBuHFUbWDu297CZZ4WUdie9nI
+ xUBagCMx7AExicE0jt1iSaDzkrB5ZwfMad0uC0IwsOgjsoSnrLHpB5Zr4eAjyUA5hd1Uiib+p1cjV
+ 0WoALUdFcA3onPZONfN9vs80yhz9/HM6oEUdmf5S5M8tGA9UTzC+TqXEVdeh3hen/BGWub0VD8M0l
+ y9vURrdeEI/VW7zSD9Y9JamRMCTciMSodw1MXCCTm6yaz1xnNv4UzbkTk8yYaVIC5QoEEo65MUWcL
+ dtFzcuRw==;
 Received: from willy by casper.infradead.org with local (Exim 4.98 #2 (Red Hat
- Linux)) id 1tqY9Y-0000000CXGF-0qyX; Fri, 07 Mar 2025 13:54:16 +0000
+ Linux)) id 1tqY9Y-0000000CXGo-3MSz; Fri, 07 Mar 2025 13:54:16 +0000
 From: "Matthew Wilcox (Oracle)" <willy@infradead.org>
 To: linux-fsdevel@vger.kernel.org
 Cc: "Matthew Wilcox (Oracle)" <willy@infradead.org>, linux-mm@kvack.org,
  intel-gfx@lists.freedesktop.org
-Subject: [PATCH 05/11] vboxsf: Convert to writepages
-Date: Fri,  7 Mar 2025 13:54:05 +0000
-Message-ID: <20250307135414.2987755-6-willy@infradead.org>
+Subject: [PATCH 10/11] mm: Remove swap_writepage() and shmem_writepage()
+Date: Fri,  7 Mar 2025 13:54:10 +0000
+Message-ID: <20250307135414.2987755-11-willy@infradead.org>
 X-Mailer: git-send-email 2.48.1
 In-Reply-To: <20250307135414.2987755-1-willy@infradead.org>
 References: <20250307135414.2987755-1-willy@infradead.org>
@@ -54,98 +54,238 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-If we add a migrate_folio operation, we can convert the writepage
-operation to writepages.  Further, this lets us optimise by using
-the same write handle for multiple folios.  The large folio support here
-is illusory; we would need to kmap each page in turn for proper support.
-But we do remove a few hidden calls to compound_head().
+Call swap_writeout() and shmem_writeout() from pageout() instead.
 
 Signed-off-by: Matthew Wilcox (Oracle) <willy@infradead.org>
 ---
- fs/vboxsf/file.c | 47 +++++++++++++++++++++++++----------------------
- 1 file changed, 25 insertions(+), 22 deletions(-)
+ block/blk-wbt.c |  2 +-
+ mm/page_io.c    |  3 +--
+ mm/shmem.c      | 23 +++++------------------
+ mm/swap.h       |  4 ++--
+ mm/swap_state.c |  1 -
+ mm/swapfile.c   |  2 +-
+ mm/vmscan.c     | 28 ++++++++++++++++------------
+ 7 files changed, 26 insertions(+), 37 deletions(-)
 
-diff --git a/fs/vboxsf/file.c b/fs/vboxsf/file.c
-index b780deb81b02..b492794f8e9a 100644
---- a/fs/vboxsf/file.c
-+++ b/fs/vboxsf/file.c
-@@ -262,40 +262,42 @@ static struct vboxsf_handle *vboxsf_get_write_handle(struct vboxsf_inode *sf_i)
- 	return sf_handle;
- }
+diff --git a/block/blk-wbt.c b/block/blk-wbt.c
+index f1754d07f7e0..60885731e8ab 100644
+--- a/block/blk-wbt.c
++++ b/block/blk-wbt.c
+@@ -37,7 +37,7 @@
+ enum wbt_flags {
+ 	WBT_TRACKED		= 1,	/* write, tracked for throttling */
+ 	WBT_READ		= 2,	/* read */
+-	WBT_SWAP		= 4,	/* write, from swap_writepage() */
++	WBT_SWAP		= 4,	/* write, from swap_writeout() */
+ 	WBT_DISCARD		= 8,	/* discard */
  
--static int vboxsf_writepage(struct page *page, struct writeback_control *wbc)
-+static int vboxsf_writepages(struct address_space *mapping,
-+		struct writeback_control *wbc)
- {
--	struct inode *inode = page->mapping->host;
-+	struct inode *inode = mapping->host;
-+	struct folio *folio = NULL;
- 	struct vboxsf_inode *sf_i = VBOXSF_I(inode);
- 	struct vboxsf_handle *sf_handle;
--	loff_t off = page_offset(page);
- 	loff_t size = i_size_read(inode);
--	u32 nwrite = PAGE_SIZE;
--	u8 *buf;
--	int err;
--
--	if (off + PAGE_SIZE > size)
--		nwrite = size & ~PAGE_MASK;
-+	int error;
- 
- 	sf_handle = vboxsf_get_write_handle(sf_i);
- 	if (!sf_handle)
- 		return -EBADF;
- 
--	buf = kmap(page);
--	err = vboxsf_write(sf_handle->root, sf_handle->handle,
--			   off, &nwrite, buf);
--	kunmap(page);
-+	while ((folio = writeback_iter(mapping, wbc, folio, &error))) {
-+		loff_t off = folio_pos(folio);
-+		u32 nwrite = folio_size(folio);
-+		u8 *buf;
- 
--	kref_put(&sf_handle->refcount, vboxsf_handle_release);
-+		if (nwrite > size - off)
-+			nwrite = size - off;
- 
--	if (err == 0) {
--		/* mtime changed */
--		sf_i->force_restat = 1;
--	} else {
--		ClearPageUptodate(page);
-+		buf = kmap_local_folio(folio, 0);
-+		error = vboxsf_write(sf_handle->root, sf_handle->handle,
-+				off, &nwrite, buf);
-+		kunmap_local(buf);
-+
-+		folio_unlock(folio);
- 	}
- 
--	unlock_page(page);
--	return err;
-+	kref_put(&sf_handle->refcount, vboxsf_handle_release);
-+
-+	/* mtime changed */
-+	if (error == 0)
-+		sf_i->force_restat = 1;
-+	return error;
- }
- 
- static int vboxsf_write_end(struct file *file, struct address_space *mapping,
-@@ -347,10 +349,11 @@ static int vboxsf_write_end(struct file *file, struct address_space *mapping,
+ 	WBT_NR_BITS		= 4,	/* number of bits */
+diff --git a/mm/page_io.c b/mm/page_io.c
+index 9b983de351f9..e9151952c514 100644
+--- a/mm/page_io.c
++++ b/mm/page_io.c
+@@ -237,9 +237,8 @@ static void swap_zeromap_folio_clear(struct folio *folio)
+  * We may have stale swap cache pages in memory: notice
+  * them here and get rid of the unnecessary final write.
   */
- const struct address_space_operations vboxsf_reg_aops = {
- 	.read_folio = vboxsf_read_folio,
--	.writepage = vboxsf_writepage,
-+	.writepages = vboxsf_writepages,
- 	.dirty_folio = filemap_dirty_folio,
- 	.write_begin = simple_write_begin,
- 	.write_end = vboxsf_write_end,
-+	.migrate_folio = filemap_migrate_folio,
+-int swap_writepage(struct page *page, struct writeback_control *wbc)
++int swap_writeout(struct folio *folio, struct writeback_control *wbc)
+ {
+-	struct folio *folio = page_folio(page);
+ 	int ret;
+ 
+ 	if (folio_free_swap(folio)) {
+diff --git a/mm/shmem.c b/mm/shmem.c
+index 427b7f70fffb..a786b94a468a 100644
+--- a/mm/shmem.c
++++ b/mm/shmem.c
+@@ -98,7 +98,7 @@ static struct vfsmount *shm_mnt __ro_after_init;
+ #define SHORT_SYMLINK_LEN 128
+ 
+ /*
+- * shmem_fallocate communicates with shmem_fault or shmem_writepage via
++ * shmem_fallocate communicates with shmem_fault or shmem_writeout via
+  * inode->i_private (with i_rwsem making sure that it has only one user at
+  * a time): we would prefer not to enlarge the shmem inode just for that.
+  */
+@@ -107,7 +107,7 @@ struct shmem_falloc {
+ 	pgoff_t start;		/* start of range currently being fallocated */
+ 	pgoff_t next;		/* the next page offset to be fallocated */
+ 	pgoff_t nr_falloced;	/* how many new pages have been fallocated */
+-	pgoff_t nr_unswapped;	/* how often writepage refused to swap out */
++	pgoff_t nr_unswapped;	/* how often writeout refused to swap out */
  };
  
- static const char *vboxsf_get_link(struct dentry *dentry, struct inode *inode,
+ struct shmem_options {
+@@ -446,7 +446,7 @@ static void shmem_recalc_inode(struct inode *inode, long alloced, long swapped)
+ 	/*
+ 	 * Special case: whereas normally shmem_recalc_inode() is called
+ 	 * after i_mapping->nrpages has already been adjusted (up or down),
+-	 * shmem_writepage() has to raise swapped before nrpages is lowered -
++	 * shmem_writeout() has to raise swapped before nrpages is lowered -
+ 	 * to stop a racing shmem_recalc_inode() from thinking that a page has
+ 	 * been freed.  Compensate here, to avoid the need for a followup call.
+ 	 */
+@@ -1536,11 +1536,6 @@ int shmem_unuse(unsigned int type)
+ 	return error;
+ }
+ 
+-static int shmem_writepage(struct page *page, struct writeback_control *wbc)
+-{
+-	return shmem_writeout(page_folio(page), wbc);
+-}
+-
+ /**
+  * shmem_writeout - Write the folio to swap
+  * @folio: The folio to write
+@@ -1558,13 +1553,6 @@ int shmem_writeout(struct folio *folio, struct writeback_control *wbc)
+ 	int nr_pages;
+ 	bool split = false;
+ 
+-	/*
+-	 * Our capabilities prevent regular writeback or sync from ever calling
+-	 * shmem_writepage; but a stacking filesystem might use ->writepage of
+-	 * its underlying filesystem, in which case tmpfs should write out to
+-	 * swap only in response to memory pressure, and not for the writeback
+-	 * threads or sync.
+-	 */
+ 	if (WARN_ON_ONCE(!wbc->for_reclaim))
+ 		goto redirty;
+ 
+@@ -1653,7 +1641,7 @@ int shmem_writeout(struct folio *folio, struct writeback_control *wbc)
+ 
+ 		mutex_unlock(&shmem_swaplist_mutex);
+ 		BUG_ON(folio_mapped(folio));
+-		return swap_writepage(&folio->page, wbc);
++		return swap_writeout(folio, wbc);
+ 	}
+ 
+ 	list_del_init(&info->swaplist);
+@@ -3780,7 +3768,7 @@ static long shmem_fallocate(struct file *file, int mode, loff_t offset,
+ 			index--;
+ 
+ 		/*
+-		 * Inform shmem_writepage() how far we have reached.
++		 * Inform shmem_writeout() how far we have reached.
+ 		 * No need for lock or barrier: we have the page lock.
+ 		 */
+ 		if (!folio_test_uptodate(folio))
+@@ -5203,7 +5191,6 @@ static int shmem_error_remove_folio(struct address_space *mapping,
+ }
+ 
+ static const struct address_space_operations shmem_aops = {
+-	.writepage	= shmem_writepage,
+ 	.dirty_folio	= noop_dirty_folio,
+ #ifdef CONFIG_TMPFS
+ 	.write_begin	= shmem_write_begin,
+diff --git a/mm/swap.h b/mm/swap.h
+index 6f4a3f927edb..aa62463976d5 100644
+--- a/mm/swap.h
++++ b/mm/swap.h
+@@ -20,7 +20,7 @@ static inline void swap_read_unplug(struct swap_iocb *plug)
+ 		__swap_read_unplug(plug);
+ }
+ void swap_write_unplug(struct swap_iocb *sio);
+-int swap_writepage(struct page *page, struct writeback_control *wbc);
++int swap_writeout(struct folio *folio, struct writeback_control *wbc);
+ void __swap_writepage(struct folio *folio, struct writeback_control *wbc);
+ 
+ /* linux/mm/swap_state.c */
+@@ -141,7 +141,7 @@ static inline struct folio *swapin_readahead(swp_entry_t swp, gfp_t gfp_mask,
+ 	return NULL;
+ }
+ 
+-static inline int swap_writepage(struct page *p, struct writeback_control *wbc)
++static inline int swap_writeout(struct folio *f, struct writeback_control *wbc)
+ {
+ 	return 0;
+ }
+diff --git a/mm/swap_state.c b/mm/swap_state.c
+index 68fd981b514f..ec2b1c9c9926 100644
+--- a/mm/swap_state.c
++++ b/mm/swap_state.c
+@@ -30,7 +30,6 @@
+  * vmscan's shrink_folio_list.
+  */
+ static const struct address_space_operations swap_aops = {
+-	.writepage	= swap_writepage,
+ 	.dirty_folio	= noop_dirty_folio,
+ #ifdef CONFIG_MIGRATION
+ 	.migrate_folio	= migrate_folio,
+diff --git a/mm/swapfile.c b/mm/swapfile.c
+index 628f67974a7c..60c994f84842 100644
+--- a/mm/swapfile.c
++++ b/mm/swapfile.c
+@@ -2360,7 +2360,7 @@ static int try_to_unuse(unsigned int type)
+ 	 * Limit the number of retries? No: when mmget_not_zero()
+ 	 * above fails, that mm is likely to be freeing swap from
+ 	 * exit_mmap(), which proceeds at its own independent pace;
+-	 * and even shmem_writepage() could have been preempted after
++	 * and even shmem_writeout() could have been preempted after
+ 	 * folio_alloc_swap(), temporarily hiding that swap.  It's easy
+ 	 * and robust (though cpu-intensive) just to keep retrying.
+ 	 */
+diff --git a/mm/vmscan.c b/mm/vmscan.c
+index 34410d24dc15..e9f84fa31b9a 100644
+--- a/mm/vmscan.c
++++ b/mm/vmscan.c
+@@ -648,16 +648,16 @@ typedef enum {
+ static pageout_t pageout(struct folio *folio, struct address_space *mapping,
+ 			 struct swap_iocb **plug, struct list_head *folio_list)
+ {
++	int (*writeout)(struct folio *, struct writeback_control *);
++
+ 	/*
+-	 * If the folio is dirty, only perform writeback if that write
+-	 * will be non-blocking.  To prevent this allocation from being
+-	 * stalled by pagecache activity.  But note that there may be
+-	 * stalls if we need to run get_block().  We could test
+-	 * PagePrivate for that.
+-	 *
+-	 * If this process is currently in __generic_file_write_iter() against
+-	 * this folio's queue, we can perform writeback even if that
+-	 * will block.
++	 * We no longer attempt to writeback filesystem folios here, other
++	 * than tmpfs/shmem.  That's taken care of in page-writeback.
++	 * If we find a dirty filesystem folio at the end of the LRU list,
++	 * typically that means the filesystem is saturating the storage
++	 * with contiguous writes and telling it to write a folio here
++	 * would only make the situation worse by injecting an element
++	 * of random access.
+ 	 *
+ 	 * If the folio is swapcache, write it back even if that would
+ 	 * block, for some throttling. This happens by accident, because
+@@ -680,7 +680,11 @@ static pageout_t pageout(struct folio *folio, struct address_space *mapping,
+ 		}
+ 		return PAGE_KEEP;
+ 	}
+-	if (mapping->a_ops->writepage == NULL)
++	if (shmem_mapping(mapping))
++		writeout = shmem_writeout;
++	else if (folio_test_anon(folio))
++		writeout = swap_writeout;
++	else
+ 		return PAGE_ACTIVATE;
+ 
+ 	if (folio_clear_dirty_for_io(folio)) {
+@@ -703,7 +707,7 @@ static pageout_t pageout(struct folio *folio, struct address_space *mapping,
+ 			wbc.list = folio_list;
+ 
+ 		folio_set_reclaim(folio);
+-		res = mapping->a_ops->writepage(&folio->page, &wbc);
++		res = writeout(folio, &wbc);
+ 		if (res < 0)
+ 			handle_write_error(mapping, folio, res);
+ 		if (res == AOP_WRITEPAGE_ACTIVATE) {
+@@ -712,7 +716,7 @@ static pageout_t pageout(struct folio *folio, struct address_space *mapping,
+ 		}
+ 
+ 		if (!folio_test_writeback(folio)) {
+-			/* synchronous write or broken a_ops? */
++			/* synchronous write? */
+ 			folio_clear_reclaim(folio);
+ 		}
+ 		trace_mm_vmscan_write_folio(folio);
 -- 
 2.47.2
 
