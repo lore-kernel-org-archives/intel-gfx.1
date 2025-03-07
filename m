@@ -4,39 +4,37 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2B341C19F32
-	for <intel-gfx@archiver.kernel.org>; Fri,  7 Mar 2025 13:54:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 63A74C28B26
+	for <intel-gfx@archiver.kernel.org>; Fri,  7 Mar 2025 13:54:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1523110EB6D;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3DD2210EB71;
 	Fri,  7 Mar 2025 13:54:26 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; secure) header.d=infradead.org header.i=@infradead.org header.b="X62+uKJW";
+	dkim=fail reason="signature verification failed" (2048-bit key; secure) header.d=infradead.org header.i=@infradead.org header.b="P2q4tSdD";
 	dkim-atps=neutral
 Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3BEAD10EB7A
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2B9EB10EB68
  for <intel-gfx@lists.freedesktop.org>; Fri,  7 Mar 2025 13:54:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=infradead.org; s=casper.20170209; h=Content-Transfer-Encoding:MIME-Version:
- References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Sender:Reply-To:
- Content-Type:Content-ID:Content-Description;
- bh=TkS8MMSXr1V47Aygjy0xD3fBh6jvlfrlC7n0css79m8=; b=X62+uKJW5uRc3AljrZOB8IJcR5
- FcWRKLLJWmGSKzfnl4nxJjjgjv9O1gFQr2Szy9TLcBuGwadTSn34XR9hOcZkcZB41Pi+9vltTSGsj
- I5/5wHK5D1RaK79iQCgyfbAFpEJuEk5yD2wnvMggodf32rYwV4qgFknQP1XxeJieUk5Dffkwer1v0
- P1PMhVwX0aSgYrj9gT+Fdm8zYV1k4WH7jzshbgcNhuIWt3B2Qu/RHhF1rKuIRU4FoMfpkyTN43Cmm
- kXhVONT5gXXOwk7DWD7OpEqI5fKlE2Ht6lIInk/kTeTe6+SDyXkE3Lxa5g5W15n2omOLZ1ep3SK1d
- bhjLPAUw==;
+ Message-ID:Date:Subject:Cc:To:From:Sender:Reply-To:Content-Type:Content-ID:
+ Content-Description:In-Reply-To:References;
+ bh=+taT2QSuxL8BkaKw5rATlyAdw/O8TmblfYyY8TlzKtQ=; b=P2q4tSdDk1vTyS4yQ8UtnlEgiT
+ rTSbqcb1hggXVwczLfNokNr5lTyrPEmcEg9r2Fiddr8Ss/ztL1ISAkKwd3Xp1h1AdltBA8yHGj0zq
+ fAN0Aafq6BV5Vzl0gPlbyi25y20AX4pC76CprIgFG86Uo0cmkBkdXFm0Du0za+Tvhkb6/RPJ3uDXo
+ LtkaIPnCP5Q8dWNheEuAj2hBm+3seeDOOjbHCSXry/3tcU9f/goxuo4P7bpoQ5glrzpezR87yhSwN
+ 3RxFVJGiIlAO3KufL58simBwsjQ9qquBDzYKK5vbatEuLXrmO5uy8zipnmf78uNCrh7kCDzmgrsFg
+ cGvenHsA==;
 Received: from willy by casper.infradead.org with local (Exim 4.98 #2 (Red Hat
- Linux)) id 1tqY9Y-0000000CXGa-2Mrx; Fri, 07 Mar 2025 13:54:16 +0000
+ Linux)) id 1tqY9X-0000000CXFp-1xdu; Fri, 07 Mar 2025 13:54:15 +0000
 From: "Matthew Wilcox (Oracle)" <willy@infradead.org>
 To: linux-fsdevel@vger.kernel.org
 Cc: "Matthew Wilcox (Oracle)" <willy@infradead.org>, linux-mm@kvack.org,
  intel-gfx@lists.freedesktop.org
-Subject: [PATCH 08/11] shmem: Add shmem_writeout()
-Date: Fri,  7 Mar 2025 13:54:08 +0000
-Message-ID: <20250307135414.2987755-9-willy@infradead.org>
+Subject: [PATCH 00/11] Remove aops->writepage
+Date: Fri,  7 Mar 2025 13:54:00 +0000
+Message-ID: <20250307135414.2987755-1-willy@infradead.org>
 X-Mailer: git-send-email 2.48.1
-In-Reply-To: <20250307135414.2987755-1-willy@infradead.org>
-References: <20250307135414.2987755-1-willy@infradead.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-BeenThere: intel-gfx@lists.freedesktop.org
@@ -54,81 +52,62 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-This will be the replacement for shmem_writepage().
+I was preparing for LSFMM and noticed that actually we're almost done
+with the writepage conversion.  This patchset finishes it off.
+Something changed in my test environment and now it crashes before
+even starting a run, so this is only build tested.
 
-Signed-off-by: Matthew Wilcox (Oracle) <willy@infradead.org>
----
- include/linux/shmem_fs.h |  7 ++++---
- mm/shmem.c               | 20 ++++++++++++++------
- 2 files changed, 18 insertions(+), 9 deletions(-)
+The first five patches (f2fs and vboxsf) are uninteresting.  I'll try
+and get those into linux-next for the imminent merge window.  I think
+the migrate and writeback patches are good, but maybe I've missed
+something.  Then we come to i915 needing to tell shmem to do writeout,
+so I added a module-accessible function to do that.  I also removed
+the setting/clearing of reclaim, which would be easy to bring back if
+it's really needed.  Patch 10 is probably the exciting one where
+pageout() calls swap or shmem directly.  And then patch 11 really just
+removes the op itself and the documentation for it.  I may have
+over-trimmed here, but some of the documentation was so out of date it
+was hard to tell what was worth preserving.
 
-diff --git a/include/linux/shmem_fs.h b/include/linux/shmem_fs.h
-index 0b273a7b9f01..5f03a39a26f7 100644
---- a/include/linux/shmem_fs.h
-+++ b/include/linux/shmem_fs.h
-@@ -104,10 +104,11 @@ static inline bool shmem_mapping(struct address_space *mapping)
- 	return false;
- }
- #endif /* CONFIG_SHMEM */
--extern void shmem_unlock_mapping(struct address_space *mapping);
--extern struct page *shmem_read_mapping_page_gfp(struct address_space *mapping,
-+void shmem_unlock_mapping(struct address_space *mapping);
-+struct page *shmem_read_mapping_page_gfp(struct address_space *mapping,
- 					pgoff_t index, gfp_t gfp_mask);
--extern void shmem_truncate_range(struct inode *inode, loff_t start, loff_t end);
-+int shmem_writeout(struct folio *folio, struct writeback_control *wbc);
-+void shmem_truncate_range(struct inode *inode, loff_t start, loff_t end);
- int shmem_unuse(unsigned int type);
- 
- #ifdef CONFIG_TRANSPARENT_HUGEPAGE
-diff --git a/mm/shmem.c b/mm/shmem.c
-index ba162e991285..427b7f70fffb 100644
---- a/mm/shmem.c
-+++ b/mm/shmem.c
-@@ -1536,12 +1536,20 @@ int shmem_unuse(unsigned int type)
- 	return error;
- }
- 
--/*
-- * Move the page from the page cache to the swap cache.
-- */
- static int shmem_writepage(struct page *page, struct writeback_control *wbc)
- {
--	struct folio *folio = page_folio(page);
-+	return shmem_writeout(page_folio(page), wbc);
-+}
-+
-+/**
-+ * shmem_writeout - Write the folio to swap
-+ * @folio: The folio to write
-+ * @wbc: How writeback is to be done
-+ *
-+ * Move the folio from the page cache to the swap cache.
-+ */
-+int shmem_writeout(struct folio *folio, struct writeback_control *wbc)
-+{
- 	struct address_space *mapping = folio->mapping;
- 	struct inode *inode = mapping->host;
- 	struct shmem_inode_info *info = SHMEM_I(inode);
-@@ -1586,9 +1594,8 @@ static int shmem_writepage(struct page *page, struct writeback_control *wbc)
- try_split:
- 		/* Ensure the subpages are still dirty */
- 		folio_test_set_dirty(folio);
--		if (split_huge_page_to_list_to_order(page, wbc->list, 0))
-+		if (split_folio_to_list(folio, wbc->list))
- 			goto redirty;
--		folio = page_folio(page);
- 		folio_clear_dirty(folio);
- 	}
- 
-@@ -1660,6 +1667,7 @@ static int shmem_writepage(struct page *page, struct writeback_control *wbc)
- 	folio_unlock(folio);
- 	return 0;
- }
-+EXPORT_SYMBOL_GPL(shmem_writeout);
- 
- #if defined(CONFIG_NUMA) && defined(CONFIG_TMPFS)
- static void shmem_show_mpol(struct seq_file *seq, struct mempolicy *mpol)
+Anyway, let's see what the bots make of this.  This is against
+next-20250307.
+
+Matthew Wilcox (Oracle) (11):
+  f2fs: Remove check for ->writepage
+  f2fs: Remove f2fs_write_data_page()
+  f2fs: Remove f2fs_write_meta_page()
+  f2fs: Remove f2fs_write_node_page()
+  vboxsf: Convert to writepages
+  migrate: Remove call to ->writepage
+  writeback: Remove writeback_use_writepage()
+  shmem: Add shmem_writeout()
+  i915: Use writeback_iter()
+  mm: Remove swap_writepage() and shmem_writepage()
+  fs: Remove aops->writepage
+
+ Documentation/admin-guide/cgroup-v2.rst   |  2 +-
+ Documentation/filesystems/fscrypt.rst     |  2 +-
+ Documentation/filesystems/locking.rst     | 54 +--------------------
+ Documentation/filesystems/vfs.rst         | 39 ++++------------
+ block/blk-wbt.c                           |  2 +-
+ drivers/gpu/drm/i915/gem/i915_gem_shmem.c | 32 ++++---------
+ fs/buffer.c                               |  4 +-
+ fs/f2fs/checkpoint.c                      |  7 ---
+ fs/f2fs/data.c                            | 28 -----------
+ fs/f2fs/node.c                            |  8 ----
+ fs/vboxsf/file.c                          | 47 ++++++++++---------
+ include/linux/fs.h                        |  1 -
+ include/linux/shmem_fs.h                  |  7 +--
+ mm/migrate.c                              | 57 ++---------------------
+ mm/page-writeback.c                       | 28 +----------
+ mm/page_io.c                              |  3 +-
+ mm/shmem.c                                | 33 ++++++-------
+ mm/swap.h                                 |  4 +-
+ mm/swap_state.c                           |  1 -
+ mm/swapfile.c                             |  2 +-
+ mm/vmscan.c                               | 29 ++++++------
+ 21 files changed, 93 insertions(+), 297 deletions(-)
+
 -- 
 2.47.2
 
