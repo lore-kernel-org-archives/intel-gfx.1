@@ -4,55 +4,75 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 84F4DC19F32
-	for <intel-gfx@archiver.kernel.org>; Fri,  7 Mar 2025 13:58:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E2010C282DE
+	for <intel-gfx@archiver.kernel.org>; Fri,  7 Mar 2025 13:58:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9350310EB7A;
-	Fri,  7 Mar 2025 13:58:22 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4578E10EB77;
+	Fri,  7 Mar 2025 13:58:27 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=dragonic.eu header.i=@dragonic.eu header.b="Yp82Y4In";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="ldKGQrHC";
 	dkim-atps=neutral
-X-Greylist: delayed 2486 seconds by postgrey-1.36 at gabe;
- Wed, 05 Mar 2025 20:36:18 UTC
-Received: from k11.unixstorm.org (k11.unixstorm.org [91.227.122.80])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0B16810E2AD;
- Wed,  5 Mar 2025 20:36:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=dragonic.eu
- ; s=x;
- h=MIME-Version:Content-Transfer-Encoding:Content-Type:References:
- In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Sender:Reply-To:Content-ID:
- Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
- :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
- List-Post:List-Owner:List-Archive;
- bh=SIg3IAcWZN8wRN9Nh85uzigI84msQCuskZOaGsF4rys=; b=Yp82Y4InpbJ7eJGCDiM9CC16LH
- qEMrYB1HJWBMLocfwPETVl8enggeBjl8mWV1zEQL8k86G00bpqiymEuiN6v0ztOg6/o43qdwEv6Dj
- LMARyxNOiNbrZXOwQN5BIwv08QC+o4ctibEs3aAsOo7aaRIYfSd/xhBwTzBjMR+KChN0FBwBErq6Q
- s/dWjJaI5AvVx8zDys3IrBMWrJ9hm+Ey/f3IfIDUaozNDuzRoTaFM2Cm9YX67P1p4RqrZz0W0IxH9
- mz0XYM+N7TetqIbIvFI8NZDljlr1f/pa9EbUICZ6jk9+APvOzbqVhqHXGlPnQChLmZX1CVoQAzBes
- iFKM1vvg==;
-Received: from 037008241088.gdansk.vectranet.pl ([37.8.241.88]
- helo=folkvangr.lan)
- by k11.unixstorm.org with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
- (Exim 4.96.2-12-g29d01ae2a) (envelope-from <rk@dragonic.eu>)
- id 1tpupV-0002oS-2O; Wed, 05 Mar 2025 20:54:57 +0100
-Message-ID: <4e752e412143c8515b78146c5149126a7c5f306a.camel@dragonic.eu>
-Subject: Re: Discussion: Moving away from Patchwork for Intel i915/Xe CI
-From: Ryszard Knop <rk@dragonic.eu>
-To: Jani Nikula <jani.nikula@linux.intel.com>, "Knop, Ryszard"
- <ryszard.knop@intel.com>, "intel-xe@lists.freedesktop.org"
- <intel-xe@lists.freedesktop.org>, "intel-gfx@lists.freedesktop.org"
- <intel-gfx@lists.freedesktop.org>
-Cc: "De Marchi, Lucas" <lucas.demarchi@intel.com>, "daniel@fooishbar.org"
- <daniel@fooishbar.org>, Sima Vetter <sima@ffwll.ch>
-Date: Wed, 05 Mar 2025 20:54:44 +0100
-In-Reply-To: <871pvbxt40.fsf@intel.com>
-References: <814f9bcb9c7ee22af45bd5278255af247c6664fa.camel@intel.com>
- <871pvbxt40.fsf@intel.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.54.3 
+Received: from nyc.source.kernel.org (nyc.source.kernel.org [147.75.193.91])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9F21410EAC2;
+ Fri,  7 Mar 2025 04:35:44 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by nyc.source.kernel.org (Postfix) with ESMTP id 1E0E8A454AD;
+ Fri,  7 Mar 2025 04:30:13 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C5266C4CEE9;
+ Fri,  7 Mar 2025 04:35:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1741322143;
+ bh=KL01593/zSX4Xb5hwQBCHJDAckIJ37QdEuF5jXeWgJ8=;
+ h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
+ b=ldKGQrHCCCBRKwxBBjQ7/sdDNo9UDRM9Wuk4aXL/VrX1QWc9XvIPKvuRu7T8kyCAz
+ VsuiJ5Z/QO4QUG/SxMtNtVWspKFytYNeOOUuseFIIcKEjLRPpkwu52F1VYFZlqa56m
+ OrYLW5UImkUOXbsCO4SoHXaXpWBZ9OzryLoqdNdE+5/ML0dQ1BAAlLBKviO/tTJaYR
+ jxqjGGtrSgSehHdEfSUiUSvgH3PfvLnDO3FB5BZes2EDMGY5bNbdLJQyfuXQyGoUI8
+ d6ANHFMxFlgYXjydA/YWUMQ8WjMow2EBF7RizBcdJkbLLh/+Y9cpyOs5M4b5Hd16iH
+ z1UHTNk19h3Dw==
+From: Dmitry Baryshkov <lumag@kernel.org>
+Date: Fri, 07 Mar 2025 06:34:49 +0200
+Subject: [PATCH RFC v3 7/7] drm/display: dp-tunnel: use new DCPD access helpers
 MIME-Version: 1.0
-X-Authenticated-Id: dragoon
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20250307-drm-rework-dpcd-access-v3-7-9044a3a868ee@linaro.org>
+References: <20250307-drm-rework-dpcd-access-v3-0-9044a3a868ee@linaro.org>
+In-Reply-To: <20250307-drm-rework-dpcd-access-v3-0-9044a3a868ee@linaro.org>
+To: Lyude Paul <lyude@redhat.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>, 
+ Sean Paul <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>, 
+ Jani Nikula <jani.nikula@linux.intel.com>, 
+ Alex Deucher <alexander.deucher@amd.com>, 
+ =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ Andrzej Hajda <andrzej.hajda@intel.com>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
+ Xinliang Liu <xinliang.liu@linaro.org>, Tian Tao <tiantao6@hisilicon.com>, 
+ Xinwei Kong <kong.kongxinwei@hisilicon.com>, 
+ Sumit Semwal <sumit.semwal@linaro.org>, 
+ Yongqin Liu <yongqin.liu@linaro.org>, John Stultz <jstultz@google.com>
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org, 
+ intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org, 
+ amd-gfx@lists.freedesktop.org, Jani Nikula <jani.nikula@intel.com>
+X-Mailer: b4 0.14.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=4082;
+ i=dmitry.baryshkov@linaro.org; h=from:subject:message-id;
+ bh=AezDpTs9i2rYRC6AeDwZvqAV87zlWZZG2GdTd51PPFs=;
+ b=owEBbQGS/pANAwAKAYs8ij4CKSjVAcsmYgBnyndm4YmJ13M13g50Hz9Sq+c+qDBc7tzhUsJZc
+ 26viUPY20iJATMEAAEKAB0WIQRMcISVXLJjVvC4lX+LPIo+Aiko1QUCZ8p3ZgAKCRCLPIo+Aiko
+ 1X8sB/4888qcKk/8zGB7aMpCxYduTg4THzLpcYD8TWj2W/90FyWWaqO73ENLrgFchxmmyfbNS8a
+ uDYKawkLTsjbg4Hf0lxnxHrxmcerpAVcQeOZO1haVm1oU2Uoytx/uWdHsaDk5Y8thUE6X67vXjl
+ G+bTSCZk7ALEbOVQYznsizRJchJw5FrA9YoosnZARbCDWrcSLHrcWs1lgiKBFDw/FbgWSqB2jb7
+ pqstTbcI6TmS3kiK0BjHUVuaVqtuwFf0lhzfJF0ECNE3rAeSFHqjo4lF8WI6n7iA1OXyZAOof+P
+ mKnSCpQbwrKULU5PBolPo0HltA8pk1y+F5Gx/VcSbMJAyDI/
+X-Developer-Key: i=dmitry.baryshkov@linaro.org; a=openpgp;
+ fpr=8F88381DD5C873E4AE487DA5199BF1243632046A
 X-Mailman-Approved-At: Fri, 07 Mar 2025 13:57:54 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -69,137 +89,110 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Wed, 2025-03-05 at 19:52 +0200, Jani Nikula wrote:
-> On Wed, 05 Mar 2025, "Knop, Ryszard" <ryszard.knop@intel.com> wrote:
-> > Hey everyone,
-> >=20
-> > Patchwork has been having lots of issues recently, dropping patches,
-> > being unusably slow and generally starting to become more of a pain
-> > than help. Over on the CI side we are also not super fond of it and we
-> > don't have enough resources to maintain it properly. Lucas has
-> > suggested using public-inbox archives directly, and with some recent
-> > tools like b4/lei making common ML workflows feasible without
-> > reinventing the wheel, we are considering setting up a bridge between
-> > MLs and GitHub/GitLab to instead drive CI using more modern tools.
->=20
-> I am supportive of this change.
->=20
-> > We have not decided whether to drop Patchwork yet - this is a thread to
-> > gather people's thoughts if this sounds like a good idea.
-> >=20
-> > The workflow would look like this:
-> >=20
-> > - A drm-tip mirror would be set up on GitHub/fd.o GitLab, automatically
-> > pulling all changes from drm-tip upstream fd.o GitLab as a secondary
-> > source.
-> > - For each new series on lore.kernel.org a bridge would create a PR by
-> > taking the latest mirrored drm-tip source, then applying a new series
-> > with `b4 shazam`.
->=20
-> There's a small catch here. Patchwork is currently more clever about
-> handling series revisions when only some of the patches in a series are
-> updated by way of replying to the individual patch. For example [1][2].
->=20
-> I've been meaning to report it to upstream b4, but haven't gotten around
-> to it yet. But I wouldn't consider this a blocker.
->=20
-> [1] https://lore.kernel.org/r/20250305114820.3523077-2-imre.deak@intel.co=
-m
-> [2] https://patchwork.freedesktop.org/series/145782/
->=20
-> > - That PR would then go through the normal CI flow, with CI checks
-> > being reported on that PR, instead of sending all the reports to the
-> > mailing list.
-> > - On the mailing list, the bridge would send an ack that a series has
-> > been seen and where are its results. You would no longer receive
-> > multiple emails with KBs of logs in your email client, but everything
-> > would be available from PR checks (as status checks and links to full
-> > logs only, no trimming and "last 1000 lines only").
->=20
-> \o/
->=20
-> > - Mirrors, PRs and checks for public mailing lists would be public,
-> > much like on the current public Patchwork instance.
-> > - Logs behind links will be stored for a few months (3-6, depends on
-> > traffic and how the situation evolves). GitHub Checks themselves (check
-> > status, shortlogs and links) have a hard retention period of 400 days.
-> > - Not sure about PR retention: we need a mechanism to correctly
-> > identify merged series somehow, then to trim these from the list.
-> > Expected retention time?
->=20
-> With the velocity of the driver development, the test results go stale
-> in a matter of a week or two. I normally wouldn't merge patches older
-> than that without a fresh test round.
->=20
-> IMO a long retention isn't necessary. At most a few months? The patches
-> will still stay on the list forever.
->=20
-> > - Not sure about reporting on "CI finished": Maybe we could send one
-> > more email with a summary of checks when the entire workflow has been
-> > finished?
->=20
-> I've previously suggested one short mail as an acknowledgement with a
-> URL to the results, and another mail when testing has ended one way or
-> another. I think it would be a good starting point.
->=20
-> > On GitHub vs fd.o GitLab: I'm thinking more of GitHub here:
-> >=20
-> > - GitHub generally performs better with large repositories.
-> > - Extra fallback drm-tip source for fd.o downtime periods.
-> > - Bonus points: We can store public Intel CI tags directly in that
-> > mirror for moderate periods of time without abusing fd.o servers.
-> >=20
-> > Either option would work fine though, so opinions here would be
-> > appreciated :)
->=20
-> I think eventually we will want to consider accepting contributions via
-> gitlab merge requests directly.
->=20
-> It would also be interesting if maintainers/committers could merge the
-> contributions via gitlab UI already when CI applied the patches from the
-> mailing list and created the merge request.
->=20
-> In the merge request case, they'd have to be against individual repos
-> that feed into drm-tip, *not* merge requests against drm-tip
-> directly. So for testing CI would have to recreate drm-tip the same way
-> as 'dim push-branch' currently does.
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 
-This is doable, but perf-wise is not going to be great. We would have to
-checkout all trees pulled into drm/tip for each build as listed in the
-latest integration-manifest, replace target tree with the MR tree, then
-provide results from that. We'll see how this works out in practice.
-(It should be just `dim rebuild-tip` after pointing all the branches at
-the required commits?)
+Switch drm_dp_tunnel.c to use new set of DPCD read / write helpers.
 
-This also means having a backup drm/tip source when fd.o is offline is
-out; it's patched into too many places if dim gets used.
+Reviewed-by: Lyude Paul <lyude@redhat.com>
+Acked-by: Jani Nikula <jani.nikula@intel.com>
+Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+---
+ drivers/gpu/drm/display/drm_dp_tunnel.c | 20 ++++++++++----------
+ 1 file changed, 10 insertions(+), 10 deletions(-)
 
-Ryszard
+diff --git a/drivers/gpu/drm/display/drm_dp_tunnel.c b/drivers/gpu/drm/display/drm_dp_tunnel.c
+index 90fe07a89260e21e78f2db7f57a90602be921a11..076edf1610480275c62395334ab0536befa42f15 100644
+--- a/drivers/gpu/drm/display/drm_dp_tunnel.c
++++ b/drivers/gpu/drm/display/drm_dp_tunnel.c
+@@ -222,7 +222,7 @@ static int read_tunnel_regs(struct drm_dp_aux *aux, struct drm_dp_tunnel_regs *r
+ 	while ((len = next_reg_area(&offset))) {
+ 		int address = DP_TUNNELING_BASE + offset;
+ 
+-		if (drm_dp_dpcd_read(aux, address, tunnel_reg_ptr(regs, address), len) < 0)
++		if (drm_dp_dpcd_read_data(aux, address, tunnel_reg_ptr(regs, address), len) < 0)
+ 			return -EIO;
+ 
+ 		offset += len;
+@@ -913,7 +913,7 @@ static int set_bw_alloc_mode(struct drm_dp_tunnel *tunnel, bool enable)
+ 	u8 mask = DP_DISPLAY_DRIVER_BW_ALLOCATION_MODE_ENABLE | DP_UNMASK_BW_ALLOCATION_IRQ;
+ 	u8 val;
+ 
+-	if (drm_dp_dpcd_readb(tunnel->aux, DP_DPTX_BW_ALLOCATION_MODE_CONTROL, &val) < 0)
++	if (drm_dp_dpcd_read_byte(tunnel->aux, DP_DPTX_BW_ALLOCATION_MODE_CONTROL, &val) < 0)
+ 		goto out_err;
+ 
+ 	if (enable)
+@@ -921,7 +921,7 @@ static int set_bw_alloc_mode(struct drm_dp_tunnel *tunnel, bool enable)
+ 	else
+ 		val &= ~mask;
+ 
+-	if (drm_dp_dpcd_writeb(tunnel->aux, DP_DPTX_BW_ALLOCATION_MODE_CONTROL, val) < 0)
++	if (drm_dp_dpcd_write_byte(tunnel->aux, DP_DPTX_BW_ALLOCATION_MODE_CONTROL, val) < 0)
+ 		goto out_err;
+ 
+ 	tunnel->bw_alloc_enabled = enable;
+@@ -1039,7 +1039,7 @@ static int clear_bw_req_state(struct drm_dp_aux *aux)
+ {
+ 	u8 bw_req_mask = DP_BW_REQUEST_SUCCEEDED | DP_BW_REQUEST_FAILED;
+ 
+-	if (drm_dp_dpcd_writeb(aux, DP_TUNNELING_STATUS, bw_req_mask) < 0)
++	if (drm_dp_dpcd_write_byte(aux, DP_TUNNELING_STATUS, bw_req_mask) < 0)
+ 		return -EIO;
+ 
+ 	return 0;
+@@ -1052,7 +1052,7 @@ static int bw_req_complete(struct drm_dp_aux *aux, bool *status_changed)
+ 	u8 val;
+ 	int err;
+ 
+-	if (drm_dp_dpcd_readb(aux, DP_TUNNELING_STATUS, &val) < 0)
++	if (drm_dp_dpcd_read_byte(aux, DP_TUNNELING_STATUS, &val) < 0)
+ 		return -EIO;
+ 
+ 	*status_changed = val & status_change_mask;
+@@ -1095,7 +1095,7 @@ static int allocate_tunnel_bw(struct drm_dp_tunnel *tunnel, int bw)
+ 	if (err)
+ 		goto out;
+ 
+-	if (drm_dp_dpcd_writeb(tunnel->aux, DP_REQUEST_BW, request_bw) < 0) {
++	if (drm_dp_dpcd_write_byte(tunnel->aux, DP_REQUEST_BW, request_bw) < 0) {
+ 		err = -EIO;
+ 		goto out;
+ 	}
+@@ -1196,13 +1196,13 @@ static int check_and_clear_status_change(struct drm_dp_tunnel *tunnel)
+ 	u8 mask = DP_BW_ALLOCATION_CAPABILITY_CHANGED | DP_ESTIMATED_BW_CHANGED;
+ 	u8 val;
+ 
+-	if (drm_dp_dpcd_readb(tunnel->aux, DP_TUNNELING_STATUS, &val) < 0)
++	if (drm_dp_dpcd_read_byte(tunnel->aux, DP_TUNNELING_STATUS, &val) < 0)
+ 		goto out_err;
+ 
+ 	val &= mask;
+ 
+ 	if (val) {
+-		if (drm_dp_dpcd_writeb(tunnel->aux, DP_TUNNELING_STATUS, val) < 0)
++		if (drm_dp_dpcd_write_byte(tunnel->aux, DP_TUNNELING_STATUS, val) < 0)
+ 			goto out_err;
+ 
+ 		return 1;
+@@ -1215,7 +1215,7 @@ static int check_and_clear_status_change(struct drm_dp_tunnel *tunnel)
+ 	 * Check for estimated BW changes explicitly to account for lost
+ 	 * BW change notifications.
+ 	 */
+-	if (drm_dp_dpcd_readb(tunnel->aux, DP_ESTIMATED_BW, &val) < 0)
++	if (drm_dp_dpcd_read_byte(tunnel->aux, DP_ESTIMATED_BW, &val) < 0)
+ 		goto out_err;
+ 
+ 	if (val * tunnel->bw_granularity != tunnel->estimated_bw)
+@@ -1300,7 +1300,7 @@ int drm_dp_tunnel_handle_irq(struct drm_dp_tunnel_mgr *mgr, struct drm_dp_aux *a
+ {
+ 	u8 val;
+ 
+-	if (drm_dp_dpcd_readb(aux, DP_TUNNELING_STATUS, &val) < 0)
++	if (drm_dp_dpcd_read_byte(aux, DP_TUNNELING_STATUS, &val) < 0)
+ 		return -EIO;
+ 
+ 	if (val & (DP_BW_REQUEST_SUCCEEDED | DP_BW_REQUEST_FAILED))
 
-> I don't think these are hard requests at this time, and should not block
-> the forward progress, but it's maybe something you want to consider so
-> you're not inadvertently creating problems for your future self!
->=20
-> > CI itself would not run in the native forge CI either way, but rather
-> > on our Jenkins infra, as it does today. If there's ever a need to
-> > switch forges, it would require reworking the bridging/reporting bits,
-> > but not *all* the bits.
-> >=20
-> > We don't want to self-host another forge as we don't have enough people
-> > and free time to do that properly. Codeberg, etc are not an option due
-> > to the drm-tip repo size.
-> >=20
-> > And that's the initial idea. Thoughts? Do you like any of this, or does
-> > it sound like a downgrade from what we have today?
->=20
-> I think it sounds good overall. I don't like the flood of mails, and
-> they don't have complete information anyway. I'm hopeful using
-> github/gitlab would make the whole CI slightly more transparent too.
->=20
-> I wouldn't mind sunsetting fdo patchwork at all.
->=20
->=20
-> BR,
-> Jani.
->=20
+-- 
+2.39.5
 
