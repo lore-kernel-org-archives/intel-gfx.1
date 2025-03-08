@@ -4,73 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2FB09C282EC
-	for <intel-gfx@archiver.kernel.org>; Mon, 10 Mar 2025 14:02:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 33808C35FF1
+	for <intel-gfx@archiver.kernel.org>; Mon, 10 Mar 2025 14:02:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DDD3010E469;
+	by gabe.freedesktop.org (Postfix) with ESMTP id D993410E468;
 	Mon, 10 Mar 2025 14:02:28 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="DILCqc9S";
+	dkim=pass (1024-bit key; unprotected) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="DP9QJhXX";
 	dkim-atps=neutral
-Received: from nyc.source.kernel.org (nyc.source.kernel.org [147.75.193.91])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F1D5010EBED;
- Fri,  7 Mar 2025 16:49:39 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by nyc.source.kernel.org (Postfix) with ESMTP id 2A719A44222;
- Fri,  7 Mar 2025 16:44:08 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 5781CC4CEEA;
- Fri,  7 Mar 2025 16:49:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1741366178;
- bh=A27ZByqIu85Vwzbq7Hul+aBd0ddgD7GBq45M2NSodA0=;
- h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
- b=DILCqc9SpFreQAOblXW0klkY3CUBCqIyxvfrN5t0Hb3jxlDYnwo4fz9GWUleuf9Tt
- sJG35oQrGjn7bLdQUUc8wLPfQ78HSyXkPGVFjiF5Awjsy7g1XuZWVSoXyBIxNkh+J6
- Kmo1+wQHW/le1NHerHoyPIjGFeLhud51qexof9m8Q+O60jamnZxXgy5E7ntq1crqt+
- md+ypSqTfUof23q03VqgTgSBUti5qAfLWmDNQPuq7uZMSWgtbvUYoIsXqokZWRZP2w
- 5fTMQozAwNpBkByFEonx+Kl+9+DASn/ZoaTv2DOpeXJkLCz3rFXUVd0txQknwlF+sj
- zO8CTb0fnBYRA==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org
- (localhost.localdomain [127.0.0.1])
- by smtp.lore.kernel.org (Postfix) with ESMTP id 4D2BFC28B24;
- Fri,  7 Mar 2025 16:49:38 +0000 (UTC)
-From: Vincent Mailhol via B4 Relay
- <devnull+mailhol.vincent.wanadoo.fr@kernel.org>
-Date: Sat, 08 Mar 2025 01:48:53 +0900
-Subject: [PATCH v6 6/7] test_bits: add tests for GENMASK_U*()
+X-Greylist: delayed 303 seconds by postgrey-1.36 at gabe;
+ Sat, 08 Mar 2025 05:37:09 UTC
+Received: from out30-131.freemail.mail.aliyun.com
+ (out30-131.freemail.mail.aliyun.com [115.124.30.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B39A910E1FB
+ for <intel-gfx@lists.freedesktop.org>; Sat,  8 Mar 2025 05:37:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linux.alibaba.com; s=default;
+ t=1741412227; h=Message-ID:Date:MIME-Version:Subject:To:From:Content-Type;
+ bh=QwGokHK8MWELbszfeUznitYDMBt/G0N6Dzae0aons/k=;
+ b=DP9QJhXXtN8oUBRQXnZpF2hMr2W3hGgGdfWzE5j1FylkQp5W15649pOQMiUKu20RiLFhnTTEkE3ztcR0Fh7EEHh6DMMxKyxHtKCBUXVLtg0Ov10L3ZUnZ6IwO1m+Fk3Ng+uDTb+bxxfO38lnR8O6VhOnDEM44NTPZNpTinD+xQY=
+Received: from 30.221.80.100(mailfrom:baolin.wang@linux.alibaba.com
+ fp:SMTPD_---0WQu7mhO_1741411914 cluster:ay36) by smtp.aliyun-inc.com;
+ Sat, 08 Mar 2025 13:31:55 +0800
+Message-ID: <88098e5c-1514-4d8d-a220-531a9b473ae3@linux.alibaba.com>
+Date: Sat, 8 Mar 2025 13:31:54 +0800
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 08/11] shmem: Add shmem_writeout()
+To: "Matthew Wilcox (Oracle)" <willy@infradead.org>,
+ linux-fsdevel@vger.kernel.org
+Cc: linux-mm@kvack.org, intel-gfx@lists.freedesktop.org
+References: <20250307135414.2987755-1-willy@infradead.org>
+ <20250307135414.2987755-9-willy@infradead.org>
+From: Baolin Wang <baolin.wang@linux.alibaba.com>
+In-Reply-To: <20250307135414.2987755-9-willy@infradead.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-Message-Id: <20250308-fixed-type-genmasks-v6-6-f59315e73c29@wanadoo.fr>
-References: <20250308-fixed-type-genmasks-v6-0-f59315e73c29@wanadoo.fr>
-In-Reply-To: <20250308-fixed-type-genmasks-v6-0-f59315e73c29@wanadoo.fr>
-To: Yury Norov <yury.norov@gmail.com>, 
- Lucas De Marchi <lucas.demarchi@intel.com>, 
- Rasmus Villemoes <linux@rasmusvillemoes.dk>, 
- Jani Nikula <jani.nikula@linux.intel.com>, 
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, 
- Rodrigo Vivi <rodrigo.vivi@intel.com>, 
- Tvrtko Ursulin <tursulin@ursulin.net>, David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>, Andrew Morton <akpm@linux-foundation.org>
-Cc: linux-kernel@vger.kernel.org, intel-gfx@lists.freedesktop.org, 
- dri-devel@lists.freedesktop.org, Andi Shyti <andi.shyti@linux.intel.com>, 
- David Laight <David.Laight@ACULAB.COM>, 
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, 
- Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
- Vincent Mailhol <mailhol.vincent@wanadoo.fr>
-X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2296;
- i=mailhol.vincent@wanadoo.fr; h=from:subject:message-id;
- bh=j0nK1n7HyOdR4Oswzr/6a6KRsk/rL8POHAuDHHXcC7A=;
- b=owGbwMvMwCV2McXO4Xp97WbG02pJDOmnlad/36Sy9GaiYs0v3tIA9782E159iZ51/0KCRvNRI
- RXt4zyKHaUsDGJcDLJiiizLyjm5FToKvcMO/bWEmcPKBDKEgYtTACYiW87wP6v0Vgbf/EcmEtMu
- 7/7Dy851YoZM7MmHnjN+SIicZeRlWsfwP+jM1ZCu9uYks69Kf+ccklnuqlSdYnDdMPOOv/VbQ0c
- LLgA=
-X-Developer-Key: i=mailhol.vincent@wanadoo.fr; a=openpgp;
- fpr=ED8F700574E67F20E574E8E2AB5FEB886DBB99C2
-X-Endpoint-Received: by B4 Relay for mailhol.vincent@wanadoo.fr/default
- with auth_id=291
-X-Original-From: Vincent Mailhol <mailhol.vincent@wanadoo.fr>
 X-Mailman-Approved-At: Mon, 10 Mar 2025 14:02:27 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -84,89 +53,88 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: mailhol.vincent@wanadoo.fr
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Lucas De Marchi <lucas.demarchi@intel.com>
-
-Add some additional tests in lib/test_bits.c to cover the
-expected/non-expected values of the fixed-type GENMASK_U*() macros.
-
-Also check that the result value matches the expected type. Since
-those are known at build time, use static_assert() instead of normal
-kunit tests.
-
-Signed-off-by: Lucas De Marchi <lucas.demarchi@intel.com>
-Signed-off-by: Vincent Mailhol <mailhol.vincent@wanadoo.fr>
----
-Changelog:
-
-  v5 -> v6:
-
-    - No changes.
-
-  v4 -> v5:
-
-    - Revert v4 change. GENMASK_U8()/GENMASK_U16() are now back to
-      u8/u16.
-
-  v3 -> v4:
-
-    - Adjust the type of GENMASK_U8()/GENMASK_U16() from u8/u16 to
-      unsigned int.
-
-    - Reorder the tests to match the order in which the macros are
-      declared in bits.h.
----
- lib/test_bits.c | 20 ++++++++++++++++++++
- 1 file changed, 20 insertions(+)
-
-diff --git a/lib/test_bits.c b/lib/test_bits.c
-index b0c29b01fb30cbcc759ac1e7106457b18bcd73a0..87112d1895194da33c0ffdf0a6fe6df43ce6b1e7 100644
---- a/lib/test_bits.c
-+++ b/lib/test_bits.c
-@@ -5,6 +5,16 @@
- 
- #include <kunit/test.h>
- #include <linux/bits.h>
-+#include <linux/types.h>
-+
-+#define assert_type(t, x) _Generic(x, t: x, default: 0)
-+
-+static_assert(assert_type(unsigned long, GENMASK(31, 0)) == U32_MAX);
-+static_assert(assert_type(unsigned long long, GENMASK_ULL(63, 0)) == U64_MAX);
-+static_assert(assert_type(u8, GENMASK_U8(7, 0)) == U8_MAX);
-+static_assert(assert_type(u16, GENMASK_U16(15, 0)) == U16_MAX);
-+static_assert(assert_type(u32, GENMASK_U32(31, 0)) == U32_MAX);
-+static_assert(assert_type(u64, GENMASK_U64(63, 0)) == U64_MAX);
- 
- /* FIXME: add a test case written in asm for GENMASK() and GENMASK_ULL() */
- 
-@@ -31,11 +41,21 @@ static void genmask_test(struct kunit *test)
- 	KUNIT_EXPECT_EQ(test, 6ul, GENMASK(2, 1));
- 	KUNIT_EXPECT_EQ(test, 0xFFFFFFFFul, GENMASK(31, 0));
- 
-+	KUNIT_EXPECT_EQ(test, 1u, GENMASK_U8(0, 0));
-+	KUNIT_EXPECT_EQ(test, 3u, GENMASK_U16(1, 0));
-+	KUNIT_EXPECT_EQ(test, 0x10000, GENMASK_U32(16, 16));
-+
- #ifdef TEST_GENMASK_FAILURES
- 	/* these should fail compilation */
- 	GENMASK(0, 1);
- 	GENMASK(0, 10);
- 	GENMASK(9, 10);
-+
-+	GENMASK_U32(0, 31);
-+	GENMASK_U64(64, 0);
-+	GENMASK_U32(32, 0);
-+	GENMASK_U16(16, 0);
-+	GENMASK_U8(8, 0);
- #endif
- 
- 
-
--- 
-2.45.3
 
 
+On 2025/3/7 21:54, Matthew Wilcox (Oracle) wrote:
+> This will be the replacement for shmem_writepage().
+> 
+> Signed-off-by: Matthew Wilcox (Oracle) <willy@infradead.org>
+
+LGTM.
+Reviewed-by: Baolin Wang <baolin.wang@linux.alibaba.com>
+
+> ---
+>   include/linux/shmem_fs.h |  7 ++++---
+>   mm/shmem.c               | 20 ++++++++++++++------
+>   2 files changed, 18 insertions(+), 9 deletions(-)
+> 
+> diff --git a/include/linux/shmem_fs.h b/include/linux/shmem_fs.h
+> index 0b273a7b9f01..5f03a39a26f7 100644
+> --- a/include/linux/shmem_fs.h
+> +++ b/include/linux/shmem_fs.h
+> @@ -104,10 +104,11 @@ static inline bool shmem_mapping(struct address_space *mapping)
+>   	return false;
+>   }
+>   #endif /* CONFIG_SHMEM */
+> -extern void shmem_unlock_mapping(struct address_space *mapping);
+> -extern struct page *shmem_read_mapping_page_gfp(struct address_space *mapping,
+> +void shmem_unlock_mapping(struct address_space *mapping);
+> +struct page *shmem_read_mapping_page_gfp(struct address_space *mapping,
+>   					pgoff_t index, gfp_t gfp_mask);
+> -extern void shmem_truncate_range(struct inode *inode, loff_t start, loff_t end);
+> +int shmem_writeout(struct folio *folio, struct writeback_control *wbc);
+> +void shmem_truncate_range(struct inode *inode, loff_t start, loff_t end);
+>   int shmem_unuse(unsigned int type);
+>   
+>   #ifdef CONFIG_TRANSPARENT_HUGEPAGE
+> diff --git a/mm/shmem.c b/mm/shmem.c
+> index ba162e991285..427b7f70fffb 100644
+> --- a/mm/shmem.c
+> +++ b/mm/shmem.c
+> @@ -1536,12 +1536,20 @@ int shmem_unuse(unsigned int type)
+>   	return error;
+>   }
+>   
+> -/*
+> - * Move the page from the page cache to the swap cache.
+> - */
+>   static int shmem_writepage(struct page *page, struct writeback_control *wbc)
+>   {
+> -	struct folio *folio = page_folio(page);
+> +	return shmem_writeout(page_folio(page), wbc);
+> +}
+> +
+> +/**
+> + * shmem_writeout - Write the folio to swap
+> + * @folio: The folio to write
+> + * @wbc: How writeback is to be done
+> + *
+> + * Move the folio from the page cache to the swap cache.
+> + */
+> +int shmem_writeout(struct folio *folio, struct writeback_control *wbc)
+> +{
+>   	struct address_space *mapping = folio->mapping;
+>   	struct inode *inode = mapping->host;
+>   	struct shmem_inode_info *info = SHMEM_I(inode);
+> @@ -1586,9 +1594,8 @@ static int shmem_writepage(struct page *page, struct writeback_control *wbc)
+>   try_split:
+>   		/* Ensure the subpages are still dirty */
+>   		folio_test_set_dirty(folio);
+> -		if (split_huge_page_to_list_to_order(page, wbc->list, 0))
+> +		if (split_folio_to_list(folio, wbc->list))
+>   			goto redirty;
+> -		folio = page_folio(page);
+>   		folio_clear_dirty(folio);
+>   	}
+>   
+> @@ -1660,6 +1667,7 @@ static int shmem_writepage(struct page *page, struct writeback_control *wbc)
+>   	folio_unlock(folio);
+>   	return 0;
+>   }
+> +EXPORT_SYMBOL_GPL(shmem_writeout);
+>   
+>   #if defined(CONFIG_NUMA) && defined(CONFIG_TMPFS)
+>   static void shmem_show_mpol(struct seq_file *seq, struct mempolicy *mpol)
