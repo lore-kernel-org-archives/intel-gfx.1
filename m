@@ -4,74 +4,35 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 726D0C35FF5
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 17FDCC35FF3
 	for <intel-gfx@archiver.kernel.org>; Mon, 10 Mar 2025 14:02:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F097D10E46E;
-	Mon, 10 Mar 2025 14:02:32 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="c5duZbF7";
-	dkim-atps=neutral
-Received: from nyc.source.kernel.org (nyc.source.kernel.org [147.75.193.91])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9DCE410EBED;
- Fri,  7 Mar 2025 16:49:39 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by nyc.source.kernel.org (Postfix) with ESMTP id 18D87A43CFD;
- Fri,  7 Mar 2025 16:44:08 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 4488CC4CEEB;
- Fri,  7 Mar 2025 16:49:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1741366178;
- bh=xHN1wO8JIBs8dMNmj2V57Qxs0leYUAeta41GH32VPwo=;
- h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
- b=c5duZbF7hKLqE7lOXMf+ayDrkGeg/aTo6o3pcgA6dx/Glh5c8Py6fCrdPbPyrZ6ZC
- pFQAiPfA+QK7WLsW3uFwVnTJwFli/cKMo9tYTnLKDiQx12UAKg1zbMQygCa0unLctC
- YEuqeiZHJMIclrxFaRCZniknjxeslar4VSvIYFQ2aqN9jx4WRiE66NtrC00lcXZvw8
- aqlscA5dAw83GbCGzAOqLXiowVBO22aU78BViF5t523B2YBAMEohwXCfEs5GscZlxM
- IWgMnAcWpnc2NfAVcmxNR6JZVtOgxgK1kgOgUAS/DpjDMwv2rO8IaWo5Uve3aipvnu
- NxmrlAVmCwvPA==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org
- (localhost.localdomain [127.0.0.1])
- by smtp.lore.kernel.org (Postfix) with ESMTP id 3B163C19F32;
- Fri,  7 Mar 2025 16:49:38 +0000 (UTC)
-From: Vincent Mailhol via B4 Relay
- <devnull+mailhol.vincent.wanadoo.fr@kernel.org>
-Date: Sat, 08 Mar 2025 01:48:52 +0900
-Subject: [PATCH v6 5/7] test_bits: add tests for __GENMASK() and
- __GENMASK_ULL()
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8591710E2A6;
+	Mon, 10 Mar 2025 14:02:29 +0000 (UTC)
+X-Greylist: delayed 446 seconds by postgrey-1.36 at gabe;
+ Sun, 09 Mar 2025 16:12:18 UTC
+Received: from psionic.psi5.com (psionic.psi5.com [185.187.169.70])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 61D4310E244
+ for <intel-gfx@lists.freedesktop.org>; Sun,  9 Mar 2025 16:12:18 +0000 (UTC)
+Received: from [IPV6:2400:2410:b120:f200:9e5c:8eff:fec0:ee40] (unknown
+ [IPv6:2400:2410:b120:f200:9e5c:8eff:fec0:ee40])
+ (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ (Client did not present a certificate)
+ by psionic.psi5.com (Postfix) with ESMTPSA id 057753F1DF
+ for <intel-gfx@lists.freedesktop.org>; Sun,  9 Mar 2025 17:04:40 +0100 (CET)
+Message-ID: <aa90481c-8cb4-4d5b-a440-7e1930543c9d@hogyros.de>
+Date: Mon, 10 Mar 2025 01:04:36 +0900
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20250308-fixed-type-genmasks-v6-5-f59315e73c29@wanadoo.fr>
-References: <20250308-fixed-type-genmasks-v6-0-f59315e73c29@wanadoo.fr>
-In-Reply-To: <20250308-fixed-type-genmasks-v6-0-f59315e73c29@wanadoo.fr>
-To: Yury Norov <yury.norov@gmail.com>, 
- Lucas De Marchi <lucas.demarchi@intel.com>, 
- Rasmus Villemoes <linux@rasmusvillemoes.dk>, 
- Jani Nikula <jani.nikula@linux.intel.com>, 
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, 
- Rodrigo Vivi <rodrigo.vivi@intel.com>, 
- Tvrtko Ursulin <tursulin@ursulin.net>, David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>, Andrew Morton <akpm@linux-foundation.org>
-Cc: linux-kernel@vger.kernel.org, intel-gfx@lists.freedesktop.org, 
- dri-devel@lists.freedesktop.org, Andi Shyti <andi.shyti@linux.intel.com>, 
- David Laight <David.Laight@ACULAB.COM>, 
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, 
- Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
- Vincent Mailhol <mailhol.vincent@wanadoo.fr>
-X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2063;
- i=mailhol.vincent@wanadoo.fr; h=from:subject:message-id;
- bh=Xu4Eq0mDLfrGXDRUnNVBdzOqH0fc/yYOLQ/094sdOiE=;
- b=owGbwMvMwCV2McXO4Xp97WbG02pJDOmnlSfnJi37d59l98GqGt/JV2SkWCpPLb+s6bzprURa/
- O+OVOY9HaUsDGJcDLJiiizLyjm5FToKvcMO/bWEmcPKBDKEgYtTACaiXcnIsK8n+96MEyc6epR2
- LGqTSFh59p+18hHzr6L7X+7MSVxxvIWR4bvzbBenOywtZSrdMWkr5M1jqx/uF5wbKt2c8WDNnTN
- sXAA=
-X-Developer-Key: i=mailhol.vincent@wanadoo.fr; a=openpgp;
- fpr=ED8F700574E67F20E574E8E2AB5FEB886DBB99C2
-X-Endpoint-Received: by B4 Relay for mailhol.vincent@wanadoo.fr/default
- with auth_id=291
-X-Original-From: Vincent Mailhol <mailhol.vincent@wanadoo.fr>
+User-Agent: Mozilla Thunderbird
+Content-Language: en-US
+To: intel-gfx@lists.freedesktop.org
+From: Simon Richter <Simon.Richter@hogyros.de>
+Subject: B580 on POWER9: Unable to handle kernel data access on read at
+ 0xc00a0000000003cc
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="------------KFgmTTYioB3Gi4tCW8wB3JzI"
 X-Mailman-Approved-At: Mon, 10 Mar 2025 14:02:27 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -85,80 +46,123 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: mailhol.vincent@wanadoo.fr
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Vincent Mailhol <mailhol.vincent@wanadoo.fr>
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--------------KFgmTTYioB3Gi4tCW8wB3JzI
+Content-Type: multipart/mixed; boundary="------------zEG0hxjHHrKiboUSkm2k0zU1";
+ protected-headers="v1"
+From: Simon Richter <Simon.Richter@hogyros.de>
+To: intel-gfx@lists.freedesktop.org
+Message-ID: <aa90481c-8cb4-4d5b-a440-7e1930543c9d@hogyros.de>
+Subject: B580 on POWER9: Unable to handle kernel data access on read at
+ 0xc00a0000000003cc
 
-The definitions of GENMASK() and GENMASK_ULL() do not depend any more
-on __GENMASK() and __GENMASK_ULL(). Duplicate the existing unit tests
-so that __GENMASK{,ULL}() is still covered.
+--------------zEG0hxjHHrKiboUSkm2k0zU1
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: base64
 
-It would be good to have a small assembly test case for GENMASK*() in
-case somebody decides to unify both in the future. However, I lack
-expertise in assembly to do so. Instead add a FIXME message to
-highlight the absence of the asm unit test.
+SGksDQoNCkkndmUgYnVpbHQgYSBob3JyaWJsZSBjb250cmFwdGlvbiBhbmQgcmVjZWl2ZWQg
+dGhlIGZvbGxvd2luZyBvdXRwdXQ6DQoNCkJVRzogVW5hYmxlIHRvIGhhbmRsZSBrZXJuZWwg
+ZGF0YSBhY2Nlc3Mgb24gcmVhZCBhdCAweGMwMGEwMDAwMDAwMDAzY2MNCkZhdWx0aW5nIGlu
+c3RydWN0aW9uIGFkZHJlc3M6IDB4YzAwODAwMDAwZGQ0NjQ4NA0KT29wczogS2VybmVsIGFj
+Y2VzcyBvZiBiYWQgYXJlYSwgc2lnOiAxMSBbIzFdDQpMRSBQQUdFX1NJWkU9NEsgTU1VPVJh
+ZGl4IFNNUCBOUl9DUFVTPTIwNDggTlVNQSBQb3dlck5WDQpNb2R1bGVzIGxpbmtlZCBpbjog
+eGUoKykgeHRfY29ubnRyYWNrIG5mdF9jaGFpbl9uYXQgeHRfTUFTUVVFUkFERSBuZl9uYXQg
+DQpuZl9jb25udHJhY2tfbmV0bGluayBuZl9jb25udHJhY2sgbmZfZGVmcmFnX2lwdjYgbmZf
+ZGVmcmFnX2lwdjQgDQp4ZnJtX3VzZXIgeGZybV9hbGdvIHh0X2FkZHJ0eXBlIG5mdF9jb21w
+YXQgeF90YWJsZXMgbmZfdGFibGVzIGxpYmNyYzMyYyANCm5mbmV0bGluayBicl9uZXRmaWx0
+ZXIgYnJpZGdlIHN0cCBsbGMgb3ZlcmxheSBiaW5mbXRfbWlzYyBldmRldiBqb3lkZXYgDQpo
+aWRfZ2VuZXJpYyB1c2JoaWQgaGlkIGNlYyByY19jb3JlIGRybV9ncHV2bSBkcm1fZXhlYyBk
+cm1fYnVkZHkgDQpncHVfc2NoZWQgZHJtX3N1YmFsbG9jX2hlbHBlciBkcm1fZGlzcGxheV9o
+ZWxwZXIgYXN0IGRybV90dG1faGVscGVyIHR0bSANCnNuZF9oZGFfaW50ZWwgZHJtX3NobWVt
+X2hlbHBlciBzbmRfaW50ZWxfZHNwY2ZnIGRybV9rbXNfaGVscGVyIA0Kc25kX2hkYV9jb2Rl
+YyBzbmRfaGRhX2NvcmUgZHJtIG9mcGFydCBzbmRfaHdkZXAgc25kX3BjbSB4dHMgaXBtaV9w
+b3dlcm52IA0Kc25kX3RpbWVyIGlwbWlfZGV2aW50ZiBwb3dlcm52X2ZsYXNoIHNuZCB2bXhf
+Y3J5cHRvIGdmMTI4bXVsIG10ZCANCmlwbWlfbXNnaGFuZGxlciBvcGFsX3ByZCBzb3VuZGNv
+cmUgYXQyNCBkcm1fcGFuZWxfb3JpZW50YXRpb25fcXVpcmtzIA0KaTJjX2FsZ29fYml0IHJl
+Z21hcF9pMmMgZXh0NCBjcmMxNiBtYmNhY2hlIGpiZDIgY3JjMzJjX2dlbmVyaWMgZG1fbW9k
+IA0KeGhjaV9wY2kgeGhjaV9oY2QgdGczIG52bWUgY3JjMzJjX3ZwbXN1bSB1c2Jjb3JlIG52
+bWVfY29yZSBsaWJwaHkgDQp1c2JfY29tbW9uIG52bWVfYXV0aCBbbGFzdCB1bmxvYWRlZDog
+eGVdDQpDUFU6IDMyIFVJRDogMCBQSUQ6IDQ1MyBDb21tOiBrd29ya2VyLzMyOjEgTm90IHRh
+aW50ZWQgDQo2LjEyLjEyK2Jwby1wb3dlcnBjNjRsZSAjMSAgRGViaWFuIDYuMTIuMTItMX5i
+cG8xMisxDQpIYXJkd2FyZSBuYW1lOiBUMlA5RDAxIFJFViAxLjAxIFBPV0VSOSAweDRlMTIw
+MiBvcGFsOnNraWJvb3QtOTg1ODE4NiBQb3dlck5WDQpXb3JrcXVldWU6IGV2ZW50cyB3b3Jr
+X2Zvcl9jcHVfZm4NCk5JUDogIGMwMDgwMDAwMGRkNDY0ODQgTFI6IGMwMDgwMDAwMGRkNDYz
+ODQgQ1RSOiAwMDAwMDAwMDMwMDZjMzk0DQpSRUdTOiBjMDAwMjAwMDBhNjM3NjYwIFRSQVA6
+IDAzMDAgICBOb3QgdGFpbnRlZCANCig2LjEyLjEyK2Jwby1wb3dlcnBjNjRsZSBEZWJpYW4g
+Ni4xMi4xMi0xfmJwbzEyKzEpDQpNU1I6ICA5MDAwMDAwMDAwMDA5MDMzIDxTRixIVixFRSxN
+RSxJUixEUixSSSxMRT4gIENSOiAyNDAwODQ4OCAgWEVSOiANCjIwMDQwMDAwDQpDRkFSOiBj
+MDA4MDAwMDBkZDQ2Mzk4IERBUjogYzAwYTAwMDAwMDAwMDNjYyBEU0lTUjogNDAwMDAwMDAg
+SVJRTUFTSzogMA0KR1BSMDA6IGMwMDgwMDAwMGRkNDYzODQgYzAwMDIwMDAwYTYzNzkwMCBj
+MDA4MDAwMDBkYjMwNjAwIGMwMGEwMDAwMDAwMDAzY2MNCkdQUjA0OiAwMDAwMDAwMDAwMDAw
+MDAwIDAwMDAwMDAwMDAwMDAwMDQgMDAwMDAwMDAzNWMyMDA2MCAwMDAwMDAwMDM1YzIwMDYw
+DQpHUFIwODogMDAwMDAwMDAwMDAwMDAwMCBjMDBhMDAwMDAwMDAwMDAwIDAwMDAwMDAwMDAw
+MDAwMDAgMDAwMDAwMDAwMDAwODAwMA0KR1BSMTI6IDAwMDAwMDAwMDAwMDAwMDAgYzAwMDIw
+MDdmZjdmZmIwMCBjMDAwMDAwMDAwMTdkMWNjIGMwMDAyMDAwMDVkNWMyMDANCkdQUjE2OiAw
+MDAwMDAwMDAwMDAwMDAwIDAwMDAwMDAwMDAwMDAwMDAgMDAwMDAwMDAwMDAwMDAwMCAwMDAw
+MDAwMDAwMDAwMDAwDQpHUFIyMDogMDAwMDAwMDAwMDAwMDAwMCBjMDAwMjAwN2ZiZWViMjgw
+IGMwMDgwMDAwMGRmMzUzNTAgYzAwODAwMDAwZGYzNTcwMA0KR1BSMjQ6IGMwMDgwMDAwMGRm
+MzU3MzAgYzAwMDIwMDAwNmY2MDAwMCAwMDAwMDAwMDAwMDAwMDAxIGMwMDAyMDAwMDZmNjE2
+MjgNCkdQUjI4OiAwMDAwMDAwMDAwMDAwMDAxIGMwMDAwMDAwMDI3NzAzZTAgMDAwMDAwMDAw
+MDAwMDAwMCBjMDAwMDAwMDBjMTY3MDAwDQpOSVAgW2MwMDgwMDAwMGRkNDY0ODRdIGludGVs
+X3ZnYV9yZXNldF9pb19tZW0rMHgxNDAvMHgxODggW3hlXQ0KTFIgW2MwMDgwMDAwMGRkNDYz
+ODRdIGludGVsX3ZnYV9yZXNldF9pb19tZW0rMHg0MC8weDE4OCBbeGVdDQpDYWxsIFRyYWNl
+Og0KW2MwMDAyMDAwMGE2Mzc5MDBdIFtjMDA4MDAwMDBkZDQ2Mzg0XSBpbnRlbF92Z2FfcmVz
+ZXRfaW9fbWVtKzB4NDAvMHgxODggDQpbeGVdICh1bnJlbGlhYmxlKQ0KW2MwMDAyMDAwMGE2
+Mzc5NDBdIFtjMDA4MDAwMDBkY2JiZDg4XSBoc3dfcG93ZXJfd2VsbF9lbmFibGUrMHgxZjAv
+MHgyMzggW3hlXQ0KW2MwMDAyMDAwMGE2Mzc5OTBdIFtjMDA4MDAwMDBkY2JlNDcwXSBpbnRl
+bF9wb3dlcl93ZWxsX2VuYWJsZSsweDhjLzB4YjggW3hlXQ0KW2MwMDAyMDAwMGE2MzdhMDBd
+IFtjMDA4MDAwMDBkY2I2ZDA4XSANCl9faW50ZWxfZGlzcGxheV9wb3dlcl9nZXRfZG9tYWlu
+LnBhcnQuMCsweDk4LzB4ZjQgW3hlXQ0KW2MwMDAyMDAwMGE2MzdhNTBdIFtjMDA4MDAwMDBk
+Y2I5MjYwXSANCmludGVsX3Bvd2VyX2RvbWFpbnNfaW5pdF9odysweDk0LzB4M2E4IFt4ZV0N
+CltjMDAwMjAwMDBhNjM3YWYwXSBbYzAwODAwMDAwZGNhZmNhNF0gDQppbnRlbF9kaXNwbGF5
+X2RyaXZlcl9wcm9iZV9ub2lycSsweGY0LzB4MzAwIFt4ZV0NCltjMDAwMjAwMDBhNjM3Yjcw
+XSBbYzAwODAwMDAwZGM0ZjEyNF0geGVfZGlzcGxheV9pbml0X25vaXJxKzB4ODAvMHgxMjQg
+W3hlXQ0KW2MwMDAyMDAwMGE2MzdiYTBdIFtjMDA4MDAwMDBkYmNlZTk4XSB4ZV9kZXZpY2Vf
+cHJvYmUrMHg0MTQvMHg3NjggW3hlXQ0KW2MwMDAyMDAwMGE2MzdjMzBdIFtjMDA4MDAwMDBk
+YzEzMzcwXSB4ZV9wY2lfcHJvYmUrMHg3N2MvMHhjNjAgW3hlXQ0KW2MwMDAyMDAwMGE2Mzdk
+OTBdIFtjMDAwMDAwMDAwOWY0NTQwXSBsb2NhbF9wY2lfcHJvYmUrMHg2OC8weGY0DQpbYzAw
+MDIwMDAwYTYzN2UxMF0gW2MwMDAwMDAwMDAxNjljZGNdIHdvcmtfZm9yX2NwdV9mbisweDM4
+LzB4NTQNCltjMDAwMjAwMDBhNjM3ZTQwXSBbYzAwMDAwMDAwMDE2ZmYyNF0gcHJvY2Vzc19v
+bmVfd29yaysweDFmYy8weDRkNA0KW2MwMDAyMDAwMGE2MzdlZjBdIFtjMDAwMDAwMDAwMTcw
+ZTNjXSB3b3JrZXJfdGhyZWFkKzB4MzNjLzB4NTA0DQpbYzAwMDIwMDAwYTYzN2Y5MF0gW2Mw
+MDAwMDAwMDAxN2QyZmNdIGt0aHJlYWQrMHgxMzgvMHgxNDANCltjMDAwMjAwMDBhNjM3ZmUw
+XSBbYzAwMDAwMDAwMDAwZGU1OF0gc3RhcnRfa2VybmVsX3RocmVhZCsweDE0LzB4MTgNCkNv
+ZGU6IGViYzFmZmYwIGViZTFmZmY4IDdjMDgwM2E2IDRlODAwMDIwIDYwMDAwMDAwIDYwMDAw
+MDAwIDYwNDIwMDAwIA0KM2QyMjAwMDAgZTkyOTE4MDAgZTkyOTAwMDAgMzg2OTAzY2MgN2Mw
+MDA0YWMgPDhiYzkwM2NjPiAwYzFlMDAwMCANCjRjMDAwMTJjIDU3YzkwNjNlDQotLS1bIGVu
+ZCB0cmFjZSAwMDAwMDAwMDAwMDAwMDAwIF0tLS0NCg0Kbm90ZToga3dvcmtlci8zMjoxWzQ1
+M10gZXhpdGVkIHdpdGggaXJxcyBkaXNhYmxlZA0KDQpUaGUgZmF1bHRpbmcgbGluZSBpcw0K
+DQogICAgIG91dGIoaW5iKFZHQV9NSVNfUiksIFZHQV9NSVNfVyk7DQoNCmluIGRyaXZlcnMv
+Z3B1L2RybS9pOTE1L2Rpc3BsYXkvaW50ZWxfdmdhLmMNCg0KVGhlIDB4M2NjIG9mZnNldCBp
+cyBWR0FfTUlTX1IsIGFuZCBSOSBwb2ludHMgdG8gYzAwYTAwMDAwMDAwMDAwMCwgd2hlcmUg
+DQp0aGUgSS9PIHBvcnRzIGFyZSBtYXBwZWQgLS0gaG93ZXZlciB0aGUgbGVnYWN5IHBvcnRz
+IGRvbid0IHNlZW0gdG8gYmUgDQphY3RpdmUgaWYgdGhlIGNhcmQgd2FzIG5ldmVyIGluaXRp
+YWxpemVkIGF0IGJvb3QsIHdoaWNoIGl0IGlzbid0LCANCmJlY2F1c2UgdGhlIEJNQydzIFZH
+QSBlbXVsYXRpb24gaXMgcHJlZmVycmVkLg0KDQpDb21tZW50aW5nIG91dCB0aGUgY2FsbCB0
+byBpbnRlbF92Z2FfcmVzZXRfaW9fbWVtIHNvbHZlcyB0aGUgcHJvYmxlbSwgDQphbmQgSSBn
+ZXQgd29uZGVyZnVsIDEwODBwNjAgb3V0cHV0IC0tIGJ1dCBvYnZpb3VzbHkgdGhhdCBpcyBu
+b3QgYSANCmdlbmVyaWMgc29sdXRpb24uDQoNCiAgICBTaW1vbg0K
 
-Signed-off-by: Vincent Mailhol <mailhol.vincent@wanadoo.fr>
----
-Changelog:
+--------------zEG0hxjHHrKiboUSkm2k0zU1--
 
-  v5 -> v6:
+--------------KFgmTTYioB3Gi4tCW8wB3JzI
+Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="OpenPGP_signature.asc"
 
-    - Add a FIXME message to highlight the absence of the asm
-      GENMASK*() unit tests.
+-----BEGIN PGP SIGNATURE-----
 
-  v4 -> v5:
+iQEzBAEBCgAdFiEEtjuqOJSXmNjSiX3Tfr04e7CZCBEFAmfNvBQACgkQfr04e7CZ
+CBEcdAf/VxuIYVxPE9llydspExlCeljSpQZqQGhtQ/UR54bFHWPvBkvVFwBRYnhM
+72mKaPnwAkGLwMmUyN0SzWyjRYVzwAUjMy3tWCwZ61S9aLnBUCK4lc2Ybki85PyO
+JSZHXXUtQpYY60m7Iu2oXF+tBLKIzmG8nkm/JhaEab1JtbxPFM/Pqc8Aodz+tW4T
+halfQu3qkK7taSAa/kUF0rtdk3O8WP/ojvc/3DNB5Jzscdvz6tsiGWg1STu9kFrF
+RDKP9JiTfqil1L7S4CilF/etu3nPWH8Lm6XdOMXZN5KEQoik5SCE2TJ+LL6Dhzjp
+QWaWpLWbdvKL/+uJQ5C5FIBpF/9qRQ==
+=0hVH
+-----END PGP SIGNATURE-----
 
-    - No changes.
-
-  v3 -> v4:
-
-    - New patch.
----
- lib/test_bits.c | 19 +++++++++++++++++++
- 1 file changed, 19 insertions(+)
-
-diff --git a/lib/test_bits.c b/lib/test_bits.c
-index c7b38d91e1f16d42b7ca92e62fbd6c19b37e76a0..b0c29b01fb30cbcc759ac1e7106457b18bcd73a0 100644
---- a/lib/test_bits.c
-+++ b/lib/test_bits.c
-@@ -6,6 +6,23 @@
- #include <kunit/test.h>
- #include <linux/bits.h>
- 
-+/* FIXME: add a test case written in asm for GENMASK() and GENMASK_ULL() */
-+
-+static void __genmask_test(struct kunit *test)
-+{
-+	KUNIT_EXPECT_EQ(test, 1ul, __GENMASK(0, 0));
-+	KUNIT_EXPECT_EQ(test, 3ul, __GENMASK(1, 0));
-+	KUNIT_EXPECT_EQ(test, 6ul, __GENMASK(2, 1));
-+	KUNIT_EXPECT_EQ(test, 0xFFFFFFFFul, __GENMASK(31, 0));
-+}
-+
-+static void __genmask_ull_test(struct kunit *test)
-+{
-+	KUNIT_EXPECT_EQ(test, 1ull, __GENMASK_ULL(0, 0));
-+	KUNIT_EXPECT_EQ(test, 3ull, __GENMASK_ULL(1, 0));
-+	KUNIT_EXPECT_EQ(test, 0x000000ffffe00000ull, __GENMASK_ULL(39, 21));
-+	KUNIT_EXPECT_EQ(test, 0xffffffffffffffffull, __GENMASK_ULL(63, 0));
-+}
- 
- static void genmask_test(struct kunit *test)
- {
-@@ -93,6 +110,8 @@ static void genmask_input_check_test(struct kunit *test)
- 
- 
- static struct kunit_case bits_test_cases[] = {
-+	KUNIT_CASE(__genmask_test),
-+	KUNIT_CASE(__genmask_ull_test),
- 	KUNIT_CASE(genmask_test),
- 	KUNIT_CASE(genmask_ull_test),
- 	KUNIT_CASE(genmask_u128_test),
-
--- 
-2.45.3
-
-
+--------------KFgmTTYioB3Gi4tCW8wB3JzI--
