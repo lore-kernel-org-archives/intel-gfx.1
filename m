@@ -4,180 +4,82 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BB134C28B2E
-	for <intel-gfx@archiver.kernel.org>; Thu, 13 Mar 2025 13:31:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EA43CC282DE
+	for <intel-gfx@archiver.kernel.org>; Thu, 13 Mar 2025 13:36:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 52AF010E88D;
-	Thu, 13 Mar 2025 13:31:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7A7C210E87F;
+	Thu, 13 Mar 2025 13:36:51 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="Fbdfq99M";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="BLf2X4K/";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E683810E87F;
- Thu, 13 Mar 2025 13:31:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1741872693; x=1773408693;
- h=message-id:date:subject:from:to:cc:references:
- in-reply-to:content-transfer-encoding:mime-version;
- bh=aWdaqYK1A++muerW57Vu6WXkBU9dmhfAKWari5V9Zgo=;
- b=Fbdfq99Mojdsq+Q0aFL9hobXhzleXDFIAjWFBBWHxS84qzbW7nj6qi4+
- D1lm4ikU+Eu+QJH1MTEzsymcuaYyv8a1HtVBDJ3MxazuCb6kXhtqLsq+x
- NWm6UoGpN4oMXou2OFZwlPLDsapyqD/08Jh1Io8n8CmsB4ujYTVAAJTS4
- 5S0+A0Lpb/4wHA6bZNJaGy5LsmJgaY7jAcPf1Fcc4P1gS30F6jacjrV/y
- uP1KpovVL5eJxfraSptzMfFuqODmkZu7T3AIoy/lF9brki0lXY7pUUtIt
- 33PLGwN7dEv569Mfg2u4ns33HZc8R49QN43+5dek622LGp9nX4Z0cC4e8 Q==;
-X-CSE-ConnectionGUID: 6DwMPDRGRziorb/1LZDY7w==
-X-CSE-MsgGUID: f003qkajTxyF4crMqbsFiw==
-X-IronPort-AV: E=McAfee;i="6700,10204,11372"; a="43119478"
-X-IronPort-AV: E=Sophos;i="6.14,244,1736841600"; d="scan'208";a="43119478"
-Received: from orviesa009.jf.intel.com ([10.64.159.149])
- by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 13 Mar 2025 06:31:30 -0700
-X-CSE-ConnectionGUID: Lk7DcbYESX65g6ZONg/iSg==
-X-CSE-MsgGUID: fkX/JYMFQbu5cyft4iOHrQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.14,244,1736841600"; d="scan'208";a="120669974"
-Received: from orsmsx901.amr.corp.intel.com ([10.22.229.23])
- by orviesa009.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 13 Mar 2025 06:31:29 -0700
-Received: from ORSMSX901.amr.corp.intel.com (10.22.229.23) by
- ORSMSX901.amr.corp.intel.com (10.22.229.23) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1544.14; Thu, 13 Mar 2025 06:31:28 -0700
-Received: from ORSEDG601.ED.cps.intel.com (10.7.248.6) by
- ORSMSX901.amr.corp.intel.com (10.22.229.23) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1544.14 via Frontend Transport; Thu, 13 Mar 2025 06:31:28 -0700
-Received: from NAM10-DM6-obe.outbound.protection.outlook.com (104.47.58.41) by
- edgegateway.intel.com (134.134.137.102) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.1.2507.44; Thu, 13 Mar 2025 06:31:28 -0700
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Cs1rzpL2bqfhPLjCU+8iM0X3p3AlmuqADpu5ldkidVr9q9mcRhZJ33HaGMnJMwjzh10gM2Zv1QUsFAvVAw/OnapnlpsyvcblSyCFomtl/oiXuxMyXaKcJAhNaLWcJV/uoi+oLAarz19ULgQVqCJQyAllglF/BzRetW0kEr/S9b1kJ7Lyi3bWZIl1359m1Tz4Xipg9ZviadiVcBqj+7flasamyLMaUWhr7YCQzrmZyvwyXcpil9eC1HKA/RnGPWbu+ld+BQ1XZivaMYksIXKpOaS3/mfXTUERQocxPRumoflaCoBfaibcz/kI5R5g7Ht7W+YoTU34eTyNDofX4Rnasg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Vs41u84PiOCUxDJuP74RPEgLsLWreQR+qcSn1LgcvW8=;
- b=triZXMemTwDkXB6DEE7AsASbS9fMteVfcWCE4VGJrXxfI9/XydNwITppAVdtbN5Kc5FPqyq0zoXuJ8WqVtp0H/2ZXypoFYuOrTdsQ2da36S5JvIEabBGkzYg8ZWWRlBOFhCcytvUOSGp6LvbnxYo7a8FWdCwSdYvnQF0jnNgUeo5vcuH5HD0lfJz5adI99vlic1JlkctD8xvNqdGrH93ErmW8hvDM6yhwWjKiHpko+P+PFcJ90MCegH5TB03ePravDLiBpSAH9lJIWCud5gEk4xP06/TuYXle20znxccl5MsOa2pP3A5o0PyMmBCcK9N+jwbfwEFCMLTdCXBLGSeZw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-Received: from DM4PR11MB5341.namprd11.prod.outlook.com (2603:10b6:5:390::22)
- by PH0PR11MB5808.namprd11.prod.outlook.com (2603:10b6:510:129::12) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8511.27; Thu, 13 Mar
- 2025 13:31:26 +0000
-Received: from DM4PR11MB5341.namprd11.prod.outlook.com
- ([fe80::397:7566:d626:e839]) by DM4PR11MB5341.namprd11.prod.outlook.com
- ([fe80::397:7566:d626:e839%7]) with mapi id 15.20.8511.026; Thu, 13 Mar 2025
- 13:31:25 +0000
-Message-ID: <19fe5ae0-5873-43a9-9a3d-b13adc8eb708@intel.com>
-Date: Thu, 13 Mar 2025 19:01:19 +0530
-User-Agent: Mozilla Thunderbird
-Subject: Re: [RESEND PATCH 0/8] VRR Refactor
-From: "Nautiyal, Ankit K" <ankit.k.nautiyal@intel.com>
-To: <intel-gfx@lists.freedesktop.org>
-CC: <intel-xe@lists.freedesktop.org>, <jani.nikula@linux.intel.com>,
- <ville.syrjala@linux.intel.com>, <mitulkumar.ajitkumar.golani@intel.com>
-References: <20250311093751.1329043-1-ankit.k.nautiyal@intel.com>
-Content-Language: en-US
-In-Reply-To: <20250311093751.1329043-1-ankit.k.nautiyal@intel.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: MA0PR01CA0102.INDPRD01.PROD.OUTLOOK.COM
- (2603:1096:a01:af::18) To DM4PR11MB5341.namprd11.prod.outlook.com
- (2603:10b6:5:390::22)
+Received: from mail-yw1-f181.google.com (mail-yw1-f181.google.com
+ [209.85.128.181])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0DA8B10E044;
+ Wed, 12 Mar 2025 16:26:58 +0000 (UTC)
+Received: by mail-yw1-f181.google.com with SMTP id
+ 00721157ae682-6fecfae554bso44225157b3.0; 
+ Wed, 12 Mar 2025 09:26:57 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1741796817; x=1742401617; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=KtbMoxoY+0r+dGRFaJbObtRqRCRzGoMTxZlGjKoABT8=;
+ b=BLf2X4K/JPn7y4ChfYtcQOn9P0w/vYmxGQESwHcvqEGlnWK3x4GYM/RaurQgSAs3rS
+ T3JiK+OWLfRmuO/QNdZ3dQdlYfkQ7KaIBHKEGJY1xznikhyAHF2XdPbSuKMZZ3jL9/QP
+ y1VZRwkTJZCOQNnXhXrAFAPFrPskAD2IRJKMHXPvnnu/s/AAQl34JGvGgnHZmd06uGiW
+ HttbELr2r2bPCa0baFEQCIvo0leRLef/CtVp8zEqLIJrZxG1eKLX98shZusVtq2rwSq3
+ s95yuD8twht6O6AHmcV4KcB8FlFkkVK81vbb0V0OLBkDlmV+nRxLtx00f7BTLJahdZpT
+ MrqQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1741796817; x=1742401617;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=KtbMoxoY+0r+dGRFaJbObtRqRCRzGoMTxZlGjKoABT8=;
+ b=NC5iXDKygDREJa+FPBNckPBkrZHEqznX9Az/tZTb4kDgN99vHN+BwDsvTQjz/cBvcJ
+ nTFhlco+KjdJhLotpPKbsAO1rT4PkbyFiuGeha3pbUenlJxzj6m3OzueyIcx8Eu0BhW6
+ c3niIfVEeUHJ3+zL7M67Nm4i1FsGUjYUqmb7hO8x/oDsLBZslqZ/kKtBgwHFC+UJxak+
+ ZBBiFAxxXnaBS2XXjiLugTV9mA8C105Yga8wXal8LiD2XnGEaZ9aKX68pVZcTTkT1xtM
+ YLcz1MSgcRxnoOz2nGwy1iE/PWf90Fko0Hs4lWS4Cs2GpJL1DOtdXTsM5bPOgLOC6Hc6
+ O65A==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCUE17NOI656Gw04Iw/4lUczc93V28l2AYVSIWNQurQz3+w3Gpyz7B73xkyNKCdFMgSSmc/zVxyLzk7Q@lists.freedesktop.org,
+ AJvYcCUO6lfh6Nqy4x92mrWidKk4oUPzfllcRaScysE7wl6eQWt7CkDPXT0OGMacKHsRW6tSPjoT1Sp2@lists.freedesktop.org,
+ AJvYcCW532afzTqPexFfq89H3Wyrxz733O1oUj5xdv4IfDDwqhcRmMp7H/lT4tD70+3zjZEforREt6K4M8ClpzfDV98E0g==@lists.freedesktop.org,
+ AJvYcCWs0biqzup7sdLtvMeSwEF30T6YtWrv6fdBCLGHXqYuJDsceW3sB54+usJhwwDinXtGOFl6dz5+xfBOW4mpQA==@lists.freedesktop.org,
+ AJvYcCXMeB1MNSXNF4SXMwvOlGbBcee5taSvj0Irx4aR+eyWPuNEqygCZTxRNKbmLXXHDLrAb0hY+fMudL+o@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yy2vzHTRCjvTvpZoJWF3iGECTFU0wrUlYqU0x7/GpHHIP4G3dJx
+ O9Vm5ET2pcm+UnzKSa/IP8cywQvAPm38VQ6CfLaZ8cvcpRf0k+vVhdFHSx37e2oprlHXIvPbMfU
+ HJR9K/LNtXURqRhEmBECtFJRUOf0=
+X-Gm-Gg: ASbGncsdyaKh81FAfqhSOpS6X0xnFpdgkzNcHAS03Ctj9E1TaEJVmTZvlx28pN5v24n
+ ZO/13AlvCX0bSxJhZhRpjG1U+Qk5HOZoS+bMSoj//Zo9JMA3FwTaJVzpZJrpBsichsBlcRFuBvJ
+ CuMujUjMyr+gtLQTYeQKPMIefn
+X-Google-Smtp-Source: AGHT+IGwIilqLIs/47ywUA0mPYyex6iczz3P9omqm4iVSKnzzFj5OIFe77lwOuSPi2ImR4Qb3aQ4cT3QgKXQHZMGiKI=
+X-Received: by 2002:a05:690c:3708:b0:6f9:b0a6:6a15 with SMTP id
+ 00721157ae682-6ff09293b84mr115686997b3.38.1741796816745; Wed, 12 Mar 2025
+ 09:26:56 -0700 (PDT)
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM4PR11MB5341:EE_|PH0PR11MB5808:EE_
-X-MS-Office365-Filtering-Correlation-Id: d36be3ad-9dba-4594-84fa-08dd62335a55
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|366016|1800799024|376014;
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?L1dyajlmZTI1UkdyVHJGVnJSV3ZxMnB1OW1nYUd3OEd6cWNadmdPdUJ1Ujkv?=
- =?utf-8?B?VGFDYThORDlqU3NsbUFsRW0za0J0QW4xdFRnd1ZBYnczeXZTNTZSNkRwYXp1?=
- =?utf-8?B?TjdrWGV5N3ZORC9zSStBQ1AzZVoyYXBmYVZ3c21jcHFDcjFxVUF1SCt4VUE4?=
- =?utf-8?B?UHd1OGxZY045a2llTWlRQXFRbHllcDhCVnlKRzZkNnVPcS9pU005QldRWWt2?=
- =?utf-8?B?ditXZzYwWm1mUTVTSkYyN0lDRHk1K3A0SXV6cmdCenRJek1TaEVGSmVEME9Z?=
- =?utf-8?B?YVE5THptaEJzNld3TGhwNVBxaWJJeDZWOWRyem85Zkh0Q0gvcWNrc1NMTjVT?=
- =?utf-8?B?NkZuMGowNEFLbDJRdUZCN3doQzJDR1MwUVNlYXc3Si82KzZ2cElRZ2VSUmRY?=
- =?utf-8?B?ZzkxbGFlNmkrZTczSnJjY05Pem56MGlLelF5MVpGS3U4c3lvUWJEQUxlTVJ0?=
- =?utf-8?B?VkJldVU5R2xrQUtDbU1FTEc3T2FlUUdaRE1JSDIzUHgrU0E3Qy9RbVFHeVJh?=
- =?utf-8?B?cHo5dWhMeUhLWHRPaTBJM1I4c0dMdFhENm94a2doQW9jdG9mazUvWU9uZVZu?=
- =?utf-8?B?QTZ4ampmNmtJMU5Dam01aXdDK1pjWDB1MU8vc0hDb2lXL3NkWlZhY1c2V3E0?=
- =?utf-8?B?blN0bUNBMG5ldnhHRHNrcHZQWE5pQXo1Y214Tm1aRzE3WnlpOS9Na1ZVbGZ3?=
- =?utf-8?B?ZU9qNWc1eWZ3UHJmZmo0akpmcWt3YS9DSkxjMnoyRWNsdy95VXptdWUwSkhY?=
- =?utf-8?B?M0FyWDV3bldQL1VjRmxWbVRPZDFMYWpKdXVPMncyNnZTeU9zOEtNQXRYVDg0?=
- =?utf-8?B?L1hKWXp2cXhpMmd6RTloaFRTWCsyZzcxTU9PbkNDalYxcVJVc2k2SFpJcyth?=
- =?utf-8?B?WjcvcWo2UjU1VUhJR1dENURHc05idStxd1NEZWJKY09sSmxxM3ptRFdua1Ri?=
- =?utf-8?B?UGN5OFJjblhTZ0hXWmxkLzlOdTJjMU85eU5RWi85VnNsRkhvN2NmQVVhOHBN?=
- =?utf-8?B?ZnBMV0RXcE1rcFRQNDBlbVoraGJ0MjZQbnBmeUpkbUZhSDdIaWxYZDlLTERm?=
- =?utf-8?B?TWhua05DZ212R09qWmx0NU9tdWY2K1FsazdlNGNqMDNkSTU3b3BaUVp2RWpy?=
- =?utf-8?B?S244SktiMzVUZWtzVklmUS9ROTlub2xHUlQrR2xRR3hXODJkQWpUUFoxbHdi?=
- =?utf-8?B?b2RzVFVWQkJ0Vm40QXAwWWhzY3dCVmtrNzdqV2RPK1gzZ01KdXhhajJKOUxh?=
- =?utf-8?B?N0w3NzQxWlZTTTAyWGFQRXVrNE5mNjVXajc1azY3UHFDSDYyc05vMmdzZCs0?=
- =?utf-8?B?QjFNOTRoOTAwcExnam5yQ2FRRjBic1ZHcW90a2wzbVBzQzlraVF6NmFSYnVS?=
- =?utf-8?B?YmdhcTNadGc0K2NjUXhza0lKcU5YMFdtaFlQSVlLNlE2bWNEdWJJOWo2YUsy?=
- =?utf-8?B?bGVGVEdYRHU1M1gzQkpKcVpTeHdOL2lzV2ExcG01d2tCZC9TdThCUGhqZnVB?=
- =?utf-8?B?dWdPMmxONW9qUmZuNlBabEZuTGFHcFE1R0xEcS9nN3F0TzFzT1ZOenZIWWRa?=
- =?utf-8?B?eCtEQXNpd3RHeUFGek42TVYrckpOb3dvekVqU1BrV3FrSnJ4SUxYei9DVTJL?=
- =?utf-8?B?VnZDTTJNaHVaTWxUc3lmV2FZeXFrNzFKR2VWQ0pyYVptME5LVVhSaFl5ODNT?=
- =?utf-8?B?amd6SnhEMS94SWh6YjRJWGRnN1VWMDY4Q2RTcCsxY3JiRWJVZ3kvanJvNHNn?=
- =?utf-8?Q?lpTpQJAhTqtxr2fgQsf4hJBWSVrpGbJ8AiQBsmK?=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM4PR11MB5341.namprd11.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(1800799024)(376014); DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?STAvKy9SOW56WUNDN1J2SWRtNkVnODUrb3l6MkRQRFlIdkp2VDRNRjdLalZn?=
- =?utf-8?B?ZWs3Vmh2ajRBbGtvZzhTMVlNK2RjTVliZldIVTNocm9VSFRvOVNVMlM3eUFS?=
- =?utf-8?B?UXdYMThKbGJLOUxPelpOVzFCd0gzQWZkV3FjS2RLeGFEUmFMZFEvTHRSeUN6?=
- =?utf-8?B?VU1jK3YxNHlPT2Y0c2tHSXFGeFJPNS95YkpmN09OZXBsa0IreWVqRjIrTXpB?=
- =?utf-8?B?RVZweHFTVXlDY01aQUUrK1BYVnFybVhPU1IzN3I1Q0twWUU0ZmhEekZRQ1Qx?=
- =?utf-8?B?Z1pMOE93R3cxMG1IVkVHU1AzRFh0Y0ZCTHJJVGduL0dYUzFFcms1OEtZVGtB?=
- =?utf-8?B?WHRyZS82QzJFNWFPVDlFWExFVW9HYU9NdC9HYkQ4dWtqbnZCZnloTWxiV0dk?=
- =?utf-8?B?VTBtWUc3L3IrSWFXditLSzQ0Lys4YjUyR2hXSGZrdWEwaHlpdGRDL1pYS0JH?=
- =?utf-8?B?NnR5OGV6OXVVRGxHa2F2d1NZUkM4N1dNRk54Y0VGQ2NhR0VmT0xrVk5SWUtX?=
- =?utf-8?B?TkdJMzF6SC8xODYwUTFKUlp4ek5mdkZGa2c4UlBUM3BQZmp6aGZ0YjRxRFlp?=
- =?utf-8?B?dUR6UEpRUFNTS0x2WUNpR1hhVmpyWkpPOG9JeEVIZCttRkFJNUJmQndRSU9k?=
- =?utf-8?B?S3NVME5peVZnbGttb3F2Y1dlMU9xQmkzSEo5M0dDbHRYbzRkQmxzQjhCbUpM?=
- =?utf-8?B?YStDUzF1Q2VZZU50N1o3eGtMSi9HMGlMVjAzWkg1MlRBZnRtNGpZQ2hsbXcw?=
- =?utf-8?B?aERXbU5zSTMxUTA3dWEyb050ZDBoZnZxaDRQRkxmeGdHbWk1SHp6b2drb0hr?=
- =?utf-8?B?bmRjNno2am5rU08zRERPQnk2UXYzeUlLQm53MlZhTFVPK2VRZTk1WmZQeEtW?=
- =?utf-8?B?TytQZUtSSm9JdW8rSTFvNFBFay91YlZsWVNwNDQwdVlBYVhCRHRRdDg5ZHNF?=
- =?utf-8?B?UEV4RFBBdVlkN2E1Q2FsR0JzWVhyU3ZNMjV6UDBFdkd5NERCQjAwZkNnWFI0?=
- =?utf-8?B?YjNxMnp0NWg3cjhhTG9TSkZkR0pyYlhtVXdOVHVoN2d5d1hrbDRkVXlucGFJ?=
- =?utf-8?B?b1VEdHJyU1M3dHJkNldPQnFKa2R4ZGJFVDNDYWlhNGlYbSt5SVpwYUZJeHJR?=
- =?utf-8?B?Y3kzQmhVREtiaXBvaUQvVlUyN1FLU3ZxeXpHekY4aTI4NXVxNjhpNUErWnZO?=
- =?utf-8?B?R1REZVVWV1Z6RGtnbGU5eEFIQW1nT3NUblB6T2hlSVNHYm5pUGxKTUFXSmlF?=
- =?utf-8?B?S3haZzNad2NDTWNySzFRY2Z4ZnduellxS2g1ODJyVFpiSkhWazcrUHNCaCtm?=
- =?utf-8?B?TjZYOW9rTXJQUVI0elJWMnUvSjc4cWpUYkEyWVgzVUJEY3Z5VVl4ZWhKTVFC?=
- =?utf-8?B?ZUZsWHJyUHc3ZXk0dGV0NE9qYWxYdzJCQVhkdmxjVnZjRFRsMjBYR1p1N2pC?=
- =?utf-8?B?WXBwRjBZNjdhcWtrcmNtbUplLzM0cUVpRHIyVDJHZXFrMGNHbHRWaHdlSlps?=
- =?utf-8?B?UE53ZkJsL2FPckJGUFVLTmpCVmkyVVE2R0pRWEN6MzZuVmdTOWllMnpDQ0ox?=
- =?utf-8?B?Z0pURWFnMFEvQlpUemY4UUVVSnpUb3NYVGltS0Q2cER1TU5MNFBSTkx4YTJC?=
- =?utf-8?B?UE9SUGJzVW05b2pIU0lsbjV0cis4c1QzUCs0bnVjTmhhSnNzMDRUSjE2c0p1?=
- =?utf-8?B?QWo4VTUxUG5Qd3RDc0grbnRIQnFPdFF3eENuWXZvKzkxYmJrR3ZQd2lsOXk3?=
- =?utf-8?B?ZjZxK04vVDAxell0UmNSMUpIbHE1N3c4dktRM0R5Z0RvWG1WeE00MmpUVXBu?=
- =?utf-8?B?ZWcwRFhETlErdXdobUpSMDhjbXBqRU1XWGZzZHFtRm5LdlprcC92SUUxdlh5?=
- =?utf-8?B?MktWOWFHZU1RSTI2d2w2MXpZUlZUZUh3ZTNXOFh5VWNhWlVZaFA2UEVvOGFl?=
- =?utf-8?B?QmxPMHBKUElWSVhzT09JSWVueGwrMmlkTnFrT1dYWkk4bk0yNW1PMDh3RTAr?=
- =?utf-8?B?eFg2Yzh0ZlRPazFTRWw0VmdBbUZDcFdzYkJRZ0gwUzNWTkFEL3FsdmtLcjhP?=
- =?utf-8?B?VHFWNFhZUlhjTGtnYXdMZ2dNMUdGd0VuL011Skd4aHMvV0JPZ1VmOWxUQnFE?=
- =?utf-8?B?dC9ZYkMwblpYdkNMT3ZrMVhXSG5KSWQ0UmpNdGxGTUdtMndWMGx5cHZSYm0v?=
- =?utf-8?B?Qnc9PQ==?=
-X-MS-Exchange-CrossTenant-Network-Message-Id: d36be3ad-9dba-4594-84fa-08dd62335a55
-X-MS-Exchange-CrossTenant-AuthSource: DM4PR11MB5341.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Mar 2025 13:31:25.8931 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: faR3eTOAR5jLgadX4fjQD5HOeSy5V3f/HDIL6ExiiDErEFqW8Z74b9hGS/DTjpaiYKDU5bjrdMs5xpmRw9qgITLzFAhOM/NawmtWiUr5OBE=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR11MB5808
-X-OriginatorOrg: intel.com
+References: <20250125064619.8305-1-jim.cromie@gmail.com>
+ <2025022012-viscous-cringing-bf88@gregkh>
+ <Z7b50rGRA4RuybgC@phenom.ffwll.local>
+ <caba927a-b71b-40bf-96b6-d15418ed705a@bootlin.com>
+In-Reply-To: <caba927a-b71b-40bf-96b6-d15418ed705a@bootlin.com>
+From: jim.cromie@gmail.com
+Date: Wed, 12 Mar 2025 10:26:30 -0600
+X-Gm-Features: AQ5f1JqGa1v3EYAxZlTMvkfJud0RHhUAoGaupEFx5s7t6c1Ynr_sb_DXNN9AMWQ
+Message-ID: <CAJfuBxwmFETyYZ4_sy92TtZr2a+CbjhGKidGU91uL5XiJy5cOQ@mail.gmail.com>
+Subject: Re: [PATCH 00/63] Fix CONFIG_DRM_USE_DYNAMIC_DEBUG=y
+To: Louis Chauvet <louis.chauvet@bootlin.com>
+Cc: Greg KH <gregkh@linuxfoundation.org>, linux-kernel@vger.kernel.org, 
+ jbaron@akamai.com, ukaszb@chromium.org, 
+ intel-gfx-trybot@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
+ amd-gfx@lists.freedesktop.org, intel-gvt-dev@lists.freedesktop.org, 
+ intel-gfx@lists.freedesktop.org, tvrtko.ursulin@linux.intel.com, 
+ jani.nikula@intel.com, ville.syrjala@linux.intel.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+X-Mailman-Approved-At: Thu, 13 Mar 2025 13:36:50 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -193,36 +95,157 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
+hello everyone,
 
-On 3/11/2025 3:07 PM, Ankit Nautiyal wrote:
-> To move away from legacy timing generator and always use VRR timing
-> generator, some refactoring is required in existing VRR code.
+sorry for the late reply.  I have a cleaner version cooking now.
+less inter-commit churn, by bringing more cleanups forward.
+
+I'll send a -v2 soon.  (lets forget all the meandering crap versions I sent=
+)
+
+Louis, thanks for testing !!!!!
+
+I wrote the test script and submod.ko so the lib/* parts would stand
+by themselves.
+And this time, I left the old DECLARE_ macro, so DRM doesnt get a
+flag-day breakage :-)
+
+But for ease of testing, I'll keep the DRM parts in the series.
+Taking 1st N commits is normal workflow ?
+
+On Fri, Feb 28, 2025 at 9:24=E2=80=AFAM Louis Chauvet <louis.chauvet@bootli=
+n.com> wrote:
 >
-> This series is a spinoff from the original series [1], tackling only VRR
-> refactoring patches from the main series.
 >
-> [1] https://patchwork.freedesktop.org/series/141152/
-
-
-Thanks for the reviews, merged to drm-intel-next.
-
-Regards,
-
-Ankit
-
 >
-> Ankit Nautiyal (8):
->    drm/i915/vrr: Remove unwanted comment
->    drm/i915:vrr: Separate out functions to compute vmin and vmax
->    drm/i915/vrr: Make helpers for cmrr and vrr timings
->    drm/i915/vrr: Disable CMRR
->    drm/i915/vrr: Track vrr.enable only for variable timing
->    drm/i915/vrr: Use crtc_vtotal for vmin
->    drm/i915/vrr: Prepare for fixed refresh rate timings
->    drm/i915/display: Enable MSA Ignore Timing PAR only when in not
->      fixed_rr mode
+> Le 20/02/2025 =C3=A0 10:45, Simona Vetter a =C3=A9crit :
+> > On Thu, Feb 20, 2025 at 09:31:41AM +0100, Greg KH wrote:
+> >> On Fri, Jan 24, 2025 at 11:45:14PM -0700, Jim Cromie wrote:
+> >>> This series fixes dynamic-debug's support for DRM debug-categories.
+> >>> Classmaps-v1 evaded full review, and got committed in 2 chunks:
+> >>>
+> >>>    b7b4eebdba7b..6ea3bf466ac6       # core dyndbg changes
+> >>>    0406faf25fb1..ee7d633f2dfb       # drm adoption
+> >>>
+> >>> DRM-CI found a regression during init with drm.debug=3D<initval>; the
+> >>> static-keys under the drm-dbgs in drm.ko got enabled, but those in
+> >>> drivers & helpers did not.
+> >>>
+> >>> Root Problem:
+> >>>
+> >>> DECLARE_DYNDBG_CLASSMAP violated a K&R rule "define once, refer
+> >>> afterwards".  Replace it with DYNDBG_CLASSMAP_DEFINE (invoked once in
+> >>> drm-core) and DYNDBG_CLASSMAP_USE (invoked repeatedly, in drivers &
+> >>> helpers).
+> >>>
+> >>> _DEFINE exports the classmap it creates (in drm.ko), other modules
+> >>> _USE the classmap.  The _USE adds a record ref'g the _DEFINEd (&
+> >>> exported) classmap, in a 2nd __dyndbg_class_users section.
+> >>>
+> >>> So now at modprobe, dyndbg scans the new section after the 1st
+> >>> __dyndbg_class_maps section, follows the linkage to the _DEFINEr
+> >>> module, finds the (optional) kernel-param controlling the classmap,
+> >>> examines its drm.debug=3D<initval>, and applies it to the module bein=
+g
+> >>> initialized.
+> >>>
+> >>> To recapitulate the multi-module problem wo DRM involvement, Add:
+> >>>
+> >>> A. tools/testing/selftests/dynamic_debug/*
+> >>>
+> >>> This alters pr_debugs in the test-modules, counts the results and
+> >>> checks them against expectations.  It uses this formula to test most
+> >>> of the control grammar, including the new class keyword.
+> >>>
+> >>> B. test_dynamic_debug_submod.ko
+> >>>
+> >>> This alters the test-module to build both parent & _submod ko's, with
+> >>> _DEFINE and _USE inside #if/#else blocks.  This recap's DRM's 2 modul=
+e
+> >>> failure scenario, allowing A to exersize several cases.
+> >>>
+> >>> The #if/#else puts the 2 macro uses together for clarity, and gives
+> >>> the 2 modules identical sets of debugs.
+> >>>
+> >>> Recent DRM-CI tests are here:
+> >>>    https://patchwork.freedesktop.org/series/139147/
+> >>>
+> >>> Previous rev:
+> >>>    https://lore.kernel.org/lkml/20240716185806.1572048-1-jim.cromie@g=
+mail.com/
+> >>>
+> >>> Noteworthy Additions:
+> >>>
+> >>> 1- drop class "protection" special case, per JBaron's preference.
+> >>>     only current use is marked BROKEN so nobody to affect.
+> >>>     now framed as policy-choice:
+> >>>     #define ddebug_client_module_protects_classes() false
+> >>>     subsystems wanting protection can change this.
+> >>>
+> >>> 2- compile-time arg-tests in DYNDBG_CLASSMAP_DEFINE
+> >>>     implement several required constraints, and fail obviously.
+> >>>
+> >>> 3- modprobe time check of conflicting class-id reservations
+> >>>     only affects 2+classmaps users.
+> >>>     compile-time solution not apparent.
+> >>>
+> >>> 4- dyndbg can now cause modprobe to fail.
+> >>>     needed to catch 3.
+> >>>     maybe some loose ends here on failure.
+> >>>
+> >>> 5- refactor & rename ddebug_attach_*module_classes
+> >>>     reduce repetetive boilerplate on 2 types: maps, users.
+> >>>     rework mostly brought forward in patchset to reduce churn
+> >>>     TBD: maybe squash more.
+> >>>
+> >>> Several recent trybot submissions (against drm-tip) have been passing
+> >>> CI.BAT, and failing one or few CI.IGT tests randomly; re-tests do not
+> >>> reliably repeat the failures.
+> >>>
+> >>> its also at github.com:jimc/linux.git
+> >>>    dd-fix-9[st]-ontip  &  dd-fix-9-13
+> >>>
+> >>> Ive been running it on my desktop w/o issues.
+> >>>
+> >>> The drivers/gpu/drm patches are RFC, I think there might be a single
+> >>> place to call DRM_CLASSMAP_USE(drm_dedbug_classes) to replace the
+> >>> sprinkling of _USEs in drivers and helpers.  IIRC, I tried adding a
+> >>> _DEFINE into drm_drv.c, that didn't do it, so I punted for now.
+> >>>
+> >>> I think the dyndbg core additions are ready for review and merging
+> >>> into a (next-next) test/integration tree.
+> >>
+> >> So whose tree should this go through?
+> >
+> > I'm trying to get some drm folks to review/test this, but thus far not
+> > much success :-/ I think it's good stuff, but I'm somewhat hesitant if =
+no
 >
->   .../drm/i915/display/intel_dp_link_training.c |  15 +-
->   drivers/gpu/drm/i915/display/intel_vrr.c      | 185 ++++++++++++++----
->   2 files changed, 166 insertions(+), 34 deletions(-)
+> I tested the VKMS driver with this, and it works!
+>
+> Tested-by: Louis Chauvet <louis.chauvet@bootlin.com>
+>
+> > one else agrees that it's useful for CI or in-field crash-recording or
+> > whatever ...
+> >
+> > I guess worst case we can land it and hope it attracts more folks?
+> >
+> > Wrt tree I don't care, but I guess we should then also land the drm sid=
+e
+> > too.
+> > -Sima
+> >
+> >> And I think the last patch in this series isn't correct, it looks like=
+ a
+> >> 000 email somehow.
+> >>
+> >> thanks,
+> >>
+> >> greg k-h
+> >
+>
+> --
+> Louis Chauvet, Bootlin
+> Embedded Linux and Kernel engineering
+> https://bootlin.com
 >
