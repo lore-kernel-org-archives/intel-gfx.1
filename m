@@ -4,53 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 574CFC28B28
-	for <intel-gfx@archiver.kernel.org>; Wed, 12 Mar 2025 07:13:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 26CE2C35FF3
+	for <intel-gfx@archiver.kernel.org>; Wed, 12 Mar 2025 07:13:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E0D3310E701;
-	Wed, 12 Mar 2025 07:13:11 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4386210E710;
+	Wed, 12 Mar 2025 07:13:29 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="UHCZ5yxr";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="ek4EqTHH";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.9])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E9D5B10E703;
- Wed, 12 Mar 2025 07:13:10 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BEEBF10E703;
+ Wed, 12 Mar 2025 07:13:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1741763591; x=1773299591;
+ t=1741763607; x=1773299607;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=E/NoBQjTFYrzIL0DrIijUUvJ3KmFWPJSxw9U3Yeql4w=;
- b=UHCZ5yxrLpmRQ/kCbJT2l1/eokhedqMi+Oh1l4GxwfCvcnZc6qL1qV7i
- s85k7qTNAkl5LINvvjlIINgKk5SUlOAGGE+BYiO+taRUOA7OnMfPGlfGS
- Kom4K+/mWbBvnZCnci29j0A1y4cvr8QN4gQhNp8xU2RUtct891Ndw0uSH
- yMx10NuK2VTbwCvzVD+Kg2uHqM11hjekmmA516SXYZNM+EK+p2Lk5wrUV
- 1O92vUwzoZjhmtUDDuV/q/mm8w9hW54FGLqJlkQjp1T0oU0EMffzsOBNX
- +Y0bT7s7ibWAt6uY/zw9WQqTZvXlrnRanf7rFRRRSJWestb+7jMkHZ9YV g==;
-X-CSE-ConnectionGUID: cHjZ30EdQEKggOYUfHPpWQ==
-X-CSE-MsgGUID: 6ntyfxnkQCOaKQ5e4+pCBw==
-X-IronPort-AV: E=McAfee;i="6700,10204,11370"; a="65288837"
-X-IronPort-AV: E=Sophos;i="6.14,241,1736841600"; d="scan'208";a="65288837"
+ bh=rXVSDTeSzlUT2Kg/Nzfk2OhgHOSFA/Hscv2dFo/7zFo=;
+ b=ek4EqTHH3eXifjQI6AWOFUh5s64fFSuF+CX3FNT6A84ujoTBAQMAGNxJ
+ UUpWKuvJm9HxWftA6DGIzbnpfDPvx2Ym20Gb2oQxRIDbdMwJ/zuIpbkO+
+ e99fxL3ZbMKjLaP8rwzlpAZ58SZJUsy0v0527TzKYfEWKmh7/lUF8Oh2Q
+ xR6D6NIx6OZdR4w3ezDfD2Lo783LQ+jgiGFxdXHeMav06+8XGqwWzh/xX
+ m4x1oCSBYnCviM6NcXgZXLy7vlkuQyFhzKTLWF1JtvtPcxIKGgVEI0lJW
+ XjYmXMntqduhOBokMfmKBnT3FY0a7mNVh6l9lUudpgeh+aNlXgrgMo0T8 A==;
+X-CSE-ConnectionGUID: 71EH/P+dSo+F/QWmvT0XZw==
+X-CSE-MsgGUID: BNRSBuBtR/yuxTEQOvm81Q==
+X-IronPort-AV: E=McAfee;i="6700,10204,11370"; a="65288867"
+X-IronPort-AV: E=Sophos;i="6.14,241,1736841600"; d="scan'208";a="65288867"
 Received: from fmviesa006.fm.intel.com ([10.60.135.146])
  by orvoesa101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 12 Mar 2025 00:13:10 -0700
-X-CSE-ConnectionGUID: hFuoOeB8So+hT0iCwDg9mA==
-X-CSE-MsgGUID: LqBGueuURKCl60wIwnnonw==
+ 12 Mar 2025 00:13:21 -0700
+X-CSE-ConnectionGUID: jXskZ7f6QgW9nrnUlRV10g==
+X-CSE-MsgGUID: G+icupIkT26ETPYYJ8K0Gw==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.14,241,1736841600"; d="scan'208";a="120367160"
+X-IronPort-AV: E=Sophos;i="6.14,241,1736841600"; d="scan'208";a="120367618"
 Received: from cfl-desktop.iind.intel.com ([10.190.239.20])
- by fmviesa006.fm.intel.com with ESMTP; 12 Mar 2025 00:13:07 -0700
+ by fmviesa006.fm.intel.com with ESMTP; 12 Mar 2025 00:13:18 -0700
 From: Uma Shankar <uma.shankar@intel.com>
 To: dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
  intel-xe@lists.freedesktop.org
 Cc: ville.syrjala@linux.intel.com, harry.wentland@amd.com,
  pekka.paalanen@haloniitty.fi, sebastian.wick@redhat.com, jadahl@redhat.com,
  mwen@igalia.com, contact@emersion.fr, naveen1.kumar@intel.com,
- Chaitanya Kumar Borah <chaitanya.kumar.borah@intel.com>,
  Uma Shankar <uma.shankar@intel.com>
-Subject: [v4 14/23] drm/i915/color: Add callbacks to set plane CTM
-Date: Wed, 12 Mar 2025 12:54:16 +0530
-Message-ID: <20250312072425.3099205-15-uma.shankar@intel.com>
+Subject: [v4 17/23] drm/i915: Add register definitions for Plane Degamma
+Date: Wed, 12 Mar 2025 12:54:19 +0530
+Message-ID: <20250312072425.3099205-18-uma.shankar@intel.com>
 X-Mailer: git-send-email 2.42.0
 In-Reply-To: <20250312072425.3099205-1-uma.shankar@intel.com>
 References: <20250312072425.3099205-1-uma.shankar@intel.com>
@@ -71,84 +70,85 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Chaitanya Kumar Borah <chaitanya.kumar.borah@intel.com>
-
-Add callback to intel color functions for setting plane CTM.
+Add macros to define Plane Degamma registers
 
 Signed-off-by: Uma Shankar <uma.shankar@intel.com>
 Signed-off-by: Chaitanya Kumar Borah <chaitanya.kumar.borah@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_color.c | 23 ++++++++++++++++++++++
- drivers/gpu/drm/i915/display/intel_color.h |  3 ++-
- 2 files changed, 25 insertions(+), 1 deletion(-)
+ .../i915/display/skl_universal_plane_regs.h   | 53 +++++++++++++++++++
+ 1 file changed, 53 insertions(+)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_color.c b/drivers/gpu/drm/i915/display/intel_color.c
-index cf508094a038..ac4bf97741a3 100644
---- a/drivers/gpu/drm/i915/display/intel_color.c
-+++ b/drivers/gpu/drm/i915/display/intel_color.c
-@@ -31,6 +31,7 @@
- #include "intel_dsb.h"
- #include "intel_vrr.h"
- #include "skl_universal_plane.h"
-+#include "skl_universal_plane_regs.h"
+diff --git a/drivers/gpu/drm/i915/display/skl_universal_plane_regs.h b/drivers/gpu/drm/i915/display/skl_universal_plane_regs.h
+index ca9fdfbbe57c..2cad4ee9fe04 100644
+--- a/drivers/gpu/drm/i915/display/skl_universal_plane_regs.h
++++ b/drivers/gpu/drm/i915/display/skl_universal_plane_regs.h
+@@ -254,6 +254,7 @@
+ #define   PLANE_COLOR_PIPE_CSC_ENABLE			REG_BIT(23) /* Pre-ICL */
+ #define   PLANE_COLOR_PLANE_CSC_ENABLE			REG_BIT(21) /* ICL+ */
+ #define   PLANE_COLOR_INPUT_CSC_ENABLE			REG_BIT(20) /* ICL+ */
++#define   PLANE_COLOR_PRE_CSC_GAMMA_ENABLE		REG_BIT(14)
+ #define   PLANE_COLOR_CSC_MODE_MASK			REG_GENMASK(19, 17)
+ #define   PLANE_COLOR_CSC_MODE_BYPASS			REG_FIELD_PREP(PLANE_COLOR_CSC_MODE_MASK, 0)
+ #define   PLANE_COLOR_CSC_MODE_YUV601_TO_RGB601		REG_FIELD_PREP(PLANE_COLOR_CSC_MODE_MASK, 1)
+@@ -290,6 +291,58 @@
+ 									   _PLANE_INPUT_CSC_POSTOFF_HI_1_A, _PLANE_INPUT_CSC_POSTOFF_HI_1_B, \
+ 									   _PLANE_INPUT_CSC_POSTOFF_HI_2_A, _PLANE_INPUT_CSC_POSTOFF_HI_2_B)
  
- struct intel_color_funcs {
- 	int (*color_check)(struct intel_atomic_state *state,
-@@ -86,6 +87,10 @@ struct intel_color_funcs {
- 	 * Read config other than LUTs and CSCs, before them. Optional.
- 	 */
- 	void (*get_config)(struct intel_crtc_state *crtc_state);
++#define _MMIO_PLANE_GAMC(plane, i, a, b)  _MMIO(_PIPE(plane, a, b) + (i) * 4)
 +
-+	/* Plane CSC*/
-+	void (*load_plane_csc_matrix)(const struct drm_plane_state *plane_state,
-+				      const struct drm_property_blob *blob);
- };
- 
- #define CTM_COEFF_SIGN	(1ULL << 63)
-@@ -3811,6 +3816,15 @@ static void icl_read_luts(struct intel_crtc_state *crtc_state)
- 	}
- }
- 
-+void intel_color_load_plane_csc_matrix(const struct drm_plane_state *plane_state,
-+				       const struct drm_property_blob *blob)
-+{
-+	struct drm_i915_private *i915 = to_i915(plane_state->plane->dev);
++/* Display13 Plane Degmma Reg */
++#define _PLANE_PRE_CSC_GAMC_INDEX_ENH_1_A      0x701d0
++#define _PLANE_PRE_CSC_GAMC_INDEX_ENH_1_B      0x711d0
++#define _PLANE_PRE_CSC_GAMC_INDEX_ENH_2_A      0x702d0
++#define _PLANE_PRE_CSC_GAMC_INDEX_ENH_2_B      0x712d0
++#define _PLANE_PRE_CSC_GAMC_INDEX_ENH_1(pipe)  _PIPE(pipe, _PLANE_PRE_CSC_GAMC_INDEX_ENH_1_A, \
++                                               _PLANE_PRE_CSC_GAMC_INDEX_ENH_1_B)
++#define _PLANE_PRE_CSC_GAMC_INDEX_ENH_2(pipe)  _PIPE(pipe, _PLANE_PRE_CSC_GAMC_INDEX_ENH_2_A, \
++                                               _PLANE_PRE_CSC_GAMC_INDEX_ENH_2_B)
++#define PLANE_PRE_CSC_GAMC_INDEX_ENH(pipe, plane, i)   \
++               _MMIO_PLANE_GAMC(plane, i, _PLANE_PRE_CSC_GAMC_INDEX_ENH_1(pipe), \
++               _PLANE_PRE_CSC_GAMC_INDEX_ENH_2(pipe))
++#define         PLANE_PAL_PREC_AUTO_INCREMENT          REG_BIT(10)
 +
-+	if (i915->display.funcs.color->load_plane_csc_matrix)
-+		i915->display.funcs.color->load_plane_csc_matrix(plane_state, blob);
-+}
++#define _PLANE_PRE_CSC_GAMC_DATA_ENH_1_A       0x701d4
++#define _PLANE_PRE_CSC_GAMC_DATA_ENH_1_B       0x711d4
++#define _PLANE_PRE_CSC_GAMC_DATA_ENH_2_A       0x702d4
++#define _PLANE_PRE_CSC_GAMC_DATA_ENH_2_B       0x712d4
++#define _PLANE_PRE_CSC_GAMC_DATA_ENH_1(pipe)   _PIPE(pipe, _PLANE_PRE_CSC_GAMC_DATA_ENH_1_A, \
++                                               _PLANE_PRE_CSC_GAMC_DATA_ENH_1_B)
++#define _PLANE_PRE_CSC_GAMC_DATA_ENH_2(pipe)   _PIPE(pipe, _PLANE_PRE_CSC_GAMC_DATA_ENH_2_A, \
++                                               _PLANE_PRE_CSC_GAMC_DATA_ENH_2_B)
++#define PLANE_PRE_CSC_GAMC_DATA_ENH(pipe, plane, i)    \
++               _MMIO_PLANE_GAMC(plane, i, _PLANE_PRE_CSC_GAMC_DATA_ENH_1(pipe), \
++               _PLANE_PRE_CSC_GAMC_DATA_ENH_2(pipe))
 +
- static const struct intel_color_funcs chv_color_funcs = {
- 	.color_check = chv_color_check,
- 	.color_commit_arm = i9xx_color_commit_arm,
-@@ -4114,6 +4128,15 @@ static void apply_colorop(const struct drm_plane_state *plane_state,
- 			  struct drm_colorop *colorop,
- 			  u32 *plane_color_ctl)
- {
-+	struct drm_colorop_state *state = colorop->state;
-+	struct intel_plane_colorop *intel_colorop = to_intel_plane_colorop(colorop);
++#define _PLANE_PRE_CSC_GAMC_INDEX_1_A  0x704d0
++#define _PLANE_PRE_CSC_GAMC_INDEX_1_B  0x714d0
++#define _PLANE_PRE_CSC_GAMC_INDEX_2_A  0x705d0
++#define _PLANE_PRE_CSC_GAMC_INDEX_2_B  0x715d0
++#define _PLANE_PRE_CSC_GAMC_INDEX_1(pipe)      _PIPE(pipe, _PLANE_PRE_CSC_GAMC_INDEX_1_A, \
++                                               _PLANE_PRE_CSC_GAMC_INDEX_1_B)
++#define _PLANE_PRE_CSC_GAMC_INDEX_2(pipe)      _PIPE(pipe, _PLANE_PRE_CSC_GAMC_INDEX_2_A, \
++                                               _PLANE_PRE_CSC_GAMC_INDEX_2_B)
++#define PLANE_PRE_CSC_GAMC_INDEX(pipe, plane, i)       \
++               _MMIO_PLANE_GAMC(plane, i, _PLANE_PRE_CSC_GAMC_INDEX_1(pipe), \
++               _PLANE_PRE_CSC_GAMC_INDEX_2(pipe))
 +
-+	if (colorop->type == DRM_COLOROP_CTM_3X3) {
-+		/* TODO: use intel_color_op state data */
-+		(*plane_color_ctl) |= PLANE_COLOR_PLANE_CSC_ENABLE;
-+		if (state->data && intel_colorop->id == CB_PLANE_CSC)
-+			intel_color_load_plane_csc_matrix(plane_state, state->data);
-+	}
- }
- 
- void intel_program_pipeline(const struct drm_plane_state *plane_state, u32 *plane_color_ctl)
-diff --git a/drivers/gpu/drm/i915/display/intel_color.h b/drivers/gpu/drm/i915/display/intel_color.h
-index 7be2453eee0a..c8d4f23cfb99 100644
---- a/drivers/gpu/drm/i915/display/intel_color.h
-+++ b/drivers/gpu/drm/i915/display/intel_color.h
-@@ -50,5 +50,6 @@ int intel_plane_tf_pipeline_init(struct drm_plane *plane, struct drm_prop_enum_l
- int intel_plane_color_init(struct drm_plane *plane);
- void intel_program_pipeline(const struct drm_plane_state *plane_state,
- 			    u32 *plane_color_ctl);
--
-+void intel_color_load_plane_csc_matrix(const struct drm_plane_state *plane_state,
-+				       const struct drm_property_blob *blob);
- #endif /* __INTEL_COLOR_H__ */
++#define _PLANE_PRE_CSC_GAMC_DATA_1_A   0x704d4
++#define _PLANE_PRE_CSC_GAMC_DATA_1_B   0x714d4
++#define _PLANE_PRE_CSC_GAMC_DATA_2_A   0x705d4
++#define _PLANE_PRE_CSC_GAMC_DATA_2_B   0x715d4
++#define _PLANE_PRE_CSC_GAMC_DATA_1(pipe)       _PIPE(pipe, _PLANE_PRE_CSC_GAMC_DATA_1_A, \
++                                               _PLANE_PRE_CSC_GAMC_DATA_1_B)
++#define _PLANE_PRE_CSC_GAMC_DATA_2(pipe)       _PIPE(pipe, _PLANE_PRE_CSC_GAMC_DATA_2_A, \
++                                               _PLANE_PRE_CSC_GAMC_DATA_2_B)
++#define PLANE_PRE_CSC_GAMC_DATA(pipe, plane, i)        \
++               _MMIO_PLANE_GAMC(plane, i, _PLANE_PRE_CSC_GAMC_DATA_1(pipe), \
++               _PLANE_PRE_CSC_GAMC_DATA_2(pipe))
++
+ #define _PLANE_CSC_RY_GY_1_A			0x70210
+ #define _PLANE_CSC_RY_GY_2_A			0x70310
+ #define _PLANE_CSC_RY_GY_1_B			0x71210
 -- 
 2.42.0
 
