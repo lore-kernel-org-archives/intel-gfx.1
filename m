@@ -4,58 +4,181 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A52D0C35FF1
-	for <intel-gfx@archiver.kernel.org>; Fri, 14 Mar 2025 11:19:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BF379C28B2F
+	for <intel-gfx@archiver.kernel.org>; Fri, 14 Mar 2025 12:10:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 32D6C10E9DD;
-	Fri, 14 Mar 2025 11:19:11 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4C62410E9DC;
+	Fri, 14 Mar 2025 12:10:47 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="MDAXYQz+";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="Kp7GQ3pd";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.7])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 21AF810E9D7;
- Fri, 14 Mar 2025 11:19:05 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F0BA010E9DC
+ for <intel-gfx@lists.freedesktop.org>; Fri, 14 Mar 2025 12:10:45 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1741951145; x=1773487145;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=t4+p93mv3yrvuktDJyP3Gi0UIy5bC/mumFeuusuF9MI=;
- b=MDAXYQz+3+L77Jd0F1xvswW1ggZlsYcXD90gMGavV3LQfhSsENOJtmbO
- lcGKHzKnnluUgmNuqGF/ij1CaM/eFLaCL68jusFlSEnmCNPmlV/Sz9ciy
- o8OhwqWgUDvLGbQeHgGPPCobA8yX1/bAkaPJ3wVhBmCqdQRes5/PdUrh+
- H/TNf8aYXCRUKDdsqT2REt2fZ+MJ+GHn/WMSJ1WR9GqGMbv0CBEwb/Wec
- BC9awU5s7JSWD6iq+Sm3MGZu5rYmwl1KptXLkvvpdUBG2hoGklDalTZoQ
- nkwv4tY7YJ1BSSovKi95gSJl2Q1X7rMb3tai3EBRyENA/yMfvkyySZGLd w==;
-X-CSE-ConnectionGUID: DJoTWsPvQwKFq7XDYOREYQ==
-X-CSE-MsgGUID: X0aCin0ySC6mNSGJDE3azA==
-X-IronPort-AV: E=McAfee;i="6700,10204,11372"; a="68467024"
-X-IronPort-AV: E=Sophos;i="6.14,246,1736841600"; d="scan'208";a="68467024"
-Received: from orviesa004.jf.intel.com ([10.64.159.144])
- by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 14 Mar 2025 04:19:05 -0700
-X-CSE-ConnectionGUID: hVoxPkOKQnOzu6nnxP4u/g==
-X-CSE-MsgGUID: UbtDc8glRDan3TgSl0xokg==
+ t=1741954246; x=1773490246;
+ h=content-transfer-encoding:date:message-id:from:to:cc:
+ subject:references:in-reply-to:mime-version;
+ bh=IL2Dblp3vH8bynSsIu/KQGHmiMzb5iQMCGRNKVS3AuY=;
+ b=Kp7GQ3pdOWQ/uzAiweAavZ4O+WUZB/ldou1zdEJdjRs6XBvpbE8fHNSR
+ bqe4eWH7eI62Hi3/1jnZEhWcdaWplZmq+lbRD3phRioYg/q8y6rjkJ++j
+ D7Bt1uG6/jIC4o29nJ1sFzI9mfYa04klOsQBiwQkqmJDe9/7wZIXfAXPU
+ q7TVd1Y5bmm19S1gts1Bc7944DOCLGqJfprfmJD/LKNEKHUkdQ8f5UFq4
+ r7BL8S5zEamURLD+PFoHdhOwTMikuqRdxqONRW0Sc9r9lcSI0VHtA4GRz
+ OtD/HkTZ13kfoYYCo11uj9MULWJKZAi1BzXhPajhv/N5N19AxvKoZW8lr g==;
+X-CSE-ConnectionGUID: vjj0VmWGRmCqnsBDE341sQ==
+X-CSE-MsgGUID: DyG00jBVQOavCsoEnL32Hw==
+X-IronPort-AV: E=McAfee;i="6700,10204,11372"; a="43233059"
+X-IronPort-AV: E=Sophos;i="6.14,246,1736841600"; d="scan'208";a="43233059"
+Received: from fmviesa002.fm.intel.com ([10.60.135.142])
+ by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 14 Mar 2025 05:10:45 -0700
+X-CSE-ConnectionGUID: w2G7mnz2TGSzefl6WOwr1g==
+X-CSE-MsgGUID: 3FObi8VdTTaymFC2azUjJg==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.14,246,1736841600"; d="scan'208";a="126289685"
-Received: from pgcooper-mobl3.ger.corp.intel.com (HELO jhogande-mobl1..)
- ([10.245.244.27])
- by orviesa004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 14 Mar 2025 04:19:03 -0700
-From: =?UTF-8?q?Jouni=20H=C3=B6gander?= <jouni.hogander@intel.com>
-To: intel-gfx@lists.freedesktop.org,
-	intel-xe@lists.freedesktop.org
-Cc: =?UTF-8?q?Jouni=20H=C3=B6gander?= <jouni.hogander@intel.com>
-Subject: [PATCH 08/11] drm/i915/psr: Apply underrun on PSR idle workaround
-Date: Fri, 14 Mar 2025 13:18:36 +0200
-Message-ID: <20250314111839.1051945-9-jouni.hogander@intel.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20250314111839.1051945-1-jouni.hogander@intel.com>
-References: <20250314111839.1051945-1-jouni.hogander@intel.com>
+X-IronPort-AV: E=Sophos;i="6.14,246,1736841600"; d="scan'208";a="144443998"
+Received: from orsmsx903.amr.corp.intel.com ([10.22.229.25])
+ by fmviesa002.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 14 Mar 2025 05:10:45 -0700
+Received: from ORSMSX901.amr.corp.intel.com (10.22.229.23) by
+ ORSMSX903.amr.corp.intel.com (10.22.229.25) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.1544.14; Fri, 14 Mar 2025 05:10:44 -0700
+Received: from ORSEDG601.ED.cps.intel.com (10.7.248.6) by
+ ORSMSX901.amr.corp.intel.com (10.22.229.23) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.1544.14 via Frontend Transport; Fri, 14 Mar 2025 05:10:44 -0700
+Received: from NAM11-DM6-obe.outbound.protection.outlook.com (104.47.57.170)
+ by edgegateway.intel.com (134.134.137.102) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.1.2507.44; Fri, 14 Mar 2025 05:10:44 -0700
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=md8PhTk8EQaz1DnqaMSqVUagOMJq+3Fw7lV9Oq528WNTuOx1n2r+kuQqIn+A9nR2xHcostYO5gibR1H3vHpdpWdtv6sp7/CCt3JXhvnYy6odCJqQHl7WfepfxVz5ahEERnmexuVhlk/DL6AKb+3vJW1KbE/wA0BTouSedwe69ef7MRBxog2GhT7Umcl73a74prhSIFUyupe1DFttYyl1AK5S+SRRT8E7Qhw6N8bM3L5Kr4f8QJ9VQCQiC4IFL10NauAKU7ki7p23ezyJtHtbVdDNuQL7PVfum8GNadYebKm1cF81kicRjDhl/iLh9TBh/bCX+TJ/D5250c/6HwZpiQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=IL2Dblp3vH8bynSsIu/KQGHmiMzb5iQMCGRNKVS3AuY=;
+ b=pXwM8zbBVgM20dTKeNfQFcwirqmpk7sRWA4o5lAwxPqGLsVmOA1COGuJrVBrsdxXIPSt4pUx/eXqsZinwOCUwNo8IG82Axo85jmLlCXCt3E3M0VjyWwJNe6DGKe2T12tcXM2dKV6xQiDBTlwd/vpDjec5tKOXk89CAkdTxlzhDTFA8YkUGj3mLlpW7Ty8qhDlMuOaOd5utVP8Is3RvFL4m+E5SSF+0UFbozbkMR3FOP9s5C5OZH3w2Td/nagvPh7/k0chjtGTqFMvgRDISCbdiNDPzFBWhE3lMm0TfcFduvhwpCxWEtPQ6KuL2FqGsPjTcOFI3kHl9g4ix+RsoUXAA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+Received: from MW4PR11MB6909.namprd11.prod.outlook.com (2603:10b6:303:224::12)
+ by DS0PR11MB8762.namprd11.prod.outlook.com (2603:10b6:8:1a9::13) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8534.28; Fri, 14 Mar
+ 2025 12:10:42 +0000
+Received: from MW4PR11MB6909.namprd11.prod.outlook.com
+ ([fe80::28da:9438:a3ef:19c0]) by MW4PR11MB6909.namprd11.prod.outlook.com
+ ([fe80::28da:9438:a3ef:19c0%4]) with mapi id 15.20.8534.027; Fri, 14 Mar 2025
+ 12:10:42 +0000
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="UTF-8"
+Date: Fri, 14 Mar 2025 12:10:38 +0000
+Message-ID: <D8FZ8PSKU208.14BXOVT94JCAM@intel.com>
+From: Sebastian Brzezinka <sebastian.brzezinka@intel.com>
+To: Andi Shyti <andi.shyti@linux.intel.com>, intel-gfx
+ <intel-gfx@lists.freedesktop.org>
+CC: Andi Shyti <andi.shyti@kernel.org>
+Subject: Re: [PATCH 0/4] Trivial style fixes
+X-Mailer: aerc 0.18.2-107-g4f7f5d40b602
+References: <20250314021225.11813-1-andi.shyti@linux.intel.com>
+In-Reply-To: <20250314021225.11813-1-andi.shyti@linux.intel.com>
+X-ClientProxiedBy: ZR2P278CA0077.CHEP278.PROD.OUTLOOK.COM
+ (2603:10a6:910:65::6) To MW4PR11MB6909.namprd11.prod.outlook.com
+ (2603:10b6:303:224::12)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MW4PR11MB6909:EE_|DS0PR11MB8762:EE_
+X-MS-Office365-Filtering-Correlation-Id: 823d89e4-7869-41ae-1636-08dd62f13e02
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|376014|366016|1800799024;
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?MzUwVTViRXFXQUR0U2hWdXFRNlhMMXVTRmtqSFA0UHM5MzdaR0o5dDdObjdH?=
+ =?utf-8?B?WG41a1p4NUhPNVVVamlvU0QyakM2SDh6TlJhWEJLYnRhNmFlSGVONnhBM3dn?=
+ =?utf-8?B?Unk2eGFtdDErRDBUUlFiYlIrcXRJdEhJNm1aZzRpTXN4d280TDVDcWZCZDhn?=
+ =?utf-8?B?ZGVkSFVJQW5kdmY1andXa3ZYS01wdjZWRzFWSkxMcHFkYmE0NGJrU2FERloy?=
+ =?utf-8?B?OVhOSGJZdm5wWDdCdml4R1VzcWFkdC9KNDJud1JEVkhNcllORjVkeXAza3BL?=
+ =?utf-8?B?QTZZdmxYSWFHQXFNVTNpSzhpWVdWa3VOQU0vYzNVU21pVU1tMTZqZ1I5WEJM?=
+ =?utf-8?B?U045MlRuQkpqd0J5bkdGMGM3MTV3bm10WmhWazZ1Z2pJYXh2RzVsQm1DbC9N?=
+ =?utf-8?B?VElsNHB1SmswdTZJNXhHN3d3RnhsTlVhN2JOM0xYbGNJVHB4THRBUVMzMHIy?=
+ =?utf-8?B?clZZVlhEM3JHeWl4K2UxeDYyNDZuTkFQZkF2N2pzYUNxdVhZRjVXWUJtdExF?=
+ =?utf-8?B?YUhnTTYzWWJhZ094TVpFZ2hYTjRsVFkzRjhKOUxxQ0kvRUl4RFZlQkNiVndx?=
+ =?utf-8?B?QUk3dnNZT2U3Yzhtd00zdG9TS2ljdU9vTjBOeWUrQUVYVmVaRnVBNDVvalFY?=
+ =?utf-8?B?dXRLUWRYSytUQnZDamRpZmJGRldmeXRxdUJxNFdsUUNFbVFSdHJ4SzlvUkJM?=
+ =?utf-8?B?OGJVRGlrNWlDOGt2ZHdiMEFoV3lFdkFYajYrOGlXbVVIdDBWRnB4eWM0TUZo?=
+ =?utf-8?B?akNZcUZ6U1N0U3JwSkFQd1QxVHB1RzJWM0dSbC9vRXdkdlh0Unk3NFJIL0xK?=
+ =?utf-8?B?WHNOeWFycHN5bXJIZmxONkNLeVZOQnc0MHIwZTdNRmtZbWRNck1RNytPUlk2?=
+ =?utf-8?B?aWFGWDBONC9obGpKeHFYcG92L3ZTaDVBZm5zU3U3Vm5WV0R4SHBNT1ZtTEIz?=
+ =?utf-8?B?VlhYNG0wTEhpY0o0QzVBNklZQ1ErdHZOMktnczNlQUJHS2ZVUElVUS82V1Nx?=
+ =?utf-8?B?K0Viai9wcmZyeXh1bWphclJhYzJUOXJHN0JMTGt5YUJiVkEwNTczTnFQNjhl?=
+ =?utf-8?B?OEFobzd1Vi9MODUvNjY3ZC9kVkdDNzA2ME5wUWx5MU9tVmRyT2pOZHZtYk5p?=
+ =?utf-8?B?Uy9ZOFZia0FHZHJWdTRJL3l4Zk4vRWo2NXNRd1BFcWNNL09VV0N6MGpEeWc1?=
+ =?utf-8?B?Q1dMNndTTHZQQUZyb3BKYzQzdVhuVERyNG1xMzBNV2FuNUFhRXpGM1JZNUNU?=
+ =?utf-8?B?a3MwM0p4dDRUT3duU1ZOajJPQlVPUks1WGx5NFRrNDNwaUllT25ad0EzZFNn?=
+ =?utf-8?B?NS9EMTFseU5HRnNBVXNndFNnTHpoLzBZbW5BZXJDMDJGV2s2SlR2dC9Lb1lL?=
+ =?utf-8?B?ZGErcjJCYWJyZTBLbGNsdUc4ZGFaVTdKOE9zazVLSUtZaDJPazhQck5vUDUr?=
+ =?utf-8?B?RHJGeEwwOEZrWk9mZ0ZvMFFCZ0NXN3JHc1JUMXA2TEdDUEV0OEl0cDZ5WjRV?=
+ =?utf-8?B?ZURaaEFDMXo2YzJNbzhzTERuNTJlM2pJbGJoaE1JZVc5ZDBCNzhkY0EyZXR5?=
+ =?utf-8?B?M1Q1Zmgva0EremR4eGptbnE5bmFjUDlOemJNQmF3N2RxY1poZEZESllMaWR0?=
+ =?utf-8?B?ZDN3ZFZZSWJzcXpYaEs0VFd3NkF5akdHRDJ6THllNFZCZVZzUEtuOXdsbU80?=
+ =?utf-8?B?b0Q4NDlIZkI0NmJ5VGJnZ1BESHdGUWR2T1luWE8wR25QOTB3dTM0TEw4RWM3?=
+ =?utf-8?B?VG1mUmRpTEFwTldrVXNkZXB5WW1DaHJvLzRNa2QwcWFvQ2lKdEJTRnRac09v?=
+ =?utf-8?B?TDUrS05xNVpmakwxcm5LNm9QVFROTEk3YUZjR2U5dVRRWHdJK2dZRCtPVk52?=
+ =?utf-8?Q?TOUD/ExUnjvcj?=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:MW4PR11MB6909.namprd11.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(376014)(366016)(1800799024); DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?VmVWNEx4UUtDZ1dnVTczRTcxUDhiRDFtY2h6a2tkTFB1NlEybWlrcEhEWGxs?=
+ =?utf-8?B?RGQxUFRFM3RLeWdSZk1Ga0ZzQmppeGJvV2pYSGx0WDJTYzhZbFYzWk13eGt1?=
+ =?utf-8?B?WnZWKzBNeHZxaXEwV3RPclozWkd1UzNlQ1ZRM0xMQTExaTI2SHhLdjRxa05V?=
+ =?utf-8?B?aHBhMFp3N3c4Y1pzdnlaQnJuWUEwZllMRkpQSVpHRjIvWDAwNElGQ2ErWkdB?=
+ =?utf-8?B?TW0xNStaYjZzVHgvUTVBSlRMWCs3QUlBc2FDYjdkOGk1TXQ5TFQ1RUZIUWds?=
+ =?utf-8?B?bjNFUDVjcnpZcHd2cFl6MUkvVXRaZ0hSYjdaT3o2TUN2eFZzdTJtaFZ2MkI1?=
+ =?utf-8?B?WVBpNXFsOHFhN2Y4bXNNaFlyS2tmeEYyL0Q3VStxaVBzdWtQdmxHSVpUbmhZ?=
+ =?utf-8?B?MW1OMVZxQnNuVVlPeHlnSDZtdDBrc2JVSXFuK0RGTFhqRmJraEdMenV2eC9w?=
+ =?utf-8?B?ZjAxUjZqZlBWN29XODFOUlFvT2JtaFBTbzh4MXJ1eFgyNnNUbytzRXpXL1dx?=
+ =?utf-8?B?NmludDZkRFBvU2g3dzcrU3Z5b1FkY1JVWTFhRmxjMFp3UzZsY215SDZpQWg4?=
+ =?utf-8?B?NUpSNCtOQzg1WHJBMnphYThZdEpBWVJRUE43K05xaVNxdEJuc1lNVEVxZm51?=
+ =?utf-8?B?cDNaSnlhcUVKbjNkenZnbm5YL2F5TlREQWh5UC9iWXk2SFoveE1lWEhwY0Rl?=
+ =?utf-8?B?c29qR01zaHRBdFlWaURFTUsvSWs5OGJ3TFpnR2pFWkVuUjdlMVd1SUU5czBH?=
+ =?utf-8?B?QWorUzMyenhvdHU5RjRQNnVuSGUxQWpZK1JEajgrUDBtQzV1TUhJOExkTGpM?=
+ =?utf-8?B?dnhYbldRSlduTStzVVVBU2YzQkZUN2YxeDNBMy8vNks3TlJJN3V5SXZUTW05?=
+ =?utf-8?B?Q1dzWnFxdGpDdnpNU25VNkZwWWdWSGd0eFpNKzVROEhHTXdSMlRYQ1Nua0pS?=
+ =?utf-8?B?UXdmSzUyTXBJL1hXYmNzd0pYUGtHR3ZETnZwd2dxN2FHNFdjOGhabVRTN205?=
+ =?utf-8?B?TE1OZUpSQ2JCV2h6QnlaNFZDQlhOeFMrS3lmWEVoTUNuM096c1RzSHJCYy91?=
+ =?utf-8?B?dHJXcnVEMnp5UEFoSWVvRjAzN2FTa2FQc0lPM05UTlZ4VnNvZW9oK05qak5o?=
+ =?utf-8?B?L1l2Z3dlSHRKcnNCRC9ZQ1lrbG9iNUJEN2tHcDFBeFJ3dFlnMys1dXVIM1A3?=
+ =?utf-8?B?N0VhTVNHTHRjbFFGSFUwMXZYQ0FZM1Y0OXpGN2xHQmVEc2Z0Y1o2TGhkYXRO?=
+ =?utf-8?B?S0JKdFlKUU1hWDBtTW5hRmdkVFRySGt4WWRlZ21NOVdvdnovTG93NnZxNGlD?=
+ =?utf-8?B?SFJyd2JVTDlqL0dXd2ZRMjRzOW9NZUtuT3pRRm1OSSttdWNGbG52SG9WTGVH?=
+ =?utf-8?B?ZkJtUU5Ga3c1alljNnFQMFgvRmRBNkpRU0dwSzc2TkdUTVFld1NaMzArQ2Vk?=
+ =?utf-8?B?OFNnUmNETkZmZXNoMktsaHIxTENWS0oxbDl3cmpWK1NaK3FnZzBxeEZWdnVI?=
+ =?utf-8?B?Nm5VbXR4djNuUWJ2eVNkZS9JSWNaL2tlQ3lBalNTRHZTbTgzOFc2V2psRUsw?=
+ =?utf-8?B?YmtxdzlIeGRSbjlyU2c3MloyMFN2NllYbzJZc2pFek5QWDhYbXZkYXpPRW12?=
+ =?utf-8?B?N0EyT3pwZG4xZU9yMlNsdnpka3dSUmhEV1JtSzJBRWRSQ3Y0R0ZxU0NHMFhQ?=
+ =?utf-8?B?TDhuVjZ2ZFBIZnpiMk9PRUlzWGM0RitmejNlY1NSdW9EcUdWQVBNNDlHdVVH?=
+ =?utf-8?B?WENUUWFQUTVHT0V5ZlA4d2Y5RGNFQ3V0VHJaeWpzNjhjQkJSSTFwZHBKKzhx?=
+ =?utf-8?B?MDhQbTZJZi9WUDZrTi96UExSK3I4Rkk2S3ZsbnVHbnBJT1dmaWR4YjF2UEJ5?=
+ =?utf-8?B?cnFjL0l1VCsvOXkxemoxK2VRdHlNb1RHZW9WTm5zS2dRbTJSOTNZWm5QYnBN?=
+ =?utf-8?B?alRJNHg0alY4VHd2cGxQTVN6Q3llSzhPT3B5ZUI3VTFZM3ZXam5pL2pDaU1s?=
+ =?utf-8?B?cFA5bVJrVFFocFJSRVRXSldhWUZCN3gybElsaml1MG8vTjBRK3VVSE1kSXEr?=
+ =?utf-8?B?NGpsNUVSMzc4a292UVh4UU5oMUpDTHBGZkFrQUhPNmg4cEp0dVk2aTQxWFBZ?=
+ =?utf-8?B?NzhuMlRobW1yRDFOaTFteVF5SU5keEJHWG82ZXFPU0lPb0toUkFpcmpJYit0?=
+ =?utf-8?B?WHc9PQ==?=
+X-MS-Exchange-CrossTenant-Network-Message-Id: 823d89e4-7869-41ae-1636-08dd62f13e02
+X-MS-Exchange-CrossTenant-AuthSource: MW4PR11MB6909.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Mar 2025 12:10:42.4921 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: nvzDM99zwpLK3f7yyB8VBiV9vinGdHarDqwqY/QJv7EPebW2Byjyy7Co4czlw7RvJXiwE2NsbX4r+O1MXk+RAsttJcJ9rMV2zcOKormHu88=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR11MB8762
+X-OriginatorOrg: intel.com
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,269 +194,20 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-This patch is applying workaround for underrun on idle PSR HW issue
-(Wa_16025596647) when PSR is getting enabled. It uses vblank enable/disable
-status, DC5/6 enabled disabled and enabled pipes count information made
-available.
+Hi Andi
 
-This patch is also adding calls to dc5/dc6, vblank enable/disable and pipe
-enable/disable notification functions as needed.
-intel_psr_needs_block_dc_vblank is modified to get vblank enable/disable
-notification on PSR capable system.
+On Fri Mar 14, 2025 at 2:12 AM UTC, Andi Shyti wrote:
+> Hi
+>
+> Browsing through my endless list of branches I found a few with
+> random cleanups that I fix while rading the code. They tend to be
+s/rading/reading
 
-Bspec: 74151
+The whole series looks good in my opinion.
 
-Signed-off-by: Jouni Högander <jouni.hogander@intel.com>
----
- drivers/gpu/drm/i915/display/intel_display.c  |   4 +
- .../drm/i915/display/intel_display_driver.c   |   3 +
- .../gpu/drm/i915/display/intel_display_irq.c  |   9 +-
- .../i915/display/intel_display_power_well.c   |   4 +
- drivers/gpu/drm/i915/display/intel_psr.c      | 103 +++++++++++-------
- 5 files changed, 76 insertions(+), 47 deletions(-)
+Reviewed-by: Sebastian Brzezinka <sebastian.brzezinka@intel.com>
 
-diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
-index 3afb85fe8536d..834d023d0c626 100644
---- a/drivers/gpu/drm/i915/display/intel_display.c
-+++ b/drivers/gpu/drm/i915/display/intel_display.c
-@@ -6648,6 +6648,8 @@ static void intel_enable_crtc(struct intel_atomic_state *state,
- 		intel_crtc_update_active_timings(pipe_crtc_state, false);
- 	}
- 
-+	intel_psr_notify_pipe_change(state, crtc, true);
-+
- 	display->funcs.display->crtc_enable(state, crtc);
- 
- 	/* vblanks work again, re-enable pipe CRC. */
-@@ -6767,6 +6769,8 @@ static void intel_old_crtc_state_disables(struct intel_atomic_state *state,
- 					 intel_crtc_joined_pipe_mask(old_crtc_state))
- 		intel_crtc_disable_pipe_crc(pipe_crtc);
- 
-+	intel_psr_notify_pipe_change(state, crtc, false);
-+
- 	display->funcs.display->crtc_disable(state, crtc);
- 
- 	for_each_intel_crtc_in_pipe_mask(display->drm, pipe_crtc,
-diff --git a/drivers/gpu/drm/i915/display/intel_display_driver.c b/drivers/gpu/drm/i915/display/intel_display_driver.c
-index 31740a677dd80..b4c989bbac93a 100644
---- a/drivers/gpu/drm/i915/display/intel_display_driver.c
-+++ b/drivers/gpu/drm/i915/display/intel_display_driver.c
-@@ -54,6 +54,7 @@
- #include "intel_plane_initial.h"
- #include "intel_pmdemand.h"
- #include "intel_pps.h"
-+#include "intel_psr.h"
- #include "intel_quirks.h"
- #include "intel_vga.h"
- #include "intel_wm.h"
-@@ -226,6 +227,8 @@ int intel_display_driver_probe_noirq(struct intel_display *display)
- 	if (ret)
- 		goto cleanup_bios;
- 
-+	intel_psr_dc5_dc6_wa_init(display);
-+
- 	/* FIXME: completely on the wrong abstraction layer */
- 	ret = intel_power_domains_init(display);
- 	if (ret < 0)
-diff --git a/drivers/gpu/drm/i915/display/intel_display_irq.c b/drivers/gpu/drm/i915/display/intel_display_irq.c
-index aa23bb8178053..62fbdcbb4a123 100644
---- a/drivers/gpu/drm/i915/display/intel_display_irq.c
-+++ b/drivers/gpu/drm/i915/display/intel_display_irq.c
-@@ -1728,14 +1728,7 @@ static void intel_display_vblank_dc_work(struct work_struct *work)
- 		container_of(work, typeof(*display), irq.vblank_dc_work);
- 	int vblank_wa_num_pipes = READ_ONCE(display->irq.vblank_wa_num_pipes);
- 
--	/*
--	 * NOTE: intel_display_power_set_target_dc_state is used only by PSR
--	 * code for DC3CO handling. DC3CO target state is currently disabled in
--	 * PSR code. If DC3CO is taken into use we need take that into account
--	 * here as well.
--	 */
--	intel_display_power_set_target_dc_state(display, vblank_wa_num_pipes ? DC_STATE_DISABLE :
--						DC_STATE_EN_UPTO_DC6);
-+	intel_psr_notify_vblank_enable_disable(display, vblank_wa_num_pipes);
- }
- 
- int bdw_enable_vblank(struct drm_crtc *_crtc)
-diff --git a/drivers/gpu/drm/i915/display/intel_display_power_well.c b/drivers/gpu/drm/i915/display/intel_display_power_well.c
-index 8ec87ffd87d26..510f97341893b 100644
---- a/drivers/gpu/drm/i915/display/intel_display_power_well.c
-+++ b/drivers/gpu/drm/i915/display/intel_display_power_well.c
-@@ -24,6 +24,7 @@
- #include "intel_hotplug.h"
- #include "intel_pcode.h"
- #include "intel_pps.h"
-+#include "intel_psr.h"
- #include "intel_tc.h"
- #include "intel_vga.h"
- #include "skl_watermark.h"
-@@ -762,6 +763,9 @@ void gen9_set_dc_state(struct intel_display *display, u32 state)
- 			     state & ~power_domains->allowed_dc_mask))
- 		state &= power_domains->allowed_dc_mask;
- 
-+	if (!power_domains->initializing)
-+		intel_psr_notify_dc5_dc6(display);
-+
- 	val = intel_de_read(display, DC_STATE_EN);
- 	mask = gen9_dc_mask(display);
- 	drm_dbg_kms(display->drm, "Setting DC state from %02x to %02x\n",
-diff --git a/drivers/gpu/drm/i915/display/intel_psr.c b/drivers/gpu/drm/i915/display/intel_psr.c
-index afb9faed7784b..d2a28a83e4f20 100644
---- a/drivers/gpu/drm/i915/display/intel_psr.c
-+++ b/drivers/gpu/drm/i915/display/intel_psr.c
-@@ -908,6 +908,41 @@ static u8 psr_compute_idle_frames(struct intel_dp *intel_dp)
- 	return idle_frames;
- }
- 
-+/* Wa_16025596647 */
-+static void psr1_apply_underrun_on_idle_wa_locked(struct intel_dp *intel_dp,
-+						  bool dc5_dc6_blocked)
-+{
-+	struct intel_display *display = to_intel_display(intel_dp);
-+	u32 val;
-+
-+	if (dc5_dc6_blocked)
-+		val = DMC_EVT_CTL_ENABLE | DMC_EVT_CTL_RECURRING |
-+			REG_FIELD_PREP(DMC_EVT_CTL_TYPE_MASK,
-+				       DMC_EVT_CTL_TYPE_EDGE_0_1) |
-+			REG_FIELD_PREP(DMC_EVT_CTL_EVENT_ID_MASK,
-+				       DMC_EVT_CTL_EVENT_ID_VBLANK_A);
-+	else
-+		val = REG_FIELD_PREP(DMC_EVT_CTL_EVENT_ID_MASK,
-+				     DMC_EVT_CTL_EVENT_ID_FALSE) |
-+			REG_FIELD_PREP(DMC_EVT_CTL_TYPE_MASK,
-+				       DMC_EVT_CTL_TYPE_EDGE_0_1);
-+
-+	intel_de_write(display, MTL_PIPEDMC_EVT_CTL_4(intel_dp->psr.pipe),
-+		       val);
-+}
-+
-+static bool is_dc5_dc6_blocked(struct intel_dp *intel_dp)
-+{
-+	struct intel_display *display = to_intel_display(intel_dp);
-+	u32 current_dc_state = intel_display_power_get_current_dc_state(display);
-+	struct drm_vblank_crtc *vblank = &display->drm->vblank[intel_dp->psr.pipe];
-+
-+	return (current_dc_state != DC_STATE_EN_UPTO_DC5 &&
-+		current_dc_state != DC_STATE_EN_UPTO_DC6) ||
-+		intel_dp->psr.active_non_psr_pipes ||
-+		READ_ONCE(vblank->enabled);
-+}
-+
- static void hsw_activate_psr1(struct intel_dp *intel_dp)
- {
- 	struct intel_display *display = to_intel_display(intel_dp);
-@@ -937,6 +972,12 @@ static void hsw_activate_psr1(struct intel_dp *intel_dp)
- 
- 	intel_de_rmw(display, psr_ctl_reg(display, cpu_transcoder),
- 		     ~EDP_PSR_RESTORE_PSR_ACTIVE_CTX_MASK, val);
-+
-+	/* Wa_16025596647 */
-+	if ((DISPLAY_VER(display) == 20 ||
-+	     IS_DISPLAY_VERx100_STEP(display, 3000, STEP_A0, STEP_B0)) &&
-+	    is_dc5_dc6_blocked(intel_dp))
-+		psr1_apply_underrun_on_idle_wa_locked(intel_dp, true);
- }
- 
- static u32 intel_psr2_get_tp_time(struct intel_dp *intel_dp)
-@@ -1019,8 +1060,16 @@ static void hsw_activate_psr2(struct intel_dp *intel_dp)
- 	enum transcoder cpu_transcoder = intel_dp->psr.transcoder;
- 	u32 val = EDP_PSR2_ENABLE;
- 	u32 psr_val = 0;
-+	u8 idle_frames;
- 
--	val |= EDP_PSR2_IDLE_FRAMES(psr_compute_idle_frames(intel_dp));
-+	/* Wa_16025596647 */
-+	if ((DISPLAY_VER(display) == 20 ||
-+	     IS_DISPLAY_VERx100_STEP(display, 3000, STEP_A0, STEP_B0)) &&
-+	    is_dc5_dc6_blocked(intel_dp))
-+		idle_frames = 0;
-+	else
-+		idle_frames = psr_compute_idle_frames(intel_dp);
-+	val |= EDP_PSR2_IDLE_FRAMES(idle_frames);
- 
- 	if (DISPLAY_VER(display) < 14 && !IS_ALDERLAKE_P(dev_priv))
- 		val |= EDP_SU_TRACK_ENABLE;
-@@ -2101,6 +2150,10 @@ static void intel_psr_exit(struct intel_dp *intel_dp)
- 
- 		drm_WARN_ON(display->drm, !(val & EDP_PSR2_ENABLE));
- 	} else {
-+		if (DISPLAY_VER(display) == 20 ||
-+		    IS_DISPLAY_VERx100_STEP(display, 3000, STEP_A0, STEP_B0))
-+			psr1_apply_underrun_on_idle_wa_locked(intel_dp, false);
-+
- 		val = intel_de_rmw(display,
- 				   psr_ctl_reg(display, cpu_transcoder),
- 				   EDP_PSR_ENABLE, 0);
-@@ -2312,6 +2365,7 @@ void intel_psr_resume(struct intel_dp *intel_dp)
- bool intel_psr_needs_block_dc_vblank(const struct intel_crtc_state *crtc_state)
- {
- 	struct intel_crtc *crtc = to_intel_crtc(crtc_state->uapi.crtc);
-+	struct intel_display *display = to_intel_display(crtc_state);
- 	struct intel_encoder *encoder;
- 
- 	for_each_encoder_on_crtc(crtc->base.dev, &crtc->base, encoder) {
-@@ -2322,8 +2376,15 @@ bool intel_psr_needs_block_dc_vblank(const struct intel_crtc_state *crtc_state)
- 
- 		intel_dp = enc_to_intel_dp(encoder);
- 
--		if (intel_dp_is_edp(intel_dp) &&
--		    CAN_PANEL_REPLAY(intel_dp))
-+		if (!intel_dp_is_edp(intel_dp))
-+			continue;
-+
-+		if (CAN_PANEL_REPLAY(intel_dp))
-+			return true;
-+
-+		if ((DISPLAY_VER(display) == 20 ||
-+		     IS_DISPLAY_VERx100_STEP(display, 3000, STEP_A0, STEP_B0)) &&
-+		    CAN_PSR(intel_dp))
- 			return true;
- 	}
- 
-@@ -3665,42 +3726,6 @@ void intel_psr_unlock(const struct intel_crtc_state *crtc_state)
- 	}
- }
- 
--/* Wa_16025596647 */
--static void psr1_apply_underrun_on_idle_wa_locked(struct intel_dp *intel_dp,
--						  bool dc5_dc6_blocked)
--{
--	struct intel_display *display = to_intel_display(intel_dp);
--	u32 val;
--
--	if (dc5_dc6_blocked)
--		val = DMC_EVT_CTL_ENABLE | DMC_EVT_CTL_RECURRING |
--			REG_FIELD_PREP(DMC_EVT_CTL_TYPE_MASK,
--				       DMC_EVT_CTL_TYPE_EDGE_0_1) |
--			REG_FIELD_PREP(DMC_EVT_CTL_EVENT_ID_MASK,
--				       DMC_EVT_CTL_EVENT_ID_VBLANK_A);
--	else
--		val = REG_FIELD_PREP(DMC_EVT_CTL_EVENT_ID_MASK,
--				     DMC_EVT_CTL_EVENT_ID_FALSE) |
--			REG_FIELD_PREP(DMC_EVT_CTL_TYPE_MASK,
--				       DMC_EVT_CTL_TYPE_EDGE_0_1);
--
--	intel_de_write(display, MTL_PIPEDMC_EVT_CTL_4(intel_dp->psr.pipe),
--		       val);
--}
--
--/* Wa_16025596647 */
--static bool is_dc5_dc6_blocked(struct intel_dp *intel_dp)
--{
--	struct intel_display *display = to_intel_display(intel_dp);
--	u32 current_dc_state = intel_display_power_get_current_dc_state(display);
--	struct drm_vblank_crtc *vblank = &display->drm->vblank[intel_dp->psr.pipe];
--
--	return (current_dc_state != DC_STATE_EN_UPTO_DC5 &&
--		current_dc_state != DC_STATE_EN_UPTO_DC6) ||
--		intel_dp->psr.active_non_psr_pipes ||
--		READ_ONCE(vblank->enabled);
--}
--
- /* Wa_16025596647 */
- static void intel_psr_apply_underrun_on_idle_wa_locked(struct intel_dp *intel_dp)
- {
--- 
-2.43.0
+--=20
+Best regards,
+Sebastian
 
