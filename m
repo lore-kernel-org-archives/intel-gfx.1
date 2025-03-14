@@ -4,181 +4,142 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BF379C28B2F
-	for <intel-gfx@archiver.kernel.org>; Fri, 14 Mar 2025 12:10:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9DEDBC282EC
+	for <intel-gfx@archiver.kernel.org>; Fri, 14 Mar 2025 13:03:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4C62410E9DC;
-	Fri, 14 Mar 2025 12:10:47 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 34F1310E9D3;
+	Fri, 14 Mar 2025 13:03:46 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="Kp7GQ3pd";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="JHSMz4k0";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F0BA010E9DC
- for <intel-gfx@lists.freedesktop.org>; Fri, 14 Mar 2025 12:10:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1741954246; x=1773490246;
- h=content-transfer-encoding:date:message-id:from:to:cc:
- subject:references:in-reply-to:mime-version;
- bh=IL2Dblp3vH8bynSsIu/KQGHmiMzb5iQMCGRNKVS3AuY=;
- b=Kp7GQ3pdOWQ/uzAiweAavZ4O+WUZB/ldou1zdEJdjRs6XBvpbE8fHNSR
- bqe4eWH7eI62Hi3/1jnZEhWcdaWplZmq+lbRD3phRioYg/q8y6rjkJ++j
- D7Bt1uG6/jIC4o29nJ1sFzI9mfYa04klOsQBiwQkqmJDe9/7wZIXfAXPU
- q7TVd1Y5bmm19S1gts1Bc7944DOCLGqJfprfmJD/LKNEKHUkdQ8f5UFq4
- r7BL8S5zEamURLD+PFoHdhOwTMikuqRdxqONRW0Sc9r9lcSI0VHtA4GRz
- OtD/HkTZ13kfoYYCo11uj9MULWJKZAi1BzXhPajhv/N5N19AxvKoZW8lr g==;
-X-CSE-ConnectionGUID: vjj0VmWGRmCqnsBDE341sQ==
-X-CSE-MsgGUID: DyG00jBVQOavCsoEnL32Hw==
-X-IronPort-AV: E=McAfee;i="6700,10204,11372"; a="43233059"
-X-IronPort-AV: E=Sophos;i="6.14,246,1736841600"; d="scan'208";a="43233059"
-Received: from fmviesa002.fm.intel.com ([10.60.135.142])
- by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 14 Mar 2025 05:10:45 -0700
-X-CSE-ConnectionGUID: w2G7mnz2TGSzefl6WOwr1g==
-X-CSE-MsgGUID: 3FObi8VdTTaymFC2azUjJg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.14,246,1736841600"; d="scan'208";a="144443998"
-Received: from orsmsx903.amr.corp.intel.com ([10.22.229.25])
- by fmviesa002.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 14 Mar 2025 05:10:45 -0700
-Received: from ORSMSX901.amr.corp.intel.com (10.22.229.23) by
- ORSMSX903.amr.corp.intel.com (10.22.229.25) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1544.14; Fri, 14 Mar 2025 05:10:44 -0700
-Received: from ORSEDG601.ED.cps.intel.com (10.7.248.6) by
- ORSMSX901.amr.corp.intel.com (10.22.229.23) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1544.14 via Frontend Transport; Fri, 14 Mar 2025 05:10:44 -0700
-Received: from NAM11-DM6-obe.outbound.protection.outlook.com (104.47.57.170)
- by edgegateway.intel.com (134.134.137.102) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.1.2507.44; Fri, 14 Mar 2025 05:10:44 -0700
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=md8PhTk8EQaz1DnqaMSqVUagOMJq+3Fw7lV9Oq528WNTuOx1n2r+kuQqIn+A9nR2xHcostYO5gibR1H3vHpdpWdtv6sp7/CCt3JXhvnYy6odCJqQHl7WfepfxVz5ahEERnmexuVhlk/DL6AKb+3vJW1KbE/wA0BTouSedwe69ef7MRBxog2GhT7Umcl73a74prhSIFUyupe1DFttYyl1AK5S+SRRT8E7Qhw6N8bM3L5Kr4f8QJ9VQCQiC4IFL10NauAKU7ki7p23ezyJtHtbVdDNuQL7PVfum8GNadYebKm1cF81kicRjDhl/iLh9TBh/bCX+TJ/D5250c/6HwZpiQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=IL2Dblp3vH8bynSsIu/KQGHmiMzb5iQMCGRNKVS3AuY=;
- b=pXwM8zbBVgM20dTKeNfQFcwirqmpk7sRWA4o5lAwxPqGLsVmOA1COGuJrVBrsdxXIPSt4pUx/eXqsZinwOCUwNo8IG82Axo85jmLlCXCt3E3M0VjyWwJNe6DGKe2T12tcXM2dKV6xQiDBTlwd/vpDjec5tKOXk89CAkdTxlzhDTFA8YkUGj3mLlpW7Ty8qhDlMuOaOd5utVP8Is3RvFL4m+E5SSF+0UFbozbkMR3FOP9s5C5OZH3w2Td/nagvPh7/k0chjtGTqFMvgRDISCbdiNDPzFBWhE3lMm0TfcFduvhwpCxWEtPQ6KuL2FqGsPjTcOFI3kHl9g4ix+RsoUXAA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-Received: from MW4PR11MB6909.namprd11.prod.outlook.com (2603:10b6:303:224::12)
- by DS0PR11MB8762.namprd11.prod.outlook.com (2603:10b6:8:1a9::13) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8534.28; Fri, 14 Mar
- 2025 12:10:42 +0000
-Received: from MW4PR11MB6909.namprd11.prod.outlook.com
- ([fe80::28da:9438:a3ef:19c0]) by MW4PR11MB6909.namprd11.prod.outlook.com
- ([fe80::28da:9438:a3ef:19c0%4]) with mapi id 15.20.8534.027; Fri, 14 Mar 2025
- 12:10:42 +0000
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset="UTF-8"
-Date: Fri, 14 Mar 2025 12:10:38 +0000
-Message-ID: <D8FZ8PSKU208.14BXOVT94JCAM@intel.com>
-From: Sebastian Brzezinka <sebastian.brzezinka@intel.com>
-To: Andi Shyti <andi.shyti@linux.intel.com>, intel-gfx
- <intel-gfx@lists.freedesktop.org>
-CC: Andi Shyti <andi.shyti@kernel.org>
-Subject: Re: [PATCH 0/4] Trivial style fixes
-X-Mailer: aerc 0.18.2-107-g4f7f5d40b602
-References: <20250314021225.11813-1-andi.shyti@linux.intel.com>
-In-Reply-To: <20250314021225.11813-1-andi.shyti@linux.intel.com>
-X-ClientProxiedBy: ZR2P278CA0077.CHEP278.PROD.OUTLOOK.COM
- (2603:10a6:910:65::6) To MW4PR11MB6909.namprd11.prod.outlook.com
- (2603:10b6:303:224::12)
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A37D710E95D
+ for <intel-gfx@lists.freedesktop.org>; Fri, 14 Mar 2025 06:00:15 +0000 (UTC)
+Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 52E0I7f9031607
+ for <intel-gfx@lists.freedesktop.org>; Fri, 14 Mar 2025 06:00:15 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+ Xs5rT/RGnzQe0TKC8aJ0U0f62LNypMaSbN5UiwapTF8=; b=JHSMz4k0IbzBbmVG
+ nWSnPcYKL29CfbfGBsXALTBXgXRw1Ua64tLDSDvFG02crGxBC0HjT+HEwbVIYgF2
+ IHGq8a8eToEX5Ti/oxyB+ksGf0C0bZFpqOLSYFQ/CXu4fiyQchod/VHF63KxeUqd
+ z1/O7tPo77c91SWFDQ7g63ByfQOdbWvTchMFiMBG0liosoi8aGwoobgGxLZ/G7Cc
+ hEObgahe+AYVIuPLGLA3OZ3ZjyyEPnJNjrt4ND1mzF/4vZ/xFDOc2JKBbCFNHpyV
+ Mxt8uPGHadEW5TYKlqP8KMtT0KwZm1gmAG17bNsQW6rlnQr8wEfZLtU1VYWJhuz/
+ PyOQdw==
+Received: from mail-qv1-f71.google.com (mail-qv1-f71.google.com
+ [209.85.219.71])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 45bx1jjm2r-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
+ for <intel-gfx@lists.freedesktop.org>; Fri, 14 Mar 2025 06:00:15 +0000 (GMT)
+Received: by mail-qv1-f71.google.com with SMTP id
+ 6a1803df08f44-6e91b1ddb51so40285736d6.0
+ for <intel-gfx@lists.freedesktop.org>; Thu, 13 Mar 2025 23:00:14 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1741932014; x=1742536814;
+ h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+ :mime-version:subject:date:from:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=Xs5rT/RGnzQe0TKC8aJ0U0f62LNypMaSbN5UiwapTF8=;
+ b=VR+1kTqtulbmdgcq1pZSEmNx/sbG3QkPQlBFBemjkHVWUHLwJdncaqGk13RUq5OQ3/
+ o5MoXRPtVpxrA+CoI3u02r08n3p0hrNWriSqdWLQGz2BVtuNAPpd/oip8y+jUH8Qa90J
+ W6k+xuHPul5zaC+uhr6tKPh6JDdAZ8WrY8I1el7YoJcfU49mmhk7Z8LXRepXYckBtXej
+ +D2mIYPGNxjIB+7SxRNfnbyhBM+y5R1uBoOCUy1MRVlakWPZXRwZj3cLk7bkqIeSYz3m
+ n2rfWl0W+xhejW9WHBv8uR5HbZvKgVj472yRT1ktk38oJd4aKq65/Ssmc6nK891xkwQ3
+ tpVA==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCUVF6pDBeB4rwRwqBNHP9Yb93CqG0HEyyNNRqOC05pHNR0pXK7cv4UPm3E5IiqmldtHsCJePy+tVtI=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzwT1GZt4w9j9Bf4Z+wQRBKn3sgSMnBognu4LGcRj9EZFzuz6CZ
+ 2KH4eduziwZdHJiQebUtYqvX4EJ2b1EXEZEbXMVDZao4be53XBwVLvDH3CKCCK1GSzJ6VE7avIE
+ ohvfBAzp52cIUphVQyMoZxuJLB9sPhN/1c55PMkMIOcEE/oG1tE2JMzHdK716f1Nx+sA=
+X-Gm-Gg: ASbGncsD29cvbIasiG1W4QtC9XnWJ4ATQ29XKF3QtS5J4NY1ikbQaQZVQCN51g82EHB
+ wE/xOve3SIFE/djshBMbqzDPqxhi+Rk09O5tFwi+5bEh/FEQ4048CNKK1EFfBrhXGepB+mmvWNS
+ vNQ3AeHur8JBAlvyfwyZSqb+nf8A2d0vNZoSWrwk07GIsf1XgiE6amzcUpW6Wxg9B6zF+Xqg90g
+ Xg0k4QMb1R1GSxnpbyhDM5GslZAgsup01diSJYrj8FNp4kR/l2Hl+791ofahKOxfqqkhlqjCbCk
+ 1Szz6EUnm7FFTbqBNewmKxbd4qGCGGXtsCoYtfeQ/jpLUO0Gz76tJq4OFjqVF7CIGBWzQ7rlVY6
+ VOkHZzy9eKyVj4LJZTFHVGgXr9RGs
+X-Received: by 2002:a05:6214:21a5:b0:6ea:d046:bcc9 with SMTP id
+ 6a1803df08f44-6eaeab6a013mr14675706d6.40.1741932013645; 
+ Thu, 13 Mar 2025 23:00:13 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IF9ggfslk4zuoLATTvIv1igTQO20IZTMXu60Z3sCx9HbRmLLfdN8lOCY9L1MrQPBMco04OZcw==
+X-Received: by 2002:a05:6214:21a5:b0:6ea:d046:bcc9 with SMTP id
+ 6a1803df08f44-6eaeab6a013mr14675226d6.40.1741932013248; 
+ Thu, 13 Mar 2025 23:00:13 -0700 (PDT)
+Received: from umbar.lan
+ (2001-14ba-a0c3-3a00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
+ [2001:14ba:a0c3:3a00:264b:feff:fe8b:be8a])
+ by smtp.gmail.com with ESMTPSA id
+ 2adb3069b0e04-549ba88332dsm416136e87.181.2025.03.13.23.00.09
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 13 Mar 2025 23:00:11 -0700 (PDT)
+From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Date: Fri, 14 Mar 2025 07:59:46 +0200
+Subject: [PATCH RFC v4 5/6] drm/display: dp-mst-topology: use new DCPD
+ access helpers
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MW4PR11MB6909:EE_|DS0PR11MB8762:EE_
-X-MS-Office365-Filtering-Correlation-Id: 823d89e4-7869-41ae-1636-08dd62f13e02
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|376014|366016|1800799024;
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?MzUwVTViRXFXQUR0U2hWdXFRNlhMMXVTRmtqSFA0UHM5MzdaR0o5dDdObjdH?=
- =?utf-8?B?WG41a1p4NUhPNVVVamlvU0QyakM2SDh6TlJhWEJLYnRhNmFlSGVONnhBM3dn?=
- =?utf-8?B?Unk2eGFtdDErRDBUUlFiYlIrcXRJdEhJNm1aZzRpTXN4d280TDVDcWZCZDhn?=
- =?utf-8?B?ZGVkSFVJQW5kdmY1andXa3ZYS01wdjZWRzFWSkxMcHFkYmE0NGJrU2FERloy?=
- =?utf-8?B?OVhOSGJZdm5wWDdCdml4R1VzcWFkdC9KNDJud1JEVkhNcllORjVkeXAza3BL?=
- =?utf-8?B?QTZZdmxYSWFHQXFNVTNpSzhpWVdWa3VOQU0vYzNVU21pVU1tMTZqZ1I5WEJM?=
- =?utf-8?B?U045MlRuQkpqd0J5bkdGMGM3MTV3bm10WmhWazZ1Z2pJYXh2RzVsQm1DbC9N?=
- =?utf-8?B?VElsNHB1SmswdTZJNXhHN3d3RnhsTlVhN2JOM0xYbGNJVHB4THRBUVMzMHIy?=
- =?utf-8?B?clZZVlhEM3JHeWl4K2UxeDYyNDZuTkFQZkF2N2pzYUNxdVhZRjVXWUJtdExF?=
- =?utf-8?B?YUhnTTYzWWJhZ094TVpFZ2hYTjRsVFkzRjhKOUxxQ0kvRUl4RFZlQkNiVndx?=
- =?utf-8?B?QUk3dnNZT2U3Yzhtd00zdG9TS2ljdU9vTjBOeWUrQUVYVmVaRnVBNDVvalFY?=
- =?utf-8?B?dXRLUWRYSytUQnZDamRpZmJGRldmeXRxdUJxNFdsUUNFbVFSdHJ4SzlvUkJM?=
- =?utf-8?B?OGJVRGlrNWlDOGt2ZHdiMEFoV3lFdkFYajYrOGlXbVVIdDBWRnB4eWM0TUZo?=
- =?utf-8?B?akNZcUZ6U1N0U3JwSkFQd1QxVHB1RzJWM0dSbC9vRXdkdlh0Unk3NFJIL0xK?=
- =?utf-8?B?WHNOeWFycHN5bXJIZmxONkNLeVZOQnc0MHIwZTdNRmtZbWRNck1RNytPUlk2?=
- =?utf-8?B?aWFGWDBONC9obGpKeHFYcG92L3ZTaDVBZm5zU3U3Vm5WV0R4SHBNT1ZtTEIz?=
- =?utf-8?B?VlhYNG0wTEhpY0o0QzVBNklZQ1ErdHZOMktnczNlQUJHS2ZVUElVUS82V1Nx?=
- =?utf-8?B?K0Viai9wcmZyeXh1bWphclJhYzJUOXJHN0JMTGt5YUJiVkEwNTczTnFQNjhl?=
- =?utf-8?B?OEFobzd1Vi9MODUvNjY3ZC9kVkdDNzA2ME5wUWx5MU9tVmRyT2pOZHZtYk5p?=
- =?utf-8?B?Uy9ZOFZia0FHZHJWdTRJL3l4Zk4vRWo2NXNRd1BFcWNNL09VV0N6MGpEeWc1?=
- =?utf-8?B?Q1dMNndTTHZQQUZyb3BKYzQzdVhuVERyNG1xMzBNV2FuNUFhRXpGM1JZNUNU?=
- =?utf-8?B?a3MwM0p4dDRUT3duU1ZOajJPQlVPUks1WGx5NFRrNDNwaUllT25ad0EzZFNn?=
- =?utf-8?B?NS9EMTFseU5HRnNBVXNndFNnTHpoLzBZbW5BZXJDMDJGV2s2SlR2dC9Lb1lL?=
- =?utf-8?B?ZGErcjJCYWJyZTBLbGNsdUc4ZGFaVTdKOE9zazVLSUtZaDJPazhQck5vUDUr?=
- =?utf-8?B?RHJGeEwwOEZrWk9mZ0ZvMFFCZ0NXN3JHc1JUMXA2TEdDUEV0OEl0cDZ5WjRV?=
- =?utf-8?B?ZURaaEFDMXo2YzJNbzhzTERuNTJlM2pJbGJoaE1JZVc5ZDBCNzhkY0EyZXR5?=
- =?utf-8?B?M1Q1Zmgva0EremR4eGptbnE5bmFjUDlOemJNQmF3N2RxY1poZEZESllMaWR0?=
- =?utf-8?B?ZDN3ZFZZSWJzcXpYaEs0VFd3NkF5akdHRDJ6THllNFZCZVZzUEtuOXdsbU80?=
- =?utf-8?B?b0Q4NDlIZkI0NmJ5VGJnZ1BESHdGUWR2T1luWE8wR25QOTB3dTM0TEw4RWM3?=
- =?utf-8?B?VG1mUmRpTEFwTldrVXNkZXB5WW1DaHJvLzRNa2QwcWFvQ2lKdEJTRnRac09v?=
- =?utf-8?B?TDUrS05xNVpmakwxcm5LNm9QVFROTEk3YUZjR2U5dVRRWHdJK2dZRCtPVk52?=
- =?utf-8?Q?TOUD/ExUnjvcj?=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:MW4PR11MB6909.namprd11.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(366016)(1800799024); DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?VmVWNEx4UUtDZ1dnVTczRTcxUDhiRDFtY2h6a2tkTFB1NlEybWlrcEhEWGxs?=
- =?utf-8?B?RGQxUFRFM3RLeWdSZk1Ga0ZzQmppeGJvV2pYSGx0WDJTYzhZbFYzWk13eGt1?=
- =?utf-8?B?WnZWKzBNeHZxaXEwV3RPclozWkd1UzNlQ1ZRM0xMQTExaTI2SHhLdjRxa05V?=
- =?utf-8?B?aHBhMFp3N3c4Y1pzdnlaQnJuWUEwZllMRkpQSVpHRjIvWDAwNElGQ2ErWkdB?=
- =?utf-8?B?TW0xNStaYjZzVHgvUTVBSlRMWCs3QUlBc2FDYjdkOGk1TXQ5TFQ1RUZIUWds?=
- =?utf-8?B?bjNFUDVjcnpZcHd2cFl6MUkvVXRaZ0hSYjdaT3o2TUN2eFZzdTJtaFZ2MkI1?=
- =?utf-8?B?WVBpNXFsOHFhN2Y4bXNNaFlyS2tmeEYyL0Q3VStxaVBzdWtQdmxHSVpUbmhZ?=
- =?utf-8?B?MW1OMVZxQnNuVVlPeHlnSDZtdDBrc2JVSXFuK0RGTFhqRmJraEdMenV2eC9w?=
- =?utf-8?B?ZjAxUjZqZlBWN29XODFOUlFvT2JtaFBTbzh4MXJ1eFgyNnNUbytzRXpXL1dx?=
- =?utf-8?B?NmludDZkRFBvU2g3dzcrU3Z5b1FkY1JVWTFhRmxjMFp3UzZsY215SDZpQWg4?=
- =?utf-8?B?NUpSNCtOQzg1WHJBMnphYThZdEpBWVJRUE43K05xaVNxdEJuc1lNVEVxZm51?=
- =?utf-8?B?cDNaSnlhcUVKbjNkenZnbm5YL2F5TlREQWh5UC9iWXk2SFoveE1lWEhwY0Rl?=
- =?utf-8?B?c29qR01zaHRBdFlWaURFTUsvSWs5OGJ3TFpnR2pFWkVuUjdlMVd1SUU5czBH?=
- =?utf-8?B?QWorUzMyenhvdHU5RjRQNnVuSGUxQWpZK1JEajgrUDBtQzV1TUhJOExkTGpM?=
- =?utf-8?B?dnhYbldRSlduTStzVVVBU2YzQkZUN2YxeDNBMy8vNks3TlJJN3V5SXZUTW05?=
- =?utf-8?B?Q1dzWnFxdGpDdnpNU25VNkZwWWdWSGd0eFpNKzVROEhHTXdSMlRYQ1Nua0pS?=
- =?utf-8?B?UXdmSzUyTXBJL1hXYmNzd0pYUGtHR3ZETnZwd2dxN2FHNFdjOGhabVRTN205?=
- =?utf-8?B?TE1OZUpSQ2JCV2h6QnlaNFZDQlhOeFMrS3lmWEVoTUNuM096c1RzSHJCYy91?=
- =?utf-8?B?dHJXcnVEMnp5UEFoSWVvRjAzN2FTa2FQc0lPM05UTlZ4VnNvZW9oK05qak5o?=
- =?utf-8?B?L1l2Z3dlSHRKcnNCRC9ZQ1lrbG9iNUJEN2tHcDFBeFJ3dFlnMys1dXVIM1A3?=
- =?utf-8?B?N0VhTVNHTHRjbFFGSFUwMXZYQ0FZM1Y0OXpGN2xHQmVEc2Z0Y1o2TGhkYXRO?=
- =?utf-8?B?S0JKdFlKUU1hWDBtTW5hRmdkVFRySGt4WWRlZ21NOVdvdnovTG93NnZxNGlD?=
- =?utf-8?B?SFJyd2JVTDlqL0dXd2ZRMjRzOW9NZUtuT3pRRm1OSSttdWNGbG52SG9WTGVH?=
- =?utf-8?B?ZkJtUU5Ga3c1alljNnFQMFgvRmRBNkpRU0dwSzc2TkdUTVFld1NaMzArQ2Vk?=
- =?utf-8?B?OFNnUmNETkZmZXNoMktsaHIxTENWS0oxbDl3cmpWK1NaK3FnZzBxeEZWdnVI?=
- =?utf-8?B?Nm5VbXR4djNuUWJ2eVNkZS9JSWNaL2tlQ3lBalNTRHZTbTgzOFc2V2psRUsw?=
- =?utf-8?B?YmtxdzlIeGRSbjlyU2c3MloyMFN2NllYbzJZc2pFek5QWDhYbXZkYXpPRW12?=
- =?utf-8?B?N0EyT3pwZG4xZU9yMlNsdnpka3dSUmhEV1JtSzJBRWRSQ3Y0R0ZxU0NHMFhQ?=
- =?utf-8?B?TDhuVjZ2ZFBIZnpiMk9PRUlzWGM0RitmejNlY1NSdW9EcUdWQVBNNDlHdVVH?=
- =?utf-8?B?WENUUWFQUTVHT0V5ZlA4d2Y5RGNFQ3V0VHJaeWpzNjhjQkJSSTFwZHBKKzhx?=
- =?utf-8?B?MDhQbTZJZi9WUDZrTi96UExSK3I4Rkk2S3ZsbnVHbnBJT1dmaWR4YjF2UEJ5?=
- =?utf-8?B?cnFjL0l1VCsvOXkxemoxK2VRdHlNb1RHZW9WTm5zS2dRbTJSOTNZWm5QYnBN?=
- =?utf-8?B?alRJNHg0alY4VHd2cGxQTVN6Q3llSzhPT3B5ZUI3VTFZM3ZXam5pL2pDaU1s?=
- =?utf-8?B?cFA5bVJrVFFocFJSRVRXSldhWUZCN3gybElsaml1MG8vTjBRK3VVSE1kSXEr?=
- =?utf-8?B?NGpsNUVSMzc4a292UVh4UU5oMUpDTHBGZkFrQUhPNmg4cEp0dVk2aTQxWFBZ?=
- =?utf-8?B?NzhuMlRobW1yRDFOaTFteVF5SU5keEJHWG82ZXFPU0lPb0toUkFpcmpJYit0?=
- =?utf-8?B?WHc9PQ==?=
-X-MS-Exchange-CrossTenant-Network-Message-Id: 823d89e4-7869-41ae-1636-08dd62f13e02
-X-MS-Exchange-CrossTenant-AuthSource: MW4PR11MB6909.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Mar 2025 12:10:42.4921 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: nvzDM99zwpLK3f7yyB8VBiV9vinGdHarDqwqY/QJv7EPebW2Byjyy7Co4czlw7RvJXiwE2NsbX4r+O1MXk+RAsttJcJ9rMV2zcOKormHu88=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR11MB8762
-X-OriginatorOrg: intel.com
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20250314-drm-rework-dpcd-access-v4-5-e86ef6fc6d76@oss.qualcomm.com>
+References: <20250314-drm-rework-dpcd-access-v4-0-e86ef6fc6d76@oss.qualcomm.com>
+In-Reply-To: <20250314-drm-rework-dpcd-access-v4-0-e86ef6fc6d76@oss.qualcomm.com>
+To: Lyude Paul <lyude@redhat.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Rob Clark <robdclark@gmail.com>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Xinliang Liu <xinliang.liu@linaro.org>, Tian Tao <tiantao6@hisilicon.com>,
+ Xinwei Kong <kong.kongxinwei@hisilicon.com>,
+ Sumit Semwal <sumit.semwal@linaro.org>,
+ Yongqin Liu <yongqin.liu@linaro.org>, John Stultz <jstultz@google.com>
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
+ intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Jani Nikula <jani.nikula@intel.com>
+X-Mailer: b4 0.14.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=8924;
+ i=dmitry.baryshkov@oss.qualcomm.com; h=from:subject:message-id;
+ bh=lOAwM26QhsV15lYFaBEeUiZtWiwv6AIfNojc3p1iTEQ=;
+ b=owEBbQGS/pANAwAKAYs8ij4CKSjVAcsmYgBn08XZq48cvIyYBf/kBkcM6PZ2QjbmI2P9MTtrN
+ EoXaoKdsA+JATMEAAEKAB0WIQRMcISVXLJjVvC4lX+LPIo+Aiko1QUCZ9PF2QAKCRCLPIo+Aiko
+ 1fWFCACECdIgEwfsDhf3wmAf6H5YXKRkrLkmnSjIiAWprKvWFDsmv/JnUN5rPrwiqVxajQKJ1Ne
+ QULtPar2xu3aotOaPpZGQqlpr2DuSJ8vJhzKdYP/zPeigvER0lpF/YKx97L5KEEYOOMtIAa4Ye/
+ 9iFIofIb8EMrImkxMgE17XgkIL5o9YozJuhoArjL8hHPH2lduf8uRwe4b0Rzai65LZErXnMIYYa
+ 3gUIVFS0UVQs233oQQxqr6Bb3dqeSiFNZjA3fDI9pAgPivD5eE9r7vsNgTRMDLVkpCcFbJxDqrN
+ HjQJvTmzWVYnG6lxh4LD1QGn7vQToMz8Q6Uzzp6ChCbfeQ/Q
+X-Developer-Key: i=dmitry.baryshkov@oss.qualcomm.com; a=openpgp;
+ fpr=8F88381DD5C873E4AE487DA5199BF1243632046A
+X-Authority-Analysis: v=2.4 cv=CNQqXQrD c=1 sm=1 tr=0 ts=67d3c5ef cx=c_pps
+ a=UgVkIMxJMSkC9lv97toC5g==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
+ a=Vs1iUdzkB0EA:10 a=KKAkSRfTAAAA:8 a=20KFwNOVAAAA:8 a=QyXUC8HyAAAA:8
+ a=CIugonsnW1z_eXyUCzcA:9 a=QEXdDO2ut3YA:10
+ a=1HOtulTD9v-eNWfpl4qZ:22 a=cvBusfyB2V15izCimMoJ:22
+X-Proofpoint-ORIG-GUID: Xjn6fhJ9nFF93QiE2k7z9n5SHfYRhRF0
+X-Proofpoint-GUID: Xjn6fhJ9nFF93QiE2k7z9n5SHfYRhRF0
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1093,Hydra:6.0.680,FMLib:17.12.68.34
+ definitions=2025-03-14_02,2025-03-13_01,2024-11-22_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ lowpriorityscore=0
+ mlxlogscore=999 impostorscore=0 mlxscore=0 priorityscore=1501
+ suspectscore=0 phishscore=0 malwarescore=0 clxscore=1011 bulkscore=0
+ adultscore=0 spamscore=0 classifier=spam authscore=0 authtc=n/a authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.19.0-2502280000
+ definitions=main-2503140045
+X-Mailman-Approved-At: Fri, 14 Mar 2025 13:03:45 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -194,20 +155,248 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Hi Andi
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 
-On Fri Mar 14, 2025 at 2:12 AM UTC, Andi Shyti wrote:
-> Hi
->
-> Browsing through my endless list of branches I found a few with
-> random cleanups that I fix while rading the code. They tend to be
-s/rading/reading
+Switch drm_dp_mst_topology.c to use new set of DPCD read / write helpers.
 
-The whole series looks good in my opinion.
+Reviewed-by: Lyude Paul <lyude@redhat.com>
+Acked-by: Jani Nikula <jani.nikula@intel.com>
+Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+---
+ drivers/gpu/drm/display/drm_dp_mst_topology.c | 105 +++++++++++++-------------
+ 1 file changed, 51 insertions(+), 54 deletions(-)
 
-Reviewed-by: Sebastian Brzezinka <sebastian.brzezinka@intel.com>
+diff --git a/drivers/gpu/drm/display/drm_dp_mst_topology.c b/drivers/gpu/drm/display/drm_dp_mst_topology.c
+index 3a1f1ffc7b5528b940485e7d96b1913bd85b0153..de3fc6090c906efce3dbaa8462d736ebf9094b34 100644
+--- a/drivers/gpu/drm/display/drm_dp_mst_topology.c
++++ b/drivers/gpu/drm/display/drm_dp_mst_topology.c
+@@ -2201,15 +2201,12 @@ static int drm_dp_check_mstb_guid(struct drm_dp_mst_branch *mstb, guid_t *guid)
+ 						     mstb->port_parent,
+ 						     DP_GUID, sizeof(buf), buf);
+ 		} else {
+-			ret = drm_dp_dpcd_write(mstb->mgr->aux,
+-						DP_GUID, buf, sizeof(buf));
++			ret = drm_dp_dpcd_write_data(mstb->mgr->aux,
++						     DP_GUID, buf, sizeof(buf));
+ 		}
+ 	}
+ 
+-	if (ret < 16 && ret > 0)
+-		return -EPROTO;
+-
+-	return ret == 16 ? 0 : ret;
++	return ret;
+ }
+ 
+ static void build_mst_prop_path(const struct drm_dp_mst_branch *mstb,
+@@ -2744,14 +2741,13 @@ static int drm_dp_send_sideband_msg(struct drm_dp_mst_topology_mgr *mgr,
+ 	do {
+ 		tosend = min3(mgr->max_dpcd_transaction_bytes, 16, total);
+ 
+-		ret = drm_dp_dpcd_write(mgr->aux, regbase + offset,
+-					&msg[offset],
+-					tosend);
+-		if (ret != tosend) {
+-			if (ret == -EIO && retries < 5) {
+-				retries++;
+-				goto retry;
+-			}
++		ret = drm_dp_dpcd_write_data(mgr->aux, regbase + offset,
++					     &msg[offset],
++					     tosend);
++		if (ret == -EIO && retries < 5) {
++			retries++;
++			goto retry;
++		} else if (ret < 0) {
+ 			drm_dbg_kms(mgr->dev, "failed to dpcd write %d %d\n", tosend, ret);
+ 
+ 			return -EIO;
+@@ -3624,7 +3620,7 @@ enum drm_dp_mst_mode drm_dp_read_mst_cap(struct drm_dp_aux *aux,
+ 	if (dpcd[DP_DPCD_REV] < DP_DPCD_REV_12)
+ 		return DRM_DP_SST;
+ 
+-	if (drm_dp_dpcd_readb(aux, DP_MSTM_CAP, &mstm_cap) != 1)
++	if (drm_dp_dpcd_read_byte(aux, DP_MSTM_CAP, &mstm_cap) < 0)
+ 		return DRM_DP_SST;
+ 
+ 	if (mstm_cap & DP_MST_CAP)
+@@ -3679,10 +3675,10 @@ int drm_dp_mst_topology_mgr_set_mst(struct drm_dp_mst_topology_mgr *mgr, bool ms
+ 		mgr->mst_primary = mstb;
+ 		drm_dp_mst_topology_get_mstb(mgr->mst_primary);
+ 
+-		ret = drm_dp_dpcd_writeb(mgr->aux, DP_MSTM_CTRL,
+-					 DP_MST_EN |
+-					 DP_UP_REQ_EN |
+-					 DP_UPSTREAM_IS_SRC);
++		ret = drm_dp_dpcd_write_byte(mgr->aux, DP_MSTM_CTRL,
++					     DP_MST_EN |
++					     DP_UP_REQ_EN |
++					     DP_UPSTREAM_IS_SRC);
+ 		if (ret < 0)
+ 			goto out_unlock;
+ 
+@@ -3697,7 +3693,7 @@ int drm_dp_mst_topology_mgr_set_mst(struct drm_dp_mst_topology_mgr *mgr, bool ms
+ 		mstb = mgr->mst_primary;
+ 		mgr->mst_primary = NULL;
+ 		/* this can fail if the device is gone */
+-		drm_dp_dpcd_writeb(mgr->aux, DP_MSTM_CTRL, 0);
++		drm_dp_dpcd_write_byte(mgr->aux, DP_MSTM_CTRL, 0);
+ 		ret = 0;
+ 		mgr->payload_id_table_cleared = false;
+ 
+@@ -3763,8 +3759,8 @@ EXPORT_SYMBOL(drm_dp_mst_topology_queue_probe);
+ void drm_dp_mst_topology_mgr_suspend(struct drm_dp_mst_topology_mgr *mgr)
+ {
+ 	mutex_lock(&mgr->lock);
+-	drm_dp_dpcd_writeb(mgr->aux, DP_MSTM_CTRL,
+-			   DP_MST_EN | DP_UPSTREAM_IS_SRC);
++	drm_dp_dpcd_write_byte(mgr->aux, DP_MSTM_CTRL,
++			       DP_MST_EN | DP_UPSTREAM_IS_SRC);
+ 	mutex_unlock(&mgr->lock);
+ 	flush_work(&mgr->up_req_work);
+ 	flush_work(&mgr->work);
+@@ -3813,18 +3809,18 @@ int drm_dp_mst_topology_mgr_resume(struct drm_dp_mst_topology_mgr *mgr,
+ 		goto out_fail;
+ 	}
+ 
+-	ret = drm_dp_dpcd_writeb(mgr->aux, DP_MSTM_CTRL,
+-				 DP_MST_EN |
+-				 DP_UP_REQ_EN |
+-				 DP_UPSTREAM_IS_SRC);
++	ret = drm_dp_dpcd_write_byte(mgr->aux, DP_MSTM_CTRL,
++				     DP_MST_EN |
++				     DP_UP_REQ_EN |
++				     DP_UPSTREAM_IS_SRC);
+ 	if (ret < 0) {
+ 		drm_dbg_kms(mgr->dev, "mst write failed - undocked during suspend?\n");
+ 		goto out_fail;
+ 	}
+ 
+ 	/* Some hubs forget their guids after they resume */
+-	ret = drm_dp_dpcd_read(mgr->aux, DP_GUID, buf, sizeof(buf));
+-	if (ret != sizeof(buf)) {
++	ret = drm_dp_dpcd_read_data(mgr->aux, DP_GUID, buf, sizeof(buf));
++	if (ret < 0) {
+ 		drm_dbg_kms(mgr->dev, "dpcd read failed - undocked during suspend?\n");
+ 		goto out_fail;
+ 	}
+@@ -3883,8 +3879,8 @@ drm_dp_get_one_sb_msg(struct drm_dp_mst_topology_mgr *mgr, bool up,
+ 		*mstb = NULL;
+ 
+ 	len = min(mgr->max_dpcd_transaction_bytes, 16);
+-	ret = drm_dp_dpcd_read(mgr->aux, basereg, replyblock, len);
+-	if (ret != len) {
++	ret = drm_dp_dpcd_read_data(mgr->aux, basereg, replyblock, len);
++	if (ret < 0) {
+ 		drm_dbg_kms(mgr->dev, "failed to read DPCD down rep %d %d\n", len, ret);
+ 		return false;
+ 	}
+@@ -3922,9 +3918,9 @@ drm_dp_get_one_sb_msg(struct drm_dp_mst_topology_mgr *mgr, bool up,
+ 	curreply = len;
+ 	while (replylen > 0) {
+ 		len = min3(replylen, mgr->max_dpcd_transaction_bytes, 16);
+-		ret = drm_dp_dpcd_read(mgr->aux, basereg + curreply,
+-				    replyblock, len);
+-		if (ret != len) {
++		ret = drm_dp_dpcd_read_data(mgr->aux, basereg + curreply,
++					    replyblock, len);
++		if (ret < 0) {
+ 			drm_dbg_kms(mgr->dev, "failed to read a chunk (len %d, ret %d)\n",
+ 				    len, ret);
+ 			return false;
+@@ -4881,9 +4877,9 @@ static bool dump_dp_payload_table(struct drm_dp_mst_topology_mgr *mgr,
+ 	int i;
+ 
+ 	for (i = 0; i < DP_PAYLOAD_TABLE_SIZE; i += 16) {
+-		if (drm_dp_dpcd_read(mgr->aux,
+-				     DP_PAYLOAD_TABLE_UPDATE_STATUS + i,
+-				     &buf[i], 16) != 16)
++		if (drm_dp_dpcd_read_data(mgr->aux,
++					  DP_PAYLOAD_TABLE_UPDATE_STATUS + i,
++					  &buf[i], 16) < 0)
+ 			return false;
+ 	}
+ 	return true;
+@@ -4972,23 +4968,24 @@ void drm_dp_mst_dump_topology(struct seq_file *m,
+ 		}
+ 		seq_printf(m, "dpcd: %*ph\n", DP_RECEIVER_CAP_SIZE, buf);
+ 
+-		ret = drm_dp_dpcd_read(mgr->aux, DP_FAUX_CAP, buf, 2);
+-		if (ret != 2) {
++		ret = drm_dp_dpcd_read_data(mgr->aux, DP_FAUX_CAP, buf, 2);
++		if (ret < 0) {
+ 			seq_printf(m, "faux/mst read failed\n");
+ 			goto out;
+ 		}
+ 		seq_printf(m, "faux/mst: %*ph\n", 2, buf);
+ 
+-		ret = drm_dp_dpcd_read(mgr->aux, DP_MSTM_CTRL, buf, 1);
+-		if (ret != 1) {
++		ret = drm_dp_dpcd_read_data(mgr->aux, DP_MSTM_CTRL, buf, 1);
++		if (ret < 0) {
+ 			seq_printf(m, "mst ctrl read failed\n");
+ 			goto out;
+ 		}
+ 		seq_printf(m, "mst ctrl: %*ph\n", 1, buf);
+ 
+ 		/* dump the standard OUI branch header */
+-		ret = drm_dp_dpcd_read(mgr->aux, DP_BRANCH_OUI, buf, DP_BRANCH_OUI_HEADER_SIZE);
+-		if (ret != DP_BRANCH_OUI_HEADER_SIZE) {
++		ret = drm_dp_dpcd_read_data(mgr->aux, DP_BRANCH_OUI, buf,
++					    DP_BRANCH_OUI_HEADER_SIZE);
++		if (ret < 0) {
+ 			seq_printf(m, "branch oui read failed\n");
+ 			goto out;
+ 		}
+@@ -6112,14 +6109,14 @@ struct drm_dp_aux *drm_dp_mst_dsc_aux_for_port(struct drm_dp_mst_port *port)
+ 
+ 	/* DP-to-DP peer device */
+ 	if (drm_dp_mst_is_virtual_dpcd(immediate_upstream_port)) {
+-		if (drm_dp_dpcd_read(&port->aux,
+-				     DP_DSC_SUPPORT, &endpoint_dsc, 1) != 1)
++		if (drm_dp_dpcd_read_data(&port->aux,
++					  DP_DSC_SUPPORT, &endpoint_dsc, 1) < 0)
+ 			return NULL;
+-		if (drm_dp_dpcd_read(&port->aux,
+-				     DP_FEC_CAPABILITY, &endpoint_fec, 1) != 1)
++		if (drm_dp_dpcd_read_data(&port->aux,
++					  DP_FEC_CAPABILITY, &endpoint_fec, 1) < 0)
+ 			return NULL;
+-		if (drm_dp_dpcd_read(&immediate_upstream_port->aux,
+-				     DP_DSC_SUPPORT, &upstream_dsc, 1) != 1)
++		if (drm_dp_dpcd_read_data(&immediate_upstream_port->aux,
++					  DP_DSC_SUPPORT, &upstream_dsc, 1) < 0)
+ 			return NULL;
+ 
+ 		/* Enpoint decompression with DP-to-DP peer device */
+@@ -6157,8 +6154,8 @@ struct drm_dp_aux *drm_dp_mst_dsc_aux_for_port(struct drm_dp_mst_port *port)
+ 	if (drm_dp_has_quirk(&desc, DP_DPCD_QUIRK_DSC_WITHOUT_VIRTUAL_DPCD)) {
+ 		u8 dpcd_ext[DP_RECEIVER_CAP_SIZE];
+ 
+-		if (drm_dp_dpcd_read(immediate_upstream_aux,
+-				     DP_DSC_SUPPORT, &upstream_dsc, 1) != 1)
++		if (drm_dp_dpcd_read_data(immediate_upstream_aux,
++					  DP_DSC_SUPPORT, &upstream_dsc, 1) < 0)
+ 			return NULL;
+ 
+ 		if (!(upstream_dsc & DP_DSC_DECOMPRESSION_IS_SUPPORTED))
+@@ -6180,11 +6177,11 @@ struct drm_dp_aux *drm_dp_mst_dsc_aux_for_port(struct drm_dp_mst_port *port)
+ 	 * therefore the endpoint needs to be
+ 	 * both DSC and FEC capable.
+ 	 */
+-	if (drm_dp_dpcd_read(&port->aux,
+-	   DP_DSC_SUPPORT, &endpoint_dsc, 1) != 1)
++	if (drm_dp_dpcd_read_data(&port->aux,
++				  DP_DSC_SUPPORT, &endpoint_dsc, 1) < 0)
+ 		return NULL;
+-	if (drm_dp_dpcd_read(&port->aux,
+-	   DP_FEC_CAPABILITY, &endpoint_fec, 1) != 1)
++	if (drm_dp_dpcd_read_data(&port->aux,
++				  DP_FEC_CAPABILITY, &endpoint_fec, 1) < 0)
+ 		return NULL;
+ 	if ((endpoint_dsc & DP_DSC_DECOMPRESSION_IS_SUPPORTED) &&
+ 	   (endpoint_fec & DP_FEC_CAPABLE))
 
---=20
-Best regards,
-Sebastian
+-- 
+2.39.5
 
