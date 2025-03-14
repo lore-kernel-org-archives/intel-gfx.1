@@ -4,83 +4,84 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9CE2CC282EC
-	for <intel-gfx@archiver.kernel.org>; Fri, 14 Mar 2025 13:03:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2319BC28B30
+	for <intel-gfx@archiver.kernel.org>; Fri, 14 Mar 2025 13:03:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2E3C910E982;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3FDA110E9E7;
 	Fri, 14 Mar 2025 13:03:52 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="F9ZB6mEM";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="KDJFY7vg";
 	dkim-atps=neutral
 Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
  [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3186010E957
- for <intel-gfx@lists.freedesktop.org>; Fri, 14 Mar 2025 06:00:19 +0000 (UTC)
-Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 52DNEbiF031304
- for <intel-gfx@lists.freedesktop.org>; Fri, 14 Mar 2025 06:00:18 GMT
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9B9A910E2EB
+ for <intel-gfx@lists.freedesktop.org>; Fri, 14 Mar 2025 06:00:06 +0000 (UTC)
+Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 52DGufEe019923
+ for <intel-gfx@lists.freedesktop.org>; Fri, 14 Mar 2025 06:00:05 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
  cc:content-transfer-encoding:content-type:date:from:in-reply-to
  :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- YD6Z7HGd6RWZSqIPuwEoc3ezQjdyPxL3+GL3fga18Fk=; b=F9ZB6mEMvQNwJykH
- MrOciWlfhPF8gc6CrJXLfBq6ksxP5I8HK9A04+R9PUhWfPJwCVv8BL0flzdy29AI
- eMEcparMp0Y8s3nwWzXN2Qz/07jcVo9fw40wbZ79dkOHIpPJXZKBLwh0EPiDKdkB
- mF7Gagr/+b3kLvLCU9PcpLZkLyNrIwovXGZN2QhD9SZj71u/ABBGyJst4jmag2kg
- Gs/9yzmzKr3kq5EeXX0YuHMn2IU4FEJlmWQAqpbweVhZHwKeKCIFBhCtLU/b+mWI
- /NiV+EIbFm87IQZvcBnmfGw09vKbyX2bP7W7iXYV840EQmKLmwa34xMDrEED99SE
- siG8LA==
-Received: from mail-qv1-f70.google.com (mail-qv1-f70.google.com
- [209.85.219.70])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 45au2qr66j-1
+ xwh0kAnHT7FdNhb96gdjp7PUruv4t4YUK908RVrCz7k=; b=KDJFY7vgLmFnHksr
+ JiiA303xG/V2xt9VWrXzg1Fkve33dle/iq87SiehFh7DbqVAgcOdNvWO2k44FIuX
+ ZtgH4uhk6zorcYH5B8d0YQmfeaVjTFMKl5J0eHxiW+ZvgJM2Wp4zDAEDjWkBlwCk
+ xrf2HWwyYn4MwNzB6NuNzJCDhvpSQF1RtjxJQsOci3xzqN3HA3rALJXhWjWtpSlx
+ pzyX07jGV9ZwUFw3qlcXAnzLLa6IsRwB04kdUsfM+2ILPgXtfzIqX+enl4RbVHde
+ ZxXIA6ULz2iDikBc1DRI5WJKbTWoHNal2I9cmdxDW7dMQnVV8huxQ11MqpRwK1C7
+ Np2AaQ==
+Received: from mail-qt1-f198.google.com (mail-qt1-f198.google.com
+ [209.85.160.198])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 45bts0k8nt-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
- for <intel-gfx@lists.freedesktop.org>; Fri, 14 Mar 2025 06:00:18 +0000 (GMT)
-Received: by mail-qv1-f70.google.com with SMTP id
- 6a1803df08f44-6e91ee078aaso36974986d6.3
- for <intel-gfx@lists.freedesktop.org>; Thu, 13 Mar 2025 23:00:18 -0700 (PDT)
+ for <intel-gfx@lists.freedesktop.org>; Fri, 14 Mar 2025 06:00:05 +0000 (GMT)
+Received: by mail-qt1-f198.google.com with SMTP id
+ d75a77b69052e-476a8aff693so37988301cf.3
+ for <intel-gfx@lists.freedesktop.org>; Thu, 13 Mar 2025 23:00:05 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1741932017; x=1742536817;
+ d=1e100.net; s=20230601; t=1741932004; x=1742536804;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=YD6Z7HGd6RWZSqIPuwEoc3ezQjdyPxL3+GL3fga18Fk=;
- b=MHmjn+FhV/M65FTfKT0brIGumq9Mm6Sd8cIDIsItGZ6CdzJnQZf/Pr7/PT8ak4Vto8
- k+aw3di5v5maJNmtsez0a5Svpmansn1y/C1UY8K8VROcDN9aJbgYrnIVIRhAdvj9yT3X
- ERjCNH0JT+x/hsiMJQBnhL8l/lzpJOiHytO78ezAjSARWrSh13yJmqr4yHV9lQtElQKW
- hHzU+3m8lUcozSaMN75/dY+QDKRCpdSCe3A/0UgYBlO63w6VkTO/ihjE9aPL39ONSe6r
- ZRhBovbu4xc3qzr8H9bwhjT1i3w4lfrMTfL89dqzRRmL29f50qjyUz8e6+pBZJ+Mbh38
- wlLA==
+ bh=xwh0kAnHT7FdNhb96gdjp7PUruv4t4YUK908RVrCz7k=;
+ b=tEoYj5tDUJBYA6PNhNHcUO0ZpLx2fmQ2LaLqK1Imo67/JCoACGrgADHsH6y8n0FcO1
+ LqaWRgKWy8yNRzB27uv/iBI4vL0CkD26KYLRMlMHl4lomO9YBph9Ptxip+Gb04B9zNsc
+ ei4PWnwzIOxSFZ/rhz3qaqm8c6RYDZRZb0qKlir02rfpn8oknUWUzXgB6RCavpWvFMSV
+ Pf/Z2vr6+/MBKnNnIXiO6446/bcVlduLZtsRRAwCXn16G1C+ROgPkFR3pMaeyOGOrzM6
+ DaCxrpV4UR0JY5GaIkYvaiibLSn948J+YEMgelu9X2yIwbEtD2A6WjfjRNezGBppOV/o
+ /LlQ==
 X-Forwarded-Encrypted: i=1;
- AJvYcCVVxljzl9R67Go5zFT5o2Sp919XeYCVRo8AF4yq7eoROtO+TUmZO9jQWSuMg039RUtLK6yoM9uFKAs=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yx4jbe1BAGgIX3kLy0CQHJkH+EuZAaUwxegT5Rqvj473ykRIB7P
- yYLw2p2g/AU2ZvXrbU94txxTu5ki56C6Dbc0d4a2QfOuLzzNaFX1zOnQkE0QJoi/P9X3Y4xdDcv
- Fg73TfutOZFCzy2cmN2MBiwtpEwnUqYRoWS7uuVfBw6i5JvL4ULZ5vZc5vFTndnoyovA=
-X-Gm-Gg: ASbGnctTxpeargoELg9UMc1cGJi4++AtRVh82wE8ZOp619G4+cbVm+cejznITMPXhHG
- fowxlaIrlKsxCqi0NpN6YO1pPAaQYgSEYbTqgyG/aul53fonK3k7gQ32pKN5dKjSLoMKwnbiYWe
- kOBLeR2SLNEgiM+s2eABfACQcyd7NqbLyPEgdO/DCyY3TS3VWVp12dPaMUPBrHMKd0CAtopmey/
- HFMRfp2SIepnlirzWmse/F8HfRguk3GCeaBaCIWa7aEIt39S7CPeT2TPTFpYxJ6KC8LqoxBDqOL
- xBxkRk12kUuNfwHA4sB4K1/ODWdac/83n4hDrrJn7PVm9nXplHPbxKj0RpnvtDnnWQdRKbHTIQM
- eULTWErFbBKAsJ3bxWMNwlDunxuNY
-X-Received: by 2002:a05:6214:27e5:b0:6e6:6c39:cb71 with SMTP id
- 6a1803df08f44-6eaeab0fbbfmr16506416d6.45.1741932017332; 
- Thu, 13 Mar 2025 23:00:17 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IELJcylmUiJ4JEURtcZ0pb2cGp+YTibCxqJbDGjU39ccIquuLoPHTNuJjmGgKfn3GK+0NkRrQ==
-X-Received: by 2002:a05:6214:27e5:b0:6e6:6c39:cb71 with SMTP id
- 6a1803df08f44-6eaeab0fbbfmr16506016d6.45.1741932016982; 
- Thu, 13 Mar 2025 23:00:16 -0700 (PDT)
+ AJvYcCWAK0D6wRtP6EBDwy+Si7V6nYIeBkYDX0mGC2NzfCjOVSPuovUI2D6loUOMj03GbxDS9Ew9mY52a9A=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzgxfJYy3tmKBKww8Z4sjr88JWws6u9SI+lzctNf2+FlmPpV1VB
+ 1/Ws9pg9X5wi/VvyqfNujCqlXo+VHCpJQUdLM1XxQLNJCn3Ex7iJVbXFPMe/WZVx8u5LuDaJ7Hq
+ l65rbjBpdzzu+umWYtLCvS6CN8zOuA+nab1yxdjQyYNjiNyaqd6IJO/t2XDm7Vzfc5BI=
+X-Gm-Gg: ASbGncsNBIKqxfe4tfwMJvJ6KI0k2KHabZGj8DaTr2A8KHP84nyu2TzZwQRWw3ueSF2
+ Y5lz3dnE+evZnjTdY4kgMqHmRtrnZP0ZTTKMgQHLXXYPlbOUnYjVaG8XQvpwy7R2XBYTYLuE7+F
+ ewDj9ApLJ5xYO0sqQLYAYZxbrHaCIcC8mca68oHtkrV2W9mnatgytSxAZFpbJyxslojZTOY4n6M
+ Hp5SPKN+B2+nZoBL8+cJ3ynnC8baZ+YAIJPv0Elbusw+3S47AztVFDtdqE8Xks3TpvWbIdC8JqX
+ 68BSZf6EdvqvuO4EyBRpbYyx2RtRy7UdLGc0Gz9ZYsQq3G/b9WjHBVMTB1xN9G+PDuHn+9C9Erp
+ rKx/7mtMEagcIi62IC1kZZuKFI2QF
+X-Received: by 2002:a05:622a:1116:b0:476:8960:d1a3 with SMTP id
+ d75a77b69052e-476c813ade5mr19140731cf.14.1741932004349; 
+ Thu, 13 Mar 2025 23:00:04 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IE7W2OQ7A9S8YCLXKW598exLMciYwyh7aYTDa8T9i+XTPgfRVoKtUUfUUMEljyBOSYXIsoNng==
+X-Received: by 2002:a05:622a:1116:b0:476:8960:d1a3 with SMTP id
+ d75a77b69052e-476c813ade5mr19140091cf.14.1741932003867; 
+ Thu, 13 Mar 2025 23:00:03 -0700 (PDT)
 Received: from umbar.lan
  (2001-14ba-a0c3-3a00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
  [2001:14ba:a0c3:3a00:264b:feff:fe8b:be8a])
  by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-549ba88332dsm416136e87.181.2025.03.13.23.00.13
+ 2adb3069b0e04-549ba88332dsm416136e87.181.2025.03.13.23.00.00
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 13 Mar 2025 23:00:14 -0700 (PDT)
+ Thu, 13 Mar 2025 23:00:01 -0700 (PDT)
 From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Date: Fri, 14 Mar 2025 07:59:47 +0200
-Subject: [PATCH RFC v4 6/6] drm/display: dp-tunnel: use new DCPD access helpers
+Date: Fri, 14 Mar 2025 07:59:43 +0200
+Subject: [PATCH RFC v4 2/6] drm/display: dp: change
+ drm_dp_dpcd_read_link_status() return value
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20250314-drm-rework-dpcd-access-v4-6-e86ef6fc6d76@oss.qualcomm.com>
+Message-Id: <20250314-drm-rework-dpcd-access-v4-2-e86ef6fc6d76@oss.qualcomm.com>
 References: <20250314-drm-rework-dpcd-access-v4-0-e86ef6fc6d76@oss.qualcomm.com>
 In-Reply-To: <20250314-drm-rework-dpcd-access-v4-0-e86ef6fc6d76@oss.qualcomm.com>
 To: Lyude Paul <lyude@redhat.com>,
@@ -109,33 +110,33 @@ Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
  Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
  Jani Nikula <jani.nikula@intel.com>
 X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=4082;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=10619;
  i=dmitry.baryshkov@oss.qualcomm.com; h=from:subject:message-id;
- bh=AezDpTs9i2rYRC6AeDwZvqAV87zlWZZG2GdTd51PPFs=;
- b=owEBbQGS/pANAwAKAYs8ij4CKSjVAcsmYgBn08XZFN6uPDdiX1R7XmfB1vXISASqSFYGN569O
- I6KV6qdI3WJATMEAAEKAB0WIQRMcISVXLJjVvC4lX+LPIo+Aiko1QUCZ9PF2QAKCRCLPIo+Aiko
- 1eM5B/9jhOE9nI9V6mDRKubJu0/SPcbZoi/lHs71XyG/da3UMGC32Qt16u66xFuLg4inRbB79MC
- lZllWHwPgl1Q5/YeMrd7mbZ4SMoiH9evqV5y0/FTvifqU6zwgcpJ6ZCMWGixnm3Ezlb0aiz5nI9
- XYnzCZ3lNXvh8AkwMZMgXNfGOA71gEm/MhhXwmgqXHN48nVlgfkYc1J84RrrNot9sLmiQgfQHzR
- F4KZYvVt5YGhuR97yx5BeXuJOeT2S6L6rAfmV5RybP6JJdi6id/B10zo5H3f/e3tm+QFyIddeuv
- fYEScrVe2IVsan3JCnn6Al2YeCZugz0rJLJveu4Idywf2rlt
+ bh=XBxhw4jfP8Ib9Agf9heZOk6AB5nizhAMmuxM/unOe1k=;
+ b=owEBbQGS/pANAwAKAYs8ij4CKSjVAcsmYgBn08XZrrhr+hcfA8QE/UFPAhqQppqvI+igpL/x9
+ ErT7DACxb+JATMEAAEKAB0WIQRMcISVXLJjVvC4lX+LPIo+Aiko1QUCZ9PF2QAKCRCLPIo+Aiko
+ 1UggB/wPAlK8HEjL0DhPPOk5/KF/hAZsSWAV9nnvVfzWxVQP5y2ILu9sXmS3c7nW+r77goT4Fi4
+ ZZFpZJvsI8AejPJRT8EzuzJO8Slz0u8n/4vI0n+B19AUGotXL8d0MH2/iI4Somf0LWyp8AcowJQ
+ 4nbQmbMxIhZCVKAZme71TkAmFEvnhFofAjhodXKsvfbk18zJ+9DELVYgCQKg3h+9km6U81Z1CXp
+ zR7gIGkAWkgcHANYhl5dSyLv7rTMF3PVrFNpHl4kSQYp2lQ68bHnbpF5LrqAbhXPWbU1nqB+Ci2
+ P2SAAvREoyrOr2QfA2631mb8A4ugGeHKJGAuQKwnH6kHGWNP
 X-Developer-Key: i=dmitry.baryshkov@oss.qualcomm.com; a=openpgp;
  fpr=8F88381DD5C873E4AE487DA5199BF1243632046A
-X-Proofpoint-ORIG-GUID: D7qJ7SiCf4GlOdc60m6dgzktD4MxrbcX
-X-Proofpoint-GUID: D7qJ7SiCf4GlOdc60m6dgzktD4MxrbcX
-X-Authority-Analysis: v=2.4 cv=TIhFS0la c=1 sm=1 tr=0 ts=67d3c5f2 cx=c_pps
- a=oc9J++0uMp73DTRD5QyR2A==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
- a=Vs1iUdzkB0EA:10 a=KKAkSRfTAAAA:8 a=20KFwNOVAAAA:8 a=QyXUC8HyAAAA:8
- a=VzZmvmfVK_LU_xpdqU4A:9 a=QEXdDO2ut3YA:10
- a=iYH6xdkBrDN1Jqds4HTS:22 a=cvBusfyB2V15izCimMoJ:22
+X-Proofpoint-ORIG-GUID: XOkHuMFcbrzBuMVIrmxKynOrDcFAxhdZ
+X-Authority-Analysis: v=2.4 cv=DNSP4zNb c=1 sm=1 tr=0 ts=67d3c5e5 cx=c_pps
+ a=mPf7EqFMSY9/WdsSgAYMbA==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
+ a=Vs1iUdzkB0EA:10 a=KKAkSRfTAAAA:8 a=QyXUC8HyAAAA:8 a=20KFwNOVAAAA:8
+ a=SwUNW72u-79MlN5x3aoA:9 a=QEXdDO2ut3YA:10
+ a=dawVfQjAaf238kedN5IG:22 a=cvBusfyB2V15izCimMoJ:22
+X-Proofpoint-GUID: XOkHuMFcbrzBuMVIrmxKynOrDcFAxhdZ
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1093,Hydra:6.0.680,FMLib:17.12.68.34
  definitions=2025-03-14_02,2025-03-13_01,2024-11-22_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
  lowpriorityscore=0
- adultscore=0 mlxlogscore=999 mlxscore=0 clxscore=1015 bulkscore=0
- malwarescore=0 suspectscore=0 spamscore=0 phishscore=0 impostorscore=0
- priorityscore=1501 classifier=spam authscore=0 authtc=n/a authcc=
+ clxscore=1011 phishscore=0 malwarescore=0 mlxlogscore=999
+ priorityscore=1501 mlxscore=0 spamscore=0 bulkscore=0 impostorscore=0
+ suspectscore=0 adultscore=0 classifier=spam authscore=0 authtc=n/a authcc=
  route=outbound adjust=0 reason=mlx scancount=1 engine=8.19.0-2502280000
  definitions=main-2503140045
 X-Mailman-Approved-At: Fri, 14 Mar 2025 13:03:45 +0000
@@ -156,107 +157,254 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 
-Switch drm_dp_tunnel.c to use new set of DPCD read / write helpers.
+drm_dp_dpcd_read_link_status() follows the "return error code or number
+of bytes read" protocol, with the code returning less bytes than
+requested in case of some errors. However most of the drivers
+interpreted that as "return error code in case of any error". Switch
+drm_dp_dpcd_read_link_status() to drm_dp_dpcd_read_data() and make it
+follow that protocol too.
 
-Reviewed-by: Lyude Paul <lyude@redhat.com>
 Acked-by: Jani Nikula <jani.nikula@intel.com>
+Reviewed-by: Lyude Paul <lyude@redhat.com>
 Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 ---
- drivers/gpu/drm/display/drm_dp_tunnel.c | 20 ++++++++++----------
- 1 file changed, 10 insertions(+), 10 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/atombios_dp.c           |  8 ++++----
+ .../gpu/drm/bridge/cadence/cdns-mhdp8546-core.c    |  2 +-
+ drivers/gpu/drm/display/drm_dp_helper.c            |  7 +++----
+ drivers/gpu/drm/hisilicon/hibmc/dp/dp_link.c       |  4 ++--
+ drivers/gpu/drm/msm/dp/dp_ctrl.c                   | 24 +++++-----------------
+ drivers/gpu/drm/msm/dp/dp_link.c                   | 18 ++++++++--------
+ drivers/gpu/drm/radeon/atombios_dp.c               |  8 ++++----
+ 7 files changed, 28 insertions(+), 43 deletions(-)
 
-diff --git a/drivers/gpu/drm/display/drm_dp_tunnel.c b/drivers/gpu/drm/display/drm_dp_tunnel.c
-index 90fe07a89260e21e78f2db7f57a90602be921a11..076edf1610480275c62395334ab0536befa42f15 100644
---- a/drivers/gpu/drm/display/drm_dp_tunnel.c
-+++ b/drivers/gpu/drm/display/drm_dp_tunnel.c
-@@ -222,7 +222,7 @@ static int read_tunnel_regs(struct drm_dp_aux *aux, struct drm_dp_tunnel_regs *r
- 	while ((len = next_reg_area(&offset))) {
- 		int address = DP_TUNNELING_BASE + offset;
+diff --git a/drivers/gpu/drm/amd/amdgpu/atombios_dp.c b/drivers/gpu/drm/amd/amdgpu/atombios_dp.c
+index 521b9faab18059ed92ebb1dc9a9847e8426e7403..492813ab1b54197ba842075bc2909984c39bd5c1 100644
+--- a/drivers/gpu/drm/amd/amdgpu/atombios_dp.c
++++ b/drivers/gpu/drm/amd/amdgpu/atombios_dp.c
+@@ -458,8 +458,8 @@ bool amdgpu_atombios_dp_needs_link_train(struct amdgpu_connector *amdgpu_connect
+ 	u8 link_status[DP_LINK_STATUS_SIZE];
+ 	struct amdgpu_connector_atom_dig *dig = amdgpu_connector->con_priv;
  
--		if (drm_dp_dpcd_read(aux, address, tunnel_reg_ptr(regs, address), len) < 0)
-+		if (drm_dp_dpcd_read_data(aux, address, tunnel_reg_ptr(regs, address), len) < 0)
- 			return -EIO;
+-	if (drm_dp_dpcd_read_link_status(&amdgpu_connector->ddc_bus->aux, link_status)
+-	    <= 0)
++	if (drm_dp_dpcd_read_link_status(&amdgpu_connector->ddc_bus->aux,
++					 link_status) < 0)
+ 		return false;
+ 	if (drm_dp_channel_eq_ok(link_status, dig->dp_lane_count))
+ 		return false;
+@@ -616,7 +616,7 @@ amdgpu_atombios_dp_link_train_cr(struct amdgpu_atombios_dp_link_train_info *dp_i
+ 		drm_dp_link_train_clock_recovery_delay(dp_info->aux, dp_info->dpcd);
  
- 		offset += len;
-@@ -913,7 +913,7 @@ static int set_bw_alloc_mode(struct drm_dp_tunnel *tunnel, bool enable)
- 	u8 mask = DP_DISPLAY_DRIVER_BW_ALLOCATION_MODE_ENABLE | DP_UNMASK_BW_ALLOCATION_IRQ;
- 	u8 val;
+ 		if (drm_dp_dpcd_read_link_status(dp_info->aux,
+-						 dp_info->link_status) <= 0) {
++						 dp_info->link_status) < 0) {
+ 			DRM_ERROR("displayport link status failed\n");
+ 			break;
+ 		}
+@@ -681,7 +681,7 @@ amdgpu_atombios_dp_link_train_ce(struct amdgpu_atombios_dp_link_train_info *dp_i
+ 		drm_dp_link_train_channel_eq_delay(dp_info->aux, dp_info->dpcd);
  
--	if (drm_dp_dpcd_readb(tunnel->aux, DP_DPTX_BW_ALLOCATION_MODE_CONTROL, &val) < 0)
-+	if (drm_dp_dpcd_read_byte(tunnel->aux, DP_DPTX_BW_ALLOCATION_MODE_CONTROL, &val) < 0)
- 		goto out_err;
- 
- 	if (enable)
-@@ -921,7 +921,7 @@ static int set_bw_alloc_mode(struct drm_dp_tunnel *tunnel, bool enable)
- 	else
- 		val &= ~mask;
- 
--	if (drm_dp_dpcd_writeb(tunnel->aux, DP_DPTX_BW_ALLOCATION_MODE_CONTROL, val) < 0)
-+	if (drm_dp_dpcd_write_byte(tunnel->aux, DP_DPTX_BW_ALLOCATION_MODE_CONTROL, val) < 0)
- 		goto out_err;
- 
- 	tunnel->bw_alloc_enabled = enable;
-@@ -1039,7 +1039,7 @@ static int clear_bw_req_state(struct drm_dp_aux *aux)
+ 		if (drm_dp_dpcd_read_link_status(dp_info->aux,
+-						 dp_info->link_status) <= 0) {
++						 dp_info->link_status) < 0) {
+ 			DRM_ERROR("displayport link status failed\n");
+ 			break;
+ 		}
+diff --git a/drivers/gpu/drm/bridge/cadence/cdns-mhdp8546-core.c b/drivers/gpu/drm/bridge/cadence/cdns-mhdp8546-core.c
+index 81fad14c2cd598045d989c7d51f292bafb92c144..8d5420a5b691180c4d051a450d5d3d869a558d1a 100644
+--- a/drivers/gpu/drm/bridge/cadence/cdns-mhdp8546-core.c
++++ b/drivers/gpu/drm/bridge/cadence/cdns-mhdp8546-core.c
+@@ -2305,7 +2305,7 @@ static int cdns_mhdp_update_link_status(struct cdns_mhdp_device *mhdp)
+ 		 * If everything looks fine, just return, as we don't handle
+ 		 * DP IRQs.
+ 		 */
+-		if (ret > 0 &&
++		if (!ret &&
+ 		    drm_dp_channel_eq_ok(status, mhdp->link.num_lanes) &&
+ 		    drm_dp_clock_recovery_ok(status, mhdp->link.num_lanes))
+ 			goto out;
+diff --git a/drivers/gpu/drm/display/drm_dp_helper.c b/drivers/gpu/drm/display/drm_dp_helper.c
+index e43a8f4a252dae22eeaae1f4ca94da064303033d..410be0be233ad94702af423262a7d98e21afbfeb 100644
+--- a/drivers/gpu/drm/display/drm_dp_helper.c
++++ b/drivers/gpu/drm/display/drm_dp_helper.c
+@@ -778,14 +778,13 @@ EXPORT_SYMBOL(drm_dp_dpcd_write);
+  * @aux: DisplayPort AUX channel
+  * @status: buffer to store the link status in (must be at least 6 bytes)
+  *
+- * Returns the number of bytes transferred on success or a negative error
+- * code on failure.
++ * Returns a negative error code on failure or 0 on success.
+  */
+ int drm_dp_dpcd_read_link_status(struct drm_dp_aux *aux,
+ 				 u8 status[DP_LINK_STATUS_SIZE])
  {
- 	u8 bw_req_mask = DP_BW_REQUEST_SUCCEEDED | DP_BW_REQUEST_FAILED;
+-	return drm_dp_dpcd_read(aux, DP_LANE0_1_STATUS, status,
+-				DP_LINK_STATUS_SIZE);
++	return drm_dp_dpcd_read_data(aux, DP_LANE0_1_STATUS, status,
++				     DP_LINK_STATUS_SIZE);
+ }
+ EXPORT_SYMBOL(drm_dp_dpcd_read_link_status);
  
--	if (drm_dp_dpcd_writeb(aux, DP_TUNNELING_STATUS, bw_req_mask) < 0)
-+	if (drm_dp_dpcd_write_byte(aux, DP_TUNNELING_STATUS, bw_req_mask) < 0)
- 		return -EIO;
+diff --git a/drivers/gpu/drm/hisilicon/hibmc/dp/dp_link.c b/drivers/gpu/drm/hisilicon/hibmc/dp/dp_link.c
+index f6355c16cc0ab2e28408ab8a7246f4ca17710456..a3b78b0fd53ef854a54edf40fb333766da88f1c6 100644
+--- a/drivers/gpu/drm/hisilicon/hibmc/dp/dp_link.c
++++ b/drivers/gpu/drm/hisilicon/hibmc/dp/dp_link.c
+@@ -188,7 +188,7 @@ static int hibmc_dp_link_training_cr(struct hibmc_dp_dev *dp)
+ 		drm_dp_link_train_clock_recovery_delay(&dp->aux, dp->dpcd);
  
- 	return 0;
-@@ -1052,7 +1052,7 @@ static int bw_req_complete(struct drm_dp_aux *aux, bool *status_changed)
- 	u8 val;
- 	int err;
+ 		ret = drm_dp_dpcd_read_link_status(&dp->aux, lane_status);
+-		if (ret != DP_LINK_STATUS_SIZE) {
++		if (ret) {
+ 			drm_err(dp->dev, "Get lane status failed\n");
+ 			return ret;
+ 		}
+@@ -236,7 +236,7 @@ static int hibmc_dp_link_training_channel_eq(struct hibmc_dp_dev *dp)
+ 		drm_dp_link_train_channel_eq_delay(&dp->aux, dp->dpcd);
  
--	if (drm_dp_dpcd_readb(aux, DP_TUNNELING_STATUS, &val) < 0)
-+	if (drm_dp_dpcd_read_byte(aux, DP_TUNNELING_STATUS, &val) < 0)
- 		return -EIO;
+ 		ret = drm_dp_dpcd_read_link_status(&dp->aux, lane_status);
+-		if (ret != DP_LINK_STATUS_SIZE) {
++		if (ret) {
+ 			drm_err(dp->dev, "get lane status failed\n");
+ 			break;
+ 		}
+diff --git a/drivers/gpu/drm/msm/dp/dp_ctrl.c b/drivers/gpu/drm/msm/dp/dp_ctrl.c
+index d8633a596f8da88cc55f60de80bec8999ffb07c8..69a26bb5fabd1c3077573ad5a1183ee69cf3b8cd 100644
+--- a/drivers/gpu/drm/msm/dp/dp_ctrl.c
++++ b/drivers/gpu/drm/msm/dp/dp_ctrl.c
+@@ -1100,20 +1100,6 @@ static bool msm_dp_ctrl_train_pattern_set(struct msm_dp_ctrl_private *ctrl,
+ 	return ret == 1;
+ }
  
- 	*status_changed = val & status_change_mask;
-@@ -1095,7 +1095,7 @@ static int allocate_tunnel_bw(struct drm_dp_tunnel *tunnel, int bw)
- 	if (err)
- 		goto out;
+-static int msm_dp_ctrl_read_link_status(struct msm_dp_ctrl_private *ctrl,
+-				    u8 *link_status)
+-{
+-	int ret = 0, len;
+-
+-	len = drm_dp_dpcd_read_link_status(ctrl->aux, link_status);
+-	if (len != DP_LINK_STATUS_SIZE) {
+-		DRM_ERROR("DP link status read failed, err: %d\n", len);
+-		ret = -EINVAL;
+-	}
+-
+-	return ret;
+-}
+-
+ static int msm_dp_ctrl_link_train_1(struct msm_dp_ctrl_private *ctrl,
+ 			int *training_step)
+ {
+@@ -1140,7 +1126,7 @@ static int msm_dp_ctrl_link_train_1(struct msm_dp_ctrl_private *ctrl,
+ 	for (tries = 0; tries < maximum_retries; tries++) {
+ 		drm_dp_link_train_clock_recovery_delay(ctrl->aux, ctrl->panel->dpcd);
  
--	if (drm_dp_dpcd_writeb(tunnel->aux, DP_REQUEST_BW, request_bw) < 0) {
-+	if (drm_dp_dpcd_write_byte(tunnel->aux, DP_REQUEST_BW, request_bw) < 0) {
- 		err = -EIO;
- 		goto out;
+-		ret = msm_dp_ctrl_read_link_status(ctrl, link_status);
++		ret = drm_dp_dpcd_read_link_status(ctrl->aux, link_status);
+ 		if (ret)
+ 			return ret;
+ 
+@@ -1252,7 +1238,7 @@ static int msm_dp_ctrl_link_train_2(struct msm_dp_ctrl_private *ctrl,
+ 	for (tries = 0; tries <= maximum_retries; tries++) {
+ 		drm_dp_link_train_channel_eq_delay(ctrl->aux, ctrl->panel->dpcd);
+ 
+-		ret = msm_dp_ctrl_read_link_status(ctrl, link_status);
++		ret = drm_dp_dpcd_read_link_status(ctrl->aux, link_status);
+ 		if (ret)
+ 			return ret;
+ 
+@@ -1805,7 +1791,7 @@ static bool msm_dp_ctrl_channel_eq_ok(struct msm_dp_ctrl_private *ctrl)
+ 	u8 link_status[DP_LINK_STATUS_SIZE];
+ 	int num_lanes = ctrl->link->link_params.num_lanes;
+ 
+-	msm_dp_ctrl_read_link_status(ctrl, link_status);
++	drm_dp_dpcd_read_link_status(ctrl->aux, link_status);
+ 
+ 	return drm_dp_channel_eq_ok(link_status, num_lanes);
+ }
+@@ -1863,7 +1849,7 @@ int msm_dp_ctrl_on_link(struct msm_dp_ctrl *msm_dp_ctrl)
+ 			if (!msm_dp_catalog_link_is_connected(ctrl->catalog))
+ 				break;
+ 
+-			msm_dp_ctrl_read_link_status(ctrl, link_status);
++			drm_dp_dpcd_read_link_status(ctrl->aux, link_status);
+ 
+ 			rc = msm_dp_ctrl_link_rate_down_shift(ctrl);
+ 			if (rc < 0) { /* already in RBR = 1.6G */
+@@ -1888,7 +1874,7 @@ int msm_dp_ctrl_on_link(struct msm_dp_ctrl *msm_dp_ctrl)
+ 			if (!msm_dp_catalog_link_is_connected(ctrl->catalog))
+ 				break;
+ 
+-			msm_dp_ctrl_read_link_status(ctrl, link_status);
++			drm_dp_dpcd_read_link_status(ctrl->aux, link_status);
+ 
+ 			if (!drm_dp_clock_recovery_ok(link_status,
+ 					ctrl->link->link_params.num_lanes))
+diff --git a/drivers/gpu/drm/msm/dp/dp_link.c b/drivers/gpu/drm/msm/dp/dp_link.c
+index 1a1fbb2d7d4f2afcaace85d97b744d03017d37ce..92a9077959b3ec10c2a529db1a0e9fb3562aa5d3 100644
+--- a/drivers/gpu/drm/msm/dp/dp_link.c
++++ b/drivers/gpu/drm/msm/dp/dp_link.c
+@@ -714,21 +714,21 @@ static int msm_dp_link_parse_request(struct msm_dp_link_private *link)
+ 
+ static int msm_dp_link_parse_sink_status_field(struct msm_dp_link_private *link)
+ {
+-	int len;
++	int ret;
+ 
+ 	link->prev_sink_count = link->msm_dp_link.sink_count;
+-	len = drm_dp_read_sink_count(link->aux);
+-	if (len < 0) {
++	ret = drm_dp_read_sink_count(link->aux);
++	if (ret < 0) {
+ 		DRM_ERROR("DP parse sink count failed\n");
+-		return len;
++		return ret;
  	}
-@@ -1196,13 +1196,13 @@ static int check_and_clear_status_change(struct drm_dp_tunnel *tunnel)
- 	u8 mask = DP_BW_ALLOCATION_CAPABILITY_CHANGED | DP_ESTIMATED_BW_CHANGED;
- 	u8 val;
+-	link->msm_dp_link.sink_count = len;
++	link->msm_dp_link.sink_count = ret;
  
--	if (drm_dp_dpcd_readb(tunnel->aux, DP_TUNNELING_STATUS, &val) < 0)
-+	if (drm_dp_dpcd_read_byte(tunnel->aux, DP_TUNNELING_STATUS, &val) < 0)
- 		goto out_err;
+-	len = drm_dp_dpcd_read_link_status(link->aux,
+-		link->link_status);
+-	if (len < DP_LINK_STATUS_SIZE) {
++	ret = drm_dp_dpcd_read_link_status(link->aux,
++					   link->link_status);
++	if (ret < 0) {
+ 		DRM_ERROR("DP link status read failed\n");
+-		return len;
++		return ret;
+ 	}
  
- 	val &= mask;
+ 	return msm_dp_link_parse_request(link);
+diff --git a/drivers/gpu/drm/radeon/atombios_dp.c b/drivers/gpu/drm/radeon/atombios_dp.c
+index fa78824931cc428b1f9e23fe8f98867136ef9883..3f3c360dce4bcf2c87a6c7adbbf7a727a4f8eb4c 100644
+--- a/drivers/gpu/drm/radeon/atombios_dp.c
++++ b/drivers/gpu/drm/radeon/atombios_dp.c
+@@ -501,8 +501,8 @@ bool radeon_dp_needs_link_train(struct radeon_connector *radeon_connector)
+ 	u8 link_status[DP_LINK_STATUS_SIZE];
+ 	struct radeon_connector_atom_dig *dig = radeon_connector->con_priv;
  
- 	if (val) {
--		if (drm_dp_dpcd_writeb(tunnel->aux, DP_TUNNELING_STATUS, val) < 0)
-+		if (drm_dp_dpcd_write_byte(tunnel->aux, DP_TUNNELING_STATUS, val) < 0)
- 			goto out_err;
+-	if (drm_dp_dpcd_read_link_status(&radeon_connector->ddc_bus->aux, link_status)
+-	    <= 0)
++	if (drm_dp_dpcd_read_link_status(&radeon_connector->ddc_bus->aux,
++					 link_status) < 0)
+ 		return false;
+ 	if (drm_dp_channel_eq_ok(link_status, dig->dp_lane_count))
+ 		return false;
+@@ -678,7 +678,7 @@ static int radeon_dp_link_train_cr(struct radeon_dp_link_train_info *dp_info)
+ 		drm_dp_link_train_clock_recovery_delay(dp_info->aux, dp_info->dpcd);
  
- 		return 1;
-@@ -1215,7 +1215,7 @@ static int check_and_clear_status_change(struct drm_dp_tunnel *tunnel)
- 	 * Check for estimated BW changes explicitly to account for lost
- 	 * BW change notifications.
- 	 */
--	if (drm_dp_dpcd_readb(tunnel->aux, DP_ESTIMATED_BW, &val) < 0)
-+	if (drm_dp_dpcd_read_byte(tunnel->aux, DP_ESTIMATED_BW, &val) < 0)
- 		goto out_err;
+ 		if (drm_dp_dpcd_read_link_status(dp_info->aux,
+-						 dp_info->link_status) <= 0) {
++						 dp_info->link_status) < 0) {
+ 			DRM_ERROR("displayport link status failed\n");
+ 			break;
+ 		}
+@@ -741,7 +741,7 @@ static int radeon_dp_link_train_ce(struct radeon_dp_link_train_info *dp_info)
+ 		drm_dp_link_train_channel_eq_delay(dp_info->aux, dp_info->dpcd);
  
- 	if (val * tunnel->bw_granularity != tunnel->estimated_bw)
-@@ -1300,7 +1300,7 @@ int drm_dp_tunnel_handle_irq(struct drm_dp_tunnel_mgr *mgr, struct drm_dp_aux *a
- {
- 	u8 val;
- 
--	if (drm_dp_dpcd_readb(aux, DP_TUNNELING_STATUS, &val) < 0)
-+	if (drm_dp_dpcd_read_byte(aux, DP_TUNNELING_STATUS, &val) < 0)
- 		return -EIO;
- 
- 	if (val & (DP_BW_REQUEST_SUCCEEDED | DP_BW_REQUEST_FAILED))
+ 		if (drm_dp_dpcd_read_link_status(dp_info->aux,
+-						 dp_info->link_status) <= 0) {
++						 dp_info->link_status) < 0) {
+ 			DRM_ERROR("displayport link status failed\n");
+ 			break;
+ 		}
 
 -- 
 2.39.5
