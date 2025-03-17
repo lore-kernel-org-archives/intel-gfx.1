@@ -4,194 +4,79 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 75045C282EC
-	for <intel-gfx@archiver.kernel.org>; Mon, 17 Mar 2025 12:22:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EA434C28B30
+	for <intel-gfx@archiver.kernel.org>; Mon, 17 Mar 2025 12:54:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DB5EB10E0AD;
-	Mon, 17 Mar 2025 12:22:36 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 80DA510E3E7;
+	Mon, 17 Mar 2025 12:54:51 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="lURQLBt2";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="WgEieH7S";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.9])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 19C8510E0AD;
- Mon, 17 Mar 2025 12:22:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1742214155; x=1773750155;
- h=from:to:cc:subject:date:message-id:references:
- in-reply-to:content-transfer-encoding:mime-version;
- bh=oOAQFiTXC3NDyu2e9ICL0Yf0RglHd9vnfYm/bN+vJL0=;
- b=lURQLBt29DJKViAVPRA1a1PfWBBO9Z0eMzCzMJ021Z4gyRhSjw+mys2n
- hxgZLjzL/O5Iea29sFss6gwglf4T6x46zmtcHE4R5UTusytO5ZYSGob8Q
- vbeQuqcv7KXSLH3aKoJunGsXRL4H22LQtStlXWP/+znr4bhi7XfH0+WQP
- m4C+Ooc2T2UYowD6xE+lKdP1MQx4aw1ThdDLG1zpwXHb/UYzl3iyxNBKZ
- i58MsB5QfwSuvnpAz9CiuYaby0jlZs1Q1+RpcB/eLwPuKupoPY+o2dv8I
- TrMsr/gedixPOgrx+cyGELmCbj+uEdXwQeBoPYPvBXkpivjRWJmthxhoA A==;
-X-CSE-ConnectionGUID: kUsNHszSSoKcBPlnr63/cQ==
-X-CSE-MsgGUID: huBuuisJTDCKDUGq/Vh5kQ==
-X-IronPort-AV: E=McAfee;i="6700,10204,11376"; a="65768110"
-X-IronPort-AV: E=Sophos;i="6.14,254,1736841600"; d="scan'208";a="65768110"
-Received: from orviesa007.jf.intel.com ([10.64.159.147])
- by orvoesa101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 17 Mar 2025 05:22:35 -0700
-X-CSE-ConnectionGUID: sEF6tcuISBy8dRP4CD8tDw==
-X-CSE-MsgGUID: +I5gOvYBRCSrAzuz+b6zzQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.14,254,1736841600"; d="scan'208";a="122400392"
-Received: from orsmsx601.amr.corp.intel.com ([10.22.229.14])
- by orviesa007.jf.intel.com with ESMTP/TLS/AES256-GCM-SHA384;
- 17 Mar 2025 05:22:34 -0700
-Received: from ORSMSX901.amr.corp.intel.com (10.22.229.23) by
- ORSMSX601.amr.corp.intel.com (10.22.229.14) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.44; Mon, 17 Mar 2025 05:22:34 -0700
-Received: from ORSEDG601.ED.cps.intel.com (10.7.248.6) by
- ORSMSX901.amr.corp.intel.com (10.22.229.23) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1544.14 via Frontend Transport; Mon, 17 Mar 2025 05:22:34 -0700
-Received: from NAM02-BN1-obe.outbound.protection.outlook.com (104.47.51.44) by
- edgegateway.intel.com (134.134.137.102) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.1.2507.44; Mon, 17 Mar 2025 05:22:33 -0700
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=IQH2Oajqjx9e2HDauSFnER87yJ0Xp1Pxibxc3ZA71WNCZaIFdrwZ8V0YiAL2py5BM00lGQqyF2uRL55n3gaYfVckSfWdEd/RoykXvDiVGh51wcvIRrDGVYcrOpMdgSjcPxlMEkmFuFztFznY5KIT+wWoMCZXzo+pcdvLnarAMyMnCWLzd+1DkCOW8vHwuh7I4O7+9gg3gKrZhnfSDkl3Ck223aElfYrd5A3C3EVv9zxxX3Bc8tc4CcbRAloP9mgQ1hMmcbBgesjj4bgORAhFIfXwNiNtv0D7Syv4gXVEfCEyMKSmishGiiBIA6lnefIi3P6olCgFEaAN1eEmK/Fzcw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=oOAQFiTXC3NDyu2e9ICL0Yf0RglHd9vnfYm/bN+vJL0=;
- b=oDiTQjLXhm8VzbuqbBCH3uBfgvOulGOXHMtybMzlkRplL/OtBdoNdzPPxJZ9/EUjX0GqRZtpHfXXO+au+hb3qgwe99VztaYBre0N5mbiKiGtSR5M5clnUdnyWqXMlOE/iP5yj+XOqUo2/1VvOZdOYo9pvpa1juJpffUQqnTFD7S8L1PclB4EfEfyATEAnI+XJyFR2y2oPvweezBxpbGscqJuR4GFY2+WxqQ3ytNcgF1pdD8eU9Xyhy1GJD7rjQTceAUS6SxCBHgafH9gjdxlDr9HxsBUPKFs5RhR26uGEETnbYclz6jkL+gKlI/X3GGZLiudAIO/NIlKVHf7yKIw/g==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Received: from SJ1PR11MB6129.namprd11.prod.outlook.com (2603:10b6:a03:488::12)
- by PH7PR11MB8477.namprd11.prod.outlook.com (2603:10b6:510:30d::12)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8534.33; Mon, 17 Mar
- 2025 12:22:31 +0000
-Received: from SJ1PR11MB6129.namprd11.prod.outlook.com
- ([fe80::21c3:4b36:8cc5:b525]) by SJ1PR11MB6129.namprd11.prod.outlook.com
- ([fe80::21c3:4b36:8cc5:b525%5]) with mapi id 15.20.8534.031; Mon, 17 Mar 2025
- 12:22:31 +0000
-From: "Borah, Chaitanya Kumar" <chaitanya.kumar.borah@intel.com>
-To: "Murthy, Arun R" <arun.r.murthy@intel.com>,
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
- "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>,
- "intel-xe@lists.freedesktop.org" <intel-xe@lists.freedesktop.org>
-CC: "20250219093211.4059187-1-arun.r.murthy@intel.com"
- <20250219093211.4059187-1-arun.r.murthy@intel.com>,
- "20250311085422.2573860-1-santhosh.reddy.guddati@intel.com"
- <20250311085422.2573860-1-santhosh.reddy.guddati@intel.com>
-Subject: RE: [PATCH v8 3/3] drm/i915/display: Add i915 hook for
- format_mod_supported_async
-Thread-Topic: [PATCH v8 3/3] drm/i915/display: Add i915 hook for
- format_mod_supported_async
-Thread-Index: AQHbk1IrbuClwwzZ7UmKlvEsmq9vrLN3R3jw
-Date: Mon, 17 Mar 2025 12:22:31 +0000
-Message-ID: <SJ1PR11MB61297AF9A7BBD9BB2AE4F4B5B9DF2@SJ1PR11MB6129.namprd11.prod.outlook.com>
-References: <20250312-asyn-v8-0-0c4cbe5a066d@intel.com>
- <20250312-asyn-v8-3-0c4cbe5a066d@intel.com>
-In-Reply-To: <20250312-asyn-v8-3-0c4cbe5a066d@intel.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: SJ1PR11MB6129:EE_|PH7PR11MB8477:EE_
-x-ms-office365-filtering-correlation-id: e1ad4a9c-d985-4053-2f0b-08dd654e63ec
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
- ARA:13230040|1800799024|366016|376014|38070700018|7053199007; 
-x-microsoft-antispam-message-info: =?utf-8?B?S1FEOTVnTzRURWF1ZTFDOFprRmJDZHlmZERXZDdBTDlwSmd6SkNXYUt1VjFI?=
- =?utf-8?B?UGJSSHNIN2hNbVk1N2NuKzB2dWVIM0E3UGpoZmJvdzV3T0dSaStEUjJKRWMr?=
- =?utf-8?B?aEhVbzZ2V1BWK0QxcTNUclhzQUxpS1dNOXJ1dHU0NXg4dGp1bWpqRUszc3Ro?=
- =?utf-8?B?U2hieSt1eXpXM1JUQW54aTVxaURTc3RhVVMxejB3NTNBNWEvZThEUWt4cVFH?=
- =?utf-8?B?aWJPOUIveGRTa01LaXFKOEpQUnFvczh6eWlMSng5VmVOMHkvdU1mbDA4VGND?=
- =?utf-8?B?Vm5aV3hUYnhwT0xEdWNuZnZ1SFk3dEdGdFZNVy8rWHdJKzJIQndVcEZ5N0x3?=
- =?utf-8?B?eWFvZ05CcTNRVkVuVG5mQzRUc0pXbmNOKzJnQ2d3cUFibjMzeWgxWE1CWTVk?=
- =?utf-8?B?d1VWS3FoQllSNFA0UVA4aUJzam10TUpGajkzYUcrRHl6eWp6Z1BjbTNBYWdG?=
- =?utf-8?B?MVlEcVIxYlg0eHZjWEl0VW5zYm9pc1dPYkt3UVJLaUZkTERvd3hLTFlPSWps?=
- =?utf-8?B?VmFWL0FMN0ZNUU1SR0RMbnN2T1BNV3Fjanl0VlNQS240U1pJV3BaYlNpR05t?=
- =?utf-8?B?UmxOcEdKZlFHWmg3S01oUzh1WFFQa0cvd3NyRlZma0xnQU9acy9IaG5Xd3JD?=
- =?utf-8?B?VUtDY2Y2NWpBN05ldHRBL1gxQmp4VG9INnVKQitLbWRheTFiY09lVHhWbHBY?=
- =?utf-8?B?T000VDRxcWdEVjdwamlHcWg2UkhVR2dnclk0Vzd5RU95WElpbk9UVFEyeEUx?=
- =?utf-8?B?NzFJSFJ2UE9Gd1NBendITFNQTWtJNzVIQ0RQWUdBdlMwZFlMOVg2RU4ySmVO?=
- =?utf-8?B?RklZRnRhZUxpRlROSnNJcjUwSmEyQzFqcFVFNzVPYXA1N1E1S2xaRHpjYmtz?=
- =?utf-8?B?Y0lsYm1Kenc5eU1WdnQ4UVZtaDY0UmFyT1lFQ3hpdjIwWDNjemF4NFhZM1ps?=
- =?utf-8?B?Mm9samZ2Sm54ZFc5em5XY0JxN1NmNFVPU2E4eUMrN2ZLcDVPc0VZUnNrNmJP?=
- =?utf-8?B?M0dwWVlRK0JBeGt4OHRJOGo5UUpuMU85TVZlTzhZVnJVK2FrODdzTUVJelFX?=
- =?utf-8?B?b3VMQWJqR0M4Vm1BajNPbUVETTVDQlZSMTZ6MU9LQlQyUzF4eGJJb2kwejhQ?=
- =?utf-8?B?UVRmV0xURGU0eUo0cGNWQk9udy9WTk9FMEJGQTE4SXB5K1FKYjlFU0JDaHBn?=
- =?utf-8?B?Smdaa3NsUXVNK1Y5NTNHRGw0ZkRmQTlLalJQSTlia3JzeWhjUG1LR2dSQVpQ?=
- =?utf-8?B?SzlXcnI4MG1PU2RBeHdqc3JmWG1ERjVZMzNISmY5TktSYW9LQWEwbFlURjNS?=
- =?utf-8?B?ZkVvdGFXcDJ2VVo0MjNzQ21Qb1NGNFNCZGl2SEc4Z1RLQ3U1QXlkTEZSKytX?=
- =?utf-8?B?WFhtTldac3IxekUyWWRjenJwVWViT04xUEFzaDhHNEt1VDlDQXdDcVVteFJ5?=
- =?utf-8?B?VXBtakxJTWkvd2RyK1ZRM0RvV0VPbFBIZXJJd2Q2Mmx2TmFWUFl5Tno5eU9l?=
- =?utf-8?B?UHFxbHd6RHpTcjVKd1VCNWZGUGVWTTNJWnJsaFB2NHhONHhCM081eGxxY3dC?=
- =?utf-8?B?dzRIbmhiN3JiQmhrZ0ZOTG9ZVlFKaHN5cmFkdzhIZVg4aXJ6QTVWRkVQek9w?=
- =?utf-8?B?WXE5a2h5UXEzbUZaRjgvNFpnV0dpSEp1YmlUclRxUVJaMzBBdVJROGc1YUdz?=
- =?utf-8?B?TzhEY2xaWGI5VmZ1V1gzVWFZTUNmejB1NHpFM3I3UU8zSHpId3B5eFJaTXNO?=
- =?utf-8?B?OVYxOFdiZFQ5VEc5RkdaTUFoamZvOUFlMEpERStXZU9BVjM1YmttRkx6ZDEr?=
- =?utf-8?B?alhWd0Q5S3NnNXhpRUkrOUZ1TFNOdzRpb2FaUWR4aVRSWk8vM1ZWZDVaaGo2?=
- =?utf-8?B?bGlSNDhoY3RTdkxzdnJWSXVFOXB0cnZGWW1BM0pKV25DeEtoQ0EzWno1MG51?=
- =?utf-8?Q?hHP1H0PndDrspG3ly+CeFA8X30JtDAy8?=
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:SJ1PR11MB6129.namprd11.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(366016)(376014)(38070700018)(7053199007); DIR:OUT;
- SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?utf-8?B?Nm5ic3RZQ3hRT1JxUWE5alhXWmU1WmJtUnN3eVZGZ3RRSUJuRGJpQk5uK043?=
- =?utf-8?B?WElSc0F2ZitXREhNWWxkOVBCL1kzREdHRGI5THh6WkljTFdsK0h4ZjdxUlEw?=
- =?utf-8?B?dmZvTkJDRnEvYVZTdWNIRWxZZDk1b2xVT2QwNy8yMHVJT3lVSUJHMWo5Q3p2?=
- =?utf-8?B?eHg0dDVKWVdFU1ZTcVdEVTlnbDRQQjdvU3MzOENJZXhkTWYrZmVCMmpzVk95?=
- =?utf-8?B?ekREUC9IYUwrNzNrak03RXR4aTBXNUVnb2VNNFpGZi9SellaZTg0VmsyT01M?=
- =?utf-8?B?RTBMa3RpY3BnY2JPUktvZDF5dzkyb0puemdGL3hjOXVXTFRocG0xWnpqS2Rl?=
- =?utf-8?B?MG1UODVENTJTT1VYK0tNWkZmenp0Y0drSENIRE5vcjJMbEhjSFFLYS9JaHJK?=
- =?utf-8?B?OWlEZTFSWU1KajBlcTZQYktxSGt4eHFLOFFDQXkzTUtUTFMwK3dpRVlDanBp?=
- =?utf-8?B?ZmlKZkp2OUY0LzJ0MlJmdDJhY3RQa2Q4UUsyWkt1eWtucWtGUitiSTFiUk1U?=
- =?utf-8?B?Z2lLbDcwdWM0TzVNVE1NUTlmK21DYklHNGxWcVdzc2ZxSzJNbHBKejNUNGow?=
- =?utf-8?B?MDArTlAyY0xGaU14aHpGL1RIUlJjaXhmNENQZm91dUFYK01tbzIxUmFOMGNh?=
- =?utf-8?B?cHFSeFlyUC9KOG9yWEZLemNzOEY2cTZNUVZSU0V6ZitlSnQzOEJ2VDN0QThK?=
- =?utf-8?B?WGpsODQ2a1N3a3A2ejJqaHVWZnlqTVlGTnZFdU9iaTRIeG5ZcnpKNHBrckE0?=
- =?utf-8?B?SVBobGJJNFBkV2tpci9GRXBCeHFmdnl0aTE5YytVbzR1dUZKbEE1VFZzdm0r?=
- =?utf-8?B?N3RoODZwL0FyZUJPT1phYXNRV3BlQWZPSE53MTNuNEVQNko5Ujc1OHp2LytT?=
- =?utf-8?B?M2wrQTQyOXBKa0N2amxQSEhEejhBaEVpNnR6R0hFZC9YOStURW03cEh1WGJL?=
- =?utf-8?B?cE5ZYW9mMmdVaWFnZnMzY2JubGlZb1hNZlRuQU1EMnJ5VmZSa3RTVm04c05E?=
- =?utf-8?B?Vnd1SXhZL1ZDVWwxN1BWR2ZWa3NkMHUyblIxdWVkQkVKSk9rT3RuM2hJNU45?=
- =?utf-8?B?Z1N2Mk9uK3RDTEY1VjgzaXdzcmxFeVlSYzY5K3ozbXI2VFdHYzJTaUh2NXY2?=
- =?utf-8?B?dU8xS3owOFhXbVdjOVJvbzZKZDI0WWI0ZmFlN2srTFJZTWZVWEMyOEs0MjZi?=
- =?utf-8?B?bGw2c1BTUE9RZWpsQXFNdnhLTllUNGhJUmM5NUtidnB1cG1qQ3hrQm9pNkc2?=
- =?utf-8?B?dDFnZ1Z0ekZ5c1p3QkdsYUp2VWhMdzRmRDUxeXlwRC9TWENKVFBhODQrREx4?=
- =?utf-8?B?cWxiSUd6TmorTlkvcjRKc2FlNWcyaXEzTm9BcDA5VFh5amtXcFhFaXoxczFv?=
- =?utf-8?B?SkMrbUhsRW9tVnpnTitTNUxTNDdVNmxHbU0xa2liWVppSUVscCtWdVpza0kx?=
- =?utf-8?B?RW9oc0VyaE9jd0tCMldZSFlWaUFVMmx4M2NnY0wvcWRBQXREQ044SEs5V3Bz?=
- =?utf-8?B?ZzJJSzh6MDFXVExqaGZrTStIM0NPOWk5cmNsbDdBWTJwdm80b0pDeURrbitn?=
- =?utf-8?B?ZFd0UGh1OVUwVEQ4U1Q4TCszUFdqTGRjc3lMZjdUTyt4R010TnRqcjZMMzc0?=
- =?utf-8?B?cHVqVjJTY2JNc1NOb0YrbmtRL295Qk9IS1AzVWg4cFg3NWRjaXd4ZGpMdUM0?=
- =?utf-8?B?YzBNbE5sY1E4UjAvaWJnRnR2NERtc2cwM0hKQW1PYzZ4Mnl1d2p3Q3VCcFZY?=
- =?utf-8?B?TVRMcDQxcE9yMGRBVG5jK2N3b3RJeWNXWmsxZ1FGNHc3cjJObXBVYjlxL0Mr?=
- =?utf-8?B?cE9uWWoyZ20xWkJOWVl0QUpPelNmcFlUQTIzVU5lcmlwbU4yNmxzcCtOSGxs?=
- =?utf-8?B?Mk5zUjJVV2N0c25uZGNOV3lVMlpBUFBOTVl6L3FNbEhndFNBUHFOVU9qQ3B2?=
- =?utf-8?B?Q2FrMVhhanMwNFYvN3R3VnowY3dTa0x3dTg3THYyYlUvSG0zNlF3YUZ6U0Zh?=
- =?utf-8?B?ankwRUZIbE5wMHlEbjJDNnpsWFlPbHBHNW9Kc0Vpc2QrMXV6QktLSWNWUm83?=
- =?utf-8?B?ZnpXTXVxdGdwcTJMczY4SzJTMEgxbWVYOW0rTFpLejZTNE5aQXJlU2VpNFNl?=
- =?utf-8?B?ckdwZDBQZ2J5RGtSK2RmbW5sUFZrN0c3ODRCWW5kVWk2YTExalcyTjdkTCtF?=
- =?utf-8?B?ZVE9PQ==?=
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Received: from mail-pl1-f171.google.com (mail-pl1-f171.google.com
+ [209.85.214.171])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8293810E252
+ for <intel-gfx@lists.freedesktop.org>; Mon, 17 Mar 2025 01:08:59 +0000 (UTC)
+Received: by mail-pl1-f171.google.com with SMTP id
+ d9443c01a7336-2240b4de12bso20214135ad.2
+ for <intel-gfx@lists.freedesktop.org>; Sun, 16 Mar 2025 18:08:59 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1742173739; x=1742778539; darn=lists.freedesktop.org;
+ h=in-reply-to:content-transfer-encoding:content-disposition
+ :mime-version:references:message-id:subject:cc:to:date:from:from:to
+ :cc:subject:date:message-id:reply-to;
+ bh=+xgAMxTm7HfigOCMkwcZ9gBPb1kqXdvU5TNojxRRc20=;
+ b=WgEieH7SKPFIuGW3KjRLOamoI8BpXVJ2aKakSLbQ0/h7FZ9DGHXlLqECs0thKfKeGO
+ Zc1WoQJT1P35JIhDcxkzaaR6StJ+0KPDlB6S+JFvyfQ6qBR1TOhS3g6oTvKst6Hd/mWk
+ VR5I7BoXLsN2fa/2uy+k4OIwA8VHVEfgNGywNZW5ECkGYxLvWhB9s+el2Y/4fhIV4sHN
+ 9DfYACVNs0cEzMS+6QS5NUlBGB0uzZRQltZ2buRBrtbVPgFu9iy2+F+kBnSoPqLik6Mp
+ iVoECXxBLQHSSNn2tuLL9ldzSErispLUMyGcNxpl4qJRjrDt69VEO51AG5j4Q/PAtXsF
+ QirQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1742173739; x=1742778539;
+ h=in-reply-to:content-transfer-encoding:content-disposition
+ :mime-version:references:message-id:subject:cc:to:date:from
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=+xgAMxTm7HfigOCMkwcZ9gBPb1kqXdvU5TNojxRRc20=;
+ b=D5ztHvkYGU5dVlCAx+3/UX4zLNzVeOOP7QK1m6GGXK1S5G5/XaOLsDSbzBWO/eVST+
+ CApqkZwMw/jS5rUAsdBAIagt4bBtaLLJVDptUPCeXsj31etbbgRHyC0O542kY7uZrgJ6
+ 63hhdxWYFbLMknb2tNclFKElsDgd8Wpcd4zotalbhmJ1NTRWnYkXnnU5n0DGISzvXEMm
+ oobA6Kk5rR5cO+ZSLnvrLNf0Ne/Aqyk6SE/I4VWzwFWldOf0RypRRldCOrvQb+GZNxAc
+ T+qOJZ4oOn7A89KuE7lNEIsibt9O67XoR13md+Hme505rgKRb1APxMp2iOxta2Atyy+2
+ M6ww==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCUxABKDq7xEq74ZXaxRQas7idZDtPSuTFUZgepMvQHjb4eeWL9H/slCKBoh+9f9a8funzwmkdhxr6A=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YyX7fwiad+l3AS16cG7ZE9GS5nZQK8eea6l+WyOXl2hGr8/EIuR
+ mhTAKRBWM4LTTBG4aO8tX4ixZSjJeahoRs++8QNMaf3XcRi22Rzh
+X-Gm-Gg: ASbGncsaXLn2+loyS5QmRN487dyRuTYzeX2lTu9tNZZb8Rv4ukB7i5v82cghg1Vdxjq
+ umQgJZaKLFbF9rYPMYkIBl2aJKuVLa7fAIzKHpA2jJ+BZs9RAqgKJGR3eanB8TS+xZ28SZ1V3zt
+ 8j/E92hBYwCcl05y2rMyZNsa5VOx6e84G5Koy0soy0TEM+7RSydoHsiAqZ5GdQ87P7nrtQSGdyy
+ LqxX6sAsM6PBu1P7Fn49wjm3EXelDu1ElD3TliJFCjWU/+j90m9JAtHDL/ll5Gvh6bHEpn2CBcf
+ eNUTlfgc8zlYvMkmM6emRyQE0yi/6l915Q==
+X-Google-Smtp-Source: AGHT+IE/cCFlfGwrOgbban+cifwtkZH2e1irfVNzdXM6ynsdeqb6iM61hNrMTX1FOVcYWx2Wvv7NZg==
+X-Received: by 2002:a17:902:e5cb:b0:21f:7a8b:d675 with SMTP id
+ d9443c01a7336-225e0a62f94mr140029755ad.4.1742173739146; 
+ Sun, 16 Mar 2025 18:08:59 -0700 (PDT)
+Received: from fan ([2601:646:8f03:9fee:1b48:1bbe:f0ea:f17])
+ by smtp.gmail.com with ESMTPSA id
+ d9443c01a7336-225c6888414sm63116515ad.21.2025.03.16.18.08.56
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sun, 16 Mar 2025 18:08:58 -0700 (PDT)
+From: Fan Ni <nifan.cxl@gmail.com>
+X-Google-Original-From: Fan Ni <fan.ni@samsung.com>
+Date: Sun, 16 Mar 2025 18:08:52 -0700
+To: "Matthew Wilcox (Oracle)" <willy@infradead.org>
+Cc: linux-fsdevel@vger.kernel.org, linux-mm@kvack.org,
+ intel-gfx@lists.freedesktop.org
+Subject: Re: [PATCH 11/11] fs: Remove aops->writepage
+Message-ID: <Z9d2JH33sLeCuzfE@fan>
+References: <20250307135414.2987755-1-willy@infradead.org>
+ <20250307135414.2987755-12-willy@infradead.org>
 MIME-Version: 1.0
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: SJ1PR11MB6129.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: e1ad4a9c-d985-4053-2f0b-08dd654e63ec
-X-MS-Exchange-CrossTenant-originalarrivaltime: 17 Mar 2025 12:22:31.4262 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: 38ewSBqqx5TYwnoWfY5ScRGXlusvBVHbrBQ631hDeWKsrc2DcthkK+zp1ueYRw/56czYNPbqeCmd1CzpCWph6TV++gzR+Vnt/hGqQWlo/d8=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR11MB8477
-X-OriginatorOrg: intel.com
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20250307135414.2987755-12-willy@infradead.org>
+X-Mailman-Approved-At: Mon, 17 Mar 2025 12:54:50 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -207,182 +92,298 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-DQoNCj4gLS0tLS1PcmlnaW5hbCBNZXNzYWdlLS0tLS0NCj4gRnJvbTogTXVydGh5LCBBcnVuIFIg
-PGFydW4uci5tdXJ0aHlAaW50ZWwuY29tPg0KPiBTZW50OiBXZWRuZXNkYXksIE1hcmNoIDEyLCAy
-MDI1IDY6MzkgUE0NCj4gVG86IGRyaS1kZXZlbEBsaXN0cy5mcmVlZGVza3RvcC5vcmc7IGludGVs
-LWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmc7IGludGVsLQ0KPiB4ZUBsaXN0cy5mcmVlZGVza3Rv
-cC5vcmcNCj4gQ2M6IEJvcmFoLCBDaGFpdGFueWEgS3VtYXIgPGNoYWl0YW55YS5rdW1hci5ib3Jh
-aEBpbnRlbC5jb20+Ow0KPiAyMDI1MDIxOTA5MzIxMS40MDU5MTg3LTEtYXJ1bi5yLm11cnRoeUBp
-bnRlbC5jb207DQo+IDIwMjUwMzExMDg1NDIyLjI1NzM4NjAtMS1zYW50aG9zaC5yZWRkeS5ndWRk
-YXRpQGludGVsLmNvbTsgTXVydGh5LA0KPiBBcnVuIFIgPGFydW4uci5tdXJ0aHlAaW50ZWwuY29t
-Pg0KPiBTdWJqZWN0OiBbUEFUQ0ggdjggMy8zXSBkcm0vaTkxNS9kaXNwbGF5OiBBZGQgaTkxNSBo
-b29rIGZvcg0KPiBmb3JtYXRfbW9kX3N1cHBvcnRlZF9hc3luYw0KPiANCj4gSG9vayB1cCB0aGUg
-bmV3bHkgYWRkZWQgcGxhbmUgZnVuY3Rpb24gcG9pbnRlcg0KPiBmb3JtYXRfbW9kX3N1cHBvcnRl
-ZF9hc3luYyB0byBwb3B1bGF0ZSB0aGUgbW9kaWZpZXJzL2Zvcm1hdHMgc3VwcG9ydGVkDQo+IGJ5
-IGFzeW5jaHJvbm91cyBmbGlwcy4NCj4gDQo+IHY1OiBDb3JyZWN0IHRoZSBpZiBjb25kaXRpb24g
-Zm9yIG1vZGlmaWVyIHN1cHBvcnQgY2hlY2sgKENoYWl0YW55YSkNCj4gdjY6IFJlcGxhY2UgdWlu
-dDMyX3QvdWludDY0X3Qgd2l0aCB1MzIvdTY0IChKYW5pKQ0KPiB2NzogTW92ZSBwbGFubmFyIGNo
-ZWNrIGZyb20gaW50ZWxfYXN5bmNfZmxpcF9jaGVja19odygpIHRvDQo+IGludGVsX3BsYW5lX2Zv
-cm1hdF9tb2Rfc3VwcG9ydGVkX2FzeW5jKCkgKFZpbGxlKQ0KPiB2ODogSW4gY2FzZSBvZiBlcnJv
-ciBwcmludCBmb3JtYXQvbW9kaWZpZXIgKENoYWl0YW55YQ0KDQpOaXQ6IENsb3NpbmcgYnJhY2tl
-dHMgYW5kIGFsc28gdGhlIG51bGwgY2hlY2sgZm9yIHRoZSBob29rLg0KDQpPdGhlcndpc2UsIExH
-VE0NCg0KUmV2aWV3ZWQtYnk6IENoYWl0YW55YSBLdW1hciBCb3JhaCA8Y2hhaXRhbnlhLmt1bWFy
-LmJvcmFoQGludGVsLmNvbT4NCg0KPiANCj4gU2lnbmVkLW9mZi1ieTogQXJ1biBSIE11cnRoeSA8
-YXJ1bi5yLm11cnRoeUBpbnRlbC5jb20+DQo+IC0tLQ0KPiAgZHJpdmVycy9ncHUvZHJtL2k5MTUv
-ZGlzcGxheS9pOXh4X3BsYW5lLmMgICAgICAgICAgfCAgNiArKystLQ0KPiAgZHJpdmVycy9ncHUv
-ZHJtL2k5MTUvZGlzcGxheS9pbnRlbF9hdG9taWNfcGxhbmUuYyAgfCAzMQ0KPiArKysrKysrKysr
-KysrKysrKysrKystDQo+IGRyaXZlcnMvZ3B1L2RybS9pOTE1L2Rpc3BsYXkvaW50ZWxfYXRvbWlj
-X3BsYW5lLmggIHwgIDYgKysrKy0NCj4gIGRyaXZlcnMvZ3B1L2RybS9pOTE1L2Rpc3BsYXkvaW50
-ZWxfZGlzcGxheS5jICAgICAgIHwgMTQgKysrLS0tLS0tLQ0KPiAgZHJpdmVycy9ncHUvZHJtL2k5
-MTUvZGlzcGxheS9za2xfdW5pdmVyc2FsX3BsYW5lLmMgfCAgNSArKystDQo+ICA1IGZpbGVzIGNo
-YW5nZWQsIDQ3IGluc2VydGlvbnMoKyksIDE1IGRlbGV0aW9ucygtKQ0KPiANCj4gZGlmZiAtLWdp
-dCBhL2RyaXZlcnMvZ3B1L2RybS9pOTE1L2Rpc3BsYXkvaTl4eF9wbGFuZS5jDQo+IGIvZHJpdmVy
-cy9ncHUvZHJtL2k5MTUvZGlzcGxheS9pOXh4X3BsYW5lLmMNCj4gaW5kZXgNCj4gMDEzMjk1ZjY2
-ZDU2ZWM1ZTkxOWIzYTBjOTA0MDM0YmY3OTg1OTg2YS4uNmJkMDlhZGI4YTMwYmEwMDJlZjMNCj4g
-MzQyNjFkNzYzOGYzOTg1ODdhM2UgMTAwNjQ0DQo+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9pOTE1
-L2Rpc3BsYXkvaTl4eF9wbGFuZS5jDQo+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9pOTE1L2Rpc3Bs
-YXkvaTl4eF9wbGFuZS5jDQo+IEBAIC04MjAsNyArODIwLDcgQEAgdW5zaWduZWQgaW50IHZsdl9w
-bGFuZV9taW5fYWxpZ25tZW50KHN0cnVjdA0KPiBpbnRlbF9wbGFuZSAqcGxhbmUsICB7DQo+ICAJ
-c3RydWN0IGludGVsX2Rpc3BsYXkgKmRpc3BsYXkgPSB0b19pbnRlbF9kaXNwbGF5KHBsYW5lKTsN
-Cj4gDQo+IC0JaWYgKGludGVsX3BsYW5lX2Nhbl9hc3luY19mbGlwKHBsYW5lLCBmYi0+bW9kaWZp
-ZXIpKQ0KPiArCWlmIChpbnRlbF9wbGFuZV9jYW5fYXN5bmNfZmxpcChwbGFuZSwgZmItPmZvcm1h
-dC0+Zm9ybWF0LA0KPiArZmItPm1vZGlmaWVyKSkNCj4gIAkJcmV0dXJuIDI1NiAqIDEwMjQ7DQo+
-IA0KPiAgCS8qIEZJWE1FIHVuZG9jdW1lbnRlZCBzbyBub3Qgc3VyZSB3aGF0J3MgYWN0dWFsbHkg
-bmVlZGVkICovIEBAIC0NCj4gODQ0LDcgKzg0NCw3IEBAIHN0YXRpYyB1bnNpZ25lZCBpbnQgZzR4
-X3ByaW1hcnlfbWluX2FsaWdubWVudChzdHJ1Y3QNCj4gaW50ZWxfcGxhbmUgKnBsYW5lLCAgew0K
-PiAgCXN0cnVjdCBpbnRlbF9kaXNwbGF5ICpkaXNwbGF5ID0gdG9faW50ZWxfZGlzcGxheShwbGFu
-ZSk7DQo+IA0KPiAtCWlmIChpbnRlbF9wbGFuZV9jYW5fYXN5bmNfZmxpcChwbGFuZSwgZmItPm1v
-ZGlmaWVyKSkNCj4gKwlpZiAoaW50ZWxfcGxhbmVfY2FuX2FzeW5jX2ZsaXAocGxhbmUsIGZiLT5m
-b3JtYXQtPmZvcm1hdCwNCj4gK2ZiLT5tb2RpZmllcikpDQo+ICAJCXJldHVybiAyNTYgKiAxMDI0
-Ow0KPiANCj4gIAlpZiAoaW50ZWxfc2Nhbm91dF9uZWVkc192dGRfd2EoZGlzcGxheSkpDQo+IEBA
-IC04ODksNiArODg5LDcgQEAgc3RhdGljIGNvbnN0IHN0cnVjdCBkcm1fcGxhbmVfZnVuY3MNCj4g
-aTk2NV9wbGFuZV9mdW5jcyA9IHsNCj4gIAkuYXRvbWljX2R1cGxpY2F0ZV9zdGF0ZSA9IGludGVs
-X3BsYW5lX2R1cGxpY2F0ZV9zdGF0ZSwNCj4gIAkuYXRvbWljX2Rlc3Ryb3lfc3RhdGUgPSBpbnRl
-bF9wbGFuZV9kZXN0cm95X3N0YXRlLA0KPiAgCS5mb3JtYXRfbW9kX3N1cHBvcnRlZCA9IGk5NjVf
-cGxhbmVfZm9ybWF0X21vZF9zdXBwb3J0ZWQsDQo+ICsJLmZvcm1hdF9tb2Rfc3VwcG9ydGVkX2Fz
-eW5jID0NCj4gaW50ZWxfcGxhbmVfZm9ybWF0X21vZF9zdXBwb3J0ZWRfYXN5bmMsDQo+ICB9Ow0K
-PiANCj4gIHN0YXRpYyBjb25zdCBzdHJ1Y3QgZHJtX3BsYW5lX2Z1bmNzIGk4eHhfcGxhbmVfZnVu
-Y3MgPSB7IEBAIC04OTgsNiArODk5LDcNCj4gQEAgc3RhdGljIGNvbnN0IHN0cnVjdCBkcm1fcGxh
-bmVfZnVuY3MgaTh4eF9wbGFuZV9mdW5jcyA9IHsNCj4gIAkuYXRvbWljX2R1cGxpY2F0ZV9zdGF0
-ZSA9IGludGVsX3BsYW5lX2R1cGxpY2F0ZV9zdGF0ZSwNCj4gIAkuYXRvbWljX2Rlc3Ryb3lfc3Rh
-dGUgPSBpbnRlbF9wbGFuZV9kZXN0cm95X3N0YXRlLA0KPiAgCS5mb3JtYXRfbW9kX3N1cHBvcnRl
-ZCA9IGk4eHhfcGxhbmVfZm9ybWF0X21vZF9zdXBwb3J0ZWQsDQo+ICsJLmZvcm1hdF9tb2Rfc3Vw
-cG9ydGVkX2FzeW5jID0NCj4gaW50ZWxfcGxhbmVfZm9ybWF0X21vZF9zdXBwb3J0ZWRfYXN5bmMs
-DQo+ICB9Ow0KPiANCj4gIHN0cnVjdCBpbnRlbF9wbGFuZSAqDQo+IGRpZmYgLS1naXQgYS9kcml2
-ZXJzL2dwdS9kcm0vaTkxNS9kaXNwbGF5L2ludGVsX2F0b21pY19wbGFuZS5jDQo+IGIvZHJpdmVy
-cy9ncHUvZHJtL2k5MTUvZGlzcGxheS9pbnRlbF9hdG9taWNfcGxhbmUuYw0KPiBpbmRleA0KPiA3
-Mjc2MTc5ZGY4Nzg2NThiNzA1M2ZlNmQ4ZGMzN2I2OWYxOTYyNWUzLi5hMjQyNGY2MjE1ZmU1MWVk
-MzIzOGMNCj4gZjJiNTFmMTFlMTRlOGI0ZDIxMSAxMDA2NDQNCj4gLS0tIGEvZHJpdmVycy9ncHUv
-ZHJtL2k5MTUvZGlzcGxheS9pbnRlbF9hdG9taWNfcGxhbmUuYw0KPiArKysgYi9kcml2ZXJzL2dw
-dS9kcm0vaTkxNS9kaXNwbGF5L2ludGVsX2F0b21pY19wbGFuZS5jDQo+IEBAIC0xNzQsMTEgKzE3
-NCw0MCBAQCBib29sIGludGVsX3BsYW5lX25lZWRzX3BoeXNpY2FsKHN0cnVjdCBpbnRlbF9wbGFu
-ZQ0KPiAqcGxhbmUpDQo+ICAJCURJU1BMQVlfSU5GTyhkaXNwbGF5KS0+Y3Vyc29yX25lZWRzX3Bo
-eXNpY2FsOw0KPiAgfQ0KPiANCj4gLWJvb2wgaW50ZWxfcGxhbmVfY2FuX2FzeW5jX2ZsaXAoc3Ry
-dWN0IGludGVsX3BsYW5lICpwbGFuZSwgdTY0IG1vZGlmaWVyKQ0KPiArYm9vbCBpbnRlbF9wbGFu
-ZV9jYW5fYXN5bmNfZmxpcChzdHJ1Y3QgaW50ZWxfcGxhbmUgKnBsYW5lLCB1MzIgZm9ybWF0LA0K
-PiArCQkJCXU2NCBtb2RpZmllcikNCj4gIHsNCj4gKwlzdHJ1Y3QgaW50ZWxfZGlzcGxheSAqZGlz
-cGxheSA9IHRvX2ludGVsX2Rpc3BsYXkocGxhbmUpOw0KPiArDQo+ICsJaWYgKERJU1BMQVlfVkVS
-KGRpc3BsYXkpIDw9IDE0ID8NCj4gKwkgICAgZHJtX2Zvcm1hdF9pbmZvKGZvcm1hdCktPmlzX3l1
-diA6DQo+ICsJICAgIGludGVsX2Zvcm1hdF9pbmZvX2lzX3l1dl9zZW1pcGxhbmFyKGRybV9mb3Jt
-YXRfaW5mbyhmb3JtYXQpLA0KPiArCQkJCQkJbW9kaWZpZXIpKSB7DQo+ICsJCWRybV9kYmdfa21z
-KHBsYW5lLT5iYXNlLmRldiwNCj4gKwkJCSAgICAiW1BMQU5FOiVkOiVzXSBQbGFuYXIgZm9ybWF0
-cyBkbyBub3Qgc3VwcG9ydA0KPiBhc3luYyBmbGlwc1xuIiwNCj4gKwkJCSAgICBwbGFuZS0+YmFz
-ZS5iYXNlLmlkLCBwbGFuZS0+YmFzZS5uYW1lKTsNCj4gKwkJcmV0dXJuIGZhbHNlOw0KPiArCX0N
-Cj4gKw0KPiAgCXJldHVybiBwbGFuZS0+Y2FuX2FzeW5jX2ZsaXAgJiYgcGxhbmUtPmNhbl9hc3lu
-Y19mbGlwKG1vZGlmaWVyKTsgIH0NCj4gDQo+ICtib29sIGludGVsX3BsYW5lX2Zvcm1hdF9tb2Rf
-c3VwcG9ydGVkX2FzeW5jKHN0cnVjdCBkcm1fcGxhbmUgKnBsYW5lLA0KPiArCQkJCQkgICAgdTMy
-IGZvcm1hdCwNCj4gKwkJCQkJICAgIHU2NCBtb2RpZmllcikNCj4gK3sNCj4gKwlpZiAocGxhbmUt
-PmZ1bmNzLT5mb3JtYXRfbW9kX3N1cHBvcnRlZCAmJg0KPiArCSAgICAhcGxhbmUtPmZ1bmNzLT5m
-b3JtYXRfbW9kX3N1cHBvcnRlZChwbGFuZSwgZm9ybWF0LCBtb2RpZmllcikpIHsNCj4gKwkJZHJt
-X2RiZ19rbXMocGxhbmUtPmRldiwNCj4gKwkJCSAgICAiW1BMQU5FOiVkOiVzXShmb3JtYXQgJXA0
-Y2MpIG1vZGlmaWVyIDB4JWxseCBub3QNCj4gaW4gdW5pdmVyc2FsIGxpc3RcbiIsDQo+ICsJCQkg
-ICAgcGxhbmUtPmJhc2UuaWQsIHBsYW5lLT5uYW1lLCAmZm9ybWF0LCBtb2RpZmllcik7DQo+ICsJ
-CXJldHVybiBmYWxzZTsNCj4gKwl9DQo+ICsNCj4gKwlyZXR1cm4gaW50ZWxfcGxhbmVfY2FuX2Fz
-eW5jX2ZsaXAodG9faW50ZWxfcGxhbmUocGxhbmUpLA0KPiArCQkJCQlmb3JtYXQsIG1vZGlmaWVy
-KTsNCj4gK30NCj4gKw0KPiAgdW5zaWduZWQgaW50IGludGVsX2FkanVzdGVkX3JhdGUoY29uc3Qg
-c3RydWN0IGRybV9yZWN0ICpzcmMsDQo+ICAJCQkJIGNvbnN0IHN0cnVjdCBkcm1fcmVjdCAqZHN0
-LA0KPiAgCQkJCSB1bnNpZ25lZCBpbnQgcmF0ZSkNCj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1
-L2RybS9pOTE1L2Rpc3BsYXkvaW50ZWxfYXRvbWljX3BsYW5lLmgNCj4gYi9kcml2ZXJzL2dwdS9k
-cm0vaTkxNS9kaXNwbGF5L2ludGVsX2F0b21pY19wbGFuZS5oDQo+IGluZGV4DQo+IDZlZmFjOTIz
-ZGNiYzc1N2U2ZjY4NTY0Y2JlZjI5MTljOTIwZjEzY2IuLjUxMmMyNTFjYzE1Mzc1M2E0ODA4Y2YN
-Cj4gMTc3YzhiY2NlMjE3OGJiODYyIDEwMDY0NA0KPiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vaTkx
-NS9kaXNwbGF5L2ludGVsX2F0b21pY19wbGFuZS5oDQo+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9p
-OTE1L2Rpc3BsYXkvaW50ZWxfYXRvbWljX3BsYW5lLmgNCj4gQEAgLTIxLDcgKzIxLDggQEAgZW51
-bSBwbGFuZV9pZDsNCj4gDQo+ICBzdHJ1Y3QgaW50ZWxfcGxhbmUgKg0KPiAgaW50ZWxfY3J0Y19n
-ZXRfcGxhbmUoc3RydWN0IGludGVsX2NydGMgKmNydGMsIGVudW0gcGxhbmVfaWQgcGxhbmVfaWQp
-OyAtYm9vbA0KPiBpbnRlbF9wbGFuZV9jYW5fYXN5bmNfZmxpcChzdHJ1Y3QgaW50ZWxfcGxhbmUg
-KnBsYW5lLCB1NjQgbW9kaWZpZXIpOw0KPiArYm9vbCBpbnRlbF9wbGFuZV9jYW5fYXN5bmNfZmxp
-cChzdHJ1Y3QgaW50ZWxfcGxhbmUgKnBsYW5lLCB1MzIgZm9ybWF0LA0KPiArCQkJCXU2NCBtb2Rp
-Zmllcik7DQo+ICB1bnNpZ25lZCBpbnQgaW50ZWxfYWRqdXN0ZWRfcmF0ZShjb25zdCBzdHJ1Y3Qg
-ZHJtX3JlY3QgKnNyYywNCj4gIAkJCQkgY29uc3Qgc3RydWN0IGRybV9yZWN0ICpkc3QsDQo+ICAJ
-CQkJIHVuc2lnbmVkIGludCByYXRlKTsNCj4gQEAgLTg3LDYgKzg4LDkgQEAgdm9pZCBpbnRlbF9w
-bGFuZV9pbml0X2N1cnNvcl92Ymxhbmtfd29yayhzdHJ1Y3QNCj4gaW50ZWxfcGxhbmVfc3RhdGUg
-Km9sZF9wbGFuZV9zdGEgIGludCBpbnRlbF9hdG9taWNfYWRkX2FmZmVjdGVkX3BsYW5lcyhzdHJ1
-Y3QNCj4gaW50ZWxfYXRvbWljX3N0YXRlICpzdGF0ZSwNCj4gIAkJCQkgICAgIHN0cnVjdCBpbnRl
-bF9jcnRjICpjcnRjKTsNCj4gIGludCBpbnRlbF9hdG9taWNfY2hlY2tfcGxhbmVzKHN0cnVjdCBp
-bnRlbF9hdG9taWNfc3RhdGUgKnN0YXRlKTsNCj4gK2Jvb2wgaW50ZWxfcGxhbmVfZm9ybWF0X21v
-ZF9zdXBwb3J0ZWRfYXN5bmMoc3RydWN0IGRybV9wbGFuZSAqcGxhbmUsDQo+ICsJCQkJCSAgICB1
-MzIgZm9ybWF0LA0KPiArCQkJCQkgICAgdTY0IG1vZGlmaWVyKTsNCj4gDQo+ICB1MzIgaW50ZWxf
-cGxhbmVfZ2d0dF9vZmZzZXQoY29uc3Qgc3RydWN0IGludGVsX3BsYW5lX3N0YXRlICpwbGFuZV9z
-dGF0ZSk7DQo+IA0KPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2k5MTUvZGlzcGxheS9p
-bnRlbF9kaXNwbGF5LmMNCj4gYi9kcml2ZXJzL2dwdS9kcm0vaTkxNS9kaXNwbGF5L2ludGVsX2Rp
-c3BsYXkuYw0KPiBpbmRleA0KPiAzYWZiODVmZTg1MzZkZmZmZDU1ZGJhYTA3ZjY3MjcxMTJjYzg3
-NmI3Li41ZDBiYWIxZjhmZjgyOTQ3MTZjYTU4NA0KPiAzYzg1NjAzMmQyYjljY2Q1YiAxMDA2NDQN
-Cj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2k5MTUvZGlzcGxheS9pbnRlbF9kaXNwbGF5LmMNCj4g
-KysrIGIvZHJpdmVycy9ncHUvZHJtL2k5MTUvZGlzcGxheS9pbnRlbF9kaXNwbGF5LmMNCj4gQEAg
-LTYwMDUsMjIgKzYwMDUsMTYgQEAgc3RhdGljIGludCBpbnRlbF9hc3luY19mbGlwX2NoZWNrX2h3
-KHN0cnVjdA0KPiBpbnRlbF9hdG9taWNfc3RhdGUgKnN0YXRlLCBzdHJ1Y3QgaW4NCj4gIAkJaWYg
-KCFwbGFuZS0+YXN5bmNfZmxpcCkNCj4gIAkJCWNvbnRpbnVlOw0KPiANCj4gLQkJaWYgKCFpbnRl
-bF9wbGFuZV9jYW5fYXN5bmNfZmxpcChwbGFuZSwgbmV3X3BsYW5lX3N0YXRlLQ0KPiA+aHcuZmIt
-Pm1vZGlmaWVyKSkgew0KPiArCQlpZiAoIWludGVsX3BsYW5lX2Nhbl9hc3luY19mbGlwKHBsYW5l
-LCBuZXdfcGxhbmVfc3RhdGUtDQo+ID5ody5mYi0+Zm9ybWF0LT5mb3JtYXQsDQo+ICsJCQkJCQlu
-ZXdfcGxhbmVfc3RhdGUtPmh3LmZiLQ0KPiA+bW9kaWZpZXIpKSB7DQo+ICAJCQlkcm1fZGJnX2tt
-cyhkaXNwbGF5LT5kcm0sDQo+IC0JCQkJICAgICJbUExBTkU6JWQ6JXNdIE1vZGlmaWVyIDB4JWxs
-eCBkb2VzIG5vdA0KPiBzdXBwb3J0IGFzeW5jIGZsaXBcbiIsDQo+ICsJCQkJICAgICJbUExBTkU6
-JWQ6JXNdIEZvcm1hdCAlcDRjYyBNb2RpZmllcg0KPiAweCVsbHggZG9lcyBub3Qgc3VwcG9ydA0K
-PiArYXN5bmMgZmxpcFxuIiwNCj4gIAkJCQkgICAgcGxhbmUtPmJhc2UuYmFzZS5pZCwgcGxhbmUt
-PmJhc2UubmFtZSwNCj4gKwkJCQkgICAgJm5ld19wbGFuZV9zdGF0ZS0+aHcuZmItPmZvcm1hdC0N
-Cj4gPmZvcm1hdCwNCj4gIAkJCQkgICAgbmV3X3BsYW5lX3N0YXRlLT5ody5mYi0+bW9kaWZpZXIp
-Ow0KPiAgCQkJcmV0dXJuIC1FSU5WQUw7DQo+ICAJCX0NCj4gDQo+IC0JCWlmIChpbnRlbF9mb3Jt
-YXRfaW5mb19pc195dXZfc2VtaXBsYW5hcihuZXdfcGxhbmVfc3RhdGUtDQo+ID5ody5mYi0+Zm9y
-bWF0LA0KPiAtCQkJCQkJCW5ld19wbGFuZV9zdGF0ZS0NCj4gPmh3LmZiLT5tb2RpZmllcikpIHsN
-Cj4gLQkJCWRybV9kYmdfa21zKGRpc3BsYXktPmRybSwNCj4gLQkJCQkgICAgIltQTEFORTolZDol
-c10gUGxhbmFyIGZvcm1hdHMgZG8gbm90DQo+IHN1cHBvcnQgYXN5bmMgZmxpcHNcbiIsDQo+IC0J
-CQkJICAgIHBsYW5lLT5iYXNlLmJhc2UuaWQsIHBsYW5lLT5iYXNlLm5hbWUpOw0KPiAtCQkJcmV0
-dXJuIC1FSU5WQUw7DQo+IC0JCX0NCj4gLQ0KPiAgCQkvKg0KPiAgCQkgKiBXZSB0dXJuIHRoZSBm
-aXJzdCBhc3luYyBmbGlwIHJlcXVlc3QgaW50byBhIHN5bmMgZmxpcA0KPiAgCQkgKiBzbyB0aGF0
-IHdlIGNhbiByZWNvbmZpZ3VyZSB0aGUgcGxhbmUgKGVnLiBjaGFuZ2UgbW9kaWZpZXIpLg0KPiBk
-aWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2k5MTUvZGlzcGxheS9za2xfdW5pdmVyc2FsX3Bs
-YW5lLmMNCj4gYi9kcml2ZXJzL2dwdS9kcm0vaTkxNS9kaXNwbGF5L3NrbF91bml2ZXJzYWxfcGxh
-bmUuYw0KPiBpbmRleA0KPiA3MGU1NTA1MzliYjIxMzkzYzcxNzNjN2IzOTA0ZTc3OTBlYWIyNWY0
-Li5mNjFlMWVmZjMwYmI0ODIwY2NiMTcNCj4gZGFhNWQ0YjJiMDczYTVkNDA3OCAxMDA2NDQNCj4g
-LS0tIGEvZHJpdmVycy9ncHUvZHJtL2k5MTUvZGlzcGxheS9za2xfdW5pdmVyc2FsX3BsYW5lLmMN
-Cj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2k5MTUvZGlzcGxheS9za2xfdW5pdmVyc2FsX3BsYW5l
-LmMNCj4gQEAgLTYwMSw3ICs2MDEsNyBAQCBzdGF0aWMgdTMyIHRnbF9wbGFuZV9taW5fYWxpZ25t
-ZW50KHN0cnVjdA0KPiBpbnRlbF9wbGFuZSAqcGxhbmUsDQo+ICAJICogRmlndXJlIG91dCB3aGF0
-J3MgZ29pbmcgb24gaGVyZS4uLg0KPiAgCSAqLw0KPiAgCWlmIChkaXNwbGF5LT5wbGF0Zm9ybS5h
-bGRlcmxha2VfcCAmJg0KPiAtCSAgICBpbnRlbF9wbGFuZV9jYW5fYXN5bmNfZmxpcChwbGFuZSwg
-ZmItPm1vZGlmaWVyKSkNCj4gKwkgICAgaW50ZWxfcGxhbmVfY2FuX2FzeW5jX2ZsaXAocGxhbmUs
-IGZiLT5mb3JtYXQtPmZvcm1hdCwNCj4gK2ZiLT5tb2RpZmllcikpDQo+ICAJCXJldHVybiBtdWx0
-ICogMTYgKiAxMDI0Ow0KPiANCj4gIAlzd2l0Y2ggKGZiLT5tb2RpZmllcikgew0KPiBAQCAtMjY2
-Niw2ICsyNjY2LDcgQEAgc3RhdGljIGNvbnN0IHN0cnVjdCBkcm1fcGxhbmVfZnVuY3MNCj4gc2ts
-X3BsYW5lX2Z1bmNzID0gew0KPiAgCS5hdG9taWNfZHVwbGljYXRlX3N0YXRlID0gaW50ZWxfcGxh
-bmVfZHVwbGljYXRlX3N0YXRlLA0KPiAgCS5hdG9taWNfZGVzdHJveV9zdGF0ZSA9IGludGVsX3Bs
-YW5lX2Rlc3Ryb3lfc3RhdGUsDQo+ICAJLmZvcm1hdF9tb2Rfc3VwcG9ydGVkID0gc2tsX3BsYW5l
-X2Zvcm1hdF9tb2Rfc3VwcG9ydGVkLA0KPiArCS5mb3JtYXRfbW9kX3N1cHBvcnRlZF9hc3luYyA9
-DQo+IGludGVsX3BsYW5lX2Zvcm1hdF9tb2Rfc3VwcG9ydGVkX2FzeW5jLA0KPiAgfTsNCj4gDQo+
-ICBzdGF0aWMgY29uc3Qgc3RydWN0IGRybV9wbGFuZV9mdW5jcyBpY2xfcGxhbmVfZnVuY3MgPSB7
-IEBAIC0yNjc1LDYgKzI2NzYsNw0KPiBAQCBzdGF0aWMgY29uc3Qgc3RydWN0IGRybV9wbGFuZV9m
-dW5jcyBpY2xfcGxhbmVfZnVuY3MgPSB7DQo+ICAJLmF0b21pY19kdXBsaWNhdGVfc3RhdGUgPSBp
-bnRlbF9wbGFuZV9kdXBsaWNhdGVfc3RhdGUsDQo+ICAJLmF0b21pY19kZXN0cm95X3N0YXRlID0g
-aW50ZWxfcGxhbmVfZGVzdHJveV9zdGF0ZSwNCj4gIAkuZm9ybWF0X21vZF9zdXBwb3J0ZWQgPSBp
-Y2xfcGxhbmVfZm9ybWF0X21vZF9zdXBwb3J0ZWQsDQo+ICsJLmZvcm1hdF9tb2Rfc3VwcG9ydGVk
-X2FzeW5jID0NCj4gaW50ZWxfcGxhbmVfZm9ybWF0X21vZF9zdXBwb3J0ZWRfYXN5bmMsDQo+ICB9
-Ow0KPiANCj4gIHN0YXRpYyBjb25zdCBzdHJ1Y3QgZHJtX3BsYW5lX2Z1bmNzIHRnbF9wbGFuZV9m
-dW5jcyA9IHsgQEAgLTI2ODQsNiArMjY4Niw3DQo+IEBAIHN0YXRpYyBjb25zdCBzdHJ1Y3QgZHJt
-X3BsYW5lX2Z1bmNzIHRnbF9wbGFuZV9mdW5jcyA9IHsNCj4gIAkuYXRvbWljX2R1cGxpY2F0ZV9z
-dGF0ZSA9IGludGVsX3BsYW5lX2R1cGxpY2F0ZV9zdGF0ZSwNCj4gIAkuYXRvbWljX2Rlc3Ryb3lf
-c3RhdGUgPSBpbnRlbF9wbGFuZV9kZXN0cm95X3N0YXRlLA0KPiAgCS5mb3JtYXRfbW9kX3N1cHBv
-cnRlZCA9IHRnbF9wbGFuZV9mb3JtYXRfbW9kX3N1cHBvcnRlZCwNCj4gKwkuZm9ybWF0X21vZF9z
-dXBwb3J0ZWRfYXN5bmMgPQ0KPiBpbnRlbF9wbGFuZV9mb3JtYXRfbW9kX3N1cHBvcnRlZF9hc3lu
-YywNCj4gIH07DQo+IA0KPiAgc3RhdGljIHZvaWQNCj4gDQo+IC0tDQo+IDIuMjUuMQ0KDQo=
+On Fri, Mar 07, 2025 at 01:54:11PM +0000, Matthew Wilcox (Oracle) wrote:
+> All callers and implementations are now removed, so remove the operation
+> and update the documentation to match.
+> 
+> Signed-off-by: Matthew Wilcox (Oracle) <willy@infradead.org>
+> ---
+
+Hi Matthew,
+
+Tried to apply the remaining patches in the patchest (Patch 5-11)  which
+have not picked up by linux-next. It seems we have more to cleanup.
+
+For example, I hit the following issue when try to compile
+----------------------------------------------------------------
+drivers/gpu/drm/ttm/ttm_backup.c: In function ‘ttm_backup_backup_page’:
+drivers/gpu/drm/ttm/ttm_backup.c:139:39: error: ‘const struct address_space_operations’ has no member named ‘writepage’; did you mean ‘writepages’?
+  139 |                 ret = mapping->a_ops->writepage(folio_file_page(to_folio, idx), &wbc);
+      |                                       ^~~~~~~~~
+      |                                       writepages
+
+----------------------------------------------------------------
+
+Fan
+
+>  Documentation/admin-guide/cgroup-v2.rst |  2 +-
+>  Documentation/filesystems/fscrypt.rst   |  2 +-
+>  Documentation/filesystems/locking.rst   | 54 +------------------------
+>  Documentation/filesystems/vfs.rst       | 39 +++++-------------
+>  fs/buffer.c                             |  4 +-
+>  include/linux/fs.h                      |  1 -
+>  mm/vmscan.c                             |  1 -
+>  7 files changed, 15 insertions(+), 88 deletions(-)
+> 
+> diff --git a/Documentation/admin-guide/cgroup-v2.rst b/Documentation/admin-guide/cgroup-v2.rst
+> index 77d80a7e975b..4e10b4084381 100644
+> --- a/Documentation/admin-guide/cgroup-v2.rst
+> +++ b/Documentation/admin-guide/cgroup-v2.rst
+> @@ -3028,7 +3028,7 @@ Filesystem Support for Writeback
+>  --------------------------------
+>  
+>  A filesystem can support cgroup writeback by updating
+> -address_space_operations->writepage[s]() to annotate bio's using the
+> +address_space_operations->writepages() to annotate bio's using the
+>  following two functions.
+>  
+>    wbc_init_bio(@wbc, @bio)
+> diff --git a/Documentation/filesystems/fscrypt.rst b/Documentation/filesystems/fscrypt.rst
+> index e80329908549..3d22e2db732d 100644
+> --- a/Documentation/filesystems/fscrypt.rst
+> +++ b/Documentation/filesystems/fscrypt.rst
+> @@ -1409,7 +1409,7 @@ read the ciphertext into the page cache and decrypt it in-place.  The
+>  folio lock must be held until decryption has finished, to prevent the
+>  folio from becoming visible to userspace prematurely.
+>  
+> -For the write path (->writepage()) of regular files, filesystems
+> +For the write path (->writepages()) of regular files, filesystems
+>  cannot encrypt data in-place in the page cache, since the cached
+>  plaintext must be preserved.  Instead, filesystems must encrypt into a
+>  temporary buffer or "bounce page", then write out the temporary
+> diff --git a/Documentation/filesystems/locking.rst b/Documentation/filesystems/locking.rst
+> index 0ec0bb6eb0fb..2e567e341c3b 100644
+> --- a/Documentation/filesystems/locking.rst
+> +++ b/Documentation/filesystems/locking.rst
+> @@ -249,7 +249,6 @@ address_space_operations
+>  ========================
+>  prototypes::
+>  
+> -	int (*writepage)(struct page *page, struct writeback_control *wbc);
+>  	int (*read_folio)(struct file *, struct folio *);
+>  	int (*writepages)(struct address_space *, struct writeback_control *);
+>  	bool (*dirty_folio)(struct address_space *, struct folio *folio);
+> @@ -280,7 +279,6 @@ locking rules:
+>  ======================	======================== =========	===============
+>  ops			folio locked		 i_rwsem	invalidate_lock
+>  ======================	======================== =========	===============
+> -writepage:		yes, unlocks (see below)
+>  read_folio:		yes, unlocks				shared
+>  writepages:
+>  dirty_folio:		maybe
+> @@ -309,54 +307,6 @@ completion.
+>  
+>  ->readahead() unlocks the folios that I/O is attempted on like ->read_folio().
+>  
+> -->writepage() is used for two purposes: for "memory cleansing" and for
+> -"sync".  These are quite different operations and the behaviour may differ
+> -depending upon the mode.
+> -
+> -If writepage is called for sync (wbc->sync_mode != WBC_SYNC_NONE) then
+> -it *must* start I/O against the page, even if that would involve
+> -blocking on in-progress I/O.
+> -
+> -If writepage is called for memory cleansing (sync_mode ==
+> -WBC_SYNC_NONE) then its role is to get as much writeout underway as
+> -possible.  So writepage should try to avoid blocking against
+> -currently-in-progress I/O.
+> -
+> -If the filesystem is not called for "sync" and it determines that it
+> -would need to block against in-progress I/O to be able to start new I/O
+> -against the page the filesystem should redirty the page with
+> -redirty_page_for_writepage(), then unlock the page and return zero.
+> -This may also be done to avoid internal deadlocks, but rarely.
+> -
+> -If the filesystem is called for sync then it must wait on any
+> -in-progress I/O and then start new I/O.
+> -
+> -The filesystem should unlock the page synchronously, before returning to the
+> -caller, unless ->writepage() returns special WRITEPAGE_ACTIVATE
+> -value. WRITEPAGE_ACTIVATE means that page cannot really be written out
+> -currently, and VM should stop calling ->writepage() on this page for some
+> -time. VM does this by moving page to the head of the active list, hence the
+> -name.
+> -
+> -Unless the filesystem is going to redirty_page_for_writepage(), unlock the page
+> -and return zero, writepage *must* run set_page_writeback() against the page,
+> -followed by unlocking it.  Once set_page_writeback() has been run against the
+> -page, write I/O can be submitted and the write I/O completion handler must run
+> -end_page_writeback() once the I/O is complete.  If no I/O is submitted, the
+> -filesystem must run end_page_writeback() against the page before returning from
+> -writepage.
+> -
+> -That is: after 2.5.12, pages which are under writeout are *not* locked.  Note,
+> -if the filesystem needs the page to be locked during writeout, that is ok, too,
+> -the page is allowed to be unlocked at any point in time between the calls to
+> -set_page_writeback() and end_page_writeback().
+> -
+> -Note, failure to run either redirty_page_for_writepage() or the combination of
+> -set_page_writeback()/end_page_writeback() on a page submitted to writepage
+> -will leave the page itself marked clean but it will be tagged as dirty in the
+> -radix tree.  This incoherency can lead to all sorts of hard-to-debug problems
+> -in the filesystem like having dirty inodes at umount and losing written data.
+> -
+>  ->writepages() is used for periodic writeback and for syscall-initiated
+>  sync operations.  The address_space should start I/O against at least
+>  ``*nr_to_write`` pages.  ``*nr_to_write`` must be decremented for each page
+> @@ -364,8 +314,8 @@ which is written.  The address_space implementation may write more (or less)
+>  pages than ``*nr_to_write`` asks for, but it should try to be reasonably close.
+>  If nr_to_write is NULL, all dirty pages must be written.
+>  
+> -writepages should _only_ write pages which are present on
+> -mapping->io_pages.
+> +writepages should _only_ write pages which are present in
+> +mapping->i_pages.
+>  
+>  ->dirty_folio() is called from various places in the kernel when
+>  the target folio is marked as needing writeback.  The folio cannot be
+> diff --git a/Documentation/filesystems/vfs.rst b/Documentation/filesystems/vfs.rst
+> index ae79c30b6c0c..f66a4e706b17 100644
+> --- a/Documentation/filesystems/vfs.rst
+> +++ b/Documentation/filesystems/vfs.rst
+> @@ -716,9 +716,8 @@ page lookup by address, and keeping track of pages tagged as Dirty or
+>  Writeback.
+>  
+>  The first can be used independently to the others.  The VM can try to
+> -either write dirty pages in order to clean them, or release clean pages
+> -in order to reuse them.  To do this it can call the ->writepage method
+> -on dirty pages, and ->release_folio on clean folios with the private
+> +release clean pages in order to reuse them.  To do this it can call 
+> +->release_folio on clean folios with the private
+>  flag set.  Clean pages without PagePrivate and with no external references
+>  will be released without notice being given to the address_space.
+>  
+> @@ -731,8 +730,8 @@ maintains information about the PG_Dirty and PG_Writeback status of each
+>  page, so that pages with either of these flags can be found quickly.
+>  
+>  The Dirty tag is primarily used by mpage_writepages - the default
+> -->writepages method.  It uses the tag to find dirty pages to call
+> -->writepage on.  If mpage_writepages is not used (i.e. the address
+> +->writepages method.  It uses the tag to find dirty pages to
+> +write back.  If mpage_writepages is not used (i.e. the address
+>  provides its own ->writepages) , the PAGECACHE_TAG_DIRTY tag is almost
+>  unused.  write_inode_now and sync_inode do use it (through
+>  __sync_single_inode) to check if ->writepages has been successful in
+> @@ -756,23 +755,23 @@ pages, however the address_space has finer control of write sizes.
+>  
+>  The read process essentially only requires 'read_folio'.  The write
+>  process is more complicated and uses write_begin/write_end or
+> -dirty_folio to write data into the address_space, and writepage and
+> +dirty_folio to write data into the address_space, and
+>  writepages to writeback data to storage.
+>  
+>  Adding and removing pages to/from an address_space is protected by the
+>  inode's i_mutex.
+>  
+>  When data is written to a page, the PG_Dirty flag should be set.  It
+> -typically remains set until writepage asks for it to be written.  This
+> +typically remains set until writepages asks for it to be written.  This
+>  should clear PG_Dirty and set PG_Writeback.  It can be actually written
+>  at any point after PG_Dirty is clear.  Once it is known to be safe,
+>  PG_Writeback is cleared.
+>  
+>  Writeback makes use of a writeback_control structure to direct the
+> -operations.  This gives the writepage and writepages operations some
+> +operations.  This gives the writepages operation some
+>  information about the nature of and reason for the writeback request,
+>  and the constraints under which it is being done.  It is also used to
+> -return information back to the caller about the result of a writepage or
+> +return information back to the caller about the result of a
+>  writepages request.
+>  
+>  
+> @@ -819,7 +818,6 @@ cache in your filesystem.  The following members are defined:
+>  .. code-block:: c
+>  
+>  	struct address_space_operations {
+> -		int (*writepage)(struct page *page, struct writeback_control *wbc);
+>  		int (*read_folio)(struct file *, struct folio *);
+>  		int (*writepages)(struct address_space *, struct writeback_control *);
+>  		bool (*dirty_folio)(struct address_space *, struct folio *);
+> @@ -848,25 +846,6 @@ cache in your filesystem.  The following members are defined:
+>  		int (*swap_rw)(struct kiocb *iocb, struct iov_iter *iter);
+>  	};
+>  
+> -``writepage``
+> -	called by the VM to write a dirty page to backing store.  This
+> -	may happen for data integrity reasons (i.e. 'sync'), or to free
+> -	up memory (flush).  The difference can be seen in
+> -	wbc->sync_mode.  The PG_Dirty flag has been cleared and
+> -	PageLocked is true.  writepage should start writeout, should set
+> -	PG_Writeback, and should make sure the page is unlocked, either
+> -	synchronously or asynchronously when the write operation
+> -	completes.
+> -
+> -	If wbc->sync_mode is WB_SYNC_NONE, ->writepage doesn't have to
+> -	try too hard if there are problems, and may choose to write out
+> -	other pages from the mapping if that is easier (e.g. due to
+> -	internal dependencies).  If it chooses not to start writeout, it
+> -	should return AOP_WRITEPAGE_ACTIVATE so that the VM will not
+> -	keep calling ->writepage on that page.
+> -
+> -	See the file "Locking" for more details.
+> -
+>  ``read_folio``
+>  	Called by the page cache to read a folio from the backing store.
+>  	The 'file' argument supplies authentication information to network
+> @@ -909,7 +888,7 @@ cache in your filesystem.  The following members are defined:
+>  	given and that many pages should be written if possible.  If no
+>  	->writepages is given, then mpage_writepages is used instead.
+>  	This will choose pages from the address space that are tagged as
+> -	DIRTY and will pass them to ->writepage.
+> +	DIRTY and will write them back.
+>  
+>  ``dirty_folio``
+>  	called by the VM to mark a folio as dirty.  This is particularly
+> diff --git a/fs/buffer.c b/fs/buffer.c
+> index c7abb4a029dc..b99dc69dba37 100644
+> --- a/fs/buffer.c
+> +++ b/fs/buffer.c
+> @@ -2695,7 +2695,7 @@ int block_truncate_page(struct address_space *mapping,
+>  EXPORT_SYMBOL(block_truncate_page);
+>  
+>  /*
+> - * The generic ->writepage function for buffer-backed address_spaces
+> + * The generic write folio function for buffer-backed address_spaces
+>   */
+>  int block_write_full_folio(struct folio *folio, struct writeback_control *wbc,
+>  		void *get_block)
+> @@ -2715,7 +2715,7 @@ int block_write_full_folio(struct folio *folio, struct writeback_control *wbc,
+>  
+>  	/*
+>  	 * The folio straddles i_size.  It must be zeroed out on each and every
+> -	 * writepage invocation because it may be mmapped.  "A file is mapped
+> +	 * writeback invocation because it may be mmapped.  "A file is mapped
+>  	 * in multiples of the page size.  For a file that is not a multiple of
+>  	 * the page size, the remaining memory is zeroed when mapped, and
+>  	 * writes to that region are not written out to the file."
+> diff --git a/include/linux/fs.h b/include/linux/fs.h
+> index 110d95d04299..26ce65c4a003 100644
+> --- a/include/linux/fs.h
+> +++ b/include/linux/fs.h
+> @@ -433,7 +433,6 @@ static inline bool is_sync_kiocb(struct kiocb *kiocb)
+>  }
+>  
+>  struct address_space_operations {
+> -	int (*writepage)(struct page *page, struct writeback_control *wbc);
+>  	int (*read_folio)(struct file *, struct folio *);
+>  
+>  	/* Write back some dirty pages from this mapping. */
+> diff --git a/mm/vmscan.c b/mm/vmscan.c
+> index e9f84fa31b9a..7e79ca975c9d 100644
+> --- a/mm/vmscan.c
+> +++ b/mm/vmscan.c
+> @@ -643,7 +643,6 @@ typedef enum {
+>  
+>  /*
+>   * pageout is called by shrink_folio_list() for each dirty folio.
+> - * Calls ->writepage().
+>   */
+>  static pageout_t pageout(struct folio *folio, struct address_space *mapping,
+>  			 struct swap_iocb **plug, struct list_head *folio_list)
+> -- 
+> 2.47.2
+> 
+
+-- 
+Fan Ni
