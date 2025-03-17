@@ -4,58 +4,27 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7036BC35FF3
-	for <intel-gfx@archiver.kernel.org>; Mon, 17 Mar 2025 08:19:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1265AC282EC
+	for <intel-gfx@archiver.kernel.org>; Mon, 17 Mar 2025 08:47:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 137F210E3C9;
-	Mon, 17 Mar 2025 08:19:37 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="Ie9cKPrV";
-	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DB11310E3C1;
- Mon, 17 Mar 2025 08:19:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1742199570; x=1773735570;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=t4+p93mv3yrvuktDJyP3Gi0UIy5bC/mumFeuusuF9MI=;
- b=Ie9cKPrV7rNzpK5xqo70Skf6q5+KMUPhzpAEJgyHR0YKkE/krBcFP6XN
- /Uezc4BUxZVzhDqaxsIu5iAXDSYngOlE5XFTHt2byKfik+L0qhPnnDEOg
- 7YQghMpOz8U8zQU1RdyVKbydEzt7RHLqz9U80/9Mv9Xfvoa1NyggOYQD3
- EZXE9OLsQlWbdVXOfgNfeHCICfe0QnkLdz0ZffJH5aAKVafRoTvy4yWjn
- xh/cEjhuNdhXuP+aCcWXjC4K3VRWKB42wx0DIV+kxNYAQnGo33wFwesMW
- R0m6W60eN8COaz+chUmMxcr+FWzJRL5+qUAZrPZaYdKlbpYEdbzdP60vm g==;
-X-CSE-ConnectionGUID: 95+Oy0cRQlu3sMwLBGPcxA==
-X-CSE-MsgGUID: Utbg18ODTLa2FNchQWWJ6Q==
-X-IronPort-AV: E=McAfee;i="6700,10204,11375"; a="54653519"
-X-IronPort-AV: E=Sophos;i="6.14,253,1736841600"; d="scan'208";a="54653519"
-Received: from fmviesa006.fm.intel.com ([10.60.135.146])
- by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 17 Mar 2025 01:19:30 -0700
-X-CSE-ConnectionGUID: IfOCUgtPS9u58GuVhLT9+Q==
-X-CSE-MsgGUID: HVI2IH8PS8OO7+zFOiwD1A==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.14,253,1736841600"; d="scan'208";a="121677168"
-Received: from ettammin-mobl2.ger.corp.intel.com (HELO jhogande-mobl1..)
- ([10.245.244.231])
- by fmviesa006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 17 Mar 2025 01:19:28 -0700
-From: =?UTF-8?q?Jouni=20H=C3=B6gander?= <jouni.hogander@intel.com>
-To: intel-gfx@lists.freedesktop.org,
-	intel-xe@lists.freedesktop.org
-Cc: =?UTF-8?q?Jouni=20H=C3=B6gander?= <jouni.hogander@intel.com>
-Subject: [PATCH v2 09/11] drm/i915/psr: Apply underrun on PSR idle workaround
-Date: Mon, 17 Mar 2025 10:19:03 +0200
-Message-ID: <20250317081905.3683654-10-jouni.hogander@intel.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20250317081905.3683654-1-jouni.hogander@intel.com>
-References: <20250317081905.3683654-1-jouni.hogander@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8F35D10E3C8;
+	Mon, 17 Mar 2025 08:47:37 +0000 (UTC)
+Received: from 18a75f3d1eae (emeril.freedesktop.org [131.252.210.167])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0C48F10E3AF;
+ Mon, 17 Mar 2025 08:47:36 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
+Subject: =?utf-8?q?=E2=9C=97_Fi=2ECI=2ECHECKPATCH=3A_warning_for_Underrun_on_idle_PSR?=
+ =?utf-8?q?_workaround_=28rev3=29?=
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: =?utf-8?q?Jouni_H=C3=B6gander?= <jouni.hogander@intel.com>
+Cc: intel-gfx@lists.freedesktop.org
+Date: Mon, 17 Mar 2025 08:47:36 -0000
+Message-ID: <174220125605.42242.7618618238717169@18a75f3d1eae>
+X-Patchwork-Hint: ignore
+References: <20250317081905.3683654-1-jouni.hogander@intel.com>
+In-Reply-To: <20250317081905.3683654-1-jouni.hogander@intel.com>
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,272 +37,34 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-This patch is applying workaround for underrun on idle PSR HW issue
-(Wa_16025596647) when PSR is getting enabled. It uses vblank enable/disable
-status, DC5/6 enabled disabled and enabled pipes count information made
-available.
+== Series Details ==
 
-This patch is also adding calls to dc5/dc6, vblank enable/disable and pipe
-enable/disable notification functions as needed.
-intel_psr_needs_block_dc_vblank is modified to get vblank enable/disable
-notification on PSR capable system.
+Series: Underrun on idle PSR workaround (rev3)
+URL   : https://patchwork.freedesktop.org/series/145986/
+State : warning
 
-Bspec: 74151
+== Summary ==
 
-Signed-off-by: Jouni Högander <jouni.hogander@intel.com>
----
- drivers/gpu/drm/i915/display/intel_display.c  |   4 +
- .../drm/i915/display/intel_display_driver.c   |   3 +
- .../gpu/drm/i915/display/intel_display_irq.c  |   9 +-
- .../i915/display/intel_display_power_well.c   |   4 +
- drivers/gpu/drm/i915/display/intel_psr.c      | 103 +++++++++++-------
- 5 files changed, 76 insertions(+), 47 deletions(-)
+Error: dim checkpatch failed
+d17141c733b0 drm/i915/display: Add new interface for getting dc_state
+3a103157f0a1 drm/i915/psr: Store enabled non-psr pipes into intel_crtc_state
+f051aa5330e7 drm/i915/dmc: Add PIPEDMC_EVT_CTL register definition
+fb98bc00ea32 drm/i915/dmc: Add PIPEDMC_BLOCK_PKGC_SW definitions
+-:28: WARNING:LONG_LINE: line length of 101 exceeds 100 columns
+#28: FILE: drivers/gpu/drm/i915/display/intel_dmc_regs.h:33:
++									   PIPEDMC_BLOCK_PKGC_SW_A, \
 
-diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
-index 3afb85fe8536d..834d023d0c626 100644
---- a/drivers/gpu/drm/i915/display/intel_display.c
-+++ b/drivers/gpu/drm/i915/display/intel_display.c
-@@ -6648,6 +6648,8 @@ static void intel_enable_crtc(struct intel_atomic_state *state,
- 		intel_crtc_update_active_timings(pipe_crtc_state, false);
- 	}
- 
-+	intel_psr_notify_pipe_change(state, crtc, true);
-+
- 	display->funcs.display->crtc_enable(state, crtc);
- 
- 	/* vblanks work again, re-enable pipe CRC. */
-@@ -6767,6 +6769,8 @@ static void intel_old_crtc_state_disables(struct intel_atomic_state *state,
- 					 intel_crtc_joined_pipe_mask(old_crtc_state))
- 		intel_crtc_disable_pipe_crc(pipe_crtc);
- 
-+	intel_psr_notify_pipe_change(state, crtc, false);
-+
- 	display->funcs.display->crtc_disable(state, crtc);
- 
- 	for_each_intel_crtc_in_pipe_mask(display->drm, pipe_crtc,
-diff --git a/drivers/gpu/drm/i915/display/intel_display_driver.c b/drivers/gpu/drm/i915/display/intel_display_driver.c
-index 31740a677dd80..b4c989bbac93a 100644
---- a/drivers/gpu/drm/i915/display/intel_display_driver.c
-+++ b/drivers/gpu/drm/i915/display/intel_display_driver.c
-@@ -54,6 +54,7 @@
- #include "intel_plane_initial.h"
- #include "intel_pmdemand.h"
- #include "intel_pps.h"
-+#include "intel_psr.h"
- #include "intel_quirks.h"
- #include "intel_vga.h"
- #include "intel_wm.h"
-@@ -226,6 +227,8 @@ int intel_display_driver_probe_noirq(struct intel_display *display)
- 	if (ret)
- 		goto cleanup_bios;
- 
-+	intel_psr_dc5_dc6_wa_init(display);
-+
- 	/* FIXME: completely on the wrong abstraction layer */
- 	ret = intel_power_domains_init(display);
- 	if (ret < 0)
-diff --git a/drivers/gpu/drm/i915/display/intel_display_irq.c b/drivers/gpu/drm/i915/display/intel_display_irq.c
-index aa23bb8178053..62fbdcbb4a123 100644
---- a/drivers/gpu/drm/i915/display/intel_display_irq.c
-+++ b/drivers/gpu/drm/i915/display/intel_display_irq.c
-@@ -1728,14 +1728,7 @@ static void intel_display_vblank_dc_work(struct work_struct *work)
- 		container_of(work, typeof(*display), irq.vblank_dc_work);
- 	int vblank_wa_num_pipes = READ_ONCE(display->irq.vblank_wa_num_pipes);
- 
--	/*
--	 * NOTE: intel_display_power_set_target_dc_state is used only by PSR
--	 * code for DC3CO handling. DC3CO target state is currently disabled in
--	 * PSR code. If DC3CO is taken into use we need take that into account
--	 * here as well.
--	 */
--	intel_display_power_set_target_dc_state(display, vblank_wa_num_pipes ? DC_STATE_DISABLE :
--						DC_STATE_EN_UPTO_DC6);
-+	intel_psr_notify_vblank_enable_disable(display, vblank_wa_num_pipes);
- }
- 
- int bdw_enable_vblank(struct drm_crtc *_crtc)
-diff --git a/drivers/gpu/drm/i915/display/intel_display_power_well.c b/drivers/gpu/drm/i915/display/intel_display_power_well.c
-index 8ec87ffd87d26..510f97341893b 100644
---- a/drivers/gpu/drm/i915/display/intel_display_power_well.c
-+++ b/drivers/gpu/drm/i915/display/intel_display_power_well.c
-@@ -24,6 +24,7 @@
- #include "intel_hotplug.h"
- #include "intel_pcode.h"
- #include "intel_pps.h"
-+#include "intel_psr.h"
- #include "intel_tc.h"
- #include "intel_vga.h"
- #include "skl_watermark.h"
-@@ -762,6 +763,9 @@ void gen9_set_dc_state(struct intel_display *display, u32 state)
- 			     state & ~power_domains->allowed_dc_mask))
- 		state &= power_domains->allowed_dc_mask;
- 
-+	if (!power_domains->initializing)
-+		intel_psr_notify_dc5_dc6(display);
-+
- 	val = intel_de_read(display, DC_STATE_EN);
- 	mask = gen9_dc_mask(display);
- 	drm_dbg_kms(display->drm, "Setting DC state from %02x to %02x\n",
-diff --git a/drivers/gpu/drm/i915/display/intel_psr.c b/drivers/gpu/drm/i915/display/intel_psr.c
-index afb9faed7784b..d2a28a83e4f20 100644
---- a/drivers/gpu/drm/i915/display/intel_psr.c
-+++ b/drivers/gpu/drm/i915/display/intel_psr.c
-@@ -908,6 +908,41 @@ static u8 psr_compute_idle_frames(struct intel_dp *intel_dp)
- 	return idle_frames;
- }
- 
-+/* Wa_16025596647 */
-+static void psr1_apply_underrun_on_idle_wa_locked(struct intel_dp *intel_dp,
-+						  bool dc5_dc6_blocked)
-+{
-+	struct intel_display *display = to_intel_display(intel_dp);
-+	u32 val;
-+
-+	if (dc5_dc6_blocked)
-+		val = DMC_EVT_CTL_ENABLE | DMC_EVT_CTL_RECURRING |
-+			REG_FIELD_PREP(DMC_EVT_CTL_TYPE_MASK,
-+				       DMC_EVT_CTL_TYPE_EDGE_0_1) |
-+			REG_FIELD_PREP(DMC_EVT_CTL_EVENT_ID_MASK,
-+				       DMC_EVT_CTL_EVENT_ID_VBLANK_A);
-+	else
-+		val = REG_FIELD_PREP(DMC_EVT_CTL_EVENT_ID_MASK,
-+				     DMC_EVT_CTL_EVENT_ID_FALSE) |
-+			REG_FIELD_PREP(DMC_EVT_CTL_TYPE_MASK,
-+				       DMC_EVT_CTL_TYPE_EDGE_0_1);
-+
-+	intel_de_write(display, MTL_PIPEDMC_EVT_CTL_4(intel_dp->psr.pipe),
-+		       val);
-+}
-+
-+static bool is_dc5_dc6_blocked(struct intel_dp *intel_dp)
-+{
-+	struct intel_display *display = to_intel_display(intel_dp);
-+	u32 current_dc_state = intel_display_power_get_current_dc_state(display);
-+	struct drm_vblank_crtc *vblank = &display->drm->vblank[intel_dp->psr.pipe];
-+
-+	return (current_dc_state != DC_STATE_EN_UPTO_DC5 &&
-+		current_dc_state != DC_STATE_EN_UPTO_DC6) ||
-+		intel_dp->psr.active_non_psr_pipes ||
-+		READ_ONCE(vblank->enabled);
-+}
-+
- static void hsw_activate_psr1(struct intel_dp *intel_dp)
- {
- 	struct intel_display *display = to_intel_display(intel_dp);
-@@ -937,6 +972,12 @@ static void hsw_activate_psr1(struct intel_dp *intel_dp)
- 
- 	intel_de_rmw(display, psr_ctl_reg(display, cpu_transcoder),
- 		     ~EDP_PSR_RESTORE_PSR_ACTIVE_CTX_MASK, val);
-+
-+	/* Wa_16025596647 */
-+	if ((DISPLAY_VER(display) == 20 ||
-+	     IS_DISPLAY_VERx100_STEP(display, 3000, STEP_A0, STEP_B0)) &&
-+	    is_dc5_dc6_blocked(intel_dp))
-+		psr1_apply_underrun_on_idle_wa_locked(intel_dp, true);
- }
- 
- static u32 intel_psr2_get_tp_time(struct intel_dp *intel_dp)
-@@ -1019,8 +1060,16 @@ static void hsw_activate_psr2(struct intel_dp *intel_dp)
- 	enum transcoder cpu_transcoder = intel_dp->psr.transcoder;
- 	u32 val = EDP_PSR2_ENABLE;
- 	u32 psr_val = 0;
-+	u8 idle_frames;
- 
--	val |= EDP_PSR2_IDLE_FRAMES(psr_compute_idle_frames(intel_dp));
-+	/* Wa_16025596647 */
-+	if ((DISPLAY_VER(display) == 20 ||
-+	     IS_DISPLAY_VERx100_STEP(display, 3000, STEP_A0, STEP_B0)) &&
-+	    is_dc5_dc6_blocked(intel_dp))
-+		idle_frames = 0;
-+	else
-+		idle_frames = psr_compute_idle_frames(intel_dp);
-+	val |= EDP_PSR2_IDLE_FRAMES(idle_frames);
- 
- 	if (DISPLAY_VER(display) < 14 && !IS_ALDERLAKE_P(dev_priv))
- 		val |= EDP_SU_TRACK_ENABLE;
-@@ -2101,6 +2150,10 @@ static void intel_psr_exit(struct intel_dp *intel_dp)
- 
- 		drm_WARN_ON(display->drm, !(val & EDP_PSR2_ENABLE));
- 	} else {
-+		if (DISPLAY_VER(display) == 20 ||
-+		    IS_DISPLAY_VERx100_STEP(display, 3000, STEP_A0, STEP_B0))
-+			psr1_apply_underrun_on_idle_wa_locked(intel_dp, false);
-+
- 		val = intel_de_rmw(display,
- 				   psr_ctl_reg(display, cpu_transcoder),
- 				   EDP_PSR_ENABLE, 0);
-@@ -2312,6 +2365,7 @@ void intel_psr_resume(struct intel_dp *intel_dp)
- bool intel_psr_needs_block_dc_vblank(const struct intel_crtc_state *crtc_state)
- {
- 	struct intel_crtc *crtc = to_intel_crtc(crtc_state->uapi.crtc);
-+	struct intel_display *display = to_intel_display(crtc_state);
- 	struct intel_encoder *encoder;
- 
- 	for_each_encoder_on_crtc(crtc->base.dev, &crtc->base, encoder) {
-@@ -2322,8 +2376,15 @@ bool intel_psr_needs_block_dc_vblank(const struct intel_crtc_state *crtc_state)
- 
- 		intel_dp = enc_to_intel_dp(encoder);
- 
--		if (intel_dp_is_edp(intel_dp) &&
--		    CAN_PANEL_REPLAY(intel_dp))
-+		if (!intel_dp_is_edp(intel_dp))
-+			continue;
-+
-+		if (CAN_PANEL_REPLAY(intel_dp))
-+			return true;
-+
-+		if ((DISPLAY_VER(display) == 20 ||
-+		     IS_DISPLAY_VERx100_STEP(display, 3000, STEP_A0, STEP_B0)) &&
-+		    CAN_PSR(intel_dp))
- 			return true;
- 	}
- 
-@@ -3665,42 +3726,6 @@ void intel_psr_unlock(const struct intel_crtc_state *crtc_state)
- 	}
- }
- 
--/* Wa_16025596647 */
--static void psr1_apply_underrun_on_idle_wa_locked(struct intel_dp *intel_dp,
--						  bool dc5_dc6_blocked)
--{
--	struct intel_display *display = to_intel_display(intel_dp);
--	u32 val;
--
--	if (dc5_dc6_blocked)
--		val = DMC_EVT_CTL_ENABLE | DMC_EVT_CTL_RECURRING |
--			REG_FIELD_PREP(DMC_EVT_CTL_TYPE_MASK,
--				       DMC_EVT_CTL_TYPE_EDGE_0_1) |
--			REG_FIELD_PREP(DMC_EVT_CTL_EVENT_ID_MASK,
--				       DMC_EVT_CTL_EVENT_ID_VBLANK_A);
--	else
--		val = REG_FIELD_PREP(DMC_EVT_CTL_EVENT_ID_MASK,
--				     DMC_EVT_CTL_EVENT_ID_FALSE) |
--			REG_FIELD_PREP(DMC_EVT_CTL_TYPE_MASK,
--				       DMC_EVT_CTL_TYPE_EDGE_0_1);
--
--	intel_de_write(display, MTL_PIPEDMC_EVT_CTL_4(intel_dp->psr.pipe),
--		       val);
--}
--
--/* Wa_16025596647 */
--static bool is_dc5_dc6_blocked(struct intel_dp *intel_dp)
--{
--	struct intel_display *display = to_intel_display(intel_dp);
--	u32 current_dc_state = intel_display_power_get_current_dc_state(display);
--	struct drm_vblank_crtc *vblank = &display->drm->vblank[intel_dp->psr.pipe];
--
--	return (current_dc_state != DC_STATE_EN_UPTO_DC5 &&
--		current_dc_state != DC_STATE_EN_UPTO_DC6) ||
--		intel_dp->psr.active_non_psr_pipes ||
--		READ_ONCE(vblank->enabled);
--}
--
- /* Wa_16025596647 */
- static void intel_psr_apply_underrun_on_idle_wa_locked(struct intel_dp *intel_dp)
- {
--- 
-2.43.0
+total: 0 errors, 1 warnings, 0 checks, 14 lines checked
+352110d3ed60 drm/i915/psr: Write PIPEDMC_BLOCK_PKGC_SW when enabling PSR
+6697cedb1123 drm/i915/psr: Add mechanism to notify PSR of pipe enable/disable
+a1ad136d5114 drm/i915/psr: Add mechanism to notify PSR of DC5/6 enable disable
+bc7f48181953 drm/i915/psr: Add interface to notify PSR of vblank enable/disable
+6915e6f48cef drm/i915/psr: Apply underrun on PSR idle workaround
+02d4c17b4a87 drm/i915/display: Rename intel_psr_needs_block_dc_vblank
+78628a1a860d drm/i915/display: Rename vblank DC workaround functions and variables
+
 
