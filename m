@@ -4,82 +4,59 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 163E8C3600D
-	for <intel-gfx@archiver.kernel.org>; Mon, 24 Mar 2025 13:24:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 975A3C36002
+	for <intel-gfx@archiver.kernel.org>; Mon, 24 Mar 2025 13:24:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 13AB010E347;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 68A8E10E34A;
 	Mon, 24 Mar 2025 13:24:23 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="dioI6pKF";
-	dkim-atps=neutral
-Received: from mail-io1-f47.google.com (mail-io1-f47.google.com
- [209.85.166.47])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 38D8F10E6A2;
- Thu, 20 Mar 2025 18:53:10 +0000 (UTC)
-Received: by mail-io1-f47.google.com with SMTP id
- ca18e2360f4ac-85e1b1f08a5so33924439f.2; 
- Thu, 20 Mar 2025 11:53:10 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1742496789; x=1743101589; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=0gFevukveSt7PbWkbUevQGA0uvSXu+LT7vaKBaZctmY=;
- b=dioI6pKF3ytNAjvQtFUqAVJcp82MFVLutTR8lMwT3pmcczpd5M+IDhrMjS3o+Fduru
- maop7CVyRuZRkghc6NszMYiHAeyKVzRSn8R3YRdkZzYzZ85h04MRPoOdWNUO3jDRUgGX
- 26Kox6h3/53SFZ48RR71is2UN1QqcMYzGfHbY1+IKVFFYwty1qPnYzkAwjLIqr2Qs9LI
- mTKrjZUNE+UOsh6a1Layr2qUYoLBk9K3/g3y2hLdEMoW9vR/ELrLeAFB/mMLsGIZw4rx
- Shx3b8kz1fbXD/jXnhpdodhTdYSBHvL7avpim+EUOUkFZd8bSSsR1YSAtxVMtHC38zyY
- Cq9g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1742496789; x=1743101589;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=0gFevukveSt7PbWkbUevQGA0uvSXu+LT7vaKBaZctmY=;
- b=Fe1y3yxlNiHobMbX1XyICjqfr+nyXOwBkXWx3gpSOPYuaarYY6Z+McR167+8BquXV0
- 8aeSo9ACBchirlLMySeqH2yitg/Oe4E4XYXN/tI8eaT3tpZkD/M8JkksxVtwcGSfs5gu
- BBtvHZRP4uc7oLhdQm1XRvOCY0EQn910yoAXSRZeEZHv/S6KIijUTqsufELrtBZIxcUO
- WNbmgfxj7s90u0FxS0eoEnSsXNn19v57LWK5w5DXNfG+Ey8ta6e0GuUYBDRWr6bIBoay
- d5wGezDHCTQSf5c5Muq2EGXKNjt1K4jxEaa9gadzpPSto21/+N3Z2vwzB7ObflbWYd5T
- PWBA==
-X-Forwarded-Encrypted: i=1;
- AJvYcCVfIDkNbKU/FNHYNL2OjY9YIo734SrhkoJIFQBY/io5F//vxsnG5dRMrHKKrhANdZQ2blY27nAaCgSL+oI6O4ZmIQ==@lists.freedesktop.org,
- AJvYcCWM+ojWVVvPqLU8+JXqhWn9tZSVtgXoozbl75zw2hXd832WUibmJ95poFPpWgjJBygPlHF7c2fw@lists.freedesktop.org,
- AJvYcCXTSMyPnZe/KF0dnD1hlpXnGxqg9y3NIeFmWziqxHQdXr3PEpcrmlJ2SpZ2EQzQsgtjmmo8zHYYBKVV@lists.freedesktop.org,
- AJvYcCXeZKuj34BnKOFOmfL26OEmYtokyIRbtmykVwvI1TWJ9PdGKcK5ROoL29XCuyfNL2Z/V4xu1cwFPZdFIpnaBg==@lists.freedesktop.org,
- AJvYcCXwH56X0iSg7zgPgo0wM+JR9xPXsGznxsjmCmploe1+89XNTSCyzXrQIFyYwWkQzE0QxVybKbZV5z3I@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyMkxgBy4JAsXxcAYZp34xLRfZNhrMQYiIwBQv/G9uttbSnvbsr
- UuMs1oTgEqUt+Ja63ae02wlr/opFcs8At/WaQzPNiU+rAqkin9E4
-X-Gm-Gg: ASbGncsd1EFh1GIj/Z/iDxG6aiQ5h+C7PohJACMv7cdVA/sIiuJw8IoCN/uvG3pD+QF
- XNtcDDcAC+/Pb2tH6mCvP6iI82+hGAL/TCxyH9hOXNV+tpdajflWMUaQyIiahn384YPf/+rPwDj
- 4hH+jNLsOdayK1VAlJgzIBEXeeYe3K6UiKDIXD9y64CPjrqNV8PP9XCp1J6j9T46LO2gRylWcnK
- A+tWFWGph4JmpgeN4z8oKB21aD2VGyBFZ/McTwekxmCnBF9jaZELdeEa/CcSlB1sTCTb4tmtJot
- D9gOi8uoQiU8skbwXo6a3qlAsuttHyoLYRphYscBquJWe205jO0ZkHnnouTY6sTdE2znc4GaRkn
- qeA==
-X-Google-Smtp-Source: AGHT+IEl5TzbnKxAjaqmsC8k+Jv8OPkwqppFAxXArvgR0WfDE036J6MPxh1ZsMPTCMeE31lygTHh/Q==
-X-Received: by 2002:a05:6602:3787:b0:85e:180d:7c97 with SMTP id
- ca18e2360f4ac-85e2c8f0cb8mr51954339f.0.1742496789264; 
- Thu, 20 Mar 2025 11:53:09 -0700 (PDT)
-Received: from gandalf.. (c-67-165-245-5.hsd1.co.comcast.net. [67.165.245.5])
- by smtp.googlemail.com with ESMTPSA id
- ca18e2360f4ac-85e2bc273e7sm7078039f.17.2025.03.20.11.53.08
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 20 Mar 2025 11:53:08 -0700 (PDT)
-From: Jim Cromie <jim.cromie@gmail.com>
-To: linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- amd-gfx@lists.freedesktop.org, intel-gvt-dev@lists.freedesktop.org,
- intel-gfx@lists.freedesktop.org, intel-gfx-trybot@lists.freedesktop.org
-Cc: jbaron@akamai.com, gregkh@linuxfoundation.org, ukaszb@chromium.org,
- louis.chauvet@bootlin.com, daniel.vetter@ffwll.ch,
- tvrtko.ursulin@linux.intel.com, jani.nikula@intel.com,
- ville.syrjala@linux.intel.com, Jim Cromie <jim.cromie@gmail.com>
-Subject: [PATCH v2 07/59] dyndbg: reduce verbose/debug clutter
-Date: Thu, 20 Mar 2025 12:51:45 -0600
-Message-ID: <20250320185238.447458-8-jim.cromie@gmail.com>
-X-Mailer: git-send-email 2.49.0
-In-Reply-To: <20250320185238.447458-1-jim.cromie@gmail.com>
-References: <20250320185238.447458-1-jim.cromie@gmail.com>
+X-Greylist: delayed 302 seconds by postgrey-1.36 at gabe;
+ Tue, 18 Mar 2025 07:10:13 UTC
+Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D432710E02B;
+ Tue, 18 Mar 2025 07:10:13 +0000 (UTC)
+X-UUID: 4f57fb3203c711f0a216b1d71e6e1362-20250318
+X-CTIC-Tags: HR_CC_COUNT, HR_CC_DOMAIN_COUNT, HR_CC_NAME, HR_CC_NO_NAME,
+ HR_CTE_8B
+ HR_CTT_MISS, HR_DATE_H, HR_DATE_WKD, HR_DATE_ZONE, HR_FROM_NAME
+ HR_SJ_DIGIT_LEN, HR_SJ_LANG, HR_SJ_LEN, HR_SJ_LETTER, HR_SJ_NOR_SYM
+ HR_SJ_PHRASE, HR_SJ_PHRASE_LEN, HR_SJ_WS, HR_TO_COUNT, HR_TO_DOMAIN_COUNT
+ HR_TO_NO_NAME, IP_TRUSTED, SRC_TRUSTED, DN_TRUSTED, SA_TRUSTED
+ SA_EXISTED, SN_TRUSTED, SN_EXISTED, SPF_NOPASS, DKIM_NOPASS
+ DMARC_NOPASS, CIE_BAD, CIE_GOOD_SPF, GTI_FG_BS, GTI_RG_INFO
+ GTI_C_BU, AMN_T1, AMN_GOOD, AMN_C_TI, AMN_C_BU ABX_MISS_RDNS
+X-CID-UNFAMILIAR: 1
+X-CID-P-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.1.45, REQID:85aa7888-d63a-4a57-a857-a3ba91eaaf8d, IP:10,
+ URL:0,TC:0,Content:0,EDM:0,RT:0,SF:12,FILE:0,BULK:0,RULE:Release_Ham,ACTIO
+ N:release,TS:22
+X-CID-INFO: VERSION:1.1.45, REQID:85aa7888-d63a-4a57-a857-a3ba91eaaf8d, IP:10,
+ UR
+ L:0,TC:0,Content:0,EDM:0,RT:0,SF:12,FILE:0,BULK:0,RULE:Release_HamU,ACTION
+ :release,TS:22
+X-CID-META: VersionHash:6493067, CLOUDID:53507ddbc0bb982542202a760e475476,
+ BulkI
+ D:250318150502PDHC138U,BulkQuantity:0,Recheck:0,SF:16|19|25|38|44|66|78|10
+ 2,TC:nil,Content:0|50,EDM:-3,IP:-2,URL:11|1,File:nil,RT:nil,Bulk:nil,QS:ni
+ l,BEC:nil,COL:0,OSI:0,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:
+ 0
+X-CID-BVR: 0
+X-CID-BAS: 0,_,0,_
+X-CID-FACTOR: TF_CID_SPAM_USA, TF_CID_SPAM_FSD, TF_CID_SPAM_FSI,
+ TF_CID_SPAM_ULN, TF_CID_SPAM_SNR
+X-UUID: 4f57fb3203c711f0a216b1d71e6e1362-20250318
+X-User: yaolu@kylinos.cn
+Received: from localhost.localdomain [(116.128.244.169)] by mailgw.kylinos.cn
+ (envelope-from <yaolu@kylinos.cn>) (Generic MTA)
+ with ESMTP id 2139052546; Tue, 18 Mar 2025 15:05:01 +0800
+From: Lu Yao <yaolu@kylinos.cn>
+To: jani.nikula@linux.intel.com, rodrigo.vivi@intel.com,
+ joonas.lahtinen@linux.intel.com, tursulin@ursulin.net
+Cc: intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, Lu Yao <yaolu@kylinos.cn>
+Subject: [PATCH] drm/i915/display: add audio dis/enable when connector hotplug
+Date: Tue, 18 Mar 2025 15:04:35 +0800
+Message-Id: <20250318070435.347383-1-yaolu@kylinos.cn>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Mon, 24 Mar 2025 13:24:21 +0000
@@ -98,125 +75,78 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-currently, for verbose=3, these are logged (blank lines for clarity):
+Now audio enable/disable depends on an atomic commit, it doesn't make
+sence. For wayland, there will trigering an atomic commit, so it
+works well. But for Xorg using modesetting, there won't. In this
+case, unplug the HDMI/DP and the audio jack event is not triggered,
+resulting in still having a HDMI/DP audio output choice.
 
- dyndbg: query 0: "class DRM_UT_CORE +p" mod:*
- dyndbg: split into words: "class" "DRM_UT_CORE" "+p"
-
- dyndbg: op='+'
- dyndbg: flags=0x1
- dyndbg: *flagsp=0x1 *maskp=0xffffffff
-
- dyndbg: parsed: func="" file="" module="" format="" lineno=0-0 class=...
- dyndbg: no matches for query
- dyndbg: no-match: func="" file="" module="" format="" lineno=0-0 class=...
- dyndbg: processed 1 queries, with 0 matches, 0 errs
-
-That is excessive, so this patch:
- - shrinks 3 lines of 2nd stanza to single line
- - drops 1st 2 lines of 3rd stanza
-   3rd line is like 1st, with result, not procedure.
-   2nd line is just status, retold in 4th, with more info.
-
-New output:
-
- dyndbg: query 0: "class DRM_UT_CORE +p" mod:*
- dyndbg: split into words: "class" "DRM_UT_CORE" "+p"
- dyndbg: op='+' flags=0x1 *flagsp=0x1 *maskp=0xffffffff
- dyndbg: no-match: func="" file="" module="" format="" lineno=0-0 class=...
- dyndbg: processed 1 queries, with 0 matches, 0 errs
-
-Also reduce verbose=3 messages in ddebug_add_module
-
-When modprobing a module, dyndbg currently logs/says "add-module", and
-then "skipping" if the module has no prdbgs.  Instead just check 1st
-and return quietly.
-
-no functional change
-
-Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
-Reviewed-by: Louis Chauvet <louis.chauvet@bootlin.com>
+Signed-off-by: Lu Yao <yaolu@kylinos.cn>
 ---
--v2 squash several verbose cleanups together
+ drivers/gpu/drm/i915/display/intel_hotplug.c | 31 ++++++++++++++++++++
+ 1 file changed, 31 insertions(+)
 ---
- lib/dynamic_debug.c | 21 ++++++---------------
- 1 file changed, 6 insertions(+), 15 deletions(-)
+Test hardware:
+  CPU: i5-12500
+  GPU: UHD Graphics 770
 
-diff --git a/lib/dynamic_debug.c b/lib/dynamic_debug.c
-index 55df35df093b..c609ff873224 100644
---- a/lib/dynamic_debug.c
-+++ b/lib/dynamic_debug.c
-@@ -264,9 +264,6 @@ static int ddebug_change(const struct ddebug_query *query,
- 	}
- 	mutex_unlock(&ddebug_lock);
+
+diff --git a/drivers/gpu/drm/i915/display/intel_hotplug.c b/drivers/gpu/drm/i915/display/intel_hotplug.c
+index 3adc791d3776..332d6e1a99cd 100644
+--- a/drivers/gpu/drm/i915/display/intel_hotplug.c
++++ b/drivers/gpu/drm/i915/display/intel_hotplug.c
+@@ -32,6 +32,7 @@
+ #include "intel_display_types.h"
+ #include "intel_hotplug.h"
+ #include "intel_hotplug_irq.h"
++#include "intel_audio.h"
  
--	if (!nfound && verbose)
--		pr_info("no matches for query\n");
--
- 	return nfound;
+ /**
+  * DOC: Hotplug
+@@ -415,6 +416,35 @@ void intel_hpd_trigger_irq(struct intel_digital_port *dig_port)
+ 	queue_work(i915->display.hotplug.dp_wq, &i915->display.hotplug.dig_port_work);
  }
  
-@@ -499,7 +496,6 @@ static int ddebug_parse_flags(const char *str, struct flag_settings *modifiers)
- 		pr_err("bad flag-op %c, at start of %s\n", *str, str);
- 		return -EINVAL;
- 	}
--	v3pr_info("op='%c'\n", op);
- 
- 	for (; *str ; ++str) {
- 		for (i = ARRAY_SIZE(opt_array) - 1; i >= 0; i--) {
-@@ -513,7 +509,6 @@ static int ddebug_parse_flags(const char *str, struct flag_settings *modifiers)
- 			return -EINVAL;
- 		}
- 	}
--	v3pr_info("flags=0x%x\n", modifiers->flags);
- 
- 	/* calculate final flags, mask based upon op */
- 	switch (op) {
-@@ -529,7 +524,7 @@ static int ddebug_parse_flags(const char *str, struct flag_settings *modifiers)
- 		modifiers->flags = 0;
- 		break;
- 	}
--	v3pr_info("*flagsp=0x%x *maskp=0x%x\n", modifiers->flags, modifiers->mask);
-+	v3pr_info("op='%c' flags=0x%x maskp=0x%x\n", op, modifiers->flags, modifiers->mask);
- 
- 	return 0;
- }
-@@ -539,7 +534,7 @@ static int ddebug_exec_query(char *query_string, const char *modname)
- 	struct flag_settings modifiers = {};
- 	struct ddebug_query query = {};
- #define MAXWORDS 9
--	int nwords, nfound;
-+	int nwords;
- 	char *words[MAXWORDS];
- 
- 	nwords = ddebug_tokenize(query_string, words, MAXWORDS);
-@@ -557,10 +552,7 @@ static int ddebug_exec_query(char *query_string, const char *modname)
- 		return -EINVAL;
- 	}
- 	/* actually go and implement the change */
--	nfound = ddebug_change(&query, &modifiers);
--	vpr_info_dq(&query, nfound ? "applied" : "no-match");
--
--	return nfound;
-+	return ddebug_change(&query, &modifiers);
- }
- 
- /* handle multiple queries in query string, continue on error, return
-@@ -1234,11 +1226,10 @@ static int ddebug_add_module(struct _ddebug_info *di, const char *modname)
- {
- 	struct ddebug_table *dt;
- 
--	v3pr_info("add-module: %s.%d sites\n", modname, di->num_descs);
--	if (!di->num_descs) {
--		v3pr_info(" skip %s\n", modname);
-+	if (!di->num_descs)
- 		return 0;
--	}
++/*
++ * when connector hotplug state changed, audio need changed too.
++ */
++static void i915_audio_hotplug(struct intel_connector *connector)
++{
++	struct drm_crtc *crtc;
++	struct drm_device *dev = connector->base.dev;
 +
-+	v3pr_info("add-module: %s %d sites\n", modname, di->num_descs);
- 
- 	dt = kzalloc(sizeof(*dt), GFP_KERNEL);
- 	if (dt == NULL) {
++	drm_for_each_crtc(crtc, dev) {
++		if (connector->base.state->crtc == crtc) {
++			struct intel_crtc *intel_crtc = to_intel_crtc(crtc);
++			struct intel_crtc_state *pipe_config =
++				to_intel_crtc_state(intel_crtc->base.state);
++			struct intel_encoder *encoder =
++				intel_attached_encoder(connector);
++
++			if (pipe_config && pipe_config->has_audio) {
++				if (connector->base.status == connector_status_disconnected)
++					intel_audio_codec_disable(encoder, pipe_config,
++								  connector->base.state);
++				else if (connector->base.status == connector_status_connected)
++					intel_audio_codec_enable(encoder, pipe_config,
++								 connector->base.state);
++			}
++			break;
++		}
++	}
++}
++
+ /*
+  * Handle hotplug events outside the interrupt handler proper.
+  */
+@@ -487,6 +517,7 @@ static void i915_hotplug_work_func(struct work_struct *work)
+ 					drm_connector_get(&connector->base);
+ 					first_changed_connector = &connector->base;
+ 				}
++				i915_audio_hotplug(connector);
+ 				break;
+ 			case INTEL_HOTPLUG_RETRY:
+ 				retry |= hpd_bit;
 -- 
-2.49.0
+2.25.1
 
