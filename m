@@ -4,65 +4,51 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 068D2C36002
-	for <intel-gfx@archiver.kernel.org>; Mon, 24 Mar 2025 12:56:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3D6D8C36002
+	for <intel-gfx@archiver.kernel.org>; Mon, 24 Mar 2025 13:24:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7FFE610E2FE;
-	Mon, 24 Mar 2025 12:56:44 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="RZPwQE7h";
-	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.12])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B07D410E300;
- Mon, 24 Mar 2025 12:56:43 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1742821004; x=1774357004;
- h=from:to:cc:subject:in-reply-to:references:date:
- message-id:mime-version:content-transfer-encoding;
- bh=Yw8mKDKj4A5P3nno8n0/AvNsmNsgLb9K768q7zqzFrw=;
- b=RZPwQE7hhW8d9ZXfYqEJenbqekR+Elw0Y8/nByB1PEg3lrjPhPNTJmTU
- xerx9pz/B5rsAp2Yt3wNZ2XelSf537qIbQj1W5hAXfu7BpccPVXh+/fxy
- ZmksXXlr4pYnRSketbpfvjaXIlgZ81h8UZzT152BwqH4AZKvLxwMSrZfu
- Zm+OEd5T+8Qx4T9n37KFl4M9i3sGvUXBjOZIwjlv9B3m6OagRLbRmfiKj
- Shy9K6IH0u0zxNYVPEiB7SKxWMIdJwaRApFjTqV/0FFKQJKxOt1PKFiGY
- jB6Q3HSF8ZhoVMW7MW3YrRiC7bcADXRrjc2XHACB1+wl4sxjUPZsiy+oh A==;
-X-CSE-ConnectionGUID: HEKigRmiQzGJBC3MNHyglA==
-X-CSE-MsgGUID: 4yq/WqSHRXeGBkran+xZhA==
-X-IronPort-AV: E=McAfee;i="6700,10204,11383"; a="47897238"
-X-IronPort-AV: E=Sophos;i="6.14,272,1736841600"; d="scan'208";a="47897238"
-Received: from fmviesa005.fm.intel.com ([10.60.135.145])
- by fmvoesa106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 24 Mar 2025 05:56:42 -0700
-X-CSE-ConnectionGUID: MEoT5RkMRFiEdaKjS/hAkg==
-X-CSE-MsgGUID: PIRSDpiYSi2Ywp9dx8LvHQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.14,272,1736841600"; d="scan'208";a="128732811"
-Received: from kniemiec-mobl1.ger.corp.intel.com (HELO localhost)
- ([10.245.246.30])
- by fmviesa005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 24 Mar 2025 05:56:38 -0700
-From: Jani Nikula <jani.nikula@linux.intel.com>
-To: Nicolas Chauvet <kwizart@gmail.com>
-Cc: Zhenyu Wang <zhenyuw@linux.intel.com>, Zhi Wang
- <zhi.wang.linux@gmail.com>, Joonas Lahtinen
- <joonas.lahtinen@linux.intel.com>, Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Tvrtko Ursulin <tursulin@ursulin.net>,
- intel-gvt-dev@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
- stable@vger.kernel.org, Kees Cook <kees@kernel.org>
-Subject: Re: [PATCH 2/3] [RFC] drm/i915/gvt: Fix opregion_header->signature
- size
-In-Reply-To: <CABr+WTmQ3rZ-UZH2Wv0R6qKegyjCovn3R7PWBeWiciAj+NbtnQ@mail.gmail.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
-References: <20250324083755.12489-1-kwizart@gmail.com>
- <20250324083755.12489-3-kwizart@gmail.com> <87pli6bwxi.fsf@intel.com>
- <87h63ibwma.fsf@intel.com>
- <CABr+WTmQ3rZ-UZH2Wv0R6qKegyjCovn3R7PWBeWiciAj+NbtnQ@mail.gmail.com>
-Date: Mon, 24 Mar 2025 14:56:35 +0200
-Message-ID: <87msdaa8os.fsf@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 978B410E340;
+	Mon, 24 Mar 2025 13:24:22 +0000 (UTC)
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 787B310E27E;
+ Wed, 19 Mar 2025 04:13:15 +0000 (UTC)
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 4ABF412FC;
+ Tue, 18 Mar 2025 21:13:23 -0700 (PDT)
+Received: from [10.162.17.53] (unknown [10.162.17.53])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 340EC3F694;
+ Tue, 18 Mar 2025 21:13:08 -0700 (PDT)
+Message-ID: <1aba17f1-0cd2-429c-8338-28387ec16314@arm.com>
+Date: Wed, 19 Mar 2025 09:43:06 +0530
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 3/8] bits: introduce fixed-type genmasks
+From: Anshuman Khandual <anshuman.khandual@arm.com>
+To: Yury Norov <yury.norov@gmail.com>, linux-arm-kernel@lists.infradead.org,
+ Catalin Marinas <catalin.marinas@arm.com>
+Cc: Lucas De Marchi <lucas.demarchi@intel.com>,
+ Vincent Mailhol <mailhol.vincent@wanadoo.fr>,
+ Rasmus Villemoes <linux@rasmusvillemoes.dk>,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, Tvrtko Ursulin
+ <tursulin@ursulin.net>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Andrew Morton <akpm@linux-foundation.org>,
+ linux-kernel@vger.kernel.org, intel-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, Andi Shyti <andi.shyti@linux.intel.com>,
+ David Laight <David.Laight@aculab.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+ Jani Nikula <jani.nikula@intel.com>
+References: <20250305-fixed-type-genmasks-v4-0-1873dcdf6723@wanadoo.fr>
+ <20250305-fixed-type-genmasks-v4-3-1873dcdf6723@wanadoo.fr>
+ <Z8hsRJvpjYoqh9RG@thinkpad> <Z9oiEkQEcHhA0a80@thinkpad>
+ <5cbaefa8-e51f-415f-a9b3-4841e69bb3fa@arm.com>
+Content-Language: en-US
+In-Reply-To: <5cbaefa8-e51f-415f-a9b3-4841e69bb3fa@arm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Mailman-Approved-At: Mon, 24 Mar 2025 13:24:21 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -78,46 +64,208 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Mon, 24 Mar 2025, Nicolas Chauvet <kwizart@gmail.com> wrote:
-> Le lun. 24 mars 2025 =C3=A0 10:34, Jani Nikula
-> <jani.nikula@linux.intel.com> a =C3=A9crit :
+
+
+On 3/19/25 09:04, Anshuman Khandual wrote:
+> On 3/19/25 07:16, Yury Norov wrote:
+>> + Catalin Marinas, ARM maillist
 >>
->> On Mon, 24 Mar 2025, Jani Nikula <jani.nikula@linux.intel.com> wrote:
->> > On Mon, 24 Mar 2025, Nicolas Chauvet <kwizart@gmail.com> wrote:
->> >> Enlarge the signature field to accept the string termination.
->> >>
->> >> Cc: stable@vger.kernel.org
->> >> Fixes: 93615d59912 ("Revert drm/i915/gvt: Fix out-of-bounds buffer wr=
-ite into opregion->signature[]")
->> >> Signed-off-by: Nicolas Chauvet <kwizart@gmail.com>
->> >
->> > Nope, can't do that. The packed struct is used for parsing data in
->> > memory.
+>> Hi Catalin and everyone,
+> 
+> Hello Yury,
+> 
 >>
->> Okay, so I mixed this up with display/intel_opregion.c. So it's not used
->> for parsing here... but it's used for generating the data in memory, and
->> we can't change the layout or contents.
+>> Anshuman Khandual asked me to merge GENMASK_U128() saying it's
+>> important for ARM to stabilize API. While it's a dead code, I
+>> accepted his patch as he promised to add users shortly.
 >>
->> Regardless, we can't do either patch 2 or patch 3.
->
-> Thanks for review.
-> So does it means the only "Fix" is to drop Werror, at least for intel/gvt=
- code ?
+>> Now it's more than half a year since that. There's no users,
+>> and no feedback from Anshuman.
+> 
+> My apologies to have missed your email earlier. Please find response
+> for the earlier email below as well.
+> 
+>>
+>> Can you please tell if you still need the macro? I don't want to
+>> undercut your development, but if you don't need 128-bit genmasks
+>> there's no reason to have a dead code in the uapi.
+> 
+> The code base specifically using GENMASK_U128() has not been posted
+> upstream (probably in next couple of months or so) till now, except
+> the following patch which has been not been merged and still under
+> review and development.
+> 
+> https://lore.kernel.org/lkml/20240801054436.612024-1-anshuman.khandual@arm.com/
+> 
+>>
+>> Thanks,
+>> Yury
+>>
+>> On Wed, Mar 05, 2025 at 10:22:47AM -0500, Yury Norov wrote:
+>>> + Anshuman Khandual <anshuman.khandual@arm.com>
+>>>
+>>> Anshuman,
+>>>
+>>> I merged your GENMASK_U128() because you said it's important for your
+>>> projects, and that it will get used in the kernel soon.
+>>>
+>>> Now it's in the kernel for more than 6 month, but no users were added.
+>>> Can you clarify if you still need it, and if so why it's not used?
+> 
+> We would need it but although the code using GENMASK_U128() has not been
+> posted upstream.
+> 
+>>>
+>>> As you see, people add another fixed-types GENMASK() macros, and their
+>>> implementation differ from GENMASK_U128().
+> 
+> I will take a look. Is GENMASK_U128() being problematic for the this new
+> scheme ?
+> 
+>>>
+>>> My second concern is that __GENMASK_U128() is declared in uapi, while
+>>> the general understanding for other fixed-type genmasks is that they
+>>> are not exported to users. Do you need this macro to be exported to
+>>> userspace? Can you show how and where it is used there?
+> 
+> No, not atleast right now.
+> 
+> These were moved into uapi subsequently via the following commit.
+> 
+> 21a3a3d015aee ("tools headers: Synchronize {uapi/}linux/bits.h with the kernel sources")
+> 
+> But in general GENMASK_U128() is needed for generating 128 bit page table
+> entries, related flags and masks whether in kernel or in user space for
+> writing kernel test cases etc.
 
-Of course not. The fix is to address the warning.
+In the commit 947697c6f0f7 ("uapi: Define GENMASK_U128"), GENMASK_U128() gets defined
+using __GENMASK_U128() which in turn calls __BIT128() - both of which are defined in
+UAPI headers inside (include/uapi/linux/). 
 
-There's another thread about this, see my suggestion there [1].
+Just wondering - are you suggesting to move these helpers from include/uapi/linux/ to
+include/linux/bits.h instead ?
 
-BR,
-Jani.
-
-
-[1] https://lore.kernel.org/r/87r02ma8s3.fsf@intel.com
-
-
-> I have CONFIG_DRM_I915_WERROR not set but CONFIG_DRM_WERROR=3Dy, (same as=
- Fedora)
-> Unsure why the current Fedora kernel is unaffected by this build failure.
-
---=20
-Jani Nikula, Intel
+> 
+>>>
+>>> Thanks,
+>>> Yury
+>>>
+>>>
+>>> On Wed, Mar 05, 2025 at 10:00:15PM +0900, Vincent Mailhol via B4 Relay wrote:
+>>>> From: Yury Norov <yury.norov@gmail.com>
+>>>>
+>>>> Add __GENMASK_t() which generalizes __GENMASK() to support different
+>>>> types, and implement fixed-types versions of GENMASK() based on it.
+>>>> The fixed-type version allows more strict checks to the min/max values
+>>>> accepted, which is useful for defining registers like implemented by
+>>>> i915 and xe drivers with their REG_GENMASK*() macros.
+>>>>
+>>>> The strict checks rely on shift-count-overflow compiler check to fail
+>>>> the build if a number outside of the range allowed is passed.
+>>>> Example:
+>>>>
+>>>> 	#define FOO_MASK GENMASK_U32(33, 4)
+>>>>
+>>>> will generate a warning like:
+>>>>
+>>>> 	../include/linux/bits.h:41:31: error: left shift count >= width of type [-Werror=shift-count-overflow]
+>>>> 	   41 |          (((t)~0ULL - ((t)(1) << (l)) + 1) & \
+>>>> 	      |                               ^~
+>>>>
+>>>> Signed-off-by: Yury Norov <yury.norov@gmail.com>
+>>>> Signed-off-by: Lucas De Marchi <lucas.demarchi@intel.com>
+>>>> Acked-by: Jani Nikula <jani.nikula@intel.com>
+>>>> Signed-off-by: Vincent Mailhol <mailhol.vincent@wanadoo.fr>
+>>>> ---
+>>>> Changelog:
+>>>>
+>>>>   v3 -> v4:
+>>>>
+>>>>     - The v3 is one year old. Meanwhile people started using
+>>>>       __GENMASK() directly. So instead of generalizing __GENMASK() to
+>>>>       support different types, add a new GENMASK_t().
+>>>>
+>>>>     - replace ~0ULL by ~_ULL(0). Otherwise, __GENMASK_t() would fail
+>>>>       in asm code.
+>>>>
+>>>>     - Make GENMASK_U8() and GENMASK_U16() return an unsigned int. In
+>>>>       v3, due to the integer promotion rules, these were returning a
+>>>>       signed integer. By casting these to unsigned int, at least the
+>>>>       signedness is kept.
+>>>> ---
+>>>>  include/linux/bitops.h |  1 -
+>>>>  include/linux/bits.h   | 33 +++++++++++++++++++++++++++++----
+>>>>  2 files changed, 29 insertions(+), 5 deletions(-)
+>>>>
+>>>> diff --git a/include/linux/bitops.h b/include/linux/bitops.h
+>>>> index c1cb53cf2f0f8662ed3e324578f74330e63f935d..9be2d50da09a417966b3d11c84092bb2f4cd0bef 100644
+>>>> --- a/include/linux/bitops.h
+>>>> +++ b/include/linux/bitops.h
+>>>> @@ -8,7 +8,6 @@
+>>>>  
+>>>>  #include <uapi/linux/kernel.h>
+>>>>  
+>>>> -#define BITS_PER_TYPE(type)	(sizeof(type) * BITS_PER_BYTE)
+>>>>  #define BITS_TO_LONGS(nr)	__KERNEL_DIV_ROUND_UP(nr, BITS_PER_TYPE(long))
+>>>>  #define BITS_TO_U64(nr)		__KERNEL_DIV_ROUND_UP(nr, BITS_PER_TYPE(u64))
+>>>>  #define BITS_TO_U32(nr)		__KERNEL_DIV_ROUND_UP(nr, BITS_PER_TYPE(u32))
+>>>> diff --git a/include/linux/bits.h b/include/linux/bits.h
+>>>> index 5f68980a1b98d771426872c74d7b5c0f79e5e802..f202e46d2f4b7899c16d975120f3fa3ae41556ae 100644
+>>>> --- a/include/linux/bits.h
+>>>> +++ b/include/linux/bits.h
+>>>> @@ -12,6 +12,7 @@
+>>>>  #define BIT_ULL_MASK(nr)	(ULL(1) << ((nr) % BITS_PER_LONG_LONG))
+>>>>  #define BIT_ULL_WORD(nr)	((nr) / BITS_PER_LONG_LONG)
+>>>>  #define BITS_PER_BYTE		8
+>>>> +#define BITS_PER_TYPE(type)	(sizeof(type) * BITS_PER_BYTE)
+>>>>  
+>>>>  /*
+>>>>   * Create a contiguous bitmask starting at bit position @l and ending at
+>>>> @@ -25,14 +26,38 @@
+>>>>  
+>>>>  #define GENMASK_INPUT_CHECK(h, l) BUILD_BUG_ON_ZERO(const_true((l) > (h)))
+>>>>  
+>>>> -#define GENMASK(h, l) \
+>>>> -	(GENMASK_INPUT_CHECK(h, l) + __GENMASK(h, l))
+>>>> -#define GENMASK_ULL(h, l) \
+>>>> -	(GENMASK_INPUT_CHECK(h, l) + __GENMASK_ULL(h, l))
+>>>> +/*
+>>>> + * Generate a mask for the specified type @t. Additional checks are made to
+>>>> + * guarantee the value returned fits in that type, relying on
+>>>> + * shift-count-overflow compiler check to detect incompatible arguments.
+>>>> + * For example, all these create build errors or warnings:
+>>>> + *
+>>>> + * - GENMASK(15, 20): wrong argument order
+>>>> + * - GENMASK(72, 15): doesn't fit unsigned long
+>>>> + * - GENMASK_U32(33, 15): doesn't fit in a u32
+>>>> + */
+>>>> +#define GENMASK_t(t, h, l)				\
+>>>> +	(GENMASK_INPUT_CHECK(h, l) +			\
+>>>> +	 (((t)~ULL(0) - ((t)1 << (l)) + 1) &		\
+>>>> +	  ((t)~ULL(0) >> (BITS_PER_TYPE(t) - 1 - (h)))))
+>>>> +
+>>>> +#define GENMASK(h, l) GENMASK_t(unsigned long,  h, l)
+>>>> +#define GENMASK_ULL(h, l) GENMASK_t(unsigned long long, h, l)
+>>>>  
+>>>>  /*
+>>>>   * Missing asm support
+>>>>   *
+>>>> + * __GENMASK_U*() depends on BITS_PER_TYPE() which would not work in the asm
+>>>> + * code as BITS_PER_TYPE() relies on sizeof(), something not available in
+>>>> + * asm. Nethertheless, the concept of fixed width integers is a C thing which
+>>>> + * does not apply to assembly code.
+>>>> + */
+>>>> +#define GENMASK_U8(h, l) ((unsigned int)GENMASK_t(u8,  h, l))
+>>>> +#define GENMASK_U16(h, l) ((unsigned int)GENMASK_t(u16, h, l))
+>>>> +#define GENMASK_U32(h, l) GENMASK_t(u32, h, l)
+>>>> +#define GENMASK_U64(h, l) GENMASK_t(u64, h, l)
+>>>> +
+>>>> +/*
+>>>>   * __GENMASK_U128() depends on _BIT128() which would not work
+>>>>   * in the asm code, as it shifts an 'unsigned __int128' data
+>>>>   * type instead of direct representation of 128 bit constants
+>>>>
+>>>> -- 
+>>>> 2.45.3
+>>>>
+> 
