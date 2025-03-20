@@ -4,85 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 669EAC3601B
-	for <intel-gfx@archiver.kernel.org>; Mon, 24 Mar 2025 13:24:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E7BC3C36018
+	for <intel-gfx@archiver.kernel.org>; Mon, 24 Mar 2025 13:24:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5B2E610E3AA;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 61AA110E3B7;
 	Mon, 24 Mar 2025 13:24:34 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="mulBmyaM";
-	dkim-atps=neutral
-Received: from mail-io1-f41.google.com (mail-io1-f41.google.com
- [209.85.166.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4AD0C10E6A4;
- Thu, 20 Mar 2025 18:53:47 +0000 (UTC)
-Received: by mail-io1-f41.google.com with SMTP id
- ca18e2360f4ac-85d9a87660fso112647339f.1; 
- Thu, 20 Mar 2025 11:53:47 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1742496826; x=1743101626; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=CgDI/aHiLK+dNOZ45pw21AxG10xFqv/7yudaH0jzRkU=;
- b=mulBmyaMJY7/zr5Xvjx6E2SwXa8vhOCXr9WE4y54vx11k53Gdewqr/xGs8M0nWEDDN
- lhszGxpIFTsFrAgK6vzXoEaEGl4BufOGNjLhNyaMAlgP1sUGLzTV9v0zGk5lHz0nnzbs
- DWyicCPZ+1Pm6sdwAuVUa00cXnN0cfXpUyNZS3EcEhMobpJu3IE8tv/GFs9K7kbRmwiM
- V9HmOVtO8h0aHNUXwWy4OiL9XbT/7Hf2glaoaubKGDz0U6DWCsFujnW1eYEzyb5vkQf0
- jkiwrVPW03eK9iV3cJuFpYGO4E55iActSaVSB06XkweKEXbkM4IG5lh84lPGc1WAGtT9
- 9x0A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1742496826; x=1743101626;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=CgDI/aHiLK+dNOZ45pw21AxG10xFqv/7yudaH0jzRkU=;
- b=nayb0wGA5E6isMo/He9xZ+LH4mtYXjD+Hj+ommrSYFUvfEM5Lk5Jb7vQNNneHXvTNI
- ox/rpcIG1DBaw16plkIf8pY1wFGmECVAYO3puKVu820yEIFZT9dqoBN5qj1GVKeOd0N/
- a++5xzrvS6R7Cuftc9nS77Cr9X0Mqvp/wY92bTWjKk2H9IX96HVAGYFJ8LA4/1c3lb/v
- 4WQftoLpTo1ms3cMkNRaT3mfuHNKupyLR6OQUeNgEecksegYOqxEoc0odQ99rkrpj3Yw
- ctY5zL2pMxPpJNdRn32BjVjgqOAdqWivPcFu8CtMhM28AlglMKN/vQHNr2aVjqBL/ORY
- jFBQ==
-X-Forwarded-Encrypted: i=1;
- AJvYcCU3N5GhO/2LtvIQ4XO4bg+PZAi38sZ40Gd8LRUACY9MxOJWDMT77guNaoxL8tm6HrdHAdW4Yp0i0XUo@lists.freedesktop.org,
- AJvYcCU8z3QcB+VtLzS4QblbZ9as05gz0mukE7g2NET78m1uumWeujWFVtewhkBm30jegCEMglnmwCcR@lists.freedesktop.org,
- AJvYcCWDiDj0elmUYxoTCdv56E89udMmAzSwzKZptpbUYYRcmBlfdlOaTH9017collPV/6Zm3b1PqEWPl//VYZ/q4g==@lists.freedesktop.org,
- AJvYcCWUmIDG7ONW/SDzuiPVq6r6A0L0p4V+Cw8P9qYIOVBkQZRw+9x4PytNIw1+jFVI1gIEhR+BlD54MFF8@lists.freedesktop.org,
- AJvYcCWsE+zuYdwXsteo1ijdtwu88XfHTlUyXGzaKjWSq9iqbn7RZQyqyxIBcNI26tDCpLAoHd7KKT7jAtthwY/YDhzHKA==@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yy6SPfs41TfQKKBAX7QLsTdc4c2BUGna6vrE2YOb1z9yoB+tgkx
- TUZQHegDT+9PAdHhbfDHJIkHSCHHlR4+kuoZQaPKA/6mahDnE43rPxxTiP01
-X-Gm-Gg: ASbGnctx+0QfSWlHGRrrZu3XUY7DDYU1Z2+upTX/YY9qY2AE77Ygj0yad9N0u4hIT70
- dAEvbmE0Jl9c5no+bFaUqtGiJbs7kj/GZPkHSwEp71X6SyMYkbJbs5mcLpeIgBT89FtsHXz7+SL
- vHYYq0XQWTuW1jfW23L1/g68l5ogMb3YuJRLnyEyxlubm71UVtMMiNIY9qPaDNB7JlDRnpSxi3r
- q4zX2hdN8mKX5JYAnxE6zt3+TloJGpfBkpsnTTM9rI3aHSUw55AIz1Tu6muQcAhxxDSBa3eFYNr
- 5KaCvbM85jFYBj1SgW0VGK60rBTWnt7W6gp5LxtGQZenwhLbHmPmPkiDLB4oVJVM61Bcfwp59q2
- nsA==
-X-Google-Smtp-Source: AGHT+IH3per7MoX6CWSL0WNqymKLyYhHLAin9x57NXxWEpGpz2bnHtHQVSAlR4WrR+FYtRpO9rivXg==
-X-Received: by 2002:a05:6602:399a:b0:85b:58b0:7abd with SMTP id
- ca18e2360f4ac-85e2ca35536mr54055539f.1.1742496826529; 
- Thu, 20 Mar 2025 11:53:46 -0700 (PDT)
-Received: from gandalf.. (c-67-165-245-5.hsd1.co.comcast.net. [67.165.245.5])
- by smtp.googlemail.com with ESMTPSA id
- ca18e2360f4ac-85e2bc273e7sm7078039f.17.2025.03.20.11.53.45
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 20 Mar 2025 11:53:45 -0700 (PDT)
-From: Jim Cromie <jim.cromie@gmail.com>
-To: linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- amd-gfx@lists.freedesktop.org, intel-gvt-dev@lists.freedesktop.org,
- intel-gfx@lists.freedesktop.org, intel-gfx-trybot@lists.freedesktop.org
-Cc: jbaron@akamai.com, gregkh@linuxfoundation.org, ukaszb@chromium.org,
- louis.chauvet@bootlin.com, daniel.vetter@ffwll.ch,
- tvrtko.ursulin@linux.intel.com, jani.nikula@intel.com,
- ville.syrjala@linux.intel.com, Jim Cromie <jim.cromie@gmail.com>
-Subject: [PATCH v2 37/59] drm-dyndbg: adapt DRM to invoke
- DYNAMIC_DEBUG_CLASSMAP_PARAM
-Date: Thu, 20 Mar 2025 12:52:15 -0600
-Message-ID: <20250320185238.447458-38-jim.cromie@gmail.com>
-X-Mailer: git-send-email 2.49.0
-In-Reply-To: <20250320185238.447458-1-jim.cromie@gmail.com>
-References: <20250320185238.447458-1-jim.cromie@gmail.com>
+X-Greylist: delayed 954 seconds by postgrey-1.36 at gabe;
+ Thu, 20 Mar 2025 06:48:58 UTC
+Received: from szxga08-in.huawei.com (szxga08-in.huawei.com [45.249.212.255])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2CB3310E105
+ for <intel-gfx@lists.freedesktop.org>; Thu, 20 Mar 2025 06:48:57 +0000 (UTC)
+Received: from mail.maildlp.com (unknown [172.19.88.105])
+ by szxga08-in.huawei.com (SkyGuard) with ESMTP id 4ZJG3G2qQYz1d0Sn;
+ Thu, 20 Mar 2025 14:32:42 +0800 (CST)
+Received: from kwepemg500008.china.huawei.com (unknown [7.202.181.45])
+ by mail.maildlp.com (Postfix) with ESMTPS id 025C51402CA;
+ Thu, 20 Mar 2025 14:32:57 +0800 (CST)
+Received: from [127.0.0.1] (10.174.177.71) by kwepemg500008.china.huawei.com
+ (7.202.181.45) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.11; Thu, 20 Mar
+ 2025 14:32:55 +0800
+Message-ID: <59a1fa13-888e-4fe0-9de0-cd0e63c91265@huawei.com>
+Date: Thu, 20 Mar 2025 14:32:55 +0800
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: Regression found in memory stress test with stress-ng
+To: "Chia-Lin Kao (AceLan)" <acelan.kao@canonical.com>
+References: <CAFv23QnqgTVoB-XRe5yNndRz4-Z_3y38+QpKRxQMeZ2xQTg=gw@mail.gmail.com>
+ <180d8a88-52d9-4b83-83de-0184ed7cb4a5@huawei.com>
+ <z6wlwwcbrmr3mcws6wmn5r6z45kosinvq6wyfq6hxfvcuxdjp5@ucjecgmhqp42>
+Content-Language: en-US
+From: Baokun Li <libaokun1@huawei.com>
+CC: <linux-block@vger.kernel.org>, <axboe@kernel.dk>, Christoph Hellwig
+ <hch@infradead.org>, "Linux-Kernel@Vger. Kernel. Org"
+ <linux-kernel@vger.kernel.org>, <yangerkun@huawei.com>, <houtao1@huawei.com>, 
+ <yukuai3@huawei.com>, Dirk Su <dirk.su@canonical.com>,
+ <jani.nikula@linux.intel.com>, <joonas.lahtinen@linux.intel.com>,
+ <rodrigo.vivi@intel.com>, <tursulin@ursulin.net>, <airlied@gmail.com>,
+ <simona@ffwll.ch>, <intel-gfx@lists.freedesktop.org>
+In-Reply-To: <z6wlwwcbrmr3mcws6wmn5r6z45kosinvq6wyfq6hxfvcuxdjp5@ucjecgmhqp42>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Originating-IP: [10.174.177.71]
+X-ClientProxiedBy: dggems705-chm.china.huawei.com (10.3.19.182) To
+ kwepemg500008.china.huawei.com (7.202.181.45)
 X-Mailman-Approved-At: Mon, 24 Mar 2025 13:24:21 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -99,55 +64,113 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Invoke DYNAMIC_DEBUG_CLASSMAP_PARAM to hook drm.debug (__drm_debug) to the
-DRM_UT_* classmap, replacing the ad-hoc wiring previously doing it.
+On 2025/3/20 13:23, Chia-Lin Kao (AceLan) wrote:
+> On Thu, Mar 20, 2025 at 11:52:20AM +0800, Baokun Li wrote:
+>> On 2025/3/20 10:49, AceLan Kao wrote:
+>>> Hi all,
+>>>
+>>> We have found a regression while doing a memory stress test using
+>>> stress-ng with the following command
+>>>      sudo stress-ng --aggressive --verify --timeout 300 --mmapmany 0
+>>>
+>>> This issue occurs on recent kernel versions, and we have found that
+>>> the following commit leads to the issue
+>>>      4e63aeb5d010 ("blk-wbt: don't throttle swap writes in direct reclaim")
+>>>
+>>> Before reverting the commit directly, I wonder if we can identify the
+>>> issue and implement a solution quickly.
+>>> Currently, I'm unable to provide logs, as the system becomes
+>>> unresponsive during testing. If you have any idea to capture logs,
+>>> please let me know, I'm willing to help.
+>> Hi AceLan,
+>>
+>> I cannot reproduce this issue. The above command will trigger OOM.
+>> Have you enabled panic_on_oom? (You can check by sysctl vm.panic_on_oom).
+>> Or are there more kernel Oops reports in dmesg?
+> Actually, there is no kernel panic during the testing.
+> I tried using kernel magic key to trigger crash and this is what I
+> got.
+> It repeats the "Purging GPU memory" message over and over again.
+>
+> [ 3605.341706] [   T5739] Purging GPU memory, 0 pages freed, 0 pages still pinned, 2787 pages left available.
 
-Add DRM_CLASSMAP_* adapter macros to selectively use
-DYNAMIC_DEBUG_CLASSMAP_* when DRM_USE_DYNAMIC_DEBUG=y is configured.
+The messages are coming from i915_gem_shrinker_oom(), so it looks like
+it's still an OOM issue. I'm just not sure why the OOM is happening so
+often, like every 0.05 seconds.
 
-Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
----
- drivers/gpu/drm/drm_print.c | 8 ++------
- include/drm/drm_print.h     | 4 ++++
- 2 files changed, 6 insertions(+), 6 deletions(-)
+I'm not familiar with gpu/drm/i915/gem, so I CCed the relevant maintainers
+to see if they have any thoughts.
 
-diff --git a/drivers/gpu/drm/drm_print.c b/drivers/gpu/drm/drm_print.c
-index a3b70d104afa..46d53fe30204 100644
---- a/drivers/gpu/drm/drm_print.c
-+++ b/drivers/gpu/drm/drm_print.c
-@@ -69,12 +69,8 @@ DRM_CLASSMAP_DEFINE(drm_debug_classes, DD_CLASS_TYPE_DISJOINT_BITS,
- 		    "DRM_UT_DP",
- 		    "DRM_UT_DRMRES");
- 
--static struct ddebug_class_param drm_debug_bitmap = {
--	.bits = &__drm_debug,
--	.flags = "p",
--	.map = &drm_debug_classes,
--};
--module_param_cb(debug, &param_ops_dyndbg_classes, &drm_debug_bitmap, 0600);
-+DRM_CLASSMAP_PARAM_REF(debug, __drm_debug, drm_debug_classes, p);
-+
- #endif
- 
- void __drm_puts_coredump(struct drm_printer *p, const char *str)
-diff --git a/include/drm/drm_print.h b/include/drm/drm_print.h
-index e86ebb716b4c..8758449491b8 100644
---- a/include/drm/drm_print.h
-+++ b/include/drm/drm_print.h
-@@ -144,9 +144,13 @@ enum drm_debug_category {
- #ifdef CONFIG_DRM_USE_DYNAMIC_DEBUG
- #define DRM_CLASSMAP_DEFINE(...)    DYNAMIC_DEBUG_CLASSMAP_DEFINE(__VA_ARGS__)
- #define DRM_CLASSMAP_USE(name)      DYNAMIC_DEBUG_CLASSMAP_USE(name)
-+#define DRM_CLASSMAP_PARAM_REF(...) DYNAMIC_DEBUG_CLASSMAP_PARAM_REF(__VA_ARGS__)
-+#define DRM_CLASSMAP_PARAM(...)     DYNAMIC_DEBUG_CLASSMAP_PARAM(__VA_ARGS__)
- #else
- #define DRM_CLASSMAP_DEFINE(...)
- #define DRM_CLASSMAP_USE(name)
-+#define DRM_CLASSMAP_PARAM_REF(...)
-+#define DRM_CLASSMAP_PARAM(...)
- #endif
- 
- static inline bool drm_debug_enabled_raw(enum drm_debug_category category)
--- 
-2.49.0
+> [ 3605.346295] [   T5739] Purging GPU memory, 0 pages freed, 0 pages still pinned, 2787 pages left available.
+> [ 3605.350815] [   T5739] Purging GPU memory, 0 pages freed, 0 pages still pinned, 2787 pages left available.
+> [ 3605.355463] [   T5739] Purging GPU memory, 0 pages freed, 0 pages still pinned, 2787 pages left available.
+> [ 3605.360105] [   T5739] Purging GPU memory, 0 pages freed, 0 pages still pinned, 2787 pages left available.
+> [ 3605.364743] [   T5739] Purging GPU memory, 0 pages freed, 0 pages still pinned, 2787 pages left available.
+> [ 3605.369426] [   T5739] Purging GPU memory, 0 pages freed, 0 pages still pinned, 2787 pages left available.
+> [ 3605.374044] [   T5739] Purging GPU memory, 0 pages freed, 0 pages still pinned, 2787 pages left available.
+> [ 3605.378467] [   T5739] Purging GPU memory, 0 pages freed, 0 pages still pinned, 2787 pages left available.
+> [ 3605.382958] [   T5739] Purging GPU memory, 0 pages freed, 0 pages still pinned, 2787 pages left available.
+> [ 3605.387534] [   T5739] Purging GPU memory, 0 pages freed, 0 pages still pinned, 2787 pages left available.
+> [ 3605.392130] [   T5739] Purging GPU memory, 0 pages freed, 0 pages still pinned, 2787 pages left available.
+> [ 3605.394571] [     C11] sysrq: Trigger a crash
+> [ 3605.394575] [     C11] Kernel panic - not syncing: sysrq triggered crash
+> [ 3605.394580] [     C11] CPU: 11 UID: 0 PID: 0 Comm: swapper/11 Kdump: loaded Not tainted 6.11.0-1016-oem #16-Ubuntu
+> [ 3605.394586] [     C11] Hardware name: HP HP ZBook Fury 16 G11 Mobile Workstation PC/8CA7, BIOS W98 Ver. 01.01.12 11/25/2024
+> [ 3605.394588] [     C11] Call Trace:
+> [ 3605.394591] [     C11]  <IRQ>
+> [ 3605.394596] [     C11]  dump_stack_lvl+0x27/0xa0
+> [ 3605.394605] [     C11]  dump_stack+0x10/0x20
+> [ 3605.394608] [     C11]  panic+0x352/0x3e0
+> [ 3605.394613] [     C11]  sysrq_handle_crash+0x1a/0x20
+> [ 3605.394618] [     C11]  __handle_sysrq+0xf0/0x290
+> [ 3605.394623] [     C11]  sysrq_handle_keypress+0x2f4/0x550
+> [ 3605.394627] [     C11]  sysrq_filter+0x45/0xa0
+> [ 3605.394631] [     C11]  ? sched_balance_find_src_group+0x51/0x280
+> [ 3605.394637] [     C11]  input_handle_events_filter+0x46/0xb0
+> [ 3605.394643] [     C11]  input_pass_values+0x142/0x170
+> [ 3605.394647] [     C11]  input_event_dispose+0x167/0x170
+> [ 3605.394651] [     C11]  input_handle_event+0x41/0x80
+> [ 3605.394656] [     C11]  input_event+0x51/0x80
+> [ 3605.394659] [     C11]  atkbd_receive_byte+0x805/0x8f0
+> [ 3605.394664] [     C11]  ps2_interrupt+0xb4/0x1b0
+> [ 3605.394668] [     C11]  serio_interrupt+0x49/0xa0
+> [ 3605.394673] [     C11]  i8042_interrupt+0x196/0x4c0
+> [ 3605.394677] [     C11]  ? enqueue_hrtimer+0x4d/0xc0
+> [ 3605.394682] [     C11]  ? ktime_get+0x3f/0xf0
+> [ 3605.394686] [     C11]  ? lapic_next_deadline+0x2c/0x50
+> [ 3605.394691] [     C11]  __handle_irq_event_percpu+0x4c/0x1b0
+> [ 3605.394696] [     C11]  ? sched_clock_noinstr+0x9/0x10
+> [ 3605.394700] [     C11]  handle_irq_event+0x39/0x80
+> [ 3605.394706] [     C11]  handle_edge_irq+0x8c/0x250
+> [ 3605.394710] [     C11]  __common_interrupt+0x4e/0x110
+> [ 3605.394715] [     C11]  common_interrupt+0xb1/0xe0
+> [ 3605.394718] [     C11]  </IRQ>
+> [ 3605.394720] [     C11]  <TASK>
+> [ 3605.394721] [     C11]  asm_common_interrupt+0x27/0x40
+> [ 3605.394726] [     C11] RIP: 0010:poll_idle+0x4f/0xac
+> [ 3605.394731] [     C11] Code: 00 00 65 4c 8b 3d a1 78 7b 63 f0 41 80 4f 02 20 49 8b 07 a8 08 75 32 4c 89 ef 48 89 de e8 d9 fe ff ff 49 89 c5 b8 c9 00 00 00 <49> 8b 17 83 e2 08 75 17 f3 90 83 e8 01 75 f1 e8 bd d1 ff ff 4c 29
+> [ 3605.394735] [     C11] RSP: 0000:ffff9c57001f7dc8 EFLAGS: 00000206
+> [ 3605.394740] [     C11] RAX: 000000000000003c RBX: ffffbc56ff59b618 RCX: 0000000000000000
+> [ 3605.394743] [     C11] RDX: 0000000000000000 RSI: 0000000000000000 RDI: 0000000000000000
+> [ 3605.394744] [     C11] RBP: ffff9c57001f7df0 R08: 0000000000000000 R09: 0000000000000000
+> [ 3605.394747] [     C11] R10: 0000000000000000 R11: 0000000000000000 R12: 0000034772423b38
+> [ 3605.394749] [     C11] R13: 000000000000f424 R14: 0000000000000000 R15: ffff912c8122a900
+> [ 3605.394754] [     C11]  ? poll_idle+0x63/0xac
+> [ 3605.394757] [     C11]  cpuidle_enter_state+0x8e/0x720
+> [ 3605.394762] [     C11]  ? sysvec_apic_timer_interrupt+0x57/0xc0
+> [ 3605.394766] [     C11]  cpuidle_enter+0x2e/0x50
+> [ 3605.394771] [     C11]  call_cpuidle+0x22/0x60
+> [ 3605.394775] [     C11]  cpuidle_idle_call+0x119/0x190
+> [ 3605.394778] [     C11]  do_idle+0x82/0xe0
+> [ 3605.394781] [     C11]  cpu_startup_entry+0x29/0x30
+> [ 3605.394784] [     C11]  start_secondary+0x127/0x160
+> [ 3605.394788] [     C11]  common_startup_64+0x13e/0x141
+> [ 3605.394794] [     C11]  </TASK>
+>
+>>
+>> Regards,
+>> Baokun
+>>> Best regards,
+>>> AceLan Kao.
+>>>
 
