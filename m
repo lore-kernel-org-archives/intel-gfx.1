@@ -4,79 +4,84 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D91ADC36002
-	for <intel-gfx@archiver.kernel.org>; Mon, 24 Mar 2025 13:24:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 28B3FC3600C
+	for <intel-gfx@archiver.kernel.org>; Mon, 24 Mar 2025 13:24:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9DFC410E341;
+	by gabe.freedesktop.org (Postfix) with ESMTP id DE8FC10E344;
 	Mon, 24 Mar 2025 13:24:22 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="SL5G1Upk";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Hek7K1GX";
 	dkim-atps=neutral
-Received: from mail-ej1-f44.google.com (mail-ej1-f44.google.com
- [209.85.218.44])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 51CCB10E219;
- Tue, 18 Mar 2025 18:53:41 +0000 (UTC)
-Received: by mail-ej1-f44.google.com with SMTP id
- a640c23a62f3a-ac34257295dso262483666b.2; 
- Tue, 18 Mar 2025 11:53:41 -0700 (PDT)
+Received: from mail-io1-f53.google.com (mail-io1-f53.google.com
+ [209.85.166.53])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BA43A10E6A8;
+ Thu, 20 Mar 2025 18:54:00 +0000 (UTC)
+Received: by mail-io1-f53.google.com with SMTP id
+ ca18e2360f4ac-85b5e49615aso98874239f.1; 
+ Thu, 20 Mar 2025 11:54:00 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1742324020; x=1742928820; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
+ d=gmail.com; s=20230601; t=1742496840; x=1743101640; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=kSmaS9SiczKcQtf09ulZT+5WIK4YMWt6OMaokGfRCsg=;
- b=SL5G1UpkaDRCUNDbbWTiEWLH+ogUOG5luXINozJRleNTvnwFBGQSfBCoeDwT9OwbD3
- DCusNuX6n5jCrtov7qL/oJmH8MU2ylnjY0Z8bVYPW6ok5nbixbe2ooyPC27zydIlPfRo
- 1HUNwEh8JaPkGFIkZb5sGb/ZFOwK6jV+3jDUY0XT8fQ5X0T6jM/VfaaxY5hvJD55ikAX
- JUNpLnbGYlDjeRIqib/eWEJCtyC9rwiUA4DlugVesMsVXGa1qRJDI5kALcmQLinFHsmQ
- l9Nuod1AiVoySCmKyaX4vQoMgmUyAg8aqIy6aaVvegD6fFSYxUbN8K/hGm0c43Y73V4o
- KhNg==
+ bh=XVuxeJKKK9Rs+v9Dxb1+k9xlxA6UW5kge7MRPvzoPYI=;
+ b=Hek7K1GXXe5rjZ7lcEGUtH7ZXZpYj1gDY6aQh5rfCtpYD8JcnYUjb9Lu2Fi4tpWGZt
+ /fTxFoVTPkjTj/fxEl6MOLZ5tEo5wz/TnwVJyvKt7k+A9SUJ/71SOCFfj1iXcBKAQK0b
+ 15jGekiZZZMck+/LJRDCdFCjK9FPz2GfOPrB1oip3UXHG+YZaqF2NM9A65cZkeGLYP2Y
+ A/lWYkA0YX9tp37WHgiX9p+A5uCxUBB7nKJJ6rbrJSPmy+8l8dgxceN/aRS+EgMjrHlZ
+ YmntU0oDLTbK6tpUWn75SPE7/UcqTEG9eo2LqQlMkHClU+kn+02KWKgajyVp/9Un2Zpn
+ bGzQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1742324020; x=1742928820;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ d=1e100.net; s=20230601; t=1742496840; x=1743101640;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=kSmaS9SiczKcQtf09ulZT+5WIK4YMWt6OMaokGfRCsg=;
- b=jKNta47TDeZG8FoguZWrrcHMZeUF7YO1LnDU0pQuzSWH1Kx7w8lT71Id+q4DCiSIag
- GX0UUUNhl3fb+fAoiWMSIDDl8YqQNOksEpAPGAdTAuEYfkGSMjctGfE7l2NT+7UrI4mv
- FhLqPa9AOSIY6JhtgxUbltcT/TWFHBzdj1zrAYBM6LeGwXFz0HxQUGxR5S+SqWJ0zi3M
- Nr1rWSvZpqklpA3sTwEln3cIMLpAyevIoxnP6aL2Dr/tbe8RxD43zNNhPG3nBoirvCoa
- w5F6CElgguKanFz7V46FWwryt4ew+MLNeiM1fnvqnPgxnwhe1kCtnjPXXqq0laN+Se2H
- pq/w==
+ bh=XVuxeJKKK9Rs+v9Dxb1+k9xlxA6UW5kge7MRPvzoPYI=;
+ b=oFFe36JoRzR6VD8zs5dJq/dQ4BWGG15+bOcuZgsOOUe8k19U85gKgJUC/fyIq3K9Jo
+ 9n7stePcVnp8PpZK7tFuNvCxqhhHoeazS8xq8KGeWcnWFt8dipZPb3edF7n1O4O/4r51
+ mQsCxzo5S6+t4W1UlCCZk8U9+hRlIB6QZXhtY0D7ZkDX/rcTSXP2M1iW4jbZxpXDYCBG
+ tDloMWbgupA8bA+gMGWZMeOm7UwXm+HFM3a80D3CB1dSAeQlvOpFbK97MSPz7oKvb0LO
+ UlQo/flCTzMDIox8JxzX22L3QblnM00u5L8zW09XpTsDV+TDaR1+xFI7/ii/u4rey/Rk
+ ZfNA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUZDLexRbct7AawhVGa2gKLDjxIvU8hmUYTrahkTMZhXsTJszwZW2CZPNJ79m4QOjBYaOKb6QB9@lists.freedesktop.org,
- AJvYcCWgFj+BW+69qYJ3z8op2PeyvH6jviroVGhafe6inToaQj+IObBsEGXVsGFGw2dTti7weLyMoT+J/B1V@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yw70MDiaKEvsHWsMwV9DSmAcMDZ34oR9j1wiPM3ve9+UU6f5HKA
- hrs2a9gfyW7qXzeRyytFKiB+lGuXCqlP+wBk0Wkv5xKrAyNhG/mMDHXOU9agguEE+mBWtFWN4Bi
- TvXtpuvMUg0iOYVmigsRpkJNpu9U=
-X-Gm-Gg: ASbGncvCzpCjB8t8/Ns+TRzy8I+jDX4pbV2ymcWvJJG5GA/H/JchPmyywckJKSgZacN
- hqP/pzm4wQW2VFcBNthvKBd3dQuG9Hqf2axskL6GYp6gaJ3/RThNXFBXSU/cujf0OQ5r5AYtP+x
- ALO/10XlIQYhtkHfkVCREfq15J5Ig=
-X-Google-Smtp-Source: AGHT+IHy0byJnCuVMXrI6AJh5ocZ8SngCGKvQOgZlVqfox+lUeg50TwL+nwFYQw3i7wWPHJ8oVgwl+RCo/bDzBfxPsI=
-X-Received: by 2002:a17:907:6093:b0:ac3:17b6:737 with SMTP id
- a640c23a62f3a-ac330489663mr2006657366b.45.1742324019491; Tue, 18 Mar 2025
- 11:53:39 -0700 (PDT)
+ AJvYcCU5YZtB5eV1NsIvDwFE8KfanUXveDHoJ/Zdq54Oi8hOR8W6HOBGFc+6YLPb5ZJNzln6HIXhpM2bPEhV5PZysU32sw==@lists.freedesktop.org,
+ AJvYcCUr8teUEb5iYcpahbhDU5Shz/tqnj66PfjgnlF6n4Ffs0DJrB4TIBkL7iiB1TyU2Gkd9ivnIy0oFSLda1taGQ==@lists.freedesktop.org,
+ AJvYcCWWa29nbSSc58eeZKxk03jvTJLJ5AZtlbelrhwXcaI22hyd6p1hVOVkmpUqdgzcC94rtfs1KrjaAqBq@lists.freedesktop.org,
+ AJvYcCWj7UCSKA7QsuaPaabCyht2p9wt0HSYgWwDJSRFwdMr6JbwOBWxFXxOHxuoRkZdG6RObsCK7iP9@lists.freedesktop.org,
+ AJvYcCXudTzSiqKJAmBxn2+euQvJFmIG2eBbdrx39KoZI4VH2sdm1UPHE+FecOxaM0czPLqopTyAJcCBnjhD@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxToFuchBgzGgldVdHAkLPv4G5YG/nI/8ZMOIwbVGCZT4Qhtq+h
+ wf+IySwnV2UjXSr7Vxj/sJV613rx9r348hmWij84xtGgK0ARDoDQ
+X-Gm-Gg: ASbGnctDL4UrfpLY0AhFbRi83zKo+gwpVbCoKmGnQbPG+Xy2Niao1v1xM1Xjs5AIHOa
+ pFBOws7VxNWi/mtkpBzy5BOsiWxZzWCSr8UUoFXqOjywyWIo66zrS/qI6aPvCRbtfPb9Qs/aLLT
+ BkMvExwrH6/u20b/6Zgui/niCp+lxF0Yt8HehMr8aXqsFPFbhLuOUGXklThPSgtPJTniDjSCilS
+ nhfagDMtiiv52q8OXScc12BZqHwbScBNZPeo8UXIXUXiDd+idFBUerIoFOqT7wFRf65+uzmzM37
+ DrPRGpmjhDJwxvInUNaUWl5/ImWUOuMSQ0cX+VZPHnXdaAyRj/CObMA0tyV16rfT9Re1j2GNlpQ
+ b7A==
+X-Google-Smtp-Source: AGHT+IEgtZhnFWdPHG6hTurl2TJTpACa9ncEjZ7DOX6uv9rTIlbze+MtBpfCYmXm8khqb7FwjH6Qaw==
+X-Received: by 2002:a05:6602:7218:b0:85b:5564:2d51 with SMTP id
+ ca18e2360f4ac-85e2cc52346mr35719439f.11.1742496840061; 
+ Thu, 20 Mar 2025 11:54:00 -0700 (PDT)
+Received: from gandalf.. (c-67-165-245-5.hsd1.co.comcast.net. [67.165.245.5])
+ by smtp.googlemail.com with ESMTPSA id
+ ca18e2360f4ac-85e2bc273e7sm7078039f.17.2025.03.20.11.53.58
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 20 Mar 2025 11:53:59 -0700 (PDT)
+From: Jim Cromie <jim.cromie@gmail.com>
+To: linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org, intel-gvt-dev@lists.freedesktop.org,
+ intel-gfx@lists.freedesktop.org, intel-gfx-trybot@lists.freedesktop.org
+Cc: jbaron@akamai.com, gregkh@linuxfoundation.org, ukaszb@chromium.org,
+ louis.chauvet@bootlin.com, daniel.vetter@ffwll.ch,
+ tvrtko.ursulin@linux.intel.com, jani.nikula@intel.com,
+ ville.syrjala@linux.intel.com, Jim Cromie <jim.cromie@gmail.com>
+Subject: [PATCH v2 49/59] drm-dyndbg: add DRM_CLASSMAP_USE to gma500 driver
+Date: Thu, 20 Mar 2025 12:52:27 -0600
+Message-ID: <20250320185238.447458-50-jim.cromie@gmail.com>
+X-Mailer: git-send-email 2.49.0
+In-Reply-To: <20250320185238.447458-1-jim.cromie@gmail.com>
+References: <20250320185238.447458-1-jim.cromie@gmail.com>
 MIME-Version: 1.0
-References: <20250314085858.39328-1-vignesh.raman@collabora.com>
- <20250314085858.39328-4-vignesh.raman@collabora.com>
-In-Reply-To: <20250314085858.39328-4-vignesh.raman@collabora.com>
-From: Helen Mae Koike Fornazier <helen.fornazier@gmail.com>
-Date: Tue, 18 Mar 2025 15:53:27 -0300
-X-Gm-Features: AQ5f1Jqexkq1v060b1nOUslkHnhYmXG2PP3WoUMn-4HQvHnlhFu6oru5qnG3QTk
-Message-ID: <CAPW4XYb6zci74=maL8bCPDXMV=WZG=M9sFnpNxMX3auELvzUSQ@mail.gmail.com>
-Subject: Re: [PATCH v1 3/3] drm/ci: arm64.config: mediatek: enable PHY drivers
-To: Vignesh Raman <vignesh.raman@collabora.com>
-Cc: dri-devel@lists.freedesktop.org, daniels@collabora.com, airlied@gmail.com, 
- simona.vetter@ffwll.ch, robdclark@gmail.com, guilherme.gallo@collabora.com,
- sergi.blanch.torne@collabora.com, valentine.burley@collabora.com, 
- lumag@kernel.org, quic_abhinavk@quicinc.com, mripard@kernel.org, 
- jani.nikula@linux.intel.com, linux-mediatek@lists.infradead.org, 
- linux-amlogic@lists.infradead.org, linux-rockchip@lists.infradead.org, 
- amd-gfx@lists.freedesktop.org, linux-arm-msm@vger.kernel.org, 
- intel-gfx@lists.freedesktop.org, virtualization@lists.linux.dev, 
- linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Mon, 24 Mar 2025 13:24:21 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -93,47 +98,28 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Em sex., 14 de mar. de 2025 =C3=A0s 05:59, Vignesh Raman
-<vignesh.raman@collabora.com> escreveu:
->
-> The mediatek display driver fails to probe on mt8173-elm-hana and
-> mt8183-kukui-jacuzzi-juniper-sku16 in v6.14-rc4 due to missing PHY
-> configurations.
->
-> Enable the following PHY drivers for MediaTek platforms:
-> - CONFIG_PHY_MTK_HDMI=3Dy for HDMI display
-> - CONFIG_PHY_MTK_MIPI_DSI=3Dy for DSI display
->
-> Signed-off-by: Vignesh Raman <vignesh.raman@collabora.com>
+The gma500 has 126 DRM_UT_* debugs, make them controllable when
+CONFIG_DRM_USE_DYNAMIC_DEBUG=y by telling dyndbg that the module has
+class'd debugs.
 
-Acked-by: Helen Koike <helen.fornazier@gmail.com>
+Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
+---
+ drivers/gpu/drm/gma500/psb_drv.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-Thanks,
-Helen
+diff --git a/drivers/gpu/drm/gma500/psb_drv.c b/drivers/gpu/drm/gma500/psb_drv.c
+index 85d3557c2eb9..dc72388ed08d 100644
+--- a/drivers/gpu/drm/gma500/psb_drv.c
++++ b/drivers/gpu/drm/gma500/psb_drv.c
+@@ -40,6 +40,8 @@
+ static const struct drm_driver driver;
+ static int psb_pci_probe(struct pci_dev *pdev, const struct pci_device_id *ent);
+ 
++DRM_CLASSMAP_USE(drm_debug_classes);
++
+ /*
+  * The table below contains a mapping of the PCI vendor ID and the PCI Device ID
+  * to the different groups of PowerVR 5-series chip designs
+-- 
+2.49.0
 
-> ---
->  drivers/gpu/drm/ci/arm64.config | 2 ++
->  1 file changed, 2 insertions(+)
->
-> diff --git a/drivers/gpu/drm/ci/arm64.config b/drivers/gpu/drm/ci/arm64.c=
-onfig
-> index a8fca079921b..fddfbd4d2493 100644
-> --- a/drivers/gpu/drm/ci/arm64.config
-> +++ b/drivers/gpu/drm/ci/arm64.config
-> @@ -193,6 +193,8 @@ CONFIG_PWM_MTK_DISP=3Dy
->  CONFIG_MTK_CMDQ=3Dy
->  CONFIG_REGULATOR_DA9211=3Dy
->  CONFIG_DRM_ANALOGIX_ANX7625=3Dy
-> +CONFIG_PHY_MTK_HDMI=3Dy
-> +CONFIG_PHY_MTK_MIPI_DSI=3Dy
->
->  # For nouveau.  Note that DRM must be a module so that it's loaded after=
- NFS is up to provide the firmware.
->  CONFIG_ARCH_TEGRA=3Dy
-> --
-> 2.47.2
->
-
-
---=20
-Helen Koike
