@@ -4,50 +4,84 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3D6D8C36002
-	for <intel-gfx@archiver.kernel.org>; Mon, 24 Mar 2025 13:24:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DD115C3600C
+	for <intel-gfx@archiver.kernel.org>; Mon, 24 Mar 2025 13:24:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 978B410E340;
+	by gabe.freedesktop.org (Postfix) with ESMTP id A80C210E342;
 	Mon, 24 Mar 2025 13:24:22 +0000 (UTC)
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by gabe.freedesktop.org (Postfix) with ESMTP id 787B310E27E;
- Wed, 19 Mar 2025 04:13:15 +0000 (UTC)
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 4ABF412FC;
- Tue, 18 Mar 2025 21:13:23 -0700 (PDT)
-Received: from [10.162.17.53] (unknown [10.162.17.53])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 340EC3F694;
- Tue, 18 Mar 2025 21:13:08 -0700 (PDT)
-Message-ID: <1aba17f1-0cd2-429c-8338-28387ec16314@arm.com>
-Date: Wed, 19 Mar 2025 09:43:06 +0530
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="h9dF6QwL";
+	dkim-atps=neutral
+Received: from mail-io1-f46.google.com (mail-io1-f46.google.com
+ [209.85.166.46])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2770410E691;
+ Thu, 20 Mar 2025 18:53:46 +0000 (UTC)
+Received: by mail-io1-f46.google.com with SMTP id
+ ca18e2360f4ac-85b4277d0fbso49356539f.0; 
+ Thu, 20 Mar 2025 11:53:46 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1742496825; x=1743101625; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=9Bsn0H7+fs71frfQ+1OquFl1HD8Y6SgOd3dNDu3Wz8I=;
+ b=h9dF6QwL6H7ha9rtyczCvr+w2eQpJSYvgKBNI5SmpVC/2+5NjMGc8mXGsrcay/OQ6e
+ PxEk2NuBNsaaGHWiEsLnOcltao8qr4DqoBNnI+vjRMKDInzbjAv2oKZrFHvfVa4pujVn
+ ikjlLTjxw9TuOYx+qYF2vxJ/UN4VxvV0tMaZQswSDxm+uosIateGZbY3fQUYYndKK4gM
+ zPnD7smYPJL51P/zfoDNxzh//SM5TtyPIDB34+p0HNdw5a1agA0GZ13n/fo9pNFQJ/6d
+ TT6NuRSyX/Wo6e+AbukYkNza3LFLZgxkdlhm62UFN7lFmkRJr99TIE4UHl9kQUKfpNhz
+ cKEQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1742496825; x=1743101625;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=9Bsn0H7+fs71frfQ+1OquFl1HD8Y6SgOd3dNDu3Wz8I=;
+ b=B5axzQKuomxdlcf8/fbKsGW44Xjj+rvLq4f0rKo6vyd1sb5c8oKGhSoqUKin3nk7tB
+ jylSAiQdocRPvrIK2EP+2qNXD6WN9b7XZ6GDKPylRAJxoxzHhfosM2Fsy7aMAVCCLX1Q
+ yKNkT5B4TctLo4CBcfOJ2ImtqnBPDflCUe/qOh6aRDCDrYeuQF/kU94nr5MHGiUDP46m
+ puEtUzWTwrZivW+FaNsIarMUWMBYe3C6zJ4oakb8WUevpik+ZIisekTwSBvjGW9/W9VO
+ VqarjinlTvMQUj0z9nEyhyBZpI17CPj0j4kspTrvxaFJxOy8/lyfWy7KD641zm8SWnxc
+ WiXw==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCVPnyyQMVOtyXNBwECSLOL6UbHGJzZx7wb1+rkbeJw/ckjq4NM8PmhIPESeBjFR+a+FxGQ2WUpnYm+y2FuiCaoJsA==@lists.freedesktop.org,
+ AJvYcCVnEDv1p5rqi2ChWU6VwNOC2HjK+Zq++JEUC7hYix2dcO9LDYW43paQKGoNKr1Ex00RwkgxupPTJkQlJTaAeA==@lists.freedesktop.org,
+ AJvYcCWVpTS0lAIe9vdieujqLGWpJRW5C3TsUVY8ALdBXv47jP1d0eM3PUUvlB4CTH0BeXWIQNIAMe794GxY@lists.freedesktop.org,
+ AJvYcCWgoevG57HdC+nKzi5V1BxPH3y6giktsiUFkngDJ3ST7nP5h/etXXREdov/7zPUqdCX6oKPo462@lists.freedesktop.org,
+ AJvYcCXKbgZ39remSNVoNJWohvyIxlKF/m8CY6MoVLHPr98wYxsVNVmlzSWpvEbfLCFtKbrbPDPjSOGgLaCe@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwAjAo3S1R7KvZ0VD0N5sJAyaaF4Zfma9SPCvdRbeGzO4CZtAVt
+ CoZ48SB27JaTpmbvdiOJOWtAxXhNnH/OzJ7PkalvPl/pYUOB9VVhfBwPSvbu
+X-Gm-Gg: ASbGncuCnqMFe804+Hw0UbGlvx0ZMzPRun45xgz13EDwiRHtIbb6f2+E1DoIPnxqSKG
+ 4DznX97wPpqswopsUUskqQoxrLpqdL/DWMPZQy6i9YwoG4sRagYFJOkShbryERz8w4072RIKpEM
+ QCkY7FpTPnFpS92i11rCl5FoGnrNq10oB7Y9psUXUA9P0IUcN8GyoqKONIW+RShPqw3F4xJ9/JO
+ 0mDfJczIsz2I3CseZ1CDvhVyyrnl82+HDEfNGCwM9F9ZGNUeO+CuKur2IddCWjay2ii5qONOoWr
+ PcTqLQ0hOAMtvj8Awxs0rlajhC9Dja1BKlU3NOD0+StkW3kqRKHRGDdwX2ivDEOP9vci6095Jt3
+ rzQ==
+X-Google-Smtp-Source: AGHT+IFBsswm/PB9JzXq4uuRlWaB+fwcfKZNp5OK53APl/ScwLJfw2dIo+UeZ8s3nXlJQ90V+RQYRw==
+X-Received: by 2002:a05:6602:4c83:b0:85b:577b:37c9 with SMTP id
+ ca18e2360f4ac-85e2cc5fe8fmr34189539f.12.1742496825365; 
+ Thu, 20 Mar 2025 11:53:45 -0700 (PDT)
+Received: from gandalf.. (c-67-165-245-5.hsd1.co.comcast.net. [67.165.245.5])
+ by smtp.googlemail.com with ESMTPSA id
+ ca18e2360f4ac-85e2bc273e7sm7078039f.17.2025.03.20.11.53.44
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 20 Mar 2025 11:53:44 -0700 (PDT)
+From: Jim Cromie <jim.cromie@gmail.com>
+To: linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org, intel-gvt-dev@lists.freedesktop.org,
+ intel-gfx@lists.freedesktop.org, intel-gfx-trybot@lists.freedesktop.org
+Cc: jbaron@akamai.com, gregkh@linuxfoundation.org, ukaszb@chromium.org,
+ louis.chauvet@bootlin.com, daniel.vetter@ffwll.ch,
+ tvrtko.ursulin@linux.intel.com, jani.nikula@intel.com,
+ ville.syrjala@linux.intel.com, Jim Cromie <jim.cromie@gmail.com>
+Subject: [PATCH v2 36/59] drm-dyndbg: adapt drm core to use dyndbg classmaps-v2
+Date: Thu, 20 Mar 2025 12:52:14 -0600
+Message-ID: <20250320185238.447458-37-jim.cromie@gmail.com>
+X-Mailer: git-send-email 2.49.0
+In-Reply-To: <20250320185238.447458-1-jim.cromie@gmail.com>
+References: <20250320185238.447458-1-jim.cromie@gmail.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 3/8] bits: introduce fixed-type genmasks
-From: Anshuman Khandual <anshuman.khandual@arm.com>
-To: Yury Norov <yury.norov@gmail.com>, linux-arm-kernel@lists.infradead.org,
- Catalin Marinas <catalin.marinas@arm.com>
-Cc: Lucas De Marchi <lucas.demarchi@intel.com>,
- Vincent Mailhol <mailhol.vincent@wanadoo.fr>,
- Rasmus Villemoes <linux@rasmusvillemoes.dk>,
- Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, Tvrtko Ursulin
- <tursulin@ursulin.net>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Andrew Morton <akpm@linux-foundation.org>,
- linux-kernel@vger.kernel.org, intel-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, Andi Shyti <andi.shyti@linux.intel.com>,
- David Laight <David.Laight@aculab.com>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
- Jani Nikula <jani.nikula@intel.com>
-References: <20250305-fixed-type-genmasks-v4-0-1873dcdf6723@wanadoo.fr>
- <20250305-fixed-type-genmasks-v4-3-1873dcdf6723@wanadoo.fr>
- <Z8hsRJvpjYoqh9RG@thinkpad> <Z9oiEkQEcHhA0a80@thinkpad>
- <5cbaefa8-e51f-415f-a9b3-4841e69bb3fa@arm.com>
-Content-Language: en-US
-In-Reply-To: <5cbaefa8-e51f-415f-a9b3-4841e69bb3fa@arm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Mon, 24 Mar 2025 13:24:21 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -64,208 +98,83 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
+dyndbg's CLASSMAP-v1 api was broken; DECLARE_DYNDBG_CLASSMAP tried to
+do too much.  Its replaced by DRM_CLASSMAP_DEFINE, which creates &
+EXPORTs a classmap (in DRM core), and DRM_CLASSMAP_USE which refers to
+the classmap defined elsewhere.
 
+The drivers still use DECLARE_DYNDBG_CLASSMAP for now, so they still
+redundantly re-declare the classmap, but we can convert the drivers
+later to DYNDBG_CLASSMAP_USE
 
-On 3/19/25 09:04, Anshuman Khandual wrote:
-> On 3/19/25 07:16, Yury Norov wrote:
->> + Catalin Marinas, ARM maillist
->>
->> Hi Catalin and everyone,
-> 
-> Hello Yury,
-> 
->>
->> Anshuman Khandual asked me to merge GENMASK_U128() saying it's
->> important for ARM to stabilize API. While it's a dead code, I
->> accepted his patch as he promised to add users shortly.
->>
->> Now it's more than half a year since that. There's no users,
->> and no feedback from Anshuman.
-> 
-> My apologies to have missed your email earlier. Please find response
-> for the earlier email below as well.
-> 
->>
->> Can you please tell if you still need the macro? I don't want to
->> undercut your development, but if you don't need 128-bit genmasks
->> there's no reason to have a dead code in the uapi.
-> 
-> The code base specifically using GENMASK_U128() has not been posted
-> upstream (probably in next couple of months or so) till now, except
-> the following patch which has been not been merged and still under
-> review and development.
-> 
-> https://lore.kernel.org/lkml/20240801054436.612024-1-anshuman.khandual@arm.com/
-> 
->>
->> Thanks,
->> Yury
->>
->> On Wed, Mar 05, 2025 at 10:22:47AM -0500, Yury Norov wrote:
->>> + Anshuman Khandual <anshuman.khandual@arm.com>
->>>
->>> Anshuman,
->>>
->>> I merged your GENMASK_U128() because you said it's important for your
->>> projects, and that it will get used in the kernel soon.
->>>
->>> Now it's in the kernel for more than 6 month, but no users were added.
->>> Can you clarify if you still need it, and if so why it's not used?
-> 
-> We would need it but although the code using GENMASK_U128() has not been
-> posted upstream.
-> 
->>>
->>> As you see, people add another fixed-types GENMASK() macros, and their
->>> implementation differ from GENMASK_U128().
-> 
-> I will take a look. Is GENMASK_U128() being problematic for the this new
-> scheme ?
-> 
->>>
->>> My second concern is that __GENMASK_U128() is declared in uapi, while
->>> the general understanding for other fixed-type genmasks is that they
->>> are not exported to users. Do you need this macro to be exported to
->>> userspace? Can you show how and where it is used there?
-> 
-> No, not atleast right now.
-> 
-> These were moved into uapi subsequently via the following commit.
-> 
-> 21a3a3d015aee ("tools headers: Synchronize {uapi/}linux/bits.h with the kernel sources")
-> 
-> But in general GENMASK_U128() is needed for generating 128 bit page table
-> entries, related flags and masks whether in kernel or in user space for
-> writing kernel test cases etc.
+Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
+---
+this ignores a checkpatch
+ WARNING: Argument 'name' is not used in function-like macro
+ #70: FILE: include/drm/drm_print.h:148:
+ +#define DRM_CLASSMAP_USE(name)
 
-In the commit 947697c6f0f7 ("uapi: Define GENMASK_U128"), GENMASK_U128() gets defined
-using __GENMASK_U128() which in turn calls __BIT128() - both of which are defined in
-UAPI headers inside (include/uapi/linux/). 
+the macro is empty, and correct. only 1 arg is expected.
+---
+ drivers/gpu/drm/drm_print.c | 25 +++++++++++++------------
+ include/drm/drm_print.h     |  8 ++++++++
+ 2 files changed, 21 insertions(+), 12 deletions(-)
 
-Just wondering - are you suggesting to move these helpers from include/uapi/linux/ to
-include/linux/bits.h instead ?
+diff --git a/drivers/gpu/drm/drm_print.c b/drivers/gpu/drm/drm_print.c
+index 79517bd4418f..a3b70d104afa 100644
+--- a/drivers/gpu/drm/drm_print.c
++++ b/drivers/gpu/drm/drm_print.c
+@@ -55,18 +55,19 @@ MODULE_PARM_DESC(debug, "Enable debug output, where each bit enables a debug cat
+ #if !defined(CONFIG_DRM_USE_DYNAMIC_DEBUG)
+ module_param_named(debug, __drm_debug, ulong, 0600);
+ #else
+-/* classnames must match vals of enum drm_debug_category */
+-DECLARE_DYNDBG_CLASSMAP(drm_debug_classes, DD_CLASS_TYPE_DISJOINT_BITS, 0,
+-			"DRM_UT_CORE",
+-			"DRM_UT_DRIVER",
+-			"DRM_UT_KMS",
+-			"DRM_UT_PRIME",
+-			"DRM_UT_ATOMIC",
+-			"DRM_UT_VBL",
+-			"DRM_UT_STATE",
+-			"DRM_UT_LEASE",
+-			"DRM_UT_DP",
+-			"DRM_UT_DRMRES");
++/* classnames must match value-symbols of enum drm_debug_category */
++DRM_CLASSMAP_DEFINE(drm_debug_classes, DD_CLASS_TYPE_DISJOINT_BITS,
++		    DRM_UT_CORE,
++		    "DRM_UT_CORE",
++		    "DRM_UT_DRIVER",
++		    "DRM_UT_KMS",
++		    "DRM_UT_PRIME",
++		    "DRM_UT_ATOMIC",
++		    "DRM_UT_VBL",
++		    "DRM_UT_STATE",
++		    "DRM_UT_LEASE",
++		    "DRM_UT_DP",
++		    "DRM_UT_DRMRES");
+ 
+ static struct ddebug_class_param drm_debug_bitmap = {
+ 	.bits = &__drm_debug,
+diff --git a/include/drm/drm_print.h b/include/drm/drm_print.h
+index 9732f514566d..e86ebb716b4c 100644
+--- a/include/drm/drm_print.h
++++ b/include/drm/drm_print.h
+@@ -141,6 +141,14 @@ enum drm_debug_category {
+ 	DRM_UT_DRMRES
+ };
+ 
++#ifdef CONFIG_DRM_USE_DYNAMIC_DEBUG
++#define DRM_CLASSMAP_DEFINE(...)    DYNAMIC_DEBUG_CLASSMAP_DEFINE(__VA_ARGS__)
++#define DRM_CLASSMAP_USE(name)      DYNAMIC_DEBUG_CLASSMAP_USE(name)
++#else
++#define DRM_CLASSMAP_DEFINE(...)
++#define DRM_CLASSMAP_USE(name)
++#endif
++
+ static inline bool drm_debug_enabled_raw(enum drm_debug_category category)
+ {
+ 	return unlikely(__drm_debug & BIT(category));
+-- 
+2.49.0
 
-> 
->>>
->>> Thanks,
->>> Yury
->>>
->>>
->>> On Wed, Mar 05, 2025 at 10:00:15PM +0900, Vincent Mailhol via B4 Relay wrote:
->>>> From: Yury Norov <yury.norov@gmail.com>
->>>>
->>>> Add __GENMASK_t() which generalizes __GENMASK() to support different
->>>> types, and implement fixed-types versions of GENMASK() based on it.
->>>> The fixed-type version allows more strict checks to the min/max values
->>>> accepted, which is useful for defining registers like implemented by
->>>> i915 and xe drivers with their REG_GENMASK*() macros.
->>>>
->>>> The strict checks rely on shift-count-overflow compiler check to fail
->>>> the build if a number outside of the range allowed is passed.
->>>> Example:
->>>>
->>>> 	#define FOO_MASK GENMASK_U32(33, 4)
->>>>
->>>> will generate a warning like:
->>>>
->>>> 	../include/linux/bits.h:41:31: error: left shift count >= width of type [-Werror=shift-count-overflow]
->>>> 	   41 |          (((t)~0ULL - ((t)(1) << (l)) + 1) & \
->>>> 	      |                               ^~
->>>>
->>>> Signed-off-by: Yury Norov <yury.norov@gmail.com>
->>>> Signed-off-by: Lucas De Marchi <lucas.demarchi@intel.com>
->>>> Acked-by: Jani Nikula <jani.nikula@intel.com>
->>>> Signed-off-by: Vincent Mailhol <mailhol.vincent@wanadoo.fr>
->>>> ---
->>>> Changelog:
->>>>
->>>>   v3 -> v4:
->>>>
->>>>     - The v3 is one year old. Meanwhile people started using
->>>>       __GENMASK() directly. So instead of generalizing __GENMASK() to
->>>>       support different types, add a new GENMASK_t().
->>>>
->>>>     - replace ~0ULL by ~_ULL(0). Otherwise, __GENMASK_t() would fail
->>>>       in asm code.
->>>>
->>>>     - Make GENMASK_U8() and GENMASK_U16() return an unsigned int. In
->>>>       v3, due to the integer promotion rules, these were returning a
->>>>       signed integer. By casting these to unsigned int, at least the
->>>>       signedness is kept.
->>>> ---
->>>>  include/linux/bitops.h |  1 -
->>>>  include/linux/bits.h   | 33 +++++++++++++++++++++++++++++----
->>>>  2 files changed, 29 insertions(+), 5 deletions(-)
->>>>
->>>> diff --git a/include/linux/bitops.h b/include/linux/bitops.h
->>>> index c1cb53cf2f0f8662ed3e324578f74330e63f935d..9be2d50da09a417966b3d11c84092bb2f4cd0bef 100644
->>>> --- a/include/linux/bitops.h
->>>> +++ b/include/linux/bitops.h
->>>> @@ -8,7 +8,6 @@
->>>>  
->>>>  #include <uapi/linux/kernel.h>
->>>>  
->>>> -#define BITS_PER_TYPE(type)	(sizeof(type) * BITS_PER_BYTE)
->>>>  #define BITS_TO_LONGS(nr)	__KERNEL_DIV_ROUND_UP(nr, BITS_PER_TYPE(long))
->>>>  #define BITS_TO_U64(nr)		__KERNEL_DIV_ROUND_UP(nr, BITS_PER_TYPE(u64))
->>>>  #define BITS_TO_U32(nr)		__KERNEL_DIV_ROUND_UP(nr, BITS_PER_TYPE(u32))
->>>> diff --git a/include/linux/bits.h b/include/linux/bits.h
->>>> index 5f68980a1b98d771426872c74d7b5c0f79e5e802..f202e46d2f4b7899c16d975120f3fa3ae41556ae 100644
->>>> --- a/include/linux/bits.h
->>>> +++ b/include/linux/bits.h
->>>> @@ -12,6 +12,7 @@
->>>>  #define BIT_ULL_MASK(nr)	(ULL(1) << ((nr) % BITS_PER_LONG_LONG))
->>>>  #define BIT_ULL_WORD(nr)	((nr) / BITS_PER_LONG_LONG)
->>>>  #define BITS_PER_BYTE		8
->>>> +#define BITS_PER_TYPE(type)	(sizeof(type) * BITS_PER_BYTE)
->>>>  
->>>>  /*
->>>>   * Create a contiguous bitmask starting at bit position @l and ending at
->>>> @@ -25,14 +26,38 @@
->>>>  
->>>>  #define GENMASK_INPUT_CHECK(h, l) BUILD_BUG_ON_ZERO(const_true((l) > (h)))
->>>>  
->>>> -#define GENMASK(h, l) \
->>>> -	(GENMASK_INPUT_CHECK(h, l) + __GENMASK(h, l))
->>>> -#define GENMASK_ULL(h, l) \
->>>> -	(GENMASK_INPUT_CHECK(h, l) + __GENMASK_ULL(h, l))
->>>> +/*
->>>> + * Generate a mask for the specified type @t. Additional checks are made to
->>>> + * guarantee the value returned fits in that type, relying on
->>>> + * shift-count-overflow compiler check to detect incompatible arguments.
->>>> + * For example, all these create build errors or warnings:
->>>> + *
->>>> + * - GENMASK(15, 20): wrong argument order
->>>> + * - GENMASK(72, 15): doesn't fit unsigned long
->>>> + * - GENMASK_U32(33, 15): doesn't fit in a u32
->>>> + */
->>>> +#define GENMASK_t(t, h, l)				\
->>>> +	(GENMASK_INPUT_CHECK(h, l) +			\
->>>> +	 (((t)~ULL(0) - ((t)1 << (l)) + 1) &		\
->>>> +	  ((t)~ULL(0) >> (BITS_PER_TYPE(t) - 1 - (h)))))
->>>> +
->>>> +#define GENMASK(h, l) GENMASK_t(unsigned long,  h, l)
->>>> +#define GENMASK_ULL(h, l) GENMASK_t(unsigned long long, h, l)
->>>>  
->>>>  /*
->>>>   * Missing asm support
->>>>   *
->>>> + * __GENMASK_U*() depends on BITS_PER_TYPE() which would not work in the asm
->>>> + * code as BITS_PER_TYPE() relies on sizeof(), something not available in
->>>> + * asm. Nethertheless, the concept of fixed width integers is a C thing which
->>>> + * does not apply to assembly code.
->>>> + */
->>>> +#define GENMASK_U8(h, l) ((unsigned int)GENMASK_t(u8,  h, l))
->>>> +#define GENMASK_U16(h, l) ((unsigned int)GENMASK_t(u16, h, l))
->>>> +#define GENMASK_U32(h, l) GENMASK_t(u32, h, l)
->>>> +#define GENMASK_U64(h, l) GENMASK_t(u64, h, l)
->>>> +
->>>> +/*
->>>>   * __GENMASK_U128() depends on _BIT128() which would not work
->>>>   * in the asm code, as it shifts an 'unsigned __int128' data
->>>>   * type instead of direct representation of 128 bit constants
->>>>
->>>> -- 
->>>> 2.45.3
->>>>
-> 
