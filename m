@@ -4,68 +4,68 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7A1D7C3600C
-	for <intel-gfx@archiver.kernel.org>; Mon, 24 Mar 2025 13:24:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B0B53C36012
+	for <intel-gfx@archiver.kernel.org>; Mon, 24 Mar 2025 13:24:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7D7F410E3C0;
+	by gabe.freedesktop.org (Postfix) with ESMTP id EE64A10E3CE;
 	Mon, 24 Mar 2025 13:24:35 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="fB2t99iO";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="HcLMUNHW";
 	dkim-atps=neutral
-Received: from mail-io1-f51.google.com (mail-io1-f51.google.com
- [209.85.166.51])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1DC3310E6E0;
- Thu, 20 Mar 2025 18:54:11 +0000 (UTC)
-Received: by mail-io1-f51.google.com with SMTP id
- ca18e2360f4ac-85e15dc801aso94097439f.2; 
- Thu, 20 Mar 2025 11:54:11 -0700 (PDT)
+Received: from mail-io1-f53.google.com (mail-io1-f53.google.com
+ [209.85.166.53])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D248210E6CA;
+ Thu, 20 Mar 2025 18:53:26 +0000 (UTC)
+Received: by mail-io1-f53.google.com with SMTP id
+ ca18e2360f4ac-85b40c7d608so100199039f.3; 
+ Thu, 20 Mar 2025 11:53:26 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1742496850; x=1743101650; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1742496806; x=1743101606; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=/+QMYU6kMnFOETa/gyjW3XwbPIpROUU0JSPdCI4eHHw=;
- b=fB2t99iOcg/gEaCKwgNO22kmcxuHtBFT0BbUstgXz1vB3V+z/F+/2uMrgcdHy5TqSO
- D5Il1z9vpWZvgPiXIFYuQbdhpW+s0LB+/CsqsnuvfhaAN1Rx05jD6UggJ8YfM617WBtx
- fZTVx/NWkvuy/5yuZephtpFAhTewWJ9auudhUFloMpzPmyaCGSJZ/D0lYdn7geQ3WGhd
- AbdrXMQD7ZgbnAx+fFrKhmihlVq6JEZDFwUDUzknFamHFTp2Dci+GySjt31Nd3Ygy2jq
- q5yPYw6qmwsZJvJWRHXlM3HnoZunn0OzmIUmC0b7eFrRK5B6lvQa7x5tXwv0HkikepD2
- LSDw==
+ bh=9crVnbk3XjpJrHsY0dIqQRNI8E7oyjJ17chOf0dhmBE=;
+ b=HcLMUNHWPVgHWePmbChAc7QpndKMZc/X7Wb37TuChpkcmyGfdRrp7Hr9q4yFcppneC
+ MrDGDHWcb+DIakgh3/SBwhKtmfexAM91WzqM0XyacLBLnqgjy10kYaxK1RHnYeP0iT/Y
+ 6pAH7ml0Qf4A38L22J3OmbLPtIsrAFrX90KFOQD4vc7Z/y+Lu31+soYDDvcUKNcsWgSj
+ 6OOCw1Pc7xMBeeGx8cYggMFFWFIqGouhqYMjhb1jnFZtnic0hTR6dapVlool49aMYsU0
+ oGvec2g2vKL/agNlvuW6zpgs3pRLlfiFvhbq+7VkNm/XV6eYJZjgGaMlJIHQC2Bk8k3h
+ STDg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1742496850; x=1743101650;
+ d=1e100.net; s=20230601; t=1742496806; x=1743101606;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=/+QMYU6kMnFOETa/gyjW3XwbPIpROUU0JSPdCI4eHHw=;
- b=WiFJQKWzUVjd0hhe4/s/BV9uuQlH6y6gjfbMPq4NQpAdOB7q8aP/slMgXsHvVPKdTp
- cC/BQAY1UvPEiFyD7q1KfIkuMiENkRr8XmIrCTftBb8dNOJll0cIefNmALlpDQGCnXw+
- 48sqN04FjTK01mR8Jt9fP7uWeSVLjXhjY8Q4J6hS2WZ3w6Ny36TDRPNfA4GMZODvbiW6
- YHP0WkxXaKaFSMq2cg66dvuugmxHhm+bGL6bqtLOWMprcAe3yRqJSIi42KS1y7VgY8qy
- BPW60aI0YP1NPsCmrt6dY85ipgRMp4xUo6irimJ4ejsBr0mynaYOj0Mzu8YQmauPw6BL
- 81fQ==
+ bh=9crVnbk3XjpJrHsY0dIqQRNI8E7oyjJ17chOf0dhmBE=;
+ b=dn3rGiZd3hyrXDk0w2ICtUusfvzpTtoW8jeRzwwFEa99iJF5RN0lUBobHDuIy353dL
+ jtNdIQ9z5UxlMPiYcmcwc9EH0jHVS8+QUWzdlucpaGvWh2jNEzqyhhhydz03c2o+mzJe
+ PUq4yBABjazgqus98aQKRjS2Zpl9RXuoAb6ani94PqeJvWooBVQUmTFTZzLMxQ+vM1dn
+ 8zOTLWOyLB7Jt0xPBHS1rx1auJ47pJQ0GL8ioPGCewmrx1B4jA14yDGV2MuJx5z0OfTZ
+ htIDS2GMOV1tIIQ0Kwh3kqShxGxTVQlRBZ2RYIYnceKvulOA9/AURiXqqEFwumM88TTi
+ OVZQ==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUJtnjJuvmRkLGQGNytIXG2U8XelrxFCwoc11W6B9WzT8sSXmwaVkqHqddoKhn34NwzoErD08WVqsk/@lists.freedesktop.org,
- AJvYcCUxbmi1nnAsngo88lqFDhA5yxwah81wvaRBqsSzv+TrcyYfd0AEYacc+lhboB7/KjfdMOcVT67qUzMq@lists.freedesktop.org,
- AJvYcCX/SwdHpKP53f/xdXjyS3f58WcPxGIyfiTS/GmsAh/JHmfRsnPEwgOPuaX8pOn0RaQHsEHA/sho@lists.freedesktop.org,
- AJvYcCXT5+gJg4vqHIAwmMnu2Zp+t3pXUMxqtG+mACwon7oruNw1PWjslSfOouedIBmYid9iT19BbQ1sRMtcmFNXoA==@lists.freedesktop.org,
- AJvYcCXn2UjazX7Wy+7f2h6WCMN1wymAK1iRejg4x8Usm3is4Zi7975PEbC/OJsK7HezWzY316Ir5SQo+RSL+pRccgHOTA==@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyPuh3SubQVY0NJPyZ13xkXkdSfDmTXsb1K1DsrVnxGtKACR/0j
- 2tUFWpZ3SvaDmpjYLsicFU4o9b2FTI+TNGa1VZwGVU6OmNQSwNah
-X-Gm-Gg: ASbGncv6tSdgKGW8lpfmGLuu0EYp+VLjHqo7M8KFltxh4ZXIGpHkGF3Ntmv5KKxJ2l5
- 4RPw8eDJJpz1qObEECBujQR/Cqw7WaE3nFdfl4gf8BvCofxsu7vEzx+mL6Lcd5RQPBaBybGSqPz
- pf86a/dQWRnQfQ2gscV28xz71fMf8f1JPf+J8tJs96AqnkCFmaEsKVfUsqLOjP/BkPPo8X9yDZI
- VrAvDnY2aJEBH5lhScB5rDTpEcNLVESJH2QyK3wdyPd52TWNRRF0xy9SU8G8hG3DjXD9uwxAxqm
- Chjza2rYkNwc0g/GY3G/KXEMrnOBgocJ7FNzsgDISMN10CJ2ZtaaX70gf/Nh76se2D9xaPhE6PX
- KM80grfRs7nH8
-X-Google-Smtp-Source: AGHT+IFM14DB5b0+Yb3xk+iy8bUVQ6+k06Y9+AI7/qq96L95YVo4adquNQGvMAtgqIcPJKOtb0c8DA==
-X-Received: by 2002:a05:6602:408e:b0:85b:4170:e1a1 with SMTP id
- ca18e2360f4ac-85e2cc7c771mr36727539f.13.1742496850400; 
- Thu, 20 Mar 2025 11:54:10 -0700 (PDT)
+ AJvYcCURmOSJoF7eOXxUECNE7r9x2ovrrsR3FhZj8lW9xuTCw9BJYmiUw+NzmiYeNM1V0ZTOnCYiU6ziqzmd@lists.freedesktop.org,
+ AJvYcCUc79+/srW/TONvgLRMidS3QUu7s12WbIz+7nxpOcjgTcsjkL6BLY9VIHD+Y07mBcTcPCo9Yle8ndVKPyMNcQ==@lists.freedesktop.org,
+ AJvYcCUraPDaQxBTj0sIr9qj5Ry6H4Ju4TP2Ngb2JagzRCtjUSC+SNZU7YOKhFgpITuSPQ544sD7xikjJ827SY6dzVv4HA==@lists.freedesktop.org,
+ AJvYcCX32CxLazI9EDygnlPV58u5D+1bxlm6sqoTR64pl0OYGWn4DpodKlvWgvu8eBdqmoZFK1cpBQX0dSHZ@lists.freedesktop.org,
+ AJvYcCX6CGM/TvMAcd6tTo/jkeYTqhhDhstfZHLEZZopjqrjYQKrPQgoC/SHu9bfHHegYuPCE93mQr9G@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzifPzvLPszy6CrtFeMHiaSiB2tbGFEFn8wHZZI+I3WqT+agMO4
+ ExvlEAWNzgazJxJhQU11P0etLdTXNnUph9Z9eAP0y/w/pQHwu7D5O1gmBEbD
+X-Gm-Gg: ASbGncusXliehLlAWZtaFexvlepF7Rmpaya/S8wG8ehRs0Y9Zqv5m5hepwh8Hu5fg2o
+ cNMQwGBf4meMgj4HjEvr9mK/RxeouH/J9cJHPJKRGKyT3rfhE55ooX4gIfCNw1Fb2E7rtT4jA9f
+ LHAvoNOATLUTWSyUkuqyip+7BlEVVtx8coJnZnBhsvZZZTrOlvX80rpzsqWbutvXUJOmhCOdjD5
+ fFDqno78PS8cP/+H6vH15jTJlyiJJRzwfwUJnb83mZckgyjxV7s6JGgzo3IAzJ52d+frUaA8s+J
+ KAZc8h8inF2vOyV7fPEXGnHJl759e1NyTxyVacbHJN7UFVShz01K/j8woj6ZkdxMQLQY6Z2zU8h
+ NtXCPWpPhTEd+
+X-Google-Smtp-Source: AGHT+IFxuCjaPGKkc88YGwLvCjCbtuIgV8RzngvtW7+0U59GwUXVQHXX/CedAfIKgwgp/utTkRuZ3w==
+X-Received: by 2002:a05:6602:2b15:b0:85b:482b:8530 with SMTP id
+ ca18e2360f4ac-85e2ca2d1a0mr42658039f.2.1742496806093; 
+ Thu, 20 Mar 2025 11:53:26 -0700 (PDT)
 Received: from gandalf.. (c-67-165-245-5.hsd1.co.comcast.net. [67.165.245.5])
  by smtp.googlemail.com with ESMTPSA id
- ca18e2360f4ac-85e2bc273e7sm7078039f.17.2025.03.20.11.54.09
+ ca18e2360f4ac-85e2bc273e7sm7078039f.17.2025.03.20.11.53.25
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 20 Mar 2025 11:54:09 -0700 (PDT)
+ Thu, 20 Mar 2025 11:53:25 -0700 (PDT)
 From: Jim Cromie <jim.cromie@gmail.com>
 To: linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
  amd-gfx@lists.freedesktop.org, intel-gvt-dev@lists.freedesktop.org,
@@ -74,9 +74,10 @@ Cc: jbaron@akamai.com, gregkh@linuxfoundation.org, ukaszb@chromium.org,
  louis.chauvet@bootlin.com, daniel.vetter@ffwll.ch,
  tvrtko.ursulin@linux.intel.com, jani.nikula@intel.com,
  ville.syrjala@linux.intel.com, Jim Cromie <jim.cromie@gmail.com>
-Subject: [PATCH v2 58/59] drm: restore CONFIG_DRM_USE_DYNAMIC_DEBUG un-BROKEN
-Date: Thu, 20 Mar 2025 12:52:36 -0600
-Message-ID: <20250320185238.447458-59-jim.cromie@gmail.com>
+Subject: [PATCH v2 21/59] dyndbg-test: change do_prints testpoint to accept a
+ loopct
+Date: Thu, 20 Mar 2025 12:51:59 -0600
+Message-ID: <20250320185238.447458-22-jim.cromie@gmail.com>
 X-Mailer: git-send-email 2.49.0
 In-Reply-To: <20250320185238.447458-1-jim.cromie@gmail.com>
 References: <20250320185238.447458-1-jim.cromie@gmail.com>
@@ -98,32 +99,89 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Time for some thorough CI.
+echo 1000 > /sys/module/test_dynamic_debug/parameters/do_prints
 
-Also, the previous 18 patches could perhaps be replaced by a single
-invocation of DYNDBG_CLASSMAP_USE, from a C-file linked into all drm
-drivers & helpers.  I didn't find such a file, nor a drm-client
-linkage item in the Makefile.
+This allows its use as a scriptable load generator, to generate
+dynamic-prefix-emits for flag combinations vs undecorated messages.
+This will make it easy to assess the cost of the prefixing.
+
+Reading the ./do_prints node also prints messages (once) to the-log.
+
+NB: the count is clamped to 10000, chosen to be notice able, but not
+annoying, and not enough to accidentally flood the logs.
 
 Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
 ---
- drivers/gpu/drm/Kconfig | 3 +--
- 1 file changed, 1 insertion(+), 2 deletions(-)
+ lib/test_dynamic_debug.c | 37 ++++++++++++++++++++++++++-----------
+ 1 file changed, 26 insertions(+), 11 deletions(-)
 
-diff --git a/drivers/gpu/drm/Kconfig b/drivers/gpu/drm/Kconfig
-index fbef3f471bd0..c7d6adbe17eb 100644
---- a/drivers/gpu/drm/Kconfig
-+++ b/drivers/gpu/drm/Kconfig
-@@ -53,8 +53,7 @@ config DRM_DEBUG_MM
+diff --git a/lib/test_dynamic_debug.c b/lib/test_dynamic_debug.c
+index 9f9e3fddd7e6..4a3d2612ef60 100644
+--- a/lib/test_dynamic_debug.c
++++ b/lib/test_dynamic_debug.c
+@@ -29,18 +29,30 @@
  
- config DRM_USE_DYNAMIC_DEBUG
- 	bool "use dynamic debug to implement drm.debug"
--	default n
--	depends on BROKEN
-+	default y
- 	depends on DRM
- 	depends on DYNAMIC_DEBUG || DYNAMIC_DEBUG_CORE
- 	depends on JUMP_LABEL
+ #include <linux/module.h>
+ 
+-/* re-gen output by reading or writing sysfs node: do_prints */
+-
+-static void do_prints(void); /* device under test */
++/* re-trigger debug output by reading or writing sysfs node: do_prints */
++#define PRINT_CLAMP 10000
++static void do_prints(unsigned int); /* device under test */
+ static int param_set_do_prints(const char *instr, const struct kernel_param *kp)
+ {
+-	do_prints();
++	int rc;
++	unsigned int ct;
++
++	rc = kstrtouint(instr, 0, &ct);
++	if (rc) {
++		pr_err("expecting numeric input, using 1 instead\n");
++		ct = 1;
++	}
++	if (ct > PRINT_CLAMP) {
++		ct = PRINT_CLAMP;
++		pr_info("clamping print-count to %d\n", ct);
++	}
++	do_prints(ct);
+ 	return 0;
+ }
+ static int param_get_do_prints(char *buffer, const struct kernel_param *kp)
+ {
+-	do_prints();
+-	return scnprintf(buffer, PAGE_SIZE, "did do_prints\n");
++	do_prints(1);
++	return scnprintf(buffer, PAGE_SIZE, "did 1 do_prints\n");
+ }
+ static const struct kernel_param_ops param_ops_do_prints = {
+ 	.set = param_set_do_prints,
+@@ -191,17 +203,20 @@ static void do_levels(void)
+ 	prdbg(V7);
+ }
+ 
+-static void do_prints(void)
++static void do_prints(unsigned int ct)
+ {
+-	pr_debug("do_prints:\n");
+-	do_cats();
+-	do_levels();
++	/* maybe clamp this */
++	pr_debug("do-prints %d times:\n", ct);
++	for (; ct; ct--) {
++		do_cats();
++		do_levels();
++	}
+ }
+ 
+ static int __init test_dynamic_debug_init(void)
+ {
+ 	pr_debug("init start\n");
+-	do_prints();
++	do_prints(1);
+ 	pr_debug("init done\n");
+ 	return 0;
+ }
 -- 
 2.49.0
 
