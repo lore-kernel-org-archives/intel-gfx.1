@@ -4,44 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F19E7C35FFC
-	for <intel-gfx@archiver.kernel.org>; Sat, 22 Mar 2025 10:42:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 645D0C36007
+	for <intel-gfx@archiver.kernel.org>; Sat, 22 Mar 2025 10:42:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 15A8110E374;
+	by gabe.freedesktop.org (Postfix) with ESMTP id C726510E322;
 	Sat, 22 Mar 2025 10:42:00 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="eNYAJqDu";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="p8Ef38CD";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DD1B510E0ED;
- Sat, 22 Mar 2025 10:41:57 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id ED31310E366;
+ Sat, 22 Mar 2025 10:41:58 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id C888943F77;
- Sat, 22 Mar 2025 10:41:47 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPS id F29F9C4CEED;
+ by tor.source.kernel.org (Postfix) with ESMTP id A53AD615F3;
+ Sat, 22 Mar 2025 10:41:45 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPS id D245DC4CEEC;
  Sat, 22 Mar 2025 10:41:47 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1742640108;
- bh=aTXRkE0XydaINgQyfs8slD4zaVmOP6d03DD2R/YidBc=;
+ s=k20201202; t=1742640107;
+ bh=uH/uSKbQo5Ulfbukq6OwZ7LUE3RydYgx6jERrQzGCPI=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
- b=eNYAJqDuLl2hihiBMvXZv4XT0dBnp5Pv0vakB/rZau63lv6kAu8cg27VOrxs1JH7h
- CTDhZdPiM5wQ2LXV5cwcLrwLfI/hzBUkFMB/8UVRNyN8iNONMB86aC2vsrgekjc6W0
- 1yB3DgrDtj0HHRfFbGT9lwiF1DFWHKGUZrQ0CFJFV5P0mHBHa9tG59teRwdfVw34v0
- NZ0Mk6HZhmWIEaPik8EbR/FpNuURaGWUl5xxGdti7I8cBTyIPwiQtJefArZwEWsrjp
- t8GVelUZpORe0AbDP5ewsMi/u2NpXcLStSroO0hiH3tjeWMahHczfSPsMU1g1rg3Vr
- gYOkWTAA7w/jg==
+ b=p8Ef38CDIdE+MPcTBcTq/zSMiUA1+au+sZeRqrzrJ+IQGAVSdyabptJx+ED6BHu9p
+ GfqoTRXiqiuLRUL0z32YohtKPhlmlo7a3YVBo8B2q2MeiE+vrDD1AS4GY3Xd/XUNjS
+ lwEzmG2bChkiKrxvqO79yUOfzymncJW5T7vys05NXsLRxPJNlcZBMWbQ2z8a2BBj6l
+ bBtf1DPyO7ENNgavvU41NpfS7GFAya66LaqJ2mSWnIB8J6LD/uEJWWKz8SpqIquQqO
+ 72DXFSJEMN2rdiWY+FFzkftqBRep+AXj5HAeg6FEp8Ar9eRclEcjznPKJwbBl9zZIf
+ JTgcA6X8jdWew==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org
  (localhost.localdomain [127.0.0.1])
- by smtp.lore.kernel.org (Postfix) with ESMTP id E2B91C3600B;
+ by smtp.lore.kernel.org (Postfix) with ESMTP id B495BC36002;
  Sat, 22 Mar 2025 10:41:47 +0000 (UTC)
 From: Vincent Mailhol via B4 Relay
  <devnull+mailhol.vincent.wanadoo.fr@kernel.org>
-Date: Sat, 22 Mar 2025 19:39:38 +0900
-Subject: [PATCH 3/3] test_bits: add tests for __GENMASK() and __GENMASK_ULL()
+Date: Sat, 22 Mar 2025 19:39:36 +0900
+Subject: [PATCH 1/3] bits: split the definition of the asm and non-asm
+ GENMASK*()
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20250322-consolidate-genmask-v1-3-54bfd36c5643@wanadoo.fr>
+Message-Id: <20250322-consolidate-genmask-v1-1-54bfd36c5643@wanadoo.fr>
 References: <20250322-consolidate-genmask-v1-0-54bfd36c5643@wanadoo.fr>
 In-Reply-To: <20250322-consolidate-genmask-v1-0-54bfd36c5643@wanadoo.fr>
 To: Yury Norov <yury.norov@gmail.com>, 
@@ -58,13 +59,13 @@ Cc: linux-kernel@vger.kernel.org, intel-gfx@lists.freedesktop.org,
  Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
  Vincent Mailhol <mailhol.vincent@wanadoo.fr>
 X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2838;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2469;
  i=mailhol.vincent@wanadoo.fr; h=from:subject:message-id;
- bh=lw0j5DDbt4xHaeCFRpUyWkzpSYATbilmvUEdK3pbE0k=;
- b=owGbwMvMwCV2McXO4Xp97WbG02pJDOn3Jj//niLufKnD3jTC6+n72Eu/sp3jVnzS4C22PT/zU
- +SzKbdXd5SyMIhxMciKKbIsK+fkVugo9A479NcSZg4rE8gQBi5OAZiI91dGhquce67s/1Dt4Som
- 2sKexbNwZ4nZwgOVMjz6jEdmm+yuPsfI0Hf4ssP59z3mJ9r3ra3NPvpc/8wnRbvTZS3Hf+Va+gl
- 8YQcA
+ bh=PiGTrL0JYiV7znHV7ko5sq4U1vR9pY0pmQ4QX0K2Tvw=;
+ b=owGbwMvMwCV2McXO4Xp97WbG02pJDOn3Jt/conAk8iNv4onX2b6BbG57S8yLlx6/6D3r815jw
+ dc5u1+GdJSyMIhxMciKKbIsK+fkVugo9A479NcSZg4rE8gQBi5OAZiIwjNGhn9chpPuGJWUl1iu
+ r3h3+1z0UlGJjy1N73ZNUDuzbrfhYUmG/4EZUsc2nFI3ZL54Lbxjn/HJxOLAzJ8ia6IbBV7rf/7
+ 9mwMA
 X-Developer-Key: i=mailhol.vincent@wanadoo.fr; a=openpgp;
  fpr=ED8F700574E67F20E574E8E2AB5FEB886DBB99C2
 X-Endpoint-Received: by B4 Relay for mailhol.vincent@wanadoo.fr/default
@@ -88,17 +89,12 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 From: Vincent Mailhol <mailhol.vincent@wanadoo.fr>
 
-The definitions of GENMASK() and GENMASK_ULL() do not depend any more
-on __GENMASK() and __GENMASK_ULL(). Duplicate the existing unit tests
-so that __GENMASK{,ULL}() are still covered.
+In an upcoming change, the non-asm GENMASK*() will all be unified to
+depend on GENMASK_TYPE() which indirectly depend on sizeof(), something
+not available in asm.
 
-Because __GENMASK() and __GENMASK_ULL() do use GENMASK_INPUT_CHECK(),
-drop the TEST_GENMASK_FAILURES negative tests.
-
-It would be good to have a small assembly test case for GENMASK*() in
-case somebody decides to unify both in the future. However, I lack
-expertise in assembly to do so. Instead add a FIXME message to
-highlight the absence of the asm unit test.
+Instead of adding further complexity to GENMASK_TYPE() to make it work
+for both asm and non asm, just split the definition of the two variants.
 
 Signed-off-by: Vincent Mailhol <mailhol.vincent@wanadoo.fr>
 Reviewed-by: Lucas De Marchi <lucas.demarchi@intel.com>
@@ -114,64 +110,62 @@ Changelog:
 
   v6 (previous series) -> v1 (new series):
 
-    - Add a message in the commit description to explain why the
-      negative tests are dropped.
+    - Do not rephrase the comment saying that BUILD_BUG_ON() is not
+      available in asm code. Leave it as it is.
 
-    - Add Lucas's Reviewed-by tag.
+    - Add Lucas reviewed-by tag.
 
   v5 -> v6:
 
-    - Add a FIXME message to highlight the absence of the asm
-      GENMASK*() unit tests.
+    - Restore the comment saying that BUILD_BUG_ON() is not available in asm
+      code.
 
   v4 -> v5:
 
-    - No changes.
+    - Use tab indentations instead of single space to separate the
+      macro name from its body.
 
   v3 -> v4:
 
-    - New patch.
+    - New patch in the series
 ---
- lib/test_bits.c | 19 +++++++++++++++++++
- 1 file changed, 19 insertions(+)
+ include/linux/bits.h | 13 +++++++------
+ 1 file changed, 7 insertions(+), 6 deletions(-)
 
-diff --git a/lib/test_bits.c b/lib/test_bits.c
-index 47325b41515fde2c3ed434ed6f4094925c98886b..ab88e50d2edfa2b011f07d50460ac8ea6ff99923 100644
---- a/lib/test_bits.c
-+++ b/lib/test_bits.c
-@@ -26,6 +26,23 @@ static_assert(assert_type(u16, GENMASK_U16(15, 0)) == U16_MAX);
- static_assert(assert_type(u32, GENMASK_U32(31, 0)) == U32_MAX);
- static_assert(assert_type(u64, GENMASK_U64(63, 0)) == U64_MAX);
+diff --git a/include/linux/bits.h b/include/linux/bits.h
+index 6a942ea9ab380d3bd0e521916caa1d59db8031c0..9dd2d244c1f37fde995ed65c1eed879bb2a994a8 100644
+--- a/include/linux/bits.h
++++ b/include/linux/bits.h
+@@ -35,6 +35,11 @@
  
-+/* FIXME: add a test case written in asm for GENMASK() and GENMASK_ULL() */
+ #define GENMASK_INPUT_CHECK(h, l) BUILD_BUG_ON_ZERO(const_true((l) > (h)))
+ 
++#define GENMASK(h, l) \
++	(GENMASK_INPUT_CHECK(h, l) + __GENMASK(h, l))
++#define GENMASK_ULL(h, l) \
++	(GENMASK_INPUT_CHECK(h, l) + __GENMASK_ULL(h, l))
 +
-+static void __genmask_test(struct kunit *test)
-+{
-+	KUNIT_EXPECT_EQ(test, 1ul, __GENMASK(0, 0));
-+	KUNIT_EXPECT_EQ(test, 3ul, __GENMASK(1, 0));
-+	KUNIT_EXPECT_EQ(test, 6ul, __GENMASK(2, 1));
-+	KUNIT_EXPECT_EQ(test, 0xFFFFFFFFul, __GENMASK(31, 0));
-+}
-+
-+static void __genmask_ull_test(struct kunit *test)
-+{
-+	KUNIT_EXPECT_EQ(test, 1ull, __GENMASK_ULL(0, 0));
-+	KUNIT_EXPECT_EQ(test, 3ull, __GENMASK_ULL(1, 0));
-+	KUNIT_EXPECT_EQ(test, 0x000000ffffe00000ull, __GENMASK_ULL(39, 21));
-+	KUNIT_EXPECT_EQ(test, 0xffffffffffffffffull, __GENMASK_ULL(63, 0));
-+}
+ /*
+  * Generate a mask for the specified type @t. Additional checks are made to
+  * guarantee the value returned fits in that type, relying on
+@@ -79,15 +84,11 @@
+  * BUILD_BUG_ON_ZERO is not available in h files included from asm files,
+  * disable the input check if that is the case.
+  */
+-#define GENMASK_INPUT_CHECK(h, l) 0
++#define GENMASK(h, l)		__GENMASK(h, l)
++#define GENMASK_ULL(h, l)	__GENMASK_ULL(h, l)
  
- static void genmask_test(struct kunit *test)
- {
-@@ -123,6 +140,8 @@ static void genmask_input_check_test(struct kunit *test)
+ #endif /* !defined(__ASSEMBLY__) */
  
- 
- static struct kunit_case bits_test_cases[] = {
-+	KUNIT_CASE(__genmask_test),
-+	KUNIT_CASE(__genmask_ull_test),
- 	KUNIT_CASE(genmask_test),
- 	KUNIT_CASE(genmask_ull_test),
- 	KUNIT_CASE(genmask_u128_test),
+-#define GENMASK(h, l) \
+-	(GENMASK_INPUT_CHECK(h, l) + __GENMASK(h, l))
+-#define GENMASK_ULL(h, l) \
+-	(GENMASK_INPUT_CHECK(h, l) + __GENMASK_ULL(h, l))
+-
+ #if !defined(__ASSEMBLY__)
+ /*
+  * Missing asm support
 
 -- 
 2.48.1
