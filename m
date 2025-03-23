@@ -4,85 +4,76 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7043CC3601B
-	for <intel-gfx@archiver.kernel.org>; Mon, 24 Mar 2025 13:24:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BF2C2C3600E
+	for <intel-gfx@archiver.kernel.org>; Mon, 24 Mar 2025 13:24:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1EB0410E3D4;
+	by gabe.freedesktop.org (Postfix) with ESMTP id D9E4C10E3DD;
 	Mon, 24 Mar 2025 13:24:36 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Hb38ITGF";
+	dkim=pass (2048-bit key; unprotected) header.d=riscv-rocks.de header.i=@riscv-rocks.de header.b="DMfq/V9f";
+	dkim=pass (1024-bit key; unprotected) header.d=amazonses.com header.i=@amazonses.com header.b="HEiP/ePy";
 	dkim-atps=neutral
-Received: from mail-io1-f46.google.com (mail-io1-f46.google.com
- [209.85.166.46])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B769610E69E;
- Thu, 20 Mar 2025 18:53:29 +0000 (UTC)
-Received: by mail-io1-f46.google.com with SMTP id
- ca18e2360f4ac-85da5a3667bso37825039f.1; 
- Thu, 20 Mar 2025 11:53:29 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1742496809; x=1743101609; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=miAnMW+G7+NaoZuEayKbHBb91/weN+swVxu5PtIC79I=;
- b=Hb38ITGFB3xPAedBDBm01DNAO8RKjqTGNKHLfe1r8wgUKUpCgBHTEHQmJpx9+Quizc
- xiYYKr9tWRAjWaUHV2NZjaoyS1HSXnA2e1eJqCL5LA/dEktScFuJ5F94Q4H2L5ZBR381
- ZB2zP5QvPFltLBN4Fi15Wn03nb4PgRQ26IX2o5u5sTMKbqRrQfWLugAErSarW1fsKkvz
- Ael1ysHGtfG7QV3RUKOengXfhXdq0Nadb/Wc7bml7TRVvuElXpUixT2hbxVv9xtxQt1Z
- gx7XJL4uHkc8BKfw0MK1Fw94ynL5mldPu4UIUSe3mO56PaafEakI9EZWRgBR3leqEyOS
- 0NBw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1742496809; x=1743101609;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=miAnMW+G7+NaoZuEayKbHBb91/weN+swVxu5PtIC79I=;
- b=jYaktK0tD3RMpmwr6QeGmkdHg8QsLBlvJRaKCpv5VCQGXZmPkAAZJjxPPHtvMLpraA
- ck6hvmcPljL+VOwU6d8b1PiP9wd1IX3QAYsA6I3R7VAuJBZJrgWexn21R+NCPsceXel7
- J0slu4kCAVck2KRKsyDBOPnk+ptaky/PNn6PbU5Ivvv+ql7TGZTybrVtiRMHYsrFw4h9
- bd5Ks8fDRSePOzYjJoiV5pz+tPb/ZVdtTsWCa/B7WBb1MC5EUGLcQGqpIO/hM8KtlfPm
- dBKtPeut4X64R8ZTF+8BEltSq4eHlgsPd1y1l2Xuef/3ybYQKkArRaSsLNRxc5s1GzC1
- shxA==
-X-Forwarded-Encrypted: i=1;
- AJvYcCVBI0B66tq3ufhymG0zhTgLPhojpvHsDZBrVApTfzif81kKDBCVd6RY1py20OfiBNIzMTkn5bDnc5XrF6WvmA==@lists.freedesktop.org,
- AJvYcCVJoGIlP/RLCD+mAJpc7WokZ/ENk1le9MuTiRs0TG+WFCG8FFZxU/BwJBdTvCZZ5WSsZUbFCI86CQzm@lists.freedesktop.org,
- AJvYcCVoqrDLNKInECbdw0UIH65zr4WNOXruO1D78kAqR5Mim7lBLaHRlXUorIMiLBjKMoT7nS521VTA7apB134FmKhagA==@lists.freedesktop.org,
- AJvYcCWwCpcizeSG7145uUPXMCUMVfwWBlTPhgaIpM6gU7S0pR3vxzQKE5uRXllTfSlSaXrW7O9O6/w6Aft/@lists.freedesktop.org,
- AJvYcCXdcyoLchuau4lcX+pZauTnIuSPh4w+bkDLFTvFmw5ohGCvP/r1o5RwZgJMCxGVIEUUqz0rhYXh@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzBQv1d9kPzKsSPEMIwVHpvd5SoyIrQHkxlqTGffqQ2145SmrDT
- fIoy0YaMNggxHnZcJMyE8o0uvJkrTeqO3i7r/QU0oKJNKsJac8d9
-X-Gm-Gg: ASbGncuEeGApqSVV/4XTIG7s7hfXc2K3RsoyH00meCcjiTIoobkYs5iZpJ9seYPs7B8
- s30rSSX48PbC2f2XAuX2LfFm9HFxcim96kYjWx777B+MgzDeUff2u5q7GzEiNeVGP+/vUru4QCZ
- eo6eb/RTPQtGLoeKbwCxNg1sFPQuhMzYuYXMhv3dzcEBP+2rwFVwMzUG9fZgJ1JQoRchni/pWfV
- P1wAynUJQrmtPFV58pAc1h+2+i4VrCWoVWlAUZHFUsGuRC/weR3f1JxlBH2tufA+G4gyBHDqH5T
- 3L8VUy5X5yp9j+YySQAIFyN/z5sTO4Vu6UOkFW+6n0wuyv3HR0/r7Ow2c575u9Kl3jIwh8KpPOU
- VyQ==
-X-Google-Smtp-Source: AGHT+IH8NGUJWZDIAw9cJiX8xKNRxEy2HrBp//+fKWV20TsAyodyKB+bj0tCWt8XGY6BDeLYkZ+T1g==
-X-Received: by 2002:a05:6602:488b:b0:85e:1879:c708 with SMTP id
- ca18e2360f4ac-85e2ca388bbmr48595939f.1.1742496808909; 
- Thu, 20 Mar 2025 11:53:28 -0700 (PDT)
-Received: from gandalf.. (c-67-165-245-5.hsd1.co.comcast.net. [67.165.245.5])
- by smtp.googlemail.com with ESMTPSA id
- ca18e2360f4ac-85e2bc273e7sm7078039f.17.2025.03.20.11.53.27
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 20 Mar 2025 11:53:28 -0700 (PDT)
-From: Jim Cromie <jim.cromie@gmail.com>
-To: linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- amd-gfx@lists.freedesktop.org, intel-gvt-dev@lists.freedesktop.org,
- intel-gfx@lists.freedesktop.org, intel-gfx-trybot@lists.freedesktop.org
-Cc: jbaron@akamai.com, gregkh@linuxfoundation.org, ukaszb@chromium.org,
- louis.chauvet@bootlin.com, daniel.vetter@ffwll.ch,
- tvrtko.ursulin@linux.intel.com, jani.nikula@intel.com,
- ville.syrjala@linux.intel.com, Jim Cromie <jim.cromie@gmail.com>
-Subject: [PATCH v2 23/59] dyndbg: move .mod_name from/to structs
- ddebug_table/_ddebug_info
-Date: Thu, 20 Mar 2025 12:52:01 -0600
-Message-ID: <20250320185238.447458-24-jim.cromie@gmail.com>
-X-Mailer: git-send-email 2.49.0
-In-Reply-To: <20250320185238.447458-1-jim.cromie@gmail.com>
-References: <20250320185238.447458-1-jim.cromie@gmail.com>
+X-Greylist: delayed 408 seconds by postgrey-1.36 at gabe;
+ Sun, 23 Mar 2025 12:49:48 UTC
+Received: from b224-13.smtp-out.eu-central-1.amazonses.com
+ (b224-13.smtp-out.eu-central-1.amazonses.com [69.169.224.13])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 69F2F10E1CC;
+ Sun, 23 Mar 2025 12:49:42 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/simple;
+ s=2kaovp6zxy5nzp5wqunvdq5vkiqbeqln; d=riscv-rocks.de; t=1742733761;
+ h=Date:From:To:Cc:Subject:Message-ID:Reply-To:References:MIME-Version:Content-Type:Content-Transfer-Encoding:In-Reply-To;
+ bh=LrAaxJ3uGP1EpZGbKJtAW4zP/hxp5wOoExzud2mX2Xo=;
+ b=DMfq/V9fggKoRozqNK4DYV7YAuDOyzhhtFwgJcX9uCO2VCPwJuWRjq6liTzJBym6
+ o0LQ72CVC06C8Eeog6UBTtC6B7LrQzrg5ODK/57A6blK9PPw0N598FM0xPUynMM30Xp
+ /j//X+/fDYtyvCMKRFRhzNNhBDVEMWY/Gy6kFqiBeLMHQL44QtSecXR5spxN0PqJ5Zn
+ AbC9FmUMsAw0yN6X4gJXv0/hPHuTh362F41bypRM+lSOalyRI3jPIP6eDGUlyMnIZXI
+ MgxJBpQ1jlc8zVvKhezGdC9VUBFCg5SnI5/ls9VHD4/XXtvESNJ4pBHsxcuy7lZXZCA
+ gBoQ8LikmA==
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/simple;
+ s=54ecsf3zk7z4mwxwwox7z7bg6e5gwjsz; d=amazonses.com; t=1742733761;
+ h=Date:From:To:Cc:Subject:Message-ID:Reply-To:References:MIME-Version:Content-Type:Content-Transfer-Encoding:In-Reply-To:Feedback-ID;
+ bh=LrAaxJ3uGP1EpZGbKJtAW4zP/hxp5wOoExzud2mX2Xo=;
+ b=HEiP/ePyv/5qHXZiNwlxklL8mfQ5s8IY29RDfjipiHPgYTUJMLJh8BhI5EwcD4nf
+ V/qiL4r2Ab4pNWZ8VeNq9DDLZaI8L4UHpFCoWFFnw5RAvWAwwjFo6yXPiI4eH2Vwut7
+ N8CHcUTn55CWd+ENrEg3OIGoTFIay+AMHGP0X0Xs=
+Date: Sun, 23 Mar 2025 12:42:41 +0000
+From: Damian Tometzki <damian@riscv-rocks.de>
+To: Kees Cook <kees@kernel.org>
+Cc: Zhenyu Wang <zhenyuw@linux.intel.com>, 
+ Zhi Wang <zhi.wang.linux@gmail.com>, 
+ Jani Nikula <jani.nikula@linux.intel.com>, 
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, 
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, 
+ Tvrtko Ursulin <tursulin@ursulin.net>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ intel-gvt-dev@lists.freedesktop.org, intel-gfx@lists.freedesktop.org, 
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ linux-hardening@vger.kernel.org
+Subject: Re: [PATCH] drm/i915/gvt: Add __nonstring annotations for
+ unterminated strings
+Message-ID: <01070195c306db7f-9f28efdd-9456-4db3-b6c6-343298bd571b-000000@eu-central-1.amazonses.com>
+Mail-Followup-To: Kees Cook <kees@kernel.org>,
+ Zhenyu Wang <zhenyuw@linux.intel.com>,
+ Zhi Wang <zhi.wang.linux@gmail.com>,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Tvrtko Ursulin <tursulin@ursulin.net>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ intel-gvt-dev@lists.freedesktop.org,
+ intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, linux-hardening@vger.kernel.org
+References: <20250310222355.work.417-kees@kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <20250310222355.work.417-kees@kernel.org>
+User-Agent: Mutt
+X-Operating-System: Linux Fedora release 42 (Adams) (Kernel 6.14.0-rc7)
+Organization: Linux hacker
+Feedback-ID: ::1.eu-central-1.yMcBPu/jK26Vj3HVmCFyFk75QMsS8V3QY5HbXP/Qrys=:AmazonSES
+X-SES-Outgoing: 2025.03.23-69.169.224.13
 X-Mailman-Approved-At: Mon, 24 Mar 2025 13:24:21 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -96,185 +87,80 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: Damian Tometzki <damian@riscv-rocks.de>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-struct _ddebug_info already has almost all dyndbg's info for a module,
-so finish the encapsulation.  This puts the datum closer to where its
-needed, improving the chance that we can obsolete the _ddebug.modame
-field with a desc_modname(dp) accessor fn.
+On Mon, 10. Mar 15:23, Kees Cook wrote:
+> When a character array without a terminating NUL character has a static
+> initializer, GCC 15's -Wunterminated-string-initialization will only
+> warn if the array lacks the "nonstring" attribute[1]. Mark the arrays
+> with __nonstring to and correctly identify the char array as "not a C
+> string" and thereby eliminate the warning.
+> 
+> Link: https://gcc.gnu.org/bugzilla/show_bug.cgi?id=117178 [1]
+> Cc: Zhenyu Wang <zhenyuw@linux.intel.com>
+> Cc: Zhi Wang <zhi.wang.linux@gmail.com>
+> Cc: Jani Nikula <jani.nikula@linux.intel.com>
+> Cc: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
+> Cc: Rodrigo Vivi <rodrigo.vivi@intel.com>
+> Cc: Tvrtko Ursulin <tursulin@ursulin.net>
+> Cc: David Airlie <airlied@gmail.com>
+> Cc: Simona Vetter <simona@ffwll.ch>
+> Cc: intel-gvt-dev@lists.freedesktop.org
+> Cc: intel-gfx@lists.freedesktop.org
+> Cc: dri-devel@lists.freedesktop.org
+> Signed-off-by: Kees Cook <kees@kernel.org>
+> ---
+>  drivers/gpu/drm/i915/gvt/opregion.c | 4 ++--
+>  1 file changed, 2 insertions(+), 2 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/i915/gvt/opregion.c b/drivers/gpu/drm/i915/gvt/opregion.c
+> index 509f9ccae3a9..f701638d3145 100644
+> --- a/drivers/gpu/drm/i915/gvt/opregion.c
+> +++ b/drivers/gpu/drm/i915/gvt/opregion.c
+> @@ -43,7 +43,7 @@
+>  #define DEVICE_TYPE_EFP4   0x10
+>  
+>  struct opregion_header {
+> -	u8 signature[16];
+> +	u8 signature[16] __nonstring;
+>  	u32 size;
+>  	u32 opregion_ver;
+>  	u8 bios_ver[32];
+> @@ -222,7 +222,7 @@ int intel_vgpu_init_opregion(struct intel_vgpu *vgpu)
+>  	u8 *buf;
+>  	struct opregion_header *header;
+>  	struct vbt v;
+> -	const char opregion_signature[16] = OPREGION_SIGNATURE;
+> +	const char opregion_signature[16] __nonstring = OPREGION_SIGNATURE;
+>  
+>  	gvt_dbg_core("init vgpu%d opregion\n", vgpu->id);
+>  	vgpu_opregion(vgpu)->va = (void *)__get_free_pages(GFP_KERNEL |
+> -- 
+> 2.34.1
+> 
+Hello together,
 
-In static ddebug_add_module(&_ddebug_info_cursor..), force the
-cursor-model by dropping the modname arg, and setting it explicitly
-into the cursor before the 3 calls to it.
+it doesnt resolve the build issue with gcc15 gcc (GCC) 15.0.1 20250228
 
-struct ddebug_table only uses .mod_name when applying >control
-changes, and it has a _ddebug_info member anyway, so it keeps access
-to the field, just with a different offset.
+CC [M]  drivers/gpu/drm/i915/gvt/scheduler.o
+/home/damian/kernel/linux/drivers/gpu/drm/i915/gvt/opregion.c: In function ‘intel_vgpu_init_opregion’:
+/home/damian/kernel/linux/drivers/gpu/drm/i915/gvt/opregion.c:35:28: error: initializer-string for array of ‘char’ is too long [-Werror=unterminated-string-initialization]
+   35 | #define OPREGION_SIGNATURE "IntelGraphicsMem"
+      |                            ^~~~~~~~~~~~~~~~~~
+/home/damian/kernel/linux/drivers/gpu/drm/i915/gvt/opregion.c:225:57: note: in expansion of macro ‘OPREGION_SIGNATURE’
+  225 |         const char opregion_signature[16] __nonstring = OPREGION_SIGNATURE;
+      |                                                         ^~~~~~~~~~~~~~~~~~
+  CC [M]  drivers/gpu/drm/i915/gvt/trace_points.o
+cc1: all warnings being treated as errors
+make[7]: *** [/home/damian/kernel/linux/scripts/Makefile.build:207: drivers/gpu/drm/i915/gvt/opregion.o] Error 1
+make[7]: *** Waiting for unfinished jobs....
+  CC [M]  drivers/gpu/drm/i915/gvt/vgpu.o
+make[6]: *** [/home/damian/kernel/linux/scripts/Makefile.build:465: drivers/gpu/drm/i915] Error 2
+make[5]: *** [/home/damian/kernel/linux/s
 
-Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
----
- include/linux/dynamic_debug.h |  1 +
- lib/dynamic_debug.c           | 41 ++++++++++++++++++-----------------
- 2 files changed, 22 insertions(+), 20 deletions(-)
 
-diff --git a/include/linux/dynamic_debug.h b/include/linux/dynamic_debug.h
-index 03a83a83b621..8043966a0fd6 100644
---- a/include/linux/dynamic_debug.h
-+++ b/include/linux/dynamic_debug.h
-@@ -198,6 +198,7 @@ struct _ddebug_class_users {
- } __packed;
- 
- struct _ddebug_info {
-+	const char *mod_name;
- 	struct _ddebug_descs descs;
- 	struct _ddebug_class_maps maps;
- 	struct _ddebug_class_users users;
-diff --git a/lib/dynamic_debug.c b/lib/dynamic_debug.c
-index 3c9fb8324ad6..cd3eec5bb81c 100644
---- a/lib/dynamic_debug.c
-+++ b/lib/dynamic_debug.c
-@@ -49,7 +49,6 @@ extern struct _ddebug_class_user __stop___dyndbg_class_users[];
- 
- struct ddebug_table {
- 	struct list_head link;
--	const char *mod_name;
- 	struct _ddebug_info info;
- };
- 
-@@ -166,7 +165,7 @@ static void vpr_info_dq(const struct ddebug_query *query, const char *msg)
- #define vpr_dt_info(dt_p, msg_p, ...) ({				\
- 	struct ddebug_table const *_dt = dt_p;				\
- 	v2pr_info(msg_p " module:%s nd:%d nc:%d nu:%d\n", ##__VA_ARGS__, \
--		  _dt->mod_name, _dt->info.descs.len, _dt->info.maps.len, \
-+		  _dt->info.mod_name, _dt->info.descs.len, _dt->info.maps.len, \
- 		  _dt->info.users.len);					\
- 	})
- 
-@@ -215,7 +214,7 @@ static int ddebug_change(const struct ddebug_query *query, struct flag_settings
- 
- 		/* match against the module name */
- 		if (query->module &&
--		    !match_wildcard(query->module, dt->mod_name))
-+		    !match_wildcard(query->module, dt->info.mod_name))
- 			continue;
- 
- 		if (query->class_string) {
-@@ -283,7 +282,7 @@ static int ddebug_change(const struct ddebug_query *query, struct flag_settings
- #endif
- 			v4pr_info("changed %s:%d [%s]%s %s => %s\n",
- 				  trim_prefix(dp->filename), dp->lineno,
--				  dt->mod_name, dp->function,
-+				  dt->info.mod_name, dp->function,
- 				  ddebug_describe_flags(dp->flags, &fbuf),
- 				  ddebug_describe_flags(newflags, &nbuf));
- 			dp->flags = newflags;
-@@ -1123,7 +1122,7 @@ static int ddebug_proc_show(struct seq_file *m, void *p)
- 
- 	seq_printf(m, "%s:%u [%s]%s =%s \"",
- 		   trim_prefix(dp->filename), dp->lineno,
--		   iter->table->mod_name, dp->function,
-+		   iter->table->info.mod_name, dp->function,
- 		   ddebug_describe_flags(dp->flags, &flags));
- 	seq_escape_str(m, dp->format, ESCAPE_SPACE, "\t\r\n\"");
- 	seq_putc(m, '"');
-@@ -1283,7 +1282,7 @@ static void ddebug_apply_class_users(const struct ddebug_table *dt)
- #define dd_mark_vector_subrange(_i, _dst, _sp, _box, _vec) ({	\
- 	int nc = 0;							\
- 	for_subvec(_i, _sp, _box, _vec) {				\
--		if (!strcmp((_sp)->mod_name, (_dst)->mod_name)) {	\
-+		if (!strcmp((_sp)->mod_name, (_dst)->info.mod_name)) {	\
- 			if (!nc++)					\
- 				(_dst)->info._vec.start = (_sp);	\
- 		} else {						\
-@@ -1314,7 +1313,7 @@ ddebug_class_range_overlap(struct _ddebug_class_map *cm,
-  * Allocate a new ddebug_table for the given module
-  * and add it to the global list.
-  */
--static int ddebug_add_module(struct _ddebug_info *di, const char *modname)
-+static int ddebug_add_module(struct _ddebug_info *di)
- {
- 	struct ddebug_table *dt;
- 	struct _ddebug_class_map *cm;
-@@ -1325,20 +1324,19 @@ static int ddebug_add_module(struct _ddebug_info *di, const char *modname)
- 	if (!di->descs.len)
- 		return 0;
- 
--	v3pr_info("add-module: %s %d sites\n", modname, di->descs.len);
-+	v3pr_info("add-module: %s %d sites\n", di->mod_name, di->descs.len);
- 
- 	dt = kzalloc(sizeof(*dt), GFP_KERNEL);
- 	if (dt == NULL) {
--		pr_err("error adding module: %s\n", modname);
-+		pr_err("error adding module: %s\n", di->mod_name);
- 		return -ENOMEM;
- 	}
- 	/*
--	 * For built-in modules, name lives in .rodata and is
--	 * immortal. For loaded modules, name points at the name[]
--	 * member of struct module, which lives at least as long as
--	 * this struct ddebug_table.
-+	 * For built-in modules, name (as supplied in di by its
-+	 * callers) lives in .rodata and is immortal. For loaded
-+	 * modules, name points at the name[] member of struct module,
-+	 * which lives at least as long as this struct ddebug_table.
- 	 */
--	dt->mod_name = modname;
- 	dt->info = *di;
- 
- 	INIT_LIST_HEAD(&dt->link);
-@@ -1368,10 +1366,10 @@ static int ddebug_add_module(struct _ddebug_info *di, const char *modname)
- 	if (dt->info.users.len)
- 		ddebug_apply_class_users(dt);
- 
--	vpr_info("%3u debug prints in module %s\n", di->descs.len, modname);
-+	vpr_info("%3u debug prints in module %s\n", di->descs.len, di->mod_name);
- 	return 0;
- cleanup:
--	WARN_ONCE("dyndbg multi-classmap conflict in %s\n", modname);
-+	WARN_ONCE("dyndbg multi-classmap conflict in %s\n", di->mod_name);
- 	kfree(dt);
- 	return -EINVAL;
- 
-@@ -1436,7 +1434,7 @@ static int ddebug_remove_module(const char *mod_name)
- 
- 	mutex_lock(&ddebug_lock);
- 	list_for_each_entry_safe(dt, nextdt, &ddebug_tables, link) {
--		if (dt->mod_name == mod_name) {
-+		if (dt->info.mod_name == mod_name) {
- 			ddebug_table_free(dt);
- 			ret = 0;
- 			break;
-@@ -1456,7 +1454,8 @@ static int ddebug_module_notify(struct notifier_block *self, unsigned long val,
- 
- 	switch (val) {
- 	case MODULE_STATE_COMING:
--		ret = ddebug_add_module(&mod->dyndbg_info, mod->name);
-+		mod->dyndbg_info.mod_name = mod->name;
-+		ret = ddebug_add_module(&mod->dyndbg_info);
- 		if (ret)
- 			WARN(1, "Failed to allocate memory: dyndbg may not work properly.\n");
- 		break;
-@@ -1556,7 +1555,8 @@ static int __init dynamic_debug_init(void)
- 			mod_ct++;
- 			di.descs.len = mod_sites;
- 			di.descs.start = iter_mod_start;
--			ret = ddebug_add_module(&di, modname);
-+			di.mod_name = modname;
-+			ret = ddebug_add_module(&di);
- 			if (ret)
- 				goto out_err;
- 
-@@ -1567,7 +1567,8 @@ static int __init dynamic_debug_init(void)
- 	}
- 	di.descs.len = mod_sites;
- 	di.descs.start = iter_mod_start;
--	ret = ddebug_add_module(&di, modname);
-+	di.mod_name = modname;
-+	ret = ddebug_add_module(&di);
- 	if (ret)
- 		goto out_err;
- 
 -- 
-2.49.0
-
+VG
+Damian Tometzki
