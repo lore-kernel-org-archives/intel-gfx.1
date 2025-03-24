@@ -4,79 +4,78 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A4510C28B20
-	for <intel-gfx@archiver.kernel.org>; Fri, 28 Mar 2025 13:08:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EBCEDC36014
+	for <intel-gfx@archiver.kernel.org>; Fri, 28 Mar 2025 13:09:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3148C10EA04;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5B3B410EA18;
 	Fri, 28 Mar 2025 13:08:59 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="geYsZa1M";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="PTtr9Mf9";
 	dkim-atps=neutral
-Received: from mail-yw1-f174.google.com (mail-yw1-f174.google.com
- [209.85.128.174])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0219D10E32C;
- Tue, 25 Mar 2025 23:05:51 +0000 (UTC)
-Received: by mail-yw1-f174.google.com with SMTP id
- 00721157ae682-6f666c94285so59491327b3.3; 
- Tue, 25 Mar 2025 16:05:51 -0700 (PDT)
+Received: from mail-yw1-f173.google.com (mail-yw1-f173.google.com
+ [209.85.128.173])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 15EF310E0E6;
+ Mon, 24 Mar 2025 22:58:59 +0000 (UTC)
+Received: by mail-yw1-f173.google.com with SMTP id
+ 00721157ae682-6f666c94285so47383707b3.3; 
+ Mon, 24 Mar 2025 15:58:59 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1742943951; x=1743548751; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ d=gmail.com; s=20230601; t=1742857138; x=1743461938; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=3LYyh7cvIBy6gyg3IkrEGbKsjVJ9+uHDh9H38tA/bPY=;
- b=geYsZa1MyQtFKD24qTQ4PRbRBpRoMrpmr1PO1rkdkbKIyhOm6iS20aOOHUVcp3+vZN
- dVc2k6GrkLwLuntYD2UjQ5G4Ar6iMyjLEOA2UW3qbKQ/C4Mwb5d9u6+KW9jgi6wctnKV
- NK8mjeUltZztlslnSU/0ELOwiiSIj70/EOxhQ8V5bhiIpj1JOrFaK0znO8Y4wsb5lEIt
- C5mbsOkWzz3qATQOR2SqpLgOdMoujl3aEG01QpgP36EJYi0oY4kzHUnAPMQGZ5DjdS97
- 2Dr7d79uIhJOR5E3WfOmNDJgr1BDsTRoh7kItCkjYUa/l3n9nKgqkel5obYTCR9gHphN
- IQXw==
+ bh=xOweNL3SXc2nhIPv7ifUcHo8yRDM2GGo5EVKCdQ2n5I=;
+ b=PTtr9Mf9SrvWzitnkxplUYUXAleg57HLbRJNWfwgey3B7G383MfMykrzE9snHfhuKZ
+ X7T+pxaSXNznH+9GioAcE9OpD3r6XSYq1AI4EPV2XWROebHPq6O/DHs2U6r/Wdene5Mb
+ G8OBkSMffyEOpX0VevqhWk9h1BGCFs6jQ52TXBuQaeMze1qmE151QCvL7lmoZ2u8C2fp
+ +r8z3uBEkee/hSMbVSztyaRbnPSTni9olI/oSsY3lYmCAQvrAKUPjPdcfrMp5rjduskC
+ CxlEqvVbeja6tMiW3XJl9ZBEMPygqNfjZjd6THF7fhWVBzHwNotBIGL4RsPKw/vW3jbE
+ DNeg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1742943951; x=1743548751;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ d=1e100.net; s=20230601; t=1742857138; x=1743461938;
+ h=content-transfer-encoding:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=3LYyh7cvIBy6gyg3IkrEGbKsjVJ9+uHDh9H38tA/bPY=;
- b=fFe1f0jB9ITxAvq7niqrcyUdzR6AjNFo3ZGDW7owDCXb1Pj19Uoe0AzZ/lpOKRVHVh
- z4WtsBJgVYETcaOlnqGcYbiy6QQ1ehTFevCu0yCYxY8pfIZELzqcRKON/s2HldAG3fPq
- MZ30Enx+aUS4Yk+fPzkdxyxxdjt+1Zx/Slwpfhc9MABIGG/VYH5F6OiFEA4TOHvBNN2V
- lSyIlK7SZYpk1mP9eqnrG3c6HLL3OdVrwXQNBtG7gIBXUuLIWBwaBCK59hETC9WirDou
- HgCnxzWZ2Rbnk8GgqJtCU7wB0zchRPAr7aPOwESq+S1uktt/ylgZWNqlkPqG8As77TSi
- 3wAQ==
+ bh=xOweNL3SXc2nhIPv7ifUcHo8yRDM2GGo5EVKCdQ2n5I=;
+ b=sQ0ZHpXCZ3Cx213/3G9qqDqPoY2FrGM7ft9OVGKT9QW1c5rNsznFQQZt9V4HDWmMK1
+ qLsdh49M4aQRjJmkcuyk4Hv34B3GZZpaqoLGhiEKp2ElrYDYJYLjoEgNRfOFfsd7jNxa
+ nVkOb4v0iAwEgPd+ycZ1EvBvecxaLNdc0hggoJjp0/douhOHXaqdV1aYCo83vvZE64Zs
+ 3X8PDF1I8RQkPerbxsdRLMN0cNNgsWa0NVagf37mz/Bv8kstVHPYXXkTDaOK31w8NzF7
+ Lv2Dd6fW8St0PEgFpXqu7sj6LcSi+gFqiU4EIfqIbh3MVUP+gsTr3lKpIws5Sf3K9LJL
+ Dy/A==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUAvGp6qshyOygV6v4uKWKeBGpZ3xYq22W3aheUI2TBJEMORdNyH2njBckf7fhweKgZPTBG00a2QbNL@lists.freedesktop.org,
- AJvYcCUkc/KM2i8r8I4xtro+1n6b4fQeEG69PVzqXRd0ucc2Xk1CU6bMucW5qW5+JA/bvgH8BfjdMWKEpJl2JCiEfg==@lists.freedesktop.org,
- AJvYcCVQ4SZCG9GU+qwynl0dwi1EnSfK21sgyTRtcTGW/QOJBFs6y0HRgXZRcAWScdK7oXXVJddaJwj1f9VJltZHlgRbnw==@lists.freedesktop.org,
- AJvYcCVqw5FY75/knZRfr5M5w6tltyuG+m1GDSvcZ0NqsTy+6rQZeLWszHG9HgE6Ji6cBN8QGNTECM0bsTsL@lists.freedesktop.org,
- AJvYcCWYJTJOXEUQhKSgVgk8Zl44pkolciPSjAbgiVp/gfSQ9SWW/PEhshaGxBQIfu9/CyT13iayVPFn@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxSiMhzUzMKPZyOwxchSFR85bab3SF5ijFYBvGsxSF/1Hq36Las
- X/5/jTtZKvLhiMAGBWFDKf/QIlRDFCUnrFwlEAnEJS5Zq0t6rGy9A1w1IcNWa7xahfe7PXdZS3s
- 54yJAmw9FjjUmQBggm/X3NkyY52c=
-X-Gm-Gg: ASbGncsVOakmLrRo4IoHqqfslmA/CVcjh+clUOAvYHT+Li6v4FG42/h51BBzT1fPMy/
- UzlHLrk6p81MnEeX40s4m0SlFWoP/EH2GtYLvoxPTsCB4iOVBf7HVBUpsg792i9Tr4HutPhWT4e
- l0D0sCLd5ra43HvlkEGMB5fb74
-X-Google-Smtp-Source: AGHT+IFDS0/bmylajohYScfMRJASfdJ94Z8dAaU9Iu5+MxKXgHCh/sXXScoa/kPcmSMVjhI64o9HD206lCBiVRkHZUw=
-X-Received: by 2002:a05:690c:62c7:b0:6fd:22fb:f21b with SMTP id
- 00721157ae682-700bac5dd77mr270803627b3.18.1742943950541; Tue, 25 Mar 2025
- 16:05:50 -0700 (PDT)
+ AJvYcCUfemqLuQcpRM/LYIh8HOoGgAEP97xT8H+UwEwfGyOd4K32oedFtenK/enTRROtctQGdENj6qdZmCBQ@lists.freedesktop.org,
+ AJvYcCVJaWYPPeSGPUk80X0WXhKUDe36qxj/7DqZH1IJvmw/epDIuwhaLGPTDBkwMk1bWVniKEMkzg4Jx6QYTiYrFQ==@lists.freedesktop.org,
+ AJvYcCVyofEJJIxFggwMmF0RUiG5ZfDN/ZxA9ZkIqURBm8QVBa1D9IyUdMew2RKaeQafRBTCA6+5SCMU@lists.freedesktop.org,
+ AJvYcCWauDuRqjn5baeEit8BpYMgJUc2X/zrm/xIecdmXYlmerC1/QjV7z5HaGFq8F2Lf7xpj7NCLvkL55kbHXtqXQp5Mg==@lists.freedesktop.org,
+ AJvYcCXEFsOQfhfa68+r9ceetmFqBLmTf5eGN1+xHEkVrdkm7za6lEFdri8xkmq43q8JZFYtz1UpZYv+fblk@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yw9CqThENdsuroI2UiaQ89flVw84i1d/b3cZJTffrKO980zAAgP
+ Zat97te3E6oT8+M//Dl/ntvfB9c6Xs8cBYrVqlu3yTqwtoiwrpomykDwQ4Er6f0ij0mpkrHOaHJ
+ mPgLdpt8aI3/cT/yg5SHV9/Yuf+w=
+X-Gm-Gg: ASbGnctTkV0lmbYtxGOa2eSwB2WT+OD+m34b5XAqu0QXm0U7cOuaCuuLAWlbO8fSfSn
+ RGazUXVs4uncf1tTflt7ULBhL4kk5NSSEfWomOi593WYh8r65ttIpP0nkLEQwGYpdBJKLmseXgw
+ yLUmThbH3kdaKv4LO+3MRTgpgJ
+X-Google-Smtp-Source: AGHT+IGJQhE8J9Fev2YDAjew937hy/BDBKy0IxGWP41fseJBpVPTdqCggsrZGeRZCl04ynbwuEzhtC0igtYRZyc/8n8=
+X-Received: by 2002:a05:690c:4444:b0:6ef:652b:91cf with SMTP id
+ 00721157ae682-700bacd28e9mr200033997b3.27.1742857137825; Mon, 24 Mar 2025
+ 15:58:57 -0700 (PDT)
 MIME-Version: 1.0
-References: <20250320185238.447458-1-jim.cromie@gmail.com>
- <20250320185238.447458-31-jim.cromie@gmail.com>
- <0828cfdb-abf3-42c5-8500-70f36affd0a8@bootlin.com>
- <CAJfuBxzHEtS1psJ+L_6=FP-mU3b8mgLQbXRWoizLkZoRUB6G1Q@mail.gmail.com>
-In-Reply-To: <CAJfuBxzHEtS1psJ+L_6=FP-mU3b8mgLQbXRWoizLkZoRUB6G1Q@mail.gmail.com>
+References: <20250125064619.8305-1-jim.cromie@gmail.com>
+ <20250125064619.8305-29-jim.cromie@gmail.com>
+ <160ec360-918d-414f-aef9-606cfa1749df@bootlin.com>
+ <CAJfuBxxzXoKummiBDGODidpRj7Fm2UDip-T0qkB7L9tscK0zCQ@mail.gmail.com>
+In-Reply-To: <CAJfuBxxzXoKummiBDGODidpRj7Fm2UDip-T0qkB7L9tscK0zCQ@mail.gmail.com>
 From: jim.cromie@gmail.com
-Date: Tue, 25 Mar 2025 17:05:24 -0600
-X-Gm-Features: AQ5f1JqDBPnZp9kI3zjF5AGf9PrDQTP2_tFSu-HI5zfD_s9-HLrOkUICv28MItI
-Message-ID: <CAJfuBxy3HWJuiBBSySGEUtDcpSNh7Kmds2t8TRGouSOqE1O2OA@mail.gmail.com>
-Subject: Re: [PATCH v2 30/59] dyndbg: drop "protection" of class'd pr_debugs
- from legacy queries
-To: Louis Chauvet <louis.chauvet@bootlin.com>
-Cc: linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org, 
- amd-gfx@lists.freedesktop.org, intel-gvt-dev@lists.freedesktop.org, 
- intel-gfx@lists.freedesktop.org, intel-gfx-trybot@lists.freedesktop.org, 
+Date: Mon, 24 Mar 2025 16:58:31 -0600
+X-Gm-Features: AQ5f1Jq_ealCWnlM2C-q0MIDv15aWKUMJ6YjQ3JJZCvoTPWllKRV36DEBSe2p6k
+Message-ID: <CAJfuBxwCPfPHqWFx0Jh+sucT2smf7o_5TmDJELkV7J--ftotuA@mail.gmail.com>
+Subject: Re: [PATCH 28/63] dyndbg-API: promote DYNDBG_CLASSMAP_PARAM to API
+To: Jim Cromie <jim.cromie@gmail.com>, linux-kernel@vger.kernel.org,
  jbaron@akamai.com, gregkh@linuxfoundation.org, ukaszb@chromium.org, 
- daniel.vetter@ffwll.ch, tvrtko.ursulin@linux.intel.com, jani.nikula@intel.com, 
+ intel-gfx-trybot@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
+ amd-gfx@lists.freedesktop.org, intel-gvt-dev@lists.freedesktop.org, 
+ intel-gfx@lists.freedesktop.org, daniel.vetter@ffwll.ch, 
+ tvrtko.ursulin@linux.intel.com, jani.nikula@intel.com, 
  ville.syrjala@linux.intel.com
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
@@ -96,168 +95,247 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Tue, Mar 25, 2025 at 12:29=E2=80=AFPM <jim.cromie@gmail.com> wrote:
+On Sun, Mar 16, 2025 at 3:14=E2=80=AFPM <jim.cromie@gmail.com> wrote:
 >
-> On Mon, Mar 24, 2025 at 9:20=E2=80=AFAM Louis Chauvet <louis.chauvet@boot=
+> On Tue, Feb 25, 2025 at 7:29=E2=80=AFAM Louis Chauvet <louis.chauvet@boot=
 lin.com> wrote:
 > >
 > >
 > >
-> > Le 20/03/2025 =C3=A0 19:52, Jim Cromie a =C3=A9crit :
-> > > Current classmap code protects class'd pr_debugs from unintended
-> > > changes by "legacy" unclassed queries:
+> > Le 25/01/2025 =C3=A0 07:45, Jim Cromie a =C3=A9crit :
+> > > move the DYNDBG_CLASSMAP_PARAM macro from test-dynamic-debug.c into
+> > > the header, and refine it, by distinguishing the 2 use cases:
 > > >
-> > >    # this doesn't disable all of DRM_UT_* categories
-> > >    echo "-p" > /proc/dynamic_debug/control
+> > > 1.DYNDBG_CLASSMAP_PARAM_REF
+> > >      for DRM, to pass in extern __drm_debug by name.
+> > >      dyndbg keeps bits in it, so drm can still use it as before
 > > >
-> > >    # name the class to change it - protective but tedious
-> > >    echo "class DRM_UT_CORE +p" > /proc/dynamic_debug/control
+> > > 2.DYNDBG_CLASSMAP_PARAM
+> > >      new user (test_dynamic_debug) doesn't need to share state,
+> > >      decls a static long unsigned int to store the bitvec.
 > > >
-> > >    # or do it the subsystem way
-> > >    echo 1 > /sys/module/drm/parameters/debug
+> > > __DYNDBG_CLASSMAP_PARAM
+> > >     bottom layer - allocate,init a ddebug-class-param, module-param-c=
+b.
 > > >
-> > > This "name the class to change it" behavior gave a modicum of
-> > > protection to classmap users (ie DRM) so their debug settings aren't
-> > > trivially and unintentionally altered underneath them.
+> > > Modify ddebug_sync_classbits() argtype deref inside the fn, to give
+> > > access to all kp members.
 > > >
-> > > But this made the class keyword special in some sense; the other
-> > > keywords skip only on explicit mismatch, otherwize the code falls thr=
-u
-> >
-> > s/otherwize/otherwise/
->
-> ack
->
-> >
-> > > to adjust the pr-debug site.
+> > > Also clean up and improve comments in test-code, and add
+> > > MODULE_DESCRIPTIONs.
 > > >
-> > > So Jason Baron didn't like this special case when I 1st proposed it;
-> > > I argued 2 points:
-> > > - "protection gives stable-debug, improving utility"
-> > > - __drm_debug is authoritative w/o dyndbg under it.
+> > > Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
+> > > ---
 > > >
-> > > I thought I'd convinced him back then, (and the patchset got merged),
-> > > but he noted it again when he reviewed this series.  So this commit
-> > > names the "special case": ddebug_client_module_protects_classes(), an=
-d
-> > > reverts it to Jason's preference.
-> >   >
-> > > If a class mismatch is seen, code distinguishes whether the class was
-> > > explicitly given (and always skips/continue), or the DFLT was assumed
-> > > because no class was given.  Here we test
-> > > ddebug_client_module_protects_classes(), skip if so.
+> > > -v9
+> > >   - fixup drm-print.h  add PARAM_REF forwarding macros
+> > >     with DYNDBG_CLASSMAP_PARAM_REF in the API, add DRM_ variant
+> > > ---
+> > >   include/linux/dynamic_debug.h   | 38 +++++++++++++++++++++
+> > >   lib/dynamic_debug.c             | 60 ++++++++++++++++++++++--------=
+---
+> > >   lib/test_dynamic_debug.c        | 59 +++++++++++++-----------------=
+--
+> > >   lib/test_dynamic_debug_submod.c |  9 ++++-
+> > >   4 files changed, 111 insertions(+), 55 deletions(-)
 > > >
-> > > Later, if any user/module wants to protect its classes, we could add =
-a
-> > > flag to ddebug_table, a means to set it from CLASSMAP_DEFINE, and
-> > > check it when applying a classless query/cmd.
+> > > diff --git a/include/linux/dynamic_debug.h b/include/linux/dynamic_de=
+bug.h
+> > > index 48d76a273f68..b47d1088b7ad 100644
+> > > --- a/include/linux/dynamic_debug.h
+> > > +++ b/include/linux/dynamic_debug.h
+> > > @@ -205,6 +205,44 @@ struct ddebug_class_param {
+> > >       const struct ddebug_class_map *map;
+> > >   };
+> > >
+> > > +/**
+> > > + * DYNDBG_CLASSMAP_PARAM - control a ddebug-classmap from a sys-para=
+m
+> > > + * @_name:  sysfs node name
+> > > + * @_var:   name of the classmap var defining the controlled classes=
+/bits
+> > > + * @_flags: flags to be toggled, typically just 'p'
+> > > + *
+> > > + * Creates a sysfs-param to control the classes defined by the
+> > > + * exported classmap, with bits 0..N-1 mapped to the classes named.
+> > > + * This version keeps class-state in a private long int.
+> > > + */
+> > > +#define DYNDBG_CLASSMAP_PARAM(_name, _var, _flags)                  =
+ \
+> > > +     static unsigned long _name##_bvec;                             =
+ \
+> > > +     __DYNDBG_CLASSMAP_PARAM(_name, _name##_bvec, _var, _flags)
+> > > +
+> > > +/**
+> > > + * DYNDBG_CLASSMAP_PARAM_REF - wrap a classmap with a controlling sy=
+s-param
+> > > + * @_name:  sysfs node name
+> > > + * @_bits:  name of the module's unsigned long bit-vector, ex: __drm=
+_debug
+> > > + * @_var:   name of the (exported) classmap var defining the classes=
+/bits
+> > > + * @_flags: flags to be toggled, typically just 'p'
+> > > + *
+> > > + * Creates a sysfs-param to control the classes defined by the
+> > > + * exported clasmap, with bits 0..N-1 mapped to the classes named.
+> > > + * This version keeps class-state in user @_bits.  This lets drm che=
+ck
+> > > + * __drm_debug elsewhere too.
+> > > + */
+> > > +#define DYNDBG_CLASSMAP_PARAM_REF(_name, _bits, _var, _flags)       =
+         \
+> > > +     __DYNDBG_CLASSMAP_PARAM(_name, _bits, _var, _flags)
+> > > +
+> > > +#define __DYNDBG_CLASSMAP_PARAM(_name, _bits, _var, _flags)         =
+ \
+> > > +     static struct ddebug_class_param _name##_##_flags =3D {        =
+   \
+> > > +             .bits =3D &(_bits),                                    =
+   \
+> > > +             .flags =3D #_flags,                                    =
+   \
+> > > +             .map =3D &(_var),                                      =
+   \
+> > > +     };                                                             =
+ \
+> > > +     module_param_cb(_name, &param_ops_dyndbg_classes,              =
+ \
+> > > +                     &_name##_##_flags, 0600)
+> > > +
+> > >   /*
+> > >    * pr_debug() and friends are globally enabled or modules have sele=
+ctively
+> > >    * enabled them.
+> > > diff --git a/lib/dynamic_debug.c b/lib/dynamic_debug.c
+> > > index 781781835094..9283f2866415 100644
+> > > --- a/lib/dynamic_debug.c
+> > > +++ b/lib/dynamic_debug.c
+> > > @@ -660,6 +660,30 @@ static int ddebug_apply_class_bitmap(const struc=
+t ddebug_class_param *dcp,
+> > >
+> > >   #define CLASSMAP_BITMASK(width) ((1UL << (width)) - 1)
+> > >
+> > > +static void ddebug_class_param_clamp_input(unsigned long *inrep, con=
+st struct kernel_param *kp)
+> > > +{
+> > > +     const struct ddebug_class_param *dcp =3D kp->arg;
+> > > +     const struct ddebug_class_map *map =3D dcp->map;
+> > > +
+> > > +     switch (map->map_type) {
+> > > +     case DD_CLASS_TYPE_DISJOINT_BITS:
+> > > +             /* expect bits. mask and warn if too many */
+> > > +             if (*inrep & ~CLASSMAP_BITMASK(map->length)) {
+> > > +                     pr_warn("%s: input: 0x%lx exceeds mask: 0x%lx, =
+masking\n",
+> > > +                             KP_NAME(kp), *inrep, CLASSMAP_BITMASK(m=
+ap->length));
+> > > +                     *inrep &=3D CLASSMAP_BITMASK(map->length);
+> > > +             }
+> > > +             break;
+> > > +     case DD_CLASS_TYPE_LEVEL_NUM:
+> > > +             /* input is bitpos, of highest verbosity to be enabled =
+*/
+> > > +             if (*inrep > map->length) {
+> > > +                     pr_warn("%s: level:%ld exceeds max:%d, clamping=
+\n",
+> > > +                             KP_NAME(kp), *inrep, map->length);
+> > > +                     *inrep =3D map->length;
+> > > +             }
+> > > +             break;
+> > > +     }
+> > > +}
+> > >   static int param_set_dyndbg_module_classes(const char *instr,
+> > >                                          const struct kernel_param *k=
+p,
+> > >                                          const char *modnm)
+> > > @@ -678,26 +702,15 @@ static int param_set_dyndbg_module_classes(cons=
+t char *instr,
+> > >               pr_err("expecting numeric input, not: %s > %s\n", instr=
+, KP_NAME(kp));
+> > >               return -EINVAL;
+> > >       }
+> > > +     ddebug_class_param_clamp_input(&inrep, kp);
+> > >
+> > >       switch (map->map_type) {
+> > >       case DD_CLASS_TYPE_DISJOINT_BITS:
+> > > -             /* expect bits. mask and warn if too many */
+> > > -             if (inrep & ~CLASSMAP_BITMASK(map->length)) {
+> > > -                     pr_warn("%s: input: 0x%lx exceeds mask: 0x%lx, =
+masking\n",
+> > > -                             KP_NAME(kp), inrep, CLASSMAP_BITMASK(ma=
+p->length));
+> > > -                     inrep &=3D CLASSMAP_BITMASK(map->length);
+> > > -             }
+> > >               v2pr_info("bits:0x%lx > %s.%s\n", inrep, modnm ?: "*", =
+KP_NAME(kp));
+> > >               totct +=3D ddebug_apply_class_bitmap(dcp, &inrep, *dcp-=
+>bits, modnm);
+> > >               *dcp->bits =3D inrep;
+> > >               break;
+> > >       case DD_CLASS_TYPE_LEVEL_NUM:
+> > > -             /* input is bitpos, of highest verbosity to be enabled =
+*/
+> > > -             if (inrep > map->length) {
+> > > -                     pr_warn("%s: level:%ld exceeds max:%d, clamping=
+\n",
+> > > -                             KP_NAME(kp), inrep, map->length);
+> > > -                     inrep =3D map->length;
+> > > -             }
+> > >               old_bits =3D CLASSMAP_BITMASK(*dcp->lvl);
+> > >               new_bits =3D CLASSMAP_BITMASK(inrep);
+> > >               v2pr_info("lvl:%ld bits:0x%lx > %s\n", inrep, new_bits,=
+ KP_NAME(kp));
+> > > @@ -1163,15 +1176,24 @@ static const struct proc_ops proc_fops =3D {
+> > >   static void ddebug_sync_classbits(const struct kernel_param *kp, co=
+nst char *modname)
+> > >   {
+> > >       const struct ddebug_class_param *dcp =3D kp->arg;
+> > > +     unsigned long new_bits;
+> > >
+> > > -     /* clamp initial bitvec, mask off hi-bits */
+> > > -     if (*dcp->bits & ~CLASSMAP_BITMASK(dcp->map->length)) {
+> > > -             *dcp->bits &=3D CLASSMAP_BITMASK(dcp->map->length);
+> > > -             v2pr_info("preset classbits: %lx\n", *dcp->bits);
+> > > +     ddebug_class_param_clamp_input(dcp->bits, kp);
+> > > +
+> > > +     switch (dcp->map->map_type) {
+> > > +     case DD_CLASS_TYPE_DISJOINT_BITS:
+> > > +             v2pr_info("  %s: classbits: 0x%lx\n", KP_NAME(kp), *dcp=
+->bits);
+> > > +             ddebug_apply_class_bitmap(dcp, dcp->bits, 0UL, modname)=
+;
+> > > +             break;
+> > > +     case DD_CLASS_TYPE_LEVEL_NUM:
+> > > +             new_bits =3D CLASSMAP_BITMASK(*dcp->lvl);
+> > > +             v2pr_info("  %s: lvl:%ld bits:0x%lx\n", KP_NAME(kp), *d=
+cp->lvl, new_bits);
+> > > +             ddebug_apply_class_bitmap(dcp, &new_bits, 0UL, modname)=
+;
+> > > +             break;
+> > > +     default:
+> > > +             pr_err("bad map type %d\n", dcp->map->map_type);
+> > > +             return;
+> > >       }
+> > > -     /* force class'd prdbgs (in USEr module) to match (DEFINEr modu=
+le) class-param */
+> > > -     ddebug_apply_class_bitmap(dcp, dcp->bits, ~0, modname);
+> > > -     ddebug_apply_class_bitmap(dcp, dcp->bits, 0, modname);
 > >
-> > I don't really understand the goal of the protection, do you have the
-> > discussion between you and Jason so I can have some context and some
-> > answer to my questions?
+> > Hi Jim,
 > >
+> > We lost the double call with ~0/0, is it normal?
 >
-> The on-list discussion is here.
+> Good catch,
 >
-> https://lore.kernel.org/lkml/2d3846cb-ff9a-3484-61a8-973799727d8f@akamai.=
-com/
-> https://lore.kernel.org/lkml/0d9f644f-3d60-02c3-7ce0-01296757e181@akamai.=
-com/#t
+> I thought so, since it guarantees the pr_debugs' state to
+> comport with sysfs settings on modprobe.
 >
-> At the time I thought it was unfinished business, and expected some
-> more discussion,
-> but that didnt happen, and later GregKH committed the set.
->
-> Last summer I emailed him privately, and he made a 5-6 points Ive
-> addressed in this rev,
-> (reduction of repetitive code, enforcing classmap constraints,
-> protecting against misuse)
-> but it also became clear he still didnt like the "specialness" of the key=
-word,
-> given by the _DFLT constraint applied to legacy callsites and queries.
->
-> Since thats a bit of a philosophical debate, I looked for a technical sol=
-ution,
-> to have it either way with fairly trivial additions, and to yield
-> until user experience
-> dictates otherwise
->
-> To be clear, I still think protecting the "classed" is proper.
-> Without dyndbg, /sys/module/drm/parameters/debug is authoritative, full s=
-top.
-> I'm surprised any customer would give away that certainty,
-> it looks like a (small caliber) footgun to me.
-> But its not worth disagreeing on.
-> Hence this patch reverts that "protection"
->
-> > With the example you gave above, I think this could lead to a very odd
-> > behavior: if I enable dyndbg, I expect any pr_dbg to be managed by
-> > dyndbg settings.
->
-> if by "any" you mean ALL the ones that currently exist,
-> before we add a whole new "CLASS" of user,
-> (with ~5k uses, all comfortable with their exclusive control)
-> I can agree.
->
-> echo class FOO +p > control
-> gives full control.  You just have to say so for the new classes of users=
-.
->
-> >
-> > If a user writes stuff on dyndbg control, he clearly knows what he is
-> > doing, and he wants to control what logs he wants.
-> >
-> > And if you allow multiple "protected" users, the normal way to disable
-> > all dyndbg logs will be:
-> >
-> >         ddcmd -p
-> >         ddcmd class DRM_UT_CORE -p
-> >         ddcmd class DRM_... -p # all drm classes
-> >         ddcmd class SPI_... -p # all spi classes
-> >         ddcmd class WHATEVER_... -p # all other subsystem
-> >
-> >         # And only now you can enable only what you want
-> >         ddcmd module my_mod +p
-> >
-> > This is clearly annoying to write.
->
-> It is clearly annoying.
-> It doesnt need to be handy.
-> thats what /sys/module/drm/parameters/debug is for.
-> with modest "protection" of explicit naming,
-> the sysfs knob can reasonably be expected
-> to reflect whats going on underneath.
-> Without it, bets are misplaced.
+> I will review.
 >
 
-Heres an improvement:
+Ok, Im pretty sure I put those in to override DEBUG settings,
+ie reset the default print state to whatever the controlling sysfs node,
+if it was declared with CLASSMAP_PARAM*, has the var set at.
 
-a use of CLASSMAP_PARAM means user wants a sysfs knob.
-We can reasonably conclude they prefer that mode of control
-(its what DRM users would expect, since a long time ago).
-
-In that case, protect the PARAM settings
-(from unqualified settings, use of class FOO still works)
-otherwise no protection.
-simple to explain, no extra knobs.
-
-
-
-> >
-> > If DRM (or whatever subsystem) wants to add a debug parameter and use i=
-t
-> > to control their logs without being impacted by dyndbg, I believe it
-> > should not use dyndbg classes to do it.
->
-> hmm - dyndbg's 1st value is its NOOP cost when off.
-> If thats not worth something, you wouldnt bother using it.
->
->
-> In any case, its pretty clear that my viewpoint isnt prevailing here,
-> and as I said, I dont care enough to disagree.
-> the reversion here can stand.
->
->
-
-apologies, since Im sounding kinda argumentative.
-Jim
+It now seems like extra work to clean up a corner case
+which they asked for, by defining DEBUG
