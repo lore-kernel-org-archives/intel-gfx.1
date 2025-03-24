@@ -4,83 +4,84 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2EBF4C36005
-	for <intel-gfx@archiver.kernel.org>; Mon, 24 Mar 2025 11:51:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5D434C36014
+	for <intel-gfx@archiver.kernel.org>; Mon, 24 Mar 2025 11:51:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9587710E303;
-	Mon, 24 Mar 2025 11:51:37 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9D7D310E320;
+	Mon, 24 Mar 2025 11:51:40 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="dh3m7V/F";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="fnZsxhrJ";
 	dkim-atps=neutral
 Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
  [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D2E3C10E2F4
- for <intel-gfx@lists.freedesktop.org>; Mon, 24 Mar 2025 11:51:35 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 81E4110E330
+ for <intel-gfx@lists.freedesktop.org>; Mon, 24 Mar 2025 11:51:39 +0000 (UTC)
 Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 52O9PNox019585
- for <intel-gfx@lists.freedesktop.org>; Mon, 24 Mar 2025 11:51:35 GMT
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 52O9PWC7019667
+ for <intel-gfx@lists.freedesktop.org>; Mon, 24 Mar 2025 11:51:39 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
  cc:content-transfer-encoding:content-type:date:from:in-reply-to
  :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- FU1mXf0DVANe/L0lrcejH4nrOKNUOeVpUsibn0+P3j8=; b=dh3m7V/FPzEIAXNu
- rT9XW+mnOImXhv0Oj5JthYWRESWyaSiSj3cYlhQobL0jrdSXk5ZzjwYgna510JNO
- GWfp5AmClpsSo1LMYI1ybLBG5mD1PVq0pujNJk0uIK/ba9aV8DsjpJNo1M7qb0hY
- bv/nHVOn7WHypDrNsvIEMtDMQrmm9wKEd4pjy8C0RL7fLbzMTieuphoTcPZbX9yk
- WuMOV8CORjMhcqv31fUGlGt5pDLRzPbgsLDMAt60UuLP7kByrExdbmV5+gC0Cagd
- h3dA7DUzOMALeeKDP4mr3ZCaJ3XXTBhzS2c+rqtHzEletEXXy9buwbkigAXlex7f
- YqRAVQ==
-Received: from mail-qv1-f70.google.com (mail-qv1-f70.google.com
- [209.85.219.70])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 45hm5uvcdf-1
+ Xs5rT/RGnzQe0TKC8aJ0U0f62LNypMaSbN5UiwapTF8=; b=fnZsxhrJWHOJDsOb
+ BEl0L6oQxcSVq87aEnmkJEl/T74HUpNOfHcOC96nx9r9O6uqBSudqhpApYdoIp2d
+ HzLNMhTTf5X4t1J3/0Nqt82p5tv4udEQvNheQrcy7KO5RPgTXYaB7dNPxQe0qPPb
+ qNWTHbCSFTaIFF43fBS7YbkBZXjd9LUqhJB25886uCOARHNdEoSVNSYEIk9yq10L
+ qq7cW4x++RekV0xbPlVQhst+m3CIrYli8pfwl/KPmHA8z9h2yvzz6YmP21ZktnvC
+ YCCTlpX5RbrHwWVAjzkUrAexRNjWD7Xg9QnZPFLdd9xDgVzwSWG39J6BHWpSd41O
+ HH2ArQ==
+Received: from mail-qv1-f71.google.com (mail-qv1-f71.google.com
+ [209.85.219.71])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 45hm5uvcdn-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
- for <intel-gfx@lists.freedesktop.org>; Mon, 24 Mar 2025 11:51:34 +0000 (GMT)
-Received: by mail-qv1-f70.google.com with SMTP id
- 6a1803df08f44-6ecfbdaaee3so12808766d6.3
- for <intel-gfx@lists.freedesktop.org>; Mon, 24 Mar 2025 04:51:34 -0700 (PDT)
+ for <intel-gfx@lists.freedesktop.org>; Mon, 24 Mar 2025 11:51:38 +0000 (GMT)
+Received: by mail-qv1-f71.google.com with SMTP id
+ 6a1803df08f44-6e9083404b7so79125466d6.1
+ for <intel-gfx@lists.freedesktop.org>; Mon, 24 Mar 2025 04:51:38 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1742817093; x=1743421893;
+ d=1e100.net; s=20230601; t=1742817097; x=1743421897;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=FU1mXf0DVANe/L0lrcejH4nrOKNUOeVpUsibn0+P3j8=;
- b=mmCyamqgZkTRD+CD0eId36fLDywlvppuyCMh6Hk+pdT9pu8YKBs+v4hgcyTh3FF6Kr
- hvwgM/XXaSvdekGNOAYP57DxJTkA+Wza0NL0SAJHq5wDfnaSFLf+6R/KVISd2kZsjVCH
- l9Fkkcwx/8stjQzmnGs864EvWZJG4HWrBlhDuO5/JV4iqia94ujbZO9VbQJWqhrgqeAB
- XzbVUJI5HBbgxf4CRshICFzNr07T3HFZDtVyEUmLxWZOIy8hk+q5vh6RZStNE9FO7i+K
- +YJ/UsVndl4Fzx4Eiy9P56VynQUautfdMDs2oKTw/UkaUMALbjM+S+6wBevio77gtFGr
- uwCQ==
+ bh=Xs5rT/RGnzQe0TKC8aJ0U0f62LNypMaSbN5UiwapTF8=;
+ b=bU7+gE4xXrBfXsCCFT7cWB1efTJEW8K0FecDLo7RLWJlu8+0un4sJBUHC4DWkZ/IN9
+ pKsrK9vCSNzhvYyUVPVj6YCR8RiUACuy+XFmv2yaYdOZUgwKKKCP8Cw/4HEVORncpjCF
+ QCjfti9YF2DDa6WeYfO+YrMbU2OBEYMW0pzhY1cc3UAEfQH0N7OQSLC5co/q++zkqXdB
+ 4YwWuvYkb7wmkVYfaKKr3FlFvZWH7Og7F/QkQ92Mv5mEPKr1sP5LUuMJIeAVTmcLYKmg
+ /uNhHTlceQcEg76AcK0XcwoWrlsyAYIIA/sdAnWhhmu8H4kJ/sUOs4qVjDm/IkAI9Y9Z
+ ebLA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCV37bxwQBazszJkTKQq35FFrQhSTJg0V4/59dLqK5qgztBlc8w8CJjwc/3MYmndhP+Znf8l2E9XBp4=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwbfDue3UULGNqrA08Ov+B6sTJ2GqwYLHe2gyoXDSmzFs0GQGTf
- g32VD7JBoAQY0cI9khJd2Ek9f18WT3NlZkVvpJEXaDibe3FdHzK1+vC51kT6Cp4f9dssqQ7Vn1S
- uKdqkF18cVfhhW45Kg3u5ItH46eYnzg1flrvDm6qng0ANqGYvsF7w7UJiNIJZnqgJzqk=
-X-Gm-Gg: ASbGncsMGgYKlsDhX9RWro7cqcq5TCf2JwMa0tJnG+ZR75/ZwP7/9MBs8um/aRGpYV3
- vpyeYnJ0cRPkn0cz9UFolYMSje8LafN7WqvH7z/9jAjhXqRNz2ADP0UBgiLrPOjb7jENCUPKwRt
- njrz2p2F2czyuuUQJSMDzxPEKsNn2oRLMPBTppUoijeiiu8Ir6CeubURdolqfBEqhcqFTSluY19
- nFlxnSw0MsboBWuXB5y8F3XJIRXROS23KKKGeauoIKvrGsHgrM0plnI7ItsQh3xBC4/Sad//2OS
- bhC5iBvW38I+/lCklSNtGjRKiwAR4dQq1ApFv0Z3ZFFXwZeUSOoNZ1Bm8+HnlNrEKOOcHFVzO5p
- OtSfRhZONXVs/Pc7TKwd8Vmd6Oys5
-X-Received: by 2002:a05:6214:cc2:b0:6e8:9dfa:d932 with SMTP id
- 6a1803df08f44-6eb3f287f51mr180382846d6.15.1742817093199; 
- Mon, 24 Mar 2025 04:51:33 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IF1wmKXp6BrtPnLk1P3+RjiXIoRXioSbpJdajrGxUy704Y8MAtKBtoUwbK/WdMvlmEHLS5vGQ==
-X-Received: by 2002:a05:6214:cc2:b0:6e8:9dfa:d932 with SMTP id
- 6a1803df08f44-6eb3f287f51mr180382276d6.15.1742817092530; 
- Mon, 24 Mar 2025 04:51:32 -0700 (PDT)
+ AJvYcCV2lM9pNH51zR2yySGDO2EVqbva7cAz187t+UOvpemrk15iT6tiWF+Rz1HXMvdnrVelhSVT6zg4bSE=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxaqS9fhzkx3W4mc+xqSWGiHzQ4j7ngs0lGhsB+NjeW0JoNIigQ
+ /n22OMbhbPTQkuicWzvPonlTPJZRokYxQ1Sz55yl0mptgPxrs3oEgmdA1b0dzUtihtHUybf/pmQ
+ BKv+Po5Epv8ScjO6K0bl2insEMqlS8JnXzFNXoDJqi4tGAQ4UphFEfSmVRqqOanRk6iM=
+X-Gm-Gg: ASbGncs2UJJ18Lp3hU74VF444wMOB693Fi+xjhcf3k8CrezD7OXdPgOOvrT0KTCChDZ
+ 5HF6fAPxcRvhDnItJ0rGZxh+v+wjl7xKV0FgWbiIQTxs0jGJPecaltHlnob33g2wPi3ZQgXlnS2
+ hR7NcigsgZpKd0uFlvKZxXP3hOvtnenh+iYZDEEIfT/AZ0c/jiEAqUiKLzKz0ooQeGsN41pkxun
+ B/gCg6/DxG+G6m0bxvIdBry6QtOhNDAfgmmJO6RSjPagk/Z+6H5FGjZZmPdB8ZEhN6f0y0LVhqP
+ kYnI6E4y9X5ESEtNenDn76Fw5kYXmkXLc0amSosRgTw5wWEk0AuqeLGSP9+V+WuQIVowmYAVzd0
+ PwbnWD/arjeALiudOFzkBMazYP1p3
+X-Received: by 2002:a05:6214:1bc6:b0:6e6:6505:ceb2 with SMTP id
+ 6a1803df08f44-6eb3f34025dmr231784506d6.36.1742817097282; 
+ Mon, 24 Mar 2025 04:51:37 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IHBwQw92ZPyWINOzWzui1m9ITHbL+0DAXpzT7H8qy4kqRnazAtvro+a6KHCt5kCZMxuG7ILTg==
+X-Received: by 2002:a05:6214:1bc6:b0:6e6:6505:ceb2 with SMTP id
+ 6a1803df08f44-6eb3f34025dmr231783666d6.36.1742817096653; 
+ Mon, 24 Mar 2025 04:51:36 -0700 (PDT)
 Received: from umbar.lan
  (2001-14ba-a0c3-3a00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
  [2001:14ba:a0c3:3a00:264b:feff:fe8b:be8a])
  by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-54ad64fbb51sm1142907e87.135.2025.03.24.04.51.28
+ 2adb3069b0e04-54ad64fbb51sm1142907e87.135.2025.03.24.04.51.34
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 24 Mar 2025 04:51:30 -0700 (PDT)
+ Mon, 24 Mar 2025 04:51:34 -0700 (PDT)
 From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Date: Mon, 24 Mar 2025 13:51:21 +0200
-Subject: [PATCH RESEND RFC v4 3/6] drm/display: dp: use new DCPD access helpers
+Date: Mon, 24 Mar 2025 13:51:23 +0200
+Subject: [PATCH RESEND RFC v4 5/6] drm/display: dp-mst-topology: use new
+ DCPD access helpers
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20250324-drm-rework-dpcd-access-v4-3-e80ff89593df@oss.qualcomm.com>
+Message-Id: <20250324-drm-rework-dpcd-access-v4-5-e80ff89593df@oss.qualcomm.com>
 References: <20250324-drm-rework-dpcd-access-v4-0-e80ff89593df@oss.qualcomm.com>
 In-Reply-To: <20250324-drm-rework-dpcd-access-v4-0-e80ff89593df@oss.qualcomm.com>
 To: Lyude Paul <lyude@redhat.com>,
@@ -109,25 +110,25 @@ Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
  Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
  Jani Nikula <jani.nikula@intel.com>
 X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=27759;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=8924;
  i=dmitry.baryshkov@oss.qualcomm.com; h=from:subject:message-id;
- bh=Kupghql56DHqM4wDv/45qSyGLZpGi6n/Mw9iPxFwqBk=;
- b=owEBbQGS/pANAwAKAYs8ij4CKSjVAcsmYgBn4Uc3r3yznpq+JY8p7nzLJWSdPB+LKv6Wu6FmM
- SpJwC6H2jyJATMEAAEKAB0WIQRMcISVXLJjVvC4lX+LPIo+Aiko1QUCZ+FHNwAKCRCLPIo+Aiko
- 1YneB/9DpSpwMLpnkVyvH/yJU51tjH26sU01r6RKMsxbU0O8ALtFE5lfu5OOrWlBJqcG+YCmBDc
- jnIGgPrpibfOvkcE/YXf4WTiZ12bxZ4Ovbp59+gy3/xMo4EvPGI6JXXcaRBMEsjvvYoHnkWwRqb
- 845N4wv9XmLW16H0Q2mpIEBrl91SY32O2pc8Z91GnHrUkmp8x2Ll87Z+NSMAJOmRZO51Tg08jDQ
- ABYBL64mhB6XXbt6sbbUDvhlCD+KN9Jto1Q5RgORO27ONnRa5TAJ/ok7wb7MzNyAJXzHtXG0H4/
- V7HAs5O+H7ouQKMfLslda5hUSXr+SZrdCtwSRPDdYu1hry+M
+ bh=lOAwM26QhsV15lYFaBEeUiZtWiwv6AIfNojc3p1iTEQ=;
+ b=owEBbQGS/pANAwAKAYs8ij4CKSjVAcsmYgBn4Uc4CsdT4oLgNJXuWiGeTgVWGCRmDOsfwjDJk
+ MvUg+taZHyJATMEAAEKAB0WIQRMcISVXLJjVvC4lX+LPIo+Aiko1QUCZ+FHOAAKCRCLPIo+Aiko
+ 1eUFCACOQPm/Ap8Q6wgW6g+eGGeGORthONobvqpz7PBMULuq9yKLbbvaXrh51tL+JwtxWfroe4N
+ yuPiA2x0oWuQAyAo06ZIP5BpvUm3pZowocYjyTqxFwYQ2mPcJkkf2sY7DXwORxZylZvxwuCqHdl
+ tFPH+dJFVGrSeqlfkRe/W26MikHJ3B/+usY5S4oqY4FwE6hbORlWZBtuTPn+GEQGr+k5IQhNZ9y
+ X5DCMwom8OmoAs6U7Ut0yZXsdCv8sPDbb4RgbgTirLxyUsvBp+SuA9Ef88pxfkluMCCRL1ORuua
+ l3ifrWLnGSG/4z8TqdRadnRZfuGIimIbwmjXjWOZhmYqoTFg
 X-Developer-Key: i=dmitry.baryshkov@oss.qualcomm.com; a=openpgp;
  fpr=8F88381DD5C873E4AE487DA5199BF1243632046A
-X-Proofpoint-ORIG-GUID: alcrh9FEi_LRVyHB3tyiClPivBnjlVuy
-X-Proofpoint-GUID: alcrh9FEi_LRVyHB3tyiClPivBnjlVuy
-X-Authority-Analysis: v=2.4 cv=AJKH5mlP c=1 sm=1 tr=0 ts=67e14747 cx=c_pps
- a=oc9J++0uMp73DTRD5QyR2A==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
+X-Proofpoint-ORIG-GUID: mC0vHRffggmrXp7S-OflA55ylQ7jsREH
+X-Proofpoint-GUID: mC0vHRffggmrXp7S-OflA55ylQ7jsREH
+X-Authority-Analysis: v=2.4 cv=AJKH5mlP c=1 sm=1 tr=0 ts=67e1474a cx=c_pps
+ a=UgVkIMxJMSkC9lv97toC5g==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
  a=Vs1iUdzkB0EA:10 a=KKAkSRfTAAAA:8 a=20KFwNOVAAAA:8 a=QyXUC8HyAAAA:8
- a=FYq9FAz7wtZL43-cE34A:9 a=QEXdDO2ut3YA:10
- a=iYH6xdkBrDN1Jqds4HTS:22 a=cvBusfyB2V15izCimMoJ:22
+ a=CIugonsnW1z_eXyUCzcA:9 a=QEXdDO2ut3YA:10
+ a=1HOtulTD9v-eNWfpl4qZ:22 a=cvBusfyB2V15izCimMoJ:22
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1093,Hydra:6.0.680,FMLib:17.12.68.34
  definitions=2025-03-24_04,2025-03-21_01,2024-11-22_01
@@ -155,794 +156,245 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 
-Switch drm_dp_helper.c to use new set of DPCD read / write helpers.
+Switch drm_dp_mst_topology.c to use new set of DPCD read / write helpers.
 
 Reviewed-by: Lyude Paul <lyude@redhat.com>
 Acked-by: Jani Nikula <jani.nikula@intel.com>
 Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 ---
- drivers/gpu/drm/display/drm_dp_helper.c | 296 +++++++++++++-------------------
- 1 file changed, 116 insertions(+), 180 deletions(-)
+ drivers/gpu/drm/display/drm_dp_mst_topology.c | 105 +++++++++++++-------------
+ 1 file changed, 51 insertions(+), 54 deletions(-)
 
-diff --git a/drivers/gpu/drm/display/drm_dp_helper.c b/drivers/gpu/drm/display/drm_dp_helper.c
-index 410be0be233ad94702af423262a7d98e21afbfeb..e2439c8a7fefe116b04aaa689b557e2387b05540 100644
---- a/drivers/gpu/drm/display/drm_dp_helper.c
-+++ b/drivers/gpu/drm/display/drm_dp_helper.c
-@@ -327,7 +327,7 @@ static int __read_delay(struct drm_dp_aux *aux, const u8 dpcd[DP_RECEIVER_CAP_SI
- 	if (offset < DP_RECEIVER_CAP_SIZE) {
- 		rd_interval = dpcd[offset];
- 	} else {
--		if (drm_dp_dpcd_readb(aux, offset, &rd_interval) != 1) {
-+		if (drm_dp_dpcd_read_byte(aux, offset, &rd_interval) < 0) {
- 			drm_dbg_kms(aux->drm_dev, "%s: failed rd interval read\n",
- 				    aux->name);
- 			/* arbitrary default delay */
-@@ -358,7 +358,7 @@ int drm_dp_128b132b_read_aux_rd_interval(struct drm_dp_aux *aux)
- 	int unit;
- 	u8 val;
- 
--	if (drm_dp_dpcd_readb(aux, DP_128B132B_TRAINING_AUX_RD_INTERVAL, &val) != 1) {
-+	if (drm_dp_dpcd_read_byte(aux, DP_128B132B_TRAINING_AUX_RD_INTERVAL, &val) < 0) {
- 		drm_err(aux->drm_dev, "%s: failed rd interval read\n",
- 			aux->name);
- 		/* default to max */
-@@ -807,30 +807,20 @@ int drm_dp_dpcd_read_phy_link_status(struct drm_dp_aux *aux,
- {
- 	int ret;
- 
--	if (dp_phy == DP_PHY_DPRX) {
--		ret = drm_dp_dpcd_read(aux,
--				       DP_LANE0_1_STATUS,
--				       link_status,
--				       DP_LINK_STATUS_SIZE);
--
--		if (ret < 0)
--			return ret;
-+	if (dp_phy == DP_PHY_DPRX)
-+		return drm_dp_dpcd_read_data(aux,
-+					     DP_LANE0_1_STATUS,
-+					     link_status,
-+					     DP_LINK_STATUS_SIZE);
- 
--		WARN_ON(ret != DP_LINK_STATUS_SIZE);
--
--		return 0;
--	}
--
--	ret = drm_dp_dpcd_read(aux,
--			       DP_LANE0_1_STATUS_PHY_REPEATER(dp_phy),
--			       link_status,
--			       DP_LINK_STATUS_SIZE - 1);
-+	ret = drm_dp_dpcd_read_data(aux,
-+				    DP_LANE0_1_STATUS_PHY_REPEATER(dp_phy),
-+				    link_status,
-+				    DP_LINK_STATUS_SIZE - 1);
- 
- 	if (ret < 0)
- 		return ret;
- 
--	WARN_ON(ret != DP_LINK_STATUS_SIZE - 1);
--
- 	/* Convert the LTTPR to the sink PHY link status layout */
- 	memmove(&link_status[DP_SINK_STATUS - DP_LANE0_1_STATUS + 1],
- 		&link_status[DP_SINK_STATUS - DP_LANE0_1_STATUS],
-@@ -846,7 +836,7 @@ static int read_payload_update_status(struct drm_dp_aux *aux)
- 	int ret;
- 	u8 status;
- 
--	ret = drm_dp_dpcd_readb(aux, DP_PAYLOAD_TABLE_UPDATE_STATUS, &status);
-+	ret = drm_dp_dpcd_read_byte(aux, DP_PAYLOAD_TABLE_UPDATE_STATUS, &status);
- 	if (ret < 0)
- 		return ret;
- 
-@@ -873,21 +863,21 @@ int drm_dp_dpcd_write_payload(struct drm_dp_aux *aux,
- 	int ret;
- 	int retries = 0;
- 
--	drm_dp_dpcd_writeb(aux, DP_PAYLOAD_TABLE_UPDATE_STATUS,
--			   DP_PAYLOAD_TABLE_UPDATED);
-+	drm_dp_dpcd_write_byte(aux, DP_PAYLOAD_TABLE_UPDATE_STATUS,
-+			       DP_PAYLOAD_TABLE_UPDATED);
- 
- 	payload_alloc[0] = vcpid;
- 	payload_alloc[1] = start_time_slot;
- 	payload_alloc[2] = time_slot_count;
- 
--	ret = drm_dp_dpcd_write(aux, DP_PAYLOAD_ALLOCATE_SET, payload_alloc, 3);
--	if (ret != 3) {
-+	ret = drm_dp_dpcd_write_data(aux, DP_PAYLOAD_ALLOCATE_SET, payload_alloc, 3);
-+	if (ret < 0) {
- 		drm_dbg_kms(aux->drm_dev, "failed to write payload allocation %d\n", ret);
- 		goto fail;
+diff --git a/drivers/gpu/drm/display/drm_dp_mst_topology.c b/drivers/gpu/drm/display/drm_dp_mst_topology.c
+index 3a1f1ffc7b5528b940485e7d96b1913bd85b0153..de3fc6090c906efce3dbaa8462d736ebf9094b34 100644
+--- a/drivers/gpu/drm/display/drm_dp_mst_topology.c
++++ b/drivers/gpu/drm/display/drm_dp_mst_topology.c
+@@ -2201,15 +2201,12 @@ static int drm_dp_check_mstb_guid(struct drm_dp_mst_branch *mstb, guid_t *guid)
+ 						     mstb->port_parent,
+ 						     DP_GUID, sizeof(buf), buf);
+ 		} else {
+-			ret = drm_dp_dpcd_write(mstb->mgr->aux,
+-						DP_GUID, buf, sizeof(buf));
++			ret = drm_dp_dpcd_write_data(mstb->mgr->aux,
++						     DP_GUID, buf, sizeof(buf));
+ 		}
  	}
  
- retry:
--	ret = drm_dp_dpcd_readb(aux, DP_PAYLOAD_TABLE_UPDATE_STATUS, &status);
-+	ret = drm_dp_dpcd_read_byte(aux, DP_PAYLOAD_TABLE_UPDATE_STATUS, &status);
- 	if (ret < 0) {
- 		drm_dbg_kms(aux->drm_dev, "failed to read payload table status %d\n", ret);
- 		goto fail;
-@@ -1043,15 +1033,15 @@ bool drm_dp_send_real_edid_checksum(struct drm_dp_aux *aux,
- {
- 	u8 link_edid_read = 0, auto_test_req = 0, test_resp = 0;
- 
--	if (drm_dp_dpcd_read(aux, DP_DEVICE_SERVICE_IRQ_VECTOR,
--			     &auto_test_req, 1) < 1) {
-+	if (drm_dp_dpcd_read_byte(aux, DP_DEVICE_SERVICE_IRQ_VECTOR,
-+				  &auto_test_req) < 0) {
- 		drm_err(aux->drm_dev, "%s: DPCD failed read at register 0x%x\n",
- 			aux->name, DP_DEVICE_SERVICE_IRQ_VECTOR);
- 		return false;
- 	}
- 	auto_test_req &= DP_AUTOMATED_TEST_REQUEST;
- 
--	if (drm_dp_dpcd_read(aux, DP_TEST_REQUEST, &link_edid_read, 1) < 1) {
-+	if (drm_dp_dpcd_read_byte(aux, DP_TEST_REQUEST, &link_edid_read) < 0) {
- 		drm_err(aux->drm_dev, "%s: DPCD failed read at register 0x%x\n",
- 			aux->name, DP_TEST_REQUEST);
- 		return false;
-@@ -1064,23 +1054,23 @@ bool drm_dp_send_real_edid_checksum(struct drm_dp_aux *aux,
- 		return false;
- 	}
- 
--	if (drm_dp_dpcd_write(aux, DP_DEVICE_SERVICE_IRQ_VECTOR,
--			      &auto_test_req, 1) < 1) {
-+	if (drm_dp_dpcd_write_byte(aux, DP_DEVICE_SERVICE_IRQ_VECTOR,
-+				   auto_test_req) < 0) {
- 		drm_err(aux->drm_dev, "%s: DPCD failed write at register 0x%x\n",
- 			aux->name, DP_DEVICE_SERVICE_IRQ_VECTOR);
- 		return false;
- 	}
- 
- 	/* send back checksum for the last edid extension block data */
--	if (drm_dp_dpcd_write(aux, DP_TEST_EDID_CHECKSUM,
--			      &real_edid_checksum, 1) < 1) {
-+	if (drm_dp_dpcd_write_byte(aux, DP_TEST_EDID_CHECKSUM,
-+				   real_edid_checksum) < 0) {
- 		drm_err(aux->drm_dev, "%s: DPCD failed write at register 0x%x\n",
- 			aux->name, DP_TEST_EDID_CHECKSUM);
- 		return false;
- 	}
- 
- 	test_resp |= DP_TEST_EDID_CHECKSUM_WRITE;
--	if (drm_dp_dpcd_write(aux, DP_TEST_RESPONSE, &test_resp, 1) < 1) {
-+	if (drm_dp_dpcd_write_byte(aux, DP_TEST_RESPONSE, test_resp) < 0) {
- 		drm_err(aux->drm_dev, "%s: DPCD failed write at register 0x%x\n",
- 			aux->name, DP_TEST_RESPONSE);
- 		return false;
-@@ -1117,12 +1107,10 @@ static int drm_dp_read_extended_dpcd_caps(struct drm_dp_aux *aux,
- 	      DP_EXTENDED_RECEIVER_CAP_FIELD_PRESENT))
- 		return 0;
- 
--	ret = drm_dp_dpcd_read(aux, DP_DP13_DPCD_REV, &dpcd_ext,
--			       sizeof(dpcd_ext));
-+	ret = drm_dp_dpcd_read_data(aux, DP_DP13_DPCD_REV, &dpcd_ext,
-+				    sizeof(dpcd_ext));
- 	if (ret < 0)
- 		return ret;
--	if (ret != sizeof(dpcd_ext))
--		return -EIO;
- 
- 	if (dpcd[DP_DPCD_REV] > dpcd_ext[DP_DPCD_REV]) {
- 		drm_dbg_kms(aux->drm_dev,
-@@ -1159,10 +1147,10 @@ int drm_dp_read_dpcd_caps(struct drm_dp_aux *aux,
- {
- 	int ret;
- 
--	ret = drm_dp_dpcd_read(aux, DP_DPCD_REV, dpcd, DP_RECEIVER_CAP_SIZE);
-+	ret = drm_dp_dpcd_read_data(aux, DP_DPCD_REV, dpcd, DP_RECEIVER_CAP_SIZE);
- 	if (ret < 0)
- 		return ret;
--	if (ret != DP_RECEIVER_CAP_SIZE || dpcd[DP_DPCD_REV] == 0)
-+	if (dpcd[DP_DPCD_REV] == 0)
- 		return -EIO;
- 
- 	ret = drm_dp_read_extended_dpcd_caps(aux, dpcd);
-@@ -1212,11 +1200,9 @@ int drm_dp_read_downstream_info(struct drm_dp_aux *aux,
- 	if (dpcd[DP_DOWNSTREAMPORT_PRESENT] & DP_DETAILED_CAP_INFO_AVAILABLE)
- 		len *= 4;
- 
--	ret = drm_dp_dpcd_read(aux, DP_DOWNSTREAM_PORT_0, downstream_ports, len);
-+	ret = drm_dp_dpcd_read_data(aux, DP_DOWNSTREAM_PORT_0, downstream_ports, len);
- 	if (ret < 0)
- 		return ret;
--	if (ret != len)
--		return -EIO;
- 
- 	drm_dbg_kms(aux->drm_dev, "%s: DPCD DFP: %*ph\n", aux->name, len, downstream_ports);
- 
-@@ -1573,7 +1559,7 @@ EXPORT_SYMBOL(drm_dp_downstream_mode);
-  */
- int drm_dp_downstream_id(struct drm_dp_aux *aux, char id[6])
- {
--	return drm_dp_dpcd_read(aux, DP_BRANCH_ID, id, 6);
-+	return drm_dp_dpcd_read_data(aux, DP_BRANCH_ID, id, 6);
- }
- EXPORT_SYMBOL(drm_dp_downstream_id);
- 
-@@ -1638,13 +1624,13 @@ void drm_dp_downstream_debug(struct seq_file *m,
- 	drm_dp_downstream_id(aux, id);
- 	seq_printf(m, "\t\tID: %s\n", id);
- 
--	len = drm_dp_dpcd_read(aux, DP_BRANCH_HW_REV, &rev[0], 1);
--	if (len > 0)
-+	len = drm_dp_dpcd_read_data(aux, DP_BRANCH_HW_REV, &rev[0], 1);
-+	if (!len)
- 		seq_printf(m, "\t\tHW: %d.%d\n",
- 			   (rev[0] & 0xf0) >> 4, rev[0] & 0xf);
- 
--	len = drm_dp_dpcd_read(aux, DP_BRANCH_SW_REV, rev, 2);
--	if (len > 0)
-+	len = drm_dp_dpcd_read_data(aux, DP_BRANCH_SW_REV, rev, 2);
-+	if (!len)
- 		seq_printf(m, "\t\tSW: %d.%d\n", rev[0], rev[1]);
- 
- 	if (detailed_cap_info) {
-@@ -1782,11 +1768,9 @@ int drm_dp_read_sink_count(struct drm_dp_aux *aux)
- 	u8 count;
- 	int ret;
- 
--	ret = drm_dp_dpcd_readb(aux, DP_SINK_COUNT, &count);
-+	ret = drm_dp_dpcd_read_byte(aux, DP_SINK_COUNT, &count);
- 	if (ret < 0)
- 		return ret;
--	if (ret != 1)
--		return -EIO;
- 
- 	return DP_GET_SINK_COUNT(count);
- }
-@@ -2175,13 +2159,13 @@ static int drm_dp_aux_get_crc(struct drm_dp_aux *aux, u8 *crc)
- 	u8 buf, count;
- 	int ret;
- 
--	ret = drm_dp_dpcd_readb(aux, DP_TEST_SINK, &buf);
-+	ret = drm_dp_dpcd_read_byte(aux, DP_TEST_SINK, &buf);
- 	if (ret < 0)
- 		return ret;
- 
- 	WARN_ON(!(buf & DP_TEST_SINK_START));
- 
--	ret = drm_dp_dpcd_readb(aux, DP_TEST_SINK_MISC, &buf);
-+	ret = drm_dp_dpcd_read_byte(aux, DP_TEST_SINK_MISC, &buf);
- 	if (ret < 0)
- 		return ret;
- 
-@@ -2195,11 +2179,7 @@ static int drm_dp_aux_get_crc(struct drm_dp_aux *aux, u8 *crc)
- 	 * At DP_TEST_CRC_R_CR, there's 6 bytes containing CRC data, 2 bytes
- 	 * per component (RGB or CrYCb).
- 	 */
--	ret = drm_dp_dpcd_read(aux, DP_TEST_CRC_R_CR, crc, 6);
--	if (ret < 0)
--		return ret;
+-	if (ret < 16 && ret > 0)
+-		return -EPROTO;
 -
--	return 0;
-+	return drm_dp_dpcd_read_data(aux, DP_TEST_CRC_R_CR, crc, 6);
+-	return ret == 16 ? 0 : ret;
++	return ret;
  }
  
- static void drm_dp_aux_crc_work(struct work_struct *work)
-@@ -2398,11 +2378,11 @@ int drm_dp_start_crc(struct drm_dp_aux *aux, struct drm_crtc *crtc)
- 	u8 buf;
- 	int ret;
+ static void build_mst_prop_path(const struct drm_dp_mst_branch *mstb,
+@@ -2744,14 +2741,13 @@ static int drm_dp_send_sideband_msg(struct drm_dp_mst_topology_mgr *mgr,
+ 	do {
+ 		tosend = min3(mgr->max_dpcd_transaction_bytes, 16, total);
  
--	ret = drm_dp_dpcd_readb(aux, DP_TEST_SINK, &buf);
-+	ret = drm_dp_dpcd_read_byte(aux, DP_TEST_SINK, &buf);
- 	if (ret < 0)
- 		return ret;
+-		ret = drm_dp_dpcd_write(mgr->aux, regbase + offset,
+-					&msg[offset],
+-					tosend);
+-		if (ret != tosend) {
+-			if (ret == -EIO && retries < 5) {
+-				retries++;
+-				goto retry;
+-			}
++		ret = drm_dp_dpcd_write_data(mgr->aux, regbase + offset,
++					     &msg[offset],
++					     tosend);
++		if (ret == -EIO && retries < 5) {
++			retries++;
++			goto retry;
++		} else if (ret < 0) {
+ 			drm_dbg_kms(mgr->dev, "failed to dpcd write %d %d\n", tosend, ret);
  
--	ret = drm_dp_dpcd_writeb(aux, DP_TEST_SINK, buf | DP_TEST_SINK_START);
-+	ret = drm_dp_dpcd_write_byte(aux, DP_TEST_SINK, buf | DP_TEST_SINK_START);
- 	if (ret < 0)
- 		return ret;
+ 			return -EIO;
+@@ -3624,7 +3620,7 @@ enum drm_dp_mst_mode drm_dp_read_mst_cap(struct drm_dp_aux *aux,
+ 	if (dpcd[DP_DPCD_REV] < DP_DPCD_REV_12)
+ 		return DRM_DP_SST;
  
-@@ -2425,11 +2405,11 @@ int drm_dp_stop_crc(struct drm_dp_aux *aux)
- 	u8 buf;
- 	int ret;
+-	if (drm_dp_dpcd_readb(aux, DP_MSTM_CAP, &mstm_cap) != 1)
++	if (drm_dp_dpcd_read_byte(aux, DP_MSTM_CAP, &mstm_cap) < 0)
+ 		return DRM_DP_SST;
  
--	ret = drm_dp_dpcd_readb(aux, DP_TEST_SINK, &buf);
-+	ret = drm_dp_dpcd_read_byte(aux, DP_TEST_SINK, &buf);
- 	if (ret < 0)
- 		return ret;
+ 	if (mstm_cap & DP_MST_CAP)
+@@ -3679,10 +3675,10 @@ int drm_dp_mst_topology_mgr_set_mst(struct drm_dp_mst_topology_mgr *mgr, bool ms
+ 		mgr->mst_primary = mstb;
+ 		drm_dp_mst_topology_get_mstb(mgr->mst_primary);
  
--	ret = drm_dp_dpcd_writeb(aux, DP_TEST_SINK, buf & ~DP_TEST_SINK_START);
-+	ret = drm_dp_dpcd_write_byte(aux, DP_TEST_SINK, buf & ~DP_TEST_SINK_START);
- 	if (ret < 0)
- 		return ret;
- 
-@@ -2515,11 +2495,7 @@ drm_dp_get_quirks(const struct drm_dp_dpcd_ident *ident, bool is_branch)
- static int drm_dp_read_ident(struct drm_dp_aux *aux, unsigned int offset,
- 			     struct drm_dp_dpcd_ident *ident)
- {
--	int ret;
--
--	ret = drm_dp_dpcd_read(aux, offset, ident, sizeof(*ident));
--
--	return ret < 0 ? ret : 0;
-+	return drm_dp_dpcd_read_data(aux, offset, ident, sizeof(*ident));
- }
- 
- static void drm_dp_dump_desc(struct drm_dp_aux *aux,
-@@ -2777,13 +2753,11 @@ static int drm_dp_read_lttpr_regs(struct drm_dp_aux *aux,
- 	int ret;
- 
- 	for (offset = 0; offset < buf_size; offset += block_size) {
--		ret = drm_dp_dpcd_read(aux,
--				       address + offset,
--				       &buf[offset], block_size);
-+		ret = drm_dp_dpcd_read_data(aux,
-+					    address + offset,
-+					    &buf[offset], block_size);
+-		ret = drm_dp_dpcd_writeb(mgr->aux, DP_MSTM_CTRL,
+-					 DP_MST_EN |
+-					 DP_UP_REQ_EN |
+-					 DP_UPSTREAM_IS_SRC);
++		ret = drm_dp_dpcd_write_byte(mgr->aux, DP_MSTM_CTRL,
++					     DP_MST_EN |
++					     DP_UP_REQ_EN |
++					     DP_UPSTREAM_IS_SRC);
  		if (ret < 0)
- 			return ret;
--
--		WARN_ON(ret != block_size);
- 	}
+ 			goto out_unlock;
  
- 	return 0;
-@@ -2998,12 +2972,12 @@ int drm_dp_get_phy_test_pattern(struct drm_dp_aux *aux,
- 	int err;
- 	u8 rate, lanes;
+@@ -3697,7 +3693,7 @@ int drm_dp_mst_topology_mgr_set_mst(struct drm_dp_mst_topology_mgr *mgr, bool ms
+ 		mstb = mgr->mst_primary;
+ 		mgr->mst_primary = NULL;
+ 		/* this can fail if the device is gone */
+-		drm_dp_dpcd_writeb(mgr->aux, DP_MSTM_CTRL, 0);
++		drm_dp_dpcd_write_byte(mgr->aux, DP_MSTM_CTRL, 0);
+ 		ret = 0;
+ 		mgr->payload_id_table_cleared = false;
  
--	err = drm_dp_dpcd_readb(aux, DP_TEST_LINK_RATE, &rate);
-+	err = drm_dp_dpcd_read_byte(aux, DP_TEST_LINK_RATE, &rate);
- 	if (err < 0)
- 		return err;
- 	data->link_rate = drm_dp_bw_code_to_link_rate(rate);
- 
--	err = drm_dp_dpcd_readb(aux, DP_TEST_LANE_COUNT, &lanes);
-+	err = drm_dp_dpcd_read_byte(aux, DP_TEST_LANE_COUNT, &lanes);
- 	if (err < 0)
- 		return err;
- 	data->num_lanes = lanes & DP_MAX_LANE_COUNT_MASK;
-@@ -3011,22 +2985,22 @@ int drm_dp_get_phy_test_pattern(struct drm_dp_aux *aux,
- 	if (lanes & DP_ENHANCED_FRAME_CAP)
- 		data->enhanced_frame_cap = true;
- 
--	err = drm_dp_dpcd_readb(aux, DP_PHY_TEST_PATTERN, &data->phy_pattern);
-+	err = drm_dp_dpcd_read_byte(aux, DP_PHY_TEST_PATTERN, &data->phy_pattern);
- 	if (err < 0)
- 		return err;
- 
- 	switch (data->phy_pattern) {
- 	case DP_PHY_TEST_PATTERN_80BIT_CUSTOM:
--		err = drm_dp_dpcd_read(aux, DP_TEST_80BIT_CUSTOM_PATTERN_7_0,
--				       &data->custom80, sizeof(data->custom80));
-+		err = drm_dp_dpcd_read_data(aux, DP_TEST_80BIT_CUSTOM_PATTERN_7_0,
-+					    &data->custom80, sizeof(data->custom80));
- 		if (err < 0)
- 			return err;
- 
- 		break;
- 	case DP_PHY_TEST_PATTERN_CP2520:
--		err = drm_dp_dpcd_read(aux, DP_TEST_HBR2_SCRAMBLER_RESET,
--				       &data->hbr2_reset,
--				       sizeof(data->hbr2_reset));
-+		err = drm_dp_dpcd_read_data(aux, DP_TEST_HBR2_SCRAMBLER_RESET,
-+					    &data->hbr2_reset,
-+					    sizeof(data->hbr2_reset));
- 		if (err < 0)
- 			return err;
- 	}
-@@ -3053,15 +3027,15 @@ int drm_dp_set_phy_test_pattern(struct drm_dp_aux *aux,
- 	if (dp_rev < 0x12) {
- 		test_pattern = (test_pattern << 2) &
- 			       DP_LINK_QUAL_PATTERN_11_MASK;
--		err = drm_dp_dpcd_writeb(aux, DP_TRAINING_PATTERN_SET,
--					 test_pattern);
-+		err = drm_dp_dpcd_write_byte(aux, DP_TRAINING_PATTERN_SET,
-+					     test_pattern);
- 		if (err < 0)
- 			return err;
- 	} else {
- 		for (i = 0; i < data->num_lanes; i++) {
--			err = drm_dp_dpcd_writeb(aux,
--						 DP_LINK_QUAL_LANE0_SET + i,
--						 test_pattern);
-+			err = drm_dp_dpcd_write_byte(aux,
-+						     DP_LINK_QUAL_LANE0_SET + i,
-+						     test_pattern);
- 			if (err < 0)
- 				return err;
- 		}
-@@ -3268,8 +3242,8 @@ bool drm_dp_as_sdp_supported(struct drm_dp_aux *aux, const u8 dpcd[DP_RECEIVER_C
- 	if (dpcd[DP_DPCD_REV] < DP_DPCD_REV_13)
- 		return false;
- 
--	if (drm_dp_dpcd_readb(aux, DP_DPRX_FEATURE_ENUMERATION_LIST_CONT_1,
--			      &rx_feature) != 1) {
-+	if (drm_dp_dpcd_read_byte(aux, DP_DPRX_FEATURE_ENUMERATION_LIST_CONT_1,
-+				  &rx_feature) < 0) {
- 		drm_dbg_dp(aux->drm_dev,
- 			   "Failed to read DP_DPRX_FEATURE_ENUMERATION_LIST_CONT_1\n");
- 		return false;
-@@ -3293,7 +3267,7 @@ bool drm_dp_vsc_sdp_supported(struct drm_dp_aux *aux, const u8 dpcd[DP_RECEIVER_
- 	if (dpcd[DP_DPCD_REV] < DP_DPCD_REV_13)
- 		return false;
- 
--	if (drm_dp_dpcd_readb(aux, DP_DPRX_FEATURE_ENUMERATION_LIST, &rx_feature) != 1) {
-+	if (drm_dp_dpcd_read_byte(aux, DP_DPRX_FEATURE_ENUMERATION_LIST, &rx_feature) < 0) {
- 		drm_dbg_dp(aux->drm_dev, "failed to read DP_DPRX_FEATURE_ENUMERATION_LIST\n");
- 		return false;
- 	}
-@@ -3424,16 +3398,13 @@ EXPORT_SYMBOL(drm_dp_get_pcon_max_frl_bw);
-  */
- int drm_dp_pcon_frl_prepare(struct drm_dp_aux *aux, bool enable_frl_ready_hpd)
+@@ -3763,8 +3759,8 @@ EXPORT_SYMBOL(drm_dp_mst_topology_queue_probe);
+ void drm_dp_mst_topology_mgr_suspend(struct drm_dp_mst_topology_mgr *mgr)
  {
--	int ret;
- 	u8 buf = DP_PCON_ENABLE_SOURCE_CTL_MODE |
- 		 DP_PCON_ENABLE_LINK_FRL_MODE;
- 
- 	if (enable_frl_ready_hpd)
- 		buf |= DP_PCON_ENABLE_HPD_READY;
- 
--	ret = drm_dp_dpcd_writeb(aux, DP_PCON_HDMI_LINK_CONFIG_1, buf);
--
--	return ret;
-+	return drm_dp_dpcd_write_byte(aux, DP_PCON_HDMI_LINK_CONFIG_1, buf);
- }
- EXPORT_SYMBOL(drm_dp_pcon_frl_prepare);
- 
-@@ -3448,7 +3419,7 @@ bool drm_dp_pcon_is_frl_ready(struct drm_dp_aux *aux)
- 	int ret;
- 	u8 buf;
- 
--	ret = drm_dp_dpcd_readb(aux, DP_PCON_HDMI_TX_LINK_STATUS, &buf);
-+	ret = drm_dp_dpcd_read_byte(aux, DP_PCON_HDMI_TX_LINK_STATUS, &buf);
- 	if (ret < 0)
- 		return false;
- 
-@@ -3477,7 +3448,7 @@ int drm_dp_pcon_frl_configure_1(struct drm_dp_aux *aux, int max_frl_gbps,
- 	int ret;
- 	u8 buf;
- 
--	ret = drm_dp_dpcd_readb(aux, DP_PCON_HDMI_LINK_CONFIG_1, &buf);
-+	ret = drm_dp_dpcd_read_byte(aux, DP_PCON_HDMI_LINK_CONFIG_1, &buf);
- 	if (ret < 0)
- 		return ret;
- 
-@@ -3512,11 +3483,7 @@ int drm_dp_pcon_frl_configure_1(struct drm_dp_aux *aux, int max_frl_gbps,
- 		return -EINVAL;
+ 	mutex_lock(&mgr->lock);
+-	drm_dp_dpcd_writeb(mgr->aux, DP_MSTM_CTRL,
+-			   DP_MST_EN | DP_UPSTREAM_IS_SRC);
++	drm_dp_dpcd_write_byte(mgr->aux, DP_MSTM_CTRL,
++			       DP_MST_EN | DP_UPSTREAM_IS_SRC);
+ 	mutex_unlock(&mgr->lock);
+ 	flush_work(&mgr->up_req_work);
+ 	flush_work(&mgr->work);
+@@ -3813,18 +3809,18 @@ int drm_dp_mst_topology_mgr_resume(struct drm_dp_mst_topology_mgr *mgr,
+ 		goto out_fail;
  	}
  
--	ret = drm_dp_dpcd_writeb(aux, DP_PCON_HDMI_LINK_CONFIG_1, buf);
--	if (ret < 0)
--		return ret;
--
--	return 0;
-+	return drm_dp_dpcd_write_byte(aux, DP_PCON_HDMI_LINK_CONFIG_1, buf);
- }
- EXPORT_SYMBOL(drm_dp_pcon_frl_configure_1);
- 
-@@ -3542,7 +3509,7 @@ int drm_dp_pcon_frl_configure_2(struct drm_dp_aux *aux, int max_frl_mask,
- 	else
- 		buf &= ~DP_PCON_FRL_LINK_TRAIN_EXTENDED;
- 
--	ret = drm_dp_dpcd_writeb(aux, DP_PCON_HDMI_LINK_CONFIG_2, buf);
-+	return drm_dp_dpcd_write_byte(aux, DP_PCON_HDMI_LINK_CONFIG_2, buf);
- 	if (ret < 0)
- 		return ret;
- 
-@@ -3558,13 +3525,7 @@ EXPORT_SYMBOL(drm_dp_pcon_frl_configure_2);
-  */
- int drm_dp_pcon_reset_frl_config(struct drm_dp_aux *aux)
- {
--	int ret;
--
--	ret = drm_dp_dpcd_writeb(aux, DP_PCON_HDMI_LINK_CONFIG_1, 0x0);
--	if (ret < 0)
--		return ret;
--
--	return 0;
-+	return drm_dp_dpcd_write_byte(aux, DP_PCON_HDMI_LINK_CONFIG_1, 0x0);
- }
- EXPORT_SYMBOL(drm_dp_pcon_reset_frl_config);
- 
-@@ -3579,7 +3540,7 @@ int drm_dp_pcon_frl_enable(struct drm_dp_aux *aux)
- 	int ret;
- 	u8 buf = 0;
- 
--	ret = drm_dp_dpcd_readb(aux, DP_PCON_HDMI_LINK_CONFIG_1, &buf);
-+	ret = drm_dp_dpcd_read_byte(aux, DP_PCON_HDMI_LINK_CONFIG_1, &buf);
- 	if (ret < 0)
- 		return ret;
- 	if (!(buf & DP_PCON_ENABLE_SOURCE_CTL_MODE)) {
-@@ -3588,11 +3549,7 @@ int drm_dp_pcon_frl_enable(struct drm_dp_aux *aux)
- 		return -EINVAL;
- 	}
- 	buf |= DP_PCON_ENABLE_HDMI_LINK;
--	ret = drm_dp_dpcd_writeb(aux, DP_PCON_HDMI_LINK_CONFIG_1, buf);
--	if (ret < 0)
--		return ret;
--
--	return 0;
-+	return drm_dp_dpcd_write_byte(aux, DP_PCON_HDMI_LINK_CONFIG_1, buf);
- }
- EXPORT_SYMBOL(drm_dp_pcon_frl_enable);
- 
-@@ -3607,7 +3564,7 @@ bool drm_dp_pcon_hdmi_link_active(struct drm_dp_aux *aux)
- 	u8 buf;
- 	int ret;
- 
--	ret = drm_dp_dpcd_readb(aux, DP_PCON_HDMI_TX_LINK_STATUS, &buf);
-+	ret = drm_dp_dpcd_read_byte(aux, DP_PCON_HDMI_TX_LINK_STATUS, &buf);
- 	if (ret < 0)
- 		return false;
- 
-@@ -3632,7 +3589,7 @@ int drm_dp_pcon_hdmi_link_mode(struct drm_dp_aux *aux, u8 *frl_trained_mask)
- 	int mode;
- 	int ret;
- 
--	ret = drm_dp_dpcd_readb(aux, DP_PCON_HDMI_POST_FRL_STATUS, &buf);
-+	ret = drm_dp_dpcd_read_byte(aux, DP_PCON_HDMI_POST_FRL_STATUS, &buf);
- 	if (ret < 0)
- 		return ret;
- 
-@@ -3661,7 +3618,7 @@ void drm_dp_pcon_hdmi_frl_link_error_count(struct drm_dp_aux *aux,
- 	struct drm_hdmi_info *hdmi = &connector->display_info.hdmi;
- 
- 	for (i = 0; i < hdmi->max_lanes; i++) {
--		if (drm_dp_dpcd_readb(aux, DP_PCON_HDMI_ERROR_STATUS_LN0 + i, &buf) < 0)
-+		if (drm_dp_dpcd_read_byte(aux, DP_PCON_HDMI_ERROR_STATUS_LN0 + i, &buf) < 0)
- 			return;
- 
- 		error_count = buf & DP_PCON_HDMI_ERROR_COUNT_MASK;
-@@ -3796,7 +3753,7 @@ int drm_dp_pcon_configure_dsc_enc(struct drm_dp_aux *aux, u8 pps_buf_config)
- 	u8 buf;
- 	int ret;
- 
--	ret = drm_dp_dpcd_readb(aux, DP_PROTOCOL_CONVERTER_CONTROL_2, &buf);
-+	ret = drm_dp_dpcd_read_byte(aux, DP_PROTOCOL_CONVERTER_CONTROL_2, &buf);
- 	if (ret < 0)
- 		return ret;
- 
-@@ -3807,11 +3764,7 @@ int drm_dp_pcon_configure_dsc_enc(struct drm_dp_aux *aux, u8 pps_buf_config)
- 		buf |= pps_buf_config << 2;
+-	ret = drm_dp_dpcd_writeb(mgr->aux, DP_MSTM_CTRL,
+-				 DP_MST_EN |
+-				 DP_UP_REQ_EN |
+-				 DP_UPSTREAM_IS_SRC);
++	ret = drm_dp_dpcd_write_byte(mgr->aux, DP_MSTM_CTRL,
++				     DP_MST_EN |
++				     DP_UP_REQ_EN |
++				     DP_UPSTREAM_IS_SRC);
+ 	if (ret < 0) {
+ 		drm_dbg_kms(mgr->dev, "mst write failed - undocked during suspend?\n");
+ 		goto out_fail;
  	}
  
--	ret = drm_dp_dpcd_writeb(aux, DP_PROTOCOL_CONVERTER_CONTROL_2, buf);
--	if (ret < 0)
--		return ret;
--
--	return 0;
-+	return drm_dp_dpcd_write_byte(aux, DP_PROTOCOL_CONVERTER_CONTROL_2, buf);
- }
- 
- /**
-@@ -3823,13 +3776,7 @@ int drm_dp_pcon_configure_dsc_enc(struct drm_dp_aux *aux, u8 pps_buf_config)
-  */
- int drm_dp_pcon_pps_default(struct drm_dp_aux *aux)
- {
--	int ret;
--
--	ret = drm_dp_pcon_configure_dsc_enc(aux, DP_PCON_ENC_PPS_OVERRIDE_DISABLED);
--	if (ret < 0)
--		return ret;
--
--	return 0;
-+	return drm_dp_pcon_configure_dsc_enc(aux, DP_PCON_ENC_PPS_OVERRIDE_DISABLED);
- }
- EXPORT_SYMBOL(drm_dp_pcon_pps_default);
- 
-@@ -3845,15 +3792,11 @@ int drm_dp_pcon_pps_override_buf(struct drm_dp_aux *aux, u8 pps_buf[128])
- {
- 	int ret;
- 
--	ret = drm_dp_dpcd_write(aux, DP_PCON_HDMI_PPS_OVERRIDE_BASE, &pps_buf, 128);
-+	ret = drm_dp_dpcd_write_data(aux, DP_PCON_HDMI_PPS_OVERRIDE_BASE, &pps_buf, 128);
- 	if (ret < 0)
- 		return ret;
- 
--	ret = drm_dp_pcon_configure_dsc_enc(aux, DP_PCON_ENC_PPS_OVERRIDE_EN_BUFFER);
--	if (ret < 0)
--		return ret;
--
--	return 0;
-+	return drm_dp_pcon_configure_dsc_enc(aux, DP_PCON_ENC_PPS_OVERRIDE_EN_BUFFER);
- }
- EXPORT_SYMBOL(drm_dp_pcon_pps_override_buf);
- 
-@@ -3870,21 +3813,17 @@ int drm_dp_pcon_pps_override_param(struct drm_dp_aux *aux, u8 pps_param[6])
- {
- 	int ret;
- 
--	ret = drm_dp_dpcd_write(aux, DP_PCON_HDMI_PPS_OVRD_SLICE_HEIGHT, &pps_param[0], 2);
--	if (ret < 0)
--		return ret;
--	ret = drm_dp_dpcd_write(aux, DP_PCON_HDMI_PPS_OVRD_SLICE_WIDTH, &pps_param[2], 2);
-+	ret = drm_dp_dpcd_write_data(aux, DP_PCON_HDMI_PPS_OVRD_SLICE_HEIGHT, &pps_param[0], 2);
- 	if (ret < 0)
- 		return ret;
--	ret = drm_dp_dpcd_write(aux, DP_PCON_HDMI_PPS_OVRD_BPP, &pps_param[4], 2);
-+	ret = drm_dp_dpcd_write_data(aux, DP_PCON_HDMI_PPS_OVRD_SLICE_WIDTH, &pps_param[2], 2);
- 	if (ret < 0)
- 		return ret;
--
--	ret = drm_dp_pcon_configure_dsc_enc(aux, DP_PCON_ENC_PPS_OVERRIDE_EN_BUFFER);
-+	ret = drm_dp_dpcd_write_data(aux, DP_PCON_HDMI_PPS_OVRD_BPP, &pps_param[4], 2);
- 	if (ret < 0)
- 		return ret;
- 
--	return 0;
-+	return drm_dp_pcon_configure_dsc_enc(aux, DP_PCON_ENC_PPS_OVERRIDE_EN_BUFFER);
- }
- EXPORT_SYMBOL(drm_dp_pcon_pps_override_param);
- 
-@@ -3900,7 +3839,7 @@ int drm_dp_pcon_convert_rgb_to_ycbcr(struct drm_dp_aux *aux, u8 color_spc)
- 	int ret;
- 	u8 buf;
- 
--	ret = drm_dp_dpcd_readb(aux, DP_PROTOCOL_CONVERTER_CONTROL_2, &buf);
-+	ret = drm_dp_dpcd_read_byte(aux, DP_PROTOCOL_CONVERTER_CONTROL_2, &buf);
- 	if (ret < 0)
- 		return ret;
- 
-@@ -3909,11 +3848,7 @@ int drm_dp_pcon_convert_rgb_to_ycbcr(struct drm_dp_aux *aux, u8 color_spc)
- 	else
- 		buf &= ~DP_CONVERSION_RGB_YCBCR_MASK;
- 
--	ret = drm_dp_dpcd_writeb(aux, DP_PROTOCOL_CONVERTER_CONTROL_2, buf);
--	if (ret < 0)
--		return ret;
--
--	return 0;
-+	return drm_dp_dpcd_write_byte(aux, DP_PROTOCOL_CONVERTER_CONTROL_2, buf);
- }
- EXPORT_SYMBOL(drm_dp_pcon_convert_rgb_to_ycbcr);
- 
-@@ -3945,12 +3880,12 @@ int drm_edp_backlight_set_level(struct drm_dp_aux *aux, const struct drm_edp_bac
- 		buf[0] = level;
- 	}
- 
--	ret = drm_dp_dpcd_write(aux, DP_EDP_BACKLIGHT_BRIGHTNESS_MSB, buf, sizeof(buf));
+ 	/* Some hubs forget their guids after they resume */
+-	ret = drm_dp_dpcd_read(mgr->aux, DP_GUID, buf, sizeof(buf));
 -	if (ret != sizeof(buf)) {
-+	ret = drm_dp_dpcd_write_data(aux, DP_EDP_BACKLIGHT_BRIGHTNESS_MSB, buf, sizeof(buf));
++	ret = drm_dp_dpcd_read_data(mgr->aux, DP_GUID, buf, sizeof(buf));
 +	if (ret < 0) {
- 		drm_err(aux->drm_dev,
- 			"%s: Failed to write aux backlight level: %d\n",
- 			aux->name, ret);
--		return ret < 0 ? ret : -EIO;
-+		return ret;
+ 		drm_dbg_kms(mgr->dev, "dpcd read failed - undocked during suspend?\n");
+ 		goto out_fail;
  	}
+@@ -3883,8 +3879,8 @@ drm_dp_get_one_sb_msg(struct drm_dp_mst_topology_mgr *mgr, bool up,
+ 		*mstb = NULL;
  
- 	return 0;
-@@ -3968,22 +3903,22 @@ drm_edp_backlight_set_enable(struct drm_dp_aux *aux, const struct drm_edp_backli
- 	if (!bl->aux_enable)
- 		return 0;
- 
--	ret = drm_dp_dpcd_readb(aux, DP_EDP_DISPLAY_CONTROL_REGISTER, &buf);
--	if (ret != 1) {
-+	ret = drm_dp_dpcd_read_byte(aux, DP_EDP_DISPLAY_CONTROL_REGISTER, &buf);
+ 	len = min(mgr->max_dpcd_transaction_bytes, 16);
+-	ret = drm_dp_dpcd_read(mgr->aux, basereg, replyblock, len);
+-	if (ret != len) {
++	ret = drm_dp_dpcd_read_data(mgr->aux, basereg, replyblock, len);
 +	if (ret < 0) {
- 		drm_err(aux->drm_dev, "%s: Failed to read eDP display control register: %d\n",
- 			aux->name, ret);
--		return ret < 0 ? ret : -EIO;
-+		return ret;
+ 		drm_dbg_kms(mgr->dev, "failed to read DPCD down rep %d %d\n", len, ret);
+ 		return false;
  	}
- 	if (enable)
- 		buf |= DP_EDP_BACKLIGHT_ENABLE;
- 	else
- 		buf &= ~DP_EDP_BACKLIGHT_ENABLE;
- 
--	ret = drm_dp_dpcd_writeb(aux, DP_EDP_DISPLAY_CONTROL_REGISTER, buf);
--	if (ret != 1) {
-+	ret = drm_dp_dpcd_write_byte(aux, DP_EDP_DISPLAY_CONTROL_REGISTER, buf);
-+	if (ret < 0) {
- 		drm_err(aux->drm_dev, "%s: Failed to write eDP display control register: %d\n",
- 			aux->name, ret);
--		return ret < 0 ? ret : -EIO;
-+		return ret;
- 	}
- 
- 	return 0;
-@@ -4019,15 +3954,16 @@ int drm_edp_backlight_enable(struct drm_dp_aux *aux, const struct drm_edp_backli
- 		dpcd_buf = DP_EDP_BACKLIGHT_CONTROL_MODE_PWM;
- 
- 	if (bl->pwmgen_bit_count) {
--		ret = drm_dp_dpcd_writeb(aux, DP_EDP_PWMGEN_BIT_COUNT, bl->pwmgen_bit_count);
--		if (ret != 1)
-+		ret = drm_dp_dpcd_write_byte(aux, DP_EDP_PWMGEN_BIT_COUNT, bl->pwmgen_bit_count);
-+		if (ret < 0)
- 			drm_dbg_kms(aux->drm_dev, "%s: Failed to write aux pwmgen bit count: %d\n",
- 				    aux->name, ret);
- 	}
- 
- 	if (bl->pwm_freq_pre_divider) {
--		ret = drm_dp_dpcd_writeb(aux, DP_EDP_BACKLIGHT_FREQ_SET, bl->pwm_freq_pre_divider);
--		if (ret != 1)
-+		ret = drm_dp_dpcd_write_byte(aux, DP_EDP_BACKLIGHT_FREQ_SET,
-+					     bl->pwm_freq_pre_divider);
-+		if (ret < 0)
- 			drm_dbg_kms(aux->drm_dev,
- 				    "%s: Failed to write aux backlight frequency: %d\n",
- 				    aux->name, ret);
-@@ -4035,8 +3971,8 @@ int drm_edp_backlight_enable(struct drm_dp_aux *aux, const struct drm_edp_backli
- 			dpcd_buf |= DP_EDP_BACKLIGHT_FREQ_AUX_SET_ENABLE;
- 	}
- 
--	ret = drm_dp_dpcd_writeb(aux, DP_EDP_BACKLIGHT_MODE_SET_REGISTER, dpcd_buf);
--	if (ret != 1) {
-+	ret = drm_dp_dpcd_write_byte(aux, DP_EDP_BACKLIGHT_MODE_SET_REGISTER, dpcd_buf);
-+	if (ret < 0) {
- 		drm_dbg_kms(aux->drm_dev, "%s: Failed to write aux backlight mode: %d\n",
- 			    aux->name, ret);
- 		return ret < 0 ? ret : -EIO;
-@@ -4091,8 +4027,8 @@ drm_edp_backlight_probe_max(struct drm_dp_aux *aux, struct drm_edp_backlight_inf
- 	if (!bl->aux_set)
- 		return 0;
- 
--	ret = drm_dp_dpcd_readb(aux, DP_EDP_PWMGEN_BIT_COUNT, &pn);
--	if (ret != 1) {
-+	ret = drm_dp_dpcd_read_byte(aux, DP_EDP_PWMGEN_BIT_COUNT, &pn);
-+	if (ret < 0) {
- 		drm_dbg_kms(aux->drm_dev, "%s: Failed to read pwmgen bit count cap: %d\n",
- 			    aux->name, ret);
- 		return -ENODEV;
-@@ -4125,14 +4061,14 @@ drm_edp_backlight_probe_max(struct drm_dp_aux *aux, struct drm_edp_backlight_inf
- 	 * - FxP is within 25% of desired value.
- 	 *   Note: 25% is arbitrary value and may need some tweak.
- 	 */
--	ret = drm_dp_dpcd_readb(aux, DP_EDP_PWMGEN_BIT_COUNT_CAP_MIN, &pn_min);
--	if (ret != 1) {
-+	ret = drm_dp_dpcd_read_byte(aux, DP_EDP_PWMGEN_BIT_COUNT_CAP_MIN, &pn_min);
-+	if (ret < 0) {
- 		drm_dbg_kms(aux->drm_dev, "%s: Failed to read pwmgen bit count cap min: %d\n",
- 			    aux->name, ret);
- 		return 0;
- 	}
--	ret = drm_dp_dpcd_readb(aux, DP_EDP_PWMGEN_BIT_COUNT_CAP_MAX, &pn_max);
--	if (ret != 1) {
-+	ret = drm_dp_dpcd_read_byte(aux, DP_EDP_PWMGEN_BIT_COUNT_CAP_MAX, &pn_max);
-+	if (ret < 0) {
- 		drm_dbg_kms(aux->drm_dev, "%s: Failed to read pwmgen bit count cap max: %d\n",
- 			    aux->name, ret);
- 		return 0;
-@@ -4157,8 +4093,8 @@ drm_edp_backlight_probe_max(struct drm_dp_aux *aux, struct drm_edp_backlight_inf
- 			break;
- 	}
- 
--	ret = drm_dp_dpcd_writeb(aux, DP_EDP_PWMGEN_BIT_COUNT, pn);
--	if (ret != 1) {
-+	ret = drm_dp_dpcd_write_byte(aux, DP_EDP_PWMGEN_BIT_COUNT, pn);
-+	if (ret < 0) {
- 		drm_dbg_kms(aux->drm_dev, "%s: Failed to write aux pwmgen bit count: %d\n",
- 			    aux->name, ret);
- 		return 0;
-@@ -4183,8 +4119,8 @@ drm_edp_backlight_probe_state(struct drm_dp_aux *aux, struct drm_edp_backlight_i
- 	u8 buf[2];
- 	u8 mode_reg;
- 
--	ret = drm_dp_dpcd_readb(aux, DP_EDP_BACKLIGHT_MODE_SET_REGISTER, &mode_reg);
--	if (ret != 1) {
-+	ret = drm_dp_dpcd_read_byte(aux, DP_EDP_BACKLIGHT_MODE_SET_REGISTER, &mode_reg);
-+	if (ret < 0) {
- 		drm_dbg_kms(aux->drm_dev, "%s: Failed to read backlight mode: %d\n",
- 			    aux->name, ret);
- 		return ret < 0 ? ret : -EIO;
-@@ -4197,11 +4133,11 @@ drm_edp_backlight_probe_state(struct drm_dp_aux *aux, struct drm_edp_backlight_i
- 	if (*current_mode == DP_EDP_BACKLIGHT_CONTROL_MODE_DPCD) {
- 		int size = 1 + bl->lsb_reg_used;
- 
--		ret = drm_dp_dpcd_read(aux, DP_EDP_BACKLIGHT_BRIGHTNESS_MSB, buf, size);
--		if (ret != size) {
-+		ret = drm_dp_dpcd_read_data(aux, DP_EDP_BACKLIGHT_BRIGHTNESS_MSB, buf, size);
+@@ -3922,9 +3918,9 @@ drm_dp_get_one_sb_msg(struct drm_dp_mst_topology_mgr *mgr, bool up,
+ 	curreply = len;
+ 	while (replylen > 0) {
+ 		len = min3(replylen, mgr->max_dpcd_transaction_bytes, 16);
+-		ret = drm_dp_dpcd_read(mgr->aux, basereg + curreply,
+-				    replyblock, len);
+-		if (ret != len) {
++		ret = drm_dp_dpcd_read_data(mgr->aux, basereg + curreply,
++					    replyblock, len);
 +		if (ret < 0) {
- 			drm_dbg_kms(aux->drm_dev, "%s: Failed to read backlight level: %d\n",
- 				    aux->name, ret);
--			return ret < 0 ? ret : -EIO;
-+			return ret;
+ 			drm_dbg_kms(mgr->dev, "failed to read a chunk (len %d, ret %d)\n",
+ 				    len, ret);
+ 			return false;
+@@ -4881,9 +4877,9 @@ static bool dump_dp_payload_table(struct drm_dp_mst_topology_mgr *mgr,
+ 	int i;
+ 
+ 	for (i = 0; i < DP_PAYLOAD_TABLE_SIZE; i += 16) {
+-		if (drm_dp_dpcd_read(mgr->aux,
+-				     DP_PAYLOAD_TABLE_UPDATE_STATUS + i,
+-				     &buf[i], 16) != 16)
++		if (drm_dp_dpcd_read_data(mgr->aux,
++					  DP_PAYLOAD_TABLE_UPDATE_STATUS + i,
++					  &buf[i], 16) < 0)
+ 			return false;
+ 	}
+ 	return true;
+@@ -4972,23 +4968,24 @@ void drm_dp_mst_dump_topology(struct seq_file *m,
  		}
+ 		seq_printf(m, "dpcd: %*ph\n", DP_RECEIVER_CAP_SIZE, buf);
  
- 		if (bl->lsb_reg_used)
-@@ -4346,8 +4282,8 @@ int drm_panel_dp_aux_backlight(struct drm_panel *panel, struct drm_dp_aux *aux)
- 	if (!panel || !panel->dev || !aux)
- 		return -EINVAL;
+-		ret = drm_dp_dpcd_read(mgr->aux, DP_FAUX_CAP, buf, 2);
+-		if (ret != 2) {
++		ret = drm_dp_dpcd_read_data(mgr->aux, DP_FAUX_CAP, buf, 2);
++		if (ret < 0) {
+ 			seq_printf(m, "faux/mst read failed\n");
+ 			goto out;
+ 		}
+ 		seq_printf(m, "faux/mst: %*ph\n", 2, buf);
  
--	ret = drm_dp_dpcd_read(aux, DP_EDP_DPCD_REV, edp_dpcd,
--			       EDP_DISPLAY_CTL_CAP_SIZE);
-+	ret = drm_dp_dpcd_read_data(aux, DP_EDP_DPCD_REV, edp_dpcd,
-+				    EDP_DISPLAY_CTL_CAP_SIZE);
- 	if (ret < 0)
- 		return ret;
+-		ret = drm_dp_dpcd_read(mgr->aux, DP_MSTM_CTRL, buf, 1);
+-		if (ret != 1) {
++		ret = drm_dp_dpcd_read_data(mgr->aux, DP_MSTM_CTRL, buf, 1);
++		if (ret < 0) {
+ 			seq_printf(m, "mst ctrl read failed\n");
+ 			goto out;
+ 		}
+ 		seq_printf(m, "mst ctrl: %*ph\n", 1, buf);
  
+ 		/* dump the standard OUI branch header */
+-		ret = drm_dp_dpcd_read(mgr->aux, DP_BRANCH_OUI, buf, DP_BRANCH_OUI_HEADER_SIZE);
+-		if (ret != DP_BRANCH_OUI_HEADER_SIZE) {
++		ret = drm_dp_dpcd_read_data(mgr->aux, DP_BRANCH_OUI, buf,
++					    DP_BRANCH_OUI_HEADER_SIZE);
++		if (ret < 0) {
+ 			seq_printf(m, "branch oui read failed\n");
+ 			goto out;
+ 		}
+@@ -6112,14 +6109,14 @@ struct drm_dp_aux *drm_dp_mst_dsc_aux_for_port(struct drm_dp_mst_port *port)
+ 
+ 	/* DP-to-DP peer device */
+ 	if (drm_dp_mst_is_virtual_dpcd(immediate_upstream_port)) {
+-		if (drm_dp_dpcd_read(&port->aux,
+-				     DP_DSC_SUPPORT, &endpoint_dsc, 1) != 1)
++		if (drm_dp_dpcd_read_data(&port->aux,
++					  DP_DSC_SUPPORT, &endpoint_dsc, 1) < 0)
+ 			return NULL;
+-		if (drm_dp_dpcd_read(&port->aux,
+-				     DP_FEC_CAPABILITY, &endpoint_fec, 1) != 1)
++		if (drm_dp_dpcd_read_data(&port->aux,
++					  DP_FEC_CAPABILITY, &endpoint_fec, 1) < 0)
+ 			return NULL;
+-		if (drm_dp_dpcd_read(&immediate_upstream_port->aux,
+-				     DP_DSC_SUPPORT, &upstream_dsc, 1) != 1)
++		if (drm_dp_dpcd_read_data(&immediate_upstream_port->aux,
++					  DP_DSC_SUPPORT, &upstream_dsc, 1) < 0)
+ 			return NULL;
+ 
+ 		/* Enpoint decompression with DP-to-DP peer device */
+@@ -6157,8 +6154,8 @@ struct drm_dp_aux *drm_dp_mst_dsc_aux_for_port(struct drm_dp_mst_port *port)
+ 	if (drm_dp_has_quirk(&desc, DP_DPCD_QUIRK_DSC_WITHOUT_VIRTUAL_DPCD)) {
+ 		u8 dpcd_ext[DP_RECEIVER_CAP_SIZE];
+ 
+-		if (drm_dp_dpcd_read(immediate_upstream_aux,
+-				     DP_DSC_SUPPORT, &upstream_dsc, 1) != 1)
++		if (drm_dp_dpcd_read_data(immediate_upstream_aux,
++					  DP_DSC_SUPPORT, &upstream_dsc, 1) < 0)
+ 			return NULL;
+ 
+ 		if (!(upstream_dsc & DP_DSC_DECOMPRESSION_IS_SUPPORTED))
+@@ -6180,11 +6177,11 @@ struct drm_dp_aux *drm_dp_mst_dsc_aux_for_port(struct drm_dp_mst_port *port)
+ 	 * therefore the endpoint needs to be
+ 	 * both DSC and FEC capable.
+ 	 */
+-	if (drm_dp_dpcd_read(&port->aux,
+-	   DP_DSC_SUPPORT, &endpoint_dsc, 1) != 1)
++	if (drm_dp_dpcd_read_data(&port->aux,
++				  DP_DSC_SUPPORT, &endpoint_dsc, 1) < 0)
+ 		return NULL;
+-	if (drm_dp_dpcd_read(&port->aux,
+-	   DP_FEC_CAPABILITY, &endpoint_fec, 1) != 1)
++	if (drm_dp_dpcd_read_data(&port->aux,
++				  DP_FEC_CAPABILITY, &endpoint_fec, 1) < 0)
+ 		return NULL;
+ 	if ((endpoint_dsc & DP_DSC_DECOMPRESSION_IS_SUPPORTED) &&
+ 	   (endpoint_fec & DP_FEC_CAPABLE))
 
 -- 
 2.39.5
