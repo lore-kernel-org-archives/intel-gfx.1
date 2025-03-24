@@ -4,58 +4,77 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 24074C36002
-	for <intel-gfx@archiver.kernel.org>; Mon, 24 Mar 2025 08:35:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1EAC8C36002
+	for <intel-gfx@archiver.kernel.org>; Mon, 24 Mar 2025 08:38:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AB86310E228;
-	Mon, 24 Mar 2025 08:35:42 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B2F5110E22D;
+	Mon, 24 Mar 2025 08:38:06 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="Mf88HgCH";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="fQyLe+9E";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 62A0A10E228;
- Mon, 24 Mar 2025 08:35:41 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1742805341; x=1774341341;
- h=from:to:cc:subject:in-reply-to:references:date:
- message-id:mime-version;
- bh=VxM7OlDarYQ1+11Ww2hWEMSFdggBD4e48hSzD0HHnsQ=;
- b=Mf88HgCH2/pBU5yk1Obkui4CdTxzQxB6kccPhSIcc7PU2U05XsxdAbyE
- goa5Nx8WUPY/FmyZYlGjyC1VH3R3D3fa4C5WQJbyDyW+bC/1wO2gR19C2
- 9dKGLkktiV8Rw7MT9iRaOAHX62YX2o9hankXUAATOgO6vwDZMRdNMhTum
- 5IJM7Fctb0Nf8f9q9qS/J5nMcZFstkbfWEcqjafCXr5y+2+B9xNakASy1
- vPlLdydvxap7cblFRDPphZ5X5JuqGlin8ZIWS9phG3JM5FGg85lxJbTgz
- cS1dfAzxkSVArvxRcGk9GyK5sf/LSBn8E4fWkZ8EYvJQnlcdxev90IzV5 g==;
-X-CSE-ConnectionGUID: hcKhgOz0RGyfirqyoPT1JA==
-X-CSE-MsgGUID: /U9SucgzQoCDnG+oBrtcKA==
-X-IronPort-AV: E=McAfee;i="6700,10204,11382"; a="44120963"
-X-IronPort-AV: E=Sophos;i="6.14,271,1736841600"; d="scan'208";a="44120963"
-Received: from fmviesa010.fm.intel.com ([10.60.135.150])
- by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 24 Mar 2025 01:35:41 -0700
-X-CSE-ConnectionGUID: 3wVX81NUR2u2KwOf8q0WDg==
-X-CSE-MsgGUID: b7yrd1TmS+qgB+IcXuVfKA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.14,271,1736841600"; d="scan'208";a="124433162"
-Received: from kniemiec-mobl1.ger.corp.intel.com (HELO localhost)
- ([10.245.246.30])
- by fmviesa010-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 24 Mar 2025 01:35:38 -0700
-From: Jani Nikula <jani.nikula@intel.com>
-To: Animesh Manna <animesh.manna@intel.com>,
- intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org
-Cc: jouni.hogander@intel.com, jeevan.b@intel.com, Animesh Manna
- <animesh.manna@intel.com>
-Subject: Re: [PATCH v6 5/8] drm/i915/lobf: Add debug interface for lobf
-In-Reply-To: <20250319191508.2751216-6-animesh.manna@intel.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
-References: <20250319191508.2751216-1-animesh.manna@intel.com>
- <20250319191508.2751216-6-animesh.manna@intel.com>
-Date: Mon, 24 Mar 2025 10:35:36 +0200
-Message-ID: <87v7rybzc7.fsf@intel.com>
+Received: from mail-wr1-f51.google.com (mail-wr1-f51.google.com
+ [209.85.221.51])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C284D10E22C;
+ Mon, 24 Mar 2025 08:38:03 +0000 (UTC)
+Received: by mail-wr1-f51.google.com with SMTP id
+ ffacd0b85a97d-390f5f48eafso2173765f8f.0; 
+ Mon, 24 Mar 2025 01:38:03 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1742805481; x=1743410281; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=p2eMhzuW/T/v54obbAFay23c/FPuEQhYHeqieqEvYbI=;
+ b=fQyLe+9E6pxqep28WXlpVv3dKGBw0i3a6AheKUDW3FmvnAUJzdmaPkxVFL1qTF8C9V
+ nhZGAbs03kC+4TwtDwSSQe0E0iUcfzG6xFwdaESMvFEzWNty12/l/kIi0wVLOr9aSoBk
+ bm1Gg9CZHBzGLq8/cyPX2KVam9ZczakoLyz60Wn6RHY8h7aIP6WmqDKWkDuPYiwMqhC9
+ oW/6NEtRJCs5gW5DsWIEZgNj+qJ0VNPHHzjZ05+Mwa+GaPVT5OqZBawKGNMNTqYksBAv
+ pyiwMx73JMGw3Lmw7TmglNPvRAhjDay1zOIjss78SFXKUNyZBTTCy8etD/FaXme4TCSc
+ HXKA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1742805481; x=1743410281;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=p2eMhzuW/T/v54obbAFay23c/FPuEQhYHeqieqEvYbI=;
+ b=eF0x9pFlOXb9M89lmKLKlPW6O8QjwHHiHWxonhAujUNgAuZYYrB6ZaRrtzV8lbUm3m
+ gI/dGONp80vDYeOPVJaeY1uxfNJ1+qwyi1Iv818Dmx/NzHGqeYQYqQaT1WcKvUH/vCWR
+ fHpQenXz3SfyQOBwxRol+q6P08oeM+d7tncKgEXclHb6rL00XXCfo8s7ph4q9wZtAl0d
+ x6W5cUOw1jUPO2WjppFbzmmF59Od7pCZjdL8YU6A48W69h0n+JsN63S0JNttQxLo280i
+ NZkuOOZKxyjyAn/1n2hbNU725a2cYYNJsxEeT0u7GLBI11+3IknV7wJ7ugS39qrdulka
+ OKww==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCVDoMLfIx1Hqqodhy52fdp73LRpzma0Z/LDMuVdD/85E5bN4KmqK6ZaBszwpUQN8XMZ1iND8Vdma00=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yx5YSI0eJQzZZeoa92oHiue/fwMk/CMA1CnZE6G0auOhaZOHQ8O
+ kZqr/Jz4JAdrSF4uKaV8Eqqnosh1FAWfSO0HrVrLjx0Qip1U+0Ft
+X-Gm-Gg: ASbGncuF11c+Wa7kS0pXP2iUB4mZR4o+MBA3QSdeOmoD6Bc6PC5gHrWzPkAQsOgUaMy
+ lfyzXnBicA3tycEY2At8JHEaLNjcZ/dDhShMLlo5FAuG1oqJ6SGfTSQ+LpxAWAzUJMrAGDlS4P4
+ HsPYcg+W2yvBOikvV//K30acwPHnQNf6wXntT5qc/FMHMSOjpPHTuCtFQsiQMbauXKwXLNwpFy9
+ CSlI/wEAb99VQkCZQtxXrssr7u1WyuAzZ9UJhsjZc71dUcFbxlEMKXEXLK1Gix6jQMQNgeShtje
+ 6+j3UI8tAqCZ1IQTCUVzbJl1SOqyVWnGyNgl6HWY85PPNJ7ZNOeWtfIENp98Xg==
+X-Google-Smtp-Source: AGHT+IGJTSJbIlyg3JuKo4OUUbwE6Hhq1ca9/N90jrvxYqu0uEEqFpc42Aa6KTHJO+ied4Kf0aifaQ==
+X-Received: by 2002:a5d:6d86:0:b0:38d:d701:419c with SMTP id
+ ffacd0b85a97d-3997f92da9amr12006201f8f.41.1742805480584; 
+ Mon, 24 Mar 2025 01:38:00 -0700 (PDT)
+Received: from arrakis.kwizart.net (home.kwizart.net. [82.65.38.83])
+ by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-3997f9b3c2csm10078670f8f.46.2025.03.24.01.37.59
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 24 Mar 2025 01:37:59 -0700 (PDT)
+From: Nicolas Chauvet <kwizart@gmail.com>
+To: Zhenyu Wang <zhenyuw@linux.intel.com>, Zhi Wang <zhi.wang.linux@gmail.com>,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Tvrtko Ursulin <tursulin@ursulin.net>
+Cc: intel-gvt-dev@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
+ Nicolas Chauvet <kwizart@gmail.com>
+Subject: drm/i915/gvt: Rework fix out-of-bounds buffer write into
+ opregion->signature
+Date: Mon, 24 Mar 2025 09:30:00 +0100
+Message-ID: <20250324083755.12489-1-kwizart@gmail.com>
+X-Mailer: git-send-email 2.49.0
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Transfer-Encoding: 8bit
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,102 +90,27 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Thu, 20 Mar 2025, Animesh Manna <animesh.manna@intel.com> wrote:
-> Add an interface in debugfs which will help in debugging LOBF
-> feature.
->
-> v1: Initial version.
-> v2:
-> - Remove FORCE_EN flag. [Jouni]
-> - Change prefix from I915 to INTEL. [Jani]
-> - Use u8 instead of bool for lobf-debug flag. [Jani]
-> v3:
-> - Use intel_connector instead of display. [Jani]
-> - Remove edp connector check as it was already present
-> in caller function. [Jani]
-> - Remove loop of searching edp encoder which is directly
-> accessible from intel_connector. [Jani]
-> v4:
-> - Simplify alpm debug to bool instead of bit-mask. [Jani]
->
-> Signed-off-by: Animesh Manna <animesh.manna@intel.com>
-> ---
->  drivers/gpu/drm/i915/display/intel_alpm.c     | 32 +++++++++++++++++++
->  .../drm/i915/display/intel_display_types.h    |  1 +
->  2 files changed, 33 insertions(+)
->
-> diff --git a/drivers/gpu/drm/i915/display/intel_alpm.c b/drivers/gpu/drm/i915/display/intel_alpm.c
-> index 5df1253a6b6c..dc24772743b8 100644
-> --- a/drivers/gpu/drm/i915/display/intel_alpm.c
-> +++ b/drivers/gpu/drm/i915/display/intel_alpm.c
-> @@ -276,6 +276,9 @@ void intel_alpm_lobf_compute_config(struct intel_dp *intel_dp,
->  	int waketime_in_lines, first_sdp_position;
->  	int context_latency, guardband;
->  
-> +	if (intel_dp->alpm_parameters.lobf_enable_debug)
-> +		return;
-> +
->  	if (!intel_dp_is_edp(intel_dp))
->  		return;
->  
-> @@ -436,6 +439,32 @@ static int i915_edp_lobf_info_show(struct seq_file *m, void *data)
->  
->  DEFINE_SHOW_ATTRIBUTE(i915_edp_lobf_info);
->  
-> +static int
-> +i915_edp_lobf_debug_get(void *data, u64 *val)
-> +{
-> +	struct intel_connector *connector = data;
-> +	struct intel_dp *intel_dp = enc_to_intel_dp(connector->encoder);
-> +
-> +	*val = READ_ONCE(intel_dp->alpm_parameters.lobf_enable_debug);
+With gcc-15, there is a new warning treated as error
+    As shown with gcc-15:
+    drivers/gpu/drm/i915/gvt/opregion.c: In function intel_vgpu_init_opregion:
+    drivers/gpu/drm/i915/gvt/opregion.c:35:28: error: initializer-string for array of char is too long [-Werror=unterminated-string-initialization]
+       35 | #define OPREGION_SIGNATURE "IntelGraphicsMem"
+          |                            ^~~~~~~~~~~~~~~~~~
+    drivers/gpu/drm/i915/gvt/opregion.c:225:45: note: in expansion of macro OPREGION_SIGNATURE
+      225 |         const char opregion_signature[16] = OPREGION_SIGNATURE;
+          |                                             ^~~~~~~~~~~~~~~~~~
+    cc1: all warnings being treated as errors
 
-Why READ_ONCE()?
+Rework the previous fix by reverting it, then two options:
+- Enlarge the signature field
+- Reduce the string size 
 
-> +
-> +	return 0;
-> +}
-> +
-> +static int
-> +i915_edp_lobf_debug_set(void *data, u64 val)
-> +{
-> +	struct intel_connector *connector = data;
-> +	struct intel_dp *intel_dp = enc_to_intel_dp(connector->encoder);
-> +
-> +	intel_dp->alpm_parameters.lobf_enable_debug = val;
-> +
-> +	return 0;
-> +}
-> +
-> +DEFINE_SIMPLE_ATTRIBUTE(i915_edp_lobf_debug_fops,
-> +			i915_edp_lobf_debug_get, i915_edp_lobf_debug_set,
-> +			"%llu\n");
-> +
->  void intel_alpm_lobf_debugfs_add(struct intel_connector *connector)
->  {
->  	struct intel_display *display = to_intel_display(connector);
-> @@ -445,6 +474,9 @@ void intel_alpm_lobf_debugfs_add(struct intel_connector *connector)
->  	    connector->base.connector_type != DRM_MODE_CONNECTOR_eDP)
->  		return;
->  
-> +	debugfs_create_file("i915_edp_lobf_debug", 0644, root,
-> +			    connector, &i915_edp_lobf_debug_fops);
-> +
->  	debugfs_create_file("i915_edp_lobf_info", 0444, root,
->  			    connector, &i915_edp_lobf_info_fops);
->  }
-> diff --git a/drivers/gpu/drm/i915/display/intel_display_types.h b/drivers/gpu/drm/i915/display/intel_display_types.h
-> index bef54b23273f..0b109aac5306 100644
-> --- a/drivers/gpu/drm/i915/display/intel_display_types.h
-> +++ b/drivers/gpu/drm/i915/display/intel_display_types.h
-> @@ -1812,6 +1812,7 @@ struct intel_dp {
->  		u8 aux_less_wake_lines;
->  		u8 silence_period_sym_clocks;
->  		u8 lfps_half_cycle_num_of_syms;
-> +		bool lobf_enable_debug;
->  	} alpm_parameters;
->  
->  	u8 alpm_dpcd;
+I would use the latter, but I don't know the runtime implication of it
+(hence the RFC).
 
--- 
-Jani Nikula, Intel
+This issue was discovered by building longterm kernel-6.12 in newer
+fedora, See also:
+https://copr.fedorainfracloud.org/coprs/kwizart/kernel-longterm-6.12/
+
+Signed-off-by: Nicolas Chauvet <kwizart@gmail.com>
+
