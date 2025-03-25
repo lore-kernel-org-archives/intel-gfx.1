@@ -4,147 +4,80 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 361E8C36018
-	for <intel-gfx@archiver.kernel.org>; Fri, 28 Mar 2025 13:09:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7388BC28B20
+	for <intel-gfx@archiver.kernel.org>; Fri, 28 Mar 2025 13:09:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8BA9810EA1E;
-	Fri, 28 Mar 2025 13:08:59 +0000 (UTC)
-Received: from NAM11-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam11on2042.outbound.protection.outlook.com [40.107.223.42])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 33E2610E902
- for <intel-gfx@lists.freedesktop.org>; Thu, 27 Mar 2025 15:05:04 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=BMWuSLO+fUDSzAV5JtMzT+JfLGxB8fO2VmpbwQk2l+4utnsCoQcIJLNM9eZ0CSf+1L30Gm6QWtxd0fMbr5cnNcwPR7NVtocb1paXzpteMaheHMUek2Y5l/5/Te82ZQ8/ghijSZx+6nkMCMOpCP9J7VpnKO7LdOxOvM4DTPrraX1KdfCAyNy9LzmXxBP6zDoMC5XKdv9avh2PU6lp7fCV/NyftQrxmwsiKl73idEHl/GC0HIjHsKzbdPMR6jsnI6mp9AqYQfee2YlFxhk2vPznnpb4sTwA+TbEU4lIEA1q0S1hbYthvObCIAcoW3p9wDzI7XxDGicCRCYAK3PUTqLRQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=M3rjfxKvTGNyZmr0JlnzB6OO81Yqouqob3AiuXmTPHI=;
- b=SNWLkl61BbzRrO3JXtTPEwWGUxoQeL+14uHRk96umYXVGJoFm0TqS4vNT12usyBTnBtbRNYfw5Q8Hq0mKX5qNFbaCgjwSPzGi6N0gK3zKIyXVV2GLJy7GqoGJr9UaYVW6ZI9aHmkeX3BNKIPd52TVXawQ/baeiknVMsCTlQYIVMTd74NYvFng9XsJOeghq+ALSReXcJZYmt33PiKO9ZmN9kyq4dr7JhZgY3o2ZIJRFxIsnLOM+bD3YSkG4Gj77yH4ZpN6COyB/j4qCIBpwwLkKHwcdyx+K/7DA9ACup9hU6CCllh/0LyNRIisHtAX9d+F9cgejZDpaKcy2z55Du96Q==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=M3rjfxKvTGNyZmr0JlnzB6OO81Yqouqob3AiuXmTPHI=;
- b=UXQGbffGpIdw4nruoFF7LypjFuNNNmlY1z5KEXxxLrR7qAJjW+4IpSksoSA9AB1wtQMfFu6r4DJZL2NgNEZId3wavffSDm0JUBM4EFzPjv4CE7kx+xibJBOeP+3L3k03iHnUPf995d71k+KBGXf2s5PRQ6ENpFx6D/K9zHUQJO6UFAAuLSkWI7tI7Iq44E4eJDqVAP3SXVmMPd6gQi6mnZGiX1uYNd0XoerWIKasjLHsY2emFJS90d3bGrXLaCj8TwQdMMlo0nrVkCw1UIYp7Zycv3E22ChoULcbtVfAyVowlR2uPPX1ovcBhti/vGt1q1m03qif7eWxi/+FR+QkoA==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from DS7PR12MB9473.namprd12.prod.outlook.com (2603:10b6:8:252::5) by
- DS7PR12MB8230.namprd12.prod.outlook.com (2603:10b6:8:ed::5) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.8534.44; Thu, 27 Mar 2025 15:04:59 +0000
-Received: from DS7PR12MB9473.namprd12.prod.outlook.com
- ([fe80::5189:ecec:d84a:133a]) by DS7PR12MB9473.namprd12.prod.outlook.com
- ([fe80::5189:ecec:d84a:133a%4]) with mapi id 15.20.8534.043; Thu, 27 Mar 2025
- 15:04:59 +0000
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Thu, 27 Mar 2025 11:04:57 -0400
-Message-Id: <D8R539L45F9P.3PIKZ5DUGGVS8@nvidia.com>
-From: "Zi Yan" <ziy@nvidia.com>
-Subject: Re: [PATCH 06/11] migrate: Remove call to ->writepage
-Cc: <linux-mm@kvack.org>, <intel-gfx@lists.freedesktop.org>
-To: "Matthew Wilcox (Oracle)" <willy@infradead.org>,
- <linux-fsdevel@vger.kernel.org>, "David Hildenbrand" <david@redhat.com>,
- "Joanne Koong" <joannelkoong@gmail.com>
-X-Mailer: aerc 0.20.0
-References: <20250307135414.2987755-1-willy@infradead.org>
- <20250307135414.2987755-7-willy@infradead.org>
-In-Reply-To: <20250307135414.2987755-7-willy@infradead.org>
-X-ClientProxiedBy: BN8PR04CA0004.namprd04.prod.outlook.com
- (2603:10b6:408:70::17) To DS7PR12MB9473.namprd12.prod.outlook.com
- (2603:10b6:8:252::5)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1A08D10EA05;
+	Fri, 28 Mar 2025 13:09:19 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="gSM0c41/";
+	dkim-atps=neutral
+Received: from mail-qk1-f170.google.com (mail-qk1-f170.google.com
+ [209.85.222.170])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8078110E00A;
+ Tue, 25 Mar 2025 18:57:14 +0000 (UTC)
+Received: by mail-qk1-f170.google.com with SMTP id
+ af79cd13be357-7c542ffec37so633327185a.2; 
+ Tue, 25 Mar 2025 11:57:14 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1742929033; x=1743533833; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=Wc1b/KonmqQlWVjQyIDNx1PB8OnyCz3qh1Tew/uSRf8=;
+ b=gSM0c41/gQS3DbtE+08PualIVWp9K+vaME9sEwID+CaVsWrNT9qRanZhBuw1ybkKva
+ tOFUbmrCddmFBxHOdzMeNKlfc5lrCp80ET80a1amO02NenolvpKHArJA1gFL8KMhdwG/
+ B5JNvTf+Phj39iIQU22OYgOL2+GB/WVdIoODLgBOa7bIDUEPOHob4JHXu5GPTL+vu89V
+ dEC0OAUD/9cRgwrG93UCKeTpt5+8fdzw/+YibLQjBgMDW2PeOdhmeBOZyY5UyzxHQtuc
+ 1d0No+pnHivDvJ3fZFi/hxt1pwSxeam4oMwJJo4elbbovSB9E2UUJ943eOpqY5h7bqKD
+ oZAQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1742929033; x=1743533833;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=Wc1b/KonmqQlWVjQyIDNx1PB8OnyCz3qh1Tew/uSRf8=;
+ b=OeROdaA7TjFtqdrFXROneyRkEZgORwQh+zOn2+sK+xpS9axKIpzD/ScsVBM3lP+LFg
+ lYfYwH+gY9Vwy3iBpyrpZhG3G0uaLZ0egysGIFCms1vTbc6b37OSBAiOkBKpi0I24VMN
+ 8+4t0nym4oq3pAHDCa6F4dg/kDXCV5FkHz6mPARwtu0c7YC4m2Bpq/aKfaEJx6uV59/m
+ UfKIWTAKTaOYXJJ9dDa4gkkRNhEvp6J86Q70sI/bxUc0ZCZkrrwo11g5rhLFkNnh/0hh
+ NAqnc7Kwp9V7VKGkD2B5yxCYsny102jdIhyR5xr1VLtL2hO3dZHdx7pvWkmV4xgs5odQ
+ MTkg==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCU8fE6SwTPP/PUHYhy0CTSsp00263oxGBkTjMvMdgXBUmItrtUusFWc1LSVo3gPKZJR0NHnV7RD@lists.freedesktop.org,
+ AJvYcCUJMnzJx8vgLb9QjsnoMEFwP/LuC3UEbJp5NzIJpRibdHVvw4MYeMrLxSfQ26i/PMPSDB7nQR7/f+9XQqJGVmxU8w==@lists.freedesktop.org,
+ AJvYcCVAsC3EOtTox3jG0U1PfuWWzEmtRAOl5Dj3j5vzbdFbX0LEnzIzhmQGHA1zrpasW5gWIE6IF3GgPxgH@lists.freedesktop.org,
+ AJvYcCVhDCp7jgjIlIppA30a6JdB1H7q6lisPdcQUzcvWZyRkAJg3oEhJG5eN97aI32VG/OYQ85H7VbsEzdU@lists.freedesktop.org,
+ AJvYcCW68nnnPPqf6gnoJ7lLHuDN/IECj6dSrGA5RfOYsbGmNME1W7oo6pz7NL0zDc95uB93YLwMRTNnEkoOzlyRpg==@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzUYjBcv2QL8ed/4eZNihXDD+Vkp+bVEW85qRKaQJKVrRkjHtY8
+ Bt2CJOEsgZjKvFlDLQLCQ6KdgydGgUfdVCShv0P/SqVrSnL7ncCUmhEqT0SQzvS/sJX3Yk2eOBi
+ KLSy5D5MTfhZLWJodeqSpgOoF/bmzksNp
+X-Gm-Gg: ASbGncsYpnUXqUiGWlznx9tKAcZX66IdlWUszhr8R7u4OPs9iemoECHR7OcHzShRLmE
+ skSAydTc1t/6+BmT/H+m8th3fPMnGTQRxRfZXrx7Nts/svluE4ZVSxEVQAreIVfkMLdsir6LglR
+ u2ngva66HzYxM1edA7rxxpEmBs
+X-Google-Smtp-Source: AGHT+IHZrxz76tlBAchwWlwvG1UO5HlgQQvC8bUrjtin9ky9DD1ICNaN0M4Dchd5qiDKedF02gvCDAitk2nLkn591/E=
+X-Received: by 2002:a05:6122:251b:b0:520:61ee:c7f9 with SMTP id
+ 71dfb90a1353d-525a84c5e96mr14236045e0c.7.1742929022532; Tue, 25 Mar 2025
+ 11:57:02 -0700 (PDT)
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS7PR12MB9473:EE_|DS7PR12MB8230:EE_
-X-MS-Office365-Filtering-Correlation-Id: 1669543f-b35d-4332-937e-08dd6d40be5f
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|1800799024|376014|366016|7053199007;
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?OWVHS0lFZlpROG1xUjczekowSk9XcHRZQ090OHhFTjdxc3NmY2xOQ1ZQeGhy?=
- =?utf-8?B?QVJzYWVoMndXcC91bVkyUzUrTFZUMDhGTUg2VmV3NUNwNTNoaFRyWnF2MlV3?=
- =?utf-8?B?YnJsZGRFTlFzVStvWjVKWXN0ZEZoK0hUdlB3T3Y0YlN5bzM5ZUdNclBVRjRL?=
- =?utf-8?B?azcvSTFIMGtLbElvQVFvaE10WHRIbDB1bW9tWTZrUUdFVzM3R2tEcjR2K3FB?=
- =?utf-8?B?V2dpUTZZUk9UdFVCdDJHOW1SL0JoNEpJOUQyQ2pyU2NCeFpUU1lSaVNRNE1F?=
- =?utf-8?B?RHNocnJodTJ6eFN0bGtIakZpQzZuWjI4WjhaZExOeDF5U1VGSTZtbVNtalFs?=
- =?utf-8?B?SGEyMkkweTQvTlVBbzVuaGN1N3IyZytxQ0pNY1FPVXY3am9MKzRsRGJsdFNU?=
- =?utf-8?B?YkM5TEpGWWdiNHRxcTV4QjQwa2FvTk42UlB6Y05kTUJLUHE4WDM1MkEyUEQy?=
- =?utf-8?B?NExRSEZJYXJkbmF6WE0wR3JadVArSURCTUJQRWRqWkM5RHgzaGxUaStnK2Ft?=
- =?utf-8?B?ZTBSSVY5a2VybWZXT01HK2tWSHNrN3lUa2FoVHg1WGxFckR5cjlKeVN5K1Fv?=
- =?utf-8?B?dzBmZWI3ejJXL0RZcDMzeHhYT3JhZGpiU0RsdFMzMjdQVWIwRjFkN0plNjIy?=
- =?utf-8?B?emdUN1FCTGVHSWdkbnRiaFQ0VW1Cay9NV0txUmZrLzRhOXpUN2pFemJqeHJw?=
- =?utf-8?B?U21IZlc3MHI3Z1RRaWpOejVESzRhampodndEMHZKVmZrUmR6S2dvZjJXajRn?=
- =?utf-8?B?K1BqdXNmYlVaKzgydE9nWm5lTjlEZ2RvQm0vN3RVRVBnWWZhWjVHekFNOFpC?=
- =?utf-8?B?U2tlUmFNc0FvdHhIaTFNN012dE5aOVlnaXB1Uk11ejl5WVVVWDNMRHBLQ3pH?=
- =?utf-8?B?T3pYcFJDak1nRUJIclppWG05MU1TZDc3L0x0d1piOExPWU4xU2lRa0MvSS9p?=
- =?utf-8?B?STBtcGNsUVF1cmdheHhGa2FCSWRPdW4wVWVQMmcrUnNOall2a3I5NWp1SndD?=
- =?utf-8?B?N3VkUWxZSmxzK0pnRzRJclh2OUQvNHZ5UnNsWGFrT3F1NDlqR1BGdmE1TGth?=
- =?utf-8?B?L3lZdjdNYjd6SmlPc1ZlTVg2N3A3UE9mcXJuT1ZDaytxNkZKMG84akE5Mzh0?=
- =?utf-8?B?MGZTdjAyUmk2ZXhJaGlhSUJOaDVmRDBiU1lPK1JxTnEvMTloZHozazk1d3Jx?=
- =?utf-8?B?ZitNZ0tnWlhZZ2FPY00vbkZCbFlsN0VYUkFtUUpPREM2OHh2WGU5N3pxUmVj?=
- =?utf-8?B?V1ZrNlIySUJwcTNQVkRRKzIwSGxSNXFjSDlKQ1MvUDBuQXk5QmVDelZteTlB?=
- =?utf-8?B?VGZxYVRpK1dRMWRXelZ1bHZFa2tSdzcxT1hVL1JWWUd4NEVieHh4Nk1ZY21t?=
- =?utf-8?B?Rm5DYThkOGpEWVhseU5hZDd3Q0hwdnAzSUJ0enJqN0tYOXR5Y2lHM2FYMnZa?=
- =?utf-8?B?c3Y5ZVgyb0gxK3VMZnV3WVYwcFdQTXlhaXBIT3pnTDhHZVZIMGkwZzVTYkR3?=
- =?utf-8?B?eEw5SnM5UkRzR3BhY080a3UxZnYxWHpNYmN4cjYybFI4YjNkZVBCeG1CNWRm?=
- =?utf-8?B?bDVjbGR0TERnM3JXb3ZqWWJNYUdyaVp0WkxISERzZE5JekkwODY3VjZqZDdt?=
- =?utf-8?B?L24yRzI4RFpDamZPbVcwdkYwSnpMa0xmMW0zbGpZeU9YNExUSWlFSUxUcXBU?=
- =?utf-8?B?OFV4YUhIajdpU2NYSlpIUXNzSDhRVzBKMkRlN1daUFZmV3REMUwzZWVxbS93?=
- =?utf-8?B?bXhFWVU0VTNBcW5DUnlrUHZaaGdHbTROTU9zOUIvTHFidEl5Z2RTa1hDRVll?=
- =?utf-8?B?Y2VrczNUT2Jza2hPMzhTU01ualgvejNENjkrNzFvbVlFSk92WTRsY3F0OVRR?=
- =?utf-8?Q?aejiXRbHDuXIZ?=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DS7PR12MB9473.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(376014)(366016)(7053199007); DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?NGdaMWx3YWl5NGZHV3k0RGp5UU94d0RVT2V4SHUvRGFMRnErVUVGR1o3R0NP?=
- =?utf-8?B?MHlvQ04vT204YklPK3Y3MW5QOGNUVFJBWXV5MzFXU0J0dWJ6dnBDcUsxd1Vo?=
- =?utf-8?B?dFROZTlZRU5ybnA0YlgwLzU5clR4K2poeU9jR0l0Tlk5N1psZFJqbEl3RHNR?=
- =?utf-8?B?V09QRlphYXRiMHhMS3dtMkFRSG1SV0lscm5xS0tyODZPQmsyVXZZcUdmQkY3?=
- =?utf-8?B?cVpDL3BKMFhVM0JKTHlsZ0p2Tmdpak1GRkxnbE80aG9IaHJMOERQOHdaQyts?=
- =?utf-8?B?ZCtRMGxrckRVVGJRUVVocEhKSTczVmliTTlzSnRQeGZjRE4wa1lxcVBWUno2?=
- =?utf-8?B?VFJ1ZVIzYWJRSVVuWk5xVElOMTk5NmhKVHZXYk9SaVprRjBQS281dCtNTnpH?=
- =?utf-8?B?QVlBMk5YVDB3NUZLTUluakFjSUNqbndLbGx0UFFBaC94RDJtWGI3czdGM08z?=
- =?utf-8?B?azFEbkpiUWlPYlVsV1k4U0cxKytQMWNUeVlVYW1EUG9KUUJOMUhEejVPb2to?=
- =?utf-8?B?K0lvM04vcVVzaElvRWE3bFhNS1VCWk5PRkVKUlprS2E3QmVHQm9MZnNOMFY4?=
- =?utf-8?B?ODhGQXZYY0V1YjJUdEdqYnJVUlU3a0NEREkyTkZlenhOTnFJVGowVFVPTUpQ?=
- =?utf-8?B?OER6eUNrS0dNMVUyNDZseXovb1FiMCtOTno0RWR1b2VZMm9wbkoyY3VIV3VR?=
- =?utf-8?B?TXg1ZHVMaFJLTmw1NVBSMDVVRUxTc005aHd4K2ZMUlAwWUN2UmhGaklUT3ha?=
- =?utf-8?B?Qk5ZWFpxNzVvd3paOG1YSktsQmN1dkE0OUk1UlRHSDRrc3UwekRNczdJendP?=
- =?utf-8?B?cDVQNFNCd0dJY1p2RDdMZWF4eXdDaXFIenVHYkNCQ2FhL3BnK2hCdWlHRjZD?=
- =?utf-8?B?YkhKRFlmNXppZ2FwbWpxZXN1UlAxaitBNFh6ZjhVWVI4U0kvTVdnb21RVDB0?=
- =?utf-8?B?SFlvM1V0dHFmV05jK0g2OEhpeFFQSXBuWlgvcnBVdEtwcGRjVU4rdmFYejMv?=
- =?utf-8?B?M2hJOGQybzFoRGJZSEN2UjlpL0c5eHN0eUJFeU9RSlZOMFRCUGkrc3kwWmU3?=
- =?utf-8?B?YUlMNmlvckV4TzBHNW56NG80Tm5lVjdSdm5xMnl3b1E2bm1LN1h0Y01td3o1?=
- =?utf-8?B?TXRwV1ZjWW5xRHF0K3Vnb1dub0tMMUtMbUJUVlpwWE8vVCtaaVFQVHlib0ll?=
- =?utf-8?B?THhEWnBlbnovK1dFT0laK2gxWWZZVERkTmVvZTg5YW1JVmdUQXlxZWU2YVlj?=
- =?utf-8?B?UmFOK3h4NmpMZ3RLaU5kbXpsS25oZWpXZnpJWGRlSmhWUE5RWVJINGhJTVBp?=
- =?utf-8?B?MVZiSkh6d1ZlRjllVFhTUTg2NFQ3TUdlV3NSWUprZDRZTy9lamU5NSsrQWxr?=
- =?utf-8?B?azlncjh2WC9KMHE0dVBTWjJ5QVhoVVNHN1FWZ2RzQ3ZuV2p6Qmw0U1FkL2sr?=
- =?utf-8?B?UmtxL3BHa212R0VsOE1CZXFKbklpQlIwL0hIRHFsUU1XL3VrWVgrb21qMlB1?=
- =?utf-8?B?YXl0aW43WitEOHBPZW4zeGNFNXE3WUxxZXdNZ3ByVnpyeE5Ub3ZxTDNiblla?=
- =?utf-8?B?cVpnMVg1TDY5YXNjMjM5dmVDZVFqSjFWa05GcE13QWRIRTVTMXJWMXJaa0NB?=
- =?utf-8?B?ZUs3MVdKWTljblNUWXYrelJsUGR4WXVRYkhXdzBqUzRpb0FsTW90SEhBY1F4?=
- =?utf-8?B?MEZKYXlJTWFPV3lSK0kxWlBGSnI0STd1MkxtcTl2MVB5RU5GUUlEVTNpM1dI?=
- =?utf-8?B?cEZLY1hNNWsxWFR2NDBTdFVRYXBNS0w2U2dmTWVSRG9pVzQzMDdJVlZzSGdB?=
- =?utf-8?B?V3dQSEVQQ3JSdGZkVk9TQzhORC9HT3lDa25FQm83R2gvSTB5aFFDOXU2cXJF?=
- =?utf-8?B?ZjhJMEc4UjFWalE1Y2F4eXFMZk4zZnBmeHR3dk1vZXJzdGRYd1U5TTE0ZUhJ?=
- =?utf-8?B?d2VjWGlxaTZMYzdPc2VRNTlkM1dZdXcrUCtCUERHQXEzYTBLbjNwTk1kMTVX?=
- =?utf-8?B?MTBXcXNDV0RCYXloTjBTSmdwR1h3TkpmNGQyMjBUT0FKUFE4ZldBRUZpcGgx?=
- =?utf-8?B?OVlRQnZkMHBRQVdaKytQM0dzdUN3NE5ZdjNTK3dsSDRaWUVVMXFsbDNWZHJG?=
- =?utf-8?Q?2ikeGK7ZOcJh4RFZmM2/UA5iS?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1669543f-b35d-4332-937e-08dd6d40be5f
-X-MS-Exchange-CrossTenant-AuthSource: DS7PR12MB9473.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Mar 2025 15:04:59.6951 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: vfDdrVVyYNXE3FWbcETtAJQ72XE36+MNchPJ6bR6WwTaFK2UYubhY8mW58KkdPKM
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB8230
+References: <20250320185238.447458-1-jim.cromie@gmail.com>
+ <20250320185238.447458-45-jim.cromie@gmail.com>
+ <c3514758-5a22-4acb-8ff0-1f4ddade02f4@bootlin.com>
+In-Reply-To: <c3514758-5a22-4acb-8ff0-1f4ddade02f4@bootlin.com>
+From: jim.cromie@gmail.com
+Date: Tue, 25 Mar 2025 12:56:36 -0600
+X-Gm-Features: AQ5f1JqwCZoNQkWvPRC6s-f7lWQaMvaFRZI7Bln1P_k3mQTyHi7JUmVlxPTmisg
+Message-ID: <CAJfuBxw_OixCp0KsoYu9nH6=hprKJpKt7dkPT0hL-32syCTJ7A@mail.gmail.com>
+Subject: Re: [PATCH v2 44/59] drm-dyndbg: add DRM_CLASSMAP_USE to Xe driver
+To: Louis Chauvet <louis.chauvet@bootlin.com>
+Cc: linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+ amd-gfx@lists.freedesktop.org, intel-gvt-dev@lists.freedesktop.org, 
+ intel-gfx@lists.freedesktop.org, intel-gfx-trybot@lists.freedesktop.org, 
+ jbaron@akamai.com, gregkh@linuxfoundation.org, ukaszb@chromium.org, 
+ daniel.vetter@ffwll.ch, tvrtko.ursulin@linux.intel.com, jani.nikula@intel.com, 
+ ville.syrjala@linux.intel.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-Mailman-Approved-At: Fri, 28 Mar 2025 13:08:58 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -161,111 +94,52 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Fri Mar 7, 2025 at 8:54 AM EST, Matthew Wilcox (Oracle) wrote:
-> The writepage callback is going away; filesystems must implement
-> migrate_folio or else dirty folios will not be migratable.
-
-What is the impact of this? Are there any filesystem that has
-a_ops->writepage() without migrate_folio()? I wonder if it could make
-the un-migratable problem worse[1] when such FS exists.
-
-[1] https://lore.kernel.org/linux-mm/882b566c-34d6-4e68-9447-6c74a0693f18@r=
-edhat.com/
-
+On Mon, Mar 24, 2025 at 9:24=E2=80=AFAM Louis Chauvet <louis.chauvet@bootli=
+n.com> wrote:
 >
-> Signed-off-by: Matthew Wilcox (Oracle) <willy@infradead.org>
-> ---
->  mm/migrate.c | 57 ++++------------------------------------------------
->  1 file changed, 4 insertions(+), 53 deletions(-)
 >
-> diff --git a/mm/migrate.c b/mm/migrate.c
-> index c0adea67cd62..3d1d9d49fb8e 100644
-> --- a/mm/migrate.c
-> +++ b/mm/migrate.c
-> @@ -944,67 +944,18 @@ int filemap_migrate_folio(struct address_space *map=
-ping,
->  }
->  EXPORT_SYMBOL_GPL(filemap_migrate_folio);
-> =20
-> -/*
-> - * Writeback a folio to clean the dirty state
-> - */
-> -static int writeout(struct address_space *mapping, struct folio *folio)
-> -{
-> -	struct writeback_control wbc =3D {
-> -		.sync_mode =3D WB_SYNC_NONE,
-> -		.nr_to_write =3D 1,
-> -		.range_start =3D 0,
-> -		.range_end =3D LLONG_MAX,
-> -		.for_reclaim =3D 1
-> -	};
-> -	int rc;
-> -
-> -	if (!mapping->a_ops->writepage)
-> -		/* No write method for the address space */
-> -		return -EINVAL;
-> -
-> -	if (!folio_clear_dirty_for_io(folio))
-> -		/* Someone else already triggered a write */
-> -		return -EAGAIN;
-> -
-> -	/*
-> -	 * A dirty folio may imply that the underlying filesystem has
-> -	 * the folio on some queue. So the folio must be clean for
-> -	 * migration. Writeout may mean we lose the lock and the
-> -	 * folio state is no longer what we checked for earlier.
-> -	 * At this point we know that the migration attempt cannot
-> -	 * be successful.
-> -	 */
-> -	remove_migration_ptes(folio, folio, 0);
-> -
-> -	rc =3D mapping->a_ops->writepage(&folio->page, &wbc);
-> -
-> -	if (rc !=3D AOP_WRITEPAGE_ACTIVATE)
-> -		/* unlocked. Relock */
-> -		folio_lock(folio);
-> -
-> -	return (rc < 0) ? -EIO : -EAGAIN;
-> -}
-> -
->  /*
->   * Default handling if a filesystem does not provide a migration functio=
-n.
->   */
->  static int fallback_migrate_folio(struct address_space *mapping,
->  		struct folio *dst, struct folio *src, enum migrate_mode mode)
->  {
-> -	if (folio_test_dirty(src)) {
-> -		/* Only writeback folios in full synchronous migration */
-> -		switch (mode) {
-> -		case MIGRATE_SYNC:
-> -			break;
-> -		default:
-> -			return -EBUSY;
-> -		}
-> -		return writeout(mapping, src);
-> -	}
+>
+> Le 20/03/2025 =C3=A0 19:52, Jim Cromie a =C3=A9crit :
+> > Invoke DRM_CLASSMAP_USE from xe_drm_client.c.  When built with
+> > CONFIG_DRM_USE_DYNAMIC_DEBUG=3Dy, this tells dydnbg that Xe uses
+> > has drm.debug calls.
+> >
+> > Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
+> > ---
+> >   drivers/gpu/drm/xe/xe_drm_client.c | 2 ++
+> >   1 file changed, 2 insertions(+)
+> >
+> > diff --git a/drivers/gpu/drm/xe/xe_drm_client.c b/drivers/gpu/drm/xe/xe=
+_drm_client.c
+> > index 2d4874d2b922..756dba5c88f8 100644
+> > --- a/drivers/gpu/drm/xe/xe_drm_client.c
+> > +++ b/drivers/gpu/drm/xe/xe_drm_client.c
+> > @@ -21,6 +21,8 @@
+> >   #include "xe_pm.h"
+> >   #include "xe_trace.h"
+> >
+> > +DRM_CLASSMAP_USE(drm_debug_classes);
+> > +
+>
+> Is xe_drm_client.c the best place to do it? I think the module entry
+> point is a bit better [1].
+>
 
-Now fallback_migrate_folio() no longer writes out page for FS, so it is
-the responsibilty of migrate_folio()?
-
-+Joanne, since she is touching the above code in the FUSE temp page removal
-patchset.
-
-> +	if (folio_test_dirty(src))
-> +		return -EBUSY;
-> =20
->  	/*
-> -	 * Buffers may be managed in a filesystem specific way.
-> -	 * We must have no buffers or drop them.
-> +	 * Filesystem may have private data at folio->private that we
-> +	 * can't migrate automatically.
->  	 */
->  	if (!filemap_release_folio(src, GFP_KERNEL))
->  		return mode =3D=3D MIGRATE_SYNC ? -EAGAIN : -EBUSY;
+yes perhaps.  I was drawn by the _client in the file-name.
+Im not sure Im fully consistent, iirc the drivers get it near driver-iinit =
+ops.
 
 
---=20
-Best Regards,
-Yan, Zi
-
+> [1]:https://elixir.bootlin.com/linux/v6.13.7/source/drivers/gpu/drm/xe/xe=
+_module.c
+>
+> >   /**
+> >    * DOC: DRM Client usage stats
+> >    *
+>
+> --
+> Louis Chauvet, Bootlin
+> Embedded Linux and Kernel engineering
+> https://bootlin.com
+>
+>
