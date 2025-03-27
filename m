@@ -4,79 +4,51 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C68EBC3600C
-	for <intel-gfx@archiver.kernel.org>; Fri, 28 Mar 2025 13:09:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3B83DC36017
+	for <intel-gfx@archiver.kernel.org>; Fri, 28 Mar 2025 13:09:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 78B9110EA07;
-	Fri, 28 Mar 2025 13:08:59 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 123E410EA0B;
+	Fri, 28 Mar 2025 13:09:00 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="JeSFXZiy";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="tmX5iyNe";
 	dkim-atps=neutral
-Received: from mail-yw1-f174.google.com (mail-yw1-f174.google.com
- [209.85.128.174])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0201F10E5EE;
- Tue, 25 Mar 2025 20:02:42 +0000 (UTC)
-Received: by mail-yw1-f174.google.com with SMTP id
- 00721157ae682-6efe4e3d698so55630647b3.0; 
- Tue, 25 Mar 2025 13:02:42 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1742932962; x=1743537762; darn=lists.freedesktop.org;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=I2faTc0N8dUSkBrVYW4gMbPX1pdfOqcvzvNOpszxEK8=;
- b=JeSFXZiyD4HvPpvu944cLzMjsvX289rYIoAmqnvvfb5PQLrHscqmVPywIXv28UE5Bq
- xPmnxkGYbmshCjyS6/9vXqo0uwcSUAtQJv7b1E8136df0Sb4vcFDpRIucFBcF6X80w/H
- Hyj5+lJJuMtqyGafHIitqUM6J88KWq+Ju0AokdPVTtc/658DpTlmQGftoLUUYFe7GoW3
- NGbIHzAr5GpIj0JgCHIQ8OpqR5TFLguynrlqlgZ9Ex0LufDnqAKG7cVmjhPK0wadQZBB
- oK79aosZ3+KbluSmD9jf90y+N29B5+RD7erTBnOY6cf+4/nLsBjJlagBnQn3TBG5A0dB
- xHkw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1742932962; x=1743537762;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=I2faTc0N8dUSkBrVYW4gMbPX1pdfOqcvzvNOpszxEK8=;
- b=TDt5CYlWY+XMevIwzX/cyUSUJpdG5GMDbVoz0mp9izDp9Bz63n8Vx4Xeu/8C4X5NCZ
- c/gZMXpkSkZC/9D/MluInIcDoZ1irU4ewq22qjNsAimwF57e+mZeYi7YYXmnbd7J8uxi
- Is5BiXo1APaN41BoppO2vDzrRTPDc7KVfzzEMu622ddpFM7fDtvh/lYuwmChAZd5npoJ
- CMmn8kgULwUjWY5Ag8IPC0yI7h+Gm6Hp0mCuYqsOCVhYIp98YgYpGeGeoGXYg8fvzGvq
- 5tITgQ8hMgLI8y26zmCF9ek62Q2jh8sb/MROWVQYJpJesWsXWyBORnlezPyw2poAXN2h
- 6qhQ==
-X-Forwarded-Encrypted: i=1;
- AJvYcCW4y3TDuupQAGTfDq0DXDOkXf0q5jhbFpnMTh8ZPMuOxQsK48qB1MXB0lLspCv3xaR1xx4Oqzhh@lists.freedesktop.org,
- AJvYcCWHEoS+NwNByvqlMlMnBxZktXJIl5sGUbcpyLzrQzEm3+xQ76JGwt6TjtOkRoZdm15YoNJE40q2/rc5@lists.freedesktop.org,
- AJvYcCWbp4SllS9G1QdC9DpTJ66oOraEIatifpYbi1SCKzcHGEhLrZpYMQzGFGYGzqz0o6puu8TX23ob2zrT@lists.freedesktop.org,
- AJvYcCWpN5f4IzYgQ2QajaeKd+mEfmD45OSwqm483cDtZF4iiUEDWPROAeTqD9BIb608IjzuZVmsokkfbqb8duPFcw==@lists.freedesktop.org,
- AJvYcCX31wjSudX/1ls4Kw4yGqD2dXz8oL9mbLTCy6dqmtgf1fZjCMcRHrV94oqY2DeR5IPDwtmgg4nMP7xRZBEYymio7g==@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyvVpFIYcJstsQws4oDnJwvneGBjJ2AcncjL3UINoWY5GZGUiWx
- jyACtmFcYtwLmFwxT02KV+wL0/+rVTFS+3ubz4ty6TCr0OTsfqsDgQJQH45SvT+t5G8wWQNwzce
- p7v8VQhIWjJyVPiKvIksFFAOuHww=
-X-Gm-Gg: ASbGncuMe5O1eGYO/RbfCmOGrugwUpoKsr36ZcwsmmdEzfT/M2isNWmnBOxusqxWWfV
- rxqVW2R3/FL5sXo0WrpaYo0MSa91UujcnfoNhbOJgl7CUefLmbRqIueANS+ilFLrXGjC4D9CIaH
- qAgZFFP4GfwGRYPnXGSaEw4+ZQ
-X-Google-Smtp-Source: AGHT+IH9GDIqWqxErm4aQOy3gdrX0Y7vT6Ol7W40H3FZP4x2c5Yyjh+qcjaKP0Q4YvCkkEHJWvv2y2zX+XaXamc7vb4=
-X-Received: by 2002:a05:690c:640e:b0:6ff:1fac:c4f7 with SMTP id
- 00721157ae682-700babfd2c9mr222461787b3.7.1742932961820; Tue, 25 Mar 2025
- 13:02:41 -0700 (PDT)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 473B110E049;
+ Thu, 27 Mar 2025 05:39:18 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by tor.source.kernel.org (Postfix) with ESMTP id DB13961132;
+ Thu, 27 Mar 2025 05:39:10 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1E07DC4CEDD;
+ Thu, 27 Mar 2025 05:39:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1743053955;
+ bh=CAunss2v2b6mB2nYeE2eMRRbDuDsBqwc8pyaowwJ2g8=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=tmX5iyNeIjc/0bENcWNqOClCK/fiaql9wWyI7m/CfBqTNbLZu2FGbLGKOS/BAibSV
+ wtal52edQ5gygPIuVnrDk0HqUqZe/0BwLm+ALq/2WNxDHcpzDbAMywPyullxwm7Kph
+ b5GGHZYXp9KOwAL8wxcJdSwZm0GOpNJIaQN6cDBGUh18V2NTdJCe6TpP53FhjAxFST
+ WsRW4dz10y/Fe9Jt97u6kLDjx9MfZNfQz8UgA0r2yNj3ymRUczNKo8cuHEFwvYjINO
+ GUHgjpv5SrEeeKI0oCVl2GQ7/lF55QgC5T5x+fVpLTlOkXEKhZlXDDx0h0LKtS91KA
+ FNquLwadWEcuQ==
+Date: Wed, 26 Mar 2025 22:39:13 -0700
+From: Josh Poimboeuf <jpoimboe@kernel.org>
+To: Jason Gunthorpe <jgg@nvidia.com>
+Cc: Nicolin Chen <nicolinc@nvidia.com>, 
+ Peter Zijlstra <peterz@infradead.org>, "Borah,
+ Chaitanya Kumar" <chaitanya.kumar.borah@intel.com>, 
+ "iommu@lists.linux.dev" <iommu@lists.linux.dev>, 
+ "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>, 
+ "intel-xe@lists.freedesktop.org" <intel-xe@lists.freedesktop.org>, "Kurmi,
+ Suresh Kumar" <suresh.kumar.kurmi@intel.com>, 
+ "Saarinen, Jani" <jani.saarinen@intel.com>
+Subject: Re: Regression on linux-next (next-20250321)
+Message-ID: <sgetbac5ljzij2v54nmjuucioe4p6bhhn7kwm3bhn7hgkxi3gv@drfutbov4q4o>
+References: <SJ1PR11MB61295789E25C2F5197EFF2F6B9A72@SJ1PR11MB6129.namprd11.prod.outlook.com>
+ <Z+Jd4GDIzCP5cBQE@nvidia.com> <Z+Ky9XsxHo/cECgr@nvidia.com>
 MIME-Version: 1.0
-References: <20250320185238.447458-1-jim.cromie@gmail.com>
- <20250320185238.447458-31-jim.cromie@gmail.com>
- <0828cfdb-abf3-42c5-8500-70f36affd0a8@bootlin.com>
-In-Reply-To: <0828cfdb-abf3-42c5-8500-70f36affd0a8@bootlin.com>
-From: jim.cromie@gmail.com
-Date: Tue, 25 Mar 2025 14:02:15 -0600
-X-Gm-Features: AQ5f1JqaIKZ0UzULldrvJ00SprmeHiO70GjKwzUCD9IdsSYmGwkcVcHdtLPOdIg
-Message-ID: <CAJfuBxxqQ3g1urkbdAhbBi=1rk7bEqo5R7xws14xY98s0t9gUg@mail.gmail.com>
-Subject: Re: [PATCH v2 30/59] dyndbg: drop "protection" of class'd pr_debugs
- from legacy queries
-To: Louis Chauvet <louis.chauvet@bootlin.com>
-Cc: linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org, 
- amd-gfx@lists.freedesktop.org, intel-gvt-dev@lists.freedesktop.org, 
- intel-gfx@lists.freedesktop.org, intel-gfx-trybot@lists.freedesktop.org, 
- jbaron@akamai.com, gregkh@linuxfoundation.org, ukaszb@chromium.org, 
- daniel.vetter@ffwll.ch, tvrtko.ursulin@linux.intel.com, jani.nikula@intel.com, 
- ville.syrjala@linux.intel.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <Z+Ky9XsxHo/cECgr@nvidia.com>
 X-Mailman-Approved-At: Fri, 28 Mar 2025 13:08:58 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -93,10 +65,40 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-> > -     int valid_class;
-> > +     int slctd_class;
->
-> Nitpick: can you use full words? slctd is difficult to read.
->
+On Tue, Mar 25, 2025 at 10:43:17AM -0300, Jason Gunthorpe wrote:
+> On Tue, Mar 25, 2025 at 12:40:16AM -0700, Nicolin Chen wrote:
+> > 
+> > On Tue, Mar 25, 2025 at 05:39:39AM +0000, Borah, Chaitanya Kumar wrote:
+> > > Hello Nicolin,
+> > > 
+> > > Hope you are doing well. I am Chaitanya from the linux graphics team in Intel.
+> > > 
+> > > This mail is regarding a regression we are seeing in our CI runs[1] on linux-next repository.
+> > > 
+> > > Since the version next-20250321 [2], we are seeing the following regression
+> > > 
+> > > `````````````````````````````````````````````````````````````````````````````````
+> > > <4>[    0.226495] Unpatched return thunk in use. This should not happen!
+> > > <4>[    0.226502] WARNING: CPU: 0 PID: 1 at arch/x86/kernel/cpu/bugs.c:3107 __warn_thunk+0x62/0x70
+> > 
+> > Hmm....I wonder why x86 can be affected...
+> 
+> I wonder if this is realted to the objtool warning Steven reported:
+> 
+> https://lore.kernel.org/linux-next/20250321193600.2bfe03bb@canb.auug.org.au/
+> 
+> vmlinux.o: warning: objtool: iommu_dma_get_msi_page() falls through to next function __iommu_dma_unmap()
+> 
+> I have no idea what either error means or how to fix it. AFAICT there
+> is nothing special about this patch to trigger this?
 
-yes. done. thx.
+Yeah, I'm fairly sure the boot warning is related to that objtool
+warning.  I just posted a patch for that:
+
+  https://lore.kernel.org/0c801ae017ec078cacd39f8f0898fc7780535f85.1743053325.git.jpoimboe@kernel.org
+
+But also, we need to fix objtool to handle that warning more gracefully
+so it doesn't trigger the boot failure.
+
+-- 
+Josh
