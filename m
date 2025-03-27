@@ -4,80 +4,147 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 436CFC36013
-	for <intel-gfx@archiver.kernel.org>; Fri, 28 Mar 2025 13:09:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 361E8C36018
+	for <intel-gfx@archiver.kernel.org>; Fri, 28 Mar 2025 13:09:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 821D110EA1D;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8BA9810EA1E;
 	Fri, 28 Mar 2025 13:08:59 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="E1q9ISb9";
-	dkim-atps=neutral
-Received: from mail-yw1-f171.google.com (mail-yw1-f171.google.com
- [209.85.128.171])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3900F89207;
- Mon, 24 Mar 2025 22:34:14 +0000 (UTC)
-Received: by mail-yw1-f171.google.com with SMTP id
- 00721157ae682-6fedefb1c9cso34704337b3.0; 
- Mon, 24 Mar 2025 15:34:14 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1742855653; x=1743460453; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=JXW9Ba0yg/9do6JW2lVD4twSPOAKnKfAxL8vF9iY1Ls=;
- b=E1q9ISb9k7CL5dGgQTAba3Z4aM4PVihaCvGk9UG2JqJX9+s8wSg0+bxzu6J5rBjvCz
- G5LWio1Iz7YC1366SXd73ORc9cYFUwdxJT9/vfc164voVqZDfun3onSnfXnSRahQZZFJ
- b7surM4byy599P+bmrfJyC9rMTJcR91sPJrIvfFNhjGBgLwszPduhjF7XMuxFJvTejD3
- scVfk4ibkFArhTLm0StHBH1X4laCYKD9qjFm3HUHIrc4vHT1VmkFSA5vGLxjBXU6R3AN
- gQ9cnWXwPqXFcM0YkJGKsAK1OeipMtl0YA1+J/isdaBZcA3Njl7ta/79uWX0LEvHFWzE
- r+Mw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1742855653; x=1743460453;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=JXW9Ba0yg/9do6JW2lVD4twSPOAKnKfAxL8vF9iY1Ls=;
- b=FKCH/UjoY1y2st2LLUVuCVLK3nN7CZU9IeQphKijsT/2Z2iI/DOUW5vKTW9FnpsGqi
- QuLgXKkbji7fwHAc3plHW4TbMqHAGK8ZewgMcmOEdOPG74b4PxiME7nG/G+MQmQhauXI
- jVR64ECtHPM0WC7MpPRCok+XILR2v5H/LCeIlsVqGt1dEN2Z10NInP1koB8qjgZh/vuk
- PfAA5618fj6R3QwyRd0ZDemFCxA4yXazDBgNWlOSL8MmZOVSqLQi5aUbroNsMjX63s32
- vdG61lARwShopj3IG3e1j/EBvQ5+PvOII7EfanZbYuAl8pvE37klKV3pYUWLG8INPcXI
- bUVA==
-X-Forwarded-Encrypted: i=1;
- AJvYcCU+zPrAjGyvOnG+tchqLfLvk0mLRC9lz0PkhqGUjmh3em7ouFzc1SuuT6QJHXnpRiYqE2gE8mBBc9sV@lists.freedesktop.org,
- AJvYcCUbtI957PenI1OOKWD5kx+ROovg99RvJkEHQRlaJ1svqSevR+sfSw20oPrvz1SV60GqnsCHgyUKfda3@lists.freedesktop.org,
- AJvYcCV57xYOPaIkE7zA4RMnLGqILl7vkT59NEY9thhNwkfih2+/0pG7rYC/LAX4dGgY90ouzxLyPje0@lists.freedesktop.org,
- AJvYcCVz1F+ncZnKudjsFY45W876CISD4jL85+KxMIkL/+d3qlJqA0L2LF1g2uRXzxiD3hsUw+VAy5edC7i33c3skg==@lists.freedesktop.org,
- AJvYcCXYOGqmwerVgGxitRa1ByQbgKOFfsiPejA5Y/TmOHv6JoOXNGzxnSppT6pF1xKFsGTRKOOqYlLViZUQjhxOAYrHQw==@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzT9f86YKZ2G5cxAM8mKyXWMJ8Ufx9VKIOVC9hUXO9MYCwviH/S
- bVyVCnNPIqtt813KWqb6fL573xLQ9BPNE8UacvC8SqL7vOgtz7O+aE3qa9mtTWvLl6k4m7o21pM
- bNU7mXc36AHWfnOqW4yKTU+RedCg=
-X-Gm-Gg: ASbGncu5f9er4XkSMI78O90AMqifdcblCbcYwzjZoTQdy7bJD0yWlIeqJe+lp/M+ErL
- cZr+eCMh0mp9thMmz/yglUtBA1MZGPysw2zOLdVMlppyWq6G61X51chjP9X0XfgM6wi+aq75wPz
- Q0Na+kdAYQPNNDhXypNgDZCOCm
-X-Google-Smtp-Source: AGHT+IEAuhP7vvdOzarCdW0VuBfIcbVdJSz9H/zF3pCHpb16IT3KDy1crvUqwy7lhsLsmzsfQLcR6jkkbkjhhuB8rXs=
-X-Received: by 2002:a05:690c:6d0c:b0:700:a6a0:1e2e with SMTP id
- 00721157ae682-700ba9ba6camr198985667b3.0.1742855652804; Mon, 24 Mar 2025
- 15:34:12 -0700 (PDT)
-MIME-Version: 1.0
-References: <20250320185238.447458-1-jim.cromie@gmail.com>
- <20250320185238.447458-11-jim.cromie@gmail.com>
- <b1615fb9-4689-4121-a7d1-7e9c5d10282b@bootlin.com>
-In-Reply-To: <b1615fb9-4689-4121-a7d1-7e9c5d10282b@bootlin.com>
-From: jim.cromie@gmail.com
-Date: Mon, 24 Mar 2025 16:33:46 -0600
-X-Gm-Features: AQ5f1JqVlYB97GtfUO_TrCYVCq0ZeJs8JZLkz_f5qfP4oh5XPxHDfUpsv0ShhA8
-Message-ID: <CAJfuBxxRDpHSBY=AAbyT-gFSiaCkAbFtKap4NQ7MyQZ1CyR7EQ@mail.gmail.com>
-Subject: Re: [PATCH v2 10/59] dyndbg: replace classmap list with a vector
-To: Louis Chauvet <louis.chauvet@bootlin.com>
-Cc: linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org, 
- amd-gfx@lists.freedesktop.org, intel-gvt-dev@lists.freedesktop.org, 
- intel-gfx@lists.freedesktop.org, intel-gfx-trybot@lists.freedesktop.org, 
- jbaron@akamai.com, gregkh@linuxfoundation.org, ukaszb@chromium.org, 
- daniel.vetter@ffwll.ch, tvrtko.ursulin@linux.intel.com, jani.nikula@intel.com, 
- ville.syrjala@linux.intel.com
-Content-Type: text/plain; charset="UTF-8"
+Received: from NAM11-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam11on2042.outbound.protection.outlook.com [40.107.223.42])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 33E2610E902
+ for <intel-gfx@lists.freedesktop.org>; Thu, 27 Mar 2025 15:05:04 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=BMWuSLO+fUDSzAV5JtMzT+JfLGxB8fO2VmpbwQk2l+4utnsCoQcIJLNM9eZ0CSf+1L30Gm6QWtxd0fMbr5cnNcwPR7NVtocb1paXzpteMaheHMUek2Y5l/5/Te82ZQ8/ghijSZx+6nkMCMOpCP9J7VpnKO7LdOxOvM4DTPrraX1KdfCAyNy9LzmXxBP6zDoMC5XKdv9avh2PU6lp7fCV/NyftQrxmwsiKl73idEHl/GC0HIjHsKzbdPMR6jsnI6mp9AqYQfee2YlFxhk2vPznnpb4sTwA+TbEU4lIEA1q0S1hbYthvObCIAcoW3p9wDzI7XxDGicCRCYAK3PUTqLRQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=M3rjfxKvTGNyZmr0JlnzB6OO81Yqouqob3AiuXmTPHI=;
+ b=SNWLkl61BbzRrO3JXtTPEwWGUxoQeL+14uHRk96umYXVGJoFm0TqS4vNT12usyBTnBtbRNYfw5Q8Hq0mKX5qNFbaCgjwSPzGi6N0gK3zKIyXVV2GLJy7GqoGJr9UaYVW6ZI9aHmkeX3BNKIPd52TVXawQ/baeiknVMsCTlQYIVMTd74NYvFng9XsJOeghq+ALSReXcJZYmt33PiKO9ZmN9kyq4dr7JhZgY3o2ZIJRFxIsnLOM+bD3YSkG4Gj77yH4ZpN6COyB/j4qCIBpwwLkKHwcdyx+K/7DA9ACup9hU6CCllh/0LyNRIisHtAX9d+F9cgejZDpaKcy2z55Du96Q==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=M3rjfxKvTGNyZmr0JlnzB6OO81Yqouqob3AiuXmTPHI=;
+ b=UXQGbffGpIdw4nruoFF7LypjFuNNNmlY1z5KEXxxLrR7qAJjW+4IpSksoSA9AB1wtQMfFu6r4DJZL2NgNEZId3wavffSDm0JUBM4EFzPjv4CE7kx+xibJBOeP+3L3k03iHnUPf995d71k+KBGXf2s5PRQ6ENpFx6D/K9zHUQJO6UFAAuLSkWI7tI7Iq44E4eJDqVAP3SXVmMPd6gQi6mnZGiX1uYNd0XoerWIKasjLHsY2emFJS90d3bGrXLaCj8TwQdMMlo0nrVkCw1UIYp7Zycv3E22ChoULcbtVfAyVowlR2uPPX1ovcBhti/vGt1q1m03qif7eWxi/+FR+QkoA==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from DS7PR12MB9473.namprd12.prod.outlook.com (2603:10b6:8:252::5) by
+ DS7PR12MB8230.namprd12.prod.outlook.com (2603:10b6:8:ed::5) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.8534.44; Thu, 27 Mar 2025 15:04:59 +0000
+Received: from DS7PR12MB9473.namprd12.prod.outlook.com
+ ([fe80::5189:ecec:d84a:133a]) by DS7PR12MB9473.namprd12.prod.outlook.com
+ ([fe80::5189:ecec:d84a:133a%4]) with mapi id 15.20.8534.043; Thu, 27 Mar 2025
+ 15:04:59 +0000
 Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Thu, 27 Mar 2025 11:04:57 -0400
+Message-Id: <D8R539L45F9P.3PIKZ5DUGGVS8@nvidia.com>
+From: "Zi Yan" <ziy@nvidia.com>
+Subject: Re: [PATCH 06/11] migrate: Remove call to ->writepage
+Cc: <linux-mm@kvack.org>, <intel-gfx@lists.freedesktop.org>
+To: "Matthew Wilcox (Oracle)" <willy@infradead.org>,
+ <linux-fsdevel@vger.kernel.org>, "David Hildenbrand" <david@redhat.com>,
+ "Joanne Koong" <joannelkoong@gmail.com>
+X-Mailer: aerc 0.20.0
+References: <20250307135414.2987755-1-willy@infradead.org>
+ <20250307135414.2987755-7-willy@infradead.org>
+In-Reply-To: <20250307135414.2987755-7-willy@infradead.org>
+X-ClientProxiedBy: BN8PR04CA0004.namprd04.prod.outlook.com
+ (2603:10b6:408:70::17) To DS7PR12MB9473.namprd12.prod.outlook.com
+ (2603:10b6:8:252::5)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DS7PR12MB9473:EE_|DS7PR12MB8230:EE_
+X-MS-Office365-Filtering-Correlation-Id: 1669543f-b35d-4332-937e-08dd6d40be5f
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|1800799024|376014|366016|7053199007;
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?OWVHS0lFZlpROG1xUjczekowSk9XcHRZQ090OHhFTjdxc3NmY2xOQ1ZQeGhy?=
+ =?utf-8?B?QVJzYWVoMndXcC91bVkyUzUrTFZUMDhGTUg2VmV3NUNwNTNoaFRyWnF2MlV3?=
+ =?utf-8?B?YnJsZGRFTlFzVStvWjVKWXN0ZEZoK0hUdlB3T3Y0YlN5bzM5ZUdNclBVRjRL?=
+ =?utf-8?B?azcvSTFIMGtLbElvQVFvaE10WHRIbDB1bW9tWTZrUUdFVzM3R2tEcjR2K3FB?=
+ =?utf-8?B?V2dpUTZZUk9UdFVCdDJHOW1SL0JoNEpJOUQyQ2pyU2NCeFpUU1lSaVNRNE1F?=
+ =?utf-8?B?RHNocnJodTJ6eFN0bGtIakZpQzZuWjI4WjhaZExOeDF5U1VGSTZtbVNtalFs?=
+ =?utf-8?B?SGEyMkkweTQvTlVBbzVuaGN1N3IyZytxQ0pNY1FPVXY3am9MKzRsRGJsdFNU?=
+ =?utf-8?B?YkM5TEpGWWdiNHRxcTV4QjQwa2FvTk42UlB6Y05kTUJLUHE4WDM1MkEyUEQy?=
+ =?utf-8?B?NExRSEZJYXJkbmF6WE0wR3JadVArSURCTUJQRWRqWkM5RHgzaGxUaStnK2Ft?=
+ =?utf-8?B?ZTBSSVY5a2VybWZXT01HK2tWSHNrN3lUa2FoVHg1WGxFckR5cjlKeVN5K1Fv?=
+ =?utf-8?B?dzBmZWI3ejJXL0RZcDMzeHhYT3JhZGpiU0RsdFMzMjdQVWIwRjFkN0plNjIy?=
+ =?utf-8?B?emdUN1FCTGVHSWdkbnRiaFQ0VW1Cay9NV0txUmZrLzRhOXpUN2pFemJqeHJw?=
+ =?utf-8?B?U21IZlc3MHI3Z1RRaWpOejVESzRhampodndEMHZKVmZrUmR6S2dvZjJXajRn?=
+ =?utf-8?B?K1BqdXNmYlVaKzgydE9nWm5lTjlEZ2RvQm0vN3RVRVBnWWZhWjVHekFNOFpC?=
+ =?utf-8?B?U2tlUmFNc0FvdHhIaTFNN012dE5aOVlnaXB1Uk11ejl5WVVVWDNMRHBLQ3pH?=
+ =?utf-8?B?T3pYcFJDak1nRUJIclppWG05MU1TZDc3L0x0d1piOExPWU4xU2lRa0MvSS9p?=
+ =?utf-8?B?STBtcGNsUVF1cmdheHhGa2FCSWRPdW4wVWVQMmcrUnNOall2a3I5NWp1SndD?=
+ =?utf-8?B?N3VkUWxZSmxzK0pnRzRJclh2OUQvNHZ5UnNsWGFrT3F1NDlqR1BGdmE1TGth?=
+ =?utf-8?B?L3lZdjdNYjd6SmlPc1ZlTVg2N3A3UE9mcXJuT1ZDaytxNkZKMG84akE5Mzh0?=
+ =?utf-8?B?MGZTdjAyUmk2ZXhJaGlhSUJOaDVmRDBiU1lPK1JxTnEvMTloZHozazk1d3Jx?=
+ =?utf-8?B?ZitNZ0tnWlhZZ2FPY00vbkZCbFlsN0VYUkFtUUpPREM2OHh2WGU5N3pxUmVj?=
+ =?utf-8?B?V1ZrNlIySUJwcTNQVkRRKzIwSGxSNXFjSDlKQ1MvUDBuQXk5QmVDelZteTlB?=
+ =?utf-8?B?VGZxYVRpK1dRMWRXelZ1bHZFa2tSdzcxT1hVL1JWWUd4NEVieHh4Nk1ZY21t?=
+ =?utf-8?B?Rm5DYThkOGpEWVhseU5hZDd3Q0hwdnAzSUJ0enJqN0tYOXR5Y2lHM2FYMnZa?=
+ =?utf-8?B?c3Y5ZVgyb0gxK3VMZnV3WVYwcFdQTXlhaXBIT3pnTDhHZVZIMGkwZzVTYkR3?=
+ =?utf-8?B?eEw5SnM5UkRzR3BhY080a3UxZnYxWHpNYmN4cjYybFI4YjNkZVBCeG1CNWRm?=
+ =?utf-8?B?bDVjbGR0TERnM3JXb3ZqWWJNYUdyaVp0WkxISERzZE5JekkwODY3VjZqZDdt?=
+ =?utf-8?B?L24yRzI4RFpDamZPbVcwdkYwSnpMa0xmMW0zbGpZeU9YNExUSWlFSUxUcXBU?=
+ =?utf-8?B?OFV4YUhIajdpU2NYSlpIUXNzSDhRVzBKMkRlN1daUFZmV3REMUwzZWVxbS93?=
+ =?utf-8?B?bXhFWVU0VTNBcW5DUnlrUHZaaGdHbTROTU9zOUIvTHFidEl5Z2RTa1hDRVll?=
+ =?utf-8?B?Y2VrczNUT2Jza2hPMzhTU01ualgvejNENjkrNzFvbVlFSk92WTRsY3F0OVRR?=
+ =?utf-8?Q?aejiXRbHDuXIZ?=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DS7PR12MB9473.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(376014)(366016)(7053199007); DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?NGdaMWx3YWl5NGZHV3k0RGp5UU94d0RVT2V4SHUvRGFMRnErVUVGR1o3R0NP?=
+ =?utf-8?B?MHlvQ04vT204YklPK3Y3MW5QOGNUVFJBWXV5MzFXU0J0dWJ6dnBDcUsxd1Vo?=
+ =?utf-8?B?dFROZTlZRU5ybnA0YlgwLzU5clR4K2poeU9jR0l0Tlk5N1psZFJqbEl3RHNR?=
+ =?utf-8?B?V09QRlphYXRiMHhMS3dtMkFRSG1SV0lscm5xS0tyODZPQmsyVXZZcUdmQkY3?=
+ =?utf-8?B?cVpDL3BKMFhVM0JKTHlsZ0p2Tmdpak1GRkxnbE80aG9IaHJMOERQOHdaQyts?=
+ =?utf-8?B?ZCtRMGxrckRVVGJRUVVocEhKSTczVmliTTlzSnRQeGZjRE4wa1lxcVBWUno2?=
+ =?utf-8?B?VFJ1ZVIzYWJRSVVuWk5xVElOMTk5NmhKVHZXYk9SaVprRjBQS281dCtNTnpH?=
+ =?utf-8?B?QVlBMk5YVDB3NUZLTUluakFjSUNqbndLbGx0UFFBaC94RDJtWGI3czdGM08z?=
+ =?utf-8?B?azFEbkpiUWlPYlVsV1k4U0cxKytQMWNUeVlVYW1EUG9KUUJOMUhEejVPb2to?=
+ =?utf-8?B?K0lvM04vcVVzaElvRWE3bFhNS1VCWk5PRkVKUlprS2E3QmVHQm9MZnNOMFY4?=
+ =?utf-8?B?ODhGQXZYY0V1YjJUdEdqYnJVUlU3a0NEREkyTkZlenhOTnFJVGowVFVPTUpQ?=
+ =?utf-8?B?OER6eUNrS0dNMVUyNDZseXovb1FiMCtOTno0RWR1b2VZMm9wbkoyY3VIV3VR?=
+ =?utf-8?B?TXg1ZHVMaFJLTmw1NVBSMDVVRUxTc005aHd4K2ZMUlAwWUN2UmhGaklUT3ha?=
+ =?utf-8?B?Qk5ZWFpxNzVvd3paOG1YSktsQmN1dkE0OUk1UlRHSDRrc3UwekRNczdJendP?=
+ =?utf-8?B?cDVQNFNCd0dJY1p2RDdMZWF4eXdDaXFIenVHYkNCQ2FhL3BnK2hCdWlHRjZD?=
+ =?utf-8?B?YkhKRFlmNXppZ2FwbWpxZXN1UlAxaitBNFh6ZjhVWVI4U0kvTVdnb21RVDB0?=
+ =?utf-8?B?SFlvM1V0dHFmV05jK0g2OEhpeFFQSXBuWlgvcnBVdEtwcGRjVU4rdmFYejMv?=
+ =?utf-8?B?M2hJOGQybzFoRGJZSEN2UjlpL0c5eHN0eUJFeU9RSlZOMFRCUGkrc3kwWmU3?=
+ =?utf-8?B?YUlMNmlvckV4TzBHNW56NG80Tm5lVjdSdm5xMnl3b1E2bm1LN1h0Y01td3o1?=
+ =?utf-8?B?TXRwV1ZjWW5xRHF0K3Vnb1dub0tMMUtMbUJUVlpwWE8vVCtaaVFQVHlib0ll?=
+ =?utf-8?B?THhEWnBlbnovK1dFT0laK2gxWWZZVERkTmVvZTg5YW1JVmdUQXlxZWU2YVlj?=
+ =?utf-8?B?UmFOK3h4NmpMZ3RLaU5kbXpsS25oZWpXZnpJWGRlSmhWUE5RWVJINGhJTVBp?=
+ =?utf-8?B?MVZiSkh6d1ZlRjllVFhTUTg2NFQ3TUdlV3NSWUprZDRZTy9lamU5NSsrQWxr?=
+ =?utf-8?B?azlncjh2WC9KMHE0dVBTWjJ5QVhoVVNHN1FWZ2RzQ3ZuV2p6Qmw0U1FkL2sr?=
+ =?utf-8?B?UmtxL3BHa212R0VsOE1CZXFKbklpQlIwL0hIRHFsUU1XL3VrWVgrb21qMlB1?=
+ =?utf-8?B?YXl0aW43WitEOHBPZW4zeGNFNXE3WUxxZXdNZ3ByVnpyeE5Ub3ZxTDNiblla?=
+ =?utf-8?B?cVpnMVg1TDY5YXNjMjM5dmVDZVFqSjFWa05GcE13QWRIRTVTMXJWMXJaa0NB?=
+ =?utf-8?B?ZUs3MVdKWTljblNUWXYrelJsUGR4WXVRYkhXdzBqUzRpb0FsTW90SEhBY1F4?=
+ =?utf-8?B?MEZKYXlJTWFPV3lSK0kxWlBGSnI0STd1MkxtcTl2MVB5RU5GUUlEVTNpM1dI?=
+ =?utf-8?B?cEZLY1hNNWsxWFR2NDBTdFVRYXBNS0w2U2dmTWVSRG9pVzQzMDdJVlZzSGdB?=
+ =?utf-8?B?V3dQSEVQQ3JSdGZkVk9TQzhORC9HT3lDa25FQm83R2gvSTB5aFFDOXU2cXJF?=
+ =?utf-8?B?ZjhJMEc4UjFWalE1Y2F4eXFMZk4zZnBmeHR3dk1vZXJzdGRYd1U5TTE0ZUhJ?=
+ =?utf-8?B?d2VjWGlxaTZMYzdPc2VRNTlkM1dZdXcrUCtCUERHQXEzYTBLbjNwTk1kMTVX?=
+ =?utf-8?B?MTBXcXNDV0RCYXloTjBTSmdwR1h3TkpmNGQyMjBUT0FKUFE4ZldBRUZpcGgx?=
+ =?utf-8?B?OVlRQnZkMHBRQVdaKytQM0dzdUN3NE5ZdjNTK3dsSDRaWUVVMXFsbDNWZHJG?=
+ =?utf-8?Q?2ikeGK7ZOcJh4RFZmM2/UA5iS?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 1669543f-b35d-4332-937e-08dd6d40be5f
+X-MS-Exchange-CrossTenant-AuthSource: DS7PR12MB9473.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Mar 2025 15:04:59.6951 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: vfDdrVVyYNXE3FWbcETtAJQ72XE36+MNchPJ6bR6WwTaFK2UYubhY8mW58KkdPKM
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB8230
 X-Mailman-Approved-At: Fri, 28 Mar 2025 13:08:58 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -94,184 +161,111 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Mon, Mar 24, 2025 at 9:08=E2=80=AFAM Louis Chauvet <louis.chauvet@bootli=
-n.com> wrote:
->
->
->
-> Le 20/03/2025 =C3=A0 19:51, Jim Cromie a =C3=A9crit :
+On Fri Mar 7, 2025 at 8:54 AM EST, Matthew Wilcox (Oracle) wrote:
+> The writepage callback is going away; filesystems must implement
+> migrate_folio or else dirty folios will not be migratable.
 
-> Thanks for your explanation of __outvar! It makes sense. I never seen
-> this pattern anywhere in the kernel, maybe a simple doc comment is
-> enough to carry the information:
+What is the impact of this? Are there any filesystem that has
+a_ops->writepage() without migrate_folio()? I wonder if it could make
+the un-migratable problem worse[1] when such FS exists.
+
+[1] https://lore.kernel.org/linux-mm/882b566c-34d6-4e68-9447-6c74a0693f18@r=
+edhat.com/
+
+>
+> Signed-off-by: Matthew Wilcox (Oracle) <willy@infradead.org>
+> ---
+>  mm/migrate.c | 57 ++++------------------------------------------------
+>  1 file changed, 4 insertions(+), 53 deletions(-)
+>
+> diff --git a/mm/migrate.c b/mm/migrate.c
+> index c0adea67cd62..3d1d9d49fb8e 100644
+> --- a/mm/migrate.c
+> +++ b/mm/migrate.c
+> @@ -944,67 +944,18 @@ int filemap_migrate_folio(struct address_space *map=
+ping,
+>  }
+>  EXPORT_SYMBOL_GPL(filemap_migrate_folio);
+> =20
+> -/*
+> - * Writeback a folio to clean the dirty state
+> - */
+> -static int writeout(struct address_space *mapping, struct folio *folio)
+> -{
+> -	struct writeback_control wbc =3D {
+> -		.sync_mode =3D WB_SYNC_NONE,
+> -		.nr_to_write =3D 1,
+> -		.range_start =3D 0,
+> -		.range_end =3D LLONG_MAX,
+> -		.for_reclaim =3D 1
+> -	};
+> -	int rc;
+> -
+> -	if (!mapping->a_ops->writepage)
+> -		/* No write method for the address space */
+> -		return -EINVAL;
+> -
+> -	if (!folio_clear_dirty_for_io(folio))
+> -		/* Someone else already triggered a write */
+> -		return -EAGAIN;
+> -
+> -	/*
+> -	 * A dirty folio may imply that the underlying filesystem has
+> -	 * the folio on some queue. So the folio must be clean for
+> -	 * migration. Writeout may mean we lose the lock and the
+> -	 * folio state is no longer what we checked for earlier.
+> -	 * At this point we know that the migration attempt cannot
+> -	 * be successful.
+> -	 */
+> -	remove_migration_ptes(folio, folio, 0);
+> -
+> -	rc =3D mapping->a_ops->writepage(&folio->page, &wbc);
+> -
+> -	if (rc !=3D AOP_WRITEPAGE_ACTIVATE)
+> -		/* unlocked. Relock */
+> -		folio_lock(folio);
+> -
+> -	return (rc < 0) ? -EIO : -EAGAIN;
+> -}
+> -
+>  /*
+>   * Default handling if a filesystem does not provide a migration functio=
+n.
+>   */
+>  static int fallback_migrate_folio(struct address_space *mapping,
+>  		struct folio *dst, struct folio *src, enum migrate_mode mode)
+>  {
+> -	if (folio_test_dirty(src)) {
+> -		/* Only writeback folios in full synchronous migration */
+> -		switch (mode) {
+> -		case MIGRATE_SYNC:
+> -			break;
+> -		default:
+> -			return -EBUSY;
+> -		}
+> -		return writeout(mapping, src);
+> -	}
+
+Now fallback_migrate_folio() no longer writes out page for FS, so it is
+the responsibilty of migrate_folio()?
+
++Joanne, since she is touching the above code in the FUSE temp page removal
+patchset.
+
+> +	if (folio_test_dirty(src))
+> +		return -EBUSY;
+> =20
+>  	/*
+> -	 * Buffers may be managed in a filesystem specific way.
+> -	 * We must have no buffers or drop them.
+> +	 * Filesystem may have private data at folio->private that we
+> +	 * can't migrate automatically.
+>  	 */
+>  	if (!filemap_release_folio(src, GFP_KERNEL))
+>  		return mode =3D=3D MIGRATE_SYNC ? -EAGAIN : -EBUSY;
 
 
-Im gonna pull it - Ive decided its misleading,
-since it looks like it does something that it cant do.
+--=20
+Best Regards,
+Yan, Zi
 
-a plain old comment would be enough, if its needed at all.
-__outvar was at least brief ;-)
-
-In fact I did, but in a later patch. cleaning now.
-
-
-
->         /**
->          * ddebug_find_valid_class - Find a valid class for a
->          * given string
->          * @dt: debug table to inspect
->          * @class_string: string to match on
->          * @class_id: output pointer for the class_id value
->          *
->          * Returns: Pointer to the ddebug_class_map instance, if found.
->          * @class_id will be set to the id of this class. If no class
->          * matching @class_string is found, returns NULL and class_id is
->          * set to -ENOENT.
->          */
->
-> Or at maybe change the documentation of __outvar to be a bit more
-> explicit about how it works (I had difficulties to understand because a
-> lot of "magic macro" exist in the kernel and sometimes carry information
-> to the compiler, but this one is always empty):
->
->         /**
->          * __outvar - Denotes that an argument is used as an output
->          * value
->          * This macro does nothing apart clarify  for the reader that
->          * the parameter will be filled by the callee
->          */
->
-> With any of the modifications (feel free to reword them as you want):
->
-> Reviewed-by: Louis Chauvet <louis.chauvet@bootlin.com>
->
-> >   {
-> >       struct ddebug_class_map *map;
-> > -     int idx;
-> > +     int i, idx;
-> >
-> > -     list_for_each_entry(map, &dt->maps, link) {
-> > +     for (map =3D dt->classes, i =3D 0; i < dt->num_classes; i++, map+=
-+) {
-> >               idx =3D match_string(map->class_names, map->length, class=
-_string);
-> >               if (idx >=3D 0) {
-> >                       *class_id =3D idx + map->base;
-> > @@ -164,7 +167,6 @@ static struct ddebug_class_map *ddebug_find_valid_c=
-lass(struct ddebug_table cons
-> >       return NULL;
-> >   }
-> >
-> > -#define __outvar /* filled by callee */
-> >   /*
-> >    * Search the tables for _ddebug's which match the given `query' and
-> >    * apply the `flags' and `mask' to them.  Returns number of matching
-> > @@ -1122,9 +1124,10 @@ static void *ddebug_proc_next(struct seq_file *m=
-, void *p, loff_t *pos)
-> >
-> >   static const char *ddebug_class_name(struct ddebug_iter *iter, struct=
- _ddebug *dp)
-> >   {
-> > -     struct ddebug_class_map *map;
-> > +     struct ddebug_class_map *map =3D iter->table->classes;
-> > +     int i, nc =3D iter->table->num_classes;
-> >
-> > -     list_for_each_entry(map, &iter->table->maps, link)
-> > +     for (i =3D 0; i < nc; i++, map++)
-> >               if (class_in_range(dp->class_id, map))
-> >                       return map->class_names[dp->class_id - map->base]=
-;
-> >
-> > @@ -1208,30 +1211,31 @@ static const struct proc_ops proc_fops =3D {
-> >       .proc_write =3D ddebug_proc_write
-> >   };
-> >
-> > -static void ddebug_attach_module_classes(struct ddebug_table *dt,
-> > -                                      struct ddebug_class_map *classes=
-,
-> > -                                      int num_classes)
-> > +static void ddebug_attach_module_classes(struct ddebug_table *dt, stru=
-ct _ddebug_info *di)
-> >   {
-> >       struct ddebug_class_map *cm;
-> > -     int i, j, ct =3D 0;
-> > +     int i, nc =3D 0;
-> >
-> > -     for (cm =3D classes, i =3D 0; i < num_classes; i++, cm++) {
-> > +     /*
-> > +      * Find this module's classmaps in a subrange/wholerange of
-> > +      * the builtin/modular classmap vector/section.  Save the start
-> > +      * and length of the subrange at its edges.
-> > +      */
-> > +     for (cm =3D di->classes, i =3D 0; i < di->num_classes; i++, cm++)=
- {
-> >
-> >               if (!strcmp(cm->mod_name, dt->mod_name)) {
-> > -
-> > -                     v2pr_info("class[%d]: module:%s base:%d len:%d ty=
-:%d\n", i,
-> > -                               cm->mod_name, cm->base, cm->length, cm-=
->map_type);
-> > -
-> > -                     for (j =3D 0; j < cm->length; j++)
-> > -                             v3pr_info(" %d: %d %s\n", j + cm->base, j=
-,
-> > -                                       cm->class_names[j]);
-> > -
-> > -                     list_add(&cm->link, &dt->maps);
-> > -                     ct++;
-> > +                     if (!nc) {
-> > +                             v2pr_info("start subrange, class[%d]: mod=
-ule:%s base:%d len:%d ty:%d\n",
-> > +                                       i, cm->mod_name, cm->base, cm->=
-length, cm->map_type);
-> > +                             dt->classes =3D cm;
-> > +                     }
-> > +                     nc++;
-> >               }
-> >       }
-> > -     if (ct)
-> > -             vpr_info("module:%s attached %d classes\n", dt->mod_name,=
- ct);
-> > +     if (nc) {
-> > +             dt->num_classes =3D nc;
-> > +             vpr_info("module:%s attached %d classes\n", dt->mod_name,=
- nc);
-> > +     }
-> >   }
-> >
-> >   /*
-> > @@ -1263,10 +1267,9 @@ static int ddebug_add_module(struct _ddebug_info=
- *di, const char *modname)
-> >       dt->num_ddebugs =3D di->num_descs;
-> >
-> >       INIT_LIST_HEAD(&dt->link);
-> > -     INIT_LIST_HEAD(&dt->maps);
-> >
-> >       if (di->classes && di->num_classes)
-> > -             ddebug_attach_module_classes(dt, di->classes, di->num_cla=
-sses);
-> > +             ddebug_attach_module_classes(dt, di);
-> >
-> >       mutex_lock(&ddebug_lock);
-> >       list_add_tail(&dt->link, &ddebug_tables);
-> > @@ -1379,8 +1382,8 @@ static void ddebug_remove_all_tables(void)
-> >       mutex_lock(&ddebug_lock);
-> >       while (!list_empty(&ddebug_tables)) {
-> >               struct ddebug_table *dt =3D list_entry(ddebug_tables.next=
-,
-> > -                                                   struct ddebug_table=
-,
-> > -                                                   link);
-> > +                                                  struct ddebug_table,
-> > +                                                  link);
-> >               ddebug_table_free(dt);
-> >       }
-> >       mutex_unlock(&ddebug_lock);
->
-> --
-> Louis Chauvet, Bootlin
-> Embedded Linux and Kernel engineering
-> https://bootlin.com
->
->
