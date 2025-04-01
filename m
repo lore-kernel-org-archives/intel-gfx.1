@@ -4,30 +4,30 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 63F9CC28B20
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2DB30C36017
 	for <intel-gfx@archiver.kernel.org>; Wed,  2 Apr 2025 12:53:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3917C10E78A;
-	Wed,  2 Apr 2025 12:53:45 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 00E3C10E78B;
+	Wed,  2 Apr 2025 12:53:46 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=treblig.org header.i=@treblig.org header.b="WuPUg7LZ";
+	dkim=pass (2048-bit key; unprotected) header.d=treblig.org header.i=@treblig.org header.b="jfjrv5Fy";
 	dkim-atps=neutral
 Received: from mx.treblig.org (mx.treblig.org [46.235.229.95])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AA72810E173;
- Tue,  1 Apr 2025 21:02:55 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3795710E2C3;
+ Tue,  1 Apr 2025 11:37:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=treblig.org
  ; s=bytemarkmx;
  h=Content-Type:MIME-Version:Message-ID:Subject:From:Date:From
- :Subject; bh=g6StCyFpesYqaHVFLkyaouJmKdU5BfnU8LCrhZCDOCE=; b=WuPUg7LZBd19mvjU
- ZIGuJrVfFNtMuEjPcGLLx5VymD7xLMsLJNVHURqDPSNskBzNOpknpQlYefSYPGLwSBI/QpZf1eEoV
- PdNA+hIZf9lr8sBKCiL3p2V012JKYq6H1c22JHZ7TwJT188AyOh8mau8eeFt99CHLOczjksqHZdHD
- TgUNmMSRgo24r5Pez7w7PHu59TfvV5D2WGB8ObEFyUr3VRoqF3S8yQD8PNuZlDaoRPkVuoPsYoNNA
- Om0HFfxYHm2hZ3d0TGNt4W6u7B2anWSwNnm4Qz5ucK7t4nV3AG6y4MnuhV6kDCsSSDknly3ZxeEp1
- ikJ0mztKAV3jAZ4eRQ==;
+ :Subject; bh=HE/RSUboQWuGBGJkjqKZ/6rnsYTFUJOgslonvJ26GG8=; b=jfjrv5Fy1QlfGLRn
+ Lo1FOEFMnwl1Ojdlg5iC5keO3lVbfbUzvNplXaUCaQp2+kcL2709CKodrLfgjziaPDaVWkdi8Rqt3
+ 4/e6LvDb+ifBcFT59Uu76xm9LB5H4HRd5J9S2F4uM5Bir9c8SLxvwLzVfsoYqHhrNxWlTZIPQfvMn
+ GBwH7fQ6AxY9XClWJuygXFekMjx0rVjc1ZzXBp9KWkJpLBYfVzOlAeiuyyOywKW+cQg0UuM1L7S0U
+ yxEX3Z2pZnblRW2TvamJjwl82DaVW/nh0JJ9kgqWSgFusuv+qZ4jezTZbL4mwSYFOV8lCstlkPY3F
+ jYonIdiMrlGda0ZjJQ==;
 Received: from dg by mx.treblig.org with local (Exim 4.96)
- (envelope-from <dg@treblig.org>) id 1tzikn-008RMK-1P;
- Tue, 01 Apr 2025 21:02:37 +0000
-Date: Tue, 1 Apr 2025 21:02:37 +0000
+ (envelope-from <dg@treblig.org>) id 1tzZvj-008Jrn-1V;
+ Tue, 01 Apr 2025 11:37:19 +0000
+Date: Tue, 1 Apr 2025 11:37:19 +0000
 From: "Dr. David Alan Gilbert" <linux@treblig.org>
 To: Ingo Molnar <mingo@kernel.org>
 Cc: Andrew Morton <akpm@linux-foundation.org>, tglx@linutronix.de,
@@ -38,17 +38,16 @@ Cc: Andrew Morton <akpm@linux-foundation.org>, tglx@linutronix.de,
  dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
 Subject: Re: [PATCH] x86/platform/iosf_mbi: Remove unused
  iosf_mbi_unregister_pmic_bus_access_notifier
-Message-ID: <Z-xUbXnU40c5ZkYQ@gallifrey>
+Message-ID: <Z-vP7-PaLhsHozbw@gallifrey>
 References: <20241225175010.91783-1-linux@treblig.org>
- <Z7416P1rZPNMHQq7@gmail.com> <Z-vP7-PaLhsHozbw@gallifrey>
- <Z-wxRln0avv8Fz55@gmail.com>
+ <Z7416P1rZPNMHQq7@gmail.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=iso-8859-1
 Content-Disposition: inline
-In-Reply-To: <Z-wxRln0avv8Fz55@gmail.com>
+In-Reply-To: <Z7416P1rZPNMHQq7@gmail.com>
 X-Chocolate: 70 percent or better cocoa solids preferably
 X-Operating-System: Linux/6.1.0-21-amd64 (x86_64)
-X-Uptime: 21:01:18 up 328 days,  8:15,  1 user,  load average: 0.00, 0.00, 0.00
+X-Uptime: 11:36:51 up 327 days, 22:50,  1 user,  load average: 0.05, 0.01, 0.00
 User-Agent: Mutt/2.2.12 (2023-09-09)
 X-Mailman-Approved-At: Wed, 02 Apr 2025 12:53:44 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
@@ -68,48 +67,37 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 * Ingo Molnar (mingo@kernel.org) wrote:
 > 
-> * Dr. David Alan Gilbert <linux@treblig.org> wrote:
+> * linux@treblig.org <linux@treblig.org> wrote:
 > 
-> > * Ingo Molnar (mingo@kernel.org) wrote:
-> > > 
-> > > * linux@treblig.org <linux@treblig.org> wrote:
-> > > 
-> > > > From: "Dr. David Alan Gilbert" <linux@treblig.org>
-> > > > 
-> > > > The last use of iosf_mbi_unregister_pmic_bus_access_notifier() was
-> > > > removed in 2017 by
-> > > > commit a5266db4d314 ("drm/i915: Acquire PUNIT->PMIC bus for
-> > > > intel_uncore_forcewake_reset()")
-> > > > 
-> > > > Remove it.
-> > > > 
-> > > > Note the '_unlocked' version is still used.
-> > > > 
-> > > > Signed-off-by: Dr. David Alan Gilbert <linux@treblig.org>
-> > > > ---
-> > > >  arch/x86/include/asm/iosf_mbi.h      |  7 -------
-> > > >  arch/x86/platform/intel/iosf_mbi.c   | 13 -------------
-> > > >  drivers/gpu/drm/i915/i915_iosf_mbi.h |  6 ------
-> > > >  3 files changed, 26 deletions(-)
-> > > 
-> > > Acked-by: Ingo Molnar <mingo@kernel.org>
+> > From: "Dr. David Alan Gilbert" <linux@treblig.org>
 > > 
-> > Thanks!
-> > Any idea who might pick this one up?
+> > The last use of iosf_mbi_unregister_pmic_bus_access_notifier() was
+> > removed in 2017 by
+> > commit a5266db4d314 ("drm/i915: Acquire PUNIT->PMIC bus for
+> > intel_uncore_forcewake_reset()")
 > > 
-> > Dave
+> > Remove it.
+> > 
+> > Note the '_unlocked' version is still used.
+> > 
+> > Signed-off-by: Dr. David Alan Gilbert <linux@treblig.org>
+> > ---
+> >  arch/x86/include/asm/iosf_mbi.h      |  7 -------
+> >  arch/x86/platform/intel/iosf_mbi.c   | 13 -------------
+> >  drivers/gpu/drm/i915/i915_iosf_mbi.h |  6 ------
+> >  3 files changed, 26 deletions(-)
 > 
-> We can certainly do it via the x86 tree - I've added GPU/DRM 
-> maintainers to the commit's Cc: list.
+> Acked-by: Ingo Molnar <mingo@kernel.org>
 
-Thanks again! (hardly urgent, but just trying to clean up 
-my backlog).
+Thanks!
+Any idea who might pick this one up?
 
 Dave
 
 > Thanks,
 > 
 > 	Ingo
+> 
 -- 
  -----Open up your eyes, open up your mind, open up your code -------   
 / Dr. David Alan Gilbert    |       Running GNU/Linux       | Happy  \ 
