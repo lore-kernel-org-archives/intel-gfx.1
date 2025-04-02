@@ -4,66 +4,66 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8A59EC369A5
-	for <intel-gfx@archiver.kernel.org>; Thu,  3 Apr 2025 13:46:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 37129C369AE
+	for <intel-gfx@archiver.kernel.org>; Thu,  3 Apr 2025 13:46:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8E55510E9EF;
+	by gabe.freedesktop.org (Postfix) with ESMTP id CDD4910E9F1;
 	Thu,  3 Apr 2025 13:46:47 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="BxN21pRm";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Qn1nIFBh";
 	dkim-atps=neutral
-Received: from mail-il1-f182.google.com (mail-il1-f182.google.com
- [209.85.166.182])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E9E2510E87F;
- Wed,  2 Apr 2025 17:42:19 +0000 (UTC)
-Received: by mail-il1-f182.google.com with SMTP id
- e9e14a558f8ab-3d6d6d82633so489185ab.0; 
- Wed, 02 Apr 2025 10:42:19 -0700 (PDT)
+Received: from mail-il1-f177.google.com (mail-il1-f177.google.com
+ [209.85.166.177])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1332010E888;
+ Wed,  2 Apr 2025 17:42:26 +0000 (UTC)
+Received: by mail-il1-f177.google.com with SMTP id
+ e9e14a558f8ab-3d6d6d82633so489545ab.0; 
+ Wed, 02 Apr 2025 10:42:26 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1743615739; x=1744220539; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1743615745; x=1744220545; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=F1MDFYF/EJ2a7UGqvWTU6dzs01F9Q8UeZTgbtP6X+58=;
- b=BxN21pRma2WZp9aAqof2t010+vWvW6lH31NiaFn/AjPhLgRCvJ3tf43EUNX1puaPjC
- vpa2Vea4To3T6FMdowmevW+cCCIZ6NoN9AWXfabvgVK3afdWxKZ0YOQtwYpP6+ayg40N
- 9QEMj4W2wGamP+JP+DyrsMMCOoosSSpAUfXE1SnOUPL157KSFlHEmwljxZoZtNsEZ374
- GfQRtTSyOPUHwdH/wTcN/3jjf5fzYoTiauExnENwtqtMbxSP84zUHX57BElKhjl02yiM
- Cab2AnvMMnyrRV++ummBYNzfM2euMZ9r6OzOLCSKtu0vKyGX9/KN9KLr905nmjn6X4OT
- qbSg==
+ bh=c83dBzoIbcIM0DNfA5gVIyrKxy+OBEXIBjZPEG9Pdjo=;
+ b=Qn1nIFBhgv+lBXQgCI34cdH8eO30+ViuDZFozjEtiDyUaVWpojH6jdYVuwi9ARhG0Z
+ Vj8o6h6cQQIINSTeiibgXg5bmb4Lztk777/MgrEGkokKkiqML+QGB0a8z69Q44uM3/5+
+ XfXMOEn9M7umzBW6EsPiozjQqQIYqKbYszi6h43BTIIbjOhd4q0N7cPp643BlZULfW1b
+ UR+8T0oJt5RtibDngUrsUGkn8gY+P2BPRWF4NdOhbnEsLyZlWR7W1qkzrAcD7PUQCWVa
+ 1YqCi3WJ8N/djRnHWBtSuodVuwvII+1WrGdDGA5lMSa/u3VIf5AXvKdj9s2DF7yGPUnw
+ MJNw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1743615739; x=1744220539;
+ d=1e100.net; s=20230601; t=1743615745; x=1744220545;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=F1MDFYF/EJ2a7UGqvWTU6dzs01F9Q8UeZTgbtP6X+58=;
- b=aDd9HK9p6MT05BUJyrQLB2cOHoh/rws73MWE851rZWTU9XqFzwrrZDBIRCXellZcX5
- aixPwniGmJfEQuLUQ7JU12ARbnt9bVlVcxQdCsuQsVexrCt/zIhzSuoJmkLHgHdqqx4Q
- h7A76DprgnRkpzKdSRcaPo0QvOHGKsD+W99idkOLDC+4c7LjpwDd93D1+AhC9noGOppj
- av5sFjV9ap0ZZ89D5sKqzDjKez7/0905rj8ngwQcNEcxu0Z1wgOqJR5lK6NsGyHoZ+Rr
- OnOJAuZCTHz7rl7w7bwZrje0lwenkJz3QoZRX4xnd4MKvfyYko1qmnAkBMivJMkGH7jf
- Sm6Q==
+ bh=c83dBzoIbcIM0DNfA5gVIyrKxy+OBEXIBjZPEG9Pdjo=;
+ b=aMdbKKWm0fPby2wHuu5SHsf5Ul3uESg8YD6ewlljlQ3+mV9h6LaRhBEIHuxTNU71TM
+ w3ScQvtaCCFf4l9WJ9DZZOlOrXIy4TqS5/bt57WknKyeGFfRZktEhh04k1l7IzrgLKEx
+ 1sbFPwDd0IsXyDzrlJRQ00pISYjd+c29zBbgwnNcbmPrvVBFMtzhVklTpzchU1ghTk4k
+ cmFybYfqJiJBtAAy6N4lA+Kl/Y0ajgucSDMBPH55OR2VzsNAdU48455tDFIxJvhAMTfO
+ kA+XFLD2KMLjVKNgrYznNamWQ0pj/7d9PWI2fy9bdZ0H0UKiHaaGY1r4eII/S8j21Wko
+ Lizw==
 X-Forwarded-Encrypted: i=1;
- AJvYcCWEW32N0Ua/kJLZbAhqYqfQg+qHH6uWM0325tOQHlMzAZcJ0QJ4K+uFB8yDPGIpJwTCRMBLxHVN@lists.freedesktop.org,
- AJvYcCWzNZn8b6GODe4fHXoC7452wlK/6UUG4385ewR/sLZSkn+SIKfkkYXgV4eWpKLxrV6K4df6SlbcxBSc@lists.freedesktop.org,
- AJvYcCXBs3p4TeoAzUPkpTABJdvX0TfC1XUFVX4ijHWbnMhxQuO1+ufzCZfE71Iv7vKXlNLrMiAzpshJLPYuZk+Z0g==@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwRtyZW5f93O6NlVo1ts//8TD949btAFEbkGJW2D9TrS/XI0n1W
- Rs2dWXf6OzOLsZGe+fvGANEtOQePJTVGJWZ4iGBlYDnFWJ9CwPUT
-X-Gm-Gg: ASbGncsAThcACy+sOHazvfo+d1M5f1mBXdVF1HAa5X2JjgXbdhc3KGW1KJ9FNxKzYZe
- jiAAdVZ8/UWmON7cW2RPAqVwcwa8nYTYQvwR14choIcuSqidJ+Kt6mLVOTshR0SVf+3HQLpf1Kv
- AzxA2632RDxNP08IpSKG2mSnbxdptYPVjqd2LOe+L5u+eurS/XOH4G32mZGwLdLZCVlKS6V4/SQ
- dd2LhyMgFV4nArVqqAOc1u9SE/h92Kpm4fDEDQpRGvOucC8iD+abMsuXjMf/FKivaRwebMZgpuJ
- EEN/UUfoJaL6iN6KceC4V0XVEMaghDgE1dUhjJP7icPx3q2PHW7g0rynQKmG7Lch6QzohhVKgms
- BVw==
-X-Google-Smtp-Source: AGHT+IFVWQtukqjbox+/BI8jH/gu5QsbtgxbaxR6JpDzTl89/ZDWJ5DbXCocb+GVCPq2mu6sIVRlLQ==
-X-Received: by 2002:a05:6e02:1c26:b0:3d4:414c:6073 with SMTP id
- e9e14a558f8ab-3d6d548b68cmr40322985ab.8.1743615739132; 
- Wed, 02 Apr 2025 10:42:19 -0700 (PDT)
+ AJvYcCUob73jBe/JbYz5tRX/3MMxHKeQXtc2UlddXSlgQdB7QNJJKFUi8+pxuYepqR5e4ELhiYZnkYYOackM@lists.freedesktop.org,
+ AJvYcCVaJbxc//lY7VDOfbtJsatdI3APkEems5mhLZWrgbCeAYaZ/9a6Yc1zwgqTHrdpVw8RnkkiHbWKkoxBguUQ2w==@lists.freedesktop.org,
+ AJvYcCWmBXMcYxzPWL1vkC8tePlIM/6u7UBnC4iAaR8DfJPP1dIqAnxnGOKnfrvVC+HGIDDUmBNJv7Yz@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YysvAc0VsjkZCBKjTImI3uyn6qoKeSicTv9KtA21dCXgosjSx5v
+ FVpPr5SUO7HBuJuo5REh5cQzbk36WNkWk259BRHMFeihRaW3RxyY
+X-Gm-Gg: ASbGnct8c8k7GesgKdOL8xtTl0ETs3EKz20XCOqt+qNLkudungmIXoeYM50rnQWudM3
+ OhbaAeDETLyxcur3PfEvzFR10NtWXN0dev++ZEoBdlZDuRiD1hrM6OCN4PE5NiZ3otn2sBJ7I/M
+ ouarTRpBWoSElbUbgsCnhuvWcZKGHS+oCrbq8mn4wMyaVt0lj7tZgjWuSGVtfTsxuXIz6TBTfnB
+ mWW8+VimYSGvB86kLu1hFeAJi8aiKRu79WYpAs2xbGHxY/s9Jybo5xLwurIJ4CsHljlc5BevZcD
+ tYdv9F+dqIfQiW5SIiDBMjLaa3tJNnURnIfjKLr28XegIJXFLnrNtqB6gVe4GCkS63Mc3OwGnZ8
+ 57w==
+X-Google-Smtp-Source: AGHT+IG4VkEFZ5GxM5DWtdCptwmL6vD+yFvCbb5TkjAwVoCHsiKcA6mXmOduxT46XIJtI0tZSFL2lA==
+X-Received: by 2002:a05:6e02:1848:b0:3d0:443d:a5c3 with SMTP id
+ e9e14a558f8ab-3d6d546a3e6mr38861015ab.3.1743615745299; 
+ Wed, 02 Apr 2025 10:42:25 -0700 (PDT)
 Received: from gandalf.. (c-67-165-245-5.hsd1.co.comcast.net. [67.165.245.5])
  by smtp.googlemail.com with ESMTPSA id
- e9e14a558f8ab-3d5d5af8369sm33439725ab.71.2025.04.02.10.42.18
+ e9e14a558f8ab-3d5d5af8369sm33439725ab.71.2025.04.02.10.42.24
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 02 Apr 2025 10:42:18 -0700 (PDT)
+ Wed, 02 Apr 2025 10:42:24 -0700 (PDT)
 From: Jim Cromie <jim.cromie@gmail.com>
 To: jbaron@akamai.com, gregkh@linuxfoundation.org, ukaszb@chromium.org,
  louis.chauvet@bootlin.com, linux-kernel@vger.kernel.org
@@ -72,10 +72,9 @@ Cc: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
  daniel.vetter@ffwll.ch, tvrtko.ursulin@linux.intel.com,
  jani.nikula@intel.com, ville.syrjala@linux.intel.com,
  Jim Cromie <jim.cromie@gmail.com>
-Subject: [PATCH v3 06/54] dyndbg: make ddebug_class_param union members same
- size
-Date: Wed,  2 Apr 2025 11:41:08 -0600
-Message-ID: <20250402174156.1246171-7-jim.cromie@gmail.com>
+Subject: [PATCH v3 12/54] dyndbg: macrofy a 2-index for-loop pattern
+Date: Wed,  2 Apr 2025 11:41:14 -0600
+Message-ID: <20250402174156.1246171-13-jim.cromie@gmail.com>
 X-Mailer: git-send-email 2.49.0
 In-Reply-To: <20250402174156.1246171-1-jim.cromie@gmail.com>
 References: <20250402174156.1246171-1-jim.cromie@gmail.com>
@@ -97,46 +96,65 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-struct ddebug_class_param keeps a ref to the state-storage of the
-param; make both class-types use the same unsigned long storage type.
+dynamic-debug has several __sections, each with <vecname>,
+num_<vecname>, and it iterates over these with a 2-index for-loop.
+These loops are fiddly with the 2 names.
 
-ISTM this is simpler and safer; it avoids an irrelevant difference,
-and if 2 users somehow get class-type mixed up (or refer to the wrong
-union member), at least they will both see the same value.
+We have only 2 such loops now, but are getting more soon; lets
+embed/abstract the fiddlyness in the for_subvec() macro, and avoid
+repeating it going forward.
 
 Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
 Reviewed-by: Louis Chauvet <louis.chauvet@bootlin.com>
 ---
- include/linux/dynamic_debug.h | 2 +-
- lib/dynamic_debug.c           | 2 +-
- 2 files changed, 2 insertions(+), 2 deletions(-)
+ lib/dynamic_debug.c | 20 +++++++++++++++++---
+ 1 file changed, 17 insertions(+), 3 deletions(-)
 
-diff --git a/include/linux/dynamic_debug.h b/include/linux/dynamic_debug.h
-index ff44ec346162..b9afc7731b7c 100644
---- a/include/linux/dynamic_debug.h
-+++ b/include/linux/dynamic_debug.h
-@@ -124,7 +124,7 @@ struct _ddebug_info {
- struct ddebug_class_param {
- 	union {
- 		unsigned long *bits;
--		unsigned int *lvl;
-+		unsigned long *lvl;
- 	};
- 	char flags[8];
- 	const struct ddebug_class_map *map;
 diff --git a/lib/dynamic_debug.c b/lib/dynamic_debug.c
-index 147540c57154..55df35df093b 100644
+index 85b8d32742ec..253eaf0a9bd6 100644
 --- a/lib/dynamic_debug.c
 +++ b/lib/dynamic_debug.c
-@@ -799,7 +799,7 @@ int param_get_dyndbg_classes(char *buffer, const struct kernel_param *kp)
+@@ -128,6 +128,21 @@ do {								\
+ #define v3pr_info(fmt, ...)	vnpr_info(3, fmt, ##__VA_ARGS__)
+ #define v4pr_info(fmt, ...)	vnpr_info(4, fmt, ##__VA_ARGS__)
  
- 	case DD_CLASS_TYPE_LEVEL_NAMES:
- 	case DD_CLASS_TYPE_LEVEL_NUM:
--		return scnprintf(buffer, PAGE_SIZE, "%d\n", *dcp->lvl);
-+		return scnprintf(buffer, PAGE_SIZE, "%ld\n", *dcp->lvl);
- 	default:
- 		return -1;
- 	}
++
++/*
++ * simplify a repeated for-loop pattern walking N steps in a T _vec
++ * member inside a struct _box.  It expects int i and T *_sp to be
++ * declared in the caller.
++ * @_i:  caller provided counter.
++ * @_sp: cursor into _vec, to examine each item.
++ * @_box: ptr to a struct containing @_vec member
++ * @_vec: name of a sub-struct member in _box, with array-ref and length
++ */
++#define for_subvec(_i, _sp, _box, _vec)				       \
++	for ((_i) = 0, (_sp) = (_box)->_vec;			       \
++	     (_i) < (_box)->num_##_vec;				       \
++	     (_i)++, (_sp)++)
++
+ static void vpr_info_dq(const struct ddebug_query *query, const char *msg)
+ {
+ 	/* trim any trailing newlines */
+@@ -155,7 +170,7 @@ static struct ddebug_class_map *ddebug_find_valid_class(struct ddebug_table cons
+ 	struct ddebug_class_map *map;
+ 	int i, idx;
+ 
+-	for (map = dt->classes, i = 0; i < dt->num_classes; i++, map++) {
++	for_subvec(i, map, dt, classes) {
+ 		idx = match_string(map->class_names, map->length, class_string);
+ 		if (idx >= 0) {
+ 			*class_id = idx + map->base;
+@@ -1220,8 +1235,7 @@ static void ddebug_attach_module_classes(struct ddebug_table *dt, struct _ddebug
+ 	 * the builtin/modular classmap vector/section.  Save the start
+ 	 * and length of the subrange at its edges.
+ 	 */
+-	for (cm = di->classes, i = 0; i < di->num_classes; i++, cm++) {
+-
++	for_subvec(i, cm, di, classes) {
+ 		if (!strcmp(cm->mod_name, dt->mod_name)) {
+ 			if (!nc) {
+ 				v2pr_info("start subrange, class[%d]: module:%s base:%d len:%d ty:%d\n",
 -- 
 2.49.0
 
