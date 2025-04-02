@@ -4,43 +4,59 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5B19EC3601F
-	for <intel-gfx@archiver.kernel.org>; Wed,  2 Apr 2025 15:00:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1A99CC28B20
+	for <intel-gfx@archiver.kernel.org>; Wed,  2 Apr 2025 15:00:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 533D610E7FE;
-	Wed,  2 Apr 2025 15:00:22 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9C44410E802;
+	Wed,  2 Apr 2025 15:00:55 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; secure) header.d=infradead.org header.i=@infradead.org header.b="R/MLFsPv";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="B36CqMtm";
 	dkim-atps=neutral
-Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B160410E7F6;
- Wed,  2 Apr 2025 15:00:20 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=infradead.org; s=casper.20170209; h=Content-Transfer-Encoding:MIME-Version:
- References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Sender:Reply-To:
- Content-Type:Content-ID:Content-Description;
- bh=5XW0b8o2GA0rXaRAcMoHAk0zi9Q3pqKKR/5ZrqK6isA=; b=R/MLFsPvz24ooXP3n2jFFdaQXS
- M3AdX4NhgWKE+Ldr9ttHKD8qgG5GZYrzl4HoldQmoxWhsTna7sbeqGeV85qzgdBMglKSZcZo/qhDL
- 27mzrVxCjQJEvMLyNxePILgRc7e8EX9LjIZsx1RTe7+xFO4/WYXtZfFZp9QtaI2kspbnodfP3P44a
- fbnLduvq4PVvMS9Ka/aw11jUuI7aHj0yslB/pG7B/3rc6DfE161Izl44/4miE8Y+4cy2i60FQ4eM2
- SOmtlICqt4DAxV3OBU6XtQ/ljD0WkgGJMiiWXQ4KH10ZgdKRajR1ONKHvVArn/PYczuOaMxhaNYYz
- gU7zsJJA==;
-Received: from willy by casper.infradead.org with local (Exim 4.98.1 #2 (Red
- Hat Linux)) id 1tzzZX-00000009gsB-18Xi;
- Wed, 02 Apr 2025 15:00:07 +0000
-From: "Matthew Wilcox (Oracle)" <willy@infradead.org>
-To: linux-fsdevel@vger.kernel.org
-Cc: "Matthew Wilcox (Oracle)" <willy@infradead.org>,
- intel-gfx@lists.freedesktop.org, linux-mm@kvack.org,
- dri-devel@lists.freedesktop.org
-Subject: [PATCH v2 3/9] migrate: Remove call to ->writepage
-Date: Wed,  2 Apr 2025 15:59:57 +0100
-Message-ID: <20250402150005.2309458-4-willy@infradead.org>
-X-Mailer: git-send-email 2.49.0
-In-Reply-To: <20250402150005.2309458-1-willy@infradead.org>
-References: <20250402150005.2309458-1-willy@infradead.org>
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4341E10E80B;
+ Wed,  2 Apr 2025 15:00:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1743606053; x=1775142053;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:content-transfer-encoding:in-reply-to;
+ bh=ppJaE6TgO2ja6Y4YcYKHhkhqpuZJN2aU6PI0O8Jks/g=;
+ b=B36CqMtmNB981tBAOwn6YaT1XtxWgB9goDUfVKcjL7RuG/gvufpaeBOJ
+ q8tDk2bwKOnsKF74n/35do12xcq80PIE0AnCugHMyx+Ns/v/CPjAY6CWn
+ TfczHp+l73sXqQk0WvmgK27TSHrqw0VbKbtr9z023aR5WOrO8MSh0L2Tm
+ J6nE8Jlm9Yc4TxSihKcNBXBwNuMYsOQlfMmQ1xU/fDGG8HsSGRCs+xf2I
+ gMl5ba6FsbNhp0fivWAQiiEvrhfvruOogT4twyK08BlBXsxFyz7XiYVR0
+ dQyUeZXDu7UNOwaNhuj4LfJg7VlnQiWjzycseDMi+0ddfdlHZnFNAv4KG A==;
+X-CSE-ConnectionGUID: +0HqwWsQTCOUBpCGzcvM1g==
+X-CSE-MsgGUID: MnxpeXSMS9KWTACzaBWYEQ==
+X-IronPort-AV: E=McAfee;i="6700,10204,11392"; a="62377375"
+X-IronPort-AV: E=Sophos;i="6.15,182,1739865600"; d="scan'208";a="62377375"
+Received: from orviesa005.jf.intel.com ([10.64.159.145])
+ by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 02 Apr 2025 08:00:53 -0700
+X-CSE-ConnectionGUID: w3PjeQrlRbCatimpOxQILQ==
+X-CSE-MsgGUID: 2Xr09KNUSK+RGjQ4m7fGJw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.15,182,1739865600"; d="scan'208";a="131919467"
+Received: from stinkpipe.fi.intel.com (HELO stinkbox) ([10.237.72.74])
+ by orviesa005.jf.intel.com with SMTP; 02 Apr 2025 08:00:51 -0700
+Received: by stinkbox (sSMTP sendmail emulation);
+ Wed, 02 Apr 2025 18:00:50 +0300
+Date: Wed, 2 Apr 2025 18:00:50 +0300
+From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
+To: intel-gfx@lists.freedesktop.org
+Cc: I915-ci-infra@lists.freedesktop.org
+Subject: Re: =?utf-8?B?4pyXIGk5MTUuQ0kuRnVsbA==?= =?utf-8?Q?=3A?= failure for
+ drm/i915: Precompute plane SURF address/etc.
+Message-ID: <Z-1RIsXg14-2qMbg@intel.com>
+References: <20250402002209.24987-1-ville.syrjala@linux.intel.com>
+ <174356840050.25661.7739072322248133579@e6b6f09ec485>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <174356840050.25661.7739072322248133579@e6b6f09ec485>
+X-Patchwork-Hint: comment
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,93 +72,80 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-The writepage callback is going away; filesystems must implement
-migrate_folio or else dirty folios will not be migratable.
+On Wed, Apr 02, 2025 at 04:33:20AM -0000, Patchwork wrote:
+> == Series Details ==
+> 
+> Series: drm/i915: Precompute plane SURF address/etc.
+> URL   : https://patchwork.freedesktop.org/series/147097/
+> State : failure
+> 
+> == Summary ==
+> 
+> CI Bug Log - changes from CI_DRM_16361_full -> Patchwork_147097v1_full
+> ====================================================
+> 
+> Summary
+> -------
+> 
+>   **FAILURE**
+> 
+>   Serious unknown changes coming with Patchwork_147097v1_full absolutely need to be
+>   verified manually.
+>   
+>   If you think the reported changes have nothing to do with the changes
+>   introduced in Patchwork_147097v1_full, please notify your bug team (I915-ci-infra@lists.freedesktop.org) to allow them
+>   to document this new failure mode, which will reduce false positives in CI.
+> 
+>   
+> 
+> Participating hosts (10 -> 10)
+> ------------------------------
+> 
+>   No changes in participating hosts
+> 
+> Possible new issues
+> -------------------
+> 
+>   Here are the unknown changes that may have been introduced in Patchwork_147097v1_full:
+> 
+> ### IGT changes ###
+> 
+> #### Possible regressions ####
+> 
+>   * igt@kms_color@ctm-max@pipe-a-hdmi-a-1:
+>     - shard-snb:          [PASS][1] -> [ABORT][2] +17 other tests abort
+>    [1]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_16361/shard-snb2/igt@kms_color@ctm-max@pipe-a-hdmi-a-1.html
+>    [2]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_147097v1/shard-snb5/igt@kms_color@ctm-max@pipe-a-hdmi-a-1.html
 
-Signed-off-by: Matthew Wilcox (Oracle) <willy@infradead.org>
----
- mm/migrate.c | 60 ++++++----------------------------------------------
- 1 file changed, 7 insertions(+), 53 deletions(-)
+Apparently I forgot that we can't do the *_ctl_crtc() stuff
+so early as crtc_state->gamma_enable & co. haven't been computed
+yet.
 
-diff --git a/mm/migrate.c b/mm/migrate.c
-index f3ee6d8d5e2e..6e2488e5dbe4 100644
---- a/mm/migrate.c
-+++ b/mm/migrate.c
-@@ -944,67 +944,21 @@ int filemap_migrate_folio(struct address_space *mapping,
- }
- EXPORT_SYMBOL_GPL(filemap_migrate_folio);
- 
--/*
-- * Writeback a folio to clean the dirty state
-- */
--static int writeout(struct address_space *mapping, struct folio *folio)
--{
--	struct writeback_control wbc = {
--		.sync_mode = WB_SYNC_NONE,
--		.nr_to_write = 1,
--		.range_start = 0,
--		.range_end = LLONG_MAX,
--		.for_reclaim = 1
--	};
--	int rc;
--
--	if (!mapping->a_ops->writepage)
--		/* No write method for the address space */
--		return -EINVAL;
--
--	if (!folio_clear_dirty_for_io(folio))
--		/* Someone else already triggered a write */
--		return -EAGAIN;
--
--	/*
--	 * A dirty folio may imply that the underlying filesystem has
--	 * the folio on some queue. So the folio must be clean for
--	 * migration. Writeout may mean we lose the lock and the
--	 * folio state is no longer what we checked for earlier.
--	 * At this point we know that the migration attempt cannot
--	 * be successful.
--	 */
--	remove_migration_ptes(folio, folio, 0);
--
--	rc = mapping->a_ops->writepage(&folio->page, &wbc);
--
--	if (rc != AOP_WRITEPAGE_ACTIVATE)
--		/* unlocked. Relock */
--		folio_lock(folio);
--
--	return (rc < 0) ? -EIO : -EAGAIN;
--}
--
- /*
-  * Default handling if a filesystem does not provide a migration function.
-  */
- static int fallback_migrate_folio(struct address_space *mapping,
- 		struct folio *dst, struct folio *src, enum migrate_mode mode)
- {
--	if (folio_test_dirty(src)) {
--		/* Only writeback folios in full synchronous migration */
--		switch (mode) {
--		case MIGRATE_SYNC:
--			break;
--		default:
--			return -EBUSY;
--		}
--		return writeout(mapping, src);
--	}
-+	WARN_ONCE(mapping->a_ops->writepages,
-+			"%ps does not implement migrate_folio\n",
-+			mapping->a_ops);
-+	if (folio_test_dirty(src))
-+		return -EBUSY;
- 
- 	/*
--	 * Buffers may be managed in a filesystem specific way.
--	 * We must have no buffers or drop them.
-+	 * Filesystem may have private data at folio->private that we
-+	 * can't migrate automatically.
- 	 */
- 	if (!filemap_release_folio(src, GFP_KERNEL))
- 		return mode == MIGRATE_SYNC ? -EAGAIN : -EBUSY;
+I think I still want to clean up the ->ctl stuff, but I probably
+need to add a new plane vfunc for this. And I think I might take
+that opportunity to move some of plane related details from
+intel_color_add_affected_planes() into the plane code proper.
+
+For now I'll probably repost the first six patches as a
+separate series since all that should be completely fine as is.
+
+What's also slightly troubling about these CI results is that
+GLK didn't catch anything, despite the potential to use a stale
+PLANE_COLOR_CTL. And presumable SNB only caught stuff becasue the
+state checker noticed the stale DSPCNTR, but the tests didn't.
+So seems like we are somehow missing tests that would change
+gamma_mode & co. without touching the plane...
+
+> 
+>   * igt@kms_color@ctm-max@pipe-b-hdmi-a-1:
+>     - shard-snb:          [PASS][3] -> [DMESG-WARN][4] +3 other tests dmesg-warn
+>    [3]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_16361/shard-snb2/igt@kms_color@ctm-max@pipe-b-hdmi-a-1.html
+>    [4]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_147097v1/shard-snb5/igt@kms_color@ctm-max@pipe-b-hdmi-a-1.html
+
+CI folks, why is this reported as 'dmesg-warn' vs. the previous test was
+'abort' even though both tests failed in the same exact way (state checker
+WARN)?
+
 -- 
-2.47.2
-
+Ville Syrjälä
+Intel
