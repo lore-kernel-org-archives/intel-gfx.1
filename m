@@ -4,51 +4,82 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 99FF3C3600C
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 46A1BC3601A
 	for <intel-gfx@archiver.kernel.org>; Thu,  3 Apr 2025 13:46:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D788910EA11;
-	Thu,  3 Apr 2025 13:46:52 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EAAC510EA18;
+	Thu,  3 Apr 2025 13:46:51 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=codewreck.org header.i=@codewreck.org header.b="0HBoscdF";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="i9iDpHaM";
 	dkim-atps=neutral
-X-Greylist: delayed 514 seconds by postgrey-1.36 at gabe;
- Thu, 03 Apr 2025 03:55:18 UTC
-Received: from submarine.notk.org (submarine.notk.org [62.210.214.84])
- by gabe.freedesktop.org (Postfix) with ESMTP id F241210E8F8;
- Thu,  3 Apr 2025 03:55:18 +0000 (UTC)
-Received: from gaia.codewreck.org (localhost [127.0.0.1])
- by submarine.notk.org (Postfix) with ESMTPS id 67B0E14C2DB;
- Thu,  3 Apr 2025 05:46:34 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=codewreck.org;
- s=2; t=1743651996;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=ITcMLIFP5tKAjz41ehoKWCF5eQQiDYMOb1fN5yVdzj8=;
- b=0HBoscdFpgxuQgZl92opSENbMA9Pk+zXKbOYbpRJnb2fOIuhEQ1bwZ5rGPvmlYb+8wVHw8
- wHc2273ChihnbkPMTZ1/DAooFHD2hJ+0yffsGhHC9Cy9veCKiE8j7cW1KdfmCPrBKGxCoy
- Qn3m8QJ0MYx70hWGhV57dz2ZTADFzPnA6CZqQO0W6iJCwIBiDSjDSOwrvW/d4+WTVhVAcH
- g6HcnkJSY+HEZzS8B0uR8bH0QBVA+A0ZU2VyhxlEvsqXe3FXAMaHh6g4yHfkceyrco8IVL
- 7ipXZTHnksTxDqR7U3ceJDpBoPzzk84gVw3dN7X3aD3CMOZtc1b/HQqenuVM/Q==
-Received: from localhost (gaia.codewreck.org [local])
- by gaia.codewreck.org (OpenSMTPD) with ESMTPA id 72519fa4;
- Thu, 3 Apr 2025 03:46:32 +0000 (UTC)
-Date: Thu, 3 Apr 2025 12:46:17 +0900
-From: Dominique Martinet <asmadeus@codewreck.org>
-To: "Matthew Wilcox (Oracle)" <willy@infradead.org>
-Cc: linux-fsdevel@vger.kernel.org, intel-gfx@lists.freedesktop.org,
- linux-mm@kvack.org, dri-devel@lists.freedesktop.org,
- stable@vger.kernel.org, David Howells <dhowells@redhat.com>,
- v9fs@lists.linux.dev
-Subject: Re: [PATCH v2 1/9] 9p: Add a migrate_folio method
-Message-ID: <Z-4EiVQ6klHkkMoy@codewreck.org>
-References: <20250402150005.2309458-1-willy@infradead.org>
- <20250402150005.2309458-2-willy@infradead.org>
+Received: from mail-il1-f169.google.com (mail-il1-f169.google.com
+ [209.85.166.169])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3DEAD10E8B3;
+ Wed,  2 Apr 2025 17:43:04 +0000 (UTC)
+Received: by mail-il1-f169.google.com with SMTP id
+ e9e14a558f8ab-3d6d84923c8so446585ab.0; 
+ Wed, 02 Apr 2025 10:43:04 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1743615783; x=1744220583; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=v1ua5S//H69kDLjZ/ereYDRSGWaurp/ZUyrfcdHp8ig=;
+ b=i9iDpHaMbiEm9Cl5tECbUBZcAR4vozFOSnmk5IlP74hcQ/hL44qTn2A1AxrEc45Pk0
+ +vFrjrV/rVBXw03SNRuFuCzCCzEl+PPuTDU9vbToGCmqbPkBf89m9M0IT1d2uzYSDrnn
+ NtqYl97woPAmUje/vpQLPhmAzQd4IxzBYTOz056xoxnt8pXyYHIYoJO1ZwT/LahLZ1QB
+ femEKfYPU7Tr4UGlIBeoURvEEX3OHsNz3cRV7hCrkuWJcDvGZJ08v0TCD6HVtT8tIsGy
+ 3pOrn90YdHjYR1zUD7+8NaYBV60ssBmYjtwwfOwTOY4p36mupZxRzxT96PWQEWhZ4YSV
+ vrqw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1743615783; x=1744220583;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=v1ua5S//H69kDLjZ/ereYDRSGWaurp/ZUyrfcdHp8ig=;
+ b=vpsPJSqFiAeYkw1QtPEcVlKoXzr5kyPsWa+N+sBX2q71OQ8I6U3Afwt5OOwubPNpay
+ MFlQvmYN+CUz33XlVPQEGz+Xq6dc5W9RjpYHk9p+BBLY3FVRIpTnecxyrbk2V5epqmn+
+ /D2DPFHxiwhbWtlpcTAaZSx2zFoQNiW17P7/HYaB0IUVJ8nPAjlikptXCI0sg/SqpxmB
+ aUCGu3uvayZhd00HbWbkW1oh6But57GMsunTJuk5Csd0AixHXiNyTPBIYJrkWdn81Q3C
+ qxSJ9LWzKR5FsMj4TurOWoHeCqpA+vHQ1Qo3ARCanQi25q87vL2rHSRxpCz3lqUMYGXs
+ eejg==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCUFgxTG7TmgutSpIpCytx8KujLX4PVFDwvlt8Y1ndhkX9dNhyCh++LoJJ/0QiTPLDFClN0v6odOPLKYjA7FYw==@lists.freedesktop.org,
+ AJvYcCV/F4nf08/rOBguFthh6SSq+082dBV0swwmizQDstnLPvCreNvZYsL0wxclzQb7IUpWEBdyyin6@lists.freedesktop.org,
+ AJvYcCV455/RbubEXcbJlWrGmU1tzf8Qf+4hSzx/WUY4fXDlNmqjBmDLZzDbK11gjMTRoTyjpkMqquw8cLBG@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YyKAVSOtXYaaksCmT05mjwA6O7mDnbaOapUPYnHmVx5z/ZWOvx1
+ IFIw7lf8iDLbPbR+ov47yfFWDVSZBJS+EM+D/kktFFUKB6/zRg5+
+X-Gm-Gg: ASbGnct98/lkycU9ygFbx7n7EFzpjsA2hI3XOVa2442ZXmsIyYlK8fQEfopCqM/RJ/v
+ vAQpq+q06pWsisy1wP5EJeigO+F0YRnKBiy8sx29FhSykhKwehNenqZswmnnQPYottvFof8Z7gJ
+ TcZKgmLuGLvl09cVDItpC++PaDBbrOvriqfQBbzPvpTzidS5ssCG0bHLhkZ9Bajicc76eT9O5iI
+ u87+LCi//xc7i+squz5x7p75fkRkxbN7CWW0EgsaqfM9efmVv821A7cNITi3YrQWSIKIAjRBAwn
+ 4ZaRP3+YIgdYYUYkrWKXzGGzi6wwweXhmJ/no2wFqHeo+ck9jkGEKn/SHQD1ZUq2UktP7xgYKsM
+ ZJg==
+X-Google-Smtp-Source: AGHT+IFNbSL/mGRZnpcJ5fpN82ueS3a1gUICe3xx8i7wsRjblgimnfxJciryAt1b8LRjBn5RrhWasA==
+X-Received: by 2002:a05:6e02:12cf:b0:3d5:8937:f419 with SMTP id
+ e9e14a558f8ab-3d5e093c0e0mr170520315ab.13.1743615783315; 
+ Wed, 02 Apr 2025 10:43:03 -0700 (PDT)
+Received: from gandalf.. (c-67-165-245-5.hsd1.co.comcast.net. [67.165.245.5])
+ by smtp.googlemail.com with ESMTPSA id
+ e9e14a558f8ab-3d5d5af8369sm33439725ab.71.2025.04.02.10.43.02
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 02 Apr 2025 10:43:03 -0700 (PDT)
+From: Jim Cromie <jim.cromie@gmail.com>
+To: jbaron@akamai.com, gregkh@linuxfoundation.org, ukaszb@chromium.org,
+ louis.chauvet@bootlin.com, linux-kernel@vger.kernel.org
+Cc: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
+ intel-gvt-dev@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
+ daniel.vetter@ffwll.ch, tvrtko.ursulin@linux.intel.com,
+ jani.nikula@intel.com, ville.syrjala@linux.intel.com,
+ Jim Cromie <jim.cromie@gmail.com>
+Subject: [PATCH v3 51/54] drm-dyndbg: add DRM_CLASSMAP_USE to the qxl driver
+Date: Wed,  2 Apr 2025 11:41:53 -0600
+Message-ID: <20250402174156.1246171-52-jim.cromie@gmail.com>
+X-Mailer: git-send-email 2.49.0
+In-Reply-To: <20250402174156.1246171-1-jim.cromie@gmail.com>
+References: <20250402174156.1246171-1-jim.cromie@gmail.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20250402150005.2309458-2-willy@infradead.org>
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Thu, 03 Apr 2025 13:46:32 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -65,26 +96,28 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Matthew Wilcox (Oracle) wrote on Wed, Apr 02, 2025 at 03:59:55PM +0100:
-> The migration code used to be able to migrate dirty 9p folios by writing
-> them back using writepage.  When the writepage method was removed,
-> we neglected to add a migrate_folio method, which means that dirty 9p
-> folios have been unmovable ever since.  This reduced our success at
-> defragmenting memory on machines which use 9p heavily.
-> 
-> Fixes: 80105ed2fd27 (9p: Use netfslib read/write_iter)
-> Cc: stable@vger.kernel.org
-> Cc: David Howells <dhowells@redhat.com>
-> Cc: v9fs@lists.linux.dev
-> Signed-off-by: Matthew Wilcox (Oracle) <willy@infradead.org>
+The qxl driver has a number of DRM_UT_* debugs, make them
+controllable when CONFIG_DRM_USE_DYNAMIC_DEBUG=y by telling dyndbg
+that the module uses them.
 
-Given I'm not in Cc of the whole series I'm lacking context but I assume
-that means I'm not supposed to take this in.
+Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
+---
+ drivers/gpu/drm/qxl/qxl_drv.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-I won't pretend I understand folios anyway, but commit messages makes
-sense to me:
-Acked-by: Dominique Martinet <asmadeus@codewreck.org>
-
-Thanks,
+diff --git a/drivers/gpu/drm/qxl/qxl_drv.c b/drivers/gpu/drm/qxl/qxl_drv.c
+index 417061ae59eb..c18577a3153d 100644
+--- a/drivers/gpu/drm/qxl/qxl_drv.c
++++ b/drivers/gpu/drm/qxl/qxl_drv.c
+@@ -66,6 +66,8 @@ module_param_named(modeset, qxl_modeset, int, 0400);
+ MODULE_PARM_DESC(num_heads, "Number of virtual crtcs to expose (default 4)");
+ module_param_named(num_heads, qxl_num_crtc, int, 0400);
+ 
++DRM_CLASSMAP_USE(drm_debug_classes);
++
+ static struct drm_driver qxl_driver;
+ static struct pci_driver qxl_pci_driver;
+ 
 -- 
-Dominique Martinet | Asmadeus
+2.49.0
+
