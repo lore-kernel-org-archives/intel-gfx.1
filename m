@@ -4,66 +4,66 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 37129C369AE
-	for <intel-gfx@archiver.kernel.org>; Thu,  3 Apr 2025 13:46:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 310F6C3601A
+	for <intel-gfx@archiver.kernel.org>; Thu,  3 Apr 2025 13:46:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CDD4910E9F1;
+	by gabe.freedesktop.org (Postfix) with ESMTP id EB89C10E9F4;
 	Thu,  3 Apr 2025 13:46:47 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Qn1nIFBh";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="TUoIZSSU";
 	dkim-atps=neutral
-Received: from mail-il1-f177.google.com (mail-il1-f177.google.com
- [209.85.166.177])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1332010E888;
- Wed,  2 Apr 2025 17:42:26 +0000 (UTC)
-Received: by mail-il1-f177.google.com with SMTP id
- e9e14a558f8ab-3d6d6d82633so489545ab.0; 
- Wed, 02 Apr 2025 10:42:26 -0700 (PDT)
+Received: from mail-il1-f182.google.com (mail-il1-f182.google.com
+ [209.85.166.182])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 26FA589613;
+ Wed,  2 Apr 2025 17:42:55 +0000 (UTC)
+Received: by mail-il1-f182.google.com with SMTP id
+ e9e14a558f8ab-3ce868498d3so420875ab.3; 
+ Wed, 02 Apr 2025 10:42:55 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1743615745; x=1744220545; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1743615774; x=1744220574; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=c83dBzoIbcIM0DNfA5gVIyrKxy+OBEXIBjZPEG9Pdjo=;
- b=Qn1nIFBhgv+lBXQgCI34cdH8eO30+ViuDZFozjEtiDyUaVWpojH6jdYVuwi9ARhG0Z
- Vj8o6h6cQQIINSTeiibgXg5bmb4Lztk777/MgrEGkokKkiqML+QGB0a8z69Q44uM3/5+
- XfXMOEn9M7umzBW6EsPiozjQqQIYqKbYszi6h43BTIIbjOhd4q0N7cPp643BlZULfW1b
- UR+8T0oJt5RtibDngUrsUGkn8gY+P2BPRWF4NdOhbnEsLyZlWR7W1qkzrAcD7PUQCWVa
- 1YqCi3WJ8N/djRnHWBtSuodVuwvII+1WrGdDGA5lMSa/u3VIf5AXvKdj9s2DF7yGPUnw
- MJNw==
+ bh=/3ieg6OYf20TvXEjKUEioS2vPpvBZB2Yv38SKV0x07E=;
+ b=TUoIZSSUGN7jtpOXRJEnrXJp05eA4hohNwJz3ylsvp/ej4fd6fJDz7WskM4Y132iiv
+ 9qI6f85Is0U9s8QM3nb+fuhI3rp5qMWxVgZI70ILFRMWaFWOK6qOU8rxgnC4soVyb+9v
+ v9KcIcNPBqW6+jryALw0rzcAfdjuVfm/iKlpXuWH9dpEmYwCOTRl0GptaBY+hgsaEglo
+ uGYqRCqrifOMNScK3WAUxPn5p7jWsiXLG+5l8O29ELqg/5Zndl4eOy/1CvBDb2s/sTbr
+ uTGjGkPR+jmeWGY/X0RXaDLsrUDxXvjGuyq1inMD/O72Qeo+BVfTgu7aAJfqChbMwyJi
+ klsg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1743615745; x=1744220545;
+ d=1e100.net; s=20230601; t=1743615774; x=1744220574;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=c83dBzoIbcIM0DNfA5gVIyrKxy+OBEXIBjZPEG9Pdjo=;
- b=aMdbKKWm0fPby2wHuu5SHsf5Ul3uESg8YD6ewlljlQ3+mV9h6LaRhBEIHuxTNU71TM
- w3ScQvtaCCFf4l9WJ9DZZOlOrXIy4TqS5/bt57WknKyeGFfRZktEhh04k1l7IzrgLKEx
- 1sbFPwDd0IsXyDzrlJRQ00pISYjd+c29zBbgwnNcbmPrvVBFMtzhVklTpzchU1ghTk4k
- cmFybYfqJiJBtAAy6N4lA+Kl/Y0ajgucSDMBPH55OR2VzsNAdU48455tDFIxJvhAMTfO
- kA+XFLD2KMLjVKNgrYznNamWQ0pj/7d9PWI2fy9bdZ0H0UKiHaaGY1r4eII/S8j21Wko
- Lizw==
+ bh=/3ieg6OYf20TvXEjKUEioS2vPpvBZB2Yv38SKV0x07E=;
+ b=a6aWkhvXFHY13xFV5/9D15Qx1LyDlfEWBogWj21/mP41NaJwkGLCh5A3hZTneN5BnO
+ 0YIqO4QTeIrNVneI5ACOnm6hG7/cCL226YDHzQU1HFrYSNCTBJuTaRU9hxUMVB2n426e
+ VZ14E/v5wJebspKzyLVQa3beaP7CNqaVxFCpEvsW2or2nYoZKu51c5itARb5dnUaHg4k
+ Ncsyh+qeShkkTYFJ39I6sGQrHfA3x3RUHCUt/4iKkn8DToS8CgiYU/XjVVhvoAUuIxRX
+ /Da0vDs+uYIZdooSaRx2yBoUfKOf4kE8BjdGi7jRtl+9ACusuG2nesR4lWoHY5cROrd8
+ LXlw==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUob73jBe/JbYz5tRX/3MMxHKeQXtc2UlddXSlgQdB7QNJJKFUi8+pxuYepqR5e4ELhiYZnkYYOackM@lists.freedesktop.org,
- AJvYcCVaJbxc//lY7VDOfbtJsatdI3APkEems5mhLZWrgbCeAYaZ/9a6Yc1zwgqTHrdpVw8RnkkiHbWKkoxBguUQ2w==@lists.freedesktop.org,
- AJvYcCWmBXMcYxzPWL1vkC8tePlIM/6u7UBnC4iAaR8DfJPP1dIqAnxnGOKnfrvVC+HGIDDUmBNJv7Yz@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YysvAc0VsjkZCBKjTImI3uyn6qoKeSicTv9KtA21dCXgosjSx5v
- FVpPr5SUO7HBuJuo5REh5cQzbk36WNkWk259BRHMFeihRaW3RxyY
-X-Gm-Gg: ASbGnct8c8k7GesgKdOL8xtTl0ETs3EKz20XCOqt+qNLkudungmIXoeYM50rnQWudM3
- OhbaAeDETLyxcur3PfEvzFR10NtWXN0dev++ZEoBdlZDuRiD1hrM6OCN4PE5NiZ3otn2sBJ7I/M
- ouarTRpBWoSElbUbgsCnhuvWcZKGHS+oCrbq8mn4wMyaVt0lj7tZgjWuSGVtfTsxuXIz6TBTfnB
- mWW8+VimYSGvB86kLu1hFeAJi8aiKRu79WYpAs2xbGHxY/s9Jybo5xLwurIJ4CsHljlc5BevZcD
- tYdv9F+dqIfQiW5SIiDBMjLaa3tJNnURnIfjKLr28XegIJXFLnrNtqB6gVe4GCkS63Mc3OwGnZ8
- 57w==
-X-Google-Smtp-Source: AGHT+IG4VkEFZ5GxM5DWtdCptwmL6vD+yFvCbb5TkjAwVoCHsiKcA6mXmOduxT46XIJtI0tZSFL2lA==
-X-Received: by 2002:a05:6e02:1848:b0:3d0:443d:a5c3 with SMTP id
- e9e14a558f8ab-3d6d546a3e6mr38861015ab.3.1743615745299; 
- Wed, 02 Apr 2025 10:42:25 -0700 (PDT)
+ AJvYcCV7EpnieIJJD6bb8VD/7h0GifOY5EZiBy2Drw6kEMusfOm6r4F08JDxjbE3uhuT/O32fRndWVb1asvL@lists.freedesktop.org,
+ AJvYcCW2UqO3XaJKm9M8nnKDO+ghcrjX67AtHlWmwjwm9o/idy+E+MN0pbjt2P6O2O4Xc4maRSYiMjKC@lists.freedesktop.org,
+ AJvYcCXhejIGJueTuaOj7U8dCUcoXtnOh/X7sADBXyw9eCyVvF/M58MU4I6/tzUmigJeNkFB0y7uXgCldkuWxdp5QA==@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yza0Sl8fHmxKCLqZ9RkAIujj0c+HOglbJrMsS85ywYvuYpNyaxG
+ F1Ks+RoTnCoGg45ma/UZql3KF5FaeU0Ho4J8412nEhdVjfimavMo
+X-Gm-Gg: ASbGnctbaN9fhjcBAAMInfLLA/YXk2TyYllNqDYhRtMSZvgLqNo+84eYvWIgIEy8Gq+
+ Nb0j0dwh+gIvR4x41uw7ynAoWTN9q5SBaEjyDns04Y0sUc11jy4KXWh6y04ewJy57OgJVRZsD/q
+ wf77Jx6XUsu3GUFlO50vHw3kGHj5AjAmX/6dpCgOnt0Nm1Vwd5qQOzvG2BT8/tPE/lLtwqhvZqE
+ fO4MknWaRpMwtSZDYna9HcNzHTrn9+Qu8+jvkk/HuWYkfzG2gRpZWiggtxtQvpP2Tnf0/mwXUUo
+ yPWDBNAKj9EgfLD6nVQul/3lrZy9oELDWrszBQyY1PfPlwtiaAmq3oRPcd2gvbOR4SBdK4pkaii
+ /wQ==
+X-Google-Smtp-Source: AGHT+IHe/pqeVfJKwU/w9Mu6w5oW6sxJF8LlG8OrV986EBMutyzx2qa4fxPX6enM0iFttCFAiE+Ekg==
+X-Received: by 2002:a05:6e02:1a8f:b0:3d3:ff5c:287 with SMTP id
+ e9e14a558f8ab-3d6d5535a0amr31645515ab.14.1743615774357; 
+ Wed, 02 Apr 2025 10:42:54 -0700 (PDT)
 Received: from gandalf.. (c-67-165-245-5.hsd1.co.comcast.net. [67.165.245.5])
  by smtp.googlemail.com with ESMTPSA id
- e9e14a558f8ab-3d5d5af8369sm33439725ab.71.2025.04.02.10.42.24
+ e9e14a558f8ab-3d5d5af8369sm33439725ab.71.2025.04.02.10.42.53
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 02 Apr 2025 10:42:24 -0700 (PDT)
+ Wed, 02 Apr 2025 10:42:53 -0700 (PDT)
 From: Jim Cromie <jim.cromie@gmail.com>
 To: jbaron@akamai.com, gregkh@linuxfoundation.org, ukaszb@chromium.org,
  louis.chauvet@bootlin.com, linux-kernel@vger.kernel.org
@@ -72,9 +72,9 @@ Cc: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
  daniel.vetter@ffwll.ch, tvrtko.ursulin@linux.intel.com,
  jani.nikula@intel.com, ville.syrjala@linux.intel.com,
  Jim Cromie <jim.cromie@gmail.com>
-Subject: [PATCH v3 12/54] dyndbg: macrofy a 2-index for-loop pattern
-Date: Wed,  2 Apr 2025 11:41:14 -0600
-Message-ID: <20250402174156.1246171-13-jim.cromie@gmail.com>
+Subject: [PATCH v3 41/54] drm-dyndbg: add DRM_CLASSMAP_USE to simpledrm
+Date: Wed,  2 Apr 2025 11:41:43 -0600
+Message-ID: <20250402174156.1246171-42-jim.cromie@gmail.com>
 X-Mailer: git-send-email 2.49.0
 In-Reply-To: <20250402174156.1246171-1-jim.cromie@gmail.com>
 References: <20250402174156.1246171-1-jim.cromie@gmail.com>
@@ -96,65 +96,28 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-dynamic-debug has several __sections, each with <vecname>,
-num_<vecname>, and it iterates over these with a 2-index for-loop.
-These loops are fiddly with the 2 names.
-
-We have only 2 such loops now, but are getting more soon; lets
-embed/abstract the fiddlyness in the for_subvec() macro, and avoid
-repeating it going forward.
+tiny/simpledrm has 3 DRM_UT_DRIVER debugs, make them controllable when
+CONFIG_DRM_USE_DYNAMIC_DEBUG=y by telling dyndbg that the module has
+class'd debugs.
 
 Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
-Reviewed-by: Louis Chauvet <louis.chauvet@bootlin.com>
 ---
- lib/dynamic_debug.c | 20 +++++++++++++++++---
- 1 file changed, 17 insertions(+), 3 deletions(-)
+ drivers/gpu/drm/tiny/simpledrm.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/lib/dynamic_debug.c b/lib/dynamic_debug.c
-index 85b8d32742ec..253eaf0a9bd6 100644
---- a/lib/dynamic_debug.c
-+++ b/lib/dynamic_debug.c
-@@ -128,6 +128,21 @@ do {								\
- #define v3pr_info(fmt, ...)	vnpr_info(3, fmt, ##__VA_ARGS__)
- #define v4pr_info(fmt, ...)	vnpr_info(4, fmt, ##__VA_ARGS__)
+diff --git a/drivers/gpu/drm/tiny/simpledrm.c b/drivers/gpu/drm/tiny/simpledrm.c
+index 5d9ab8adf800..bcf2cccac0ec 100644
+--- a/drivers/gpu/drm/tiny/simpledrm.c
++++ b/drivers/gpu/drm/tiny/simpledrm.c
+@@ -34,6 +34,8 @@
+ #define DRIVER_MAJOR	1
+ #define DRIVER_MINOR	0
  
++DRM_CLASSMAP_USE(drm_debug_classes);
 +
-+/*
-+ * simplify a repeated for-loop pattern walking N steps in a T _vec
-+ * member inside a struct _box.  It expects int i and T *_sp to be
-+ * declared in the caller.
-+ * @_i:  caller provided counter.
-+ * @_sp: cursor into _vec, to examine each item.
-+ * @_box: ptr to a struct containing @_vec member
-+ * @_vec: name of a sub-struct member in _box, with array-ref and length
-+ */
-+#define for_subvec(_i, _sp, _box, _vec)				       \
-+	for ((_i) = 0, (_sp) = (_box)->_vec;			       \
-+	     (_i) < (_box)->num_##_vec;				       \
-+	     (_i)++, (_sp)++)
-+
- static void vpr_info_dq(const struct ddebug_query *query, const char *msg)
- {
- 	/* trim any trailing newlines */
-@@ -155,7 +170,7 @@ static struct ddebug_class_map *ddebug_find_valid_class(struct ddebug_table cons
- 	struct ddebug_class_map *map;
- 	int i, idx;
- 
--	for (map = dt->classes, i = 0; i < dt->num_classes; i++, map++) {
-+	for_subvec(i, map, dt, classes) {
- 		idx = match_string(map->class_names, map->length, class_string);
- 		if (idx >= 0) {
- 			*class_id = idx + map->base;
-@@ -1220,8 +1235,7 @@ static void ddebug_attach_module_classes(struct ddebug_table *dt, struct _ddebug
- 	 * the builtin/modular classmap vector/section.  Save the start
- 	 * and length of the subrange at its edges.
- 	 */
--	for (cm = di->classes, i = 0; i < di->num_classes; i++, cm++) {
--
-+	for_subvec(i, cm, di, classes) {
- 		if (!strcmp(cm->mod_name, dt->mod_name)) {
- 			if (!nc) {
- 				v2pr_info("start subrange, class[%d]: module:%s base:%d len:%d ty:%d\n",
+ /*
+  * Helpers for simplefb
+  */
 -- 
 2.49.0
 
