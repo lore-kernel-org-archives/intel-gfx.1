@@ -4,39 +4,39 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3FB51C3601F
-	for <intel-gfx@archiver.kernel.org>; Wed,  2 Apr 2025 15:00:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E6A8DC3601C
+	for <intel-gfx@archiver.kernel.org>; Wed,  2 Apr 2025 15:00:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 46B5210E818;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1F3E110E80F;
 	Wed,  2 Apr 2025 15:00:20 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; secure) header.d=infradead.org header.i=@infradead.org header.b="UnwirFlG";
+	dkim=fail reason="signature verification failed" (2048-bit key; secure) header.d=infradead.org header.i=@infradead.org header.b="DFlhRkJZ";
 	dkim-atps=neutral
 Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 054E110E7FA;
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0424910E7F6;
  Wed,  2 Apr 2025 15:00:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=infradead.org; s=casper.20170209; h=Content-Transfer-Encoding:MIME-Version:
  References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Sender:Reply-To:
  Content-Type:Content-ID:Content-Description;
- bh=x5fMthl+YaILM39iz9o6tccRRw9/3DVe0YNJSzzz678=; b=UnwirFlGTRxdERwCdAhFqjsRYZ
- QoSUv85elJbet28sNBFxLnZYAHDmULxGIgfzgqPFxMCqUmRi/upx0/9/QDXW2BE8oS/QpNNoA1x5h
- p07RGrO2jfRAI4drMHFoURoaWDb1/B0jPKUN7Sd64RWmVdqDj4rm8hQsoNnTpxEpXm8fyubWc2VrX
- eiqEIVwY5723zFJd5POxZpsbkfU8xSLaGv0a8Px+rKDZVDIcfCHP2nOwILjdrTWfrAfrAAydB7KOR
- q5rOnmzK1YhElfHfdv0FsVGgt1vHLqsL1noYlitjyijpBXPKv7CIKBb0wChTCqjI7oejKaw7284Sn
- yzDMR8Lg==;
+ bh=H/LzOSBZMJnPa9n+hJhMKcetVnuAU/qb1xOh1kNA3po=; b=DFlhRkJZvk0FxUhTFpLMVcqGW6
+ xG1V3XXL/3wXAn/c2FOYw2EQMYqW/olCsErvNjPUKfLGXt+KADdT2YskzUX3BUzbnyAagDDYzB/fm
+ ZR4Q9IpNbzkJL3GnwtfzS0XcEfD/32j2Dfmitv5ap5a8XrmQ8JcS7Kf2QXPDc3sqfLLqaVqVAynw3
+ SVXXASaClM2+3ASDNUleyBPQi3HXCWxVaxx8xZiTEgWj5/FavNMrcjK/FGXAxKgWhUbSiBa86JP8X
+ ULsI58AmQLxczl1eK++kle8TpZzr4ssoKT0HwbiRLd+lve1N9BIfdY9N8jDECSQ2yYLh8qLlIA9Mb
+ nT2UhlgQ==;
 Received: from willy by casper.infradead.org with local (Exim 4.98.1 #2 (Red
- Hat Linux)) id 1tzzZX-00000009gse-335e;
+ Hat Linux)) id 1tzzZX-00000009gs7-0PTo;
  Wed, 02 Apr 2025 15:00:07 +0000
 From: "Matthew Wilcox (Oracle)" <willy@infradead.org>
 To: linux-fsdevel@vger.kernel.org
 Cc: "Matthew Wilcox (Oracle)" <willy@infradead.org>,
  intel-gfx@lists.freedesktop.org, linux-mm@kvack.org,
- dri-devel@lists.freedesktop.org
-Subject: [PATCH v2 7/9] ttm: Call shmem_writeout() from
- ttm_backup_backup_page()
-Date: Wed,  2 Apr 2025 16:00:01 +0100
-Message-ID: <20250402150005.2309458-8-willy@infradead.org>
+ dri-devel@lists.freedesktop.org, stable@vger.kernel.org,
+ David Howells <dhowells@redhat.com>, v9fs@lists.linux.dev
+Subject: [PATCH v2 1/9] 9p: Add a migrate_folio method
+Date: Wed,  2 Apr 2025 15:59:55 +0100
+Message-ID: <20250402150005.2309458-2-willy@infradead.org>
 X-Mailer: git-send-email 2.49.0
 In-Reply-To: <20250402150005.2309458-1-willy@infradead.org>
 References: <20250402150005.2309458-1-willy@infradead.org>
@@ -57,37 +57,31 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-The ->writepage operation is being removed.  Since this function
-exclusively deals with shmem folios, we can call shmem_writeout()
-to write it.
+The migration code used to be able to migrate dirty 9p folios by writing
+them back using writepage.  When the writepage method was removed,
+we neglected to add a migrate_folio method, which means that dirty 9p
+folios have been unmovable ever since.  This reduced our success at
+defragmenting memory on machines which use 9p heavily.
 
+Fixes: 80105ed2fd27 (9p: Use netfslib read/write_iter)
+Cc: stable@vger.kernel.org
+Cc: David Howells <dhowells@redhat.com>
+Cc: v9fs@lists.linux.dev
 Signed-off-by: Matthew Wilcox (Oracle) <willy@infradead.org>
 ---
- drivers/gpu/drm/ttm/ttm_backup.c | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
+ fs/9p/vfs_addr.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/drivers/gpu/drm/ttm/ttm_backup.c b/drivers/gpu/drm/ttm/ttm_backup.c
-index 93c007f18855..0d5718466ffc 100644
---- a/drivers/gpu/drm/ttm/ttm_backup.c
-+++ b/drivers/gpu/drm/ttm/ttm_backup.c
-@@ -136,13 +136,13 @@ ttm_backup_backup_page(struct ttm_backup *backup, struct page *page,
- 			.for_reclaim = 1,
- 		};
- 		folio_set_reclaim(to_folio);
--		ret = mapping->a_ops->writepage(folio_file_page(to_folio, idx), &wbc);
-+		ret = shmem_writeout(to_folio, &wbc);
- 		if (!folio_test_writeback(to_folio))
- 			folio_clear_reclaim(to_folio);
- 		/*
--		 * If writepage succeeds, it unlocks the folio.
--		 * writepage() errors are otherwise dropped, since writepage()
--		 * is only best effort here.
-+		 * If writeout succeeds, it unlocks the folio.	errors
-+		 * are otherwise dropped, since writeout is only best
-+		 * effort here.
- 		 */
- 		if (ret)
- 			folio_unlock(to_folio);
+diff --git a/fs/9p/vfs_addr.c b/fs/9p/vfs_addr.c
+index 32619d146cbc..1286d96a29bc 100644
+--- a/fs/9p/vfs_addr.c
++++ b/fs/9p/vfs_addr.c
+@@ -164,4 +164,5 @@ const struct address_space_operations v9fs_addr_operations = {
+ 	.invalidate_folio	= netfs_invalidate_folio,
+ 	.direct_IO		= noop_direct_IO,
+ 	.writepages		= netfs_writepages,
++	.migrate_folio		= filemap_migrate_folio,
+ };
 -- 
 2.47.2
 
