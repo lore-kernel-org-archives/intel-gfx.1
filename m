@@ -4,38 +4,38 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3CD56C3601E
-	for <intel-gfx@archiver.kernel.org>; Wed,  2 Apr 2025 15:00:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B1725C28B20
+	for <intel-gfx@archiver.kernel.org>; Wed,  2 Apr 2025 15:00:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D543310E808;
+	by gabe.freedesktop.org (Postfix) with ESMTP id C204C10E805;
 	Wed,  2 Apr 2025 15:00:19 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; secure) header.d=infradead.org header.i=@infradead.org header.b="Rgpmie3P";
+	dkim=fail reason="signature verification failed" (2048-bit key; secure) header.d=infradead.org header.i=@infradead.org header.b="UVlnCqVh";
 	dkim-atps=neutral
 Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0632410E7FB;
- Wed,  2 Apr 2025 15:00:14 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B308410E805;
+ Wed,  2 Apr 2025 15:00:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=infradead.org; s=casper.20170209; h=Content-Transfer-Encoding:MIME-Version:
  References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Sender:Reply-To:
  Content-Type:Content-ID:Content-Description;
- bh=HxorfBgE1Uv1byaGENr7pDp1WuWnctNAqk3G3c3CU84=; b=Rgpmie3PxYC1mfYW3w8XJdLFLM
- 68IZm5NGrCaClZqC3nKJYdIKGsB9h3JMsYOLPPY8ATYR0OcEt13uXZk9CS0jPSa/6/OEnVSnp+edn
- JtxL3K6k/cAaAPnIWeuw6+iwIVR25bAFZBbxqjronOrOtc8H5iobhcWmrZQdGWb2o0JqDsgecbGEB
- HfdWvIXKNnyRerhjAo32CuQy3pHoEKaBz0FHeCA9ZaSmapfUsfM+zxb2hRq+btwmZYOlie2LnekjW
- vQoPBKxXlold4/4j1Yc7w9yTYhuj1kWqrWw/hO7N07E6HYSJUOZHneXcoL9DAx1IweKyALy4yV8tG
- M75fmUIw==;
+ bh=MofhovjlADQCQPqeYMIVdQLieQlnl0tttbSu0oh4ZYs=; b=UVlnCqVhaQJS4HJzwCd3dfa8m3
+ Pl780cPiBkPkCd9y3v9/zi1vI+/CXbFmxttgXnfAIt9Ho06rLTH9JbWU2ujRfyWRdj4w2xSDmSdLo
+ 09wjhqmFORJbT6G1iS+TWFI+6KlmKmFD3JcibDzjT10YbPbv55Oc6W55StfRBRrjhYtDIrPl1Q3kH
+ vG24breS4watPawfBwP1ClNNL/BpIJtMt35gD0D7V2Qn5gTZuO/NEjKofMHBlAW9OG3fbTEkNFY9g
+ F6b7XFVKro+YZj02ApnZFeY1Oqub0IzNI93DJO3HjLPyBPG0flfd2Wv8XwqT5w4sqWOhUjHISLJdw
+ 1MOAPOug==;
 Received: from willy by casper.infradead.org with local (Exim 4.98.1 #2 (Red
- Hat Linux)) id 1tzzZX-00000009gsR-2QUj;
+ Hat Linux)) id 1tzzZX-00000009gs9-0kYH;
  Wed, 02 Apr 2025 15:00:07 +0000
 From: "Matthew Wilcox (Oracle)" <willy@infradead.org>
 To: linux-fsdevel@vger.kernel.org
 Cc: "Matthew Wilcox (Oracle)" <willy@infradead.org>,
  intel-gfx@lists.freedesktop.org, linux-mm@kvack.org,
  dri-devel@lists.freedesktop.org
-Subject: [PATCH v2 6/9] i915: Use writeback_iter()
-Date: Wed,  2 Apr 2025 16:00:00 +0100
-Message-ID: <20250402150005.2309458-7-willy@infradead.org>
+Subject: [PATCH v2 2/9] vboxsf: Convert to writepages
+Date: Wed,  2 Apr 2025 15:59:56 +0100
+Message-ID: <20250402150005.2309458-3-willy@infradead.org>
 X-Mailer: git-send-email 2.49.0
 In-Reply-To: <20250402150005.2309458-1-willy@infradead.org>
 References: <20250402150005.2309458-1-willy@infradead.org>
@@ -56,62 +56,98 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Convert from an inefficient loop to the standard writeback iterator.
+If we add a migrate_folio operation, we can convert the writepage
+operation to writepages.  Further, this lets us optimise by using
+the same write handle for multiple folios.  The large folio support here
+is illusory; we would need to kmap each page in turn for proper support.
+But we do remove a few hidden calls to compound_head().
 
 Signed-off-by: Matthew Wilcox (Oracle) <willy@infradead.org>
 ---
- drivers/gpu/drm/i915/gem/i915_gem_shmem.c | 32 ++++++-----------------
- 1 file changed, 8 insertions(+), 24 deletions(-)
+ fs/vboxsf/file.c | 47 +++++++++++++++++++++++++----------------------
+ 1 file changed, 25 insertions(+), 22 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gem/i915_gem_shmem.c b/drivers/gpu/drm/i915/gem/i915_gem_shmem.c
-index ae3343c81a64..5e784db9f315 100644
---- a/drivers/gpu/drm/i915/gem/i915_gem_shmem.c
-+++ b/drivers/gpu/drm/i915/gem/i915_gem_shmem.c
-@@ -305,36 +305,20 @@ void __shmem_writeback(size_t size, struct address_space *mapping)
- 		.range_end = LLONG_MAX,
- 		.for_reclaim = 1,
- 	};
--	unsigned long i;
-+	struct folio *folio = NULL;
-+	int error = 0;
- 
- 	/*
- 	 * Leave mmapings intact (GTT will have been revoked on unbinding,
--	 * leaving only CPU mmapings around) and add those pages to the LRU
-+	 * leaving only CPU mmapings around) and add those folios to the LRU
- 	 * instead of invoking writeback so they are aged and paged out
- 	 * as normal.
- 	 */
--
--	/* Begin writeback on each dirty page */
--	for (i = 0; i < size >> PAGE_SHIFT; i++) {
--		struct page *page;
--
--		page = find_lock_page(mapping, i);
--		if (!page)
--			continue;
--
--		if (!page_mapped(page) && clear_page_dirty_for_io(page)) {
--			int ret;
--
--			SetPageReclaim(page);
--			ret = mapping->a_ops->writepage(page, &wbc);
--			if (!PageWriteback(page))
--				ClearPageReclaim(page);
--			if (!ret)
--				goto put;
--		}
--		unlock_page(page);
--put:
--		put_page(page);
-+	while ((folio = writeback_iter(mapping, &wbc, folio, &error))) {
-+		if (folio_mapped(folio))
-+			folio_redirty_for_writepage(&wbc, folio);
-+		else
-+			error = shmem_writeout(folio, &wbc);
- 	}
+diff --git a/fs/vboxsf/file.c b/fs/vboxsf/file.c
+index b780deb81b02..b492794f8e9a 100644
+--- a/fs/vboxsf/file.c
++++ b/fs/vboxsf/file.c
+@@ -262,40 +262,42 @@ static struct vboxsf_handle *vboxsf_get_write_handle(struct vboxsf_inode *sf_i)
+ 	return sf_handle;
  }
  
+-static int vboxsf_writepage(struct page *page, struct writeback_control *wbc)
++static int vboxsf_writepages(struct address_space *mapping,
++		struct writeback_control *wbc)
+ {
+-	struct inode *inode = page->mapping->host;
++	struct inode *inode = mapping->host;
++	struct folio *folio = NULL;
+ 	struct vboxsf_inode *sf_i = VBOXSF_I(inode);
+ 	struct vboxsf_handle *sf_handle;
+-	loff_t off = page_offset(page);
+ 	loff_t size = i_size_read(inode);
+-	u32 nwrite = PAGE_SIZE;
+-	u8 *buf;
+-	int err;
+-
+-	if (off + PAGE_SIZE > size)
+-		nwrite = size & ~PAGE_MASK;
++	int error;
+ 
+ 	sf_handle = vboxsf_get_write_handle(sf_i);
+ 	if (!sf_handle)
+ 		return -EBADF;
+ 
+-	buf = kmap(page);
+-	err = vboxsf_write(sf_handle->root, sf_handle->handle,
+-			   off, &nwrite, buf);
+-	kunmap(page);
++	while ((folio = writeback_iter(mapping, wbc, folio, &error))) {
++		loff_t off = folio_pos(folio);
++		u32 nwrite = folio_size(folio);
++		u8 *buf;
+ 
+-	kref_put(&sf_handle->refcount, vboxsf_handle_release);
++		if (nwrite > size - off)
++			nwrite = size - off;
+ 
+-	if (err == 0) {
+-		/* mtime changed */
+-		sf_i->force_restat = 1;
+-	} else {
+-		ClearPageUptodate(page);
++		buf = kmap_local_folio(folio, 0);
++		error = vboxsf_write(sf_handle->root, sf_handle->handle,
++				off, &nwrite, buf);
++		kunmap_local(buf);
++
++		folio_unlock(folio);
+ 	}
+ 
+-	unlock_page(page);
+-	return err;
++	kref_put(&sf_handle->refcount, vboxsf_handle_release);
++
++	/* mtime changed */
++	if (error == 0)
++		sf_i->force_restat = 1;
++	return error;
+ }
+ 
+ static int vboxsf_write_end(struct file *file, struct address_space *mapping,
+@@ -347,10 +349,11 @@ static int vboxsf_write_end(struct file *file, struct address_space *mapping,
+  */
+ const struct address_space_operations vboxsf_reg_aops = {
+ 	.read_folio = vboxsf_read_folio,
+-	.writepage = vboxsf_writepage,
++	.writepages = vboxsf_writepages,
+ 	.dirty_folio = filemap_dirty_folio,
+ 	.write_begin = simple_write_begin,
+ 	.write_end = vboxsf_write_end,
++	.migrate_folio = filemap_migrate_folio,
+ };
+ 
+ static const char *vboxsf_get_link(struct dentry *dentry, struct inode *inode,
 -- 
 2.47.2
 
