@@ -4,82 +4,51 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E7218C369A3
-	for <intel-gfx@archiver.kernel.org>; Thu,  3 Apr 2025 13:46:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 99FF3C3600C
+	for <intel-gfx@archiver.kernel.org>; Thu,  3 Apr 2025 13:46:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DE96C10EA0F;
-	Thu,  3 Apr 2025 13:46:50 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D788910EA11;
+	Thu,  3 Apr 2025 13:46:52 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="OZ2jxgMl";
+	dkim=pass (2048-bit key; secure) header.d=codewreck.org header.i=@codewreck.org header.b="0HBoscdF";
 	dkim-atps=neutral
-Received: from mail-il1-f173.google.com (mail-il1-f173.google.com
- [209.85.166.173])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 100DE10E8AD;
- Wed,  2 Apr 2025 17:42:59 +0000 (UTC)
-Received: by mail-il1-f173.google.com with SMTP id
- e9e14a558f8ab-3d43c972616so332285ab.0; 
- Wed, 02 Apr 2025 10:42:59 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1743615778; x=1744220578; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=Tgy450ZES2ez3J/XkWzr8/KGFStO5bXfg+gAZCZdzzk=;
- b=OZ2jxgMlwhtH+mfEESynlS+ELb613wLNpX4gHmYQXMzoSOs/BqQPPINLwTDJme5zX9
- +jB+RrecSo/Tjf8WHsT2mFMKcxkpTi1x+S6e/e9xzgk7QBtw3rH8xmU+VAqTVj8a9jk/
- +nVQz16pldq+jPqCW+MtokpZm6C9h3jqm/MzO4vawCWgXz9UtOBVCcVa/Y34CrHRvWWJ
- I/hchmOeEW+ex/fa7yeclY30V8juFlBqWeN8MrqRM48ausbapg3J3z7vUBeY0i/xFzAQ
- lCCd1XO4Bi/AFYvUZYYZ/19z/VqyokjVb+lBd6+NgfOIm9Mz4kOHw04OgDF6wEWSgwdO
- ky1w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1743615778; x=1744220578;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=Tgy450ZES2ez3J/XkWzr8/KGFStO5bXfg+gAZCZdzzk=;
- b=EJ7Z21TO/MOERhQLlvbM/Suus2q9XDzro1+Rvn6UhGuEflaxNSaqNNy7g5NWQS/gIz
- Q6+/SbxMe5RfB9fYnkhnNjQJtYxuVusek8T0jy7+p+k6KAgANW4x13vOBndGFmYhHPRl
- K7gd4Bs+E1mS8vCVKGmY0tbL17lrzmbwdVylvjT7ZFd1ckNm+3ErPlZIx8qxa+wLZBHT
- BC5NvRc8ddihWItxOFLZtcOHj8BEdu2NWiIiiQOPCByn2TO8hO6HkBEUQKwEy0tr1FmN
- XMiHpUWc6Cus61kdlzKHu3qFYN4j2TLgxTOIVHUlz6w0wQyfSr3QEbC7pAaLrppiXIKP
- kzBw==
-X-Forwarded-Encrypted: i=1;
- AJvYcCUNZJEExFPzgE+7yL9Bs64ZCI3QCK/NWSAroL0iVRL7MWSrjwhKFlJaSZhmv9TO8xwNMlcyvb86h9Tq@lists.freedesktop.org,
- AJvYcCWVyEGrUSzda97GGDYdscekrJMP1YTSv3Gqw5kHgHQZUx43tEU6Fjrf+E5C4MXG3seRFkkXKOZS@lists.freedesktop.org,
- AJvYcCX++gjBWgsp9dDz8r2d726FzXmEQ3y4Mx2BqDxXxg9+hYDAIuU3riWh7vzlpQyvkWMTJsoAI3X+kN+54Trv/A==@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxZ6l16x6CLBi8JtQettudnCDFDsL/iluTE6rYq9zotsiBJRp3Y
- HepIaDOkzeqLIQ+8qrQf9VebsOdEAuXqfh89U6QzVpBpliN3Dd3u
-X-Gm-Gg: ASbGncvH37qdepvV/oXYoe8BxAr6KUyBuNB/sggHJyX1l8h+8eWAFr6nUpqHTuEl+6N
- kW1CGKf3d5lcS75vstcMVLjQ/jqBQJsQvhX1D8T49EKRCAQRzIum54p83M+mngDFreSR81lX9gJ
- Cq20mR7CvEScgGg5JU/dGmUvdBtYt/hszQLO54oiJrpWzmOCyLvMdkqvAUXlKpVlNh4rY469dpQ
- aVESFJDp+mYsFLzglCpxx5P4jxtjutEKUWekC6J3ugef96ms4xa5Q2A9eQdRdxUSgr4Dr3xTUej
- qyz8EMP3bHUKWIT/RtfYr+a6jXYvFGMj3ptUD1uJO34hw7G5sozVWt52mdgvtTzMyxC4p2NUA6i
- q4A==
-X-Google-Smtp-Source: AGHT+IGOn5uIZhYGkruQeCbC1f+WjkFMEGOf33zX/XAEqkxeDsXMZ4VsYrJ+aFa+RIq7clpGvTTA5w==
-X-Received: by 2002:a05:6e02:1d9d:b0:3d4:2acc:81fa with SMTP id
- e9e14a558f8ab-3d6dcb49685mr7363055ab.2.1743615778123; 
- Wed, 02 Apr 2025 10:42:58 -0700 (PDT)
-Received: from gandalf.. (c-67-165-245-5.hsd1.co.comcast.net. [67.165.245.5])
- by smtp.googlemail.com with ESMTPSA id
- e9e14a558f8ab-3d5d5af8369sm33439725ab.71.2025.04.02.10.42.57
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 02 Apr 2025 10:42:57 -0700 (PDT)
-From: Jim Cromie <jim.cromie@gmail.com>
-To: jbaron@akamai.com, gregkh@linuxfoundation.org, ukaszb@chromium.org,
- louis.chauvet@bootlin.com, linux-kernel@vger.kernel.org
-Cc: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
- intel-gvt-dev@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
- daniel.vetter@ffwll.ch, tvrtko.ursulin@linux.intel.com,
- jani.nikula@intel.com, ville.syrjala@linux.intel.com,
- Jim Cromie <jim.cromie@gmail.com>
-Subject: [PATCH v3 45/54] drm-dyndbg: add DRM_CLASSMAP_USE to radeon
-Date: Wed,  2 Apr 2025 11:41:47 -0600
-Message-ID: <20250402174156.1246171-46-jim.cromie@gmail.com>
-X-Mailer: git-send-email 2.49.0
-In-Reply-To: <20250402174156.1246171-1-jim.cromie@gmail.com>
-References: <20250402174156.1246171-1-jim.cromie@gmail.com>
+X-Greylist: delayed 514 seconds by postgrey-1.36 at gabe;
+ Thu, 03 Apr 2025 03:55:18 UTC
+Received: from submarine.notk.org (submarine.notk.org [62.210.214.84])
+ by gabe.freedesktop.org (Postfix) with ESMTP id F241210E8F8;
+ Thu,  3 Apr 2025 03:55:18 +0000 (UTC)
+Received: from gaia.codewreck.org (localhost [127.0.0.1])
+ by submarine.notk.org (Postfix) with ESMTPS id 67B0E14C2DB;
+ Thu,  3 Apr 2025 05:46:34 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=codewreck.org;
+ s=2; t=1743651996;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=ITcMLIFP5tKAjz41ehoKWCF5eQQiDYMOb1fN5yVdzj8=;
+ b=0HBoscdFpgxuQgZl92opSENbMA9Pk+zXKbOYbpRJnb2fOIuhEQ1bwZ5rGPvmlYb+8wVHw8
+ wHc2273ChihnbkPMTZ1/DAooFHD2hJ+0yffsGhHC9Cy9veCKiE8j7cW1KdfmCPrBKGxCoy
+ Qn3m8QJ0MYx70hWGhV57dz2ZTADFzPnA6CZqQO0W6iJCwIBiDSjDSOwrvW/d4+WTVhVAcH
+ g6HcnkJSY+HEZzS8B0uR8bH0QBVA+A0ZU2VyhxlEvsqXe3FXAMaHh6g4yHfkceyrco8IVL
+ 7ipXZTHnksTxDqR7U3ceJDpBoPzzk84gVw3dN7X3aD3CMOZtc1b/HQqenuVM/Q==
+Received: from localhost (gaia.codewreck.org [local])
+ by gaia.codewreck.org (OpenSMTPD) with ESMTPA id 72519fa4;
+ Thu, 3 Apr 2025 03:46:32 +0000 (UTC)
+Date: Thu, 3 Apr 2025 12:46:17 +0900
+From: Dominique Martinet <asmadeus@codewreck.org>
+To: "Matthew Wilcox (Oracle)" <willy@infradead.org>
+Cc: linux-fsdevel@vger.kernel.org, intel-gfx@lists.freedesktop.org,
+ linux-mm@kvack.org, dri-devel@lists.freedesktop.org,
+ stable@vger.kernel.org, David Howells <dhowells@redhat.com>,
+ v9fs@lists.linux.dev
+Subject: Re: [PATCH v2 1/9] 9p: Add a migrate_folio method
+Message-ID: <Z-4EiVQ6klHkkMoy@codewreck.org>
+References: <20250402150005.2309458-1-willy@infradead.org>
+ <20250402150005.2309458-2-willy@infradead.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20250402150005.2309458-2-willy@infradead.org>
 X-Mailman-Approved-At: Thu, 03 Apr 2025 13:46:32 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -96,28 +65,26 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-radeon has some DRM_UT_* debugs, make them controllable when
-CONFIG_DRM_USE_DYNAMIC_DEBUG=y by telling dyndbg about its use of
-the class'd debugs.
+Matthew Wilcox (Oracle) wrote on Wed, Apr 02, 2025 at 03:59:55PM +0100:
+> The migration code used to be able to migrate dirty 9p folios by writing
+> them back using writepage.  When the writepage method was removed,
+> we neglected to add a migrate_folio method, which means that dirty 9p
+> folios have been unmovable ever since.  This reduced our success at
+> defragmenting memory on machines which use 9p heavily.
+> 
+> Fixes: 80105ed2fd27 (9p: Use netfslib read/write_iter)
+> Cc: stable@vger.kernel.org
+> Cc: David Howells <dhowells@redhat.com>
+> Cc: v9fs@lists.linux.dev
+> Signed-off-by: Matthew Wilcox (Oracle) <willy@infradead.org>
 
-Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
----
- drivers/gpu/drm/radeon/radeon_drv.c | 2 ++
- 1 file changed, 2 insertions(+)
+Given I'm not in Cc of the whole series I'm lacking context but I assume
+that means I'm not supposed to take this in.
 
-diff --git a/drivers/gpu/drm/radeon/radeon_drv.c b/drivers/gpu/drm/radeon/radeon_drv.c
-index 267f082bc430..6eaac728e966 100644
---- a/drivers/gpu/drm/radeon/radeon_drv.c
-+++ b/drivers/gpu/drm/radeon/radeon_drv.c
-@@ -253,6 +253,8 @@ static const struct pci_device_id pciidlist[] = {
- };
- MODULE_DEVICE_TABLE(pci, pciidlist);
- 
-+DRM_CLASSMAP_USE(drm_debug_classes);
-+
- static const struct drm_driver kms_driver;
- 
- static int radeon_pci_probe(struct pci_dev *pdev,
+I won't pretend I understand folios anyway, but commit messages makes
+sense to me:
+Acked-by: Dominique Martinet <asmadeus@codewreck.org>
+
+Thanks,
 -- 
-2.49.0
-
+Dominique Martinet | Asmadeus
