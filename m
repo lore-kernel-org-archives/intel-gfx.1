@@ -4,22 +4,22 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A3C83C369A4
-	for <intel-gfx@archiver.kernel.org>; Fri,  4 Apr 2025 20:50:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BC506C369A5
+	for <intel-gfx@archiver.kernel.org>; Fri,  4 Apr 2025 20:50:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E0D6710E321;
-	Fri,  4 Apr 2025 20:50:38 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1854010E326;
+	Fri,  4 Apr 2025 20:50:39 +0000 (UTC)
 Received: from mblankhorst.nl (lankhorst.se [141.105.120.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C154410E321;
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C16AD10E323;
  Fri,  4 Apr 2025 20:50:37 +0000 (UTC)
 From: Maarten Lankhorst <dev@lankhorst.se>
 To: intel-xe@lists.freedesktop.org
 Cc: intel-gfx@lists.freedesktop.org, Maarten Lankhorst <dev@lankhorst.se>,
  Matthew Brost <matthew.brost@intel.com>,
  Lucas De Marchi <lucas.demarchi@intel.com>
-Subject: [PATCH 3/9] drm/xe: Add xe_ggtt_alloc
-Date: Fri,  4 Apr 2025 22:50:22 +0200
-Message-ID: <20250404205028.620300-4-dev@lankhorst.se>
+Subject: [PATCH 1/9] drm/xe: Use xe_ggtt_map_bo_unlocked for resume
+Date: Fri,  4 Apr 2025 22:50:20 +0200
+Message-ID: <20250404205028.620300-2-dev@lankhorst.se>
 X-Mailer: git-send-email 2.45.2
 In-Reply-To: <20250404205028.620300-1-dev@lankhorst.se>
 References: <20250404205028.620300-1-dev@lankhorst.se>
@@ -40,78 +40,79 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Instead of allocating inside xe_tile, create a new function that returns
-an allocated struct xe_ggtt from xe_ggtt.c
+This is the first step to hide the details of struct xe_ggtt.
 
 Signed-off-by: Maarten Lankhorst <dev@lankhorst.se>
 Reviewed-by: Matthew Brost <matthew.brost@intel.com>
 Reviewed-by: Lucas De Marchi <lucas.demarchi@intel.com>
 ---
- drivers/gpu/drm/xe/xe_ggtt.c | 16 ++++++++++++++++
- drivers/gpu/drm/xe/xe_ggtt.h |  2 ++
- drivers/gpu/drm/xe/xe_tile.c |  6 +-----
- 3 files changed, 19 insertions(+), 5 deletions(-)
+ drivers/gpu/drm/xe/xe_bo_evict.c |  4 +---
+ drivers/gpu/drm/xe/xe_ggtt.c     | 16 +++++++++++++++-
+ drivers/gpu/drm/xe/xe_ggtt.h     |  2 +-
+ 3 files changed, 17 insertions(+), 5 deletions(-)
 
+diff --git a/drivers/gpu/drm/xe/xe_bo_evict.c b/drivers/gpu/drm/xe/xe_bo_evict.c
+index a1f0661e7b0c8..b72d87d969930 100644
+--- a/drivers/gpu/drm/xe/xe_bo_evict.c
++++ b/drivers/gpu/drm/xe/xe_bo_evict.c
+@@ -129,9 +129,7 @@ static int xe_bo_restore_and_map_ggtt(struct xe_bo *bo)
+ 			if (tile != bo->tile && !(bo->flags & XE_BO_FLAG_GGTTx(tile)))
+ 				continue;
+ 
+-			mutex_lock(&tile->mem.ggtt->lock);
+-			xe_ggtt_map_bo(tile->mem.ggtt, bo);
+-			mutex_unlock(&tile->mem.ggtt->lock);
++			xe_ggtt_map_bo_unlocked(tile->mem.ggtt, bo);
+ 		}
+ 	}
+ 
 diff --git a/drivers/gpu/drm/xe/xe_ggtt.c b/drivers/gpu/drm/xe/xe_ggtt.c
-index 5f4be9f40c9ba..b197b835ed442 100644
+index 5fcb2b4c2c139..62025d9cb7380 100644
 --- a/drivers/gpu/drm/xe/xe_ggtt.c
 +++ b/drivers/gpu/drm/xe/xe_ggtt.c
-@@ -160,6 +160,22 @@ static void xe_ggtt_clear(struct xe_ggtt *ggtt, u64 start, u64 size)
+@@ -591,7 +591,7 @@ bool xe_ggtt_node_allocated(const struct xe_ggtt_node *node)
+  * @ggtt: the &xe_ggtt where node will be mapped
+  * @bo: the &xe_bo to be mapped
+  */
+-void xe_ggtt_map_bo(struct xe_ggtt *ggtt, struct xe_bo *bo)
++static void xe_ggtt_map_bo(struct xe_ggtt *ggtt, struct xe_bo *bo)
+ {
+ 	u16 cache_mode = bo->flags & XE_BO_FLAG_NEEDS_UC ? XE_CACHE_NONE : XE_CACHE_WB;
+ 	u16 pat_index = tile_to_xe(ggtt->tile)->pat.idx[cache_mode];
+@@ -609,6 +609,20 @@ void xe_ggtt_map_bo(struct xe_ggtt *ggtt, struct xe_bo *bo)
  	}
  }
  
 +/**
-+ * xe_ggtt_alloc - Allocate a GGTT for a given &xe_tile
-+ * @tile: &xe_tile
++ * xe_ggtt_map_bo_unlocked - Restore a mapping of a BO into GGTT
++ * @ggtt: the &xe_ggtt where node will be mapped
++ * @bo: the &xe_bo to be mapped
 + *
-+ * Allocates a &xe_ggtt for a given tile.
-+ *
-+ * Return: &xe_ggtt on success, or NULL when out of memory.
++ * This is used to restore a GGTT mapping after suspend.
 + */
-+struct xe_ggtt *xe_ggtt_alloc(struct xe_tile *tile)
++void xe_ggtt_map_bo_unlocked(struct xe_ggtt *ggtt, struct xe_bo *bo)
 +{
-+	struct xe_ggtt *ggtt = drmm_kzalloc(&tile_to_xe(tile)->drm, sizeof(*ggtt), GFP_KERNEL);
-+	if (ggtt)
-+		ggtt->tile = tile;
-+	return ggtt;
++	mutex_lock(&ggtt->lock);
++	xe_ggtt_map_bo(ggtt, bo);
++	mutex_unlock(&ggtt->lock);
 +}
 +
- static void ggtt_fini_early(struct drm_device *drm, void *arg)
+ static int __xe_ggtt_insert_bo_at(struct xe_ggtt *ggtt, struct xe_bo *bo,
+ 				  u64 start, u64 end)
  {
- 	struct xe_ggtt *ggtt = arg;
 diff --git a/drivers/gpu/drm/xe/xe_ggtt.h b/drivers/gpu/drm/xe/xe_ggtt.h
-index 62c8ce636939a..0bab1fd7cc817 100644
+index 27e7d67de0047..bdf6d0733e2ca 100644
 --- a/drivers/gpu/drm/xe/xe_ggtt.h
 +++ b/drivers/gpu/drm/xe/xe_ggtt.h
-@@ -9,7 +9,9 @@
- #include "xe_ggtt_types.h"
- 
- struct drm_printer;
-+struct xe_tile;
- 
-+struct xe_ggtt *xe_ggtt_alloc(struct xe_tile *tile);
- int xe_ggtt_init_early(struct xe_ggtt *ggtt);
- int xe_ggtt_init(struct xe_ggtt *ggtt);
- 
-diff --git a/drivers/gpu/drm/xe/xe_tile.c b/drivers/gpu/drm/xe/xe_tile.c
-index 6f303d4097d6e..86e9811e60ba0 100644
---- a/drivers/gpu/drm/xe/xe_tile.c
-+++ b/drivers/gpu/drm/xe/xe_tile.c
-@@ -88,13 +88,9 @@
-  */
- static int xe_tile_alloc(struct xe_tile *tile)
- {
--	struct drm_device *drm = &tile_to_xe(tile)->drm;
--
--	tile->mem.ggtt = drmm_kzalloc(drm, sizeof(*tile->mem.ggtt),
--				      GFP_KERNEL);
-+	tile->mem.ggtt = xe_ggtt_alloc(tile);
- 	if (!tile->mem.ggtt)
- 		return -ENOMEM;
--	tile->mem.ggtt->tile = tile;
- 
- 	return 0;
- }
+@@ -24,7 +24,7 @@ int xe_ggtt_node_insert_locked(struct xe_ggtt_node *node,
+ 			       u32 size, u32 align, u32 mm_flags);
+ void xe_ggtt_node_remove(struct xe_ggtt_node *node, bool invalidate);
+ bool xe_ggtt_node_allocated(const struct xe_ggtt_node *node);
+-void xe_ggtt_map_bo(struct xe_ggtt *ggtt, struct xe_bo *bo);
++void xe_ggtt_map_bo_unlocked(struct xe_ggtt *ggtt, struct xe_bo *bo);
+ int xe_ggtt_insert_bo(struct xe_ggtt *ggtt, struct xe_bo *bo);
+ int xe_ggtt_insert_bo_at(struct xe_ggtt *ggtt, struct xe_bo *bo,
+ 			 u64 start, u64 end);
 -- 
 2.45.2
 
