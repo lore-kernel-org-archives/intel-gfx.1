@@ -4,54 +4,65 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 27C21C3601A
-	for <intel-gfx@archiver.kernel.org>; Fri,  4 Apr 2025 05:10:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 49C25C3601A
+	for <intel-gfx@archiver.kernel.org>; Fri,  4 Apr 2025 05:33:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D43E210E2E7;
-	Fri,  4 Apr 2025 05:10:15 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DE0F510E2ED;
+	Fri,  4 Apr 2025 05:33:33 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="nbPBQ4lN";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="V7D6nDmm";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8E3E010E25D;
- Fri,  4 Apr 2025 05:10:14 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.20])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5C17910E276;
+ Fri,  4 Apr 2025 05:33:31 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1743743414; x=1775279414;
- h=from:date:subject:mime-version:content-transfer-encoding:
- message-id:references:in-reply-to:to:cc;
- bh=/FA8E/YelnMx8PrMceWfCKcZb1yIcio0ZiVw5Mk28RA=;
- b=nbPBQ4lNJhwoVvMrD1Nra693Xhob2RiMeIjnG9i6fT6H8jr9KsFpQ8YM
- UYvPwvHeGwlUGd76NUrvD1K4abafTYZTc6ZJKgIczu670EfEStG9ShCVD
- JzdXxkAaIaeQe3vF6YnvRl2C4HAiV9/q+B5U2gsFAfFjEbp8Odhp5tJMi
- lGubuWMzA5gqmbMfCDyrmrotP2recRv2qQkBMAOwc29FJ78E0sn8W3LBW
- gqGrGy/NYi9nHVGuSu8LKZfL9B0MtI2k5nfCDb/dQpxTaKur4E/awPbc9
- KADlt8rba1pg2fm/EONkhQYwUXrPw1jIVrV2MnBWnO4lrDC+b67dV2nkT Q==;
-X-CSE-ConnectionGUID: OV5MiLtaTTaE139vf5yOCQ==
-X-CSE-MsgGUID: 5wBmcXLLTnqkqlrutp7vmA==
-X-IronPort-AV: E=McAfee;i="6700,10204,11393"; a="62572739"
-X-IronPort-AV: E=Sophos;i="6.15,187,1739865600"; d="scan'208";a="62572739"
-Received: from orviesa002.jf.intel.com ([10.64.159.142])
- by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 03 Apr 2025 22:10:14 -0700
-X-CSE-ConnectionGUID: lLYihhc0TeGzcPee5N6M5Q==
-X-CSE-MsgGUID: MUoW3IdrRIm17WwM8DOh3w==
+ t=1743744812; x=1775280812;
+ h=from:subject:date:message-id:mime-version:
+ content-transfer-encoding:to:cc;
+ bh=aRc0gVa/3zCqNR5RVbXraX/ARaGfv6nPDTTCOgj9Djg=;
+ b=V7D6nDmm6MpBuIYzJWxM9PStyiQ+Q2sqFFCmCGF8UIQvE4LCsE77VGP7
+ k+mG848iNwSJFJJrFJEp7WhnFhFFvGw8QfWENkGSCjM8RD4526AtANjoc
+ Qt35uE93hch69V9Al+/q2O/TsXQiEfeyMWHFoBrCcC1wH6XDMAEYAkbZd
+ rFkOxzSGRAUrmfV44sZosOq8HARQjv7z8wzjRg/LywkuHWE6j0pys40ko
+ eQgKNXX/5UNUv7JyDkJaGCT8FcbosN5x/jz6bE4O/9dQg8Y1rMmd39x2t
+ tgz2xHvrynuGvlD68f2i0YwGONDWgVraqf50ZQScS7IIz/fj2xUQ4QzQL g==;
+X-CSE-ConnectionGUID: epG35dMSRtakECGL5rN1Zw==
+X-CSE-MsgGUID: giKtOPwBRze7Qzq4fdJjKA==
+X-IronPort-AV: E=McAfee;i="6700,10204,11393"; a="44893393"
+X-IronPort-AV: E=Sophos;i="6.15,187,1739865600"; d="scan'208";a="44893393"
+Received: from orviesa009.jf.intel.com ([10.64.159.149])
+ by orvoesa112.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 03 Apr 2025 22:33:29 -0700
+X-CSE-ConnectionGUID: COyd5I5oQyinvmV9AFnb0Q==
+X-CSE-MsgGUID: tmkrd0hIRRSMrMD8BA/jDw==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.15,187,1739865600"; d="scan'208";a="158186554"
+X-IronPort-AV: E=Sophos;i="6.15,187,1739865600"; d="scan'208";a="126992628"
 Received: from srr4-3-linux-106-armuthy.iind.intel.com ([10.190.238.56])
- by orviesa002.jf.intel.com with ESMTP; 03 Apr 2025 22:10:13 -0700
+ by orviesa009.jf.intel.com with ESMTP; 03 Apr 2025 22:33:24 -0700
 From: Arun R Murthy <arun.r.murthy@intel.com>
-Date: Fri, 04 Apr 2025 10:25:08 +0530
-Subject: [PATCH v5 1/2] drm/i915/display/dp: Remove support for UHBR13.5
+Subject: [PATCH RESEND v12 0/5] Expose modifiers/formats supported by async
+ flips
+Date: Fri, 04 Apr 2025 10:48:52 +0530
+Message-Id: <20250404-asyn-v12-0-9e2396596036@intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20250404-dprates-v5-1-c93f561a095e@intel.com>
-References: <20250404-dprates-v5-0-c93f561a095e@intel.com>
-In-Reply-To: <20250404-dprates-v5-0-c93f561a095e@intel.com>
-To: intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org
-Cc: Jani Nikula <jani.nikula@linux.intel.com>, imre.deak@intel.com, 
- Arun R Murthy <arun.r.murthy@intel.com>
+X-B4-Tracking: v=1; b=H4sIALxr72cC/22Oy07DMBBFf6XyGkczThy7XbGg2y7KErEYv4glk
+ iAnjYiq/DtuoKI8lnM1595zZoNP0Q9stzmz5Kc4xL7LB4q7DbMNdS+eR5cDJkBIQBCchrnjJqh
+ alZATa1l+fUs+xPe154kd94/7wwN7znlIfcvHJnm6llSIqEHJEmVR1TXAliOndOqKVLSnNDbzf
+ exG/1rYvr00N3EY+zSvgpNc+1cVgfpTZZIcuCIryVZkXEU3/EVh0t9QiV/+k84Q2MoaLwnq2v2
+ GEG4ocZ3CDHFtNDkUNtit+oPhvxhmjCQ4LE3wBD/WlmX5AJHt+SyGAQAA
+X-Change-ID: 20250102-asyn-bf76730501cc
+To: dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org, 
+ intel-xe@lists.freedesktop.org
+Cc: Jani Nikula <jani.nikula@linux.intel.com>, 
+ chaitanya.kumar.borah@intel.com, ville.syrjala@intel.com, 
+ 20250219093211.4059187-1-arun.r.murthy@intel.com, 
+ 20250311085422.2573860-1-santhosh.reddy.guddati@intel.com, 
+ Arun R Murthy <arun.r.murthy@intel.com>, 
+ =?utf-8?q?Ville_Syrj=C3=A4l=C3=A4?= <ville.syrjala@linux.intel.com>, 
+ Naveen Kumar <naveen1.kumar@intel.com>
 X-Mailer: b4 0.15-dev
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -68,44 +79,206 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-The retimer issue for UHBR13.5 is fixed in BMG.
-So for all platforms lesser than BMG(XE2_HPD/DISPLAY_VERx100 1401)
-disable UHBR13.5.
-commit caf3d748f646 ("drm/i915/dp: Remove support for UHBR13.5")
-removes UHBR13.5 for MTL.
+All of the formats/modifiers supported by the plane during synchronous
+flips are nor supported by asynchronous flips. The formats/modifiers
+exposed to user by IN_FORMATS exposes all formats/modifiers supported by
+plane and this list varies for async flips. If the async flip supported
+formats/modifiers are exposed to the user, user based on this list can
+take decision to proceed or not and avoid flip failures during async
+flips.
+Discussion around this can be located @
+https://gitlab.freedesktop.org/mesa/mesa/-/merge_requests/29618#note_2487123
+Mutter implementation for IN_FORMARTS_ASYNC under review @
+https://gitlab.gnome.org/GNOME/mutter/-/merge_requests/4063
+Xorg/modesetting patch
+https://gitlab.freedesktop.org/xorg/xserver/-/merge_requests/1816
 
-v2: Reframed the commit msg (Jani)
-v4: Reframed the commit msg & update the max rate supported (Jani)
-v5: Reframed the commit msg (Jani)
+TODO: Upon merge of the patch related to async flip
+https://patchwork.freedesktop.org/patch/626849/?series=139807&rev=6
+the patch 5 in this series will have to make use of the new function
+pointer can_async_flip().
 
-Signed-off-by: Arun R Murthy <arun.r.murthy@intel.com>
----
- drivers/gpu/drm/i915/display/intel_dp.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+Test-with: 20250219093211.4059187-1-arun.r.murthy@intel.com
+Test-with: 20250311085422.2573860-1-santhosh.reddy.guddati@intel.com
 
-diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
-index f21f9b441fc2a4e644c69410e6ec6b3d37907478..92bca701a989b03e2ad4b3d9e7d0a9ef12567e5a 100644
---- a/drivers/gpu/drm/i915/display/intel_dp.c
-+++ b/drivers/gpu/drm/i915/display/intel_dp.c
-@@ -481,7 +481,7 @@ bool intel_dp_has_joiner(struct intel_dp *intel_dp)
- 
- static int dg2_max_source_rate(struct intel_dp *intel_dp)
- {
--	return intel_dp_is_edp(intel_dp) ? 810000 : 1350000;
-+	return intel_dp_is_edp(intel_dp) ? 810000 : 1000000;
- }
- 
- static int icl_max_source_rate(struct intel_dp *intel_dp)
-@@ -550,7 +550,7 @@ intel_dp_set_source_rates(struct intel_dp *intel_dp)
- 	};
- 	static const int icl_rates[] = {
- 		162000, 216000, 270000, 324000, 432000, 540000, 648000, 810000,
--		1000000, 1350000,
-+		1000000,
- 	};
- 	static const int bxt_rates[] = {
- 		162000, 216000, 243000, 270000, 324000, 432000, 540000
+v3: Add new plane->funcs format_mod_supported_async (Ville)
+v13: Updated the link to IGT patches.
 
--- 
+Arun R Murthy (3):
+  drm/plane: Add new plane property IN_FORMATS_ASYNC
+  drm/plane: Expose function to create format/modifier blob
+  drm/i915/display: Populate list of async supported formats/modifiers
+
+ drivers/gpu/drm/drm_mode_config.c             |  7 +++
+ drivers/gpu/drm/drm_plane.c                   | 50 ++++++++++++------
+ .../drm/i915/display/skl_universal_plane.c    | 51 +++++++++++++++++++
+ include/drm/drm_mode_config.h                 |  6 +++
+ include/drm/drm_plane.h                       |  4 ++
+ 5 files changed, 103 insertions(+), 15 deletions(-)
+
+--
 2.25.1
+
+---
+Arun R Murthy (5):
+      drm/plane: Add new plane property IN_FORMATS_ASYNC
+      drm/plane: Expose function to create format/modifier blob
+      drm/plane: Function to check async supported modifier/format
+      drm/i915/display: Populate list of async supported formats/modifiers
+      drm/i915/display: Add function for format_mod_supported_async
+
+ drivers/gpu/drm/drm_mode_config.c                  |   7 ++
+ drivers/gpu/drm/drm_plane.c                        |  72 +++++++++----
+ drivers/gpu/drm/i915/display/skl_universal_plane.c | 113 ++++++++++++++++++---
+ include/drm/drm_mode_config.h                      |   6 ++
+ include/drm/drm_plane.h                            |  24 +++++
+ 5 files changed, 188 insertions(+), 34 deletions(-)
+---
+base-commit: 08bd590935a5258ffd79355c59adffd72fb2c642
+change-id: 20250102-asyn-bf76730501cc
+
+Best regards,
+--
+Arun R Murthy <arun.r.murthy@intel.com>
+
+---
+Changes in v12:
+- EDITME: describe what is new in this series revision.
+- EDITME: use bulletpoints and terse descriptions.
+- Link to v11: https://lore.kernel.org/r/20250328-asyn-v11-0-a50d13bfea0d@intel.com
+
+Changes in v11:
+- EDITME: describe what is new in this series revision.
+- EDITME: use bulletpoints and terse descriptions.
+- Link to v10: https://lore.kernel.org/r/20250328-asyn-v10-0-8b8ad12cfc97@intel.com
+
+Changes in v9:
+- EDITME: describe what is new in this series revision.
+- EDITME: use bulletpoints and terse descriptions.
+- Link to v8: https://lore.kernel.org/r/20250312-asyn-v8-0-0c4cbe5a066d@intel.com
+
+Changes in v6:
+- EDITME: describe what is new in this series revision.
+- EDITME: use bulletpoints and terse descriptions.
+- Link to v5: https://lore.kernel.org/r/20250218-asyn-v5-0-7ac5ac4abd4a@intel.com
+
+---
+Arun R Murthy (3):
+      drm/plane: Add new plane property IN_FORMATS_ASYNC
+      drm/plane: modify create_in_formats to accommodate async
+      drm/i915/display: Add i915 hook for format_mod_supported_async
+
+ drivers/gpu/drm/drm_mode_config.c                  |  7 +++
+ drivers/gpu/drm/drm_plane.c                        | 53 +++++++++++++++-----
+ drivers/gpu/drm/i915/display/skl_universal_plane.c | 56 ++++++++++++++++------
+ include/drm/drm_mode_config.h                      |  6 +++
+ include/drm/drm_plane.h                            | 17 +++++++
+ 5 files changed, 112 insertions(+), 27 deletions(-)
+---
+base-commit: bc7a84cbc968ce97e581e9e3c2d26fb0ac106482
+change-id: 20250102-asyn-bf76730501cc
+
+Best regards,
+--
+Arun R Murthy <arun.r.murthy@intel.com>
+
+---
+Arun R Murthy (3):
+      drm/plane: Add new plane property IN_FORMATS_ASYNC
+      drm/plane: modify create_in_formats to accommodate async
+      drm/i915/display: Add i915 hook for format_mod_supported_async
+
+ drivers/gpu/drm/drm_mode_config.c                  |  7 ++++
+ drivers/gpu/drm/drm_plane.c                        | 49 ++++++++++++++++------
+ drivers/gpu/drm/i915/display/i9xx_plane.c          |  6 ++-
+ drivers/gpu/drm/i915/display/intel_atomic_plane.c  | 30 ++++++++++++-
+ drivers/gpu/drm/i915/display/intel_atomic_plane.h  |  6 ++-
+ drivers/gpu/drm/i915/display/intel_display.c       | 11 +----
+ drivers/gpu/drm/i915/display/skl_universal_plane.c |  5 ++-
+ include/drm/drm_mode_config.h                      |  6 +++
+ include/drm/drm_plane.h                            | 17 ++++++++
+ 9 files changed, 111 insertions(+), 26 deletions(-)
+---
+base-commit: be5a404c3344b7d794766f045b8f94aa93c42069
+change-id: 20250102-asyn-bf76730501cc
+
+Best regards,
+--
+Arun R Murthy <arun.r.murthy@intel.com>
+
+---
+Arun R Murthy (3):
+      drm/plane: Add new plane property IN_FORMATS_ASYNC
+      drm/plane: modify create_in_formats to accommodate async
+      drm/i915/display: Add i915 hook for format_mod_supported_async
+
+ drivers/gpu/drm/drm_mode_config.c                  |  7 +++
+ drivers/gpu/drm/drm_plane.c                        | 52 ++++++++++++++++------
+ drivers/gpu/drm/i915/display/i9xx_plane.c          |  6 ++-
+ drivers/gpu/drm/i915/display/intel_atomic_plane.c  | 32 ++++++++++++-
+ drivers/gpu/drm/i915/display/intel_atomic_plane.h  |  6 ++-
+ drivers/gpu/drm/i915/display/intel_display.c       | 14 ++----
+ drivers/gpu/drm/i915/display/skl_universal_plane.c |  5 ++-
+ include/drm/drm_mode_config.h                      |  6 +++
+ include/drm/drm_plane.h                            | 17 +++++++
+ 9 files changed, 117 insertions(+), 28 deletions(-)
+---
+base-commit: aba848f9b752cf51474c0c3b1abcf0f572f774dc
+change-id: 20250102-asyn-bf76730501cc
+
+Best regards,
+--
+Arun R Murthy <arun.r.murthy@intel.com>
+
+---
+Arun R Murthy (5):
+      drm/plane: Add new plane property IN_FORMATS_ASYNC
+      drm/plane: modify create_in_formats to acommodate async
+      drm/i915/display: Acomodate format check in can_async_flip()
+      drm/i915/display: Add i915 hook for format_mod_supported_async
+      drm/i915/display: Indexed 8bit format does not support async flip
+
+ drivers/gpu/drm/drm_mode_config.c                  |  7 +++
+ drivers/gpu/drm/drm_plane.c                        | 52 ++++++++++++++++------
+ drivers/gpu/drm/i915/display/i9xx_plane.c          |  6 ++-
+ drivers/gpu/drm/i915/display/intel_atomic_plane.c  | 22 ++++++++-
+ drivers/gpu/drm/i915/display/intel_atomic_plane.h  |  6 ++-
+ drivers/gpu/drm/i915/display/intel_display.c       | 14 ++----
+ drivers/gpu/drm/i915/display/skl_universal_plane.c |  5 ++-
+ include/drm/drm_mode_config.h                      |  6 +++
+ include/drm/drm_plane.h                            | 17 +++++++
+ 9 files changed, 107 insertions(+), 28 deletions(-)
+---
+base-commit: c1893793c7d3868fe083bdab33999178337b5561
+change-id: 20250102-asyn-bf76730501cc
+
+Best regards,
+--
+Arun R Murthy <arun.r.murthy@intel.com>
+
+---
+Arun R Murthy (5):
+      drm/plane: Add new plane property IN_FORMATS_ASYNC
+      drm/plane: modify create_in_formats to acommodate async
+      drm/i915/display: Acomodate format check in intel_plane_can_async_flip()
+      drm/i915/display: Add i915 hook for format_mod_supported_async
+      drm/i915/display: Indexed 8bit format does not support async flip
+
+ drivers/gpu/drm/drm_mode_config.c                  |  7 +++
+ drivers/gpu/drm/drm_plane.c                        | 52 ++++++++++++++++------
+ drivers/gpu/drm/i915/display/i9xx_plane.c          |  6 ++-
+ drivers/gpu/drm/i915/display/intel_atomic_plane.c  | 18 +++++++-
+ drivers/gpu/drm/i915/display/intel_atomic_plane.h  |  6 ++-
+ drivers/gpu/drm/i915/display/intel_display.c       | 14 ++----
+ drivers/gpu/drm/i915/display/skl_universal_plane.c |  5 ++-
+ include/drm/drm_mode_config.h                      |  6 +++
+ include/drm/drm_plane.h                            | 17 +++++++
+ 9 files changed, 103 insertions(+), 28 deletions(-)
+---
+base-commit: 8a0f86f7106709c73acb1477af9ad5f267d7a340
+change-id: 20250102-asyn-bf76730501cc
+
+Best regards,
+-- 
+Arun R Murthy <arun.r.murthy@intel.com>
 
