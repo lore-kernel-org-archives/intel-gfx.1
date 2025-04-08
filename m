@@ -4,27 +4,55 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EE015C369A1
-	for <intel-gfx@archiver.kernel.org>; Tue,  8 Apr 2025 11:13:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3BBC6C369A4
+	for <intel-gfx@archiver.kernel.org>; Tue,  8 Apr 2025 11:15:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 90DD210E1BE;
-	Tue,  8 Apr 2025 11:13:18 +0000 (UTC)
-Received: from e6b6f09ec485 (emeril.freedesktop.org [131.252.210.167])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8710410E1BE;
- Tue,  8 Apr 2025 11:13:17 +0000 (UTC)
-Content-Type: text/plain; charset="utf-8"
+	by gabe.freedesktop.org (Postfix) with ESMTP id A214C10E659;
+	Tue,  8 Apr 2025 11:15:35 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="XF3cbvOm";
+	dkim-atps=neutral
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 616DD10E645;
+ Tue,  8 Apr 2025 11:15:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1744110935; x=1775646935;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=HOJcZPCm3AvlMhNHfFAqN826v6d0l5Rwkzoe1jgo1ko=;
+ b=XF3cbvOmQHovAn907CwilHMRmPVrx45aIqiCpkDvUZcXlOqZD6y2BgZz
+ +lhbxex201VvOqHFqhlnustZuSwHfH52BhFQ2XLJS+TbZNNRC0se21HvI
+ 6MF4wqg2IFTMRNz4B/H3H+eSSOricvdhw2wPMasj25ja/wn2XDur1RVAg
+ fyLSrTnx5IuSJ5DNFA2yTsVeHXSkwY+zH3Qoa9zLxWFfyQ2BXiPNZWHBP
+ PXspFa/1SaZNoCKWSTz/7dKlOh/y9M5vgESUAjs7XMVrlLZixp6gV6scA
+ k8vyesgl4YIUZ1IGnShWGqDUoLHp0EDWIIKJ2Osik9e6Aa4Pa2C8xYiIT Q==;
+X-CSE-ConnectionGUID: tIIcKIQdQUK2kvX+EX0Ulg==
+X-CSE-MsgGUID: RoDHSvz/TeGDPTRIQMjwJg==
+X-IronPort-AV: E=McAfee;i="6700,10204,11397"; a="45655907"
+X-IronPort-AV: E=Sophos;i="6.15,197,1739865600"; d="scan'208,223";a="45655907"
+Received: from orviesa004.jf.intel.com ([10.64.159.144])
+ by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 08 Apr 2025 04:15:34 -0700
+X-CSE-ConnectionGUID: Zh1w2/WsR1qDVOG3zKBgVA==
+X-CSE-MsgGUID: R5Uonlw4RyOezSVNA1YR/w==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.15,197,1739865600"; 
+ d="scan'208,223";a="133209951"
+Received: from dut-2a59.iind.intel.com ([10.190.239.113])
+ by orviesa004.jf.intel.com with ESMTP; 08 Apr 2025 04:15:32 -0700
+From: Chaitanya Kumar Borah <chaitanya.kumar.borah@intel.com>
+To: intel-xe@lists.freedesktop.org,
+	intel-gfx@lists.freedesktop.org
+Cc: ville.syrjala@linux.intel.com, uma.shankar@intel.com,
+ chaitanya.kumar.borah@intel.com, animesh.manna@intel.com
+Subject: [PATCH 00/11] drm/xe/display: Program double buffered LUT registers
+Date: Tue,  8 Apr 2025 16:30:11 +0530
+Message-Id: <20250408110022.1907802-1-chaitanya.kumar.borah@intel.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Subject: =?utf-8?q?=E2=9C=97_Fi=2ECI=2ESPARSE=3A_warning_for_Introduce_drm_sharpness_?=
- =?utf-8?q?property_=28rev13=29?=
-From: Patchwork <patchwork@emeril.freedesktop.org>
-To: "Nemesa Garg" <nemesa.garg@intel.com>
-Cc: intel-gfx@lists.freedesktop.org
-Date: Tue, 08 Apr 2025 11:13:17 -0000
-Message-ID: <174411079754.47116.11765623745024872690@e6b6f09ec485>
-X-Patchwork-Hint: ignore
-References: <20250408102506.1053569-1-nemesa.garg@intel.com>
-In-Reply-To: <20250408102506.1053569-1-nemesa.garg@intel.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -37,20 +65,41 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-== Series Details ==
+From PTL, LUT registers are made double buffered. This helps us
+to program them in the active region without any concern of tearing.
+This particulary helps in case of displays with high refresh rates
+where vblank periods are shorter. Add MMIO and DSB path to program them.
 
-Series: Introduce drm sharpness property (rev13)
-URL   : https://patchwork.freedesktop.org/series/138754/
-State : warning
+Chaitanya Kumar Borah (7):
+  drm/i915/dsb: add intel_dsb_gosub_finish()
+  drm/i915/dsb: Add support for GOSUB interrupt
+  drm/i915: s/dsb_color_vblank/dsb_color
+  drm/i915: use GOSUB to program doubled buffered LUT registers
+  drm/i915: Program DB LUT registers before vblank
+  drm/i915/color: Do not pre-load LUTs with DB registers
+  drm/i915: Disable updating of LUT values during vblank
 
-== Summary ==
+Ville Syrjälä (4):
+  drm/i915/dsb: Extract intel_dsb_ins_align()
+  drm/i915/dsb: Extract assert_dsb_tail_is_aligned()
+  drm/i915/dsb: Extract intel_dsb_{head,tail}()
+  drm/i915/dsb: Implement intel_dsb_gosub()
 
-Error: dim sparse failed
-Sparse version: v0.6.2
-Fast mode used, each commit won't be checked separately.
+ drivers/gpu/drm/i915/display/intel_atomic.c   |   4 +-
+ drivers/gpu/drm/i915/display/intel_color.c    |  73 ++++++----
+ drivers/gpu/drm/i915/display/intel_color.h    |   2 +
+ drivers/gpu/drm/i915/display/intel_crtc.c     |   5 +-
+ drivers/gpu/drm/i915/display/intel_display.c  |  40 +++---
+ .../drm/i915/display/intel_display_device.h   |   1 +
+ .../drm/i915/display/intel_display_types.h    |   2 +-
+ drivers/gpu/drm/i915/display/intel_dsb.c      | 125 ++++++++++++++++--
+ drivers/gpu/drm/i915/display/intel_dsb.h      |   3 +
+ drivers/gpu/drm/i915/display/intel_dsb_regs.h |   2 +
+ 10 files changed, 202 insertions(+), 55 deletions(-)
 
+-- 
+2.25.1
 
