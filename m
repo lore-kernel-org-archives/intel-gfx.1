@@ -4,101 +4,74 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id ECFFEC3DA4A
-	for <intel-gfx@archiver.kernel.org>; Mon, 14 Apr 2025 17:02:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 15453C369BA
+	for <intel-gfx@archiver.kernel.org>; Mon, 14 Apr 2025 17:02:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3990710E62E;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5C0FD10E631;
 	Mon, 14 Apr 2025 17:02:01 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=mailbox.org header.i=@mailbox.org header.b="n/cAWajK";
+	dkim=pass (2048-bit key; unprotected) header.d=google.com header.i=@google.com header.b="cvPVukm4";
 	dkim-atps=neutral
-Received: from mout-p-101.mailbox.org (mout-p-101.mailbox.org [80.241.56.151])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 64FC310E8D1;
- Wed,  9 Apr 2025 14:02:13 +0000 (UTC)
-Received: from smtp102.mailbox.org (smtp102.mailbox.org
- [IPv6:2001:67c:2050:b231:465::102])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by mout-p-101.mailbox.org (Postfix) with ESMTPS id 4ZXl4d5KM8z9t40;
- Wed,  9 Apr 2025 16:02:09 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org;
- s=mail20150812; 
- t=1744207329; h=from:from:reply-to:reply-to:subject:subject:date:date:
- message-id:message-id:to:to:cc:cc:mime-version:mime-version:
- content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=iqjOv8PC0paDWXrZO/qp2lqr+5gHSa2tmgVreDdK328=;
- b=n/cAWajK7qyRBy39EjI+b038v5TLRQPnbsZsejuWIaDQc3yApnamzQUBNqrfVLqU+9ZQye
- 6YpZVyo+OPDJz8NnfwsjQkW1/y6T8ZXZ+VLyctnAx72cqilgUW+SYicNGsaZA5TL+OzNkv
- QVF2Uea5+pUcJ7Fh+KIO33qILuncMa8X7a+IkAFGK5lPYm43ATHvHa1QVFMEw5hX2abTeb
- Tjn7lStQsc8TA3pTDXqoh9lw6zAElg6K77S+v+XeIWrNUv24tD0L10jARdiINKJ+2S1/ec
- Ao1Sl7C7xYWCCuI7vapAaNwcVLexZ2Zq1R9aiaCivJq+ddQFc3xqeKqzfLnK9w==
-Message-ID: <9a90f7f14c22c01aa28d89aa91bf4dfa4049c062.camel@mailbox.org>
-Subject: Re: [PATCH 1/2] dma-fence: Rename dma_fence_is_signaled()
-From: Philipp Stanner <phasta@mailbox.org>
-To: Christian =?ISO-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>, 
- phasta@kernel.org, Boris Brezillon <boris.brezillon@collabora.com>
-Cc: Sumit Semwal <sumit.semwal@linaro.org>, Gustavo Padovan
- <gustavo@padovan.org>, Felix Kuehling <Felix.Kuehling@amd.com>, Alex
- Deucher <alexander.deucher@amd.com>, Xinhui Pan <Xinhui.Pan@amd.com>, David
- Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Maarten
- Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
- <mripard@kernel.org>,  Thomas Zimmermann <tzimmermann@suse.de>, Lucas Stach
- <l.stach@pengutronix.de>, Russell King <linux+etnaviv@armlinux.org.uk>,
- Christian Gmeiner <christian.gmeiner@gmail.com>,  Jani Nikula
- <jani.nikula@linux.intel.com>, Joonas Lahtinen
- <joonas.lahtinen@linux.intel.com>, Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Tvrtko Ursulin <tursulin@ursulin.net>, Frank Binns
- <frank.binns@imgtec.com>, Matt Coster <matt.coster@imgtec.com>, Qiang Yu
- <yuq825@gmail.com>, Rob Clark <robdclark@gmail.com>, Sean Paul
- <sean@poorly.run>,  Konrad Dybcio <konradybcio@kernel.org>, Abhinav Kumar
- <quic_abhinavk@quicinc.com>, Dmitry Baryshkov
- <dmitry.baryshkov@linaro.org>, Marijn Suijten
- <marijn.suijten@somainline.org>,  Lyude Paul <lyude@redhat.com>, Danilo
- Krummrich <dakr@kernel.org>, Rob Herring <robh@kernel.org>,  Steven Price
- <steven.price@arm.com>, Dave Airlie <airlied@redhat.com>, Gerd Hoffmann
- <kraxel@redhat.com>,  Matthew Brost <matthew.brost@intel.com>, Huang Rui
- <ray.huang@amd.com>, Matthew Auld <matthew.auld@intel.com>,  Melissa Wen
- <mwen@igalia.com>, =?ISO-8859-1?Q?Ma=EDra?= Canal <mcanal@igalia.com>, Zack
- Rusin <zack.rusin@broadcom.com>, Broadcom internal kernel review list
- <bcm-kernel-feedback-list@broadcom.com>, Lucas De Marchi
- <lucas.demarchi@intel.com>, Thomas =?ISO-8859-1?Q?Hellstr=F6m?=
- <thomas.hellstrom@linux.intel.com>, Bas Nieuwenhuizen
- <bas@basnieuwenhuizen.nl>,  Yang Wang <kevinyang.wang@amd.com>, Jesse Zhang
- <jesse.zhang@amd.com>, Tim Huang <tim.huang@amd.com>,  Sathishkumar S
- <sathishkumar.sundararaju@amd.com>, Saleemkhan Jamadar
- <saleemkhan.jamadar@amd.com>, Sunil Khatri <sunil.khatri@amd.com>, Lijo
- Lazar <lijo.lazar@amd.com>, Hawking Zhang <Hawking.Zhang@amd.com>, Ma Jun
- <Jun.Ma2@amd.com>, Yunxiang Li <Yunxiang.Li@amd.com>, Eric Huang
- <jinhuieric.huang@amd.com>, Asad Kamal <asad.kamal@amd.com>, Srinivasan
- Shanmugam <srinivasan.shanmugam@amd.com>,  Jack Xiao <Jack.Xiao@amd.com>,
- Friedrich Vock <friedrich.vock@gmx.de>, Michel =?ISO-8859-1?Q?D=E4nzer?=
- <mdaenzer@redhat.com>, Geert Uytterhoeven <geert@linux-m68k.org>,
- Anna-Maria Behnsen <anna-maria@linutronix.de>, Thomas Gleixner
- <tglx@linutronix.de>, Frederic Weisbecker <frederic@kernel.org>, Dan
- Carpenter <dan.carpenter@linaro.org>,  linux-media@vger.kernel.org,
- dri-devel@lists.freedesktop.org,  linaro-mm-sig@lists.linaro.org,
- linux-kernel@vger.kernel.org,  amd-gfx@lists.freedesktop.org,
- etnaviv@lists.freedesktop.org,  intel-gfx@lists.freedesktop.org,
- lima@lists.freedesktop.org,  linux-arm-msm@vger.kernel.org,
- freedreno@lists.freedesktop.org,  nouveau@lists.freedesktop.org,
- virtualization@lists.linux.dev,  spice-devel@lists.freedesktop.org,
- intel-xe@lists.freedesktop.org
-Date: Wed, 09 Apr 2025 16:01:53 +0200
-In-Reply-To: <ab7d1937-d0e9-45f8-8f7d-ddd7a1a9d3d5@amd.com>
-References: <20250409120640.106408-2-phasta@kernel.org>
- <20250409120640.106408-3-phasta@kernel.org>
- <20250409143917.31303d22@collabora.com>
- <73d41cd84c73b296789b654e45125bfce88e0dbf.camel@mailbox.org>
- <72eb974dfea8fa1167cf97e29848672223f6fc5b.camel@mailbox.org>
- <ab7d1937-d0e9-45f8-8f7d-ddd7a1a9d3d5@amd.com>
+Received: from mail-wm1-f73.google.com (mail-wm1-f73.google.com
+ [209.85.128.73])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3F0E210E23C
+ for <intel-gfx@lists.freedesktop.org>; Tue,  8 Apr 2025 14:04:13 +0000 (UTC)
+Received: by mail-wm1-f73.google.com with SMTP id
+ 5b1f17b1804b1-43cf44b66f7so47872905e9.1
+ for <intel-gfx@lists.freedesktop.org>; Tue, 08 Apr 2025 07:04:13 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=google.com; s=20230601; t=1744121052; x=1744725852;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:cc:to:from:subject:message-id:references
+ :mime-version:in-reply-to:date:from:to:cc:subject:date:message-id
+ :reply-to; bh=9XuywzePAIgnrVesJkRqbK4EXd6ZTvUCScbqcLqpJI4=;
+ b=cvPVukm4irhaAoldyxTGq6XTKDyLh9rB7zIXCVdOK4Is68iLJ8yk0AhU2d0ibSseiU
+ Ge1xFaCyEv4rlvDfuBd7i6kzzIROIN3etc1r+MuKzu+Q6HicMsXzDFDV4L8lZo0vELoi
+ gnIO2TF9TPanwnwVNyIBVQoxE321hDAEPvc8LKCeJPDq1WwYVj6qumiLlKQlabmdhkS7
+ 4MZdo1AFQXTNl3RCvKTWmNpbonZMnblWLJLGumlyQPXedQeWbwDB9jCkPtxIhjTRqdV8
+ 414oFT1TqP2HFb9cyBgIV7HwruNDjDxNXyAkdpv5ynE+8J+ATAXfLtUQjWev3c7HxGDq
+ EJ7g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1744121052; x=1744725852;
+ h=content-transfer-encoding:cc:to:from:subject:message-id:references
+ :mime-version:in-reply-to:date:x-gm-message-state:from:to:cc:subject
+ :date:message-id:reply-to;
+ bh=9XuywzePAIgnrVesJkRqbK4EXd6ZTvUCScbqcLqpJI4=;
+ b=uPoyuURdCU4LBmreUkMws4dfbequxEXMEzLsn7+7gV5jdtFavtia2bzhaPgsuu8DUD
+ 1kMSixn86HLcD86AE6LGvKXrxqcziu84Yab1s1LYr5DhfjJNvrWZm8SkaPcSGj78vLVr
+ W49ttS+sMOZNCrVzY++HSecSlUIffiH+7MvQ1+OA/hMggWPcG6TnpGtRRDB6UHIMrH5n
+ HgItuUbQQd0f3N9Uu9rXjhM9EdyvPu6yMDb3xNAdOT31HKDZhdFLlfswmxAOGPLPPzwS
+ dLFx1q+o861ZavvAxCymxloS1i+1YoueB1Oyj7yvmjgnq80qUJM2O97eW7OK+oBKKwS8
+ PINw==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCUf7cvZkn65iVs69HlnpZIs90t1z8SXEzkuGb+zBBC0pz2+Le5nlOQzbv317Po/wBplZeXcttrM+ZU=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxDH8KdlxlEkyNiaOiIH5VWGtTeJLvZOeYv60vIGVK3SLaLDDsy
+ 0lyG5eMTTQvsVMwfw0yvfFqbFawoqZhq66StUyO9JXPqp9Q69ZPbhWiIP+k1RumjoB8J1LdByHY
+ YAMpsRZescA==
+X-Google-Smtp-Source: AGHT+IG6jAdiCw3blTh9N+MXOZQBHsfQ70S/42on8m9V9q2s13qGmJAHFfrODzkQ6jC014vOm7p4ce7FR5W3sA==
+X-Received: from wmcx8-n2.prod.google.com
+ ([2002:a05:600c:c1c8:20b0:43d:9f1:31a9])
+ (user=jackmanb job=prod-delivery.src-stubby-dispatcher) by
+ 2002:a05:600c:4fd6:b0:43b:c5a3:2e1a with SMTP id
+ 5b1f17b1804b1-43ee0616f6fmr131307195e9.2.1744121051903; 
+ Tue, 08 Apr 2025 07:04:11 -0700 (PDT)
+Date: Tue, 08 Apr 2025 14:04:09 +0000
+In-Reply-To: <CAOzc2pyKFJKxkTs989rMzRaMSwR+EBXDiCB-2xBRTiu=Y8FLvw@mail.gmail.com>
+Mime-Version: 1.0
+References: <20250131001806.92349-1-vishal.moola@gmail.com>
+ <20250130164836.1163f66bede77ec4bcc9d4b9@linux-foundation.org>
+ <CAOzc2pyKFJKxkTs989rMzRaMSwR+EBXDiCB-2xBRTiu=Y8FLvw@mail.gmail.com>
+X-Mailer: aerc 0.20.1-1-g87e37b93d34f
+Message-ID: <D91BB945EKGW.UZSCJRUM034H@google.com>
+Subject: Re: [PATCH 0/2] vmalloc: Introduce vmap_file()
+From: Brendan Jackman <jackmanb@google.com>
+To: Vishal Moola <vishal.moola@gmail.com>,
+ Andrew Morton <akpm@linux-foundation.org>
+Cc: <linux-mm@kvack.org>, <linux-kernel@vger.kernel.org>, <hch@infradead.org>, 
+ <urezki@gmail.com>, <intel-gfx@lists.freedesktop.org>, 
+ Matthew Wilcox <willy@infradead.org>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-MIME-Version: 1.0
-X-MBO-RS-META: 46noetswqbs4h4jeiqeiz488uzz7697a
-X-MBO-RS-ID: 65a997a3aec7032e9b6
 X-Mailman-Approved-At: Mon, 14 Apr 2025 17:01:59 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -112,142 +85,53 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: phasta@kernel.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Wed, 2025-04-09 at 15:14 +0200, Christian K=C3=B6nig wrote:
-> Am 09.04.25 um 14:56 schrieb Philipp Stanner:
-> > On Wed, 2025-04-09 at 14:51 +0200, Philipp Stanner wrote:
-> > > On Wed, 2025-04-09 at 14:39 +0200, Boris Brezillon wrote:
-> > > > Hi Philipp,
-> > > >=20
-> > > > On Wed,=C2=A0 9 Apr 2025 14:06:37 +0200
-> > > > Philipp Stanner <phasta@kernel.org> wrote:
-> > > >=20
-> > > > > dma_fence_is_signaled()'s name strongly reads as if this
-> > > > > function
-> > > > > were
-> > > > > intended for checking whether a fence is already signaled.
-> > > > > Also
-> > > > > the
-> > > > > boolean it returns hints at that.
-> > > > >=20
-> > > > > The function's behavior, however, is more complex: it can
-> > > > > check
-> > > > > with a
-> > > > > driver callback whether the hardware's sequence number
-> > > > > indicates
-> > > > > that
-> > > > > the fence can already be treated as signaled, although the
-> > > > > hardware's /
-> > > > > driver's interrupt handler has not signaled it yet. If that's
-> > > > > the
-> > > > > case,
-> > > > > the function also signals the fence.
-> > > > >=20
-> > > > > (Presumably) this has caused a bug in Nouveau (unknown
-> > > > > commit),
-> > > > > where
-> > > > > nouveau_fence_done() uses the function to check a fence,
-> > > > > which
-> > > > > causes a
-> > > > > race.
-> > > > >=20
-> > > > > Give the function a more obvious name.
-> > > > This is just my personal view on this, but I find the new name
-> > > > just
-> > > > as
-> > > > confusing as the old one. It sounds like something is checked,
-> > > > but
-> > > > it's
-> > > > clear what, and then the fence is forcibly signaled like it
-> > > > would
-> > > > be
-> > > > if
-> > > > you call drm_fence_signal(). Of course, this clarified by the
-> > > > doc,
-> > > > but
-> > > > given the goal was to make the function name clearly reflect
-> > > > what
-> > > > it
-> > > > does, I'm not convinced it's significantly better.
-> > > >=20
-> > > > Maybe dma_fence_check_hw_state_and_propagate(), though it might
-> > > > be
-> > > > too long of name. Oh well, feel free to ignore this comments if
-> > > > a
-> > > > majority is fine with the new name.
-> > > Yoa, the name isn't perfect (the perfect name describing the
-> > > whole
-> > > behavior would be
-> > > dma_fence_check_if_already_signaled_then_check_hardware_state_and
-> > > _pro
-> > > pa
-> > > gate() ^^'
-> > >=20
-> > > My intention here is to have the reader realize "watch out, the
-> > > fence
-> > > might get signaled here!", which is probably the most important
-> > > event
-> > > regarding fences, which can race, invoke the callbacks and so on.
-> > >=20
-> > > For details readers will then check the documentation.
-> > >=20
-> > > But I'm of course open to see if there's a majority for this or
-> > > that
-> > > name.
-> > how about:
-> >=20
-> > dma_fence_check_hw_and_signal() ?
->=20
-> I don't think that renaming the function is a good idea in the first
-> place.
->=20
-> What the function does internally is an implementation detail of the
-> framework.
->=20
-> For the code using this function it's completely irrelevant if the
-> function might also signal the fence, what matters for the caller is
-> the returned status of the fence. I think this also counts for the
-> dma_fence_is_signaled() documentation.
+On Mon Feb 3, 2025 at 6:53 PM UTC, Vishal Moola wrote:
+> On Thu, Jan 30, 2025 at 4:48=E2=80=AFPM Andrew Morton <akpm@linux-foundat=
+ion.org> wrote:
+>>
+>> On Thu, 30 Jan 2025 16:18:04 -0800 "Vishal Moola (Oracle)" <vishal.moola=
+@gmail.com> wrote:
+>>
+>> > Currently, users have to call vmap() or vmap_pfn() to map pages to
+>> > kernel virtual space. vmap() requires the page references, and
+>> > vmap_pfn() requires page pfns. If we have a file but no page reference=
+s,
+>> > we have to do extra work to map them.
+>> >
+>> > Create a function, vmap_file(), to map a specified range of a given
+>> > file to kernel virtual space. Also convert a user that benefits from
+>> > vmap_file().
+>> >
+>>
+>> Seems like a pretty specialized thing.  Have you identified any other
+>> potential users of vmap_file()?  I couldn't see any.
+>>
+>> If drm is likely to remain the only user of this, perhaps we should
+>> leave the code down in drivers/gpu/drm for now?
+>
+> This function is generally useful for file-systems that use the pagecache=
+.
+> I simply chose to highlight the most obvious user that benefits from it (=
+and
+> so that the function is introduced with a user).
+>
+> I haven't identified any other specific users of vmap_file() myself. I kn=
+ow
+> Matthew has some other ideas for it; I've cc-ed him so he can chime in.
 
-It does obviously matter. As it's currently implemented, a lot of
-important things happen implicitly.
+Not much to add but just to confirm - yep, this seems like it might be
+useful as a part of the solution to the page cache perf issue[1] with
+ASI that I spoke about (briefly and chaotically) at the end of the
+LSF/MM/BPF session[0] on ASI this year.
 
-I only see improvement by making things more obvious.
+[0] https://lwn.net/Articles/1016013/
+[1] https://lore.kernel.org/linux-mm/20250129144320.2675822-1-jackmanb@goog=
+le.com/
 
-In any case, how would you call a wrapper that just does
-test_bit(IS_SIGNALED, =E2=80=A6) ?
-
-P.
-
->=20
-> What we should improve is the documentation of the dma_fence_ops-
-> >enable_signaling and dma_fence_ops->signaled callbacks.
->=20
-> Especially see the comment about reference counts on enable_signaling
-> which is missing on the signaled callback. That is most likely the
-> root cause why nouveau implemented enable_signaling correctly but not
-> the other one.
->=20
-> But putting that aside I think we should make nails with heads and
-> let the framework guarantee that the fences stay alive until they are
-> signaled (one way or another). This completely removes the burden to
-> keep a reference on unsignaled fences from the drivers /
-> implementations and make things more over all more defensive.
->=20
-> Regards,
-> Christian.
->=20
-> >=20
-> > P.
-> >=20
-> > > P.
-> > >=20
-> > >=20
-> > > > Regards,
-> > > >=20
-> > > > Boris
->=20
-
+But, for the moment this is all still pretty vague stuff, not at all
+clear yet that this idea makes total sense. Hopefully I'll be able to
+follow up in a few weeks after I've made some time to stare at/prototype
+things.
