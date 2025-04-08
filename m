@@ -4,49 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A3B4AC369A1
-	for <intel-gfx@archiver.kernel.org>; Tue,  8 Apr 2025 10:30:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D3291C369A5
+	for <intel-gfx@archiver.kernel.org>; Tue,  8 Apr 2025 10:30:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 730EE10E631;
-	Tue,  8 Apr 2025 10:30:00 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 420F410E632;
+	Tue,  8 Apr 2025 10:30:02 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="XBgCj185";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="L/7zFZIO";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1E46D10E62E;
- Tue,  8 Apr 2025 10:29:59 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 75DC210E632;
+ Tue,  8 Apr 2025 10:30:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1744108199; x=1775644199;
+ t=1744108201; x=1775644201;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=qwwz1qzQ9G3py7ZJBGnaicQBH35pPzuVyDrfr7IJNfs=;
- b=XBgCj185UkLZHm+8aKAthf1NO+qa6Sj7bneDVlLDQpIyaTR+HywZRuEW
- WEMrdmsu2IWHjdgXwo12lplqDGcB5rpBaH/F5S/9/plkej/4U2hCUqRSu
- NCv5s11JdSJjgt0qu2frDNDnhlSevoX3CfoJ4yjQl8VFExU6E4ovj9FQh
- D4XhIdtUiZPKbMe76+Q29EGv89fNctx6jcthmqi1gY6og+C0po2uamG7R
- U8+HDPV3viz3/sHngu5FRik0AelyfymimZgLAYLdmh53/pc343z7uzrEn
- 9uOlE+9KibGXzDvPslnarkg5CO6bUayHCx5XQ5S1Tysqrtbhus1FZO0zJ Q==;
-X-CSE-ConnectionGUID: nD7/qJB1RqOnBnylmDNmew==
-X-CSE-MsgGUID: hycB1oJ+SC6Rw2Ki3TtfBg==
-X-IronPort-AV: E=McAfee;i="6700,10204,11397"; a="62934142"
-X-IronPort-AV: E=Sophos;i="6.15,197,1739865600"; d="scan'208";a="62934142"
+ bh=sRraFf4QtfPEODkrubIzljr3YInU5oIrHEA+fNlmQGw=;
+ b=L/7zFZIOIbcQ/ETAcQZpJa8UYvJJkPqZZjFEox7XEmq64l4+Rzf25BAH
+ adT+w1iYgjjVxtuBLPG6Vvts+VJm9ulTLc62NkplQItTdI8sHc4XBjK8j
+ Hvy6ERKkesGFjbotjNk8fUo/goUO0ebvYk0JLX0LiRG9ZFyyZYSkYG7VR
+ vKJbiCAiaqhuzbBpZ32/FOmmiDauNVRIhxNG/pdjpBfZ8wLJuQ/wbpct7
+ iB2aNDPN5lkJASOaivtjnGzSGnSb8Vp7zIWMViddveLpqUWm8fEkkr1cD
+ PVgA4E4DOjx/aXtYsS24acUDMzAm0PynVkhZHAuH7iTGh1GuM27dkck8h g==;
+X-CSE-ConnectionGUID: cQvozHbWTomF6T89r/pcXg==
+X-CSE-MsgGUID: YDJ0DunySqyOOwapHOo7iA==
+X-IronPort-AV: E=McAfee;i="6700,10204,11397"; a="62934149"
+X-IronPort-AV: E=Sophos;i="6.15,197,1739865600"; d="scan'208";a="62934149"
 Received: from fmviesa004.fm.intel.com ([10.60.135.144])
  by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 08 Apr 2025 03:29:55 -0700
-X-CSE-ConnectionGUID: A5IoAHO+Q9WLJ2dfHZUcoQ==
-X-CSE-MsgGUID: PI+tieHfQRyTc4qfB+Fwsw==
+ 08 Apr 2025 03:30:00 -0700
+X-CSE-ConnectionGUID: wjxnYHIWQMC5F/QWqI5Scw==
+X-CSE-MsgGUID: +KRwUnSgQnGrrkPsFMWgUg==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.15,197,1739865600"; d="scan'208";a="133391984"
+X-IronPort-AV: E=Sophos;i="6.15,197,1739865600"; d="scan'208";a="133391996"
 Received: from nemesa.iind.intel.com ([10.190.239.22])
- by fmviesa004.fm.intel.com with ESMTP; 08 Apr 2025 03:29:53 -0700
+ by fmviesa004.fm.intel.com with ESMTP; 08 Apr 2025 03:29:58 -0700
 From: Nemesa Garg <nemesa.garg@intel.com>
 To: intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
  intel-xe@lists.freedesktop.org
-Cc: Nemesa Garg <nemesa.garg@intel.com>
-Subject: [PATCH 01/10] drm/i915/display: Introduce sharpness strength property
-Date: Tue,  8 Apr 2025 15:54:57 +0530
-Message-Id: <20250408102506.1053569-2-nemesa.garg@intel.com>
+Cc: Nemesa Garg <nemesa.garg@intel.com>,
+ Ankit Nautiyal <ankit.k.nautiyal@intel.com>
+Subject: [PATCH 04/10] drm/i915/display: Add filter lut values
+Date: Tue,  8 Apr 2025 15:55:00 +0530
+Message-Id: <20250408102506.1053569-5-nemesa.garg@intel.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20250408102506.1053569-1-nemesa.garg@intel.com>
 References: <20250408102506.1053569-1-nemesa.garg@intel.com>
@@ -67,139 +68,90 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Introduces the new crtc property "SHARPNESS_STRENGTH" that allows
-the user to set the intensity so as to get the sharpness effect.
-The value of this property can be set from 0-255.
-It is useful in scenario when the output is blurry and user
-want to sharpen the pixels. User can increase/decrease the
-sharpness level depending on the content displayed.
+Add the register bits related to filter lut values.
+These values are golden values and these value has
+to be loaded one time while enabling the casf.
 
-v2: Rename crtc property variable [Arun]
-    Add modeset detail in uapi doc[Uma]
-v3: Fix build issue
+v2: update commit message[Ankit]
 
 Signed-off-by: Nemesa Garg <nemesa.garg@intel.com>
+Reviewed-by: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
 ---
- drivers/gpu/drm/drm_atomic_uapi.c |  4 ++++
- drivers/gpu/drm/drm_crtc.c        | 35 +++++++++++++++++++++++++++++++
- include/drm/drm_crtc.h            | 17 +++++++++++++++
- 3 files changed, 56 insertions(+)
+ drivers/gpu/drm/i915/display/intel_casf.c     | 22 +++++++++++++++++++
+ drivers/gpu/drm/i915/display/intel_casf.h     |  3 +++
+ .../gpu/drm/i915/display/intel_casf_regs.h    | 11 ++++++++++
+ 3 files changed, 36 insertions(+)
 
-diff --git a/drivers/gpu/drm/drm_atomic_uapi.c b/drivers/gpu/drm/drm_atomic_uapi.c
-index c2726af6698e..5c1297bcc920 100644
---- a/drivers/gpu/drm/drm_atomic_uapi.c
-+++ b/drivers/gpu/drm/drm_atomic_uapi.c
-@@ -418,6 +418,8 @@ static int drm_atomic_crtc_set_property(struct drm_crtc *crtc,
- 		set_out_fence_for_crtc(state->state, crtc, fence_ptr);
- 	} else if (property == crtc->scaling_filter_property) {
- 		state->scaling_filter = val;
-+	} else if (property == crtc->sharpness_strength_property) {
-+		state->sharpness_strength = val;
- 	} else if (crtc->funcs->atomic_set_property) {
- 		return crtc->funcs->atomic_set_property(crtc, state, property, val);
- 	} else {
-@@ -455,6 +457,8 @@ drm_atomic_crtc_get_property(struct drm_crtc *crtc,
- 		*val = 0;
- 	else if (property == crtc->scaling_filter_property)
- 		*val = state->scaling_filter;
-+	else if (property == crtc->sharpness_strength_property)
-+		*val = state->sharpness_strength;
- 	else if (crtc->funcs->atomic_get_property)
- 		return crtc->funcs->atomic_get_property(crtc, state, property, val);
- 	else {
-diff --git a/drivers/gpu/drm/drm_crtc.c b/drivers/gpu/drm/drm_crtc.c
-index 46655339003d..1b7ce99cea5e 100644
---- a/drivers/gpu/drm/drm_crtc.c
-+++ b/drivers/gpu/drm/drm_crtc.c
-@@ -229,6 +229,25 @@ struct dma_fence *drm_crtc_create_fence(struct drm_crtc *crtc)
-  * 		Driver's default scaling filter
-  * 	Nearest Neighbor:
-  * 		Nearest Neighbor scaling filter
-+ * SHARPNESS_STRENGTH:
-+ *	Atomic property for setting the sharpness strength/intensity by userspace.
-+ *
-+ *	The value of this property is set as an integer value ranging
-+ *	from 0 - 255 where:
-+ *
-+ *	0 means feature is disabled.
-+ *
-+ *	1 means minimum sharpness.
-+ *
-+ *	255 means maximum sharpness.
-+ *
-+ *	User can gradually increase or decrease the sharpness level and can
-+ *	set the optimum value depending on content and this value will be
-+ *	passed to kernel through the Uapi.
-+ *	The setting of this property does not require modeset.
-+ *	The sharpness effect takes place post blending on the final composed output.
-+ *	If the feature is disabled, the content remains same without any sharpening effect
-+ *	and when this feature is applied, it enhances the clarity of the content.
+diff --git a/drivers/gpu/drm/i915/display/intel_casf.c b/drivers/gpu/drm/i915/display/intel_casf.c
+index 576dce477339..cb7d925cd16e 100644
+--- a/drivers/gpu/drm/i915/display/intel_casf.c
++++ b/drivers/gpu/drm/i915/display/intel_casf.c
+@@ -28,6 +28,28 @@
+  * original image.
   */
  
- __printf(6, 0)
-@@ -940,6 +959,22 @@ int drm_crtc_create_scaling_filter_property(struct drm_crtc *crtc,
- }
- EXPORT_SYMBOL(drm_crtc_create_scaling_filter_property);
- 
-+int drm_crtc_create_sharpness_strength_property(struct drm_crtc *crtc)
++/* Default LUT values to be loaded one time. */
++static const u16 sharpness_lut[] = {
++	4095, 2047, 1364, 1022, 816, 678, 579,
++	504, 444, 397, 357, 323, 293, 268, 244, 224,
++	204, 187, 170, 154, 139, 125, 111, 98, 85,
++	73, 60, 48, 36, 24, 12, 0
++};
++
++void intel_filter_lut_load(struct intel_crtc *crtc,
++			   const struct intel_crtc_state *crtc_state)
 +{
-+	struct drm_device *dev = crtc->dev;
-+	struct drm_property *prop =
-+		drm_property_create_range(dev, 0, "SHARPNESS_STRENGTH", 0, 255);
++	struct intel_display *display = to_intel_display(crtc_state);
++	int i;
 +
-+	if (!prop)
-+		return -ENOMEM;
++	intel_de_write(display, SHRPLUT_INDEX(crtc->pipe),
++		       INDEX_AUTO_INCR | INDEX_VALUE(0));
 +
-+	crtc->sharpness_strength_property = prop;
-+	drm_object_attach_property(&crtc->base, prop, 0);
-+
-+	return 0;
++	for (i = 0; i < ARRAY_SIZE(sharpness_lut); i++)
++		intel_de_write(display, SHRPLUT_DATA(crtc->pipe),
++			       sharpness_lut[i]);
 +}
-+EXPORT_SYMBOL(drm_crtc_create_sharpness_strength_property);
 +
- /**
-  * drm_crtc_in_clone_mode - check if the given CRTC state is in clone mode
-  *
-diff --git a/include/drm/drm_crtc.h b/include/drm/drm_crtc.h
-index caa56e039da2..2b26b90e82e6 100644
---- a/include/drm/drm_crtc.h
-+++ b/include/drm/drm_crtc.h
-@@ -317,6 +317,16 @@ struct drm_crtc_state {
- 	 */
- 	enum drm_scaling_filter scaling_filter;
+ void intel_casf_update_strength(struct intel_crtc_state *crtc_state)
+ {
+ 	struct intel_display *display = to_intel_display(crtc_state);
+diff --git a/drivers/gpu/drm/i915/display/intel_casf.h b/drivers/gpu/drm/i915/display/intel_casf.h
+index 83523fe66c48..80642809c08b 100644
+--- a/drivers/gpu/drm/i915/display/intel_casf.h
++++ b/drivers/gpu/drm/i915/display/intel_casf.h
+@@ -9,9 +9,12 @@
+ #include <linux/types.h>
  
-+	/**
-+	 * @sharpness_strength:
-+	 *
-+	 * Used by the user to set the sharpness intensity.
-+	 * The value ranges from 0-255.
-+	 * Any value greater than 0 means enabling the featuring
-+	 * along with setting the value for sharpness.
-+	 */
-+	u8 sharpness_strength;
-+
- 	/**
- 	 * @event:
- 	 *
-@@ -1088,6 +1098,12 @@ struct drm_crtc {
- 	 */
- 	struct drm_property *scaling_filter_property;
+ struct intel_crtc_state;
++struct intel_crtc;
  
-+	/**
-+	 * @sharpness_strength_property: property to apply
-+	 * the intensity of the sharpness requested.
-+	 */
-+	struct drm_property *sharpness_strength_property;
+ int intel_casf_compute_config(struct intel_crtc_state *crtc_state);
+ void intel_casf_update_strength(struct intel_crtc_state *new_crtc_state);
+ void intel_casf_sharpness_get_config(struct intel_crtc_state *crtc_state);
++void intel_filter_lut_load(struct intel_crtc *crtc,
++			   const struct intel_crtc_state *crtc_state);
+ 
+ #endif /* __INTEL_CASF_H__ */
+diff --git a/drivers/gpu/drm/i915/display/intel_casf_regs.h b/drivers/gpu/drm/i915/display/intel_casf_regs.h
+index c24ba281ae37..b96950a48335 100644
+--- a/drivers/gpu/drm/i915/display/intel_casf_regs.h
++++ b/drivers/gpu/drm/i915/display/intel_casf_regs.h
+@@ -19,4 +19,15 @@
+ #define   SHARPNESS_FILTER_SIZE_5X5    REG_FIELD_PREP(FILTER_SIZE_MASK, 1)
+ #define   SHARPNESS_FILTER_SIZE_7X7    REG_FIELD_PREP(FILTER_SIZE_MASK, 2)
+ 
++#define _SHRPLUT_DATA_A                        0x682B8
++#define _SHRPLUT_DATA_B                        0x68AB8
++#define SHRPLUT_DATA(pipe)             _MMIO_PIPE(pipe, _SHRPLUT_DATA_A, _SHRPLUT_DATA_B)
 +
- 	/**
- 	 * @state:
- 	 *
-@@ -1324,4 +1340,5 @@ static inline struct drm_crtc *drm_crtc_find(struct drm_device *dev,
- int drm_crtc_create_scaling_filter_property(struct drm_crtc *crtc,
- 					    unsigned int supported_filters);
- bool drm_crtc_in_clone_mode(struct drm_crtc_state *crtc_state);
-+int drm_crtc_create_sharpness_strength_property(struct drm_crtc *crtc);
- #endif /* __DRM_CRTC_H__ */
++#define _SHRPLUT_INDEX_A               0x682B4
++#define _SHRPLUT_INDEX_B               0x68AB4
++#define SHRPLUT_INDEX(pipe)            _MMIO_PIPE(pipe, _SHRPLUT_INDEX_A, _SHRPLUT_INDEX_B)
++#define   INDEX_AUTO_INCR              REG_BIT(10)
++#define   INDEX_VALUE_MASK             REG_GENMASK(4, 0)
++#define   INDEX_VALUE(x)               REG_FIELD_PREP(INDEX_VALUE_MASK, (x))
++
+ #endif /* __INTEL_CASF_REGS__ */
 -- 
 2.25.1
 
