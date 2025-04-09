@@ -4,58 +4,57 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 92C62C369A4
-	for <intel-gfx@archiver.kernel.org>; Wed,  9 Apr 2025 18:18:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 00DB3C369AB
+	for <intel-gfx@archiver.kernel.org>; Wed,  9 Apr 2025 18:18:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2147910E6AD;
-	Wed,  9 Apr 2025 18:18:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 73FB910E6CC;
+	Wed,  9 Apr 2025 18:18:49 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="e6g2yXs+";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="NnJB+XD4";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.12])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4E09610E2FB;
- Wed,  9 Apr 2025 18:18:44 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.17])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 11E5E10E6AB;
+ Wed,  9 Apr 2025 18:18:48 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1744222724; x=1775758724;
+ t=1744222728; x=1775758728;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=MiRuUJNAjSBc4hey1bmnLvUaxnypCoxl7wnKHXDKSRc=;
- b=e6g2yXs+OtazPyYJzWXykZOWWvMmbkOQYcNfyrOR30DdPFQ8Z1HSOy7W
- Qb9qDV0tUvECcaMZifeLDmiUpgajTfjaPeP1dSAoG8O6vH6650HmsNq4b
- vBzcKG6PLRgaflHKEhjAK4skGQcdRcYdsXuAjG4VUsnxPGxiERnwFkVDP
- zM2El3u2SA3jDQ7Onxrm0s+kVj4u36o6FsiOkYVseDtNx17yL2VP2NynB
- ospjXVIJ659p+nvO9pXUviOWLLzW25JgoR24ClIB7VEKZ7dUd6HzAaoVN
- UjZCSGNZcmKxOYj5zP/OwbiNhGp+2akx3T+xc/CacbbJV3VmVzEUJLjOd g==;
-X-CSE-ConnectionGUID: lIbXg0+iSxGikIbECJ7RmQ==
-X-CSE-MsgGUID: ZB6Coj40SYmbuyue1VZRSg==
-X-IronPort-AV: E=McAfee;i="6700,10204,11399"; a="57088351"
-X-IronPort-AV: E=Sophos;i="6.15,201,1739865600"; d="scan'208";a="57088351"
-Received: from fmviesa004.fm.intel.com ([10.60.135.144])
- by orvoesa104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 09 Apr 2025 11:18:29 -0700
-X-CSE-ConnectionGUID: 8bX2YF9ZTM+aA2VZ01pAzA==
-X-CSE-MsgGUID: Hhiwqw6zTXeVjKfSixUX5g==
+ bh=9UoEgr6Mlz7C5Kzhz/W4fPmaHsBXCkR9Cl7dNn9VV6U=;
+ b=NnJB+XD49gO1dwd93Gm245UgTYuZ9yTkg0QfOg04AFYHE6qZ6XICJIim
+ 9yRjiGgwMHBf8zYijqUA84E82c/b0bLeboRAgMK+b255zl+13t4vAknYY
+ orAOuSHZb3Y+WmpGbgZ5j1X7m7BlkkJOUNFxCz8BIoEwCP4O4lA4ZAN2L
+ wbo2hP3yZgakHoIPGUwno5Le/kunYBY8chMUg/dUd7gMmuVTZSEhdtRUS
+ xzmrSNkjdtFNidiqUiHZcbeMkr0xkz+tbZj7e5nKLM02twHoJ1HBRhyKj
+ MRNfYDTqKzlp1D4dATHbg+jDokWU6e17F+LBgX4NBLKl4kVDwtm2HpfSB Q==;
+X-CSE-ConnectionGUID: yUV7OTL7S+epMjCTHBgspQ==
+X-CSE-MsgGUID: 91j6cPAlRDelu+SU8sZeaw==
+X-IronPort-AV: E=McAfee;i="6700,10204,11399"; a="45729956"
+X-IronPort-AV: E=Sophos;i="6.15,201,1739865600"; d="scan'208";a="45729956"
+Received: from orviesa001.jf.intel.com ([10.64.159.141])
+ by orvoesa109.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 09 Apr 2025 11:18:48 -0700
+X-CSE-ConnectionGUID: TFcLfehYTUW4Q8ZyXAuy0A==
+X-CSE-MsgGUID: o+atZmE1Si++ZHesjM/i3Q==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.15,201,1739865600"; d="scan'208";a="133785331"
+X-IronPort-AV: E=Sophos;i="6.15,201,1739865600"; d="scan'208";a="165879036"
 Received: from lfiedoro-mobl.ger.corp.intel.com (HELO localhost)
  ([10.245.246.201])
- by fmviesa004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 09 Apr 2025 11:18:27 -0700
+ by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 09 Apr 2025 11:18:46 -0700
 From: Jani Nikula <jani.nikula@intel.com>
 To: intel-gfx@lists.freedesktop.org,
 	intel-xe@lists.freedesktop.org
 Cc: jani.nikula@intel.com
-Subject: [PATCH 04/14] drm/i915/sprite: convert intel_sprite_uapi.c to struct
- intel_display
-Date: Wed,  9 Apr 2025 21:17:45 +0300
-Message-Id: <d4f71c2976a1a28b4e74c2fc1097090fe7f78743.1744222449.git.jani.nikula@intel.com>
+Subject: [PATCH 08/14] drm/i915/dp-aux: switch to display->platform based
+ platform detection
+Date: Wed,  9 Apr 2025 21:17:49 +0300
+Message-Id: <a5cde717001eb2843344beb21ca8907ab2e43d4f.1744222449.git.jani.nikula@intel.com>
 X-Mailer: git-send-email 2.39.5
 In-Reply-To: <cover.1744222449.git.jani.nikula@intel.com>
 References: <cover.1744222449.git.jani.nikula@intel.com>
 MIME-Version: 1.0
 Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -72,88 +71,51 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Going forward, struct intel_display is the main display device data
-pointer. Convert intel_sprite_uapi.c to struct intel_display.
+Prefer display->platform based platform detection over the old IS_*()
+macros.
 
 Signed-off-by: Jani Nikula <jani.nikula@intel.com>
 ---
- .../gpu/drm/i915/display/intel_sprite_uapi.c    | 17 ++++++++---------
- 1 file changed, 8 insertions(+), 9 deletions(-)
+ drivers/gpu/drm/i915/display/intel_dp_aux.c | 9 ++++-----
+ 1 file changed, 4 insertions(+), 5 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_sprite_uapi.c b/drivers/gpu/drm/i915/display/intel_sprite_uapi.c
-index 1d0b84b464c1..4981cc34da05 100644
---- a/drivers/gpu/drm/i915/display/intel_sprite_uapi.c
-+++ b/drivers/gpu/drm/i915/display/intel_sprite_uapi.c
-@@ -3,21 +3,21 @@
-  * Copyright © 2023 Intel Corporation
-  */
- 
--#include "i915_drv.h"
- #include "intel_crtc.h"
-+#include "intel_display_core.h"
- #include "intel_display_types.h"
- #include "intel_sprite_uapi.h"
- 
--static bool has_dst_key_in_primary_plane(struct drm_i915_private *dev_priv)
-+static bool has_dst_key_in_primary_plane(struct intel_display *display)
+diff --git a/drivers/gpu/drm/i915/display/intel_dp_aux.c b/drivers/gpu/drm/i915/display/intel_dp_aux.c
+index 0496061203fb..3245a15935db 100644
+--- a/drivers/gpu/drm/i915/display/intel_dp_aux.c
++++ b/drivers/gpu/drm/i915/display/intel_dp_aux.c
+@@ -177,12 +177,11 @@ static u32 g4x_get_aux_send_ctl(struct intel_dp *intel_dp,
+ 				int send_bytes,
+ 				u32 aux_clock_divider)
  {
--	return DISPLAY_VER(dev_priv) >= 9;
-+	return DISPLAY_VER(display) >= 9;
- }
+-	struct intel_digital_port *dig_port = dp_to_dig_port(intel_dp);
+-	struct drm_i915_private *i915 = to_i915(dig_port->base.base.dev);
++	struct intel_display *display = to_intel_display(intel_dp);
+ 	u32 timeout;
  
- static void intel_plane_set_ckey(struct intel_plane_state *plane_state,
- 				 const struct drm_intel_sprite_colorkey *set)
- {
-+	struct intel_display *display = to_intel_display(plane_state);
- 	struct intel_plane *plane = to_intel_plane(plane_state->uapi.plane);
--	struct drm_i915_private *dev_priv = to_i915(plane->base.dev);
- 	struct drm_intel_sprite_colorkey *key = &plane_state->ckey;
+ 	/* Max timeout value on G4x-BDW: 1.6ms */
+-	if (IS_BROADWELL(i915))
++	if (display->platform.broadwell)
+ 		timeout = DP_AUX_CH_CTL_TIME_OUT_600us;
+ 	else
+ 		timeout = DP_AUX_CH_CTL_TIME_OUT_400us;
+@@ -804,7 +803,7 @@ void intel_dp_aux_init(struct intel_dp *intel_dp)
+ 	} else if (HAS_PCH_SPLIT(i915)) {
+ 		intel_dp->aux_ch_ctl_reg = ilk_aux_ctl_reg;
+ 		intel_dp->aux_ch_data_reg = ilk_aux_data_reg;
+-	} else if (IS_VALLEYVIEW(i915) || IS_CHERRYVIEW(i915)) {
++	} else if (display->platform.valleyview || display->platform.cherryview) {
+ 		intel_dp->aux_ch_ctl_reg = vlv_aux_ctl_reg;
+ 		intel_dp->aux_ch_data_reg = vlv_aux_data_reg;
+ 	} else {
+@@ -814,7 +813,7 @@ void intel_dp_aux_init(struct intel_dp *intel_dp)
  
- 	*key = *set;
-@@ -34,7 +34,7 @@ static void intel_plane_set_ckey(struct intel_plane_state *plane_state,
- 	 * On SKL+ we want dst key enabled on
- 	 * the primary and not on the sprite.
- 	 */
--	if (DISPLAY_VER(dev_priv) >= 9 && plane->id != PLANE_PRIMARY &&
-+	if (DISPLAY_VER(display) >= 9 && plane->id != PLANE_PRIMARY &&
- 	    set->flags & I915_SET_COLORKEY_DESTINATION)
- 		key->flags = 0;
- }
-@@ -43,7 +43,6 @@ int intel_sprite_set_colorkey_ioctl(struct drm_device *dev, void *data,
- 				    struct drm_file *file_priv)
- {
- 	struct intel_display *display = to_intel_display(dev);
--	struct drm_i915_private *dev_priv = to_i915(dev);
- 	struct drm_intel_sprite_colorkey *set = data;
- 	struct drm_plane *plane;
- 	struct drm_plane_state *plane_state;
-@@ -61,7 +60,7 @@ int intel_sprite_set_colorkey_ioctl(struct drm_device *dev, void *data,
- 	if ((set->flags & (I915_SET_COLORKEY_DESTINATION | I915_SET_COLORKEY_SOURCE)) == (I915_SET_COLORKEY_DESTINATION | I915_SET_COLORKEY_SOURCE))
- 		return -EINVAL;
- 
--	if ((IS_VALLEYVIEW(dev_priv) || IS_CHERRYVIEW(dev_priv)) &&
-+	if ((display->platform.valleyview || display->platform.cherryview) &&
- 	    set->flags & I915_SET_COLORKEY_DESTINATION)
- 		return -EINVAL;
- 
-@@ -74,7 +73,7 @@ int intel_sprite_set_colorkey_ioctl(struct drm_device *dev, void *data,
- 	 * Also multiple planes can't do destination keying on the same
- 	 * pipe simultaneously.
- 	 */
--	if (DISPLAY_VER(dev_priv) >= 9 &&
-+	if (DISPLAY_VER(display) >= 9 &&
- 	    to_intel_plane(plane)->id >= PLANE_3 &&
- 	    set->flags & I915_SET_COLORKEY_DESTINATION)
- 		return -EINVAL;
-@@ -99,7 +98,7 @@ int intel_sprite_set_colorkey_ioctl(struct drm_device *dev, void *data,
- 		 * On some platforms we have to configure
- 		 * the dst colorkey on the primary plane.
- 		 */
--		if (!ret && has_dst_key_in_primary_plane(dev_priv)) {
-+		if (!ret && has_dst_key_in_primary_plane(display)) {
- 			struct intel_crtc *crtc =
- 				intel_crtc_for_pipe(display,
- 						    to_intel_plane(plane)->pipe);
+ 	if (DISPLAY_VER(display) >= 9)
+ 		intel_dp->get_aux_clock_divider = skl_get_aux_clock_divider;
+-	else if (IS_BROADWELL(i915) || IS_HASWELL(i915))
++	else if (display->platform.broadwell || display->platform.haswell)
+ 		intel_dp->get_aux_clock_divider = hsw_get_aux_clock_divider;
+ 	else if (HAS_PCH_SPLIT(i915))
+ 		intel_dp->get_aux_clock_divider = ilk_get_aux_clock_divider;
 -- 
 2.39.5
 
