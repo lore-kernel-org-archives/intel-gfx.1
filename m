@@ -4,49 +4,97 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F0AA6C3ABA1
-	for <intel-gfx@archiver.kernel.org>; Mon, 14 Apr 2025 17:02:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 132D3C369B9
+	for <intel-gfx@archiver.kernel.org>; Mon, 14 Apr 2025 17:02:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EFF6610E247;
-	Mon, 14 Apr 2025 17:01:59 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C95CE10E62D;
+	Mon, 14 Apr 2025 17:02:00 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=tuxedocomputers.com header.i=@tuxedocomputers.com header.b="VbY9FhuJ";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="GhqxgiUk";
 	dkim-atps=neutral
-Received: from mail.tuxedocomputers.com (mail.tuxedocomputers.com
- [157.90.84.7])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E7C3110EC52;
- Fri, 11 Apr 2025 17:26:42 +0000 (UTC)
-Received: from wse-pc.fritz.box (host-88-217-226-44.customer.m-online.net
- [88.217.226.44]) (Authenticated sender: wse@tuxedocomputers.com)
- by mail.tuxedocomputers.com (Postfix) with ESMTPA id 0240C2FC0057;
- Fri, 11 Apr 2025 19:18:02 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=tuxedocomputers.com;
- s=default; t=1744391883;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=jvjWVlP9H3/pq4vkbNFgzNEUHg3ze8OlwhtXkulXxCM=;
- b=VbY9FhuJP+ruznSEX8AwohySD0gqx5yOFm4q9ywfaBh0/HmMB5ucm2ThEXDy3Alyl+/1AP
- IyOU4CzeZUB9XvduXd/CDFbFtIN8Upwk9Ss30gWL0Z3wl9jYQC4o1k1ULqGtT7xnAeWIuC
- 4aTkavyZbScNk4DYTJa8WjCk8Mb0j9w=
-Authentication-Results: mail.tuxedocomputers.com;
- auth=pass smtp.auth=wse@tuxedocomputers.com
- smtp.mailfrom=wse@tuxedocomputers.com
-From: Werner Sembach <wse@tuxedocomputers.com>
-To: jani.nikula@linux.intel.com, rodrigo.vivi@intel.com,
- joonas.lahtinen@linux.intel.com, tursulin@ursulin.net, airlied@gmail.com,
- simona@ffwll.ch
-Cc: intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- Werner Sembach <wse@tuxedocomputers.com>
-Subject: [PATCH 1/1] drm/i915/display: Add quirk to force backlight type on
- some TUXEDO devices
-Date: Fri, 11 Apr 2025 17:55:08 +0200
-Message-ID: <20250411171756.142777-2-wse@tuxedocomputers.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20250411171756.142777-1-wse@tuxedocomputers.com>
-References: <20250411171756.142777-1-wse@tuxedocomputers.com>
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3B85610E86A;
+ Wed,  9 Apr 2025 12:07:45 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by tor.source.kernel.org (Postfix) with ESMTP id DDEDD615EB;
+ Wed,  9 Apr 2025 12:07:34 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A3DACC4CEE7;
+ Wed,  9 Apr 2025 12:07:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1744200464;
+ bh=FdUb0DPDYi+ttgoinI37K88fuRyaVge7JDVXiVilF7E=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+ b=GhqxgiUktLqE62NnlGbCozLGAOy1ebYKCfRTbO1C2V8isrEUvyivtHWOlIWWY3iNe
+ lT7qBhQi0YUXEHd/a3nybBs+okp72WCBqbBHa/gUT5qc5stTjpZBUhmQIEvTFikt5z
+ 3QEX/nurLaDWBdA3+xqEX+t36u0MD+4s/DDnE947U63BOSLACxJE4ATzBnB7162kEM
+ uJVlOhBR6ng/gxrCkIJmx2DVTmwcGtpsyRWe122qGV/9UBAusoKc1mqJjzRiizRz4e
+ qqynMSOHuqVH/gL+pm4QM8yBcDL9Jr5dx5FDs1H6jkyRMDbX2Cuq8465NG5c4c31Ao
+ m0BWGZ8ZfmD1w==
+From: Philipp Stanner <phasta@kernel.org>
+To: Sumit Semwal <sumit.semwal@linaro.org>,
+ Gustavo Padovan <gustavo@padovan.org>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ Felix Kuehling <Felix.Kuehling@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>, Xinhui Pan <Xinhui.Pan@amd.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ Lucas Stach <l.stach@pengutronix.de>,
+ Russell King <linux+etnaviv@armlinux.org.uk>,
+ Christian Gmeiner <christian.gmeiner@gmail.com>,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Tvrtko Ursulin <tursulin@ursulin.net>,
+ Frank Binns <frank.binns@imgtec.com>, Matt Coster <matt.coster@imgtec.com>,
+ Qiang Yu <yuq825@gmail.com>, Rob Clark <robdclark@gmail.com>,
+ Sean Paul <sean@poorly.run>, Konrad Dybcio <konradybcio@kernel.org>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ Lyude Paul <lyude@redhat.com>, Danilo Krummrich <dakr@kernel.org>,
+ Boris Brezillon <boris.brezillon@collabora.com>,
+ Rob Herring <robh@kernel.org>, Steven Price <steven.price@arm.com>,
+ Dave Airlie <airlied@redhat.com>, Gerd Hoffmann <kraxel@redhat.com>,
+ Matthew Brost <matthew.brost@intel.com>,
+ Philipp Stanner <phasta@kernel.org>, Huang Rui <ray.huang@amd.com>,
+ Matthew Auld <matthew.auld@intel.com>, Melissa Wen <mwen@igalia.com>,
+ =?UTF-8?q?Ma=C3=ADra=20Canal?= <mcanal@igalia.com>,
+ Zack Rusin <zack.rusin@broadcom.com>,
+ Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, 
+ Lucas De Marchi <lucas.demarchi@intel.com>,
+ =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+ Bas Nieuwenhuizen <bas@basnieuwenhuizen.nl>,
+ Yang Wang <kevinyang.wang@amd.com>, Jesse Zhang <jesse.zhang@amd.com>,
+ Tim Huang <tim.huang@amd.com>,
+ Sathishkumar S <sathishkumar.sundararaju@amd.com>,
+ Saleemkhan Jamadar <saleemkhan.jamadar@amd.com>,
+ Sunil Khatri <sunil.khatri@amd.com>, Lijo Lazar <lijo.lazar@amd.com>,
+ Hawking Zhang <Hawking.Zhang@amd.com>, Ma Jun <Jun.Ma2@amd.com>,
+ Yunxiang Li <Yunxiang.Li@amd.com>, Eric Huang <jinhuieric.huang@amd.com>,
+ Asad Kamal <asad.kamal@amd.com>,
+ Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>,
+ Jack Xiao <Jack.Xiao@amd.com>, Friedrich Vock <friedrich.vock@gmx.de>,
+ =?UTF-8?q?Michel=20D=C3=A4nzer?= <mdaenzer@redhat.com>,
+ Geert Uytterhoeven <geert@linux-m68k.org>,
+ Anna-Maria Behnsen <anna-maria@linutronix.de>,
+ Thomas Gleixner <tglx@linutronix.de>,
+ Frederic Weisbecker <frederic@kernel.org>,
+ Dan Carpenter <dan.carpenter@linaro.org>
+Cc: linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linaro-mm-sig@lists.linaro.org, linux-kernel@vger.kernel.org,
+ amd-gfx@lists.freedesktop.org, etnaviv@lists.freedesktop.org,
+ intel-gfx@lists.freedesktop.org, lima@lists.freedesktop.org,
+ linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
+ nouveau@lists.freedesktop.org, virtualization@lists.linux.dev,
+ spice-devel@lists.freedesktop.org, intel-xe@lists.freedesktop.org
+Subject: [PATCH 2/2] dma-fence: Improve docu for dma_fence_check_and_signal()
+Date: Wed,  9 Apr 2025 14:06:38 +0200
+Message-ID: <20250409120640.106408-4-phasta@kernel.org>
+X-Mailer: git-send-email 2.48.1
+In-Reply-To: <20250409120640.106408-2-phasta@kernel.org>
+References: <20250409120640.106408-2-phasta@kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Mon, 14 Apr 2025 17:01:59 +0000
@@ -65,143 +113,80 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-The display backlight on TUXEDO DX1708 and InsanityBook 15 v1 with panels
-AUO 12701 and AUO 12701 must be forced to INTEL_DP_AUX_BACKLIGHT_ON to be
-able to control the brightness.
+The documentation of the return value of dma_fence_check_and_signal()
+and dma_fence_check_and_signal_locked() reads as if the returned boolean
+only describes whether dma_fence_signal() (or similar) has been called
+before this function call already. That's not the case, since
+dma_fence_ops.signaled() usually just checks through the sequence number
+whether the hardware is finished with a fence. That doesn't mean a
+signaling function has been called already.
 
-This could already be archived via a module parameter, but this patch adds
-a quirk to apply this by default on the mentioned device + panel
-combinations.
+Make the documentation clearer.
 
-Signed-off-by: Werner Sembach <wse@tuxedocomputers.com>
-Cc: stable@vger.kernel.org
+Move the Return: documentation to the end, since that's the officially
+recommended docu style.
+
+Signed-off-by: Philipp Stanner <phasta@kernel.org>
 ---
- .../drm/i915/display/intel_dp_aux_backlight.c | 14 ++++++-
- drivers/gpu/drm/i915/display/intel_quirks.c   | 42 +++++++++++++++++++
- drivers/gpu/drm/i915/display/intel_quirks.h   |  1 +
- 3 files changed, 56 insertions(+), 1 deletion(-)
+ include/linux/dma-fence.h | 26 ++++++++++++++++++++------
+ 1 file changed, 20 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_dp_aux_backlight.c b/drivers/gpu/drm/i915/display/intel_dp_aux_backlight.c
-index c846ef4acf5b2..0cac04c98a3e3 100644
---- a/drivers/gpu/drm/i915/display/intel_dp_aux_backlight.c
-+++ b/drivers/gpu/drm/i915/display/intel_dp_aux_backlight.c
-@@ -34,12 +34,14 @@
-  * for some reason.
+diff --git a/include/linux/dma-fence.h b/include/linux/dma-fence.h
+index dc2ad171458b..3df370b2cc7c 100644
+--- a/include/linux/dma-fence.h
++++ b/include/linux/dma-fence.h
+@@ -385,14 +385,21 @@ void dma_fence_enable_sw_signaling(struct dma_fence *fence);
+  * dma_fence_check_and_signal_locked - Checks a fence and signals it if necessary
+  * @fence: the fence to check
+  *
+- * Returns true if the fence was already signaled, false if not. Since this
+- * function doesn't enable signaling, it is not guaranteed to ever return
+- * true if dma_fence_add_callback(), dma_fence_wait() or
++ * Checks whether the fence was already signaled, and, if not, whether
++ * &struct dma_fence_ops.signaled indicates that it should be signaled. If so,
++ * the fence gets signaled here.
++ *
++ * Since this function doesn't enable signaling, it is not guaranteed to ever
++ * return true if dma_fence_add_callback(), dma_fence_wait() or
+  * dma_fence_enable_sw_signaling() haven't been called before.
+  *
+  * This function requires &dma_fence.lock to be held.
+  *
+  * See also dma_fence_check_and_signal().
++ *
++ * Return: true if the fence was already signaled, or if
++ * &struct dma_fence_ops.signaled is implemented and indicates that this fence
++ * can be treated as signaled; false otherwise.
   */
- 
-+#include <drm/drm_edid.h>
- #include "i915_utils.h"
- #include "intel_backlight.h"
- #include "intel_display_core.h"
- #include "intel_display_types.h"
- #include "intel_dp.h"
- #include "intel_dp_aux_backlight.h"
-+#include "intel_quirks.h"
- 
- /*
-  * DP AUX registers for Intel's proprietary HDR backlight interface. We define
-@@ -607,11 +609,21 @@ int intel_dp_aux_init_backlight_funcs(struct intel_connector *connector)
- 	struct drm_device *dev = connector->base.dev;
- 	struct intel_panel *panel = &connector->panel;
- 	bool try_intel_interface = false, try_vesa_interface = false;
-+	int enable_dpcd_backlight;
-+	u32 pnl_id;
- 
- 	/* Check the VBT and user's module parameters to figure out which
- 	 * interfaces to probe
- 	 */
--	switch (display->params.enable_dpcd_backlight) {
-+	enable_dpcd_backlight = display->params.enable_dpcd_backlight;
-+	if (enable_dpcd_backlight == INTEL_DP_AUX_BACKLIGHT_AUTO &&
-+	    intel_has_quirk(display, QUIRK_AUO_12701_21229_ENABLE_DPCD_BACKLIGHT)) {
-+		pnl_id = drm_edid_get_panel_id(panel->fixed_edid);
-+		if (pnl_id == drm_edid_encode_panel_id('A', 'U', 'O', 0x319d) ||
-+		    pnl_id == drm_edid_encode_panel_id('A', 'U', 'O', 0x52ed))
-+			enable_dpcd_backlight = INTEL_DP_AUX_BACKLIGHT_ON;
-+	}
-+	switch (enable_dpcd_backlight) {
- 	case INTEL_DP_AUX_BACKLIGHT_OFF:
- 		return -ENODEV;
- 	case INTEL_DP_AUX_BACKLIGHT_AUTO:
-diff --git a/drivers/gpu/drm/i915/display/intel_quirks.c b/drivers/gpu/drm/i915/display/intel_quirks.c
-index 8b30e9fd936e7..6f724e5712664 100644
---- a/drivers/gpu/drm/i915/display/intel_quirks.c
-+++ b/drivers/gpu/drm/i915/display/intel_quirks.c
-@@ -78,6 +78,12 @@ static void quirk_fw_sync_len(struct intel_dp *intel_dp)
- 	drm_info(display->drm, "Applying Fast Wake sync pulse count quirk\n");
- }
- 
-+static void quirk_auo_12701_21229_enable_dpcd_backlight(struct intel_display *display)
-+{
-+	intel_set_quirk(display, QUIRK_AUO_12701_21229_ENABLE_DPCD_BACKLIGHT);
-+	drm_info(display->drm, "Applying Display AUO Model 12701 and 21229 Enable DPCD Backlight quirk\n");
-+}
-+
- struct intel_quirk {
- 	int device;
- 	int subsystem_vendor;
-@@ -118,6 +124,12 @@ static int intel_dmi_no_pps_backlight(const struct dmi_system_id *id)
- 	return 1;
- }
- 
-+static int intel_dmi_auo_12701_21229_enable_dpcd_backlight(const struct dmi_system_id *id)
-+{
-+	DRM_INFO("Display AUO model 12701 and 21229 DPCD backlight control on %s\n", id->ident);
-+	return 1;
-+}
-+
- static const struct intel_dmi_quirk intel_dmi_quirks[] = {
- 	{
- 		.dmi_id_list = &(const struct dmi_system_id[]) {
-@@ -164,6 +176,36 @@ static const struct intel_dmi_quirk intel_dmi_quirks[] = {
- 		},
- 		.hook = quirk_no_pps_backlight_power_hook,
- 	},
-+	{
-+		.dmi_id_list = &(const struct dmi_system_id[]) {
-+			{
-+				.callback = intel_dmi_auo_12701_21229_enable_dpcd_backlight,
-+				.ident = "TUXEDO DX1708",
-+				.matches = {DMI_MATCH(DMI_BOARD_NAME, "N8xEJEK"),
-+				},
-+			},
-+			{
-+				.callback = intel_dmi_auo_12701_21229_enable_dpcd_backlight,
-+				.ident = "TUXEDO InsanityBook 15 v1",
-+				.matches = {DMI_MATCH(DMI_BOARD_NAME, "P95_HP"),
-+				},
-+			},
-+			{
-+				.callback = intel_dmi_auo_12701_21229_enable_dpcd_backlight,
-+				.ident = "TUXEDO InsanityBook 15 v1",
-+				.matches = {DMI_MATCH(DMI_BOARD_NAME, "P95_HR"),
-+				},
-+			},
-+			{
-+				.callback = intel_dmi_auo_12701_21229_enable_dpcd_backlight,
-+				.ident = "TUXEDO InsanityBook 15 v1",
-+				.matches = {DMI_MATCH(DMI_BOARD_NAME, "P95_HP,HR,HQ"),
-+				},
-+			},
-+			{ }
-+		},
-+		.hook = quirk_auo_12701_21229_enable_dpcd_backlight,
-+	},
- };
- 
- static struct intel_quirk intel_quirks[] = {
-diff --git a/drivers/gpu/drm/i915/display/intel_quirks.h b/drivers/gpu/drm/i915/display/intel_quirks.h
-index cafdebda75354..38bdbd65d7efb 100644
---- a/drivers/gpu/drm/i915/display/intel_quirks.h
-+++ b/drivers/gpu/drm/i915/display/intel_quirks.h
-@@ -20,6 +20,7 @@ enum intel_quirk_id {
- 	QUIRK_LVDS_SSC_DISABLE,
- 	QUIRK_NO_PPS_BACKLIGHT_POWER_HOOK,
- 	QUIRK_FW_SYNC_LEN,
-+	QUIRK_AUO_12701_21229_ENABLE_DPCD_BACKLIGHT,
- };
- 
- void intel_init_quirks(struct intel_display *display);
+ static inline bool
+ dma_fence_check_and_signal_locked(struct dma_fence *fence)
+@@ -412,9 +419,12 @@ dma_fence_check_and_signal_locked(struct dma_fence *fence)
+  * dma_fence_check_and_signal - Checks a fence and signals it if necessary
+  * @fence: the fence to check
+  *
+- * Returns true if the fence was already signaled, false if not. Since this
+- * function doesn't enable signaling, it is not guaranteed to ever return
+- * true if dma_fence_add_callback(), dma_fence_wait() or
++ * Checks whether the fence was already signaled, and, if not, whether
++ * &struct dma_fence_ops.signaled indicates that it should be signaled. If so,
++ * the fence gets signaled here.
++ *
++ * Since this function doesn't enable signaling, it is not guaranteed to ever
++ * return true if dma_fence_add_callback(), dma_fence_wait() or
+  * dma_fence_enable_sw_signaling() haven't been called before.
+  *
+  * It's recommended for seqno fences to call dma_fence_signal when the
+@@ -423,6 +433,10 @@ dma_fence_check_and_signal_locked(struct dma_fence *fence)
+  * value of this function before calling hardware-specific wait instructions.
+  *
+  * See also dma_fence_check_and_signal_locked().
++ *
++ * Return: true if the fence was already signaled, or if
++ * &struct dma_fence_ops.signaled is implemented and indicates that this fence
++ * can be treated as signaled; false otherwise.
+  */
+ static inline bool
+ dma_fence_check_and_signal(struct dma_fence *fence)
 -- 
-2.43.0
+2.48.1
 
