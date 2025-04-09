@@ -4,62 +4,200 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 80FB7C36002
-	for <intel-gfx@archiver.kernel.org>; Wed,  9 Apr 2025 12:42:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 68864C369A1
+	for <intel-gfx@archiver.kernel.org>; Wed,  9 Apr 2025 13:14:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 160D710E885;
-	Wed,  9 Apr 2025 12:42:42 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4362810E8AB;
+	Wed,  9 Apr 2025 13:14:51 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="WAw9bfgD";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="dRAxgQmC";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2525010E885;
- Wed,  9 Apr 2025 12:42:41 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1744202562; x=1775738562;
- h=from:to:cc:subject:in-reply-to:references:date:
- message-id:mime-version;
- bh=ki+9+JPvZ4eaJOhF7yzkrpj1WnUqw2+6ywY7TGkVRf0=;
- b=WAw9bfgDXcvhpbwwukhrTvhGoWb6PYki7DTvotgxtiiyy0ZNBMMdG853
- sPwkHnvYlvmURpaSx1EhB9WNs3ogdg6x228TfFVdZLkVQLIOG232ccXBT
- iP2YGPetj+vTchdbVBVw8pvR2EC3AGbyYrOnd58xmHmF9JksgjUgAk2XH
- G9sfBuAxuwglCXtev0S72cQd0yV7LX9ncpvDpTjvgpTy/SzWR8NlkwkVK
- zcc/kwKM+JWXUB7kNDRH0mpv4HNa8FgD2qgq3SRQRfs/dVr6Ml+WBPBVV
- gieIA7YvtY0Pp3rpzDdbeA3SsJXHgxi22SD4eZtpL1OdtTNaDep+UXkCg A==;
-X-CSE-ConnectionGUID: SuHisFS2QuWUdkiJ4jAHpQ==
-X-CSE-MsgGUID: qCgULDrqSKip91ZMpLbDTg==
-X-IronPort-AV: E=McAfee;i="6700,10204,11397"; a="63072446"
-X-IronPort-AV: E=Sophos;i="6.15,200,1739865600"; d="scan'208";a="63072446"
-Received: from orviesa004.jf.intel.com ([10.64.159.144])
- by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 09 Apr 2025 05:42:41 -0700
-X-CSE-ConnectionGUID: T+5dnIkfSxmlXUW9y9eweQ==
-X-CSE-MsgGUID: WbnKjzHoT/SMvbsxMxtLAA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.15,200,1739865600"; d="scan'208";a="133561524"
-Received: from lfiedoro-mobl.ger.corp.intel.com (HELO localhost)
- ([10.245.246.201])
- by orviesa004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 09 Apr 2025 05:42:39 -0700
-From: Jani Nikula <jani.nikula@linux.intel.com>
-To: Lucas De Marchi <lucas.demarchi@intel.com>
-Cc: Matt Roper <matthew.d.roper@intel.com>, intel-xe@lists.freedesktop.org,
- intel-gfx@lists.freedesktop.org, Vivek Kasireddy
- <vivek.kasireddy@intel.com>, stable@vger.kernel.org
-Subject: Re: [PATCH v2] drm/i915/xe2hpd: Identify the memory type for SKUs
- with GDDR + ECC
-In-Reply-To: <3lydvtc7tikmhr4cmtzkt23bgjehmzucfyjvdbcitejwax5vkp@epdi3bkvq7fr>
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
-References: <20250324-tip-v2-1-38397de319f8@intel.com>
- <20250324200207.GN3175483@mdroper-desk1.amr.corp.intel.com>
- <32lakxysapix2hgoh5e7n2b6zlv544nh6vcvmg6zllzjnlikmd@7k37w7pqy4p2>
- <87bjtpa3e6.fsf@intel.com>
- <3lydvtc7tikmhr4cmtzkt23bgjehmzucfyjvdbcitejwax5vkp@epdi3bkvq7fr>
-Date: Wed, 09 Apr 2025 15:42:35 +0300
-Message-ID: <87ikndwlok.fsf@intel.com>
+Received: from NAM10-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam10on2074.outbound.protection.outlook.com [40.107.94.74])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 915D610E8A2;
+ Wed,  9 Apr 2025 13:14:45 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=fs6Tj49ilOSPjZCMn89VKsxECJkHEJ1iimhQ3la4D92d62B34dCxN4Mbe24Tvjr/s0e8DK4eAa8iPgOUr/GjyOvM4cLXhkAsRCJ3gEHfp8cXdqTsgUy81UHDQMg5yUyOK9+7eAPCacyD2P/CFM1Rw5vv1XfqmyXF0q/GgPRFAI0eIY0sEpAg4N/DvUF3rQVZjKtQFPwJ6DknbyKFDDfufwG4Mvlm1PuazJjpvO4vzS8WpX83aV0tWkgIzoz09QS7g3hb9Kwi/b+YjG/FdCd2GzX+YdNcAsS16p53oNuP2fU2oJNqMboTg4JU4w8Ofskb4yYEoVWTTOECli2LyXLEeg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=+beTUDOeGNcOa9/1Qw0Po1vYpAh/ASpjaKzQowXQFMM=;
+ b=cpIdX/Uh4vTdc15HV1pK7QnOQYS19BUWHPeZaw+dkmVuRKj3VX4KT4+2FzMz9jaoi/rYQG4fiyDrke5PKgFzby0rh/liNoClAKMdw6EynNKEfMGj+8ypLaFpb3mkeh/0zMZwoJAx2JK6hv0s7Vtx8OpUdGgn3zIcEHPp0ulUDUwVK+dqFdM/nV+7zTadSKq/OIbNAd6DYJvzxSE8GMnDRBXhO34K0JlgqgL90r/tdTmAvDN5KmjEVyp8Qy2a0on/0gniRdIaHz9QyI5qiudyDDxhi0eKWSR0PpaNM5c/JWnbUbOEkaoR+DFTgEm249Qc4ScZ3GUVOXmbjc+uFDnJ3w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=+beTUDOeGNcOa9/1Qw0Po1vYpAh/ASpjaKzQowXQFMM=;
+ b=dRAxgQmC0zNMbEAs8630LRhZD7iHx+pvTbJdw0KYo1Wu9xxEjc2bM4KDjVyn5Het56savKyeuFzgPrDzCRKEv3ZoZKXVfzPDVZ5+tP2u+pTUgleTZAEzqI+39szz+z2V26wfmzPl+SneAqXqmFD7i1msqJzMFhTfKFmLt8U4ykM=
+Received: from SA1PR12MB8599.namprd12.prod.outlook.com (2603:10b6:806:254::7)
+ by PH7PR12MB7892.namprd12.prod.outlook.com (2603:10b6:510:27e::19)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8583.46; Wed, 9 Apr
+ 2025 13:14:42 +0000
+Received: from SA1PR12MB8599.namprd12.prod.outlook.com
+ ([fe80::25da:4b98:9743:616b]) by SA1PR12MB8599.namprd12.prod.outlook.com
+ ([fe80::25da:4b98:9743:616b%5]) with mapi id 15.20.8606.033; Wed, 9 Apr 2025
+ 13:14:42 +0000
+From: "Li, Yunxiang (Teddy)" <Yunxiang.Li@amd.com>
+To: Philipp Stanner <phasta@kernel.org>, Sumit Semwal
+ <sumit.semwal@linaro.org>, Gustavo Padovan <gustavo@padovan.org>, "Koenig,
+ Christian" <Christian.Koenig@amd.com>, "Kuehling, Felix"
+ <Felix.Kuehling@amd.com>, "Deucher, Alexander" <Alexander.Deucher@amd.com>,
+ Xinhui Pan <Xinhui.Pan@amd.com>, David Airlie <airlied@gmail.com>, Simona
+ Vetter <simona@ffwll.ch>, Maarten Lankhorst
+ <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, Lucas Stach
+ <l.stach@pengutronix.de>, Russell King <linux+etnaviv@armlinux.org.uk>,
+ Christian Gmeiner <christian.gmeiner@gmail.com>, Jani Nikula
+ <jani.nikula@linux.intel.com>, Joonas Lahtinen
+ <joonas.lahtinen@linux.intel.com>, Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Tvrtko Ursulin <tursulin@ursulin.net>, Frank Binns <frank.binns@imgtec.com>,
+ Matt Coster <matt.coster@imgtec.com>, Qiang Yu <yuq825@gmail.com>, Rob Clark
+ <robdclark@gmail.com>, Sean Paul <sean@poorly.run>, Konrad Dybcio
+ <konradybcio@kernel.org>, Abhinav Kumar <quic_abhinavk@quicinc.com>, Dmitry
+ Baryshkov <dmitry.baryshkov@linaro.org>, Marijn Suijten
+ <marijn.suijten@somainline.org>, Lyude Paul <lyude@redhat.com>, Danilo
+ Krummrich <dakr@kernel.org>, Boris Brezillon <boris.brezillon@collabora.com>, 
+ Rob Herring <robh@kernel.org>, Steven Price <steven.price@arm.com>, Dave
+ Airlie <airlied@redhat.com>, Gerd Hoffmann <kraxel@redhat.com>, Matthew Brost
+ <matthew.brost@intel.com>, "Huang, Ray" <Ray.Huang@amd.com>, Matthew Auld
+ <matthew.auld@intel.com>, Melissa Wen <mwen@igalia.com>,
+ =?iso-8859-1?Q?Ma=EDra_Canal?= <mcanal@igalia.com>, Zack Rusin
+ <zack.rusin@broadcom.com>, Broadcom internal kernel review list
+ <bcm-kernel-feedback-list@broadcom.com>, Lucas De Marchi
+ <lucas.demarchi@intel.com>, =?iso-8859-1?Q?Thomas_Hellstr=F6m?=
+ <thomas.hellstrom@linux.intel.com>, Bas Nieuwenhuizen
+ <bas@basnieuwenhuizen.nl>, "Wang, Yang(Kevin)" <KevinYang.Wang@amd.com>,
+ "Zhang, Jesse(Jie)" <Jesse.Zhang@amd.com>, "Huang, Tim" <Tim.Huang@amd.com>,
+ "Sundararaju, Sathishkumar" <Sathishkumar.Sundararaju@amd.com>, "Jamadar,
+ Saleemkhan" <Saleemkhan.Jamadar@amd.com>, "Khatri, Sunil"
+ <Sunil.Khatri@amd.com>, "Lazar, Lijo" <Lijo.Lazar@amd.com>, "Zhang, Hawking"
+ <Hawking.Zhang@amd.com>, Ma Jun <Jun.Ma2@amd.com>, "Huang, JinHuiEric"
+ <JinHuiEric.Huang@amd.com>, "Kamal, Asad" <Asad.Kamal@amd.com>, "SHANMUGAM,
+ SRINIVASAN" <SRINIVASAN.SHANMUGAM@amd.com>, "Xiao, Jack" <Jack.Xiao@amd.com>, 
+ Friedrich Vock <friedrich.vock@gmx.de>, =?iso-8859-1?Q?Michel_D=E4nzer?=
+ <mdaenzer@redhat.com>, Geert Uytterhoeven <geert@linux-m68k.org>, Anna-Maria
+ Behnsen <anna-maria@linutronix.de>, Thomas Gleixner <tglx@linutronix.de>,
+ Frederic Weisbecker <frederic@kernel.org>, Dan Carpenter
+ <dan.carpenter@linaro.org>
+CC: "linux-media@vger.kernel.org" <linux-media@vger.kernel.org>,
+ "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
+ "linaro-mm-sig@lists.linaro.org" <linaro-mm-sig@lists.linaro.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
+ "etnaviv@lists.freedesktop.org" <etnaviv@lists.freedesktop.org>,
+ "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>,
+ "lima@lists.freedesktop.org" <lima@lists.freedesktop.org>,
+ "linux-arm-msm@vger.kernel.org" <linux-arm-msm@vger.kernel.org>,
+ "freedreno@lists.freedesktop.org" <freedreno@lists.freedesktop.org>,
+ "nouveau@lists.freedesktop.org" <nouveau@lists.freedesktop.org>,
+ "virtualization@lists.linux.dev" <virtualization@lists.linux.dev>,
+ "spice-devel@lists.freedesktop.org" <spice-devel@lists.freedesktop.org>,
+ "intel-xe@lists.freedesktop.org" <intel-xe@lists.freedesktop.org>
+Subject: Re: [PATCH 2/2] dma-fence: Improve docu for
+ dma_fence_check_and_signal()
+Thread-Topic: [PATCH 2/2] dma-fence: Improve docu for
+ dma_fence_check_and_signal()
+Thread-Index: AQHbqUgKH5m0Y2vyt0qwPWKmlhdvzbObSmeA
+Date: Wed, 9 Apr 2025 13:14:42 +0000
+Message-ID: <SA1PR12MB85990C007B278312B023783BEDB42@SA1PR12MB8599.namprd12.prod.outlook.com>
+References: <20250409120640.106408-2-phasta@kernel.org>
+ <20250409120640.106408-4-phasta@kernel.org>
+In-Reply-To: <20250409120640.106408-4-phasta@kernel.org>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Enabled=True;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_SetDate=2025-04-09T13:14:41.695Z;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Name=AMD
+ Internal Distribution
+ Only; MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_ContentBits=0;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Method=Standard; 
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: SA1PR12MB8599:EE_|PH7PR12MB7892:EE_
+x-ms-office365-filtering-correlation-id: 5f375aab-a741-4b98-702c-08dd77687d68
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+ ARA:13230040|366016|1800799024|7416014|376014|38070700018|8096899003|921020; 
+x-microsoft-antispam-message-info: =?iso-8859-1?Q?qsAR5voT6dCTiouAFvKMVy8ByjdxNedFMpA7mKgDMhneJraJe3SqAnymaF?=
+ =?iso-8859-1?Q?NjTD3FfOhSRy08AU+647wsiKXkxJCcLeXxw0zV2FhVejRdrpZHGkpzCjRP?=
+ =?iso-8859-1?Q?y+822xUzER98wjVpDv+7oFiI7B90sDXbdj6WdiELzFKAtjkg7cqvZxgDlM?=
+ =?iso-8859-1?Q?/0j3B34JeAE7BHzNE7RLJKU+67PVr68POW9fQL5+PUGY75R87+8zD6BDOt?=
+ =?iso-8859-1?Q?LnOHdHwPtd/xX4M2T4bbNBvDe6OzZEWXJ5FSLU1KP/gE+3Th8Ck5Ap0C9F?=
+ =?iso-8859-1?Q?Eek+Tp/ZqBj7OZon0WniC0rgVunqK9BNiViBIP0FcnOMJq+ryK2olXoXVK?=
+ =?iso-8859-1?Q?EwCdlIXlMqsD8sS5UA9lDbaqc/OuOY535sbCqPWyuepM5uA7T9IhBv8mYg?=
+ =?iso-8859-1?Q?IXC/zOzf3y3TidjO5L/99XuzLklE9r4oHu4i4XHBrVlhqO1GpWm0GYaWGV?=
+ =?iso-8859-1?Q?hFuyLmZ4dl9QNtQbICU7OeoQl4KxCOtg7XWMmPzCflu9avqqtogvg2cR3c?=
+ =?iso-8859-1?Q?eH8qYEYD0D7Rex8mrh3yjadUfDJP7FrkABThQYDVxpu2wWS9iY4sHfPqVb?=
+ =?iso-8859-1?Q?dEQcIV5bKiXOQPIaukWxWExvobRFu47qXVkNm0phKMlOOXFJ7isO0M3EYS?=
+ =?iso-8859-1?Q?zrMW0HFauLl62cfPYenB84QdWY5B+kfCBNqNuU/VDj34fBYuvVn3EnZMdh?=
+ =?iso-8859-1?Q?RWXZiNPJqZTuBkBoIGf6Se53J7xspHhlIRL6kb2GciQCf59iSZyEJF/KRW?=
+ =?iso-8859-1?Q?9X/uOUlGQZKfPadhUK2lelP1fHQVRwhZb5jy4KWvKIvaqdocJ50OPe7eiU?=
+ =?iso-8859-1?Q?BtMuS+ggWBUe7P57MuCq3ksjnGVjuy79tPxOt0yDuWUvXsA/5sNOFaHpTr?=
+ =?iso-8859-1?Q?qp0m1s2EvTz6I5HYV/93WA9Ak7wio6x6P89vOL17xZKrPbEgSpyEpdMGcp?=
+ =?iso-8859-1?Q?4dmPRpI4F4J+2rzPkMC0lPff54+/VH7L3IGPqB8YI7dwdNBFhcnJnjMNCM?=
+ =?iso-8859-1?Q?1DjMrUlxmVfKDvymT4M0YnSEEcxmZ7bFU7i7d71rtvZxZZKdcnjtJAEncH?=
+ =?iso-8859-1?Q?LZVisWfsIUJY4Ml2dOaeOki6kgVvg3D5GHGC7Dnf/ymME2+Q1WR0Cdzuph?=
+ =?iso-8859-1?Q?rT045e2IwG199H/zBFhobc8v2JMPa+81yjg/8XzBJGnl9II5/4tnKrCHxL?=
+ =?iso-8859-1?Q?4MPIEwYEZ1uOiICjm2HEaV3Ta9s3IxGeqJ8W9mIV3ZBdmvfupi3Sh8K93S?=
+ =?iso-8859-1?Q?CLjLD52u2AjTs6YeFPw4if3axvBPYRO0bE4sbnX83l+adD1XGkO5OG3CYt?=
+ =?iso-8859-1?Q?yKVUyqNFQd29xGmsgf4OmzcO6ZZ83e7I2PXXKC9LY+QV6hJadvb/57kh8Z?=
+ =?iso-8859-1?Q?bXvQ+2Il6mG37c8wXFLh6/t1RVQ+q/LfEl0KkHVkLoCG47+gkqq87Ldt1q?=
+ =?iso-8859-1?Q?29S3s49uS7piL1MYSJHOwZPBYfq8RJlWdjOa+D0Cag6T6S+6FkkRhKznuy?=
+ =?iso-8859-1?Q?1krAyKadON3vn3QP4dqAXJqoMbMrbECf+reUCOcgGejdhrDWQ0GpKpxdFT?=
+ =?iso-8859-1?Q?U31LMN0=3D?=
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:SA1PR12MB8599.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(1800799024)(7416014)(376014)(38070700018)(8096899003)(921020);
+ DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?iso-8859-1?Q?aetH4S6mEIbmpXy8Y1HXh0pSRIaffU5Z2tcmHFLF9aaB0Mcf5rsfltdcsd?=
+ =?iso-8859-1?Q?v62yJ9T+uXRe08NJLfyNmnQpjNIh1d+IeFwGQSh0X/hnGaueX2aMkauoiS?=
+ =?iso-8859-1?Q?/a0sm+Mt+qehnxs6VkSKvaf7qsoFucu8FV4hCc1iMRkMw93R9+56l7c3NM?=
+ =?iso-8859-1?Q?rpjB0CjTS4Xe5I0Sq96dvUMzGbWedamCs7ZGJVSqDeLvWdYM+aQwsCMrPe?=
+ =?iso-8859-1?Q?JIIkU1pY/FIhfmwOv3FMJPG2iAVfqP2Pb7Zw1pLETs/RvAaYrxRBXIaxmX?=
+ =?iso-8859-1?Q?hq9ZTZF/CTPcQD4pUXdIIxkUt1LZR9F48U0n+rVQ+sIINA4933wQ3HVPzZ?=
+ =?iso-8859-1?Q?JfTHV9kLPgp37MEIdV7+6gMMIIM7hNn/7cgLpVAP2BNYxtOGD5RJ3ZdtmY?=
+ =?iso-8859-1?Q?/aQvav+vgnhHgmI2K3O0EkFmR233SPHwl2yOFtsCu0Nbh9vN+bgsKqejp5?=
+ =?iso-8859-1?Q?Ch/9mzsGrY/yzU5b0b7PLrZC54cMHyEATRcqmnAeNRCr2Id6zwPQjuYFM0?=
+ =?iso-8859-1?Q?6WX4ZMIYKK20IYMOOpQ9Ar+ReEbvNvPDkjFfswIUmOXyR8p5jcPqx0nLPC?=
+ =?iso-8859-1?Q?haisgcgryUvWu6S9rrWG8pbOlpcJ58ilq9Abs1duKFWq/Sw5P/1n01a5Ri?=
+ =?iso-8859-1?Q?qfE6U9YAxyIHbJlmmsBsjHsEBmtFmqxbKtjFbxs80l4ix+BmqZKoj4HX9D?=
+ =?iso-8859-1?Q?VT8UYLtcm3rwDWfgRsMjGHu8rzZaIrOFhq+grei7rnV9vXoJkQx7HGlEMq?=
+ =?iso-8859-1?Q?9zMEZXDrlS1c9PHt/+vtWTfQa12RedCFs66NxSJyvDMGl5KQC6lLKk+fzO?=
+ =?iso-8859-1?Q?icsPF7ZXNBUsgjMakAgsYfwWiYwTi6fSU4WAhsMh1pyOS8+EF7YyvR3aTY?=
+ =?iso-8859-1?Q?PZjurL2tDOxLJOtupNkmuxQqPO01WTNwvA0xtihBz16rMfiYT2MN196WWh?=
+ =?iso-8859-1?Q?5uJOdjFRyyzQaiUzPCJs7ckHJW5lJdcE4LY8888Gpd3MN+MBGcbZnK14AL?=
+ =?iso-8859-1?Q?8XU6nU731DtdadXF8/Cj3YsshYx4uWqqGe0kNTgi2iGhXsqJIPmt4Fv4SV?=
+ =?iso-8859-1?Q?tVKB6C06iNmDFH/ITukhplyXx/iXvokMRp6cUJfeS/dz5hCES3oFbrp50I?=
+ =?iso-8859-1?Q?2aYLAaYQ9v1nAQusAi3NvRoH18sHIFcD28GYKeYeZr2letsHvelQT1PnHR?=
+ =?iso-8859-1?Q?metCVxtvF71kOjG2XQ2eiderogBQKBE+5/rzMHgtqwbMg9vss2AxYgxt6U?=
+ =?iso-8859-1?Q?lcLjG+RENdGv/GJyrbFrslwOQ53PR5OkwTdB4nTk91GsGE1etlpqFhBVyi?=
+ =?iso-8859-1?Q?e9V5c9itMsS2R8F/yN/lZ0p78cI8aRtBFTlhgMfn/KnNfZ7eO1F7xwHKkQ?=
+ =?iso-8859-1?Q?3Al4LTHvhJQd2akIv4DXyU6oXOCglNZQvhaSIVkHKvVQCqVYiFFzScj4tm?=
+ =?iso-8859-1?Q?d0YRAd1buF/Y09HCgeOoRj2ZGM9O/p0NriafwYhdAGw1wtMnJRdnZpVbVk?=
+ =?iso-8859-1?Q?qDy3MKyvnoVFnqxsYKdsSXu9I3LQmkgj7zcaTj6BCxL03B4kCr3Sgyc04s?=
+ =?iso-8859-1?Q?/YNnlovr8lyQgF4hB7N2l7ZgaQ7nWFMpJpijidrGdg80794l7HAqd+OulQ?=
+ =?iso-8859-1?Q?IqGSKWpQNkfRE=3D?=
+Content-Type: multipart/alternative;
+ boundary="_000_SA1PR12MB85990C007B278312B023783BEDB42SA1PR12MB8599namp_"
 MIME-Version: 1.0
-Content-Type: text/plain
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: SA1PR12MB8599.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 5f375aab-a741-4b98-702c-08dd77687d68
+X-MS-Exchange-CrossTenant-originalarrivaltime: 09 Apr 2025 13:14:42.0701 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: /9Mxv07spe1AZbizOl6ybzdOSBMXEPOJs2ZeKdh6K46r6HDm4rfWKhMw67+n0Vfw2+TbczNNQ5/jl5HfGtLSdw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB7892
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,164 +213,352 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Tue, 25 Mar 2025, Lucas De Marchi <lucas.demarchi@intel.com> wrote:
-> On Tue, Mar 25, 2025 at 11:03:13AM +0200, Jani Nikula wrote:
->>On Mon, 24 Mar 2025, Lucas De Marchi <lucas.demarchi@intel.com> wrote:
->>> On Mon, Mar 24, 2025 at 01:02:07PM -0700, Matt Roper wrote:
->>>>On Mon, Mar 24, 2025 at 10:22:33AM -0700, Lucas De Marchi wrote:
->>>>> From: Vivek Kasireddy <vivek.kasireddy@intel.com>
->>>>>
->>>>> Some SKUs of Xe2_HPD platforms (such as BMG) have GDDR memory type
->>>>> with ECC enabled. We need to identify this scenario and add a new
->>>>> case in xelpdp_get_dram_info() to handle it. In addition, the
->>>>> derating value needs to be adjusted accordingly to compensate for
->>>>> the limited bandwidth.
->>>>>
->>>>> Bspec: 64602
->>>>> Cc: Matt Roper <matthew.d.roper@intel.com>
->>>>> Fixes: 3adcf970dc7e ("drm/xe/bmg: Drop force_probe requirement")
->>>>> Cc: stable@vger.kernel.org
->>
->>FYI, this does not cherry-pick cleanly to drm-intel-next-fixes, and
->>needs a backport.
->>
->>There are dependencies on at least
->>
->>4051c59e2a6a ("drm/i915/xe3lpd: Update bandwidth parameters")
->>9377c00cfdb5 ("drm/i915/display: Convert intel_bw.c internally to intel_display")
->>d706998b6da6 ("drm/i915/display: Convert intel_bw.c externally to intel_display")
->>
->>but I don't think we want to backport those.
->
-> yeah, I expected issues like that and was going to provide the specific
-> patch for stable. However I thought it would at least apply to
-> drm-intel-next-fixes :(. Below is the patch to drm-intel-next-fixes. It
-> also applies cleanly to 6.13. For 6.12 there's an additional small
-> conflict due to the DISPLAY_VER_FULL conversion.
+--_000_SA1PR12MB85990C007B278312B023783BEDB42SA1PR12MB8599namp_
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
 
-Thanks, just sent a fixes pull request with this.
+[AMD Official Use Only - AMD Internal Distribution Only]
 
-BR,
-Jani.
+Hi Philipp,
+
+I feel like the problem has two parts. The documentation does not make expl=
+icit that DMA_FENCE_FLAG_SIGNALED_BIT is "caching" the hardware state when =
+a fence is backed by hardware, so what dma_fence_is_signaled here is doing =
+is just busting that cache; when the hardware signals the fence, the dma_fe=
+nce is considered signaled, just with a stale cache. It looks like because =
+of this omission nouveau has made an assumption that there could be a canon=
+ical path to signaling dma_fence but in reality, anyone could call dma_fenc=
+e_signal at any time if it realized that the cache is stale.
+
+I do think that the caching behavior here may be confusing and it could be =
+a good idea to separate out the concept of a software fence vs a hardware f=
+ence.
+
+Regards,
+Teddy
+
+________________________________
+From: Philipp Stanner
+Sent: Wednesday, April 09, 2025 08:06
+To: Sumit Semwal; Gustavo Padovan; Koenig, Christian; Kuehling, Felix; Deuc=
+her, Alexander; Xinhui Pan; David Airlie; Simona Vetter; Maarten Lankhorst;=
+ Maxime Ripard; Thomas Zimmermann; Lucas Stach; Russell King; Christian Gme=
+iner; Jani Nikula; Joonas Lahtinen; Rodrigo Vivi; Tvrtko Ursulin; Frank Bin=
+ns; Matt Coster; Qiang Yu; Rob Clark; Sean Paul; Konrad Dybcio; Abhinav Kum=
+ar; Dmitry Baryshkov; Marijn Suijten; Lyude Paul; Danilo Krummrich; Boris B=
+rezillon; Rob Herring; Steven Price; Dave Airlie; Gerd Hoffmann; Matthew Br=
+ost; Philipp Stanner; Huang, Ray; Matthew Auld; Melissa Wen; Ma=EDra Canal;=
+ Zack Rusin; Broadcom internal kernel review list; Lucas De Marchi; Thomas =
+Hellstr=F6m; Bas Nieuwenhuizen; Wang, Yang(Kevin); Zhang, Jesse(Jie); Huang=
+, Tim; Sundararaju, Sathishkumar; Jamadar, Saleemkhan; Khatri, Sunil; Lazar=
+, Lijo; Zhang, Hawking; Ma Jun; Li, Yunxiang (Teddy); Huang, JinHuiEric; Ka=
+mal, Asad; SHANMUGAM, SRINIVASAN; Xiao, Jack; Friedrich Vock; Michel D=E4nz=
+er; Geert Uytterhoeven; Anna-Maria Behnsen; Thomas Gleixner; Frederic Weisb=
+ecker; Dan Carpenter
+Cc: linux-media@vger.kernel.org; dri-devel@lists.freedesktop.org; linaro-mm=
+-sig@lists.linaro.org; linux-kernel@vger.kernel.org; amd-gfx@lists.freedesk=
+top.org; etnaviv@lists.freedesktop.org; intel-gfx@lists.freedesktop.org; li=
+ma@lists.freedesktop.org; linux-arm-msm@vger.kernel.org; freedreno@lists.fr=
+eedesktop.org; nouveau@lists.freedesktop.org; virtualization@lists.linux.de=
+v; spice-devel@lists.freedesktop.org; intel-xe@lists.freedesktop.org
+Subject: [PATCH 2/2] dma-fence: Improve docu for dma_fence_check_and_signal=
+()
+
+The documentation of the return value of dma_fence_check_and_signal()
+and dma_fence_check_and_signal_locked() reads as if the returned boolean
+only describes whether dma_fence_signal() (or similar) has been called
+before this function call already. That's not the case, since
+dma_fence_ops.signaled() usually just checks through the sequence number
+whether the hardware is finished with a fence. That doesn't mean a
+signaling function has been called already.
+
+Make the documentation clearer.
+
+Move the Return: documentation to the end, since that's the officially
+recommended docu style.
+
+Signed-off-by: Philipp Stanner <phasta@kernel.org>
+---
+ include/linux/dma-fence.h | 26 ++++++++++++++++++++------
+ 1 file changed, 20 insertions(+), 6 deletions(-)
+
+diff --git a/include/linux/dma-fence.h b/include/linux/dma-fence.h
+index dc2ad171458b..3df370b2cc7c 100644
+--- a/include/linux/dma-fence.h
++++ b/include/linux/dma-fence.h
+@@ -385,14 +385,21 @@ void dma_fence_enable_sw_signaling(struct dma_fence *=
+fence);
+  * dma_fence_check_and_signal_locked - Checks a fence and signals it if ne=
+cessary
+  * @fence: the fence to check
+  *
+- * Returns true if the fence was already signaled, false if not. Since thi=
+s
+- * function doesn't enable signaling, it is not guaranteed to ever return
+- * true if dma_fence_add_callback(), dma_fence_wait() or
++ * Checks whether the fence was already signaled, and, if not, whether
++ * &struct dma_fence_ops.signaled indicates that it should be signaled. If=
+ so,
++ * the fence gets signaled here.
++ *
++ * Since this function doesn't enable signaling, it is not guaranteed to e=
+ver
++ * return true if dma_fence_add_callback(), dma_fence_wait() or
+  * dma_fence_enable_sw_signaling() haven't been called before.
+  *
+  * This function requires &dma_fence.lock to be held.
+  *
+  * See also dma_fence_check_and_signal().
++ *
++ * Return: true if the fence was already signaled, or if
++ * &struct dma_fence_ops.signaled is implemented and indicates that this f=
+ence
++ * can be treated as signaled; false otherwise.
+  */
+ static inline bool
+ dma_fence_check_and_signal_locked(struct dma_fence *fence)
+@@ -412,9 +419,12 @@ dma_fence_check_and_signal_locked(struct dma_fence *fe=
+nce)
+  * dma_fence_check_and_signal - Checks a fence and signals it if necessary
+  * @fence: the fence to check
+  *
+- * Returns true if the fence was already signaled, false if not. Since thi=
+s
+- * function doesn't enable signaling, it is not guaranteed to ever return
+- * true if dma_fence_add_callback(), dma_fence_wait() or
++ * Checks whether the fence was already signaled, and, if not, whether
++ * &struct dma_fence_ops.signaled indicates that it should be signaled. If=
+ so,
++ * the fence gets signaled here.
++ *
++ * Since this function doesn't enable signaling, it is not guaranteed to e=
+ver
++ * return true if dma_fence_add_callback(), dma_fence_wait() or
+  * dma_fence_enable_sw_signaling() haven't been called before.
+  *
+  * It's recommended for seqno fences to call dma_fence_signal when the
+@@ -423,6 +433,10 @@ dma_fence_check_and_signal_locked(struct dma_fence *fe=
+nce)
+  * value of this function before calling hardware-specific wait instructio=
+ns.
+  *
+  * See also dma_fence_check_and_signal_locked().
++ *
++ * Return: true if the fence was already signaled, or if
++ * &struct dma_fence_ops.signaled is implemented and indicates that this f=
+ence
++ * can be treated as signaled; false otherwise.
+  */
+ static inline bool
+ dma_fence_check_and_signal(struct dma_fence *fence)
+--
+2.48.1
 
 
->
-> Also available at https://gitlab.freedesktop.org/demarchi/xe/-/commit/14cb226dc4526971fb7cfd1e79bb3196734f2ab4
->
-> Thanks
-> Lucas De Marchi
-> -------
->
->  From f61fd762498be6291626cb9cfcb8da28be6485e3 Mon Sep 17 00:00:00 2001
-> From: Vivek Kasireddy <vivek.kasireddy@intel.com>
-> Date: Mon, 24 Mar 2025 10:22:33 -0700
-> Subject: [PATCH] drm/i915/xe2hpd: Identify the memory type for SKUs with GDDR
->   + ECC
->
-> Some SKUs of Xe2_HPD platforms (such as BMG) have GDDR memory type
-> with ECC enabled. We need to identify this scenario and add a new
-> case in xelpdp_get_dram_info() to handle it. In addition, the
-> derating value needs to be adjusted accordingly to compensate for
-> the limited bandwidth.
->
-> Bspec: 64602
-> Cc: Matt Roper <matthew.d.roper@intel.com>
-> Fixes: 3adcf970dc7e ("drm/xe/bmg: Drop force_probe requirement")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Vivek Kasireddy <vivek.kasireddy@intel.com>
-> Reviewed-by: Matt Roper <matthew.d.roper@intel.com>
-> Acked-by: Lucas De Marchi <lucas.demarchi@intel.com>
-> Link: https://patchwork.freedesktop.org/patch/msgid/20250324-tip-v2-1-38397de319f8@intel.com
-> (cherry picked from commit 327e30123cafcb45c0fc5843da0367b90332999d)
-> Signed-off-by: Lucas De Marchi <lucas.demarchi@intel.com>
-> ---
->   drivers/gpu/drm/i915/display/intel_bw.c | 14 +++++++++++++-
->   drivers/gpu/drm/i915/i915_drv.h         |  1 +
->   drivers/gpu/drm/i915/soc/intel_dram.c   |  4 ++++
->   drivers/gpu/drm/xe/xe_device_types.h    |  1 +
->   4 files changed, 19 insertions(+), 1 deletion(-)
->
-> diff --git a/drivers/gpu/drm/i915/display/intel_bw.c b/drivers/gpu/drm/i915/display/intel_bw.c
-> index 048be28722477..5e49f8f7c9804 100644
-> --- a/drivers/gpu/drm/i915/display/intel_bw.c
-> +++ b/drivers/gpu/drm/i915/display/intel_bw.c
-> @@ -244,6 +244,7 @@ static int icl_get_qgv_points(struct drm_i915_private *dev_priv,
->   			qi->deinterleave = 4;
->   			break;
->   		case INTEL_DRAM_GDDR:
-> +		case INTEL_DRAM_GDDR_ECC:
->   			qi->channel_width = 32;
->   			break;
->   		default:
-> @@ -398,6 +399,12 @@ static const struct intel_sa_info xe2_hpd_sa_info = {
->   	/* Other values not used by simplified algorithm */
->   };
->   
-> +static const struct intel_sa_info xe2_hpd_ecc_sa_info = {
-> +	.derating = 45,
-> +	.deprogbwlimit = 53,
-> +	/* Other values not used by simplified algorithm */
-> +};
-> +
->   static int icl_get_bw_info(struct drm_i915_private *dev_priv, const struct intel_sa_info *sa)
->   {
->   	struct intel_qgv_info qi = {};
-> @@ -740,10 +747,15 @@ static unsigned int icl_qgv_bw(struct drm_i915_private *i915,
->   
->   void intel_bw_init_hw(struct drm_i915_private *dev_priv)
->   {
-> +	const struct dram_info *dram_info = &dev_priv->dram_info;
-> +
->   	if (!HAS_DISPLAY(dev_priv))
->   		return;
->   
-> -	if (DISPLAY_VERx100(dev_priv) >= 1401 && IS_DGFX(dev_priv))
-> +	if (DISPLAY_VERx100(dev_priv) >= 1401 && IS_DGFX(dev_priv) &&
-> +	    dram_info->type == INTEL_DRAM_GDDR_ECC)
-> +		xe2_hpd_get_bw_info(dev_priv, &xe2_hpd_ecc_sa_info);
-> +	else if (DISPLAY_VERx100(dev_priv) >= 1401 && IS_DGFX(dev_priv))
->   		xe2_hpd_get_bw_info(dev_priv, &xe2_hpd_sa_info);
->   	else if (DISPLAY_VER(dev_priv) >= 14)
->   		tgl_get_bw_info(dev_priv, &mtl_sa_info);
-> diff --git a/drivers/gpu/drm/i915/i915_drv.h b/drivers/gpu/drm/i915/i915_drv.h
-> index ffc346379cc2c..54538b6f85df5 100644
-> --- a/drivers/gpu/drm/i915/i915_drv.h
-> +++ b/drivers/gpu/drm/i915/i915_drv.h
-> @@ -305,6 +305,7 @@ struct drm_i915_private {
->   			INTEL_DRAM_DDR5,
->   			INTEL_DRAM_LPDDR5,
->   			INTEL_DRAM_GDDR,
-> +			INTEL_DRAM_GDDR_ECC,
->   		} type;
->   		u8 num_qgv_points;
->   		u8 num_psf_gv_points;
-> diff --git a/drivers/gpu/drm/i915/soc/intel_dram.c b/drivers/gpu/drm/i915/soc/intel_dram.c
-> index 9e310f4099f42..f60eedb0e92cf 100644
-> --- a/drivers/gpu/drm/i915/soc/intel_dram.c
-> +++ b/drivers/gpu/drm/i915/soc/intel_dram.c
-> @@ -687,6 +687,10 @@ static int xelpdp_get_dram_info(struct drm_i915_private *i915)
->   		drm_WARN_ON(&i915->drm, !IS_DGFX(i915));
->   		dram_info->type = INTEL_DRAM_GDDR;
->   		break;
-> +	case 9:
-> +		drm_WARN_ON(&i915->drm, !IS_DGFX(i915));
-> +		dram_info->type = INTEL_DRAM_GDDR_ECC;
-> +		break;
->   	default:
->   		MISSING_CASE(val);
->   		return -EINVAL;
-> diff --git a/drivers/gpu/drm/xe/xe_device_types.h b/drivers/gpu/drm/xe/xe_device_types.h
-> index 72ef0b6fc4250..9f8667ebba853 100644
-> --- a/drivers/gpu/drm/xe/xe_device_types.h
-> +++ b/drivers/gpu/drm/xe/xe_device_types.h
-> @@ -585,6 +585,7 @@ struct xe_device {
->   			INTEL_DRAM_DDR5,
->   			INTEL_DRAM_LPDDR5,
->   			INTEL_DRAM_GDDR,
-> +			INTEL_DRAM_GDDR_ECC,
->   		} type;
->   		u8 num_qgv_points;
->   		u8 num_psf_gv_points;
+--_000_SA1PR12MB85990C007B278312B023783BEDB42SA1PR12MB8599namp_
+Content-Type: text/html; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
 
--- 
-Jani Nikula, Intel
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
+1">
+<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
+ttom:0;} </style>
+</head>
+<body dir=3D"ltr">
+<p style=3D"font-family:Calibri;font-size:10pt;color:#0000FF;margin:5pt;fon=
+t-style:normal;font-weight:normal;text-decoration:none;" align=3D"Left">
+[AMD Official Use Only - AMD Internal Distribution Only]<br>
+</p>
+<br>
+<div>
+<div class=3D"elementToProof" style=3D"font-family: Aptos, Aptos_EmbeddedFo=
+nt, Aptos_MSFontService, Calibri, Helvetica, sans-serif; font-size: 11pt; c=
+olor: rgb(0, 0, 0);">
+Hi Philipp,</div>
+<div class=3D"elementToProof" style=3D"font-family: Aptos, Aptos_EmbeddedFo=
+nt, Aptos_MSFontService, Calibri, Helvetica, sans-serif; font-size: 11pt; c=
+olor: rgb(0, 0, 0);">
+<br>
+</div>
+<div class=3D"elementToProof" style=3D"font-family: Aptos, Aptos_EmbeddedFo=
+nt, Aptos_MSFontService, Calibri, Helvetica, sans-serif; font-size: 11pt; c=
+olor: rgb(0, 0, 0);">
+I feel like the problem has two parts. The documentation does not make expl=
+icit that DMA_FENCE_FLAG_SIGNALED_BIT is &quot;caching&quot; the hardware s=
+tate when a fence is backed by hardware, so what dma_fence_is_signaled here=
+ is doing is just busting that cache; when
+ the hardware signals the fence, the dma_fence is considered signaled, just=
+ with a stale cache. It looks like because of this omission nouveau has mad=
+e an assumption that there could be a canonical path to signaling dma_fence=
+ but in reality, anyone could call
+ dma_fence_signal at any&nbsp;time if it realized that the cache is stale.<=
+/div>
+<div class=3D"elementToProof" style=3D"font-family: Aptos, Aptos_EmbeddedFo=
+nt, Aptos_MSFontService, Calibri, Helvetica, sans-serif; font-size: 11pt; c=
+olor: rgb(0, 0, 0);">
+<br>
+</div>
+<div class=3D"elementToProof" style=3D"font-family: Aptos, Aptos_EmbeddedFo=
+nt, Aptos_MSFontService, Calibri, Helvetica, sans-serif; font-size: 11pt; c=
+olor: rgb(0, 0, 0);">
+I do think that the caching behavior here may be confusing and it could be =
+a good idea to separate out the concept of a software fence vs a hardware f=
+ence.</div>
+<div class=3D"elementToProof" style=3D"font-family: Aptos, Aptos_EmbeddedFo=
+nt, Aptos_MSFontService, Calibri, Helvetica, sans-serif; font-size: 11pt; c=
+olor: rgb(0, 0, 0);">
+<br>
+</div>
+<div class=3D"elementToProof" style=3D"font-family: Aptos, Aptos_EmbeddedFo=
+nt, Aptos_MSFontService, Calibri, Helvetica, sans-serif; font-size: 11pt; c=
+olor: rgb(0, 0, 0);">
+Regards,</div>
+<div class=3D"elementToProof" style=3D"font-family: Aptos, Aptos_EmbeddedFo=
+nt, Aptos_MSFontService, Calibri, Helvetica, sans-serif; font-size: 11pt; c=
+olor: rgb(0, 0, 0);">
+Teddy</div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+<br>
+</div>
+<hr style=3D"display: inline-block; width: 98%;">
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+<b>From:</b>&nbsp;Philipp Stanner<br>
+<b>Sent:</b>&nbsp;Wednesday, April 09, 2025 08:06<br>
+<b>To:</b>&nbsp;Sumit Semwal; Gustavo Padovan; Koenig, Christian; Kuehling,=
+ Felix; Deucher, Alexander; Xinhui Pan; David Airlie; Simona Vetter; Maarte=
+n Lankhorst; Maxime Ripard; Thomas Zimmermann; Lucas Stach; Russell King; C=
+hristian Gmeiner; Jani Nikula; Joonas
+ Lahtinen; Rodrigo Vivi; Tvrtko Ursulin; Frank Binns; Matt Coster; Qiang Yu=
+; Rob Clark; Sean Paul; Konrad Dybcio; Abhinav Kumar; Dmitry Baryshkov; Mar=
+ijn Suijten; Lyude Paul; Danilo Krummrich; Boris Brezillon; Rob Herring; St=
+even Price; Dave Airlie; Gerd Hoffmann;
+ Matthew Brost; Philipp Stanner; Huang, Ray; Matthew Auld; Melissa Wen; Ma=
+=EDra Canal; Zack Rusin; Broadcom internal kernel review list; Lucas De Mar=
+chi; Thomas Hellstr=F6m; Bas Nieuwenhuizen; Wang, Yang(Kevin); Zhang, Jesse=
+(Jie); Huang, Tim; Sundararaju, Sathishkumar;
+ Jamadar, Saleemkhan; Khatri, Sunil; Lazar, Lijo; Zhang, Hawking; Ma Jun; L=
+i, Yunxiang (Teddy); Huang, JinHuiEric; Kamal, Asad; SHANMUGAM, SRINIVASAN;=
+ Xiao, Jack; Friedrich Vock; Michel D=E4nzer; Geert Uytterhoeven; Anna-Mari=
+a Behnsen; Thomas Gleixner; Frederic
+ Weisbecker; Dan Carpenter<br>
+<b>Cc:</b>&nbsp;linux-media@vger.kernel.org; dri-devel@lists.freedesktop.or=
+g; linaro-mm-sig@lists.linaro.org; linux-kernel@vger.kernel.org; amd-gfx@li=
+sts.freedesktop.org; etnaviv@lists.freedesktop.org; intel-gfx@lists.freedes=
+ktop.org; lima@lists.freedesktop.org;
+ linux-arm-msm@vger.kernel.org; freedreno@lists.freedesktop.org; nouveau@li=
+sts.freedesktop.org; virtualization@lists.linux.dev; spice-devel@lists.free=
+desktop.org; intel-xe@lists.freedesktop.org<br>
+<b>Subject:</b>&nbsp;[PATCH 2/2] dma-fence: Improve docu for dma_fence_chec=
+k_and_signal()
+</div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+<br>
+</div>
+<div style=3D"font-size: 11pt;">The documentation of the return value of dm=
+a_fence_check_and_signal()<br>
+and dma_fence_check_and_signal_locked() reads as if the returned boolean<br=
+>
+only describes whether dma_fence_signal() (or similar) has been called<br>
+before this function call already. That's not the case, since<br>
+dma_fence_ops.signaled() usually just checks through the sequence number<br=
+>
+whether the hardware is finished with a fence. That doesn't mean a<br>
+signaling function has been called already.<br>
+<br>
+Make the documentation clearer.<br>
+<br>
+Move the Return: documentation to the end, since that's the officially<br>
+recommended docu style.<br>
+<br>
+Signed-off-by: Philipp Stanner &lt;phasta@kernel.org&gt;<br>
+---<br>
+&nbsp;include/linux/dma-fence.h | 26 ++++++++++++++++++++------<br>
+&nbsp;1 file changed, 20 insertions(+), 6 deletions(-)<br>
+<br>
+diff --git a/include/linux/dma-fence.h b/include/linux/dma-fence.h<br>
+index dc2ad171458b..3df370b2cc7c 100644<br>
+--- a/include/linux/dma-fence.h<br>
++++ b/include/linux/dma-fence.h<br>
+@@ -385,14 +385,21 @@ void dma_fence_enable_sw_signaling(struct dma_fence *=
+fence);<br>
+&nbsp; * dma_fence_check_and_signal_locked - Checks a fence and signals it =
+if necessary<br>
+&nbsp; * @fence: the fence to check<br>
+&nbsp; *<br>
+- * Returns true if the fence was already signaled, false if not. Since thi=
+s<br>
+- * function doesn't enable signaling, it is not guaranteed to ever return<=
+br>
+- * true if dma_fence_add_callback(), dma_fence_wait() or<br>
++ * Checks whether the fence was already signaled, and, if not, whether<br>
++ * &amp;struct dma_fence_ops.signaled indicates that it should be signaled=
+. If so,<br>
++ * the fence gets signaled here.<br>
++ *<br>
++ * Since this function doesn't enable signaling, it is not guaranteed to e=
+ver<br>
++ * return true if dma_fence_add_callback(), dma_fence_wait() or<br>
+&nbsp; * dma_fence_enable_sw_signaling() haven't been called before.<br>
+&nbsp; *<br>
+&nbsp; * This function requires &amp;dma_fence.lock to be held.<br>
+&nbsp; *<br>
+&nbsp; * See also dma_fence_check_and_signal().<br>
++ *<br>
++ * Return: true if the fence was already signaled, or if<br>
++ * &amp;struct dma_fence_ops.signaled is implemented and indicates that th=
+is fence<br>
++ * can be treated as signaled; false otherwise.<br>
+&nbsp; */<br>
+&nbsp;static inline bool<br>
+&nbsp;dma_fence_check_and_signal_locked(struct dma_fence *fence)<br>
+@@ -412,9 +419,12 @@ dma_fence_check_and_signal_locked(struct dma_fence *fe=
+nce)<br>
+&nbsp; * dma_fence_check_and_signal - Checks a fence and signals it if nece=
+ssary<br>
+&nbsp; * @fence: the fence to check<br>
+&nbsp; *<br>
+- * Returns true if the fence was already signaled, false if not. Since thi=
+s<br>
+- * function doesn't enable signaling, it is not guaranteed to ever return<=
+br>
+- * true if dma_fence_add_callback(), dma_fence_wait() or<br>
++ * Checks whether the fence was already signaled, and, if not, whether<br>
++ * &amp;struct dma_fence_ops.signaled indicates that it should be signaled=
+. If so,<br>
++ * the fence gets signaled here.<br>
++ *<br>
++ * Since this function doesn't enable signaling, it is not guaranteed to e=
+ver<br>
++ * return true if dma_fence_add_callback(), dma_fence_wait() or<br>
+&nbsp; * dma_fence_enable_sw_signaling() haven't been called before.<br>
+&nbsp; *<br>
+&nbsp; * It's recommended for seqno fences to call dma_fence_signal when th=
+e<br>
+@@ -423,6 +433,10 @@ dma_fence_check_and_signal_locked(struct dma_fence *fe=
+nce)<br>
+&nbsp; * value of this function before calling hardware-specific wait instr=
+uctions.<br>
+&nbsp; *<br>
+&nbsp; * See also dma_fence_check_and_signal_locked().<br>
++ *<br>
++ * Return: true if the fence was already signaled, or if<br>
++ * &amp;struct dma_fence_ops.signaled is implemented and indicates that th=
+is fence<br>
++ * can be treated as signaled; false otherwise.<br>
+&nbsp; */<br>
+&nbsp;static inline bool<br>
+&nbsp;dma_fence_check_and_signal(struct dma_fence *fence)<br>
+--<br>
+2.48.1<br>
+<br>
+</div>
+</div>
+</body>
+</html>
+
+--_000_SA1PR12MB85990C007B278312B023783BEDB42SA1PR12MB8599namp_--
