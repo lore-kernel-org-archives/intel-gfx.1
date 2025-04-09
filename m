@@ -4,207 +4,165 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 092B1C369A4
-	for <intel-gfx@archiver.kernel.org>; Wed,  9 Apr 2025 13:14:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B385BC369A1
+	for <intel-gfx@archiver.kernel.org>; Wed,  9 Apr 2025 13:37:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C032A10E8B8;
-	Wed,  9 Apr 2025 13:14:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4AD5010E8BE;
+	Wed,  9 Apr 2025 13:37:37 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="Ziuxw+SU";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="XrfLV96s";
 	dkim-atps=neutral
-Received: from NAM10-BN7-obe.outbound.protection.outlook.com
- (mail-bn7nam10on2088.outbound.protection.outlook.com [40.107.92.88])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0C16310E8A6;
- Wed,  9 Apr 2025 13:14:48 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.7])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 74E7A10E8BE;
+ Wed,  9 Apr 2025 13:37:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1744205856; x=1775741856;
+ h=date:from:to:cc:subject:message-id:reply-to:references:
+ in-reply-to:mime-version;
+ bh=maOGuOL8F5ymliKLprZn5gnJW3NypzJSUn/NuxOFR0Q=;
+ b=XrfLV96s69hv4UUMFUpjqiK2CBDDVPtMK8IAE3aJKKsj2CdrY2v18VWZ
+ u/WYy+v1gpCU1RdzUApGG+I1DG1v+eHqTCg8c4Ps9dxN+H/EdogkdpzqL
+ /wHsjEl4h4J8tn1Tdh+LRX4+jor2DCJda+txB6vv0IEtoCrO0QpeeoyWe
+ cs+7CmaJJhYttuDNgnRSOuttaegv18PaZEYLOzorCvj9CkdArKG5cWaYv
+ i9jb49nbb/bWdg+ZQToIUfgSiS70rqNkHGMSv0C6IW5s0lBSbxJRKuAdo
+ X7Z/+xT38weaNIvdW5ocT/0dlGVkGmT2vk0bSHuio7jx+CDZYyP/pff7w g==;
+X-CSE-ConnectionGUID: fOEinVpFTRC5oaboS76gSw==
+X-CSE-MsgGUID: nPa5GzXvR2iFiVb8qzwyuA==
+X-IronPort-AV: E=McAfee;i="6700,10204,11397"; a="71057502"
+X-IronPort-AV: E=Sophos;i="6.15,200,1739865600"; d="scan'208";a="71057502"
+Received: from orviesa005.jf.intel.com ([10.64.159.145])
+ by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 09 Apr 2025 06:37:34 -0700
+X-CSE-ConnectionGUID: EEjZc6pKQlWykWcc3HC/wg==
+X-CSE-MsgGUID: nVamybzkRMat+Yu7G7ehjw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.15,200,1739865600"; d="scan'208";a="133798080"
+Received: from orsmsx903.amr.corp.intel.com ([10.22.229.25])
+ by orviesa005.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 09 Apr 2025 06:37:35 -0700
+Received: from ORSMSX901.amr.corp.intel.com (10.22.229.23) by
+ ORSMSX903.amr.corp.intel.com (10.22.229.25) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.1544.14; Wed, 9 Apr 2025 06:37:33 -0700
+Received: from orsedg603.ED.cps.intel.com (10.7.248.4) by
+ ORSMSX901.amr.corp.intel.com (10.22.229.23) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.1544.14 via Frontend Transport; Wed, 9 Apr 2025 06:37:33 -0700
+Received: from NAM10-DM6-obe.outbound.protection.outlook.com (104.47.58.47) by
+ edgegateway.intel.com (134.134.137.100) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.1.2507.44; Wed, 9 Apr 2025 06:37:33 -0700
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=yGfxgKvFAGgwkk6gmZOeei1K/SCTzIS9Mt/HWjv901b9OIZWtE+vMdIgVKD9Y1IgYUlC1Ydry+RklR0gwfRGbqg0nFpewAHzRgXpZEFb2ZC156J5BuLnm52tVKzUvi+MxO+3TPd2Fi/bd/OwAgC39YIjlC3MFZ2wALoXs1ZhVwr+lOT6zGF4J5OTGsrZ2Byu4Kj3ZErL1U5oiExTQ2eExGp5AmFrqVBZewWboD97Qr0BlKaBKGMah4KY7GATwOsX6dPiqobG9zP+e+Uiy4bWX/B06HIIbVxnF/9t0Gx/Dp7zWZChG3JD6mHaCt8g1ZyAKPqCvYzi/zluzvx14Ayqmw==
+ b=FkJSAvy4G3qBAexJp+RusyQstA8Pyx+JE+Q41u889QK4UF5M3bhGuUEAMXGd9q/GwaCsUNBuOix0wObya+F8E7RllbFzPnDUJ40JEp+umb+wHHz9BffTEhlNqidAadfJjl1Zd4wgQ/S+sOOif8kYri3LIWR/BxG5R1vCnXaYiqgJQjsPBf5/oEw6lABL5Vbq9ZjxaEEDF1LAXhVLBLPQPhViogdAHEI0B7kvsag6JuTnMHLU4hSRv98gkmsNCK7WTU2VH5NTUufpyFUzQJf4bqxFhCyf9LfOYdb2CtGEgrNQsHmdYL3A9X3Bu8GX3x4uVWGrDB8pOjdUatAVxKlJLA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=ZMt8IhWXjfKKNSe/YUAi2Bwdd4Ynu5BMzPeY66KYb7k=;
- b=HRFpmKlgvhIZUEa9iLYZ6oShYvGSyDVm9eLPxl8HtZpge72fXvfskU5BGH18BlANIBOD0Ri/uWGEYFvfxNthi8txeyk7fMrkHr4iT/1/xmoXX+Lswq6cvXPt0+EuR4Gl66ndH4cNq5T5EpZUa5trdPFbgqWy50Up9otlpNVoRVirpLKoNMzkMEtnQhNKTVCWQutmof30S3PfV292KSIrbf0D1Km3mgOVnjoVC1W8OiD3E+U24yaIprBwBiFfMUUVo3ZotdZcK2TIGfulslMhm61nCbz7sBGT9/37XlbEBXUJOk10lS2hMUb1HEUVYSzwXwMVD8tNmF1GbfkLII+vzA==
+ bh=1fVEWVaMWnYMtS67nWuDiOMGD0IhAhoE/MTJXHiEVao=;
+ b=Ssgoig1bkDhT/qXn1jfGzpPafD45/K30FPE3gHKh9KhC2GF0BKedcMSxmEFoAQy+VERKUXvZpS6g8gfn4rE9P5RdS5iPjyaCXttJiNp6uQbEffxmHyhRil9Pcds1Ll32rgnxl8rWozF5ydYKu4f9DDr0+VDb4e7Cc8/48J/BY0tKdESAFExQh7p9TFTp8vtzHW67V4ygLOkZNOOYJMSseu/WnX/pSzR+ZK/SEq2Tmh4CTZK9x6bFyMG3k/d1GZCQBZ+s/fX2EXXnX+TKFf+5u6t784UWInkGqq6GxhVkZdLc3u7OVwNAB6ThQZuQx5ICJ/Gexeby2DRzCU8zKy3plw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ZMt8IhWXjfKKNSe/YUAi2Bwdd4Ynu5BMzPeY66KYb7k=;
- b=Ziuxw+SUz6wk9Z0qJxeR2lPXUP81o1XEr+3qKbkvWvZR54vc5Hq/Rw8rltt7Nb+b7BHCGqcz6PAqc7DK3G190hVGnuIXNtEUrSWcLSRH+qfpEqp0mmdc4pMD4vs4s6qeaJQSMigNpbIS0ShVbA3H9gU8eAG8frwyEFfPcGt9O+0=
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
 Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by IA0PR12MB8352.namprd12.prod.outlook.com (2603:10b6:208:3dd::14)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+Received: from SJ0PR11MB4845.namprd11.prod.outlook.com (2603:10b6:a03:2d1::10)
+ by LV8PR11MB8606.namprd11.prod.outlook.com (2603:10b6:408:1f7::12)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8606.35; Wed, 9 Apr
- 2025 13:14:42 +0000
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::46fb:96f2:7667:7ca5]) by PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::46fb:96f2:7667:7ca5%5]) with mapi id 15.20.8632.021; Wed, 9 Apr 2025
- 13:14:42 +0000
-Message-ID: <ab7d1937-d0e9-45f8-8f7d-ddd7a1a9d3d5@amd.com>
-Date: Wed, 9 Apr 2025 15:14:17 +0200
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/2] dma-fence: Rename dma_fence_is_signaled()
-To: phasta@kernel.org, Boris Brezillon <boris.brezillon@collabora.com>
-Cc: Sumit Semwal <sumit.semwal@linaro.org>,
- Gustavo Padovan <gustavo@padovan.org>,
- Felix Kuehling <Felix.Kuehling@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>, Xinhui Pan <Xinhui.Pan@amd.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- Lucas Stach <l.stach@pengutronix.de>,
- Russell King <linux+etnaviv@armlinux.org.uk>,
- Christian Gmeiner <christian.gmeiner@gmail.com>,
- Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, Tvrtko Ursulin
- <tursulin@ursulin.net>, Frank Binns <frank.binns@imgtec.com>,
- Matt Coster <matt.coster@imgtec.com>, Qiang Yu <yuq825@gmail.com>,
- Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
- Konrad Dybcio <konradybcio@kernel.org>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Marijn Suijten <marijn.suijten@somainline.org>, Lyude Paul
- <lyude@redhat.com>, Danilo Krummrich <dakr@kernel.org>,
- Rob Herring <robh@kernel.org>, Steven Price <steven.price@arm.com>,
- Dave Airlie <airlied@redhat.com>, Gerd Hoffmann <kraxel@redhat.com>,
- Matthew Brost <matthew.brost@intel.com>, Huang Rui <ray.huang@amd.com>,
- Matthew Auld <matthew.auld@intel.com>, Melissa Wen <mwen@igalia.com>,
- =?UTF-8?Q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>,
- Zack Rusin <zack.rusin@broadcom.com>, Broadcom internal kernel review list
- <bcm-kernel-feedback-list@broadcom.com>,
- Lucas De Marchi <lucas.demarchi@intel.com>,
- =?UTF-8?Q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
- Bas Nieuwenhuizen <bas@basnieuwenhuizen.nl>,
- Yang Wang <kevinyang.wang@amd.com>, Jesse Zhang <jesse.zhang@amd.com>,
- Tim Huang <tim.huang@amd.com>,
- Sathishkumar S <sathishkumar.sundararaju@amd.com>,
- Saleemkhan Jamadar <saleemkhan.jamadar@amd.com>,
- Sunil Khatri <sunil.khatri@amd.com>, Lijo Lazar <lijo.lazar@amd.com>,
- Hawking Zhang <Hawking.Zhang@amd.com>, Ma Jun <Jun.Ma2@amd.com>,
- Yunxiang Li <Yunxiang.Li@amd.com>, Eric Huang <jinhuieric.huang@amd.com>,
- Asad Kamal <asad.kamal@amd.com>,
- Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>,
- Jack Xiao <Jack.Xiao@amd.com>, Friedrich Vock <friedrich.vock@gmx.de>,
- =?UTF-8?Q?Michel_D=C3=A4nzer?= <mdaenzer@redhat.com>,
- Geert Uytterhoeven <geert@linux-m68k.org>,
- Anna-Maria Behnsen <anna-maria@linutronix.de>,
- Thomas Gleixner <tglx@linutronix.de>,
- Frederic Weisbecker <frederic@kernel.org>,
- Dan Carpenter <dan.carpenter@linaro.org>, linux-media@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
- linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org,
- etnaviv@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
- lima@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
- freedreno@lists.freedesktop.org, nouveau@lists.freedesktop.org,
- virtualization@lists.linux.dev, spice-devel@lists.freedesktop.org,
- intel-xe@lists.freedesktop.org
-References: <20250409120640.106408-2-phasta@kernel.org>
- <20250409120640.106408-3-phasta@kernel.org>
- <20250409143917.31303d22@collabora.com>
- <73d41cd84c73b296789b654e45125bfce88e0dbf.camel@mailbox.org>
- <72eb974dfea8fa1167cf97e29848672223f6fc5b.camel@mailbox.org>
-Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <72eb974dfea8fa1167cf97e29848672223f6fc5b.camel@mailbox.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: FR4P281CA0132.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:b9::10) To PH7PR12MB5685.namprd12.prod.outlook.com
- (2603:10b6:510:13c::22)
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8632.20; Wed, 9 Apr
+ 2025 13:37:17 +0000
+Received: from SJ0PR11MB4845.namprd11.prod.outlook.com
+ ([fe80::8900:d137:e757:ac9f]) by SJ0PR11MB4845.namprd11.prod.outlook.com
+ ([fe80::8900:d137:e757:ac9f%6]) with mapi id 15.20.8606.033; Wed, 9 Apr 2025
+ 13:37:17 +0000
+Date: Wed, 9 Apr 2025 16:37:20 +0300
+From: Imre Deak <imre.deak@intel.com>
+To: Jani Nikula <jani.nikula@linux.intel.com>
+CC: <intel-gfx@lists.freedesktop.org>, <intel-xe@lists.freedesktop.org>
+Subject: Re: [PATCH 10/10] drm/i915: Add force link bpp debugfs entry to
+ connectors
+Message-ID: <Z_Z4ENIrN-czndqa@ideak-desk.fi.intel.com>
+References: <20250408214342.1953197-1-imre.deak@intel.com>
+ <20250408214342.1953197-11-imre.deak@intel.com>
+ <87zfgpwxz9.fsf@intel.com>
+Content-Type: text/plain; charset="us-ascii"
+Content-Disposition: inline
+In-Reply-To: <87zfgpwxz9.fsf@intel.com>
+X-ClientProxiedBy: DB9PR02CA0014.eurprd02.prod.outlook.com
+ (2603:10a6:10:1d9::19) To SJ0PR11MB4845.namprd11.prod.outlook.com
+ (2603:10b6:a03:2d1::10)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|IA0PR12MB8352:EE_
-X-MS-Office365-Filtering-Correlation-Id: 75da6efb-51ca-475b-8897-08dd77687d4e
+X-MS-TrafficTypeDiagnostic: SJ0PR11MB4845:EE_|LV8PR11MB8606:EE_
+X-MS-Office365-Filtering-Correlation-Id: 46f55ee2-c37d-405e-6022-08dd776ba550
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|7416014|376014|366016|1800799024|7053199007; 
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?UjBqNXgzbkhLaU5rdTVpRFRjQy9KZkhZdHMyRU9EMUxzRWQ3THRiYkRTZkds?=
- =?utf-8?B?LzNNQ1pQS285Wmx6RTVxR1ltSzRVbXhrV3ZxZTdPY0QzcEdlaVVQdld5Qks0?=
- =?utf-8?B?SUFkSk1UYWdOOXNWLzZweFNVQVpzejdyRFFXc05ST1Y0ZWt6UDJneXZQYk4w?=
- =?utf-8?B?STBhaFI0ZjNVUi80ajZWRVFJTXFrMkNkTGQ3ZHhwWUxPb2NoQWN4aE4wV2Z4?=
- =?utf-8?B?NFV4d09GcEVmQk1JdGV1aVl6Z3paM0dta0FHditZbjFXSDN5RVFTUndCWW4r?=
- =?utf-8?B?U0JlaHZ0SHRPZmpLN1pJVVEwSXVqRXRGQzFJTkFOa2ZOWG8zSmFaUWJEUWhi?=
- =?utf-8?B?S0o2OGdUOGtxQi9lbzRZZURsOEdBNkQ3MGZOQWJZMkV1Um1OVENpbjFUZDFm?=
- =?utf-8?B?M0Q1MlJlQ244b2N5MDEwSmZWdHBkYzNpTmgrTUl2NUZyVmFyTmlrM3hzcllB?=
- =?utf-8?B?NXVIcGRWcG1DcGlJQU11VVJzRVQ0V2RHajUzZW1LR2FGMVMvaDJhK05xc3ll?=
- =?utf-8?B?cENIV3dYcUZPckRkaHV1U1JaSG9XbVhJcDF1ZnhqOTh6ZVFPMnV4c1NZU2Js?=
- =?utf-8?B?ZnNWd1pPT3FCR20xR1FTTGdwNitmUWNBSWNKWmgvY3hmOVdzcUFFZHdzRmEv?=
- =?utf-8?B?WGthUmJuL1U4SExTZWNGYmJ4WVp0MzY5U3FIOVNnOVo2cFcwclZOZFB3a29M?=
- =?utf-8?B?L1B1YWFzVVhhcmt3QUxxU2p3SUUrNmt0Y2Zna2VLOVZSbFl1OTRXSVJqSjYy?=
- =?utf-8?B?R1Zwc29aWEdrLzB0RVdxZ2RkeExqSFVyOGF6OXl3ZzVvYVhOKy9rd2VQU0Nw?=
- =?utf-8?B?OGhOZ0VtUTdsOUdHd3V5cUJmZWVTS2VGMG9xL01JWmRJbHRkRklLbFV1UVZP?=
- =?utf-8?B?bk4yWGRDVngxZzViTEs4V1Y0cnNpeXIrb29QL0J6aGtiemxPYjkxRUdrOEov?=
- =?utf-8?B?VmFlVldjUnVUWXdTK2VxVzhlSkZUbjd2eFRraU5FKzl1YjBhRDE0Y0JodG9W?=
- =?utf-8?B?dTFwQlI0L2tINm93NVlEVk8wRGovT1pNOXBHTzBhaTdIMHJDT2pxMFBobGVo?=
- =?utf-8?B?ZXI2eS8zbEtDci9ZVjlxQXY3bXY5YkNjY1RkZXEwOEpDZlRxbXNOTkdvcFVt?=
- =?utf-8?B?SWZZVm5ObHVyeEo3T0tJekZWQi9ITDkya2UvdXF5RWpxeCsrK0Fsa2JiTC9a?=
- =?utf-8?B?Z09CaCt6dlo4NFZLUWVtaitwenhrYU9tVE41QStVY1RHTG81UEsyOGw0T25K?=
- =?utf-8?B?cVl6MGdibVAvbXlTeXNZaUZ0ME5ESk5IQk9LSWU0YzlrSlAyQlpIZytCNm9v?=
- =?utf-8?B?TWZoRmdtcUNCeE5Mb2xINks4MUdNeVpCWDdlS2NmaFNoQWdEZXhWVkI3akJl?=
- =?utf-8?B?L2liYldyYmxvZUZNOHpiRFBuNXRTS0hHSndoeFpwVWpIK0h1QVlXaVRCQjg2?=
- =?utf-8?B?L0dHeVg4RWpIZ2xwb0s2VGlQRmpqKzJIY1Qxd2F0bDhiUEduMk9kTWIzUmRl?=
- =?utf-8?B?WGQrQjd2cnFXUFZCdFExZE1kclFvWTlxZHZvTTN1TTd1WFlRRE4wM09Xc3Z3?=
- =?utf-8?B?Qjg1OWlwNFQ5MEppbkoremNoWk9GT0I5MjdSSjE1S3V1VVhtUDYrL3RGVm9C?=
- =?utf-8?B?QTc1MTdrbkRsS1dlR3RJZ3k2N21BeElxeEdrZEROMVhHa3VIOFpOeVVOdjhk?=
- =?utf-8?B?L2ZrS01SK3VVbGZGSU10dkJUa0QzbE04dE9nTDlCK0N5eGJ2RXRBMGEydGdL?=
- =?utf-8?B?NkJKR1N6UysvMjFSMFQxYk5sbEo4NGR2dTcvcnBhQ0xFMkt0OHFDdHFQajYr?=
- =?utf-8?B?eXpnaGoxUGN1OCtJaEpqd2VucnVudVBaLzk2NHE3OWJlWDAxbytJWHpkSGdN?=
- =?utf-8?B?bFg3T2RQcGpycTltSi9vS1FlYjh4dUMvSDBRL2xqNXVhdm1IbEJWd3J5dEUw?=
- =?utf-8?Q?3zvaB5TSbLY=3D?=
+X-Microsoft-Antispam: BCL:0;ARA:13230040|376014|366016|1800799024;
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?VypmPdCtMAVIFnos6pZwOQOG+f8Dt57y4pRLmvwCWUsnme7ylWi+xStkxFDv?=
+ =?us-ascii?Q?0RQKUu+6Yp4cZNlVbOrmHoMqZfdRfGG5yC8gHiD7332gttB1qOepZQFQWX6p?=
+ =?us-ascii?Q?EnXCNFNJ96LygHSDRLSPwFfizQX0vB/q0iWky+LdbLFMkBCd9IeTzqNKK3rg?=
+ =?us-ascii?Q?8SRoQA+FE9urY6zLUU6DCZVijJB3ir3qFhGY05E552Ur6nOCzPrAV64Udk/T?=
+ =?us-ascii?Q?vDCNWl3ZGP3Oc9vLB3kFjgazYov9gTlCf6JWIv92iOQKa1SkmeVtHFG4kpom?=
+ =?us-ascii?Q?OpT2pOoWt900/njbXNWetohw/LGbIyxteN+OlfPU1pvguBZTRdocb2QYrvo3?=
+ =?us-ascii?Q?IwuyMoZ/vOoJLfdci/RTnlIBBHKq+5NvI0ZYniyQjc613akt4ft0ufAuHKdE?=
+ =?us-ascii?Q?XC+8E18muuezkOPuuh8fiqjnJgDoOBTTZm8fHjjk+tQxDxQwJF3FG5seWfdj?=
+ =?us-ascii?Q?X6BpEA7rKbkInXv1Xm8z/pAnoHIG7J4Fx40ZwtfOCWZjjt8xcm+XgOscasTj?=
+ =?us-ascii?Q?GWbIZMan2lB42+Bz4egCsoUIpWOxwRk5V4UaLE7RR11xhp+jQ6gLk8Wa6fhR?=
+ =?us-ascii?Q?GoZ1WCf/uH8ZnqzGv8zzRsQ41qfD4lQe84OuJGZ+vQGlAjTijeBJL6JfP7UU?=
+ =?us-ascii?Q?LUp/wgyiod4rgd4QY0QD/Y4O2cXg4WDawiXQXzDoldFE1SCCdHruiGst+9TN?=
+ =?us-ascii?Q?XF4rjZiXeNsjv/A2U+eNs9nWyJJaFCzsbvxjJ0/XWC4X+2XU01FypzaL7xip?=
+ =?us-ascii?Q?yWYF2jLOnrBq5H30eAjlOHhBlkDZOMQ6NpQWTOq8JEgM3T4HMVWmJuFPGpY6?=
+ =?us-ascii?Q?edZdC0R9vk3ynynmeCQnQF8lszE5DULo5Nag2BScCo+XC/c4ka9NvfbwoODt?=
+ =?us-ascii?Q?WMZPpMuI/Q7BFDYNpOSgizMDSJpxxmGsyZoLR908ttva5x+2ow/hmzdqmBau?=
+ =?us-ascii?Q?BrrJMYcxJYbPY45in9niXURf/iAzxghQFriHnVQ05zmISzBIH9vlGgzVqWVI?=
+ =?us-ascii?Q?cakf3Fz+3oDXKxBK9Xr9cDnylZ4v9u2A/Y3PjtL8bz8kSWCly2D4mIAbAQkj?=
+ =?us-ascii?Q?X3EL8FI1pZDDVG4t7mEwDQ7+Fi/xPRera8Fglf88vtRABKCgGAqJiC/qCLqO?=
+ =?us-ascii?Q?Owt9zYBVJ/r25IygU9EvUdcsCis/4APVDJYRadX2Ab/afLTw4mt3wstfnUWt?=
+ =?us-ascii?Q?1iEkohQ1Sg1rzySD6MdN+vJSZJuKtWKdlrup3s+4xAlo/rM60Bzlt9z19d6P?=
+ =?us-ascii?Q?AgHEB2yYXkXpA9OK1tvAUXrut54O8nR4p1UJmYEpFBRUwxwvANWP5vawYeDX?=
+ =?us-ascii?Q?raH91HDxxZoWUh7XGqi4yLek+jNghVHMfPrv3t8Ahlg96Ve+fe6BBzlWo/aL?=
+ =?us-ascii?Q?mlh3AsSaYvWAnpIrLxdebTsVNLf24CV7GOf1Ah2+stfwN+jrHGDINepVY3/F?=
+ =?us-ascii?Q?JE0uxgtmOws=3D?=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(7416014)(376014)(366016)(1800799024)(7053199007); DIR:OUT;
- SFP:1101; 
+ IPV:NLI; SFV:NSPM; H:SJ0PR11MB4845.namprd11.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(376014)(366016)(1800799024); DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?SFVXQlJLTHpjNzJoYi9mWVhiZmNYaDZFa1RoZS9Jc2FkOFpwWnJHQnNTOVNt?=
- =?utf-8?B?TTRUSGlkZElpcVpIaFFrQ3lrOGFVM0VhUEdhL2NxZ2M5R1ZHMHlxci9iMnpG?=
- =?utf-8?B?cFRSeWh2ekYxdy84Rld4SmFpMDg5aUJMRXNpNHlzWndCbEZnazhURFBnM25z?=
- =?utf-8?B?bEV5N1lpM24yR2Qwd25HS202Yis0MkU3SXJwTFFNNVJteStkS3NoYUh6SzdR?=
- =?utf-8?B?NzlWc05yZ2lPRXBML3ZERW5KUWtnQWt5V1QyRHlVQ2h1VXlGV2RnNUpDRWVI?=
- =?utf-8?B?NWJrRlN5U3p4MytYa2Q4L3ZTZFBNSG9nOUZBZGNLY2hQaG02aG9UUlRSNkJh?=
- =?utf-8?B?cTlYZ3NsTmdvL0prSU4xUXgzYlJBL1cwMW1xVDE2SEEwWDduRGFQYXpORUpE?=
- =?utf-8?B?MSs4ZTZsK0Y2T1FtK0FPQkJzcHlGZDBWa29lcWNJZDNaNFdTVTUxNDkzU1Rn?=
- =?utf-8?B?TGpPd0FKekwvWVNCaWFsVUQyR1cxby94RStHM1djMk5ydUdTdm1FK3N3bkFE?=
- =?utf-8?B?dFBHb1hYZnBvZHRRZWgzTzRzNDB5Z0twM0Y4Y205ZWU1NU9mamFEYmpzaWxL?=
- =?utf-8?B?SkJaSzZ3cFU2Q3F5R3NXaHU3WFdJMnRpbWNFTkl1ODZEb2JmQWxaZkZST2l2?=
- =?utf-8?B?QWJVYktDWDIzc3BZU0krRDd4RVJNQzFqQkoyK1lDb0oxTSs5Qk9xclNkY1pH?=
- =?utf-8?B?cTlmUlNlall4clBnaFRjUC8xRWsxWTRZclFqV2UwUGV2Y0p5NVZxeGNGZG1m?=
- =?utf-8?B?dDQwUVJzWlFIZWhKUmUyYXI0V3lkSU5kc3ZWZGFhNzRZSnUwQmMwZ1hzZWZ0?=
- =?utf-8?B?UzVPSGkyQTNuUkVkUFlUYnh4cGtXU0hsRXEyVnlmM0srMnVpem9YT3B2bWhH?=
- =?utf-8?B?aGVMSGsyYUlkak52UjI2WjdhMndWNTlSNS9wdWZwN1VhVG01clo4WExoNVk5?=
- =?utf-8?B?UmtqaTlxVDhiMUlqa1RPNjZ2cnNxNUVHMmRwalJYWEJTMkpDRmlLTDZqRk03?=
- =?utf-8?B?bUh3M0ZKNjNRN3k3clVuK0V4OFJuNmhBOFRhSWtVY1VZc1NJUVpLQlB2MWRr?=
- =?utf-8?B?ckp2NXR2RmxGZ09ZdlVVdWdTRHpOQ2ltd0I2aE8yU04xYmNNM29GS25XZUxy?=
- =?utf-8?B?NHhLRlNXSFBReGdNbm9mQnlUMEMzUjJHalhKb0hEUGl6bWRkdndjUHFvUHBK?=
- =?utf-8?B?U1VRV2M5WUhDUnVDY0dOeFY4ay94WitjcjhsSFZ3eGhBQ3E0blplNXlVbHg0?=
- =?utf-8?B?NFBIeSs3UVZlTjRheWM1UnIvdzIyZS9BSGVnVE1nY24wdHVLWC9KTWRJMnph?=
- =?utf-8?B?KzFpYithVkl2MFdEdEJLQ1RINDRDZmNjaXVxTDNUTHM4SjFOd1hYbEl0ZWw1?=
- =?utf-8?B?VGQ5RDJFYjFrUlk4ZmVzNlJlYm1pakJLcENKSTU1OTdSQXU0MU9VeGpmdHpu?=
- =?utf-8?B?QjFKTDdhd04ySjZOY3dPaS85RXZwTkZGUmxJczVMdXNlMGZIODMrQ28rZjVs?=
- =?utf-8?B?cVgvQ1FURzc1TFhtbEVkU1ZmdEhEK0plT1hEclhZVUIxYnU2TVp0alh4ZDdr?=
- =?utf-8?B?Q2trclN5eEptSWdwWGMvdWt4amowZWlTYWpENjlSclRvb1BrbEVjZDVRREk2?=
- =?utf-8?B?UGc4RTdLTFExZmV2QzJaQ3VPMVN6RTNGdU9uVnhZMmZnLzhWTlFGbExXclJO?=
- =?utf-8?B?OTBQWWJsc0hKYVUzaG5nbHJqK2g4V0paektwRzRKd2tjaWhsd0RnWmUrT1Fo?=
- =?utf-8?B?VDFjb1JLQ2hHc0YwRW1CMFFOdnVUZ3hpL1BQbElNQlUwcDJVZzRkYU1YZzcv?=
- =?utf-8?B?VXZPZk00bWNhWHBIOFd3WXpvR0ZRQXFRYnBXd1dOOTR0SVd2anRUMVhmMnhy?=
- =?utf-8?B?WXZXaUljY1pLU09nSnh6TDg1NVQ4S2xLN01na3RzQndvYjJmdUpCUEZYZHp3?=
- =?utf-8?B?b0toNStFUXFEL0hKdTgzODFxa3ZwbzhtdmpENnpFS29UeVppRU5xaUc3czVM?=
- =?utf-8?B?VDBNalBIaXF3UUxFNFJrUkMvQXNIZWRQSFU0SHF0cWJlTzNCNFh2TEFiNjB5?=
- =?utf-8?B?aTlkSTRsMW5wSjB0WFl4cWJWeWFHZDlrdU5mODY0WklFZ1lnMHdTa2Ewb1do?=
- =?utf-8?Q?r8gw=3D?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 75da6efb-51ca-475b-8897-08dd77687d4e
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?IisPkLSy/I9hALyQnEiRlL+9jLN/GgodgLjArtDP43KMxWrks7fOCB1tTVQm?=
+ =?us-ascii?Q?grp6Vp37car5ENrh6yKQ0mkSAlWLqTc42CE5/tUyK5DMQfk97TsciaCRJOXa?=
+ =?us-ascii?Q?ufktXPixXYlo2OW3ok550ARbTeYuOyx1HSgPMX1ihP/ZlL17PitE+A5ULRJP?=
+ =?us-ascii?Q?JeZ3YYf9YMUwjpgZaEAU8FI6hHSadbCBM+ZMJNUEqIz8R/s7d652VfVH9ALD?=
+ =?us-ascii?Q?V5365LCRU3ZXJ/kvjqsjUBxaL4KgBvX8e97D7UZJ1XLMP/AfnZsWRrnK+3l0?=
+ =?us-ascii?Q?uMVC1hAfwgILb5dUVDws9lC2ZDBFXQDMfRiMFySFjnQOG0dCj6eJY02qwRgR?=
+ =?us-ascii?Q?drx74KureVmYDc8Nw2pSgKAlxTRtQpN/SO3BClbVyoD/4UZ6a0s5JVrZrcF/?=
+ =?us-ascii?Q?9F11N21RaUGU9tk3WWOfDOIz1ZV1eB3NLQdl0RW4VsXx5IQ6vNHFGMZRm3eo?=
+ =?us-ascii?Q?FcVJ74yhgGHaHnqZJTuudQ+VvQ+rY/8V6bBUXS/GWVLiJ/6a9xY8xeD1+23c?=
+ =?us-ascii?Q?dv/ICu6O7RPSCn2ok2GVw+P21opi1gHf/dTfRzhsLRQ2d7cs/n3FkvGy3kww?=
+ =?us-ascii?Q?7jOU/XJmtrvMyzQ8T3/CLYqs3FES7b8O3Cek1IFf1dfKLyqJUkJyLxFogEIt?=
+ =?us-ascii?Q?N7StTM5YyFt8psK1uxeRQ9xeMDuZvLDsd9kHhr1Lfw0JurkV1mIWVBvBC6+5?=
+ =?us-ascii?Q?nTIvq/Au+z72ytbY8zAsMF04NYmdHXy6XQHx/TLe24Ai65ejtufOZmIGLPyC?=
+ =?us-ascii?Q?BIRmh7s5OQVZZbyKk0KAywLzR9M7wKVGZn7quNzLPpMrxLIbHL8Gusv5oOkM?=
+ =?us-ascii?Q?ZpHuMYaz/qFqoSM62WJPvSGQwUPEhbM5xhEjqcXnh6/OGCeEX/6kBH8BXUrZ?=
+ =?us-ascii?Q?EqIANjYau169MoyLNCGFn/VHxWpIIoROHXZXnVEhZtLc5Yw9A16PMO/QP0RB?=
+ =?us-ascii?Q?zaXDbcpJteB1GRQujFmUF9+ZOZCJr8pfcgZ/nvdtpbtu21u7NPPwLkKeRRw9?=
+ =?us-ascii?Q?S4qN6WCuZNldooHEzzoArNXdUj7dEAcEDwcCvmZseEOvQmCyymAbRWIuBndD?=
+ =?us-ascii?Q?td+9FwXK1mYLHAhx0OIF65OtIahaNTTzW12iUSuieTuhIqglueq0JYhOctP7?=
+ =?us-ascii?Q?j1/jka33Fq1QvytZsgx+ISE9aRAy4jKnMQJ7HjT0XCJXk7uhz40fV2v8sfeV?=
+ =?us-ascii?Q?g7RP20+O81A30i305I4e7Y5t4X7hgBcTJYllPPxAUtwLv7w15+YKD7BQhXVM?=
+ =?us-ascii?Q?Jb0Gxvjr7jKRlHmrw0GYakfJkbabGlexJpeUrlXP9jrlbRVI+8qKYTQrPvSW?=
+ =?us-ascii?Q?s07C5QGEADkp7ECXdJAsWIYs0rUkVvWcdFV8PpaLgWUQGwyj94v89Dis/Q63?=
+ =?us-ascii?Q?cH7jh/6Bz8FIyXYS5U9XKps5VQKDhhrFzNhxA9msRezc+XsayYpx5U9ZyxXA?=
+ =?us-ascii?Q?GGU2B4D8kV2gViV1p0rZqE8HMJSNcEFNkHVQtCmEPnCoTNwjroXZKxpiEVW6?=
+ =?us-ascii?Q?AuSeFI2zmGPUOQ1ubsMdgMO2MgLYLlbTSGo5rDOlq6mg+2dh5MPe3HaYHJvX?=
+ =?us-ascii?Q?33WCYcbOgtRR45Tu+451sI4eDt7y6HaEG6XHWwMN?=
+X-MS-Exchange-CrossTenant-Network-Message-Id: 46f55ee2-c37d-405e-6022-08dd776ba550
+X-MS-Exchange-CrossTenant-AuthSource: SJ0PR11MB4845.namprd11.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Apr 2025 13:14:42.2808 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Apr 2025 13:37:17.7855 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: Cwf+4Ijyeu9sD7MROrsq1lN1XEEQrMsc2l+l2+likNJmA+nXh7J80XOHgLCckfIQ
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR12MB8352
+X-MS-Exchange-CrossTenant-UserPrincipalName: B5Jzmt+C9IaSnL3yClemqH4cNO+SEvU2yjGSmRUAL4Dim/Lffz/3Fs0Db5tPr2UGoNPtLtu+isaqplcHU5MXxw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV8PR11MB8606
+X-OriginatorOrg: intel.com
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -217,96 +175,295 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: imre.deak@intel.com
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Am 09.04.25 um 14:56 schrieb Philipp Stanner:
-> On Wed, 2025-04-09 at 14:51 +0200, Philipp Stanner wrote:
->> On Wed, 2025-04-09 at 14:39 +0200, Boris Brezillon wrote:
->>> Hi Philipp,
->>>
->>> On Wed,  9 Apr 2025 14:06:37 +0200
->>> Philipp Stanner <phasta@kernel.org> wrote:
->>>
->>>> dma_fence_is_signaled()'s name strongly reads as if this function
->>>> were
->>>> intended for checking whether a fence is already signaled. Also
->>>> the
->>>> boolean it returns hints at that.
->>>>
->>>> The function's behavior, however, is more complex: it can check
->>>> with a
->>>> driver callback whether the hardware's sequence number indicates
->>>> that
->>>> the fence can already be treated as signaled, although the
->>>> hardware's /
->>>> driver's interrupt handler has not signaled it yet. If that's the
->>>> case,
->>>> the function also signals the fence.
->>>>
->>>> (Presumably) this has caused a bug in Nouveau (unknown commit),
->>>> where
->>>> nouveau_fence_done() uses the function to check a fence, which
->>>> causes a
->>>> race.
->>>>
->>>> Give the function a more obvious name.
->>> This is just my personal view on this, but I find the new name just
->>> as
->>> confusing as the old one. It sounds like something is checked, but
->>> it's
->>> clear what, and then the fence is forcibly signaled like it would
->>> be
->>> if
->>> you call drm_fence_signal(). Of course, this clarified by the doc,
->>> but
->>> given the goal was to make the function name clearly reflect what
->>> it
->>> does, I'm not convinced it's significantly better.
->>>
->>> Maybe dma_fence_check_hw_state_and_propagate(), though it might be
->>> too long of name. Oh well, feel free to ignore this comments if a
->>> majority is fine with the new name.
->> Yoa, the name isn't perfect (the perfect name describing the whole
->> behavior would be
->> dma_fence_check_if_already_signaled_then_check_hardware_state_and_pro
->> pa
->> gate() ^^'
->>
->> My intention here is to have the reader realize "watch out, the fence
->> might get signaled here!", which is probably the most important event
->> regarding fences, which can race, invoke the callbacks and so on.
->>
->> For details readers will then check the documentation.
->>
->> But I'm of course open to see if there's a majority for this or that
->> name.
-> how about:
->
-> dma_fence_check_hw_and_signal() ?
+On Wed, Apr 09, 2025 at 11:16:58AM +0300, Jani Nikula wrote:
+> On Wed, 09 Apr 2025, Imre Deak <imre.deak@intel.com> wrote:
+> > Add the debugfs entry to force a link bpp to all relevant connectors:
+> > all DP connectors and on an FDI link CRT/SDVO/LVDS/HDMI connectors.
+> 
+> This deviates from the current approach of intel_connector_register()
+> calling intel_connector_debugfs_add() which checks for connector types
+> and other conditions before registering debugfs files.
+> 
+> In many cases intel_connector_debugfs_add() unconditionally calls
+> feature specific debugfs functions such as
+> intel_hdcp_connector_debugfs_add() which then check the connector type.
+> 
+> I understand the motivation in this patch, being more object oriented
+> and all, but it's still a deviation. I prefer the same approach for
+> all. Currently it's obvious where all connector debugfs files get
+> registered. After this patch, it's not, and it's no longer clear cut
+> where connector debugfs files should be created.
 
-I don't think that renaming the function is a good idea in the first place.
+I think the better approach is each connector adding the debugfs entries
+relevant to them, even for the existing hdcp, pps, psr etc. entries. That
+would avoid all the connector_type checks, replicated now in all the
+*_connector_debugfs_add() functions. It's also odd to recheck the
+connector type on a code path the connector type is already known to the
+caller.
 
-What the function does internally is an implementation detail of the framework.
+This approach would also match how the connector specific properties are
+added.
 
-For the code using this function it's completely irrelevant if the function might also signal the fence, what matters for the caller is the returned status of the fence. I think this also counts for the dma_fence_is_signaled() documentation.
-
-What we should improve is the documentation of the dma_fence_ops->enable_signaling and dma_fence_ops->signaled callbacks.
-
-Especially see the comment about reference counts on enable_signaling which is missing on the signaled callback. That is most likely the root cause why nouveau implemented enable_signaling correctly but not the other one.
-
-But putting that aside I think we should make nails with heads and let the framework guarantee that the fences stay alive until they are signaled (one way or another). This completely removes the burden to keep a reference on unsignaled fences from the drivers / implementations and make things more over all more defensive.
-
-Regards,
-Christian.
-
->
-> P.
->
->> P.
->>
->>
->>> Regards,
->>>
->>> Boris
-
+> Please add the connector type checks in
+> intel_link_bw_connector_debugfs_add() and call it from
+> intel_connector_debugfs_add().
+> 
+> 
+> BR,
+> Jani.
+> 
+> 
+> >
+> > Signed-off-by: Imre Deak <imre.deak@intel.com>
+> > ---
+> >  drivers/gpu/drm/i915/display/intel_crt.c      | 20 ++++++++++++++++++-
+> >  .../drm/i915/display/intel_display_device.h   |  1 +
+> >  drivers/gpu/drm/i915/display/intel_dp.c       |  3 +++
+> >  drivers/gpu/drm/i915/display/intel_dp_mst.c   |  2 ++
+> >  drivers/gpu/drm/i915/display/intel_hdmi.c     |  8 +++++++-
+> >  drivers/gpu/drm/i915/display/intel_lvds.c     | 20 ++++++++++++++++++-
+> >  drivers/gpu/drm/i915/display/intel_sdvo.c     | 20 ++++++++++++++++++-
+> >  7 files changed, 70 insertions(+), 4 deletions(-)
+> >
+> > diff --git a/drivers/gpu/drm/i915/display/intel_crt.c b/drivers/gpu/drm/i915/display/intel_crt.c
+> > index cca22d2402e88..69831d6f68912 100644
+> > --- a/drivers/gpu/drm/i915/display/intel_crt.c
+> > +++ b/drivers/gpu/drm/i915/display/intel_crt.c
+> > @@ -43,6 +43,7 @@
+> >  #include "intel_ddi.h"
+> >  #include "intel_ddi_buf_trans.h"
+> >  #include "intel_de.h"
+> > +#include "intel_display_device.h"
+> >  #include "intel_display_driver.h"
+> >  #include "intel_display_types.h"
+> >  #include "intel_fdi.h"
+> > @@ -51,6 +52,7 @@
+> >  #include "intel_gmbus.h"
+> >  #include "intel_hotplug.h"
+> >  #include "intel_hotplug_irq.h"
+> > +#include "intel_link_bw.h"
+> >  #include "intel_load_detect.h"
+> >  #include "intel_pch_display.h"
+> >  #include "intel_pch_refclk.h"
+> > @@ -986,13 +988,29 @@ void intel_crt_reset(struct drm_encoder *encoder)
+> >  
+> >  }
+> >  
+> > +static int intel_crt_connector_register(struct drm_connector *_connector)
+> > +{
+> > +	struct intel_connector *connector = to_intel_connector(_connector);
+> > +	struct intel_display *display = to_intel_display(connector);
+> > +	int err;
+> > +
+> > +	err = intel_connector_register(&connector->base);
+> > +	if (err)
+> > +		return err;
+> > +
+> > +	if (HAS_FDI(display))
+> > +		intel_link_bw_connector_debugfs_add(connector);
+> > +
+> > +	return 0;
+> > +}
+> > +
+> >  /*
+> >   * Routines for controlling stuff on the analog port
+> >   */
+> >  
+> >  static const struct drm_connector_funcs intel_crt_connector_funcs = {
+> >  	.fill_modes = drm_helper_probe_single_connector_modes,
+> > -	.late_register = intel_connector_register,
+> > +	.late_register = intel_crt_connector_register,
+> >  	.early_unregister = intel_connector_unregister,
+> >  	.destroy = intel_connector_destroy,
+> >  	.atomic_destroy_state = drm_atomic_helper_connector_destroy_state,
+> > diff --git a/drivers/gpu/drm/i915/display/intel_display_device.h b/drivers/gpu/drm/i915/display/intel_display_device.h
+> > index 368b0d3417c26..a84bdc83417f1 100644
+> > --- a/drivers/gpu/drm/i915/display/intel_display_device.h
+> > +++ b/drivers/gpu/drm/i915/display/intel_display_device.h
+> > @@ -171,6 +171,7 @@ struct intel_display_platforms {
+> >  #define HAS_GMBUS_BURST_READ(__display)	(DISPLAY_VER(__display) >= 10 || (__display)->platform.kabylake)
+> >  #define HAS_GMBUS_IRQ(__display)	(DISPLAY_VER(__display) >= 4)
+> >  #define HAS_GMCH(__display)		(DISPLAY_INFO(__display)->has_gmch)
+> > +#define HAS_FDI(__display)		(IS_DISPLAY_VER((__display), 5, 8) && !HAS_GMCH(__display))
+> >  #define HAS_HOTPLUG(__display)		(DISPLAY_INFO(__display)->has_hotplug)
+> >  #define HAS_HW_SAGV_WM(__display)	(DISPLAY_VER(__display) >= 13 && !(__display)->platform.dgfx)
+> >  #define HAS_IPC(__display)		(DISPLAY_INFO(__display)->has_ipc)
+> > diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
+> > index 8ca33ebedce27..0b19a9b5adda5 100644
+> > --- a/drivers/gpu/drm/i915/display/intel_dp.c
+> > +++ b/drivers/gpu/drm/i915/display/intel_dp.c
+> > @@ -80,6 +80,7 @@
+> >  #include "intel_hdmi.h"
+> >  #include "intel_hotplug.h"
+> >  #include "intel_hotplug_irq.h"
+> > +#include "intel_link_bw.h"
+> >  #include "intel_lspcon.h"
+> >  #include "intel_lvds.h"
+> >  #include "intel_modeset_lock.h"
+> > @@ -5890,6 +5891,8 @@ intel_dp_connector_register(struct drm_connector *_connector)
+> >  	if (ret)
+> >  		return ret;
+> >  
+> > +	intel_link_bw_connector_debugfs_add(connector);
+> > +
+> >  	drm_dbg_kms(display->drm, "registering %s bus for %s\n",
+> >  		    intel_dp->aux.name, connector->base.kdev->kobj.name);
+> >  
+> > diff --git a/drivers/gpu/drm/i915/display/intel_dp_mst.c b/drivers/gpu/drm/i915/display/intel_dp_mst.c
+> > index 35214d9a8c781..7508aa4e3695f 100644
+> > --- a/drivers/gpu/drm/i915/display/intel_dp_mst.c
+> > +++ b/drivers/gpu/drm/i915/display/intel_dp_mst.c
+> > @@ -1445,6 +1445,8 @@ mst_connector_late_register(struct drm_connector *_connector)
+> >  	if (ret < 0)
+> >  		drm_dp_mst_connector_early_unregister(&connector->base, connector->mst.port);
+> >  
+> > +	intel_link_bw_connector_debugfs_add(connector);
+> > +
+> >  	return ret;
+> >  }
+> >  
+> > diff --git a/drivers/gpu/drm/i915/display/intel_hdmi.c b/drivers/gpu/drm/i915/display/intel_hdmi.c
+> > index 8f2cef36bdf79..0747ef8d6c0ca 100644
+> > --- a/drivers/gpu/drm/i915/display/intel_hdmi.c
+> > +++ b/drivers/gpu/drm/i915/display/intel_hdmi.c
+> > @@ -52,6 +52,7 @@
+> >  #include "intel_cx0_phy.h"
+> >  #include "intel_ddi.h"
+> >  #include "intel_de.h"
+> > +#include "intel_display_device.h"
+> >  #include "intel_display_driver.h"
+> >  #include "intel_display_types.h"
+> >  #include "intel_dp.h"
+> > @@ -60,6 +61,7 @@
+> >  #include "intel_hdcp_regs.h"
+> >  #include "intel_hdcp_shim.h"
+> >  #include "intel_hdmi.h"
+> > +#include "intel_link_bw.h"
+> >  #include "intel_lspcon.h"
+> >  #include "intel_panel.h"
+> >  #include "intel_pfit.h"
+> > @@ -2611,13 +2613,17 @@ static int
+> >  intel_hdmi_connector_register(struct drm_connector *_connector)
+> >  {
+> >  	struct intel_connector *connector = to_intel_connector(_connector);
+> > +	struct intel_display *display = to_intel_display(connector);
+> >  	int ret;
+> >  
+> >  	ret = intel_connector_register(&connector->base);
+> >  	if (ret)
+> >  		return ret;
+> >  
+> > -	return ret;
+> > +	if (HAS_FDI(display))
+> > +		intel_link_bw_connector_debugfs_add(connector);
+> > +
+> > +	return 0;
+> >  }
+> >  
+> >  static void intel_hdmi_connector_unregister(struct drm_connector *_connector)
+> > diff --git a/drivers/gpu/drm/i915/display/intel_lvds.c b/drivers/gpu/drm/i915/display/intel_lvds.c
+> > index 89d26913e2539..3ac6aaa025434 100644
+> > --- a/drivers/gpu/drm/i915/display/intel_lvds.c
+> > +++ b/drivers/gpu/drm/i915/display/intel_lvds.c
+> > @@ -45,10 +45,12 @@
+> >  #include "intel_backlight.h"
+> >  #include "intel_connector.h"
+> >  #include "intel_de.h"
+> > +#include "intel_display_device.h"
+> >  #include "intel_display_types.h"
+> >  #include "intel_dpll.h"
+> >  #include "intel_fdi.h"
+> >  #include "intel_gmbus.h"
+> > +#include "intel_link_bw.h"
+> >  #include "intel_lvds.h"
+> >  #include "intel_lvds_regs.h"
+> >  #include "intel_panel.h"
+> > @@ -501,6 +503,22 @@ static int intel_lvds_get_modes(struct drm_connector *_connector)
+> >  	return intel_panel_get_modes(connector);
+> >  }
+> >  
+> > +static int intel_lvds_connector_register(struct drm_connector *_connector)
+> > +{
+> > +	struct intel_connector *connector = to_intel_connector(_connector);
+> > +	struct intel_display *display = to_intel_display(connector);
+> > +	int err;
+> > +
+> > +	err = intel_connector_register(&connector->base);
+> > +	if (err)
+> > +		return err;
+> > +
+> > +	if (HAS_FDI(display))
+> > +		intel_link_bw_connector_debugfs_add(connector);
+> > +
+> > +	return 0;
+> > +}
+> > +
+> >  static const struct drm_connector_helper_funcs intel_lvds_connector_helper_funcs = {
+> >  	.get_modes = intel_lvds_get_modes,
+> >  	.mode_valid = intel_lvds_mode_valid,
+> > @@ -512,7 +530,7 @@ static const struct drm_connector_funcs intel_lvds_connector_funcs = {
+> >  	.fill_modes = drm_helper_probe_single_connector_modes,
+> >  	.atomic_get_property = intel_digital_connector_atomic_get_property,
+> >  	.atomic_set_property = intel_digital_connector_atomic_set_property,
+> > -	.late_register = intel_connector_register,
+> > +	.late_register = intel_lvds_connector_register,
+> >  	.early_unregister = intel_connector_unregister,
+> >  	.destroy = intel_connector_destroy,
+> >  	.atomic_destroy_state = drm_atomic_helper_connector_destroy_state,
+> > diff --git a/drivers/gpu/drm/i915/display/intel_sdvo.c b/drivers/gpu/drm/i915/display/intel_sdvo.c
+> > index 757b9ce7e3b1c..ab7caaa4f287f 100644
+> > --- a/drivers/gpu/drm/i915/display/intel_sdvo.c
+> > +++ b/drivers/gpu/drm/i915/display/intel_sdvo.c
+> > @@ -45,6 +45,7 @@
+> >  #include "intel_connector.h"
+> >  #include "intel_crtc.h"
+> >  #include "intel_de.h"
+> > +#include "intel_display_device.h"
+> >  #include "intel_display_driver.h"
+> >  #include "intel_display_types.h"
+> >  #include "intel_fdi.h"
+> > @@ -52,6 +53,7 @@
+> >  #include "intel_gmbus.h"
+> >  #include "intel_hdmi.h"
+> >  #include "intel_hotplug.h"
+> > +#include "intel_link_bw.h"
+> >  #include "intel_panel.h"
+> >  #include "intel_sdvo.h"
+> >  #include "intel_sdvo_regs.h"
+> > @@ -2502,12 +2504,28 @@ intel_sdvo_connector_duplicate_state(struct drm_connector *connector)
+> >  	return &state->base.base;
+> >  }
+> >  
+> > +static int intel_sdvo_connector_register(struct drm_connector *_connector)
+> > +{
+> > +	struct intel_connector *connector = to_intel_connector(_connector);
+> > +	struct intel_display *display = to_intel_display(connector);
+> > +	int err;
+> > +
+> > +	err = intel_connector_register(&connector->base);
+> > +	if (err)
+> > +		return err;
+> > +
+> > +	if (HAS_FDI(display))
+> > +		intel_link_bw_connector_debugfs_add(connector);
+> > +
+> > +	return 0;
+> > +}
+> > +
+> >  static const struct drm_connector_funcs intel_sdvo_connector_funcs = {
+> >  	.detect = intel_sdvo_detect,
+> >  	.fill_modes = drm_helper_probe_single_connector_modes,
+> >  	.atomic_get_property = intel_sdvo_connector_atomic_get_property,
+> >  	.atomic_set_property = intel_sdvo_connector_atomic_set_property,
+> > -	.late_register = intel_connector_register,
+> > +	.late_register = intel_sdvo_connector_register,
+> >  	.early_unregister = intel_connector_unregister,
+> >  	.destroy = intel_connector_destroy,
+> >  	.atomic_destroy_state = drm_atomic_helper_connector_destroy_state,
+> 
+> -- 
+> Jani Nikula, Intel
