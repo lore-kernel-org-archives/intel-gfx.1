@@ -4,52 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DE87EC369A1
-	for <intel-gfx@archiver.kernel.org>; Wed,  9 Apr 2025 18:18:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B69AFC369AA
+	for <intel-gfx@archiver.kernel.org>; Wed,  9 Apr 2025 18:18:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6C2EA10E318;
-	Wed,  9 Apr 2025 18:18:45 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CC3EC10E69E;
+	Wed,  9 Apr 2025 18:18:46 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="JjkmxQsY";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="a+1xnDpk";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.12])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 29AD010E2FA;
- Wed,  9 Apr 2025 18:18:44 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E34A010E2FC;
+ Wed,  9 Apr 2025 18:18:45 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1744222724; x=1775758724;
+ t=1744222726; x=1775758726;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=ZNnrqDqVBllljMHy+aYGwGmpeuBaG1xIfV68Ou0WaIg=;
- b=JjkmxQsY2s0sV10WT2YrDXpAn2IoaSJyxjglr9sGzlVs3F1zBOKJ5S7n
- EjhVK+asz1CAvA0tJhf237POJ6B43HU1PXha8umaEzR+7aLBGizTQiAjM
- ngIJlqFNq70JkZx7HnsJAWonTb3j6YSfA2jAlInRmBWRHnbOvZ4R4VZvl
- JT8OLvlDVOavveLdM9ib3jdC9THNvuzypQj0Tf79qtxZnw8KCZVKv1MBo
- ir34yxzB7AYtjtX9JWNf+ramPin23NElS/Vjnuhesetbms7cRmLjoNxvf
- DmSOEcrxjUpx4Cy8X9Dbd0tK5OR4sVTKPTNEU682tXhibktHuvXSBk2FV A==;
-X-CSE-ConnectionGUID: XdHwrm4gRaeuVPAel+CK6Q==
-X-CSE-MsgGUID: rxBNBG+fQ0WDFJQRon77Eg==
-X-IronPort-AV: E=McAfee;i="6700,10204,11399"; a="57088350"
-X-IronPort-AV: E=Sophos;i="6.15,201,1739865600"; d="scan'208";a="57088350"
+ bh=iz+AY4nSj0rvRtED+06IlDj3E1AxV/oxCWt5mClN1jY=;
+ b=a+1xnDpkbRN6a+CrkKNvF00HlThWS2Qahpj+u1sMJau9MkTJxpxYkm/o
+ +88TsBv0BUZa6rtjE53vX09m/reOwRwZlnWWH5f5aiJRORwmOGfI1wTTT
+ 9+flAgeHpNXQb5IGhQiCNn2oeQZuEMr0e75fIhy8aSCDNkAHspan3UAN4
+ /wqHsU56CnlnTtcYYLtwxVFAitDfijDH2ghkkAJnA8eEbRpV1oMpmRhyu
+ CPxCEUh7cVjsGFD8qczlvl7+Tl/apMeRgvp318prs//V8LZ1ljMfypMjX
+ Gkto2mkLfU5K81rdR4ntbYrBHFMwjQfm/q5PPRe/gjmIBe1mD/7rWPtjO Q==;
+X-CSE-ConnectionGUID: 5LyEjGb7SP+jAgcErdspdA==
+X-CSE-MsgGUID: ZmiPHweaSWu6c7dPPxrLcA==
+X-IronPort-AV: E=McAfee;i="6700,10204,11399"; a="57088365"
+X-IronPort-AV: E=Sophos;i="6.15,201,1739865600"; d="scan'208";a="57088365"
 Received: from fmviesa004.fm.intel.com ([10.60.135.144])
  by orvoesa104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 09 Apr 2025 11:18:25 -0700
-X-CSE-ConnectionGUID: V+BYe4TrTAq6UNHv6IX9yA==
-X-CSE-MsgGUID: d1v/ltjNQoOHv6jSkDJHnQ==
+ 09 Apr 2025 11:18:38 -0700
+X-CSE-ConnectionGUID: FuPxqR5QQE2iu9Oi2Y9vPQ==
+X-CSE-MsgGUID: TWDwOciDS4C5fluMNocy4g==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.15,201,1739865600"; d="scan'208";a="133785314"
+X-IronPort-AV: E=Sophos;i="6.15,201,1739865600"; d="scan'208";a="133785348"
 Received: from lfiedoro-mobl.ger.corp.intel.com (HELO localhost)
  ([10.245.246.201])
  by fmviesa004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 09 Apr 2025 11:18:23 -0700
+ 09 Apr 2025 11:18:37 -0700
 From: Jani Nikula <jani.nikula@intel.com>
 To: intel-gfx@lists.freedesktop.org,
 	intel-xe@lists.freedesktop.org
 Cc: jani.nikula@intel.com
-Subject: [PATCH 03/14] drm/i915/display: convert intel_modeset_verify.c to
- struct intel_display
-Date: Wed,  9 Apr 2025 21:17:44 +0300
-Message-Id: <b01a3ef3dbb2ffdaa6b5e9ebec14f91efcca3049.1744222449.git.jani.nikula@intel.com>
+Subject: [PATCH 06/14] drm/i915/crt: switch to display->platform based
+ platform detection
+Date: Wed,  9 Apr 2025 21:17:47 +0300
+Message-Id: <83980c1ae53157ef5d65d7ce99b294889622faa8.1744222449.git.jani.nikula@intel.com>
 X-Mailer: git-send-email 2.39.5
 In-Reply-To: <cover.1744222449.git.jani.nikula@intel.com>
 References: <cover.1744222449.git.jani.nikula@intel.com>
@@ -71,99 +71,80 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Going forward, struct intel_display is the main display device data
-pointer. Convert intel_modeset_verify.[ch] to struct intel_display.
+Prefer display->platform based platform detection over the old IS_*()
+macros.
 
 Signed-off-by: Jani Nikula <jani.nikula@intel.com>
 ---
- .../gpu/drm/i915/display/intel_modeset_verify.c | 17 +++++++----------
- 1 file changed, 7 insertions(+), 10 deletions(-)
+ drivers/gpu/drm/i915/display/intel_crt.c | 13 ++++++-------
+ 1 file changed, 6 insertions(+), 7 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_modeset_verify.c b/drivers/gpu/drm/i915/display/intel_modeset_verify.c
-index a008412fdd04..766a9983665a 100644
---- a/drivers/gpu/drm/i915/display/intel_modeset_verify.c
-+++ b/drivers/gpu/drm/i915/display/intel_modeset_verify.c
-@@ -6,13 +6,14 @@
-  */
+diff --git a/drivers/gpu/drm/i915/display/intel_crt.c b/drivers/gpu/drm/i915/display/intel_crt.c
+index cca22d2402e8..8908b51dc3b9 100644
+--- a/drivers/gpu/drm/i915/display/intel_crt.c
++++ b/drivers/gpu/drm/i915/display/intel_crt.c
+@@ -370,7 +370,7 @@ intel_crt_mode_valid(struct drm_connector *connector,
  
- #include <drm/drm_atomic_state_helper.h>
-+#include <drm/drm_print.h>
+ 	if (HAS_PCH_LPT(dev_priv))
+ 		max_clock = 180000;
+-	else if (IS_VALLEYVIEW(dev_priv))
++	else if (display->platform.valleyview)
+ 		/*
+ 		 * 270 MHz due to current DPLL limits,
+ 		 * DAC limit supposedly 355 MHz.
+@@ -591,7 +591,7 @@ static bool intel_crt_detect_hotplug(struct drm_connector *connector)
+ 	if (HAS_PCH_SPLIT(dev_priv))
+ 		return ilk_crt_detect_hotplug(connector);
  
--#include "i915_drv.h"
- #include "intel_atomic.h"
- #include "intel_crtc.h"
- #include "intel_crtc_state_dump.h"
- #include "intel_cx0_phy.h"
- #include "intel_display.h"
-+#include "intel_display_core.h"
- #include "intel_display_types.h"
- #include "intel_fdi.h"
- #include "intel_modeset_verify.h"
-@@ -28,9 +29,8 @@ static void intel_connector_verify_state(const struct intel_crtc_state *crtc_sta
+-	if (IS_VALLEYVIEW(dev_priv))
++	if (display->platform.valleyview)
+ 		return valleyview_crt_detect_hotplug(connector);
+ 
+ 	/*
+@@ -599,7 +599,7 @@ static bool intel_crt_detect_hotplug(struct drm_connector *connector)
+ 	 * to get a reliable result.
+ 	 */
+ 
+-	if (IS_G45(dev_priv))
++	if (display->platform.g45)
+ 		tries = 2;
+ 	else
+ 		tries = 1;
+@@ -940,7 +940,6 @@ intel_crt_detect(struct drm_connector *connector,
+ static int intel_crt_get_modes(struct drm_connector *connector)
  {
- 	struct intel_connector *connector = to_intel_connector(conn_state->connector);
- 	struct intel_display *display = to_intel_display(connector);
--	struct drm_i915_private *i915 = to_i915(connector->base.dev);
+ 	struct intel_display *display = to_intel_display(connector->dev);
+-	struct drm_i915_private *dev_priv = to_i915(connector->dev);
+ 	struct intel_crt *crt = intel_attached_crt(to_intel_connector(connector));
+ 	struct intel_encoder *encoder = &crt->base;
+ 	intel_wakeref_t wakeref;
+@@ -953,7 +952,7 @@ static int intel_crt_get_modes(struct drm_connector *connector)
+ 	wakeref = intel_display_power_get(display, encoder->power_domain);
  
--	drm_dbg_kms(&i915->drm, "[CONNECTOR:%d:%s]\n",
-+	drm_dbg_kms(display->drm, "[CONNECTOR:%d:%s]\n",
- 		    connector->base.base.id, connector->base.name);
+ 	ret = intel_crt_ddc_get_modes(connector, connector->ddc);
+-	if (ret || !IS_G4X(dev_priv))
++	if (ret || !display->platform.g4x)
+ 		goto out;
  
- 	if (connector->get_hw_state(connector)) {
-@@ -91,7 +91,6 @@ verify_connector_state(struct intel_atomic_state *state,
- static void intel_pipe_config_sanity_check(const struct intel_crtc_state *crtc_state)
- {
- 	struct intel_display *display = to_intel_display(crtc_state);
--	struct drm_i915_private *i915 = to_i915(crtc_state->uapi.crtc->dev);
+ 	/* Try to probe digital port for output in DVI-I -> VGA mode. */
+@@ -1021,7 +1020,7 @@ void intel_crt_init(struct intel_display *display)
  
- 	if (crtc_state->has_pch_encoder) {
- 		int fdi_dotclock = intel_dotclock_calculate(intel_fdi_link_freq(display, crtc_state),
-@@ -103,7 +102,7 @@ static void intel_pipe_config_sanity_check(const struct intel_crtc_state *crtc_s
- 		 * Yell if the encoder disagrees. Allow for slight
- 		 * rounding differences.
- 		 */
--		drm_WARN(&i915->drm, abs(fdi_dotclock - dotclock) > 1,
-+		drm_WARN(display->drm, abs(fdi_dotclock - dotclock) > 1,
- 			 "FDI dotclock and encoder dotclock mismatch, fdi: %i, encoder: %i\n",
- 			 fdi_dotclock, dotclock);
- 	}
-@@ -113,17 +112,16 @@ static void
- verify_encoder_state(struct intel_atomic_state *state)
- {
- 	struct intel_display *display = to_intel_display(state);
--	struct drm_i915_private *i915 = to_i915(state->base.dev);
- 	struct intel_encoder *encoder;
- 	struct drm_connector *connector;
- 	const struct drm_connector_state *old_conn_state, *new_conn_state;
- 	int i;
+ 	if (HAS_PCH_SPLIT(dev_priv))
+ 		adpa_reg = PCH_ADPA;
+-	else if (IS_VALLEYVIEW(dev_priv))
++	else if (display->platform.valleyview)
+ 		adpa_reg = VLV_ADPA;
+ 	else
+ 		adpa_reg = ADPA;
+@@ -1069,7 +1068,7 @@ void intel_crt_init(struct intel_display *display)
  
--	for_each_intel_encoder(&i915->drm, encoder) {
-+	for_each_intel_encoder(display->drm, encoder) {
- 		bool enabled = false, found = false;
- 		enum pipe pipe;
- 
--		drm_dbg_kms(&i915->drm, "[ENCODER:%d:%s]\n",
-+		drm_dbg_kms(display->drm, "[ENCODER:%d:%s]\n",
- 			    encoder->base.base.id,
- 			    encoder->base.name);
- 
-@@ -166,7 +164,6 @@ verify_crtc_state(struct intel_atomic_state *state,
- 		  struct intel_crtc *crtc)
- {
- 	struct intel_display *display = to_intel_display(state);
--	struct drm_i915_private *i915 = to_i915(display->drm);
- 	const struct intel_crtc_state *sw_crtc_state =
- 		intel_atomic_get_new_crtc_state(state, crtc);
- 	struct intel_crtc_state *hw_crtc_state;
-@@ -185,7 +182,7 @@ verify_crtc_state(struct intel_atomic_state *state,
- 	intel_crtc_get_pipe_config(hw_crtc_state);
- 
- 	/* we keep both pipes enabled on 830 */
--	if (IS_I830(i915) && hw_crtc_state->hw.active)
-+	if (display->platform.i830 && hw_crtc_state->hw.active)
- 		hw_crtc_state->hw.active = sw_crtc_state->hw.active;
- 
- 	INTEL_DISPLAY_STATE_WARN(display,
+ 	crt->base.type = INTEL_OUTPUT_ANALOG;
+ 	crt->base.cloneable = BIT(INTEL_OUTPUT_DVO) | BIT(INTEL_OUTPUT_HDMI);
+-	if (IS_I830(dev_priv))
++	if (display->platform.i830)
+ 		crt->base.pipe_mask = BIT(PIPE_A);
+ 	else
+ 		crt->base.pipe_mask = ~0;
 -- 
 2.39.5
 
