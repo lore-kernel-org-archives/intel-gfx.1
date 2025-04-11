@@ -4,52 +4,55 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 65BFFC369AF
-	for <intel-gfx@archiver.kernel.org>; Fri, 11 Apr 2025 22:46:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DE644C369A2
+	for <intel-gfx@archiver.kernel.org>; Fri, 11 Apr 2025 22:46:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6B1CF10E182;
-	Fri, 11 Apr 2025 22:46:27 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B707A10ECA7;
+	Fri, 11 Apr 2025 22:46:29 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="j6C4fGE1";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="bcC1ZRGe";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.20])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 31CFC10E138;
- Fri, 11 Apr 2025 22:46:26 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 709CF10EC67;
+ Fri, 11 Apr 2025 22:46:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1744411585; x=1775947585;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=l2amex0SeoDL4CWcmmssHRGqlkZa/4odM+8wVLTehFo=;
- b=j6C4fGE1tp/ozPwRuNLZ1UXkm9VT9g2iG4V1EVz79Bds3mkIW394iCwO
- HpYUwSapi7r8MURNDc4mY57ps/EX9n3EwNQxI+18ayM5UhT78jLS7vjSp
- TOneC+S+KYIL3u1xBIf2hcvtBk4om/JbSGtyYDmyYe8QlX6BBaw0RVLg7
- vLQayP3VFaNE+eEqK2QLwheqivx4/O8ZIeAQN7kRpBgvMncho2pjOZML8
- BkIW63yaIRodLoY0l0sRex0mqZVe1hWQUJzzRUDKQEs/CDxKxKi/mpDmT
- tXeItx7KVSCmw70ymMD6YUfH6le2ZjyO1ovUDNl0Up4piK5gX60vGFvpA g==;
-X-CSE-ConnectionGUID: wytbD7yQRp2cKjmlCfQqLA==
-X-CSE-MsgGUID: 7AJsdBnUQ06S3ZjkgFoCDw==
-X-IronPort-AV: E=McAfee;i="6700,10204,11401"; a="45680294"
-X-IronPort-AV: E=Sophos;i="6.15,206,1739865600"; d="scan'208";a="45680294"
+ t=1744411586; x=1775947586;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=ffVmbHSwUlHSW9oYHE2dIZ6Y8CldMJc2DX96P47qYPc=;
+ b=bcC1ZRGedT4kkjG4G3HLokeTs1Ajf47XWuiE4eebe/DfGri0wwkAatkJ
+ bedxIqJVvw7OIZ+yLAfsEcZIbJANn0EXajFNVlyTTDCStMuxt3fTDjL+d
+ bTwIa///gArLFu1NWl4tdGseerqIhEpGNPk95OZa9+KrUGe+pOEcDMuRR
+ /RrjJU0b0dQ6Q/gsMWVsWOMbpG0isGOjGjsNfSDdBmvj0j9mD/kAsdks+
+ A3+Ef29hXh11pmnAA4qCUf2PwoKd+1MV88qnA7jqLH2I5OvA8/6N/ATrh
+ h849RJIqCPHU9B3nWgxfEoWQW1hMlqIPxkZTlcw7A8OpVYEZuhcHWnJn0 g==;
+X-CSE-ConnectionGUID: UxhDDGY+Tdmqx3tVs0XhXg==
+X-CSE-MsgGUID: owFAjF4PSACuqiBjFBLdXw==
+X-IronPort-AV: E=McAfee;i="6700,10204,11401"; a="45680297"
+X-IronPort-AV: E=Sophos;i="6.15,206,1739865600"; d="scan'208";a="45680297"
 Received: from fmviesa006.fm.intel.com ([10.60.135.146])
  by orvoesa112.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 11 Apr 2025 15:46:24 -0700
-X-CSE-ConnectionGUID: 0hdLv1QgTrCMLgpQ3peV0Q==
-X-CSE-MsgGUID: yWF8V2u5TeCBeQB0Pa0ceQ==
+ 11 Apr 2025 15:46:26 -0700
+X-CSE-ConnectionGUID: zWeXV8fdQmSZID7QGI4ItA==
+X-CSE-MsgGUID: MKW8j+iyTFiCRBsvH6eUhw==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.15,206,1739865600"; d="scan'208";a="129165727"
+X-IronPort-AV: E=Sophos;i="6.15,206,1739865600"; d="scan'208";a="129165743"
 Received: from vbelgaum-ubuntu.fm.intel.com ([10.1.39.141])
- by fmviesa006.fm.intel.com with ESMTP; 11 Apr 2025 15:46:25 -0700
+ by fmviesa006.fm.intel.com with ESMTP; 11 Apr 2025 15:46:27 -0700
 From: Vinay Belgaumkar <vinay.belgaumkar@intel.com>
 To: intel-gfx@lists.freedesktop.org,
 	igt-dev@lists.freedesktop.org
 Cc: Vinay Belgaumkar <vinay.belgaumkar@intel.com>,
- Riana Tauro <riana.tauro@intel.com>,
+ Lucas De Marchi <lucas.demarchi@intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, Riana Tauro <riana.tauro@intel.com>,
  Kamil Konieczny <kamil.konieczny@linux.intel.com>
-Subject: [PATCH i-g-t 0/2] Add PMU test for GT frequency
-Date: Fri, 11 Apr 2025 15:45:58 -0700
-Message-Id: <20250411224600.665069-1-vinay.belgaumkar@intel.com>
+Subject: [PATCH i-g-t 2/2] tests/xe_pmu: Add frequency test
+Date: Fri, 11 Apr 2025 15:46:00 -0700
+Message-Id: <20250411224600.665069-3-vinay.belgaumkar@intel.com>
 X-Mailer: git-send-email 2.38.1
+In-Reply-To: <20250411224600.665069-1-vinay.belgaumkar@intel.com>
+References: <20250411224600.665069-1-vinay.belgaumkar@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-BeenThere: intel-gfx@lists.freedesktop.org
@@ -67,23 +70,194 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-This will validate PMU frequency attributes that have been added
-to the driver.
+Add a basic test that uses PMU to read GT actual and requested
+frequencies while running a workload.
 
-Cc: Riana Tauro <riana.tauro@intel.com>>
+v2: Rebase and comments (Riana)
+v3: Address review comments (Kamil and Riana)
+
+Cc: Lucas De Marchi <lucas.demarchi@intel.com>
+Cc: Rodrigo Vivi <rodrigo.vivi@intel.com>
+Cc: Riana Tauro <riana.tauro@intel.com>
 Cc: Kamil Konieczny <kamil.konieczny@linux.intel.com>
+Reviewed-by: Riana Tauro <riana.tauro@intel.com>
 Signed-off-by: Vinay Belgaumkar <vinay.belgaumkar@intel.com>
+---
+ tests/intel/xe_pmu.c | 147 +++++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 147 insertions(+)
 
-Vinay Belgaumkar (2):
-  lib/xe_gt: Move get/set GT freq utils to lib
-  tests/xe_pmu: Add frequency test
-
- lib/xe/xe_gt.c           |  64 +++++++++++++++
- lib/xe/xe_gt.h           |   2 +
- tests/intel/xe_gt_freq.c | 166 +++++++++++++++------------------------
- tests/intel/xe_pmu.c     | 147 ++++++++++++++++++++++++++++++++++
- 4 files changed, 278 insertions(+), 101 deletions(-)
-
+diff --git a/tests/intel/xe_pmu.c b/tests/intel/xe_pmu.c
+index 175bbf374..589c7cbde 100644
+--- a/tests/intel/xe_pmu.c
++++ b/tests/intel/xe_pmu.c
+@@ -376,6 +376,94 @@ static void test_gt_c6_idle(int xe, unsigned int gt)
+ 	close(pmu_fd);
+ }
+ 
++/**
++ * SUBTEST: gt-frequency
++ * Description: Validate we can collect accurate frequency PMU stats
++ *		while running a workload.
++ */
++static void test_gt_frequency(int fd, struct drm_xe_engine_class_instance *eci)
++{
++	struct xe_cork *cork = NULL;
++	uint64_t end[2], start[2];
++	unsigned long config_rq_freq, config_act_freq;
++	double min[2], max[2];
++	uint32_t gt = eci->gt_id;
++	uint32_t orig_min = xe_gt_get_freq(fd, eci->gt_id, "min");
++	uint32_t orig_max = xe_gt_get_freq(fd, eci->gt_id, "max");
++	uint32_t vm;
++	int pmu_fd[2];
++
++	config_rq_freq = get_event_config(gt, NULL, "gt-requested-frequency");
++	pmu_fd[0] = open_group(fd, config_rq_freq, -1);
++
++	config_act_freq = get_event_config(gt, NULL, "gt-actual-frequency");
++	pmu_fd[1] = open_group(fd, config_act_freq, pmu_fd[0]);
++
++	vm = xe_vm_create(fd, 0, 0);
++
++	cork = xe_cork_create_opts(fd, eci, vm, 1, 1);
++	xe_cork_sync_start(fd, cork);
++
++	/*
++	 * Set GPU to min frequency and read PMU counters.
++	 */
++	igt_assert(xe_gt_set_freq(fd, gt, "max", orig_min) > 0);
++	igt_assert(xe_gt_get_freq(fd, gt, "max") == orig_min);
++
++	pmu_read_multi(pmu_fd[0], 2, start);
++	usleep(SLEEP_DURATION * USEC_PER_SEC);
++	pmu_read_multi(pmu_fd[0], 2, end);
++
++	min[0] = (end[0] - start[0]);
++	min[1] = (end[1] - start[1]);
++
++	/*
++	 * Set GPU to max frequency and read PMU counters.
++	 */
++	igt_assert(xe_gt_set_freq(fd, gt, "max", orig_max) > 0);
++	igt_assert(xe_gt_get_freq(fd, gt, "max") == orig_max);
++	igt_assert(xe_gt_set_freq(fd, gt, "min", orig_max) > 0);
++	igt_assert(xe_gt_get_freq(fd, gt, "min") == orig_max);
++
++	pmu_read_multi(pmu_fd[0], 2, start);
++	usleep(SLEEP_DURATION * USEC_PER_SEC);
++	pmu_read_multi(pmu_fd[0], 2, end);
++
++	max[0] = (end[0] - start[0]);
++	max[1] = (end[1] - start[1]);
++
++	xe_cork_sync_end(fd, cork);
++
++	/*
++	 * Restore min/max.
++	 */
++	igt_assert(xe_gt_set_freq(fd, gt, "min", orig_min) > 0);
++	igt_assert(xe_gt_get_freq(fd, gt, "min") == orig_min);
++
++	igt_info("Minimum frequency: requested %.1f, actual %.1f\n",
++		 min[0], min[1]);
++	igt_info("Maximum frequency: requested %.1f, actual %.1f\n",
++		 max[0], max[1]);
++
++	close(pmu_fd[0]);
++	close(pmu_fd[1]);
++
++	if (cork)
++		xe_cork_destroy(fd, cork);
++
++	xe_vm_destroy(fd, vm);
++
++	close(pmu_fd[0]);
++	close(pmu_fd[1]);
++
++	assert_within_epsilon(min[0], orig_min, tolerance);
++	/*
++	 * On thermally throttled devices we cannot be sure maximum frequency
++	 * can be reached so use larger tolerance downwards.
++	 */
++	assert_within_epsilon_up_down(max[0], orig_max, tolerance, 0.15f);
++}
++
+ static unsigned int enable_and_provision_vfs(int fd)
+ {
+ 	unsigned int gt, num_vfs;
+@@ -427,6 +515,35 @@ static void disable_vfs(int fd)
+ 		       "Failed to restore sriov_drivers_autoprobe value\n");
+ }
+ 
++static void stash_gt_freq(int fd, uint32_t **stash_min, uint32_t **stash_max)
++{
++	int num_gts, gt;
++
++	num_gts = xe_number_gt(fd);
++
++	*stash_min = (uint32_t *) malloc(sizeof(uint32_t) * num_gts);
++	*stash_max = (uint32_t *) malloc(sizeof(uint32_t) * num_gts);
++
++	igt_skip_on(*stash_min == NULL || *stash_max == NULL);
++
++	xe_for_each_gt(fd, gt) {
++		*stash_min[gt] = xe_gt_get_freq(fd, gt, "min");
++		*stash_max[gt] = xe_gt_get_freq(fd, gt, "max");
++	}
++}
++
++static void restore_gt_freq(int fd, uint32_t *stash_min, uint32_t *stash_max)
++{
++	int gt;
++
++	xe_for_each_gt(fd, gt) {
++		xe_gt_set_freq(fd, gt, "max", stash_max[gt]);
++		xe_gt_set_freq(fd, gt, "min", stash_min[gt]);
++	}
++	free(stash_min);
++	free(stash_max);
++}
++
+ igt_main
+ {
+ 	int fd, gt;
+@@ -482,6 +599,36 @@ igt_main
+ 			disable_vfs(fd);
+ 	}
+ 
++	igt_subtest_group {
++		bool has_freq0_node, needs_freq_restore = false;
++		uint32_t *stash_min, *stash_max;
++
++		igt_fixture {
++			has_freq0_node = xe_sysfs_gt_has_node(fd, 0, "freq0");
++		}
++
++		igt_describe("Validate PMU GT freq measured is within the tolerance");
++		igt_subtest_with_dynamic("gt-frequency") {
++			igt_skip_on(!has_freq0_node);
++			stash_gt_freq(fd, &stash_min, &stash_max);
++			needs_freq_restore = true;
++			xe_for_each_gt(fd, gt) {
++				igt_dynamic_f("gt%u", gt)
++				xe_for_each_engine(fd, eci) {
++					if (gt == eci->gt_id) {
++						test_gt_frequency(fd, eci);
++						break;
++					}
++				}
++			}
++		}
++
++		igt_fixture {
++			if (needs_freq_restore)
++				restore_gt_freq(fd, stash_min, stash_max);
++		}
++	}
++
+ 	igt_fixture {
+ 		close(fd);
+ 	}
 -- 
 2.38.1
 
