@@ -4,98 +4,85 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7E674C369BD
-	for <intel-gfx@archiver.kernel.org>; Mon, 14 Apr 2025 17:02:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5B066C369C0
+	for <intel-gfx@archiver.kernel.org>; Mon, 14 Apr 2025 17:02:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0FCF910E638;
+	by gabe.freedesktop.org (Postfix) with ESMTP id D2B2A10E64A;
 	Mon, 14 Apr 2025 17:02:10 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Y8MpBv/V";
+	dkim=pass (1024-bit key; unprotected) header.d=uniontech.com header.i=@uniontech.com header.b="j5HVNjpf";
 	dkim-atps=neutral
-Received: from nyc.source.kernel.org (nyc.source.kernel.org [147.75.193.91])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BC47610E860;
- Wed,  9 Apr 2025 12:07:14 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by nyc.source.kernel.org (Postfix) with ESMTP id DB71BA49913;
- Wed,  9 Apr 2025 12:01:41 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 46BE8C4CEE3;
- Wed,  9 Apr 2025 12:06:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1744200430;
- bh=CP4IzQPsQFU05CPteWgLrKp8oO61tr2PBS7gZ6n8ASw=;
- h=From:To:Cc:Subject:Date:From;
- b=Y8MpBv/VoYICVgx24E4PbAEeT/t+3drrYqVPXQj/UWOU981wSUC2trY0ul0RXZ4wd
- MkAx9PgO5Yw+VwWeCS5mVNPUtido63L93DX1SivyY+13YYrMjDXVJojlKe034sCsIf
- IXbbSMY6B2lgZvsRRqBcXLbdfgJpCLE9Ocio59lw0qcNczRocWkmdW6u0pMl+PVPSL
- zLFWnsi95dTx+O1APKbqG17wJqqgfNLu7i1hb4srMezFEWlY/HbWRTVaaEuGyAUa8W
- dfb1CSfha9y4tiKqGvgilBAPkbv3kopHt/rZkV63FdmiU8P3G8udQT6soJgCn3moIx
- f0ru9tf/8eXIg==
-From: Philipp Stanner <phasta@kernel.org>
-To: Sumit Semwal <sumit.semwal@linaro.org>,
- Gustavo Padovan <gustavo@padovan.org>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- Felix Kuehling <Felix.Kuehling@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>, Xinhui Pan <Xinhui.Pan@amd.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- Lucas Stach <l.stach@pengutronix.de>,
- Russell King <linux+etnaviv@armlinux.org.uk>,
- Christian Gmeiner <christian.gmeiner@gmail.com>,
+Received: from bg5.exmail.qq.com (bg5.exmail.qq.com [43.154.155.102])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B848D10EB6E;
+ Fri, 11 Apr 2025 10:59:54 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=uniontech.com;
+ s=onoh2408; t=1744369181;
+ bh=X0ufIEoNyj3oR0IYewqEF9lLAz1QUMF0bHnORwk+1hQ=;
+ h=From:To:Subject:Date:Message-ID:MIME-Version;
+ b=j5HVNjpf90bmooKk83INdYQOdJKdDSkPAYfCmcG6vfbH9c5oQxpy9WSnVzLLmHqEl
+ ve3Fne/aStqqrFCWp2qn1YD9P+56dZpYIV3YhJVavfmodSeTkjR7NMY85U8IWtejzu
+ IQ7b4x1EpC/S8gU1SZzSSqK4+7IY+1vyI6SlFclc=
+X-QQ-mid: izesmtp88t1744368758t32cfd97f
+X-QQ-Originating-IP: tKvnF/gmZ4DIpXdx6u7S98Ombl0e/s4+gqgyAGenmmg=
+Received: from localhost.localdomain ( [113.57.152.160])
+ by bizesmtp.qq.com (ESMTP) with 
+ id ; Fri, 11 Apr 2025 18:52:34 +0800 (CST)
+X-QQ-SSF: 0000000000000000000000000000000
+X-QQ-GoodBg: 1
+X-BIZMAIL-ID: 5811992715279106274
+EX-QQ-RecipientCnt: 39
+From: Chen Linxuan <chenlinxuan@uniontech.com>
+To: Masahiro Yamada <masahiroy@kernel.org>,
+ Nathan Chancellor <nathan@kernel.org>,
+ Nicolas Schier <nicolas.schier@linux.dev>, Peter Huewe <peterhuewe@gmx.de>,
+ Jarkko Sakkinen <jarkko@kernel.org>, Jason Gunthorpe <jgg@ziepe.ca>,
  Jani Nikula <jani.nikula@linux.intel.com>,
  Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
  Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Tvrtko Ursulin <tursulin@ursulin.net>,
- Frank Binns <frank.binns@imgtec.com>, Matt Coster <matt.coster@imgtec.com>,
- Qiang Yu <yuq825@gmail.com>, Rob Clark <robdclark@gmail.com>,
- Sean Paul <sean@poorly.run>, Konrad Dybcio <konradybcio@kernel.org>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- Lyude Paul <lyude@redhat.com>, Danilo Krummrich <dakr@kernel.org>,
- Boris Brezillon <boris.brezillon@collabora.com>,
- Rob Herring <robh@kernel.org>, Steven Price <steven.price@arm.com>,
- Dave Airlie <airlied@redhat.com>, Gerd Hoffmann <kraxel@redhat.com>,
- Matthew Brost <matthew.brost@intel.com>,
- Philipp Stanner <phasta@kernel.org>, Huang Rui <ray.huang@amd.com>,
- Matthew Auld <matthew.auld@intel.com>, Melissa Wen <mwen@igalia.com>,
- =?UTF-8?q?Ma=C3=ADra=20Canal?= <mcanal@igalia.com>,
- Zack Rusin <zack.rusin@broadcom.com>,
- Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, 
- Lucas De Marchi <lucas.demarchi@intel.com>,
- =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
- Bas Nieuwenhuizen <bas@basnieuwenhuizen.nl>,
- Yang Wang <kevinyang.wang@amd.com>, Jesse Zhang <jesse.zhang@amd.com>,
- Tim Huang <tim.huang@amd.com>,
- Sathishkumar S <sathishkumar.sundararaju@amd.com>,
- Saleemkhan Jamadar <saleemkhan.jamadar@amd.com>,
- Sunil Khatri <sunil.khatri@amd.com>, Lijo Lazar <lijo.lazar@amd.com>,
- Hawking Zhang <Hawking.Zhang@amd.com>, Ma Jun <Jun.Ma2@amd.com>,
- Yunxiang Li <Yunxiang.Li@amd.com>, Eric Huang <jinhuieric.huang@amd.com>,
- Asad Kamal <asad.kamal@amd.com>,
- Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>,
- Jack Xiao <Jack.Xiao@amd.com>, Friedrich Vock <friedrich.vock@gmx.de>,
- =?UTF-8?q?Michel=20D=C3=A4nzer?= <mdaenzer@redhat.com>,
- Geert Uytterhoeven <geert@linux-m68k.org>,
- Anna-Maria Behnsen <anna-maria@linutronix.de>,
- Thomas Gleixner <tglx@linutronix.de>,
- Frederic Weisbecker <frederic@kernel.org>,
- Dan Carpenter <dan.carpenter@linaro.org>
-Cc: linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linaro-mm-sig@lists.linaro.org, linux-kernel@vger.kernel.org,
- amd-gfx@lists.freedesktop.org, etnaviv@lists.freedesktop.org,
- intel-gfx@lists.freedesktop.org, lima@lists.freedesktop.org,
- linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
- nouveau@lists.freedesktop.org, virtualization@lists.linux.dev,
- spice-devel@lists.freedesktop.org, intel-xe@lists.freedesktop.org
-Subject: [PATCH 0/2] dma-fence: Rename dma_fence_is_signaled()
-Date: Wed,  9 Apr 2025 14:06:36 +0200
-Message-ID: <20250409120640.106408-2-phasta@kernel.org>
+ Tvrtko Ursulin <tursulin@ursulin.net>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>,
+ Chengchang Tang <tangchengchang@huawei.com>,
+ Junxian Huang <huangjunxian6@hisilicon.com>,
+ Leon Romanovsky <leon@kernel.org>, Keith Busch <kbusch@kernel.org>,
+ Jens Axboe <axboe@kernel.dk>, Christoph Hellwig <hch@lst.de>,
+ Sagi Grimberg <sagi@grimberg.me>, Yishai Hadas <yishaih@nvidia.com>,
+ Shameer Kolothum <shameerali.kolothum.thodi@huawei.com>,
+ Kevin Tian <kevin.tian@intel.com>,
+ Alex Williamson <alex.williamson@redhat.com>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ Nick Desaulniers <nick.desaulniers+lkml@gmail.com>,
+ Bill Wendling <morbo@google.com>, Justin Stitt <justinstitt@google.com>,
+ Chen Linxuan <chenlinxuan@uniontech.com>
+Cc: linux-kbuild@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-integrity@vger.kernel.org, intel-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-rdma@vger.kernel.org,
+ linux-nvme@lists.infradead.org, kvm@vger.kernel.org,
+ virtualization@lists.linux.dev, linux-mm@kvack.org, llvm@lists.linux.dev
+Subject: [RFC PATCH 0/7] kernel-hacking: introduce CONFIG_NO_AUTO_INLINE
+Date: Fri, 11 Apr 2025 18:51:35 +0800
+Message-ID: <31F42D8141CDD2D0+20250411105142.89296-1-chenlinxuan@uniontech.com>
 X-Mailer: git-send-email 2.48.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+X-QQ-SENDSIZE: 520
+Feedback-ID: izesmtp:uniontech.com:qybglogicsvrgz:qybglogicsvrgz5a-1
+X-QQ-XMAILINFO: NwIS3Zdzte8wWTnEglnxV6NmQOrA3xVcszhydQMobOYj+MElYDTPHZoj
+ 6UMQ91nqXewk7IR5v2WQVRZ0K+7whsYG12XRBZVvXrGuZFXr41Hqg/2auelOTad0O8SuTWX
+ +IlWrt23x9+BPEM1hLrsqAafG1DC1M/iaPMr44LLC2viiYMNy6nrlu3vgy68uKR+Izsxf3T
+ DQ9wT8UtYNe0dQEk2SEfrUYj9ozqkKbsNxtZGBYT1mBBn68cXmK2E59LzpPaShvJ8agAJNs
+ N6jrV45xRkVlFeGP8MSifcPOTAXL+AgCcmdXiW9IWhvCFRiZEuHQaOwkvIoQJVTnYTG4w2Z
+ NJQGJhbNNkVW0aaXiIKwVopEjmJ6ONiuurUu33k2N5FShQzbJiN+G0kYeYl183HM5nGgwVv
+ iJ1RFtrPz1RnCkvme5VLe76jmD/Mk+pCCLfsH0SbsaDvEDCtGw20HGlbjzyMN0BwTuGcIIq
+ EPxj5JL/IvMYBnuzjN+G8q8L1PAJWAR1Mxxwxj2wgViBkFA0qXPk1LM3gzfshDW1jpMwXtk
+ qRGGj1sLIRhyIAUd/rbEV979Pvijy9IXofEMFN2Mu0CdqPrW2q96HSgka8SIwSXBN4IztHn
+ LJvHAm/4ij+wsYtzPT+CfUlOH9zgQdpzmQKYfVer5/AVVIKiud/cjx7/g2gSOdjLpU/7gum
+ FKaTpDTHlLp7NJXTJZFSOiLgkHLwxjLorxz2FU2iZtu30FAmVc4FIgC8RABqM9EmUNqkwyE
+ Rln0OvTRn1fYJqtsP0KbbV7q+9pxqnE/lS7yySanJ34/KCcDGzkPRRbRWQM5hblH4D0K5OU
+ 0qqnut0ZHNNmRnZ298ruuHr4INWdB0dfkRt4WD0UtPom3FtLYgfgfDqahovZAuLDcb6AQPf
+ TNTfugb9xBM89ThBLgIofJC0vCVmGc0xuugoSdwsfRl6fhqyNKQJuDMR3hQyAZDf4JRHMqj
+ NSUQIQu1y76S0SLAV3+Dw0l9zKIRbcoyn56mx6cjKy0+eCuMCjCkvexIx2erB3mdFUGI=
+X-QQ-XMRINFO: OWPUhxQsoeAVDbp3OJHYyFg=
+X-QQ-RECHKSPAM: 0
 X-Mailman-Approved-At: Mon, 14 Apr 2025 17:01:59 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -112,80 +99,36 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Hi all,
+This series introduces a new kernel configuration option NO_AUTO_INLINE,
+which can be used to disable the automatic inlining of functions.
 
-I'm currently debugging a Nouveau issue [1] and potentially might want to
-add a function that just checks whether a fence is signaled already –
-which then would obviously be called dma_fence_is_signaled().
+This will allow the function tracer to trace more functions
+because it only traces functions that the compiler has not inlined.
 
-In any case, I think it is reasonable to rename dma_fence_is_signaled()
-so that it becomes very, very explicit when reading code that this is a
-place where fences can get signaled.
+Previous discussions can be found here:
+Link: https://lore.kernel.org/all/20181028130945.23581-3-changbin.du@gmail.com/
 
-This series obsoletes this patch: [2]
+Chen Linxuan (2):
+  drm/i915/pxp: fix undefined reference to
+    `intel_pxp_gsccs_is_ready_for_sessions'
+  RDMA/hns: initialize db in update_srq_db()
 
-P.
+Winston Wen (5):
+  nvme: add __always_inline for nvme_pci_npages_prp
+  mm: add __always_inline for page_contains_unaccepted
+  vfio/virtio: add __always_inline for virtiovf_get_device_config_size
+  tpm: add __always_inline for tpm_is_hwrng_enabled
+  lib/Kconfig.debug: introduce CONFIG_NO_AUTO_INLINE
 
-[1] https://lore.kernel.org/all/20250403101353.42880-2-phasta@kernel.org/
-[2] https://lore.kernel.org/all/20250408122217.61530-2-phasta@kernel.org/
-
-
-Philipp Stanner (2):
-  dma-fence: Rename dma_fence_is_signaled()
-  dma-fence: Improve docu for dma_fence_check_and_signal()
-
- drivers/dma-buf/dma-fence-array.c             |  2 +-
- drivers/dma-buf/dma-fence-chain.c             |  6 +--
- drivers/dma-buf/dma-fence-unwrap.c            |  4 +-
- drivers/dma-buf/dma-fence.c                   |  6 +--
- drivers/dma-buf/dma-resv.c                    |  6 +--
- drivers/dma-buf/st-dma-fence-chain.c          | 10 ++--
- drivers/dma-buf/st-dma-fence.c                |  8 ++--
- drivers/dma-buf/sw_sync.c                     |  2 +-
- drivers/dma-buf/sync_file.c                   |  4 +-
- .../gpu/drm/amd/amdgpu/amdgpu_amdkfd_fence.c  |  2 +-
- .../gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c  |  8 ++--
- drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c       |  2 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c   |  2 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_device.c    |  4 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c     |  4 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_ids.c       |  8 ++--
- drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c      |  6 +--
- drivers/gpu/drm/amd/amdgpu/amdgpu_sync.c      | 10 ++--
- drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c        |  6 +--
- drivers/gpu/drm/amd/amdkfd/kfd_device.c       |  2 +-
- drivers/gpu/drm/amd/amdkfd/kfd_svm.c          |  2 +-
- drivers/gpu/drm/drm_suballoc.c                |  6 +--
- drivers/gpu/drm/drm_syncobj.c                 |  6 +--
- drivers/gpu/drm/etnaviv/etnaviv_gpu.c         |  2 +-
- drivers/gpu/drm/etnaviv/etnaviv_sched.c       |  2 +-
- drivers/gpu/drm/i915/gem/i915_gem_wait.c      |  4 +-
- .../drm/i915/gem/selftests/i915_gem_migrate.c |  2 +-
- drivers/gpu/drm/i915/i915_deps.c              |  6 +--
- drivers/gpu/drm/i915/i915_request.c           |  6 +--
- drivers/gpu/drm/i915/i915_sw_fence.c          |  4 +-
- drivers/gpu/drm/i915/i915_vma.c               |  2 +-
- drivers/gpu/drm/i915/selftests/i915_request.c |  4 +-
- drivers/gpu/drm/imagination/pvr_queue.c       | 10 ++--
- drivers/gpu/drm/lima/lima_sched.c             |  4 +-
- drivers/gpu/drm/msm/msm_gpu.c                 |  2 +-
- drivers/gpu/drm/nouveau/nouveau_drm.c         |  2 +-
- drivers/gpu/drm/nouveau/nouveau_fence.c       |  2 +-
- drivers/gpu/drm/panfrost/panfrost_job.c       |  4 +-
- drivers/gpu/drm/qxl/qxl_release.c             |  2 +-
- drivers/gpu/drm/scheduler/sched_entity.c      |  2 +-
- drivers/gpu/drm/scheduler/sched_main.c        |  4 +-
- drivers/gpu/drm/ttm/ttm_bo.c                  |  2 +-
- drivers/gpu/drm/v3d/v3d_sched.c               |  4 +-
- drivers/gpu/drm/vgem/vgem_fence.c             |  2 +-
- drivers/gpu/drm/vmwgfx/vmwgfx_fence.c         |  6 +--
- drivers/gpu/drm/xe/xe_bo.c                    |  2 +-
- drivers/gpu/drm/xe/xe_guc_submit.c            |  4 +-
- drivers/gpu/drm/xe/xe_hw_fence.c              |  2 +-
- drivers/gpu/drm/xe/xe_pt.c                    |  2 +-
- drivers/gpu/drm/xe/xe_range_fence.c           |  2 +-
- include/linux/dma-fence.h                     | 47 ++++++++++++-------
- 51 files changed, 133 insertions(+), 120 deletions(-)
+ Makefile                                   |  6 ++++++
+ drivers/char/tpm/tpm-chip.c                |  2 +-
+ drivers/gpu/drm/i915/pxp/intel_pxp_gsccs.h |  8 ++++++--
+ drivers/infiniband/hw/hns/hns_roce_hw_v2.c |  2 +-
+ drivers/nvme/host/pci.c                    |  2 +-
+ drivers/vfio/pci/virtio/legacy_io.c        |  2 +-
+ lib/Kconfig.debug                          | 15 +++++++++++++++
+ mm/page_alloc.c                            |  2 +-
+ 8 files changed, 32 insertions(+), 7 deletions(-)
 
 -- 
 2.48.1
