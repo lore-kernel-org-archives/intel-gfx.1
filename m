@@ -4,102 +4,72 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 981BAC369BC
-	for <intel-gfx@archiver.kernel.org>; Mon, 14 Apr 2025 17:02:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A51F4C369BF
+	for <intel-gfx@archiver.kernel.org>; Mon, 14 Apr 2025 17:02:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DED9710E64D;
-	Mon, 14 Apr 2025 17:02:10 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AE81910E63F;
+	Mon, 14 Apr 2025 17:02:11 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=mailbox.org header.i=@mailbox.org header.b="LS9up8sz";
+	dkim=pass (1024-bit key; unprotected) header.d=uniontech.com header.i=@uniontech.com header.b="iVzE4vQU";
 	dkim-atps=neutral
-Received: from mout-p-101.mailbox.org (mout-p-101.mailbox.org [80.241.56.151])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A1BF210E931;
- Wed,  9 Apr 2025 15:04:27 +0000 (UTC)
-Received: from smtp102.mailbox.org (smtp102.mailbox.org [10.196.197.102])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by mout-p-101.mailbox.org (Postfix) with ESMTPS id 4ZXmSR19b9z9t7P;
- Wed,  9 Apr 2025 17:04:23 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org;
- s=mail20150812; 
- t=1744211063; h=from:from:reply-to:reply-to:subject:subject:date:date:
- message-id:message-id:to:to:cc:cc:mime-version:mime-version:
- content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=vXNbrTLUQrlYNydORT5K+rP57dVB2oADM2jV2AgBth4=;
- b=LS9up8szfCpBJACvt4gXa2EtpB97sVavX67wzRPpNDGRm6AHGs0RWhd+AXtPqRnp9op8zM
- yE04pWSHbv+2bVCH/VYb7yTY+oy+qVUAZ4WW9/6lnP3PpHLGzc4tcRtTF4O7CQkK3tXhvX
- cCiMrZuEgIld1a2KfjtHsIUu/oAQCKCx7fGs11u4gWzMoATXWnWjLCYPUuT99rUvw0HFVE
- FckYqYRVDbBSXy1btg0Kjd2aoH0hjFAIPruG1nC4IsLJddiCYtoMfHQpDpP9RKPQBOiAnR
- HJHimkXP9tmHGGqthFRauJolLOimIaLd2csSieO9zeWinLAUXQxNFxqKta20mA==
-Message-ID: <0b2fc70d8fae566c8ca43bafc929e2bd19725924.camel@mailbox.org>
-Subject: Re: [PATCH 1/2] dma-fence: Rename dma_fence_is_signaled()
-From: Philipp Stanner <phasta@mailbox.org>
-To: Christian =?ISO-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>, 
- phasta@kernel.org, Boris Brezillon <boris.brezillon@collabora.com>
-Cc: Sumit Semwal <sumit.semwal@linaro.org>, Gustavo Padovan
- <gustavo@padovan.org>, Felix Kuehling <Felix.Kuehling@amd.com>, Alex
- Deucher <alexander.deucher@amd.com>, Xinhui Pan <Xinhui.Pan@amd.com>, David
- Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Maarten
- Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
- <mripard@kernel.org>,  Thomas Zimmermann <tzimmermann@suse.de>, Lucas Stach
- <l.stach@pengutronix.de>, Russell King <linux+etnaviv@armlinux.org.uk>,
- Christian Gmeiner <christian.gmeiner@gmail.com>,  Jani Nikula
- <jani.nikula@linux.intel.com>, Joonas Lahtinen
- <joonas.lahtinen@linux.intel.com>, Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Tvrtko Ursulin <tursulin@ursulin.net>, Frank Binns
- <frank.binns@imgtec.com>, Matt Coster <matt.coster@imgtec.com>, Qiang Yu
- <yuq825@gmail.com>, Rob Clark <robdclark@gmail.com>, Sean Paul
- <sean@poorly.run>,  Konrad Dybcio <konradybcio@kernel.org>, Abhinav Kumar
- <quic_abhinavk@quicinc.com>, Dmitry Baryshkov
- <dmitry.baryshkov@linaro.org>, Marijn Suijten
- <marijn.suijten@somainline.org>,  Lyude Paul <lyude@redhat.com>, Danilo
- Krummrich <dakr@kernel.org>, Rob Herring <robh@kernel.org>,  Steven Price
- <steven.price@arm.com>, Dave Airlie <airlied@redhat.com>, Gerd Hoffmann
- <kraxel@redhat.com>,  Matthew Brost <matthew.brost@intel.com>, Huang Rui
- <ray.huang@amd.com>, Matthew Auld <matthew.auld@intel.com>,  Melissa Wen
- <mwen@igalia.com>, =?ISO-8859-1?Q?Ma=EDra?= Canal <mcanal@igalia.com>, Zack
- Rusin <zack.rusin@broadcom.com>, Broadcom internal kernel review list
- <bcm-kernel-feedback-list@broadcom.com>, Lucas De Marchi
- <lucas.demarchi@intel.com>, Thomas =?ISO-8859-1?Q?Hellstr=F6m?=
- <thomas.hellstrom@linux.intel.com>, Bas Nieuwenhuizen
- <bas@basnieuwenhuizen.nl>,  Yang Wang <kevinyang.wang@amd.com>, Jesse Zhang
- <jesse.zhang@amd.com>, Tim Huang <tim.huang@amd.com>,  Sathishkumar S
- <sathishkumar.sundararaju@amd.com>, Saleemkhan Jamadar
- <saleemkhan.jamadar@amd.com>, Sunil Khatri <sunil.khatri@amd.com>, Lijo
- Lazar <lijo.lazar@amd.com>, Hawking Zhang <Hawking.Zhang@amd.com>, Ma Jun
- <Jun.Ma2@amd.com>, Yunxiang Li <Yunxiang.Li@amd.com>, Eric Huang
- <jinhuieric.huang@amd.com>, Asad Kamal <asad.kamal@amd.com>, Srinivasan
- Shanmugam <srinivasan.shanmugam@amd.com>,  Jack Xiao <Jack.Xiao@amd.com>,
- Friedrich Vock <friedrich.vock@gmx.de>, Michel =?ISO-8859-1?Q?D=E4nzer?=
- <mdaenzer@redhat.com>, Geert Uytterhoeven <geert@linux-m68k.org>,
- Anna-Maria Behnsen <anna-maria@linutronix.de>, Thomas Gleixner
- <tglx@linutronix.de>, Frederic Weisbecker <frederic@kernel.org>, Dan
- Carpenter <dan.carpenter@linaro.org>,  linux-media@vger.kernel.org,
- dri-devel@lists.freedesktop.org,  linaro-mm-sig@lists.linaro.org,
- linux-kernel@vger.kernel.org,  amd-gfx@lists.freedesktop.org,
- etnaviv@lists.freedesktop.org,  intel-gfx@lists.freedesktop.org,
- lima@lists.freedesktop.org,  linux-arm-msm@vger.kernel.org,
- freedreno@lists.freedesktop.org,  nouveau@lists.freedesktop.org,
- virtualization@lists.linux.dev,  spice-devel@lists.freedesktop.org,
- intel-xe@lists.freedesktop.org
-Date: Wed, 09 Apr 2025 17:04:00 +0200
-In-Reply-To: <334e843c-d7fe-4e33-b4fc-f3d18226465a@amd.com>
-References: <20250409120640.106408-2-phasta@kernel.org>
- <20250409120640.106408-3-phasta@kernel.org>
- <20250409143917.31303d22@collabora.com>
- <73d41cd84c73b296789b654e45125bfce88e0dbf.camel@mailbox.org>
- <72eb974dfea8fa1167cf97e29848672223f6fc5b.camel@mailbox.org>
- <ab7d1937-d0e9-45f8-8f7d-ddd7a1a9d3d5@amd.com>
- <9a90f7f14c22c01aa28d89aa91bf4dfa4049c062.camel@mailbox.org>
- <334e843c-d7fe-4e33-b4fc-f3d18226465a@amd.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-Greylist: delayed 376 seconds by postgrey-1.36 at gabe;
+ Fri, 11 Apr 2025 10:59:52 UTC
+Received: from bg5.exmail.qq.com (bg5.exmail.qq.com [43.154.155.102])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 118B810EB6C;
+ Fri, 11 Apr 2025 10:59:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=uniontech.com;
+ s=onoh2408; t=1744369174;
+ bh=NmDXTK+4Kxgs42S2SDvzBSL3QLhh5lqVdK90DWHJpMQ=;
+ h=From:To:Subject:Date:Message-ID:MIME-Version;
+ b=iVzE4vQU3oWbZgV0Yc0M0Yp+b4D0PTtqV+6PvvChzV9q/15NrBmsfn8kCrguxHn17
+ OBbJPpxzPmJOz7s4gtEuy5TFsGf3B7yQTo6TJ6jDEm47ojOdz1QJ2xFiOcXKnVJfVp
+ YyibTs1qlsmiYj66F3bQ1UR/iOUpasqEVIoQ3S9g=
+X-QQ-mid: bizesmtp23t1744368955tc9900ee
+X-QQ-Originating-IP: E+95eiCIMfMVh6UVqQOHgjo4HzQI0WCrSHwCW4L7S7I=
+Received: from localhost.localdomain ( [113.57.152.160])
+ by bizesmtp.qq.com (ESMTP) with 
+ id ; Fri, 11 Apr 2025 18:55:48 +0800 (CST)
+X-QQ-SSF: 0000000000000000000000000000000
+X-QQ-GoodBg: 1
+X-BIZMAIL-ID: 12124381483811632618
+EX-QQ-RecipientCnt: 10
+From: Chen Linxuan <chenlinxuan@uniontech.com>
+To: Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Tvrtko Ursulin <tursulin@ursulin.net>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Chen Linxuan <chenlinxuan@uniontech.com>
+Cc: intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+Subject: [RFC PATCH 4/7] drm/i915/pxp: fix undefined reference to
+ `intel_pxp_gsccs_is_ready_for_sessions'
+Date: Fri, 11 Apr 2025 18:54:52 +0800
+Message-ID: <8921351F23CD8948+20250411105459.90782-4-chenlinxuan@uniontech.com>
+X-Mailer: git-send-email 2.48.1
+In-Reply-To: <20250411105459.90782-1-chenlinxuan@uniontech.com>
+References: <31F42D8141CDD2D0+20250411105142.89296-1-chenlinxuan@uniontech.com>
+ <20250411105459.90782-1-chenlinxuan@uniontech.com>
 MIME-Version: 1.0
-X-MBO-RS-META: 9wh48drngnos9i43y9zpcu5f5mrpihgx
-X-MBO-RS-ID: f0082fb0ff96fc9be99
+Content-Transfer-Encoding: 8bit
+X-QQ-SENDSIZE: 520
+Feedback-ID: bizesmtp:uniontech.com:qybglogicsvrgz:qybglogicsvrgz5a-1
+X-QQ-XMAILINFO: NRkWGnbnkwTmyhcwGdrhPHlggXz5G9kgY6MjCZLFNLFGYbQ9q66KdArH
+ z0ZhSjyaTMmZItuKTLBSYdP9Rwsu2BeQap5I55i9sbdjjL6o+YhqoEiQDRW58fjBr52jZew
+ Xh8/A35JpkeDMZbp0HB2wXhtJ9lDY0YNgUpIFu7mg5AhyC4ZUL+CRgzRRnRdiK8CSoXOM9U
+ kvQZAq5rXrMV3m/XhonJZsrFYDQWXIj7qdc6HKzXtznZJfD18UWpORLzdLYry88PkgHi/Ph
+ ekDtrZHO4XQ2fnEpSU5/bYsrM4ZT1VjdM5TjOd9A9yznuy9AlGti23SwTiAbhHTcqMObJ6c
+ 0/iYm/Zlb+bi9RkMJHEHuz6Ei2HZt+s5leeRJHeuim4PQwfLHDj4vvcg41rGuhZCDxxncN1
+ lTYWNGuycRJztc0ZQuDFNc1c2eIFd+e1TmL7ZBBtsKNsJOpUUarIoGqVtAODJAvbe/odlpJ
+ BQriGyVMmtlkYg/iHAw3GXzb1+UH6E4Ostqkes3NbgDl2xGcHwGSJL2XD2kLvR38R0SNoTN
+ gjqqRZryvWXbSOAY8ihI1dna5xbp0vIZh6e7jyAl7CGG3hZTk1JQGCfcS4IDKutsxNz/PJR
+ lr20zl9lV+bC8Ei16eORd5lmMRMYMk7+AyPK9ckclARsXc3efyCsLvWiL3GjKGdcGZiUo5r
+ 8sPeAkBHDWnRV9WwSoEzyOWn6coU4EbOFuIWl9dG9wOHkNkueKz6OTqkvp7ZMa7kxUf2eJk
+ mSid14n1CMCk+oz6ZSTcKe3vyq7Xh8TcVGu55o/2BK2sLRX5WarIz2iybpRrWqZ+KAUhuOu
+ j83WJ3fHo3iPnD2o2XjiRSxu9gDn0KlbStYIHGJZhyA+B+pX4DSeh/yY36WCFe1DJ/jdG2D
+ nOwOpEmnRW+6eITZfilPRmDGQAozRlbaXyLUDV3ua3Dp/5UJPv9gvQNnh6Jogpfj0NthDay
+ +V3d1A+8LooM7paJL6D2nKchstPpcRwPdg8aW8uLiv/a3xg==
+X-QQ-XMRINFO: M/715EihBoGSf6IYSX1iLFg=
+X-QQ-RECHKSPAM: 0
 X-Mailman-Approved-At: Mon, 14 Apr 2025 17:01:59 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -113,208 +83,53 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: phasta@kernel.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Wed, 2025-04-09 at 16:10 +0200, Christian K=C3=B6nig wrote:
-> Am 09.04.25 um 16:01 schrieb Philipp Stanner:
-> > On Wed, 2025-04-09 at 15:14 +0200, Christian K=C3=B6nig wrote:
-> > > Am 09.04.25 um 14:56 schrieb Philipp Stanner:
-> > > > On Wed, 2025-04-09 at 14:51 +0200, Philipp Stanner wrote:
-> > > > > On Wed, 2025-04-09 at 14:39 +0200, Boris Brezillon wrote:
-> > > > > > Hi Philipp,
-> > > > > >=20
-> > > > > > On Wed,=C2=A0 9 Apr 2025 14:06:37 +0200
-> > > > > > Philipp Stanner <phasta@kernel.org> wrote:
-> > > > > >=20
-> > > > > > > dma_fence_is_signaled()'s name strongly reads as if this
-> > > > > > > function
-> > > > > > > were
-> > > > > > > intended for checking whether a fence is already
-> > > > > > > signaled.
-> > > > > > > Also
-> > > > > > > the
-> > > > > > > boolean it returns hints at that.
-> > > > > > >=20
-> > > > > > > The function's behavior, however, is more complex: it can
-> > > > > > > check
-> > > > > > > with a
-> > > > > > > driver callback whether the hardware's sequence number
-> > > > > > > indicates
-> > > > > > > that
-> > > > > > > the fence can already be treated as signaled, although
-> > > > > > > the
-> > > > > > > hardware's /
-> > > > > > > driver's interrupt handler has not signaled it yet. If
-> > > > > > > that's
-> > > > > > > the
-> > > > > > > case,
-> > > > > > > the function also signals the fence.
-> > > > > > >=20
-> > > > > > > (Presumably) this has caused a bug in Nouveau (unknown
-> > > > > > > commit),
-> > > > > > > where
-> > > > > > > nouveau_fence_done() uses the function to check a fence,
-> > > > > > > which
-> > > > > > > causes a
-> > > > > > > race.
-> > > > > > >=20
-> > > > > > > Give the function a more obvious name.
-> > > > > > This is just my personal view on this, but I find the new
-> > > > > > name
-> > > > > > just
-> > > > > > as
-> > > > > > confusing as the old one. It sounds like something is
-> > > > > > checked,
-> > > > > > but
-> > > > > > it's
-> > > > > > clear what, and then the fence is forcibly signaled like it
-> > > > > > would
-> > > > > > be
-> > > > > > if
-> > > > > > you call drm_fence_signal(). Of course, this clarified by
-> > > > > > the
-> > > > > > doc,
-> > > > > > but
-> > > > > > given the goal was to make the function name clearly
-> > > > > > reflect
-> > > > > > what
-> > > > > > it
-> > > > > > does, I'm not convinced it's significantly better.
-> > > > > >=20
-> > > > > > Maybe dma_fence_check_hw_state_and_propagate(), though it
-> > > > > > might
-> > > > > > be
-> > > > > > too long of name. Oh well, feel free to ignore this
-> > > > > > comments if
-> > > > > > a
-> > > > > > majority is fine with the new name.
-> > > > > Yoa, the name isn't perfect (the perfect name describing the
-> > > > > whole
-> > > > > behavior would be
-> > > > > dma_fence_check_if_already_signaled_then_check_hardware_state
-> > > > > _and
-> > > > > _pro
-> > > > > pa
-> > > > > gate() ^^'
-> > > > >=20
-> > > > > My intention here is to have the reader realize "watch out,
-> > > > > the
-> > > > > fence
-> > > > > might get signaled here!", which is probably the most
-> > > > > important
-> > > > > event
-> > > > > regarding fences, which can race, invoke the callbacks and so
-> > > > > on.
-> > > > >=20
-> > > > > For details readers will then check the documentation.
-> > > > >=20
-> > > > > But I'm of course open to see if there's a majority for this
-> > > > > or
-> > > > > that
-> > > > > name.
-> > > > how about:
-> > > >=20
-> > > > dma_fence_check_hw_and_signal() ?
-> > > I don't think that renaming the function is a good idea in the
-> > > first
-> > > place.
-> > >=20
-> > > What the function does internally is an implementation detail of
-> > > the
-> > > framework.
-> > >=20
-> > > For the code using this function it's completely irrelevant if
-> > > the
-> > > function might also signal the fence, what matters for the caller
-> > > is
-> > > the returned status of the fence. I think this also counts for
-> > > the
-> > > dma_fence_is_signaled() documentation.
-> > It does obviously matter. As it's currently implemented, a lot of
-> > important things happen implicitly.
->=20
-> Yeah, but that's ok.
->=20
-> The code who calls this is the consumer of the interface and so
-> shouldn't need to know this. That's why we have created the DMA fence
-> framework in the first place.
->=20
-> For the provider side when a driver or similar implements the
-> interface the relevant documentation is the dma_fence_ops structure.
->=20
-> > I only see improvement by making things more obvious.
-> >=20
-> > In any case, how would you call a wrapper that just does
-> > test_bit(IS_SIGNALED, =E2=80=A6) ?
->=20
-> Broken, that was very intentionally removed quite shortly after we
-> created the framework.
->=20
-> We have a few cases were implementations do check that for their
-> fences, but consumers should never be allowed to touch such
-> internals.
+On x86_64 with gcc version 13.3.0, I compile kernel with:
 
-There is theory and there is practice. In practice, those internals are
-being used by Nouveau, i915, Xe, vmgfx and radeon.
+  make defconfig
+  ./scripts/kconfig/merge_config.sh .config <(
+    echo CONFIG_COMPILE_TEST=y
+  )
+  make KCFLAGS="-fno-inline-functions -fno-inline-small-functions -fno-inline-functions-called-once"
 
-So it seems that we failed quite a bit at communicating clearly how the
-interface should be used.
+Then I get a linker error:
 
-And, to repeat myself, with both name and docu of that function, I
-think it is very easy to misunderstand what it's doing. You say that it
-shouldn't matter =E2=80=93 and maybe that's true, in theory. In practice, i=
-t
-does matter. In practice, APIs get misused and have side-effects. And
-making that harder is desirable.
+  ld: vmlinux.o: in function `pxp_fw_dependencies_completed':
+  kintel_pxp.c:(.text+0x95728f): undefined reference to `intel_pxp_gsccs_is_ready_for_sessions'
 
-In any case, I might have to add another such call to Nouveau, because
-the solution preferred by you over the callback causes another race.
-Certainly one could solve this in a clean way, but someone has to do
-the work, and we're talking about more than a few hours here.
+Signed-off-by: Chen Linxuan <chenlinxuan@uniontech.com>
+---
+ drivers/gpu/drm/i915/pxp/intel_pxp_gsccs.h | 8 ++++++--
+ 1 file changed, 6 insertions(+), 2 deletions(-)
 
-In any case, be so kind and look at patch 2 and tell me there if you're
-at least OK with making the documentation more detailed.
-
-P.
-
->=20
-> Regards,
-> Christian.
->=20
-> >=20
-> > P.
-> >=20
-> > > What we should improve is the documentation of the dma_fence_ops-
-> > > > enable_signaling and dma_fence_ops->signaled callbacks.
-> > > Especially see the comment about reference counts on
-> > > enable_signaling
-> > > which is missing on the signaled callback. That is most likely
-> > > the
-> > > root cause why nouveau implemented enable_signaling correctly but
-> > > not
-> > > the other one.
-> > >=20
-> > > But putting that aside I think we should make nails with heads
-> > > and
-> > > let the framework guarantee that the fences stay alive until they
-> > > are
-> > > signaled (one way or another). This completely removes the burden
-> > > to
-> > > keep a reference on unsignaled fences from the drivers /
-> > > implementations and make things more over all more defensive.
-> > >=20
-> > > Regards,
-> > > Christian.
-> > >=20
-> > > > P.
-> > > >=20
-> > > > > P.
-> > > > >=20
-> > > > >=20
-> > > > > > Regards,
-> > > > > >=20
-> > > > > > Boris
->=20
+diff --git a/drivers/gpu/drm/i915/pxp/intel_pxp_gsccs.h b/drivers/gpu/drm/i915/pxp/intel_pxp_gsccs.h
+index 9aae779c4da3..4969d3de2bac 100644
+--- a/drivers/gpu/drm/i915/pxp/intel_pxp_gsccs.h
++++ b/drivers/gpu/drm/i915/pxp/intel_pxp_gsccs.h
+@@ -23,6 +23,7 @@ int intel_pxp_gsccs_init(struct intel_pxp *pxp);
+ 
+ int intel_pxp_gsccs_create_session(struct intel_pxp *pxp, int arb_session_id);
+ void intel_pxp_gsccs_end_arb_fw_session(struct intel_pxp *pxp, u32 arb_session_id);
++bool intel_pxp_gsccs_is_ready_for_sessions(struct intel_pxp *pxp);
+ 
+ #else
+ static inline void intel_pxp_gsccs_fini(struct intel_pxp *pxp)
+@@ -34,8 +35,11 @@ static inline int intel_pxp_gsccs_init(struct intel_pxp *pxp)
+ 	return 0;
+ }
+ 
+-#endif
++static inline bool intel_pxp_gsccs_is_ready_for_sessions(struct intel_pxp *pxp)
++{
++	return false;
++}
+ 
+-bool intel_pxp_gsccs_is_ready_for_sessions(struct intel_pxp *pxp);
++#endif
+ 
+ #endif /*__INTEL_PXP_GSCCS_H__ */
+-- 
+2.48.1
 
