@@ -4,52 +4,54 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 18353C369B6
-	for <intel-gfx@archiver.kernel.org>; Mon, 14 Apr 2025 10:05:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3E864C369B9
+	for <intel-gfx@archiver.kernel.org>; Mon, 14 Apr 2025 10:05:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id ABE5910E537;
-	Mon, 14 Apr 2025 10:05:25 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D20BA10E540;
+	Mon, 14 Apr 2025 10:05:27 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="lKpgfTnX";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="Iqbg+ro2";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.13])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6D45610E53B;
- Mon, 14 Apr 2025 10:05:22 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CB55F10E53F;
+ Mon, 14 Apr 2025 10:05:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1744625122; x=1776161122;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=4fgkiNA7eg96R1GjFZnfwHxlCBd+6Li0fP7/knm8T/Q=;
- b=lKpgfTnX59TrtIUStwsVpuw/MTtvEzfjhnA5fpriXZdWIb6p6U5SJXaK
- Gy9lCGqcxwdApa7CcsWSrOEO8jPbcEAxea94V4OsmKxAPYLfFeEw/ksE3
- TuPLtxC8L6aVX+KCIQ0IWtlCxQ6N0ADG53mOFaJKvhdZCBpAKKqTzrMI0
- Ilz9sTnDFn/w1waWstJZyiSC8mydy0S4TK9mWvRVJGTAwEO7lpR6DeiQX
- xONNNhJS+Q6IfJ1iPs1AKMg3inS0DPMcnefxBVcW+HKZf+lwNSaHOArKJ
- BlA/9W62EnRqgtt79KS8TjlSO0QHqw7FBPU0uk+LULI2ihKjdfCWIHtg9 Q==;
-X-CSE-ConnectionGUID: RA6i4MIMRXKf/ZrbOTPlEA==
-X-CSE-MsgGUID: tiFpsrtsQJWRb+YgN+CrVQ==
-X-IronPort-AV: E=McAfee;i="6700,10204,11402"; a="48789109"
-X-IronPort-AV: E=Sophos;i="6.15,212,1739865600"; d="scan'208";a="48789109"
+ t=1744625126; x=1776161126;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=VEuzruUgAHJn4jpTWHJ15d6soITmSTRigC0gYYcd8As=;
+ b=Iqbg+ro2CrKHYewsMHJ44LDkCTDvSQWSI6QW7h85KYknFTbmbJMLJKGF
+ U4vWfezsGzDPaqe2kw9UCEnwRi/9ekL2wu0w481MgRkvAH3BHQX4kFSXl
+ qe/5f/PV/XwTpSSnobvEwzWQN/SlLg0+RaJC7CncKng8lrpR9Ojdvpi8n
+ OqhnCeYCcqHlsSyH3cDdF9obvSsdc/a1waObFgyTzo39UMq2ZsKMtY0vK
+ CVJ81ThtS8hlrliB6r4KcJO1/bwYDNHhgoTGiNGmaUgqw+mn5dgNOUzFO
+ UP5hwpz1okwmQUv8xp9r4MjrlHcBvaQWTcrm2J2QBDvn4Yh9LchgUEA/y Q==;
+X-CSE-ConnectionGUID: N/ccqlIHT42aMscCvYTSjw==
+X-CSE-MsgGUID: s0KyeX8rQJm/sArV/njK8Q==
+X-IronPort-AV: E=McAfee;i="6700,10204,11402"; a="48789113"
+X-IronPort-AV: E=Sophos;i="6.15,212,1739865600"; d="scan'208";a="48789113"
 Received: from orviesa006.jf.intel.com ([10.64.159.146])
  by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 14 Apr 2025 03:05:22 -0700
-X-CSE-ConnectionGUID: 70uXZKzdSrSQJg2wZdaReQ==
-X-CSE-MsgGUID: bM6SpgmPTmuoSUhQ12gT/Q==
+ 14 Apr 2025 03:05:26 -0700
+X-CSE-ConnectionGUID: 1NxgYLqyTSCF40NdlMZRAQ==
+X-CSE-MsgGUID: OXjmyBJDSnm8P2woWgktgQ==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.15,212,1739865600"; d="scan'208";a="129743179"
+X-IronPort-AV: E=Sophos;i="6.15,212,1739865600"; d="scan'208";a="129743189"
 Received: from dalessan-mobl3.ger.corp.intel.com (HELO jhogande-mobl1..)
  ([10.245.244.194])
  by orviesa006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 14 Apr 2025 03:05:21 -0700
+ 14 Apr 2025 03:05:26 -0700
 From: =?UTF-8?q?Jouni=20H=C3=B6gander?= <jouni.hogander@intel.com>
 To: intel-gfx@lists.freedesktop.org,
 	intel-xe@lists.freedesktop.org
 Cc: =?UTF-8?q?Jouni=20H=C3=B6gander?= <jouni.hogander@intel.com>
-Subject: [PATCH v3 00/13] Underrun on idle PSR workaround
-Date: Mon, 14 Apr 2025 13:04:55 +0300
-Message-ID: <20250414100508.1208774-1-jouni.hogander@intel.com>
+Subject: [PATCH v3 03/13] drm/i915/dmc: Add PIPEDMC_EVT_CTL register definition
+Date: Mon, 14 Apr 2025 13:04:58 +0300
+Message-ID: <20250414100508.1208774-4-jouni.hogander@intel.com>
 X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20250414100508.1208774-1-jouni.hogander@intel.com>
+References: <20250414100508.1208774-1-jouni.hogander@intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
@@ -69,54 +71,34 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-This patchset is implementing workaround for underrun on idle PSR HW
-bug (Wa_16025596647).
+To implement workaround for underrun on idle PSR HW issue (Wa_16025596647)
+we need PIPEDMC_EVT_CTL_4 register. Add PIPEDMC_EVT_CTL_4 register
+definitions.
 
-It is adding notification mechanisms towards PSR for pipe
-enable/disable, vblank enable/disable and enabling disabling
-DC5/DC6. These notifications are used to apply/remove the workaround.
+Bspec: 67576
 
-Current mechanism to block DC states while vblank is enabled on Panel
-Replay capable system is extended to work for this new workaround as
-well.
+Signed-off-by: Jouni Högander <jouni.hogander@intel.com>
+---
+ drivers/gpu/drm/i915/display/intel_dmc_regs.h | 6 ++++++
+ 1 file changed, 6 insertions(+)
 
-v3:
-  - do not access DMC registers directly from PSR code
-v2:
-  - remove patch mistakenly added to the set
-  - add missing patch
-
-Jouni Högander (13):
-  drm/i915/display: Add new interface for getting dc_state
-  drm/i915/psr: Store enabled non-psr pipes into intel_crtc_state
-  drm/i915/dmc: Add PIPEDMC_EVT_CTL register definition
-  drm/i915/dmc: Add PIPEDMC_BLOCK_PKGC_SW definitions
-  drm/i915/dmc: Add interface to block PKG C-state
-  drm/i915/psr: Block PKG C-State when enabling PSR
-  drm/i915/psr: Add mechanism to notify PSR of pipe enable/disable
-  drm/i915/psr: Add mechanism to notify PSR of DC5/6 enable disable
-  drm/i915/psr: Add interface to notify PSR of vblank enable/disable
-  drm/i915/dmc: Add interface to control start of PKG C-state exit
-  drm/i915/psr: Apply underrun on PSR idle workaround
-  drm/i915/display: Rename intel_psr_needs_block_dc_vblank
-  drm/i915/display: Rename vblank DC workaround functions and variables
-
- drivers/gpu/drm/i915/display/intel_crtc.c     |   6 +-
- drivers/gpu/drm/i915/display/intel_display.c  |   4 +
- .../gpu/drm/i915/display/intel_display_core.h |   6 +-
- .../drm/i915/display/intel_display_driver.c   |   3 +
- .../gpu/drm/i915/display/intel_display_irq.c  |  26 +-
- .../drm/i915/display/intel_display_power.c    |  29 ++
- .../drm/i915/display/intel_display_power.h    |   1 +
- .../i915/display/intel_display_power_well.c   |   4 +
- .../drm/i915/display/intel_display_types.h    |   5 +-
- drivers/gpu/drm/i915/display/intel_dmc.c      |  48 ++++
- drivers/gpu/drm/i915/display/intel_dmc.h      |   4 +
- drivers/gpu/drm/i915/display/intel_dmc_regs.h |  14 +
- drivers/gpu/drm/i915/display/intel_psr.c      | 255 +++++++++++++++++-
- drivers/gpu/drm/i915/display/intel_psr.h      |   8 +-
- 14 files changed, 384 insertions(+), 29 deletions(-)
-
+diff --git a/drivers/gpu/drm/i915/display/intel_dmc_regs.h b/drivers/gpu/drm/i915/display/intel_dmc_regs.h
+index 1bf446f96a10..2f1e3cb1a247 100644
+--- a/drivers/gpu/drm/i915/display/intel_dmc_regs.h
++++ b/drivers/gpu/drm/i915/display/intel_dmc_regs.h
+@@ -21,6 +21,12 @@
+ #define MTL_PIPEDMC_CONTROL		_MMIO(0x45250)
+ #define  PIPEDMC_ENABLE_MTL(pipe)	REG_BIT(((pipe) - PIPE_A) * 4)
+ 
++#define _MTL_PIPEDMC_EVT_CTL_4_A	0x5f044
++#define _MTL_PIPEDMC_EVT_CTL_4_B	0x5f444
++#define MTL_PIPEDMC_EVT_CTL_4(pipe)	_MMIO_PIPE(pipe,		\
++						   _MTL_PIPEDMC_EVT_CTL_4_A, \
++						   _MTL_PIPEDMC_EVT_CTL_4_B)
++
+ #define _ADLP_PIPEDMC_REG_MMIO_BASE_A	0x5f000
+ #define _TGL_PIPEDMC_REG_MMIO_BASE_A	0x92000
+ 
 -- 
 2.43.0
 
