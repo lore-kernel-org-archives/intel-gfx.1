@@ -4,58 +4,81 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1A8A0C369CB
-	for <intel-gfx@archiver.kernel.org>; Wed, 16 Apr 2025 13:15:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 749E7C369BD
+	for <intel-gfx@archiver.kernel.org>; Wed, 16 Apr 2025 13:15:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DE6CF10E905;
-	Wed, 16 Apr 2025 13:15:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 09CB410E908;
+	Wed, 16 Apr 2025 13:15:59 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="vHNJGM1/";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="XooLRO5T";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9EC6110E8AE;
- Wed, 16 Apr 2025 09:29:29 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id 3460361567;
- Wed, 16 Apr 2025 09:29:12 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2DBF2C4CEE2;
- Wed, 16 Apr 2025 09:29:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1744795768;
- bh=xKc8QblkN9uJFFCNL6TIKz3YjB59ygJkZnOM9Cdts/Q=;
- h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
- b=vHNJGM1//ojqqTbQ3yiTbcMZDv4Ur+nBc2qkNjLe8xRQ4EYJ9LkW9VsCKmY3nlM/q
- XBl/0dy2GDg5Qvej2MThYk/7hDAS/cotGKHYpwC4ANvaxkov7B12fAE/GJf3/VgqBs
- UO0v4W1HVWqO26xOLT7BQJbSyCT0MihHG3jlPmul2oKOoo2cJ5Or3CrNvjQGd6SgVA
- cEyDA3KbYnwdud9rXx5bgNwiP1SGhOmP7n/p22oUVjAHRMX3dmEG63USPagIeZ6e68
- PBK2hW+TZzaMrKBnHQ4Jxy8V8hHLF5d0JKYWYaXZf/+n43hq5r/heHpZMjikVUkjFH
- MMJSP7sAXZ77A==
-Date: Wed, 16 Apr 2025 17:29:01 +0800
-From: Mauro Carvalho Chehab <mchehab+huawei@kernel.org>
-To: Jani Nikula <jani.nikula@linux.intel.com>
-Cc: Linux Doc Mailing List <linux-doc@vger.kernel.org>, Jonathan Corbet
- <corbet@lwn.net>, Andy Shevchenko <andriy.shevchenko@intel.com>, David
- Airlie <airlied@gmail.com>, Joonas Lahtinen
- <joonas.lahtinen@linux.intel.com>, Maarten Lankhorst
- <maarten.lankhorst@linux.intel.com>, Masahiro Yamada
- <masahiroy@kernel.org>, Maxime Ripard <mripard@kernel.org>, Nathan
- Chancellor <nathan@kernel.org>, Nicolas Schier <nicolas.schier@linux.dev>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, Simona Vetter <simona@ffwll.ch>,
- Thomas Zimmermann <tzimmermann@suse.de>, Tvrtko Ursulin
- <tursulin@ursulin.net>, dri-devel@lists.freedesktop.org,
- intel-gfx@lists.freedesktop.org, linux-kbuild@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3 1/2] scripts/kernel-doc.py: don't create *.pyc files
-Message-ID: <20250416172901.60104103@sal.lan>
-In-Reply-To: <20250416171917.0985c0eb@sal.lan>
-References: <cover.1744789777.git.mchehab+huawei@kernel.org>
- <4ad5eb8d4b819997c1615d2401581c22a32bb2c1.1744789777.git.mchehab+huawei@kernel.org>
- <87tt6opks7.fsf@intel.com> <20250416171917.0985c0eb@sal.lan>
-X-Mailer: Claws Mail 4.3.1 (GTK 3.24.43; x86_64-redhat-linux-gnu)
+Received: from mail-yw1-f169.google.com (mail-yw1-f169.google.com
+ [209.85.128.169])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A15CB10E177;
+ Tue, 15 Apr 2025 20:15:51 +0000 (UTC)
+Received: by mail-yw1-f169.google.com with SMTP id
+ 00721157ae682-6febf391132so56867907b3.1; 
+ Tue, 15 Apr 2025 13:15:51 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1744748150; x=1745352950; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=RuI60MEO0RHxwbmndWEztZeXe9SV7ztYqn+5hRpJvc8=;
+ b=XooLRO5TSdGWleAfTsL+N4W6mPkgUxYcVYo7FHgcdwyjvJNef/nP1d1saF49olQx4U
+ jBxA5ImvgOHoT9RxYH7DIifd0sl040dPmbfvB3kOwmmfEk35oNJu3htrtLayXbH4SqB2
+ 2my3nyXmDL9jEwQZwcUbNxNenHJVWKi0XUNRGfjLKNXLp09yfcdgy6VchQe6vpWHQDLi
+ Zt65z+A+hJQZ001bJ+DTGuSkOfNJshz64C3VAq4DpcrP/IKtz2yQMhDKlBcnVlUM5Fzg
+ veoi++6BBAsA5bWrjPzKnkCWjV6shpkjVvBN3QVLAAAWEnWq8IIUehPi2MdFJbUX/8dk
+ yAjw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1744748150; x=1745352950;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=RuI60MEO0RHxwbmndWEztZeXe9SV7ztYqn+5hRpJvc8=;
+ b=VjrDMbqB0ixmde2l5EXBgKyQp0L2pKAuX5bjmgp5mM+GJWTdu2Wsn+BiChI3TF6wqc
+ DRr0CcWRdClQLQfGFYqIOTAqPcZdYiLzA1m/4k8EUTfd4hBtFCCUXLLtPWZhTvs6EgaX
+ Y8ko4gGH+opQ67qH0DY8rmngc8CYvtPZcsCHFjMmCuGtf/mcqXk4fBOnU9PgUOuvb+L9
+ jPvAivSqNVK1QsCGb5MdVkWIhF5GRYKN2xRzcZRHsIvzPOkIrwptqXuTP14isrBwwGgu
+ qvvM9sV6h+Yo0mteebMPF2ebWsPniAzsY88TF1ey7cWvWIzcNgUzesyNgP4Aio1/JjJq
+ Ktpg==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCWpP438knCflDxCcsg//aW0UPsRRCnqUIRUcG5iJQlRL1OoR7hr3eZ5kqMFSOmti7C6pHU+7vPpTy752p+n6w==@lists.freedesktop.org,
+ AJvYcCXGZALz0ziqu755XBK9DyJz9vAbTfRT/aHQ6Ag1uR26TjenZPUXFquJrztbIOxQwQYCKs8OuNPr/1d5@lists.freedesktop.org,
+ AJvYcCXHze5h5e4BVrImFgAwOmupGABV6pLeqglr0+KyQnBOS0nobaZJugVOt02TCqNXTHcmoKZgNf+IwHW6@lists.freedesktop.org,
+ AJvYcCXb/WLuqiQg8u4KkfzslUMR1WdMnRZ7mM2qRF4thUC6MKBXRnXUgfUrVklCcfOEHSh6OJjuzjCy@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwWRojtJEfvF22/oDmWmrCLpkTPB+lTSUuec5Dscu58x5Ah8Uma
+ jgXCrAw2s7gYq7Z4cfgNmk16j/oLR21GcO8gUG3A1jX2cg7qP2qTGAdnXt3ZKBeG7A/fUIIYBPF
+ OGB5yipxdkRpJ5+1Ms/mB+uTMVwM=
+X-Gm-Gg: ASbGncvpHrV9iZD6hoUwsznvk+qxqRXuzsz2RmYCr9cdW+TeTsIt9FmdYXm4KZk2wpg
+ FOdlQL38VZRWrIciQ/eR//nBes7AHvSthTKIo+CqFxadb5po/GzhqlPEXj7ebGzHyqtPp50UgK/
+ gu2hS0wg4pTgwJ263MhbvT
+X-Google-Smtp-Source: AGHT+IE76oJwMupqx5P+4+nsCpN0Rf38R9V2tja8XN9qhSobyPEx1h6yavJRqYltdgAXIrNpHLFenkcJYLNoUsf7KMQ=
+X-Received: by 2002:a05:690c:6e09:b0:703:b278:db2d with SMTP id
+ 00721157ae682-706aceb9c37mr12720987b3.12.1744748150648; Tue, 15 Apr 2025
+ 13:15:50 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
-X-Mailman-Approved-At: Wed, 16 Apr 2025 13:15:46 +0000
+References: <20250402174156.1246171-1-jim.cromie@gmail.com>
+ <20250402174156.1246171-22-jim.cromie@gmail.com>
+ <948a48a8-10c4-4440-b905-a1db669a31ba@bootlin.com>
+In-Reply-To: <948a48a8-10c4-4440-b905-a1db669a31ba@bootlin.com>
+From: jim.cromie@gmail.com
+Date: Tue, 15 Apr 2025 14:15:24 -0600
+X-Gm-Features: ATxdqUFuT29QvT9OQ8Dzq1ooQJWL8v5JATc8uBnNix4CnQIMzi9vLxbfc1eDONM
+Message-ID: <CAJfuBxx4kNb6ikVSAOX8bgnaALq8M1qp5UUdfXXey4yqvaU3Gw@mail.gmail.com>
+Subject: Re: [PATCH v3 21/54] dyndbg-test: change do_prints testpoint to
+ accept a loopct
+To: Louis Chauvet <louis.chauvet@bootlin.com>
+Cc: jbaron@akamai.com, gregkh@linuxfoundation.org, ukaszb@chromium.org, 
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+ amd-gfx@lists.freedesktop.org, intel-gvt-dev@lists.freedesktop.org, 
+ intel-gfx@lists.freedesktop.org, daniel.vetter@ffwll.ch, 
+ tvrtko.ursulin@linux.intel.com, jani.nikula@intel.com, 
+ ville.syrjala@linux.intel.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+X-Mailman-Approved-At: Wed, 16 Apr 2025 13:15:45 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,93 +94,120 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Em Wed, 16 Apr 2025 17:19:17 +0800
-Mauro Carvalho Chehab <mchehab+huawei@kernel.org> escreveu:
+On Tue, Apr 15, 2025 at 4:04=E2=80=AFAM Louis Chauvet <louis.chauvet@bootli=
+n.com> wrote:
+>
+>
+>
+> Le 02/04/2025 =C3=A0 19:41, Jim Cromie a =C3=A9crit :
+> > echo 1000 > /sys/module/test_dynamic_debug/parameters/do_prints
+> >
+> > This allows its use as a scriptable load generator, to generate
+> > dynamic-prefix-emits for flag combinations vs undecorated messages.
+> > This will make it easy to assess the cost of the prefixing.
+> >
+> > Reading the ./do_prints node also prints messages (once) to the-log.
+> >
+> > NB: the count is clamped to 10000, chosen to be notice able, but not
+> > annoying, and not enough to accidentally flood the logs.
+> >
+> > Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
+>
+> Reviewed-by: Louis Chauvet <louis.chauvet@bootlin.com>
+>
+> I think this could be in a separate series / merged independently to
+> reduce the size of this series.
 
-> Em Wed, 16 Apr 2025 11:34:16 +0300
-> Jani Nikula <jani.nikula@linux.intel.com> escreveu:
-> 
-> > On Wed, 16 Apr 2025, Mauro Carvalho Chehab <mchehab+huawei@kernel.org> wrote:
-> > > As reported by Andy, kernel-doc.py is creating a __pycache__
-> > > directory at build time.
-> > >
-> > > Disable creation of __pycache__ for the libraries used by
-> > > kernel-doc.py, when excecuted via the build system or via
-> > > scripts/find-unused-docs.sh.
-> > >
-> > > Reported-by: Andy Shevchenko <andriy.shevchenko@intel.com>
-> > > Closes: https://lore.kernel.org/linux-doc/Z_zYXAJcTD-c3xTe@black.fi.intel.com/
-> > > Signed-off-by: Mauro Carvalho Chehab <mchehab+huawei@kernel.org>
-> > > ---
-> > >  drivers/gpu/drm/Makefile      | 2 +-
-> > >  drivers/gpu/drm/i915/Makefile | 2 +-
-> > >  include/drm/Makefile          | 2 +-
-> > >  scripts/Makefile.build        | 2 +-
-> > >  scripts/find-unused-docs.sh   | 2 +-
-> > >  5 files changed, 5 insertions(+), 5 deletions(-)
-> > >
-> > > diff --git a/drivers/gpu/drm/Makefile b/drivers/gpu/drm/Makefile
-> > > index ed54a546bbe2..d21d0cd2c752 100644
-> > > --- a/drivers/gpu/drm/Makefile
-> > > +++ b/drivers/gpu/drm/Makefile
-> > > @@ -236,7 +236,7 @@ always-$(CONFIG_DRM_HEADER_TEST) += \
-> > >  quiet_cmd_hdrtest = HDRTEST $(patsubst %.hdrtest,%.h,$@)
-> > >        cmd_hdrtest = \
-> > >  		$(CC) $(c_flags) -fsyntax-only -x c /dev/null -include $< -include $<; \
-> > > -		$(srctree)/scripts/kernel-doc -none $(if $(CONFIG_WERROR)$(CONFIG_DRM_WERROR),-Werror) $<; \
-> > > +		 PYTHONDONTWRITEBYTECODE=1 $(KERNELDOC) -none $(if $(CONFIG_WERROR)$(CONFIG_DRM_WERROR),-Werror) $<; \  
-> > 
-> > KERNELDOC is not set here.
-> 
-> > 
-> > /bin/sh: 1: -none: not found
-> 
-> Weird. This is set on Documentation/Makefile:
-> 
-> 	$ grep KERNELDOC Documentation/Makefile 
-> 	KERNELDOC       = $(srctree)/scripts/kernel-doc.py
-> 	...
-> 
-> drivers/gpu/drm/Makefile should be able to see this variable there...
+I have no strong opinions here.
+I included it to acknowledge that this patchset is mainly for performance,
+ie to replace LOTS of bit-tests, (some of which are tested at framerate).
+So it follows that I should be able to demonstrate the savings somehow.
 
-I suspect that the building system tries to confine variables to
-sub-directories, so maybe one solution would be to move it to the
-main makefile.
-
-could you please check if this patch solves the issue?
-
-[PATCH] Makefile: move KERNELDOC macro to the main Makefile
-
-As kernel-doc script is used not only on Documentation, but
-also on scripts and drivers/drm Makefiles, move it to the
-main makefile, as otherwise sub-makefiles may not have it.
-
-Signed-off-by: Mauro Carvalho Chehab <mchehab+huawei@kernel.org>
-
-diff --git a/Documentation/Makefile b/Documentation/Makefile
-index c022b97c487e..7a2069e87dbd 100644
---- a/Documentation/Makefile
-+++ b/Documentation/Makefile
-@@ -60,7 +60,6 @@ endif #HAVE_LATEXMK
- # Internal variables.
- PAPEROPT_a4     = -D latex_paper_size=a4
- PAPEROPT_letter = -D latex_paper_size=letter
--KERNELDOC       = $(srctree)/scripts/kernel-doc.py
- KERNELDOC_CONF  = -D kerneldoc_srctree=$(srctree) -D kerneldoc_bin=$(KERNELDOC)
- ALLSPHINXOPTS   =  $(KERNELDOC_CONF) $(PAPEROPT_$(PAPER)) $(SPHINXOPTS)
- ifneq ($(wildcard $(srctree)/.config),)
-diff --git a/Makefile b/Makefile
-index 38689a0c3605..c8e46f0c1f63 100644
---- a/Makefile
-+++ b/Makefile
-@@ -458,6 +458,8 @@ endif
- HOSTRUSTC = rustc
- HOSTPKG_CONFIG	= pkg-config
- 
-+KERNELDOC       = $(srctree)/scripts/kernel-doc.py
-+
- KBUILD_USERHOSTCFLAGS := -Wall -Wmissing-prototypes -Wstrict-prototypes \
- 			 -O2 -fomit-frame-pointer -std=gnu11
- KBUILD_USERCFLAGS  := $(KBUILD_USERHOSTCFLAGS) $(USERCFLAGS)
+I havent done so yet, I was hoping that the benefits are obvious
+enough not require proof.
 
 
+
+
+>
+> > ---
+> >   lib/test_dynamic_debug.c | 37 ++++++++++++++++++++++++++-----------
+> >   1 file changed, 26 insertions(+), 11 deletions(-)
+> >
+> > diff --git a/lib/test_dynamic_debug.c b/lib/test_dynamic_debug.c
+> > index 9f9e3fddd7e6..4a3d2612ef60 100644
+> > --- a/lib/test_dynamic_debug.c
+> > +++ b/lib/test_dynamic_debug.c
+> > @@ -29,18 +29,30 @@
+> >
+> >   #include <linux/module.h>
+> >
+> > -/* re-gen output by reading or writing sysfs node: do_prints */
+> > -
+> > -static void do_prints(void); /* device under test */
+> > +/* re-trigger debug output by reading or writing sysfs node: do_prints=
+ */
+> > +#define PRINT_CLAMP 10000
+> > +static void do_prints(unsigned int); /* device under test */
+> >   static int param_set_do_prints(const char *instr, const struct kernel=
+_param *kp)
+> >   {
+> > -     do_prints();
+> > +     int rc;
+> > +     unsigned int ct;
+> > +
+> > +     rc =3D kstrtouint(instr, 0, &ct);
+> > +     if (rc) {
+> > +             pr_err("expecting numeric input, using 1 instead\n");
+> > +             ct =3D 1;
+> > +     }
+> > +     if (ct > PRINT_CLAMP) {
+> > +             ct =3D PRINT_CLAMP;
+> > +             pr_info("clamping print-count to %d\n", ct);
+> > +     }
+> > +     do_prints(ct);
+> >       return 0;
+> >   }
+> >   static int param_get_do_prints(char *buffer, const struct kernel_para=
+m *kp)
+> >   {
+> > -     do_prints();
+> > -     return scnprintf(buffer, PAGE_SIZE, "did do_prints\n");
+> > +     do_prints(1);
+> > +     return scnprintf(buffer, PAGE_SIZE, "did 1 do_prints\n");
+> >   }
+> >   static const struct kernel_param_ops param_ops_do_prints =3D {
+> >       .set =3D param_set_do_prints,
+> > @@ -191,17 +203,20 @@ static void do_levels(void)
+> >       prdbg(V7);
+> >   }
+> >
+> > -static void do_prints(void)
+> > +static void do_prints(unsigned int ct)
+> >   {
+> > -     pr_debug("do_prints:\n");
+> > -     do_cats();
+> > -     do_levels();
+> > +     /* maybe clamp this */
+> > +     pr_debug("do-prints %d times:\n", ct);
+> > +     for (; ct; ct--) {
+> > +             do_cats();
+> > +             do_levels();
+> > +     }
+> >   }
+> >
+> >   static int __init test_dynamic_debug_init(void)
+> >   {
+> >       pr_debug("init start\n");
+> > -     do_prints();
+> > +     do_prints(1);
+> >       pr_debug("init done\n");
+> >       return 0;
+> >   }
+>
+> --
+> Louis Chauvet, Bootlin
+> Embedded Linux and Kernel engineering
+> https://bootlin.com
+>
+>
