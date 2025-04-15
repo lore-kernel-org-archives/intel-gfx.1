@@ -4,138 +4,28 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BE6CDC369B4
-	for <intel-gfx@archiver.kernel.org>; Tue, 15 Apr 2025 10:59:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 48E96C369AB
+	for <intel-gfx@archiver.kernel.org>; Tue, 15 Apr 2025 11:07:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 55B6910E731;
-	Tue, 15 Apr 2025 10:59:46 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="VLK4V3z9";
-	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.16])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3FDD010E730
- for <intel-gfx@lists.freedesktop.org>; Tue, 15 Apr 2025 10:59:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1744714786; x=1776250786;
- h=resent-to:resent-from:resent-date:resent-message-id:from:
- to:cc:subject:date:message-id:content-transfer-encoding:
- mime-version; bh=tmZKmCrNvznjmGS/7QqthM8WE+Sha0EM8rZvoWJow7Q=;
- b=VLK4V3z9RyC1zgIIElaXUWEIauaFPr4bBozD4318SkhuffXxrMYaa5Lw
- ENPzEBSSpzGRyX0SKMI0xk+tNimwNp1cdehDPeQo8jqte2nBjSx+KwuJ0
- gJ4qMnRuhOMeDmaqxOjYjTNXh/l9fEpKgSCxbnJbYJN7JxLDQH1swmVFX
- f1iEmjyEOFT97uk34A7nxTW00qOhGiywz2z5idnUTa8FxP/d+iOQnHpwd
- f3aBC61po24Qbq/COBY7E42G7uuRiJRF/dIXxHCOMCDL1oBNaKa0VdBx8
- GH0WvC1IwGcFGts2FkZ09/maFDSjPGtME1yumEcDNB8DT0gBv0E6i+Bkl g==;
-X-CSE-ConnectionGUID: PCXmE/62R++0VVgRkimm2w==
-X-CSE-MsgGUID: YgZNlSVaTpC4LUCyV9BvxQ==
-X-IronPort-AV: E=McAfee;i="6700,10204,11403"; a="46306362"
-X-IronPort-AV: E=Sophos;i="6.15,213,1739865600"; d="scan'208";a="46306362"
-Received: from orviesa003.jf.intel.com ([10.64.159.143])
- by orvoesa108.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 15 Apr 2025 03:59:45 -0700
-X-CSE-ConnectionGUID: f5yvwyuYTFGKFncQoUAuWQ==
-X-CSE-MsgGUID: P/rdwCcURW6rzsHj2GGUQg==
-X-ExtLoopCount2: 2 from 10.245.246.35
-X-IronPort-AV: E=Sophos;i="6.15,213,1739865600"; d="scan'208";a="134946790"
-Received: from dprybysh-mobl.ger.corp.intel.com (HELO localhost)
- ([10.245.246.35])
- by ORVIESA003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 15 Apr 2025 03:59:44 -0700
-Resent-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7,
- 02160 Espoo
-Resent-To: intel-gfx@lists.freedesktop.org
-Resent-From: Jani Nikula <jani.nikula@intel.com>
-Resent-Date: Tue, 15 Apr 2025 13:59:41 +0300
-Resent-Message-ID: <87y0w1r8pu.fsf@intel.com>
-Received: from MW3PR11MB4571.namprd11.prod.outlook.com (2603:10b6:303:59::19)
- by PH7PR11MB6428.namprd11.prod.outlook.com with HTTPS;
- Mon, 14 Apr 2025 12:33:25 +0000
-Received: from BY5PR03CA0001.namprd03.prod.outlook.com (2603:10b6:a03:1e0::11)
- by MW3PR11MB4571.namprd11.prod.outlook.com (2603:10b6:303:59::19)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8632.35; Mon, 14 Apr
- 2025 12:33:23 +0000
-Received: from CO1PEPF000075F3.namprd03.prod.outlook.com
- (2603:10b6:a03:1e0:cafe::45) by BY5PR03CA0001.outlook.office365.com
- (2603:10b6:a03:1e0::11) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.8632.32 via Frontend Transport; Mon,
- 14 Apr 2025 12:33:23 +0000
-Authentication-Results: spf=fail (sender IP is 192.55.55.68)
- smtp.mailfrom=intel.com; dkim=none (message not signed)
- header.d=none;dmarc=fail action=none header.from=intel.com;
-Received: from edgegateway.intel.com (192.55.55.68) by
- CO1PEPF000075F3.mail.protection.outlook.com (10.167.249.42) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.8655.12 via Frontend Transport; Mon, 14 Apr 2025 12:33:23 +0000
-Received: from FMSMSX901.amr.corp.intel.com (10.18.126.90) by
- edgegateway.intel.com (10.1.192.133) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.1.2507.44; Mon, 14 Apr 2025 05:33:15 -0700
-Received: from FMSMSX901.amr.corp.intel.com (10.18.126.90) by
- fmsmsx901.amr.corp.intel.com (10.18.126.90) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1544.14; Mon, 14 Apr 2025 05:33:14 -0700
-Received: from orviesa004.jf.intel.com (10.64.159.144) by
- FMSMSX901.amr.corp.intel.com (10.18.84.214) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1544.14 via Frontend Transport; Mon, 14 Apr 2025 05:33:14 -0700
-X-CSE-ConnectionGUID: H8RUcA01SKeIsTaeZaE1TA==
-X-CSE-MsgGUID: F/SIVZXVSM6vCPOH3p8pjQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.15,212,1739865600"; d="scan'208";a="134781605"
-Received: from bergbenj-mobl1.ger.corp.intel.com (HELO localhost)
- ([10.245.246.205]) by orviesa004-auth.jf.intel.com with
- ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 14 Apr 2025 05:33:13 -0700
-From: Jani Nikula <jani.nikula@intel.com>
-To: <intel-gfx@lists.freedesktop.org>, <intel-xe@lists.freedesktop.org>
-CC: <jani.nikula@intel.com>
-Subject: [PATCH 0/3] drm/i915/pch: conversion to struct intel_display use,
- cleanups
-Date: Mon, 14 Apr 2025 15:33:06 +0300
-Message-ID: <cover.1744633934.git.jani.nikula@intel.com>
-X-Mailer: git-send-email 2.39.5
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-OrganizationHeadersPreserved: fmsmsx901.amr.corp.intel.com
-X-MS-Exchange-Organization-ExpirationStartTime: 14 Apr 2025 12:33:23.3629 (UTC)
-X-MS-Exchange-Organization-ExpirationStartTimeReason: OriginalSubmit
-X-MS-Exchange-Organization-ExpirationInterval: 1:00:00:00.0000000
-X-MS-Exchange-Organization-ExpirationIntervalReason: OriginalSubmit
-X-MS-Exchange-Organization-Network-Message-Id: 243eaa24-345c-42ed-4c37-08dd7b508c0b
-X-EOPAttributedMessage: 0
-X-MS-Exchange-Organization-MessageDirectionality: Originating
-X-MS-Exchange-Organization-AuthSource: fmsmsx901.amr.corp.intel.com
-X-MS-Exchange-Organization-AuthAs: Internal
-X-MS-Exchange-Organization-AuthMechanism: 10
-X-MS-Exchange-Organization-SCL: 1
-X-CrossPremisesHeadersPromoted: CO1PEPF000075F3.namprd03.prod.outlook.com
-X-CrossPremisesHeadersFiltered: CO1PEPF000075F3.namprd03.prod.outlook.com
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CO1PEPF000075F3:EE_|MW3PR11MB4571:EE_|PH7PR11MB6428:EE_
-X-OriginatorOrg: intel.onmicrosoft.com
-X-MS-Office365-Filtering-Correlation-Id: 243eaa24-345c-42ed-4c37-08dd7b508c0b
-X-Microsoft-Antispam: BCL:0;ARA:13230040|366016|82310400026|41050700001;
-X-Forefront-Antispam-Report: CIP:192.55.55.68; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:edgegateway.intel.com; PTR:edgegateway.intel.com;
- CAT:NONE; SFS:(13230040)(366016)(82310400026)(41050700001); DIR:INT; 
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Apr 2025 12:33:23.2535 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 243eaa24-345c-42ed-4c37-08dd7b508c0b
-X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=46c98d88-e344-4ed4-8496-4ed7712e255d; Ip=[192.55.55.68];
- Helo=[edgegateway.intel.com]
-X-MS-Exchange-CrossTenant-AuthSource: fmsmsx901.amr.corp.intel.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW3PR11MB4571
-X-MS-Exchange-Transport-EndToEndLatency: 00:00:01.7902567
-X-MS-Exchange-Processed-By-BccFoldering: 15.20.8632.030
-X-Microsoft-Antispam-Mailbox-Delivery: ucf:0; jmr:0; auth:0; dest:I;
- ENG:(910005)(944506478)(944626604)(920097)(425001)(930097)(140003); 
-X-Microsoft-Antispam-Message-Info: EEro48s84+ryoTigYle30XgiD53zR+IbbFQdPkWAMrVRTk8WFcomA9T6Ym5pgieWDXLIN7OomOtoUN6LD/254giTod9B0koP+Vprc/BbJj080tRuClNLkpTayMh817rZOLSZv5Bc4VEjAFkKUO8Vh2KYy9T6GJgSvKjXmoI9II4pGffPH6wSpli1iWJk6OzaE7NuiTKNN+4FdvKzT1Nfw8peXrta7frl3Rz0isqCYU2WbdL3rv6uY/NEzVDHMnPXl+PElVDrGbvVuPOlLVk1kBfn2T0JJ8dvBwGrIYW1X0qZmPCk46Gz+8wXUAkOHLc0hZbswq35VIMBX7+UXo9AZ8f0cWXnA4DP+UGOssxZtSZbfGZSytuxFo5ll83pKB4pTN1dYGQUb9ikXoIAdr9v4QYq20BMk/9Xk9ryx1kcXmA2NN6Bjf6zylIC6QD4+MmUakqg6Y9vtUFFx2sZ0eswuh5H/P7zvHvYBKfGoggV4Jk7vOFU/UA/OpI6l3N74TxJacaCnpEXEoFNeZ1C0daTyOkwc8Svy+5+AUimDL+3RS86PhI68Rez975Q83/losfUa8sxyoueDiqZofk9+CPqta+cElTN09d5Kv0mTviyTYAEURWrRA8E8192WfiuDS81ElKToW+pWgW5zBj/nohoJnwBPAyk/cNqCin8LXOz6kjt6xOhXp6I/2Wh9Rbn7AUoUXsIBYIBR96WjneZSw4Wr9XdgNMfoYWYszvkER2XHHwP8+kqD/PNHg4KTi8AFXN5D8k+tmTt5vgdOanN+FsCs6d3mM11/jzsHyslzaCvgVuEOfBRw1RNxPpuCJS6cEMV1MNsl3e9hjQA1V0tzMHMpw==
+	by gabe.freedesktop.org (Postfix) with ESMTP id BFD0110E72F;
+	Tue, 15 Apr 2025 11:07:25 +0000 (UTC)
+Received: from b68e5b3b99e1 (emeril.freedesktop.org [131.252.210.167])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1C93C10E72F;
+ Tue, 15 Apr 2025 11:07:25 +0000 (UTC)
+Content-Type: multipart/alternative;
+ boundary="===============4956012885125310261=="
 MIME-Version: 1.0
-X-TUID: HdKEXP2huFv0
+Subject: =?utf-8?q?=E2=9C=93_i915=2ECI=2EBAT=3A_success_for_drm/i915/pxp=3A_fix_undef?=
+ =?utf-8?q?ined_reference_to_=60intel=5Fpxp=5Fgsccs=5Fis=5Fready=5Ffor=5Fses?=
+ =?utf-8?q?sions=27?=
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Jani Nikula" <jani.nikula@intel.com>
+Cc: intel-gfx@lists.freedesktop.org
+Date: Tue, 15 Apr 2025 11:07:25 -0000
+Message-ID: <174471524510.6127.2954596211777720304@b68e5b3b99e1>
+X-Patchwork-Hint: ignore
+References: <20250415090616.2649889-1-jani.nikula@intel.com>
+In-Reply-To: <20250415090616.2649889-1-jani.nikula@intel.com>
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -148,58 +38,166 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
-Message-ID: <20250414123306.jkkOrH3v8YcopQLGS_G3da4gyWBIJG95RoWFZtHucxs@z>
 
-With the PCH detection moved to display, we can do some further
-cleanups.
+--===============4956012885125310261==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
 
-Jani Nikula (3):
-  drm/i915/display: pass struct intel_display to PCH macros
-  drm/i915/display: drop lots of unnecessary #include i915_drv.h
-  drm/i915/pch: abstract fake PCH detection better
+== Series Details ==
 
- drivers/gpu/drm/i915/display/g4x_dp.c         | 26 ++++-----
- drivers/gpu/drm/i915/display/g4x_hdmi.c       | 21 +++----
- drivers/gpu/drm/i915/display/i9xx_wm.c        |  4 +-
- drivers/gpu/drm/i915/display/intel_audio.c    | 12 ++--
- .../gpu/drm/i915/display/intel_backlight.c    | 42 +++++++-------
- drivers/gpu/drm/i915/display/intel_bios.c     | 17 +++---
- drivers/gpu/drm/i915/display/intel_cdclk.c    | 12 ++--
- drivers/gpu/drm/i915/display/intel_cmtg.c     |  1 -
- drivers/gpu/drm/i915/display/intel_crt.c      | 28 ++++------
- drivers/gpu/drm/i915/display/intel_cursor.c   |  3 +-
- drivers/gpu/drm/i915/display/intel_cx0_phy.c  |  4 +-
- drivers/gpu/drm/i915/display/intel_ddi.c      | 15 ++---
- drivers/gpu/drm/i915/display/intel_display.c  | 21 ++-----
- .../drm/i915/display/intel_display_debugfs.c  |  9 ++-
- .../drm/i915/display/intel_display_device.c   | 13 +++--
- .../gpu/drm/i915/display/intel_display_irq.c  | 33 +++++------
- .../drm/i915/display/intel_display_power.c    | 31 ++++-------
- drivers/gpu/drm/i915/display/intel_dp.c       |  3 +-
- drivers/gpu/drm/i915/display/intel_dp_aux.c   |  7 +--
- drivers/gpu/drm/i915/display/intel_dp_mst.c   |  4 +-
- drivers/gpu/drm/i915/display/intel_dpll.c     | 11 +---
- drivers/gpu/drm/i915/display/intel_dpll_mgr.c | 11 ++--
- drivers/gpu/drm/i915/display/intel_dsb.c      |  3 +-
- drivers/gpu/drm/i915/display/intel_fdi.c      | 18 +++---
- .../drm/i915/display/intel_fifo_underrun.c    |  4 +-
- .../gpu/drm/i915/display/intel_global_state.c |  5 +-
- drivers/gpu/drm/i915/display/intel_gmbus.c    | 14 ++---
- drivers/gpu/drm/i915/display/intel_hdmi.c     | 23 ++++----
- .../gpu/drm/i915/display/intel_hotplug_irq.c  | 55 ++++++++-----------
- drivers/gpu/drm/i915/display/intel_lvds.c     | 23 +++-----
- drivers/gpu/drm/i915/display/intel_pch.c      | 47 +++++++++-------
- .../gpu/drm/i915/display/intel_pch_display.c  | 44 ++++++---------
- .../gpu/drm/i915/display/intel_pch_refclk.c   | 15 ++---
- drivers/gpu/drm/i915/display/intel_pps.c      | 26 +++------
- drivers/gpu/drm/i915/display/intel_sdvo.c     | 26 +++------
- drivers/gpu/drm/i915/display/intel_sprite.c   |  3 +-
- drivers/gpu/drm/i915/display/intel_vga.c      |  5 +-
- drivers/gpu/drm/i915/display/skl_scaler.c     |  4 +-
- 38 files changed, 277 insertions(+), 366 deletions(-)
+Series: drm/i915/pxp: fix undefined reference to `intel_pxp_gsccs_is_ready_for_sessions'
+URL   : https://patchwork.freedesktop.org/series/147736/
+State : success
 
--- 
-2.39.5
+== Summary ==
 
+CI Bug Log - changes from CI_DRM_16419 -> Patchwork_147736v1
+====================================================
+
+Summary
+-------
+
+  **SUCCESS**
+
+  No regressions found.
+
+  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_147736v1/index.html
+
+Participating hosts (45 -> 44)
+------------------------------
+
+  Missing    (1): fi-snb-2520m 
+
+Known issues
+------------
+
+  Here are the changes found in Patchwork_147736v1 that come from known issues:
+
+### IGT changes ###
+
+#### Possible fixes ####
+
+  * igt@dmabuf@all-tests@dma_fence_chain:
+    - fi-bsw-n3050:       [INCOMPLETE][1] ([i915#12904]) -> [PASS][2] +1 other test pass
+   [1]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_16419/fi-bsw-n3050/igt@dmabuf@all-tests@dma_fence_chain.html
+   [2]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_147736v1/fi-bsw-n3050/igt@dmabuf@all-tests@dma_fence_chain.html
+
+  * igt@i915_pm_rpm@module-reload:
+    - bat-adls-6:         [ABORT][3] ([i915#13571]) -> [PASS][4]
+   [3]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_16419/bat-adls-6/igt@i915_pm_rpm@module-reload.html
+   [4]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_147736v1/bat-adls-6/igt@i915_pm_rpm@module-reload.html
+
+  * igt@i915_selftest@live:
+    - bat-arlh-2:         [INCOMPLETE][5] ([i915#14046]) -> [PASS][6] +1 other test pass
+   [5]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_16419/bat-arlh-2/igt@i915_selftest@live.html
+   [6]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_147736v1/bat-arlh-2/igt@i915_selftest@live.html
+
+  * igt@i915_selftest@live@workarounds:
+    - bat-dg2-14:         [DMESG-FAIL][7] ([i915#12061]) -> [PASS][8] +1 other test pass
+   [7]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_16419/bat-dg2-14/igt@i915_selftest@live@workarounds.html
+   [8]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_147736v1/bat-dg2-14/igt@i915_selftest@live@workarounds.html
+
+  
+  [i915#12061]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/12061
+  [i915#12904]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/12904
+  [i915#13571]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/13571
+  [i915#14046]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/14046
+
+
+Build changes
+-------------
+
+  * Linux: CI_DRM_16419 -> Patchwork_147736v1
+
+  CI-20190529: 20190529
+  CI_DRM_16419: 4e52f6bddf99cb28ed0279d56bb8286a8bbfda65 @ git://anongit.freedesktop.org/gfx-ci/linux
+  IGT_8319: db9eca9df70fbb72589fcaf689dd92784b06a9c0 @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git
+  Patchwork_147736v1: 4e52f6bddf99cb28ed0279d56bb8286a8bbfda65 @ git://anongit.freedesktop.org/gfx-ci/linux
+
+== Logs ==
+
+For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_147736v1/index.html
+
+--===============4956012885125310261==
+Content-Type: text/html; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <title>Project List - Patchwork</title>
+  <style id="css-table-select" type="text/css">
+   td { padding: 2pt; }
+  </style>
+</head>
+<body>
+
+
+<b>Patch Details</b>
+<table>
+<tr><td><b>Series:</b></td><td>drm/i915/pxp: fix undefined reference to `intel_pxp_gsccs_is_ready_for_sessions&#x27;</td></tr>
+<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/147736/">https://patchwork.freedesktop.org/series/147736/</a></td></tr>
+<tr><td><b>State:</b></td><td>success</td></tr>
+
+    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_147736v1/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_147736v1/index.html</a></td></tr>
+
+</table>
+
+
+    <h1>CI Bug Log - changes from CI_DRM_16419 -&gt; Patchwork_147736v1</h1>
+<h2>Summary</h2>
+<p><strong>SUCCESS</strong></p>
+<p>No regressions found.</p>
+<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_147736v1/index.html</p>
+<h2>Participating hosts (45 -&gt; 44)</h2>
+<p>Missing    (1): fi-snb-2520m </p>
+<h2>Known issues</h2>
+<p>Here are the changes found in Patchwork_147736v1 that come from known issues:</p>
+<h3>IGT changes</h3>
+<h4>Possible fixes</h4>
+<ul>
+<li>
+<p>igt@dmabuf@all-tests@dma_fence_chain:</p>
+<ul>
+<li>fi-bsw-n3050:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_16419/fi-bsw-n3050/igt@dmabuf@all-tests@dma_fence_chain.html">INCOMPLETE</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/12904">i915#12904</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_147736v1/fi-bsw-n3050/igt@dmabuf@all-tests@dma_fence_chain.html">PASS</a> +1 other test pass</li>
+</ul>
+</li>
+<li>
+<p>igt@i915_pm_rpm@module-reload:</p>
+<ul>
+<li>bat-adls-6:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_16419/bat-adls-6/igt@i915_pm_rpm@module-reload.html">ABORT</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/13571">i915#13571</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_147736v1/bat-adls-6/igt@i915_pm_rpm@module-reload.html">PASS</a></li>
+</ul>
+</li>
+<li>
+<p>igt@i915_selftest@live:</p>
+<ul>
+<li>bat-arlh-2:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_16419/bat-arlh-2/igt@i915_selftest@live.html">INCOMPLETE</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/14046">i915#14046</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_147736v1/bat-arlh-2/igt@i915_selftest@live.html">PASS</a> +1 other test pass</li>
+</ul>
+</li>
+<li>
+<p>igt@i915_selftest@live@workarounds:</p>
+<ul>
+<li>bat-dg2-14:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_16419/bat-dg2-14/igt@i915_selftest@live@workarounds.html">DMESG-FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/12061">i915#12061</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_147736v1/bat-dg2-14/igt@i915_selftest@live@workarounds.html">PASS</a> +1 other test pass</li>
+</ul>
+</li>
+</ul>
+<h2>Build changes</h2>
+<ul>
+<li>Linux: CI_DRM_16419 -&gt; Patchwork_147736v1</li>
+</ul>
+<p>CI-20190529: 20190529<br />
+  CI_DRM_16419: 4e52f6bddf99cb28ed0279d56bb8286a8bbfda65 @ git://anongit.freedesktop.org/gfx-ci/linux<br />
+  IGT_8319: db9eca9df70fbb72589fcaf689dd92784b06a9c0 @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git<br />
+  Patchwork_147736v1: 4e52f6bddf99cb28ed0279d56bb8286a8bbfda65 @ git://anongit.freedesktop.org/gfx-ci/linux</p>
+
+</body>
+</html>
+
+--===============4956012885125310261==--
