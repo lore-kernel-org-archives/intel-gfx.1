@@ -4,177 +4,27 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B4D7AC369BD
-	for <intel-gfx@archiver.kernel.org>; Tue, 15 Apr 2025 15:05:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id ACD4AC369AB
+	for <intel-gfx@archiver.kernel.org>; Tue, 15 Apr 2025 15:49:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AF1BE10E7D2;
-	Tue, 15 Apr 2025 15:05:47 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="lyPhSpwe";
-	dkim-atps=neutral
-Received: from NAM02-BN1-obe.outbound.protection.outlook.com
- (mail-bn1nam02on2079.outbound.protection.outlook.com [40.107.212.79])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8535C10E7CF;
- Tue, 15 Apr 2025 15:05:46 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=cMtgO3BFFI8FhNsXYysYiRu1PD8JTXEvtgGwGZIF0/xwtkG2WuGQ451JKg4wcxqu6rFusnU5W1TCuM7Cnt0zutTiJsgvSZAl7qtjgM0+7tsfn1Ialz/bk39fHlYsnMljsDa51E+pSfX5VW12nj2snagVynkpsdbIHECXigfd3TRoLT0g2PGD3Luaa0iiWQ4BAz/O+iLclitmnIAD5s6i4HCaMBMVwwvmG0H5HMFSfRHAWhr7UVp/PjyYTtYuj36ynP9CoHcYxnuuFyMwxjM0bECSR9K/O1b6DqAUjqR/kWTd5pIcr2A2DpcuQutnwj8X8//KZcmClruJ3xH9AwJA9g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=/v9UPeI4rKsczjav9qLDo6ODWiqF0Y8pFBiCw8eMK80=;
- b=juR30mlfKpVcLgliIpJV7apNH+f4juBJyL0GCq5wJ43DJGtYG06emiqzIoKcEF6ysPSc/vbuL+k/sfMImQJQ1AdJNUPg06p/Y5B+vBSoP20mYKmJlrBR0fiaMhZIZogez02Wkzm2cndsWYHyHAd9vFdbn2wI9mEHAzqQcUakYhzFPMe5q9Gvw4fXP3i1nBKzQMxmWamz8tBTCt2KJw8m8FxZzcSLDhng/gGAQVJdDKoo6XP82+c6Qo4qihNUNmbV+MDdnWbkX6tI3xMIV49jRWAcdN/DGRsYDfggMb98sEB502hIguN2eCjoudfiNuZs6E9UUtQLmcuKgwnwTQAjvA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=/v9UPeI4rKsczjav9qLDo6ODWiqF0Y8pFBiCw8eMK80=;
- b=lyPhSpwei5Qo6tPwNbsSaGaEHxIztshbvgYp8rbx80XJMkVZ2qeahl2/4QkLkN9pwLfoxWKSp9pwUss0XPSaEzUz+aidg0zbfsI/mVmxsj+U+rpsON82elr2fK1ShG2mvUzvuqlPC2k/XCRj9NBV6cRUlPqHMUmTcT6UjdFMYyM=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from SJ0PR12MB5438.namprd12.prod.outlook.com (2603:10b6:a03:3ba::23)
- by CY5PR12MB6526.namprd12.prod.outlook.com (2603:10b6:930:31::20)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8632.35; Tue, 15 Apr
- 2025 15:05:43 +0000
-Received: from SJ0PR12MB5438.namprd12.prod.outlook.com
- ([fe80::65b2:12d5:96ba:dd44]) by SJ0PR12MB5438.namprd12.prod.outlook.com
- ([fe80::65b2:12d5:96ba:dd44%3]) with mapi id 15.20.8632.036; Tue, 15 Apr 2025
- 15:05:43 +0000
-Message-ID: <3ca1958f-62e0-4a5c-837b-3cd705acc181@amd.com>
-Date: Tue, 15 Apr 2025 11:05:36 -0400
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH V8 32/43] drm/colorop: Add 1D Curve Custom LUT type
-To: "Shankar, Uma" <uma.shankar@intel.com>, Simon Ser <contact@emersion.fr>
-Cc: Alex Hung <alex.hung@amd.com>,
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
- "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>,
- "wayland-devel@lists.freedesktop.org" <wayland-devel@lists.freedesktop.org>,
- "leo.liu@amd.com" <leo.liu@amd.com>,
- "ville.syrjala@linux.intel.com" <ville.syrjala@linux.intel.com>,
- "pekka.paalanen@collabora.com" <pekka.paalanen@collabora.com>,
- "mwen@igalia.com" <mwen@igalia.com>, "jadahl@redhat.com"
- <jadahl@redhat.com>, "sebastian.wick@redhat.com"
- <sebastian.wick@redhat.com>,
- "shashank.sharma@amd.com" <shashank.sharma@amd.com>,
- "agoins@nvidia.com" <agoins@nvidia.com>, "joshua@froggi.es"
- <joshua@froggi.es>, "mdaenzer@redhat.com" <mdaenzer@redhat.com>,
- "aleixpol@kde.org" <aleixpol@kde.org>,
- "xaver.hugl@gmail.com" <xaver.hugl@gmail.com>,
- "victoria@system76.com" <victoria@system76.com>,
- "daniel@ffwll.ch" <daniel@ffwll.ch>,
- "quic_naseer@quicinc.com" <quic_naseer@quicinc.com>,
- "quic_cbraga@quicinc.com" <quic_cbraga@quicinc.com>,
- "quic_abhinavk@quicinc.com" <quic_abhinavk@quicinc.com>,
- "marcan@marcan.st" <marcan@marcan.st>,
- "Liviu.Dudau@arm.com" <Liviu.Dudau@arm.com>,
- "sashamcintosh@google.com" <sashamcintosh@google.com>,
- "Borah, Chaitanya Kumar" <chaitanya.kumar.borah@intel.com>,
- "louis.chauvet@bootlin.com" <louis.chauvet@bootlin.com>
-References: <20250326234748.2982010-1-alex.hung@amd.com>
- <20250326234748.2982010-33-alex.hung@amd.com>
- <CY5PR11MB63441E057180C043C51230A3F4B22@CY5PR11MB6344.namprd11.prod.outlook.com>
- <fzuE3KXuocsKA0I9kWXruyw7IVbw3jwH2yeh59SfE0Qb0SGxa29rrj9X_XgNCdmj1vWgxLO619xyJY3r5R3hsZK6ElIkTvbyNfu40x1SiZM=@emersion.fr>
- <CY5PR11MB63449DBA54519766E345CADAF4B22@CY5PR11MB6344.namprd11.prod.outlook.com>
-Content-Language: en-US
-From: Harry Wentland <harry.wentland@amd.com>
-In-Reply-To: <CY5PR11MB63449DBA54519766E345CADAF4B22@CY5PR11MB6344.namprd11.prod.outlook.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: YT4P288CA0063.CANP288.PROD.OUTLOOK.COM
- (2603:10b6:b01:d2::28) To SJ0PR12MB5438.namprd12.prod.outlook.com
- (2603:10b6:a03:3ba::23)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3AA2A10E7E4;
+	Tue, 15 Apr 2025 15:49:17 +0000 (UTC)
+Received: from b68e5b3b99e1 (emeril.freedesktop.org [131.252.210.167])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 11B6410E7E4;
+ Tue, 15 Apr 2025 15:49:16 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ0PR12MB5438:EE_|CY5PR12MB6526:EE_
-X-MS-Office365-Filtering-Correlation-Id: cd48c26f-b77d-4237-b338-08dd7c2efe23
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|7416014|1800799024|376014|366016|7053199007; 
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?N3F3UW50Znp2bnJTM2hwN2tzZEZ0RHlzRURZTHpud0tOYzhuSGg1ckJ0Tmxx?=
- =?utf-8?B?RTJzQjEzMlVSSTA5TWpXSHVCR1RKZW9lRU9SSjdlZGFJQXFrZWppdEVORTNh?=
- =?utf-8?B?QkVuNmhNVmptYzgrampuZ0pVODJseC9mOU4zN0c5T0MyVW5PczFNWDkveCt1?=
- =?utf-8?B?cUc3S3BVOFdvaXVmRG81UXN0N3NzRWNIMjU4Q09abHVjWDVsd0Z6cnFCWGxU?=
- =?utf-8?B?b2ZYWWhIazN3T1JMbGZaNzdYVDh2WjJndG9qM3NDdFBQR09iVGx4M3lhbGQv?=
- =?utf-8?B?QlpqWC9mQUxEZmNnZUZhaTM3S08zamd2clFPbHBjTzhJR1pITmJIdXU0RlZT?=
- =?utf-8?B?OXNNTkpJRWhIUVlCWEpZVERiVXhUL1ArV3dXcGM1Zi92dVB5WXNXZ2NTa1dR?=
- =?utf-8?B?SVp0dGk5WWxwYXl5OWxNa3ZJR0VxRXBTbUR4SVlmYW1Ec2g5Nk9MQ2JkT2dS?=
- =?utf-8?B?Y3VYVHc3YUpocmhORzRIeEpqYVNQUVRpNzh1R3o4YVZaNk1EVHhVaHBFVzhx?=
- =?utf-8?B?NU44b0tVY2E4c2VSSmdOWXZScmRPQzdxTUdmb1VRV1llVFNvUkhPOUFNYzdS?=
- =?utf-8?B?NllzenZQWmk2aW1PRkpoeTFzUDgwQ2w1U2RaV3dDUEJnK1NYWUxXbTN2UjNQ?=
- =?utf-8?B?OHg2REZNaUhzQmIxQ1I2Y2EyZDdaOWwydzFHamNEK1QwaHkra3d3aExOc2Zo?=
- =?utf-8?B?Q3hNZzdUOGttTzlYWjM5TWhlU1AyRDk5c1NEYXlzd1ptaFlrVFlNNWRlakZy?=
- =?utf-8?B?cGpURVowK2ZYa1d3dVBNUnpJVkFUb3U2SXdTNnNNSE4xZjN3S0I2Ym1Nd0RS?=
- =?utf-8?B?QW9xK1N3Nlg5RTY4ckJxYlFaNjR0NmxxYkE5bk1kVEZwT2ZjM3dQeUNER0Fw?=
- =?utf-8?B?blZRMkExK3VESEFOZWxKaGRrVmdFUnRYR2V1VVBUMFVFWVFnZnBlaEsrSHNy?=
- =?utf-8?B?OWJsSGdJZ204Q3p3UEFVUTI0RWdGbnFQWXU3MUdmWVJiU0IrNkhzRGtnaTFq?=
- =?utf-8?B?Vi9GSWVWcUxUREpOYTBtVVdtU0ZvelMvSDJyaEFMWHo5d1lUQXJZTlVEZmNq?=
- =?utf-8?B?cUFBRCtlU1d3QzlZWFQrZ3U3eUo0Tnoxd1d1UlE2VlJDYkNEZWNVRThxTGcw?=
- =?utf-8?B?S1ZmVHJXOU1EYnp6eTFoUUM1L3JVUm82MU9pTFNyL2MyZEQwd24zMVpSZmx3?=
- =?utf-8?B?bzJkYXRhV3lyeXFzUU5EVXpxaDBZdHNFcXFQbDkvaXEvOU1ERzNDREVUMlV5?=
- =?utf-8?B?MWZkU3hRU0dyZkJiaTJtZnhObG5ySVBGcnFjckI1REZHT3FZZjAwdk5Od0R2?=
- =?utf-8?B?Z2VGU252UTZBeEVuajl5M2NlYytQdUl0L0lWYlQvV1h1eDc2UldnNzlMSG94?=
- =?utf-8?B?cm15ZXpkSlJtc3lrUUo1bmtWS2wxQXpaSHpIaysyODVsOHh0d08vNjMwcUE0?=
- =?utf-8?B?YUJ1VEcxQXZ3NUh4d3A4MDh5SUt2RE5rWk93UXA0R0xTK0lyMkw3TE43dHEw?=
- =?utf-8?B?QmxRUXFta3pWOWtxbk5JL0tpTEtaNExBWG5uODBPanFNY2cwSHQ3NEszTnlo?=
- =?utf-8?B?anhBU2kzWm1MSTF1ZjdYSkI0Q1NGOXpwOEhGRjFQeiszN28ydHkwd1lXTWZV?=
- =?utf-8?B?SXJYd1A4dVdJQXliLzc2UjRRNzB2bkZ0VWpxU2ZhQTFaQW52WWl4UUU4aUhJ?=
- =?utf-8?B?ZUc3b3BGblkwYSthK1lEQkVpNURPOVFubmJJazNrM1VZVGpSL3QvZ1A5Y050?=
- =?utf-8?B?K1hXak1lRDU4UHkrQ0wzSzlySlVtZDhyVDE4c3Y2ODd3S25GTlhZcDlPaGtR?=
- =?utf-8?Q?dqnNdEm+XLJGqFwSlmt7hFTbQKl/y2m1+QUAk=3D?=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:SJ0PR12MB5438.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(7416014)(1800799024)(376014)(366016)(7053199007); DIR:OUT;
- SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?eEt0K21hUWM3OVFPbGgya0FxZENxWU1WdXhqbUhJblVGNXRmTGloZTBIaCta?=
- =?utf-8?B?QnA3MFF4NnpvUHVWeTZOVkUrOHlmYWRZVXNCR3gzcS90c3JlaURDWVJ6T3c5?=
- =?utf-8?B?M096alEzdEJHekVHZHdJaEdLOUFVc3FMS1BuaklqYVl3VFpBcWU2UFVPeWha?=
- =?utf-8?B?UUZWVlUyOFRaRCtkd0hhY1lVVnZ0VmtyaDlTSCtIejFFb1NvQzhJMHhrNy9q?=
- =?utf-8?B?UXNYdk9wUW5GWkRXak1zNHlOWThFS2FXTDMzcW9lOHR1VHBzUVhtYkxieko5?=
- =?utf-8?B?QzEwYkRpY29YOVg5SFk0dDNZZExqQ3RlV2lMYVUydGhlbmVySFIyQ3lRSC9u?=
- =?utf-8?B?YU1PVmU5SVora1FFU1R3Vjc1TFN4WGZxUWtlRUEvcTZ5V0t1MUg1NFljMXNp?=
- =?utf-8?B?a3NmVjVIOWNYZDIyU2p2Q2YrZlQ3RXNnVVo1eXF4N1Q3MXRmYXNSMXZ3Wmhx?=
- =?utf-8?B?ZDRacnhXd2NIYVYwRUNWZW9uRmloSkxuamZnNU9hUFVsd1ROT2xtTnI1SS8x?=
- =?utf-8?B?SkRwc1FHZXdlYkhZU3hlYUMzemxXNzZCN2tXWVl6Mm9QSWdzWUE4WjNITFNk?=
- =?utf-8?B?M1k5eEV3Y2k5anc3T0EyQVAxTkk5dlVVVU5GMzViVjhQYVIrZEM0MGs3bUNx?=
- =?utf-8?B?cUlPMCtaNUxDUDhJR0d6TmhtdWxaZ2d3QW9TSllpcnBxSEpQL0RzRmw3S1Aw?=
- =?utf-8?B?RFVTNVJyOWV0Q0VOZ21US0hFWjl3WHNxb1V1NU9ONjB6UHo3UzF2QUU4RCtF?=
- =?utf-8?B?U3JqMUdTbDNzL1I0Wjl6NVZxRUJad1pzYU5YTlNUVVdaNnZHTWF5ZUtjbWxu?=
- =?utf-8?B?RFhJUUpYSEFlejhBcmovR3R4cUtkbE1pOVBOQjBJUHNNT3JpdWpTdGNRNkMw?=
- =?utf-8?B?RDFibnRsK002NkFDTW5CUmlNbFdQdGtETWlwQmdlaFMxWVRhRUZpOW9jcmVi?=
- =?utf-8?B?T2JKMElDN1E3blZMSVd2R2ZIaTZFYVAzVWRDY01PQncwbWQxVVNGeGtjNFc0?=
- =?utf-8?B?emc0Y2R2eWdOUFJqVzJ3bHViZHdaQXJrNlZCU3pCRTE4RnQ5SUdPNlNRZzdv?=
- =?utf-8?B?cTFOMTNXRVVSVWM2WkxnMDhuaWJJMjQ1YVVDTGxFZ3VxTFpJbTVYaG94OHNH?=
- =?utf-8?B?cHdqbWZ5N2JMRVExZ3dUYTVPSFQ5ZGtxd091YXhBMHVBVTdLYlAxeEkvWHBO?=
- =?utf-8?B?V2R6bjVaUmZGbEhuOXFCVzVUSTl5V1J0d2pRaUhoLzVKSzhpdGpJWFJHRzly?=
- =?utf-8?B?NTZCbkFBUXM4VHhVL215M2JoQU1HOVZwbVdna0dGWW8vNVkxRWVqZk9TRmVS?=
- =?utf-8?B?Yk53R0Vtc002bzJZV1RtaVR5SVhjcTltZHBnTUNBSEdCZVMwWis0eVVIbjg0?=
- =?utf-8?B?RXN6alg3Z3RYaHBDSXNucjlUclYyWjZmY0l0N21KbzQzNThQWEZraHZVZkl1?=
- =?utf-8?B?R1d5SU1DVHRSbnU4dTgyRnYxNDY0V1FJYlMzb3JScjNaWlpLQmZmU3FXcEFU?=
- =?utf-8?B?WGFaSHhPZHR6cjdFWEhpc0t6d0JpQmZuM3pKOHJLWisyOEVZYnVJMnlRV1Jr?=
- =?utf-8?B?TS9CbnVBRmVKWGlUcVlHY2pDL3VSVEVrakYzZVYrdXRqRExTcU56RDZINFBE?=
- =?utf-8?B?VmtxakMxd21GZ3dRRUE1SjB4SFY5UTV5Qit1RGR6Z0QxZndJNGRnbDU0dDRX?=
- =?utf-8?B?RE53aDhzajFNR2hxY1lGM3VKcjI1SmdBbkdZcThTSGFlb2lCdWhmT2RUUDFE?=
- =?utf-8?B?YXF0Tm5iRFJPdzZzdmlUN1RESzYxS09DbEVBNmZLekRNYWdwVy9vZU5iM0ll?=
- =?utf-8?B?S2kzQTdER09sTmtOVCs4OEo0VGhWN3hIMUxIT1ZoRHp1d3o3YkJnckxmVjc4?=
- =?utf-8?B?Ui9GWnBQS1FHK3F2bnB2VnN4UXlzalpTUFd4M1VJdUFCdGZnWnZ2cW5uaHY5?=
- =?utf-8?B?ODU5dU9qSTBPRU1wUVJtMGdueVN2WitaMUZwUGhGTjF5WTRHQzhrRVltV0ky?=
- =?utf-8?B?L3ZMVGROMGdibnVTTlhnWGpPei9KUGFyUzhVTFVlR0wxWUM0L2lTUWRwMEhq?=
- =?utf-8?B?NHF4Q0wydlI3dFNLYVgwWWlhck5XMnMweTR6eGFlaU5yTTZJVGRuSGVMNUN0?=
- =?utf-8?Q?R+1YvfbXMTOU00vuF1PnUlsf5?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: cd48c26f-b77d-4237-b338-08dd7c2efe23
-X-MS-Exchange-CrossTenant-AuthSource: SJ0PR12MB5438.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Apr 2025 15:05:43.2401 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: qkyGbWsfI9SxANSgAiXFkNGBecEKX6c2DRrYlXpkR7wlUSDHAh3C8ownNRCqvpMN24GZm0K0Vl+o/dy7izmKAw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY5PR12MB6526
+Content-Transfer-Encoding: 7bit
+Subject: =?utf-8?q?=E2=9C=97_Fi=2ECI=2ECHECKPATCH=3A_warning_for_drm/i915=3A_i915=5Fr?=
+ =?utf-8?q?eg=2Eh_display_split_=28rev2=29?=
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Jani Nikula" <jani.nikula@intel.com>
+Cc: intel-gfx@lists.freedesktop.org
+Date: Tue, 15 Apr 2025 15:49:16 -0000
+Message-ID: <174473215606.7357.18362179105560991588@b68e5b3b99e1>
+X-Patchwork-Hint: ignore
+References: <cover.1744714233.git.jani.nikula@intel.com>
+In-Reply-To: <cover.1744714233.git.jani.nikula@intel.com>
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -187,70 +37,360 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
+== Series Details ==
 
+Series: drm/i915: i915_reg.h display split (rev2)
+URL   : https://patchwork.freedesktop.org/series/144505/
+State : warning
 
-On 2025-04-15 02:40, Shankar, Uma wrote:
-> 
-> 
->> -----Original Message-----
->> From: Simon Ser <contact@emersion.fr>
->> Sent: Tuesday, April 15, 2025 11:47 AM
->> To: Shankar, Uma <uma.shankar@intel.com>
->> Cc: Alex Hung <alex.hung@amd.com>; dri-devel@lists.freedesktop.org; amd-
->> gfx@lists.freedesktop.org; intel-gfx@lists.freedesktop.org; wayland-
->> devel@lists.freedesktop.org; harry.wentland@amd.com; leo.liu@amd.com;
->> ville.syrjala@linux.intel.com; pekka.paalanen@collabora.com;
->> mwen@igalia.com; jadahl@redhat.com; sebastian.wick@redhat.com;
->> shashank.sharma@amd.com; agoins@nvidia.com; joshua@froggi.es;
->> mdaenzer@redhat.com; aleixpol@kde.org; xaver.hugl@gmail.com;
->> victoria@system76.com; daniel@ffwll.ch; quic_naseer@quicinc.com;
->> quic_cbraga@quicinc.com; quic_abhinavk@quicinc.com; marcan@marcan.st;
->> Liviu.Dudau@arm.com; sashamcintosh@google.com; Borah, Chaitanya Kumar
->> <chaitanya.kumar.borah@intel.com>; louis.chauvet@bootlin.com
->> Subject: RE: [PATCH V8 32/43] drm/colorop: Add 1D Curve Custom LUT type
->>
->> On Tuesday, April 15th, 2025 at 08:09, Shankar, Uma <uma.shankar@intel.com>
->> wrote:
->>
->>> We want to have just one change in the way we expose the hardware
->>> capabilities else all looks good in general.
->>
->> I would really recommend leaving this as a follow-up extension. It's a complicated
->> addition that requires more discussion.
-> 
-> Hi Simon,
-> We have tried to solve the complex part and made it simple to understand and implement
-> along with a reference implementation [1] (can also help add the same for AMD case as well).
-> Without this we will end up with up 2 interfaces for 1dL Lut which is not nice where the one above
-> will be able to cover the current one. Let us know the problems with the proposed interface and we can
-> work to fix the same. But having a common and single interface is good and the current one will not fit
-> Intel's color pipeline distribution so the generic one anyways will be needed, and it will benefit userspace
-> to know the underlying LUT distribution to compute the LUT samples.
-> 
-> [1] https://patchwork.freedesktop.org/series/129812/
-> 
+== Summary ==
 
-I think there is a lot of value in giving userspace a simple LUT
-to work with. There are many compositors and many compositor
-maintainers. When someone new jumps into color management usually
-same thing happens. It starts with "it's not too complicated",
-and then over a period of time progresses to "this is very much
-non-trivial" as understanding one bit usually opens ten more
-questions.
+Error: dim checkpatch failed
+72629f7e8577 drm/i915/reg: use REG_BIT and friends to define DP registers
+401bdea74e50 drm/i915/reg: Add/remove some extra blank lines
+719699f3d637 drm/i915: split out display register macros to a separate file
+-:340: WARNING:FILE_PATH_CHANGES: added, moved or deleted file(s), does MAINTAINERS need updating?
+#340: 
+new file mode 100644
 
-Forcing people to deal with another level of complexity will
-discourage implementations and be counterproductive to furthering
-adoption of color operations for HW acceleration, IMO.
+-:505: WARNING:LONG_LINE: line length of 102 exceeds 100 columns
+#505: FILE: drivers/gpu/drm/i915/display/intel_display_regs.h:161:
++#define   PHY_STATUS_SPLINE_LDO(phy, ch, spline)        (1 << (8 - (6 * (phy) + 3 * (ch) + (spline))))
 
-I'm am not opposed to a complex LUT definition but I don't think
-it should replace a simple and well-understood definition.
+-:824: WARNING:BLOCK_COMMENT_STYLE: Block comments use a trailing */ on a separate line
+#824: FILE: drivers/gpu/drm/i915/display/intel_display_regs.h:480:
++ * The same register may be used for SDVO or HDMI */
 
-Harry
+-:905: WARNING:BLOCK_COMMENT_STYLE: Block comments use a trailing */ on a separate line
+#905: FILE: drivers/gpu/drm/i915/display/intel_display_regs.h:561:
++ * of the infoframe structure specified by CEA-861. */
 
-> Regards,
-> Uma Shankar
-> 
+-:1062: WARNING:LONG_LINE: line length of 128 exceeds 100 columns
+#1062: FILE: drivers/gpu/drm/i915/display/intel_display_regs.h:718:
++#define   TRANSCONF_FRAME_START_DELAY(x)		REG_FIELD_PREP(TRANSCONF_FRAME_START_DELAY_MASK, (x)) /* pre-hsw: 0-3 */
+
+-:1069: WARNING:LONG_LINE_COMMENT: line length of 110 exceeds 100 columns
+#1069: FILE: drivers/gpu/drm/i915/display/intel_display_regs.h:725:
++#define   TRANSCONF_GAMMA_MODE_12BIT		REG_FIELD_PREP(TRANSCONF_GAMMA_MODE_MASK_ILK, 2) /* ilk-ivb */
+
+-:1070: WARNING:LONG_LINE_COMMENT: line length of 106 exceeds 100 columns
+#1070: FILE: drivers/gpu/drm/i915/display/intel_display_regs.h:726:
++#define   TRANSCONF_GAMMA_MODE_SPLIT		REG_FIELD_PREP(TRANSCONF_GAMMA_MODE_MASK_ILK, 3) /* ivb */
+
+-:1071: WARNING:LONG_LINE_COMMENT: line length of 130 exceeds 100 columns
+#1071: FILE: drivers/gpu/drm/i915/display/intel_display_regs.h:727:
++#define   TRANSCONF_GAMMA_MODE(x)		REG_FIELD_PREP(TRANSCONF_GAMMA_MODE_MASK_ILK, (x)) /* pass in GAMMA_MODE_MODE_* */
+
+-:1074: WARNING:LONG_LINE_COMMENT: line length of 115 exceeds 100 columns
+#1074: FILE: drivers/gpu/drm/i915/display/intel_display_regs.h:730:
++#define   TRANSCONF_INTERLACE_W_SYNC_SHIFT_PANEL	REG_FIELD_PREP(TRANSCONF_INTERLACE_MASK, 4) /* gen4 only */
+
+-:1075: WARNING:LONG_LINE_COMMENT: line length of 107 exceeds 100 columns
+#1075: FILE: drivers/gpu/drm/i915/display/intel_display_regs.h:731:
++#define   TRANSCONF_INTERLACE_W_SYNC_SHIFT	REG_FIELD_PREP(TRANSCONF_INTERLACE_MASK, 5) /* gen4 only */
+
+-:1077: WARNING:LONG_LINE_COMMENT: line length of 107 exceeds 100 columns
+#1077: FILE: drivers/gpu/drm/i915/display/intel_display_regs.h:733:
++#define   TRANSCONF_INTERLACE_FIELD_0_ONLY	REG_FIELD_PREP(TRANSCONF_INTERLACE_MASK, 7) /* gen3 only */
+
+-:1087: WARNING:LONG_LINE_COMMENT: line length of 114 exceeds 100 columns
+#1087: FILE: drivers/gpu/drm/i915/display/intel_display_regs.h:743:
++#define   TRANSCONF_INTERLACE_IF_ID_DBL_ILK	REG_FIELD_PREP(TRANSCONF_INTERLACE_MASK_ILK, 4) /* ilk/snb only */
+
+-:1088: WARNING:LONG_LINE_COMMENT: line length of 114 exceeds 100 columns
+#1088: FILE: drivers/gpu/drm/i915/display/intel_display_regs.h:744:
++#define   TRANSCONF_INTERLACE_PF_ID_DBL_ILK	REG_FIELD_PREP(TRANSCONF_INTERLACE_MASK_ILK, 5) /* ilk/snb only */
+
+-:1097: WARNING:LONG_LINE_COMMENT: line length of 113 exceeds 100 columns
+#1097: FILE: drivers/gpu/drm/i915/display/intel_display_regs.h:753:
++#define   TRANSCONF_OUTPUT_COLORSPACE_RGB	REG_FIELD_PREP(TRANSCONF_OUTPUT_COLORSPACE_MASK, 0) /* ilk-ivb */
+
+-:1098: WARNING:LONG_LINE_COMMENT: line length of 113 exceeds 100 columns
+#1098: FILE: drivers/gpu/drm/i915/display/intel_display_regs.h:754:
++#define   TRANSCONF_OUTPUT_COLORSPACE_YUV601	REG_FIELD_PREP(TRANSCONF_OUTPUT_COLORSPACE_MASK, 1) /* ilk-ivb */
+
+-:1099: WARNING:LONG_LINE_COMMENT: line length of 113 exceeds 100 columns
+#1099: FILE: drivers/gpu/drm/i915/display/intel_display_regs.h:755:
++#define   TRANSCONF_OUTPUT_COLORSPACE_YUV709	REG_FIELD_PREP(TRANSCONF_OUTPUT_COLORSPACE_MASK, 2) /* ilk-ivb */
+
+-:1157: WARNING:LONG_LINE: line length of 119 exceeds 100 columns
+#1157: FILE: drivers/gpu/drm/i915/display/intel_display_regs.h:813:
++#define   PIPE_MISC2_FLIP_INFO_PLANE_SEL(plane_id)	REG_FIELD_PREP(PIPE_MISC2_FLIP_INFO_PLANE_SEL_MASK, (plane_id))
+
+-:1333: CHECK:MACRO_ARG_REUSE: Macro argument reuse 'id' - possible side-effects?
+#1333: FILE: drivers/gpu/drm/i915/display/intel_display_regs.h:989:
++#define SKL_PS_CTRL(pipe, id) _MMIO_PIPE(pipe,        \
++			_ID(id, _PS_1A_CTRL, _PS_2A_CTRL),       \
++			_ID(id, _PS_1B_CTRL, _PS_2B_CTRL))
+
+-:1360: WARNING:LONG_LINE_COMMENT: line length of 107 exceeds 100 columns
+#1360: FILE: drivers/gpu/drm/i915/display/intel_display_regs.h:1016:
++#define   PS_PIPE_SCALER_LOC_AFTER_OUTPUT_CSC	REG_FIELD_PREP(PS_SCALER_LOCATION_MASK, 0) /* non-linear */
+
+-:1361: WARNING:LONG_LINE_COMMENT: line length of 103 exceeds 100 columns
+#1361: FILE: drivers/gpu/drm/i915/display/intel_display_regs.h:1017:
++#define   PS_PIPE_SCALER_LOC_AFTER_CSC		REG_FIELD_PREP(PS_SCALER_LOCATION_MASK, 1) /* linear */
+
+-:1388: CHECK:MACRO_ARG_REUSE: Macro argument reuse 'id' - possible side-effects?
+#1388: FILE: drivers/gpu/drm/i915/display/intel_display_regs.h:1044:
++#define SKL_PS_PWR_GATE(pipe, id) _MMIO_PIPE(pipe,    \
++			_ID(id, _PS_PWR_GATE_1A, _PS_PWR_GATE_2A), \
++			_ID(id, _PS_PWR_GATE_1B, _PS_PWR_GATE_2B))
+
+-:1408: CHECK:MACRO_ARG_REUSE: Macro argument reuse 'id' - possible side-effects?
+#1408: FILE: drivers/gpu/drm/i915/display/intel_display_regs.h:1064:
++#define SKL_PS_WIN_POS(pipe, id) _MMIO_PIPE(pipe,     \
++			_ID(id, _PS_WIN_POS_1A, _PS_WIN_POS_2A), \
++			_ID(id, _PS_WIN_POS_1B, _PS_WIN_POS_2B))
+
+-:1421: CHECK:MACRO_ARG_REUSE: Macro argument reuse 'id' - possible side-effects?
+#1421: FILE: drivers/gpu/drm/i915/display/intel_display_regs.h:1077:
++#define SKL_PS_WIN_SZ(pipe, id)  _MMIO_PIPE(pipe,     \
++			_ID(id, _PS_WIN_SZ_1A, _PS_WIN_SZ_2A),   \
++			_ID(id, _PS_WIN_SZ_1B, _PS_WIN_SZ_2B))
+
+-:1434: CHECK:MACRO_ARG_REUSE: Macro argument reuse 'id' - possible side-effects?
+#1434: FILE: drivers/gpu/drm/i915/display/intel_display_regs.h:1090:
++#define SKL_PS_VSCALE(pipe, id)  _MMIO_PIPE(pipe,     \
++			_ID(id, _PS_VSCALE_1A, _PS_VSCALE_2A),   \
++			_ID(id, _PS_VSCALE_1B, _PS_VSCALE_2B))
+
+-:1443: CHECK:MACRO_ARG_REUSE: Macro argument reuse 'id' - possible side-effects?
+#1443: FILE: drivers/gpu/drm/i915/display/intel_display_regs.h:1099:
++#define SKL_PS_HSCALE(pipe, id)  _MMIO_PIPE(pipe,     \
++			_ID(id, _PS_HSCALE_1A, _PS_HSCALE_2A),   \
++			_ID(id, _PS_HSCALE_1B, _PS_HSCALE_2B))
+
+-:1452: CHECK:MACRO_ARG_REUSE: Macro argument reuse 'id' - possible side-effects?
+#1452: FILE: drivers/gpu/drm/i915/display/intel_display_regs.h:1108:
++#define SKL_PS_VPHASE(pipe, id)  _MMIO_PIPE(pipe,     \
++			_ID(id, _PS_VPHASE_1A, _PS_VPHASE_2A),   \
++			_ID(id, _PS_VPHASE_1B, _PS_VPHASE_2B))
+
+-:1467: CHECK:MACRO_ARG_REUSE: Macro argument reuse 'id' - possible side-effects?
+#1467: FILE: drivers/gpu/drm/i915/display/intel_display_regs.h:1123:
++#define SKL_PS_HPHASE(pipe, id)  _MMIO_PIPE(pipe,     \
++			_ID(id, _PS_HPHASE_1A, _PS_HPHASE_2A),   \
++			_ID(id, _PS_HPHASE_1B, _PS_HPHASE_2B))
+
+-:1476: CHECK:MACRO_ARG_REUSE: Macro argument reuse 'id' - possible side-effects?
+#1476: FILE: drivers/gpu/drm/i915/display/intel_display_regs.h:1132:
++#define SKL_PS_ECC_STAT(pipe, id)  _MMIO_PIPE(pipe,     \
++			_ID(id, _PS_ECC_STAT_1A, _PS_ECC_STAT_2A),   \
++			_ID(id, _PS_ECC_STAT_1B, _PS_ECC_STAT_2B))
+
+-:1484: CHECK:MACRO_ARG_REUSE: Macro argument reuse 'id' - possible side-effects?
+#1484: FILE: drivers/gpu/drm/i915/display/intel_display_regs.h:1140:
++#define GLK_PS_COEF_INDEX_SET(pipe, id, set)  _MMIO_PIPE(pipe,    \
++			_ID(id, _PS_COEF_SET0_INDEX_1A, _PS_COEF_SET0_INDEX_2A) + (set) * 8, \
++			_ID(id, _PS_COEF_SET0_INDEX_1B, _PS_COEF_SET0_INDEX_2B) + (set) * 8)
+
+-:1484: CHECK:MACRO_ARG_REUSE: Macro argument reuse 'set' - possible side-effects?
+#1484: FILE: drivers/gpu/drm/i915/display/intel_display_regs.h:1140:
++#define GLK_PS_COEF_INDEX_SET(pipe, id, set)  _MMIO_PIPE(pipe,    \
++			_ID(id, _PS_COEF_SET0_INDEX_1A, _PS_COEF_SET0_INDEX_2A) + (set) * 8, \
++			_ID(id, _PS_COEF_SET0_INDEX_1B, _PS_COEF_SET0_INDEX_2B) + (set) * 8)
+
+-:1493: CHECK:MACRO_ARG_REUSE: Macro argument reuse 'id' - possible side-effects?
+#1493: FILE: drivers/gpu/drm/i915/display/intel_display_regs.h:1149:
++#define GLK_PS_COEF_DATA_SET(pipe, id, set)  _MMIO_PIPE(pipe,     \
++			_ID(id, _PS_COEF_SET0_DATA_1A, _PS_COEF_SET0_DATA_2A) + (set) * 8, \
++			_ID(id, _PS_COEF_SET0_DATA_1B, _PS_COEF_SET0_DATA_2B) + (set) * 8)
+
+-:1493: CHECK:MACRO_ARG_REUSE: Macro argument reuse 'set' - possible side-effects?
+#1493: FILE: drivers/gpu/drm/i915/display/intel_display_regs.h:1149:
++#define GLK_PS_COEF_DATA_SET(pipe, id, set)  _MMIO_PIPE(pipe,     \
++			_ID(id, _PS_COEF_SET0_DATA_1A, _PS_COEF_SET0_DATA_2A) + (set) * 8, \
++			_ID(id, _PS_COEF_SET0_DATA_1B, _PS_COEF_SET0_DATA_2B) + (set) * 8)
+
+-:1554: CHECK:MACRO_ARG_REUSE: Macro argument reuse 'plane_id' - possible side-effects?
+#1554: FILE: drivers/gpu/drm/i915/display/intel_display_regs.h:1210:
++#define  GEN9_PIPE_PLANE_FLIP_DONE(plane_id) \
++	REG_BIT(((plane_id) >= PLANE_5 ? 16 - PLANE_5 : 3 - PLANE_1) + (plane_id)) /* skl+ */
+
+-:1560: CHECK:MACRO_ARG_REUSE: Macro argument reuse 'pipe' - possible side-effects?
+#1560: FILE: drivers/gpu/drm/i915/display/intel_display_regs.h:1216:
++#define GEN8_DE_PIPE_IRQ_REGS(pipe)	I915_IRQ_REGS(GEN8_DE_PIPE_IMR(pipe), \
++						      GEN8_DE_PIPE_IER(pipe), \
++						      GEN8_DE_PIPE_IIR(pipe))
+
+-:1740: WARNING:LONG_LINE: line length of 120 exceeds 100 columns
+#1740: FILE: drivers/gpu/drm/i915/display/intel_display_regs.h:1396:
++#define CHICKEN_TRANS(display, trans)	(DISPLAY_VER(display) >= 14 ? _MTL_CHICKEN_TRANS(trans) : _CHICKEN_TRANS(trans))
+
+-:1740: CHECK:MACRO_ARG_REUSE: Macro argument reuse 'trans' - possible side-effects?
+#1740: FILE: drivers/gpu/drm/i915/display/intel_display_regs.h:1396:
++#define CHICKEN_TRANS(display, trans)	(DISPLAY_VER(display) >= 14 ? _MTL_CHICKEN_TRANS(trans) : _CHICKEN_TRANS(trans))
+
+-:2073: WARNING:MACRO_ARG_UNUSED: Argument 'pipe' is not used in function-like macro
+#2073: FILE: drivers/gpu/drm/i915/display/intel_display_regs.h:1729:
++#define	 TRANS_DPLLA_SEL(pipe)		0
+
+-:2115: WARNING:LONG_LINE: line length of 106 exceeds 100 columns
+#2115: FILE: drivers/gpu/drm/i915/display/intel_display_regs.h:1771:
++#define PCH_TRANS_VSYNCSHIFT(pipe)	_MMIO_PIPE(pipe, _PCH_TRANS_VSYNCSHIFT_A, _PCH_TRANS_VSYNCSHIFT_B)
+
+-:2193: WARNING:LONG_LINE: line length of 107 exceeds 100 columns
+#2193: FILE: drivers/gpu/drm/i915/display/intel_display_regs.h:1849:
++#define HSW_TVIDEO_DIP_CTL(dev_priv, trans)		_MMIO_TRANS2(dev_priv, trans, _HSW_VIDEO_DIP_CTL_A)
+
+-:2197: WARNING:LONG_LINE: line length of 122 exceeds 100 columns
+#2197: FILE: drivers/gpu/drm/i915/display/intel_display_regs.h:1853:
++#define HSW_TVIDEO_DIP_AVI_DATA(dev_priv, trans, i)	_MMIO_TRANS2(dev_priv, trans, _HSW_VIDEO_DIP_AVI_DATA_A + (i) * 4)
+
+-:2201: WARNING:LONG_LINE: line length of 121 exceeds 100 columns
+#2201: FILE: drivers/gpu/drm/i915/display/intel_display_regs.h:1857:
++#define HSW_TVIDEO_DIP_VS_DATA(dev_priv, trans, i)	_MMIO_TRANS2(dev_priv, trans, _HSW_VIDEO_DIP_VS_DATA_A + (i) * 4)
+
+-:2205: WARNING:LONG_LINE: line length of 122 exceeds 100 columns
+#2205: FILE: drivers/gpu/drm/i915/display/intel_display_regs.h:1861:
++#define HSW_TVIDEO_DIP_SPD_DATA(dev_priv, trans, i)	_MMIO_TRANS2(dev_priv, trans, _HSW_VIDEO_DIP_SPD_DATA_A + (i) * 4)
+
+-:2209: WARNING:LONG_LINE: line length of 122 exceeds 100 columns
+#2209: FILE: drivers/gpu/drm/i915/display/intel_display_regs.h:1865:
++#define HSW_TVIDEO_DIP_GMP_DATA(dev_priv, trans, i)	_MMIO_TRANS2(dev_priv, trans, _HSW_VIDEO_DIP_GMP_DATA_A + (i) * 4)
+
+-:2213: WARNING:LONG_LINE: line length of 122 exceeds 100 columns
+#2213: FILE: drivers/gpu/drm/i915/display/intel_display_regs.h:1869:
++#define HSW_TVIDEO_DIP_VSC_DATA(dev_priv, trans, i)	_MMIO_TRANS2(dev_priv, trans, _HSW_VIDEO_DIP_VSC_DATA_A + (i) * 4)
+
+-:2223: WARNING:LONG_LINE: line length of 122 exceeds 100 columns
+#2223: FILE: drivers/gpu/drm/i915/display/intel_display_regs.h:1879:
++#define GLK_TVIDEO_DIP_DRM_DATA(dev_priv, trans, i)	_MMIO_TRANS2(dev_priv, trans, _GLK_VIDEO_DIP_DRM_DATA_A + (i) * 4)
+
+-:2238: WARNING:LONG_LINE: line length of 107 exceeds 100 columns
+#2238: FILE: drivers/gpu/drm/i915/display/intel_display_regs.h:1894:
++#define HSW_TVIDEO_DIP_GCP(dev_priv, trans)		_MMIO_TRANS2(dev_priv, trans, _HSW_VIDEO_DIP_GCP_A)
+
+-:2242: WARNING:LONG_LINE: line length of 122 exceeds 100 columns
+#2242: FILE: drivers/gpu/drm/i915/display/intel_display_regs.h:1898:
++#define ICL_VIDEO_DIP_PPS_DATA(dev_priv, trans, i)	_MMIO_TRANS2(dev_priv, trans, _ICL_VIDEO_DIP_PPS_DATA_A + (i) * 4)
+
+-:2246: WARNING:LONG_LINE: line length of 129 exceeds 100 columns
+#2246: FILE: drivers/gpu/drm/i915/display/intel_display_regs.h:1902:
++#define ICL_VIDEO_DIP_PPS_ECC(dev_priv, trans, i)		_MMIO_TRANS2(dev_priv, trans, _ICL_VIDEO_DIP_PPS_ECC_A + (i) * 4)
+
+-:2260: WARNING:LONG_LINE_COMMENT: line length of 104 exceeds 100 columns
+#2260: FILE: drivers/gpu/drm/i915/display/intel_display_regs.h:1916:
++#define  TRANS_FRAME_START_DELAY(x)	REG_FIELD_PREP(TRANS_FRAME_START_DELAY_MASK, (x)) /* ibx: 0-3 */
+
+-:2298: WARNING:LONG_LINE: line length of 102 exceeds 100 columns
+#2298: FILE: drivers/gpu/drm/i915/display/intel_display_regs.h:1954:
++#define TRANS_DP2_CTL(trans)			_MMIO_TRANS(trans, _TRANS_DP2_CTL_A, _TRANS_DP2_CTL_B)
+
+-:2307: WARNING:LONG_LINE: line length of 114 exceeds 100 columns
+#2307: FILE: drivers/gpu/drm/i915/display/intel_display_regs.h:1963:
++#define TRANS_DP2_VFREQHIGH(trans)		_MMIO_TRANS(trans, _TRANS_DP2_VFREQHIGH_A, _TRANS_DP2_VFREQHIGH_B)
+
+-:2309: WARNING:LONG_LINE: line length of 106 exceeds 100 columns
+#2309: FILE: drivers/gpu/drm/i915/display/intel_display_regs.h:1965:
++#define  TRANS_DP2_VFREQ_PIXEL_CLOCK(clk_hz)	REG_FIELD_PREP(TRANS_DP2_VFREQ_PIXEL_CLOCK_MASK, (clk_hz))
+
+-:2315: WARNING:LONG_LINE: line length of 112 exceeds 100 columns
+#2315: FILE: drivers/gpu/drm/i915/display/intel_display_regs.h:1971:
++#define TRANS_DP2_VFREQLOW(trans)		_MMIO_TRANS(trans, _TRANS_DP2_VFREQLOW_A, _TRANS_DP2_VFREQLOW_B)
+
+-:2319: WARNING:LONG_LINE: line length of 110 exceeds 100 columns
+#2319: FILE: drivers/gpu/drm/i915/display/intel_display_regs.h:1975:
++#define DP_MIN_HBLANK_CTL(trans)		_MMIO_TRANS(trans, _DP_MIN_HBLANK_CTL_A, _DP_MIN_HBLANK_CTL_B)
+
+-:2507: WARNING:LONG_LINE: line length of 107 exceeds 100 columns
+#2507: FILE: drivers/gpu/drm/i915/display/intel_display_regs.h:2163:
++#define  TRANS_DDI_PORT_SYNC_MASTER_SELECT(x)	REG_FIELD_PREP(TRANS_DDI_PORT_SYNC_MASTER_SELECT_MASK, (x))
+
+-:2546: WARNING:LONG_LINE: line length of 102 exceeds 100 columns
+#2546: FILE: drivers/gpu/drm/i915/display/intel_display_regs.h:2202:
++#define  PORT_SYNC_MODE_MASTER_SELECT(x)	REG_FIELD_PREP(PORT_SYNC_MODE_MASTER_SELECT_MASK, (x))
+
+-:2588: WARNING:LONG_LINE_COMMENT: line length of 101 exceeds 100 columns
+#2588: FILE: drivers/gpu/drm/i915/display/intel_display_regs.h:2244:
++#define   DP_TP_STATUS_STREAMS_ENABLED_MASK	REG_GENMASK(18, 16) /* 17:16 on hsw but bit 18 mbz */
+
+-:2618: CHECK:MACRO_ARG_REUSE: Macro argument reuse 'width' - possible side-effects?
+#2618: FILE: drivers/gpu/drm/i915/display/intel_display_regs.h:2274:
++#define  DDI_PORT_WIDTH(width)			REG_FIELD_PREP(DDI_PORT_WIDTH_MASK, \
++							       ((width) == 3 ? 4 : (width) - 1))
+
+-:2626: WARNING:LONG_LINE: line length of 104 exceeds 100 columns
+#2626: FILE: drivers/gpu/drm/i915/display/intel_display_regs.h:2282:
++#define DDI_BUF_TRANS_LO(port, i)	_MMIO(_PORT(port, _DDI_BUF_TRANS_A, _DDI_BUF_TRANS_B) + (i) * 8)
+
+-:2628: WARNING:LONG_LINE: line length of 108 exceeds 100 columns
+#2628: FILE: drivers/gpu/drm/i915/display/intel_display_regs.h:2284:
++#define DDI_BUF_TRANS_HI(port, i)	_MMIO(_PORT(port, _DDI_BUF_TRANS_A, _DDI_BUF_TRANS_B) + (i) * 8 + 4)
+
+-:2633: WARNING:LONG_LINE: line length of 104 exceeds 100 columns
+#2633: FILE: drivers/gpu/drm/i915/display/intel_display_regs.h:2289:
++#define DDI_DP_COMP_CTL(pipe)			_MMIO_PIPE(pipe, _DDI_DP_COMP_CTL_A, _DDI_DP_COMP_CTL_B)
+
+-:2646: WARNING:LONG_LINE: line length of 116 exceeds 100 columns
+#2646: FILE: drivers/gpu/drm/i915/display/intel_display_regs.h:2302:
++#define DDI_DP_COMP_PAT(pipe, i)		_MMIO(_PIPE(pipe, _DDI_DP_COMP_PAT_A, _DDI_DP_COMP_PAT_B) + (i) * 4)
+
+-:2759: WARNING:LONG_LINE: line length of 122 exceeds 100 columns
+#2759: FILE: drivers/gpu/drm/i915/display/intel_display_regs.h:2415:
++#define TRANS_SET_CONTEXT_LATENCY(dev_priv, tran)		_MMIO_TRANS2(dev_priv, tran, _TRANS_A_SET_CONTEXT_LATENCY)
+
+-:2887: CHECK:MACRO_ARG_REUSE: Macro argument reuse 'tc_port' - possible side-effects?
+#2887: FILE: drivers/gpu/drm/i915/display/intel_display_regs.h:2543:
++#define  ICL_DPCLKA_CFGCR0_TC_CLK_OFF(tc_port)	(1 << ((tc_port) < TC_PORT_4 ? \
++						       (tc_port) + 12 : \
++						       (tc_port) - TC_PORT_4 + 21))
+
+-:2891: WARNING:LONG_LINE: line length of 103 exceeds 100 columns
+#2891: FILE: drivers/gpu/drm/i915/display/intel_display_regs.h:2547:
++#define  ICL_DPCLKA_CFGCR0_DDI_CLK_SEL_MASK(phy)	(3 << ICL_DPCLKA_CFGCR0_DDI_CLK_SEL_SHIFT(phy))
+
+-:2892: WARNING:LONG_LINE: line length of 107 exceeds 100 columns
+#2892: FILE: drivers/gpu/drm/i915/display/intel_display_regs.h:2548:
++#define  ICL_DPCLKA_CFGCR0_DDI_CLK_SEL(pll, phy)	((pll) << ICL_DPCLKA_CFGCR0_DDI_CLK_SEL_SHIFT(phy))
+
+-:2914: WARNING:LONG_LINE: line length of 126 exceeds 100 columns
+#2914: FILE: drivers/gpu/drm/i915/display/intel_display_regs.h:2570:
++#define   DG1_DPCLKA_CFGCR0_DDI_CLK_SEL(pll, phy)	(_DG1_DPCLKA_PLL_IDX(pll) << DG1_DPCLKA_CFGCR0_DDI_CLK_SEL_SHIFT(phy))
+
+-:2915: WARNING:LONG_LINE: line length of 105 exceeds 100 columns
+#2915: FILE: drivers/gpu/drm/i915/display/intel_display_regs.h:2571:
++#define   DG1_DPCLKA_CFGCR0_DDI_CLK_SEL_MASK(phy)	(0x3 << DG1_DPCLKA_CFGCR0_DDI_CLK_SEL_SHIFT(phy))
+
+-:3037: WARNING:LONG_LINE: line length of 104 exceeds 100 columns
+#3037: FILE: drivers/gpu/drm/i915/display/intel_display_regs.h:2693:
++#define TGL_DPLL0_DIV0(pll)				_MMIO_PLL(pll, _TGL_DPLL0_DIV0, _TGL_DPLL1_DIV0)
+
+-:3039: WARNING:LONG_LINE: line length of 110 exceeds 100 columns
+#3039: FILE: drivers/gpu/drm/i915/display/intel_display_regs.h:2695:
++#define   TGL_DPLL0_DIV0_AFC_STARTUP(val)		REG_FIELD_PREP(TGL_DPLL0_DIV0_AFC_STARTUP_MASK, (val))
+
+-:3159: CHECK:MACRO_ARG_REUSE: Macro argument reuse 'port' - possible side-effects?
+#3159: FILE: drivers/gpu/drm/i915/display/intel_display_regs.h:2815:
++#define DG2_PHY_MISC(port)	((port) == PHY_E ? _MMIO(_DG2_PHY_MISC_TC1) : \
++				 ICL_PHY_MISC(port))
+
+-:3202: WARNING:LONG_LINE: line length of 119 exceeds 100 columns
+#3202: FILE: drivers/gpu/drm/i915/display/intel_display_regs.h:2858:
++#define MTL_CLKGATE_DIS_TRANS(dev_priv, trans)			_MMIO_TRANS2(dev_priv, trans, _MTL_CLKGATE_DIS_TRANS_A)
+
+-:3207: WARNING:LONG_LINE: line length of 116 exceeds 100 columns
+#3207: FILE: drivers/gpu/drm/i915/display/intel_display_regs.h:2863:
++#define MTL_PIPE_CLKGATE_DIS2(pipe)		_MMIO_PIPE(pipe, _MTL_PIPE_CLKGATE_DIS2_A, _MTL_PIPE_CLKGATE_DIS2_B)
+
+-:3211: WARNING:LONG_LINE: line length of 101 exceeds 100 columns
+#3211: FILE: drivers/gpu/drm/i915/display/intel_display_regs.h:2867:
++#define MTL_MEM_SS_INFO_QGV_POINT_LOW(point)	_MMIO(MTL_MEM_SS_INFO_QGV_POINT_OFFSET + (point) * 8)
+
+-:3216: WARNING:LONG_LINE: line length of 105 exceeds 100 columns
+#3216: FILE: drivers/gpu/drm/i915/display/intel_display_regs.h:2872:
++#define MTL_MEM_SS_INFO_QGV_POINT_HIGH(point)	_MMIO(MTL_MEM_SS_INFO_QGV_POINT_OFFSET + (point) * 8 + 4)
+
+-:3220: CHECK:LINE_SPACING: Please don't use multiple blank lines
+#3220: FILE: drivers/gpu/drm/i915/display/intel_display_regs.h:2876:
++
++
+
+total: 0 errors, 56 warnings, 20 checks, 6596 lines checked
+
 
