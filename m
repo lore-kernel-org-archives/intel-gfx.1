@@ -4,65 +4,58 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F1295C369AB
-	for <intel-gfx@archiver.kernel.org>; Tue, 15 Apr 2025 07:59:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D7C04C369AB
+	for <intel-gfx@archiver.kernel.org>; Tue, 15 Apr 2025 08:09:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8AF9C10E66E;
-	Tue, 15 Apr 2025 07:59:43 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7271C10E679;
+	Tue, 15 Apr 2025 08:09:53 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="XviJNzWu";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="hIH8PFb3";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.13])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DB01D10E66E;
- Tue, 15 Apr 2025 07:59:36 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.13])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D05BC10E679;
+ Tue, 15 Apr 2025 08:09:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1744703982; x=1776239982;
- h=from:to:cc:subject:in-reply-to:references:date:
- message-id:mime-version;
- bh=4Ur2iLFXVNDMSA4UyjCsAo3d//HF4XrSG3il1Wfcctc=;
- b=XviJNzWujSeMsj/V0BTJ6V7aJjNG/HCYxc5cIPeJ63X+Wnqm/rVsOsJV
- 9buPjZqD0hPvb2awz+2jAe/Ct6ohWuZU163fvquYAMnHs/4AR5kgQ7wAM
- CQ7a4dw7rHhQilXk3ImiZv5h08yu14ug4AORT4V7La4ZrWRd5j9WuRg2b
- xkHwoa3yIBjyECrW72opAfzfbSd3rqS6G7lf/FOIhTxND1mAYvmpiwWN2
- JGmfeqP0Hbhi+0EotbYansY/fd27EjR3GHWLolVwdJVmbxjxGzhKGyIRy
- XAOLNBiuyJfUxZkweKklSbxPDTzu2hbtBwxw9cvN3xGIf1qmu6wVgK+ZA g==;
-X-CSE-ConnectionGUID: ItJvcgiIQT2i/zh+272T3A==
-X-CSE-MsgGUID: BFDTnLS+Q2GRQFWdxDsTZw==
-X-IronPort-AV: E=McAfee;i="6700,10204,11403"; a="48899221"
-X-IronPort-AV: E=Sophos;i="6.15,213,1739865600"; d="scan'208";a="48899221"
-Received: from orviesa008.jf.intel.com ([10.64.159.148])
- by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 15 Apr 2025 00:59:37 -0700
-X-CSE-ConnectionGUID: uilGWqnDRbKxbfHhE4Q5fA==
-X-CSE-MsgGUID: R80a86u/SQKUjfMQ31ACHQ==
+ t=1744704593; x=1776240593;
+ h=from:subject:date:message-id:mime-version:
+ content-transfer-encoding:to:cc;
+ bh=CBn3S4NQjbcvwDo4sTCBm3K4/y/d7APVIK8ZkkWfz/8=;
+ b=hIH8PFb3eN1U2s8sdrxwvpC5nUDDtE5SX9HooCk7ddlHdKtRzvnnt0q+
+ ryqLyvkdJGghClxGDo6bK+uz7da+r6BElt8EfcPJ8F+HlLHYMTVJQuz1u
+ D3euEH04mLIZM1FLdL7F23JjHbojMKq+evvaF9W/yOjFoCzLAGy2CsZOP
+ Pa5ZZIS+zzuT7TyUgt/UDJ7L//PcootTZSQsWsqyhgeXp+p65XYcy5Y8E
+ C6LdtmsCHC8AKY+8KdNDQ+4cdctdiv6jRcZrsGLUEezOrr0bEJBpbwYvM
+ Ct+cIHvdzpJ7a4ZO7kNdFbWZ2gxfY0/kfgp2wum/5LoXFmFnk8Gz3DH0l Q==;
+X-CSE-ConnectionGUID: d6VJf9LxRKS6e9we9SRYFw==
+X-CSE-MsgGUID: 5R5EXUBTQQaN2rSb91GxHA==
+X-IronPort-AV: E=McAfee;i="6700,10204,11403"; a="57191743"
+X-IronPort-AV: E=Sophos;i="6.15,213,1739865600"; d="scan'208";a="57191743"
+Received: from fmviesa010.fm.intel.com ([10.60.135.150])
+ by orvoesa105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 15 Apr 2025 01:09:52 -0700
+X-CSE-ConnectionGUID: 5m4WgJMOQQ+Lw2+e3igMng==
+X-CSE-MsgGUID: E4HuB3B4TOSv4ZEJl+ckAw==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.15,213,1739865600"; d="scan'208";a="131029783"
-Received: from ncintean-mobl1.ger.corp.intel.com (HELO localhost)
- ([10.245.246.249])
- by orviesa008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 15 Apr 2025 00:59:31 -0700
-From: Jani Nikula <jani.nikula@linux.intel.com>
-To: Chen Linxuan <chenlinxuan@uniontech.com>, Joonas Lahtinen
- <joonas.lahtinen@linux.intel.com>, Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Tvrtko Ursulin <tursulin@ursulin.net>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Chen Linxuan <chenlinxuan@uniontech.com>
-Cc: intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Alan Previn
- <alan.previn.teres.alexis@intel.com>, Daniele Ceraolo Spurio
- <daniele.ceraolospurio@intel.com>, Radhakrishna Sripada
- <radhakrishna.sripada@intel.com>
-Subject: Re: [RFC PATCH 4/7] drm/i915/pxp: fix undefined reference to
- `intel_pxp_gsccs_is_ready_for_sessions'
-In-Reply-To: <8921351F23CD8948+20250411105459.90782-4-chenlinxuan@uniontech.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
-References: <31F42D8141CDD2D0+20250411105142.89296-1-chenlinxuan@uniontech.com>
- <20250411105459.90782-1-chenlinxuan@uniontech.com>
- <8921351F23CD8948+20250411105459.90782-4-chenlinxuan@uniontech.com>
-Date: Tue, 15 Apr 2025 10:59:28 +0300
-Message-ID: <87sem9svmn.fsf@intel.com>
+X-IronPort-AV: E=Sophos;i="6.15,213,1739865600"; d="scan'208";a="130594824"
+Received: from srr4-3-linux-106-armuthy.iind.intel.com ([10.190.238.56])
+ by fmviesa010.fm.intel.com with ESMTP; 15 Apr 2025 01:09:50 -0700
+From: Arun R Murthy <arun.r.murthy@intel.com>
+Subject: [PATCH v2 0/3] Rework/Correction on minimum hblank calculation
+Date: Tue, 15 Apr 2025 13:25:06 +0530
+Message-Id: <20250415-hblank-v2-0-1a23e9d97360@intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIANoQ/mcC/zXMQQ7CIBCF4as0sxYDlFp15T1MF1BHmVjBQEM0D
+ Xd3bNLl//LyLZAxEWY4NwskLJQpBg69a2D0NjxQ0I0btNSdNLIX3k02PIU5udZIi862Cvj8Tni
+ nzwpdB25PeY7pu7pF/deNOG5EUUIK46zqmUE8dBcKM077Mb5gqLX+ABz1ApucAAAA
+X-Change-ID: 20250407-hblank-49b340aeba31
+To: dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org, 
+ intel-xe@lists.freedesktop.org
+Cc: vinod.govindapillai@intel.com, imre.deak@intel.com, 
+ Arun R Murthy <arun.r.murthy@intel.com>
+X-Mailer: b4 0.15-dev
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -78,64 +71,32 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Fri, 11 Apr 2025, Chen Linxuan <chenlinxuan@uniontech.com> wrote:
-> On x86_64 with gcc version 13.3.0, I compile kernel with:
->
->   make defconfig
->   ./scripts/kconfig/merge_config.sh .config <(
->     echo CONFIG_COMPILE_TEST=y
->   )
->   make KCFLAGS="-fno-inline-functions -fno-inline-small-functions -fno-inline-functions-called-once"
+Signed-off-by: Arun R Murthy <arun.r.murthy@intel.com>
+---
+Changes in v2:
+- EDITME: describe what is new in this series revision.
+- EDITME: use bulletpoints and terse descriptions.
+- Link to v1: https://lore.kernel.org/r/20250408-hblank-v1-0-4ba17aebee65@intel.com
 
-The change looks good, but I'm guessing the real explanation is that you
-have CONFIG_DRM_I915_PXP=n and that appears to be broken.
+---
+Arun R Murthy (3):
+      drm/display/dp: Export fn to calculate link symbol cycles
+      drm/i915/display: export function to count dsc slices
+      drm/i915/display: move min_hblank from dp_mst.c to dp.c
 
-Fixes: 99afb7cc8c44 ("drm/i915/pxp: Add ARB session creation and cleanup")
-Reviewed-by: Jani Nikula <jani.nikula@intel.com>
+ drivers/gpu/drm/display/drm_dp_helper.c      | 47 ++++++++++++------------
+ drivers/gpu/drm/i915/display/intel_audio.c   |  7 ++++
+ drivers/gpu/drm/i915/display/intel_display.c | 19 ++++++++++
+ drivers/gpu/drm/i915/display/intel_dp.c      | 47 ++++++++++++++++++++++++
+ drivers/gpu/drm/i915/display/intel_dp_mst.c  | 55 ++--------------------------
+ drivers/gpu/drm/i915/display/intel_dp_mst.h  |  3 ++
+ include/drm/display/drm_dp_helper.h          |  3 ++
+ 7 files changed, 105 insertions(+), 76 deletions(-)
+---
+base-commit: c4fc93b0ec49f4b0105c142502b7d1d5de379950
+change-id: 20250407-hblank-49b340aeba31
 
-But how do you want this merged?
-
-
-BR,
-Jani.
-
->
-> Then I get a linker error:
->
->   ld: vmlinux.o: in function `pxp_fw_dependencies_completed':
->   kintel_pxp.c:(.text+0x95728f): undefined reference to `intel_pxp_gsccs_is_ready_for_sessions'
->
-> Signed-off-by: Chen Linxuan <chenlinxuan@uniontech.com>
-> ---
->  drivers/gpu/drm/i915/pxp/intel_pxp_gsccs.h | 8 ++++++--
->  1 file changed, 6 insertions(+), 2 deletions(-)
->
-> diff --git a/drivers/gpu/drm/i915/pxp/intel_pxp_gsccs.h b/drivers/gpu/drm/i915/pxp/intel_pxp_gsccs.h
-> index 9aae779c4da3..4969d3de2bac 100644
-> --- a/drivers/gpu/drm/i915/pxp/intel_pxp_gsccs.h
-> +++ b/drivers/gpu/drm/i915/pxp/intel_pxp_gsccs.h
-> @@ -23,6 +23,7 @@ int intel_pxp_gsccs_init(struct intel_pxp *pxp);
->  
->  int intel_pxp_gsccs_create_session(struct intel_pxp *pxp, int arb_session_id);
->  void intel_pxp_gsccs_end_arb_fw_session(struct intel_pxp *pxp, u32 arb_session_id);
-> +bool intel_pxp_gsccs_is_ready_for_sessions(struct intel_pxp *pxp);
->  
->  #else
->  static inline void intel_pxp_gsccs_fini(struct intel_pxp *pxp)
-> @@ -34,8 +35,11 @@ static inline int intel_pxp_gsccs_init(struct intel_pxp *pxp)
->  	return 0;
->  }
->  
-> -#endif
-> +static inline bool intel_pxp_gsccs_is_ready_for_sessions(struct intel_pxp *pxp)
-> +{
-> +	return false;
-> +}
->  
-> -bool intel_pxp_gsccs_is_ready_for_sessions(struct intel_pxp *pxp);
-> +#endif
->  
->  #endif /*__INTEL_PXP_GSCCS_H__ */
-
+Best regards,
 -- 
-Jani Nikula, Intel
+Arun R Murthy <arun.r.murthy@intel.com>
+
