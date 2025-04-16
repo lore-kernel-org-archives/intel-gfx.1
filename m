@@ -4,47 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E176EC369B1
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E56ADC369BA
 	for <intel-gfx@archiver.kernel.org>; Wed, 16 Apr 2025 06:29:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D5AF410E837;
-	Wed, 16 Apr 2025 06:29:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6BD7210E835;
+	Wed, 16 Apr 2025 06:29:50 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="eg+d2ywF";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="c4h8Q/bC";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.7])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 41E9A10E837
- for <intel-gfx@lists.freedesktop.org>; Wed, 16 Apr 2025 06:29:51 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6788910E835
+ for <intel-gfx@lists.freedesktop.org>; Wed, 16 Apr 2025 06:29:48 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1744784991; x=1776320991;
+ t=1744784988; x=1776320988;
  h=from:to:subject:date:message-id:in-reply-to:references:
  mime-version:content-transfer-encoding;
- bh=vLHGaxbJCYIX8jGeH9gR7JgVhJXWXZ/Y5Cb6cu/2tH0=;
- b=eg+d2ywFr6ySaH5pqw31RVFqJc7WaakSLAvoZvSTqI4++c4bg/ScAHDL
- dV+go+56IMGWbMcDGhaGGpKXJVYOsCSkkLeuXDZcpImNWxGIIOr7oMcMC
- UeOnFKzbCJghM9QGb/k3g0t99FjOkKcOcsPAicueFpkS0jlHNXzviYaYe
- 1Jv/7KgmKY6Y7HgpkxiAj/PjkkhedxUhB0wgR2GhAR1R+kylk1RnsQ1/E
- PY52LcehUfhVgC5fOngufCKPhMkXXNEBX737NtiIe7qlrwUUUNzVPWvRS
- EP5yi8KVDLi/y/yRebk6dV5kYwoDIXUMxRenjfv5U+TrKaJQlcx0BTqoN A==;
-X-CSE-ConnectionGUID: AlM5EVTpRR+3d4TNkgeNQw==
-X-CSE-MsgGUID: vhz+dwTUQ6O9Nrm5aI9Ogg==
-X-IronPort-AV: E=McAfee;i="6700,10204,11404"; a="71710246"
-X-IronPort-AV: E=Sophos;i="6.15,215,1739865600"; d="scan'208";a="71710246"
+ bh=4kRoIDYBIs81VT8t8t29C8/ilyejerXO1Cfu7X5/CqA=;
+ b=c4h8Q/bC7AYMJp8mWL0cV+BwH2jg2yYrw9WUg7kCO8mT7aGwJ/cm8N2T
+ mUCVEYsKVspwVUHGz1Q8BiROsBXLMUPR8QaH7qfEtgKZw2lAExoImuqxc
+ VCszuWbkMLhUe74nZ7/ElRUqjFnKe60mo7wi9MhAR/Y82ZS09uCueOjV6
+ H14VqqswQdeIA/SIpGxwQ8qQpj9+GajWMEM1hXqD0rC+fSUNkZg6ncB1O
+ 2vXnJ8SXuR0h1cJio1cnxR/gqBnFIZ1q8y1ChIkVEblu7Vv9kxPQIXrpo
+ q+t9Zrybz8YW2X07imsf214+gHCiDzCKl9VzTGOmb2vL3Fq/Fuiv6dGJc w==;
+X-CSE-ConnectionGUID: o0gAiiUNTWCG8l1mJ6+7NQ==
+X-CSE-MsgGUID: hnVWOR6ZRXW5lXUc9ndvMQ==
+X-IronPort-AV: E=McAfee;i="6700,10204,11404"; a="71710241"
+X-IronPort-AV: E=Sophos;i="6.15,215,1739865600"; d="scan'208";a="71710241"
 Received: from orviesa007.jf.intel.com ([10.64.159.147])
  by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 15 Apr 2025 23:29:51 -0700
-X-CSE-ConnectionGUID: hCYWSsP+QuOOLZKWhFdt2A==
-X-CSE-MsgGUID: tTgz88yzQ/C8wn3IUtqDsw==
+ 15 Apr 2025 23:29:48 -0700
+X-CSE-ConnectionGUID: gzsI6M2MQ5aX8fNiA2j3vw==
+X-CSE-MsgGUID: U7yZCJxlTwC68Tl4/Ngdtw==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.15,215,1739865600"; d="scan'208";a="130880187"
+X-IronPort-AV: E=Sophos;i="6.15,215,1739865600"; d="scan'208";a="130880167"
 Received: from mgolanimitul-x299-ud4-pro.iind.intel.com ([10.190.239.114])
- by orviesa007.jf.intel.com with ESMTP; 15 Apr 2025 23:29:50 -0700
+ by orviesa007.jf.intel.com with ESMTP; 15 Apr 2025 23:29:46 -0700
 From: Mitul Golani <mitulkumar.ajitkumar.golani@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Subject: [PATCH v1 4/8] drm/i915/vrr: Add functions to read out vmin/vmax stuff
-Date: Wed, 16 Apr 2025 11:57:33 +0530
-Message-ID: <20250416062737.1766703-5-mitulkumar.ajitkumar.golani@intel.com>
+Subject: [PATCH v1 1/8] drm/i915/vrr: Add DC balance registers
+Date: Wed, 16 Apr 2025 11:57:30 +0530
+Message-ID: <20250416062737.1766703-2-mitulkumar.ajitkumar.golani@intel.com>
 X-Mailer: git-send-email 2.48.1
 In-Reply-To: <20250416062737.1766703-1-mitulkumar.ajitkumar.golani@intel.com>
 References: <20250416062737.1766703-1-mitulkumar.ajitkumar.golani@intel.com>
@@ -66,99 +66,81 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Calculate delayed vblank start position with the help of added
-vmin/vmax stuff for next frame and final computation.
+Add register to access DC Balance registers.
 
 Signed-off-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_vrr.c | 55 +++++++++++++++++++++++-
- drivers/gpu/drm/i915/display/intel_vrr.h |  5 +++
- 2 files changed, 59 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/i915/display/intel_vrr_regs.h | 43 +++++++++++++++++++
+ 1 file changed, 43 insertions(+)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_vrr.c b/drivers/gpu/drm/i915/display/intel_vrr.c
-index afa1728837d2..03405c274b8c 100644
---- a/drivers/gpu/drm/i915/display/intel_vrr.c
-+++ b/drivers/gpu/drm/i915/display/intel_vrr.c
-@@ -156,7 +156,6 @@ static int intel_vrr_vtotal(const struct intel_crtc_state *crtc_state, int vmin_
- 		return vmin_vmax + intel_vrr_real_vblank_delay(crtc_state);
- }
+diff --git a/drivers/gpu/drm/i915/display/intel_vrr_regs.h b/drivers/gpu/drm/i915/display/intel_vrr_regs.h
+index 6ed0e0dc97e7..6297108f1357 100644
+--- a/drivers/gpu/drm/i915/display/intel_vrr_regs.h
++++ b/drivers/gpu/drm/i915/display/intel_vrr_regs.h
+@@ -9,6 +9,20 @@
+ #include "intel_display_reg_defs.h"
  
--
- static int intel_vrr_vblank_start(const struct intel_crtc_state *crtc_state,
- 	int vmin_vmax)
- {
-@@ -747,3 +746,57 @@ void intel_vrr_get_config(struct intel_crtc_state *crtc_state)
- 	if (crtc_state->vrr.enable)
- 		crtc_state->mode_flags |= I915_MODE_FLAG_VRR;
- }
+ /* VRR registers */
++#define _TRANS_VRR_VMAX_DCB_A			0x60414 /* lnl+ */
++#define _TRANS_VRR_VMAX_DCB_B			0x61414 /* lnl+ */
++#define TRANS_VRR_VMAX_DCB(trans)		_MMIO_TRANS((trans), \
++							    _TRANS_VRR_VMAX_DCB_A, \
++							    _TRANS_VRR_VMAX_DCB_B)
++#define VRR_VMAX_DCB_MASK			REG_GENMASK(19, 0)
 +
-+int intel_vrr_dcb_vmin_vblank_start_next(const struct intel_crtc_state *crtc_state)
-+{
-+	struct intel_display *display = to_intel_display(crtc_state);
-+	enum transcoder cpu_transcoder = crtc_state->cpu_transcoder;
-+	u32 tmp;
++#define _TRANS_VRR_FLIPLINE_DCB_A		0x60418 /* lnl+ */
++#define _TRANS_VRR_FLIPLINE_DCB_B		0x61418 /* lnl+ */
++#define TRANS_VRR_FLIPLINE_DCB(trans)		_MMIO_TRANS((trans), \
++							    _TRANS_VRR_FLIPLINE_DCB_A, \
++							    _TRANS_VRR_FLIPLINE_DCB_B)
++#define VRR_FLIPLINE_DCB_MASK			REG_GENMASK(19, 0)
 +
-+	tmp = intel_de_read(display, TRANS_VRR_DCB_ADJ_FLIPLINE_CFG(cpu_transcoder));
-+
-+	if (REG_FIELD_GET(VRR_DCB_ADJ_FLIPLINE_CNT_MASK, tmp) == 0)
-+		return -1;
-+
-+	return intel_vrr_vblank_start(crtc_state,
-+				      REG_FIELD_GET(VRR_DCB_ADJ_FLIPLINE_MASK, tmp) + 1);
-+}
-+
-+int intel_vrr_dcb_vmax_vblank_start_next(const struct intel_crtc_state *crtc_state)
-+{
-+	struct intel_display *display = to_intel_display(crtc_state);
-+	enum transcoder cpu_transcoder = crtc_state->cpu_transcoder;
-+	u32 tmp;
-+
-+	tmp = intel_de_read(display, TRANS_VRR_DCB_ADJ_VMAX_CFG(cpu_transcoder));
-+
-+	if (REG_FIELD_GET(VRR_DCB_ADJ_VMAX_CNT_MASK, tmp) == 0)
-+		return -1;
-+
-+	return intel_vrr_vblank_start(crtc_state,
-+				      REG_FIELD_GET(VRR_DCB_ADJ_VMAX_MASK, tmp) + 1);
-+}
-+
-+int intel_vrr_dcb_vmin_vblank_start_final(const struct intel_crtc_state *crtc_state)
-+{
-+	struct intel_display *display = to_intel_display(crtc_state);
-+	enum transcoder cpu_transcoder = crtc_state->cpu_transcoder;
-+	u32 tmp;
-+
-+	tmp = intel_de_read(display, TRANS_VRR_FLIPLINE_DCB(cpu_transcoder));
-+
-+	return intel_vrr_vblank_start(crtc_state,
-+				      REG_FIELD_GET(VRR_FLIPLINE_DCB_MASK, tmp) + 1);
-+}
-+
-+int intel_vrr_dcb_vmax_vblank_start_final(const struct intel_crtc_state *crtc_state)
-+{
-+	struct intel_display *display = to_intel_display(crtc_state);
-+	enum transcoder cpu_transcoder = crtc_state->cpu_transcoder;
-+	u32 tmp;
-+
-+	tmp = intel_de_read(display, TRANS_VRR_VMAX_DCB(cpu_transcoder));
-+
-+	return intel_vrr_vblank_start(crtc_state,
-+				      REG_FIELD_GET(VRR_VMAX_DCB_MASK, tmp) + 1);
-+}
-diff --git a/drivers/gpu/drm/i915/display/intel_vrr.h b/drivers/gpu/drm/i915/display/intel_vrr.h
-index 38bf9996b883..e62b8b50aec6 100644
---- a/drivers/gpu/drm/i915/display/intel_vrr.h
-+++ b/drivers/gpu/drm/i915/display/intel_vrr.h
-@@ -42,4 +42,9 @@ void intel_vrr_transcoder_disable(const struct intel_crtc_state *crtc_state);
- void intel_vrr_set_fixed_rr_timings(const struct intel_crtc_state *crtc_state);
- bool intel_vrr_always_use_vrr_tg(struct intel_display *display);
+ #define _TRANS_VRR_CTL_A			0x60420
+ #define _TRANS_VRR_CTL_B			0x61420
+ #define _TRANS_VRR_CTL_C			0x62420
+@@ -17,6 +31,7 @@
+ #define  VRR_CTL_VRR_ENABLE			REG_BIT(31)
+ #define  VRR_CTL_IGN_MAX_SHIFT			REG_BIT(30)
+ #define  VRR_CTL_FLIP_LINE_EN			REG_BIT(29)
++#define  VRR_CTL_DCB_ADJ_ENABLE			REG_BIT(28) /* lnl+ */
+ #define  VRR_CTL_PIPELINE_FULL_MASK		REG_GENMASK(10, 3)
+ #define  VRR_CTL_PIPELINE_FULL(x)		REG_FIELD_PREP(VRR_CTL_PIPELINE_FULL_MASK, (x))
+ #define  VRR_CTL_PIPELINE_FULL_OVERRIDE		REG_BIT(0)
+@@ -93,6 +108,34 @@
+ #define TRANS_VRR_STATUS2(dev_priv, trans)	_MMIO_TRANS2(dev_priv, trans, _TRANS_VRR_STATUS2_A)
+ #define  VRR_STATUS2_VERT_LN_CNT_MASK		REG_GENMASK(19, 0)
  
-+int intel_vrr_dcb_vmin_vblank_start_next(const struct intel_crtc_state *crtc_state);
-+int intel_vrr_dcb_vmax_vblank_start_next(const struct intel_crtc_state *crtc_state);
-+int intel_vrr_dcb_vmin_vblank_start_final(const struct intel_crtc_state *crtc_state);
-+int intel_vrr_dcb_vmax_vblank_start_final(const struct intel_crtc_state *crtc_state);
++#define _TRANS_ADAPTIVE_SYNC_DCB_CTL_A		0x604c0 /* lnl+ */
++#define _TRANS_ADAPTIVE_SYNC_DCB_CTL_B		0x614c0 /* lnl+ */
++#define TRANS_ADAPTIVE_SYNC_DCB_CTL(trans)	_MMIO_TRANS((trans), \
++							    _TRANS_ADAPTIVE_SYNC_DCB_CTL_A, \
++							    _TRANS_ADAPTIVE_SYNC_DCB_CTL_B)
++#define  ADAPTIVE_SYNC_COUNTER_EN			REG_BIT(31)
++#define  ADAPTIVE_SYNC_COUNTER_RESET			REG_BIT(30)
++#define  ADAPTIVE_SYNC_ODD_COUNTER_OVERFLOW		REG_BIT(15)
++#define  ADAPTIVE_SYNC_EVEN_COUNTER_OVERFLOW		REG_BIT(14)
++#define  ADAPTIVE_SYNC_ODD_LINE_COUNTER_OVERFLOW	REG_BIT(13)
++#define  ADAPTIVE_SYNC_EVEN_LINE_COUNTER_OVERFLOW	REG_BIT(12)
 +
- #endif /* __INTEL_VRR_H__ */
++#define _TRANS_VRR_DCB_ADJ_FLIPLINE_CFG_A	0x604d4 /* lnl+ */
++#define _TRANS_VRR_DCB_ADJ_FLIPLINE_CFG_B	0x614d4 /* lnl+ */
++#define TRANS_VRR_DCB_ADJ_FLIPLINE_CFG(trans)	_MMIO_TRANS((trans), \
++							    _TRANS_VRR_DCB_ADJ_FLIPLINE_CFG_A, \
++							    _TRANS_VRR_DCB_ADJ_FLIPLINE_CFG_B)
++#define  VRR_DCB_ADJ_FLIPLINE_CNT_MASK		REG_GENMASK(31, 24)
++#define  VRR_DCB_ADJ_FLIPLINE_MASK		REG_GENMASK(19, 0)
++
++#define _TRANS_VRR_DCB_ADJ_VMAX_CFG_A		0x604d8 /* lnl+ */
++#define _TRANS_VRR_DCB_ADJ_VMAX_CFG_B		0x614d8 /* lnl+ */
++#define TRANS_VRR_DCB_ADJ_VMAX_CFG(trans)	_MMIO_TRANS((trans), \
++							    _TRANS_VRR_DCB_ADJ_VMAX_CFG_A, \
++							    _TRANS_VRR_DCB_ADJ_VMAX_CFG_B)
++#define  VRR_DCB_ADJ_VMAX_CNT_MASK		REG_GENMASK(31, 24)
++#define  VRR_DCB_ADJ_VMAX_MASK			REG_GENMASK(19, 0)
++
+ #define _TRANS_PUSH_A				0x60a70
+ #define _TRANS_PUSH_B				0x61a70
+ #define _TRANS_PUSH_C				0x62a70
 -- 
 2.48.1
 
