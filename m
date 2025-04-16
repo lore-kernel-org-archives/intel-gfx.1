@@ -4,58 +4,58 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E53F9C369C7
-	for <intel-gfx@archiver.kernel.org>; Wed, 16 Apr 2025 13:15:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CF6FDC369C9
+	for <intel-gfx@archiver.kernel.org>; Wed, 16 Apr 2025 13:15:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C82AF10E8FC;
-	Wed, 16 Apr 2025 13:15:50 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 50F9310E8FE;
+	Wed, 16 Apr 2025 13:15:51 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="J5eYNU70";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="G6aFIr2B";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 96F5210E8B4;
- Wed, 16 Apr 2025 09:38:37 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 54D6B10E878;
+ Wed, 16 Apr 2025 07:51:40 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 4F3164A253;
- Wed, 16 Apr 2025 09:38:36 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6B442C4CEED;
- Wed, 16 Apr 2025 09:38:24 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id F27E861567;
+ Wed, 16 Apr 2025 07:51:22 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 301EFC4CEEE;
+ Wed, 16 Apr 2025 07:51:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1744796317;
- bh=+ZCWbE1PR1VWajVp5YhiYDBJVfRXd0HwklhLy77IOWI=;
- h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
- b=J5eYNU70oLJ0F1Q9S/3mFsHhNQ/7mz9Cowdbh+vkRpjA/X57MT+RQ8apm9iZz+2r/
- NgeC6JlaQHH26sf3mfYC0lsJKDR8CmG1iwguO7pVLVs+q3ML81C70/y9tON46gHKKR
- g3vj31zi6pfp2nWRDrFExRd1pBxQ4bGzDpp4QPb0P93SxWlIp4sHfyMzV57QKDxk3O
- DQ8QKj74wOvwEYvbb7hNbbm/bd4/Q+vPEtZg2RtA9nG7ghOPWpXVjIIVCOOCn6/PsY
- fYG1LajUfhqaX2GKX3E2OJdSgAwWZz7sa/V43RPpfxaVOU82iLmPNx9k09o+vJ7gFD
- 1csmdSufPcBRQ==
-Date: Wed, 16 Apr 2025 17:38:11 +0800
+ s=k20201202; t=1744789899;
+ bh=lGDsvclGfqqnI4NDqwWIMifw2HNoNXwomoYGArbLBu4=;
+ h=From:To:Cc:Subject:Date:From;
+ b=G6aFIr2BZXuMv3uDIP61j9l+U5bH+K8WQ7DkFwFVsfrSvIExheZYiWdcaSg067E74
+ gnoujMQq52AExugsQplVvpEC13rUvsIi5Dlc5dzJHIOunrZ74OYwpbMKcRpdOOiUqd
+ 8y0kpUbV8ybJsDIEJup9I+A/FehTvNnc7afz9LHT7RT2AcaSBFgpVf8/l+v4lDO1dw
+ G+ZbNwdQ//oAKSO1sLnF04U3gMwr+JQM7XfMgu6Iu6AfxvLzZDNxC14sImMt4B1i6W
+ XSNGL9G5Zh9mCctIrUkCZmuAcHHEgT8EDwYChuL/8g7tGe+ZSzV1LUxEOanEkWl563
+ tUhXSE8T8xYBQ==
+Received: from mchehab by mail.kernel.org with local (Exim 4.98.2)
+ (envelope-from <mchehab@kernel.org>) id 1u4xY7-00000002m3C-0eDL;
+ Wed, 16 Apr 2025 15:51:11 +0800
 From: Mauro Carvalho Chehab <mchehab+huawei@kernel.org>
-To: Jani Nikula <jani.nikula@linux.intel.com>
-Cc: Linux Doc Mailing List <linux-doc@vger.kernel.org>, Jonathan Corbet
- <corbet@lwn.net>, Andy Shevchenko <andriy.shevchenko@intel.com>, David
- Airlie <airlied@gmail.com>, Joonas Lahtinen
- <joonas.lahtinen@linux.intel.com>, Maarten Lankhorst
- <maarten.lankhorst@linux.intel.com>, Masahiro Yamada
- <masahiroy@kernel.org>, Maxime Ripard <mripard@kernel.org>, Nathan
- Chancellor <nathan@kernel.org>, Nicolas Schier <nicolas.schier@linux.dev>,
+To: Linux Doc Mailing List <linux-doc@vger.kernel.org>,
+ Jonathan Corbet <corbet@lwn.net>
+Cc: Mauro Carvalho Chehab <mchehab+huawei@kernel.org>,
+ linux-kernel@vger.kernel.org,
+ Andy Shevchenko <andriy.shevchenko@intel.com>,
+ David Airlie <airlied@gmail.com>,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Masahiro Yamada <masahiroy@kernel.org>, Maxime Ripard <mripard@kernel.org>,
+ Nathan Chancellor <nathan@kernel.org>,
+ Nicolas Schier <nicolas.schier@linux.dev>,
  Rodrigo Vivi <rodrigo.vivi@intel.com>, Simona Vetter <simona@ffwll.ch>,
- Thomas Zimmermann <tzimmermann@suse.de>, Tvrtko Ursulin
- <tursulin@ursulin.net>, dri-devel@lists.freedesktop.org,
- intel-gfx@lists.freedesktop.org, linux-kbuild@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3 1/2] scripts/kernel-doc.py: don't create *.pyc files
-Message-ID: <20250416173811.71c3c345@sal.lan>
-In-Reply-To: <20250416172901.60104103@sal.lan>
-References: <cover.1744789777.git.mchehab+huawei@kernel.org>
- <4ad5eb8d4b819997c1615d2401581c22a32bb2c1.1744789777.git.mchehab+huawei@kernel.org>
- <87tt6opks7.fsf@intel.com> <20250416171917.0985c0eb@sal.lan>
- <20250416172901.60104103@sal.lan>
-X-Mailer: Claws Mail 4.3.1 (GTK 3.24.43; x86_64-redhat-linux-gnu)
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ Tvrtko Ursulin <tursulin@ursulin.net>, dri-devel@lists.freedesktop.org,
+ intel-gfx@lists.freedesktop.org, linux-kbuild@vger.kernel.org
+Subject: [PATCH v3 0/2] Don't create Python bytecode when building the kernel
+Date: Wed, 16 Apr 2025 15:51:03 +0800
+Message-ID: <cover.1744789777.git.mchehab+huawei@kernel.org>
+X-Mailer: git-send-email 2.49.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Wed, 16 Apr 2025 13:15:46 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -72,70 +72,38 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Em Wed, 16 Apr 2025 17:29:01 +0800
-Mauro Carvalho Chehab <mchehab+huawei@kernel.org> escreveu:
 
-> Em Wed, 16 Apr 2025 17:19:17 +0800
-> Mauro Carvalho Chehab <mchehab+huawei@kernel.org> escreveu:
-> 
-> > Em Wed, 16 Apr 2025 11:34:16 +0300
-> > Jani Nikula <jani.nikula@linux.intel.com> escreveu:
-> > 
-> > > On Wed, 16 Apr 2025, Mauro Carvalho Chehab <mchehab+huawei@kernel.org> wrote:
-> > > > As reported by Andy, kernel-doc.py is creating a __pycache__
-> > > > directory at build time.
-> > > >
-> > > > Disable creation of __pycache__ for the libraries used by
-> > > > kernel-doc.py, when excecuted via the build system or via
-> > > > scripts/find-unused-docs.sh.
-> > > >
-> > > > Reported-by: Andy Shevchenko <andriy.shevchenko@intel.com>
-> > > > Closes: https://lore.kernel.org/linux-doc/Z_zYXAJcTD-c3xTe@black.fi.intel.com/
-> > > > Signed-off-by: Mauro Carvalho Chehab <mchehab+huawei@kernel.org>
-> > > > ---
-> > > >  drivers/gpu/drm/Makefile      | 2 +-
-> > > >  drivers/gpu/drm/i915/Makefile | 2 +-
-> > > >  include/drm/Makefile          | 2 +-
-> > > >  scripts/Makefile.build        | 2 +-
-> > > >  scripts/find-unused-docs.sh   | 2 +-
-> > > >  5 files changed, 5 insertions(+), 5 deletions(-)
-> > > >
-> > > > diff --git a/drivers/gpu/drm/Makefile b/drivers/gpu/drm/Makefile
-> > > > index ed54a546bbe2..d21d0cd2c752 100644
-> > > > --- a/drivers/gpu/drm/Makefile
-> > > > +++ b/drivers/gpu/drm/Makefile
-> > > > @@ -236,7 +236,7 @@ always-$(CONFIG_DRM_HEADER_TEST) += \
-> > > >  quiet_cmd_hdrtest = HDRTEST $(patsubst %.hdrtest,%.h,$@)
-> > > >        cmd_hdrtest = \
-> > > >  		$(CC) $(c_flags) -fsyntax-only -x c /dev/null -include $< -include $<; \
-> > > > -		$(srctree)/scripts/kernel-doc -none $(if $(CONFIG_WERROR)$(CONFIG_DRM_WERROR),-Werror) $<; \
-> > > > +		 PYTHONDONTWRITEBYTECODE=1 $(KERNELDOC) -none $(if $(CONFIG_WERROR)$(CONFIG_DRM_WERROR),-Werror) $<; \  
-> > > 
-> > > KERNELDOC is not set here.
-> > 
-> > > 
-> > > /bin/sh: 1: -none: not found
-> > 
-> > Weird. This is set on Documentation/Makefile:
-> > 
-> > 	$ grep KERNELDOC Documentation/Makefile 
-> > 	KERNELDOC       = $(srctree)/scripts/kernel-doc.py
-> > 	...
-> > 
-> > drivers/gpu/drm/Makefile should be able to see this variable there...
-> 
-> I suspect that the building system tries to confine variables to
-> sub-directories, so maybe one solution would be to move it to the
-> main makefile.
-> 
-> could you please check if this patch solves the issue?
+As reported by Andy, the Kernel build system runs kernel-doc script for DRM,
+when W=1. Due to Python's normal behavior, its JIT compiler will create
+a bytecode and store it under scripts/lib/*/__pycache__. 
 
-Answering myself: it doesn't.
+As one may be using O= and even having the sources on a read-only mount
+point, disable its creation during build time.
 
-Heh, trying to quickly write a patch before calling it a day is
-usually not a good idea ;-)
+This only solves half of the issue though, as one may be manually running
+the script by hand, without asking Python to not store any bytecode.
+This should be OK, but afterwards, git status will list the __pycache__ as
+not committed. To prevent that, add *.pyc to .gitignore.
 
-I'll send a fix tomorrow.
+---
 
-Regards,
-Mauro
+v3:
+ - changed the order of PYTHONDONTBYTECODE;
+ - patched also scripts/Makefile
+
+Mauro Carvalho Chehab (2):
+  scripts/kernel-doc.py: don't create *.pyc files
+  .gitignore: ignore Python compiled bytecode
+
+ .gitignore                    | 1 +
+ drivers/gpu/drm/Makefile      | 2 +-
+ drivers/gpu/drm/i915/Makefile | 2 +-
+ include/drm/Makefile          | 2 +-
+ scripts/Makefile.build        | 2 +-
+ scripts/find-unused-docs.sh   | 2 +-
+ 6 files changed, 6 insertions(+), 5 deletions(-)
+
+-- 
+2.49.0
+
+
