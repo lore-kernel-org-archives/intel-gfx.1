@@ -4,65 +4,57 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 52764C369B1
-	for <intel-gfx@archiver.kernel.org>; Wed, 16 Apr 2025 07:37:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6259AC369B1
+	for <intel-gfx@archiver.kernel.org>; Wed, 16 Apr 2025 08:29:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E5C8610E872;
-	Wed, 16 Apr 2025 07:36:59 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DA5A810E243;
+	Wed, 16 Apr 2025 08:29:16 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="aeYGFd4j";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="ZGHTnA9i";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8E57A10E872;
- Wed, 16 Apr 2025 07:36:58 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.18])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3D64310E243
+ for <intel-gfx@lists.freedesktop.org>; Wed, 16 Apr 2025 08:29:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1744789019; x=1776325019;
- h=from:to:cc:subject:in-reply-to:references:date:
- message-id:mime-version;
- bh=k12yYWnEtuAOb8FYj01ByawbqpUrWk4A5udTKrydTEs=;
- b=aeYGFd4jusE6CmvKpa/HdG/UqmbrCy5MHY0eskc4eKfZgGdSW9QieEst
- +qKrzSlivROiWjveLpgaQ2JMV25jzUZQevm+fAOjUyVHePNECPmnJoeE3
- 8ugft9cGHK0nvNE7R0HTx0e2YuYCf60V2FDhLepOei863ZypyinXIqOWK
- TWEEZl/jJQl7l4llJmm/mEofvmzHVqpf0ogs1mzuWLGYApX0e+TmghQpf
- q9rmA6ezpyiN9r6iK8qh82rDnenJ/XhK19QJbOBT56qCbd15wyOn70j7G
- m4zxfzgQul6hCdACgLxqiKEXRfo7DjgkLf1rIN+G2tLm/Oua8PEB7PB9P w==;
-X-CSE-ConnectionGUID: nRotn/ujQCuaeBW11vtGsA==
-X-CSE-MsgGUID: YOe2UffdQ561eewFNyxPbA==
-X-IronPort-AV: E=McAfee;i="6700,10204,11404"; a="63729590"
-X-IronPort-AV: E=Sophos;i="6.15,215,1739865600"; d="scan'208";a="63729590"
+ t=1744792156; x=1776328156;
+ h=from:to:subject:in-reply-to:references:date:message-id:
+ mime-version:content-transfer-encoding;
+ bh=s0ZwstaiplANHTak3gUM/G+CDzQv7oZYSoRkfpkg/q4=;
+ b=ZGHTnA9iczfkiSQubHBYBNMHLn6xz1oARIZ0DIiwh0nKIbGXJAfAFrQ3
+ KchpqRdB2Xq6FicF4GthdraSHign2lLFYbXJGNtVlrQFRGYvIU5616tgW
+ qHA+DK5fTgGUt8WIa4kgiG3DhBV8gIKqjU9rc61kJBPRFwT9bI/06LdId
+ /GiMCbsOADYx3hY50qylIp5iLNhutmcVPaBdykYNWuUGTjFLoIgeoqwsY
+ Mo1U6d+Qh/CGH4pQotT0qgK3rV6XD5XNumHeyNxWQKJGbMHSdGlYdTSmi
+ 8g63o3a78Rh/NKNQybESZWdE+qlwu//IRn7cafFQ5I79yKcESeVnkDfEO Q==;
+X-CSE-ConnectionGUID: WsoLcguBTLCwhJpv+2bPqg==
+X-CSE-MsgGUID: mbXtwot+SMWpLZzRYkslKA==
+X-IronPort-AV: E=McAfee;i="6700,10204,11404"; a="46455142"
+X-IronPort-AV: E=Sophos;i="6.15,215,1739865600"; d="scan'208";a="46455142"
 Received: from fmviesa009.fm.intel.com ([10.60.135.149])
- by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 16 Apr 2025 00:36:58 -0700
-X-CSE-ConnectionGUID: 2GDZYhD5Tuu3ame4S8uWNQ==
-X-CSE-MsgGUID: fPmLpTnpSIaidZAjcFFOrw==
+ by orvoesa110.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 16 Apr 2025 01:29:06 -0700
+X-CSE-ConnectionGUID: Lgv7SGwhRiGsrlUI7MlaQQ==
+X-CSE-MsgGUID: nirKD5I9R6ao9etSVNlZbA==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.15,215,1739865600"; d="scan'208";a="131274566"
+X-IronPort-AV: E=Sophos;i="6.15,215,1739865600"; d="scan'208";a="131294474"
 Received: from fdefranc-mobl3.ger.corp.intel.com (HELO localhost)
  ([10.245.246.96])
  by fmviesa009-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 16 Apr 2025 00:36:53 -0700
+ 16 Apr 2025 01:29:04 -0700
 From: Jani Nikula <jani.nikula@linux.intel.com>
-To: Mauro Carvalho Chehab <mchehab+huawei@kernel.org>, Linux Doc Mailing
- List <linux-doc@vger.kernel.org>, Jonathan Corbet <corbet@lwn.net>
-Cc: Mauro Carvalho Chehab <mchehab+huawei@kernel.org>, Andy Shevchenko
- <andriy.shevchenko@intel.com>, David Airlie <airlied@gmail.com>, Joonas
- Lahtinen <joonas.lahtinen@linux.intel.com>, Maarten Lankhorst
- <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, Simona Vetter <simona@ffwll.ch>,
- Thomas Zimmermann <tzimmermann@suse.de>, Tvrtko Ursulin
- <tursulin@ursulin.net>, dri-devel@lists.freedesktop.org,
- intel-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 1/2] scripts/kernel-doc.py: don't create *.pyc files
-In-Reply-To: <8734e8r25j.fsf@intel.com>
+To: Mitul Golani <mitulkumar.ajitkumar.golani@intel.com>,
+ intel-gfx@lists.freedesktop.org
+Subject: Re: [PATCH v1 1/8] drm/i915/vrr: Add DC balance registers
+In-Reply-To: <20250416062737.1766703-2-mitulkumar.ajitkumar.golani@intel.com>
 Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
-References: <cover.1744786420.git.mchehab+huawei@kernel.org>
- <432f17b785d35122753d4b210874d78ee84e1bb5.1744786420.git.mchehab+huawei@kernel.org>
- <8734e8r25j.fsf@intel.com>
-Date: Wed, 16 Apr 2025 10:36:50 +0300
-Message-ID: <87zfggpnfx.fsf@intel.com>
+References: <20250416062737.1766703-1-mitulkumar.ajitkumar.golani@intel.com>
+ <20250416062737.1766703-2-mitulkumar.ajitkumar.golani@intel.com>
+Date: Wed, 16 Apr 2025 11:29:01 +0300
+Message-ID: <87wmbkpl0y.fsf@intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -78,92 +70,93 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Wed, 16 Apr 2025, Jani Nikula <jani.nikula@linux.intel.com> wrote:
-> On Wed, 16 Apr 2025, Mauro Carvalho Chehab <mchehab+huawei@kernel.org> wrote:
->> As reported by Andy, kernel-doc.py is creating a __pycache__
->> directory at build time.
->>
->> Disable creation of __pycache__ for the libraries used by
->> kernel-doc.py, when excecuted via the build system or via
->> scripts/find-unused-docs.sh.
->>
->> Reported-by: Andy Shevchenko <andriy.shevchenko@intel.com>
->> Closes: https://lore.kernel.org/linux-doc/Z_zYXAJcTD-c3xTe@black.fi.intel.com/
->> Signed-off-by: Mauro Carvalho Chehab <mchehab+huawei@kernel.org>
->> ---
->>  drivers/gpu/drm/Makefile      | 2 +-
->>  drivers/gpu/drm/i915/Makefile | 2 +-
->>  include/drm/Makefile          | 2 +-
->>  scripts/find-unused-docs.sh   | 2 +-
->>  4 files changed, 4 insertions(+), 4 deletions(-)
->>
->> diff --git a/drivers/gpu/drm/Makefile b/drivers/gpu/drm/Makefile
->> index ed54a546bbe2..1469d64f8783 100644
->> --- a/drivers/gpu/drm/Makefile
->> +++ b/drivers/gpu/drm/Makefile
->> @@ -236,7 +236,7 @@ always-$(CONFIG_DRM_HEADER_TEST) += \
->>  quiet_cmd_hdrtest = HDRTEST $(patsubst %.hdrtest,%.h,$@)
->>        cmd_hdrtest = \
->>  		$(CC) $(c_flags) -fsyntax-only -x c /dev/null -include $< -include $<; \
->> -		$(srctree)/scripts/kernel-doc -none $(if $(CONFIG_WERROR)$(CONFIG_DRM_WERROR),-Werror) $<; \
->> +		$(KERNELDOC) PYTHONDONTWRITEBYTECODE=1 -none $(if $(CONFIG_WERROR)$(CONFIG_DRM_WERROR),-Werror) $<; \
->
-> It doesn't work to put PYTHONDONTWRITEBYTECODE=1 as a parameter to
-> kernel-doc...
+On Wed, 16 Apr 2025, Mitul Golani <mitulkumar.ajitkumar.golani@intel.com> w=
+rote:
+> Add register to access DC Balance registers.
 
-Moreover, KERNELDOC is only defined in Documentation/Makefile. It's
-empty here.
+Please read the comment near the top of i915_reg.h.
 
-Also scripts/Makefile.build uses kernel-doc, which is probably the one
-creating __pycache__ Andy sees.
+BR,
+Jani.
+
 
 >
-> BR,
-> Jani.
+> Signed-off-by: Ville Syrj=C3=A4l=C3=A4 <ville.syrjala@linux.intel.com>
+> ---
+>  drivers/gpu/drm/i915/display/intel_vrr_regs.h | 43 +++++++++++++++++++
+>  1 file changed, 43 insertions(+)
 >
->
->>  		touch $@
->>  
->>  $(obj)/%.hdrtest: $(src)/%.h FORCE
->> diff --git a/drivers/gpu/drm/i915/Makefile b/drivers/gpu/drm/i915/Makefile
->> index ed05b131ed3a..bb873f9cc2aa 100644
->> --- a/drivers/gpu/drm/i915/Makefile
->> +++ b/drivers/gpu/drm/i915/Makefile
->> @@ -408,7 +408,7 @@ obj-$(CONFIG_DRM_I915_GVT_KVMGT) += kvmgt.o
->>  #
->>  # Enable locally for CONFIG_DRM_I915_WERROR=y. See also scripts/Makefile.build
->>  ifdef CONFIG_DRM_I915_WERROR
->> -    cmd_checkdoc = $(srctree)/scripts/kernel-doc -none -Werror $<
->> +    cmd_checkdoc = $(KERNELDOC) PYTHONDONTWRITEBYTECODE=1 -none -Werror $<
->>  endif
->>  
->>  # header test
->> diff --git a/include/drm/Makefile b/include/drm/Makefile
->> index a7bd15d2803e..6088ea458f44 100644
->> --- a/include/drm/Makefile
->> +++ b/include/drm/Makefile
->> @@ -11,7 +11,7 @@ always-$(CONFIG_DRM_HEADER_TEST) += \
->>  quiet_cmd_hdrtest = HDRTEST $(patsubst %.hdrtest,%.h,$@)
->>        cmd_hdrtest = \
->>  		$(CC) $(c_flags) -fsyntax-only -x c /dev/null -include $< -include $<; \
->> -		$(srctree)/scripts/kernel-doc -none $(if $(CONFIG_WERROR)$(CONFIG_DRM_WERROR),-Werror) $<; \
->> +		$(KERNELDOC) PYTHONDONTWRITEBYTECODE=1 -none $(if $(CONFIG_WERROR)$(CONFIG_DRM_WERROR),-Werror) $<; \
->>  		touch $@
->>  
->>  $(obj)/%.hdrtest: $(src)/%.h FORCE
->> diff --git a/scripts/find-unused-docs.sh b/scripts/find-unused-docs.sh
->> index ee6a50e33aba..d6d397fbf917 100755
->> --- a/scripts/find-unused-docs.sh
->> +++ b/scripts/find-unused-docs.sh
->> @@ -54,7 +54,7 @@ for file in `find $1 -name '*.c'`; do
->>  	if [[ ${FILES_INCLUDED[$file]+_} ]]; then
->>  	continue;
->>  	fi
->> -	str=$(scripts/kernel-doc -export "$file" 2>/dev/null)
->> +	str=$(PYTHONDONTWRITEBYTECODE=1 scripts/kernel-doc -export "$file" 2>/dev/null)
->>  	if [[ -n "$str" ]]; then
->>  	echo "$file"
->>  	fi
+> diff --git a/drivers/gpu/drm/i915/display/intel_vrr_regs.h b/drivers/gpu/=
+drm/i915/display/intel_vrr_regs.h
+> index 6ed0e0dc97e7..6297108f1357 100644
+> --- a/drivers/gpu/drm/i915/display/intel_vrr_regs.h
+> +++ b/drivers/gpu/drm/i915/display/intel_vrr_regs.h
+> @@ -9,6 +9,20 @@
+>  #include "intel_display_reg_defs.h"
+>=20=20
+>  /* VRR registers */
+> +#define _TRANS_VRR_VMAX_DCB_A			0x60414 /* lnl+ */
+> +#define _TRANS_VRR_VMAX_DCB_B			0x61414 /* lnl+ */
+> +#define TRANS_VRR_VMAX_DCB(trans)		_MMIO_TRANS((trans), \
+> +							    _TRANS_VRR_VMAX_DCB_A, \
+> +							    _TRANS_VRR_VMAX_DCB_B)
+> +#define VRR_VMAX_DCB_MASK			REG_GENMASK(19, 0)
+> +
+> +#define _TRANS_VRR_FLIPLINE_DCB_A		0x60418 /* lnl+ */
+> +#define _TRANS_VRR_FLIPLINE_DCB_B		0x61418 /* lnl+ */
+> +#define TRANS_VRR_FLIPLINE_DCB(trans)		_MMIO_TRANS((trans), \
+> +							    _TRANS_VRR_FLIPLINE_DCB_A, \
+> +							    _TRANS_VRR_FLIPLINE_DCB_B)
+> +#define VRR_FLIPLINE_DCB_MASK			REG_GENMASK(19, 0)
+> +
+>  #define _TRANS_VRR_CTL_A			0x60420
+>  #define _TRANS_VRR_CTL_B			0x61420
+>  #define _TRANS_VRR_CTL_C			0x62420
+> @@ -17,6 +31,7 @@
+>  #define  VRR_CTL_VRR_ENABLE			REG_BIT(31)
+>  #define  VRR_CTL_IGN_MAX_SHIFT			REG_BIT(30)
+>  #define  VRR_CTL_FLIP_LINE_EN			REG_BIT(29)
+> +#define  VRR_CTL_DCB_ADJ_ENABLE			REG_BIT(28) /* lnl+ */
+>  #define  VRR_CTL_PIPELINE_FULL_MASK		REG_GENMASK(10, 3)
+>  #define  VRR_CTL_PIPELINE_FULL(x)		REG_FIELD_PREP(VRR_CTL_PIPELINE_FULL_=
+MASK, (x))
+>  #define  VRR_CTL_PIPELINE_FULL_OVERRIDE		REG_BIT(0)
+> @@ -93,6 +108,34 @@
+>  #define TRANS_VRR_STATUS2(dev_priv, trans)	_MMIO_TRANS2(dev_priv, trans,=
+ _TRANS_VRR_STATUS2_A)
+>  #define  VRR_STATUS2_VERT_LN_CNT_MASK		REG_GENMASK(19, 0)
+>=20=20
+> +#define _TRANS_ADAPTIVE_SYNC_DCB_CTL_A		0x604c0 /* lnl+ */
+> +#define _TRANS_ADAPTIVE_SYNC_DCB_CTL_B		0x614c0 /* lnl+ */
+> +#define TRANS_ADAPTIVE_SYNC_DCB_CTL(trans)	_MMIO_TRANS((trans), \
+> +							    _TRANS_ADAPTIVE_SYNC_DCB_CTL_A, \
+> +							    _TRANS_ADAPTIVE_SYNC_DCB_CTL_B)
+> +#define  ADAPTIVE_SYNC_COUNTER_EN			REG_BIT(31)
+> +#define  ADAPTIVE_SYNC_COUNTER_RESET			REG_BIT(30)
+> +#define  ADAPTIVE_SYNC_ODD_COUNTER_OVERFLOW		REG_BIT(15)
+> +#define  ADAPTIVE_SYNC_EVEN_COUNTER_OVERFLOW		REG_BIT(14)
+> +#define  ADAPTIVE_SYNC_ODD_LINE_COUNTER_OVERFLOW	REG_BIT(13)
+> +#define  ADAPTIVE_SYNC_EVEN_LINE_COUNTER_OVERFLOW	REG_BIT(12)
+> +
+> +#define _TRANS_VRR_DCB_ADJ_FLIPLINE_CFG_A	0x604d4 /* lnl+ */
+> +#define _TRANS_VRR_DCB_ADJ_FLIPLINE_CFG_B	0x614d4 /* lnl+ */
+> +#define TRANS_VRR_DCB_ADJ_FLIPLINE_CFG(trans)	_MMIO_TRANS((trans), \
+> +							    _TRANS_VRR_DCB_ADJ_FLIPLINE_CFG_A, \
+> +							    _TRANS_VRR_DCB_ADJ_FLIPLINE_CFG_B)
+> +#define  VRR_DCB_ADJ_FLIPLINE_CNT_MASK		REG_GENMASK(31, 24)
+> +#define  VRR_DCB_ADJ_FLIPLINE_MASK		REG_GENMASK(19, 0)
+> +
+> +#define _TRANS_VRR_DCB_ADJ_VMAX_CFG_A		0x604d8 /* lnl+ */
+> +#define _TRANS_VRR_DCB_ADJ_VMAX_CFG_B		0x614d8 /* lnl+ */
+> +#define TRANS_VRR_DCB_ADJ_VMAX_CFG(trans)	_MMIO_TRANS((trans), \
+> +							    _TRANS_VRR_DCB_ADJ_VMAX_CFG_A, \
+> +							    _TRANS_VRR_DCB_ADJ_VMAX_CFG_B)
+> +#define  VRR_DCB_ADJ_VMAX_CNT_MASK		REG_GENMASK(31, 24)
+> +#define  VRR_DCB_ADJ_VMAX_MASK			REG_GENMASK(19, 0)
+> +
+>  #define _TRANS_PUSH_A				0x60a70
+>  #define _TRANS_PUSH_B				0x61a70
+>  #define _TRANS_PUSH_C				0x62a70
 
--- 
+--=20
 Jani Nikula, Intel
