@@ -4,53 +4,59 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A973BC369BD
-	for <intel-gfx@archiver.kernel.org>; Wed, 16 Apr 2025 06:29:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B176FC369BA
+	for <intel-gfx@archiver.kernel.org>; Wed, 16 Apr 2025 06:45:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 39F9810E83E;
-	Wed, 16 Apr 2025 06:29:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 437A510E845;
+	Wed, 16 Apr 2025 06:45:01 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="bEkDxGKE";
+	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=dmitry.osipenko@collabora.com header.b="BSITgQOc";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.7])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7A19E10E83E
- for <intel-gfx@lists.freedesktop.org>; Wed, 16 Apr 2025 06:29:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1744784996; x=1776320996;
- h=from:to:subject:date:message-id:in-reply-to:references:
- mime-version:content-transfer-encoding;
- bh=3IOt+DwfGSpfZvdCiPMsvNMPq1EYjhhvymj1GTx39go=;
- b=bEkDxGKEd9zxzBCBPOK2LhbIfst7kUzsj6yMtz69K6hKDgXEZUxqDK5d
- Bw/GIghFC0TUUcukVhj25FwZ7n4uTZ8wQNTyksGzMjNymlxLa2F4knXYn
- zr1Si/RxPhRqa4cZeX/CwLsj8cr6BDnG3P1M3MGtBe133gzK64AVlHe8w
- 2zE+WKLeuw//KZulL/YhISYWKObZSsFWvZ1qFJE+rM7o4NA99wJT3PBOP
- gfTKUlUdtwcJY8nJnRL27LCuiYOas+R9Ow76x0eoZhWSXvxn5biGIXT/L
- VWZ5oMkaQKszHICB45xpacxN6o5/6UwdCRqvhgKkWhaSafQcw8qIAN2rG A==;
-X-CSE-ConnectionGUID: 9pvRFS3MTQ+cXrmekmy3rw==
-X-CSE-MsgGUID: vr/4sIu7SACmRUIFPCoZGg==
-X-IronPort-AV: E=McAfee;i="6700,10204,11404"; a="71710256"
-X-IronPort-AV: E=Sophos;i="6.15,215,1739865600"; d="scan'208";a="71710256"
-Received: from orviesa007.jf.intel.com ([10.64.159.147])
- by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 15 Apr 2025 23:29:55 -0700
-X-CSE-ConnectionGUID: 3q4+NyLwSiuDdCS/AEJNiQ==
-X-CSE-MsgGUID: unFwNh9pTg6fQj9tLJdtbQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.15,215,1739865600"; d="scan'208";a="130880218"
-Received: from mgolanimitul-x299-ud4-pro.iind.intel.com ([10.190.239.114])
- by orviesa007.jf.intel.com with ESMTP; 15 Apr 2025 23:29:54 -0700
-From: Mitul Golani <mitulkumar.ajitkumar.golani@intel.com>
-To: intel-gfx@lists.freedesktop.org
-Subject: [PATCH v1 8/8] drm/i915/vrr: Pause DC balancing for DSB commits
-Date: Wed, 16 Apr 2025 11:57:37 +0530
-Message-ID: <20250416062737.1766703-9-mitulkumar.ajitkumar.golani@intel.com>
-X-Mailer: git-send-email 2.48.1
-In-Reply-To: <20250416062737.1766703-1-mitulkumar.ajitkumar.golani@intel.com>
-References: <20250416062737.1766703-1-mitulkumar.ajitkumar.golani@intel.com>
+Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com
+ [136.143.188.112])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BFC8D10E845;
+ Wed, 16 Apr 2025 06:44:59 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1744785896; cv=none; 
+ d=zohomail.com; s=zohoarc; 
+ b=Y3eiYJ6e8CgDbGLWRWvY3Dk5F8nrgnFh39kUZ2kV7SgwkMY7ohmJY+QUNQr5gNzOrTfoM5ibf+y6t9l6S7u4HodwlK3FEIUvFNLbTUbKq80Za8EWzw0iDJYOyklPxb34N7IlCzgS+G+HbClWtJA9WRQxaHwoCrUZPsabJ9IiAek=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
+ s=zohoarc; t=1744785896;
+ h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To;
+ bh=9/nvMzXrROYeNn4+PCWslifty45CG46gd92CWnrTo3k=; 
+ b=YIbsTbuW0ZGA0zvqLbu22Hnir+mIo7Rs/E6/3yA5bCBeNuWKewEyvRFFahzw6xWx/KU+roI8kTIC0OkyJ9dOhgq6oAfxHANFoG2Zedr1pFalokAoTM9dr2B6LJNuYG/wb+0kHUYNp7/GojlU7jYVoH1RmeME8nsctdTRZxsMpaI=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+ dkim=pass  header.i=collabora.com;
+ spf=pass  smtp.mailfrom=dmitry.osipenko@collabora.com;
+ dmarc=pass header.from=<dmitry.osipenko@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1744785896; 
+ s=zohomail; d=collabora.com; i=dmitry.osipenko@collabora.com; 
+ h=Message-ID:Date:Date:MIME-Version:Subject:Subject:To:To:Cc:Cc:References:From:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
+ bh=9/nvMzXrROYeNn4+PCWslifty45CG46gd92CWnrTo3k=;
+ b=BSITgQOcWomUuQpCD/SRhpGD3RbmSANlIS7Bu7+4Xjp4pgy9EqW/dbQb/q9W7u4y
+ ZvhGWz7SmBI/EN40zDUZR2qjNtezbtE/XgXWZh17BVgLB51/JsQINReYveTpKsdXmH9
+ 2sUqE00RIvkoE/CRN0x/S0uPdNrb0LaiO974t7eo=
+Received: by mx.zohomail.com with SMTPS id 1744785895561587.3497358810888;
+ Tue, 15 Apr 2025 23:44:55 -0700 (PDT)
+Message-ID: <103b62c9-18e2-43b9-866a-4dace75df422@collabora.com>
+Date: Wed, 16 Apr 2025 09:44:52 +0300
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 17/19] drm/virtio: Pass along the format info from
+ .fb_create() to drm_helper_mode_fill_fb_struct()
+To: Ville Syrjala <ville.syrjala@linux.intel.com>,
+ dri-devel@lists.freedesktop.org
+Cc: intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
+ David Airlie <airlied@redhat.com>, Gerd Hoffmann <kraxel@redhat.com>,
+ Gurchetan Singh <gurchetansingh@chromium.org>, Chia-I Wu
+ <olvaffe@gmail.com>, virtualization@lists.linux.dev
+References: <20250410163218.15130-1-ville.syrjala@linux.intel.com>
+ <20250410163218.15130-18-ville.syrjala@linux.intel.com>
+From: Dmitry Osipenko <dmitry.osipenko@collabora.com>
+Content-Language: en-US
+In-Reply-To: <20250410163218.15130-18-ville.syrjala@linux.intel.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+X-ZohoMailClient: External
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,132 +72,57 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Pause the DMC DC balancing for the remainder of the
-commit so that vmin/vmax won't change after we've baked
-them into the DSB vblank evasion commands.
+On 4/10/25 19:32, Ville Syrjala wrote:
+> From: Ville Syrjälä <ville.syrjala@linux.intel.com>
+> 
+> Plumb the format info from .fb_create() all the way to
+> drm_helper_mode_fill_fb_struct() to avoid the redundant
+> lookup.
+> 
+> Cc: David Airlie <airlied@redhat.com>
+> Cc: Gerd Hoffmann <kraxel@redhat.com>
+> Cc: Dmitry Osipenko <dmitry.osipenko@collabora.com>
+> Cc: Gurchetan Singh <gurchetansingh@chromium.org>
+> Cc: Chia-I Wu <olvaffe@gmail.com>
+> Cc: virtualization@lists.linux.dev
+> Signed-off-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
+> ---
+>  drivers/gpu/drm/virtio/virtgpu_display.c | 5 +++--
+>  1 file changed, 3 insertions(+), 2 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/virtio/virtgpu_display.c b/drivers/gpu/drm/virtio/virtgpu_display.c
+> index 93763b91bab5..e5805ca646c7 100644
+> --- a/drivers/gpu/drm/virtio/virtgpu_display.c
+> +++ b/drivers/gpu/drm/virtio/virtgpu_display.c
+> @@ -66,6 +66,7 @@ static const struct drm_framebuffer_funcs virtio_gpu_fb_funcs = {
+>  static int
+>  virtio_gpu_framebuffer_init(struct drm_device *dev,
+>  			    struct virtio_gpu_framebuffer *vgfb,
+> +			    const struct drm_format_info *info,
+>  			    const struct drm_mode_fb_cmd2 *mode_cmd,
+>  			    struct drm_gem_object *obj)
+>  {
+> @@ -73,7 +74,7 @@ virtio_gpu_framebuffer_init(struct drm_device *dev,
+>  
+>  	vgfb->base.obj[0] = obj;
+>  
+> -	drm_helper_mode_fill_fb_struct(dev, &vgfb->base, NULL, mode_cmd);
+> +	drm_helper_mode_fill_fb_struct(dev, &vgfb->base, info, mode_cmd);
+>  
+>  	ret = drm_framebuffer_init(dev, &vgfb->base, &virtio_gpu_fb_funcs);
+>  	if (ret) {
+> @@ -315,7 +316,7 @@ virtio_gpu_user_framebuffer_create(struct drm_device *dev,
+>  		return ERR_PTR(-ENOMEM);
+>  	}
+>  
+> -	ret = virtio_gpu_framebuffer_init(dev, virtio_gpu_fb, mode_cmd, obj);
+> +	ret = virtio_gpu_framebuffer_init(dev, virtio_gpu_fb, info, mode_cmd, obj);
+>  	if (ret) {
+>  		kfree(virtio_gpu_fb);
+>  		drm_gem_object_put(obj);
 
-Signed-off-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
----
- drivers/gpu/drm/i915/display/intel_display.c | 13 ++++++
- drivers/gpu/drm/i915/display/intel_vrr.c     | 43 +++++++++++++++-----
- 2 files changed, 45 insertions(+), 11 deletions(-)
+Acked-by: Dmitry Osipenko <dmitry.osipenko@collabora.com>
 
-diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
-index db524d01e574..7373c11e6e8d 100644
---- a/drivers/gpu/drm/i915/display/intel_display.c
-+++ b/drivers/gpu/drm/i915/display/intel_display.c
-@@ -7195,6 +7195,17 @@ static void intel_atomic_dsb_finish(struct intel_atomic_state *state,
- 	}
- 
- 	if (new_crtc_state->use_dsb) {
-+		/*
-+		 * Pause the DMC DC balancing for the remainder of the
-+		 * commit so that vmin/vmax won't change after we've baked
-+		 * them into the DSB vblank evasion commands.
-+		 *
-+		 * FIXME maybe need a small delay here to make sure DMC has
-+		 * finished updating the values? Or we need a better DMC<->driver
-+		 * protocol that gives is real guarantees about that...
-+		 */
-+		intel_pipedmc_dcb_disable(NULL, crtc);
-+
- 		if (intel_crtc_needs_color_update(new_crtc_state))
- 			intel_color_commit_noarm(new_crtc_state->dsb_commit,
- 						 new_crtc_state);
-@@ -7231,6 +7242,8 @@ static void intel_atomic_dsb_finish(struct intel_atomic_state *state,
- 			intel_vrr_send_push(new_crtc_state->dsb_commit, new_crtc_state);
- 			intel_dsb_wait_vblank_delay(state, new_crtc_state->dsb_commit);
- 			intel_vrr_check_push_sent(new_crtc_state->dsb_commit, new_crtc_state);
-+			if (new_crtc_state->vrr.dc_balance)
-+				intel_pipedmc_dcb_enable(new_crtc_state->dsb_commit, crtc);
- 			intel_dsb_interrupt(new_crtc_state->dsb_commit);
- 		}
- 	}
-diff --git a/drivers/gpu/drm/i915/display/intel_vrr.c b/drivers/gpu/drm/i915/display/intel_vrr.c
-index 03405c274b8c..18c38afb9108 100644
---- a/drivers/gpu/drm/i915/display/intel_vrr.c
-+++ b/drivers/gpu/drm/i915/display/intel_vrr.c
-@@ -9,6 +9,7 @@
- #include "i915_reg.h"
- #include "intel_de.h"
- #include "intel_display_types.h"
-+#include "intel_dmc.h"
- #include "intel_dp.h"
- #include "intel_vrr.h"
- #include "intel_vrr_regs.h"
-@@ -576,7 +577,9 @@ bool intel_vrr_always_use_vrr_tg(struct intel_display *display)
- void intel_vrr_enable(const struct intel_crtc_state *crtc_state)
- {
- 	struct intel_display *display = to_intel_display(crtc_state);
-+	struct intel_crtc *crtc = to_intel_crtc(crtc_state->uapi.crtc);
- 	enum transcoder cpu_transcoder = crtc_state->cpu_transcoder;
-+	u32 ctl;
- 
- 	if (!crtc_state->vrr.enable)
- 		return;
-@@ -587,33 +590,51 @@ void intel_vrr_enable(const struct intel_crtc_state *crtc_state)
- 		       crtc_state->vrr.vmax - 1);
- 	intel_de_write(display, TRANS_VRR_FLIPLINE(display, cpu_transcoder),
- 		       crtc_state->vrr.flipline - 1);
-+	if (!intel_vrr_always_use_vrr_tg(display))
-+		intel_de_write(display, TRANS_PUSH(display, cpu_transcoder), TRANS_PUSH_EN);
- 
- 	intel_de_write(display, TRANS_PUSH(display, cpu_transcoder),
- 		       TRANS_PUSH_EN);
- 
--	if (!intel_vrr_always_use_vrr_tg(display)) {
--		if (crtc_state->cmrr.enable) {
--			intel_de_write(display, TRANS_VRR_CTL(display, cpu_transcoder),
--				       VRR_CTL_VRR_ENABLE | VRR_CTL_CMRR_ENABLE |
--				       trans_vrr_ctl(crtc_state));
--		} else {
--			intel_de_write(display, TRANS_VRR_CTL(display, cpu_transcoder),
--				       VRR_CTL_VRR_ENABLE | trans_vrr_ctl(crtc_state));
--		}
-+	ctl = VRR_CTL_VRR_ENABLE | trans_vrr_ctl(crtc_state);
-+	if (crtc_state->cmrr.enable)
-+		ctl |= VRR_CTL_CMRR_ENABLE;
-+	if (crtc_state->vrr.dc_balance)
-+		ctl |= VRR_CTL_DCB_ADJ_ENABLE;
-+
-+	intel_de_write(display, TRANS_VRR_CTL(display, cpu_transcoder), ctl);
-+
-+	if (crtc_state->vrr.dc_balance) {
-+		/* FIXME reset counters? */
-+		intel_de_write(display, TRANS_ADAPTIVE_SYNC_DCB_CTL(cpu_transcoder),
-+			       ADAPTIVE_SYNC_COUNTER_EN);
-+		/* FIMXE configure pipedmc DC balance parameters somewhere */
-+		intel_pipedmc_dcb_enable(NULL, crtc);
- 	}
- }
- 
- void intel_vrr_disable(const struct intel_crtc_state *old_crtc_state)
- {
- 	struct intel_display *display = to_intel_display(old_crtc_state);
-+	struct intel_crtc *crtc = to_intel_crtc(old_crtc_state->uapi.crtc);
- 	enum transcoder cpu_transcoder = old_crtc_state->cpu_transcoder;
-+	u32 ctl;
- 
- 	if (!old_crtc_state->vrr.enable)
- 		return;
- 
-+	if (old_crtc_state->vrr.dc_balance) {
-+		intel_pipedmc_dcb_disable(NULL, crtc);
-+		intel_de_write(display, TRANS_ADAPTIVE_SYNC_DCB_CTL(cpu_transcoder), 0);
-+	}
-+
-+	ctl = trans_vrr_ctl(old_crtc_state);
-+	if (intel_vrr_always_use_vrr_tg(display))
-+		ctl |= VRR_CTL_VRR_ENABLE;
-+
-+	intel_de_write(display, TRANS_VRR_CTL(display, cpu_transcoder), ctl);
-+
- 	if (!intel_vrr_always_use_vrr_tg(display)) {
--		intel_de_write(display, TRANS_VRR_CTL(display, cpu_transcoder),
--			       trans_vrr_ctl(old_crtc_state));
- 		intel_de_wait_for_clear(display,
- 					TRANS_VRR_STATUS(display, cpu_transcoder),
- 					VRR_STATUS_VRR_EN_LIVE, 1000);
 -- 
-2.48.1
-
+Best regards,
+Dmitry
