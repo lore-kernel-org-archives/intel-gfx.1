@@ -4,56 +4,58 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 52AF1C369C4
-	for <intel-gfx@archiver.kernel.org>; Wed, 16 Apr 2025 13:15:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E53F9C369C7
+	for <intel-gfx@archiver.kernel.org>; Wed, 16 Apr 2025 13:15:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 25E8710E8FF;
-	Wed, 16 Apr 2025 13:15:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C82AF10E8FC;
+	Wed, 16 Apr 2025 13:15:50 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="KR5iz3Ok";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="J5eYNU70";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 72AA810E239;
- Wed, 16 Apr 2025 06:58:10 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 96F5210E8B4;
+ Wed, 16 Apr 2025 09:38:37 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 2915143809;
- Wed, 16 Apr 2025 06:58:09 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 09C7BC4CEE2;
- Wed, 16 Apr 2025 06:58:10 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 4F3164A253;
+ Wed, 16 Apr 2025 09:38:36 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6B442C4CEED;
+ Wed, 16 Apr 2025 09:38:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1744786690;
- bh=3fxTh2/IW45q1FIh85eFha6W/n2T/3ziJzmCR16YX+c=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=KR5iz3OkRj/HF/0CV0eegpRC/1qTNO+x7CEi1U5oBIwZEhvtcxRbpBGeEVUxzdyX7
- avbsVLc+WxYrzalTV+s06o52ZenJ0NW77eajiIik0Nxr5WRS14lcJPmvtadkjagmug
- Ndw3U0Sa9hKx3D9/GAwwPIPUVXztZfJYjbxSxbTN+4sKQlgw5yrAF4kl6HDVqi85aW
- f9T0Y45LZeSGntLpVcHiz3ELTd6RXCClrs9lpBPUi5tPwTgq694MNsp2CexlsVRpHB
- dIhed6nCR/wu6Wk2ryEcSpjKJ0RDOsTOZtTFEYYlMaQ/86clcoxvLNF5l5HTtsdD6C
- Lxm8MypBz5Aow==
-Received: from mchehab by mail.kernel.org with local (Exim 4.98.2)
- (envelope-from <mchehab@kernel.org>) id 1u4wiN-00000002kO6-41Ns;
- Wed, 16 Apr 2025 14:57:43 +0800
+ s=k20201202; t=1744796317;
+ bh=+ZCWbE1PR1VWajVp5YhiYDBJVfRXd0HwklhLy77IOWI=;
+ h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+ b=J5eYNU70oLJ0F1Q9S/3mFsHhNQ/7mz9Cowdbh+vkRpjA/X57MT+RQ8apm9iZz+2r/
+ NgeC6JlaQHH26sf3mfYC0lsJKDR8CmG1iwguO7pVLVs+q3ML81C70/y9tON46gHKKR
+ g3vj31zi6pfp2nWRDrFExRd1pBxQ4bGzDpp4QPb0P93SxWlIp4sHfyMzV57QKDxk3O
+ DQ8QKj74wOvwEYvbb7hNbbm/bd4/Q+vPEtZg2RtA9nG7ghOPWpXVjIIVCOOCn6/PsY
+ fYG1LajUfhqaX2GKX3E2OJdSgAwWZz7sa/V43RPpfxaVOU82iLmPNx9k09o+vJ7gFD
+ 1csmdSufPcBRQ==
+Date: Wed, 16 Apr 2025 17:38:11 +0800
 From: Mauro Carvalho Chehab <mchehab+huawei@kernel.org>
-To: Linux Doc Mailing List <linux-doc@vger.kernel.org>,
- Jonathan Corbet <corbet@lwn.net>
-Cc: Mauro Carvalho Chehab <mchehab+huawei@kernel.org>,
- "Andy Shevchenko" <andriy.shevchenko@intel.com>,
- David Airlie <airlied@gmail.com>,
- Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Simona Vetter <simona@ffwll.ch>, Thomas Zimmermann <tzimmermann@suse.de>,
- Tvrtko Ursulin <tursulin@ursulin.net>, dri-devel@lists.freedesktop.org,
- intel-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: [PATCH v2 1/2] scripts/kernel-doc.py: don't create *.pyc files
-Date: Wed, 16 Apr 2025 14:57:38 +0800
-Message-ID: <432f17b785d35122753d4b210874d78ee84e1bb5.1744786420.git.mchehab+huawei@kernel.org>
-X-Mailer: git-send-email 2.49.0
-In-Reply-To: <cover.1744786420.git.mchehab+huawei@kernel.org>
-References: <cover.1744786420.git.mchehab+huawei@kernel.org>
+To: Jani Nikula <jani.nikula@linux.intel.com>
+Cc: Linux Doc Mailing List <linux-doc@vger.kernel.org>, Jonathan Corbet
+ <corbet@lwn.net>, Andy Shevchenko <andriy.shevchenko@intel.com>, David
+ Airlie <airlied@gmail.com>, Joonas Lahtinen
+ <joonas.lahtinen@linux.intel.com>, Maarten Lankhorst
+ <maarten.lankhorst@linux.intel.com>, Masahiro Yamada
+ <masahiroy@kernel.org>, Maxime Ripard <mripard@kernel.org>, Nathan
+ Chancellor <nathan@kernel.org>, Nicolas Schier <nicolas.schier@linux.dev>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, Simona Vetter <simona@ffwll.ch>,
+ Thomas Zimmermann <tzimmermann@suse.de>, Tvrtko Ursulin
+ <tursulin@ursulin.net>, dri-devel@lists.freedesktop.org,
+ intel-gfx@lists.freedesktop.org, linux-kbuild@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v3 1/2] scripts/kernel-doc.py: don't create *.pyc files
+Message-ID: <20250416173811.71c3c345@sal.lan>
+In-Reply-To: <20250416172901.60104103@sal.lan>
+References: <cover.1744789777.git.mchehab+huawei@kernel.org>
+ <4ad5eb8d4b819997c1615d2401581c22a32bb2c1.1744789777.git.mchehab+huawei@kernel.org>
+ <87tt6opks7.fsf@intel.com> <20250416171917.0985c0eb@sal.lan>
+ <20250416172901.60104103@sal.lan>
+X-Mailer: Claws Mail 4.3.1 (GTK 3.24.43; x86_64-redhat-linux-gnu)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 X-Mailman-Approved-At: Wed, 16 Apr 2025 13:15:46 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -70,75 +72,70 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-As reported by Andy, kernel-doc.py is creating a __pycache__
-directory at build time.
+Em Wed, 16 Apr 2025 17:29:01 +0800
+Mauro Carvalho Chehab <mchehab+huawei@kernel.org> escreveu:
 
-Disable creation of __pycache__ for the libraries used by
-kernel-doc.py, when excecuted via the build system or via
-scripts/find-unused-docs.sh.
+> Em Wed, 16 Apr 2025 17:19:17 +0800
+> Mauro Carvalho Chehab <mchehab+huawei@kernel.org> escreveu:
+> 
+> > Em Wed, 16 Apr 2025 11:34:16 +0300
+> > Jani Nikula <jani.nikula@linux.intel.com> escreveu:
+> > 
+> > > On Wed, 16 Apr 2025, Mauro Carvalho Chehab <mchehab+huawei@kernel.org> wrote:
+> > > > As reported by Andy, kernel-doc.py is creating a __pycache__
+> > > > directory at build time.
+> > > >
+> > > > Disable creation of __pycache__ for the libraries used by
+> > > > kernel-doc.py, when excecuted via the build system or via
+> > > > scripts/find-unused-docs.sh.
+> > > >
+> > > > Reported-by: Andy Shevchenko <andriy.shevchenko@intel.com>
+> > > > Closes: https://lore.kernel.org/linux-doc/Z_zYXAJcTD-c3xTe@black.fi.intel.com/
+> > > > Signed-off-by: Mauro Carvalho Chehab <mchehab+huawei@kernel.org>
+> > > > ---
+> > > >  drivers/gpu/drm/Makefile      | 2 +-
+> > > >  drivers/gpu/drm/i915/Makefile | 2 +-
+> > > >  include/drm/Makefile          | 2 +-
+> > > >  scripts/Makefile.build        | 2 +-
+> > > >  scripts/find-unused-docs.sh   | 2 +-
+> > > >  5 files changed, 5 insertions(+), 5 deletions(-)
+> > > >
+> > > > diff --git a/drivers/gpu/drm/Makefile b/drivers/gpu/drm/Makefile
+> > > > index ed54a546bbe2..d21d0cd2c752 100644
+> > > > --- a/drivers/gpu/drm/Makefile
+> > > > +++ b/drivers/gpu/drm/Makefile
+> > > > @@ -236,7 +236,7 @@ always-$(CONFIG_DRM_HEADER_TEST) += \
+> > > >  quiet_cmd_hdrtest = HDRTEST $(patsubst %.hdrtest,%.h,$@)
+> > > >        cmd_hdrtest = \
+> > > >  		$(CC) $(c_flags) -fsyntax-only -x c /dev/null -include $< -include $<; \
+> > > > -		$(srctree)/scripts/kernel-doc -none $(if $(CONFIG_WERROR)$(CONFIG_DRM_WERROR),-Werror) $<; \
+> > > > +		 PYTHONDONTWRITEBYTECODE=1 $(KERNELDOC) -none $(if $(CONFIG_WERROR)$(CONFIG_DRM_WERROR),-Werror) $<; \  
+> > > 
+> > > KERNELDOC is not set here.
+> > 
+> > > 
+> > > /bin/sh: 1: -none: not found
+> > 
+> > Weird. This is set on Documentation/Makefile:
+> > 
+> > 	$ grep KERNELDOC Documentation/Makefile 
+> > 	KERNELDOC       = $(srctree)/scripts/kernel-doc.py
+> > 	...
+> > 
+> > drivers/gpu/drm/Makefile should be able to see this variable there...
+> 
+> I suspect that the building system tries to confine variables to
+> sub-directories, so maybe one solution would be to move it to the
+> main makefile.
+> 
+> could you please check if this patch solves the issue?
 
-Reported-by: Andy Shevchenko <andriy.shevchenko@intel.com>
-Closes: https://lore.kernel.org/linux-doc/Z_zYXAJcTD-c3xTe@black.fi.intel.com/
-Signed-off-by: Mauro Carvalho Chehab <mchehab+huawei@kernel.org>
----
- drivers/gpu/drm/Makefile      | 2 +-
- drivers/gpu/drm/i915/Makefile | 2 +-
- include/drm/Makefile          | 2 +-
- scripts/find-unused-docs.sh   | 2 +-
- 4 files changed, 4 insertions(+), 4 deletions(-)
+Answering myself: it doesn't.
 
-diff --git a/drivers/gpu/drm/Makefile b/drivers/gpu/drm/Makefile
-index ed54a546bbe2..1469d64f8783 100644
---- a/drivers/gpu/drm/Makefile
-+++ b/drivers/gpu/drm/Makefile
-@@ -236,7 +236,7 @@ always-$(CONFIG_DRM_HEADER_TEST) += \
- quiet_cmd_hdrtest = HDRTEST $(patsubst %.hdrtest,%.h,$@)
-       cmd_hdrtest = \
- 		$(CC) $(c_flags) -fsyntax-only -x c /dev/null -include $< -include $<; \
--		$(srctree)/scripts/kernel-doc -none $(if $(CONFIG_WERROR)$(CONFIG_DRM_WERROR),-Werror) $<; \
-+		$(KERNELDOC) PYTHONDONTWRITEBYTECODE=1 -none $(if $(CONFIG_WERROR)$(CONFIG_DRM_WERROR),-Werror) $<; \
- 		touch $@
- 
- $(obj)/%.hdrtest: $(src)/%.h FORCE
-diff --git a/drivers/gpu/drm/i915/Makefile b/drivers/gpu/drm/i915/Makefile
-index ed05b131ed3a..bb873f9cc2aa 100644
---- a/drivers/gpu/drm/i915/Makefile
-+++ b/drivers/gpu/drm/i915/Makefile
-@@ -408,7 +408,7 @@ obj-$(CONFIG_DRM_I915_GVT_KVMGT) += kvmgt.o
- #
- # Enable locally for CONFIG_DRM_I915_WERROR=y. See also scripts/Makefile.build
- ifdef CONFIG_DRM_I915_WERROR
--    cmd_checkdoc = $(srctree)/scripts/kernel-doc -none -Werror $<
-+    cmd_checkdoc = $(KERNELDOC) PYTHONDONTWRITEBYTECODE=1 -none -Werror $<
- endif
- 
- # header test
-diff --git a/include/drm/Makefile b/include/drm/Makefile
-index a7bd15d2803e..6088ea458f44 100644
---- a/include/drm/Makefile
-+++ b/include/drm/Makefile
-@@ -11,7 +11,7 @@ always-$(CONFIG_DRM_HEADER_TEST) += \
- quiet_cmd_hdrtest = HDRTEST $(patsubst %.hdrtest,%.h,$@)
-       cmd_hdrtest = \
- 		$(CC) $(c_flags) -fsyntax-only -x c /dev/null -include $< -include $<; \
--		$(srctree)/scripts/kernel-doc -none $(if $(CONFIG_WERROR)$(CONFIG_DRM_WERROR),-Werror) $<; \
-+		$(KERNELDOC) PYTHONDONTWRITEBYTECODE=1 -none $(if $(CONFIG_WERROR)$(CONFIG_DRM_WERROR),-Werror) $<; \
- 		touch $@
- 
- $(obj)/%.hdrtest: $(src)/%.h FORCE
-diff --git a/scripts/find-unused-docs.sh b/scripts/find-unused-docs.sh
-index ee6a50e33aba..d6d397fbf917 100755
---- a/scripts/find-unused-docs.sh
-+++ b/scripts/find-unused-docs.sh
-@@ -54,7 +54,7 @@ for file in `find $1 -name '*.c'`; do
- 	if [[ ${FILES_INCLUDED[$file]+_} ]]; then
- 	continue;
- 	fi
--	str=$(scripts/kernel-doc -export "$file" 2>/dev/null)
-+	str=$(PYTHONDONTWRITEBYTECODE=1 scripts/kernel-doc -export "$file" 2>/dev/null)
- 	if [[ -n "$str" ]]; then
- 	echo "$file"
- 	fi
--- 
-2.49.0
+Heh, trying to quickly write a patch before calling it a day is
+usually not a good idea ;-)
 
+I'll send a fix tomorrow.
+
+Regards,
+Mauro
