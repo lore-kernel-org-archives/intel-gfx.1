@@ -4,46 +4,86 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3E0B4C369C2
-	for <intel-gfx@archiver.kernel.org>; Fri, 25 Apr 2025 19:08:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 39E01C369D7
+	for <intel-gfx@archiver.kernel.org>; Fri, 25 Apr 2025 19:08:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 65E7810E98C;
-	Fri, 25 Apr 2025 19:08:13 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 136BB10E9A0;
+	Fri, 25 Apr 2025 19:08:14 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; secure) header.d=protonmail.com header.i=@protonmail.com header.b="BZ6IBnwQ";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="OwLPmdoH";
 	dkim-atps=neutral
-Received: from mail-106110.protonmail.ch (mail-106110.protonmail.ch
- [79.135.106.110])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 03A7589128
- for <intel-gfx@lists.freedesktop.org>; Fri, 25 Apr 2025 08:38:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=protonmail.com;
- s=protonmail3; t=1745569894; x=1745829094;
- bh=6a75d/sPBXMfpiYTV2jvtt8ItESsFJTSxpA5+JF4rWw=;
- h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
- Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
- Message-ID:BIMI-Selector:List-Unsubscribe:List-Unsubscribe-Post;
- b=BZ6IBnwQ4AJWDjDTQN7gwoi++dWBs9TGO4130pvCu7PAyJIzbrEV3D24Zt9TQz05U
- yYuSipnmohHTtYecJ8aGDCOwtnSUZ85N6ug5YFPBsxkrd1cXjwyaJXX33TnWVWbMRw
- yQkHDXSkCD7LC/CR2AkCslxvFTJYpxYG29XjpsnBkKaB9AUy7cZJakZtmX5UJ/HsdV
- bnDrM3utKpeNYWWLpjUIO7U51oKBeiDwAHhoEqfUV9qyXrcs1VwUwhsocroqWIDSPs
- 3yTnKeBxWbKLvXi70tklZcy5s8mBmzBqBM9nNdd5XMcmBFBQifpSOFT6hVrVHT5LNX
- PzosMyxziCZ1A==
-Date: Fri, 25 Apr 2025 08:31:28 +0000
-To: Jani Nikula <jani.nikula@linux.intel.com>, intel-xe@lists.freedesktop.org
-From: Harry Austen <hpausten@protonmail.com>
-Cc: intel-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- Lucas De Marchi <lucas.demarchi@intel.com>,
- =?utf-8?Q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>
-Subject: Re: [PATCH v2] drm/xe: Allow building as kernel built-in
-Message-ID: <D9FKVQL9LOK4.BSCX5E1QNGN1@protonmail.com>
-In-Reply-To: <87y0voy8mn.fsf@intel.com>
-References: <20250425073534.101976-1-hpausten@protonmail.com>
- <87y0voy8mn.fsf@intel.com>
-Feedback-ID: 53116287:user:proton
-X-Pm-Message-ID: ed5b41a7773e5d22ff3d0b33e09b86ec6758089e
+Received: from mail-pl1-f181.google.com (mail-pl1-f181.google.com
+ [209.85.214.181])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0E15910E0A6;
+ Wed, 23 Apr 2025 09:30:54 +0000 (UTC)
+Received: by mail-pl1-f181.google.com with SMTP id
+ d9443c01a7336-22c33677183so72393345ad.2; 
+ Wed, 23 Apr 2025 02:30:53 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1745400653; x=1746005453; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:in-reply-to:from:content-language:subject
+ :references:cc:to:user-agent:mime-version:date:message-id:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=muxam2SUiy8I7jXTK3ORRV5V0hJy9KAAZUT8IGI2dzg=;
+ b=OwLPmdoHjm38r/tnkXfBCxwpqDNCqNQJ98WIqiGugB7xHU3uXydN7J9IL94xsHCpeL
+ lpuWQXuulcQtnrcEOBMuaD1ccH9zHQHxr5s+qtB6WDbRL8eMbVjPOmU2IqQZ/TDzJuPz
+ wgAzxmESOtbRlZS16Fqz8wuIVUR58SpjBuywXNB8+cxRy0/+3+z5H3i9yYLdUeOZOIGI
+ bORG39x7M7gH6xSxBMOay61osgAvu/wjiBouU/wx2xiCH9ZvOBgOcICBmgGXqQ7/BXWV
+ vFtoRRb8M01ZKErSrdIn8t0qcSb+AMWNjsuaVReYRrY4/3g2JmXt9Q+p2BM+5j7R4Lm1
+ BAfA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1745400653; x=1746005453;
+ h=content-transfer-encoding:in-reply-to:from:content-language:subject
+ :references:cc:to:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=muxam2SUiy8I7jXTK3ORRV5V0hJy9KAAZUT8IGI2dzg=;
+ b=gEC5h10btRHLxHTQjMr8RDLQg0FSHqEukWKPUeN+oCUIVBtyb0X8AMD0S/AMi3++Sf
+ xF7flhq56nhVGA/7LsxrMX81qhLtWY7VmIABbr8PczNVHivqgos82CYydmhEkvQ6Q7iD
+ S0X/j8EVEuFlWzTvaX3GudiOFhYMtmRA82C3u0uS+fqFAnk0Chn4WAIO9Ey+1bsrnOyy
+ HbFqwxPCkOzhAHTedfkufnQwgUaPietOlk3kshLsx+oE1yqP+CS8epLeSk/xw+08OPjQ
+ A6oXGFCqx/RlEGWH74IAMbwBf23ViDFLACdvrAmsphZlSRYz/55MJHD7ENtdT+2WhcK0
+ xpng==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCX6+n3Sgz0SlxX/8g5W2hie5STtcppZuvba51vZC11cEWwcS6DGRWggj6WV/6m8d87gb7neZzCjKSb2@lists.freedesktop.org,
+ AJvYcCXsQSDaH2s/A/VfX02YmTmpOQa4RT9aSJ0HnZTY6EFEfR1NesmCl87POXYA1KhWgTRw/weYJFF23/M=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yxwv9JMsCqjmr6MOBIl94e8THJe9wJvBeTiXzjvCCELiA3h63uH
+ rp02MZGBnF5LYHB732gJ58prQud7ZPPTglInMOq/ULDAeLIeBudu
+X-Gm-Gg: ASbGncvljoxYSTMReyS1cZyuVtZBiZJs2UTMfoaUwwOGmMtWtob/Oc4yUWl/S8w+rRe
+ IGIs/eq/lSNJxm65Zw7LGDjJ7tgIKAVb5ml81tggpMt0iZDH7bE1I6ELuxRSSPbbV7dhX9KXafq
+ CvlmU/0CZ7gC4OGw2wpJHe9/LePXYcqsbGE3olFzND68Jb2iYgYv38943CSAM1203jene+sw3Ni
+ mwIJpNToXKvBK9Lsdx6Cn5cRscf3XbzBhl4+urjYkDoguHD+3Dudf1wvTMEA4WOpm+o659yDIcx
+ LO0KM5624SQ7+VVWB3dhP1/SZRSpcZdpYnzW4e/r+QjlyWtMCDIRfFw3TrGyuHgMpY1mNfhXoBL
+ iYcoQIfnLgwA=
+X-Google-Smtp-Source: AGHT+IG88n4B+Zz7jvsF/amnEc51F/XmSyRSZhLIy5SSMySrK3N+aaQMKVm7LW4VWbvpbZndJX7ocw==
+X-Received: by 2002:a17:903:98c:b0:224:1780:c1ec with SMTP id
+ d9443c01a7336-22c5360dc12mr325231335ad.35.1745400653408; 
+ Wed, 23 Apr 2025 02:30:53 -0700 (PDT)
+Received: from [10.0.2.15] (KD106167137155.ppp-bb.dion.ne.jp.
+ [106.167.137.155]) by smtp.gmail.com with ESMTPSA id
+ d9443c01a7336-22c50eb64fbsm99667675ad.158.2025.04.23.02.30.48
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 23 Apr 2025 02:30:52 -0700 (PDT)
+Message-ID: <5cc4d9dd-496e-4512-a683-272b1b84d98b@gmail.com>
+Date: Wed, 23 Apr 2025 18:30:48 +0900
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+To: andriy.shevchenko@intel.com
+Cc: airlied@gmail.com, corbet@lwn.net, dmitry.baryshkov@oss.qualcomm.com,
+ dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
+ jani.nikula@linux.intel.com, joonas.lahtinen@linux.intel.com,
+ linux-doc@vger.kernel.org, linux-kbuild@vger.kernel.org,
+ linux-kernel@vger.kernel.org, maarten.lankhorst@linux.intel.com,
+ masahiroy@kernel.org, mchehab+huawei@kernel.org, mripard@kernel.org,
+ nathan@kernel.org, nicolas.schier@linux.dev, rodrigo.vivi@intel.com,
+ simona@ffwll.ch, tursulin@ursulin.net, tzimmermann@suse.de
+References: <aAdL7aEcbulV9lsA@smile.fi.intel.com>
+Subject: Re: [PATCH v3 0/2] Don't create Python bytecode when building the
+ kernel
+Content-Language: en-US
+From: Akira Yokosawa <akiyks@gmail.com>
+In-Reply-To: <aAdL7aEcbulV9lsA@smile.fi.intel.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 X-Mailman-Approved-At: Fri, 25 Apr 2025 19:08:12 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -60,64 +100,38 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Fri Apr 25, 2025 at 8:59 AM BST, Jani Nikula wrote:
-> On Fri, 25 Apr 2025, Harry Austen <hpausten@protonmail.com> wrote:
->> Fix Kconfig symbol dependency on KUNIT, which isn't actually required
->> for XE to be built-in. However, if KUNIT is enabled, it must be built-in
->> too.
->>
->> Also, allow DRM_XE_DISPLAY to be built-in. But only as long as DRM_I915
->> isn't, since that results in duplicate symbol errors.
->>
->> Fixes: 08987a8b6820 ("drm/xe: Fix build with KUNIT=3Dm")
->> Cc: Lucas De Marchi <lucas.demarchi@intel.com>
->> Cc: Thomas Hellstr=C3=B6m <thomas.hellstrom@linux.intel.com>
->> Cc: Jani Nikula <jani.nikula@linux.intel.com>
->> Signed-off-by: Harry Austen <hpausten@protonmail.com>
->> ---
->> v2: Ensure DRM_XE_DISPLAY and DRM_I915 can't both be built-in
->>
->>  drivers/gpu/drm/xe/Kconfig | 4 ++--
->>  1 file changed, 2 insertions(+), 2 deletions(-)
->>
->> diff --git a/drivers/gpu/drm/xe/Kconfig b/drivers/gpu/drm/xe/Kconfig
->> index 9bce047901b22..bc63c396d7fef 100644
->> --- a/drivers/gpu/drm/xe/Kconfig
->> +++ b/drivers/gpu/drm/xe/Kconfig
->> @@ -1,7 +1,7 @@
->>  # SPDX-License-Identifier: GPL-2.0-only
->>  config DRM_XE
->>  =09tristate "Intel Xe Graphics"
->> -=09depends on DRM && PCI && MMU && (m || (y && KUNIT=3Dy))
->> +=09depends on DRM && PCI && MMU && (m || (y && KUNIT!=3Dm))
->
-> I can't make heads or tails about that. I think expressing the kunit
-> dependency on a separate line like this is both much more common and
-> clear:
->
-> =09depends on KUNIT || KUNIT=3Dn
+Hi Andy,
 
-Ah, yes that looks like it should do the trick and does seem clearer. Will =
-do in
-v3.
+On Tue, 22 Apr 2025 10:57:33 +0300, Andy Shevchenko wrote:
+> On Mon, Apr 21, 2025 at 10:35:29AM -0600, Jonathan Corbet wrote:
+>> Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com> writes:
+[...]
 
->
->>  =09select INTERVAL_TREE
->>  =09# we need shmfs for the swappable backing store, and in particular
->>  =09# the shmem_readpage() which depends upon tmpfs
->> @@ -51,7 +51,7 @@ config DRM_XE
->>
->>  config DRM_XE_DISPLAY
->>  =09bool "Enable display support"
->> -=09depends on DRM_XE && DRM_XE=3Dm && HAS_IOPORT
->> +=09depends on DRM_XE && (DRM_XE=3Dm || DRM_I915!=3Dy) && HAS_IOPORT
->>  =09select FB_IOMEM_HELPERS if DRM_FBDEV_EMULATION
->>  =09select I2C
->>  =09select I2C_ALGOBIT
->
-> --
-> Jani Nikula, Intel
+>> > Would it be possible to properly support O= and create pyc / pycache
+>> > inside the object/output dir?
+>> 
+>> I have to confess, I've been wondering if we should be treating the .pyc
+>> files like we treat .o files or other intermediate products.  Rather
+>> than trying to avoid their creation entirely, perhaps we should just be
+>> sure they end up in the right place and are properly cleaned up...?
+>> 
+>> To answer Dmitry's question, it seems that setting PYTHONPYCACHEPREFIX
+>> should do the trick?
+> 
+> It's not so easy. The Python is written in a way that it thinks it will never
+> runs object files separately from the source. Hence that variable sets only
+> the folder per script as _home_ for the cache. It's completely unusable. They
+> took it wrong. It still can be _painfully_ used, but it will make Makefiles
+> uglier.
 
-Thanks,
-Harry
+But, PYTHONPYCACHEPREFIX can be set as an environment variable.
+
+For example, try:
+
+    export PYTHONPYCACHEPREFIX="$HOME/.cache/__pycache__"
+
+Wouldn't it be good enough for you?
+
+Regards,
+Akira
 
