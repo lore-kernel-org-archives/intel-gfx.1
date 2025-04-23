@@ -4,43 +4,56 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EF14AC369D7
-	for <intel-gfx@archiver.kernel.org>; Fri, 25 Apr 2025 19:08:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DD237C369C2
+	for <intel-gfx@archiver.kernel.org>; Fri, 25 Apr 2025 19:08:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7CF0E10E9A3;
-	Fri, 25 Apr 2025 19:08:20 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; secure) header.d=protonmail.com header.i=@protonmail.com header.b="HG0avtgt";
-	dkim-atps=neutral
-Received: from mail-4327.protonmail.ch (mail-4327.protonmail.ch [185.70.43.27])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5D09E10E8A0
- for <intel-gfx@lists.freedesktop.org>; Fri, 25 Apr 2025 07:36:41 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=protonmail.com;
- s=protonmail3; t=1745566590; x=1745825790;
- bh=pzB+ULPjZJoXWNCIbG47lG7lxSlV7q022ronMCkd2Co=;
- h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
- Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector:
- List-Unsubscribe:List-Unsubscribe-Post;
- b=HG0avtgtjX1JJplmZ2W+xPmQcxNkKBLhOg5j0EHiybAfRtWMWBmgyWc7J+sACxz0L
- R9lHs89Py8lV2OveRBpvGfGmn1ttoBTbngs99N0ue/vD1CIvGJkuRZiIzoijQWelRa
- rDwXt1bv3YIzoUcegnBYrd/pYq9y9p2t1yyo4bGMPp1yp3QT/W4uUwdprHofNPAHpk
- LWRtYy2cZfFCmffg2nHgSL4+ihoF4XeEBpPij3zWLHNSlH4hw8CNjpkff1U8P8oFQG
- Moewtq6Rp9sB6j63t+9HQU0VZr8Q101D7BO0QEPsDJ++uSbQtdCkMhuBIzow/xHe13
- UBPlHVw22Vu3w==
-Date: Fri, 25 Apr 2025 07:36:23 +0000
-To: intel-xe@lists.freedesktop.org
-From: Harry Austen <hpausten@protonmail.com>
-Cc: intel-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- Harry Austen <hpausten@protonmail.com>,
- Lucas De Marchi <lucas.demarchi@intel.com>,
- =?utf-8?Q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
- Jani Nikula <jani.nikula@linux.intel.com>
-Subject: [PATCH v2] drm/xe: Allow building as kernel built-in
-Message-ID: <20250425073534.101976-1-hpausten@protonmail.com>
-Feedback-ID: 53116287:user:proton
-X-Pm-Message-ID: d1dccf1a1237e941559f5aa11cd9a2ed1b6e14c6
+	by gabe.freedesktop.org (Postfix) with ESMTP id 73FAA10E9A4;
+	Fri, 25 Apr 2025 19:08:22 +0000 (UTC)
+Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AE79010E64E;
+ Wed, 23 Apr 2025 07:37:58 +0000 (UTC)
+X-UUID: d7167a20201511f0a216b1d71e6e1362-20250423
+X-CID-P-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.1.45, REQID:33cd0147-34a3-4f24-984a-a4e121dbc89e, IP:0,
+ U
+ RL:0,TC:0,Content:0,EDM:-25,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTIO
+ N:release,TS:-25
+X-CID-META: VersionHash:6493067, CLOUDID:dc5f91aaf089f4ed07a4a1a74b6f7ce4,
+ BulkI
+ D:nil,BulkQuantity:0,Recheck:0,SF:102,TC:nil,Content:0|50,EDM:1,IP:nil,URL
+ :0,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,OSA:0,AV:0,LES:1,SP
+ R:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
+X-CID-BVR: 0
+X-CID-BAS: 0,_,0,_
+X-CID-FACTOR: TF_CID_SPAM_SNR
+X-UUID: d7167a20201511f0a216b1d71e6e1362-20250423
+Received: from mail.kylinos.cn [(10.44.16.175)] by mailgw.kylinos.cn
+ (envelope-from <liujiajia@kylinos.cn>) (Generic MTA)
+ with ESMTP id 1662382807; Wed, 23 Apr 2025 15:37:42 +0800
+Received: from mail.kylinos.cn (localhost [127.0.0.1])
+ by mail.kylinos.cn (NSMail) with SMTP id 1E31AE028E9B;
+ Wed, 23 Apr 2025 15:37:42 +0800 (CST)
+X-ns-mid: postfix-680898C5-967027406
+Received: from kylin.lan (unknown [172.25.120.81])
+ by mail.kylinos.cn (NSMail) with ESMTPA id A3623E028EA0;
+ Wed, 23 Apr 2025 15:37:39 +0800 (CST)
+From: Jiajia Liu <liujiajia@kylinos.cn>
+To: Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Tvrtko Ursulin <tursulin@ursulin.net>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Nemesa Garg <nemesa.garg@intel.com>,
+ =?UTF-8?q?Ville=20Syrj=C3=A4l=C3=A4?= <ville.syrjala@linux.intel.com>,
+ Nitin Gote <nitin.r.gote@intel.com>,
+ Matt Roper <matthew.d.roper@intel.com>, intel-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Cc: Jiajia Liu <liujiajia@kylinos.cn>
+Subject: [PATCH RESEND] drm/i915/pch: fix warning for coffeelake on
+ SunrisePoint PCH
+Date: Wed, 23 Apr 2025 15:37:30 +0800
+Message-Id: <20250423073730.585181-1-liujiajia@kylinos.cn>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
 X-Mailman-Approved-At: Fri, 25 Apr 2025 19:08:12 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
@@ -58,47 +71,42 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Fix Kconfig symbol dependency on KUNIT, which isn't actually required
-for XE to be built-in. However, if KUNIT is enabled, it must be built-in
-too.
+i915/pch reports a warning on a mini PC which has a CoffeeLake-S GT2
+[UHD Graphics 630] [8086:3e92] and an ISA bridge - H110 LPC Controller
+[8086:a143].
 
-Also, allow DRM_XE_DISPLAY to be built-in. But only as long as DRM_I915
-isn't, since that results in duplicate symbol errors.
+[5.608723] i915 0000:00:02.0: [drm] Found coffeelake (device ID 3e92) int=
+egrated display version 9.00 stepping N/A
+[5.608969] ------------[ cut here ]------------
+[5.608972] i915 0000:00:02.0: [drm] drm_WARN_ON(!display->platform.skylak=
+e && !display->platform.kabylake)
+[5.608995] WARNING: CPU: 3 PID: 440 at drivers/gpu/drm/i915/display/intel=
+_pch.c:126 intel_pch_type+0x1af/0xae0 [i915]
+[5.609317] CPU: 3 UID: 0 PID: 440 Comm: (udev-worker) Not tainted 6.15.0-=
+rc3-drm-tip-2fa6469c618d #3 PREEMPT(voluntary)
 
-Fixes: 08987a8b6820 ("drm/xe: Fix build with KUNIT=3Dm")
-Cc: Lucas De Marchi <lucas.demarchi@intel.com>
-Cc: Thomas Hellstr=C3=B6m <thomas.hellstrom@linux.intel.com>
-Cc: Jani Nikula <jani.nikula@linux.intel.com>
-Signed-off-by: Harry Austen <hpausten@protonmail.com>
+Signed-off-by: Jiajia Liu <liujiajia@kylinos.cn>
+Reviewed-by: Rodrigo Vivi <rodrigo.vivi@intel.com>
 ---
-v2: Ensure DRM_XE_DISPLAY and DRM_I915 can't both be built-in
+ drivers/gpu/drm/i915/display/intel_pch.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
- drivers/gpu/drm/xe/Kconfig | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/gpu/drm/xe/Kconfig b/drivers/gpu/drm/xe/Kconfig
-index 9bce047901b22..bc63c396d7fef 100644
---- a/drivers/gpu/drm/xe/Kconfig
-+++ b/drivers/gpu/drm/xe/Kconfig
-@@ -1,7 +1,7 @@
- # SPDX-License-Identifier: GPL-2.0-only
- config DRM_XE
- =09tristate "Intel Xe Graphics"
--=09depends on DRM && PCI && MMU && (m || (y && KUNIT=3Dy))
-+=09depends on DRM && PCI && MMU && (m || (y && KUNIT!=3Dm))
- =09select INTERVAL_TREE
- =09# we need shmfs for the swappable backing store, and in particular
- =09# the shmem_readpage() which depends upon tmpfs
-@@ -51,7 +51,7 @@ config DRM_XE
-=20
- config DRM_XE_DISPLAY
- =09bool "Enable display support"
--=09depends on DRM_XE && DRM_XE=3Dm && HAS_IOPORT
-+=09depends on DRM_XE && (DRM_XE=3Dm || DRM_I915!=3Dy) && HAS_IOPORT
- =09select FB_IOMEM_HELPERS if DRM_FBDEV_EMULATION
- =09select I2C
- =09select I2C_ALGOBIT
+diff --git a/drivers/gpu/drm/i915/display/intel_pch.c b/drivers/gpu/drm/i=
+915/display/intel_pch.c
+index 5035b63a4889..469e8a3cfb49 100644
+--- a/drivers/gpu/drm/i915/display/intel_pch.c
++++ b/drivers/gpu/drm/i915/display/intel_pch.c
+@@ -125,7 +125,8 @@ intel_pch_type(const struct intel_display *display, u=
+nsigned short id)
+ 		drm_dbg_kms(display->drm, "Found SunrisePoint PCH\n");
+ 		drm_WARN_ON(display->drm,
+ 			    !display->platform.skylake &&
+-			    !display->platform.kabylake);
++			    !display->platform.kabylake &&
++			    !display->platform.coffeelake);
+ 		return PCH_SPT;
+ 	case INTEL_PCH_SPT_LP_DEVICE_ID_TYPE:
+ 		drm_dbg_kms(display->drm, "Found SunrisePoint LP PCH\n");
 --=20
-2.49.0
-
+2.25.1
 
