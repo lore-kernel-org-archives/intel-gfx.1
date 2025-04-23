@@ -4,57 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 74CBFC369D7
-	for <intel-gfx@archiver.kernel.org>; Wed, 23 Apr 2025 09:10:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A298AC369CB
+	for <intel-gfx@archiver.kernel.org>; Wed, 23 Apr 2025 09:46:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 82CE110E426;
-	Wed, 23 Apr 2025 09:10:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2919C10E0C4;
+	Wed, 23 Apr 2025 09:46:41 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="P5NZ6LrW";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="mtW5igM2";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.20])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0B5B810E422;
- Wed, 23 Apr 2025 09:10:11 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 693CA10E0C4;
+ Wed, 23 Apr 2025 09:46:40 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1745399411; x=1776935411;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=tkVxw8XoHhMxLmgb84SnGaq5JBhhyQtFgrdIKYjR7yM=;
- b=P5NZ6LrW6RawEpCOf26/5Xn0ZH9MsAjwDc794grngLKyKHbHwa7e78pt
- B0EnQv51daYrTPJ6BdSHkWw/B+7ViBWUDYwiLSpVl/CSTY9kvK7Y5N5Lh
- M1CnkUSBqdriSI/MlLfGn81na+UWLq+BuKlRn4ZHrsvbRBN68JW+7RdkF
- o81xY4cg21oMGxvUrqTmquI3Qjk+6Q+TdNvXhcm8s+iYesX2U3Kyz4bWT
- bd/RTXnsJKBReRPt0IIk5GAkRBgrJ/HzXC2t+ylsTyp35OSRyFb3ZuMi6
- isBW4VheB/Z5LyhLZk1htTK2HSHUr50cgwmNeOJAQQ5T8/a+zPNTyJ5Oi w==;
-X-CSE-ConnectionGUID: WWy9oJ8NS16biMnUc2BPUQ==
-X-CSE-MsgGUID: xtx5gqsfTFugXqJjtNACvA==
-X-IronPort-AV: E=McAfee;i="6700,10204,11411"; a="46686954"
-X-IronPort-AV: E=Sophos;i="6.15,233,1739865600"; d="scan'208";a="46686954"
-Received: from fmviesa001.fm.intel.com ([10.60.135.141])
- by orvoesa112.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 Apr 2025 02:10:11 -0700
-X-CSE-ConnectionGUID: HaRvs+tPSVCPS4Nh4vMmrg==
-X-CSE-MsgGUID: x1AOPM0qSvasoF7avpkRbg==
+ t=1745401600; x=1776937600;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=7ZsfwTNKk+Y7PxT5+WNA9AJ7ABVJE7FhzcYdFpxJiVY=;
+ b=mtW5igM2y3ywzMtzmJe/pZcnLmGLk+Wjgv3rYjCemR519Vpl2q9bWWfW
+ 0aW+b86gLVDRgRoapdVFUvHaWftbwNmlKCGW4fGKRm155KyZMlMLrehOR
+ kT4XCYz64MykCevDwUv4I/shaCM4f6WsZirth5xf7LnngFMIVL9cTJsGq
+ mrKlQmw14n/5iMarMNVMEzTnHTmzKXH9ByhOLgG6PFpz+R01Jf8JANrAx
+ /5eFL2kXQGnChI2MIXkkuVm6wOABXugN6OQW1JBxrYF3O7JSowdLoJMRd
+ dNdwQejDwMILwIzHmYpku0Vlq0R9UbXbpCpaD5n0FFn7zqqVI05hjcSUJ w==;
+X-CSE-ConnectionGUID: wHatYDvRRFmYlmSeHUlTaA==
+X-CSE-MsgGUID: CLXA2sreSBK+ixV8uA/P4Q==
+X-IronPort-AV: E=McAfee;i="6700,10204,11411"; a="58357927"
+X-IronPort-AV: E=Sophos;i="6.15,233,1739865600"; d="scan'208";a="58357927"
+Received: from fmviesa010.fm.intel.com ([10.60.135.150])
+ by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 23 Apr 2025 02:46:40 -0700
+X-CSE-ConnectionGUID: lleSh8k+RweTkpO+3TzXrw==
+X-CSE-MsgGUID: KzsTUDuTRXqyldG/1DHDcg==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.15,233,1739865600"; d="scan'208";a="163317718"
-Received: from fdefranc-mobl3.ger.corp.intel.com (HELO localhost)
- ([10.245.246.175])
- by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 Apr 2025 02:10:08 -0700
-From: Jani Nikula <jani.nikula@intel.com>
+X-IronPort-AV: E=Sophos;i="6.15,233,1739865600"; d="scan'208";a="132811095"
+Received: from srr4-3-linux-101-amanna.iind.intel.com ([10.223.74.76])
+ by fmviesa010.fm.intel.com with ESMTP; 23 Apr 2025 02:46:38 -0700
+From: Animesh Manna <animesh.manna@intel.com>
 To: intel-gfx@lists.freedesktop.org,
 	intel-xe@lists.freedesktop.org
-Cc: jani.nikula@intel.com
-Subject: [PATCH 2/3] drm/i915/hdmi: convert rest of intel_hdmi.c to struct
- intel_display
-Date: Wed, 23 Apr 2025 12:09:47 +0300
-Message-Id: <7e3bb01cdc5b0c78dfd260a3cea23ca58081e299.1745399318.git.jani.nikula@intel.com>
-X-Mailer: git-send-email 2.39.5
-In-Reply-To: <cover.1745399318.git.jani.nikula@intel.com>
-References: <cover.1745399318.git.jani.nikula@intel.com>
+Cc: jouni.hogander@intel.com, jani.nikula@intel.com, jeevan.b@intel.com,
+ Animesh Manna <animesh.manna@intel.com>
+Subject: [PATCH v10 00/11] LOBF enablement fix
+Date: Wed, 23 Apr 2025 14:53:23 +0530
+Message-Id: <20250423092334.2294483-1-animesh.manna@intel.com>
+X-Mailer: git-send-email 2.29.0
 MIME-Version: 1.0
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -71,72 +67,43 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Remove the last uses of struct drm_i915_private from intel_hdmi.c, and
-drop the dependency on i915_drv.h.
+v1: Initial version.
+v2: Addressed review comments from Jani.
+v3: Addressed review comments from Jouni.
+v4: Addressed review comments received on v3.
+v5: Addressed review comments received on v4.
+v6: Addressed review comments received on v5.
+v7: Addressed review comments received on v6.
+v8: Addressed review comments received on v7.
+v9: Addressed review comments received on v8.
 
-Signed-off-by: Jani Nikula <jani.nikula@intel.com>
----
- drivers/gpu/drm/i915/display/intel_hdmi.c | 14 +++++++-------
- 1 file changed, 7 insertions(+), 7 deletions(-)
+Signed-off-by: Animesh Manna <animesh.manna@intel.com>
 
-diff --git a/drivers/gpu/drm/i915/display/intel_hdmi.c b/drivers/gpu/drm/i915/display/intel_hdmi.c
-index e08c01e5b9d3..7fc01ba19afc 100644
---- a/drivers/gpu/drm/i915/display/intel_hdmi.c
-+++ b/drivers/gpu/drm/i915/display/intel_hdmi.c
-@@ -38,14 +38,15 @@
- #include <drm/drm_atomic_helper.h>
- #include <drm/drm_crtc.h>
- #include <drm/drm_edid.h>
-+#include <drm/drm_print.h>
- #include <drm/drm_probe_helper.h>
- #include <drm/intel/intel_lpe_audio.h>
- 
- #include <media/cec-notifier.h>
- 
- #include "g4x_hdmi.h"
--#include "i915_drv.h"
- #include "i915_reg.h"
-+#include "i915_utils.h"
- #include "intel_atomic.h"
- #include "intel_audio.h"
- #include "intel_connector.h"
-@@ -1567,7 +1568,6 @@ bool intel_hdmi_hdcp_check_link_once(struct intel_digital_port *dig_port,
- 				     struct intel_connector *connector)
- {
- 	struct intel_display *display = to_intel_display(dig_port);
--	struct drm_i915_private *i915 = to_i915(dig_port->base.base.dev);
- 	enum port port = dig_port->base.port;
- 	enum transcoder cpu_transcoder = connector->hdcp.cpu_transcoder;
- 	int ret;
-@@ -1580,15 +1580,15 @@ bool intel_hdmi_hdcp_check_link_once(struct intel_digital_port *dig_port,
- 	if (ret)
- 		return false;
- 
--	intel_de_write(i915, HDCP_RPRIME(i915, cpu_transcoder, port), ri.reg);
-+	intel_de_write(display, HDCP_RPRIME(display, cpu_transcoder, port), ri.reg);
- 
- 	/* Wait for Ri prime match */
--	if (wait_for((intel_de_read(i915, HDCP_STATUS(i915, cpu_transcoder, port)) &
-+	if (wait_for((intel_de_read(display, HDCP_STATUS(display, cpu_transcoder, port)) &
- 		      (HDCP_STATUS_RI_MATCH | HDCP_STATUS_ENC)) ==
- 		     (HDCP_STATUS_RI_MATCH | HDCP_STATUS_ENC), 1)) {
- 		drm_dbg_kms(display->drm, "Ri' mismatch detected (%x)\n",
--			    intel_de_read(i915, HDCP_STATUS(i915, cpu_transcoder,
--							    port)));
-+			    intel_de_read(display, HDCP_STATUS(display, cpu_transcoder,
-+							       port)));
- 		return false;
- 	}
- 	return true;
-@@ -2013,7 +2013,7 @@ intel_hdmi_mode_valid(struct drm_connector *connector,
- 	struct intel_hdmi *hdmi = intel_attached_hdmi(to_intel_connector(connector));
- 	enum drm_mode_status status;
- 	int clock = mode->clock;
--	int max_dotclk = to_i915(connector->dev)->display.cdclk.max_dotclk_freq;
-+	int max_dotclk = display->cdclk.max_dotclk_freq;
- 	bool has_hdmi_sink = intel_has_hdmi_sink(hdmi, connector->state);
- 	bool ycbcr_420_only;
- 	enum intel_output_format sink_format;
+Animesh Manna (10):
+  drm/i915/lobf: Add lobf enablement in post plane update
+  drm/i915/lobf: Add debug print for LOBF
+  drm/i915/lobf: Disintegrate alpm_disable from psr_disable
+  drm/i915/lobf: Add fixed refresh rate check in compute_config()
+  drm/i915/lobf: Update lobf if any change in dependent parameters
+  drm/i915/lobf: Add debug interface for lobf
+  drm/i915/lobf: Add mutex for alpm update
+  drm/i915/lobf: Check for sink error and disable LOBF
+  drm/i915/alpm: Add intel_psr_need_alpm() to simplify alpm check
+  drm/i915/display: Disintegrate sink alpm enable from psr with lobf
+
+Jouni Högander (1):
+  drm/i915/alpm: use variable from intel_crtc_state instead of intel_psr
+
+ drivers/gpu/drm/i915/display/intel_alpm.c     | 195 +++++++++++++++++-
+ drivers/gpu/drm/i915/display/intel_alpm.h     |  10 +-
+ drivers/gpu/drm/i915/display/intel_ddi.c      |   2 +
+ drivers/gpu/drm/i915/display/intel_display.c  |   4 +
+ .../drm/i915/display/intel_display_types.h    |   4 +
+ drivers/gpu/drm/i915/display/intel_dp.c       |   7 +-
+ drivers/gpu/drm/i915/display/intel_psr.c      |  61 +-----
+ drivers/gpu/drm/i915/display/intel_psr.h      |   1 +
+ 8 files changed, 224 insertions(+), 60 deletions(-)
+
 -- 
-2.39.5
+2.29.0
 
