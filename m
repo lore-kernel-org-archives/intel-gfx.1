@@ -4,73 +4,73 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 71A87C369C2
-	for <intel-gfx@archiver.kernel.org>; Fri, 25 Apr 2025 08:17:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E81F0C369C2
+	for <intel-gfx@archiver.kernel.org>; Fri, 25 Apr 2025 08:17:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 82B6B10E8CA;
-	Fri, 25 Apr 2025 08:17:41 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7936F10E8BD;
+	Fri, 25 Apr 2025 08:17:44 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="DxbsDDrZ";
+	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="bQ4LT7Aw";
 	dkim-atps=neutral
 Received: from us-smtp-delivery-124.mimecast.com
  (us-smtp-delivery-124.mimecast.com [170.10.133.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F024410E8BD
- for <intel-gfx@lists.freedesktop.org>; Fri, 25 Apr 2025 08:17:37 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8C94310E8D7
+ for <intel-gfx@lists.freedesktop.org>; Fri, 25 Apr 2025 08:17:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1745569057;
+ s=mimecast20190719; t=1745569061;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=7xNohxILTOPqd/8P2+09zos3Ls7ebzSxsppSFkARpPU=;
- b=DxbsDDrZjtwcRbh1QASU9f1eDrEivdZ0DNRlLKgXce9wuSiExg6x7suXnT/kG0m2iSaIkB
- QsD+VRmjcexIrT74THrsYe+D+V9LKbN9syAX/c2js/vGy7Gupf1OUpnJqBbd92j1Y4Qp0C
- W5k+sd0BRuLwnvsozJrUpPbhsCEkKz0=
+ bh=rqCDzyJE3N7q1dfRPTJIKewHsgjJcYj+B7llEZA1rCc=;
+ b=bQ4LT7AwLAyp+GymBcgrzB1KEPSTOrTBjzh7//b8kM+1yZyoPtY+WszSunzZvU1IWlKQeT
+ fvaU30jLkvdv/3JBRgqx5KEy9qBMA8XBXdKIg8XQ/CAKnjV/Xn1eH7ZRb1EWkL7fCXQGmL
+ 4whdAxWJEsmoKJzeGo/LVLeEIjTVtKA=
 Received: from mail-wr1-f72.google.com (mail-wr1-f72.google.com
  [209.85.221.72]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-408-vvIOJ_TIMhu0XsNajwT_jg-1; Fri, 25 Apr 2025 04:17:35 -0400
-X-MC-Unique: vvIOJ_TIMhu0XsNajwT_jg-1
-X-Mimecast-MFC-AGG-ID: vvIOJ_TIMhu0XsNajwT_jg_1745569054
+ us-mta-386-cciqr7LEOYSOYMycC6ot9A-1; Fri, 25 Apr 2025 04:17:40 -0400
+X-MC-Unique: cciqr7LEOYSOYMycC6ot9A-1
+X-Mimecast-MFC-AGG-ID: cciqr7LEOYSOYMycC6ot9A_1745569059
 Received: by mail-wr1-f72.google.com with SMTP id
- ffacd0b85a97d-39979ad285bso899137f8f.2
- for <intel-gfx@lists.freedesktop.org>; Fri, 25 Apr 2025 01:17:35 -0700 (PDT)
+ ffacd0b85a97d-3912fe32b08so817861f8f.3
+ for <intel-gfx@lists.freedesktop.org>; Fri, 25 Apr 2025 01:17:40 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1745569054; x=1746173854;
+ d=1e100.net; s=20230601; t=1745569059; x=1746173859;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=7xNohxILTOPqd/8P2+09zos3Ls7ebzSxsppSFkARpPU=;
- b=SAJ/3/Egh875mtC1o281oYSWg/3AdRehHEB3enW0g2oDBWWvNKf2F2qdt6bV+R8wF+
- 2aNfNgEf/DqTfRAJHxPLC3lDRyrpQZRSHHMqMCDa7fvTTdoeF17WwiwItHjXiAdh5dGG
- hSlebmGYmTvk3/t9rhLQumgbJv9q0vzJ69vF5MN3EX/lrwyorvGWkFzWUaAGDUxmQLzr
- or8WLfJXo8LcX+5kggcFUJsANYqWL1DzHlyZAjhfgbqDPQmDmP/UMuiHdOJ2oLQ895pI
- R4UTMpPjLCrPrVPs2M/92v5LRR93fAmqgKA9knOtZBMDN7NgHYdAV72GSdFN4Tw1dcxd
- EuoA==
+ bh=rqCDzyJE3N7q1dfRPTJIKewHsgjJcYj+B7llEZA1rCc=;
+ b=AdCBXoqTq1XN0tBMELmEblsa7a5KphU8kwT/Tt4JU/kv0IvCB5RyT/UvJ0ixirlEa3
+ +9NMrlCBuXgL1Gsv6+CrjOzNPQP9NZn/QtqL9huQvOABbOxhM5umsrGszYSOFq+rQYR5
+ 9SdcAwcUt1DmkxRLbc5zv9LEq76Me/jriG33LENXYiWam10gGJY3ZLDRSyDSjYKcDpfO
+ yM45fvBplWptmYfLHvprYx7oVOKBG6ZwfrbJJ3hFtDqSWrJAdTMPNOSEaFeHIiVjT+qW
+ jm14l+qUEAsQjJdy3cmCpTy0Ubo+VrTsHJXFcC/QE7Lw+oOuVjDezicdTYeOwFdb2gEc
+ pcuA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCVJ2z2fss+AwLTCcPaDxogjz4TFmzbSq3bq/Tm9U928h2RK7l3iC2pVGZ3sZ4NGIaChPIYLZCkd+7Q=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Ywn4bPDd9tqMxY1FGO/eVrVe3VyKAI+Vf/o8e3WlgcypJYnJzTY
- /Qp2Xpb/3CdZu8Ro9ooYXWL2RixivT6YQdSNGE2cMMhktKgo6v+q0L6oKBILyHrTT9zWyXm55ED
- m7g1NoThkuDjsvl3ghnTg17MnNiVMtfJTuXkBpDXLpakeoC9qYVxryjWgkB0Cd7dN3w==
-X-Gm-Gg: ASbGncuTy9mJKqikUtp7jhNMCQ0Fv7zmGVshjOYvh+07AVkdDb3S7IUAomYjFthk3Bc
- 1oZVT6zkaJ4P35J/2ZILmObv+7wjxNyO/Lp8iuoKqwtxsPCCKAGg70DZrZ4Snb/u9eiyDjrWc8l
- aJTSsY/Lindvx5Gzy6+xF9iY1KF3dO11NMHy5FICuCdAvW1N1Quxoo/t4AtxQInrVwDqT0kOz9K
- grlpf/RMTg3Z5sLN7AWk+Ym9dcrzrQrC06XAYTNXJajB2EH+9jYDO/k4hByd3UO2dAmpepopsv1
- 9PNYRE5g6Ghr42LsMLUwqNKCPkDNNw0N7GOWjNZMgOCXhm1uZM3vNQsHgyf6ctJmU85dN48=
-X-Received: by 2002:a05:6000:430d:b0:399:7f43:b3a4 with SMTP id
- ffacd0b85a97d-3a074e2f3b3mr903663f8f.24.1745569054435; 
- Fri, 25 Apr 2025 01:17:34 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IFENsE4+5Cu5ObTVfglloYLU5xkxFPfypsGCDuMGrHDVRAMikMZaqFHaFNkwSVPa60/smc7Mg==
-X-Received: by 2002:a05:6000:430d:b0:399:7f43:b3a4 with SMTP id
- ffacd0b85a97d-3a074e2f3b3mr903634f8f.24.1745569054012; 
- Fri, 25 Apr 2025 01:17:34 -0700 (PDT)
+ AJvYcCXTwdTbVpJngjCdJhBWz3ep7XujH8jNRPdFUJqlqbqpT3xbfqf5lKeWV3ywqAINnT0knnT28GfXNuY=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzFW0wDA8LBsIIg6++tBm1HPjlexviMr2WXU1yQA+5JXAyvw2zQ
+ c0NfGAo5IAfwds5VUJaRLdRPhuXtV/JOFFMyANMt8HTW+rnDy7olJn+l+4rHC13LJBAB3erZU0T
+ PVavZHnEghWnux7sT+FsRnwYbVSRJa14X0l/Unj6ZYnCngFYlXD8ctNLVttGa2EdI0w==
+X-Gm-Gg: ASbGncsemPZJTEl+lgMrQ9N87htK4y7v+ZqDNGiGWYodYKfEfK6PJ0zHxcj/sU9zNDG
+ KliboyIy13d8D+QCggtM2XQoXCZuWbMrke0nTeExP8NjyPtXoyZqsivikclXvF2ZX5IeUBASy76
+ dQHmsJvaMVdC/ihoK+wfIE4kVvElokcR2eorrbX5mEXwam8NhiSliL/UcR/cnnF+YLyZ3Aox7t5
+ HwgzfqUECo1Tezh6NCuezEMCAyrhQvB8G3SUHiRvsByalNlRmUGLm63ZIBGmpubep2N/zznrBwN
+ boFiAc1aYx+DhnXeI4unfuyTCCMuuF/g0Gq5GKTyyQXYwPOzXPu83bvd1jUyQvbkX3iKBtg=
+X-Received: by 2002:a05:6000:4026:b0:38d:badf:9df5 with SMTP id
+ ffacd0b85a97d-3a074e1e7c1mr893873f8f.17.1745569059279; 
+ Fri, 25 Apr 2025 01:17:39 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IEeMJVro3CtNN/nAt/kzydgqpqMLMz4QDAdVYj55uYz4S+yOKx9n2ojCFKF9ThYiE7nLuy7NA==
+X-Received: by 2002:a05:6000:4026:b0:38d:badf:9df5 with SMTP id
+ ffacd0b85a97d-3a074e1e7c1mr893849f8f.17.1745569058900; 
+ Fri, 25 Apr 2025 01:17:38 -0700 (PDT)
 Received: from localhost
  (p200300cbc70f69006c5680f80c146d2a.dip0.t-ipconnect.de.
  [2003:cb:c70f:6900:6c56:80f8:c14:6d2a])
  by smtp.gmail.com with UTF8SMTPSA id
- ffacd0b85a97d-3a073c8cab5sm1648138f8f.10.2025.04.25.01.17.32
+ 5b1f17b1804b1-4408d8d191bsm78695765e9.1.2025.04.25.01.17.36
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 25 Apr 2025 01:17:33 -0700 (PDT)
+ Fri, 25 Apr 2025 01:17:38 -0700 (PDT)
 From: David Hildenbrand <david@redhat.com>
 To: linux-kernel@vger.kernel.org
 Cc: linux-mm@kvack.org, x86@kernel.org, intel-gfx@lists.freedesktop.org,
@@ -92,15 +92,15 @@ Cc: linux-mm@kvack.org, x86@kernel.org, intel-gfx@lists.freedesktop.org,
  Lorenzo Stoakes <lorenzo.stoakes@oracle.com>,
  Vlastimil Babka <vbabka@suse.cz>, Jann Horn <jannh@google.com>,
  Pedro Falcato <pfalcato@suse.de>, Peter Xu <peterx@redhat.com>
-Subject: [PATCH v1 07/11] mm: remove VM_PAT
-Date: Fri, 25 Apr 2025 10:17:11 +0200
-Message-ID: <20250425081715.1341199-8-david@redhat.com>
+Subject: [PATCH v1 09/11] x86/mm/pat: remove MEMTYPE_*_MATCH
+Date: Fri, 25 Apr 2025 10:17:13 +0200
+Message-ID: <20250425081715.1341199-10-david@redhat.com>
 X-Mailer: git-send-email 2.49.0
 In-Reply-To: <20250425081715.1341199-1-david@redhat.com>
 References: <20250425081715.1341199-1-david@redhat.com>
 MIME-Version: 1.0
 X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: 5OK0TOLvIBAkwyEeLJz8OnLoDWXYfl3JztpgZAY3EXc_1745569054
+X-Mimecast-MFC-PROC-ID: Bh3oJAUR4thfdc52RX5swsIxCfo3Vm9-5DCt16l5GP8_1745569059
 X-Mimecast-Originator: redhat.com
 Content-Transfer-Encoding: 8bit
 content-type: text/plain; charset="US-ASCII"; x-default=true
@@ -119,44 +119,84 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-It's unused, so let's remove it.
+The "memramp() shrinking" scenario no longer applies, so let's remove
+that now-unnecessary handling.
 
 Signed-off-by: David Hildenbrand <david@redhat.com>
 ---
- include/linux/mm.h             | 4 +---
- include/trace/events/mmflags.h | 4 +---
- 2 files changed, 2 insertions(+), 6 deletions(-)
+ arch/x86/mm/pat/memtype_interval.c | 44 ++++--------------------------
+ 1 file changed, 6 insertions(+), 38 deletions(-)
 
-diff --git a/include/linux/mm.h b/include/linux/mm.h
-index 9b701cfbef223..a205020e2a58b 100644
---- a/include/linux/mm.h
-+++ b/include/linux/mm.h
-@@ -357,9 +357,7 @@ extern unsigned int kobjsize(const void *objp);
- # define VM_SHADOW_STACK	VM_NONE
- #endif
+diff --git a/arch/x86/mm/pat/memtype_interval.c b/arch/x86/mm/pat/memtype_interval.c
+index 645613d59942a..9d03f0dbc4715 100644
+--- a/arch/x86/mm/pat/memtype_interval.c
++++ b/arch/x86/mm/pat/memtype_interval.c
+@@ -49,26 +49,15 @@ INTERVAL_TREE_DEFINE(struct memtype, rb, u64, subtree_max_end,
  
--#if defined(CONFIG_X86)
--# define VM_PAT		VM_ARCH_1	/* PAT reserves whole VMA at once (x86) */
--#elif defined(CONFIG_PPC64)
-+#if defined(CONFIG_PPC64)
- # define VM_SAO		VM_ARCH_1	/* Strong Access Ordering (powerpc) */
- #elif defined(CONFIG_PARISC)
- # define VM_GROWSUP	VM_ARCH_1
-diff --git a/include/trace/events/mmflags.h b/include/trace/events/mmflags.h
-index 15aae955a10bf..aa441f593e9a6 100644
---- a/include/trace/events/mmflags.h
-+++ b/include/trace/events/mmflags.h
-@@ -172,9 +172,7 @@ IF_HAVE_PG_ARCH_3(arch_3)
- 	__def_pageflag_names						\
- 	) : "none"
+ static struct rb_root_cached memtype_rbroot = RB_ROOT_CACHED;
  
--#if defined(CONFIG_X86)
--#define __VM_ARCH_SPECIFIC_1 {VM_PAT,     "pat"           }
--#elif defined(CONFIG_PPC64)
-+#if defined(CONFIG_PPC64)
- #define __VM_ARCH_SPECIFIC_1 {VM_SAO,     "sao"           }
- #elif defined(CONFIG_PARISC)
- #define __VM_ARCH_SPECIFIC_1 {VM_GROWSUP,	"growsup"	}
+-enum {
+-	MEMTYPE_EXACT_MATCH	= 0,
+-	MEMTYPE_END_MATCH	= 1
+-};
+-
+-static struct memtype *memtype_match(u64 start, u64 end, int match_type)
++static struct memtype *memtype_match(u64 start, u64 end)
+ {
+ 	struct memtype *entry_match;
+ 
+ 	entry_match = interval_iter_first(&memtype_rbroot, start, end-1);
+ 
+ 	while (entry_match != NULL && entry_match->start < end) {
+-		if ((match_type == MEMTYPE_EXACT_MATCH) &&
+-		    (entry_match->start == start) && (entry_match->end == end))
+-			return entry_match;
+-
+-		if ((match_type == MEMTYPE_END_MATCH) &&
+-		    (entry_match->start < start) && (entry_match->end == end))
++		if (entry_match->start == start && entry_match->end == end)
+ 			return entry_match;
+-
+ 		entry_match = interval_iter_next(entry_match, start, end-1);
+ 	}
+ 
+@@ -132,32 +121,11 @@ struct memtype *memtype_erase(u64 start, u64 end)
+ {
+ 	struct memtype *entry_old;
+ 
+-	/*
+-	 * Since the memtype_rbroot tree allows overlapping ranges,
+-	 * memtype_erase() checks with EXACT_MATCH first, i.e. free
+-	 * a whole node for the munmap case.  If no such entry is found,
+-	 * it then checks with END_MATCH, i.e. shrink the size of a node
+-	 * from the end for the mremap case.
+-	 */
+-	entry_old = memtype_match(start, end, MEMTYPE_EXACT_MATCH);
+-	if (!entry_old) {
+-		entry_old = memtype_match(start, end, MEMTYPE_END_MATCH);
+-		if (!entry_old)
+-			return ERR_PTR(-EINVAL);
+-	}
+-
+-	if (entry_old->start == start) {
+-		/* munmap: erase this node */
+-		interval_remove(entry_old, &memtype_rbroot);
+-	} else {
+-		/* mremap: update the end value of this node */
+-		interval_remove(entry_old, &memtype_rbroot);
+-		entry_old->end = start;
+-		interval_insert(entry_old, &memtype_rbroot);
+-
+-		return NULL;
+-	}
++	entry_old = memtype_match(start, end);
++	if (!entry_old)
++		return ERR_PTR(-EINVAL);
+ 
++	interval_remove(entry_old, &memtype_rbroot);
+ 	return entry_old;
+ }
+ 
 -- 
 2.49.0
 
