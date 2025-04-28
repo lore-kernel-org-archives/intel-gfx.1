@@ -4,196 +4,79 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3EABFC3ABB0
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0A4BAC3ABAD
 	for <intel-gfx@archiver.kernel.org>; Wed, 30 Apr 2025 12:51:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A760410E79A;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 593AC10E797;
 	Wed, 30 Apr 2025 12:51:46 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=oracle.com header.i=@oracle.com header.b="naBwmVhD";
-	dkim=pass (1024-bit key; unprotected) header.d=oracle.onmicrosoft.com header.i=@oracle.onmicrosoft.com header.b="c6asRttn";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="EK5vlaER";
 	dkim-atps=neutral
-Received: from mx0b-00069f02.pphosted.com (mx0b-00069f02.pphosted.com
- [205.220.177.32])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 27D8710E205;
- Mon, 28 Apr 2025 16:55:25 +0000 (UTC)
-Received: from pps.filterd (m0333520.ppops.net [127.0.0.1])
- by mx0b-00069f02.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 53SGfvPQ020178;
- Mon, 28 Apr 2025 16:54:56 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com; h=cc
- :content-type:date:from:in-reply-to:message-id:mime-version
- :references:subject:to; s=corp-2023-11-20; bh=dBBvzYsUzMJqNukQCN
- sicaBd/ALZja0fSyFJllfCmfc=; b=naBwmVhDxrML6FYNq0xpPGFYSL471TEuoX
- bJZlnAMJPo00V2terhMcJpd5TbRNg14NX4Epi9aQpZjfsBCbk1xGiXQKGqu4xEIZ
- uilg/LiaJv+jKQjCYL78UMGmj8Dg/np1PG8PRQKsvJjci0axncOtTs1IQXE6LBTb
- UYE8j76yNbdf7XdoqYPqYbGEDkofb294rpxMob51qMT8CnWsa/ElOtuFzTLNxb7q
- M5P23IGf8nIDeXn8ozfpk5m75hZoWicapRTZYiECJpOeF5SAaxUr/646OYps6Q6T
- QEEPW7utlB1cjjoOETs2fw9HRaGHTt7oRhTNLxIG9zaC2EZl4PYw==
-Received: from phxpaimrmta01.imrmtpd1.prodappphxaev1.oraclevcn.com
- (phxpaimrmta01.appoci.oracle.com [138.1.114.2])
- by mx0b-00069f02.pphosted.com (PPS) with ESMTPS id 46adbkg2eq-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Mon, 28 Apr 2025 16:54:56 +0000 (GMT)
-Received: from pps.filterd
- (phxpaimrmta01.imrmtpd1.prodappphxaev1.oraclevcn.com [127.0.0.1])
- by phxpaimrmta01.imrmtpd1.prodappphxaev1.oraclevcn.com (8.18.1.2/8.18.1.2)
- with ESMTP id 53SGqGm0011290; Mon, 28 Apr 2025 16:54:55 GMT
-Received: from nam11-co1-obe.outbound.protection.outlook.com
- (mail-co1nam11lp2171.outbound.protection.outlook.com [104.47.56.171])
- by phxpaimrmta01.imrmtpd1.prodappphxaev1.oraclevcn.com (PPS) with ESMTPS id
- 468nx96vkb-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Mon, 28 Apr 2025 16:54:55 +0000
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=nFB/Cmib3l1FTVm9bG4nsSOByoSf1aWSucGSerYhX/zs94rCMDcyUHWMV4/BjDRC1iqQkWaeP6JSgMe34WbIEWn6+rKXiZztbwQFscXQ5bPTwTiR69jFyVl0sVPkAmONZkuRderjQjcXeK7M0F64v61UrDXgcTXzdSdh9wDSQawT9VyyfD24Uzv+8oVYkba3VqrefjWw6nuHdoPViRlfHJuYTPjsDpeUFEe3PusuLE9SdUzJVVWilV+31lQuPBA3IRHF3jFqjVnuencBJGFuA+FQoy8CkIAmtoE+OgCtDGGkjQ3dBnmR/9C4vs9GwBWmVZ5m9qrVgpDtkQTCjj+FZw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=dBBvzYsUzMJqNukQCNsicaBd/ALZja0fSyFJllfCmfc=;
- b=JQ+EzUQif0H+02nIM85SgXtN1bIt0WGCN0ZzvpNyNz97WfOIYUYJjZeop8yrnKdeHAhlY+D/0pPTL270znFzKQ95RXLfPaS3b/1JiOHKNjTuls4vsE3CT3yc5ZUpNyemBujH6ZLe//b9AORdUJpqKfQmEH0qszEUzkvVv96AikNt/Vo8StUGiocCkViHORzocVN5D96anhaM9jxpWaGbYA0mrXISOWAWqNF0Ad6OdIBKF65QrmE+gUGNEKu1xkrYC8oEsnOXwSUV1T3szeP/dZ1HEPTwe5cwErXZ9WscHs2roAkQVs/xFzrxRFdvXih1oleFv4p3f4hz8Vb1p/gMrQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oracle.com; dmarc=pass action=none header.from=oracle.com;
- dkim=pass header.d=oracle.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oracle.onmicrosoft.com; s=selector2-oracle-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=dBBvzYsUzMJqNukQCNsicaBd/ALZja0fSyFJllfCmfc=;
- b=c6asRttnGbeoZ/n2AAqId2wO4j9LbAgvHZOyUlXjBunbpxayhlcZ+YAK18/HnaoLaE5Gd7tlOQYJ+fxY3itmw7qlMSvXRovMibGp1QqABIZNHR8F0DVz0f82y3X+2HMZMUfWSA91dIhj9wDy23fEQb/T+ld74MsHv0G4q+0dSc0=
-Received: from DM4PR10MB8218.namprd10.prod.outlook.com (2603:10b6:8:1cc::16)
- by DS7PR10MB7156.namprd10.prod.outlook.com (2603:10b6:8:e0::9) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.8678.30; Mon, 28 Apr 2025 16:54:52 +0000
-Received: from DM4PR10MB8218.namprd10.prod.outlook.com
- ([fe80::2650:55cf:2816:5f2]) by DM4PR10MB8218.namprd10.prod.outlook.com
- ([fe80::2650:55cf:2816:5f2%5]) with mapi id 15.20.8678.028; Mon, 28 Apr 2025
- 16:54:52 +0000
-Date: Mon, 28 Apr 2025 17:54:49 +0100
-From: Lorenzo Stoakes <lorenzo.stoakes@oracle.com>
-To: Peter Xu <peterx@redhat.com>
-Cc: David Hildenbrand <david@redhat.com>, linux-kernel@vger.kernel.org,
- linux-mm@kvack.org, x86@kernel.org, intel-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-trace-kernel@vger.kernel.org,
- Dave Hansen <dave.hansen@linux.intel.com>,
- Andy Lutomirski <luto@kernel.org>, Peter Zijlstra <peterz@infradead.org>,
- Thomas Gleixner <tglx@linutronix.de>, Ingo Molnar <mingo@redhat.com>,
- Borislav Petkov <bp@alien8.de>, "H. Peter Anvin" <hpa@zytor.com>,
- Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Tvrtko Ursulin <tursulin@ursulin.net>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Andrew Morton <akpm@linux-foundation.org>,
- Steven Rostedt <rostedt@goodmis.org>,
- Masami Hiramatsu <mhiramat@kernel.org>,
- Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
- "Liam R. Howlett" <Liam.Howlett@oracle.com>,
- Vlastimil Babka <vbabka@suse.cz>, Jann Horn <jannh@google.com>,
- Pedro Falcato <pfalcato@suse.de>
-Subject: Re: [PATCH v1 04/11] mm/memremap: convert to pfnmap_track() +
- pfnmap_untrack()
-Message-ID: <173b5150-fb34-4216-92d4-01fedbc76d21@lucifer.local>
-References: <20250425081715.1341199-1-david@redhat.com>
- <20250425081715.1341199-5-david@redhat.com>
- <aAvp6umyw1AF2DbN@x1.local>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <aAvp6umyw1AF2DbN@x1.local>
-X-ClientProxiedBy: LO4P265CA0172.GBRP265.PROD.OUTLOOK.COM
- (2603:10a6:600:312::15) To DM4PR10MB8218.namprd10.prod.outlook.com
- (2603:10b6:8:1cc::16)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BE0A010E699;
+ Mon, 28 Apr 2025 18:27:06 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sea.source.kernel.org (Postfix) with ESMTP id C22F34A593;
+ Mon, 28 Apr 2025 18:27:01 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 071C0C4CEED;
+ Mon, 28 Apr 2025 18:27:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1745864823;
+ bh=h5NvfaerCqqps0cYzgZ9hk6memBJ3cZgDY3NSZ5Txjs=;
+ h=From:Subject:Date:To:Cc:From;
+ b=EK5vlaER0+czh36fiLkRaLGLy7vyk1yh6mCHlfaBDlhKdEcmsRi1oJs/h/HSsFGF0
+ zOWVevDhweqDE9lkWZh0a9t47fvmXB+gUNBU0B3kx0MvZKsP83h7xeYdPrXAbLYEQ3
+ 8h9ogbtfVs8zaaG0nVY5kOLu5qlL1m2dSEzlOyg7WtOIq2jRFNIKErhIPW64lTgLvD
+ weZSj/4fLeEhHJsntfqXCqRxTo54rc4MZP5FrJ6BwRNlcSs81mk72HJeuDeYmx2A/g
+ FuzqDoewJWUX1RJhAjzbTlXRsYkNw5tDm5Rci4fVbrBc9UBexO3o/SPuBQKIr95f+E
+ cC+8lJprhAHdg==
+From: Jeff Layton <jlayton@kernel.org>
+Subject: [PATCH v5 00/10] ref_tracker: add ability to register a debugfs
+ file for a ref_tracker_dir
+Date: Mon, 28 Apr 2025 11:26:23 -0700
+Message-Id: <20250428-reftrack-dbgfs-v5-0-1cbbdf2038bd@kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM4PR10MB8218:EE_|DS7PR10MB7156:EE_
-X-MS-Office365-Filtering-Correlation-Id: 3ef4e22b-fde4-4c9f-7cb6-08dd8675653b
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|7416014|366016|376014|1800799024;
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?yJ9nrb68sSopDhtielkDAj4y671rpeKrb+/hIrdU//Um/Vg69cmhipQABQFi?=
- =?us-ascii?Q?Xn7uXgxJrmEYAz7dr8bzgz7tYiL/6F4Pi5oZd9ZGnL0wxmr2x6R3sSAGKHY4?=
- =?us-ascii?Q?YvKpwIUEHNVdqpVAavM4NDmyVoBQf7LQuRdk5IgnLU0eIWdULUsIn5TH8Koc?=
- =?us-ascii?Q?kawoQKN9aURTesCsbrcTmmz+or+pdH/axSjo0lzTjNnaMjYlQ0I1tuaBnnfp?=
- =?us-ascii?Q?dfQ+mD4FQgKJjEmaeRZvxsDhDL8NNrGMNXdnM/n+w+QX+Ztmfswx0zUZUxCP?=
- =?us-ascii?Q?KDwRMuAKsVWXjPnqGRBUID5N10+AAkiKhzUGkGnbpXSKEoLA9EAezHCyeljj?=
- =?us-ascii?Q?Ak1ouPPgf8kcNny4MYWnwEpZ41fWBt6aIuc9fHVZPjftGsGzrhN+3XzuFJ7E?=
- =?us-ascii?Q?wbuhuTD4h4o+uSmdxj+ojFNF/KPDMicy4MZqQKm92tQlTwh5dRYMp+d3ZL4p?=
- =?us-ascii?Q?8Jc8VThsZKOek485zPNtRSKackQvCMOd4K6IiVaW0RSy8WBQj3QQ0GTjweRm?=
- =?us-ascii?Q?avgCFCobs7jVIy8WX9RfHU405S8PdW+PDlfZuIzYzgkqrlaCEk5+Bkpn9eVH?=
- =?us-ascii?Q?IwFy59aHy2wuka/5822gNKiNvyDAAqrHcKqJ0B+3M5k/J3xuUGiGT8NMOquz?=
- =?us-ascii?Q?/eN3NtPCVfGJ6ckGzvUuKh4cV46OmdJtM+a9M5h41QfZuQPMwSC+wnTfE9Oc?=
- =?us-ascii?Q?9ZCi7/i7hgmDh4LeKyuug7Ih4DnyAODv69KFR44AvCMofTOpel0m7o0TcTUu?=
- =?us-ascii?Q?n7kOAXBPmOSru2FMte8nOltSGOorOix0caGcBAEoZ2rb9/SflDzHme69qeb5?=
- =?us-ascii?Q?K2BArik1QwqaJogp/ia8f+8XhVZnv+qKWAerrXL57Wm5EzFZvjqpmpvf32vf?=
- =?us-ascii?Q?259Y77fIZVxCEyqsLCQ+xtY+2n2mkYKor0VxVKvSNr8pW8K6frM/3STmoaAm?=
- =?us-ascii?Q?EkBuuGXLSNIW3BBtE1HrzRK7lIpbfwoIN4ft73Ypfuz4JG3WFQLFpNiobPF7?=
- =?us-ascii?Q?zr3g+g2EbU9BFqiv7+fZ8GIdFZdyLsxHnECCKOvdP2ObrUNe0URDte+c5f39?=
- =?us-ascii?Q?zBRGXbB0R8Q6otQJ25U+XquTEwkbGI+/L+7QyIFArMHp5XJ7CcR5JANLAxLq?=
- =?us-ascii?Q?MHpnQUBvrVygD9psRVZn3SXYf80jOl+uhBouid3ztQMy1OlDxVyU7YABc/oX?=
- =?us-ascii?Q?3cjZP2BGQG135zhKNUSDK+LlXyceFu6OqNRuIA+KSz0YR92TxcJJVSQvz9nb?=
- =?us-ascii?Q?TJK64HGhtg15O4qNgGZIS9g3JLFvKpRV2vQLPBHxV22bijmhsTWyFhswxNjx?=
- =?us-ascii?Q?eBpC3LNlLQZojluGiyRI7VrYBhbe+KlmDJKm8bUXCsQU8PVh1IHLXtDf0ERl?=
- =?us-ascii?Q?5uzY+qP2rDV2E9USQH/VWnE52QDup2YTZKJPU0Geh+z5abk91giFnrNLy9zC?=
- =?us-ascii?Q?6Hh3rGp46Rs=3D?=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM4PR10MB8218.namprd10.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(7416014)(366016)(376014)(1800799024); DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?q5C7ZzkgbkdXbyXcL7KmfV9ibjP2gMqA1BwHFUf0a9yeXcx/U2OcvmRwrl+r?=
- =?us-ascii?Q?zDvaHQa9FhoooAZIs0ZhZ9wvN83s5SqmUEwB6u1w+2MA9Jzgg78AgR8udZd+?=
- =?us-ascii?Q?b8J+FM4xrKwGFnLHKYkqH6GOMHTeh0WUK6Iw/ji+ew6f7y/oSTZnNc7PwD22?=
- =?us-ascii?Q?RCFftXVqcm1yxYOSVb8fJ/jyVPMTJBsWG8bE3mXYADqJgfpD/mmRSmXpdnW1?=
- =?us-ascii?Q?PWr3IR/CJshx2Ol6NwBnswwgFbPYaiHTilfHJYpkzNNzcrlxu9tcAW0zQgAL?=
- =?us-ascii?Q?UOZYvQkU9ymsEWb5HxH+l1ImA28xyc3aUswtjPnfiCBWmn9gooKbWzyOuVfn?=
- =?us-ascii?Q?F3MQ+7LHYHRU7COaRIE24Ee3sE15TbtgybzZIzP0ZfPF6nG3Jz5sHMrM7VRS?=
- =?us-ascii?Q?i2XTsA1glLEHL12Pgju+y9T1NurNQsEQkOn6wL0hzAnSE7L8OoTTuZto1JGH?=
- =?us-ascii?Q?x1UtjbOc0HMsq12xvxcy/kIYoHGw33dPyfqLhvNj35DaYZP1PON6l4bg5wnY?=
- =?us-ascii?Q?IbZuma7Bf+P1W+c59ao1J9AJwGpBRCIJHopXvnATm1MbHRrIyUxTHYPTnT3/?=
- =?us-ascii?Q?Ip8hOoxOUYCClUHgMaE5HZKO1qv8nNcz5QRvIG7TTpHFKY6cVS+eIYikTSNS?=
- =?us-ascii?Q?hS7uy89CBxdWt39zwME7WEO+VIsfOQYLy5qsUIqG33dFCKPo4JT9qFuXkUPs?=
- =?us-ascii?Q?EnfM4OBfL6t1fbm2P8eiACqTP7g0w+o1XQGns06fNh9FwkC3MAspTqW7UQde?=
- =?us-ascii?Q?y45OzCiES9wB7EHnXzP/tFvq7hfAQdtaLdSLK8mZnBnnR39vI2zv42Gt1c1m?=
- =?us-ascii?Q?sgxMv89J4zDnGzrPIbw3VTWo6uJ09Binv0Q0wJhmHHC+bXsg94hS7PzwNQIj?=
- =?us-ascii?Q?VGoEWp08ZqDKaboQ8PdYcRTXGxP1kR1LncFuFy1W2eBZezrGru8jdpT6yQ4x?=
- =?us-ascii?Q?hsXVOlqwN5+Uxw3DajD+iYpwxHqm7v5xYTxTDJJwHhyOlGgxkdhm2lxmKECP?=
- =?us-ascii?Q?sOVeF5ufoT5GKsY2Of29NU89Y/bVOB08wIHBn7wQhRHy+My3S0ErncPi45Fn?=
- =?us-ascii?Q?KRPBzD7slPyz6q6rTEdyMjJbLhgnWR2YXbLDzRCg1hvQiZUK66UX/cTPfqYa?=
- =?us-ascii?Q?I2981fGWIJeG4X+U1F16+bKtKkqw31LSHm4ssOLjfwIAvKUlMED4TmwdOPlq?=
- =?us-ascii?Q?1JVEoCglsJqBhaQaHTx0zxvB2LbAeEhosgCnXJvE6b+iiMJ71sGVkuNe/FsW?=
- =?us-ascii?Q?V7uAYbkrknDoSrxQ6kpWm2pkCR+rzjMc8YOb5D+j4hh+94bVLAQhnz/W2OSx?=
- =?us-ascii?Q?2S4NsJvwZjNjOzYSDdDux/QhoMJ42ZCvvvhPnRC+11c3CZHbEv2HNAkaOcB5?=
- =?us-ascii?Q?6H5eqO3VOPH7Y9CUhct0EiwGpFjMy1aawquAqlEgb2c2OckK/vm5W3JiCNar?=
- =?us-ascii?Q?8FXvy68edYAi0AFPRrDHOqASeYiXxa6AQQ2i9F88Haga+sfaqVBI5tDc5Gqc?=
- =?us-ascii?Q?XQ9FCkWZEr5hkw12i7P6JF/w23kMq9UyVr/UzjH0sM7YFvahD+itRSDvgyxN?=
- =?us-ascii?Q?Eq9waOuLNZhr0+1zaNnRehf9SIcg5XchaRbbU28i52UlKpG1r8K/I7xEq0US?=
- =?us-ascii?Q?pg=3D=3D?=
-X-MS-Exchange-AntiSpam-ExternalHop-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-ExternalHop-MessageData-0: dKEdKp1qdkdYbnqKejVruBAS1IW9VGSNgEWWFbNPwhXWjo2jhRywKRC6np+CuxEHSrlo36JO9uKseJk8Pm1fYWX4cIiwaaBCDJTJYsgJEaycB0J5zs4TcEN851n/2F8HvQL8Oq/RPiLnobdoNLp7LifXHscAW90b3nVLXJNhsfVFOvJ6GiCzVHx+M14keI3buplAFthXq5Hj3ZZdX8AmhzN6UNw5PIw8L8Mp1XRNBZ15kMPwmoDIujRSf8KqsE/gedWaJ6mcdmU2yVlC9rnyHJErRD4swU0oCzD8ANqSXhnp00x3nBJQEkGt4hM3Zp/1HxWMmOENXJ1b2v+4wwYyO/iVvce3EtOW63HJdAFrvwannRuiN/qn7wvVGzfNYV8+X5wMwjauE53kkQEH5r0lquDAmvl8hgG7F39GCmsZKUE1VEl8ERYrjkVRb0xr7oT0Z1APIP/aWiOqrcImCmjJ3BvYRino4R4HhYzi49Gy0ZIjfUFeqZ5aKlcFC6iBx18XkmwT9qCw3ymh8VrWRHltoceKQ/TEQHfUea6McxGclj55Mgg9jbX3ByfNZdX+lMKWz1cWOZnENEBvc4VRmqEIArYX611fGj5BgdT3heBQRo0=
-X-OriginatorOrg: oracle.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 3ef4e22b-fde4-4c9f-7cb6-08dd8675653b
-X-MS-Exchange-CrossTenant-AuthSource: DM4PR10MB8218.namprd10.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Apr 2025 16:54:52.4907 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 4e2c6054-71cb-48f1-bd6c-3a9705aca71b
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: WViBZ3Nr2uDNcrDGYzB10jddqMLXsS2qzsZQAl/o63KTZwCVl1iESmNGhDOkFqOaL7JdhRxBkSyT3QuaWFq/07O5Mbq5xvonm8SE301aO/g=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR10MB7156
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1099,Hydra:6.0.736,FMLib:17.12.80.40
- definitions=2025-04-28_06,2025-04-24_02,2025-02-21_01
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 mlxlogscore=899
- malwarescore=0
- suspectscore=0 adultscore=0 phishscore=0 mlxscore=0 bulkscore=0
- spamscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-2504070000 definitions=main-2504280137
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwNDI4MDEzNyBTYWx0ZWRfX6t6n/NisXvdK
- S6xmONghgv2hv4SgM2px0jiU5RKHuBlPB046ZJ2oOYXZNsfqWOZNzM+MVGk0+RDhU9yvIl1KrGi
- pGbcJe1gcDPX66cFdZJUoAsyPxbGJwCEqfFzWsls8uzqh1O8dQLuqJZa+uIpSMG/Pf7xHg44bZ5
- IFD+Cs4I1j/A0CJqFZKDFiEbsM+IWVpYFvnWNZUo7alIDNhaPNr9MFwyjPz3QFpaxURq8kJHvIx
- XmOYR25DLhH40hJtWVirBQGUQjTONpbbjWukmyJbZDDvzJGBxet3uuGOEizwKiAt/KfIMfkRl8G
- dHOq1Bqtvl8lM7hFfxzETLVaC/xdFlwXliwskV1xqK1/T1OUeR3s0SZNBTeTBRnnFteYWsVVNyb
- DE82Ckn5
-X-Proofpoint-GUID: hYHS45eP4ogmrR9yR895yxL0pJAqsbBm
-X-Proofpoint-ORIG-GUID: hYHS45eP4ogmrR9yR895yxL0pJAqsbBm
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAFDID2gC/2XMQQ7CIBCF4asY1mJghrHUlfcwLoBCJZrWgGk0p
+ ncXTUyqLN9Mvv/Jsk/RZ7ZbPVnyU8xxHMqg9Yq5kxl6z2NXNgMBJJREnny4JePOvLN9yBybbWN
+ RoIdgWEHX8o/3T/BwLPsU821Mj09/ku/rN6X+U5PkggeBpEkjgMD92afBXzZj6tm7NcHSU+Whe
+ Cu1U8Z2EiBUHpe+qTwW71BSq0A7HWzl1dLryqviyRlyjW5bUurHz/P8AmLli/FtAQAA
+X-Change-ID: 20250413-reftrack-dbgfs-3767b303e2fa
+To: Andrew Morton <akpm@linux-foundation.org>, 
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+ Simon Horman <horms@kernel.org>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Jani Nikula <jani.nikula@linux.intel.com>, 
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, 
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, 
+ Tvrtko Ursulin <tursulin@ursulin.net>
+Cc: Kuniyuki Iwashima <kuniyu@amazon.com>, Qasim Ijaz <qasdev00@gmail.com>, 
+ Nathan Chancellor <nathan@kernel.org>, Andrew Lunn <andrew@lunn.ch>, 
+ linux-kernel@vger.kernel.org, netdev@vger.kernel.org, 
+ dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org, 
+ Jeff Layton <jlayton@kernel.org>, 
+ =?utf-8?q?Thomas_Wei=C3=9Fschuh?= <thomas.weissschuh@linutronix.de>
+X-Mailer: b4 0.14.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3743; i=jlayton@kernel.org;
+ h=from:subject:message-id; bh=h5NvfaerCqqps0cYzgZ9hk6memBJ3cZgDY3NSZ5Txjs=;
+ b=owEBbQKS/ZANAwAIAQAOaEEZVoIVAcsmYgBoD8h0Gv1hJSTC52TiQX1Rum6sG9p3zd0+46lkO
+ ABX5YCEVFmJAjMEAAEIAB0WIQRLwNeyRHGyoYTq9dMADmhBGVaCFQUCaA/IdAAKCRAADmhBGVaC
+ FWBlD/9nSekgdog3Y0VbADaub1JMYh6XgrPCxk66va48i1As/b4j+949889BsJXOuU5eo1qYYv5
+ 2ZBqcDue3RzxePkz9jw2cWg8Zo7YU/7//UKTqRVI6kG+vf4R2lhmLctKR3oWFuWWmwyh+IvuhNT
+ kFyYYZ12L2pvx12FFj9qkNPwHD9JUT0mkJztQjiysVueJqqHkGHkFbZPJ2YikAHu+vMmb/+Aqrm
+ utmSB/wIXxRezR0MERBzxEC0K9rcK07noF3B+8AfPrGrNkSYGjaqY8JDogMsFZdvjUIh9/4MZVg
+ arhS0Z8/l9qSi/rzz84Y3LuUrgwyGeQpl726/D3EXqZufPcdQi3/5Zy/5wgonetj1Z93I85Mlh8
+ oe1qOzLkBHWep2exCnUhuAhtaQE7oyuMh5Ko64JjTaI2Dfh7gnPP5vmhG0ffzPF4ej6ge2mb2qL
+ 5imTmUlovF/SI2qbppJZIdT/8wQtRXNIdQ8hBxJO/8vH1b2DgQ9ufuA/SDgrKbimiZhq1pmx+a0
+ CUZOYzRvsUW/yG3f0oTq2+NmVZglafk2dObXM6k7Rr3rNDQa+OjHpSp+JZrMVaWoDn6s79uiYW3
+ 2Mnqcyz470Ltg27ob5LIzJJ+MFF197KO6zixiHZ1+zuDUewp5jc9IJNQcpX02XDVQslelNckqCK
+ t+z/OEdbZsXRXiQ==
+X-Developer-Key: i=jlayton@kernel.org; a=openpgp;
+ fpr=4BC0D7B24471B2A184EAF5D3000E684119568215
 X-Mailman-Approved-At: Wed, 30 Apr 2025 12:51:16 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -210,66 +93,81 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Fri, Apr 25, 2025 at 04:00:42PM -0400, Peter Xu wrote:
-> On Fri, Apr 25, 2025 at 10:17:08AM +0200, David Hildenbrand wrote:
-> > Let's use the new, cleaner interface.
-> >
-> > Signed-off-by: David Hildenbrand <david@redhat.com>
-> > ---
-> >  mm/memremap.c | 8 ++++----
-> >  1 file changed, 4 insertions(+), 4 deletions(-)
-> >
-> > diff --git a/mm/memremap.c b/mm/memremap.c
-> > index 2aebc1b192da9..c417c843e9b1f 100644
-> > --- a/mm/memremap.c
-> > +++ b/mm/memremap.c
-> > @@ -130,7 +130,7 @@ static void pageunmap_range(struct dev_pagemap *pgmap, int range_id)
-> >  	}
-> >  	mem_hotplug_done();
-> >
-> > -	untrack_pfn(NULL, PHYS_PFN(range->start), range_len(range), true);
-> > +	pfnmap_untrack(PHYS_PFN(range->start), range_len(range));
-> >  	pgmap_array_delete(range);
-> >  }
-> >
-> > @@ -211,8 +211,8 @@ static int pagemap_range(struct dev_pagemap *pgmap, struct mhp_params *params,
-> >  	if (nid < 0)
-> >  		nid = numa_mem_id();
-> >
-> > -	error = track_pfn_remap(NULL, &params->pgprot, PHYS_PFN(range->start), 0,
-> > -			range_len(range));
-> > +	error = pfnmap_track(PHYS_PFN(range->start), range_len(range),
-> > +			     &params->pgprot);
-> >  	if (error)
-> >  		goto err_pfn_remap;
-> >
-> > @@ -277,7 +277,7 @@ static int pagemap_range(struct dev_pagemap *pgmap, struct mhp_params *params,
-> >  	if (!is_private)
-> >  		kasan_remove_zero_shadow(__va(range->start), range_len(range));
-> >  err_kasan:
-> > -	untrack_pfn(NULL, PHYS_PFN(range->start), range_len(range), true);
-> > +	pfnmap_untrack(PHYS_PFN(range->start), range_len(range));
->
-> Not a huge deal, but maybe we could merge this and previous patch?  It
-> might be easier to reference the impl when reading the call site changes.
+This one is quite a bit of a change from the last set. I've gone back to
+auto-registering the debugfs files for every ref_tracker_dir. With this,
+the callers should pass in a static string as a classname instead of an
+individual name string that gets copied. The debugfs file is given a
+name "class@%px" The output format is switched to print "class@%p"
+instead of "name@%p".
 
-Agreed, it would add a sort of built-in justification for the prior patch
-as in 'here is where we use it, this is why I'm doing this' kind of thing
-also.
+To allow for human-readable names, I've added the ability to add a
+symlink in the debugfs dir that can be set to an arbitrary name. This is
+optional. I've only added them to the netns and i915 trackers in this
+series.
 
-And I think this is small enough combined with the previous to not be a big
-deal to have both together.
+Finally, with the above changes, we can eliminate the "name" field in
+the ref_tracker_dir which shrinks it by 16 bytes on a 64 bit host.
 
-Thanks!
+The original plan was to merge this via the networking tree. That's
+probably still doable but there are some display port and i915 changes
+in here too. Note that those are untested, mostly because I don't have
+the necessary hardware handy.
 
->
-> >  err_pfn_remap:
-> >  	pgmap_array_delete(range);
-> >  	return error;
-> > --
-> > 2.49.0
-> >
->
-> --
-> Peter Xu
->
+Signed-off-by: Jeff Layton <jlayton@kernel.org>
+---
+Changes in v5:
+- add class string to each ref_tracker_dir
+- auto-register debugfs file for every tracker in ref_tracker_dir_init
+- add function to allow adding a symlink for each tracker
+- add patches to create symlinks for netns's and i915 entries
+- change output format to print class@%p instead of name@%p
+- eliminate the name field in ref_tracker_dir
+- fix off-by-one bug when NULL terminating name string
+- Link to v4: https://lore.kernel.org/r/20250418-reftrack-dbgfs-v4-0-5ca5c7899544@kernel.org
+
+Changes in v4:
+- Drop patch to widen ref_tracker_dir_.name, use NAME_MAX+1 (256) instead since this only affects dentry name
+- Link to v3: https://lore.kernel.org/r/20250417-reftrack-dbgfs-v3-0-c3159428c8fb@kernel.org
+
+Changes in v3:
+- don't overwrite dir->name in ref_tracker_dir_debugfs
+- define REF_TRACKER_NAMESZ and use it when setting name
+- Link to v2: https://lore.kernel.org/r/20250415-reftrack-dbgfs-v2-0-b18c4abd122f@kernel.org
+
+Changes in v2:
+- Add patch to do %pK -> %p conversion in ref_tracker.c
+- Pass in output function to pr_ostream() instead of if statement
+- Widen ref_tracker_dir.name to 64 bytes to accomodate unique names
+- Eliminate error handling with debugfs manipulation
+- Incorporate pointer value into netdev name
+- Link to v1: https://lore.kernel.org/r/20250414-reftrack-dbgfs-v1-0-f03585832203@kernel.org
+
+---
+Jeff Layton (10):
+      ref_tracker: don't use %pK in pr_ostream() output
+      ref_tracker: add a top level debugfs directory for ref_tracker
+      ref_tracker: have callers pass output function to pr_ostream()
+      ref_tracker: allow pr_ostream() to print directly to a seq_file
+      ref_tracker: add a static classname string to each ref_tracker_dir
+      ref_tracker: automatically register a file in debugfs for a ref_tracker_dir
+      ref_tracker: add a way to create a symlink to the ref_tracker_dir debugfs file
+      net: add symlinks to ref_tracker_dir for netns
+      i915: add ref_tracker_dir symlinks for each tracker
+      ref_tracker: eliminate the ref_tracker_dir name field
+
+ drivers/gpu/drm/display/drm_dp_tunnel.c |   2 +-
+ drivers/gpu/drm/i915/intel_runtime_pm.c |   4 +-
+ drivers/gpu/drm/i915/intel_wakeref.c    |   3 +-
+ include/linux/ref_tracker.h             |  41 ++++++-
+ lib/ref_tracker.c                       | 194 +++++++++++++++++++++++++++++---
+ net/core/dev.c                          |   2 +-
+ net/core/net_namespace.c                |  32 +++++-
+ 7 files changed, 252 insertions(+), 26 deletions(-)
+---
+base-commit: 5bc1018675ec28a8a60d83b378d8c3991faa5a27
+change-id: 20250413-reftrack-dbgfs-3767b303e2fa
+
+Best regards,
+-- 
+Jeff Layton <jlayton@kernel.org>
+
