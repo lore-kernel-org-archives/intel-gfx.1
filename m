@@ -4,39 +4,39 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9244DC3ABB0
-	for <intel-gfx@archiver.kernel.org>; Wed, 30 Apr 2025 12:51:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6677AC3ABA9
+	for <intel-gfx@archiver.kernel.org>; Wed, 30 Apr 2025 12:51:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7D3FD10E782;
-	Wed, 30 Apr 2025 12:51:18 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E262E10E779;
+	Wed, 30 Apr 2025 12:51:17 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="CMLwNem1";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="hV1eg0Uq";
 	dkim-atps=neutral
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 397F110E6AB;
- Mon, 28 Apr 2025 18:27:17 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9E1F810E6A1;
+ Mon, 28 Apr 2025 18:27:07 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id A3BB65C5F75;
- Mon, 28 Apr 2025 18:24:56 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CE053C4CEED;
- Mon, 28 Apr 2025 18:27:12 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id B72D8614AF;
+ Mon, 28 Apr 2025 18:26:39 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D3793C4CEF0;
+ Mon, 28 Apr 2025 18:27:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1745864833;
- bh=LUr5khTFmeDi+Ua8+P5dJsfAbjq9HmURsDGnKrGJrGs=;
+ s=k20201202; t=1745864824;
+ bh=qdjjg9250uAChp/B6CMoiJw5KiM08dmL8XUQ0eA5f48=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=CMLwNem1Fcc57a738z/tvDNE5PIQWOMMuBlhcebPgLlVA9nYnYadpQ9oTJKD0G9Pu
- EffEBnYnNQuY0W0//zEB6jFAluTG/ZGGOLR4iGHhUDfHRAN9PUzY96XEfeFe+vuBlN
- mlxu+/c8Qp2Geo4BjarYfoLWeTo/eIeMlJnW7P3Yi1RWNphh3oazPbawyTJm0SA+WR
- +fN66ZP23A4HYk1v8UyndZtSLgL1O/vUzmapnYx7EacKrlAtw3fe8N8N/senlsRw7D
- xr7QWbMY2Xcu/+NDw0QoWAYqY74eYO3iXDosAD1AUa1SDQ+tKrBNBNC0X0ZddBIxih
- W9D1CptjskySg==
+ b=hV1eg0Uq/DZQX8A0KlSx+gVYNKjrpskt86+XZbdmPc7E83wxD4EUaVvD2mOfRGGNN
+ VMqTSA53kRBBPKbR+UqysP4R3IjqW0DqUYvzdjIZBzo7/Xd1b96uWc2iAPcwRN3AF4
+ kqnJ3t8qcmESHR0ZuckaeCKN4jOrFo/T/Kba4Cibtm7s9ncBNTjfv+6eypkdFSsu95
+ OdQXwygkOy6w+hzJ5M4IlNjhM/sRBHgPBcK6w6kVjSpMz9shrYaPZVSreEL+qyLsUO
+ rELZ1Uz8+HHE0L4X5RQ1SeE2lPLMQ4dWKq9khflInEAL7cXT9eY0oQYs3sB/J6exUI
+ B3xEQlihqY9RA==
 From: Jeff Layton <jlayton@kernel.org>
-Date: Mon, 28 Apr 2025 11:26:32 -0700
-Subject: [PATCH v5 09/10] i915: add ref_tracker_dir symlinks for each tracker
+Date: Mon, 28 Apr 2025 11:26:24 -0700
+Subject: [PATCH v5 01/10] ref_tracker: don't use %pK in pr_ostream() output
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20250428-reftrack-dbgfs-v5-9-1cbbdf2038bd@kernel.org>
+Content-Transfer-Encoding: 8bit
+Message-Id: <20250428-reftrack-dbgfs-v5-1-1cbbdf2038bd@kernel.org>
 References: <20250428-reftrack-dbgfs-v5-0-1cbbdf2038bd@kernel.org>
 In-Reply-To: <20250428-reftrack-dbgfs-v5-0-1cbbdf2038bd@kernel.org>
 To: Andrew Morton <akpm@linux-foundation.org>, 
@@ -54,22 +54,23 @@ Cc: Kuniyuki Iwashima <kuniyu@amazon.com>, Qasim Ijaz <qasdev00@gmail.com>,
  Nathan Chancellor <nathan@kernel.org>, Andrew Lunn <andrew@lunn.ch>, 
  linux-kernel@vger.kernel.org, netdev@vger.kernel.org, 
  dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org, 
- Jeff Layton <jlayton@kernel.org>
+ Jeff Layton <jlayton@kernel.org>, 
+ =?utf-8?q?Thomas_Wei=C3=9Fschuh?= <thomas.weissschuh@linutronix.de>
 X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1485; i=jlayton@kernel.org;
- h=from:subject:message-id; bh=LUr5khTFmeDi+Ua8+P5dJsfAbjq9HmURsDGnKrGJrGs=;
- b=owEBbQKS/ZANAwAIAQAOaEEZVoIVAcsmYgBoD8h2gRjkmyNDtqQz8jGSWwZwY7At/oqUlVT1Z
- iLVbzuEaAaJAjMEAAEIAB0WIQRLwNeyRHGyoYTq9dMADmhBGVaCFQUCaA/IdgAKCRAADmhBGVaC
- FaUPD/0TiwzsG/qKnXlSUou4EyQ/Rhx5C1GxSJr5nJ/vjfm9VJyXyGfyUEQSKJzmf2PcH5G6Xi5
- kqFV4jqEh3d1hQQmtEnfp5j02RAB4qGgHlZITDXJawCu2DBqW1LSBquWlQMnKZg2ceDNTGoXh7p
- ih2SqyMd9i7WyZFtZ8vNpIYttg1+FSgmMnu/vYZ2PjdWrWBPiwNj5hhaYmnljeKqc8YqphfOzKJ
- f7EoF2/fWAAO9ocbMf/6sx/x4IDqSbdGTFPt3ltzMhezteRuXs9/WDKrotUKl02NsaBflXvjZHf
- megsqTfQcMtp7wjdT/2d+ABVlUO3u431g7US+IbXhExlOcdsQ6497b7bEnEzGFfATG6ONf0+k5N
- tVSeNKBsQoz1LxmEnLs3hd5KuyyZoTtmi+5FR0XCyWgyKdhvusLFn5XKeyjuclD42elHcMoWJKD
- LO6Cv56Y8GOHQ/uTXI3Eb0MnyCfw5jLutZ9uIEMc9aJvuKD5TnR4IHRhGwKXeJww3OxgvWbG3lS
- tj6fjuNQ5lQfAvQfWGuC8o7G6HsQUKsgn0CfIEnpKbAe86Tv+ECv4kMn9zcQUY2zw6NKEzQSLc6
- d0vd4uyTY4k77Lgg5lQh6xDOnnlCJsxxc9J9xmAYoHFW512t+k+JKLPzPo8/XIXMOnDpizory64
- qhdlAV0pNa2R6fg==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1830; i=jlayton@kernel.org;
+ h=from:subject:message-id; bh=qdjjg9250uAChp/B6CMoiJw5KiM08dmL8XUQ0eA5f48=;
+ b=owEBbQKS/ZANAwAIAQAOaEEZVoIVAcsmYgBoD8h02NwYy4QXxJrP67+BDY0VaVkg4r1pRn5qS
+ ThHlMbXUlmJAjMEAAEIAB0WIQRLwNeyRHGyoYTq9dMADmhBGVaCFQUCaA/IdAAKCRAADmhBGVaC
+ FWLKD/9kwVxWvoaZkkWJH23eYL0p1SJDJCllNlPCiwOjfKYfWGGVvcN0dCzywhl8diyAwhsgEt4
+ 81UPbDdDwoMKs+shn2AoycZZqRrXAFqqi2MpuX6orpIsoKXJzHe0p+ABKW7eJ9wKVPqsiMUCxCD
+ /zL/x6SZTgtGokEdHsec9vkmhRmbRFtHKb0FSZXMbjVkg7xgH6SWi6KVZxl0ewhbsjKd/uHx2Eq
+ r4IhWfVcHtTS4pSXLDQB/kHRo26twmEVDHw5B86+bBjF9M8fr2fiLvgxAmp4em6OoeUsxFPaqSo
+ 6wMUeiY7ArzcUHiLc04LYIP4BdFi7v17GdW21Wd9I/Q7/Pn3Ha5nd3DXDip4zK68lM4A6Vd6OA5
+ VNOinpxLz6BcuYQsKV5n5ewHoFoiDCTspmeOLTYI5Pq8aTVZzvgF4l7JzSYedQ6TxWP0q4nephy
+ 56jlt9AFPFkrNS+81MODB1rjFhuZTj+QK3Lb+RbgDDq6D2e6DGEAcUdtHgMFQwQ8RLDRbRcnvcC
+ NA/VtukaNKktRpEZK+iVvZEEW9JLzEMvA1X4WVZQ1D+I9Q2o40CPXb2uTa862pGx0w9VUsBvtOj
+ Skk92/jT1GfDAfRZGr+9uHN2gg4mJFxSBBBgWPpLlTcTHI00YCeQfkd2TG9tSZrypSYrDQkEewy
+ WSZ6/w+jw7nmTeA==
 X-Developer-Key: i=jlayton@kernel.org; a=openpgp;
  fpr=4BC0D7B24471B2A184EAF5D3000E684119568215
 X-Mailman-Approved-At: Wed, 30 Apr 2025 12:51:16 +0000
@@ -88,39 +89,49 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Now that there is the ability to create a symlink for each tracker, do
-so for the i915 entries.
+As Thomas Weißschuh points out [1], it is now preferable to use %p
+instead of hashed pointers with printk(), since raw pointers should no
+longer be leaked into the kernel log. Change the ref_tracker
+infrastructure to use %p instead of %pK in its formats.
 
+[1]: https://lore.kernel.org/netdev/20250414-restricted-pointers-net-v1-0-12af0ce46cdd@linutronix.de/
+
+Cc: Thomas Weißschuh <thomas.weissschuh@linutronix.de>
+Reviewed-by: Thomas Weißschuh <thomas.weissschuh@linutronix.de>
 Signed-off-by: Jeff Layton <jlayton@kernel.org>
 ---
- drivers/gpu/drm/i915/intel_runtime_pm.c | 1 +
- drivers/gpu/drm/i915/intel_wakeref.c    | 1 +
- 2 files changed, 2 insertions(+)
+ lib/ref_tracker.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/intel_runtime_pm.c b/drivers/gpu/drm/i915/intel_runtime_pm.c
-index 3fdab3b44c08cea16ac2f73aafc2bea2ffbb19e7..94315e952ead9be276298fb2a0200d102005a0c1 100644
---- a/drivers/gpu/drm/i915/intel_runtime_pm.c
-+++ b/drivers/gpu/drm/i915/intel_runtime_pm.c
-@@ -61,6 +61,7 @@ static void init_intel_runtime_pm_wakeref(struct intel_runtime_pm *rpm)
- {
- 	ref_tracker_dir_init(&rpm->debug, INTEL_REFTRACK_DEAD_COUNT,
- 			     "intel_runtime_pm", dev_name(rpm->kdev));
-+	ref_tracker_dir_symlink(&rpm->debug, "intel_runtime_pm-%s", dev_name(rpm->kdev));
- }
+diff --git a/lib/ref_tracker.c b/lib/ref_tracker.c
+index cf5609b1ca79361763abe5a3a98484a3ee591ff2..de71439e12a3bab6456910986fa611dfbdd97980 100644
+--- a/lib/ref_tracker.c
++++ b/lib/ref_tracker.c
+@@ -96,7 +96,7 @@ __ref_tracker_dir_pr_ostream(struct ref_tracker_dir *dir,
  
- static intel_wakeref_t
-diff --git a/drivers/gpu/drm/i915/intel_wakeref.c b/drivers/gpu/drm/i915/intel_wakeref.c
-index 5269e64c58a49884f5d712557546272bfdeb8417..2e0498b3fa7947f994de1339d4d2bed93de1a795 100644
---- a/drivers/gpu/drm/i915/intel_wakeref.c
-+++ b/drivers/gpu/drm/i915/intel_wakeref.c
-@@ -115,6 +115,7 @@ void __intel_wakeref_init(struct intel_wakeref *wf,
+ 	stats = ref_tracker_get_stats(dir, display_limit);
+ 	if (IS_ERR(stats)) {
+-		pr_ostream(s, "%s@%pK: couldn't get stats, error %pe\n",
++		pr_ostream(s, "%s@%p: couldn't get stats, error %pe\n",
+ 			   dir->name, dir, stats);
+ 		return;
+ 	}
+@@ -107,13 +107,13 @@ __ref_tracker_dir_pr_ostream(struct ref_tracker_dir *dir,
+ 		stack = stats->stacks[i].stack_handle;
+ 		if (sbuf && !stack_depot_snprint(stack, sbuf, STACK_BUF_SIZE, 4))
+ 			sbuf[0] = 0;
+-		pr_ostream(s, "%s@%pK has %d/%d users at\n%s\n", dir->name, dir,
++		pr_ostream(s, "%s@%p has %d/%d users at\n%s\n", dir->name, dir,
+ 			   stats->stacks[i].count, stats->total, sbuf);
+ 		skipped -= stats->stacks[i].count;
+ 	}
  
- #if IS_ENABLED(CONFIG_DRM_I915_DEBUG_WAKEREF)
- 	ref_tracker_dir_init(&wf->debug, INTEL_REFTRACK_DEAD_COUNT, "intel_wakeref", name);
-+	ref_tracker_dir_symlink(&wf->debug, "intel_wakeref-%s", name);
- #endif
- }
+ 	if (skipped)
+-		pr_ostream(s, "%s@%pK skipped reports about %d/%d users.\n",
++		pr_ostream(s, "%s@%p skipped reports about %d/%d users.\n",
+ 			   dir->name, dir, skipped, stats->total);
  
+ 	kfree(sbuf);
 
 -- 
 2.49.0
