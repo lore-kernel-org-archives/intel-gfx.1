@@ -4,39 +4,39 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6677AC3ABA9
-	for <intel-gfx@archiver.kernel.org>; Wed, 30 Apr 2025 12:51:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 09F84C3ABAD
+	for <intel-gfx@archiver.kernel.org>; Wed, 30 Apr 2025 12:51:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E262E10E779;
-	Wed, 30 Apr 2025 12:51:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3D9B010E781;
+	Wed, 30 Apr 2025 12:51:18 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="hV1eg0Uq";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="ROUBUlXP";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9E1F810E6A1;
- Mon, 28 Apr 2025 18:27:07 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 394E710E6A4;
+ Mon, 28 Apr 2025 18:27:17 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id B72D8614AF;
- Mon, 28 Apr 2025 18:26:39 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D3793C4CEF0;
- Mon, 28 Apr 2025 18:27:03 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTP id D84485C5F70;
+ Mon, 28 Apr 2025 18:24:55 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 08A5FC4CEF0;
+ Mon, 28 Apr 2025 18:27:12 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1745864824;
- bh=qdjjg9250uAChp/B6CMoiJw5KiM08dmL8XUQ0eA5f48=;
+ s=k20201202; t=1745864832;
+ bh=HxYYob4i7WkZ4QVFzXDuapuOVvHl8o21L1EhBkSyHxk=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=hV1eg0Uq/DZQX8A0KlSx+gVYNKjrpskt86+XZbdmPc7E83wxD4EUaVvD2mOfRGGNN
- VMqTSA53kRBBPKbR+UqysP4R3IjqW0DqUYvzdjIZBzo7/Xd1b96uWc2iAPcwRN3AF4
- kqnJ3t8qcmESHR0ZuckaeCKN4jOrFo/T/Kba4Cibtm7s9ncBNTjfv+6eypkdFSsu95
- OdQXwygkOy6w+hzJ5M4IlNjhM/sRBHgPBcK6w6kVjSpMz9shrYaPZVSreEL+qyLsUO
- rELZ1Uz8+HHE0L4X5RQ1SeE2lPLMQ4dWKq9khflInEAL7cXT9eY0oQYs3sB/J6exUI
- B3xEQlihqY9RA==
+ b=ROUBUlXPD3eKLlzG4sQHNnNBoZW0cz/EGuOl2q7VbT09u74yESrZWWaOyhFSo748a
+ vy68Fpcsm7U2UWBKOpl6AqLQj+JkuXu/S+Q84qkFSB8tEMYldDJHKcg8bM7FwuBwrw
+ KLsrZR99QpVZRTKTkt6kHXR4v8MuVHrJX2cJngZMwHoK7oL3mFOxK/oiLCFzfbI4Vy
+ 10qF7ZDfmNbxJAw2BrrbJDxJqryDaug/l4kjwCZMiLhYC+H1AsDo9PkYF8JuQSpCpu
+ FN2s34oVZFlWlOHiiMNqCV5G7kSdoax25/7s+n4og8b6gPrVioy7fTahXAO2kPgdSB
+ m5gzPmzv2YEeQ==
 From: Jeff Layton <jlayton@kernel.org>
-Date: Mon, 28 Apr 2025 11:26:24 -0700
-Subject: [PATCH v5 01/10] ref_tracker: don't use %pK in pr_ostream() output
+Date: Mon, 28 Apr 2025 11:26:31 -0700
+Subject: [PATCH v5 08/10] net: add symlinks to ref_tracker_dir for netns
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Message-Id: <20250428-reftrack-dbgfs-v5-1-1cbbdf2038bd@kernel.org>
+Content-Transfer-Encoding: 7bit
+Message-Id: <20250428-reftrack-dbgfs-v5-8-1cbbdf2038bd@kernel.org>
 References: <20250428-reftrack-dbgfs-v5-0-1cbbdf2038bd@kernel.org>
 In-Reply-To: <20250428-reftrack-dbgfs-v5-0-1cbbdf2038bd@kernel.org>
 To: Andrew Morton <akpm@linux-foundation.org>, 
@@ -54,23 +54,22 @@ Cc: Kuniyuki Iwashima <kuniyu@amazon.com>, Qasim Ijaz <qasdev00@gmail.com>,
  Nathan Chancellor <nathan@kernel.org>, Andrew Lunn <andrew@lunn.ch>, 
  linux-kernel@vger.kernel.org, netdev@vger.kernel.org, 
  dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org, 
- Jeff Layton <jlayton@kernel.org>, 
- =?utf-8?q?Thomas_Wei=C3=9Fschuh?= <thomas.weissschuh@linutronix.de>
+ Jeff Layton <jlayton@kernel.org>
 X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1830; i=jlayton@kernel.org;
- h=from:subject:message-id; bh=qdjjg9250uAChp/B6CMoiJw5KiM08dmL8XUQ0eA5f48=;
- b=owEBbQKS/ZANAwAIAQAOaEEZVoIVAcsmYgBoD8h02NwYy4QXxJrP67+BDY0VaVkg4r1pRn5qS
- ThHlMbXUlmJAjMEAAEIAB0WIQRLwNeyRHGyoYTq9dMADmhBGVaCFQUCaA/IdAAKCRAADmhBGVaC
- FWLKD/9kwVxWvoaZkkWJH23eYL0p1SJDJCllNlPCiwOjfKYfWGGVvcN0dCzywhl8diyAwhsgEt4
- 81UPbDdDwoMKs+shn2AoycZZqRrXAFqqi2MpuX6orpIsoKXJzHe0p+ABKW7eJ9wKVPqsiMUCxCD
- /zL/x6SZTgtGokEdHsec9vkmhRmbRFtHKb0FSZXMbjVkg7xgH6SWi6KVZxl0ewhbsjKd/uHx2Eq
- r4IhWfVcHtTS4pSXLDQB/kHRo26twmEVDHw5B86+bBjF9M8fr2fiLvgxAmp4em6OoeUsxFPaqSo
- 6wMUeiY7ArzcUHiLc04LYIP4BdFi7v17GdW21Wd9I/Q7/Pn3Ha5nd3DXDip4zK68lM4A6Vd6OA5
- VNOinpxLz6BcuYQsKV5n5ewHoFoiDCTspmeOLTYI5Pq8aTVZzvgF4l7JzSYedQ6TxWP0q4nephy
- 56jlt9AFPFkrNS+81MODB1rjFhuZTj+QK3Lb+RbgDDq6D2e6DGEAcUdtHgMFQwQ8RLDRbRcnvcC
- NA/VtukaNKktRpEZK+iVvZEEW9JLzEMvA1X4WVZQ1D+I9Q2o40CPXb2uTa862pGx0w9VUsBvtOj
- Skk92/jT1GfDAfRZGr+9uHN2gg4mJFxSBBBgWPpLlTcTHI00YCeQfkd2TG9tSZrypSYrDQkEewy
- WSZ6/w+jw7nmTeA==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1775; i=jlayton@kernel.org;
+ h=from:subject:message-id; bh=HxYYob4i7WkZ4QVFzXDuapuOVvHl8o21L1EhBkSyHxk=;
+ b=owEBbQKS/ZANAwAIAQAOaEEZVoIVAcsmYgBoD8h2GIUwsTMOiBkykV6nuYvnnAsHTw4T6X74O
+ LiXbumtkWeJAjMEAAEIAB0WIQRLwNeyRHGyoYTq9dMADmhBGVaCFQUCaA/IdgAKCRAADmhBGVaC
+ FWI4EAC0+pEyulF/sfWI4GSW8V2DaQRCQDfMCa92oSSE+i2/vnZtDa+FhiFKqLgJ9Qbc3zIWMlh
+ 6uP25y50Qr1XSgtQHIKLfeef4UngKWy95iLBqv2QtI+uzKXMUkUQ4bkIBiHwxjtW8lZ3uHuHHqn
+ grX6JJ7bmKjqS/PaFPftvv5d8wfpQgmXNiZTtxGEOP7aHfcvXzVINbFbyIwla/FMoEddtGqVaG9
+ AoTZxDzZRkk4JQuPtOWeXOwfhF3BQTSFuRBbuHURzkyVhNl8Hsa86xeyalMymzqdcbSYKBuB3g+
+ 12SX0db02yr7eLebsMfBu7PamKhoCVjrGstlYVoFMCbcZTBzFVnCbIHQYmIyI0hf8KyUTaGxKbw
+ DXu8/o1myOyFLOSg4EUgHDV/OIThbVttBFOOdqtI6s1RoPPKdl4sC/Ar+CeanAvtJYev6kNsHSV
+ fnC0XIsfpC/vLq+zAHIcHXjrmbDr8WrX7XVVV260UIOSfRZxZ2Ht8Cq6z7HaXXUhdZjIj6PBaRu
+ IvN965JX5hN83cyTVvvkhU1XE5gU9bfCM8vJL2wg38eGkYeD3dvYb9ZMorOMiaXp3pxoPSxZhwD
+ yEqOqcZZclxe9rMFKiry7qlIMyR0VXHi4pTWeR/scKwmMtwgslVeukSTDjLVLPqTI1HazahW185
+ TS1zcvNTf8Zep3w==
 X-Developer-Key: i=jlayton@kernel.org; a=openpgp;
  fpr=4BC0D7B24471B2A184EAF5D3000E684119568215
 X-Mailman-Approved-At: Wed, 30 Apr 2025 12:51:16 +0000
@@ -89,49 +88,62 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-As Thomas Weißschuh points out [1], it is now preferable to use %p
-instead of hashed pointers with printk(), since raw pointers should no
-longer be leaked into the kernel log. Change the ref_tracker
-infrastructure to use %p instead of %pK in its formats.
+After assigning the inode number to the namespace, use it to create a
+unique name for each netns refcount tracker with the ns.inum value in
+it, and register a symlink to the debugfs file for it.
 
-[1]: https://lore.kernel.org/netdev/20250414-restricted-pointers-net-v1-0-12af0ce46cdd@linutronix.de/
+init_net is registered before the ref_tracker dir is created, so add a
+late_initcall() to register its files and symlinks.
 
-Cc: Thomas Weißschuh <thomas.weissschuh@linutronix.de>
-Reviewed-by: Thomas Weißschuh <thomas.weissschuh@linutronix.de>
 Signed-off-by: Jeff Layton <jlayton@kernel.org>
 ---
- lib/ref_tracker.c | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+ net/core/net_namespace.c | 28 +++++++++++++++++++++++++++-
+ 1 file changed, 27 insertions(+), 1 deletion(-)
 
-diff --git a/lib/ref_tracker.c b/lib/ref_tracker.c
-index cf5609b1ca79361763abe5a3a98484a3ee591ff2..de71439e12a3bab6456910986fa611dfbdd97980 100644
---- a/lib/ref_tracker.c
-+++ b/lib/ref_tracker.c
-@@ -96,7 +96,7 @@ __ref_tracker_dir_pr_ostream(struct ref_tracker_dir *dir,
+diff --git a/net/core/net_namespace.c b/net/core/net_namespace.c
+index 008de9675ea98fa8c18628b2f1c3aee7f3ebc9c6..6cbc8eabb8e56c847fc34fa8ec9994e8b275b0af 100644
+--- a/net/core/net_namespace.c
++++ b/net/core/net_namespace.c
+@@ -763,12 +763,38 @@ struct net *get_net_ns_by_pid(pid_t pid)
+ }
+ EXPORT_SYMBOL_GPL(get_net_ns_by_pid);
  
- 	stats = ref_tracker_get_stats(dir, display_limit);
- 	if (IS_ERR(stats)) {
--		pr_ostream(s, "%s@%pK: couldn't get stats, error %pe\n",
-+		pr_ostream(s, "%s@%p: couldn't get stats, error %pe\n",
- 			   dir->name, dir, stats);
- 		return;
- 	}
-@@ -107,13 +107,13 @@ __ref_tracker_dir_pr_ostream(struct ref_tracker_dir *dir,
- 		stack = stats->stacks[i].stack_handle;
- 		if (sbuf && !stack_depot_snprint(stack, sbuf, STACK_BUF_SIZE, 4))
- 			sbuf[0] = 0;
--		pr_ostream(s, "%s@%pK has %d/%d users at\n%s\n", dir->name, dir,
-+		pr_ostream(s, "%s@%p has %d/%d users at\n%s\n", dir->name, dir,
- 			   stats->stacks[i].count, stats->total, sbuf);
- 		skipped -= stats->stacks[i].count;
- 	}
++#ifdef CONFIG_NET_NS_REFCNT_TRACKER
++static void net_ns_net_debugfs(struct net *net)
++{
++	ref_tracker_dir_symlink(&net->refcnt_tracker, "netns-%u-refcnt", net->ns.inum);
++	ref_tracker_dir_symlink(&net->notrefcnt_tracker, "netns-%u-notrefcnt", net->ns.inum);
++}
++
++static int __init init_net_debugfs(void)
++{
++	ref_tracker_dir_debugfs(&init_net.refcnt_tracker);
++	ref_tracker_dir_debugfs(&init_net.notrefcnt_tracker);
++	net_ns_net_debugfs(&init_net);
++	return 0;
++}
++late_initcall(init_net_debugfs);
++#else
++static void net_ns_net_debugfs(struct net *net)
++{
++}
++#endif
++
+ static __net_init int net_ns_net_init(struct net *net)
+ {
++	int ret;
++
+ #ifdef CONFIG_NET_NS
+ 	net->ns.ops = &netns_operations;
+ #endif
+-	return ns_alloc_inum(&net->ns);
++	ret = ns_alloc_inum(&net->ns);
++	if (!ret)
++		net_ns_net_debugfs(net);
++	return ret;
+ }
  
- 	if (skipped)
--		pr_ostream(s, "%s@%pK skipped reports about %d/%d users.\n",
-+		pr_ostream(s, "%s@%p skipped reports about %d/%d users.\n",
- 			   dir->name, dir, skipped, stats->total);
- 
- 	kfree(sbuf);
+ static __net_exit void net_ns_net_exit(struct net *net)
 
 -- 
 2.49.0
