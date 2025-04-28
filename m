@@ -4,71 +4,70 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D4C00C369D9
-	for <intel-gfx@archiver.kernel.org>; Wed, 30 Apr 2025 12:51:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 675C4C3ABAD
+	for <intel-gfx@archiver.kernel.org>; Wed, 30 Apr 2025 12:51:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8D16E10E787;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 36B5910E77E;
 	Wed, 30 Apr 2025 12:51:18 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=oracle.com header.i=@oracle.com header.b="llozdi6c";
-	dkim=pass (1024-bit key; unprotected) header.d=oracle.onmicrosoft.com header.i=@oracle.onmicrosoft.com header.b="JMCPlz2P";
+	dkim=pass (2048-bit key; unprotected) header.d=oracle.com header.i=@oracle.com header.b="X7yie/gk";
+	dkim=pass (1024-bit key; unprotected) header.d=oracle.onmicrosoft.com header.i=@oracle.onmicrosoft.com header.b="wCXYLup5";
 	dkim-atps=neutral
-Received: from mx0a-00069f02.pphosted.com (mx0a-00069f02.pphosted.com
- [205.220.165.32])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 65D9910E9F7;
- Mon, 28 Apr 2025 20:18:57 +0000 (UTC)
-Received: from pps.filterd (m0333521.ppops.net [127.0.0.1])
- by mx0b-00069f02.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 53SK8JG4018595;
- Mon, 28 Apr 2025 20:18:28 GMT
+Received: from mx0b-00069f02.pphosted.com (mx0b-00069f02.pphosted.com
+ [205.220.177.32])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 618AD10E5F8;
+ Mon, 28 Apr 2025 16:17:11 +0000 (UTC)
+Received: from pps.filterd (m0246632.ppops.net [127.0.0.1])
+ by mx0b-00069f02.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 53SFqITj029942;
+ Mon, 28 Apr 2025 16:16:38 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com; h=cc
  :content-type:date:from:in-reply-to:message-id:mime-version
- :references:subject:to; s=corp-2023-11-20; bh=swCt1y5JanTRCSpYLd
- PsF53NNybFNft6TUpNk3oaMEs=; b=llozdi6cyASkwldrxpAIBJoeFD+s0EqpCq
- iYxNG+USmQBWIPPUQhtzyvKTUYvVwEVwJW8hDzsu/6cp2FYl2Y/Lk5Yjh9VLLJ4P
- 4O8xip/qUM/UJ9DMptfCkJgSQE1BNTgp8xMFRxPfgxL6SQMVd+X/w5qGaPZij6e2
- /1RAvRfQrwefBRpsYGdhmLAWE79Gj6qNI+x5oPLsICihwcMZeLa8ZANwpV/Qjq41
- 7F6B6KzWTLwwpEf6zSnFQtX6oY8B481UNIK2f0xLZK5AlXrIwprFuU4lkb7YatpI
- kmnOyoCZYhSHPM7DQn1Trbg6slvXYJj2hIJQOKA3xix4pJC6CG4g==
-Received: from iadpaimrmta01.imrmtpd1.prodappiadaev1.oraclevcn.com
- (iadpaimrmta01.appoci.oracle.com [130.35.100.223])
- by mx0b-00069f02.pphosted.com (PPS) with ESMTPS id 46age480jy-1
+ :references:subject:to; s=corp-2023-11-20; bh=706/im1O6+Zdfg+V/8
+ KJWRmdB5/EF/EjLu5usP6LVck=; b=X7yie/gkLUm5OpbiIjWtigCl6hfDlzA+he
+ PaPm7S3I4wjV5KZFKW8COHk/SPdFxsstcMQ2DNQsPX7cqUa7q0xJyzbFMLv7hRPU
+ MsnzkcV312oW11Df1fPRzJWm9HbkiOdCCiL1Q7+ELf2r/hqMKYAPWePfnO8tPkuH
+ znNOJyESHJv3ZdUvrhMUQ4k2HQWEKs2ReCuXspYFTSeyVdfqhy8EHAODxxQrPbz7
+ +SofNDCnaUFVppxXUEnDUn+6/ROwuOqoC5T16+Z1kczUwIrQarNspBfZ1dgw1nou
+ +XtrN4xMlcX8g75wqTNHgLCOk0+G1tWmxUisNYhssfa8phuGsEtg==
+Received: from phxpaimrmta03.imrmtpd1.prodappphxaev1.oraclevcn.com
+ (phxpaimrmta03.appoci.oracle.com [138.1.37.129])
+ by mx0b-00069f02.pphosted.com (PPS) with ESMTPS id 46acphg2hq-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Mon, 28 Apr 2025 20:18:28 +0000 (GMT)
+ Mon, 28 Apr 2025 16:16:38 +0000 (GMT)
 Received: from pps.filterd
- (iadpaimrmta01.imrmtpd1.prodappiadaev1.oraclevcn.com [127.0.0.1])
- by iadpaimrmta01.imrmtpd1.prodappiadaev1.oraclevcn.com (8.18.1.2/8.18.1.2)
- with ESMTP id 53SINS4i001321; Mon, 28 Apr 2025 20:13:11 GMT
-Received: from nam04-mw2-obe.outbound.protection.outlook.com
- (mail-mw2nam04lp2175.outbound.protection.outlook.com [104.47.73.175])
- by iadpaimrmta01.imrmtpd1.prodappiadaev1.oraclevcn.com (PPS) with ESMTPS id
- 468nx8wfnf-1
+ (phxpaimrmta03.imrmtpd1.prodappphxaev1.oraclevcn.com [127.0.0.1])
+ by phxpaimrmta03.imrmtpd1.prodappphxaev1.oraclevcn.com (8.18.1.2/8.18.1.2)
+ with ESMTP id 53SFge7K003870; Mon, 28 Apr 2025 16:16:37 GMT
+Received: from cy7pr03cu001.outbound.protection.outlook.com
+ (mail-westcentralusazlp17012039.outbound.protection.outlook.com [40.93.6.39])
+ by phxpaimrmta03.imrmtpd1.prodappphxaev1.oraclevcn.com (PPS) with ESMTPS id
+ 468nx8nc9t-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Mon, 28 Apr 2025 20:13:11 +0000
+ Mon, 28 Apr 2025 16:16:37 +0000
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Az+u4vEHRcbTs1kPWs74Jgl2+q4AYq/aaeqI/xmTzdix7ZG5+MqyyGXBhEx/qTBk6yiQ/yXVoX1fXqRYUrMRdLFvMRtexewcbFAdEoegR6EAeCf23fvGrTZ+5Di2pELH5sJ/mbQbjjxqeE9xkA5HY8dxD3s1TIV3wenWd8VhVA7YXehXNbypbkRkWyVCmT2JoywRkdh7WEj/b7aWkkshwI7PJL+rhRr2zmMwHqR+FKWxt9CEdM/OcBAqjySxdTnrZZlRKXABBgxQ5UR+PYlfBDSRIOMEIiL9FwprE7Bt40fVCMkSqyZ0yh99y31Wod4goonnEt99Zw18/19trTpXZg==
+ b=hlLwaiOQ7ACYjrX2bm61YUlsmjCCn1jg53WTALw0nj7VGVqt/27ecaaBTzMyfmYB0Y31Djnp2FqgLBRbxUcXp/sQx2yUzpKRhA/9u91UepTBpo+FWCWUNUs2I10sA4UUE/dmO+c/UpbG3DQe1V1Vwy/28fDfkZg7WT+XrNxKXkm4dWcyceFsHILPbKYdZU7qPQTMls/lbpYBqLyRfOg6VrGl+Tlu37XIuxXvp6nPWmLig70VcwKBr2MyRPyCH5ymP3okL7ilkLTuoJAOyiaoFkMKZUq8yNW4ARdQPHtVep9vJTKvRttXNsC8z9ErO1kRJuQf9UzTnu6qK4Z9jw7GZg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=swCt1y5JanTRCSpYLdPsF53NNybFNft6TUpNk3oaMEs=;
- b=oCXihsc10qVFavUGBSJRl5FP0KP+bM9l2+C6YdtxprzzTJGT36pOrM/i8vCveisfWXGrjxWeNKya2j4fp/tij5k6TCqOcC4rajiqnMtekj5QBCLI2ZEsX7xKIgVSludxtdjJpWEeJSfxblG15b0bk6O0TmxRP57uV63IcIMWFDkdDrh4iwqWPV+c9bm5IVVUcFSsJtPmwLfLIdC1+CxLR1XCHHdaf4Gi9jgtKvpDhOuNg2k9qtlUxrKlx6irDdrKobq1EizTGva4Fpf/nIsvEGJ/RlLy0piyaymzLm5k2Mn3luUG4Qho4ViIsQJmHTqFw8jTIC3BawGMkicr6+ds1g==
+ bh=706/im1O6+Zdfg+V/8KJWRmdB5/EF/EjLu5usP6LVck=;
+ b=X/YSpg90hoh9i73m9+/qjgoykE0jLhGHedZimFzZwTwO1/in24D2xWwuH6HoxjUNs8vNwDUeSrQvw3svIvV9bQgtjua27OXRg8NVXDQgVFmF7O68bX1JYLwjpkZURXj4CScat07hSluSL8ShXjK4IuezeJ/k6JXQWSHhtDmBHrhaQBf7SRVix8taPUqEN0l8ttg7cZhhav8Ul+kZRcbbCrK4g/A//ruMOFtH/mu23O1qlemvNmRG8MWcf6usIUZeG28sSW1Y+uvsHIJOtnJO+jmDWMnR8VDGLuSqRq5/+1D58gw3k1ekbi2vrF0lm2W0LqfYpLd9xIO3mjECl79YiQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=oracle.com; dmarc=pass action=none header.from=oracle.com;
  dkim=pass header.d=oracle.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=oracle.onmicrosoft.com; s=selector2-oracle-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=swCt1y5JanTRCSpYLdPsF53NNybFNft6TUpNk3oaMEs=;
- b=JMCPlz2Pb6Ni/ZcfQgTjO8OwD77x/58vTaQHJZ6UnUBqjASg5jgjVGBQrEovBFb4GRTjHult6tehiFxmo5r3aEf6k5+SLPBTwVi3zZDzyU3qgzbB1X/Vhd8Y+PK7wdBsLFN3YA91+y2CR4au3x/xe3oyoPMRWYLBSpYfQfMBHdQ=
+ bh=706/im1O6+Zdfg+V/8KJWRmdB5/EF/EjLu5usP6LVck=;
+ b=wCXYLup5mVYlyasxDfQV6D4Fwd2pj92ui6rC8MBbTqaNnra9vzYr82Cb12kZNbqSux5tY7HdHZPcvvosqQo9b1S5JhKKWxk0cUg5Hgn7TuL2VMBmFCx1zjSQUUEcfmOzwa7ovUyDXmebgbNpIJF6TtdYCWJcmGlttu3HVGAdg7I=
 Received: from DM4PR10MB8218.namprd10.prod.outlook.com (2603:10b6:8:1cc::16)
- by DS4PPF109C7C399.namprd10.prod.outlook.com (2603:10b6:f:fc00::d0a) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8678.34; Mon, 28 Apr
- 2025 20:12:44 +0000
+ by DS7PR10MB5902.namprd10.prod.outlook.com (2603:10b6:8:86::5) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.8678.33; Mon, 28 Apr 2025 16:16:27 +0000
 Received: from DM4PR10MB8218.namprd10.prod.outlook.com
  ([fe80::2650:55cf:2816:5f2]) by DM4PR10MB8218.namprd10.prod.outlook.com
  ([fe80::2650:55cf:2816:5f2%5]) with mapi id 15.20.8678.028; Mon, 28 Apr 2025
- 20:12:44 +0000
-Date: Mon, 28 Apr 2025 21:12:42 +0100
+ 16:16:27 +0000
+Date: Mon, 28 Apr 2025 17:16:24 +0100
 From: Lorenzo Stoakes <lorenzo.stoakes@oracle.com>
 To: David Hildenbrand <david@redhat.com>
 Cc: linux-kernel@vger.kernel.org, linux-mm@kvack.org, x86@kernel.org,
@@ -90,111 +89,112 @@ Cc: linux-kernel@vger.kernel.org, linux-mm@kvack.org, x86@kernel.org,
  "Liam R. Howlett" <Liam.Howlett@oracle.com>,
  Vlastimil Babka <vbabka@suse.cz>, Jann Horn <jannh@google.com>,
  Pedro Falcato <pfalcato@suse.de>, Peter Xu <peterx@redhat.com>
-Subject: Re: [PATCH v1 06/11] x86/mm/pat: remove old pfnmap tracking interface
-Message-ID: <683f254b-2a6a-46e2-b11b-e0514c1b076f@lucifer.local>
+Subject: Re: [PATCH v1 01/11] x86/mm/pat: factor out setting cachemode into
+ pgprot_set_cachemode()
+Message-ID: <da28d743-8622-46fc-aa60-5db9c776bd87@lucifer.local>
 References: <20250425081715.1341199-1-david@redhat.com>
- <20250425081715.1341199-7-david@redhat.com>
+ <20250425081715.1341199-2-david@redhat.com>
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20250425081715.1341199-7-david@redhat.com>
-X-ClientProxiedBy: LO4P265CA0162.GBRP265.PROD.OUTLOOK.COM
- (2603:10a6:600:2c7::20) To DM4PR10MB8218.namprd10.prod.outlook.com
+In-Reply-To: <20250425081715.1341199-2-david@redhat.com>
+X-ClientProxiedBy: LO2P265CA0218.GBRP265.PROD.OUTLOOK.COM
+ (2603:10a6:600:b::14) To DM4PR10MB8218.namprd10.prod.outlook.com
  (2603:10b6:8:1cc::16)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM4PR10MB8218:EE_|DS4PPF109C7C399:EE_
-X-MS-Office365-Filtering-Correlation-Id: 6c29eb34-70fb-4274-b484-08dd8691097e
+X-MS-TrafficTypeDiagnostic: DM4PR10MB8218:EE_|DS7PR10MB5902:EE_
+X-MS-Office365-Filtering-Correlation-Id: a6c3fefd-b664-4251-2935-08dd86700711
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|7416014|366016|1800799024|7053199007; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?MFrDSmtsGI2ooRxf8WGSFEWGZLHGhLZcEXzGg6UIWF+RBcubIYi+Hr5If+Mc?=
- =?us-ascii?Q?tmx8L3nxPx39jnXN9oVBrW3rQJJdY5aUtZJZQ/MZc++Lpns/hA46tgTqksB4?=
- =?us-ascii?Q?R1OHBYB/tT95Byf1PfR34uoCahOyxk6mZRDEn2XSLZpvqjNx7K8nTicUWA7i?=
- =?us-ascii?Q?OsqR63ZbmMfq5OFpp9d0/eOYclwavTXqMP63IIQR3xL/oyP2Hqh0Vhxfl1kl?=
- =?us-ascii?Q?juoQovxEzs3o817z56niGiu6tKdqh+nZ3vvXRTwLwvP0PhVYiDxEY3pqym3R?=
- =?us-ascii?Q?BsJW5A/BrjpwQcWQh+45bIoZtc0C85xMRmLzsxdKfGQBusNEUW5kV+PNgE0n?=
- =?us-ascii?Q?vU2OVUP9pqXIsMgtRWNZvEwsN7+599nUxGvGc5jr2rjHYKkEKiMRRyUeFACi?=
- =?us-ascii?Q?TibzM2aAHdj5nb/IIlYWjOPnnDX1W9bDzPrdLw9nBfFJayAgmcDboRIWDu/d?=
- =?us-ascii?Q?L/GPLn4RUewKALCvjAb6LJoLhmQPFFiBw665G7loa7wVu35yagSMtVPvp2PD?=
- =?us-ascii?Q?RtO7bK7gK4m4cjH2G+ZdyoFnA1P8kJQrpoXaXp5ihlPtt0ZmHig8wiWSQo1t?=
- =?us-ascii?Q?7bwfDRy5JqzXuCx5jBT32pqoLqp2UE/MDxJ5BtuCESBAwHXD6hgWY1x/5AU4?=
- =?us-ascii?Q?Pmlt/2d0g0KBJlb+Q8iFJqYPVxJLu1vqPm9zsIA76PnSKgCR8I5SzI0yjrKo?=
- =?us-ascii?Q?/hBXBDTpwS5x2xLuPUqLXFck21QPhz1g0AOG7haAXnQHs/0WguJhkpSS7SFX?=
- =?us-ascii?Q?gaDkb19BkQ6IZMOLB13goGIZDsfTt4EFOn3ZBpxdzXDLQOBrkfUVLFonqQcj?=
- =?us-ascii?Q?6ylBTHcqBweLPH7iE/O6WccBRB32l41aD8Qy4zaJH+esCX4d149g9t0c3Fwg?=
- =?us-ascii?Q?HDvG+Y42JEl45zX9HCDrkDvMQAa4lYldo449ZJLZ6+8Aos/6d7B9bUIJJDvd?=
- =?us-ascii?Q?L222FGIDYXZctLcuKhhF23NauuFl5op/647uO7X+BCmQGfFxFvHW26ptWl8i?=
- =?us-ascii?Q?8svLPuX/pDNdj7hbSV4xj0a/cs/fk3dHwSFE7SV1ym/NuFTIrO89DrmOlyGp?=
- =?us-ascii?Q?rh5D9QelpO9WOgQ6sHUnh41CAiE7QOqpouHKV2l8+vDehAitsoNzLesQi0wK?=
- =?us-ascii?Q?ih1efdr7icg9lXzJi3CPwtt3AfH4+1gg+hVHlcaj8VIN6I43ZZB3AyadYZ1H?=
- =?us-ascii?Q?oxYIp+IQ1BbVK4ji6ukuRvB05DZEPGJe9FO7EubM/1x4JBCuadNTAr/GUM4f?=
- =?us-ascii?Q?JkHCZdQvyu7RKa4VJ0gIPw/HDTLwWqBFx+c+3zPHOYQVYLp5Gan3LL3KO7SS?=
- =?us-ascii?Q?adaL4JZFXjVxeys4Tv3u+mETDg4XQhnTQMPt5dnwDU3OpVygnKwoi3oxXxaU?=
- =?us-ascii?Q?Cu9TDrr2hJLfjZK9pblPqdWFG2K6jNl+HWmPxm+xKHbcsdWQ4of6VFoDqqsi?=
- =?us-ascii?Q?5wfjcdxkWbs=3D?=
+ ARA:13230040|1800799024|376014|366016|7416014|7053199007; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?cagVVQqf38bHCHsziJa3Xaz61ZqBvy74ltgPUT8CB71PPkHK0u97VLVZLCVN?=
+ =?us-ascii?Q?dF9ySpdUrc3/KTXOo5+/6pXhfdCwBk71FrSxWgxPOJ0RHv2ixN+WW70ZcBZz?=
+ =?us-ascii?Q?qbxBlqP71cNdXd2aBTDU8Jhe7aDXQsNngTTcGen0XojBi7YXgPG0HsN6iQFO?=
+ =?us-ascii?Q?djyHVqbio8EsZQJEspMUm1XOtcTAFdwu1kONhBDsiOjVG1UZUE8kb5yHlAa3?=
+ =?us-ascii?Q?3ECFF816jBZra0WGvvq1oEUwG5D472Shod8DA3FedFfO4cRtSLGi0bJPhuh5?=
+ =?us-ascii?Q?5vDMvkLqhxDsYeBWV5VP6jVuwhVdngXWy/72LhZoKV1oPIL6qaLUSAUdMvkv?=
+ =?us-ascii?Q?7k8fPs9t8clIRsNxPDqJvF+SoH4ALENtJ1eBlMjweIIN7bnRgHL5FWCeCtqK?=
+ =?us-ascii?Q?PI0dfndzPZM0A09mxMTOgR/F1G5n0TMpPirXFL4utJcN6pkx7WjFfzoKu46C?=
+ =?us-ascii?Q?bS/3v3LsWxsaL5UwKib8hCUdtmWhb//iUQIauFNGjlSLt0MkiRpCx7JnDwz9?=
+ =?us-ascii?Q?B0+cg7bTYG6/cxA3vCHX4KCqyCVvfUua6k1Xo5flE+0clRckU8oNuCJJdi1s?=
+ =?us-ascii?Q?8zKfl5awRj1pKN6NPYfaGtWimxiVdXS/GcRoL+S2bnCLJ+p13GSg9ZavvBTJ?=
+ =?us-ascii?Q?Yk/eueT18G3wIbo1nFHWL20nr+UOifEKJknC+u2zEw4z/vuZk4iXcQdJrCyv?=
+ =?us-ascii?Q?3GOxz067IoQ8/38j9XLi8C5z7nfhoRIfElGlj87qlbZ7oXNBkJki/UTIu+o8?=
+ =?us-ascii?Q?YaVzFW/Jx+BM2PAoHddbbR+MtM3twl4csAdLPUrPGDLL5yTG4gsrMT0o/HtN?=
+ =?us-ascii?Q?RLgIyg+qSVoit0SSSs1duahNMTqTJRTC5umtTymsGKEWAWEsEuQ2+yuZ0N5V?=
+ =?us-ascii?Q?ca8g2fpgJ3F5E4AcTW5D3n7sMR9uMk6oI5fBEnsPm8nzlTCACJRNAKe99eI1?=
+ =?us-ascii?Q?HMjIOTtrv2Jp584T5nQ6MlWOgZCLlDG8NO9YJxT58iwxKkFUHjSkQFPVtwDp?=
+ =?us-ascii?Q?Ldws/XVhqI2wmO8YRFufF9xduZVJFMcBTykNruwfHorjTRQ0w2ceaSxosF7y?=
+ =?us-ascii?Q?cQ9jLkwMU0eRXWAveB8L3l1ROPOhS/tMGEPJccO3k8LpmcyDLG7RPtdh5jt6?=
+ =?us-ascii?Q?dDFU8RQh+I8Gis6ZO2zJGDYgAmw8WYta83wv0QwbrPEnfVrTGjvX8/TdoKgQ?=
+ =?us-ascii?Q?AfTKB6wYOjDDaHOdksasMxtwaOBjAfPrpIPGOiVz6cYtsQUm2eirJVDepV+F?=
+ =?us-ascii?Q?yqqqxtq2XLztw+ThBBl1W/IP8wBtaQe8c1hSuGjhoAb5dw+uiHTuPHBmAn29?=
+ =?us-ascii?Q?hhKRnWw95xyMePIgnD253SJKZoinNCCl48/jUEhH85bOcqDm/3Ufb/Rj+0/X?=
+ =?us-ascii?Q?ilmc6rYHWiNx5fE6bDVLtxgUmX7/AVCDegW7hY42xkkZRq+awk+XlqLkA9Li?=
+ =?us-ascii?Q?V4ig0Mrmh94=3D?=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:DM4PR10MB8218.namprd10.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(7416014)(366016)(1800799024)(7053199007); DIR:OUT;
+ SFS:(13230040)(1800799024)(376014)(366016)(7416014)(7053199007); DIR:OUT;
  SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?OXewyOFYFrCdnW4XLNGz/kqL7vP77NHJVM0JUjbwwNz2iuHqPG1znddEf61I?=
- =?us-ascii?Q?iFS1jvvL4Y8TbL5PbiZVdceSFAWQhLAA39JXiLmXCnjKbtqrTlCz5LPxO5/m?=
- =?us-ascii?Q?aOdrh1mbVD4J6sUwpJHeB7nRLlY+8GcySdrKQjhYGIecdfriwGrW3LHDkQhe?=
- =?us-ascii?Q?Rvn7pEHUm12BblYf1v5xSVCImbCRCVEkhD6bFRdyFUHhdiDhIonfw7SBCyRT?=
- =?us-ascii?Q?WyPcoAM29BhA7mPTVdR1ABu9B3vKH6pxbiUEn2xLB4B1cJtg/h7pofNOL+Nq?=
- =?us-ascii?Q?CDyg3ZsaLv/SJr/j4vyvd1RvfvAlqSJPL8uTuP85aJVPhWcVe4CA58vrQ9Kp?=
- =?us-ascii?Q?7l8u05RfXMqquGH6EtAaAlFKHGPRZOtH8WXywINyNWppPpfIjvLJ+EVqWc1a?=
- =?us-ascii?Q?XGkL4oeu4MyWTlQWEi6dS+TYsnpuISlGFlZgkGseMUStvxZuwZWgS9s+A2p2?=
- =?us-ascii?Q?qO7xbc8y9Fz5ozvyGT/DidHQhWJofpk3MPnya9q+5JG4Ujx/iu0fSLKA1+UU?=
- =?us-ascii?Q?H9z21oWOnXY5GaG9y+qxDQsWDDz7OccoqG1MA/tTTnR9mobknqNW3atxH53a?=
- =?us-ascii?Q?fz/17AwG2gYaBJfBwyYBcHOBNmkMkcS42bly1+HCsxrryhictb3hcP5KDpZV?=
- =?us-ascii?Q?2Q/awtrNH3g/vlenm2v73+IX3BfI4ErQ6Ym/z+uD6N5nztyIlOi3lUQ+PAtY?=
- =?us-ascii?Q?byMZTbVbwcoHLLHHNLYQLTsHCh64ObcW5VO4xjD72mMFDgNpg6Cqqlj7ydpQ?=
- =?us-ascii?Q?zg6ZDaulSpIk0U/csv8f0aNzn132AwpJ++nwKUthm9oGzaWjmv8sKusYs+Ni?=
- =?us-ascii?Q?xEMxqZEE2lfTk91B3jli4jTjtcZiWBkC0qumORyTEvXp1BN1KzvyRQAs71Ly?=
- =?us-ascii?Q?q4eoFGGyoDSay/I7P1VzvUbjg8CdWVdVmE9L8pp0FFzjeF2sirlOLK2OmhTl?=
- =?us-ascii?Q?I19nRoM8i5biMXn/I/uTUr0XjkSlfNtfKUFXUYiqJJoZJ4z4QPk6h9OnRPaP?=
- =?us-ascii?Q?uLGeH7TRp3VJiDcrAiItGYF5TQ4th6FylcsB9T/kg0qPC+/YGzXDxP6hTDAD?=
- =?us-ascii?Q?gPiVaYRwI1FhqcETVLnfXF4Tc0FZVaF6/RBnKcRdWFggXeBeJaqDpJG8LmV5?=
- =?us-ascii?Q?Jbr40w3lVQNBaqpYbd4d1VimeheeTl+e8aUOYIgWc6VoE6yV8gHoZtNewfg6?=
- =?us-ascii?Q?TaWLbb+y93+/Kaqhu00LosHB8Pvcdb3/hgJaKkbbTTA7rX+JwVC0rA0HHJp6?=
- =?us-ascii?Q?1jIfEHj89w/urzJcsO469LqkGC72I/VxgjamFY02bKE5u5ZzRNcd2H8DMT/r?=
- =?us-ascii?Q?2M+EgRd1typsnnbxBxTXkj/4LxhHsCXAcyvhUJz27nkUwdDQP2cvr3ucYd2h?=
- =?us-ascii?Q?qgC8dj6DjQaCIJ95vvOaq6fg63wIWp998RFXf4Z99B+aH0ID2PVDM+y+FG/m?=
- =?us-ascii?Q?IoypUiLemGkH8Z3KD+a0nTAxYwmkaQjHwHY+eGLiFyWgnCo+Z9HD54RJgD29?=
- =?us-ascii?Q?hTGnJU3ir+nKWDBUW5vFbnxFjH1sgCA8w+tSpwmV7hzDA/zHSYg1CIdMMfCk?=
- =?us-ascii?Q?/BKv3Zj5CGuumN0fxnxxDRKPZoN8eAmpCOmq1fwZyh17W/IjKQPE36wXTgBf?=
- =?us-ascii?Q?ng=3D=3D?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?g++xg9/6Idg0R7mORXjwKGN91YhyZJ77vGgOYZrpfaWb1Ct0kcITftlJq61p?=
+ =?us-ascii?Q?hU9NfwnktjNtTyJx14A45oLY+LQReIAHnYlHx/xoiHi3swhGyGwOWq8quttD?=
+ =?us-ascii?Q?B96uRM6/ee9l8nVpKyD013Aqt4nomtcdFBPHBPRUPF5s/rXNuIy5F9RDvsWu?=
+ =?us-ascii?Q?stM8S14zSeGNcz7SQ94XPN+FZcESszM1oQV5w/9tpHCYM/yJcLo8lXzazxYo?=
+ =?us-ascii?Q?2yL8bJp4KMvOhtURfReMXSQnfUCWpWAwJrAPp4LjiEdbmVy03l8P7TaY704y?=
+ =?us-ascii?Q?Ar0MkiVFQhyE9bOE+E6Q58kcXT38rS8ZoP0D4F8okMae/ywC2+8lNAYz0nO+?=
+ =?us-ascii?Q?7hFJLIR56AtnV/ZttrfMgZhkCqLOYk9JBkzSP5ROTm5Yv2eSK8royZWPC5me?=
+ =?us-ascii?Q?5vfAki7HGGq5/7k0OPN/NKhcmtwFHx/pKDF2B6Cs805BHfzjF0cy8B1Cg2PB?=
+ =?us-ascii?Q?SaNjUIT1Po4Qf2FOvPfC3Tvj9GdR3io1zcG/O9Uw0j11wWlFVS0aIlXoHVAQ?=
+ =?us-ascii?Q?dnOSCFDIRb+VVonjhnZBMU+yCGevNn/Z4W4D38lCgvzqD/lzM0YM+Fw3dwRZ?=
+ =?us-ascii?Q?v/FBQkcnKNV7odQ5w15XkSyAh63z6FSKTBtsdJv+XGYVcP+0Dbm8jqGQ78kN?=
+ =?us-ascii?Q?V6Ftis+4o8/CdW7GbdX/AoK8HNAqdxiMAn+JLpk/vh4KDrOnACSuFm81NGWX?=
+ =?us-ascii?Q?i9jYhUbm+9smXVXuk8t2mE+zVYNWa+6yS3mgV3lLwZOSqWqplc0k0P7hGjv/?=
+ =?us-ascii?Q?2uxxChHMZuDU0NWUK37kQB4bupwHKO8t2Ncy3xtwrnllD2kfElNawECmAyGn?=
+ =?us-ascii?Q?wH5zzK+YLH1yS4CpmZIRnRV8r07JjcoycVqvj6gyIZmjrPz/gmHAqSAeJYZy?=
+ =?us-ascii?Q?Ps+Nhe29qIMFyTViWHpzAnmAtJOZR6OBuFC2Sqb1Kib5lPKUsRsHVS8uNGNf?=
+ =?us-ascii?Q?NSSRyViV9vEac0SwqKx/tZsUqmJWGa/LYVlEgKpcwHLyzHRCImFCzkLxOdNI?=
+ =?us-ascii?Q?G3IFx2Y+Y4XvMkeyLR3NaPKcWsHDT8WThSaH7PPNQXTngDT0Y2DKINeVE8LU?=
+ =?us-ascii?Q?WzeA0PZ8tNRfmatBcs2o/+5WOTw8h6bGiEkcmwh9gcgmhK1ahKhoBZNIyUWS?=
+ =?us-ascii?Q?VWWE2+aqOSNXffR5l4ucYT8tywH8x2EJ2Egp2iXB16BaCPYKo5MjS7S3lOqH?=
+ =?us-ascii?Q?Wz7S4678VmBE69ul/WuP9E2TlmhxFk+Gt928y/CbIJUyqGV7ltkdJN87va9D?=
+ =?us-ascii?Q?vB8D4/KoXTfG6aV7Be4VyQ4PICaRKMhNzQbX5DRcAglZBowxdxbcV/G7QBhK?=
+ =?us-ascii?Q?SVE7zAEUzEpDuW1ry7/K9XNEj285/poIGXFQzCsw/p/cX7tGkGd7rCTP3e6Z?=
+ =?us-ascii?Q?B4JwbUiHL8L/qR4IQtG4/VRn7YFRhea6fhPuXprj6/udD+EOWaTpFcUQmKRA?=
+ =?us-ascii?Q?Lv5LddZyCBKX0FA2oN2+mC3ocq2IrLyndeQz5+oCRkY/0LglRz1x8Kdtn4Dt?=
+ =?us-ascii?Q?dJe34mIDKq2jyzh7QMDAadz/kwQ9SXby6N/6Infxt99ggFfPpPeurmnLg3RV?=
+ =?us-ascii?Q?Md1zfuzylZ3IGmoI7tEtmBkXDnC5X+VhyDIy71Ni8sGvDj9Vq+szHqIYANhK?=
+ =?us-ascii?Q?5w=3D=3D?=
 X-MS-Exchange-AntiSpam-ExternalHop-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-ExternalHop-MessageData-0: boJthh+qdtSR4vx9Bvg6R7F2u2U3EewpPymplZcEcmqHuDYqi+xhZODtSU5WbmsNXpSUBb6OKWN3GePO9QFr8jOvSkksMNZqjG5OjxLgLwDquuOUyrhop+rrz6E3D3iRgLLmJkE+try4wY991emvvjqdu5+jysDJY49vzPN+T2bLl2sCwTEB9I1fZqBa4u7FCVN+W4BToVh0k1Bv3PiyaD8Zy2MiMwGKbRlmjG1hO3sHgz/NBxpip2dbQHcCBdBVxHtSK/EHthetQGlAdRz9EkKSvVCNK1yzislkpfXlfzfQX0lcGnNW1dMNEpgAJbY7GRmRl0+CDxEV5szjlMVmv8XWw8E/6LiqY8+x22clOdJ3ls+GlZnttBCN5lm5nUtIkDvo467A7gjqIkeAbeXxgH6Ef+M+TS9IjnE5/rs3nPvfHuK+7JBYWFwTMN5UG18tXiHi/7bKF6bVl749WzobP5lBui+jy2cMvMRK4LzM55bIVCS43Vqc6WzmDmSUgdzqQ2iNCcdkTfw7YTRiU46AeWbk5uNInk3+sCmhI610f9CFiT3FHioGAmAjD1f21IlTsl7W0BPZYHmpDKJ14FyrqRA8oXIJ+FR6TIO+mLunzx8=
+X-MS-Exchange-AntiSpam-ExternalHop-MessageData-0: M+lLt43fdXipfRIlH3LdC4gU3ySvW90BJibETAbZC/dG5hDt9jd7MLy9j6HzEW791gSHfl11KiAtp8nURNhYD41WGT2CFvjOpmjxizON7xaOxDpx/O7AEhGorYqBbar4bD0U9aY3n33B3JxVrYNNlZU+bugG4VpnDGeO0bXdyNaBp+ukOj4hyIbguyGhG1XZ7eWuDKj4C6KCgmNyc/pMGwz20Hw62x3T3q4KnEJ3eg+fgoP8EBehL9FzNNaWsT4VmDBXLftlclCehy8BPHVv1QYcD+fl9oxYOJDi6gp/X4qqJ5U29VKCnoKPaLAMDPQ0WuVaDWhwzGPTuqBahE1LFXqlrRgNs73qCyjE9YF9adLaroH7ChyhgfSgGSI7RYfE1Gpnpmr/t4qgYYfqkw6S0l2k5q/w5pG/cuGyu6RcYVQk+mI85cZqIi2lh8AeXUG5y6HhkRkHqpYwevs+qjGVVBD5wM+LSiZ6GrL18BZG7jKn/EmQYefwizIxPYBmvFcB2lWbT6HqI5H1FWthD678KvruwDkv1A9yVDikMWWStIg0Ijv1L15FEaty7P8+olzEFCU8KYxi8TzXCpdmjl0ISs+MU/KBQjbLVapOc3ObdGw=
 X-OriginatorOrg: oracle.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 6c29eb34-70fb-4274-b484-08dd8691097e
+X-MS-Exchange-CrossTenant-Network-Message-Id: a6c3fefd-b664-4251-2935-08dd86700711
 X-MS-Exchange-CrossTenant-AuthSource: DM4PR10MB8218.namprd10.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Apr 2025 20:12:44.6396 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Apr 2025 16:16:27.0318 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 4e2c6054-71cb-48f1-bd6c-3a9705aca71b
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: TfDqg1m3eGnQCQ3xBDkzEqNH//PTrfxhUIkPOnq/Av8MqkYo+/8pWB0TRkr/7mbtDkI/fwRBCb5uFhBmcIcpGOgXv2o9H+q8FYC3BS/gGWY=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS4PPF109C7C399
+X-MS-Exchange-CrossTenant-UserPrincipalName: /IvanaFJYGItI0CQz/C5CbWbBexJOo74qeFskAnYHLHz87nnFFtP2SZEJsumle8Y/EU7+paTGE3sG7i3nKVQoccuEa77Qmu1DsOMfH/rxyQ=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR10MB5902
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1099,Hydra:6.0.736,FMLib:17.12.80.40
- definitions=2025-04-28_08,2025-04-24_02,2025-02-21_01
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 mlxscore=0
- spamscore=0 bulkscore=0
- mlxlogscore=999 adultscore=0 suspectscore=0 malwarescore=0 phishscore=0
+ definitions=2025-04-28_06,2025-04-24_02,2025-02-21_01
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 spamscore=0
+ adultscore=0 phishscore=0
+ bulkscore=0 mlxlogscore=999 suspectscore=0 mlxscore=0 malwarescore=0
  classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2504070000
- definitions=main-2504280163
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwNDI4MDE2MyBTYWx0ZWRfX7eAcwSIQNhos
- vSI1I0rmK5HAv9FBqNorbY8cxIcTNxTbFitqF2QNCQ3ym6Rldeb1W+hqZAJBLDWMjRyMZ5daTq6
- qVGTW8UF33UVKRqG+5E0ltaADaAJqkobNw6jaFqJ2/4e+R+zx+17A2tZ0wLc/WmXaY/nyfhNJFd
- Qybb9eYG5HUClscv1ae/DreYV/CB0CdWMci5DqMaShXHIRwOh2ZMKSXVZqEjJQK98rnTTlSPKaj
- 33iL4cQ6UlpIzkU+GL9qhtF9PfpTb6eHm+sbJl1OZWls+CwNqCvKmdzf5lgy8QN+g36+pBLN5iA
- /ozcrfvUut/wvPkkmebHh430+O4G8mJVCXtmVkVAJKvjRQYm2JlszUIyZJyGzrkt48Tzd62mKzj
- WT5iRR2S
-X-Proofpoint-GUID: QxvC2pKjSmz3bdKLR0pRc8_m44VFPQSE
-X-Proofpoint-ORIG-GUID: QxvC2pKjSmz3bdKLR0pRc8_m44VFPQSE
+ definitions=main-2504280133
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwNDI4MDEzMyBTYWx0ZWRfX6WPumLvs84F9
+ SZ/r59iNZjjIbrTIEcgc9sRKCslLQ6nun1wQLKVDMVPYykhAkiUKFCRoHn5cMfkGrwMiQIV6ZAZ
+ by7UGK5gUz/+zJDfoX4cwxs6/h/shMXGIvpoa7USRjbJ/xPEwCX2ez+5cI8Pj2eZQN4N92KM9Ct
+ 1a/60JnBpCbG14ce8Hut8FQvmsXHdWd90e/Fc/+V24LXq6FDjJ/TG+gHSc6gQDB5Ue7rC/9fDMb
+ Wf2AG1XKaU1Fd+TQgG/aTVO9evBO/F2AeWL9H6+5y+vb0ia5trkueIZqDg4atQqrmsvLMH5pqYR
+ QcwWkPeI3vmjl8EDVc1v1Hzs2VhGebrfDjQVcfgh5BrRZST7ZOs+iAjUs1MQREXEmby9NOCJaAN
+ ZyeiiKwG
+X-Proofpoint-GUID: HJKMDhkJm-7Hs9qwZ3HQRBMXOD3HwwgG
+X-Proofpoint-ORIG-GUID: HJKMDhkJm-7Hs9qwZ3HQRBMXOD3HwwgG
 X-Mailman-Approved-At: Wed, 30 Apr 2025 12:51:16 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -211,279 +211,122 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Fri, Apr 25, 2025 at 10:17:10AM +0200, David Hildenbrand wrote:
-> We can now get rid of the old interface along with get_pat_info() and
-> follow_phys().
+On Fri, Apr 25, 2025 at 10:17:05AM +0200, David Hildenbrand wrote:
+> Let's factor it out to make the code easier to grasp.
+>
+> Use it also in pgprot_writecombine()/pgprot_writethrough() where
+> clearing the old cachemode might not be required, but given that we are
+> already doing a function call, no need to care about this
+> micro-optimization.
+
+Ah my kind of patch :)
+
 >
 > Signed-off-by: David Hildenbrand <david@redhat.com>
 
-Oh what a glorious glorious screen of red I see before me... deleted code
-is the best code!
+LGTM, so:
 
 Reviewed-by: Lorenzo Stoakes <lorenzo.stoakes@oracle.com>
 
 > ---
->  arch/x86/mm/pat/memtype.c | 147 --------------------------------------
->  include/linux/pgtable.h   |  66 -----------------
->  2 files changed, 213 deletions(-)
+>  arch/x86/mm/pat/memtype.c | 33 +++++++++++++++------------------
+>  1 file changed, 15 insertions(+), 18 deletions(-)
 >
 > diff --git a/arch/x86/mm/pat/memtype.c b/arch/x86/mm/pat/memtype.c
-> index c011d8dd8f441..668ebf0065157 100644
+> index 72d8cbc611583..edec5859651d6 100644
 > --- a/arch/x86/mm/pat/memtype.c
 > +++ b/arch/x86/mm/pat/memtype.c
-> @@ -933,119 +933,6 @@ static void free_pfn_range(u64 paddr, unsigned long size)
->  		memtype_free(paddr, paddr + size);
+> @@ -800,6 +800,12 @@ static inline int range_is_allowed(unsigned long pfn, unsigned long size)
 >  }
+>  #endif /* CONFIG_STRICT_DEVMEM */
 >
-> -static int follow_phys(struct vm_area_struct *vma, unsigned long *prot,
-> -		resource_size_t *phys)
-> -{
-> -	struct follow_pfnmap_args args = { .vma = vma, .address = vma->vm_start };
-> -
-> -	if (follow_pfnmap_start(&args))
-> -		return -EINVAL;
-> -
-> -	/* Never return PFNs of anon folios in COW mappings. */
-> -	if (!args.special) {
-> -		follow_pfnmap_end(&args);
-> -		return -EINVAL;
-> -	}
-> -
-> -	*prot = pgprot_val(args.pgprot);
-> -	*phys = (resource_size_t)args.pfn << PAGE_SHIFT;
-> -	follow_pfnmap_end(&args);
-> -	return 0;
-> -}
-> -
-> -static int get_pat_info(struct vm_area_struct *vma, resource_size_t *paddr,
-> -		pgprot_t *pgprot)
-> -{
-> -	unsigned long prot;
-> -
-> -	VM_WARN_ON_ONCE(!(vma->vm_flags & VM_PAT));
-> -
-> -	/*
-> -	 * We need the starting PFN and cachemode used for track_pfn_remap()
-> -	 * that covered the whole VMA. For most mappings, we can obtain that
-> -	 * information from the page tables. For COW mappings, we might now
-> -	 * suddenly have anon folios mapped and follow_phys() will fail.
-> -	 *
-> -	 * Fallback to using vma->vm_pgoff, see remap_pfn_range_notrack(), to
-> -	 * detect the PFN. If we need the cachemode as well, we're out of luck
-> -	 * for now and have to fail fork().
-> -	 */
-> -	if (!follow_phys(vma, &prot, paddr)) {
-> -		if (pgprot)
-> -			*pgprot = __pgprot(prot);
-> -		return 0;
-> -	}
-> -	if (is_cow_mapping(vma->vm_flags)) {
-> -		if (pgprot)
-> -			return -EINVAL;
-> -		*paddr = (resource_size_t)vma->vm_pgoff << PAGE_SHIFT;
-> -		return 0;
-> -	}
-> -	WARN_ON_ONCE(1);
-> -	return -EINVAL;
-> -}
-> -
-> -int track_pfn_copy(struct vm_area_struct *dst_vma,
-> -		struct vm_area_struct *src_vma, unsigned long *pfn)
-> -{
-> -	const unsigned long vma_size = src_vma->vm_end - src_vma->vm_start;
-> -	resource_size_t paddr;
-> -	pgprot_t pgprot;
-> -	int rc;
-> -
-> -	if (!(src_vma->vm_flags & VM_PAT))
-> -		return 0;
-> -
-> -	/*
-> -	 * Duplicate the PAT information for the dst VMA based on the src
-> -	 * VMA.
-> -	 */
-> -	if (get_pat_info(src_vma, &paddr, &pgprot))
-> -		return -EINVAL;
-> -	rc = reserve_pfn_range(paddr, vma_size, &pgprot, 1);
-> -	if (rc)
-> -		return rc;
-> -
-> -	/* Reservation for the destination VMA succeeded. */
-> -	vm_flags_set(dst_vma, VM_PAT);
-> -	*pfn = PHYS_PFN(paddr);
-> -	return 0;
-> -}
-> -
-> -void untrack_pfn_copy(struct vm_area_struct *dst_vma, unsigned long pfn)
-> -{
-> -	untrack_pfn(dst_vma, pfn, dst_vma->vm_end - dst_vma->vm_start, true);
-> -	/*
-> -	 * Reservation was freed, any copied page tables will get cleaned
-> -	 * up later, but without getting PAT involved again.
-> -	 */
-> -}
-> -
-> -/*
-> - * prot is passed in as a parameter for the new mapping. If the vma has
-> - * a linear pfn mapping for the entire range, or no vma is provided,
-> - * reserve the entire pfn + size range with single reserve_pfn_range
-> - * call.
-> - */
-> -int track_pfn_remap(struct vm_area_struct *vma, pgprot_t *prot,
-> -		    unsigned long pfn, unsigned long addr, unsigned long size)
-> -{
-> -	resource_size_t paddr = (resource_size_t)pfn << PAGE_SHIFT;
-> -
-> -	/* reserve the whole chunk starting from paddr */
-> -	if (!vma || (addr == vma->vm_start
-> -				&& size == (vma->vm_end - vma->vm_start))) {
-> -		int ret;
-> -
-> -		ret = reserve_pfn_range(paddr, size, prot, 0);
-> -		if (ret == 0 && vma)
-> -			vm_flags_set(vma, VM_PAT);
-> -		return ret;
-> -	}
-> -
-> -	return pfnmap_sanitize_pgprot(pfn, size, prot);
-> -}
-> -
->  int pfnmap_sanitize_pgprot(unsigned long pfn, unsigned long size, pgprot_t *prot)
+> +static inline void pgprot_set_cachemode(pgprot_t *prot, enum page_cache_mode pcm)
+> +{
+> +	*prot = __pgprot((pgprot_val(*prot) & ~_PAGE_CACHE_MASK) |
+> +			 cachemode2protval(pcm));
+> +}
+> +
+>  int phys_mem_access_prot_allowed(struct file *file, unsigned long pfn,
+>  				unsigned long size, pgprot_t *vma_prot)
 >  {
->  	resource_size_t paddr = (resource_size_t)pfn << PAGE_SHIFT;
-> @@ -1082,40 +969,6 @@ void pfnmap_untrack(unsigned long pfn, unsigned long size)
->  	free_pfn_range(paddr, size);
+> @@ -811,8 +817,7 @@ int phys_mem_access_prot_allowed(struct file *file, unsigned long pfn,
+>  	if (file->f_flags & O_DSYNC)
+>  		pcm = _PAGE_CACHE_MODE_UC_MINUS;
+>
+> -	*vma_prot = __pgprot((pgprot_val(*vma_prot) & ~_PAGE_CACHE_MASK) |
+> -			     cachemode2protval(pcm));
+> +	pgprot_set_cachemode(vma_prot, pcm);
+>  	return 1;
 >  }
 >
-> -/*
-> - * untrack_pfn is called while unmapping a pfnmap for a region.
-> - * untrack can be called for a specific region indicated by pfn and size or
-> - * can be for the entire vma (in which case pfn, size are zero).
-> - */
-> -void untrack_pfn(struct vm_area_struct *vma, unsigned long pfn,
-> -		 unsigned long size, bool mm_wr_locked)
-> -{
-> -	resource_size_t paddr;
+> @@ -880,9 +885,7 @@ static int reserve_pfn_range(u64 paddr, unsigned long size, pgprot_t *vma_prot,
+>  				(unsigned long long)paddr,
+>  				(unsigned long long)(paddr + size - 1),
+>  				cattr_name(pcm));
+> -			*vma_prot = __pgprot((pgprot_val(*vma_prot) &
+> -					     (~_PAGE_CACHE_MASK)) |
+> -					     cachemode2protval(pcm));
+> +			pgprot_set_cachemode(vma_prot, pcm);
+>  		}
+>  		return 0;
+>  	}
+> @@ -907,9 +910,7 @@ static int reserve_pfn_range(u64 paddr, unsigned long size, pgprot_t *vma_prot,
+>  		 * We allow returning different type than the one requested in
+>  		 * non strict case.
+>  		 */
+> -		*vma_prot = __pgprot((pgprot_val(*vma_prot) &
+> -				      (~_PAGE_CACHE_MASK)) |
+> -				     cachemode2protval(pcm));
+> +		pgprot_set_cachemode(vma_prot, pcm);
+>  	}
+>
+>  	if (memtype_kernel_map_sync(paddr, size, pcm) < 0) {
+> @@ -1060,9 +1061,7 @@ int track_pfn_remap(struct vm_area_struct *vma, pgprot_t *prot,
+>  			return -EINVAL;
+>  	}
+>
+> -	*prot = __pgprot((pgprot_val(*prot) & (~_PAGE_CACHE_MASK)) |
+> -			 cachemode2protval(pcm));
 > -
-> -	if (vma && !(vma->vm_flags & VM_PAT))
-> -		return;
-> -
-> -	/* free the chunk starting from pfn or the whole chunk */
-> -	paddr = (resource_size_t)pfn << PAGE_SHIFT;
-> -	if (!paddr && !size) {
-> -		if (get_pat_info(vma, &paddr, NULL))
-> -			return;
-> -		size = vma->vm_end - vma->vm_start;
-> -	}
-> -	free_pfn_range(paddr, size);
-> -	if (vma) {
-> -		if (mm_wr_locked)
-> -			vm_flags_clear(vma, VM_PAT);
-> -		else
-> -			__vm_flags_mod(vma, 0, VM_PAT);
-> -	}
-> -}
-> -
-> -void untrack_pfn_clear(struct vm_area_struct *vma)
-> -{
-> -	vm_flags_clear(vma, VM_PAT);
-> -}
-> -
+> +	pgprot_set_cachemode(prot, pcm);
+>  	return 0;
+>  }
+>
+> @@ -1073,10 +1072,8 @@ void track_pfn_insert(struct vm_area_struct *vma, pgprot_t *prot, pfn_t pfn)
+>  	if (!pat_enabled())
+>  		return;
+>
+> -	/* Set prot based on lookup */
+
+We're losing a comment here but who cares, it's obvious what's happening.
+
+>  	pcm = lookup_memtype(pfn_t_to_phys(pfn));
+> -	*prot = __pgprot((pgprot_val(*prot) & (~_PAGE_CACHE_MASK)) |
+> -			 cachemode2protval(pcm));
+> +	pgprot_set_cachemode(prot, pcm);
+>  }
+>
+>  /*
+> @@ -1115,15 +1112,15 @@ void untrack_pfn_clear(struct vm_area_struct *vma)
+>
 >  pgprot_t pgprot_writecombine(pgprot_t prot)
 >  {
->  	pgprot_set_cachemode(&prot, _PAGE_CACHE_MODE_WC);
-> diff --git a/include/linux/pgtable.h b/include/linux/pgtable.h
-> index 898a3ab195578..0ffc6b9339182 100644
-> --- a/include/linux/pgtable.h
-> +++ b/include/linux/pgtable.h
-> @@ -1489,17 +1489,6 @@ static inline pmd_t pmd_swp_clear_soft_dirty(pmd_t pmd)
->   * vmf_insert_pfn.
->   */
->
-> -/*
-> - * track_pfn_remap is called when a _new_ pfn mapping is being established
-> - * by remap_pfn_range() for physical range indicated by pfn and size.
-> - */
-> -static inline int track_pfn_remap(struct vm_area_struct *vma, pgprot_t *prot,
-> -				  unsigned long pfn, unsigned long addr,
-> -				  unsigned long size)
-> -{
-> -	return 0;
-> -}
-> -
->  static inline int pfnmap_sanitize_pgprot(unsigned long pfn, unsigned long size,
->  		pgprot_t *prot)
->  {
-> @@ -1515,55 +1504,7 @@ static inline int pfnmap_track(unsigned long pfn, unsigned long size,
->  static inline void pfnmap_untrack(unsigned long pfn, unsigned long size)
->  {
+> -	return __pgprot(pgprot_val(prot) |
+> -				cachemode2protval(_PAGE_CACHE_MODE_WC));
+> +	pgprot_set_cachemode(&prot, _PAGE_CACHE_MODE_WC);
+> +	return prot;
 >  }
-> -
-> -/*
-> - * track_pfn_copy is called when a VM_PFNMAP VMA is about to get the page
-> - * tables copied during copy_page_range(). Will store the pfn to be
-> - * passed to untrack_pfn_copy() only if there is something to be untracked.
-> - * Callers should initialize the pfn to 0.
-> - */
-> -static inline int track_pfn_copy(struct vm_area_struct *dst_vma,
-> -		struct vm_area_struct *src_vma, unsigned long *pfn)
-> -{
-> -	return 0;
-> -}
-> -
-> -/*
-> - * untrack_pfn_copy is called when a VM_PFNMAP VMA failed to copy during
-> - * copy_page_range(), but after track_pfn_copy() was already called. Can
-> - * be called even if track_pfn_copy() did not actually track anything:
-> - * handled internally.
-> - */
-> -static inline void untrack_pfn_copy(struct vm_area_struct *dst_vma,
-> -		unsigned long pfn)
-> -{
-> -}
-> -
-> -/*
-> - * untrack_pfn is called while unmapping a pfnmap for a region.
-> - * untrack can be called for a specific region indicated by pfn and size or
-> - * can be for the entire vma (in which case pfn, size are zero).
-> - */
-> -static inline void untrack_pfn(struct vm_area_struct *vma,
-> -			       unsigned long pfn, unsigned long size,
-> -			       bool mm_wr_locked)
-> -{
-> -}
-> -
-> -/*
-> - * untrack_pfn_clear is called in the following cases on a VM_PFNMAP VMA:
-> - *
-> - * 1) During mremap() on the src VMA after the page tables were moved.
-> - * 2) During fork() on the dst VMA, immediately after duplicating the src VMA.
-> - */
-> -static inline void untrack_pfn_clear(struct vm_area_struct *vma)
-> -{
-> -}
->  #else
-> -extern int track_pfn_remap(struct vm_area_struct *vma, pgprot_t *prot,
-> -			   unsigned long pfn, unsigned long addr,
-> -			   unsigned long size);
-> -
->  /**
->   * pfnmap_sanitize_pgprot - sanitize the pgprot for a pfn range
->   * @pfn: the start of the pfn range
-> @@ -1603,13 +1544,6 @@ int pfnmap_track(unsigned long pfn, unsigned long size, pgprot_t *prot);
->   * un-doing any reservation.
->   */
->  void pfnmap_untrack(unsigned long pfn, unsigned long size);
-> -extern int track_pfn_copy(struct vm_area_struct *dst_vma,
-> -		struct vm_area_struct *src_vma, unsigned long *pfn);
-> -extern void untrack_pfn_copy(struct vm_area_struct *dst_vma,
-> -		unsigned long pfn);
-> -extern void untrack_pfn(struct vm_area_struct *vma, unsigned long pfn,
-> -			unsigned long size, bool mm_wr_locked);
-> -extern void untrack_pfn_clear(struct vm_area_struct *vma);
->  #endif
+>  EXPORT_SYMBOL_GPL(pgprot_writecombine);
 >
->  #ifdef CONFIG_MMU
+>  pgprot_t pgprot_writethrough(pgprot_t prot)
+>  {
+> -	return __pgprot(pgprot_val(prot) |
+> -				cachemode2protval(_PAGE_CACHE_MODE_WT));
+> +	pgprot_set_cachemode(&prot, _PAGE_CACHE_MODE_WT);
+> +	return prot;
+>  }
+>  EXPORT_SYMBOL_GPL(pgprot_writethrough);
+>
 > --
 > 2.49.0
 >
