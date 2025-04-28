@@ -4,79 +4,197 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0A4BAC3ABAD
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DE9AEC3ABB2
 	for <intel-gfx@archiver.kernel.org>; Wed, 30 Apr 2025 12:51:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 593AC10E797;
-	Wed, 30 Apr 2025 12:51:46 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7028910E79C;
+	Wed, 30 Apr 2025 12:51:47 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="EK5vlaER";
+	dkim=pass (2048-bit key; unprotected) header.d=oracle.com header.i=@oracle.com header.b="MAYDRn3i";
+	dkim=pass (1024-bit key; unprotected) header.d=oracle.onmicrosoft.com header.i=@oracle.onmicrosoft.com header.b="RiyBbf4s";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BE0A010E699;
- Mon, 28 Apr 2025 18:27:06 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id C22F34A593;
- Mon, 28 Apr 2025 18:27:01 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 071C0C4CEED;
- Mon, 28 Apr 2025 18:27:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1745864823;
- bh=h5NvfaerCqqps0cYzgZ9hk6memBJ3cZgDY3NSZ5Txjs=;
- h=From:Subject:Date:To:Cc:From;
- b=EK5vlaER0+czh36fiLkRaLGLy7vyk1yh6mCHlfaBDlhKdEcmsRi1oJs/h/HSsFGF0
- zOWVevDhweqDE9lkWZh0a9t47fvmXB+gUNBU0B3kx0MvZKsP83h7xeYdPrXAbLYEQ3
- 8h9ogbtfVs8zaaG0nVY5kOLu5qlL1m2dSEzlOyg7WtOIq2jRFNIKErhIPW64lTgLvD
- weZSj/4fLeEhHJsntfqXCqRxTo54rc4MZP5FrJ6BwRNlcSs81mk72HJeuDeYmx2A/g
- FuzqDoewJWUX1RJhAjzbTlXRsYkNw5tDm5Rci4fVbrBc9UBexO3o/SPuBQKIr95f+E
- cC+8lJprhAHdg==
-From: Jeff Layton <jlayton@kernel.org>
-Subject: [PATCH v5 00/10] ref_tracker: add ability to register a debugfs
- file for a ref_tracker_dir
-Date: Mon, 28 Apr 2025 11:26:23 -0700
-Message-Id: <20250428-reftrack-dbgfs-v5-0-1cbbdf2038bd@kernel.org>
+Received: from mx0a-00069f02.pphosted.com (mx0a-00069f02.pphosted.com
+ [205.220.165.32])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9AE1F10E3E1;
+ Mon, 28 Apr 2025 16:07:38 +0000 (UTC)
+Received: from pps.filterd (m0246627.ppops.net [127.0.0.1])
+ by mx0b-00069f02.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 53SG2adP007826;
+ Mon, 28 Apr 2025 16:07:00 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com; h=cc
+ :content-type:date:from:in-reply-to:message-id:mime-version
+ :references:subject:to; s=corp-2023-11-20; bh=uaLyvKMTZHYsVDygiZ
+ hwb/o4ShaZ2+BscxsC44CBqGQ=; b=MAYDRn3ifiWC/gti57CApcRLs/5sCMfyNm
+ cQU54uPvoYwjsUxXsCF0nts6UH4b0cHxoqW2rzvbnk0vGK37p38CN9lDPNeWXoal
+ UG3dyrH+6EAyIyx0ptXnJWpsc/FXbuOshZp/9NWG6whdJuUHCpU6eYoebvA2wCgW
+ ZHn3SBCs9CrfvpgzfR+2ogOPr48f5srWRzJpSOkcm67S0a8OyIA1OF/cYJ6vvLKO
+ bcH28gQULNevytK3ilhxUybQ3nI/pjhMKWFpI2B8Tjb2BEZO0VC6QD/TS/HbnGBb
+ 5sgB9z5yjqbD749QeO+JvGHCpRz7au1Kd9vVqashwfKvGPwtbxcg==
+Received: from iadpaimrmta01.imrmtpd1.prodappiadaev1.oraclevcn.com
+ (iadpaimrmta01.appoci.oracle.com [130.35.100.223])
+ by mx0b-00069f02.pphosted.com (PPS) with ESMTPS id 46acu980bd-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Mon, 28 Apr 2025 16:06:59 +0000 (GMT)
+Received: from pps.filterd
+ (iadpaimrmta01.imrmtpd1.prodappiadaev1.oraclevcn.com [127.0.0.1])
+ by iadpaimrmta01.imrmtpd1.prodappiadaev1.oraclevcn.com (8.18.1.2/8.18.1.2)
+ with ESMTP id 53SG2BGX028457; Mon, 28 Apr 2025 16:06:52 GMT
+Received: from cy3pr05cu001.outbound.protection.outlook.com
+ (mail-westcentralusazlp17013075.outbound.protection.outlook.com [40.93.6.75])
+ by iadpaimrmta01.imrmtpd1.prodappiadaev1.oraclevcn.com (PPS) with ESMTPS id
+ 468nx8mc26-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Mon, 28 Apr 2025 16:06:52 +0000
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=GSAuEjfeUNBCOnVpkUhUTkfCUuHRv2Wi6XEr0Oi7PmgzdtziWri+OJ7HofmVPIJSEXY6sgRuiTpl8rqEiiRb6hR1gcTiMpdLNKYG0c/f12Kn7t7XN0AJMsQrmPvFvuiAyrUF5Lwsnyy2sFLRjVEEEO7Om/FNPmXpOCsh7ERYm6bAGAkDJ5rnM2n9LJcawzfMHZWeqlc/UzpTehgXj84SpltUXrImUCJJRkbGC1bX89JlRIEUhhrUCbI/Qo3cMBNte2zB2e34Xd8wR3lzruP2QvffqqDKnm+fEn9yeKjTtbA1oboq4bWpomwu0xUcAFdU50Guvqj55BJhRRhBtK0nAA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=uaLyvKMTZHYsVDygiZhwb/o4ShaZ2+BscxsC44CBqGQ=;
+ b=O0BUQODGqclktxq4745FwnM2KywxUQ79Hwn8bsUr/PvrewRvBuL4+3ldo2eFvnAPXPh9Nhttn7rO1ueXNPGyz9knhe4tuCv8m1xifutdLaPRqf2GyUxl5Xz8EhE6lkNfVdZW5TV6mr4yH4hkj64XHX49fCzdMEly4/avSH9IOg8Zqxf/Y4R7nWwXUJrnjwg2uGP6vROs+okfJ8LA4dZLB9UwWEW1RuXvH5vSzxPHapp8g01dBNrLFYTmgBuLGMyAlJqFLvuUM8hcsGsOFPfaFzwrE+l3oQvX5sd/XFeVvOnVb6q2ES1NVdIyVfgoerfeXCBVWuLBNCLr5/FP8s935A==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oracle.com; dmarc=pass action=none header.from=oracle.com;
+ dkim=pass header.d=oracle.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=oracle.onmicrosoft.com; s=selector2-oracle-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=uaLyvKMTZHYsVDygiZhwb/o4ShaZ2+BscxsC44CBqGQ=;
+ b=RiyBbf4sP1LkDh2UnqXCy9kcI8huffGL4V7IFhMVdSKHYkrxEFSDF4OC+S9OwvBJEoWk7e47+f4i1uzeAgQdzcR8k7D2VlApTwK56ImnAVQTtssDX5OemXs6Ri4KLk5eltMdha9yotJq8JtSEqhtYCAzK8Q1cnydf6UmJozBdIw=
+Received: from DM4PR10MB8218.namprd10.prod.outlook.com (2603:10b6:8:1cc::16)
+ by DM4PR10MB7425.namprd10.prod.outlook.com (2603:10b6:8:180::6) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8678.29; Mon, 28 Apr
+ 2025 16:06:44 +0000
+Received: from DM4PR10MB8218.namprd10.prod.outlook.com
+ ([fe80::2650:55cf:2816:5f2]) by DM4PR10MB8218.namprd10.prod.outlook.com
+ ([fe80::2650:55cf:2816:5f2%5]) with mapi id 15.20.8678.028; Mon, 28 Apr 2025
+ 16:06:44 +0000
+Date: Mon, 28 Apr 2025 17:06:40 +0100
+From: Lorenzo Stoakes <lorenzo.stoakes@oracle.com>
+To: David Hildenbrand <david@redhat.com>
+Cc: linux-kernel@vger.kernel.org, linux-mm@kvack.org, x86@kernel.org,
+ intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-trace-kernel@vger.kernel.org,
+ Dave Hansen <dave.hansen@linux.intel.com>,
+ Andy Lutomirski <luto@kernel.org>, Peter Zijlstra <peterz@infradead.org>,
+ Thomas Gleixner <tglx@linutronix.de>, Ingo Molnar <mingo@redhat.com>,
+ Borislav Petkov <bp@alien8.de>, "H. Peter Anvin" <hpa@zytor.com>,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Tvrtko Ursulin <tursulin@ursulin.net>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ Steven Rostedt <rostedt@goodmis.org>,
+ Masami Hiramatsu <mhiramat@kernel.org>,
+ Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+ "Liam R. Howlett" <Liam.Howlett@oracle.com>,
+ Vlastimil Babka <vbabka@suse.cz>, Jann Horn <jannh@google.com>,
+ Pedro Falcato <pfalcato@suse.de>, Peter Xu <peterx@redhat.com>
+Subject: Re: [PATCH v1 11/11] mm/io-mapping: track_pfn() -> "pfnmap tracking"
+Message-ID: <07a780ee-b2fa-4eb3-a340-175d7c18a0fe@lucifer.local>
+References: <20250425081715.1341199-1-david@redhat.com>
+ <20250425081715.1341199-12-david@redhat.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20250425081715.1341199-12-david@redhat.com>
+X-ClientProxiedBy: LO4P265CA0142.GBRP265.PROD.OUTLOOK.COM
+ (2603:10a6:600:2c4::16) To DM4PR10MB8218.namprd10.prod.outlook.com
+ (2603:10b6:8:1cc::16)
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAFDID2gC/2XMQQ7CIBCF4asY1mJghrHUlfcwLoBCJZrWgGk0p
- ncXTUyqLN9Mvv/Jsk/RZ7ZbPVnyU8xxHMqg9Yq5kxl6z2NXNgMBJJREnny4JePOvLN9yBybbWN
- RoIdgWEHX8o/3T/BwLPsU821Mj09/ku/rN6X+U5PkggeBpEkjgMD92afBXzZj6tm7NcHSU+Whe
- Cu1U8Z2EiBUHpe+qTwW71BSq0A7HWzl1dLryqviyRlyjW5bUurHz/P8AmLli/FtAQAA
-X-Change-ID: 20250413-reftrack-dbgfs-3767b303e2fa
-To: Andrew Morton <akpm@linux-foundation.org>, 
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
- Simon Horman <horms@kernel.org>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Jani Nikula <jani.nikula@linux.intel.com>, 
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, 
- Rodrigo Vivi <rodrigo.vivi@intel.com>, 
- Tvrtko Ursulin <tursulin@ursulin.net>
-Cc: Kuniyuki Iwashima <kuniyu@amazon.com>, Qasim Ijaz <qasdev00@gmail.com>, 
- Nathan Chancellor <nathan@kernel.org>, Andrew Lunn <andrew@lunn.ch>, 
- linux-kernel@vger.kernel.org, netdev@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org, 
- Jeff Layton <jlayton@kernel.org>, 
- =?utf-8?q?Thomas_Wei=C3=9Fschuh?= <thomas.weissschuh@linutronix.de>
-X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3743; i=jlayton@kernel.org;
- h=from:subject:message-id; bh=h5NvfaerCqqps0cYzgZ9hk6memBJ3cZgDY3NSZ5Txjs=;
- b=owEBbQKS/ZANAwAIAQAOaEEZVoIVAcsmYgBoD8h0Gv1hJSTC52TiQX1Rum6sG9p3zd0+46lkO
- ABX5YCEVFmJAjMEAAEIAB0WIQRLwNeyRHGyoYTq9dMADmhBGVaCFQUCaA/IdAAKCRAADmhBGVaC
- FWBlD/9nSekgdog3Y0VbADaub1JMYh6XgrPCxk66va48i1As/b4j+949889BsJXOuU5eo1qYYv5
- 2ZBqcDue3RzxePkz9jw2cWg8Zo7YU/7//UKTqRVI6kG+vf4R2lhmLctKR3oWFuWWmwyh+IvuhNT
- kFyYYZ12L2pvx12FFj9qkNPwHD9JUT0mkJztQjiysVueJqqHkGHkFbZPJ2YikAHu+vMmb/+Aqrm
- utmSB/wIXxRezR0MERBzxEC0K9rcK07noF3B+8AfPrGrNkSYGjaqY8JDogMsFZdvjUIh9/4MZVg
- arhS0Z8/l9qSi/rzz84Y3LuUrgwyGeQpl726/D3EXqZufPcdQi3/5Zy/5wgonetj1Z93I85Mlh8
- oe1qOzLkBHWep2exCnUhuAhtaQE7oyuMh5Ko64JjTaI2Dfh7gnPP5vmhG0ffzPF4ej6ge2mb2qL
- 5imTmUlovF/SI2qbppJZIdT/8wQtRXNIdQ8hBxJO/8vH1b2DgQ9ufuA/SDgrKbimiZhq1pmx+a0
- CUZOYzRvsUW/yG3f0oTq2+NmVZglafk2dObXM6k7Rr3rNDQa+OjHpSp+JZrMVaWoDn6s79uiYW3
- 2Mnqcyz470Ltg27ob5LIzJJ+MFF197KO6zixiHZ1+zuDUewp5jc9IJNQcpX02XDVQslelNckqCK
- t+z/OEdbZsXRXiQ==
-X-Developer-Key: i=jlayton@kernel.org; a=openpgp;
- fpr=4BC0D7B24471B2A184EAF5D3000E684119568215
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DM4PR10MB8218:EE_|DM4PR10MB7425:EE_
+X-MS-Office365-Filtering-Correlation-Id: db4af0ac-ffec-4c0c-d798-08dd866eab91
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|7416014|366016|376014|1800799024|7053199007; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?BhGqyicJNR0HS7KCyRj8lV4bxjVUxXJhnI0s9ErPrhIw+q1gCyrOA3GI10Hf?=
+ =?us-ascii?Q?Hh2TPoYxEptnOv1ZHfrgkrE1XQQKXfxnr9iecQrBhKhkmgR6+pwlQCahOjF/?=
+ =?us-ascii?Q?eaeWIvWXKi9b1fue0960ciafYfjHX29xly7CzcohaW8bfAb8vMqT3/kCgoFM?=
+ =?us-ascii?Q?PGyZXt78UYr6L3ySBfncS+M1WrcujQkfATUzBbdVDRb0+jECpEgyJ6gERFjw?=
+ =?us-ascii?Q?Q4Hf2zZcML5EeOzqUphTzuAm1gZDOQLubbyrPNY2A4f+qn/u999VGE+4QsBQ?=
+ =?us-ascii?Q?fPSMfzPe9PpmwFSRb9AwpVVdlhnnHx9HRTj5IxnLkRa3V0I49gE4T5Lp5MeP?=
+ =?us-ascii?Q?szNf9NxvdlWxyK9Ylplg3exDbB6OlH3AkBi0ChspmXJ7XzSl/D+uN7b7JbFs?=
+ =?us-ascii?Q?Nh26si3+53sWr65+54VAC7ExAuR1ss46AgNus20ogOsAF45xF2ZIOr5TzrAU?=
+ =?us-ascii?Q?YfMJTdcEpCFgCrAUmnIydYoWPORcB/uz4+57fi2UCO+y0qm0qxDlUnlujtIo?=
+ =?us-ascii?Q?cBoX0E0ULH2W6R7A5ynFzSZgn7ySbuwO96RhX3XxxOrGC2ZW0ob7Et8qwvNJ?=
+ =?us-ascii?Q?jnzD8ObwjagUvhJP+AUDsUY1x1yq/HpsfMZ2fheuSUdLA2Q+l6mxYWUPQdcX?=
+ =?us-ascii?Q?DeYBgkHqvbki6FP47HoMIxipB/M2F3tSL/9n7IojIb4kVDJEq197WVc/Wl3E?=
+ =?us-ascii?Q?QsoaiHHIB55YnU5TbZjh5kDHhUol1U6Z49TBgSgkF4Jl1BCbaR89614tknp8?=
+ =?us-ascii?Q?INw4owxMuhPU3Wu1fagF9zVo6DmkT3+OBDmJJwGdiTVhoMscB9xL1peKixi5?=
+ =?us-ascii?Q?zEVgeIBdzUwZN7udyW5GLm1LnIc7gR4YDUkhAgdoSXG7QtVFV+abQjDP7Ke+?=
+ =?us-ascii?Q?Gd21MXA3hTwlUgJQsb1u/HhmegUP//Y7t4+ALaVfRnvCIC+76Cgz9Hri3X9R?=
+ =?us-ascii?Q?OBbl2vu3RJCueL1TPGC+KNp9zuHmh1wSZMdQ5VFkjsXi1eGbB7XSazG+eyNb?=
+ =?us-ascii?Q?6a/yDqXAO9NtTFJaqZee7jezqmvihXQC0d8yFl9iV7xiA67hGgEBU0QuCnBF?=
+ =?us-ascii?Q?vCTOPxUacQXGmrAwYuniGvVVAonoqyU2nlq43LRlSWpqlUfrslvwlBL/lHxb?=
+ =?us-ascii?Q?LEfaPjE0pHmwtW/s09mL/F7dX4TqYK65zDE4vu+++qN+z9zV9JQlChiuONbm?=
+ =?us-ascii?Q?cf63qXoSgwnHeyrJ2Tu8dUrCHpAyxMQUN4wZZZmmd1Ifs6W0bbXhx6xXyhZA?=
+ =?us-ascii?Q?P3Ne67OB7YQBrwwZQ1IJ0l8gTj8RDGZ4vp1t2faPrppd3eWYTfOZz2PeZHIg?=
+ =?us-ascii?Q?A0VFSAJngJLoHWqx/Dn5q95552E+uX61lXs0Y2TQMOhloNiArgAOae5P2oFO?=
+ =?us-ascii?Q?lMXV8B2UsTnWnoH+E+4W1SJVFjhLnXwhyn/qYAmTFjSLYLIp4ZlFZyMQSyA4?=
+ =?us-ascii?Q?Fl/ZSO7C7ZM=3D?=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DM4PR10MB8218.namprd10.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(7416014)(366016)(376014)(1800799024)(7053199007); DIR:OUT;
+ SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?rTn4dhhwRQmGTKFN9l7Jl2B8CzI+bdD03NS4qSESqrGFO0Ifso9BaqwH0q7f?=
+ =?us-ascii?Q?i83WFlHOqDb6SBj4KCiEZJZ/xeEVECVkI3MYw3jlecTLLloFFeFq1RwQ8x8v?=
+ =?us-ascii?Q?LEkY+vEX5+i1nRPws4cKYDln4ywa/rjM8Oii3ckv6gPTwsO/NV4HqgoZQ5t2?=
+ =?us-ascii?Q?oU2mvZppJMlEuF9Z2cy5BDvx0hJkuubOz3qIan3yJPOm/uSUplDsqPMsibYJ?=
+ =?us-ascii?Q?G6u5QppU7UWpQJ/GmGBfT6bJ+ufGSWnRPhaSS86Bs8oW1n7UnnPBmKBSOh7m?=
+ =?us-ascii?Q?be5LQWf0gWYsrwbjgdheb+AZE/s83p91SEmL6X1uxCBIvwZhMi/GwNtjdXjU?=
+ =?us-ascii?Q?ToWNtbfR0wysCVd9xlOROtgx34j7UM8iAQx9R7+sHzxRHWOD8B3aDmWxvA75?=
+ =?us-ascii?Q?2gGXEC/vv5ve8PtI1yMTHpGOJc6mgZNaTOOiorRpinqKFSZ7SQgdh7+ADod3?=
+ =?us-ascii?Q?+fzijbHl+/xgCmwaSX2oKV61a9XVAzV3hq9kYepRZUkqnOyuibEDzaopd2yE?=
+ =?us-ascii?Q?vFC/Ntu9MG9okEYqXaRCKlUXMtn6wwEf+nSBJ2zCW9jlqIjZdUeLSYWOhdLh?=
+ =?us-ascii?Q?zqwryBOdcszIebP+u28RQVyeMVtWVZx4+obtIMDRa7ZQfAw0BijVRENDwLcU?=
+ =?us-ascii?Q?Z071W+HaZcI3eO54yE7l8QNz51j3MWSuyU9fBY2fTBhojHjE6fzQ8kRrf2pQ?=
+ =?us-ascii?Q?1yuVJqX6bjpNb8/Gj6kNLbMR2xXioB4jayZLZJGGK0rIeDGh558nsbYcWWAz?=
+ =?us-ascii?Q?aBxFVkc9bqsnoopq5bpckBpMEvhxq/LBee9CZ76NuWg8dG0Ymnzk0jxHNCtr?=
+ =?us-ascii?Q?KZQ4xg1MdjvenUcxqYpomDa/Smt4+4UdzLWa1DU21j2XkcXV03jhUTDHrDon?=
+ =?us-ascii?Q?27tQPiijZNG8k7kVgs3MeL1CCHFS3piG1pqQaNKbTu690N04M35zm70e1CUz?=
+ =?us-ascii?Q?JQBiv4tnS0/OtWgky5X0MEA3kpZKMdLNCtYzdcl2DFrVVgQ2TAwkxgQrGlcB?=
+ =?us-ascii?Q?tYaaOblSbeWTt5K/tPhksw6i4qV/HyWD6Kyn3+kU8uICrS++vR2Ss7tIzLyG?=
+ =?us-ascii?Q?WVxq4VmnKRMmeaUHpV+7p+ehKiCIuOF/RIvhpsuNReZtAsiu+nBpqPWfMirL?=
+ =?us-ascii?Q?3s8Uy+Cqvj/yrPZdnNLFNbMHq+SpboQTW6C/Y4G2uPeMLNVkzVP6CZsvF47b?=
+ =?us-ascii?Q?Wv8nG3qZnS/kdid6Tfc+RhHJn+OkoY0wAKQwTmjsm04+0jx5aGgHf5qkYp6h?=
+ =?us-ascii?Q?8GvlN6HRyAfFvC/hqqTKl3++D/+3mGv90AuQpP3GHNaUceNY5c4TBT3yz1TX?=
+ =?us-ascii?Q?lwnFwxX3q3uJM0pkrHarmPVzFKpT/rfZN+i5HJqvyRdNbJNOKpMYVhFCBGZR?=
+ =?us-ascii?Q?FuVapS+n0Ge8q98g/xNRH7XJM3VbUPrYiikfUACK6rT3hH+bEUC1thPi/Lf6?=
+ =?us-ascii?Q?bCvXkv0qQ38C2u0z49bMIQA5T3TsODV4I+KGm+PqTde+ByU9DXpwhzqksolJ?=
+ =?us-ascii?Q?ezBF67wb25YdLYWvpSLTP9l9fiTgwTJ4zizrh0T/ACukuPDWWtXAYwNPnCTo?=
+ =?us-ascii?Q?ugdB20obuX8Trd9uc3RIEFVsMHdysqGJtrZmPSa3iR6IAWTDA98RmZlz/+K1?=
+ =?us-ascii?Q?bA=3D=3D?=
+X-MS-Exchange-AntiSpam-ExternalHop-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-ExternalHop-MessageData-0: eMq4Ar/0VFsmjUcfLZCmQyaxoaphh4MCR5ARBaDNY0vLuzVdLUBraf7PGOEv3DJQalIJz/9fzBtaMn3Gt7G0PefaenwTuA/y/zMP537i9KF8BLXNxzB94op5HxovnKK5dF38WHTeYzmBnWI1FidrN0yLgwjkDuEK1mijVn7ij9wUI6FFPEUKmt93oeRL/jNgeomQ76Z5zdNzknI6JqbbLNpfxnJUOW+/4QSx+7QhyDu8UqV45DfpDVsWkEF9xcQtzO5S9zABFhjpTNkN3T+fp27G9YJsyjb6Ilgvie4cvh3A3B2mAzald7c7u9DghoznC8FfhK6RgMR8VY/0uGvwg2+z/De6z336hEdhBVjVD4UjC7PlHOO9zIAOjehkHL+OCFu9jZRKrJ7jo6RLtFLA3YNyTOOqxgvG1N0CchZlbEzu2N8hHu5GAmpPM4dJpXs9wVKiyIg5/tObDIm8XGfJvz5ugotic8H7Na5HuSKF+UTR6cS1vHEHwxiCCEIWEyHpQ16swsEcFpUGQBOVZuuPvE2qamLBbumvAs80SMKJtlBzzfssNrZ41pebkGXigNb92phe586y0tECy3WpPr1VwlOQKjH88ksbH60jt7nN4Sc=
+X-OriginatorOrg: oracle.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: db4af0ac-ffec-4c0c-d798-08dd866eab91
+X-MS-Exchange-CrossTenant-AuthSource: DM4PR10MB8218.namprd10.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Apr 2025 16:06:44.0742 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 4e2c6054-71cb-48f1-bd6c-3a9705aca71b
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: JgkvgZJOcdtKsJU/rdGGeykTr9iQFGdAqKC0vL86bqrocAQwTRH9QfXLTmPSZo9+yDmWGxpVaMOb+086v+zUsw4xKkhFGR8y7GiltXx6vqo=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR10MB7425
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1099,Hydra:6.0.736,FMLib:17.12.80.40
+ definitions=2025-04-28_06,2025-04-24_02,2025-02-21_01
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 mlxscore=0
+ spamscore=0 bulkscore=0
+ mlxlogscore=999 adultscore=0 suspectscore=0 malwarescore=0 phishscore=0
+ classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2504070000
+ definitions=main-2504280131
+X-Proofpoint-GUID: ePIjj2D9_D3i-dHOAftPEbnPBb8p-1NG
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwNDI4MDEzMiBTYWx0ZWRfX+pW5Pnkn5ero
+ QeyKvHy+A3+obbYZ0fwA87IKF40z+biB/XU81Bxr2xxj8PkzZ3AxWPkqEIjLuxVUXPgR0FGqleU
+ bidkmpwDVEbGFZvrsGJO7Bxfes+Cbip5RdsCnAvBYSSeYOC/lmr6aWpAMPD5K+c4FQBlNFaa2jM
+ T0thAf1nRstg6m+lc2RhtLV/iO1EmICXWclwFlVKCGF4Zj73GgPdYmXKffn2gq1XEwjscWFf2zv
+ rR2f29DMtKQnTUBci9F5ZsmACBwgQpRd5xQ6RrSKDquVF0oI9/QWMyHPqmAWba5BXPOEMVMbDtM
+ fvmI3f01UhMU/FW0BiMD/Hl3F4vCInj1KVds7JgoRaxB6wbZ/IU/7+Nb6MLG6HIjpfdoLXn6rBv
+ IW0jR7Cm
+X-Proofpoint-ORIG-GUID: ePIjj2D9_D3i-dHOAftPEbnPBb8p-1NG
 X-Mailman-Approved-At: Wed, 30 Apr 2025 12:51:16 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -93,81 +211,40 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-This one is quite a bit of a change from the last set. I've gone back to
-auto-registering the debugfs files for every ref_tracker_dir. With this,
-the callers should pass in a static string as a classname instead of an
-individual name string that gets copied. The debugfs file is given a
-name "class@%px" The output format is switched to print "class@%p"
-instead of "name@%p".
+On Fri, Apr 25, 2025 at 10:17:15AM +0200, David Hildenbrand wrote:
+> track_pfn() does not exist, let's simply refer to it as "pfnmap
+> tracking".
+>
+> Signed-off-by: David Hildenbrand <david@redhat.com>
 
-To allow for human-readable names, I've added the ability to add a
-symlink in the debugfs dir that can be set to an arbitrary name. This is
-optional. I've only added them to the netns and i915 trackers in this
-series.
+LGTM, so:
 
-Finally, with the above changes, we can eliminate the "name" field in
-the ref_tracker_dir which shrinks it by 16 bytes on a 64 bit host.
+Reviewed-by: Lorenzo Stoakes <lorenzo.stoakes@oracle.com>
 
-The original plan was to merge this via the networking tree. That's
-probably still doable but there are some display port and i915 changes
-in here too. Note that those are untested, mostly because I don't have
-the necessary hardware handy.
+> ---
+>  mm/io-mapping.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+>
+> diff --git a/mm/io-mapping.c b/mm/io-mapping.c
+> index 01b3627999304..7266441ad0834 100644
+> --- a/mm/io-mapping.c
+> +++ b/mm/io-mapping.c
+> @@ -21,7 +21,7 @@ int io_mapping_map_user(struct io_mapping *iomap, struct vm_area_struct *vma,
+>  	if (WARN_ON_ONCE((vma->vm_flags & expected_flags) != expected_flags))
+>  		return -EINVAL;
+>
+> -	/* We rely on prevalidation of the io-mapping to skip track_pfn(). */
+> +	/* We rely on prevalidation of the io-mapping to skip pfnmap tracking. */
+>  	return remap_pfn_range_notrack(vma, addr, pfn, size,
+>  		__pgprot((pgprot_val(iomap->prot) & _PAGE_CACHE_MASK) |
+>  			 (pgprot_val(vma->vm_page_prot) & ~_PAGE_CACHE_MASK)));
+> --
+> 2.49.0
+>
 
-Signed-off-by: Jeff Layton <jlayton@kernel.org>
----
-Changes in v5:
-- add class string to each ref_tracker_dir
-- auto-register debugfs file for every tracker in ref_tracker_dir_init
-- add function to allow adding a symlink for each tracker
-- add patches to create symlinks for netns's and i915 entries
-- change output format to print class@%p instead of name@%p
-- eliminate the name field in ref_tracker_dir
-- fix off-by-one bug when NULL terminating name string
-- Link to v4: https://lore.kernel.org/r/20250418-reftrack-dbgfs-v4-0-5ca5c7899544@kernel.org
+However this doesn't apply after commit b8d8f1830bab ("mm/io-mapping:
+precompute remap protection flags for clarity"), so will need a rebase :)
+seems this was cleaned up to separate the __pgprot() bit from the
+remap_pfn_range_notrack().
 
-Changes in v4:
-- Drop patch to widen ref_tracker_dir_.name, use NAME_MAX+1 (256) instead since this only affects dentry name
-- Link to v3: https://lore.kernel.org/r/20250417-reftrack-dbgfs-v3-0-c3159428c8fb@kernel.org
-
-Changes in v3:
-- don't overwrite dir->name in ref_tracker_dir_debugfs
-- define REF_TRACKER_NAMESZ and use it when setting name
-- Link to v2: https://lore.kernel.org/r/20250415-reftrack-dbgfs-v2-0-b18c4abd122f@kernel.org
-
-Changes in v2:
-- Add patch to do %pK -> %p conversion in ref_tracker.c
-- Pass in output function to pr_ostream() instead of if statement
-- Widen ref_tracker_dir.name to 64 bytes to accomodate unique names
-- Eliminate error handling with debugfs manipulation
-- Incorporate pointer value into netdev name
-- Link to v1: https://lore.kernel.org/r/20250414-reftrack-dbgfs-v1-0-f03585832203@kernel.org
-
----
-Jeff Layton (10):
-      ref_tracker: don't use %pK in pr_ostream() output
-      ref_tracker: add a top level debugfs directory for ref_tracker
-      ref_tracker: have callers pass output function to pr_ostream()
-      ref_tracker: allow pr_ostream() to print directly to a seq_file
-      ref_tracker: add a static classname string to each ref_tracker_dir
-      ref_tracker: automatically register a file in debugfs for a ref_tracker_dir
-      ref_tracker: add a way to create a symlink to the ref_tracker_dir debugfs file
-      net: add symlinks to ref_tracker_dir for netns
-      i915: add ref_tracker_dir symlinks for each tracker
-      ref_tracker: eliminate the ref_tracker_dir name field
-
- drivers/gpu/drm/display/drm_dp_tunnel.c |   2 +-
- drivers/gpu/drm/i915/intel_runtime_pm.c |   4 +-
- drivers/gpu/drm/i915/intel_wakeref.c    |   3 +-
- include/linux/ref_tracker.h             |  41 ++++++-
- lib/ref_tracker.c                       | 194 +++++++++++++++++++++++++++++---
- net/core/dev.c                          |   2 +-
- net/core/net_namespace.c                |  32 +++++-
- 7 files changed, 252 insertions(+), 26 deletions(-)
----
-base-commit: 5bc1018675ec28a8a60d83b378d8c3991faa5a27
-change-id: 20250413-reftrack-dbgfs-3767b303e2fa
-
-Best regards,
--- 
-Jeff Layton <jlayton@kernel.org>
-
+Note of course this commit hash is from mm-new so quite changeable... :)
