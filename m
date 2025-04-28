@@ -4,89 +4,184 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CDB10C369D5
-	for <intel-gfx@archiver.kernel.org>; Mon, 28 Apr 2025 12:50:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 15A22C3ABA4
+	for <intel-gfx@archiver.kernel.org>; Mon, 28 Apr 2025 13:00:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7956110E3BA;
-	Mon, 28 Apr 2025 12:49:54 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A923510E4CF;
+	Mon, 28 Apr 2025 13:00:40 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=permerror (0-bit key) header.d=smtpservice.net header.i=@smtpservice.net header.b="SPE7kTM8";
-	dkim=temperror (0-bit key) header.d=fjasle.eu header.i=@fjasle.eu header.b="XKRvIRDj";
-	dkim=pass (1024-bit key; unprotected) header.d=fjasle.eu header.i=@fjasle.eu header.b="OKMDd0Wr";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="CJZVIyy8";
 	dkim-atps=neutral
-X-Greylist: delayed 7656 seconds by postgrey-1.36 at gabe;
- Fri, 25 Apr 2025 20:56:28 UTC
-Received: from e2i427.smtp2go.com (e2i427.smtp2go.com [103.2.141.171])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 92F8B10E9D5
- for <intel-gfx@lists.freedesktop.org>; Fri, 25 Apr 2025 20:56:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=smtpservice.net; s=mp6320.a1-4.dyn; x=1745615487; h=Feedback-ID:
- X-Smtpcorp-Track:Message-ID:Subject:To:From:Date:Reply-To:Sender:
- List-Unsubscribe:List-Unsubscribe-Post;
- bh=owWeXA2qFbSxDa+WbGesCQaKVfTlr2DxYaRhX4/qnBw=; b=SPE7kTM8mzb6jQUduH0fvOlZGw
- H5iAE8LBvlYy1uwxhAoa4azF3iKZ/ZogpuFX/3nx6BAF2jwUIOos2BS4PcRa8GgVjmqqd2Hn+F/HG
- bVwiG6YJAya2PipZ1wcf/6yg7dJqCC+JVBSJ/bxgVH+K5atOSIlykkVcNjokNU7WNAKRlS2uMecqm
- ozrY2XlFHl7IXpWgs4YRZINWFGIMqkjepM2ny0LJbgzVyzyACb+kTpu4LexvJ4gtAN9rMlYvi7MVF
- iXAW1XSQKKam0HVtJlLnN4Je/4FJvPXg499P2zOe1ZBYJnj1iR3iAM3oS9C8UYTKKYdrZf/3GAgob
- 2yD8x1fw==;
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fjasle.eu;
- i=@fjasle.eu; q=dns/txt; s=s1174286; t=1745614587; h=from : subject :
- to : message-id : date;
- bh=owWeXA2qFbSxDa+WbGesCQaKVfTlr2DxYaRhX4/qnBw=;
- b=XKRvIRDjfOjA4GIVT9wc9yRfxFj4GsGznRTcQOdDufXQvct6tMxEKJbpZXHfaI04gnzGk
- HQCofRkWzBEKiJffhfwiFeIsl8SuZQrKfrwf13f0XAvFADHko0q0zDpcraORw4JXxmH699D
- zqSM1QYMIdMWnELJgEGZwScxBuQQu4LQ1AQ7fR8iFiIpQE+kRa+MIPQyAAmPSX1D7qLSjko
- tqhldtPgibDlNlXruCAQZYfuKqIHRA0Hbdow2uvQSxqePjJ3kLVu2d1ztkXoq+zXRKEFun5
- ZT681tXDsWdUtRFgSaYLYhq7hNfa+fZZs90phnTWUBuMvOzT/7wDBhdJmrtA==
-Received: from [10.172.233.58] (helo=SmtpCorp) by smtpcorp.com with esmtpsa
- (TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
- (Exim 4.94.2-S2G) (envelope-from <nicolas@fjasle.eu>)
- id 1u8O4V-TRk3EO-H4; Fri, 25 Apr 2025 18:46:48 +0000
-Received: from [10.85.249.164] (helo=leknes.fjasle.eu)
- by smtpcorp.com with esmtpsa
- (TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
- (Exim 4.97.1-S2G) (envelope-from <nicolas@fjasle.eu>)
- id 1u8O4U-FnQW0hQ0D58-lO44; Fri, 25 Apr 2025 18:46:47 +0000
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=fjasle.eu; s=mail;
- t=1745606802; bh=0ia0+nAnI/nsJasJHb5V2/gXM9qZLGD5ziz3qvpGdgU=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=OKMDd0WrcBwM6g/L2ydRl++BzlqOyGND91Q+5n+Aa5UgL0vJpqZn49aozb/Xay0sA
- w74dEmdiMz3xybwg2bqnIOrHyzhXUQAa5YwBI6q5j97tQgBe5Yecjp+F97ndaWrunp
- BwHDDOTQ3EBRsd5R0TJ09Y3VzdNKZuJHQYZ6Hx18=
-Received: by leknes.fjasle.eu (Postfix, from userid 1000)
- id 17F0A49A5F; Fri, 25 Apr 2025 20:46:41 +0200 (CEST)
-Date: Fri, 25 Apr 2025 20:46:41 +0200
-From: Nicolas Schier <nicolas@fjasle.eu>
-To: Mauro Carvalho Chehab <mchehab+huawei@kernel.org>
-Cc: Jonathan Corbet <corbet@lwn.net>,
- Linux Doc Mailing List <linux-doc@vger.kernel.org>,
- David Airlie <airlied@gmail.com>,
- Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Masahiro Yamada <masahiroy@kernel.org>, Maxime Ripard <mripard@kernel.org>,
- Nathan Chancellor <nathan@kernel.org>,
- Nicolas Schier <nicolas.schier@linux.dev>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, Simona Vetter <simona@ffwll.ch>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- Tvrtko Ursulin <tursulin@ursulin.net>,
- dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
- linux-kbuild@vger.kernel.org, linux-kernel@vger.kernel.org,
- Andy Shevchenko <andriy.shevchenko@intel.com>,
- Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-Subject: Re: [PATCH v4 3/4] scripts/kernel-doc.py: don't create *.pyc files
-Message-ID: <aAvYkchT7RISfxsX@fjasle.eu>
-References: <cover.1745453655.git.mchehab+huawei@kernel.org>
- <158b962ed7cd104f7bbfe69f499ec1cc378864db.1745453655.git.mchehab+huawei@kernel.org>
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.21])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 680F110E4C9;
+ Mon, 28 Apr 2025 13:00:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1745845239; x=1777381239;
+ h=message-id:date:subject:to:cc:references:from:
+ in-reply-to:content-transfer-encoding:mime-version;
+ bh=eI25AGYPOMVFa8yVvQx5oYIiI7BlgVsaQABTz3sFc7s=;
+ b=CJZVIyy8Cv+p04OMmQBdqPSBlw/uJLTt1qtJlVzMn8yjJC3vouR6ZbxN
+ 4sUYBptBHRVLkSb3mqlR9IRMMau+93oE4bZ0KjPkTAwzkPfvZRo5wZ47p
+ n+D6Ily0iqCv7EsVIEcL7yEci+LfA1synLo/BjV5KmzpY2sdbrEcI8tGK
+ TryT1+iob9DgxkwB2X8w/6/mcplZv5mCuitlxGx72C2C/ulPX9YfPj8ZR
+ hn4BvQ5jI732qaaCnwKoGcnbY16wTM8CbFYhgIKpsH3rT8nQmy6LqGFBr
+ 6CQzLrn+awxgHMcC460vBBHEivxM70FV3ut66Ix5+w42hjnKOerQ1LLcN Q==;
+X-CSE-ConnectionGUID: srmzMfXlTKSLFGhLNdEUow==
+X-CSE-MsgGUID: OIHjWnY+RqiFeSBIaRKHOg==
+X-IronPort-AV: E=McAfee;i="6700,10204,11416"; a="47344880"
+X-IronPort-AV: E=Sophos;i="6.15,246,1739865600"; d="scan'208";a="47344880"
+Received: from fmviesa001.fm.intel.com ([10.60.135.141])
+ by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 28 Apr 2025 06:00:39 -0700
+X-CSE-ConnectionGUID: k7VkyLRYTg2j7mYSexq2iQ==
+X-CSE-MsgGUID: bqxqQlYuTTiksnKW0qNDuA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.15,246,1739865600"; d="scan'208";a="164591527"
+Received: from orsmsx903.amr.corp.intel.com ([10.22.229.25])
+ by fmviesa001.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 28 Apr 2025 06:00:39 -0700
+Received: from ORSMSX901.amr.corp.intel.com (10.22.229.23) by
+ ORSMSX903.amr.corp.intel.com (10.22.229.25) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.1544.14; Mon, 28 Apr 2025 06:00:38 -0700
+Received: from orsedg603.ED.cps.intel.com (10.7.248.4) by
+ ORSMSX901.amr.corp.intel.com (10.22.229.23) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.1544.14 via Frontend Transport; Mon, 28 Apr 2025 06:00:38 -0700
+Received: from NAM02-BN1-obe.outbound.protection.outlook.com (104.47.51.45) by
+ edgegateway.intel.com (134.134.137.100) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.1.2507.44; Mon, 28 Apr 2025 06:00:37 -0700
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=RaQr9YFVbnJfHYCvwjj/946YRhvO8eVB+2SWx5pjSgNkvVyvyDghNaQ4xC8FNZZ8INWaUcq2q9yxxtouwLNFrgTTaYH/EViI7FwZ3/WJ4J/L9dvW6p64A/TTUwCYpMPoo0CeEiDjKQZFRXP8OPwUnqPQFvsf0CU/aNFJJ7qOfgbCly1IVfxJB/t6EUqPFyL4jB9mKni2QDDo0B6tdSvBF5YTryYkWE4wFklT0RZoAd1AR1kJWQhHtrUi/8VE1/32l1YnNSRpcWbqDmUukki+DlGGAl3Ev3CtBGv1GgOoI+Kz2UstlIJIxOo6qcl5EVTSem40poLFuNt3rzOjHX08dg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=ow2IKsYnY3tKjEyQkNz0N4++lZxw/WQHV1ifW2IS22g=;
+ b=czWvRyulCktw4mIcBZ0qy7s2VBeFSwtofEZ9EnB41QUJ3r4e6OIevkTvP4uECT3ca3Cg/wrwYJsKpfBF0CaPdoFI4/R2GnST1K2xWhXBEmy9W51UiQ9y1rj7TmDK6gD6fgpw3gwFF93m4Upax7/I3mnrqIy0BoGBm8rWZm3Ns9Sgmm81B+YEG5RkoPuHgtWrBnAj+Z9PpbSLUHhqabClpC2l1tLn1Cdw6dWUmbTLDH7yBfBtBihPHbiid4NnBPOIwxafkwc69Eng50iMKni4cFpjwZ0Eo3INXsn0r2hpOu3Sjlustluy5CzJZuCstZFoSebO1B0Ki0ImWFXL4Mzp1A==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+Received: from DM4PR11MB5341.namprd11.prod.outlook.com (2603:10b6:5:390::22)
+ by PH8PR11MB6780.namprd11.prod.outlook.com (2603:10b6:510:1cb::11) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8678.27; Mon, 28 Apr
+ 2025 12:59:53 +0000
+Received: from DM4PR11MB5341.namprd11.prod.outlook.com
+ ([fe80::397:7566:d626:e839]) by DM4PR11MB5341.namprd11.prod.outlook.com
+ ([fe80::397:7566:d626:e839%5]) with mapi id 15.20.8678.033; Mon, 28 Apr 2025
+ 12:59:53 +0000
+Message-ID: <13858ae3-6c86-4c10-bb46-b07ea5ab9481@intel.com>
+Date: Mon, 28 Apr 2025 18:29:46 +0530
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 03/15] drm/i915/display: Add source param for dc balance
+To: Mitul Golani <mitulkumar.ajitkumar.golani@intel.com>,
+ <intel-gfx@lists.freedesktop.org>, <intel-xe@lists.freedesktop.org>
+CC: <ville.syrjala@intel.com>
+References: <20250428062058.2811655-1-mitulkumar.ajitkumar.golani@intel.com>
+ <20250428062058.2811655-4-mitulkumar.ajitkumar.golani@intel.com>
+Content-Language: en-US
+From: "Nautiyal, Ankit K" <ankit.k.nautiyal@intel.com>
+In-Reply-To: <20250428062058.2811655-4-mitulkumar.ajitkumar.golani@intel.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: MA0PR01CA0025.INDPRD01.PROD.OUTLOOK.COM
+ (2603:1096:a01:b8::13) To DM4PR11MB5341.namprd11.prod.outlook.com
+ (2603:10b6:5:390::22)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <158b962ed7cd104f7bbfe69f499ec1cc378864db.1745453655.git.mchehab+huawei@kernel.org>
-X-Smtpcorp-Track: twuJXqvZ5VnI.fV2F9sMAMA8m.y2_G6Q69yfs
-Feedback-ID: 1174286m:1174286a9YXZ7r:1174286ss-2np7oAv
-X-Report-Abuse: Please forward a copy of this message, including all headers, 
- to <abuse-report@smtp2go.com>
-X-Mailman-Approved-At: Mon, 28 Apr 2025 12:49:53 +0000
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DM4PR11MB5341:EE_|PH8PR11MB6780:EE_
+X-MS-Office365-Filtering-Correlation-Id: 1cf593a4-fcd0-44f3-f751-08dd8654915a
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|1800799024|366016|376014;
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?Mm9XRFBvYXEvcWRCTW5aZDdjTGVHM0pLSk5EMWpDdGFOOC9mOEhvbnM4MnhW?=
+ =?utf-8?B?RkgvdUZHQjkxTEVUNUJzazBUYjJ0QkFWK0g2Y2dRNjF6eVVSZ2RaTmR3NHp4?=
+ =?utf-8?B?dUpwNDZuenY0QmZxWG5jL3haOVY1NDdSVFBEK1dQTTBiS1JiL3ZtakFNalRM?=
+ =?utf-8?B?c2p4M0V5WUpuRmlLNDZmQUtSZk0ycEErQzg4RFErbUVjVDNLRTJuVEgzOUZF?=
+ =?utf-8?B?RGlsNFZiMWlnREZKZ0w5YjhQUXAzaXFSS0FVemkyYTB1enlFYndNS3E2VFRK?=
+ =?utf-8?B?RXdDSm9uNHQ3VXpEeDgydHZoNkpBditEa3JrTlIvZUZtYXNlZzJZcXFLNU9m?=
+ =?utf-8?B?Ynlxbk45N2hjbzE4MkhQSnFVL092Z1dDZGt2dVlMelUvNFVrc1FJdEpCTm4v?=
+ =?utf-8?B?MDRqMjVreUdRZDdQdGRaK2ExRGIxYUR6YjNtT0pzSHM1NkdxY3NRblJRNWRk?=
+ =?utf-8?B?bFB0cTVwVk9iMVRMRmpINDNuUDZUUEpUQnZTd2N6OUZJL0RuOEMxL0FQcVgz?=
+ =?utf-8?B?RUIzZ3VaV0JaQlhFTGxXTFF3amVJdHpoR24xVm1SZDFVMTNGUSt3aDFPUlky?=
+ =?utf-8?B?NG10ZEtrOG1tUHA4K0hOS2hkMGhUeERzZEVFbUtIbWloUEpyWG5Ic2I5NE8y?=
+ =?utf-8?B?eHVZa3JDRW1kVHZ4SXk5RWR5aVhhMDM0elRYTEpIUFVrcXV3YklSdlpHODNE?=
+ =?utf-8?B?bmZSbm1wUTRRY3lDYm52VmFpblFyNzZjZGx2ektrR0loRTBsb01MUk4vYTVy?=
+ =?utf-8?B?VTNqbmdibDhDOFdvUEROZnFhb0RwWlN5dFFmUGtLVGRDcU44UUdKeGxPMlVx?=
+ =?utf-8?B?WlFUbDR5SFh1OWpXRk1uaFNiT254blY3S0xmZnhJZ0R6RERlWTlzWncydmNz?=
+ =?utf-8?B?MGxyN1RMSGQ3KzdEMDY0bGg1UkJQejZ4VFZBdyt1bzV4ZDNWUUM5bUdRNno2?=
+ =?utf-8?B?cHRySFYydWR3UzFVZ0xMMEhNaXlWWFVxblRwWVJ6cEtKYktZNEJ0UWgzZi85?=
+ =?utf-8?B?Q2ZBVXdqWWNyNVkralI2NjJNTU0wMnZSVXFnaG9DR0ZISy9xK3Q5UGtkU1V0?=
+ =?utf-8?B?ZU55WnhrMEM1UmtZQ3lHN1ZlNUZYdkU4VXlkYmlTbHNPck1qL3FJSUp1aEli?=
+ =?utf-8?B?K0grcHBKanBYSWd0TlhmQjFWa2FKS0ZDS3ZJVTlFcGJMUkMxMjNuTWRWdFox?=
+ =?utf-8?B?RHNvNTlvTENjMjJJc3U4MTMrU0JreFJIVko5NHAyVHEyT0h1aXorQ2tBRStY?=
+ =?utf-8?B?NmJtVnk2VnFQUWg3RkMzVjlqWDNyQUZDSXF5S0tXcWdFemhYUUw4Sll6ZW1t?=
+ =?utf-8?B?aXJ5ekFPUTFpT0ZtaUJBL0g4MG5zTnZBUFdVeW9kbWQrWERKbERGS3hWeVlm?=
+ =?utf-8?B?MERNSVgzRFpxc3BXZU9YakJyVGo1WDlmWUNmcE9HVWE5Q3BBRjRPN0NqTmt2?=
+ =?utf-8?B?RzA0UHlUaFlNZUlNeVJtemhOQjRwc201MXRTUkNhK01ZMmVVbXpHdCtVMlF4?=
+ =?utf-8?B?ZitwcmI4SWgzeXZsZXRRd3dBTzVOMDBOYTBtMnE1V3hGR0NZY2VqcUUrTERP?=
+ =?utf-8?B?QkNLeStPcGNtRFluYUdvUVVXOUZpbWhFM1V6TjMzTmRiemFnVVpJZHpCVHRt?=
+ =?utf-8?B?bkVKei8vcDRGS3k0MEtBVTF2WWN4dUVqQjBYa1VwRXc3c3AwZEZQc2ZsU3Ry?=
+ =?utf-8?B?S1FkWmJkN0tlM0FKcjdZSFp3cnU2UlRhSjNhczJvSU8vT0RlS1dqVFp1N3Q4?=
+ =?utf-8?B?NmIrM1h3blNMTXVZSG92QXJrN1VtL3g1dE94YlJRSGQ2OC9xaEUxdklXWHJK?=
+ =?utf-8?B?S256dGt2emZjSWJhNGNyeEJLb0U5bFZLa1ZMRUlzUmlQQzBvampoTmRWdkFZ?=
+ =?utf-8?B?b0dJOFFrR0pMYXFNMERYOGdCMloyM0hydFlnNHhNcXFnRUhlS085N3k3RlBJ?=
+ =?utf-8?Q?abcIuJU7rhM=3D?=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DM4PR11MB5341.namprd11.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(366016)(376014); DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?c0JhQTB4Q2JLUmxrRWhISmtIZjlDL0ZURzljRmJ6ZGc4dlBXZlR1SW9wR3Q4?=
+ =?utf-8?B?V243Mk4xeDBKWmwzbk5leDdkNUNyaWo5cjVlZUEzb2JyRzhhYnY4UTN2amRp?=
+ =?utf-8?B?VGJubFhQcDV1bEJ5ZElEOHpKTDF0V2J2aVp5a3l0Ykl6b2h5QTd0MHhWRXB0?=
+ =?utf-8?B?dUlUZWhlY3dQaVBVMDFBUVppK1d0bDVhay9HREtNN0s0M244RVdRS2pFcFBy?=
+ =?utf-8?B?dHlEMGxXM1RoMDFmYzlubEVrcE9VME1SY2lmank4a256YXk4bHhjem5sTmg2?=
+ =?utf-8?B?QnRCSGVDRGUrL09WVmowOFpuZ29uN1JpaXZUbFk4VjBEd2d6UUhtRExXc2M0?=
+ =?utf-8?B?U0xRNUNKczZyNFFvbDBMeWlPcnM4RWg5VE1oR3EyTmZxcGJCdHpMQUNBTHAx?=
+ =?utf-8?B?NjZJeWJCM3hFMTlWQnIrT2NqYlhaelowcHZmRm5QREErMGdwczRpWm9FdElE?=
+ =?utf-8?B?U1k2V2dmeXA0MkIvaUlWQ0FwRWhSRGlVdzlCY0FINmtPV2txY0xwd25jYWVw?=
+ =?utf-8?B?SEMyUENUL1VDeS96bDNtQW5IczJxWHNBT0tHcUJkeHRMRkhUYUUvN2s3d0Y3?=
+ =?utf-8?B?dmxyQ0JLbUowcGdDWHNFNVNQM1NkUi9pR1ZydEN2bHIxUWgybWZjSlhUQlVr?=
+ =?utf-8?B?cmFEYS9MNlZBRVB1ckJUNENTa0xXak52NHo2SG1veWJMb2x5T1BkL1NnOFc2?=
+ =?utf-8?B?NmVnOXFUMkp0bnA2MlZHQTkrd1NUSzFHYUVvb0ZFRFhvekpyT1FxcTlmbFhz?=
+ =?utf-8?B?bmdFd1dlMUV5SXZIOStQN2VjYXFTVjJxMU0yR3ltdFd0RjRDeGFQdXdpL2FK?=
+ =?utf-8?B?Sjc4YmFCeHd5UGl4M0dDQ2hXdHBpa1ZqY2hNVk1YRy8xbTY5UGtVdDZoaVJq?=
+ =?utf-8?B?SU10NHIyUEJoTjhjWjJ6N0thenJMcTBXSjRiNHVGOFlkN2NlUTNVUWluc24r?=
+ =?utf-8?B?VEtTcllzWXUxbENuT1lIeVhvS1liWStuQWU5enV3NVpOSlUrMkNsTTlzYWRw?=
+ =?utf-8?B?anJSL2JYNWZWNy9vZHhlanUrbElFZGhycFRVUlNOT3R2SjdXSWNUc0VKd2h4?=
+ =?utf-8?B?anN4eE9VT0IwdGt4VVJOd0NTUHBZZzA3N2dESTdyMXB3eEtIWDgrY2JXUWha?=
+ =?utf-8?B?UDFXTXFrN1QzOThVTDNtVERIR0t1TzhwT2ZUWHdwUkh4WUsvQVlnWnB6K25a?=
+ =?utf-8?B?UmI3QXQxR0VEVE1haFN0MXlTWThMTU1GallOVkZOSVZsQ2JQWit2NUNINVZ1?=
+ =?utf-8?B?cHM2b2JvWGZJQzd2a2pyZDltQXVuU2M2WWt6cFR5T09HYy90RGtpNW9TaHFR?=
+ =?utf-8?B?dC90NlpQNWZ4MUEyZ2ltUE9CeUozWnprQjYxNlo5UDkxUTZaVHJCYVk5dEhI?=
+ =?utf-8?B?WFJLL2U4cVdCTlpjYzdhSEFjcm85Y3FvS3A1M1VtdlJqSDkxSDBBKzEwK0Qw?=
+ =?utf-8?B?bzdHMnJwUDZYQmZYUXg0Z1poUDZoWE1RUURrS1BDaExFc1RMSmVXb3U0ekk2?=
+ =?utf-8?B?QkkwV0duNmNjd01RVzA3Rlg2SjJuaGRYcFRiZHgxL3E5bWo0RXFObW5hcVI1?=
+ =?utf-8?B?RHBSeE1XRTNHUkNIY01pK3R4Rm9BRWNMV2ZUOENNVVhkaFd6a2ZFT3RxQ1Jn?=
+ =?utf-8?B?Q3NsbVpHbXowVmxYNDduNWRXWHY2dGlWR1lsekk2aWNFdnBXNXhSQnc3clQ3?=
+ =?utf-8?B?M2R2UmgrT0VZVHVubFpoQUJSSk10RHJ4S3g1M21JNGJPMHQzYWl2TFNSNFU4?=
+ =?utf-8?B?R1gydDhXVDltSnlBUGFIRk5oUm80Rnh4NWZZVUlwd1pFaSsyY1UyYk03eElW?=
+ =?utf-8?B?bS82M2J3aHpjbTVSTmZ3bEErUnhEdWs0c1dBRkhwQWNCMlV1aUhXcXlUbUZY?=
+ =?utf-8?B?OWwyOFFWK3dRZGpPVHRjQW9aMXVmd2hYckFCU250VUwwWkVWUmxRbXFVUll6?=
+ =?utf-8?B?c2VZc0xmMVdqZXRqaEF1UXl0SW00cXZxYXRQYjFIR2lwUm8zbG9tOW9obnNB?=
+ =?utf-8?B?b2k3QXdiYnB0U3JETFVzWk5zZzcxL2YwSVFmNXg1MXJxUnBxa1VCWU90bVlS?=
+ =?utf-8?B?NUdBb2IwelJlRW5SZ3NqS0V5UiszVFdYWitRbkVaZ3dod1ZCaStwMEhLR2E3?=
+ =?utf-8?B?WjVyRHMyR09mRHhQdEtGRWNVdkZvZ2ZtWGtLTHZ1b1o0UzVFY2RMOEx1eUo3?=
+ =?utf-8?B?WXc9PQ==?=
+X-MS-Exchange-CrossTenant-Network-Message-Id: 1cf593a4-fcd0-44f3-f751-08dd8654915a
+X-MS-Exchange-CrossTenant-AuthSource: DM4PR11MB5341.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Apr 2025 12:59:53.6332 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 9NWPZ6TBy/NzzsC/evA1JzQbY/CDJLypRWjFCTuNJZHgiSUjYxki6Nf7KZFw8QNpdH/3wyO051EfN0vSPybloqhkSrrZWXf/8xSHoYswF8k=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH8PR11MB6780
+X-OriginatorOrg: intel.com
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -102,46 +197,33 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Thu, Apr 24, 2025 at 08:16:23AM +0800 Mauro Carvalho Chehab wrote:
-> As reported by Andy, kernel-doc.py is creating a __pycache__
-> directory at build time.
-> 
-> Disable creation of __pycache__ for the libraries used by
-> kernel-doc.py, when excecuted via the build system or via
-> scripts/find-unused-docs.sh.
-> 
-> Reported-by: Andy Shevchenko <andriy.shevchenko@intel.com>
-> Closes: https://lore.kernel.org/linux-doc/Z_zYXAJcTD-c3xTe@black.fi.intel.com/
-> Signed-off-by: Mauro Carvalho Chehab <mchehab+huawei@kernel.org>
-> Tested-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+
+On 4/28/2025 11:50 AM, Mitul Golani wrote:
+> Add source param for dc balance enablement further.
+>
+> --v2:
+> - Arrange in alphabetic order. (Ankit)
+> - Update name. (Ankit)
+>
+> Signed-off-by: Mitul Golani <mitulkumar.ajitkumar.golani@intel.com>
+
+
+Reviewed-by: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
+
+
 > ---
->  drivers/gpu/drm/Makefile      | 2 +-
->  drivers/gpu/drm/i915/Makefile | 2 +-
->  include/drm/Makefile          | 2 +-
->  scripts/Makefile.build        | 2 +-
->  scripts/find-unused-docs.sh   | 2 +-
->  5 files changed, 5 insertions(+), 5 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/Makefile b/drivers/gpu/drm/Makefile
-> index ed54a546bbe2..d21d0cd2c752 100644
-> --- a/drivers/gpu/drm/Makefile
-> +++ b/drivers/gpu/drm/Makefile
-> @@ -236,7 +236,7 @@ always-$(CONFIG_DRM_HEADER_TEST) += \
->  quiet_cmd_hdrtest = HDRTEST $(patsubst %.hdrtest,%.h,$@)
->        cmd_hdrtest = \
->  		$(CC) $(c_flags) -fsyntax-only -x c /dev/null -include $< -include $<; \
-> -		$(srctree)/scripts/kernel-doc -none $(if $(CONFIG_WERROR)$(CONFIG_DRM_WERROR),-Werror) $<; \
-> +		 PYTHONDONTWRITEBYTECODE=1 $(KERNELDOC) -none $(if $(CONFIG_WERROR)$(CONFIG_DRM_WERROR),-Werror) $<; \
-
-Did someone check if we could add
-
-  sys.dont_write_bytecode = True
-
-to the script itself instead of cluttering PYTHONDONTWRITEBYTECODE
-everywhere [1]?
-
-Kind regards,
-Nicolas
-
-
-[1]: https://docs.python.org/3/library/sys.html#sys.dont_write_bytecode
+>   drivers/gpu/drm/i915/display/intel_display_device.h | 1 +
+>   1 file changed, 1 insertion(+)
+>
+> diff --git a/drivers/gpu/drm/i915/display/intel_display_device.h b/drivers/gpu/drm/i915/display/intel_display_device.h
+> index 87c666792c0d..fd886e1283f1 100644
+> --- a/drivers/gpu/drm/i915/display/intel_display_device.h
+> +++ b/drivers/gpu/drm/i915/display/intel_display_device.h
+> @@ -193,6 +193,7 @@ struct intel_display_platforms {
+>   					  ((__display)->platform.dgfx && DISPLAY_VER(__display) == 14)) && \
+>   					 HAS_DSC(__display))
+>   #define HAS_VRR(__display)		(DISPLAY_VER(__display) >= 11)
+> +#define HAS_VRR_DC_BALANCE(__display)	(DISPLAY_VER(__display) >= 30)
+>   #define INTEL_NUM_PIPES(__display)	(hweight8(DISPLAY_RUNTIME_INFO(__display)->pipe_mask))
+>   #define OVERLAY_NEEDS_PHYSICAL(__display)	(DISPLAY_INFO(__display)->overlay_needs_physical)
+>   #define SUPPORTS_TV(__display)		(DISPLAY_INFO(__display)->supports_tv)
