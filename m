@@ -4,197 +4,75 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DE9AEC3ABB2
-	for <intel-gfx@archiver.kernel.org>; Wed, 30 Apr 2025 12:51:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B84DFC369DC
+	for <intel-gfx@archiver.kernel.org>; Wed, 30 Apr 2025 12:51:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7028910E79C;
-	Wed, 30 Apr 2025 12:51:47 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0DF4A10E790;
+	Wed, 30 Apr 2025 12:51:46 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=oracle.com header.i=@oracle.com header.b="MAYDRn3i";
-	dkim=pass (1024-bit key; unprotected) header.d=oracle.onmicrosoft.com header.i=@oracle.onmicrosoft.com header.b="RiyBbf4s";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="ddc0RbMZ";
 	dkim-atps=neutral
-Received: from mx0a-00069f02.pphosted.com (mx0a-00069f02.pphosted.com
- [205.220.165.32])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9AE1F10E3E1;
- Mon, 28 Apr 2025 16:07:38 +0000 (UTC)
-Received: from pps.filterd (m0246627.ppops.net [127.0.0.1])
- by mx0b-00069f02.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 53SG2adP007826;
- Mon, 28 Apr 2025 16:07:00 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com; h=cc
- :content-type:date:from:in-reply-to:message-id:mime-version
- :references:subject:to; s=corp-2023-11-20; bh=uaLyvKMTZHYsVDygiZ
- hwb/o4ShaZ2+BscxsC44CBqGQ=; b=MAYDRn3ifiWC/gti57CApcRLs/5sCMfyNm
- cQU54uPvoYwjsUxXsCF0nts6UH4b0cHxoqW2rzvbnk0vGK37p38CN9lDPNeWXoal
- UG3dyrH+6EAyIyx0ptXnJWpsc/FXbuOshZp/9NWG6whdJuUHCpU6eYoebvA2wCgW
- ZHn3SBCs9CrfvpgzfR+2ogOPr48f5srWRzJpSOkcm67S0a8OyIA1OF/cYJ6vvLKO
- bcH28gQULNevytK3ilhxUybQ3nI/pjhMKWFpI2B8Tjb2BEZO0VC6QD/TS/HbnGBb
- 5sgB9z5yjqbD749QeO+JvGHCpRz7au1Kd9vVqashwfKvGPwtbxcg==
-Received: from iadpaimrmta01.imrmtpd1.prodappiadaev1.oraclevcn.com
- (iadpaimrmta01.appoci.oracle.com [130.35.100.223])
- by mx0b-00069f02.pphosted.com (PPS) with ESMTPS id 46acu980bd-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Mon, 28 Apr 2025 16:06:59 +0000 (GMT)
-Received: from pps.filterd
- (iadpaimrmta01.imrmtpd1.prodappiadaev1.oraclevcn.com [127.0.0.1])
- by iadpaimrmta01.imrmtpd1.prodappiadaev1.oraclevcn.com (8.18.1.2/8.18.1.2)
- with ESMTP id 53SG2BGX028457; Mon, 28 Apr 2025 16:06:52 GMT
-Received: from cy3pr05cu001.outbound.protection.outlook.com
- (mail-westcentralusazlp17013075.outbound.protection.outlook.com [40.93.6.75])
- by iadpaimrmta01.imrmtpd1.prodappiadaev1.oraclevcn.com (PPS) with ESMTPS id
- 468nx8mc26-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Mon, 28 Apr 2025 16:06:52 +0000
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=GSAuEjfeUNBCOnVpkUhUTkfCUuHRv2Wi6XEr0Oi7PmgzdtziWri+OJ7HofmVPIJSEXY6sgRuiTpl8rqEiiRb6hR1gcTiMpdLNKYG0c/f12Kn7t7XN0AJMsQrmPvFvuiAyrUF5Lwsnyy2sFLRjVEEEO7Om/FNPmXpOCsh7ERYm6bAGAkDJ5rnM2n9LJcawzfMHZWeqlc/UzpTehgXj84SpltUXrImUCJJRkbGC1bX89JlRIEUhhrUCbI/Qo3cMBNte2zB2e34Xd8wR3lzruP2QvffqqDKnm+fEn9yeKjTtbA1oboq4bWpomwu0xUcAFdU50Guvqj55BJhRRhBtK0nAA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=uaLyvKMTZHYsVDygiZhwb/o4ShaZ2+BscxsC44CBqGQ=;
- b=O0BUQODGqclktxq4745FwnM2KywxUQ79Hwn8bsUr/PvrewRvBuL4+3ldo2eFvnAPXPh9Nhttn7rO1ueXNPGyz9knhe4tuCv8m1xifutdLaPRqf2GyUxl5Xz8EhE6lkNfVdZW5TV6mr4yH4hkj64XHX49fCzdMEly4/avSH9IOg8Zqxf/Y4R7nWwXUJrnjwg2uGP6vROs+okfJ8LA4dZLB9UwWEW1RuXvH5vSzxPHapp8g01dBNrLFYTmgBuLGMyAlJqFLvuUM8hcsGsOFPfaFzwrE+l3oQvX5sd/XFeVvOnVb6q2ES1NVdIyVfgoerfeXCBVWuLBNCLr5/FP8s935A==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oracle.com; dmarc=pass action=none header.from=oracle.com;
- dkim=pass header.d=oracle.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oracle.onmicrosoft.com; s=selector2-oracle-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=uaLyvKMTZHYsVDygiZhwb/o4ShaZ2+BscxsC44CBqGQ=;
- b=RiyBbf4sP1LkDh2UnqXCy9kcI8huffGL4V7IFhMVdSKHYkrxEFSDF4OC+S9OwvBJEoWk7e47+f4i1uzeAgQdzcR8k7D2VlApTwK56ImnAVQTtssDX5OemXs6Ri4KLk5eltMdha9yotJq8JtSEqhtYCAzK8Q1cnydf6UmJozBdIw=
-Received: from DM4PR10MB8218.namprd10.prod.outlook.com (2603:10b6:8:1cc::16)
- by DM4PR10MB7425.namprd10.prod.outlook.com (2603:10b6:8:180::6) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8678.29; Mon, 28 Apr
- 2025 16:06:44 +0000
-Received: from DM4PR10MB8218.namprd10.prod.outlook.com
- ([fe80::2650:55cf:2816:5f2]) by DM4PR10MB8218.namprd10.prod.outlook.com
- ([fe80::2650:55cf:2816:5f2%5]) with mapi id 15.20.8678.028; Mon, 28 Apr 2025
- 16:06:44 +0000
-Date: Mon, 28 Apr 2025 17:06:40 +0100
-From: Lorenzo Stoakes <lorenzo.stoakes@oracle.com>
-To: David Hildenbrand <david@redhat.com>
-Cc: linux-kernel@vger.kernel.org, linux-mm@kvack.org, x86@kernel.org,
- intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-trace-kernel@vger.kernel.org,
- Dave Hansen <dave.hansen@linux.intel.com>,
- Andy Lutomirski <luto@kernel.org>, Peter Zijlstra <peterz@infradead.org>,
- Thomas Gleixner <tglx@linutronix.de>, Ingo Molnar <mingo@redhat.com>,
- Borislav Petkov <bp@alien8.de>, "H. Peter Anvin" <hpa@zytor.com>,
- Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Tvrtko Ursulin <tursulin@ursulin.net>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Andrew Morton <akpm@linux-foundation.org>,
- Steven Rostedt <rostedt@goodmis.org>,
- Masami Hiramatsu <mhiramat@kernel.org>,
- Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
- "Liam R. Howlett" <Liam.Howlett@oracle.com>,
- Vlastimil Babka <vbabka@suse.cz>, Jann Horn <jannh@google.com>,
- Pedro Falcato <pfalcato@suse.de>, Peter Xu <peterx@redhat.com>
-Subject: Re: [PATCH v1 11/11] mm/io-mapping: track_pfn() -> "pfnmap tracking"
-Message-ID: <07a780ee-b2fa-4eb3-a340-175d7c18a0fe@lucifer.local>
-References: <20250425081715.1341199-1-david@redhat.com>
- <20250425081715.1341199-12-david@redhat.com>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20250425081715.1341199-12-david@redhat.com>
-X-ClientProxiedBy: LO4P265CA0142.GBRP265.PROD.OUTLOOK.COM
- (2603:10a6:600:2c4::16) To DM4PR10MB8218.namprd10.prod.outlook.com
- (2603:10b6:8:1cc::16)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DADFF10E69D;
+ Mon, 28 Apr 2025 18:27:06 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sea.source.kernel.org (Postfix) with ESMTP id 961324AAFE;
+ Mon, 28 Apr 2025 18:27:04 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 72DE3C4CEEC;
+ Mon, 28 Apr 2025 18:27:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1745864826;
+ bh=D7eYUyrEMPuIlNDnf5xYhfYtI7n2pvxbIb5qGlnf6w4=;
+ h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
+ b=ddc0RbMZ2RNaGjr5X9rVNs9k+m7QQM8h9ZTzFISuxbFkEzYcex0f7XolRLH4wg7QI
+ UPmeUY7+pfi6pXn0qMc0QQ07+n3//mUfTzCOIZizWJdEUFX96+H1m0UGDLHzbQP5eL
+ bGcGFeIBjtYZLZa+ceoxqMbYDYWk6KDB2kwwvR417YfhnblMe1FLThpb2TZ+8n1t+Q
+ A07MBHSJqOd87ep7caLElsEBWrzd1yzTPBaE/2H3NbNM62H3geXFMg+i4m1MKIVhNL
+ 8gp1S0LYC0c1OwLfnBCbBtiar2LRbzrWIrfg4kRs1qWH+t3bquH45njB6QD7/2R+52
+ ix7XD9pOd7FQw==
+From: Jeff Layton <jlayton@kernel.org>
+Date: Mon, 28 Apr 2025 11:26:26 -0700
+Subject: [PATCH v5 03/10] ref_tracker: have callers pass output function to
+ pr_ostream()
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM4PR10MB8218:EE_|DM4PR10MB7425:EE_
-X-MS-Office365-Filtering-Correlation-Id: db4af0ac-ffec-4c0c-d798-08dd866eab91
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|7416014|366016|376014|1800799024|7053199007; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?BhGqyicJNR0HS7KCyRj8lV4bxjVUxXJhnI0s9ErPrhIw+q1gCyrOA3GI10Hf?=
- =?us-ascii?Q?Hh2TPoYxEptnOv1ZHfrgkrE1XQQKXfxnr9iecQrBhKhkmgR6+pwlQCahOjF/?=
- =?us-ascii?Q?eaeWIvWXKi9b1fue0960ciafYfjHX29xly7CzcohaW8bfAb8vMqT3/kCgoFM?=
- =?us-ascii?Q?PGyZXt78UYr6L3ySBfncS+M1WrcujQkfATUzBbdVDRb0+jECpEgyJ6gERFjw?=
- =?us-ascii?Q?Q4Hf2zZcML5EeOzqUphTzuAm1gZDOQLubbyrPNY2A4f+qn/u999VGE+4QsBQ?=
- =?us-ascii?Q?fPSMfzPe9PpmwFSRb9AwpVVdlhnnHx9HRTj5IxnLkRa3V0I49gE4T5Lp5MeP?=
- =?us-ascii?Q?szNf9NxvdlWxyK9Ylplg3exDbB6OlH3AkBi0ChspmXJ7XzSl/D+uN7b7JbFs?=
- =?us-ascii?Q?Nh26si3+53sWr65+54VAC7ExAuR1ss46AgNus20ogOsAF45xF2ZIOr5TzrAU?=
- =?us-ascii?Q?YfMJTdcEpCFgCrAUmnIydYoWPORcB/uz4+57fi2UCO+y0qm0qxDlUnlujtIo?=
- =?us-ascii?Q?cBoX0E0ULH2W6R7A5ynFzSZgn7ySbuwO96RhX3XxxOrGC2ZW0ob7Et8qwvNJ?=
- =?us-ascii?Q?jnzD8ObwjagUvhJP+AUDsUY1x1yq/HpsfMZ2fheuSUdLA2Q+l6mxYWUPQdcX?=
- =?us-ascii?Q?DeYBgkHqvbki6FP47HoMIxipB/M2F3tSL/9n7IojIb4kVDJEq197WVc/Wl3E?=
- =?us-ascii?Q?QsoaiHHIB55YnU5TbZjh5kDHhUol1U6Z49TBgSgkF4Jl1BCbaR89614tknp8?=
- =?us-ascii?Q?INw4owxMuhPU3Wu1fagF9zVo6DmkT3+OBDmJJwGdiTVhoMscB9xL1peKixi5?=
- =?us-ascii?Q?zEVgeIBdzUwZN7udyW5GLm1LnIc7gR4YDUkhAgdoSXG7QtVFV+abQjDP7Ke+?=
- =?us-ascii?Q?Gd21MXA3hTwlUgJQsb1u/HhmegUP//Y7t4+ALaVfRnvCIC+76Cgz9Hri3X9R?=
- =?us-ascii?Q?OBbl2vu3RJCueL1TPGC+KNp9zuHmh1wSZMdQ5VFkjsXi1eGbB7XSazG+eyNb?=
- =?us-ascii?Q?6a/yDqXAO9NtTFJaqZee7jezqmvihXQC0d8yFl9iV7xiA67hGgEBU0QuCnBF?=
- =?us-ascii?Q?vCTOPxUacQXGmrAwYuniGvVVAonoqyU2nlq43LRlSWpqlUfrslvwlBL/lHxb?=
- =?us-ascii?Q?LEfaPjE0pHmwtW/s09mL/F7dX4TqYK65zDE4vu+++qN+z9zV9JQlChiuONbm?=
- =?us-ascii?Q?cf63qXoSgwnHeyrJ2Tu8dUrCHpAyxMQUN4wZZZmmd1Ifs6W0bbXhx6xXyhZA?=
- =?us-ascii?Q?P3Ne67OB7YQBrwwZQ1IJ0l8gTj8RDGZ4vp1t2faPrppd3eWYTfOZz2PeZHIg?=
- =?us-ascii?Q?A0VFSAJngJLoHWqx/Dn5q95552E+uX61lXs0Y2TQMOhloNiArgAOae5P2oFO?=
- =?us-ascii?Q?lMXV8B2UsTnWnoH+E+4W1SJVFjhLnXwhyn/qYAmTFjSLYLIp4ZlFZyMQSyA4?=
- =?us-ascii?Q?Fl/ZSO7C7ZM=3D?=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM4PR10MB8218.namprd10.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(7416014)(366016)(376014)(1800799024)(7053199007); DIR:OUT;
- SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?rTn4dhhwRQmGTKFN9l7Jl2B8CzI+bdD03NS4qSESqrGFO0Ifso9BaqwH0q7f?=
- =?us-ascii?Q?i83WFlHOqDb6SBj4KCiEZJZ/xeEVECVkI3MYw3jlecTLLloFFeFq1RwQ8x8v?=
- =?us-ascii?Q?LEkY+vEX5+i1nRPws4cKYDln4ywa/rjM8Oii3ckv6gPTwsO/NV4HqgoZQ5t2?=
- =?us-ascii?Q?oU2mvZppJMlEuF9Z2cy5BDvx0hJkuubOz3qIan3yJPOm/uSUplDsqPMsibYJ?=
- =?us-ascii?Q?G6u5QppU7UWpQJ/GmGBfT6bJ+ufGSWnRPhaSS86Bs8oW1n7UnnPBmKBSOh7m?=
- =?us-ascii?Q?be5LQWf0gWYsrwbjgdheb+AZE/s83p91SEmL6X1uxCBIvwZhMi/GwNtjdXjU?=
- =?us-ascii?Q?ToWNtbfR0wysCVd9xlOROtgx34j7UM8iAQx9R7+sHzxRHWOD8B3aDmWxvA75?=
- =?us-ascii?Q?2gGXEC/vv5ve8PtI1yMTHpGOJc6mgZNaTOOiorRpinqKFSZ7SQgdh7+ADod3?=
- =?us-ascii?Q?+fzijbHl+/xgCmwaSX2oKV61a9XVAzV3hq9kYepRZUkqnOyuibEDzaopd2yE?=
- =?us-ascii?Q?vFC/Ntu9MG9okEYqXaRCKlUXMtn6wwEf+nSBJ2zCW9jlqIjZdUeLSYWOhdLh?=
- =?us-ascii?Q?zqwryBOdcszIebP+u28RQVyeMVtWVZx4+obtIMDRa7ZQfAw0BijVRENDwLcU?=
- =?us-ascii?Q?Z071W+HaZcI3eO54yE7l8QNz51j3MWSuyU9fBY2fTBhojHjE6fzQ8kRrf2pQ?=
- =?us-ascii?Q?1yuVJqX6bjpNb8/Gj6kNLbMR2xXioB4jayZLZJGGK0rIeDGh558nsbYcWWAz?=
- =?us-ascii?Q?aBxFVkc9bqsnoopq5bpckBpMEvhxq/LBee9CZ76NuWg8dG0Ymnzk0jxHNCtr?=
- =?us-ascii?Q?KZQ4xg1MdjvenUcxqYpomDa/Smt4+4UdzLWa1DU21j2XkcXV03jhUTDHrDon?=
- =?us-ascii?Q?27tQPiijZNG8k7kVgs3MeL1CCHFS3piG1pqQaNKbTu690N04M35zm70e1CUz?=
- =?us-ascii?Q?JQBiv4tnS0/OtWgky5X0MEA3kpZKMdLNCtYzdcl2DFrVVgQ2TAwkxgQrGlcB?=
- =?us-ascii?Q?tYaaOblSbeWTt5K/tPhksw6i4qV/HyWD6Kyn3+kU8uICrS++vR2Ss7tIzLyG?=
- =?us-ascii?Q?WVxq4VmnKRMmeaUHpV+7p+ehKiCIuOF/RIvhpsuNReZtAsiu+nBpqPWfMirL?=
- =?us-ascii?Q?3s8Uy+Cqvj/yrPZdnNLFNbMHq+SpboQTW6C/Y4G2uPeMLNVkzVP6CZsvF47b?=
- =?us-ascii?Q?Wv8nG3qZnS/kdid6Tfc+RhHJn+OkoY0wAKQwTmjsm04+0jx5aGgHf5qkYp6h?=
- =?us-ascii?Q?8GvlN6HRyAfFvC/hqqTKl3++D/+3mGv90AuQpP3GHNaUceNY5c4TBT3yz1TX?=
- =?us-ascii?Q?lwnFwxX3q3uJM0pkrHarmPVzFKpT/rfZN+i5HJqvyRdNbJNOKpMYVhFCBGZR?=
- =?us-ascii?Q?FuVapS+n0Ge8q98g/xNRH7XJM3VbUPrYiikfUACK6rT3hH+bEUC1thPi/Lf6?=
- =?us-ascii?Q?bCvXkv0qQ38C2u0z49bMIQA5T3TsODV4I+KGm+PqTde+ByU9DXpwhzqksolJ?=
- =?us-ascii?Q?ezBF67wb25YdLYWvpSLTP9l9fiTgwTJ4zizrh0T/ACukuPDWWtXAYwNPnCTo?=
- =?us-ascii?Q?ugdB20obuX8Trd9uc3RIEFVsMHdysqGJtrZmPSa3iR6IAWTDA98RmZlz/+K1?=
- =?us-ascii?Q?bA=3D=3D?=
-X-MS-Exchange-AntiSpam-ExternalHop-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-ExternalHop-MessageData-0: eMq4Ar/0VFsmjUcfLZCmQyaxoaphh4MCR5ARBaDNY0vLuzVdLUBraf7PGOEv3DJQalIJz/9fzBtaMn3Gt7G0PefaenwTuA/y/zMP537i9KF8BLXNxzB94op5HxovnKK5dF38WHTeYzmBnWI1FidrN0yLgwjkDuEK1mijVn7ij9wUI6FFPEUKmt93oeRL/jNgeomQ76Z5zdNzknI6JqbbLNpfxnJUOW+/4QSx+7QhyDu8UqV45DfpDVsWkEF9xcQtzO5S9zABFhjpTNkN3T+fp27G9YJsyjb6Ilgvie4cvh3A3B2mAzald7c7u9DghoznC8FfhK6RgMR8VY/0uGvwg2+z/De6z336hEdhBVjVD4UjC7PlHOO9zIAOjehkHL+OCFu9jZRKrJ7jo6RLtFLA3YNyTOOqxgvG1N0CchZlbEzu2N8hHu5GAmpPM4dJpXs9wVKiyIg5/tObDIm8XGfJvz5ugotic8H7Na5HuSKF+UTR6cS1vHEHwxiCCEIWEyHpQ16swsEcFpUGQBOVZuuPvE2qamLBbumvAs80SMKJtlBzzfssNrZ41pebkGXigNb92phe586y0tECy3WpPr1VwlOQKjH88ksbH60jt7nN4Sc=
-X-OriginatorOrg: oracle.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: db4af0ac-ffec-4c0c-d798-08dd866eab91
-X-MS-Exchange-CrossTenant-AuthSource: DM4PR10MB8218.namprd10.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Apr 2025 16:06:44.0742 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 4e2c6054-71cb-48f1-bd6c-3a9705aca71b
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: JgkvgZJOcdtKsJU/rdGGeykTr9iQFGdAqKC0vL86bqrocAQwTRH9QfXLTmPSZo9+yDmWGxpVaMOb+086v+zUsw4xKkhFGR8y7GiltXx6vqo=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR10MB7425
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1099,Hydra:6.0.736,FMLib:17.12.80.40
- definitions=2025-04-28_06,2025-04-24_02,2025-02-21_01
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 mlxscore=0
- spamscore=0 bulkscore=0
- mlxlogscore=999 adultscore=0 suspectscore=0 malwarescore=0 phishscore=0
- classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2504070000
- definitions=main-2504280131
-X-Proofpoint-GUID: ePIjj2D9_D3i-dHOAftPEbnPBb8p-1NG
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwNDI4MDEzMiBTYWx0ZWRfX+pW5Pnkn5ero
- QeyKvHy+A3+obbYZ0fwA87IKF40z+biB/XU81Bxr2xxj8PkzZ3AxWPkqEIjLuxVUXPgR0FGqleU
- bidkmpwDVEbGFZvrsGJO7Bxfes+Cbip5RdsCnAvBYSSeYOC/lmr6aWpAMPD5K+c4FQBlNFaa2jM
- T0thAf1nRstg6m+lc2RhtLV/iO1EmICXWclwFlVKCGF4Zj73GgPdYmXKffn2gq1XEwjscWFf2zv
- rR2f29DMtKQnTUBci9F5ZsmACBwgQpRd5xQ6RrSKDquVF0oI9/QWMyHPqmAWba5BXPOEMVMbDtM
- fvmI3f01UhMU/FW0BiMD/Hl3F4vCInj1KVds7JgoRaxB6wbZ/IU/7+Nb6MLG6HIjpfdoLXn6rBv
- IW0jR7Cm
-X-Proofpoint-ORIG-GUID: ePIjj2D9_D3i-dHOAftPEbnPBb8p-1NG
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20250428-reftrack-dbgfs-v5-3-1cbbdf2038bd@kernel.org>
+References: <20250428-reftrack-dbgfs-v5-0-1cbbdf2038bd@kernel.org>
+In-Reply-To: <20250428-reftrack-dbgfs-v5-0-1cbbdf2038bd@kernel.org>
+To: Andrew Morton <akpm@linux-foundation.org>, 
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+ Simon Horman <horms@kernel.org>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Jani Nikula <jani.nikula@linux.intel.com>, 
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, 
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, 
+ Tvrtko Ursulin <tursulin@ursulin.net>
+Cc: Kuniyuki Iwashima <kuniyu@amazon.com>, Qasim Ijaz <qasdev00@gmail.com>, 
+ Nathan Chancellor <nathan@kernel.org>, Andrew Lunn <andrew@lunn.ch>, 
+ linux-kernel@vger.kernel.org, netdev@vger.kernel.org, 
+ dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org, 
+ Jeff Layton <jlayton@kernel.org>
+X-Mailer: b4 0.14.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3845; i=jlayton@kernel.org;
+ h=from:subject:message-id; bh=D7eYUyrEMPuIlNDnf5xYhfYtI7n2pvxbIb5qGlnf6w4=;
+ b=owEBbQKS/ZANAwAIAQAOaEEZVoIVAcsmYgBoD8h1XVu89ohyOL3T1JI0o4sLiqB9ffJ6NnrkZ
+ fWTJ/gucbeJAjMEAAEIAB0WIQRLwNeyRHGyoYTq9dMADmhBGVaCFQUCaA/IdQAKCRAADmhBGVaC
+ FVEfEAC1my8CPpLPuEeBqMbL7WKjg4rDZRfY4k/3dG35jzMdZQm0WyWtAVLj5fwf6n3ufm0CGkm
+ 1AV3VQJmbvK6aaS7shkE//6UHSj7ji5h1INoNVFgBeMn4615sKOVfgjC1q2Nia2ULNZLTJHbq8A
+ oyVT3tSrW7dZiTyVlXQqqO+T9EU+oYK/QVWhgCqf6KZGL/tkyNYZv5w77POudhVvY5dlSPjTaG1
+ yBrwzggguueY0zfPOihd5sZ4VVDNabamgAsY4zNqWD+CwXozQ3Ez6u627Ot64Xu/3XDtq37Tumg
+ ++rHgBE5j+izUo6U7o8OnY/1f3b8VB0rNhQeq/hfmwuFKVhl9PrEHGWscK1/bvOvyqWWhEbDw+l
+ 4RBxAHHPLw+j/PYxaF/O+j4YTrJCzmlvtWDnWfHb9H9B26Po+j5PpUOuG9GdOZHXYD3Ur1taWAD
+ lkUcpz4FEUnSiuOTFxz5nQvGTSfIJN3GoAUKjF7kGTfbK3qbzVZ0REcLbbsO1lt59cQRorUN+lQ
+ S0Zw3fOR/CfPlLGSmY4QeFbZCT+PEBSpPJOscAmoHgcPcZm2cYISraSUnPqC1k/Y1a2miruSuKn
+ NH043O9JVQhl/faC39DYaz7a/mnB9V8HceBJqqlYICs4CETcKt3fgvJt/aZ1MogwAnHRezTahAs
+ Km7+wg8eavv/Orw==
+X-Developer-Key: i=jlayton@kernel.org; a=openpgp;
+ fpr=4BC0D7B24471B2A184EAF5D3000E684119568215
 X-Mailman-Approved-At: Wed, 30 Apr 2025 12:51:16 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -211,40 +89,124 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Fri, Apr 25, 2025 at 10:17:15AM +0200, David Hildenbrand wrote:
-> track_pfn() does not exist, let's simply refer to it as "pfnmap
-> tracking".
->
-> Signed-off-by: David Hildenbrand <david@redhat.com>
+In a later patch, we'll be adding a 3rd mechanism for outputting
+ref_tracker info via seq_file. Instead of a conditional, have the caller
+set a pointer to an output function in struct ostream. As part of this,
+the log prefix must be explicitly passed in, as it's too late for the
+pr_fmt macro.
 
-LGTM, so:
+Reviewed-by: Andrew Lunn <andrew@lunn.ch>
+Signed-off-by: Jeff Layton <jlayton@kernel.org>
+---
+ lib/ref_tracker.c | 53 ++++++++++++++++++++++++++++++++++++++---------------
+ 1 file changed, 38 insertions(+), 15 deletions(-)
 
-Reviewed-by: Lorenzo Stoakes <lorenzo.stoakes@oracle.com>
+diff --git a/lib/ref_tracker.c b/lib/ref_tracker.c
+index a66cde325920780cfe7529ea9d827d0ee943318d..b6e0a87dd75eddef4d504419c0cf398ea65c19d8 100644
+--- a/lib/ref_tracker.c
++++ b/lib/ref_tracker.c
+@@ -64,22 +64,40 @@ ref_tracker_get_stats(struct ref_tracker_dir *dir, unsigned int limit)
+ 	return stats;
+ }
+ 
++#define __ostream_printf __printf(2, 3)
++
+ struct ostream {
++	void __ostream_printf (*func)(struct ostream *stream, char *fmt, ...);
++	char *prefix;
+ 	char *buf;
+ 	int size, used;
+ };
+ 
++static void __ostream_printf pr_ostream_log(struct ostream *stream, char *fmt, ...)
++{
++	va_list args;
++
++	va_start(args, fmt);
++	vprintk(fmt, args);
++	va_end(args);
++}
++
++static void __ostream_printf pr_ostream_buf(struct ostream *stream, char *fmt, ...)
++{
++	int ret, len = stream->size - stream->used;
++	va_list args;
++
++	va_start(args, fmt);
++	ret = vsnprintf(stream->buf + stream->used, len, fmt, args);
++	va_end(args);
++	stream->used += min(ret, len);
++}
++
+ #define pr_ostream(stream, fmt, args...) \
+ ({ \
+ 	struct ostream *_s = (stream); \
+ \
+-	if (!_s->buf) { \
+-		pr_err(fmt, ##args); \
+-	} else { \
+-		int ret, len = _s->size - _s->used; \
+-		ret = snprintf(_s->buf + _s->used, len, pr_fmt(fmt), ##args); \
+-		_s->used += min(ret, len); \
+-	} \
++	_s->func(_s, fmt, ##args); \
+ })
+ 
+ static void
+@@ -98,8 +116,8 @@ __ref_tracker_dir_pr_ostream(struct ref_tracker_dir *dir,
+ 
+ 	stats = ref_tracker_get_stats(dir, display_limit);
+ 	if (IS_ERR(stats)) {
+-		pr_ostream(s, "%s@%p: couldn't get stats, error %pe\n",
+-			   dir->name, dir, stats);
++		pr_ostream(s, "%s%s@%p: couldn't get stats, error %pe\n",
++			   s->prefix, dir->name, dir, stats);
+ 		return;
+ 	}
+ 
+@@ -109,14 +127,15 @@ __ref_tracker_dir_pr_ostream(struct ref_tracker_dir *dir,
+ 		stack = stats->stacks[i].stack_handle;
+ 		if (sbuf && !stack_depot_snprint(stack, sbuf, STACK_BUF_SIZE, 4))
+ 			sbuf[0] = 0;
+-		pr_ostream(s, "%s@%p has %d/%d users at\n%s\n", dir->name, dir,
+-			   stats->stacks[i].count, stats->total, sbuf);
++		pr_ostream(s, "%s%s@%p has %d/%d users at\n%s\n", s->prefix,
++			   dir->name, dir, stats->stacks[i].count,
++			   stats->total, sbuf);
+ 		skipped -= stats->stacks[i].count;
+ 	}
+ 
+ 	if (skipped)
+-		pr_ostream(s, "%s@%p skipped reports about %d/%d users.\n",
+-			   dir->name, dir, skipped, stats->total);
++		pr_ostream(s, "%s%s@%p skipped reports about %d/%d users.\n",
++			   s->prefix, dir->name, dir, skipped, stats->total);
+ 
+ 	kfree(sbuf);
+ 
+@@ -126,7 +145,8 @@ __ref_tracker_dir_pr_ostream(struct ref_tracker_dir *dir,
+ void ref_tracker_dir_print_locked(struct ref_tracker_dir *dir,
+ 				  unsigned int display_limit)
+ {
+-	struct ostream os = {};
++	struct ostream os = { .func = pr_ostream_log,
++			      .prefix = "ref_tracker: " };
+ 
+ 	__ref_tracker_dir_pr_ostream(dir, display_limit, &os);
+ }
+@@ -145,7 +165,10 @@ EXPORT_SYMBOL(ref_tracker_dir_print);
+ 
+ int ref_tracker_dir_snprint(struct ref_tracker_dir *dir, char *buf, size_t size)
+ {
+-	struct ostream os = { .buf = buf, .size = size };
++	struct ostream os = { .func = pr_ostream_buf,
++			      .prefix = "ref_tracker: ",
++			      .buf = buf,
++			      .size = size };
+ 	unsigned long flags;
+ 
+ 	spin_lock_irqsave(&dir->lock, flags);
 
-> ---
->  mm/io-mapping.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
->
-> diff --git a/mm/io-mapping.c b/mm/io-mapping.c
-> index 01b3627999304..7266441ad0834 100644
-> --- a/mm/io-mapping.c
-> +++ b/mm/io-mapping.c
-> @@ -21,7 +21,7 @@ int io_mapping_map_user(struct io_mapping *iomap, struct vm_area_struct *vma,
->  	if (WARN_ON_ONCE((vma->vm_flags & expected_flags) != expected_flags))
->  		return -EINVAL;
->
-> -	/* We rely on prevalidation of the io-mapping to skip track_pfn(). */
-> +	/* We rely on prevalidation of the io-mapping to skip pfnmap tracking. */
->  	return remap_pfn_range_notrack(vma, addr, pfn, size,
->  		__pgprot((pgprot_val(iomap->prot) & _PAGE_CACHE_MASK) |
->  			 (pgprot_val(vma->vm_page_prot) & ~_PAGE_CACHE_MASK)));
-> --
-> 2.49.0
->
+-- 
+2.49.0
 
-However this doesn't apply after commit b8d8f1830bab ("mm/io-mapping:
-precompute remap protection flags for clarity"), so will need a rebase :)
-seems this was cleaned up to separate the __pgprot() bit from the
-remap_pfn_range_notrack().
-
-Note of course this commit hash is from mm-new so quite changeable... :)
