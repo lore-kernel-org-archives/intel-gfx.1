@@ -4,42 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0A826C369D9
-	for <intel-gfx@archiver.kernel.org>; Wed, 30 Apr 2025 15:07:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 06DECC369D9
+	for <intel-gfx@archiver.kernel.org>; Wed, 30 Apr 2025 15:07:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 82C8510E2FC;
-	Wed, 30 Apr 2025 15:07:07 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9DF7310E7C9;
+	Wed, 30 Apr 2025 15:07:08 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="jGPgPdJx";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="XIBabOrt";
 	dkim-atps=neutral
-Received: from nyc.source.kernel.org (nyc.source.kernel.org [147.75.193.91])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0FF3610E2F2;
- Wed, 30 Apr 2025 15:07:06 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 57A7810E2F2;
+ Wed, 30 Apr 2025 15:07:07 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by nyc.source.kernel.org (Postfix) with ESMTP id 31531A4AE19;
- Wed, 30 Apr 2025 15:01:37 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E924BC4CEF0;
- Wed, 30 Apr 2025 15:07:03 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTP id E49875C4C19;
+ Wed, 30 Apr 2025 15:04:45 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C0EABC4CEE7;
+ Wed, 30 Apr 2025 15:07:01 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1746025624;
- bh=h02vtg+uo9MQLcJqO0oaAc8ETCkA4CEZoiZkSocwMrw=;
- h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=jGPgPdJx6HlGTYWP06HKysNQ/Hx6S9M5qGOui5IiQyzX8JuYB0i0QZ0M1rigxrMvj
- 3z7Lx6N7/+aLRPQcXTUSyHk15Ow51rz8ajeBMPUSBCExcf6LcnBB6N1Bn9RhMHGDiM
- tY+n5y7x7CmFRKsUsGLqNckcxqf6eDgGXfNzk+jmTOtkz4xcvqsYEHL3tmIKNvundr
- OJ3j2hcAWFJ2ZUQxN0CVpiijSo1zO5yJqrsoC1MkNd5Fl4PxThKmh/70k6WfRUW8c+
- hsafL4Vqk+EXlrn4pRzlTVJxCYM91R3YeI56mD2VQe13zssMqTAGqWaM2OPhw0HTFO
- rhHw0yfNcQojQ==
+ s=k20201202; t=1746025622;
+ bh=r4W7UK6VId5X4X90Hb+OqrSmtTfxJkdDYqm0TdhLa44=;
+ h=From:Subject:Date:To:Cc:From;
+ b=XIBabOrtGfQ5dXjam4puFKGo0A1cokvNqVVd/6fPd75felZY1iZoX6dILL7u4MaQe
+ 4n1BcCD6PFZFVm/d65Lyjf0vnzdDcxaGKOLNXoDuGH3uAvaYZkpe9uxSwhsKaQaXDQ
+ V4rDJFpuahAN3hOEOO1R0Q5ye9rH58uW8j6QJ1oIpxWQLcdZbJ4jfjfD6bEIoq9dYv
+ K2mjMrlPIospSRVQMyEPvOhNRUmlwMoID1vpyU4punxNkicYXnibYnJHqKMyW6nH0Y
+ F6M39u5iqCGvMH1pHrAhnhbUrZVPBPWKK7ziDzckDSEsPrOPCr4396X31GQLDVI//s
+ Xb4JHaeUxrtmg==
 From: Jeff Layton <jlayton@kernel.org>
-Date: Wed, 30 Apr 2025 08:06:48 -0700
-Subject: [PATCH v6 02/10] ref_tracker: add a top level debugfs directory
- for ref_tracker
+Subject: [PATCH v6 00/10] ref_tracker: add ability to register a debugfs
+ file for a ref_tracker_dir
+Date: Wed, 30 Apr 2025 08:06:46 -0700
+Message-Id: <20250430-reftrack-dbgfs-v6-0-867c29aff03a@kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20250430-reftrack-dbgfs-v6-2-867c29aff03a@kernel.org>
-References: <20250430-reftrack-dbgfs-v6-0-867c29aff03a@kernel.org>
-In-Reply-To: <20250430-reftrack-dbgfs-v6-0-867c29aff03a@kernel.org>
+X-B4-Tracking: v=1; b=H4sIAIc8EmgC/2XPTWrDMBCG4asErasizWhiuaveo3ShX0ek2EUKJ
+ iH47p0ECm61/EY8L+guWqolNfF2uIua1tLKMvM4vhxEOLl5SrJE3gIUkDIaZU35Ul04y+in3CQ
+ Ox8GjwgTZCUbf/F6uz+DHJ+9TaZel3p79VT+uvynzP7VqqWRWSJYsAih8P6c6p6/XpU7i0Vph7
+ 6nzwN5rG4zzUQPkzuPeD51H9gE1jQZssNl33uy97bxhT8FRGOw4kjGdp52H3hN7HbyPmT9vffz
+ jt237AXIsOHCtAQAA
+X-Change-ID: 20250413-reftrack-dbgfs-3767b303e2fa
 To: Andrew Morton <akpm@linux-foundation.org>, 
  "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
  Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
@@ -55,22 +59,23 @@ Cc: Kuniyuki Iwashima <kuniyu@amazon.com>, Qasim Ijaz <qasdev00@gmail.com>,
  Nathan Chancellor <nathan@kernel.org>, Andrew Lunn <andrew@lunn.ch>, 
  linux-kernel@vger.kernel.org, netdev@vger.kernel.org, 
  dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org, 
- Jeff Layton <jlayton@kernel.org>
+ Jeff Layton <jlayton@kernel.org>, 
+ =?utf-8?q?Thomas_Wei=C3=9Fschuh?= <thomas.weissschuh@linutronix.de>
 X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1387; i=jlayton@kernel.org;
- h=from:subject:message-id; bh=h02vtg+uo9MQLcJqO0oaAc8ETCkA4CEZoiZkSocwMrw=;
- b=owEBbQKS/ZANAwAIAQAOaEEZVoIVAcsmYgBoEjyTZic4mSRdvadMvmskl/R23v/69+pdAJIj8
- mP7Ppdt3HGJAjMEAAEIAB0WIQRLwNeyRHGyoYTq9dMADmhBGVaCFQUCaBI8kwAKCRAADmhBGVaC
- FdiEEACpnvN0dEI1q2tZxnGw8SjA7iZBndKYTOyvozPDnH9qZ5nJms0ukmkEKIc4/ZBjAI+gvbW
- ZS4eP3JRLOH2cZ2dy+OBMZrnqaogzEN80E6RhJwiARyzUjoBZJi0qkH7Z/uuU2zrK0km9OxUHgq
- Ferw1BFBjyTWDAj2wswW4oNCc/hhehV+H36x60OnzA9BnYnYbcBIShS6uPiG6wi6iRohQlcf39B
- jc5G+iOeKSddLmSo2zUwnxhP4T9WEfbZIyHV3dZjS2TxkC9KsA78OuV/19riDeGEjA62Yc/dOAM
- DcEBdOcZFa/OVh3gQbnSXlNg8C1N8COP5TUCssDVXYbVv5AlTWpjcJVOvYH2uZrCFBiESotZcMZ
- /anzSL0s6/7r6txzNdQmGDlac24G9x8TeBVRJ7V4NznUo9gQT/9zYCH86FBd5CWWURllA61wKw7
- WjHg13Af+lFq3bSN/dLFWeqxUKu6UJdZTagO3UFKQzoznKC/yBP/zfltjqnzucRswWup/LSoImV
- Fh9wMYLYHsLjoiMMYxN+jWRYXspwFuGJMgkmZw02ZVRlmeVsljECSP8+88LpUUO4frTuO++Jezl
- gbW1z/CgrWYfiIT41Ez4/rXzNWZ3EJOkFTLG8Ni47qKcydNk9xPc156skr6apUn5x901pNT/Lkf
- Id7YhaTSJm3HixQ==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=4062; i=jlayton@kernel.org;
+ h=from:subject:message-id; bh=r4W7UK6VId5X4X90Hb+OqrSmtTfxJkdDYqm0TdhLa44=;
+ b=owEBbQKS/ZANAwAIAQAOaEEZVoIVAcsmYgBoEjyNXqxw6nyk1FblIzq6mWVlgjFIA87b77jll
+ 3HAH9RlaWOJAjMEAAEIAB0WIQRLwNeyRHGyoYTq9dMADmhBGVaCFQUCaBI8jQAKCRAADmhBGVaC
+ FQ3pD/0TsmOcqqHioqrgnl/qIAaObykbwezcD1n1j9iShimAwdpVaTgKiAKUEHOvUOWjq52FBrY
+ O61pcSpM9GiOKsLOlpHh9uHW4V9kyk4VPhqGKZnGYMbi3V/luArvxHHWWJozwx1inFFD5SUZVlj
+ n0NxfRaaf34LRjer2ubDDQDE+Q1E7Ra0EaSJ0Z/ebbwx3yMRazgv/KBJi9gfjftfmvKQjQT+kud
+ VspuBs9dxXzDqCrEJynPctx3lwh/9luRZye4P7PmJjN5DH6e/KaluYJKajBUicIUhcoEvkpLsGq
+ J2sHhkBILX/6CZSSGvCLjZoE5eJC7CELz6yuESNnl1AWKi4u570Vf+EsZhxcZK6j2E9nlvl8l94
+ +kdkzGWLxLAnfy/X0svb8VhbRCFCAOAfzUzCwDiB9kBLnZEUylU+vr1L8TO/JzKhN/tcskredMx
+ oYiCUKv+b9chnVXeA7xLjb14iU6IkQxXxDqVgVE7GkC4WvP2+Ix/lnFzm9JCYKnUW+kmsCVqC9x
+ 5dfKY5vHwjNTNWuep7qrAF27E2vA93B6P4sjW3l8UXUagbraBEZoBdfmyoaHxpaHLEGMHArtKu8
+ ZS+p69ShkwccQK+194r0ZpR5chzZVdauAWtk4MTKlSXBsCqf61Gs6Jr6/R2OSMC/2UqHYXcyNen
+ N5ezk9bbbIhCilg==
 X-Developer-Key: i=jlayton@kernel.org; a=openpgp;
  fpr=4BC0D7B24471B2A184EAF5D3000E684119568215
 X-BeenThere: intel-gfx@lists.freedesktop.org
@@ -88,48 +93,87 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Add a new "ref_tracker" directory in debugfs. Each individual refcount
-tracker can register files under there to display info about
-currently-held references.
+This one is quite a bit of a change from the last set. I've gone back to
+auto-registering the debugfs files for every ref_tracker_dir. With this,
+the callers should pass in a static string as a classname instead of an
+individual name string that gets copied. The debugfs file is given a
+name "class@%px" The output format is switched to print "class@%p"
+instead of "name@%p".
 
-Reviewed-by: Andrew Lunn <andrew@lunn.ch>
+To allow for human-readable names, I've added the ability to add a
+symlink in the debugfs dir that can be set to an arbitrary name. This is
+optional. I've only added them to the netns and i915 trackers in this
+series.
+
+Finally, with the above changes, we can eliminate the "name" field in
+the ref_tracker_dir which shrinks it by 16 bytes on a 64 bit host.
+
+The original plan was to merge this via the networking tree. That's
+probably still doable but there are some display port and i915 changes
+in here too. Note that those are untested, mostly because I don't have
+the necessary hardware handy.
+
 Signed-off-by: Jeff Layton <jlayton@kernel.org>
 ---
- lib/ref_tracker.c | 16 ++++++++++++++++
- 1 file changed, 16 insertions(+)
+Changes in v6:
+- clean up kerneldoc comment for ref_tracker_dir_debugfs()
+- add missing stub function for ref_tracker_dir_symlink()
+- temporary __maybe_unused on ref_tracker_dir_seq_print() to silence compiler warning
+- Link to v5: https://lore.kernel.org/r/20250428-reftrack-dbgfs-v5-0-1cbbdf2038bd@kernel.org
 
-diff --git a/lib/ref_tracker.c b/lib/ref_tracker.c
-index de71439e12a3bab6456910986fa611dfbdd97980..a66cde325920780cfe7529ea9d827d0ee943318d 100644
---- a/lib/ref_tracker.c
-+++ b/lib/ref_tracker.c
-@@ -12,6 +12,8 @@
- #define REF_TRACKER_STACK_ENTRIES 16
- #define STACK_BUF_SIZE 1024
- 
-+static struct dentry *ref_tracker_debug_dir = (struct dentry *)-ENOENT;
-+
- struct ref_tracker {
- 	struct list_head	head;   /* anchor into dir->list or dir->quarantine */
- 	bool			dead;
-@@ -273,3 +275,17 @@ int ref_tracker_free(struct ref_tracker_dir *dir,
- 	return 0;
- }
- EXPORT_SYMBOL_GPL(ref_tracker_free);
-+
-+#ifdef CONFIG_DEBUG_FS
-+#include <linux/debugfs.h>
-+
-+static int __init ref_tracker_debugfs_init(void)
-+{
-+	ref_tracker_debug_dir = debugfs_create_dir("ref_tracker", NULL);
-+	if (IS_ERR(ref_tracker_debug_dir))
-+		pr_warn("ref_tracker: unable to create debugfs ref_tracker directory: %pe\n",
-+			ref_tracker_debug_dir);
-+	return 0;
-+}
-+late_initcall(ref_tracker_debugfs_init);
-+#endif /* CONFIG_DEBUG_FS */
+Changes in v5:
+- add class string to each ref_tracker_dir
+- auto-register debugfs file for every tracker in ref_tracker_dir_init
+- add function to allow adding a symlink for each tracker
+- add patches to create symlinks for netns's and i915 entries
+- change output format to print class@%p instead of name@%p
+- eliminate the name field in ref_tracker_dir
+- fix off-by-one bug when NULL terminating name string
+- Link to v4: https://lore.kernel.org/r/20250418-reftrack-dbgfs-v4-0-5ca5c7899544@kernel.org
 
+Changes in v4:
+- Drop patch to widen ref_tracker_dir_.name, use NAME_MAX+1 (256) instead since this only affects dentry name
+- Link to v3: https://lore.kernel.org/r/20250417-reftrack-dbgfs-v3-0-c3159428c8fb@kernel.org
+
+Changes in v3:
+- don't overwrite dir->name in ref_tracker_dir_debugfs
+- define REF_TRACKER_NAMESZ and use it when setting name
+- Link to v2: https://lore.kernel.org/r/20250415-reftrack-dbgfs-v2-0-b18c4abd122f@kernel.org
+
+Changes in v2:
+- Add patch to do %pK -> %p conversion in ref_tracker.c
+- Pass in output function to pr_ostream() instead of if statement
+- Widen ref_tracker_dir.name to 64 bytes to accomodate unique names
+- Eliminate error handling with debugfs manipulation
+- Incorporate pointer value into netdev name
+- Link to v1: https://lore.kernel.org/r/20250414-reftrack-dbgfs-v1-0-f03585832203@kernel.org
+
+---
+Jeff Layton (10):
+      ref_tracker: don't use %pK in pr_ostream() output
+      ref_tracker: add a top level debugfs directory for ref_tracker
+      ref_tracker: have callers pass output function to pr_ostream()
+      ref_tracker: add a static classname string to each ref_tracker_dir
+      ref_tracker: allow pr_ostream() to print directly to a seq_file
+      ref_tracker: automatically register a file in debugfs for a ref_tracker_dir
+      ref_tracker: add a way to create a symlink to the ref_tracker_dir debugfs file
+      net: add symlinks to ref_tracker_dir for netns
+      i915: add ref_tracker_dir symlinks for each tracker
+      ref_tracker: eliminate the ref_tracker_dir name field
+
+ drivers/gpu/drm/display/drm_dp_tunnel.c |   2 +-
+ drivers/gpu/drm/i915/intel_runtime_pm.c |   4 +-
+ drivers/gpu/drm/i915/intel_wakeref.c    |   3 +-
+ include/linux/ref_tracker.h             |  44 +++++++-
+ lib/ref_tracker.c                       | 192 +++++++++++++++++++++++++++++---
+ net/core/dev.c                          |   2 +-
+ net/core/net_namespace.c                |  32 +++++-
+ 7 files changed, 253 insertions(+), 26 deletions(-)
+---
+base-commit: 5bc1018675ec28a8a60d83b378d8c3991faa5a27
+change-id: 20250413-reftrack-dbgfs-3767b303e2fa
+
+Best regards,
 -- 
-2.49.0
+Jeff Layton <jlayton@kernel.org>
 
