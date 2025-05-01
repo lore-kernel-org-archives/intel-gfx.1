@@ -4,55 +4,68 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AFFE9C3ABA3
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CBE45C3ABAD
 	for <intel-gfx@archiver.kernel.org>; Fri,  2 May 2025 12:52:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4F47210E8FA;
-	Fri,  2 May 2025 12:52:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5454A10E907;
+	Fri,  2 May 2025 12:52:21 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Vjd0LIB0";
+	dkim=pass (1024-bit key; unprotected) header.d=amazon.com header.i=@amazon.com header.b="Fevewx2S";
 	dkim-atps=neutral
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 85EC010E0EB
- for <intel-gfx@lists.freedesktop.org>; Wed, 30 Apr 2025 13:24:11 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id EA17F5C4910;
- Wed, 30 Apr 2025 13:21:49 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 40D40C4CEE9;
- Wed, 30 Apr 2025 13:24:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1746019446;
- bh=4Nc6GDztxDnf1w4KqVdi+LzpveRRgp4sfrwZ+0SHHS8=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=Vjd0LIB0sgnkdhpcz4kpRBtnO+wtfuCiN5i4BEnIynkhHoW8goJk9P83j2stkksMJ
- g3zYhaQhOeihgkEd6GcpZOV0jW/TB9ubFWPBi4caCRtCQpzXA2ONW9/it5zJkamFH3
- phDIOZOi6HIXsOWDQa6wYWAAhd9z3A7+iUVgbNF7NDNyKOi/CQFWcjhg7TWDeuZeK3
- rqfxQpJIZYfRYLcGYKbYDhlSPjfgvG6+LyZVfNIWKSvpMhFUbzPdP9N8UYqq51IKaM
- ZT+rLuVYi2BZHHU2K19J5ywKPO9w7pZxLKtvTGTqplHPDevcjuqhSmtlp9fmxM4TPJ
- Ux5DDc86qPSJg==
-Date: Wed, 30 Apr 2025 15:24:03 +0200
-From: Daniel Gomez <da.gomez@kernel.org>
-To: Ville =?utf-8?B?U3lyasOkbMOk?= <ville.syrjala@linux.intel.com>
-Cc: Baolin Wang <baolin.wang@linux.alibaba.com>, akpm@linux-foundation.org, 
- hughd@google.com, willy@infradead.org, david@redhat.com, 
- wangkefeng.wang@huawei.com, 21cnbao@gmail.com, ryan.roberts@arm.com,
- ioworker0@gmail.com, 
- da.gomez@samsung.com, linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
- regressions@lists.linux.dev, intel-gfx@lists.freedesktop.org, 
- Eero Tamminen <eero.t.tamminen@intel.com>
-Subject: Re: [REGRESSION] Re: [PATCH v3 3/6] mm: shmem: add large folio
- support for tmpfs
-Message-ID: <cxwpgygobg6wleoeezbowjhmid4mdhptzheqask44ew37h2q24@kryzkecuobbp>
-References: <cover.1732779148.git.baolin.wang@linux.alibaba.com>
- <035bf55fbdebeff65f5cb2cdb9907b7d632c3228.1732779148.git.baolin.wang@linux.alibaba.com>
- <aBEP-6iFhIC87zmb@intel.com>
- <ac8cbd8d-44e9-4a88-b88b-e29e9f30a2fd@linux.alibaba.com>
- <aBIHYqzar5J8uxGO@intel.com>
+Received: from smtp-fw-80006.amazon.com (smtp-fw-80006.amazon.com
+ [99.78.197.217])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D3A4B10E030;
+ Thu,  1 May 2025 03:51:37 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=amazon.com; i=@amazon.com; q=dns/txt; s=amazon201209;
+ t=1746071499; x=1777607499;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=ieN6Uufg5eN4Yl9eD7qnOlPh9TDKaa21BdQlQv6AVLs=;
+ b=Fevewx2Si8MFLW7JPE0YvmcFL353mwnCxH7slV6Tjm6KigBx0qwDInFC
+ 3ZZD3balJFKCYm+0k+fzS42SD+1u+rGhpFURfIUEPNpR6k3DOHdHf5oaP
+ 4hTMO+3aoQX0elMZuN0X/Ec9txV4jsmrc8DL6AwbQW1s30N5Dt+rCA1q9 k=;
+X-IronPort-AV: E=Sophos;i="6.15,253,1739836800"; d="scan'208";a="45594019"
+Received: from pdx4-co-svc-p1-lb2-vlan3.amazon.com (HELO
+ smtpout.prod.us-west-2.prod.farcaster.email.amazon.dev) ([10.25.36.214])
+ by smtp-border-fw-80006.pdx80.corp.amazon.com with
+ ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 01 May 2025 03:51:30 +0000
+Received: from EX19MTAUWC001.ant.amazon.com [10.0.21.151:42164]
+ by smtpin.naws.us-west-2.prod.farcaster.email.amazon.dev [10.0.59.114:2525]
+ with esmtp (Farcaster)
+ id 7bc7e118-2ba3-4338-9316-07c9580be08c; Thu, 1 May 2025 03:51:29 +0000 (UTC)
+X-Farcaster-Flow-ID: 7bc7e118-2ba3-4338-9316-07c9580be08c
+Received: from EX19D004ANA001.ant.amazon.com (10.37.240.138) by
+ EX19MTAUWC001.ant.amazon.com (10.250.64.174) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.1544.14;
+ Thu, 1 May 2025 03:51:28 +0000
+Received: from 6c7e67bfbae3.amazon.com (10.187.171.60) by
+ EX19D004ANA001.ant.amazon.com (10.37.240.138) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.1544.14;
+ Thu, 1 May 2025 03:51:23 +0000
+From: Kuniyuki Iwashima <kuniyu@amazon.com>
+To: <jlayton@kernel.org>
+CC: <airlied@gmail.com>, <akpm@linux-foundation.org>, <andrew@lunn.ch>,
+ <davem@davemloft.net>, <dri-devel@lists.freedesktop.org>,
+ <edumazet@google.com>, <horms@kernel.org>, <intel-gfx@lists.freedesktop.org>, 
+ <jani.nikula@linux.intel.com>, <joonas.lahtinen@linux.intel.com>,
+ <kuba@kernel.org>, <kuniyu@amazon.com>, <linux-kernel@vger.kernel.org>,
+ <maarten.lankhorst@linux.intel.com>, <mripard@kernel.org>,
+ <nathan@kernel.org>, <netdev@vger.kernel.org>, <pabeni@redhat.com>,
+ <qasdev00@gmail.com>, <rodrigo.vivi@intel.com>, <simona@ffwll.ch>,
+ <tursulin@ursulin.net>, <tzimmermann@suse.de>
+Subject: Re: [PATCH v6 08/10] net: add symlinks to ref_tracker_dir for netns
+Date: Wed, 30 Apr 2025 20:50:49 -0700
+Message-ID: <20250501035115.76182-1-kuniyu@amazon.com>
+X-Mailer: git-send-email 2.49.0
+In-Reply-To: <cf11e228dfa247476a498a37f88a96d8e0e2585c.camel@kernel.org>
+References: <cf11e228dfa247476a498a37f88a96d8e0e2585c.camel@kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <aBIHYqzar5J8uxGO@intel.com>
+Content-Type: text/plain
+X-Originating-IP: [10.187.171.60]
+X-ClientProxiedBy: EX19D045UWC001.ant.amazon.com (10.13.139.223) To
+ EX19D004ANA001.ant.amazon.com (10.37.240.138)
 X-Mailman-Approved-At: Fri, 02 May 2025 12:52:18 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -69,47 +82,71 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Apr 30, 2025 at 02:20:02PM +0100, Ville Syrjälä wrote:
-> On Wed, Apr 30, 2025 at 02:32:39PM +0800, Baolin Wang wrote:
-> > On 2025/4/30 01:44, Ville Syrjälä wrote:
-> > > On Thu, Nov 28, 2024 at 03:40:41PM +0800, Baolin Wang wrote:
-> > > Hi,
+From: Jeff Layton <jlayton@kernel.org>
+Date: Wed, 30 Apr 2025 20:42:40 -0700
+> On Wed, 2025-04-30 at 20:07 -0700, Kuniyuki Iwashima wrote:
+> > From: Jeff Layton <jlayton@kernel.org>
+> > Date: Wed, 30 Apr 2025 19:59:23 -0700
+> > > On Wed, 2025-04-30 at 14:29 -0700, Kuniyuki Iwashima wrote:
+> > > > From: Jeff Layton <jlayton@kernel.org>
+> > > > Date: Wed, 30 Apr 2025 08:06:54 -0700
+> > > > > After assigning the inode number to the namespace, use it to create a
+> > > > > unique name for each netns refcount tracker with the ns.inum value in
+> > > > > it, and register a symlink to the debugfs file for it.
+> > > > > 
+> > > > > init_net is registered before the ref_tracker dir is created, so add a
+> > > > > late_initcall() to register its files and symlinks.
+> > > > > 
+> > > > > Signed-off-by: Jeff Layton <jlayton@kernel.org>
+> > > > > ---
+> > > > >  net/core/net_namespace.c | 28 +++++++++++++++++++++++++++-
+> > > > >  1 file changed, 27 insertions(+), 1 deletion(-)
+> > > > > 
+> > > > > diff --git a/net/core/net_namespace.c b/net/core/net_namespace.c
+> > > > > index 008de9675ea98fa8c18628b2f1c3aee7f3ebc9c6..6cbc8eabb8e56c847fc34fa8ec9994e8b275b0af 100644
+> > > > > --- a/net/core/net_namespace.c
+> > > > > +++ b/net/core/net_namespace.c
+> > > > > @@ -763,12 +763,38 @@ struct net *get_net_ns_by_pid(pid_t pid)
+> > > > >  }
+> > > > >  EXPORT_SYMBOL_GPL(get_net_ns_by_pid);
+> > > > >  
+> > > > > +#ifdef CONFIG_NET_NS_REFCNT_TRACKER
+> > > > > +static void net_ns_net_debugfs(struct net *net)
+> > > > > +{
+> > > > > +	ref_tracker_dir_symlink(&net->refcnt_tracker, "netns-%u-refcnt", net->ns.inum);
+> > > > > +	ref_tracker_dir_symlink(&net->notrefcnt_tracker, "netns-%u-notrefcnt", net->ns.inum);
+> > > > 
+> > > > Could you use net->net_cookie ?
+> > > > 
+> > > > net->ns.inum is always 1 when CONFIG_PROC_FS=n.
 > > > 
-> > > This causes a huge regression in Intel iGPU texturing performance.
+> > > My main use-case for this is to be able to match the inode number in
+> > > the /proc/<pid>/ns/net symlink with the correct ref_tracker debugfs
+> > > file. Is there a way to use the net_cookie to make that association?
 > > 
-> > Unfortunately, I don't have such platform to test it.
+> > It's roundabout, but  net_cookie can be retrieved by creating a
+> > random socket in the netns and calling setsockopt(SO_NETNS_COOKIE).
 > > 
-> > > 
-> > > I haven't had time to look at this in detail, but presumably the
-> > > problem is that we're no longer getting huge pages from our
-> > > private tmpfs mount (done in i915_gemfs_init()).
-> > 
-> > IIUC, the i915 driver still limits the maximum write size to PAGE_SIZE 
-> > in the shmem_pwrite(),
+> > Ido proposed a handy ip-netns subcommand here, and I guess it will
+> > be implemented soon(?)
+> > https://lore.kernel.org/netdev/1d99d7ccfc3a7a18840948ab6ba1c0b5fad90901.camel@fejes.dev/
 > 
-> pwrite is just one random way to write to objects, and probably
-> not something that's even used by current Mesa.
+> For the cases where I was looking at netns leaks, there were no more
+> processes in the container, so there was no way to enter the container
+> and spawn a socket at that point.
+
+Then how do you get net->ns.inum ?
+
+
 > 
-> > which prevents tmpfs from allocating large 
-> > folios. As mentioned in the comments below, tmpfs like other file 
-> > systems that support large folios, will allow getting a highest order 
-> > hint based on the size of the write and fallocate paths, and then will 
-> > attempt each allowable huge order.
-> > 
-> > Therefore, I think the shmem_pwrite() function should be changed to 
-> > remove the limitation that the write size cannot exceed PAGE_SIZE.
+> The point of the symlinks is to have a way to easily identify what
+> you're tracking. NAME_MAX is 255. We could do something like this
+> instead:
+> 
+>    snprintf(..., "netns-%u-%llx-refcnt", net->ns.inum, net->net_cookie);
+> 
+> Obviously the inums would all be 1 when PROC_FS=n, but the cookies
+> would be unique. Would that work?
 
-To enable mTHP on tmpfs, the necessary knobs must first be enabled in sysfs
-as they are not enabled by default IIRC (only THP, PMD level). Ville, I
-see i915_gemfs the huge=within_size mount option is passed. Can you confirm
-if /sys/kernel/mm/transparent_hugepage/hugepages-*/enabled are also marked as
-'always' when the regression is found?
-
-Even if these are enabled, the possible difference may be that before, i915 was
-using PMD pages (THP) always and now mTHP will be used, unless the file size is
-as big as the PMD page. I think the always mount option would also try to infer
-the size to actually give a proper order folio according to that size. Baolin,
-is that correct?
-
-And Ville, can you confirm if what i915 needs is to enable PMD-size allocations
-always?
+This works, but depending on the question above, there's no point in
+using inum ?
