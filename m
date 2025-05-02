@@ -4,56 +4,57 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EB037C3ABAC
-	for <intel-gfx@archiver.kernel.org>; Fri,  2 May 2025 08:50:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 65AB1C3ABB2
+	for <intel-gfx@archiver.kernel.org>; Fri,  2 May 2025 08:59:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 83AAA10E8C7;
-	Fri,  2 May 2025 08:50:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 05FAE10E8C2;
+	Fri,  2 May 2025 08:59:25 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="B+aFqs9x";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="kr0cewTf";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.18])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3EEFF10E8C6;
- Fri,  2 May 2025 08:50:16 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.16])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6E84810E8C0;
+ Fri,  2 May 2025 08:59:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1746175816; x=1777711816;
+ t=1746176364; x=1777712364;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=FeA6rLz2sSPWSi0F9Xn82U+zVB7OnZ4fe/pNo8JsGik=;
- b=B+aFqs9xdeYYqWRWwrepxBUdYjvkmBxYgfrIbpwJBqzhngtXQKizEZp+
- LGeLBv8OrIX0RArYS5w84mURHCjgMmmOfJFQCsspZejsggXDQXYY5WcSU
- TBKswfU7cJ2hMIoOY112iUmJlvaGesbewvlaPI32VC1I+e7dzW7Szt+E+
- Fau4wn7FUT4QwcaWIXG0KwajrXB3KGPsNl/0TgAgYI29Xou4ZMK2lfODH
- +U37LtPCOkDUtmr1zNCPeoIw8QaKCXpnBenbSNLZC1VfBhfgfcyr07Vtt
- P7CMeGmb1maep/ZuMyiZsRnxaXHgT7uVeY9l5YBKa346Nuk67vtk3b4vN g==;
-X-CSE-ConnectionGUID: 7jqmlVsnRuq91ni63GbkUg==
-X-CSE-MsgGUID: 0Y+vbneyQu+1/S4Rf0Tsfw==
-X-IronPort-AV: E=McAfee;i="6700,10204,11420"; a="47115185"
-X-IronPort-AV: E=Sophos;i="6.15,256,1739865600"; d="scan'208";a="47115185"
-Received: from fmviesa003.fm.intel.com ([10.60.135.143])
- by fmvoesa112.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 02 May 2025 01:50:16 -0700
-X-CSE-ConnectionGUID: mucoCw6bSlqzGMDpyryuwg==
-X-CSE-MsgGUID: U25gJVPpQxWpUOm4Fj/QbQ==
+ bh=74jUS30QYIsYKfFUH4do1WuJcfXFRt9F0b8n56/JNxU=;
+ b=kr0cewTfJHYLdvvs6B6AkRzM3gRCThoGsImwnwCOdFkvERwdNqPzpPOv
+ BE3ChLb0x2DXopFeiCDJtrA20KFjmeUvGBRHF3MnFDTQ0kDV7+ammiwiV
+ VlaM8lxI9N+KSII564t/RIBrPn/RT6u5GQ1vFbpElZcgoDx9cI9FeXTXR
+ jSvujZD1APhdvCqsnVZv3CEUrS7Fgl2H9e/AbJmjglmAUHTW62NHRbYCe
+ vnJLxj9SLnnNcU0bvm9qTmtQdxUt+5TAMgxQwUxhykO7J7o1q8Dyac2M/
+ 2H0gSmCY9Ov2SDTVm2UpwEpC1eZRDfsYA5AsQM2Gwd2L5teXYjh5BgTmd w==;
+X-CSE-ConnectionGUID: s1emJ48aRJG5ehCLIgtdLg==
+X-CSE-MsgGUID: pfZTEqxlSf2P+1H548uzsA==
+X-IronPort-AV: E=McAfee;i="6700,10204,11420"; a="47943191"
+X-IronPort-AV: E=Sophos;i="6.15,256,1739865600"; d="scan'208";a="47943191"
+Received: from orviesa009.jf.intel.com ([10.64.159.149])
+ by orvoesa108.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 02 May 2025 01:59:24 -0700
+X-CSE-ConnectionGUID: cp32gsk2SUq3jVquWcsCeQ==
+X-CSE-MsgGUID: mCDoNvjBSlyZAqadg0ehYw==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.15,256,1739865600"; d="scan'208";a="138612663"
-Received: from jkrzyszt-mobl2.ger.corp.intel.com (HELO localhost)
- ([10.245.246.144])
- by fmviesa003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 02 May 2025 01:50:14 -0700
-From: Jani Nikula <jani.nikula@intel.com>
+X-IronPort-AV: E=Sophos;i="6.15,256,1739865600"; d="scan'208";a="134346691"
+Received: from dhhellew-desk2.ger.corp.intel.com (HELO jhogande-mobl1..)
+ ([10.245.244.55])
+ by orviesa009-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 02 May 2025 01:59:22 -0700
+From: =?UTF-8?q?Jouni=20H=C3=B6gander?= <jouni.hogander@intel.com>
 To: intel-gfx@lists.freedesktop.org,
 	intel-xe@lists.freedesktop.org
-Cc: jani.nikula@intel.com
-Subject: [PATCH v2 3/3] drm/i915/de: drop drm_i915_private compat wrappers
- from intel_de_*()
-Date: Fri,  2 May 2025 11:49:56 +0300
-Message-Id: <3aac42eab7b03c791afee940d0a647770afc99c5.1746175756.git.jani.nikula@intel.com>
-X-Mailer: git-send-email 2.39.5
-In-Reply-To: <cover.1746175756.git.jani.nikula@intel.com>
-References: <cover.1746175756.git.jani.nikula@intel.com>
+Cc: =?UTF-8?q?Jouni=20H=C3=B6gander?= <jouni.hogander@intel.com>
+Subject: [PATCH 01/11] drm/dp: Add Panel Replay capability bits from DP2.1
+ specification
+Date: Fri,  2 May 2025 11:58:52 +0300
+Message-ID: <20250502085902.154740-2-jouni.hogander@intel.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20250502085902.154740-1-jouni.hogander@intel.com>
+References: <20250502085902.154740-1-jouni.hogander@intel.com>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
 Content-Transfer-Encoding: 8bit
 X-BeenThere: intel-gfx@lists.freedesktop.org
@@ -71,91 +72,34 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-All the users of intel_de_*() functions now pass in struct
-intel_display, and we can remove the __to_intel_display() _Generic()
-compat wrappers.
+Add PANEL REPLAY CAPABILITY register (0xb1) bits.
 
-Signed-off-by: Jani Nikula <jani.nikula@intel.com>
+Signed-off-by: Jouni Högander <jouni.hogander@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_de.h | 14 ++++----------
- 1 file changed, 4 insertions(+), 10 deletions(-)
+ include/drm/display/drm_dp.h | 10 ++++++++--
+ 1 file changed, 8 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_de.h b/drivers/gpu/drm/i915/display/intel_de.h
-index 655467a6ba87..54ce3e4f8fd9 100644
---- a/drivers/gpu/drm/i915/display/intel_de.h
-+++ b/drivers/gpu/drm/i915/display/intel_de.h
-@@ -6,7 +6,6 @@
- #ifndef __INTEL_DE_H__
- #define __INTEL_DE_H__
+diff --git a/include/drm/display/drm_dp.h b/include/drm/display/drm_dp.h
+index 3001c0b6e7bb3..47e7d55e2803f 100644
+--- a/include/drm/display/drm_dp.h
++++ b/include/drm/display/drm_dp.h
+@@ -552,8 +552,14 @@
+ # define DP_PANEL_REPLAY_SU_SUPPORT			(1 << 1)
+ # define DP_PANEL_REPLAY_EARLY_TRANSPORT_SUPPORT	(1 << 2) /* eDP 1.5 */
  
--#include "intel_display_conversion.h"
- #include "intel_display_core.h"
- #include "intel_dmc_wl.h"
- #include "intel_dsb.h"
-@@ -19,7 +18,7 @@ static inline struct intel_uncore *__to_uncore(struct intel_display *display)
- }
+-#define DP_PANEL_PANEL_REPLAY_CAPABILITY		0xb1
+-# define DP_PANEL_PANEL_REPLAY_SU_GRANULARITY_REQUIRED	(1 << 5)
++#define DP_PANEL_PANEL_REPLAY_CAPABILITY					0xb1
++# define DP_PANEL_REPLAY_DSC_DECODE_CAPABILITY_IN_PR_SHIFT			1 /* DP 2.1 */
++# define DP_PANEL_REPLAY_DSC_DECODE_CAPABILITY_IN_PR_MASK			(3 << 1)
++# define DP_PANEL_REPLAY_ASYNC_VIDEO_TIMING_NOT_SUPPORTED_IN_PR			(1 << 3)
++# define DP_PANEL_REPLAY_DSC_CRC_OF_MULTIPLE_SUS_SUPPORTED			(1 << 4)
++# define DP_PANEL_PANEL_REPLAY_SU_GRANULARITY_REQUIRED				(1 << 5)
++# define DP_PANEL_REPLAY_SU_Y_GRANULARITY_EXTENDED_CAPABILITY_SUPPORTED		(1 << 6)
++# define DP_PANEL_REPLAY_LINK_OFF_SUPPORTED_IN_PR_AFTER_ADAPTIVE_SYNC_SDP	(1 << 7)
  
- static inline u32
--__intel_de_read(struct intel_display *display, i915_reg_t reg)
-+intel_de_read(struct intel_display *display, i915_reg_t reg)
- {
- 	u32 val;
- 
-@@ -31,7 +30,6 @@ __intel_de_read(struct intel_display *display, i915_reg_t reg)
- 
- 	return val;
- }
--#define intel_de_read(p,...) __intel_de_read(__to_intel_display(p), __VA_ARGS__)
- 
- static inline u8
- intel_de_read8(struct intel_display *display, i915_reg_t reg)
-@@ -66,7 +64,7 @@ intel_de_read64_2x32(struct intel_display *display,
- }
- 
- static inline void
--__intel_de_posting_read(struct intel_display *display, i915_reg_t reg)
-+intel_de_posting_read(struct intel_display *display, i915_reg_t reg)
- {
- 	intel_dmc_wl_get(display, reg);
- 
-@@ -74,10 +72,9 @@ __intel_de_posting_read(struct intel_display *display, i915_reg_t reg)
- 
- 	intel_dmc_wl_put(display, reg);
- }
--#define intel_de_posting_read(p,...) __intel_de_posting_read(__to_intel_display(p), __VA_ARGS__)
- 
- static inline void
--__intel_de_write(struct intel_display *display, i915_reg_t reg, u32 val)
-+intel_de_write(struct intel_display *display, i915_reg_t reg, u32 val)
- {
- 	intel_dmc_wl_get(display, reg);
- 
-@@ -85,7 +82,6 @@ __intel_de_write(struct intel_display *display, i915_reg_t reg, u32 val)
- 
- 	intel_dmc_wl_put(display, reg);
- }
--#define intel_de_write(p,...) __intel_de_write(__to_intel_display(p), __VA_ARGS__)
- 
- static inline u32
- __intel_de_rmw_nowl(struct intel_display *display, i915_reg_t reg,
-@@ -95,8 +91,7 @@ __intel_de_rmw_nowl(struct intel_display *display, i915_reg_t reg,
- }
- 
- static inline u32
--__intel_de_rmw(struct intel_display *display, i915_reg_t reg, u32 clear,
--	       u32 set)
-+intel_de_rmw(struct intel_display *display, i915_reg_t reg, u32 clear, u32 set)
- {
- 	u32 val;
- 
-@@ -108,7 +103,6 @@ __intel_de_rmw(struct intel_display *display, i915_reg_t reg, u32 clear,
- 
- 	return val;
- }
--#define intel_de_rmw(p,...) __intel_de_rmw(__to_intel_display(p), __VA_ARGS__)
- 
- static inline int
- __intel_de_wait_for_register_nowl(struct intel_display *display,
+ #define DP_PANEL_PANEL_REPLAY_X_GRANULARITY		0xb2
+ #define DP_PANEL_PANEL_REPLAY_Y_GRANULARITY		0xb4
 -- 
-2.39.5
+2.43.0
 
