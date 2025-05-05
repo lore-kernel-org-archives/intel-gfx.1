@@ -4,69 +4,65 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D5D45C3ABB6
-	for <intel-gfx@archiver.kernel.org>; Mon,  5 May 2025 08:05:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 50FEAC3ABB6
+	for <intel-gfx@archiver.kernel.org>; Mon,  5 May 2025 10:53:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7B95710E09E;
-	Mon,  5 May 2025 08:05:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CC3DE10E2D6;
+	Mon,  5 May 2025 10:53:32 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="icdt4AeV";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="mvfFX/M1";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1536310E309;
- Mon,  5 May 2025 08:05:47 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.13])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 979AF10E0F8;
+ Mon,  5 May 2025 10:53:31 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1746432347; x=1777968347;
+ t=1746442412; x=1777978412;
  h=from:to:cc:subject:in-reply-to:references:date:
- message-id:mime-version;
- bh=sEn0JbLJ+2KtLbxcEixQL7BULeNTdU1w4BNv+zrfAC8=;
- b=icdt4AeVIYp9k2OmheG5IHiVmo0dFfPg1Z8N5/LQHT8Mj/1p4Vx6tIGU
- 8S7YhjaR2Xwv+EGlarchQwz5W6euzJ/j11THNp3J1olLg7ll6OBObMkg3
- z09rWz9YGSuIm5o5JJ+zFI9rso+HkzlMFKtJv1mmFTFYYctMzJGlwwvgv
- IV2TTAqDYHe59DbGrB40BMg1jt3SdP3FGRP6xmQ3WDm+5wn+uy6UkI0fM
- K303whK/rfXTgxfkwHY4kYhI2dQi4DxFaCNBD72wybOuS+ik1G5eEoBcj
- GTXne1AvRrSW351QvJn0hZ8m/532UHunyUUCvhdx/lgx9nmWkZCdqvJiH w==;
-X-CSE-ConnectionGUID: du4nirBqRDKamLntbo2jDQ==
-X-CSE-MsgGUID: IOHyi+xYTACecOQO9G5weQ==
-X-IronPort-AV: E=McAfee;i="6700,10204,11423"; a="65433522"
-X-IronPort-AV: E=Sophos;i="6.15,262,1739865600"; d="scan'208";a="65433522"
-Received: from orviesa004.jf.intel.com ([10.64.159.144])
- by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 05 May 2025 01:05:46 -0700
-X-CSE-ConnectionGUID: WVpB8LTlQ5Gp6D46hzAfvw==
-X-CSE-MsgGUID: ZyvzMFgARIqh2D8utixdPQ==
+ message-id:mime-version:content-transfer-encoding;
+ bh=N7mgrqYQKGzNDO35iLT+P3KVR96WDlyoRG4PtpOwF+s=;
+ b=mvfFX/M118F2rrc3UrWZabqlWFyO6hscRxXrkamIDeGVa2k4R38sSR0a
+ +hsiyr2DyuDTgxslw3QrRAeJOSeXQHUol43KK1N7+xa6oVcVauw+zq/8F
+ wiDSdjiFmC4+LViyvtGxw9tjDGilLsfihsq5yb/otKt4VyeZ3fBkY7cKo
+ ciO9ur7mUBSP6DIBJPJKhSF+Wl4MJi4fdQTjoucO/wrwTSqPMY+TFToRb
+ UNFyA5/j9wnfnMM/FVnlCRrzBw2HIRKwUdplUqpdfRc6/cr/RKg3v148G
+ P1rCFGKJW+aU2CzxlGHv/PLyfUjKOMw1a+x91r5i4YzkZIyB6P+sFEXkm Q==;
+X-CSE-ConnectionGUID: wIK1asV1Skax4e1JwokQcA==
+X-CSE-MsgGUID: rSG9QSHgTbGUZ1GDYU0d+w==
+X-IronPort-AV: E=McAfee;i="6700,10204,11423"; a="59034745"
+X-IronPort-AV: E=Sophos;i="6.15,262,1739865600"; d="scan'208";a="59034745"
+Received: from orviesa005.jf.intel.com ([10.64.159.145])
+ by orvoesa105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 05 May 2025 03:53:32 -0700
+X-CSE-ConnectionGUID: HXNZSRGHR5uBqroKljpNZw==
+X-CSE-MsgGUID: inFkX1+LTKGZEArRIH0EwA==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.15,262,1739865600"; d="scan'208";a="140172578"
+X-IronPort-AV: E=Sophos;i="6.15,262,1739865600"; d="scan'208";a="140378273"
 Received: from slindbla-desk.ger.corp.intel.com (HELO localhost)
  ([10.245.246.232])
- by orviesa004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 05 May 2025 01:05:38 -0700
+ by orviesa005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 05 May 2025 03:53:28 -0700
 From: Jani Nikula <jani.nikula@linux.intel.com>
-To: Jeff Layton <jlayton@kernel.org>, Andrew Morton
- <akpm@linux-foundation.org>, "David S. Miller" <davem@davemloft.net>, Eric
- Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, Paolo
- Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, Maarten
- Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
- <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, David
- Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Joonas
- Lahtinen <joonas.lahtinen@linux.intel.com>, Rodrigo Vivi
- <rodrigo.vivi@intel.com>, Tvrtko Ursulin <tursulin@ursulin.net>
-Cc: Kuniyuki Iwashima <kuniyu@amazon.com>, Qasim Ijaz <qasdev00@gmail.com>,
- Nathan Chancellor <nathan@kernel.org>, Andrew Lunn <andrew@lunn.ch>,
- linux-kernel@vger.kernel.org, netdev@vger.kernel.org,
- dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org, Jeff
- Layton <jlayton@kernel.org>
-Subject: Re: [PATCH v6 06/10] ref_tracker: automatically register a file in
- debugfs for a ref_tracker_dir
-In-Reply-To: <20250430-reftrack-dbgfs-v6-6-867c29aff03a@kernel.org>
+To: "Borah, Chaitanya Kumar" <chaitanya.kumar.borah@intel.com>, "Hall,
+ Christopher S" <christopher.s.hall@intel.com>
+Cc: "intel-xe@lists.freedesktop.org" <intel-xe@lists.freedesktop.org>,
+ "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>,
+ "Keller,  Jacob E" <jacob.e.keller@intel.com>,
+ "intel-wired-lan@lists.osuosl.org" <intel-wired-lan@lists.osuosl.org>,
+ "Saarinen, Jani" <jani.saarinen@intel.com>, "Kurmi, Suresh Kumar"
+ <suresh.kumar.kurmi@intel.com>, "De Marchi, Lucas"
+ <lucas.demarchi@intel.com>, regressions@lists.linux.dev, "Linux regression
+ tracking (Thorsten Leemhuis)" <regressions@leemhuis.info>
+Subject: [REGRESSION] v6.15-rc3: 1a931c4f5e68 ("igc: add lock preventing
+ multiple simultaneous PTM transactions")
+In-Reply-To: <SJ1PR11MB6129BBB9E38F6DB731604E94B9812@SJ1PR11MB6129.namprd11.prod.outlook.com>
 Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
-References: <20250430-reftrack-dbgfs-v6-0-867c29aff03a@kernel.org>
- <20250430-reftrack-dbgfs-v6-6-867c29aff03a@kernel.org>
-Date: Mon, 05 May 2025 11:05:35 +0300
-Message-ID: <87frhjwkhc.fsf@intel.com>
+References: <SJ1PR11MB6129BBB9E38F6DB731604E94B9812@SJ1PR11MB6129.namprd11.prod.outlook.com>
+Date: Mon, 05 May 2025 13:53:24 +0300
+Message-ID: <87cycnwcpn.fsf@intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -82,188 +78,83 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Wed, 30 Apr 2025, Jeff Layton <jlayton@kernel.org> wrote:
-> Currently, there is no convenient way to see the info that the
-> ref_tracking infrastructure collects. Attempt to create a file in
-> debugfs when called from ref_tracker_dir_init().
+On Mon, 28 Apr 2025, "Borah, Chaitanya Kumar" <chaitanya.kumar.borah@intel.=
+com> wrote:
+> Hello Christopher,
 >
-> The file is given the name "class@%px", as having the unmodified address
-> is helpful for debugging. This should be safe since this directory is only
-> accessible by root
->
-> If debugfs file creation fails, a pr_warn will be isssued.
->
-> Signed-off-by: Jeff Layton <jlayton@kernel.org>
-> ---
->  include/linux/ref_tracker.h | 14 +++++++++
->  lib/ref_tracker.c           | 73 +++++++++++++++++++++++++++++++++++++++++++--
->  2 files changed, 85 insertions(+), 2 deletions(-)
->
-> diff --git a/include/linux/ref_tracker.h b/include/linux/ref_tracker.h
-> index 2adae128d4b5e45f156af4775a1d184bb596fa91..c6e65d7ef4d4fc74c60fcabd19166c131d4173e2 100644
-> --- a/include/linux/ref_tracker.h
-> +++ b/include/linux/ref_tracker.h
-> @@ -5,6 +5,7 @@
->  #include <linux/types.h>
->  #include <linux/spinlock.h>
->  #include <linux/stackdepot.h>
-> +#include <linux/seq_file.h>
+> This mail is regarding a regression we are seeing in our CI runs[1] on dr=
+m-tip[2] repository.
 
-Nothing here requires seq_file.h as far as I can tell. Please avoid
-superfluous header dependencies.
+The regressing commit is in v6.15-rc3. Updated subject and Cc'd
+regression tracking.
 
 BR,
 Jani.
 
->  
->  struct ref_tracker;
->  
-> @@ -18,12 +19,17 @@ struct ref_tracker_dir {
->  	struct list_head	list; /* List of active trackers */
->  	struct list_head	quarantine; /* List of dead trackers */
->  	const char		*class; /* object classname */
-> +#ifdef CONFIG_DEBUG_FS
-> +	struct dentry		*dentry;
-> +#endif
->  	char			name[32];
->  #endif
->  };
->  
->  #ifdef CONFIG_REF_TRACKER
->  
-> +void ref_tracker_dir_debugfs(struct ref_tracker_dir *dir);
-> +
->  static inline void ref_tracker_dir_init(struct ref_tracker_dir *dir,
->  					unsigned int quarantine_count,
->  					const char *class,
-> @@ -37,7 +43,11 @@ static inline void ref_tracker_dir_init(struct ref_tracker_dir *dir,
->  	refcount_set(&dir->untracked, 1);
->  	refcount_set(&dir->no_tracker, 1);
->  	dir->class = class;
-> +#ifdef CONFIG_DEBUG_FS
-> +	dir->dentry = NULL;
-> +#endif
->  	strscpy(dir->name, name, sizeof(dir->name));
-> +	ref_tracker_dir_debugfs(dir);
->  	stack_depot_init();
->  }
->  
-> @@ -66,6 +76,10 @@ static inline void ref_tracker_dir_init(struct ref_tracker_dir *dir,
->  {
->  }
->  
-> +static inline void ref_tracker_dir_debugfs(struct ref_tracker_dir *dir)
-> +{
-> +}
-> +
->  static inline void ref_tracker_dir_exit(struct ref_tracker_dir *dir)
->  {
->  }
-> diff --git a/lib/ref_tracker.c b/lib/ref_tracker.c
-> index b69c11e83c18c19aaa2dc23f802291d4a7e82a66..3ee4fd0f33407881cfa140dcb7d8b40e3c2722de 100644
-> --- a/lib/ref_tracker.c
-> +++ b/lib/ref_tracker.c
-> @@ -31,6 +31,14 @@ struct ref_tracker_dir_stats {
->  	} stacks[];
->  };
->  
-> +#ifdef CONFIG_DEBUG_FS
-> +static void ref_tracker_debugfs_remove(struct ref_tracker_dir *dir);
-> +#else
-> +static inline void ref_tracker_debugfs_remove(struct ref_tracker_dir *dir)
-> +{
-> +}
-> +#endif
-> +
->  static struct ref_tracker_dir_stats *
->  ref_tracker_get_stats(struct ref_tracker_dir *dir, unsigned int limit)
->  {
-> @@ -197,6 +205,7 @@ void ref_tracker_dir_exit(struct ref_tracker_dir *dir)
->  	bool leak = false;
->  
->  	dir->dead = true;
-> +	ref_tracker_debugfs_remove(dir);
->  	spin_lock_irqsave(&dir->lock, flags);
->  	list_for_each_entry_safe(tracker, n, &dir->quarantine, head) {
->  		list_del(&tracker->head);
-> @@ -313,8 +322,7 @@ EXPORT_SYMBOL_GPL(ref_tracker_free);
->  #ifdef CONFIG_DEBUG_FS
->  #include <linux/debugfs.h>
->  
-> -static __maybe_unused int
-> -ref_tracker_dir_seq_print(struct ref_tracker_dir *dir, struct seq_file *seq)
-> +static int ref_tracker_dir_seq_print(struct ref_tracker_dir *dir, struct seq_file *seq)
->  {
->  	struct ostream os = { .func = pr_ostream_seq,
->  			      .prefix = "",
-> @@ -328,6 +336,67 @@ ref_tracker_dir_seq_print(struct ref_tracker_dir *dir, struct seq_file *seq)
->  	return os.used;
->  }
->  
-> +static int ref_tracker_debugfs_show(struct seq_file *f, void *v)
-> +{
-> +	struct ref_tracker_dir *dir = f->private;
-> +
-> +	return ref_tracker_dir_seq_print(dir, f);
-> +}
-> +
-> +static int ref_tracker_debugfs_open(struct inode *inode, struct file *filp)
-> +{
-> +	struct ref_tracker_dir *dir = inode->i_private;
-> +
-> +	return single_open(filp, ref_tracker_debugfs_show, dir);
-> +}
-> +
-> +static const struct file_operations ref_tracker_debugfs_fops = {
-> +	.owner		= THIS_MODULE,
-> +	.open		= ref_tracker_debugfs_open,
-> +	.read		= seq_read,
-> +	.llseek		= seq_lseek,
-> +	.release	= single_release,
-> +};
-> +
-> +/**
-> + * ref_tracker_dir_debugfs - create debugfs file for ref_tracker_dir
-> + * @dir: ref_tracker_dir to be associated with debugfs file
-> + *
-> + * In most cases, a debugfs file will be created automatically for every
-> + * ref_tracker_dir. If the object was created before debugfs is brought up
-> + * then that may fail. In those cases, it is safe to call this at a later
-> + * time to create the file.
-> + */
-> +void ref_tracker_dir_debugfs(struct ref_tracker_dir *dir)
-> +{
-> +	char name[NAME_MAX + 1];
-> +	int ret;
-> +
-> +	/* No-op if already created */
-> +	if (!IS_ERR_OR_NULL(dir->dentry))
-> +		return;
-> +
-> +	ret = snprintf(name, sizeof(name), "%s@%px", dir->class, dir);
-> +	name[sizeof(name) - 1] = '\0';
-> +
-> +	if (ret < sizeof(name))
-> +		dir->dentry = debugfs_create_file(name, S_IFREG | 0400,
-> +						  ref_tracker_debug_dir, dir,
-> +						  &ref_tracker_debugfs_fops);
-> +	else
-> +		dir->dentry = ERR_PTR(-ENAMETOOLONG);
-> +
-> +	if (IS_ERR(dir->dentry))
-> +		pr_warn("ref_tracker: unable to create debugfs file for %s: %pe\n",
-> +			name, dir->dentry);
-> +}
-> +EXPORT_SYMBOL(ref_tracker_dir_debugfs);
-> +
-> +static void ref_tracker_debugfs_remove(struct ref_tracker_dir *dir)
-> +{
-> +	debugfs_remove(dir->dentry);
-> +}
-> +
->  static int __init ref_tracker_debugfs_init(void)
->  {
->  	ref_tracker_debug_dir = debugfs_create_dir("ref_tracker", NULL);
 
--- 
+>
+> `````````````````````````````````````````````````````````````````````````=
+````````
+> <4>[    7.891028] =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+> <4>[    7.891293] [ BUG: Invalid wait context ]
+> <4>[    7.891526] 6.15.0-rc3-CI_DRM_16443-gdc80d6a10c1c+ #1 Tainted: G   =
+     W=20=20=20=20=20=20=20=20=20=20
+> <4>[    7.891792] -----------------------------
+> <4>[    7.892070] (udev-worker)/286 is trying to lock:
+> <4>[    7.892349] ffff88811671bcc8 (&adapter->ptm_lock){....}-{3:3}, at: =
+igc_ptp_reset+0x155/0x320 [igc]
+> <4>[    7.892660] other info that might help us debug this:
+> <4>[    7.892943] context-{4:4}
+> <4>[    7.893226] 2 locks held by (udev-worker)/286:
+> <4>[    7.893515]  #0: ffff888103bd41b0 (&dev->mutex){....}-{3:3}, at: __=
+driver_attach+0x104/0x220
+> <4>[    7.893823]  #1: ffff88811671bb70 (&adapter->tmreg_lock){....}-{2:2=
+}, at: igc_ptp_reset+0x53/0x320 [igc]
+> <4>[    7.894134] stack backtrace:
+> <4>[    7.894439] CPU: 2 UID: 0 PID: 286 Comm: (udev-worker) Tainted: G  =
+      W           6.15.0-rc3-CI_DRM_16443-gdc80d6a10c1c+ #1 PREEMPT(volunta=
+ry)=20
+> <4>[    7.894442] Tainted: [W]=3DWARN
+> <4>[    7.894443] Hardware name: Intel(R) Client Systems NUC11TNHi3/NUC11=
+TNBi3, BIOS TNTGL357.0067.2022.0718.1742 07/18/2022
+> `````````````````````````````````````````````````````````````````````````=
+````````
+> Detailed log can be found in [3].
+>
+> After bisecting the tree, the following patch [4] seems to be the first "=
+bad"
+> commit
+>
+> `````````````````````````````````````````````````````````````````````````=
+````````````````````````````````
+> commit 1a931c4f5e6862e61a4b130cb76b422e1415f644
+> Author: Christopher S M Hall mailto:christopher.s.hall@intel.com
+> Date:=C2=A0=C2=A0 Tue Apr 1 16:35:34 2025 -0700
+>
+> =C2=A0=C2=A0=C2=A0 igc: add lock preventing multiple simultaneous PTM tra=
+nsactions
+> `````````````````````````````````````````````````````````````````````````=
+````````````````````````````````
+>
+> We also verified that if we revert the patch the issue is not seen.
+>
+> Could you please check why the patch causes this regression and provide a=
+ fix if necessary?
+>
+> Thank you.
+>
+> Regards
+>
+> Chaitanya
+>
+> [1] https://intel-gfx-ci.01.org/tree/drm-tip/shard-tglu.html
+> [2] https://cgit.freedesktop.org/drm-tip/tree/
+> [3] https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_16443/fi-tgl-1115g4/b=
+oot0.txt
+> [4] https://cgit.freedesktop.org/drm-tip/commit/?id=3D1a931c4f5e6862e61a4=
+b130cb76b422e1415f644
+>
+
+--=20
 Jani Nikula, Intel
