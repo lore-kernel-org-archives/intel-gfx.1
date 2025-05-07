@@ -4,28 +4,68 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 14D6FC3ABC0
-	for <intel-gfx@archiver.kernel.org>; Wed,  7 May 2025 15:26:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5684BC3ABBF
+	for <intel-gfx@archiver.kernel.org>; Wed,  7 May 2025 15:31:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8730910E83A;
-	Wed,  7 May 2025 15:26:25 +0000 (UTC)
-Received: from c664b1dc75d1 (emeril.freedesktop.org [131.252.210.167])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2D1D310E839;
- Wed,  7 May 2025 15:26:24 +0000 (UTC)
-Content-Type: text/plain; charset="utf-8"
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0006910E843;
+	Wed,  7 May 2025 15:31:29 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="Y+UJ3drs";
+	dkim-atps=neutral
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.12])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 51F7B10E82B;
+ Wed,  7 May 2025 15:31:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1746631889; x=1778167889;
+ h=from:to:cc:subject:in-reply-to:references:date:
+ message-id:mime-version;
+ bh=Qr4AnBYW987xgEuMwPW0O8SNkjOdYyDH7+SBKrD5wjE=;
+ b=Y+UJ3drsw/+ChE6D+/UWn/MJvCYwfu2IbyWk4tBHe93zv4Gm7lDVg1K/
+ sICFecvw883WQZ/FGCUzNtw8sXwFC7yH2iYHqAfcen5dv52Xg9O0KcMGT
+ mHgohc1RKQ/akeVykY8/e+KQoCy8LT8v63i+MwMywbfzNQRF/DykG0iKE
+ xAMLe4JFcnUQx3lvWt3A7XxlAf8VR+jLt/HRILH3Lxd+X49Lnowz1anMM
+ AdYQh9CDSznT//SaAfIA/vOKZ9yVuruxSYy0cKb3suHWe+hSVmBeaEhQ2
+ M9wNpIPJhVRbxAUqCdkKkcEM2iMKtaCPKxtxKcFUjKn+4lMt+3Ih3YYO4 Q==;
+X-CSE-ConnectionGUID: 79v6kudgTQuPy9ZXvJ5yEg==
+X-CSE-MsgGUID: Jf6I+9pXSI+ZgmTPtRaM2w==
+X-IronPort-AV: E=McAfee;i="6700,10204,11426"; a="52188181"
+X-IronPort-AV: E=Sophos;i="6.15,269,1739865600"; d="scan'208";a="52188181"
+Received: from orviesa007.jf.intel.com ([10.64.159.147])
+ by fmvoesa106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 07 May 2025 08:31:29 -0700
+X-CSE-ConnectionGUID: wY3QIsuRTmiKchM34BGM6g==
+X-CSE-MsgGUID: Z9gJ6xe4TcmZRIETVIq+8Q==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.15,269,1739865600"; d="scan'208";a="136509152"
+Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost)
+ ([10.245.244.218])
+ by orviesa007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 07 May 2025 08:31:24 -0700
+From: Jani Nikula <jani.nikula@linux.intel.com>
+To: Tony Nguyen <anthony.l.nguyen@intel.com>, "Borah, Chaitanya Kumar"
+ <chaitanya.kumar.borah@intel.com>, "Hall, Christopher S"
+ <christopher.s.hall@intel.com>
+Cc: "intel-xe@lists.freedesktop.org" <intel-xe@lists.freedesktop.org>,
+ "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>,
+ "Keller,
+ Jacob E" <jacob.e.keller@intel.com>, "intel-wired-lan@lists.osuosl.org"
+ <intel-wired-lan@lists.osuosl.org>, "Saarinen, Jani"
+ <jani.saarinen@intel.com>, "Kurmi, Suresh Kumar"
+ <suresh.kumar.kurmi@intel.com>, "De Marchi, Lucas"
+ <lucas.demarchi@intel.com>, regressions@lists.linux.dev, "Linux regression
+ tracking (Thorsten Leemhuis)" <regressions@leemhuis.info>
+Subject: Re: [Intel-wired-lan] [REGRESSION] v6.15-rc3: 1a931c4f5e68 ("igc:
+ add lock preventing multiple simultaneous PTM transactions")
+In-Reply-To: <2cc74d66-9bd7-4876-a17d-c71f03910c4d@intel.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
+References: <SJ1PR11MB6129BBB9E38F6DB731604E94B9812@SJ1PR11MB6129.namprd11.prod.outlook.com>
+ <87cycnwcpn.fsf@intel.com>
+ <2cc74d66-9bd7-4876-a17d-c71f03910c4d@intel.com>
+Date: Wed, 07 May 2025 18:31:21 +0300
+Message-ID: <87a57ov3na.fsf@intel.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Subject: =?utf-8?q?=E2=9C=97_Fi=2ECI=2ECHECKPATCH=3A_warning_for_ref=5Ftracker=3A_add?=
- =?utf-8?q?_ability_to_register_a_debugfs_file_for_a_ref=5Ftracker=5Fdir_=28?=
- =?utf-8?q?rev4=29?=
-From: Patchwork <patchwork@emeril.freedesktop.org>
-To: "Jeff Layton" <jlayton@kernel.org>
-Cc: intel-gfx@lists.freedesktop.org
-Date: Wed, 07 May 2025 15:26:24 -0000
-Message-ID: <174663158417.56054.12294493667559418437@c664b1dc75d1>
-X-Patchwork-Hint: ignore
-References: <20250507-reftrack-dbgfs-v8-0-607717d3bb98@kernel.org>
-In-Reply-To: <20250507-reftrack-dbgfs-v8-0-607717d3bb98@kernel.org>
+Content-Type: text/plain
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -38,43 +78,32 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-== Series Details ==
+On Tue, 06 May 2025, Tony Nguyen <anthony.l.nguyen@intel.com> wrote:
+> On 5/5/2025 3:53 AM, Jani Nikula wrote:
+>> On Mon, 28 Apr 2025, "Borah, Chaitanya Kumar" <chaitanya.kumar.borah@intel.com> wrote:
+>>> Hello Christopher,
+>>>
+>>> This mail is regarding a regression we are seeing in our CI runs[1] on drm-tip[2] repository.
+>> 
+>> The regressing commit is in v6.15-rc3. Updated subject and Cc'd
+>> regression tracking.
+>> 
+>> BR,
+>> Jani.
+>
+> Hi Jani,
+>
+> This should be resolved with commit c7d6cb96d5c3 ("igc: fix lock order 
+> in igc_ptp_reset") in v6.15-rc5.
 
-Series: ref_tracker: add ability to register a debugfs file for a ref_tracker_dir (rev4)
-URL   : https://patchwork.freedesktop.org/series/148490/
-State : warning
+Thanks for the follow-up.
 
-== Summary ==
-
-Error: dim checkpatch failed
-fb1e0bc0916e ref_tracker: don't use %pK in pr_ostream() output
--:14: WARNING:COMMIT_LOG_LONG_LINE: Prefer a maximum 75 chars per line (possible unwrapped commit description?)
-#14: 
-[1]: https://lore.kernel.org/netdev/20250414-restricted-pointers-net-v1-0-12af0ce46cdd@linutronix.de/
-
-total: 0 errors, 1 warnings, 0 checks, 23 lines checked
-339d5e6ed82e ref_tracker: add a top level debugfs directory for ref_tracker
-c4eecbc94311 ref_tracker: have callers pass output function to pr_ostream()
--:37: WARNING:SPACING: space prohibited between function name and open parenthesis '('
-#37: FILE: lib/ref_tracker.c:66:
-+	void __ostream_printf (*func)(struct ostream *stream, char *fmt, ...);
-
-total: 0 errors, 1 warnings, 0 checks, 101 lines checked
-b601b0cd7e67 ref_tracker: add a static classname string to each ref_tracker_dir
-b5e24dd4a966 ref_tracker: allow pr_ostream() to print directly to a seq_file
-552b3aca1056 ref_tracker: automatically register a file in debugfs for a ref_tracker_dir
--:155: WARNING:VSPRINTF_SPECIFIER_PX: Using vsprintf specifier '%px' potentially exposes the kernel memory layout, if you don't really need the address please consider using '%p'.
-#155: FILE: lib/ref_tracker.c:377:
-+	ret = snprintf(name, sizeof(name), "%s@%px", dir->class, dir);
-
-total: 0 errors, 1 warnings, 0 checks, 145 lines checked
-c6185761ddd2 ref_tracker: add a way to create a symlink to the ref_tracker_dir debugfs file
-28aaebd7714c net: add symlinks to ref_tracker_dir for netns
-be178d18046d i915: add ref_tracker_dir symlinks for each tracker
-596c303f5f60 ref_tracker: eliminate the ref_tracker_dir name field
+BR,
+Jani.
 
 
+-- 
+Jani Nikula, Intel
