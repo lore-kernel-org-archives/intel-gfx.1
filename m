@@ -4,40 +4,39 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 80573C3ABC3
-	for <intel-gfx@archiver.kernel.org>; Fri,  9 May 2025 15:54:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9FE0CC3ABCC
+	for <intel-gfx@archiver.kernel.org>; Fri,  9 May 2025 15:54:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D1ED110EAB3;
-	Fri,  9 May 2025 15:54:43 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B309610EABD;
+	Fri,  9 May 2025 15:54:46 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="m/+EDTfC";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="G/1Z1FF2";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BA4DA10EAA7;
- Fri,  9 May 2025 15:54:38 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5655410EAB6;
+ Fri,  9 May 2025 15:54:45 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 9D6684A68A;
- Fri,  9 May 2025 15:54:38 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B75CAC4CEED;
- Fri,  9 May 2025 15:54:36 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id CC7F6629E2;
+ Fri,  9 May 2025 15:54:44 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id ABF7BC4CEED;
+ Fri,  9 May 2025 15:54:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1746806078;
- bh=YUzGN4pDQEVUn13ezU+iyAv9BvSGVVgHmEotghHtWUM=;
+ s=k20201202; t=1746806084;
+ bh=Les2Q1JDGDchAASaheHbCbzDsZvfcnT1V7XgBGKxhhs=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=m/+EDTfCY1nsaLR1undiooc39pQe/V3hFU3bhaBdM9DaSUGQ+Z0La/Jj7EMAg8O8W
- VZYB0AFElEHLkYp+utwcfHkRzl4bHkzg2QIUyCnyYztoRsi2u1FIQe/qC7GJjDcUlM
- D1rHrllVwEmSojaVKnbAdPMPpCem94rxxVK6TrcBcZpF+teZ88y0XHiNvmFMYrso6w
- +34fkZOJ/vthrWCNL6bPmGfc6vdCndNkPj7vmMKKu1WARPsXu3xGoDSS2GAFkZ9bFs
- einzhrXdz2XIMJc8cL8cVlMA6hg74YL2/3LQ+Cvtk97efRs6jt/YyHSqgEmw7AiHJl
- p05E0cSnE4E0g==
+ b=G/1Z1FF2sDlh8rzNTtBhbPYIpla0iT1GaPO57MPPrbIvXy1+h38PirspvcoWIyjJ7
+ AbcSD550VKMMjXQ22K+NyEPy1k6X6sTQY6nVMQ1xc2EKZQRnMk2Hvp3LYJ60UPdovs
+ 4HYXWX+KycCl22/wbaGaWqCXgXJpwtm7Ey1/iWVPwAJjE8BiddUwIKu1m8wythLgWs
+ f7TLz7ZkioQhJWJ9RlaG6eRY88vect+hVl3V6G/7EmYSkth3rbY00yUlyOtdXGc/Et
+ FqkK81zdYkXge/373CLUCNnOdhTxO1dH1CqTXqhEhbukG5lxvpwUFCZozlE9XSaBrj
+ KUqFJau6vZU7Q==
 From: Jeff Layton <jlayton@kernel.org>
-Date: Fri, 09 May 2025 11:53:42 -0400
-Subject: [PATCH v9 06/10] ref_tracker: automatically register a file in
- debugfs for a ref_tracker_dir
+Date: Fri, 09 May 2025 11:53:45 -0400
+Subject: [PATCH v9 09/10] i915: add ref_tracker_dir symlinks for each tracker
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20250509-reftrack-dbgfs-v9-6-8ab888a4524d@kernel.org>
+Message-Id: <20250509-reftrack-dbgfs-v9-9-8ab888a4524d@kernel.org>
 References: <20250509-reftrack-dbgfs-v9-0-8ab888a4524d@kernel.org>
 In-Reply-To: <20250509-reftrack-dbgfs-v9-0-8ab888a4524d@kernel.org>
 To: Andrew Morton <akpm@linux-foundation.org>, 
@@ -55,22 +54,22 @@ Cc: Kuniyuki Iwashima <kuniyu@amazon.com>, Qasim Ijaz <qasdev00@gmail.com>,
  Nathan Chancellor <nathan@kernel.org>, Andrew Lunn <andrew@lunn.ch>, 
  linux-kernel@vger.kernel.org, netdev@vger.kernel.org, 
  dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org, 
- Jeff Layton <jlayton@kernel.org>
+ Jeff Layton <jlayton@kernel.org>, Jani Nikula <jani.nikula@intel.com>
 X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=5577; i=jlayton@kernel.org;
- h=from:subject:message-id; bh=YUzGN4pDQEVUn13ezU+iyAv9BvSGVVgHmEotghHtWUM=;
- b=owEBbQKS/ZANAwAKAQAOaEEZVoIVAcsmYgBoHiUvabZB90uKkmdA4sFkccVytpoiZvfWbFXD3
- F+vQJrrCOiJAjMEAAEKAB0WIQRLwNeyRHGyoYTq9dMADmhBGVaCFQUCaB4lLwAKCRAADmhBGVaC
- FRhiD/9LBPhMfPBUCm8in2RIzspdtzQ+jN71wP52LV3CXR9s/NgRC2SOhkFXZu2IcVdjQz1h+JS
- bKBpn4olHIIqBqAq5hrGxvf1n/hjiDiALLukkHtMRCN7b9A71Hok2WPcjE4mjnt9tmtkE2JHe6J
- ytqoGbMhS4WRh1aWX6zb/SCcbLlQwYta5jaGiGeAjemc1oK7NUu9cOxtxXSu/xyGTsYliG7q3Wv
- 9zrW9t7R1sSNIjmpIrB9vrk2XzRqA3WN5Z28v/bjygjWPmC8nHgKAtP3Bpje2E+c0ipEcMTms8X
- VtzYophLaEHP9rZxIm8OXcnFpJFTCpNmMuuPmECkPf6ewjmLj13bF3unIUNqVDovF4cd85tCJG3
- Gvw8FXZnDkMUi0H0y1MUuK8L0suSqVJrShpMxNrPLwqFF0ErsUp2xzvGCFekx06CSCxoRsXS14A
- fF61oOdcC9PR5N2zOzkMYxpgjTIc8bsn0filocDC2EbC+JBVOzSXYTDB/fw2jySplQTWPKoFYOC
- 8vy/fuY9FowG6Gcv7mm3a+k1S6gogOPAtsYyHnDy5JYKJkORSRlO1fcXxutwqp4bQSszxIdHWX6
- 1FTLBnRpz7hgc/V9eIzQO+omv/pSfp5wYH9DCH+lQHKfH7MXVn89+kDOWrvkAsHuBZLhliXK4kf
- Jn3pmmSg0Ku2abQ==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1532; i=jlayton@kernel.org;
+ h=from:subject:message-id; bh=Les2Q1JDGDchAASaheHbCbzDsZvfcnT1V7XgBGKxhhs=;
+ b=owEBbQKS/ZANAwAKAQAOaEEZVoIVAcsmYgBoHiUwgYXNMuLWTr7s6QnRaLRoXJ0I2i/1kYd1u
+ w+TY6LosRKJAjMEAAEKAB0WIQRLwNeyRHGyoYTq9dMADmhBGVaCFQUCaB4lMAAKCRAADmhBGVaC
+ FbuBEACyCMSaZdQrb5+qfWbknXd2TSel14YSmialcBJY+8oYVkleiO28T5yl4M/TqgXhUSuTzJ4
+ SWSiCysPWTP7wGowlokclp5TRjSjd/sZkhLyGOqpt4nB0v6JgdIeGujIqdVRFrajC2HEjmLwauh
+ dl1eAiZpKv9soPKhFROa17/XLgFlkWNRBHtE52GBpA+YIKRsF/JrarbIXKu+nvhUuOJw7V4EZ2l
+ YZWBjgN6q8O9abfP42+99yycuYjV+kft4+u80Tu9rM46ABTwtTreS7fL4n/EugPIapSbAgy4aq8
+ OkX8cSYqGP4kvE6soX5mAh6gnf1zoD5KgCj0MRRlHFRNhhsqobsOaxyrmHpndZOGtaW3XOjBAh7
+ rZKpaGAlnEGjcooGs0FxK0Ml/EN2x+YCan1ywIxW2peCVeipH9PKKvv7gHrGTw5ONXomfDx9UZ+
+ oiZtILhxYnM/vzkDjFOblcM/Qi6MpdR37hJnXpmJsp7pyICslcMPmLZNrtZm/ZDLxFfacX5SXP7
+ aCLb5BmBemu5qzMl9OINqd8Sxz4m4oyjvqN/LASHueGnm9QA58lXJJ101Sm7cyGPMVLmpr75mOo
+ W1hjzTVkKEgJLXsN+ZAz1Xa5tJZR/M27GMDuM8tgTIur8DB4JXujXPYz0oV1vI84ykb+MiO545G
+ rpoBUFbP6rgwvTw==
 X-Developer-Key: i=jlayton@kernel.org; a=openpgp;
  fpr=4BC0D7B24471B2A184EAF5D3000E684119568215
 X-BeenThere: intel-gfx@lists.freedesktop.org
@@ -88,182 +87,40 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Currently, there is no convenient way to see the info that the
-ref_tracking infrastructure collects. Attempt to create a file in
-debugfs when called from ref_tracker_dir_init().
+Now that there is the ability to create a symlink for each tracker, do
+so for the i915 entries.
 
-The file is given the name "class@%px", as having the unmodified address
-is helpful for debugging. This should be safe since this directory is only
-accessible by root
-
-If debugfs file creation fails, a pr_warn will be isssued.
-
+Acked-by: Jani Nikula <jani.nikula@intel.com>
 Signed-off-by: Jeff Layton <jlayton@kernel.org>
 ---
- include/linux/ref_tracker.h | 23 ++++++++++++++
- lib/ref_tracker.c           | 73 +++++++++++++++++++++++++++++++++++++++++++--
- 2 files changed, 94 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/i915/intel_runtime_pm.c | 1 +
+ drivers/gpu/drm/i915/intel_wakeref.c    | 1 +
+ 2 files changed, 2 insertions(+)
 
-diff --git a/include/linux/ref_tracker.h b/include/linux/ref_tracker.h
-index 3968f993db81e95c0d58c81454311841c1b9cd35..dd289fdda12b1a10197912f5796f97002e785aaf 100644
---- a/include/linux/ref_tracker.h
-+++ b/include/linux/ref_tracker.h
-@@ -20,12 +20,27 @@ struct ref_tracker_dir {
- 	struct list_head	list; /* List of active trackers */
- 	struct list_head	quarantine; /* List of dead trackers */
- 	const char		*class; /* object classname */
-+#ifdef CONFIG_DEBUG_FS
-+	struct dentry		*dentry;
-+#endif
- 	char			name[32];
+diff --git a/drivers/gpu/drm/i915/intel_runtime_pm.c b/drivers/gpu/drm/i915/intel_runtime_pm.c
+index 3fdab3b44c08cea16ac2f73aafc2bea2ffbb19e7..94315e952ead9be276298fb2a0200d102005a0c1 100644
+--- a/drivers/gpu/drm/i915/intel_runtime_pm.c
++++ b/drivers/gpu/drm/i915/intel_runtime_pm.c
+@@ -61,6 +61,7 @@ static void init_intel_runtime_pm_wakeref(struct intel_runtime_pm *rpm)
+ {
+ 	ref_tracker_dir_init(&rpm->debug, INTEL_REFTRACK_DEAD_COUNT,
+ 			     "intel_runtime_pm", dev_name(rpm->kdev));
++	ref_tracker_dir_symlink(&rpm->debug, "intel_runtime_pm-%s", dev_name(rpm->kdev));
+ }
+ 
+ static intel_wakeref_t
+diff --git a/drivers/gpu/drm/i915/intel_wakeref.c b/drivers/gpu/drm/i915/intel_wakeref.c
+index 5269e64c58a49884f5d712557546272bfdeb8417..2e0498b3fa7947f994de1339d4d2bed93de1a795 100644
+--- a/drivers/gpu/drm/i915/intel_wakeref.c
++++ b/drivers/gpu/drm/i915/intel_wakeref.c
+@@ -115,6 +115,7 @@ void __intel_wakeref_init(struct intel_wakeref *wf,
+ 
+ #if IS_ENABLED(CONFIG_DRM_I915_DEBUG_WAKEREF)
+ 	ref_tracker_dir_init(&wf->debug, INTEL_REFTRACK_DEAD_COUNT, "intel_wakeref", name);
++	ref_tracker_dir_symlink(&wf->debug, "intel_wakeref-%s", name);
  #endif
- };
- 
- #ifdef CONFIG_REF_TRACKER
- 
-+#ifdef CONFIG_DEBUG_FS
-+
-+void ref_tracker_dir_debugfs(struct ref_tracker_dir *dir);
-+
-+#else /* CONFIG_DEBUG_FS */
-+
-+static inline void ref_tracker_dir_debugfs(struct ref_tracker_dir *dir)
-+{
-+}
-+
-+#endif /* CONFIG_DEBUG_FS */
-+
- static inline void ref_tracker_dir_init(struct ref_tracker_dir *dir,
- 					unsigned int quarantine_count,
- 					const char *class,
-@@ -39,7 +54,11 @@ static inline void ref_tracker_dir_init(struct ref_tracker_dir *dir,
- 	refcount_set(&dir->untracked, 1);
- 	refcount_set(&dir->no_tracker, 1);
- 	dir->class = class;
-+#ifdef CONFIG_DEBUG_FS
-+	dir->dentry = NULL;
-+#endif
- 	strscpy(dir->name, name, sizeof(dir->name));
-+	ref_tracker_dir_debugfs(dir);
- 	stack_depot_init();
  }
  
-@@ -68,6 +87,10 @@ static inline void ref_tracker_dir_init(struct ref_tracker_dir *dir,
- {
- }
- 
-+static inline void ref_tracker_dir_debugfs(struct ref_tracker_dir *dir)
-+{
-+}
-+
- static inline void ref_tracker_dir_exit(struct ref_tracker_dir *dir)
- {
- }
-diff --git a/lib/ref_tracker.c b/lib/ref_tracker.c
-index 6e85e7eb347d86775ba38a72dad7159f9ac41ed9..1df12625d80cc7cff65d9f6be89e1dd5c5ffb7f6 100644
---- a/lib/ref_tracker.c
-+++ b/lib/ref_tracker.c
-@@ -29,6 +29,14 @@ struct ref_tracker_dir_stats {
- 	} stacks[];
- };
- 
-+#ifdef CONFIG_DEBUG_FS
-+static void ref_tracker_debugfs_remove(struct ref_tracker_dir *dir);
-+#else
-+static inline void ref_tracker_debugfs_remove(struct ref_tracker_dir *dir)
-+{
-+}
-+#endif
-+
- static struct ref_tracker_dir_stats *
- ref_tracker_get_stats(struct ref_tracker_dir *dir, unsigned int limit)
- {
-@@ -184,6 +192,7 @@ void ref_tracker_dir_exit(struct ref_tracker_dir *dir)
- 	bool leak = false;
- 
- 	dir->dead = true;
-+	ref_tracker_debugfs_remove(dir);
- 	spin_lock_irqsave(&dir->lock, flags);
- 	list_for_each_entry_safe(tracker, n, &dir->quarantine, head) {
- 		list_del(&tracker->head);
-@@ -311,8 +320,7 @@ static void __ostream_printf pr_ostream_seq(struct ostream *stream, char *fmt, .
- 	va_end(args);
- }
- 
--static __maybe_unused int
--ref_tracker_dir_seq_print(struct ref_tracker_dir *dir, struct seq_file *seq)
-+static int ref_tracker_dir_seq_print(struct ref_tracker_dir *dir, struct seq_file *seq)
- {
- 	struct ostream os = { .func = pr_ostream_seq,
- 			      .prefix = "",
-@@ -326,6 +334,67 @@ ref_tracker_dir_seq_print(struct ref_tracker_dir *dir, struct seq_file *seq)
- 	return os.used;
- }
- 
-+static int ref_tracker_debugfs_show(struct seq_file *f, void *v)
-+{
-+	struct ref_tracker_dir *dir = f->private;
-+
-+	return ref_tracker_dir_seq_print(dir, f);
-+}
-+
-+static int ref_tracker_debugfs_open(struct inode *inode, struct file *filp)
-+{
-+	struct ref_tracker_dir *dir = inode->i_private;
-+
-+	return single_open(filp, ref_tracker_debugfs_show, dir);
-+}
-+
-+static const struct file_operations ref_tracker_debugfs_fops = {
-+	.owner		= THIS_MODULE,
-+	.open		= ref_tracker_debugfs_open,
-+	.read		= seq_read,
-+	.llseek		= seq_lseek,
-+	.release	= single_release,
-+};
-+
-+/**
-+ * ref_tracker_dir_debugfs - create debugfs file for ref_tracker_dir
-+ * @dir: ref_tracker_dir to be associated with debugfs file
-+ *
-+ * In most cases, a debugfs file will be created automatically for every
-+ * ref_tracker_dir. If the object was created before debugfs is brought up
-+ * then that may fail. In those cases, it is safe to call this at a later
-+ * time to create the file.
-+ */
-+void ref_tracker_dir_debugfs(struct ref_tracker_dir *dir)
-+{
-+	char name[NAME_MAX + 1];
-+	int ret;
-+
-+	/* No-op if already created */
-+	if (!IS_ERR_OR_NULL(dir->dentry))
-+		return;
-+
-+	ret = snprintf(name, sizeof(name), "%s@%px", dir->class, dir);
-+	name[sizeof(name) - 1] = '\0';
-+
-+	if (ret < sizeof(name))
-+		dir->dentry = debugfs_create_file(name, S_IFREG | 0400,
-+						  ref_tracker_debug_dir, dir,
-+						  &ref_tracker_debugfs_fops);
-+	else
-+		dir->dentry = ERR_PTR(-ENAMETOOLONG);
-+
-+	if (IS_ERR(dir->dentry))
-+		pr_warn("ref_tracker: unable to create debugfs file for %s: %pe\n",
-+			name, dir->dentry);
-+}
-+EXPORT_SYMBOL(ref_tracker_dir_debugfs);
-+
-+static void ref_tracker_debugfs_remove(struct ref_tracker_dir *dir)
-+{
-+	debugfs_remove(dir->dentry);
-+}
-+
- static int __init ref_tracker_debugfs_init(void)
- {
- 	ref_tracker_debug_dir = debugfs_create_dir("ref_tracker", NULL);
 
 -- 
 2.49.0
