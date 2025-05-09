@@ -4,34 +4,34 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 364E5C3ABC3
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B4030C3ABD2
 	for <intel-gfx@archiver.kernel.org>; Fri,  9 May 2025 15:34:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1991F10EA75;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6946010EA7C;
 	Fri,  9 May 2025 15:34:13 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="diHmqWgm";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="A5zrry2F";
 	dkim-atps=neutral
 Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3384E10EA6B;
- Fri,  9 May 2025 15:34:11 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F382B10EA69;
+ Fri,  9 May 2025 15:34:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
  s=20170329;
- h=Content-Transfer-Encoding:MIME-Version:References:In-Reply-To:
- Message-ID:Date:Subject:Cc:To:From:Sender:Reply-To:Content-Type:Content-ID:
- Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
- :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
+ h=Content-Transfer-Encoding:MIME-Version:Message-ID:Date:Subject:
+ Cc:To:From:Sender:Reply-To:Content-Type:Content-ID:Content-Description:
+ Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:
+ In-Reply-To:References:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
  List-Post:List-Owner:List-Archive;
- bh=nVt6X40HP3wrlexk4+/pWTXCDCJf11yiDiei9QiLl8A=; b=diHmqWgmFxuyfpykb0bpbBByAM
- T8FOTSwk+HAtipb+oiE9qF1BiTFxkkyFy3/bSkVQhZP4JxFMhxLbCc7u6c59aNfT0B1INptIUVoqh
- QNHCmEtiTF0b06Crf9lRYFd9O4y6hi+XPeK3kg7FJlueFiRL3PSPc8QZzrbLAKjaIfid+tFNc/ZAt
- DO3E1HMHR+UYgG65cuFMhwhHtDhpNqEKXCJXrowDA6Pa6jH8YaTj+DwAwYXb4ne6+/biY6kGaDk5Z
- VUfUlATIVbD91mH8RXgAuBSJRTLMh80AeANWt1M+EKJ6YKh0dmKu93XVrOk8wSBZ+2nZeUb2I2bIU
- PZt7SATA==;
+ bh=HLyrjL5WJJksmb8eELko+hQJx6IMnhM2I8WJmx8WtLc=; b=A5zrry2FhXCsl+TBgJlGiqQ8e6
+ G6yC20H860kViIufrR8MyrLsYLJUYPQZOxq30MGXuXmwe232FS4MQk9GApk1qjCMvIdMNY7ZPzklS
+ RxkiTuNA4yGGx8YU+gaE8k/EM9aSFo411TD3cX4JfhZf98uIG5A1xu/hzX9e9PPdyXBMlhqCXjPQC
+ BNRZriVTxqNggdQ671Ct06nU8q5gNrbyphWAXuQx3G4POQbGw0+t8AOlSSDXCyTIMaJkfU6eE+ZBQ
+ +s/8g3YxNL1ouwZMANVFdui2nr1G+SdQe0yC8HFHtt45G1VjnLrJBHu3Hn36jWNyVrocFj/l6i5cG
+ T8V9DanA==;
 Received: from [81.79.92.254] (helo=localhost)
  by fanzine2.igalia.com with esmtpsa 
  (Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1uDPfI-005oES-55; Fri, 09 May 2025 17:34:08 +0200
+ id 1uDPfF-005oEG-PY; Fri, 09 May 2025 17:34:06 +0200
 From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
 To: dri-devel@lists.freedesktop.org
 Cc: Sumit Semwal <sumit.semwal@linaro.org>,
@@ -43,12 +43,10 @@ Cc: Sumit Semwal <sumit.semwal@linaro.org>,
  intel-xe@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
  linux-media@vger.kernel.org, linaro-mm-sig@lists.linaro.org,
  kernel-dev@igalia.com, Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-Subject: [RFC v2 03/13] dma-fence: Use a flag for 64-bit seqnos
-Date: Fri,  9 May 2025 16:33:42 +0100
-Message-ID: <20250509153352.7187-4-tvrtko.ursulin@igalia.com>
+Subject: [RFC v2 00/13] Some (drm_sched_|dma_)fence lifetime issues
+Date: Fri,  9 May 2025 16:33:39 +0100
+Message-ID: <20250509153352.7187-1-tvrtko.ursulin@igalia.com>
 X-Mailer: git-send-email 2.48.0
-In-Reply-To: <20250509153352.7187-1-tvrtko.ursulin@igalia.com>
-References: <20250509153352.7187-1-tvrtko.ursulin@igalia.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-BeenThere: intel-gfx@lists.freedesktop.org
@@ -66,115 +64,102 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-With the goal of reducing the need for drivers to touch (and dereference)
-fence->ops, we move the 64-bit seqnos flag from struct dma_fence_ops to
-the fence->flags.
+Hi all,
 
-Drivers which were setting this flag are changed to use new
-dma_fence_init64() instead of dma_fence_init().
+tl;dr;
+Xe and probably some other drivers can tear down the internal state referenced
+by an exported sync_file fence which then causes a null pointer derefences on
+accessing said fence.
 
-Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
----
- drivers/dma-buf/dma-fence-chain.c                | 5 ++---
- drivers/dma-buf/dma-fence.c                      | 9 +++++++++
- drivers/gpu/drm/amd/amdgpu/amdgpu_vm_tlb_fence.c | 5 ++---
- include/linux/dma-fence.h                        | 6 +++++-
- 4 files changed, 18 insertions(+), 7 deletions(-)
+IGT that exploits the problem:
+https://patchwork.freedesktop.org/patch/642709/?series=146211&rev=2
 
-diff --git a/drivers/dma-buf/dma-fence-chain.c b/drivers/dma-buf/dma-fence-chain.c
-index 90424f23fd73..a8a90acf4f34 100644
---- a/drivers/dma-buf/dma-fence-chain.c
-+++ b/drivers/dma-buf/dma-fence-chain.c
-@@ -218,7 +218,6 @@ static void dma_fence_chain_set_deadline(struct dma_fence *fence,
- }
- 
- const struct dma_fence_ops dma_fence_chain_ops = {
--	.use_64bit_seqno = true,
- 	.get_driver_name = dma_fence_chain_get_driver_name,
- 	.get_timeline_name = dma_fence_chain_get_timeline_name,
- 	.enable_signaling = dma_fence_chain_enable_signaling,
-@@ -262,8 +261,8 @@ void dma_fence_chain_init(struct dma_fence_chain *chain,
- 			seqno = max(prev->seqno, seqno);
- 	}
- 
--	dma_fence_init(&chain->base, &dma_fence_chain_ops,
--		       &chain->lock, context, seqno);
-+	dma_fence_init64(&chain->base, &dma_fence_chain_ops, &chain->lock,
-+			 context, seqno);
- 
- 	/*
- 	 * Chaining dma_fence_chain container together is only allowed through
-diff --git a/drivers/dma-buf/dma-fence.c b/drivers/dma-buf/dma-fence.c
-index f0cdd3e99d36..33661658f684 100644
---- a/drivers/dma-buf/dma-fence.c
-+++ b/drivers/dma-buf/dma-fence.c
-@@ -1023,3 +1023,12 @@ dma_fence_init(struct dma_fence *fence, const struct dma_fence_ops *ops,
- 	trace_dma_fence_init(fence);
- }
- EXPORT_SYMBOL(dma_fence_init);
-+
-+void
-+dma_fence_init64(struct dma_fence *fence, const struct dma_fence_ops *ops,
-+		 spinlock_t *lock, u64 context, u64 seqno)
-+{
-+	dma_fence_init(fence, ops, lock, context, seqno);
-+	__set_bit(DMA_FENCE_FLAG_SEQNO64_BIT, &fence->flags);
-+}
-+EXPORT_SYMBOL(dma_fence_init64);
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_tlb_fence.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_tlb_fence.c
-index 51cddfa3f1e8..5d26797356a3 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_tlb_fence.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_tlb_fence.c
-@@ -71,7 +71,6 @@ static void amdgpu_tlb_fence_work(struct work_struct *work)
- }
- 
- static const struct dma_fence_ops amdgpu_tlb_fence_ops = {
--	.use_64bit_seqno = true,
- 	.get_driver_name = amdgpu_tlb_fence_get_driver_name,
- 	.get_timeline_name = amdgpu_tlb_fence_get_timeline_name
- };
-@@ -101,8 +100,8 @@ void amdgpu_vm_tlb_fence_create(struct amdgpu_device *adev, struct amdgpu_vm *vm
- 	INIT_WORK(&f->work, amdgpu_tlb_fence_work);
- 	spin_lock_init(&f->lock);
- 
--	dma_fence_init(&f->base, &amdgpu_tlb_fence_ops, &f->lock,
--		       vm->tlb_fence_context, atomic64_read(&vm->tlb_seq));
-+	dma_fence_init64(&f->base, &amdgpu_tlb_fence_ops, &f->lock,
-+			 vm->tlb_fence_context, atomic64_read(&vm->tlb_seq));
- 
- 	/* TODO: We probably need a separate wq here */
- 	dma_fence_get(&f->base);
-diff --git a/include/linux/dma-fence.h b/include/linux/dma-fence.h
-index 48b5202c531d..ac6535716dbe 100644
---- a/include/linux/dma-fence.h
-+++ b/include/linux/dma-fence.h
-@@ -97,6 +97,7 @@ struct dma_fence {
- };
- 
- enum dma_fence_flag_bits {
-+	DMA_FENCE_FLAG_SEQNO64_BIT,
- 	DMA_FENCE_FLAG_SIGNALED_BIT,
- 	DMA_FENCE_FLAG_TIMESTAMP_BIT,
- 	DMA_FENCE_FLAG_ENABLE_SIGNAL_BIT,
-@@ -262,6 +263,9 @@ struct dma_fence_ops {
- void dma_fence_init(struct dma_fence *fence, const struct dma_fence_ops *ops,
- 		    spinlock_t *lock, u64 context, u64 seqno);
- 
-+void dma_fence_init64(struct dma_fence *fence, const struct dma_fence_ops *ops,
-+		      spinlock_t *lock, u64 context, u64 seqno);
-+
- void dma_fence_release(struct kref *kref);
- void dma_fence_free(struct dma_fence *fence);
- void dma_fence_describe(struct dma_fence *fence, struct seq_file *seq);
-@@ -454,7 +458,7 @@ static inline bool __dma_fence_is_later(struct dma_fence *fence, u64 f1, u64 f2)
- 	 * 32bit sequence numbers. Use a 64bit compare when the driver says to
- 	 * do so.
- 	 */
--	if (fence->ops->use_64bit_seqno)
-+	if (test_bit(DMA_FENCE_FLAG_SEQNO64_BIT, &fence->flags))
- 		return f1 > f2;
- 
- 	return (int)(lower_32_bits(f1) - lower_32_bits(f2)) > 0;
+It seems there is a consensus this is a known problem with the dma-fence design,
+where internal state shouldn't really be accessed after the fence has been
+signaled. However currently the code is mostly unaware of that hence the use-
+after-free potential.
+
+To fix it, between the option of adding more reference counting and trying to
+"revoke" the fence, suggestion is to focus on the later.
+
+Reference to the recent discussion:
+https://lore.kernel.org/dri-devel/20250418164246.72426-1-tvrtko.ursulin@igalia.com/
+
+This series therefore attempts to implement a solution along those lines.
+
+Most of the description what and how can be found in:
+ "dma-fence: Add safe access helpers and document the rules"
+
+Other than that, the series starts with some cleanups, with the general goal of
+hiding more of the dma-fence implementation details behind explicit API. This
+means adding helpers for access to driver and timeline name, and also moving as
+much as it is easily possible of driver allocated state into the fence object
+itself. Because dma-fence is already reference counted, any state we can embed
+automatically becomes safe.
+
+The moved state refers to the patches that move the 64bit seqno, dma-fence-array
+and dma-fence-chain disambiguation into the fence. Again, it is better for as
+much of the state to be directly embedded. And since we have plenty of free
+flags, the parts I moved are all for free. No increase in struct dma_fence size.
+
+Having said that, the series only addreses the runtime use-after-free scenarios,
+such as the above explained situation with the xe driver. For now the module
+unload problem is deliberately left for later. (Although again, some of the
+early patches do make it safer, and will make future improvements easier due
+fewer accesses to fence->ops.)
+
+Final patch in the series is the one which makes xe compliant with the rules
+and API proposed earlier in the series. It does so by ensuring there is at least
+one RCU grace period between fences being signaled and driver allocated memory
+accessible from xe fences getting freed. Which couples with the earlier (from
+the series) refactors which added dma_fence_access_begin/end() protection to
+the relevant call sites.
+
+If this approach is acceptable the next steps will be to see if any other
+drivers will need similar changes for which there are asserts in the new
+dma-fence API which will help catch them.
+
+And also to discuss whether we want to go a step futher and later move to SRCU,
+so code would be protected against module unload as well.
+
+v2:
+ * Dropped module unload handling.
+ * Proposing real API instead of hacks.
+
+Tvrtko Ursulin (13):
+  drm/i915: Use provided dma_fence_is_chain
+  dma-fence: Change signature of __dma_fence_is_later
+  dma-fence: Use a flag for 64-bit seqnos
+  dma-fence: Move array and chain checks to flags
+  dma-fence: Add helpers for accessing driver and timeline name
+  dma-fence: Use driver and timeline name helpers internally
+  sync_file: Use dma-fence driver and timeline name helpers
+  drm/amdgpu: Use dma-fence driver and timeline name helpers
+  drm/i915: Use dma-fence driver and timeline name helpers
+  dma-fence: Add safe access helpers and document the rules
+  sync_file: Protect access to driver and timeline name
+  drm/i915: Protect access to driver and timeline name
+  drm/xe: Make dma-fences compliant with the safe access rules
+
+ drivers/dma-buf/dma-fence-array.c             |  2 +-
+ drivers/dma-buf/dma-fence-chain.c             |  9 +-
+ drivers/dma-buf/dma-fence.c                   | 87 ++++++++++++++++++-
+ drivers/dma-buf/sw_sync.c                     |  2 +-
+ drivers/dma-buf/sync_file.c                   | 14 ++-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_trace.h     |  2 +-
+ .../gpu/drm/amd/amdgpu/amdgpu_vm_tlb_fence.c  |  5 +-
+ drivers/gpu/drm/i915/gem/i915_gem_wait.c      |  7 +-
+ drivers/gpu/drm/i915/gt/intel_gt_requests.c   |  6 +-
+ drivers/gpu/drm/i915/i915_request.c           |  5 +-
+ drivers/gpu/drm/i915/i915_sw_fence.c          |  6 +-
+ drivers/gpu/drm/xe/xe_guc_exec_queue_types.h  |  2 +
+ drivers/gpu/drm/xe/xe_guc_submit.c            |  7 +-
+ drivers/gpu/drm/xe/xe_hw_fence.c              |  5 +-
+ drivers/gpu/drm/xe/xe_sched_job.c             | 14 +--
+ include/linux/dma-fence.h                     | 48 +++++++---
+ include/trace/events/dma_fence.h              |  4 +-
+ 17 files changed, 174 insertions(+), 51 deletions(-)
+
 -- 
 2.48.0
 
