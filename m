@@ -4,55 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8FC63C3ABC3
-	for <intel-gfx@archiver.kernel.org>; Mon, 12 May 2025 20:35:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4CA86C3ABCB
+	for <intel-gfx@archiver.kernel.org>; Mon, 12 May 2025 20:40:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 158F010E4B6;
-	Mon, 12 May 2025 20:35:30 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="p2WGpxig";
-	dkim-atps=neutral
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 10B6610E4B4;
- Mon, 12 May 2025 20:35:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=Content-Transfer-Encoding:Content-Type:MIME-Version:References:
- In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Sender:Reply-To:Content-ID:
- Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
- :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
- List-Post:List-Owner:List-Archive;
- bh=OL4xibm39jmfI8uxvEjCXO513VYShvHZZAZJDGQ0FxA=; b=p2WGpxigHBx3gau2Yiw/fhKIZ7
- syFZ3DMhwlt50o7TW2Gsq+dULtvOm+gdRv0yEH2et50uYrkPHvumZB+O7IGhwukZijURDlpLLXE/O
- 8OkJjji2YSYY9B3fKZyYGisXBJ/G6kseBpE7Z5MceL3DMlxGdkrrXkPMExbN22vTFw+t7AtKiVWh+
- ++KWftimb2oSknkJ4pSgJoSea2yofIts4XIQJT55WpIqfltcAOKJmg2JC/55Ovx/6Rxykm/G9A9gd
- yHm84PlZsFwufmB+tJTXrLNgAmdJRky3SO37ZdzbuTm9tHuClB3RI5XNYhpjsDNzbZJQFBPQ4H1Ke
- ac5hVHGA==;
-Received: from [191.204.192.64] (helo=localhost.localdomain)
- by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1uEZma-007G93-A4; Mon, 12 May 2025 22:35:17 +0200
-From: =?UTF-8?q?Andr=C3=A9=20Almeida?= <andrealmeid@igalia.com>
-To: "Alex Deucher" <alexander.deucher@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- siqueira@igalia.com, airlied@gmail.com, simona@ffwll.ch,
- "Raag Jadav" <raag.jadav@intel.com>, rodrigo.vivi@intel.com,
- jani.nikula@linux.intel.com, Xaver Hugl <xaver.hugl@gmail.com>,
- "Pierre-Loup A . Griffais" <pgriffais@valvesoftware.com>,
- Krzysztof Karas <krzysztof.karas@intel.com>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- kernel-dev@igalia.com, amd-gfx@lists.freedesktop.org,
- intel-xe@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
- =?UTF-8?q?Andr=C3=A9=20Almeida?= <andrealmeid@igalia.com>
-Subject: [PATCH v3 3/3] drm/amdgpu: Make use of drm_wedge_app_info
-Date: Mon, 12 May 2025 17:34:37 -0300
-Message-ID: <20250512203437.989894-4-andrealmeid@igalia.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id B8CA410E16A;
+	Mon, 12 May 2025 20:40:36 +0000 (UTC)
+X-Greylist: delayed 2396 seconds by postgrey-1.36 at gabe;
+ Mon, 12 May 2025 20:40:34 UTC
+Received: from 12.mo550.mail-out.ovh.net (12.mo550.mail-out.ovh.net
+ [87.98.162.229])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D092810E16A
+ for <intel-gfx@lists.freedesktop.org>; Mon, 12 May 2025 20:40:32 +0000 (UTC)
+Received: from director11.ghost.mail-out.ovh.net (unknown [10.108.2.251])
+ by mo550.mail-out.ovh.net (Postfix) with ESMTP id 4Zx8d66J77z1b7w
+ for <intel-gfx@lists.freedesktop.org>; Mon, 12 May 2025 19:22:34 +0000 (UTC)
+Received: from ghost-submission-5b5ff79f4f-8v99w (unknown [10.110.164.42])
+ by director11.ghost.mail-out.ovh.net (Postfix) with ESMTPS id DE2871FE9A;
+ Mon, 12 May 2025 19:22:33 +0000 (UTC)
+Received: from etezian.org ([37.59.142.108])
+ by ghost-submission-5b5ff79f4f-8v99w with ESMTPSA
+ id DLNMLXlKImgRLQAAIHRFsQ
+ (envelope-from <andi@etezian.org>); Mon, 12 May 2025 19:22:33 +0000
+Authentication-Results: garm.ovh; auth=pass
+ (GARM-108S0028f83296d-93b1-4d8f-ab2d-aaa2faa00a08,
+ F6DEC4A513DBFAA389B5B2A47D79B90F74CE2D55) smtp.auth=andi@etezian.org
+X-OVh-ClientIp: 178.39.90.92
+From: Andi Shyti <andi.shyti@kernel.org>
+To: intel-gfx <intel-gfx@lists.freedesktop.org>
+Cc: Andi Shyti <andi.shyti@kernel.org>,
+ Ville Syrjala <ville.syrjala@linux.intel.com>
+Subject: [CI 1/2] drm/i915/gem: Allow EXEC_CAPTURE on recoverable contexts on
+ DG1
+Date: Mon, 12 May 2025 21:22:15 +0200
+Message-ID: <20250512192216.301771-2-andi.shyti@kernel.org>
 X-Mailer: git-send-email 2.49.0
-In-Reply-To: <20250512203437.989894-1-andrealmeid@igalia.com>
-References: <20250512203437.989894-1-andrealmeid@igalia.com>
+In-Reply-To: <20250512192216.301771-1-andi.shyti@kernel.org>
+References: <20250512192216.301771-1-andi.shyti@kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+X-Ovh-Tracer-Id: 5366601907206687305
+X-VR-SPAMSTATE: OK
+X-VR-SPAMSCORE: -100
+X-VR-SPAMCAUSE: gggruggvucftvghtrhhoucdtuddrgeefvddrtddtgdeftddvtdekucetufdoteggodetrfdotffvucfrrhhofhhilhgvmecuqfggjfdpvefjgfevmfevgfenuceurghilhhouhhtmecuhedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmnecujfgurhephffvvefufffkofgjfhggtgfgsehtkeertdertdejnecuhfhrohhmpeetnhguihcuufhhhihtihcuoegrnhguihdrshhhhihtiheskhgvrhhnvghlrdhorhhgqeenucggtffrrghtthgvrhhnpedtieevleeufeeiueffvdejudevfeekveeiteetgffgveefgefhteeggeffteetgfenucffohhmrghinhepghhithhhuhgsrdgtohhmpdhkvghrnhgvlhdrohhrghenucfkphepuddvjedrtddrtddruddpudejkedrfeelrdeltddrledvpdefjedrheelrddugedvrddutdeknecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehinhgvthepuddvjedrtddrtddruddpmhgrihhlfhhrohhmpegrnhguihesvghtvgiiihgrnhdrohhrghdpnhgspghrtghpthhtohepuddprhgtphhtthhopehinhhtvghlqdhgfhigsehlihhsthhsrdhfrhgvvgguvghskhhtohhprdhorhhgpdfovfetjfhoshhtpehmohehhedtmgdpmhhouggvpehsmhhtphhouhht
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,77 +62,41 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-To notify userspace about which app (if any) made the device get in a
-wedge state, make use of drm_wedge_app_info parameter, filling it with
-the app PID and name.
+From: Ville Syrjälä <ville.syrjala@linux.intel.com>
 
-Signed-off-by: André Almeida <andrealmeid@igalia.com>
+The intel-media-driver is currently broken on DG1 because
+it uses EXEC_CAPTURE with recovarable contexts. Relax the
+check to allow that.
+
+I've also submitted a fix for the intel-media-driver:
+https://github.com/intel/media-driver/pull/1920
+
+Cc: stable@vger.kernel.org
+Cc: Matthew Auld <matthew.auld@intel.com>
+Cc: Thomas Hellström <thomas.hellstrom@linux.intel.com>
+Testcase: igt/gem_exec_capture/capture-invisible
+Fixes: 71b1669ea9bd ("drm/i915/uapi: tweak error capture on recoverable contexts")
+Reviewed-by: Andi Shyti <andi.shyti@linux.intel.com>
+Signed-off-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
+Link: https://lore.kernel.org/r/20250411144313.11660-2-ville.syrjala@linux.intel.com
+Signed-off-by: Andi Shyti <andi.shyti@kernel.org>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 19 +++++++++++++++++--
- drivers/gpu/drm/amd/amdgpu/amdgpu_job.c    |  6 +++++-
- 2 files changed, 22 insertions(+), 3 deletions(-)
+ drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-index c8a51418d0e7..e6d8f6d0ec47 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-@@ -6215,8 +6215,23 @@ int amdgpu_device_gpu_recover(struct amdgpu_device *adev,
+diff --git a/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c b/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c
+index 02c59808cbe4..7d44aadcd5a5 100644
+--- a/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c
++++ b/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c
+@@ -2013,7 +2013,7 @@ static int eb_capture_stage(struct i915_execbuffer *eb)
+ 			continue;
  
- 	atomic_set(&adev->reset_domain->reset_res, r);
+ 		if (i915_gem_context_is_recoverable(eb->gem_context) &&
+-		    (IS_DGFX(eb->i915) || GRAPHICS_VER_FULL(eb->i915) > IP_VER(12, 0)))
++		    GRAPHICS_VER_FULL(eb->i915) > IP_VER(12, 10))
+ 			return -EINVAL;
  
--	if (!r)
--		drm_dev_wedged_event(adev_to_drm(adev), DRM_WEDGE_RECOVERY_NONE, NULL);
-+	if (!r) {
-+		struct drm_wedge_app_info aux, *info = NULL;
-+
-+		if (job) {
-+			struct amdgpu_task_info *ti;
-+
-+			ti = amdgpu_vm_get_task_info_pasid(adev, job->pasid);
-+			if (ti) {
-+				aux.pid = ti->pid;
-+				aux.comm = ti->process_name;
-+				info = &aux;
-+				amdgpu_vm_put_task_info(ti);
-+			}
-+		}
-+
-+		drm_dev_wedged_event(adev_to_drm(adev), DRM_WEDGE_RECOVERY_NONE, info);
-+	}
- 
- 	return r;
- }
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
-index a47b2eb301e5..98efa3318ddb 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
-@@ -89,6 +89,7 @@ static enum drm_gpu_sched_stat amdgpu_job_timedout(struct drm_sched_job *s_job)
- {
- 	struct amdgpu_ring *ring = to_amdgpu_ring(s_job->sched);
- 	struct amdgpu_job *job = to_amdgpu_job(s_job);
-+	struct drm_wedge_app_info aux, *info = NULL;
- 	struct amdgpu_task_info *ti;
- 	struct amdgpu_device *adev = ring->adev;
- 	int idx;
-@@ -127,6 +128,9 @@ static enum drm_gpu_sched_stat amdgpu_job_timedout(struct drm_sched_job *s_job)
- 		dev_err(adev->dev,
- 			"Process information: process %s pid %d thread %s pid %d\n",
- 			ti->process_name, ti->tgid, ti->task_name, ti->pid);
-+		aux.pid = ti->pid;
-+		aux.comm = ti->process_name;
-+		info = &aux;
- 		amdgpu_vm_put_task_info(ti);
- 	}
- 
-@@ -166,7 +170,7 @@ static enum drm_gpu_sched_stat amdgpu_job_timedout(struct drm_sched_job *s_job)
- 			if (amdgpu_ring_sched_ready(ring))
- 				drm_sched_start(&ring->sched, 0);
- 			dev_err(adev->dev, "Ring %s reset succeeded\n", ring->sched.name);
--			drm_dev_wedged_event(adev_to_drm(adev), DRM_WEDGE_RECOVERY_NONE, NULL);
-+			drm_dev_wedged_event(adev_to_drm(adev), DRM_WEDGE_RECOVERY_NONE, info);
- 			goto exit;
- 		}
- 		dev_err(adev->dev, "Ring %s reset failure\n", ring->sched.name);
+ 		for_each_batch_create_order(eb, j) {
 -- 
 2.49.0
 
