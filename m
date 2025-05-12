@@ -4,73 +4,73 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D925EC3ABCD
-	for <intel-gfx@archiver.kernel.org>; Mon, 12 May 2025 12:34:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A818BC3ABD5
+	for <intel-gfx@archiver.kernel.org>; Mon, 12 May 2025 12:34:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2AE2C10E3F0;
-	Mon, 12 May 2025 12:34:55 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 329F810E3E6;
+	Mon, 12 May 2025 12:34:59 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="KPnPguiR";
+	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="i9YK9rmK";
 	dkim-atps=neutral
 Received: from us-smtp-delivery-124.mimecast.com
  (us-smtp-delivery-124.mimecast.com [170.10.129.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A735F10E3D8
- for <intel-gfx@lists.freedesktop.org>; Mon, 12 May 2025 12:34:53 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 880DE10E3E6
+ for <intel-gfx@lists.freedesktop.org>; Mon, 12 May 2025 12:34:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1747053292;
+ s=mimecast20190719; t=1747053295;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=2DrqxmiOL3McpG/dCHwH1I+FCiwsh4PlvLiMszfDdMo=;
- b=KPnPguiRR57cuB5U/KpVK0GRhzmS/ao/W4Ncu6CjbMr4cPFfld5U4o+WgNeCXONrwAE62f
- clmtrQvZ5Xw0IfV8oIcb82qcOQBSACRjAqGz47fZHMpESsTAWv4AXSm2Mxpa1qy4Z1+ksU
- yhvmQRW0K81QLz7KckjPk0rV5GVLgFw=
-Received: from mail-wr1-f70.google.com (mail-wr1-f70.google.com
- [209.85.221.70]) by relay.mimecast.com with ESMTP with STARTTLS
+ bh=bC3rmCqfA5icmQmv1eGXLPySmScZgaTKRTiPQFcrNeg=;
+ b=i9YK9rmKA03tZJHhju5UwiDtKhxCCLh15GNUPeCHVL8ljp2O6d39xm97knzg2eSFcRRF2F
+ l4SiBFPgdrLlbs+8AgeJxzmAOAK8Lw0bg0xiCjvk7cuNkqZenCoTm4R10LCwSwWei5Euha
+ rqgexsVLOtukOYCbPdmNNBBTJ3mbfQo=
+Received: from mail-wm1-f69.google.com (mail-wm1-f69.google.com
+ [209.85.128.69]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-675-rHXZP9q2M_yrWM9a03RjlQ-1; Mon, 12 May 2025 08:34:51 -0400
-X-MC-Unique: rHXZP9q2M_yrWM9a03RjlQ-1
-X-Mimecast-MFC-AGG-ID: rHXZP9q2M_yrWM9a03RjlQ_1747053289
-Received: by mail-wr1-f70.google.com with SMTP id
- ffacd0b85a97d-3a1f7204d72so1680890f8f.0
- for <intel-gfx@lists.freedesktop.org>; Mon, 12 May 2025 05:34:50 -0700 (PDT)
+ us-mta-507-zwi425q3Nfe2mpwjSUXFjA-1; Mon, 12 May 2025 08:34:54 -0400
+X-MC-Unique: zwi425q3Nfe2mpwjSUXFjA-1
+X-Mimecast-MFC-AGG-ID: zwi425q3Nfe2mpwjSUXFjA_1747053293
+Received: by mail-wm1-f69.google.com with SMTP id
+ 5b1f17b1804b1-43e9b0fd00cso21505955e9.0
+ for <intel-gfx@lists.freedesktop.org>; Mon, 12 May 2025 05:34:53 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1747053289; x=1747658089;
+ d=1e100.net; s=20230601; t=1747053293; x=1747658093;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=2DrqxmiOL3McpG/dCHwH1I+FCiwsh4PlvLiMszfDdMo=;
- b=aycaq7KenIwshlqiuuVZonuAXg/VFyZwFdmLixtzoBrxsi1YTQ/8eMWElqKrYBG8RT
- aYXhHO9t1E32KSlB4XyrZHP2l6g+o21qbhnAiispIFQgSki7kQvIagTC3oeZw3MTZlPj
- T9xcf38OLaXiF39RXwVSanLuOuDnrPEy0XyI7iBAXLbopGhKy/6alIJbBZSkdTBVMVVD
- r2nTs9e0UQ0rvCAhCIQE1V+uD8f03XDVhtw2XgB6jmclwM0v+JzU6ntumY/z3lA2tr8N
- PlRiWObFpj27sju8NABQyP2NW8GO8pG9XpAX9fa0pUYT6LMk9mO2VPmP+fwceCxuhL7/
- GIzw==
+ bh=bC3rmCqfA5icmQmv1eGXLPySmScZgaTKRTiPQFcrNeg=;
+ b=Pvpz5U0JdAHZajbs1akx+JEYlF6yHFTdjlttZxwF6hofhBu1XUx2GA+9+tnAaVVwWU
+ QGpbfrNDBjROmyYB7L/+UZaOpsSDGKVbLf+GOH+vrlgynLcMpbr4UujGo4hLs0hwXO0/
+ aXcFp9ytmJNfX+T2FOu4SXOE6iX9iXrTmrmIcleGeJjGFf0a13zOw0TfdZGKIxAbwLdg
+ x9Y85n/AFSbRdsxoxzIKNYjQgCL6jTmd/F00K4vEmv3PpkRZdZL9wOYBhH/SurJR6dBt
+ UFtRIcNPekt0K0aIOXW3vf+vOATEq4gmadVYKrTS8qm8q7QaOaTt7QoY3HBQHighXd9k
+ ThXQ==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUM0oXkAqt+V7UHUrVdyiHqCGunGgw84OWjCaHQudnpj68kgxCKMX510B8cHWBd/OZVZy6djaGKJ1A=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yx+OPeBkhsH2qwnfsKkb0nm4RYSGOoMQaUjt9bBywjYHImd+HQH
- rDqwE4OyhwhfCRVcLbaPP3WPZK0AMLlCtDh21OOoxj+7boFgbbZuUFNdo5EH9GAOpcZgWUgT+We
- CY4ZzMDH3DNKsWBcsGTeH/3NqrmHuN3+0G7AHF7NVAUsa4DU1BKM/XkFmMn2fxCxr/g==
-X-Gm-Gg: ASbGncts9ucIvqhD0j4/mAzqVizQzsc6AqEANTDuDXCdvANZvQHfWrOVeXxMkCcvDub
- q6/OSeQvM9tRRDBj5UJngRIOd/xwSIY7QFYvp8FsACV44Zy22GmZy+Nmml8q0WMJ2U0allO3WJd
- gaAqosHuOqlzhvQNCg1/05jY6JnXRp3BvxOmfm/T9cNo74KxSV2O8pm1qeRRRe7qEu981qKQswB
- OkwPoamvdeCLMSLHqZJJONXGekM3LTJDWQ2f0ftI0f1250f44THb5OsMae+I84gykb3j2n4am0k
- MAlIOicfXITdMNS8NusFiQlTLdHIZ9+DyeV4qJSOUfUhxz0RLpZGU68pzwDC+6mcS1zGbkNO
-X-Received: by 2002:a05:6000:186e:b0:3a0:830d:ec58 with SMTP id
- ffacd0b85a97d-3a1f6446e78mr9882914f8f.28.1747053289241; 
- Mon, 12 May 2025 05:34:49 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IH0s3h7inHrYSooQ8NhTVln7D4g+9j4TOqzMH9jwIQneuWGNhcfmrI3NwJv0snFOVP2u3wuBw==
-X-Received: by 2002:a05:6000:186e:b0:3a0:830d:ec58 with SMTP id
- ffacd0b85a97d-3a1f6446e78mr9882884f8f.28.1747053288844; 
- Mon, 12 May 2025 05:34:48 -0700 (PDT)
+ AJvYcCUd55zzJeHWHOttwt2oDJZpC/NPXpNNtCa0ynigaQvsXHmZCK51a9Ufy68kFeBd3KujYbgFhiZ6XbE=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YyHrNU+RfPkiZjjbgHJ2+4B06vDk+cdOzGJhQPx75chHyfcfu89
+ WYr1dt9aIGgWSQxIJJpv+tR//GFz0MCIr8nDcN205+WlltmSz+W/43T+4s/dv56lDk0owiTtArT
+ REGbMyfXOPEhpld1+CHWVIUsiwohOVlh0RH7xuPvJgCr0Z1Bo+ZSjgnb6WiOW+XxTMw==
+X-Gm-Gg: ASbGncs2JimCdFfwx1OxPhRy6sKAuqTLDpC1sjoeO8r/mZoTy2y/R0lKVLyWiiyNFlu
+ NxSYA0yCMcrjDTMl8zQuD5ttv//hvzNqyzBzRAMihnRg59mxKdSL0lx30ihqja6OFAG2UlS8j9x
+ hRkWTnFt1iDWAfCosCUpqpeIq3f5xKjoD3iAl0eCyLEyWPawJ+JhtkdaIENAb0jJ6RAdVjzH0er
+ 2fhLLI6PDfXtQR19zTVEk7pBjISNgwe43ydQVOgrHJQoT/4jpChG3+uTmFCNRq6EIaqs0G7eqYd
+ bpbix6wkvP8oXjyRf/g6odtaf0eJObOskxp1SgxqaWy9prLgkrJJ47NgxvoHaa9gWAGuSdKu
+X-Received: by 2002:a05:600c:c0c3:10b0:439:8878:5029 with SMTP id
+ 5b1f17b1804b1-442d6d71e58mr72191695e9.2.1747053293024; 
+ Mon, 12 May 2025 05:34:53 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IEGmemaQ8osM6LIu2Hwsj+bFw5CfMQg914aObUDJRDyOqNqUwk6qAxyXq65jxeriv3mY00DEQ==
+X-Received: by 2002:a05:600c:c0c3:10b0:439:8878:5029 with SMTP id
+ 5b1f17b1804b1-442d6d71e58mr72191505e9.2.1747053292674; 
+ Mon, 12 May 2025 05:34:52 -0700 (PDT)
 Received: from localhost
  (p200300d82f4a5800f1ae8e20d7f451b0.dip0.t-ipconnect.de.
  [2003:d8:2f4a:5800:f1ae:8e20:d7f4:51b0])
  by smtp.gmail.com with UTF8SMTPSA id
- ffacd0b85a97d-3a1f5a4c583sm12120673f8f.84.2025.05.12.05.34.47
+ 5b1f17b1804b1-442d67d74b5sm125447555e9.2.2025.05.12.05.34.51
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 12 May 2025 05:34:48 -0700 (PDT)
+ Mon, 12 May 2025 05:34:52 -0700 (PDT)
 From: David Hildenbrand <david@redhat.com>
 To: linux-kernel@vger.kernel.org
 Cc: linux-mm@kvack.org, x86@kernel.org, intel-gfx@lists.freedesktop.org,
@@ -91,17 +91,17 @@ Cc: linux-mm@kvack.org, x86@kernel.org, intel-gfx@lists.freedesktop.org,
  "Liam R. Howlett" <Liam.Howlett@oracle.com>,
  Lorenzo Stoakes <lorenzo.stoakes@oracle.com>,
  Vlastimil Babka <vbabka@suse.cz>, Jann Horn <jannh@google.com>,
- Pedro Falcato <pfalcato@suse.de>, Peter Xu <peterx@redhat.com>
-Subject: [PATCH v2 09/11] x86/mm/pat: inline memtype_match() into
- memtype_erase()
-Date: Mon, 12 May 2025 14:34:22 +0200
-Message-ID: <20250512123424.637989-10-david@redhat.com>
+ Pedro Falcato <pfalcato@suse.de>, Peter Xu <peterx@redhat.com>,
+ Ingo Molnar <mingo@kernel.org>
+Subject: [PATCH v2 11/11] mm/io-mapping: track_pfn() -> "pfnmap tracking"
+Date: Mon, 12 May 2025 14:34:24 +0200
+Message-ID: <20250512123424.637989-12-david@redhat.com>
 X-Mailer: git-send-email 2.49.0
 In-Reply-To: <20250512123424.637989-1-david@redhat.com>
 References: <20250512123424.637989-1-david@redhat.com>
 MIME-Version: 1.0
 X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: Ni5VwkvInzLZ3TZ1q6-079QX5zJ1ibIOwBlT8qApdYo_1747053289
+X-Mimecast-MFC-PROC-ID: BytAx9LMIGijQ61IGQtou2aJuMmkosle4sNRliXmeb8_1747053293
 X-Mimecast-Originator: redhat.com
 Content-Transfer-Encoding: 8bit
 content-type: text/plain; charset="US-ASCII"; x-default=true
@@ -120,65 +120,29 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Let's just have it in a single function. The resulting function is
-certainly small enough and readable.
+track_pfn() does not exist, let's simply refer to it as "pfnmap
+tracking".
 
+Reviewed-by: Lorenzo Stoakes <lorenzo.stoakes@oracle.com>
+Acked-by: Ingo Molnar <mingo@kernel.org> # x86 bits
 Signed-off-by: David Hildenbrand <david@redhat.com>
 ---
- arch/x86/mm/pat/memtype_interval.c | 33 +++++++++---------------------
- 1 file changed, 10 insertions(+), 23 deletions(-)
+ mm/io-mapping.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/arch/x86/mm/pat/memtype_interval.c b/arch/x86/mm/pat/memtype_interval.c
-index 9d03f0dbc4715..e5844ed1311ed 100644
---- a/arch/x86/mm/pat/memtype_interval.c
-+++ b/arch/x86/mm/pat/memtype_interval.c
-@@ -49,21 +49,6 @@ INTERVAL_TREE_DEFINE(struct memtype, rb, u64, subtree_max_end,
+diff --git a/mm/io-mapping.c b/mm/io-mapping.c
+index f44a6a1347123..d3586e95c12c5 100644
+--- a/mm/io-mapping.c
++++ b/mm/io-mapping.c
+@@ -24,7 +24,7 @@ int io_mapping_map_user(struct io_mapping *iomap, struct vm_area_struct *vma,
+ 	pgprot_t remap_prot = __pgprot((pgprot_val(iomap->prot) & _PAGE_CACHE_MASK) |
+ 				       (pgprot_val(vma->vm_page_prot) & ~_PAGE_CACHE_MASK));
  
- static struct rb_root_cached memtype_rbroot = RB_ROOT_CACHED;
- 
--static struct memtype *memtype_match(u64 start, u64 end)
--{
--	struct memtype *entry_match;
--
--	entry_match = interval_iter_first(&memtype_rbroot, start, end-1);
--
--	while (entry_match != NULL && entry_match->start < end) {
--		if (entry_match->start == start && entry_match->end == end)
--			return entry_match;
--		entry_match = interval_iter_next(entry_match, start, end-1);
--	}
--
--	return NULL; /* Returns NULL if there is no match */
--}
--
- static int memtype_check_conflict(u64 start, u64 end,
- 				  enum page_cache_mode reqtype,
- 				  enum page_cache_mode *newtype)
-@@ -119,14 +104,16 @@ int memtype_check_insert(struct memtype *entry_new, enum page_cache_mode *ret_ty
- 
- struct memtype *memtype_erase(u64 start, u64 end)
- {
--	struct memtype *entry_old;
--
--	entry_old = memtype_match(start, end);
--	if (!entry_old)
--		return ERR_PTR(-EINVAL);
--
--	interval_remove(entry_old, &memtype_rbroot);
--	return entry_old;
-+	struct memtype *entry = interval_iter_first(&memtype_rbroot, start, end - 1);
-+
-+	while (entry && entry->start < end) {
-+		if (entry->start == start && entry->end == end) {
-+			interval_remove(entry, &memtype_rbroot);
-+			return entry;
-+		}
-+		entry = interval_iter_next(entry, start, end - 1);
-+	}
-+	return ERR_PTR(-EINVAL);
+-	/* We rely on prevalidation of the io-mapping to skip track_pfn(). */
++	/* We rely on prevalidation of the io-mapping to skip pfnmap tracking. */
+ 	return remap_pfn_range_notrack(vma, addr, pfn, size, remap_prot);
  }
- 
- struct memtype *memtype_lookup(u64 addr)
+ EXPORT_SYMBOL_GPL(io_mapping_map_user);
 -- 
 2.49.0
 
