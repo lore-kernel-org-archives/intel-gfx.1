@@ -4,107 +4,87 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A818BC3ABD5
-	for <intel-gfx@archiver.kernel.org>; Mon, 12 May 2025 12:34:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 204C7C3ABD4
+	for <intel-gfx@archiver.kernel.org>; Mon, 12 May 2025 12:43:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 329F810E3E6;
-	Mon, 12 May 2025 12:34:59 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AC1C310E3E2;
+	Mon, 12 May 2025 12:43:34 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="i9YK9rmK";
+	dkim=pass (2048-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.b="m2qYeCVT";
 	dkim-atps=neutral
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.129.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 880DE10E3E6
- for <intel-gfx@lists.freedesktop.org>; Mon, 12 May 2025 12:34:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1747053295;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=bC3rmCqfA5icmQmv1eGXLPySmScZgaTKRTiPQFcrNeg=;
- b=i9YK9rmKA03tZJHhju5UwiDtKhxCCLh15GNUPeCHVL8ljp2O6d39xm97knzg2eSFcRRF2F
- l4SiBFPgdrLlbs+8AgeJxzmAOAK8Lw0bg0xiCjvk7cuNkqZenCoTm4R10LCwSwWei5Euha
- rqgexsVLOtukOYCbPdmNNBBTJ3mbfQo=
-Received: from mail-wm1-f69.google.com (mail-wm1-f69.google.com
- [209.85.128.69]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-507-zwi425q3Nfe2mpwjSUXFjA-1; Mon, 12 May 2025 08:34:54 -0400
-X-MC-Unique: zwi425q3Nfe2mpwjSUXFjA-1
-X-Mimecast-MFC-AGG-ID: zwi425q3Nfe2mpwjSUXFjA_1747053293
-Received: by mail-wm1-f69.google.com with SMTP id
- 5b1f17b1804b1-43e9b0fd00cso21505955e9.0
- for <intel-gfx@lists.freedesktop.org>; Mon, 12 May 2025 05:34:53 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1747053293; x=1747658093;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=bC3rmCqfA5icmQmv1eGXLPySmScZgaTKRTiPQFcrNeg=;
- b=Pvpz5U0JdAHZajbs1akx+JEYlF6yHFTdjlttZxwF6hofhBu1XUx2GA+9+tnAaVVwWU
- QGpbfrNDBjROmyYB7L/+UZaOpsSDGKVbLf+GOH+vrlgynLcMpbr4UujGo4hLs0hwXO0/
- aXcFp9ytmJNfX+T2FOu4SXOE6iX9iXrTmrmIcleGeJjGFf0a13zOw0TfdZGKIxAbwLdg
- x9Y85n/AFSbRdsxoxzIKNYjQgCL6jTmd/F00K4vEmv3PpkRZdZL9wOYBhH/SurJR6dBt
- UFtRIcNPekt0K0aIOXW3vf+vOATEq4gmadVYKrTS8qm8q7QaOaTt7QoY3HBQHighXd9k
- ThXQ==
-X-Forwarded-Encrypted: i=1;
- AJvYcCUd55zzJeHWHOttwt2oDJZpC/NPXpNNtCa0ynigaQvsXHmZCK51a9Ufy68kFeBd3KujYbgFhiZ6XbE=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyHrNU+RfPkiZjjbgHJ2+4B06vDk+cdOzGJhQPx75chHyfcfu89
- WYr1dt9aIGgWSQxIJJpv+tR//GFz0MCIr8nDcN205+WlltmSz+W/43T+4s/dv56lDk0owiTtArT
- REGbMyfXOPEhpld1+CHWVIUsiwohOVlh0RH7xuPvJgCr0Z1Bo+ZSjgnb6WiOW+XxTMw==
-X-Gm-Gg: ASbGncs2JimCdFfwx1OxPhRy6sKAuqTLDpC1sjoeO8r/mZoTy2y/R0lKVLyWiiyNFlu
- NxSYA0yCMcrjDTMl8zQuD5ttv//hvzNqyzBzRAMihnRg59mxKdSL0lx30ihqja6OFAG2UlS8j9x
- hRkWTnFt1iDWAfCosCUpqpeIq3f5xKjoD3iAl0eCyLEyWPawJ+JhtkdaIENAb0jJ6RAdVjzH0er
- 2fhLLI6PDfXtQR19zTVEk7pBjISNgwe43ydQVOgrHJQoT/4jpChG3+uTmFCNRq6EIaqs0G7eqYd
- bpbix6wkvP8oXjyRf/g6odtaf0eJObOskxp1SgxqaWy9prLgkrJJ47NgxvoHaa9gWAGuSdKu
-X-Received: by 2002:a05:600c:c0c3:10b0:439:8878:5029 with SMTP id
- 5b1f17b1804b1-442d6d71e58mr72191695e9.2.1747053293024; 
- Mon, 12 May 2025 05:34:53 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IEGmemaQ8osM6LIu2Hwsj+bFw5CfMQg914aObUDJRDyOqNqUwk6qAxyXq65jxeriv3mY00DEQ==
-X-Received: by 2002:a05:600c:c0c3:10b0:439:8878:5029 with SMTP id
- 5b1f17b1804b1-442d6d71e58mr72191505e9.2.1747053292674; 
- Mon, 12 May 2025 05:34:52 -0700 (PDT)
-Received: from localhost
- (p200300d82f4a5800f1ae8e20d7f451b0.dip0.t-ipconnect.de.
- [2003:d8:2f4a:5800:f1ae:8e20:d7f4:51b0])
- by smtp.gmail.com with UTF8SMTPSA id
- 5b1f17b1804b1-442d67d74b5sm125447555e9.2.2025.05.12.05.34.51
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 12 May 2025 05:34:52 -0700 (PDT)
-From: David Hildenbrand <david@redhat.com>
-To: linux-kernel@vger.kernel.org
-Cc: linux-mm@kvack.org, x86@kernel.org, intel-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-trace-kernel@vger.kernel.org,
- David Hildenbrand <david@redhat.com>,
- Dave Hansen <dave.hansen@linux.intel.com>,
- Andy Lutomirski <luto@kernel.org>, Peter Zijlstra <peterz@infradead.org>,
- Thomas Gleixner <tglx@linutronix.de>, Ingo Molnar <mingo@redhat.com>,
- Borislav Petkov <bp@alien8.de>, "H. Peter Anvin" <hpa@zytor.com>,
- Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Tvrtko Ursulin <tursulin@ursulin.net>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Andrew Morton <akpm@linux-foundation.org>,
- Steven Rostedt <rostedt@goodmis.org>,
- Masami Hiramatsu <mhiramat@kernel.org>,
- Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
- "Liam R. Howlett" <Liam.Howlett@oracle.com>,
- Lorenzo Stoakes <lorenzo.stoakes@oracle.com>,
- Vlastimil Babka <vbabka@suse.cz>, Jann Horn <jannh@google.com>,
- Pedro Falcato <pfalcato@suse.de>, Peter Xu <peterx@redhat.com>,
- Ingo Molnar <mingo@kernel.org>
-Subject: [PATCH v2 11/11] mm/io-mapping: track_pfn() -> "pfnmap tracking"
-Date: Mon, 12 May 2025 14:34:24 +0200
-Message-ID: <20250512123424.637989-12-david@redhat.com>
-X-Mailer: git-send-email 2.49.0
-In-Reply-To: <20250512123424.637989-1-david@redhat.com>
-References: <20250512123424.637989-1-david@redhat.com>
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0DA9A10E188;
+ Mon, 12 May 2025 12:28:16 +0000 (UTC)
+Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 54CA70dX017020;
+ Mon, 12 May 2025 12:28:09 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
+ cc:content-transfer-encoding:content-type:date:from:message-id
+ :mime-version:subject:to; s=qcppdkim1; bh=KiATnBDkzQgP+ok/RO99GD
+ /TIhY6+aSoji/nAGfdW0s=; b=m2qYeCVTqY4QbRGhkwKyejcbqnbnAblQ/fm7F1
+ n3He0hSTYdnuXkDPVJCZExVMcB1yDZwItr8RW0sS1+2gmmJLji1/TYsa9BOZOHS2
+ YKdRO3ExoJmg7m7wGtGwXBUmNTDKCjv0gB93Nufam33iXXqVQoZsyHW3YiPMqdUA
+ 6qYq/TmQ3XtRj/0zGZswbRVWwMHd39awxuwHS/YtQ82bY+8IIIgIo0+NsSyHprY1
+ +PSpgZgGbpY0L6pcIar5JoLrpp4I0DlU+wzOerSPr1H5J3fl3nLY+VhNqwVM6gZu
+ flgWag4fiY699wluuZ+xbZt0AqYYYuTEs3vc2cCqzgyMCuKg==
+Received: from nasanppmta05.qualcomm.com (i-global254.qualcomm.com
+ [199.106.103.254])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 46hwt94c79-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Mon, 12 May 2025 12:28:09 +0000 (GMT)
+Received: from nasanex01c.na.qualcomm.com (nasanex01c.na.qualcomm.com
+ [10.45.79.139])
+ by NASANPPMTA05.qualcomm.com (8.18.1.2/8.18.1.2) with ESMTPS id 54CCS7EI002326
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Mon, 12 May 2025 12:28:08 GMT
+Received: from zhonhan-gv.qualcomm.com (10.80.80.8) by
+ nasanex01c.na.qualcomm.com (10.45.79.139) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.1544.9; Mon, 12 May 2025 05:28:05 -0700
+From: Zhongqiu Han <quic_zhonhan@quicinc.com>
+To: <jani.nikula@linux.intel.com>, <joonas.lahtinen@linux.intel.com>,
+ <rodrigo.vivi@intel.com>, <tursulin@ursulin.net>, <airlied@gmail.com>,
+ <simona@ffwll.ch>, <chris@chris-wilson.co.uk>
+CC: <intel-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
+ <linux-kernel@vger.kernel.org>, <quic_zhonhan@quicinc.com>
+Subject: [PATCH] drm/i915/vlv: Remove redundant on_each_cpu() call in
+ __vlv_punit_get()
+Date: Mon, 12 May 2025 20:27:46 +0800
+Message-ID: <20250512122746.546849-1-quic_zhonhan@quicinc.com>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
-X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: BytAx9LMIGijQ61IGQtou2aJuMmkosle4sNRliXmeb8_1747053293
-X-Mimecast-Originator: redhat.com
 Content-Transfer-Encoding: 8bit
-content-type: text/plain; charset="US-ASCII"; x-default=true
+Content-Type: text/plain
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
+ nasanex01c.na.qualcomm.com (10.45.79.139)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwNTEyMDEzMCBTYWx0ZWRfXy+7isObX5XXV
+ 7weKGvaUaH3m55fCd8z5sYugqYOtavk0lch4YTwSIoH7qydPutPmT5rG/kMu8zpDESKIXf/g6Ml
+ UbRokmYhHZ3GkUaj9APuBXgvTWmNqG4guvgkPDnVNnicoFSRsr9mQiN7n4i5i5Xi0GvB9EVM3aT
+ JrLOyfN3l1ho218LYD7R+6xrLVz2J5VTvNCcZx5FeqZgFaXWJsHEZ4Q0onD+VsPF7g8BeTPuwow
+ 6Gs9zRfm1hah1s9V2jVcjOxX1khXEFWnqXg2LbmgWZjZt4/1tAtCn8q+oj/1kVKXJiGoNdyHDlX
+ BU+eBcPd2smK9l4iDj0rsfCf3dEjfa0TrUeLJBevj201m8QOsb9EWhR8R9VXKALH3V7LMH7d6dm
+ 6uQn7RiEFzOxBTS8zk5cnAJK2LxwtXl8ZBOSE7xqd9qP74/xO1NoPCqqHm3jf9cfunesz6hb
+X-Proofpoint-ORIG-GUID: uYwJgK6L8LKx2-L5U-6AdSZH8FD8xn_C
+X-Proofpoint-GUID: uYwJgK6L8LKx2-L5U-6AdSZH8FD8xn_C
+X-Authority-Analysis: v=2.4 cv=a58w9VSF c=1 sm=1 tr=0 ts=6821e959 cx=c_pps
+ a=JYp8KDb2vCoCEuGobkYCKw==:117 a=JYp8KDb2vCoCEuGobkYCKw==:17
+ a=GEpy-HfZoHoA:10 a=dt9VzEwgFbYA:10 a=COk6AnOGAAAA:8 a=TEeMUJ-ctX1U_MdykegA:9
+ a=TjNXssC_j7lpFel5tvFf:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1099,Hydra:6.0.736,FMLib:17.12.80.40
+ definitions=2025-05-12_04,2025-05-09_01,2025-02-21_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ suspectscore=0 phishscore=0 lowpriorityscore=0 mlxlogscore=999 malwarescore=0
+ clxscore=1011 impostorscore=0 mlxscore=0 spamscore=0 bulkscore=0 adultscore=0
+ priorityscore=1501 classifier=spam authscore=0 authtc=n/a authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.19.0-2504070000
+ definitions=main-2505120130
+X-Mailman-Approved-At: Mon, 12 May 2025 12:43:34 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -120,29 +100,52 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-track_pfn() does not exist, let's simply refer to it as "pfnmap
-tracking".
+The use of on_each_cpu() with a no-op callback in __vlv_punit_get() was a
+conservative safeguard to ensure all CPUs were active before accessing the
+sideband, as introduced in commit a75d035fedbd ("drm/i915: Disable
+preemption and sleeping while using the punit sideband").
 
-Reviewed-by: Lorenzo Stoakes <lorenzo.stoakes@oracle.com>
-Acked-by: Ingo Molnar <mingo@kernel.org> # x86 bits
-Signed-off-by: David Hildenbrand <david@redhat.com>
+However, this wake-up operation is redundant. The preceding call to
+cpu_latency_qos_update_request() already triggers cpu_latency_qos_apply(),
+which internally invokes wake_up_all_idle_cpus(). This mechanism reliably
+ensures that all CPUs exit idle states and are sufficiently active to
+avoid the known hardware errata.
+
+Removing the on_each_cpu() call and its empty callback eliminates
+unnecessary inter-CPU SMP overhead and simplifies the code path.
+
+Signed-off-by: Zhongqiu Han <quic_zhonhan@quicinc.com>
 ---
- mm/io-mapping.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/gpu/drm/i915/vlv_sideband.c | 8 +-------
+ 1 file changed, 1 insertion(+), 7 deletions(-)
 
-diff --git a/mm/io-mapping.c b/mm/io-mapping.c
-index f44a6a1347123..d3586e95c12c5 100644
---- a/mm/io-mapping.c
-+++ b/mm/io-mapping.c
-@@ -24,7 +24,7 @@ int io_mapping_map_user(struct io_mapping *iomap, struct vm_area_struct *vma,
- 	pgprot_t remap_prot = __pgprot((pgprot_val(iomap->prot) & _PAGE_CACHE_MASK) |
- 				       (pgprot_val(vma->vm_page_prot) & ~_PAGE_CACHE_MASK));
+diff --git a/drivers/gpu/drm/i915/vlv_sideband.c b/drivers/gpu/drm/i915/vlv_sideband.c
+index 114ae8eb9cd5..d93b608c04e4 100644
+--- a/drivers/gpu/drm/i915/vlv_sideband.c
++++ b/drivers/gpu/drm/i915/vlv_sideband.c
+@@ -24,10 +24,6 @@
+ /* Private register write, double-word addressing, non-posted */
+ #define SB_CRWRDA_NP	0x07
  
--	/* We rely on prevalidation of the io-mapping to skip track_pfn(). */
-+	/* We rely on prevalidation of the io-mapping to skip pfnmap tracking. */
- 	return remap_pfn_range_notrack(vma, addr, pfn, size, remap_prot);
+-static void ping(void *info)
+-{
+-}
+-
+ static void __vlv_punit_get(struct drm_i915_private *i915)
+ {
+ 	iosf_mbi_punit_acquire();
+@@ -42,10 +38,8 @@ static void __vlv_punit_get(struct drm_i915_private *i915)
+ 	 * specific. Hence we presume the workaround needs only be applied
+ 	 * to the Valleyview P-unit and not all sideband communications.
+ 	 */
+-	if (IS_VALLEYVIEW(i915)) {
++	if (IS_VALLEYVIEW(i915))
+ 		cpu_latency_qos_update_request(&i915->vlv_iosf_sb.qos, 0);
+-		on_each_cpu(ping, NULL, 1);
+-	}
  }
- EXPORT_SYMBOL_GPL(io_mapping_map_user);
+ 
+ static void __vlv_punit_put(struct drm_i915_private *i915)
 -- 
-2.49.0
+2.43.0
 
