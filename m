@@ -4,17 +4,17 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9F61CC3ABD8
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F2665C3ABDA
 	for <intel-gfx@archiver.kernel.org>; Tue, 13 May 2025 07:45:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8776E10E529;
+	by gabe.freedesktop.org (Postfix) with ESMTP id B191A10E52C;
 	Tue, 13 May 2025 07:45:33 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="iO297zAx";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="nJzzwRtj";
 	dkim-atps=neutral
 Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E6B4A10E50A;
- Tue, 13 May 2025 07:45:29 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4DF8010E521;
+ Tue, 13 May 2025 07:45:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
  s=20170329;
  h=Content-Transfer-Encoding:MIME-Version:References:In-Reply-To:
@@ -22,16 +22,16 @@ DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
  Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
  :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
  List-Post:List-Owner:List-Archive;
- bh=ho3rz1YCBup49UXIrD6pA9C2v3Zz4Fvtf4G3Zu60qMA=; b=iO297zAxbHE+8lLFv6fLSQw3//
- p5STzJDtuOBaz3moN8Z5HQ0dvf3gcDD++omh+R/3fcczRG3AbyC8jMwMATypt+hQsWhqABplI34bu
- 1vm/YroQImaemjOQLlv5v5DoDbESWINdy65PI0w6rYDryEHp9ctgBUoiUlHF9yBVjRt/CupgLO1pE
- ENeYD7+MmlkBFW7kFheltwuSfb1G4IhUyM1KjM902pFSxP5eKnz8z3nAcPnYlfsueEAA4e5FhND6m
- 9ClDamiqB37FuBHVE/nXLiAR4B7JU9/nVx2Hq3atjmikj5waR0Npd94Q08aDPRfy6uMeroehTT4S0
- npfwqRKA==;
+ bh=QAQu03T+0Cw7dpCbcuwxezen/s/XSrGtmte1ESndrNA=; b=nJzzwRtj5rV4zm2BpXSExInOyl
+ o+FiA6T2ZBQBZoFyP9bdpBf+plLyFBsh6DtlQcaCevNGUUSxKZ2II6aBlcQiqALNTWX0jQ9c26Txm
+ m4ZabxWLa2XvffNwzC66rHXryigcue+Q/koh/Bx7DeCiff+f7w8RsAgU1BCzpvatumBQVU1KQBp8i
+ imXydBDHX/27eYLMER9jc1g4xr2vUa9GWYNNz8k+enWVPlG5opJGbHUWsYTdAp8hNxEl820KZEa40
+ I4P4eRHmjhTL6qbHbssnUkiRrrpLxYPL2O8ULOpsIhKL73Eda7xJpHLg6To5RxLCTm8VAB5DHMTXI
+ nANvQSUA==;
 Received: from [81.79.92.254] (helo=localhost)
  by fanzine2.igalia.com with esmtpsa 
  (Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1uEkF3-007TvD-BI; Tue, 13 May 2025 09:45:27 +0200
+ id 1uEkF5-007Tvi-M3; Tue, 13 May 2025 09:45:30 +0200
 From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
 To: dri-devel@lists.freedesktop.org
 Cc: Rob Clark <robdclark@gmail.com>, Sumit Semwal <sumit.semwal@linaro.org>,
@@ -43,10 +43,9 @@ Cc: Rob Clark <robdclark@gmail.com>, Sumit Semwal <sumit.semwal@linaro.org>,
  intel-xe@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
  linux-media@vger.kernel.org, linaro-mm-sig@lists.linaro.org,
  kernel-dev@igalia.com, Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-Subject: [RFC v3 05/10] drm/amdgpu: Use dma-fence driver and timeline name
- helpers
-Date: Tue, 13 May 2025 08:45:08 +0100
-Message-ID: <20250513074513.81727-6-tvrtko.ursulin@igalia.com>
+Subject: [RFC v3 08/10] sync_file: Protect access to driver and timeline name
+Date: Tue, 13 May 2025 08:45:11 +0100
+Message-ID: <20250513074513.81727-9-tvrtko.ursulin@igalia.com>
 X-Mailer: git-send-email 2.48.0
 In-Reply-To: <20250513074513.81727-1-tvrtko.ursulin@igalia.com>
 References: <20250513074513.81727-1-tvrtko.ursulin@igalia.com>
@@ -67,56 +66,50 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Access the dma-fence internals via the previously added helpers.
-
-Drop the macro while at it, since the length is now more manageable.
+Protect the access to driver and timeline name which otherwise could be
+freed as dma-fence exported is signalling fences.
 
 Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_trace.h | 9 ++-------
- 1 file changed, 2 insertions(+), 7 deletions(-)
+ drivers/dma-buf/sync_file.c | 6 ++++++
+ 1 file changed, 6 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_trace.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_trace.h
-index 11dd2e0f7979..4c61e4168f23 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_trace.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_trace.h
-@@ -32,9 +32,6 @@
- #define TRACE_SYSTEM amdgpu
- #define TRACE_INCLUDE_FILE amdgpu_trace
+diff --git a/drivers/dma-buf/sync_file.c b/drivers/dma-buf/sync_file.c
+index 212df4b849fe..ad87116baa24 100644
+--- a/drivers/dma-buf/sync_file.c
++++ b/drivers/dma-buf/sync_file.c
+@@ -136,11 +136,13 @@ char *sync_file_get_name(struct sync_file *sync_file, char *buf, int len)
+ 	} else {
+ 		struct dma_fence *fence = sync_file->fence;
  
--#define AMDGPU_JOB_GET_TIMELINE_NAME(job) \
--	 job->base.s_fence->finished.ops->get_timeline_name(&job->base.s_fence->finished)
--
- TRACE_EVENT(amdgpu_device_rreg,
- 	    TP_PROTO(unsigned did, uint32_t reg, uint32_t value),
- 	    TP_ARGS(did, reg, value),
-@@ -168,7 +165,7 @@ TRACE_EVENT(amdgpu_cs_ioctl,
- 	    TP_ARGS(job),
- 	    TP_STRUCT__entry(
- 			     __field(uint64_t, sched_job_id)
--			     __string(timeline, AMDGPU_JOB_GET_TIMELINE_NAME(job))
-+			     __string(timeline, dma_fence_timeline_name(&job->base.s_fence->finished))
- 			     __field(unsigned int, context)
- 			     __field(unsigned int, seqno)
- 			     __field(struct dma_fence *, fence)
-@@ -194,7 +191,7 @@ TRACE_EVENT(amdgpu_sched_run_job,
- 	    TP_ARGS(job),
- 	    TP_STRUCT__entry(
- 			     __field(uint64_t, sched_job_id)
--			     __string(timeline, AMDGPU_JOB_GET_TIMELINE_NAME(job))
-+			     __string(timeline, dma_fence_timeline_name(&job->base.s_fence->finished))
- 			     __field(unsigned int, context)
- 			     __field(unsigned int, seqno)
- 			     __string(ring, to_amdgpu_ring(job->base.sched)->name)
-@@ -585,8 +582,6 @@ TRACE_EVENT(amdgpu_reset_reg_dumps,
- 		      __entry->address,
- 		      __entry->value)
- );
--
--#undef AMDGPU_JOB_GET_TIMELINE_NAME
- #endif
++		dma_fence_access_begin();
+ 		snprintf(buf, len, "%s-%s%llu-%lld",
+ 			 dma_fence_driver_name(fence),
+ 			 dma_fence_timeline_name(fence),
+ 			 fence->context,
+ 			 fence->seqno);
++		dma_fence_access_end();
+ 	}
  
- /* This part must be outside protection */
+ 	return buf;
+@@ -262,6 +264,8 @@ static long sync_file_ioctl_merge(struct sync_file *sync_file,
+ static int sync_fill_fence_info(struct dma_fence *fence,
+ 				 struct sync_fence_info *info)
+ {
++	dma_fence_access_begin();
++
+ 	strscpy(info->obj_name, dma_fence_timeline_name(fence),
+ 		sizeof(info->obj_name));
+ 	strscpy(info->driver_name, dma_fence_driver_name(fence),
+@@ -273,6 +277,8 @@ static int sync_fill_fence_info(struct dma_fence *fence,
+ 			ktime_to_ns(dma_fence_timestamp(fence)) :
+ 			ktime_set(0, 0);
+ 
++	dma_fence_access_end();
++
+ 	return info->status;
+ }
+ 
 -- 
 2.48.0
 
