@@ -4,57 +4,54 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5FAF2C3ABC3
-	for <intel-gfx@archiver.kernel.org>; Tue, 13 May 2025 07:15:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4CA6CC3ABDA
+	for <intel-gfx@archiver.kernel.org>; Tue, 13 May 2025 07:45:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DB09910E331;
-	Tue, 13 May 2025 07:15:56 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5FDB610E2DD;
+	Tue, 13 May 2025 07:45:28 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="AaoRzsdf";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="Lo6R4Z4a";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.18])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3D56510E331;
- Tue, 13 May 2025 07:15:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1747120555; x=1778656555;
- h=from:to:cc:subject:in-reply-to:references:date:
- message-id:mime-version;
- bh=Tz0RMDmapjJl7jzGnUXCXtly+56hUWNeYGWKM25RqjY=;
- b=AaoRzsdfwyUVPnYo+lfS74Hxly19bPaahGO1VBZH+kyNDHisl/JRjGzO
- VpUpOsTmxayFXbyG+g9f6Oi2swUUGy/jdWZlrou2hlQeS4KtW687w5Mu/
- THFk6ro91QXmbeT09MqIVN8fiSeWj7o3i8XfVrGsJygKoUoMI1yhF3Z2+
- S5y7YdpBCxKQIZS+/3PFdd4akGXpYCye4IElTmKGnk2vF5VDjpsUvcD8m
- eSjQU7wuph4CIk4f/bJ5aBCWK7KPEo2ssQ7KMxbmBhk9NRizY4QY6S/ZB
- gKlC5mEFi8IuOxHsdYfkvLBmKO/uFIPwZZHs60ry86ZksdGq61arfljh8 Q==;
-X-CSE-ConnectionGUID: ymgmu0faSemhgjuq9QufGA==
-X-CSE-MsgGUID: 7uidE97MTE63BUtxCrkt0Q==
-X-IronPort-AV: E=McAfee;i="6700,10204,11431"; a="48204760"
-X-IronPort-AV: E=Sophos;i="6.15,284,1739865600"; d="scan'208";a="48204760"
-Received: from orviesa008.jf.intel.com ([10.64.159.148])
- by fmvoesa112.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 13 May 2025 00:15:54 -0700
-X-CSE-ConnectionGUID: 9HWIDhA/QtmY+391IB1iUA==
-X-CSE-MsgGUID: vfvwY+oWQ3iN7eQgspGj7w==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.15,284,1739865600"; d="scan'208";a="138551601"
-Received: from dalessan-mobl3.ger.corp.intel.com (HELO localhost)
- ([10.245.244.175])
- by orviesa008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 13 May 2025 00:15:53 -0700
-From: Jani Nikula <jani.nikula@linux.intel.com>
-To: Mitul Golani <mitulkumar.ajitkumar.golani@intel.com>,
- intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org
-Cc: ankit.k.nautiyal@intel.com, ville.syrjala@intel.com
-Subject: Re: [PATCH v5 04/17] drm/i915/display: Add VRR DC balance registers
-In-Reply-To: <20250513051700.507389-5-mitulkumar.ajitkumar.golani@intel.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
-References: <20250513051700.507389-1-mitulkumar.ajitkumar.golani@intel.com>
- <20250513051700.507389-5-mitulkumar.ajitkumar.golani@intel.com>
-Date: Tue, 13 May 2025 10:15:49 +0300
-Message-ID: <87zffhhtga.fsf@intel.com>
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0E0D310E155;
+ Tue, 13 May 2025 07:45:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Content-Transfer-Encoding:Content-Type:MIME-Version:References:
+ In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Sender:Reply-To:Content-ID:
+ Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
+ :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
+ List-Post:List-Owner:List-Archive;
+ bh=8PBpHzT0posY/8hYMZRUjLsaZmxxP91alDxR/meOvvM=; b=Lo6R4Z4aCiuwbMnwqFZfhaZOkD
+ ynFukQ9OZvMHuOHo2l7GnC01nZS13biJJiFdjvVRWq6rJWNrC4bn7DLAb2J9oVPSmXfShSVAXKn3M
+ 5yIcjkV3EMvSMhg6RltK8/ue6cO46rUO3e9sO0qYmkFtqAJ/l4Pfnrh1p95irSeJ1a7KYqZGfBdEF
+ oQOT+d/DHBG+DHgsz+DPVmNg+dBsN9+SE4xrjtZvrzFkT0cKJE71fIdvzH+yqaC4hficWDn1SVLP6
+ wJAyZhBhOI16Pm3chM9SrMoLwhDh8fPFyuVjJ3ufuzehsVKg8EthQPYmGtcwXOZjqo5G1nF3AHvBX
+ RpCWrPog==;
+Received: from [81.79.92.254] (helo=localhost)
+ by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
+ id 1uEkF0-007Tui-9E; Tue, 13 May 2025 09:45:24 +0200
+From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+To: dri-devel@lists.freedesktop.org
+Cc: Rob Clark <robdclark@gmail.com>, Sumit Semwal <sumit.semwal@linaro.org>,
+ Gustavo Padovan <gustavo@padovan.org>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ Matthew Brost <matthew.brost@intel.com>,
+ Lucas De Marchi <lucas.demarchi@intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, amd-gfx@lists.freedesktop.org,
+ intel-xe@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
+ linux-media@vger.kernel.org, linaro-mm-sig@lists.linaro.org,
+ kernel-dev@igalia.com, Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+Subject: [RFC v3 01/10] dma-fence: Change signature of __dma_fence_is_later
+Date: Tue, 13 May 2025 08:45:04 +0100
+Message-ID: <20250513074513.81727-2-tvrtko.ursulin@igalia.com>
+X-Mailer: git-send-email 2.48.0
+In-Reply-To: <20250513074513.81727-1-tvrtko.ursulin@igalia.com>
+References: <20250513074513.81727-1-tvrtko.ursulin@igalia.com>
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,95 +67,135 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Tue, 13 May 2025, Mitul Golani <mitulkumar.ajitkumar.golani@intel.com> wrote:
-> Add VRR register offsets and bits to access DC Balance configuration.
->
-> --v2:
-> - Separate register definitions. (Ankit)
-> - Remove usage of dev_priv. (Jani, Nikula)
->
-> --v3:
-> - Convert register address offset, from capital to small. (Ankit)
-> - Move mask bits near to register offsets. (Ankit)
->
-> Co-authored-by: Mitul Golani <mitulkumar.ajitkumar.golani@intel.com>
-> Signed-off-by: Mitul Golani <mitulkumar.ajitkumar.golani@intel.com>
-> ---
->  drivers/gpu/drm/i915/display/intel_vrr_regs.h | 48 +++++++++++++++++++
->  1 file changed, 48 insertions(+)
->
-> diff --git a/drivers/gpu/drm/i915/display/intel_vrr_regs.h b/drivers/gpu/drm/i915/display/intel_vrr_regs.h
-> index 6ed0e0dc97e7..204d5b35bc4b 100644
-> --- a/drivers/gpu/drm/i915/display/intel_vrr_regs.h
-> +++ b/drivers/gpu/drm/i915/display/intel_vrr_regs.h
-> @@ -9,6 +9,53 @@
->  #include "intel_display_reg_defs.h"
->  
->  /* VRR registers */
-> +#define _TRANS_VRR_DCB_ADJ_FLIPLINE_CFG_A		0x604d4
-> +#define _TRANS_VRR_DCB_ADJ_FLIPLINE_CFG_B		0x614d4
-> +#define _TRANS_VRR_DCB_ADJ_FLIPLINE_CFG_C		0x624d4
-> +#define _TRANS_VRR_DCB_ADJ_FLIPLINE_CFG_D		0x634d4
-> +#define TRANS_VRR_DCB_ADJ_FLIPLINE_CFG(display, \
-> +				       trans)	_MMIO_TRANS2(display, trans, \
-> +							     _TRANS_VRR_DCB_ADJ_FLIPLINE_CFG_A)
+With the goal of reducing the need for drivers to touch (and dereference)
+fence->ops, we change the prototype of __dma_fence_is_later() to take
+fence instead of fence->ops.
 
-None of these need _MMIO_TRANS2() AFAICT. Always use _MMIO_TRANS() when
-possible.
+Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+Reviewed-by: Christian König <christian.koenig@amd.com>
+---
+ drivers/dma-buf/dma-fence-chain.c |  2 +-
+ drivers/dma-buf/sw_sync.c         |  2 +-
+ drivers/gpu/drm/xe/xe_hw_fence.c  |  2 +-
+ drivers/gpu/drm/xe/xe_sched_job.c | 14 ++++++++------
+ include/linux/dma-fence.h         |  9 ++++-----
+ 5 files changed, 15 insertions(+), 14 deletions(-)
 
-BR,
-Jani.
-
-> +#define  VRR_DCB_ADJ_FLIPLINE_CNT_MASK			REG_GENMASK(31, 24)
-> +#define  VRR_DCB_ADJ_FLIPLINE_MASK			REG_GENMASK(19, 0)
-> +
-> +#define _TRANS_VRR_DCB_ADJ_VMAX_CFG_A			0x604d8
-> +#define _TRANS_VRR_DCB_ADJ_VMAX_CFG_B			0x614d8
-> +#define _TRANS_VRR_DCB_ADJ_VMAX_CFG_C			0x624d8
-> +#define _TRANS_VRR_DCB_ADJ_VMAX_CFG_D			0x634d8
-> +#define TRANS_VRR_DCB_ADJ_VMAX_CFG(display, trans)	_MMIO_TRANS2(display, \
-> +								     trans, \
-> +								     _TRANS_VRR_DCB_ADJ_VMAX_CFG_A)
-> +#define  VRR_DCB_ADJ_VMAX_CNT_MASK			REG_GENMASK(31, 24)
-> +#define  VRR_DCB_ADJ_VMAX_MASK				REG_GENMASK(19, 0)
-> +
-> +#define _TRANS_VRR_FLIPLINE_DCB_A			0x60418
-> +#define _TRANS_VRR_FLIPLINE_DCB_B			0x61418
-> +#define _TRANS_VRR_FLIPLINE_DCB_C			0x62418
-> +#define _TRANS_VRR_FLIPLINE_DCB_D			0x63418
-> +#define TRANS_VRR_FLIPLINE_DCB(display, trans)		_MMIO_TRANS2(display, \
-> +								     trans, \
-> +								     _TRANS_VRR_FLIPLINE_DCB_A)
-> +#define VRR_FLIPLINE_DCB_MASK				REG_GENMASK(19, 0)
-> +
-> +#define _TRANS_VRR_VMAX_DCB_A				0x60414
-> +#define _TRANS_VRR_VMAX_DCB_B				0x61414
-> +#define _TRANS_VRR_VMAX_DCB_C				0x62414
-> +#define _TRANS_VRR_VMAX_DCB_D				0x63414
-> +#define TRANS_VRR_VMAX_DCB(display, trans)		_MMIO_TRANS2(display, \
-> +								     trans, \
-> +								     _TRANS_VRR_VMAX_DCB_A)
-> +#define  VRR_VMAX_DCB_MASK				REG_GENMASK(19, 0)
-> +
-> +#define _TRANS_ADAPTIVE_SYNC_DCB_CTL_A			0x604c0
-> +#define _TRANS_ADAPTIVE_SYNC_DCB_CTL_B			0x614c0
-> +#define _TRANS_ADAPTIVE_SYNC_DCB_CTL_C			0x624c0
-> +#define _TRANS_ADAPTIVE_SYNC_DCB_CTL_D			0x634c0
-> +#define TRANS_ADAPTIVE_SYNC_DCB_CTL(display, trans)	_MMIO_TRANS2(display, \
-> +								     trans, \
-> +								     _TRANS_ADAPTIVE_SYNC_DCB_CTL_A)
-> +#define ADAPTIVE_SYNC_COUNTER_EN			REG_BIT(31)
-> +
->  #define _TRANS_VRR_CTL_A			0x60420
->  #define _TRANS_VRR_CTL_B			0x61420
->  #define _TRANS_VRR_CTL_C			0x62420
-> @@ -20,6 +67,7 @@
->  #define  VRR_CTL_PIPELINE_FULL_MASK		REG_GENMASK(10, 3)
->  #define  VRR_CTL_PIPELINE_FULL(x)		REG_FIELD_PREP(VRR_CTL_PIPELINE_FULL_MASK, (x))
->  #define  VRR_CTL_PIPELINE_FULL_OVERRIDE		REG_BIT(0)
-> +#define  VRR_CTL_DCB_ADJ_ENABLE			REG_BIT(28)
->  #define  XELPD_VRR_CTL_VRR_GUARDBAND_MASK	REG_GENMASK(15, 0)
->  #define  XELPD_VRR_CTL_VRR_GUARDBAND(x)		REG_FIELD_PREP(XELPD_VRR_CTL_VRR_GUARDBAND_MASK, (x))
-
+diff --git a/drivers/dma-buf/dma-fence-chain.c b/drivers/dma-buf/dma-fence-chain.c
+index 9663ba1bb6ac..90424f23fd73 100644
+--- a/drivers/dma-buf/dma-fence-chain.c
++++ b/drivers/dma-buf/dma-fence-chain.c
+@@ -252,7 +252,7 @@ void dma_fence_chain_init(struct dma_fence_chain *chain,
+ 	chain->prev_seqno = 0;
+ 
+ 	/* Try to reuse the context of the previous chain node. */
+-	if (prev_chain && __dma_fence_is_later(seqno, prev->seqno, prev->ops)) {
++	if (prev_chain && __dma_fence_is_later(prev, seqno, prev->seqno)) {
+ 		context = prev->context;
+ 		chain->prev_seqno = prev->seqno;
+ 	} else {
+diff --git a/drivers/dma-buf/sw_sync.c b/drivers/dma-buf/sw_sync.c
+index 4f27ee93a00c..3c20f1d31cf5 100644
+--- a/drivers/dma-buf/sw_sync.c
++++ b/drivers/dma-buf/sw_sync.c
+@@ -170,7 +170,7 @@ static bool timeline_fence_signaled(struct dma_fence *fence)
+ {
+ 	struct sync_timeline *parent = dma_fence_parent(fence);
+ 
+-	return !__dma_fence_is_later(fence->seqno, parent->value, fence->ops);
++	return !__dma_fence_is_later(fence, fence->seqno, parent->value);
+ }
+ 
+ static void timeline_fence_set_deadline(struct dma_fence *fence, ktime_t deadline)
+diff --git a/drivers/gpu/drm/xe/xe_hw_fence.c b/drivers/gpu/drm/xe/xe_hw_fence.c
+index 0b4f12be3692..03eb8c6d1616 100644
+--- a/drivers/gpu/drm/xe/xe_hw_fence.c
++++ b/drivers/gpu/drm/xe/xe_hw_fence.c
+@@ -165,7 +165,7 @@ static bool xe_hw_fence_signaled(struct dma_fence *dma_fence)
+ 	u32 seqno = xe_map_rd(xe, &fence->seqno_map, 0, u32);
+ 
+ 	return dma_fence->error ||
+-		!__dma_fence_is_later(dma_fence->seqno, seqno, dma_fence->ops);
++		!__dma_fence_is_later(dma_fence, dma_fence->seqno, seqno);
+ }
+ 
+ static bool xe_hw_fence_enable_signaling(struct dma_fence *dma_fence)
+diff --git a/drivers/gpu/drm/xe/xe_sched_job.c b/drivers/gpu/drm/xe/xe_sched_job.c
+index 1905ca590965..f0a6ce610948 100644
+--- a/drivers/gpu/drm/xe/xe_sched_job.c
++++ b/drivers/gpu/drm/xe/xe_sched_job.c
+@@ -216,15 +216,17 @@ void xe_sched_job_set_error(struct xe_sched_job *job, int error)
+ 
+ bool xe_sched_job_started(struct xe_sched_job *job)
+ {
++	struct dma_fence *fence = dma_fence_chain_contained(job->fence);
+ 	struct xe_lrc *lrc = job->q->lrc[0];
+ 
+-	return !__dma_fence_is_later(xe_sched_job_lrc_seqno(job),
+-				     xe_lrc_start_seqno(lrc),
+-				     dma_fence_chain_contained(job->fence)->ops);
++	return !__dma_fence_is_later(fence,
++				     xe_sched_job_lrc_seqno(job),
++				     xe_lrc_start_seqno(lrc));
+ }
+ 
+ bool xe_sched_job_completed(struct xe_sched_job *job)
+ {
++	struct dma_fence *fence = dma_fence_chain_contained(job->fence);
+ 	struct xe_lrc *lrc = job->q->lrc[0];
+ 
+ 	/*
+@@ -232,9 +234,9 @@ bool xe_sched_job_completed(struct xe_sched_job *job)
+ 	 * parallel handshake is done.
+ 	 */
+ 
+-	return !__dma_fence_is_later(xe_sched_job_lrc_seqno(job),
+-				     xe_lrc_seqno(lrc),
+-				     dma_fence_chain_contained(job->fence)->ops);
++	return !__dma_fence_is_later(fence,
++				     xe_sched_job_lrc_seqno(job),
++				     xe_lrc_seqno(lrc));
+ }
+ 
+ void xe_sched_job_arm(struct xe_sched_job *job)
+diff --git a/include/linux/dma-fence.h b/include/linux/dma-fence.h
+index b12776883d14..48b5202c531d 100644
+--- a/include/linux/dma-fence.h
++++ b/include/linux/dma-fence.h
+@@ -441,21 +441,20 @@ dma_fence_is_signaled(struct dma_fence *fence)
+ 
+ /**
+  * __dma_fence_is_later - return if f1 is chronologically later than f2
++ * @fence: fence in whose context to do the comparison
+  * @f1: the first fence's seqno
+  * @f2: the second fence's seqno from the same context
+- * @ops: dma_fence_ops associated with the seqno
+  *
+  * Returns true if f1 is chronologically later than f2. Both fences must be
+  * from the same context, since a seqno is not common across contexts.
+  */
+-static inline bool __dma_fence_is_later(u64 f1, u64 f2,
+-					const struct dma_fence_ops *ops)
++static inline bool __dma_fence_is_later(struct dma_fence *fence, u64 f1, u64 f2)
+ {
+ 	/* This is for backward compatibility with drivers which can only handle
+ 	 * 32bit sequence numbers. Use a 64bit compare when the driver says to
+ 	 * do so.
+ 	 */
+-	if (ops->use_64bit_seqno)
++	if (fence->ops->use_64bit_seqno)
+ 		return f1 > f2;
+ 
+ 	return (int)(lower_32_bits(f1) - lower_32_bits(f2)) > 0;
+@@ -475,7 +474,7 @@ static inline bool dma_fence_is_later(struct dma_fence *f1,
+ 	if (WARN_ON(f1->context != f2->context))
+ 		return false;
+ 
+-	return __dma_fence_is_later(f1->seqno, f2->seqno, f1->ops);
++	return __dma_fence_is_later(f1, f1->seqno, f2->seqno);
+ }
+ 
+ /**
 -- 
-Jani Nikula, Intel
+2.48.0
+
