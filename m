@@ -4,53 +4,56 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1151AC3ABC3
-	for <intel-gfx@archiver.kernel.org>; Tue, 13 May 2025 05:48:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A6BC0C3ABD9
+	for <intel-gfx@archiver.kernel.org>; Tue, 13 May 2025 05:48:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AFD3410E0F5;
-	Tue, 13 May 2025 05:48:40 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 29AFA10E2DF;
+	Tue, 13 May 2025 05:48:41 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="j2kGfQSk";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="eRoJlRi0";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.12])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 626CA10E0F5;
- Tue, 13 May 2025 05:48:33 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8745C10E2DF;
+ Tue, 13 May 2025 05:48:38 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
  t=1747115319; x=1778651319;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=LxHqmOFUwFxE9zt6sIgMPkvpBpmXGJEELGiX6ORe4z0=;
- b=j2kGfQSkPxav+6FXZmMkkj7Qc1EbKhVw30ilnKEQPc9JCPlFUilyZsqZ
- I7ZGZjN1pE6fg0DkmGH1QyrLFLKdgzDTmxPSMi8zI/grJhXVmj3etqjgk
- bn9Sijz78R6Cjp76a7cDXiem0ptMQkWLxkpIb5J+HS8RDEQIJTt5GcUIh
- CjvTVuVSPXHPP4QalZw/tRiaOSuGVxOHAB/JT0Z3geUMmjUgLZXh7/bey
- JfIxB9drPuG+S4P11yZTY8q9Wugf3yLUNGmGkIXtsdVvuhKD55wKth9bD
- j9mXPBs2LW267UE27W95p0/frZtnf+GL6/cLixh20OHoEkm9lZ3O66VuC g==;
-X-CSE-ConnectionGUID: rzVBQMwzRLm2mBOvltjZFQ==
-X-CSE-MsgGUID: HxRQdavXQOaWcskD8n0zBw==
-X-IronPort-AV: E=McAfee;i="6700,10204,11431"; a="60343596"
-X-IronPort-AV: E=Sophos;i="6.15,284,1739865600"; d="scan'208";a="60343596"
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=620utEFbHCIuTQ+EHZVxF1yB27uZSdNFsTvFBsYZGeI=;
+ b=eRoJlRi0B2e93rDfPTq/Zj/aWk/c9LUviW3LB78HXsTmXRJB9vyLi5Bn
+ 4GvGE4h/JaThzwdqyzCJTRyCPGWAEB3Nen2FOFLdsAHWRuJ2GaDB99Gep
+ pzAJpKMm4hC5AKv6hapNVbUTXE7OGukVGSS8+d08dvRtlr5N1cOUkvNwz
+ 02SCt2aTF30f6XlUilkQlhfSx/+w2IgkIRRVCGqP6nBJKu/G0lssN8t4H
+ 8ooSHw+gdyIlwK39V8tIjbTnh9lIO4yWWOq6yBvIV5wsMfeWIh0zGfclL
+ eily4OOOI2LVd47BuJ4Vnf5zZgBC3xopIEUuhZdGjHOhWAhDwDyFXXM9h Q==;
+X-CSE-ConnectionGUID: 2EThBkkCSzmBDZRhbiFdIA==
+X-CSE-MsgGUID: aROtDP6ESh+5Cm0Uspn7bA==
+X-IronPort-AV: E=McAfee;i="6700,10204,11431"; a="60343607"
+X-IronPort-AV: E=Sophos;i="6.15,284,1739865600"; d="scan'208";a="60343607"
 Received: from orviesa008.jf.intel.com ([10.64.159.148])
  by orvoesa104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 12 May 2025 22:48:34 -0700
-X-CSE-ConnectionGUID: JmsQ7xA3RPKoiP71ob68cw==
-X-CSE-MsgGUID: ZR0L0shLQpWEE7EhgTjplw==
+ 12 May 2025 22:48:38 -0700
+X-CSE-ConnectionGUID: Te9DPiRnTMaH6QEMh6UnRQ==
+X-CSE-MsgGUID: DZgkZzXZRPqxzWJsgtjUJg==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.15,284,1739865600"; d="scan'208";a="138538567"
+X-IronPort-AV: E=Sophos;i="6.15,284,1739865600"; d="scan'208";a="138538600"
 Received: from ijarvine-mobl1.ger.corp.intel.com (HELO jhogande-mobl1..)
  ([10.245.244.123])
  by orviesa008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 12 May 2025 22:48:31 -0700
+ 12 May 2025 22:48:35 -0700
 From: =?UTF-8?q?Jouni=20H=C3=B6gander?= <jouni.hogander@intel.com>
 To: intel-gfx@lists.freedesktop.org,
 	intel-xe@lists.freedesktop.org
 Cc: animesh.manna@intel.com, suraj.kandpal@intel.com,
  =?UTF-8?q?Jouni=20H=C3=B6gander?= <jouni.hogander@intel.com>
-Subject: [PATCH v4 0/2] ALPM rework and fixes
-Date: Tue, 13 May 2025 08:48:12 +0300
-Message-ID: <20250513054814.3702977-1-jouni.hogander@intel.com>
+Subject: [PATCH v4 2/2] drm/i915/alpm: Stop writing ALPM registers when PSR is
+ enabled
+Date: Tue, 13 May 2025 08:48:14 +0300
+Message-ID: <20250513054814.3702977-3-jouni.hogander@intel.com>
 X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20250513054814.3702977-1-jouni.hogander@intel.com>
+References: <20250513054814.3702977-1-jouni.hogander@intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
@@ -70,41 +73,93 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Currently there are couple of problems in ALPM implelementation:
+Currently we are seeing these on PTL:
 
-1. ALPM registers are written while PSR/ Panel Replay is kept
-   enabled. This is causing following error messages on PTL:
-   
-   "xe 0000:00:02.0: [drm] *ERROR* Timeout waiting for DDI BUF A to
-   get active".
+xe 0000:00:02.0: [drm] *ERROR* Timeout waiting for DDI BUF A to get active
 
-   This is fixed by enabling ALPM only once when needed.
+These seem to be caused by writing ALPM registers while Panel Replay is
+enabled.
 
-2. ALPM is never disabled when used by PSR/Panel Replay. I.e. if PSR
-   is once enabled ALPM is left enabled for good when PSR is
-   disabled. This is fixed by using intel_alpm_disable and calling it
-   for both cases: LOBF disable and PSR disable.
+Fix this by writing ALPM registers only when Panel Replay is about to be
+enabled.
 
-This patch set is addressing these.
+v4: improve comment on intel_psr_panel_replay_enable_sink call
+v3: enable/disable ALPM from PSR code
 
-v4:
-  - do not add kerneldoc comments
-  - improve comment on intel_psr_panel_replay_enable_sink call
-v3:
-  - enable/disable ALPM from PSR code
-v2:
-  - continue using rmw when disabling ALPM
-  - take into account disabled hw in old_crtc_state
-
-Jouni Högander (2):
-  drm/i915/alpm: Make intel_alpm_enable_sink available for PSR
-  drm/i915/alpm: Stop writing ALPM registers when PSR is enabled
-
- drivers/gpu/drm/i915/display/intel_alpm.c |  8 ++++----
- drivers/gpu/drm/i915/display/intel_alpm.h |  2 ++
+Fixes: 172757acd6f6 ("drm/i915/lobf: Add lobf enablement in post plane update")
+Signed-off-by: Jouni Högander <jouni.hogander@intel.com>
+---
+ drivers/gpu/drm/i915/display/intel_alpm.c |  4 ++--
  drivers/gpu/drm/i915/display/intel_psr.c  | 13 ++++++++++---
- 3 files changed, 16 insertions(+), 7 deletions(-)
+ 2 files changed, 12 insertions(+), 5 deletions(-)
 
+diff --git a/drivers/gpu/drm/i915/display/intel_alpm.c b/drivers/gpu/drm/i915/display/intel_alpm.c
+index da70a98a1292..c176bdbc19a3 100644
+--- a/drivers/gpu/drm/i915/display/intel_alpm.c
++++ b/drivers/gpu/drm/i915/display/intel_alpm.c
+@@ -453,8 +453,8 @@ void intel_alpm_post_plane_update(struct intel_atomic_state *state,
+ 		intel_atomic_get_old_crtc_state(state, crtc);
+ 	struct intel_encoder *encoder;
+ 
+-	if ((!crtc_state->has_lobf ||
+-	     crtc_state->has_lobf == old_crtc_state->has_lobf) && !crtc_state->has_psr)
++	if (crtc_state->has_psr || !crtc_state->has_lobf ||
++	    crtc_state->has_lobf == old_crtc_state->has_lobf)
+ 		return;
+ 
+ 	for_each_intel_encoder_mask(display->drm, encoder,
+diff --git a/drivers/gpu/drm/i915/display/intel_psr.c b/drivers/gpu/drm/i915/display/intel_psr.c
+index ccd66bbc72f7..430ad4ef7146 100644
+--- a/drivers/gpu/drm/i915/display/intel_psr.c
++++ b/drivers/gpu/drm/i915/display/intel_psr.c
+@@ -800,6 +800,8 @@ static void _psr_enable_sink(struct intel_dp *intel_dp,
+ static void intel_psr_enable_sink(struct intel_dp *intel_dp,
+ 				  const struct intel_crtc_state *crtc_state)
+ {
++	intel_alpm_enable_sink(intel_dp, crtc_state);
++
+ 	crtc_state->has_panel_replay ?
+ 		_panel_replay_enable_sink(intel_dp, crtc_state) :
+ 		_psr_enable_sink(intel_dp, crtc_state);
+@@ -1962,6 +1964,8 @@ static void intel_psr_enable_source(struct intel_dp *intel_dp,
+ 	     IS_DISPLAY_VERx100_STEP(display, 3000, STEP_A0, STEP_B0)) &&
+ 	    !intel_dp->psr.panel_replay_enabled)
+ 		intel_dmc_block_pkgc(display, intel_dp->psr.pipe, true);
++
++	intel_alpm_configure(intel_dp, crtc_state);
+ }
+ 
+ static bool psr_interrupt_error_check(struct intel_dp *intel_dp)
+@@ -2029,8 +2033,9 @@ static void intel_psr_enable_locked(struct intel_dp *intel_dp,
+ 			    intel_dp->psr.sel_update_enabled ? "2" : "1");
+ 
+ 	/*
+-	 * Enabling here only for PSR. Panel Replay enable bit is already
+-	 * written at this point. See
++	 * Enabling sink PSR/Panel Replay here only for PSR. Panel Replay enable
++	 * bit is already written at this point. Sink ALPM is enabled here for
++	 * PSR and Panel Replay. See
+ 	 * intel_psr_panel_replay_enable_sink. Modifiers/options:
+ 	 *  - Selective Update
+ 	 *  - Region Early Transport
+@@ -2172,6 +2177,9 @@ static void intel_psr_disable_locked(struct intel_dp *intel_dp)
+ 	if (intel_dp_is_edp(intel_dp))
+ 		intel_snps_phy_update_psr_power_state(&dp_to_dig_port(intel_dp)->base, false);
+ 
++	if (intel_dp->psr.panel_replay_enabled && intel_dp_is_edp(intel_dp))
++		intel_alpm_disable(intel_dp);
++
+ 	/* Disable PSR on Sink */
+ 	if (!intel_dp->psr.panel_replay_enabled) {
+ 		drm_dp_dpcd_writeb(&intel_dp->aux, DP_PSR_EN_CFG, 0);
+@@ -3498,7 +3506,6 @@ static void psr_alpm_check(struct intel_dp *intel_dp)
+ 	if (intel_alpm_get_error(intel_dp)) {
+ 		intel_psr_disable_locked(intel_dp);
+ 		psr->sink_not_reliable = true;
+-		intel_alpm_disable(intel_dp);
+ 	}
+ }
+ 
 -- 
 2.43.0
 
