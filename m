@@ -4,55 +4,55 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 68FC1C3ABD8
-	for <intel-gfx@archiver.kernel.org>; Tue, 13 May 2025 07:45:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CE6CCC3ABD8
+	for <intel-gfx@archiver.kernel.org>; Tue, 13 May 2025 08:15:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CD42410E53E;
-	Tue, 13 May 2025 07:45:36 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2644A10E0D1;
+	Tue, 13 May 2025 08:15:31 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="Lk8UdvGz";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="oH/gv7xg";
 	dkim-atps=neutral
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B02E810E514;
- Tue, 13 May 2025 07:45:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=Content-Transfer-Encoding:Content-Type:MIME-Version:References:
- In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Sender:Reply-To:Content-ID:
- Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
- :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
- List-Post:List-Owner:List-Archive;
- bh=WxXAf4KUqwU8dybGJiNaAxYGwYm+8UhaEKMKuKOvWBw=; b=Lk8UdvGzVdQ4msCWgOJGrWd3IU
- GmxtQf+9yl3vDiuDO4gVQZRT/sJaeuKtDBa+AgEydVkekzzFcekTozsVblM+cp2qEXGNe7ItRIjfU
- +N62pwziUo0VUIXs8z3jBnOSsCH4IejFFPUbt4bx7CIwdVC4DIiCwpRY05j7DYNHTnnW/hqZP7e+c
- jiC9WgNimT596rvq6eqsMTWH/vmDGevhNuHRtOH5xhKfvfdGXo5+TLyWlznhZ6C1GYklB4j+DD8rM
- 1qy92wDzeoMCxsHMnU9+uxpT9mZyY9TjOe/nMeFivgUs652hNvbSfRP87ADUjkViPjXjxt/aOKKHh
- 5vbGPuhQ==;
-Received: from [81.79.92.254] (helo=localhost)
- by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1uEkF4-007TvO-2n; Tue, 13 May 2025 09:45:28 +0200
-From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-To: dri-devel@lists.freedesktop.org
-Cc: Rob Clark <robdclark@gmail.com>, Sumit Semwal <sumit.semwal@linaro.org>,
- Gustavo Padovan <gustavo@padovan.org>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- Matthew Brost <matthew.brost@intel.com>,
- Lucas De Marchi <lucas.demarchi@intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, amd-gfx@lists.freedesktop.org,
- intel-xe@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
- linux-media@vger.kernel.org, linaro-mm-sig@lists.linaro.org,
- kernel-dev@igalia.com, Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-Subject: [RFC v3 06/10] drm/i915: Use dma-fence driver and timeline name
- helpers
-Date: Tue, 13 May 2025 08:45:09 +0100
-Message-ID: <20250513074513.81727-7-tvrtko.ursulin@igalia.com>
-X-Mailer: git-send-email 2.48.0
-In-Reply-To: <20250513074513.81727-1-tvrtko.ursulin@igalia.com>
-References: <20250513074513.81727-1-tvrtko.ursulin@igalia.com>
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D24D010E0D1;
+ Tue, 13 May 2025 08:15:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1747124130; x=1778660130;
+ h=from:to:cc:subject:in-reply-to:references:date:
+ message-id:mime-version;
+ bh=gMFFA0v9Vpk0yqWUWxwXGcg6oEzxnIX1eI7NCcCtWj8=;
+ b=oH/gv7xg3IOkOeWkDRde3cb1u5M5/5Lb5oOdrtnre+9qeZp+Cvts/02f
+ cGoiu7htRGLNDd/zyZsNPOF38ilOMx0NEAJER3dsXGrxWbqT9Rog4Zxju
+ aXMUWTip1P7+cQdL4TE21csyS12PrwMLRiqzsxgNWIOShMDuhOabHnhGg
+ OAAlDm+jRQwRFvZXtC28WQhegwmjXoR0WgPkjwphzFeZ+Vo9iAm6X1Vcu
+ jDpk7IycNZPeT75eEM1EcEiYcpH69uFiR9UFu5dT+ZBb5W2mL1c29pkZe
+ rJYbu4tta+4BA71K2xZc7PIZWswR8AyKRA3/uN+BRkH8Ds/sm3nKGYtnT Q==;
+X-CSE-ConnectionGUID: dRVV73oJQw661Db1375b1w==
+X-CSE-MsgGUID: n02wUUeRQcWGf9lxAGVl+A==
+X-IronPort-AV: E=McAfee;i="6700,10204,11431"; a="66363638"
+X-IronPort-AV: E=Sophos;i="6.15,284,1739865600"; d="scan'208";a="66363638"
+Received: from fmviesa004.fm.intel.com ([10.60.135.144])
+ by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 13 May 2025 01:15:29 -0700
+X-CSE-ConnectionGUID: 2A+iHtu1QNyKd8O4NPZaqg==
+X-CSE-MsgGUID: KDgPrz1JQaCpDxYfUHlglg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.15,284,1739865600"; d="scan'208";a="142811269"
+Received: from dalessan-mobl3.ger.corp.intel.com (HELO localhost)
+ ([10.245.244.175])
+ by fmviesa004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 13 May 2025 01:15:28 -0700
+From: Jani Nikula <jani.nikula@intel.com>
+To: intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org
+Cc: ville.syrjala@linux.intel.com
+Subject: Re: [PATCH v3 0/8] drm/i915: refactor VLV IOSF SB for display usage
+In-Reply-To: <cover.1747061743.git.jani.nikula@intel.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
+References: <cover.1747061743.git.jani.nikula@intel.com>
+Date: Tue, 13 May 2025 11:15:25 +0300
+Message-ID: <87wmalhqoy.fsf@intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,59 +68,64 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Access the dma-fence internals via the previously added helpers.
+On Mon, 12 May 2025, Jani Nikula <jani.nikula@intel.com> wrote:
+> v3 of [1] fixing dpio 1 vs 2 sanity checks.
+>
+> [1] https://lore.kernel.org/r/cover.1746698410.git.jani.nikula@intel.com
 
-Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-Reviewed-by: Christian König <christian.koenig@amd.com>
----
- drivers/gpu/drm/i915/gt/intel_gt_requests.c | 4 ++--
- drivers/gpu/drm/i915/i915_request.c         | 2 +-
- drivers/gpu/drm/i915/i915_sw_fence.c        | 4 ++--
- 3 files changed, 5 insertions(+), 5 deletions(-)
+Pushed to din, thanks for the review.
 
-diff --git a/drivers/gpu/drm/i915/gt/intel_gt_requests.c b/drivers/gpu/drm/i915/gt/intel_gt_requests.c
-index d1a382dfaa1d..ae3557ed6c1e 100644
---- a/drivers/gpu/drm/i915/gt/intel_gt_requests.c
-+++ b/drivers/gpu/drm/i915/gt/intel_gt_requests.c
-@@ -252,8 +252,8 @@ void intel_gt_watchdog_work(struct work_struct *work)
- 			struct dma_fence *f = &rq->fence;
- 
- 			pr_notice("Fence expiration time out i915-%s:%s:%llx!\n",
--				  f->ops->get_driver_name(f),
--				  f->ops->get_timeline_name(f),
-+				  dma_fence_driver_name(f),
-+				  dma_fence_timeline_name(f),
- 				  f->seqno);
- 			i915_request_cancel(rq, -EINTR);
- 		}
-diff --git a/drivers/gpu/drm/i915/i915_request.c b/drivers/gpu/drm/i915/i915_request.c
-index c3d27eadc0a7..4874c4f1e4ab 100644
---- a/drivers/gpu/drm/i915/i915_request.c
-+++ b/drivers/gpu/drm/i915/i915_request.c
-@@ -2184,7 +2184,7 @@ void i915_request_show(struct drm_printer *m,
- 		       const char *prefix,
- 		       int indent)
- {
--	const char *name = rq->fence.ops->get_timeline_name((struct dma_fence *)&rq->fence);
-+	const char *name = dma_fence_timeline_name((struct dma_fence *)&rq->fence);
- 	char buf[80] = "";
- 	int x = 0;
- 
-diff --git a/drivers/gpu/drm/i915/i915_sw_fence.c b/drivers/gpu/drm/i915/i915_sw_fence.c
-index 1d4cc91c0e40..e51ca7e50a4e 100644
---- a/drivers/gpu/drm/i915/i915_sw_fence.c
-+++ b/drivers/gpu/drm/i915/i915_sw_fence.c
-@@ -435,8 +435,8 @@ static void timer_i915_sw_fence_wake(struct timer_list *t)
- 		return;
- 
- 	pr_notice("Asynchronous wait on fence %s:%s:%llx timed out (hint:%ps)\n",
--		  cb->dma->ops->get_driver_name(cb->dma),
--		  cb->dma->ops->get_timeline_name(cb->dma),
-+		  dma_fence_driver_name(cb->dma),
-+		  dma_fence_timeline_name(cb->dma),
- 		  cb->dma->seqno,
- 		  i915_sw_fence_debug_hint(fence));
- 
+BR,
+Jani.
+
+>
+> Jani Nikula (8):
+>   drm/i915: rename vlv_sideband*.[ch] to vlv_iosf_sb*.[ch]
+>   drm/i915: add generic read/write functions for VLV IOSF SB
+>   drm/i915: rewrite VLV IOSF SB unit specific read/write functions
+>   drm/i915: switch i915 core to generic VLV IOSF SB functions
+>   drm/i915: move VLV IOSF SB unit specific helpers under display
+>   drm/i915: convert VLV IOSF SB interface to struct drm_device
+>   drm/i915: rename VLV IOSF SB ports parameter to unit_mask
+>   drm/i915: ensure correct VLV IOSF SB units have been get/put
+>
+>  drivers/gpu/drm/i915/Makefile                 |   5 +-
+>  drivers/gpu/drm/i915/display/i9xx_wm.c        |  35 ++-
+>  drivers/gpu/drm/i915/display/intel_cdclk.c    |  47 ++---
+>  drivers/gpu/drm/i915/display/intel_display.c  |  23 +-
+>  drivers/gpu/drm/i915/display/intel_display.h  |   7 +-
+>  .../drm/i915/display/intel_display_power.c    |   7 +-
+>  .../i915/display/intel_display_power_map.c    |   2 +-
+>  .../i915/display/intel_display_power_well.c   |  71 +++----
+>  drivers/gpu/drm/i915/display/intel_dpio_phy.c | 199 +++++++++---------
+>  drivers/gpu/drm/i915/display/intel_dpll.c     | 135 ++++++------
+>  drivers/gpu/drm/i915/display/vlv_dsi.c        |  26 ++-
+>  drivers/gpu/drm/i915/display/vlv_dsi_pll.c    |  46 ++--
+>  drivers/gpu/drm/i915/display/vlv_sideband.c   |  50 +++++
+>  drivers/gpu/drm/i915/display/vlv_sideband.h   | 156 ++++++++++++++
+>  drivers/gpu/drm/i915/gt/intel_gt_pm_debugfs.c |   8 +-
+>  drivers/gpu/drm/i915/gt/intel_rps.c           |  58 ++---
+>  drivers/gpu/drm/i915/i915_driver.c            |   2 +-
+>  drivers/gpu/drm/i915/i915_drv.h               |   1 +
+>  drivers/gpu/drm/i915/intel_clock_gating.c     |   2 +-
+>  drivers/gpu/drm/i915/soc/intel_dram.c         |  14 +-
+>  .../i915/{vlv_sideband.c => vlv_iosf_sb.c}    | 176 ++++++----------
+>  drivers/gpu/drm/i915/vlv_iosf_sb.h            |  37 ++++
+>  .../{vlv_sideband_reg.h => vlv_iosf_sb_reg.h} |   6 +-
+>  drivers/gpu/drm/i915/vlv_sideband.h           | 125 -----------
+>  .../drm/xe/compat-i915-headers/vlv_iosf_sb.h  |  42 ++++
+>  .../{vlv_sideband_reg.h => vlv_iosf_sb_reg.h} |   2 +-
+>  .../drm/xe/compat-i915-headers/vlv_sideband.h | 132 ------------
+>  27 files changed, 689 insertions(+), 725 deletions(-)
+>  create mode 100644 drivers/gpu/drm/i915/display/vlv_sideband.c
+>  create mode 100644 drivers/gpu/drm/i915/display/vlv_sideband.h
+>  rename drivers/gpu/drm/i915/{vlv_sideband.c => vlv_iosf_sb.c} (55%)
+>  create mode 100644 drivers/gpu/drm/i915/vlv_iosf_sb.h
+>  rename drivers/gpu/drm/i915/{vlv_sideband_reg.h => vlv_iosf_sb_reg.h} (98%)
+>  delete mode 100644 drivers/gpu/drm/i915/vlv_sideband.h
+>  create mode 100644 drivers/gpu/drm/xe/compat-i915-headers/vlv_iosf_sb.h
+>  rename drivers/gpu/drm/xe/compat-i915-headers/{vlv_sideband_reg.h => vlv_iosf_sb_reg.h} (66%)
+>  delete mode 100644 drivers/gpu/drm/xe/compat-i915-headers/vlv_sideband.h
+
 -- 
-2.48.0
-
+Jani Nikula, Intel
