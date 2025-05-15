@@ -4,64 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1C6C3C2D0CD
-	for <intel-gfx@archiver.kernel.org>; Thu, 15 May 2025 08:27:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7B8AEC3ABDD
+	for <intel-gfx@archiver.kernel.org>; Thu, 15 May 2025 09:50:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 81DA910E7C3;
-	Thu, 15 May 2025 08:27:16 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A6EBD10E206;
+	Thu, 15 May 2025 09:50:12 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="HWcr2wki";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="M51yFwzf";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.17])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1C40310E7B9;
- Thu, 15 May 2025 08:27:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1747297635; x=1778833635;
- h=date:from:to:cc:subject:message-id:mime-version:
- content-transfer-encoding;
- bh=N3qCN0OTyUPrSoIr/lVhM2ZF0kTvlOwe7kpg5LGwHzE=;
- b=HWcr2wkiw5Vcjs8kcjrLX3OMTKvtbuBXICbvWjb2fz0tXGeWXMEQU0/g
- txBOXey45FA+0+Vszxgv9ILbw+OdsEnOZEb7EeIghn1Iebr+sTEPGRZ4+
- T8aAcgDwIQcTDgZ6y9r25+kmCscXf8TErB+Z6cHGG8SjomNcXCwKKgg6j
- 5Qi4Z8sWv6znjN4SSGcXKRV+ainhZpB683wPHn4c6T8kkgEaQQZ7IhTHm
- ZXhtpotsi76net35AKK9qg/voWc65fSE0ZTLYyHapBGmegqGQwCa9/GM8
- ciYElB0TfeHEeDgenMX4arTwgRoIfdnPJuJUs0h8MsOzqwpA55GyCOAdW g==;
-X-CSE-ConnectionGUID: UYmkC32mRSqNygMrgbr2Jg==
-X-CSE-MsgGUID: eI0ltr/kQeCktdIyuk2Eyg==
-X-IronPort-AV: E=McAfee;i="6700,10204,11433"; a="49156833"
-X-IronPort-AV: E=Sophos;i="6.15,290,1739865600"; d="scan'208";a="49156833"
-Received: from fmviesa009.fm.intel.com ([10.60.135.149])
- by fmvoesa111.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 15 May 2025 01:27:13 -0700
-X-CSE-ConnectionGUID: EyYjhW5AQ3eXBlAVeAbXUQ==
-X-CSE-MsgGUID: h6A7pXvbREOs0Eo192CGLg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.15,290,1739865600"; d="scan'208";a="139296697"
-Received: from pgcooper-mobl3.ger.corp.intel.com (HELO localhost)
- ([10.245.244.112])
- by fmviesa009-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 15 May 2025 01:27:08 -0700
-Date: Thu, 15 May 2025 11:27:06 +0300
-From: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
-To: Dave Airlie <airlied@gmail.com>, Simona Vetter <simona.vetter@ffwll.ch>
-Cc: Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Tvrtko Ursulin <tursulin@ursulin.net>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas =?iso-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>,
- Oded Gabbay <ogabbay@kernel.org>,
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F2F0D10E206;
+ Thu, 15 May 2025 09:50:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Content-Transfer-Encoding:Content-Type:MIME-Version:References:
+ In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Sender:Reply-To:Content-ID:
+ Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
+ :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
+ List-Post:List-Owner:List-Archive;
+ bh=8PBpHzT0posY/8hYMZRUjLsaZmxxP91alDxR/meOvvM=; b=M51yFwzfczL7p2GItQ+g5ernH4
+ wG7fnVrrys+Y8g/kzXuTaS/bW4bF0lKjyNySO7HLNkdLtld7NggljjaL+i91osHVjpqpOT5/atBoI
+ dFuG0SIYBX6pATmoPOJTvX+UWD1OO6TvBaYUs7ZEFyyJKVuWH1ECM4xZbjUGI1WNFaMFc6+/65F0A
+ zUrGpb8d+1jovTtRC3BhD1s07CoUOeF6CXraDwDEccDIkW6X6mA6UQOmFIAjUQjoIxCELyK69lf6+
+ g6Gv1xvfFW+40QhRGqu2B7tMLfa2yyghrQFXTesQl18AzuCilYveKeiE/a4vsq+7o4Sb0XXVzyrQI
+ KMU9AkiQ==;
+Received: from [81.79.92.254] (helo=localhost)
+ by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
+ id 1uFV8O-008ZQg-Sw; Thu, 15 May 2025 11:50:07 +0200
+From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+To: dri-devel@lists.freedesktop.org
+Cc: Rob Clark <robdclark@gmail.com>, Sumit Semwal <sumit.semwal@linaro.org>,
+ Gustavo Padovan <gustavo@padovan.org>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ Matthew Brost <matthew.brost@intel.com>,
  Lucas De Marchi <lucas.demarchi@intel.com>,
- dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
- intel-xe@lists.freedesktop.org, dim-tools@lists.freedesktop.org
-Subject: [PULL] drm-intel-next-fixes
-Message-ID: <aCWlWk5rTE7TH1pN@jlahtine-mobl>
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, amd-gfx@lists.freedesktop.org,
+ intel-xe@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
+ linux-media@vger.kernel.org, linaro-mm-sig@lists.linaro.org,
+ kernel-dev@igalia.com, Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+Subject: [PATCH v4 1/9] dma-fence: Change signature of __dma_fence_is_later
+Date: Thu, 15 May 2025 10:49:56 +0100
+Message-ID: <20250515095004.28318-2-tvrtko.ursulin@igalia.com>
+X-Mailer: git-send-email 2.48.0
+In-Reply-To: <20250515095004.28318-1-tvrtko.ursulin@igalia.com>
+References: <20250515095004.28318-1-tvrtko.ursulin@igalia.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -78,52 +67,135 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Hi Dave & Sima,
+With the goal of reducing the need for drivers to touch (and dereference)
+fence->ops, we change the prototype of __dma_fence_is_later() to take
+fence instead of fence->ops.
 
-Here goes the drm-intel-next-fixes PR for this week.
+Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+Reviewed-by: Christian KÃ¶nig <christian.koenig@amd.com>
+---
+ drivers/dma-buf/dma-fence-chain.c |  2 +-
+ drivers/dma-buf/sw_sync.c         |  2 +-
+ drivers/gpu/drm/xe/xe_hw_fence.c  |  2 +-
+ drivers/gpu/drm/xe/xe_sched_job.c | 14 ++++++++------
+ include/linux/dma-fence.h         |  9 ++++-----
+ 5 files changed, 15 insertions(+), 14 deletions(-)
 
-Just one MST fix and one PSR fix this round.
+diff --git a/drivers/dma-buf/dma-fence-chain.c b/drivers/dma-buf/dma-fence-chain.c
+index 9663ba1bb6ac..90424f23fd73 100644
+--- a/drivers/dma-buf/dma-fence-chain.c
++++ b/drivers/dma-buf/dma-fence-chain.c
+@@ -252,7 +252,7 @@ void dma_fence_chain_init(struct dma_fence_chain *chain,
+ 	chain->prev_seqno = 0;
+ 
+ 	/* Try to reuse the context of the previous chain node. */
+-	if (prev_chain && __dma_fence_is_later(seqno, prev->seqno, prev->ops)) {
++	if (prev_chain && __dma_fence_is_later(prev, seqno, prev->seqno)) {
+ 		context = prev->context;
+ 		chain->prev_seqno = prev->seqno;
+ 	} else {
+diff --git a/drivers/dma-buf/sw_sync.c b/drivers/dma-buf/sw_sync.c
+index 4f27ee93a00c..3c20f1d31cf5 100644
+--- a/drivers/dma-buf/sw_sync.c
++++ b/drivers/dma-buf/sw_sync.c
+@@ -170,7 +170,7 @@ static bool timeline_fence_signaled(struct dma_fence *fence)
+ {
+ 	struct sync_timeline *parent = dma_fence_parent(fence);
+ 
+-	return !__dma_fence_is_later(fence->seqno, parent->value, fence->ops);
++	return !__dma_fence_is_later(fence, fence->seqno, parent->value);
+ }
+ 
+ static void timeline_fence_set_deadline(struct dma_fence *fence, ktime_t deadline)
+diff --git a/drivers/gpu/drm/xe/xe_hw_fence.c b/drivers/gpu/drm/xe/xe_hw_fence.c
+index 0b4f12be3692..03eb8c6d1616 100644
+--- a/drivers/gpu/drm/xe/xe_hw_fence.c
++++ b/drivers/gpu/drm/xe/xe_hw_fence.c
+@@ -165,7 +165,7 @@ static bool xe_hw_fence_signaled(struct dma_fence *dma_fence)
+ 	u32 seqno = xe_map_rd(xe, &fence->seqno_map, 0, u32);
+ 
+ 	return dma_fence->error ||
+-		!__dma_fence_is_later(dma_fence->seqno, seqno, dma_fence->ops);
++		!__dma_fence_is_later(dma_fence, dma_fence->seqno, seqno);
+ }
+ 
+ static bool xe_hw_fence_enable_signaling(struct dma_fence *dma_fence)
+diff --git a/drivers/gpu/drm/xe/xe_sched_job.c b/drivers/gpu/drm/xe/xe_sched_job.c
+index 1905ca590965..f0a6ce610948 100644
+--- a/drivers/gpu/drm/xe/xe_sched_job.c
++++ b/drivers/gpu/drm/xe/xe_sched_job.c
+@@ -216,15 +216,17 @@ void xe_sched_job_set_error(struct xe_sched_job *job, int error)
+ 
+ bool xe_sched_job_started(struct xe_sched_job *job)
+ {
++	struct dma_fence *fence = dma_fence_chain_contained(job->fence);
+ 	struct xe_lrc *lrc = job->q->lrc[0];
+ 
+-	return !__dma_fence_is_later(xe_sched_job_lrc_seqno(job),
+-				     xe_lrc_start_seqno(lrc),
+-				     dma_fence_chain_contained(job->fence)->ops);
++	return !__dma_fence_is_later(fence,
++				     xe_sched_job_lrc_seqno(job),
++				     xe_lrc_start_seqno(lrc));
+ }
+ 
+ bool xe_sched_job_completed(struct xe_sched_job *job)
+ {
++	struct dma_fence *fence = dma_fence_chain_contained(job->fence);
+ 	struct xe_lrc *lrc = job->q->lrc[0];
+ 
+ 	/*
+@@ -232,9 +234,9 @@ bool xe_sched_job_completed(struct xe_sched_job *job)
+ 	 * parallel handshake is done.
+ 	 */
+ 
+-	return !__dma_fence_is_later(xe_sched_job_lrc_seqno(job),
+-				     xe_lrc_seqno(lrc),
+-				     dma_fence_chain_contained(job->fence)->ops);
++	return !__dma_fence_is_later(fence,
++				     xe_sched_job_lrc_seqno(job),
++				     xe_lrc_seqno(lrc));
+ }
+ 
+ void xe_sched_job_arm(struct xe_sched_job *job)
+diff --git a/include/linux/dma-fence.h b/include/linux/dma-fence.h
+index b12776883d14..48b5202c531d 100644
+--- a/include/linux/dma-fence.h
++++ b/include/linux/dma-fence.h
+@@ -441,21 +441,20 @@ dma_fence_is_signaled(struct dma_fence *fence)
+ 
+ /**
+  * __dma_fence_is_later - return if f1 is chronologically later than f2
++ * @fence: fence in whose context to do the comparison
+  * @f1: the first fence's seqno
+  * @f2: the second fence's seqno from the same context
+- * @ops: dma_fence_ops associated with the seqno
+  *
+  * Returns true if f1 is chronologically later than f2. Both fences must be
+  * from the same context, since a seqno is not common across contexts.
+  */
+-static inline bool __dma_fence_is_later(u64 f1, u64 f2,
+-					const struct dma_fence_ops *ops)
++static inline bool __dma_fence_is_later(struct dma_fence *fence, u64 f1, u64 f2)
+ {
+ 	/* This is for backward compatibility with drivers which can only handle
+ 	 * 32bit sequence numbers. Use a 64bit compare when the driver says to
+ 	 * do so.
+ 	 */
+-	if (ops->use_64bit_seqno)
++	if (fence->ops->use_64bit_seqno)
+ 		return f1 > f2;
+ 
+ 	return (int)(lower_32_bits(f1) - lower_32_bits(f2)) > 0;
+@@ -475,7 +474,7 @@ static inline bool dma_fence_is_later(struct dma_fence *f1,
+ 	if (WARN_ON(f1->context != f2->context))
+ 		return false;
+ 
+-	return __dma_fence_is_later(f1->seqno, f2->seqno, f1->ops);
++	return __dma_fence_is_later(f1, f1->seqno, f2->seqno);
+ }
+ 
+ /**
+-- 
+2.48.0
 
-The CI results for drm-intel-next-fixes are bit all over the place after -rc1,
-before further rc backmerges.
-
-Regards, Joonas
-
-***
-
-drm-intel-next-fixes-2025-05-15:
-
-- Stop writing ALPM registers when PSR is enabled
-- Use the correct connector while computing the link BPP limit on MST
-
-The following changes since commit 1faeeb315fdbd005bbc1bc74214e39087971dda9:
-
-  Merge tag 'amd-drm-next-6.16-2025-05-09' of https://gitlab.freedesktop.org/agd5f/linux into drm-next (2025-05-12 07:14:34 +1000)
-
-are available in the Git repository at:
-
-  https://gitlab.freedesktop.org/drm/i915/kernel.git tags/drm-intel-next-fixes-2025-05-15
-
-for you to fetch changes up to eff82fb0d266eeaea26f99780c5d8987974df2e9:
-
-  drm/i915/alpm: Stop writing ALPM registers when PSR is enabled (2025-05-14 15:22:23 +0300)
-
-----------------------------------------------------------------
-- Stop writing ALPM registers when PSR is enabled
-- Use the correct connector while computing the link BPP limit on MST
-
-----------------------------------------------------------------
-Imre Deak (1):
-      drm/i915/dp_mst: Use the correct connector while computing the link BPP limit on MST
-
-Jouni Högander (2):
-      drm/i915/alpm: Make intel_alpm_enable_sink available for PSR
-      drm/i915/alpm: Stop writing ALPM registers when PSR is enabled
-
- drivers/gpu/drm/i915/display/intel_alpm.c   |  8 ++++----
- drivers/gpu/drm/i915/display/intel_alpm.h   |  2 ++
- drivers/gpu/drm/i915/display/intel_dp.c     |  7 ++++---
- drivers/gpu/drm/i915/display/intel_dp.h     |  1 +
- drivers/gpu/drm/i915/display/intel_dp_mst.c |  5 +++--
- drivers/gpu/drm/i915/display/intel_psr.c    | 13 ++++++++++---
- 6 files changed, 24 insertions(+), 12 deletions(-)
