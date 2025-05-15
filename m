@@ -4,58 +4,76 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D7937C3ABD8
-	for <intel-gfx@archiver.kernel.org>; Mon, 19 May 2025 12:52:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EE2E6C3ABD8
+	for <intel-gfx@archiver.kernel.org>; Mon, 19 May 2025 13:00:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 696C210E24A;
-	Mon, 19 May 2025 12:52:28 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C38B010E353;
+	Mon, 19 May 2025 13:00:15 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="UydfDJUT";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="XJkz7Kca";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.19])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5F42510E2B5;
- Mon, 19 May 2025 12:52:26 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1747659146; x=1779195146;
- h=from:to:cc:subject:in-reply-to:references:date:
- message-id:mime-version;
- bh=IwC/k1jXW4ert5dOOEhpiuOVcnlvNsgnpZnSQ27ZNos=;
- b=UydfDJUTHTqJTVFnNApcGgO0P2lkbMELcA+ljEltLwYhwNgHeOvZyH7y
- khTAgSX8Zje8hSbJRYEXToQbQKNZwJO5Ujj0YYhsHMQnTg5zEVssb2eS4
- GVtxrnmaduEH0Ix/4HHBhCc7dGFL82o+YUYUSIyFdu9YA9EcTN+vhhE8j
- ft7y2qUKow/AlRWFT227kwekPfJ5Wbm8orHU6adBlOb37NueCthJkgKiD
- Do3KqDVTPDMb9QbgLga1S8PXGUxO3/qqQpd7j+fO9GQTiZLbEXCFx0lh9
- oiXlPwmAXW9YB/tIiVL0x/ZYhWeHZy1dDjDf53peHV1eCO47owe/64c30 Q==;
-X-CSE-ConnectionGUID: F6ylV+XFTQmxN6X/SbvhkQ==
-X-CSE-MsgGUID: 7Rvxp0tiSoOq1oyUIEwL3g==
-X-IronPort-AV: E=McAfee;i="6700,10204,11438"; a="49431945"
-X-IronPort-AV: E=Sophos;i="6.15,300,1739865600"; d="scan'208";a="49431945"
-Received: from orviesa003.jf.intel.com ([10.64.159.143])
- by orvoesa111.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 19 May 2025 05:52:24 -0700
-X-CSE-ConnectionGUID: QG8vwLnTQW+tqBpm3bMvJg==
-X-CSE-MsgGUID: cMkLh8VQSMCP+N3pIvlZDg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.15,300,1739865600"; d="scan'208";a="144119803"
-Received: from pgcooper-mobl3.ger.corp.intel.com (HELO localhost)
- ([10.245.244.201])
- by ORVIESA003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 19 May 2025 05:52:23 -0700
-From: Jani Nikula <jani.nikula@linux.intel.com>
-To: Nemesa Garg <nemesa.garg@intel.com>, intel-gfx@lists.freedesktop.org,
- intel-xe@lists.freedesktop.org, dri-devel@lists.freedesktop.org
-Cc: Nemesa Garg <nemesa.garg@intel.com>, Ankit Nautiyal
- <ankit.k.nautiyal@intel.com>
-Subject: Re: [PATCH 05/10] drm/i915/display: Compute the scaler coefficients
-In-Reply-To: <20250519122644.3685679-6-nemesa.garg@intel.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
-References: <20250519122644.3685679-1-nemesa.garg@intel.com>
- <20250519122644.3685679-6-nemesa.garg@intel.com>
-Date: Mon, 19 May 2025 15:52:20 +0300
-Message-ID: <87bjrovk3f.fsf@intel.com>
+Received: from mail-oi1-f176.google.com (mail-oi1-f176.google.com
+ [209.85.167.176])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 04E2810E986;
+ Thu, 15 May 2025 23:52:24 +0000 (UTC)
+Received: by mail-oi1-f176.google.com with SMTP id
+ 5614622812f47-3fb3f4bf97aso867704b6e.2; 
+ Thu, 15 May 2025 16:52:24 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1747353144; x=1747957944; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=Dvu88ev1VdWU5DxXw0FZJRoIRYMo1iE9Ijw3Gfebd28=;
+ b=XJkz7KcaOvksuF5Hs1lPzVqppTcr034gqoZLGfedobgakqPhJpPKrUTiEKPg6dGOnv
+ 9/2fQDVFlLXvmDsDpoe/ff+iYBsmmKsZS7xyrzCuoITi3amXfvFD+Moc/VPPEmBqSoz4
+ kBY/rqMXUR0gMoUj5RgPq/NlJvW4czOFy5V/wkcvs9VpXbBQelxkb1C32Kq7MT/XC3bJ
+ 0TbsVOmhGMrGF/knjFvRW1cxCQUpCFlYRTayTfUvJAkgBOOQdn/ltlBdMQZ3ecQTO5jL
+ SkYBcTIPG+bMnLqR9xNmkdB9TL6XS6qBIGnklv53MH38QjNG1ltKBbiQh81NbGoUtbgT
+ wcpQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1747353144; x=1747957944;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=Dvu88ev1VdWU5DxXw0FZJRoIRYMo1iE9Ijw3Gfebd28=;
+ b=Fl/dzs1eWPpUrQZpa0vDF1E82ITgjQWUlRJah9J8ltTK0ZhjZLje+jBp3MMUVFczn5
+ 9WkvnO2dDbLKeW7/YckG/7cEo8uoaoLe6VYgk/0gq+kAZ9j762mBZejn+yg897mevE1r
+ l5GebG1zz6Xxxhb+ShQRE8tQZU0u+bKRQ9l1tYPzX63JARsb2/pqv3SpT+nxP8r3mY7z
+ Ct0TqVEvLz55lIvKRUZLDqaYuERrUocWqfTX16dQ7RGO0UHQXL2g0VGHLFQycGsa77iK
+ swKounWM49520IKh2LIszLqBVVrfMFZavsCynITHvDhK/oB5g8iaz8jRg4ry9Z3H76Wv
+ tZEA==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCVNQWF1zU4LKMtM3rqjuqYmpNWsSYfXYpeeJ83yzb3MlyKWdkunszxdZPMfYda4wu9lLGYf1a8y/Tw=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzH8Htd/S/906tF1gssN6Fer+9Msk2cWhywAeAqRcH6R1Wg1156
+ rMOpbDfBu6Gs0tIKqCuVVZvgH2fx+Hz3ZuJf+VtjYOJVn8ougqiclpbtW9CuWS0K94XLhr9Z58Z
+ 5syTaFr+A7OeBEvhRrS/NKglssdkL7OU=
+X-Gm-Gg: ASbGncuXirV11Fh/IX4ACdg7zf/A7g/QxhVGECJtcKaBpTWbo+h18ImG8SnqxzrFwg2
+ F+tR6tjLsC9FVT6eemhPEYfRUVoAq2hjbjUhhD43rrfuvu9Zi8LGs6NSX45TyUkYAGMVluFCOR2
+ feN1Rc8F87stwQg6Aekh4eIc+G0jA0Ufc=
+X-Google-Smtp-Source: AGHT+IF7l+OfeWDxmtMQ/n0NGjONLriHzg84x+VxoXL/MEoU+nBi+ArpmI1jmKMqH8iuRgHL5o1427WBgaE5H/loxm8=
+X-Received: by 2002:a05:6808:2f18:b0:403:6fd2:d97c with SMTP id
+ 5614622812f47-404d869dcc3mr1361963b6e.14.1747353144041; Thu, 15 May 2025
+ 16:52:24 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain
+References: <cover.1737644530.git.jani.nikula@intel.com>
+ <dfe6e774883e6ef93cfaa2b6fe92b804061ab9d9.1737644530.git.jani.nikula@intel.com>
+ <98201050-82eb-453d-a669-036eeefa354e@gmail.com>
+In-Reply-To: <98201050-82eb-453d-a669-036eeefa354e@gmail.com>
+From: Bill Wendling <isanbard@gmail.com>
+Date: Thu, 15 May 2025 16:52:12 -0700
+X-Gm-Features: AX0GCFsG1lMUbV8e9u6zQamu0DG4uq2UWcnglLtzwznz1X3UhF0PTDEVH-90KBk
+Message-ID: <CAEzuVAdfY-KiLF7AArQ2Wkw=qP1hnyuG1UmSsv_ZtgrUpfm-3A@mail.gmail.com>
+Subject: Re: [PATCH 5/5] drm/print: require struct drm_device for drm_err()
+ and friends
+To: Jani Nikula <jani.nikula@intel.com>, dri-devel@lists.freedesktop.org
+Cc: intel-gfx@lists.freedesktop.org, gustavo.sousa@intel.com, 
+ maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de, 
+ airlied@gmail.com, simona@ffwll.ch, linux-kernel@vger.kernel.org, 
+ kees@kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+X-Mailman-Approved-At: Mon, 19 May 2025 13:00:14 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,251 +89,197 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Mon, 19 May 2025, Nemesa Garg <nemesa.garg@intel.com> wrote:
-> The sharpness property requires the use of one of the scaler
-> so need to set the sharpness scaler coefficient values.
-> These values are based on experiments and vary for different
-> tap value/win size. These values are normalized by taking the
-> sum of all values and then dividing each value with a sum.
+On Thu, May 15, 2025 at 1:18=E2=80=AFPM Bill Wendling <isanbard@gmail.com> =
+wrote:
+> On 1/23/25 7:09 AM, Jani Nikula wrote:
+> > The expectation is that the struct drm_device based logging helpers get
+> > passed an actual struct drm_device pointer rather than some random
+> > struct pointer where you can dereference the ->dev member.
+> >
+> > Add a static inline helper to convert struct drm_device to struct
+> > device, with the main benefit being the type checking of the macro
+> > argument.
+> >
+> > As a side effect, this also reduces macro argument double references.
+> >
+> > Signed-off-by: Jani Nikula <jani.nikula@intel.com>
+> > ---
+> >   include/drm/drm_print.h | 41 +++++++++++++++++++++++-----------------=
+-
+> >   1 file changed, 23 insertions(+), 18 deletions(-)
+> >
+> > diff --git a/include/drm/drm_print.h b/include/drm/drm_print.h
+> > index 9732f514566d..f31eba1c7cab 100644
+> > --- a/include/drm/drm_print.h
+> > +++ b/include/drm/drm_print.h
+> > @@ -584,9 +584,15 @@ void __drm_dev_dbg(struct _ddebug *desc, const str=
+uct device *dev,
+> >    * Prefer drm_device based logging over device or prink based logging=
+.
+> >    */
+> >
+> > +/* Helper to enforce struct drm_device type */
+> > +static inline struct device *__drm_to_dev(const struct drm_device *drm=
+)
+> > +{
+> > +     return drm ? drm->dev : NULL;
+> > +}
+> > +
+> >   /* Helper for struct drm_device based logging. */
+> >   #define __drm_printk(drm, level, type, fmt, ...)                    \
+> > -     dev_##level##type((drm) ? (drm)->dev : NULL, "[drm] " fmt, ##__VA=
+_ARGS__)
+> > +     dev_##level##type(__drm_to_dev(drm), "[drm] " fmt, ##__VA_ARGS__)
+> >
+> >
+> >   #define drm_info(drm, fmt, ...)                                     \
+> > @@ -620,25 +626,25 @@ void __drm_dev_dbg(struct _ddebug *desc, const st=
+ruct device *dev,
+> >
+> >
+> >   #define drm_dbg_core(drm, fmt, ...)                                 \
+> > -     drm_dev_dbg((drm) ? (drm)->dev : NULL, DRM_UT_CORE, fmt, ##__VA_A=
+RGS__)
+> > -#define drm_dbg_driver(drm, fmt, ...)                                 =
+               \
+> > -     drm_dev_dbg((drm) ? (drm)->dev : NULL, DRM_UT_DRIVER, fmt, ##__VA=
+_ARGS__)
+> > +     drm_dev_dbg(__drm_to_dev(drm), DRM_UT_CORE, fmt, ##__VA_ARGS__)
+> > +#define drm_dbg_driver(drm, fmt, ...)                                 =
+       \
+> > +     drm_dev_dbg(__drm_to_dev(drm), DRM_UT_DRIVER, fmt, ##__VA_ARGS__)
+> >   #define drm_dbg_kms(drm, fmt, ...)                                  \
+> > -     drm_dev_dbg((drm) ? (drm)->dev : NULL, DRM_UT_KMS, fmt, ##__VA_AR=
+GS__)
+> > +     drm_dev_dbg(__drm_to_dev(drm), DRM_UT_KMS, fmt, ##__VA_ARGS__)
+> >   #define drm_dbg_prime(drm, fmt, ...)                                 =
+       \
+> > -     drm_dev_dbg((drm) ? (drm)->dev : NULL, DRM_UT_PRIME, fmt, ##__VA_=
+ARGS__)
+> > +     drm_dev_dbg(__drm_to_dev(drm), DRM_UT_PRIME, fmt, ##__VA_ARGS__)
+> >   #define drm_dbg_atomic(drm, fmt, ...)                                =
+       \
+> > -     drm_dev_dbg((drm) ? (drm)->dev : NULL, DRM_UT_ATOMIC, fmt, ##__VA=
+_ARGS__)
+> > +     drm_dev_dbg(__drm_to_dev(drm), DRM_UT_ATOMIC, fmt, ##__VA_ARGS__)
+> >   #define drm_dbg_vbl(drm, fmt, ...)                                  \
+> > -     drm_dev_dbg((drm) ? (drm)->dev : NULL, DRM_UT_VBL, fmt, ##__VA_AR=
+GS__)
+> > +     drm_dev_dbg(__drm_to_dev(drm), DRM_UT_VBL, fmt, ##__VA_ARGS__)
+> >   #define drm_dbg_state(drm, fmt, ...)                                 =
+       \
+> > -     drm_dev_dbg((drm) ? (drm)->dev : NULL, DRM_UT_STATE, fmt, ##__VA_=
+ARGS__)
+> > +     drm_dev_dbg(__drm_to_dev(drm), DRM_UT_STATE, fmt, ##__VA_ARGS__)
+> >   #define drm_dbg_lease(drm, fmt, ...)                                 =
+       \
+> > -     drm_dev_dbg((drm) ? (drm)->dev : NULL, DRM_UT_LEASE, fmt, ##__VA_=
+ARGS__)
+> > +     drm_dev_dbg(__drm_to_dev(drm), DRM_UT_LEASE, fmt, ##__VA_ARGS__)
+> >   #define drm_dbg_dp(drm, fmt, ...)                                   \
+> > -     drm_dev_dbg((drm) ? (drm)->dev : NULL, DRM_UT_DP, fmt, ##__VA_ARG=
+S__)
+> > +     drm_dev_dbg(__drm_to_dev(drm), DRM_UT_DP, fmt, ##__VA_ARGS__)
+> >   #define drm_dbg_drmres(drm, fmt, ...)                                =
+       \
+> > -     drm_dev_dbg((drm) ? (drm)->dev : NULL, DRM_UT_DRMRES, fmt, ##__VA=
+_ARGS__)
+> > +     drm_dev_dbg(__drm_to_dev(drm), DRM_UT_DRMRES, fmt, ##__VA_ARGS__)
+> >
+> >   #define drm_dbg(drm, fmt, ...)      drm_dbg_driver(drm, fmt, ##__VA_A=
+RGS__)
+> >
+> > @@ -727,10 +733,9 @@ void __drm_err(const char *format, ...);
+> >   #define __DRM_DEFINE_DBG_RATELIMITED(category, drm, fmt, ...)        =
+                               \
+> >   ({                                                                   =
+                       \
+> >       static DEFINE_RATELIMIT_STATE(rs_, DEFAULT_RATELIMIT_INTERVAL, DE=
+FAULT_RATELIMIT_BURST);\
+> > -     const struct drm_device *drm_ =3D (drm);                         =
+                         \
+> >                                                                        =
+                       \
+> >       if (drm_debug_enabled(DRM_UT_ ## category) && __ratelimit(&rs_)) =
+                       \
+> > -             drm_dev_printk(drm_ ? drm_->dev : NULL, KERN_DEBUG, fmt, =
+## __VA_ARGS__);       \
+> > +             drm_dev_printk(__drm_to_dev(drm), KERN_DEBUG, fmt, ## __V=
+A_ARGS__);             \
+> >   })
+> >
+> >   #define drm_dbg_ratelimited(drm, fmt, ...) \
+> > @@ -752,13 +757,13 @@ void __drm_err(const char *format, ...);
+> >   /* Helper for struct drm_device based WARNs */
+> >   #define drm_WARN(drm, condition, format, arg...)                    \
+> >       WARN(condition, "%s %s: [drm] " format,                         \
+> > -                     dev_driver_string((drm)->dev),                  \
+> > -                     dev_name((drm)->dev), ## arg)
+> > +                     dev_driver_string(__drm_to_dev(drm)),           \
+> > +                     dev_name(__drm_to_dev(drm)), ## arg)
+> >
+> >   #define drm_WARN_ONCE(drm, condition, format, arg...)                =
+       \
+> >       WARN_ONCE(condition, "%s %s: [drm] " format,                    \
+> > -                     dev_driver_string((drm)->dev),                  \
+> > -                     dev_name((drm)->dev), ## arg)
+> > +                     dev_driver_string(__drm_to_dev(drm)),           \
+> > +                     dev_name(__drm_to_dev(drm)), ## arg)
+> >
+> Hi Jani,
 >
-> v2: Fix ifndef header naming issue reported by kernel test robot
-> v3: Rename file name[Arun]
->     Replace array size number with macro[Arun]
-> v4: Correct the register format[Jani]
->     Add brief comment and expalin about file[Jani]
->     Remove coefficient value from crtc_state[Jani]
-> v5: Fix build issue
-> v6: Add new function for writing coefficients[Ankit]
-> v7: Add cooments and add a scaler id check [Ankit]
-> v8: Remove casf_enable from here[Ankit]
+> These two changes introduce undefined behavior into these macros. The fin=
+al
+> code generation becomes this (from 'bxt_port_to_phy_channel'):
 >
-> Signed-off-by: Nemesa Garg <nemesa.garg@intel.com>
-> Reviewed-by: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
-> ---
->  drivers/gpu/drm/i915/display/intel_casf.c     | 120 ++++++++++++++++++
->  drivers/gpu/drm/i915/display/intel_casf.h     |   1 +
->  .../gpu/drm/i915/display/intel_casf_regs.h    |   7 +
->  .../drm/i915/display/intel_display_types.h    |   8 ++
->  4 files changed, 136 insertions(+)
+>         __warn_printk("%s %s: [drm] " "PHY not found for PORT %c",
+>                       dev_driver_string(__drm_to_dev(display->drm)),
+>                       dev_name(__drm_to_dev(display->drm)),
+>                       (port + 'A'));
 >
-> diff --git a/drivers/gpu/drm/i915/display/intel_casf.c b/drivers/gpu/drm/i915/display/intel_casf.c
-> index 6dab67eb77ab..f5ae5e1efbd5 100644
-> --- a/drivers/gpu/drm/i915/display/intel_casf.c
-> +++ b/drivers/gpu/drm/i915/display/intel_casf.c
-> @@ -15,6 +15,13 @@
->  #define MAX_PIXELS_FOR_3_TAP_FILTER (1920 * 1080)
->  #define MAX_PIXELS_FOR_5_TAP_FILTER (3840 * 2160)
->  
-> +#define FILTER_COEFF_0_125 125
-> +#define FILTER_COEFF_0_25 250
-> +#define FILTER_COEFF_0_5 500
-> +#define FILTER_COEFF_1_0 1000
-> +#define FILTER_COEFF_0_0 0
-> +#define SET_POSITIVE_SIGN(x) ((x) & (~SIGN))
-> +
->  /**
->   * DOC: Content Adaptive Sharpness Filter (CASF)
->   *
-> @@ -38,6 +45,24 @@ static const u16 sharpness_lut[] = {
->  	73, 60, 48, 36, 24, 12, 0
->  };
->  
-> +const u16 filtercoeff_1[] = {
-> +	FILTER_COEFF_0_0, FILTER_COEFF_0_0, FILTER_COEFF_0_5,
-> +	FILTER_COEFF_1_0, FILTER_COEFF_0_5, FILTER_COEFF_0_0,
-> +	FILTER_COEFF_0_0,
-> +};
-> +
-> +const u16 filtercoeff_2[] = {
-> +	FILTER_COEFF_0_0, FILTER_COEFF_0_25, FILTER_COEFF_0_5,
-> +	FILTER_COEFF_1_0, FILTER_COEFF_0_5, FILTER_COEFF_0_25,
-> +	FILTER_COEFF_0_0,
-> +};
-> +
-> +const u16 filtercoeff_3[] = {
-> +	FILTER_COEFF_0_125, FILTER_COEFF_0_25, FILTER_COEFF_0_5,
-> +	FILTER_COEFF_1_0, FILTER_COEFF_0_5, FILTER_COEFF_0_25,
-> +	FILTER_COEFF_0_125,
-> +};
-> +
->  void intel_filter_lut_load(struct intel_crtc *crtc,
->  			   const struct intel_crtc_state *crtc_state)
->  {
-> @@ -107,6 +132,8 @@ int intel_casf_compute_config(struct intel_crtc_state *crtc_state)
->  
->  	intel_casf_compute_win_size(crtc_state);
->  
-> +	intel_casf_scaler_compute_config(crtc_state);
-> +
->  	return 0;
->  }
->  
-> @@ -129,3 +156,96 @@ void intel_casf_sharpness_get_config(struct intel_crtc_state *crtc_state)
->  			REG_FIELD_GET(FILTER_SIZE_MASK, sharp);
->  	}
->  }
-> +
-> +static int casf_coeff_tap(int i)
-> +{
-> +	return i % SCALER_FILTER_NUM_TAPS;
-> +}
-> +
-> +static u16 casf_coeff(struct intel_crtc_state *crtc_state, int t)
+> The issue lies in 'dev_name(__drm_to_dev(display->drm))'. After inlining,=
+ it
+> becomes this (pseudo code):
+>
+>         struct device *device =3D display->drm ? display->drm->dev : NULL=
+;
+>         const char *name =3D device->init_name ? device->init_name
+>                                              : kobject_name(&device->kobj=
+);
+>
+>         __warn_printk("%s %s: [drm] " "PHY not found for PORT %c",
+>                       dev_driver_string(device), name, (port + 'A'));
+>
+> The issue, of course, is that the 'device' may be NULL when attempting
+> to get
+> 'device->init_name'. The compiler sees this as undefined behavior, which =
+may
+> lead to unexpected outcomes, especially with Clang where paths
+> determined to be
+> undefined are removed entirely under certain conditions.
+>
+> (Note, I'm working on making this behavior less draconian by adopting a G=
+CC
+> pass, but this will take time to filter out to Linux devs.)
+>
+I potential fix for this would be something like this (untested). I'm
+not familiar with how 'dev_name' is used to know whether or not this
+could cause issues:
 
-The result is stuff that gets shoved into registers. u32 would be in
-order.
+diff --git a/include/linux/device.h b/include/linux/device.h
+index 79e49fe494b7..ea20d439fe8e 100644
+--- a/include/linux/device.h
++++ b/include/linux/device.h
+@@ -778,6 +778,9 @@ static inline bool device_iommu_mapped(struct device *d=
+ev)
+  */
+ static inline const char *dev_name(const struct device *dev)
+ {
++       if (!dev)
++               return "default";
++
+        /* Use the init name until the kobject becomes available */
+        if (dev->init_name)
+                return dev->init_name;
 
-> +{
-> +	struct scaler_filter_coeff value;
-> +	u16 coeff;
-> +
-> +	value = crtc_state->hw.casf_params.coeff[t];
-> +	coeff = SET_POSITIVE_SIGN(0) | EXPONENT(value.exp) | MANTISSA(value.mantissa);
-
-Those macros return u32 values. coeff should be u32 too.
-
-> +	return coeff;
-> +}
-> +
-> +/*
-> + * 17 phase of 7 taps requires 119 coefficients in 60 dwords per set.
-> + * To enable casf:  program scaler coefficients with the coeffients
-> + * that are calculated and stored in hw.casf_params.coeff as per
-> + * SCALER_COEFFICIENT_FORMAT
-> + */
-> +static void intel_casf_write_coeff(struct intel_crtc_state *crtc_state)
-> +{
-> +	struct intel_display *display = to_intel_display(crtc_state);
-> +	struct intel_crtc *crtc = to_intel_crtc(crtc_state->uapi.crtc);
-> +	int id = crtc_state->scaler_state.scaler_id;
-> +	int i;
-> +
-> +	if (id != 1) {
-> +		drm_WARN(display->drm, 0, "Second scaler not enabled\n");
-> +		return;
-> +	}
-> +
-> +	intel_de_write_fw(display, GLK_PS_COEF_INDEX_SET(crtc->pipe, id, 0),
-> +			  PS_COEF_INDEX_AUTO_INC);
-> +
-> +	for (i = 0; i < 17 * SCALER_FILTER_NUM_TAPS; i += 2) {
-> +		u32 tmp;
-> +		int t;
-> +
-> +		t = casf_coeff_tap(i);
-> +		tmp = casf_coeff(crtc_state, t);
-> +
-> +		t = casf_coeff_tap(i + 1);
-> +		tmp |= casf_coeff(crtc_state, t) << 16;
-> +
-> +		intel_de_write_fw(display, GLK_PS_COEF_DATA_SET(crtc->pipe, id, 0),
-> +				  tmp);
-> +	}
-> +}
-> +
-> +static void convert_sharpness_coef_binary(struct scaler_filter_coeff *coeff,
-> +					  u16 coefficient)
-> +{
-> +	if (coefficient < 25) {
-> +		coeff->mantissa = (coefficient * 2048) / 100;
-> +		coeff->exp = 3;
-> +	} else if (coefficient < 50) {
-> +		coeff->mantissa = (coefficient * 1024) / 100;
-> +		coeff->exp = 2;
-> +	} else if (coefficient < 100) {
-> +		coeff->mantissa = (coefficient * 512) / 100;
-> +		coeff->exp = 1;
-> +	} else {
-> +		coeff->mantissa = (coefficient * 256) / 100;
-> +		coeff->exp = 0;
-> +	}
-> +}
-> +
-> +void intel_casf_scaler_compute_config(struct intel_crtc_state *crtc_state)
-> +{
-> +	const u16 *filtercoeff;
-> +	u16 filter_coeff[SCALER_FILTER_NUM_TAPS];
-> +	u16 sumcoeff = 0;
-> +	u8 i;
-
-It's used for looping. It's an int.
-
-> +
-> +	if (crtc_state->hw.casf_params.win_size == 0)
-> +		filtercoeff = filtercoeff_1;
-> +	else if (crtc_state->hw.casf_params.win_size == 1)
-> +		filtercoeff = filtercoeff_2;
-> +	else
-> +		filtercoeff = filtercoeff_3;
-> +
-> +	for (i = 0; i < SCALER_FILTER_NUM_TAPS; i++)
-> +		sumcoeff += *(filtercoeff + i);
-> +
-> +	for (i = 0; i < SCALER_FILTER_NUM_TAPS; i++) {
-> +		filter_coeff[i] = (*(filtercoeff + i) * 100 / sumcoeff);
-> +		convert_sharpness_coef_binary(&crtc_state->hw.casf_params.coeff[i],
-> +					      filter_coeff[i]);
-
-Are you should u16 is the right type to use here?
-
-> +	}
-> +}
-> diff --git a/drivers/gpu/drm/i915/display/intel_casf.h b/drivers/gpu/drm/i915/display/intel_casf.h
-> index 80642809c08b..381d5e10c70d 100644
-> --- a/drivers/gpu/drm/i915/display/intel_casf.h
-> +++ b/drivers/gpu/drm/i915/display/intel_casf.h
-> @@ -16,5 +16,6 @@ void intel_casf_update_strength(struct intel_crtc_state *new_crtc_state);
->  void intel_casf_sharpness_get_config(struct intel_crtc_state *crtc_state);
->  void intel_filter_lut_load(struct intel_crtc *crtc,
->  			   const struct intel_crtc_state *crtc_state);
-> +void intel_casf_scaler_compute_config(struct intel_crtc_state *crtc_state);
->  
->  #endif /* __INTEL_CASF_H__ */
-> diff --git a/drivers/gpu/drm/i915/display/intel_casf_regs.h b/drivers/gpu/drm/i915/display/intel_casf_regs.h
-> index b96950a48335..f8c3c86f2949 100644
-> --- a/drivers/gpu/drm/i915/display/intel_casf_regs.h
-> +++ b/drivers/gpu/drm/i915/display/intel_casf_regs.h
-> @@ -30,4 +30,11 @@
->  #define   INDEX_VALUE_MASK             REG_GENMASK(4, 0)
->  #define   INDEX_VALUE(x)               REG_FIELD_PREP(INDEX_VALUE_MASK, (x))
->  
-> +/* Scaler Coefficient structure */
-> +#define SIGN                           REG_BIT(15)
-> +#define EXPONENT_MASK                  REG_GENMASK(13, 12)
-> +#define EXPONENT(x)                    REG_FIELD_PREP(EXPONENT_MASK, (x))
-> +#define MANTISSA_MASK                  REG_GENMASK(11, 3)
-> +#define MANTISSA(x)                    REG_FIELD_PREP(MANTISSA_MASK, (x))
-
-I think the macro names are way too generic, and likely to conflict with
-other headers, in the future if not now.
-
-Please define these as part of the register as described by the big
-comment at the top of i915_reg.h. Please do not add comments or vertical
-space in between. Please indent them. These need to be attached to the
-register they describe.
-
-> +
->  #endif /* __INTEL_CASF_REGS__ */
-> diff --git a/drivers/gpu/drm/i915/display/intel_display_types.h b/drivers/gpu/drm/i915/display/intel_display_types.h
-> index 3a2e2bdfd356..3de4738f4080 100644
-> --- a/drivers/gpu/drm/i915/display/intel_display_types.h
-> +++ b/drivers/gpu/drm/i915/display/intel_display_types.h
-> @@ -935,7 +935,15 @@ struct intel_csc_matrix {
->  	u16 postoff[3];
->  };
->  
-> +struct scaler_filter_coeff {
-> +	u16 sign;
-> +	u16 exp;
-> +	u16 mantissa;
-> +};
-> +
->  struct intel_casf {
-> +#define SCALER_FILTER_NUM_TAPS 7
-> +	struct scaler_filter_coeff coeff[SCALER_FILTER_NUM_TAPS];
->  	u8 strength;
->  	u8 win_size;
->  	bool casf_enable;
-
--- 
-Jani Nikula, Intel
+-bw
