@@ -4,27 +4,27 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 45228C2D0CD
-	for <intel-gfx@archiver.kernel.org>; Mon, 19 May 2025 13:40:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B023FC3ABD8
+	for <intel-gfx@archiver.kernel.org>; Mon, 19 May 2025 13:51:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D258010E275;
-	Mon, 19 May 2025 13:40:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4BDF410E255;
+	Mon, 19 May 2025 13:51:48 +0000 (UTC)
 Received: from 1538d3639d33 (emeril.freedesktop.org [131.252.210.167])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3EB3410E2E4;
- Mon, 19 May 2025 13:40:28 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9689910E221;
+ Mon, 19 May 2025 13:51:46 +0000 (UTC)
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
-Subject: =?utf-8?q?=E2=9C=97_Fi=2ECI=2ESPARSE=3A_warning_for_Introduce_drm_sharpness_?=
- =?utf-8?q?property_=28rev14=29?=
+Subject: =?utf-8?q?=E2=9C=97_LGCI=2EVerificationFailed=3A_failure_for_drm/xe=3A_Allow?=
+ =?utf-8?q?_building_as_kernel_built-in_=28rev3=29?=
 From: Patchwork <patchwork@emeril.freedesktop.org>
-To: "Nemesa Garg" <nemesa.garg@intel.com>
+To: "Harry Austen" <hpausten@protonmail.com>
 Cc: intel-gfx@lists.freedesktop.org
-Date: Mon, 19 May 2025 13:40:28 -0000
-Message-ID: <174766202824.11.14250805156574479417@1538d3639d33>
+Date: Mon, 19 May 2025 13:51:46 -0000
+Message-ID: <174766270659.12.16882697849687990788@1538d3639d33>
 X-Patchwork-Hint: ignore
-References: <20250519122644.3685679-1-nemesa.garg@intel.com>
-In-Reply-To: <20250519122644.3685679-1-nemesa.garg@intel.com>
+References: <20250516104210.17969-1-hpausten@protonmail.com>
+In-Reply-To: <20250516104210.17969-1-hpausten@protonmail.com>
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -43,14 +43,13 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 == Series Details ==
 
-Series: Introduce drm sharpness property (rev14)
-URL   : https://patchwork.freedesktop.org/series/138754/
-State : warning
+Series: drm/xe: Allow building as kernel built-in (rev3)
+URL   : https://patchwork.freedesktop.org/series/148280/
+State : failure
 
 == Summary ==
 
-Error: dim sparse failed
-Sparse version: v0.6.2
-Fast mode used, each commit won't be checked separately.
+Address 'hpausten@protonmail.com' is not on the allowlist!
+Exception occurred during validation, bailing out!
 
 
