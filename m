@@ -4,52 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 58302C54E65
-	for <intel-gfx@archiver.kernel.org>; Wed, 21 May 2025 09:33:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E51FEC54ED0
+	for <intel-gfx@archiver.kernel.org>; Wed, 21 May 2025 09:33:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4F53E10E6D4;
-	Wed, 21 May 2025 09:33:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DC7DA10E6E0;
+	Wed, 21 May 2025 09:33:05 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="XDXXeciO";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="VIh2qdst";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.17])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7AD7E10E6D4;
- Wed, 21 May 2025 09:33:01 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2715610E6E0;
+ Wed, 21 May 2025 09:33:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1747819982; x=1779355982;
+ t=1747819985; x=1779355985;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=7xiJEjZ+/LxM7yfnmJLdvdlXom1s4eT311I4xSyIWDM=;
- b=XDXXeciOnN48xB1p2mfHU39Nt1dbDEgOJiHC/CnmMLgVU3+63jdK5YZa
- iJrnr1Z2NXW32qjd1XUJfRkMIMr56hyUE2dGFxsXhOujwV1EkK639GFKS
- t3VBBuMPAAMwOdFFoOGVwcaDkSbFzlsvQWqGBmL467EpnJxUK57irNwaB
- iXtTSIC+eBv532T1sX5rRtGXVdtExOmN/tNt33FS/qf36NPNpecsj4X2r
- 8XThmTtXpbTALGVd0Dxn2+89n5lJrpaP0Thk6J+N8BG2V+fvoCtLenDuo
- fsO+lrUf+FWM8mBkntjAmKD8wns1rtj7dWZ6j0hgdTzMTMxVpj9Iyy0Qk g==;
-X-CSE-ConnectionGUID: KF9MPbi7R3m0PQt4c9psfQ==
-X-CSE-MsgGUID: KzL4QnhtSRydtmyS+DOhHw==
-X-IronPort-AV: E=McAfee;i="6700,10204,11439"; a="49714293"
-X-IronPort-AV: E=Sophos;i="6.15,303,1739865600"; d="scan'208";a="49714293"
+ bh=0eJ5s4f3vaycL5FphWjwXIa3y8oHBRPenuVbx+3dc38=;
+ b=VIh2qdst6YUuSi1QrikRjkYgL260DQw1FN+GcjXC93N7ULH7gqaeIFF2
+ fg4Z2fo5iUNUuTAbVI1unM/ZQT1P5ASEPeUo6fgnYKcaz5ATDS4vVn8A8
+ 5yXULSITTfw0uOCgm3qMhwR2fpgS8e8D3n7hY+MBCbnK8GX64sqJ1A9g9
+ AIsqd5Y7BwnjKxcH+4qzukEmwT5gE8ZqiC4QKwV6iDX6zpojblgsdcj7k
+ g58mM1NpXurm96uZGg95FT4yLATv4UKfz9lLl0jF/UshC84RCNlV2XWJW
+ 33ycsAY/jgLwU+CLHsOziPeC9YoL/3I9ha2Sj5QpfQiJgwbxkDOwW+8Af g==;
+X-CSE-ConnectionGUID: 0AkPzUqnREaeWNv2mhpdDA==
+X-CSE-MsgGUID: 2fL5YwLfSIylUXgKzui19Q==
+X-IronPort-AV: E=McAfee;i="6700,10204,11439"; a="49714301"
+X-IronPort-AV: E=Sophos;i="6.15,303,1739865600"; d="scan'208";a="49714301"
 Received: from fmviesa008.fm.intel.com ([10.60.135.148])
  by fmvoesa111.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 21 May 2025 02:33:01 -0700
-X-CSE-ConnectionGUID: WIA6wIKpRaOAL/H89d+5yQ==
-X-CSE-MsgGUID: kzfSutCDSPelOrS68gvuJw==
+ 21 May 2025 02:33:05 -0700
+X-CSE-ConnectionGUID: FKe/+mrIQVqxoxaLziSDyA==
+X-CSE-MsgGUID: qBdKNMUMTdafzUqdAgyUGw==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.15,303,1739865600"; d="scan'208";a="140407023"
+X-IronPort-AV: E=Sophos;i="6.15,303,1739865600"; d="scan'208";a="140407055"
 Received: from abityuts-desk.ger.corp.intel.com (HELO jhogande-mobl1..)
  ([10.245.244.119])
  by fmviesa008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 21 May 2025 02:33:00 -0700
+ 21 May 2025 02:33:03 -0700
 From: =?UTF-8?q?Jouni=20H=C3=B6gander?= <jouni.hogander@intel.com>
 To: intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
  dri-devel@lists.freedesktop.org
-Cc: =?UTF-8?q?Jouni=20H=C3=B6gander?= <jouni.hogander@intel.com>
-Subject: [PATCH v3 02/12] drm/dp: Add Panel Replay capability bits from DP2.1
- specification
-Date: Wed, 21 May 2025 12:32:30 +0300
-Message-ID: <20250521093240.2284835-3-jouni.hogander@intel.com>
+Cc: =?UTF-8?q?Jouni=20H=C3=B6gander?= <jouni.hogander@intel.com>,
+ Ankit Nautiyal <ankit.k.nautiyal@intel.com>
+Subject: [PATCH v3 04/12] drm/i915/alpm: Add PR_ALPM_CTL register definitions
+Date: Wed, 21 May 2025 12:32:32 +0300
+Message-ID: <20250521093240.2284835-5-jouni.hogander@intel.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20250521093240.2284835-1-jouni.hogander@intel.com>
 References: <20250521093240.2284835-1-jouni.hogander@intel.com>
@@ -72,36 +72,36 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Add PANEL REPLAY CAPABILITY register (0xb1) bits.
+Add PR_ALPM_CTL register definition and bits for it.
 
-v2: comment about DP2.1 changed as DP2.1a
-
+Bspec: 71014
 Signed-off-by: Jouni Högander <jouni.hogander@intel.com>
+Reviewed-by: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
 ---
- include/drm/display/drm_dp.h | 10 ++++++++--
- 1 file changed, 8 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/i915/display/intel_psr_regs.h | 10 ++++++++++
+ 1 file changed, 10 insertions(+)
 
-diff --git a/include/drm/display/drm_dp.h b/include/drm/display/drm_dp.h
-index 3371e2edd9e9..c0579f827999 100644
---- a/include/drm/display/drm_dp.h
-+++ b/include/drm/display/drm_dp.h
-@@ -554,8 +554,14 @@
+diff --git a/drivers/gpu/drm/i915/display/intel_psr_regs.h b/drivers/gpu/drm/i915/display/intel_psr_regs.h
+index 795e6b9cc575..aad3ac5f502e 100644
+--- a/drivers/gpu/drm/i915/display/intel_psr_regs.h
++++ b/drivers/gpu/drm/i915/display/intel_psr_regs.h
+@@ -266,6 +266,16 @@
+ #define _PIPE_SRCSZ_ERLY_TPT_B	0x71074
+ #define PIPE_SRCSZ_ERLY_TPT(pipe)	_MMIO_PIPE((pipe), _PIPE_SRCSZ_ERLY_TPT_A, _PIPE_SRCSZ_ERLY_TPT_B)
  
- #define DP_PANEL_REPLAY_CAP_SIZE	7
- 
--#define DP_PANEL_REPLAY_CAP_CAPABILITY			0xb1
--# define DP_PANEL_REPLAY_SU_GRANULARITY_REQUIRED	(1 << 5)
-+#define DP_PANEL_REPLAY_CAP_CAPABILITY					0xb1
-+# define DP_PANEL_REPLAY_DSC_DECODE_CAPABILITY_IN_PR_SHIFT			1 /* DP 2.1a */
-+# define DP_PANEL_REPLAY_DSC_DECODE_CAPABILITY_IN_PR_MASK			(3 << 1)
-+# define DP_PANEL_REPLAY_ASYNC_VIDEO_TIMING_NOT_SUPPORTED_IN_PR			(1 << 3)
-+# define DP_PANEL_REPLAY_DSC_CRC_OF_MULTIPLE_SUS_SUPPORTED			(1 << 4)
-+# define DP_PANEL_REPLAY_SU_GRANULARITY_REQUIRED				(1 << 5)
-+# define DP_PANEL_REPLAY_SU_Y_GRANULARITY_EXTENDED_CAPABILITY_SUPPORTED		(1 << 6)
-+# define DP_PANEL_REPLAY_LINK_OFF_SUPPORTED_IN_PR_AFTER_ADAPTIVE_SYNC_SDP	(1 << 7)
- 
- #define DP_PANEL_REPLAY_CAP_X_GRANULARITY		0xb2
- #define DP_PANEL_REPLAY_CAP_Y_GRANULARITY		0xb4
++#define _PR_ALPM_CTL_A	0x60948
++#define PR_ALPM_CTL(dev_priv, tran)	_MMIO_TRANS2(dev_priv, tran, _PR_ALPM_CTL_A)
++#define  PR_ALPM_CTL_ALLOW_LINK_OFF_BETWEEN_AS_SDP_AND_SU	BIT(6)
++#define  PR_ALPM_CTL_RFB_UPDATE_CONTROL				BIT(5)
++#define  PR_ALPM_CTL_AS_SDP_TRANSMISSION_IN_ACTIVE_DISABLE	BIT(4)
++#define  PR_ALPM_CTL_ADAPTIVE_SYNC_SDP_POSITION_MASK		REG_GENMASK(1, 0)
++#define  PR_ALPM_CTL_ADAPTIVE_SYNC_SDP_POSITION_T1_OR_T2	REG_FIELD_PREP(PR_ALPM_CTL_ADAPTIVE_SYNC_SDP_POSITION_MASK, 0)
++#define  PR_ALPM_CTL_ADAPTIVE_SYNC_SDP_POSITION_T1		REG_FIELD_PREP(PR_ALPM_CTL_ADAPTIVE_SYNC_SDP_POSITION_MASK, 1)
++#define  PR_ALPM_CTL_ADAPTIVE_SYNC_SDP_POSITION_T2		REG_FIELD_PREP(PR_ALPM_CTL_ADAPTIVE_SYNC_SDP_POSITION_MASK, 2)
++
+ #define _ALPM_CTL_A	0x60950
+ #define ALPM_CTL(dev_priv, tran)	_MMIO_TRANS2(dev_priv, tran, _ALPM_CTL_A)
+ #define  ALPM_CTL_ALPM_ENABLE				REG_BIT(31)
 -- 
 2.43.0
 
