@@ -4,53 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 49CFCC54ED1
-	for <intel-gfx@archiver.kernel.org>; Wed, 21 May 2025 11:54:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2D4EDC54F30
+	for <intel-gfx@archiver.kernel.org>; Wed, 21 May 2025 11:54:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 08869112E73;
-	Wed, 21 May 2025 11:53:58 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0A6F2112E7B;
+	Wed, 21 May 2025 11:54:02 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="ffTGpT4q";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="gDZcVIQ3";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8683710F085;
- Wed, 21 May 2025 11:53:56 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3011110F871;
+ Wed, 21 May 2025 11:54:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1747828437; x=1779364437;
+ t=1747828441; x=1779364441;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=aQTRqEXr2cUatg2aRhA+tFtjd+VJAHFAjTbtQH8g3HQ=;
- b=ffTGpT4qmHq1JfXLPL0hYzQqBpO46u+1QSGS+GLTOZFySrB3UuDXR4C5
- yNXIzs0qxdIqfmjXj32RveL3I5kAtvpwgkDn1NCb3QwdLWRLEyekVy2BW
- hZHPWr0bimOgqPmNsDJfFF4g+CO3lEFvzhYo2wAyfxGFkU3nGwQPJn4tQ
- Y4YhPHUNr4VKrGmU2Abps6XnsqH0Pj2X2tbslpELW2BzIM3GG2sGlZ0Nm
- edAySZH306/iHPVVqc/XLv5yCvQg3G6xTJmYtHqF+a5sU8rUAo0gmRS1W
- 7s5GjFoJBUCCLBJsTk6xaQaz9iQJ1hUaSZKks+q4AAW1ov4PEf3iMrQNT Q==;
-X-CSE-ConnectionGUID: MkiYfBsyTWyYkYkvCVDMBg==
-X-CSE-MsgGUID: LnXrwBuLS9q8ttiB7Y1pbQ==
-X-IronPort-AV: E=McAfee;i="6700,10204,11440"; a="67217837"
-X-IronPort-AV: E=Sophos;i="6.15,303,1739865600"; d="scan'208";a="67217837"
+ bh=AkNh430BsfaaHDTVZ3mOU9oL4/qDLKn/ZP5FKFaNGeg=;
+ b=gDZcVIQ3KoYcVv4WqiHmGg7DDLivE4QuH2ZFkuy3OQJFssQVo8zKKSkg
+ 4hkML2fvR1Rjnoyzuix5VDUREBT1ERCTZ6J7ndp+FkJa/O2xyh960XaNu
+ hRRNbSbbmQS7gC+hGDvIyMWqg7Fb/7KtvNnQADYUhhaxhO4SSFF2zIPLF
+ c06a5KxqjW+1qqGCaKteHu8CPX+PT2WgWSEsWgE37IMDyFuBqpjJ0D/HE
+ n82FNtdx8oq3G6x9qb2+X71VbeHTLSmWnNc3z3RRTLjzxDqf2vuSsSdrz
+ ry9FYYW/4m3cnIPgNk0zTUzGZTeAaxzxAV4Sr3so5Btocpyl/RxqMcimN g==;
+X-CSE-ConnectionGUID: s6v2F8qdS+mgRD9WUsg6DA==
+X-CSE-MsgGUID: gzkgwfy/R0ahiLeX/4XQtw==
+X-IronPort-AV: E=McAfee;i="6700,10204,11440"; a="67217846"
+X-IronPort-AV: E=Sophos;i="6.15,303,1739865600"; d="scan'208";a="67217846"
 Received: from fmviesa008.fm.intel.com ([10.60.135.148])
  by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 21 May 2025 04:53:57 -0700
-X-CSE-ConnectionGUID: syiKcGecTlaO/PF8B533bw==
-X-CSE-MsgGUID: gIHi0ZpiRoS09nqgHOtsfw==
+ 21 May 2025 04:54:00 -0700
+X-CSE-ConnectionGUID: wt/zwMTnQFmHMuIycVbkUg==
+X-CSE-MsgGUID: 2JzajICrSIibiHzobaQuag==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.15,303,1739865600"; d="scan'208";a="140452930"
+X-IronPort-AV: E=Sophos;i="6.15,303,1739865600"; d="scan'208";a="140452955"
 Received: from abityuts-desk.ger.corp.intel.com (HELO jhogande-mobl1..)
  ([10.245.244.119])
  by fmviesa008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 21 May 2025 04:53:54 -0700
+ 21 May 2025 04:53:58 -0700
 From: =?UTF-8?q?Jouni=20H=C3=B6gander?= <jouni.hogander@intel.com>
 To: intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
  dri-devel@lists.freedesktop.org
 Cc: =?UTF-8?q?Jouni=20H=C3=B6gander?= <jouni.hogander@intel.com>,
  Ankit Nautiyal <ankit.k.nautiyal@intel.com>
-Subject: [PATCH v4 09/12] drm/i915/display: Add PHY_CMN1_CONTROL register
- definitions
-Date: Wed, 21 May 2025 14:53:16 +0300
-Message-ID: <20250521115319.2380655-10-jouni.hogander@intel.com>
+Subject: [PATCH v4 11/12] drm/i915/psr: Fix using wrong mask in REG_FIELD_PREP
+Date: Wed, 21 May 2025 14:53:18 +0300
+Message-ID: <20250521115319.2380655-12-jouni.hogander@intel.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20250521115319.2380655-1-jouni.hogander@intel.com>
 References: <20250521115319.2380655-1-jouni.hogander@intel.com>
@@ -73,30 +72,31 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Add PHY_CMN1_CONTROL register and its definitions to configure port LFPS
-sending.
+Wrong mask is used in PORT_ALPM_LFPS_CTL_FIRST_LFPS_HALF_CYCLE_DURATION and
+PORT_ALPM_LFPS_CTL_LAST_LFPS_HALF_CYCLE_DURATION.
 
-Bspec: 68962
+Fixes: 295099580f04 ("drm/i915/psr: Add missing ALPM AUX-Less register definitions")
 Signed-off-by: Jouni Högander <jouni.hogander@intel.com>
 Reviewed-by: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_cx0_phy_regs.h | 3 +++
- 1 file changed, 3 insertions(+)
+ drivers/gpu/drm/i915/display/intel_psr_regs.h | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_cx0_phy_regs.h b/drivers/gpu/drm/i915/display/intel_cx0_phy_regs.h
-index 59c22beaf1de..580a43be195e 100644
---- a/drivers/gpu/drm/i915/display/intel_cx0_phy_regs.h
-+++ b/drivers/gpu/drm/i915/display/intel_cx0_phy_regs.h
-@@ -285,6 +285,9 @@
- #define PHY_CX0_TX_CONTROL(tx, control)	(0x400 + ((tx) - 1) * 0x200 + (control))
- #define   CONTROL2_DISABLE_SINGLE_TX	REG_BIT(6)
+diff --git a/drivers/gpu/drm/i915/display/intel_psr_regs.h b/drivers/gpu/drm/i915/display/intel_psr_regs.h
+index aad3ac5f502e..8afbf5a38335 100644
+--- a/drivers/gpu/drm/i915/display/intel_psr_regs.h
++++ b/drivers/gpu/drm/i915/display/intel_psr_regs.h
+@@ -335,8 +335,8 @@
+ #define  PORT_ALPM_LFPS_CTL_LFPS_HALF_CYCLE_DURATION_MASK	REG_GENMASK(20, 16)
+ #define  PORT_ALPM_LFPS_CTL_LFPS_HALF_CYCLE_DURATION(val)	REG_FIELD_PREP(PORT_ALPM_LFPS_CTL_LFPS_HALF_CYCLE_DURATION_MASK, val)
+ #define  PORT_ALPM_LFPS_CTL_FIRST_LFPS_HALF_CYCLE_DURATION_MASK	REG_GENMASK(12, 8)
+-#define  PORT_ALPM_LFPS_CTL_FIRST_LFPS_HALF_CYCLE_DURATION(val)	REG_FIELD_PREP(PORT_ALPM_LFPS_CTL_LFPS_HALF_CYCLE_DURATION_MASK, val)
++#define  PORT_ALPM_LFPS_CTL_FIRST_LFPS_HALF_CYCLE_DURATION(val)	REG_FIELD_PREP(PORT_ALPM_LFPS_CTL_FIRST_LFPS_HALF_CYCLE_DURATION_MASK, val)
+ #define  PORT_ALPM_LFPS_CTL_LAST_LFPS_HALF_CYCLE_DURATION_MASK	REG_GENMASK(4, 0)
+-#define  PORT_ALPM_LFPS_CTL_LAST_LFPS_HALF_CYCLE_DURATION(val)	REG_FIELD_PREP(PORT_ALPM_LFPS_CTL_LFPS_HALF_CYCLE_DURATION_MASK, val)
++#define  PORT_ALPM_LFPS_CTL_LAST_LFPS_HALF_CYCLE_DURATION(val)	REG_FIELD_PREP(PORT_ALPM_LFPS_CTL_LAST_LFPS_HALF_CYCLE_DURATION_MASK, val)
  
-+#define PHY_CMN1_CONTROL(tx, control)	(0x800 + ((tx) - 1) * 0x200 + (control))
-+#define   CONTROL0_MAC_TRANSMIT_LFPS	REG_BIT(1)
-+
- /* C20 Registers */
- #define PHY_C20_WR_ADDRESS_L		0xC02
- #define PHY_C20_WR_ADDRESS_H		0xC03
+ #endif /* __INTEL_PSR_REGS_H__ */
 -- 
 2.43.0
 
