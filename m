@@ -4,51 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 897D7C54E71
-	for <intel-gfx@archiver.kernel.org>; Wed, 21 May 2025 18:17:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D73EEC54ED0
+	for <intel-gfx@archiver.kernel.org>; Wed, 21 May 2025 18:17:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0498210E741;
-	Wed, 21 May 2025 18:17:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 082A710E7BC;
+	Wed, 21 May 2025 18:17:26 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="hLh3c8Jc";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="QeMnbeAA";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.7])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1E01F10E757;
- Wed, 21 May 2025 18:16:58 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BDE3310E832;
+ Wed, 21 May 2025 18:17:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1747851418; x=1779387418;
+ t=1747851431; x=1779387431;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=z10KsXzBpq0+09aD1Jyu3CXJhp/035BpyX+d2jp9KFI=;
- b=hLh3c8Jcax5uW1JH6v7N3Xg9S78/1IkZ7xX74pA78hzVM9pXJ+A4AVt7
- uTqxlF0KjAZ3XLPgZck5pswrPQPXtxy/iWQPt7yEdud+BBXLwzruX74XP
- 1KiGAbyEStFOjC020Thw7R9jTf6bxPEdqVFJlwyeONXcSxCvg7kMEd+Ct
- Ah3wS/5VmoIZhB5zvj0GtShpA9YoAhWWZX9I17MX62OS1kwZkQRPEvQPt
- l5BBuHdqZ5H5agMN7bkv7AD02hm4W+nBnXcZhxorvTlBem0aGskXBOE2C
- hdf2HWoctJU+W4xXAi0u8O+4R5IG143z+1De/c6jLdYydKEVu/MeoWPKA w==;
-X-CSE-ConnectionGUID: F6bUP1rjRdisB/VBLUCRWQ==
-X-CSE-MsgGUID: D4tHsNcvT5mCV33JUl9z6A==
-X-IronPort-AV: E=McAfee;i="6700,10204,11440"; a="75244730"
-X-IronPort-AV: E=Sophos;i="6.15,304,1739865600"; d="scan'208";a="75244730"
+ bh=PX1LxdXkMJV3uMYWzauT/2zq/m7d/4gGI2q0f1x36Bo=;
+ b=QeMnbeAAr6sOf1347BPBsYypgHTTG2kl3Vvq2lL1W2lIpdzak4/fDU7D
+ W7/SALwMXjm+SZUYhUFAWxMOqG5WV3tyh0ISXu1fwlSgFbRuBOtF0/g1y
+ slY3ahAwrfae7g2GHMOPD8/AA914XcYZ2LYqgz54avFj5uTAvniqYmswp
+ YWW92oiKAu5DHoYRH+A2eRyHbnsLPnC9zcDD3zyLfqGuluu5ewZ1egsO9
+ dLAhZdz+GgU6KJdBVS1vHP0xK1m+PtpaEzEYw05Ia4AY4KSXKovPZMsIS
+ M7ncrIPEEdf5wZjWDFK3JYlrZ8iC6XLyulVv1ifm/X/3Ezbg0mwmizUX9 A==;
+X-CSE-ConnectionGUID: ZULhQS/3SaS1Z1faAQlmUw==
+X-CSE-MsgGUID: gpyzntzfTyS43kM00OcYlw==
+X-IronPort-AV: E=McAfee;i="6700,10204,11440"; a="75244759"
+X-IronPort-AV: E=Sophos;i="6.15,304,1739865600"; d="scan'208";a="75244759"
 Received: from orviesa005.jf.intel.com ([10.64.159.145])
  by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 21 May 2025 11:16:58 -0700
-X-CSE-ConnectionGUID: AOg9LZBKQNiGXLoFnHFGTw==
-X-CSE-MsgGUID: cxqNIgztQ4GYFZfBwMSbFQ==
+ 21 May 2025 11:17:11 -0700
+X-CSE-ConnectionGUID: feqEGL4zReOcm/DlBJvJHQ==
+X-CSE-MsgGUID: eRMHveoQTUS4EIgm0S72xg==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.15,304,1739865600"; d="scan'208";a="145322283"
+X-IronPort-AV: E=Sophos;i="6.15,304,1739865600"; d="scan'208";a="145322294"
 Received: from oandoniu-mobl3.ger.corp.intel.com (HELO stinkbox)
  ([10.245.244.255])
- by orviesa005.jf.intel.com with SMTP; 21 May 2025 11:16:55 -0700
+ by orviesa005.jf.intel.com with SMTP; 21 May 2025 11:17:08 -0700
 Received: by stinkbox (sSMTP sendmail emulation);
- Wed, 21 May 2025 21:16:55 +0300
+ Wed, 21 May 2025 21:17:07 +0300
 From: Ville Syrjala <ville.syrjala@linux.intel.com>
 To: intel-gfx@lists.freedesktop.org
 Cc: intel-xe@lists.freedesktop.org
-Subject: [PATCH v2 03/13] drm/i915/dsb: Extract assert_dsb_tail_is_aligned()
-Date: Wed, 21 May 2025 21:16:35 +0300
-Message-ID: <20250521181645.32737-4-ville.syrjala@linux.intel.com>
+Subject: [PATCH v2 07/13] drm/i915/dmc: Define flip queue related PIPEDMC
+ registers
+Date: Wed, 21 May 2025 21:16:39 +0300
+Message-ID: <20250521181645.32737-8-ville.syrjala@linux.intel.com>
 X-Mailer: git-send-email 2.49.0
 In-Reply-To: <20250521181645.32737-1-ville.syrjala@linux.intel.com>
 References: <20250521181645.32737-1-ville.syrjala@linux.intel.com>
@@ -72,61 +73,237 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 From: Ville Syrjälä <ville.syrjala@linux.intel.com>
 
-Extract the DSB tail alignment checks into helper. We already
-have two uses of this, and soo we'll get a third.
+Add the register definitions for a bunch of flip queue related
+PIPEDMC registers.
+
+v2: The layout of flip queue entries changed on PTL
+    Bump the DMC_FQ_W2_PTS_CFG_SEL bitfields sizes (Uma)
+    Reduce the scanlines to 21 bits for now (Uma)
 
 Signed-off-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_dsb.c | 19 +++++++++++++++----
- 1 file changed, 15 insertions(+), 4 deletions(-)
+ drivers/gpu/drm/i915/display/intel_dmc_regs.h | 189 +++++++++++++++++-
+ 1 file changed, 188 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_dsb.c b/drivers/gpu/drm/i915/display/intel_dsb.c
-index b5c8972dfad2..b7d11eb1ce80 100644
---- a/drivers/gpu/drm/i915/display/intel_dsb.c
-+++ b/drivers/gpu/drm/i915/display/intel_dsb.c
-@@ -204,6 +204,15 @@ static bool assert_dsb_has_room(struct intel_dsb *dsb)
- 			 crtc->base.base.id, crtc->base.name, dsb->id);
- }
+diff --git a/drivers/gpu/drm/i915/display/intel_dmc_regs.h b/drivers/gpu/drm/i915/display/intel_dmc_regs.h
+index d8e715677454..bcda24af720d 100644
+--- a/drivers/gpu/drm/i915/display/intel_dmc_regs.h
++++ b/drivers/gpu/drm/i915/display/intel_dmc_regs.h
+@@ -6,7 +6,7 @@
+ #ifndef __INTEL_DMC_REGS_H__
+ #define __INTEL_DMC_REGS_H__
  
-+static bool assert_dsb_tail_is_aligned(struct intel_dsb *dsb)
-+{
-+	struct intel_crtc *crtc = dsb->crtc;
-+	struct intel_display *display = to_intel_display(crtc->base.dev);
+-#include "i915_reg_defs.h"
++#include "intel_display_reg_defs.h"
+ 
+ enum dmc_event_id {
+ 	DMC_EVENT_TRUE = 0x0,
+@@ -287,6 +287,17 @@ enum pipedmc_event_id {
+ #define MTL_PIPEDMC_CONTROL		_MMIO(0x45250)
+ #define  PIPEDMC_ENABLE_MTL(pipe)	REG_BIT(((pipe) - PIPE_A) * 4)
+ 
++#define _PIPEDMC_LOAD_HTP_A		0x5f000
++#define _PIPEDMC_LOAD_HTP_B		0x5f400
++#define PIPEDMC_LOAD_HTP(pipe)		_MMIO_PIPE((pipe), _PIPEDMC_LOAD_HTP_A, _PIPEDMC_LOAD_HTP_B)
 +
-+	return !drm_WARN_ON(display->drm,
-+			    !IS_ALIGNED(dsb->free_pos * 4, CACHELINE_BYTES));
-+}
++#define _PIPEDMC_CTL_A		0x5f064
++#define _PIPEDMC_CTL_B		0x5f464
++#define PIPEDMC_CTL(pipe)		_MMIO_PIPE((pipe), _PIPEDMC_CTL_A, _PIPEDMC_CTL_B)
++#define   PIPEDMC_HALT			REG_BIT(31)
++#define   PIPEDMC_STEP			REG_BIT(27)
++#define   PIPEDMC_CLOCKGATE		REG_BIT(23)
 +
- static void intel_dsb_dump(struct intel_dsb *dsb)
- {
- 	struct intel_crtc *crtc = dsb->crtc;
-@@ -623,9 +632,10 @@ static void _intel_dsb_chain(struct intel_atomic_state *state,
- 	if (drm_WARN_ON(display->drm, dsb->id == chained_dsb->id))
- 		return;
+ #define _PIPEDMC_STATUS_A		0x5f06c
+ #define _PIPEDMC_STATUS_B		0x5f46c
+ #define PIPEDMC_STATUS(pipe)		_MMIO_PIPE((pipe), _PIPEDMC_STATUS_A, _PIPEDMC_STATUS_B)
+@@ -298,6 +309,139 @@ enum pipedmc_event_id {
+ #define   PIPEDMC_INT_VECTOR_FLIPQ_PROG_DONE		REG_FIELD_PREP(PIPEDMC_INT_VECTOR_MASK, 0xff) /* Wa_16018781658:lnl[a0] */
+ #define   PIPEDMC_EVT_PENDING		REG_GENMASK(7, 0)
  
-+	if (!assert_dsb_tail_is_aligned(chained_dsb))
-+		return;
++#define _PIPEDMC_FQ_CTRL_A		0x5f078
++#define _PIPEDMC_FQ_CTRL_B		0x5f478
++#define PIPEDMC_FQ_CTRL(pipe)		_MMIO_PIPE((pipe), _PIPEDMC_FQ_CTRL_A, _PIPEDMC_FQ_CTRL_B)
++#define   PIPEDMC_FQ_CTRL_ENABLE	REG_BIT(31)
++#define   PIPEDMC_FQ_CTRL_BUSY		REG_BIT(30)
++#define   PIPEDMC_FQ_CTRL_ASYNC		REG_BIT(29)
++#define   PIPEDMC_FQ_CTRL_PREEMPT	REG_BIT(0)
 +
- 	tail = chained_dsb->free_pos * 4;
--	if (drm_WARN_ON(display->drm, !IS_ALIGNED(tail, CACHELINE_BYTES)))
--		return;
- 
- 	intel_dsb_reg_write(dsb, DSB_CTRL(pipe, chained_dsb->id),
- 			    ctrl | DSB_ENABLE);
-@@ -697,10 +707,11 @@ static void _intel_dsb_commit(struct intel_dsb *dsb, u32 ctrl,
- 	enum pipe pipe = crtc->pipe;
- 	u32 tail;
- 
--	tail = dsb->free_pos * 4;
--	if (drm_WARN_ON(display->drm, !IS_ALIGNED(tail, CACHELINE_BYTES)))
-+	if (!assert_dsb_tail_is_aligned(dsb))
- 		return;
- 
-+	tail = dsb->free_pos * 4;
++#define _PIPEDMC_FQ_STATUS_A		0x5f098
++#define _PIPEDMC_FQ_STATUS_B		0x5f498
++#define PIPEDMC_FQ_STATUS(pipe)		_MMIO_PIPE((pipe), _PIPEDMC_FQ_STATUS_A, _PIPEDMC_FQ_STATUS_B)
++#define   PIPEDMC_FQ_STATUS_BUSY		REG_BIT(31)
++#define   PIPEDMC_FQ_STATUS_W2_LIVE_STATUS	REG_BIT(1)
++#define   PIPEDMC_FQ_STATUS_W1_LIVE_STATUS	REG_BIT(0)
 +
- 	if (is_dsb_busy(display, pipe, dsb->id)) {
- 		drm_err(display->drm, "[CRTC:%d:%s] DSB %d is busy\n",
- 			crtc->base.base.id, crtc->base.name, dsb->id);
++#define _PIPEDMC_FPQ_ATOMIC_TP_A	0x5f0a0
++#define _PIPEDMC_FPQ_ATOMIC_TP_B	0x5f4a0
++#define PIPEDMC_FPQ_ATOMIC_TP(pipe)	_MMIO_PIPE((pipe), _PIPEDMC_FPQ_ATOMIC_TP_A, _PIPEDMC_FPQ_ATOMIC_TP_B)
++#define   PIPEDMC_FPQ_PLANEQ_3_TP_MASK	REG_GENMASK(31, 26)
++#define   PIPEDMC_FPQ_PLANEQ_3_TP(tail)	REG_FIELD_PREP(PIPEDMC_FPQ_PLANEQ_3_TP_MASK, (tail))
++#define   PIPEDMC_FPQ_PLANEQ_2_TP_MASK	REG_GENMASK(24, 19)
++#define   PIPEDMC_FPQ_PLANEQ_2_TP(tail)	REG_FIELD_PREP(PIPEDMC_FPQ_PLANEQ_2_TP_MASK, (tail))
++#define   PIPEDMC_FPQ_PLANEQ_1_TP_MASK	REG_GENMASK(17, 12)
++#define   PIPEDMC_FPQ_PLANEQ_1_TP(tail)	REG_FIELD_PREP(PIPEDMC_FPQ_PLANEQ_1_TP_MASK, (tail))
++#define   PIPEDMC_FPQ_FASTQ_TP_MASK	REG_GENMASK(10, 6)
++#define   PIPEDMC_FPQ_FASTQ_TP(tail)	REG_FIELD_PREP(PIPEDMC_FPQ_FASTQ_TP_MASK, (tail))
++#define   PIPEDMC_FPQ_GENERALQ_TP_MASK	REG_GENMASK(4, 0)
++#define   PIPEDMC_FPQ_GENERALQ_TP(tail)	REG_FIELD_PREP(PIPEDMC_FPQ_GENERALQ_TP_MASK, (tail))
++
++#define _PIPEDMC_FPQ_LINES_TO_W1_A	0x5f0a4
++#define _PIPEDMC_FPQ_LINES_TO_W1_B	0x5f4a4
++#define PIPEDMC_FPQ_LINES_TO_W1		_MMIO_PIPE((pipe), _PIPEDMC_FPQ_LINES_TO_W1_A, _PIPEDMC_FPQ_LINES_TO_W1_B)
++
++#define _PIPEDMC_FPQ_LINES_TO_W2_A	0x5f0a8
++#define _PIPEDMC_FPQ_LINES_TO_W2_B	0x5f4a8
++#define PIPEDMC_FPQ_LINES_TO_W2		_MMIO_PIPE((pipe), _PIPEDMC_FPQ_LINES_TO_W2_A, _PIPEDMC_FPQ_LINES_TO_W2_B)
++
++#define _PIPEDMC_SCANLINECMP_A		0x5f11c
++#define _PIPEDMC_SCANLINECMP_B		0x5f51c
++#define PIPEDMC_SCANLINECMP(pipe)	_MMIO_PIPE((pipe), _PIPEDMC_SCANLINECMP_A, _PIPEDMC_SCANLINECMP_B)
++#define   PIPEDMC_SCANLINECMP_EN	REG_BIT(31)
++#define   PIPEDMC_SCANLINE_NUMBER	REG_GENMASK(20, 0)
++
++#define _PIPEDMC_SCANLINECMPLOWER_A	0x5f120
++#define _PIPEDMC_SCANLINECMPLOWER_B	0x5f520
++#define PIPEDMC_SCANLINECMPLOWER(pipe)	_MMIO_PIPE((pipe), _PIPEDMC_SCANLINECMPLOWER_A, _PIPEDMC_SCANLINECMPLOWER_B)
++#define   PIPEDMC_SCANLINEINRANGECMP_EN		REG_BIT(31)
++#define   PIPEDMC_SCANLINEOUTRANGECMP_EN	REG_BIT(30)
++#define   PIPEDMC_SCANLINE_LOWER_MASK		REG_GENMASK(20, 0)
++#define   PIPEDMC_SCANLINE_LOWER(scanline)	REG_FIELD_PREP(PIPEDMC_SCANLINE_LOWER_MASK, (scanline))
++
++#define _PIPEDMC_SCANLINECMPUPPER_A	0x5f124
++#define _PIPEDMC_SCANLINECMPUPPER_B	0x5f524
++#define PIPEDMC_SCANLINECMPUPPER(pipe)	_MMIO_PIPE((pipe), _PIPEDMC_SCANLINECMPUPPER_A, _PIPEDMC_SCANLINECMPUPPER_B)
++#define   PIPEDMC_SCANLINE_UPPER_MASK		REG_GENMASK(20, 0)
++#define   PIPEDMC_SCANLINE_UPPER(scanline)	REG_FIELD_PREP(PIPEDMC_SCANLINE_UPPER_MASK, (scanline))
++
++#define _MMIO_PIPEDMC_FPQ(pipe, fq_id, \
++			  reg_fpq1_a, reg_fpq2_a, reg_fpq3_a, reg_fpq4_a, \
++			  reg_fpq1_b, reg_fpq2_b, reg_fpq3_b, reg_fpq4_b) \
++	_MMIO(_PICK_EVEN_2RANGES((fq_id), INTEL_FLIPQ_PLANE_3, \
++				 _PIPE((pipe), (reg_fpq1_a), (reg_fpq1_b)), \
++				 _PIPE((pipe), (reg_fpq2_a), (reg_fpq2_b)), \
++				 _PIPE((pipe), (reg_fpq3_a), (reg_fpq3_b)), \
++				 _PIPE((pipe), (reg_fpq4_a), (reg_fpq4_b))))
++
++#define _PIPEDMC_FPQ1_HP_A		0x5f128
++#define _PIPEDMC_FPQ2_HP_A		0x5f138
++#define _PIPEDMC_FPQ3_HP_A		0x5f168
++#define _PIPEDMC_FPQ4_HP_A		0x5f174
++#define _PIPEDMC_FPQ5_HP_A		0x5f180
++#define _PIPEDMC_FPQ1_HP_B		0x5f528
++#define _PIPEDMC_FPQ2_HP_B		0x5f538
++#define _PIPEDMC_FPQ3_HP_B		0x5f568
++#define _PIPEDMC_FPQ4_HP_B		0x5f574
++#define _PIPEDMC_FPQ5_HP_B		0x5f580
++#define PIPEDMC_FPQ_HP(pipe, fq_id)	_MMIO_PIPEDMC_FPQ((pipe), (fq_id), \
++							  _PIPEDMC_FPQ1_HP_A, _PIPEDMC_FPQ2_HP_A, \
++							  _PIPEDMC_FPQ3_HP_A, _PIPEDMC_FPQ4_HP_A, \
++							  _PIPEDMC_FPQ1_HP_B, _PIPEDMC_FPQ2_HP_B, \
++							  _PIPEDMC_FPQ3_HP_B, _PIPEDMC_FPQ4_HP_B)
++
++#define _PIPEDMC_FPQ1_TP_A		0x5f12c
++#define _PIPEDMC_FPQ2_TP_A		0x5f13c
++#define _PIPEDMC_FPQ3_TP_A		0x5f16c
++#define _PIPEDMC_FPQ4_TP_A		0x5f178
++#define _PIPEDMC_FPQ5_TP_A		0x5f184
++#define _PIPEDMC_FPQ1_TP_B		0x5f52c
++#define _PIPEDMC_FPQ2_TP_B		0x5f53c
++#define _PIPEDMC_FPQ3_TP_B		0x5f56c
++#define _PIPEDMC_FPQ4_TP_B		0x5f578
++#define _PIPEDMC_FPQ5_TP_B		0x5f584
++#define PIPEDMC_FPQ_TP(pipe, fq_id)	_MMIO_PIPEDMC_FPQ((pipe), (fq_id), \
++							  _PIPEDMC_FPQ1_TP_A, _PIPEDMC_FPQ2_TP_A, \
++							  _PIPEDMC_FPQ3_TP_A, _PIPEDMC_FPQ4_TP_A, \
++							  _PIPEDMC_FPQ1_TP_B, _PIPEDMC_FPQ2_TP_B, \
++							  _PIPEDMC_FPQ3_TP_B, _PIPEDMC_FPQ4_TP_B)
++
++#define _PIPEDMC_FPQ1_CHP_A		0x5f130
++#define _PIPEDMC_FPQ2_CHP_A		0x5f140
++#define _PIPEDMC_FPQ3_CHP_A		0x5f170
++#define _PIPEDMC_FPQ4_CHP_A		0x5f17c
++#define _PIPEDMC_FPQ5_CHP_A		0x5f188
++#define _PIPEDMC_FPQ1_CHP_B		0x5f530
++#define _PIPEDMC_FPQ2_CHP_B		0x5f540
++#define _PIPEDMC_FPQ3_CHP_B		0x5f570
++#define _PIPEDMC_FPQ4_CHP_B		0x5f57c
++#define _PIPEDMC_FPQ5_CHP_B		0x5f588
++#define PIPEDMC_FPQ_CHP(pipe, fq_id)	_MMIO_PIPEDMC_FPQ((pipe), (fq_id), \
++							  _PIPEDMC_FPQ1_CHP_A, _PIPEDMC_FPQ2_CHP_A, \
++							  _PIPEDMC_FPQ3_CHP_A, _PIPEDMC_FPQ4_CHP_A, \
++							  _PIPEDMC_FPQ1_CHP_B, _PIPEDMC_FPQ2_CHP_B, \
++							  _PIPEDMC_FPQ3_CHP_B, _PIPEDMC_FPQ4_CHP_B)
++
++#define _PIPEDMC_FPQ_TS_A		0x5f134
++#define _PIPEDMC_FPQ_TS_B		0x5f534
++#define PIPEDMC_FPQ_TS(pipe)		_MMIO_PIPE((pipe), _PIPEDMC_FPQ_TS_A, _PIPEDMC_FPQ_TS_B)
++
++#define _PIPEDMC_SCANLINE_RO_A		0x5f144
++#define _PIPEDMC_SCANLINE_RO_B		0x5f544
++#define PIPEDMC_SCANLINE_RO(pipe)	_MMIO_PIPE((pipe), _PIPEDMC_SCANLINE_RO_A, _PIPEDMC_SCANLINE_RO_B)
++
++#define _PIPEDMC_FPQ_CTL1_A		0x5f160
++#define _PIPEDMC_FPQ_CTL1_B		0x5f560
++#define PIPEDMC_FPQ_CTL1(pipe)		_MMIO_PIPE((pipe), _PIPEDMC_FPQ_CTL1_A, _PIPEDMC_FPQ_CTL1_B)
++#define   PIPEDMC_SW_DMC_WAKE		REG_BIT(0)
++
++#define _PIPEDMC_FPQ_CTL2_A		0x5f164
++#define _PIPEDMC_FPQ_CTL2_B		0x5f564
++#define PIPEDMC_FPQ_CTL2(pipe)		_MMIO_PIPE((pipe), _PIPEDMC_FPQ_CTL2_A, _PIPEDMC_FPQ_CTL2_B)
++#define   PIPEDMC_DMC_INT_AT_DELAYED_VBLANK	REG_BIT(1)
++#define   PIPEDMC_W1_DMC_WAKE			REG_BIT(0)
++
+ #define _PIPEDMC_INTERRUPT_A		0x5f190 /* lnl+ */
+ #define _PIPEDMC_INTERRUPT_B		0x5f590 /* lnl+ */
+ #define PIPEDMC_INTERRUPT(pipe)		_MMIO_PIPE((pipe), _PIPEDMC_INTERRUPT_A, _PIPEDMC_INTERRUPT_B)
+@@ -394,4 +538,47 @@ enum pipedmc_event_id {
+ #define  DMC_WAKELOCK_CTL_REQ	 REG_BIT(31)
+ #define  DMC_WAKELOCK_CTL_ACK	 REG_BIT(15)
+ 
++#define DMC_FQ_W2_PTS_CFG_SEL	_MMIO(0x8f240)
++#define   PIPE_D_DMC_W2_PTS_CONFIG_SELECT_MASK	REG_GENMASK(26, 24)
++#define   PIPE_D_DMC_W2_PTS_CONFIG_SELECT(pipe)	REG_FIELD_PREP(PIPE_D_DMC_W2_PTS_CONFIG_SELECT_MASK, (pipe))
++#define   PIPE_C_DMC_W2_PTS_CONFIG_SELECT_MASK	REG_GENMASK(18, 16)
++#define   PIPE_C_DMC_W2_PTS_CONFIG_SELECT(pipe)	REG_FIELD_PREP(PIPE_C_DMC_W2_PTS_CONFIG_SELECT_MASK, (pipe))
++#define   PIPE_B_DMC_W2_PTS_CONFIG_SELECT_MASK	REG_GENMASK(10, 8)
++#define   PIPE_B_DMC_W2_PTS_CONFIG_SELECT(pipe)	REG_FIELD_PREP(PIPE_B_DMC_W2_PTS_CONFIG_SELECT_MASK, (pipe))
++#define   PIPE_A_DMC_W2_PTS_CONFIG_SELECT_MASK	REG_GENMASK(2, 0)
++#define   PIPE_A_DMC_W2_PTS_CONFIG_SELECT(pipe)	REG_FIELD_PREP(PIPE_A_DMC_W2_PTS_CONFIG_SELECT_MASK, (pipe))
++
++/* planel/general flip queue entries */
++#define PIPEDMC_FQ_RAM(start_mmioaddr, i)	_MMIO((start_mmioaddr) + (i) * 4)
++/* LNL */
++/* DW0 pts */
++/* DW1 head */
++/* DW2 size/etc. */
++#define LNL_FQ_INTERRUPT	REG_BIT(31)
++#define LNL_FQ_DSB_ID_MASK	REG_GENMASK(30, 29)
++#define LNL_FQ_DSB_ID(dsb_id)	REG_FIELD_PREP(LNL_FQ_DSB_ID_MASK, (dsb_id))
++#define LNL_FQ_EXECUTED		REG_BIT(28)
++#define LNL_FQ_DSB_SIZE_MASK	REG_GENMASK(15, 0)
++#define LNL_FQ_DSB_SIZE(size)	REG_FIELD_PREP(PTL_FQ_DSB_SIZE_MASK, (size))
++/* DW3 reserved (plane queues) */
++/* DW3 second DSB head (general queue) */
++/* DW4 second DSB size/etc. (general queue) */
++/* DW5 reserved (general queue) */
++
++/* PTL+ */
++/* DW0 pts */
++/* DW1 reserved */
++/* DW2 size/etc. */
++#define PTL_FQ_INTERRUPT	REG_BIT(31)
++#define PTL_FQ_NEED_PUSH	REG_BIT(30)
++#define PTL_FQ_BLOCK_PUSH	REG_BIT(29)
++#define PTL_FQ_EXECUTED		REG_BIT(28)
++#define PTL_FQ_DSB_ID_MASK	REG_GENMASK(25, 24)
++#define PTL_FQ_DSB_ID(dsb_id)	REG_FIELD_PREP(PTL_FQ_DSB_ID_MASK, (dsb_id))
++#define PTL_FQ_DSB_SIZE_MASK	REG_GENMASK(15, 0)
++#define PTL_FQ_DSB_SIZE(size)	REG_FIELD_PREP(PTL_FQ_DSB_SIZE_MASK, (size))
++/* DW3 head */
++/* DW4 second DSB size/etc. (general queue) */
++/* DW5 second DSB head (general queue) */
++
+ #endif /* __INTEL_DMC_REGS_H__ */
 -- 
 2.49.0
 
