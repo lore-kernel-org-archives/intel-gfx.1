@@ -4,27 +4,28 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0CC8EC3ABB2
-	for <intel-gfx@archiver.kernel.org>; Wed, 28 May 2025 14:39:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0585BC5B549
+	for <intel-gfx@archiver.kernel.org>; Wed, 28 May 2025 15:01:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 98AD110E630;
-	Wed, 28 May 2025 14:39:25 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 58EC210E707;
+	Wed, 28 May 2025 15:01:52 +0000 (UTC)
 Received: from 1538d3639d33 (emeril.freedesktop.org [131.252.210.167])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 481AC10E60D;
- Wed, 28 May 2025 14:39:24 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 53A7210E6FE;
+ Wed, 28 May 2025 15:01:51 +0000 (UTC)
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
-Subject: =?utf-8?q?=E2=9C=97_Fi=2ECI=2EBUILD=3A_failure_for_mtd=3A_add_driver_for_Int?=
- =?utf-8?q?el_discrete_graphics_=28rev12=29?=
+Subject: =?utf-8?q?=E2=9C=97_Fi=2ECI=2ESPARSE=3A_warning_for_ref=5Ftracker=3A_add_abi?=
+ =?utf-8?q?lity_to_register_a_debugfs_file_for_a_ref=5Ftracker=5Fdir_=28rev7?=
+ =?utf-8?q?=29?=
 From: Patchwork <patchwork@emeril.freedesktop.org>
-To: "Alexander Usyskin" <alexander.usyskin@intel.com>
+To: "Jeff Layton" <jlayton@kernel.org>
 Cc: intel-gfx@lists.freedesktop.org
-Date: Wed, 28 May 2025 14:39:24 -0000
-Message-ID: <174844316428.28781.17669014414046911359@1538d3639d33>
+Date: Wed, 28 May 2025 15:01:51 -0000
+Message-ID: <174844451133.28899.14084351921268308281@1538d3639d33>
 X-Patchwork-Hint: ignore
-References: <20250528135115.2512429-1-alexander.usyskin@intel.com>
-In-Reply-To: <20250528135115.2512429-1-alexander.usyskin@intel.com>
+References: <20250528-reftrack-dbgfs-v11-0-94ae0b165841@kernel.org>
+In-Reply-To: <20250528-reftrack-dbgfs-v11-0-94ae0b165841@kernel.org>
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -43,34 +44,14 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 == Series Details ==
 
-Series: mtd: add driver for Intel discrete graphics (rev12)
-URL   : https://patchwork.freedesktop.org/series/140306/
-State : failure
+Series: ref_tracker: add ability to register a debugfs file for a ref_tracker_dir (rev7)
+URL   : https://patchwork.freedesktop.org/series/148490/
+State : warning
 
 == Summary ==
 
-Error: patch https://patchwork.freedesktop.org/api/1.0/series/140306/revisions/12/mbox/ not applied
-Applying: mtd: add driver for intel graphics non-volatile memory device
-Applying: mtd: intel-dg: implement region enumeration
-Applying: mtd: intel-dg: implement access functions
-Applying: mtd: intel-dg: register with mtd
-Applying: mtd: intel-dg: align 64bit read and write
-Applying: drm/i915/nvm: add nvm device for discrete graphics
-Using index info to reconstruct a base tree...
-M	drivers/gpu/drm/i915/i915_driver.c
-M	drivers/gpu/drm/i915/i915_drv.h
-M	drivers/gpu/drm/i915/i915_reg.h
-Falling back to patching base and 3-way merge...
-Auto-merging drivers/gpu/drm/i915/i915_reg.h
-Auto-merging drivers/gpu/drm/i915/i915_drv.h
-CONFLICT (content): Merge conflict in drivers/gpu/drm/i915/i915_drv.h
-Auto-merging drivers/gpu/drm/i915/i915_driver.c
-error: Failed to merge in the changes.
-hint: Use 'git am --show-current-patch=diff' to see the failed patch
-Patch failed at 0006 drm/i915/nvm: add nvm device for discrete graphics
-When you have resolved this problem, run "git am --continue".
-If you prefer to skip this patch, run "git am --skip" instead.
-To restore the original branch and stop patching, run "git am --abort".
-Build failed, no error log produced
+Error: dim sparse failed
+Sparse version: v0.6.2
+Fast mode used, each commit won't be checked separately.
 
 
