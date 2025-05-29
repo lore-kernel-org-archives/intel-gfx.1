@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 47CF4C5AD49
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C49A2C5B549
 	for <intel-gfx@archiver.kernel.org>; Thu, 29 May 2025 15:21:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6F86A10E751;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 85EC410E753;
 	Thu, 29 May 2025 15:21:29 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="O+9N8cB+";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="AUJfCWin";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6C0E710E748;
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C891010E748;
  Thu, 29 May 2025 15:21:26 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id 39E8A629D6;
- Thu, 29 May 2025 15:21:20 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1F284C4CEE7;
- Thu, 29 May 2025 15:21:18 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTP id 2DBE25C684C;
+ Thu, 29 May 2025 15:19:09 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2CA12C4CEF1;
+ Thu, 29 May 2025 15:21:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1748532079;
- bh=RlWXgxm38Aq29CBqdh8MUpS/8kHUwdh5uqxg8ACpYpI=;
+ s=k20201202; t=1748532085;
+ bh=wAehig3CgK9jQX57OpnOj7ZF1fb8ByqK1MLiGa6luaQ=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=O+9N8cB+GwpoqfvPiHGKa90TiTPoMCVbpSLT7KFPtXKlgIPg1rVh03lTjuc4+BYkA
- TJqwQpmW0uqKhP/YAIKlWWzF4hWKgyh+9ylWdxxxDqTOuD71peN42inzqIky70vYeD
- MC4BVmbOu1oNLAM7NdiOTrXIYIkAEum7DW2i7STNHFidxVwfm6mAuDf/Dr1p3PEDHi
- sKpiX6qE3HHbm5VnTUAJ8eS36vV0WL2/+G7JenWbacVRPhSINCLSG5x9EP+EaLbctI
- WKs6zL9DzIr6L7d9+G/4gMN+wB2kf7yWNP2pg9qHIkfUeKZ4dgxp4l3fjz3NfSkw5M
- JmGCcPIaCLEUw==
+ b=AUJfCWinRxeYJMpUbnSVZmKU29TRH7DsfLVZM6V1GoQzqe3Qf7kGO6IsRrcrjYvzy
+ lj7eZ173IoRx8CqaTtrLPpCPtbpf++AsPb8uR8Rs16ZNEfjamPPKgCIRIAGabxoaOp
+ QzA4Oj25jx6o9gofgITRcfc7/N/59/ZcCpSSkKGmqgdB7b/bn1dc+dw3SnzsYE6TAj
+ zxf5HeM9Yg77GQbi/O54/PitKeqC6+e5prwYTfSRFy0NHpJnLC+aujQBXUx2HA8+bX
+ GXbUShWZtBHRtV/daSxEiZ5Q8ISMjpaKwJA87bIHdegJw8z56EHqJPUE6tIPeTB+Wx
+ wJjja7s0E2QSg==
 From: Jeff Layton <jlayton@kernel.org>
-Date: Thu, 29 May 2025 11:20:39 -0400
-Subject: [PATCH v12 03/10] ref_tracker: add a top level debugfs directory
- for ref_tracker
+Date: Thu, 29 May 2025 11:20:42 -0400
+Subject: [PATCH v12 06/10] ref_tracker: allow pr_ostream() to print
+ directly to a seq_file
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20250529-reftrack-dbgfs-v12-3-11b93c0c0b6e@kernel.org>
+Message-Id: <20250529-reftrack-dbgfs-v12-6-11b93c0c0b6e@kernel.org>
 References: <20250529-reftrack-dbgfs-v12-0-11b93c0c0b6e@kernel.org>
 In-Reply-To: <20250529-reftrack-dbgfs-v12-0-11b93c0c0b6e@kernel.org>
 To: Andrew Morton <akpm@linux-foundation.org>, 
@@ -57,20 +57,20 @@ Cc: Kuniyuki Iwashima <kuniyu@amazon.com>, Qasim Ijaz <qasdev00@gmail.com>,
  dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org, 
  Jeff Layton <jlayton@kernel.org>
 X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1030; i=jlayton@kernel.org;
- h=from:subject:message-id; bh=RlWXgxm38Aq29CBqdh8MUpS/8kHUwdh5uqxg8ACpYpI=;
- b=owEBbQKS/ZANAwAKAQAOaEEZVoIVAcsmYgBoOHtl1UPDVJTvPvJNRc98rtdX0aJUeTHv9FEu0
- Ma0CvYIM+mJAjMEAAEKAB0WIQRLwNeyRHGyoYTq9dMADmhBGVaCFQUCaDh7ZQAKCRAADmhBGVaC
- FSU5EACD3kw01IXG9X38wceHpPcVWw0grbOSu3GeJo+/T0YgHoFNyUvQ8qpkeNzxzlLgL3oLG0e
- Jhr+xQXngdKI1kdPGHFIzkTyfv8YMRivcMddsIaq6atTsonLPH1Bv95G8RMC8JJOElxyX2wAcND
- n2gb/0ooYNI1NuAh2XRw68KsvcF5J2Fv4yJkqoy+c1iemfDLf/C3oyl8WxuFmKzXkwRTGs7xW9P
- NYpOvf4DGWjj0J5iewO0fH75PD0QQeAhqQAnXLJkrakNhFvU/aWGng7tgNJCbGX7glsygZ7wUBg
- nXhexqtdpL6p3Rpy9nadviXOX+Y7pjW59Ys+DkS2iawi02V/Xf3iYXRfyPdCQjBRBS9zdw/Fk/p
- qp89wtBNIAdAuvbNgqsG1bHJXkpUDE15eTp1lWJO3/2WVw5SCLAJYrLjw5vUnTI67hgDCN1e1kE
- ds3oM0+9K1PaftZRS9IfnfraUWpfYJTB1kxVsUTZW69w/kMvhVw+GoPtx56esDrly/gx9Ia+xQJ
- 6llOxwBhAnWnhrkmTyyM8FZMI7K8qU7L+m9z3EyrE6m3iHMTU5bUK8kORA81439KrQaUepzBM60
- wieDuaGS+fYwgfnn3NGD0gvxANZAr0KDm2+ggdFI/TjRrGBOqFEhOG3yLVnNo/Wzb9TxGeSXyx+
- MkZQKh8/mr3MasQ==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1919; i=jlayton@kernel.org;
+ h=from:subject:message-id; bh=wAehig3CgK9jQX57OpnOj7ZF1fb8ByqK1MLiGa6luaQ=;
+ b=owEBbQKS/ZANAwAKAQAOaEEZVoIVAcsmYgBoOHtmzR4/zvXVJiDIizB6A00wECexd05651FxB
+ FkIGUYsN+qJAjMEAAEKAB0WIQRLwNeyRHGyoYTq9dMADmhBGVaCFQUCaDh7ZgAKCRAADmhBGVaC
+ FVCNEACtlOsXCW3GVxf2Wx7xqW+9KmPWxOfHnhPhoxg7+CO9kknQhM5OMrorNc8T8+4DLRKfWCp
+ H9wxTThj0zwwJ8B6aSbdkUzrv3aDuDN0WbuF7DZLl/7a3wLN3DCaij85SCjOyWXV6xE68eZmYDa
+ As3znfb+TSViw4ML2GrMlVutWxIRTKjUMcWYJv71DOSSFaAAgKHGJ7DXvps3rrJu1yG8mswGn8j
+ Hief9f1x3IBuMjNr8+2d1bSuFK0PhUbRRSVpsI9F1pINJyohmDW8Nvd63W/2xFYOPsNd3KqXIhM
+ /7GiEaXllnlB5qAXotuL5fHy5loZSE+WQ0JTwhvXOG5s/g9xkHhcoM1gd7MS1YTYUbY/xK1i6Pr
+ PjIu0/Dr+46y6n4ceF7MIi5QVGQ1qSiFJHyDuu48HVoxvCGrIPtK2DPX8v+QVXItprPzx/nSqE/
+ UTWa1Qhhksrlddn1KdbeF2J+4PSRpLscm0IQc6ggECzvkcNrEKoqN2kvEQMJgGuC1winO75gYi0
+ wmgGitraq3JfWFrASSHW08f/+6SYuF4d1Z4t96sfpu7KHgpEZwwxpropWR4B7LGs+FmirRocDAz
+ d4CPE4o7jhVGZs2mFeVzd2sCr+Z6eefJ8oEU22Im4jVMwPblW+vP8VWu1eZjKQkIIwK+OwhmI+q
+ wiYA05H6hRTvlWA==
 X-Developer-Key: i=jlayton@kernel.org; a=openpgp;
  fpr=4BC0D7B24471B2A184EAF5D3000E684119568215
 X-BeenThere: intel-gfx@lists.freedesktop.org
@@ -88,37 +88,68 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Add a new "ref_tracker" directory in debugfs. Each individual refcount
-tracker can register files under there to display info about
-currently-held references.
+Allow pr_ostream to also output directly to a seq_file without an
+intermediate buffer. The first caller of +ref_tracker_dir_seq_print()
+will come in a later patch, so mark that __maybe_unused for now. That
+designation will be removed once it is used.
 
 Reviewed-by: Andrew Lunn <andrew@lunn.ch>
 Signed-off-by: Jeff Layton <jlayton@kernel.org>
 ---
- lib/ref_tracker.c | 13 +++++++++++++
- 1 file changed, 13 insertions(+)
+ lib/ref_tracker.c | 26 ++++++++++++++++++++++++++
+ 1 file changed, 26 insertions(+)
 
 diff --git a/lib/ref_tracker.c b/lib/ref_tracker.c
-index de71439e12a3bab6456910986fa611dfbdd97980..d374e5273e1497cac0d70c02c282baa2c3ab63fe 100644
+index 4f2112b001de3049ed542ea3c4f2bc1e9cce6043..5fed791da84f523500d2edf262fbb20adbd921bc 100644
 --- a/lib/ref_tracker.c
 +++ b/lib/ref_tracker.c
-@@ -273,3 +273,16 @@ int ref_tracker_free(struct ref_tracker_dir *dir,
- 	return 0;
- }
- EXPORT_SYMBOL_GPL(ref_tracker_free);
-+
-+#ifdef CONFIG_DEBUG_FS
-+#include <linux/debugfs.h>
-+
-+static struct dentry *ref_tracker_debug_dir = (struct dentry *)-ENOENT;
-+
-+static int __init ref_tracker_debugfs_init(void)
+@@ -8,6 +8,7 @@
+ #include <linux/slab.h>
+ #include <linux/stacktrace.h>
+ #include <linux/stackdepot.h>
++#include <linux/seq_file.h>
+ 
+ #define REF_TRACKER_STACK_ENTRIES 16
+ #define STACK_BUF_SIZE 1024
+@@ -66,6 +67,7 @@ struct ostream {
+ 	void __ostream_printf (*func)(struct ostream *stream, char *fmt, ...);
+ 	char *prefix;
+ 	char *buf;
++	struct seq_file *seq;
+ 	int size, used;
+ };
+ 
+@@ -300,6 +302,30 @@ EXPORT_SYMBOL_GPL(ref_tracker_free);
+ 
+ static struct dentry *ref_tracker_debug_dir = (struct dentry *)-ENOENT;
+ 
++static void __ostream_printf pr_ostream_seq(struct ostream *stream, char *fmt, ...)
 +{
-+	ref_tracker_debug_dir = debugfs_create_dir("ref_tracker", NULL);
-+	return 0;
++	va_list args;
++
++	va_start(args, fmt);
++	seq_vprintf(stream->seq, fmt, args);
++	va_end(args);
 +}
-+late_initcall(ref_tracker_debugfs_init);
-+#endif /* CONFIG_DEBUG_FS */
++
++static __maybe_unused int
++ref_tracker_dir_seq_print(struct ref_tracker_dir *dir, struct seq_file *seq)
++{
++	struct ostream os = { .func = pr_ostream_seq,
++			      .prefix = "",
++			      .seq = seq };
++	unsigned long flags;
++
++	spin_lock_irqsave(&dir->lock, flags);
++	__ref_tracker_dir_pr_ostream(dir, 16, &os);
++	spin_unlock_irqrestore(&dir->lock, flags);
++
++	return os.used;
++}
++
+ static int __init ref_tracker_debugfs_init(void)
+ {
+ 	ref_tracker_debug_dir = debugfs_create_dir("ref_tracker", NULL);
 
 -- 
 2.49.0
