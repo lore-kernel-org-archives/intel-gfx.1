@@ -4,84 +4,61 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9DAEEC5B555
-	for <intel-gfx@archiver.kernel.org>; Fri,  6 Jun 2025 13:57:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3E2ABC61CE7
+	for <intel-gfx@archiver.kernel.org>; Fri,  6 Jun 2025 14:04:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 367CB10EAAA;
-	Fri,  6 Jun 2025 13:57:15 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9700F10EAB7;
+	Fri,  6 Jun 2025 14:04:44 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=metux.net header.i=info@metux.net header.b="SNTvuPQQ";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="nVuVvGwN";
 	dkim-atps=neutral
-X-Greylist: delayed 434 seconds by postgrey-1.36 at gabe;
- Fri, 06 Jun 2025 13:57:13 UTC
-Received: from mout.kundenserver.de (mout.kundenserver.de [212.227.126.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 96D2510EAAA
- for <intel-gfx@lists.freedesktop.org>; Fri,  6 Jun 2025 13:57:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=metux.net;
- s=s1-ionos; t=1749218230; x=1749823030; i=info@metux.net;
- bh=pcdPiTultI8pPBPXf52ZXd1V9mMX7I/C5F1hjTnw9NI=;
- h=X-UI-Sender-Class:Message-ID:Date:MIME-Version:To:From:Subject:
- Content-Type:Content-Transfer-Encoding:cc:
- content-transfer-encoding:content-type:date:from:message-id:
- mime-version:reply-to:subject:to;
- b=SNTvuPQQWUqBhk46AXUkLsin3jfZz0VkhTc6QV8gj5tsnw5ETQcY2R/YjxhiOoZl
- Y9+52YVcWk4paZdJN4doWUsp/ScbjDDyJIbgB5Ch5xntCzaFSpF7uGWgKg3C51DB5
- BKxKUJ0vFsVNSzZyDGrFbCVxxWrkX4+DNuH1SbbJkTwYga/zclWn8Lo34Gu6xvnSA
- wm7mFwzSbTZOC/1rYGXZSOBOL7RIf34m5jA9DKjeE3a82Bui3RcAGS4op+2eh/Jvw
- 8DGXm1LLLReyw1yycwl6puGcHIpmbq6AKHtdDnrDDW015botFpoSzI8TnETFnCo/P
- hAeKGUomgA3ns3C9nA==
-X-UI-Sender-Class: 55c96926-9e95-11ee-ae09-1f7a4046a0f6
-Received: from [192.168.1.132] ([95.114.52.200]) by mrelayeu.kundenserver.de
- (mreue010 [212.227.15.167]) with ESMTPSA (Nemesis) id
- 1MnaY1-1v6k142KI9-00gFOR; Fri, 06 Jun 2025 15:48:15 +0200
-Message-ID: <1a9d25cc-6f02-4fe3-a206-3388c07ab81f@metux.net>
-Date: Fri, 6 Jun 2025 15:50:32 +0200
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.18])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8778F10EAB5;
+ Fri,  6 Jun 2025 14:04:42 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1749218683; x=1780754683;
+ h=from:to:subject:in-reply-to:references:date:message-id:
+ mime-version:content-transfer-encoding;
+ bh=EIrgIvx+QSqp4L9RsL6B6rFQ4JnJyHzbr6rusPZ1tpM=;
+ b=nVuVvGwN/42LKn7x6K7LOxY8YqnfPhU/ypL5aPZXymqWCuZW25nYaX+A
+ HZ7uRK1cDEL2DItO3dwlJT1rFsvpbrAUiN3IeVfvAL2FCK44tG351Y5DF
+ DQx8Soip6Y+MOclvLApXDBxEO1PNtm90evpMKCsvlCLUp6Z276TSUvSXD
+ 2BccJekuVaC9si4Vn7PxzyOm6xQcVA9MmwlAqAiy70VHHAZ5+SNsrF+H2
+ +x67wFZs9l5WF7EJkgVCPvOzCQDfQr2c483Z9nqP4b957uwrOqw+2eYxu
+ E/ekUNl2W7a/qTHyHgsvmPLYaSVfKFXBsPau2KGdJw1FddcAL5p8h/sOQ A==;
+X-CSE-ConnectionGUID: wBfVwurZTUqW9GkvJrcAgA==
+X-CSE-MsgGUID: M67lrOXZQieIwbFt/fny5Q==
+X-IronPort-AV: E=McAfee;i="6800,10657,11456"; a="51514645"
+X-IronPort-AV: E=Sophos;i="6.16,215,1744095600"; d="scan'208";a="51514645"
+Received: from fmviesa001.fm.intel.com ([10.60.135.141])
+ by orvoesa110.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 06 Jun 2025 07:04:42 -0700
+X-CSE-ConnectionGUID: XunZeZddQxuJDVAMcKKclA==
+X-CSE-MsgGUID: N+9btQMGRD69MomEITy2hw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.16,215,1744095600"; d="scan'208";a="176705418"
+Received: from pgcooper-mobl3.ger.corp.intel.com (HELO localhost)
+ ([10.245.245.33])
+ by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 06 Jun 2025 07:04:40 -0700
+From: Jani Nikula <jani.nikula@linux.intel.com>
+To: imre.deak@intel.com, intel-gfx@lists.freedesktop.org,
+ intel-xe@lists.freedesktop.org, dri-devel@lists.freedesktop.org, Ville
+ =?utf-8?B?U3lyasOkbMOk?= <ville.syrjala@linux.intel.com>
+Subject: Re: [PATCH v3 5/5] drm/i915/dp: Disable the AUX DPCD probe quirk if
+ it's not required
+In-Reply-To: <aELzaxIUjxANMLH9@ideak-desk>
+Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
+References: <20250605082850.65136-1-imre.deak@intel.com>
+ <20250605082850.65136-6-imre.deak@intel.com>
+ <99b831c92a446eb5e33d8d9536f6750d4a6e3ae8@intel.com>
+ <aELyC0YxLiIgxIj5@ideak-desk> <aELzaxIUjxANMLH9@ideak-desk>
+Date: Fri, 06 Jun 2025 17:04:36 +0300
+Message-ID: <635d15f850ce955b6e009bc0a5358dc4ebcdcc18@intel.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Content-Language: tl
-To: freebsd-x11@freebsd.org, phoronix@phoronix.com,
- Bryan Lunduke <bryanlunduke@gmail.com>, mark.filion@collabora.com,
- arek@hiler.eu, NetBSD Users's Discussion List <netbsd-users@netbsd.org>,
- illumos-discuss <discuss@lists.illumos.org>, office@linuxconsulting.ro,
- christian.linhart@clinhart.com, Xfce general discussion list
- <xfce@xfce.org>, "xorg-devel@lists.x.org" <xorg-devel@lists.x.org>,
- martin-eric.racine@iki.fi, =?UTF-8?B?VmlsbGUgU3lyasOkbMOk?=
- <ville.syrjala@linux.intel.com>, intel-gfx@lists.freedesktop.org,
- keithp@keithp.com, kusma@kusma.xyz, contact@emersion.fr, agomez@igalia.com,
- Alan Coopersmith <alan.coopersmith@oracle.com>, harry.wentland@amd.com,
- =?UTF-8?Q?Bernhard_Rosenkr=C3=A4nzer?= <bero@lindev.ch>,
- Stefan Dirsch <sndirsch@suse.com>, neal@gompa.dev
-From: "Enrico Weigelt, metux IT consult" <info@metux.net>
-Subject: History repeats: Redhat censored me on freedesktop.org - Xlibre fork
- release coming in few days
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-X-Provags-ID: V03:K1:SQ1gJpKoFkHuu4DMDYJxHjFHEcd0EtcMDJPh5IW9VfVtNxCdqCu
- mOJFkOzjHnUJzWf3YRE4sPIvp48zaqBv4ho/E+XOZ5ru3rrD7y9E8x8YMq4pICIs8NndDzx
- qzS4zMu5Qwprs048WknJAeE9fYVK0m9PpRAqMl8Hw83eeXYKvswru/JwNGYAT0UVsnkAjFq
- TWMShJbfyRcNnkVHB04Mw==
-UI-OutboundReport: notjunk:1;M01:P0:Vu3QZGpB5oM=;AoZtNrp8E1TLlT25vJQ93Df/oAH
- wCTJA1OAduQSduB2ERNJeaqgYbkXYop+ja7JCEW1FIlEu5eQYVVv7FUt6LAtL3KCLaNm9FLm3
- oCmgoz0owTVR+jGS9/bDYnFw5UGmY5QBTJroJOE9iB96e55eDofw1VTjJ3zH/6fVqcm5lYjDT
- EYKqTuv/Wd2Q0jxcRXvvK5WcVInXe15x/3wbqLNJqelyPUySv+rK8TQy1EVS35mcqI9J/RsNX
- ufAZfnyBOV9Rq/ls+ekBEmvhDu5tnp4/j7KTBC8+6c1G5ZugYvN6JSIV8fft3CjHnf2Kt3rQi
- m6RqiyMCCQXvGAJOVxe3lI+ZunjOl5KPXQ1JfWY5P/cx5QTVHiWrPbnyhZKKLPTzW80s0s61m
- 18hBfbX8jbDrmY1ZMVoEGLgxniW0agVFSZ8p85OJ0Pr0EBCDQUfwuhwo+YPQvScwlH/hdGBi6
- 4+H4K/yL7f3Sgh9nN3m1JsCni0uP59sBq/tzbCkslnZCYzT45eYbKJwkA19e9i1Itg1/ZVMge
- BTQnLSIstqvZC6+dWpSbMuyvky5KX9Aw1g0P119umroIMCQvq6vXqyySjM8mFy+uMhnzIqEDs
- QkDfwQNsDEMPVtewd8kx4oZ/3cxlakvlW0aRuRXplYtmxbt/63p47WEvNDEnutoqWwsuziKJ1
- RPdpbiFacPOTqUSNEQNsLt+PiHCwJr0XIS1sYsQqtbxI5fbhGYao8lcwUmsPVhiMTF8kA+68z
- 1r8JyZ+m2eMtj8il9n/3rPL/Cp6ImKr/ta95eQx2BLwQQPXszmfatYJ3Btf3a9QFJ3HgsO/l+
- 4Ye/BtjoKxEchdwbvwUywa9Hljj4X+pZzgqB7CbhMHX4x/H47iSZmwHvT9pZyOAKo4tNsR5Vo
- 7qHL0XH8mI6cE+ndXAESDSiMyEz1hk4FxgFu7rXU7+r1BwVO+oVPkwcuDXUWhkfIZuK7L2vu+
- YWC/yDXAY4OmeRa+eA661lkNrtwd/vWQnM4l4l0s5emcJB0b0oTanFgVF/pO6uYBhvwRg6Bjf
- DxBS6vYIrOvFRPQKkqGzUBBt/f0zb4yLkfjABI4kRAQHlmSoApwRV03GmSPvgmfvDs9VTggTl
- j6Qz6iw/3rfgWVR+QQIfcsyQePN7wgC9uq78WDXTDXwEP7pdG+7+jJ0UGZ3x21g7rq1oTJS6X
- 6jF/e1tvP0FM9C80trmLQDmfpt2IYgHciX1VBo5Njy/CqGdi+HOmx16cKPovXKPOzsRiIDDi1
- PAqeyJTp7YER7d7Ms7VJ436NGvkqlrpJbhUiCfXTXeMbZkxfjmMRv9M3qgCaVhh0ZE1szcM24
- jfj5s2PjhVTQiAsqh9Mg2HUeFnryksQyRzvu551ZOyqJ5KMg6Lsuo94TPbkoytTGj8ySK7ZfE
- iiLKgh5jaLYFgVx2i2gUZmsp1cMtnfB9sSOw9GrEna0JO+oR6+g1ikB53aOdNwcpGh1TwWaTD
- WDhQwmg==
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -97,82 +74,157 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Hello everybody,
+On Fri, 06 Jun 2025, Imre Deak <imre.deak@intel.com> wrote:
+> On Fri, Jun 06, 2025 at 04:50:03PM +0300, Imre Deak wrote:
+>> On Fri, Jun 06, 2025 at 04:44:37PM +0300, Jani Nikula wrote:
+>> > On Thu, 05 Jun 2025, Imre Deak <imre.deak@intel.com> wrote:
+>> > > Reading DPCD registers has side-effects and some of these can cause a
+>> > > problem for instance during link training. Based on this it's better=
+ to
+>> > > avoid the probing quirk done before each DPCD register read, limiting
+>> > > this to the monitor which requires it. The only known problematic
+>> > > monitor is an external SST sink, so keep the quirk disabled always f=
+or
+>> > > eDP and MST sinks. Reenable the quirk after a hotplug event and after
+>> > > resuming from a power state without hotplug support, until the
+>> > > subsequent EDID based detection.
+>> > >
+>> > > Cc: Ville Syrj=C3=A4l=C3=A4 <ville.syrjala@linux.intel.com>
+>> > > Cc: Jani Nikula <jani.nikula@linux.intel.com>
+>> > > Signed-off-by: Imre Deak <imre.deak@intel.com>
+>> > > ---
+>> > >  drivers/gpu/drm/i915/display/intel_dp.c      | 11 +++++++++--
+>> > >  drivers/gpu/drm/i915/display/intel_dp_aux.c  |  2 ++
+>> > >  drivers/gpu/drm/i915/display/intel_hotplug.c | 10 ++++++++++
+>> > >  3 files changed, 21 insertions(+), 2 deletions(-)
+>> > >
+>> > > diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/d=
+rm/i915/display/intel_dp.c
+>> > > index 208a953b04a2f..d65a18fc1aeb9 100644
+>> > > --- a/drivers/gpu/drm/i915/display/intel_dp.c
+>> > > +++ b/drivers/gpu/drm/i915/display/intel_dp.c
+>> > > @@ -5747,6 +5747,11 @@ intel_dp_set_edid(struct intel_dp *intel_dp)
+>> > >  	/* Below we depend on display info having been updated */
+>> > >  	drm_edid_connector_update(&connector->base, drm_edid);
+>> > >=20=20
+>> > > +	if (!intel_dp_is_edp(intel_dp))
+>> >=20
+>> > Why does this depend on !edp?
+>> >=20
+>> > Feels like unnecessary optimization based on your knowledge of that one
+>> > specific display.
+>>=20
+>> The detection itself requires probing before each DPCD access. I want to
+>> avoid it whenever possible and since the quirk is relevant only the
+>> particular HP external display, we can avoid the probing on eDP
+>> completely.
+>
+> Ok, the eDP check here can be removed, as the panel's EDID panel ID
+> should not match the quirk's panel ID. Will remove it.
 
+I'm wondering if we should add a local "do the quirk" helper that checks
+for eDP and mst and the actual quirk. Not sure if it would make this
+more readable.
 
-this morning, Redhat employees banned me from the freedesktop.org gitlab
-infrastructure - so censored all my work (not just on Xorg). They killed
-my account, my git repos, my tickets in Xorg and closed all my merge
-requests. And then making fun on social media about it.
+BR,
+Jani.
 
-They fired the shot that's heared around the world.
+>
+>> > > +		drm_dp_dpcd_set_probe_quirk(&intel_dp->aux,
+>> > > +					    drm_edid_has_quirk(&connector->base,
+>> > > +							       DRM_EDID_QUIRK_DP_DPCD_PROBE));
+>> > > +
+>> > >  	vrr_capable =3D intel_vrr_is_capable(connector);
+>> > >  	drm_dbg_kms(display->drm, "[CONNECTOR:%d:%s] VRR capable: %s\n",
+>> > >  		    connector->base.base.id, connector->base.name, str_yes_no(vrr=
+_capable));
+>> > > @@ -5881,6 +5886,7 @@ intel_dp_detect(struct drm_connector *_connect=
+or,
+>> > >  	intel_dp_print_rates(intel_dp);
+>> > >=20=20
+>> > >  	if (intel_dp->is_mst) {
+>> > > +		drm_dp_dpcd_set_probe_quirk(&intel_dp->aux, false);
+>> >=20
+>> > Isn't this excessive? Haven't we already set the quirk state?
+>>=20
+>> No, this is the MST root connector's detection and we don't read the EDID
+>> for it (we read it for MST non-root connectors, but those are not
+>> relavant in any case). So this should be set here explicitly, with the
+>> same justification as above for eDP (on MST the probing is never needed,
+>> so we can avoid it on such links completely).
+>>=20
+>> >=20
+>> > >  		/*
+>> > >  		 * If we are in MST mode then this connector
+>> > >  		 * won't appear connected or have anything
+>> > > @@ -6321,10 +6327,11 @@ intel_dp_hpd_pulse(struct intel_digital_port=
+ *dig_port, bool long_hpd)
+>> > >  	 * complete the DP tunnel BW request for the latter connector/enco=
+der
+>> > >  	 * waiting for this encoder's DPRX read, perform a dummy read here.
+>> > >  	 */
+>> > > -	if (long_hpd)
+>> > > +	if (long_hpd) {
+>> > > +		drm_dp_dpcd_set_probe_quirk(&intel_dp->aux, true);
+>> > > +
+>> > >  		intel_dp_read_dprx_caps(intel_dp, dpcd);
+>> > >=20=20
+>> > > -	if (long_hpd) {
+>> > >  		intel_dp->reset_link_params =3D true;
+>> > >  		intel_dp_invalidate_source_oui(intel_dp);
+>> > >=20=20
+>> > > diff --git a/drivers/gpu/drm/i915/display/intel_dp_aux.c b/drivers/g=
+pu/drm/i915/display/intel_dp_aux.c
+>> > > index bf8e8e0cc19c9..410252ba6fd16 100644
+>> > > --- a/drivers/gpu/drm/i915/display/intel_dp_aux.c
+>> > > +++ b/drivers/gpu/drm/i915/display/intel_dp_aux.c
+>> > > @@ -835,6 +835,8 @@ void intel_dp_aux_init(struct intel_dp *intel_dp)
+>> > >=20=20
+>> > >  	intel_dp->aux.transfer =3D intel_dp_aux_transfer;
+>> > >  	cpu_latency_qos_add_request(&intel_dp->pm_qos, PM_QOS_DEFAULT_VALU=
+E);
+>> > > +
+>> > > +	drm_dp_dpcd_set_probe_quirk(&intel_dp->aux, !intel_dp_is_edp(intel=
+_dp));
+>> > >  }
+>> > >=20=20
+>> > >  static enum aux_ch default_aux_ch(struct intel_encoder *encoder)
+>> > > diff --git a/drivers/gpu/drm/i915/display/intel_hotplug.c b/drivers/=
+gpu/drm/i915/display/intel_hotplug.c
+>> > > index 74fe398663d63..1093c6c3714c0 100644
+>> > > --- a/drivers/gpu/drm/i915/display/intel_hotplug.c
+>> > > +++ b/drivers/gpu/drm/i915/display/intel_hotplug.c
+>> > > @@ -33,6 +33,7 @@
+>> > >  #include "intel_display_core.h"
+>> > >  #include "intel_display_rpm.h"
+>> > >  #include "intel_display_types.h"
+>> > > +#include "intel_dp.h"
+>> > >  #include "intel_hdcp.h"
+>> > >  #include "intel_hotplug.h"
+>> > >  #include "intel_hotplug_irq.h"
+>> > > @@ -906,9 +907,18 @@ void intel_hpd_poll_enable(struct intel_display=
+ *display)
+>> > >   */
+>> > >  void intel_hpd_poll_disable(struct intel_display *display)
+>> > >  {
+>> > > +	struct intel_encoder *encoder;
+>> > > +
+>> > >  	if (!HAS_DISPLAY(display))
+>> > >  		return;
+>> > >=20=20
+>> > > +	for_each_intel_dp(display->drm, encoder) {
+>> > > +		struct intel_dp *intel_dp =3D enc_to_intel_dp(encoder);
+>> > > +
+>> > > +		if (!intel_dp_is_edp(intel_dp))
+>> > > +			drm_dp_dpcd_set_probe_quirk(&intel_dp->aux, true);
+>> > > +	}
+>> > > +
+>> > >  	WRITE_ONCE(display->hotplug.poll_enabled, false);
+>> > >=20=20
+>> > >  	spin_lock_irq(&display->irq.lock);
+>> >=20
+>> > --=20
+>> > Jani Nikula, Intel
 
-So much for freedesktop.org being "independent" and embracing freedom.=20
-Perhaps we should nominate them for the next Orwell award.
-
-It's now clear that freedesktop.org *is* the Redskirts, and they want
-to kill X. By the way, the same corporation that tied to proprietarize a
-lot of FOSS code, including the Linux kernel (and I've been one of those=
-=20
-who warned them about terminating our license grants them).
-
-My most evil heresies probably were:
-
-a) forking Xorg and making *actual progress*
-b) talking to a journalist whose name must not be spoken in many other
-    Redhat/IBM tax evasion outlets, like GNOME (they're also banning
-    honorable long time contributors for just mentioning that name)
-c) inviting *anybody* to join me, without discrimination
-
-I don't know why, but it really looks they're quite scared by one guy
-that's just trying to actually bring X11 forward. Hard to find he right
-words for telling how honored I'm about that.
-
-This didn't actually surprise me, I knew this would be coming for about
-a year now. Just didn't expect them to do such an extremely irrational
-and dumb move. Now I'm taking great pleasure seeing the Streisand effect
-kicking in (my inbox is exploding). Thanks for that great publicity.
-
-It's not the first time this happens in FOSS world, and it's not the
-first time it's happening in X: remember what Xfree86 board did to
-the honorable Keith Packard, back about two decades ago - what lead to
-the birth of Xorg and the death of Xfree86. Same is happening again.
-
-History repeats itself.
-
-And now the Redskirts placed me onto the same stage as the great
-honorable Keith Packard. WOOOOW.
-
-Just to be clear, I didn't want to fork, I tried my best to work
-together with the Xorg team. But I knew for long time, this day would
-come. Xorg has been captured by Redhat, in order to get rid of destroy
-competition. The necessary consequence is a fork, more competition.
-
-For those interested in bringing X forward, feel free to join the
-mailing list:
-
-https://www.freelists.org/list/xlibre
-
-Git repo:
-https://github.com/X11Libre/xserver.git
-
-I'm expecting to be banned from whole freedesktop.org mail system, too.
-Excommunication unfortunately had become a common thing in the so-called
-"free software" world - GNOME is just one of many examples. So if you
-don't hear anymore from me on freedesktop.org lists, you know what's
-going on.
-
-Join the xlibre mailing list to stay tuned.
-
-Together, we'll make X great again.
-
-
-have fun,
-=2D-mtx
-
-=2D-=20
-=2D--
-Enrico Weigelt, metux IT consult
-Free software and Linux embedded engineering
-info@metux.net -- +49-151-27565287
-
+--=20
+Jani Nikula, Intel
