@@ -4,60 +4,55 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D91CEC61DB2
-	for <intel-gfx@archiver.kernel.org>; Mon,  9 Jun 2025 10:27:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C243BC5B552
+	for <intel-gfx@archiver.kernel.org>; Mon,  9 Jun 2025 11:03:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6ACBD10E105;
-	Mon,  9 Jun 2025 10:27:06 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 46B7110E067;
+	Mon,  9 Jun 2025 11:03:53 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="la56NMqX";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="kRrDrh1t";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.18])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DA6FC10E067;
- Mon,  9 Jun 2025 10:27:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1749464822; x=1781000822;
- h=from:to:cc:subject:in-reply-to:references:date:
- message-id:mime-version:content-transfer-encoding;
- bh=4S7zpdpM/cZLi/1DLbeXqhDJDhqDnp4EcChy9gpoEPM=;
- b=la56NMqXTBHnpNqrnXmvEKYoEevKwI1DMqz84QQidwyW4vSOgVf0diay
- UBcZpCme5aK7dIV3aG3d5qEvGfBgRzqV/NtgYRNuxy290ON2wFPRqjD8g
- 3DeZscucQl0XViZ87KmIN4SnoZU3ALeuzPa4VufYuNuPTekfPslk+Qd9G
- wCAmMzoxXHokbxSgP1+m+MYF7lMaO9uU22yc+2WgCR6T2WljkD65yJ5ot
- 79FRAxyN/a7w6Lrq4QGKuYy6wCi7D9AbCx+71PyAQxsk9NkPHwynHc1cJ
- R+KJIgWvUU622TCcPDsjbLu6PxPxt8+9ajhw94v7j0LLMAFpx6CKBBbZi A==;
-X-CSE-ConnectionGUID: h7bpM+nVS1avaX5EfzhFmA==
-X-CSE-MsgGUID: LwQRgbYpQeKeLF2SQfWbZw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11458"; a="50761198"
-X-IronPort-AV: E=Sophos;i="6.16,222,1744095600"; d="scan'208";a="50761198"
-Received: from orviesa002.jf.intel.com ([10.64.159.142])
- by fmvoesa112.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 09 Jun 2025 03:27:00 -0700
-X-CSE-ConnectionGUID: kr+7wSDsT9SBHKhxruj1bw==
-X-CSE-MsgGUID: hWGTm7HeRKmrdGHXyFKgqQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.16,222,1744095600"; d="scan'208";a="177410945"
-Received: from mwiniars-desk2.ger.corp.intel.com (HELO localhost)
- ([10.245.246.154])
- by orviesa002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 09 Jun 2025 03:26:58 -0700
-From: Jani Nikula <jani.nikula@intel.com>
-To: Lucas De Marchi <lucas.demarchi@intel.com>
-Cc: intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org, Suraj
- Kandpal <suraj.kandpal@intel.com>, Ville =?utf-8?B?U3lyasOkbMOk?=
- <ville.syrjala@linux.intel.com>
-Subject: Re: [PATCH v4] drm/i915: split out display register macros to a
- separate file
-In-Reply-To: <cqww6aekcmcy7h3mlttlp6v3udmxw2yh6hlzbhz2dnpmanbkda@lbuwmw2i7bcg>
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
-References: <20250606102256.2080073-1-jani.nikula@intel.com>
- <cqww6aekcmcy7h3mlttlp6v3udmxw2yh6hlzbhz2dnpmanbkda@lbuwmw2i7bcg>
-Date: Mon, 09 Jun 2025 13:26:55 +0300
-Message-ID: <ce5c6405b693f85edc17cdf6ae93e1c2e72fd9f9@intel.com>
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D1E3110E047;
+ Mon,  9 Jun 2025 11:03:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Content-Transfer-Encoding:MIME-Version:References:In-Reply-To:
+ Message-ID:Date:Subject:Cc:To:From:Sender:Reply-To:Content-Type:Content-ID:
+ Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
+ :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
+ List-Post:List-Owner:List-Archive;
+ bh=IYsJEgMaqHnkj9zogcLK1cRSEP1fqVxPH3eFOlMY9Uk=; b=kRrDrh1tMmdqyWkbSQSHclW/7K
+ 3T+btSYQQ3cNe3fdzmH9kgZ+fGg/oYCCExymLcgIiiRFvEuvoyEb4LTOrkRaUYg/nnopb3WtmTomQ
+ BDfAjRnlNAVvvPHq060zY9iI0OwgNfetC6eKDGul1zkeg8pY+m5nNzXnokDYTwX4XPK8oLPpljTlJ
+ lExbliA7K2nLMcWeGmO5YI6cVjFcxWRZbeHk7lm/mvDcc4jT5kBVW2VtYPu+cvgNUgLjxigRf6DSr
+ Z5te4jZZSxtYA7wky6SEmtr3ltP+zg/vpyTRnVQ78UNEFYNHpvLgA/O0NCjK1sd7+dnjiyTzEwHfn
+ vqYizp/A==;
+Received: from [81.79.92.254] (helo=localhost)
+ by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
+ id 1uOaI7-001NxT-VY; Mon, 09 Jun 2025 13:03:48 +0200
+From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+To: dri-devel@lists.freedesktop.org
+Cc: kernel-dev@igalia.com, Rob Clark <robdclark@gmail.com>,
+ Sumit Semwal <sumit.semwal@linaro.org>,
+ Gustavo Padovan <gustavo@padovan.org>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ Matthew Brost <matthew.brost@intel.com>,
+ Lucas De Marchi <lucas.demarchi@intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, amd-gfx@lists.freedesktop.org,
+ intel-xe@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
+ linux-media@vger.kernel.org, linaro-mm-sig@lists.linaro.org,
+ Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+Subject: [PATCH v5 4/4] drm/xe: Make dma-fences compliant with the safe access
+ rules
+Date: Mon,  9 Jun 2025 12:03:30 +0100
+Message-ID: <20250609110330.74705-5-tvrtko.ursulin@igalia.com>
+X-Mailer: git-send-email 2.48.0
+In-Reply-To: <20250609110330.74705-1-tvrtko.ursulin@igalia.com>
+References: <20250609110330.74705-1-tvrtko.ursulin@igalia.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,45 +68,80 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Fri, 06 Jun 2025, Lucas De Marchi <lucas.demarchi@intel.com> wrote:
-> On Fri, Jun 06, 2025 at 01:22:56PM +0300, Jani Nikula wrote:
->>This is a scripted split of the display related register macros from
->>i915_reg.h to display/intel_display_regs.h. As a starting point, move
->>all the macros that are only used in display code (or GVT). If there are
->>users in core i915 code or soc/, or no users anywhere, keep the macros
->>in i915_reg.h. This is done in groups of macros separated by blank
->>lines, moving the comments along with the groups.
->>
->>Some manually picked macro groups are kept/moved regardless of the
->>heuristics above.
->>
->>This is obviously a very crude approach. It's not perfect. But there are
->>4.2k lines in i915_reg.h, and its refactoring has ground to a halt. This
->>is the big hammer that splits the file to two, and enables further
->>cleanup.
->>
->>Cc: Suraj Kandpal <suraj.kandpal@intel.com>
->>Cc: Ville Syrj=C3=A4l=C3=A4 <ville.syrjala@linux.intel.com>
->>Cc: Lucas De Marchi <lucas.demarchi@intel.com>
->>Signed-off-by: Jani Nikula <jani.nikula@intel.com>
->
-> I skimmed over the registers and didn't spot non-display related ones.
-> For the code move, there are a few unrelated changes due to sorting the
-> includes, but that should be fine as it's easier to just sort the block.
->
-> Changes in drivers/gpu/drm/i915/display/intel_display_regs.h indeed come
-> verbatim from the other file, as colored by git show --color-moved.
->
-> Reviewed-by: Lucas De Marchi <lucas.demarchi@intel.com>
->
-> Let's get this in before it conflicts again.
+Xe can free some of the data pointed to by the dma-fences it exports. Most
+notably the timeline name can get freed if userspace closes the associated
+submit queue. At the same time the fence could have been exported to a
+third party (for example a sync_fence fd) which will then cause an use-
+after-free on subsequent access.
 
-Thanks for the review. It's not perfect, but I think it's good enough to
-make forward progress. Pushed to din.
+To make this safe we need to make the driver compliant with the newly
+documented dma-fence rules. Driver has to ensure a RCU grace period
+between signalling a fence and freeing any data pointed to by said fence.
 
-BR,
-Jani.
+For the timeline name we simply make the queue be freed via kfree_rcu and
+for the shared lock associated with multiple queues we add a RCU grace
+period before freeing the per GT structure holding the lock.
 
+Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+Reviewed-by: Matthew Brost <matthew.brost@intel.com>
+---
+ drivers/gpu/drm/xe/xe_guc_exec_queue_types.h | 2 ++
+ drivers/gpu/drm/xe/xe_guc_submit.c           | 7 ++++++-
+ drivers/gpu/drm/xe/xe_hw_fence.c             | 3 +++
+ 3 files changed, 11 insertions(+), 1 deletion(-)
 
---=20
-Jani Nikula, Intel
+diff --git a/drivers/gpu/drm/xe/xe_guc_exec_queue_types.h b/drivers/gpu/drm/xe/xe_guc_exec_queue_types.h
+index 4c39f01e4f52..a3f421e2adc0 100644
+--- a/drivers/gpu/drm/xe/xe_guc_exec_queue_types.h
++++ b/drivers/gpu/drm/xe/xe_guc_exec_queue_types.h
+@@ -20,6 +20,8 @@ struct xe_exec_queue;
+ struct xe_guc_exec_queue {
+ 	/** @q: Backpointer to parent xe_exec_queue */
+ 	struct xe_exec_queue *q;
++	/** @rcu: For safe freeing of exported dma fences */
++	struct rcu_head rcu;
+ 	/** @sched: GPU scheduler for this xe_exec_queue */
+ 	struct xe_gpu_scheduler sched;
+ 	/** @entity: Scheduler entity for this xe_exec_queue */
+diff --git a/drivers/gpu/drm/xe/xe_guc_submit.c b/drivers/gpu/drm/xe/xe_guc_submit.c
+index 2b61d017eeca..c7f45800ec6a 100644
+--- a/drivers/gpu/drm/xe/xe_guc_submit.c
++++ b/drivers/gpu/drm/xe/xe_guc_submit.c
+@@ -1299,7 +1299,11 @@ static void __guc_exec_queue_fini_async(struct work_struct *w)
+ 	xe_sched_entity_fini(&ge->entity);
+ 	xe_sched_fini(&ge->sched);
+ 
+-	kfree(ge);
++	/*
++	 * RCU free due sched being exported via DRM scheduler fences
++	 * (timeline name).
++	 */
++	kfree_rcu(ge, rcu);
+ 	xe_exec_queue_fini(q);
+ 	xe_pm_runtime_put(guc_to_xe(guc));
+ }
+@@ -1482,6 +1486,7 @@ static int guc_exec_queue_init(struct xe_exec_queue *q)
+ 
+ 	q->guc = ge;
+ 	ge->q = q;
++	init_rcu_head(&ge->rcu);
+ 	init_waitqueue_head(&ge->suspend_wait);
+ 
+ 	for (i = 0; i < MAX_STATIC_MSG_TYPE; ++i)
+diff --git a/drivers/gpu/drm/xe/xe_hw_fence.c b/drivers/gpu/drm/xe/xe_hw_fence.c
+index 03eb8c6d1616..b2a0c46dfcd4 100644
+--- a/drivers/gpu/drm/xe/xe_hw_fence.c
++++ b/drivers/gpu/drm/xe/xe_hw_fence.c
+@@ -100,6 +100,9 @@ void xe_hw_fence_irq_finish(struct xe_hw_fence_irq *irq)
+ 		spin_unlock_irqrestore(&irq->lock, flags);
+ 		dma_fence_end_signalling(tmp);
+ 	}
++
++	/* Safe release of the irq->lock used in dma_fence_init. */
++	synchronize_rcu();
+ }
+ 
+ void xe_hw_fence_irq_run(struct xe_hw_fence_irq *irq)
+-- 
+2.48.0
+
