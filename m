@@ -4,39 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3D02CC71131
-	for <intel-gfx@archiver.kernel.org>; Tue, 10 Jun 2025 14:59:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 813C5C5B552
+	for <intel-gfx@archiver.kernel.org>; Tue, 10 Jun 2025 14:59:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 94FD710E589;
-	Tue, 10 Jun 2025 14:59:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 746DB10E573;
+	Tue, 10 Jun 2025 14:59:52 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="MCzZIQsO";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="GNqqe3Ht";
 	dkim-atps=neutral
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2726910E305;
- Tue, 10 Jun 2025 14:59:50 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E0B3C10E586;
+ Tue, 10 Jun 2025 14:59:49 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id 4492B5C56B4;
- Tue, 10 Jun 2025 14:57:29 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B3F37C4CEF1;
- Tue, 10 Jun 2025 14:59:43 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id C653F4A874;
+ Tue, 10 Jun 2025 14:59:49 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D81FBC4CEF0;
+ Tue, 10 Jun 2025 14:59:47 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1749567585;
- bh=kh/qFeLAyxVm0bBT3X1rDJqrmW5QgjHwPovsCE5exFQ=;
+ s=k20201202; t=1749567589;
+ bh=TA7LFTdMJDELDuvkJuuGw4yjXy1LcM/cr6YWykJIBfY=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=MCzZIQsOECXqcmrna81KK3quV72mw6stAln0Y2nJrgEnaj9PGw5gYlO4PYQubt4xG
- vZg/mnai10U33TVRRNMTg+FUgcaIoHld0ccXeWnSdqoeNmXn8kglDkfEYOVA3MUEsb
- x//3H+HaR64sDZtP4OukNYHuudz2+HMeDqR6WuKrgVFreS+lFdU352xxFbbDBb12VC
- r4IvTV/8x0PXL7cnCYtBJeqUTRFYGZmpFT7wN/sltEVxppSSg9sF3pibbiIWk6qfWk
- VY751tsYM0PjRWMqtXuVXmOlU2+cj2/5vInNdH9NL6X4VmlAVSZHPAWIGDxt0N0bI4
- 4VMOcp9BEArjw==
+ b=GNqqe3Ht7L5uldmEHCP7RLJaG2BHU3kY8H80TOvJVTiDeo5JFq+w20dyptvq/CkfF
+ E1qitf9Vh1g3irZGKxiZhHYSQn8W+0L7g19lXcweWM4VKupRWGOu5xPqaOx3vUFFDR
+ 15IRG54ikjZQ5oy2H1o9Eg0G5BQmKvgxpm9Lncy2KVtsttkiRMz/WY2JLte0F1wM4l
+ uypoA3ITLKC9OtgGWEr23lugj8/gk1lLfG/Ij/r919tL1GSj2BT3q7Ys2ASVRfTDgf
+ 00KBw1BAntWdwdgmQAFVjuYWvHCpNqL4RTkoGz6DbXREN5QsKGr1S5tDc1Qf8JO5DC
+ yfbaM7I7o3RZA==
 From: Jeff Layton <jlayton@kernel.org>
-Date: Tue, 10 Jun 2025 10:59:21 -0400
-Subject: [PATCH v14 1/9] ref_tracker: don't use %pK in pr_ostream() output
+Date: Tue, 10 Jun 2025 10:59:23 -0400
+Subject: [PATCH v14 3/9] ref_tracker: have callers pass output function to
+ pr_ostream()
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Message-Id: <20250610-reftrack-dbgfs-v14-1-efb532861428@kernel.org>
+Content-Transfer-Encoding: 7bit
+Message-Id: <20250610-reftrack-dbgfs-v14-3-efb532861428@kernel.org>
 References: <20250610-reftrack-dbgfs-v14-0-efb532861428@kernel.org>
 In-Reply-To: <20250610-reftrack-dbgfs-v14-0-efb532861428@kernel.org>
 To: Andrew Morton <akpm@linux-foundation.org>, 
@@ -55,23 +56,22 @@ Cc: Krzysztof Karas <krzysztof.karas@intel.com>,
  Nathan Chancellor <nathan@kernel.org>, Andrew Lunn <andrew@lunn.ch>, 
  linux-kernel@vger.kernel.org, netdev@vger.kernel.org, 
  dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org, 
- Jeff Layton <jlayton@kernel.org>, 
- =?utf-8?q?Thomas_Wei=C3=9Fschuh?= <thomas.weissschuh@linutronix.de>
+ Jeff Layton <jlayton@kernel.org>
 X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1888; i=jlayton@kernel.org;
- h=from:subject:message-id; bh=kh/qFeLAyxVm0bBT3X1rDJqrmW5QgjHwPovsCE5exFQ=;
- b=owEBbQKS/ZANAwAKAQAOaEEZVoIVAcsmYgBoSEhbAWNgWom2fzGCJ+t5Z/GvnJq2l2QaCsQ/P
- tnSV9QgfrSJAjMEAAEKAB0WIQRLwNeyRHGyoYTq9dMADmhBGVaCFQUCaEhIWwAKCRAADmhBGVaC
- Feq6D/4muyMWUff29ZCkmEl2BtTkrkuooi9rJVLs5x8uwJ233hNAgNw3ojWNub7eCfrlw8UWV4u
- 9JC+dK1U88vhlVJJ7ZqtNxkm0DqilTArDYXP53Y//gbS1prCpA9wEdK7cIL6yfySWt3jbUeV1z8
- sowuJ53akcqMYe2eR5hv+PwzBxB73xgKRHsoxjW5t4Y7JE/OfijwifJag6p5oaF4lHESSL6ZMyQ
- 9bBVyv4xdO48HJFSw30pv5jYFwBpNr9vOxjtA0/8cQRfYqp14auPcwy92GVNn47xBBdCWoCuSnK
- F7LymjvcSUdfHU+KMwJRwx8bSVE6RxyeDJfwxH8bIy0pd/61+1h0NYTtdcnTR5fq3zpixfHxWSu
- tgLCLfnSIay1/9ZcCDMu5hRGg5srMwbZdUNuINjG8Y9RfzllRdMR/cMKYtPXdCWojSFd1BXebNS
- 2Ihg9+Mwhcd8NmI2bZ6tKEinlWFDlXlVYA8iu/tGISSRgoDUkQ2S8kgWAwfk8nw/jexfRqk1BPg
- r9YP/NREvCN8Y70Hu0Q6MrhvIG7WlpxkRcrZSUbWrvnG4JMNDPXmJE4t5PFby2yJrRCZuMpOYZf
- stHfx+A4ig+e1iGvj2p6T6Mv16ZwGpwTlTymVscmm89BzjdP/pfvMB82okRjc+DbQTZKLc08p7k
- 00Y5nT6khCf66Yg==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=4259; i=jlayton@kernel.org;
+ h=from:subject:message-id; bh=TA7LFTdMJDELDuvkJuuGw4yjXy1LcM/cr6YWykJIBfY=;
+ b=owEBbQKS/ZANAwAKAQAOaEEZVoIVAcsmYgBoSEhbBaxUwN4zmjZxczwu5+EAvIJySnjzanBf0
+ QAwBGwzG+mJAjMEAAEKAB0WIQRLwNeyRHGyoYTq9dMADmhBGVaCFQUCaEhIWwAKCRAADmhBGVaC
+ FV+1EADPUoMc5SDvMOerP9H5Ji5Ywu/H6z3pilAz49hGSmmNpqumFD90az6zOBik1x2uagsUHH8
+ FtjrCnfzcIXeqy2ExfHIrm22zTcxxmQfZ/r02Q270v7lspfRF6528sui2LNq2KBYQZvejSywHW8
+ FG40u4hV/0XGNt0zxYGVBGfBFj5y2laaMK1HjZ5mnymOcA7rvaVk717oTAQrr3mpMAKYrp7O/E1
+ RkrHX/oczM/cQM7hW/wMzBG7Fne4qaQ4pbWzQ2IXjGY/5Sd4aapQq+AKhO7XadZbS+LbtoT1Yiz
+ yV0Ne8LVh4bTnrljrziZp/jdOoxZTL/jpTCygQ4vulVDkChnwcO0kgVdt1kjSZ8f6qUrvTqqe6R
+ 1q/NKh/wcy2bLtVCdRmtltqFHUf+zuIoifQ5q/avWysthzEuvSIt8Ugql8OSdd+GQbCijvOodrx
+ lX93zrx3MXOc1YSaegRDubzNDdDUq+pVjS8jKzrKnqKN3mnAH1oek42h8jAtIQsaGgeuKUhxRAK
+ 6brHvKV6jIoB8I3wXAu00ffDzDKzNaUz04gzJF6LBJdy7evjHIS+0CtZoMXggcvWtgqOyhDmqQu
+ ezBxKfXGm2VsVgt1TjgrQxe5ysVdPbgdGU8rXhjyqwXCCl1Kfyl+xInvrHDIewGA/MDYJ8tEcXW
+ E2MNjijdb7hiKLw==
 X-Developer-Key: i=jlayton@kernel.org; a=openpgp;
  fpr=4BC0D7B24471B2A184EAF5D3000E684119568215
 X-BeenThere: intel-gfx@lists.freedesktop.org
@@ -89,50 +89,135 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-As Thomas Weißschuh points out [1], it is now preferable to use %p
-instead of hashed pointers with printk(), since raw pointers should no
-longer be leaked into the kernel log. Change the ref_tracker
-infrastructure to use %p instead of %pK in its formats.
+In a later patch, we'll be adding a 3rd mechanism for outputting
+ref_tracker info via seq_file. Instead of a conditional, have the caller
+set a pointer to an output function in struct ostream. As part of this,
+the log prefix must be explicitly passed in, as it's too late for the
+pr_fmt macro.
 
-[1]: https://lore.kernel.org/netdev/20250414-restricted-pointers-net-v1-0-12af0ce46cdd@linutronix.de/
-
-Cc: Thomas Weißschuh <thomas.weissschuh@linutronix.de>
-Reviewed-by: Thomas Weißschuh <thomas.weissschuh@linutronix.de>
-Reviewed-by: Krzysztof Karas <krzysztof.karas@intel.com>
+Reviewed-by: Andrew Lunn <andrew@lunn.ch>
 Signed-off-by: Jeff Layton <jlayton@kernel.org>
 ---
- lib/ref_tracker.c | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+ include/linux/ref_tracker.h |  2 ++
+ lib/ref_tracker.c           | 52 ++++++++++++++++++++++++++++++++-------------
+ 2 files changed, 39 insertions(+), 15 deletions(-)
 
+diff --git a/include/linux/ref_tracker.h b/include/linux/ref_tracker.h
+index 8eac4f3d52547ccbaf9dcd09962ce80d26fbdff8..a0a1ee43724ffa00e60c116be18e481bfe1d1455 100644
+--- a/include/linux/ref_tracker.h
++++ b/include/linux/ref_tracker.h
+@@ -6,6 +6,8 @@
+ #include <linux/spinlock.h>
+ #include <linux/stackdepot.h>
+ 
++#define __ostream_printf __printf(2, 3)
++
+ struct ref_tracker;
+ 
+ struct ref_tracker_dir {
 diff --git a/lib/ref_tracker.c b/lib/ref_tracker.c
-index cf5609b1ca79361763abe5a3a98484a3ee591ff2..de71439e12a3bab6456910986fa611dfbdd97980 100644
+index d374e5273e1497cac0d70c02c282baa2c3ab63fe..42872f406b2a91b5bc611405cae7ce883fd8ed22 100644
 --- a/lib/ref_tracker.c
 +++ b/lib/ref_tracker.c
-@@ -96,7 +96,7 @@ __ref_tracker_dir_pr_ostream(struct ref_tracker_dir *dir,
+@@ -63,21 +63,38 @@ ref_tracker_get_stats(struct ref_tracker_dir *dir, unsigned int limit)
+ }
+ 
+ struct ostream {
++	void __ostream_printf (*func)(struct ostream *stream, char *fmt, ...);
++	char *prefix;
+ 	char *buf;
+ 	int size, used;
+ };
+ 
++static void __ostream_printf pr_ostream_log(struct ostream *stream, char *fmt, ...)
++{
++	va_list args;
++
++	va_start(args, fmt);
++	vprintk(fmt, args);
++	va_end(args);
++}
++
++static void __ostream_printf pr_ostream_buf(struct ostream *stream, char *fmt, ...)
++{
++	int ret, len = stream->size - stream->used;
++	va_list args;
++
++	va_start(args, fmt);
++	ret = vsnprintf(stream->buf + stream->used, len, fmt, args);
++	va_end(args);
++	if (ret > 0)
++		stream->used += min(ret, len);
++}
++
+ #define pr_ostream(stream, fmt, args...) \
+ ({ \
+ 	struct ostream *_s = (stream); \
+ \
+-	if (!_s->buf) { \
+-		pr_err(fmt, ##args); \
+-	} else { \
+-		int ret, len = _s->size - _s->used; \
+-		ret = snprintf(_s->buf + _s->used, len, pr_fmt(fmt), ##args); \
+-		_s->used += min(ret, len); \
+-	} \
++	_s->func(_s, fmt, ##args); \
+ })
+ 
+ static void
+@@ -96,8 +113,8 @@ __ref_tracker_dir_pr_ostream(struct ref_tracker_dir *dir,
  
  	stats = ref_tracker_get_stats(dir, display_limit);
  	if (IS_ERR(stats)) {
--		pr_ostream(s, "%s@%pK: couldn't get stats, error %pe\n",
-+		pr_ostream(s, "%s@%p: couldn't get stats, error %pe\n",
- 			   dir->name, dir, stats);
+-		pr_ostream(s, "%s@%p: couldn't get stats, error %pe\n",
+-			   dir->name, dir, stats);
++		pr_ostream(s, "%s%s@%p: couldn't get stats, error %pe\n",
++			   s->prefix, dir->name, dir, stats);
  		return;
  	}
-@@ -107,13 +107,13 @@ __ref_tracker_dir_pr_ostream(struct ref_tracker_dir *dir,
+ 
+@@ -107,14 +124,15 @@ __ref_tracker_dir_pr_ostream(struct ref_tracker_dir *dir,
  		stack = stats->stacks[i].stack_handle;
  		if (sbuf && !stack_depot_snprint(stack, sbuf, STACK_BUF_SIZE, 4))
  			sbuf[0] = 0;
--		pr_ostream(s, "%s@%pK has %d/%d users at\n%s\n", dir->name, dir,
-+		pr_ostream(s, "%s@%p has %d/%d users at\n%s\n", dir->name, dir,
- 			   stats->stacks[i].count, stats->total, sbuf);
+-		pr_ostream(s, "%s@%p has %d/%d users at\n%s\n", dir->name, dir,
+-			   stats->stacks[i].count, stats->total, sbuf);
++		pr_ostream(s, "%s%s@%p has %d/%d users at\n%s\n", s->prefix,
++			   dir->name, dir, stats->stacks[i].count,
++			   stats->total, sbuf);
  		skipped -= stats->stacks[i].count;
  	}
  
  	if (skipped)
--		pr_ostream(s, "%s@%pK skipped reports about %d/%d users.\n",
-+		pr_ostream(s, "%s@%p skipped reports about %d/%d users.\n",
- 			   dir->name, dir, skipped, stats->total);
+-		pr_ostream(s, "%s@%p skipped reports about %d/%d users.\n",
+-			   dir->name, dir, skipped, stats->total);
++		pr_ostream(s, "%s%s@%p skipped reports about %d/%d users.\n",
++			   s->prefix, dir->name, dir, skipped, stats->total);
  
  	kfree(sbuf);
+ 
+@@ -124,7 +142,8 @@ __ref_tracker_dir_pr_ostream(struct ref_tracker_dir *dir,
+ void ref_tracker_dir_print_locked(struct ref_tracker_dir *dir,
+ 				  unsigned int display_limit)
+ {
+-	struct ostream os = {};
++	struct ostream os = { .func = pr_ostream_log,
++			      .prefix = "ref_tracker: " };
+ 
+ 	__ref_tracker_dir_pr_ostream(dir, display_limit, &os);
+ }
+@@ -143,7 +162,10 @@ EXPORT_SYMBOL(ref_tracker_dir_print);
+ 
+ int ref_tracker_dir_snprint(struct ref_tracker_dir *dir, char *buf, size_t size)
+ {
+-	struct ostream os = { .buf = buf, .size = size };
++	struct ostream os = { .func = pr_ostream_buf,
++			      .prefix = "ref_tracker: ",
++			      .buf = buf,
++			      .size = size };
+ 	unsigned long flags;
+ 
+ 	spin_lock_irqsave(&dir->lock, flags);
 
 -- 
 2.49.0
