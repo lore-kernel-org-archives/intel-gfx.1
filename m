@@ -4,52 +4,27 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6825BC71136
-	for <intel-gfx@archiver.kernel.org>; Tue, 10 Jun 2025 16:42:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8C7A8C5B552
+	for <intel-gfx@archiver.kernel.org>; Tue, 10 Jun 2025 17:12:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7879610E5C1;
-	Tue, 10 Jun 2025 16:42:41 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="haZZw926";
-	dkim-atps=neutral
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CE82F10E326;
- Tue, 10 Jun 2025 16:42:36 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=Content-Transfer-Encoding:MIME-Version:Message-ID:Date:Subject:
- Cc:To:From:Sender:Reply-To:Content-Type:Content-ID:Content-Description:
- Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:
- In-Reply-To:References:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
- List-Post:List-Owner:List-Archive;
- bh=DNcYXqzWPd3Ni6JJNBcKHgqmeyxWYGcGr3oexCbuq04=; b=haZZw926B7qxoxoKGnSFW2JZyi
- wK7ThIGHhiOwCia7WuYBAXfIb/+aM0mpn3yv9KsOfF+n+s63cIZbl9T7AOqS2CCG1LcXH5/K5gD78
- OcNEmqxxQuvSDx8BgUQqZ0OvdcGM4PSZJtfjF+yXWm9YGJgb5rBqzEvWn0dDJuyHfhFCT1FxnnANp
- UZQh78hfnLHqOs9+Cv7NIvzdfljvGl2lF8+Tuyy0XVVKFnQWOJaZSZaW7fO7VWwKjheM1wTbP3hpA
- GY4mZgeXf+7tizqbMDfojn1D59YSUnpLyk5YlpPdo6wwNas7DKJ4tn1hkB8eNIr5uT9CA3vcd2PYm
- RsYx7M8g==;
-Received: from [81.79.92.254] (helo=localhost)
- by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1uP23V-001t9c-Jm; Tue, 10 Jun 2025 18:42:33 +0200
-From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-To: dri-devel@lists.freedesktop.org
-Cc: kernel-dev@igalia.com, Rob Clark <robdclark@gmail.com>,
- Sumit Semwal <sumit.semwal@linaro.org>,
- Gustavo Padovan <gustavo@padovan.org>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- Matthew Brost <matthew.brost@intel.com>,
- Lucas De Marchi <lucas.demarchi@intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, amd-gfx@lists.freedesktop.org,
- intel-xe@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
- linux-media@vger.kernel.org, linaro-mm-sig@lists.linaro.org,
- Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-Subject: [PATCH v6 0/4] Fixing some dma-fence use-after-free
-Date: Tue, 10 Jun 2025 17:42:22 +0100
-Message-ID: <20250610164226.10817-1-tvrtko.ursulin@igalia.com>
-X-Mailer: git-send-email 2.48.0
+	by gabe.freedesktop.org (Postfix) with ESMTP id BE7E510E2BC;
+	Tue, 10 Jun 2025 17:12:38 +0000 (UTC)
+Received: from 1538d3639d33 (emeril.freedesktop.org [131.252.210.167])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 265A610E0E6;
+ Tue, 10 Jun 2025 17:12:37 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
+Subject: =?utf-8?q?=E2=9C=97_Fi=2ECI=2ECHECKPATCH=3A_warning_for_Fixing_some_dma-fenc?=
+ =?utf-8?q?e_use-after-free?=
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Tvrtko Ursulin" <tvrtko.ursulin@igalia.com>
+Cc: intel-gfx@lists.freedesktop.org
+Date: Tue, 10 Jun 2025 17:12:37 -0000
+Message-ID: <174957555715.65226.13666315540265454606@1538d3639d33>
+X-Patchwork-Hint: ignore
+References: <20250610164226.10817-1-tvrtko.ursulin@igalia.com>
+In-Reply-To: <20250610164226.10817-1-tvrtko.ursulin@igalia.com>
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,99 +37,61 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Hi all,
+== Series Details ==
 
-tl;dr;
-Xe and probably some other drivers can tear down the internal state referenced
-by an exported sync_file fence which then causes a null pointer derefences on
-accessing said fence.
+Series: Fixing some dma-fence use-after-free
+URL   : https://patchwork.freedesktop.org/series/150054/
+State : warning
 
-IGT that exploits the problem:
-https://patchwork.freedesktop.org/patch/642709/?series=146211&rev=2
+== Summary ==
 
-It seems there is a consensus this is a known problem with the dma-fence design,
-where internal state shouldn't really be accessed after the fence has been
-signaled. However currently the code is mostly unaware of that hence the use-
-after-free potential.
+Error: dim checkpatch failed
+b2971a952d0f sync_file: Protect access to driver and timeline name
+c221eb83e8a3 drm/i915: Protect access to driver and timeline name
+3ece214b82e6 dma-fence: Add safe access helpers and document the rules
+-:18: WARNING:TYPO_SPELLING: 'contraints' may be misspelled - perhaps 'constraints'?
+#18: 
+contraints and adds helpers which a) drivers with potential to suffer from
+^^^^^^^^^^
 
-To fix it, between the option of adding more reference counting and trying to
-"revoke" the fence, suggestion is to focus on the later.
+-:263: CHECK:PARENTHESIS_ALIGNMENT: Alignment should match open parenthesis
+#263: FILE: include/trace/events/dma_fence.h:43:
++DECLARE_EVENT_CLASS(dma_fence_unsignaled,
++
 
-Reference to the recent discussion:
-https://lore.kernel.org/dri-devel/20250418164246.72426-1-tvrtko.ursulin@igalia.com/
+-:268: CHECK:OPEN_ENDED_LINE: Lines should not end with a '('
+#268: FILE: include/trace/events/dma_fence.h:48:
++	TP_STRUCT__entry(
 
-This series therefore attempts to implement a solution along those lines.
+-:275: CHECK:OPEN_ENDED_LINE: Lines should not end with a '('
+#275: FILE: include/trace/events/dma_fence.h:55:
++	TP_fast_assign(
 
-Most of the description what and how can be found in:
- "dma-fence: Add safe access helpers and document the rules"
+-:288: CHECK:PARENTHESIS_ALIGNMENT: Alignment should match open parenthesis
+#288: FILE: include/trace/events/dma_fence.h:68:
++DEFINE_EVENT(dma_fence_unsignaled, dma_fence_emit,
+ 
 
-The series only addreses the runtime use-after-free scenarios,
-such as the above explained situation with the xe driver. For now the module
-unload problem is deliberately left for later. (Although again, some of the
-patches merged earlier do make it safer, and will make future improvements
-easier due fewer accesses to fence->ops.)
+-:296: CHECK:PARENTHESIS_ALIGNMENT: Alignment should match open parenthesis
+#296: FILE: include/trace/events/dma_fence.h:75:
++DEFINE_EVENT(dma_fence_unsignaled, dma_fence_init,
+ 
 
-Final patch in the series is the one which makes xe compliant with the rules
-and API proposed earlier in the series. It does so by ensuring there is at least
-one RCU grace period between fences being signaled and driver allocated memory
-accessible from xe fences getting freed. 
+-:305: CHECK:PARENTHESIS_ALIGNMENT: Alignment should match open parenthesis
+#305: FILE: include/trace/events/dma_fence.h:89:
++DEFINE_EVENT(dma_fence_unsignaled, dma_fence_enable_signal,
+ 
 
-If this approach is acceptable the next steps will be to see if any other
-drivers will need similar changes. And also to discuss whether we want to go a
-step futher and later move to SRCU, so code would be protected against module
-unload as well.
+-:313: CHECK:PARENTHESIS_ALIGNMENT: Alignment should match open parenthesis
+#313: FILE: include/trace/events/dma_fence.h:96:
++DEFINE_EVENT(dma_fence_unsignaled, dma_fence_signaled,
+ 
 
-v2:
- * Dropped module unload handling.
- * Proposing real API instead of hacks.
+total: 0 errors, 1 warnings, 7 checks, 248 lines checked
+a6a9759d6c49 drm/xe: Make dma-fences compliant with the safe access rules
 
-v3:
- * Dropped the dma_fence_is_array|chain ops to flags conversion.
- * Dropped the i915 cleanup patch which is now independent.
- * Squashed dma-fence helpers with internal usage patches.
- * Restored missing hunk in "dma-fence: Use a flag for 64-bit seqnos".
- * Removed the AMDGPU_JOB_GET_TIMELINE_NAME macro.
- * Applied some r-b tags.
-
-v4:
- * Tidied 64-bit seqno flags patch and fixed for amdgpu user queues which landed
-   since.
- * Adjusted some dma-fence tracepoints to avoid asserts.
- * Protected tracepoints in dma_fence_wait_timeout() with the safe access
-   annotations.
- * Dropped driver/timeline helper usage from amdgpu_trace.h.
- * Dropped signaled fence protection from i915 timeline name vfunc.
-
-v5:
- * Rebased after prep patches merged.
- * Move dma_fence_access_end() earlier in dma_fence_release(). (Christian)
-
-v6:
- * Replaced dma_fence_access_begin/end with rcu_read_(un)lock. (Christian)
- * Added __rcu annotation to dma_fence_driver|timeline_name() helpers. (Christian)
- * Re-ordered patches to accomodate above changes.
-
-Tvrtko Ursulin (4):
-  sync_file: Protect access to driver and timeline name
-  drm/i915: Protect access to driver and timeline name
-  dma-fence: Add safe access helpers and document the rules
-  drm/xe: Make dma-fences compliant with the safe access rules
-
- drivers/dma-buf/dma-fence.c                  | 111 +++++++++++++++++--
- drivers/dma-buf/sync_file.c                  |  24 +++-
- drivers/gpu/drm/i915/gt/intel_gt_requests.c  |  10 +-
- drivers/gpu/drm/i915/i915_request.c          |   7 +-
- drivers/gpu/drm/i915/i915_sw_fence.c         |  10 +-
- drivers/gpu/drm/xe/xe_guc_exec_queue_types.h |   2 +
- drivers/gpu/drm/xe/xe_guc_submit.c           |   7 +-
- drivers/gpu/drm/xe/xe_hw_fence.c             |   3 +
- include/linux/dma-fence.h                    |  31 ++++--
- include/trace/events/dma_fence.h             |  38 ++++++-
- 10 files changed, 209 insertions(+), 34 deletions(-)
-
--- 
-2.48.0
 
