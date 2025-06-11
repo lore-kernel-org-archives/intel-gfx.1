@@ -4,75 +4,59 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DE67BC677C4
-	for <intel-gfx@archiver.kernel.org>; Wed, 11 Jun 2025 09:56:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 12F59C677C4
+	for <intel-gfx@archiver.kernel.org>; Wed, 11 Jun 2025 10:07:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AF0A710E3AD;
-	Wed, 11 Jun 2025 09:56:41 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 97A5B10E607;
+	Wed, 11 Jun 2025 10:07:49 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="lvwelx4k";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="aprOyDx8";
 	dkim-atps=neutral
-Received: from mslow3.mail.gandi.net (mslow3.mail.gandi.net [217.70.178.249])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1B81410E61B;
- Wed, 11 Jun 2025 09:56:34 +0000 (UTC)
-Received: from relay16.mail.gandi.net (relay16.mail.gandi.net [217.70.178.236])
- by mslow3.mail.gandi.net (Postfix) with ESMTP id AC151583615;
- Wed, 11 Jun 2025 09:34:30 +0000 (UTC)
-Received: by mail.gandi.net (Postfix) with ESMTPSA id 3F5F043892;
- Wed, 11 Jun 2025 09:34:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=gm1;
- t=1749634467;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=dTWVYcBwptCdDBnF3kGmXjZmZTDyF4Frz+J6o+FH2MA=;
- b=lvwelx4kVGW22Z4IvdtLWkF3fN2blgoJPRxQOY3wdzY/CH7Q/4PPHRwf3I3eeiOvInNLLm
- lx5EWeemSQaEK6K+gyrHSocE852TsxYM1RAyPtQ1Q/CX+BBB+pyGZbsLzgh/H+cdRSOcyj
- GiLrUfiWQDI6Fxj3ZdcukmRhRKMAmVh2W8fG4MqSwKX0h/XGen9CK1h0X0xEmbTZxCD0i6
- RVFjX+gznOqxAnIaLbvbfSJ0n6A/uHVszsZ/jAq1oWSDRbotgFnUJ0LZEjk8FyZMyI29fz
- VSp6WxG4MfGhU7gdxoqrqqRhGRlUr7c3tmB6UePCDNSgZy31zn2t4PX0uUxNlw==
-From: Miquel Raynal <miquel.raynal@bootlin.com>
-To: Guenter Roeck <linux@roeck-us.net>
-Cc: Richard Weinberger <richard@nod.at>,  Alexander Usyskin
- <alexander.usyskin@intel.com>,  Vignesh Raghavendra <vigneshr@ti.com>,
- Lucas De Marchi <lucas.demarchi@intel.com>,  Thomas =?utf-8?Q?Hellstr?=
- =?utf-8?Q?=C3=B6m?= <thomas.hellstrom@linux.intel.com>,  Rodrigo Vivi
- <rodrigo.vivi@intel.com>,  Maarten Lankhorst
- <maarten.lankhorst@linux.intel.com>,  Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,  David Airlie
- <airlied@gmail.com>,  Simona Vetter <simona@ffwll.ch>,  Jani Nikula
- <jani.nikula@linux.intel.com>,  Joonas Lahtinen
- <joonas.lahtinen@linux.intel.com>,  Tvrtko Ursulin <tursulin@ursulin.net>,
- Karthik Poosa <karthik.poosa@intel.com>,  Reuven Abliyev
- <reuven.abliyev@intel.com>,  Oren Weil <oren.jer.weil@intel.com>,
- linux-mtd <linux-mtd@lists.infradead.org>,  DRI mailing list
- <dri-devel@lists.freedesktop.org>,  intel-gfx
- <intel-gfx@lists.freedesktop.org>,  linux-kernel
- <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH v6 01/11] mtd: core: always create master device
-In-Reply-To: <c90c8bad-9c7a-4bf7-8282-ebefebba90a3@roeck-us.net> (Guenter
- Roeck's message of "Tue, 10 Jun 2025 09:15:25 -0700")
-References: <20250302140921.504304-1-alexander.usyskin@intel.com>
- <87ikl5xnbc.fsf@bootlin.com>
- <CY5PR11MB63660CFA966BCA1B44528BB1ED6BA@CY5PR11MB6366.namprd11.prod.outlook.com>
- <4d55ac06-c357-4d78-b8b8-5b26486ce529@roeck-us.net>
- <CY5PR11MB63662D21B2C7B1A1C2E6BC4BED6BA@CY5PR11MB6366.namprd11.prod.outlook.com>
- <2e5ebbdd-2a57-4f1f-85c6-7c2dff127b50@roeck-us.net>
- <1176847729.134356549.1749504429656.JavaMail.zimbra@nod.at>
- <CY5PR11MB6366B2B40E0C357D6C0935C2ED6AA@CY5PR11MB6366.namprd11.prod.outlook.com>
- <130790886.134361099.1749560056731.JavaMail.zimbra@nod.at>
- <c90c8bad-9c7a-4bf7-8282-ebefebba90a3@roeck-us.net>
-User-Agent: mu4e 1.12.7; emacs 29.4
-Date: Wed, 11 Jun 2025 11:34:25 +0200
-Message-ID: <877c1ivcym.fsf@bootlin.com>
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.20])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7867510E609;
+ Wed, 11 Jun 2025 10:07:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1749636468; x=1781172468;
+ h=from:to:cc:subject:in-reply-to:references:date:
+ message-id:mime-version;
+ bh=Q5e6tv+bujtwWWtPEqnJxXvf8HgI9FwF7xELoY8rbgo=;
+ b=aprOyDx8C6pXo7sm3Ke8oyVLg7VMjgtE4CfGX5aTImqjpOOUJMG0tqGy
+ qcemRnTjNMgMnxxN/BHIoVN654Ob4Imp0VBs6oZMKKsEvBzQ+fSZ/Zf61
+ 7sUR6r/yuCxfToxlqWdrsg8RMesdAe+zMUkXFxKHjgwYW1MriIeBKVEeu
+ aK3fPZja5lnW7PEbVWBFKzc3nhn+22dBRWKqAIXjmEK121LcUiB47VY2+
+ pvxT34M32mvprREO/N15tvnStd0PfZC1bSNUxejxcaH05yWV1zTWL5Ofe
+ jc+gwrnjj1iKaxHwmMaw4jwuru226bZUw8eFQoegLO485hTp43w4MdQZa Q==;
+X-CSE-ConnectionGUID: GVe0IBNSTRKDg19e0hPdJA==
+X-CSE-MsgGUID: 84P5boDfRPeeamWFSX7fyw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11460"; a="51486036"
+X-IronPort-AV: E=Sophos;i="6.16,227,1744095600"; d="scan'208";a="51486036"
+Received: from orviesa002.jf.intel.com ([10.64.159.142])
+ by orvoesa112.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 11 Jun 2025 03:07:48 -0700
+X-CSE-ConnectionGUID: PEy/VNbTQ/O6uwV5GWzrLQ==
+X-CSE-MsgGUID: baYEKrKQQTu3XTFVSE6ByA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.16,227,1744095600"; d="scan'208";a="178060960"
+Received: from mjarzebo-mobl1.ger.corp.intel.com (HELO localhost)
+ ([10.245.246.209])
+ by orviesa002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 11 Jun 2025 03:07:45 -0700
+From: Jani Nikula <jani.nikula@intel.com>
+To: dri-devel@lists.freedesktop.org
+Cc: intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org, Heikki
+ Krogerus <heikki.krogerus@linux.intel.com>, Wysocki Rafael J
+ <rafael.j.wysocki@intel.com>, Lee Shawn C <shawn.c.lee@intel.com>,
+ simon1.yang@intel.com, Doug Anderson <dianders@chromium.org>, Maxime
+ Ripard <mripard@kernel.org>
+Subject: Re: [PATCH 0/4] drm/panel, drm/i915: ACPI support for panel follower
+In-Reply-To: <cover.1749199013.git.jani.nikula@intel.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
+References: <cover.1749199013.git.jani.nikula@intel.com>
+Date: Wed, 11 Jun 2025 13:07:41 +0300
+Message-ID: <b6e3b59d7b1f04d0085011584b4b5eee383a1441@intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-X-GND-State: clean
-X-GND-Score: -100
-X-GND-Cause: gggruggvucftvghtrhhoucdtuddrgeeffedrtddugdduvddtudcutefuodetggdotefrodftvfcurfhrohhfihhlvgemucfitefpfffkpdcuggftfghnshhusghstghrihgsvgenuceurghilhhouhhtmecufedtudenucesvcftvggtihhpihgvnhhtshculddquddttddmnecujfgurhephffvvefujghffgffkfggtgfgsehtqhertddtreejnecuhfhrohhmpefoihhquhgvlhcutfgrhihnrghluceomhhiqhhuvghlrdhrrgihnhgrlhessghoohhtlhhinhdrtghomheqnecuggftrfgrthhtvghrnhepffeghfejtdefieeguddukedujeektdeihfelleeuieeuveehkedvleduheeivdefnecukfhppeeltddrkeelrdduieefrdduvdejnecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehinhgvthepledtrdekledrudeifedruddvjedphhgvlhhopehlohgtrghlhhhoshhtpdhmrghilhhfrhhomhepmhhiqhhuvghlrdhrrgihnhgrlhessghoohhtlhhinhdrtghomhdpnhgspghrtghpthhtohepvddvpdhrtghpthhtoheplhhinhhugiesrhhovggtkhdquhhsrdhnvghtpdhrtghpthhtoheprhhitghhrghrugesnhhougdrrghtpdhrtghpthhtoheprghlvgigrghnuggvrhdruhhshihskhhinhesihhnthgvlhdrtghomhdprhgtphhtthhopehvihhgnhgvshhhrhesthhirdgtohhmpdhrtghpthhtoheplhhutggrshdruggvmhgrrhgthhhisehinhhtvghlrdgtohhmpdhrtghpthhtohepthhhohhmr
- ghsrdhhvghllhhsthhrohhmsehlihhnuhigrdhinhhtvghlrdgtohhmpdhrtghpthhtoheprhhoughrihhgohdrvhhivhhisehinhhtvghlrdgtohhmpdhrtghpthhtohepmhgrrghrthgvnhdrlhgrnhhkhhhorhhstheslhhinhhugidrihhnthgvlhdrtghomh
+Content-Type: text/plain
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -88,34 +72,56 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On 10/06/2025 at 09:15:25 -07, Guenter Roeck <linux@roeck-us.net> wrote:
-
-> On 6/10/25 05:54, Richard Weinberger wrote:
->> ----- Urspr=C3=BCngliche Mail -----
->>> Von: "Alexander Usyskin" <alexander.usyskin@intel.com>
->>> Richard, I've reproduced your setup (modulo that I must load mtdram man=
-ually)
->>> and patch provided in this thread helps to fix the issue.
->>> Can you apply and confirm?
->> Yes, it fixes the issue here! :-)
->>=20
+On Fri, 06 Jun 2025, Jani Nikula <jani.nikula@intel.com> wrote:
+> Hi all -
 >
-> It doesn't seem to fix the issue if the partition data is in
-> devicetree.
+> This series expands panel follower to ACPI, and enables drm_panel on
+> i915.
+>
+> Patch 1 makes panel follower matching independent of DT, making it also
+> work with ACPI. Similar to DT, you can use a _DSD "panel" property to
+> describe the dependency.
+>
+> Patches 2-4 add drm_panel support to i915 DSI, making it possible to
+> have followers be notified of panel states.
+>
+> It's not a whole lot of code, but I simply could not have done it
+> alone. Thanks to Heikki and Rafael for ACPI insights, Shawn for testing
+> and feedback, Simon for providing ASL, Doug and Maxime for drm_panel
+> insights. Much appreciated!
+>
+> Alas that's not all. While this has been tested to work on an ACPI
+> system, it has not been tested to not regress on DT systems. I wouldn't
+> dream of merging this before that, but we don't have such systems
+> handy. Could anyone provide their Tested-by on a DT system with panel
+> followers, please?
 
-I had a look at the patch again. The whole mtd core makes assumptions on
-parenting, which is totally changed with this patch. There are so many
-creative ways this can break, I don't believe we are going to continue
-this route. I propose to revert the patch entirely for now. We need to
-find another approach, I'm sorry.
+Thanks for the reviews, acks, and tested-bys, merged to drm-misc-next.
 
-Alexander, can you please remind me what was your initial problem? I
-believe you needed to anchor runtime PM on the master device. Can you
-please elaborate again? Why taking the controller as source (the
-default, before your change) did not work? Also why was selecting
-MTD_PARTITIONED_MASTER not an option for you? I'm trying to get to the
-root of this change again, so we can find a solution fixing "the world"
-(fast) and in a second time a way to address your problem.
+BR,
+Jani.
 
-Thanks,
-Miqu=C3=A8l
+
+>
+>
+> BR,
+> Jani.
+>
+>
+> Jani Nikula (4):
+>   drm/panel: use fwnode based lookups for panel followers
+>   drm/i915/panel: add panel register/unregister
+>   drm/i915/panel: register drm_panel and call prepare/unprepare for ICL+
+>     DSI
+>   drm/i915/panel: sync panel prepared state at register
+>
+>  drivers/gpu/drm/drm_panel.c                   |  39 ++++--
+>  drivers/gpu/drm/i915/display/icl_dsi.c        |   4 +
+>  .../gpu/drm/i915/display/intel_connector.c    |  23 ++-
+>  .../drm/i915/display/intel_display_types.h    |   4 +
+>  drivers/gpu/drm/i915/display/intel_panel.c    | 131 ++++++++++++++++++
+>  drivers/gpu/drm/i915/display/intel_panel.h    |   6 +
+>  6 files changed, 187 insertions(+), 20 deletions(-)
+
+-- 
+Jani Nikula, Intel
