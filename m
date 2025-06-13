@@ -4,54 +4,57 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6E939C61DB2
-	for <intel-gfx@archiver.kernel.org>; Fri, 13 Jun 2025 06:23:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 64B12C71136
+	for <intel-gfx@archiver.kernel.org>; Fri, 13 Jun 2025 07:40:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0703F10E2BA;
-	Fri, 13 Jun 2025 06:23:37 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8A4C510E8C9;
+	Fri, 13 Jun 2025 07:40:20 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="c06xhwzn";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="pKtl3N3d";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.17])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 19A8A10E1BA;
- Fri, 13 Jun 2025 06:23:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1749795815; x=1781331815;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=F2LOkrfpeiM6BmjrkdE3s9OMnK4jBbJY2+dH9BOr+y0=;
- b=c06xhwznB9NELBlyjlwW3vA66b3dK6BjAhUqMxK02NVDygUnXhowJr1x
- X5yMWdUkcmqLDlvX6ubErjBqG2pb4eJNPZdkfhtxaVEna5ea2kTVYheKr
- BvhogpvrI8wqKgMoNq+QvA95/7KD64bc87Jy/uMXCVeEC8SmoC0S8VWq4
- 5RxVc3z1HwjmVlJntIVmLdgZyo+Iel2BCNGDEMPuu8G1ejbqAwbahdYCc
- lJdave8SrkxwXur56qJJWsmfpuib5nhQupNFnuw+CKEwI/JcyQ3fqb9cg
- KasuBjPArPloiket19QQwXlPy+m1bWmxdF8/gqRmRCrZEVQFo5bvwEb02 w==;
-X-CSE-ConnectionGUID: LAGwIXKaQdKwjWN1s0xqDA==
-X-CSE-MsgGUID: xyVyN74ZS1SUhvOsvfeYVQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11462"; a="51918644"
-X-IronPort-AV: E=Sophos;i="6.16,232,1744095600"; d="scan'208";a="51918644"
-Received: from fmviesa001.fm.intel.com ([10.60.135.141])
- by fmvoesa111.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 12 Jun 2025 23:23:35 -0700
-X-CSE-ConnectionGUID: RgEmvXBMSRSmbeLBdQIZsg==
-X-CSE-MsgGUID: wficdLL3T02Tslqa+9eDoQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.16,232,1744095600"; d="scan'208";a="178707602"
-Received: from srr4-3-linux-103-aknautiy.iind.intel.com ([10.223.34.160])
- by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 12 Jun 2025 23:23:32 -0700
-From: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
-To: intel-gfx@lists.freedesktop.org
-Cc: intel-xe@lists.freedesktop.org, suraj.kandpal@intel.com,
- jani.nikula@linux.intel.com, stable@vger.kernel.org
-Subject: [PATCH] drm/i915/snps_hdmi_pll: Fix 64-bit divisor truncation by
- using div64_u64
-Date: Fri, 13 Jun 2025 11:42:46 +0530
-Message-ID: <20250613061246.1118579-1-ankit.k.nautiyal@intel.com>
-X-Mailer: git-send-email 2.45.2
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9EBDC10E1C5;
+ Fri, 13 Jun 2025 07:40:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+ References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
+ Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+ Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
+ List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=30ezSC5SuiN0IChbbRZASt5M1rZUDx5UAhi1YP6jKF0=; b=pKtl3N3dNtArzKVtv7y/bpuBWj
+ Et87NBgYnRm91BqJx4CM/u0+4pR95JNXUx6cKR+XyLuukbV2oVoWbWer+E2r8ceQDs/lLNJksLy6z
+ j/bW1JXti2NzQ/AMj8ypECl9riVPFyEvp+vZQtb0D53cluiwEw6FHko0fyXaa7dVvZLrTspUmVzeZ
+ UxBBYrOCuFYt/qa61rpkSIPS+/a3mLwo0tN3d90N0o1ocQEny8xTo9WNPgy0sreWTB57wba1rfUu1
+ AkeVh50M+5C3biWbOyMABV8ghv5b1ODheC8TN7/d6LQ5P0oLWW/M5ZIHnHxhu2WnDbZp3K1gvugqp
+ KBTqgMfw==;
+Received: from [81.79.92.254] (helo=[192.168.0.101])
+ by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
+ id 1uPz1K-002vBD-5Z; Fri, 13 Jun 2025 09:40:14 +0200
+Message-ID: <36c36380-6770-4776-9e85-69299e4ab11a@igalia.com>
+Date: Fri, 13 Jun 2025 08:40:12 +0100
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v6 4/4] drm/xe: Make dma-fences compliant with the safe
+ access rules
+To: Lucas De Marchi <lucas.demarchi@intel.com>
+Cc: dri-devel@lists.freedesktop.org, kernel-dev@igalia.com,
+ Rob Clark <robdclark@gmail.com>, Sumit Semwal <sumit.semwal@linaro.org>,
+ Gustavo Padovan <gustavo@padovan.org>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ Matthew Brost <matthew.brost@intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, amd-gfx@lists.freedesktop.org,
+ intel-xe@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
+ linux-media@vger.kernel.org, linaro-mm-sig@lists.linaro.org
+References: <20250610164226.10817-1-tvrtko.ursulin@igalia.com>
+ <20250610164226.10817-5-tvrtko.ursulin@igalia.com>
+ <lagtnrxxqzwn4akmummmuxd4msqctbzrqbht66debl7ktzgkpm@7xn5yv5ackvl>
+Content-Language: en-GB
+From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+In-Reply-To: <lagtnrxxqzwn4akmummmuxd4msqctbzrqbht66debl7ktzgkpm@7xn5yv5ackvl>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,41 +70,45 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-DIV_ROUND_CLOSEST_ULL uses do_div(), which expects a 32-bit divisor.
-When passing a 64-bit constant like CURVE2_MULTIPLIER, the value is
-silently truncated to u32, potentially leading to incorrect results
-on large divisors.
 
-Replace DIV_ROUND_CLOSEST_ULL with div64_u64(), which correctly
-handles full 64-bit division. Since the result is clamped between
-1 and 127, rounding is unnecessary and truncating division
-is sufficient.
+On 12/06/2025 18:49, Lucas De Marchi wrote:
+> On Tue, Jun 10, 2025 at 05:42:26PM +0100, Tvrtko Ursulin wrote:
+>> Xe can free some of the data pointed to by the dma-fences it exports. 
+>> Most
+>> notably the timeline name can get freed if userspace closes the 
+>> associated
+>> submit queue. At the same time the fence could have been exported to a
+>> third party (for example a sync_fence fd) which will then cause an use-
+>> after-free on subsequent access.
+>>
+>> To make this safe we need to make the driver compliant with the newly
+>> documented dma-fence rules. Driver has to ensure a RCU grace period
+>> between signalling a fence and freeing any data pointed to by said fence.
+>>
+>> For the timeline name we simply make the queue be freed via kfree_rcu and
+>> for the shared lock associated with multiple queues we add a RCU grace
+>> period before freeing the per GT structure holding the lock.
+>>
+>> Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+>> Reviewed-by: Matthew Brost <matthew.brost@intel.com>
+> 
+> 
+> Acked-by: Lucas De Marchi <lucas.demarchi@intel.com>
+> 
+> for merging this through drm-misc tree.
 
-Fixes: 5947642004bf ("drm/i915/display: Add support for SNPS PHY HDMI PLL algorithm for DG2")
-Cc: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
-Cc: Suraj Kandpal <suraj.kandpal@intel.com>
-Cc: Jani Nikula <jani.nikula@intel.com>
-Cc: <stable@vger.kernel.org> # v6.15+
-Signed-off-by: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
----
- drivers/gpu/drm/i915/display/intel_snps_hdmi_pll.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+Thanks!
 
-diff --git a/drivers/gpu/drm/i915/display/intel_snps_hdmi_pll.c b/drivers/gpu/drm/i915/display/intel_snps_hdmi_pll.c
-index 74bb3bedf30f..ac609bdf6653 100644
---- a/drivers/gpu/drm/i915/display/intel_snps_hdmi_pll.c
-+++ b/drivers/gpu/drm/i915/display/intel_snps_hdmi_pll.c
-@@ -103,8 +103,8 @@ static void get_ana_cp_int_prop(u64 vco_clk,
- 			    DIV_ROUND_DOWN_ULL(curve_1_interpolated, CURVE0_MULTIPLIER)));
- 
- 	ana_cp_int_temp =
--		DIV_ROUND_CLOSEST_ULL(DIV_ROUND_DOWN_ULL(adjusted_vco_clk1, curve_2_scaled1),
--				      CURVE2_MULTIPLIER);
-+		div64_u64(DIV_ROUND_DOWN_ULL(adjusted_vco_clk1, curve_2_scaled1),
-+			  CURVE2_MULTIPLIER);
- 
- 	*ana_cp_int = max(1, min(ana_cp_int_temp, 127));
- 
--- 
-2.45.2
+I've now pushed the series drm-misc-next.
+
+Btw there is also an IGT for xe I wrote ages ago^1, if you want to ping 
+someone to review it or take it over. Might be useful to have permanent 
+verification the UAF keeps being resolved.
+
+
+Regards,
+
+Tvrtko
+
+1) https://patchwork.freedesktop.org/patch/642709/?series=146211&rev=2
 
