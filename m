@@ -4,58 +4,60 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 05231C71157
-	for <intel-gfx@archiver.kernel.org>; Tue, 17 Jun 2025 07:58:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 78B78C7115A
+	for <intel-gfx@archiver.kernel.org>; Tue, 17 Jun 2025 08:13:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7EE9010E196;
-	Tue, 17 Jun 2025 07:58:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8D31110E511;
+	Tue, 17 Jun 2025 08:13:52 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="eThP1TAB";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="edj2uloI";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.16])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7247310E196;
- Tue, 17 Jun 2025 07:58:27 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.20])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 063AF10E511;
+ Tue, 17 Jun 2025 08:13:51 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1750147107; x=1781683107;
- h=from:date:subject:mime-version:content-transfer-encoding:
- message-id:to:cc;
- bh=inEPtAgeCcBjTZPkBzPZefvQY5ENQqbzxvzXm8kL0VQ=;
- b=eThP1TAB/sZ80XSwBnB2dpsCmi6OGpTcj+5eMpyfFHjgQHL1/DmU4IV2
- HNNyE9oMcSD7sKw80D9lQAEG5Q6usbeuHUt6PmQCe1Q6p6cPSvSTEpOAa
- 3RVfxV2sJQjzPuayuGZiFEygPIbNfLQwwL6X9lUlVtTA4SnP8WEfbRx6d
- 4CWbe1boAnVf6zh3Sh2C8IIfo9mzd0R3gB03Sdu7bpaSYG0qRxig4owCe
- NDk2ZThE59vHefQUN25F9ioUoAA8fniTlDBWBgBl91oeck7Kz6Tu7Loj9
- 8OEC4JbWApoimXPKdK4L2BtTebZpuoQ3u+Be9QgxQCj6BiYDJG3fx7AHu Q==;
-X-CSE-ConnectionGUID: ie20yduOQNmpYdaJ19JLEQ==
-X-CSE-MsgGUID: ZLLuP1QwReG81ec76aUGWg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11465"; a="52395570"
-X-IronPort-AV: E=Sophos;i="6.16,242,1744095600"; d="scan'208";a="52395570"
-Received: from orviesa007.jf.intel.com ([10.64.159.147])
- by orvoesa108.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 17 Jun 2025 00:58:27 -0700
-X-CSE-ConnectionGUID: 53hM+6eyRsCtclKojwupYQ==
-X-CSE-MsgGUID: giTPK56ARz26TW/KkDpMjA==
+ t=1750148031; x=1781684031;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=4FqDiOrO4XlkW1SVwxauMib9BF/9atVhgKI8quTJYMk=;
+ b=edj2uloIZn3FpYGiYHd5mMQLBlUY2LStvvjBzDQymaejY976upkkcG3f
+ GiSZ6q3zm/eMlerb/oVXSzK+zXHzKxEvAO6+MbvIG90vDap7MxrQNcOMy
+ opKfbltG173KY0Oy4s4rWXT5u/HP2Q8qMY9kmo3Nrc19CuwP3Ux2/ozkB
+ usK/iIEQ2ydSvsR6OCetUhsi8TWCrURw99qSC9g8FFbFpmq0fTYwxc0gt
+ CQNHJOc1uDza4bCW0Z3VAPT9MD2offilWXK+44+f1gBYXDN3Qrv21fpVT
+ nnSNi2FmMHwIMAcLRY9vcyn9bJBZYZr/j4FXJozZzkTVTxBVJIv8zTtcN w==;
+X-CSE-ConnectionGUID: VpS378dWRpqZ/Vqc9oUuVg==
+X-CSE-MsgGUID: fN+087h5Ti6PuKrd/3buFg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11465"; a="52016117"
+X-IronPort-AV: E=Sophos;i="6.16,242,1744095600"; d="scan'208";a="52016117"
+Received: from fmviesa005.fm.intel.com ([10.60.135.145])
+ by orvoesa112.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 17 Jun 2025 01:13:51 -0700
+X-CSE-ConnectionGUID: jsaGYysjSqa5xZ4WCzaKtg==
+X-CSE-MsgGUID: /nKjCPwpT2SLnZIyDWo/DQ==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.16,242,1744095600"; d="scan'208";a="149247092"
-Received: from srr4-3-linux-106-armuthy.iind.intel.com ([10.190.238.56])
- by orviesa007.jf.intel.com with ESMTP; 17 Jun 2025 00:58:25 -0700
-From: Arun R Murthy <arun.r.murthy@intel.com>
-Date: Tue, 17 Jun 2025 13:14:02 +0530
-Subject: [PATCH] drm/i915/panel: register drm_panel and call
- prepare/unprepare for eDP
+X-IronPort-AV: E=Sophos;i="6.16,242,1744095600"; d="scan'208";a="153597407"
+Received: from cpetruta-mobl1.ger.corp.intel.com (HELO localhost)
+ ([10.245.246.111])
+ by fmviesa005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 17 Jun 2025 01:13:49 -0700
+From: Jani Nikula <jani.nikula@intel.com>
+To: intel-gfx@lists.freedesktop.org,
+	intel-xe@lists.freedesktop.org
+Cc: jani.nikula@intel.com,
+	Gustavo Sousa <gustavo.sousa@intel.com>
+Subject: [RESEND 1/5] drm/i915/plane: rename intel_atomic_plane.[ch] to
+ intel_plane.[ch]
+Date: Tue, 17 Jun 2025 11:13:36 +0300
+Message-Id: <ba5f304e9fe71723191d872e6828d461e1a572bd.1750147992.git.jani.nikula@intel.com>
+X-Mailer: git-send-email 2.39.5
+In-Reply-To: <cover.1750147992.git.jani.nikula@intel.com>
+References: <cover.1750147992.git.jani.nikula@intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20250617-edp_panel-v1-1-ce1a581e8fcd@intel.com>
-X-B4-Tracking: v=1; b=H4sIAMEcUWgC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
- vPSU3UzU4B8JSMDI1MDM0Nz3dSUgviCxLzUHN20JEuDJMNkc2Mzo0QloPqCotS0zAqwWdGxtbU
- A8idgVFsAAAA=
-X-Change-ID: 20250617-edp_panel-fb90b1c7362a
-To: intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org
-Cc: Jani Nikula <jani.nikula@linux.intel.com>, shawn.c.lee@intel.com, 
- Arun R Murthy <arun.r.murthy@intel.com>
-X-Mailer: b4 0.15-dev
+Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,153 +73,416 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Allocate and register drm_panel to allow the panel_follower framework to
-detect the eDP panel and pass drm_connector::kdev device to drm_panel
-allocation for matching.
-Call drm_panel_prepare/unprepare in ddi_enable for eDP to allow the
-followers to get notified of the panel power state changes.
+It's all atomic, no need to emphasize this.
 
-Signed-off-by: Arun R Murthy <arun.r.murthy@intel.com>
----
-v1: Initial patch version based on the panel_follower added for DSI by
-Jani.
----
- drivers/gpu/drm/i915/display/intel_backlight.h |  1 +
- drivers/gpu/drm/i915/display/intel_ddi.c       |  4 ++++
- drivers/gpu/drm/i915/display/intel_dp.c        |  6 +++---
- drivers/gpu/drm/i915/display/intel_dp.h        |  1 +
- drivers/gpu/drm/i915/display/intel_panel.c     | 20 ++++++++++++++++----
- 5 files changed, 25 insertions(+), 7 deletions(-)
+v2: Also update Documentation/gpu/i915.rst (Gustavo)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_backlight.h b/drivers/gpu/drm/i915/display/intel_backlight.h
-index 339643f6389789a9b52c4c1d74e03d8f15a6efa6..ebeb6448188f0b8cf45edd1093439bd6b6e63111 100644
---- a/drivers/gpu/drm/i915/display/intel_backlight.h
-+++ b/drivers/gpu/drm/i915/display/intel_backlight.h
-@@ -18,6 +18,7 @@ enum pipe;
+Reviewed-by: Gustavo Sousa <gustavo.sousa@intel.com>
+Signed-off-by: Jani Nikula <jani.nikula@intel.com>
+---
+ Documentation/gpu/i915.rst                                  | 4 ++--
+ drivers/gpu/drm/i915/Makefile                               | 4 ++--
+ drivers/gpu/drm/i915/display/i9xx_plane.c                   | 2 +-
+ drivers/gpu/drm/i915/display/intel_atomic.c                 | 2 +-
+ drivers/gpu/drm/i915/display/intel_cdclk.c                  | 2 +-
+ drivers/gpu/drm/i915/display/intel_crtc.c                   | 2 +-
+ drivers/gpu/drm/i915/display/intel_cursor.c                 | 2 +-
+ drivers/gpu/drm/i915/display/intel_display.c                | 2 +-
+ drivers/gpu/drm/i915/display/intel_display_irq.c            | 2 +-
+ drivers/gpu/drm/i915/display/intel_fb.c                     | 2 +-
+ drivers/gpu/drm/i915/display/intel_fb_pin.c                 | 2 +-
+ .../i915/display/{intel_atomic_plane.c => intel_plane.c}    | 2 +-
+ .../i915/display/{intel_atomic_plane.h => intel_plane.h}    | 6 +++---
+ drivers/gpu/drm/i915/display/intel_plane_initial.c          | 2 +-
+ drivers/gpu/drm/i915/display/intel_sprite.c                 | 2 +-
+ drivers/gpu/drm/i915/display/skl_universal_plane.c          | 3 +--
+ drivers/gpu/drm/i915/display/skl_watermark.c                | 2 +-
+ drivers/gpu/drm/xe/Makefile                                 | 2 +-
+ drivers/gpu/drm/xe/display/xe_plane_initial.c               | 2 +-
+ 19 files changed, 23 insertions(+), 24 deletions(-)
+ rename drivers/gpu/drm/i915/display/{intel_atomic_plane.c => intel_plane.c} (99%)
+ rename drivers/gpu/drm/i915/display/{intel_atomic_plane.h => intel_plane.h} (97%)
+
+diff --git a/Documentation/gpu/i915.rst b/Documentation/gpu/i915.rst
+index 7a469df675d8..5c5436413d7a 100644
+--- a/Documentation/gpu/i915.rst
++++ b/Documentation/gpu/i915.rst
+@@ -112,10 +112,10 @@ panel self refresh.
+ Atomic Plane Helpers
+ --------------------
  
- void intel_backlight_init_funcs(struct intel_panel *panel);
- int intel_backlight_setup(struct intel_connector *connector, enum pipe pipe);
-+void intel_edp_backlight_setup(struct intel_connector *connector);
- void intel_backlight_destroy(struct intel_panel *panel);
+-.. kernel-doc:: drivers/gpu/drm/i915/display/intel_atomic_plane.c
++.. kernel-doc:: drivers/gpu/drm/i915/display/intel_plane.c
+    :doc: atomic plane helpers
  
- void intel_backlight_enable(const struct intel_crtc_state *crtc_state,
-diff --git a/drivers/gpu/drm/i915/display/intel_ddi.c b/drivers/gpu/drm/i915/display/intel_ddi.c
-index cbd1060e966431e0884aa9df7b5e6d2f27fde6d5..36aa6d14589d37614fe13ba15baf4c7e60014e2c 100644
---- a/drivers/gpu/drm/i915/display/intel_ddi.c
-+++ b/drivers/gpu/drm/i915/display/intel_ddi.c
-@@ -73,6 +73,7 @@
- #include "intel_lspcon.h"
- #include "intel_mg_phy_regs.h"
- #include "intel_modeset_lock.h"
-+#include "intel_panel.h"
- #include "intel_pfit.h"
- #include "intel_pps.h"
+-.. kernel-doc:: drivers/gpu/drm/i915/display/intel_atomic_plane.c
++.. kernel-doc:: drivers/gpu/drm/i915/display/intel_plane.c
+    :internal:
+ 
+ Asynchronous Page Flip
+diff --git a/drivers/gpu/drm/i915/Makefile b/drivers/gpu/drm/i915/Makefile
+index 7c6075bc483c..0c3fbd0d14e7 100644
+--- a/drivers/gpu/drm/i915/Makefile
++++ b/drivers/gpu/drm/i915/Makefile
+@@ -218,12 +218,11 @@ i915-$(CONFIG_HWMON) += \
+ # modesetting core code
+ i915-y += \
+ 	display/hsw_ips.o \
+-	display/i9xx_plane.o \
+ 	display/i9xx_display_sr.o \
++	display/i9xx_plane.o \
+ 	display/i9xx_wm.o \
+ 	display/intel_alpm.o \
+ 	display/intel_atomic.o \
+-	display/intel_atomic_plane.o \
+ 	display/intel_audio.o \
+ 	display/intel_bios.o \
+ 	display/intel_bo.o \
+@@ -283,6 +282,7 @@ i915-y += \
+ 	display/intel_pch.o \
+ 	display/intel_pch_display.o \
+ 	display/intel_pch_refclk.o \
++	display/intel_plane.o \
+ 	display/intel_plane_initial.o \
+ 	display/intel_pmdemand.o \
+ 	display/intel_psr.o \
+diff --git a/drivers/gpu/drm/i915/display/i9xx_plane.c b/drivers/gpu/drm/i915/display/i9xx_plane.c
+index 8f15333a4b07..eba8eb745aa7 100644
+--- a/drivers/gpu/drm/i915/display/i9xx_plane.c
++++ b/drivers/gpu/drm/i915/display/i9xx_plane.c
+@@ -15,7 +15,6 @@
+ #include "i9xx_plane.h"
+ #include "i9xx_plane_regs.h"
+ #include "intel_atomic.h"
+-#include "intel_atomic_plane.h"
+ #include "intel_de.h"
+ #include "intel_display_irq.h"
+ #include "intel_display_regs.h"
+@@ -23,6 +22,7 @@
+ #include "intel_fb.h"
+ #include "intel_fbc.h"
+ #include "intel_frontbuffer.h"
++#include "intel_plane.h"
+ #include "intel_sprite.h"
+ 
+ /* Primary plane formats for gen <= 3 */
+diff --git a/drivers/gpu/drm/i915/display/intel_atomic.c b/drivers/gpu/drm/i915/display/intel_atomic.c
+index f85edb374c97..348b1655435e 100644
+--- a/drivers/gpu/drm/i915/display/intel_atomic.c
++++ b/drivers/gpu/drm/i915/display/intel_atomic.c
+@@ -26,7 +26,7 @@
+  *
+  * The functions here implement the state management and hardware programming
+  * dispatch required by the atomic modeset infrastructure.
+- * See intel_atomic_plane.c for the plane-specific atomic functionality.
++ * See intel_plane.c for the plane-specific atomic functionality.
+  */
+ 
+ #include <drm/display/drm_dp_tunnel.h>
+diff --git a/drivers/gpu/drm/i915/display/intel_cdclk.c b/drivers/gpu/drm/i915/display/intel_cdclk.c
+index 38b3094b37d7..bae85603543c 100644
+--- a/drivers/gpu/drm/i915/display/intel_cdclk.c
++++ b/drivers/gpu/drm/i915/display/intel_cdclk.c
+@@ -32,7 +32,6 @@
+ #include "i915_drv.h"
+ #include "i915_reg.h"
+ #include "intel_atomic.h"
+-#include "intel_atomic_plane.h"
+ #include "intel_audio.h"
+ #include "intel_bw.h"
+ #include "intel_cdclk.h"
+@@ -43,6 +42,7 @@
+ #include "intel_mchbar_regs.h"
+ #include "intel_pci_config.h"
+ #include "intel_pcode.h"
++#include "intel_plane.h"
  #include "intel_psr.h"
-@@ -3355,6 +3356,8 @@ static void intel_ddi_enable_dp(struct intel_atomic_state *state,
- 	drm_connector_update_privacy_screen(conn_state);
- 	intel_edp_backlight_on(crtc_state, conn_state);
+ #include "intel_vdsc.h"
+ #include "skl_watermark.h"
+diff --git a/drivers/gpu/drm/i915/display/intel_crtc.c b/drivers/gpu/drm/i915/display/intel_crtc.c
+index a88317ea4e9c..a187db6df2d3 100644
+--- a/drivers/gpu/drm/i915/display/intel_crtc.c
++++ b/drivers/gpu/drm/i915/display/intel_crtc.c
+@@ -17,7 +17,6 @@
+ #include "i9xx_plane.h"
+ #include "icl_dsi.h"
+ #include "intel_atomic.h"
+-#include "intel_atomic_plane.h"
+ #include "intel_color.h"
+ #include "intel_crtc.h"
+ #include "intel_cursor.h"
+@@ -29,6 +28,7 @@
+ #include "intel_dsi.h"
+ #include "intel_fifo_underrun.h"
+ #include "intel_pipe_crc.h"
++#include "intel_plane.h"
+ #include "intel_psr.h"
+ #include "intel_sprite.h"
+ #include "intel_vblank.h"
+diff --git a/drivers/gpu/drm/i915/display/intel_cursor.c b/drivers/gpu/drm/i915/display/intel_cursor.c
+index 6bd4f6a28cae..27d86549af2c 100644
+--- a/drivers/gpu/drm/i915/display/intel_cursor.c
++++ b/drivers/gpu/drm/i915/display/intel_cursor.c
+@@ -14,7 +14,6 @@
  
-+	intel_panel_prepare(crtc_state, conn_state);
-+
- 	if (!intel_lspcon_active(dig_port) || intel_dp_has_hdmi_sink(&dig_port->dp))
- 		intel_dp_set_infoframes(encoder, true, crtc_state, conn_state);
+ #include "i915_utils.h"
+ #include "intel_atomic.h"
+-#include "intel_atomic_plane.h"
+ #include "intel_cursor.h"
+ #include "intel_cursor_regs.h"
+ #include "intel_de.h"
+@@ -23,6 +22,7 @@
+ #include "intel_fb.h"
+ #include "intel_fb_pin.h"
+ #include "intel_frontbuffer.h"
++#include "intel_plane.h"
+ #include "intel_psr.h"
+ #include "intel_psr_regs.h"
+ #include "intel_vblank.h"
+diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
+index b0c7c46ffbe2..acc03b4c9e89 100644
+--- a/drivers/gpu/drm/i915/display/intel_display.c
++++ b/drivers/gpu/drm/i915/display/intel_display.c
+@@ -57,7 +57,6 @@
+ #include "i9xx_wm.h"
+ #include "intel_alpm.h"
+ #include "intel_atomic.h"
+-#include "intel_atomic_plane.h"
+ #include "intel_audio.h"
+ #include "intel_bo.h"
+ #include "intel_bw.h"
+@@ -108,6 +107,7 @@
+ #include "intel_pch_refclk.h"
+ #include "intel_pfit.h"
+ #include "intel_pipe_crc.h"
++#include "intel_plane.h"
+ #include "intel_plane_initial.h"
+ #include "intel_pmdemand.h"
+ #include "intel_pps.h"
+diff --git a/drivers/gpu/drm/i915/display/intel_display_irq.c b/drivers/gpu/drm/i915/display/intel_display_irq.c
+index 8d0dcf252bed..fb25ec8adae3 100644
+--- a/drivers/gpu/drm/i915/display/intel_display_irq.c
++++ b/drivers/gpu/drm/i915/display/intel_display_irq.c
+@@ -9,7 +9,6 @@
+ #include "i915_irq.h"
+ #include "i915_reg.h"
+ #include "icl_dsi_regs.h"
+-#include "intel_atomic_plane.h"
+ #include "intel_crtc.h"
+ #include "intel_de.h"
+ #include "intel_display_irq.h"
+@@ -27,6 +26,7 @@
+ #include "intel_gmbus.h"
+ #include "intel_hotplug_irq.h"
+ #include "intel_pipe_crc_regs.h"
++#include "intel_plane.h"
+ #include "intel_pmdemand.h"
+ #include "intel_psr.h"
+ #include "intel_psr_regs.h"
+diff --git a/drivers/gpu/drm/i915/display/intel_fb.c b/drivers/gpu/drm/i915/display/intel_fb.c
+index a5906cb4900c..763b36c4de10 100644
+--- a/drivers/gpu/drm/i915/display/intel_fb.c
++++ b/drivers/gpu/drm/i915/display/intel_fb.c
+@@ -11,7 +11,6 @@
+ #include <drm/drm_modeset_helper.h>
  
-@@ -3552,6 +3555,7 @@ static void intel_ddi_disable_dp(struct intel_atomic_state *state,
+ #include "i915_drv.h"
+-#include "intel_atomic_plane.h"
+ #include "intel_bo.h"
+ #include "intel_display.h"
+ #include "intel_display_core.h"
+@@ -20,6 +19,7 @@
+ #include "intel_fb.h"
+ #include "intel_fb_bo.h"
+ #include "intel_frontbuffer.h"
++#include "intel_plane.h"
  
- 	intel_dp->link.active = false;
+ #define check_array_bounds(display, a, i) drm_WARN_ON((display)->drm, (i) >= ARRAY_SIZE(a))
  
-+	intel_panel_unprepare(old_conn_state);
- 	intel_psr_disable(intel_dp, old_crtc_state);
- 	intel_alpm_disable(intel_dp);
- 	intel_edp_backlight_off(old_conn_state);
-diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
-index 277b40b13948ed964f20aa1243f76aa263615360..451b6be6106d6ac244d23fe2d997b4f7b3e9f002 100644
---- a/drivers/gpu/drm/i915/display/intel_dp.c
-+++ b/drivers/gpu/drm/i915/display/intel_dp.c
-@@ -6464,9 +6464,9 @@ intel_edp_add_properties(struct intel_dp *intel_dp)
- 						       fixed_mode->vdisplay);
- }
+diff --git a/drivers/gpu/drm/i915/display/intel_fb_pin.c b/drivers/gpu/drm/i915/display/intel_fb_pin.c
+index 98a61a7b0b93..fcc88e677e47 100644
+--- a/drivers/gpu/drm/i915/display/intel_fb_pin.c
++++ b/drivers/gpu/drm/i915/display/intel_fb_pin.c
+@@ -11,13 +11,13 @@
+ #include "gem/i915_gem_object.h"
  
--static void intel_edp_backlight_setup(struct intel_dp *intel_dp,
--				      struct intel_connector *connector)
-+void intel_edp_backlight_setup(struct intel_connector *connector)
- {
-+	struct intel_dp *intel_dp = intel_attached_dp(connector);
- 	struct intel_display *display = to_intel_display(intel_dp);
- 	enum pipe pipe = INVALID_PIPE;
+ #include "i915_drv.h"
+-#include "intel_atomic_plane.h"
+ #include "intel_display_core.h"
+ #include "intel_display_rpm.h"
+ #include "intel_display_types.h"
+ #include "intel_dpt.h"
+ #include "intel_fb.h"
+ #include "intel_fb_pin.h"
++#include "intel_plane.h"
  
-@@ -6627,7 +6627,7 @@ static bool intel_edp_init_connector(struct intel_dp *intel_dp,
+ static struct i915_vma *
+ intel_fb_pin_to_dpt(const struct drm_framebuffer *fb,
+diff --git a/drivers/gpu/drm/i915/display/intel_atomic_plane.c b/drivers/gpu/drm/i915/display/intel_plane.c
+similarity index 99%
+rename from drivers/gpu/drm/i915/display/intel_atomic_plane.c
+rename to drivers/gpu/drm/i915/display/intel_plane.c
+index 15ede7678636..f079963c5dff 100644
+--- a/drivers/gpu/drm/i915/display/intel_atomic_plane.c
++++ b/drivers/gpu/drm/i915/display/intel_plane.c
+@@ -45,7 +45,6 @@
+ #include "i915_scheduler_types.h"
+ #include "i915_vma.h"
+ #include "i9xx_plane_regs.h"
+-#include "intel_atomic_plane.h"
+ #include "intel_cdclk.h"
+ #include "intel_cursor.h"
+ #include "intel_display_rps.h"
+@@ -53,6 +52,7 @@
+ #include "intel_display_types.h"
+ #include "intel_fb.h"
+ #include "intel_fb_pin.h"
++#include "intel_plane.h"
+ #include "skl_scaler.h"
+ #include "skl_universal_plane.h"
+ #include "skl_watermark.h"
+diff --git a/drivers/gpu/drm/i915/display/intel_atomic_plane.h b/drivers/gpu/drm/i915/display/intel_plane.h
+similarity index 97%
+rename from drivers/gpu/drm/i915/display/intel_atomic_plane.h
+rename to drivers/gpu/drm/i915/display/intel_plane.h
+index 317320c32285..1dd32586ac16 100644
+--- a/drivers/gpu/drm/i915/display/intel_atomic_plane.h
++++ b/drivers/gpu/drm/i915/display/intel_plane.h
+@@ -3,8 +3,8 @@
+  * Copyright © 2019 Intel Corporation
+  */
  
- 	intel_panel_init(connector, drm_edid);
+-#ifndef __INTEL_ATOMIC_PLANE_H__
+-#define __INTEL_ATOMIC_PLANE_H__
++#ifndef __INTEL_PLANE_H__
++#define __INTEL_PLANE_H__
  
--	intel_edp_backlight_setup(intel_dp, connector);
-+	intel_panel_register(connector);
+ #include <linux/types.h>
  
- 	intel_edp_add_properties(intel_dp);
+@@ -94,4 +94,4 @@ bool intel_plane_format_mod_supported_async(struct drm_plane *plane,
+ 					    u32 format,
+ 					    u64 modifier);
  
-diff --git a/drivers/gpu/drm/i915/display/intel_dp.h b/drivers/gpu/drm/i915/display/intel_dp.h
-index 0657f568119662828344cfddbe876f2acf2596d9..2544783d3d5ad0d8e334fbe3a9ab874e7fee559e 100644
---- a/drivers/gpu/drm/i915/display/intel_dp.h
-+++ b/drivers/gpu/drm/i915/display/intel_dp.h
-@@ -214,5 +214,6 @@ int intel_dp_compute_min_hblank(struct intel_crtc_state *crtc_state,
+-#endif /* __INTEL_ATOMIC_PLANE_H__ */
++#endif /* __INTEL_PLANE_H__ */
+diff --git a/drivers/gpu/drm/i915/display/intel_plane_initial.c b/drivers/gpu/drm/i915/display/intel_plane_initial.c
+index 8800a657cd21..2194d39a5c98 100644
+--- a/drivers/gpu/drm/i915/display/intel_plane_initial.c
++++ b/drivers/gpu/drm/i915/display/intel_plane_initial.c
+@@ -6,13 +6,13 @@
+ #include "gem/i915_gem_lmem.h"
+ #include "gem/i915_gem_region.h"
+ #include "i915_drv.h"
+-#include "intel_atomic_plane.h"
+ #include "intel_crtc.h"
+ #include "intel_display.h"
+ #include "intel_display_core.h"
+ #include "intel_display_types.h"
+ #include "intel_fb.h"
+ #include "intel_frontbuffer.h"
++#include "intel_plane.h"
+ #include "intel_plane_initial.h"
  
- int intel_dp_dsc_bpp_step_x16(const struct intel_connector *connector);
- void intel_dp_dpcd_set_probe(struct intel_dp *intel_dp, bool force_on_external);
-+void intel_edp_backlight_setup(struct intel_connector *connector);
+ void intel_plane_initial_vblank_wait(struct intel_crtc *crtc)
+diff --git a/drivers/gpu/drm/i915/display/intel_sprite.c b/drivers/gpu/drm/i915/display/intel_sprite.c
+index fd92e6b89b43..db0c48d0c743 100644
+--- a/drivers/gpu/drm/i915/display/intel_sprite.c
++++ b/drivers/gpu/drm/i915/display/intel_sprite.c
+@@ -41,11 +41,11 @@
  
- #endif /* __INTEL_DP_H__ */
-diff --git a/drivers/gpu/drm/i915/display/intel_panel.c b/drivers/gpu/drm/i915/display/intel_panel.c
-index f956919dc648eab507cdcca149672c1ce0173481..e884d9de3666b17197e3003af7bd9388b2889e6f 100644
---- a/drivers/gpu/drm/i915/display/intel_panel.c
-+++ b/drivers/gpu/drm/i915/display/intel_panel.c
-@@ -511,11 +511,21 @@ int intel_panel_register(struct intel_connector *connector)
- 	struct intel_panel *panel = &connector->panel;
- 	int ret;
+ #include "i915_utils.h"
+ #include "i9xx_plane.h"
+-#include "intel_atomic_plane.h"
+ #include "intel_de.h"
+ #include "intel_display_types.h"
+ #include "intel_fb.h"
+ #include "intel_frontbuffer.h"
++#include "intel_plane.h"
+ #include "intel_sprite.h"
+ #include "intel_sprite_regs.h"
  
--	ret = intel_backlight_device_register(connector);
--	if (ret)
--		return ret;
-+	switch (connector->base.connector_type) {
-+	case DRM_MODE_CONNECTOR_DSI:
-+		ret = intel_backlight_device_register(connector);
-+		if (ret)
-+			return ret;
-+		break;
-+	case DRM_MODE_CONNECTOR_eDP:
-+		intel_edp_backlight_setup(connector);
-+		break;
-+	default:
-+		break;
-+	}
+diff --git a/drivers/gpu/drm/i915/display/skl_universal_plane.c b/drivers/gpu/drm/i915/display/skl_universal_plane.c
+index 2aa64482d44b..9c8dac97cc40 100644
+--- a/drivers/gpu/drm/i915/display/skl_universal_plane.c
++++ b/drivers/gpu/drm/i915/display/skl_universal_plane.c
+@@ -9,9 +9,7 @@
+ #include <drm/drm_fourcc.h>
  
--	if (connector->base.connector_type == DRM_MODE_CONNECTOR_DSI) {
-+	if (connector->base.connector_type == DRM_MODE_CONNECTOR_DSI ||
-+	    connector->base.connector_type == DRM_MODE_CONNECTOR_eDP) {
- 		struct device *dev = connector->base.kdev;
- 		struct drm_panel *base;
+ #include "pxp/intel_pxp.h"
+-
+ #include "i915_drv.h"
+-#include "intel_atomic_plane.h"
+ #include "intel_bo.h"
+ #include "intel_de.h"
+ #include "intel_display_irq.h"
+@@ -21,6 +19,7 @@
+ #include "intel_fb.h"
+ #include "intel_fbc.h"
+ #include "intel_frontbuffer.h"
++#include "intel_plane.h"
+ #include "intel_psr.h"
+ #include "intel_psr_regs.h"
+ #include "skl_scaler.h"
+diff --git a/drivers/gpu/drm/i915/display/skl_watermark.c b/drivers/gpu/drm/i915/display/skl_watermark.c
+index 2c2371574d6f..c2e11d9ee652 100644
+--- a/drivers/gpu/drm/i915/display/skl_watermark.c
++++ b/drivers/gpu/drm/i915/display/skl_watermark.c
+@@ -13,7 +13,6 @@
+ #include "i915_reg.h"
+ #include "i9xx_wm.h"
+ #include "intel_atomic.h"
+-#include "intel_atomic_plane.h"
+ #include "intel_bw.h"
+ #include "intel_cdclk.h"
+ #include "intel_crtc.h"
+@@ -27,6 +26,7 @@
+ #include "intel_fb.h"
+ #include "intel_fixed.h"
+ #include "intel_pcode.h"
++#include "intel_plane.h"
+ #include "intel_wm.h"
+ #include "skl_universal_plane_regs.h"
+ #include "skl_watermark.h"
+diff --git a/drivers/gpu/drm/xe/Makefile b/drivers/gpu/drm/xe/Makefile
+index f5f5775acdc0..40d01751b49e 100644
+--- a/drivers/gpu/drm/xe/Makefile
++++ b/drivers/gpu/drm/xe/Makefile
+@@ -205,7 +205,6 @@ xe-$(CONFIG_DRM_XE_DISPLAY) += \
+ 	i915-display/icl_dsi.o \
+ 	i915-display/intel_alpm.o \
+ 	i915-display/intel_atomic.o \
+-	i915-display/intel_atomic_plane.o \
+ 	i915-display/intel_audio.o \
+ 	i915-display/intel_backlight.o \
+ 	i915-display/intel_bios.o \
+@@ -271,6 +270,7 @@ xe-$(CONFIG_DRM_XE_DISPLAY) += \
+ 	i915-display/intel_modeset_verify.o \
+ 	i915-display/intel_panel.o \
+ 	i915-display/intel_pfit.o \
++	i915-display/intel_plane.o \
+ 	i915-display/intel_pmdemand.o \
+ 	i915-display/intel_pch.o \
+ 	i915-display/intel_pps.o \
+diff --git a/drivers/gpu/drm/xe/display/xe_plane_initial.c b/drivers/gpu/drm/xe/display/xe_plane_initial.c
+index af47ce34102c..b2ede3af9345 100644
+--- a/drivers/gpu/drm/xe/display/xe_plane_initial.c
++++ b/drivers/gpu/drm/xe/display/xe_plane_initial.c
+@@ -10,7 +10,6 @@
+ #include "xe_ggtt.h"
+ #include "xe_mmio.h"
  
-@@ -561,6 +571,7 @@ int intel_panel_register(struct intel_connector *connector)
- 
- err:
- 	intel_backlight_device_unregister(connector);
-+	intel_backlight_destroy(panel);
- 
- 	return ret;
- }
-@@ -573,6 +584,7 @@ void intel_panel_unregister(struct intel_connector *connector)
- 		drm_panel_remove(panel->base);
- 
- 	intel_backlight_device_unregister(connector);
-+	intel_backlight_destroy(panel);
- }
- 
- /* Notify followers, if any, about power being up. */
-
----
-base-commit: 6f72990d9e0fe084afe257621edd730444a8bc52
-change-id: 20250617-edp_panel-fb90b1c7362a
-
-Best regards,
+-#include "intel_atomic_plane.h"
+ #include "intel_crtc.h"
+ #include "intel_display.h"
+ #include "intel_display_core.h"
+@@ -19,6 +18,7 @@
+ #include "intel_fb.h"
+ #include "intel_fb_pin.h"
+ #include "intel_frontbuffer.h"
++#include "intel_plane.h"
+ #include "intel_plane_initial.h"
+ #include "xe_bo.h"
+ #include "xe_wa.h"
 -- 
-Arun R Murthy <arun.r.murthy@intel.com>
+2.39.5
 
