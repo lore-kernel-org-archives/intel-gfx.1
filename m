@@ -4,252 +4,185 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id ED0D4C71136
-	for <intel-gfx@archiver.kernel.org>; Tue, 17 Jun 2025 13:36:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CEA4BC77B7C
+	for <intel-gfx@archiver.kernel.org>; Tue, 17 Jun 2025 13:36:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 63FE510E6FC;
-	Tue, 17 Jun 2025 13:36:27 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2232E10E6C3;
+	Tue, 17 Jun 2025 13:36:26 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=oracle.com header.i=@oracle.com header.b="DGmsKDvZ";
-	dkim=pass (1024-bit key; unprotected) header.d=oracle.onmicrosoft.com header.i=@oracle.onmicrosoft.com header.b="ddLFupNW";
+	dkim=pass (1024-bit key; unprotected) header.d=suse.cz header.i=@suse.cz header.b="GCA4vRTt";
+	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="vofk+nlP";
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="GCA4vRTt";
+	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="vofk+nlP";
 	dkim-atps=neutral
-Received: from mx0b-00069f02.pphosted.com (mx0b-00069f02.pphosted.com
- [205.220.177.32])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D56C910E150;
- Mon, 16 Jun 2025 19:34:19 +0000 (UTC)
-Received: from pps.filterd (m0246630.ppops.net [127.0.0.1])
- by mx0b-00069f02.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 55GHuTaV030535;
- Mon, 16 Jun 2025 19:33:48 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com; h=cc
- :content-transfer-encoding:content-type:date:from:message-id
- :mime-version:subject:to; s=corp-2025-04-25; bh=XEG2SkBKEOX1HBmA
- k4ZLq2DCpXTIWzGk0B7pQ7f1axQ=; b=DGmsKDvZ/iMVxMZwzBXARl7IiD6xsmHx
- esNps7pJOXSsuAKNOYGDali04IoIU7CUnlfaCv2J724oaKu0tuY9Ey0OWasE+fr+
- o1Fb1GTC2NKWOsBBXBAzr8k5yuHYF58te6uRGIj0fiq2E+pzStm3sxiWKvNNtY5N
- 22Uvwp3dhm0WANRJ/xcOzMALUTMJJ39NXBDrz4ygsSffqqTAFIIl0egzdVszcPW2
- bo+Uu6fPccSAUgZrJJM1WneCbN6lWnVz7G2XamyNBtJ/pre/d8ft73+cYH+3Xnut
- a53CMGeccCb4oTlI6rL0v2tCNdPRZ6JHWDglhe8ZcWEWW6zKB28vpA==
-Received: from iadpaimrmta01.imrmtpd1.prodappiadaev1.oraclevcn.com
- (iadpaimrmta01.appoci.oracle.com [130.35.100.223])
- by mx0b-00069f02.pphosted.com (PPS) with ESMTPS id 479q8r2s5g-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Mon, 16 Jun 2025 19:33:48 +0000 (GMT)
-Received: from pps.filterd
- (iadpaimrmta01.imrmtpd1.prodappiadaev1.oraclevcn.com [127.0.0.1])
- by iadpaimrmta01.imrmtpd1.prodappiadaev1.oraclevcn.com (8.18.1.2/8.18.1.2)
- with ESMTP id 55GJAKnT001648; Mon, 16 Jun 2025 19:33:47 GMT
-Received: from bn8pr05cu002.outbound.protection.outlook.com
- (mail-eastus2azon11011054.outbound.protection.outlook.com [52.101.57.54])
- by iadpaimrmta01.imrmtpd1.prodappiadaev1.oraclevcn.com (PPS) with ESMTPS id
- 478yh8bqb0-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Mon, 16 Jun 2025 19:33:47 +0000
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Ma0VjrbYLfajL6YRtaNQZZrwyCSi9QATL906f58ErzpPo9t22QGZJrV9UThb+dzygD4NquVF0duSOk13wsb1L2cd7E343xU9sLsoEryd07Zz9xd7Uq/OLLa0vZW0Wf9YD3ynZaS06MVYNvMqYG/6P2WN6JjTI3RJU2tAG0Dl6x0bXRhOH1kXd5Q7PcQuqMXycVoZGyy+f6h/vcCDUwRy9jZU5k26iv2Gjju7BRKCfOqPUlEtMzg7Bh2aqCXkTovcbsaU4yHcnQRCj5MV9RkwhrMpGR4JCI9TzyLaQA6+knar6YkoW5xLjfnYXjDBbPIPNynEma18F8/ovmfMHj9T1Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=XEG2SkBKEOX1HBmAk4ZLq2DCpXTIWzGk0B7pQ7f1axQ=;
- b=XKHr4MV2mHF5K0HisH3b1zO5gcCPal4BWbFkGNbZAGLKbbDzXUr0O678oIZBHAaCIfeOp2xei6h/VYWvPkW1itUhL6xXuJ4rXBNWGBXFo42qMdx6Q4yKELLiQEsKuQl+NPKs0Hd3g3YCMd7AjMppRbsFVBWLlYbeqzg/tmAOIZO4RZYyJHJtrPWHy02HPQ9tIbr2LKA5+bEgHlJRWqnSr+ib+JvYNcSSlomGGChnSW9SiqMdD/spNeP1Y4PPnMTALfzkXP6l/GcrWv4HRwf0OO/Vk4Yye5plMIRXkP0zlJQZPjE4Chc0NZ/8FJF69maBuZZ6rxIhGFu2YAtachx+YQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oracle.com; dmarc=pass action=none header.from=oracle.com;
- dkim=pass header.d=oracle.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oracle.onmicrosoft.com; s=selector2-oracle-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=XEG2SkBKEOX1HBmAk4ZLq2DCpXTIWzGk0B7pQ7f1axQ=;
- b=ddLFupNW1R2FHghft0yO2iAS+pXvwoUU/A5nRu0pAWa5Ro/kz56oN5QCnfWYy9MJRcnL9/Mx714FdeNFcbg+kK6mmGIUCB09gmylzte93/Y7TEyBJPgaduYy/bnVx1BDo+oIaCGf0rb4qbNVkBdaaugewL8l4SJuHM5zgF7Xgxg=
-Received: from DM4PR10MB8218.namprd10.prod.outlook.com (2603:10b6:8:1cc::16)
- by PH0PR10MB5870.namprd10.prod.outlook.com (2603:10b6:510:143::7) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8835.19; Mon, 16 Jun
- 2025 19:33:40 +0000
-Received: from DM4PR10MB8218.namprd10.prod.outlook.com
- ([fe80::2650:55cf:2816:5f2]) by DM4PR10MB8218.namprd10.prod.outlook.com
- ([fe80::2650:55cf:2816:5f2%6]) with mapi id 15.20.8835.026; Mon, 16 Jun 2025
- 19:33:40 +0000
-From: Lorenzo Stoakes <lorenzo.stoakes@oracle.com>
-To: Andrew Morton <akpm@linux-foundation.org>
-Cc: "Liam R . Howlett" <Liam.Howlett@oracle.com>, Jens Axboe <axboe@kernel.dk>,
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CF22210E5C8
+ for <intel-gfx@lists.freedesktop.org>; Tue, 17 Jun 2025 10:14:01 +0000 (UTC)
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 8FA321F454;
+ Tue, 17 Jun 2025 10:14:00 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+ t=1750155240; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=HumSZqJEc3NqTuF1gCNLL1DjTVit469VH90oXWtD97g=;
+ b=GCA4vRTtep8lSNqForgDoEbiH2FHffylKbTQW8ADGX0ygw7y0YzgmvKyJudwz1c+pn/vrP
+ oiM1utFqq3DKasuCS+rvGIM3fht87NThulP97W1MoOrovEYbQlceN3dPfOwqPwPdTl/wzO
+ Jc9QPnSqRm9TOoCgWTtotAyb95FVifI=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+ s=susede2_ed25519; t=1750155240;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=HumSZqJEc3NqTuF1gCNLL1DjTVit469VH90oXWtD97g=;
+ b=vofk+nlPab1BttxugZRXW6jQtLNByPTK8FyDt52WanP8wxnuDGkGdmSvEDafeB/gXZrhW8
+ SgAfoWxD1JFY7mAA==
+Authentication-Results: smtp-out2.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+ t=1750155240; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=HumSZqJEc3NqTuF1gCNLL1DjTVit469VH90oXWtD97g=;
+ b=GCA4vRTtep8lSNqForgDoEbiH2FHffylKbTQW8ADGX0ygw7y0YzgmvKyJudwz1c+pn/vrP
+ oiM1utFqq3DKasuCS+rvGIM3fht87NThulP97W1MoOrovEYbQlceN3dPfOwqPwPdTl/wzO
+ Jc9QPnSqRm9TOoCgWTtotAyb95FVifI=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+ s=susede2_ed25519; t=1750155240;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=HumSZqJEc3NqTuF1gCNLL1DjTVit469VH90oXWtD97g=;
+ b=vofk+nlPab1BttxugZRXW6jQtLNByPTK8FyDt52WanP8wxnuDGkGdmSvEDafeB/gXZrhW8
+ SgAfoWxD1JFY7mAA==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 78C6613A69;
+ Tue, 17 Jun 2025 10:14:00 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+ by imap1.dmz-prg2.suse.org with ESMTPSA id 52RxHeg/UWhYGQAAD6G6ig
+ (envelope-from <jack@suse.cz>); Tue, 17 Jun 2025 10:14:00 +0000
+Received: by quack3.suse.cz (Postfix, from userid 1000)
+ id 33D4AA29F0; Tue, 17 Jun 2025 12:14:00 +0200 (CEST)
+Date: Tue, 17 Jun 2025 12:14:00 +0200
+From: Jan Kara <jack@suse.cz>
+To: Lorenzo Stoakes <lorenzo.stoakes@oracle.com>
+Cc: Andrew Morton <akpm@linux-foundation.org>, 
+ "Liam R . Howlett" <Liam.Howlett@oracle.com>, Jens Axboe <axboe@kernel.dk>, 
  Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Tvrtko Ursulin <tursulin@ursulin.net>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Eric Van Hensbergen <ericvh@kernel.org>,
- Latchesar Ionkov <lucho@ionkov.net>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, 
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, Tvrtko Ursulin <tursulin@ursulin.net>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Eric Van Hensbergen <ericvh@kernel.org>, Latchesar Ionkov <lucho@ionkov.net>, 
  Dominique Martinet <asmadeus@codewreck.org>,
- Christian Schoenebeck <linux_oss@crudebyte.com>,
- David Sterba <dsterba@suse.com>, David Howells <dhowells@redhat.com>,
+ Christian Schoenebeck <linux_oss@crudebyte.com>, 
+ David Sterba <dsterba@suse.com>, David Howells <dhowells@redhat.com>, 
  Marc Dionne <marc.dionne@auristor.com>,
- Alexander Viro <viro@zeniv.linux.org.uk>,
+ Alexander Viro <viro@zeniv.linux.org.uk>, 
  Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>,
- Benjamin LaHaise <bcrl@kvack.org>, Miklos Szeredi <miklos@szeredi.hu>,
- Amir Goldstein <amir73il@gmail.com>,
+ Benjamin LaHaise <bcrl@kvack.org>, 
+ Miklos Szeredi <miklos@szeredi.hu>, Amir Goldstein <amir73il@gmail.com>, 
  Kent Overstreet <kent.overstreet@linux.dev>,
- "Tigran A . Aivazian" <aivazian.tigran@gmail.com>,
+ "Tigran A . Aivazian" <aivazian.tigran@gmail.com>, 
  Kees Cook <kees@kernel.org>, Chris Mason <clm@fb.com>,
- Josef Bacik <josef@toxicpanda.com>, Xiubo Li <xiubli@redhat.com>,
- Ilya Dryomov <idryomov@gmail.com>, Jan Harkes <jaharkes@cs.cmu.edu>,
- coda@cs.cmu.edu, Tyler Hicks <code@tyhicks.com>,
+ Josef Bacik <josef@toxicpanda.com>, 
+ Xiubo Li <xiubli@redhat.com>, Ilya Dryomov <idryomov@gmail.com>, 
+ Jan Harkes <jaharkes@cs.cmu.edu>, coda@cs.cmu.edu,
+ Tyler Hicks <code@tyhicks.com>, 
  Gao Xiang <xiang@kernel.org>, Chao Yu <chao@kernel.org>,
- Yue Hu <zbestahu@gmail.com>, Jeffle Xu <jefflexu@linux.alibaba.com>,
- Sandeep Dhavale <dhavale@google.com>,
- Hongbo Li <lihongbo22@huawei.com>, Namjae Jeon <linkinjeon@kernel.org>,
- Sungjong Seo <sj1557.seo@samsung.com>,
- Yuezhang Mo <yuezhang.mo@sony.com>, Theodore Ts'o <tytso@mit.edu>,
- Andreas Dilger <adilger.kernel@dilger.ca>,
- Jaegeuk Kim <jaegeuk@kernel.org>,
- OGAWA Hirofumi <hirofumi@mail.parknet.co.jp>,
+ Yue Hu <zbestahu@gmail.com>, 
+ Jeffle Xu <jefflexu@linux.alibaba.com>, Sandeep Dhavale <dhavale@google.com>, 
+ Hongbo Li <lihongbo22@huawei.com>, Namjae Jeon <linkinjeon@kernel.org>, 
+ Sungjong Seo <sj1557.seo@samsung.com>, Yuezhang Mo <yuezhang.mo@sony.com>, 
+ Theodore Ts'o <tytso@mit.edu>, Andreas Dilger <adilger.kernel@dilger.ca>, 
+ Jaegeuk Kim <jaegeuk@kernel.org>, OGAWA Hirofumi <hirofumi@mail.parknet.co.jp>,
  Viacheslav Dubeyko <slava@dubeyko.com>,
- John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>,
- Yangtao Li <frank.li@vivo.com>, Richard Weinberger <richard@nod.at>,
+ John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>, 
+ Yangtao Li <frank.li@vivo.com>, Richard Weinberger <richard@nod.at>, 
  Anton Ivanov <anton.ivanov@cambridgegreys.com>,
- Johannes Berg <johannes@sipsolutions.net>,
+ Johannes Berg <johannes@sipsolutions.net>, 
  Mikulas Patocka <mikulas@artax.karlin.mff.cuni.cz>,
- David Woodhouse <dwmw2@infradead.org>, Dave Kleikamp <shaggy@kernel.org>,
- Trond Myklebust <trondmy@kernel.org>, Anna Schumaker <anna@kernel.org>,
- Ryusuke Konishi <konishi.ryusuke@gmail.com>,
+ David Woodhouse <dwmw2@infradead.org>, 
+ Dave Kleikamp <shaggy@kernel.org>, Trond Myklebust <trondmy@kernel.org>, 
+ Anna Schumaker <anna@kernel.org>, Ryusuke Konishi <konishi.ryusuke@gmail.com>, 
  Konstantin Komarov <almaz.alexandrovich@paragon-software.com>,
- Mark Fasheh <mark@fasheh.com>, Joel Becker <jlbec@evilplan.org>,
- Joseph Qi <joseph.qi@linux.alibaba.com>,
- Bob Copeland <me@bobcopeland.com>, Mike Marshall <hubcap@omnibond.com>,
- Martin Brandenburg <martin@omnibond.com>,
- Steve French <sfrench@samba.org>, Paulo Alcantara <pc@manguebit.org>,
+ Mark Fasheh <mark@fasheh.com>, Joel Becker <jlbec@evilplan.org>, 
+ Joseph Qi <joseph.qi@linux.alibaba.com>, Bob Copeland <me@bobcopeland.com>, 
+ Mike Marshall <hubcap@omnibond.com>, Martin Brandenburg <martin@omnibond.com>, 
+ Steve French <sfrench@samba.org>, Paulo Alcantara <pc@manguebit.org>, 
  Ronnie Sahlberg <ronniesahlberg@gmail.com>,
- Shyam Prasad N <sprasad@microsoft.com>, Tom Talpey <tom@talpey.com>,
- Bharath SM <bharathsm@microsoft.com>,
- Zhihao Cheng <chengzhihao1@huawei.com>,
- Hans de Goede <hdegoede@redhat.com>, Carlos Maiolino <cem@kernel.org>,
- Damien Le Moal <dlemoal@kernel.org>, Naohiro Aota <naohiro.aota@wdc.com>,
- Johannes Thumshirn <jth@kernel.org>,
- Dan Williams <dan.j.williams@intel.com>,
- Matthew Wilcox <willy@infradead.org>, Vlastimil Babka <vbabka@suse.cz>,
- Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>,
+ Shyam Prasad N <sprasad@microsoft.com>, 
+ Tom Talpey <tom@talpey.com>, Bharath SM <bharathsm@microsoft.com>, 
+ Zhihao Cheng <chengzhihao1@huawei.com>, Hans de Goede <hdegoede@redhat.com>, 
+ Carlos Maiolino <cem@kernel.org>, Damien Le Moal <dlemoal@kernel.org>, 
+ Naohiro Aota <naohiro.aota@wdc.com>, Johannes Thumshirn <jth@kernel.org>, 
+ Dan Williams <dan.j.williams@intel.com>, Matthew Wilcox <willy@infradead.org>, 
+ Vlastimil Babka <vbabka@suse.cz>, Jann Horn <jannh@google.com>,
+ Pedro Falcato <pfalcato@suse.de>, 
  linux-block@vger.kernel.org, linux-kernel@vger.kernel.org,
- intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- v9fs@lists.linux.dev, linux-fsdevel@vger.kernel.org,
+ intel-gfx@lists.freedesktop.org, 
+ dri-devel@lists.freedesktop.org, v9fs@lists.linux.dev,
+ linux-fsdevel@vger.kernel.org, 
  linux-afs@lists.infradead.org, linux-aio@kvack.org,
- linux-unionfs@vger.kernel.org, linux-bcachefs@vger.kernel.org,
- linux-mm@kvack.org, linux-btrfs@vger.kernel.org,
- ceph-devel@vger.kernel.org, codalist@coda.cs.cmu.edu,
- ecryptfs@vger.kernel.org, linux-erofs@lists.ozlabs.org,
- linux-ext4@vger.kernel.org, linux-f2fs-devel@lists.sourceforge.net,
- linux-um@lists.infradead.org, linux-mtd@lists.infradead.org,
+ linux-unionfs@vger.kernel.org, 
+ linux-bcachefs@vger.kernel.org, linux-mm@kvack.org, linux-btrfs@vger.kernel.org,
+ ceph-devel@vger.kernel.org, codalist@coda.cs.cmu.edu, ecryptfs@vger.kernel.org,
+ linux-erofs@lists.ozlabs.org, linux-ext4@vger.kernel.org, 
+ linux-f2fs-devel@lists.sourceforge.net, linux-um@lists.infradead.org,
+ linux-mtd@lists.infradead.org, 
  jfs-discussion@lists.sourceforge.net, linux-nfs@vger.kernel.org,
- linux-nilfs@vger.kernel.org, ntfs3@lists.linux.dev,
- ocfs2-devel@lists.linux.dev, linux-karma-devel@lists.sourceforge.net,
- devel@lists.orangefs.org, linux-cifs@vger.kernel.org,
+ linux-nilfs@vger.kernel.org, 
+ ntfs3@lists.linux.dev, ocfs2-devel@lists.linux.dev, 
+ linux-karma-devel@lists.sourceforge.net, devel@lists.orangefs.org,
+ linux-cifs@vger.kernel.org, 
  samba-technical@lists.samba.org, linux-xfs@vger.kernel.org,
  nvdimm@lists.linux.dev
-Subject: [PATCH 00/10] convert the majority of file systems to mmap_prepare
-Date: Mon, 16 Jun 2025 20:33:19 +0100
-Message-ID: <cover.1750099179.git.lorenzo.stoakes@oracle.com>
-X-Mailer: git-send-email 2.49.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: DO2P289CA0012.QATP289.PROD.OUTLOOK.COM
- (2603:1096:790:6::16) To DM4PR10MB8218.namprd10.prod.outlook.com
- (2603:10b6:8:1cc::16)
+Subject: Re: [PATCH 08/10] fs: convert simple use of generic_file_*_mmap() to
+ .mmap_prepare()
+Message-ID: <3m4hxh7ybqgwr2fzymzsp4wiz254hdeelkdaajw3gxbdw7fezt@53eblikg32e3>
+References: <cover.1750099179.git.lorenzo.stoakes@oracle.com>
+ <c7dc90e44a9e75e750939ea369290d6e441a18e6.1750099179.git.lorenzo.stoakes@oracle.com>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM4PR10MB8218:EE_|PH0PR10MB5870:EE_
-X-MS-Office365-Filtering-Correlation-Id: 05c93f15-6041-4a47-0306-08ddad0cb293
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|366016|1800799024|7416014|376014;
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?g8p7urz/ZBpTpt6gbvYpDaVO2vIEsL6X/YDdz57ufpivaIoKF/TuXID8gPC/?=
- =?us-ascii?Q?n+qd7pr3NXLGY5G3uUz6VQzBATHzN7BhOwrRJMF2T2vka1uku83/2clxxrVy?=
- =?us-ascii?Q?bROovRnbk7XSRl22Fyv+Kr+L4vrWZvxiLd/9/vaN3Nh073GBmQ4/QyaVsFa9?=
- =?us-ascii?Q?MruW0vfdLIQT+8FyHgrTk0l4uu95LMCzmrlqU3+7ILY9VFVRLPBK8kXkAt52?=
- =?us-ascii?Q?Viz+cK9SRriXWvIJPrBMShfr13FwVRLt/DKoz5eyeAL4PGh6YkbaxC2u2aQV?=
- =?us-ascii?Q?U7qfEL7YE3p4pRXIXTywKYiF9WnFTDR0RnA/EayUH1heU8YI5uYZMQfz3NzB?=
- =?us-ascii?Q?GQ/7UZNnxqUAxOePJ7JsUcCGChSruKR7NnU5dOtz9rceYpPgDvyl3HM6yor5?=
- =?us-ascii?Q?RNdkqmRQYwPBcc5j+JksBGtFgBTVU5vzFuPZGr1GiMx4kaQm+/znH3MVfAgr?=
- =?us-ascii?Q?zUJ31mo3Y6xvW+YzS/XkvECTQIZDFC/g5FntZ6AUIkkhcJDYmtWWp/3UcYXE?=
- =?us-ascii?Q?FPK2JdGRZP0/ACd+LSxYp0wvt2ppsf/awvfrQJ5FI4TCxni5WwS6TvyfKOGC?=
- =?us-ascii?Q?LCVh2LUWuG//4vQ1z9qPZwr7a7Xpp3PnSDydBG29feYZHiM7W9ffTUetdzVM?=
- =?us-ascii?Q?WijDW92Z1I2vpjR4OO86dKONnOLR35U9vVH4DLNuuCL2tjBl+YAJ3siRswXO?=
- =?us-ascii?Q?NMlh/FMBbD44luUFyd/ONTBSVadltfZHu8yZTudfhTyfZQrdSFnISU68AGog?=
- =?us-ascii?Q?Ty9/tZ1xFEpbgUFgVgPmByHE/UU7MK7a4fCJ1mujQBMLMk+kBsS0kOl08JNy?=
- =?us-ascii?Q?g611PZZeqG7gpTfdvluK+CBWSlleek10f+RYYuiFUOq3aAGqyyZkue0vtcfU?=
- =?us-ascii?Q?M259pBsc+hZT19RRR+f4HNndS0bpQnm+AOTAXs2xyhwLpr8LqQ6fUzDyJi0Z?=
- =?us-ascii?Q?oG86FWQrvIzTasYWC4hJ8Ptl3vOmwTkjkCkM6oSIeZriiWb+uygsJEFGRUH6?=
- =?us-ascii?Q?xC9WuhbP8Q9FhCFW6Z+1MTrYx1Qo4VXA8W+PJmVkdvIGUfKEabvC79l1JVlz?=
- =?us-ascii?Q?5g3xe4rgJSlTIr5wpuxszosCW8q10c0FLq5LZulv8YKnAQorCe9FJxFaglHA?=
- =?us-ascii?Q?Jy3XmF31zEfiD9unrv+1K3V2JqU8fE1dbPbUkXLsNcFWbY6nRCcDbGmNvYxE?=
- =?us-ascii?Q?lRQW4oP5G7bUCG736yRrkTA1Zez0WJ8aQnNBoCvQqD5jrcuxM0H1G94PnUXd?=
- =?us-ascii?Q?z8CYNXEwGcqgX3J+cKm6y0HuZQPjDWMvtiNCWtGqAFCdwdZY5d2eqCDgtJLg?=
- =?us-ascii?Q?i0Nb5xD2CCSQ38RyxFpOHrLzq0PGe1zAGb3XM9igcnrTxEye0UFw+zzEZH7a?=
- =?us-ascii?Q?JYV4ugmuV7qZaDhqh8K55qWFaJi9Lg3s6oXP0CMTWMVxUKpPuCshrM3D7yXZ?=
- =?us-ascii?Q?emq2+O/FSoI=3D?=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM4PR10MB8218.namprd10.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(1800799024)(7416014)(376014); DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?XmV+nIFap7kAWlW2CsduKHT7tMmAgGqqxesBMLPREU4fZcQPC9IEvtS9PctR?=
- =?us-ascii?Q?6L0Hh25XihZ+qcX3nAFejpIrda34C5XkoVW0sdYfK4GUN4oQiIgVVoYZL6AA?=
- =?us-ascii?Q?JHBfEcNacHurl4mdrAyXbrGi0U7PRW5FZNhniQjmCLvv/p7FJkc3QXqAZJyQ?=
- =?us-ascii?Q?UrWh7AQcgayVs+1UDMGAw5A7SYxc8uf4Vu0gRlZ5tB5BZJQOAINj14TUri12?=
- =?us-ascii?Q?rZr0JplF9WzCtKrT7tRrLiHwFRBnLLYpflJsnVyyd5o3WMbWaIZdJa+KcTmb?=
- =?us-ascii?Q?HPSS4K4BaK18+44SfWNJ7UEVczj2z+Ayvfs+8ZiO83Zap0W4lEYmFOmIZLNb?=
- =?us-ascii?Q?LUt/FINe7wMckBMeel/4NzvN5P++2cIZ4DKfc/8qDshbDLnL4o+dDF2UM6gg?=
- =?us-ascii?Q?qVWu0+4DFapRd2m7Fa1O8qJQAtEk5sXAvfgG5pSBWUkeQUe6sU/Ntr7s5J+1?=
- =?us-ascii?Q?tB1ch8IOu8Y25c/gBjzhxTEMeWxj2iXz1W1PVCNsIPhK1woUVykGf67jA6yX?=
- =?us-ascii?Q?GYTsp9DRVHsausXBc/R1a4l1ZbKlw2YtfbgqBZqc2y7WbWNpdUIPQ80kNTc9?=
- =?us-ascii?Q?qFY9ubbGLYZNOKKHLAsW0RPOaYz3qpQ73hiBIX4H3pHrE3AwMM1oT1epvPUh?=
- =?us-ascii?Q?+gkg/4Zyq16SblhZEhHX9Mn9576o7Th29g6i/DiNVR8pris990n/BFcYApZS?=
- =?us-ascii?Q?4j6O1MdiX8W1o+J7fTti1PlllODzOlMO1G7WqozkeGUsNJOgAyjtkJmForQn?=
- =?us-ascii?Q?Wnl0rwdNsBOjS8dElbADnROF8eHMVdfUraaAt70dbwvzNki+mqYFJe/GgAz6?=
- =?us-ascii?Q?UjQ6IAAk8l2HVvDlhgJbniUYrd49Rv1DlL+Si/hqzySTG9msJh/76la9oCkI?=
- =?us-ascii?Q?47u2rn9WkriwS5qoIoHhwUO2gQn108EysYyhRXo7Jn6ELTzmEs6cHxMKBkW5?=
- =?us-ascii?Q?qCmDMs1Iyps4Zm3yPnqBpRrxkzjdKJYu9ZKK+lwuucL/OmvYFeHCGgtlfMdZ?=
- =?us-ascii?Q?C3im8yWOQZKnVf08Oqis5CWpcB9JPMie8iusJWD+km8v+tf6sgBFH2j9UpNr?=
- =?us-ascii?Q?GtA6FAclwSJrKDksQo/5s+iNFWnD3TNfxERlc/e+lRYcGo12JsV+TJqDVQjr?=
- =?us-ascii?Q?KLlHG0knbValjWNJ6TValH+1XyTTh2vFFsf7vz9pUoJwj8kubrtvTo74za0K?=
- =?us-ascii?Q?bwfAZ+qDLV7SpNRVgt6vF62Se5sONCVWjPgpw8H1K2bb09sGnlk0c9Of6VF+?=
- =?us-ascii?Q?HvQc6DdxYJ+OKvW56tdbbEts2bn9SuGEoYNJvh7ERe7O3+bzm7AJdJXaHtIi?=
- =?us-ascii?Q?xImyHIpD90JtaYiJyDtKuz5AgUnIHKLQ54bbGSJV6MX0pvL2LT7YaCVLFmSH?=
- =?us-ascii?Q?ndqLPVnCPALCpVKfJkmuQGe6ZmeQKxwdj+7RGRMYcB7gWjJT9qqzs4Twc2YW?=
- =?us-ascii?Q?Nl76bvgUSi+CxAroqmtmIV5B87/IX8sk/993EBUoaUnr0N1gGU0XoNrJ4h6l?=
- =?us-ascii?Q?PMVRjCrCz2dXc0HHEyQ3iCBz3Z5OtVotQxZmZOjqsJBkdF951zeZwuihT2L4?=
- =?us-ascii?Q?vOkqOXSKJyhI4c4+FzJ+aXzx0SUYHPVUj69W9+kTmsqkGzORxW5EbODvGg8y?=
- =?us-ascii?Q?cw=3D=3D?=
-X-MS-Exchange-AntiSpam-ExternalHop-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-ExternalHop-MessageData-0: igOjeGcYeq8Mj1+3TQ4oVdep8Qgj7iMBK4ABugBEdunQwWxyIJBb7RnxQ7BiiVZwgAxmZIX+nxu7E/LOA6I+u9MtAngJZFAdB1qick4hrFJJSqI/uTKroppys20BAOafr99zwmw53q5r/v1jHcaNDGrj9f2UWNQ5SNsoAaUwdZ24B513NIfqnd3cNH8U8RKq8eOcNnIKJsc/8gTho+woycgQK5/L0/Nch2pGrVbO7ATaPc42SIH7FO0QKUBs7Tffqq546IwZ01TxTngULR0/Ynmcc81x0RpyF2x641RaywnGVZMpbtxBS437n3YxVxlo3l+dud47zid8YDrZPKTzoWiyJS7Ii/dYitfaL00Df6hKd7nyugycdwN0ctWsVZXeBSqlIxN9OjPzLmr8CWQdk57bMRCumP/PR/AHvBOB2R79h7KpjOA/GqsFl376d1V/Pkto3jrq3eoJ0mSDMCQfgnYw+siMIHDMxdx9nRAR3cDL2sXplry+ks4lbDaPZXjW0QPqjVeSjMEVcT2+CJcCexIKW5eCHUhrgPCfVQ+1ahXru5AZb45juAwZVHEeIjnYMVlyTFs4XhlgwvMyZqwmSsKDS9rPiLVorpwQBab5lTo=
-X-OriginatorOrg: oracle.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 05c93f15-6041-4a47-0306-08ddad0cb293
-X-MS-Exchange-CrossTenant-AuthSource: DM4PR10MB8218.namprd10.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Jun 2025 19:33:40.5838 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 4e2c6054-71cb-48f1-bd6c-3a9705aca71b
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: IcFUayvDOLdFoRGV4EPxG1hGzR7lf5Wi2lcY4CsKYA1M7dwrL3SY2GrcrFqLbZeusc6dN8wIrKLHbHOBbhM47BesEMEWrHbHqmWiDVyOxE4=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR10MB5870
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1099,Hydra:6.0.736,FMLib:17.12.80.40
- definitions=2025-06-16_09,2025-06-13_01,2025-03-28_01
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 phishscore=0
- malwarescore=0
- mlxlogscore=999 mlxscore=0 bulkscore=0 spamscore=0 adultscore=0
- suspectscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-2505160000 definitions=main-2506160134
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwNjE2MDEzNCBTYWx0ZWRfXz+PLK57oRo+o
- 8h2KQ9crmpfhewUp0cl55WipWqm7kHCXMZA3NCzTnqbNJrfM81vGC47SAyXhWlBIGRqZkyLs6S4
- UyD6kR8nLb//Qq1HeoqrgV6RIvPv2pL/uH7YKIxmuCXE+Z2wcqfc3GrnS35ynvK3DemkcBQCxYn
- wP58kG62B83cnoOujcgFee+CM/pqnJAifAYCb5Kwzdy82KBC2Z1Ik80qLuXjkJgG0tkU98iLWrT
- 7Nd5tIpoDX+qWD/StpIGqbGRiix3RHXVFVzIAuEE2GgY2ysGjwTnDuy3gmUvQsVSg7EaWnxg1Eh
- oemqrRrqBx0oBUNTuMwe8/Ea+Ibwv0c7WoW6JK8E+w7ZZWq3gqKTlF4nOeJ6ybfeZiOOynXamhh
- ILo4Sb5uf+LM1g0r/M7Me+VaqLYEhsz2oArkR+CkHHG0cJBb3fX0vT8W4gQl3/IbPkLpeLA4
-X-Proofpoint-GUID: 3ilgjWYWSV0xGA84Pa16uGLxmWsbRyK7
-X-Proofpoint-ORIG-GUID: 3ilgjWYWSV0xGA84Pa16uGLxmWsbRyK7
-X-Authority-Analysis: v=2.4 cv=dvLbC0g4 c=1 sm=1 tr=0 ts=6850719c b=1 cx=c_pps
- a=zPCbziy225d3KhSqZt3L1A==:117 a=zPCbziy225d3KhSqZt3L1A==:17
- a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19 a=lCpzRmAYbLLaTzLvsPZ7Mbvzbb8=:19
- a=wKuvFiaSGQ0qltdbU6+NXLB8nM8=:19
- a=Ol13hO9ccFRV9qXi2t6ftBPywas=:19 a=xqWC_Br6kY4A:10 a=6IFa9wvqVegA:10
- a=GoEa3M9JfhUA:10 a=CJ9Vzb_pIGcOg4OUlcsA:9 cc=ntf awl=host:13206
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <c7dc90e44a9e75e750939ea369290d6e441a18e6.1750099179.git.lorenzo.stoakes@oracle.com>
+X-Spamd-Result: default: False [-0.30 / 50.00]; BAYES_HAM(-3.00)[100.00%];
+ FORGED_RECIPIENTS(2.00)[m:akpm@linux-foundation.org, m:axboe@kernel.dk,
+ m:rodrigo.vivi@intel.com, m:airlied@gmail.com, m:simona@ffwll.ch,
+ m:ericvh@kernel.org, m:lucho@ionkov.net, m:asmadeus@codewreck.org,
+ m:linux_oss@crudebyte.com, m:marc.dionne@auristor.com,
+ m:viro@zeniv.linux.org.uk, m:brauner@kernel.org, m:bcrl@kvack.org,
+ m:amir73il@gmail.com, m:aivazian.tigran@gmail.com, m:kees@kernel.org,
+ m:clm@fb.com, m:idryomov@gmail.com, m:jaharkes@cs.cmu.edu, m:coda@cs.cmu.edu,
+ m:xiang@kernel.org, m:chao@kernel.org, m:zbestahu@gmail.com,
+ m:dhavale@google.com, m:lihongbo22@huawei.com, m:linkinjeon@kernel.org,
+ m:adilger.kernel@dilger.ca, m:jaegeuk@kernel.org, m:slava@dubeyko.com,
+ m:frank.li@vivo.com, m:anton.ivanov@cambridgegreys.com,
+ m:mikulas@artax.karlin.mff.cuni.cz, m:dwmw2@infradead.org, m:shaggy@kernel.org,
+ m:trondmy@kernel.org, m:anna@kernel.org, m:konishi.ryusuke@gmail.com,
+ m:mark@fasheh.com, m:jlbec@evilplan.org, m:me@bobcopeland.com,
+ m:ronniesahlberg@gmail.com, m:chengzhihao1@huawei.com, m:cem@kernel.org,
+ m:dlemoal@kernel.or
+ g,m:naohiro.aota@wdc.com,m:jth@kernel.org,m:dan.j.williams@intel.com,m:willy@infradead.org,m:jannh@google.com,m:linux-aio@kvack.org,m:linux-mm@kvack.org,m:codalist@coda.cs.cmu.edu,s:linux-mtd@lists.infradead.org,s:linux-um@lists.infradead.org,s:ntfs3@lists.linux.dev,s:nvdimm@lists.linux.dev,s:ocfs2-devel@lists.linux.dev,s:devel@lists.orangefs.org,s:samba-technical@lists.samba.org,s:jfs-discussion@lists.sourceforge.net,s:linux-f2fs-devel@lists.sourceforge.net,s:linux-karma-devel@lists.sourceforge.net];
+ SUSPICIOUS_RECIPS(1.50)[]; NEURAL_HAM_LONG(-1.00)[-1.000];
+ MID_RHS_NOT_FQDN(0.50)[]; NEURAL_HAM_SHORT(-0.20)[-1.000];
+ MIME_GOOD(-0.10)[text/plain]; RCVD_TLS_LAST(0.00)[];
+ FUZZY_BLOCKED(0.00)[rspamd.com]; RCVD_COUNT_THREE(0.00)[3];
+ ARC_NA(0.00)[];
+ DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+ MIME_TRACE(0.00)[0:+]; FROM_HAS_DN(0.00)[];
+ FREEMAIL_CC(0.00)[linux-foundation.org,oracle.com,kernel.dk,linux.intel.com,intel.com,ursulin.net,gmail.com,ffwll.ch,kernel.org,ionkov.net,codewreck.org,crudebyte.com,suse.com,redhat.com,auristor.com,zeniv.linux.org.uk,suse.cz,kvack.org,szeredi.hu,linux.dev,fb.com,toxicpanda.com,cs.cmu.edu,tyhicks.com,linux.alibaba.com,google.com,huawei.com,samsung.com,sony.com,mit.edu,dilger.ca,mail.parknet.co.jp,dubeyko.com,physik.fu-berlin.de,vivo.com,nod.at,cambridgegreys.com,sipsolutions.net,artax.karlin.mff.cuni.cz,infradead.org,paragon-software.com,fasheh.com,evilplan.org,bobcopeland.com,omnibond.com,samba.org,manguebit.org,microsoft.com,talpey.com,wdc.com,suse.de,vger.kernel.org,lists.freedesktop.org,lists.linux.dev,lists.infradead.org,coda.cs.cmu.edu,lists.ozlabs.org,lists.sourceforge.net,lists.orangefs.org,lists.samba.org];
+ R_RATELIMIT(0.00)[to_ip_from(RLb58ib84xst5oy51ju4zaburj)];
+ TO_MATCH_ENVRCPT_SOME(0.00)[]; FROM_EQ_ENVFROM(0.00)[];
+ TO_DN_SOME(0.00)[]; RCPT_COUNT_GT_50(0.00)[113];
+ RCVD_VIA_SMTP_AUTH(0.00)[]; TAGGED_RCPT(0.00)[];
+ MISSING_XM_UA(0.00)[];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:email]
 X-Mailman-Approved-At: Tue, 17 Jun 2025 13:35:58 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -266,143 +199,261 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-REVIEWER'S NOTES
-================
+On Mon 16-06-25 20:33:27, Lorenzo Stoakes wrote:
+> Since commit c84bf6dd2b83 ("mm: introduce new .mmap_prepare() file
+> callback"), the f_op->mmap() hook has been deprecated in favour of
+> f_op->mmap_prepare().
+> 
+> We have provided generic .mmap_prepare() equivalents, so update all file
+> systems that specify these directly in their file_operations structures.
+> 
+> This updates 9p, adfs, affs, bfs, fat, hfs, hfsplus, hostfs, hpfs, jffs2,
+> jfs, minix, omfs, ramfs and ufs file systems directly.
+> 
+> It updates generic_ro_fops which impacts qnx4, cramfs, befs, squashfs,
+> frebxfs, qnx6, efs, romfs, erofs and isofs file systems.
+> 
+> There are remaining file systems which use generic hooks in a less direct
+> way which we address in a subsequent commit.
+> 
+> Signed-off-by: Lorenzo Stoakes <lorenzo.stoakes@oracle.com>
 
-I am basing this on the mm-new branch in Andrew's tree, so let me know if I
-should rebase anything here. Given the mm bits touched I did think perhaps
-we should take it through the mm tree, however it may be more sensible to
-take it through an fs tree - let me know!
+Looks good. Feel free to add:
 
-Apologies for the noise/churn, but there are some prerequisite steps here
-that inform an ordering - "fs: consistently use file_has_valid_mmap_hooks()
-helper" being especially critical, and so I put the bulk of the work in the
-same series.
+Reviewed-by: Jan Kara <jack@suse.cz>
 
-Let me know if there's anything I can do to make life easier here.
+								Honza
 
-Thanks!
-
-===============
-
-In commit c84bf6dd2b83 ("mm: introduce new .mmap_prepare() file
-callback"), a new hook for mmap was introduced - f_op->mmap_prepare().
-
-This is preferred to the existing f_op->mmap() hook as it does require a
-VMA to be established yet, thus allowing the mmap logic to invoke this hook
-far, far earlier, prior to inserting a VMA into the virtual address space,
-or performing any other heavy handed operations.
-
-This allows for much simpler unwinding on error, and for there to be a
-single attempt at merging a VMA rather than having to possibly reattempt a
-merge based on potentially altered VMA state.
-
-Far more importantly, it prevents inappropriate manipulation of
-incompletely initialised VMA state, which is something that has been the
-cause of bugs and complexity in the past.
-
-The intent is to gradually deprecate f_op->mmap, and in that vein this
-series coverts the majority of file systems to using f_op->mmap_prepare.
-
-Prerequisite steps are taken - firstly ensuring all checks for mmap
-capabilities use the file_has_valid_mmap_hooks() helper rather than
-directly checking for f_op->mmap (which is now not a valid check) and
-secondly updating daxdev_mapping_supported() to not require a VMA parameter
-to allow ext4 and xfs to be converted.
-
-Commit bb666b7c2707 ("mm: add mmap_prepare() compatibility layer for nested
-file systems") handles the nasty edge-case of nested file systems like
-overlayfs, which introduces a compatibility shim to allow
-f_op->mmap_prepare() to be invoked from an f_op->mmap() callback.
-
-This allows for nested filesystems to continue to function correctly with
-all file systems regardless of which callback is used. Once we finally
-convert all file systems, this shim can be removed.
-
-As a result, ecryptfs, fuse, and overlayfs remain unaltered so they can
-nest all other file systems.
-
-We additionally do not update resctl - as this requires an update to
-remap_pfn_range() (or an alternative to it) which we defer to a later
-series, equally we do not update cramfs which needs a mixed mapping
-insertion with the same issue, nor do we update procfs, hugetlbfs, syfs or
-kernfs all of which require VMAs for internal state and hooks. We shall
-return to all of these later.
-
-Lorenzo Stoakes (10):
-  mm: rename call_mmap/mmap_prepare to vfs_mmap/mmap_prepare
-  mm/nommu: use file_has_valid_mmap_hooks() helper
-  fs: consistently use file_has_valid_mmap_hooks() helper
-  fs/dax: make it possible to check dev dax support without a VMA
-  fs/ext4: transition from deprecated .mmap hook to .mmap_prepare
-  fs/xfs: transition from deprecated .mmap hook to .mmap_prepare
-  mm/filemap: introduce generic_file_*_mmap_prepare() helpers
-  fs: convert simple use of generic_file_*_mmap() to .mmap_prepare()
-  fs: convert most other generic_file_*mmap() users to .mmap_prepare()
-  fs: replace mmap hook with .mmap_prepare for simple mappings
-
- block/fops.c                               |  9 +++---
- drivers/gpu/drm/i915/gem/i915_gem_dmabuf.c |  2 +-
- fs/9p/vfs_file.c                           | 13 +++++----
- fs/adfs/file.c                             |  2 +-
- fs/affs/file.c                             |  2 +-
- fs/afs/file.c                              | 11 ++++----
- fs/aio.c                                   |  8 +++---
- fs/backing-file.c                          |  4 +--
- fs/bcachefs/fs.c                           |  8 +++---
- fs/bfs/file.c                              |  2 +-
- fs/binfmt_elf.c                            |  4 +--
- fs/binfmt_elf_fdpic.c                      |  2 +-
- fs/btrfs/file.c                            |  7 +++--
- fs/ceph/addr.c                             |  5 ++--
- fs/ceph/file.c                             |  2 +-
- fs/ceph/super.h                            |  2 +-
- fs/coda/file.c                             |  6 ++--
- fs/ecryptfs/file.c                         |  2 +-
- fs/erofs/data.c                            | 16 ++++++-----
- fs/exfat/file.c                            |  7 +++--
- fs/ext2/file.c                             | 12 ++++----
- fs/ext4/file.c                             | 13 +++++----
- fs/f2fs/file.c                             |  7 +++--
- fs/fat/file.c                              |  2 +-
- fs/hfs/inode.c                             |  2 +-
- fs/hfsplus/inode.c                         |  2 +-
- fs/hostfs/hostfs_kern.c                    |  2 +-
- fs/hpfs/file.c                             |  2 +-
- fs/jffs2/file.c                            |  2 +-
- fs/jfs/file.c                              |  2 +-
- fs/minix/file.c                            |  2 +-
- fs/nfs/file.c                              | 13 +++++----
- fs/nfs/internal.h                          |  2 +-
- fs/nfs/nfs4file.c                          |  2 +-
- fs/nilfs2/file.c                           |  8 +++---
- fs/ntfs3/file.c                            | 15 +++++-----
- fs/ocfs2/file.c                            |  4 +--
- fs/ocfs2/mmap.c                            |  5 ++--
- fs/ocfs2/mmap.h                            |  2 +-
- fs/omfs/file.c                             |  2 +-
- fs/orangefs/file.c                         | 10 ++++---
- fs/ramfs/file-mmu.c                        |  2 +-
- fs/ramfs/file-nommu.c                      | 12 ++++----
- fs/read_write.c                            |  2 +-
- fs/romfs/mmap-nommu.c                      |  6 ++--
- fs/smb/client/cifsfs.c                     | 12 ++++----
- fs/smb/client/cifsfs.h                     |  4 +--
- fs/smb/client/file.c                       | 14 ++++++----
- fs/ubifs/file.c                            |  8 +++---
- fs/ufs/file.c                              |  2 +-
- fs/vboxsf/file.c                           |  8 +++---
- fs/xfs/xfs_file.c                          | 15 +++++-----
- fs/zonefs/file.c                           | 10 ++++---
- include/linux/dax.h                        | 16 ++++++-----
- include/linux/fs.h                         | 11 ++++----
- ipc/shm.c                                  |  2 +-
- mm/filemap.c                               | 29 ++++++++++++++++++++
- mm/internal.h                              |  2 +-
- mm/nommu.c                                 |  2 +-
- mm/vma.c                                   |  2 +-
- tools/testing/vma/vma_internal.h           | 32 ++++++++++++++++++----
- 61 files changed, 245 insertions(+), 171 deletions(-)
-
---
-2.49.0
+> ---
+>  fs/9p/vfs_file.c        | 2 +-
+>  fs/adfs/file.c          | 2 +-
+>  fs/affs/file.c          | 2 +-
+>  fs/bfs/file.c           | 2 +-
+>  fs/fat/file.c           | 2 +-
+>  fs/hfs/inode.c          | 2 +-
+>  fs/hfsplus/inode.c      | 2 +-
+>  fs/hostfs/hostfs_kern.c | 2 +-
+>  fs/hpfs/file.c          | 2 +-
+>  fs/jffs2/file.c         | 2 +-
+>  fs/jfs/file.c           | 2 +-
+>  fs/minix/file.c         | 2 +-
+>  fs/omfs/file.c          | 2 +-
+>  fs/ramfs/file-mmu.c     | 2 +-
+>  fs/read_write.c         | 2 +-
+>  fs/ufs/file.c           | 2 +-
+>  16 files changed, 16 insertions(+), 16 deletions(-)
+> 
+> diff --git a/fs/9p/vfs_file.c b/fs/9p/vfs_file.c
+> index 348cc90bf9c5..2ff3e0ac7266 100644
+> --- a/fs/9p/vfs_file.c
+> +++ b/fs/9p/vfs_file.c
+> @@ -516,7 +516,7 @@ const struct file_operations v9fs_file_operations = {
+>  	.open = v9fs_file_open,
+>  	.release = v9fs_dir_release,
+>  	.lock = v9fs_file_lock,
+> -	.mmap = generic_file_readonly_mmap,
+> +	.mmap_prepare = generic_file_readonly_mmap_prepare,
+>  	.splice_read = v9fs_file_splice_read,
+>  	.splice_write = iter_file_splice_write,
+>  	.fsync = v9fs_file_fsync,
+> diff --git a/fs/adfs/file.c b/fs/adfs/file.c
+> index ee80718aaeec..cd13165fd904 100644
+> --- a/fs/adfs/file.c
+> +++ b/fs/adfs/file.c
+> @@ -25,7 +25,7 @@
+>  const struct file_operations adfs_file_operations = {
+>  	.llseek		= generic_file_llseek,
+>  	.read_iter	= generic_file_read_iter,
+> -	.mmap		= generic_file_mmap,
+> +	.mmap_prepare	= generic_file_mmap_prepare,
+>  	.fsync		= generic_file_fsync,
+>  	.write_iter	= generic_file_write_iter,
+>  	.splice_read	= filemap_splice_read,
+> diff --git a/fs/affs/file.c b/fs/affs/file.c
+> index 7a71018e3f67..fbac204b7055 100644
+> --- a/fs/affs/file.c
+> +++ b/fs/affs/file.c
+> @@ -999,7 +999,7 @@ const struct file_operations affs_file_operations = {
+>  	.llseek		= generic_file_llseek,
+>  	.read_iter	= generic_file_read_iter,
+>  	.write_iter	= generic_file_write_iter,
+> -	.mmap		= generic_file_mmap,
+> +	.mmap_prepare	= generic_file_mmap_prepare,
+>  	.open		= affs_file_open,
+>  	.release	= affs_file_release,
+>  	.fsync		= affs_file_fsync,
+> diff --git a/fs/bfs/file.c b/fs/bfs/file.c
+> index fa66a09e496a..6685c3411fe7 100644
+> --- a/fs/bfs/file.c
+> +++ b/fs/bfs/file.c
+> @@ -27,7 +27,7 @@ const struct file_operations bfs_file_operations = {
+>  	.llseek 	= generic_file_llseek,
+>  	.read_iter	= generic_file_read_iter,
+>  	.write_iter	= generic_file_write_iter,
+> -	.mmap		= generic_file_mmap,
+> +	.mmap_prepare	= generic_file_mmap_prepare,
+>  	.splice_read	= filemap_splice_read,
+>  };
+>  
+> diff --git a/fs/fat/file.c b/fs/fat/file.c
+> index e887e9ab7472..4fc49a614fb8 100644
+> --- a/fs/fat/file.c
+> +++ b/fs/fat/file.c
+> @@ -204,7 +204,7 @@ const struct file_operations fat_file_operations = {
+>  	.llseek		= generic_file_llseek,
+>  	.read_iter	= generic_file_read_iter,
+>  	.write_iter	= generic_file_write_iter,
+> -	.mmap		= generic_file_mmap,
+> +	.mmap_prepare	= generic_file_mmap_prepare,
+>  	.release	= fat_file_release,
+>  	.unlocked_ioctl	= fat_generic_ioctl,
+>  	.compat_ioctl	= compat_ptr_ioctl,
+> diff --git a/fs/hfs/inode.c b/fs/hfs/inode.c
+> index a81ce7a740b9..d419586d668d 100644
+> --- a/fs/hfs/inode.c
+> +++ b/fs/hfs/inode.c
+> @@ -690,7 +690,7 @@ static const struct file_operations hfs_file_operations = {
+>  	.llseek		= generic_file_llseek,
+>  	.read_iter	= generic_file_read_iter,
+>  	.write_iter	= generic_file_write_iter,
+> -	.mmap		= generic_file_mmap,
+> +	.mmap_prepare	= generic_file_mmap_prepare,
+>  	.splice_read	= filemap_splice_read,
+>  	.fsync		= hfs_file_fsync,
+>  	.open		= hfs_file_open,
+> diff --git a/fs/hfsplus/inode.c b/fs/hfsplus/inode.c
+> index f331e9574217..0af7e302730c 100644
+> --- a/fs/hfsplus/inode.c
+> +++ b/fs/hfsplus/inode.c
+> @@ -366,7 +366,7 @@ static const struct file_operations hfsplus_file_operations = {
+>  	.llseek		= generic_file_llseek,
+>  	.read_iter	= generic_file_read_iter,
+>  	.write_iter	= generic_file_write_iter,
+> -	.mmap		= generic_file_mmap,
+> +	.mmap_prepare	= generic_file_mmap_prepare,
+>  	.splice_read	= filemap_splice_read,
+>  	.fsync		= hfsplus_file_fsync,
+>  	.open		= hfsplus_file_open,
+> diff --git a/fs/hostfs/hostfs_kern.c b/fs/hostfs/hostfs_kern.c
+> index 702c41317589..bc22b6cc72af 100644
+> --- a/fs/hostfs/hostfs_kern.c
+> +++ b/fs/hostfs/hostfs_kern.c
+> @@ -382,7 +382,7 @@ static const struct file_operations hostfs_file_fops = {
+>  	.splice_write	= iter_file_splice_write,
+>  	.read_iter	= generic_file_read_iter,
+>  	.write_iter	= generic_file_write_iter,
+> -	.mmap		= generic_file_mmap,
+> +	.mmap_prepare	= generic_file_mmap_prepare,
+>  	.open		= hostfs_open,
+>  	.release	= hostfs_file_release,
+>  	.fsync		= hostfs_fsync,
+> diff --git a/fs/hpfs/file.c b/fs/hpfs/file.c
+> index 449a3fc1b8d9..a1a44e3edb19 100644
+> --- a/fs/hpfs/file.c
+> +++ b/fs/hpfs/file.c
+> @@ -255,7 +255,7 @@ const struct file_operations hpfs_file_ops =
+>  	.llseek		= generic_file_llseek,
+>  	.read_iter	= generic_file_read_iter,
+>  	.write_iter	= generic_file_write_iter,
+> -	.mmap		= generic_file_mmap,
+> +	.mmap_prepare	= generic_file_mmap_prepare,
+>  	.release	= hpfs_file_release,
+>  	.fsync		= hpfs_file_fsync,
+>  	.splice_read	= filemap_splice_read,
+> diff --git a/fs/jffs2/file.c b/fs/jffs2/file.c
+> index 13c18ccc13b0..1e05f7fe5dd4 100644
+> --- a/fs/jffs2/file.c
+> +++ b/fs/jffs2/file.c
+> @@ -54,7 +54,7 @@ const struct file_operations jffs2_file_operations =
+>   	.read_iter =	generic_file_read_iter,
+>   	.write_iter =	generic_file_write_iter,
+>  	.unlocked_ioctl=jffs2_ioctl,
+> -	.mmap =		generic_file_readonly_mmap,
+> +	.mmap_prepare =	generic_file_readonly_mmap_prepare,
+>  	.fsync =	jffs2_fsync,
+>  	.splice_read =	filemap_splice_read,
+>  	.splice_write = iter_file_splice_write,
+> diff --git a/fs/jfs/file.c b/fs/jfs/file.c
+> index 01b6912e60f8..5e47951db630 100644
+> --- a/fs/jfs/file.c
+> +++ b/fs/jfs/file.c
+> @@ -143,7 +143,7 @@ const struct file_operations jfs_file_operations = {
+>  	.llseek		= generic_file_llseek,
+>  	.read_iter	= generic_file_read_iter,
+>  	.write_iter	= generic_file_write_iter,
+> -	.mmap		= generic_file_mmap,
+> +	.mmap_prepare	= generic_file_mmap_prepare,
+>  	.splice_read	= filemap_splice_read,
+>  	.splice_write	= iter_file_splice_write,
+>  	.fsync		= jfs_fsync,
+> diff --git a/fs/minix/file.c b/fs/minix/file.c
+> index 906d192ab7f3..dca7ac71f049 100644
+> --- a/fs/minix/file.c
+> +++ b/fs/minix/file.c
+> @@ -17,7 +17,7 @@ const struct file_operations minix_file_operations = {
+>  	.llseek		= generic_file_llseek,
+>  	.read_iter	= generic_file_read_iter,
+>  	.write_iter	= generic_file_write_iter,
+> -	.mmap		= generic_file_mmap,
+> +	.mmap_prepare	= generic_file_mmap_prepare,
+>  	.fsync		= generic_file_fsync,
+>  	.splice_read	= filemap_splice_read,
+>  };
+> diff --git a/fs/omfs/file.c b/fs/omfs/file.c
+> index 98358d405b6a..319c04e63964 100644
+> --- a/fs/omfs/file.c
+> +++ b/fs/omfs/file.c
+> @@ -332,7 +332,7 @@ const struct file_operations omfs_file_operations = {
+>  	.llseek = generic_file_llseek,
+>  	.read_iter = generic_file_read_iter,
+>  	.write_iter = generic_file_write_iter,
+> -	.mmap = generic_file_mmap,
+> +	.mmap_prepare = generic_file_mmap_prepare,
+>  	.fsync = generic_file_fsync,
+>  	.splice_read = filemap_splice_read,
+>  };
+> diff --git a/fs/ramfs/file-mmu.c b/fs/ramfs/file-mmu.c
+> index b45c7edc3225..b11f5b20b78b 100644
+> --- a/fs/ramfs/file-mmu.c
+> +++ b/fs/ramfs/file-mmu.c
+> @@ -41,7 +41,7 @@ static unsigned long ramfs_mmu_get_unmapped_area(struct file *file,
+>  const struct file_operations ramfs_file_operations = {
+>  	.read_iter	= generic_file_read_iter,
+>  	.write_iter	= generic_file_write_iter,
+> -	.mmap		= generic_file_mmap,
+> +	.mmap_prepare	= generic_file_mmap_prepare,
+>  	.fsync		= noop_fsync,
+>  	.splice_read	= filemap_splice_read,
+>  	.splice_write	= iter_file_splice_write,
+> diff --git a/fs/read_write.c b/fs/read_write.c
+> index 0ef70e128c4a..80fdab99f9e4 100644
+> --- a/fs/read_write.c
+> +++ b/fs/read_write.c
+> @@ -28,7 +28,7 @@
+>  const struct file_operations generic_ro_fops = {
+>  	.llseek		= generic_file_llseek,
+>  	.read_iter	= generic_file_read_iter,
+> -	.mmap		= generic_file_readonly_mmap,
+> +	.mmap_prepare	= generic_file_readonly_mmap_prepare,
+>  	.splice_read	= filemap_splice_read,
+>  };
+>  
+> diff --git a/fs/ufs/file.c b/fs/ufs/file.c
+> index 487ad1fc2de6..c2a391c17df7 100644
+> --- a/fs/ufs/file.c
+> +++ b/fs/ufs/file.c
+> @@ -38,7 +38,7 @@ const struct file_operations ufs_file_operations = {
+>  	.llseek		= generic_file_llseek,
+>  	.read_iter	= generic_file_read_iter,
+>  	.write_iter	= generic_file_write_iter,
+> -	.mmap		= generic_file_mmap,
+> +	.mmap_prepare	= generic_file_mmap_prepare,
+>  	.open           = generic_file_open,
+>  	.fsync		= generic_file_fsync,
+>  	.splice_read	= filemap_splice_read,
+> -- 
+> 2.49.0
+> 
+-- 
+Jan Kara <jack@suse.com>
+SUSE Labs, CR
