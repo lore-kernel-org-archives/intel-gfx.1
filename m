@@ -4,36 +4,38 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DAAE1C73C66
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C56F7C7115F
 	for <intel-gfx@archiver.kernel.org>; Tue, 17 Jun 2025 13:36:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7D8A910E6AD;
+	by gabe.freedesktop.org (Postfix) with ESMTP id EF5EB10E6C4;
 	Tue, 17 Jun 2025 13:36:01 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="UDGH4viT";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="i76Wd947";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A5D5A10E60D;
- Tue, 17 Jun 2025 11:37:31 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 59CA810E22E;
+ Tue, 17 Jun 2025 11:48:31 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id 092CA60EDF;
- Tue, 17 Jun 2025 11:31:44 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CA97EC4CEE3;
- Tue, 17 Jun 2025 11:31:19 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id E682744DD6;
+ Tue, 17 Jun 2025 11:48:30 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 40C6FC4CEE3;
+ Tue, 17 Jun 2025 11:48:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1750159903;
- bh=9Mw48Zg0cv0dF4bSYaCiGS8ZVAaR/yW9yOs0j/Ch5ps=;
+ s=k20201202; t=1750160910;
+ bh=Vnr3kmvDQPz8s5uZNmSkWKP9XPj/+f6PNSLS1Tx/MzQ=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=UDGH4viTAriSsrD4EJMESxN56NOG3wDwakAG2dKKMuWb1Xf4Fvs8de+SewHJNBeF+
- W7cf9OOF3XlqlLjV4xjZHyAAIl+2Hmaf5shgfntuUPqxmNZSHVcvSybrEGy/Zs0Sz5
- lO5GkdOvkm1p5S1WQdyq44321SulB2Rp0CZfmTegP6pro4gigdlM+qKa2ZDLoXUg2A
- qvTS5EICV1TbjXcD1R7gC7TpnfC2RGg+nDK9hvxG4rTP40zQO9iKvwbcyGTSCZCNX2
- 7Q47oH6NqNjWiMfBYDtaI4poxHP5TZNgcAaAQkxjOwdM6JDXsX/uiM5uicv0SA0HR+
- XZly4CVAyOHBw==
-Date: Tue, 17 Jun 2025 13:31:17 +0200
+ b=i76Wd947DS4XwAcDpAS8fpuf+Ela4lfUx5B4Zl+sE1WJ8kzwgrCbFciE3rigUUS/6
+ wkwvrTbKDnBSYG4C5HYytRyvy7B3ZkCeJ/5F35ij31zEXxn65NXesNNhKSYHlLq/2D
+ R33NY8eYZWteN9O+9G//EUF0UQxUiz+Y2C7gC+ejd2PqldQ355joR8oksRp/9Bu+B9
+ HCJ+eqE2ygFdOjJuUuFVDO+rKmgk2g66UaZmVaAWhJlsobI+L+ldnr5kvasHnLLQtL
+ 3ZDhNpWvRvvYFALgNe61XXKpKO8zT2d+3DmY+NeMp1GFEAHy45cWCYw7RMgE+f8kCe
+ WOUfPvP6PlRuw==
+Date: Tue, 17 Jun 2025 13:48:04 +0200
 From: Christian Brauner <brauner@kernel.org>
-To: Andrew Morton <akpm@linux-foundation.org>
+To: Jan Kara <jack@suse.cz>
 Cc: Lorenzo Stoakes <lorenzo.stoakes@oracle.com>, 
+ Christoph Hellwig <hch@infradead.org>,
+ Andrew Morton <akpm@linux-foundation.org>, 
  "Liam R . Howlett" <Liam.Howlett@oracle.com>, Jens Axboe <axboe@kernel.dk>, 
  Jani Nikula <jani.nikula@linux.intel.com>,
  Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, 
@@ -45,13 +47,13 @@ Cc: Lorenzo Stoakes <lorenzo.stoakes@oracle.com>,
  David Sterba <dsterba@suse.com>, David Howells <dhowells@redhat.com>, 
  Marc Dionne <marc.dionne@auristor.com>,
  Alexander Viro <viro@zeniv.linux.org.uk>, 
- Jan Kara <jack@suse.cz>, Benjamin LaHaise <bcrl@kvack.org>, 
- Miklos Szeredi <miklos@szeredi.hu>, Amir Goldstein <amir73il@gmail.com>, 
- Kent Overstreet <kent.overstreet@linux.dev>,
- "Tigran A . Aivazian" <aivazian.tigran@gmail.com>, 
- Kees Cook <kees@kernel.org>, Chris Mason <clm@fb.com>,
- Josef Bacik <josef@toxicpanda.com>, 
- Xiubo Li <xiubli@redhat.com>, Ilya Dryomov <idryomov@gmail.com>, 
+ Benjamin LaHaise <bcrl@kvack.org>, Miklos Szeredi <miklos@szeredi.hu>, 
+ Amir Goldstein <amir73il@gmail.com>,
+ Kent Overstreet <kent.overstreet@linux.dev>, 
+ "Tigran A . Aivazian" <aivazian.tigran@gmail.com>, Kees Cook <kees@kernel.org>,
+ Chris Mason <clm@fb.com>, 
+ Josef Bacik <josef@toxicpanda.com>, Xiubo Li <xiubli@redhat.com>,
+ Ilya Dryomov <idryomov@gmail.com>, 
  Jan Harkes <jaharkes@cs.cmu.edu>, coda@cs.cmu.edu,
  Tyler Hicks <code@tyhicks.com>, 
  Gao Xiang <xiang@kernel.org>, Chao Yu <chao@kernel.org>,
@@ -102,14 +104,18 @@ Cc: Lorenzo Stoakes <lorenzo.stoakes@oracle.com>,
  linux-cifs@vger.kernel.org, 
  samba-technical@lists.samba.org, linux-xfs@vger.kernel.org,
  nvdimm@lists.linux.dev
-Subject: Re: [PATCH 00/10] convert the majority of file systems to mmap_prepare
-Message-ID: <20250617-ansetzen-mathematik-08f6d9b51f3d@brauner>
+Subject: Re: [PATCH 03/10] fs: consistently use file_has_valid_mmap_hooks()
+ helper
+Message-ID: <20250617-mitstreiter-bewahren-455b96bd1d50@brauner>
 References: <cover.1750099179.git.lorenzo.stoakes@oracle.com>
- <20250616161111.74e10321c4c421674f78d689@linux-foundation.org>
+ <b68145b609532e62bab603dd9686faa6562046ec.1750099179.git.lorenzo.stoakes@oracle.com>
+ <aFD5AP7B80np-Szz@infradead.org>
+ <b91c387e-5226-4c5e-94c3-04e80409ed62@lucifer.local>
+ <kzp4cei5qq6gbtzzng7hmqj5avzblopfzzrks4e2gahcdvr7ro@cwziankavxw4>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20250616161111.74e10321c4c421674f78d689@linux-foundation.org>
+In-Reply-To: <kzp4cei5qq6gbtzzng7hmqj5avzblopfzzrks4e2gahcdvr7ro@cwziankavxw4>
 X-Mailman-Approved-At: Tue, 17 Jun 2025 13:35:58 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -126,19 +132,32 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Mon, Jun 16, 2025 at 04:11:11PM -0700, Andrew Morton wrote:
-> On Mon, 16 Jun 2025 20:33:19 +0100 Lorenzo Stoakes <lorenzo.stoakes@oracle.com> wrote:
+On Tue, Jun 17, 2025 at 12:08:13PM +0200, Jan Kara wrote:
+> On Tue 17-06-25 06:25:34, Lorenzo Stoakes wrote:
+> > On Mon, Jun 16, 2025 at 10:11:28PM -0700, Christoph Hellwig wrote:
+> > > On Mon, Jun 16, 2025 at 08:33:22PM +0100, Lorenzo Stoakes wrote:
+> > > > Since commit c84bf6dd2b83 ("mm: introduce new .mmap_prepare() file
+> > > > callback"), the f_op->mmap() hook has been deprecated in favour of
+> > > > f_op->mmap_prepare().
+> > > >
+> > > > Additionally, commit bb666b7c2707 ("mm: add mmap_prepare() compatibility
+> > > > layer for nested file systems") permits the use of the .mmap_prepare() hook
+> > > > even in nested filesystems like overlayfs.
+> > > >
+> > > > There are a number of places where we check only for f_op->mmap - this is
+> > > > incorrect now mmap_prepare exists, so update all of these to use the
+> > > > general helper file_has_valid_mmap_hooks().
+> > > >
+> > > > Most notably, this updates the elf logic to allow for the ability to
+> > > > execute binaries on filesystems which have the .mmap_prepare hook, but
+> > > > additionally we update nested filesystems.
+> > >
+> > > Can you please give the function a better name before spreading it?
+> > > file operations aren't hooks by any classic definition.
+> > >
+> > 
+> > can_mmap_file()?
 > 
-> > I am basing this on the mm-new branch in Andrew's tree, so let me know if I
-> > should rebase anything here. Given the mm bits touched I did think perhaps
-> > we should take it through the mm tree, however it may be more sensible to
-> > take it through an fs tree - let me know!
-> 
-> It's more fs/ than mm/ purely from a footprint point of view.  But
-> there any expectation that there will be additional patches which build
-> on this?
-> 
-> I'll scoop it into mm-new for now, see what happens.
+> I like this name more as well :). With this patch looks good to me. Again a
 
-I'm going to carry this in the vfs-6.17.mmap_prepare branch after fixing
-up the various minor issues spotted in the series.
+Fixed in-tree.
