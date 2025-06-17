@@ -4,49 +4,87 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0B611C83013
-	for <intel-gfx@archiver.kernel.org>; Tue, 17 Jun 2025 13:36:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B035AC77B7A
+	for <intel-gfx@archiver.kernel.org>; Tue, 17 Jun 2025 13:36:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6E2FE10E6B2;
-	Tue, 17 Jun 2025 13:36:10 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id ACBE710E6EF;
+	Tue, 17 Jun 2025 13:36:09 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="LKZAHZAC";
+	dkim=pass (1024-bit key; unprotected) header.d=suse.cz header.i=@suse.cz header.b="WQDfhpwm";
+	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="NrBo2tY1";
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="WQDfhpwm";
+	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="NrBo2tY1";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B9FA410E60C;
- Tue, 17 Jun 2025 11:46:03 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 27AE1448BF;
- Tue, 17 Jun 2025 11:46:03 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3E2A2C4CEE3;
- Tue, 17 Jun 2025 11:45:40 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1750160763;
- bh=StMBYKo3IYdJvpDPP28DVy7nnfZ5iZVxiZzaq3OT7Gk=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=LKZAHZAC9vUoLxqJ9kPw7y11d1vccxwHwO+yliNT9fTET47uPMg0jRAi/9kqollS2
- 3j8hdqKrliDMUGiMhPw2i9dqvvInebMc6yA2lG7rgUpPGh/yxB0XWm17UXOqauVCc6
- Sagcwo9PDm6boEPAX0mIsK8saf5hKwJj0gSqfvOJcC35Ur+DJm/pIWbzY5aT2H/9YC
- 9jut3Jn0eTCrVe+VIPmIgpnff0NScXFO+hEPUf2CI9uzx8gHglPFlh4VWh+b/JQt0q
- u82czCjtFdfG73DgONm2+NtA0s6Hq8jxAqKfQtbaaS8tUES6NzxY9nC8fYbzwdQBIB
- OrD8iaWSk5iyQ==
-Date: Tue, 17 Jun 2025 13:45:37 +0200
-From: Christian Brauner <brauner@kernel.org>
-To: Christoph Hellwig <hch@infradead.org>
-Cc: Lorenzo Stoakes <lorenzo.stoakes@oracle.com>, 
- Andrew Morton <akpm@linux-foundation.org>,
- "Liam R . Howlett" <Liam.Howlett@oracle.com>, 
- Jens Axboe <axboe@kernel.dk>, Jani Nikula <jani.nikula@linux.intel.com>, 
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, 
- Tvrtko Ursulin <tursulin@ursulin.net>, David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>, Eric Van Hensbergen <ericvh@kernel.org>, 
- Latchesar Ionkov <lucho@ionkov.net>,
- Dominique Martinet <asmadeus@codewreck.org>, 
- Christian Schoenebeck <linux_oss@crudebyte.com>,
- David Sterba <dsterba@suse.com>, 
- David Howells <dhowells@redhat.com>, Marc Dionne <marc.dionne@auristor.com>, 
- Alexander Viro <viro@zeniv.linux.org.uk>, Jan Kara <jack@suse.cz>,
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9347410E5C8
+ for <intel-gfx@lists.freedesktop.org>; Tue, 17 Jun 2025 10:05:44 +0000 (UTC)
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 0C73A1F766;
+ Tue, 17 Jun 2025 10:05:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+ t=1750154740; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=C/1izpnjb4TYfec4R1JpDo8StS/h7UWyf7xuC9Z4Hyw=;
+ b=WQDfhpwm6V87NT9z/A204y/3daztxVfitFICfHOJXVLDwuByiO2e6vsTYBDE6FG4qqCUJX
+ 3HzGzjWxaQtyqKsXL+IvjDNtRiiJiJLsgvCFneuBuoU1vbXUzQkZ8tq3BMjIC8HSg5ocP3
+ Gay+RGH2nYC05chnnbilbsgAdzN2LlQ=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+ s=susede2_ed25519; t=1750154740;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=C/1izpnjb4TYfec4R1JpDo8StS/h7UWyf7xuC9Z4Hyw=;
+ b=NrBo2tY17T6YGKPQqIdgrtSHngXWXYF5et4lwD2HsUZ61mZfDbx42vWdF6Fc5le8jO5HvC
+ BvGwhDZ7rlXldwCQ==
+Authentication-Results: smtp-out2.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+ t=1750154740; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=C/1izpnjb4TYfec4R1JpDo8StS/h7UWyf7xuC9Z4Hyw=;
+ b=WQDfhpwm6V87NT9z/A204y/3daztxVfitFICfHOJXVLDwuByiO2e6vsTYBDE6FG4qqCUJX
+ 3HzGzjWxaQtyqKsXL+IvjDNtRiiJiJLsgvCFneuBuoU1vbXUzQkZ8tq3BMjIC8HSg5ocP3
+ Gay+RGH2nYC05chnnbilbsgAdzN2LlQ=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+ s=susede2_ed25519; t=1750154740;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=C/1izpnjb4TYfec4R1JpDo8StS/h7UWyf7xuC9Z4Hyw=;
+ b=NrBo2tY17T6YGKPQqIdgrtSHngXWXYF5et4lwD2HsUZ61mZfDbx42vWdF6Fc5le8jO5HvC
+ BvGwhDZ7rlXldwCQ==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id EA00B13AE1;
+ Tue, 17 Jun 2025 10:05:39 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+ by imap1.dmz-prg2.suse.org with ESMTPSA id rKyOOPM9UWi3FgAAD6G6ig
+ (envelope-from <jack@suse.cz>); Tue, 17 Jun 2025 10:05:39 +0000
+Received: by quack3.suse.cz (Postfix, from userid 1000)
+ id 9891DA29F0; Tue, 17 Jun 2025 12:05:39 +0200 (CEST)
+Date: Tue, 17 Jun 2025 12:05:39 +0200
+From: Jan Kara <jack@suse.cz>
+To: Lorenzo Stoakes <lorenzo.stoakes@oracle.com>
+Cc: Andrew Morton <akpm@linux-foundation.org>, 
+ "Liam R . Howlett" <Liam.Howlett@oracle.com>, Jens Axboe <axboe@kernel.dk>, 
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, 
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, Tvrtko Ursulin <tursulin@ursulin.net>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Eric Van Hensbergen <ericvh@kernel.org>, Latchesar Ionkov <lucho@ionkov.net>, 
+ Dominique Martinet <asmadeus@codewreck.org>,
+ Christian Schoenebeck <linux_oss@crudebyte.com>, 
+ David Sterba <dsterba@suse.com>, David Howells <dhowells@redhat.com>, 
+ Marc Dionne <marc.dionne@auristor.com>,
+ Alexander Viro <viro@zeniv.linux.org.uk>, 
+ Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>,
  Benjamin LaHaise <bcrl@kvack.org>, 
  Miklos Szeredi <miklos@szeredi.hu>, Amir Goldstein <amir73il@gmail.com>, 
  Kent Overstreet <kent.overstreet@linux.dev>,
@@ -104,16 +142,46 @@ Cc: Lorenzo Stoakes <lorenzo.stoakes@oracle.com>,
  linux-cifs@vger.kernel.org, 
  samba-technical@lists.samba.org, linux-xfs@vger.kernel.org,
  nvdimm@lists.linux.dev
-Subject: Re: [PATCH 06/10] fs/xfs: transition from deprecated .mmap hook to
- .mmap_prepare
-Message-ID: <20250617-herdplatte-ringkampf-8e8b439e81f2@brauner>
+Subject: Re: [PATCH 02/10] mm/nommu: use file_has_valid_mmap_hooks() helper
+Message-ID: <gtjkxyljepqjjahbxic5xulqdxqresuuyfdr2i2vcc4tewy5yp@ziyb3wcdlvyw>
 References: <cover.1750099179.git.lorenzo.stoakes@oracle.com>
- <cba8b29ba5f225df8f63f50182d5f6e0fcf94456.1750099179.git.lorenzo.stoakes@oracle.com>
- <aFD4M48RMZB0Hj-f@infradead.org>
+ <5f120b644b5890d1b50202d0f0d4c9f0d6b62873.1750099179.git.lorenzo.stoakes@oracle.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <aFD4M48RMZB0Hj-f@infradead.org>
+In-Reply-To: <5f120b644b5890d1b50202d0f0d4c9f0d6b62873.1750099179.git.lorenzo.stoakes@oracle.com>
+X-Spamd-Result: default: False [-0.30 / 50.00]; BAYES_HAM(-3.00)[99.99%];
+ FORGED_RECIPIENTS(2.00)[m:akpm@linux-foundation.org, m:axboe@kernel.dk,
+ m:rodrigo.vivi@intel.com, m:airlied@gmail.com, m:simona@ffwll.ch,
+ m:ericvh@kernel.org, m:lucho@ionkov.net, m:asmadeus@codewreck.org,
+ m:linux_oss@crudebyte.com, m:marc.dionne@auristor.com,
+ m:viro@zeniv.linux.org.uk, m:brauner@kernel.org, m:bcrl@kvack.org,
+ m:amir73il@gmail.com, m:aivazian.tigran@gmail.com, m:kees@kernel.org,
+ m:clm@fb.com, m:idryomov@gmail.com, m:jaharkes@cs.cmu.edu, m:coda@cs.cmu.edu,
+ m:xiang@kernel.org, m:chao@kernel.org, m:zbestahu@gmail.com,
+ m:dhavale@google.com, m:lihongbo22@huawei.com, m:linkinjeon@kernel.org,
+ m:adilger.kernel@dilger.ca, m:jaegeuk@kernel.org, m:slava@dubeyko.com,
+ m:frank.li@vivo.com, m:anton.ivanov@cambridgegreys.com,
+ m:mikulas@artax.karlin.mff.cuni.cz, m:dwmw2@infradead.org, m:shaggy@kernel.org,
+ m:trondmy@kernel.org, m:anna@kernel.org, m:konishi.ryusuke@gmail.com,
+ m:mark@fasheh.com, m:jlbec@evilplan.org, m:me@bobcopeland.com,
+ m:ronniesahlberg@gmail.com, m:chengzhihao1@huawei.com, m:cem@kernel.org,
+ m:dlemoal@kernel.or
+ g,m:naohiro.aota@wdc.com,m:jth@kernel.org,m:dan.j.williams@intel.com,m:willy@infradead.org,m:jannh@google.com,m:linux-aio@kvack.org,m:linux-mm@kvack.org,m:codalist@coda.cs.cmu.edu,s:linux-mtd@lists.infradead.org,s:linux-um@lists.infradead.org,s:ntfs3@lists.linux.dev,s:nvdimm@lists.linux.dev,s:ocfs2-devel@lists.linux.dev,s:devel@lists.orangefs.org,s:samba-technical@lists.samba.org,s:jfs-discussion@lists.sourceforge.net,s:linux-f2fs-devel@lists.sourceforge.net,s:linux-karma-devel@lists.sourceforge.net];
+ SUSPICIOUS_RECIPS(1.50)[]; NEURAL_HAM_LONG(-1.00)[-1.000];
+ MID_RHS_NOT_FQDN(0.50)[]; NEURAL_HAM_SHORT(-0.20)[-1.000];
+ MIME_GOOD(-0.10)[text/plain]; TO_DN_SOME(0.00)[];
+ TAGGED_RCPT(0.00)[]; MIME_TRACE(0.00)[0:+];
+ RCVD_VIA_SMTP_AUTH(0.00)[]; MISSING_XM_UA(0.00)[];
+ ARC_NA(0.00)[];
+ FREEMAIL_CC(0.00)[linux-foundation.org,oracle.com,kernel.dk,linux.intel.com,intel.com,ursulin.net,gmail.com,ffwll.ch,kernel.org,ionkov.net,codewreck.org,crudebyte.com,suse.com,redhat.com,auristor.com,zeniv.linux.org.uk,suse.cz,kvack.org,szeredi.hu,linux.dev,fb.com,toxicpanda.com,cs.cmu.edu,tyhicks.com,linux.alibaba.com,google.com,huawei.com,samsung.com,sony.com,mit.edu,dilger.ca,mail.parknet.co.jp,dubeyko.com,physik.fu-berlin.de,vivo.com,nod.at,cambridgegreys.com,sipsolutions.net,artax.karlin.mff.cuni.cz,infradead.org,paragon-software.com,fasheh.com,evilplan.org,bobcopeland.com,omnibond.com,samba.org,manguebit.org,microsoft.com,talpey.com,wdc.com,suse.de,vger.kernel.org,lists.freedesktop.org,lists.linux.dev,lists.infradead.org,coda.cs.cmu.edu,lists.ozlabs.org,lists.sourceforge.net,lists.orangefs.org,lists.samba.org];
+ RCVD_COUNT_THREE(0.00)[3];
+ DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+ FROM_EQ_ENVFROM(0.00)[]; FROM_HAS_DN(0.00)[];
+ R_RATELIMIT(0.00)[to_ip_from(RLb58ib84xst5oy51ju4zaburj)];
+ TO_MATCH_ENVRCPT_SOME(0.00)[]; RCPT_COUNT_GT_50(0.00)[113];
+ RCVD_TLS_LAST(0.00)[]; FUZZY_BLOCKED(0.00)[rspamd.com];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[suse.cz:email,suse.com:email]
 X-Mailman-Approved-At: Tue, 17 Jun 2025 13:35:58 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -130,17 +198,46 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Mon, Jun 16, 2025 at 10:08:03PM -0700, Christoph Hellwig wrote:
-> On Mon, Jun 16, 2025 at 08:33:25PM +0100, Lorenzo Stoakes wrote:
-> >  STATIC int
-> > -xfs_file_mmap(
-> > -	struct file		*file,
-> > -	struct vm_area_struct	*vma)
-> > +xfs_file_mmap_prepare(
-> > +	struct vm_area_desc *desc)
+On Mon 16-06-25 20:33:21, Lorenzo Stoakes wrote:
+> Since commit c84bf6dd2b83 ("mm: introduce new .mmap_prepare() file
+> callback"), the f_op->mmap() hook has been deprecated in favour of
+> f_op->mmap_prepare().
 > 
-> Please stick to the existing alignment for the declarations.
+> Therefore, update the check for file operations supporting mmap() by using
+> the file_has_valid_mmap_hooks() helper function, which checks for either
+> f_op->mmap or f_op->mmap_prepare rather than checking only for f_op->mmap
+> directly.
 > 
-> Otherwise this looks good.
+> Signed-off-by: Lorenzo Stoakes <lorenzo.stoakes@oracle.com>
 
-Fixed in-tree.
+Looks good. Feel free to add:
+
+Reviewed-by: Jan Kara <jack@suse.cz>
+
+Maybe Fixes tag would be appropriate here?
+
+								Honza
+
+> ---
+>  mm/nommu.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/mm/nommu.c b/mm/nommu.c
+> index b624acec6d2e..38c22ea0a95c 100644
+> --- a/mm/nommu.c
+> +++ b/mm/nommu.c
+> @@ -719,7 +719,7 @@ static int validate_mmap_request(struct file *file,
+>  
+>  	if (file) {
+>  		/* files must support mmap */
+> -		if (!file->f_op->mmap)
+> +		if (!file_has_valid_mmap_hooks(file))
+>  			return -ENODEV;
+>  
+>  		/* work out if what we've got could possibly be shared
+> -- 
+> 2.49.0
+> 
+-- 
+Jan Kara <jack@suse.com>
+SUSE Labs, CR
