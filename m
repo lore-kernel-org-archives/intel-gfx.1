@@ -4,52 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3C655C71157
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DC06EC71136
 	for <intel-gfx@archiver.kernel.org>; Tue, 17 Jun 2025 17:08:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 918D410E78C;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9CC8F10E790;
 	Tue, 17 Jun 2025 17:08:26 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="bn6r7XzQ";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="gljC+vzK";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7B83710E782;
- Tue, 17 Jun 2025 17:08:24 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id ECE3310E771;
+ Tue, 17 Jun 2025 17:08:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
  t=1750180105; x=1781716105;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=vsjw4LX1hdi+68vfk7axd3TUEmS2COgldrYCGFGomTk=;
- b=bn6r7XzQ/lvINXwfBZii+6sZqfb6SR6Oj9OHXduF1O6gBFBcQLCNhCht
- qNKcy2sx7UGZBWGAz64GcO5Tb/vNc6KexXXYwSKOA87vXCM7Hz/NmsfGa
- dcXMhIVpbTfbSePLAaYu6Pzdw/MpfasTfpKldk92p09cTRs8lvKa4viJm
- SCb+oQXOnVZJUlNy0248Dfz2hrw1SuhYpKuFhlLJUnymEIJm40bfuQ0ae
- fGHp35uvwb9nqc9aOC0WOotr3UBvr4t/7KF4WmLJIaKOxSbbM86rzEVQ2
- HRgOQXnPAUSPYPTnU2gWNyCTel2ss8xit4qXHhbGof3wjFuUuj9gmOVr5 A==;
-X-CSE-ConnectionGUID: H7C5uyLGTc2HO0k9zzAZuw==
-X-CSE-MsgGUID: dtgWHvLIRDKZ/IPEHJ/ULw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11467"; a="62644618"
-X-IronPort-AV: E=Sophos;i="6.16,243,1744095600"; d="scan'208";a="62644618"
+ bh=evHoVstVt79tWEq5dSbjADDB14RMxRlkf/21WmZhlsI=;
+ b=gljC+vzKIcPBZXtqdzs0NXaQK/UIqLTHuCtyNnxaMnwHwE57df1Fmp2a
+ rBmMT43+eHES6udy70ohijEVfrSd5ehPO+jNoSW5v5xRQVgs/39TTjZK9
+ HCdM02elw6pmhgaRbp/bI+t9nMzY8NHqbgBPfarVROI+NWQHiC/EegO12
+ alyNcs39UlYrUJCE/SQAYPpfH9FkptXEH86ZPIQoEkr+pSsvB36zEO8Kp
+ blCAeXqVLoAlczwAhsaJIXwVWFbPpq2PtZwgWfxQRyT1t4gLwF0j0kX2X
+ gpbgW1qqiv7Dq0F48vCY4PrjyJJkJ8jNg138Y8O8VcN5dZXnHVM92D92r g==;
+X-CSE-ConnectionGUID: KErGoMIOSmOv994K+iE2cg==
+X-CSE-MsgGUID: 59T26/+qT9eNbRLOATjArQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11467"; a="62644611"
+X-IronPort-AV: E=Sophos;i="6.16,243,1744095600"; d="scan'208";a="62644611"
 Received: from orviesa005.jf.intel.com ([10.64.159.145])
  by orvoesa103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 17 Jun 2025 10:08:17 -0700
-X-CSE-ConnectionGUID: 49UqF91kScaVx1bx6F6eCg==
-X-CSE-MsgGUID: Sp8pL9SdQoaKZ2pZRrzEFg==
+ 17 Jun 2025 10:08:10 -0700
+X-CSE-ConnectionGUID: mzTFDYtpQDyudcRFmKe+Cg==
+X-CSE-MsgGUID: qvjK+KrDTFKqYBbM0LR/Ow==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.16,243,1744095600"; d="scan'208";a="154138648"
+X-IronPort-AV: E=Sophos;i="6.16,243,1744095600"; d="scan'208";a="154138548"
 Received: from fpallare-mobl4.ger.corp.intel.com (HELO stinkbox)
  ([10.245.245.184])
- by orviesa005.jf.intel.com with SMTP; 17 Jun 2025 10:08:15 -0700
+ by orviesa005.jf.intel.com with SMTP; 17 Jun 2025 10:08:07 -0700
 Received: by stinkbox (sSMTP sendmail emulation);
- Tue, 17 Jun 2025 20:08:13 +0300
+ Tue, 17 Jun 2025 20:08:06 +0300
 From: Ville Syrjala <ville.syrjala@linux.intel.com>
 To: intel-gfx@lists.freedesktop.org
 Cc: intel-xe@lists.freedesktop.org,
 	Uma Shankar <uma.shankar@intel.com>
-Subject: [PATCH v2 4/9] drm/i915/dmc: Extract dmc_load_program()
-Date: Tue, 17 Jun 2025 20:07:54 +0300
-Message-ID: <20250617170759.19552-5-ville.syrjala@linux.intel.com>
+Subject: [PATCH v2 2/9] drm/i915/dmc: Parametrize MTL_PIPEDMC_GATING_DIS
+Date: Tue, 17 Jun 2025 20:07:52 +0300
+Message-ID: <20250617170759.19552-3-ville.syrjala@linux.intel.com>
 X-Mailer: git-send-email 2.49.0
 In-Reply-To: <20250617170759.19552-1-ville.syrjala@linux.intel.com>
 References: <20250617170759.19552-1-ville.syrjala@linux.intel.com>
@@ -73,149 +73,43 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 From: Ville Syrjälä <ville.syrjala@linux.intel.com>
 
-We'll be needing to reload the program for individual DMCs.
-To make that possible pull the code to load the program for
-a single DMC into a new function.
-
-This does change the order of things during init/resume
-a bit; previously we loaded the program RAM for all DMCs first,
-and then loaded the MMIO registers for all DMCs. Now those
-operations will be interleaved between different DMCs.
+The MTL+ pipe DMC clock gating bits can be parametrized.
+Make it so.
 
 Reviewed-by: Uma Shankar <uma.shankar@intel.com>
 Signed-off-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_dmc.c | 78 +++++++++++++-----------
- 1 file changed, 42 insertions(+), 36 deletions(-)
+ drivers/gpu/drm/i915/display/intel_dmc.c | 3 ++-
+ drivers/gpu/drm/i915/i915_reg.h          | 3 +--
+ 2 files changed, 3 insertions(+), 3 deletions(-)
 
 diff --git a/drivers/gpu/drm/i915/display/intel_dmc.c b/drivers/gpu/drm/i915/display/intel_dmc.c
-index 5a43298cd0e7..331db28039db 100644
+index b6ac480f391c..6392fa928e08 100644
 --- a/drivers/gpu/drm/i915/display/intel_dmc.c
 +++ b/drivers/gpu/drm/i915/display/intel_dmc.c
-@@ -432,25 +432,22 @@ static void disable_event_handler(struct intel_display *display,
- 	intel_de_write(display, htp_reg, 0);
+@@ -482,7 +482,8 @@ static void mtl_pipedmc_clock_gating_wa(struct intel_display *display)
+ 	 * for pipe A and B.
+ 	 */
+ 	intel_de_rmw(display, GEN9_CLKGATE_DIS_0, 0,
+-		     MTL_PIPEDMC_GATING_DIS_A | MTL_PIPEDMC_GATING_DIS_B);
++		     MTL_PIPEDMC_GATING_DIS(PIPE_A) |
++		     MTL_PIPEDMC_GATING_DIS(PIPE_B));
  }
  
--static void disable_all_event_handlers(struct intel_display *display)
-+static void disable_all_event_handlers(struct intel_display *display,
-+				       enum intel_dmc_id dmc_id)
- {
--	enum intel_dmc_id dmc_id;
-+	int handler;
- 
- 	/* TODO: disable the event handlers on pre-GEN12 platforms as well */
- 	if (DISPLAY_VER(display) < 12)
- 		return;
- 
--	for_each_dmc_id(dmc_id) {
--		int handler;
-+	if (!has_dmc_id_fw(display, dmc_id))
-+		return;
- 
--		if (!has_dmc_id_fw(display, dmc_id))
--			continue;
--
--		for (handler = 0; handler < DMC_EVENT_HANDLER_COUNT_GEN12; handler++)
--			disable_event_handler(display,
--					      DMC_EVT_CTL(display, dmc_id, handler),
--					      DMC_EVT_HTP(display, dmc_id, handler));
--	}
-+	for (handler = 0; handler < DMC_EVENT_HANDLER_COUNT_GEN12; handler++)
-+		disable_event_handler(display,
-+				      DMC_EVT_CTL(display, dmc_id, handler),
-+				      DMC_EVT_HTP(display, dmc_id, handler));
- }
- 
- static void adlp_pipedmc_clock_gating_wa(struct intel_display *display, bool enable)
-@@ -578,6 +575,30 @@ static u32 dmc_mmiodata(struct intel_display *display,
- 		return dmc->dmc_info[dmc_id].mmiodata[i];
- }
- 
-+static void dmc_load_program(struct intel_display *display,
-+			     enum intel_dmc_id dmc_id)
-+{
-+	struct intel_dmc *dmc = display_to_dmc(display);
-+	int i;
-+
-+	disable_all_event_handlers(display, dmc_id);
-+
-+	preempt_disable();
-+
-+	for (i = 0; i < dmc->dmc_info[dmc_id].dmc_fw_size; i++) {
-+		intel_de_write_fw(display,
-+				  DMC_PROGRAM(dmc->dmc_info[dmc_id].start_mmioaddr, i),
-+				  dmc->dmc_info[dmc_id].payload[i]);
-+	}
-+
-+	preempt_enable();
-+
-+	for (i = 0; i < dmc->dmc_info[dmc_id].mmio_count; i++) {
-+		intel_de_write(display, dmc->dmc_info[dmc_id].mmioaddr[i],
-+			       dmc_mmiodata(display, dmc, dmc_id, i));
-+	}
-+}
-+
- void intel_dmc_enable_pipe(struct intel_display *display, enum pipe pipe)
- {
- 	enum intel_dmc_id dmc_id = PIPE_TO_DMC_ID(pipe);
-@@ -685,37 +706,17 @@ void intel_dmc_start_pkgc_exit_at_start_of_undelayed_vblank(struct intel_display
- void intel_dmc_load_program(struct intel_display *display)
- {
- 	struct i915_power_domains *power_domains = &display->power.domains;
--	struct intel_dmc *dmc = display_to_dmc(display);
- 	enum intel_dmc_id dmc_id;
--	u32 i;
- 
- 	if (!intel_dmc_has_payload(display))
- 		return;
- 
--	pipedmc_clock_gating_wa(display, true);
--
--	disable_all_event_handlers(display);
--
- 	assert_display_rpm_held(display);
- 
--	preempt_disable();
-+	pipedmc_clock_gating_wa(display, true);
- 
--	for_each_dmc_id(dmc_id) {
--		for (i = 0; i < dmc->dmc_info[dmc_id].dmc_fw_size; i++) {
--			intel_de_write_fw(display,
--					  DMC_PROGRAM(dmc->dmc_info[dmc_id].start_mmioaddr, i),
--					  dmc->dmc_info[dmc_id].payload[i]);
--		}
--	}
--
--	preempt_enable();
--
--	for_each_dmc_id(dmc_id) {
--		for (i = 0; i < dmc->dmc_info[dmc_id].mmio_count; i++) {
--			intel_de_write(display, dmc->dmc_info[dmc_id].mmioaddr[i],
--				       dmc_mmiodata(display, dmc, dmc_id, i));
--		}
--	}
-+	for_each_dmc_id(dmc_id)
-+		dmc_load_program(display, dmc_id);
- 
- 	power_domains->dc_state = 0;
- 
-@@ -733,11 +734,16 @@ void intel_dmc_load_program(struct intel_display *display)
+ static void pipedmc_clock_gating_wa(struct intel_display *display, bool enable)
+diff --git a/drivers/gpu/drm/i915/i915_reg.h b/drivers/gpu/drm/i915/i915_reg.h
+index 52a902532e6f..04fb40867cc0 100644
+--- a/drivers/gpu/drm/i915/i915_reg.h
++++ b/drivers/gpu/drm/i915/i915_reg.h
+@@ -763,8 +763,7 @@
   */
- void intel_dmc_disable_program(struct intel_display *display)
- {
-+	enum intel_dmc_id dmc_id;
-+
- 	if (!intel_dmc_has_payload(display))
- 		return;
- 
- 	pipedmc_clock_gating_wa(display, true);
--	disable_all_event_handlers(display);
-+
-+	for_each_dmc_id(dmc_id)
-+		disable_all_event_handlers(display, dmc_id);
-+
- 	pipedmc_clock_gating_wa(display, false);
- }
+ #define GEN9_CLKGATE_DIS_0		_MMIO(0x46530)
+ #define   DARBF_GATING_DIS		REG_BIT(27)
+-#define   MTL_PIPEDMC_GATING_DIS_A	REG_BIT(15)
+-#define   MTL_PIPEDMC_GATING_DIS_B	REG_BIT(14)
++#define   MTL_PIPEDMC_GATING_DIS(pipe)	REG_BIT(15 - (pipe))
+ #define   PWM2_GATING_DIS		REG_BIT(14)
+ #define   PWM1_GATING_DIS		REG_BIT(13)
  
 -- 
 2.49.0
