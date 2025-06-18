@@ -4,58 +4,27 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 23A7EC71157
-	for <intel-gfx@archiver.kernel.org>; Wed, 18 Jun 2025 12:39:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BF50EC7115A
+	for <intel-gfx@archiver.kernel.org>; Wed, 18 Jun 2025 12:52:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B846610E08C;
-	Wed, 18 Jun 2025 12:39:44 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="fheX8NLd";
-	dkim-atps=neutral
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 56FC310E815;
- Wed, 18 Jun 2025 12:39:41 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
- References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
- Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
- Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
- List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=llImzjIbhjZJrpdOHyErF1aaIt3Spa/yRg33TxcGabE=; b=fheX8NLdVkqkIqxe97nkmLdrFM
- lbcNCNW+ClOA5yZo3mKOr60il84d7TwCZm7Tluk+9xQ0029jpCSZ92MxM92PmQIUu4QpBZOYW8UZ6
- AS5/gjcWMmUVY2qToLuyGgDwNm9N5lNexQhHIlfzx5Os+rC+LqMhu+m6e/NCxVBQcMTu42vR8ds4l
- R3cLO5pvkCmQ7xjTkidRLakqbPneVuLdpT9q/BRzj902dmn3KXGlObf143mv9OPhrR5v43fJ1KW7F
- bZcQsOBfgSaipj45CqazW1cpkQLYI4uHL/IPAbW1RJmCe66gWk8BhayTie9k1f9dYpuAMzwx38iHH
- dw0Jxf2g==;
-Received: from [191.204.192.64] (helo=[192.168.15.100])
- by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
- id 1uRs4Y-00543t-61; Wed, 18 Jun 2025 14:39:22 +0200
-Message-ID: <c62c2994-19e3-4599-9ac9-d49c37845011@igalia.com>
-Date: Wed, 18 Jun 2025 09:39:16 -0300
+	by gabe.freedesktop.org (Postfix) with ESMTP id 582A110E15C;
+	Wed, 18 Jun 2025 12:52:52 +0000 (UTC)
+Received: from 1538d3639d33 (emeril.freedesktop.org [131.252.210.167])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D65F510E15C;
+ Wed, 18 Jun 2025 12:52:51 +0000 (UTC)
+Content-Type: multipart/alternative;
+ boundary="===============7683133163217045378=="
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v9 6/6] drm/amdgpu: Make use of drm_wedge_task_info
-To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>, siqueira@igalia.com,
- airlied@gmail.com, simona@ffwll.ch, Raag Jadav <raag.jadav@intel.com>,
- rodrigo.vivi@intel.com, jani.nikula@linux.intel.com,
- Xaver Hugl <xaver.hugl@gmail.com>,
- Krzysztof Karas <krzysztof.karas@intel.com>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- kernel-dev@igalia.com, amd-gfx@lists.freedesktop.org,
- intel-xe@lists.freedesktop.org, intel-gfx@lists.freedesktop.org
-References: <20250617124949.2151549-1-andrealmeid@igalia.com>
- <20250617124949.2151549-7-andrealmeid@igalia.com>
- <5db1dda6-0cd7-4fc7-9a22-8ed57b12ada1@amd.com>
- <63b4fb79-8132-4c05-bcac-3238366899d9@igalia.com>
- <a0f508fd-3277-4839-a4b6-e6bc56546f6c@amd.com>
-Content-Language: en-US
-From: =?UTF-8?Q?Andr=C3=A9_Almeida?= <andrealmeid@igalia.com>
-In-Reply-To: <a0f508fd-3277-4839-a4b6-e6bc56546f6c@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Subject: =?utf-8?q?=E2=9C=93_i915=2ECI=2EBAT=3A_success_for_drm/xe/display=3A_read_PC?=
+ =?utf-8?q?ON_capability_only_when_present?=
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Chaitanya Kumar Borah" <chaitanya.kumar.borah@intel.com>
+Cc: intel-gfx@lists.freedesktop.org
+Date: Wed, 18 Jun 2025 12:52:51 -0000
+Message-ID: <175025117187.90962.13287135806056090526@1538d3639d33>
+X-Patchwork-Hint: ignore
+References: <20250618114553.3974479-1-chaitanya.kumar.borah@intel.com>
+In-Reply-To: <20250618114553.3974479-1-chaitanya.kumar.borah@intel.com>
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,32 +37,154 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Hi Christian,
+--===============7683133163217045378==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
 
-Em 18/06/2025 04:29, Christian König escreveu:
-> On 6/17/25 15:22, André Almeida wrote:
->> Em 17/06/2025 10:07, Christian König escreveu:
->>> On 6/17/25 14:49, André Almeida wrote:
->>>> To notify userspace about which task (if any) made the device get in a
->>>> wedge state, make use of drm_wedge_task_info parameter, filling it with
->>>> the task PID and name.
->>>>
->>>> Signed-off-by: André Almeida <andrealmeid@igalia.com>
->>>
->>> Reviewed-by: Christian König <christian.koenig@amd.com>
->>>
->>> Do you have commit right for drm-misc-next?
->>>
->>
->> Thanks for the reviews!
->>
->> I do have access, but if you don't mind, can you push this one?
-> 
-> Sure, but give me till the end of today.
-> 
+== Series Details ==
 
-It was already merged, no worries!
+Series: drm/xe/display: read PCON capability only when present
+URL   : https://patchwork.freedesktop.org/series/150451/
+State : success
 
+== Summary ==
+
+CI Bug Log - changes from CI_DRM_16723 -> Patchwork_150451v1
+====================================================
+
+Summary
+-------
+
+  **SUCCESS**
+
+  No regressions found.
+
+  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_150451v1/index.html
+
+Participating hosts (46 -> 42)
+------------------------------
+
+  Missing    (4): fi-glk-j4005 bat-arlh-2 fi-snb-2520m bat-jsl-4 
+
+Known issues
+------------
+
+  Here are the changes found in Patchwork_150451v1 that come from known issues:
+
+### IGT changes ###
+
+#### Possible fixes ####
+
+  * igt@gem_exec_fence@basic-wait:
+    - bat-rpls-4:         [DMESG-WARN][1] ([i915#13400]) -> [PASS][2]
+   [1]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_16723/bat-rpls-4/igt@gem_exec_fence@basic-wait.html
+   [2]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_150451v1/bat-rpls-4/igt@gem_exec_fence@basic-wait.html
+
+  * igt@i915_selftest@live:
+    - bat-arlh-3:         [DMESG-FAIL][3] ([i915#14243]) -> [PASS][4] +1 other test pass
+   [3]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_16723/bat-arlh-3/igt@i915_selftest@live.html
+   [4]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_150451v1/bat-arlh-3/igt@i915_selftest@live.html
+
+  * igt@i915_selftest@live@workarounds:
+    - bat-mtlp-6:         [DMESG-FAIL][5] ([i915#12061]) -> [PASS][6] +1 other test pass
+   [5]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_16723/bat-mtlp-6/igt@i915_selftest@live@workarounds.html
+   [6]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_150451v1/bat-mtlp-6/igt@i915_selftest@live@workarounds.html
+
+  
+  [i915#12061]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/12061
+  [i915#13400]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/13400
+  [i915#14243]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/14243
+
+
+Build changes
+-------------
+
+  * Linux: CI_DRM_16723 -> Patchwork_150451v1
+
+  CI-20190529: 20190529
+  CI_DRM_16723: 55cbd02fa784e94b4f658c1e547371ac804c62a9 @ git://anongit.freedesktop.org/gfx-ci/linux
+  IGT_8415: bd8a24cf051c1efb81c76cf58a56151990a4a8ea @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git
+  Patchwork_150451v1: 55cbd02fa784e94b4f658c1e547371ac804c62a9 @ git://anongit.freedesktop.org/gfx-ci/linux
+
+== Logs ==
+
+For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_150451v1/index.html
+
+--===============7683133163217045378==
+Content-Type: text/html; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <title>Project List - Patchwork</title>
+  <style id="css-table-select" type="text/css">
+   td { padding: 2pt; }
+  </style>
+</head>
+<body>
+
+
+<b>Patch Details</b>
+<table>
+<tr><td><b>Series:</b></td><td>drm/xe/display: read PCON capability only when present</td></tr>
+<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/150451/">https://patchwork.freedesktop.org/series/150451/</a></td></tr>
+<tr><td><b>State:</b></td><td>success</td></tr>
+
+    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_150451v1/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_150451v1/index.html</a></td></tr>
+
+</table>
+
+
+    <h1>CI Bug Log - changes from CI_DRM_16723 -&gt; Patchwork_150451v1</h1>
+<h2>Summary</h2>
+<p><strong>SUCCESS</strong></p>
+<p>No regressions found.</p>
+<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_150451v1/index.html</p>
+<h2>Participating hosts (46 -&gt; 42)</h2>
+<p>Missing    (4): fi-glk-j4005 bat-arlh-2 fi-snb-2520m bat-jsl-4 </p>
+<h2>Known issues</h2>
+<p>Here are the changes found in Patchwork_150451v1 that come from known issues:</p>
+<h3>IGT changes</h3>
+<h4>Possible fixes</h4>
+<ul>
+<li>
+<p>igt@gem_exec_fence@basic-wait:</p>
+<ul>
+<li>bat-rpls-4:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_16723/bat-rpls-4/igt@gem_exec_fence@basic-wait.html">DMESG-WARN</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/13400">i915#13400</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_150451v1/bat-rpls-4/igt@gem_exec_fence@basic-wait.html">PASS</a></li>
+</ul>
+</li>
+<li>
+<p>igt@i915_selftest@live:</p>
+<ul>
+<li>bat-arlh-3:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_16723/bat-arlh-3/igt@i915_selftest@live.html">DMESG-FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/14243">i915#14243</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_150451v1/bat-arlh-3/igt@i915_selftest@live.html">PASS</a> +1 other test pass</li>
+</ul>
+</li>
+<li>
+<p>igt@i915_selftest@live@workarounds:</p>
+<ul>
+<li>bat-mtlp-6:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_16723/bat-mtlp-6/igt@i915_selftest@live@workarounds.html">DMESG-FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/12061">i915#12061</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_150451v1/bat-mtlp-6/igt@i915_selftest@live@workarounds.html">PASS</a> +1 other test pass</li>
+</ul>
+</li>
+</ul>
+<h2>Build changes</h2>
+<ul>
+<li>Linux: CI_DRM_16723 -&gt; Patchwork_150451v1</li>
+</ul>
+<p>CI-20190529: 20190529<br />
+  CI_DRM_16723: 55cbd02fa784e94b4f658c1e547371ac804c62a9 @ git://anongit.freedesktop.org/gfx-ci/linux<br />
+  IGT_8415: bd8a24cf051c1efb81c76cf58a56151990a4a8ea @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git<br />
+  Patchwork_150451v1: 55cbd02fa784e94b4f658c1e547371ac804c62a9 @ git://anongit.freedesktop.org/gfx-ci/linux</p>
+
+</body>
+</html>
+
+--===============7683133163217045378==--
