@@ -4,58 +4,67 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4FD8FC7115C
-	for <intel-gfx@archiver.kernel.org>; Wed, 18 Jun 2025 08:57:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F1E74C71157
+	for <intel-gfx@archiver.kernel.org>; Wed, 18 Jun 2025 09:40:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D6A8C10E7AC;
-	Wed, 18 Jun 2025 08:57:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6E16F10E1C3;
+	Wed, 18 Jun 2025 09:40:39 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="PJSO9K6D";
+	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="Hto9NzQ0";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.16])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2F4DE10E7A9;
- Wed, 18 Jun 2025 08:57:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1750237042; x=1781773042;
- h=from:date:subject:mime-version:content-transfer-encoding:
- message-id:to:cc;
- bh=hTyKtOZEOgXxi4sGID2VnnW/SOfRp5kAsuwjdvp+9t8=;
- b=PJSO9K6DOKV05Wdg1zqPm8h0Wa3+2sRs8r5BYquxfy5rWOkc3AWv2cKU
- gX+Sv/BrbU7xr2R++z3XWqsAfnQOZZmZoeHLEF5L1cwpc20Rkw2LyzuAa
- VnYYx+9lSCv3NIdk1MpiWziiHhKTfICIlJrMtP2t/Gw4ccA3ZPokv8Hub
- hX1RuLyih782UZ1S+zhWcKMoa/EAi3DKw8TVDceoGNzy5pFWYvRZu28xR
- LDMN0LzTnQc+UuXyVyQleFmyD+JfkFb0xgXVv3M4dMH1mru4vrwTOD5ra
- LLAl9rxEMgmOQIHArycDA5siPCxw6wAsbxTwJnu/DvBX4BnDPOm4NQ7Ix w==;
-X-CSE-ConnectionGUID: vaAA1XTVTeO+Invfpmo/fQ==
-X-CSE-MsgGUID: cx90wVQ0R2uqiN8EpRE8cQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11467"; a="40053191"
-X-IronPort-AV: E=Sophos;i="6.16,245,1744095600"; d="scan'208";a="40053191"
-Received: from fmviesa007.fm.intel.com ([10.60.135.147])
- by fmvoesa110.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 18 Jun 2025 01:57:22 -0700
-X-CSE-ConnectionGUID: pDJuroq8SROumrlDqJUv5A==
-X-CSE-MsgGUID: wrWqbj6NQoG2B/+zKqKhVA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.16,245,1744095600"; d="scan'208";a="149203341"
-Received: from srr4-3-linux-106-armuthy.iind.intel.com ([10.190.238.56])
- by fmviesa007.fm.intel.com with ESMTP; 18 Jun 2025 01:57:20 -0700
-From: Arun R Murthy <arun.r.murthy@intel.com>
-Date: Wed, 18 Jun 2025 14:12:46 +0530
-Subject: [PATCH v2] drm/i915/panel: register drm_panel and call
- prepare/unprepare for eDP
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1CADB10E1C3
+ for <intel-gfx@lists.freedesktop.org>; Wed, 18 Jun 2025 09:40:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1750239637;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding;
+ bh=rDJSn7lZBwyjuX5zqRMyk4Cm9Q70Xmc4Tn4BSpOgdus=;
+ b=Hto9NzQ0cVgrq8sI9AkKWH1fc3dqy90yOFICGuKCEmY3tjn1LQCgWCpAHMXx6U0d8irTwD
+ K47Ac7fsxkxXyeTsnqVv74gTa2xDoBeN0kNhOdxd022wY3qXsIDIPr1VpjPsHXJNRUQv/D
+ KrqheHnCbnDaXBnT+ZNYNhSr7vzUg9Y=
+Received: from mx-prod-mc-02.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-602-gSykbj8SNcWm4dq_Rfpqag-1; Wed,
+ 18 Jun 2025 05:40:32 -0400
+X-MC-Unique: gSykbj8SNcWm4dq_Rfpqag-1
+X-Mimecast-MFC-AGG-ID: gSykbj8SNcWm4dq_Rfpqag_1750239630
+Received: from mx-prod-int-04.mail-002.prod.us-west-2.aws.redhat.com
+ (mx-prod-int-04.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.40])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ (No client certificate requested)
+ by mx-prod-mc-02.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
+ id 1DE3B195608B; Wed, 18 Jun 2025 09:40:29 +0000 (UTC)
+Received: from hydra.redhat.com (unknown [10.45.225.137])
+ by mx-prod-int-04.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP
+ id EACF419560A3; Wed, 18 Jun 2025 09:40:22 +0000 (UTC)
+From: Jocelyn Falempe <jfalempe@redhat.com>
+To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Tvrtko Ursulin <tursulin@ursulin.net>,
+ =?UTF-8?q?Ville=20Syrj=C3=A4l=C3=A4?= <ville.syrjala@linux.intel.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Christian Koenig <christian.koenig@amd.com>, Huang Rui <ray.huang@amd.com>,
+ Matthew Auld <matthew.auld@intel.com>,
+ Matthew Brost <matthew.brost@intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, intel-gfx@lists.freedesktop.org,
+ intel-xe@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+Cc: Jocelyn Falempe <jfalempe@redhat.com>
+Subject: [PATCH v10 00/10] drm/i915: Add drm_panic support
+Date: Wed, 18 Jun 2025 11:31:18 +0200
+Message-ID: <20250618094011.238154-1-jfalempe@redhat.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20250618-edp_panel-v2-1-41487e741c9d@intel.com>
-X-B4-Tracking: v=1; b=H4sIAAV8UmgC/23MywrCMBCF4VcpszaSifSiq76HFEmTiR2oaUlKU
- Ere3di1y/9w+HaIFJgi3KodAiWOvPgS6lSBmbR/kmBbGpRUtWywFWTXx6o9zcKNVzmiaS+N0lD
- +ayDH78O6D6UnjtsSPged8Lf+UxIKFIZQ1x1S54zt2W80n83ygiHn/AV0h8WUogAAAA==
-X-Change-ID: 20250617-edp_panel-fb90b1c7362a
-To: intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org
-Cc: Jani Nikula <jani.nikula@linux.intel.com>, shawn.c.lee@intel.com, 
- Arun R Murthy <arun.r.murthy@intel.com>
-X-Mailer: b4 0.15-dev
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-Scanned-By: MIMEDefang 3.0 on 10.30.177.40
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,77 +80,103 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Allocate and register drm_panel to allow the panel_follower framework to
-detect the eDP panel and pass drm_connector::kdev device to drm_panel
-allocation for matching.
-Call drm_panel_prepare/unprepare in ddi_enable for eDP to allow the
-followers to get notified of the panel power state changes.
+This adds drm_panic support for i915 and xe driver.
 
-v2: remove backlight setup from panel_register (Jani)
+I've tested it on the 4 intel laptops I have at my disposal.
+ * Haswell with 128MB of eDRAM.
+ * Comet Lake  i7-10850H
+ * Raptor Lake i7-1370P (with DPT, and Y-tiling).
+ * Lunar Lake Ultra 5 228V (with DPT, and 4-tiling, and using the Xe driver.
 
-Signed-off-by: Arun R Murthy <arun.r.murthy@intel.com>
----
-v1: Initial patch version based on the panel_follower added for DSI by
-Jani.
----
-Changes in v2:
-- EDITME: describe what is new in this series revision.
-- EDITME: use bulletpoints and terse descriptions.
-- Link to v1: https://lore.kernel.org/r/20250617-edp_panel-v1-1-ce1a581e8fcd@intel.com
----
- drivers/gpu/drm/i915/display/intel_ddi.c   | 4 ++++
- drivers/gpu/drm/i915/display/intel_panel.c | 3 ++-
- 2 files changed, 6 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/gpu/drm/i915/display/intel_ddi.c b/drivers/gpu/drm/i915/display/intel_ddi.c
-index cbd1060e966431e0884aa9df7b5e6d2f27fde6d5..36aa6d14589d37614fe13ba15baf4c7e60014e2c 100644
---- a/drivers/gpu/drm/i915/display/intel_ddi.c
-+++ b/drivers/gpu/drm/i915/display/intel_ddi.c
-@@ -73,6 +73,7 @@
- #include "intel_lspcon.h"
- #include "intel_mg_phy_regs.h"
- #include "intel_modeset_lock.h"
-+#include "intel_panel.h"
- #include "intel_pfit.h"
- #include "intel_pps.h"
- #include "intel_psr.h"
-@@ -3355,6 +3356,8 @@ static void intel_ddi_enable_dp(struct intel_atomic_state *state,
- 	drm_connector_update_privacy_screen(conn_state);
- 	intel_edp_backlight_on(crtc_state, conn_state);
- 
-+	intel_panel_prepare(crtc_state, conn_state);
-+
- 	if (!intel_lspcon_active(dig_port) || intel_dp_has_hdmi_sink(&dig_port->dp))
- 		intel_dp_set_infoframes(encoder, true, crtc_state, conn_state);
- 
-@@ -3552,6 +3555,7 @@ static void intel_ddi_disable_dp(struct intel_atomic_state *state,
- 
- 	intel_dp->link.active = false;
- 
-+	intel_panel_unprepare(old_conn_state);
- 	intel_psr_disable(intel_dp, old_crtc_state);
- 	intel_alpm_disable(intel_dp);
- 	intel_edp_backlight_off(old_conn_state);
-diff --git a/drivers/gpu/drm/i915/display/intel_panel.c b/drivers/gpu/drm/i915/display/intel_panel.c
-index f956919dc648eab507cdcca149672c1ce0173481..84de4d128b7bd34ae9bfad222c51aade01f06b8c 100644
---- a/drivers/gpu/drm/i915/display/intel_panel.c
-+++ b/drivers/gpu/drm/i915/display/intel_panel.c
-@@ -515,7 +515,8 @@ int intel_panel_register(struct intel_connector *connector)
- 	if (ret)
- 		return ret;
- 
--	if (connector->base.connector_type == DRM_MODE_CONNECTOR_DSI) {
-+	if (connector->base.connector_type == DRM_MODE_CONNECTOR_DSI ||
-+	    connector->base.connector_type == DRM_MODE_CONNECTOR_eDP) {
- 		struct device *dev = connector->base.kdev;
- 		struct drm_panel *base;
- 
-
----
-base-commit: 6f72990d9e0fe084afe257621edd730444a8bc52
-change-id: 20250617-edp_panel-fb90b1c7362a
+I tested panic in both fbdev console and gnome desktop.
+I think it won't work yet on discrete GPU, but that can be added later.
 
 Best regards,
+
+v2:
+ * Add the proper abstractions to build also for Xe.
+ * Fix dim checkpatch issues.
+
+v3:
+ * Add support for Y-tiled framebuffer when DPT is enabled.
+
+v4:
+ * Add support for Xe driver, which shares most of the code.
+ * Add support for 4-tiled framebuffer found in newest GPU.
+
+v5:
+ * Rebase on top of git@gitlab.freedesktop.org:drm/i915/kernel.git drm-intel-next
+ * Use struct intel_display instead of drm_i915_private.
+ * Use iosys_map for intel_bo_panic_map().
+
+v6:
+ * Rebase on top of git@gitlab.freedesktop.org:drm/i915/kernel.git drm-intel-next
+ * Use struct intel_display instead of drm_i915_private for intel_atomic_plane.c
+
+v7:
+ * Fix mismatch {} in intel_panic_flush() (Jani Nikula)
+ * Return int for i915_gem_object_panic_map() (Ville Syrjälä)
+ * Reword commit message about alignment/size when disabling tiling (Ville Syrjälä)
+
+v8:
+ * Use kmap_try_from_panic() instead of vmap, to access the framebuffer.
+ * Add ttm_bo_kmap_try_from_panic() for the xe driver, that uses ttm.
+ * Replace intel_bo_panic_map() with a setup() and finish() function,
+   to allow mapping only one page of teh framebuffer at a time.
+ * Configure psr to send the full framebuffer update.
+
+v9:
+ * Fix comment in ttm_bo_kmap_try_from_panic(), this can *only* be called
+   from the panic handler (Christian König)
+ * Fix missing kfree() for i915_panic_pages in i915_gem_object_panic_finish()
+   Also change i915_panic_pages allocation to kmalloc, as kvmalloc is not
+   safe to call from the panic handler.
+ * Fix dim checkpatch warnings.
+
+v10:
+ * Add a private field to struct drm_scanout_buffer
+ * Replace static variables with new fields in struct intel_framebuffer
+   (Maarten Lankhorst)
+ * Add error handling if i915_gem_object_panic_pages() returns NULL
+ * Declare struct drm_scanout_buffer instead of including <drm/drm_panic.h>
+   in intel_bo.h
+
+Jocelyn Falempe (10):
+  drm/panic: Add a private field to struct drm_scanout_buffer
+  drm/i915/fbdev: Add intel_fbdev_get_map()
+  drm/i915/display/i9xx: Add a disable_tiling() for i9xx planes
+  drm/i915/display: Add a disable_tiling() for skl planes
+  drm/ttm: Add ttm_bo_kmap_try_from_panic()
+  drm/i915: Add intel_bo_panic_setup and intel_bo_panic_finish
+  drm/i915/display: Add drm_panic support
+  drm/i915/display: Add drm_panic support for Y-tiling with DPT
+  drm/i915/display: Add drm_panic support for 4-tiling with DPT
+  drm/i915/psr: Add intel_psr2_panic_force_full_update
+
+ drivers/gpu/drm/i915/display/i9xx_plane.c     |  23 +++
+ .../gpu/drm/i915/display/intel_atomic_plane.c | 170 +++++++++++++++++-
+ drivers/gpu/drm/i915/display/intel_bo.c       |  12 ++
+ drivers/gpu/drm/i915/display/intel_bo.h       |   4 +
+ .../drm/i915/display/intel_display_types.h    |  11 ++
+ drivers/gpu/drm/i915/display/intel_fb_pin.c   |   5 +
+ drivers/gpu/drm/i915/display/intel_fb_pin.h   |   2 +
+ drivers/gpu/drm/i915/display/intel_fbdev.c    |   5 +
+ drivers/gpu/drm/i915/display/intel_fbdev.h    |   6 +-
+ drivers/gpu/drm/i915/display/intel_psr.c      |  20 +++
+ drivers/gpu/drm/i915/display/intel_psr.h      |   2 +
+ .../drm/i915/display/skl_universal_plane.c    |  27 +++
+ drivers/gpu/drm/i915/gem/i915_gem_object.h    |   5 +
+ drivers/gpu/drm/i915/gem/i915_gem_pages.c     | 112 ++++++++++++
+ drivers/gpu/drm/i915/i915_vma.h               |   5 +
+ drivers/gpu/drm/ttm/ttm_bo_util.c             |  27 +++
+ drivers/gpu/drm/xe/display/intel_bo.c         |  61 +++++++
+ drivers/gpu/drm/xe/display/xe_fb_pin.c        |   5 +
+ include/drm/drm_panic.h                       |   6 +
+ include/drm/ttm/ttm_bo.h                      |   1 +
+ 20 files changed, 507 insertions(+), 2 deletions(-)
+
+
+base-commit: b2f7e30d2e4a34fcee8111d713bef4f29dc23c77
 -- 
-Arun R Murthy <arun.r.murthy@intel.com>
+2.49.0
 
