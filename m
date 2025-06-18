@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 24D2FC7115A
-	for <intel-gfx@archiver.kernel.org>; Wed, 18 Jun 2025 14:24:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0229BC7115A
+	for <intel-gfx@archiver.kernel.org>; Wed, 18 Jun 2025 14:24:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9F01910E871;
-	Wed, 18 Jun 2025 14:24:43 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8AAF110E878;
+	Wed, 18 Jun 2025 14:24:46 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="NLHdTVfh";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="uLDIOX3H";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1BE1210E86A;
+Received: from nyc.source.kernel.org (nyc.source.kernel.org [147.75.193.91])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 04EB010E86F;
  Wed, 18 Jun 2025 14:24:43 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id E334144F89;
- Wed, 18 Jun 2025 14:24:42 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EA30AC4CEEE;
- Wed, 18 Jun 2025 14:24:40 +0000 (UTC)
+ by nyc.source.kernel.org (Postfix) with ESMTP id 1B7FDA51F36;
+ Wed, 18 Jun 2025 14:24:39 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C1136C4CEE7;
+ Wed, 18 Jun 2025 14:24:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1750256682;
- bh=5X69klc0I5PpzlSj7ikkdfXm51zSMkRP81iDMAIdLbs=;
+ s=k20201202; t=1750256678;
+ bh=fIUtfKsTxdswV0+z7NV6Nx2ljCgH4pcViNimfWT3u1o=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=NLHdTVfhf+n09kp2/BsHGxYMJOUEDMSvfM9bPGpayWSnxgFXSeDYVer+kaP0e2a2N
- 6AFVVqeLpBlqgSjo4cfx+PkGIRUr0BB4jgwtEzfDHDu0VeFQEny2rvlZm5PnyXanRJ
- mI5w9o2GwhqIPV+GSD/R3VTkMMgA8hIjVh5lu8KEH+xSmbJQJg6RBJCODjkr7frczt
- doGj0PItYd6guPnAAPniHArgqhut7BJhiHNCyyMvnY0gF6Iqfv3dyDCmQcI6ZS0A7F
- aVZB6ozSZtpu9iaqSHnPf3nW7F2Jrmcyq2+uufQOjAWuFsKW/Qqpiaf7FJ45KNtRgD
- ZsCn+JFkEcMOA==
+ b=uLDIOX3Hul4bZlkecwEkjoZmYKDdf+cAsfBiUohxb26sAfGNRvo3NOW+5wttooh3K
+ EXJfS/JXysjNl4W9KvYkmGx9kiCN6wI8pTMufW6b8m7rTalI/+lrHr3vbfk5T5AYO7
+ w8PGQJ9Jqo3ehQ4+3WjWjnhEG3S48pmW7VlBUEfZ9L6NbHJGZfeVsF0ozKOp2iH6YN
+ /oxlgcP7uexH3ZA00heFWEYx2j60zcgv/tT0Gf1rySR/+5azouNVEmI+lf+VzQ0KTD
+ QjxtwmlRn/HvkOoJ7Rzf/g9bjmgkWR2/IlptGai/1ltOBP57Y4Fcj8hXoXLSPYypB6
+ X2NZQ/dpYZHQg==
 From: Jeff Layton <jlayton@kernel.org>
-Date: Wed, 18 Jun 2025 10:24:20 -0400
-Subject: [PATCH v15 7/9] ref_tracker: add a way to create a symlink to the
- ref_tracker_dir debugfs file
+Date: Wed, 18 Jun 2025 10:24:18 -0400
+Subject: [PATCH v15 5/9] ref_tracker: allow pr_ostream() to print directly
+ to a seq_file
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20250618-reftrack-dbgfs-v15-7-24fc37ead144@kernel.org>
+Message-Id: <20250618-reftrack-dbgfs-v15-5-24fc37ead144@kernel.org>
 References: <20250618-reftrack-dbgfs-v15-0-24fc37ead144@kernel.org>
 In-Reply-To: <20250618-reftrack-dbgfs-v15-0-24fc37ead144@kernel.org>
 To: Andrew Morton <akpm@linux-foundation.org>, 
@@ -58,20 +58,20 @@ Cc: Krzysztof Karas <krzysztof.karas@intel.com>,
  dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org, 
  Jeff Layton <jlayton@kernel.org>
 X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=4548; i=jlayton@kernel.org;
- h=from:subject:message-id; bh=5X69klc0I5PpzlSj7ikkdfXm51zSMkRP81iDMAIdLbs=;
- b=owEBbQKS/ZANAwAKAQAOaEEZVoIVAcsmYgBoUswZRy4G7laETNP8iYtaM4jXEjG6wT1hnrchO
- CixQWnlh3qJAjMEAAEKAB0WIQRLwNeyRHGyoYTq9dMADmhBGVaCFQUCaFLMGQAKCRAADmhBGVaC
- FZocD/9FIdqyye26ITj4dkHQP+/w8rMXrzB//J5h34BcHu5Avlrgjr+fRQTYN07cws9TQTXQKDF
- H1Ykh37fmprvQqyXXXjpe6T6SxfWBbWz8svJyUe62aAG2IPOAcMGkKm1bU564ijNkwFiYC94ffk
- vhbdrXV8Se8dbzj2P9WKYJVDdJrsia79ChZdyTELowz0QauGzw+VP14RiPLlP1LO4JvqnMTlnpM
- +oEBw5uXDR/X2mLdIcNu2LHvL/hS0SLWCYG0IPCZK0wcAWihK98WAQjwYPyK3toRikgqxTCHTsD
- EkNPl0xQXiH580B6nxkk43yig1zHOQGBITHcdEWHRixChIli8RvSVAL4/M9tg3x60qIvJe0YiQd
- iSIyE82WGIEmVqqR1b3h7IQ6eLPX/LvzPJ3RcdeVUfw3AzCS6eA9Y/gFaFwjDz24AgOpGf2yDB4
- QulbwmYnmZOlz7carI0FlYepCY8DDdctusqUgE8Y/Uk0yHhjRTCsfIq+ZdnJ6A36+ciHH7Igg5J
- w9L/S1CMlSPdY7hJRWWIeSd0yzz8/fj7TsGEq0iBXlkd1DWyndF5Ad0wQ8BkNmaF7uY2/dVyoFQ
- gzJ+9l5maT08SeJrZp6r66avIHCPZOu16MAK5S9BTLFgrXycWRKy9lFQ7lWgeNnXGOO7rw5wLCc
- xf/aF+dgG8Btj3Q==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1919; i=jlayton@kernel.org;
+ h=from:subject:message-id; bh=fIUtfKsTxdswV0+z7NV6Nx2ljCgH4pcViNimfWT3u1o=;
+ b=owEBbQKS/ZANAwAKAQAOaEEZVoIVAcsmYgBoUswZ+yCe+Nq+zcQFbm7S/FnJLTnyxRZRUr9FZ
+ Y29ppwMt1CJAjMEAAEKAB0WIQRLwNeyRHGyoYTq9dMADmhBGVaCFQUCaFLMGQAKCRAADmhBGVaC
+ FX/KEAC6AM8ZF4tPJcB31H1Vs2JCZprZGrT8qjn779PdPnWBNhYGD+J2yXb1TiIM/dPBrIenj+Z
+ RPOTBt+TA5pw2vPjDjFa5WZ2Nma/oqXa72+Znar/vjBoCVjP4yXEOJos6CWlwBUooSI6qZ3fyjh
+ azbNJXMjKD+9gI+yqMCPsEPnFAtqpCzMgg01FqJaNaodtwwQfHh5jFNuOQwuJl2uyF+Y8Z2nJsB
+ ifSUUNt8fA9dHQe0fTzaSolM3WAO+D9J0ZsXe90ZHkJMtxCcL/AaWbEDocJAgJhSxBo8iszYYON
+ fqMh20r/IeNWYG7ZPjpyvrQE2MgT+VWxJokupoO1Ax3lrPPAGrC2cTlJ7LtrFRyAOn/H/E3tEQU
+ Xy1DPyFuzOz/h26Z/x3B0yS8h6aJ1YS222BdgYh9PLH500SxHGPfqbf/feM93SxO+dhHSwlGa3+
+ cL/xwDVgNRcWmCDcpTS+hgewjrQpt1bfUwEqNcwLLTkrFaKa4gJKEvK4EOqFnj/ntfu6AI7u1+6
+ 1B94aXDEtng4LFaXoI3n3+0ACGKnutuVNYg0Xk473x8ex7VBlquo8qMus18N0MEc+AU7o83S35+
+ z42G2vOGBE4U+VcLPda6i0WfwBwO8ehq+U+etyztZeREKmuIWtwfJUtOfgMY4rdTPNoxVO7m5uJ
+ FbgrC6Up0DOQJgw==
 X-Developer-Key: i=jlayton@kernel.org; a=openpgp;
  fpr=4BC0D7B24471B2A184EAF5D3000E684119568215
 X-BeenThere: intel-gfx@lists.freedesktop.org
@@ -89,142 +89,68 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Add the ability for a subsystem to add a user-friendly symlink that
-points to a ref_tracker_dir's debugfs file. Add a separate
-debugfs_symlinks xarray and use that to track symlinks. The reaper
-workqueue job will remove symlinks before their corresponding dentries.
+Allow pr_ostream to also output directly to a seq_file without an
+intermediate buffer. The first caller of +ref_tracker_dir_seq_print()
+will come in a later patch, so mark that __maybe_unused for now. That
+designation will be removed once it is used.
 
+Reviewed-by: Andrew Lunn <andrew@lunn.ch>
 Signed-off-by: Jeff Layton <jlayton@kernel.org>
 ---
- include/linux/ref_tracker.h | 11 ++++++++++
- lib/ref_tracker.c           | 50 +++++++++++++++++++++++++++++++++++++++++++++
- 2 files changed, 61 insertions(+)
+ lib/ref_tracker.c | 26 ++++++++++++++++++++++++++
+ 1 file changed, 26 insertions(+)
 
-diff --git a/include/linux/ref_tracker.h b/include/linux/ref_tracker.h
-index 28bbf436a8f4646cfac181d618195a9460bda196..e1323de93bf6b891aa14ad8d9b4b28d02e10f9f7 100644
---- a/include/linux/ref_tracker.h
-+++ b/include/linux/ref_tracker.h
-@@ -29,6 +29,7 @@ struct ref_tracker_dir {
- #ifdef CONFIG_DEBUG_FS
- 
- void ref_tracker_dir_debugfs(struct ref_tracker_dir *dir);
-+void ref_tracker_dir_symlink(struct ref_tracker_dir *dir, const char *fmt, ...);
- 
- #else /* CONFIG_DEBUG_FS */
- 
-@@ -36,6 +37,11 @@ static inline void ref_tracker_dir_debugfs(struct ref_tracker_dir *dir)
- {
- }
- 
-+static inline __ostream_printf
-+void ref_tracker_dir_symlink(struct ref_tracker_dir *dir, const char *fmt, ...)
-+{
-+}
-+
- #endif /* CONFIG_DEBUG_FS */
- 
- static inline void ref_tracker_dir_init(struct ref_tracker_dir *dir,
-@@ -85,6 +91,11 @@ static inline void ref_tracker_dir_debugfs(struct ref_tracker_dir *dir)
- {
- }
- 
-+static inline __ostream_printf
-+void ref_tracker_dir_symlink(struct ref_tracker_dir *dir, const char *fmt, ...)
-+{
-+}
-+
- static inline void ref_tracker_dir_exit(struct ref_tracker_dir *dir)
- {
- }
 diff --git a/lib/ref_tracker.c b/lib/ref_tracker.c
-index c938ef56954b2169458e9b23a3db2441bcf91aa6..6608520d6118685a9cfa497827f6a89318b3360c 100644
+index 42872f406b2a91b5bc611405cae7ce883fd8ed22..73b606570cce9e551d13e65365a87dc4ce748b13 100644
 --- a/lib/ref_tracker.c
 +++ b/lib/ref_tracker.c
-@@ -44,6 +44,7 @@ struct ref_tracker_dir_stats {
-  * dentries asynchronously.
-  */
- static struct xarray		debugfs_dentries;
-+static struct xarray		debugfs_symlinks;
- static struct work_struct	debugfs_reap_worker;
+@@ -8,6 +8,7 @@
+ #include <linux/slab.h>
+ #include <linux/stacktrace.h>
+ #include <linux/stackdepot.h>
++#include <linux/seq_file.h>
  
- #define REF_TRACKER_DIR_DEAD	XA_MARK_0
-@@ -55,6 +56,10 @@ static inline void ref_tracker_debugfs_mark(struct ref_tracker_dir *dir)
- 	__xa_set_mark(&debugfs_dentries, (unsigned long)dir, REF_TRACKER_DIR_DEAD);
- 	xa_unlock_irqrestore(&debugfs_dentries, flags);
+ #define REF_TRACKER_STACK_ENTRIES 16
+ #define STACK_BUF_SIZE 1024
+@@ -66,6 +67,7 @@ struct ostream {
+ 	void __ostream_printf (*func)(struct ostream *stream, char *fmt, ...);
+ 	char *prefix;
+ 	char *buf;
++	struct seq_file *seq;
+ 	int size, used;
+ };
  
-+	xa_lock_irqsave(&debugfs_symlinks, flags);
-+	__xa_set_mark(&debugfs_symlinks, (unsigned long)dir, REF_TRACKER_DIR_DEAD);
-+	xa_unlock_irqrestore(&debugfs_symlinks, flags);
-+
- 	schedule_work(&debugfs_reap_worker);
- }
- #else
-@@ -451,6 +456,45 @@ void ref_tracker_dir_debugfs(struct ref_tracker_dir *dir)
- }
- EXPORT_SYMBOL(ref_tracker_dir_debugfs);
+@@ -301,6 +303,30 @@ EXPORT_SYMBOL_GPL(ref_tracker_free);
  
-+void __ostream_printf ref_tracker_dir_symlink(struct ref_tracker_dir *dir, const char *fmt, ...)
+ static struct dentry *ref_tracker_debug_dir = (struct dentry *)-ENOENT;
+ 
++static void __ostream_printf pr_ostream_seq(struct ostream *stream, char *fmt, ...)
 +{
-+	char name[NAME_MAX + 1];
-+	struct dentry *symlink, *dentry;
 +	va_list args;
-+	int ret;
-+
-+	symlink = xa_load(&debugfs_symlinks, (unsigned long)dir);
-+	dentry = xa_load(&debugfs_dentries, (unsigned long)dir);
-+
-+	/* Already created?*/
-+	if (symlink && !xa_is_err(symlink))
-+		return;
-+
-+	if (!dentry || xa_is_err(dentry))
-+		return;
 +
 +	va_start(args, fmt);
-+	ret = vsnprintf(name, sizeof(name), fmt, args);
++	seq_vprintf(stream->seq, fmt, args);
 +	va_end(args);
-+	name[sizeof(name) - 1] = '\0';
-+
-+	if (ret < sizeof(name)) {
-+		symlink = debugfs_create_symlink(name, ref_tracker_debug_dir,
-+						 dentry->d_name.name);
-+		if (!IS_ERR(symlink)) {
-+			void *old;
-+
-+			old = xa_store_irq(&debugfs_symlinks, (unsigned long)dir,
-+					   symlink, GFP_KERNEL);
-+			if (xa_is_err(old))
-+				debugfs_remove(symlink);
-+			else
-+				WARN_ON_ONCE(old);
-+		}
-+	}
 +}
-+EXPORT_SYMBOL(ref_tracker_dir_symlink);
 +
- static void debugfs_reap_work(struct work_struct *work)
++static __maybe_unused int
++ref_tracker_dir_seq_print(struct ref_tracker_dir *dir, struct seq_file *seq)
++{
++	struct ostream os = { .func = pr_ostream_seq,
++			      .prefix = "",
++			      .seq = seq };
++	unsigned long flags;
++
++	spin_lock_irqsave(&dir->lock, flags);
++	__ref_tracker_dir_pr_ostream(dir, 16, &os);
++	spin_unlock_irqrestore(&dir->lock, flags);
++
++	return os.used;
++}
++
+ static int __init ref_tracker_debugfs_init(void)
  {
- 	struct dentry *dentry;
-@@ -459,6 +503,11 @@ static void debugfs_reap_work(struct work_struct *work)
- 
- 	do {
- 		reaped = false;
-+		xa_for_each_marked(&debugfs_symlinks, index, dentry, REF_TRACKER_DIR_DEAD) {
-+			xa_erase_irq(&debugfs_symlinks, index);
-+			debugfs_remove(dentry);
-+			reaped = true;
-+		}
- 		xa_for_each_marked(&debugfs_dentries, index, dentry, REF_TRACKER_DIR_DEAD) {
- 			xa_erase_irq(&debugfs_dentries, index);
- 			debugfs_remove(dentry);
-@@ -471,6 +520,7 @@ static int __init ref_tracker_debugfs_init(void)
- {
- 	INIT_WORK(&debugfs_reap_worker, debugfs_reap_work);
- 	xa_init_flags(&debugfs_dentries, XA_FLAGS_LOCK_IRQ);
-+	xa_init_flags(&debugfs_symlinks, XA_FLAGS_LOCK_IRQ);
  	ref_tracker_debug_dir = debugfs_create_dir("ref_tracker", NULL);
- 	return 0;
- }
 
 -- 
 2.49.0
