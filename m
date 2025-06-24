@@ -4,35 +4,33 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 52033C77B7F
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id ECC50C7EE33
 	for <intel-gfx@archiver.kernel.org>; Tue, 24 Jun 2025 18:19:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4C32F10E617;
-	Tue, 24 Jun 2025 18:18:54 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C10A910E61A;
+	Tue, 24 Jun 2025 18:18:55 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=didiglobal.com header.i=@didiglobal.com header.b="ExvA9iRQ";
+	dkim=pass (1024-bit key; unprotected) header.d=didiglobal.com header.i=@didiglobal.com header.b="cEW7/Ufu";
 	dkim-atps=neutral
-X-Greylist: delayed 722 seconds by postgrey-1.36 at gabe;
- Tue, 24 Jun 2025 12:24:31 UTC
 Received: from mx10.didiglobal.com (mx10.didiglobal.com [111.202.70.125])
- by gabe.freedesktop.org (Postfix) with SMTP id 8445D892D3;
- Tue, 24 Jun 2025 12:24:31 +0000 (UTC)
-Received: from mail.didiglobal.com (unknown [10.79.64.21])
- by mx10.didiglobal.com (MailData Gateway V2.8.8) with ESMTPS id CCE7B1808ACAE2;
- Tue, 24 Jun 2025 20:11:22 +0800 (CST)
-Received: from BJ03-ACTMBX-09.didichuxing.com (10.79.71.36) by
- BJ01-ACTMBX-02.didichuxing.com (10.79.64.21) with Microsoft SMTP Server
+ by gabe.freedesktop.org (Postfix) with SMTP id D55A289CE3;
+ Tue, 24 Jun 2025 12:24:36 +0000 (UTC)
+Received: from mail.didiglobal.com (unknown [10.79.65.20])
+ by mx10.didiglobal.com (MailData Gateway V2.8.8) with ESMTPS id 3B0B71808ACADD;
+ Tue, 24 Jun 2025 20:11:29 +0800 (CST)
+Received: from BJ02-ACTMBX-08.didichuxing.com (10.79.65.15) by
+ BJ02-ACTMBX-02.didichuxing.com (10.79.65.20) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1748.10; Tue, 24 Jun 2025 20:12:05 +0800
+ 15.2.1748.10; Tue, 24 Jun 2025 20:12:11 +0800
 Received: from BJ03-ACTMBX-07.didichuxing.com (10.79.71.34) by
- BJ03-ACTMBX-09.didichuxing.com (10.79.71.36) with Microsoft SMTP Server
+ BJ02-ACTMBX-08.didichuxing.com (10.79.65.15) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1748.10; Tue, 24 Jun 2025 20:12:04 +0800
+ 15.2.1748.10; Tue, 24 Jun 2025 20:12:11 +0800
 Received: from BJ03-ACTMBX-07.didichuxing.com ([fe80::b00b:de35:2067:9787]) by
  BJ03-ACTMBX-07.didichuxing.com ([fe80::b00b:de35:2067:9787%7]) with
- mapi id 15.02.1748.010; Tue, 24 Jun 2025 20:12:04 +0800
+ mapi id 15.02.1748.010; Tue, 24 Jun 2025 20:12:11 +0800
 X-MD-Sfrom: chentaotao@didiglobal.com
-X-MD-SrcIP: 10.79.64.21
+X-MD-SrcIP: 10.79.65.20
 From: =?gb2312?B?s8LMzszOIFRhb3RhbyBDaGVu?= <chentaotao@didiglobal.com>
 To: "tytso@mit.edu" <tytso@mit.edu>, "hch@infradead.org" <hch@infradead.org>, 
  "adilger.kernel@dilger.ca" <adilger.kernel@dilger.ca>,
@@ -50,12 +48,11 @@ CC: "linux-fsdevel@vger.kernel.org" <linux-fsdevel@vger.kernel.org>,
  <linux-doc@vger.kernel.org>, "linux-kernel@vger.kernel.org"
  <linux-kernel@vger.kernel.org>, "chentao325@qq.com" <chentao325@qq.com>,
  =?gb2312?B?s8LMzszOIFRhb3RhbyBDaGVu?= <chentaotao@didiglobal.com>
-Subject: [PATCH v2 1/5] drm/i915: Use kernel_write() in shmem object create
-Thread-Topic: [PATCH v2 1/5] drm/i915: Use kernel_write() in shmem object
- create
-Thread-Index: AQHb5QEySZaHYPkPAEOiJqqTdRuvag==
-Date: Tue, 24 Jun 2025 12:12:04 +0000
-Message-ID: <20250624121149.2927-2-chentaotao@didiglobal.com>
+Subject: [PATCH v2 5/5] ext4: declare support for FOP_DONTCACHE
+Thread-Topic: [PATCH v2 5/5] ext4: declare support for FOP_DONTCACHE
+Thread-Index: AQHb5QE2ZjIKcQrU5kGPOqcDpxUbGg==
+Date: Tue, 24 Jun 2025 12:12:10 +0000
+Message-ID: <20250624121149.2927-6-chentaotao@didiglobal.com>
 In-Reply-To: <20250624121149.2927-1-chentaotao@didiglobal.com>
 Accept-Language: zh-CN, en-US
 Content-Language: zh-CN
@@ -66,12 +63,12 @@ Content-Type: text/plain; charset="gb2312"
 Content-Transfer-Encoding: base64
 MIME-Version: 1.0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=didiglobal.com;
- s=2025; t=1750767104;
- bh=HYU97oIn0cnVusHQfmzKHAF4vcuj7pXpFBHYR5LJCN0=;
+ s=2025; t=1750767110;
+ bh=iuF1ZOur63OjUvd6ybvJnLgKwbJ3U/NzwPXRo3n32rY=;
  h=From:To:CC:Subject:Date:Message-ID:Content-Type;
- b=ExvA9iRQ48UNJHdn2HJmucGbjVBK6iaRuGf3d3jl4q7HSZMM/2JCQ2DOEvQdbvmUx
- w/KHs9wUtgV8OpV2/A7iliZgFTh9ug/Do0DhJl/F9wIZdiqTuENdalZvn5acDHTyEG
- PRXBL55CwnXiRd5I4oRsM2Tf6B28t5W7wZGtDa0o=
+ b=cEW7/UfuFR9GJjBn+9WIFO3vuASVCalB3o2O0NUd/YMuW/x46pv/XlvCutN5cV/th
+ e09CPp1bHCPCZ1UrzhIG/eEpXoPybPkKWNeuUDpstKTGpHJwNrnOT34pOnDg96O9VP
+ HNlfdS+qpcqN31yAjdtca+Zm/u9GnVNlg5lWZNE4=
 X-Mailman-Approved-At: Tue, 24 Jun 2025 18:18:52 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -88,39 +85,21 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-RnJvbTogVGFvdGFvIENoZW4gPGNoZW50YW90YW9AZGlkaWdsb2JhbC5jb20+DQoNClJlcGxhY2Ug
-dGhlIHdyaXRlX2JlZ2luL3dyaXRlX2VuZCBsb29wIGluDQppOTE1X2dlbV9vYmplY3RfY3JlYXRl
-X3NobWVtX2Zyb21fZGF0YSgpIHdpdGggY2FsbCB0byBrZXJuZWxfd3JpdGUoKS4NCg0KVGhpcyBm
-dW5jdGlvbiBpbml0aWFsaXplcyBzaG1lbS1iYWNrZWQgR0VNIG9iamVjdHMuIGtlcm5lbF93cml0
-ZSgpDQpzaW1wbGlmaWVzIHRoZSBjb2RlIGJ5IHJlbW92aW5nIG1hbnVhbCBmb2xpbyBoYW5kbGlu
-Zy4NCg0KUGFydCBvZiBhIHNlcmllcyByZWZhY3RvcmluZyBhZGRyZXNzX3NwYWNlX29wZXJhdGlv
-bnMgd3JpdGVfYmVnaW4gYW5kDQp3cml0ZV9lbmQgY2FsbGJhY2tzIHRvIHVzZSBzdHJ1Y3Qga2lv
-Y2IgZm9yIHBhc3Npbmcgd3JpdGUgY29udGV4dCBhbmQNCmZsYWdzLg0KDQpTaWduZWQtb2ZmLWJ5
-OiBUYW90YW8gQ2hlbiA8Y2hlbnRhb3Rhb0BkaWRpZ2xvYmFsLmNvbT4NCi0tLQ0KIGRyaXZlcnMv
-Z3B1L2RybS9pOTE1L2dlbS9pOTE1X2dlbV9zaG1lbS5jIHwgMzEgKysrKysrLS0tLS0tLS0tLS0t
-LS0tLS0NCiAxIGZpbGUgY2hhbmdlZCwgOCBpbnNlcnRpb25zKCspLCAyMyBkZWxldGlvbnMoLSkN
-Cg0KZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9pOTE1L2dlbS9pOTE1X2dlbV9zaG1lbS5j
-IGIvZHJpdmVycy9ncHUvZHJtL2k5MTUvZ2VtL2k5MTVfZ2VtX3NobWVtLmMNCmluZGV4IDE5YTNl
-YjgyZGM2YS4uZDA4YWRlOTM0ZDE1IDEwMDY0NA0KLS0tIGEvZHJpdmVycy9ncHUvZHJtL2k5MTUv
-Z2VtL2k5MTVfZ2VtX3NobWVtLmMNCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9pOTE1L2dlbS9pOTE1
-X2dlbV9zaG1lbS5jDQpAQCAtNjM3LDggKzYzNyw3IEBAIGk5MTVfZ2VtX29iamVjdF9jcmVhdGVf
-c2htZW1fZnJvbV9kYXRhKHN0cnVjdCBkcm1faTkxNV9wcml2YXRlICppOTE1LA0KIHsNCiAJc3Ry
-dWN0IGRybV9pOTE1X2dlbV9vYmplY3QgKm9iajsNCiAJc3RydWN0IGZpbGUgKmZpbGU7DQotCWNv
-bnN0IHN0cnVjdCBhZGRyZXNzX3NwYWNlX29wZXJhdGlvbnMgKmFvcHM7DQotCWxvZmZfdCBwb3M7
-DQorCWxvZmZfdCBwb3MgPSAwOw0KIAlpbnQgZXJyOw0KIA0KIAlHRU1fV0FSTl9PTihJU19ER0ZY
-KGk5MTUpKTsNCkBAIC02NDksMjkgKzY0OCwxNSBAQCBpOTE1X2dlbV9vYmplY3RfY3JlYXRlX3No
-bWVtX2Zyb21fZGF0YShzdHJ1Y3QgZHJtX2k5MTVfcHJpdmF0ZSAqaTkxNSwNCiAJR0VNX0JVR19P
-TihvYmotPndyaXRlX2RvbWFpbiAhPSBJOTE1X0dFTV9ET01BSU5fQ1BVKTsNCiANCiAJZmlsZSA9
-IG9iai0+YmFzZS5maWxwOw0KLQlhb3BzID0gZmlsZS0+Zl9tYXBwaW5nLT5hX29wczsNCi0JcG9z
-ID0gMDsNCi0JZG8gew0KLQkJdW5zaWduZWQgaW50IGxlbiA9IG1pbl90KHR5cGVvZihzaXplKSwg
-c2l6ZSwgUEFHRV9TSVpFKTsNCi0JCXN0cnVjdCBmb2xpbyAqZm9saW87DQotCQl2b2lkICpmc2Rh
-dGE7DQotDQotCQllcnIgPSBhb3BzLT53cml0ZV9iZWdpbihmaWxlLCBmaWxlLT5mX21hcHBpbmcs
-IHBvcywgbGVuLA0KLQkJCQkJJmZvbGlvLCAmZnNkYXRhKTsNCi0JCWlmIChlcnIgPCAwKQ0KLQkJ
-CWdvdG8gZmFpbDsNCisJZXJyID0ga2VybmVsX3dyaXRlKGZpbGUsIGRhdGEsIHNpemUsICZwb3Mp
-Ow0KIA0KLQkJbWVtY3B5X3RvX2ZvbGlvKGZvbGlvLCBvZmZzZXRfaW5fZm9saW8oZm9saW8sIHBv
-cyksIGRhdGEsIGxlbik7DQorCWlmIChlcnIgPCAwKQ0KKwkJZ290byBmYWlsOw0KIA0KLQkJZXJy
-ID0gYW9wcy0+d3JpdGVfZW5kKGZpbGUsIGZpbGUtPmZfbWFwcGluZywgcG9zLCBsZW4sIGxlbiwN
-Ci0JCQkJICAgICAgZm9saW8sIGZzZGF0YSk7DQotCQlpZiAoZXJyIDwgMCkNCi0JCQlnb3RvIGZh
-aWw7DQotDQotCQlzaXplIC09IGxlbjsNCi0JCWRhdGEgKz0gbGVuOw0KLQkJcG9zICs9IGxlbjsN
-Ci0JfSB3aGlsZSAoc2l6ZSk7DQorCWlmIChlcnIgIT0gc2l6ZSkgew0KKwkJZXJyID0gLUVJTzsN
-CisJCWdvdG8gZmFpbDsNCisJfQ0KIA0KIAlyZXR1cm4gb2JqOw0KIA0KLS0gDQoyLjM0LjENCg==
+RnJvbTogVGFvdGFvIENoZW4gPGNoZW50YW90YW9AZGlkaWdsb2JhbC5jb20+DQoNClNldCB0aGUg
+Rk9QX0RPTlRDQUNIRSBmbGFnIGluIGV4dDRfZmlsZV9vcGVyYXRpb25zIHRvIGluZGljYXRlIHRo
+YXQNCmV4dDQgc3VwcG9ydHMgSU9DQl9ET05UQ0FDSEUgaGFuZGxpbmcgaW4gYnVmZmVyZWQgd3Jp
+dGUgcGF0aHMuDQoNClBhcnQgb2YgYSBzZXJpZXMgcmVmYWN0b3JpbmcgYWRkcmVzc19zcGFjZV9v
+cGVyYXRpb25zIHdyaXRlX2JlZ2luIGFuZA0Kd3JpdGVfZW5kIGNhbGxiYWNrcyB0byB1c2Ugc3Ry
+dWN0IGtpb2NiIGZvciBwYXNzaW5nIHdyaXRlIGNvbnRleHQgYW5kDQpmbGFncy4NCg0KU2lnbmVk
+LW9mZi1ieTogVGFvdGFvIENoZW4gPGNoZW50YW90YW9AZGlkaWdsb2JhbC5jb20+DQotLS0NCiBm
+cy9leHQ0L2ZpbGUuYyB8IDMgKystDQogMSBmaWxlIGNoYW5nZWQsIDIgaW5zZXJ0aW9ucygrKSwg
+MSBkZWxldGlvbigtKQ0KDQpkaWZmIC0tZ2l0IGEvZnMvZXh0NC9maWxlLmMgYi9mcy9leHQ0L2Zp
+bGUuYw0KaW5kZXggMjFkZjgxMzQ3MTQ3Li4yNzRiNDFhNDc2YzggMTAwNjQ0DQotLS0gYS9mcy9l
+eHQ0L2ZpbGUuYw0KKysrIGIvZnMvZXh0NC9maWxlLmMNCkBAIC05NzcsNyArOTc3LDggQEAgY29u
+c3Qgc3RydWN0IGZpbGVfb3BlcmF0aW9ucyBleHQ0X2ZpbGVfb3BlcmF0aW9ucyA9IHsNCiAJLnNw
+bGljZV93cml0ZQk9IGl0ZXJfZmlsZV9zcGxpY2Vfd3JpdGUsDQogCS5mYWxsb2NhdGUJPSBleHQ0
+X2ZhbGxvY2F0ZSwNCiAJLmZvcF9mbGFncwk9IEZPUF9NTUFQX1NZTkMgfCBGT1BfQlVGRkVSX1JB
+U1lOQyB8DQotCQkJICBGT1BfRElPX1BBUkFMTEVMX1dSSVRFLA0KKwkJCSAgRk9QX0RJT19QQVJB
+TExFTF9XUklURSB8DQorCQkJICBGT1BfRE9OVENBQ0hFLA0KIH07DQogDQogY29uc3Qgc3RydWN0
+IGlub2RlX29wZXJhdGlvbnMgZXh0NF9maWxlX2lub2RlX29wZXJhdGlvbnMgPSB7DQotLSANCjIu
+MzQuMQ0K
