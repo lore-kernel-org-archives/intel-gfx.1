@@ -4,53 +4,62 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C80D7C7115C
-	for <intel-gfx@archiver.kernel.org>; Wed, 25 Jun 2025 07:54:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5E50BC7EE32
+	for <intel-gfx@archiver.kernel.org>; Wed, 25 Jun 2025 08:04:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5ACDA10E688;
-	Wed, 25 Jun 2025 07:54:54 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D799810E68F;
+	Wed, 25 Jun 2025 08:04:33 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="Dc+3mzRl";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="iH1n489F";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.14])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7BC4F10E685;
- Wed, 25 Jun 2025 07:54:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1750838094; x=1782374094;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=kD7gIz4GYfVlA8lccaJXL4nVRbqdXXvohReVTYEntsg=;
- b=Dc+3mzRlZuvOeyux7H6bRMJDmc8r3x5ios8lbm9/NDdtkoGM2LEfJZvk
- dWs4xTc8FLZNY5t3CTCTNjCns/Kmebg3XfVfpYcX0YgUJs59ylHThtLJf
- BcFKvYwq11vvLWIJtBOuJSDMrS4St5PpMqi4EYSIny/Z6Z/u/McbdiXHv
- I0T77lyKMpRXhucUs1T14PRTLzKPIXgtOAW5urh+6iV0kBK8CRYMujlAR
- qvKk+l8OuPL6OB1NyfZtQ8BrK+i2n/iRZMAq/CGz4zFTMn2nhzvCEk1rh
- SqQGe6rEBGFS0YZbthX4qjs60GB0Y0WHp1enNm4ZcO3sBd1QULfF2nOHg Q==;
-X-CSE-ConnectionGUID: El2IvgWIR1SPiWOjIW6ysQ==
-X-CSE-MsgGUID: fHfOVk9IRY2v4cnUGpPgAg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11474"; a="56881903"
-X-IronPort-AV: E=Sophos;i="6.16,264,1744095600"; d="scan'208";a="56881903"
-Received: from fmviesa009.fm.intel.com ([10.60.135.149])
- by orvoesa106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 25 Jun 2025 00:54:53 -0700
-X-CSE-ConnectionGUID: lx0ZI2frRGa4/DBEnP3SoA==
-X-CSE-MsgGUID: 6+i/retaSd+RBlEDSi19ow==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.16,264,1744095600"; d="scan'208";a="152434634"
-Received: from nemesa.iind.intel.com ([10.190.239.22])
- by fmviesa009.fm.intel.com with ESMTP; 25 Jun 2025 00:54:52 -0700
-From: Nemesa Garg <nemesa.garg@intel.com>
-To: intel-gfx@lists.freedesktop.org,
-	intel-xe@lists.freedesktop.org
-Cc: Nemesa Garg <nemesa.garg@intel.com>,
- Suraj Kandpal <suraj.kandpal@intel.com>
-Subject: [PATCH] drm/i915/display: Implement wa_16011342517
-Date: Wed, 25 Jun 2025 13:19:11 +0530
-Message-Id: <20250625074911.194085-1-nemesa.garg@intel.com>
-X-Mailer: git-send-email 2.25.1
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B1D1C10E68C;
+ Wed, 25 Jun 2025 08:04:32 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sea.source.kernel.org (Postfix) with ESMTP id 5C29543974;
+ Wed, 25 Jun 2025 08:04:29 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 24A09C4CEEA;
+ Wed, 25 Jun 2025 08:04:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1750838669;
+ bh=33Db58Zgs1Us82FoEGQ+AOZm9l1WltZ90kNW2vjvy6c=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=iH1n489FRT/VUDCzbZstkBsRFo5c8F/QxvDELXrmnB0il6WHte0vIcyu5rPE+DJtw
+ Cxj+2D7s/QNd1hV2OSvnvUCYXs9f+HD2SqK0g+PiI1SvSgeqDm9nok2idfvm+VXf06
+ 4OdwhvFB5kpZfqgJ+GdVYC2Ml0cj3Q56rUKQw4+RYwzv1PVFnVnNCqPmZRn6zEJ4My
+ P7N7u+Xh82fg35P2Nz7WEIWKCtFSLfnHs513dkhYS7po6+vuc+GxIDdMOYuSQg1QQL
+ OCxmz9soe8yvYONFgmprZloT7OqCjIdaLjJriPpYTxtdDX02YuE5PBV9CLKzDU5KrF
+ x8SDdin5EAkhg==
+Date: Wed, 25 Jun 2025 10:04:22 +0200
+From: Christian Brauner <brauner@kernel.org>
+To: Matthew Wilcox <willy@infradead.org>
+Cc: =?utf-8?B?6ZmI5rab5rab?= Taotao Chen <chentaotao@didiglobal.com>, 
+ "tytso@mit.edu" <tytso@mit.edu>, "hch@infradead.org" <hch@infradead.org>, 
+ "adilger.kernel@dilger.ca" <adilger.kernel@dilger.ca>,
+ "jani.nikula@linux.intel.com" <jani.nikula@linux.intel.com>, 
+ "rodrigo.vivi@intel.com" <rodrigo.vivi@intel.com>,
+ "tursulin@ursulin.net" <tursulin@ursulin.net>, 
+ "airlied@gmail.com" <airlied@gmail.com>,
+ "linux-fsdevel@vger.kernel.org" <linux-fsdevel@vger.kernel.org>, 
+ "linux-ext4@vger.kernel.org" <linux-ext4@vger.kernel.org>,
+ "linux-block@vger.kernel.org" <linux-block@vger.kernel.org>, 
+ "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>, 
+ "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
+ "linux-mm@kvack.org" <linux-mm@kvack.org>, 
+ "linux-doc@vger.kernel.org" <linux-doc@vger.kernel.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, 
+ "chentao325@qq.com" <chentao325@qq.com>
+Subject: Re: [PATCH v2 3/5] fs: change write_begin/write_end interface to
+ take struct kiocb *
+Message-ID: <20250625-erstklassig-stilvoll-273282f0dd1b@brauner>
+References: <20250624121149.2927-1-chentaotao@didiglobal.com>
+ <20250624121149.2927-4-chentaotao@didiglobal.com>
+ <aFqfZ9hiiW4qnYtO@casper.infradead.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <aFqfZ9hiiW4qnYtO@casper.infradead.org>
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,71 +75,40 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-While doing voltage swing for type-c phy
-for DP 1.62 and HDMI write the
-LOADGEN_SHARING_PMD_DISABLE bit to 1.
+On Tue, Jun 24, 2025 at 01:51:51PM +0100, Matthew Wilcox wrote:
+> On Tue, Jun 24, 2025 at 12:12:08PM +0000, 陈涛涛 Taotao Chen wrote:
+> > -static int blkdev_write_end(struct file *file, struct address_space *mapping,
+> > +static int blkdev_write_end(struct kiocb *iocb, struct address_space *mapping,
+> >  		loff_t pos, unsigned len, unsigned copied, struct folio *folio,
+> >  		void *fsdata)
+> >  {
+> >  	int ret;
+> > -	ret = block_write_end(file, mapping, pos, len, copied, folio, fsdata);
+> > +	ret = block_write_end(iocb->ki_filp, mapping, pos, len, copied, folio, fsdata);
+> 
+> ... huh.  I thought block_write_end() had to have the same prototype as
+> ->write_end because it was used by some filesystems as the ->write_end.
+> I see that's not true (any more?).  Maybe I was confused with
+> generic_write_end().  Anyway, block_write_end() doesn't use it's file
+> argument, and never will, so we can just remove it.
+> 
+> > +++ b/include/linux/fs.h
+> > @@ -446,10 +446,10 @@ struct address_space_operations {
+> >  
+> >  	void (*readahead)(struct readahead_control *);
+> >  
+> > -	int (*write_begin)(struct file *, struct address_space *mapping,
+> > +	int (*write_begin)(struct kiocb *, struct address_space *mapping,
+> >  				loff_t pos, unsigned len,
+> >  				struct folio **foliop, void **fsdata);
+> > -	int (*write_end)(struct file *, struct address_space *mapping,
+> > +	int (*write_end)(struct kiocb *, struct address_space *mapping,
+> >  				loff_t pos, unsigned len, unsigned copied,
+> >  				struct folio *folio, void *fsdata);
+> 
+> Should we make this a 'const struct kiocb *'?  I don't see a need for
+> filesystems to be allowed to modify the kiocb in future, but perhaps
+> other people have different opinions.
 
--v2: Update commit.
-     Add bspec[Suraj]
--v3: Move w/a before DKL_TX_PMD_LANE_SUS.
-     Use DKL_TX_DPCNTL2[Ville]
--v4: Use intel_encoder_is_dp and
-     intel_encoder_is_hdmi. [Suraj]
-
-Bspec: 55359
-Signed-off-by: Nemesa Garg <nemesa.garg@intel.com>
-Reviewed-by: Suraj Kandpal <suraj.kandpal@intel.com>
----
- drivers/gpu/drm/i915/display/intel_ddi.c         | 16 ++++++++++++++++
- .../gpu/drm/i915/display/intel_dkl_phy_regs.h    |  1 +
- 2 files changed, 17 insertions(+)
-
-diff --git a/drivers/gpu/drm/i915/display/intel_ddi.c b/drivers/gpu/drm/i915/display/intel_ddi.c
-index cbd1060e9664..5d672fb82c2c 100644
---- a/drivers/gpu/drm/i915/display/intel_ddi.c
-+++ b/drivers/gpu/drm/i915/display/intel_ddi.c
-@@ -78,6 +78,7 @@
- #include "intel_psr.h"
- #include "intel_quirks.h"
- #include "intel_snps_phy.h"
-+#include "intel_step.h"
- #include "intel_tc.h"
- #include "intel_vdsc.h"
- #include "intel_vdsc_regs.h"
-@@ -1394,6 +1395,21 @@ static void tgl_dkl_phy_set_signal_levels(struct intel_encoder *encoder,
- 	for (ln = 0; ln < 2; ln++) {
- 		int level;
- 
-+		/* Wa_16011342517:adl-p */
-+		if (display->platform.alderlake_p &&
-+		    IS_DISPLAY_STEP(display, STEP_A0, STEP_D0)) {
-+			if ((intel_encoder_is_hdmi(encoder) &&
-+			     crtc_state->port_clock == 594000) ||
-+			     (intel_encoder_is_dp(encoder) &&
-+			      crtc_state->port_clock == 162000)) {
-+				intel_dkl_phy_rmw(display, DKL_TX_DPCNTL2(tc_port, ln),
-+						  LOADGEN_SHARING_PMD_DISABLE, 1);
-+			} else {
-+				intel_dkl_phy_rmw(display, DKL_TX_DPCNTL2(tc_port, ln),
-+						  LOADGEN_SHARING_PMD_DISABLE, 0);
-+			}
-+		}
-+
- 		intel_dkl_phy_write(display, DKL_TX_PMD_LANE_SUS(tc_port, ln), 0);
- 
- 		level = intel_ddi_level(encoder, crtc_state, 2*ln+0);
-diff --git a/drivers/gpu/drm/i915/display/intel_dkl_phy_regs.h b/drivers/gpu/drm/i915/display/intel_dkl_phy_regs.h
-index 3d8fa667cc73..f8ffeec29e93 100644
---- a/drivers/gpu/drm/i915/display/intel_dkl_phy_regs.h
-+++ b/drivers/gpu/drm/i915/display/intel_dkl_phy_regs.h
-@@ -153,6 +153,7 @@ struct intel_dkl_phy_reg {
- #define  DKL_TX_DPCNTL2_CFG_LOADGENSELECT_TX1(val)	REG_FIELD_PREP(DKL_TX_DPCNTL2_CFG_LOADGENSELECT_TX1_MASK, (val))
- #define  DKL_TX_DPCNTL2_CFG_LOADGENSELECT_TX2_MASK	REG_GENMASK(6, 5)
- #define  DKL_TX_DPCNTL2_CFG_LOADGENSELECT_TX2(val)	REG_FIELD_PREP(DKL_TX_DPCNTL2_CFG_LOADGENSELECT_TX2_MASK, (val))
-+#define  LOADGEN_SHARING_PMD_DISABLE			REG_BIT(12)
- 
- #define _DKL_TX_FW_CALIB_LN0				0x02F8
- #define _DKL_TX_FW_CALIB_LN1				0x12F8
--- 
-2.25.1
-
+Given I picked up Willy's change I'll wait for a resubmit of this series
+on top of vfs-6.17.misc unless I hear otherwise?
