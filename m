@@ -4,52 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B2AA4C7EE39
-	for <intel-gfx@archiver.kernel.org>; Thu, 26 Jun 2025 17:44:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3C52DC83000
+	for <intel-gfx@archiver.kernel.org>; Thu, 26 Jun 2025 17:44:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4721910E8E1;
+	by gabe.freedesktop.org (Postfix) with ESMTP id C2DD010E8E5;
 	Thu, 26 Jun 2025 17:44:08 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="e5a2YPfi";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="F3Y6JbNV";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.19])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CBA3E10E8D4;
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8908910E8D4;
  Thu, 26 Jun 2025 17:44:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
  t=1750959847; x=1782495847;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=aGD8BvBdOWTnuRw2NRKYSTP1dWSHF/HPYs+6IGx5HT4=;
- b=e5a2YPfiYhsW+6/sd/1mwT+cJHY8wslRi3Jx3CYkniKT/VvXmNE4lxuU
- YC73MiRsIxr18DFJbC53fDsLtFm0cL+SCymaVO+PcIh/6COBMcajmch82
- 1jGF5mJtes1TitYhmEk1OOJm+z87WZXV4dVKyP+bBFhmW0TfWdB0HagOn
- jC8M2HfT9oN9vRKFsMtDAbQHvLs+D04PYHsspj5+dl9c32/nLR3a76vSm
- jNsaePteKvfQ+1aax37vBqp609lQbtGIW+lpr9qaAYHUC021Pol6lBynY
- ei5QsCYFdp4fRRZ6WxUfzhV4Qr6ScjfPt65LzKiI5J7N3J7JW5FcgKZ5H w==;
-X-CSE-ConnectionGUID: AtUHvGbXRz63QOMb5TaMfg==
-X-CSE-MsgGUID: fWw2x31hRU2y/q7I/MBfMg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11476"; a="52387811"
-X-IronPort-AV: E=Sophos;i="6.16,268,1744095600"; d="scan'208";a="52387811"
+ bh=zYaxMHABl/nfcbEg4EtArRpJ7XD488pmnWgIWNIFmg8=;
+ b=F3Y6JbNV0QDKFznDCwVKnJecbtuYgE2cxJP+aV56mWANr9PKZAvIQMji
+ T7WoccsJPdLnKVMNQAvV9hy0PhGdGlzyTIKP6Wp5B3EA99bxOxtrMsTnW
+ Bhq0PZO7Lnd2QKh3+a7VMKeoFRw8ik4TVhi7/sKewrNI967ADwvg1ABxY
+ mn0XoqxO8bTMY3zz9HIUUk8wism8vGJoC3JJ7+c/W11bkqkJq4o5iaeLn
+ kEmdYUgOBBSAFgFT0PfT4v+cX+PwP78qnabaWghukPmDgrAYh6rVB6Njl
+ uDTx3+jDARCS+6dAdQqLjtBcFphjjBCPPUklfxns5tBDMBOzFeMxvBL0C A==;
+X-CSE-ConnectionGUID: lgJZduhLTqGYMmaFOsisQQ==
+X-CSE-MsgGUID: rLQWpe7eTjqIaD+HrOFMYA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11476"; a="52387809"
+X-IronPort-AV: E=Sophos;i="6.16,268,1744095600"; d="scan'208";a="52387809"
 Received: from fmviesa009.fm.intel.com ([10.60.135.149])
  by fmvoesa113.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 26 Jun 2025 10:44:07 -0700
-X-CSE-ConnectionGUID: XTeDRke/S+CmNHiDZHs2pA==
-X-CSE-MsgGUID: paxjW+zNRQegfyKUnuHytQ==
+ 26 Jun 2025 10:44:06 -0700
+X-CSE-ConnectionGUID: NxbjESJcQJKxAyKcd8zJMQ==
+X-CSE-MsgGUID: IAK2tMchTNOLx192nlXjxg==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.16,268,1744095600"; d="scan'208";a="152869102"
+X-IronPort-AV: E=Sophos;i="6.16,268,1744095600"; d="scan'208";a="152869084"
 Received: from dhhellew-desk2.ger.corp.intel.com (HELO localhost)
  ([10.245.246.120])
  by fmviesa009-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 26 Jun 2025 10:44:02 -0700
+ 26 Jun 2025 10:43:49 -0700
 From: Jani Nikula <jani.nikula@intel.com>
 To: intel-gfx@lists.freedesktop.org,
 	intel-xe@lists.freedesktop.org
-Cc: jani.nikula@intel.com
-Subject: [PATCH 7/8] drm/i915/pch: use intel_de_wait_custom() instead of
- wait_for_us()
-Date: Thu, 26 Jun 2025 20:43:05 +0300
-Message-Id: <0dc9e49ce1d4bb8a807b127642b3e7c038f7244e.1750959689.git.jani.nikula@intel.com>
+Cc: jani.nikula@intel.com,
+	Suraj Kandpal <suraj.kandpal@intel.com>
+Subject: [PATCH 5/8] drm/i915/hdcp: use intel_de_wait_for_set() instead of
+ wait_for()
+Date: Thu, 26 Jun 2025 20:43:03 +0300
+Message-Id: <5c6cf8b4c656db56084067ee4652c7885d9c8c55.1750959689.git.jani.nikula@intel.com>
 X-Mailer: git-send-email 2.39.5
 In-Reply-To: <cover.1750959689.git.jani.nikula@intel.com>
 References: <cover.1750959689.git.jani.nikula@intel.com>
@@ -71,43 +72,47 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Prefer the register read specific wait function over i915 wait_for_us().
+Prefer the register read specific wait function over i915 wait_for().
 
+Note that there's a slight functional change: both HDCP_STATUS_R0_READY
+and HDCP_STATUS_ENC need to be set instead of just one or the
+other. This is likely the intention, though, as this was fixed for HDMI
+in commit 3ffaf56e912e ("drm/i915: HDCP: fix Ri prime check done during
+link check").
+
+Cc: Suraj Kandpal <suraj.kandpal@intel.com>
 Signed-off-by: Jani Nikula <jani.nikula@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_pch_refclk.c | 14 ++++++++++----
- 1 file changed, 10 insertions(+), 4 deletions(-)
+ drivers/gpu/drm/i915/display/intel_hdcp.c | 10 ++++++----
+ 1 file changed, 6 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_pch_refclk.c b/drivers/gpu/drm/i915/display/intel_pch_refclk.c
-index d3c5255bf1a8..9ae53679a041 100644
---- a/drivers/gpu/drm/i915/display/intel_pch_refclk.c
-+++ b/drivers/gpu/drm/i915/display/intel_pch_refclk.c
-@@ -17,16 +17,22 @@
+diff --git a/drivers/gpu/drm/i915/display/intel_hdcp.c b/drivers/gpu/drm/i915/display/intel_hdcp.c
+index 619ccfc33000..c480a75b5fb9 100644
+--- a/drivers/gpu/drm/i915/display/intel_hdcp.c
++++ b/drivers/gpu/drm/i915/display/intel_hdcp.c
+@@ -903,8 +903,9 @@ static int intel_hdcp_auth(struct intel_connector *connector)
+ 		       HDCP_CONF_AUTH_AND_ENC);
  
- static void lpt_fdi_reset_mphy(struct intel_display *display)
- {
-+	int ret;
-+
- 	intel_de_rmw(display, SOUTH_CHICKEN2, 0, FDI_MPHY_IOSFSB_RESET_CTL);
+ 	/* Wait for R0 ready */
+-	if (wait_for(intel_de_read(display, HDCP_STATUS(display, cpu_transcoder, port)) &
+-		     (HDCP_STATUS_R0_READY | HDCP_STATUS_ENC), 1)) {
++	ret = intel_de_wait_for_set(display, HDCP_STATUS(display, cpu_transcoder, port),
++				    HDCP_STATUS_R0_READY | HDCP_STATUS_ENC, 1);
++	if (ret) {
+ 		drm_err(display->drm, "Timed out waiting for R0 ready\n");
+ 		return -ETIMEDOUT;
+ 	}
+@@ -936,8 +937,9 @@ static int intel_hdcp_auth(struct intel_connector *connector)
+ 			       ri.reg);
  
--	if (wait_for_us(intel_de_read(display, SOUTH_CHICKEN2) &
--			FDI_MPHY_IOSFSB_RESET_STATUS, 100))
-+	ret = intel_de_wait_custom(display, SOUTH_CHICKEN2,
-+				   FDI_MPHY_IOSFSB_RESET_STATUS, FDI_MPHY_IOSFSB_RESET_STATUS,
-+				   100, 0, NULL);
-+	if (ret)
- 		drm_err(display->drm, "FDI mPHY reset assert timeout\n");
- 
- 	intel_de_rmw(display, SOUTH_CHICKEN2, FDI_MPHY_IOSFSB_RESET_CTL, 0);
- 
--	if (wait_for_us((intel_de_read(display, SOUTH_CHICKEN2) &
--			 FDI_MPHY_IOSFSB_RESET_STATUS) == 0, 100))
-+	ret = intel_de_wait_custom(display, SOUTH_CHICKEN2,
-+				   FDI_MPHY_IOSFSB_RESET_STATUS, 0,
-+				   100, 0, NULL);
-+	if (ret)
- 		drm_err(display->drm, "FDI mPHY reset de-assert timeout\n");
- }
+ 		/* Wait for Ri prime match */
+-		if (!wait_for(intel_de_read(display, HDCP_STATUS(display, cpu_transcoder, port)) &
+-			      (HDCP_STATUS_RI_MATCH | HDCP_STATUS_ENC), 1))
++		ret = intel_de_wait_for_set(display, HDCP_STATUS(display, cpu_transcoder, port),
++					    HDCP_STATUS_RI_MATCH | HDCP_STATUS_ENC, 1);
++		if (!ret)
+ 			break;
+ 	}
  
 -- 
 2.39.5
