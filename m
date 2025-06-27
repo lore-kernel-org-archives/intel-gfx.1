@@ -4,67 +4,75 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A0B6BC83029
-	for <intel-gfx@archiver.kernel.org>; Mon, 30 Jun 2025 13:47:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 06428C8302D
+	for <intel-gfx@archiver.kernel.org>; Mon, 30 Jun 2025 13:54:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BA00F10E228;
-	Mon, 30 Jun 2025 13:46:59 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8F58B10E456;
+	Mon, 30 Jun 2025 13:54:15 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="ekHvqZO0";
+	dkim=pass (1024-bit key; unprotected) header.d=didiglobal.com header.i=@didiglobal.com header.b="XqsFB62B";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.9])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 442D010E0C0;
- Mon, 30 Jun 2025 13:46:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1751291219; x=1782827219;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:in-reply-to;
- bh=peqrfAgy9AoDbD1DSGmdFsDEcp3cLmSNrKrwHMFYfV4=;
- b=ekHvqZO0yVH55yALvP3XlUS2xcejnp8HvPmafqvMWi4rsOr01sRLzr0Z
- M/abnbA1TSRcvh3l7l3MbJ9SsJaUeTEWDYZrXIwjwy1aso6sXUI/uRlHd
- HfC6GDszsH03ZFR+Lr6fryQUM2uitXuIW/jT4s8HS+UBdvj+3VrkXGu0w
- cSQrAWbJCNwRyJc/xlR6B1OhY7O7eUUQ9IXU5sWYhu0vO+P0XGCMtPWKB
- GdxQCzkDBnGFvSBfDR8dWcghVjbgwmOi1lA5fMLxXRMnNzuUrO3hhefjY
- XhKtIkvaO+OwhqH3WDYZr9dlG7gNdY1qkB5NQ0KFrbM5ysSGTCaOcoLhM g==;
-X-CSE-ConnectionGUID: maT4L3RHQKiQpLBxV4icAQ==
-X-CSE-MsgGUID: kSAhMo4zQuGvpuu+9vvlUg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11480"; a="76066313"
-X-IronPort-AV: E=Sophos;i="6.16,277,1744095600"; d="scan'208";a="76066313"
-Received: from fmviesa002.fm.intel.com ([10.60.135.142])
- by orvoesa101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 30 Jun 2025 06:46:58 -0700
-X-CSE-ConnectionGUID: q/oC+NhZQX2j1RT+4P2WKQ==
-X-CSE-MsgGUID: jkXIUIK1S8ScvxVlLcjbyg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.16,277,1744095600"; d="scan'208";a="177131881"
-Received: from oandoniu-mobl3.ger.corp.intel.com (HELO localhost)
- ([10.247.119.190])
- by fmviesa002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 30 Jun 2025 06:46:52 -0700
-Date: Mon, 30 Jun 2025 15:46:49 +0200
-From: Andi Shyti <andi.shyti@linux.intel.com>
-To: Janusz Krzysztofik <janusz.krzysztofik@linux.intel.com>
-Cc: intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Tvrtko Ursulin <tursulin@ursulin.net>,
- Chris Wilson <chris.p.wilson@linux.intel.com>,
- Matthew Auld <matthew.auld@intel.com>,
- Andi Shyti <andi.shyti@linux.intel.com>,
- Nitin Gote <nitin.r.gote@intel.com>,
- Sebastian Brzezinka <sebastian.brzezinka@intel.com>,
- Krzysztof Niemiec <krzysztof.niemiec@intel.com>,
- Krzysztof Karas <krzysztof.karas@intel.com>
-Subject: Re: [PATCH] drm/i915/ring_submission: Fix timeline left held on VMA
- alloc error
-Message-ID: <aGKVSWg-kb2e6PGa@ashyti-mobl2.lan>
-References: <20250611104352.1014011-2-janusz.krzysztofik@linux.intel.com>
+Received: from mx10.didiglobal.com (mx10.didiglobal.com [111.202.70.125])
+ by gabe.freedesktop.org (Postfix) with SMTP id 429CD10E9CC;
+ Fri, 27 Jun 2025 11:03:32 +0000 (UTC)
+Received: from mail.didiglobal.com (unknown [10.79.71.37])
+ by mx10.didiglobal.com (MailData Gateway V2.8.8) with ESMTPS id 4ADFB180FFD599;
+ Fri, 27 Jun 2025 19:02:26 +0800 (CST)
+Received: from BJ02-ACTMBX-09.didichuxing.com (10.79.65.18) by
+ BJ03-ACTMBX-01.didichuxing.com (10.79.71.37) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.1748.10; Fri, 27 Jun 2025 19:03:08 +0800
+Received: from BJ03-ACTMBX-07.didichuxing.com (10.79.71.34) by
+ BJ02-ACTMBX-09.didichuxing.com (10.79.65.18) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.1748.10; Fri, 27 Jun 2025 19:03:07 +0800
+Received: from BJ03-ACTMBX-07.didichuxing.com ([fe80::2e1a:dd47:6d25:287e]) by
+ BJ03-ACTMBX-07.didichuxing.com ([fe80::2e1a:dd47:6d25:287e%7]) with
+ mapi id 15.02.1748.010; Fri, 27 Jun 2025 19:03:07 +0800
+X-MD-Sfrom: chentaotao@didiglobal.com
+X-MD-SrcIP: 10.79.71.37
+From: =?gb2312?B?s8LMzszOIFRhb3RhbyBDaGVu?= <chentaotao@didiglobal.com>
+To: "tytso@mit.edu" <tytso@mit.edu>, "hch@infradead.org" <hch@infradead.org>, 
+ "adilger.kernel@dilger.ca" <adilger.kernel@dilger.ca>,
+ "willy@infradead.org"
+ <willy@infradead.org>, "brauner@kernel.org" <brauner@kernel.org>,
+ "jani.nikula@linux.intel.com" <jani.nikula@linux.intel.com>,
+ "rodrigo.vivi@intel.com" <rodrigo.vivi@intel.com>, "tursulin@ursulin.net"
+ <tursulin@ursulin.net>, "airlied@gmail.com" <airlied@gmail.com>
+CC: "linux-fsdevel@vger.kernel.org" <linux-fsdevel@vger.kernel.org>,
+ "linux-ext4@vger.kernel.org" <linux-ext4@vger.kernel.org>,
+ "linux-block@vger.kernel.org" <linux-block@vger.kernel.org>,
+ "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>,
+ "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
+ "linux-mm@kvack.org" <linux-mm@kvack.org>, "linux-doc@vger.kernel.org"
+ <linux-doc@vger.kernel.org>, "linux-kernel@vger.kernel.org"
+ <linux-kernel@vger.kernel.org>, "chentao325@qq.com" <chentao325@qq.com>,
+ "frank.li@vivo.com" <frank.li@vivo.com>,
+ =?gb2312?B?s8LMzszOIFRhb3RhbyBDaGVu?= <chentaotao@didiglobal.com>
+Subject: [PATCH v3 2/4] drm/i915: Refactor shmem_pwrite() to use kiocb and
+ write_iter
+Thread-Topic: [PATCH v3 2/4] drm/i915: Refactor shmem_pwrite() to use kiocb
+ and write_iter
+Thread-Index: AQHb51MQakXPKTKi5EeklW6Vqc+SUg==
+Date: Fri, 27 Jun 2025 11:03:07 +0000
+Message-ID: <20250627110257.1870826-3-chentaotao@didiglobal.com>
+In-Reply-To: <20250627110257.1870826-1-chentaotao@didiglobal.com>
+Accept-Language: zh-CN, en-US
+Content-Language: zh-CN
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-originating-ip: [10.79.64.102]
+Content-Type: text/plain; charset="gb2312"
+Content-Transfer-Encoding: base64
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20250611104352.1014011-2-janusz.krzysztofik@linux.intel.com>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=didiglobal.com;
+ s=2025; t=1751022168;
+ bh=2xP5WfN4XUwSSHvH10cIGlaPoQTzYl8jSpkNxauZyN8=;
+ h=From:To:CC:Subject:Date:Message-ID:Content-Type;
+ b=XqsFB62BA7krwl98J1Q5X3W3f+kq7p8U7EOGkKTOJepxWA4loxw8wBLASUb5R4zPC
+ vCeU7VbMRMF9lm9Uh3Ue5KVL7wMTosTFFI32JTuhiHtJCu4eHhHzmPfEZl5ZntTeY3
+ HySg8i9mWSLniljmM5Ee5lB4MJ2JqhwpLoSt8Sf4=
+X-Mailman-Approved-At: Mon, 30 Jun 2025 13:54:14 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,122 +88,73 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Hi Janusz,
-
-merged to drm-intel-gt-next.
-
-Thanks,
-Andi
-
-On Wed, Jun 11, 2025 at 12:42:13PM +0200, Janusz Krzysztofik wrote:
-> The following error has been reported sporadically by CI when a test
-> unbinds the i915 driver on a ring submission platform:
-> 
-> <4> [239.330153] ------------[ cut here ]------------
-> <4> [239.330166] i915 0000:00:02.0: [drm] drm_WARN_ON(dev_priv->mm.shrink_count)
-> <4> [239.330196] WARNING: CPU: 1 PID: 18570 at drivers/gpu/drm/i915/i915_gem.c:1309 i915_gem_cleanup_early+0x13e/0x150 [i915]
-> ...
-> <4> [239.330640] RIP: 0010:i915_gem_cleanup_early+0x13e/0x150 [i915]
-> ...
-> <4> [239.330942] Call Trace:
-> <4> [239.330944]  <TASK>
-> <4> [239.330949]  i915_driver_late_release+0x2b/0xa0 [i915]
-> <4> [239.331202]  i915_driver_release+0x86/0xa0 [i915]
-> <4> [239.331482]  devm_drm_dev_init_release+0x61/0x90
-> <4> [239.331494]  devm_action_release+0x15/0x30
-> <4> [239.331504]  release_nodes+0x3d/0x120
-> <4> [239.331517]  devres_release_all+0x96/0xd0
-> <4> [239.331533]  device_unbind_cleanup+0x12/0x80
-> <4> [239.331543]  device_release_driver_internal+0x23a/0x280
-> <4> [239.331550]  ? bus_find_device+0xa5/0xe0
-> <4> [239.331563]  device_driver_detach+0x14/0x20
-> ...
-> <4> [357.719679] ---[ end trace 0000000000000000 ]---
-> 
-> If the test also unloads the i915 module then that's followed with:
-> 
-> <3> [357.787478] =============================================================================
-> <3> [357.788006] BUG i915_vma (Tainted: G     U  W        N ): Objects remaining on __kmem_cache_shutdown()
-> <3> [357.788031] -----------------------------------------------------------------------------
-> <3> [357.788204] Object 0xffff888109e7f480 @offset=29824
-> <3> [357.788670] Allocated in i915_vma_instance+0xee/0xc10 [i915] age=292729 cpu=4 pid=2244
-> <4> [357.788994]  i915_vma_instance+0xee/0xc10 [i915]
-> <4> [357.789290]  init_status_page+0x7b/0x420 [i915]
-> <4> [357.789532]  intel_engines_init+0x1d8/0x980 [i915]
-> <4> [357.789772]  intel_gt_init+0x175/0x450 [i915]
-> <4> [357.790014]  i915_gem_init+0x113/0x340 [i915]
-> <4> [357.790281]  i915_driver_probe+0x847/0xed0 [i915]
-> <4> [357.790504]  i915_pci_probe+0xe6/0x220 [i915]
-> ...
-> 
-> Closer analysis of CI results history has revealed a dependency of the
-> error on a few IGT tests, namely:
-> - igt@api_intel_allocator@fork-simple-stress-signal,
-> - igt@api_intel_allocator@two-level-inception-interruptible,
-> - igt@gem_linear_blits@interruptible,
-> - igt@prime_mmap_coherency@ioctl-errors,
-> which invisibly trigger the issue, then exhibited with first driver unbind
-> attempt.
-> 
-> All of the above tests perform actions which are actively interrupted with
-> signals.  Further debugging has allowed to narrow that scope down to
-> DRM_IOCTL_I915_GEM_EXECBUFFER2, and ring_context_alloc(), specific to ring
-> submission, in particular.
-> 
-> If successful then that function, or its execlists or GuC submission
-> equivalent, is supposed to be called only once per GEM context engine,
-> followed by raise of a flag that prevents the function from being called
-> again.  The function is expected to unwind its internal errors itself, so
-> it may be safely called once more after it returns an error.
-> 
-> In case of ring submission, the function first gets a reference to the
-> engine's legacy timeline and then allocates a VMA.  If the VMA allocation
-> fails, e.g. when i915_vma_instance() called from inside is interrupted
-> with a signal, then ring_context_alloc() fails, leaving the timeline held
-> referenced.  On next I915_GEM_EXECBUFFER2 IOCTL, another reference to the
-> timeline is got, and only that last one is put on successful completion.
-> As a consequence, the legacy timeline, with its underlying engine status
-> page's VMA object, is still held and not released on driver unbind.
-> 
-> Get the legacy timeline only after successful allocation of the context
-> engine's VMA.
-> 
-> v2: Add a note on other submission methods (Krzysztof Karas):
->     Both execlists and GuC submission use lrc_alloc() which seems free
->     from a similar issue.
-> 
-> Fixes: 75d0a7f31eec ("drm/i915: Lift timeline into intel_context")
-> Closes: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/12061
-> Cc: Chris Wilson <chris.p.wilson@linux.intel.com>
-> Cc: Matthew Auld <matthew.auld@intel.com>
-> Cc: Krzysztof Karas <krzysztof.karas@intel.com>
-> Reviewed-by: Sebastian Brzezinka <sebastian.brzezinka@intel.com>
-> Reviewed-by: Krzysztof Niemiec <krzysztof.niemiec@intel.com>
-> Signed-off-by: Janusz Krzysztofik <janusz.krzysztofik@linux.intel.com>
-> ---
->  drivers/gpu/drm/i915/gt/intel_ring_submission.c | 3 ++-
->  1 file changed, 2 insertions(+), 1 deletion(-)
-> 
-> diff --git a/drivers/gpu/drm/i915/gt/intel_ring_submission.c b/drivers/gpu/drm/i915/gt/intel_ring_submission.c
-> index a876a34455f11..2a6d79abf25b5 100644
-> --- a/drivers/gpu/drm/i915/gt/intel_ring_submission.c
-> +++ b/drivers/gpu/drm/i915/gt/intel_ring_submission.c
-> @@ -610,7 +610,6 @@ static int ring_context_alloc(struct intel_context *ce)
->  	/* One ringbuffer to rule them all */
->  	GEM_BUG_ON(!engine->legacy.ring);
->  	ce->ring = engine->legacy.ring;
-> -	ce->timeline = intel_timeline_get(engine->legacy.timeline);
->  
->  	GEM_BUG_ON(ce->state);
->  	if (engine->context_size) {
-> @@ -623,6 +622,8 @@ static int ring_context_alloc(struct intel_context *ce)
->  		ce->state = vma;
->  	}
->  
-> +	ce->timeline = intel_timeline_get(engine->legacy.timeline);
-> +
->  	return 0;
->  }
->  
-> -- 
-> 2.49.0
+RnJvbTogVGFvdGFvIENoZW4gPGNoZW50YW90YW9AZGlkaWdsb2JhbC5jb20+DQoNClJlZmFjdG9y
+cyBzaG1lbV9wd3JpdGUoKSB0byByZXBsYWNlIHRoZSAtPndyaXRlX2JlZ2luL2VuZCBsb2dpYw0K
+d2l0aCBhIHdyaXRlX2l0ZXItYmFzZWQgaW1wbGVtZW50YXRpb24gdXNpbmcga2lvY2IgYW5kIGlv
+dl9pdGVyLg0KDQpXaGlsZSBrZXJuZWxfd3JpdGUoKSB3YXMgY29uc2lkZXJlZCwgaXQgY2F1c2Vk
+IGFib3V0IDUwJSBwZXJmb3JtYW5jZQ0KcmVncmVzc2lvbi4gdmZzX3dyaXRlKCkgaXMgbm90IGV4
+cG9ydGVkIGZvciBrZXJuZWwgdXNlLiBUaGVyZWZvcmUsDQpmaWxlLT5mX29wLT53cml0ZV9pdGVy
+KCkgaXMgY2FsbGVkIGRpcmVjdGx5IHdpdGggYSBzeW5jaHJvbm91c2x5DQppbml0aWFsaXplZCBr
+aW9jYiB0byBwcmVzZXJ2ZSBwZXJmb3JtYW5jZSBhbmQgcmVtb3ZlIHdyaXRlX2JlZ2luDQp1c2Fn
+ZS4NCg0KUGVyZm9ybWFuY2UgcmVzdWx0cyB1c2UgZ2VtX3B3cml0ZSBvbiBJbnRlbCBDUFUgaTct
+MTA3MDANCihhdmVyYWdlIG9mIDEwIHJ1bnMpOg0KDQotIC4vZ2VtX3B3cml0ZSAtLXJ1bi1zdWJ0
+ZXN0IGJlbmNoIC1zIDE2Mzg0DQogIEJlZm9yZTogMC4yMDVzLCBBZnRlcjogMC4yMTRzDQoNCi0g
+Li9nZW1fcHdyaXRlIC0tcnVuLXN1YnRlc3QgYmVuY2ggLXMgNTI0Mjg4DQogIEJlZm9yZTogNi4x
+MDIxcywgQWZ0ZXI6IDQuODA0N3MNCg0KUGFydCBvZiBhIHNlcmllcyByZWZhY3RvcmluZyBhZGRy
+ZXNzX3NwYWNlX29wZXJhdGlvbnMgd3JpdGVfYmVnaW4gYW5kDQp3cml0ZV9lbmQgY2FsbGJhY2tz
+IHRvIHVzZSBzdHJ1Y3Qga2lvY2IgZm9yIHBhc3Npbmcgd3JpdGUgY29udGV4dCBhbmQNCmZsYWdz
+Lg0KDQpTaWduZWQtb2ZmLWJ5OiBUYW90YW8gQ2hlbiA8Y2hlbnRhb3Rhb0BkaWRpZ2xvYmFsLmNv
+bT4NCi0tLQ0KIGRyaXZlcnMvZ3B1L2RybS9pOTE1L2dlbS9pOTE1X2dlbV9zaG1lbS5jIHwgODEg
+KysrKysrLS0tLS0tLS0tLS0tLS0tLS0NCiAxIGZpbGUgY2hhbmdlZCwgMjEgaW5zZXJ0aW9ucygr
+KSwgNjAgZGVsZXRpb25zKC0pDQoNCmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vaTkxNS9n
+ZW0vaTkxNV9nZW1fc2htZW0uYyBiL2RyaXZlcnMvZ3B1L2RybS9pOTE1L2dlbS9pOTE1X2dlbV9z
+aG1lbS5jDQppbmRleCAxZThmNjZhYzQ4Y2EuLjQzYjQyYmU3Y2EyYSAxMDA2NDQNCi0tLSBhL2Ry
+aXZlcnMvZ3B1L2RybS9pOTE1L2dlbS9pOTE1X2dlbV9zaG1lbS5jDQorKysgYi9kcml2ZXJzL2dw
+dS9kcm0vaTkxNS9nZW0vaTkxNV9nZW1fc2htZW0uYw0KQEAgLTQwMCwxMiArNDAwLDEyIEBAIHN0
+YXRpYyBpbnQNCiBzaG1lbV9wd3JpdGUoc3RydWN0IGRybV9pOTE1X2dlbV9vYmplY3QgKm9iaiwN
+CiAJICAgICBjb25zdCBzdHJ1Y3QgZHJtX2k5MTVfZ2VtX3B3cml0ZSAqYXJnKQ0KIHsNCi0Jc3Ry
+dWN0IGFkZHJlc3Nfc3BhY2UgKm1hcHBpbmcgPSBvYmotPmJhc2UuZmlscC0+Zl9tYXBwaW5nOw0K
+LQljb25zdCBzdHJ1Y3QgYWRkcmVzc19zcGFjZV9vcGVyYXRpb25zICphb3BzID0gbWFwcGluZy0+
+YV9vcHM7DQogCWNoYXIgX191c2VyICp1c2VyX2RhdGEgPSB1NjRfdG9fdXNlcl9wdHIoYXJnLT5k
+YXRhX3B0cik7DQotCXU2NCByZW1haW47DQotCWxvZmZfdCBwb3M7DQotCXVuc2lnbmVkIGludCBw
+ZzsNCisJc3RydWN0IGZpbGUgKmZpbGUgPSBvYmotPmJhc2UuZmlscDsNCisJc3RydWN0IGtpb2Ni
+IGtpb2NiOw0KKwlzdHJ1Y3QgaW92X2l0ZXIgaXRlcjsNCisJc3NpemVfdCB3cml0dGVuOw0KKwl1
+NjQgc2l6ZSA9IGFyZy0+c2l6ZTsNCiANCiAJLyogQ2FsbGVyIGFscmVhZHkgdmFsaWRhdGVkIHVz
+ZXIgYXJncyAqLw0KIAlHRU1fQlVHX09OKCFhY2Nlc3Nfb2sodXNlcl9kYXRhLCBhcmctPnNpemUp
+KTsNCkBAIC00MjgsNjMgKzQyOCwyNCBAQCBzaG1lbV9wd3JpdGUoc3RydWN0IGRybV9pOTE1X2dl
+bV9vYmplY3QgKm9iaiwNCiAJaWYgKG9iai0+bW0ubWFkdiAhPSBJOTE1X01BRFZfV0lMTE5FRUQp
+DQogCQlyZXR1cm4gLUVGQVVMVDsNCiANCi0JLyoNCi0JICogQmVmb3JlIHRoZSBwYWdlcyBhcmUg
+aW5zdGFudGlhdGVkIHRoZSBvYmplY3QgaXMgdHJlYXRlZCBhcyBiZWluZw0KLQkgKiBpbiB0aGUg
+Q1BVIGRvbWFpbi4gVGhlIHBhZ2VzIHdpbGwgYmUgY2xmbHVzaGVkIGFzIHJlcXVpcmVkIGJlZm9y
+ZQ0KLQkgKiB1c2UsIGFuZCB3ZSBjYW4gZnJlZWx5IHdyaXRlIGludG8gdGhlIHBhZ2VzIGRpcmVj
+dGx5LiBJZiB1c2Vyc3BhY2UNCi0JICogcmFjZXMgcHdyaXRlIHdpdGggYW55IG90aGVyIG9wZXJh
+dGlvbjsgY29ycnVwdGlvbiB3aWxsIGVuc3VlIC0NCi0JICogdGhhdCBpcyB1c2Vyc3BhY2UncyBw
+cmVyb2dhdGl2ZSENCi0JICovDQorCWlmIChzaXplID4gTUFYX1JXX0NPVU5UKQ0KKwkJcmV0dXJu
+IC1FRkJJRzsNCiANCi0JcmVtYWluID0gYXJnLT5zaXplOw0KLQlwb3MgPSBhcmctPm9mZnNldDsN
+Ci0JcGcgPSBvZmZzZXRfaW5fcGFnZShwb3MpOw0KKwlpZiAoIWZpbGUtPmZfb3AtPndyaXRlX2l0
+ZXIpDQorCQlyZXR1cm4gLUVJTlZBTDsNCiANCi0JZG8gew0KLQkJdW5zaWduZWQgaW50IGxlbiwg
+dW53cml0dGVuOw0KLQkJc3RydWN0IGZvbGlvICpmb2xpbzsNCi0JCXZvaWQgKmRhdGEsICp2YWRk
+cjsNCi0JCWludCBlcnI7DQotCQljaGFyIF9fbWF5YmVfdW51c2VkIGM7DQotDQotCQlsZW4gPSBQ
+QUdFX1NJWkUgLSBwZzsNCi0JCWlmIChsZW4gPiByZW1haW4pDQotCQkJbGVuID0gcmVtYWluOw0K
+LQ0KLQkJLyogUHJlZmF1bHQgdGhlIHVzZXIgcGFnZSB0byByZWR1Y2UgcG90ZW50aWFsIHJlY3Vy
+c2lvbiAqLw0KLQkJZXJyID0gX19nZXRfdXNlcihjLCB1c2VyX2RhdGEpOw0KLQkJaWYgKGVycikN
+Ci0JCQlyZXR1cm4gZXJyOw0KLQ0KLQkJZXJyID0gX19nZXRfdXNlcihjLCB1c2VyX2RhdGEgKyBs
+ZW4gLSAxKTsNCi0JCWlmIChlcnIpDQotCQkJcmV0dXJuIGVycjsNCi0NCi0JCWVyciA9IGFvcHMt
+PndyaXRlX2JlZ2luKG9iai0+YmFzZS5maWxwLCBtYXBwaW5nLCBwb3MsIGxlbiwNCi0JCQkJCSZm
+b2xpbywgJmRhdGEpOw0KLQkJaWYgKGVyciA8IDApDQotCQkJcmV0dXJuIGVycjsNCi0NCi0JCXZh
+ZGRyID0ga21hcF9sb2NhbF9mb2xpbyhmb2xpbywgb2Zmc2V0X2luX2ZvbGlvKGZvbGlvLCBwb3Mp
+KTsNCi0JCXBhZ2VmYXVsdF9kaXNhYmxlKCk7DQotCQl1bndyaXR0ZW4gPSBfX2NvcHlfZnJvbV91
+c2VyX2luYXRvbWljKHZhZGRyLCB1c2VyX2RhdGEsIGxlbik7DQotCQlwYWdlZmF1bHRfZW5hYmxl
+KCk7DQotCQlrdW5tYXBfbG9jYWwodmFkZHIpOw0KLQ0KLQkJZXJyID0gYW9wcy0+d3JpdGVfZW5k
+KG9iai0+YmFzZS5maWxwLCBtYXBwaW5nLCBwb3MsIGxlbiwNCi0JCQkJICAgICAgbGVuIC0gdW53
+cml0dGVuLCBmb2xpbywgZGF0YSk7DQotCQlpZiAoZXJyIDwgMCkNCi0JCQlyZXR1cm4gZXJyOw0K
+LQ0KLQkJLyogV2UgZG9uJ3QgaGFuZGxlIC1FRkFVTFQsIGxlYXZlIGl0IHRvIHRoZSBjYWxsZXIg
+dG8gY2hlY2sgKi8NCi0JCWlmICh1bndyaXR0ZW4pDQotCQkJcmV0dXJuIC1FTk9ERVY7DQotDQot
+CQlyZW1haW4gLT0gbGVuOw0KLQkJdXNlcl9kYXRhICs9IGxlbjsNCi0JCXBvcyArPSBsZW47DQot
+CQlwZyA9IDA7DQotCX0gd2hpbGUgKHJlbWFpbik7DQorCWluaXRfc3luY19raW9jYigma2lvY2Is
+IGZpbGUpOw0KKwlraW9jYi5raV9wb3MgPSBhcmctPm9mZnNldDsNCisJaW92X2l0ZXJfdWJ1Zigm
+aXRlciwgSVRFUl9TT1VSQ0UsICh2b2lkIF9fdXNlciAqKXVzZXJfZGF0YSwgc2l6ZSk7DQorDQor
+CXdyaXR0ZW4gPSBmaWxlLT5mX29wLT53cml0ZV9pdGVyKCZraW9jYiwgJml0ZXIpOw0KKwlCVUdf
+T04od3JpdHRlbiA9PSAtRUlPQ0JRVUVVRUQpOw0KKw0KKwlpZiAod3JpdHRlbiAhPSBzaXplKQ0K
+KwkJcmV0dXJuIC1FSU87DQorDQorCWlmICh3cml0dGVuIDwgMCkNCisJCXJldHVybiB3cml0dGVu
+Ow0KIA0KIAlyZXR1cm4gMDsNCiB9DQotLSANCjIuMzQuMQ0K
