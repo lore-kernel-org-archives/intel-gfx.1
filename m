@@ -4,81 +4,97 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6E148C83038
-	for <intel-gfx@archiver.kernel.org>; Wed,  2 Jul 2025 18:54:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4D54EC83F09
+	for <intel-gfx@archiver.kernel.org>; Wed,  2 Jul 2025 18:55:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 65FFD89101;
-	Wed,  2 Jul 2025 18:54:58 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0B41710E775;
+	Wed,  2 Jul 2025 18:55:00 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=aol.com header.i=@aol.com header.b="KzTZ8U95";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="nD5Ji6kZ";
 	dkim-atps=neutral
-Received: from sonic311-25.consmr.mail.gq1.yahoo.com
- (sonic311-25.consmr.mail.gq1.yahoo.com [98.137.65.206])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 15F5610E4E1
- for <intel-gfx@lists.freedesktop.org>; Tue,  1 Jul 2025 02:54:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aol.com; s=a2048;
- t=1751338484; bh=reRy7ZjdApZc/mrnThLZ8wKZ0d9GTHS5YMBmsIqJMxA=;
- h=From:To:Cc:Subject:Date:References:From:Subject:Reply-To;
- b=KzTZ8U951ZmWf5x5ZrStePOC1wRMrrihR2bq8P+5h6bccvsLxXtrw9MvtZm/cWSJ/7GK7NnghosV6n76oz/Zbw7I9UyA8UJuWoXJkwc6f9LvUysuQvxLpcxMYNvXDQ7AX03ZHTskkpJI/9XY8wyu274y6ELlGaWppymbNjSIb33QSSR9NLvmFmZv6shzlNbiyBLQEDN2EdrEAzm0/aofCb5b1LdkwFvTo/bQs7KIXmhN67ggoq2QteHVudH7zu+yYRoftdjLlV/2m9OCoiiHIyENjzUYHP+pnM/GYkO39Viq+duVAiXqW6F3rKygAyDRWpOQIEVxMd4aiZ9FJr56JQ==
-X-SONIC-DKIM-SIGN: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048;
- t=1751338484; bh=3zrdllKaXuTawNcVbfoXctmm3hOZaVDt8EYSC/F1b32=;
- h=X-Sonic-MF:From:To:Subject:Date:From:Subject;
- b=QXnQ/9Yi4h5S5tVuAMlvMh8zjVPM4GWm7WLHRgAYilRxXuO//rOBvjeLWvo0OSxGT0Lf08RUKjGcoNlI/V700yuBdtoZvEEEZ3C4UGPyV5yDODQNjP5VJSOW4QXQxVfQRGWzLxi/IWcxT1UqDwyM/wmJ3mSGkjjkRi6oXCvQXwWLxsdt/r8Bv+1Q44hfbQC92H6k2Th5pyYay3Uh2w9WGtLMEsnRRhpFugvwrUBWofKgkJAgxTBGdOmT0cc6siy6uuexfLxROA0F+IWpDkLgrbh+DyWIppY9CYxCvAmQaynEqPL4RXsDR7WgMQcwxDHwWRlhovBZ9j/gzJgDWAc3LA==
-X-YMail-OSG: wmpJ7MoVM1kDyUEbfm16BUAhZGeOMLqVfcKmmrUrUpwwPE9EGwNZMUOiuetIKrG
- .0PuzQ6II5QQGpP_DGGLfydW_ChE9N.q0Khykj_ruLQxaDuYLUb705e3W9wvg60CocN0SWEG7ziv
- ALANlLkMWPhqIkMn5YWFPEH2BxGcsm6xrWTPZRw86UAD014qwURhl3tsRUQr4FxXBXbkZ7PZxGbH
- 0XbZl076NjKrf0DInqkEn7S5lXyNaqi6fpUhWZ5bRpFlcxYYsXeAusah4pZTk9R1zdCWWHjEWc1H
- V25A.Rx.14kuTytDVl1WHY2Sovuw6mvfvyjndf25b1C8j.s1byvmkVAKpT6MkVw.N4prERO6FDho
- _vdQcsHkGolR_lvnwVf7VOCwQA.xQb_Fo1o_CzMV95wBBwmKrfY3FKhVyzVQyyKaeVUwnkr8ANB6
- 3T23uEJ7g3XtukdJpNowj3KhPfrac8OBLdiy5oeZ_w4TpbJyEaSi3eOB8w8kq_NKOCcH_.QhPcl3
- EqDDkVwLYe914Wd7WrDFuQXmMIWY3MfcrUPPVJIAIB1vFHo3b0GtaVQnfx76ykAoF1J3uxOxbhX1
- BjvSw5es9kcULnDMFtHDcSA2brR6AOvBXrt55Tf6jmqLKixSYFwW6nA8viQa7eDfZY9FxJXW7WmR
- Av3GSdfpnGL.BxoaH1iLqbwJdqqSl5exwBH8X6NF3_kQpIkfYXaBbMz1bQTydLzoRsqK6I_bQ7Dm
- Q0jSEpxvWnjIGfEnEMRpNxTsHyTrX62Fo7qAw9.H1I1S.FwNZ2xbc7TCuCRvyOpdcSP4ch5zYvJe
- ArPUpuAmqNg77AwHr0WdOTbnYsyM_pgAvxAd4vQsEidukY_iWFIPnd..QEkl9VIWq09sfiI3XDRw
- L1VpAF14w191maBZ93EJgIzs.7cUFQMORQ64uFZPEsuDpRcYA8xkZwsgL.jGS4jcL4q0thSs32ZE
- TeJceaG7xoY1oN4CBebJkpwbVCwFrA781YDuW4.CbQYupMRHp6BG6EVODUIFGqu7ETCNak1NVTmQ
- kJ9n22tBBYAAnkXYEBdkYa87ZMoFNRnv97MUlMWHxU6XL2pcocB8TtAeMRxKqQkoio2weesINlQw
- ce3x.pCPiSR0axMrq7cyQ6kJlQE33sR0a4HC3z95qvhlnKU1Vo5sQ5ku6Ykrh__YfJX4fm3QQ1HI
- p4F6e8RtrqvQjydJGO8PGXSg8sYNW4BokNrF0B2azC7fg3tAHSbcPcNmZNKfrZEjACcyG3CzKbm1
- tcSKqGo0jR35GUgVRUYujxW0t8U0jfUd3lN39y2qdKeZYuW25ty8rv9fBH24a7EUs930Fm_ziZEa
- jGzSTMOe_.Q3xySnVvvqR6GunNRlbdBxIL4tXrAjqniEG3jgEF.jHbIiTcEiZNG4LQGq1TiYQ_Di
- tIl5dpkQUn8Pa5QZtUdwpMCTvkmBAOduahnYx3lgKnC195IjRVROZZF6SUHMjhx7dGrQLJrR40ct
- kGp.XeUj_lxPvf2rTRtvjnHd0MblWu3yc130UMjNwyfDNMoD2gDHLvXr2wzFfys84YkMBEEhE1nz
- 0EaqKkkVAaHdR08OcIhZXqO7wL61ncu_A18t1IBn_fgMpIvJiVQQJYichIGhOgh314DpncoPfJt4
- 8kqj3_DXS3HqUb6fMlBict.z2D5HqTc52Swhp59cptY4Yr7AhcATTWbHtJG6WLB4OhDh84p4Wn1V
- D9H5dobsIx4d7ip9a7P3cDcfjOa2eCxLxhVYcJz8N320hQLljELuUHlBzJXACsttELuUXTzZDQgk
- gvw1kBoa23KbVsZH5KpgBesmIeVMVaNTbmjzpXPfuwck0IsxMNfN1NRmp0_knuRBV_WpXwiBlXx_
- p62DUn1EOTtmmt9aAAej9M1O.b2xkX26Axcp6ifXtruK2LFxWCk7xmi2fCbhXcDk9fwfP30PWQKq
- zXppaC.ERgo641dugytIvWoibkujeiVDNb8tkn81xZZOkSeagZ0pLaMhmbF5nv6eIEmQY4x1TMUp
- Q8HW_qjImhWhpNDpckiA5J7zTLmzozxUpJ.WmncXBHqu79msmt3QOR7ZIt85eIVQih4CV8Hio0BA
- 5uaVy1JyyNeSRwmY1ghDC2agmSmU9mzIaDoUlRl8BlQkxMvC0Soj3Yg6rRapUe.6sX0JikK5xIsr
- Kg6rwfxUtaZofpRvE2eMlW2dJs0SZn9chOHcf2AAud3HSG4u.rkQrS3E3XQGuKRqN2rZwEhTIf.J
- uILVNWk38nklNh3WjXBnza9vvtPRV6d7CpZtzULckQwgMAUqD2djWGCapCeXtRQ_CcBaNxkgPvn.
- L4tU-
-X-Sonic-MF: <rubenru09@aol.com>
-X-Sonic-ID: 7acc6077-ae89-4b04-b5c9-6c2f2a16046b
-Received: from sonic.gate.mail.ne1.yahoo.com by
- sonic311.consmr.mail.gq1.yahoo.com with HTTP; Tue, 1 Jul 2025 02:54:44 +0000
-Received: by hermes--production-ir2-858bd4ff7b-xdmpn (Yahoo Inc. Hermes SMTP
- Server) with ESMTPA ID ec51a81fddb2e4c642e785fceddbcfc4; 
- Tue, 01 Jul 2025 02:54:39 +0000 (UTC)
-From: Ruben Wauters <rubenru09@aol.com>
-To: Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Tvrtko Ursulin <tursulin@ursulin.net>, David Airlie <arlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>
-Cc: Ruben Wauters <rubenru09@aol.com>, intel-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- kernel-janitors@vger.kernel.org
-Subject: [PATCH] drm/i915: replace DRM_DEBUG_SELFTEST with DRM_KUNIT_TEST
-Date: Tue,  1 Jul 2025 03:50:23 +0100
-Message-ID: <20250701025426.262129-1-rubenru09@aol.com>
-X-Mailer: git-send-email 2.48.1
+Received: from mail-pl1-f177.google.com (mail-pl1-f177.google.com
+ [209.85.214.177])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6FD6F10E0F0;
+ Wed,  2 Jul 2025 14:51:44 +0000 (UTC)
+Received: by mail-pl1-f177.google.com with SMTP id
+ d9443c01a7336-23694cec0feso69109755ad.2; 
+ Wed, 02 Jul 2025 07:51:44 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1751467904; x=1752072704; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to:subject
+ :user-agent:mime-version:date:message-id:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=qBca6/tX4UaiNS88cVzn9ejTz7Ui0nOCiCDYDy5kH/4=;
+ b=nD5Ji6kZa8kvi1OKxAsvYVvuQskmUxShf+kTvyZWBWigl7qTuF/GYSESzQDDNQnKvv
+ t5YvhM4yZBaO/xcyVNoJM+F8eDf2t1vsqioYWyPerxCHILIqVOnrGpa/0wCm6Amn7sNt
+ kdYjUcTOBeY8/LCEdb11hDklMvPeBOLIMLg3BDlax3n+/izpXDONaZwnmoKOVj0nkfYI
+ 3+RwCAM0Qn2v1ZIvcyu+5ZOGDr/EMruAopjtk2VCMrgTrXUc5u5KV4Ixxjo2V/S/egjp
+ 2H5hIYFvuFQRyWgZ1Ah3qcubmfruOfewuVPIFpnqNgaLObn7vCRqrQl5muISd1St41bq
+ w1nQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1751467904; x=1752072704;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to:subject
+ :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
+ :cc:subject:date:message-id:reply-to;
+ bh=qBca6/tX4UaiNS88cVzn9ejTz7Ui0nOCiCDYDy5kH/4=;
+ b=TnFoBSBtOPqmXh/h2xrL1hhyCqPwzTtlxE/MHJZTKS1yK5PoXHTD9QFwMb/n6CLWFQ
+ GPWvqvqub3rs3N0Lau/ucuWN9VpaQAYg5t8p9E43o9LI3G9gMlC8KFYubaFI7wYJUHd+
+ a85gakjjKd5Lg9KrxHheuyZ+rw7jos0rdMJPKWB9rPHNE3fLmNM0FbIWHXgP4uY78EdI
+ bnOlyRiTmyByqtMyX0TMx7NrWrnCL78SRZT0IVaEMBuaju31y40bCjlZVEUl8Frohtzt
+ kTnTpUA81CG5wZNYOA53Jyij1+EWbjDjjARO3fZ0nqPi7fbULDVJr2piNeQoMTdHeZRp
+ Uu8Q==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCVDX21aPQi48td2RUaBYMas1/G73TN3w5uMo93E9yIE2kgxHQHqIj+hHyXEmmjfSW5TiD8vTWriqLQp@lists.freedesktop.org,
+ AJvYcCWOuH13xOTKzFB2/vDzmjQ0RC8Q8wo0Deg/FcbhqjvUdGG+FCxX5cgrm0WAxanq4ztkh4N0ytuSVis=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YyNif+kJHaNJkZP+dLdHSDdNw24+PpcXOMWU18RJZytGLQfnJwx
+ XKyackS6Xf0fMR8WJOJ+WwO5rLHAkNTLcixV0WfWX+Upb+g8RkkDMi4z
+X-Gm-Gg: ASbGncs1/EaR2YjtrCHcdxmpNEZId5HDlcb3UVGT8Mh4a8P1xhnFLCdiEvmQsnrEyBh
+ oUXfPFU6Y+DW9SJIVI/N2KxEAck4FLTwkZuB84dhyw2dzlutmPCxca8vRYCrPp79xDYwWNknQVp
+ LeR67ycGgb/3SjwGSfnfVFyAWac8IfFx7kMeb3mW9zwCnZExpimc54xbWWDISdsq1/0KsBL+VrU
+ wj1kXA+lSonpoMv2ndRNtvmzvQx/1hTOlzRN6lZO78BwpMEngop5fNCFg77iMWAfMx7qMFd9KRS
+ n/uuth1TVXvbNocYq0s0/rW2n5No0iMUwr4KCfY5o0MFV1Mrozl4blwAZj0BMe9HQLoWuKMpSDr
+ d8EriSVr5dYT7+BA98NqN+tjL+OaqW39xpozT7Xk=
+X-Google-Smtp-Source: AGHT+IHGXFFKwi9KhnB1akNKraPfzeJ2zmSUqQqb7SzFIxYzfjGRA13Y+veDJQIEsP0m/DU4C4O2oA==
+X-Received: by 2002:a17:902:c94a:b0:232:1daf:6f06 with SMTP id
+ d9443c01a7336-23c6e5d3a53mr39666775ad.47.1751467903710; 
+ Wed, 02 Jul 2025 07:51:43 -0700 (PDT)
+Received: from ?IPV6:240e:305:798e:6800:81a5:8e22:d9f1:ac68?
+ ([240e:305:798e:6800:81a5:8e22:d9f1:ac68])
+ by smtp.gmail.com with ESMTPSA id
+ d9443c01a7336-23acb3afc94sm138573955ad.155.2025.07.02.07.51.34
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 02 Jul 2025 07:51:43 -0700 (PDT)
+Message-ID: <34b3f8f1-5adf-4f82-8d06-b906cdf0552d@gmail.com>
+Date: Wed, 2 Jul 2025 22:51:30 +0800
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 3/4] fs: change write_begin/write_end interface to take
+ struct kiocb *
+To: Matthew Wilcox <willy@infradead.org>
+Cc: "tytso@mit.edu" <tytso@mit.edu>, "hch@infradead.org" <hch@infradead.org>, 
+ "adilger.kernel@dilger.ca" <adilger.kernel@dilger.ca>,
+ "brauner@kernel.org" <brauner@kernel.org>,
+ "jani.nikula@linux.intel.com" <jani.nikula@linux.intel.com>,
+ "rodrigo.vivi@intel.com" <rodrigo.vivi@intel.com>,
+ "tursulin@ursulin.net" <tursulin@ursulin.net>,
+ "airlied@gmail.com" <airlied@gmail.com>,
+ "linux-fsdevel@vger.kernel.org" <linux-fsdevel@vger.kernel.org>,
+ "linux-ext4@vger.kernel.org" <linux-ext4@vger.kernel.org>,
+ "linux-block@vger.kernel.org" <linux-block@vger.kernel.org>,
+ "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>,
+ "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
+ "linux-mm@kvack.org" <linux-mm@kvack.org>,
+ "linux-doc@vger.kernel.org" <linux-doc@vger.kernel.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "chentao325@qq.com" <chentao325@qq.com>,
+ "frank.li@vivo.com" <frank.li@vivo.com>
+References: <20250627110257.1870826-1-chentaotao@didiglobal.com>
+ <20250627110257.1870826-4-chentaotao@didiglobal.com>
+ <aF6-L5Eu7XieS8aM@casper.infradead.org>
+From: Taotao Chen <chentt325@gmail.com>
+In-Reply-To: <aF6-L5Eu7XieS8aM@casper.infradead.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-References: <20250701025426.262129-1-rubenru09.ref@aol.com>
 X-Mailman-Approved-At: Wed, 02 Jul 2025 18:54:57 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -95,28 +111,16 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-DRM_DEBUG_SELFTEST was replaced with DRM_KUNIT_TEST.
 
-This patch replaces the select in Kconfig.debug to use the replacement.
 
-Signed-off-by: Ruben Wauters <rubenru09@aol.com>
----
- drivers/gpu/drm/i915/Kconfig.debug | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/drivers/gpu/drm/i915/Kconfig.debug b/drivers/gpu/drm/i915/Kconfig.debug
-index 1852e0804942..b15b1cecb3aa 100644
---- a/drivers/gpu/drm/i915/Kconfig.debug
-+++ b/drivers/gpu/drm/i915/Kconfig.debug
-@@ -50,7 +50,7 @@ config DRM_I915_DEBUG
- 	select DRM_VGEM # used by igt/prime_vgem (dmabuf interop checks)
- 	select DRM_DEBUG_MM if DRM=y
- 	select DRM_EXPORT_FOR_TESTS if m
--	select DRM_DEBUG_SELFTEST
-+	select DRM_KUNIT_TEST
- 	select DMABUF_SELFTESTS
- 	select SW_SYNC # signaling validation framework (igt/syncobj*)
- 	select DRM_I915_WERROR
--- 
-2.48.1
-
+在 2025/6/27 23:52, Matthew Wilcox 写道:
+> On Fri, Jun 27, 2025 at 11:03:11AM +0000, 陈涛涛 Taotao Chen wrote:
+>> @@ -1399,13 +1400,10 @@ static int write_end_fn(handle_t *handle, struct inode *inode,
+>>   }
+>>   
+>>   /*
+>> - * We need to pick up the new inode size which generic_commit_write gave us
+>> - * `file' can be NULL - eg, when called from page_symlink().
+>> - *
+> Why delete this?  It seems still true to me, other than s/file/iocb/
+Sorry, that was my mistake...
