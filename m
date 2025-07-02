@@ -4,59 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8DCC7C83F04
-	for <intel-gfx@archiver.kernel.org>; Wed,  2 Jul 2025 14:12:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 05AA6C83038
+	for <intel-gfx@archiver.kernel.org>; Wed,  2 Jul 2025 18:16:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0A92E10E717;
-	Wed,  2 Jul 2025 14:12:50 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 65EFF10E29F;
+	Wed,  2 Jul 2025 18:16:21 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="dwAPIyVY";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="cUfp+p6P";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6938010E717;
- Wed,  2 Jul 2025 14:12:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1751465570; x=1783001570;
- h=from:to:cc:subject:in-reply-to:references:date:
- message-id:mime-version:content-transfer-encoding;
- bh=tTVKzZpEnc7zeJ0EyQEnBhBVZ0c91y5ihShsNJAt4TA=;
- b=dwAPIyVY8cI5uxsdl7xemjrqfJgsafP49iTZERHq07hXOu5p2fbfUG7x
- odfTpliJkVcpFwkXP1wriPI5+0p7S+R6UVZMGzkUGTmLmlrTLednelN/6
- 8oAYoKOrA9d696ZpMIxDV9Qxg00D6YgEC/SWlsH9Y0gjzAcIkgRSRWP0/
- QxRouv1kYdFx6qRuI7qhtm4u8t/lOatUQnd1BaoiLlT8B+gsG2CQ4v2wu
- Zih/nsJwuHIbzwyl9dCKQrFt/np315khDDdREiaET5UAwxJB6Ae0SWpQ/
- 3RVuJzgrzKvS3MuGlIFPK2FyE5FUpQUSPs5BfXkymvVyQ+vRYBs+4uqym A==;
-X-CSE-ConnectionGUID: V6U7HbGTTiW5dt/NYNjFdA==
-X-CSE-MsgGUID: 1C2QKBpkTqCtTmPpYvInhQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11482"; a="64009118"
-X-IronPort-AV: E=Sophos;i="6.16,281,1744095600"; d="scan'208";a="64009118"
-Received: from fmviesa009.fm.intel.com ([10.60.135.149])
- by orvoesa103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 02 Jul 2025 07:12:50 -0700
-X-CSE-ConnectionGUID: Bl4kLbN8TYuEfK6iVaoptA==
-X-CSE-MsgGUID: +7amJITWRvG7SO/ep4wRIw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.16,281,1744095600"; d="scan'208";a="154433102"
-Received: from fdefranc-mobl3.ger.corp.intel.com (HELO localhost)
- ([10.245.246.29])
- by fmviesa009-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 02 Jul 2025 07:12:46 -0700
-From: Jani Nikula <jani.nikula@linux.intel.com>
-To: Gustavo Sousa <gustavo.sousa@intel.com>, Ankit Nautiyal
- <ankit.k.nautiyal@intel.com>, intel-gfx@lists.freedesktop.org
-Cc: intel-xe@lists.freedesktop.org, Ankit Nautiyal <ankit.k.nautiyal@intel.com>
-Subject: Re: [PATCH 1/2] drm/i915/display_wa: Add helpers to check wa
-In-Reply-To: <175146302838.3748.9114348489206219151@intel.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
-References: <20250702084620.3837426-1-ankit.k.nautiyal@intel.com>
- <20250702084620.3837426-2-ankit.k.nautiyal@intel.com>
- <175146302838.3748.9114348489206219151@intel.com>
-Date: Wed, 02 Jul 2025 17:12:43 +0300
-Message-ID: <45e9d0aa40e0f9bf9dac03054e7a46c52623ba84@intel.com>
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 19B1510E29F
+ for <intel-gfx@lists.freedesktop.org>; Wed,  2 Jul 2025 18:16:20 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by tor.source.kernel.org (Postfix) with ESMTP id 49C706111F;
+ Wed,  2 Jul 2025 18:16:19 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5A13FC4CEE7;
+ Wed,  2 Jul 2025 18:16:18 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1751480179;
+ bh=oxFk8nBtUpnr9ArALYj2G+HiGhqQz+KjsgoenrQgazk=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=cUfp+p6P8NkfOomLDeaOO1AYQfc7YgF5501e/lvU0J7pig7nGbHZS9CvA+gskzaKS
+ nlsSw9g+STdIRBpwhVlFiwK/GSEAa8sT878lTIWuTlLaIG2P4TrzT/JgJ9W4KVctLc
+ ux7l+sovWqx0qglJyVKhBG6q04DR2h83ccHtFTyB4Unzc4r+YszEyZlrY7SMCKxZrr
+ b/xk7Q9exyIzLLZknrip/QxXaEOZOwJIXb1WTO3s1MRlrQsC0qjT70EVL3nv4NLFRI
+ UKaCmljRiWHmQXnuPoy9POHvKOgO6CMp/Mi++G3UU4N+kYL5gVjYx5tGMsnGSBBDfU
+ nsXCAZICxxUeA==
+Date: Wed, 2 Jul 2025 20:16:14 +0200
+From: Andi Shyti <andi.shyti@kernel.org>
+To: Jani Nikula <jani.nikula@intel.com>
+Cc: linux-kernel@vger.kernel.org, intel-gfx@lists.freedesktop.org, 
+ Thomas Gleixner <tglx@linutronix.de>,
+ Geert Uytterhoeven <geert+renesas@glider.be>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Subject: Re: [PATCH] iopoll: use fsleep() instead of usleep_range()
+Message-ID: <2axg64hx4qjg3hvk27du4yifoojpemkzht2kuxzecuggomrbyv@difktc36et6m>
+References: <20250626145119.2048423-1-jani.nikula@intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20250626145119.2048423-1-jani.nikula@intel.com>
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -72,134 +59,33 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Wed, 02 Jul 2025, Gustavo Sousa <gustavo.sousa@intel.com> wrote:
-> Quoting Ankit Nautiyal (2025-07-02 05:46:18-03:00)
->>Introduce a generic helper to check display workarounds using an enum.
->>
->>Convert Wa_16023588340 to use the new interface, simplifying WA checks
->>and making future additions easier.
->>
->>v2: Use drm_WARN instead of MISSING_CASE and simplify intel_display_wa
->>macro. (Jani)
->>
->>Suggested-by: Jani Nikula <jani.nikula@intel.com>
->>Signed-off-by: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
->>---
->> drivers/gpu/drm/i915/display/intel_display_wa.c | 15 +++++++++++++++
->> drivers/gpu/drm/i915/display/intel_display_wa.h |  9 +++++++++
->> drivers/gpu/drm/i915/display/intel_fbc.c        |  2 +-
->> 3 files changed, 25 insertions(+), 1 deletion(-)
->>
->>diff --git a/drivers/gpu/drm/i915/display/intel_display_wa.c b/drivers/gp=
-u/drm/i915/display/intel_display_wa.c
->>index f57280e9d041..f5e8d58d9a68 100644
->>--- a/drivers/gpu/drm/i915/display/intel_display_wa.c
->>+++ b/drivers/gpu/drm/i915/display/intel_display_wa.c
->>@@ -3,6 +3,8 @@
->>  * Copyright =C2=A9 2023 Intel Corporation
->>  */
->>=20
->>+#include "drm/drm_print.h"
->>+
->> #include "i915_reg.h"
->> #include "intel_de.h"
->> #include "intel_display_core.h"
->>@@ -39,3 +41,16 @@ void intel_display_wa_apply(struct intel_display *disp=
-lay)
->>         else if (DISPLAY_VER(display) =3D=3D 11)
->>                 gen11_display_wa_apply(display);
->> }
->>+
->>+bool __intel_display_wa(struct intel_display *display, enum intel_displa=
-y_wa wa)
->>+{
->>+        switch (wa) {
->>+        case INTEL_DISPLAY_WA_16023588340:
->>+                return intel_display_needs_wa_16023588340(display);
->>+        default:
->>+                drm_WARN(display->drm, 1, "Missing Wa number: %d\n", wa);
->
-> Hm... I wonder how useful the message would be if we just show the enum
-> value. For example, if the next workaround that we added was
-> INTEL_DISPLAY_WA_99999999999 and we had it missing here, I think we
-> would get the following warning message:
->
->     "Missing Wa number: 1"
->
-> Perhaps the enum identifier could be found in the callstack that is
-> presented with the warning, but I'm wondering if we could do better
-> here.
->
-> Not sure there is a good solution without requiring extra memory to map
-> each enum member to its corresponding the workaround number.
+Hi Jani,
 
-The solution would be to make the function:
+On Thu, Jun 26, 2025 at 05:51:19PM +0300, Jani Nikula wrote:
+> Sometimes it's necessary to poll with long sleeps, and the accuracy of
+> usleep_range() is overkill. Use the flexible sleep helper fsleep() for
+> sleeping in the read_poll_timeout() family of macros to automatically
+> choose the appropriate method of waiting.
+> 
+> Functionally there are a few consequences for existing users:
+> 
+> - 10 us and shorter sleeps will use usleep() instead of
+>   usleep_range(). Presumably this will not be an issue.
+> 
+> - When it leads to a slack of less than 25%, msleep() will be used
+>   instead of usleep_range(). Presumably this will not be an issue, given
+>   the sleeps will be longer in this case.
+> 
+> - Otherwise, the usleep_range() slack gets switched from the begin of
+>   the range to the end of the range, i.e. [sleep/2+1..sleep] ->
+>   [sleep..sleep+sleep/2]. In theory, this could be an issue in some
+>   cases, but difficult to determine before this hits the real world.
+> 
+> Signed-off-by: Jani Nikula <jani.nikula@intel.com>
 
-bool __intel_display_wa(struct intel_display *display, enum intel_display_w=
-a wa, const char *name);
+this patch makes sense to me even with the fixes in the commit
+message suggested byt Geert.
 
-and the macro:
+Reviewed-by: Andi Shyti <andi.shyti@kernel.org>
 
-#define intel_display_wa(__display, __wa) \
-	__intel_display_wa((__display), INTEL_DISPLAY_WA_##__wa, __stringify(__wa))
-
-and then you could debug log the name.
-
-Worth it? Not sure.
-
-
-BR,
-Jani.
-
-
->
-> --
-> Gustavo Sousa
->
->>+                break;
->>+        }
->>+
->>+        return false;
->>+}
->>diff --git a/drivers/gpu/drm/i915/display/intel_display_wa.h b/drivers/gp=
-u/drm/i915/display/intel_display_wa.h
->>index babd9d16603d..146ee70d66f7 100644
->>--- a/drivers/gpu/drm/i915/display/intel_display_wa.h
->>+++ b/drivers/gpu/drm/i915/display/intel_display_wa.h
->>@@ -21,4 +21,13 @@ static inline bool intel_display_needs_wa_16023588340(=
-struct intel_display *disp
->> bool intel_display_needs_wa_16023588340(struct intel_display *display);
->> #endif
->>=20
->>+enum intel_display_wa {
->>+        INTEL_DISPLAY_WA_16023588340,
->>+};
->>+
->>+bool __intel_display_wa(struct intel_display *display, enum intel_displa=
-y_wa wa);
->>+
->>+#define intel_display_wa(__display, __wa) \
->>+        __intel_display_wa((__display), INTEL_DISPLAY_WA_##__wa)
->>+
->> #endif
->>diff --git a/drivers/gpu/drm/i915/display/intel_fbc.c b/drivers/gpu/drm/i=
-915/display/intel_fbc.c
->>index 6e26cb4c5724..e2e03af520b2 100644
->>--- a/drivers/gpu/drm/i915/display/intel_fbc.c
->>+++ b/drivers/gpu/drm/i915/display/intel_fbc.c
->>@@ -1464,7 +1464,7 @@ static int intel_fbc_check_plane(struct intel_atomi=
-c_state *state,
->>                 return 0;
->>         }
->>=20
->>-        if (intel_display_needs_wa_16023588340(display)) {
->>+        if (intel_display_wa(display, 16023588340)) {
->>                 plane_state->no_fbc_reason =3D "Wa_16023588340";
->>                 return 0;
->>         }
->>--=20
->>2.45.2
->>
-
---=20
-Jani Nikula, Intel
+Andi
