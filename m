@@ -4,50 +4,55 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E6E42C8303C
-	for <intel-gfx@archiver.kernel.org>; Mon,  7 Jul 2025 12:59:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5ECC5C83F0C
+	for <intel-gfx@archiver.kernel.org>; Mon,  7 Jul 2025 12:59:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4F9BF10E01F;
-	Mon,  7 Jul 2025 12:59:56 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 52F1710E46B;
+	Mon,  7 Jul 2025 12:59:57 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=tuxedocomputers.com header.i=@tuxedocomputers.com header.b="F4ulFDGP";
+	dkim=pass (1024-bit key; unprotected) header.d=tuxedocomputers.com header.i=@tuxedocomputers.com header.b="mI8u+BPH";
 	dkim-atps=neutral
 Received: from mail.tuxedocomputers.com (mail.tuxedocomputers.com
  [157.90.84.7])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D113210E09E;
- Fri,  4 Jul 2025 19:20:25 +0000 (UTC)
-Received: from wse-pc.fritz.box (pd9e59880.dip0.t-ipconnect.de
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9DBDC10EA6A;
+ Fri,  4 Jul 2025 19:22:53 +0000 (UTC)
+Received: from [192.168.42.116] (pd9e59880.dip0.t-ipconnect.de
  [217.229.152.128]) (Authenticated sender: wse@tuxedocomputers.com)
- by mail.tuxedocomputers.com (Postfix) with ESMTPA id CECFC2FC00A2;
- Fri,  4 Jul 2025 21:20:22 +0200 (CEST)
+ by mail.tuxedocomputers.com (Postfix) with ESMTPSA id B9BFC2FC00A2;
+ Fri,  4 Jul 2025 21:22:51 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=tuxedocomputers.com;
- s=default; t=1751656823;
+ s=default; t=1751656972;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding;
- bh=hfOhpq8fyOjaZ56cdFC/wn/8XOnBTOc0qDrbyCqpV9k=;
- b=F4ulFDGP6WyMJHaMAse7nkNMyECngO4ZXyITARDd188ZhSZYDkUaic7mBEfNfE+5w3UK3f
- O4nqweDNvunSUChrr9HOLaD7ySmR4jX05FFg4NwEJwn5MZCak+lzNdV1RabvS0/t60YlLJ
- XsBK6FnA9G9xEzTP1ZtiFnum+E80sX4=
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=7k7nENN+6Go7o9FF71hjN+u63munpkjhdSF0S/glj2Q=;
+ b=mI8u+BPHg/e6FA8qkg6fqxQjE/4fgvBBOBIVJlT4gwYMpdoFOKXx2eJzHhNmfrcr3viH57
+ 7f5y0i/LScQgNtgZjC85AKEZESC79uvlrwK1dyt4ZnAx8exA1qzFbJHBcgal1rvGc9RTlJ
+ nxe08tDhpP35mBbP0xwxwimTiMYywAQ=
 Authentication-Results: mail.tuxedocomputers.com;
  auth=pass smtp.auth=wse@tuxedocomputers.com
  smtp.mailfrom=wse@tuxedocomputers.com
-From: Werner Sembach <wse@tuxedocomputers.com>
+Message-ID: <7df81e96-14b0-4fde-955d-2960e240b4c7@tuxedocomputers.com>
+Date: Fri, 4 Jul 2025 21:22:51 +0200
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RFC PATCH 0/1] drm/i915/display: Avoid unsupported 300Hz output
+ mode on a TUXEDO device
 To: Jani Nikula <jani.nikula@linux.intel.com>,
  Rodrigo Vivi <rodrigo.vivi@intel.com>,
  Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
  Tvrtko Ursulin <tursulin@ursulin.net>, David Airlie <airlied@gmail.com>,
  Simona Vetter <simona@ffwll.ch>
-Cc: Werner Sembach <wse@tuxedocomputers.com>, intel-gfx@lists.freedesktop.org,
- intel-xe@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-Subject: [RFC PATCH 0/1] drm/i915/display: Avoid unsupported 300Hz output mode
- on a TUXEDO device
-Date: Fri,  4 Jul 2025 21:03:45 +0200
-Message-ID: <20250704192007.526044-1-wse@tuxedocomputers.com>
-X-Mailer: git-send-email 2.43.0
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Cc: intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ t.guttzeit@tuxedocomputers.com
+References: <20250704192007.526044-1-wse@tuxedocomputers.com>
+Content-Language: en-US
+From: Werner Sembach <wse@tuxedocomputers.com>
+In-Reply-To: <20250704192007.526044-1-wse@tuxedocomputers.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 X-Mailman-Approved-At: Mon, 07 Jul 2025 12:59:55 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -64,28 +69,29 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-RFC because I'm not sure if this is the right approach.
+Forgot to add Tim to the cover letter cc (I have not yet found a nice way to 
+auto generate cover letter to's and cc's unlike for the actual patches)
 
-The flicker manifests ever few seconds 1-3 black frames in quick
-succession.
-
-On windows 300Hz can not be selected for the iGPU, but the panel advertises
-it.
-
-A cleaner solution would probably to go over the pixel clock, but for this
-device there is only one 300Hz mode in the panels edid and that is at the
-nativ resolution. Chroma subsampling was not tested as linux afaik offers
-no way to easily enforce it for intel gpus.
-
-Tim Guttzeit (1):
-  drm/i915/display: Avoid unsupported output mode with 300Hz on TUXEDO
-    device
-
- drivers/gpu/drm/i915/display/intel_dp.c     |  5 ++++
- drivers/gpu/drm/i915/display/intel_quirks.c | 30 +++++++++++++++++++++
- drivers/gpu/drm/i915/display/intel_quirks.h |  1 +
- 3 files changed, 36 insertions(+)
-
--- 
-2.43.0
-
+Am 04.07.25 um 21:03 schrieb Werner Sembach:
+> RFC because I'm not sure if this is the right approach.
+>
+> The flicker manifests ever few seconds 1-3 black frames in quick
+> succession.
+>
+> On windows 300Hz can not be selected for the iGPU, but the panel advertises
+> it.
+>
+> A cleaner solution would probably to go over the pixel clock, but for this
+> device there is only one 300Hz mode in the panels edid and that is at the
+> nativ resolution. Chroma subsampling was not tested as linux afaik offers
+> no way to easily enforce it for intel gpus.
+>
+> Tim Guttzeit (1):
+>    drm/i915/display: Avoid unsupported output mode with 300Hz on TUXEDO
+>      device
+>
+>   drivers/gpu/drm/i915/display/intel_dp.c     |  5 ++++
+>   drivers/gpu/drm/i915/display/intel_quirks.c | 30 +++++++++++++++++++++
+>   drivers/gpu/drm/i915/display/intel_quirks.h |  1 +
+>   3 files changed, 36 insertions(+)
+>
