@@ -4,89 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C3F0BC83F09
-	for <intel-gfx@archiver.kernel.org>; Tue,  8 Jul 2025 14:24:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DC5F4C83F0A
+	for <intel-gfx@archiver.kernel.org>; Tue,  8 Jul 2025 14:38:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6452910E659;
-	Tue,  8 Jul 2025 14:24:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7C8A710E67D;
+	Tue,  8 Jul 2025 14:38:24 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="Lgo3sV9+";
+	dkim=pass (1024-bit key; unprotected) header.d=zx2c4.com header.i=@zx2c4.com header.b="MqdVHpOl";
 	dkim-atps=neutral
-Received: from mslow3.mail.gandi.net (mslow3.mail.gandi.net [217.70.178.249])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BAE5510E659;
- Tue,  8 Jul 2025 14:24:22 +0000 (UTC)
-Received: from relay9-d.mail.gandi.net (relay9-d.mail.gandi.net
- [IPv6:2001:4b98:dc4:8::229])
- by mslow3.mail.gandi.net (Postfix) with ESMTP id 5B1E7581B9C;
- Tue,  8 Jul 2025 14:01:44 +0000 (UTC)
-Received: by mail.gandi.net (Postfix) with ESMTPSA id 474CE431F1;
- Tue,  8 Jul 2025 14:01:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=gm1;
- t=1751983301;
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5B4A210E675
+ for <intel-gfx@lists.freedesktop.org>; Tue,  8 Jul 2025 14:38:23 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sea.source.kernel.org (Postfix) with ESMTP id 1533B43E5D;
+ Tue,  8 Jul 2025 14:38:23 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 93F27C4CEED;
+ Tue,  8 Jul 2025 14:38:22 +0000 (UTC)
+Authentication-Results: smtp.kernel.org;
+ dkim=pass (1024-bit key) header.d=zx2c4.com header.i=@zx2c4.com
+ header.b="MqdVHpOl"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=zx2c4.com; s=20210105; 
+ t=1751985500;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=mKpow068b4y6O1gxSiix706lmsCcguNU+95VkipNyxc=;
- b=Lgo3sV9+gKq1MzSb3ze4M4OEbuhr7FakwYPT9tazV9qSlmudZFOkdpZL8GO9QMEqZ42kj/
- TZK8iAyz+zdfEKAnswjR/DFDa+8UttlvUSpLXuLMo28qib/q8BHdgHWoSR5lncXXryezzZ
- LfnN+w7w7M2RrYSuVdZ9mCQA0CZvSthCoMrWtHddMHMabJsD7Pc1Q5M6BKscmIhMkRszqa
- dLsqM27GXSASr7zHaVHqculMu1nSRGWIaWPhVHaeEjE8HlnzKmebCrSn0EB88zyoSK2Xqz
- cytfNarTG/DIfgCIPHsawnykOc8QT1UWUKLDp+f4SMAGN64QSJs+ZqyRl+gA/A==
-Date: Tue, 8 Jul 2025 16:01:09 +0200
-From: Luca Ceresoli <luca.ceresoli@bootlin.com>
-To: Sakari Ailus <sakari.ailus@linux.intel.com>
-Cc: Andrzej Hajda <andrzej.hajda@intel.com>, Neil Armstrong
- <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, Laurent
- Pinchart <Laurent.pinchart@ideasonboard.com>, Jonas Karlman
- <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, Maarten
- Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
- <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, David Airlie
- <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Douglas Anderson
- <dianders@chromium.org>, Lucas Stach <l.stach@pengutronix.de>, Russell King
- <linux+etnaviv@armlinux.org.uk>, Christian Gmeiner
- <christian.gmeiner@gmail.com>, Inki Dae <inki.dae@samsung.com>, Seung-Woo
- Kim <sw0312.kim@samsung.com>, Kyungmin Park <kyungmin.park@samsung.com>,
- Krzysztof Kozlowski <krzk@kernel.org>, Alim Akhtar
- <alim.akhtar@samsung.com>, Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, Rodrigo Vivi
- <rodrigo.vivi@intel.com>, Tvrtko Ursulin <tursulin@ursulin.net>, Laurentiu
- Palcu <laurentiu.palcu@oss.nxp.com>, Shawn Guo <shawnguo@kernel.org>,
- Sascha Hauer <s.hauer@pengutronix.de>, Pengutronix Kernel Team
- <kernel@pengutronix.de>, Fabio Estevam <festevam@gmail.com>, Qiang Yu
- <yuq825@gmail.com>, Jessica Zhang <jessica.zhang@oss.qualcomm.com>, Boris
- Brezillon <boris.brezillon@collabora.com>, Steven Price
- <steven.price@arm.com>, Liviu Dudau <liviu.dudau@arm.com>, Thierry Reding
- <thierry.reding@gmail.com>, Mikko Perttunen <mperttunen@nvidia.com>,
- Jonathan Hunter <jonathanh@nvidia.com>, Jyri Sarha <jyri.sarha@iki.fi>,
- Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>, Dave Stevenson
- <dave.stevenson@raspberrypi.com>, =?UTF-8?B?TWHDrXJh?= Canal
- <mcanal@igalia.com>, Raspberry Pi Kernel Maintenance
- <kernel-list@raspberrypi.com>, Dmitry Baryshkov
- <dmitry.baryshkov@oss.qualcomm.com>, Damon Ding
- <damon.ding@rock-chips.com>, Ayushi Makhija <quic_amakhija@quicinc.com>,
- Uwe =?UTF-8?B?S2xlaW5lLUvDtm5pZw==?= <u.kleine-koenig@baylibre.com>,
- Chen-Yu Tsai <wenst@chromium.org>, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, etnaviv@lists.freedesktop.org,
- linux-arm-kernel@lists.infradead.org, linux-samsung-soc@vger.kernel.org,
- intel-gfx@lists.freedesktop.org, imx@lists.linux.dev,
- lima@lists.freedesktop.org, linux-tegra@vger.kernel.org
-Subject: Re: [PATCH 20/80] drivers: drm: Remove redundant
- pm_runtime_mark_last_busy() calls
-Message-ID: <20250708160109.08055641@booty>
-In-Reply-To: <20250704075413.3218307-1-sakari.ailus@linux.intel.com>
-References: <20250704075225.3212486-1-sakari.ailus@linux.intel.com>
- <20250704075413.3218307-1-sakari.ailus@linux.intel.com>
-Organization: Bootlin
-X-Mailer: Claws Mail 4.3.1 (GTK 3.24.49; x86_64-redhat-linux-gnu)
+ to:to:cc:mime-version:mime-version:content-type:content-type;
+ bh=nJ+AMx2LZBC71wAjtfHuHqIKrAiOcbr24EDcZBY7G1c=;
+ b=MqdVHpOl8rulNwusshiqbdWnnEO/jjRAPET5ipp3PaG575aAzrQpQpPSeuE1trs0I024pj
+ mbvlbirl9Z29cpW3Nqd6DzAn8K7bpcp6yhBODc1UnLEXRp/f0KKwY5nIibN5eIQidKgIoW
+ ZwY5OyVqzQAW//jWuWUDS9cOVyipO6Q=
+Received: by mail.zx2c4.com (ZX2C4 Mail Server) with ESMTPSA id 65ef775f
+ (TLSv1.3:TLS_AES_256_GCM_SHA384:256:NO); 
+ Tue, 8 Jul 2025 14:38:19 +0000 (UTC)
+Date: Tue, 8 Jul 2025 16:38:18 +0200
+From: "Jason A. Donenfeld" <Jason@zx2c4.com>
+To: intel-gfx@lists.freedesktop.org
+Subject: i915 splat: RPM raw-wakeref not held, fwtable_read32
+Message-ID: <aG0tWkfmxWtxl_xc@zx2c4.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
-X-GND-State: clean
-X-GND-Score: -100
-X-GND-Cause: gggruggvucftvghtrhhoucdtuddrgeeffedrtdefgdefgeekiecutefuodetggdotefrodftvfcurfhrohhfihhlvgemucfitefpfffkpdcuggftfghnshhusghstghrihgsvgenuceurghilhhouhhtmecufedtudenucesvcftvggtihhpihgvnhhtshculddquddttddmnecujfgurhepfffhvfevuffkjghfohfogggtgfesthhqfedtredtjeenucfhrhhomhepnfhutggrucevvghrvghsohhlihcuoehluhgtrgdrtggvrhgvshholhhisegsohhothhlihhnrdgtohhmqeenucggtffrrghtthgvrhhnpeelheeufeetjeeigeeutdeiueelgeetkeeffeetgeeivdelleejhffhgefgjeelkeenucffohhmrghinhepsghoohhtlhhinhdrtghomhenucfkphepkeejrdduvddtrddvudekrddvtdejnecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehinhgvthepkeejrdduvddtrddvudekrddvtdejpdhhvghlohepsghoohhthidpmhgrihhlfhhrohhmpehluhgtrgdrtggvrhgvshholhhisegsohhothhlihhnrdgtohhmpdhnsggprhgtphhtthhopeehjedprhgtphhtthhopehsrghkrghrihdrrghilhhusheslhhinhhugidrihhnthgvlhdrtghomhdprhgtphhtthhopegrnhgurhiivghjrdhhrghjuggrsehinhhtvghlrdgtohhmpdhrtghpthhtohepnhgvihhlrdgrrhhmshhtrhhonhhgsehlihhnrghrohdrohhrghdprhgtphhtthhopehrfhhoshhssehkvghrnhgvlhdrohhrghdprhgtphhtthhop
- efnrghurhgvnhhtrdhpihhntghhrghrthesihguvggrshhonhgsohgrrhgurdgtohhmpdhrtghpthhtohepjhhonhgrsheskhifihgsohhordhsvgdprhgtphhtthhopehjvghrnhgvjhdrshhkrhgrsggvtgesghhmrghilhdrtghomhdprhgtphhtthhopehmrggrrhhtvghnrdhlrghnkhhhohhrshhtsehlihhnuhigrdhinhhtvghlrdgtohhm
-X-GND-Sasl: luca.ceresoli@bootlin.com
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -102,21 +57,87 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Fri,  4 Jul 2025 10:54:13 +0300
-Sakari Ailus <sakari.ailus@linux.intel.com> wrote:
+Hi,
 
-> pm_runtime_put_autosuspend(), pm_runtime_put_sync_autosuspend(),
-> pm_runtime_autosuspend() and pm_request_autosuspend() now include a call
-> to pm_runtime_mark_last_busy(). Remove the now-reduntant explicit call to
-> pm_runtime_mark_last_busy().
->=20
-> Signed-off-by: Sakari Ailus <sakari.ailus@linux.intel.com>
+I'm seeing this splat on 6.16-rc5. i7-11850H.
 
-With the cleanups required by Laurent and Ma=C3=ADra:
+Thanks,
+Jason
 
-Reviewed-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
-
---=20
-Luca Ceresoli, Bootlin
-Embedded Linux and Kernel engineering
-https://bootlin.com
+[41251.218499] ------------[ cut here ]------------
+[41251.218502] RPM raw-wakeref not held
+[41251.218528] WARNING: CPU: 6 PID: 3718 at drivers/gpu/drm/i915/intel_runtime_pm.h:116 fwtable_read32+0x1c2/0x290 [i915]
+[41251.218620] CPU: 6 UID: 1000 PID: 3718 Comm: chrome Tainted: G S   U              6.16.0-rc5+ #448 PREEMPT
+[41251.218623] Tainted: [S]=CPU_OUT_OF_SPEC, [U]=USER
+[41251.218623] Hardware name: LENOVO 20Y5CTO1WW/20Y5CTO1WW, BIOS N40ET39W (1.21 ) 12/01/2022
+[41251.218624] RIP: 0010:fwtable_read32+0x1c2/0x290 [i915]
+[41251.218651] Code: 4c 89 ff e8 40 d0 ff ff eb 92 80 3d 43 0b 20 00 00 0f 85 87 fe ff ff 48 c7 c7 0f 3c b9 a0 c6 05 2f 0b 20 00 01 e8 be 17 aa e0 <0f> 0b e9 6d fe ff ff 80 3d 1b 0b 20 00 00 0f 85 69 fe ff ff 48 c7
+[41251.218652] RSP: 0000:ffff88815facfe30 EFLAGS: 00010086
+[41251.218653] RAX: 0000000000000018 RBX: 0000000000000000 RCX: 0000000000000027
+[41251.218654] RDX: ffff88901f597848 RSI: 0000000000000001 RDI: ffff88901f597840
+[41251.218654] RBP: 00000000000444f8 R08: 00000000ffffdfff R09: 0000000000000000
+[41251.218655] R10: 0000000000000003 R11: 0000000000000433 R12: 0000000000000000
+[41251.218655] R13: 00000000000000c6 R14: 0000000000000001 R15: ffff8881059fdbe8
+[41251.218656] FS:  00007f74dac2dec0(0000) GS:ffff88909cafa000(0000) knlGS:0000000000000000
+[41251.218657] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+[41251.218657] CR2: 00007f74d9a4a52c CR3: 0000000116b45002 CR4: 0000000000772ef0
+[41251.218658] PKRU: 55555554
+[41251.218658] Call Trace:
+[41251.218660]  <TASK>
+[41251.218661]  gen11_gu_misc_irq_ack+0x3a/0x90 [i915]
+[41251.218709]  gen11_irq_handler+0x6d/0xc0 [i915]
+[41251.218733]  __handle_irq_event_percpu+0x3b/0x190
+[41251.218737]  handle_irq_event+0x2f/0x80
+[41251.218739]  handle_edge_irq+0x7d/0x1a0
+[41251.218740]  __common_interrupt+0x34/0x90
+[41251.218743]  common_interrupt+0x3e/0xa0
+[41251.218746]  asm_common_interrupt+0x22/0x40
+[41251.218747] RIP: 0033:0x564713a396c9
+[41251.218748] Code: 89 ed b8 01 00 00 00 66 2e 0f 1f 84 00 00 00 00 00 4c 89 ce 48 c1 ee 2a 49 c1 e9 30 c4 e2 c9 f7 f3 4a 09 74 cc 30 4c 8b 4d 00 <4d> 85 c9 0f 84 d8 00 00 00 4d 89 ef 4d 21 c7 49 89 d4 4c 89 c6 49
+[41251.218749] RSP: 002b:00007fffdf8442b0 EFLAGS: 00000206
+[41251.218750] RAX: 0000000000000004 RBX: 0000000000000001 RCX: 0000275c0b948000
+[41251.218750] RDX: 0000275c00000000 RSI: 0000000000001000 RDI: 0000000000000000
+[41251.218751] RBP: 0000275c0b94a600 R08: fffffffc00000000 R09: 80a6940b00000000
+[41251.218751] R10: 0000000800000000 R11: ffffffffffffffff R12: 0000275c0b94a600
+[41251.218752] R13: 0000275c0b94a600 R14: 0000275800000000 R15: 000000000b94a600
+[41251.218753]  </TASK>
+[41251.218753] ---[ end trace 0000000000000000 ]---
+[41251.218754] ------------[ cut here ]------------
+[41251.218754] RPM wakelock ref not held during HW access
+[41251.218760] WARNING: CPU: 6 PID: 3718 at drivers/gpu/drm/i915/intel_runtime_pm.h:124 fwtable_read32+0x1e9/0x290 [i915]
+[41251.218820] CPU: 6 UID: 1000 PID: 3718 Comm: chrome Tainted: G S   U  W           6.16.0-rc5+ #448 PREEMPT
+[41251.218822] Tainted: [S]=CPU_OUT_OF_SPEC, [U]=USER, [W]=WARN
+[41251.218822] Hardware name: LENOVO 20Y5CTO1WW/20Y5CTO1WW, BIOS N40ET39W (1.21 ) 12/01/2022
+[41251.218823] RIP: 0010:fwtable_read32+0x1e9/0x290 [i915]
+[41251.218847] Code: 17 aa e0 0f 0b e9 6d fe ff ff 80 3d 1b 0b 20 00 00 0f 85 69 fe ff ff 48 c7 c7 28 b4 b4 a0 c6 05 07 0b 20 00 01 e8 97 17 aa e0 <0f> 0b e9 4f fe ff ff 49 8b bf 58 01 00 00 48 85 ff 0f 84 63 fe ff
+[41251.218848] RSP: 0000:ffff88815facfe30 EFLAGS: 00010086
+[41251.218848] RAX: 000000000000002a RBX: 0000000000000000 RCX: 0000000000000027
+[41251.218849] RDX: ffff88901f597848 RSI: 0000000000000001 RDI: ffff88901f597840
+[41251.218849] RBP: 00000000000444f8 R08: 00000000ffffdfff R09: 0000000000000000
+[41251.218850] R10: 0000000000000003 R11: 000000000000045c R12: 0000000000000000
+[41251.218850] R13: 00000000000000c6 R14: 0000000000000001 R15: ffff8881059fdbe8
+[41251.218851] FS:  00007f74dac2dec0(0000) GS:ffff88909cafa000(0000) knlGS:0000000000000000
+[41251.218852] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+[41251.218852] CR2: 00007f74d9a4a52c CR3: 0000000116b45002 CR4: 0000000000772ef0
+[41251.218853] PKRU: 55555554
+[41251.218853] Call Trace:
+[41251.218853]  <TASK>
+[41251.218854]  gen11_gu_misc_irq_ack+0x3a/0x90 [i915]
+[41251.218896]  gen11_irq_handler+0x6d/0xc0 [i915]
+[41251.218919]  __handle_irq_event_percpu+0x3b/0x190
+[41251.218920]  handle_irq_event+0x2f/0x80
+[41251.218921]  handle_edge_irq+0x7d/0x1a0
+[41251.218923]  __common_interrupt+0x34/0x90
+[41251.218924]  common_interrupt+0x3e/0xa0
+[41251.218926]  asm_common_interrupt+0x22/0x40
+[41251.218926] RIP: 0033:0x564713a396c9
+[41251.218927] Code: 89 ed b8 01 00 00 00 66 2e 0f 1f 84 00 00 00 00 00 4c 89 ce 48 c1 ee 2a 49 c1 e9 30 c4 e2 c9 f7 f3 4a 09 74 cc 30 4c 8b 4d 00 <4d> 85 c9 0f 84 d8 00 00 00 4d 89 ef 4d 21 c7 49 89 d4 4c 89 c6 49
+[41251.218927] RSP: 002b:00007fffdf8442b0 EFLAGS: 00000206
+[41251.218928] RAX: 0000000000000004 RBX: 0000000000000001 RCX: 0000275c0b948000
+[41251.218928] RDX: 0000275c00000000 RSI: 0000000000001000 RDI: 0000000000000000
+[41251.218929] RBP: 0000275c0b94a600 R08: fffffffc00000000 R09: 80a6940b00000000
+[41251.218929] R10: 0000000800000000 R11: ffffffffffffffff R12: 0000275c0b94a600
+[41251.218930] R13: 0000275c0b94a600 R14: 0000275800000000 R15: 000000000b94a600
+[41251.218931]  </TASK>
+[41251.218931] ---[ end trace 0000000000000000 ]---
+[41680.714071] i915 0000:00:02.0: Using 39-bit DMA addresses
