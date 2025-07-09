@@ -4,73 +4,55 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 83BA6C83F1A
-	for <intel-gfx@archiver.kernel.org>; Mon, 14 Jul 2025 16:16:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 22888C83F21
+	for <intel-gfx@archiver.kernel.org>; Mon, 14 Jul 2025 16:16:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E84FE10E208;
-	Mon, 14 Jul 2025 16:16:06 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8103210E4D8;
+	Mon, 14 Jul 2025 16:16:07 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=didiglobal.com header.i=@didiglobal.com header.b="d0xbnjYw";
+	dkim=pass (1024-bit key; unprotected) header.d=tuxedocomputers.com header.i=@tuxedocomputers.com header.b="uPsDAqc6";
 	dkim-atps=neutral
-Received: from mx10.didiglobal.com (mx10.didiglobal.com [111.202.70.125])
- by gabe.freedesktop.org (Postfix) with SMTP id 16E1B10E854;
- Thu, 10 Jul 2025 10:14:36 +0000 (UTC)
-Received: from mail.didiglobal.com (unknown [10.79.71.38])
- by mx10.didiglobal.com (MailData Gateway V2.8.8) with ESMTPS id 0FA4D18387BC5E;
- Thu, 10 Jul 2025 18:13:29 +0800 (CST)
-Received: from BJ03-ACTMBX-08.didichuxing.com (10.79.71.35) by
- BJ03-ACTMBX-02.didichuxing.com (10.79.71.38) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1748.10; Thu, 10 Jul 2025 18:14:13 +0800
-Received: from BJ03-ACTMBX-07.didichuxing.com (10.79.71.34) by
- BJ03-ACTMBX-08.didichuxing.com (10.79.71.35) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1748.10; Thu, 10 Jul 2025 18:14:12 +0800
-Received: from BJ03-ACTMBX-07.didichuxing.com ([fe80::2e1a:dd47:6d25:287e]) by
- BJ03-ACTMBX-07.didichuxing.com ([fe80::2e1a:dd47:6d25:287e%7]) with
- mapi id 15.02.1748.010; Thu, 10 Jul 2025 18:14:12 +0800
-X-MD-Sfrom: chentaotao@didiglobal.com
-X-MD-SrcIP: 10.79.71.38
-From: =?gb2312?B?s8LMzszOIFRhb3RhbyBDaGVu?= <chentaotao@didiglobal.com>
-To: "tytso@mit.edu" <tytso@mit.edu>, "hch@infradead.org" <hch@infradead.org>, 
- "adilger.kernel@dilger.ca" <adilger.kernel@dilger.ca>,
- "willy@infradead.org"
- <willy@infradead.org>, "brauner@kernel.org" <brauner@kernel.org>,
- "jani.nikula@linux.intel.com" <jani.nikula@linux.intel.com>,
- "rodrigo.vivi@intel.com" <rodrigo.vivi@intel.com>, "tursulin@ursulin.net"
- <tursulin@ursulin.net>, "airlied@gmail.com" <airlied@gmail.com>
-CC: "linux-fsdevel@vger.kernel.org" <linux-fsdevel@vger.kernel.org>,
- "linux-ext4@vger.kernel.org" <linux-ext4@vger.kernel.org>,
- "linux-block@vger.kernel.org" <linux-block@vger.kernel.org>,
- "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>,
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
- "linux-mm@kvack.org" <linux-mm@kvack.org>, "linux-doc@vger.kernel.org"
- <linux-doc@vger.kernel.org>, "linux-kernel@vger.kernel.org"
- <linux-kernel@vger.kernel.org>, "chentao325@qq.com" <chentao325@qq.com>,
- "frank.li@vivo.com" <frank.li@vivo.com>,
- =?gb2312?B?s8LMzszOIFRhb3RhbyBDaGVu?= <chentaotao@didiglobal.com>
-Subject: [PATCH v5 4/5] mm/pagemap: add write_begin_get_folio() helper function
-Thread-Topic: [PATCH v5 4/5] mm/pagemap: add write_begin_get_folio() helper
- function
-Thread-Index: AQHb8YNhNDn+fEJVz0y29k3GEMiAYg==
-Date: Thu, 10 Jul 2025 10:14:12 +0000
-Message-ID: <20250710101404.362146-5-chentaotao@didiglobal.com>
-In-Reply-To: <20250710101404.362146-1-chentaotao@didiglobal.com>
-Accept-Language: zh-CN, en-US
-Content-Language: zh-CN
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-originating-ip: [10.79.64.102]
-Content-Type: text/plain; charset="gb2312"
-Content-Transfer-Encoding: base64
+Received: from mail.tuxedocomputers.com (mail.tuxedocomputers.com
+ [157.90.84.7])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0C6B210E79F;
+ Wed,  9 Jul 2025 11:49:45 +0000 (UTC)
+Received: from [192.168.42.116] (p5b1645eb.dip0.t-ipconnect.de [91.22.69.235])
+ (Authenticated sender: wse@tuxedocomputers.com)
+ by mail.tuxedocomputers.com (Postfix) with ESMTPSA id 326C52FC004A;
+ Wed,  9 Jul 2025 13:49:42 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=tuxedocomputers.com;
+ s=default; t=1752061783;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=Z4tPrpohIKzA9dpzM7fgM3lnG/w3QgoJ+fb9JhKfdC4=;
+ b=uPsDAqc6/GRcnySbr4rLZwJ33I0X5BpdBk4Q51cS1ERVD7G8HdXp5zP98woiX7YiTJqH/D
+ oY+zZo39jMWR5dGAV6x5IYJgb2RbPK79kNq8koKODyfO/M0RLOt0L/JW8obNrLD+Ea6m+D
+ Eep5mkPx9ZXWPpSUdsRE54IHXFb4vGw=
+Authentication-Results: mail.tuxedocomputers.com;
+ auth=pass smtp.auth=wse@tuxedocomputers.com
+ smtp.mailfrom=wse@tuxedocomputers.com
+Message-ID: <513aa035-8a00-4943-abc1-d68824a5c0c6@tuxedocomputers.com>
+Date: Wed, 9 Jul 2025 13:49:42 +0200
 MIME-Version: 1.0
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=didiglobal.com;
- s=2025; t=1752142431;
- bh=e+n/6AlPUc3DbRhJD+hzg5MV5KYpldOkq0RvjNrxVUY=;
- h=From:To:CC:Subject:Date:Message-ID:Content-Type;
- b=d0xbnjYwkUwSNQGtY0jrMsDrePpkcnpXrxO+wIbgEaLulQs8BdiUykm3SLjqEELeb
- EMU81Lts5cS8gI5uG+fU7WeoedfsduBXpJscvPkIzAK5uWgpx7kqom43oSIJyMzH7n
- ZcbyIi6HdG3CzUJhB3nHvUmqFc/07rS9XFLbMAP8=
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RFC PATCH 0/1] drm/i915/display: Avoid unsupported 300Hz output
+ mode on a TUXEDO device
+To: Rodrigo Vivi <rodrigo.vivi@intel.com>, t.guttzeit@tuxedocomputers.com
+Cc: Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Tvrtko Ursulin <tursulin@ursulin.net>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, intel-gfx@lists.freedesktop.org,
+ intel-xe@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+References: <20250704192007.526044-1-wse@tuxedocomputers.com>
+ <aG2IL07UtZ4YICMn@intel.com>
+Content-Language: en-US
+From: Werner Sembach <wse@tuxedocomputers.com>
+In-Reply-To: <aG2IL07UtZ4YICMn@intel.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 X-Mailman-Approved-At: Mon, 14 Jul 2025 16:16:06 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -87,40 +69,48 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-RnJvbTogVGFvdGFvIENoZW4gPGNoZW50YW90YW9AZGlkaWdsb2JhbC5jb20+DQoNCkFkZCB3cml0
-ZV9iZWdpbl9nZXRfZm9saW8oKSB0byBzaW1wbGlmeSB0aGUgY29tbW9uIGZvbGlvIGxvb2t1cCBs
-b2dpYw0KdXNlZCBieSBmaWxlc3lzdGVtIC0+d3JpdGVfYmVnaW4oKSBpbXBsZW1lbnRhdGlvbnMu
-DQoNClRoaXMgaGVscGVyIHdyYXBzIF9fZmlsZW1hcF9nZXRfZm9saW8oKSB3aXRoIGNvbW1vbiBm
-bGFncyBzdWNoIGFzDQpGR1BfV1JJVEVCRUdJTiwgY29uZGl0aW9uYWwgRkdQX0RPTlRDQUNIRSwg
-YW5kIHNldCBmb2xpbyBvcmRlciBiYXNlZA0Kb24gdGhlIHdyaXRlIGxlbmd0aC4NCg0KUGFydCBv
-ZiBhIHNlcmllcyByZWZhY3RvcmluZyBhZGRyZXNzX3NwYWNlX29wZXJhdGlvbnMgd3JpdGVfYmVn
-aW4gYW5kDQp3cml0ZV9lbmQgY2FsbGJhY2tzIHRvIHVzZSBzdHJ1Y3Qga2lvY2IgZm9yIHBhc3Np
-bmcgd3JpdGUgY29udGV4dCBhbmQNCmZsYWdzLg0KDQpTaWduZWQtb2ZmLWJ5OiBUYW90YW8gQ2hl
-biA8Y2hlbnRhb3Rhb0BkaWRpZ2xvYmFsLmNvbT4NCi0tLQ0KIGluY2x1ZGUvbGludXgvcGFnZW1h
-cC5oIHwgMjcgKysrKysrKysrKysrKysrKysrKysrKysrKysrDQogMSBmaWxlIGNoYW5nZWQsIDI3
-IGluc2VydGlvbnMoKykNCg0KZGlmZiAtLWdpdCBhL2luY2x1ZGUvbGludXgvcGFnZW1hcC5oIGIv
-aW5jbHVkZS9saW51eC9wYWdlbWFwLmgNCmluZGV4IGU2M2ZiZmJkNWIwZi4uY2UyYmNkY2FkYjcz
-IDEwMDY0NA0KLS0tIGEvaW5jbHVkZS9saW51eC9wYWdlbWFwLmgNCisrKyBiL2luY2x1ZGUvbGlu
-dXgvcGFnZW1hcC5oDQpAQCAtNzUwLDYgKzc1MCwzMyBAQCBzdHJ1Y3QgZm9saW8gKl9fZmlsZW1h
-cF9nZXRfZm9saW8oc3RydWN0IGFkZHJlc3Nfc3BhY2UgKm1hcHBpbmcsIHBnb2ZmX3QgaW5kZXgs
-DQogc3RydWN0IHBhZ2UgKnBhZ2VjYWNoZV9nZXRfcGFnZShzdHJ1Y3QgYWRkcmVzc19zcGFjZSAq
-bWFwcGluZywgcGdvZmZfdCBpbmRleCwNCiAJCWZnZl90IGZncF9mbGFncywgZ2ZwX3QgZ2ZwKTsN
-CiANCisvKioNCisgKiB3cml0ZV9iZWdpbl9nZXRfZm9saW8gLSBHZXQgZm9saW8gZm9yIHdyaXRl
-X2JlZ2luIHdpdGggZmxhZ3MuDQorICogQGlvY2I6IFRoZSBraW9jYiBwYXNzZWQgZnJvbSB3cml0
-ZV9iZWdpbiAobWF5IGJlIE5VTEwpLg0KKyAqIEBtYXBwaW5nOiBUaGUgYWRkcmVzcyBzcGFjZSB0
-byBzZWFyY2guDQorICogQGluZGV4OiBUaGUgcGFnZSBjYWNoZSBpbmRleC4NCisgKiBAbGVuOiBM
-ZW5ndGggb2YgZGF0YSBiZWluZyB3cml0dGVuLg0KKyAqDQorICogVGhpcyBpcyBhIGhlbHBlciBm
-b3IgZmlsZXN5c3RlbSB3cml0ZV9iZWdpbigpIGltcGxlbWVudGF0aW9ucy4NCisgKiBJdCB3cmFw
-cyBfX2ZpbGVtYXBfZ2V0X2ZvbGlvKCksIHNldHRpbmcgYXBwcm9wcmlhdGUgZmxhZ3MgaW4NCisg
-KiB0aGUgd3JpdGUgYmVnaW4gY29udGV4dC4NCisgKg0KKyAqIFJldHVybjogQSBmb2xpbyBvciBh
-biBFUlJfUFRSLg0KKyAqLw0KK3N0YXRpYyBpbmxpbmUgc3RydWN0IGZvbGlvICp3cml0ZV9iZWdp
-bl9nZXRfZm9saW8oY29uc3Qgc3RydWN0IGtpb2NiICppb2NiLA0KKwkJICBzdHJ1Y3QgYWRkcmVz
-c19zcGFjZSAqbWFwcGluZywgcGdvZmZfdCBpbmRleCwgc2l6ZV90IGxlbikNCit7DQorICAgICAg
-ICBmZ2ZfdCBmZ3BfZmxhZ3MgPSBGR1BfV1JJVEVCRUdJTjsNCisNCisgICAgICAgIGZncF9mbGFn
-cyB8PSBmZ2Zfc2V0X29yZGVyKGxlbik7DQorDQorICAgICAgICBpZiAoaW9jYiAmJiBpb2NiLT5r
-aV9mbGFncyAmIElPQ0JfRE9OVENBQ0hFKQ0KKyAgICAgICAgICAgICAgICBmZ3BfZmxhZ3MgfD0g
-RkdQX0RPTlRDQUNIRTsNCisNCisgICAgICAgIHJldHVybiBfX2ZpbGVtYXBfZ2V0X2ZvbGlvKG1h
-cHBpbmcsIGluZGV4LCBmZ3BfZmxhZ3MsDQorICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICBtYXBwaW5nX2dmcF9tYXNrKG1hcHBpbmcpKTsNCit9DQorDQogLyoqDQogICogZmlsZW1h
-cF9nZXRfZm9saW8gLSBGaW5kIGFuZCBnZXQgYSBmb2xpby4NCiAgKiBAbWFwcGluZzogVGhlIGFk
-ZHJlc3Nfc3BhY2UgdG8gc2VhcmNoLg0KLS0gDQoyLjM0LjENCg==
+Hi all,
+
+Am 08.07.25 um 23:05 schrieb Rodrigo Vivi:
+> On Fri, Jul 04, 2025 at 09:03:45PM +0200, Werner Sembach wrote:
+>> RFC because I'm not sure if this is the right approach.
+> Could you please file a gitlab issue for us so we can get someone from our
+> display team to take a look and see if there's anything else that could be done
+> before we take the quirk route?
+>
+> https://drm.pages.freedesktop.org/intel-docs/how-to-file-i915-bugs.html
+
+Tim can you follow up with this? Reducing the communication chain to avoid 
+dropping information.
+
+Best regards,
+
+Werner Sembach
+
+>
+> Thanks for the investigation and the quirk,
+> Rodrigo.
+>
+>> The flicker manifests ever few seconds 1-3 black frames in quick
+>> succession.
+>>
+>> On windows 300Hz can not be selected for the iGPU, but the panel advertises
+>> it.
+>>
+>> A cleaner solution would probably to go over the pixel clock, but for this
+>> device there is only one 300Hz mode in the panels edid and that is at the
+>> nativ resolution. Chroma subsampling was not tested as linux afaik offers
+>> no way to easily enforce it for intel gpus.
+>>
+>> Tim Guttzeit (1):
+>>    drm/i915/display: Avoid unsupported output mode with 300Hz on TUXEDO
+>>      device
+>>
+>>   drivers/gpu/drm/i915/display/intel_dp.c     |  5 ++++
+>>   drivers/gpu/drm/i915/display/intel_quirks.c | 30 +++++++++++++++++++++
+>>   drivers/gpu/drm/i915/display/intel_quirks.h |  1 +
+>>   3 files changed, 36 insertions(+)
+>>
+>> -- 
+>> 2.43.0
+>>
