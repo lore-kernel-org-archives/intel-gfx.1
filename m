@@ -4,59 +4,82 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 76729C83F1A
-	for <intel-gfx@archiver.kernel.org>; Fri, 11 Jul 2025 09:41:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AA1BEC83F1A
+	for <intel-gfx@archiver.kernel.org>; Fri, 11 Jul 2025 10:08:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1A02110EA17;
-	Fri, 11 Jul 2025 09:41:23 +0000 (UTC)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2B03A10EA07
- for <intel-gfx@lists.freedesktop.org>; Fri, 11 Jul 2025 09:41:22 +0000 (UTC)
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
- [IPv6:2a07:de40:b281:104:10:150:64:97])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id AD5651F7F0;
- Fri, 11 Jul 2025 09:41:00 +0000 (UTC)
-Authentication-Results: smtp-out2.suse.de;
-	none
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 2CDF413918;
- Fri, 11 Jul 2025 09:41:00 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id QAHJCSzccGjbcAAAD6G6ig
- (envelope-from <tzimmermann@suse.de>); Fri, 11 Jul 2025 09:41:00 +0000
-From: Thomas Zimmermann <tzimmermann@suse.de>
-To: simona@ffwll.ch, airlied@gmail.com, christian.koenig@amd.com,
+	by gabe.freedesktop.org (Postfix) with ESMTP id 18F8D10EA0F;
+	Fri, 11 Jul 2025 10:08:30 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (1024-bit key; secure) header.d=ffwll.ch header.i=@ffwll.ch header.b="VRpov6S0";
+	dkim-atps=neutral
+Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com
+ [209.85.128.46])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5AF6510EA19
+ for <intel-gfx@lists.freedesktop.org>; Fri, 11 Jul 2025 10:08:29 +0000 (UTC)
+Received: by mail-wm1-f46.google.com with SMTP id
+ 5b1f17b1804b1-454cc6e987dso7457505e9.0
+ for <intel-gfx@lists.freedesktop.org>; Fri, 11 Jul 2025 03:08:29 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=ffwll.ch; s=google; t=1752228508; x=1752833308; darn=lists.freedesktop.org; 
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=tgqCaEUcHReYwP1+eVs6TgGyIVC7fVlC12ysVvFBg1c=;
+ b=VRpov6S0moOxncl3ORnKAk1SDGBhs0pbd9O5u0iR2dur8k4Jar/21/BpbNzrMC3KKU
+ 9YU64j8pqK7Jr5jDy++3PGTa/zQUDn2fwQrQKZrTI44++IGjwzw+ftMXil+2ckxVqyPF
+ 1hj9Vq38Fx1z8iJ+HsA0WZ73BzzLLFDZlZKl8=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1752228508; x=1752833308;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=tgqCaEUcHReYwP1+eVs6TgGyIVC7fVlC12ysVvFBg1c=;
+ b=CdkCA0YJfB23nkOKT05rcnlpxnuLPLfnJIepH6hxGimgKszZJvmUuKjfoYLXBEfgEi
+ sYavrXfOxAc741prmtW4X2sCzcoRWkA84xCvmJ54vRdxKdeIykCZsLvJvZVMFjTUALM2
+ H9tcQlfXKfiOmJQHmClmDC9KwGozFsqC5gnyjwMcafqsmCvr95Gfu+fjilpvIFNUrtM2
+ 3XFIZsmwFzFdwGzIJ3WzA68/xb2O6POYi82aIIVWK2R0gaee4Wr9I5CBvx+154u/0q/y
+ nLbSgRhFRLOeqea/9Jc2+cxef+kqra4ZJIo0zoCrPrd9fed10V71le7kIo1A8AapBFjZ
+ BPgA==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCXlmrCPW/W6DenTvAFBbWVZI6fNxB4u3VO6CP2ZlcHmguu9Vq7B+jqGZmOjBLOdHvUZVVtj2MUlwKQ=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yw0xTpabvSvPOM057xSc5yTEyuopcyZ2gPpHrGQolKTaOIrUF5d
+ M41YIUxF2Ei+NQ3VqReBI1QMFsOuk8oKfSYASNQqi/Q0oc7LP0vtZsvoNFYScLrx00w=
+X-Gm-Gg: ASbGnctLpmK4gsUmNlH8qzTbr2zRDX/pIK3Nfb26y9xA7moS789zZRmlsFmqsg4OXK+
+ Naxr3qY309jkaSMgBPysVYQWdgR2YTnmy3WMRyXKwAZlGOeDfRuMrI6luT5hEsVHpo6VjP3A6Jn
+ 33jnfSRmn4rY2SN25UXuS6t7letyiIozt7eeORbhdOKn3QOK+W08HfKN3JQziMaifKQ15fa5ZFU
+ rR6acZ/CttFJBOlDkSThDuCQUxwNcCB9f88Z6yms1l+y48+DjIezBT0odagQF2uAz+fKTvGy064
+ n6QsBtMK7FpXc4lrvG2AloUjVFmaoYMscSGf/OtaK7v5lVGDs5gWOcwdn5kY8VU2cOP4HFQfA22
+ nsonYriiJg1H0IEY5yB/WSUz+sZjulAJP0g==
+X-Google-Smtp-Source: AGHT+IFhCZJ47IcyOYT/ucI3ECEF+Ab1sZvRV6pgr8844GO4AhYos7iyzZjZjDJLFfEkY94fWChkcA==
+X-Received: by 2002:a05:600c:a31b:b0:455:efd7:17dc with SMTP id
+ 5b1f17b1804b1-455efd7194cmr5606095e9.11.1752228507556; 
+ Fri, 11 Jul 2025 03:08:27 -0700 (PDT)
+Received: from phenom.ffwll.local ([2a02:168:57f4:0:5485:d4b2:c087:b497])
+ by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-3b5f32ed100sm1238699f8f.0.2025.07.11.03.08.26
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 11 Jul 2025 03:08:27 -0700 (PDT)
+Date: Fri, 11 Jul 2025 12:08:25 +0200
+From: Simona Vetter <simona.vetter@ffwll.ch>
+To: Thomas Zimmermann <tzimmermann@suse.de>
+Cc: simona@ffwll.ch, airlied@gmail.com, christian.koenig@amd.com,
  torvalds@linux-foundation.org, maarten.lankhorst@linux.intel.com,
- mripard@kernel.org, l.stach@pengutronix.de, linux+etnaviv@armlinux.org.uk,
- kraxel@redhat.com, christian.gmeiner@gmail.com,
- dmitry.osipenko@collabora.com, gurchetansingh@chromium.org,
- olvaffe@gmail.com, zack.rusin@broadcom.com
-Cc: bcm-kernel-feedback-list@broadcom.com, dri-devel@lists.freedesktop.org,
- etnaviv@lists.freedesktop.org, virtualization@lists.linux.dev,
- intel-gfx@lists.freedesktop.org, Thomas Zimmermann <tzimmermann@suse.de>
-Subject: [PATCH 9/9] Revert "drm/gem-dma: Use dma_buf from GEM object instance"
-Date: Fri, 11 Jul 2025 11:35:24 +0200
-Message-ID: <20250711093744.120962-10-tzimmermann@suse.de>
-X-Mailer: git-send-email 2.50.0
-In-Reply-To: <20250711093744.120962-1-tzimmermann@suse.de>
+ mripard@kernel.org, l.stach@pengutronix.de,
+ linux+etnaviv@armlinux.org.uk, kraxel@redhat.com,
+ christian.gmeiner@gmail.com, dmitry.osipenko@collabora.com,
+ gurchetansingh@chromium.org, olvaffe@gmail.com,
+ zack.rusin@broadcom.com, bcm-kernel-feedback-list@broadcom.com,
+ dri-devel@lists.freedesktop.org, etnaviv@lists.freedesktop.org,
+ virtualization@lists.linux.dev, intel-gfx@lists.freedesktop.org
+Subject: Re: [PATCH 2/9] Revert "drm/gem: Acquire references on GEM handles
+ for framebuffers"
+Message-ID: <aHDimRgOz3VPMw0I@phenom.ffwll.local>
 References: <20250711093744.120962-1-tzimmermann@suse.de>
+ <20250711093744.120962-3-tzimmermann@suse.de>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Rspamd-Pre-Result: action=no action; module=replies;
- Message is reply to one we originated
-X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
-X-Spamd-Result: default: False [-4.00 / 50.00]; REPLY(-4.00)[];
- TAGGED_RCPT(0.00)[etnaviv]
-X-Rspamd-Queue-Id: AD5651F7F0
-X-Rspamd-Pre-Result: action=no action; module=replies;
- Message is reply to one we originated
-X-Rspamd-Action: no action
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20250711093744.120962-3-tzimmermann@suse.de>
+X-Operating-System: Linux phenom 6.12.30-amd64 
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -72,28 +95,195 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-This reverts commit e8afa1557f4f963c9a511bd2c6074a941c308685.
+On Fri, Jul 11, 2025 at 11:35:17AM +0200, Thomas Zimmermann wrote:
+> This reverts commit 5307dce878d4126e1b375587318955bd019c3741.
+> 
+> We're going to revert the dma-buf handle back to separating dma_buf
+> and import_attach->dmabuf in struct drm_gem_object. Hence revert this
+> fix for it.
 
-Reverting because the fix-up commits are suspected to cause regressions.
+I think we should add my reasons from the private thread here why I think
+this is conceptually wrong:
 
-Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
----
- drivers/gpu/drm/drm_gem_dma_helper.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+handle_count is an uapi reference, and should have nothing to do with the
+lifetime and consistency of the underlying gem_bo. And for imported bo the
+link to the dma-buf really should be invariant, and hence
+drm_gem_object_get/put() enough. The fact that this patch seems to have
+helped at least in some cases indicates that our assumption that we can
+replace gem_bo->import_attach.dmabuf with gem_bo->dma_buf was wrong,
+because pretty obviously the latter can become NULL while the gem_bo is
+still alive. Which means this was conceptually wrong and at best helped
+hide a race condition somewhere.
 
-diff --git a/drivers/gpu/drm/drm_gem_dma_helper.c b/drivers/gpu/drm/drm_gem_dma_helper.c
-index b7f033d4352a..4f0320df858f 100644
---- a/drivers/gpu/drm/drm_gem_dma_helper.c
-+++ b/drivers/gpu/drm/drm_gem_dma_helper.c
-@@ -230,7 +230,7 @@ void drm_gem_dma_free(struct drm_gem_dma_object *dma_obj)
- 
- 	if (drm_gem_is_imported(gem_obj)) {
- 		if (dma_obj->vaddr)
--			dma_buf_vunmap_unlocked(gem_obj->dma_buf, &map);
-+			dma_buf_vunmap_unlocked(gem_obj->import_attach->dmabuf, &map);
- 		drm_prime_gem_destroy(gem_obj, dma_obj->sgt);
- 	} else if (dma_obj->vaddr) {
- 		if (dma_obj->map_noncoherent)
+This means that unlike the claim in the reverted commit that 1a148af06000
+("drm/gem-shmem: Use dma_buf from GEM object instance") started triggering
+an existing condition the much more likely explanation is that it
+introduced the regression itself. And hence we need to revert this entire
+chain of commits.
+
+I'll also add all the Fixes: lines as needed when merging these to
+drm-fixes, since some of the patches reverted in this series have landed
+in 6.15 already.
+
+I plan to merge them all to drm-fixes once intel-gfx-ci has approved it
+all.
+
+Thanks, Sima
+
+> Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
+> ---
+>  drivers/gpu/drm/drm_gem.c                    | 44 ++------------------
+>  drivers/gpu/drm/drm_gem_framebuffer_helper.c | 16 ++++---
+>  drivers/gpu/drm/drm_internal.h               |  2 -
+>  3 files changed, 11 insertions(+), 51 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/drm_gem.c b/drivers/gpu/drm/drm_gem.c
+> index 3a99e4a5d303..db44c40e307f 100644
+> --- a/drivers/gpu/drm/drm_gem.c
+> +++ b/drivers/gpu/drm/drm_gem.c
+> @@ -213,35 +213,6 @@ void drm_gem_private_object_fini(struct drm_gem_object *obj)
+>  }
+>  EXPORT_SYMBOL(drm_gem_private_object_fini);
+>  
+> -static void drm_gem_object_handle_get(struct drm_gem_object *obj)
+> -{
+> -	struct drm_device *dev = obj->dev;
+> -
+> -	drm_WARN_ON(dev, !mutex_is_locked(&dev->object_name_lock));
+> -
+> -	if (obj->handle_count++ == 0)
+> -		drm_gem_object_get(obj);
+> -}
+> -
+> -/**
+> - * drm_gem_object_handle_get_unlocked - acquire reference on user-space handles
+> - * @obj: GEM object
+> - *
+> - * Acquires a reference on the GEM buffer object's handle. Required
+> - * to keep the GEM object alive. Call drm_gem_object_handle_put_unlocked()
+> - * to release the reference.
+> - */
+> -void drm_gem_object_handle_get_unlocked(struct drm_gem_object *obj)
+> -{
+> -	struct drm_device *dev = obj->dev;
+> -
+> -	guard(mutex)(&dev->object_name_lock);
+> -
+> -	drm_WARN_ON(dev, !obj->handle_count); /* first ref taken in create-tail helper */
+> -	drm_gem_object_handle_get(obj);
+> -}
+> -EXPORT_SYMBOL(drm_gem_object_handle_get_unlocked);
+> -
+>  /**
+>   * drm_gem_object_handle_free - release resources bound to userspace handles
+>   * @obj: GEM object to clean up.
+> @@ -272,14 +243,8 @@ static void drm_gem_object_exported_dma_buf_free(struct drm_gem_object *obj)
+>  	}
+>  }
+>  
+> -/**
+> - * drm_gem_object_handle_put_unlocked - releases reference on user-space handles
+> - * @obj: GEM object
+> - *
+> - * Releases a reference on the GEM buffer object's handle. Possibly releases
+> - * the GEM buffer object and associated dma-buf objects.
+> - */
+> -void drm_gem_object_handle_put_unlocked(struct drm_gem_object *obj)
+> +static void
+> +drm_gem_object_handle_put_unlocked(struct drm_gem_object *obj)
+>  {
+>  	struct drm_device *dev = obj->dev;
+>  	bool final = false;
+> @@ -304,7 +269,6 @@ void drm_gem_object_handle_put_unlocked(struct drm_gem_object *obj)
+>  	if (final)
+>  		drm_gem_object_put(obj);
+>  }
+> -EXPORT_SYMBOL(drm_gem_object_handle_put_unlocked);
+>  
+>  /*
+>   * Called at device or object close to release the file's
+> @@ -429,8 +393,8 @@ drm_gem_handle_create_tail(struct drm_file *file_priv,
+>  	int ret;
+>  
+>  	WARN_ON(!mutex_is_locked(&dev->object_name_lock));
+> -
+> -	drm_gem_object_handle_get(obj);
+> +	if (obj->handle_count++ == 0)
+> +		drm_gem_object_get(obj);
+>  
+>  	/*
+>  	 * Get the user-visible handle using idr.  Preload and perform
+> diff --git a/drivers/gpu/drm/drm_gem_framebuffer_helper.c b/drivers/gpu/drm/drm_gem_framebuffer_helper.c
+> index c60d0044d036..618ce725cd75 100644
+> --- a/drivers/gpu/drm/drm_gem_framebuffer_helper.c
+> +++ b/drivers/gpu/drm/drm_gem_framebuffer_helper.c
+> @@ -100,7 +100,7 @@ void drm_gem_fb_destroy(struct drm_framebuffer *fb)
+>  	unsigned int i;
+>  
+>  	for (i = 0; i < fb->format->num_planes; i++)
+> -		drm_gem_object_handle_put_unlocked(fb->obj[i]);
+> +		drm_gem_object_put(fb->obj[i]);
+>  
+>  	drm_framebuffer_cleanup(fb);
+>  	kfree(fb);
+> @@ -183,10 +183,8 @@ int drm_gem_fb_init_with_funcs(struct drm_device *dev,
+>  		if (!objs[i]) {
+>  			drm_dbg_kms(dev, "Failed to lookup GEM object\n");
+>  			ret = -ENOENT;
+> -			goto err_gem_object_handle_put_unlocked;
+> +			goto err_gem_object_put;
+>  		}
+> -		drm_gem_object_handle_get_unlocked(objs[i]);
+> -		drm_gem_object_put(objs[i]);
+>  
+>  		min_size = (height - 1) * mode_cmd->pitches[i]
+>  			 + drm_format_info_min_pitch(info, i, width)
+> @@ -196,22 +194,22 @@ int drm_gem_fb_init_with_funcs(struct drm_device *dev,
+>  			drm_dbg_kms(dev,
+>  				    "GEM object size (%zu) smaller than minimum size (%u) for plane %d\n",
+>  				    objs[i]->size, min_size, i);
+> -			drm_gem_object_handle_put_unlocked(objs[i]);
+> +			drm_gem_object_put(objs[i]);
+>  			ret = -EINVAL;
+> -			goto err_gem_object_handle_put_unlocked;
+> +			goto err_gem_object_put;
+>  		}
+>  	}
+>  
+>  	ret = drm_gem_fb_init(dev, fb, mode_cmd, objs, i, funcs);
+>  	if (ret)
+> -		goto err_gem_object_handle_put_unlocked;
+> +		goto err_gem_object_put;
+>  
+>  	return 0;
+>  
+> -err_gem_object_handle_put_unlocked:
+> +err_gem_object_put:
+>  	while (i > 0) {
+>  		--i;
+> -		drm_gem_object_handle_put_unlocked(objs[i]);
+> +		drm_gem_object_put(objs[i]);
+>  	}
+>  	return ret;
+>  }
+> diff --git a/drivers/gpu/drm/drm_internal.h b/drivers/gpu/drm/drm_internal.h
+> index f921cc73f8b8..9078504e789c 100644
+> --- a/drivers/gpu/drm/drm_internal.h
+> +++ b/drivers/gpu/drm/drm_internal.h
+> @@ -161,8 +161,6 @@ void drm_sysfs_lease_event(struct drm_device *dev);
+>  
+>  /* drm_gem.c */
+>  int drm_gem_init(struct drm_device *dev);
+> -void drm_gem_object_handle_get_unlocked(struct drm_gem_object *obj);
+> -void drm_gem_object_handle_put_unlocked(struct drm_gem_object *obj);
+>  int drm_gem_handle_create_tail(struct drm_file *file_priv,
+>  			       struct drm_gem_object *obj,
+>  			       u32 *handlep);
+> -- 
+> 2.50.0
+> 
+
 -- 
-2.50.0
-
+Simona Vetter
+Software Engineer, Intel Corporation
+http://blog.ffwll.ch
