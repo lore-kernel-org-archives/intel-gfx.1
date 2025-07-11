@@ -4,61 +4,61 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 12560C83F1A
-	for <intel-gfx@archiver.kernel.org>; Fri, 11 Jul 2025 09:27:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 98C15C8303C
+	for <intel-gfx@archiver.kernel.org>; Fri, 11 Jul 2025 09:35:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8654C10E13D;
-	Fri, 11 Jul 2025 09:27:53 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2B81F10E9EF;
+	Fri, 11 Jul 2025 09:35:35 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; secure) header.d=ffwll.ch header.i=@ffwll.ch header.b="XMWwUyse";
+	dkim=pass (1024-bit key; secure) header.d=ffwll.ch header.i=@ffwll.ch header.b="f2mEa21S";
 	dkim-atps=neutral
-Received: from mail-wr1-f43.google.com (mail-wr1-f43.google.com
- [209.85.221.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 61DC210E13D
- for <intel-gfx@lists.freedesktop.org>; Fri, 11 Jul 2025 09:27:52 +0000 (UTC)
-Received: by mail-wr1-f43.google.com with SMTP id
- ffacd0b85a97d-3a528243636so1161304f8f.3
- for <intel-gfx@lists.freedesktop.org>; Fri, 11 Jul 2025 02:27:52 -0700 (PDT)
+Received: from mail-wr1-f46.google.com (mail-wr1-f46.google.com
+ [209.85.221.46])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 001EF10E9F1
+ for <intel-gfx@lists.freedesktop.org>; Fri, 11 Jul 2025 09:35:33 +0000 (UTC)
+Received: by mail-wr1-f46.google.com with SMTP id
+ ffacd0b85a97d-3a4fb9c2436so1264989f8f.1
+ for <intel-gfx@lists.freedesktop.org>; Fri, 11 Jul 2025 02:35:33 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=ffwll.ch; s=google; t=1752226071; x=1752830871; darn=lists.freedesktop.org; 
+ d=ffwll.ch; s=google; t=1752226532; x=1752831332; darn=lists.freedesktop.org; 
  h=in-reply-to:content-disposition:mime-version:references:message-id
  :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=69R7fK047N7Folo8KI4FUcJCF/Yw3fDsI2bPC+kFnCc=;
- b=XMWwUysei6MrLab87YpWP3019m55OKxmqdW/DCIXeJArWmgJLUhjlaHKy5U7BIXQU+
- cHARFFGSoG5zdBNDBvFoF1QMP8aBdzXaUMp1RYRAv9yfZTnPtjE0RfDfU4KltybA5ZKU
- wAV+cE+q935Zf/hvZYHVL5Gtonz7wQzbQMF/s=
+ bh=6PLErhzIHgqUceJ8uGn53LmGP1iH03CQT0Hs7uBS3qA=;
+ b=f2mEa21SSGPHWKBzmXSdvPi3C30XyllcBQXCJz58La3XwsWQ+AzgmIHmORuN/9C77q
+ zkJ0R8zNi3djfLOH9Da2eFY1oU8QsijpoEFvezHkP6rsoKRkKiKCuqVtpWQEoE1ji+C/
+ vQhdpd2O/bjpMg+2aCZIiC2xn4+4zYEXznBlM=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1752226071; x=1752830871;
+ d=1e100.net; s=20230601; t=1752226532; x=1752831332;
  h=in-reply-to:content-disposition:mime-version:references:message-id
  :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to;
- bh=69R7fK047N7Folo8KI4FUcJCF/Yw3fDsI2bPC+kFnCc=;
- b=hXUhUKsRdrO4Az+Z/tHWay4jsbS3l9ykkogaP0CG4zZI6C6CKDC4hMgcTv7AVdZ8XO
- kpk0usDgJrjwDbwwOLl4L1BZYDUkDi8edfwEH138wuwWMBgsuakywSHUnkTzNpgoqWLU
- 8Zrr9QT1HKeiFxff42/oU61fKv8oV/RW5bNW2ADMH+RlMZInUy+n3DA/wi5NKyBfAMh9
- zam14egQnSpzLLzWzunPFuPPA8xjteHpIIXOo1PFLhlXGRJQ8jA/nYCTlyhhK4V84jJO
- ybigfBeMMd1hAg3Ik0qGxqPi8Rsyzzp/GFUZBukBiDB8N4bZUeYBR7y20ZStqNvPNC6h
- /3Mg==
+ bh=6PLErhzIHgqUceJ8uGn53LmGP1iH03CQT0Hs7uBS3qA=;
+ b=Fd7IuUZ69qEnQIWppT07FdFtKIO424TVOlVgN35LJdutIU1FZhB5i3aLr7KZsUss2U
+ gKaEIlzsKRlIwkMUL4Ehm9RHiuq3Jk7V8spKW1EvcXM9wHZsO27Ndzr09jnMeSFU05OK
+ 61bqWQWQCAxLYCYyUKbL/d+wf9gKuMmWvYfLhtHBXbAz3iChkhda+ULNPLvO84h5OAx9
+ TYDTUKOCYB8QG+6LKF9+dQzMafT6wy8JSJeR7hEeE1cVY1kzPXg40YTm3I9yHWvv2ijB
+ niL9XZ9tu3TsRlmZp95GBmKxRCziyc+5E8nHhzz8YE7ooxetww3JkiVftZk048vkoc9i
+ a1Yw==
 X-Forwarded-Encrypted: i=1;
- AJvYcCWsqHogdnb3VM4/NyhxBJF77WlieN2rLDr5MRkzRgb/gbWMhI/bE34XQqkT/Ua3UIeLQciigiczhQU=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxPGJwWHSnVqaB/dGKKRtuPaU2GwWMXWsRYKdHRf9E7gHSFKG5D
- i1mKNvrLgLuYuH7RP5CKn+s5AN6bRnenYtrjSJoyHY7V7UPF3giRmAqeDSWt6oj6dIs=
-X-Gm-Gg: ASbGnctzMJDcXQNiWwSGyCo/KECj+r4jOueKkb54pBs+CjFFme/FAyRMCKCPGz2+pXt
- ZdunGSZ4w4h4N1iNtI0p6O2zwgMXfDXAacTB+h+LKkJxGSyaE6AKeRFZ1lWU8E7igLZfCOhDfx2
- 56992HnJYl+QD3GY+dVSSNN2FwpytSZrZztyKnFBHH1tC0QnO/DFFStjonTS5gktVAvUxJ73KD9
- szFutGIKZnvJAMQ9TaC06V8Ei01fHJQnbtrE34hQMaR6kGWYzZwSoyDyqAQXNFWgTNok2PAR4XL
- XpO40Q8hRzG0B/umn1KbPkcnzT2UGutB1wn+Rqd6lJrVJlqRuSloOg+e9N+9qTFks9fAEwgDPqq
- FvOGafxP3/6zLftX/7m6YO05/jWigsrtsbQ==
-X-Google-Smtp-Source: AGHT+IFriAEMZH8Zv/Is7lzL7RiYRWbTomXRefGYi40KVJkjj1sFrZgi4AbLTX5v8af+ec6IcGKBaA==
-X-Received: by 2002:adf:ce82:0:b0:3a6:d95c:5e8 with SMTP id
- ffacd0b85a97d-3b5f18ceb32mr2270196f8f.35.1752226070793; 
- Fri, 11 Jul 2025 02:27:50 -0700 (PDT)
+ AJvYcCXB9N0crvzvMfN86x4q8EzRMtxWvjFYjS1OBDjvYuc4QQPFbya3wPY4G5iV/VaPeK7IVKKSgDER2Hw=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxvznH5XaGqhvWdOmwLoOckK1j7aCgt0e0FQFFNjfB8AvmPRt02
+ QXekbwpAGQZgc9Mw5n3uzHFUeMXCis/bD6mHQJB0O/AjE0CtrYwTZm7y72zz9zU5MxI=
+X-Gm-Gg: ASbGncurVioJK/XruN+kiawMCT9AOPJ41m5tYTh/ghRWjVHGOBogWJIkhx6kRgwOXFx
+ RM4YueOVp7igJ8z4R745yDVdR/s6IIEe2OTxRBYqjJ6zviWRlgaZ5dOVQefEkJv/SR9BJ+6Tg5j
+ tNUp2PfCDsBcAeUoI07yzWAbTYfO/azSp154CxA4uNePUlJ8R4e/z2vaGOtUAuXRDIM4945Bn1l
+ 8ZqzZ+B2/AcxpdGTnoq/k7H0z1f61CbZ1qMMdQn2GgofG9LTikJL9MObxsIxAPPs1u2KUXSW1Q6
+ XHJ67kaLGpXD5vIk0OHzpiVouWcPoUtt6XEF4OWif+nTeBGoGVqKAhgxvm9PyuBvu+sRfrAAs58
+ UkqkFg7SxE4Jock9fKORgnajxuuVOMUhLpw==
+X-Google-Smtp-Source: AGHT+IEEFFDoIZs2u4Er2i46k4rasQ+FDPQ5hGoZxxNHWviqtk0UW2VaXCZ2Y1m3dLN3tIkdk1NcpQ==
+X-Received: by 2002:a05:6000:d46:b0:3a4:f90c:31e3 with SMTP id
+ ffacd0b85a97d-3b5f18ceb8emr1948425f8f.31.1752226532338; 
+ Fri, 11 Jul 2025 02:35:32 -0700 (PDT)
 Received: from phenom.ffwll.local ([2a02:168:57f4:0:5485:d4b2:c087:b497])
  by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-3b5e8dc1de0sm3931464f8f.24.2025.07.11.02.27.49
+ 5b1f17b1804b1-454d511bd6dsm82049245e9.38.2025.07.11.02.35.31
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 11 Jul 2025 02:27:50 -0700 (PDT)
-Date: Fri, 11 Jul 2025 11:27:48 +0200
+ Fri, 11 Jul 2025 02:35:31 -0700 (PDT)
+Date: Fri, 11 Jul 2025 11:35:29 +0200
 From: Simona Vetter <simona.vetter@ffwll.ch>
 To: Rodrigo Vivi <rodrigo.vivi@intel.com>
 Cc: Dave Airlie <airlied@gmail.com>, Simona Vetter <simona.vetter@ffwll.ch>,
@@ -73,13 +73,13 @@ Cc: Dave Airlie <airlied@gmail.com>, Simona Vetter <simona.vetter@ffwll.ch>,
  Lucas De Marchi <lucas.demarchi@intel.com>,
  dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
  intel-xe@lists.freedesktop.org, dim-tools@lists.freedesktop.org
-Subject: Re: [PULL] drm-intel-next
-Message-ID: <aHDZFFIHA3GnbD-f@phenom.ffwll.local>
-References: <aHA-qrFQ00TaNsGr@intel.com>
+Subject: Re: [PULL] drm-intel-fixes
+Message-ID: <aHDa4ctAtd9pPvP2@phenom.ffwll.local>
+References: <aHA_eR0G7X2P6_ib@intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <aHA-qrFQ00TaNsGr@intel.com>
+In-Reply-To: <aHA_eR0G7X2P6_ib@intel.com>
 X-Operating-System: Linux phenom 6.12.30-amd64 
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -96,37 +96,37 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Thu, Jul 10, 2025 at 06:28:58PM -0400, Rodrigo Vivi wrote:
+On Thu, Jul 10, 2025 at 06:32:25PM -0400, Rodrigo Vivi wrote:
 > Hi Dave and Sima,
 > 
-> Here goes the last drm-intel-next towards 6.17. I'm covering for Jani here,
-> but in the end we got just one patch that is a fix, but let's push that soon
-> anyway and minimize the -next-fixes round.
+> Here goes the drm-intel-fixes of this week as I'm covering for Joonas here.
+> 
+> Also, only the single DSI fix from Hans.
 > 
 > Thanks,
 > Rodrigo.
 > 
-> drm-intel-next-2025-07-10:
-> Driver Changes:
+> drm-intel-fixes-2025-07-10:
+> Short summary of fixes:
 > - DSI panel's version 2 mipi-sequences fix (Hans)
-> The following changes since commit d6a59ee852758bc69c4cc821954db277a2bd5b93:
+> The following changes since commit d7b8f8e20813f0179d8ef519541a3527e7661d3a:
 > 
->   drm/ttm: Remove unneeded blank line in comment (2025-07-02 13:31:20 -0700)
+>   Linux 6.16-rc5 (2025-07-06 14:10:26 -0700)
 > 
 > are available in the Git repository at:
 > 
->   https://gitlab.freedesktop.org/drm/i915/kernel.git tags/drm-intel-next-2025-07-10
+>   https://gitlab.freedesktop.org/drm/i915/kernel.git tags/drm-intel-fixes-2025-07-10
 
-Pulled into drm-next, thanks!
+Pulled into drm-fixes, thanks!
 -Sima
 
 > 
-> for you to fetch changes up to 11895f375939d60efe7ed5dddc1cffe2e79f976c:
+> for you to fetch changes up to e778689390c71462a099b5d6e56d71c316486184:
 > 
->   drm/i915/bios: Apply vlv_fixup_mipi_sequences() to v2 mipi-sequences too (2025-07-10 11:30:32 -0400)
+>   drm/i915/bios: Apply vlv_fixup_mipi_sequences() to v2 mipi-sequences too (2025-07-10 11:35:20 -0400)
 > 
 > ----------------------------------------------------------------
-> Driver Changes:
+> Short summary of fixes:
 > - DSI panel's version 2 mipi-sequences fix (Hans)
 > 
 > ----------------------------------------------------------------
