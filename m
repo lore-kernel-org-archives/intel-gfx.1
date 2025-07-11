@@ -4,83 +4,96 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 98C15C8303C
-	for <intel-gfx@archiver.kernel.org>; Fri, 11 Jul 2025 09:35:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6B06EC8303C
+	for <intel-gfx@archiver.kernel.org>; Fri, 11 Jul 2025 09:40:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2B81F10E9EF;
-	Fri, 11 Jul 2025 09:35:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 02A4A10E9F6;
+	Fri, 11 Jul 2025 09:40:58 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; secure) header.d=ffwll.ch header.i=@ffwll.ch header.b="f2mEa21S";
+	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="ZE6jb4va";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="axuzd4QO";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="ZE6jb4va";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="axuzd4QO";
 	dkim-atps=neutral
-Received: from mail-wr1-f46.google.com (mail-wr1-f46.google.com
- [209.85.221.46])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 001EF10E9F1
- for <intel-gfx@lists.freedesktop.org>; Fri, 11 Jul 2025 09:35:33 +0000 (UTC)
-Received: by mail-wr1-f46.google.com with SMTP id
- ffacd0b85a97d-3a4fb9c2436so1264989f8f.1
- for <intel-gfx@lists.freedesktop.org>; Fri, 11 Jul 2025 02:35:33 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=ffwll.ch; s=google; t=1752226532; x=1752831332; darn=lists.freedesktop.org; 
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=6PLErhzIHgqUceJ8uGn53LmGP1iH03CQT0Hs7uBS3qA=;
- b=f2mEa21SSGPHWKBzmXSdvPi3C30XyllcBQXCJz58La3XwsWQ+AzgmIHmORuN/9C77q
- zkJ0R8zNi3djfLOH9Da2eFY1oU8QsijpoEFvezHkP6rsoKRkKiKCuqVtpWQEoE1ji+C/
- vQhdpd2O/bjpMg+2aCZIiC2xn4+4zYEXznBlM=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1752226532; x=1752831332;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=6PLErhzIHgqUceJ8uGn53LmGP1iH03CQT0Hs7uBS3qA=;
- b=Fd7IuUZ69qEnQIWppT07FdFtKIO424TVOlVgN35LJdutIU1FZhB5i3aLr7KZsUss2U
- gKaEIlzsKRlIwkMUL4Ehm9RHiuq3Jk7V8spKW1EvcXM9wHZsO27Ndzr09jnMeSFU05OK
- 61bqWQWQCAxLYCYyUKbL/d+wf9gKuMmWvYfLhtHBXbAz3iChkhda+ULNPLvO84h5OAx9
- TYDTUKOCYB8QG+6LKF9+dQzMafT6wy8JSJeR7hEeE1cVY1kzPXg40YTm3I9yHWvv2ijB
- niL9XZ9tu3TsRlmZp95GBmKxRCziyc+5E8nHhzz8YE7ooxetww3JkiVftZk048vkoc9i
- a1Yw==
-X-Forwarded-Encrypted: i=1;
- AJvYcCXB9N0crvzvMfN86x4q8EzRMtxWvjFYjS1OBDjvYuc4QQPFbya3wPY4G5iV/VaPeK7IVKKSgDER2Hw=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxvznH5XaGqhvWdOmwLoOckK1j7aCgt0e0FQFFNjfB8AvmPRt02
- QXekbwpAGQZgc9Mw5n3uzHFUeMXCis/bD6mHQJB0O/AjE0CtrYwTZm7y72zz9zU5MxI=
-X-Gm-Gg: ASbGncurVioJK/XruN+kiawMCT9AOPJ41m5tYTh/ghRWjVHGOBogWJIkhx6kRgwOXFx
- RM4YueOVp7igJ8z4R745yDVdR/s6IIEe2OTxRBYqjJ6zviWRlgaZ5dOVQefEkJv/SR9BJ+6Tg5j
- tNUp2PfCDsBcAeUoI07yzWAbTYfO/azSp154CxA4uNePUlJ8R4e/z2vaGOtUAuXRDIM4945Bn1l
- 8ZqzZ+B2/AcxpdGTnoq/k7H0z1f61CbZ1qMMdQn2GgofG9LTikJL9MObxsIxAPPs1u2KUXSW1Q6
- XHJ67kaLGpXD5vIk0OHzpiVouWcPoUtt6XEF4OWif+nTeBGoGVqKAhgxvm9PyuBvu+sRfrAAs58
- UkqkFg7SxE4Jock9fKORgnajxuuVOMUhLpw==
-X-Google-Smtp-Source: AGHT+IEEFFDoIZs2u4Er2i46k4rasQ+FDPQ5hGoZxxNHWviqtk0UW2VaXCZ2Y1m3dLN3tIkdk1NcpQ==
-X-Received: by 2002:a05:6000:d46:b0:3a4:f90c:31e3 with SMTP id
- ffacd0b85a97d-3b5f18ceb8emr1948425f8f.31.1752226532338; 
- Fri, 11 Jul 2025 02:35:32 -0700 (PDT)
-Received: from phenom.ffwll.local ([2a02:168:57f4:0:5485:d4b2:c087:b497])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-454d511bd6dsm82049245e9.38.2025.07.11.02.35.31
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 11 Jul 2025 02:35:31 -0700 (PDT)
-Date: Fri, 11 Jul 2025 11:35:29 +0200
-From: Simona Vetter <simona.vetter@ffwll.ch>
-To: Rodrigo Vivi <rodrigo.vivi@intel.com>
-Cc: Dave Airlie <airlied@gmail.com>, Simona Vetter <simona.vetter@ffwll.ch>,
- Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Tvrtko Ursulin <tursulin@ursulin.net>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas =?iso-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>,
- Oded Gabbay <ogabbay@kernel.org>,
- Lucas De Marchi <lucas.demarchi@intel.com>,
- dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
- intel-xe@lists.freedesktop.org, dim-tools@lists.freedesktop.org
-Subject: Re: [PULL] drm-intel-fixes
-Message-ID: <aHDa4ctAtd9pPvP2@phenom.ffwll.local>
-References: <aHA_eR0G7X2P6_ib@intel.com>
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0D94C10EA02
+ for <intel-gfx@lists.freedesktop.org>; Fri, 11 Jul 2025 09:40:57 +0000 (UTC)
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id C3780211FC;
+ Fri, 11 Jul 2025 09:40:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1752226855; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=h0883Wqf17skQgZn6h1IBaTGVuiIBe68IG/rFY4ui60=;
+ b=ZE6jb4vaaAoTBFUSSql9UqKtC5TQfBpsearRTD4oWnf7gfn4ZqznerF4Ap5U05lpMZW3U2
+ foBixpcX1pSB8PKnOC42G13/W6C3Z+6EoASPTEgqLtWF9iR61+izDz9YH+XtVYqEKF3ZQu
+ sd03QFqB+7X4l8wicyP59B1xspjyOuA=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1752226855;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=h0883Wqf17skQgZn6h1IBaTGVuiIBe68IG/rFY4ui60=;
+ b=axuzd4QORDBRylMnpV308EuCwqXEbTzukgNBc37ptELYs7D4rumTrBKPOI+H/tsCOVCD51
+ FPs41WdigfPj16Ag==
+Authentication-Results: smtp-out1.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1752226855; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=h0883Wqf17skQgZn6h1IBaTGVuiIBe68IG/rFY4ui60=;
+ b=ZE6jb4vaaAoTBFUSSql9UqKtC5TQfBpsearRTD4oWnf7gfn4ZqznerF4Ap5U05lpMZW3U2
+ foBixpcX1pSB8PKnOC42G13/W6C3Z+6EoASPTEgqLtWF9iR61+izDz9YH+XtVYqEKF3ZQu
+ sd03QFqB+7X4l8wicyP59B1xspjyOuA=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1752226855;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=h0883Wqf17skQgZn6h1IBaTGVuiIBe68IG/rFY4ui60=;
+ b=axuzd4QORDBRylMnpV308EuCwqXEbTzukgNBc37ptELYs7D4rumTrBKPOI+H/tsCOVCD51
+ FPs41WdigfPj16Ag==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 3FBE91388B;
+ Fri, 11 Jul 2025 09:40:55 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+ by imap1.dmz-prg2.suse.org with ESMTPSA id 9EUsDifccGjbcAAAD6G6ig
+ (envelope-from <tzimmermann@suse.de>); Fri, 11 Jul 2025 09:40:55 +0000
+From: Thomas Zimmermann <tzimmermann@suse.de>
+To: simona@ffwll.ch, airlied@gmail.com, christian.koenig@amd.com,
+ torvalds@linux-foundation.org, maarten.lankhorst@linux.intel.com,
+ mripard@kernel.org, l.stach@pengutronix.de, linux+etnaviv@armlinux.org.uk,
+ kraxel@redhat.com, christian.gmeiner@gmail.com,
+ dmitry.osipenko@collabora.com, gurchetansingh@chromium.org,
+ olvaffe@gmail.com, zack.rusin@broadcom.com
+Cc: bcm-kernel-feedback-list@broadcom.com, dri-devel@lists.freedesktop.org,
+ etnaviv@lists.freedesktop.org, virtualization@lists.linux.dev,
+ intel-gfx@lists.freedesktop.org, Thomas Zimmermann <tzimmermann@suse.de>
+Subject: [PATCH 0/9] drm: Revert general use of struct drm_gem_object.dma_buf
+Date: Fri, 11 Jul 2025 11:35:15 +0200
+Message-ID: <20250711093744.120962-1-tzimmermann@suse.de>
+X-Mailer: git-send-email 2.50.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <aHA_eR0G7X2P6_ib@intel.com>
-X-Operating-System: Linux phenom 6.12.30-amd64 
+Content-Transfer-Encoding: 8bit
+X-Spamd-Result: default: False [-1.30 / 50.00]; BAYES_HAM(-3.00)[100.00%];
+ SUSPICIOUS_RECIPS(1.50)[]; NEURAL_HAM_LONG(-1.00)[-1.000];
+ MID_CONTAINS_FROM(1.00)[]; R_MISSING_CHARSET(0.50)[];
+ NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:mid,imap1.dmz-prg2.suse.org:helo];
+ RCVD_VIA_SMTP_AUTH(0.00)[];
+ FUZZY_RATELIMITED(0.00)[rspamd.com]; ARC_NA(0.00)[];
+ RCPT_COUNT_TWELVE(0.00)[20]; MIME_TRACE(0.00)[0:+];
+ TAGGED_RCPT(0.00)[etnaviv]; FROM_HAS_DN(0.00)[];
+ FREEMAIL_TO(0.00)[ffwll.ch,gmail.com,amd.com,linux-foundation.org,linux.intel.com,kernel.org,pengutronix.de,armlinux.org.uk,redhat.com,collabora.com,chromium.org,broadcom.com];
+ RCVD_COUNT_TWO(0.00)[2]; TO_MATCH_ENVRCPT_ALL(0.00)[];
+ RCVD_TLS_ALL(0.00)[]; FROM_EQ_ENVFROM(0.00)[];
+ TO_DN_SOME(0.00)[];
+ DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ FREEMAIL_ENVRCPT(0.00)[gmail.com]
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -96,47 +109,45 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Thu, Jul 10, 2025 at 06:32:25PM -0400, Rodrigo Vivi wrote:
-> Hi Dave and Sima,
-> 
-> Here goes the drm-intel-fixes of this week as I'm covering for Joonas here.
-> 
-> Also, only the single DSI fix from Hans.
-> 
-> Thanks,
-> Rodrigo.
-> 
-> drm-intel-fixes-2025-07-10:
-> Short summary of fixes:
-> - DSI panel's version 2 mipi-sequences fix (Hans)
-> The following changes since commit d7b8f8e20813f0179d8ef519541a3527e7661d3a:
-> 
->   Linux 6.16-rc5 (2025-07-06 14:10:26 -0700)
-> 
-> are available in the Git repository at:
-> 
->   https://gitlab.freedesktop.org/drm/i915/kernel.git tags/drm-intel-fixes-2025-07-10
+Revert the use of drm_gem_object.dma_buf back to .import_attach->dmabuf
+in the affected places. Also revert any fixes on top. Separates references
+to imported and exported DMA bufs within a GEM object; as before.
 
-Pulled into drm-fixes, thanks!
--Sima
+Using the dma_buf as the one authoritative field for the DMA buf turns
+out to be fragile. The GEM object's dma_buf pointer can be NULL if
+userspace releases the GEM handle too early. Sima mentioned that the fix
+in commit 5307dce878d4 ("drm/gem: Acquire references on GEM handles for
+framebuffers") is conceptionally broken. Linus still notices boot-up
+hangs that might be related.
 
-> 
-> for you to fetch changes up to e778689390c71462a099b5d6e56d71c316486184:
-> 
->   drm/i915/bios: Apply vlv_fixup_mipi_sequences() to v2 mipi-sequences too (2025-07-10 11:35:20 -0400)
-> 
-> ----------------------------------------------------------------
-> Short summary of fixes:
-> - DSI panel's version 2 mipi-sequences fix (Hans)
-> 
-> ----------------------------------------------------------------
-> Hans de Goede (1):
->       drm/i915/bios: Apply vlv_fixup_mipi_sequences() to v2 mipi-sequences too
-> 
->  drivers/gpu/drm/i915/display/intel_bios.c | 8 ++++----
->  1 file changed, 4 insertions(+), 4 deletions(-)
+Reverting the whole thing is the only sensible action here.
+
+Tested on virtio; and amdgpu, simpledrm plus udl for dma-buf sharing.
+
+Thomas Zimmermann (9):
+  Revert "drm/framebuffer: Acquire internal references on GEM handles"
+  Revert "drm/gem: Acquire references on GEM handles for framebuffers"
+  Revert "drm/virtio: Use dma_buf from GEM object instance"
+  Revert "drm/vmwgfx: Use dma_buf from GEM object instance"
+  Revert "drm/etnaviv: Use dma_buf from GEM object instance"
+  Revert "drm/prime: Use dma_buf from GEM object instance"
+  Revert "drm/gem-framebuffer: Use dma_buf from GEM object instance"
+  Revert "drm/gem-shmem: Use dma_buf from GEM object instance"
+  Revert "drm/gem-dma: Use dma_buf from GEM object instance"
+
+ drivers/gpu/drm/drm_framebuffer.c            | 31 +---------
+ drivers/gpu/drm/drm_gem.c                    | 64 +++-----------------
+ drivers/gpu/drm/drm_gem_dma_helper.c         |  2 +-
+ drivers/gpu/drm/drm_gem_framebuffer_helper.c |  8 ++-
+ drivers/gpu/drm/drm_gem_shmem_helper.c       |  4 +-
+ drivers/gpu/drm/drm_internal.h               |  2 -
+ drivers/gpu/drm/drm_prime.c                  |  8 ++-
+ drivers/gpu/drm/etnaviv/etnaviv_gem_prime.c  |  4 +-
+ drivers/gpu/drm/virtio/virtgpu_prime.c       |  5 +-
+ drivers/gpu/drm/vmwgfx/vmwgfx_gem.c          |  6 +-
+ include/drm/drm_framebuffer.h                |  7 ---
+ 11 files changed, 35 insertions(+), 106 deletions(-)
 
 -- 
-Simona Vetter
-Software Engineer, Intel Corporation
-http://blog.ffwll.ch
+2.50.0
+
