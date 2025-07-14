@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D6310C83F1B
-	for <intel-gfx@archiver.kernel.org>; Mon, 14 Jul 2025 15:40:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E7783C83F27
+	for <intel-gfx@archiver.kernel.org>; Mon, 14 Jul 2025 15:40:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3AD0010E4CB;
-	Mon, 14 Jul 2025 15:40:07 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7878D10E4D5;
+	Mon, 14 Jul 2025 15:40:12 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=linutronix.de header.i=@linutronix.de header.b="c9zu8Vmd";
-	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="x0+l8Qco";
+	dkim=pass (2048-bit key; secure) header.d=linutronix.de header.i=@linutronix.de header.b="oX2+WWyq";
+	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="MzgZ5TSr";
 	dkim-atps=neutral
 Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
- by gabe.freedesktop.org (Postfix) with ESMTPS id ED8DE10E0BC;
- Mon, 14 Jul 2025 15:40:02 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 516DD10E4CB;
+ Mon, 14 Jul 2025 15:40:06 +0000 (UTC)
 From: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
- s=2020; t=1752507600;
+ s=2020; t=1752507603;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=cG5BN46tSHbWZpC21Tv/QpQ218oDgmklPXZEaQUQUYE=;
- b=c9zu8VmdLVyUsxOZk49z+wAc3UbS/HFyFpBTfcxGS/ESd9tALHwz85ujf0v3qwwc7fE8WP
- OB4BIprIxVBTJ4KJZAdH74B1yUg9lznhu6Jr7MSXJa0+GC4Hp/zveLRQWKbd+ccb0R390v
- x4Xv3dUSsyKU8gY1qrDxoAdkxqsfDA/1fAXAjNh1QzVsUOur6VNpQC2jZoROHQRAJAgHDk
- vZ27M0pbSQyFvS778W1S6ndbvknsyQzyEah/KbAqoEjNw7SGAE5r06jAyXtzcaHW3U75yq
- y7BYlO6vVFpZFiarfC5tXqPElVMiywAEIHibl63uv5Jqnv7drxVssOsHHcNH9Q==
+ bh=zbrdPMc1OB7KTrElYwR+sctAudi8mvYeGmSwsbNxzCo=;
+ b=oX2+WWyqwCqqCLLKCzRoQ/JnpAF6JDTd+qAB+9b+oWQUm7ggd0qNFt2j1ksEAGwH10j8c5
+ H9RUat4XOUh4iZEfEdF4kLOnnGT4v9TTPxFzd2x5eP4ii+d9QbYpcD2VeQBJBZtrW1H+uc
+ ZLJ1r//ahTNJ2+tiZCNhKmcVKPTlfjRD7gJfcu52I6z96qG4BJUsyjrKZfLigFors6XnAC
+ D9rOiarZL+GjCLHr9Wlsyhu8FxDUYEcLbrGKVSkNZFVYJOcaq4g+HVfU5avpkmHepEpaxM
+ MzWllXulJa64lxsCKRZ8PLj7NWVuIp/PALiLijZ80ffn4VKo38raDqhSkfbBEw==
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
- s=2020e; t=1752507600;
+ s=2020e; t=1752507603;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=cG5BN46tSHbWZpC21Tv/QpQ218oDgmklPXZEaQUQUYE=;
- b=x0+l8QcoYZeHz8RS1zwBNWw6Zeqa4k6otZGg1NUxGS9RkU8596p/MXIVpdSychbhtCVwH6
- Ga4rja9+DEYErRCQ==
+ bh=zbrdPMc1OB7KTrElYwR+sctAudi8mvYeGmSwsbNxzCo=;
+ b=MzgZ5TSrfRszdbu0X+4/d2oDiecOFKn17OA+I8rN7SgvmJ2ZcCjrKB9a60obx+edcdzjDt
+ kSXkAjjQHXjmVfDw==
 To: intel-gfx@lists.freedesktop.org,
 	intel-xe@lists.freedesktop.org
 Cc: Jani Nikula <jani.nikula@linux.intel.com>,
@@ -47,12 +47,11 @@ Cc: Jani Nikula <jani.nikula@linux.intel.com>,
  Tvrtko Ursulin <tursulin@ursulin.net>,
  Scott Oehrlein <scott.oehrlein@intel.com>,
  Ben Hutchings <ben@decadent.org.uk>,
- Mike Galbraith <umgwanakikbuti@gmail.com>,
- Sebastian Andrzej Siewior <bigeasy@linutronix.de>
-Subject: [PATCH v4 2/9] drm/i915: Don't disable interrupts on PREEMPT_RT
- during atomic updates
-Date: Mon, 14 Jul 2025 17:39:47 +0200
-Message-ID: <20250714153954.629393-3-bigeasy@linutronix.de>
+ Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
+ Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+Subject: [PATCH v4 9/9] Revert "drm/i915: Depend on !PREEMPT_RT."
+Date: Mon, 14 Jul 2025 17:39:54 +0200
+Message-ID: <20250714153954.629393-10-bigeasy@linutronix.de>
 In-Reply-To: <20250714153954.629393-1-bigeasy@linutronix.de>
 References: <20250714153954.629393-1-bigeasy@linutronix.de>
 MIME-Version: 1.0
@@ -72,137 +71,27 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Mike Galbraith <umgwanakikbuti@gmail.com>
+Once the known issues are addressed, it should be safe to enable the
+driver.
 
-Commit
-   8d7849db3eab7 ("drm/i915: Make sprite updates atomic")
-
-started disabling interrupts across atomic updates. This breaks on PREEMPT_=
-RT
-because within this section the code attempt to acquire spinlock_t locks wh=
-ich
-are sleeping locks on PREEMPT_RT.
-
-According to the comment the interrupts are disabled to avoid random delays=
- and
-not required for protection or synchronisation.
-If this needs to happen with disabled interrupts on PREEMPT_RT, and the
-whole section is restricted to register access then all sleeping locks
-need to be acquired before interrupts are disabled and some function
-maybe moved after enabling interrupts again.
-This includes:
-- prepare_to_wait() + finish_wait() due its wake queue.
-- drm_crtc_vblank_put() -> vblank_disable_fn() drm_device::vbl_lock.
-- skl_pfit_enable(), intel_update_plane(), vlv_atomic_update_fifo() and
-  maybe others due to intel_uncore::lock
-- drm_crtc_arm_vblank_event() due to drm_device::event_lock and
-  drm_device::vblank_time_lock.
-
-Don't disable interrupts on PREEMPT_RT during atomic updates.
-
-[bigeasy: drop local locks, commit message]
-
-Signed-off-by: Mike Galbraith <umgwanakikbuti@gmail.com>
+Acked-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
 Signed-off-by: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
 ---
- drivers/gpu/drm/i915/display/intel_crtc.c   | 9 ++++++---
- drivers/gpu/drm/i915/display/intel_cursor.c | 9 ++++++---
- drivers/gpu/drm/i915/display/intel_vblank.c | 6 ++++--
- 3 files changed, 16 insertions(+), 8 deletions(-)
+ drivers/gpu/drm/i915/Kconfig | 1 -
+ 1 file changed, 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_crtc.c b/drivers/gpu/drm/i9=
-15/display/intel_crtc.c
-index 29cfc38f12e04..5cfe6ecf1c115 100644
---- a/drivers/gpu/drm/i915/display/intel_crtc.c
-+++ b/drivers/gpu/drm/i915/display/intel_crtc.c
-@@ -559,7 +559,8 @@ void intel_pipe_update_start(struct intel_atomic_state =
-*state,
- 	 */
- 	intel_psr_wait_for_idle_locked(new_crtc_state);
-=20
--	local_irq_disable();
-+	if (!IS_ENABLED(CONFIG_PREEMPT_RT))
-+		local_irq_disable();
-=20
- 	crtc->debug.min_vbl =3D evade.min;
- 	crtc->debug.max_vbl =3D evade.max;
-@@ -577,7 +578,8 @@ void intel_pipe_update_start(struct intel_atomic_state =
-*state,
- 	return;
-=20
- irq_disable:
--	local_irq_disable();
-+	if (!IS_ENABLED(CONFIG_PREEMPT_RT))
-+		local_irq_disable();
- }
-=20
- #if IS_ENABLED(CONFIG_DRM_I915_DEBUG_VBLANK_EVADE)
-@@ -723,7 +725,8 @@ void intel_pipe_update_end(struct intel_atomic_state *s=
-tate,
- 	if (!state->base.legacy_cursor_update)
- 		intel_vrr_send_push(NULL, new_crtc_state);
-=20
--	local_irq_enable();
-+	if (!IS_ENABLED(CONFIG_PREEMPT_RT))
-+		local_irq_enable();
-=20
- 	if (intel_vgpu_active(dev_priv))
- 		goto out;
-diff --git a/drivers/gpu/drm/i915/display/intel_cursor.c b/drivers/gpu/drm/=
-i915/display/intel_cursor.c
-index 2fec5ba58373a..d3cfc20f866f5 100644
---- a/drivers/gpu/drm/i915/display/intel_cursor.c
-+++ b/drivers/gpu/drm/i915/display/intel_cursor.c
-@@ -930,13 +930,15 @@ intel_legacy_cursor_update(struct drm_plane *_plane,
- 		 */
- 		intel_psr_wait_for_idle_locked(crtc_state);
-=20
--		local_irq_disable();
-+		if (!IS_ENABLED(CONFIG_PREEMPT_RT))
-+			local_irq_disable();
-=20
- 		intel_vblank_evade(&evade);
-=20
- 		drm_crtc_vblank_put(&crtc->base);
- 	} else {
--		local_irq_disable();
-+		if (!IS_ENABLED(CONFIG_PREEMPT_RT))
-+			local_irq_disable();
- 	}
-=20
- 	if (new_plane_state->uapi.visible) {
-@@ -946,7 +948,8 @@ intel_legacy_cursor_update(struct drm_plane *_plane,
- 		intel_plane_disable_arm(NULL, plane, crtc_state);
- 	}
-=20
--	local_irq_enable();
-+	if (!IS_ENABLED(CONFIG_PREEMPT_RT))
-+		local_irq_enable();
-=20
- 	intel_psr_unlock(crtc_state);
-=20
-diff --git a/drivers/gpu/drm/i915/display/intel_vblank.c b/drivers/gpu/drm/=
-i915/display/intel_vblank.c
-index 539573113375b..0c29ca3bb5e32 100644
---- a/drivers/gpu/drm/i915/display/intel_vblank.c
-+++ b/drivers/gpu/drm/i915/display/intel_vblank.c
-@@ -753,11 +753,13 @@ int intel_vblank_evade(struct intel_vblank_evade_ctx =
-*evade)
- 			break;
- 		}
-=20
--		local_irq_enable();
-+		if (!IS_ENABLED(CONFIG_PREEMPT_RT))
-+			local_irq_enable();
-=20
- 		timeout =3D schedule_timeout(timeout);
-=20
--		local_irq_disable();
-+		if (!IS_ENABLED(CONFIG_PREEMPT_RT))
-+			local_irq_disable();
- 	}
-=20
- 	finish_wait(wq, &wait);
+diff --git a/drivers/gpu/drm/i915/Kconfig b/drivers/gpu/drm/i915/Kconfig
+index 5e939004b6463..40a9234e6e5dc 100644
+--- a/drivers/gpu/drm/i915/Kconfig
++++ b/drivers/gpu/drm/i915/Kconfig
+@@ -3,7 +3,6 @@ config DRM_I915
+ 	tristate "Intel 8xx/9xx/G3x/G4x/HD Graphics"
+ 	depends on DRM
+ 	depends on X86 && PCI
+-	depends on !PREEMPT_RT
+ 	select INTEL_GTT if X86
+ 	select INTERVAL_TREE
+ 	# we need shmfs for the swappable backing store, and in particular
 --=20
 2.50.0
 
