@@ -4,57 +4,56 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0F0F8C83F2D
-	for <intel-gfx@archiver.kernel.org>; Mon, 14 Jul 2025 15:40:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7B00AC83F17
+	for <intel-gfx@archiver.kernel.org>; Mon, 14 Jul 2025 16:08:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7600610E4D1;
-	Mon, 14 Jul 2025 15:40:13 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1708310E299;
+	Mon, 14 Jul 2025 16:08:23 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=linutronix.de header.i=@linutronix.de header.b="FnwDTU49";
-	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="greq6pfs";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="ls12mAEW";
 	dkim-atps=neutral
-Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 743DC10E4C7;
- Mon, 14 Jul 2025 15:40:04 +0000 (UTC)
-From: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
- s=2020; t=1752507602;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=5l6Isbrnmhhh+kw9qRD/Cec+PM1Spow9Jeqzw49wrJw=;
- b=FnwDTU49fEpZ12IBRUyN7+KKLR2mTngS7DO1FQDoHNNpN/fF3yuaXS3kth5vUYlQ+tCHo3
- 1lSrmALgDxJUWpYNPsy/8xDip043sB0Y4s0fyBhe0UBjZVXDk6vRnEPE5CfPBj0Y73WxpJ
- 39eHhGvrEZybF39/Z+XyusS5Fav9Qh2UBcZj3VmCoKSaoNvNFDSoHbOiNedxrlD5P8e+Tp
- ttETxWzBXreucxniUMxFQGV6vv/hydf1Hz0WdxkipdL0qjBp2Y3SgDwLlyq2AeQ0Ck13Ht
- TJaryF4h8Ntt5RpHjipIbB1sdnVQWfo4NrYXE2ajO/9k8qmPO/SaZPdOhy8AHA==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
- s=2020e; t=1752507602;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=5l6Isbrnmhhh+kw9qRD/Cec+PM1Spow9Jeqzw49wrJw=;
- b=greq6pfsCChDiqG4rTw3ydTN465qPiOqjVNf6HCBwH37vVDwAyVF6rhJTpMVL+JwmNJiTW
- MII00jsy8RvNg7AA==
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.16])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9946210E299;
+ Mon, 14 Jul 2025 16:08:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1752509303; x=1784045303;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=clQZ/0ZHwSKRbPX1GiCCSu7vpXCPSlrUmMxnusFRcDs=;
+ b=ls12mAEWhFZjsQROIL2hrvpHiXLlpHVXm7BTJzNOZKxpyg65Rj9Fwhft
+ 77IAYcoav9bzN5WzIzJjJg4Oty+MPRPCoBRC2v0wsK6hrupp145vWhKi/
+ +mEzQfT6LRbgeFr7ZH1E39bgB1cM5NCPxJPagoEh6sgcsLt0eRJ2J4sBV
+ buZYCvBypbJ2o9OF2/bIrCNaRm92OZRU459g/QcSxBhlvaCROg9B5Ejlr
+ r2QqopXFH8OGG/XF52lEWuTIR/TVqHtfiR8A5G2vIrW/bsx7mFcMtGLOH
+ jcy24e8NfgJjDMKCe8ysbML3eVxP2yNV2KimQKtcdY6/yLYz2vdvCk585 g==;
+X-CSE-ConnectionGUID: SKtVkD0ZRau2DiaPbDKMtw==
+X-CSE-MsgGUID: uPcWmdWbS5Cb4QGkU+s1BQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11491"; a="54855196"
+X-IronPort-AV: E=Sophos;i="6.16,311,1744095600"; d="scan'208";a="54855196"
+Received: from orviesa010.jf.intel.com ([10.64.159.150])
+ by orvoesa108.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 14 Jul 2025 09:08:22 -0700
+X-CSE-ConnectionGUID: o3gm0pLnSTu9XTOeL2iSNQ==
+X-CSE-MsgGUID: STmnccmZS0mKa9wUgtuigA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.16,311,1744095600"; d="scan'208";a="156385651"
+Received: from administrator-system-product-name.igk.intel.com
+ ([10.91.214.181])
+ by orviesa010.jf.intel.com with ESMTP; 14 Jul 2025 09:08:21 -0700
+From: =?UTF-8?q?Micha=C5=82=20Grzelak?= <michal.grzelak@intel.com>
 To: intel-gfx@lists.freedesktop.org,
 	intel-xe@lists.freedesktop.org
-Cc: Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Thomas Gleixner <tglx@linutronix.de>,
- Tvrtko Ursulin <tursulin@ursulin.net>,
- Scott Oehrlein <scott.oehrlein@intel.com>,
- Ben Hutchings <ben@decadent.org.uk>,
- Sebastian Andrzej Siewior <bigeasy@linutronix.de>
-Subject: [PATCH v4 8/9] drm/i915: Consider RCU read section as atomic.
-Date: Mon, 14 Jul 2025 17:39:53 +0200
-Message-ID: <20250714153954.629393-9-bigeasy@linutronix.de>
-In-Reply-To: <20250714153954.629393-1-bigeasy@linutronix.de>
-References: <20250714153954.629393-1-bigeasy@linutronix.de>
+Cc: =?UTF-8?q?Micha=C5=82=20Grzelak?= <michal.grzelak@intel.com>
+Subject: [PATCH v5 0/1] drm/i915/display: Add no_psr_reason to PSR debugfs
+Date: Mon, 14 Jul 2025 18:09:30 +0200
+Message-ID: <20250714160931.821383-1-michal.grzelak@intel.com>
+X-Mailer: git-send-email 2.45.2
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Organization: Intel Technology Poland sp. z o.o. - ul. Slowackiego 173,
+ 80-298 Gdansk - KRS 101882 - NIP 957-07-52-316
+Content-Transfer-Encoding: 8bit
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,36 +69,39 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Locking and/ or running inside interrupt handler will not lead to an
-atomic section on PREEMPT_RT. The RCU read section needs to be
-considered because all locks, which become sleeping locks on
-PREEMPT_RT, start a RCU read section. Scheduling/ sleeping while within
-a RCU read section is invalid.
+Next version of v4 [1]. Removed the tag to test if Patchwork will pick
+the IGT changes. 
 
-Check for also for RCU read section in stop_timeout() to determine if it
-is safe to sleep.
+[1] https://lore.kernel.org/intel-gfx/20250711164959.608303-1-michal.grzelak@intel.com
 
-Signed-off-by: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
+Best regards,
+Michał
+
 ---
- drivers/gpu/drm/i915/gt/intel_engine_cs.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Changelog:
+v4->v5
+- fix indentation errors from checkpatch
 
-diff --git a/drivers/gpu/drm/i915/gt/intel_engine_cs.c b/drivers/gpu/drm/i9=
-15/gt/intel_engine_cs.c
-index b721bbd233567..f5a6143ea8a24 100644
---- a/drivers/gpu/drm/i915/gt/intel_engine_cs.c
-+++ b/drivers/gpu/drm/i915/gt/intel_engine_cs.c
-@@ -1609,7 +1609,7 @@ u64 intel_engine_get_last_batch_head(const struct int=
-el_engine_cs *engine)
-=20
- static unsigned long stop_timeout(const struct intel_engine_cs *engine)
- {
--	if (in_atomic() || irqs_disabled()) /* inside atomic preempt-reset? */
-+	if (in_atomic() || irqs_disabled() || rcu_preempt_depth()) /* inside atom=
-ic preempt-reset? */
- 		return 0;
-=20
- 	/*
---=20
-2.50.0
+v3->v4
+- change format of logging workaround #1136
+
+v2->v3
+- change reason description to be more specific [Mika]
+- remove BSpecs number & WA number from being written into no_psr_reason
+- replace spaces with tabs
+- provide correct Test-with tag to the IGT patch, instead of series
+
+v1->v2
+- set other reasons than "PSR setup timing not met"
+- clear no_psr_reason when activating PSR.
+
+Michał Grzelak (1):
+  drm/i915/display: Add no_psr_reason to PSR debugfs
+
+ .../drm/i915/display/intel_display_types.h    |  2 +
+ drivers/gpu/drm/i915/display/intel_psr.c      | 38 ++++++++++++-------
+ 2 files changed, 26 insertions(+), 14 deletions(-)
+
+-- 
+2.45.2
 
