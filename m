@@ -4,23 +4,21 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EA95DC83F2D
-	for <intel-gfx@archiver.kernel.org>; Tue, 15 Jul 2025 15:41:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A4916C83F34
+	for <intel-gfx@archiver.kernel.org>; Tue, 15 Jul 2025 15:41:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 17B2910E5FE;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 286A510E5FF;
 	Tue, 15 Jul 2025 15:41:36 +0000 (UTC)
 Received: from mblankhorst.nl (lankhorst.se [141.105.120.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D6A5810E123
- for <intel-gfx@lists.freedesktop.org>; Tue, 15 Jul 2025 15:41:32 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D097210E5F9
+ for <intel-gfx@lists.freedesktop.org>; Tue, 15 Jul 2025 15:41:34 +0000 (UTC)
 From: Maarten Lankhorst <dev@lankhorst.se>
 To: intel-gfx@lists.freedesktop.org
 Cc: Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
  Maarten Lankhorst <dev@lankhorst.se>
-Subject: [PATCH 2/4] drm/i915: Drop the irqs_disabled() check
-Date: Tue, 15 Jul 2025 17:41:28 +0200
-Message-ID: <20250715154125.27813-8-dev@lankhorst.se>
+Subject: [PATCH 4/4] drm/i915: Consider RCU read section as atomic.
+Date: Tue, 15 Jul 2025 17:41:30 +0200
+Message-ID: <20250715154125.27813-10-dev@lankhorst.se>
 X-Mailer: git-send-email 2.45.2
 In-Reply-To: <20250715154125.27813-6-dev@lankhorst.se>
 References: <20250715154125.27813-6-dev@lankhorst.se>
@@ -43,43 +41,33 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 From: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
 
-The !irqs_disabled() check triggers on PREEMPT_RT even with
-i915_sched_engine::lock acquired. The reason is the lock is transformed
-into a sleeping lock on PREEMPT_RT and does not disable interrupts.
+Locking and/ or running inside interrupt handler will not lead to an
+atomic section on PREEMPT_RT. The RCU read section needs to be
+considered because all locks, which become sleeping locks on
+PREEMPT_RT, start a RCU read section. Scheduling/ sleeping while within
+a RCU read section is invalid.
 
-There is no need to check for disabled interrupts. The lockdep
-annotation below already check if the lock has been acquired by the
-caller and will yell if the interrupts are not disabled.
+Check for also for RCU read section in stop_timeout() to determine if it
+is safe to sleep.
 
-Remove the !irqs_disabled() check.
-
-Reported-by: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-Acked-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
 Signed-off-by: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
-Link: https://lore.kernel.org/r/20250714153954.629393-7-bigeasy@linutronix.de
+Link: https://lore.kernel.org/r/20250714153954.629393-9-bigeasy@linutronix.de
 Signed-off-by: Maarten Lankhorst <dev@lankhorst.se>
 ---
- drivers/gpu/drm/i915/i915_request.c | 2 --
- 1 file changed, 2 deletions(-)
+ drivers/gpu/drm/i915/gt/intel_engine_cs.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/i915/i915_request.c b/drivers/gpu/drm/i915/i915_request.c
-index c3d27eadc0a7e..4705d6d6db141 100644
---- a/drivers/gpu/drm/i915/i915_request.c
-+++ b/drivers/gpu/drm/i915/i915_request.c
-@@ -608,7 +608,6 @@ bool __i915_request_submit(struct i915_request *request)
+diff --git a/drivers/gpu/drm/i915/gt/intel_engine_cs.c b/drivers/gpu/drm/i915/gt/intel_engine_cs.c
+index b721bbd233567..f5a6143ea8a24 100644
+--- a/drivers/gpu/drm/i915/gt/intel_engine_cs.c
++++ b/drivers/gpu/drm/i915/gt/intel_engine_cs.c
+@@ -1609,7 +1609,7 @@ u64 intel_engine_get_last_batch_head(const struct intel_engine_cs *engine)
  
- 	RQ_TRACE(request, "\n");
- 
--	GEM_BUG_ON(!irqs_disabled());
- 	lockdep_assert_held(&engine->sched_engine->lock);
- 
- 	/*
-@@ -717,7 +716,6 @@ void __i915_request_unsubmit(struct i915_request *request)
- 	 */
- 	RQ_TRACE(request, "\n");
- 
--	GEM_BUG_ON(!irqs_disabled());
- 	lockdep_assert_held(&engine->sched_engine->lock);
+ static unsigned long stop_timeout(const struct intel_engine_cs *engine)
+ {
+-	if (in_atomic() || irqs_disabled()) /* inside atomic preempt-reset? */
++	if (in_atomic() || irqs_disabled() || rcu_preempt_depth()) /* inside atomic preempt-reset? */
+ 		return 0;
  
  	/*
 -- 
