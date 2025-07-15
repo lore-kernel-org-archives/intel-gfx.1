@@ -4,22 +4,23 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3EB4CC83F17
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EA95DC83F2D
 	for <intel-gfx@archiver.kernel.org>; Tue, 15 Jul 2025 15:41:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C7AFC10E5F9;
-	Tue, 15 Jul 2025 15:41:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 17B2910E5FE;
+	Tue, 15 Jul 2025 15:41:36 +0000 (UTC)
 Received: from mblankhorst.nl (lankhorst.se [141.105.120.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B166910E5F9
- for <intel-gfx@lists.freedesktop.org>; Tue, 15 Jul 2025 15:41:33 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D6A5810E123
+ for <intel-gfx@lists.freedesktop.org>; Tue, 15 Jul 2025 15:41:32 +0000 (UTC)
 From: Maarten Lankhorst <dev@lankhorst.se>
 To: intel-gfx@lists.freedesktop.org
 Cc: Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
- "John B . Wyatt IV" <jwyatt@redhat.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, Maarten Lankhorst <dev@lankhorst.se>
-Subject: [PATCH 3/4] drm/i915/guc: Consider also RCU depth in busy loop.
-Date: Tue, 15 Jul 2025 17:41:29 +0200
-Message-ID: <20250715154125.27813-9-dev@lankhorst.se>
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
+ Maarten Lankhorst <dev@lankhorst.se>
+Subject: [PATCH 2/4] drm/i915: Drop the irqs_disabled() check
+Date: Tue, 15 Jul 2025 17:41:28 +0200
+Message-ID: <20250715154125.27813-8-dev@lankhorst.se>
 X-Mailer: git-send-email 2.45.2
 In-Reply-To: <20250715154125.27813-6-dev@lankhorst.se>
 References: <20250715154125.27813-6-dev@lankhorst.se>
@@ -42,35 +43,45 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 From: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
 
-intel_guc_send_busy_loop() looks at in_atomic() and irqs_disabled() to
-decide if it should busy-spin while waiting or if it may sleep.
-Both checks will report false on PREEMPT_RT if sleeping spinlocks are
-acquired leading to RCU splats while the function sleeps.
+The !irqs_disabled() check triggers on PREEMPT_RT even with
+i915_sched_engine::lock acquired. The reason is the lock is transformed
+into a sleeping lock on PREEMPT_RT and does not disable interrupts.
 
-Check also if RCU has been disabled.
+There is no need to check for disabled interrupts. The lockdep
+annotation below already check if the lock has been acquired by the
+caller and will yell if the interrupts are not disabled.
 
-Reported-by: John B. Wyatt IV <jwyatt@redhat.com>
-Reviewed-by: Rodrigo Vivi <rodrigo.vivi@intel.com>
+Remove the !irqs_disabled() check.
+
+Reported-by: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+Acked-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
 Signed-off-by: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
-Link: https://lore.kernel.org/r/20250714153954.629393-8-bigeasy@linutronix.de
+Link: https://lore.kernel.org/r/20250714153954.629393-7-bigeasy@linutronix.de
 Signed-off-by: Maarten Lankhorst <dev@lankhorst.se>
 ---
- drivers/gpu/drm/i915/gt/uc/intel_guc.h | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/gpu/drm/i915/i915_request.c | 2 --
+ 1 file changed, 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc.h b/drivers/gpu/drm/i915/gt/uc/intel_guc.h
-index 053780f562c1a..b25fa8f4dc4bd 100644
---- a/drivers/gpu/drm/i915/gt/uc/intel_guc.h
-+++ b/drivers/gpu/drm/i915/gt/uc/intel_guc.h
-@@ -362,7 +362,7 @@ static inline int intel_guc_send_busy_loop(struct intel_guc *guc,
- {
- 	int err;
- 	unsigned int sleep_period_ms = 1;
--	bool not_atomic = !in_atomic() && !irqs_disabled();
-+	bool not_atomic = !in_atomic() && !irqs_disabled() && !rcu_preempt_depth();
+diff --git a/drivers/gpu/drm/i915/i915_request.c b/drivers/gpu/drm/i915/i915_request.c
+index c3d27eadc0a7e..4705d6d6db141 100644
+--- a/drivers/gpu/drm/i915/i915_request.c
++++ b/drivers/gpu/drm/i915/i915_request.c
+@@ -608,7 +608,6 @@ bool __i915_request_submit(struct i915_request *request)
+ 
+ 	RQ_TRACE(request, "\n");
+ 
+-	GEM_BUG_ON(!irqs_disabled());
+ 	lockdep_assert_held(&engine->sched_engine->lock);
  
  	/*
- 	 * FIXME: Have caller pass in if we are in an atomic context to avoid
+@@ -717,7 +716,6 @@ void __i915_request_unsubmit(struct i915_request *request)
+ 	 */
+ 	RQ_TRACE(request, "\n");
+ 
+-	GEM_BUG_ON(!irqs_disabled());
+ 	lockdep_assert_held(&engine->sched_engine->lock);
+ 
+ 	/*
 -- 
 2.45.2
 
