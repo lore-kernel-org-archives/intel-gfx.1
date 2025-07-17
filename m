@@ -4,74 +4,62 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B7804C83F22
-	for <intel-gfx@archiver.kernel.org>; Thu, 17 Jul 2025 14:01:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7C850C83F38
+	for <intel-gfx@archiver.kernel.org>; Thu, 17 Jul 2025 14:01:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 61C9610E810;
-	Thu, 17 Jul 2025 14:01:50 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7E41410E81D;
+	Thu, 17 Jul 2025 14:01:51 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=didiglobal.com header.i=@didiglobal.com header.b="keOE2b5W";
+	dkim=pass (1024-bit key; unprotected) header.d=tuxedocomputers.com header.i=@tuxedocomputers.com header.b="Pb8kTk2r";
 	dkim-atps=neutral
-Received: from mx10.didiglobal.com (mx10.didiglobal.com [111.202.70.125])
- by gabe.freedesktop.org (Postfix) with SMTP id 9069310E76E;
- Wed, 16 Jul 2025 09:36:28 +0000 (UTC)
-Received: from mail.didiglobal.com (unknown [10.79.71.38])
- by mx10.didiglobal.com (MailData Gateway V2.8.8) with ESMTPS id A71DB18BE22D3C;
- Wed, 16 Jul 2025 17:35:19 +0800 (CST)
-Received: from BJ03-ACTMBX-08.didichuxing.com (10.79.71.35) by
- BJ03-ACTMBX-02.didichuxing.com (10.79.71.38) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1748.10; Wed, 16 Jul 2025 17:36:05 +0800
-Received: from BJ03-ACTMBX-07.didichuxing.com (10.79.71.34) by
- BJ03-ACTMBX-08.didichuxing.com (10.79.71.35) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1748.10; Wed, 16 Jul 2025 17:36:04 +0800
-Received: from BJ03-ACTMBX-07.didichuxing.com ([fe80::2e1a:dd47:6d25:287e]) by
- BJ03-ACTMBX-07.didichuxing.com ([fe80::2e1a:dd47:6d25:287e%7]) with
- mapi id 15.02.1748.010; Wed, 16 Jul 2025 17:36:04 +0800
-X-MD-Sfrom: chentaotao@didiglobal.com
-X-MD-SrcIP: 10.79.71.38
-From: =?gb2312?B?s8LMzszOIFRhb3RhbyBDaGVu?= <chentaotao@didiglobal.com>
-To: "tytso@mit.edu" <tytso@mit.edu>, "hch@infradead.org" <hch@infradead.org>, 
- "adilger.kernel@dilger.ca" <adilger.kernel@dilger.ca>,
- "willy@infradead.org"
- <willy@infradead.org>, "brauner@kernel.org" <brauner@kernel.org>,
- "jani.nikula@linux.intel.com" <jani.nikula@linux.intel.com>,
- "rodrigo.vivi@intel.com" <rodrigo.vivi@intel.com>, "tursulin@ursulin.net"
- <tursulin@ursulin.net>, "airlied@gmail.com" <airlied@gmail.com>
-CC: "linux-fsdevel@vger.kernel.org" <linux-fsdevel@vger.kernel.org>,
- "linux-ext4@vger.kernel.org" <linux-ext4@vger.kernel.org>,
- "linux-block@vger.kernel.org" <linux-block@vger.kernel.org>,
- "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>,
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
- "linux-mm@kvack.org" <linux-mm@kvack.org>, "linux-doc@vger.kernel.org"
- <linux-doc@vger.kernel.org>, "linux-kernel@vger.kernel.org"
- <linux-kernel@vger.kernel.org>, "chentao325@qq.com" <chentao325@qq.com>,
- "frank.li@vivo.com" <frank.li@vivo.com>,
- =?gb2312?B?s8LMzszOIFRhb3RhbyBDaGVu?= <chentaotao@didiglobal.com>
-Subject: [PATCH v6 2/5] drm/i915: Refactor shmem_pwrite() to use kiocb and
- write_iter
-Thread-Topic: [PATCH v6 2/5] drm/i915: Refactor shmem_pwrite() to use kiocb
- and write_iter
-Thread-Index: AQHb9jUMCjFd1gw0iU2Rz2Fo6Yf3qg==
-Date: Wed, 16 Jul 2025 09:36:04 +0000
-Message-ID: <20250716093559.217344-3-chentaotao@didiglobal.com>
-In-Reply-To: <20250716093559.217344-1-chentaotao@didiglobal.com>
-Accept-Language: zh-CN, en-US
-Content-Language: zh-CN
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-originating-ip: [10.79.64.102]
-Content-Type: text/plain; charset="gb2312"
-Content-Transfer-Encoding: base64
+Received: from mail.tuxedocomputers.com (mail.tuxedocomputers.com
+ [157.90.84.7])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5FCF810E00B;
+ Thu, 17 Jul 2025 08:29:48 +0000 (UTC)
+Received: from [192.168.178.13] (business-24-134-207-61.pool2.vodafone-ip.de
+ [24.134.207.61])
+ (Authenticated sender: t.guttzeit@tuxedocomputers.com)
+ by mail.tuxedocomputers.com (Postfix) with ESMTPSA id 8BEB12FC0055;
+ Thu, 17 Jul 2025 10:29:45 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=tuxedocomputers.com;
+ s=default; t=1752740986;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=Hj1avtcoqxbKAMsm5imqqAwJOWRbcxAXTXB67LGPYEY=;
+ b=Pb8kTk2rxNIBFxjUq92sAMWNBCZC+HToOAWNOE6myhATk/kqLk1qOLnCnAEc74d/KOZif7
+ Ls4h4vIOGsbxHayK2ErT6egZLgDKxTdyEwEYffY2IwlTGpAZyMlOc/HlF7IORXUR4FdYhO
+ IXtgEnvJpJO7voYy1FHZUbS+nrO8zWI=
+Authentication-Results: mail.tuxedocomputers.com;
+ auth=pass smtp.auth=t.guttzeit@tuxedocomputers.com
+ smtp.mailfrom=t.guttzeit@tuxedocomputers.com
+Message-ID: <3f9a6ad3-d892-4177-9b84-677b90d76e89@tuxedocomputers.com>
+Date: Thu, 17 Jul 2025 10:29:45 +0200
 MIME-Version: 1.0
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=didiglobal.com;
- s=2025; t=1752658541;
- bh=8LcRUuagwMN/lAroXnJjsVjKDAmcYSyShlGR6KAKpxo=;
- h=From:To:CC:Subject:Date:Message-ID:Content-Type;
- b=keOE2b5WGIkxYc2GxRzGsK+z7NTZyRwJrrvsLISIzTPR4y285zcFpO8glpl3gXmk4
- R/T8+ZQkQxERQBzh20nWLgUAeRxpRNzpoftqnkYnJtGwtqfRPHMF02/H0rOjnvWOd/
- dihJmgBoE7p7L7gRQH+1dAsNIy0j1I25M6bjRPEk=
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RFC PATCH 1/1] drm/i915/display: Avoid unsupported 300Hz output
+ mode on a TUXEDO device
+To: "Murthy, Arun R" <arun.r.murthy@intel.com>,
+ Werner Sembach <wse@tuxedocomputers.com>,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ "Vivi, Rodrigo" <rodrigo.vivi@intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Tvrtko Ursulin <tursulin@ursulin.net>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>
+Cc: "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>,
+ "intel-xe@lists.freedesktop.org" <intel-xe@lists.freedesktop.org>,
+ "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+References: <20250704192007.526044-1-wse@tuxedocomputers.com>
+ <20250704192007.526044-2-wse@tuxedocomputers.com>
+ <5998d67d-2096-4c93-b0b6-8af582d901ea@intel.com>
+Content-Language: en-US
+From: Tim Guttzeit <t.guttzeit@tuxedocomputers.com>
+Organization: TUXEDO Computers
+In-Reply-To: <5998d67d-2096-4c93-b0b6-8af582d901ea@intel.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Thu, 17 Jul 2025 14:01:50 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -88,76 +76,149 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-RnJvbTogVGFvdGFvIENoZW4gPGNoZW50YW90YW9AZGlkaWdsb2JhbC5jb20+DQoNClJlZmFjdG9y
-cyBzaG1lbV9wd3JpdGUoKSB0byByZXBsYWNlIHRoZSAtPndyaXRlX2JlZ2luL2VuZCBsb2dpYw0K
-d2l0aCBhIHdyaXRlX2l0ZXItYmFzZWQgaW1wbGVtZW50YXRpb24gdXNpbmcga2lvY2IgYW5kIGlv
-dl9pdGVyLg0KDQpXaGlsZSBrZXJuZWxfd3JpdGUoKSB3YXMgY29uc2lkZXJlZCwgaXQgY2F1c2Vk
-IGFib3V0IDUwJSBwZXJmb3JtYW5jZQ0KcmVncmVzc2lvbi4gdmZzX3dyaXRlKCkgaXMgbm90IGV4
-cG9ydGVkIGZvciBrZXJuZWwgdXNlLiBUaGVyZWZvcmUsDQpmaWxlLT5mX29wLT53cml0ZV9pdGVy
-KCkgaXMgY2FsbGVkIGRpcmVjdGx5IHdpdGggYSBzeW5jaHJvbm91c2x5DQppbml0aWFsaXplZCBr
-aW9jYiB0byBwcmVzZXJ2ZSBwZXJmb3JtYW5jZSBhbmQgcmVtb3ZlIHdyaXRlX2JlZ2luDQp1c2Fn
-ZS4NCg0KUGVyZm9ybWFuY2UgcmVzdWx0cyB1c2UgZ2VtX3B3cml0ZSBvbiBJbnRlbCBDUFUgaTct
-MTA3MDANCihhdmVyYWdlIG9mIDEwIHJ1bnMpOg0KDQotIC4vZ2VtX3B3cml0ZSAtLXJ1bi1zdWJ0
-ZXN0IGJlbmNoIC1zIDE2Mzg0DQogIEJlZm9yZTogMC4yMDVzLCBBZnRlcjogMC4yMTRzDQoNCi0g
-Li9nZW1fcHdyaXRlIC0tcnVuLXN1YnRlc3QgYmVuY2ggLXMgNTI0Mjg4DQogIEJlZm9yZTogNi4x
-MDIxcywgQWZ0ZXI6IDQuODA0N3MNCg0KUGFydCBvZiBhIHNlcmllcyByZWZhY3RvcmluZyBhZGRy
-ZXNzX3NwYWNlX29wZXJhdGlvbnMgd3JpdGVfYmVnaW4gYW5kDQp3cml0ZV9lbmQgY2FsbGJhY2tz
-IHRvIHVzZSBzdHJ1Y3Qga2lvY2IgZm9yIHBhc3Npbmcgd3JpdGUgY29udGV4dCBhbmQNCmZsYWdz
-Lg0KDQpTaWduZWQtb2ZmLWJ5OiBUYW90YW8gQ2hlbiA8Y2hlbnRhb3Rhb0BkaWRpZ2xvYmFsLmNv
-bT4NCi0tLQ0KIGRyaXZlcnMvZ3B1L2RybS9pOTE1L2dlbS9pOTE1X2dlbV9zaG1lbS5jIHwgODIg
-KysrKysrLS0tLS0tLS0tLS0tLS0tLS0NCiAxIGZpbGUgY2hhbmdlZCwgMjIgaW5zZXJ0aW9ucygr
-KSwgNjAgZGVsZXRpb25zKC0pDQoNCmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vaTkxNS9n
-ZW0vaTkxNV9nZW1fc2htZW0uYyBiL2RyaXZlcnMvZ3B1L2RybS9pOTE1L2dlbS9pOTE1X2dlbV9z
-aG1lbS5jDQppbmRleCAxZThmNjZhYzQ4Y2EuLjljYmIwZjY4YTViYiAxMDA2NDQNCi0tLSBhL2Ry
-aXZlcnMvZ3B1L2RybS9pOTE1L2dlbS9pOTE1X2dlbV9zaG1lbS5jDQorKysgYi9kcml2ZXJzL2dw
-dS9kcm0vaTkxNS9nZW0vaTkxNV9nZW1fc2htZW0uYw0KQEAgLTYsNiArNiw3IEBADQogI2luY2x1
-ZGUgPGxpbnV4L3BhZ2V2ZWMuaD4NCiAjaW5jbHVkZSA8bGludXgvc2htZW1fZnMuaD4NCiAjaW5j
-bHVkZSA8bGludXgvc3dhcC5oPg0KKyNpbmNsdWRlIDxsaW51eC91aW8uaD4NCiANCiAjaW5jbHVk
-ZSA8ZHJtL2RybV9jYWNoZS5oPg0KIA0KQEAgLTQwMCwxMiArNDAxLDEyIEBAIHN0YXRpYyBpbnQN
-CiBzaG1lbV9wd3JpdGUoc3RydWN0IGRybV9pOTE1X2dlbV9vYmplY3QgKm9iaiwNCiAJICAgICBj
-b25zdCBzdHJ1Y3QgZHJtX2k5MTVfZ2VtX3B3cml0ZSAqYXJnKQ0KIHsNCi0Jc3RydWN0IGFkZHJl
-c3Nfc3BhY2UgKm1hcHBpbmcgPSBvYmotPmJhc2UuZmlscC0+Zl9tYXBwaW5nOw0KLQljb25zdCBz
-dHJ1Y3QgYWRkcmVzc19zcGFjZV9vcGVyYXRpb25zICphb3BzID0gbWFwcGluZy0+YV9vcHM7DQog
-CWNoYXIgX191c2VyICp1c2VyX2RhdGEgPSB1NjRfdG9fdXNlcl9wdHIoYXJnLT5kYXRhX3B0cik7
-DQotCXU2NCByZW1haW47DQotCWxvZmZfdCBwb3M7DQotCXVuc2lnbmVkIGludCBwZzsNCisJc3Ry
-dWN0IGZpbGUgKmZpbGUgPSBvYmotPmJhc2UuZmlscDsNCisJc3RydWN0IGtpb2NiIGtpb2NiOw0K
-KwlzdHJ1Y3QgaW92X2l0ZXIgaXRlcjsNCisJc3NpemVfdCB3cml0dGVuOw0KKwl1NjQgc2l6ZSA9
-IGFyZy0+c2l6ZTsNCiANCiAJLyogQ2FsbGVyIGFscmVhZHkgdmFsaWRhdGVkIHVzZXIgYXJncyAq
-Lw0KIAlHRU1fQlVHX09OKCFhY2Nlc3Nfb2sodXNlcl9kYXRhLCBhcmctPnNpemUpKTsNCkBAIC00
-MjgsNjMgKzQyOSwyNCBAQCBzaG1lbV9wd3JpdGUoc3RydWN0IGRybV9pOTE1X2dlbV9vYmplY3Qg
-Km9iaiwNCiAJaWYgKG9iai0+bW0ubWFkdiAhPSBJOTE1X01BRFZfV0lMTE5FRUQpDQogCQlyZXR1
-cm4gLUVGQVVMVDsNCiANCi0JLyoNCi0JICogQmVmb3JlIHRoZSBwYWdlcyBhcmUgaW5zdGFudGlh
-dGVkIHRoZSBvYmplY3QgaXMgdHJlYXRlZCBhcyBiZWluZw0KLQkgKiBpbiB0aGUgQ1BVIGRvbWFp
-bi4gVGhlIHBhZ2VzIHdpbGwgYmUgY2xmbHVzaGVkIGFzIHJlcXVpcmVkIGJlZm9yZQ0KLQkgKiB1
-c2UsIGFuZCB3ZSBjYW4gZnJlZWx5IHdyaXRlIGludG8gdGhlIHBhZ2VzIGRpcmVjdGx5LiBJZiB1
-c2Vyc3BhY2UNCi0JICogcmFjZXMgcHdyaXRlIHdpdGggYW55IG90aGVyIG9wZXJhdGlvbjsgY29y
-cnVwdGlvbiB3aWxsIGVuc3VlIC0NCi0JICogdGhhdCBpcyB1c2Vyc3BhY2UncyBwcmVyb2dhdGl2
-ZSENCi0JICovDQorCWlmIChzaXplID4gTUFYX1JXX0NPVU5UKQ0KKwkJcmV0dXJuIC1FRkJJRzsN
-CiANCi0JcmVtYWluID0gYXJnLT5zaXplOw0KLQlwb3MgPSBhcmctPm9mZnNldDsNCi0JcGcgPSBv
-ZmZzZXRfaW5fcGFnZShwb3MpOw0KKwlpZiAoIWZpbGUtPmZfb3AtPndyaXRlX2l0ZXIpDQorCQly
-ZXR1cm4gLUVJTlZBTDsNCiANCi0JZG8gew0KLQkJdW5zaWduZWQgaW50IGxlbiwgdW53cml0dGVu
-Ow0KLQkJc3RydWN0IGZvbGlvICpmb2xpbzsNCi0JCXZvaWQgKmRhdGEsICp2YWRkcjsNCi0JCWlu
-dCBlcnI7DQotCQljaGFyIF9fbWF5YmVfdW51c2VkIGM7DQotDQotCQlsZW4gPSBQQUdFX1NJWkUg
-LSBwZzsNCi0JCWlmIChsZW4gPiByZW1haW4pDQotCQkJbGVuID0gcmVtYWluOw0KLQ0KLQkJLyog
-UHJlZmF1bHQgdGhlIHVzZXIgcGFnZSB0byByZWR1Y2UgcG90ZW50aWFsIHJlY3Vyc2lvbiAqLw0K
-LQkJZXJyID0gX19nZXRfdXNlcihjLCB1c2VyX2RhdGEpOw0KLQkJaWYgKGVycikNCi0JCQlyZXR1
-cm4gZXJyOw0KLQ0KLQkJZXJyID0gX19nZXRfdXNlcihjLCB1c2VyX2RhdGEgKyBsZW4gLSAxKTsN
-Ci0JCWlmIChlcnIpDQotCQkJcmV0dXJuIGVycjsNCi0NCi0JCWVyciA9IGFvcHMtPndyaXRlX2Jl
-Z2luKG9iai0+YmFzZS5maWxwLCBtYXBwaW5nLCBwb3MsIGxlbiwNCi0JCQkJCSZmb2xpbywgJmRh
-dGEpOw0KLQkJaWYgKGVyciA8IDApDQotCQkJcmV0dXJuIGVycjsNCi0NCi0JCXZhZGRyID0ga21h
-cF9sb2NhbF9mb2xpbyhmb2xpbywgb2Zmc2V0X2luX2ZvbGlvKGZvbGlvLCBwb3MpKTsNCi0JCXBh
-Z2VmYXVsdF9kaXNhYmxlKCk7DQotCQl1bndyaXR0ZW4gPSBfX2NvcHlfZnJvbV91c2VyX2luYXRv
-bWljKHZhZGRyLCB1c2VyX2RhdGEsIGxlbik7DQotCQlwYWdlZmF1bHRfZW5hYmxlKCk7DQotCQlr
-dW5tYXBfbG9jYWwodmFkZHIpOw0KLQ0KLQkJZXJyID0gYW9wcy0+d3JpdGVfZW5kKG9iai0+YmFz
-ZS5maWxwLCBtYXBwaW5nLCBwb3MsIGxlbiwNCi0JCQkJICAgICAgbGVuIC0gdW53cml0dGVuLCBm
-b2xpbywgZGF0YSk7DQotCQlpZiAoZXJyIDwgMCkNCi0JCQlyZXR1cm4gZXJyOw0KLQ0KLQkJLyog
-V2UgZG9uJ3QgaGFuZGxlIC1FRkFVTFQsIGxlYXZlIGl0IHRvIHRoZSBjYWxsZXIgdG8gY2hlY2sg
-Ki8NCi0JCWlmICh1bndyaXR0ZW4pDQotCQkJcmV0dXJuIC1FTk9ERVY7DQotDQotCQlyZW1haW4g
-LT0gbGVuOw0KLQkJdXNlcl9kYXRhICs9IGxlbjsNCi0JCXBvcyArPSBsZW47DQotCQlwZyA9IDA7
-DQotCX0gd2hpbGUgKHJlbWFpbik7DQorCWluaXRfc3luY19raW9jYigma2lvY2IsIGZpbGUpOw0K
-KwlraW9jYi5raV9wb3MgPSBhcmctPm9mZnNldDsNCisJaW92X2l0ZXJfdWJ1ZigmaXRlciwgSVRF
-Ul9TT1VSQ0UsICh2b2lkIF9fdXNlciAqKXVzZXJfZGF0YSwgc2l6ZSk7DQorDQorCXdyaXR0ZW4g
-PSBmaWxlLT5mX29wLT53cml0ZV9pdGVyKCZraW9jYiwgJml0ZXIpOw0KKwlCVUdfT04od3JpdHRl
-biA9PSAtRUlPQ0JRVUVVRUQpOw0KKw0KKwlpZiAod3JpdHRlbiAhPSBzaXplKQ0KKwkJcmV0dXJu
-IC1FSU87DQorDQorCWlmICh3cml0dGVuIDwgMCkNCisJCXJldHVybiB3cml0dGVuOw0KIA0KIAly
-ZXR1cm4gMDsNCiB9DQotLSANCjIuMzQuMQ0K
+
+
+Am 17.07.25 um 09:30 schrieb Murthy, Arun R:
+> 
+>> -----Original Message-----
+>> From: Intel-gfx <intel-gfx-bounces@lists.freedesktop.org> On Behalf Of 
+>> Werner
+>> Sembach
+>> Sent: Saturday, July 5, 2025 12:34 AM
+>> To: Jani Nikula <jani.nikula@linux.intel.com>; Vivi, Rodrigo
+>> <rodrigo.vivi@intel.com>; Joonas Lahtinen 
+>> <joonas.lahtinen@linux.intel.com>;
+>> Tvrtko Ursulin <tursulin@ursulin.net>; David Airlie <airlied@gmail.com>;
+>> Simona Vetter <simona@ffwll.ch>
+>> Cc: Tim Guttzeit <t.guttzeit@tuxedocomputers.com>; Werner Sembach
+>> <wse@tuxedocomputers.com>; intel-gfx@lists.freedesktop.org; intel-
+>> xe@lists.freedesktop.org; dri-devel@lists.freedesktop.org; linux-
+>> kernel@vger.kernel.org
+>> Subject: [RFC PATCH 1/1] drm/i915/display: Avoid unsupported 300Hz output
+>> mode on a TUXEDO device
+>>
+>> From: Tim Guttzeit <t.guttzeit@tuxedocomputers.com>
+>>
+>> Removes all display modes with more than 240 Hz for the integrated 
+>> display on
+>> a TUXEDO Stellaris 16 Gen7, because using the iGPU with higer refresh 
+>> rates
+>> causes screen flicker.
+>>
+>> Signed-off-by: Tim Guttzeit <t.guttzeit@tuxedocomputers.com>
+>> Co-developed-by: Werner Sembach <wse@tuxedocomputers.com>
+>> Signed-off-by: Werner Sembach <wse@tuxedocomputers.com>
+>> ---
+>>  drivers/gpu/drm/i915/display/intel_dp.c     |  5 ++++
+>>  drivers/gpu/drm/i915/display/intel_quirks.c | 30 +++++++++++++++++++++
+>> drivers/gpu/drm/i915/display/intel_quirks.h |  1 +
+>>  3 files changed, 36 insertions(+)
+>>
+>> diff --git a/drivers/gpu/drm/i915/display/intel_dp.c
+>> b/drivers/gpu/drm/i915/display/intel_dp.c
+>> index 640c43bf62d4c..5ce00cfe36ee1 100644
+>> --- a/drivers/gpu/drm/i915/display/intel_dp.c
+>> +++ b/drivers/gpu/drm/i915/display/intel_dp.c
+>> @@ -1436,6 +1436,11 @@ intel_dp_mode_valid(struct drm_connector
+>> *_connector,
+>>      if (mode->clock < 10000)
+>>          return MODE_CLOCK_LOW;
+>>
+>> +    if (intel_has_quirk(display, QUIRK_EDP_MAX_240HZ_HOOK) &&
+>> +        intel_dp_is_edp(intel_dp) &&
+>> +        drm_mode_vrefresh(mode) > 240)
+>> +        return MODE_BAD;
+>> +
+> Adding a quirk for this is not the right approach. If this is not 
+> supported by the display, should have been pruned by the driver.
+> 
+
+Thank you for your reply. The panel (NE160QDM-NZL) supports 300 Hz and 
+advertises it. Also when running the system on its NVIDIA dGPU, it runs 
+perfectly fine without the flickering and on 300 Hz. On the iGPU, which 
+is apparently unable to support 300 Hz, it is not pruned, thus leading 
+to the flickering.
+
+Best regards,
+Tim Guttzeit
+
+> ------------->      fixed_mode = intel_panel_fixed_mode(connector, mode);
+>>      if (intel_dp_is_edp(intel_dp) && fixed_mode) {
+>>          status = intel_panel_mode_valid(connector, mode); diff --git
+>> a/drivers/gpu/drm/i915/display/intel_quirks.c
+>> b/drivers/gpu/drm/i915/display/intel_quirks.c
+>> index a32fae510ed27..438ce2cb37a01 100644
+>> --- a/drivers/gpu/drm/i915/display/intel_quirks.c
+>> +++ b/drivers/gpu/drm/i915/display/intel_quirks.c
+>> @@ -72,6 +72,12 @@ static void quirk_no_pps_backlight_power_hook(struct
+>> intel_display *display)
+>>      drm_info(display->drm, "Applying no pps backlight power 
+>> quirk\n");  }
+>>
+>> +static void quirk_edp_max_240hz_hook(struct intel_display *display) {
+>> +    intel_set_quirk(display, QUIRK_EDP_MAX_240HZ_HOOK);
+>> +    drm_info(display->drm, "Applying max 240Hz quirk\n"); }
+>> +
+>>  static void quirk_fw_sync_len(struct intel_dp *intel_dp)  {
+>>      struct intel_display *display = to_intel_display(intel_dp); @@ 
+>> -120,6
+>> +126,12 @@ static int intel_dmi_no_pps_backlight(const struct 
+>> dmi_system_id
+>> *id)
+>>      return 1;
+>>  }
+>>
+>> +static int intel_dmi_edp_max_240hz(const struct dmi_system_id *id) {
+>> +    DRM_INFO("Restrict output refreshrate to maximum 240Hz %s\n", id-
+>> >ident);
+>> +    return 1;
+>> +}
+>> +
+>>  static const struct intel_dmi_quirk intel_dmi_quirks[] = {
+>>      {
+>>          .dmi_id_list = &(const struct dmi_system_id[]) { @@ -166,6
+>> +178,24 @@ static const struct intel_dmi_quirk intel_dmi_quirks[] = {
+>>          },
+>>          .hook = quirk_no_pps_backlight_power_hook,
+>>      },
+>> +    {
+>> +        .dmi_id_list = &(const struct dmi_system_id[]) {
+>> +            {
+>> +                .callback = intel_dmi_edp_max_240hz,
+>> +                .ident = "TUXEDO Stellaris 16 Intel Gen7",
+>> +                .matches =
+>> {DMI_EXACT_MATCH(DMI_BOARD_NAME, "X6AR5xxY"),
+>> +                },
+>> +            },
+>> +            {
+>> +                .callback = intel_dmi_edp_max_240hz,
+>> +                .ident = "TUXEDO Stellaris 16 Intel Gen7",
+>> +                .matches =
+>> {DMI_EXACT_MATCH(DMI_BOARD_NAME, "X6AR5xxY_mLED"),
+>> +                },
+>> +            },
+>> +            { }
+>> +        },
+>> +        .hook = quirk_edp_max_240hz_hook,
+>> +    },
+>>  };
+>>
+>>  static struct intel_quirk intel_quirks[] = { diff --git
+>> a/drivers/gpu/drm/i915/display/intel_quirks.h
+>> b/drivers/gpu/drm/i915/display/intel_quirks.h
+>> index cafdebda75354..8fe3f3467106a 100644
+>> --- a/drivers/gpu/drm/i915/display/intel_quirks.h
+>> +++ b/drivers/gpu/drm/i915/display/intel_quirks.h
+>> @@ -20,6 +20,7 @@ enum intel_quirk_id {
+>>      QUIRK_LVDS_SSC_DISABLE,
+>>      QUIRK_NO_PPS_BACKLIGHT_POWER_HOOK,
+>>      QUIRK_FW_SYNC_LEN,
+>> +    QUIRK_EDP_MAX_240HZ_HOOK,
+>>  };
+>>
+>>  void intel_init_quirks(struct intel_display *display);
+>> -- 
+>> 2.43.0
+> 
+> 
+> 
