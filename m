@@ -4,51 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 13AE8C83F1A
-	for <intel-gfx@archiver.kernel.org>; Mon, 21 Jul 2025 09:26:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AB833C87FC5
+	for <intel-gfx@archiver.kernel.org>; Mon, 21 Jul 2025 09:26:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AC96C10E4B4;
-	Mon, 21 Jul 2025 09:26:05 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4658010E4C0;
+	Mon, 21 Jul 2025 09:26:09 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="mKlWjvIR";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="C+1N6831";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.16])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 87D6610E4C5;
- Mon, 21 Jul 2025 09:26:03 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4014F10E4C6;
+ Mon, 21 Jul 2025 09:26:08 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1753089964; x=1784625964;
+ t=1753089969; x=1784625969;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=mxjb81KKiDjNILIAsyLHrW/JhBDsUnyExl2VcHnfRpA=;
- b=mKlWjvIR3nKsUDmg+zb1IGqJcggw5380YPFIAkmtS8zS45libZbb0MK7
- tzvXA1p8vtjnn+EZsnal65S4ar7THWjdgAb9uxaaaKlYrUWOaBXjO7kEI
- 8XX3I6xnKlX1y8009Xme/SeoA2xfeq2lsS+H25xDrHL5RoWH3fwlPxErh
- BfvMCE4szxhU9Bbv3wMerkRczIaz7WSiAAjsxnevXTrvoveazZ+FYu4wL
- Cwy4qU9S9hK3H4nzYngvDMGO/Ei4ONalzSHUz/Nlra9jaZa6u2vp6xRwE
- PYjdzLU5bvUwyxQuXkL9lFGPsAEnaqOpYpam7naKK5C/GP+ifa9hhHcSb w==;
-X-CSE-ConnectionGUID: nQCVrR3QRW+wiiyyM5z08g==
-X-CSE-MsgGUID: 8YUHksoGQP2oDNAfNtMMyg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11498"; a="55455387"
-X-IronPort-AV: E=Sophos;i="6.16,328,1744095600"; d="scan'208";a="55455387"
+ bh=8A/9UhCYWa7aX4eEFJb45pVl7ZQ3CIrDyPa8ap2D/Ro=;
+ b=C+1N6831PZMzL5LC5QSkKT9QCkvinoIBnRqzvXrBSvfO/chlfJB9Wl+s
+ C8tXxJbPLnjRpLuP5CpH+QnJlOmMshXUklCRCPOXirv3T3sJp5g9dgAdn
+ +5FbpeE6t3Bq8YN9MWB+XZH+hT8LRROe6V75oFhn+gJV8flMvTVS1ojy0
+ uDaPeWW4HG7j3KC/B3rZ9SsExfg8UjPB1ICXMxHS5rX/ITl9/T/pGgC5V
+ vRSFBjbMVGssBwkFB7SZSr07mbKpRVtkW+kr1lBr0FFHtxNFwbjWfHatq
+ QVVgiLHMzZiVqD7GThdXyDNJu/ZQ3w1H0qPPYdGFz4gkHbPmXxLm8L0yI Q==;
+X-CSE-ConnectionGUID: JEjkImOfSS6al3ezyWNyxw==
+X-CSE-MsgGUID: 4UKlvBkQTYulNFziC17HCA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11498"; a="55455393"
+X-IronPort-AV: E=Sophos;i="6.16,328,1744095600"; d="scan'208";a="55455393"
 Received: from orviesa004.jf.intel.com ([10.64.159.144])
  by orvoesa108.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 21 Jul 2025 02:26:04 -0700
-X-CSE-ConnectionGUID: taZYVwwIQzeg2ROlOpEpCA==
-X-CSE-MsgGUID: IqVCNAaxStaSc27xumb2bw==
+ 21 Jul 2025 02:26:09 -0700
+X-CSE-ConnectionGUID: 7f1BnR8kTHCr/KRQ73HeBA==
+X-CSE-MsgGUID: FAyjQ82ORcilRgdlflOOdw==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.16,328,1744095600"; d="scan'208";a="163335161"
+X-IronPort-AV: E=Sophos;i="6.16,328,1744095600"; d="scan'208";a="163335172"
 Received: from srr4-3-linux-103-aknautiy.iind.intel.com ([10.223.34.160])
  by orviesa004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 21 Jul 2025 02:26:01 -0700
+ 21 Jul 2025 02:26:06 -0700
 From: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
 To: intel-gfx@lists.freedesktop.org,
 	intel-xe@lists.freedesktop.org
 Cc: jani.nikula@linux.intel.com, uma.shankar@intel.com,
  ville.syrjala@linux.intel.com, Ankit Nautiyal <ankit.k.nautiyal@intel.com>
-Subject: [PATCH 6/9] drm/i915/display_wa: Add support for Wa_14021768792
-Date: Mon, 21 Jul 2025 14:45:26 +0530
-Message-ID: <20250721091529.3864004-7-ankit.k.nautiyal@intel.com>
+Subject: [PATCH 8/9] drm/i915/display: Implement Wa_14021768792 for BMG DP for
+ link_m/n ratio > 10
+Date: Mon, 21 Jul 2025 14:45:28 +0530
+Message-ID: <20250721091529.3864004-9-ankit.k.nautiyal@intel.com>
 X-Mailer: git-send-email 2.45.2
 In-Reply-To: <20250721091529.3864004-1-ankit.k.nautiyal@intel.com>
 References: <20250721091529.3864004-1-ankit.k.nautiyal@intel.com>
@@ -69,82 +70,66 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Some BMG ultrajoiner configurations require support for Link M/N ratios
-between 10.0 and 15.0. This range is not natively supported and requires
-a workaround.
+Handle the bypass logic for the M/N ratio limit for DP.
+Calculate the M/N ratio, check if it can bypass the limit, and set the
+appropriate flags for the workaround.
 
-Wa_14021768792 enables this support by utilizing HDMI_EMP_DATA,
-CHICKEN_BITs, and extended bits in the LINK_N registers.
-
-Add the necessary logic to enable the workaround on applicable platforms.
-
-Bspec: 49266
 Signed-off-by: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
 ---
- .../gpu/drm/i915/display/intel_display_wa.c    | 18 ++++++++++++++++++
- .../gpu/drm/i915/display/intel_display_wa.h    |  1 +
- 2 files changed, 19 insertions(+)
+ drivers/gpu/drm/i915/display/intel_display.c |  1 -
+ drivers/gpu/drm/i915/display/intel_display.h |  2 ++
+ drivers/gpu/drm/i915/display/intel_dp.c      | 11 ++++++++++-
+ 3 files changed, 12 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_display_wa.c b/drivers/gpu/drm/i915/display/intel_display_wa.c
-index 399c08902413..541967168e97 100644
---- a/drivers/gpu/drm/i915/display/intel_display_wa.c
-+++ b/drivers/gpu/drm/i915/display/intel_display_wa.c
-@@ -5,11 +5,13 @@
- 
- #include <drm/drm_print.h>
- 
-+#include "i915_drv.h"
- #include "i915_reg.h"
- #include "intel_de.h"
- #include "intel_display_core.h"
- #include "intel_display_regs.h"
- #include "intel_display_wa.h"
-+#include "intel_step.h"
- 
- static void gen11_display_wa_apply(struct intel_display *display)
- {
-@@ -52,6 +54,20 @@ static bool intel_display_needs_wa_16025573575(struct intel_display *display)
- 	return DISPLAY_VERx100(display) == 3000 || DISPLAY_VERx100(display) == 3002;
+diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
+index bb50928762f6..ee15289221d7 100644
+--- a/drivers/gpu/drm/i915/display/intel_display.c
++++ b/drivers/gpu/drm/i915/display/intel_display.c
+@@ -3406,7 +3406,6 @@ void bmg_bypass_m_n_limit_read(struct intel_crtc *crtc,
+ 		m_n->bypass_m_n_ratio_limit = true;
  }
  
-+/*
-+ * Wa_14021768792:
-+ * Fixes: Limitation of Link M/N ratio > 10 for specific Xe2HPD platforms.
-+ * Workaround: Use HDMI_EMP_DATA, CHICKEN_BITs and extended bits in LINK_N registers to support
-+ * LINK M/N ratios from > 10 but < 15.
-+ */
-+static bool intel_display_needs_wa_14021768792(struct intel_display *display)
-+{
-+	struct drm_i915_private *i915 = to_i915(display->drm);
-+
-+	return (DISPLAY_VER(display) == 14 && IS_DGFX(i915) &&
-+		IS_DISPLAY_STEP(display, STEP_C0, STEP_FOREVER));
-+}
-+
- bool __intel_display_wa(struct intel_display *display, enum intel_display_wa wa, const char *name)
- {
- 	switch (wa) {
-@@ -59,6 +75,8 @@ bool __intel_display_wa(struct intel_display *display, enum intel_display_wa wa,
- 		return intel_display_needs_wa_16023588340(display);
- 	case INTEL_DISPLAY_WA_16025573575:
- 		return intel_display_needs_wa_16025573575(display);
-+	case INTEL_DISPLAY_WA_14021768792:
-+		return intel_display_needs_wa_14021768792(display);
- 	default:
- 		drm_WARN(display->drm, 1, "Missing Wa number: %s\n", name);
- 		break;
-diff --git a/drivers/gpu/drm/i915/display/intel_display_wa.h b/drivers/gpu/drm/i915/display/intel_display_wa.h
-index aedea4cfa3ce..8470f4ceea1a 100644
---- a/drivers/gpu/drm/i915/display/intel_display_wa.h
-+++ b/drivers/gpu/drm/i915/display/intel_display_wa.h
-@@ -24,6 +24,7 @@ bool intel_display_needs_wa_16023588340(struct intel_display *display);
- enum intel_display_wa {
- 	INTEL_DISPLAY_WA_16023588340,
- 	INTEL_DISPLAY_WA_16025573575,
-+	INTEL_DISPLAY_WA_14021768792,
- };
+-static
+ bool intel_display_can_bypass_m_n_limit(struct intel_display *display,
+ 					int m_n_ratio,
+ 					enum pipe pipe)
+diff --git a/drivers/gpu/drm/i915/display/intel_display.h b/drivers/gpu/drm/i915/display/intel_display.h
+index bfa3db219b9c..a7134dd15687 100644
+--- a/drivers/gpu/drm/i915/display/intel_display.h
++++ b/drivers/gpu/drm/i915/display/intel_display.h
+@@ -562,5 +562,7 @@ int intel_crtc_num_joined_pipes(const struct intel_crtc_state *crtc_state);
+ void intel_display_get_link_m_n(u32 *link_m, u32 *link_n,
+ 				u32 pixel_clock,
+ 				u32 link_clock);
++bool intel_display_can_bypass_m_n_limit(struct intel_display *display,
++					int m_n_ratio, enum pipe pipe);
  
- bool __intel_display_wa(struct intel_display *display, enum intel_display_wa wa, const char *name);
+ #endif
+diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
+index a1114d1059dd..a5ab7d694dbe 100644
+--- a/drivers/gpu/drm/i915/display/intel_dp.c
++++ b/drivers/gpu/drm/i915/display/intel_dp.c
+@@ -3012,10 +3012,19 @@ void intel_dp_check_m_n_ratio(struct intel_crtc_state *crtc_state,
+ 
+ 	m_n_ratio = DIV_ROUND_UP(m_n->link_m, m_n->link_n);
+ 
+-	if (m_n_ratio > intel_dp_get_max_m_n_ratio())
++	if (m_n_ratio > intel_dp_get_max_m_n_ratio()) {
++		struct intel_crtc *crtc = to_intel_crtc(crtc_state->uapi.crtc);
++		enum pipe pipe = crtc->pipe;
++
++		if (intel_display_can_bypass_m_n_limit(display, m_n_ratio, pipe)) {
++			m_n->bypass_m_n_ratio_limit = true;
++			drm_dbg_kms(display->drm, "Bypassing Link_m/Link_n ratio limit\n");
++			return;
++		}
+ 		drm_WARN(display->drm, 1,
+ 			 "Link M/N ratio (%d) exceeds max allowed (%d)\n",
+ 			 m_n_ratio, intel_dp_get_max_m_n_ratio());
++	}
+ }
+ 
+ static void
 -- 
 2.45.2
 
