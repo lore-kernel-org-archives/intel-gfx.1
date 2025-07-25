@@ -4,51 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 43878C83F26
-	for <intel-gfx@archiver.kernel.org>; Fri, 25 Jul 2025 05:04:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A349CC87FCD
+	for <intel-gfx@archiver.kernel.org>; Fri, 25 Jul 2025 05:04:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D5C1A10E441;
-	Fri, 25 Jul 2025 05:04:47 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0AD3310E444;
+	Fri, 25 Jul 2025 05:04:52 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="nYKe1Xts";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="eIwuuBdm";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.9])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 41F2C10E442;
- Fri, 25 Jul 2025 05:04:46 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C753510E442;
+ Fri, 25 Jul 2025 05:04:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1753419886; x=1784955886;
+ t=1753419891; x=1784955891;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=XKCR2fX7egl7H6r3aUFK3LWqkzPF7novZPHH1HctEB4=;
- b=nYKe1Xtso1wMtpHvJCnIh9b61dXde+SKR/VsQxmmfKJWvCKEb/De54Bn
- Bt697T0ob1wSMtjo3PDFx66pjEJUtxblLRD3QjfC5s8rwdyqcMRlcSYd7
- Rh0hU8ErYRc+cVEb+4FYVnLUD15o7F5OSVuaOK1t4h9yt8IWo/8Nc30hQ
- 654NbTkIQ9ELkqBTVx3ZhbAUQlRbwRzLk54tWeELlAweUBcRMuP7xNtvi
- PdbUbfWI9gSFY0I+KXuCROM71t2I2Z4zb/VHcTWzcU8jc9ppOP2f6rRcj
- 9OJFss+b2y+lfpEhrK9KERgVoPvWMSl0llGP7K6B2Wq4WdHPZdAD+ncGK Q==;
-X-CSE-ConnectionGUID: +uGV1ywqT8W+BnZphD6wUA==
-X-CSE-MsgGUID: hQnT6eqtToySeBMz/1uCwg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11501"; a="78299544"
-X-IronPort-AV: E=Sophos;i="6.16,338,1744095600"; d="scan'208";a="78299544"
+ bh=hXVEmnefqqtOVsU64lL3aPEXPXPgM4VcZ49lUq5b/rY=;
+ b=eIwuuBdmEl+MLDql6mo1jOjTCBosZA9doW2SDR6kE6g9cKTudLIKf2h2
+ SkNzIYH0aREkIB6OBo8QINw9q1e89vwPOttKyqSAax98D8K/oLwRGfJM+
+ zvrwSqvF/SffEKKQLPjXLfoXSQTjNLjJL9nHCRBr/yyal1hKGlv4ZZyTH
+ yV7eWWnL4cWcc7omz0SAAgvtlgqf5Htpu2cjy86AXPyvU4ZJpVkA5kCD8
+ oIkDuh7b8DG4xewXeS/sXN68TDiGL+/9AScsbJoITkCboc47gDaPq2eTQ
+ f4d6ecEb6RoSZAeTvRyNI5IMP3jXJfSIKv2xrah/cOYnwI/MtLWds/YOR Q==;
+X-CSE-ConnectionGUID: mpRIgQhESYyu2dvTrYWMoA==
+X-CSE-MsgGUID: YemyPjztTDqVKyK0ptCD/g==
+X-IronPort-AV: E=McAfee;i="6800,10657,11501"; a="78299547"
+X-IronPort-AV: E=Sophos;i="6.16,338,1744095600"; d="scan'208";a="78299547"
 Received: from fmviesa009.fm.intel.com ([10.60.135.149])
  by orvoesa101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 24 Jul 2025 22:04:46 -0700
-X-CSE-ConnectionGUID: nG1WgdZGS2mh9fs+hddr4w==
-X-CSE-MsgGUID: W6zINykRR9OA8DwvAXbUUQ==
+ 24 Jul 2025 22:04:50 -0700
+X-CSE-ConnectionGUID: dhlmuBjMTje7iXOBds+ZnA==
+X-CSE-MsgGUID: wktz7LQkQwqB4Vh/i1gk0g==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.16,338,1744095600"; d="scan'208";a="160956624"
+X-IronPort-AV: E=Sophos;i="6.16,338,1744095600"; d="scan'208";a="160956634"
 Received: from kandpal-x299-ud4-pro.iind.intel.com ([10.190.239.10])
- by fmviesa009.fm.intel.com with ESMTP; 24 Jul 2025 22:04:44 -0700
+ by fmviesa009.fm.intel.com with ESMTP; 24 Jul 2025 22:04:48 -0700
 From: Suraj Kandpal <suraj.kandpal@intel.com>
 To: dri-devel@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
  intel-gfx@lists.freedesktop.org
 Cc: ankit.k.nautiyal@intel.com, arun.r.murthy@intel.com, uma.shankar@intel.com,
  Suraj Kandpal <suraj.kandpal@intel.com>
-Subject: [PATCH 13/28] drm/i915/writeback: Add private structure for writeback
- job
-Date: Fri, 25 Jul 2025 10:33:54 +0530
-Message-Id: <20250725050409.2687242-14-suraj.kandpal@intel.com>
+Subject: [PATCH 15/28] drm/i915/writeback: Define compute_config for writeback
+Date: Fri, 25 Jul 2025 10:33:56 +0530
+Message-Id: <20250725050409.2687242-16-suraj.kandpal@intel.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20250725050409.2687242-1-suraj.kandpal@intel.com>
 References: <20250725050409.2687242-1-suraj.kandpal@intel.com>
@@ -69,36 +68,53 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Create intel_writeback_job to track drm_writback_job and other structure
-we might need to complete the writeback job.
+Define the compute config function where we assign the output_type
+and add the transcoder that needs to be used. We currently assign
+one WD0 transcoder.
 
 Signed-off-by: Suraj Kandpal <suraj.kandpal@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_writeback.c | 7 +++++++
- 1 file changed, 7 insertions(+)
+ .../gpu/drm/i915/display/intel_writeback.c    | 20 +++++++++++++++++++
+ 1 file changed, 20 insertions(+)
 
 diff --git a/drivers/gpu/drm/i915/display/intel_writeback.c b/drivers/gpu/drm/i915/display/intel_writeback.c
-index 674cc4ecf1b9..8d24b1ee0a2a 100644
+index f1570a638422..3ea09587c4c2 100644
 --- a/drivers/gpu/drm/i915/display/intel_writeback.c
 +++ b/drivers/gpu/drm/i915/display/intel_writeback.c
-@@ -25,10 +25,17 @@ struct intel_writeback_connector {
- 	struct drm_writeback_connector base;
- 	struct intel_encoder encoder;
- 	struct intel_connector connector;
-+	struct intel_writeback_job *job;
- 	enum transcoder trans;
- 	int frame_num;
+@@ -214,6 +214,25 @@ static const struct drm_writeback_connector_helper_funcs writeback_conn_helper_f
+ 	.get_connector_from_writeback = intel_get_connector_from_writeback,
  };
  
-+struct intel_writeback_job {
-+	struct drm_framebuffer *fb;
-+	struct drm_writeback_connector *wb_connector;
-+	struct i915_vma *vma;
-+};
++static int
++intel_writeback_compute_config(struct intel_encoder *encoder,
++			       struct intel_crtc_state *pipe_config,
++			       struct drm_connector_state *conn_state)
++{
++	struct intel_display *display = to_intel_display(encoder);
 +
- static const u32 writeback_formats[] = {
- 	DRM_FORMAT_XYUV8888,
- 	DRM_FORMAT_YUYV,
++	if (!conn_state->writeback_job)
++		return 0;
++
++	if (HAS_TRANSCODER(display, TRANSCODER_WD_0))
++		pipe_config->cpu_transcoder = TRANSCODER_WD_0;
++
++	pipe_config->output_types |= BIT(INTEL_OUTPUT_WRITEBACK);
++	pipe_config->output_format = INTEL_OUTPUT_FORMAT_RGB;
++
++	return 0;
++}
++
+ static void
+ intel_writeback_get_config(struct intel_encoder *encoder,
+ 			   struct intel_crtc_state *crtc_state)
+@@ -294,6 +313,7 @@ int intel_writeback_init(struct intel_display *display)
+ 	encoder->cloneable = 0;
+ 	encoder->get_config = intel_writeback_get_config;
+ 	encoder->get_hw_state = intel_writeback_get_hw_state;
++	encoder->compute_config = intel_writeback_compute_config;
+ 
+ 	connector = &writeback_conn->connector;
+ 	intel_writeback_connector_alloc(connector);
 -- 
 2.34.1
 
