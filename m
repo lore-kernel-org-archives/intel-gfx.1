@@ -4,57 +4,77 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 225DBC87FC9
-	for <intel-gfx@archiver.kernel.org>; Mon, 28 Jul 2025 13:00:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1E7E2C87FC9
+	for <intel-gfx@archiver.kernel.org>; Mon, 28 Jul 2025 13:12:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AA03D10E4FF;
-	Mon, 28 Jul 2025 13:00:16 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AC62D10E4FE;
+	Mon, 28 Jul 2025 13:12:33 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="G4OMCZQN";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Nss/H2e9";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.18])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D151510E4FF;
- Mon, 28 Jul 2025 13:00:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1753707616; x=1785243616;
- h=from:to:cc:subject:in-reply-to:references:date:
- message-id:mime-version;
- bh=w8qOd9zW33choDoCP4Lih3HFeGk4mjD2NSmXEhPTE3E=;
- b=G4OMCZQNvLz7YuguqWobbAqb5obVLpE0Ial3YM4vXyMXMT4cemporKjj
- Pmh9+5vxGLKnhbSIz5MRe3aOQPkS8vW36DLd4amWLCPM8q0T8Wh7Acl5j
- apvYxZPuHT9gUzyxmVAmDyb9evP20Masu49TR7sFtjpy8ONSo8T2mUKKC
- sVnNRCKOBNTvvvpEbPKxPIZyxxal58cCJYL6h8YCZWYXqjgeDACRaq0fm
- W5aCx/iATVVrNrAgboObVGqavKHboDQITTZRuzPqwsQbFkze4cI1s+pFq
- y+0GXL9IODF+WhVqzEVrwxVF3xmY+Je3tQKdT1ZBW/TFaYfzkwRzcMPFi w==;
-X-CSE-ConnectionGUID: kd9xbfxuTDuV4A2KZcbPHg==
-X-CSE-MsgGUID: UI2X8ty2RfGZldw8xAk38A==
-X-IronPort-AV: E=McAfee;i="6800,10657,11505"; a="56046104"
-X-IronPort-AV: E=Sophos;i="6.16,339,1744095600"; d="scan'208";a="56046104"
-Received: from orviesa008.jf.intel.com ([10.64.159.148])
- by orvoesa110.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 28 Jul 2025 06:00:15 -0700
-X-CSE-ConnectionGUID: A0Xtw0hHTeifDwjCXBVDkQ==
-X-CSE-MsgGUID: zhCVstUsStaXTy0WEb2ukw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.16,339,1744095600"; d="scan'208";a="162765669"
-Received: from vpanait-mobl.ger.corp.intel.com (HELO localhost)
- ([10.245.246.225])
- by orviesa008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 28 Jul 2025 06:00:13 -0700
-From: Jani Nikula <jani.nikula@linux.intel.com>
-To: Suraj Kandpal <suraj.kandpal@intel.com>, intel-xe@lists.freedesktop.org,
- intel-gfx@lists.freedesktop.org
-Cc: ankit.k.nautiyal@intel.com, Suraj Kandpal <suraj.kandpal@intel.com>
-Subject: Re: [PATCH 3/3] drm/i915/edp: eDP Data Overrride
-In-Reply-To: <20250725061548.2704697-4-suraj.kandpal@intel.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
-References: <20250725061548.2704697-1-suraj.kandpal@intel.com>
- <20250725061548.2704697-4-suraj.kandpal@intel.com>
-Date: Mon, 28 Jul 2025 16:00:10 +0300
-Message-ID: <5f02b6b0cf49d1c182a6294fa9144b4b4a22943e@intel.com>
+Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com
+ [209.85.128.44])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A77D210E43E;
+ Fri, 25 Jul 2025 07:27:37 +0000 (UTC)
+Received: by mail-wm1-f44.google.com with SMTP id
+ 5b1f17b1804b1-4550709f2c1so14463045e9.3; 
+ Fri, 25 Jul 2025 00:27:37 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1753428456; x=1754033256; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=6QL8IFabAlNq2YUnjd0j76KbVt8/qh8cFRe9/l7opeg=;
+ b=Nss/H2e9W7IEEkQysx+fRjmCLvPMdlWano/zLP3WAPzFcjqf5E1L6M6SL+2XhnFg8q
+ hsihOAYmuFspFe9s8tcB2OSjIezVRDGDNUYMMGTBU0KzRtbKu8rFwMJMxvqUz1oyCptv
+ 9kLmGy2jk2fwxIs1Oiw5RIJIvt7Y+Xovxsh1/Xr9qhtfB6jtaWoeVzeYhCgrbhbGohKj
+ eJTXNHbq1+Dg1SgqSIbHKq1OsiyvgnTi5nlUBobCK1NOP0jvP08K0b+UBqE7q8rnmbQQ
+ NE/sS8BQE9zw8vneF0DuJNpR1QJBNQzNmgfB2hZFJ/z83GBCeJQaqfXV4ThGFxKWOHd6
+ zZSg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1753428456; x=1754033256;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=6QL8IFabAlNq2YUnjd0j76KbVt8/qh8cFRe9/l7opeg=;
+ b=XcwUQTjEdtV5xPYip8d4ODZQuGVY8YCyYnSQTKnkGK+fL/34NLoJr4e2In2zHcjG1l
+ oDYkrVQoosIBYx5JliunQxDsDA2RG12er3/ti696mdTGEmmeW9IuHT0SM06I4JDsHerp
+ 2g7kRhPS9GguTWQSYjTv0xOw5B/9Rm15OoiQJzUXojo6phaapsVQl25CuB+P1jonO3Sp
+ w18A+AF7ivdjokGwAAxvCQC7j2sZAQRkkjekws3kqllQS8blfGQZRDpU/XbxEUXXCvy5
+ oy9QXiOJJCo70fJh2YV5YN3amMeh/ZHP/YGyddm/AvnJ4ziQWL/QjFppjicCAeEWo8cK
+ uguA==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCX6i+K2eoE0FMj/6ly52/bYzcsktecC7qUlffxpn0SS5Lm6Qtl6cxd2UTlwfvzQVsQ/Y2gnUJATMAw=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YylJLhOTdyd4Y8AMyzRiPJmt+Nl6W7tzUkEXDnQtJgwtU7j9P1c
+ nxB5Dd2HiiKpAxvQvaOeDmEfjH0vcE8NKkX8CH69Wy5ARnbisEe0/U50ZazHdQ==
+X-Gm-Gg: ASbGncsaqFKrFnd2M5KlVWkMCl5+W6ie7ETSR0p8uw5pB9BFX2pYxXuxa7iI13zquzw
+ zdwbZU26gb690oEDao1fcMVFbSodgINFCxvfQEr1+cYIdImnvzcKVt5Cv0wmJTt3oqI8MmFNtwL
+ jV6Am1RqoKa8TBTDuleiPU2HknjwxmZH5ly6yn5YevAbSFnrNBNEzPxUaw7Kyf0XUALEFgC2BM7
+ 3E+luzqA8MmemdjeowKh5uP6qhpmUsnsJefOpnyaT4JIUr+mDzjG40ZfYoe6xo2CvaPGHXn7D/6
+ /3ueXJh0r4qtWPT7Ga4QQrv4HHnjiZTrD3jF1aWj7w9bZg5uWo3nCfE4KF9r38YVCjYg1uzRPZg
+ +PNr8bb71YnbXrv5IW2YJhgVOwwkU5Oy2
+X-Google-Smtp-Source: AGHT+IHXUqI3/O2tykas7YCqb0hJEiPruqG27l3QuNQZxuNeJkfBrL0rNt4o7YlL5rbuFTNvpq5rEg==
+X-Received: by 2002:a05:600c:37c4:b0:455:ed0f:e8ec with SMTP id
+ 5b1f17b1804b1-45877447987mr4301385e9.9.1753428455491; 
+ Fri, 25 Jul 2025 00:27:35 -0700 (PDT)
+Received: from fedora ([193.77.86.199]) by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-3b76fc7885esm4227301f8f.35.2025.07.25.00.27.34
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 25 Jul 2025 00:27:34 -0700 (PDT)
+From: Uros Bizjak <ubizjak@gmail.com>
+To: intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+Cc: Uros Bizjak <ubizjak@gmail.com>, Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Tvrtko Ursulin <tursulin@ursulin.net>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>
+Subject: [PATCH] drm/i915/active: Use try_cmpxchg64() in __active_lookup()
+Date: Fri, 25 Jul 2025 09:26:42 +0200
+Message-ID: <20250725072727.68486-1-ubizjak@gmail.com>
+X-Mailer: git-send-email 2.50.1
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Transfer-Encoding: 8bit
+X-Mailman-Approved-At: Mon, 28 Jul 2025 13:12:32 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,66 +90,51 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Fri, 25 Jul 2025, Suraj Kandpal <suraj.kandpal@intel.com> wrote:
-> We need override certain link rates in favour of the next available
-> higher link rate. The Link rates that need to be overridden are
-> indicated by a mask in VBT. To make sure these modes are skipped we
-> don't add them in them in the sink rates array.
->
-> --v2
-> -Update the link rates after we have a final set of link rates [Ankit]
-> -Break this patch up [Ankit]
-> -Optimize the assingment during loop [Ankit]
->
-> Signed-off-by: Suraj Kandpal <suraj.kandpal@intel.com>
-> ---
->  drivers/gpu/drm/i915/display/intel_dp.c | 19 +++++++++++++++++++
->  1 file changed, 19 insertions(+)
->
-> diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
-> index 54d88f24b689..040344949b8f 100644
-> --- a/drivers/gpu/drm/i915/display/intel_dp.c
-> +++ b/drivers/gpu/drm/i915/display/intel_dp.c
-> @@ -4277,6 +4277,23 @@ static void intel_edp_mso_init(struct intel_dp *intel_dp)
->  	intel_dp->mso_pixel_overlap = mso ? info->mso_pixel_overlap : 0;
->  }
->  
-> +static void
-> +intel_edp_set_data_override_rates(struct intel_dp *intel_dp)
-> +{
-> +	struct intel_encoder *encoder = &dp_to_dig_port(intel_dp)->base;
-> +	int *sink_rates = intel_dp->sink_rates;
-> +	int i, j = 0;
-> +
-> +	for (i = 0; i < intel_dp->num_sink_rates; i++) {
-> +		if (intel_bios_need_edp_data_override(encoder->devdata,
-> +						      intel_dp->sink_rates[i]))
-> +			continue;
-> +
-> +		sink_rates[j++] = intel_dp->sink_rates[i];
-> +	}
-> +	intel_dp->num_sink_rates = j;
-> +}
-> +
->  static void
->  intel_edp_set_sink_rates(struct intel_dp *intel_dp)
->  {
-> @@ -4327,6 +4344,8 @@ intel_edp_set_sink_rates(struct intel_dp *intel_dp)
->  		intel_dp->use_rate_select = true;
->  	else
->  		intel_dp_set_sink_rates(intel_dp);
-> +
-> +	intel_edp_set_data_override_rates(intel_dp);
+Replace this pattern in __active_lookup():
 
-This can lead to no rates with a broken VBT, and so far we've taken care
-to always have the fallback in there.
+    cmpxchg64(*ptr, old, new) == old
 
-BR,
-Jani.
+... with the simpler and faster:
 
->  }
->  
->  static bool
+    try_cmpxchg64(*ptr, &old, new)
 
+The x86 CMPXCHG instruction returns success in the ZF flag,
+so this change saves a compare after the CMPXCHG.
+
+The patch also improves the explanation of what the code really
+does. cmpxchg64() will *succeed* for the winner of the race and
+try_cmpxchg64() nicely documents this fact.
+
+No functional change intended.
+
+Signed-off-by: Uros Bizjak <ubizjak@gmail.com>
+Cc: Jani Nikula <jani.nikula@linux.intel.com>
+Cc: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
+Cc: Rodrigo Vivi <rodrigo.vivi@intel.com>
+Cc: Tvrtko Ursulin <tursulin@ursulin.net>
+Cc: David Airlie <airlied@gmail.com>
+Cc: Simona Vetter <simona@ffwll.ch>
+---
+ drivers/gpu/drm/i915/i915_active.c | 5 ++---
+ 1 file changed, 2 insertions(+), 3 deletions(-)
+
+diff --git a/drivers/gpu/drm/i915/i915_active.c b/drivers/gpu/drm/i915/i915_active.c
+index 0dbc4e289300..6b0c1162505a 100644
+--- a/drivers/gpu/drm/i915/i915_active.c
++++ b/drivers/gpu/drm/i915/i915_active.c
+@@ -257,10 +257,9 @@ static struct active_node *__active_lookup(struct i915_active *ref, u64 idx)
+ 		 * claimed the cache and we know that is does not match our
+ 		 * idx. If, and only if, the timeline is currently zero is it
+ 		 * worth competing to claim it atomically for ourselves (for
+-		 * only the winner of that race will cmpxchg return the old
+-		 * value of 0).
++		 * only the winner of that race will cmpxchg succeed).
+ 		 */
+-		if (!cached && !cmpxchg64(&it->timeline, 0, idx))
++		if (!cached && try_cmpxchg64(&it->timeline, &cached, idx))
+ 			return it;
+ 	}
+ 
 -- 
-Jani Nikula, Intel
+2.50.1
+
