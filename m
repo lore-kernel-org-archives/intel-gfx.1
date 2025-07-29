@@ -4,69 +4,79 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E979CC87FCB
-	for <intel-gfx@archiver.kernel.org>; Wed, 30 Jul 2025 14:02:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DE161C83F26
+	for <intel-gfx@archiver.kernel.org>; Wed, 30 Jul 2025 14:02:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 886BC10E368;
-	Wed, 30 Jul 2025 14:02:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3F39610E369;
+	Wed, 30 Jul 2025 14:02:02 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="hwqEdA1z";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="bhULLlix";
 	dkim-atps=neutral
-Received: from mail-ej1-f52.google.com (mail-ej1-f52.google.com
- [209.85.218.52])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 858FE10E1F0;
- Tue, 29 Jul 2025 10:03:41 +0000 (UTC)
-Received: by mail-ej1-f52.google.com with SMTP id
- a640c23a62f3a-ae0dffaa8b2so1072988966b.0; 
- Tue, 29 Jul 2025 03:03:41 -0700 (PDT)
+Received: from mail-yw1-f173.google.com (mail-yw1-f173.google.com
+ [209.85.128.173])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3DC0610E2DE;
+ Tue, 29 Jul 2025 22:00:48 +0000 (UTC)
+Received: by mail-yw1-f173.google.com with SMTP id
+ 00721157ae682-71a3f7f0addso3109367b3.2; 
+ Tue, 29 Jul 2025 15:00:48 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1753783420; x=1754388220; darn=lists.freedesktop.org;
- h=cc:to:subject:message-id:date:from:mime-version:from:to:cc:subject
- :date:message-id:reply-to;
- bh=D+MVLwJmF7zcQQs5GBiAvtVf89SV7MV1UDodoYOOKcM=;
- b=hwqEdA1zdzT4H9pLnCRtzLNqKEVvASs/3KI+dAEVT3ZnZbUhAZ2rEow39/WYz6VSN/
- 8L/ZRZ79GFejEhpvojc31jv0SSsRSfPDvVVTedLUCU1uxKstPTdbx/MAdJ6F9syKlxOf
- bBvgj9sln/rVCX0vR+dAb9ulrBpxtYL6uwt0F9vJ92O6wq1N1NGPUtxtoeZUwVaTctkd
- kSweStHJhkg93SnLctqLNKpTTsJYshGXUwf1X3SHYkCzZdfS/HiADHl9q0578t27TZbl
- RoQtIN5dIU7w8dP/6Xa+NxLL1CKDm1t0NLvb7/8vPTTfIm0yMF80yfpkdz4nQMVVcLBk
- 07bw==
+ d=gmail.com; s=20230601; t=1753826447; x=1754431247; darn=lists.freedesktop.org;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc:subject:date:message-id:reply-to;
+ bh=Bf7MCgMW3rHEy3/8Boxp0Sj1cjXi7btiouj/QL5jI6g=;
+ b=bhULLlix0zTHQkxjBaEbi1uH14s8CjalGvh/xE16oj82OE7+Pgfl13T0NzFIAZzfmP
+ PGO3/37hS9GpeY7lwa9A4eHyIN9KSbyPw13fyZL1sPTse+P0W4q94xu4NRxwoK1aeBhd
+ LL8jrOu51r8d/8MZIUhuY4UBqY1z0nRoD6YtqYv0ceu/QGhUC4juveufTC3OOhnzwdLo
+ r2e3IvvYRSj5dLM0LixixN86TlTlKIvt4C0EfHHRzb9bOYplLFrWpxLcknntddPXrpaW
+ XjYNmu/fDHfx6icPRxwCuQ3i8HGONKQoSOiJCrjJmYPBTHXRNoHYTpnHGnR72sc3g5kV
+ lw/Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1753783420; x=1754388220;
- h=cc:to:subject:message-id:date:from:mime-version:x-gm-message-state
- :from:to:cc:subject:date:message-id:reply-to;
- bh=D+MVLwJmF7zcQQs5GBiAvtVf89SV7MV1UDodoYOOKcM=;
- b=mSBi1Opf7dmfJApYGtS+/ngr6K3jRIAzgFPieVzDBylYzp1KWcoXWIcaJmG72wYzST
- /8Nk61l5sWUp2fdeNqFz+bsRWNMGmBf1vyPt8tb8+G0b8OGBW1XuUQ86rc+PXATn3Kpo
- 9TRJU2ERhpYW8DnFiROV16t4X1wojw8VMSCyofXxwuUr1IipcoxWRLRDVdtw2UEM1hQf
- N7f+Ty6Q9RLspXdQBwBEkymdfB8wC2NI47HPVtuubCs7TTFK7B5Sf/on/XX6sk/FyKR3
- E+gBVRuWWtpWqbQDS15bHyp1wl5D6+dLGIvJ0RYbLmFximb14VXetxO9h/ucugh4j7eA
- so1Q==
+ d=1e100.net; s=20230601; t=1753826447; x=1754431247;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=Bf7MCgMW3rHEy3/8Boxp0Sj1cjXi7btiouj/QL5jI6g=;
+ b=XEN9lDlwnYl/i1cGJeSR6O5SkAGDqEtLAfuyt93MuCZ942k9KGRqLHIe3tn8LFy06D
+ mgbKFT6WuT1sm1Ft+0iph+AGcGwL1+NB61pcvZ28JfgJVM4ULH5CcLMesIqyQMiFyq/1
+ H/1TU0sC0aUy/Pl7MnQxohjSp4Mc5gvBus2m6VwDwDNcUggnqwltHAMw4M/22MQG/xqM
+ H3yWiwbhkGVXTafPj/w6zzvFqQJcZ36ikIhmmJy3/mO1U86NaEVcADmBw9nUjsXmmcgt
+ ziV8tJ/1d31JlVIQiOyle5JhT68JTybocaAzam1lG5uPcaf8tss5AnZhQ5FRSuhzsnwi
+ AlMg==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUcbb3bSHHTvgflbl+53WrOUT/UFPNddqbVDIb9Q9IxObdrMbhD3THMnk5z4dcEL69e5mCdXzoD/QA=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YylP6UYKEyt/i5hmKyzXMOYvrsDIkK4LjFgo7Y8Z3eSfVgJPfqn
- Ebdgd5QcnnEbS9b+lPLc2QP+3/rPQXWR3Sw3Lm2+dS17dfksNzVTxOJdugLfDmcn3qGaYJu59OE
- dVsC+uD00RrVeNqULk90AH4aO1x4rHkM=
-X-Gm-Gg: ASbGncsz8tkIv0pJC+yIcYCXVzUkUZswxoESMh8jhWhARHjyT69ntuo6nGTG/Y4C2GZ
- 2C7psCaddcJVLoyjIeeyPE7x4MEUphC3DXMPsp9xng7YlMe+dVLz34Ngag+QEvEwmI3ex+UwjCZ
- Jl42FFuABStdhIf1KAy/GSecPJgxTOEVqr5NmWSggDKpfqz8P3fbjK2Nli5tVM2lzXErbOgwCCK
- fl2LWhh
-X-Google-Smtp-Source: AGHT+IFR5NqoKoHtBXiwuzultk2/wcc4NDM8ArexVgiStAANSbiLZ+rEDOZQAChRg5bGXQycZF4dSKht6k9SVrysExk=
-X-Received: by 2002:a17:907:6d18:b0:add:f2c8:7d3f with SMTP id
- a640c23a62f3a-af618f02439mr1594000566b.33.1753783419635; Tue, 29 Jul 2025
- 03:03:39 -0700 (PDT)
+ AJvYcCVgzQblXRLoYMaLKKsJgmF7g1uf1M2LvMbPaZsB+b1GGwU6HXBrStmb+fHBV9WoXfAm4AjYgMqy@lists.freedesktop.org,
+ AJvYcCVtCGqNuuk818xYadVd9WAVkjZpROXSWpR71U0OtDyM4fAOPW2bjdxOSuvdvGy09KnxI8ZQYAQAXUUj@lists.freedesktop.org,
+ AJvYcCWRWjS+lD1jtWbTNl6hPv3w+krePGt47vmEKpk7omSy8lKrtI71Xq4taJJLzpb+q+tdo62mD2wWqCkBFJWo7A==@lists.freedesktop.org,
+ AJvYcCWadayHuvqvIOMqThiks1FP1sLxk1iCxbeo0k6LZ2HN16b8xHxX9x1u3FJBQvo4q/T06fCMeGHFaJe/@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YyKffuit3ZlP5qNGdd7+jEqkWt7qxm7Reso8/hNQ2g/fzB5ZWEF
+ fSAvsuczEp62VwodaIMAwF0BczeHQtEwo69c+YymN5qViHKUAJlkTz5ULuruEOstfu9r20MgiOm
+ vyFPVirEb5i05h2ueb/5J1Qrr4M0X9ao=
+X-Gm-Gg: ASbGncvGU8BWtHkOH/EYxW+wX26deCm2iTmBGzrw+czNSvBr3m9vamyZCGM+UVVcNJ/
+ 0R7zghSqKSgV6sOcyisjJC0iS1d8F8GIJ7M8DJKulavpZTgHONzrGFcSJLSajgBEB2MznvDZPKN
+ n8T3BUqI/lsk6tgZXME40ONJkzuY6wMNVG+osHcmDitCHRoK3ITYAanYdKU/ElNnxBzb2p9lPwW
+ CokPw==
+X-Google-Smtp-Source: AGHT+IHNQcrSkJ2HLeMBxvQ4Jv6I61m2VCJ8EIUFg+9bAEeqD9KX6+H+1UjiPC3MR4drzhvRBbsAP4dMFfchymbmwcc=
+X-Received: by 2002:a05:690c:380b:b0:719:4dab:4322 with SMTP id
+ 00721157ae682-71a4665ad33mr18638917b3.22.1753826446723; Tue, 29 Jul 2025
+ 15:00:46 -0700 (PDT)
 MIME-Version: 1.0
-From: Andy Mindful <andy.mindful@gmail.com>
-Date: Tue, 29 Jul 2025 13:03:27 +0300
-X-Gm-Features: Ac12FXwT2AD8p3BCcLoITIH5kuPJ0_AKKpOAxOhi7hBOjcX8afUCURN2eTIOkdw
-Message-ID: <CACTEcX6oXBot1VBApOyKVMVXsAN9BsvQMLa8J0iKpNeB-eLttQ@mail.gmail.com>
-Subject: [REGRESSION] tty lockup and WWAN loss after hibernate/suspend in 6.8+
- on ThinkPad X1 Carbon Gen 10
-To: linux-kernel@vger.kernel.org, regressions@lists.linux.dev, 
- linux-pm@vger.kernel.org
-Cc: intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
- linux-acpi@vger.kernel.org, rafael@kernel.org, jani.nikula@intel.com, 
- ville.syrjala@linux.intel.com, tglx@linutronix.de
-Content-Type: text/plain; charset="UTF-8"
+References: <20250402174156.1246171-1-jim.cromie@gmail.com>
+ <20250402174156.1246171-29-jim.cromie@gmail.com>
+ <CAOw6vbJwbvcVARNmx3O7mTbOr+A_Vo_DaUXFfN8HFFLqdG-VPQ@mail.gmail.com>
+In-Reply-To: <CAOw6vbJwbvcVARNmx3O7mTbOr+A_Vo_DaUXFfN8HFFLqdG-VPQ@mail.gmail.com>
+From: jim.cromie@gmail.com
+Date: Tue, 29 Jul 2025 16:00:20 -0600
+X-Gm-Features: Ac12FXyWVXGFelprKK3BcySWxLEORiXBVvTHcbIZRuOv6NNRJOot3b7GOZIJq9Y
+Message-ID: <CAJfuBxw8X1w=ZkHaLbXELGt_r2Gkdzgw1FZb_tpqrRvHA7CMxA@mail.gmail.com>
+Subject: Re: [PATCH v3 28/54] dyndbg: restore classmap protection when theres
+ a controlling_param
+To: Sean Paul <seanpaul@chromium.org>
+Cc: jbaron@akamai.com, gregkh@linuxfoundation.org, ukaszb@chromium.org, 
+ louis.chauvet@bootlin.com, linux-kernel@vger.kernel.org, 
+ dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org, 
+ intel-gvt-dev@lists.freedesktop.org, intel-gfx@lists.freedesktop.org, 
+ daniel.vetter@ffwll.ch, tvrtko.ursulin@linux.intel.com, jani.nikula@intel.com, 
+ ville.syrjala@linux.intel.com
+Content-Type: multipart/alternative; boundary="0000000000005acfd0063b188a75"
 X-Mailman-Approved-At: Wed, 30 Jul 2025 14:02:00 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -83,122 +93,84 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Kernel-version: 6.8+ (confirmed in Fedora kernel 6.8.4-200.fc38.x86_64
-and above)
-Regression-from: 6.7.11 (working) to 6.8.4+ (regressed)
-Affected-hardware: Lenovo ThinkPad X1 Carbon Gen 10 (Intel Alder Lake platform)
-Affected-subsystems: TTY/Console, Power Management, WWAN Modem (Intel
-XMM7560, iosm driver), Kernel DRM/i915 stack
+--0000000000005acfd0063b188a75
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Description:
-We are reporting a significant regression introduced in Linux kernel
-version 6.8 (specifically confirmed in Fedora kernel
-6.8.4-200.fc38.x86_64 and subsequent versions), affecting Lenovo
-ThinkPad X1 Carbon Gen 10 laptops. This regression manifests primarily
-as tty lockups and complete loss of WWAN modem functionality after
-hibernate cycle.
+On Fri, Jun 20, 2025 at 8:47=E2=80=AFAM Sean Paul <seanpaul@chromium.org> w=
+rote:
 
-Problematic Behavior:
-1. TTY/Console: After a hibernate cycle, the console input becomes
-unresponsive. In some cases, after suspend, pressing `SysRq+R` (unraw)
-can temporarily restore keyboard functionality, but this is not
-consistent, especially after hibernation.
-2. Power Management: While S3 suspend works correctly when "Linux
-only" is set in BIOS, `suspend` causes the system to freeze upon
-resume if "Windows + Linux" mode (which implies `s2idle`) is active in
-BIOS settings.
-3. WWAN Modem (Intel XMM7560, `iosm` driver): The modem fails to
-reinitialize after hibernation, consistently showing "msg timeout"
-errors in logs. The modem works correctly after a cold boot but
-completely fails to recover after resuming from hibernate. Rescanning
-PCI devices or reloading the `iosm` module does not resolve the issue.
-Attempts to manually remove the device via
-`/sys/bus/pci/devices/.../remove` result in a system hang.
-4. Kernel DRM/i915 stack: Although GuC and HuC firmware (versions
-70.44.1 / 7.9.3) are confirmed to load correctly, logs indicate
-potential graphics driver reinitialization issues in affected kernel
-versions. This might contribute to the TTY unresponsiveness.
+> On Thu, Apr 3, 2025 at 9:48=E2=80=AFAM Jim Cromie <jim.cromie@gmail.com> =
+wrote:
+> >
+>
+> \snip
+>
+> >
+> > -static void ddebug_match_apply_kparam(const struct kernel_param *kp,
+> > -                                     const struct _ddebug_class_map
+> *map,
+> > -                                     const char *mod_name)
+> > +static struct _ddebug_class_param *
+> > +ddebug_get_classmap_kparam(const struct kernel_param *kp,
+> > +                          const struct _ddebug_class_map *map)
+> >  {
+> >         struct _ddebug_class_param *dcp;
+> >
+> >         if (kp->ops !=3D &param_ops_dyndbg_classes)
+> > -               return;
+> > +               return false;
+>
+> Return type is struct _ddebug_class_param *, should this be NULL?
+>
+>
+yes it should. thx.  will revise
 
-System Specifications:
-- Laptop: Lenovo ThinkPad X1 Carbon Gen 10
-- CPU: Intel Core i7-1260P (Alder Lake)
-- GPU: Intel iGPU (ADL GT2) - i915
-- WWAN: Intel XMM7560 (iosm driver)
-- Wi-Fi/Bluetooth: Intel AX201
-- Operating Systems tested:
-- Fedora 38 (most stable with 6.7.11)
-- Fedora 39/40/42 (exhibit regression)
-- Ubuntu 22.04, 24.10 (exhibit regression)
-- EndeavourOS_Mercury-Neo-2025.03.19 (exhibits regression)
-- Display manager: GDM/Wayland (also tested LightDM + Xfce and
-runlevel 3, problem persists).
-- Mesa Stack: Mesa 24.3.4 built with LLVM 16.0.6 (confirmed functional
-with working kernels). Vulkan, GBM, EGL, GLX render correctly with
-`iris` and `intel` drivers. Custom Mesa 24.3.4 build showed no impact
-on the hibernate issue.
+>
+>
 
-Behavior Matrix:
-| Kernel Version | Hibernate Status | Resume Status | TTY
-Functionality | WWAN Functionality | Notes |
-|----------------|------------------|---------------|-------------------|--------------------|-------|
-| 6.2.9 | OK | Not tested | OK | Not Tested | Working baseline |
-| 6.3.12 | OK | Not tested | OK | Not Tested | Working baseline |
-| 6.7.11 | OK | OK(S3)/Fail(S2idle) | OK | FAIL | WWAN regression
-starts here, but hibernate/tty still OK |
-| **6.8.4+** | FAIL | OK(S3)/Fail(S2idle) | FAIL | FAIL | Major
-regression point, affects hibernate/tty/WWAN |
-| 6.14+ | FAIL | OK(S3)/Fail(S2idle) | FAIL | FAIL | Problem persists
-in newer kernels |
+--0000000000005acfd0063b188a75
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Additional Details:
-- Hibernation issues:
-- Initial `mem_sleep` was `[s2idle]` in BIOS "Windows + Linux" mode.
-- Switching BIOS to "Linux only" enabled proper S3 suspend, changing
-`/sys/power/mem_sleep` to `[s2idle] deep`. However, the hibernation
-issue (TTY lockup, WWAN loss) persists even with S3 enabled for
-suspend.
-- `Alt + SysRq + R` sometimes revives console after suspend but
-*never* after hibernate.
-- TTY related errors observed in logs are, dmesg:
-`tty_flip_buffer_push: called while buffer locked`, systemd-logind:
-`New session created but VT is not initial VT, ignoring`, GDM:
-`GdmLocalDisplayFactory: active VT is not initial VT` on kernels 6.8+.
-- WWAN issues:
-- The `iosm` driver appears loaded, and the device is visible via
-`lspci`, but the modem is not visible to `mmcli` after resume from
-hibernate.
-- The WWAN modem (iosm) only works after a cold boot.
-- Rescanning PCI or reloading `iosm` module (e.g., `modprobe -r iosm
-&& modprobe iosm`) does not resolve the issue.
-- Manual removal via `/sys/bus/pci/devices/.../remove` leads to a
-system hang, indicating a deeper issue with device state or driver
-interaction post-resume.
+<div dir=3D"ltr"><div dir=3D"ltr"><br></div><br><div class=3D"gmail_quote g=
+mail_quote_container"><div dir=3D"ltr" class=3D"gmail_attr">On Fri, Jun 20,=
+ 2025 at 8:47=E2=80=AFAM Sean Paul &lt;<a href=3D"mailto:seanpaul@chromium.=
+org">seanpaul@chromium.org</a>&gt; wrote:<br></div><blockquote class=3D"gma=
+il_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,2=
+04,204);padding-left:1ex">On Thu, Apr 3, 2025 at 9:48=E2=80=AFAM Jim Cromie=
+ &lt;<a href=3D"mailto:jim.cromie@gmail.com" target=3D"_blank">jim.cromie@g=
+mail.com</a>&gt; wrote:<br>
+&gt;<br>
+<br>
+\snip<br>
+<br>
+&gt;<br>
+&gt; -static void ddebug_match_apply_kparam(const struct kernel_param *kp,<=
+br>
+&gt; -=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
+ =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0const struct=
+ _ddebug_class_map *map,<br>
+&gt; -=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
+ =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0const char *=
+mod_name)<br>
+&gt; +static struct _ddebug_class_param *<br>
+&gt; +ddebug_get_classmap_kparam(const struct kernel_param *kp,<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
+ =C2=A0 =C2=A0 =C2=A0 const struct _ddebug_class_map *map)<br>
+&gt;=C2=A0 {<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0struct _ddebug_class_param *dcp;<br>
+&gt;<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0if (kp-&gt;ops !=3D &amp;param_ops_dy=
+ndbg_classes)<br>
+&gt; -=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0return;<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0return false;<=
+br>
+<br>
+Return type is struct _ddebug_class_param *, should this be NULL?<br>
+<br></blockquote><div><br></div><div>yes it should. thx.=C2=A0 will revise<=
+/div><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;bo=
+rder-left:1px solid rgb(204,204,204);padding-left:1ex"><br>
+</blockquote></div></div>
 
-Tested Alternatives & Current Stability:
-- Hibernate works reliably only up to kernel 6.7.11.
-- Fedora 38 with kernel 6.7.11 + GNOME 44.10 is currently the most
-stable configuration for this hardware, despite the WWAN issue already
-present there (but not the tty lockup/hibernate issue).
-- Kali Linux with 6.6.9 - hibernation works.
-- Newer distributions (e.g., Fedora 42, Ubuntu 25.04, EndeavourOS)
-inherit the same problems due to their newer kernel versions.
-
-Expected Behavior:
-The system should resume from hibernate and suspend without TTY
-lockups, and the WWAN modem should reinitialize correctly and be fully
-functional.
-
-Steps to Reproduce:
-1. Ensure system is running a kernel version 6.8.4 or newer (e.g.,
-Fedora 38 with `6.8.4-200.fc38.x86_64`).
-2. Perform a `systemctl hibernate` or `systemctl suspend`.
-3. Resume the system.
-4. Observe TTY console unresponsiveness(only in runlevel 3) and check
-WWAN modem status using `mmcli -L`.
-
-Please let me know if any further information or testing is required.
-
-Thank you.
-
-Best regards,
-Andriy
+--0000000000005acfd0063b188a75--
