@@ -4,33 +4,33 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0FB6AC87FD2
-	for <intel-gfx@archiver.kernel.org>; Thu, 31 Jul 2025 13:57:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 36549C87FCC
+	for <intel-gfx@archiver.kernel.org>; Thu, 31 Jul 2025 13:57:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E273710E79E;
+	by gabe.freedesktop.org (Postfix) with ESMTP id BD3F010E79D;
 	Thu, 31 Jul 2025 13:57:46 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=siemens.com header.i=nicusor.huhulea@siemens.com header.b="BrLHKARN";
+	dkim=pass (2048-bit key; secure) header.d=siemens.com header.i=nicusor.huhulea@siemens.com header.b="f24kyfv6";
 	dkim-atps=neutral
 X-Greylist: delayed 602 seconds by postgrey-1.36 at gabe;
- Wed, 30 Jul 2025 16:23:19 UTC
-Received: from mta-65-227.siemens.flowmailer.net
- (mta-65-227.siemens.flowmailer.net [185.136.65.227])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5BFBD10E371
- for <intel-gfx@lists.freedesktop.org>; Wed, 30 Jul 2025 16:23:19 +0000 (UTC)
-Received: by mta-65-227.siemens.flowmailer.net with ESMTPSA id
- 2025073016131670181644698f8736de
+ Wed, 30 Jul 2025 16:23:16 UTC
+Received: from mta-65-225.siemens.flowmailer.net
+ (mta-65-225.siemens.flowmailer.net [185.136.65.225])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B9DB610E379
+ for <intel-gfx@lists.freedesktop.org>; Wed, 30 Jul 2025 16:23:16 +0000 (UTC)
+Received: by mta-65-225.siemens.flowmailer.net with ESMTPSA id
+ 20250730161313e8077ae628252ce89e
  for <intel-gfx@lists.freedesktop.org>;
- Wed, 30 Jul 2025 18:13:16 +0200
+ Wed, 30 Jul 2025 18:13:13 +0200
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; s=fm2;
  d=siemens.com; i=nicusor.huhulea@siemens.com;
  h=Date:From:Subject:To:Message-ID:MIME-Version:Content-Type:Content-Transfer-Encoding:Cc:References:In-Reply-To;
- bh=csY52TarazJEPmk/SsPbeY44Azar0/QHTLRBPgxrjAg=;
- b=BrLHKARNA7uCaaVovxHR0YJA5NPtQp7HKAibs+IDvmWS2ZIXtLI42TFUpUsd/bypG3HQDQ
- qUcWtrXvfRBuDiuGhU4DFOjcF7ybJMS3P6E9asn7/rSbnETIE7XxF+7u3fOBivBP98xFJSiX
- INB09FsvXCcsVzyHRVtGFyE66Av8NZMrZtnluyWNBY0YqHzHLTVKRkoGh24vhpitv80/FHoZ
- 2hC3ocsw1sEyX+fAJomaGRfa2XhxlDXY/S6z4HbZVk7kUFJT+a4ORywIp1Ez27ZTjmxu0Cwh
- Y9ky+VL6c7i5D9vTuZGyQGizTohR7BFk9j0EDBSsISPVCVSC6e6ULGlA==;
+ bh=yDLMm9ODQNJJLoeLAlYD4fQh6aLFQJRfq+mXyFVSVnA=;
+ b=f24kyfv6HkDpJ7btSyAK6ZLNvcXzGIwSkv708FrJSlCWDD/1/Qc4blzQPC5n/y+L2gjRxs
+ 9G+FVEDVavKwM6df/qgcbp07iBdsVEzIWtaoOg/dDpv+Un/rmbvqipwiMCfnn0i+ODvwIhSs
+ LFIDs5SNYZCLfCvD2j+27Q+0f01Uu2Z/N5EXNrkQ5Ko5NWWNBOPP+8Ua2h0lKVJuUt7I51Sf
+ 5EseHMss+b5IXGEg95K+JG0761h359SH+vmS/EU4hL/eAC8BENOd+ZamTYWN4SubBLU35pT+
+ uez2Oz855nB+39Td88C9km0L+SMkNKC/TylvZ2UsR0NF3p7YNVd5SdEw==;
 From: Nicusor Huhulea <nicusor.huhulea@siemens.com>
 To: stable@vger.kernel.org, dri-devel@lists.freedesktop.org,
  intel-gfx@lists.freedesktop.org
@@ -41,14 +41,15 @@ Cc: cip-dev@lists.cip-project.org, imre.deak@intel.com,
  daniel@ffwll.ch, joonas.lahtinen@linux.intel.com, rodrigo.vivi@intel.com,
  tvrtko.ursulin@linux.intel.com, laurentiu.palcu@oss.nxp.com,
  cedric.hombourger@siemens.com, shrikant.bobade@siemens.com,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
  Nicusor Huhulea <nicusor.huhulea@siemens.com>
-Subject: [PATCH 5/5] drm/i915: fixes for i915 Hot Plug Detection and
- build/runtime issues
-Date: Wed, 30 Jul 2025 19:11:06 +0300
-Message-Id: <20250730161106.80725-6-nicusor.huhulea@siemens.com>
+Subject: [PATCH 2/5] drm: Add an HPD poll helper to reschedule the poll work
+Date: Wed, 30 Jul 2025 19:11:03 +0300
+Message-Id: <20250730161106.80725-3-nicusor.huhulea@siemens.com>
 In-Reply-To: <20250730161106.80725-1-nicusor.huhulea@siemens.com>
 References: <20250730161106.80725-1-nicusor.huhulea@siemens.com>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-Flowmailer-Platform: Siemens
 Feedback-ID: 519:519-1331196:519-21489:flowmailer
@@ -68,76 +69,147 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-This collects and adapts several upstream fixes to make i915 and related
-DRM subsystem build and function.
-The upstream fix HPD polling("drm/i915: Fix HPD polling, reenabling the output poll work as needed")
-and its dependencies could not be directly backported due to extensive code differences.
+From: Imre Deak <imre.deak@intel.com>
 
-Upstream commits:
-drm/i915: Fix HPD polling, reenabling the output poll work as needed(commit 50452f2f76852322620b63e62922b85e955abe9)
-drm: Add an HPD poll helper to reschedule the poll work(commit fe2352fd64029918174de4b460dfe6df0c6911cd)
-drm/probe_helper: extract two helper functions(commit cbf143b282c64e59559cc8351c0b5b1ab4bbdcbe)
-drm/probe-helper: enable and disable HPD on connectors(commit c8268795c9a9cc7be50f78d4502fad83a2a4f8df)
-...
+commit fe2352fd64029918174de4b460dfe6df0c6911cd upstream
 
-Due to significant codebase divergence and numerous dependencies, it was not
-possible to cherry-pick these commits cleanly. Instead, this will resolve compile-time
-errors and fixes the hot plug mechanism. Developed with uspstream as a guideline,
-with the goal of addressing the defect while maintaining the stability.
+This is not a clean cherry-pick due to code divergence.
 
-Auxiliary fixes in upstream commits were not ported here as this would require
-substantial work and dependency tracking.
+Add a helper to reschedule drm_mode_config::output_poll_work after
+polling has been enabled for a connector (and needing a reschedule,
+since previously polling was disabled for all connectors and hence
+output_poll_work was not running).
 
-Cc: stable@vger.kernel.org # 6.1.y
+This is needed by the next patch fixing HPD polling on i915.
+
+Cc: stable@vger.kernel.org # 6.4+
+Cc: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 Cc: dri-devel@lists.freedesktop.org
-Cc: Imre Deak <imre.deak@intel.com>
+Reviewed-by: Jouni Högander <jouni.hogander@intel.com>
+Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Signed-off-by: Imre Deak <imre.deak@intel.com>
+Link: https://patchwork.freedesktop.org/patch/msgid/20230822113015.41224-1-imre.deak@intel.com
 Signed-off-by: Nicusor Huhulea <nicusor.huhulea@siemens.com>
 ---
- drivers/gpu/drm/drm_probe_helper.c | 14 ++++++++++----
- 1 file changed, 10 insertions(+), 4 deletions(-)
+ drivers/gpu/drm/drm_probe_helper.c | 74 +++++++++++++++++++-----------
+ include/drm/drm_probe_helper.h     |  1 +
+ 2 files changed, 49 insertions(+), 26 deletions(-)
 
 diff --git a/drivers/gpu/drm/drm_probe_helper.c b/drivers/gpu/drm/drm_probe_helper.c
-index 938649e3a282..9dc7505f20ff 100644
+index 0e5eadc6d44d..787f6699971f 100644
 --- a/drivers/gpu/drm/drm_probe_helper.c
 +++ b/drivers/gpu/drm/drm_probe_helper.c
-@@ -304,8 +304,6 @@ static bool drm_kms_helper_enable_hpd(struct drm_device *dev)
+@@ -224,6 +224,26 @@ drm_connector_mode_valid(struct drm_connector *connector,
+ }
+ 
+ #define DRM_OUTPUT_POLL_PERIOD (10*HZ)
++static void reschedule_output_poll_work(struct drm_device *dev)
++{
++	unsigned long delay = DRM_OUTPUT_POLL_PERIOD;
++
++	if (dev->mode_config.delayed_event)
++		/*
++		 * FIXME:
++		 *
++		 * Use short (1s) delay to handle the initial delayed event.
++		 * This delay should not be needed, but Optimus/nouveau will
++		 * fail in a mysterious way if the delayed event is handled as
++		 * soon as possible like it is done in
++		 * drm_helper_probe_single_connector_modes() in case the poll
++		 * was enabled before.
++		 */
++		delay = HZ;
++
++	schedule_delayed_work(&dev->mode_config.output_poll_work, delay);
++}
++
+ /**
+  * drm_kms_helper_poll_enable - re-enable output polling.
+  * @dev: drm_device
+@@ -244,43 +264,45 @@ drm_connector_mode_valid(struct drm_connector *connector,
+  */
  void drm_kms_helper_poll_enable(struct drm_device *dev)
  {
- 
--	struct drm_connector *connector;
--	struct drm_connector_list_iter conn_iter;
+-	bool poll = false;
++
+ 	struct drm_connector *connector;
+ 	struct drm_connector_list_iter conn_iter;
+-	unsigned long delay = DRM_OUTPUT_POLL_PERIOD;
  
  	if (drm_WARN_ON_ONCE(dev, !dev->mode_config.poll_enabled) ||
  	    !drm_kms_helper_poll || dev->mode_config.poll_running)
-@@ -779,8 +777,11 @@ static void output_poll_execute(struct work_struct *work)
- 	changed = dev->mode_config.delayed_event;
- 	dev->mode_config.delayed_event = false;
+ 		return;
  
--	if (!drm_kms_helper_poll)
-+	if (!drm_kms_helper_poll && dev->mode_config.poll_running) {
-+		drm_kms_helper_disable_hpd(dev);
-+		dev->mode_config.poll_running = false;
- 		goto out;
-+	}
+-	drm_connector_list_iter_begin(dev, &conn_iter);
+-	drm_for_each_connector_iter(connector, &conn_iter) {
+-		if (connector->polled & (DRM_CONNECTOR_POLL_CONNECT |
+-					 DRM_CONNECTOR_POLL_DISCONNECT))
+-			poll = true;
+-	}
+-	drm_connector_list_iter_end(&conn_iter);
++	if (drm_kms_helper_enable_hpd(dev) ||
++	    dev->mode_config.delayed_event)
++		reschedule_output_poll_work(dev);
  
- 	if (!mutex_trylock(&dev->mode_config.mutex)) {
- 		repoll = true;
-@@ -897,9 +898,14 @@ EXPORT_SYMBOL(drm_kms_helper_is_poll_worker);
- void drm_kms_helper_poll_disable(struct drm_device *dev)
- {
- 	if (drm_WARN_ON(dev, !dev->mode_config.poll_enabled))
--		return;
-+		pr_warn("%s: called with poll_enabled = false\n", __func__);
-+
-+	if (dev->mode_config.poll_running)
-+		drm_kms_helper_disable_hpd(dev);
- 
- 	cancel_delayed_work_sync(&dev->mode_config.output_poll_work);
-+
-+	dev->mode_config.poll_running = false;
+-	if (dev->mode_config.delayed_event) {
+-		/*
+-		 * FIXME:
+-		 *
+-		 * Use short (1s) delay to handle the initial delayed event.
+-		 * This delay should not be needed, but Optimus/nouveau will
+-		 * fail in a mysterious way if the delayed event is handled as
+-		 * soon as possible like it is done in
+-		 * drm_helper_probe_single_connector_modes() in case the poll
+-		 * was enabled before.
+-		 */
+-		poll = true;
+-		delay = HZ;
+-	}
+-
+-	if (poll)
+-		schedule_delayed_work(&dev->mode_config.output_poll_work, delay);
++	dev->mode_config.poll_running = true;
  }
- EXPORT_SYMBOL(drm_kms_helper_poll_disable);
+ EXPORT_SYMBOL(drm_kms_helper_poll_enable);
  
++/**
++ * drm_kms_helper_poll_reschedule - reschedule the output polling work
++ * @dev: drm_device
++ *
++ * This function reschedules the output polling work, after polling for a
++ * connector has been enabled.
++ *
++ * Drivers must call this helper after enabling polling for a connector by
++ * setting %DRM_CONNECTOR_POLL_CONNECT / %DRM_CONNECTOR_POLL_DISCONNECT flags
++ * in drm_connector::polled. Note that after disabling polling by clearing these
++ * flags for a connector will stop the output polling work automatically if
++ * the polling is disabled for all other connectors as well.
++ *
++ * The function can be called only after polling has been enabled by calling
++ * drm_kms_helper_poll_init() / drm_kms_helper_poll_enable().
++ */
++void drm_kms_helper_poll_reschedule(struct drm_device *dev)
++{
++	if (dev->mode_config.poll_running)
++		reschedule_output_poll_work(dev);
++}
++EXPORT_SYMBOL(drm_kms_helper_poll_reschedule);
++
+ static enum drm_connector_status
+ drm_helper_probe_detect_ctx(struct drm_connector *connector, bool force)
+ {
+diff --git a/include/drm/drm_probe_helper.h b/include/drm/drm_probe_helper.h
+index 5880daa14624..429a85f38036 100644
+--- a/include/drm/drm_probe_helper.h
++++ b/include/drm/drm_probe_helper.h
+@@ -25,6 +25,7 @@ void drm_kms_helper_connector_hotplug_event(struct drm_connector *connector);
+ 
+ void drm_kms_helper_poll_disable(struct drm_device *dev);
+ void drm_kms_helper_poll_enable(struct drm_device *dev);
++void drm_kms_helper_poll_reschedule(struct drm_device *dev);
+ bool drm_kms_helper_is_poll_worker(void);
+ 
+ enum drm_mode_status drm_crtc_helper_mode_valid_fixed(struct drm_crtc *crtc,
 -- 
 2.39.2
 
