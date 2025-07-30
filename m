@@ -4,76 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2D1E4C87FCA
-	for <intel-gfx@archiver.kernel.org>; Thu, 31 Jul 2025 13:57:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 10EFAC87FD2
+	for <intel-gfx@archiver.kernel.org>; Thu, 31 Jul 2025 13:57:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B7B9C10E799;
-	Thu, 31 Jul 2025 13:57:42 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3298710E79C;
+	Thu, 31 Jul 2025 13:57:43 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="ftxzUohf";
+	dkim=pass (2048-bit key; secure) header.d=siemens.com header.i=nicusor.huhulea@siemens.com header.b="fP8bzklG";
 	dkim-atps=neutral
-Received: from mail-ej1-f49.google.com (mail-ej1-f49.google.com
- [209.85.218.49])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4770A10E151
- for <intel-gfx@lists.freedesktop.org>; Thu, 31 Jul 2025 02:49:43 +0000 (UTC)
-Received: by mail-ej1-f49.google.com with SMTP id
- a640c23a62f3a-ae401ebcbc4so74766966b.1
- for <intel-gfx@lists.freedesktop.org>; Wed, 30 Jul 2025 19:49:43 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1753930182; x=1754534982; darn=lists.freedesktop.org;
- h=content-transfer-encoding:subject:from:cc:to:content-language
- :user-agent:mime-version:date:message-id:from:to:cc:subject:date
- :message-id:reply-to;
- bh=OzUZuxERan7vOG01vgHj1cm1HbxVQVkWsYiUSG9LzEI=;
- b=ftxzUohfToiJGZpbW01PxnYvfIONmoUqlaCjzE6LVuuKk/m3E09354Nc3NQpnDjo1H
- fDKmRcPKjWSXnHnLlXGlJ5QMpMf1meljSGyPKz82+SheOy1w2QMIxLWo5NfZz8AK4t8E
- n68cn4JBZ2PZQQgKTLPZ5BLf3FUIqeS0XbsUB3e8QewnqIC7EiykcVvLTLsyj2sTkHcY
- SV1iSu6Q1CaWuUNofSNteMY1r0VhIVJj9XknswXwHL9ERGkV5hs5pkhsizrFWn5NbNK7
- PmjUuA+v8Rz0mjhPX3SutXKagGKxzDKY2//heW8kvLwzYlsTUivkaFrU0GwYEh0FgsTO
- FMXA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1753930182; x=1754534982;
- h=content-transfer-encoding:subject:from:cc:to:content-language
- :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
- :cc:subject:date:message-id:reply-to;
- bh=OzUZuxERan7vOG01vgHj1cm1HbxVQVkWsYiUSG9LzEI=;
- b=vaScyOIDfgpsKsdyFIXTYRD/4oltQn4QXnRY7z9+O1+cGwnQiBXNaFZTrKyxkvkZh2
- spfcHijW0nlnIm4EjnQ8limX0N+PK/LTncbtQMMrZXxTxAuQ86Y0dcOL1kgtXWfT07mK
- hAdEUX6ERC2fJlWKvbOX61ubYPZiHCRZY9HocWTxsOQj4Z19VHqJXKvIAoLZ9/NUEIJ5
- lp+1Oykpf6LM0MJwvfzhwKe6Ywh3ITtzDyWptlU5hrF5L149KPdVrwbXFyuBU6e+ok8j
- cDMiqveQuyuWNdLdW6KLWeKgBPXHTieji9NDtZDjE76uIyqD1prF/VgUJibh1HERm1wZ
- dlgw==
-X-Gm-Message-State: AOJu0YwguVnFbVK+LbTsd+ut9663tDHK1Qxj0WuZz/kSCEE9VUXwHBav
- iKzA/5bvO/92mRhi9KkNg6Lvz2XAfEqj0PLxbozvBhYBsZ4TA1WC2x7ny5VquJNhNF8=
-X-Gm-Gg: ASbGncvMci4pPea98DJzDfU3mjOVkE+EOApIughj11ClXVqfsnmp6ZDRn/8tzwfx+sw
- 78E8RkVG5cnUYTBzuN8E/VEV+MjSfjPGUZcfvzm8T2NvQbL3YE3i7RBk7B6IaiJlN3JQBBRF59T
- +K3RiIkyCSiLnhbsqlAZNsNKKgL9BEoWZHqFw8+/aBI1bzgrmA3GS6CZtvq6AWir8Qoyoj7FK53
- 4M39T1ovWmVped+8xBrJY/cKXJNzEoj0t0XFYBCJQFEuiOpSkBxUIGXblnayd6IDN7zCVXpgHpN
- WqjNRb6lSH82NpPR2GG37+8ZfVugKvcrWasxomjDrNE3HHrCzeKzRexfKYjS81Urkf9bfO1+upd
- dpC+CyDW7lY5JF7M2SurG/nAjwhlpKDWsTkLpJqXV5euoR1HnvTdivMe95ETSx0iGF3Xp5FgDoZ
- EUXd/tuw==
-X-Google-Smtp-Source: AGHT+IFzLu7XtmIIsdUbgbOQczY80fXq3WQy1KmMN+7mzLHmJO4/zvoXg3RVxiGBQg0RX+3/dOYr0A==
-X-Received: by 2002:a17:907:9487:b0:ae3:e378:159e with SMTP id
- a640c23a62f3a-af8fd769c97mr612401666b.26.1753930181369; 
- Wed, 30 Jul 2025 19:49:41 -0700 (PDT)
-Received: from [192.168.0.52] (217-62-96-139.cable.dynamic.v4.ziggo.nl.
- [217.62.96.139]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-af91a1e8311sm32881566b.63.2025.07.30.19.49.40
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 30 Jul 2025 19:49:40 -0700 (PDT)
-Message-ID: <3aebffd3-b3b7-4c3c-a7ac-816965d0204d@gmail.com>
-Date: Thu, 31 Jul 2025 04:49:39 +0200
+X-Greylist: delayed 602 seconds by postgrey-1.36 at gabe;
+ Wed, 30 Jul 2025 16:23:16 UTC
+Received: from mta-65-228.siemens.flowmailer.net
+ (mta-65-228.siemens.flowmailer.net [185.136.65.228])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A08D610E371
+ for <intel-gfx@lists.freedesktop.org>; Wed, 30 Jul 2025 16:23:16 +0000 (UTC)
+Received: by mta-65-228.siemens.flowmailer.net with ESMTPSA id
+ 2025073016131115219aa70ad9e9e3e6
+ for <intel-gfx@lists.freedesktop.org>;
+ Wed, 30 Jul 2025 18:13:11 +0200
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; s=fm2;
+ d=siemens.com; i=nicusor.huhulea@siemens.com;
+ h=Date:From:Subject:To:Message-ID:MIME-Version:Content-Type:Content-Transfer-Encoding:Cc;
+ bh=aNY5rREpntN5KY99m0InyXuj1Ii+MliHCugcFt3V6Y8=;
+ b=fP8bzklGBtCw0ZPPEI8/7MCk5YmKagpw9Yt0tKUrqZU88pAtPjaW5O95OAdmpcTdL3gUKb
+ GArFDTi/iS5gkr6ImiVKXh31VKlMD8U/GlGVp93lK7XeUUtXGOUaYATsvzhFSZL68XNMLxuY
+ B/nLChTvhnFaRZItLdK8q5Ic62UGanMaVsYB5p+fgsqY3YUsiHCKFVpU7VPD1JlVF5X6/MIK
+ E1jLEkpwPB3elRwT1a2Ar5d3Y/W+shoOHBPa3dFS7wqIYrcrlH/hwZW/gr+fH5wJUWVFGCqy
+ dmn3BcA87alI6MH0cTq56UeaRp/pUBWTU8e0jxWh6dyrWyQlzftMmQdQ==;
+From: Nicusor Huhulea <nicusor.huhulea@siemens.com>
+To: stable@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ intel-gfx@lists.freedesktop.org
+Cc: cip-dev@lists.cip-project.org, imre.deak@intel.com,
+ jouni.hogander@intel.com, neil.armstrong@linaro.org,
+ jani.nikula@linux.intel.com, maarten.lankhorst@linux.intel.com,
+ mripard@kernel.org, tzimmermann@suse.de, airlied@gmail.com,
+ daniel@ffwll.ch, joonas.lahtinen@linux.intel.com, rodrigo.vivi@intel.com,
+ tvrtko.ursulin@linux.intel.com, laurentiu.palcu@oss.nxp.com,
+ cedric.hombourger@siemens.com, shrikant.bobade@siemens.com,
+ Nicusor Huhulea <nicusor.huhulea@siemens.com>
+Subject: [PATCH 0/5] drm/i915: fixes for i915 Hot Plug Detection and
+ build/runtime issues
+Date: Wed, 30 Jul 2025 19:11:01 +0300
+Message-Id: <20250730161106.80725-1-nicusor.huhulea@siemens.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Content-Language: en-US
-To: Jani Nikula <jani.nikula@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- =?UTF-8?B?VmlsbGUgU3lyasOkbMOk?= <ville.syrjala@linux.intel.com>
-Cc: intel-gfx@lists.freedesktop.org
-From: =?UTF-8?Q?Ren=C3=A9_Herman?= <rene.herman@gmail.com>
-Subject: Issue or bug concerning DRRS on old i7-4980HQ
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-Flowmailer-Platform: Siemens
+Feedback-ID: 519:519-1331196:519-21489:flowmailer
 X-Mailman-Approved-At: Thu, 31 Jul 2025 13:57:42 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -90,56 +67,58 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Hello all.
+Hello maintainers,
 
-Addresses as per MANTAINERS, and Ville as per Git history...
+This series addresses a defect observed on certain hardware platforms using Linux kernel 6.1.147 with the i915 driver. The issue concerns hot plug detection (HPD) logic,
+leading to unreliable or missed detection events on affected hardware. This is happening on some specific devices.
 
-I've been trying to assist a new Linux user with an old 2015 Alienware 
-17 R2, i7-4980HQ (Iris Pro 5200) together with NVIDIA GTX980M.
+### Background
 
-The user experienced flickering (in a brightness sense) and had traced 
-this back to Intel DRRS. I supplied a simple test patch as
+Issue:
+    On Simatic IPC227E, we observed unreliable or missing hot plug detection events, while on Simatic IPC227G (otherwise similar platform), expected hot plug behavior was maintained.
+Affected kernel:
+    This patch series is intended for the Linux 6.1.y stable tree only (tested on 6.1.147)
+    Most of the tests were conducted on 6.1.147 (manual/standalone kernel build, CIP/Isar context).
+Root cause analysis:
+    I do not have access to hardware signal traces or scope data to conclusively prove the root cause at electrical level. My understanding is based on observed driver behavior and logs.
+    Therefore my assumption as to the real cause is that on IPC227G, HPD IRQ storms are apparently not occurring, so the standard HPD IRQ-based detection works as expected. On IPC227E,
+    frequent HPD interrupts trigger the i915 driver’s storm detection logic, causing it to switch to polling mode. Therefore polling does not resume correctly, leading to the hotplug
+    issue this series addresses. Device IPC227E's behavior triggers this kernel edge case, likely due to slight variations in signal integrity, electrical margins, or internal component timing.
+    Device IPC227G, functions as expected, possibly due to cleaner electrical signaling or more optimal timing characteristics, thus avoiding the triggering condition.
+Conclusion:
+    This points to a hardware-software interaction where kernel code assumes nicer signaling or margins than IPC227E is able to provide, exposing logic gaps not visible on more robust hardware.
 
---- linux-6.8.0/drivers/gpu/drm/i915/display/intel_dp.c.orig	
-+++ linux-6.8.0/drivers/gpu/drm/i915/display/intel_dp.c
-@@ -2727,6 +2727,8 @@
-  {
-  	struct drm_i915_private *i915 = to_i915(connector->base.dev);
+### Patches
 
-+	return false;
-+
-  	if (pipe_config->vrr.enable)
-  		return false;
+Patches 1-4:
+    - Partial backports of upstream commits; only the relevant logic or fixes are applied, with other code omitted due to downstream divergence.
+    - Applied minimal merging without exhaustive backport of all intermediate upstream changes.
+Patch 5:
+    - Contains cherry-picked logic plus context/compatibility amendments as needed. Ensures that the driver builds.
+    - Together these fixes greatly improve reliability of hotplug detection on both devices, with no regression detected in our setups.
 
-which does indeed work. Set out to then solve it right(er) and ran into 
-the debugfs drrs ctl file, for him
+Thank you for your review,
+Nicusor Huhulea
 
-/sys/kernel/debug/dri/1/crtc-0/i915_drrs_ctl
+This patch series contains the following changes:
 
-We haven't however been able to do anything useful with that. If we echo 
-0 into it it seems that DRRS does temporarily go to "DRRS active: no" in 
-the corresponding i915_drrs_status file, but only seconds later it again 
-shows as "DRRS active: yes", and his problem returns/remains.
+Dmitry Baryshkov (2):
+  drm/probe_helper: extract two helper functions
+  drm/probe-helper: enable and disable HPD on connectors
 
-It's making the system largely unusable with Linux -- or are we/am I 
-missing something as to configuration?
+Imre Deak (2):
+  drm/i915: Fix HPD polling, reenabling the output poll work as needed
+  drm: Add an HPD poll helper to reschedule the poll work
 
-The user is as said a new Linux user and will need to stick with generic 
-distribution kernels, Ubuntu here, but the debugfs thing seems to then 
-not work and a kernel parameter appears to not exist. When searching I 
-found this issue also at for example
+Nicusor Huhulea (1):
+  drm/i915: fixes for i915 Hot Plug Detection and build/runtime issues
 
-https://bugs.launchpad.net/ubuntu/+source/linux/+bug/1928138
+ drivers/gpu/drm/drm_probe_helper.c           | 127 ++++++++++++++-----
+ drivers/gpu/drm/i915/display/intel_hotplug.c |   4 +-
+ include/drm/drm_modeset_helper_vtables.h     |  22 ++++
+ include/drm/drm_probe_helper.h               |   1 +
+ 4 files changed, 122 insertions(+), 32 deletions(-)
 
-and on the list at
+-- 
+2.39.2
 
-https://lists.freedesktop.org/archives/intel-gfx/2017-October/145050.html
-
-Is there something we/he could do to get DRRS disabled with a generic 
-distribution kernel? Should the i915_drrs_ctl thing have worked?
-
-And if not, is there a possibility for a kernel parameter that does 
-something akin to that above working test patch (but then right)?
-
-Kind regards,
-Rene Herman
