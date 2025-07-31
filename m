@@ -4,57 +4,27 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9895EC87FCA
-	for <intel-gfx@archiver.kernel.org>; Thu, 31 Jul 2025 13:57:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8AA98C87FCC
+	for <intel-gfx@archiver.kernel.org>; Thu, 31 Jul 2025 14:01:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3A68D10E7A0;
-	Thu, 31 Jul 2025 13:57:51 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=siemens.com header.i=nicusor.huhulea@siemens.com header.b="KIrBxwcq";
-	dkim-atps=neutral
-X-Greylist: delayed 602 seconds by postgrey-1.36 at gabe;
- Wed, 30 Jul 2025 16:23:16 UTC
-Received: from mta-65-228.siemens.flowmailer.net
- (mta-65-228.siemens.flowmailer.net [185.136.65.228])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A131710E372
- for <intel-gfx@lists.freedesktop.org>; Wed, 30 Jul 2025 16:23:16 +0000 (UTC)
-Received: by mta-65-228.siemens.flowmailer.net with ESMTPSA id
- 2025073016131278bd2be50fddf47911
- for <intel-gfx@lists.freedesktop.org>;
- Wed, 30 Jul 2025 18:13:13 +0200
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; s=fm2;
- d=siemens.com; i=nicusor.huhulea@siemens.com;
- h=Date:From:Subject:To:Message-ID:MIME-Version:Content-Type:Content-Transfer-Encoding:Cc:References:In-Reply-To;
- bh=SM18kxHUwUOMwVIKh7FMbuWbiK+t9G6vHIfzFyWk3rk=;
- b=KIrBxwcqCMFleJ5qRPVb0wv3K58/GG0o58C4dCCy6FcUj+sNOYa/UVG8PCswiIMv9ZanP0
- +BgzxeMZqgMoYsXp3/wAyTJYVuwZ8pl/WqGh36F2wLg6Bu8Z15JW7otMKdjRayAtHGikUQqt
- r7KQaqsU/dkUvwM5JNjMNToG5Sx+vaZB6mindv/8EAkDJ4AfafMLenAZJkPVhlHj3qCNBWcT
- S7LX5340SuNBV/si9AWLB8hwvHZwB4mMjsAXKrD5Pe84I0x1blKP2DeARP9TBh+Ci2CmNeKL
- hErGA6pUytr3yevUp6odglx8BbZedmYV22HKQOLfANkfht8tGHh/J1Yw==;
-From: Nicusor Huhulea <nicusor.huhulea@siemens.com>
-To: stable@vger.kernel.org, dri-devel@lists.freedesktop.org,
- intel-gfx@lists.freedesktop.org
-Cc: cip-dev@lists.cip-project.org, imre.deak@intel.com,
- jouni.hogander@intel.com, neil.armstrong@linaro.org,
- jani.nikula@linux.intel.com, maarten.lankhorst@linux.intel.com,
- mripard@kernel.org, tzimmermann@suse.de, airlied@gmail.com,
- daniel@ffwll.ch, joonas.lahtinen@linux.intel.com, rodrigo.vivi@intel.com,
- tvrtko.ursulin@linux.intel.com, laurentiu.palcu@oss.nxp.com,
- cedric.hombourger@siemens.com, shrikant.bobade@siemens.com,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Nicusor Huhulea <nicusor.huhulea@siemens.com>
-Subject: [PATCH 1/5] drm/i915: Fix HPD polling,
- reenabling the output poll work as needed
-Date: Wed, 30 Jul 2025 19:11:02 +0300
-Message-Id: <20250730161106.80725-2-nicusor.huhulea@siemens.com>
-In-Reply-To: <20250730161106.80725-1-nicusor.huhulea@siemens.com>
-References: <20250730161106.80725-1-nicusor.huhulea@siemens.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 26AA910E7A1;
+	Thu, 31 Jul 2025 14:01:13 +0000 (UTC)
+Received: from 1538d3639d33 (emeril.freedesktop.org [131.252.210.167])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 492F610E7A6;
+ Thu, 31 Jul 2025 14:01:12 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-Flowmailer-Platform: Siemens
-Feedback-ID: 519:519-1331196:519-21489:flowmailer
-X-Mailman-Approved-At: Thu, 31 Jul 2025 13:57:42 +0000
+Content-Transfer-Encoding: 7bit
+Subject: =?utf-8?q?=E2=9C=97_LGCI=2EVerificationFailed=3A_failure_for_Issue_or_bug_co?=
+ =?utf-8?q?ncerning_DRRS_on_old_i7-4980HQ?=
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: =?utf-8?q?Ren=C3=A9_Herman?= <rene.herman@gmail.com>
+Cc: intel-gfx@lists.freedesktop.org
+Date: Thu, 31 Jul 2025 14:01:12 -0000
+Message-ID: <175397047229.202217.16181667796193596396@1538d3639d33>
+X-Patchwork-Hint: ignore
+References: <3aebffd3-b3b7-4c3c-a7ac-816965d0204d@gmail.com>
+In-Reply-To: <3aebffd3-b3b7-4c3c-a7ac-816965d0204d@gmail.com>
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,63 +37,20 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Imre Deak <imre.deak@intel.com>
+== Series Details ==
 
-commit 50452f2f76852322620b63e62922b85e955abe94 upstream.
+Series: Issue or bug concerning DRRS on old i7-4980HQ
+URL   : https://patchwork.freedesktop.org/series/152362/
+State : failure
 
-While this commit is not a direct cherry-pick, the critical fix(two lines)
-was adapted and applied.
+== Summary ==
 
-After the commit in the Fixes: line below, HPD polling stopped working
-on i915, since after that change calling drm_kms_helper_poll_enable()
-doesn't restart drm_mode_config::output_poll_work if the work was
-stopped (no connectors needing polling) and enabling polling for a
-connector (during runtime suspend or detecting an HPD IRQ storm).
+Address 'rene.herman@gmail.com' is not on the allowlist, which prevents CI from being triggered for this patch.
+If you want Intel GFX CI to accept this address, please contact the script maintainers at i915-ci-infra@lists.freedesktop.org.
+Exception occurred during validation, bailing out!
 
-After the above change calling drm_kms_helper_poll_enable() is a nop
-after it's been called already and polling for some connectors was
-disabled/re-enabled.
-
-Fix this by calling drm_kms_helper_poll_reschedule() added in the
-previous patch instead, which reschedules the work whenever expected.
-
-Fixes: d33a54e3991d ("drm/probe_helper: sort out poll_running vs poll_enabled")
-Cc: stable@vger.kernel.org # 6.4+
-Cc: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Cc: dri-devel@lists.freedesktop.org
-Reviewed-by: Jouni Högander <jouni.hogander@intel.com>
-Signed-off-by: Imre Deak <imre.deak@intel.com>
-Link: https://patchwork.freedesktop.org/patch/msgid/20230822113015.41224-2-imre.deak@intel.com
-Signed-off-by: Nicusor Huhulea <nicusor.huhulea@siemens.com>
----
- drivers/gpu/drm/i915/display/intel_hotplug.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/gpu/drm/i915/display/intel_hotplug.c b/drivers/gpu/drm/i915/display/intel_hotplug.c
-index f7a2f485b177..6ba2d7b0cd1b 100644
---- a/drivers/gpu/drm/i915/display/intel_hotplug.c
-+++ b/drivers/gpu/drm/i915/display/intel_hotplug.c
-@@ -208,7 +208,7 @@ intel_hpd_irq_storm_switch_to_polling(struct drm_i915_private *dev_priv)
- 
- 	/* Enable polling and queue hotplug re-enabling. */
- 	if (hpd_disabled) {
--		drm_kms_helper_poll_enable(dev);
-+		drm_kms_helper_poll_reschedule(&dev_priv->drm);
- 		mod_delayed_work(system_wq, &dev_priv->display.hotplug.reenable_work,
- 				 msecs_to_jiffies(HPD_STORM_REENABLE_DELAY));
- 	}
-@@ -638,7 +638,7 @@ static void i915_hpd_poll_init_work(struct work_struct *work)
- 	drm_connector_list_iter_end(&conn_iter);
- 
- 	if (enabled)
--		drm_kms_helper_poll_enable(dev);
-+		drm_kms_helper_poll_reschedule(&dev_priv->drm);
- 
- 	mutex_unlock(&dev->mode_config.mutex);
- 
--- 
-2.39.2
 
