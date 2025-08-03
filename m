@@ -4,77 +4,76 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 52CB4CA0ECE
-	for <intel-gfx@archiver.kernel.org>; Mon,  4 Aug 2025 14:23:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 06973CA0EC5
+	for <intel-gfx@archiver.kernel.org>; Mon,  4 Aug 2025 14:23:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7B8D610E55F;
-	Mon,  4 Aug 2025 14:23:41 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 13A1610E56A;
+	Mon,  4 Aug 2025 14:23:42 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="HCENOHtt";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="la9SpDqk";
 	dkim-atps=neutral
-Received: from mail-ej1-f54.google.com (mail-ej1-f54.google.com
- [209.85.218.54])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8FAA910E7B0
- for <intel-gfx@lists.freedesktop.org>; Thu, 31 Jul 2025 15:05:28 +0000 (UTC)
-Received: by mail-ej1-f54.google.com with SMTP id
- a640c23a62f3a-af66d49daffso173305866b.1
- for <intel-gfx@lists.freedesktop.org>; Thu, 31 Jul 2025 08:05:28 -0700 (PDT)
+Received: from mail-ej1-f45.google.com (mail-ej1-f45.google.com
+ [209.85.218.45])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A60DF10E12B;
+ Sun,  3 Aug 2025 12:45:19 +0000 (UTC)
+Received: by mail-ej1-f45.google.com with SMTP id
+ a640c23a62f3a-af8fd1b80e5so578724666b.2; 
+ Sun, 03 Aug 2025 05:45:19 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1753974327; x=1754579127; darn=lists.freedesktop.org;
- h=content-transfer-encoding:in-reply-to:content-language:references
- :cc:to:from:subject:user-agent:mime-version:date:message-id:from:to
- :cc:subject:date:message-id:reply-to;
- bh=nkJjgrL0o6u4F0KlYZbqrTlEbUii7EoXWMzIyUXeRyc=;
- b=HCENOHtt+O8G0fzjDpG1qOjKy4gBzXjz+zvB3uVxNbhcmD2AW0eDusm3W5fWoma9Jt
- lg8GYOvyvReX1E0VcvESuZjQRmssgjA5BYIrz/eCiqQQW77MbhU4JY7lKeekGuBPCTfr
- Te879fh9ZO5+Am8LJHyDEj84Pvr38SDdZJWZiKdJu+SkHwRqmIH0wEy0rwVW5gZ4GNgT
- u1lMtSXVDGaT8+Qk/+a2chLdJ4AWicRMoPtbEO3HwMtBacvtwPkLpQX9DKtFsIoKfkHN
- 5C+wVB+VdWXmKtsIq31dMOBeVNgJ33D6cUNbOLnp1GJDXbZu4rxmL96ySItYTK/KSWMh
- bqlw==
+ d=gmail.com; s=20230601; t=1754225118; x=1754829918; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=pxXOv0H77qu3boXS8S20sjf3H+BGpeAjIG2LP7StaE4=;
+ b=la9SpDqk8KdVzkRyQoKpSrWy0c2Ya4eWglFIo+R05DAfTwskJ25gl+/ghypt0lHZu2
+ o01RrbpaHizlq/cDe/yovcERNmWyo529fy81dNe/5GgPqjVyhv3KIqy13wgJjuKxlvXi
+ i/M9r+UG426HV9fLdc4tWN4CokBKuTBqP1a5Re5MeLimUZPK62/4NhGQmOAo51OGRxz6
+ qdnABCNvZZNOAxRggcKBA4mqNGpmuC9ia8Is6LUzgwsYXe8m5h7G5emO3u047l9NWC3i
+ AjWGSRr6/KyWyW3Xo6hZX9HvV3KZGbd8cL0H6TuWgOSdS4JJNiGTfT+NeDOK7Azro45v
+ UzeQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1753974327; x=1754579127;
- h=content-transfer-encoding:in-reply-to:content-language:references
- :cc:to:from:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=nkJjgrL0o6u4F0KlYZbqrTlEbUii7EoXWMzIyUXeRyc=;
- b=t8sHrJZNvL/fM+JCFc7mTE0CI+WzLv+RJFEXAChdoCxUEH/YS8gYBluxO3qnhCH2+x
- IgMDxEeoPEZjsfceXPu5lOy++81k5L0TczxS78XHc0dxPBooBUqD0yp//T27gzD1F7Bf
- abBqo0yyC3SY7OGR0zsmenATu8o0IwByLWNORY05Cy6k26lVlerfuTYRJb6/2iHLM4iU
- QGnHRKbFMOfg0IQF6eqQFv2OUtGMVyCqy3IbiALVeSPrFu2S99vZf4cq2XhJ/ecaEKY2
- Ci8tUYFJ0SRGhavBgIoZQBYyvjhMF9YlE08u04eoNUsJH3fDI1u8AtmsDhZrFD9Jk7E9
- mVIQ==
-X-Gm-Message-State: AOJu0YyCwbnXTWDy4C9OsFiHoA4dTrX+dGtmqyagEmTrFjOMdksi7DRO
- RzwYeSA04S6ycydeMbxOMuowVxz2JWAZ9hDvbcoAXoWgENUDjT+Hi17D
-X-Gm-Gg: ASbGncu8XocLVKmxvqnhqIOwsyWlBywSGKuRiiEvdgWhtcybqmfadW7Yxz8COwpE2nO
- kVUCIi1B9gLbXolMLiDPRNVuDKXvBaCeh/2GkiJBZSUxdN8W2j6kYB2pEni2ZBysp1BGhOE64Ow
- zoU+CvvOpoVhAiSeOfknDQS4jliTYSp/gNhyFeWehydgFDNpKgRI7JQF55fkqyBIOd2tOJoFBJw
- xOaNDW0tfgjgYqMvlKihpBgjgC0HX3oPmv11EHVdak7Zz4DrxNwXd30jGb3bl2gecHR18NmubjV
- NZ/Lk5GRzXTdeFJVSqZI2q20ETrBlt4vv7HCxr6gg4VQTwqSi6SHOfQII3UjEJwOfb/EXHRVLRF
- n0fpi3dC2JK98eDeSG1pii3BMkjbzKsR8ED8CxaYoD7z9W1ThWIS3xuGiHp7WXGTISfVFltE=
-X-Google-Smtp-Source: AGHT+IHAivIPXwq/x+CZVWYOkEzpqfVAXSEyzoK0DyqBsqEp4wsdtjpWg6HodymDmCz1GlqrhqtLiA==
-X-Received: by 2002:a17:907:e849:b0:ae3:595f:91a0 with SMTP id
- a640c23a62f3a-af8fd6b23dfmr901672766b.16.1753974326532; 
- Thu, 31 Jul 2025 08:05:26 -0700 (PDT)
-Received: from [192.168.0.13] (217-62-96-139.cable.dynamic.v4.ziggo.nl.
- [217.62.96.139]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-af91a0a3792sm122100866b.50.2025.07.31.08.05.25
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 31 Jul 2025 08:05:25 -0700 (PDT)
-Message-ID: <77f3386d-756b-4cca-b317-1b3c5ad725fb@gmail.com>
-Date: Thu, 31 Jul 2025 17:07:00 +0200
+ d=1e100.net; s=20230601; t=1754225118; x=1754829918;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=pxXOv0H77qu3boXS8S20sjf3H+BGpeAjIG2LP7StaE4=;
+ b=KxP/mnPw2UIXMFJ5wSieUY96VLy1vT6krKVnt9iVDUV0ZyANMhkr9ZcsXjB6hoobP7
+ YJ2nZHFyME0USbq6q1ipRlUqPIrnZU1kzHJesHabtfOvKjuB9rJTb38Sgw12myH/T8kM
+ oG5/hpxulik4MdqXKYTrWbeMcs5+MUTBKcAbPOrwCOSmF8WzT+ANZcV1dFqO+lSLgwDG
+ YWRS7eR4QxiPjipvRHMmq6QmUUoUTt1RlpbIawRj+DBBAe9pU80QD6HAhvezHn8cEjGj
+ 8ZFIyF9CqvfA+YJ0PaKEmO7bQImoupWVffBPEDDlYAcMEED8uysmo63S37g3s9HE1ka0
+ BPNg==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCU0KB4Ws8fXoxShx4/akK2IcJo/lC4sn5jLNANFnkrJqHXdumlfC9VlLkCpEyJVTV9Aif9YNyrledc9@lists.freedesktop.org,
+ AJvYcCUha1aaPbsYzlWKi0hjNZhlrPpLcS1FvOPKoDURtjnQ5Av23QO1WEoAyXrJwgFGGsGxNxfurX4w78M=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwgUhBghSlXmjYuZzhN643iYjJld5kRLnGTPXezGkCGycG9r0YC
+ 0QJzYwejNCHnek3VwjvNfFX5ONO7714iBA53ExxZueefM38AWEE1wXlvrn+eFDUvEjRtxqdr0qd
+ D1RlUO5N/cbntEdoIoDCzDjPhHPlR7zE=
+X-Gm-Gg: ASbGncuuJtcH0jwcSW4QzNriSej2So/JnFtfxqZHuCa7qltMfGxJEajrwmpZnuqbUMx
+ C1CRO5UWsgxNTwN/GwRyRo8sMg1A0omJotD9Jd3jg9EfOEAc8Reo1iEyPAiJ5rFRu5lghFYB/Bg
+ MmPJCX6IUsJVN++xrOt/811TxewvSgvJX6MYA5+gw4hAIe/tYIeqVK0htOjJbSBwE09bILQOZNY
+ fsdvMo=
+X-Google-Smtp-Source: AGHT+IHFQr61biS993WpaTiLN314ukC/GGuYrmWFHzReiBI+xBUUZ2E1nmjUhmzhYsuLobiRAM+1bP/mpJx6eUe4McA=
+X-Received: by 2002:a17:907:724a:b0:ae0:aa0d:7bfa with SMTP id
+ a640c23a62f3a-af9402301f3mr558310866b.50.1754225117967; Sun, 03 Aug 2025
+ 05:45:17 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: Issue or bug concerning DRRS on old i7-4980HQ
-From: =?UTF-8?Q?Ren=C3=A9_Herman?= <rene.herman@gmail.com>
-To: Jani Nikula <jani.nikula@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- =?UTF-8?B?VmlsbGUgU3lyasOkbMOk?= <ville.syrjala@linux.intel.com>
-Cc: intel-gfx@lists.freedesktop.org
-References: <3aebffd3-b3b7-4c3c-a7ac-816965d0204d@gmail.com>
-Content-Language: nl, en-US
-In-Reply-To: <3aebffd3-b3b7-4c3c-a7ac-816965d0204d@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+References: <CACTEcX6oXBot1VBApOyKVMVXsAN9BsvQMLa8J0iKpNeB-eLttQ@mail.gmail.com>
+ <642d439ea1be8e48ee5c47fd3921a786452fb931@intel.com>
+In-Reply-To: <642d439ea1be8e48ee5c47fd3921a786452fb931@intel.com>
+From: Andy Mindful <andy.mindful@gmail.com>
+Date: Sun, 3 Aug 2025 15:45:06 +0300
+X-Gm-Features: Ac12FXwQ1gQW4qwRV_K-3Velp0hCrjgNlIh5_C2All-wPbXiQ1zvu-N5hZpFRGU
+Message-ID: <CACTEcX5Y3PNXNkhnK1dGFe+k3sigOZNpj66KKGAS9XeHqRu35w@mail.gmail.com>
+Subject: Re: [REGRESSION] tty lockup and WWAN loss after hibernate/suspend in
+ 6.8+ on ThinkPad X1 Carbon Gen 10
+To: Jani Nikula <jani.nikula@intel.com>
+Cc: linux-kernel@vger.kernel.org, regressions@lists.linux.dev, 
+ linux-pm@vger.kernel.org, intel-gfx@lists.freedesktop.org, 
+ dri-devel@lists.freedesktop.org, linux-acpi@vger.kernel.org, 
+ rafael@kernel.org, ville.syrjala@linux.intel.com, tglx@linutronix.de
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-Mailman-Approved-At: Mon, 04 Aug 2025 14:23:32 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -91,70 +90,75 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Here's that Ubuntu launchpad bug on freedesktop.org, but including a 
-possibly interesting fix from 5 months ago in the currently last comment:
+Here what I have from bisecting, please let me know if it makes things
+clearer or not.
 
-https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/3441
+git bisect log
+git bisect start
+# status: waiting for both good and bad commits
+# good: [6fc5460ed8dd0edf29e7c5cfb1ef9b1aa04208a1] Linux 6.7.11
+git bisect good 6fc5460ed8dd0edf29e7c5cfb1ef9b1aa04208a1
+# status: waiting for bad commit, 1 good commit known
+# bad: [6613476e225e090cc9aad49be7fa504e290dd33d] Linux 6.8-rc1
+git bisect bad 6613476e225e090cc9aad49be7fa504e290dd33d
+# skip: [0dd3ee31125508cd67f7e7172247f05b7fd1753a] Linux 6.7
+git bisect skip 0dd3ee31125508cd67f7e7172247f05b7fd1753a
+# good: [ba5afb9a84df2e6b26a1b6389b98849cd16ea757] fs: rework
+listmount() implementation
+git bisect good ba5afb9a84df2e6b26a1b6389b98849cd16ea757
+# good: [61da593f4458f25c59f65cfd9ba1bda570db5db7] Merge tag
+'media/v6.8-2' of
+git://git.kernel.org/pub/scm/linux/kernel/git/mchehab/linux-media
+git bisect good 61da593f4458f25c59f65cfd9ba1bda570db5db7
+# bad: [e38f734add21d75d76dbcf7b214f4823131c1bae] Merge tag
+'staging-6.8-rc1' of
+git://git.kernel.org/pub/scm/linux/kernel/git/gregkh/staging
+git bisect bad e38f734add21d75d76dbcf7b214f4823131c1bae
+# bad: [5d197e97fb106c09d3d013be341e5961fd70ec8a] Merge tag
+'hsi-for-6.8' of
+git://git.kernel.org/pub/scm/linux/kernel/git/sre/linux-hsi
+git bisect bad 5d197e97fb106c09d3d013be341e5961fd70ec8a
+# good: [1b1934dbbdcf9aa2d507932ff488cec47999cf3f] Merge tag
+'docs-6.8-2' of git://git.lwn.net/linux
+git bisect good 1b1934dbbdcf9aa2d507932ff488cec47999cf3f
+# good: [1b1934dbbdcf9aa2d507932ff488cec47999cf3f] Merge tag
+'docs-6.8-2' of git://git.lwn.net/linux
+git bisect good 1b1934dbbdcf9aa2d507932ff488cec47999cf3f
+# bad: [8c9244af4dc8680a453e759331f0c93d5bde1898] Merge tag
+'kvm-x86-svm-6.8' of https://github.com/kvm-x86/linux into HEAD
+git bisect bad 8c9244af4dc8680a453e759331f0c93d5bde1898
+# bad: [783288010035e4c250a0b6491a4642cdb8d30548] KVM: x86: add
+missing "depends on KVM"
+git bisect bad 783288010035e4c250a0b6491a4642cdb8d30548
+# bad: [783288010035e4c250a0b6491a4642cdb8d30548] KVM: x86: add
+missing "depends on KVM"
+git bisect bad 783288010035e4c250a0b6491a4642cdb8d30548
+# bad: [861deac3b092f37b2c5e6871732f3e11486f7082] Linux 6.7-rc7
+git bisect bad 861deac3b092f37b2c5e6871732f3e11486f7082
 
-When Windows 10 goes out of support I expect a fair few of these older 
-systems (supposedly without TPM) will get Linufied.
+# being on a 861deac3b092
+git bisect bad
+The merge base ba5afb9a84df2e6b26a1b6389b98849cd16ea757 is bad.
+This means the bug has been fixed between
+ba5afb9a84df2e6b26a1b6389b98849cd16ea757 and
+[1b1934dbbdcf9aa2d507932ff488cec47999cf3f
+61da593f4458f25c59f65cfd9ba1bda570db5db7
+6fc5460ed8dd0edf29e7c5cfb1ef9b1aa04208a1
+ba5afb9a84df2e6b26a1b6389b98849cd16ea757].
 
-Regards,
-Rene
+Thanks.
 
-On 31-07-2025 04:49, René Herman wrote:
-
-> Hello all.
-> 
-> Addresses as per MANTAINERS, and Ville as per Git history...
-> 
-> I've been trying to assist a new Linux user with an old 2015 Alienware 
-> 17 R2, i7-4980HQ (Iris Pro 5200) together with NVIDIA GTX980M.
-> 
-> The user experienced flickering (in a brightness sense) and had traced 
-> this back to Intel DRRS. I supplied a simple test patch as
-> 
-> --- linux-6.8.0/drivers/gpu/drm/i915/display/intel_dp.c.orig
-> +++ linux-6.8.0/drivers/gpu/drm/i915/display/intel_dp.c
-> @@ -2727,6 +2727,8 @@
->   {
->       struct drm_i915_private *i915 = to_i915(connector->base.dev);
-> 
-> +    return false;
-> +
->       if (pipe_config->vrr.enable)
->           return false;
-> 
-> which does indeed work. Set out to then solve it right(er) and ran into 
-> the debugfs drrs ctl file, for him
-> 
-> /sys/kernel/debug/dri/1/crtc-0/i915_drrs_ctl
-> 
-> We haven't however been able to do anything useful with that. If we echo 
-> 0 into it it seems that DRRS does temporarily go to "DRRS active: no" in 
-> the corresponding i915_drrs_status file, but only seconds later it again 
-> shows as "DRRS active: yes", and his problem returns/remains.
-> 
-> It's making the system largely unusable with Linux -- or are we/am I 
-> missing something as to configuration?
-> 
-> The user is as said a new Linux user and will need to stick with generic 
-> distribution kernels, Ubuntu here, but the debugfs thing seems to then 
-> not work and a kernel parameter appears to not exist. When searching I 
-> found this issue also at for example
-> 
-> https://bugs.launchpad.net/ubuntu/+source/linux/+bug/1928138
-> 
-> and on the list at
-> 
-> https://lists.freedesktop.org/archives/intel-gfx/2017-October/145050.html
-> 
-> Is there something we/he could do to get DRRS disabled with a generic 
-> distribution kernel? Should the i915_drrs_ctl thing have worked?
-> 
-> And if not, is there a possibility for a kernel parameter that does 
-> something akin to that above working test patch (but then right)?
-> 
-> Kind regards,
-> Rene Herman
-
+=D0=B2=D1=82, 29 =D0=BB=D0=B8=D0=BF. 2025=E2=80=AF=D1=80. =D0=BE 13:20 Jani=
+ Nikula <jani.nikula@intel.com> =D0=BF=D0=B8=D1=88=D0=B5:
+>
+> On Tue, 29 Jul 2025, Andy Mindful <andy.mindful@gmail.com> wrote:
+> > Please let me know if any further information or testing is required.
+>
+> Likely the quickest way to find the root cause is to bisect the issue.
+>
+>
+> BR,
+> Jani.
+>
+> --
+> Jani Nikula, Intel
