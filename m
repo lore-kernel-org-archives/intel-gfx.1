@@ -4,67 +4,67 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 09949CA0EC3
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 60EFBCA0ECB
 	for <intel-gfx@archiver.kernel.org>; Mon,  4 Aug 2025 14:23:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B87C510E574;
-	Mon,  4 Aug 2025 14:23:42 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0169910E57A;
+	Mon,  4 Aug 2025 14:23:43 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="CFIMvPEk";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="LgmAi9ml";
 	dkim-atps=neutral
-Received: from mail-il1-f175.google.com (mail-il1-f175.google.com
- [209.85.166.175])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2AE1C10E4B3;
- Sun,  3 Aug 2025 03:59:04 +0000 (UTC)
-Received: by mail-il1-f175.google.com with SMTP id
- e9e14a558f8ab-3e3f1e69090so8244685ab.0; 
- Sat, 02 Aug 2025 20:59:04 -0700 (PDT)
+Received: from mail-io1-f52.google.com (mail-io1-f52.google.com
+ [209.85.166.52])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3DE3B10E4B0;
+ Sun,  3 Aug 2025 03:59:15 +0000 (UTC)
+Received: by mail-io1-f52.google.com with SMTP id
+ ca18e2360f4ac-87999c368e9so203763139f.0; 
+ Sat, 02 Aug 2025 20:59:15 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1754193543; x=1754798343; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1754193554; x=1754798354; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=mklWiZZXeNw0IAiROdlhKulcLq5JIjmrYvDuK+b6IIw=;
- b=CFIMvPEkLb4eJfRoXbd4jAW7GkS+iEbrpZPA0uUBiFu8s8ma4SU9fNsHFPWFcyAUZx
- BbgqTAm9uPqXisziDvIvRhHH9OkoERQQnFviqrxdmT8mXyHJPIRxYeXUWuEsqraUVGrC
- B4nbVyhm6R1IAbG1tTMAW0nRLvZuJVXhqjNf+6ewRh+zHaDaIFGQs8TkhFSUbWEcdL1f
- SicHFO1mcSPQKcOxebXMvCWF1NNBTCHRjg9lbofEFlEK1Zvbrvf8l429VJprKVc7jQkR
- 3hLFhhBLVQtPAcpT0Erz8fu7vHWSZuvXP8CnWqY28Dw6mJtfh299Oecfsl8brmJor7mT
- p0qw==
+ bh=5JChZIjAU7+USVRGiGiVr4WOFlmx1AN0tqDn5UCQfXA=;
+ b=LgmAi9ml+HjpwfMmpQ94DXMPWt59fv0dher4F/keXFBKtseEhyDpjtoKiHLzfcTSW9
+ gi6f0Qz0VOriBftTlrwy5IvBnZUj659moEXrwcC93BFSSv86tCZJnJHR6u9aYTrRe2t3
+ Ts/ovLO6gNfhEgBqu3uGVQzWpqpQ+WiALXyZhPGDBNKmSbI+w8PcxDr/87Q7DDlvPDIc
+ ytGkPA5YDMtu2jrbtzqK7T+jVtKYjGuGR8jlNuZ5KZboSRjn9YBwG+9Q3E6+iRUZR24t
+ e06ZtnCyXHQVY9TWyNDsHaEgnMIENTdgbMG0gt5reLD76MTNKeYjQL9JNU6P4NYqesst
+ PnQQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1754193543; x=1754798343;
+ d=1e100.net; s=20230601; t=1754193554; x=1754798354;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=mklWiZZXeNw0IAiROdlhKulcLq5JIjmrYvDuK+b6IIw=;
- b=MNQkaehyVLr4t1lfYo8ScLG5KmgFMjnaiLmlfiXMpyt98/veyz3Ffvg5B6+9UzExom
- vF/gvJXKdYOlSkdU63EdyZwYrbT3WxhHV9485sHj4iLU4BxBR60EB+CC0X7V4YBm6uEL
- Tm/pOk1fysUoT9B57lGu/mQlqUAt7QEbBXG8AoyBydqYotequUzm6y758PfMZYOnscCH
- N5y0hYx3plyoLHHOqyp/0hTMI90fVs2STCnPmOTHAMgpdiQgs+g7+Fja3yD1r4ShQwqN
- zihxwip3W7oMnhPPmZpM9YGEIM5ChrgFJvgANW+RosUi/5ByhLm7JJsxOl0bwXfn/OfL
- zaAA==
+ bh=5JChZIjAU7+USVRGiGiVr4WOFlmx1AN0tqDn5UCQfXA=;
+ b=UCbqCffG4hYzlU7Z4d5baIzIkTuAUc3w/sw4BI5+1nh1OGLHcQ278nzuZXAijRqPWA
+ nIghgw94gLiaM1e9PpQrLBlEs2p2ZdWMG5x++NzvRmtaj1nnsaxVh6D8v0WM3yRXHksA
+ 4oRhI+pY8ZRPiTuqMORUqDEyn6mc1WzhShYCSwXUELcGWJsMBanGAOIJOwuT1WC2bezz
+ oeWJQV7c6hI/FOC7tUABR2iOQs1ffJWi7HnevslS/LT2QByHR28tk/LjUCVtX2rLRoSE
+ g4HuOh/ej2atXaMyC9eGgDoiQLf17Xw1R5AC9Z38EnyP/9fQ2Gnyy6YlJPI+Or2h21dK
+ 9eVA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCVC9YSz4+3nQuu4bIu7EJSX0cq2i1+TYAJLX2Qx/KqW8IQHTF85Ji/B4iVc6Mv7XizGrFu067YOtRzp@lists.freedesktop.org,
- AJvYcCVwpn2Okk0RRrqCL4mP/Q20LiDtNj1/oONmoGWInYkuMRVDvig80jXKaloPu2gXYLhwE++TVJSk@lists.freedesktop.org,
- AJvYcCX13jRgpIzxob+XwhsZ9tuL9h+H4fFxwT3kp0YwamKz+lIjrjK6M5h4wRx4ABk9npI8cWOwjQaL6uuBo6D7qA==@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwCLoJT3lnfssgCOHvsZv4piPJQtZAwI+Rqq84kgEm+YeKRQ1Li
- bTBEj0a/HlAh9xkJIV8KR2C0Er0BG+oC6sCb3rGim+5JtV9KNB5hL/JX
-X-Gm-Gg: ASbGncuEdSkoY0G8QG1LAG1AUidt9JZMSSub1m408LgT7Ie5Mc+CtUUpC4SG2vWbi4h
- nTKGyW8OfRR1f9SPCNO5diYy8sd4W8mbfXV1s6R0ft6+D4M5+Bm+mXAXJ9WEIO/u3o6gjMWcB5h
- Jn72LchIeCjB47aHbgncKqYU5rA/kIXgd8gtnMjWoMcFkmYPqIuFj6/32DaAYz50BWeobQXb39O
- AVAar6jKw5ay7Tygq/Cnuocu65MOGskAbVI7vpQYVNF0ZyjgXi3a9S/dRzEmysuWbL/6IEjUIRu
- h3+DdYk1TiDOcJJnWMYp/x/QCq0QMmLtScsLHtWzwoQebs/II52vXWV3vCDuXYF0ktd0LddMITv
- 2SBBpHpOYhoe40mqTZMyCH+hYGOa01MzS8WvFFZSFGzEQ7c2UmsfR5kLuInsxzv2h1ylfAbYwfY
- LU1A==
-X-Google-Smtp-Source: AGHT+IFogGu9+LdtIzbyfZnfCUHN86E9vT1zZI6TQuyF240cWd9LVlFw1Za2fBbgX19XjcZHFKFMwQ==
-X-Received: by 2002:a05:6e02:3e8b:b0:3e2:a472:2122 with SMTP id
- e9e14a558f8ab-3e416191f81mr84787815ab.14.1754193543320; 
- Sat, 02 Aug 2025 20:59:03 -0700 (PDT)
+ AJvYcCVs/pZ2s4D/QFDNPu6StrzdqAFvJ+kItrny5kg5WO9SE3PSuEGEJDILPTCo8Bo9ecu5ZJ6RPLe+8PLj@lists.freedesktop.org,
+ AJvYcCW7o7ab+pXImF5h9J0ApZfenppGS5BITnwpgI+opR9vlLtenROVsEENkbuJLmPXJQfABQVz8GCgDTYoNEuGqQ==@lists.freedesktop.org,
+ AJvYcCXOFhLjPPZr10ieA6OsBy463gYRc5Zx41T4zT3AI9RmM6cZbyg8zfaor0mc7uXwRBmE//XcGyCH@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwgXEidM2yvkenumjwnuj+Ei21DEKIlf66TqtGDumgCeQLizfKg
+ ximOL/hnPhbaiYVRajlkqRcp9OvtSzM+s/OguJ9IXYpqV95HjMoonfUU
+X-Gm-Gg: ASbGncsw8BrgLhWrz3hJt7TMyIWgCXeMkmbibg6P6PyRo7c0udklsTsC0xlZ5Aw2TtU
+ 6hTeN6RN1j3Y0i2FKoks+/4QEbBex1GEQk+/hxV3tLNyDMnnQLUEpm4SgRBXl52MupbdqFeJfwk
+ 1DCyHwKzWTYbopwhGqFaXNoNIBoXn0Q3UuvTzEGqwvVExdVA67CX32AqL4081AwWVh+NLfLsM4+
+ MdyONH9bu7kvV+l50sFjo2n8+O28SgqkBQM4JpNNx5CZ5edcLbsr2Jqyvl1T2lnd5+4Ac95kDwE
+ zjzWyvfU1aN4KLloG/JtCj9hGw+Cvmbcz7vtG2SzKXnl33yUknED9Moy7vzp0NBTRFUzR1V+BTy
+ hYJA9nTWJjvbuyM8d4bx1MMyAnrNR6scKXElSLcSd5n7DOetp9ACF3CJBph9wiMNh2VdA5Uixd3
+ 7ldw==
+X-Google-Smtp-Source: AGHT+IEXs1RKwGF33rL3y1Nq7WtmCCzyqjf3/JqP1fnRxFHeHfpiw5ELqGV5x4Tl+RUFiy+AkiHSIg==
+X-Received: by 2002:a05:6602:6206:b0:881:7474:1b78 with SMTP id
+ ca18e2360f4ac-88174741e8dmr448868439f.8.1754193554242; 
+ Sat, 02 Aug 2025 20:59:14 -0700 (PDT)
 Received: from frodo.raven-morpho.ts.net (c-67-165-245-5.hsd1.co.comcast.net.
  [67.165.245.5]) by smtp.googlemail.com with ESMTPSA id
- 8926c6da1cb9f-50a55df0940sm2268319173.106.2025.08.02.20.59.02
+ 8926c6da1cb9f-50a55df0940sm2268319173.106.2025.08.02.20.59.12
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 02 Aug 2025 20:59:02 -0700 (PDT)
+ Sat, 02 Aug 2025 20:59:13 -0700 (PDT)
 From: Jim Cromie <jim.cromie@gmail.com>
 To: linux-kernel@vger.kernel.org, jbaron@akamai.com,
  gregkh@linuxfoundation.org, ukaszb@chromium.org, louis.chauvet@bootlin.com
@@ -77,9 +77,10 @@ Cc: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
  will@kernel.org, catalin.marinas@arm.com, quic_psodagud@quicinc.com,
  maz@kernel.org, arnd@arndb.de, linux-arm-kernel@lists.infradead.org,
  linux-arm-msm@vger.kernel.org, mingo@redhat.com, jim.cromie@gmail.com
-Subject: [PATCH v4 20/58] dyndbg: detect class_id reservation conflicts
-Date: Sat,  2 Aug 2025 21:57:38 -0600
-Message-ID: <20250803035816.603405-21-jim.cromie@gmail.com>
+Subject: [PATCH v4 27/58] dyndbg: drop "protection" of class'd pr_debugs from
+ legacy queries
+Date: Sat,  2 Aug 2025 21:57:45 -0600
+Message-ID: <20250803035816.603405-28-jim.cromie@gmail.com>
 X-Mailer: git-send-email 2.50.1
 In-Reply-To: <20250803035816.603405-1-jim.cromie@gmail.com>
 References: <20250803035816.603405-1-jim.cromie@gmail.com>
@@ -101,108 +102,124 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-If a module _DEFINEs + _USEs 2 or more classmaps, it must devise them
-to share the per-module 0..62 class-id space; ie their respective
-base,+length reservations cannot overlap.
+Current classmap code protects class'd pr_debugs from unintended
+changes by "legacy" unclassed queries:
 
-To detect conflicts at modprobe, add ddebug_class_range_overlap(),
-call it from ddebug_add_module(), and WARN and return -EINVAL when
-they're detected.
+  # this doesn't disable all of DRM_UT_* categories
+  echo "-p" > /proc/dynamic_debug/control
 
-test_dynamic_debug.c:
+  # name the class to change it - protective but tedious
+  echo "class DRM_UT_CORE +p" > /proc/dynamic_debug/control
 
-If built with -DFORCE_CLASSID_CONFLICT, the test-modules get 2 bad
-DYNDBG_CLASS_DEFINE declarations, into parent and the _submod.  These
-conflict with one of the good ones in the parent (D2_CORE..etc),
-causing the modprobe(s) to warn
+  # or do it the (old school) subsystem way
+  echo 1 > /sys/module/drm/parameters/debug
 
+This "name the class to change it" behavior gave a modicum of
+protection to classmap users (ie DRM) so their debug settings aren't
+trivially and unintentionally altered underneath them.
+
+And by "symmetry", if they're not picked by "class FOO", then they're
+excluded from adjustment.  This allowed all previously conceived
+queries to work the way they always had; ie select the same set of
+pr_debugs, despite the inclusion of whole new classes of pr_debugs.
+
+That had 2 downsides:
+
+1. "name the class to change it" means that every class must be
+individually modified, quickly becoming long-winded and tedious to
+adjust all the classes in a map via >control.
+
+2. It made the class keyword special in some sense; the other keywords
+skip only on explicit mismatch, otherwise the code falls thru to
+adjust the pr-debug site.
+
+So this patch reverts to the traditional view, it drops protection of
+classes from default/legacy queries.
+
+But it also refactors the skip/continue choice to allow the module
+defining the classmap to protect its classes from unintended
+alterations by legacy/class-less queries.
+
+Next:
+
+Author choice: use of DYNAMIC_DEBUG_CLASSMAP_PARAM() means they want
+the drm.debug style control point.  We should presume they want it to
+reflect whats set underneath, with only "class FOO" qualified queries
+changing the callsites beneath.
+
+CC: jbaron@akamai.com
 Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
+--
+v3- s/slctd_/selected_/
+    pitch the PARAM control of protection.
 ---
----
- lib/dynamic_debug.c      | 29 +++++++++++++++++++++++++++++
- lib/test_dynamic_debug.c |  8 ++++++++
- 2 files changed, 37 insertions(+)
+ lib/dynamic_debug.c | 31 +++++++++++++++++++++++--------
+ 1 file changed, 23 insertions(+), 8 deletions(-)
 
 diff --git a/lib/dynamic_debug.c b/lib/dynamic_debug.c
-index fa8d1ee214066..d6687623c5a96 100644
+index 73076709d169e..548a82a178d49 100644
 --- a/lib/dynamic_debug.c
 +++ b/lib/dynamic_debug.c
-@@ -1267,6 +1267,22 @@ static void ddebug_apply_class_users(const struct _ddebug_info *di)
- 	(_dst)->info._vec.len = nc;					\
- })
+@@ -197,6 +197,17 @@ ddebug_find_valid_class(struct _ddebug_info const *di, const char *query_class,
+ 	return NULL;
+ }
  
-+static int __maybe_unused
-+ddebug_class_range_overlap(struct _ddebug_class_map *cm,
-+			   u64 *reserved_ids)
++/*
++ * classmaps-v1 protected classes from changes by legacy commands
++ * (those selecting _DPRINTK_CLASS_DFLT by omission), v2 undoes that
++ * special treatment.  State so explicitly.  Later we could give
++ * modules the choice to protect their classes or to keep v2 behavior.
++ */
++static inline bool ddebug_client_module_protects_classes(const struct ddebug_table *dt)
 +{
-+	u64 range = (((1ULL << cm->length) - 1) << cm->base);
-+
-+	if (range & *reserved_ids) {
-+		pr_err("[%d..%d] on %s conflicts with %llx\n", cm->base,
-+		       cm->base + cm->length - 1, cm->class_names[0],
-+		       *reserved_ids);
-+		return -EINVAL;
-+	}
-+	*reserved_ids |= range;
-+	return 0;
++	return false;
 +}
 +
  /*
-  * Allocate a new ddebug_table for the given module
-  * and add it to the global list.
-@@ -1276,6 +1292,7 @@ static int ddebug_add_module(struct _ddebug_info *di)
- 	struct ddebug_table *dt;
- 	struct _ddebug_class_map *cm;
- 	struct _ddebug_class_user *cli;
-+	u64 reserved_ids = 0;
- 	int i;
+  * Search the tables for _ddebug's which match the given `query' and
+  * apply the `flags' and `mask' to them.  Returns number of matching
+@@ -211,7 +222,7 @@ static int ddebug_change(const struct ddebug_query *query, struct flag_settings
+ 	unsigned int nfound = 0;
+ 	struct flagsbuf fbuf, nbuf;
+ 	struct _ddebug_class_map *map = NULL;
+-	int valid_class;
++	int selected_class;
  
- 	if (!di->descs.len)
-@@ -1301,6 +1318,13 @@ static int ddebug_add_module(struct _ddebug_info *di)
- 	dd_mark_vector_subrange(i, dt, cm, di, maps);
- 	dd_mark_vector_subrange(i, dt, cli, di, users);
+ 	/* search for matching ddebugs */
+ 	mutex_lock(&ddebug_lock);
+@@ -224,21 +235,25 @@ static int ddebug_change(const struct ddebug_query *query, struct flag_settings
  
-+	for_subvec(i, cm, &dt->info, maps)
-+		if (ddebug_class_range_overlap(cm, &reserved_ids))
-+			goto cleanup;
-+	for_subvec(i, cli, &dt->info, users)
-+		if (ddebug_class_range_overlap(cli->map, &reserved_ids))
-+			goto cleanup;
-+
- 	if (dt->info.maps.len)
- 		ddebug_apply_class_maps(&dt->info);
+ 		if (query->class_string) {
+ 			map = ddebug_find_valid_class(&dt->info, query->class_string,
+-						      &valid_class);
++						      &selected_class);
+ 			if (!map)
+ 				continue;
+ 		} else {
+-			/* constrain query, do not touch class'd callsites */
+-			valid_class = _DPRINTK_CLASS_DFLT;
++			selected_class = _DPRINTK_CLASS_DFLT;
+ 		}
  
-@@ -1313,6 +1337,11 @@ static int ddebug_add_module(struct _ddebug_info *di)
+ 		for (i = 0; i < dt->info.descs.len; i++) {
+ 			struct _ddebug *dp = &dt->info.descs.start[i];
  
- 	vpr_info("%3u debug prints in module %s\n", di->descs.len, di->mod_name);
- 	return 0;
-+cleanup:
-+	WARN_ONCE("dyndbg multi-classmap conflict in %s\n", di->mod_name);
-+	kfree(dt);
-+	return -EINVAL;
-+
- }
- 
- /* helper for ddebug_dyndbg_(boot|module)_param_cb */
-diff --git a/lib/test_dynamic_debug.c b/lib/test_dynamic_debug.c
-index 6c4548f635128..1ba4be9a403ae 100644
---- a/lib/test_dynamic_debug.c
-+++ b/lib/test_dynamic_debug.c
-@@ -128,6 +128,14 @@ DYNAMIC_DEBUG_CLASSMAP_DEFINE(map_level_num, DD_CLASS_TYPE_LEVEL_NUM,
- DYNAMIC_DEBUG_CLASSMAP_PARAM(disjoint_bits, p);
- DYNAMIC_DEBUG_CLASSMAP_PARAM(level_num, p);
- 
-+#ifdef FORCE_CLASSID_CONFLICT
-+/*
-+ * Enable with -Dflag on compile to test overlapping class-id range
-+ * detection.  This should warn on modprobes.
-+ */
-+DYNDBG_CLASSMAP_DEFINE(classid_range_conflict, 0, D2_CORE + 1, "D3_CORE");
-+#endif
-+
- #else /* TEST_DYNAMIC_DEBUG_SUBMOD */
- 
- /*
+-			/* match site against query-class */
+-			if (dp->class_id != valid_class)
+-				continue;
+-
++			if (dp->class_id != selected_class) {
++				if (query->class_string)
++					/* site.class != given class */
++					continue;
++				/* legacy query, class'd site */
++				else if (ddebug_client_module_protects_classes(dt))
++					continue;
++				/* allow change on class'd pr_debug */
++			}
+ 			/* match against the source filename */
+ 			if (query->filename &&
+ 			    !match_wildcard(query->filename, dp->filename) &&
 -- 
 2.50.1
 
