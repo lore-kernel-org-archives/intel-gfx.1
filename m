@@ -4,67 +4,67 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DDEF0CA0EC0
-	for <intel-gfx@archiver.kernel.org>; Mon,  4 Aug 2025 14:23:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D2D16C87FD1
+	for <intel-gfx@archiver.kernel.org>; Mon,  4 Aug 2025 14:23:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7CBDD10E530;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9051E10E531;
 	Mon,  4 Aug 2025 14:23:33 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="RrqC3ZNa";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="fVoMk6Jv";
 	dkim-atps=neutral
-Received: from mail-il1-f172.google.com (mail-il1-f172.google.com
- [209.85.166.172])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 108BE10E4C0;
- Sun,  3 Aug 2025 03:59:24 +0000 (UTC)
-Received: by mail-il1-f172.google.com with SMTP id
- e9e14a558f8ab-3da73df6b6bso9003385ab.3; 
- Sat, 02 Aug 2025 20:59:24 -0700 (PDT)
+Received: from mail-il1-f173.google.com (mail-il1-f173.google.com
+ [209.85.166.173])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2EF0410E3E5;
+ Sun,  3 Aug 2025 03:58:38 +0000 (UTC)
+Received: by mail-il1-f173.google.com with SMTP id
+ e9e14a558f8ab-3e3fcf5b150so25029815ab.1; 
+ Sat, 02 Aug 2025 20:58:38 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1754193563; x=1754798363; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1754193517; x=1754798317; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=d9PcjPUjmFrLewSvRSEJPDWXh0n51inHqjt5GPCorNY=;
- b=RrqC3ZNaw8L2fUzHINXbA6sYnX17PwKJEgyXEIYerp2qBQ8g1sQDY3C5/ooM6xbtYo
- 7UJPgNAjv0yjrnHhlajVPJ3uHedxVJhIoym6faJkcmQAR6JHPmNMeEFZUt4FMW6PiAPl
- PmLvwl7iX0R6Zt+v5cNyQjXImd0kITL2mAM9h3yILkLBlvR6MtbAuV1Rre4LV2EIi+SC
- Rd/uJshx4f9NQdbwZpQhCn5JzkPNKbLG3u9v/CcnXR+Co0hfO9tjK5VfAUrYcQ1NTNny
- EAoi3d8oXkNb2UuXkYfCVk0UeDys8F3tnNrpxlLxpCqzUEjzrolg8gXjFB6lhbzty43n
- VhgQ==
+ bh=cT8/zmXv/UqMduSo2scBRCmGp63Q5/YeQDv4ZhdIR2c=;
+ b=fVoMk6JvmnWkzPEKxp6GViJNmOF7eqyZNZttYfSOTIqlKznLXyVCRmDpFoVyfAdKd2
+ GH02QP0WMjcWQML8yvvFnl4P4bZEuZhdXtOo5C+Bp7jdFgxfhJuZ4wMCBNOW3At3zavG
+ 0Zvm6RgqTm1fGcnqgOJGnr2UUy0dH4MsHIT/vLez1cWcsh0H5r6w4rl6S7G9eEWuZ/Lb
+ Cwq1eOrc+BJxDOahKWasXhZ1E9NQCBuvpsNI4lt/95KMq1mKLl7OgmKt/972ED0HzzoQ
+ KdzMKFo3XZN0F4xInmjaDPd70csctv9pLAi8S4ny3Tyy8qmi1H0CBuMqfBgDCaZJCGOa
+ cqjQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1754193563; x=1754798363;
+ d=1e100.net; s=20230601; t=1754193517; x=1754798317;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=d9PcjPUjmFrLewSvRSEJPDWXh0n51inHqjt5GPCorNY=;
- b=k18/hai8/OxXAQnU2T8nPc20ZiB0LYTWIn9cw5NcAqf7PfET7FhEt3Psnd/YOeGGN9
- JoN/SkRtzo1JajMVdQHl4pyDeghYTxQGLBQfBI8YEal9+BN/aXAvQT8C0HEi0QvGCSBg
- SKT/9DjcMPZkgTsx59VZHeZJP2VcG6M4mM1L+txuCjKmtuaUHD25j/1ROx2zdgCErtcv
- oH0YFKOwJvoOROPwttGYPOiLUStXGPoDPm8ug1fAUkRRc56GGnC9wcMOOUdvVRh5HhR4
- N75ZA6yXq97rvcFpNreHUelOmjokERB1B+xYyc62agtsXyQC8MDpq1ikhtn+qrklMMfD
- 1QXw==
+ bh=cT8/zmXv/UqMduSo2scBRCmGp63Q5/YeQDv4ZhdIR2c=;
+ b=bMdq3tZTRU+0bd11fo919fGDrMseoWjWetZgG1WT8uibpQtLVbI61EPUnYCfpcj30x
+ We3ToIk3ZpYLQ5y1OJg5dKd+7x10/qmJ+P6ACsOcDY4eZicwepdJdTs6g9tM+exMiX5P
+ V6ehAGUlmTIDUyVMrTqjsgM+DV3M0ikwVGbsnKE3lxZ5VtUNDw2xI1iJi+LuCfUQW4lx
+ QrIFP5RL0kOdxnmRLMaI8uCA3u6eYlpxC9ndF4p1gBxteuPaJiiXUyUUofpIB3ZpyZub
+ sHH4T0SLHL1ofKSTrnVGiXBn2Ap4DW7JP255wne1GpBXPHg7643YLmPU8oafTz14jhre
+ VAAg==
 X-Forwarded-Encrypted: i=1;
- AJvYcCWIsxoUoRhxLrUDIyJFmoA0gnFSdhzn7lkxeRZDRU1c3d6qKOdyitgqql6CvESKXwWLsoWk2VSR1561@lists.freedesktop.org,
- AJvYcCWKg69rHitD941J0lsmrlaNmTqn+AJrYiVomQ6NnX0jKgTwcOyvMH9YnhzJ750KC7w+a0otN7tL1z1OsBrx8Q==@lists.freedesktop.org,
- AJvYcCWaht2Ezrddziwbd8F0X4pRMy+rOZKTYo5j8xTqhdvpp84Gf1GEqUgJWazyNDexFoEvtlX/It2L@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yx3oezyHc4OtmpO24OSnLDxlRQilrRyrUJ8ybwIXKA9mR1Hjpbc
- hvB+k9azNn+QnRtNTK+2VsMm70eH1ECwDoKaHP2HpPOtgqwpYPz0p0eu
-X-Gm-Gg: ASbGncsgZu+/DySghCLRCme7Czz+tvnIhz74fGkGKLgJ0wGKN98MGf/eOFXKMk5GgLO
- lAZBFuzIXLcuXBiGSsjUXxftkXvB3iFyZngo+0bl37r7uhMRRaRoyUYlypwq8H9Y8BazumR3pR/
- xHBiGgDGgfJGHIStuq708IceKxk1gKwXvC0Ilnu0xn23Rl6/1qf3bTsNQsYJX9fveBMRk5h88hf
- BLVTs29ve7NPYBTYgGxGU4a619VTU78sTi7HDjec5Cs+4Sgga4bZFrpoHU6OjfHbVvsdBYC5C2N
- B1Sp6N1GMi+r2h+oVvjvDK0WhhgrSirj5sxCjkg59UmzuGrlTv4FXZskhzyimB0YHSxljIKZXbk
- gfnjR8S4iLibSNbHKh9D7ibYKn/Y1B+5G+uh7DV4IhaafAdPNqJuS5t9myNT5ZjKXL9ao4JAWsG
- jg3A==
-X-Google-Smtp-Source: AGHT+IGHik12b+NzuHXdXH1TPCs7I43pZRfGChkNXR0L9WcmFgFx3EM2Cq+84hECD9IhAilvjxg83w==
-X-Received: by 2002:a05:6e02:1f85:b0:3e3:e78e:4e0a with SMTP id
- e9e14a558f8ab-3e41610d65cmr100228055ab.1.1754193563265; 
- Sat, 02 Aug 2025 20:59:23 -0700 (PDT)
+ AJvYcCVivaf7ZYNMTtA4Dohdia/70nnmpYsXVq4gyokQUFlRMKVylhlswgPhOWMsljraceWg26uROnZNwts9C8xHIQ==@lists.freedesktop.org,
+ AJvYcCWmnQlHah0RlrttyxUP+k9lkRxZxHwxG6Fdt/xFeOXNGcLzwWzS3/KnxoB/a/LxpIha6cylUCsOjDzq@lists.freedesktop.org,
+ AJvYcCXQAJe5YELIoDXT2/qlgxgpeDaAYxscV3aV7Sllrmz6TpNc+yStKN8a3wcT6+thEsmVmuiHWW/s@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yxx8zP2pbtlgLJs0Yvx7KLOTgXng2vjtk3m+rQ7l9YUnW+8wNBB
+ lc0u1Xlyz+PBK3lQfiaWtBMrA4Bh9gt7JmaxCjxdTYiJBDq2n1b8cUWb
+X-Gm-Gg: ASbGncvv8NkEJIoaj4oOldM3EvRZNDQOwCii3Ql7mYIe5xpruzhHuo4Wwm9XImO4s5S
+ 8X1jDTy+cDZg2ly6BLn5txBtGsPPcBf3P7M2kWW/tsBB3D04bsvXnhh8ghJeZzYoC+21qmnWHJS
+ 1c5bwhvKLqDEqI501zbwTNp+z+E7adxXE29xfTrej8kO7Cd9ZoJMqiVg34DLiP6VY4xdDVlkPXK
+ FReLsJbw6E+e6dUUV49IgF77KCTe9E2VPSfqN5vJNL87zUo7zgJQqlrov4TZ6S3Q8+xa6UaavRQ
+ P8u/ssDyiyGve7ur4Xy9HlygXdWI2BWz58ypY77kk9ekH1s3BnETC/I+5vzm6Rf6Q7voZm2Jszm
+ ULGkA6NDEW/Aj8J6PPVqw+UazVWRMxlF9Gtjt5FbGyfndvQCpbi3i+i+FNp9vxcY8dmhRTg8EU2
+ 7DLA==
+X-Google-Smtp-Source: AGHT+IFfI6dv+/Dwk5MRfIQvsp2r14i0lroXxft+olSfZnx9fC58ENAn+6zSkYG0IWesgfHHIjV0TA==
+X-Received: by 2002:a05:6e02:17ca:b0:3e3:ccfe:d597 with SMTP id
+ e9e14a558f8ab-3e41610a07fmr100943495ab.1.1754193517393; 
+ Sat, 02 Aug 2025 20:58:37 -0700 (PDT)
 Received: from frodo.raven-morpho.ts.net (c-67-165-245-5.hsd1.co.comcast.net.
  [67.165.245.5]) by smtp.googlemail.com with ESMTPSA id
- 8926c6da1cb9f-50a55df0940sm2268319173.106.2025.08.02.20.59.21
+ 8926c6da1cb9f-50a55df0940sm2268319173.106.2025.08.02.20.58.36
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 02 Aug 2025 20:59:22 -0700 (PDT)
+ Sat, 02 Aug 2025 20:58:36 -0700 (PDT)
 From: Jim Cromie <jim.cromie@gmail.com>
 To: linux-kernel@vger.kernel.org, jbaron@akamai.com,
  gregkh@linuxfoundation.org, ukaszb@chromium.org, louis.chauvet@bootlin.com
@@ -77,9 +77,9 @@ Cc: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
  will@kernel.org, catalin.marinas@arm.com, quic_psodagud@quicinc.com,
  maz@kernel.org, arnd@arndb.de, linux-arm-kernel@lists.infradead.org,
  linux-arm-msm@vger.kernel.org, mingo@redhat.com, jim.cromie@gmail.com
-Subject: [PATCH v4 33/58] drm: use correct ccflags-y spelling
-Date: Sat,  2 Aug 2025 21:57:51 -0600
-Message-ID: <20250803035816.603405-34-jim.cromie@gmail.com>
+Subject: [PATCH v4 03/58] test-dyndbg: fixup CLASSMAP usage error
+Date: Sat,  2 Aug 2025 21:57:21 -0600
+Message-ID: <20250803035816.603405-4-jim.cromie@gmail.com>
 X-Mailer: git-send-email 2.50.1
 In-Reply-To: <20250803035816.603405-1-jim.cromie@gmail.com>
 References: <20250803035816.603405-1-jim.cromie@gmail.com>
@@ -101,36 +101,42 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Incorrectly spelled CFLAGS- failed to add -DDYNAMIC_DEBUG_MODULE,
-which disabled dynamic-debug in modules built with:
+commit 6ea3bf466ac6 ("dyndbg: test DECLARE_DYNDBG_CLASSMAP, sysfs nodes")
 
-CONFIG_DYNAMIC_DEBUG=n		# 1
-CONFIG_DYNAMIC_DEBUG_CORE=y	# 2
-CONFIG_DRM_USE_DYNAMIC_DEBUG=y	# 3
+A closer look at test_dynamic_debug.ko logging output reveals a macro
+usage error:
 
-NB: this adds the flag (when 3) more often than strictly needed;
-modules built with CONFIG_DYNAMIC_DEBUG=y (!1) don't need the flag.
+lib/test_dynamic_debug.c:105 [test_dynamic_debug]do_cats =p "LOW msg\n" class:MID
+lib/test_dynamic_debug.c:106 [test_dynamic_debug]do_cats =p "MID msg\n" class:HI
+lib/test_dynamic_debug.c:107 [test_dynamic_debug]do_cats =_ "HI msg\n" class unknown, _id:13
 
-Fixes: 84ec67288c10 ("drm_print: wrap drm_*_dbg in dyndbg descriptor factory macro")
+107 says: HI is unknown, and 105,106 have a LOW/MID and MID/HI skew.
+
+DECLARE_DYNDBG_CLASSMAP() _base arg must equal the enum's 1st value,
+in this case it was _base + 1.  This leaves HI class un-selectable.
+
+NB: the macro could better validate its arguments.
+
 Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
+Reviewed-by: Louis Chauvet <louis.chauvet@bootlin.com>
+Tested-by: Louis Chauvet<louis.chauvet@bootlin.com>
 ---
- drivers/gpu/drm/Makefile | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ lib/test_dynamic_debug.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/Makefile b/drivers/gpu/drm/Makefile
-index 5050ac32bba26..96b57b34bc505 100644
---- a/drivers/gpu/drm/Makefile
-+++ b/drivers/gpu/drm/Makefile
-@@ -3,7 +3,8 @@
- # Makefile for the drm device driver.  This driver provides support for the
- # Direct Rendering Infrastructure (DRI) in XFree86 4.1.0 and higher.
+diff --git a/lib/test_dynamic_debug.c b/lib/test_dynamic_debug.c
+index 77c2a669b6afd..396144cf351be 100644
+--- a/lib/test_dynamic_debug.c
++++ b/lib/test_dynamic_debug.c
+@@ -75,7 +75,7 @@ DD_SYS_WRAP(disjoint_bits, p);
+ DD_SYS_WRAP(disjoint_bits, T);
  
--CFLAGS-$(CONFIG_DRM_USE_DYNAMIC_DEBUG)	+= -DDYNAMIC_DEBUG_MODULE
-+ccflags-$(CONFIG_DRM_USE_DYNAMIC_DEBUG)		+= -DDYNAMIC_DEBUG_MODULE
-+subdir-ccflags-$(CONFIG_DRM_USE_DYNAMIC_DEBUG)	+= -DDYNAMIC_DEBUG_MODULE
- 
- # Unconditionally enable W=1 warnings locally
- # --- begin copy-paste W=1 warnings from scripts/Makefile.extrawarn
+ /* symbolic input, independent bits */
+-enum cat_disjoint_names { LOW = 11, MID, HI };
++enum cat_disjoint_names { LOW = 10, MID, HI };
+ DECLARE_DYNDBG_CLASSMAP(map_disjoint_names, DD_CLASS_TYPE_DISJOINT_NAMES, 10,
+ 			"LOW", "MID", "HI");
+ DD_SYS_WRAP(disjoint_names, p);
 -- 
 2.50.1
 
