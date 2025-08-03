@@ -4,67 +4,67 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 23EBFCA0EC3
-	for <intel-gfx@archiver.kernel.org>; Mon,  4 Aug 2025 14:23:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 08C77C87FDA
+	for <intel-gfx@archiver.kernel.org>; Mon,  4 Aug 2025 14:23:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CDFEC10E549;
+	by gabe.freedesktop.org (Postfix) with ESMTP id F014B10E54C;
 	Mon,  4 Aug 2025 14:23:37 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="WFEmtTfX";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="G3SmHY7I";
 	dkim-atps=neutral
-Received: from mail-il1-f178.google.com (mail-il1-f178.google.com
- [209.85.166.178])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B1EF410E4B2;
- Sun,  3 Aug 2025 03:58:51 +0000 (UTC)
-Received: by mail-il1-f178.google.com with SMTP id
- e9e14a558f8ab-3e3e926fdeaso12248215ab.1; 
- Sat, 02 Aug 2025 20:58:51 -0700 (PDT)
+Received: from mail-il1-f176.google.com (mail-il1-f176.google.com
+ [209.85.166.176])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3A94310E4D4;
+ Sun,  3 Aug 2025 03:59:43 +0000 (UTC)
+Received: by mail-il1-f176.google.com with SMTP id
+ e9e14a558f8ab-3e3e4a5715dso8643835ab.3; 
+ Sat, 02 Aug 2025 20:59:43 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1754193531; x=1754798331; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1754193582; x=1754798382; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=1JCLCVuCy1Iq9Gw35PtEgUXRGWUdACaICRLzJa5akkQ=;
- b=WFEmtTfXLyutBznVKdPW/YCr846CGP+iWIa0NExplO1lqlaHMEASu3ZVvdcPiKcVBk
- LOXngOlfr7BRjv2ZSXq7qbSP6oSG8n+WrpZ7pFMU3+bf43gkKendHYkQl/YPiVX0fK/U
- xtxd/xEfjlWJJbXMgBLLJN0HZ6UEWfdBfWfuTBpAp//OIVB7WhObH87TnImHgR3I/KcP
- QyF+sskfRpD+g8uaCdELCoL9/X6ADPKNcKMdy9i/v494+GgJv5QlHaNw/s6TU3rAVAfR
- fr2x+WKw63Tb8cnSiVAsWbUfwM6z3YTF6S4XhxujHZJNHSeccUUkVOGstl0FdhIboo4C
- NSlg==
+ bh=GwuwWG68g+QZ7vXSMh09UV2N2ibuGEdSUwCCEWlJHLI=;
+ b=G3SmHY7IE1iVnjL3NepyWU7aCTOgduGfjQEVzBsSMyV9+PYVfZsRDjJ0YtFwKyx8n3
+ GJqnke0DdsHSqyvCSyYs5ms6Bqr96pwRcjahYpH1DuerRVn1gl+zL61pFPekpVJjv1ZX
+ 7M69G4QCuaqwHbXOI4R2h7/QKp0HDWmMOLwUFjk5JZ1/A5SAwbcntt4c50IOAonujsT9
+ h2JAct5t6LrbFOZm0yHQH2nkxjKIa3QKlBP7xyJcaZvad+azAcvIF0cDnK1use/3XWyO
+ npKqu6xJQySCiTeaAqaBt8Lk+vBC/kgmRuO/pHFvS7QZijkhGUrjf6vUjm05A1XuLdaR
+ caAA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1754193531; x=1754798331;
+ d=1e100.net; s=20230601; t=1754193582; x=1754798382;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=1JCLCVuCy1Iq9Gw35PtEgUXRGWUdACaICRLzJa5akkQ=;
- b=jlBNHAi8wgXul3vuLcZnagxwtsYpmZKR90Q3wEgsAseqr5pYWjyPUi4OMEbBJOnp0c
- dw+DB3/nYS2+PylZq0f/KubiR0d99Pndbgb7gsrepEf8FhB9O8k6GBLNinC8bKkU+PaE
- MFWDZqwSToJqTeZyPLO4pm6IdOmTwEofjGeTAbn5gydFQ6p+posezSOmNAcAcEig17be
- Wr3CfmSWqn2sXEn8W41LdEx0llzztPIP+naYpcaLct4Wj9KYJIFprvg8EiGnVzHt5Xt1
- INA4kphAd23AajyujOFJX5eL93kcxBbhQeycs3KwNtUpX3o05gC8GBaxdUVXnVSeLTOn
- Q7Fg==
+ bh=GwuwWG68g+QZ7vXSMh09UV2N2ibuGEdSUwCCEWlJHLI=;
+ b=Y0AKuAGzDLASq4rO9XfhWRThqG2Hyi/FLNScJl1ELVmth92L7WWSj+b7ujBiig0AdK
+ Fi2MhCL95GFJUBMES2GqQ0rNc8DZnyCH1pTmOEq7HUOK+eHn8HQ4ANZzghc7EKiiDL76
+ zDUrq+xo/8gjllojEtF7tlsJyX8YzE+0EZebTVMa0fJZwkvPWpEcRKSmdMnxMlXNC7NU
+ GE1aedMTwOp+xqEy4kGsjj4Op+8hSdiDTDTC1ca+nl1iCXfMY90mtUoMeGM7ecH8sOKm
+ hO9FULGzzZOsrt/X2TgSiAsOKHzkKxZF3pQMx0PSQLXdy2sVa9AZbOjKV5KgXYbqRWfy
+ fzTw==
 X-Forwarded-Encrypted: i=1;
- AJvYcCVFikGs2YeITCWilyuRyNsUnkVvfpDGRbXF7ahINqNfts0uNQrvcTxzFUv6RF2if7tswggKTsf3sbc1OPQB1g==@lists.freedesktop.org,
- AJvYcCW3DA/1bUN/Hh6Z1OrXtTplZ8G9SGvGk5PHdUQVc2mqE7c72Jk0NU9+u6dieU/nnb9udMNiYDw1AQvB@lists.freedesktop.org,
- AJvYcCXqe/9GPre0jQb4SdefKRv46E0RjU3nBg4v1UoJq0bpLJSgDell3C2nUdBOtxAflw8MX6zCz3JS@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzbMrNJxuum3TSAUK8EKObJvrQVVTCWJPNkVIrlkll8+jxemikX
- dWxcN5jSRPCG903+um+Ku6bTp8TNGiaFTNp685MUEo1Yh/3r1zWvdyM8
-X-Gm-Gg: ASbGnctuBIxfYNUh3VoxLTRCuswZ93aS0ns5xR4MsN6RxC6mcJ1M4L26x47spvxTcKN
- 0a1j605feWC4WHQUi8AgSbylyt+YEw5xHyecbEQTKsZ4vpENW0CIGtgKs4Gc6AcLx8EoQgY+3CL
- RQDNu0gD/Kld6NfPTiN6RCTdCQEu+s2hjpGR4mApb+ybrMWU5jJDDUzDvL++oHIjfSruR9B4VXS
- b23d2ACGBjo/LUIVf+chEkYGfK1tHjXKM2UJIm8M7u+dO+WGoo0c4P5gDb98ucrfafWeRcnVIZh
- EzFQAkp8czi8L30c5HfQl8YQi8W4kOibJZ/zWjbTJ8OIn+7WOyqTLhdq+JBJ7UsoovXA+qFMtx2
- hXiSBT65Kd/9fxjyRV4e320queiFMe8+78ji8uCbfaD8XMCkqHqMkXpq9+hLCRI3OyPavpOlEK8
- wohw==
-X-Google-Smtp-Source: AGHT+IELdpv7uUZAZBrGCo6vRMKsduTbeRMcIYAoxynvAlTrmV87SOcUm0eDA5nlXTZa0W/xhKLP5A==
-X-Received: by 2002:a92:cda6:0:b0:3e2:a8d7:cbc0 with SMTP id
- e9e14a558f8ab-3e41610d612mr96883205ab.2.1754193530845; 
- Sat, 02 Aug 2025 20:58:50 -0700 (PDT)
+ AJvYcCVnkc76Vhjgch0uC9Jic4QnxF1F3j0GyWzu04R4RjDyAkqdtQcwBqPoVNJ+tk2EdSv5FS1KB8HYwL6P@lists.freedesktop.org,
+ AJvYcCVwbAnat0sa9CYqNZf0aztrG4KOM9RBeamF13EbJfcw7Cjbthb1rJsOHF3ctj8CI59xb0PrWMVq@lists.freedesktop.org,
+ AJvYcCXXEUBtwpPNM+KXjc2mSJ7RwdZnkJ6XeoLFSGr/MnioCP7N+HhRTRIiZjETq4TB4h81/xSasNgrS2FMVzE3Kw==@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwBj4ynAxYCD3bTwHNCu2uQ4TdtG+q0SiGcjVylTbTv1AFEJ4Q4
+ QAUVH6vIM4DUzk7rSo0cV6iWj4lam8ERu3rIAuZtfiAJo0Cf0TdyI2LA
+X-Gm-Gg: ASbGncvfiBSnkn3+QO8veS2OE1xNaLrBosaFiO+309GKs1JqSFnRmG3oGoQSfPF0VTO
+ YH756Ca2F77jLptTfQPpPH1zJvV+5+phgTNKI51V/wbm7MGsIy344hnH+0TNpJQa1XnWpeR5umN
+ Rmjwj2FJfiZM72oVcwYusfI21l6My2hhXR+ScFkOvC3Ect7Ugm1ajSj+prkaxsEL6qRDCEZNf9p
+ GKRR7kJhCOYpIFIcPrsr4G0aFy67IM6LSSI6QGUx6GGeXb9LivG7ImnQ1TEd1gI/Tfh6DHHW6n1
+ +dk8WG+xVz9Yb3xa+xejGZzSNIJTxhQuydS6tkBoVn352DgN5bBxeYmudYPmtFe/UJMwLkhJqHO
+ 02a49n7OTe3X5Xab3xgTuEhmY3JisaX4UpbT0H8vRqtj6CRMdjSsTz088OQGykHqvUWN8vlibkm
+ KzSA==
+X-Google-Smtp-Source: AGHT+IFaErFuUf9RL3fjjyrvGPnDiEq4WAlpEJt6vAzu9IAFkK0y610sccboRpj+vz07MAgou68UmQ==
+X-Received: by 2002:a05:6e02:318a:b0:3e3:ee1d:58e with SMTP id
+ e9e14a558f8ab-3e41611c04amr94519705ab.6.1754193582396; 
+ Sat, 02 Aug 2025 20:59:42 -0700 (PDT)
 Received: from frodo.raven-morpho.ts.net (c-67-165-245-5.hsd1.co.comcast.net.
  [67.165.245.5]) by smtp.googlemail.com with ESMTPSA id
- 8926c6da1cb9f-50a55df0940sm2268319173.106.2025.08.02.20.58.49
+ 8926c6da1cb9f-50a55df0940sm2268319173.106.2025.08.02.20.59.41
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 02 Aug 2025 20:58:50 -0700 (PDT)
+ Sat, 02 Aug 2025 20:59:41 -0700 (PDT)
 From: Jim Cromie <jim.cromie@gmail.com>
 To: linux-kernel@vger.kernel.org, jbaron@akamai.com,
  gregkh@linuxfoundation.org, ukaszb@chromium.org, louis.chauvet@bootlin.com
@@ -77,9 +77,9 @@ Cc: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
  will@kernel.org, catalin.marinas@arm.com, quic_psodagud@quicinc.com,
  maz@kernel.org, arnd@arndb.de, linux-arm-kernel@lists.infradead.org,
  linux-arm-msm@vger.kernel.org, mingo@redhat.com, jim.cromie@gmail.com
-Subject: [PATCH v4 12/58] dyndbg: macrofy a 2-index for-loop pattern
-Date: Sat,  2 Aug 2025 21:57:30 -0600
-Message-ID: <20250803035816.603405-13-jim.cromie@gmail.com>
+Subject: [PATCH v4 47/58] drm-dyndbg: add DRM_CLASSMAP_USE to gma500 driver
+Date: Sat,  2 Aug 2025 21:58:05 -0600
+Message-ID: <20250803035816.603405-48-jim.cromie@gmail.com>
 X-Mailer: git-send-email 2.50.1
 In-Reply-To: <20250803035816.603405-1-jim.cromie@gmail.com>
 References: <20250803035816.603405-1-jim.cromie@gmail.com>
@@ -101,65 +101,28 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-dynamic-debug has several __sections, each with <vecname>,
-num_<vecname>, and it iterates over these with a 2-index for-loop.
-These loops are fiddly with the 2 names.
-
-We have only 2 such loops now, but are getting more soon; lets
-embed/abstract the fiddlyness in the for_subvec() macro, and avoid
-repeating it going forward.
+The gma500 has 126 DRM_UT_* debugs, make them controllable when
+CONFIG_DRM_USE_DYNAMIC_DEBUG=y by telling dyndbg that the module has
+class'd debugs.
 
 Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
-Reviewed-by: Louis Chauvet <louis.chauvet@bootlin.com>
 ---
- lib/dynamic_debug.c | 20 +++++++++++++++++---
- 1 file changed, 17 insertions(+), 3 deletions(-)
+ drivers/gpu/drm/gma500/psb_drv.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/lib/dynamic_debug.c b/lib/dynamic_debug.c
-index 283926530a43b..7c5a1ae2c0a65 100644
---- a/lib/dynamic_debug.c
-+++ b/lib/dynamic_debug.c
-@@ -128,6 +128,21 @@ do {								\
- #define v3pr_info(fmt, ...)	vnpr_info(3, fmt, ##__VA_ARGS__)
- #define v4pr_info(fmt, ...)	vnpr_info(4, fmt, ##__VA_ARGS__)
+diff --git a/drivers/gpu/drm/gma500/psb_drv.c b/drivers/gpu/drm/gma500/psb_drv.c
+index 85d3557c2eb9b..dc72388ed08d4 100644
+--- a/drivers/gpu/drm/gma500/psb_drv.c
++++ b/drivers/gpu/drm/gma500/psb_drv.c
+@@ -40,6 +40,8 @@
+ static const struct drm_driver driver;
+ static int psb_pci_probe(struct pci_dev *pdev, const struct pci_device_id *ent);
  
++DRM_CLASSMAP_USE(drm_debug_classes);
 +
-+/*
-+ * simplify a repeated for-loop pattern walking N steps in a T _vec
-+ * member inside a struct _box.  It expects int i and T *_sp to be
-+ * declared in the caller.
-+ * @_i:  caller provided counter.
-+ * @_sp: cursor into _vec, to examine each item.
-+ * @_box: ptr to a struct containing @_vec member
-+ * @_vec: name of a sub-struct member in _box, with array-ref and length
-+ */
-+#define for_subvec(_i, _sp, _box, _vec)				       \
-+	for ((_i) = 0, (_sp) = (_box)->_vec;			       \
-+	     (_i) < (_box)->num_##_vec;				       \
-+	     (_i)++, (_sp)++)
-+
- static void vpr_info_dq(const struct ddebug_query *query, const char *msg)
- {
- 	/* trim any trailing newlines */
-@@ -155,7 +170,7 @@ static struct ddebug_class_map *ddebug_find_valid_class(struct ddebug_table cons
- 	struct ddebug_class_map *map;
- 	int i, idx;
- 
--	for (map = dt->classes, i = 0; i < dt->num_classes; i++, map++) {
-+	for_subvec(i, map, dt, classes) {
- 		idx = match_string(map->class_names, map->length, class_string);
- 		if (idx >= 0) {
- 			*class_id = idx + map->base;
-@@ -1220,8 +1235,7 @@ static void ddebug_attach_module_classes(struct ddebug_table *dt, struct _ddebug
- 	 * the builtin/modular classmap vector/section.  Save the start
- 	 * and length of the subrange at its edges.
- 	 */
--	for (cm = di->classes, i = 0; i < di->num_classes; i++, cm++) {
--
-+	for_subvec(i, cm, di, classes) {
- 		if (!strcmp(cm->mod_name, dt->mod_name)) {
- 			if (!nc) {
- 				v2pr_info("start subrange, class[%d]: module:%s base:%d len:%d ty:%d\n",
+ /*
+  * The table below contains a mapping of the PCI vendor ID and the PCI Device ID
+  * to the different groups of PowerVR 5-series chip designs
 -- 
 2.50.1
 
