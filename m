@@ -4,76 +4,88 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 06973CA0EC5
-	for <intel-gfx@archiver.kernel.org>; Mon,  4 Aug 2025 14:23:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 60DCDCA0ECA
+	for <intel-gfx@archiver.kernel.org>; Mon,  4 Aug 2025 14:23:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 13A1610E56A;
+	by gabe.freedesktop.org (Postfix) with ESMTP id EA15F10E578;
 	Mon,  4 Aug 2025 14:23:42 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="la9SpDqk";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="SzLDC3l2";
 	dkim-atps=neutral
-Received: from mail-ej1-f45.google.com (mail-ej1-f45.google.com
- [209.85.218.45])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A60DF10E12B;
- Sun,  3 Aug 2025 12:45:19 +0000 (UTC)
-Received: by mail-ej1-f45.google.com with SMTP id
- a640c23a62f3a-af8fd1b80e5so578724666b.2; 
- Sun, 03 Aug 2025 05:45:19 -0700 (PDT)
+Received: from mail-il1-f179.google.com (mail-il1-f179.google.com
+ [209.85.166.179])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0754D10E4DA;
+ Sun,  3 Aug 2025 03:59:58 +0000 (UTC)
+Received: by mail-il1-f179.google.com with SMTP id
+ e9e14a558f8ab-3e3f152700fso12489755ab.0; 
+ Sat, 02 Aug 2025 20:59:57 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1754225118; x=1754829918; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
+ d=gmail.com; s=20230601; t=1754193597; x=1754798397; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=pxXOv0H77qu3boXS8S20sjf3H+BGpeAjIG2LP7StaE4=;
- b=la9SpDqk8KdVzkRyQoKpSrWy0c2Ya4eWglFIo+R05DAfTwskJ25gl+/ghypt0lHZu2
- o01RrbpaHizlq/cDe/yovcERNmWyo529fy81dNe/5GgPqjVyhv3KIqy13wgJjuKxlvXi
- i/M9r+UG426HV9fLdc4tWN4CokBKuTBqP1a5Re5MeLimUZPK62/4NhGQmOAo51OGRxz6
- qdnABCNvZZNOAxRggcKBA4mqNGpmuC9ia8Is6LUzgwsYXe8m5h7G5emO3u047l9NWC3i
- AjWGSRr6/KyWyW3Xo6hZX9HvV3KZGbd8cL0H6TuWgOSdS4JJNiGTfT+NeDOK7Azro45v
- UzeQ==
+ bh=p6zBJEgANuVffuY9NQJyHG8/+Xeax9coZJWuW6ZJ2WM=;
+ b=SzLDC3l22MaKFjvgO5c5XhUoUqNGeRQ/Ps5dg6AjSI9kX2G+zT5+UUOoWFfylmvWB0
+ 3iOvM9+UEmILWB8admPVOe6pa9Fdc6rjwJJsOlMco/CiahA4hJGbRmintJbPErNVktoy
+ UtlJC1Bp67BwvkbpkzYP87IJw45AzO55biuL0rel1KaSXMvPl9isKXIaPxq8Xc79s2or
+ MUNZ2aAN+YseUarIQJiUPYvvumTYFUUx8yYaK+2pzIrnmj284H12EXartEYn7nFScwnt
+ YFOg64PfHoV1u2J2R7SCBh/glVhs1Sur7YemrRBQ3NBIAnMtFeeWo6eG1C7QQRGLuXrM
+ DB8Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1754225118; x=1754829918;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ d=1e100.net; s=20230601; t=1754193597; x=1754798397;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=pxXOv0H77qu3boXS8S20sjf3H+BGpeAjIG2LP7StaE4=;
- b=KxP/mnPw2UIXMFJ5wSieUY96VLy1vT6krKVnt9iVDUV0ZyANMhkr9ZcsXjB6hoobP7
- YJ2nZHFyME0USbq6q1ipRlUqPIrnZU1kzHJesHabtfOvKjuB9rJTb38Sgw12myH/T8kM
- oG5/hpxulik4MdqXKYTrWbeMcs5+MUTBKcAbPOrwCOSmF8WzT+ANZcV1dFqO+lSLgwDG
- YWRS7eR4QxiPjipvRHMmq6QmUUoUTt1RlpbIawRj+DBBAe9pU80QD6HAhvezHn8cEjGj
- 8ZFIyF9CqvfA+YJ0PaKEmO7bQImoupWVffBPEDDlYAcMEED8uysmo63S37g3s9HE1ka0
- BPNg==
+ bh=p6zBJEgANuVffuY9NQJyHG8/+Xeax9coZJWuW6ZJ2WM=;
+ b=Nv8kTryvDn/SbfIlmEAf8Y3VbN5g+/PsUDWzeEvoPWcXvLfwiWXjjsSdTjIfQtzwOb
+ aD69jPP977mXsmfSr6YmLDmXjRhxDnG/Rv89cNJZHjcv4d102Fk2KFs+0ASClNMGKaU3
+ gEYM85uaWCOAQEWpZx1AFAWUZIz8yvn5/JcPvPpkShzH4kFYHNtL+IQnMnceHPq9SyP/
+ sVIVDRTQ3MZfREFI7nKU65zgHAOyOem/Pl/J3Wr0TgteFc49pDqH06OrgpEz7J2xeR7Z
+ DUvSlbHGJZIZs1ZfXb11MYGqREsqD8TM3sjbbdC3GcGPNNwooXrhvcFfAFAA7DqE58xU
+ cONQ==
 X-Forwarded-Encrypted: i=1;
- AJvYcCU0KB4Ws8fXoxShx4/akK2IcJo/lC4sn5jLNANFnkrJqHXdumlfC9VlLkCpEyJVTV9Aif9YNyrledc9@lists.freedesktop.org,
- AJvYcCUha1aaPbsYzlWKi0hjNZhlrPpLcS1FvOPKoDURtjnQ5Av23QO1WEoAyXrJwgFGGsGxNxfurX4w78M=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwgUhBghSlXmjYuZzhN643iYjJld5kRLnGTPXezGkCGycG9r0YC
- 0QJzYwejNCHnek3VwjvNfFX5ONO7714iBA53ExxZueefM38AWEE1wXlvrn+eFDUvEjRtxqdr0qd
- D1RlUO5N/cbntEdoIoDCzDjPhHPlR7zE=
-X-Gm-Gg: ASbGncuuJtcH0jwcSW4QzNriSej2So/JnFtfxqZHuCa7qltMfGxJEajrwmpZnuqbUMx
- C1CRO5UWsgxNTwN/GwRyRo8sMg1A0omJotD9Jd3jg9EfOEAc8Reo1iEyPAiJ5rFRu5lghFYB/Bg
- MmPJCX6IUsJVN++xrOt/811TxewvSgvJX6MYA5+gw4hAIe/tYIeqVK0htOjJbSBwE09bILQOZNY
- fsdvMo=
-X-Google-Smtp-Source: AGHT+IHFQr61biS993WpaTiLN314ukC/GGuYrmWFHzReiBI+xBUUZ2E1nmjUhmzhYsuLobiRAM+1bP/mpJx6eUe4McA=
-X-Received: by 2002:a17:907:724a:b0:ae0:aa0d:7bfa with SMTP id
- a640c23a62f3a-af9402301f3mr558310866b.50.1754225117967; Sun, 03 Aug 2025
- 05:45:17 -0700 (PDT)
+ AJvYcCUcb3VnuyR9+Eyn1qD59X/gFrx9SoIlXNv7NAvvPAZ+vMdah85XLeMRXoBvtplMfHEwrxP/2SlcjWmQ2HCBpQ==@lists.freedesktop.org,
+ AJvYcCW604kGVv+iu+7/Ezq+DBNnmqwvl9mNLAOXxsQGVp4dYSqXocL0pMOpYrYx/9RKzNv8UUcKUnfj@lists.freedesktop.org,
+ AJvYcCWrPP+srOizS6ob5uKWpLFtpa7nlmI+r0QxOZujT6B6AOJxOUWsPc//YPasPn/Q/B7DIF3krJkfIsba@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzetdHpgcWFwSQaC7Asdeov3nDV1Gy+JxwEKWsTB1AcFP1aT93h
+ ZaogkDMgTcijOBdeYCTU8N5SFPcWahhK0i/klMzpZ0TrVjfJ5I/t4YzV
+X-Gm-Gg: ASbGncujqbyJOwmzsOvGyeXWan/SZChgVSfhXjvHjdELDb5TdxGPa37bWIdo2n+QM6I
+ iRlQE2nyCeG+nZ8LIwKNDVWw8zzNn1rBwxgzHtHKrPL3yLsSlrBjxHLqHUFjkuJYjNi3Dc598vI
+ V9vNEy4GnKJBab5WZiETcgvNsJHE1L+nQ/bMy/LoWfIXg3Msp3Jskp8yyLz3pSeIkG3guHdabdx
+ UoXea8g05ZrWMmQCgoa8w3Y+lNar+GfDQ10H94gh/YrxIPNaa0+RNVZhXG3/y6m6kE1kFfaq8DC
+ 2IRoV7uVNTZLjvgppBbgytyqFHdhN00VQwnYlGjV451gEf13HKt+stVUo95zMB4m71Wote7eh7V
+ 1Iwz9AW5ueTsF7iRg+hej8YavPn8Lju/1udLaXkkAKnnzt+wG9k4wImA8Q5RMm/MpWPvYZcP/od
+ DwPnTynDTuy7Id
+X-Google-Smtp-Source: AGHT+IGUOgHvStYGi2AGuiva7QKSCj6X9DfG9+bxlaldERvaqq+8SW2QK11YiYCBPzmbmAT64CKkJw==
+X-Received: by 2002:a05:6602:6c01:b0:881:4a70:4651 with SMTP id
+ ca18e2360f4ac-88168309e74mr805665539f.3.1754193597187; 
+ Sat, 02 Aug 2025 20:59:57 -0700 (PDT)
+Received: from frodo.raven-morpho.ts.net (c-67-165-245-5.hsd1.co.comcast.net.
+ [67.165.245.5]) by smtp.googlemail.com with ESMTPSA id
+ 8926c6da1cb9f-50a55df0940sm2268319173.106.2025.08.02.20.59.55
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sat, 02 Aug 2025 20:59:56 -0700 (PDT)
+From: Jim Cromie <jim.cromie@gmail.com>
+To: linux-kernel@vger.kernel.org, jbaron@akamai.com,
+ gregkh@linuxfoundation.org, ukaszb@chromium.org, louis.chauvet@bootlin.com
+Cc: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
+ intel-gvt-dev@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
+ daniel.vetter@ffwll.ch, tvrtko.ursulin@linux.intel.com,
+ jani.nikula@intel.com, ville.syrjala@linux.intel.com,
+ seanpaul@chromium.org, robdclark@gmail.com, groeck@google.com,
+ yanivt@google.com, bleung@google.com, quic_saipraka@quicinc.com,
+ will@kernel.org, catalin.marinas@arm.com, quic_psodagud@quicinc.com,
+ maz@kernel.org, arnd@arndb.de, linux-arm-kernel@lists.infradead.org,
+ linux-arm-msm@vger.kernel.org, mingo@redhat.com, jim.cromie@gmail.com
+Subject: [PATCH v4 58/58] accel: add -DDYNAMIC_DEBUG_MODULE to subdir-cflags -
+ RFC
+Date: Sat,  2 Aug 2025 21:58:16 -0600
+Message-ID: <20250803035816.603405-59-jim.cromie@gmail.com>
+X-Mailer: git-send-email 2.50.1
+In-Reply-To: <20250803035816.603405-1-jim.cromie@gmail.com>
+References: <20250803035816.603405-1-jim.cromie@gmail.com>
 MIME-Version: 1.0
-References: <CACTEcX6oXBot1VBApOyKVMVXsAN9BsvQMLa8J0iKpNeB-eLttQ@mail.gmail.com>
- <642d439ea1be8e48ee5c47fd3921a786452fb931@intel.com>
-In-Reply-To: <642d439ea1be8e48ee5c47fd3921a786452fb931@intel.com>
-From: Andy Mindful <andy.mindful@gmail.com>
-Date: Sun, 3 Aug 2025 15:45:06 +0300
-X-Gm-Features: Ac12FXwQ1gQW4qwRV_K-3Velp0hCrjgNlIh5_C2All-wPbXiQ1zvu-N5hZpFRGU
-Message-ID: <CACTEcX5Y3PNXNkhnK1dGFe+k3sigOZNpj66KKGAS9XeHqRu35w@mail.gmail.com>
-Subject: Re: [REGRESSION] tty lockup and WWAN loss after hibernate/suspend in
- 6.8+ on ThinkPad X1 Carbon Gen 10
-To: Jani Nikula <jani.nikula@intel.com>
-Cc: linux-kernel@vger.kernel.org, regressions@lists.linux.dev, 
- linux-pm@vger.kernel.org, intel-gfx@lists.freedesktop.org, 
- dri-devel@lists.freedesktop.org, linux-acpi@vger.kernel.org, 
- rafael@kernel.org, ville.syrjala@linux.intel.com, tglx@linutronix.de
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Mon, 04 Aug 2025 14:23:32 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -90,75 +102,72 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Here what I have from bisecting, please let me know if it makes things
-clearer or not.
+Currently amdxdna uses drm_dbg, so it needs this cflag in order to
+compile; it currently gets the cflag from its own Makefile.
 
-git bisect log
-git bisect start
-# status: waiting for both good and bad commits
-# good: [6fc5460ed8dd0edf29e7c5cfb1ef9b1aa04208a1] Linux 6.7.11
-git bisect good 6fc5460ed8dd0edf29e7c5cfb1ef9b1aa04208a1
-# status: waiting for bad commit, 1 good commit known
-# bad: [6613476e225e090cc9aad49be7fa504e290dd33d] Linux 6.8-rc1
-git bisect bad 6613476e225e090cc9aad49be7fa504e290dd33d
-# skip: [0dd3ee31125508cd67f7e7172247f05b7fd1753a] Linux 6.7
-git bisect skip 0dd3ee31125508cd67f7e7172247f05b7fd1753a
-# good: [ba5afb9a84df2e6b26a1b6389b98849cd16ea757] fs: rework
-listmount() implementation
-git bisect good ba5afb9a84df2e6b26a1b6389b98849cd16ea757
-# good: [61da593f4458f25c59f65cfd9ba1bda570db5db7] Merge tag
-'media/v6.8-2' of
-git://git.kernel.org/pub/scm/linux/kernel/git/mchehab/linux-media
-git bisect good 61da593f4458f25c59f65cfd9ba1bda570db5db7
-# bad: [e38f734add21d75d76dbcf7b214f4823131c1bae] Merge tag
-'staging-6.8-rc1' of
-git://git.kernel.org/pub/scm/linux/kernel/git/gregkh/staging
-git bisect bad e38f734add21d75d76dbcf7b214f4823131c1bae
-# bad: [5d197e97fb106c09d3d013be341e5961fd70ec8a] Merge tag
-'hsi-for-6.8' of
-git://git.kernel.org/pub/scm/linux/kernel/git/sre/linux-hsi
-git bisect bad 5d197e97fb106c09d3d013be341e5961fd70ec8a
-# good: [1b1934dbbdcf9aa2d507932ff488cec47999cf3f] Merge tag
-'docs-6.8-2' of git://git.lwn.net/linux
-git bisect good 1b1934dbbdcf9aa2d507932ff488cec47999cf3f
-# good: [1b1934dbbdcf9aa2d507932ff488cec47999cf3f] Merge tag
-'docs-6.8-2' of git://git.lwn.net/linux
-git bisect good 1b1934dbbdcf9aa2d507932ff488cec47999cf3f
-# bad: [8c9244af4dc8680a453e759331f0c93d5bde1898] Merge tag
-'kvm-x86-svm-6.8' of https://github.com/kvm-x86/linux into HEAD
-git bisect bad 8c9244af4dc8680a453e759331f0c93d5bde1898
-# bad: [783288010035e4c250a0b6491a4642cdb8d30548] KVM: x86: add
-missing "depends on KVM"
-git bisect bad 783288010035e4c250a0b6491a4642cdb8d30548
-# bad: [783288010035e4c250a0b6491a4642cdb8d30548] KVM: x86: add
-missing "depends on KVM"
-git bisect bad 783288010035e4c250a0b6491a4642cdb8d30548
-# bad: [861deac3b092f37b2c5e6871732f3e11486f7082] Linux 6.7-rc7
-git bisect bad 861deac3b092f37b2c5e6871732f3e11486f7082
+If other accel modules want to use DRM.debug, they will need this flag
+too, so add it in accel/Makefile.
 
-# being on a 861deac3b092
-git bisect bad
-The merge base ba5afb9a84df2e6b26a1b6389b98849cd16ea757 is bad.
-This means the bug has been fixed between
-ba5afb9a84df2e6b26a1b6389b98849cd16ea757 and
-[1b1934dbbdcf9aa2d507932ff488cec47999cf3f
-61da593f4458f25c59f65cfd9ba1bda570db5db7
-6fc5460ed8dd0edf29e7c5cfb1ef9b1aa04208a1
-ba5afb9a84df2e6b26a1b6389b98849cd16ea757].
+NOTE: ivpu has its own CLASS-ish dbg system:
 
-Thanks.
+./drivers/accel/ivpu$ grep IVPU_DBG_ *
+ivpu_drv.c:MODULE_PARM_DESC(dbg_mask, "Driver debug mask. See IVPU_DBG_* macros.");
+ivpu_drv.h:#define IVPU_DBG_REG	 BIT(0)
+ivpu_drv.h:#define IVPU_DBG_IRQ	 BIT(1)
+ivpu_drv.h:#define IVPU_DBG_MMU	 BIT(2)
+ivpu_drv.h:#define IVPU_DBG_FILE	 BIT(3)
+ivpu_drv.h:#define IVPU_DBG_MISC	 BIT(4)
+ivpu_drv.h:#define IVPU_DBG_FW_BOOT BIT(5)
+ivpu_drv.h:#define IVPU_DBG_PM	 BIT(6)
+ivpu_drv.h:#define IVPU_DBG_IPC	 BIT(7)
+ivpu_drv.h:#define IVPU_DBG_BO	 BIT(8)
+ivpu_drv.h:#define IVPU_DBG_JOB	 BIT(9)
+ivpu_drv.h:#define IVPU_DBG_JSM	 BIT(10)
+ivpu_drv.h:#define IVPU_DBG_KREF	 BIT(11)
+ivpu_drv.h:#define IVPU_DBG_RPM	 BIT(12)
+ivpu_drv.h:#define IVPU_DBG_MMU_MAP BIT(13)
+ivpu_drv.h:	if (unlikely(IVPU_DBG_##type & ivpu_dbg_mask))                         \
 
-=D0=B2=D1=82, 29 =D0=BB=D0=B8=D0=BF. 2025=E2=80=AF=D1=80. =D0=BE 13:20 Jani=
- Nikula <jani.nikula@intel.com> =D0=BF=D0=B8=D1=88=D0=B5:
->
-> On Tue, 29 Jul 2025, Andy Mindful <andy.mindful@gmail.com> wrote:
-> > Please let me know if any further information or testing is required.
->
-> Likely the quickest way to find the root cause is to bisect the issue.
->
->
-> BR,
-> Jani.
->
-> --
-> Jani Nikula, Intel
+./drivers/accel/ivpu$ grep ivpu_dbg * | cut -f1,2 -d, | cut -d: -f2- | perl -pe 's/\s+/ /' | sort -u
+extern int ivpu_dbg_mask;
+ if (unlikely(IVPU_DBG_##type & ivpu_dbg_mask))                         \
+int ivpu_dbg_mask;
+ ivpu_dbg_bo(vdev, bo
+ ivpu_dbg(vdev, BO
+ ivpu_dbg(vdev, FILE
+ ivpu_dbg(vdev, FW_BOOT
+ ivpu_dbg(vdev, IPC
+ ivpu_dbg(vdev, IRQ
+ ivpu_dbg(vdev, JOB
+ ivpu_dbg(vdev, JSM
+ ivpu_dbg(vdev, KREF
+ ivpu_dbg(vdev, MISC
+ ivpu_dbg(vdev, MMU
+ ivpu_dbg(vdev, MMU_MAP
+ ivpu_dbg(vdev, PM
+ ivpu_dbg(vdev, REG
+module_param_named(dbg_mask, ivpu_dbg_mask
+static inline void ivpu_dbg_bo(struct ivpu_device *vdev, struct ivpu_bo *bo
+
+This looks readily convertible to a dyndbg classmap and controlling kparam.
+
+Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
+---
+ drivers/accel/Makefile | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/drivers/accel/Makefile b/drivers/accel/Makefile
+index a301fb6089d4c..e437549cba8ac 100644
+--- a/drivers/accel/Makefile
++++ b/drivers/accel/Makefile
+@@ -1,5 +1,7 @@
+ # SPDX-License-Identifier: GPL-2.0-only
+ 
++subdir-cflags-$(CONFIG_DYNAMIC_DEBUG_CORE) == -DDYNAMIC_DEBUG_MODULE
++
+ obj-$(CONFIG_DRM_ACCEL_AMDXDNA)		+= amdxdna/
+ obj-$(CONFIG_DRM_ACCEL_HABANALABS)	+= habanalabs/
+ obj-$(CONFIG_DRM_ACCEL_IVPU)		+= ivpu/
+-- 
+2.50.1
+
