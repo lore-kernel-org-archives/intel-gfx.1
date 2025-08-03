@@ -4,67 +4,67 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2B861C87FCB
-	for <intel-gfx@archiver.kernel.org>; Mon,  4 Aug 2025 14:23:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0036BC87FDA
+	for <intel-gfx@archiver.kernel.org>; Mon,  4 Aug 2025 14:23:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D7FDC10E541;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6870889167;
 	Mon,  4 Aug 2025 14:23:34 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="UvThMZ1R";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Me58fhsj";
 	dkim-atps=neutral
-Received: from mail-il1-f182.google.com (mail-il1-f182.google.com
- [209.85.166.182])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B3DF110E4C9;
- Sun,  3 Aug 2025 03:59:41 +0000 (UTC)
-Received: by mail-il1-f182.google.com with SMTP id
- e9e14a558f8ab-3e40d006105so14220495ab.3; 
- Sat, 02 Aug 2025 20:59:41 -0700 (PDT)
+Received: from mail-il1-f172.google.com (mail-il1-f172.google.com
+ [209.85.166.172])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A66BE10E4BB;
+ Sun,  3 Aug 2025 03:59:13 +0000 (UTC)
+Received: by mail-il1-f172.google.com with SMTP id
+ e9e14a558f8ab-3e3e4a5715dso8643215ab.3; 
+ Sat, 02 Aug 2025 20:59:13 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1754193581; x=1754798381; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1754193553; x=1754798353; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=Q2dm3Is+hmVrCyHRXfMeY87/RIu8WM4w64xIqHyRgwI=;
- b=UvThMZ1Rcm9NEriXp2xVEwibsC+eVzjqInfGLDRAHhioJDJjXbni6yK2es11ZpcEwl
- SUKn/vrjl5r5iAbDF10usm+0MRi/0towA9zT834CX38YmpFAFACYGLybdELYho2gRvVs
- 4H2h0ncfe3KQhOHerCFvszpAv+llyYO2C9iYh0OLd3HD2UcV2gQKLcaszh2NuehT0e2S
- iZvb8TRbHq0Fs/jE3NAhzpdxightpQ2U92FWUt+9mwpIvjNzLH59mxnvQ9paZLtWgp5P
- /NvSLBXBScWH3DlL9uThjytKf92NbRLDUG/VFPWzP42gQUjGt4bQW/9SJM7DN2PYCD7G
- zSzA==
+ bh=107A+iGieriBtcIEvITMI+JSyLEcyFCk4tsRW7oIEjk=;
+ b=Me58fhsjLYVrZxYuELHPRAtlbhqyYr6wzF6vQjwJz9n54RRrp03r7rwL1jao8GbDn/
+ htC16/AM0iIF6AtkE88MA1W4FKhqeQ4d9cvIMQWgMZk6DHJFcFdhDGntQLQ1oRVofy1k
+ YjfQ9oe+RXge3KTpGv+Oqayi0Mov3erVkRvFR9BgdgRJ+bXe7FMj6f6Zdp+py/mHZMOf
+ EyT9X8BRpk/gdkzx/j3rE1L+rJfGnOjV3FOCrZdAxgzyxEgefTd1Gs6HXA421wTeGtwY
+ H7piWyKLGLMifE/9w6Bk7lCHC07UZunqXjKp6GRkDMGW6WLv2ODat0mYPnunvaXsZ6cQ
+ rAWg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1754193581; x=1754798381;
+ d=1e100.net; s=20230601; t=1754193553; x=1754798353;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=Q2dm3Is+hmVrCyHRXfMeY87/RIu8WM4w64xIqHyRgwI=;
- b=F84RqOz8bX5zyXvOFurG5iX6tx+ybwZwWuUpcB2DKBg/G1Q2ycTbT6L/6CLuF/jubt
- tNCweWUrfiQPxHvfNq3NAUQJtKOCvWUx3GMsEwqrSS/hdGBMsJf4NRbuet6EpumGVabb
- 3xlibRkCPPRyLIueOPlGl0Epz9gfsDzgyRhVcXRCYkCSpE4oFCv0rjQn0Nk9CW8Lvl7S
- hppWtflSRHlKFe0Gp5nisv0+0S+z9l1/Zl805Ie57D0S3AhKZfahOGNsZktHK8pwLXyY
- ynCPPj/00NzCKYyZ1wPu+SpnPem/QL3czR9L7UiXWP4Q7ZO5pD23wUEHemXyjSyaj6vB
- AVSQ==
+ bh=107A+iGieriBtcIEvITMI+JSyLEcyFCk4tsRW7oIEjk=;
+ b=ahaa3j/qK1DGC0WFIST9dIslWXH3Mdp6uZTsHtm0t7T7Rdd/RYR36eRf+gDGiwXGC6
+ PCMlJM8M2z+CgT8F3OmtULeYy9+TZ9pedd+kK+nEL+ub6LGaGUNKy7QsTW144SvWre/B
+ WwWlt5b6mPQm8n48irkwYUGecMITSZbBUQU+fZSYGzODwbMQgl0Bcfubl0WjrQbtbXB9
+ aqXmoj5Hpw4jwvMGh5vLAt0svs/I53ou2RRtZ6BnN0o8j57KurpYvfDUL32yoc5w7QFm
+ FjqO4OGNgujLmIEjc1b5/W4pqrhKHNaJXuOubCl9NG/95phC3xPtLDPKDr8KNcUkc661
+ AW5Q==
 X-Forwarded-Encrypted: i=1;
- AJvYcCW8lnrpA2VrL3q4C1aaRnMffjTM4O7vnAV0mma+b8lIEMC9TkKcErPxo858voyX6PpDrGVdM28YouHSoig47g==@lists.freedesktop.org,
- AJvYcCW8pqOGWE8jTwGkRZRLXWUTQpqbZZBgU/0HPW2kfEXUyXuKfZJiMTu1/3EnoOMH3+5Svi8KKP/Nf5+6@lists.freedesktop.org,
- AJvYcCXwsf96fi3qpGm8XISiQ2r2M7ZTngHvQFej/OscZqesjEktP5UQ1vifxtUjaCVhq44KkzoAmTeX@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YySuoTtF7gaRoqpvNnruBhohyqLr1TXWhPSZbLyxKuTHJtjq5Jf
- c0HbqhAvAtEa5+51ZC1qPKdztrxI49JMryihgm69Hif7KT+xQMAjgQC2
-X-Gm-Gg: ASbGnctHjfUT9jErZzRmp0G9hs3e9z71BXxVu9WaQt+riDVzLJCcsuwYaCF/+y7wHpF
- I01PGBUNfDjK/qhvpBBMOSxSonLdlOJ86RtFNAoZTquaT10q/iVYlXajKHN8QWvsRMBZqrMaJHa
- gHkO9Z4MlCmw/WuKYcklU6vhGDB1GVuxfVIKHe6J2ZP1XRuCXiW2rHB/5PzUBuT0Qu8GJCNmbg3
- 5Po7V24GRH+NR8r17ui6JGDDkO11osoxaEGvWaSRZdxtpla0m1yV8V0yVv9iFNvH1rQW7IMEsrm
- iE3YAU+4CsyhBjZQRVcxpZ/3Q38zaZeV9YZGbHSR/QhLKkU8dgk76UX9ZYuiUasWCSj3b9R22FJ
- NqXhI0OAbb7K8DKjw8ZkzHhltxOLn7re1AT9lowOvXxkb3+PwgX84mRNd696nyGs8NVGOpCyK+z
- lKeA==
-X-Google-Smtp-Source: AGHT+IHicophLwIo0f3Ezs0eOmSQt7ySKYvJ63NCgmDZPmmfZpDGy7DzzpgME8ux0Ifq1iE3S3f0yQ==
-X-Received: by 2002:a05:6e02:17cd:b0:3e3:d197:b567 with SMTP id
- e9e14a558f8ab-3e416117005mr96473805ab.9.1754193580921; 
- Sat, 02 Aug 2025 20:59:40 -0700 (PDT)
+ AJvYcCVwadNGen/7V7fhmqPJ1vBNn9miCJVQ0PetdWG2pjMSm7yUYs9Wf2OEArzNQJbaOQwLtXhF3bXEbSQWrfQXMg==@lists.freedesktop.org,
+ AJvYcCWi4AkkBQM0wFrNNaKrwnUjiws466xlFPuWddVP+0RnZoB43nX9lRwBpeGv27IoS0ogxA+fWdvN@lists.freedesktop.org,
+ AJvYcCX4jU8y34Wtb6n2UvRnhugBljyBmqRWnYdRaiRo8lh1nEniRYvcqxvAFT9TK+0MX6b4U6033pbvRyOR@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzEEYZo7mzMPGbooNEV9vdoSb5tDYgkYgqQhsg9316M5mTEf6YJ
+ iSheV2jsO5FYTf4MZsphmfwosCluSyP4qrnmgmUyWAsZVZGDJUXbehwV
+X-Gm-Gg: ASbGncuwdJiu+0um7gF0LFUZ+c1erOw+0Ijj1TMupQCyQ5fnxd51eWIGva+g0yaxH3A
+ /k279bZrS4d3Yk9LNblLyV2qrAGz7nPyFOG7GSObyYQfGOS0EYLq1zVl67NdO1z6qElxFFcFwGQ
+ fRXFVRlZkqVxhkLFSOi1XLImsnBQAZ8Gm+yxfLEKgNONd9M9QbbL1W+bC9NuO16WpHzAqIk4aa2
+ cvWV1MuqpN+eAZ9M4DWlKeofkh22zWw+4xRJIl75I8r0IhBKwlBcyJ70EaD3fTZ4N/POJPoQ9/S
+ n68RHtpH2gmcXsU70P9tXVLRB5wpjwSsWwmKhhP80ytdqQS5D2Vk1HRI8b+JzjMGngEaiwHXwyt
+ 3LDjefFjCTwGTVKIJIvKmZ9rA+F710/anBXVzwdgePNhTwSwvXjlUNMHc0Z06kZYWoGoweBY5No
+ y9yA==
+X-Google-Smtp-Source: AGHT+IFEpYnc1XKOtvTxu6uAAxg044+wAtgG0lAGsg41AxxCrDtrtzNsUPBwA6fhtq1RSc/6sEyECQ==
+X-Received: by 2002:a05:6e02:2388:b0:3e3:e42f:279e with SMTP id
+ e9e14a558f8ab-3e4161b6f2cmr101215625ab.15.1754193552837; 
+ Sat, 02 Aug 2025 20:59:12 -0700 (PDT)
 Received: from frodo.raven-morpho.ts.net (c-67-165-245-5.hsd1.co.comcast.net.
  [67.165.245.5]) by smtp.googlemail.com with ESMTPSA id
- 8926c6da1cb9f-50a55df0940sm2268319173.106.2025.08.02.20.59.39
+ 8926c6da1cb9f-50a55df0940sm2268319173.106.2025.08.02.20.59.11
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 02 Aug 2025 20:59:40 -0700 (PDT)
+ Sat, 02 Aug 2025 20:59:12 -0700 (PDT)
 From: Jim Cromie <jim.cromie@gmail.com>
 To: linux-kernel@vger.kernel.org, jbaron@akamai.com,
  gregkh@linuxfoundation.org, ukaszb@chromium.org, louis.chauvet@bootlin.com
@@ -77,9 +77,9 @@ Cc: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
  will@kernel.org, catalin.marinas@arm.com, quic_psodagud@quicinc.com,
  maz@kernel.org, arnd@arndb.de, linux-arm-kernel@lists.infradead.org,
  linux-arm-msm@vger.kernel.org, mingo@redhat.com, jim.cromie@gmail.com
-Subject: [PATCH v4 46/58] drm-dyndbg: add DRM_CLASSMAP_USE to etnaviv
-Date: Sat,  2 Aug 2025 21:58:04 -0600
-Message-ID: <20250803035816.603405-47-jim.cromie@gmail.com>
+Subject: [PATCH v4 26/58] selftests-dyndbg: add test_mod_submod
+Date: Sat,  2 Aug 2025 21:57:44 -0600
+Message-ID: <20250803035816.603405-27-jim.cromie@gmail.com>
 X-Mailer: git-send-email 2.50.1
 In-Reply-To: <20250803035816.603405-1-jim.cromie@gmail.com>
 References: <20250803035816.603405-1-jim.cromie@gmail.com>
@@ -101,28 +101,134 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-etnaviv has 5 DRM_UT_CORE debugs, make them controllable when
-CONFIG_DRM_USE_DYNAMIC_DEBUG=y by telling dyndbg that the module has
-class'd debugs as well as plain-old pr_debug()s
+This new test-fn runs 3 module/submodule modprobe scenarios, variously
+using both the generic dyndbg=<queries> modprobe arg, and the
+test-module's classmap-params to manipulate the test-mod*'s pr_debugs.
+In all cases, the current flag-settings are counted and tested vs
+expectations.
+
+The 3rd scenario recapitulates the DRM_USE_DYNAMIC_DEBUG=y failure.
+
+1. 2 modprobes (super then sub), with separate dyndbg=class-settings
+   check module specific flag settings
+
+2. modprobe submod, supermod is auto-loaded
+   set supermod class-params
+   check expected enablements in super & submod
+
+3. modprobe super, with param=setting (like drm.debug=0x1ef)
+   modprobe submod
+   validate submod's class'd pr_debugs get properly enabled
+
+The test uses multi-queries, with both commas and percents (to avoid
+spaces and quoting).  This is the main reason the test wasn't earlier
+in the patchset, closer to the classmap patches its validating.
+
+With some tedium, the tests could be refactored to split out early
+tests which avoid multi-cmds, and test only the class-params.
 
 Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
+Reviewed-by: Louis Chauvet <louis.chauvet@bootlin.com>
 ---
- drivers/gpu/drm/etnaviv/etnaviv_drv.c | 2 ++
- 1 file changed, 2 insertions(+)
+r3 - skip test if LACK_TMOD
 
-diff --git a/drivers/gpu/drm/etnaviv/etnaviv_drv.c b/drivers/gpu/drm/etnaviv/etnaviv_drv.c
-index 3e91747ed3393..70759b7d338f9 100644
---- a/drivers/gpu/drm/etnaviv/etnaviv_drv.c
-+++ b/drivers/gpu/drm/etnaviv/etnaviv_drv.c
-@@ -25,6 +25,8 @@
- #include "etnaviv_mmu.h"
- #include "etnaviv_perfmon.h"
+older
+  drop -v used in test_mod_submod(). V=1 does it for whole test
+  ifrmmod at test end (Lukasz)
+
+test-mod-tmod
+---
+ .../dynamic_debug/dyndbg_selftest.sh          | 73 +++++++++++++++++++
+ 1 file changed, 73 insertions(+)
+
+diff --git a/tools/testing/selftests/dynamic_debug/dyndbg_selftest.sh b/tools/testing/selftests/dynamic_debug/dyndbg_selftest.sh
+index 513f6cb1db1d8..09937dca3056d 100755
+--- a/tools/testing/selftests/dynamic_debug/dyndbg_selftest.sh
++++ b/tools/testing/selftests/dynamic_debug/dyndbg_selftest.sh
+@@ -279,10 +279,83 @@ function test_percent_splitting {
+     ifrmmod test_dynamic_debug
+ }
  
-+DRM_CLASSMAP_USE(drm_debug_classes);
++function test_mod_submod {
++    echo -e "${GREEN}# TEST_MOD_SUBMOD ${NC}"
++    if [ $LACK_TMOD -eq 1 ]; then
++	echo "SKIP - test requires test-dynamic-debug.ko"
++	return
++    fi
++    ifrmmod test_dynamic_debug_submod
++    ifrmmod test_dynamic_debug
++    ddcmd =_
 +
- /*
-  * DRM operations:
-  */
++    # modprobe with class enablements
++    modprobe test_dynamic_debug \
++	dyndbg=class,D2_CORE,+pf%class,D2_KMS,+pt%class,D2_ATOMIC,+pm
++
++    check_match_ct '\[test_dynamic_debug\]' 23 -r
++    check_match_ct =pf 1
++    check_match_ct =pt 1
++    check_match_ct =pm 1
++
++    modprobe test_dynamic_debug_submod
++    check_match_ct test_dynamic_debug_submod 23 -r
++    check_match_ct '\[test_dynamic_debug\]' 23 -r
++    check_match_ct test_dynamic_debug 46 -r
++
++    # no enablements propagate here
++    check_match_ct =pf 1
++    check_match_ct =pt 1
++    check_match_ct =pm 1
++
++    # change classes again, this time submod too
++    ddcmd class,D2_CORE,+mf%class,D2_KMS,+lt%class,D2_ATOMIC,+ml "# add some prefixes"
++    check_match_ct =pmf 1
++    check_match_ct =plt 1
++    check_match_ct =pml 1
++    #  submod changed too
++    check_match_ct =mf 1
++    check_match_ct =lt 1
++    check_match_ct =ml 1
++
++    # now work the classmap-params
++    # fresh start, to clear all above flags (test-fn limits)
++    ifrmmod test_dynamic_debug_submod
++    ifrmmod test_dynamic_debug
++    modprobe test_dynamic_debug_submod # get supermod too
++
++    echo 1 > /sys/module/test_dynamic_debug/parameters/p_disjoint_bits
++    echo 4 > /sys/module/test_dynamic_debug/parameters/p_level_num
++    # 2 mods * ( V1-3 + D2_CORE )
++    check_match_ct =p 8
++    echo 3 > /sys/module/test_dynamic_debug/parameters/p_disjoint_bits
++    echo 0 > /sys/module/test_dynamic_debug/parameters/p_level_num
++    # 2 mods * ( D2_CORE, D2_DRIVER )
++    check_match_ct =p 4
++    echo 0x16 > /sys/module/test_dynamic_debug/parameters/p_disjoint_bits
++    echo 0 > /sys/module/test_dynamic_debug/parameters/p_level_num
++    # 2 mods * ( D2_DRIVER, D2_KMS, D2_ATOMIC )
++    check_match_ct =p 6
++
++    # recap DRM_USE_DYNAMIC_DEBUG regression
++    ifrmmod test_dynamic_debug_submod
++    ifrmmod test_dynamic_debug
++    # set super-mod params
++    modprobe test_dynamic_debug p_disjoint_bits=0x16 p_level_num=5
++    check_match_ct =p 7
++    modprobe test_dynamic_debug_submod
++    # see them picked up by submod
++    check_match_ct =p 14
++    ifrmmod test_dynamic_debug_submod
++    ifrmmod test_dynamic_debug
++}
++
+ tests_list=(
+     basic_tests
++    # these require test_dynamic_debug*.ko
+     comma_terminator_tests
+     test_percent_splitting
++    test_mod_submod
+ )
+ 
+ # Run tests
 -- 
 2.50.1
 
