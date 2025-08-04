@@ -4,58 +4,82 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7995EC87FD2
-	for <intel-gfx@archiver.kernel.org>; Tue,  5 Aug 2025 13:55:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E4304C87FD1
+	for <intel-gfx@archiver.kernel.org>; Tue,  5 Aug 2025 14:14:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 131D410E122;
-	Tue,  5 Aug 2025 13:55:49 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 763B010E130;
+	Tue,  5 Aug 2025 14:14:26 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="ZSWS5pQk";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="VMrwfwkU";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.7])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 183C410E122;
- Tue,  5 Aug 2025 13:55:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1754402148; x=1785938148;
- h=from:to:cc:subject:in-reply-to:references:date:
- message-id:mime-version;
- bh=MbFt0O8dea0vBuwTtce0ijqpriW2ioDHraV/W6LhokI=;
- b=ZSWS5pQk/EwVjnI6r7vMJWU6xc6UzTQSwQS6qbjpaqNu2cfruOssY4Qi
- juCBLAzC9C8d4FS/C3xlvwyL+PnT7phdpeAcFMge/9sRrycd5LXAjHLyF
- uxcSm+j5H/XIa5JYwAp+M7TCW0pMKDCI927V8BKne4GtpEhqSX8sIDQd9
- TIwh8q9QGLnArTpH8sn1IcueExQZrekzOZ0AnNMquwHUpGl7/GaDnIbka
- OdICznNrsNRBOLdudCBnmN/SalPFF/EYgWHMGrzsMk8zv/OdI9Fq/VqPd
- 4NSjwiMsVm2bJSODrap8pNn3rShV37tdHZArBV2iC8MSMKykNW1x7bdrm g==;
-X-CSE-ConnectionGUID: TusLhEzzT3aEomrC3KE3Hw==
-X-CSE-MsgGUID: NMUKSUs9RWGkKxzZxCRj5w==
-X-IronPort-AV: E=McAfee;i="6800,10657,11513"; a="82144598"
-X-IronPort-AV: E=Sophos;i="6.17,265,1747724400"; d="scan'208";a="82144598"
-Received: from orviesa003.jf.intel.com ([10.64.159.143])
- by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 05 Aug 2025 06:55:47 -0700
-X-CSE-ConnectionGUID: FKC6F+bxT6u9xbcUzfYdkQ==
-X-CSE-MsgGUID: L/5nDY5BRICM3sDyVL6kMQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.17,265,1747724400"; d="scan'208";a="168681188"
-Received: from dhhellew-desk2.ger.corp.intel.com (HELO localhost)
- ([10.245.246.8])
- by ORVIESA003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 05 Aug 2025 06:55:45 -0700
-From: Jani Nikula <jani.nikula@linux.intel.com>
-To: Ankit Nautiyal <ankit.k.nautiyal@intel.com>,
- intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org
-Cc: ville.syrjala@linux.intel.com, Ankit Nautiyal <ankit.k.nautiyal@intel.com>
-Subject: Re: [PATCH 02/13] drm/i915/skl_watermark: Add bounds check for
- scaler array access
-In-Reply-To: <20250805132016.1250202-3-ankit.k.nautiyal@intel.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
-References: <20250805132016.1250202-1-ankit.k.nautiyal@intel.com>
- <20250805132016.1250202-3-ankit.k.nautiyal@intel.com>
-Date: Tue, 05 Aug 2025 16:55:42 +0300
-Message-ID: <bc9fd888b7a7572c7861c9ed3bdb0af9151f11d5@intel.com>
+Received: from mail-ej1-f45.google.com (mail-ej1-f45.google.com
+ [209.85.218.45])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 296AC10E44D;
+ Mon,  4 Aug 2025 19:49:57 +0000 (UTC)
+Received: by mail-ej1-f45.google.com with SMTP id
+ a640c23a62f3a-acb5ec407b1so689427566b.1; 
+ Mon, 04 Aug 2025 12:49:57 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1754336995; x=1754941795; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=GNzexns6pcPBUTEkIeqnIu/h9x9Gke1nRAkCyAK2Td4=;
+ b=VMrwfwkUCN27DXQZOCzZ/UYBPO9XZriylnsXGa9VC14LHzvK/AMwABYQiP6BIK7WJn
+ RvbjjW+70V44zARn4Wir0lXOx0dGlpQY0CBGHHQt67Ba2DNHc0+Q/lR37c/GPV6XzoKi
+ q5t8Ms2iy9X319g/mD//gHQVDFQAFJYeqE77DXPVAhQgKIc5ico7I1cg5L9PXTUMxhud
+ 662H64uR1Fcp9JSGuP3Kr1eDNWqHdocZ0y2fb8+OKnV44mir9BFAryKxwOou9lBbBt15
+ yKV55SFBVljVykucOpW3IyncY5xexdeNnapobIOS/LPm8acbh9Gl3PiOJwnjZl/Z8Q+/
+ qCrA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1754336995; x=1754941795;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=GNzexns6pcPBUTEkIeqnIu/h9x9Gke1nRAkCyAK2Td4=;
+ b=mo3C6Y3oPKfYwzlAUlkN+aEmEdqlw6xAm72y1wVwzEr9UBePd6EooCBvwZSTdGdOb6
+ keKKRl53L3So30XZj2TKmQkx0hkRIUTTU0t539eUsy/9Yi8ftAPOgNwXFQWnmmbwf4/K
+ vDkv6Cht6c5HjYDxFg9FSYrpOsBp3/pa5rTu9Nho5gSWxOdi9/PWDVi3EOuPaW70xbvw
+ rKbmF5O9JOLEcK55mi+K4AdJwRLUpbv8bTF4aV3/UWEZnjsmThyx9Qeow2WY3gW5BSL1
+ cVhDwQRXygthz5/k2z4YUSj9el7qzc4w3IFPCuAND6UIMVCF2Yt8EemB+h7vK58z5dTo
+ uYUg==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCUAn/ohrYqANqExA2OnfHJaCPDH7z4w3LJTwacctJzXsAcvhrq9zFxqfaCOlXcC48nV5KXTZDBV6gPy@lists.freedesktop.org,
+ AJvYcCXzPBsCP3uoSqHKtuZ7aMqfCJCERNxUZ8nCI06NFGiIg+sgBQz4ItRozbHx/g8wJ6eZWHOH8TlznmY=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzcKyJpm6WdKf3j6FAcBn372Hg7q9FQWWmQJ5Fi7fVIm7r2KGfR
+ REcmWST0K241kl4XpV27GO2j/bAJO0ftdfpv2JlwwpS1LGCmmrtvD/QsJ0HoXcyF1WFfPsmUqmj
+ 76b9rPs0O9YEDgJFLGGrsm6L/7q6byxU=
+X-Gm-Gg: ASbGnct/YJJw4yYSBMILcvy+kRh8sXGorWd8gigLw+9/DtY71j3E3xdQZrJ8bfhcCHK
+ V/hyqtoVBGiz9hxqpbbe/UKbMyFXjApeiO2IQ2je84PEotItqLl9Os31E6fbNfA5tSF06lPEvzK
+ qi3qqypmmONpEMWEDcRFzdLQ/4K5I/vBOtz7/DdtFh9TBJw4Ke3YOsf9P61r2lzyhvlehl4+Ccs
+ 39a//Q=
+X-Google-Smtp-Source: AGHT+IGcMq3bxCdaYN7JTYB4ZRdZj5ChB4GQUWGwwN1A04vvH51/5tRA4ycCUTXjUODp6yMy5vQnnC3OMmCbWz5atD4=
+X-Received: by 2002:a17:907:9407:b0:ae0:cc5f:88ef with SMTP id
+ a640c23a62f3a-af9401af514mr1075474166b.32.1754336995289; Mon, 04 Aug 2025
+ 12:49:55 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain
+References: <CACTEcX6oXBot1VBApOyKVMVXsAN9BsvQMLa8J0iKpNeB-eLttQ@mail.gmail.com>
+ <642d439ea1be8e48ee5c47fd3921a786452fb931@intel.com>
+ <CACTEcX5Y3PNXNkhnK1dGFe+k3sigOZNpj66KKGAS9XeHqRu35w@mail.gmail.com>
+ <0b15e33603a46f6cc7ad7d09a156044f11367169@intel.com>
+ <CACTEcX47bUd2tp=LYkQnhK29Js=vLN0JfXL8Aq6mOFBVYumpzQ@mail.gmail.com>
+ <CABgObfZKKeqMrAUyS8CB4ARkW_8Z9QREgpgYcq2jxoQ9ppS6MA@mail.gmail.com>
+In-Reply-To: <CABgObfZKKeqMrAUyS8CB4ARkW_8Z9QREgpgYcq2jxoQ9ppS6MA@mail.gmail.com>
+From: Andy Mindful <andy.mindful@gmail.com>
+Date: Mon, 4 Aug 2025 22:49:43 +0300
+X-Gm-Features: Ac12FXwoncyyo3lMGdVFGmeOSercSw0CMzqTN4N7YKEyC89vLmt21SqpqVGopCE
+Message-ID: <CACTEcX7oa+Shj=uYiRMoWpng+RZXDeQrOa-VTRmzVVtXJMCgLQ@mail.gmail.com>
+Subject: Re: [REGRESSION] tty lockup and WWAN loss after hibernate/suspend in
+ 6.8+ on ThinkPad X1 Carbon Gen 10
+To: regressions@lists.linux.dev
+Cc: linux-kernel@vger.kernel.org, linux-pm@vger.kernel.org, 
+ intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
+ linux-acpi@vger.kernel.org, rafael@kernel.org, ville.syrjala@linux.intel.com, 
+ tglx@linutronix.de, Christian Brauner <brauner@kernel.org>, 
+ Jani Nikula <jani.nikula@intel.com>, Paolo Bonzini <pbonzini@redhat.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+X-Mailman-Approved-At: Tue, 05 Aug 2025 14:14:25 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,45 +95,61 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Tue, 05 Aug 2025, Ankit Nautiyal <ankit.k.nautiyal@intel.com> wrote:
-> Ensure num_scaler_users does not exceed the size of scaler_state->scalers[]
-> before accessing scaler parameters in dsc_prefill_latency.
+Can you please advise on how to bisect further?
+
+andy@lenovo:~/linux-stable$ git bisect bad
+The merge base 0dd3ee31125508cd67f7e7172247f05b7fd1753a is bad.
+This means the bug has been fixed between
+0dd3ee31125508cd67f7e7172247f05b7fd1753a and
+[6fc5460ed8dd0edf29e7c5cfb1ef9b1aa04208a1].
+
+andy@DESKTOP-0R165CF:~/linux-stable$ git bisect log
+git bisect start
+# status: waiting for both good and bad commits
+# good: [6fc5460ed8dd0edf29e7c5cfb1ef9b1aa04208a1] Linux 6.7.11
+git bisect good 6fc5460ed8dd0edf29e7c5cfb1ef9b1aa04208a1
+# status: waiting for bad commit, 1 good commit known
+# bad: [6613476e225e090cc9aad49be7fa504e290dd33d] Linux 6.8-rc1
+git bisect bad 6613476e225e090cc9aad49be7fa504e290dd33d
+# bad: [0dd3ee31125508cd67f7e7172247f05b7fd1753a] Linux 6.7
+git bisect bad 0dd3ee31125508cd67f7e7172247f05b7fd1753a
+
+andy@lenovo:~/linux-stable$ git status
+HEAD detached at 0dd3ee311255
+You are currently bisecting, started from branch '6fc5460ed8dd'.
+(use "git bisect reset" to get back to the original branch)
+
+It is not moving further.
+
+=D0=BF=D0=BD, 4 =D1=81=D0=B5=D1=80=D0=BF. 2025=E2=80=AF=D1=80. =D0=BE 17:50=
+ Paolo Bonzini <pbonzini@redhat.com> =D0=BF=D0=B8=D1=88=D0=B5:
 >
-> Signed-off-by: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
-> ---
->  drivers/gpu/drm/i915/display/skl_watermark.c | 3 ++-
->  1 file changed, 2 insertions(+), 1 deletion(-)
+> On Mon, Aug 4, 2025 at 12:57=E2=80=AFPM Andy Mindful <andy.mindful@gmail.=
+com> wrote:
+> > Double-checked bisect, looks like I've have found broken commit:
+> >
+> > > > git bisect bad
+> > > > The merge base ba5afb9a84df2e6b26a1b6389b98849cd16ea757 is bad.
+> > > > This means the bug has been fixed between
+> > > > ba5afb9a84df2e6b26a1b6389b98849cd16ea757 and
+> > > > [1b1934dbbdcf9aa2d507932ff488cec47999cf3f
+> > > > 61da593f4458f25c59f65cfd9ba1bda570db5db7
+> > > > 6fc5460ed8dd0edf29e7c5cfb1ef9b1aa04208a1
+> > > > ba5afb9a84df2e6b26a1b6389b98849cd16ea757].
 >
-> diff --git a/drivers/gpu/drm/i915/display/skl_watermark.c b/drivers/gpu/drm/i915/display/skl_watermark.c
-> index 5a120c1f66f4..9d52727b81b1 100644
-> --- a/drivers/gpu/drm/i915/display/skl_watermark.c
-> +++ b/drivers/gpu/drm/i915/display/skl_watermark.c
-> @@ -2191,7 +2191,8 @@ dsc_prefill_latency(const struct intel_crtc_state *crtc_state)
->  
->  	if (!crtc_state->dsc.compression_enable ||
->  	    !num_scaler_users ||
-> -	    num_scaler_users > crtc->num_scalers)
-> +	    num_scaler_users > crtc->num_scalers ||
-> +	    num_scaler_users > ARRAY_SIZE(scaler_state->scalers))
-
-Currently this can't happen. crtc->num_scalers is initialized from
-num_scalers[pipe] member of display runtime data, which gets initialized
-in __intel_display_device_info_runtime_init().
-
-The only way this could happen is if some platform gains more scalers
-per pipe than SKL_NUM_SCALERS. But if that happens, we really want to
-fail loudly instead of silently falling back to dsc_prefill_latency,
-right?
-
-I'd rather see
-
-	drm_WARN_ON(display->drm, crtc->num_scalers > SKL_NUM_SCALERS);
-
-in intel_crtc_init() than this change.
-
->  		return dsc_prefill_latency;
->  
->  	dsc_prefill_latency = DIV_ROUND_UP(15 * linetime * chroma_downscaling_factor, 10);
-
--- 
-Jani Nikula, Intel
+> This skip is messing up the results:
+>
+> # skip: [0dd3ee31125508cd67f7e7172247f05b7fd1753a] Linux 6.7
+> git bisect skip 0dd3ee31125508cd67f7e7172247f05b7fd1753a
+>
+> and there are still 3858 commits in
+> ba5afb9a84df2e6b26a1b6389b98849cd16ea757..{1b1934dbbdcf9aa2d507932ff488ce=
+c47999cf3f,61da593f4458f25c59f65cfd9ba1bda570db5db7,ba5afb9a84df2e6b26a1b63=
+89b98849cd16ea757}
+>
+> Any chance you can get 6.7 to work and restrict the range further?
+>
+> Thanks,
+>
+> Paolo
+>
