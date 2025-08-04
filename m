@@ -4,87 +4,79 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D2D16C87FD1
-	for <intel-gfx@archiver.kernel.org>; Mon,  4 Aug 2025 14:23:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 151E2C87FCF
+	for <intel-gfx@archiver.kernel.org>; Mon,  4 Aug 2025 14:23:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9051E10E531;
+	by gabe.freedesktop.org (Postfix) with ESMTP id EFC8810E53D;
 	Mon,  4 Aug 2025 14:23:33 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="fVoMk6Jv";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Ww9LJPm6";
 	dkim-atps=neutral
-Received: from mail-il1-f173.google.com (mail-il1-f173.google.com
- [209.85.166.173])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2EF0410E3E5;
- Sun,  3 Aug 2025 03:58:38 +0000 (UTC)
-Received: by mail-il1-f173.google.com with SMTP id
- e9e14a558f8ab-3e3fcf5b150so25029815ab.1; 
- Sat, 02 Aug 2025 20:58:38 -0700 (PDT)
+Received: from mail-ej1-f53.google.com (mail-ej1-f53.google.com
+ [209.85.218.53])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9902C10E1A5;
+ Mon,  4 Aug 2025 10:57:42 +0000 (UTC)
+Received: by mail-ej1-f53.google.com with SMTP id
+ a640c23a62f3a-af8fd1b80e5so704402866b.2; 
+ Mon, 04 Aug 2025 03:57:42 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1754193517; x=1754798317; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ d=gmail.com; s=20230601; t=1754305061; x=1754909861; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=cT8/zmXv/UqMduSo2scBRCmGp63Q5/YeQDv4ZhdIR2c=;
- b=fVoMk6JvmnWkzPEKxp6GViJNmOF7eqyZNZttYfSOTIqlKznLXyVCRmDpFoVyfAdKd2
- GH02QP0WMjcWQML8yvvFnl4P4bZEuZhdXtOo5C+Bp7jdFgxfhJuZ4wMCBNOW3At3zavG
- 0Zvm6RgqTm1fGcnqgOJGnr2UUy0dH4MsHIT/vLez1cWcsh0H5r6w4rl6S7G9eEWuZ/Lb
- Cwq1eOrc+BJxDOahKWasXhZ1E9NQCBuvpsNI4lt/95KMq1mKLl7OgmKt/972ED0HzzoQ
- KdzMKFo3XZN0F4xInmjaDPd70csctv9pLAi8S4ny3Tyy8qmi1H0CBuMqfBgDCaZJCGOa
- cqjQ==
+ bh=EKcmbw33i158VkcjIOBGndTohyXppuVVNq4r8SoAwu4=;
+ b=Ww9LJPm6WgDAvnUQdqoTsr/RENRc7OzxZzyTZhcA+29z7lbLhtz1AnwaduRjC827Ga
+ UX+Vfs/BQhXdgnGaUzGHUBQ6gnjN+LBPiAHFc3Ff8BsMU3CnkA8L9xXXpSX0y2VDFSnI
+ C3sbh2z3O5ShVj0LzBY6hax6hzX/7Q09i2qzKTRYsrvrtSBBe7QnC6vN9v+2FBqGlgkI
+ co8Z4wGIOm5Sn4cJPU2yp+XiMXSgbu7H4Gtt0N6g7RRHz3JOVdjf/01CFVIXDPKi2Wep
+ E+TN4rV8mjmk5e00q9byySyTB/Td9RCNWHT8Z5QpbvocUxD5l5PNZ9Ay+e7nAsVTuIJH
+ UduA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1754193517; x=1754798317;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+ d=1e100.net; s=20230601; t=1754305061; x=1754909861;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=cT8/zmXv/UqMduSo2scBRCmGp63Q5/YeQDv4ZhdIR2c=;
- b=bMdq3tZTRU+0bd11fo919fGDrMseoWjWetZgG1WT8uibpQtLVbI61EPUnYCfpcj30x
- We3ToIk3ZpYLQ5y1OJg5dKd+7x10/qmJ+P6ACsOcDY4eZicwepdJdTs6g9tM+exMiX5P
- V6ehAGUlmTIDUyVMrTqjsgM+DV3M0ikwVGbsnKE3lxZ5VtUNDw2xI1iJi+LuCfUQW4lx
- QrIFP5RL0kOdxnmRLMaI8uCA3u6eYlpxC9ndF4p1gBxteuPaJiiXUyUUofpIB3ZpyZub
- sHH4T0SLHL1ofKSTrnVGiXBn2Ap4DW7JP255wne1GpBXPHg7643YLmPU8oafTz14jhre
- VAAg==
+ bh=EKcmbw33i158VkcjIOBGndTohyXppuVVNq4r8SoAwu4=;
+ b=aJQK4GG0nLKJ4wc00o/toKwyB15/nvcaQ4ufKFxy2X6Q+5OvXFMKudjTJXVLHgsnxm
+ kNZSF6HIYCpizepOieDegleQoe+WvgDxYc/rDcDNjykwCUxF9QEpkG01WfFcGWV8jpqx
+ YWrKUCx5GqQcZdUs45N/MePCemkQ6oneGD5adpGgq8IEJ/47px9YfSV1M/n1ka4k3aIX
+ 8wHjRb736CKh16yXuZHHxr801TeTxSGLotom5Yf5Up88BWTbxpdn94CvRp8KDYbK5x4N
+ aUrIloIt2378UEPbEyepcPao917dDN6H8j5itsd4IVuHXFQlwM1pxy8ArNGjMuuA1CtB
+ bVJA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCVivaf7ZYNMTtA4Dohdia/70nnmpYsXVq4gyokQUFlRMKVylhlswgPhOWMsljraceWg26uROnZNwts9C8xHIQ==@lists.freedesktop.org,
- AJvYcCWmnQlHah0RlrttyxUP+k9lkRxZxHwxG6Fdt/xFeOXNGcLzwWzS3/KnxoB/a/LxpIha6cylUCsOjDzq@lists.freedesktop.org,
- AJvYcCXQAJe5YELIoDXT2/qlgxgpeDaAYxscV3aV7Sllrmz6TpNc+yStKN8a3wcT6+thEsmVmuiHWW/s@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yxx8zP2pbtlgLJs0Yvx7KLOTgXng2vjtk3m+rQ7l9YUnW+8wNBB
- lc0u1Xlyz+PBK3lQfiaWtBMrA4Bh9gt7JmaxCjxdTYiJBDq2n1b8cUWb
-X-Gm-Gg: ASbGncvv8NkEJIoaj4oOldM3EvRZNDQOwCii3Ql7mYIe5xpruzhHuo4Wwm9XImO4s5S
- 8X1jDTy+cDZg2ly6BLn5txBtGsPPcBf3P7M2kWW/tsBB3D04bsvXnhh8ghJeZzYoC+21qmnWHJS
- 1c5bwhvKLqDEqI501zbwTNp+z+E7adxXE29xfTrej8kO7Cd9ZoJMqiVg34DLiP6VY4xdDVlkPXK
- FReLsJbw6E+e6dUUV49IgF77KCTe9E2VPSfqN5vJNL87zUo7zgJQqlrov4TZ6S3Q8+xa6UaavRQ
- P8u/ssDyiyGve7ur4Xy9HlygXdWI2BWz58ypY77kk9ekH1s3BnETC/I+5vzm6Rf6Q7voZm2Jszm
- ULGkA6NDEW/Aj8J6PPVqw+UazVWRMxlF9Gtjt5FbGyfndvQCpbi3i+i+FNp9vxcY8dmhRTg8EU2
- 7DLA==
-X-Google-Smtp-Source: AGHT+IFfI6dv+/Dwk5MRfIQvsp2r14i0lroXxft+olSfZnx9fC58ENAn+6zSkYG0IWesgfHHIjV0TA==
-X-Received: by 2002:a05:6e02:17ca:b0:3e3:ccfe:d597 with SMTP id
- e9e14a558f8ab-3e41610a07fmr100943495ab.1.1754193517393; 
- Sat, 02 Aug 2025 20:58:37 -0700 (PDT)
-Received: from frodo.raven-morpho.ts.net (c-67-165-245-5.hsd1.co.comcast.net.
- [67.165.245.5]) by smtp.googlemail.com with ESMTPSA id
- 8926c6da1cb9f-50a55df0940sm2268319173.106.2025.08.02.20.58.36
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 02 Aug 2025 20:58:36 -0700 (PDT)
-From: Jim Cromie <jim.cromie@gmail.com>
-To: linux-kernel@vger.kernel.org, jbaron@akamai.com,
- gregkh@linuxfoundation.org, ukaszb@chromium.org, louis.chauvet@bootlin.com
-Cc: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
- intel-gvt-dev@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
- daniel.vetter@ffwll.ch, tvrtko.ursulin@linux.intel.com,
- jani.nikula@intel.com, ville.syrjala@linux.intel.com,
- seanpaul@chromium.org, robdclark@gmail.com, groeck@google.com,
- yanivt@google.com, bleung@google.com, quic_saipraka@quicinc.com,
- will@kernel.org, catalin.marinas@arm.com, quic_psodagud@quicinc.com,
- maz@kernel.org, arnd@arndb.de, linux-arm-kernel@lists.infradead.org,
- linux-arm-msm@vger.kernel.org, mingo@redhat.com, jim.cromie@gmail.com
-Subject: [PATCH v4 03/58] test-dyndbg: fixup CLASSMAP usage error
-Date: Sat,  2 Aug 2025 21:57:21 -0600
-Message-ID: <20250803035816.603405-4-jim.cromie@gmail.com>
-X-Mailer: git-send-email 2.50.1
-In-Reply-To: <20250803035816.603405-1-jim.cromie@gmail.com>
-References: <20250803035816.603405-1-jim.cromie@gmail.com>
+ AJvYcCVSxRqj51w9qwqn6Nu7Bbn1JdThmO86kh/jcnrb9WqMH7pvzSXJ4TOW3sLpLFZGIUwuV5AeTJMb5rI=@lists.freedesktop.org,
+ AJvYcCXJppUnV5AxWthgE+2UhcjSYRA90p5K4+q8GfsgcazUmooe72oQlCu24KGt0GC9wZPX2OIVvmqf5SH4@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YziUlz3sXIXIp5fEN5QutU3OCR/+9TRKF/fhtA2e05Z8Fpm/3Bb
+ 4svZZD2qXXjfYPk85PipyzWr1BPcuz/bxOR0ByZbcG7rQNXhcdzoJ9+ualtxAzv1kO3ab9VtUmL
+ cwB74Jy2J3EB6yhsC0xCpgvbg7HZAKZE=
+X-Gm-Gg: ASbGncs0xzsQKE6RU9rA/s0Ma0QQqdmdwDpwWW4lwbWk798nhtK+PJi2SUXEA2StPrY
+ ZY7gSDKsuGEBxCdLLMdcqWHVkjUAb23RHt2uGP5js14m5ZTUA0Q0PopIm7Vu3LXK11MPpBb5XdU
+ MUO/bKHN0jICXZrjVtxHo+R1zPuBxgvJuv/mgMtOz3jzNj7kRaQzKqfKKAk02TzJeRERyCEbK8z
+ mlppM+ZS+p+X+dTY9g=
+X-Google-Smtp-Source: AGHT+IEKgWeCpweInZoRf8h+ySc8h8Zd/5K3fLo9Iz1IaB8JQ0OeLLaC5QAwreLPpuNZD9vPayfW02ltcKhkV1SLfyI=
+X-Received: by 2002:a17:907:2da5:b0:af2:5a26:b32a with SMTP id
+ a640c23a62f3a-af9401a7898mr948553966b.30.1754305060799; Mon, 04 Aug 2025
+ 03:57:40 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <CACTEcX6oXBot1VBApOyKVMVXsAN9BsvQMLa8J0iKpNeB-eLttQ@mail.gmail.com>
+ <642d439ea1be8e48ee5c47fd3921a786452fb931@intel.com>
+ <CACTEcX5Y3PNXNkhnK1dGFe+k3sigOZNpj66KKGAS9XeHqRu35w@mail.gmail.com>
+ <0b15e33603a46f6cc7ad7d09a156044f11367169@intel.com>
+In-Reply-To: <0b15e33603a46f6cc7ad7d09a156044f11367169@intel.com>
+From: Andy Mindful <andy.mindful@gmail.com>
+Date: Mon, 4 Aug 2025 13:57:29 +0300
+X-Gm-Features: Ac12FXzOJ88j54Uw6RBDAtH4-5VhCyZG1ALSoSGb8O5tAtMwgrRtuY8do-ly4uo
+Message-ID: <CACTEcX47bUd2tp=LYkQnhK29Js=vLN0JfXL8Aq6mOFBVYumpzQ@mail.gmail.com>
+Subject: Re: [REGRESSION] tty lockup and WWAN loss after hibernate/suspend in
+ 6.8+ on ThinkPad X1 Carbon Gen 10
+To: regressions@lists.linux.dev, pbonzini@redhat.com
+Cc: linux-kernel@vger.kernel.org, linux-pm@vger.kernel.org, 
+ intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
+ linux-acpi@vger.kernel.org, rafael@kernel.org, ville.syrjala@linux.intel.com, 
+ tglx@linutronix.de, Christian Brauner <brauner@kernel.org>, 
+ Jani Nikula <jani.nikula@intel.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-Mailman-Approved-At: Mon, 04 Aug 2025 14:23:32 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -101,42 +93,150 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-commit 6ea3bf466ac6 ("dyndbg: test DECLARE_DYNDBG_CLASSMAP, sysfs nodes")
+Double-checked bisect, looks like I've have found broken commit:
 
-A closer look at test_dynamic_debug.ko logging output reveals a macro
-usage error:
+git bisect start
+# status: waiting for both good and bad commits
+# good: [6fc5460ed8dd0edf29e7c5cfb1ef9b1aa04208a1] Linux 6.7.11
+git bisect good 6fc5460ed8dd0edf29e7c5cfb1ef9b1aa04208a1
+# status: waiting for bad commit, 1 good commit known
+# bad: [6613476e225e090cc9aad49be7fa504e290dd33d] Linux 6.8-rc1
+git bisect bad 6613476e225e090cc9aad49be7fa504e290dd33d
+# skip: [0dd3ee31125508cd67f7e7172247f05b7fd1753a] Linux 6.7
+git bisect skip 0dd3ee31125508cd67f7e7172247f05b7fd1753a
+# good: [ba5afb9a84df2e6b26a1b6389b98849cd16ea757] fs: rework
+listmount() implementation
+git bisect good ba5afb9a84df2e6b26a1b6389b98849cd16ea757
+# good: [61da593f4458f25c59f65cfd9ba1bda570db5db7] Merge tag
+'media/v6.8-2' of
+git://git.kernel.org/pub/scm/linux/kernel/git/mchehab/linux-media
+git bisect good 61da593f4458f25c59f65cfd9ba1bda570db5db7
+# bad: [e38f734add21d75d76dbcf7b214f4823131c1bae] Merge tag
+'staging-6.8-rc1' of
+git://git.kernel.org/pub/scm/linux/kernel/git/gregkh/staging
+git bisect bad e38f734add21d75d76dbcf7b214f4823131c1bae
+# bad: [5d197e97fb106c09d3d013be341e5961fd70ec8a] Merge tag
+'hsi-for-6.8' of
+git://git.kernel.org/pub/scm/linux/kernel/git/sre/linux-hsi
+git bisect bad 5d197e97fb106c09d3d013be341e5961fd70ec8a
+# good: [1b1934dbbdcf9aa2d507932ff488cec47999cf3f] Merge tag
+'docs-6.8-2' of git://git.lwn.net/linux
+git bisect good 1b1934dbbdcf9aa2d507932ff488cec47999cf3f
+# bad: [8c9244af4dc8680a453e759331f0c93d5bde1898] Merge tag
+'kvm-x86-svm-6.8' of https://github.com/kvm-x86/linux into HEAD
+git bisect bad 8c9244af4dc8680a453e759331f0c93d5bde1898
+# bad: [783288010035e4c250a0b6491a4642cdb8d30548] KVM: x86: add
+missing "depends on KVM"
+git bisect bad 783288010035e4c250a0b6491a4642cdb8d30548
+# bad: [1c3c87d720cbd1ff86dc1bfc6df8ee9adce5879b] Merge tag
+'kvm-x86-selftests-6.7-rcN' of https://github.com/kvm-x86/linux into
+HEAD
+git bisect bad 1c3c87d720cbd1ff86dc1bfc6df8ee9adce5879b
+# good: [8d99e347c097ab3f9fb93d0f88dddf20051d7c88] KVM: selftests:
+Convert lib's mem regions to KVM_SET_USER_MEMORY_REGION2
+git bisect good 8d99e347c097ab3f9fb93d0f88dddf20051d7c88
+# bad: [6c370dc65374db5afbc5c6c64c662f922a2555ad] Merge branch
+'kvm-guestmemfd' into HEAD
+git bisect bad 6c370dc65374db5afbc5c6c64c662f922a2555ad
+# good: [43f623f350ce1c46c53b6b77f4dbe741af8c44f3] KVM: selftests: Add
+x86-only selftest for private memory conversions
+git bisect good 43f623f350ce1c46c53b6b77f4dbe741af8c44f3
+# good: [8a89efd43423cb3005c5e641e846184e292c1465] KVM: selftests: Add
+basic selftest for guest_memfd()
+git bisect good 8a89efd43423cb3005c5e641e846184e292c1465
+# good: [5d74316466f4aabdd2ee1e33b45e4933c9bc3ea1] KVM: selftests: Add
+a memory region subtest to validate invalid flags
+git bisect good 5d74316466f4aabdd2ee1e33b45e4933c9bc3ea1
+# first bad commit: [6c370dc65374db5afbc5c6c64c662f922a2555ad] Merge
+branch 'kvm-guestmemfd' into HEAD
 
-lib/test_dynamic_debug.c:105 [test_dynamic_debug]do_cats =p "LOW msg\n" class:MID
-lib/test_dynamic_debug.c:106 [test_dynamic_debug]do_cats =p "MID msg\n" class:HI
-lib/test_dynamic_debug.c:107 [test_dynamic_debug]do_cats =_ "HI msg\n" class unknown, _id:13
-
-107 says: HI is unknown, and 105,106 have a LOW/MID and MID/HI skew.
-
-DECLARE_DYNDBG_CLASSMAP() _base arg must equal the enum's 1st value,
-in this case it was _base + 1.  This leaves HI class un-selectable.
-
-NB: the macro could better validate its arguments.
-
-Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
-Reviewed-by: Louis Chauvet <louis.chauvet@bootlin.com>
-Tested-by: Louis Chauvet<louis.chauvet@bootlin.com>
----
- lib/test_dynamic_debug.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/lib/test_dynamic_debug.c b/lib/test_dynamic_debug.c
-index 77c2a669b6afd..396144cf351be 100644
---- a/lib/test_dynamic_debug.c
-+++ b/lib/test_dynamic_debug.c
-@@ -75,7 +75,7 @@ DD_SYS_WRAP(disjoint_bits, p);
- DD_SYS_WRAP(disjoint_bits, T);
- 
- /* symbolic input, independent bits */
--enum cat_disjoint_names { LOW = 11, MID, HI };
-+enum cat_disjoint_names { LOW = 10, MID, HI };
- DECLARE_DYNDBG_CLASSMAP(map_disjoint_names, DD_CLASS_TYPE_DISJOINT_NAMES, 10,
- 			"LOW", "MID", "HI");
- DD_SYS_WRAP(disjoint_names, p);
--- 
-2.50.1
-
+=D0=BF=D0=BD, 4 =D1=81=D0=B5=D1=80=D0=BF. 2025=E2=80=AF=D1=80. =D0=BE 11:15=
+ Jani Nikula <jani.nikula@intel.com> =D0=BF=D0=B8=D1=88=D0=B5:
+>
+> On Sun, 03 Aug 2025, Andy Mindful <andy.mindful@gmail.com> wrote:
+> > Here what I have from bisecting, please let me know if it makes things
+> > clearer or not.
+>
+> Doesn't point at graphics, anyway.
+>
+> Cc: Christian.
+>
+>
+> BR,
+> Jani.
+>
+>
+> >
+> > git bisect log
+> > git bisect start
+> > # status: waiting for both good and bad commits
+> > # good: [6fc5460ed8dd0edf29e7c5cfb1ef9b1aa04208a1] Linux 6.7.11
+> > git bisect good 6fc5460ed8dd0edf29e7c5cfb1ef9b1aa04208a1
+> > # status: waiting for bad commit, 1 good commit known
+> > # bad: [6613476e225e090cc9aad49be7fa504e290dd33d] Linux 6.8-rc1
+> > git bisect bad 6613476e225e090cc9aad49be7fa504e290dd33d
+> > # skip: [0dd3ee31125508cd67f7e7172247f05b7fd1753a] Linux 6.7
+> > git bisect skip 0dd3ee31125508cd67f7e7172247f05b7fd1753a
+> > # good: [ba5afb9a84df2e6b26a1b6389b98849cd16ea757] fs: rework
+> > listmount() implementation
+> > git bisect good ba5afb9a84df2e6b26a1b6389b98849cd16ea757
+> > # good: [61da593f4458f25c59f65cfd9ba1bda570db5db7] Merge tag
+> > 'media/v6.8-2' of
+> > git://git.kernel.org/pub/scm/linux/kernel/git/mchehab/linux-media
+> > git bisect good 61da593f4458f25c59f65cfd9ba1bda570db5db7
+> > # bad: [e38f734add21d75d76dbcf7b214f4823131c1bae] Merge tag
+> > 'staging-6.8-rc1' of
+> > git://git.kernel.org/pub/scm/linux/kernel/git/gregkh/staging
+> > git bisect bad e38f734add21d75d76dbcf7b214f4823131c1bae
+> > # bad: [5d197e97fb106c09d3d013be341e5961fd70ec8a] Merge tag
+> > 'hsi-for-6.8' of
+> > git://git.kernel.org/pub/scm/linux/kernel/git/sre/linux-hsi
+> > git bisect bad 5d197e97fb106c09d3d013be341e5961fd70ec8a
+> > # good: [1b1934dbbdcf9aa2d507932ff488cec47999cf3f] Merge tag
+> > 'docs-6.8-2' of git://git.lwn.net/linux
+> > git bisect good 1b1934dbbdcf9aa2d507932ff488cec47999cf3f
+> > # good: [1b1934dbbdcf9aa2d507932ff488cec47999cf3f] Merge tag
+> > 'docs-6.8-2' of git://git.lwn.net/linux
+> > git bisect good 1b1934dbbdcf9aa2d507932ff488cec47999cf3f
+> > # bad: [8c9244af4dc8680a453e759331f0c93d5bde1898] Merge tag
+> > 'kvm-x86-svm-6.8' of https://github.com/kvm-x86/linux into HEAD
+> > git bisect bad 8c9244af4dc8680a453e759331f0c93d5bde1898
+> > # bad: [783288010035e4c250a0b6491a4642cdb8d30548] KVM: x86: add
+> > missing "depends on KVM"
+> > git bisect bad 783288010035e4c250a0b6491a4642cdb8d30548
+> > # bad: [783288010035e4c250a0b6491a4642cdb8d30548] KVM: x86: add
+> > missing "depends on KVM"
+> > git bisect bad 783288010035e4c250a0b6491a4642cdb8d30548
+> > # bad: [861deac3b092f37b2c5e6871732f3e11486f7082] Linux 6.7-rc7
+> > git bisect bad 861deac3b092f37b2c5e6871732f3e11486f7082
+> >
+> > # being on a 861deac3b092
+> > git bisect bad
+> > The merge base ba5afb9a84df2e6b26a1b6389b98849cd16ea757 is bad.
+> > This means the bug has been fixed between
+> > ba5afb9a84df2e6b26a1b6389b98849cd16ea757 and
+> > [1b1934dbbdcf9aa2d507932ff488cec47999cf3f
+> > 61da593f4458f25c59f65cfd9ba1bda570db5db7
+> > 6fc5460ed8dd0edf29e7c5cfb1ef9b1aa04208a1
+> > ba5afb9a84df2e6b26a1b6389b98849cd16ea757].
+> >
+> > Thanks.
+> >
+> > =D0=B2=D1=82, 29 =D0=BB=D0=B8=D0=BF. 2025=E2=80=AF=D1=80. =D0=BE 13:20 =
+Jani Nikula <jani.nikula@intel.com> =D0=BF=D0=B8=D1=88=D0=B5:
+> >>
+> >> On Tue, 29 Jul 2025, Andy Mindful <andy.mindful@gmail.com> wrote:
+> >> > Please let me know if any further information or testing is required=
+.
+> >>
+> >> Likely the quickest way to find the root cause is to bisect the issue.
+> >>
+> >>
+> >> BR,
+> >> Jani.
+> >>
+> >> --
+> >> Jani Nikula, Intel
+>
+> --
+> Jani Nikula, Intel
