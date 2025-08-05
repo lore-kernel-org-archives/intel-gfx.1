@@ -4,80 +4,72 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9EBDCC87FD2
-	for <intel-gfx@archiver.kernel.org>; Tue,  5 Aug 2025 14:14:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 80490C87FCB
+	for <intel-gfx@archiver.kernel.org>; Tue,  5 Aug 2025 14:39:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 931A810E36A;
-	Tue,  5 Aug 2025 14:14:26 +0000 (UTC)
-X-Greylist: delayed 2483 seconds by postgrey-1.36 at gabe;
- Mon, 04 Aug 2025 21:03:59 UTC
-Received: from vps-ovh.mhejs.net (vps-ovh.mhejs.net [145.239.82.108])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 262A010E5C5;
- Mon,  4 Aug 2025 21:03:59 +0000 (UTC)
-Received: from MUA
- by vps-ovh.mhejs.net with esmtpsa  (TLS1.3) tls TLS_AES_128_GCM_SHA256
- (Exim 4.98.2) (envelope-from <mhej@vps-ovh.mhejs.net>)
- id 1uj1hU-00000000QDh-438N; Mon, 04 Aug 2025 22:22:28 +0200
-Message-ID: <cfc561fb-29a9-4a19-a2e5-0f3f28e5e63a@maciej.szmigiero.name>
-Date: Mon, 4 Aug 2025 22:22:23 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [REGRESSION] tty lockup and WWAN loss after hibernate/suspend in
- 6.8+ on ThinkPad X1 Carbon Gen 10
-To: Andy Mindful <andy.mindful@gmail.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1BEBC10E068;
+	Tue,  5 Aug 2025 14:39:28 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (1024-bit key; secure) header.d=estudante.ufscar.br header.i=@estudante.ufscar.br header.b="C0AsDbPr";
+	dkim-atps=neutral
+Received: from mail-pf1-f178.google.com (mail-pf1-f178.google.com
+ [209.85.210.178])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C11BB10E068
+ for <intel-gfx@lists.freedesktop.org>; Tue,  5 Aug 2025 14:39:26 +0000 (UTC)
+Received: by mail-pf1-f178.google.com with SMTP id
+ d2e1a72fcca58-76bc61152d8so4689444b3a.2
+ for <intel-gfx@lists.freedesktop.org>; Tue, 05 Aug 2025 07:39:26 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=estudante.ufscar.br; s=google; t=1754404766; x=1755009566;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=qdVZXCiIO7ug31YUFClpvZqUEX350zwu/Pv3sCY6zPA=;
+ b=C0AsDbPrlMWmg19+nldXlTkTiUqh+hkSEVv1juWTcFYZ/+fGRhzrsd3nzi7pbDE3uN
+ K0eMWYfhepUi9DDsZafLSf5lsWol54TPbJgQOWev72Ic1GLFMKPvKGLbJefFvG2kJQdq
+ 0jGsBocQSGQsvFFYI41zvUvqwHklZ/vk/FtvM=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1754404766; x=1755009566;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=qdVZXCiIO7ug31YUFClpvZqUEX350zwu/Pv3sCY6zPA=;
+ b=UQSVEtFoq9Y7c/iYK+88uefNP35fDJgbbHv2z4quPhiEy2v8BMoyeYeBQ6WiOGvyd6
+ xgvqKqXs+bqatnh+KiJmSr7lchCL5G7DxpF6rUwSkVyearjiVaV5P1GCvvwnd3ZzXZ2Z
+ PxG9AtKnSXUJBNIjU0DCEXw3EwmTHjunYU/B3jvutAuRCELolNaMPbw7DanEfNKengbN
+ iQICNfHSuYAPKpVWsN+NDVwBOz7+tMIx4+E96vsFqiYFlvP8D90pKp0uECSsBFAhnDhA
+ bzQ1rMo18+WK7QZQB5g3ucG1Rq8KhuEo6ajrZiVHTPpLLme5g5kY9cgnSzHE9WB+umqo
+ e/8Q==
+X-Gm-Message-State: AOJu0YwVb5Xb8axcpCPfg0aMYCE+cA+hx47VMsl9pS23dCaqOu0nKtzj
+ 8LEo9jsYSNxXWuhooWNYt5A5yyhQAxGRpjCBiSAiJKqu781wq7ugME0VCSZP/4eJDD0=
+X-Gm-Gg: ASbGncsch6qaCcTaMW0lgQx4AYBq1iHwkMJPZ9rbyKWh/qh/DDdK6l/vsAzaGu0ZkQb
+ l+w1RnqEdNAovIdg7eVfXiLzo9OXbDjw8c+vnfnkocqmd6ZYrOwo0AjND4NqQwi3wVG+BlVo1S+
+ tO1B/KjniSl1ZQlSav8+QjeXRC1YRg0Z8RGo7CLbyEtmcuO10j6keRebI47VxeNJC9Ap1aI6+nI
+ wvUgTvfrmDNUIk+lQDohLH5fjzveisG08HxtWjyglU5SxsMIYLN1zv3/H5sbqB8HEhTtmnvRTP9
+ F5RFSDaubQ+kmuZLFLLUSIWAGFGKTe3bNWpML0HbI87j9jSdCscwkm81tHSWmrOA4IkA8KdRKtK
+ XFVfZgNoCwwp7OU1iMj8ik6u6jMznhsJL
+X-Google-Smtp-Source: AGHT+IFS5qPoqNEui+Z8+SDbcPC53GXm05RMSKQnq+9XNn0hHJsTCS+ZSy9epP1qV6UhFLp2idOvUQ==
+X-Received: by 2002:a05:6a00:804:b0:76a:d724:d6fe with SMTP id
+ d2e1a72fcca58-76bec4c1f5dmr15501224b3a.11.1754404765895; 
+ Tue, 05 Aug 2025 07:39:25 -0700 (PDT)
+Received: from localhost.localdomain ([2804:14c:4a5:8ac9::1a55])
+ by smtp.gmail.com with ESMTPSA id
+ d2e1a72fcca58-76bf1c6d5dcsm7899757b3a.74.2025.08.05.07.39.21
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 05 Aug 2025 07:39:25 -0700 (PDT)
+From: Luiz Otavio Mello <luiz.mello@estudante.ufscar.br>
+To: rodrigo.vivi@intel.com, joonas.lahtinen@linux.intel.com,
+ tursulin@ursulin.net, jani.nikula@linux.intel.com, airlied@gmail.com,
+ simona@ffwll.ch
 Cc: intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-acpi@vger.kernel.org, rafael@kernel.org, linux-kernel@vger.kernel.org,
- regressions@lists.linux.dev, linux-pm@vger.kernel.org,
- jani.nikula@intel.com, ville.syrjala@linux.intel.com, tglx@linutronix.de,
- Paolo Bonzini <pbonzini@redhat.com>, Christian Brauner <brauner@kernel.org>
-References: <CACTEcX6oXBot1VBApOyKVMVXsAN9BsvQMLa8J0iKpNeB-eLttQ@mail.gmail.com>
-Content-Language: en-US, pl-PL
-From: "Maciej S. Szmigiero" <mail@maciej.szmigiero.name>
-Autocrypt: addr=mail@maciej.szmigiero.name; keydata=
- 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
-In-Reply-To: <CACTEcX6oXBot1VBApOyKVMVXsAN9BsvQMLa8J0iKpNeB-eLttQ@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Mailman-Approved-At: Tue, 05 Aug 2025 14:14:25 +0000
+ mairacanal@riseup.net, Luiz Otavio Mello <luiz.mello@estudante.ufscar.br>
+Subject: [PATCH 0/9] drm/i915: Remove legacy struct_mutex usage
+Date: Tue,  5 Aug 2025 11:38:55 -0300
+Message-ID: <20250805143908.32343-1-luiz.mello@estudante.ufscar.br>
+X-Mailer: git-send-email 2.50.1
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -93,69 +85,73 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On 29.07.2025 12:03, Andy Mindful wrote:
-> Kernel-version: 6.8+ (confirmed in Fedora kernel 6.8.4-200.fc38.x86_64
-> and above)
-> Regression-from: 6.7.11 (working) to 6.8.4+ (regressed)
-> Affected-hardware: Lenovo ThinkPad X1 Carbon Gen 10 (Intel Alder Lake platform)
-> Affected-subsystems: TTY/Console, Power Management, WWAN Modem (Intel
-> XMM7560, iosm driver), Kernel DRM/i915 stack
-> 
-> Description:
-> We are reporting a significant regression introduced in Linux kernel
-> version 6.8 (specifically confirmed in Fedora kernel
-> 6.8.4-200.fc38.x86_64 and subsequent versions), affecting Lenovo
-> ThinkPad X1 Carbon Gen 10 laptops. This regression manifests primarily
-> as tty lockups and complete loss of WWAN modem functionality after
-> hibernate cycle.
-> 
-> Problematic Behavior:
-(..)
-> 3. WWAN Modem (Intel XMM7560, `iosm` driver): The modem fails to
-> reinitialize after hibernation, consistently showing "msg timeout"
-> errors in logs. The modem works correctly after a cold boot but
-> completely fails to recover after resuming from hibernate. Rescanning
-> PCI devices or reloading the `iosm` module does not resolve the issue.
-> Attempts to manually remove the device via
-> `/sys/bus/pci/devices/.../remove` result in a system hang.
+This patch series completes the long-standing effort to eliminate usage
+of the legacy struct_mutex from i915 driver.
 
-Do you have this commit in your test kernel?
-https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=0b6f6593aa8c3a05f155c12fd0e7ad33a5149c31
+Historically, struct_mutex was used to serialize access to global driver
+state across the DRM subsystem. Over time, it has been gradually
+replaced by more fine-grained and localized locking mechanism. The i915
+driver was the last remaining user of this lock, and even there, its
+usage had become redundant or outdated.
 
-With this commit you should *not* see any "msg timeout" on resume
-from hibernation.
-Either the modem will reinitialize successfully OR it will be
-completely dead and the iosm driver will refuse to re-bind to its
-PCI device in this case.
+Specifically, the mutex was only still used in two places: i915_irq.c
+and intel_guc_log.c. In both cases, the lock could either be removed or
+replaced with a more appropriate lock.
 
-The root cause of these issues seems to be that some platforms
-cut the power to this modem on S3 and/or S4 entry without abstracting
-this power control using proper power management interfaces.
+This series performs the following steps:
 
-Some platforms won't even restore modem power on resume until a
-device-specific reset ACPI method is called.
-This means the modem device PCI configuration space data won't be
-restored correctly on resume and so the device will be effectively
-dead until reboot.
+* Moves struct_mutex from drm_device to drm_i915_private, since i915 was
+  its only remaining user.
+* Removes or replaces all remaining uses of struct_mutex in i915 driver.
+* Updates or removes comments referring to struct_mutex to prevent
+  future confusion.
+* Deletes the lock entirely from the i915 driver once no longer in use.
+* Cleans up the corresponding TODO entry in Documentation/gpu/todo.rst
+  and comments about struct_mutex in Documentation/gpu/i915.rst.
 
-ModemManager has a whole issue dedicated to tracking power management
-issues in a very similar Intel XMM7360 modem on various platforms:
-https://gitlab.freedesktop.org/mobile-broadband/ModemManager/-/issues/992
+Some additional notes:
 
-AFAIK the major difference between XMM7360 and XMM7560 is that
-XMM7360 speaks proprietary XMMRPC protocol while XMM7560 speaks MBIM,
-but this should not make a difference here.
+* In intel_guc_log.c, a missing destructor for a lock was identified.
+  Since the series introduces a new lock in that area, this issue was
+  addressed first, to the two locks do not lack memory in kernel. 
+ 
+* Comments referencing struct_mutex were spread across various parts of
+  i915 codebase. To improve clarity, they were cleaned up across three
+  separate patches.
 
-Also, this is probably not a regression, just something that
-has never worked correctly (I mean the WWAN modem part).
-If it indeed used to work then a kernel log from a
-hibernate/restore cycle on a working kernel version would be nice
-to have.
+The only remianig reference to struct_mutex is in a comment in
+i915_gem_execbuffer.c, inside the eb_relocate_vma() function. It was
+kept because the intended locking mechanism for that case is unclear.
 
-> 
-> Best regards,
-> Andriy
-> 
-Thanks,
-Maciej
+
+Luiz Otavio Mello (9):
+  drm/i915: Move struct_mutex to drm_i915_private
+  drm/i915: Remove struct_mutex in i915_irq.c
+  drm/i915: Change mutex initialization in intel_guc_log
+  drm/i915: Replace struct_mutex with guc_lock in intel_guc_log
+  drm/i915: Change comments about legacy struct_mutex 1/3
+  drm/i915: Change comments about legacy struct_mutex 2/3
+  drm/i915: Change comments about legacy struct_mutex 3/3
+  drm/i915: Remove unused struct_mutex from drm_i915_private
+  drm/i915: Remove todo and comments about struct_mutex
+
+ Documentation/gpu/i915.rst                    |  7 ------
+ Documentation/gpu/todo.rst                    | 25 -------------------
+ drivers/gpu/drm/drm_drv.c                     |  2 --
+ drivers/gpu/drm/i915/display/intel_fbc.c      |  6 +----
+ .../gpu/drm/i915/gem/i915_gem_execbuffer.c    |  2 +-
+ drivers/gpu/drm/i915/gem/i915_gem_object.c    |  4 +--
+ drivers/gpu/drm/i915/gem/i915_gem_shrinker.c  |  4 +--
+ drivers/gpu/drm/i915/gem/i915_gem_wait.c      |  8 +++---
+ drivers/gpu/drm/i915/gt/intel_reset_types.h   |  2 +-
+ drivers/gpu/drm/i915/gt/uc/intel_guc_log.c    | 12 ++++++---
+ drivers/gpu/drm/i915/gt/uc/intel_guc_log.h    |  8 ++++++
+ drivers/gpu/drm/i915/i915_drv.h               |  3 +--
+ drivers/gpu/drm/i915/i915_gem.c               |  3 +--
+ drivers/gpu/drm/i915/i915_irq.c               |  6 -----
+ include/drm/drm_device.h                      | 10 --------
+ 15 files changed, 30 insertions(+), 72 deletions(-)
+
+-- 
+2.50.1
 
