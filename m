@@ -4,139 +4,82 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1C490C87FDA
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1592CC87FCF
 	for <intel-gfx@archiver.kernel.org>; Thu,  7 Aug 2025 14:02:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 966EB10E85A;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7CF1010E859;
 	Thu,  7 Aug 2025 14:02:28 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=vivo.com header.i=@vivo.com header.b="iO9WCwlq";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="OByNCURg";
 	dkim-atps=neutral
-Received: from SEYPR02CU001.outbound.protection.outlook.com
- (mail-koreacentralazon11013071.outbound.protection.outlook.com
- [40.107.44.71])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AAB0510E142;
- Thu,  7 Aug 2025 13:47:04 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=NMGBlQP6ga70dDqAyP6xGfcat0fjIXKSFuPgFwR+4g3z8b5zpWxhElW+VRY+wb2OkLoSiAZ/TaE4t/CGT91+a4eDBQbW0ujfnRj7c2k/l7FQtZNZAGXT5zbURFCQjka1sEYnsC2C5SNJID0iN4LRDFYT3haxrybia9+Ju1H9pggpyfLMYcCA05FP6We7+VadwdT/P5d3KX5QwHgyMLoTqYMF5FeTqA3OljD55i/eVJhCwnyanQz1caQ6ksgI8sPucPXJUjzZWRbkJeBY3INRVg8+UHMQkS62irO1DiuUySNneV9KzKF4ZRkuBo8bVRPTV1MXhjaQhQFtvzylDkEc8w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=aP0gdHnWiQ5XC4jj5pNk2kq8/VQPDl9jZhPCRIr5L3w=;
- b=K/Zd4wgStT5elWNidi4ojezapGsY8bp3YKILR2Ce9AqvtkcfikSnYdeMGrBcmT0cMb8wEllUdsVmHFKz0z905lTQ5jSxe2ovJ17hBf1HzXBzld2Fs/6ermiddB9JcAXgeE94ONxa/icgSM/Z5KtluowDWhOeiCgklua4urK10SUq2n/gWPVTwb7fOpNKhCuvjG9ko3lh2R/k6NfgI3RFXAoXHw4miR38XsmBeQ1no0k5f8i+C7yor7izDBxBfu031rPuelSTtP4eG6m4+fWPCIJDZGjdRX3UiIWBPV3/qtmPHvX/f8dGnGD5sUkrsoepHo3rCtJrXQfh1+M4MQHeZQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=vivo.com; dmarc=pass action=none header.from=vivo.com;
- dkim=pass header.d=vivo.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vivo.com; s=selector2; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=aP0gdHnWiQ5XC4jj5pNk2kq8/VQPDl9jZhPCRIr5L3w=;
- b=iO9WCwlqT2H6y+gOv+REIMgXtanW7c8o0e4wMZuALZ+p0sMKC/MZMHVNEIx4Hw7VquY71PBW3gqtkqdLhy/BdFOpv33isGStnTX1Kj53NDCTElRTpXkZ/BKe0LYrs+AKerPgcyaBB76FTAbrPkFG51tzHI+4nzPzyxJJ9k8l71iwsi3skuOXyf7KMAsZyjNQRuyp6frecnAYOQiJePbiI78kYZjlSr3VT2/lFuRB0p4JQNwQ5safq4OjXKVcR6aRVxrPLui1RX3jLmg7DEkqrZebrc7exn6ssUFCTDXGI6nymtsfKJRQ8m9IJbmX9jh14k7fZeKZI4RmJMdRl849Kg==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=vivo.com;
-Received: from SI2PR06MB5140.apcprd06.prod.outlook.com (2603:1096:4:1af::9) by
- SEYPR06MB6614.apcprd06.prod.outlook.com (2603:1096:101:177::5) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9009.16; Thu, 7 Aug 2025 13:46:56 +0000
-Received: from SI2PR06MB5140.apcprd06.prod.outlook.com
- ([fe80::468a:88be:bec:666]) by SI2PR06MB5140.apcprd06.prod.outlook.com
- ([fe80::468a:88be:bec:666%4]) with mapi id 15.20.9009.013; Thu, 7 Aug 2025
- 13:46:55 +0000
-From: Qianfeng Rong <rongqianfeng@vivo.com>
-To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Tvrtko Ursulin <tursulin@ursulin.net>,
- Qianfeng Rong <rongqianfeng@vivo.com>, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, intel-gfx@lists.freedesktop.org
-Subject: [PATCH] drm: Remove redundant __GFP_NOWARN
-Date: Thu,  7 Aug 2025 21:46:36 +0800
-Message-Id: <20250807134639.555274-1-rongqianfeng@vivo.com>
-X-Mailer: git-send-email 2.34.1
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: TYBP286CA0043.JPNP286.PROD.OUTLOOK.COM
- (2603:1096:404:10a::31) To SI2PR06MB5140.apcprd06.prod.outlook.com
- (2603:1096:4:1af::9)
+Received: from mail-ej1-f54.google.com (mail-ej1-f54.google.com
+ [209.85.218.54])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EF45010E2F0;
+ Wed,  6 Aug 2025 08:40:20 +0000 (UTC)
+Received: by mail-ej1-f54.google.com with SMTP id
+ a640c23a62f3a-af93c3bac8fso743911566b.2; 
+ Wed, 06 Aug 2025 01:40:20 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1754469619; x=1755074419; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=BQS17Gx8nIJNb+Eu5z6Nn4tpeVvUU+ssz+FqyUsLAP4=;
+ b=OByNCURgdw2rQqqRxBEsuiJVpPjIkGv2XXyTjHGc1XqRh+pkU3VUeMR8LfKCafjcSV
+ gk/GkIHtwpTBxTdhl+ecypreGgw4aXXiTRfGS8ELeXKuC1uyybJbJCN3d2eRLr+mwCf7
+ /3URF5WPMo57lUd7i4GcR5nIkMbvcHQWcXTxHNLHYevO0ICEaT1OMmEClTx0JcFsMLen
+ Cu0f5Teawc3YgiKu4l0Rs71evQjYbVpcSeAwzbLfe78btNUsCiDX77i9oY0ExMkbWYk+
+ MSeyqewGgxOnphHGFRuHjZn8kozoJ0d0yWtWMUto1GfN6EJXPOwngrNJbsK2EgCptylw
+ duxA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1754469619; x=1755074419;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=BQS17Gx8nIJNb+Eu5z6Nn4tpeVvUU+ssz+FqyUsLAP4=;
+ b=BlcJ0XfWCfQSjtjYdFpGBiKzMM+4HZcT3Hno/mzFf/r4lhQOVPEfsnLK/Ox9g4/bzj
+ Ry5mvWEBgJlNo/6SASBFe9bupFj7zduqje7+PO5bFmtYAdAYWGd9lfybgBxGSw5rm9CX
+ 0tOokMbFvBwM0ANEPIBrIRcfr71uZmHd2+ijxBAzCiy5snFUP/FALVzQCU+ShRWzwGdy
+ RwxoogWUSkO9JK2fErymueYIoqBu5+cidITrruFYG0/fm8BJjyJpZPCa0ki6RfCC8byp
+ MBJa1epbRTIM8yCKrq9A8hgImk9RzyMNjOMLCAhDXqY9B3+AlXEFtN8ZOqqFE1NmYkM3
+ ZDNg==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCVBdjLqflaYjOgL0Mym7vCRhtFIlERpeRKzpc39uAjK1HM/44xclbTtWBULf9QDW4JNQ6xKVjRgYc0=@lists.freedesktop.org,
+ AJvYcCXrZ8sXXr4KXjElTei7NGZVA5HiHW9Q9+XN7ycb5KANhpI6zX9p3+vEGBYyoiEvNfdZsQvALJ8cTi2C@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxztQCymeDxKUN44O7Wse+tpWc+iiaBju3A7sP/CMGOxu2+hA8p
+ 1lT9V6cVXj5bt4Abpan6kJUcnajn+W69iei0w0SiMDj5lbyxUMjN8Bph3eODfW4E1gUwsQq8iQt
+ nUB/nkphLfhH6I2GNGIteqr/3BL8YwdM=
+X-Gm-Gg: ASbGncsu6xulKE7KSYBCc/eRVsyCp6sM0xA0jUE6bUUb3io9uygvy9OhEZlPNMYR8fe
+ nIYiS985p1I0It9aEVdZ7BmvvA9GijQ9Wpmvyd4LI8uzb3wsVDpPF7qRw3dX1owjuulJpplJQSz
+ qNLcEiz/eMMcycgyA6kWrJ98Yuq9FDXm3n6BRnD6bXGDWuzK80OHp1Np36v98NdotYnYdsFw9I4
+ ngp9/9E
+X-Google-Smtp-Source: AGHT+IHfJ9svIzWODa8rgbvEIq584AUL0oyBljvd+PygocMjYZHjM2aXI+fyfYg0JbEiFEnyH4qTbculH1RSbuT6U5U=
+X-Received: by 2002:a17:907:980f:b0:aec:6600:dbe3 with SMTP id
+ a640c23a62f3a-af992bc3acfmr138428466b.56.1754469619115; Wed, 06 Aug 2025
+ 01:40:19 -0700 (PDT)
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SI2PR06MB5140:EE_|SEYPR06MB6614:EE_
-X-MS-Office365-Filtering-Correlation-Id: b3e34cc3-0aea-4453-6654-08ddd5b8df5d
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|366016|52116014|7416014|376014|921020|38350700014; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?VZzZC1vEoDscXtOlwzfbXiwonc9nhM+7aZcdTf5bhI4/AEwBf+uwnKnp8Xnz?=
- =?us-ascii?Q?rHMLs8eKOfHzyqriD37uNdwb0OSm9XSLLjzroKO7CU/MT705gBq5aNLPNzNu?=
- =?us-ascii?Q?Xp/waNZol4fn6Q+21ncCZy1urh953JNcAXUdwypoZDAOPfxNPWzwQfZX4xWc?=
- =?us-ascii?Q?TAO+GlC+edeIFv88+bSCYdp0K2gGIANQ2daGm2MBMD4PGB2Jo43KUCFGV1S8?=
- =?us-ascii?Q?Gy//WLz6e1DanaeqamyOMONULOSu9HbkhKkr+uks7IuZfjr37r1i86UC69ZU?=
- =?us-ascii?Q?hWSlPcxV0c4Sxqim7fsY/Yer3PKoxjI5b40AQ4vFRwfiJyjIdOnHwbObX7gl?=
- =?us-ascii?Q?ShK05gjpUor0x1pMXIorOKhn4RaMfkQ/gSqbMHZdHJtFK6gTfyn2Qw2weJNw?=
- =?us-ascii?Q?vXylv0SYpw3wRF95U7my8gmPX26lwLVkeciU8jb0fIfrh7KsBMAHZyMqpXf6?=
- =?us-ascii?Q?AN+C2t/Abz7NJoXWtUM8vr96UIbf5PHXk8vMFPURJDD7SMdo28kz6GFWVNSj?=
- =?us-ascii?Q?vzi/vfyrJJrGat3POhWYwC4ReeZEkNo9sGq9yINrQGvH/7v+AwT28UaQ4m5J?=
- =?us-ascii?Q?AoD95yTsvvgpWBvE253dtN9ucVrYYrgdk0NrE3EaC42rSRTR716cqylLoRNI?=
- =?us-ascii?Q?ETYtDV8bteQvzr1h5qsoXlrhPdMeRk3i4EWRCUmRkdIOcjslwzmPSjfVvk2P?=
- =?us-ascii?Q?GHkYiIGb5ZyvB4KzL1SGaALqD7R/JIoYIj8UUivIKCB9OVlfXd5999HUAAFe?=
- =?us-ascii?Q?keC6uXynM8HxyZ8asSDQvW33lDZwMSng6vodkPO42a1ZVnAokcIX0hKCwwcI?=
- =?us-ascii?Q?luAiLVHeoAcEE3h+Az0rq9xCb3XL2WLA04F2EerPJo6lxUqkBw52DI1amtLW?=
- =?us-ascii?Q?NZo2kSYoy9LBJJ9QPj4c8ETQyuVl91rDUuALgSfkibXWtKvGBJxs22XKjASi?=
- =?us-ascii?Q?cB/Rvk7xYdNWRYhr3opPwN44JtEnJZt4/A65+lJ5dXcZmnqnolY6zl+UstTq?=
- =?us-ascii?Q?tXNJQRobiWAeJH+presk+VEMTyc6tiaJUm6zCgDxcTxdK3wEBVTy1w2tE2i/?=
- =?us-ascii?Q?D1iu9ZsG2kHjHtXFWl0FvGbUJpzZaUrUj7rSqcy1Ge1iuNO2urqPnP5mpGIE?=
- =?us-ascii?Q?/jjo9L1pSrzNvcC37l0XplHcS9LQhGguDwl4m3NG7rLjT32RgntgRaIYbgYv?=
- =?us-ascii?Q?RSxupxp2hvmyWEn1E08tXTmeHY1ZOAw3sDsPa4l6cWG0QCEOaYiWqHj/9fNs?=
- =?us-ascii?Q?oVTeSxs6JrQvhfTUpT55sdYTR3x9aASgb1cXI5c4TvaU1OB8iPhNy6m7Lh39?=
- =?us-ascii?Q?rLrjgMenZRYQcCBr/GgYIqwfDBPKrnpuolPB8R8yW0yvZZT35JMmwmaojKOz?=
- =?us-ascii?Q?OP6FBYde4cqJPY1AVx/s4mXhvY3AdooajGBLOzRJZx0wL1vdBnwVQFRqlttz?=
- =?us-ascii?Q?f1dLRS5tkQWg7NSXNE1VSS0YuRLZWn1c3S7As4jomvmgr5vvtZ2nSbvH1YBV?=
- =?us-ascii?Q?ZHzvFlM+YxwYono=3D?=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:SI2PR06MB5140.apcprd06.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(366016)(52116014)(7416014)(376014)(921020)(38350700014);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?43lEFtQZjzzS52c4D5UIDIrcKNbqvgQTuHaLyn1XhbKHSqhrOKSWwyyU4+lG?=
- =?us-ascii?Q?iza173tlmKPJKFOaBNOk9J/EnmC0CCF9julGkYvqszFqjoATP4krEa1fpE1O?=
- =?us-ascii?Q?IC4GOGk7MbsjeKAE/DeOqmID2Qp4ANQbU2R740ZbfxQFEx8a9QDut749NptW?=
- =?us-ascii?Q?ggHLSr1foxfrOkUk7Pz2+fZb+8+gpTgUX6UBadrCLCJ6GWwoWfyKtc7CmmB8?=
- =?us-ascii?Q?Ysx4ddeXKpa4siVne2FI3TC+TYZVyix0yZAk3YV31vvJWaup/M7Rp3Zio53j?=
- =?us-ascii?Q?pivGuIjpEEk/e32L//+q5m3kv6E9ktE9sYCmY0Vl4DCv52QU9DGkWCLMuUhh?=
- =?us-ascii?Q?7k9nTG0zV/I00yD2JLwENLY1eGn57JDhB5zPdHq7vciHvgNTBrdgcSdWjwP2?=
- =?us-ascii?Q?EoEBqeyV1KdjgZRJRkh59vxxHvl2yb7fb2erY9GGtLxu1lGFKXaAH0K3Ypp3?=
- =?us-ascii?Q?Zxb1CMb6q372MDkj+BxFiHLzk9NYdD6p/DNrnLoG2xukNzF25MYhNnkxjtxy?=
- =?us-ascii?Q?/MZJFANkIwAo2JCMDiX9FkW7Ksh7EBvfEHJd5/pgnbdLFd36c2KngI+wAnaf?=
- =?us-ascii?Q?aU47ZqLGOE/ii4AmdSgdKKQ47Az0dapQH48aQJHMVpF7UY+/KiG4LUxRJoin?=
- =?us-ascii?Q?VMXc4yTQfl2cvWhCkWHHhDTYO2pmI2Ff6ISJVnxSMNSBJqccCETCrh3rUmEO?=
- =?us-ascii?Q?ZJFhytzAGhJ2iBgWWxbqoSdi6w3N6BrWBtF3NRRDBfA3gYmjPpMLKNBd06tq?=
- =?us-ascii?Q?CyIcXT5OhG1E6QMN66RgChTIdCYpgmsXgssDzN6HfqI8664Uq1Rs0DqIXfsa?=
- =?us-ascii?Q?IjX9UDKdOQE0X9bqetvKHfr2nXVcCZ/FP8eab+tsjJRVHLYojj3jnPFBZmh4?=
- =?us-ascii?Q?IyB58g0/IOqHiC5W65M4+g1Lqm+oTrtmzx5mPFrJMh/dw7DjpUsIFzyWO71/?=
- =?us-ascii?Q?yZVRnC8sxxhAr059mOqqGh9PwL4/hiT4TTewd1NWTWUcIWrg7c3xtEs/4kav?=
- =?us-ascii?Q?Za2OJf0jFR8iGyZy4BHW1Yb49LcCT+/XiIXkHRlB7xVR277J98eidHjX36Rs?=
- =?us-ascii?Q?M6kyaOOeKzE/qOHVNpMpIReIcgOlhI+B8kV1ngMwcNE6FOxg785dVwnhCScD?=
- =?us-ascii?Q?OBBAgXFLNC4D+V3UpZhjE+dLxrUVhvpr364ZAaNozgidifSZMaTOfb4jIVDm?=
- =?us-ascii?Q?dZstYapkjP887cWXrD2Y5NhdTyCT5nevp/md5zUschMhqykkp8tmCtiONHh6?=
- =?us-ascii?Q?MLIOT8NE2JPcZOomZwOKqNScnWH0en9AcGfemoaDV1AIPKOoIdsU+1oIoOOx?=
- =?us-ascii?Q?2v2OdFGsyX9rksp5xPwWwD/6Xr8l2klW3lPZPlng9WV2k95E06XxOWe3LETp?=
- =?us-ascii?Q?1iXqxi4/e6CJroJD3GQyflU35KQKhqafVEqUbUIG5UIYs48xVoUYIs3hxl96?=
- =?us-ascii?Q?9QpFOscziVpbA5CcVWhgl3PRIrQQDQsBLNvFBVhAjH5suHMqC+0fD8HzVeXE?=
- =?us-ascii?Q?nRwsgaA/WBeenEP/w382FNH0u6AGapvoVv75Z3Dvo5+ujRodsDDZYF82b4EW?=
- =?us-ascii?Q?TiHaEoOqqHaWk7QkZ3A8LyZPqcNscJhbjUbLGTTS?=
-X-OriginatorOrg: vivo.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: b3e34cc3-0aea-4453-6654-08ddd5b8df5d
-X-MS-Exchange-CrossTenant-AuthSource: SI2PR06MB5140.apcprd06.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Aug 2025 13:46:55.7238 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 923e42dc-48d5-4cbe-b582-1a797a6412ed
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: lUUBsmuiV6NSmO+IjoeerDv2eQ09MfPdlJVBAdNLp/JZgZWM4/KhDH6ejmigAeTLEr/QV4NneHbpoMRGe6Y4RA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SEYPR06MB6614
+References: <CACTEcX6oXBot1VBApOyKVMVXsAN9BsvQMLa8J0iKpNeB-eLttQ@mail.gmail.com>
+ <642d439ea1be8e48ee5c47fd3921a786452fb931@intel.com>
+ <CACTEcX5Y3PNXNkhnK1dGFe+k3sigOZNpj66KKGAS9XeHqRu35w@mail.gmail.com>
+ <0b15e33603a46f6cc7ad7d09a156044f11367169@intel.com>
+ <CACTEcX47bUd2tp=LYkQnhK29Js=vLN0JfXL8Aq6mOFBVYumpzQ@mail.gmail.com>
+ <CABgObfZKKeqMrAUyS8CB4ARkW_8Z9QREgpgYcq2jxoQ9ppS6MA@mail.gmail.com>
+ <CACTEcX7oa+Shj=uYiRMoWpng+RZXDeQrOa-VTRmzVVtXJMCgLQ@mail.gmail.com>
+In-Reply-To: <CACTEcX7oa+Shj=uYiRMoWpng+RZXDeQrOa-VTRmzVVtXJMCgLQ@mail.gmail.com>
+From: Andy Mindful <andy.mindful@gmail.com>
+Date: Wed, 6 Aug 2025 11:40:07 +0300
+X-Gm-Features: Ac12FXxTKMWG1pZklTF0P1qlwOqSdhMr6Q33eeVUrsVUud3FdPfuQWhVKcJIN3Y
+Message-ID: <CACTEcX7hsRkzYEBg4pQd5s36p_ZXJM=dtxSGmBjfkt5sWrXP8g@mail.gmail.com>
+Subject: Re: [REGRESSION] tty lockup and WWAN loss after hibernate/suspend in
+ 6.8+ on ThinkPad X1 Carbon Gen 10
+To: regressions@lists.linux.dev
+Cc: linux-kernel@vger.kernel.org, linux-pm@vger.kernel.org, 
+ intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
+ linux-acpi@vger.kernel.org, rafael@kernel.org, ville.syrjala@linux.intel.com, 
+ tglx@linutronix.de, Christian Brauner <brauner@kernel.org>, 
+ Jani Nikula <jani.nikula@intel.com>, Paolo Bonzini <pbonzini@redhat.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-Mailman-Approved-At: Thu, 07 Aug 2025 14:02:27 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -153,79 +96,121 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Commit 16f5dfbc851b ("gfp: include __GFP_NOWARN in GFP_NOWAIT")
-made GFP_NOWAIT implicitly include __GFP_NOWARN.
+Hello,
 
-Therefore, explicit __GFP_NOWARN combined with GFP_NOWAIT
-(e.g., `GFP_NOWAIT | __GFP_NOWARN`) is now redundant. Let's clean
-up these redundant flags across subsystems.
+Can somebody advise how to properly bisect issues in linux-stable
+repository between v6.7.11 to v6.8-rc1 tags?
 
-No functional changes.
+I tried two options:
 
-Signed-off-by: Qianfeng Rong <rongqianfeng@vivo.com>
----
- drivers/gpu/drm/drm_modeset_lock.c               | 4 ++--
- drivers/gpu/drm/i915/gt/intel_engine_heartbeat.c | 4 ++--
- drivers/gpu/drm/i915/i915_active.c               | 2 +-
- 3 files changed, 5 insertions(+), 5 deletions(-)
+1. No skip
 
-diff --git a/drivers/gpu/drm/drm_modeset_lock.c b/drivers/gpu/drm/drm_modeset_lock.c
-index beb91a13a312..58eac20a8138 100644
---- a/drivers/gpu/drm/drm_modeset_lock.c
-+++ b/drivers/gpu/drm/drm_modeset_lock.c
-@@ -88,7 +88,7 @@ static noinline depot_stack_handle_t __drm_stack_depot_save(void)
- 
- 	n = stack_trace_save(entries, ARRAY_SIZE(entries), 1);
- 
--	return stack_depot_save(entries, n, GFP_NOWAIT | __GFP_NOWARN);
-+	return stack_depot_save(entries, n, GFP_NOWAIT);
- }
- 
- static void __drm_stack_depot_print(depot_stack_handle_t stack_depot)
-@@ -98,7 +98,7 @@ static void __drm_stack_depot_print(depot_stack_handle_t stack_depot)
- 	unsigned int nr_entries;
- 	char *buf;
- 
--	buf = kmalloc(PAGE_SIZE, GFP_NOWAIT | __GFP_NOWARN);
-+	buf = kmalloc(PAGE_SIZE, GFP_NOWAIT);
- 	if (!buf)
- 		return;
- 
-diff --git a/drivers/gpu/drm/i915/gt/intel_engine_heartbeat.c b/drivers/gpu/drm/i915/gt/intel_engine_heartbeat.c
-index 8d4bb95f8424..22432912db2e 100644
---- a/drivers/gpu/drm/i915/gt/intel_engine_heartbeat.c
-+++ b/drivers/gpu/drm/i915/gt/intel_engine_heartbeat.c
-@@ -220,7 +220,7 @@ static void heartbeat(struct work_struct *wrk)
- 		goto out;
- 	}
- 
--	rq = heartbeat_create(ce, GFP_NOWAIT | __GFP_NOWARN);
-+	rq = heartbeat_create(ce, GFP_NOWAIT);
- 	if (IS_ERR(rq))
- 		goto unlock;
- 
-@@ -282,7 +282,7 @@ static int __intel_engine_pulse(struct intel_engine_cs *engine)
- 	GEM_BUG_ON(!intel_engine_has_preemption(engine));
- 	GEM_BUG_ON(!intel_engine_pm_is_awake(engine));
- 
--	rq = heartbeat_create(ce, GFP_NOWAIT | __GFP_NOWARN);
-+	rq = heartbeat_create(ce, GFP_NOWAIT);
- 	if (IS_ERR(rq))
- 		return PTR_ERR(rq);
- 
-diff --git a/drivers/gpu/drm/i915/i915_active.c b/drivers/gpu/drm/i915/i915_active.c
-index 0dbc4e289300..402043cd84d5 100644
---- a/drivers/gpu/drm/i915/i915_active.c
-+++ b/drivers/gpu/drm/i915/i915_active.c
-@@ -727,7 +727,7 @@ int i915_request_await_active(struct i915_request *rq,
- static int sw_await_fence(void *arg, struct dma_fence *fence)
- {
- 	return i915_sw_fence_await_dma_fence(arg, fence, 0,
--					     GFP_NOWAIT | __GFP_NOWARN);
-+					     GFP_NOWAIT);
- }
- 
- int i915_sw_fence_await_active(struct i915_sw_fence *fence,
--- 
-2.34.1
+git checkout v6.7.11
+git bisect start
+git bisect good 6fc5460ed8dd0edf29e7c5cfb1ef9b1aa04208a1
+git bisect bad 6613476e225e090cc9aad49be7fa504e290dd33d
+git bisect bad 0dd3ee31125508cd67f7e7172247f05b7fd1753a
 
+Leads to:
+The merge base 0dd3ee31125508cd67f7e7172247f05b7fd1753a is bad.
+This means the bug has been fixed between
+0dd3ee31125508cd67f7e7172247f05b7fd1753a and
+[6fc5460ed8dd0edf29e7c5cfb1ef9b1aa04208a1].
+
+What should be done next?
+
+2. Skip
+git checkout v6.7.11
+git bisect start
+git bisect good 6fc5460ed8dd0edf29e7c5cfb1ef9b1aa04208a1
+git bisect bad 6613476e225e090cc9aad49be7fa504e290dd33d
+git bisect bad 0dd3ee31125508cd67f7e7172247f05b7fd1753a
+git bisect skip 0dd3ee31125508cd67f7e7172247f05b7fd1753a
+git bisect good ba5afb9a84df2e6b26a1b6389b98849cd16ea757
+git bisect good 61da593f4458f25c59f65cfd9ba1bda570db5db7
+git bisect bad e38f734add21d75d76dbcf7b214f4823131c1bae
+git bisect bad 5d197e97fb106c09d3d013be341e5961fd70ec8a
+git bisect good 1b1934dbbdcf9aa2d507932ff488cec47999cf3f
+git bisect bad 8c9244af4dc8680a453e759331f0c93d5bde1898
+git bisect bad 783288010035e4c250a0b6491a4642cdb8d30548
+git bisect bad 1c3c87d720cbd1ff86dc1bfc6df8ee9adce5879b
+git bisect good 8d99e347c097ab3f9fb93d0f88dddf20051d7c88
+git bisect bad 6c370dc65374db5afbc5c6c64c662f922a2555ad
+git bisect good 43f623f350ce1c46c53b6b77f4dbe741af8c44f3
+git bisect good 8a89efd43423cb3005c5e641e846184e292c1465
+git bisect good 5d74316466f4aabdd2ee1e33b45e4933c9bc3ea1
+
+Leads to:
+
+# first bad commit: [6c370dc65374db5afbc5c6c64c662f922a2555ad] Merge
+branch 'kvm-guestmemfd' into HEAD
+
+Which is incorrect as per Paolo Bonzini comment.
+
+I'd like to test this thing, because hibernation is quite crucial in a
+multi-boot environment and may save a lot of time while working with
+different systems.
+
+Thank you in advance.
+
+=D0=BF=D0=BD, 4 =D1=81=D0=B5=D1=80=D0=BF. 2025=E2=80=AF=D1=80. =D0=BE 22:49=
+ Andy Mindful <andy.mindful@gmail.com> =D0=BF=D0=B8=D1=88=D0=B5:
+>
+> Can you please advise on how to bisect further?
+>
+> andy@lenovo:~/linux-stable$ git bisect bad
+> The merge base 0dd3ee31125508cd67f7e7172247f05b7fd1753a is bad.
+> This means the bug has been fixed between
+> 0dd3ee31125508cd67f7e7172247f05b7fd1753a and
+> [6fc5460ed8dd0edf29e7c5cfb1ef9b1aa04208a1].
+>
+> andy@DESKTOP-0R165CF:~/linux-stable$ git bisect log
+> git bisect start
+> # status: waiting for both good and bad commits
+> # good: [6fc5460ed8dd0edf29e7c5cfb1ef9b1aa04208a1] Linux 6.7.11
+> git bisect good 6fc5460ed8dd0edf29e7c5cfb1ef9b1aa04208a1
+> # status: waiting for bad commit, 1 good commit known
+> # bad: [6613476e225e090cc9aad49be7fa504e290dd33d] Linux 6.8-rc1
+> git bisect bad 6613476e225e090cc9aad49be7fa504e290dd33d
+> # bad: [0dd3ee31125508cd67f7e7172247f05b7fd1753a] Linux 6.7
+> git bisect bad 0dd3ee31125508cd67f7e7172247f05b7fd1753a
+>
+> andy@lenovo:~/linux-stable$ git status
+> HEAD detached at 0dd3ee311255
+> You are currently bisecting, started from branch '6fc5460ed8dd'.
+> (use "git bisect reset" to get back to the original branch)
+>
+> It is not moving further.
+>
+> =D0=BF=D0=BD, 4 =D1=81=D0=B5=D1=80=D0=BF. 2025=E2=80=AF=D1=80. =D0=BE 17:=
+50 Paolo Bonzini <pbonzini@redhat.com> =D0=BF=D0=B8=D1=88=D0=B5:
+> >
+> > On Mon, Aug 4, 2025 at 12:57=E2=80=AFPM Andy Mindful <andy.mindful@gmai=
+l.com> wrote:
+> > > Double-checked bisect, looks like I've have found broken commit:
+> > >
+> > > > > git bisect bad
+> > > > > The merge base ba5afb9a84df2e6b26a1b6389b98849cd16ea757 is bad.
+> > > > > This means the bug has been fixed between
+> > > > > ba5afb9a84df2e6b26a1b6389b98849cd16ea757 and
+> > > > > [1b1934dbbdcf9aa2d507932ff488cec47999cf3f
+> > > > > 61da593f4458f25c59f65cfd9ba1bda570db5db7
+> > > > > 6fc5460ed8dd0edf29e7c5cfb1ef9b1aa04208a1
+> > > > > ba5afb9a84df2e6b26a1b6389b98849cd16ea757].
+> >
+> > This skip is messing up the results:
+> >
+> > # skip: [0dd3ee31125508cd67f7e7172247f05b7fd1753a] Linux 6.7
+> > git bisect skip 0dd3ee31125508cd67f7e7172247f05b7fd1753a
+> >
+> > and there are still 3858 commits in
+> > ba5afb9a84df2e6b26a1b6389b98849cd16ea757..{1b1934dbbdcf9aa2d507932ff488=
+cec47999cf3f,61da593f4458f25c59f65cfd9ba1bda570db5db7,ba5afb9a84df2e6b26a1b=
+6389b98849cd16ea757}
+> >
+> > Any chance you can get 6.7 to work and restrict the range further?
+> >
+> > Thanks,
+> >
+> > Paolo
+> >
