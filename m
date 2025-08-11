@@ -4,27 +4,28 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7CDF0C87FD2
-	for <intel-gfx@archiver.kernel.org>; Mon, 11 Aug 2025 13:49:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1ADFCC87FDB
+	for <intel-gfx@archiver.kernel.org>; Mon, 11 Aug 2025 14:27:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 22AA910E3D6;
-	Mon, 11 Aug 2025 13:49:22 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 75DF710E4F0;
+	Mon, 11 Aug 2025 14:27:17 +0000 (UTC)
 Received: from 1538d3639d33 (emeril.freedesktop.org [131.252.210.167])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2C80E10E46F;
- Mon, 11 Aug 2025 13:49:21 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BDE1310E0DA;
+ Mon, 11 Aug 2025 14:27:15 +0000 (UTC)
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
-Subject: =?utf-8?q?=E2=9C=97_LGCI=2EVerificationFailed=3A_failure_for_use_new_debugfs?=
- =?utf-8?q?_device-centered_functions?=
+Subject: =?utf-8?q?=E2=9C=97_LGCI=2EVerificationFailed=3A_failure_for_series_starting?=
+ =?utf-8?q?_with_=5BRFC=2C1/2=5D_drm/i915/debugfs=3A_use_new_debugfs_device-?=
+ =?utf-8?q?centered_functions?=
 From: Patchwork <patchwork@emeril.freedesktop.org>
 To: "Brahmajit Das" <listout@listout.xyz>
 Cc: intel-gfx@lists.freedesktop.org
-Date: Mon, 11 Aug 2025 13:49:21 -0000
-Message-ID: <175492016117.226654.7738345527688193546@1538d3639d33>
+Date: Mon, 11 Aug 2025 14:27:15 -0000
+Message-ID: <175492243567.227841.14447346074269966106@1538d3639d33>
 X-Patchwork-Hint: ignore
-References: <20250808225226.30465-1-listout@listout.xyz>
-In-Reply-To: <20250808225226.30465-1-listout@listout.xyz>
+References: <32c55ab0b1452a1fd8ef49e8a1ca640ad5bd9d76@intel.com>
+In-Reply-To: <32c55ab0b1452a1fd8ef49e8a1ca640ad5bd9d76@intel.com>
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -43,8 +44,8 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 == Series Details ==
 
-Series: use new debugfs device-centered functions
-URL   : https://patchwork.freedesktop.org/series/152776/
+Series: series starting with [RFC,1/2] drm/i915/debugfs: use new debugfs device-centered functions
+URL   : https://patchwork.freedesktop.org/series/152777/
 State : failure
 
 == Summary ==
