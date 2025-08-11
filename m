@@ -4,47 +4,54 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5AFC4C87FD2
-	for <intel-gfx@archiver.kernel.org>; Mon, 11 Aug 2025 13:22:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5402BC88CB9
+	for <intel-gfx@archiver.kernel.org>; Mon, 11 Aug 2025 13:22:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B6EC710E479;
+	by gabe.freedesktop.org (Postfix) with ESMTP id BFA5510E47A;
 	Mon, 11 Aug 2025 13:22:15 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=listout.xyz header.i=@listout.xyz header.b="uPEC8Jde";
+	dkim=pass (2048-bit key; unprotected) header.d=listout.xyz header.i=@listout.xyz header.b="nuxsY5Op";
 	dkim-atps=neutral
-Received: from mout-p-202.mailbox.org (mout-p-202.mailbox.org [80.241.56.172])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C275010E1FC;
- Fri,  8 Aug 2025 22:59:59 +0000 (UTC)
-Received: from smtp2.mailbox.org (smtp2.mailbox.org [10.196.197.2])
+Received: from mout-p-201.mailbox.org (mout-p-201.mailbox.org [80.241.56.171])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 38A3E10E10E;
+ Mon, 11 Aug 2025 13:17:23 +0000 (UTC)
+Received: from smtp1.mailbox.org (smtp1.mailbox.org
+ [IPv6:2001:67c:2050:b231:465::1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by mout-p-202.mailbox.org (Postfix) with ESMTPS id 4bzK7844GJz9t1G;
- Sat,  9 Aug 2025 00:52:52 +0200 (CEST)
+ by mout-p-201.mailbox.org (Postfix) with ESMTPS id 4c0wCg6KGhz9sTZ;
+ Mon, 11 Aug 2025 15:17:19 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=listout.xyz; s=MBO0001;
- t=1754693572;
+ t=1754918239;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=AoCzKBpu2Jxv88ZyAsLhizqpgOm2OwFBGMZsZf5hDwE=;
- b=uPEC8JdeN0SNqQ3gpVTiIErKBXBs2SmifNB8pZGIWWaf3ergxltAGu6QKwJeVgNwgl/3LE
- X+RMZ7IQdJ50YPHqkOUefJvFYjx4nK7Kv7VLr3mq/zU2h8WPXmSTb6xhPqHDilajC6Fjrk
- LUOgJdP/KC+0eXW9zMwHC0S1eyAK8L8khaPSGTKSpYWJ6xVYm31bvv3XeweHhJAWCa3/bU
- 64JXOLFUlpbiaQ1UJ9XG2lpo9RqPg8WvqJ7xbgD5xcwuDmIf27iY8T8/AuFpcy/3LUuMby
- RZo553NmIGIGJ3MJZHQT47b6y20CsxCyjPPle645Ab1IyU/SZjkacyy9J71Kjw==
+ bh=D/60RwIO/b0dOS1Vd6kdShsnw/FwFxOCsLj3X7+hP30=;
+ b=nuxsY5Op4iWaKO+yRzT+kGXjHj0yqMjwne3ySyzP+imQ7KxlAVsxElvXV+Rj8VYXN4xhjM
+ MxqRpz0EHO0wy7yUEn/iHAjQLxSUV0th70FxyH0KWg64+7gxJ40n450RFR6c7Ml/3+8qt9
+ +WgLj55TKU2ECyKStpISYCA88PB26fT6ZC/9JU+QDxOROI19/mG7G9eJvqhLDHlDUbRmKb
+ ZMuQWJDnE3OqvXqtVD08VYlKDan0Ik5i9jxEIZ8m6k5AFTC3OkQgiUHHtk7ePMJmBo44pH
+ DqlrtaXgD6wdy7VTUEJA5JSkbjzhG+G1KOCEGBsbYi0a7AIOwFpkllwV2NqfAw==
+Authentication-Results: outgoing_mbo_mout; dkim=none;
+ spf=pass (outgoing_mbo_mout: domain of listout@listout.xyz designates
+ 2001:67c:2050:b231:465::1 as permitted sender)
+ smtp.mailfrom=listout@listout.xyz
 From: Brahmajit Das <listout@listout.xyz>
-To: intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-next@vger.kernel.org
-Cc: jani.nikula@linux.intel.com, rodrigo.vivi@intel.com,
- joonas.lahtinen@linux.intel.com, tursulin@ursulin.net, simona@ffwll.ch
-Subject: [RFC PATCH 2/2] drm/i915: use new debugfs device-centered functions
-Date: Sat,  9 Aug 2025 04:22:26 +0530
-Message-ID: <20250808225226.30465-3-listout@listout.xyz>
-In-Reply-To: <20250808225226.30465-1-listout@listout.xyz>
-References: <20250808225226.30465-1-listout@listout.xyz>
+To: jani.nikula@linux.intel.com
+Cc: dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
+ intel-xe@lists.freedesktop.org, joonas.lahtinen@linux.intel.com,
+ linux-next@vger.kernel.org, listout@listout.xyz, rodrigo.vivi@intel.com,
+ simona@ffwll.ch, tursulin@ursulin.net
+Subject: [RFC PATCH 0/2] use new debugfs device-centered functions
+Date: Mon, 11 Aug 2025 18:47:06 +0530
+Message-ID: <20250811131708.82865-1-listout@listout.xyz>
+In-Reply-To: <32c55ab0b1452a1fd8ef49e8a1ca640ad5bd9d76@intel.com>
+References: <32c55ab0b1452a1fd8ef49e8a1ca640ad5bd9d76@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-Rspamd-Queue-Id: 4c0wCg6KGhz9sTZ
 X-Mailman-Approved-At: Mon, 11 Aug 2025 13:22:15 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -63,38 +70,21 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 Replace the use of drm_debugfs_create_files() with the new
 drm_debugfs_add_files() function, which centers the debugfs files
-management on the drm_device instead of drm_minor.
+management on the drm_device.
 
-Signed-off-by: Brahmajit Das <listout@listout.xyz>
----
+V2 changes: based on drm-tip.
+
+Refer:
+https://docs.kernel.org/gpu/todo.html#clean-up-the-debugfs-support
+
+Brahmajit Das (2):
+  drm/i915/debugfs: use new debugfs device-centered functions
+  drm/i915: use new debugfs device-centered functions
+
  drivers/gpu/drm/i915/display/intel_display_debugfs.c | 7 +++----
- 1 file changed, 3 insertions(+), 4 deletions(-)
+ drivers/gpu/drm/i915/i915_debugfs.c                  | 7 +++----
+ 2 files changed, 6 insertions(+), 8 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_display_debugfs.c b/drivers/gpu/drm/i915/display/intel_display_debugfs.c
-index ce3f9810c42d..92db369f1b94 100644
---- a/drivers/gpu/drm/i915/display/intel_display_debugfs.c
-+++ b/drivers/gpu/drm/i915/display/intel_display_debugfs.c
-@@ -805,7 +805,7 @@ static const struct file_operations i915_fifo_underrun_reset_ops = {
- 	.llseek = default_llseek,
- };
- 
--static const struct drm_info_list intel_display_debugfs_list[] = {
-+static const struct drm_debugfs_info intel_display_debugfs_list[] = {
- 	{"intel_display_caps", intel_display_caps, 0},
- 	{"i915_frontbuffer_tracking", i915_frontbuffer_tracking, 0},
- 	{"i915_sr_status", i915_sr_status, 0},
-@@ -825,9 +825,8 @@ void intel_display_debugfs_register(struct intel_display *display)
- 	debugfs_create_file("i915_fifo_underrun_reset", 0644, minor->debugfs_root,
- 			    display, &i915_fifo_underrun_reset_ops);
- 
--	drm_debugfs_create_files(intel_display_debugfs_list,
--				 ARRAY_SIZE(intel_display_debugfs_list),
--				 minor->debugfs_root, minor);
-+	drm_debugfs_add_files(minor->dev, intel_display_debugfs_list,
-+			      ARRAY_SIZE(intel_display_debugfs_list));
- 
- 	intel_bios_debugfs_register(display);
- 	intel_cdclk_debugfs_register(display);
 -- 
 2.50.1
 
