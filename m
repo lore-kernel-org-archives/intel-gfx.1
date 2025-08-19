@@ -4,52 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E9EBCCA0EF8
-	for <intel-gfx@archiver.kernel.org>; Tue, 19 Aug 2025 07:04:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A5B53CA0EE6
+	for <intel-gfx@archiver.kernel.org>; Tue, 19 Aug 2025 07:04:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9433910E54A;
-	Tue, 19 Aug 2025 07:04:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4862C10E544;
+	Tue, 19 Aug 2025 07:04:19 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="e1L/QUI2";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="kJPUb3/L";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.8])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9F3B210E541;
- Tue, 19 Aug 2025 07:04:13 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EB17410E543;
+ Tue, 19 Aug 2025 07:04:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1755587053; x=1787123053;
+ t=1755587057; x=1787123057;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=IzQYhbmuGTQpsRUqBPH3XwlHPfiCXkVI9zAmnYDnB7E=;
- b=e1L/QUI2MjS4SE9CirpCj86sxJuP3qm5x4crQ7Uri2hVvNg0P1iZMqNQ
- cyjVFQ+p4eG3vLLSegUkf/70kbKmtm2l3B55lO97naUBf2OD5XjLuPXUM
- hv/vQeTmazPf1EJyShArO3u836hbQtaT0T9WyDKSE8FJiCA1FbU89oECv
- Av3sOJZIajZI4Vt06cV5G4WtOy25fYBQ0mc87vrfC2v6J/4E9cEEJSkum
- tIqmZp7EWTxVF72ulFSszQSzWdIW742h/syQgZuI49QeHBtvoEKB7hvn2
- 51LPcrrCR7Wrd8krkzgKapkmpxsZ8tpzHQQxRv5uKqBY4aIfxBb+lBlrA w==;
-X-CSE-ConnectionGUID: DrQTpEmgQ4inCDeN3RytCQ==
-X-CSE-MsgGUID: eSazquIPQRWdW2W2tp7THg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11526"; a="75392354"
-X-IronPort-AV: E=Sophos;i="6.17,300,1747724400"; d="scan'208";a="75392354"
+ bh=knhcCynXrL2U3chwauB2RRS0NMEqgjB7N8fghSlAuIM=;
+ b=kJPUb3/L90lYZOBOlj8OVdhCvEvoAVygrRb6W4VucCE3Jkj1/EQxxtLB
+ /vycOCCQomRhTIVkthKAnh59f9MzQi4Dt8mdSRhZoZ4F56/icbZ8Bn34g
+ O6ffWUo+Gw2IseoPDNthh27RJNq3iHRbqY84gVjlvmSO4Lzqtk2D1Stav
+ eLL8LdZZBXnF7xxl62jdGKL/OiqIwITTW4V44bN16//btHG3g4qkvDzIv
+ dcx/jXr8dDzQC5UgRQ4ojEslykqxLXehmCQGeCqu3kxBN+/FCequYQMQM
+ m1wNcYtmlhV7NwoK/7ECottPA79JK0nhmegWCjf+evga+UwKTGC+Xn00w g==;
+X-CSE-ConnectionGUID: MXhziKVZTvmKbgzc0TeOmg==
+X-CSE-MsgGUID: 1CA0eRWwR/Gq7zyuPJfRKA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11526"; a="75392360"
+X-IronPort-AV: E=Sophos;i="6.17,300,1747724400"; d="scan'208";a="75392360"
 Received: from orviesa008.jf.intel.com ([10.64.159.148])
  by fmvoesa102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 19 Aug 2025 00:04:13 -0700
-X-CSE-ConnectionGUID: xcMs9N3KTUuehEZVNVlkiQ==
-X-CSE-MsgGUID: vUx/Z4UuTGuVgKbt5GUAkw==
+ 19 Aug 2025 00:04:16 -0700
+X-CSE-ConnectionGUID: PT02Kl1xQ4GShECL/ZowXw==
+X-CSE-MsgGUID: +SzAVOu2T2y50fN8v346bQ==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.17,300,1747724400"; d="scan'208";a="168008253"
+X-IronPort-AV: E=Sophos;i="6.17,300,1747724400"; d="scan'208";a="168008308"
 Received: from dalessan-mobl3.ger.corp.intel.com (HELO jhogande-mobl1..)
  ([10.245.244.65])
  by orviesa008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 19 Aug 2025 00:04:12 -0700
+ 19 Aug 2025 00:04:15 -0700
 From: =?UTF-8?q?Jouni=20H=C3=B6gander?= <jouni.hogander@intel.com>
 To: intel-gfx@lists.freedesktop.org,
 	intel-xe@lists.freedesktop.org
 Cc: =?UTF-8?q?Jouni=20H=C3=B6gander?= <jouni.hogander@intel.com>
-Subject: [PATCH v7 2/6] drm/i915/psr: Add intel_psr_use_trans_push to query if
- TRANS_PUSH is used
-Date: Tue, 19 Aug 2025 10:03:49 +0300
-Message-ID: <20250819070353.3062341-3-jouni.hogander@intel.com>
+Subject: [PATCH v7 4/6] drm/i915/dsb: Set DSB_SKIP_WAITS_EN chicken bit for
+ LunarLake and onwards
+Date: Tue, 19 Aug 2025 10:03:51 +0300
+Message-ID: <20250819070353.3062341-5-jouni.hogander@intel.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20250819070353.3062341-1-jouni.hogander@intel.com>
 References: <20250819070353.3062341-1-jouni.hogander@intel.com>
@@ -72,45 +72,57 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-This is a preparation to start using trans push as a PSR "Frame Change"
-event. It adds intel_psr_use_trans_push placeholder which return false for
-now until we have everything in place.
-
-v2:
-  - modify commit message
-  - add TODO
+On LunarLake we are using TRANS_PUSH mechanism to trigger "Frame Change"
+event. This way we have more control on when PSR HW is woken up. I.e. not
+every display register write is triggering sending update. This allows us
+setting DSB_SKIP_WAITS_EN chicken bit as well.
 
 Signed-off-by: Jouni Högander <jouni.hogander@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_psr.c | 6 ++++++
- drivers/gpu/drm/i915/display/intel_psr.h | 1 +
- 2 files changed, 7 insertions(+)
+ drivers/gpu/drm/i915/display/intel_dsb.c | 15 +++++++++++----
+ 1 file changed, 11 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_psr.c b/drivers/gpu/drm/i915/display/intel_psr.c
-index 8bea2b8188a7..302744252b24 100644
---- a/drivers/gpu/drm/i915/display/intel_psr.c
-+++ b/drivers/gpu/drm/i915/display/intel_psr.c
-@@ -4253,3 +4253,9 @@ bool intel_psr_needs_alpm_aux_less(struct intel_dp *intel_dp,
+diff --git a/drivers/gpu/drm/i915/display/intel_dsb.c b/drivers/gpu/drm/i915/display/intel_dsb.c
+index 53d8ae3a70e9..3266dd52e6d2 100644
+--- a/drivers/gpu/drm/i915/display/intel_dsb.c
++++ b/drivers/gpu/drm/i915/display/intel_dsb.c
+@@ -16,6 +16,7 @@
+ #include "intel_dsb.h"
+ #include "intel_dsb_buffer.h"
+ #include "intel_dsb_regs.h"
++#include "intel_psr.h"
+ #include "intel_vblank.h"
+ #include "intel_vrr.h"
+ #include "skl_watermark.h"
+@@ -183,18 +184,24 @@ static int dsb_scanline_to_hw(struct intel_atomic_state *state,
+  * definitely do not want to skip vblank wait. We also have concern what comes
+  * to skipping vblank evasion. I.e. arming registers are latched before we have
+  * managed writing them. Due to these reasons we are not setting
+- * DSB_SKIP_WAITS_EN.
++ * DSB_SKIP_WAITS_EN except when using TRANS_PUSH mechanism to trigger
++ * "frame change" event.
+  */
+ static u32 dsb_chicken(struct intel_atomic_state *state,
+ 		       struct intel_crtc *crtc)
  {
- 	return intel_dp_is_edp(intel_dp) && crtc_state->has_panel_replay;
- }
++	const struct intel_crtc_state *new_crtc_state =
++		intel_atomic_get_new_crtc_state(state, crtc);
++	u32 chicken = intel_psr_use_trans_push(new_crtc_state) ?
++		DSB_SKIP_WAITS_EN : 0;
 +
-+bool intel_psr_use_trans_push(const struct intel_crtc_state *crtc_state)
-+{
-+	/* TODO: Enable using trans push when everything is in place */
-+	return false;
-+}
-diff --git a/drivers/gpu/drm/i915/display/intel_psr.h b/drivers/gpu/drm/i915/display/intel_psr.h
-index 9b061a22361f..7237dfa388b6 100644
---- a/drivers/gpu/drm/i915/display/intel_psr.h
-+++ b/drivers/gpu/drm/i915/display/intel_psr.h
-@@ -81,5 +81,6 @@ void intel_psr_debugfs_register(struct intel_display *display);
- bool intel_psr_needs_alpm(struct intel_dp *intel_dp, const struct intel_crtc_state *crtc_state);
- bool intel_psr_needs_alpm_aux_less(struct intel_dp *intel_dp,
- 				   const struct intel_crtc_state *crtc_state);
-+bool intel_psr_use_trans_push(const struct intel_crtc_state *crtc_state);
+ 	if (pre_commit_is_vrr_active(state, crtc))
+-		return DSB_CTRL_WAIT_SAFE_WINDOW |
++		chicken |= DSB_CTRL_WAIT_SAFE_WINDOW |
+ 			DSB_CTRL_NO_WAIT_VBLANK |
+ 			DSB_INST_WAIT_SAFE_WINDOW |
+ 			DSB_INST_NO_WAIT_VBLANK;
+-	else
+-		return 0;
++
++	return chicken;
+ }
  
- #endif /* __INTEL_PSR_H__ */
+ static bool assert_dsb_has_room(struct intel_dsb *dsb)
 -- 
 2.43.0
 
