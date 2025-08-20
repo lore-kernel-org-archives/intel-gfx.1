@@ -4,58 +4,80 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 33CF0CA0EEB
-	for <intel-gfx@archiver.kernel.org>; Thu, 21 Aug 2025 13:05:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D72DFCA0EF8
+	for <intel-gfx@archiver.kernel.org>; Thu, 21 Aug 2025 13:06:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C647710E306;
-	Thu, 21 Aug 2025 13:05:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6EDE310E379;
+	Thu, 21 Aug 2025 13:06:57 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="eZOR3qTq";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="bpGe5fGD";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.15])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4BA5910E306;
- Thu, 21 Aug 2025 13:05:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1755781511; x=1787317511;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:content-transfer-encoding:in-reply-to;
- bh=qd0bbUuUGks1hrJq7wVYxgCYIhVBy4u1m7Cst/selJo=;
- b=eZOR3qTqH1kdu7QTxpBwDEUaPaXqfuoFp5mnGViWm8gkwR2n00crwoBw
- Y3YQwhHlroT/wu4c+mEB6I7+789EO0J50IB/SSVK/aBishLnUiQc94K6L
- pp/xXj3QZF8p1/8rHfdM40QipKQzcPKNo8+xGfGektSj8yHHfnIBISAB5
- 4sRu3MmRetj0KPAG6Ij0kgpWQe8t31effRldixG5Qusyce9P/yRoOLaYJ
- BL3miGE65heuQ64v1Kg6ZNB0dPUXpq1Fa6cCoLlXxKk23WnKps3mO21VB
- 6FngIYhc3iMFG/DcyQqotGmR9wI+8y7EIWwxeDDctrssDUCeRfAiZdRbJ Q==;
-X-CSE-ConnectionGUID: TIKxiU9pTAWn2xtbQIIVgg==
-X-CSE-MsgGUID: X/D+fLIpTGqEnQ7luicOag==
-X-IronPort-AV: E=McAfee;i="6800,10657,11529"; a="61712373"
-X-IronPort-AV: E=Sophos;i="6.17,306,1747724400"; d="scan'208";a="61712373"
-Received: from orviesa005.jf.intel.com ([10.64.159.145])
- by orvoesa107.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 21 Aug 2025 06:05:11 -0700
-X-CSE-ConnectionGUID: 5Mtb22kKSWKFVKtEhB+t0w==
-X-CSE-MsgGUID: PwX03zqPSluFA4hQiU3M3w==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.17,306,1747724400"; d="scan'208";a="173746077"
-Received: from dalessan-mobl3.ger.corp.intel.com (HELO stinkbox)
- ([10.245.244.10])
- by orviesa005.jf.intel.com with SMTP; 21 Aug 2025 06:05:09 -0700
-Received: by stinkbox (sSMTP sendmail emulation);
- Thu, 21 Aug 2025 16:05:07 +0300
-Date: Thu, 21 Aug 2025 16:05:07 +0300
-From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
-To: Juha-Pekka Heikkila <juhapekka.heikkila@gmail.com>
-Cc: intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org
-Subject: Re: [PATCH] drm/i915/display: Avoid divide by zero
-Message-ID: <aKcZg9tk2YH0r67f@intel.com>
-References: <20250820132913.496505-1-juhapekka.heikkila@gmail.com>
+Received: from mail-pf1-f172.google.com (mail-pf1-f172.google.com
+ [209.85.210.172])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7002F10E7C2;
+ Wed, 20 Aug 2025 18:35:15 +0000 (UTC)
+Received: by mail-pf1-f172.google.com with SMTP id
+ d2e1a72fcca58-76e39ec6f52so382121b3a.1; 
+ Wed, 20 Aug 2025 11:35:15 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1755714915; x=1756319715; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=VbccaaOrg7oxw/duvj7P0mjLZUiDBUvzDNDOakXvN4k=;
+ b=bpGe5fGDLJSWvrzmZjUkRgh6/oIxPIf6P4g0U6fbifJ5XZYts9VECq7YK0qgLCJnI0
+ jHCH9BHiyjmKAGHspWcLiYoMQrRzItdxvcYu+ypNBYmRTFIWlgNIJK2TNnBkjAygXLfK
+ ZgrWeF79y3a6WfiMS+SWx654quHsUdswizWV13/LvAfat2orNEehlRG5pD47cAj1SmIS
+ Mi7EigwIBI1ETKFmU1x+VrnWYIUPU+5DjIpoWlgQwLHYjKIhYIQlSvegms20Q0Kb+SVh
+ AM0AtTWlsFdnoFZbAB0fRH5utNNGw0hP/DND+Fx/DwIxdwN+jKFC6XpmU38rfRyxdU72
+ 9mRA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1755714915; x=1756319715;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=VbccaaOrg7oxw/duvj7P0mjLZUiDBUvzDNDOakXvN4k=;
+ b=a60XnIUmQqBVB7enMEtnMjiqydgaRHeuJSF/lfsCeFjhvyB2AkSEUOz3/4gv1BwZcL
+ eyihny0gkgC6FmX8Ts8curdSPaoYzs4eKt+cSIw9Hl3mGiQov3ORN3jOFTswIaTGhaSU
+ G2IYoz68blzik8uwU+1kXG9JztwspY4xy0Fpsi1+nAhYhAblHdnxnW2EQ7HTSg3O/rNd
+ BUXjFPdhG+ZdIvwKXIrDL/8qLu2KtNAOkyUuPd7YjxlEVqhfmIi2vopN0otP5r9bP27B
+ qNZrUT701hffPCvjbUFdAber07GE7LTYrgveBrK5NHR2D6xYRgVSi9BXefpbbx+LXoOL
+ WmGQ==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCWEr3IdplUfhiderwaCYlkhfQ26VwI12j0BnmB/lGAoyRTBW8E/AQsh/6c2YEaqFQ1gTXnEpx6HiE1G@lists.freedesktop.org,
+ AJvYcCXTjzr3wqgwBRrBQKr6Z/iZ+qTVUj/NIKwisMQX3dQ3BBgAJ5g5vdZR9fcH7++hNkIYcf2Dv2Nf/GQ=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxS1pqgIzhLnOYvMsqkaNGarunq0v8rIRoWhaankaJBvZSOIf8Y
+ Ao/kSkM5TjFB4vKXwhnTCHnEMaYHy6tJJbzKWczB5eZ++4zg9jWpfZbp
+X-Gm-Gg: ASbGncvJYSxli1pKZqZC+LGDO5QE687Uu0oTdAjRy/Ob6IHJ/rD8dCDeZ7MiLK0dn1S
+ WGpVkEX3WYiZqKhbEDmLQPxyYvSEKmGuj9aJJeC3I59v0UC644U+s2JKjPBRQLIER88BfXlzwXd
+ mKHSF3EzuHkBiTLU9TvS5Vw7p6jFGhKqP4bYhvejJqhMY8wf6R0XkM3snSBfj4tPi9FU8njAiT9
+ cGAp3Q7euoFOri8fJIx49V/Cs+y4YE6vk0r+03HksRZ2znWq3FpIRHmDIhpuaLwXpVGXAYqjre+
+ upcgdbqPRROQuzQyvMwByL7zM8TzElUONbHyDXFZtP0VzmAeD/xs+aFhFHOM3pbtgvlJrd8x+Yw
+ uu8IDtdsSQ9uC+uLjZ9CJoXARFdF+TRdEmA==
+X-Google-Smtp-Source: AGHT+IFeFM27GRtupFDaHDrUEu5suTdscDY+yaEhRj/AfNxMn4BTjhM/K7Lr8qgDcWB09OwaZG9Aeg==
+X-Received: by 2002:a05:6a00:2304:b0:76e:885a:c3e7 with SMTP id
+ d2e1a72fcca58-76e8dd6c022mr4913681b3a.27.1755714914847; 
+ Wed, 20 Aug 2025 11:35:14 -0700 (PDT)
+Received: from server.. ([103.250.145.167]) by smtp.gmail.com with ESMTPSA id
+ d2e1a72fcca58-76e7f4a6e60sm5738583b3a.110.2025.08.20.11.35.09
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 20 Aug 2025 11:35:13 -0700 (PDT)
+From: Bala-Vignesh-Reddy <reddybalavignesh9979@gmail.com>
+To: bagasdotme@gmail.com
+Cc: dakr@kernel.org, dri-devel@lists.freedesktop.org,
+ intel-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ linux-next@vger.kernel.org, rampxxxx@gmail.com, robdclark@gmail.com,
+ robin.clark@oss.qualcomm.com, seanpaul@chromium.org, sfr@canb.auug.org.au,
+ simona.vetter@ffwll.ch
+Subject: Re: linux-next: build warnings after merge of the drm-misc-fixes tree
+Date: Thu, 21 Aug 2025 00:05:07 +0530
+Message-ID: <20250820183507.84200-1-reddybalavignesh9979@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <aKLAc27XGAadB8n5@archie.me>
+References: <aKLAc27XGAadB8n5@archie.me>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20250820132913.496505-1-juhapekka.heikkila@gmail.com>
-X-Patchwork-Hint: comment
+X-Mailman-Approved-At: Thu, 21 Aug 2025 13:06:56 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,37 +93,23 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Aug 20, 2025 at 04:29:13PM +0300, Juha-Pekka Heikkila wrote:
-> skl_crtc_allocate_plane_ddb allow iter.data_rate to be zero
-> which could cause divide by zero in skl_allocate_plane_ddb,
-> check against that.
-> 
-> Signed-off-by: Juha-Pekka Heikkila <juhapekka.heikkila@gmail.com>
-> ---
->  drivers/gpu/drm/i915/display/skl_watermark.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/drivers/gpu/drm/i915/display/skl_watermark.c b/drivers/gpu/drm/i915/display/skl_watermark.c
-> index def5150231a4..403783504ab3 100644
-> --- a/drivers/gpu/drm/i915/display/skl_watermark.c
-> +++ b/drivers/gpu/drm/i915/display/skl_watermark.c
-> @@ -1388,7 +1388,7 @@ skl_allocate_plane_ddb(struct skl_plane_ddb_iter *iter,
->  {
->  	u16 size, extra = 0;
->  
-> -	if (data_rate) {
-> +	if (data_rate && iter->data_rate) {
+Hi all,
 
-I don't think it should be possible to have iter_data->data_rate==0 
-and data_rate!=0, with iter->data_rate being the sum of all the
-planes' data_rates.
+Those htmldocs warnings come from missing Sphinx markup in 
+`drm_gpuvm_sm_map_exec_lock()`.
 
->  		extra = min_t(u16, iter->size,
->  			      DIV64_U64_ROUND_UP(iter->size * data_rate,
->  						 iter->data_rate));
-> -- 
-> 2.43.0
+This is already addressed by my patch:
 
--- 
-Ville Syrjälä
-Intel
+[PATCH] drm/gpuvm: Fix kernel-doc formatting and typo in
+drm_gpuvm_sm_map_exec_lock
+
+Link: https://lore.kernel.org/lkml/20250803092622.27532-1-reddybalavignesh9979@gmail.com/
+
+The patch inserts the required directive and corrects the return-value typo.
+I have verified this.
+
+Could anyone please pick this up or keep it queued, so 
+warnings disappear from -next.
+
+Thanks!
+Bala Vignesh
