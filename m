@@ -4,80 +4,59 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D72DFCA0EF8
-	for <intel-gfx@archiver.kernel.org>; Thu, 21 Aug 2025 13:06:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B7892CA0EF8
+	for <intel-gfx@archiver.kernel.org>; Thu, 21 Aug 2025 13:11:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6EDE310E379;
-	Thu, 21 Aug 2025 13:06:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 508F710E996;
+	Thu, 21 Aug 2025 13:11:00 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="bpGe5fGD";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="GFR1Fbcx";
 	dkim-atps=neutral
-Received: from mail-pf1-f172.google.com (mail-pf1-f172.google.com
- [209.85.210.172])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7002F10E7C2;
- Wed, 20 Aug 2025 18:35:15 +0000 (UTC)
-Received: by mail-pf1-f172.google.com with SMTP id
- d2e1a72fcca58-76e39ec6f52so382121b3a.1; 
- Wed, 20 Aug 2025 11:35:15 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1755714915; x=1756319715; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=VbccaaOrg7oxw/duvj7P0mjLZUiDBUvzDNDOakXvN4k=;
- b=bpGe5fGDLJSWvrzmZjUkRgh6/oIxPIf6P4g0U6fbifJ5XZYts9VECq7YK0qgLCJnI0
- jHCH9BHiyjmKAGHspWcLiYoMQrRzItdxvcYu+ypNBYmRTFIWlgNIJK2TNnBkjAygXLfK
- ZgrWeF79y3a6WfiMS+SWx654quHsUdswizWV13/LvAfat2orNEehlRG5pD47cAj1SmIS
- Mi7EigwIBI1ETKFmU1x+VrnWYIUPU+5DjIpoWlgQwLHYjKIhYIQlSvegms20Q0Kb+SVh
- AM0AtTWlsFdnoFZbAB0fRH5utNNGw0hP/DND+Fx/DwIxdwN+jKFC6XpmU38rfRyxdU72
- 9mRA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1755714915; x=1756319715;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=VbccaaOrg7oxw/duvj7P0mjLZUiDBUvzDNDOakXvN4k=;
- b=a60XnIUmQqBVB7enMEtnMjiqydgaRHeuJSF/lfsCeFjhvyB2AkSEUOz3/4gv1BwZcL
- eyihny0gkgC6FmX8Ts8curdSPaoYzs4eKt+cSIw9Hl3mGiQov3ORN3jOFTswIaTGhaSU
- G2IYoz68blzik8uwU+1kXG9JztwspY4xy0Fpsi1+nAhYhAblHdnxnW2EQ7HTSg3O/rNd
- BUXjFPdhG+ZdIvwKXIrDL/8qLu2KtNAOkyUuPd7YjxlEVqhfmIi2vopN0otP5r9bP27B
- qNZrUT701hffPCvjbUFdAber07GE7LTYrgveBrK5NHR2D6xYRgVSi9BXefpbbx+LXoOL
- WmGQ==
-X-Forwarded-Encrypted: i=1;
- AJvYcCWEr3IdplUfhiderwaCYlkhfQ26VwI12j0BnmB/lGAoyRTBW8E/AQsh/6c2YEaqFQ1gTXnEpx6HiE1G@lists.freedesktop.org,
- AJvYcCXTjzr3wqgwBRrBQKr6Z/iZ+qTVUj/NIKwisMQX3dQ3BBgAJ5g5vdZR9fcH7++hNkIYcf2Dv2Nf/GQ=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxS1pqgIzhLnOYvMsqkaNGarunq0v8rIRoWhaankaJBvZSOIf8Y
- Ao/kSkM5TjFB4vKXwhnTCHnEMaYHy6tJJbzKWczB5eZ++4zg9jWpfZbp
-X-Gm-Gg: ASbGncvJYSxli1pKZqZC+LGDO5QE687Uu0oTdAjRy/Ob6IHJ/rD8dCDeZ7MiLK0dn1S
- WGpVkEX3WYiZqKhbEDmLQPxyYvSEKmGuj9aJJeC3I59v0UC644U+s2JKjPBRQLIER88BfXlzwXd
- mKHSF3EzuHkBiTLU9TvS5Vw7p6jFGhKqP4bYhvejJqhMY8wf6R0XkM3snSBfj4tPi9FU8njAiT9
- cGAp3Q7euoFOri8fJIx49V/Cs+y4YE6vk0r+03HksRZ2znWq3FpIRHmDIhpuaLwXpVGXAYqjre+
- upcgdbqPRROQuzQyvMwByL7zM8TzElUONbHyDXFZtP0VzmAeD/xs+aFhFHOM3pbtgvlJrd8x+Yw
- uu8IDtdsSQ9uC+uLjZ9CJoXARFdF+TRdEmA==
-X-Google-Smtp-Source: AGHT+IFeFM27GRtupFDaHDrUEu5suTdscDY+yaEhRj/AfNxMn4BTjhM/K7Lr8qgDcWB09OwaZG9Aeg==
-X-Received: by 2002:a05:6a00:2304:b0:76e:885a:c3e7 with SMTP id
- d2e1a72fcca58-76e8dd6c022mr4913681b3a.27.1755714914847; 
- Wed, 20 Aug 2025 11:35:14 -0700 (PDT)
-Received: from server.. ([103.250.145.167]) by smtp.gmail.com with ESMTPSA id
- d2e1a72fcca58-76e7f4a6e60sm5738583b3a.110.2025.08.20.11.35.09
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 20 Aug 2025 11:35:13 -0700 (PDT)
-From: Bala-Vignesh-Reddy <reddybalavignesh9979@gmail.com>
-To: bagasdotme@gmail.com
-Cc: dakr@kernel.org, dri-devel@lists.freedesktop.org,
- intel-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- linux-next@vger.kernel.org, rampxxxx@gmail.com, robdclark@gmail.com,
- robin.clark@oss.qualcomm.com, seanpaul@chromium.org, sfr@canb.auug.org.au,
- simona.vetter@ffwll.ch
-Subject: Re: linux-next: build warnings after merge of the drm-misc-fixes tree
-Date: Thu, 21 Aug 2025 00:05:07 +0530
-Message-ID: <20250820183507.84200-1-reddybalavignesh9979@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <aKLAc27XGAadB8n5@archie.me>
-References: <aKLAc27XGAadB8n5@archie.me>
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.8])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EB37310E995;
+ Thu, 21 Aug 2025 13:10:58 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1755781859; x=1787317859;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:content-transfer-encoding:in-reply-to;
+ bh=qLjij0ecOn/GWEV0IVEDlS0xlT7Uo6heBKVhB+p0klU=;
+ b=GFR1FbcxqSf6JNQ4i7grqoQsWrUnx4D9ODmLtTKJPWgGLUrfRYcVe1dG
+ CsAFbCuE69pfeeKDVSaP+Fpmr7M8OoAZkt5iLXOUFwh6oWSGc18aXSROY
+ aKJNd83Vr4v7Kt43pK97w03eMBB4s07p5vLAbT0C2B0NWODFIyUyhazhh
+ nfBFjhA7K+amuSO6mGaM2ejzaCm1DxFZJQ8Ktb2WMUI8ai4uuF3xY8m20
+ 5d9IXu2GeOR4FDCz+gfHZTrLCUQRLlOKGIt5wL0RZueCwBTsqAFPVuhRT
+ zAr9fw1S+vvGwVRroeYUbJaxmBTK6GEA/SIisUj242KlNuuw+2ELUAG0N Q==;
+X-CSE-ConnectionGUID: m/Ixu7CmQDSY5q85VTHM+g==
+X-CSE-MsgGUID: k3gzZplWTa2M46iQ24UHig==
+X-IronPort-AV: E=McAfee;i="6800,10657,11529"; a="75653557"
+X-IronPort-AV: E=Sophos;i="6.17,306,1747724400"; d="scan'208";a="75653557"
+Received: from orviesa005.jf.intel.com ([10.64.159.145])
+ by fmvoesa102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 21 Aug 2025 06:10:58 -0700
+X-CSE-ConnectionGUID: ReidKLjfRS2t37mlYmUAww==
+X-CSE-MsgGUID: GxcZ47RZTLaz8oA1lF9Cgw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.17,306,1747724400"; d="scan'208";a="173747133"
+Received: from dalessan-mobl3.ger.corp.intel.com (HELO stinkbox)
+ ([10.245.244.10])
+ by orviesa005.jf.intel.com with SMTP; 21 Aug 2025 06:10:54 -0700
+Received: by stinkbox (sSMTP sendmail emulation);
+ Thu, 21 Aug 2025 16:10:54 +0300
+Date: Thu, 21 Aug 2025 16:10:54 +0300
+From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
+To: Jouni =?iso-8859-1?Q?H=F6gander?= <jouni.hogander@intel.com>
+Cc: intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org
+Subject: Re: [PATCH v2 2/2] drm/i915/psr: check drm_mode_vrefresh return value
+Message-ID: <aKca3nYynsprAZU1@intel.com>
+References: <20250821045918.17757-1-jouni.hogander@intel.com>
+ <20250821045918.17757-2-jouni.hogander@intel.com>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Thu, 21 Aug 2025 13:06:56 +0000
+In-Reply-To: <20250821045918.17757-2-jouni.hogander@intel.com>
+X-Patchwork-Hint: comment
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -93,23 +72,44 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Hi all,
+On Thu, Aug 21, 2025 at 07:59:18AM +0300, Jouni Högander wrote:
+> Check drm_mode_vrefresh return value sanity before using it in
+> intel_get_frame_time_us.
+> 
+> Signed-off-by: Jouni Högander <jouni.hogander@intel.com>
+> ---
+>  drivers/gpu/drm/i915/display/intel_psr.c | 9 +++++++--
+>  1 file changed, 7 insertions(+), 2 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/i915/display/intel_psr.c b/drivers/gpu/drm/i915/display/intel_psr.c
+> index 5addde63168e..8cc2314fac6f 100644
+> --- a/drivers/gpu/drm/i915/display/intel_psr.c
+> +++ b/drivers/gpu/drm/i915/display/intel_psr.c
+> @@ -1116,11 +1116,16 @@ transcoder_has_psr2(struct intel_display *display, enum transcoder cpu_transcode
+>  
+>  static u32 intel_get_frame_time_us(const struct intel_crtc_state *crtc_state)
+>  {
+> +	int vrefresh;
+> +
+>  	if (!crtc_state->hw.active)
+>  		return 0;
+>  
+> -	return DIV_ROUND_UP(1000 * 1000,
+> -			    drm_mode_vrefresh(&crtc_state->hw.adjusted_mode));
+> +	vrefresh = drm_mode_vrefresh(&crtc_state->hw.adjusted_mode);
+> +	if (vrefresh <= 0)
 
-Those htmldocs warnings come from missing Sphinx markup in 
-`drm_gpuvm_sm_map_exec_lock()`.
+How would that happen?
 
-This is already addressed by my patch:
+> +		return 0;
+> +
+> +	return DIV_ROUND_UP(1000 * 1000, vrefresh);
+>  }
+>  
+>  static void psr2_program_idle_frames(struct intel_dp *intel_dp,
+> -- 
+> 2.43.0
 
-[PATCH] drm/gpuvm: Fix kernel-doc formatting and typo in
-drm_gpuvm_sm_map_exec_lock
-
-Link: https://lore.kernel.org/lkml/20250803092622.27532-1-reddybalavignesh9979@gmail.com/
-
-The patch inserts the required directive and corrects the return-value typo.
-I have verified this.
-
-Could anyone please pick this up or keep it queued, so 
-warnings disappear from -next.
-
-Thanks!
-Bala Vignesh
+-- 
+Ville Syrjälä
+Intel
