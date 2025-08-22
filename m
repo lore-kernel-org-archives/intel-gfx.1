@@ -4,81 +4,63 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2968BCA0FE9
-	for <intel-gfx@archiver.kernel.org>; Mon, 25 Aug 2025 12:39:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 749B7CA0EFA
+	for <intel-gfx@archiver.kernel.org>; Mon, 25 Aug 2025 12:39:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C053610E44E;
-	Mon, 25 Aug 2025 12:39:37 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 63BC110E454;
+	Mon, 25 Aug 2025 12:39:38 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="MOzvdOwb";
+	dkim=pass (2048-bit key; unprotected) header.d=acm.org header.i=@acm.org header.b="jIHiaXUZ";
 	dkim-atps=neutral
-Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com
- [209.85.128.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DD64810EACB;
- Fri, 22 Aug 2025 11:31:29 +0000 (UTC)
-Received: by mail-wm1-f41.google.com with SMTP id
- 5b1f17b1804b1-45a1b05fe23so11578375e9.1; 
- Fri, 22 Aug 2025 04:31:29 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1755862288; x=1756467088; darn=lists.freedesktop.org;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=SfbHPH5Jjp8Rpz5+ZFUkvP8crb1ywqdy8VPh1hjPgaM=;
- b=MOzvdOwbCpNxKxpGsZ+YJ0NCwEErlAtOcX8+KMZUBBhmAbPKacYcJAHNHj0kDyAo90
- 6eAmQWHpVuozO36KB5VlZAcLGsfXsxhM2S7VMXoo2SrAeX+vNw9GBF2qWlL7QGQixyon
- 6B/DJvCkSZYN8IEhf6NXfxBl7YxMqIHQ6Ve6tJLHvoReXSA6IUUjftyoQ1tchzR8FlU3
- tRJPEWqgTCkR8rpmSMuVvldYRQnDXgYhoxZYOxB2PIW++CHnoU7C7I7tHeYvwNRETh7u
- uJrYflhvIBSMv/wxSGk5DpiICqLuksfalpmy7S3Qw6geKbNEFei+ZTyTDqI/7zSnOGID
- zhoA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1755862288; x=1756467088;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=SfbHPH5Jjp8Rpz5+ZFUkvP8crb1ywqdy8VPh1hjPgaM=;
- b=wZPGiBXZxtZfNl8ulLSxG3V6PtIRu5GxXkCkdCuLPMMtfkXuiePlT/UKcCaydPRcC1
- DBBx50bOz+yj5xIewWT0wSCbQDey4nBL+eBtDHmalFf5rrpFJpbOX4mlkXiLen66O1CM
- +TdPLrJqCt/1Y3U3cJgcMn4Da9BcG4ZoLlhoAaREHaGQq1LukcuBMdQ5CMU+M5k1hTlY
- O6KUmPXEnxyFL59gW8L99rC3V2SNeMYkM9Xh7VXVHblzlwesw7emqqzo5meLd+a9rEF8
- D2h2TVi5Ccq5IE5pMRwsmNht3Jy1t86/5a9wAQqk+XdK7UR0lKetgmHG1ZSiz7YnWCk/
- y/UQ==
-X-Forwarded-Encrypted: i=1;
- AJvYcCUVHyc+aDiucPaODvUHpI3Sn0jOHWyV07v7OBBTJ5CageEpjnQTEvSnQR1YUMR73Z/jaW1J/SkyAFg=@lists.freedesktop.org,
- AJvYcCVFgTU8TRFIANU+kBoAR+48AkaZ6dBbO6NLvFWGPNoDPR43/kWd3hR0tsziVOwss6WAglZLl2QJXVZP@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwRtFVRTCXaY7dVglkp1B1zP8rmv09AozqxblsmgzFiua+AHvk1
- AIC5qMonc1x7cfjdvBw0mjRMN9yqbvrO+xsmMxujKSRA9GwcSo6hrlCr
-X-Gm-Gg: ASbGncsCdUHTFL1KkLx+Er1QPFNXIcylw94Bp/ew0Z3ReiKScjEc07IDPurWPrV354k
- ifgFQuaQyoeH1n/Vx7dgsBvImHGhhJStkot/BS8HrG1Uv78BvM77/B7sR9SLXrhmAI62SOx6i+y
- LNjcNrWCdXrT+GzmPDu5gp+OAkU64RYz6e0RuAnDaNIkdn99QSEOxCMpnrT8owzrtj1qQ2grmlR
- 6EuNeaUOe/iOTSU3yHUA3qN88uYjBBTxZw5ApRogYBtdDPgBacuJ0qR0qgY6ExCnx/PLNRj/Qtz
- u/5jO6Isd6m3Ngu86QBI7X9MoGWSRnBRoLaZM8SBTkl1USR+emLAvOEzXbgOUWSEM9HH7JqmqwJ
- V/AEQvi2JRy0PfJuTbxSZ85iiwlBDTR3WFC1fmrMvEVSUPcg9ur/5edY=
-X-Google-Smtp-Source: AGHT+IGRxFKrTZ5eDvBkmi1zEgN6s0gJ3t3AoyWptSyZJnQ5Bb32czELomyx9FMDxkr1p0nFemiRbQ==
-X-Received: by 2002:a05:600c:4747:b0:459:e094:92cb with SMTP id
- 5b1f17b1804b1-45b517ad81bmr24844685e9.12.1755862287996; 
- Fri, 22 Aug 2025 04:31:27 -0700 (PDT)
-Received: from ?IPV6:2620:10d:c096:325:77fd:1068:74c8:af87?
- ([2620:10d:c092:600::1:1b93]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-45b50e4241dsm35921185e9.24.2025.08.22.04.31.25
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 22 Aug 2025 04:31:27 -0700 (PDT)
-Message-ID: <b5b08ad3-d8cd-45ff-9767-7cf1b22b5e03@gmail.com>
-Date: Fri, 22 Aug 2025 12:32:58 +0100
+X-Greylist: delayed 471 seconds by postgrey-1.36 at gabe;
+ Fri, 22 Aug 2025 18:10:27 UTC
+Received: from 004.mia.mailroute.net (004.mia.mailroute.net [199.89.3.7])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E96DF10EB7E;
+ Fri, 22 Aug 2025 18:10:27 +0000 (UTC)
+Received: from localhost (localhost [127.0.0.1])
+ by 004.mia.mailroute.net (Postfix) with ESMTP id 4c7p1l0sq5zm0jvk;
+ Fri, 22 Aug 2025 18:02:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=acm.org; h=
+ content-transfer-encoding:content-type:content-type:in-reply-to
+ :from:from:content-language:references:subject:subject
+ :user-agent:mime-version:date:date:message-id:received:received;
+ s=mr01; t=1755885747; x=1758477748; bh=lOWWilxxOW7+2VFeqILToF3F
+ fKlMIiqdFUMj7Kr1eMs=; b=jIHiaXUZ4a593YVAmQUji/OXI8ZOHuy4KoDqdDsN
+ 58VfzQCide0+H5Soq0lOaHim7utGBp85yd4TVec/He8eSJaEr0S2QMbIL/R/v50G
+ REy9REjBcUkTJuBw3HHmfYoLlR1WNAs0/AuKPOafAhc+qcEkQgAYy7xjbaBw1u1g
+ U/z1nX2JBLXLQyO/89G55vSyN53ByvfYmVd1rVmU9cGfu9CmFM1RmYCGRPWih361
+ 3SEND/VGUpbDsbMpeaiIGxU559aePIaIJvP6dzsdyNy+XOIvcQerQoCWbkkZ0+iv
+ zE2zZ/+N2HfKRFU0le6ozhjHgt3LcQW5vt0XTPzWIir5yw==
+X-Virus-Scanned: by MailRoute
+Received: from 004.mia.mailroute.net ([127.0.0.1])
+ by localhost (004.mia [127.0.0.1]) (mroute_mailscanner, port 10029) with LMTP
+ id TWskR_z3NWFT; Fri, 22 Aug 2025 18:02:27 +0000 (UTC)
+Received: from [100.66.154.22] (unknown [104.135.204.82])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ (No client certificate requested)
+ (Authenticated sender: bvanassche@acm.org)
+ by 004.mia.mailroute.net (Postfix) with ESMTPSA id 4c7p0l0k1mzm1756;
+ Fri, 22 Aug 2025 18:01:41 +0000 (UTC)
+Message-ID: <58816f2c-d4a7-4ec0-a48e-66a876ea1168@acm.org>
+Date: Fri, 22 Aug 2025 11:01:40 -0700
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH RFC 18/35] io_uring/zcrx: remove "struct io_copy_cache"
- and one nth_page() usage
+Subject: Re: [PATCH RFC 29/35] scsi: core: drop nth_page() usage within SG
+ entry
 To: David Hildenbrand <david@redhat.com>, linux-kernel@vger.kernel.org
-Cc: Jens Axboe <axboe@kernel.dk>, Alexander Potapenko <glider@google.com>,
- Andrew Morton <akpm@linux-foundation.org>,
+Cc: "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>,
+ "Martin K. Petersen" <martin.petersen@oracle.com>,
+ Doug Gilbert <dgilbert@interlog.com>, Alexander Potapenko
+ <glider@google.com>, Andrew Morton <akpm@linux-foundation.org>,
  Brendan Jackman <jackmanb@google.com>, Christoph Lameter <cl@gentwo.org>,
  Dennis Zhou <dennis@kernel.org>, Dmitry Vyukov <dvyukov@google.com>,
  dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
  iommu@lists.linux.dev, io-uring@vger.kernel.org,
- Jason Gunthorpe <jgg@nvidia.com>, Johannes Weiner <hannes@cmpxchg.org>,
- John Hubbard <jhubbard@nvidia.com>, kasan-dev@googlegroups.com,
- kvm@vger.kernel.org, "Liam R. Howlett" <Liam.Howlett@oracle.com>,
+ Jason Gunthorpe <jgg@nvidia.com>, Jens Axboe <axboe@kernel.dk>,
+ Johannes Weiner <hannes@cmpxchg.org>, John Hubbard <jhubbard@nvidia.com>,
+ kasan-dev@googlegroups.com, kvm@vger.kernel.org,
+ "Liam R. Howlett" <Liam.Howlett@oracle.com>,
  Linus Torvalds <torvalds@linux-foundation.org>, linux-arm-kernel@axis.com,
  linux-arm-kernel@lists.infradead.org, linux-crypto@vger.kernel.org,
  linux-ide@vger.kernel.org, linux-kselftest@vger.kernel.org,
@@ -94,10 +76,10 @@ Cc: Jens Axboe <axboe@kernel.dk>, Alexander Potapenko <glider@google.com>,
  Vlastimil Babka <vbabka@suse.cz>, wireguard@lists.zx2c4.com, x86@kernel.org,
  Zi Yan <ziy@nvidia.com>
 References: <20250821200701.1329277-1-david@redhat.com>
- <20250821200701.1329277-19-david@redhat.com>
+ <20250821200701.1329277-30-david@redhat.com>
 Content-Language: en-US
-From: Pavel Begunkov <asml.silence@gmail.com>
-In-Reply-To: <20250821200701.1329277-19-david@redhat.com>
+From: Bart Van Assche <bvanassche@acm.org>
+In-Reply-To: <20250821200701.1329277-30-david@redhat.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 X-Mailman-Approved-At: Mon, 25 Aug 2025 12:39:32 +0000
@@ -116,35 +98,10 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On 8/21/25 21:06, David Hildenbrand wrote:
-> We always provide a single dst page, it's unclear why the io_copy_cache
-> complexity is required.
+On 8/21/25 1:06 PM, David Hildenbrand wrote:
+> It's no longer required to use nth_page() when iterating pages within a
+> single SG entry, so let's drop the nth_page() usage.
+Usually the SCSI core and the SG I/O driver are updated separately.
+Anyway:
 
-Because it'll need to be pulled outside the loop to reuse the page for
-multiple copies, i.e. packing multiple fragments of the same skb into
-it. Not finished, and currently it's wasting memory.
-
-Why not do as below? Pages there never cross boundaries of their folios.
-
-Do you want it to be taken into the io_uring tree?
-
-diff --git a/io_uring/zcrx.c b/io_uring/zcrx.c
-index e5ff49f3425e..18c12f4b56b6 100644
---- a/io_uring/zcrx.c
-+++ b/io_uring/zcrx.c
-@@ -975,9 +975,9 @@ static ssize_t io_copy_page(struct io_copy_cache *cc, struct page *src_page,
-  
-  		if (folio_test_partial_kmap(page_folio(dst_page)) ||
-  		    folio_test_partial_kmap(page_folio(src_page))) {
--			dst_page = nth_page(dst_page, dst_offset / PAGE_SIZE);
-+			dst_page += dst_offset / PAGE_SIZE;
-  			dst_offset = offset_in_page(dst_offset);
--			src_page = nth_page(src_page, src_offset / PAGE_SIZE);
-+			src_page += src_offset / PAGE_SIZE;
-  			src_offset = offset_in_page(src_offset);
-  			n = min(PAGE_SIZE - src_offset, PAGE_SIZE - dst_offset);
-  			n = min(n, len);
-
--- 
-Pavel Begunkov
-
+Reviewed-by: Bart Van Assche <bvanassche@acm.org>
