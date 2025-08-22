@@ -4,77 +4,102 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 89005CA0FEB
-	for <intel-gfx@archiver.kernel.org>; Mon, 25 Aug 2025 12:39:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2968BCA0FE9
+	for <intel-gfx@archiver.kernel.org>; Mon, 25 Aug 2025 12:39:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2074510E449;
-	Mon, 25 Aug 2025 12:39:36 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C053610E44E;
+	Mon, 25 Aug 2025 12:39:37 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="X/RxlEh5";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="MOzvdOwb";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CC4BA10E0A0;
- Fri, 22 Aug 2025 17:02:21 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id 64D49601E7;
- Fri, 22 Aug 2025 17:02:20 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E7EA9C4CEED;
- Fri, 22 Aug 2025 17:02:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1755882140;
- bh=N43GnKy17u3pJmuxA0B+CvRzCGT4IjO9pWdh50KAxp8=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=X/RxlEh56SJyKzLLReKVy9zMR7Rn10sDZ2qGXdgaqLeUy++5vRLbAaO8F1sq4dW3A
- FVPFAm1E1KDu+9/CVB8PArKdY0HRrXTU0L7mEy3QGm8oDmYlvLcPGrEnt/PdkJ5xtS
- WPwGxZiqHYuwlyrYRxRwfpMchkAzSUix0wgYLGwYkH8uFDFTTyuMLp6fHc+1uXHfs8
- s+X5+H1F8hdQ3OyIBGTgvD5OcC7RDayM3+Gr4vyGqAtfAsaEK49eudKcHbm56kC8gk
- 8jVNP2cdHpsMgjezsa0xbQw1c8LogFjCAJQgvfQ9Um93+KYDxx0kQzjtsDqYPIARCs
- dvKAxgTXqd2AA==
-From: SeongJae Park <sj@kernel.org>
-To: David Hildenbrand <david@redhat.com>
-Cc: SeongJae Park <sj@kernel.org>, linux-kernel@vger.kernel.org,
- Huacai Chen <chenhuacai@kernel.org>, WANG Xuerui <kernel@xen0n.name>,
- Madhavan Srinivasan <maddy@linux.ibm.com>,
- Michael Ellerman <mpe@ellerman.id.au>, Nicholas Piggin <npiggin@gmail.com>,
- Christophe Leroy <christophe.leroy@csgroup.eu>,
- Paul Walmsley <paul.walmsley@sifive.com>,
- Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>,
- Alexandre Ghiti <alex@ghiti.fr>, "David S. Miller" <davem@davemloft.net>,
- Andreas Larsson <andreas@gaisler.com>,
- Alexander Potapenko <glider@google.com>,
+Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com
+ [209.85.128.41])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DD64810EACB;
+ Fri, 22 Aug 2025 11:31:29 +0000 (UTC)
+Received: by mail-wm1-f41.google.com with SMTP id
+ 5b1f17b1804b1-45a1b05fe23so11578375e9.1; 
+ Fri, 22 Aug 2025 04:31:29 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1755862288; x=1756467088; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=SfbHPH5Jjp8Rpz5+ZFUkvP8crb1ywqdy8VPh1hjPgaM=;
+ b=MOzvdOwbCpNxKxpGsZ+YJ0NCwEErlAtOcX8+KMZUBBhmAbPKacYcJAHNHj0kDyAo90
+ 6eAmQWHpVuozO36KB5VlZAcLGsfXsxhM2S7VMXoo2SrAeX+vNw9GBF2qWlL7QGQixyon
+ 6B/DJvCkSZYN8IEhf6NXfxBl7YxMqIHQ6Ve6tJLHvoReXSA6IUUjftyoQ1tchzR8FlU3
+ tRJPEWqgTCkR8rpmSMuVvldYRQnDXgYhoxZYOxB2PIW++CHnoU7C7I7tHeYvwNRETh7u
+ uJrYflhvIBSMv/wxSGk5DpiICqLuksfalpmy7S3Qw6geKbNEFei+ZTyTDqI/7zSnOGID
+ zhoA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1755862288; x=1756467088;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=SfbHPH5Jjp8Rpz5+ZFUkvP8crb1ywqdy8VPh1hjPgaM=;
+ b=wZPGiBXZxtZfNl8ulLSxG3V6PtIRu5GxXkCkdCuLPMMtfkXuiePlT/UKcCaydPRcC1
+ DBBx50bOz+yj5xIewWT0wSCbQDey4nBL+eBtDHmalFf5rrpFJpbOX4mlkXiLen66O1CM
+ +TdPLrJqCt/1Y3U3cJgcMn4Da9BcG4ZoLlhoAaREHaGQq1LukcuBMdQ5CMU+M5k1hTlY
+ O6KUmPXEnxyFL59gW8L99rC3V2SNeMYkM9Xh7VXVHblzlwesw7emqqzo5meLd+a9rEF8
+ D2h2TVi5Ccq5IE5pMRwsmNht3Jy1t86/5a9wAQqk+XdK7UR0lKetgmHG1ZSiz7YnWCk/
+ y/UQ==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCUVHyc+aDiucPaODvUHpI3Sn0jOHWyV07v7OBBTJ5CageEpjnQTEvSnQR1YUMR73Z/jaW1J/SkyAFg=@lists.freedesktop.org,
+ AJvYcCVFgTU8TRFIANU+kBoAR+48AkaZ6dBbO6NLvFWGPNoDPR43/kWd3hR0tsziVOwss6WAglZLl2QJXVZP@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwRtFVRTCXaY7dVglkp1B1zP8rmv09AozqxblsmgzFiua+AHvk1
+ AIC5qMonc1x7cfjdvBw0mjRMN9yqbvrO+xsmMxujKSRA9GwcSo6hrlCr
+X-Gm-Gg: ASbGncsCdUHTFL1KkLx+Er1QPFNXIcylw94Bp/ew0Z3ReiKScjEc07IDPurWPrV354k
+ ifgFQuaQyoeH1n/Vx7dgsBvImHGhhJStkot/BS8HrG1Uv78BvM77/B7sR9SLXrhmAI62SOx6i+y
+ LNjcNrWCdXrT+GzmPDu5gp+OAkU64RYz6e0RuAnDaNIkdn99QSEOxCMpnrT8owzrtj1qQ2grmlR
+ 6EuNeaUOe/iOTSU3yHUA3qN88uYjBBTxZw5ApRogYBtdDPgBacuJ0qR0qgY6ExCnx/PLNRj/Qtz
+ u/5jO6Isd6m3Ngu86QBI7X9MoGWSRnBRoLaZM8SBTkl1USR+emLAvOEzXbgOUWSEM9HH7JqmqwJ
+ V/AEQvi2JRy0PfJuTbxSZ85iiwlBDTR3WFC1fmrMvEVSUPcg9ur/5edY=
+X-Google-Smtp-Source: AGHT+IGRxFKrTZ5eDvBkmi1zEgN6s0gJ3t3AoyWptSyZJnQ5Bb32czELomyx9FMDxkr1p0nFemiRbQ==
+X-Received: by 2002:a05:600c:4747:b0:459:e094:92cb with SMTP id
+ 5b1f17b1804b1-45b517ad81bmr24844685e9.12.1755862287996; 
+ Fri, 22 Aug 2025 04:31:27 -0700 (PDT)
+Received: from ?IPV6:2620:10d:c096:325:77fd:1068:74c8:af87?
+ ([2620:10d:c092:600::1:1b93]) by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-45b50e4241dsm35921185e9.24.2025.08.22.04.31.25
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 22 Aug 2025 04:31:27 -0700 (PDT)
+Message-ID: <b5b08ad3-d8cd-45ff-9767-7cf1b22b5e03@gmail.com>
+Date: Fri, 22 Aug 2025 12:32:58 +0100
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH RFC 18/35] io_uring/zcrx: remove "struct io_copy_cache"
+ and one nth_page() usage
+To: David Hildenbrand <david@redhat.com>, linux-kernel@vger.kernel.org
+Cc: Jens Axboe <axboe@kernel.dk>, Alexander Potapenko <glider@google.com>,
  Andrew Morton <akpm@linux-foundation.org>,
  Brendan Jackman <jackmanb@google.com>, Christoph Lameter <cl@gentwo.org>,
  Dennis Zhou <dennis@kernel.org>, Dmitry Vyukov <dvyukov@google.com>,
  dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
  iommu@lists.linux.dev, io-uring@vger.kernel.org,
- Jason Gunthorpe <jgg@nvidia.com>, Jens Axboe <axboe@kernel.dk>,
- Johannes Weiner <hannes@cmpxchg.org>, John Hubbard <jhubbard@nvidia.com>,
- kasan-dev@googlegroups.com, kvm@vger.kernel.org,
- "Liam R. Howlett" <Liam.Howlett@oracle.com>,
+ Jason Gunthorpe <jgg@nvidia.com>, Johannes Weiner <hannes@cmpxchg.org>,
+ John Hubbard <jhubbard@nvidia.com>, kasan-dev@googlegroups.com,
+ kvm@vger.kernel.org, "Liam R. Howlett" <Liam.Howlett@oracle.com>,
  Linus Torvalds <torvalds@linux-foundation.org>, linux-arm-kernel@axis.com,
  linux-arm-kernel@lists.infradead.org, linux-crypto@vger.kernel.org,
  linux-ide@vger.kernel.org, linux-kselftest@vger.kernel.org,
  linux-mips@vger.kernel.org, linux-mmc@vger.kernel.org, linux-mm@kvack.org,
  linux-riscv@lists.infradead.org, linux-s390@vger.kernel.org,
  linux-scsi@vger.kernel.org, Lorenzo Stoakes <lorenzo.stoakes@oracle.com>,
- Marco Elver <elver@google.com>,
- Marek Szyprowski <m.szyprowski@samsung.com>,
+ Marco Elver <elver@google.com>, Marek Szyprowski <m.szyprowski@samsung.com>,
  Michal Hocko <mhocko@suse.com>, Mike Rapoport <rppt@kernel.org>,
  Muchun Song <muchun.song@linux.dev>, netdev@vger.kernel.org,
  Oscar Salvador <osalvador@suse.de>, Peter Xu <peterx@redhat.com>,
- Robin Murphy <robin.murphy@arm.com>,
- Suren Baghdasaryan <surenb@google.com>, Tejun Heo <tj@kernel.org>,
- virtualization@lists.linux.dev, Vlastimil Babka <vbabka@suse.cz>,
- wireguard@lists.zx2c4.com, x86@kernel.org, Zi Yan <ziy@nvidia.com>
-Subject: Re: [PATCH RFC 01/35] mm: stop making SPARSEMEM_VMEMMAP
- user-selectable
-Date: Fri, 22 Aug 2025 10:02:17 -0700
-Message-Id: <20250822170217.53169-1-sj@kernel.org>
-X-Mailer: git-send-email 2.39.5
-In-Reply-To: <20250821200701.1329277-2-david@redhat.com>
-References: 
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+ Robin Murphy <robin.murphy@arm.com>, Suren Baghdasaryan <surenb@google.com>,
+ Tejun Heo <tj@kernel.org>, virtualization@lists.linux.dev,
+ Vlastimil Babka <vbabka@suse.cz>, wireguard@lists.zx2c4.com, x86@kernel.org,
+ Zi Yan <ziy@nvidia.com>
+References: <20250821200701.1329277-1-david@redhat.com>
+ <20250821200701.1329277-19-david@redhat.com>
+Content-Language: en-US
+From: Pavel Begunkov <asml.silence@gmail.com>
+In-Reply-To: <20250821200701.1329277-19-david@redhat.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 X-Mailman-Approved-At: Mon, 25 Aug 2025 12:39:32 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -91,51 +116,35 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Thu, 21 Aug 2025 22:06:27 +0200 David Hildenbrand <david@redhat.com> wrote:
+On 8/21/25 21:06, David Hildenbrand wrote:
+> We always provide a single dst page, it's unclear why the io_copy_cache
+> complexity is required.
 
-> In an ideal world, we wouldn't have to deal with SPARSEMEM without
-> SPARSEMEM_VMEMMAP, but in particular for 32bit SPARSEMEM_VMEMMAP is
-> considered too costly and consequently not supported.
-> 
-> However, if an architecture does support SPARSEMEM with
-> SPARSEMEM_VMEMMAP, let's forbid the user to disable VMEMMAP: just
-> like we already do for arm64, s390 and x86.
-> 
-> So if SPARSEMEM_VMEMMAP is supported, don't allow to use SPARSEMEM without
-> SPARSEMEM_VMEMMAP.
-> 
-> This implies that the option to not use SPARSEMEM_VMEMMAP will now be
-> gone for loongarch, powerpc, riscv and sparc. All architectures only
-> enable SPARSEMEM_VMEMMAP with 64bit support, so there should not really
-> be a big downside to using the VMEMMAP (quite the contrary).
-> 
-> This is a preparation for not supporting
-> 
-> (1) folio sizes that exceed a single memory section
-> (2) CMA allocations of non-contiguous page ranges
-> 
-> in SPARSEMEM without SPARSEMEM_VMEMMAP configs, whereby we
-> want to limit possible impact as much as possible (e.g., gigantic hugetlb
-> page allocations suddenly fails).
-> 
-> Cc: Huacai Chen <chenhuacai@kernel.org>
-> Cc: WANG Xuerui <kernel@xen0n.name>
-> Cc: Madhavan Srinivasan <maddy@linux.ibm.com>
-> Cc: Michael Ellerman <mpe@ellerman.id.au>
-> Cc: Nicholas Piggin <npiggin@gmail.com>
-> Cc: Christophe Leroy <christophe.leroy@csgroup.eu>
-> Cc: Paul Walmsley <paul.walmsley@sifive.com>
-> Cc: Palmer Dabbelt <palmer@dabbelt.com>
-> Cc: Albert Ou <aou@eecs.berkeley.edu>
-> Cc: Alexandre Ghiti <alex@ghiti.fr>
-> Cc: "David S. Miller" <davem@davemloft.net>
-> Cc: Andreas Larsson <andreas@gaisler.com>
-> Signed-off-by: David Hildenbrand <david@redhat.com>
+Because it'll need to be pulled outside the loop to reuse the page for
+multiple copies, i.e. packing multiple fragments of the same skb into
+it. Not finished, and currently it's wasting memory.
 
-Acked-by: SeongJae Park <sj@kernel.org>
+Why not do as below? Pages there never cross boundaries of their folios.
 
+Do you want it to be taken into the io_uring tree?
 
-Thanks,
-SJ
+diff --git a/io_uring/zcrx.c b/io_uring/zcrx.c
+index e5ff49f3425e..18c12f4b56b6 100644
+--- a/io_uring/zcrx.c
++++ b/io_uring/zcrx.c
+@@ -975,9 +975,9 @@ static ssize_t io_copy_page(struct io_copy_cache *cc, struct page *src_page,
+  
+  		if (folio_test_partial_kmap(page_folio(dst_page)) ||
+  		    folio_test_partial_kmap(page_folio(src_page))) {
+-			dst_page = nth_page(dst_page, dst_offset / PAGE_SIZE);
++			dst_page += dst_offset / PAGE_SIZE;
+  			dst_offset = offset_in_page(dst_offset);
+-			src_page = nth_page(src_page, src_offset / PAGE_SIZE);
++			src_page += src_offset / PAGE_SIZE;
+  			src_offset = offset_in_page(src_offset);
+  			n = min(PAGE_SIZE - src_offset, PAGE_SIZE - dst_offset);
+  			n = min(n, len);
 
-[...]
+-- 
+Pavel Begunkov
+
