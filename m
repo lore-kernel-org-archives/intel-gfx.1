@@ -4,191 +4,151 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5019FCA0FE9
-	for <intel-gfx@archiver.kernel.org>; Mon, 25 Aug 2025 10:32:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8ED0ACA0FE1
+	for <intel-gfx@archiver.kernel.org>; Mon, 25 Aug 2025 11:32:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5F18910E435;
-	Mon, 25 Aug 2025 10:32:40 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9F74A10E448;
+	Mon, 25 Aug 2025 11:32:01 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="JHIBjOe6";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="C8W75YBH";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BDC6510E42B;
- Mon, 25 Aug 2025 10:32:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1756117959; x=1787653959;
- h=message-id:date:subject:to:cc:references:from:
- in-reply-to:content-transfer-encoding:mime-version;
- bh=ehVIStO8VWC3BPsgZslliLFZ0+kz53W0X+kat98ve/s=;
- b=JHIBjOe6l4tyET1agD+PMquSVnLzUOU5cGxi3EzfBJIfksRH0drgf771
- aitEqmWfK7eIMeFRYVVT2kQiWHZ7dhuWITR/O0ib9MVrXd8Asvz2jEDGN
- BEPOdHh2C8NajtSjSgbrP6EwBT5A6GgOFR1QR5Kn8/Xs6y5vzDkxycvxp
- dfp/ajYguRZMr7SHKgvZr/oBEZuS2b0WdEGhR99ibLaL6deRwXFpPRcD9
- c6xr1TiTqhPqn6PLthLpI9Ikp5IUPSqxe5EjlS7PYMggpDaac1804vd0R
- ODwuB4ljwti12K21t1iIkXwzmyjcVFQ+mEsiWcywR8wkcYLVC41bwBSYr w==;
-X-CSE-ConnectionGUID: vl1yt20WROmolPCFanXVAQ==
-X-CSE-MsgGUID: +dFGQtc2Qmi0Qt18ouJjpQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11532"; a="69700953"
-X-IronPort-AV: E=Sophos;i="6.17,312,1747724400"; d="scan'208";a="69700953"
-Received: from fmviesa009.fm.intel.com ([10.60.135.149])
- by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 25 Aug 2025 03:32:38 -0700
-X-CSE-ConnectionGUID: rrRnciZRQ+KFbh7ay9M7ag==
-X-CSE-MsgGUID: TtUB6htmS7OXZ06OTKfL+A==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.17,312,1747724400"; d="scan'208";a="169651518"
-Received: from orsmsx903.amr.corp.intel.com ([10.22.229.25])
- by fmviesa009.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 25 Aug 2025 03:32:38 -0700
-Received: from ORSMSX903.amr.corp.intel.com (10.22.229.25) by
- ORSMSX903.amr.corp.intel.com (10.22.229.25) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.17; Mon, 25 Aug 2025 03:32:37 -0700
-Received: from ORSEDG901.ED.cps.intel.com (10.7.248.11) by
- ORSMSX903.amr.corp.intel.com (10.22.229.25) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.17 via Frontend Transport; Mon, 25 Aug 2025 03:32:37 -0700
-Received: from NAM12-DM6-obe.outbound.protection.outlook.com (40.107.243.70)
- by edgegateway.intel.com (134.134.137.111) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.17; Mon, 25 Aug 2025 03:32:37 -0700
+Received: from NAM11-CO1-obe.outbound.protection.outlook.com
+ (mail-co1nam11on2047.outbound.protection.outlook.com [40.107.220.47])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0A51A10E442;
+ Mon, 25 Aug 2025 11:32:00 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=KdhtlF3i5nXc7v0j2/AJ3yyTDuRhmiRWDrmC/ztq9sKa2JdgqdPyni3toLT24N6eIluFbVU8T7tat5vh1Cjjm9Pz0lgkQP8kSQx+dQkTA3rE5IPIR2OfwMkQ5DSl0M7Mok42l8Ue+qBDQMiQ010ELw4egs0YeUhQsS6ck119urny93xhGGnDPpAV6JHpNiH2OOnowX8Y0uXlP6D0d5S87opSF2v4I2wNKkIJDi08hDQNzSe8ysYa2OtJvi5XiC89zuwCtpe3dk129H6bGx10xurgTf3UPQIc0BkkpOip8sA25VEpaj672u1a4JXQhBKZyc1yiDJ5DbSyABJDy/bnfw==
+ b=xmC5Tos9SVATQsK6Xtg8wq1VIr5iqc2oyq91c7mAeoAVDts/xkgdgFMXb3q18B2eVWoXyOKcwC7ab2WK5ADagkblHOfJ/gmSbgWtzTCcDzYbhmG1Un2G1qfpfR2A3we10hWBMA3sIqYiGwYZI635AxCzKqDU833BlPzfOOYsb6ohspchhd/jLmHVuW0+5FWpSCTlB0q7axeaeEUo2DqVuvwW2VX0KlzwOdQrScCD84e+OtwGFajw6H0tLSGZXzcOZYc3Y/ugl8GYLSHTbG2u+N4KNIn6A6VGfZA52Iav6H944pq3E5me73C9D2a7WM2gNK/717ZLT6uZ6wWYdtDr8g==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=8L1JV3129HeC4EF1GmYm/Nt9yD5m3s/WMqFO4Dvbc0U=;
- b=opAKsU+gsXZ+e3CcyZxdYumOvW6eSs4qbsLRJf5FdYh5A58BWYFURuY/11wWH60PEvYsU413i1taBPq7kZ4TdZ/DsDgNFKwmKFIWmy+zTPILbZVM74ipsyhKg4vFaLXnfC1UaWvDRCumUQ+/dUo33br85cWCzBO8XugmS24/7GHCAVXY9PNb8olnxmXHPpkvkOhVaD1wN3oy6pnN1AbxxkM1vqjp+AbNxLb50NVxGpmudVel7Hqx8fquzfNFTVsPJSD0POoUT1JhSP+TnqfGRwxbhfVHUbLs/iOTE1eFl78lingENO4laobMslPM+gHr8reKB8n22KoibcpmDRHIYA==
+ bh=La1oc8P2oI7lSFagKkwRKrBFGzv28Bm+oN8wb+uKzlU=;
+ b=tF72VT0s9s1d6IPsOwmeYylzgEFt9TXswBv0tDAB5SwgNIGDBQWsiOxVzL3DZnkklEARBKyNhh953I5/XkhtP5I40ZEXmPtcQgKu3lknorXJ07fuEwr1wIGeNOc5EGpXSEw6gm5Ol0SPtof5wJvNh2f3WtEwnCWSNmtslnTALpKlIbCUKXcvNL0fS4NFEennAw5wzm/lXk9gi0TVrp+3ErEQM9ihtnNRx6OjzuBc/1tivrLUzxUOxrppTmzLb+OCVzTkB2CTnFe1ZyUFLmWSpnIIGdnJDD1F6wPel5XpIwbKTz475aEvz71HnvczZIRD6Kl5v9PiyK6qzxmXwcAClg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=La1oc8P2oI7lSFagKkwRKrBFGzv28Bm+oN8wb+uKzlU=;
+ b=C8W75YBHHMlyHygwJAfsjZJOXS5JU1pD1tC/hoZbzGVXDwpguQB7FPIYRUZoPwe+RxAla7DnmN6JfFL2shNIjDo4ijMUIjbAq9MmWU6uN9nN05wB+S2QwHtoT4hG0hKWhD2M5nC/fhAtGPb/TVTerzj4y4lKm8QXOzm2ubJoqg4=
 Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-Received: from IA0PR11MB7307.namprd11.prod.outlook.com (2603:10b6:208:437::10)
- by SA2PR11MB4938.namprd11.prod.outlook.com (2603:10b6:806:fb::14)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9031.24; Mon, 25 Aug
- 2025 10:32:35 +0000
-Received: from IA0PR11MB7307.namprd11.prod.outlook.com
- ([fe80::dafa:d38d:8ac1:e843]) by IA0PR11MB7307.namprd11.prod.outlook.com
- ([fe80::dafa:d38d:8ac1:e843%4]) with mapi id 15.20.9052.017; Mon, 25 Aug 2025
- 10:32:35 +0000
-Message-ID: <1f163de1-046e-4c66-8d98-0a3062551cb1@intel.com>
-Date: Mon, 25 Aug 2025 16:02:27 +0530
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from PH8PR12MB7301.namprd12.prod.outlook.com (2603:10b6:510:222::12)
+ by DS7PR12MB8290.namprd12.prod.outlook.com (2603:10b6:8:d8::15) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9052.21; Mon, 25 Aug
+ 2025 11:31:57 +0000
+Received: from PH8PR12MB7301.namprd12.prod.outlook.com
+ ([fe80::a929:e8eb:ef22:6350]) by PH8PR12MB7301.namprd12.prod.outlook.com
+ ([fe80::a929:e8eb:ef22:6350%6]) with mapi id 15.20.9052.019; Mon, 25 Aug 2025
+ 11:31:57 +0000
+Message-ID: <0f2992f6-3124-47db-9ab4-c09fe5e2fba5@amd.com>
+Date: Mon, 25 Aug 2025 17:01:49 +0530
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 1/4] drm: Define user readable error codes for atomic
- ioctl
-To: Jani Nikula <jani.nikula@linux.intel.com>, Xaver Hugl <xaver.hugl@kde.org>
-CC: <dri-devel@lists.freedesktop.org>, <intel-gfx@lists.freedesktop.org>,
- <intel-xe@lists.freedesktop.org>, Simona Vetter <simona@ffwll.ch>, "Maarten
- Lankhorst" <maarten.lankhorst@linux.intel.com>, Rodrigo Vivi
- <rodrigo.vivi@intel.com>, Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- <naveen1.kumar@intel.com>, <uma.shankar@intel.com>, <harry.wentland@amd.com>
-References: <20250822-atomic-v3-0-13a0e8f2c581@intel.com>
- <20250822-atomic-v3-1-13a0e8f2c581@intel.com>
- <CAFZQkGwqgo7FavPQecKgwaZ1DcXccY9urRzcfocg+Srd4P9WPA@mail.gmail.com>
- <3d0136ee-fa1d-40ff-8304-da4d7432b1f1@intel.com>
- <141904c898c16c8c3b03b48ba2809b5046ed9f0a@intel.com>
+Subject: Re: [PATCH v3 2/2] drm/buddy: Separate clear and dirty free block
+ trees
+To: Matthew Auld <matthew.auld@intel.com>, christian.koenig@amd.com,
+ dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
+ intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org
+Cc: alexander.deucher@amd.com
+References: <20250821150641.2720-1-Arunpravin.PaneerSelvam@amd.com>
+ <20250821150641.2720-2-Arunpravin.PaneerSelvam@amd.com>
+ <feae67f7-288e-4783-a059-b48dfea6e4e1@intel.com>
 Content-Language: en-US
-From: "Murthy, Arun R" <arun.r.murthy@intel.com>
-In-Reply-To: <141904c898c16c8c3b03b48ba2809b5046ed9f0a@intel.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
+From: Arunpravin Paneer Selvam <arunpravin.paneerselvam@amd.com>
+In-Reply-To: <feae67f7-288e-4783-a059-b48dfea6e4e1@intel.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: MA0PR01CA0042.INDPRD01.PROD.OUTLOOK.COM
- (2603:1096:a01:81::13) To IA0PR11MB7307.namprd11.prod.outlook.com
- (2603:10b6:208:437::10)
+X-ClientProxiedBy: PN4P287CA0091.INDP287.PROD.OUTLOOK.COM
+ (2603:1096:c01:268::8) To PH8PR12MB7301.namprd12.prod.outlook.com
+ (2603:10b6:510:222::12)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: IA0PR11MB7307:EE_|SA2PR11MB4938:EE_
-X-MS-Office365-Filtering-Correlation-Id: c23856bf-95ed-4dbf-8402-08dde3c2b4d5
+X-MS-TrafficTypeDiagnostic: PH8PR12MB7301:EE_|DS7PR12MB8290:EE_
+X-MS-Office365-Filtering-Correlation-Id: 1becf050-e760-4b43-b37e-08dde3caffa2
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|366016|1800799024|376014;
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?T1F0VFJYZUlVK0hzckgvbnVvZGJWR2JONm9XRVJMdWwzVjRXSVI1T2hFTDAr?=
- =?utf-8?B?cHNiUm1aWTZjbVNZYkM5MDdrZkRZY25jSnJLUDVYTWtRY0F5TmtrSG9DWktP?=
- =?utf-8?B?TERodzkzUTAvUVhoazBmQW9OVUFVQ1dlQzY0amhlODVIekNmZm56cEYzdU9k?=
- =?utf-8?B?U2NRYkM1Q3ZlVGFWMDdySFhpMUdqLzlpNkYwNHhBWDBNbW1ZU1hpcElkbDI0?=
- =?utf-8?B?dnNlQUtwQUExbENhSDFsYU1TaldTazJidHhUVXAyZ00vVk8xSXV0d0NtOExS?=
- =?utf-8?B?UFRiU2c1NE14OHpVM0wxZC92cGJ1bkVrVVVINFhaVHU3MlhDWHVyelNiZkFy?=
- =?utf-8?B?YVFHdkJFWmlaY0w2RlgzUWtydXhYcGNYRDQ2L3FFMUptc0t0cGJ2OGtnL0g1?=
- =?utf-8?B?UGEwMG1tN0I4bkoyYWJBRnlFRkdNYlJxZ09kSHYycUE2RDBUbi96cWU4SS9v?=
- =?utf-8?B?Z2tMdFVvQ1YxbnlxbktxdndEY0pQdjYyQXkvTGdFdkZkK0ZYUHc3WU50c04v?=
- =?utf-8?B?b3ZvSytLSDF1RCtWZEFDaTc0Q1B1bTZWM0N6bFF2ak5OVVhOWU9yeWlLc0M0?=
- =?utf-8?B?NnNrbk80ZG9SbUxuYWxqUFJONHZwTlh1SytLMEhHdHg4SHFqQlVlbXBmby9B?=
- =?utf-8?B?VFRpMUhiM2hzWDlXd2MwS2hpYmJ0V1MwMkhOL25VYVdWS0RZRVp0WjgrS0Y5?=
- =?utf-8?B?dGM0bGoyQ2d5aUVJbURjZkw0RGY1N0dHdjRZQmVjSzhwU3kvUVN4OXpHTnJO?=
- =?utf-8?B?L1IvYnlsT0hZVzhmdUFDUEpPM214NFpmdkZ6YTAzV1NOa0pmbVcyRlR1ZkZV?=
- =?utf-8?B?R0MxQW5PWnFialF1cHduTnhhWllqSXY0eHFVVEdEc29hcE5UN0J6akZabG15?=
- =?utf-8?B?Tk84T2wyRXRybkFqdTcxTkZTY2cwMzI0SnMzakEzU0V2My9NNVhJMEVpTEto?=
- =?utf-8?B?Vm9FYmNpZlA3cmJYbjF4NTdsS1RWNmdkNERRY0JzaXMvWW9aZ0NCVzJaZ1hN?=
- =?utf-8?B?Sm11RDVrMVcvK054cmY3MzBpeE5lL3VSSVpIVFgxZmluOVRZWWlzMzBzN0dw?=
- =?utf-8?B?S0hDRkVKL0JlZXFiUmllbWxZN3dMenZHVHY0bEw0L1RXbXhhdUZueGFEWWoz?=
- =?utf-8?B?YXNwc2Y5elVablA4eGJiV2pHd3RLaFJZMURTK0JlU0lMcVVtS21BeENDNVAz?=
- =?utf-8?B?ekRkV0dpdE50YlVSWnpKZjE1RWtkWnpKNzJGQ3dOMkJ1YVBETTlGd2pBOVkz?=
- =?utf-8?B?S1RGZFh1NjJYeFJPdVlxbzdFM3cyS2M2RVJHSWxLeFE2UTQ5VHhhY2FpZXVz?=
- =?utf-8?B?dmVQakVkZ0hESXRvUkJZV0k4UnBUY0Y1NnVxTE56WUQwbUg4MXZlcmljMU9F?=
- =?utf-8?B?c2NtdEJGdzF2R3lxeXdLZzFtTW1LaGJhMzRGZWd4UTlOWEZoK1hISkV3M2Zo?=
- =?utf-8?B?TXpSby9OUVlteS9kQzk5MFcvQ0dwcWNjRkFJalA5a3ZGcmpDZllya1ZPc1Qy?=
- =?utf-8?B?MDhnN3o5dGpocDI1Qmwrdmd2b1lMbHpZOVJvQ3F1K0NhbVBSa2wxSzZRZzRB?=
- =?utf-8?B?eVdhODB5SkNGSjdlcXNEeWpSV0hZVjVhc1M0VmMwaHJadE84VmgwQUx5WkZx?=
- =?utf-8?B?c20xR3diT3pQaXhhV0JHTFE2MXdHazJQYllFY2wrU1BxWlhNUHpqL3I5ZXJG?=
- =?utf-8?B?YmhRQzd5NTlYeG5rVDNFSzlicnJmU2RWMEZvOWM1UFB3YWlYMDJ2MUVZWnNC?=
- =?utf-8?B?RHpTTC9QZVAzemZJVVJhc1hpRTVhVVJMejN6MEJmSldzV09zUmFTZnVTYXNs?=
- =?utf-8?B?OUJnZi9SQ3Rqd0x0Q0NpbGpzRy90c2IwUWgyZ3VKRnhZN2pzTHFuSkwxdGdN?=
- =?utf-8?B?VHlQRDRENEpubk84YXV0TE5SdmdrUmpWbkxiek5FVXVLNXJxTis0RldoQU5r?=
- =?utf-8?Q?ryBQm/xsrCU=3D?=
+X-Microsoft-Antispam: BCL:0;ARA:13230040|366016|376014|1800799024|7053199007;
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?S0NNYXZidGpXS0prTkhJUFBObG5UZ2tUR1p3WHh6a3hIdGFHaFR2bjErZmo1?=
+ =?utf-8?B?YlZoNWxEZmZrM1VTbktWaXJMUHptNE9LS1c5eGhYUGJQWWUrRkI2Q2Z6c3FF?=
+ =?utf-8?B?K3pTUVhFTG41bU1mSzVHenhBNmQrdkJIZkd1MzBlY3A5T1FySis4TEhqVStQ?=
+ =?utf-8?B?K0NJRWhPM0hRM2R5aTJqVml2VjFIbDdjWEE0aGdMd1d0WVJLaFpzbmhVL2hJ?=
+ =?utf-8?B?QkwzWkQ0RFZyMkt1azFIOEg4OFdWZlIrdWxEa25FQ2dXL3B0Ym9WTkNjRHNu?=
+ =?utf-8?B?SUxJa1dINWdIdDAvNWxYU3gxaVlxNktHS3hsN2FoZGN2RkJxMlJOaGNqc1lC?=
+ =?utf-8?B?dEVFQ3pnVEUyTnVmSExCME83NmJ3NU5KdUlzMEdwalVrVEtKNFdmUkpJM3Q4?=
+ =?utf-8?B?SUxQTXF1OVBnQWk3SnVMMktBTDJhR3NkNmUwOHAxWWNmaVRBMXVqeSt5MDFM?=
+ =?utf-8?B?NXhpVm8xUXZiSGhBbGdkRVFXSEpCZ2lBUVJjWXhEVGFiVTJlaUp6MjR4VVRJ?=
+ =?utf-8?B?bkR5aFRDSy9WaktMRFppV05lNzFCVW83NitYMk5NNE1NNm5aV05oYS9VRURa?=
+ =?utf-8?B?WXJmVHJJTnBDNTU3aWJPMy9zSHJHSzAyTER4ODJKdTZ0RWNVQ2svc0JRV1ZS?=
+ =?utf-8?B?VjAwOUtYelgwc0FDV2NvUHdhQms3dHcrS2U5OFFrOGkwQVlsdlMvMll5dEZG?=
+ =?utf-8?B?alpqV2QyMi9WeFNRNWlDL3VKaTVwNDJpUzIzU2dQNWNNT0tXYndNTjhTbDcy?=
+ =?utf-8?B?Wk9EMVFTTmJtT2RUTGNPR2E4eUM4cEgxRlZmRU5lWnZpZURIcmg1TTA3Q1F4?=
+ =?utf-8?B?NzhRRy9NdmRxVlBSRk10YllIeXBRR3hYWkJhU1F3SlVCYlBqNjVwMWZEZGxF?=
+ =?utf-8?B?UGFndXREZytIOE5VenRMZ1RPblpMVVZvanp2aGFYK05nK0o0aStKTFI4RDM4?=
+ =?utf-8?B?Yjhva2FMYURrWnQyTXFqcGZ6dEsxUGtFWVRWdkxVUlZSSjdPR1ZYUjhWNFcx?=
+ =?utf-8?B?TWRnWnpwQkE0K0ZzR0JMdUtIblFLVER1UTFmRmo2Z3ZpcWNFc1VMWjVvMzNh?=
+ =?utf-8?B?ZFgrNDBua051bSt6dVdvaGpUcGhnUTNwbGltU1VrMldKYnR0YTAvWTRNREVN?=
+ =?utf-8?B?dVZrQWo5NW1xK1ZEbnBWOHo4YktKRzNRR0JUSi9qcWszR3NZRnRhN09aeDJj?=
+ =?utf-8?B?TXlKSENwQkxpeVBKd2JmMzB2WkxIcjNMM0hOd3lMcHB4Q0NhVzcwSTVXUFBL?=
+ =?utf-8?B?NStXUUxkdWR4N3M3Q3laM09RalVyaG11ank4U1ZBV3I5Y2pOU3dxKzlxakNi?=
+ =?utf-8?B?UnNJR3hBQU55enRZbHFIMWh4Z25SMURtSXprVVVqa3kyOXM3OERwckYrQTdt?=
+ =?utf-8?B?M3hnWWlCRFVVRlA2NkJObjgzZjhmNnNSaHJ5M0IzRFd5WTgwMExTUWVacHpJ?=
+ =?utf-8?B?YVl0UU1raGFKMXlGMEJsWFcxSWZLMVkxeWhpWTcrZklKZ1lYd1VPNlVIQ1hS?=
+ =?utf-8?B?WjBuUG9Ib0dBekxKaGJ5UnI1T1pjaGxFaEkrRkRjTmZQZzhLbjNiOTZKN293?=
+ =?utf-8?B?UlFPb2tMY1RmNDhKclVEN0hWbnJTdmpleHhWTnVMeTNCTG1NVms1dEJUMGp0?=
+ =?utf-8?B?R1FNeXQ1VmFKZ3F0dEZCeXdxeGJmQXo0TllvY0g2cDB4L3lhc2tBZ25YR3dB?=
+ =?utf-8?B?TE5FQ0g0RzBrU3l3VGFmVlhrc3MvN293ZzE1LzlNWDAxN3JnV0R6M0VWdk0y?=
+ =?utf-8?B?MUxiZXh5bXhHWmpzbFdFb2ZtNWpDUCt6aVpWV0ZYSUZtdTFBV0M5ZU1Vcnl5?=
+ =?utf-8?Q?2zFOix3SrnECkgft48rQZKN1gUVVKqrgjtAIY=3D?=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:IA0PR11MB7307.namprd11.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(1800799024)(376014); DIR:OUT; SFP:1101; 
+ IPV:NLI; SFV:NSPM; H:PH8PR12MB7301.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(376014)(1800799024)(7053199007); DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?U3dId2h3N2tsL0xjWHg0R2xKdmNFOGhQek0xOXVidEhsdjVpekU3ZFc1am1C?=
- =?utf-8?B?RDBra0FlUEZOK3pzOGZodVp4R3pFdTRNVjliQklOZXAwcWlyVHNUUVA4OVlI?=
- =?utf-8?B?OTNEeDljbWlQZCsvckx2QXN5R2pWaW9oSlkwclZPdGZiekdtZVE4Tng2Yzhy?=
- =?utf-8?B?Q1JtbXlRc3RBRVNya0dPTzEzdTRNSEZZRUprSFdxV2RGWDBmNlpBaVhMSFY1?=
- =?utf-8?B?bDJNeDM4UmNrcVdPL0JjMWdXVjgwUCswN1A0bG5WZVZ4U0lEUTBYcXhMVFJi?=
- =?utf-8?B?U0xzODBDYllDM1BXNnVQWlkzQzdVVm9iUFphSEZodlZYYURqZHdXczlsdk5a?=
- =?utf-8?B?UkE3WTZzN004aDFBeFNPZ05vVllJTG5VQlgzYmtibEx1U2wwSDVkSS9GWDEz?=
- =?utf-8?B?TWlwZW1NR2RtcGxlU0NVc2FReDFZdDBYQ1pUK2RGcll4VWVyQUJQMjZGNWFQ?=
- =?utf-8?B?UzdFdHFSd3VmWXp1K3ZhK2pPdjdiU3JMQ0dVTlUrOGRtVlU4clFrZWdWbWhq?=
- =?utf-8?B?eWc0aFBzNzRZTlFTQnAxZEw5ck94ZGhnSGhSZ2gwZFNuT2xMd2FmeFk2bDlQ?=
- =?utf-8?B?Z3MvQnc1bzFYa2wrVGladUdPTWU4WFNmNlV2elptTDdYTUt6Q2ZrR2kwUkdG?=
- =?utf-8?B?NVVEdFZqOVQ4UEpmWDJIQ1dLVm9YWVdUUWNqVGxzSmtpVExoUFNHS09lREV6?=
- =?utf-8?B?bDVpTm9vZVFWRTZhcUp3RTd1Vmpjd3JVMkxhT2ZGeWxvL0pVM1Y0bi8xOVlB?=
- =?utf-8?B?VG1HVml5K0lhZ20zZy9sSFdQOWt0OUpJNFpPbHNYVXVpejMrU1hYNURVWVJX?=
- =?utf-8?B?ZHd2ZjdCNVBlYW04R25VUkxkalZyRVdkVG1FMENmWTNvZE1WWmFVMzFvbzhS?=
- =?utf-8?B?SFFobHZONHFUQStaNzY5QWJuRTJlaUV1czRSQmVWNndNY2d4cEFQZExFL1hp?=
- =?utf-8?B?clpMeFpRaHJxbHlERXRZS0VwbXdkU2R5SU9yNHZqa3U3N1F4Z3NGM2RSTE05?=
- =?utf-8?B?dlMyY1RobnVYMnZjVVVId1hmYzhZUWdOTUpFSWx3Z2pjbGFYWXhuOWU1U1Vl?=
- =?utf-8?B?WG5BbGpYRmRFNHhnVFJzVndGMW1QQ1dJUjNKcVlTTlp6VXpLWldOV2RGUmRo?=
- =?utf-8?B?OFJBWVhDRjZheUYvbHdrdFpEcDJhZ1lRNUZySjN1SlpOVDFocUFoK3VBQ0Z2?=
- =?utf-8?B?cDZ4OG5tb2ZtdmVvTWg4aW8zR1dPRS9IVVBTbWE2TFNLSW5EMFowc2UzOXJY?=
- =?utf-8?B?WmVXRjMySk9xcWVxTUtTNmpqcytqZ3ZnV0tyY2h6VFZQcHFaMmZDb251MVNy?=
- =?utf-8?B?eWJhVWprUElMbGxwejlzMERQdUNreDlzWGxzRFMvcWJMUXBYZE0xU0ZPUFVK?=
- =?utf-8?B?Mk14VFFrSUNoQ0lSM1dPR1J1L3lwRFc1N0xzTGRtbHlQb3JrRGxuRkxwaTIv?=
- =?utf-8?B?VVhxL0pyNmw4M0x4eVZxeG5ZNE1oQk9yMTBaYnh5YXlKWk84ZGs3QmdEdTRW?=
- =?utf-8?B?bWNQZC9tbFloWVFUcHI0Nzk0aUdJNnhha2ord3FWY1ZGdGhwMjdwY0plVTRq?=
- =?utf-8?B?N2d5cXJMVEJnYURibGVyZ3phc2JWK2lVK0QydTJzbjJpRWp3UUpjY0sxZG9S?=
- =?utf-8?B?VkMxbE1HblJUSkZYT0MvUzZUQmhwY3JRUDZMcU1UczdkVENPc3pWYkZjTGs4?=
- =?utf-8?B?WDY1amJaUXFTa1ZLc2NJRmRZZVpiVHhVNTFJT1Z5ZGlEU2g4VmJBYUhWaDl5?=
- =?utf-8?B?d05GMEx5eGNieFp0WU5WNWJCQi9JMDh5TzFPMkZadXBuS3cvSERwekRUTTdQ?=
- =?utf-8?B?VmR1aUlVeFAzMlhMMU5KeWVJSVZJVTFnU2pxSVJsaXJBOUk5ckdWQlFvay9m?=
- =?utf-8?B?bm9ZL0JqYXZBQ0ZXWGlHbDlXQkJ4TjJ0aVl5czVkVzhCQzY5K0QrbVhmRU11?=
- =?utf-8?B?N1d4WjlxaUtlb0l6bUdseVQ3OEtXZTNOaUhWdkQ4TG55ZjZzdU8zbGZ3Y0Vm?=
- =?utf-8?B?NVJOSzNrTjJHbEtUZ1VweEZ1d2dKanlVL3R6Y05uSXVyWnVDcWNMWEp6L0Y5?=
- =?utf-8?B?RXMvaE4zZ1BjR0hhL3hNWndnSHNidW5Xek9mVzIyNDlpMFI3NDBzeGppV1Zr?=
- =?utf-8?B?cVErU3Vyd3JqUmdlNnNWUmlJaGlYdEdiV1BtYTYybkJCQk00UzFhUlBLWkpr?=
- =?utf-8?B?eVE9PQ==?=
-X-MS-Exchange-CrossTenant-Network-Message-Id: c23856bf-95ed-4dbf-8402-08dde3c2b4d5
-X-MS-Exchange-CrossTenant-AuthSource: IA0PR11MB7307.namprd11.prod.outlook.com
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?UkFhS1NhLy9lVHdaMEFGUDF0bUJwUC91RS9FRk0yY0tqbTUyMjYySUh1aWt1?=
+ =?utf-8?B?UEpIYi80VDB3SmdXY1dOTm5yZXFWNExhY1U3WWE2R3h6dS91dlpDYTVETE5J?=
+ =?utf-8?B?bUxYU1ppNTI0MStwNDJSZng1TGJvQmpxZWdCWjFxYXordTRMMmJ1eDVwdmxB?=
+ =?utf-8?B?WlNKQ2x2YmdWZHo4M3QzWkFWSCtHaVgveG00dktWYm8rbUlyRUlPbDFvMFNI?=
+ =?utf-8?B?TnpzVC96dzYzeDE5WmFVSlZLRWJneTNsQlBuWlhnVEsxTXZvM3JPOTVtRlho?=
+ =?utf-8?B?MGVjUGJ5TkYwQkhQV0U4SjNiTThEY054TERwSng4aXgwY3N0T0xtTW5Rb2hH?=
+ =?utf-8?B?KzVaMlFWUHl4U2ovWWwzMldLekI4MGFObzEzSkw3SG1WUktaOFIvNTV5R0FQ?=
+ =?utf-8?B?Mkl2M2lCcGpwRWtOUzE5R2Uzc0FIcnZuRkhLZEJRTStNY0MwdXI4K1RVUWlj?=
+ =?utf-8?B?UXlwd0FqWjZPNDk3L1l1WVFYL1VDY3RlVHRBTm9zTEJMNnBpNkFuVTVQR2Vs?=
+ =?utf-8?B?bnZkVkhUYkxsNEpaRWJtTGdONm1vcTNqNlh6T0cwVzV4ak1mY3p6dmp0RDhG?=
+ =?utf-8?B?OSs2Q0EwU0Z0NTFIT3ZIOVdLeWUzbXpDc1RrMnRXSTkzQ1M3SGQ4ZDBDQ05u?=
+ =?utf-8?B?MHZzWWFKemxsaS9mZ0FQTzVNQ09qamFtN0NzSndacVg1T0pUN2pwNll5cXh1?=
+ =?utf-8?B?NjBYT1c2VHBLQUNLcDc3VW9ETENtVWVyWUEzcW41UTREKzdyS01hbllUWkJo?=
+ =?utf-8?B?UmlCc05tNHVlY2tSRnpiRVVJZlRzZmxlTTdQMnN1Zlk5djFieE05NGFSd2ZL?=
+ =?utf-8?B?bXMrZ2J3eUY4OHMwN0FYMVI0TW5iS3hRK0dMNzMvamNZSHI5TzBvSTJJRE1L?=
+ =?utf-8?B?cFY4UlRJRjVJclRQaCt1SnpJMi9uMFlhd2FzZEJRVXFJTXZJKzVUZEwwLzV2?=
+ =?utf-8?B?Uk51ZXA3a2JGM0Zha0tKSXJ5Q0xlKzNENEVUdFoyR3FRNWJ2SUJiNW9WemtP?=
+ =?utf-8?B?V3RHNEYzb0g4SmNBVmxYNC9ISUtaTkRLQkVlQXc4Q1lUM3ZtL0FOOFZkTUpT?=
+ =?utf-8?B?cTVlYXY3N2hweGhBL055ZVRCTE5XTnB4dWJPakxvRSs5Y3RaU1pSWXRLQzFL?=
+ =?utf-8?B?cEdNdi9xMXFnY25ISUh3Q21kOTRVd3duZkpiR0JxQ1hwcGF3bzhOQzRVODg3?=
+ =?utf-8?B?VTV0c1BlcFRwUlJPdGh1VkVkNEE2MzIxeUJMYUt5VkVsUTk5THZ4UmlIaVJv?=
+ =?utf-8?B?eXZMVHF1c1YwSWp2UDlxNldrcTRBNW5Fbi8rRkd6S2trclpqckxSL1RFQi96?=
+ =?utf-8?B?ekxpbys2cXlGbzlXYUVBNGEzbiswUzJuUXRsQUVBejh1cnZYaW4vTHN6VFhO?=
+ =?utf-8?B?cGRNYzExeUFidFZZRTkrNDlPeXprNWNRQjhKQUNqNnJXTm0rVmM1d1paN3Y2?=
+ =?utf-8?B?bE50dmZGYkRFTGFlbkY0a0d0TE1DeHdUbFZrYVFudUlTNFBMaFFnNjFsRmZC?=
+ =?utf-8?B?ZE0yYU8ycURrcmVKcFZFeUlqS2t2NzExV0FzZDVGeTdkWTVFYlBwM0cwV2V5?=
+ =?utf-8?B?UVVoWk9LT05tYVpaZUVsUzd5WGpSY21LZG4zZmFaR1ZiSHpNVlZRbmo2NFVT?=
+ =?utf-8?B?c3VRRHlvZlpnVDVpaTRjNmpDaDVSRFBhelF5V3VTcTJKQnZ3RkJhZFN6SUZv?=
+ =?utf-8?B?M1UwQThyZUFDbWtJWXFaM3hMMlJtY3dmdVJwMlY1bm1YcDFKbEhHNGRBTlha?=
+ =?utf-8?B?YzNKUDRaYUUyWFdEbk41ckxHc0Y5bjF0M0VEdmQ4dXF2c2FlSTNybFNRQlhL?=
+ =?utf-8?B?SExEYm1tZG9NRk1QZEVSSFA1R3FOSC9TY290aVFCa2huSHlycy82cDJyN2dJ?=
+ =?utf-8?B?ZVRVSUt5bm9TUStiYnRmS0YyUDQ1T01nYjNUY3ZNNFMvd296cEJteEk1SnlR?=
+ =?utf-8?B?MFdVU1ozSXF5WmdVamhFWG14b3hNM0htbHE1eTRlUDNwWEppOW1FS2J0aXJW?=
+ =?utf-8?B?N2NJMXlRMjB6Nm5IUEp4MVR1QmRKeEgvVkFXUDByTjZycXhMd2JPcmhHeEtG?=
+ =?utf-8?B?N3JURWh5MXhRV0IzWVhuUi96djlzR1VyQjE2eUN6UVFEcUUzYjl1Rkl2ZnBO?=
+ =?utf-8?Q?mLwyGbxwRrZXw5wAwXKkux5qa?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 1becf050-e760-4b43-b37e-08dde3caffa2
+X-MS-Exchange-CrossTenant-AuthSource: PH8PR12MB7301.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Aug 2025 10:32:35.6754 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Aug 2025 11:31:57.2470 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: iy6stFo0YgwqvqyLuKllpdO+3lQ9ZSiaCEWMo5MdlVYry8O/aJqmqQ6eK27COn6p/KInAn/OXv5lIAoQGKCU3g==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA2PR11MB4938
-X-OriginatorOrg: intel.com
+X-MS-Exchange-CrossTenant-UserPrincipalName: IXg0aWs06TqQkWuWzYOW3SAAxCagcvXgRfpu7cgatag00Xlh867uSaw+jDTk7i0xIBu9LSzf9Sn7L5T5w/i3gw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB8290
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -204,77 +164,608 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On 25-08-2025 15:17, Jani Nikula wrote:
-> On Sat, 23 Aug 2025, "Murthy, Arun R" <arun.r.murthy@intel.com> wrote:
->> On 22-08-2025 21:44, Xaver Hugl wrote:
->>>> +#define DRM_MODE_ATOMIC_FAILURE_REASON \
->>>> +       FAILURE_REASON(DRM_MODE_ATOMIC_CAP_NOT_ENABLED, "DRM_ATOMIC capability not enabled") \
->>>> +       FAILURE_REASON(DRM_MODE_ATOMIC_INVALID_FLAG, "invalid flag") \
->>>> +       FAILURE_REASON(DRM_MODE_ATOMIC_PAGE_FLIP_ASYNC, "Legacy DRM_MODE_PAGE_FLIP_ASYNC not to be used in atomic ioctl") \
->>>> +       FAILURE_REASON(DRM_MODE_ATOMIC_FLIP_EVENT_WITH_CHECKONLY, "requesting page-flip event with TEST_ONLY") \
->>>> +       FAILURE_REASON(DRM_MODE_ATOMIC_CRTC_NEED_FULL_MODESET, "Need full modeset on this crtc") \
->>>> +       FAILURE_REASON(DRM_MODE_ATOMIC_NEED_FULL_MODESET, "Need full modeset on all the connected crtc's") \
->>>> +       FAILURE_REASON(DRM_MODE_ATOMIC_ASYNC_NOT_SUP_PLANE, "Async flip not supported on this plane") \
->>>> +       FAILURE_REASON(DRM_MODE_ATOMIC_ASYNC_MODIFIER_NOT_SUPPORTED, "Modifier not supported on this plane with async flip") \
->>>> +       FAILURE_REASON(DRM_MODE_ATOMIC_ASYNC_PROP_CHANGED, "No property change allowed when async flip is enabled")
->>> As mentioned before, some of these errors are a bit too specific. We
->>> don't need to have an enum value for every way the API can be used
->>> wrongly - CAP_NOT_ENABLED, INVALID_FLAG, PAGE_FLIP_ASYNC and
->>> MODIFIER_NOT_SUPPORTED should all just be one enum value for "invalid
->>> API usage".
->>> In general, there should only be enum values that the compositor
->>> implementation can actually use on end-user systems. For further
->>> information when debugging a broken compositor implementation, other
->>> tools can be used instead, like drm debug logging or the returned
->>> string.
->> I have considered your comment in the last series and have removed
->> driver specific errors.
->> Anyway will have a look again on this and will get back.
->>>> +#define FAILURE_REASON(flag, reason) flag,
->>>> +typedef enum {
->>>> +       DRM_MODE_ATOMIC_FAILURE_REASON
->>>> +} drm_mode_atomic_failure_flag;
->>>> +#undef FAILURE_REASON
->>>> +
->>>> +#define FAILURE_REASON(flag, reason) #reason,
->>>> +extern const char *drm_mode_atomic_failure_string[];
->>>> +#undef FAILURE_REASON
->>> The intention for the string wasn't for the enum values to be paired
->>> with a description of the enum - that belongs into documentation, not
->>> uAPI.
->>>
->>> The idea behind it was that drivers could add driver-specific
->>> information in the string for compositors to log (only in commits
->>> where failure isn't normally expected), so we have an easier time
->>> debugging issues a user system experienced by looking at the
->>> compositor logs. Sending the enum value again in string form isn't
->>> useful.
->> We are not sending enum value in string. Its just a single place where
->> we have both enum and string. Upon user adding new error codes if both
->> enum and string are at a single place it would be easy for the user.
->> Hence adding both in a single place using X macros.
+
+On 8/22/2025 5:32 PM, Matthew Auld wrote:
+> On 21/08/2025 16:06, Arunpravin Paneer Selvam wrote:
+>> Maintain two separate RB trees per order - one for clear (zeroed) blocks
+>> and another for dirty (uncleared) blocks. This separation improves
+>> code clarity and makes it more obvious which tree is being searched
+>> during allocation. It also improves scalability and efficiency when
+>> searching for a specific type of block, avoiding unnecessary checks
+>> and making the allocator more predictable under fragmentation.
 >>
->> Its not mandatory to have a string for every enum, the string can be
->> left empty if not required, or later in the driver user can overwrite
->> the string as well.
-> See my reply [1] about fixed vs. non-fixed error messages.
+>> The changes have been validated using the existing drm_buddy_test
+>> KUnit test cases, along with selected graphics workloads,
+>> to ensure correctness and avoid regressions.
+>>
+>> v2: Missed adding the suggested-by tag. Added it in v2.
+>> v3(Matthew):
+>>    - Remove the double underscores from the internal functions.
+>>    - Rename the internal functions to have less generic names.
+>>    - Fix the error handling code.
+>>    - Pass tree argument for the tree macro.
+>>    - Use the existing dirty/free bit instead of new tree field.
+>>    - Make free_trees[] instead of clear_tree and dirty_tree for
+>>      more cleaner approach.
+>>
+>> Signed-off-by: Arunpravin Paneer Selvam 
+>> <Arunpravin.PaneerSelvam@amd.com>
+>> Suggested-by: Matthew Auld <matthew.auld@intel.com>
+>> Closes: https://gitlab.freedesktop.org/drm/amd/-/issues/4260
+>> ---
+>>   drivers/gpu/drm/drm_buddy.c | 342 ++++++++++++++++++++++--------------
+>>   include/drm/drm_buddy.h     |   8 +-
+>>   2 files changed, 215 insertions(+), 135 deletions(-)
+>>
+>> diff --git a/drivers/gpu/drm/drm_buddy.c b/drivers/gpu/drm/drm_buddy.c
+>> index 92226a46cc2c..f57c384889a9 100644
+>> --- a/drivers/gpu/drm/drm_buddy.c
+>> +++ b/drivers/gpu/drm/drm_buddy.c
+>> @@ -14,6 +14,9 @@
+>>     static struct kmem_cache *slab_blocks;
+>>   +#define for_each_free_tree(tree) \
+>> +    for ((tree) = CLEAR_TREE; (tree) < MAX_FREE_TREES; (tree)++)
+>> +
+>>   /*
+>>    * for_each_rb_free_block() - iterate over an RB tree in order
+>>    * @pos:    the struct type * to use as a loop cursor
+>> @@ -78,22 +81,77 @@ static void drm_block_free(struct drm_buddy *mm,
+>>       kmem_cache_free(slab_blocks, block);
+>>   }
+>>   +static inline struct rb_root *
+>> +get_root(struct drm_buddy *mm,
+>> +     unsigned int order,
+>> +     enum free_tree tree)
+>> +{
+>> +    if (tree == CLEAR_TREE)
+>> +        return &mm->free_trees[CLEAR_TREE][order];
+>> +    else
+>> +        return &mm->free_trees[DIRTY_TREE][order];
 >
-> I believe Xaver is also saying we don't want the fixed error messages,
-> and especially not in a uapi header.
+> I think we can replace this with something like:
 >
-> BR,
-> Jani.
+> return &mm->free_trees[tree][order];
+yes. we can replace with the above.
 >
+>> +}
+>> +
+>> +static inline enum free_tree
+>> +get_tree_for_block(struct drm_buddy_block *block)
+>> +{
+>> +    return drm_buddy_block_is_clear(block) ? CLEAR_TREE : DIRTY_TREE;
+>> +}
+>> +
+>> +static inline enum free_tree
+>> +get_tree_for_flags(unsigned long flags)
+>> +{
+>> +    return (flags & DRM_BUDDY_CLEAR_ALLOCATION) ? CLEAR_TREE : 
+>> DIRTY_TREE;
+>> +}
+>> +
+>> +static inline struct drm_buddy_block *
+>> +rbtree_get_free_block(struct rb_node *node)
+>> +{
+>> +    return node ? rb_entry(node, struct drm_buddy_block, rb) : NULL;
+>> +}
+>> +
+>> +static inline struct drm_buddy_block *
+>> +rbtree_prev_free_block(struct rb_node *node)
+>> +{
+>> +    return rbtree_get_free_block(rb_prev(node));
+>> +}
+>> +
+>> +static inline struct drm_buddy_block *
+>> +rbtree_first_free_block(struct rb_root *root)
+>> +{
+>> +    return rbtree_get_free_block(rb_first(root));
+>> +}
+>> +
+>> +static inline struct drm_buddy_block *
+>> +rbtree_last_free_block(struct rb_root *root)
+>> +{
+>> +    return rbtree_get_free_block(rb_last(root));
+>> +}
+>> +
+>> +static inline bool rbtree_is_empty(struct rb_root *root)
+>> +{
+>> +    return RB_EMPTY_ROOT(root);
+>> +}
+>> +
+>>   static void rbtree_insert(struct drm_buddy *mm,
+>> -              struct drm_buddy_block *block)
+>> +              struct drm_buddy_block *block,
+>> +              enum free_tree tree)
+>>   {
+>> -    struct rb_root *root = 
+>> &mm->free_tree[drm_buddy_block_order(block)];
+>> -    struct rb_node **link = &root->rb_node;
+>> -    struct rb_node *parent = NULL;
+>> +    struct rb_node **link, *parent = NULL;
+>>       struct drm_buddy_block *node;
+>> -    u64 offset;
+>> +    struct rb_root *root;
+>> +    unsigned int order;
+>> +
+>> +    order = drm_buddy_block_order(block);
+>>   -    offset = drm_buddy_block_offset(block);
+>> +    root = get_root(mm, order, tree);
+>> +    link = &root->rb_node;
+>>         while (*link) {
+>>           parent = *link;
+>> -        node = rb_entry(parent, struct drm_buddy_block, rb);
+>> +        node = rbtree_get_free_block(parent);
+>>   -        if (offset < drm_buddy_block_offset(node))
+>> +        if (drm_buddy_block_offset(block) < 
+>> drm_buddy_block_offset(node))
+>>               link = &parent->rb_left;
+>>           else
+>>               link = &parent->rb_right;
+>> @@ -106,27 +164,19 @@ static void rbtree_insert(struct drm_buddy *mm,
+>>   static void rbtree_remove(struct drm_buddy *mm,
+>>                 struct drm_buddy_block *block)
+>>   {
+>> +    unsigned int order = drm_buddy_block_order(block);
+>> +    enum free_tree tree;
+>>       struct rb_root *root;
+>>   -    root = &mm->free_tree[drm_buddy_block_order(block)];
+>> +    tree = drm_buddy_block_is_clear(block) ?
+>> +           CLEAR_TREE : DIRTY_TREE;
+>> +
+>> +    root = get_root(mm, order, tree);
+>>       rb_erase(&block->rb, root);
+>>         RB_CLEAR_NODE(&block->rb);
+>>   }
+>>   -static inline struct drm_buddy_block *
+>> -rbtree_last_entry(struct drm_buddy *mm, unsigned int order)
+>> -{
+>> -    struct rb_node *node = rb_last(&mm->free_tree[order]);
+>> -
+>> -    return node ? rb_entry(node, struct drm_buddy_block, rb) : NULL;
+>> -}
+>> -
+>> -static bool rbtree_is_empty(struct drm_buddy *mm, unsigned int order)
+>> -{
+>> -    return RB_EMPTY_ROOT(&mm->free_tree[order]);
+>> -}
+>> -
+>>   static void clear_reset(struct drm_buddy_block *block)
+>>   {
+>>       block->header &= ~DRM_BUDDY_HEADER_CLEAR;
+>> @@ -149,10 +199,14 @@ static void mark_allocated(struct drm_buddy *mm,
+>>   static void mark_free(struct drm_buddy *mm,
+>>                 struct drm_buddy_block *block)
+>>   {
+>> +    enum free_tree tree;
+>> +
+>>       block->header &= ~DRM_BUDDY_HEADER_STATE;
+>>       block->header |= DRM_BUDDY_FREE;
+>>   -    rbtree_insert(mm, block);
+>> +    tree = get_tree_for_block(block);
+>> +
+>> +    rbtree_insert(mm, block, tree);
+>>   }
+>>     static void mark_split(struct drm_buddy *mm,
+>> @@ -238,6 +292,7 @@ static int __force_merge(struct drm_buddy *mm,
+>>                u64 end,
+>>                unsigned int min_order)
+>>   {
+>> +    enum free_tree tree;
+>>       unsigned int order;
+>>       int i;
+>>   @@ -247,50 +302,49 @@ static int __force_merge(struct drm_buddy *mm,
+>>       if (min_order > mm->max_order)
+>>           return -EINVAL;
+>>   -    for (i = min_order - 1; i >= 0; i--) {
+>> -        struct drm_buddy_block *block, *prev_block, *first_block;
+>> -
+>> -        first_block = rb_entry(rb_first(&mm->free_tree[i]), struct 
+>> drm_buddy_block, rb);
+>> +    for_each_free_tree(tree) {
+>> +        for (i = min_order - 1; i >= 0; i--) {
+>> +            struct rb_root *root = get_root(mm, i, tree);
+>> +            struct drm_buddy_block *block, *prev_block;
+>>   -        for_each_rb_free_block_reverse_safe(block, prev_block, 
+>> &mm->free_tree[i], rb) {
+>> -            struct drm_buddy_block *buddy;
+>> -            u64 block_start, block_end;
+>> +            for_each_rb_free_block_reverse_safe(block, prev_block, 
+>> root, rb) {
+>> +                struct drm_buddy_block *buddy;
+>> +                u64 block_start, block_end;
+>>   -            if (!block->parent)
+>> -                continue;
+>> +                if (!block->parent)
+>> +                    continue;
+>>   -            block_start = drm_buddy_block_offset(block);
+>> -            block_end = block_start + drm_buddy_block_size(mm, 
+>> block) - 1;
+>> +                block_start = drm_buddy_block_offset(block);
+>> +                block_end = block_start + drm_buddy_block_size(mm, 
+>> block) - 1;
+>>   -            if (!contains(start, end, block_start, block_end))
+>> -                continue;
+>> +                if (!contains(start, end, block_start, block_end))
+>> +                    continue;
+>>   -            buddy = __get_buddy(block);
+>> -            if (!drm_buddy_block_is_free(buddy))
+>> -                continue;
+>> +                buddy = __get_buddy(block);
+>> +                if (!drm_buddy_block_is_free(buddy))
+>> +                    continue;
+>>   -            WARN_ON(drm_buddy_block_is_clear(block) ==
+>> -                drm_buddy_block_is_clear(buddy));
+>> +                WARN_ON(drm_buddy_block_is_clear(block) ==
+>> +                    drm_buddy_block_is_clear(buddy));
+>>   -            /*
+>> -             * If the prev block is same as buddy, don't access the
+>> -             * block in the next iteration as we would free the
+>> -             * buddy block as part of the free function.
+>> -             */
+>> -            if (prev_block && prev_block == buddy) {
+>> -                if (prev_block != first_block)
+>> -                    prev_block = rb_entry(rb_prev(&prev_block->rb),
+>> -                                  struct drm_buddy_block,
+>> -                                  rb);
+>> -            }
+>> +                /*
+>> +                 * If the prev block is same as buddy, don't access the
+>> +                 * block in the next iteration as we would free the
+>> +                 * buddy block as part of the free function.
+>> +                 */
+>> +                if (prev_block && prev_block == buddy) {
+>> +                    if (prev_block != rbtree_first_free_block(root))
+>> +                        prev_block = 
+>> rbtree_prev_free_block(&prev_block->rb);
+>> +                }
+>>   -            rbtree_remove(mm, block);
+>> -            if (drm_buddy_block_is_clear(block))
+>> -                mm->clear_avail -= drm_buddy_block_size(mm, block);
+>> +                rbtree_remove(mm, block);
+>> +                if (drm_buddy_block_is_clear(block))
+>> +                    mm->clear_avail -= drm_buddy_block_size(mm, block);
+>>   -            order = __drm_buddy_free(mm, block, true);
+>> -            if (order >= min_order)
+>> -                return 0;
+>> +                order = __drm_buddy_free(mm, block, true);
+>> +                if (order >= min_order)
+>> +                    return 0;
+>> +            }
+>>           }
+>>       }
+>>   @@ -311,7 +365,7 @@ static int __force_merge(struct drm_buddy *mm,
+>>    */
+>>   int drm_buddy_init(struct drm_buddy *mm, u64 size, u64 chunk_size)
+>>   {
+>> -    unsigned int i;
+>> +    unsigned int i, j;
+>>       u64 offset;
+>>         if (size < chunk_size)
+>> @@ -333,14 +387,16 @@ int drm_buddy_init(struct drm_buddy *mm, u64 
+>> size, u64 chunk_size)
+>>         BUG_ON(mm->max_order > DRM_BUDDY_MAX_ORDER);
+>>   -    mm->free_tree = kmalloc_array(mm->max_order + 1,
+>> -                      sizeof(struct rb_root),
+>> -                      GFP_KERNEL);
+>> -    if (!mm->free_tree)
+>> -        return -ENOMEM;
+>> +    for (i = 0; i < MAX_FREE_TREES; i++) {
+>> +        mm->free_trees[i] = kmalloc_array(mm->max_order + 1,
+>> +                          sizeof(struct rb_root),
+>> +                          GFP_KERNEL);
+>> +        if (!mm->free_trees[i])
+>> +            goto out_free_tree;
+>>   -    for (i = 0; i <= mm->max_order; ++i)
+>> -        mm->free_tree[i] = RB_ROOT;
+>> +        for (j = 0; j <= mm->max_order; ++j)
+>> +            mm->free_trees[i][j] = RB_ROOT;
+>> +    }
+>>         mm->n_roots = hweight64(size);
+>>   @@ -388,7 +444,8 @@ int drm_buddy_init(struct drm_buddy *mm, u64 
+>> size, u64 chunk_size)
+>>           drm_block_free(mm, mm->roots[i]);
+>>       kfree(mm->roots);
+>>   out_free_tree:
+>> -    kfree(mm->free_tree);
+>> +    while (i--)
+>> +        kfree(mm->free_trees[i]);
+>>       return -ENOMEM;
+>>   }
+>>   EXPORT_SYMBOL(drm_buddy_init);
+>> @@ -424,8 +481,9 @@ void drm_buddy_fini(struct drm_buddy *mm)
+>>         WARN_ON(mm->avail != mm->size);
+>>   +    for (i = 0; i < MAX_FREE_TREES; i++)
+>> +        kfree(mm->free_trees[i]);
+>>       kfree(mm->roots);
+>> -    kfree(mm->free_tree);
+>>   }
+>>   EXPORT_SYMBOL(drm_buddy_fini);
+>>   @@ -449,15 +507,15 @@ static int split_block(struct drm_buddy *mm,
+>>           return -ENOMEM;
+>>       }
+>>   -    mark_free(mm, block->left);
+>> -    mark_free(mm, block->right);
+>> -
+>>       if (drm_buddy_block_is_clear(block)) {
+>>           mark_cleared(block->left);
+>>           mark_cleared(block->right);
+>>           clear_reset(block);
+>>       }
+>>   +    mark_free(mm, block->left);
+>> +    mark_free(mm, block->right);
+>> +
+>>       mark_split(mm, block);
+>>         return 0;
+>> @@ -491,6 +549,7 @@ EXPORT_SYMBOL(drm_get_buddy);
+>>    */
+>>   void drm_buddy_reset_clear(struct drm_buddy *mm, bool is_clear)
+>>   {
+>> +    enum free_tree src_tree, dst_tree;
+>>       u64 root_size, size, start;
+>>       unsigned int order;
+>>       int i;
+>> @@ -505,19 +564,24 @@ void drm_buddy_reset_clear(struct drm_buddy 
+>> *mm, bool is_clear)
+>>           size -= root_size;
+>>       }
+>>   +    src_tree = is_clear ? DIRTY_TREE : CLEAR_TREE;
+>> +    dst_tree = is_clear ? CLEAR_TREE : DIRTY_TREE;
+>> +
+>>       for (i = 0; i <= mm->max_order; ++i) {
+>> +        struct rb_root *root = get_root(mm, order, src_tree);
+>>           struct drm_buddy_block *block;
+>>   -        for_each_rb_free_block_reverse(block, &mm->free_tree[i], 
+>> rb) {
+>> -            if (is_clear != drm_buddy_block_is_clear(block)) {
+>> -                if (is_clear) {
+>> -                    mark_cleared(block);
+>> -                    mm->clear_avail += drm_buddy_block_size(mm, block);
+>> -                } else {
+>> -                    clear_reset(block);
+>> -                    mm->clear_avail -= drm_buddy_block_size(mm, block);
+>> -                }
+>> +        for_each_rb_free_block_reverse(block, root, rb) {
+>> +            rbtree_remove(mm, block);
+>> +            if (is_clear) {
+>> +                mark_cleared(block);
+>> +                mm->clear_avail += drm_buddy_block_size(mm, block);
+>> +            } else {
+>> +                clear_reset(block);
+>> +                mm->clear_avail -= drm_buddy_block_size(mm, block);
+>>               }
+>> +
+>> +            rbtree_insert(mm, block, dst_tree);
+>>           }
+>>       }
+>>   }
+>> @@ -707,26 +771,22 @@ __drm_buddy_alloc_range_bias(struct drm_buddy *mm,
+>>   }
+>>     static struct drm_buddy_block *
+>> -get_maxblock(struct drm_buddy *mm, unsigned int order,
+>> -         unsigned long flags)
+>> +get_maxblock(struct drm_buddy *mm,
+>> +         unsigned int order,
+>> +         enum free_tree tree)
+>>   {
+>>       struct drm_buddy_block *max_block = NULL, *block = NULL;
+>> +    struct rb_root *root;
+>>       unsigned int i;
+>>         for (i = order; i <= mm->max_order; ++i) {
+>> -        struct drm_buddy_block *tmp_block;
+>> -
+>> -        for_each_rb_free_block_reverse(tmp_block, &mm->free_tree[i], 
+>> rb) {
+>> -            if (block_incompatible(tmp_block, flags))
+>> +        root = get_root(mm, i, tree);
+>> +        if (!rbtree_is_empty(root)) {
+>> +            block = rbtree_last_free_block(root);
+>> +            if (!block)
+>>                   continue;
+>> -
+>> -            block = tmp_block;
+>> -            break;
+>>           }
+>>   -        if (!block)
+>> -            continue;
+>> -
+>>           if (!max_block) {
+>>               max_block = block;
+>>               continue;
+>> @@ -747,36 +807,38 @@ alloc_from_freetree(struct drm_buddy *mm,
+>>               unsigned long flags)
+>>   {
+>>       struct drm_buddy_block *block = NULL;
+>> +    struct rb_root *root;
+>> +    enum free_tree tree;
+>>       unsigned int tmp;
+>>       int err;
+>>   +    tree = get_tree_for_flags(flags);
+>> +
+>>       if (flags & DRM_BUDDY_TOPDOWN_ALLOCATION) {
+>> -        block = get_maxblock(mm, order, flags);
+>> +        block = get_maxblock(mm, order, tree);
+>>           if (block)
+>>               /* Store the obtained block order */
+>>               tmp = drm_buddy_block_order(block);
+>>       } else {
+>>           for (tmp = order; tmp <= mm->max_order; ++tmp) {
+>> -            struct drm_buddy_block *tmp_block;
+>> -
+>> -            for_each_rb_free_block_reverse(tmp_block, 
+>> &mm->free_tree[tmp], rb) {
+>> -                if (block_incompatible(tmp_block, flags))
+>> -                    continue;
+>> -
+>> -                block = tmp_block;
+>> -                break;
+>> +            /* Get RB tree root for this order and tree */
+>> +            root = get_root(mm, tmp, tree);
+>> +            if (!rbtree_is_empty(root)) {
 >
-> [1] https://lore.kernel.org/r/419591dda7158b3d56c40aac0df86ca499202676@intel.com
-As pointed out in option C of [2] I also feel better to have a default 
-message so that
-  compositor can use it for logging.
+> Do we need this check? last_free_block should just return NULL? Or if 
+> this is somehow a cheaper check, maybe we should move it into the 
+> helper instead?
+Not required. last_free_block will return NULL. I will remove this check.
+>
+>> +                block = rbtree_last_free_block(root);
+>> +                if (block)
+>> +                    break;
+>>               }
+>> -
+>> -            if (block)
+>> -                break;
+>>           }
+>>       }
+>>         if (!block) {
+>> -        /* Fallback method */
+>> +        /* Try allocating from the other tree */
+>> +        tree = (tree == CLEAR_TREE) ? DIRTY_TREE : CLEAR_TREE;
+>> +
+>>           for (tmp = order; tmp <= mm->max_order; ++tmp) {
+>> -            if (!rbtree_is_empty(mm, tmp)) {
+>> -                block = rbtree_last_entry(mm, tmp);
+>> +            root = get_root(mm, tmp, tree);
+>> +            if (!rbtree_is_empty(root)) {
+>
+> Here also.
+>
+>> +                block = rbtree_last_free_block(root);
+>>                   if (block)
+>>                       break;
+>>               }
+>> @@ -923,6 +985,7 @@ static int __alloc_contig_try_harder(struct 
+>> drm_buddy *mm,
+>>       u64 rhs_offset, lhs_offset, lhs_size, filled;
+>>       struct drm_buddy_block *block;
+>>       LIST_HEAD(blocks_lhs);
+>> +    enum free_tree tree;
+>>       unsigned long pages;
+>>       unsigned int order;
+>>       u64 modify_size;
+>> @@ -934,34 +997,39 @@ static int __alloc_contig_try_harder(struct 
+>> drm_buddy *mm,
+>>       if (order == 0)
+>>           return -ENOSPC;
+>>   -    if (rbtree_is_empty(mm, order))
+>> +    if (rbtree_is_empty(get_root(mm, order, CLEAR_TREE)) &&
+>> +        rbtree_is_empty(get_root(mm, order, DIRTY_TREE)))
+>>           return -ENOSPC;
+>>   -    for_each_rb_free_block_reverse(block, &mm->free_tree[order], 
+>> rb) {
+>> -        /* Allocate blocks traversing RHS */
+>> -        rhs_offset = drm_buddy_block_offset(block);
+>> -        err =  __drm_buddy_alloc_range(mm, rhs_offset, size,
+>> -                           &filled, blocks);
+>> -        if (!err || err != -ENOSPC)
+>> -            return err;
+>> -
+>> -        lhs_size = max((size - filled), min_block_size);
+>> -        if (!IS_ALIGNED(lhs_size, min_block_size))
+>> -            lhs_size = round_up(lhs_size, min_block_size);
+>> -
+>> -        /* Allocate blocks traversing LHS */
+>> -        lhs_offset = drm_buddy_block_offset(block) - lhs_size;
+>> -        err =  __drm_buddy_alloc_range(mm, lhs_offset, lhs_size,
+>> -                           NULL, &blocks_lhs);
+>> -        if (!err) {
+>> -            list_splice(&blocks_lhs, blocks);
+>> -            return 0;
+>> -        } else if (err != -ENOSPC) {
+>> +    for_each_free_tree(tree) {
+>> +        struct rb_root *root = get_root(mm, order, tree);
+>> +
+>> +        for_each_rb_free_block_reverse(block, root, rb) {
+>> +            /* Allocate blocks traversing RHS */
+>> +            rhs_offset = drm_buddy_block_offset(block);
+>> +            err =  __drm_buddy_alloc_range(mm, rhs_offset, size,
+>> +                               &filled, blocks);
+>> +            if (!err || err != -ENOSPC)
+>> +                return err;
+>> +
+>> +            lhs_size = max((size - filled), min_block_size);
+>> +            if (!IS_ALIGNED(lhs_size, min_block_size))
+>> +                lhs_size = round_up(lhs_size, min_block_size);
+>> +
+>> +            /* Allocate blocks traversing LHS */
+>> +            lhs_offset = drm_buddy_block_offset(block) - lhs_size;
+>> +            err =  __drm_buddy_alloc_range(mm, lhs_offset, lhs_size,
+>> +                               NULL, &blocks_lhs);
+>> +            if (!err) {
+>> +                list_splice(&blocks_lhs, blocks);
+>> +                return 0;
+>> +            } else if (err != -ENOSPC) {
+>> +                drm_buddy_free_list_internal(mm, blocks);
+>> +                return err;
+>> +            }
+>> +            /* Free blocks for the next iteration */
+>>               drm_buddy_free_list_internal(mm, blocks);
+>> -            return err;
+>>           }
+>> -        /* Free blocks for the next iteration */
+>> -        drm_buddy_free_list_internal(mm, blocks);
+>>       }
+>>         return -ENOSPC;
+>> @@ -1266,6 +1334,7 @@ EXPORT_SYMBOL(drm_buddy_block_print);
+>>    */
+>>   void drm_buddy_print(struct drm_buddy *mm, struct drm_printer *p)
+>>   {
+>> +    enum free_tree tree;
+>>       int order;
+>>         drm_printf(p, "chunk_size: %lluKiB, total: %lluMiB, free: 
+>> %lluMiB, clear_free: %lluMiB\n",
+>> @@ -1273,11 +1342,16 @@ void drm_buddy_print(struct drm_buddy *mm, 
+>> struct drm_printer *p)
+>>         for (order = mm->max_order; order >= 0; order--) {
+>>           struct drm_buddy_block *block;
+>> +        struct rb_root *root;
+>>           u64 count = 0, free;
+>>   -        for_each_rb_free_block(block, &mm->free_tree[order], rb) {
+>> -            BUG_ON(!drm_buddy_block_is_free(block));
+>> -            count++;
+>> +        for_each_free_tree(tree) {
+>> +            root = get_root(mm, order, tree);
+>
+> Hmm, actually maybe this helper should just give the root (or both)? 
+> Seems to be what all users want anyway?
 
-Thanks and Regards,
-Arun R Murthy
---------------------
+Most of the time, we just need to root and the functionality determines 
+the tree (for example : rbtree_insert() or rbtree_remove()).
 
-[2] 
-https://lore.kernel.org/all/419591dda7158b3d56c40aac0df86ca499202676@intel.com/
+May be we can remove the get_root() and use &mm->free_trees[tree][order] 
+directly in all the places ?
 
+Regards,
+
+Arun.
+
+>
+>> +
+>> +            for_each_rb_free_block(block, root, rb) {
+>> +                BUG_ON(!drm_buddy_block_is_free(block));
+>> +                count++;
+>> +            }
+>>           }
+>>             drm_printf(p, "order-%2d ", order);
+>> diff --git a/include/drm/drm_buddy.h b/include/drm/drm_buddy.h
+>> index 091823592034..2fc1cc7b78bf 100644
+>> --- a/include/drm/drm_buddy.h
+>> +++ b/include/drm/drm_buddy.h
+>> @@ -14,6 +14,12 @@
+>>     #include <drm/drm_print.h>
+>>   +enum free_tree {
+>> +    CLEAR_TREE = 0,
+>> +    DIRTY_TREE,
+>> +    MAX_FREE_TREES,
+>> +};
+>> +
+>>   #define range_overflows(start, size, max) ({ \
+>>       typeof(start) start__ = (start); \
+>>       typeof(size) size__ = (size); \
+>> @@ -73,7 +79,7 @@ struct drm_buddy_block {
+>>    */
+>>   struct drm_buddy {
+>>       /* Maintain a free list for each order. */
+>> -    struct rb_root *free_tree;
+>> +    struct rb_root *free_trees[MAX_FREE_TREES];
+>>         /*
+>>        * Maintain explicit binary tree(s) to track the allocation of the
+>
