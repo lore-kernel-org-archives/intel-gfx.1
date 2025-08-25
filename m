@@ -4,36 +4,84 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 917FBCA0EFA
-	for <intel-gfx@archiver.kernel.org>; Mon, 25 Aug 2025 12:39:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8D320CA0FE7
+	for <intel-gfx@archiver.kernel.org>; Mon, 25 Aug 2025 12:49:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2A44D10E44F;
-	Mon, 25 Aug 2025 12:39:42 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 29F5810E25D;
+	Mon, 25 Aug 2025 12:49:07 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="fSplAPAb";
+	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="HV1nSTp7";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5D10C10EB70;
- Fri, 22 Aug 2025 17:07:50 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id 2DE1360203;
- Fri, 22 Aug 2025 17:07:49 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AD1D1C4CEF4;
- Fri, 22 Aug 2025 17:07:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1755882468;
- bh=vZLAjgh0rHfPoMdjN4T/8EdoC5/y95Yj/31fEqm5lgA=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=fSplAPAbcqCwXrc73KaBOQNzaayHHHryXHEfz/QvCIP5+OLUcuUqhayGQU30an1Hx
- YGDC2ch0190J8ZS7lR1jUdP6OQwlEiLMILXs/CkC/SlPI/9/wAF5EXwIZ0nb0Uecnj
- UA9Ha7hLdu3BvCtDoUnTti40P6RP3bVkvwZuA5UDhaj8Dob3g32dp2vkLL6LUz2Uga
- JrNca6OOm6CtiYGSnyjbJHFyuYTMa9sirnIIEndUMU2kE26IZfHRAqBcN1+HEuWJKI
- iH1nd0618aV38WN9VJmQt9ibmxV/jw/X7xirOs3F2GwN8kBuIL5KMKravrNObUYubi
- MyQ+vWsMpUjxQ==
-From: SeongJae Park <sj@kernel.org>
-To: David Hildenbrand <david@redhat.com>
-Cc: SeongJae Park <sj@kernel.org>, linux-kernel@vger.kernel.org,
- Alexander Potapenko <glider@google.com>,
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 87D2110E25D
+ for <intel-gfx@lists.freedesktop.org>; Mon, 25 Aug 2025 12:49:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1756126144;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=3vXE/JZQfiOFAY8LityNc5lKOCwFML9m2hfnchuxSjw=;
+ b=HV1nSTp7Q1GCYDLMq+4QqifxDxb7uYS4woQOiYC5rfSiucsVc4NcdRRzILeC5aQoVz5gJ1
+ VSYwyFt/6kpVm+Via2f8IpHsZqabREVOTk60SlKbsQICe0pSG1jDTpnt5HFTSNVgTipQaT
+ vz7KDhXANuJ5abMoEjjmje7XP3A+SOc=
+Received: from mail-wm1-f69.google.com (mail-wm1-f69.google.com
+ [209.85.128.69]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-103-HsTHuiQTORiRxhQxLFI8bw-1; Mon, 25 Aug 2025 08:49:03 -0400
+X-MC-Unique: HsTHuiQTORiRxhQxLFI8bw-1
+X-Mimecast-MFC-AGG-ID: HsTHuiQTORiRxhQxLFI8bw_1756126142
+Received: by mail-wm1-f69.google.com with SMTP id
+ 5b1f17b1804b1-45b51baec92so10317555e9.1
+ for <intel-gfx@lists.freedesktop.org>; Mon, 25 Aug 2025 05:49:02 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1756126142; x=1756730942;
+ h=content-transfer-encoding:in-reply-to:autocrypt:content-language
+ :from:references:cc:to:subject:user-agent:mime-version:date
+ :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=3vXE/JZQfiOFAY8LityNc5lKOCwFML9m2hfnchuxSjw=;
+ b=Yk0TpFXDZ/eBWIRF8ZsC1HiiT8TbX35FTFBY7mxaDlx2ZdmQ2JQNPWU8Hb6kskmh6u
+ 9JpCd89aID0BCtC+FjPckTnIlyKh4ih9lp7E/xv37Qm9D2UyAKhBm8dvOIx6E5EQRBnW
+ IOfhcxSbLBY/gfnFJupHWdXpkkVoRrNc32PJ1hVoUll0hJUrY7K4EyKIHndgg2VGizs2
+ 5Vmiojgcql44WXsWAczcMCwV08NLfAFhOfyWk+IZLNdxVK/b0iNEBND7nawPNy7mWYzZ
+ NLxCpDTAfK2Pfyeeu9w4fZ0tPyXLeMMXliIXKUjBiLMcm6YKxIeZQkhyf/e4dgkq+2nE
+ y3Pg==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCVlK3xAMgQ+7S7ed8uUu430xVaNSNpP0zoQeOyT+MCNGCj6dbHalNh2YdzxOlQhDAdF1ZLufynNKHU=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxzpP/gB2/7w078l9RYhz+icvCPjRm2EGMbdyrWMv93ofBKjiOL
+ Tic1w19x7xYPZu8q+whgGhVTIevc6yhoJrnTEF/PXUjnGkUl6nWxtUUJFrC7cWlPJN0kuZ0ultd
+ ncb4JhmTzVs99Y/dypVYq92LdWNTQN9nVlh9AESgnYnVQqcgZj7Vd6kL+zr37Rddaennvmw==
+X-Gm-Gg: ASbGnctNzw2QDzkocHdzC/XQhKc1h+800NETBVCk4kNbSV6fatPZjmTKuQ1FGL3cyf2
+ Uys6jcwM+S0ClVU/tZHX1HEFIahshzo9xj/5BSnLJQd29dC0XTtmCl6tykEfJA5JV4wRtJY7GJj
+ Jw81xOKLiGjGaPqMPC8dAHmH1CdaID3z1QsMJ6TZvdqNyzeXC4mpjnfDF6m45HWT6UpXvgPpa2L
+ UAAL3NwHcPLpi/as0X304p4xgDKN+uW9IBiO55IDncT43tgGA4BcKnLl/feZCw4yKFa2E16WYsR
+ scO8T04EQDPRVjaeoYrT8Ip8JmkkTk8RNIFD/s3vzHefBw943ldz7xoEnvZhc/rSleTVB8HzUae
+ CsnjmaWazIgz9thfcJY/iIPRBNpeOEknT4K8TmEq9g64GDfAoBZC2TLq1qw50Q+g5dcg=
+X-Received: by 2002:a05:600c:3b0f:b0:43c:fe5e:f03b with SMTP id
+ 5b1f17b1804b1-45b517d4d50mr117581905e9.30.1756126141733; 
+ Mon, 25 Aug 2025 05:49:01 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IFXxc8CWovMYNQS1+MbZ/J1HLlRjFi84VTIxSAk5gdBYVSg2EOk3SSNbd5GU03jnCMkyvwvPg==
+X-Received: by 2002:a05:600c:3b0f:b0:43c:fe5e:f03b with SMTP id
+ 5b1f17b1804b1-45b517d4d50mr117581475e9.30.1756126141263; 
+ Mon, 25 Aug 2025 05:49:01 -0700 (PDT)
+Received: from ?IPV6:2003:d8:2f4f:1300:42f1:98e5:ddf8:3a76?
+ (p200300d82f4f130042f198e5ddf83a76.dip0.t-ipconnect.de.
+ [2003:d8:2f4f:1300:42f1:98e5:ddf8:3a76])
+ by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-3c70ea81d38sm11742640f8f.17.2025.08.25.05.48.59
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 25 Aug 2025 05:49:00 -0700 (PDT)
+Message-ID: <a90cf9a3-d662-4239-ad54-7ea917c802a5@redhat.com>
+Date: Mon, 25 Aug 2025 14:48:58 +0200
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH RFC 10/35] mm/hugetlb: cleanup
+ hugetlb_folio_init_tail_vmemmap()
+To: Mike Rapoport <rppt@kernel.org>
+Cc: =?UTF-8?Q?Mika_Penttil=C3=A4?= <mpenttil@redhat.com>,
+ linux-kernel@vger.kernel.org, Alexander Potapenko <glider@google.com>,
  Andrew Morton <akpm@linux-foundation.org>,
  Brendan Jackman <jackmanb@google.com>, Christoph Lameter <cl@gentwo.org>,
  Dennis Zhou <dennis@kernel.org>, Dmitry Vyukov <dvyukov@google.com>,
@@ -49,25 +97,70 @@ Cc: SeongJae Park <sj@kernel.org>, linux-kernel@vger.kernel.org,
  linux-mips@vger.kernel.org, linux-mmc@vger.kernel.org, linux-mm@kvack.org,
  linux-riscv@lists.infradead.org, linux-s390@vger.kernel.org,
  linux-scsi@vger.kernel.org, Lorenzo Stoakes <lorenzo.stoakes@oracle.com>,
- Marco Elver <elver@google.com>,
- Marek Szyprowski <m.szyprowski@samsung.com>,
- Michal Hocko <mhocko@suse.com>, Mike Rapoport <rppt@kernel.org>,
- Muchun Song <muchun.song@linux.dev>, netdev@vger.kernel.org,
- Oscar Salvador <osalvador@suse.de>, Peter Xu <peterx@redhat.com>,
- Robin Murphy <robin.murphy@arm.com>,
+ Marco Elver <elver@google.com>, Marek Szyprowski <m.szyprowski@samsung.com>,
+ Michal Hocko <mhocko@suse.com>, Muchun Song <muchun.song@linux.dev>,
+ netdev@vger.kernel.org, Oscar Salvador <osalvador@suse.de>,
+ Peter Xu <peterx@redhat.com>, Robin Murphy <robin.murphy@arm.com>,
  Suren Baghdasaryan <surenb@google.com>, Tejun Heo <tj@kernel.org>,
  virtualization@lists.linux.dev, Vlastimil Babka <vbabka@suse.cz>,
  wireguard@lists.zx2c4.com, x86@kernel.org, Zi Yan <ziy@nvidia.com>
-Subject: Re: [PATCH RFC 06/35] mm/page_alloc: reject unreasonable
- folio/compound page sizes in alloc_contig_range_noprof()
-Date: Fri, 22 Aug 2025 10:07:46 -0700
-Message-Id: <20250822170746.53309-1-sj@kernel.org>
-X-Mailer: git-send-email 2.39.5
-In-Reply-To: <20250821200701.1329277-7-david@redhat.com>
-References: 
-MIME-Version: 1.0
+References: <20250821200701.1329277-1-david@redhat.com>
+ <20250821200701.1329277-11-david@redhat.com>
+ <9156d191-9ec4-4422-bae9-2e8ce66f9d5e@redhat.com>
+ <7077e09f-6ce9-43ba-8f87-47a290680141@redhat.com>
+ <aKmDBobyvEX7ZUWL@kernel.org>
+From: David Hildenbrand <david@redhat.com>
+Autocrypt: addr=david@redhat.com; keydata=
+ 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
+ qIws/H2t
+In-Reply-To: <aKmDBobyvEX7ZUWL@kernel.org>
+X-Mimecast-Spam-Score: 0
+X-Mimecast-MFC-PROC-ID: ZBOywKnGDJYRPJ2PDfBInflEtavguyaPb-o0nsx8ItI_1756126142
+X-Mimecast-Originator: redhat.com
+Content-Language: en-US
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Mon, 25 Aug 2025 12:39:32 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -83,24 +176,40 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Thu, 21 Aug 2025 22:06:32 +0200 David Hildenbrand <david@redhat.com> wrote:
-
-> Let's reject them early,
-
-I like early failures. :)
-
-> which in turn makes folio_alloc_gigantic() reject
-> them properly.
+On 23.08.25 10:59, Mike Rapoport wrote:
+> On Fri, Aug 22, 2025 at 08:24:31AM +0200, David Hildenbrand wrote:
+>> On 22.08.25 06:09, Mika Penttilä wrote:
+>>>
+>>> On 8/21/25 23:06, David Hildenbrand wrote:
+>>>
+>>>> All pages were already initialized and set to PageReserved() with a
+>>>> refcount of 1 by MM init code.
+>>>
+>>> Just to be sure, how is this working with MEMBLOCK_RSRV_NOINIT, where MM is supposed not to
+>>> initialize struct pages?
+>>
+>> Excellent point, I did not know about that one.
+>>
+>> Spotting that we don't do the same for the head page made me assume that
+>> it's just a misuse of __init_single_page().
+>>
+>> But the nasty thing is that we use memblock_reserved_mark_noinit() to only
+>> mark the tail pages ...
 > 
-> To avoid converting from order to nr_pages, let's just add MAX_FOLIO_ORDER
-> and calculate MAX_FOLIO_NR_PAGES based on that.
+> And even nastier thing is that when CONFIG_DEFERRED_STRUCT_PAGE_INIT is
+> disabled struct pages are initialized regardless of
+> memblock_reserved_mark_noinit().
 > 
-> Signed-off-by: David Hildenbrand <david@redhat.com>
+> I think this patch should go in before your updates:
 
-Acked-by: SeongJae Park <sj@kernel.org>
+Shouldn't we fix this in memblock code?
 
+Hacking around that in the memblock_reserved_mark_noinit() user sound 
+wrong -- and nothing in the doc of memblock_reserved_mark_noinit() 
+spells that behavior out.
 
-Thanks,
-SJ
+-- 
+Cheers
 
-[...]
+David / dhildenb
+
