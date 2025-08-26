@@ -4,98 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8699BCA0FFE
-	for <intel-gfx@archiver.kernel.org>; Wed, 27 Aug 2025 12:28:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0F789CA0FFD
+	for <intel-gfx@archiver.kernel.org>; Wed, 27 Aug 2025 12:28:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9B94810E80E;
+	by gabe.freedesktop.org (Postfix) with ESMTP id DC26910E80C;
 	Wed, 27 Aug 2025 12:28:32 +0000 (UTC)
-Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 75B1910E6F8;
- Wed, 27 Aug 2025 05:07:01 +0000 (UTC)
-X-UUID: a66d9060830311f0b29709d653e92f7d-20250827
-X-CID-CACHE: Type:Local,Time:202508271301+08,HitQuantity:2
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.1.45, REQID:b7ef6e9a-902b-422c-af90-2b1db3b52361, IP:0,
- U
- RL:0,TC:0,Content:-25,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTIO
- N:release,TS:-25
-X-CID-META: VersionHash:6493067, CLOUDID:7871a2c7ca51f2bc02737c897857e02d,
- BulkI
- D:nil,BulkQuantity:0,Recheck:0,SF:81|82|102|850,TC:nil,Content:0|50,EDM:-3
- ,IP:nil,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,OSA:0,AV
- :0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
-X-CID-BVR: 0
-X-CID-BAS: 0,_,0,_
-X-CID-FACTOR: TF_CID_SPAM_SNR
-X-UUID: a66d9060830311f0b29709d653e92f7d-20250827
-Received: from mail.kylinos.cn [(10.44.16.175)] by mailgw.kylinos.cn
- (envelope-from <zhangzihuan@kylinos.cn>) (Generic MTA)
- with ESMTP id 1447545758; Wed, 27 Aug 2025 13:06:54 +0800
-Received: from mail.kylinos.cn (localhost [127.0.0.1])
- by mail.kylinos.cn (NSMail) with SMTP id AE1AEE008FB6;
- Wed, 27 Aug 2025 11:51:18 +0800 (CST)
-X-ns-mid: postfix-68AE80B6-481635499
-Received: from localhost.localdomain (unknown [172.25.120.24])
- by mail.kylinos.cn (NSMail) with ESMTPA id 49687E008FB2;
- Wed, 27 Aug 2025 11:51:01 +0800 (CST)
-From: Zihuan Zhang <zhangzihuan@kylinos.cn>
-To: "Rafael J . wysocki" <rafael@kernel.org>,
- Viresh Kumar <viresh.kumar@linaro.org>,
- Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>,
- Sean Christopherson <seanjc@google.com>,
- Paolo Bonzini <pbonzini@redhat.com>, Thomas Gleixner <tglx@linutronix.de>,
- Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>,
- Dave Hansen <dave.hansen@linux.intel.com>,
- Markus Mayer <mmayer@broadcom.com>,
- Florian Fainelli <florian.fainelli@broadcom.com>,
- Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>,
- Madhavan Srinivasan <maddy@linux.ibm.com>,
- Michael Ellerman <mpe@ellerman.id.au>,
- Krzysztof Kozlowski <krzk@kernel.org>,
- Alim Akhtar <alim.akhtar@samsung.com>,
- Thierry Reding <thierry.reding@gmail.com>,
- Jonathan Hunter <jonathanh@nvidia.com>,
- MyungJoo Ham <myungjoo.ham@samsung.com>,
- Kyungmin Park <kyungmin.park@samsung.com>,
- Chanwoo Choi <cw00.choi@samsung.com>,
- Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Tvrtko Ursulin <tursulin@ursulin.net>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>,
- Daniel Lezcano <daniel.lezcano@kernel.org>,
- Sascha Hauer <s.hauer@pengutronix.de>, Shawn Guo <shawnguo@kernel.org>,
- Eduardo Valentin <edubezval@gmail.com>, Keerthy <j-keerthy@ti.com>,
- Matthias Brugger <matthias.bgg@gmail.com>,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-Cc: zhenglifeng <zhenglifeng1@huawei.com>, "H . Peter Anvin" <hpa@zytor.com>,
- Zhang Rui <rui.zhang@intel.com>, Len Brown <lenb@kernel.org>,
- Nicholas Piggin <npiggin@gmail.com>,
- Christophe Leroy <christophe.leroy@csgroup.eu>,
- Lukasz Luba <lukasz.luba@arm.com>,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- Beata Michalska <beata.michalska@arm.com>,
- Fabio Estevam <festevam@gmail.com>, Pavel Machek <pavel@kernel.org>,
- Sumit Gupta <sumitg@nvidia.com>,
- Prasanna Kumar T S M <ptsm@linux.microsoft.com>,
- Sudeep Holla <sudeep.holla@arm.com>,
- Yicong Yang <yangyicong@hisilicon.com>, linux-pm@vger.kernel.org,
- x86@kernel.org, kvm@vger.kernel.org, linux-acpi@vger.kernel.org,
- linuxppc-dev@lists.ozlabs.org, linux-samsung-soc@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-tegra@vger.kernel.org,
- intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- imx@lists.linux.dev, linux-omap@vger.kernel.org,
- linux-mediatek@lists.infradead.org, linux-kernel@vger.kernel.org,
- Zihuan Zhang <zhangzihuan@kylinos.cn>
-Subject: [PATCH v2 15/18] powercap: dtpm_cpu: Use __free(put_cpufreq_policy)
- for policy reference
-Date: Wed, 27 Aug 2025 11:50:56 +0800
-Message-Id: <20250827035056.353772-1-zhangzihuan@kylinos.cn>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20250827023202.10310-1-zhangzihuan@kylinos.cn>
-References: <20250827023202.10310-1-zhangzihuan@kylinos.cn>
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+ by gabe.freedesktop.org (Postfix) with ESMTP id A8AEE10E2FE;
+ Tue, 26 Aug 2025 13:11:27 +0000 (UTC)
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id D75BE1A25;
+ Tue, 26 Aug 2025 06:11:18 -0700 (PDT)
+Received: from localhost (e132581.arm.com [10.1.196.87])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id B7A733F63F;
+ Tue, 26 Aug 2025 06:11:26 -0700 (PDT)
+Date: Tue, 26 Aug 2025 14:11:24 +0100
+From: Leo Yan <leo.yan@arm.com>
+To: Robin Murphy <robin.murphy@arm.com>
+Cc: peterz@infradead.org, mingo@redhat.com, will@kernel.org,
+ mark.rutland@arm.com, acme@kernel.org, namhyung@kernel.org,
+ alexander.shishkin@linux.intel.com, jolsa@kernel.org,
+ irogers@google.com, adrian.hunter@intel.com,
+ kan.liang@linux.intel.com, linux-perf-users@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-alpha@vger.kernel.org,
+ linux-snps-arc@lists.infradead.org,
+ linux-arm-kernel@lists.infradead.org, imx@lists.linux.dev,
+ linux-csky@vger.kernel.org, loongarch@lists.linux.dev,
+ linux-mips@vger.kernel.org, linuxppc-dev@lists.ozlabs.org,
+ linux-s390@vger.kernel.org, linux-sh@vger.kernel.org,
+ sparclinux@vger.kernel.org, linux-pm@vger.kernel.org,
+ linux-rockchip@lists.infradead.org, dmaengine@vger.kernel.org,
+ linux-fpga@vger.kernel.org, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
+ intel-xe@lists.freedesktop.org, coresight@lists.linaro.org,
+ iommu@lists.linux.dev, linux-amlogic@lists.infradead.org,
+ linux-cxl@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ linux-riscv@lists.infradead.org
+Subject: Re: [PATCH 16/19] perf: Introduce positive capability for sampling
+Message-ID: <20250826131124.GB745921@e132581.arm.com>
+References: <cover.1755096883.git.robin.murphy@arm.com>
+ <ae81cb65b38555c628e395cce67ac6c7eaafdd23.1755096883.git.robin.murphy@arm.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <ae81cb65b38555c628e395cce67ac6c7eaafdd23.1755096883.git.robin.murphy@arm.com>
 X-Mailman-Approved-At: Wed, 27 Aug 2025 12:28:08 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -112,93 +64,62 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Replace the manual cpufreq_cpu_put() with __free(put_cpufreq_policy)
-annotation for policy references. This reduces the risk of reference
-counting mistakes and aligns the code with the latest kernel style.
+On Wed, Aug 13, 2025 at 06:01:08PM +0100, Robin Murphy wrote:
+> Sampling is inherently a feature for CPU PMUs, given that the thing
+> to be sampled is a CPU context. These days, we have many more
+> uncore/system PMUs than CPU PMUs, so it no longer makes much sense to
+> assume sampling support by default and force the ever-growing majority
+> of drivers to opt out of it (or erroneously fail to). Instead, let's
+> introduce a positive opt-in capability that's more obvious and easier to
+> maintain.
 
-No functional change intended.
+[...]
 
-Signed-off-by: Zihuan Zhang <zhangzihuan@kylinos.cn>
----
- drivers/powercap/dtpm_cpu.c | 24 +++++++-----------------
- 1 file changed, 7 insertions(+), 17 deletions(-)
+> diff --git a/drivers/perf/arm_spe_pmu.c b/drivers/perf/arm_spe_pmu.c
+> index 369e77ad5f13..dbd52851f5c6 100644
+> --- a/drivers/perf/arm_spe_pmu.c
+> +++ b/drivers/perf/arm_spe_pmu.c
+> @@ -955,7 +955,8 @@ static int arm_spe_pmu_perf_init(struct arm_spe_pmu *spe_pmu)
+>  	spe_pmu->pmu = (struct pmu) {
+>  		.module = THIS_MODULE,
+>  		.parent		= &spe_pmu->pdev->dev,
+> -		.capabilities	= PERF_PMU_CAP_EXCLUSIVE | PERF_PMU_CAP_ITRACE,
+> +		.capabilities	= PERF_PMU_CAP_SAMPLING |
+> +				  PERF_PMU_CAP_EXCLUSIVE | PERF_PMU_CAP_ITRACE,
+>  		.attr_groups	= arm_spe_pmu_attr_groups,
+>  		/*
+>  		 * We hitch a ride on the software context here, so that
 
-diff --git a/drivers/powercap/dtpm_cpu.c b/drivers/powercap/dtpm_cpu.c
-index 99390ec1481f..65117569d0f3 100644
---- a/drivers/powercap/dtpm_cpu.c
-+++ b/drivers/powercap/dtpm_cpu.c
-@@ -144,19 +144,16 @@ static int update_pd_power_uw(struct dtpm *dtpm)
- static void pd_release(struct dtpm *dtpm)
- {
- 	struct dtpm_cpu *dtpm_cpu =3D to_dtpm_cpu(dtpm);
--	struct cpufreq_policy *policy;
-+	struct cpufreq_policy *policy __free(put_cpufreq_policy);
-=20
- 	if (freq_qos_request_active(&dtpm_cpu->qos_req))
- 		freq_qos_remove_request(&dtpm_cpu->qos_req);
-=20
- 	policy =3D cpufreq_cpu_get(dtpm_cpu->cpu);
--	if (policy) {
-+	if (policy)
- 		for_each_cpu(dtpm_cpu->cpu, policy->related_cpus)
- 			per_cpu(dtpm_per_cpu, dtpm_cpu->cpu) =3D NULL;
-=20
--		cpufreq_cpu_put(policy);
--	}
--
- 	kfree(dtpm_cpu);
- }
-=20
-@@ -192,7 +189,7 @@ static int cpuhp_dtpm_cpu_online(unsigned int cpu)
- static int __dtpm_cpu_setup(int cpu, struct dtpm *parent)
- {
- 	struct dtpm_cpu *dtpm_cpu;
--	struct cpufreq_policy *policy;
-+	struct cpufreq_policy *policy __free(put_cpufreq_policy);
- 	struct em_perf_state *table;
- 	struct em_perf_domain *pd;
- 	char name[CPUFREQ_NAME_LEN];
-@@ -207,16 +204,12 @@ static int __dtpm_cpu_setup(int cpu, struct dtpm *p=
-arent)
- 		return 0;
-=20
- 	pd =3D em_cpu_get(cpu);
--	if (!pd || em_is_artificial(pd)) {
--		ret =3D -EINVAL;
--		goto release_policy;
--	}
-+	if (!pd || em_is_artificial(pd))
-+		return -EINVAL;
-=20
- 	dtpm_cpu =3D kzalloc(sizeof(*dtpm_cpu), GFP_KERNEL);
--	if (!dtpm_cpu) {
--		ret =3D -ENOMEM;
--		goto release_policy;
--	}
-+	if (!dtpm_cpu)
-+		return -ENOMEM;
-=20
- 	dtpm_init(&dtpm_cpu->dtpm, &dtpm_ops);
- 	dtpm_cpu->cpu =3D cpu;
-@@ -239,7 +232,6 @@ static int __dtpm_cpu_setup(int cpu, struct dtpm *par=
-ent)
- 	if (ret < 0)
- 		goto out_dtpm_unregister;
-=20
--	cpufreq_cpu_put(policy);
- 	return 0;
-=20
- out_dtpm_unregister:
-@@ -251,8 +243,6 @@ static int __dtpm_cpu_setup(int cpu, struct dtpm *par=
-ent)
- 		per_cpu(dtpm_per_cpu, cpu) =3D NULL;
- 	kfree(dtpm_cpu);
-=20
--release_policy:
--	cpufreq_cpu_put(policy);
- 	return ret;
- }
-=20
---=20
-2.25.1
+The change in Arm SPE driver looks good to me.
 
+I noticed you did not set the flag for other AUX events, like Arm
+CoreSight, Intel PT and bts. The drivers locate in:
+
+  drivers/hwtracing/coresight/coresight-etm-perf.c
+  arch/x86/events/intel/bts.c
+  arch/x86/events/intel/pt.c
+
+Genearlly, AUX events generate interrupts based on AUX ring buffer
+watermark but not the period. Seems to me, it is correct to set the
+PERF_PMU_CAP_SAMPLING flag for them.
+
+A special case is Arm CoreSight legacy sinks (like ETR/ETB, etc)
+don't has interrupt. We might need set or clear the flag on the fly
+based on sink type:
+
+diff --git a/drivers/hwtracing/coresight/coresight-etm-perf.c b/drivers/hwtracing/coresight/coresight-etm-perf.c
+index f1551c08ecb2..404edc94c198 100644
+--- a/drivers/hwtracing/coresight/coresight-etm-perf.c
++++ b/drivers/hwtracing/coresight/coresight-etm-perf.c
+@@ -433,6 +433,11 @@ static void *etm_setup_aux(struct perf_event *event, void **pages,
+        if (!sink)
+                goto err;
+ 
++       if (coresight_is_percpu_sink(sink))
++               event->pmu.capabilities = PERF_PMU_CAP_SAMPLING;
++       else
++               event->pmu.capabilities &= ~PERF_PMU_CAP_SAMPLING;
++
+
+Thanks,
+Leo
