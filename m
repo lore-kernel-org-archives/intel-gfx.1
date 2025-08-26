@@ -4,63 +4,62 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A0220CA0FE7
-	for <intel-gfx@archiver.kernel.org>; Tue, 26 Aug 2025 13:08:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 213CACA0EFA
+	for <intel-gfx@archiver.kernel.org>; Tue, 26 Aug 2025 13:11:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3C27810E663;
-	Tue, 26 Aug 2025 13:08:40 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; secure) header.d=infradead.org header.i=@infradead.org header.b="etY5PLFf";
-	dkim-atps=neutral
-Received: from desiato.infradead.org (desiato.infradead.org [90.155.92.199])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0946710E65C;
- Tue, 26 Aug 2025 13:08:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=infradead.org; s=desiato.20200630; h=In-Reply-To:Content-Type:MIME-Version:
- References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
- Content-Transfer-Encoding:Content-ID:Content-Description;
- bh=JHZTLFlxAYI1wokhjuCEuruyUylGu43DM7IKjkNYSic=; b=etY5PLFfHvVwRjOXszye/DGGB6
- EeDfwhUfPBBHElGIuEt4CBRy1AldhAFBccZnj543K6AV4Xvqq6pcdNIfqcf1J9sqxP9GTv1Rld421
- 0AuJKLh2CRWDkm+Ul9/DFHMDYluLA3AIkv78pFeyA09fvuZwxu6ukwM8cR1N29k6qKImuFZmW3MMM
- qCVOi9ccAynQbDiNrFS78BcReEN5xdvzHPhO4NkOVApB1RYQ/p8auBap2lsOA66RFcIqiEM+p/Jrp
- EIJVtCqUjQE/N3Tepz7e+3E78hAlvb2elxzZDQC0yDBfD4BGP9yDnTXc67Vd2CW73P1jADDmWRbp0
- QXd2jvjA==;
-Received: from 77-249-17-252.cable.dynamic.v4.ziggo.nl ([77.249.17.252]
- helo=noisy.programming.kicks-ass.net)
- by desiato.infradead.org with esmtpsa (Exim 4.98.2 #2 (Red Hat Linux))
- id 1uqtPb-00000002DYZ-2cEd; Tue, 26 Aug 2025 13:08:31 +0000
-Received: by noisy.programming.kicks-ass.net (Postfix, from userid 1000)
- id A98B6300323; Tue, 26 Aug 2025 15:08:30 +0200 (CEST)
-Date: Tue, 26 Aug 2025 15:08:30 +0200
-From: Peter Zijlstra <peterz@infradead.org>
-To: Robin Murphy <robin.murphy@arm.com>
-Cc: mingo@redhat.com, will@kernel.org, mark.rutland@arm.com,
- acme@kernel.org, namhyung@kernel.org,
- alexander.shishkin@linux.intel.com, jolsa@kernel.org,
- irogers@google.com, adrian.hunter@intel.com,
- kan.liang@linux.intel.com, linux-perf-users@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-alpha@vger.kernel.org,
- linux-snps-arc@lists.infradead.org,
- linux-arm-kernel@lists.infradead.org, imx@lists.linux.dev,
- linux-csky@vger.kernel.org, loongarch@lists.linux.dev,
- linux-mips@vger.kernel.org, linuxppc-dev@lists.ozlabs.org,
- linux-s390@vger.kernel.org, linux-sh@vger.kernel.org,
- sparclinux@vger.kernel.org, linux-pm@vger.kernel.org,
- linux-rockchip@lists.infradead.org, dmaengine@vger.kernel.org,
- linux-fpga@vger.kernel.org, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
- intel-xe@lists.freedesktop.org, coresight@lists.linaro.org,
- iommu@lists.linux.dev, linux-amlogic@lists.infradead.org,
- linux-cxl@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- linux-riscv@lists.infradead.org
-Subject: Re: [PATCH 17/19] perf: Retire PERF_PMU_CAP_NO_INTERRUPT
-Message-ID: <20250826130830.GZ4067720@noisy.programming.kicks-ass.net>
-References: <cover.1755096883.git.robin.murphy@arm.com>
- <32bf39943eef7c7f516d814d749cdbe322eec204.1755096883.git.robin.murphy@arm.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id B2C4B10E655;
+	Tue, 26 Aug 2025 13:11:46 +0000 (UTC)
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 308DD10E2FE;
+ Tue, 26 Aug 2025 13:11:45 +0000 (UTC)
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 7C1B82BF2;
+ Tue, 26 Aug 2025 06:11:36 -0700 (PDT)
+Received: from raptor (usa-sjc-mx-foss1.foss.arm.com [172.31.20.19])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 0B7A13F63F;
+ Tue, 26 Aug 2025 06:11:36 -0700 (PDT)
+Date: Tue, 26 Aug 2025 14:11:34 +0100
+From: Alexandru Elisei <alexandru.elisei@arm.com>
+To: David Hildenbrand <david@redhat.com>
+Cc: linux-kernel@vger.kernel.org, Alexander Potapenko <glider@google.com>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ Brendan Jackman <jackmanb@google.com>,
+ Christoph Lameter <cl@gentwo.org>, Dennis Zhou <dennis@kernel.org>,
+ Dmitry Vyukov <dvyukov@google.com>, dri-devel@lists.freedesktop.org,
+ intel-gfx@lists.freedesktop.org, iommu@lists.linux.dev,
+ io-uring@vger.kernel.org, Jason Gunthorpe <jgg@nvidia.com>,
+ Jens Axboe <axboe@kernel.dk>, Johannes Weiner <hannes@cmpxchg.org>,
+ John Hubbard <jhubbard@nvidia.com>, kasan-dev@googlegroups.com,
+ kvm@vger.kernel.org, "Liam R. Howlett" <Liam.Howlett@oracle.com>,
+ Linus Torvalds <torvalds@linux-foundation.org>,
+ linux-arm-kernel@axis.com, linux-arm-kernel@lists.infradead.org,
+ linux-crypto@vger.kernel.org, linux-ide@vger.kernel.org,
+ linux-kselftest@vger.kernel.org, linux-mips@vger.kernel.org,
+ linux-mmc@vger.kernel.org, linux-mm@kvack.org,
+ linux-riscv@lists.infradead.org, linux-s390@vger.kernel.org,
+ linux-scsi@vger.kernel.org, Lorenzo Stoakes <lorenzo.stoakes@oracle.com>,
+ Marco Elver <elver@google.com>,
+ Marek Szyprowski <m.szyprowski@samsung.com>,
+ Michal Hocko <mhocko@suse.com>, Mike Rapoport <rppt@kernel.org>,
+ Muchun Song <muchun.song@linux.dev>, netdev@vger.kernel.org,
+ Oscar Salvador <osalvador@suse.de>, Peter Xu <peterx@redhat.com>,
+ Robin Murphy <robin.murphy@arm.com>,
+ Suren Baghdasaryan <surenb@google.com>, Tejun Heo <tj@kernel.org>,
+ virtualization@lists.linux.dev, Vlastimil Babka <vbabka@suse.cz>,
+ wireguard@lists.zx2c4.com, x86@kernel.org, Zi Yan <ziy@nvidia.com>
+Subject: Re: [PATCH RFC 21/35] mm/cma: refuse handing out non-contiguous page
+ ranges
+Message-ID: <aK2yhtQ0M_0hqQHh@raptor>
+References: <20250821200701.1329277-1-david@redhat.com>
+ <20250821200701.1329277-22-david@redhat.com>
+ <aK2QZnzS1ErHK5tP@raptor>
+ <ad521f4f-47aa-4728-916f-3704bf01f770@redhat.com>
+ <aK2wlGYvCaFQXzBm@raptor>
+ <ecc599ee-4175-4356-ab66-1d76a75f44f7@redhat.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <32bf39943eef7c7f516d814d749cdbe322eec204.1755096883.git.robin.murphy@arm.com>
+In-Reply-To: <ecc599ee-4175-4356-ab66-1d76a75f44f7@redhat.com>
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,10 +75,45 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Aug 13, 2025 at 06:01:09PM +0100, Robin Murphy wrote:
-> Now that we have a well-defined cap for sampling support, clean up the
-> remains of the mildly unintuitive and inconsistently-applied
-> PERF_PMU_CAP_NO_INTERRUPT. Not to mention the obvious redundancy of
-> some of these drivers still checking for sampling in event_init too.
+Hi David,
 
-Ah, clearly I should've read the next patch... n/m.
+On Tue, Aug 26, 2025 at 03:08:08PM +0200, David Hildenbrand wrote:
+> On 26.08.25 15:03, Alexandru Elisei wrote:
+> > Hi David,
+> > 
+> > On Tue, Aug 26, 2025 at 01:04:33PM +0200, David Hildenbrand wrote:
+> > ..
+> > > > Just so I can better understand the problem being fixed, I guess you can have
+> > > > two consecutive pfns with non-consecutive associated struct page if you have two
+> > > > adjacent memory sections spanning the same physical memory region, is that
+> > > > correct?
+> > > 
+> > > Exactly. Essentially on SPARSEMEM without SPARSEMEM_VMEMMAP it is not
+> > > guaranteed that
+> > > 
+> > > 	pfn_to_page(pfn + 1) == pfn_to_page(pfn) + 1
+> > > 
+> > > when we cross memory section boundaries.
+> > > 
+> > > It can be the case for early boot memory if we allocated consecutive areas
+> > > from memblock when allocating the memmap (struct pages) per memory section,
+> > > but it's not guaranteed.
+> > 
+> > Thank you for the explanation, but I'm a bit confused by the last paragraph. I
+> > think what you're saying is that we can also have the reverse problem, where
+> > consecutive struct page * represent non-consecutive pfns, because memmap
+> > allocations happened to return consecutive virtual addresses, is that right?
+> 
+> Exactly, that's something we have to deal with elsewhere [1]. For this code,
+> it's not a problem because we always allocate a contiguous PFN range.
+> 
+> > 
+> > If that's correct, I don't think that's the case for CMA, which deals out
+> > contiguous physical memory. Or were you just trying to explain the other side of
+> > the problem, and I'm just overthinking it?
+> 
+> The latter :)
+
+Ok, sorry for the noise then, and thank you for educating me.
+
+Alex
